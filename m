@@ -5,50 +5,50 @@ X-Spam-Level:
 X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AE24C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE6A3C43219
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C55D16113A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:00:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C55D16113A
+	by mail.kernel.org (Postfix) with ESMTPS id 7466A61132
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 01:00:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7466A61132
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18CDF6E3FE;
-	Thu,  9 Sep 2021 01:00:34 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A29AF6E3F9
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 01:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53AA16E406;
+	Thu,  9 Sep 2021 01:00:38 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2085.outbound.protection.outlook.com [40.107.96.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 514316E400
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 01:00:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mLZiSXRuDrt7XZiZaGkiRnd0YXACYKIkzAPihrvVgagzXblC0O8f776SUKQlADh/M7d3Aal8sJW4+WRAqUK5Xd8Vzg2LYVsfsz+s55EHPpVXQ8OwbjrmBSlPtXyV8B9q0M9hGigSHGqbtwvJlvYHq1UK8B1aicyNW/FABOdpoQwxiGsxmIf3mwQbhCvUUwThfpsV8GYa8dO0u95SRz2/Rz4acdz4tbcYd2cGjKRHzRW7I3C/pwVaHdYsMspME5WaWGEpMLVWqzkTMKtUxnZKum/OQJHHuJyzW+OF+TNAFkTYW8i7flL5o7DrVjr5PL8YvLuYj16pP3XLJ1YWy3t+pw==
+ b=leNmdEJbaFa3o0WJWSszVUghHTeZAfHPFiX9dTEdPAhlnRufjrOmITAARXOmJxAOwe1eP9QQKLiIVnFDElNdK4as0liQ0S63NUbL3/nMW1VykjOrQPGouPJ8lJ64PgFx7d9mD5/67os2vRYixA2MddFZbRb0qtzBNYpvWGKAoHkK5C0l+Oe2hntNlY+4Zfn8vZh2a2MC0OOKJ18fYzducKD6TrroJaPtajRsHFnssezey8zeJinEaRZ9zPAcs7SKBKgk5yU2OZm3+1QSz5LnNIcHsqlJDu7+utgDEVzT8NJA9HzII2ggqOFbe37tdeBANW1AdrCAvTb54lStuKRaFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=TBWlUue0C2yf7StU+5y0DR+zAQBsCLOMdAZXi85ksVI=;
- b=gNWkErdRTxfvlWkeHE0+q2BAgW4uH8XwAD74SuzojhoRPC4XORolI5viK3RWERqXw/itN2spQ2+kgjMDAboucjkzT4Rh58jv1OYRrRwm550NOR1fPAY3LMiO6C2dAfZ2RrpjoTi/hQBfyl+Mb2e8KB46aW7r61V8k8S+ohdK8XuOHJ4iraZx59xomrGe7IM8Srl3GIIyIfw2sszwVGZnyMaYq78OWgyjJ1jpiEkyNVdul5JE1uCONCUmEx/48ej67KJilWFDKCgbT1RevbL+XsKVHotzk/FIWXaY4Cb2XcliPWx7tjEf1qwnGYDlTIHvubmuuhTsf8ZaC81CmyMAbQ==
+ bh=gxvBvuuAcCrB+fqQ6hTvv3yY7goYiuGPy8kdAV359pQ=;
+ b=FQcm4z43iwv6fSS+KwMYPHH58lGae0y26dV9tWUW2zW5N5+ewnmxWfHm2saIHtb/FJGelVLKIOuV/ertexNB1t1FZyrYRo8sx2K6PE6xq0dZisp7HhWxDl+4RtFAo5kyjYrGZufgpgHFHNPPMB7YqWuScCHajK7OcIyTVN8MUXhIXoUvMW0G7GwrHBotECmxh2lEt6tUGce2MBgJ9sYeJwbD5aQUF3dL2pKdr1yi98NaxKCgYlP6941ErtQKWq1InBMkb28QBJN9Pulb4rT/GhrWkS1LJx+/JuDpj3KD5I7VPu3+k3kYWa7lwDnW/vwAPahk+vGNtDb16LIFkPoQUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TBWlUue0C2yf7StU+5y0DR+zAQBsCLOMdAZXi85ksVI=;
- b=Cw+1NlEKuIvpS8s1tnYY79NezEoK3dSSV0GJyf2AFgXy1SM996Fb3psKHkrCEz/GlmHQlREKGRMtL7GX5MiA/cjPMuwVOhNlBPUJQ3jj0V2r/XcZ5NpOEl3c8n3rFJsCh2DguJdV4gSEmzSVYFMDLsqpAR9KRgCqBMe0Jqf8rRc=
-Received: from CO2PR04CA0112.namprd04.prod.outlook.com (2603:10b6:104:7::14)
- by DM5PR12MB1721.namprd12.prod.outlook.com (2603:10b6:3:10d::9) with
+ bh=gxvBvuuAcCrB+fqQ6hTvv3yY7goYiuGPy8kdAV359pQ=;
+ b=kcFgI6g3vgUyzwdVW3FwTvLuqB1DE6uqosTDQxpQK5u9SRXv2k0SXp3cuPJ44JhWT7QVO1EbdcwQDi1pw7zT1hfLccbIiaBUKrNVAcXcuOpdz6fsjK4G5cRaAZTorIWVGLk/8iC4lK/iKL6pTTxSUkJPm2iWBpRUtb2mAioQasQ=
+Received: from CO2PR04CA0110.namprd04.prod.outlook.com (2603:10b6:104:7::12)
+ by BY5PR12MB4644.namprd12.prod.outlook.com (2603:10b6:a03:1f9::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Thu, 9 Sep
- 2021 01:00:29 +0000
+ 2021 01:00:31 +0000
 Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:7:cafe::d8) by CO2PR04CA0112.outlook.office365.com
- (2603:10b6:104:7::14) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:104:7:cafe::61) by CO2PR04CA0110.outlook.office365.com
+ (2603:10b6:104:7::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Thu, 9 Sep 2021 01:00:28 +0000
+ Transport; Thu, 9 Sep 2021 01:00:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,14 +59,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Thu, 9 Sep 2021 01:00:28 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ 15.20.4500.14 via Frontend Transport; Thu, 9 Sep 2021 01:00:31 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 8 Sep 2021
- 20:00:27 -0500
+ 20:00:30 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 8 Sep 2021
+ 20:00:30 -0500
 Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Wed, 8 Sep 2021 20:00:26 -0500
+ Transport; Wed, 8 Sep 2021 20:00:29 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <ndesaulniers@google.com>, <torvalds@linux-foundation.org>,
@@ -74,10 +78,10 @@ CC: <ndesaulniers@google.com>, <torvalds@linux-foundation.org>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <Xinhui.Pan@amd.com>, <nathan@kernel.org>, <linux@roeck-us.net>,
  <llvm@lists.linux.dev>, Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH 1/4] drm/amd/display: Pass display_pipe_params_st as const in
- DML
-Date: Wed, 8 Sep 2021 21:00:20 -0400
-Message-ID: <20210909010023.29110-2-harry.wentland@amd.com>
+Subject: [PATCH 4/4] drm/amd/display: Allocate structs needed by
+ dcn_bw_calc_rq_dlg_ttu in pipe_ctx
+Date: Wed, 8 Sep 2021 21:00:23 -0400
+Message-ID: <20210909010023.29110-5-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210909010023.29110-1-harry.wentland@amd.com>
 References: <20210909010023.29110-1-harry.wentland@amd.com>
@@ -86,28 +90,28 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2ccdef04-9028-4f55-4ef2-08d9732d372c
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1721:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1721E7CB212C506A4C52420E8CD59@DM5PR12MB1721.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 9d587862-d546-4349-d625-08d9732d3903
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4644:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB46444F6EEAC4C826E34C44818CD59@BY5PR12MB4644.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vVTpL3+D3w/9BpLli5c/U89Q2UP+zbx7ihjQwBUrNJ8C0KYTuoxviJxIGzX7wOHBzmV5uL6NpeLe8bhWom9ouzeRuzAqr4OjhbHwUtN2ILZoOZlTQVEjDJfMemcbXU/Wp+0lYxiDk/mmSCEneF17OM+jiJg1Fl3Z93jIPrIWHZEb6qFTFsdjIc9qPWeeUY96hjWDFmCV6DbNYCYmYYF/mSEvEwba1ZdF41Z58awg05Wbk0QnaGKulaf/jdx/9qAnH2bXT3NnSmZy84xz2eZW44kS8ZxjJz7LdkpOspmi5/q07x93EwHujw3BV3iYVjHpRyGrGp+ijUC4dBHNboGRAAJJNDe0WnYx9D8lEHyBAyMh6PjIgMAVwKo52QY+BfcsxhTQV8+zx1elOfJciba7RvinIy/lp7mqMFHGNIj46771TaDP2Fh2V3Y2u8anTUAIEptJ4OtU5wH6V8DMuM9nWcZ8bjv5zMb4jYHY8a7I0OJXX1lNDEmGHcSKmb2j4SrlUz5Hrq0yI1XrllAySBTfXmEGYCgphjOgooXu0jUivDTid5GgTOJowDco4pyw5iNLzlY+0S+oy7zwEUBq0aQ4lxzMijLK6qVdxfM9idBkGTgiyyX44RlWO4bkkZQV2cYL2D8dYD5ei3uPLfmXm7LDkn8xoFRwF73sReX+VfgRLDxI0A5SYTlZKa16sTN5nvi00Wa2RMDmxmJIYe+cH1i0ceFGkfsG13aQBanLCqzQXjI=
+X-Microsoft-Antispam-Message-Info: rcK4DBN7Vw94L25OwANoh7pl+K0roekSc60txSqRqyl8oQGk9SYbwGcld3mOE/NyiQd1QJVpczA4tSpW+8Wzl7w8m1Vr4RXTrrUOm9WULnPNxP7Lv0u1d3kO2lZLCd8KfkVlW1fCoYrB9zxUjqt8Rx+6EgFISmUYeC0o/n9wgEADlwmsPfryuFS/pbL1IuDB3DiqbSYuXrW03zyaKRpiSTD+H/Vm4igr79IVTYrj7HwMA89xRpQj7XrjiBqqxqPRBiNX361Q6i897wYbCDG2wQLh1iYXSL+BBnKQPMQH9w7nKI3v8KOHYlU01wSQYUVL5zkLSMN+qgN4Jb3EtRU1TBXRZVmuVgzhYCN1XXxM4zSWEkqdgqBlPQoa0HxrTUaEk9im66t9XkoxS4EATNw+2IX6nQzAyIWlyYgvC2xXmpNtonR6wfrLHkzdb7Afs2Tj2ZVVshJT/9TUnhMNLyBN5m7aRKSPHotCPt2rRwjY0UZ1TAKDGTK8EI4+ObkZ50J0ijUzZaxk7gkFeBt+BG92Tc/C+WkuWLrIwzPcUkF0I79RzGppLko2fRmn2RpncxNjHZx30Ml5JvL88FNaRlWZpKhiCW0q8nCoFIl+Xgb9GFfv9fnGTtxWS+fwSRbKStk2F17lsJJF016JBdC2fao1JgirtuV7uhRG8+MvM/wVAMX16OCIVHHy8eHzNFOUGZikq2ejuL5t58fL2JDqr1HTYB8/MKENrwePfElq0gO8JGs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(396003)(39860400002)(376002)(346002)(46966006)(36840700001)(4326008)(47076005)(356005)(36756003)(30864003)(44832011)(81166007)(82310400003)(26005)(2616005)(8676002)(5660300002)(6916009)(8936002)(36860700001)(316002)(6666004)(54906003)(186003)(2906002)(66574015)(82740400003)(83380400001)(86362001)(7696005)(336012)(70586007)(478600001)(426003)(70206006)(1076003)(36900700001);
+ SFS:(4636009)(376002)(136003)(39860400002)(396003)(346002)(36840700001)(46966006)(336012)(82740400003)(36756003)(6916009)(2616005)(82310400003)(70586007)(86362001)(70206006)(7696005)(6666004)(426003)(478600001)(8676002)(8936002)(26005)(83380400001)(54906003)(36860700001)(44832011)(81166007)(4326008)(47076005)(1076003)(186003)(2906002)(356005)(316002)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 01:00:28.4300 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ccdef04-9028-4f55-4ef2-08d9732d372c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 01:00:31.5212 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d587862-d546-4349-d625-08d9732d3903
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1721
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4644
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,14 +126,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-This neither needs to be on the stack nor passed by value
-to each function call. In fact, when building with clang
-it seems to break the Linux's default 1024 byte stack
-frame limit.
-
-[How]
-We can simply pass this as a const pointer.
+[Why & How]
+dcn_bw_calc_rq_dlg_ttu uses a stack frame great than 1024. To solve this
+we could allocate the rq_param, dlg_sys_param, and input structs
+dynamically. Since this function is inside a kernel_fpu_begin()/end()
+call we want to avoid memory allocation. Instead it's much
+safer to pre-allocate these on the pipe_ctx.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Fixes: 3fe617ccafd6 ("Enable '-Werror' by default for all kernel builds")
@@ -146,665 +148,118 @@ Cc: Nathan Chancellor <nathan@kernel.org>
 Cc: Guenter Roeck <linux@roeck-us.net>
 Cc: llvm@lists.linux.dev
 ---
- .../drm/amd/display/dc/dcn20/dcn20_resource.c |  2 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |  6 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20.h     |  4 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c   |  6 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20v2.h   |  4 +-
- .../dc/dml/dcn21/display_rq_dlg_calc_21.c     | 62 ++++++++--------
- .../dc/dml/dcn21/display_rq_dlg_calc_21.h     |  4 +-
- .../dc/dml/dcn30/display_rq_dlg_calc_30.c     | 72 +++++++++----------
- .../dc/dml/dcn30/display_rq_dlg_calc_30.h     |  4 +-
- .../dc/dml/dcn31/display_rq_dlg_calc_31.c     | 68 +++++++++---------
- .../dc/dml/dcn31/display_rq_dlg_calc_31.h     |  4 +-
- .../drm/amd/display/dc/dml/display_mode_lib.h |  4 +-
- 12 files changed, 120 insertions(+), 120 deletions(-)
+ .../gpu/drm/amd/display/dc/calcs/dcn_calcs.c  | 61 ++++++++++---------
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  3 +
+ 2 files changed, 35 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index e3e01b17c164..4389b36f0760 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3152,7 +3152,7 @@ void dcn20_calculate_dlg_params(
- 
- 		context->bw_ctx.dml.funcs.rq_dlg_get_rq_reg(&context->bw_ctx.dml,
- 				&context->res_ctx.pipe_ctx[i].rq_regs,
--				pipes[pipe_idx].pipe);
-+				&pipes[pipe_idx].pipe);
- 		pipe_idx++;
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-index 2091dd8c252d..8c168f348a27 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-@@ -768,12 +768,12 @@ static void dml20_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 
- void dml20_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = {0};
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+index 8e3a9294be3a..6b248cd2a461 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+@@ -459,9 +459,9 @@ static void dcn_bw_calc_rq_dlg_ttu(
+ 	struct _vcs_dpi_display_dlg_regs_st *dlg_regs = &pipe->dlg_regs;
+ 	struct _vcs_dpi_display_ttu_regs_st *ttu_regs = &pipe->ttu_regs;
+ 	struct _vcs_dpi_display_rq_regs_st *rq_regs = &pipe->rq_regs;
+-	struct _vcs_dpi_display_rq_params_st rq_param = {0};
+-	struct _vcs_dpi_display_dlg_sys_params_st dlg_sys_param = {0};
+-	struct _vcs_dpi_display_e2e_pipe_params_st input = { { { 0 } } };
++	struct _vcs_dpi_display_rq_params_st *rq_param = &pipe->dml_rq_param;
++	struct _vcs_dpi_display_dlg_sys_params_st *dlg_sys_param = &pipe->dml_dlg_sys_param;
++	struct _vcs_dpi_display_e2e_pipe_params_st *input = &pipe->dml_input;
+ 	float total_active_bw = 0;
+ 	float total_prefetch_bw = 0;
+ 	int total_flip_bytes = 0;
+@@ -470,47 +470,50 @@ static void dcn_bw_calc_rq_dlg_ttu(
+ 	memset(dlg_regs, 0, sizeof(*dlg_regs));
+ 	memset(ttu_regs, 0, sizeof(*ttu_regs));
  	memset(rq_regs, 0, sizeof(*rq_regs));
--	dml20_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param.src);
-+	dml20_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param->src);
- 	extract_rq_regs(mode_lib, rq_regs, rq_param);
++	memset(rq_param, 0, sizeof(*rq_param));
++	memset(dlg_sys_param, 0, sizeof(*dlg_sys_param));
++	memset(input, 0, sizeof(*input));
  
- 	print__rq_regs_st(mode_lib, *rq_regs);
-@@ -1549,7 +1549,7 @@ static void dml20_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
- void dml20_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-index d0b90947f540..8b23867e97c1 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-@@ -43,7 +43,7 @@ struct display_mode_lib;
- void dml20_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- 
- // Function: dml_rq_dlg_get_dlg_reg
-@@ -61,7 +61,7 @@ void dml20_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-index 1a0c14e465fa..26ececfd40cd 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-@@ -768,12 +768,12 @@ static void dml20v2_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 
- void dml20v2_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = {0};
- 
- 	memset(rq_regs, 0, sizeof(*rq_regs));
--	dml20v2_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param.src);
-+	dml20v2_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param->src);
- 	extract_rq_regs(mode_lib, rq_regs, rq_param);
- 
- 	print__rq_regs_st(mode_lib, *rq_regs);
-@@ -1550,7 +1550,7 @@ static void dml20v2_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
- void dml20v2_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-index 27cf8bed9376..2b4e46ea1c3d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-@@ -43,7 +43,7 @@ struct display_mode_lib;
- void dml20v2_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- 
- // Function: dml_rq_dlg_get_dlg_reg
-@@ -61,7 +61,7 @@ void dml20v2_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-index 287e31052b30..736978c4d40a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-@@ -694,7 +694,7 @@ static void get_surf_rq_param(
- 		display_data_rq_sizing_params_st *rq_sizing_param,
- 		display_data_rq_dlg_params_st *rq_dlg_param,
- 		display_data_rq_misc_params_st *rq_misc_param,
--		const display_pipe_params_st pipe_param,
-+		const display_pipe_params_st *pipe_param,
- 		bool is_chroma)
- {
- 	bool mode_422 = false;
-@@ -706,30 +706,30 @@ static void get_surf_rq_param(
- 
- 	// FIXME check if ppe apply for both luma and chroma in 422 case
- 	if (is_chroma) {
--		vp_width = pipe_param.src.viewport_width_c / ppe;
--		vp_height = pipe_param.src.viewport_height_c;
--		data_pitch = pipe_param.src.data_pitch_c;
--		meta_pitch = pipe_param.src.meta_pitch_c;
-+		vp_width = pipe_param->src.viewport_width_c / ppe;
-+		vp_height = pipe_param->src.viewport_height_c;
-+		data_pitch = pipe_param->src.data_pitch_c;
-+		meta_pitch = pipe_param->src.meta_pitch_c;
- 	} else {
--		vp_width = pipe_param.src.viewport_width / ppe;
--		vp_height = pipe_param.src.viewport_height;
--		data_pitch = pipe_param.src.data_pitch;
--		meta_pitch = pipe_param.src.meta_pitch;
-+		vp_width = pipe_param->src.viewport_width / ppe;
-+		vp_height = pipe_param->src.viewport_height;
-+		data_pitch = pipe_param->src.data_pitch;
-+		meta_pitch = pipe_param->src.meta_pitch;
+ 	for (i = 0; i < number_of_planes; i++) {
+ 		total_active_bw += v->read_bandwidth[i];
+ 		total_prefetch_bw += v->prefetch_bandwidth[i];
+ 		total_flip_bytes += v->total_immediate_flip_bytes[i];
  	}
+-	dlg_sys_param.total_flip_bw = v->return_bw - dcn_bw_max2(total_active_bw, total_prefetch_bw);
+-	if (dlg_sys_param.total_flip_bw < 0.0)
+-		dlg_sys_param.total_flip_bw = 0;
+-
+-	dlg_sys_param.t_mclk_wm_us = v->dram_clock_change_watermark;
+-	dlg_sys_param.t_sr_wm_us = v->stutter_enter_plus_exit_watermark;
+-	dlg_sys_param.t_urg_wm_us = v->urgent_watermark;
+-	dlg_sys_param.t_extra_us = v->urgent_extra_latency;
+-	dlg_sys_param.deepsleep_dcfclk_mhz = v->dcf_clk_deep_sleep;
+-	dlg_sys_param.total_flip_bytes = total_flip_bytes;
+-
+-	pipe_ctx_to_e2e_pipe_params(pipe, &input.pipe);
+-	input.clks_cfg.dcfclk_mhz = v->dcfclk;
+-	input.clks_cfg.dispclk_mhz = v->dispclk;
+-	input.clks_cfg.dppclk_mhz = v->dppclk;
+-	input.clks_cfg.refclk_mhz = dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000.0;
+-	input.clks_cfg.socclk_mhz = v->socclk;
+-	input.clks_cfg.voltage = v->voltage_level;
++	dlg_sys_param->total_flip_bw = v->return_bw - dcn_bw_max2(total_active_bw, total_prefetch_bw);
++	if (dlg_sys_param->total_flip_bw < 0.0)
++		dlg_sys_param->total_flip_bw = 0;
++
++	dlg_sys_param->t_mclk_wm_us = v->dram_clock_change_watermark;
++	dlg_sys_param->t_sr_wm_us = v->stutter_enter_plus_exit_watermark;
++	dlg_sys_param->t_urg_wm_us = v->urgent_watermark;
++	dlg_sys_param->t_extra_us = v->urgent_extra_latency;
++	dlg_sys_param->deepsleep_dcfclk_mhz = v->dcf_clk_deep_sleep;
++	dlg_sys_param->total_flip_bytes = total_flip_bytes;
++
++	pipe_ctx_to_e2e_pipe_params(pipe, &input->pipe);
++	input->clks_cfg.dcfclk_mhz = v->dcfclk;
++	input->clks_cfg.dispclk_mhz = v->dispclk;
++	input->clks_cfg.dppclk_mhz = v->dppclk;
++	input->clks_cfg.refclk_mhz = dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000.0;
++	input->clks_cfg.socclk_mhz = v->socclk;
++	input->clks_cfg.voltage = v->voltage_level;
+ //	dc->dml.logger = pool->base.logger;
+-	input.dout.output_format = (v->output_format[in_idx] == dcn_bw_420) ? dm_420 : dm_444;
+-	input.dout.output_type  = (v->output[in_idx] == dcn_bw_hdmi) ? dm_hdmi : dm_dp;
++	input->dout.output_format = (v->output_format[in_idx] == dcn_bw_420) ? dm_420 : dm_444;
++	input->dout.output_type  = (v->output[in_idx] == dcn_bw_hdmi) ? dm_hdmi : dm_dp;
+ 	//input[in_idx].dout.output_standard;
  
--	if (pipe_param.dest.odm_combine) {
-+	if (pipe_param->dest.odm_combine) {
- 		unsigned int access_dir;
- 		unsigned int full_src_vp_width;
- 		unsigned int hactive_half;
- 		unsigned int src_hactive_half;
--		access_dir = (pipe_param.src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
--		hactive_half  = pipe_param.dest.hactive / 2;
-+		access_dir = (pipe_param->src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
-+		hactive_half  = pipe_param->dest.hactive / 2;
- 		if (is_chroma) {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio_c * pipe_param.dest.full_recout_width;
--			src_hactive_half  = pipe_param.scale_ratio_depth.hscl_ratio_c * hactive_half;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio_c * pipe_param->dest.full_recout_width;
-+			src_hactive_half  = pipe_param->scale_ratio_depth.hscl_ratio_c * hactive_half;
- 		} else {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio * pipe_param.dest.full_recout_width;
--			src_hactive_half  = pipe_param.scale_ratio_depth.hscl_ratio * hactive_half;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio * pipe_param->dest.full_recout_width;
-+			src_hactive_half  = pipe_param->scale_ratio_depth.hscl_ratio * hactive_half;
- 		}
+ 	/*todo: soc->sr_enter_plus_exit_time??*/
+-	dlg_sys_param.t_srx_delay_us = dc->dcn_ip->dcfclk_cstate_latency / v->dcf_clk_deep_sleep;
++	dlg_sys_param->t_srx_delay_us = dc->dcn_ip->dcfclk_cstate_latency / v->dcf_clk_deep_sleep;
  
- 		if (access_dir == 0) {
-@@ -754,7 +754,7 @@ static void get_surf_rq_param(
- 	rq_sizing_param->meta_chunk_bytes = 2048;
- 	rq_sizing_param->min_meta_chunk_bytes = 256;
- 
--	if (pipe_param.src.hostvm)
-+	if (pipe_param->src.hostvm)
- 		rq_sizing_param->mpte_group_bytes = 512;
- 	else
- 		rq_sizing_param->mpte_group_bytes = 2048;
-@@ -768,23 +768,23 @@ static void get_surf_rq_param(
- 			vp_height,
- 			data_pitch,
- 			meta_pitch,
--			pipe_param.src.source_format,
--			pipe_param.src.sw_mode,
--			pipe_param.src.macro_tile_size,
--			pipe_param.src.source_scan,
--			pipe_param.src.hostvm,
-+			pipe_param->src.source_format,
-+			pipe_param->src.sw_mode,
-+			pipe_param->src.macro_tile_size,
-+			pipe_param->src.source_scan,
-+			pipe_param->src.hostvm,
- 			is_chroma);
- }
- 
- static void dml_rq_dlg_get_rq_params(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_params_st *rq_param,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
- {
- 	// get param for luma surface
--	rq_param->yuv420 = pipe_param.src.source_format == dm_420_8
--			|| pipe_param.src.source_format == dm_420_10;
--	rq_param->yuv420_10bpc = pipe_param.src.source_format == dm_420_10;
-+	rq_param->yuv420 = pipe_param->src.source_format == dm_420_8
-+			|| pipe_param->src.source_format == dm_420_10;
-+	rq_param->yuv420_10bpc = pipe_param->src.source_format == dm_420_10;
- 
- 	get_surf_rq_param(
- 			mode_lib,
-@@ -794,7 +794,7 @@ static void dml_rq_dlg_get_rq_params(
- 			pipe_param,
- 			0);
- 
--	if (is_dual_plane((enum source_format_class) (pipe_param.src.source_format))) {
-+	if (is_dual_plane((enum source_format_class) (pipe_param->src.source_format))) {
- 		// get param for chroma surface
- 		get_surf_rq_param(
- 				mode_lib,
-@@ -806,14 +806,14 @@ static void dml_rq_dlg_get_rq_params(
- 	}
- 
- 	// calculate how to split the det buffer space between luma and chroma
--	handle_det_buf_split(mode_lib, rq_param, pipe_param.src);
-+	handle_det_buf_split(mode_lib, rq_param, pipe_param->src);
- 	print__rq_params_st(mode_lib, *rq_param);
- }
- 
- void dml21_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = {0};
- 
-@@ -1658,7 +1658,7 @@ void dml21_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-@@ -1696,7 +1696,7 @@ void dml21_rq_dlg_get_dlg_reg(
- 	// system parameter calculation done
- 
- 	dml_print("DML_DLG: Calculation for pipe[%d] start\n\n", pipe_idx);
--	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, e2e_pipe_param[pipe_idx].pipe);
-+	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, &e2e_pipe_param[pipe_idx].pipe);
- 	dml_rq_dlg_get_dlg_params(
- 			mode_lib,
- 			e2e_pipe_param,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
-index e8f7785e3fc6..af6ad0ca9cf8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
-@@ -44,7 +44,7 @@ struct display_mode_lib;
- void dml21_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- // Function: dml_rq_dlg_get_dlg_reg
- //   Calculate and return DLG and TTU register struct given the system setting
-@@ -61,7 +61,7 @@ void dml21_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-index 0d934fae1c3a..2120e0941a09 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-@@ -747,7 +747,7 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 	display_data_rq_sizing_params_st *rq_sizing_param,
- 	display_data_rq_dlg_params_st *rq_dlg_param,
- 	display_data_rq_misc_params_st *rq_misc_param,
--	const display_pipe_params_st pipe_param,
-+	const display_pipe_params_st *pipe_param,
- 	bool is_chroma,
- 	bool is_alpha)
- {
-@@ -761,32 +761,32 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 
- 	// FIXME check if ppe apply for both luma and chroma in 422 case
- 	if (is_chroma | is_alpha) {
--		vp_width = pipe_param.src.viewport_width_c / ppe;
--		vp_height = pipe_param.src.viewport_height_c;
--		data_pitch = pipe_param.src.data_pitch_c;
--		meta_pitch = pipe_param.src.meta_pitch_c;
--		surface_height = pipe_param.src.surface_height_y / 2.0;
-+		vp_width = pipe_param->src.viewport_width_c / ppe;
-+		vp_height = pipe_param->src.viewport_height_c;
-+		data_pitch = pipe_param->src.data_pitch_c;
-+		meta_pitch = pipe_param->src.meta_pitch_c;
-+		surface_height = pipe_param->src.surface_height_y / 2.0;
- 	} else {
--		vp_width = pipe_param.src.viewport_width / ppe;
--		vp_height = pipe_param.src.viewport_height;
--		data_pitch = pipe_param.src.data_pitch;
--		meta_pitch = pipe_param.src.meta_pitch;
--		surface_height = pipe_param.src.surface_height_y;
-+		vp_width = pipe_param->src.viewport_width / ppe;
-+		vp_height = pipe_param->src.viewport_height;
-+		data_pitch = pipe_param->src.data_pitch;
-+		meta_pitch = pipe_param->src.meta_pitch;
-+		surface_height = pipe_param->src.surface_height_y;
- 	}
- 
--	if (pipe_param.dest.odm_combine) {
-+	if (pipe_param->dest.odm_combine) {
- 		unsigned int access_dir = 0;
- 		unsigned int full_src_vp_width = 0;
- 		unsigned int hactive_odm = 0;
- 		unsigned int src_hactive_odm = 0;
--		access_dir = (pipe_param.src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
--		hactive_odm  = pipe_param.dest.hactive / ((unsigned int)pipe_param.dest.odm_combine*2);
-+		access_dir = (pipe_param->src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
-+		hactive_odm  = pipe_param->dest.hactive / ((unsigned int) pipe_param->dest.odm_combine*2);
- 		if (is_chroma) {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio_c * pipe_param.dest.full_recout_width;
--			src_hactive_odm  = pipe_param.scale_ratio_depth.hscl_ratio_c * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio_c * pipe_param->dest.full_recout_width;
-+			src_hactive_odm  = pipe_param->scale_ratio_depth.hscl_ratio_c * hactive_odm;
- 		} else {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio * pipe_param.dest.full_recout_width;
--			src_hactive_odm  = pipe_param.scale_ratio_depth.hscl_ratio * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio * pipe_param->dest.full_recout_width;
-+			src_hactive_odm  = pipe_param->scale_ratio_depth.hscl_ratio * hactive_odm;
- 		}
- 
- 		if (access_dir == 0) {
-@@ -815,7 +815,7 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 	rq_sizing_param->meta_chunk_bytes = 2048;
- 	rq_sizing_param->min_meta_chunk_bytes = 256;
- 
--	if (pipe_param.src.hostvm)
-+	if (pipe_param->src.hostvm)
- 		rq_sizing_param->mpte_group_bytes = 512;
- 	else
- 		rq_sizing_param->mpte_group_bytes = 2048;
-@@ -828,28 +828,28 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 		vp_height,
- 		data_pitch,
- 		meta_pitch,
--		pipe_param.src.source_format,
--		pipe_param.src.sw_mode,
--		pipe_param.src.macro_tile_size,
--		pipe_param.src.source_scan,
--		pipe_param.src.hostvm,
-+		pipe_param->src.source_format,
-+		pipe_param->src.sw_mode,
-+		pipe_param->src.macro_tile_size,
-+		pipe_param->src.source_scan,
-+		pipe_param->src.hostvm,
- 		is_chroma,
- 		surface_height);
- }
- 
- static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 	display_rq_params_st *rq_param,
--	const display_pipe_params_st pipe_param)
-+	const display_pipe_params_st *pipe_param)
- {
- 	// get param for luma surface
--	rq_param->yuv420 = pipe_param.src.source_format == dm_420_8
--	|| pipe_param.src.source_format == dm_420_10
--	|| pipe_param.src.source_format == dm_rgbe_alpha
--	|| pipe_param.src.source_format == dm_420_12;
-+	rq_param->yuv420 = pipe_param->src.source_format == dm_420_8
-+	|| pipe_param->src.source_format == dm_420_10
-+	|| pipe_param->src.source_format == dm_rgbe_alpha
-+	|| pipe_param->src.source_format == dm_420_12;
- 
--	rq_param->yuv420_10bpc = pipe_param.src.source_format == dm_420_10;
-+	rq_param->yuv420_10bpc = pipe_param->src.source_format == dm_420_10;
- 
--	rq_param->rgbe_alpha = (pipe_param.src.source_format == dm_rgbe_alpha)?1:0;
-+	rq_param->rgbe_alpha = (pipe_param->src.source_format == dm_rgbe_alpha)?1:0;
- 
- 	get_surf_rq_param(mode_lib,
- 		&(rq_param->sizing.rq_l),
-@@ -859,7 +859,7 @@ static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 		0,
- 		0);
- 
--	if (is_dual_plane((enum source_format_class)(pipe_param.src.source_format))) {
-+	if (is_dual_plane((enum source_format_class)(pipe_param->src.source_format))) {
- 		// get param for chroma surface
- 		get_surf_rq_param(mode_lib,
- 			&(rq_param->sizing.rq_c),
-@@ -871,13 +871,13 @@ static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 	}
- 
- 	// calculate how to split the det buffer space between luma and chroma
--	handle_det_buf_split(mode_lib, rq_param, pipe_param.src);
-+	handle_det_buf_split(mode_lib, rq_param, pipe_param->src);
- 	print__rq_params_st(mode_lib, *rq_param);
- }
- 
- void dml30_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 	display_rq_regs_st *rq_regs,
--	const display_pipe_params_st pipe_param)
-+	const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = { 0 };
- 
-@@ -1831,7 +1831,7 @@ static void dml_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
- void dml30_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 	display_dlg_regs_st *dlg_regs,
- 	display_ttu_regs_st *ttu_regs,
--	display_e2e_pipe_params_st *e2e_pipe_param,
-+	const display_e2e_pipe_params_st *e2e_pipe_param,
- 	const unsigned int num_pipes,
- 	const unsigned int pipe_idx,
- 	const bool cstate_en,
-@@ -1866,7 +1866,7 @@ void dml30_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 	// system parameter calculation done
- 
- 	dml_print("DML_DLG: Calculation for pipe[%d] start\n\n", pipe_idx);
--	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, e2e_pipe_param[pipe_idx].pipe);
-+	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, &e2e_pipe_param[pipe_idx].pipe);
- 	dml_rq_dlg_get_dlg_params(mode_lib,
- 		e2e_pipe_param,
- 		num_pipes,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-index c04965cceff3..625e41f8d575 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-@@ -41,7 +41,7 @@ struct display_mode_lib;
- //            See also: <display_rq_regs_st>
- void dml30_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- // Function: dml_rq_dlg_get_dlg_reg
- //   Calculate and return DLG and TTU register struct given the system setting
-@@ -57,7 +57,7 @@ void dml30_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- void dml30_rq_dlg_get_dlg_reg(struct display_mode_lib             *mode_lib,
- 		display_dlg_regs_st          *dlg_regs,
- 		display_ttu_regs_st          *ttu_regs,
--		display_e2e_pipe_params_st   *e2e_pipe_param,
-+		const display_e2e_pipe_params_st   *e2e_pipe_param,
- 		const unsigned int            num_pipes,
- 		const unsigned int            pipe_idx,
- 		const bool                    cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-index c23905bc733a..57bd4e3f8a82 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-@@ -738,7 +738,7 @@ static void get_surf_rq_param(
- 		display_data_rq_sizing_params_st *rq_sizing_param,
- 		display_data_rq_dlg_params_st *rq_dlg_param,
- 		display_data_rq_misc_params_st *rq_misc_param,
--		const display_pipe_params_st pipe_param,
-+		const display_pipe_params_st *pipe_param,
- 		bool is_chroma,
- 		bool is_alpha)
- {
-@@ -752,33 +752,33 @@ static void get_surf_rq_param(
- 
- 	// FIXME check if ppe apply for both luma and chroma in 422 case
- 	if (is_chroma | is_alpha) {
--		vp_width = pipe_param.src.viewport_width_c / ppe;
--		vp_height = pipe_param.src.viewport_height_c;
--		data_pitch = pipe_param.src.data_pitch_c;
--		meta_pitch = pipe_param.src.meta_pitch_c;
--		surface_height = pipe_param.src.surface_height_y / 2.0;
-+		vp_width = pipe_param->src.viewport_width_c / ppe;
-+		vp_height = pipe_param->src.viewport_height_c;
-+		data_pitch = pipe_param->src.data_pitch_c;
-+		meta_pitch = pipe_param->src.meta_pitch_c;
-+		surface_height = pipe_param->src.surface_height_y / 2.0;
- 	} else {
--		vp_width = pipe_param.src.viewport_width / ppe;
--		vp_height = pipe_param.src.viewport_height;
--		data_pitch = pipe_param.src.data_pitch;
--		meta_pitch = pipe_param.src.meta_pitch;
--		surface_height = pipe_param.src.surface_height_y;
-+		vp_width = pipe_param->src.viewport_width / ppe;
-+		vp_height = pipe_param->src.viewport_height;
-+		data_pitch = pipe_param->src.data_pitch;
-+		meta_pitch = pipe_param->src.meta_pitch;
-+		surface_height = pipe_param->src.surface_height_y;
- 	}
- 
--	if (pipe_param.dest.odm_combine) {
-+	if (pipe_param->dest.odm_combine) {
- 		unsigned int access_dir;
- 		unsigned int full_src_vp_width;
- 		unsigned int hactive_odm;
- 		unsigned int src_hactive_odm;
- 
--		access_dir = (pipe_param.src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
--		hactive_odm = pipe_param.dest.hactive / ((unsigned int) pipe_param.dest.odm_combine * 2);
-+		access_dir = (pipe_param->src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
-+		hactive_odm = pipe_param->dest.hactive / ((unsigned int) pipe_param->dest.odm_combine * 2);
- 		if (is_chroma) {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio_c * pipe_param.dest.full_recout_width;
--			src_hactive_odm = pipe_param.scale_ratio_depth.hscl_ratio_c * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio_c * pipe_param->dest.full_recout_width;
-+			src_hactive_odm = pipe_param->scale_ratio_depth.hscl_ratio_c * hactive_odm;
- 		} else {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio * pipe_param.dest.full_recout_width;
--			src_hactive_odm = pipe_param.scale_ratio_depth.hscl_ratio * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio * pipe_param->dest.full_recout_width;
-+			src_hactive_odm = pipe_param->scale_ratio_depth.hscl_ratio * hactive_odm;
- 		}
- 
- 		if (access_dir == 0) {
-@@ -808,7 +808,7 @@ static void get_surf_rq_param(
- 	rq_sizing_param->meta_chunk_bytes = 2048;
- 	rq_sizing_param->min_meta_chunk_bytes = 256;
- 
--	if (pipe_param.src.hostvm)
-+	if (pipe_param->src.hostvm)
- 		rq_sizing_param->mpte_group_bytes = 512;
- 	else
- 		rq_sizing_param->mpte_group_bytes = 2048;
-@@ -822,38 +822,38 @@ static void get_surf_rq_param(
- 			vp_height,
- 			data_pitch,
- 			meta_pitch,
--			pipe_param.src.source_format,
--			pipe_param.src.sw_mode,
--			pipe_param.src.macro_tile_size,
--			pipe_param.src.source_scan,
--			pipe_param.src.hostvm,
-+			pipe_param->src.source_format,
-+			pipe_param->src.sw_mode,
-+			pipe_param->src.macro_tile_size,
-+			pipe_param->src.source_scan,
-+			pipe_param->src.hostvm,
- 			is_chroma,
- 			surface_height);
- }
- 
--static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib, display_rq_params_st *rq_param, const display_pipe_params_st pipe_param)
-+static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib, display_rq_params_st *rq_param, const display_pipe_params_st *pipe_param)
- {
- 	// get param for luma surface
--	rq_param->yuv420 = pipe_param.src.source_format == dm_420_8 || pipe_param.src.source_format == dm_420_10 || pipe_param.src.source_format == dm_rgbe_alpha
--			|| pipe_param.src.source_format == dm_420_12;
-+	rq_param->yuv420 = pipe_param->src.source_format == dm_420_8 || pipe_param->src.source_format == dm_420_10 || pipe_param->src.source_format == dm_rgbe_alpha
-+			|| pipe_param->src.source_format == dm_420_12;
- 
--	rq_param->yuv420_10bpc = pipe_param.src.source_format == dm_420_10;
-+	rq_param->yuv420_10bpc = pipe_param->src.source_format == dm_420_10;
- 
--	rq_param->rgbe_alpha = (pipe_param.src.source_format == dm_rgbe_alpha) ? 1 : 0;
-+	rq_param->rgbe_alpha = (pipe_param->src.source_format == dm_rgbe_alpha) ? 1 : 0;
- 
- 	get_surf_rq_param(mode_lib, &(rq_param->sizing.rq_l), &(rq_param->dlg.rq_l), &(rq_param->misc.rq_l), pipe_param, 0, 0);
- 
--	if (is_dual_plane((enum source_format_class) (pipe_param.src.source_format))) {
-+	if (is_dual_plane((enum source_format_class) (pipe_param->src.source_format))) {
- 		// get param for chroma surface
- 		get_surf_rq_param(mode_lib, &(rq_param->sizing.rq_c), &(rq_param->dlg.rq_c), &(rq_param->misc.rq_c), pipe_param, 1, rq_param->rgbe_alpha);
- 	}
- 
- 	// calculate how to split the det buffer space between luma and chroma
--	handle_det_buf_split(mode_lib, rq_param, pipe_param.src);
-+	handle_det_buf_split(mode_lib, rq_param, pipe_param->src);
- 	print__rq_params_st(mode_lib, *rq_param);
- }
- 
--void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib, display_rq_regs_st *rq_regs, const display_pipe_params_st pipe_param)
-+void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib, display_rq_regs_st *rq_regs, const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = {0};
- 
-@@ -1677,7 +1677,7 @@ void dml31_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-@@ -1704,7 +1704,7 @@ void dml31_rq_dlg_get_dlg_reg(
- 	// system parameter calculation done
- 
- 	dml_print("DML_DLG: Calculation for pipe[%d] start\n\n", pipe_idx);
--	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, e2e_pipe_param[pipe_idx].pipe);
-+	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, &e2e_pipe_param[pipe_idx].pipe);
- 	dml_rq_dlg_get_dlg_params(
- 			mode_lib,
- 			e2e_pipe_param,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
-index adf8518f761f..8ee991351699 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
-@@ -41,7 +41,7 @@ struct display_mode_lib;
- //            See also: <display_rq_regs_st>
- void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- // Function: dml_rq_dlg_get_dlg_reg
- //   Calculate and return DLG and TTU register struct given the system setting
-@@ -57,7 +57,7 @@ void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- void dml31_rq_dlg_get_dlg_reg(struct display_mode_lib             *mode_lib,
- 		display_dlg_regs_st          *dlg_regs,
- 		display_ttu_regs_st          *ttu_regs,
--		display_e2e_pipe_params_st   *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int            num_pipes,
- 		const unsigned int            pipe_idx,
- 		const bool                    cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
-index d42a0aeca6be..72b1957022aa 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
-@@ -49,7 +49,7 @@ struct dml_funcs {
- 			struct display_mode_lib *mode_lib,
- 			display_dlg_regs_st *dlg_regs,
- 			display_ttu_regs_st *ttu_regs,
--			display_e2e_pipe_params_st *e2e_pipe_param,
-+			const display_e2e_pipe_params_st *e2e_pipe_param,
- 			const unsigned int num_pipes,
- 			const unsigned int pipe_idx,
- 			const bool cstate_en,
-@@ -60,7 +60,7 @@ struct dml_funcs {
- 	void (*rq_dlg_get_rq_reg)(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 	void (*recalculate)(struct display_mode_lib *mode_lib);
- 	void (*validate)(struct display_mode_lib *mode_lib);
- };
+-	dml1_rq_dlg_get_rq_params(dml, &rq_param, &input.pipe.src);
+-	dml1_extract_rq_regs(dml, rq_regs, &rq_param);
++	dml1_rq_dlg_get_rq_params(dml, rq_param, &input->pipe.src);
++	dml1_extract_rq_regs(dml, rq_regs, rq_param);
+ 	dml1_rq_dlg_get_dlg_params(
+ 			dml,
+ 			dlg_regs,
+ 			ttu_regs,
+-			&rq_param.dlg,
+-			&dlg_sys_param,
+-			&input,
++			&rq_param->dlg,
++			dlg_sys_param,
++			input,
+ 			true,
+ 			true,
+ 			v->pte_enable == dcn_bw_yes,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index 45a6216dfa2a..4dca14b598dd 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -366,6 +366,9 @@ struct pipe_ctx {
+ 	struct _vcs_dpi_display_ttu_regs_st ttu_regs;
+ 	struct _vcs_dpi_display_rq_regs_st rq_regs;
+ 	struct _vcs_dpi_display_pipe_dest_params_st pipe_dlg_param;
++	struct _vcs_dpi_display_rq_params_st dml_rq_param;
++	struct _vcs_dpi_display_dlg_sys_params_st dml_dlg_sys_param;
++	struct _vcs_dpi_display_e2e_pipe_params_st dml_input;
+ 	int det_buffer_size_kb;
+ 	bool unbounded_req;
+ #endif
 -- 
 2.33.0
 
