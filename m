@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-19.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3FF4C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 176BDC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A987A61A8A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:49:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A987A61A8A
+	by mail.kernel.org (Postfix) with ESMTPS id DEA7B61AE1
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:50:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DEA7B61AE1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57D436E5D3;
-	Thu,  9 Sep 2021 11:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6176E5D4;
+	Thu,  9 Sep 2021 11:50:51 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E51896E5C5;
- Thu,  9 Sep 2021 11:49:24 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E1B1261A2C;
- Thu,  9 Sep 2021 11:49:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD6C66E5D4;
+ Thu,  9 Sep 2021 11:50:50 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D13F761AE4;
+ Thu,  9 Sep 2021 11:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188164;
- bh=lOgdxNF0FXJUom5Aw1wbYJCzE2eRXwY51fXUVtgzgBg=;
+ s=k20201202; t=1631188250;
+ bh=BJ5jpffpZV24DZA1GQvEEw0dm+XQ1zpkg6i3g/vhDS0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Vp5oZA6SoxvaGdhjbfjWHHnTEG+e8513EO7BOyNobP+ytRg+mXLkNvMdxZkwmSftl
- vEvMDoxVYcVnqkL30p7F78wskj27nEbGBpRUJ6oESvK+JTy65Wow7d2zpg1Cj1Gpu5
- 47TJa56W5gMgRix3+zUWc3wrcVZgdChCaQ4g9VQhPQborYvb0tMpF9qSBpamniYvAk
- B0RL6RTzu8BDESa6SpVwhhev6l9DJCROJg34ijFqkKFbSSZWZOazEJWn0FFJ2HySmD
- ImThRVE/TQJqt2mC3Ec+ppIYwkGxocPbYr/QDlipMByGjr+PKpA+vQf0+B60URir+Q
- P59mYAHYl1tSw==
+ b=YIdwS7bcNBCfdwRyEHb9s51nfgPWmfwcCpLHCC/xKUBLZ+KTXgnwg1bXBBAxgFCxT
+ 4FWOMKYK/sAODb+qWymks5nCP/nj7YtdZPlPt9bGdCjh5SC7kr7GH/+ZeVvw7mo93V
+ 8RKah/9rMvN5guB4ON5atq92ExLYWU5lN1Ot6vqYrEJ21+1YERFXeqRfjTlYKiH23o
+ dKB99AQ89aVBp09Onk9Zdb4T0OMbFraGdwwfpylv30lLkRlv03ySmbqblDLwHgq0KK
+ XqFC8etbYul2LaNEogLQmGT6Ht47CaPuLAjlqTvvpcca+cL3VmFBHB/9Q23ttlSvy6
+ B0aw1RIns3pZw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Tuo Li <islituo@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>,
+Cc: Sean Keely <Sean.Keely@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.13 130/219] drm/display: fix possible null-pointer
- dereference in dcn10_set_clock()
-Date: Thu,  9 Sep 2021 07:45:06 -0400
-Message-Id: <20210909114635.143983-130-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 198/219] drm/amdkfd: Account for SH/SE count when
+ setting up cu masks.
+Date: Thu,  9 Sep 2021 07:46:14 -0400
+Message-Id: <20210909114635.143983-198-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
 References: <20210909114635.143983-1-sashal@kernel.org>
@@ -66,60 +66,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tuo Li <islituo@gmail.com>
+From: Sean Keely <Sean.Keely@amd.com>
 
-[ Upstream commit 554594567b1fa3da74f88ec7b2dc83d000c58e98 ]
+[ Upstream commit 1ec06c2dee679e9f089e78ed20cb74ee90155f61 ]
 
-The variable dc->clk_mgr is checked in:
-  if (dc->clk_mgr && dc->clk_mgr->funcs->get_clock)
+On systems with multiple SH per SE compute_static_thread_mgmt_se#
+is split into independent masks, one for each SH, in the upper and
+lower 16 bits.  We need to detect this and apply cu masking to each
+SH.  The cu mask bits are assigned first to each SE, then to
+alternate SHs, then finally to higher CU id.  This ensures that
+the maximum number of SPIs are engaged as early as possible while
+balancing CU assignment to each SH.
 
-This indicates dc->clk_mgr can be NULL.
-However, it is dereferenced in:
-    if (!dc->clk_mgr->funcs->get_clock)
+v2: Use max SH/SE rather than max SH in cu_per_sh.
 
-To fix this null-pointer dereference, check dc->clk_mgr and the function
-pointer dc->clk_mgr->funcs->get_clock earlier, and return if one of them
-is NULL.
+v3: Fix comment blocks, ensure se_mask is initially zero filled,
+    and correctly assign se.sh.cu positions to unset bits in cu_mask.
 
-Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-Signed-off-by: Tuo Li <islituo@gmail.com>
+Signed-off-by: Sean Keely <Sean.Keely@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c | 84 +++++++++++++++-----
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h |  1 +
+ 2 files changed, 64 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 7c939c0a977b..29f61a8d3e29 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -3938,13 +3938,12 @@ enum dc_status dcn10_set_clock(struct dc *dc,
- 	struct dc_clock_config clock_cfg = {0};
- 	struct dc_clocks *current_clocks = &context->bw_ctx.bw.dcn.clk;
- 
--	if (dc->clk_mgr && dc->clk_mgr->funcs->get_clock)
--				dc->clk_mgr->funcs->get_clock(dc->clk_mgr,
--						context, clock_type, &clock_cfg);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+index 88813dad731f..c021519af810 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+@@ -98,36 +98,78 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
+ 		uint32_t *se_mask)
+ {
+ 	struct kfd_cu_info cu_info;
+-	uint32_t cu_per_se[KFD_MAX_NUM_SE] = {0};
+-	int i, se, sh, cu = 0;
 -
--	if (!dc->clk_mgr->funcs->get_clock)
-+	if (!dc->clk_mgr || !dc->clk_mgr->funcs->get_clock)
- 		return DC_FAIL_UNSUPPORTED_1;
++	uint32_t cu_per_sh[KFD_MAX_NUM_SE][KFD_MAX_NUM_SH_PER_SE] = {0};
++	int i, se, sh, cu;
+ 	amdgpu_amdkfd_get_cu_info(mm->dev->kgd, &cu_info);
  
-+	dc->clk_mgr->funcs->get_clock(dc->clk_mgr,
-+		context, clock_type, &clock_cfg);
+ 	if (cu_mask_count > cu_info.cu_active_number)
+ 		cu_mask_count = cu_info.cu_active_number;
+ 
++	/* Exceeding these bounds corrupts the stack and indicates a coding error.
++	 * Returning with no CU's enabled will hang the queue, which should be
++	 * attention grabbing.
++	 */
++	if (cu_info.num_shader_engines > KFD_MAX_NUM_SE) {
++		pr_err("Exceeded KFD_MAX_NUM_SE, chip reports %d\n", cu_info.num_shader_engines);
++		return;
++	}
++	if (cu_info.num_shader_arrays_per_engine > KFD_MAX_NUM_SH_PER_SE) {
++		pr_err("Exceeded KFD_MAX_NUM_SH, chip reports %d\n",
++			cu_info.num_shader_arrays_per_engine * cu_info.num_shader_engines);
++		return;
++	}
++	/* Count active CUs per SH.
++	 *
++	 * Some CUs in an SH may be disabled.	HW expects disabled CUs to be
++	 * represented in the high bits of each SH's enable mask (the upper and lower
++	 * 16 bits of se_mask) and will take care of the actual distribution of
++	 * disabled CUs within each SH automatically.
++	 * Each half of se_mask must be filled only on bits 0-cu_per_sh[se][sh]-1.
++	 *
++	 * See note on Arcturus cu_bitmap layout in gfx_v9_0_get_cu_info.
++	 */
+ 	for (se = 0; se < cu_info.num_shader_engines; se++)
+ 		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++)
+-			cu_per_se[se] += hweight32(cu_info.cu_bitmap[se % 4][sh + (se / 4)]);
+-
+-	/* Symmetrically map cu_mask to all SEs:
+-	 * cu_mask[0] bit0 -> se_mask[0] bit0;
+-	 * cu_mask[0] bit1 -> se_mask[1] bit0;
+-	 * ... (if # SE is 4)
+-	 * cu_mask[0] bit4 -> se_mask[0] bit1;
++			cu_per_sh[se][sh] = hweight32(cu_info.cu_bitmap[se % 4][sh + (se / 4)]);
 +
- 	if (clk_khz > clock_cfg.max_clock_khz)
- 		return DC_FAIL_CLK_EXCEED_MAX;
++	/* Symmetrically map cu_mask to all SEs & SHs:
++	 * se_mask programs up to 2 SH in the upper and lower 16 bits.
++	 *
++	 * Examples
++	 * Assuming 1 SH/SE, 4 SEs:
++	 * cu_mask[0] bit0 -> se_mask[0] bit0
++	 * cu_mask[0] bit1 -> se_mask[1] bit0
++	 * ...
++	 * cu_mask[0] bit4 -> se_mask[0] bit1
++	 * ...
++	 *
++	 * Assuming 2 SH/SE, 4 SEs
++	 * cu_mask[0] bit0 -> se_mask[0] bit0 (SE0,SH0,CU0)
++	 * cu_mask[0] bit1 -> se_mask[1] bit0 (SE1,SH0,CU0)
++	 * ...
++	 * cu_mask[0] bit4 -> se_mask[0] bit16 (SE0,SH1,CU0)
++	 * cu_mask[0] bit5 -> se_mask[1] bit16 (SE1,SH1,CU0)
++	 * ...
++	 * cu_mask[0] bit8 -> se_mask[0] bit1 (SE0,SH0,CU1)
+ 	 * ...
++	 *
++	 * First ensure all CUs are disabled, then enable user specified CUs.
+ 	 */
+-	se = 0;
+-	for (i = 0; i < cu_mask_count; i++) {
+-		if (cu_mask[i / 32] & (1 << (i % 32)))
+-			se_mask[se] |= 1 << cu;
+-
+-		do {
+-			se++;
+-			if (se == cu_info.num_shader_engines) {
+-				se = 0;
+-				cu++;
++	for (i = 0; i < cu_info.num_shader_engines; i++)
++		se_mask[i] = 0;
++
++	i = 0;
++	for (cu = 0; cu < 16; cu++) {
++		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++) {
++			for (se = 0; se < cu_info.num_shader_engines; se++) {
++				if (cu_per_sh[se][sh] > cu) {
++					if (cu_mask[i / 32] & (1 << (i % 32)))
++						se_mask[se] |= 1 << (cu + sh * 16);
++					i++;
++					if (i == cu_mask_count)
++						return;
++				}
+ 			}
+-		} while (cu >= cu_per_se[se] && cu < 32);
++		}
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index b5e2ea7550d4..6e6918ccedfd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -27,6 +27,7 @@
+ #include "kfd_priv.h"
  
-@@ -3962,7 +3961,7 @@ enum dc_status dcn10_set_clock(struct dc *dc,
- 	else
- 		return DC_ERROR_UNEXPECTED;
+ #define KFD_MAX_NUM_SE 8
++#define KFD_MAX_NUM_SH_PER_SE 2
  
--	if (dc->clk_mgr && dc->clk_mgr->funcs->update_clocks)
-+	if (dc->clk_mgr->funcs->update_clocks)
- 				dc->clk_mgr->funcs->update_clocks(dc->clk_mgr,
- 				context, true);
- 	return DC_OK;
+ /**
+  * struct mqd_manager
 -- 
 2.30.2
 
