@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-19.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2BA4C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:58:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 274CFC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2CF36325D
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:58:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2CF36325D
+	by mail.kernel.org (Postfix) with ESMTPS id F23216329F
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:59:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F23216329F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F6A56E83A;
-	Thu,  9 Sep 2021 11:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA2F6E83F;
+	Thu,  9 Sep 2021 11:59:47 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A500A6E835;
- Thu,  9 Sep 2021 11:58:24 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9E5CF6323E;
- Thu,  9 Sep 2021 11:58:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8436E83F;
+ Thu,  9 Sep 2021 11:59:46 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8954263294;
+ Thu,  9 Sep 2021 11:59:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188704;
+ s=k20201202; t=1631188786;
  bh=0af7XYpiDaqKh3arO7Wo+2DKVh53HZlCjD+rRxGqUBg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DI3IDxFXA2GQU4bDr5iX2JHPeHlCdsnQP9KULRQDn/92vDE597/RgInwhH+WQ1aEu
- z/Jf10ZbZQM32NdssAVmHTE7PMWz1kzG2UnnTClWyA1Gs6MQck0ajE0awfERJxuWzU
- iLJlcptwZbSjAmqIs+OojZpjvQZNrlqW1XZRDwMm+0LAiZEfxXBcpUDymaEspuyfTS
- uw5nLnmVNDW04wnJieO46aa3pSFs9a6j73r5G8x6Coyul1dHFWeZVSHV/eamI3aVD2
- +gI4Nz6zpAapReSYo/tk/dZ/SovBFuN41DWVBzqWc3vwwEEnwgQUk17gT+uYH2xs0Z
- 5J5SensuGiW0g==
+ b=EgaqPTEPPsRHjJuLOabqlaLN8GwRj5jsV6a38ydbcmLGfm7iAsJ8Lqmrn0gXJao9f
+ E6EbU+jxnfjmcqFfXFEqFcDesTxPGQqp1xcb1S8TJUk5Bgh/bXq2pNjzrzEogxA19j
+ ubavicwRAmKjE+d5YYNhn7ddqZ/2DhyAHAJizvymzhz4hxwWgp7mOu/09L9sz04/S3
+ w7QN861T8k0qL7zO2pSrju0JfKpZEWuidhU4qqNvD10SK781lw+PQIWX5BACbAJ8/x
+ dINkfG0foBM5cXIj/sWrF9OMS2wR5tJmgUfdbA9TSEzzItKay4q/5D3m+/Ye215Mts
+ AlUjlh0BIK0dA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
 Cc: Tuo Li <islituo@gmail.com>, TOTE Robot <oslab@tsinghua.edu.cn>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 4.19 46/74] gpu: drm: amd: amdgpu: amdgpu_i2c: fix
+Subject: [PATCH AUTOSEL 4.14 36/59] gpu: drm: amd: amdgpu: amdgpu_i2c: fix
  possible uninitialized-variable access in amdgpu_i2c_router_select_ddc_port()
-Date: Thu,  9 Sep 2021 07:56:58 -0400
-Message-Id: <20210909115726.149004-46-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 07:58:37 -0400
+Message-Id: <20210909115900.149795-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909115726.149004-1-sashal@kernel.org>
-References: <20210909115726.149004-1-sashal@kernel.org>
+In-Reply-To: <20210909115900.149795-1-sashal@kernel.org>
+References: <20210909115900.149795-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
