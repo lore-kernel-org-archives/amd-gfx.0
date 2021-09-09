@@ -4,143 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF79DC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 03:28:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6F44C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 04:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89DD961167
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 03:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 89DD961167
+	by mail.kernel.org (Postfix) with ESMTPS id 6D24A61181
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 04:02:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6D24A61181
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14E8F6E42A;
-	Thu,  9 Sep 2021 03:28:16 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2058.outbound.protection.outlook.com [40.107.212.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D50FF6E42A
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 03:28:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 898E46E438;
+	Thu,  9 Sep 2021 04:02:16 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E11C76E437;
+ Thu,  9 Sep 2021 04:02:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ClMaxnP3H/3G0lLBaehrI2IucsscGQ5kronilqOBKIiSOjn3LPV91YTBGppwHQk8nRot/J+gk3E8BT7uoco6JYY4+NpQceC0Kd4fkD8ysUB+Qd/KfnR7Su1vBQq2ZkcLVtvzQxZxZTXczLiIKN+hGHV1joeSqmznR59W8+ULIaxUQkMX6/PHP0ezy1V8Ws37RNvwLo91N6NbD0y785Ah8UXEajxj9IMMJegTqYzwJcq4nPU5OwPC6310IV9Hfg88S2QuE42o3DO4+tM9mXnNUezjO5WRTYoAXUpCcQan77nSsLd9a8O08UPflGWiQI7VPGALSmguuMz29foCruAqzA==
+ b=I9ciD8yDWb/YqMv2R/0Rd6iQ9e6emGxCw/8GaAn53s0qQpMpqwQCSNEVi3l1eZdlt7dtz/O24/uH8ssx7nuysSUnJFLLTrsE2jo6CdTEzrbLQbuDiMLVpmBMH3hy4SqdbH4BDSR4msm0rOY+toCErhvYO0W67FwsQNrvWjcBx/BrgU14BULh4Ic1STB+ekmaJt/4KabMjvcuUnLvz3JuGeymNqJ35QXlUi7Yv+E+09F6Sn8mlnofwpWpKZQh34t5bvnt6tDgd2hjokvw2uRH32fDeMl3ZnBo+t0oOhn+NfxF47iTXSsFzpyMEFd+oXQbWMYCCJIhGO2a0hCl/IcNdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=kJBCmTebqo3HLjL1b2H0d/gSvVwZvzwsWGVLgQPH5R0=;
- b=boKAsxYz8jrfUfGWxzu7yZ7uIx0LqTgftW0TvcK1ua7lA5I6JRBGdAQ7zUiEoAv7XCZlEdNTGhqc2O4sFDazJQKG3BRh97sqh7GoBx1Ac7XKAOwqWp/LZPKrwO1+qjbjo7UQd3L249ffsSUQ7jF9RTGGRozd3Y7WL9H72kYfEYfIQw+7Hi2grc8zFtI98yIWI0PU4kc/nvON5ZqiUEgclKrg1a7UyT4dLnPIZylpXuPw3ZoPbukwKZG0ewjhE5By02YKwPCiVEEIGTpM+gin1lOL9/EfL1Iaj6IAssU6Bxu3c0z/ajEH5TuXPK94CQ5I86VPGI9LexbNk/kf7plSSA==
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=81HVAdXZ/xV5qQxNdHooSo7SrUqwhIbs2GQ75VOX7gE=;
+ b=hma4fiJzcFrbwNfsQmQXUUgoa2PYZpdP8AcslvDB5zR0hRCdcY6NT/vne9iPqCFYAIdN/Vrt9Ug7wEll8PwoUCihlRXGEmYhgIfHQnwlsKkwFNN1Yps3/6x9SzZx1g1nCrqrNdReMjwee7Q1sJ/2TxY5L3Yv4JJ/7fOH23nfOEMcvs7+/8nRrRRpfOsKQd5ClXNiicaf704PGk1H47sej1krrq6rYOR4i0U3XJ9QbBgrP/PEWvejvQjOiNhs0XeZUEttElR1oRx2N4cjJLejcQT3xhN0R+KBPHkdQWXaW/FmwM0sIdlv+WyAD6cy93v+mwiASEBQaOP3xkDxOhSujA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kJBCmTebqo3HLjL1b2H0d/gSvVwZvzwsWGVLgQPH5R0=;
- b=uy+NI4v4rfQP/bpdF4d8jDfXjuMBYERgjkduELeq4+cK+vguWpP0VdcTZiaoVcLBj4OWPlYGhPK9OgZjM+uy+VQTkUc8FJ1BLLiD2R8KuSxzSV/hEvuRr1Od6IEo+EQ182eWoIYhux9jEizdCrqbhX4j9LhtzdBT2I0gwACOsrE=
-Authentication-Results: hisilicon.com; dkim=none (message not signed)
- header.d=none;hisilicon.com; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
- by BN9PR12MB5367.namprd12.prod.outlook.com (2603:10b6:408:104::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.15; Thu, 9 Sep
- 2021 03:28:12 +0000
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::4804:801b:71a:a8ed]) by BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::4804:801b:71a:a8ed%9]) with mapi id 15.20.4415.022; Thu, 9 Sep 2021
- 03:28:12 +0000
-Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
-To: "Yu, Lang" <Lang.Yu@amd.com>, "Powell, Darren" <Darren.Powell@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, Tian Tao <tiantao6@hisilicon.com>
-References: <20210908055615.3781901-1-lang.yu@amd.com>
- <e8b39f62-ca0c-d4e0-92a9-52487fa0da81@gmail.com>
- <47ed143e-b9ab-a80e-dac0-cfa1ec39d033@amd.com>
- <DM6PR12MB425086A1FFE0D1609581DFBAFBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <39d2443b-c90e-b5c6-85ee-b44bbfd818d3@amd.com>
- <DM6PR12MB4250831801024A782408C280FBD49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <332d81e6-a518-a155-cdfc-008e0bdb324c@amd.com>
- <5edd4df2-c49c-3b87-90d4-8d8b822641f9@gmail.com>
- <1fa7224f-de58-6864-6cb2-16a7b8968f54@amd.com>
- <4e6c0a19-0476-d8ca-c233-6f143cca511c@gmail.com>
- <CH0PR12MB5387C11CD331985AB96F0DCEF0D49@CH0PR12MB5387.namprd12.prod.outlook.com>
- <DM6PR12MB4250EC35F696D19098E9642AFBD59@DM6PR12MB4250.namprd12.prod.outlook.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <3c02e758-1d36-ce2a-11df-eedd82a30c33@amd.com>
-Date: Thu, 9 Sep 2021 08:58:00 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ bh=81HVAdXZ/xV5qQxNdHooSo7SrUqwhIbs2GQ75VOX7gE=;
+ b=q2ofnrexVv27Lwr9ECfG26ovmfw0pn8RQgYyLSSlCi5wzAoBfCzLeF1fNLNTyxHKjWdiUndrzbnJBpGGJg3ALAgLfIwJnBMsu9XJGnAmkTZcoIcQj59iw55rvmOIjM/P3qzmuD8iMrUqGSexxcbtktzboTZJ6x/QBY86r1FYGlQ=
+Authentication-Results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5133.namprd12.prod.outlook.com (2603:10b6:5:390::6) by
+ DM4PR12MB5325.namprd12.prod.outlook.com (2603:10b6:5:39e::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4457.23; Thu, 9 Sep 2021 04:02:12 +0000
+Received: from DM4PR12MB5133.namprd12.prod.outlook.com
+ ([fe80::344d:ea6f:fb1d:ddc8]) by DM4PR12MB5133.namprd12.prod.outlook.com
+ ([fe80::344d:ea6f:fb1d:ddc8%9]) with mapi id 15.20.4500.014; Thu, 9 Sep 2021
+ 04:02:12 +0000
+Subject: Re: [PATCH v1 03/14] mm: add iomem vma selection for memory migration
+To: Christoph Hellwig <hch@lst.de>
+Cc: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>,
+ akpm@linux-foundation.org, linux-mm@kvack.org, rcampbell@nvidia.com,
+ linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ jgg@nvidia.com, jglisse@redhat.com, Dan Williams <dan.j.williams@intel.com>
+References: <20210825034828.12927-1-alex.sierra@amd.com>
+ <20210825034828.12927-4-alex.sierra@amd.com> <20210825074602.GA29620@lst.de>
+ <c4241eb3-07d2-c85b-0f48-cce4b8369381@amd.com>
+ <a9eb2c4a-d8cc-9553-57b7-fd1622679aaa@amd.com> <20210830082800.GA6836@lst.de>
+ <e40b3b79-f548-b87b-7a85-f654f25ed8dd@amd.com>
+ <20210901082925.GA21961@lst.de>
+ <11d64457-9d61-f82d-6c98-d68762dce85d@amd.com>
+ <20210902081826.GA16283@lst.de>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <8307c3b6-52c9-fbab-6f02-c00ed3e8a35e@amd.com>
+Date: Thu, 9 Sep 2021 00:02:10 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <DM6PR12MB4250EC35F696D19098E9642AFBD59@DM6PR12MB4250.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+In-Reply-To: <20210902081826.GA16283@lst.de>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN1PR0101CA0018.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c00:e::28) To BN9PR12MB5356.namprd12.prod.outlook.com
- (2603:10b6:408:105::23)
+Content-Language: en-US
+X-ClientProxiedBy: YTOPR0101CA0039.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::16) To DM4PR12MB5133.namprd12.prod.outlook.com
+ (2603:10b6:5:390::6)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.157.114] (165.204.158.249) by
- PN1PR0101CA0018.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:e::28) with
+Received: from [192.168.2.100] (142.186.47.3) by
+ YTOPR0101CA0039.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Thu, 9 Sep 2021 03:28:09 +0000
+ Transport; Thu, 9 Sep 2021 04:02:11 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 705b11cf-b7d7-4993-3721-08d97341da6f
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5367:
+X-MS-Office365-Filtering-Correlation-Id: dfd77367-aa11-45e5-ef40-08d973469a3e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5325:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB53672610495D247DEE5D9F5597D59@BN9PR12MB5367.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <DM4PR12MB53250B4366D863A3DC70D32492D59@DM4PR12MB5325.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XcJGSk3i6f2u+CytRdlHJZOJPvNBa7sR4OBnBvpFIsXhTWag9xq7k6WPIJlxQ26Vb35nQoJ0DPU9rDviT4mtTIVt9R9Rvw85agjSV/1YQCevqDzoEfMWCk0KQp2P3gWuvDOKy41a6MW0SeUQUPoqWSbUzxDwkVAjdJ0RxWMx5hUxcaFYR0fcLFG/YjXum8zniOqYYbzLyVB2ubiY4Ra53a4rx4gqzbjCUgnOvuOnUH7beW2rh+RFsTHx2kwd0rGrZgS53rvNdH//7Hke6ZE1xIoThJ0lVpeAb4QMPWE7fb5Qa80WIMkwHfEPz0eZcooiiOHA3OCvTYYiqtD9uLczM6OZnclDCL3uepdRyYLqErrYi0lT3E3RsACzaXOckrDhJhA8rdJPbVCB09cmMwy/+hAgK9Ovk52QY9QNEjGUR853o/53KVUDKiFNizANpai2WxVcSVkyic11fiGGV5uOD1IBQUN2bwA/HKBNH0CkZWmvB0Xjz0z20jcps9oAphuU1V35yHQVDj9ryeLa/R8VX1sJVOGLyS0Su+KVsy8Av0eKkd9fBbL/EFwtv5znwWLU3SCIN7RLgm7z5TEM/8srnNct9W8ZfRSnl+hyii4NHI0gpsez5f6vBo8huSGY3s+g0sHgM9IDUaqXXuKgfarlsX7UNkgw/9Iggcd80w981vZpmRpKdhmhJBe6cWWd0Ix3FGm3SoUcptnlFU7kJjL07FVyJvDYx5LafUuSMzDfSHU=
+X-Microsoft-Antispam-Message-Info: QoB3mXpDVVBL3VlWuv5Np3fQLGpKYXd3C5LWNOvjTwv0hNETrIWaUFQffD/GDSHNZfcA1d1mQoxP4teRbZdRkGQDlDp2Cn4crmwnqF7HaU21Ff8FiujdO4bljDU2H9Wbcrrly0OPIw5c8Fspz+w+c2A72alVwl05mvRz4RyxKQEg3mcXMiXMa+EL8IaXwQitNoHTkHLoiQamTq2r+H6pRqlqlIGbFT3rPBGV+QPk+hglHkUfVL9tEkP7CH7VkcX8TsZns6NAE/zYJnW521vr7eReg/CclnNbSU+NUfXAu/Yk0nCf4dDAliLww+0//4NqXueWY0FUAx2FayoP5QdP1es6VRMCBH2TbItH5hNonb8uBChx/wXammQkwPbEDVCN9jClZahpaH5bhXriqW/8eUKI9EDtkIT/YBV9u7SnjFuyn6rExA1qUoF8JMMo1jVaKD5RksZ8ZLkFQhSZhchupVRXQ56phvAklSYnrz3xR5VpfczPzBWeneQdGg3OsPzRU5tWug9YEHkasSi47UXPJ+zlJdNSBcjqZKcj9o1z2JpL66JXb/fAw8deNFrFda4wqz3V8mHHMRX5q7G1vYv7ZcjBmh9skbQze6FRYmHoGquMBwkoTehhSI5SvPgbEElSTu5WBVx16fM0LvZAqjQdSq10dEBn8riBmxnU7nN4iELd83xaDMPD7ETSIViggzXF4tkMVu10TWaHku14Od/FA09iLqggqPPQAJ0hdE2s4xtla26aFZa6Ri2eDjbfRE7E
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(366004)(396003)(39860400002)(136003)(31696002)(956004)(2616005)(66476007)(54906003)(8936002)(6666004)(86362001)(83380400001)(4326008)(30864003)(6486002)(66556008)(36756003)(478600001)(186003)(5660300002)(31686004)(38100700002)(53546011)(66946007)(2906002)(26005)(316002)(110136005)(8676002)(16576012)(66574015)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5133.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(136003)(39860400002)(376002)(346002)(316002)(4326008)(86362001)(36756003)(54906003)(5660300002)(26005)(478600001)(16576012)(6486002)(66946007)(31696002)(186003)(66556008)(6916009)(2906002)(38100700002)(7416002)(8936002)(8676002)(31686004)(83380400001)(2616005)(956004)(66476007)(44832011)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2FRZmNuM1JjYitHQit2SExld21OQ2x1cFp5eVcyZkpJR1Bja2FnKzZZVUd4?=
- =?utf-8?B?UVdxVTNibkpGNHJveW1EMHVOcllyYXZtNDhCR1RJWTQrbWtOb001aHJ6MDFx?=
- =?utf-8?B?YVdrYTE3SXhkKzNPWVIwRmd4bjdyOVFBandQNGQ3cVpMMVI3V25JdnVnZzBP?=
- =?utf-8?B?RGxnMTVBSTVPZU82TGN6cFFnNytxak5XMUpRTmlDOXFWK3hDdE8zanBLcGxT?=
- =?utf-8?B?OW5nOE0xd1Q4NnBsbDhjREFjWFZIY25IRFdpNDJKNWhhSmU2Wlkrc0M3R0ZI?=
- =?utf-8?B?Y1J5UStoWjA0MElkSFBYdlE2eDBHSytodHpndS85SGp4VGNMTy9mdkNZeHNF?=
- =?utf-8?B?Qk02RWlLRWZxa0NQaGcrZVh5NkpsTjNqNGJ3YktRMjlNM1dDU0xvWXBzbDk3?=
- =?utf-8?B?RW54YTU3U05aaFdkK2xVS2FzUFUxdGkwWkN0U09tY0NvSlZtS1N3NldmZk9F?=
- =?utf-8?B?bUdHcUNiUWhCanFHd2RzdHlIamhwelBuYUpxMzR2Y0RCcU9HZFIxL3ZOOWVH?=
- =?utf-8?B?U0RMalJ3L2g0SUkxR1BJTGRXalZyMlZvL09CT0lWNEdtcDBYYi93UFpmbWtx?=
- =?utf-8?B?TjA1dWswSmt3dkVQSHJqeG1JTVV1bTYzdUxzMG5Xc0FRM1EvSFNqYVpTT2RD?=
- =?utf-8?B?U3pIN2poQm45NTRrRmVjRVN3TFJsdzg3alBWa1U4aTBkWjhZNzRhTUFsVGMr?=
- =?utf-8?B?QzFBWk1ZOC9zb3ZNRkRzS2Q5blo0MWF6RElIQ01LVFp4WDNwMCt3ekdNNTFt?=
- =?utf-8?B?Wkg0dGRtR3N4eERQZmVaSWFWOGRNMENYbVR0OGxDVHJLaTFOcEJKYnRrWklB?=
- =?utf-8?B?Rm9RMmM1K0p3cGRId0liRDFKUThVQ0h6a0FqVnJsM3pvYTBmT3VBdXVFMW9Y?=
- =?utf-8?B?YzFybktLU0FkZ0tiWTNkK2dobVlRWkRFeCtjcy9NTTVLV0l3T3ozWFIzR3dT?=
- =?utf-8?B?b1d6NWxTN3pXTVE3cTZLTWJiU2tETTVZenByc2lhaXJuOGt1Z2I4NDVDeHF5?=
- =?utf-8?B?RGZ3bExxcWdCRUZURnVhOWM5YW9xRXdISStxb0FrOWwrMjJOaFlXbEdnZTRz?=
- =?utf-8?B?OGRRY0hDYlRSN25FSWlPVWEzYndSblJwckVJbEZGbnJ2NVo2V1hyM09sYnlF?=
- =?utf-8?B?V0ZUenFUejR5UGNvZ0dwK1ZtSEh5Y3dWOXhneTJScGJoS1BPcVlzOVFYcCtT?=
- =?utf-8?B?NGlMZFBkSi96eTg4RE9iUUErb2tvRkJkZjh0MFFUOUdMTDRObDdxZWxPWUFl?=
- =?utf-8?B?ZlozamFvSnpsWnAyV1hUZkxkeXhFWXdkcCtxOHU0TlFUY3NiczJHajRLd0wx?=
- =?utf-8?B?Yld2dXcwbTllQmNUMHg3VG8rNVJvcStrZCs4QkFpdytuaWFLd2pPaUJVZUtm?=
- =?utf-8?B?K2ZvZGMybzBicGpvMzB4RE9tNFNmNTFkRHlXOFFkY2xyQzExNFB2STI5SHR5?=
- =?utf-8?B?eUFqazJFK25rMk5ZMzc5REVqbVJUYVZnK2tpRTRTWjZKaVNiczFzS1pHZjJR?=
- =?utf-8?B?NTR1TVBkL0lFTWtDZlRveitDZ1ZpdlFnM0x1SlgzY0dlaWhDck40V1BGN3Ur?=
- =?utf-8?B?NkJpVzVzR002VWV4dHp6d1dIa1JkQ3hJN2czMmw3Vm5jc3ZmVmErZlNPWmxU?=
- =?utf-8?B?S3ZuWUZqVFBFV0hpV2M3emZmQktmdlFGd3MwOXIxTS9BZmNBNkp4ekcxdTNL?=
- =?utf-8?B?MWJpbUxWTHhvQ05QY21McCsyaElpY2xtNWdkZFk0QTJlQjNyWHFSVGJqQ251?=
- =?utf-8?Q?03XxyWewwfqK5/tCTBVUccx+tFVfX8ujhzSfYIN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MHk3NTl2bUp1ZFo5NHQ2U3EvU0JXazVNVjQwbjNEQVhMNklRWW1LM0tMdEwz?=
+ =?utf-8?B?bWdHNE5KMlhMbk1HWEVBdWh6Nk54ZDlzaS83VWRKSmZadytGR3J4eEtsUnM2?=
+ =?utf-8?B?QmZnek9HZWJ5NFFUdUJHdVhhQ21McFFWRHExRzFTODBqMVVTajYwWFUxYmZr?=
+ =?utf-8?B?UlNlaGgwSHlGTDZlV0NubXArbGJmYXNqTEk4bmhDZnZ1RUIxVDlJOFBFQnd2?=
+ =?utf-8?B?b2lCWXhpdzJqQW9EbGVoTTQ5SUNZRjc2b2RjVWJNNzZiWnY2M1ZrV3Z1NGNl?=
+ =?utf-8?B?UXdRdFpjRTd2VGJpSi9ocGtEVU5jU3AzRXZva0lkZWR0WDdRVXphSjR1WEQy?=
+ =?utf-8?B?UEtQc2YrZ1B6Q1MyTys5RlBsMVFYalpJcEl5OWJNTU1WL2RETFZkSWxRV3BM?=
+ =?utf-8?B?bmc5WGx3UEd1WkhwdDhXMWxWdkdnN1hvb0xCa2lxN3lEMEVESUNmVTJieW5W?=
+ =?utf-8?B?eU44TVkxNUY0SUFSUGV0SXhLUk9XcmNpczZHUVlQK2dQNU9rN3JydDlqZmtE?=
+ =?utf-8?B?bW5TVFp6QnRZeitzL0I4WElrV3owQ3FMUUYvQTF0dEtRb1ZaQnlLYmNienVN?=
+ =?utf-8?B?aU16a2NDUEpwdEl5SWNvZ3F2WkdlZU16SmxtUWdycjJGNXBnZTY5SFBKYVNw?=
+ =?utf-8?B?Ny9LNE5wekhKNnRZcnNrN0dQNGN2Wm1yRTEyUExOa29GQ0xDWExobzVkeE0v?=
+ =?utf-8?B?cjRRTVZKY3NhUDhPS2RpbzdqUXRyNHMyQUZpUXNNSjZscXVnLzhtQ1RWd240?=
+ =?utf-8?B?VGJ0bUlqdkU4NkRrRGNHWHYway9FR0RWalBHbGNDSEMwNHZiSEF1bnUxRmZw?=
+ =?utf-8?B?UTZtd1ArLzRMUkxCQThRYnJ2eU9xcXVlR1RjcVZ2STBOQUNlNmhkcmlhSmZr?=
+ =?utf-8?B?VzltZTZSY3lvYy9FQkhwNVh2S3hySTBhTFVIUnE3U0luMTAzSnNuSHAwWGJG?=
+ =?utf-8?B?TmlYS1Y0V0pMejUxSFhYYUdLSFVicG5tbUl1QjZwblJkVTFGM01qckIzQlh1?=
+ =?utf-8?B?TzE0MGJHNTJnajUvQmpVU3VMOGx2STBYd0lneXZ1dUUzOGY2K24yVnVhWHN4?=
+ =?utf-8?B?SlQ5clQ3amJ4WjFWVXF5Sk9Za1Y2U1kzVUFRZENvNlc5S3JKOUNzRlU0TEE2?=
+ =?utf-8?B?ckJXRHNrMTdqVGZCOXl5T3dndWx6L2prWnYvQk05T0UxRGZocFZLZ1VYOENv?=
+ =?utf-8?B?VnI4UEFLK0FmT0g1TFI4bER2eDBXUzFZMlovRDBJYk05WlAxSmtmMHhEY1J5?=
+ =?utf-8?B?eS9jMnBXS3pWVy9vWjY3MVVMcXR6dEFkY0JiTXNNNHZzdTgzQ0pGU0NJYThX?=
+ =?utf-8?B?dXo4aWF3bU9MTzJmRjhRSHdFenBGS3lXZUtIOXpUd0o4RXp2VXNueWtFanR3?=
+ =?utf-8?B?ZkhlcU1FOGw0elhqcDRjbUlibUpKUW8rekpqT2FjVTMrY0FBSWdkWkVwWDFi?=
+ =?utf-8?B?a1pQbGFnZnloNENlcjJoWWg3cWtsajA0cE84VndObFRJQ2pBVnZEYXRhWkZo?=
+ =?utf-8?B?UXg4OElaSFl2R1ZLMFlhVkhadk5tbG56MFZYWFNzekovVnJqMHhnOUlteUJu?=
+ =?utf-8?B?KzFhdUdpNm8vUnRoRml3bER3cWNBRk1MZTUzZEtjN1hKT05Wb1lKYjNiTGpU?=
+ =?utf-8?B?eVJjWFdRaUZpZm9DcHlBZ2FMaEw1VCtJakNwdy9lUERmd01kbmlGUVNYVXpQ?=
+ =?utf-8?B?VjZWM0NXemJJd0o1eFYxMnlyeXhFTnJDbERXZStzZG1PY2JPNjVzNmsrMkRZ?=
+ =?utf-8?Q?gyrXmVwZAdT9ZEC3qt750WGc8RgSZBZsB6clj4M?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 705b11cf-b7d7-4993-3721-08d97341da6f
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfd77367-aa11-45e5-ef40-08d973469a3e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5133.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 03:28:12.5780 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 04:02:12.5084 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NpJjRZUjGIXFCNIzkwMow6KtcAWR0WgSvxnAT3H5DGtxQVLNkaFoizb5NTIqRDbW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5367
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7EWvkY1SRC99zunzkk+9JwG2SHeDmCUY2WWVQV9YJLJ0d87x+F2Z93ApOfz03yEa5uAFliTZPhk2E8W368OSaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,281 +151,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 2021-09-02 um 4:18 a.m. schrieb Christoph Hellwig:
+> On Wed, Sep 01, 2021 at 11:40:43AM -0400, Felix Kuehling wrote:
+>>>>> It looks like I'm totally misunderstanding what you are adding here
+>>>>> then.  Why do we need any special treatment at all for memory that
+>>>>> has normal struct pages and is part of the direct kernel map?
+>>>> The pages are like normal memory for purposes of mapping them in CPU
+>>>> page tables and for coherent access from the CPU.
+>>> That's the user page tables.  What about the kernel direct map?
+>>> If there is a normal kernel struct page backing there really should
+>>> be no need for the pgmap.
+>> I'm not sure. The physical address ranges are in the UEFI system address
+>> map as special-purpose memory. Does Linux create the struct pages and
+>> kernel direct map for that without a pgmap call? I didn't see that last
+>> time I went digging through that code.
+> So doing some googling finds a patch from Dan that claims to hand EFI
+> special purpose memory to the device dax driver.  But when I try to
+> follow the version that got merged it looks it is treated simply as an
+> MMIO region to be claimed by drivers, which would not get a struct page.
+>
+> Dan, did I misunderstand how E820_TYPE_SOFT_RESERVED works?
+>
+>>>> From an application
+>>>> perspective, we want file-backed and anonymous mappings to be able to
+>>>> use DEVICE_PUBLIC pages with coherent CPU access. The goal is to
+>>>> optimize performance for GPU heavy workloads while minimizing the need
+>>>> to migrate data back-and-forth between system memory and device memory.
+>>> I don't really understand that part.  file backed pages are always
+>>> allocated by the file system using the pagecache helpers, that is
+>>> using the page allocator.  Anonymouns memory also always comes from
+>>> the page allocator.
+>> I'm coming at this from my experience with DEVICE_PRIVATE. Both
+>> anonymous and file-backed pages should be migrateable to DEVICE_PRIVATE
+>> memory by the migrate_vma_* helpers for more efficient access by our
+>> GPU. (*) It's part of the basic premise of HMM as I understand it. I
+>> would expect the same thing to work for DEVICE_PUBLIC memory.
+> Ok, so you want to migrate to and from them.  Not use DEVICE_PUBLIC
+> for the actual page cache pages.  That maks a lot more sense.
+>
+>> I see DEVICE_PUBLIC as an improved version of DEVICE_PRIVATE that allows
+>> the CPU to map the device memory coherently to minimize the need for
+>> migrations when CPU and GPU access the same memory concurrently or
+>> alternatingly. But we're not going as far as putting that memory
+>> entirely under the management of the Linux memory manager and VM
+>> subsystem. Our (and HPE's) system architects decided that this memory is
+>> not suitable to be used like regular NUMA system memory by the Linux
+>> memory manager.
+> So yes.  It is a Memory Mapped I/O region, which unlike the PCIe BARs
+> that people typically deal with is fully cache coherent.  I think this
+> does make more sense as a description.
+>
+> But to go back to what start this discussion:  If these are memory
+> mapped I/O pfn_valid should generally not return true for them.
+
+As I understand it, pfn_valid should be true for any pfn that's part of
+the kernel's physical memory map, i.e. is returned by page_to_pfn or
+works with pfn_to_page. Both the hmm_range_fault and the migrate_vma_*
+APIs use pfns to refer to regular system memory and ZONE_DEVICE pages
+(even DEVICE_PRIVATE). Therefore I believe pfn_valid should be true for
+ZONE_DEVICE pages as well.
+
+Regards,
+  Felix
 
 
-On 9/9/2021 8:13 AM, Yu, Lang wrote:
-> [AMD Official Use Only]
-> 
-> So the final decision is rollback to scnprintf().
-> 
-> If we can define our own helper functions like sysfs_emit/sysfs_emit_at
-> 
-> but without page boundary aligned limitation to make life easier?
-> 
-
-No, we do want to make it clear that this function is used for sysfs 
-files and make use of the extra checks provided by the sysfs_emit* 
-functions. Looking at the origins of sysf_emit_at() specifically, there 
-are indeed some cases of printing more than one values per file and 
-multi-line usage.
-
-So I'm fine with your original patch. Maybe, you can make the intention 
-explicit by keeping the offset and buf start calculations in a separate 
-inline function.
-	smu_get_sysfs_buf()
-
-Thanks,
-Lijo
-
-> Regards,
-> 
-> Lang
-> 
-> *From:* Powell, Darren <Darren.Powell@amd.com>
-> *Sent:* Thursday, September 9, 2021 6:18 AM
-> *To:* Christian König <ckoenig.leichtzumerken@gmail.com>; Lazar, Lijo 
-> <Lijo.Lazar@amd.com>; Yu, Lang <Lang.Yu@amd.com>; 
-> amd-gfx@lists.freedesktop.org
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray 
-> <Ray.Huang@amd.com>; Tian Tao <tiantao6@hisilicon.com>
-> *Subject:* Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
-> 
-> [AMD Official Use Only]
-> 
-> ------------------------------------------------------------------------
-> 
-> *From:*Christian König <ckoenig.leichtzumerken@gmail.com 
-> <mailto:ckoenig.leichtzumerken@gmail.com>>
-> *Sent:* Wednesday, September 8, 2021 8:43 AM
-> *To:* Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>; Yu, 
-> Lang <Lang.Yu@amd.com <mailto:Lang.Yu@amd.com>>; 
-> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org> 
-> <amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com 
-> <mailto:Alexander.Deucher@amd.com>>; Huang, Ray <Ray.Huang@amd.com 
-> <mailto:Ray.Huang@amd.com>>; Tian Tao <tiantao6@hisilicon.com 
-> <mailto:tiantao6@hisilicon.com>>; Powell, Darren <Darren.Powell@amd.com 
-> <mailto:Darren.Powell@amd.com>>
-> *Subject:* Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings
-> 
-> Am 08.09.21 um 12:22 schrieb Lazar, Lijo:
->  > On 9/8/2021 3:08 PM, Christian König wrote:
->  >> Am 08.09.21 um 11:29 schrieb Lazar, Lijo:
->  >>> On 9/8/2021 2:32 PM, Yu, Lang wrote:
->  >>>> [AMD Official Use Only]
->  >>>>> -----Original Message-----
->  >>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
->  >>>>> Sent: Wednesday, September 8, 2021 4:55 PM
->  >>>>> To: Yu, Lang <Lang.Yu@amd.com <mailto:Lang.Yu@amd.com>>; 
-> Christian König
->  >>>>> <ckoenig.leichtzumerken@gmail.com 
-> <mailto:ckoenig.leichtzumerken@gmail.com>>; 
-> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
->  >>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com 
-> <mailto:Alexander.Deucher@amd.com>>; Huang, Ray
->  >>>>> <Ray.Huang@amd.com <mailto:Ray.Huang@amd.com>>; Tian Tao 
-> <tiantao6@hisilicon.com <mailto:tiantao6@hisilicon.com>>
->  >>>>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at
->  >>>>> warnings
->  >>>>>
->  >>>>>
->  >>>>>
->  >>>>> On 9/8/2021 1:14 PM, Yu, Lang wrote:
->  >>>>>> [AMD Official Use Only]
->  >>>>>>
->  >>>>>>
->  >>>>>>
->  >>>>>>> -----Original Message-----
->  >>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
->  >>>>>>> Sent: Wednesday, September 8, 2021 3:36 PM
->  >>>>>>> To: Christian König <ckoenig.leichtzumerken@gmail.com 
-> <mailto:ckoenig.leichtzumerken@gmail.com>>; Yu, Lang
->  >>>>>>> <Lang.Yu@amd.com <mailto:Lang.Yu@amd.com>>; 
-> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
->  >>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com 
-> <mailto:Alexander.Deucher@amd.com>>; Huang, Ray
->  >>>>>>> <Ray.Huang@amd.com <mailto:Ray.Huang@amd.com>>; Tian Tao 
-> <tiantao6@hisilicon.com <mailto:tiantao6@hisilicon.com>>
->  >>>>>>> Subject: Re: [PATCH] drm/amdgpu: fix sysfs_emit/sysfs_emit_at
->  >>>>>>> warnings
->  >>>>>>>
->  >>>>>>>
->  >>>>>>>
->  >>>>>>> On 9/8/2021 12:07 PM, Christian König wrote:
->  >>>>>>>> Am 08.09.21 um 07:56 schrieb Lang Yu:
->  >>>>>>>>> sysfs_emit and sysfs_emit_at requrie a page boundary aligned buf
->  >>>>>>>>> address. Make them happy!
->  >>>>>>>>>
->  >>>>>>>>> Warning Log:
->  >>>>>>>>> [  492.545174] invalid sysfs_emit_at: buf:00000000f19bdfde at:0 [
->  >>>>>>>>> 492.546416] WARNING: CPU: 7 PID: 1304 at fs/sysfs/file.c:765
->  >>>>>>>>> sysfs_emit_at+0x4a/0xa0
->  >>>>>>>>> [  492.654805] Call Trace:
->  >>>>>>>>> [  492.655353]  ? smu_cmn_get_metrics_table+0x40/0x50 [amdgpu] [
->  >>>>>>>>> 492.656780]  vangogh_print_clk_levels+0x369/0x410 [amdgpu] [
->  >>>>>>>>> 492.658245] vangogh_common_print_clk_levels+0x77/0x80 [amdgpu] [
->  >>>>>>>>> 492.659733]  ? preempt_schedule_common+0x18/0x30 [ 492.660713]
->  >>>>>>>>> smu_print_ppclk_levels+0x65/0x90 [amdgpu] [ 492.662107]
->  >>>>>>>>> amdgpu_get_pp_od_clk_voltage+0x13d/0x190 [amdgpu] [ 492.663620]
->  >>>>>>>>> dev_attr_show+0x1d/0x40
->  >>>>>>>>
->  >>>>>>>> Mhm, that at least partially doesn't looks like the right
->  >>>>>>>> approach to me.
->  >>>>>>>>
->  >>>>>>>> Why do we have string printing and sysfs code in the hardware
->  >>>>>>>> version specific backend in the first place?
->  >>>>>>>>
->  >>>>>>>
->  >>>>>>> This is a callback meant for printing ASIC specific information to
->  >>>>>>> sysfs node. The buffer passed in sysfs read is passed as it is
->  >>>>>>> to the callback API.
->  >>>>>>>
->  >>>>>>>> That stuff needs to be implemented for each hardware generation
->  >>>>>>>> and
->  >>>>>>>> is now cluttered with sysfs buffer offset calculations.
->  >>>>>>>>
->  >>>>>>>
->  >>>>>>> Looks like the warning happened because of this usage.
->  >>>>>>>
->  >>>>>>>                   size = amdgpu_dpm_print_clock_levels(adev,
->  >>>>>>> OD_SCLK, buf);
->  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->  >>>>>>> OD_MCLK,
->  >>>>>>> buf+size);
->  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->  >>>>>>> OD_VDDC_CURVE, buf+size);
->  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->  >>>>>>> OD_VDDGFX_OFFSET, buf+size);
->  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->  >>>>>>> OD_RANGE,
->  >>>>>>> buf+size);
->  >>>>>>>                   size += amdgpu_dpm_print_clock_levels(adev,
->  >>>>>>> OD_CCLK,
->  >>>>>>> buf+size);
->  >>>>>>>
->  >>>>>>>
->  >>>>>> [Yu, Lang]
->  >>>>>> Yes. So it is fine we just fix the caller
->  >>>>>> amdgpu_get_pp_od_clk_voltage like
->  >>>>> following:
->  >>>>>>
->  >>>>>> static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
->  >>>>>>         struct device_attribute *attr,
->  >>>>>>         char *buf)
->  >>>>>> {
->  >>>>>>     struct drm_device *ddev = dev_get_drvdata(dev);
->  >>>>>>     struct amdgpu_device *adev = drm_to_adev(ddev);
->  >>>>>>     ssize_t size, offset;
->  >>>>>>     int ret, i;
->  >>>>>>     char temp_buf[512];
->  >>>>>>     char clock_type[] = {OD_SCLK, OD_MCLK, OD_VDDC_CURVE,
->  >>>>>>                          OD_VDDGFX_OFFSET, OD_RANGE, OD_CCLK};
->  >>>>>>
->  >>>>>>     if (amdgpu_in_reset(adev))
->  >>>>>>         return -EPERM;
->  >>>>>>     if (adev->in_suspend && !adev->in_runpm)
->  >>>>>>         return -EPERM;
->  >>>>>>
->  >>>>>>     ret = pm_runtime_get_sync(ddev->dev);
->  >>>>>>     if (ret < 0) {
->  >>>>>>         pm_runtime_put_autosuspend(ddev->dev);
->  >>>>>>         return ret;
->  >>>>>>     }
->  >>>>>>
->  >>>>>>     offset = 0;
->  >>>>>>
->  >>>>>>     if (adev->powerplay.pp_funcs->print_clock_levels) {
->  >>>>>>         for (i = 0; i < ARRAY_SIZE(clock_type); i++) {
->  >>>>>>             size = amdgpu_dpm_print_clock_levels(adev,
->  >>>>> clock_type[i], buf);
->  >>>>>>             if (offset + size > PAGE_SIZE)
->  >>>>>>                 break;
->  >>>>>>             memcpy(temp_buf + offset, buf, size);
->  >>>>>>             offset += size;
->  >>>>>>         }
->  >>>>>>         memcpy(buf, temp_buf, offset);
->  >>>>>>         size = offset;
->  >>>>>>     } else {
->  >>>>>>         size = sysfs_emit(buf, "\n");
->  >>>>>>     }
->  >>>>>>     pm_runtime_mark_last_busy(ddev->dev);
->  >>>>>>     pm_runtime_put_autosuspend(ddev->dev);
->  >>>>>>
->  >>>>>>     return size;
->  >>>>>> }
->  >>>>>>
->  >>>>> Prefer to avoid any extra stack or heap usage for buffer. Maybe
->  >>>>> another arg to
->  >>>>> pass offset along with buf?
->  >>>>>
->  >>>> [Yu, Lang]
->  >>>> Actually, the buf address contains the offset(offset_in_page(buf)) .
->  >>>
->  >>> Though it's not a problem based on codeflow, static analysis tools
->  >>> might complain.
->  >>>
->  >>>> Or we just rollback to sprintf/snprintf.
->  >>>>
->  >>>
->  >>> snprintf with (PAGE_SIZE-size) may be simpler. I think Darren took
->  >>> the effort to convert these, he may have some other ideas.
-> The changes I made were intended to simply replace snprintf with 
-> sysfs_emit as per
-> 
-> linux/Documentation/filesystems/sysfs.rst:246,247
-> 
->   -  show() should only use sysfs_emit() or sysfs_emit_at() when formatting
-> 
->      the value to be returned to user space.
-> 
-> I specifically tried not to change the design, but only as I didn't have
-> 
-> background in Power Management.
-> 
->  >>
->  >> This is not what I meant. See from the design point of view the
->  >> print_clock_levels() callback is the bad idea to begin with.
->  >>
->  >> What we should have instead is a callback which returns the clock as
->  >> a value which is then printed in the amdgpu_get_pp_od_clk_voltage()
->  >> function.
->  >>
->  >> This avoids passing around the buffer and remaining size everywhere
->  >> and also guarantees that the sysfs have unified printing over all
->  >> hardware generations.
->  >>
->  >
->  > The scenario is one node used for multiple parameters - OD_SCLK,
->  > OD_CCLK, OD_VDDGFX_OFFSET etc.(mostly to avoid cluttering sysfs with
->  > lots of nodes). On top of it, the parameters supported (for ex: CCLK
->  > is not valid on dGPUs),  the number of levels supported etc. vary
->  > across ASICs. There has to be multiple calls or the call needs to
->  > return multiple values for a single parameter (for ex: up to 4, 8 or
->  > 16 levels of GFXCLK depending on ASIC).
-> 
-> Well exactly that is questionable design for sysfs.
-> 
-> See the sysfs_emit() and sysfs_emit_at() functions are designed the way
-> they are because you should have only one value per file, which is then
-> printed at exactly one location.
-> 
-> Take a look at the documentation for sysfs for more details.
-> 
->  > I don't know the history of the callback, mostly it was considered
->  > more efficient to print it directly rather than fetch and print.
->  > Alex/Evan may know the details.
-> 
-> Yeah, somebody with a bit more background in power management needs to
-> take a closer look at this here. Just keep me looped in.
-> 
-> Regards,
-> Christian.
-> 
->  >
->  > Thanks,
->  > Lijo
->  >
->  >> Regards,
->  >> Christian.
->  >>
-> 
+>
+> And as you already pointed out in reply to Alex we need to tighten the
+> selection criteria one way or another.
