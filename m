@@ -2,80 +2,128 @@ Return-Path: <SRS0=g6Hj=N7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC7D1C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 08:15:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2B72C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 08:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B5B460FE3
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 08:15:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7B5B460FE3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5D2C260FE3
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 08:17:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5D2C260FE3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6F9A6E489;
-	Thu,  9 Sep 2021 08:15:13 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5ED66E489
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 08:15:12 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id g16so1262672wrb.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Sep 2021 01:15:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=ZSpvEUEjFoCpkcz/+UlNz0b5fld3ymdDrK4IPdFaaHs=;
- b=UybEjfC9VKhvjjFHuI7Fz+oldDVsErCbNX/hHDv9V+mHVWq7RREAc6WTbrreqR55/d
- olvrUFjpTg3A6eWDv75HTUivQcl7B4pmtQ8OX0oUdFeJLn22jJHz6FIStR5sh1CWdd3p
- f5LwL4kujxZWjm64pou64csVhpx6NtqT21MRC/dnA+fDEEOX7IjKlTsqcj8CRbCx2q9u
- 0nGHOwXv7u/FPSyY0CvC/ioUGdE9scO3aWFpztnB+zgNISTZJaW0nSHsh/0yJmYxzw55
- kS5Tg7sqA9QEB6D4F0SsC3JqQ9XB53+rxK6B1ft0z4cidloyjcXa6Lwh1ugkblsgQ/lx
- 6EGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=ZSpvEUEjFoCpkcz/+UlNz0b5fld3ymdDrK4IPdFaaHs=;
- b=8AgBkeubKs/dpnlrEuA5UDbM/0XcE2axHFXQSaaieY2oWw6gQtOQMUP1TOCxmQT8AO
- yg+Chj77UP9qfWLt/gEqZDxzQYKf28k+qZ532cNnTnSm4iumRajJq+FD0GXwO6ndnlF3
- ofYyCg4pggplGPlSyt6ybKyDgXl36Zb4r3osRXsXNHhZ1SjLQw/bMWCDmcgyKtDMDRYM
- w6JP2kmE4PV4bbAcdUw+5LtM2GmG7EXqq9VwZFBCX1x1PDKi1DmN2M7mdoGlOrFlb438
- Nij74Zjm6F4e78gAQRRXji3jYwdidzOdAryduJlmMQG8dqdxIM9mDKOoe9xIZwPndxqf
- 33Rg==
-X-Gm-Message-State: AOAM530s7rmxjE1fCdSCfLYksveVfXzqql7IPdbOmAHlClGs9ehuVY9z
- ws/G0dG1ylhXQWRNgK5i+dS6SL7WkNQ=
-X-Google-Smtp-Source: ABdhPJxO2IiTGEQ5ReFxuXhD5dN2DsZR74uIvsDbR+4fM+HhwRrLzl2xpD01WAYEuRyRf16KZmaQww==
-X-Received: by 2002:adf:914a:: with SMTP id j68mr2022660wrj.73.1631175311223; 
- Thu, 09 Sep 2021 01:15:11 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:7140:364b:3af8:f004?
- ([2a02:908:1252:fb60:7140:364b:3af8:f004])
- by smtp.gmail.com with ESMTPSA id j18sm1059350wrd.56.2021.09.09.01.15.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Sep 2021 01:15:10 -0700 (PDT)
-Subject: Re: [PATCH 1/2] drm/amdgpu: Increase direct IB pool size
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <DM4PR12MB5165BCC3E4E26C7EE4E85F3B87D59@DM4PR12MB5165.namprd12.prod.outlook.com>
- <8c56cc27-a99b-3ea5-1bf7-59cad134fe21@amd.com>
- <DM4PR12MB51653E83408F2CA3F3D5029687D59@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <811a527a-e02a-744e-e507-c1230d74de4a@gmail.com>
-Date: Thu, 9 Sep 2021 10:15:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <DM4PR12MB51653E83408F2CA3F3D5029687D59@DM4PR12MB5165.namprd12.prod.outlook.com>
-Content-Type: multipart/alternative;
- boundary="------------B96C432349F11C7180867999"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 050E36E48C;
+	Thu,  9 Sep 2021 08:17:32 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2088.outbound.protection.outlook.com [40.107.93.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C436E48C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Sep 2021 08:17:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iWtrukri1gtRllyTe0Qiu0ZrFlkr44mVsHdnhYsJ6V+/QEsC1BCREslvtBrVYbtK27QDw2iCQQydJ7z/OfuZHi+Gh/bvX2pozQhokEAca+DBLg3f7XAQ4xRSA6Oo15hNE/IaqozLnaG2E4p9hdPlMJiuB6WSpNicVfwoGSZY8M3M5QN48W0pt3bASsL+zhYRPudL6M+9Wb+o8pX9KiuTkgLdGRRhORmcpFcCuyV3oQ4rMNDa9C1ca334GOj4+LzejngJ0yBEbk5kr9nRHbCMn1QGntrAw++/03w33ajC3wtuWexxSJdqo0dR1hpaUdPPX9xcnl/Phje8hjIkIvpMzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=ilhMbDvOUi87HfOa0dsvyvKhiBQ7yQ15G3G4YRNLuYY=;
+ b=Ajm+qj8Jg5E6+vGLTcRAE/jRT8RDiWVC9xfwkgz1Hn72Ef8ks9mOEuRChDZCbLYYeZZrHa8rGwHVo97GwfGEGdlPMaqaa19qhlY3jnZ8aAvQsbgLn/0uvzWcJjDYm/U23V55hFXmBoikvy8n++uLEycTenMWBBYuxqyjKJsOzqdgOzhbPPj5ahvLrJMdGr8MXIqykW1hIzuSNcKYbyILFnbYZHaOJoXcHBraQxvJ17FTJgUHx6fWbI06LqUy6NN6v7p0HeCR91jQXW4bQz0FQEbAVbtvlkpsHi99UtuMZSnwSyDVNXjoSA6lUqlVN1UNeHLPRgmeDKfwoih/vUHHPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ilhMbDvOUi87HfOa0dsvyvKhiBQ7yQ15G3G4YRNLuYY=;
+ b=phQvfgfL37LcV8kof+ZQ89Q2pHdWziAO4KILhwj9fBdxDkk7z69JeQYDYuJMURcH138eG4pFcsxVe3/L5hLxgEk4Re/qbotTUUtgbV1EwEQbSLkuIvBLuHirrLzRuBCy8zV58ucdAzCnLR0MHXcSSfAJPdND0wugFyT22srC0eo=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by BN9PR12MB5307.namprd12.prod.outlook.com (2603:10b6:408:104::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Thu, 9 Sep
+ 2021 08:17:29 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::5101:db26:96eb:2ce4]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::5101:db26:96eb:2ce4%6]) with mapi id 15.20.4500.016; Thu, 9 Sep 2021
+ 08:17:29 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Clements, John" <John.Clements@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Li, Candice" <Candice.Li@amd.com>
+Subject: RE: Subject: [PATCH 1/1] drm/amdgpu: Update RAS trigger error block
+ support
+Thread-Topic: Subject: [PATCH 1/1] drm/amdgpu: Update RAS trigger error block
+ support
+Thread-Index: AdelUHE4vkYZdNDaSlayBUdjMUdcqQAAqapg
+Date: Thu, 9 Sep 2021 08:17:29 +0000
+Message-ID: <BN9PR12MB52571CCB4656DA962A5D6900FCD59@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <BN9PR12MB52269FFD7928A6A2F697653EFBD59@BN9PR12MB5226.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB52269FFD7928A6A2F697653EFBD59@BN9PR12MB5226.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-09T08:17:25Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=a030baba-8cf1-40f4-b423-4482685f9af6;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: fca0238e-a6aa-44ea-7057-08d9736a4422
+x-ms-traffictypediagnostic: BN9PR12MB5307:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN9PR12MB530717242F3D234FDA42AE50FCD59@BN9PR12MB5307.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1468;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: o0LsQy//lXn9mVoCCOKopIcogxt/cWKv0jkwpyTyMfvaHLgsVZEXzJmMRHHN5XqDmfnT/Ifa1/+CbQIYV0suCcHumewVAPGxqLJY3aEWAhnzNU1JcGgfOoielOaU2POMaC2Ga6ExjSXg8rNawYqhRo2dKNojj+DpvFovhoFlZcDknPMQgTaxOhvykk7VMWekmLGgpXkDwmtq6AdARP3KAel26b7d11HVSd2J2M2sBKua5j9UrnwYw8nViCNusDEZsd8UzgMH7lGlAGLjL5fKYup4Y4qskRxFP0X5J532yszQ8gbWc439aG4jfek+MgHazdYhr3lwtdqQgkeXhznCeQPv229wlGv0JI3iuYeWfOywUMGIWyc26TBOLxWVpCvFAJEKY89VxVIxSaX66dS8sCpNCDhfm3lW+J7B0uUy5agpOZzixdnWdVyyxrPY1jkQkhRQZzbLRRvE809Ps2I3+EqxJENynliP1D71XQ73Ye05Lhx9nkwpTZwKLCoG02xkcCfsFReXXdyrlNtJMuriaX9sZ9e/7Bbmlx5ZOEzkC1GTFG2k0bRDq5JQ/GfJgcVSXA6+zThUolwZcEqxP9Ke0NXjbI+zpb2v694VhOgI6qohIiXttdxGMgY3NzpWJHQ2mk1MfEj4GH2oojeDnYWLhBysF9hZAy/dIqusm6llIWQj0aa78j2ackudjFJp8YnPe8EV8v1/HWjZGJAkz6oFjQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(39860400002)(136003)(366004)(396003)(316002)(38100700002)(86362001)(33656002)(66476007)(66556008)(122000001)(66946007)(64756008)(66446008)(52536014)(7696005)(15650500001)(38070700005)(8676002)(4744005)(26005)(53546011)(2906002)(6506007)(71200400001)(8936002)(186003)(9686003)(110136005)(478600001)(76116006)(6636002)(5660300002)(55016002)(83380400001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?9bXRphlpIxRWV26JwqtIvHwuCvvmZ8rQiEFcptVZmQDIacqbJD8ie3nLzq/o?=
+ =?us-ascii?Q?gAnphXLy/EwfPyszvbxEjBkWHiwD/VbdI/3aBd3cRW6O2r/cCtOoJfV8u2Z2?=
+ =?us-ascii?Q?jNOdp/UrV4zP8uyxNdbCa+Zy8deWPvqFuOPKtzbfbhF2WBkPLKZ2fBxhg+SA?=
+ =?us-ascii?Q?8wmz+yt/wbPLOpGJwM33oWjEiSDDKnD9hQq4fGJuZjPACx+5VohMnfUstGhS?=
+ =?us-ascii?Q?purNz/DN2ZrggiC/mV14xcJCpm15/JS8ARszyp3qBLXgP4erIWj39ohIQNJ/?=
+ =?us-ascii?Q?8/nBmPe1j0jrtrS0Ubw998r/MgA+i40RvLpcuZqnyD+hA16vrgLyYG8d2Ifc?=
+ =?us-ascii?Q?yOoDWI1wGTdzebxGEYKw61qknswTqObUSjHFso+PmUG6zC8lybq/5BvpoBuM?=
+ =?us-ascii?Q?bSUsLfxm9X9N0s0leKGVmlpsCnmEJvbGXgy4U7WLVsSV0SS0qc4K2/wOnEoT?=
+ =?us-ascii?Q?B7vcN+m7xJTz6tar0qrxJfvq+7jxbOGcYwBE+3J1l/glaYTITDBHWUseEIsd?=
+ =?us-ascii?Q?SWWngXd5RHEngoXKO/1TG+qmr/fCNpBl9ycsLMdHCx4p2A5lrDt1qxXsA/pX?=
+ =?us-ascii?Q?1nbAWhpL8TtJf7COHy0a+6RiLljwvsM2hI4RlhFtokXGIp4B+0iTpYi8xd66?=
+ =?us-ascii?Q?ZX2Gepbs+FWXtp15E9VIo6JgzQXTVZcPnrffRuPAD6T34a5Cgd/jRcpjYxwM?=
+ =?us-ascii?Q?Te15dQWNsf5xeJleN8UofVCnztDGJBFUIhCmcTeaYF2AiJ73Hm7f+EnVZ8Gl?=
+ =?us-ascii?Q?Fd1vBQJmUaYmwAv9lw4jwuOdEHE5/PLstUVdhww9vN2ArjPqninbBSriP79g?=
+ =?us-ascii?Q?BZzwN4doqZoKTIoMnwBRnsAFHAhmftIbYS8exJfgnzkx+ZKyY/VySBbwgVbP?=
+ =?us-ascii?Q?tJpzO+6zWvH+Bp+dCgXc/tfuU8zrnowRCAxW91CinDZfFs74M95Ka4wWKvbD?=
+ =?us-ascii?Q?M7hXernFx0GP4UNjqpiXyzpJLcOAc77bhkqr5ZOEJwC0bfJBXj+WYbWqWi4A?=
+ =?us-ascii?Q?2pZ7jNXDxmwy6EWw/F8jX4VQr88TLMG6sXkQDCsDYxIC3etd+omd/0fS2t6Y?=
+ =?us-ascii?Q?qJBor4P5Pm7t5VUVG5CAH1Ua70ZihTwSjovRFYgJndfHOcRRMkdYnQPSTn5J?=
+ =?us-ascii?Q?dVFl7LizYWa4aniV0MdpeM2NSnty1bNr9Ei7eAM83elYbo7nydbKCtaT5Tot?=
+ =?us-ascii?Q?SxgvORpTGauun4Vr2ddw2DOnfahMtSsNt+h+KcFN9PRnC03qoTl95tHget0X?=
+ =?us-ascii?Q?WyU9jHxZPjPPHbVg/m9lc0thG21rTwqHXvXQTtTvZCSaMJo6tnyUF35x92QG?=
+ =?us-ascii?Q?bQ2eWPHIOW8ZsILFr06YeUUs?=
+Content-Type: multipart/alternative;
+ boundary="_000_BN9PR12MB52571CCB4656DA962A5D6900FCD59BN9PR12MB5257namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fca0238e-a6aa-44ea-7057-08d9736a4422
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2021 08:17:29.4917 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JDIOHn7PfAduRP/AmI5cuGnTYZrKi9cIdC7a/qSKLXuT+qG5c3CZ06syjuR0uVE6yma6HlvMNxfOF5gLE9SLSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,186 +138,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------B96C432349F11C7180867999
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_BN9PR12MB52571CCB4656DA962A5D6900FCD59BN9PR12MB5257namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Ok, good to know. That's probably the reason why we didn't push that 
-stuff into the IB in the first place.
+[AMD Official Use Only]
 
-And yes, using fixed 256kiB sounds like a plan to me then, but please 
-also double check the AMDGPU_IB_POOL_SIZE define.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-I also won't mind if you just open code the two initialization since 
-there probably will never be any more than that.
-
-Thanks,
-Christian.
-
-Am 09.09.21 um 09:57 schrieb Pan, Xinhui:
->
-> [AMD Official Use Only]
->
->
-> yep, vcn need 128kb extra memory.  I will make the pool size constant 
-> as 256kb.
-> ------------------------------------------------------------------------
-> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> *Sent:* Thursday, September 9, 2021 3:14:15 PM
-> *To:* Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>
-> *Subject:* Re: [PATCH 1/2] drm/amdgpu: Increase direct IB pool size
-> Am 09.09.21 um 07:54 schrieb Pan, Xinhui:
-> > [AMD Official Use Only]
-> >
-> > Direct IB pool is used for vce/uvd/vcn IB extra msg too. Increase its
-> > size to 64 pages.
->
-> Do you really run into issues with that? 64 pages are 256kiB on x86 and
-> the extra msg are maybe 2kiB.
->
-> Additional to that we should probably make this a constant independent
-> of the CPU page size.
->
-> Christian.
->
-> >
-> > Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> > index c076a6b9a5a2..cd2c7073fdd9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> > @@ -308,7 +308,7 @@ int amdgpu_ib_pool_init(struct amdgpu_device *adev)
-> >
-> >          for (i = 0; i < AMDGPU_IB_POOL_MAX; i++) {
-> >                  if (i == AMDGPU_IB_POOL_DIRECT)
-> > -                       size = PAGE_SIZE * 6;
-> > +                       size = PAGE_SIZE * 64;
-> >                  else
-> >                          size = AMDGPU_IB_POOL_SIZE;
-> >
-> > --
-> > 2.25.1
-> >
->
+Regards,
+Hawking
+From: Clements, John <John.Clements@amd.com>
+Sent: Thursday, September 9, 2021 15:59
+To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
+Li, Candice <Candice.Li@amd.com>
+Subject: Subject: [PATCH 1/1] drm/amdgpu: Update RAS trigger error block su=
+pport
 
 
---------------B96C432349F11C7180867999
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+[AMD Official Use Only]
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body>
-    Ok, good to know. That's probably the reason why we didn't push that
-    stuff into the IB in the first place.<br>
-    <br>
-    And yes, using fixed 256kiB sounds like a plan to me then, but
-    please also double check the AMDGPU_IB_POOL_SIZE define.<br>
-    <br>
-    I also won't mind if you just open code the two initialization since
-    there probably will never be any more than that. <br>
-    <br>
-    Thanks,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 09.09.21 um 09:57 schrieb Pan,
-      Xinhui:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:DM4PR12MB51653E83408F2CA3F3D5029687D59@DM4PR12MB5165.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <p
-        style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;"
-        align="Left">
-        [AMD Official Use Only]<br>
-      </p>
-      <br>
-      <div>
-        <div dir="auto" style="direction: ltr; margin: 0px; padding:
-          0px; font-family: sans-serif; font-size: 11pt; color: black;
-          text-align: left;">
-          yep, vcn need 128kb extra memory.  I will make the pool size
-          constant as 256kb. </div>
-        <hr style="display:inline-block;width:98%" tabindex="-1">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
-            <b>Sent:</b> Thursday, September 9, 2021 3:14:15 PM<br>
-            <b>To:</b> Pan, Xinhui <a class="moz-txt-link-rfc2396E" href="mailto:Xinhui.Pan@amd.com">&lt;Xinhui.Pan@amd.com&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-            <b>Cc:</b> Deucher, Alexander
-            <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Increase direct
-            IB pool size</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt;">
-              <div class="PlainText">Am 09.09.21 um 07:54 schrieb Pan,
-                Xinhui:<br>
-                &gt; [AMD Official Use Only]<br>
-                &gt;<br>
-                &gt; Direct IB pool is used for vce/uvd/vcn IB extra msg
-                too. Increase its<br>
-                &gt; size to 64 pages.<br>
-                <br>
-                Do you really run into issues with that? 64 pages are
-                256kiB on x86 and <br>
-                the extra msg are maybe 2kiB.<br>
-                <br>
-                Additional to that we should probably make this a
-                constant independent <br>
-                of the CPU page size.<br>
-                <br>
-                Christian.<br>
-                <br>
-                &gt;<br>
-                &gt; Signed-off-by: xinhui pan
-                <a class="moz-txt-link-rfc2396E" href="mailto:xinhui.pan@amd.com">&lt;xinhui.pan@amd.com&gt;</a><br>
-                &gt; ---<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 2 +-<br>
-                &gt;   1 file changed, 1 insertion(+), 1 deletion(-)<br>
-                &gt;<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
-                &gt; index c076a6b9a5a2..cd2c7073fdd9 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
-                &gt; @@ -308,7 +308,7 @@ int amdgpu_ib_pool_init(struct
-                amdgpu_device *adev)<br>
-                &gt;<br>
-                &gt;          for (i = 0; i &lt; AMDGPU_IB_POOL_MAX;
-                i++) {<br>
-                &gt;                  if (i == AMDGPU_IB_POOL_DIRECT)<br>
-                &gt; -                       size = PAGE_SIZE * 6;<br>
-                &gt; +                       size = PAGE_SIZE * 64;<br>
-                &gt;                  else<br>
-                &gt;                          size =
-                AMDGPU_IB_POOL_SIZE;<br>
-                &gt;<br>
-                &gt; --<br>
-                &gt; 2.25.1<br>
-                &gt;<br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
+Submitting patch to update RAS trigger error to support additional blocks
+
+--_000_BN9PR12MB52571CCB4656DA962A5D6900FCD59BN9PR12MB5257namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
+	{mso-style-name:msipheadera4477989;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com=
+&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<br>
+Hawking<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
+m&gt; <br>
+<b>Sent:</b> Thursday, September 9, 2021 15:59<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org; Zhang, Hawking &lt;Hawking.Zhang@=
+amd.com&gt;; Li, Candice &lt;Candice.Li@amd.com&gt;<br>
+<b>Subject:</b> Subject: [PATCH 1/1] drm/amdgpu: Update RAS trigger error b=
+lock support<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Submitting patch to update RAS trigger error to supp=
+ort additional blocks<o:p></o:p></p>
+</div>
+</body>
 </html>
 
---------------B96C432349F11C7180867999--
+--_000_BN9PR12MB52571CCB4656DA962A5D6900FCD59BN9PR12MB5257namp_--
