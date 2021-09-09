@@ -5,46 +5,47 @@ X-Spam-Level:
 X-Spam-Status: No, score=-19.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E59A7C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:52:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C069BC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B941961B31
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B941961B31
+	by mail.kernel.org (Postfix) with ESMTPS id 8ED6A61362
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8ED6A61362
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 877786E7D9;
-	Thu,  9 Sep 2021 11:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9A1B6E802;
+	Thu,  9 Sep 2021 11:53:27 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEED76E7D9;
- Thu,  9 Sep 2021 11:52:11 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CFE0961B2C;
- Thu,  9 Sep 2021 11:52:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C722F6E7F1;
+ Thu,  9 Sep 2021 11:53:23 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A678761B54;
+ Thu,  9 Sep 2021 11:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188331;
- bh=NFrGmOjQVLMvV/HpF5LMSqtHkHIDEbEEUZZB9yULr2g=;
+ s=k20201202; t=1631188403;
+ bh=VhGEEEhCadpoX8sJ7wF6ti6HEh/hkg6HaHOAQWnfBjk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XFuiyUEa8Tgw0/Y5l+MMC6j0/UhxIEWQUsinYyAyIp/Ki9VKAEV3fzgAHvMidp+XL
- aPk1AdlUbGVHhW/1eEzIekgHr3BwFVf+74VLAmpon9TeCjH7sGU/lloZ84mELPECk9
- CCnskyOJgMoRckZfZDW4D0GgrbdvJ/5+StyrWvsGhGRgdonUdGoMDRAMODBmL2UdyV
- VlLKrp49CKezDGHG245xP1eCx9Ey7f8x1oGRQ2jzuVTXr03pFFXZR/MNMKWcub87tk
- H/hiuW7m9qGClhNc0z2E+zsW7TIqCqKAZnQ2yhsL3iqRlR6E/0dhtqJP32oXOOdA6x
- +AuDtGhlXJs0w==
+ b=YLGrKkLfFB8LTstCHA3sxzA7/PBGCVSgg+h94UMdrZTN+B51F1Cp6GjhCd85Q98cf
+ l/kVdFp9ka6KtKqjRPk1fU6GWGz2KUoxraAjVFtrXsHALUJ27/UXdz6f2+X+qlpjRJ
+ LakigYms1ZpEn9EdrxozN8cnKqgCtXSdCFjXwnwjS6qoxcY/LuYIPpCoB7MxE9UvBu
+ bjXv2yOMqDJANPfT5tI5+GoWF5PY0TeoCPdjZWzvtR+Z2TN7RbaHHiB1m1Trjunqez
+ JFn9g9oTqagPganloyqAsMx0N/iVp0nIfc6cIkZTuVpHtEaIL6GWQREeLb9MC77h3X
+ ZId1qgQ1Yrkgw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Anson Jacob <Anson.Jacob@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+Cc: Roy Chan <roy.chan@amd.com>, Anson Jacob <Anson.Jacob@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.10 041/176] drm/amd/amdgpu: Update debugfs
- link_settings output link_rate field in hex
-Date: Thu,  9 Sep 2021 07:49:03 -0400
-Message-Id: <20210909115118.146181-41-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 097/176] drm/amd/display: fix missing writeback
+ disablement if plane is removed
+Date: Thu,  9 Sep 2021 07:49:59 -0400
+Message-Id: <20210909115118.146181-97-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909115118.146181-1-sashal@kernel.org>
 References: <20210909115118.146181-1-sashal@kernel.org>
@@ -66,72 +67,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anson Jacob <Anson.Jacob@amd.com>
+From: Roy Chan <roy.chan@amd.com>
 
-[ Upstream commit 1a394b3c3de2577f200cb623c52a5c2b82805cec ]
+[ Upstream commit 82367e7f22d085092728f45fd5fbb15e3fb997c0 ]
 
-link_rate is updated via debugfs using hex values, set it to output
-in hex as well.
+[Why]
+If the plane has been removed, the writeback disablement logic
+doesn't run
 
-eg: Resolution: 1920x1080@144Hz
-cat /sys/kernel/debug/dri/0/DP-1/link_settings
-Current:  4  0x14  0  Verified:  4  0x1e  0  Reported:  4  0x1e  16  Preferred:  0  0x0  0
+[How]
+fix the logic order
 
-echo "4 0x1e" > /sys/kernel/debug/dri/0/DP-1/link_settings
-
-cat /sys/kernel/debug/dri/0/DP-1/link_settings
-Current:  4  0x1e  0  Verified:  4  0x1e  0  Reported:  4  0x1e  16  Preferred:  4  0x1e  0
-
-Signed-off-by: Anson Jacob <Anson.Jacob@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Acked-by: Anson Jacob <Anson.Jacob@amd.com>
+Signed-off-by: Roy Chan <roy.chan@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c    | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 14 ++++++++------
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 12 +++++++++++-
+ 2 files changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index e02a55fc1382..fbb65c95464b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -197,29 +197,29 @@ static ssize_t dp_link_settings_read(struct file *f, char __user *buf,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 9d3ccdd35582..79a2b9c785f0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1704,13 +1704,15 @@ void dcn20_program_front_end_for_ctx(
+ 				dcn20_program_pipe(dc, pipe, context);
+ 				pipe = pipe->bottom_pipe;
+ 			}
+-			/* Program secondary blending tree and writeback pipes */
+-			pipe = &context->res_ctx.pipe_ctx[i];
+-			if (!pipe->prev_odm_pipe && pipe->stream->num_wb_info > 0
+-					&& (pipe->update_flags.raw || pipe->plane_state->update_flags.raw || pipe->stream->update_flags.raw)
+-					&& hws->funcs.program_all_writeback_pipes_in_tree)
+-				hws->funcs.program_all_writeback_pipes_in_tree(dc, pipe->stream, context);
+ 		}
++		/* Program secondary blending tree and writeback pipes */
++		pipe = &context->res_ctx.pipe_ctx[i];
++		if (!pipe->top_pipe && !pipe->prev_odm_pipe
++				&& pipe->stream && pipe->stream->num_wb_info > 0
++				&& (pipe->update_flags.raw || (pipe->plane_state && pipe->plane_state->update_flags.raw)
++					|| pipe->stream->update_flags.raw)
++				&& hws->funcs.program_all_writeback_pipes_in_tree)
++			hws->funcs.program_all_writeback_pipes_in_tree(dc, pipe->stream, context);
+ 	}
+ }
  
- 	rd_buf_ptr = rd_buf;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 97909d5aab34..22c77e96f6a5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -396,12 +396,22 @@ void dcn30_program_all_writeback_pipes_in_tree(
+ 			for (i_pipe = 0; i_pipe < dc->res_pool->pipe_count; i_pipe++) {
+ 				struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i_pipe];
  
--	str_len = strlen("Current:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Current:  %d  %d  %d  ",
-+	str_len = strlen("Current:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Current:  %d  0x%x  %d  ",
- 			link->cur_link_settings.lane_count,
- 			link->cur_link_settings.link_rate,
- 			link->cur_link_settings.link_spread);
- 	rd_buf_ptr += str_len;
++				if (!pipe_ctx->plane_state)
++					continue;
++
+ 				if (pipe_ctx->plane_state == wb_info.writeback_source_plane) {
+ 					wb_info.mpcc_inst = pipe_ctx->plane_res.mpcc_inst;
+ 					break;
+ 				}
+ 			}
+-			ASSERT(wb_info.mpcc_inst != -1);
++
++			if (wb_info.mpcc_inst == -1) {
++				/* Disable writeback pipe and disconnect from MPCC
++				 * if source plane has been removed
++				 */
++				dc->hwss.disable_writeback(dc, wb_info.dwb_pipe_inst);
++				continue;
++			}
  
--	str_len = strlen("Verified:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Verified:  %d  %d  %d  ",
-+	str_len = strlen("Verified:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Verified:  %d  0x%x  %d  ",
- 			link->verified_link_cap.lane_count,
- 			link->verified_link_cap.link_rate,
- 			link->verified_link_cap.link_spread);
- 	rd_buf_ptr += str_len;
- 
--	str_len = strlen("Reported:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Reported:  %d  %d  %d  ",
-+	str_len = strlen("Reported:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Reported:  %d  0x%x  %d  ",
- 			link->reported_link_cap.lane_count,
- 			link->reported_link_cap.link_rate,
- 			link->reported_link_cap.link_spread);
- 	rd_buf_ptr += str_len;
- 
--	str_len = strlen("Preferred:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  %d  %d\n",
-+	str_len = strlen("Preferred:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  0x%x  %d\n",
- 			link->preferred_link_setting.lane_count,
- 			link->preferred_link_setting.link_rate,
- 			link->preferred_link_setting.link_spread);
+ 			ASSERT(wb_info.dwb_pipe_inst < dc->res_pool->res_cap->num_dwb);
+ 			dwb = dc->res_pool->dwbc[wb_info.dwb_pipe_inst];
 -- 
 2.30.2
 
