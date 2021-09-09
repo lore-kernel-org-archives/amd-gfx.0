@@ -7,47 +7,48 @@ X-Spam-Status: No, score=-19.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 176BDC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E437DC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:51:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DEA7B61AE1
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:50:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DEA7B61AE1
+	by mail.kernel.org (Postfix) with ESMTPS id B940F61B05
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:51:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B940F61B05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6176E5D4;
-	Thu,  9 Sep 2021 11:50:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAC426E7D2;
+	Thu,  9 Sep 2021 11:51:22 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD6C66E5D4;
- Thu,  9 Sep 2021 11:50:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D13F761AE4;
- Thu,  9 Sep 2021 11:50:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E535C6E7D1;
+ Thu,  9 Sep 2021 11:51:21 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CFC9161AFB;
+ Thu,  9 Sep 2021 11:51:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188250;
- bh=BJ5jpffpZV24DZA1GQvEEw0dm+XQ1zpkg6i3g/vhDS0=;
+ s=k20201202; t=1631188281;
+ bh=66PsxHGFF27Jtkv9Tx0NBeYhrP2C21IWHYups0lC3cM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YIdwS7bcNBCfdwRyEHb9s51nfgPWmfwcCpLHCC/xKUBLZ+KTXgnwg1bXBBAxgFCxT
- 4FWOMKYK/sAODb+qWymks5nCP/nj7YtdZPlPt9bGdCjh5SC7kr7GH/+ZeVvw7mo93V
- 8RKah/9rMvN5guB4ON5atq92ExLYWU5lN1Ot6vqYrEJ21+1YERFXeqRfjTlYKiH23o
- dKB99AQ89aVBp09Onk9Zdb4T0OMbFraGdwwfpylv30lLkRlv03ySmbqblDLwHgq0KK
- XqFC8etbYul2LaNEogLQmGT6Ht47CaPuLAjlqTvvpcca+cL3VmFBHB/9Q23ttlSvy6
- B0aw1RIns3pZw==
+ b=rzeErnJQGc6ApPTB2vJeajUp5fRjdyRui1eC6DWvPoKYVwKFD/FyL5Vv4IDIFIl3u
+ Q0cMBfkhlUYkQWN2t6cTLRKTWYfC3dSWIG43ma+1rUR2nw2PL6Ejrz6R/jo6ck8n7Q
+ /wvd5eR8JjyTDJxG/x6wCnHaMVhs/ic+4QTuqmFVGIsKkmjz/vw2kaacYqpvHoltAZ
+ cutnonBbKtDYbi8pkdHQNi67IIqSjHoTzhpHh2QKRbcx2wQ89mMeSiV/eFpWHoMeS5
+ 7s9l0IUeMGN4NuJSiKTRvwWCGVUTOQzUYanhqXa2le9Ksh3ETS1BThzsIVhZmpdj1x
+ xccX9RA4EOwYA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Sean Keely <Sean.Keely@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+Cc: Luben Tuikov <luben.tuikov@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.13 198/219] drm/amdkfd: Account for SH/SE count when
- setting up cu masks.
-Date: Thu,  9 Sep 2021 07:46:14 -0400
-Message-Id: <20210909114635.143983-198-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 002/176] drm/amdgpu: Fix amdgpu_ras_eeprom_init()
+Date: Thu,  9 Sep 2021 07:48:24 -0400
+Message-Id: <20210909115118.146181-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
-References: <20210909114635.143983-1-sashal@kernel.org>
+In-Reply-To: <20210909115118.146181-1-sashal@kernel.org>
+References: <20210909115118.146181-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -66,148 +67,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sean Keely <Sean.Keely@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
 
-[ Upstream commit 1ec06c2dee679e9f089e78ed20cb74ee90155f61 ]
+[ Upstream commit dce4400e6516d18313d23de45b5be8a18980b00e ]
 
-On systems with multiple SH per SE compute_static_thread_mgmt_se#
-is split into independent masks, one for each SH, in the upper and
-lower 16 bits.  We need to detect this and apply cu masking to each
-SH.  The cu mask bits are assigned first to each SE, then to
-alternate SHs, then finally to higher CU id.  This ensures that
-the maximum number of SPIs are engaged as early as possible while
-balancing CU assignment to each SH.
+No need to account for the 2 bytes of EEPROM
+address--this is now well abstracted away by
+the fixes the the lower layers.
 
-v2: Use max SH/SE rather than max SH in cu_per_sh.
-
-v3: Fix comment blocks, ensure se_mask is initially zero filled,
-    and correctly assign se.sh.cu positions to unset bits in cu_mask.
-
-Signed-off-by: Sean Keely <Sean.Keely@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+Acked-by: Alexander Deucher <Alexander.Deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c | 84 +++++++++++++++-----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h |  1 +
- 2 files changed, 64 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-index 88813dad731f..c021519af810 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-@@ -98,36 +98,78 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
- 		uint32_t *se_mask)
- {
- 	struct kfd_cu_info cu_info;
--	uint32_t cu_per_se[KFD_MAX_NUM_SE] = {0};
--	int i, se, sh, cu = 0;
--
-+	uint32_t cu_per_sh[KFD_MAX_NUM_SE][KFD_MAX_NUM_SH_PER_SE] = {0};
-+	int i, se, sh, cu;
- 	amdgpu_amdkfd_get_cu_info(mm->dev->kgd, &cu_info);
- 
- 	if (cu_mask_count > cu_info.cu_active_number)
- 		cu_mask_count = cu_info.cu_active_number;
- 
-+	/* Exceeding these bounds corrupts the stack and indicates a coding error.
-+	 * Returning with no CU's enabled will hang the queue, which should be
-+	 * attention grabbing.
-+	 */
-+	if (cu_info.num_shader_engines > KFD_MAX_NUM_SE) {
-+		pr_err("Exceeded KFD_MAX_NUM_SE, chip reports %d\n", cu_info.num_shader_engines);
-+		return;
-+	}
-+	if (cu_info.num_shader_arrays_per_engine > KFD_MAX_NUM_SH_PER_SE) {
-+		pr_err("Exceeded KFD_MAX_NUM_SH, chip reports %d\n",
-+			cu_info.num_shader_arrays_per_engine * cu_info.num_shader_engines);
-+		return;
-+	}
-+	/* Count active CUs per SH.
-+	 *
-+	 * Some CUs in an SH may be disabled.	HW expects disabled CUs to be
-+	 * represented in the high bits of each SH's enable mask (the upper and lower
-+	 * 16 bits of se_mask) and will take care of the actual distribution of
-+	 * disabled CUs within each SH automatically.
-+	 * Each half of se_mask must be filled only on bits 0-cu_per_sh[se][sh]-1.
-+	 *
-+	 * See note on Arcturus cu_bitmap layout in gfx_v9_0_get_cu_info.
-+	 */
- 	for (se = 0; se < cu_info.num_shader_engines; se++)
- 		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++)
--			cu_per_se[se] += hweight32(cu_info.cu_bitmap[se % 4][sh + (se / 4)]);
--
--	/* Symmetrically map cu_mask to all SEs:
--	 * cu_mask[0] bit0 -> se_mask[0] bit0;
--	 * cu_mask[0] bit1 -> se_mask[1] bit0;
--	 * ... (if # SE is 4)
--	 * cu_mask[0] bit4 -> se_mask[0] bit1;
-+			cu_per_sh[se][sh] = hweight32(cu_info.cu_bitmap[se % 4][sh + (se / 4)]);
-+
-+	/* Symmetrically map cu_mask to all SEs & SHs:
-+	 * se_mask programs up to 2 SH in the upper and lower 16 bits.
-+	 *
-+	 * Examples
-+	 * Assuming 1 SH/SE, 4 SEs:
-+	 * cu_mask[0] bit0 -> se_mask[0] bit0
-+	 * cu_mask[0] bit1 -> se_mask[1] bit0
-+	 * ...
-+	 * cu_mask[0] bit4 -> se_mask[0] bit1
-+	 * ...
-+	 *
-+	 * Assuming 2 SH/SE, 4 SEs
-+	 * cu_mask[0] bit0 -> se_mask[0] bit0 (SE0,SH0,CU0)
-+	 * cu_mask[0] bit1 -> se_mask[1] bit0 (SE1,SH0,CU0)
-+	 * ...
-+	 * cu_mask[0] bit4 -> se_mask[0] bit16 (SE0,SH1,CU0)
-+	 * cu_mask[0] bit5 -> se_mask[1] bit16 (SE1,SH1,CU0)
-+	 * ...
-+	 * cu_mask[0] bit8 -> se_mask[0] bit1 (SE0,SH0,CU1)
- 	 * ...
-+	 *
-+	 * First ensure all CUs are disabled, then enable user specified CUs.
- 	 */
--	se = 0;
--	for (i = 0; i < cu_mask_count; i++) {
--		if (cu_mask[i / 32] & (1 << (i % 32)))
--			se_mask[se] |= 1 << cu;
--
--		do {
--			se++;
--			if (se == cu_info.num_shader_engines) {
--				se = 0;
--				cu++;
-+	for (i = 0; i < cu_info.num_shader_engines; i++)
-+		se_mask[i] = 0;
-+
-+	i = 0;
-+	for (cu = 0; cu < 16; cu++) {
-+		for (sh = 0; sh < cu_info.num_shader_arrays_per_engine; sh++) {
-+			for (se = 0; se < cu_info.num_shader_engines; se++) {
-+				if (cu_per_sh[se][sh] > cu) {
-+					if (cu_mask[i / 32] & (1 << (i % 32)))
-+						se_mask[se] |= 1 << (cu + sh * 16);
-+					i++;
-+					if (i == cu_mask_count)
-+						return;
-+				}
- 			}
--		} while (cu >= cu_per_se[se] && cu < 32);
-+		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 0e64c39a2372..7c3efc5f1be0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -305,7 +305,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+ 		return ret;
  	}
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-index b5e2ea7550d4..6e6918ccedfd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-@@ -27,6 +27,7 @@
- #include "kfd_priv.h"
  
- #define KFD_MAX_NUM_SE 8
-+#define KFD_MAX_NUM_SH_PER_SE 2
+-	__decode_table_header_from_buff(hdr, &buff[2]);
++	__decode_table_header_from_buff(hdr, buff);
  
- /**
-  * struct mqd_manager
+ 	if (hdr->header == EEPROM_TABLE_HDR_VAL) {
+ 		control->num_recs = (hdr->tbl_size - EEPROM_TABLE_HEADER_SIZE) /
 -- 
 2.30.2
 
