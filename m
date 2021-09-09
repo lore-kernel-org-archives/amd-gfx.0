@@ -7,44 +7,45 @@ X-Spam-Status: No, score=-19.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70D6DC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E505C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:42:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 448EF6120C
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:42:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 448EF6120C
+	by mail.kernel.org (Postfix) with ESMTPS id 6029A6124D
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:42:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6029A6124D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07CD06E511;
-	Thu,  9 Sep 2021 11:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 058876E51C;
+	Thu,  9 Sep 2021 11:42:55 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 441CD6E50E;
- Thu,  9 Sep 2021 11:42:28 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 34584611ED;
- Thu,  9 Sep 2021 11:42:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4A356E51A;
+ Thu,  9 Sep 2021 11:42:53 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B4421611CE;
+ Thu,  9 Sep 2021 11:42:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631187748;
- bh=ulbsb48wRT2W0GQ5i+5xZwCH0E2xEHJwsmVEZAmn/xM=;
+ s=k20201202; t=1631187773;
+ bh=WNI+MCurftRnG04/cAAncVCu0T2V7AVRB41i1UNH/r4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pVk9GK0Vwtnkz1rks8ZIoEeRbHPjg3jumgMBBqWmvexu2j9pCgdTUDeC6cB34DyuB
- Bk7RYmUy8GL4x8omviIYr8zaBZq2XDf/H+oSS7lnIHmnFiD4fgFggiqcivn57nHNt+
- Euj4u9MlY/pIwGw3lhImlJL+4L0uGBIGPL94sxUCtxhT2y3dvevZhUHXcqm2KrwKgd
- z3jd6RE6FTmMfxiHkeTrUVF1qqIooI1aQkz1u787Oqp/w7pqtqlKYaPCx7E3i11HEj
- veM6xk2hzToakiBEdrolWaRWXN1x/JzTYx0q/BUjeERG5myT29mhsGFySTo5Fl0k+w
- FBepAmDdCR3OQ==
+ b=LiN7IlocnQMfOvg2xZoKcjwmX/n1QzGGRVzgr0Q/rBq3YIIoGhkZQatchfCnAC0Rv
+ T71orvtkezfW/SeARaBzL88EfwBX4MOyJDhAHCKkKOtI//uWtETFD5TxEIUVs+TmcT
+ N/+BmPZfZlfNM2W/D9kSvaXc+ySWi0Hs+2zckfLBWbM+KrDIcxiDDj5Dqhs4/1+gAq
+ pGyfa17uQJhx6F6OzRe6Ho5Gf3iy37a7v77TK7REIKW80ZCFwxiMCvNLocHR6oB8CE
+ 0VA9Pd7rIlCMSkEqp7r5PStpAh7GB2+sLXIO7dAm3GBxI86UN3wc9ZErnrkRQrHTdM
+ kp5E+WV0DShuw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Anson Jacob <Anson.Jacob@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+Cc: Mikita Lipski <mikita.lipski@amd.com>, Wood Wyatt <Wyatt.Wood@amd.com>,
+ Solomon Chiu <solomon.chiu@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.14 063/252] drm/amd/amdgpu: Update debugfs
- link_settings output link_rate field in hex
-Date: Thu,  9 Sep 2021 07:37:57 -0400
-Message-Id: <20210909114106.141462-63-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.14 084/252] drm/amd/display: Fix PSR command version
+Date: Thu,  9 Sep 2021 07:38:18 -0400
+Message-Id: <20210909114106.141462-84-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114106.141462-1-sashal@kernel.org>
 References: <20210909114106.141462-1-sashal@kernel.org>
@@ -66,72 +67,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anson Jacob <Anson.Jacob@amd.com>
+From: Mikita Lipski <mikita.lipski@amd.com>
 
-[ Upstream commit 1a394b3c3de2577f200cb623c52a5c2b82805cec ]
+[ Upstream commit af1f2b19fd7d404d299355cc95930efee5b3ed8b ]
 
-link_rate is updated via debugfs using hex values, set it to output
-in hex as well.
+[why]
+For dual eDP when setting the new settings we need to set
+command version to DMUB_CMD_PSR_CONTROL_VERSION_1, otherwise
+DMUB will not read panel_inst parameter.
+[how]
+Instead of PSR_VERSION_1 pass DMUB_CMD_PSR_CONTROL_VERSION_1
 
-eg: Resolution: 1920x1080@144Hz
-cat /sys/kernel/debug/dri/0/DP-1/link_settings
-Current:  4  0x14  0  Verified:  4  0x1e  0  Reported:  4  0x1e  16  Preferred:  0  0x0  0
-
-echo "4 0x1e" > /sys/kernel/debug/dri/0/DP-1/link_settings
-
-cat /sys/kernel/debug/dri/0/DP-1/link_settings
-Current:  4  0x1e  0  Verified:  4  0x1e  0  Reported:  4  0x1e  16  Preferred:  4  0x1e  0
-
-Signed-off-by: Anson Jacob <Anson.Jacob@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Wood Wyatt <Wyatt.Wood@amd.com>
+Acked-by: Solomon Chiu <solomon.chiu@amd.com>
+Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c    | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index f1145086a468..1d15a9af9956 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -197,29 +197,29 @@ static ssize_t dp_link_settings_read(struct file *f, char __user *buf,
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+index 10d42ae0cffe..3428334c6c57 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+@@ -207,7 +207,7 @@ static void dmub_psr_set_level(struct dmub_psr *dmub, uint16_t psr_level, uint8_
+ 	cmd.psr_set_level.header.sub_type = DMUB_CMD__PSR_SET_LEVEL;
+ 	cmd.psr_set_level.header.payload_bytes = sizeof(struct dmub_cmd_psr_set_level_data);
+ 	cmd.psr_set_level.psr_set_level_data.psr_level = psr_level;
+-	cmd.psr_set_level.psr_set_level_data.cmd_version = PSR_VERSION_1;
++	cmd.psr_set_level.psr_set_level_data.cmd_version = DMUB_CMD_PSR_CONTROL_VERSION_1;
+ 	cmd.psr_set_level.psr_set_level_data.panel_inst = panel_inst;
+ 	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
+ 	dc_dmub_srv_cmd_execute(dc->dmub_srv);
+@@ -293,7 +293,7 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
+ 	copy_settings_data->debug.bitfields.use_hw_lock_mgr		= 1;
+ 	copy_settings_data->fec_enable_status = (link->fec_state == dc_link_fec_enabled);
+ 	copy_settings_data->fec_enable_delay_in100us = link->dc->debug.fec_enable_delay_in100us;
+-	copy_settings_data->cmd_version =  PSR_VERSION_1;
++	copy_settings_data->cmd_version =  DMUB_CMD_PSR_CONTROL_VERSION_1;
+ 	copy_settings_data->panel_inst = panel_inst;
  
- 	rd_buf_ptr = rd_buf;
- 
--	str_len = strlen("Current:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Current:  %d  %d  %d  ",
-+	str_len = strlen("Current:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Current:  %d  0x%x  %d  ",
- 			link->cur_link_settings.lane_count,
- 			link->cur_link_settings.link_rate,
- 			link->cur_link_settings.link_spread);
- 	rd_buf_ptr += str_len;
- 
--	str_len = strlen("Verified:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Verified:  %d  %d  %d  ",
-+	str_len = strlen("Verified:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Verified:  %d  0x%x  %d  ",
- 			link->verified_link_cap.lane_count,
- 			link->verified_link_cap.link_rate,
- 			link->verified_link_cap.link_spread);
- 	rd_buf_ptr += str_len;
- 
--	str_len = strlen("Reported:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Reported:  %d  %d  %d  ",
-+	str_len = strlen("Reported:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Reported:  %d  0x%x  %d  ",
- 			link->reported_link_cap.lane_count,
- 			link->reported_link_cap.link_rate,
- 			link->reported_link_cap.link_spread);
- 	rd_buf_ptr += str_len;
- 
--	str_len = strlen("Preferred:  %d  %d  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  %d  %d\n",
-+	str_len = strlen("Preferred:  %d  0x%x  %d  ");
-+	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  0x%x  %d\n",
- 			link->preferred_link_setting.lane_count,
- 			link->preferred_link_setting.link_rate,
- 			link->preferred_link_setting.link_spread);
+ 	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
 -- 
 2.30.2
 
