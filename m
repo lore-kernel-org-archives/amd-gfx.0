@@ -7,45 +7,43 @@ X-Spam-Status: No, score=-19.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25CC5C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:47:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 285B7C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E95CA6187A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:47:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E95CA6187A
+	by mail.kernel.org (Postfix) with ESMTPS id EDF4261250
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Sep 2021 11:47:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EDF4261250
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02D86E5A0;
-	Thu,  9 Sep 2021 11:47:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A33D46E5A1;
+	Thu,  9 Sep 2021 11:47:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD2E6E5A0;
- Thu,  9 Sep 2021 11:47:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 08DA561555;
- Thu,  9 Sep 2021 11:47:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16BE26E5A1;
+ Thu,  9 Sep 2021 11:47:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0274C61884;
+ Thu,  9 Sep 2021 11:47:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188051;
- bh=5S9rxJwANp0e3k9J5kE6LC6lNjzHJmACQK9MxwK4GO8=;
+ s=k20201202; t=1631188064;
+ bh=9uEK5ch/0koadmm5ISQP1eZBugoE4KpaKxYwact33jU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rbn2ncKAzMznNLS4Zau+F0wtyIEZv4mDqEJV/+2oV3PUVsnnkv2TZe43YtlYyqwc1
- n6ek8CP/ri0c34GWcX828DaiAGjo03qbMFYke5o+ReHjjyN2IESDmixxsg+i2VbCLn
- utxX2lE99lwLac1H5LT5shgwi7s6btaScE0qB5A1e9i5JjuXAddfj/EdYThv/710At
- m/OkxGz5gEhZFO76p551Qp0YylN58hztkq1ZU2S7jo5vSamachKhgS7UTY9nJfXrjH
- gd8MB9fUnHWpOIpxZhQqsaL4JBxjH50LKKVk4c5jz85jh288AGpfIZBJZWghFiqajh
- Nwm5lHN5Pz0bg==
+ b=V37/cAK9fIJ6U+g+R2FDH7yXsNvVYI39TnKMNzA9MIkuBOS9TRlkbRMw1upth2iHK
+ v3ii/MNBBexduwq8/dSvnkYyFC+6sCeJS0y+juR9zaKdjrJLccPQeLn7nXpkfFEQTV
+ xHC+Ass8Z3/BHIrCbNDrv1FzKz0JczC8LKMdZb23vOJqieopPXH42KO03533Br9IsN
+ gA8q1NiJ6GUMTLFf6nm2HavMc8dZA/alHIWEx0jveoVwlCMtZfos80hoeqo55RipoE
+ ttSGrer7bVdx/JcbVmU4qdjV8NHsan/g+qmmV4wW+WRPWcnRR+/P3cLdHLYC3Wf0JU
+ NZNpwmMkkPpyg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Oliver Logush <oliver.logush@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+Cc: Oak Zeng <Oak.Zeng@amd.com>, Christian Konig <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.13 044/219] drm/amd/display: Fix timer_per_pixel
- unit error
-Date: Thu,  9 Sep 2021 07:43:40 -0400
-Message-Id: <20210909114635.143983-44-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 053/219] drm/amdgpu: Fix a printing message
+Date: Thu,  9 Sep 2021 07:43:49 -0400
+Message-Id: <20210909114635.143983-53-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
 References: <20210909114635.143983-1-sashal@kernel.org>
@@ -67,39 +65,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Oliver Logush <oliver.logush@amd.com>
+From: Oak Zeng <Oak.Zeng@amd.com>
 
-[ Upstream commit 23e55639b87fb16a9f0f66032ecb57060df6c46c ]
+[ Upstream commit 95f71f12aa45d65b7f2ccab95569795edffd379a ]
 
-[why]
-The units of the time_per_pixel variable were incorrect, this had to be
-changed for the code to properly function.
+The printing message "PSP loading VCN firmware" is mis-leading because
+people might think driver is loading VCN firmware. Actually when this
+message is printed, driver is just preparing some VCN ucode, not loading
+VCN firmware yet. The actual VCN firmware loading will be in the PSP block
+hw_init. Fix the printing message
 
-[how]
-The change was very straightforward, only required one line of code to
-be changed where the calculation was done.
-
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Oliver Logush <oliver.logush@amd.com>
+Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
+Reviewed-by: Christian Konig <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 81f583733fa8..12e92f620483 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2461,7 +2461,7 @@ void dcn20_set_mcif_arb_params(
- 				wb_arb_params->cli_watermark[k] = get_wm_writeback_urgent(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 				wb_arb_params->pstate_watermark[k] = get_wm_writeback_dram_clock_change(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 			}
--			wb_arb_params->time_per_pixel = 16.0 / context->res_ctx.pipe_ctx[i].stream->phy_pix_clk; /* 4 bit fraction, ms */
-+			wb_arb_params->time_per_pixel = 16.0 * 1000 / (context->res_ctx.pipe_ctx[i].stream->phy_pix_clk / 1000); /* 4 bit fraction, ms */
- 			wb_arb_params->slice_lines = 32;
- 			wb_arb_params->arbitration_slice = 2;
- 			wb_arb_params->max_scaled_time = dcn20_calc_max_scaled_time(wb_arb_params->time_per_pixel,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index 27b1ced145d2..14ae2bfad59d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -119,7 +119,7 @@ static int vcn_v1_0_sw_init(void *handle)
+ 		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
+ 		adev->firmware.fw_size +=
+ 			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+-		DRM_INFO("PSP loading VCN firmware\n");
++		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+ 	}
+ 
+ 	r = amdgpu_vcn_resume(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 8af567c546db..f4686e918e0d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -122,7 +122,7 @@ static int vcn_v2_0_sw_init(void *handle)
+ 		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
+ 		adev->firmware.fw_size +=
+ 			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+-		DRM_INFO("PSP loading VCN firmware\n");
++		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+ 	}
+ 
+ 	r = amdgpu_vcn_resume(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 888b17d84691..e0c0c3734432 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -152,7 +152,7 @@ static int vcn_v2_5_sw_init(void *handle)
+ 			adev->firmware.fw_size +=
+ 				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+ 		}
+-		DRM_INFO("PSP loading VCN firmware\n");
++		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+ 	}
+ 
+ 	r = amdgpu_vcn_resume(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 3b23de996db2..c2c5c4af51d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -152,7 +152,7 @@ static int vcn_v3_0_sw_init(void *handle)
+ 			adev->firmware.fw_size +=
+ 				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+ 		}
+-		DRM_INFO("PSP loading VCN firmware\n");
++		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+ 	}
+ 
+ 	r = amdgpu_vcn_resume(adev);
 -- 
 2.30.2
 
