@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19CC3C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 07:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96B79C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 07:20:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4708060F6C
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 07:20:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4708060F6C
+	by mail.kernel.org (Postfix) with ESMTPS id 4095060F6C
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 07:20:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4095060F6C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BED976E104;
-	Mon, 13 Sep 2021 07:20:08 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32E296EB68;
- Sat, 11 Sep 2021 10:10:29 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f1e14001f3479bbc118498e.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f1e:1400:1f34:79bb:c118:498e])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B70A6E106;
+	Mon, 13 Sep 2021 07:20:09 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ECF36EA08;
+ Fri, 10 Sep 2021 15:02:24 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f0f0700e42ce33fe8cf6a79.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f0f:700:e42c:e33f:e8cf:6a79])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B0AD71EC0136;
- Sat, 11 Sep 2021 12:10:22 +0200 (CEST)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 93BC61EC0277;
+ Fri, 10 Sep 2021 17:02:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1631355022;
+ t=1631286138;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=HR27o8pZq+/+uFK0n68ub/mxfkE1ISiJNZUKmCms7j8=;
- b=I197+52KgpqBBgLvuSMSrQpQNRo13IqV+FgdnGwdscix9JqjZo6kiEOakrW3iQQS6u0uVD
- WzR3O2CXEOh8ZykdepQmAsy+NBoupC0qZ8IdrqxtxuX9zNND17uAXyBpIh83Qsid6C7Ugn
- zY+/3Zj7u8+b/OQlEkEddX/RceOjyqA=
-Date: Sat, 11 Sep 2021 12:10:14 +0200
+ bh=40kPdt7aP/VJYkQyMREfQyPgJ8o6qpk6K8Mxu6v6cSc=;
+ b=mZ0JcBF56mTU6V0YTC61tZbPl8X0LCaqV1t+QlhEk3mjWHgSHZF5dXkxFXSXhGUION3Odd
+ 8c/8BBNjWwb218w1V8+ZjDkG7xQbIB2escJ8cg5SbXRf2ClULwId1eDLbmvqpxW7H+B37m
+ j71cPf0I4R1mC5Q61ol+StbImh1Vte8=
+Date: Fri, 10 Sep 2021 17:02:10 +0200
 From: Borislav Petkov <bp@alien8.de>
 To: Tom Lendacky <thomas.lendacky@amd.com>
 Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
@@ -51,18 +51,16 @@ Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
  Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
  Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
  Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Christoph Hellwig <hch@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v3 3/8] x86/sev: Add an x86 version of cc_platform_has()
-Message-ID: <YTyAhmPf39Vqd7G9@zn.tnic>
+ Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH v3 2/8] mm: Introduce a function to check for
+ confidential computing features
+Message-ID: <YTtzcoFdi7Ond8Kt@zn.tnic>
 References: <cover.1631141919.git.thomas.lendacky@amd.com>
- <f9951644147e27772bf4512325e8ba6472e363b7.1631141919.git.thomas.lendacky@amd.com>
+ <0a7618d54e7e954ee56c22ad1b94af2ffe69543a.1631141919.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <f9951644147e27772bf4512325e8ba6472e363b7.1631141919.git.thomas.lendacky@amd.com>
+In-Reply-To: <0a7618d54e7e954ee56c22ad1b94af2ffe69543a.1631141919.git.thomas.lendacky@amd.com>
 X-Mailman-Approved-At: Mon, 13 Sep 2021 07:20:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,14 +76,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 08, 2021 at 05:58:34PM -0500, Tom Lendacky wrote:
-> diff --git a/arch/x86/kernel/cc_platform.c b/arch/x86/kernel/cc_platform.c
+On Wed, Sep 08, 2021 at 05:58:33PM -0500, Tom Lendacky wrote:
+> In prep for other confidential computing technologies, introduce a generic
+
+preparation
+
+> helper function, cc_platform_has(), that can be used to check for specific
+> active confidential computing attributes, like memory encryption. This is
+> intended to eliminate having to add multiple technology-specific checks to
+> the code (e.g. if (sev_active() || tdx_active())).
+
+...
+
+> diff --git a/include/linux/cc_platform.h b/include/linux/cc_platform.h
 > new file mode 100644
-> index 000000000000..3c9bacd3c3f3
+> index 000000000000..253f3ea66cd8
 > --- /dev/null
-> +++ b/arch/x86/kernel/cc_platform.c
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
+> +++ b/include/linux/cc_platform.h
+> @@ -0,0 +1,88 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
 > +/*
 > + * Confidential Computing Platform Capability checks
 > + *
@@ -94,45 +103,11 @@ On Wed, Sep 08, 2021 at 05:58:34PM -0500, Tom Lendacky wrote:
 > + * Author: Tom Lendacky <thomas.lendacky@amd.com>
 > + */
 > +
-> +#include <linux/export.h>
-> +#include <linux/cc_platform.h>
-> +#include <linux/mem_encrypt.h>
-> +
-> +bool cc_platform_has(enum cc_attr attr)
-> +{
-> +	if (sme_me_mask)
+> +#ifndef _CC_PLATFORM_H
 
-Why are you still checking the sme_me_mask here? AFAIR, we said that
-we'll do that only when the KVM folks come with a valid use case...
+	_LINUX_CC_PLATFORM_H
 
-> +		return amd_cc_platform_has(attr);
-> +
-> +	return false;
-> +}
-> +EXPORT_SYMBOL_GPL(cc_platform_has);
-> diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
-> index ff08dc463634..18fe19916bc3 100644
-> --- a/arch/x86/mm/mem_encrypt.c
-> +++ b/arch/x86/mm/mem_encrypt.c
-> @@ -20,6 +20,7 @@
->  #include <linux/bitops.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/virtio_config.h>
-> +#include <linux/cc_platform.h>
->  
->  #include <asm/tlbflush.h>
->  #include <asm/fixmap.h>
-> @@ -389,6 +390,26 @@ bool noinstr sev_es_active(void)
->  	return sev_status & MSR_AMD64_SEV_ES_ENABLED;
->  }
->  
-> +bool amd_cc_platform_has(enum cc_attr attr)
-> +{
-> +	switch (attr) {
-> +	case CC_ATTR_MEM_ENCRYPT:
-> +		return sme_me_mask != 0;
-
-No need for the "!= 0"
+> +#define _CC_PLATFORM_H
 
 -- 
 Regards/Gruss,
