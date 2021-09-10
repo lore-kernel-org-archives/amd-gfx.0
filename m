@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 025E8C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 09:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 868ADC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 09:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA1E8611C1
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 09:10:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BA1E8611C1
+	by mail.kernel.org (Postfix) with ESMTPS id 4811F61153
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 09:10:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4811F61153
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1DA56E9A9;
-	Fri, 10 Sep 2021 09:10:10 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 727D06E9A8
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 09:10:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E57556E9A8;
+	Fri, 10 Sep 2021 09:10:15 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3406E9A8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 09:10:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kK4DBJ+wGeUqbBvkqjmBBfijWPRGTwI/fyCg4CqEZbpXYCpQ7lvzNbdJcsD9tiY8PLJRMJY7mTNxwaGeD82ly4Seu+NiIabGpxLAV637WTmFVszgsvyW15ott0bfqnn1DCql048Zmle6p6ikcbBOr/CPrlIZR1Ol0MdyzQGJk0DEkyYVFufzWkkLPI/SeRH1Nv1+S9u1RtR0XUAtP+zSXJcbJFoSSgsW6mREaDHR8HOD35OgkfoGVGWDN/F5d/XqGQrao0yDXqZXbd5sf9cEq1882YTfGnJUKYgX0H14su2obyEZLhwznk8jxlX3wgcS6mkrbOhQ1U53YtNNL9e53A==
+ b=cipGso/+FSWy1Noh7Oiqw8KGC3Dmi8i/DCTIeyKY12A0v1gaI97YxPFprZL83Z6rQ9VUdahxZYfVtwjMOK3jf9mq6kjAtO7n4WVz8og8DTscHzCSBw7shksxrcQIIVFCi3CdpHW7GmRk0hyc6hIV4ao1DBNmNz+C1yLrqYz1SSf8DNjOj0tXzpzctpVIeJYvkCJVVmSZ0+6yL6YCCq7nPeyKdIynTuRBXqIHyD16slXYzNBBxf9tjBdDgGp5P3ZgtNXQJ6dbedtVaisx6W2As+qi8XD5JGwXpwpHjwMBdx+rTnAkLP099Qcc9aJH32w36IPNKHfk4nm6e7Us4wsnsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=GK0gq+DOtl+IXOCMG0442PSJOYavd5zEI2zxf4DjeAA=;
- b=WEkuGjOmOflQX/64sK+m//B4M7gd6E+vAFkbEDhrkhMlrF8QbAxjRLPOpXJbmJ2no4rpkIxGZmOJKw36gkFOXiGWmpnhSnWgdvdSIjRAMB5EVnIt38OiKqSmlBXPvap1v0a+g7LUMBThVGHeNazcnx5bi8tAWjFLCjhfD7UuYjSTJ9nBN8hMtM0QsjfZhgJwAezT25o5/LAMEbKUVnRcvZlIndMibaHWv8bdSvLzVFPIRU/zV6ETy0KlRj+ueaAVYayb5CxWgTxUf0d7fxttIcm8We82swaYF1yBPpGEvg3Gflq5bKFHVFKlv5B1LZAeTk1Dvy+b+sQKcl6VOU16bg==
+ bh=PdXunOcyOTrG2DS1EyZqYflpjnMA/g89h2fplREe4eU=;
+ b=NC6CRmuAFtoDD5yppjKr3aNXKa5kcZQuES9lFMxAeoIu4fEeFSNzBORq7HK8zNGgRK7EcqVvKDJOURrvP9TZXlWF9JZG0cJb2UUFhEJU6wrBUc4LgSfXKwlPMwRHWSwZNoVv/tvmAZEsgIlzg4qGO01vVsoT7dhtK/Y1+MEMmfOQ2N+3Ym2RyEsifpK/HxY7dcJmvnzBiZtfU64odOvoyLVO2S8Q3tlisnjJQ7UM8GeMp++1+kWxH2XYSSD90m5NtW5XQkOj5VYd80J1ujznPPQNJWdK0pTjiG3kl06V07J5QBiXdWAr4ncPRjMHmHUn8DuDknS5hdPMxIWbCQHKDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GK0gq+DOtl+IXOCMG0442PSJOYavd5zEI2zxf4DjeAA=;
- b=L4z3BKtjN4ky2sVFjKfbKHt0SBJo/pDqkYHC+vrHQdumyjBMDcXDXIO7ecctMIOwm8ad/vNHl0P4PQiz3FPa8KPturUtYyOlaea2rT7jZu7qoK4UCUPrJoah4BftjyKesjgoGkJ/uTQ1y4y6ctdFpMrYG9wmTpbgx2o/5713SA8=
-Received: from MW4PR03CA0285.namprd03.prod.outlook.com (2603:10b6:303:b5::20)
- by DM6PR12MB3595.namprd12.prod.outlook.com (2603:10b6:5:118::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Fri, 10 Sep
+ bh=PdXunOcyOTrG2DS1EyZqYflpjnMA/g89h2fplREe4eU=;
+ b=e9nckTvcHuZMOwOFJMHiXt5fJqLu+c+fLLRVy4bi8TuPeCMZllVKJDQ57FrtVWdovlOcQWXP0Y2xKnp27mjhWDk/wkuG5fLEdjY2QOd1AmyNjC3Qx/ch60mEOBEPe1q9Si4ZY71Vcvvkl6W+xNycKnaLPdYz3SAnpB+N5cOwpJ0=
+Received: from MW4PR03CA0275.namprd03.prod.outlook.com (2603:10b6:303:b5::10)
+ by MWHPR12MB1950.namprd12.prod.outlook.com (2603:10b6:300:110::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Fri, 10 Sep
  2021 09:10:07 +0000
 Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b5:cafe::ac) by MW4PR03CA0285.outlook.office365.com
- (2603:10b6:303:b5::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.15 via Frontend
- Transport; Fri, 10 Sep 2021 09:10:06 +0000
+ (2603:10b6:303:b5:cafe::f9) by MW4PR03CA0275.outlook.office365.com
+ (2603:10b6:303:b5::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Fri, 10 Sep 2021 09:10:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,19 +59,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 09:10:05 +0000
+ 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 09:10:07 +0000
 Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 10 Sep
- 2021 04:10:03 -0500
+ 2021 04:10:05 -0500
 From: Lang Yu <lang.yu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
  Lijo Lazar <lijo.lazar@amd.com>, Lang Yu <lang.yu@amd.com>
-Subject: [PATCH v3 2/3] drm/amdgpu: update SMU driver interface for cyan
+Subject: [PATCH v3 3/3] drm/amdgpu: add some pptable funcs for cyan
  skilfish(v3)
-Date: Fri, 10 Sep 2021 17:09:45 +0800
-Message-ID: <20210910090946.969839-2-lang.yu@amd.com>
+Date: Fri, 10 Sep 2021 17:09:46 +0800
+Message-ID: <20210910090946.969839-3-lang.yu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210910090946.969839-1-lang.yu@amd.com>
 References: <20210910090946.969839-1-lang.yu@amd.com>
@@ -83,28 +83,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ac2e4e75-3b20-49f2-4a87-08d9743ac7fb
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3595:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3595995CEB16243619082DB7FBD69@DM6PR12MB3595.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:639;
+X-MS-Office365-Filtering-Correlation-Id: c623231a-f367-4d81-6a4d-08d9743ac8d8
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1950:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB19500AC0007FE60143976CB3FBD69@MWHPR12MB1950.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YDTlIxk9HHvxZlBHpX1A1pLTT5YSF9annbal0euwEeufHK2H2xMc40drPaLq2tq7rh5gz0JbmEjIgmbm+aL6tUmIxnkWdG5UGXo16k+y9hlYi0RivB+YW4QKne8HXwpprs79h6BSi/wHMycy9Dc6WnX4c7rZlBzdHz8X/PlXBoqNnuOMRTXruaSFTGwZ7kC2KSqe8ltba3IxXCXboHBEdamLl5LCpaDgEts4f7mVINwAsNADFWgy5rJlf5zWgA5IiGiEkGSPypMiJtGKVmLJfvXcdY0XwUFhChQqAOJPYzPABoy7Zaq2brv4Zi74OpbVfmzln3VPrpPGxHlSKaU/AIe7I0F+K8vlEKQfswEipgTZgfK2jXPxpS4eIlZSToH+YE0r2cquqbj9S5m6HRFrR4R62ZoWny02GaYhqQyJAJ/jI3SOnePEMdlZO5tuCOaV6E/QqWQ0Cdg/auI4Xqz5vA7S7jyVmRsYnu9yA5PKpHRmwHiD5LBfS2CKAIzCcSHq3uJBA/uxWO2h9cMRpNh0JKUZ3RbFuKBDSQXIdmGc8DiRVQoAgFFa2NPxr+aqa1Nf88t5bc/NObgoiaZVf5sMyRwOb7WKBqwoZr8SWcQJTLg38Eos/rRobyWFQq2Hkdawf02E8NVGzHzKP2yYBOJ/wxB9T07UdXTH280fEUhmuAp1frYbU4yb8B3liS/cnad5V5KNea5E51gAQA9VWI9P2wW8ftrADEDvsovsbp7GyKw=
+X-Microsoft-Antispam-Message-Info: pRntfA5kV4t2a0fSJrFtD3iO08VXyhba+/fqidc07CHCtsNC+zBE0bc1RecoKHyzdlcEbnc8NHueeY4hree1z8jcuDeGGIzohE+3cJrcUhbaRsS/rzi2CYe/wbiYko0lc9CCLP44X5vOJGNbEYSfVFCDUZaqOIeZWAoToXFRE+yIkPtlxuXpLEMnLU3OxH9XPHOqB3N8om8YrRGgsh7+HqobUag7MjG6nuiAYekAAdDubRYhJqef+oAWArxSWhM4dxkoxL0A+wm8WZMKtVx6KvbvYuCHYUPaI9EqEDlf2Q9rTw0ZimXmbZvsqs0Vq4+OWVk452+TglI1jW/KvGr4PYQYwtYXywM3YTMCN9mgqyl7vXNyxQLbHDL41k32ar0Cu4H4Vy8PBz7ijKqGJuaXCvttEtdbVvyGqKYpg2MxHArP0uFHHr4CmMlyKW2yUHrd8V6LTJ7fVZJ0ZlKJPpRWOXixDSNPfZxBTCSuhZS4pGa9fhnj+HywTv03ddYPmWwjLiVcsJUf8odnYgBEPMOcQRDeoY9ugYVZ5Duo1JZkWXTLiibACmrMp4wrzs5LmZcx1J1UJg0ouiPAZr5cRzIIqKu0pdPpOpib7EcnwCqBoc8z17vR9QMmfOJCTKdwITLIV/nsods5FvO4iVafvYU3KeF4DEmVw/VsmAhsw9d3vq35LCLhduI6dbLHuk6qYEs0k8EV32ph8WfsvtcM6qGiUckTN6LPTaTXn6gdU6HqpsY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(5660300002)(6666004)(2906002)(86362001)(186003)(36756003)(8676002)(15650500001)(54906003)(70586007)(16526019)(316002)(70206006)(426003)(336012)(4326008)(2616005)(6916009)(26005)(8936002)(81166007)(44832011)(47076005)(36860700001)(508600001)(83380400001)(1076003)(356005)(7696005)(82310400003)(36900700001);
+ SFS:(4636009)(376002)(39860400002)(346002)(136003)(396003)(36840700001)(46966006)(1076003)(186003)(16526019)(26005)(4326008)(8936002)(36860700001)(70586007)(70206006)(82310400003)(478600001)(316002)(44832011)(54906003)(36756003)(86362001)(426003)(336012)(30864003)(82740400003)(2616005)(5660300002)(2906002)(81166007)(7696005)(47076005)(6666004)(8676002)(6916009)(356005)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 09:10:05.9946 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac2e4e75-3b20-49f2-4a87-08d9743ac7fb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 09:10:07.4438 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c623231a-f367-4d81-6a4d-08d9743ac8d8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3595
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1950
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,120 +119,397 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add SmuMetrics_t definition for cyan skilfish.
+Add print_clk_levels and read_sensor pptable funcs for
+cyan skilfish.
 
-v2: update SmuMetrics_t definition.
-v3: cleanup and rearrange the order of fields.
+v2: keep consitency and add get_gpu_metrics callback.
+v3: use sysfs_emit_at() in sysfs show function.
 
 Signed-off-by: Lang Yu <lang.yu@amd.com>
 Reviewed-by: Huang Rui <ray.huang@amd.com>
 ---
- .../pm/inc/smu11_driver_if_cyan_skillfish.h   | 86 ++++++++-----------
- 1 file changed, 35 insertions(+), 51 deletions(-)
+ .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   | 347 ++++++++++++++++++
+ 1 file changed, 347 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h
-index 8a08ecc34c69..4884a4e1f261 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h
-@@ -33,63 +33,47 @@
- #define TABLE_PMSTATUSLOG        3 // Called by Tools for Agm logging
- #define TABLE_DPMCLOCKS          4 // Called by Driver; defined here, but not used, for backward compatible
- #define TABLE_MOMENTARY_PM       5 // Called by Tools; defined here, but not used, for backward compatible
--#define TABLE_COUNT              6
-+#define TABLE_SMU_METRICS        6 // Called by Driver
-+#define TABLE_COUNT              7
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+index b05f9541accc..e1fab030cfc5 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+@@ -44,6 +44,12 @@
+ #undef pr_info
+ #undef pr_debug
  
--#define NUM_DSPCLK_LEVELS		8
--#define NUM_SOCCLK_DPM_LEVELS	8
--#define NUM_DCEFCLK_DPM_LEVELS	4
--#define NUM_FCLK_DPM_LEVELS		4
--#define NUM_MEMCLK_DPM_LEVELS	4
-+typedef struct SmuMetricsTable_t {
-+	//CPU status
-+	uint16_t CoreFrequency[6];              //[MHz]
-+	uint32_t CorePower[6];                  //[mW]
-+	uint16_t CoreTemperature[6];            //[centi-Celsius]
-+	uint16_t L3Frequency[2];                //[MHz]
-+	uint16_t L3Temperature[2];              //[centi-Celsius]
-+	uint16_t C0Residency[6];                //Percentage
++#define FEATURE_MASK(feature) (1ULL << feature)
++#define SMC_DPM_FEATURE ( \
++	FEATURE_MASK(FEATURE_FCLK_DPM_BIT)	|	\
++	FEATURE_MASK(FEATURE_SOC_DPM_BIT)	|	\
++	FEATURE_MASK(FEATURE_GFX_DPM_BIT))
++
+ static struct cmn2asic_msg_mapping cyan_skillfish_message_map[SMU_MSG_MAX_COUNT] = {
+ 	MSG_MAP(TestMessage,                    PPSMC_MSG_TestMessage,			0),
+ 	MSG_MAP(GetSmuVersion,                  PPSMC_MSG_GetSmuVersion,		0),
+@@ -52,14 +58,354 @@ static struct cmn2asic_msg_mapping cyan_skillfish_message_map[SMU_MSG_MAX_COUNT]
+ 	MSG_MAP(SetDriverDramAddrLow,           PPSMC_MSG_SetDriverTableDramAddrLow,	0),
+ 	MSG_MAP(TransferTableSmu2Dram,          PPSMC_MSG_TransferTableSmu2Dram,	0),
+ 	MSG_MAP(TransferTableDram2Smu,          PPSMC_MSG_TransferTableDram2Smu,	0),
++	MSG_MAP(GetEnabledSmuFeatures,          PPSMC_MSG_GetEnabledSmuFeatures,	0),
++	MSG_MAP(RequestGfxclk,                  PPSMC_MSG_RequestGfxclk,		0),
++	MSG_MAP(ForceGfxVid,                    PPSMC_MSG_ForceGfxVid,			0),
++	MSG_MAP(UnforceGfxVid,                  PPSMC_MSG_UnforceGfxVid,		0),
++};
++
++static struct cmn2asic_mapping cyan_skillfish_table_map[SMU_TABLE_COUNT] = {
++	TAB_MAP_VALID(SMU_METRICS),
+ };
  
--#define NUMBER_OF_PSTATES		8
--#define NUMBER_OF_CORES			8
-+	// GFX status
-+	uint16_t GfxclkFrequency;               //[MHz]
-+	uint16_t GfxTemperature;                //[centi-Celsius]
++static int cyan_skillfish_tables_init(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct smu_table *tables = smu_table->tables;
++
++	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS,
++				sizeof(SmuMetrics_t),
++				PAGE_SIZE,
++				AMDGPU_GEM_DOMAIN_VRAM);
++
++	smu_table->metrics_table = kzalloc(sizeof(SmuMetrics_t), GFP_KERNEL);
++	if (!smu_table->metrics_table)
++		goto err0_out;
++
++	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
++	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
++	if (!smu_table->gpu_metrics_table)
++		goto err1_out;
++
++	smu_table->metrics_time = 0;
++
++	return 0;
++
++err1_out:
++	smu_table->gpu_metrics_table_size = 0;
++	kfree(smu_table->metrics_table);
++err0_out:
++	return -ENOMEM;
++}
++
++static int cyan_skillfish_init_smc_tables(struct smu_context *smu)
++{
++	int ret = 0;
++
++	ret = cyan_skillfish_tables_init(smu);
++	if (ret)
++		return ret;
++
++	return smu_v11_0_init_smc_tables(smu);
++}
++
++static int cyan_skillfish_finit_smc_tables(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++
++	kfree(smu_table->metrics_table);
++	smu_table->metrics_table = NULL;
++
++	kfree(smu_table->gpu_metrics_table);
++	smu_table->gpu_metrics_table = NULL;
++	smu_table->gpu_metrics_table_size = 0;
++
++	smu_table->metrics_time = 0;
++
++	return 0;
++}
++
++static int
++cyan_skillfish_get_smu_metrics_data(struct smu_context *smu,
++					MetricsMember_t member,
++					uint32_t *value)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
++	int ret = 0;
++
++	mutex_lock(&smu->metrics_lock);
++
++	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
++	if (ret) {
++		mutex_unlock(&smu->metrics_lock);
++		return ret;
++	}
++
++	switch (member) {
++	case METRICS_CURR_GFXCLK:
++		*value = metrics->Current.GfxclkFrequency;
++		break;
++	case METRICS_CURR_SOCCLK:
++		*value = metrics->Current.SocclkFrequency;
++		break;
++	case METRICS_CURR_VCLK:
++		*value = metrics->Current.VclkFrequency;
++		break;
++	case METRICS_CURR_DCLK:
++		*value = metrics->Current.DclkFrequency;
++		break;
++	case METRICS_CURR_UCLK:
++		*value = metrics->Current.MemclkFrequency;
++		break;
++	case METRICS_AVERAGE_SOCKETPOWER:
++		*value = (metrics->Current.CurrentSocketPower << 8) /
++				1000;
++		break;
++	case METRICS_TEMPERATURE_EDGE:
++		*value = metrics->Current.GfxTemperature / 100 *
++				SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_TEMPERATURE_HOTSPOT:
++		*value = metrics->Current.SocTemperature / 100 *
++				SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_VOLTAGE_VDDSOC:
++		*value = metrics->Current.Voltage[0];
++		break;
++	case METRICS_VOLTAGE_VDDGFX:
++		*value = metrics->Current.Voltage[1];
++		break;
++	case METRICS_THROTTLER_STATUS:
++		*value = metrics->Current.ThrottlerStatus;
++		break;
++	default:
++		*value = UINT_MAX;
++		break;
++	}
++
++	mutex_unlock(&smu->metrics_lock);
++
++	return ret;
++}
++
++static int cyan_skillfish_read_sensor(struct smu_context *smu,
++					enum amd_pp_sensors sensor,
++					void *data,
++					uint32_t *size)
++{
++	int ret = 0;
++
++	if (!data || !size)
++		return -EINVAL;
++
++	mutex_lock(&smu->sensor_lock);
++
++	switch (sensor) {
++	case AMDGPU_PP_SENSOR_GFX_SCLK:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_CURR_GFXCLK,
++						   (uint32_t *)data);
++		*(uint32_t *)data *= 100;
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_GFX_MCLK:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_CURR_UCLK,
++						   (uint32_t *)data);
++		*(uint32_t *)data *= 100;
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_GPU_POWER:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_AVERAGE_SOCKETPOWER,
++						   (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_TEMPERATURE_HOTSPOT,
++						   (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_EDGE_TEMP:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_TEMPERATURE_EDGE,
++						   (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_VDDNB:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_VOLTAGE_VDDSOC,
++						   (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_VDDGFX:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_VOLTAGE_VDDGFX,
++						   (uint32_t *)data);
++		*size = 4;
++		break;
++	default:
++		ret = -EOPNOTSUPP;
++		break;
++	}
++
++	mutex_unlock(&smu->sensor_lock);
++
++	return ret;
++}
++
++static int cyan_skillfish_get_current_clk_freq(struct smu_context *smu,
++						enum smu_clk_type clk_type,
++						uint32_t *value)
++{
++	MetricsMember_t member_type;
++
++	switch (clk_type) {
++	case SMU_GFXCLK:
++	case SMU_SCLK:
++		member_type = METRICS_CURR_GFXCLK;
++		break;
++	case SMU_FCLK:
++	case SMU_MCLK:
++		member_type = METRICS_CURR_UCLK;
++		break;
++	case SMU_SOCCLK:
++		member_type = METRICS_CURR_SOCCLK;
++		break;
++	case SMU_VCLK:
++		member_type = METRICS_CURR_VCLK;
++		break;
++	case SMU_DCLK:
++		member_type = METRICS_CURR_DCLK;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return cyan_skillfish_get_smu_metrics_data(smu, member_type, value);
++}
++
++static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
++					enum smu_clk_type clk_type,
++					char *buf)
++{
++	int ret = 0, size = 0;
++	uint32_t cur_value = 0;
++
++	smu_cmn_get_sysfs_buf(&buf, &size);
++
++	switch (clk_type) {
++	case SMU_GFXCLK:
++	case SMU_SCLK:
++	case SMU_FCLK:
++	case SMU_MCLK:
++	case SMU_SOCCLK:
++	case SMU_VCLK:
++	case SMU_DCLK:
++		ret = cyan_skillfish_get_current_clk_freq(smu, clk_type, &cur_value);
++		if (ret)
++			return ret;
++		size += sysfs_emit_at(buf, size, "0: %uMhz *\n", cur_value);
++		break;
++	default:
++		dev_warn(smu->adev->dev, "Unsupported clock type\n");
++		return ret;
++	}
++
++	return size;
++}
++
++static bool cyan_skillfish_is_dpm_running(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++	int ret = 0;
++	uint32_t feature_mask[2];
++	uint64_t feature_enabled;
++
++	/* we need to re-init after suspend so return false */
++	if (adev->in_suspend)
++		return false;
++
++	ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++
++	if (ret)
++		return false;
++
++	feature_enabled = (uint64_t)feature_mask[0] |
++				((uint64_t)feature_mask[1] << 32);
++
++	return !!(feature_enabled & SMC_DPM_FEATURE);
++}
++
++static ssize_t cyan_skillfish_get_gpu_metrics(struct smu_context *smu,
++						void **table)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct gpu_metrics_v2_2 *gpu_metrics =
++		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
++	SmuMetrics_t metrics;
++	int i, ret = 0;
++
++	ret = smu_cmn_get_metrics_table(smu, &metrics, true);
++	if (ret)
++		return ret;
++
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 2);
++
++	gpu_metrics->temperature_gfx = metrics.Current.GfxTemperature;
++	gpu_metrics->temperature_soc = metrics.Current.SocTemperature;
++
++	gpu_metrics->average_socket_power = metrics.Current.CurrentSocketPower;
++	gpu_metrics->average_soc_power = metrics.Current.Power[0];
++	gpu_metrics->average_gfx_power = metrics.Current.Power[1];
++
++	gpu_metrics->average_gfxclk_frequency = metrics.Average.GfxclkFrequency;
++	gpu_metrics->average_socclk_frequency = metrics.Average.SocclkFrequency;
++	gpu_metrics->average_uclk_frequency = metrics.Average.MemclkFrequency;
++	gpu_metrics->average_fclk_frequency = metrics.Average.MemclkFrequency;
++	gpu_metrics->average_vclk_frequency = metrics.Average.VclkFrequency;
++	gpu_metrics->average_dclk_frequency = metrics.Average.DclkFrequency;
++
++	gpu_metrics->current_gfxclk = metrics.Current.GfxclkFrequency;
++	gpu_metrics->current_socclk = metrics.Current.SocclkFrequency;
++	gpu_metrics->current_uclk = metrics.Current.MemclkFrequency;
++	gpu_metrics->current_fclk = metrics.Current.MemclkFrequency;
++	gpu_metrics->current_vclk = metrics.Current.VclkFrequency;
++	gpu_metrics->current_dclk = metrics.Current.DclkFrequency;
++
++	for (i = 0; i < 6; i++) {
++		gpu_metrics->temperature_core[i] = metrics.Current.CoreTemperature[i];
++		gpu_metrics->average_core_power[i] = metrics.Average.CorePower[i];
++		gpu_metrics->current_coreclk[i] = metrics.Current.CoreFrequency[i];
++	}
++
++	for (i = 0; i < 2; i++) {
++		gpu_metrics->temperature_l3[i] = metrics.Current.L3Temperature[i];
++		gpu_metrics->current_l3clk[i] = metrics.Current.L3Frequency[i];
++	}
++
++	gpu_metrics->throttle_status = metrics.Current.ThrottlerStatus;
++	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
++
++	*table = (void *)gpu_metrics;
++
++	return sizeof(struct gpu_metrics_v2_2);
++}
++
+ static const struct pptable_funcs cyan_skillfish_ppt_funcs = {
  
--typedef enum {
--	S3_TYPE_ENTRY,
--	S5_TYPE_ENTRY,
--} Sleep_Type_e;
-+	// SOC IP info
-+	uint16_t SocclkFrequency;               //[MHz]
-+	uint16_t VclkFrequency;                 //[MHz]
-+	uint16_t DclkFrequency;                 //[MHz]
-+	uint16_t MemclkFrequency;               //[MHz]
- 
--typedef enum {
--	GFX_OFF = 0,
--	GFX_ON  = 1,
--} GFX_Mode_e;
-+	// power, VF info for CPU/GFX telemetry rails, and then socket power total
-+	uint32_t Voltage[2];                    //[mV] indices: VDDCR_VDD, VDDCR_GFX
-+	uint32_t Current[2];                    //[mA] indices: VDDCR_VDD, VDDCR_GFX
-+	uint32_t Power[2];                      //[mW] indices: VDDCR_VDD, VDDCR_GFX
-+	uint32_t CurrentSocketPower;            //[mW]
- 
--typedef enum {
--	CPU_P0 = 0,
--	CPU_P1,
--	CPU_P2,
--	CPU_P3,
--	CPU_P4,
--	CPU_P5,
--	CPU_P6,
--	CPU_P7
--} CPU_PState_e;
-+	uint16_t SocTemperature;                //[centi-Celsius]
-+	uint16_t EdgeTemperature;
-+	uint16_t ThrottlerStatus;
-+	uint16_t Spare;
- 
--typedef enum {
--	CPU_CORE0 = 0,
--	CPU_CORE1,
--	CPU_CORE2,
--	CPU_CORE3,
--	CPU_CORE4,
--	CPU_CORE5,
--	CPU_CORE6,
--	CPU_CORE7
--} CORE_ID_e;
-+} SmuMetricsTable_t;
- 
--typedef enum {
--	DF_DPM0 = 0,
--	DF_DPM1,
--	DF_DPM2,
--	DF_DPM3,
--	DF_PState_Count
--} DF_PState_e;
--
--typedef enum {
--	GFX_DPM0 = 0,
--	GFX_DPM1,
--	GFX_DPM2,
--	GFX_DPM3,
--	GFX_PState_Count
--} GFX_PState_e;
-+typedef struct SmuMetrics_t {
-+	SmuMetricsTable_t Current;
-+	SmuMetricsTable_t Average;
-+	uint32_t SampleStartTime;
-+	uint32_t SampleStopTime;
-+	uint32_t Accnt;
-+} SmuMetrics_t;
- 
- #endif
+ 	.check_fw_status = smu_v11_0_check_fw_status,
+ 	.check_fw_version = smu_v11_0_check_fw_version,
+ 	.init_power = smu_v11_0_init_power,
+ 	.fini_power = smu_v11_0_fini_power,
++	.init_smc_tables = cyan_skillfish_init_smc_tables,
++	.fini_smc_tables = cyan_skillfish_finit_smc_tables,
++	.read_sensor = cyan_skillfish_read_sensor,
++	.print_clk_levels = cyan_skillfish_print_clk_levels,
++	.is_dpm_running = cyan_skillfish_is_dpm_running,
++	.get_gpu_metrics = cyan_skillfish_get_gpu_metrics,
+ 	.register_irq_handler = smu_v11_0_register_irq_handler,
+ 	.notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
+ 	.send_smc_msg_with_param = smu_cmn_send_smc_msg_with_param,
+@@ -72,5 +418,6 @@ void cyan_skillfish_set_ppt_funcs(struct smu_context *smu)
+ {
+ 	smu->ppt_funcs = &cyan_skillfish_ppt_funcs;
+ 	smu->message_map = cyan_skillfish_message_map;
++	smu->table_map = cyan_skillfish_table_map;
+ 	smu->is_apu = true;
+ }
 -- 
 2.25.1
 
