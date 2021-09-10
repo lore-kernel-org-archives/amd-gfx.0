@@ -2,131 +2,104 @@ Return-Path: <SRS0=y1ja=OA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7949EC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 19:28:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B5DBC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 19:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40089610C7
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 19:28:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40089610C7
+	by mail.kernel.org (Postfix) with ESMTPS id 4BE97611BD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 19:54:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4BE97611BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5F756EA89;
-	Fri, 10 Sep 2021 19:28:05 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C12B6EA89
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 19:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C55216EA8C;
+	Fri, 10 Sep 2021 19:54:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB1D66EA8B;
+ Fri, 10 Sep 2021 19:54:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ask8voJpcKwScPFxAu3BEyr3ylm3/4PYHBgbMRHuxjoDUhOBzlKAbJ04l+nxDOugQ93zRozrn4i3BeYDzzwhiOVqNK/Uixo/cp/Z64qqKSokvBulOw3BUpscsIHNhPw+C8y3mhTNOizt3MShPJpWy7vDRJ4PknKGzjDMbpy3+TRZWX1eRZW+9OkVznX2pz47AwuQa5QUXfilMv2m0J9g0BmjZQDPa3QGk5yfgZjXk/LIOswEJcFChmcjyawyx6NMsQgojLC1ovwuUFNpbnQ/Dz/OvuW8skP48jOtDS+4lZPUCSpKbpo3TQOvDA+3X3SoBzvIEDY89tCFJiTGK72IUg==
+ b=LsbqjGrmr0WmGXlJUqZhFd4avxfUtODh/Tjgp1IgVegwnpw3MUgQ3sJaGZkRMJYaBYkKriUWoYCOKgzcPxcHLa/m9cIO0AJXn7nq3qjU/QhuPVU+so6JfFQkmQkS9IwV+rJF6XapPSXqPqQurQtqAsedBO0ifpl5yQ2HPlVKN9reAFqnnq6rVO2bL1PW9kLH/CgKz7IPorO00eQhkYKx34bzijwfvXXh3EghGFMMMumVVksJmAh3KUEd4InJQwiBlUn7koOwOojje/y11dgTjLSMG1QYCVDRQi64+XtrgaOXEcNac4/C//mjqeEOgtH40ToxKF3rku/LQcTr2BOOJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=sc6D1HqmwkGUKvlPUKBRiCgs0ZKzBAgEWTCAM9TD/WY=;
- b=cMt/SCHPYbV7EGkFfC7S1MvB5GbQoGtINlSRjtP/HI+BVFt5sXXmhIJbgh2KF98CBinN4WXTaE1Ax2zDtV1zdvb69ZkCf9X+68hnSrpYSpPkHIBA6TsKRHEjNbi7nilXxHau4N7nF/7S/QZnmgNcdqxvimTd25J4R1bmAuhxb0aQeuEcwG/RO2Y4Ix1q9nfT0Ew6t2XN9d9BIhOsQtndhIDkuKsFS63lJrDUYDiYqTTbwQtLqp58gLzOI0x7ZV+MHaj+FR6U2NmLxbqAX+gGleSAL9z+EPZQEcBmvBdodYMqalTVIkY34/fWovAtwTugHSZryOQcOtfPUpuMNRtp2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=T1Bb4WFOmcf0X8YIfvYKIWdVS4PK0/1DWKvYFVulMnU=;
+ b=Ga8+HPrYd54qef8w3/XrnIBZuWuU7SgGrZpN9Rw8nb7kHxGnTAa5h9+uNPcKXxORRWXAiI4waqr9mckh+qH3Bwe3eBTE9zMjGpUW5M3IRoradoX5trA7oadRDx3IQ6+r1j3SS41Eb0HgOm1443UajqSTFmD1GgKW1PS3mznPM2EIfuBjJ6IRqQ1slT0SaT7qUGDtwBT8EFqwya+Ya/lE35Gk+GWmzv25p/5W+h3P4poe6npYotOSj+AapzcHQ9dd/83VIj10HwD1J8knk4BS7f81s77BJ79vhrxqDCzPG47vCKNOYoxVNoxC0dO491HLKyLlKl08VGX8BaCIYaw6Uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sc6D1HqmwkGUKvlPUKBRiCgs0ZKzBAgEWTCAM9TD/WY=;
- b=H5STqN97BYni4NdgkGC1onpNUMjhS4fazREtL0LGDIdYJYoDfL4WNd1INuV2KG5ZY9Pph4T90Stoccn0uIvOycMi84JD7v+rHpD6fHDfE04Uvqs50GzZiMRMLyKFczokhctX6LK5TF7MLkUtdVrrMDxuZzlyifN5+23KeNMCCXw=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Fri, 10 Sep
- 2021 19:28:03 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::94bc:6146:87a:9f3c]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::94bc:6146:87a:9f3c%5]) with mapi id 15.20.4500.018; Fri, 10 Sep 2021
- 19:28:03 +0000
-Subject: Re: [PATCH] drm/amdgpu: Get atomicOps info from Host for sriov setup
-To: shaoyunl <shaoyun.liu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210910151513.3490-1-shaoyun.liu@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <c412d0e0-046c-389d-5719-84bf369cfd7b@amd.com>
-Date: Fri, 10 Sep 2021 15:28:01 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210910151513.3490-1-shaoyun.liu@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: YT2PR01CA0004.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::9) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+ bh=T1Bb4WFOmcf0X8YIfvYKIWdVS4PK0/1DWKvYFVulMnU=;
+ b=DnWX2SU7DB2oG5wnLQzUe+fergzm2kimd9pKHvroCbLHOdY8BSJJE8qdDk6ndQowhq8aooQ90HNT1vUYTZa9miBmPo6MEAzO8r3h+JUq9A7gfKfwas5oDF8D/roGL1rdr62WIlrcOc2g+RlxIcbnwKquaQTW1rURM2O2jenfh0I=
+Received: from MWHPR11CA0002.namprd11.prod.outlook.com (2603:10b6:301:1::12)
+ by BN8PR12MB3491.namprd12.prod.outlook.com (2603:10b6:408:41::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Fri, 10 Sep
+ 2021 19:54:14 +0000
+Received: from CO1NAM11FT053.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:1:cafe::9) by MWHPR11CA0002.outlook.office365.com
+ (2603:10b6:301:1::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Fri, 10 Sep 2021 19:54:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT053.mail.protection.outlook.com (10.13.175.63) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 19:54:13 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 10 Sep
+ 2021 14:54:12 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH 1/1] drm/amdkfd: Add sysfs bitfields and enums to uAPI
+Date: Fri, 10 Sep 2021 15:53:47 -0400
+Message-ID: <20210910195347.2352884-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Received: from [172.27.226.80] (165.204.55.251) by
- YT2PR01CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 19:28:02 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: abb6b860-7cd4-4113-b3ac-08d974911b81
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5129:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5129D7C1AC67F02F535FD59F92D69@BN9PR12MB5129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: 3625f05c-adc9-49f4-95d7-08d97494c3c6
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3491:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB34914DD818F0C19BEF89F13892D69@BN8PR12MB3491.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +LEQG6yS2vCplK9SQr4bz2bq+ejsAvmCgvIhzSDCWJ+5n0V2vDWHtuxP5tYKxs7XpvCFgwGF2PMHlgDTGeS8Lek+ldJJjlQCy1xnz0Hf8rBFoPSyunBYi5WdV26azz57SSGz2giCbufTkbu3lOl4T0mBc5jec89ccuvibqueELXIqLNW32cEKCKRxmej0+VzGfbzejIfsvQkz0Pj2Zp+27CW6n0xLrlWFQxQChkjuFpT0O9Pul9myM3OGOXNdcgxvDNOkO1EZxS4rIWqgVf8ci5qbDunRleLkUp/Gllwu2sOMMHErOm2EQZjVBu8Z/6pvfA572JVff/3SLrsAPr77NcM4lQ7y1l82X2gPvE0jT84pouyu0kmG9z8mG6rlZxecQ3ITgj40dmY/XiNOj/em5CVTsQ3yN0f3tjZPNNKnzET+c4moV6FZu4Segepur1vUXXRiD5RAfjsmtIT/xAWjPNryIRh/EoYVI0DlFcQPqb7snInT/w1PRPgeHw+8DsrZy6AbWagtpLl4J/sB+grqvXURe5991eYtovwEViNEdpjYL6Q7wwr3+RWny1pamDnays9dXByEiubbFOJZ3VeWMwQB4ZpgBAfrSLXjLuv7xb33FUVTVnWXb31gcqHwqC8o1sXZy8q9BdVTJv9JZJwZw8QmStchfdtn04jz36E9zSlODOMfpjYqhrf1mZ7ezxU44wuVFK+2Wr+p1kktEXegyk3v6BFhG7XzcnLPV8y0AE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(366004)(396003)(136003)(346002)(2906002)(5660300002)(8676002)(36756003)(53546011)(86362001)(26005)(478600001)(83380400001)(2616005)(956004)(66946007)(186003)(36916002)(44832011)(38100700002)(6486002)(16576012)(316002)(66476007)(66556008)(8936002)(31686004)(31696002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 9otFpGgxbzLFZtTj1NTuTuBYap35Gh+GtF3q8bzPo7D6WkJWauw5o2JbXbEYrcn5bY+kPy+kF2kZrCDaMCrKGsx9etmbsC+yj8+6WdxbSDN/uazhuW5JMdrxJuXYSbpguhDRLqM9YBKzTTF32K0KtSO5RMktjE9RBf3oaQJoZuvgSoD1qHVOnFRaMdVzg6sqCdkA/01WqdbiUnILvpJfP0eWGrVzK1SouJQcwx1I4ZIlUhdgyH5x9R3iSRO4WUALjDXNoiWGvzRXhNVzRBeZWsVSaRMot72xgY3PAlAl8cXo5TYdRbuq/YywjWXDMzGcuYaAMohyHr/B8qCwqnlAlhqRCHVBAgDHjnInHN367f6z0v1XCw06EO6WE3vN3S0u4YhsxTdN126Vea7Lrl9guczCNGEPi5VtdrqhyMd+FXh7Zb360tzx/w7NTquCK4hzunFuWSkntyyMC3khVlCZn5DMdCCDmt1Y7meHizyAL3WhnQUb4LFaHL2XQCYeC7+dE4QOThW7pkVtQuOSpZZa4RV4+XnuKikhkhx4epquf+Fwxnp3vpNfydIoOuAfiHHMQyGZL+NkwD/9GBzVP6Jw7gMk0yD8rxiBWGF4BaRWt3x81kMGBlEyjr2oSQIxYzARREz1PSnSMrC0mejpZUMwF6oumNWK+9Xc6vto3ad+7yoz8W58qgvHKiDC/RgzUyeLwLRNTgyUp7HL1YQm8fCSXTBpMcAGvCthiOjrxh98e9Q=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(396003)(136003)(39860400002)(46966006)(36840700001)(336012)(7696005)(81166007)(110136005)(47076005)(356005)(450100002)(82310400003)(82740400003)(426003)(6666004)(316002)(478600001)(186003)(26005)(16526019)(2616005)(70586007)(86362001)(2906002)(5660300002)(8676002)(36860700001)(83380400001)(70206006)(36756003)(8936002)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1A4eGhWamQ3QUxSUmRLR0hJK3lWTFhzMHhmY084YzhoNTVpSVpLci9VY2tn?=
- =?utf-8?B?QzZHN0d0UEZQcWVPd3NVYWJEUGVyUGNKSHZ4UitRdGRUVkVkQTk4L2Q4S1FI?=
- =?utf-8?B?cDYwRVRXSmlQdkw5aHd6WERHeFpQSjl5OVpwam9GK09Gb2d3Tms4dXZ0WEZ3?=
- =?utf-8?B?bU9sWHFFem1TV05YcHlIR3d0WlkxWENHaFhIY1E3M2pLaVJjVkZDNFQ0TWFG?=
- =?utf-8?B?OHc3aU5NL0ZSWXphWExHZE92NUtrVTFTVURPdG5ZdjR1RGpEb3g3MmFCRWVK?=
- =?utf-8?B?V3VqOWRGeG1SM1g2dmRxV3dGSjZpa2hhWVk1UzZYVFQzK0VsUEtEUGZwUWtX?=
- =?utf-8?B?RjE1WFNPemxCa3pGUzRxYW1nR3NWQTlLc0dLQjAyS3NKaDFCeTVodmhrUWk2?=
- =?utf-8?B?ZDJZT21ZN3ZvTkdSOUdqT0xoc252NkxkRmlpUmU4SFdCMXNXRGpZak9GaXlO?=
- =?utf-8?B?U0hTZGJnV2FvcVQrakxkU2g2WDRGTmtwbmRXNlgyM0JlMGh4dEhvQlZHSVE1?=
- =?utf-8?B?a25iMFQrZ1Q0eU1CbkZvaGFNVklHZ2l2bGlJZi9HaVJaU2U0a2VsaisxQU1L?=
- =?utf-8?B?b1gwKy9odUtwUkpuSU9GOHo2ZlpiZDBQZi9UY2tvekxoM09KZFR2UExHUFVP?=
- =?utf-8?B?VVpITDhMUkRRejRCUEFmR1BCUHlJTmVuL004WktIMDM3bGpiQXpQOER6TDkw?=
- =?utf-8?B?b1pZTHp3SlF1SmhEQ0s3YTE4Sy90RHdOZUY2NWxHTVdaS28yTHlTQmVEQ1F6?=
- =?utf-8?B?ZjlZMzRWOTVCZ2J3K0ZLT2JQeFhYbG1xdUZ1ZVltZG0wSjhhdnVHKzlOQ3dk?=
- =?utf-8?B?d0RZdlo3SDYzeU1ialQrdkhZSFZmbCtmM010amtqd250UEF2cnNJNTBBZFk3?=
- =?utf-8?B?elV0cjdrUXhzR1BlU3hweUJ4MDZ3RUtBTlBTYUQ2Tm5LRTU3dURBRjJLTG01?=
- =?utf-8?B?WHc2RGFERlVua0VqU2VsZXlvM1NUKzYya1hMdG9HbWk1M1V2RXZ2M1VzZjZ6?=
- =?utf-8?B?YU8yUVRsR2xJbFBneEIrc3czdVRnQzBML3I3bGhkdGN2MDJrZXpMVmdtN0Fi?=
- =?utf-8?B?Vi9tbXcxNUlmVWNtTklnMk1OdlJRcVNZdTlZQjl6THVaajFQTm5HRUVNcHNU?=
- =?utf-8?B?QXVKc0RITHRmZGdmQmp4TGlDY1hCeDlLQzZHSXhUVG9EVE9xcXdZdU10RVF1?=
- =?utf-8?B?R0NWRnhKcVRsSDkwR0hlTDFmTUxhVjJkTlRnc09KMmNEZG16dnFOU0NDNy9X?=
- =?utf-8?B?bUgyNGdFaFdoSXlvbmhoMTAvRW1KaXV6TzNnejV2UUNCL0NMcjNHTHVHVDkz?=
- =?utf-8?B?MUd3TVVZK1hFQmRranpOT1FLbm1ZMm9lM2I3ck5temsyTDJSZXhvNENCT2g3?=
- =?utf-8?B?d2twUEhBbk1ycXIyUzNuN054VjdwTHNsa0xtUmFZWVlsUHNKMWhMVGNIRVpq?=
- =?utf-8?B?Q2JLbUxDZThDV09obXg5ZXJrWnJBVzd4VW13bUJwN0tUYmlNUmdRY2dzR3pN?=
- =?utf-8?B?VGpPdWROYzFFVzRWUzMyL1IxUWc2Q1VWQnBLUlJLWERHTmtSWnR1SmVtU3Q0?=
- =?utf-8?B?TTVLdjVyYS82U3ZyYWNiVWZKeEZHelRQcnd3cHNXcE9MQ1draE1vZ0o5Q1h5?=
- =?utf-8?B?WFU3ZC9Cclk5d0lWOVh0Nlp0UUNSR3gzS3I0UGFXcGl2UFpFcDNkTUpKSk11?=
- =?utf-8?B?dnZabnZvd2dRbm1leEYyY1FUaGpzZE1WRVRKNzZiVVIvbE0wMm1rOWcxaFJO?=
- =?utf-8?Q?qSHCkOb0UnsjyyCrasyID9O5/AVpdGcaX5Zns5z?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: abb6b860-7cd4-4113-b3ac-08d974911b81
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 19:28:03.2291 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 19:54:13.6610 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3625f05c-adc9-49f4-95d7-08d97494c3c6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ka7tp7cG19QTajbUXbtF7VqU/aJWcXUlNSZRfl7KRWwnHcRV2F8VK2U5/ZG9zfMQ2/2FtiZTlnpgC1k+bLEL3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5129
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,77 +114,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-09-10 11:15 a.m., shaoyunl wrote:
-> The AtomicOp Requester Enable bit is reserved in VFs and the PF value applies to all
-> associated VFs. so guest driver can not directly enable the atomicOps for VF, it
-> depends on PF to enable it. In current design, amdgpu driver  will get the enabled
-> atomicOps bits through private pf2vf data
->
-> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+These bits are de-facto part of the uAPI, so declare them in a uAPI header.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ MAINTAINERS                               |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  46 +--------
+ include/uapi/linux/kfd_sysfs.h            | 108 ++++++++++++++++++++++
+ 3 files changed, 110 insertions(+), 45 deletions(-)
+ create mode 100644 include/uapi/linux/kfd_sysfs.h
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 84cd16694640..7554ec928ee2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -930,6 +930,7 @@ F:	drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+ F:	drivers/gpu/drm/amd/include/v9_structs.h
+ F:	drivers/gpu/drm/amd/include/vi_structs.h
+ F:	include/uapi/linux/kfd_ioctl.h
++F:	include/uapi/linux/kfd_sysfs.h
+ 
+ AMD SPI DRIVER
+ M:	Sanjay R Mehta <sanju.mehta@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index a8db017c9b8e..f0cc59d2fd5d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -25,38 +25,11 @@
+ 
+ #include <linux/types.h>
+ #include <linux/list.h>
++#include <linux/kfd_sysfs.h>
+ #include "kfd_crat.h"
+ 
+ #define KFD_TOPOLOGY_PUBLIC_NAME_SIZE 32
+ 
+-#define HSA_CAP_HOT_PLUGGABLE			0x00000001
+-#define HSA_CAP_ATS_PRESENT			0x00000002
+-#define HSA_CAP_SHARED_WITH_GRAPHICS		0x00000004
+-#define HSA_CAP_QUEUE_SIZE_POW2			0x00000008
+-#define HSA_CAP_QUEUE_SIZE_32BIT		0x00000010
+-#define HSA_CAP_QUEUE_IDLE_EVENT		0x00000020
+-#define HSA_CAP_VA_LIMIT			0x00000040
+-#define HSA_CAP_WATCH_POINTS_SUPPORTED		0x00000080
+-#define HSA_CAP_WATCH_POINTS_TOTALBITS_MASK	0x00000f00
+-#define HSA_CAP_WATCH_POINTS_TOTALBITS_SHIFT	8
+-#define HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK	0x00003000
+-#define HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT	12
+-
+-#define HSA_CAP_DOORBELL_TYPE_PRE_1_0		0x0
+-#define HSA_CAP_DOORBELL_TYPE_1_0		0x1
+-#define HSA_CAP_DOORBELL_TYPE_2_0		0x2
+-#define HSA_CAP_AQL_QUEUE_DOUBLE_MAP		0x00004000
+-
+-#define HSA_CAP_RESERVED_WAS_SRAM_EDCSUPPORTED	0x00080000 /* Old buggy user mode depends on this being 0 */
+-#define HSA_CAP_MEM_EDCSUPPORTED		0x00100000
+-#define HSA_CAP_RASEVENTNOTIFY			0x00200000
+-#define HSA_CAP_ASIC_REVISION_MASK		0x03c00000
+-#define HSA_CAP_ASIC_REVISION_SHIFT		22
+-#define HSA_CAP_SRAM_EDCSUPPORTED		0x04000000
+-#define HSA_CAP_SVMAPI_SUPPORTED		0x08000000
+-#define HSA_CAP_FLAGS_COHERENTHOSTACCESS	0x10000000
+-#define HSA_CAP_RESERVED			0xe00f8000
+-
+ struct kfd_node_properties {
+ 	uint64_t hive_id;
+ 	uint32_t cpu_cores_count;
+@@ -93,17 +66,6 @@ struct kfd_node_properties {
+ 	char name[KFD_TOPOLOGY_PUBLIC_NAME_SIZE];
+ };
+ 
+-#define HSA_MEM_HEAP_TYPE_SYSTEM	0
+-#define HSA_MEM_HEAP_TYPE_FB_PUBLIC	1
+-#define HSA_MEM_HEAP_TYPE_FB_PRIVATE	2
+-#define HSA_MEM_HEAP_TYPE_GPU_GDS	3
+-#define HSA_MEM_HEAP_TYPE_GPU_LDS	4
+-#define HSA_MEM_HEAP_TYPE_GPU_SCRATCH	5
+-
+-#define HSA_MEM_FLAGS_HOT_PLUGGABLE		0x00000001
+-#define HSA_MEM_FLAGS_NON_VOLATILE		0x00000002
+-#define HSA_MEM_FLAGS_RESERVED			0xfffffffc
+-
+ struct kfd_mem_properties {
+ 	struct list_head	list;
+ 	uint32_t		heap_type;
+@@ -116,12 +78,6 @@ struct kfd_mem_properties {
+ 	struct attribute	attr;
+ };
+ 
+-#define HSA_CACHE_TYPE_DATA		0x00000001
+-#define HSA_CACHE_TYPE_INSTRUCTION	0x00000002
+-#define HSA_CACHE_TYPE_CPU		0x00000004
+-#define HSA_CACHE_TYPE_HSACU		0x00000008
+-#define HSA_CACHE_TYPE_RESERVED		0xfffffff0
+-
+ struct kfd_cache_properties {
+ 	struct list_head	list;
+ 	uint32_t		processor_id_low;
+diff --git a/include/uapi/linux/kfd_sysfs.h b/include/uapi/linux/kfd_sysfs.h
+new file mode 100644
+index 000000000000..e1fb78b4bf09
+--- /dev/null
++++ b/include/uapi/linux/kfd_sysfs.h
+@@ -0,0 +1,108 @@
++/* SPDX-License-Identifier: GPL-2.0 OR MIT WITH Linux-syscall-note */
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#ifndef KFD_SYSFS_H_INCLUDED
++#define KFD_SYSFS_H_INCLUDED
++
++/* Capability bits in node properties */
++#define HSA_CAP_HOT_PLUGGABLE			0x00000001
++#define HSA_CAP_ATS_PRESENT			0x00000002
++#define HSA_CAP_SHARED_WITH_GRAPHICS		0x00000004
++#define HSA_CAP_QUEUE_SIZE_POW2			0x00000008
++#define HSA_CAP_QUEUE_SIZE_32BIT		0x00000010
++#define HSA_CAP_QUEUE_IDLE_EVENT		0x00000020
++#define HSA_CAP_VA_LIMIT			0x00000040
++#define HSA_CAP_WATCH_POINTS_SUPPORTED		0x00000080
++#define HSA_CAP_WATCH_POINTS_TOTALBITS_MASK	0x00000f00
++#define HSA_CAP_WATCH_POINTS_TOTALBITS_SHIFT	8
++#define HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK	0x00003000
++#define HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT	12
++
++#define HSA_CAP_DOORBELL_TYPE_PRE_1_0		0x0
++#define HSA_CAP_DOORBELL_TYPE_1_0		0x1
++#define HSA_CAP_DOORBELL_TYPE_2_0		0x2
++#define HSA_CAP_AQL_QUEUE_DOUBLE_MAP		0x00004000
++
++/* Old buggy user mode depends on this being 0 */
++#define HSA_CAP_RESERVED_WAS_SRAM_EDCSUPPORTED	0x00080000
++
++#define HSA_CAP_MEM_EDCSUPPORTED		0x00100000
++#define HSA_CAP_RASEVENTNOTIFY			0x00200000
++#define HSA_CAP_ASIC_REVISION_MASK		0x03c00000
++#define HSA_CAP_ASIC_REVISION_SHIFT		22
++#define HSA_CAP_SRAM_EDCSUPPORTED		0x04000000
++#define HSA_CAP_SVMAPI_SUPPORTED		0x08000000
++#define HSA_CAP_FLAGS_COHERENTHOSTACCESS	0x10000000
++#define HSA_CAP_RESERVED			0xe00f8000
++
++/* Heap types in memory properties */
++#define HSA_MEM_HEAP_TYPE_SYSTEM	0
++#define HSA_MEM_HEAP_TYPE_FB_PUBLIC	1
++#define HSA_MEM_HEAP_TYPE_FB_PRIVATE	2
++#define HSA_MEM_HEAP_TYPE_GPU_GDS	3
++#define HSA_MEM_HEAP_TYPE_GPU_LDS	4
++#define HSA_MEM_HEAP_TYPE_GPU_SCRATCH	5
++
++/* Flag bits in memory properties */
++#define HSA_MEM_FLAGS_HOT_PLUGGABLE		0x00000001
++#define HSA_MEM_FLAGS_NON_VOLATILE		0x00000002
++#define HSA_MEM_FLAGS_RESERVED			0xfffffffc
++
++/* Cache types in cache properties */
++#define HSA_CACHE_TYPE_DATA		0x00000001
++#define HSA_CACHE_TYPE_INSTRUCTION	0x00000002
++#define HSA_CACHE_TYPE_CPU		0x00000004
++#define HSA_CACHE_TYPE_HSACU		0x00000008
++#define HSA_CACHE_TYPE_RESERVED		0xfffffff0
++
++/* Link types in IO link properties (matches CRAT link types) */
++#define HSA_IOLINK_TYPE_UNDEFINED	0
++#define HSA_IOLINK_TYPE_HYPERTRANSPORT	1
++#define HSA_IOLINK_TYPE_PCIEXPRESS	2
++#define HSA_IOLINK_TYPE_AMBA		3
++#define HSA_IOLINK_TYPE_MIPI		4
++#define HSA_IOLINK_TYPE_QPI_1_1	5
++#define HSA_IOLINK_TYPE_RESERVED1	6
++#define HSA_IOLINK_TYPE_RESERVED2	7
++#define HSA_IOLINK_TYPE_RAPID_IO	8
++#define HSA_IOLINK_TYPE_INFINIBAND	9
++#define HSA_IOLINK_TYPE_RESERVED3	10
++#define HSA_IOLINK_TYPE_XGMI		11
++#define HSA_IOLINK_TYPE_XGOP		12
++#define HSA_IOLINK_TYPE_GZ		13
++#define HSA_IOLINK_TYPE_ETHERNET_RDMA	14
++#define HSA_IOLINK_TYPE_RDMA_OTHER	15
++#define HSA_IOLINK_TYPE_OTHER		16
++
++/* Flag bits in IO link properties (matches CRAT flags, excluding the
++ * bi-directional flag, which is not offially part of the CRAT spec, and
++ * only used internally in KFD)
++ */
++#define HSA_IOLINK_FLAGS_ENABLED		(1 << 0)
++#define HSA_IOLINK_FLAGS_NON_COHERENT		(1 << 1)
++#define HSA_IOLINK_FLAGS_NO_ATOMICS_32_BIT	(1 << 2)
++#define HSA_IOLINK_FLAGS_NO_ATOMICS_64_BIT	(1 << 3)
++#define HSA_IOLINK_FLAGS_NO_PEER_TO_PEER_DMA	(1 << 4)
++#define HSA_IOLINK_FLAGS_RESERVED		0xffffffe0
++
++#endif
+-- 
+2.32.0
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 24 +++++++++++----------
->   drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  4 +++-
->   2 files changed, 16 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 653bd8fdaa33..3ae1721ca859 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3529,17 +3529,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	DRM_INFO("register mmio base: 0x%08X\n", (uint32_t)adev->rmmio_base);
->   	DRM_INFO("register mmio size: %u\n", (unsigned)adev->rmmio_size);
->   
-> -	/* enable PCIE atomic ops */
-> -	r = pci_enable_atomic_ops_to_root(adev->pdev,
-> -					  PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
-> -					  PCI_EXP_DEVCAP2_ATOMIC_COMP64);
-> -	if (r) {
-> -		adev->have_atomics_support = false;
-> -		DRM_INFO("PCIE atomic ops is not supported\n");
-> -	} else {
-> -		adev->have_atomics_support = true;
-> -	}
-> -
->   	amdgpu_device_get_pcie_info(adev);
->   
->   	if (amdgpu_mcbp)
-> @@ -3562,6 +3551,19 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	if (r)
->   		return r;
->   
-> +	/* enable PCIE atomic ops */
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->have_atomics_support = ((struct amd_sriov_msg_pf2vf_info *)
-> +			adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_enabled_flags ==
-> +			(PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64);
-> +	else
-> +		adev->have_atomics_support =
-> +			!pci_enable_atomic_ops_to_root(adev->pdev,
-> +					  PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
-> +					  PCI_EXP_DEVCAP2_ATOMIC_COMP64);
-> +	if (!adev->have_atomics_support)
-> +		dev_info(adev->dev, "PCIE atomic ops is not supported\n");
-> +
->   	/* doorbell bar mapping and doorbell index init*/
->   	amdgpu_device_doorbell_init(adev);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> index a434c71fde8e..995899191288 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> @@ -204,8 +204,10 @@ struct amd_sriov_msg_pf2vf_info {
->   	} mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];
->   	/* UUID info */
->   	struct amd_sriov_msg_uuid_info uuid_info;
-> +	/* pcie atomic Ops info */
-> +	uint32_t pcie_atomic_ops_enabled_flags;
->   	/* reserved */
-> -	uint32_t reserved[256 - 47];
-> +	uint32_t reserved[256 - 48];
->   };
->   
->   struct amd_sriov_msg_vf2pf_info_header {
