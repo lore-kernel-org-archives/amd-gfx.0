@@ -2,131 +2,136 @@ Return-Path: <SRS0=y1ja=OA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C63AAC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 06:33:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5EAAC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 06:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 679EB611AD
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 06:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 679EB611AD
+	by mail.kernel.org (Postfix) with ESMTPS id 66D0B60C40
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 06:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 66D0B60C40
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19D8B6E974;
-	Fri, 10 Sep 2021 06:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBB006E976;
+	Fri, 10 Sep 2021 06:36:54 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 121936E974
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 06:33:48 +0000 (UTC)
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB7B56E976;
+ Fri, 10 Sep 2021 06:36:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FAt2f6Mwwg88pefciVDdE0soy/NUd6gq0iEgzyaeJLx5KcIQcca2PAM4txICyXJN3qssBtWAGabqkqtXFOWmKtztDRhK9wYBLAeqUzIbJXFvGNGuqgJxmnFGR0dVv3aCIpaVSrMG5Dx3fhoc09XNoeAHmPdJcT+y97W+E151N3SjDLFJK223A4SEWkq/9zQ7bRUSIA3CtZB4Azlys3tMWTfPtrZ4XuzDcaP7HEb4klAiLbgYh2hvoLOetU2nRdrEljggO1xuWvoJ7oyVrrgZpm98+FvoTAQzFf3H2wDRpUPByUGfzDGDPIzSeqA6JTjSIomRRcMsE8FPP7gVZrHj+Q==
+ b=lMv8i6k7Ku0kkLiFGX25SUI2DzNbGy2ZqGPGOhg2h384BGAKAhOs7EhYndH2IWJ5h3A8cHQoposSjQGRKY/RJjV7yQNV5RW+D1F7j0Z1J0mkcIGoeDLCS3ZOeZW7Pp5sjTjn1HQaLlFeM/AM2DUoWo/WeRqlZ4IcAd0tNti5mD+sc512skSJEzFjcTU6Y9zvLjmuTRqSnuOgpdMwXm+3+TE686bjo2iR/nc0CxmoSasxFdnuQ3aVyUkgsfCnTAJ1B6jmyKO1r3PvWPjx08C4/90f/4dJSEsAxCwpVWI4cuPM/+mOrcrxdMe2pihnQ0rT5Q5qVRNHfyIIfv9j5jQhuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=qPdWbEJ26Wb5Jwho7wlH5rx5nLUbUteWX6pGYe90DFc=;
- b=Hlio39ju1Q+7WaPYgTffz3vjrEUDAdObPCM4Zw7GsvB9iIHtwyLJzxuiCTqgxF0RqOajHhNfd/hoXUaJg0L0867oJKWErmsPGDq7ufDvrGfgYVsHxnoxuCDm+PLjgAGqWQKzKBiDj67/9yX0ACdkBiZL7yv1Cr6QX9Xmz6j/5IMTWx/W2S8V0azttYjaygqY4y3RiyWFjEV1JMgXDD2a7iCs1GurmRtjuGMUr9Hm6zLYAtwx2JJjXTcaf5FKdAIj6xbP9ETGvdGTYPB6bsq2iHLkg7eEdkI3Ey9AZCanmESdP2cX8ccuLbTyxTguwqj2LV3Hig+eB/pbqtdnm0ieNw==
+ bh=ZB5MhS/2JXRZ+vzCSaM/yVkm9fX00ubq8QQY4PcerS0=;
+ b=XOSTWsvScMab7sL9S9CykcEZseXqZW4FJmE62foY5oBOsP2BmIBYjabMeKp/vvVPberlHRM2FkiS/mUdQByw2cH7d9ryfwURhRfaZ1oULubTNOQf4AFYTb1UEfMtyaCQ0V/nZ1S5wK5G9fP5DZrrhpoQat1wywwCHimWuEKlvBepzDt1gC3haAj/DL0Ry6kMtSAYY7z44ID84tlE6utrgSqy6hW8eh8vISSy7x7GiErYA37WYTGzJN6KX8HTz72ednycVyKLKih2Q+sEr+pY04sVO14uEvDq+uCIzrGrduJX9UPz13iKQberqb1NYycC8H1HnKZhW5fs0G9nWDWBKg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qPdWbEJ26Wb5Jwho7wlH5rx5nLUbUteWX6pGYe90DFc=;
- b=266yswBmoyq6IpyU6zpNaBgDK43JQb0n59cCN6E2E0NMX7Rj7OkDJUb0Ts9d7vtGv+I7YKis1x7qLruWBrHiI6HyYSz466PyYdw+tq2YRorNYPAK3fgZOyu1s+ffAyzhjcjIWBxgiAsLMQ9C6hH38a6C90od38HxnGRpEOl/Kog=
+ bh=ZB5MhS/2JXRZ+vzCSaM/yVkm9fX00ubq8QQY4PcerS0=;
+ b=W9xRl9BmeadnvmihwUKn1TxUAxCbCqw+wpMdeeWu/TYMowEWeFGLv3o2M0wn/nn5kA9svResxT+audezWtBWb4NXFMggqk1s6A9e49F3a43RHcthG3mMl87ZdCSg0egyvcOXJWGDpNyEkk/TrqLWzlwsvqjh9WX2v2Vm8OsIxV4=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4897.namprd12.prod.outlook.com (2603:10b6:208:17e::19)
+ by BL0PR12MB2484.namprd12.prod.outlook.com (2603:10b6:207:4e::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Fri, 10 Sep
- 2021 06:33:46 +0000
+ 2021 06:36:50 +0000
 Received: from MN2PR12MB3775.namprd12.prod.outlook.com
  ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
  ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4500.015; Fri, 10 Sep 2021
- 06:33:46 +0000
-Subject: Re: [PATCH 4/4] drm/amdgpu: VCN avoid memory allocation during IB test
-To: xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20210910003828.4013-1-xinhui.pan@amd.com>
- <20210910003828.4013-4-xinhui.pan@amd.com>
+ 06:36:50 +0000
+Subject: Re: [PATCH] drm/ttm: add a BUG_ON in ttm_set_driver_manager when
+ array bounds
+To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Chen, Guchun" <Guchun.Chen@amd.com>
+Cc: "Shi, Leslie" <Yuliang.Shi@amd.com>
+References: <20210910043014.529-1-guchun.chen@amd.com>
+ <DM4PR12MB5165EC993C7CF4413D52925E87D69@DM4PR12MB5165.namprd12.prod.outlook.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <711c2835-85f8-db09-1f61-b1c5d392d774@amd.com>
-Date: Fri, 10 Sep 2021 08:33:39 +0200
+Message-ID: <b065dd8d-5914-883e-b51d-8a718dae534f@amd.com>
+Date: Fri, 10 Sep 2021 08:36:45 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <20210910003828.4013-4-xinhui.pan@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <DM4PR12MB5165EC993C7CF4413D52925E87D69@DM4PR12MB5165.namprd12.prod.outlook.com>
+Content-Type: multipart/alternative;
+ boundary="------------EF7F06416C9E2F57D5325C60"
 Content-Language: en-US
-X-ClientProxiedBy: AM9P250CA0012.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:21c::17) To MN2PR12MB3775.namprd12.prod.outlook.com
+X-ClientProxiedBy: AM8P190CA0003.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:219::8) To MN2PR12MB3775.namprd12.prod.outlook.com
  (2603:10b6:208:159::19)
 MIME-Version: 1.0
 Received: from [192.168.178.21] (91.14.161.181) by
- AM9P250CA0012.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:21c::17) with Microsoft
+ AM8P190CA0003.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 06:33:45 +0000
+ 15.20.4500.15 via Frontend Transport; Fri, 10 Sep 2021 06:36:48 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1a071bf3-0398-4d19-ebf8-08d97424f11b
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4897:
+X-MS-Office365-Filtering-Correlation-Id: b971e0c7-46d3-47b9-110d-08d974255e95
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2484:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB48970B8B230D32FFBCBEC0AE83D69@BL0PR12MB4897.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:248;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB248438A2C7DB49685015C18683D69@BL0PR12MB2484.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8aMyLe67+lJ+l9Ogv1fsii8bRIL+5A3vZmAz9BbRbL+RABmi0M8fqqEryDoV2QRglcwP9p9V9OMcN8ufUE/v4jJzW5v/cKdHfXbER5++E4f3G3UU0Aqxwsnpo6fg2CiLaNdTLg/43S7RkN/edoSybojt4YBrfn11lLxtNRN6pm5gzx/nyMKQ28vANaFaSNns8/WM8ijTXpwnp0iegb1Fqne8P4C7Jg+yCj3ITDPx3pBXkbtXjXhywo8fVq1SlLNoVqawued9PKqVRKDMJuOG7G+UdV+tbcnW3B7ATLQNpD7gifUn5pf9h953OfD8Gj0cRajR8jJBr+7ZhMiFBMI050+Wtzs/H6Knsruei8CsrRumtPVvCFhjGYopBl2lwMlSuYrXT3CqwapqYIIQNG0629ut1j4z8W70rtCFaJizapuwMJNhH3K5ZwTUWQ0XQ+JZqNCXiQHLS7J/vWLZpT27auEAPqiUcDaEDBp+SEEIT336+NMsQl4bQ7q8DXVHywOPhTOaZOVxA286cQjqJo8nidpz7QVw2xxOxfdvjljpGxQedMoIhACoq1T8Qh/EUYZi2cZNOJVgx3XNlOdcz/6t36lIywmZoL/8x49grkMR1CIvdwxZhPRLgfTw+ENmynuAgN54v8YCuKRU7wnkn08zIIy8wbK0E/xBaWU5qyJCBof5kvR7aJ0wyQOUKHymvQOj72L+fqWy0FcuCH/j+G+IaUGS3V+yBsprPiUHN24vFP0=
+X-Microsoft-Antispam-Message-Info: zqJ6650XqxlgcY/BQCX8TRtf29f6M8ifg+rmVqJ0tEIhRdnNKfroGJjQY1H6NQe6bBPlJ4pubZcFP6c2pnVZDmvOL+gFp4g0sfZOD7Z+CMj53ZmkCxkJ+cvevnqztHaZt1Szzibyd5vr5eKEcV1CEauExX82XdhY+F1nzUWI4OZmhYgKWBg5+ADfYiwWO/gvYYuVsnzlhP0cHwndrWYmZfQD7hRVlcmq3az/3AW47CyXxSrtKBQt4K5qS1wfVbpqWu2A689FQCzVXwX1yfjfVZe2F2pRCJE3dlIWoog9IukgrBe2koM1zcnF/kSppGT5/UN4efoxEJ3uyvodw4XHwZ9UAbIopraUA4wD5xzIMPfkNa5PXPeD34XdhUJBfM3Hs6SyqUErQxprhB3C3uJI521w+Zp7+RNFxwYxAnrec+zqmyktP3QeqZ4JxRDI8VhWK5ozhQx6xq4bN7VStpf7KCm7is3lTEbWwDUvFR7+RednVnRsZ+z3QYLL+5irGyLsbD8qP/m6kq8CfMzw6tLubeIrBhqyyQuHhkIADFgjfk6C+QsrpxRh2ZoMHGDJVN2lzgdoabi2c91OyN1bLmOB2tUh1LRnM4cWcexF23QASFhmbeQpbZL8kBQCUE5TV4BuODiKOD0CN8U3M6smBuFy8FNoGy50VR3U2RWF3X7SRjA/PSdQiuFNHCWgLp/YjS28SLPpU2YZtqf3Sz7CLxXKo3Sm6+Lyptl+8EpGsNiIdSc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(366004)(346002)(136003)(39860400002)(86362001)(2616005)(478600001)(6486002)(36756003)(83380400001)(31696002)(956004)(31686004)(26005)(5660300002)(66476007)(316002)(6666004)(16576012)(186003)(4326008)(8936002)(38100700002)(8676002)(66556008)(66946007)(2906002)(43740500002)(45980500001);
+ SFS:(4636009)(396003)(376002)(39860400002)(136003)(366004)(346002)(36756003)(26005)(66946007)(6636002)(66556008)(66476007)(8936002)(2906002)(110136005)(6666004)(83380400001)(16576012)(316002)(478600001)(53546011)(31686004)(956004)(38100700002)(2616005)(33964004)(5660300002)(450100002)(8676002)(6486002)(86362001)(31696002)(186003)(4326008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzVQWnhraTF4UVFXZldhNU1OK2F6NWgreWdFaG9KbEFDNEZONStLZkVrc0Rl?=
- =?utf-8?B?VlRGa2tuMTZIbDRzTzVNZWV6eGg2L1NrRXZZT09TZ3ZCL1lzSi9WZTBkbmU1?=
- =?utf-8?B?Ulo0djdWVFhET3FSMS90aUFTVGQvaDNBeGhFbVIvVXQ2bXFZUVNSZzUzRFZa?=
- =?utf-8?B?ZHVpb2xJNzdpOW1xSW5iQ0VCdWRyV1RKU2Ztc1dBUU94RE9JWktVRUtuSHRE?=
- =?utf-8?B?aDFGWlVEa1RrZ2JGQTcvdmJRMnFKK2Jjd0JzWEtCSHJoT3k1ejZGN2MrNm00?=
- =?utf-8?B?TVlWV0p4am9rV1I0ZVRiYnE1cXZMazhWQ1dveG5KeGFVZjlVa2IzemhSSWlE?=
- =?utf-8?B?dG0yc3NJMDZ2RnFWSTVqNWJWUW5QNWZXRjlaNitrYTBkdjIxWHE2Vyt5bGQx?=
- =?utf-8?B?MS9neU9jcmR6emhYU3JCYXJNNzlpQ1BWekxXS3U1RksveEJ0ZlBTcFYvTE5H?=
- =?utf-8?B?d1RPUFluN0NIUEd4YVpxUEhWSUdoelpMVXJmenVCemE4UFIvUU5zR1daZGtW?=
- =?utf-8?B?djRvRHVwUGVTa0dCTzNVVE1OK0hHcUJ3WlBnOWVrVXN2MWtDKzN2b2p4TmJh?=
- =?utf-8?B?UzhQL0NyMHI4ZDUybDU5cFRDM2diQi9rWE5wZXZhcnhXWjhRK3RZdS9DVGFz?=
- =?utf-8?B?NFRObnlSeDFBbVI4S1pjNXRINjgvYldBQXVOUENzSXFUcjJUbnpFWmE1czJF?=
- =?utf-8?B?V0RmZG0zd0hoQy9PZTdrQzFZMVF2TXluVmtyU1B1KzlmMzAwQkxxQTQ1QUJi?=
- =?utf-8?B?QlhGaVJlVEZ0TzZrQ1FYcC91T2pqRTUxOHE5dVJRWVpJYjRyTWF6YzIvUW1H?=
- =?utf-8?B?NmhaVXVaQ0N6SXpuQjIzV2RyU1lyQm0zK3RJMlVjcFB3MWRKQzVsbFpwZnAy?=
- =?utf-8?B?clAybGc4UVJhdW4yZ1h4cjhKNkd1NXBBUk9BcVFWMVpWSHd1SDBYcXVEUEpm?=
- =?utf-8?B?V3kybUdQTFd3Y1ZvUENpYmtQbjA1VEl1bGQzR3kreUh4dEdXQ201aU5CWlRV?=
- =?utf-8?B?bVpWYWdIWS9abHIycys4aUU3U3EwVjhXVFRTb3EyNzB2RC81ay9rT05Fa0pv?=
- =?utf-8?B?aE5QNC9vVXNaYVBBQktUQkRRQWQ3cmF1VXcydkF5THRONEttVFRlaGk0T25L?=
- =?utf-8?B?RG1iV3RsNkFLNXIxY2FTWFZYaXlwS1pGT2xzYTM0Nm8zM2FlZXloZDdzVlZ3?=
- =?utf-8?B?S05ZdElDQ3kreXFpckVlVzZGYUsxekZmSXJmVWh1bkpkall4VmViZGJiMFVV?=
- =?utf-8?B?alJXejlUVDYwOHVObFdaNkNPUFpBdXhHZEVidzNZNE1iNlZOTU9GNzZHWjI0?=
- =?utf-8?B?R1JlVHlPSWdrbjhid3k0MEVoVnpRSU12Nm1RZ01FMDBzR1kvMnRRcm9kMCtP?=
- =?utf-8?B?RC9Bb2krcG5tdFhQMkwrZFl2aS8xRTBCbm1tejhJdGE1RHBlN0xGaHljV0ph?=
- =?utf-8?B?YzIvQ1RFNFc3cWVVeFBzcFFFazRPOEhMMHcrKzZIV3gyQWFmcDJtbzVlRUNl?=
- =?utf-8?B?YjNPRWdDNWV3amJCMGh3N051YkgvMWpNbkxSZUlHMDl1TXpGOHowbXBzaG5n?=
- =?utf-8?B?ckxIUWtQZ2cxU0RlSmszNlRqWW9pYWFBWjcwMW5ZTWZDUGZWWHhNU3BuSWRi?=
- =?utf-8?B?TmFDZ1BONFR2T1psTEdUdnNlUU1XSElKWGhraHRyUndweVdjVm9Ha1RPenBn?=
- =?utf-8?B?SzJGekx1azFGWjVSTGE3S1dNb0sxZkIvKyttRmxQd2V4OXJrRFFoaHB0KzQr?=
- =?utf-8?Q?kOmOP2qpMgIJAlS7Wcux4voapOtTYVMJ85sJnol?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGNuSm5rdEVNNHBtWkNpbWZlWWxlTUVLU3VIKzA1U09CQnE0aXZ6cXdUSDJT?=
+ =?utf-8?B?ci8wbmFldEV5cEQrYzFUV2V2YUVGQitWRW95TzlGbE5KZDllWjlOWVNpY1lv?=
+ =?utf-8?B?dEdBN1Z2d0QyQldtNVNvUFk0VkkvZHN0amcxZ0krKzZENUtyUWVnL0JOK2tv?=
+ =?utf-8?B?TWptcWZINUdndGtzR0g3ZU9FUXIxUkJtbFJ5WVBCbmsrYVl0ampvaFJvaFVJ?=
+ =?utf-8?B?bmsxQThmMm5mcUdObTBISUs4Q1h0emFiNndmanpyVzlUODM4aDAxQ2JFWkpo?=
+ =?utf-8?B?allGdTRzMkVkbUJIakY0cFNMVTd1WW5yU1BhM2lNYTJKMVBudTRLUE5LMGVN?=
+ =?utf-8?B?YkJMbXZsVFhhYUg5WGFWQ3YweVFYSFdqK0c5RTU0NzNvZjdMaUVVWk1WNDJW?=
+ =?utf-8?B?S3dZUHRmNWVBY0xBTGdyWTBZK29CWXJzd243N3dHMWV0UVR6RzAydVFBcUlS?=
+ =?utf-8?B?RjVsSS9pRnJWaWw0bThHb0lqNFlyd0hKeDF1dnpQOVNWK3NVeFlMdUtCR1Z0?=
+ =?utf-8?B?K2RzSmZTRkx3NHRZOGpudkl5ODRiSlZkSmhIRHdNS0Jnd2dkZkRLMU5UVWVw?=
+ =?utf-8?B?T0gyb2QxUWhQZzc3bzZDZk1IQ04rT0JjazNNTFNHdmZsZWdsVVdsVkQxSXp3?=
+ =?utf-8?B?WEkyd01YMmxWaDU2V2YwRUkrdUhyeXcvV3RFTnNxbFpmc3JZdHlScktOS0VC?=
+ =?utf-8?B?RkowVFd6d1lCYlpqUFJOSGxlQjJROW5BRm5tZU1NUkxHQWgxdCtERlA3c2JZ?=
+ =?utf-8?B?d3V3ZkR3NFVycE9xTC9maGVQcVlZYUZUTCtjczA0ZGphVHJFQTJBZVZqcXhD?=
+ =?utf-8?B?NStEcGlveHArOW5wN1VTalF3Y0VjSVptRnFXYmRhZHEyZ1llZlpGdjJlbG9k?=
+ =?utf-8?B?blJ3VlFIb3BQQ0ZkV3Nrd2xrZkVPdk1aVUwzQkZDZUxSejB3enNtZjFtUHl3?=
+ =?utf-8?B?aitJbzQzNHpLa0hFWENFQkRUR3R5eC9nN1A2dWZSbHlsY2I5ZCszVkQ0cWVI?=
+ =?utf-8?B?bmo1THFKN3FMRGJKSkpDQ2NWcXBUQ2NIdHJxVHZKZG05UnpqSGVmc3hCNnMy?=
+ =?utf-8?B?M01LS1RMQWFUQTlHZzd1eTUwemFsV25NdGxMdFJnckZlRXZFT09WU2d1dW0w?=
+ =?utf-8?B?STQvWUdxMzlhem9sdkh2Z1phMCtJMlBzaGZ3amljR1RKenQvSDJnS0dEcjdH?=
+ =?utf-8?B?VVJtVG5SaGVGdHpmdStkQjdaL3F5ZGtIeHFDcE9nb25DTXB3Rm1qMFdONFNG?=
+ =?utf-8?B?ZVl4ZHlLOEsyTmMraVcwTUtrdWY5bUdldUVyemxIKzB3dWNUSWRhT1A2amxx?=
+ =?utf-8?B?OXNJMTFFUkJlRnIzdjFTZ2EwczZPdS9RcDl5QS9tNjhtUVQySXI3Q3dsOHlF?=
+ =?utf-8?B?VjdadFdXNkcza0VmTUxuR2xUZ3g3d01qR0FzeDE0OENZWTJvbnBMK0s0akxo?=
+ =?utf-8?B?OGRxTW9hT2MzOWxtaXFtVnhZcmptYStNa3FUUFZ0cUl2MjRhSW9YZGJkc3Nh?=
+ =?utf-8?B?UkcvcW1mNXBTTVZ5eUhPa2VuVHhFMVJMVEZDemZPMUZvS2UxK00wWm5vS0lz?=
+ =?utf-8?B?OWlFR0FsRDFJQ3lHRGwyQm05UTVzU0pBZVhtVVowVjJjVjdmMm0wQjA5L2VL?=
+ =?utf-8?B?bGhLbWU5SDNmZ3NpZG45NTJOc2Fyb3RQd2wvVFFJYW9DdVZkZ2pGVndsUFA4?=
+ =?utf-8?B?MFkycWNPRUtHOFVHZUJiUEFMRGdmWjdGVXZBUjlBdGoyMGJhSTc3Z2ttb0Zy?=
+ =?utf-8?Q?fNRF5vsW8UpCJNKwdq78jlbMrrqJZS5+1kUr3i8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a071bf3-0398-4d19-ebf8-08d97424f11b
+X-MS-Exchange-CrossTenant-Network-Message-Id: b971e0c7-46d3-47b9-110d-08d974255e95
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 06:33:46.3778 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 06:36:50.1084 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Mp+jG8hGLhVTzJtVol+XDi445zEl/zQLCpghhPOJLs0m9JnAzsCSPP/6bDnDV0V6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4897
+X-MS-Exchange-CrossTenant-UserPrincipalName: W/fe+YR1lfaeCteIvuQ3ChaZTFVChJ+ys2K54i9cl495SKRVpSytzFaedwbblwHz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,309 +146,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--------------EF7F06416C9E2F57D5325C60
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Yeah, that's a good point.
 
-Am 10.09.21 um 02:38 schrieb xinhui pan:
-> alloc extra msg from direct IB pool.
->
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 99 +++++++++++--------------
->   1 file changed, 45 insertions(+), 54 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 561296a85b43..b60d5f01fdae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -541,15 +541,14 @@ int amdgpu_vcn_dec_sw_ring_test_ring(struct amdgpu_ring *ring)
->   }
->   
->   static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
-> -				   struct amdgpu_bo *bo,
-> -				   struct dma_fence **fence)
-> +		struct amdgpu_ib *ib_msg,
-> +		struct dma_fence **fence)
+If build_bug_on() doesn't works for some reason then we at least need to 
+lower this to a WARN_ON.
 
-The parameter indentation here and at a few other places doesn't look 
-correct to me, what editor are you using BTW?
-
-Apart from that the patch is Reviewed-by: Christian König 
-<christian.koenig@amd.com>.
+A BUG_ON() is only justified if we prevent strong data corruption with 
+it or note a NULL pointer earlier on or similar.
 
 Regards,
 Christian.
 
->   {
->   	struct amdgpu_device *adev = ring->adev;
->   	struct dma_fence *f = NULL;
->   	struct amdgpu_job *job;
->   	struct amdgpu_ib *ib;
-> -	uint64_t addr;
-> -	void *msg = NULL;
-> +	uint64_t addr = ib_msg->gpu_addr;
->   	int i, r;
->   
->   	r = amdgpu_job_alloc_with_ib(adev, 64,
-> @@ -558,8 +557,6 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
->   		goto err;
->   
->   	ib = &job->ibs[0];
-> -	addr = amdgpu_bo_gpu_offset(bo);
-> -	msg = amdgpu_bo_kptr(bo);
->   	ib->ptr[0] = PACKET0(adev->vcn.internal.data0, 0);
->   	ib->ptr[1] = addr;
->   	ib->ptr[2] = PACKET0(adev->vcn.internal.data1, 0);
-> @@ -576,9 +573,7 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
->   	if (r)
->   		goto err_free;
->   
-> -	amdgpu_bo_fence(bo, f, false);
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_free_kernel(&bo, NULL, (void **)&msg);
-> +	amdgpu_ib_free(adev, ib_msg, f);
->   
->   	if (fence)
->   		*fence = dma_fence_get(f);
-> @@ -588,27 +583,26 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
->   
->   err_free:
->   	amdgpu_job_free(job);
-> -
->   err:
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_free_kernel(&bo, NULL, (void **)&msg);
-> +	amdgpu_ib_free(adev, ib_msg, f);
->   	return r;
->   }
->   
->   static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -					 struct amdgpu_bo **bo)
-> +		struct amdgpu_ib *ib)
->   {
->   	struct amdgpu_device *adev = ring->adev;
->   	uint32_t *msg;
->   	int r, i;
->   
-> -	*bo = NULL;
-> -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      bo, NULL, (void **)&msg);
-> +	memset(ib, 0, sizeof(*ib));
-> +	r = amdgpu_ib_get(adev, NULL, PAGE_SIZE,
-> +			AMDGPU_IB_POOL_DIRECT,
-> +			ib);
->   	if (r)
->   		return r;
->   
-> +	msg = ib->ptr;
->   	msg[0] = cpu_to_le32(0x00000028);
->   	msg[1] = cpu_to_le32(0x00000038);
->   	msg[2] = cpu_to_le32(0x00000001);
-> @@ -630,19 +624,20 @@ static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->   }
->   
->   static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -					  struct amdgpu_bo **bo)
-> +					  struct amdgpu_ib *ib)
->   {
->   	struct amdgpu_device *adev = ring->adev;
->   	uint32_t *msg;
->   	int r, i;
->   
-> -	*bo = NULL;
-> -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      bo, NULL, (void **)&msg);
-> +	memset(ib, 0, sizeof(*ib));
-> +	r = amdgpu_ib_get(adev, NULL, PAGE_SIZE,
-> +			AMDGPU_IB_POOL_DIRECT,
-> +			ib);
->   	if (r)
->   		return r;
->   
-> +	msg = ib->ptr;
->   	msg[0] = cpu_to_le32(0x00000028);
->   	msg[1] = cpu_to_le32(0x00000018);
->   	msg[2] = cpu_to_le32(0x00000000);
-> @@ -658,21 +653,21 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->   int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
->   	struct dma_fence *fence = NULL;
-> -	struct amdgpu_bo *bo;
-> +	struct amdgpu_ib ib;
->   	long r;
->   
-> -	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &bo);
-> +	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &ib);
->   	if (r)
->   		goto error;
->   
-> -	r = amdgpu_vcn_dec_send_msg(ring, bo, NULL);
-> +	r = amdgpu_vcn_dec_send_msg(ring, &ib, NULL);
->   	if (r)
->   		goto error;
-> -	r = amdgpu_vcn_dec_get_destroy_msg(ring, 1, &bo);
-> +	r = amdgpu_vcn_dec_get_destroy_msg(ring, 1, &ib);
->   	if (r)
->   		goto error;
->   
-> -	r = amdgpu_vcn_dec_send_msg(ring, bo, &fence);
-> +	r = amdgpu_vcn_dec_send_msg(ring, &ib, &fence);
->   	if (r)
->   		goto error;
->   
-> @@ -688,8 +683,8 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   }
->   
->   static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
-> -				   struct amdgpu_bo *bo,
-> -				   struct dma_fence **fence)
-> +		struct amdgpu_ib *ib_msg,
-> +		struct dma_fence **fence)
->   {
->   	struct amdgpu_vcn_decode_buffer *decode_buffer = NULL;
->   	const unsigned int ib_size_dw = 64;
-> @@ -697,7 +692,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   	struct dma_fence *f = NULL;
->   	struct amdgpu_job *job;
->   	struct amdgpu_ib *ib;
-> -	uint64_t addr;
-> +	uint64_t addr = ib_msg->gpu_addr;
->   	int i, r;
->   
->   	r = amdgpu_job_alloc_with_ib(adev, ib_size_dw * 4,
-> @@ -706,7 +701,6 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   		goto err;
->   
->   	ib = &job->ibs[0];
-> -	addr = amdgpu_bo_gpu_offset(bo);
->   	ib->length_dw = 0;
->   
->   	ib->ptr[ib->length_dw++] = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
-> @@ -726,9 +720,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   	if (r)
->   		goto err_free;
->   
-> -	amdgpu_bo_fence(bo, f, false);
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_ib_free(adev, ib_msg, f);
->   
->   	if (fence)
->   		*fence = dma_fence_get(f);
-> @@ -738,31 +730,29 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   
->   err_free:
->   	amdgpu_job_free(job);
-> -
->   err:
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_ib_free(adev, ib_msg, f);
->   	return r;
->   }
->   
->   int amdgpu_vcn_dec_sw_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
->   	struct dma_fence *fence = NULL;
-> -	struct amdgpu_bo *bo;
-> +	struct amdgpu_ib ib;
->   	long r;
->   
-> -	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &bo);
-> +	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &ib);
->   	if (r)
->   		goto error;
->   
-> -	r = amdgpu_vcn_dec_sw_send_msg(ring, bo, NULL);
-> +	r = amdgpu_vcn_dec_sw_send_msg(ring, &ib, NULL);
->   	if (r)
->   		goto error;
-> -	r = amdgpu_vcn_dec_get_destroy_msg(ring, 1, &bo);
-> +	r = amdgpu_vcn_dec_get_destroy_msg(ring, 1, &ib);
->   	if (r)
->   		goto error;
->   
-> -	r = amdgpu_vcn_dec_sw_send_msg(ring, bo, &fence);
-> +	r = amdgpu_vcn_dec_sw_send_msg(ring, &ib, &fence);
->   	if (r)
->   		goto error;
->   
-> @@ -809,7 +799,7 @@ int amdgpu_vcn_enc_ring_test_ring(struct amdgpu_ring *ring)
->   }
->   
->   static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -					 struct amdgpu_bo *bo,
-> +					 struct amdgpu_ib *ib_msg,
->   					 struct dma_fence **fence)
->   {
->   	const unsigned ib_size_dw = 16;
-> @@ -825,7 +815,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->   		return r;
->   
->   	ib = &job->ibs[0];
-> -	addr = amdgpu_bo_gpu_offset(bo);
-> +	addr = ib_msg->gpu_addr;
->   
->   	ib->length_dw = 0;
->   	ib->ptr[ib->length_dw++] = 0x00000018;
-> @@ -863,7 +853,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->   }
->   
->   static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -					  struct amdgpu_bo *bo,
-> +					  struct amdgpu_ib *ib_msg,
->   					  struct dma_fence **fence)
->   {
->   	const unsigned ib_size_dw = 16;
-> @@ -879,7 +869,7 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->   		return r;
->   
->   	ib = &job->ibs[0];
-> -	addr = amdgpu_bo_gpu_offset(bo);
-> +	addr = ib_msg->gpu_addr;
->   
->   	ib->length_dw = 0;
->   	ib->ptr[ib->length_dw++] = 0x00000018;
-> @@ -918,21 +908,23 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->   
->   int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
-> +	struct amdgpu_device *adev = ring->adev;
->   	struct dma_fence *fence = NULL;
-> -	struct amdgpu_bo *bo = NULL;
-> +	struct amdgpu_ib ib;
->   	long r;
->   
-> -	r = amdgpu_bo_create_reserved(ring->adev, 128 * 1024, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      &bo, NULL, NULL);
-> +	memset(&ib, 0, sizeof(ib));
-> +	r = amdgpu_ib_get(adev, NULL, 128 << 10,
-> +			AMDGPU_IB_POOL_DIRECT,
-> +			&ib);
->   	if (r)
->   		return r;
->   
-> -	r = amdgpu_vcn_enc_get_create_msg(ring, 1, bo, NULL);
-> +	r = amdgpu_vcn_enc_get_create_msg(ring, 1, &ib, NULL);
->   	if (r)
->   		goto error;
->   
-> -	r = amdgpu_vcn_enc_get_destroy_msg(ring, 1, bo, &fence);
-> +	r = amdgpu_vcn_enc_get_destroy_msg(ring, 1, &ib, &fence);
->   	if (r)
->   		goto error;
->   
-> @@ -943,9 +935,8 @@ int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   		r = 0;
->   
->   error:
-> +	amdgpu_ib_free(adev, &ib, fence);
->   	dma_fence_put(fence);
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_free_kernel(&bo, NULL, NULL);
->   
->   	return r;
->   }
+Am 10.09.21 um 06:36 schrieb Pan, Xinhui:
+>
+> [AMD Official Use Only]
+>
+>
+> looks good to me.
+> But maybe build_bug_on works too and more reasonable to detect such 
+> wrong usage.
+> ------------------------------------------------------------------------
+> *From:* Chen, Guchun <Guchun.Chen@amd.com>
+> *Sent:* Friday, September 10, 2021 12:30:14 PM
+> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; 
+> dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; 
+> Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui 
+> <Xinhui.Pan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+> *Cc:* Chen, Guchun <Guchun.Chen@amd.com>; Shi, Leslie 
+> <Yuliang.Shi@amd.com>
+> *Subject:* [PATCH] drm/ttm: add a BUG_ON in ttm_set_driver_manager 
+> when array bounds
+> Vendor will define their own memory types on top of TTM_PL_PRIV,
+> but call ttm_set_driver_manager directly without checking mem_type
+> value when setting up memory manager. So add such check to aware
+> the case when array bounds.
+>
+> Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> ---
+>  include/drm/ttm/ttm_device.h | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
+> index 7a0f561c57ee..24ad76ca8022 100644
+> --- a/include/drm/ttm/ttm_device.h
+> +++ b/include/drm/ttm/ttm_device.h
+> @@ -308,6 +308,7 @@ ttm_manager_type(struct ttm_device *bdev, int 
+> mem_type)
+>  static inline void ttm_set_driver_manager(struct ttm_device *bdev, 
+> int type,
+>                                            struct ttm_resource_manager 
+> *manager)
+>  {
+> +       BUG_ON(type >= TTM_NUM_MEM_TYPES);
+>          bdev->man_drv[type] = manager;
+>  }
+>
+> -- 
+> 2.17.1
+>
 
+
+--------------EF7F06416C9E2F57D5325C60
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Yeah, that's a good point.<br>
+    <br>
+    If build_bug_on() doesn't works for some reason then we at least
+    need to lower this to a WARN_ON.<br>
+    <br>
+    A BUG_ON() is only justified if we prevent strong data corruption
+    with it or note a NULL pointer earlier on or similar.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 10.09.21 um 06:36 schrieb Pan,
+      Xinhui:<br>
+    </div>
+    <blockquote type="cite" cite="mid:DM4PR12MB5165EC993C7CF4413D52925E87D69@DM4PR12MB5165.namprd12.prod.outlook.com">
+      
+      <p style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" align="Left">
+        [AMD Official Use Only]<br>
+      </p>
+      <br>
+      <div>
+        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
+          font-family: sans-serif; font-size: 11pt; color: black; ">
+          looks good to me.<br>
+        </div>
+        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
+          font-family: sans-serif; font-size: 11pt; color: black; ">
+        </div>
+        <div dir="auto" style="direction: ltr; margin: 0px; padding:
+          0px; font-family: sans-serif; font-size: 11pt; color: black;
+          text-align: left;">
+          But maybe build_bug_on works too and more reasonable to detect
+          such wrong usage.</div>
+        <hr style="display:inline-block;width:98%" tabindex="-1">
+        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
+            Chen, Guchun <a class="moz-txt-link-rfc2396E" href="mailto:Guchun.Chen@amd.com">&lt;Guchun.Chen@amd.com&gt;</a><br>
+            <b>Sent:</b> Friday, September 10, 2021 12:30:14 PM<br>
+            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
+            <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a>; Koenig, Christian
+            <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Pan, Xinhui
+            <a class="moz-txt-link-rfc2396E" href="mailto:Xinhui.Pan@amd.com">&lt;Xinhui.Pan@amd.com&gt;</a>; Deucher, Alexander
+            <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a><br>
+            <b>Cc:</b> Chen, Guchun <a class="moz-txt-link-rfc2396E" href="mailto:Guchun.Chen@amd.com">&lt;Guchun.Chen@amd.com&gt;</a>; Shi,
+            Leslie <a class="moz-txt-link-rfc2396E" href="mailto:Yuliang.Shi@amd.com">&lt;Yuliang.Shi@amd.com&gt;</a><br>
+            <b>Subject:</b> [PATCH] drm/ttm: add a BUG_ON in
+            ttm_set_driver_manager when array bounds</font>
+          <div>&nbsp;</div>
+        </div>
+        <div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
+              <div class="PlainText">Vendor will define their own memory
+                types on top of TTM_PL_PRIV,<br>
+                but call ttm_set_driver_manager directly without
+                checking mem_type<br>
+                value when setting up memory manager. So add such check
+                to aware<br>
+                the case when array bounds.<br>
+                <br>
+                Signed-off-by: Leslie Shi <a class="moz-txt-link-rfc2396E" href="mailto:Yuliang.Shi@amd.com">&lt;Yuliang.Shi@amd.com&gt;</a><br>
+                Signed-off-by: Guchun Chen <a class="moz-txt-link-rfc2396E" href="mailto:guchun.chen@amd.com">&lt;guchun.chen@amd.com&gt;</a><br>
+                ---<br>
+                &nbsp;include/drm/ttm/ttm_device.h | 1 +<br>
+                &nbsp;1 file changed, 1 insertion(+)<br>
+                <br>
+                diff --git a/include/drm/ttm/ttm_device.h
+                b/include/drm/ttm/ttm_device.h<br>
+                index 7a0f561c57ee..24ad76ca8022 100644<br>
+                --- a/include/drm/ttm/ttm_device.h<br>
+                +++ b/include/drm/ttm/ttm_device.h<br>
+                @@ -308,6 +308,7 @@ ttm_manager_type(struct ttm_device
+                *bdev, int mem_type)<br>
+                &nbsp;static inline void ttm_set_driver_manager(struct
+                ttm_device *bdev, int type,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct
+                ttm_resource_manager *manager)<br>
+                &nbsp;{<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG_ON(type &gt;= TTM_NUM_MEM_TYPES);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bdev-&gt;man_drv[type] = manager;<br>
+                &nbsp;}<br>
+                &nbsp;<br>
+                -- <br>
+                2.17.1<br>
+                <br>
+              </div>
+            </span></font></div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------EF7F06416C9E2F57D5325C60--
