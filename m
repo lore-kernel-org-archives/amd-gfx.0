@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57722C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 00:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FA95C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 00:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 208A661074
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 00:38:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 208A661074
+	by mail.kernel.org (Postfix) with ESMTPS id 0C84E6109F
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Sep 2021 00:38:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0C84E6109F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C5F66E94A;
-	Fri, 10 Sep 2021 00:38:50 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA9C36E94A
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 00:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99EBD6E94E;
+	Fri, 10 Sep 2021 00:38:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8BC86E94B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Sep 2021 00:38:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fV1+ojG/tabpmhjovHlzvdPqbKRIYeqKzc1nCduhH9yZSGg9TzHntoioYcrdAT95ErKrLNWXgm5C8p02iVdKBZnUon2UnvGqkXRGdyqyED2B3vFtlGs9zCzD36SXeaM1a2cjBxhsd+N9OA4vLikIsBLbzjptrZbUv3ijyBrGrGJdEx8TKLIAPMoBBsJvTC3H0Z7EmpP/wA77lc7yzHXKVTthfNE9GT72FF6AfjR6JYeHHvbxCeTg5gc2W4Udo98P8QIFLbKSSUVL/mwtmYXr06V6VZ45hOfGMsCV79q4T+wFeNdZkongsAPergESGj7JsxUAbywHqPCH/FOTFWKdPA==
+ b=QZcmDUyHjFbpbtF4rnaGgR9fPdeIpDeoAsGI4rQhjQQj9E9G1/pC+lvVdn4WohllBTaWN7cugHnWdZ/zgB4HImPYaqpOZSFwInGq88iPsrj+JTTA+q/hFUGR6FZgIPgfzynRYab/jt5FbWas1hF5HEPpKWv9e0LuwiG+UGcmcrrUx5Sd7qYlhdUMHu9EqYOfnjDUoVPcMCWmFojQ24XFEVVTSll++LvIk8CEiWEQI1Z7rVAYvDVJz1pvSSDBBLu6YINB1IbE3zPg7KMgSEvmTnsCgQZ3VZxSr1Vzrc4I/EiyfZJSy7Ngnh5xzB5hKCmguBq5sUkwEXnCLloc0nNpQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=fLDBP3vR8hOtUl/d7VyGOYtDqXa73dv7VhDeHYc/2T8=;
- b=TdTj2ACrJFeZWM+ck6NxrxjnSUVY20s6zi7lR9aE4ZtuD615cPqWaZZbz8iHLMUsjp47AUHhvsXh9IMPQYqZeCvUf7IEe61+/yn32IjocLXZUrkm5tkcdPPKfrFzbHEghHoe7pJrR/Qi9JgO2Pht5GILtQist8hdpXR+KysVhyAKAKdliMM7G+mJZnmc3eEdNUMNiEj+ClwuPa68KXL1rhtCamhsVdZi1+3KzxbSnh/yjO3gZM5QpBuxlpLRlCigz+CN2wQYQtNh177ddikRrE0BysuiqDHrO4IcldqKcMYBrF5iSZsa46KmjFaDtuNdgelekXS9H7Pvje8M+RhR0A==
+ bh=j5F+2dgR7obaVzXX1t+En+RvlmsctTldTnQUrk4K3+M=;
+ b=CMSmzibYd7Xet35GEmULj1H+MfiJWnAUuCCxtylVz28JF+sLcNUh9YrIh6s5CivYtsrADbMG7UJjFTjuIMwOnYSZuWP2sz9+Iwd8hai9+JMJqe6MDohw1iNA6s3GpmXp20xTjRVATahEibD44Yq0r/FlfN60aicu5xmlkbst7hnjgMwpv1ii38u5p2mgOx0qJfEGqfTQgOVxzgdYJygrKmlF5A6HYlzDCKMYf9Ybi/Q+HH8kp2Yc2PRaBuDy3lh7qjkFJzg4+tXU5sbcDWFYPdsx8OFBUJoF04WuwhVMKrR2iLcZLBt/rjKwq/aEXx/vncw+cfGQ7sDtVf9rz0H1jQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fLDBP3vR8hOtUl/d7VyGOYtDqXa73dv7VhDeHYc/2T8=;
- b=tlX5PIQtZjgJkvOiA3uIQd2690+a7T4ysO0PSepdoQgElZKbHtE7ZjhPhJWVjm25P1pYjKcW50jrdsKWKXq+1MY0UODhh2ZVIXo8VjmiHEM49Sc8tdlVETGzr6du21x2Lk6iwsHZ1J6BfkZLufSWhI6GhQh0tKM8NK8ZnrT+0YI=
-Received: from DM5PR13CA0023.namprd13.prod.outlook.com (2603:10b6:3:23::33) by
- MWHPR12MB1503.namprd12.prod.outlook.com (2603:10b6:301:b::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14; Fri, 10 Sep 2021 00:38:46 +0000
-Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:23:cafe::12) by DM5PR13CA0023.outlook.office365.com
- (2603:10b6:3:23::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.9 via Frontend
- Transport; Fri, 10 Sep 2021 00:38:46 +0000
+ bh=j5F+2dgR7obaVzXX1t+En+RvlmsctTldTnQUrk4K3+M=;
+ b=sxyLuckxdaahlwZMgVUkeqGnTi3bN34VuVaofJwA096W7wFaNFci2fmZgTy0KRZnR/xMcJ3zyjCw0oyPtx05Q4Q492HnsC1l/VcC2LRN6GlZp72b9yamksY/1PEHPfPyPpIySRQXn529HmOuoLBe8Si6ZBSAW1tOkEFh4f/Ajhs=
+Received: from DM6PR18CA0022.namprd18.prod.outlook.com (2603:10b6:5:15b::35)
+ by BL1PR12MB5362.namprd12.prod.outlook.com (2603:10b6:208:31d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Fri, 10 Sep
+ 2021 00:38:49 +0000
+Received: from DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:15b:cafe::9d) by DM6PR18CA0022.outlook.office365.com
+ (2603:10b6:5:15b::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Fri, 10 Sep 2021 00:38:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,20 +57,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
+ DM6NAM11FT014.mail.protection.outlook.com (10.13.173.132) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 00:38:45 +0000
+ 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 00:38:49 +0000
 Received: from pp-server-two.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 9 Sep 2021
- 19:38:44 -0500
+ 19:38:45 -0500
 From: xinhui pan <xinhui.pan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>, xinhui pan
  <xinhui.pan@amd.com>
-Subject: [PATCH 2/4] drm/amdgpu: UVD avoid memory allocation during IB test
-Date: Fri, 10 Sep 2021 08:38:26 +0800
-Message-ID: <20210910003828.4013-2-xinhui.pan@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: VCE avoid memory allocation during IB test
+Date: Fri, 10 Sep 2021 08:38:27 +0800
+Message-ID: <20210910003828.4013-3-xinhui.pan@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210910003828.4013-1-xinhui.pan@amd.com>
 References: <20210910003828.4013-1-xinhui.pan@amd.com>
@@ -82,28 +82,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9d2b1351-d7d4-4479-337b-08d973f3591a
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1503:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB15035047955FA54D9E92BE2F87D69@MWHPR12MB1503.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:935;
+X-MS-Office365-Filtering-Correlation-Id: fe8c2e39-3af3-4e6e-6bb0-08d973f35b2c
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5362:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB536272FA46189CC1D9E664D987D69@BL1PR12MB5362.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:121;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tjSjW3E0f3BEHa0RtSsJ2JxI1knX82IcXMJExcJHoLfWr5+/Z5gZx0qiRSuhxxT62DGzG62u/S9b3sTQA2j81FRtc54TBKU36JKGxd3suV5W0rWadX4b31Tk1Vfak55ZqqKZJvYBkvLBnVsN8at5d3Hv+45ovOTrR+92jsQpDH82fDfKPDrCR4HRPsd6eaSbBB4Xz6k67GUBry5ZsXWkLzBogIhNBIEvDT8134JnSZKs4y5S6/JyLNFQdBwmZSaHBQQMqPwtskjDljkBvQ1z8Eso5J3mpwU1YiKS9TVB6fzHlb5uqo0ueVWuf7I3Uvv4gbNR5QMXDyCIsUdaKmT/RIoCs9+H5p1H0/dgFZOvk32E/XeOt0HNqeukMTmV8PboI+XcbiGVjbz46p0Mbqp/qDOvPe2KtfKLLfesAgdOIT7SV7poW3zjAFizJf2PzgCLjnbwQHkE8yeJqNIAncTJz75YNBzp74GhcqwrXWE/DCsPmiZybSB2EXGAmUvlSYVORgDt+m4e4v1EFdezM1A5kpDFuaHux5gmRS/k/fudVJy02SmanmtB+ndgun5N/eRAkLVft67k/BWCamGFGYvX33br0/ehWP67/lVkHcDasdoLrZTBYC//m92axSjLkacztDUdGJGuyS4EdZREu2puwomuDt3chQf9bE2/Yu90jFv2qzXiXiP2UsxVyWBWucTuEB+Fq10J+qBnuGXEaczKQN+hN0Wh2AYsnYNoZRHSIYE=
+X-Microsoft-Antispam-Message-Info: eG2nqpAHCM6+DTp71L+dhl6yGBzG55tWjGHnl36zFh/Bn/8sN0OoZB21C35AYZY17H1Yc/MQHRJlmz+UzCwM1ojtutoUqtHBo06XfNut3UyFwEb/0A83iAK+4N1Sxb/UOVF//fcRnXHLQtJK/3hYZ1aKEtN320L6C++3G9CCqs3LHIVk74k22i92NwWRpEClQ3ZKjyxh3jMtacV7nrWHcEhqVqdWzlGUGtXGC6EYeOizkBq2XfpRHSYoFe+N//WF+dsNIjPW8bGatsv8wFvQ2ixBZQtMydKn4Z6NZb5DNNlWgX7ScwJW1Mf3Mu8VonFdxcR6adsqB4CoqSlGT8Fh1eB7/6u2Eu5RFJC77PePE+fS+47AKBPIPNQtnmFF23ueZot4RbYLaDdO4nKQBeKDH/qkPiaazLagc/0BkuST08/MiIAJihdD29jegqcMsDUVO+IC3RuyQYwxjKmBhtyRfi10lay0/qmT+0aq6KveiL8B/lq9tF5HEagbBALHSSnO26kiBPrd5g9idwsmQP3OrmSBWR3mj5/W55hAGBuKubpxPK+XcxCRe7q93gxr6/taIJ0VE8mm+RZ2ogYSj4ZPCWU9TJimj1ypYYY9aVOqTG3raGFB8cVikswOnMaJqgBog1q1HfYJcQJW8CdE0SBpx53QnicMWOcTwOx2dt/uSrDKAgjL1SN72mp7F9kbTBupNIT5zKn9OXndvaZVySsvddSsueus/swo3aSpxtX+KnI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(136003)(376002)(346002)(46966006)(36840700001)(86362001)(336012)(81166007)(54906003)(5660300002)(478600001)(6666004)(70586007)(26005)(70206006)(4326008)(426003)(186003)(36756003)(36860700001)(8936002)(1076003)(356005)(7696005)(2906002)(16526019)(47076005)(316002)(6916009)(82310400003)(83380400001)(82740400003)(8676002)(2616005)(36900700001);
+ SFS:(4636009)(376002)(39860400002)(346002)(136003)(396003)(36840700001)(46966006)(316002)(36756003)(478600001)(54906003)(81166007)(36860700001)(70586007)(82740400003)(7696005)(2906002)(6666004)(4326008)(6916009)(82310400003)(8676002)(47076005)(70206006)(86362001)(186003)(356005)(26005)(8936002)(2616005)(83380400001)(16526019)(336012)(426003)(5660300002)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 00:38:45.7812 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d2b1351-d7d4-4479-337b-08d973f3591a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 00:38:49.2591 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe8c2e39-3af3-4e6e-6bb0-08d973f35b2c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1503
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5362
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,248 +118,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-move BO allocation in sw_init.
+alloc extra msg from direct IB pool.
 
 Signed-off-by: xinhui pan <xinhui.pan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 75 +++++++++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h |  1 +
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c   |  8 +--
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c   |  8 +--
- 4 files changed, 49 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index d451c359606a..e2eaac941d37 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -141,6 +141,8 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
- 	const char *fw_name;
- 	const struct common_firmware_header *hdr;
- 	unsigned family_id;
-+	struct amdgpu_bo *bo = NULL;
-+	void *addr;
- 	int i, j, r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index e9fdf49d69e8..45d98694db18 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -82,7 +82,6 @@ MODULE_FIRMWARE(FIRMWARE_VEGA20);
  
- 	INIT_DELAYED_WORK(&adev->uvd.idle_work, amdgpu_uvd_idle_work_handler);
-@@ -298,9 +300,34 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
- 		adev->uvd.filp[i] = NULL;
- 	}
- 
-+	r = amdgpu_bo_create_reserved(adev, 128 << 10, PAGE_SIZE,
-+			AMDGPU_GEM_DOMAIN_GTT,
-+			&bo, NULL, &addr);
-+	if (r)
-+		return r;
-+
- 	/* from uvd v5.0 HW addressing capacity increased to 64 bits */
--	if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_UVD, 5, 0))
-+	if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_UVD, 5, 0)) {
- 		adev->uvd.address_64_bit = true;
-+		amdgpu_bo_kunmap(bo);
-+		amdgpu_bo_unpin(bo);
-+		r = amdgpu_bo_pin_restricted(bo, AMDGPU_GEM_DOMAIN_VRAM,
-+				0, 256 << 20);
-+		if (r) {
-+			amdgpu_bo_unreserve(bo);
-+			amdgpu_bo_unref(&bo);
-+			return r;
-+		}
-+		r = amdgpu_bo_kmap(bo, &addr);
-+		if (r) {
-+			amdgpu_bo_unpin(bo);
-+			amdgpu_bo_unreserve(bo);
-+			amdgpu_bo_unref(&bo);
-+			return r;
-+		}
-+	}
-+	adev->uvd.ib_bo = bo;
-+	amdgpu_bo_unreserve(bo);
- 
- 	switch (adev->asic_type) {
- 	case CHIP_TONGA:
-@@ -342,6 +369,7 @@ int amdgpu_uvd_sw_fini(struct amdgpu_device *adev)
- 		for (i = 0; i < AMDGPU_MAX_UVD_ENC_RINGS; ++i)
- 			amdgpu_ring_fini(&adev->uvd.inst[j].ring_enc[i]);
- 	}
-+	amdgpu_bo_free_kernel(&adev->uvd.ib_bo, NULL, NULL);
- 	release_firmware(adev->uvd.fw);
- 
- 	return 0;
-@@ -1080,23 +1108,10 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- 	unsigned offset_idx = 0;
- 	unsigned offset[3] = { UVD_BASE_SI, 0, 0 };
- 
--	amdgpu_bo_kunmap(bo);
--	amdgpu_bo_unpin(bo);
--
--	if (!ring->adev->uvd.address_64_bit) {
--		struct ttm_operation_ctx ctx = { true, false };
--
--		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
--		amdgpu_uvd_force_into_uvd_segment(bo);
--		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
--		if (r)
--			goto err;
--	}
--
- 	r = amdgpu_job_alloc_with_ib(adev, 64, direct ? AMDGPU_IB_POOL_DIRECT :
- 				     AMDGPU_IB_POOL_DELAYED, &job);
- 	if (r)
--		goto err;
-+		return r;
- 
- 	if (adev->asic_type >= CHIP_VEGA10) {
- 		offset_idx = 1 + ring->me;
-@@ -1148,8 +1163,6 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- 	}
- 
- 	amdgpu_bo_fence(bo, f, false);
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 
- 	if (fence)
- 		*fence = dma_fence_get(f);
-@@ -1159,10 +1172,6 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- 
- err_free:
- 	amdgpu_job_free(job);
--
--err:
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 	return r;
- }
- 
-@@ -1173,16 +1182,15 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
- 			      struct dma_fence **fence)
+ static void amdgpu_vce_idle_work_handler(struct work_struct *work);
+ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+-				     struct amdgpu_bo *bo,
+ 				     struct dma_fence **fence);
+ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
+ 				      bool direct, struct dma_fence **fence);
+@@ -441,7 +440,6 @@ void amdgpu_vce_free_handles(struct amdgpu_device *adev, struct drm_file *filp)
+  * Open up a stream for HW test
+  */
+ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+-				     struct amdgpu_bo *bo,
+ 				     struct dma_fence **fence)
  {
- 	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_bo *bo = NULL;
-+	struct amdgpu_bo *bo = adev->uvd.ib_bo;
- 	uint32_t *msg;
- 	int r, i;
+ 	const unsigned ib_size_dw = 1024;
+@@ -451,14 +449,13 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+ 	uint64_t addr;
+ 	int i, r;
  
--	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_GTT,
--				      &bo, NULL, (void **)&msg);
-+	r = ttm_bo_reserve(&bo->tbo, true, true, NULL);
+-	r = amdgpu_job_alloc_with_ib(ring->adev, ib_size_dw * 4,
++	r = amdgpu_job_alloc_with_ib(ring->adev, ib_size_dw * 4 + PAGE_SIZE,
+ 				     AMDGPU_IB_POOL_DIRECT, &job);
  	if (r)
  		return r;
  
-+	msg = amdgpu_bo_kptr(bo);
- 	/* stitch together an UVD create msg */
- 	msg[0] = cpu_to_le32(0x00000de4);
- 	msg[1] = cpu_to_le32(0x00000000);
-@@ -1198,23 +1206,25 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	for (i = 11; i < 1024; ++i)
- 		msg[i] = cpu_to_le32(0x0);
+ 	ib = &job->ibs[0];
+-
+-	addr = amdgpu_bo_gpu_offset(bo);
++	addr = ib->gpu_addr + ib_size_dw * 4;
  
--	return amdgpu_uvd_send_msg(ring, bo, true, fence);
-+	r = amdgpu_uvd_send_msg(ring, bo, true, fence);
-+
-+	amdgpu_bo_unreserve(bo);
-+	return r;
- }
- 
- int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
- 			       bool direct, struct dma_fence **fence)
- {
- 	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_bo *bo = NULL;
-+	struct amdgpu_bo *bo = adev->uvd.ib_bo;
- 	uint32_t *msg;
- 	int r, i;
- 
--	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_GTT,
--				      &bo, NULL, (void **)&msg);
-+	r = ttm_bo_reserve(&bo->tbo, true, true, NULL);
- 	if (r)
- 		return r;
- 
-+	msg = amdgpu_bo_kptr(bo);
- 	/* stitch together an UVD destroy msg */
- 	msg[0] = cpu_to_le32(0x00000de4);
- 	msg[1] = cpu_to_le32(0x00000002);
-@@ -1223,7 +1233,10 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	for (i = 4; i < 1024; ++i)
- 		msg[i] = cpu_to_le32(0x0);
- 
--	return amdgpu_uvd_send_msg(ring, bo, direct, fence);
-+	r = amdgpu_uvd_send_msg(ring, bo, direct, fence);
-+
-+	amdgpu_bo_unreserve(bo);
-+	return r;
- }
- 
- static void amdgpu_uvd_idle_work_handler(struct work_struct *work)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
-index edbb8194ee81..76ac9699885d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
-@@ -68,6 +68,7 @@ struct amdgpu_uvd {
- 	/* store image width to adjust nb memory state */
- 	unsigned		decode_image_width;
- 	uint32_t                keyselect;
-+	struct amdgpu_bo	*ib_bo;
- };
- 
- int amdgpu_uvd_sw_init(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index bc571833632e..301c0cea7164 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -332,12 +332,10 @@ static int uvd_v6_0_enc_get_destroy_msg(struct amdgpu_ring *ring,
- static int uvd_v6_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	/* stitch together an VCE create msg */
+ 	ib->length_dw = 0;
+@@ -1134,20 +1131,13 @@ int amdgpu_vce_ring_test_ring(struct amdgpu_ring *ring)
+ int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  {
  	struct dma_fence *fence = NULL;
 -	struct amdgpu_bo *bo = NULL;
-+	struct amdgpu_bo *bo = ring->adev->uvd.ib_bo;
  	long r;
  
--	r = amdgpu_bo_create_reserved(ring->adev, 128 * 1024, PAGE_SIZE,
+ 	/* skip vce ring1/2 ib test for now, since it's not reliable */
+ 	if (ring != &ring->adev->vce.ring[0])
+ 		return 0;
+ 
+-	r = amdgpu_bo_create_reserved(ring->adev, 512, PAGE_SIZE,
 -				      AMDGPU_GEM_DOMAIN_VRAM,
 -				      &bo, NULL, NULL);
-+	r = ttm_bo_reserve(&bo->tbo, true, true, NULL);
+-	if (r)
+-		return r;
+-
+-	r = amdgpu_vce_get_create_msg(ring, 1, bo, NULL);
++	r = amdgpu_vce_get_create_msg(ring, 1, NULL);
  	if (r)
- 		return r;
+ 		goto error;
  
-@@ -357,9 +355,7 @@ static int uvd_v6_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+@@ -1163,8 +1153,6 @@ int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  
  error:
  	dma_fence_put(fence);
--	amdgpu_bo_unpin(bo);
- 	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index b6e82d75561f..efa270288029 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -338,12 +338,10 @@ static int uvd_v7_0_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handl
- static int uvd_v7_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- {
- 	struct dma_fence *fence = NULL;
--	struct amdgpu_bo *bo = NULL;
-+	struct amdgpu_bo *bo = ring->adev->uvd.ib_bo;
- 	long r;
- 
--	r = amdgpu_bo_create_reserved(ring->adev, 128 * 1024, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      &bo, NULL, NULL);
-+	r = ttm_bo_reserve(&bo->tbo, true, true, NULL);
- 	if (r)
- 		return r;
- 
-@@ -363,9 +361,7 @@ static int uvd_v7_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 
- error:
- 	dma_fence_put(fence);
--	amdgpu_bo_unpin(bo);
- 	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
+-	amdgpu_bo_unreserve(bo);
+-	amdgpu_bo_free_kernel(&bo, NULL, NULL);
  	return r;
  }
  
