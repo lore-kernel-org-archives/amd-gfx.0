@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 976B4C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 05:55:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1F38C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 05:55:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A7AC60F4B
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 05:55:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5A7AC60F4B
+	by mail.kernel.org (Postfix) with ESMTPS id 640D960F4B
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 05:55:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 640D960F4B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 491DF6E0DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8B076E0DD;
 	Mon, 13 Sep 2021 05:55:42 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754EC6E0DA
+ (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15DAB6E0DA
  for <amd-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 05:55:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BwvCNGMTTmIAmBen7qcPbPuvokd9CaSA5y/MDdoI/MtLu48wFeG/ZaFW0rodMs2H4CDKmlS2BwPlCR3tJnXQaSa7Pp+nSAxR+0j9hzJJF8WYXBiIfBa4QBAEte2TKTqEYGGtvIE+q2dxHyXhLOvxXmd3VFCXawh8LdMGxeOPl/yZliNAMfhb2J1Ggo4Ba4WhktnB89z6Q5Hu15wzYggw9iq3QzXgewC8WKH40NuAAQihMH5H3qffqWjDHZkIIwnBuq6bLKP+AsDMhV8mZbb8w73hywk7JPkkWTrXAX92x5VZyrPq/sKitEZ8ZHSIICSF/vw3dIZtwwbp7G/oAzk97Q==
+ b=Xq+fxOx48r0aX2kGmwJnhIIMBMYiqlzkuFmb6Pcf2vNJtpJsbO66fCyhib5YxzY6/77Q67NRnTd/lUtEjNdGyZnjRi9uYozVFXlT8bHV+p3mDRbHCQ33LyMCFrlvSw/dp6fmDivyxzd3T47D7IoroLj1dad+Ysxvbwxejuz7TexLwha07G5/RmofMGOdYV9e+yD5b0sXXGEGdSDz7fH0FQPR8XLctHULb9VvGUkKFkemVhwFNRnQXYbvnMQd/kkRgpbSuKDnZqOvjysHLwf495XKzJXj4U8T9TjZASW3jVquxf5tAtR74JBqamHanmE9xB/xCBvGZOKYXnaWzx95mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=HcwhJ1oQBDqKFl+RTHQtb9KI0rThSlqbf/QgceMS2PU=;
- b=T+ulIkqbxWQdlL5uy3b10E9W+8/HfjH/fW/r5glwytkiakyyFsC1GdZc+m0flnxjTG6NPfN2sInW5/YqpLQsfkqITpGpbMw+FTFALSPpel5vNUoqB2m9SZPEoEh8wb4l2KefcLXIeNvsSzUxce7HNP7DNr/KAXffPeMiSe3Xf4cvz8oQqOBnDmRfoFYrV1RPLyj+yHCp5DdVduAkxfypAouoOYR28NwuLaB++bLc/j3bUPSmVQjsJn6bGtszGEDao+P8lCPE/BK95q2i5kezMaU19+IttTf4PLxj5bCIOjQiuFJ0VqsI3zkgYlkFDduTg2sxiTjSofuPqEVL+yJbBw==
+ bh=SyWhbZFi8lnblOeSh6zNTxPOS3qKtl8vxhAc6FJvv4c=;
+ b=lU63q2Hu5JHgMuD0RK4+oCy6VidjCenxMqNNdNzM+AgMtmDbdyEli6YCvgSVR8KRrbve0Udt2vPXizKmyCB+LnTYfz8bbkYCrcQzP34HvtmnnEzJxEUeAngsWDrzwEhNfrwm1zY47YjD5Swcen3CXLj3kR83aLFxWyUpU7JJzLyBZ9I2K27BxVvds7UBOT0sHTCZHNyc7/qTC/xZsCMymml6j/plAIehSKYUZVE5SfNC0OBI2YR6QPkuvGXAYQ34vFhHz3zSzKpTK/ufW781eGvDN+ORiyzh6DWPAk3d/M5QJYshqqqf04/YUPg+HT8Np9hqo1/fyiOdLy8RjvSWDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HcwhJ1oQBDqKFl+RTHQtb9KI0rThSlqbf/QgceMS2PU=;
- b=i3+JNliDlXmqbwUMq73/+ROgAZRoyDFF54AM5RCXIA/Loh3BJL1Bf5sFCMgZOuVyQxlvF4HxCv7sYczv9J7ryn1pqpNgQmqu/cTEZocNs4y3yAMirDCKN3LHBXD6cWWCUwmxtYQ8afzj8BH8Q5V0SUC0DrE2Kp6MxwyJkOT58V4=
-Received: from MWHPR18CA0031.namprd18.prod.outlook.com (2603:10b6:320:31::17)
- by BN8PR12MB3492.namprd12.prod.outlook.com (2603:10b6:408:67::32)
+ bh=SyWhbZFi8lnblOeSh6zNTxPOS3qKtl8vxhAc6FJvv4c=;
+ b=VfNlq3PzR8EDfsPjeN0eVwhzn3W3d8wh58iE/Mpg39lMwQzx/admwfezFavySk+Dy383QO7wW9GG7j4CLvH4h26dhvsSLzSoSsnVz5MmsUGosXr8SeD3KF6R1vMMTkTP4tOUxyQorXZNiQuVUyCWJzN+opxkDiFdH1rLky7H6WE=
+Received: from MWHPR18CA0025.namprd18.prod.outlook.com (2603:10b6:320:31::11)
+ by CY4PR12MB1942.namprd12.prod.outlook.com (2603:10b6:903:128::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Mon, 13 Sep
- 2021 05:55:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Mon, 13 Sep
+ 2021 05:55:37 +0000
 Received: from CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:320:31:cafe::9) by MWHPR18CA0031.outlook.office365.com
- (2603:10b6:320:31::17) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:320:31:cafe::da) by MWHPR18CA0025.outlook.office365.com
+ (2603:10b6:320:31::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Mon, 13 Sep 2021 05:55:38 +0000
+ Transport; Mon, 13 Sep 2021 05:55:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,21 +59,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT050.mail.protection.outlook.com (10.13.174.79) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4500.14 via Frontend Transport; Mon, 13 Sep 2021 05:55:38 +0000
+ 15.20.4500.14 via Frontend Transport; Mon, 13 Sep 2021 05:55:36 +0000
 Received: from pp-server-two.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 13 Sep
- 2021 00:55:35 -0500
+ 2021 00:55:33 -0500
 From: xinhui pan <xinhui.pan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <lijo.lazar@amd.com>, xinhui pan <xinhui.pan@amd.com>
-Subject: [RFC PATCH 2/2] drm/amdgpu: protect ring from concurrency access
-Date: Mon, 13 Sep 2021 13:55:21 +0800
-Message-ID: <20210913055521.27341-2-xinhui.pan@amd.com>
+Subject: [RFC PATCH 1/2] drm/amdgpu: Introduce ring lock
+Date: Mon, 13 Sep 2021 13:55:20 +0800
+Message-ID: <20210913055521.27341-1-xinhui.pan@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210913055521.27341-1-xinhui.pan@amd.com>
-References: <20210913055521.27341-1-xinhui.pan@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -82,28 +80,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9a410e39-5530-44f8-5ec2-08d9767b1cc5
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3492:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB34924E1E3D3E3035BD749B3E87D99@BN8PR12MB3492.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Office365-Filtering-Correlation-Id: 9bcf5889-d8a7-4e68-412f-08d9767b1b7c
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1942:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1942C7270E03092B0031F73F87D99@CY4PR12MB1942.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MKAPkRhDz+lGw4JMppsXriyFBDy3ew1FA29tr50yPwRhSND+WNRdHeERrOwUg/Cyoq/Z3jc0FZq/3UwwnjFjsQk/kPXKOkOtZ0XJpBbNhAXFREgwuby9kMgt8uahurCb6m3jwntX89szfJ45AugXyZxzk81cjx16F9zmoMKfz8WGXQGphxEVtYq/YuCNIxm7zRp5Tyz6sQCNZxW04fdABnbYZqCZDyMEOXE7Hxqcl78p1Qbr3I2tkc6EiFQZE+LfykrIuhRCvEqWSDS+jY7WKL6QCtst5LR3BTuaP6VyIE2FjHqXHt8E0hrwz1yNXCy3dciEqrAg2NsESnOzygQyPEzGrW0iQrYe/UOCKvSWvL1z1YVTX3JiTCYKpwieWMiJP3lmj8peM/ZeRi4yn/7GyLT6052AXHNcEcxl8MSL7qcvIRINk9m5FOR/pY5+7Ql8mnCzEeR1TAMWIVx/hQcEoUK9fxGSMj1LtF32CzHy0tIpBckBjnSHjt2K+J2oAWOH9FC8Sr0qpndtxZQukqNPkzsK/gY2IKH8mhepFQ8aAbR7i/4gwckBcXFEt5DHyRQSPIUv/nCBCLSPOCHV6t4LpyfwoO51TPbS5VBEJvIYNmOc0laj5fhyOYHYEYWXUwIkQTXArmMh7ywyZ5/AT4fOdUAK+g+NPMiVFZ+nJpT3ygS4hl1YgcVu9mmFLHFVCu4Drgr8nXDpqW3RhDg+q09AKnFXZEiYto8/dcyowhot+bo=
+X-Microsoft-Antispam-Message-Info: YEzqfLlu167RkQwEwxm/zl7685eTVIG5HabpK9hNfjay7dv0GeICbIxEoey6aq6TE8426+opaoS+ygHbHS07jLlE5QJWWbcj5vdL67xXcqBEkUSyDRk/q9raDM64rB52aYPRNA+XUkpxfxS1/j+7iOYECm0CIqwbwKI0WEv40xUQV7t7yacQ/Ctr8k7uAA6Iq4pJgg5ZCal4iC9j3gQ/G420rWyq5U9Degy3Uxfb2hmmrkSmrMQda4WZ8zqO1zITnsJ9+UIeBDw1Pqy/Pxt/lc1wcj7OQK1OUEui1Bdwa1uGMIf5ojU7d+O8dk8PUlRr/ls97+2M0M8oCarcaiN83Ga13ctZvmlS4OiQI2r0RzM54MX28KzGy0bwWh6kljs2RTi+p8TEsBSZTJyYXmrQfwuGW0+9REe5Xh07LLPds3p71EI/1t+wVNxn98VK/g76priLMSf0J6UYEGIGHv8Xb7ewsudAyIvAxh5BaJGa/UX32vc7sJBaB7dLtY8ktkFp63zND/z4UYy7xncvxcpaeZQ6/WRgRLnCZWlx1w+292+X6+w18dmLfV9Qb63hycixZ6NF39FlCldvLfqEvsuhLDp8Q1XIbubfxZuJJlwy2KGVo9f1YJ5jB1RMy1zjtrkjcI2UihTATzuU1e5UncldssIMDGxnkC7ixw0YCbbRTsfw1nNJeyI4iW3wv+V1Iw8YsYE7dztCH8X/ZU9oJ0DjKLMVrrdhgyNOzQgFncpBF1k=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(46966006)(36840700001)(4326008)(6666004)(356005)(8936002)(478600001)(47076005)(2616005)(5660300002)(83380400001)(316002)(82310400003)(54906003)(81166007)(36756003)(6916009)(36860700001)(7696005)(2906002)(426003)(336012)(26005)(8676002)(16526019)(186003)(86362001)(70586007)(82740400003)(70206006)(1076003)(36900700001);
+ SFS:(4636009)(136003)(346002)(376002)(39860400002)(396003)(46966006)(36840700001)(81166007)(8676002)(86362001)(5660300002)(4326008)(6916009)(7696005)(8936002)(36756003)(54906003)(186003)(478600001)(82310400003)(2906002)(16526019)(316002)(70586007)(47076005)(336012)(426003)(1076003)(82740400003)(6666004)(26005)(356005)(70206006)(2616005)(83380400001)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2021 05:55:38.3828 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a410e39-5530-44f8-5ec2-08d9767b1cc5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2021 05:55:36.2239 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bcf5889-d8a7-4e68-412f-08d9767b1b7c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3492
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1942
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,116 +116,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Park the ring scheduler thread before accessing the ring.
-And unpark it only when we finish accessing the ring.
-
-The right sequence should be like below.
-lock ring
-park ring thread
-direct access ring
-[unlock ring, do something, lock ring]
-unpark ring thread
-unlock ring
+This is used for direct IB submission to ring.
 
 Signed-off-by: xinhui pan <xinhui.pan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 30 ++++++---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c      |  6 +++++
- 2 files changed, 14 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+ 2 files changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 19323b4cce7b..5138d5b52c9e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1349,7 +1349,7 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
- 	struct drm_device *dev = adev_to_drm(adev);
--	int r = 0, i;
-+	int r = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index ab2351ba9574..f97a28a49120 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -184,6 +184,8 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 	else if (ring == &adev->sdma.instance[0].page)
+ 		sched_hw_submission = 256;
  
- 	r = pm_runtime_get_sync(dev->dev);
- 	if (r < 0) {
-@@ -1362,15 +1362,6 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
- 	if (r)
- 		return r;
++	mutex_init(&ring->lock);
++
+ 	if (ring->adev == NULL) {
+ 		if (adev->num_rings >= AMDGPU_MAX_RINGS)
+ 			return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 4d380e79752c..544766429b5c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -215,6 +215,7 @@ struct amdgpu_ring {
+ 	struct amdgpu_fence_driver	fence_drv;
+ 	struct drm_gpu_scheduler	sched;
  
--	/* hold on the scheduler */
--	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
--		struct amdgpu_ring *ring = adev->rings[i];
--
--		if (!ring || !ring->sched.thread)
--			continue;
--		kthread_park(ring->sched.thread);
--	}
--
- 	seq_printf(m, "run ib test:\n");
- 	r = amdgpu_ib_ring_tests(adev);
- 	if (r)
-@@ -1378,15 +1369,6 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
- 	else
- 		seq_printf(m, "ib ring tests passed.\n");
- 
--	/* go on the scheduler */
--	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
--		struct amdgpu_ring *ring = adev->rings[i];
--
--		if (!ring || !ring->sched.thread)
--			continue;
--		kthread_unpark(ring->sched.thread);
--	}
--
- 	up_read(&adev->reset_sem);
- 
- 	pm_runtime_mark_last_busy(dev->dev);
-@@ -1650,13 +1632,14 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 	if (r)
- 		goto pro_end;
- 
--	/* stop the scheduler */
--	kthread_park(ring->sched.thread);
--
- 	resched = ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
- 
- 	/* preempt the IB */
-+	mutex_lock(&ring->lock);
-+	/* stop the scheduler */
-+	kthread_park(ring->sched.thread);
- 	r = amdgpu_ring_preempt_ib(ring);
-+	mutex_unlock(&ring->lock);
- 	if (r) {
- 		DRM_WARN("failed to preempt ring %d\n", ring->idx);
- 		goto failure;
-@@ -1686,8 +1669,11 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 	}
- 
- failure:
-+	/* make sure thread is not unparked accidently. */
-+	mutex_lock(&ring->lock);
- 	/* restart the scheduler */
- 	kthread_unpark(ring->sched.thread);
-+	mutex_unlock(&ring->lock);
- 
- 	up_read(&adev->reset_sem);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 9274f32c3661..ea83b3aef8fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -402,7 +402,13 @@ int amdgpu_ib_ring_tests(struct amdgpu_device *adev)
- 		else
- 			tmo = tmo_gfx;
- 
-+		mutex_lock(&ring->lock);
-+		if (ring->sched.thread)
-+			kthread_park(ring->sched.thread);
- 		r = amdgpu_ring_test_ib(ring, tmo);
-+		if (ring->sched.thread)
-+			kthread_unpark(ring->sched.thread);
-+		mutex_unlock(&ring->lock);
- 		if (!r) {
- 			DRM_DEV_DEBUG(adev->dev, "ib test on %s succeeded\n",
- 				      ring->name);
++	struct mutex		lock;
+ 	struct amdgpu_bo	*ring_obj;
+ 	volatile uint32_t	*ring;
+ 	unsigned		rptr_offs;
 -- 
 2.25.1
 
