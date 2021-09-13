@@ -2,76 +2,134 @@ Return-Path: <SRS0=miQW=OD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-19.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EF2CC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 15:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8FFAC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 15:19:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 48EAF60FE6
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 15:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 48EAF60FE6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5C78960FE6
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 15:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5C78960FE6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2366E103;
-	Mon, 13 Sep 2021 15:11:07 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 712586E0F0;
- Mon, 13 Sep 2021 15:11:05 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- g66-20020a9d12c8000000b0051aeba607f1so13725459otg.11; 
- Mon, 13 Sep 2021 08:11:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=N0Efpcf4JoVlqDCutnrfG+qFPXMrV30JaV23oOR02TQ=;
- b=NXP4C+PD7SIGNo51PZLwUfegsmrH8txs0WYvgFII9wbgC6g4fI/O0qwMM9S+y5l7dJ
- 3ZxXoZy8/c6F9gjKDwC3HrGubwgiqvkv30lhubp+8yY3mKlnJ+WR/Myd8Z0K1UZ/bM54
- bOU7hBSS2etTjjMsQ2UonDQIC1uo+7ppqmkgVid1Ai0WOHK60DjdFXHkMjtz11a5+M+s
- D0QKEddZjIoV9im5g4ATCM4GI/b1oZ0jZSCDmYGpehtt0Btp1MSfP6liXBRzOoxSrHNe
- J0Iou3kmVcveg5Xi0ooPLQ3WPDWP7n2S5+IFYTxYfXYH0LWnzaYFcX4HVs9XGMkl9I7g
- H7Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=N0Efpcf4JoVlqDCutnrfG+qFPXMrV30JaV23oOR02TQ=;
- b=EJcZkFPhrbNc8zyYkbXDELnrMtLnCtzAKe2Nu0DAQ7zJA4FjmMX0AyDvNlZRoqhrB2
- 0ABa6TKtf6KDL9Z7TyfdbKfPrCzE8QBZIFYT5dwUKDR331ZZSWPtCYOtNV+N5bJABlWb
- Z+j8UhhP7eNbKHJdWViIkzKy5v0RvejHgh7vyL3HCZSXVonPK0W0SO9w1B3AyXi9oxG5
- 1UC7YquU3it2DRtDQZZP+99O7Xab6ly97bRUJfpM+mzQazYiucsopkdBFTAYTiqPOrKR
- NqVFYCPlKLndbXifOxu1zJrZ0/pxl4YaktZFUSoP2WK5PXsOQLoJMX+OMBvpjAY1UKKp
- VeCA==
-X-Gm-Message-State: AOAM532EKxUH885NN54CNOcLsXvyjAhZX+NKqkxkAB+OPRTJgIGC9kDb
- ecqA2LucB5A6iN+w4wt33lexg/M6832jwuY2ejQ=
-X-Google-Smtp-Source: ABdhPJzaBaAFfvhD+/V5c+LIpdQQ7K6i2p3IzuukHqWPgkqC3OOSvJx19F8eUs2GBFMRTSX6uOz797nX45GBUdG5zcc=
-X-Received: by 2002:a05:6830:214c:: with SMTP id
- r12mr10263287otd.200.1631545864487; 
- Mon, 13 Sep 2021 08:11:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF9389FCC;
+	Mon, 13 Sep 2021 15:19:12 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2089.outbound.protection.outlook.com [40.107.212.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E249389FCC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 15:19:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AdVBl7NLmExecmp34Xb+g3tU6f4eNh3fbOXiKP3NlUraMrt7sAN/vK4BWpviiSTMr+D6bevR5B6BfswQbojt9Tfaes012isNUoJaJOcSZGaWof3b8leIurTl7iYLWZ0eBq4M+ptOeKVnrxWkLfx2CWVyr1bW0PRIH/q1vkkg0wKqtJqjKi4fhvNsPPzJofbULbH9tu+3+A2Kuno5vbxVVmYALF8wVudQQVA0pEMaL8CJyyIwfEHel+Cm7z8GfldlTBnmwTMI2L8YEUNXMcprm9ZanyxR3VgI/ZZQSqpdop4bcSa9c1dtdFjMAJhiBqsYqFjJwZXy17Xh9iVcegmayg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=y37toI6aIXimhdIzNchaLwmFaCPo76nMz4WqVkR/q4I=;
+ b=XlYf7YOAEP0/DAKVRsmpixwxcsaYQBkvi4LraDx5Dm7aOtan+Z8x3P5rT7hNZwmskF5WkqnViT/YwMIa+kkVsmcO2WCSD2SDuBC4K+qeDk2ovUMndrTgs8KOcVVXVdTBrTsYafLUVZV9HAkVEo319tuFu31piPIdonRNPTe1etMAYreN+6uHem6VQ5wqPSO7pbYfPk9IAHdTjemfN14wMxuaCckq3eqILCvBPIVB6T6SAk5cnfukWwOUZOEono9gcRao4/v6P9mYTiABboEFo6BwIjo46rUvkKGSE6nKDGvH1d4DWuUM/xN4nmldfOP/54mQ4GNKqGK3gigBmEt6RQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y37toI6aIXimhdIzNchaLwmFaCPo76nMz4WqVkR/q4I=;
+ b=ub/7WUuHpcvIjYmLx+NiiLOh0JZK6IVNQqy50QJuOrVctMv1Y7TTQiwZu/FuQjb2e6RQ4VTxBsqfVWO42p/d85Q8jXsTP3L3NvuezfRZ9/iIB67da+uIlBiLQHABFeuCn26ta0iV7lhROA98sxRn7rkQEb3H8JOg0Z70AjF5z6M=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5133.namprd12.prod.outlook.com (2603:10b6:5:390::6) by
+ DM8PR12MB5430.namprd12.prod.outlook.com (2603:10b6:8:28::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.16; Mon, 13 Sep 2021 15:19:08 +0000
+Received: from DM4PR12MB5133.namprd12.prod.outlook.com
+ ([fe80::344d:ea6f:fb1d:ddc8]) by DM4PR12MB5133.namprd12.prod.outlook.com
+ ([fe80::344d:ea6f:fb1d:ddc8%9]) with mapi id 15.20.4500.018; Mon, 13 Sep 2021
+ 15:19:08 +0000
+Subject: Re: [PATCH] drm/amdkfd: Cast atomic64_read return value
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org
+References: <20210913141946.1884173-1-michel@daenzer.net>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <06496dcf-67cd-6695-e993-23d46dfd91e9@amd.com>
+Date: Mon, 13 Sep 2021 11:19:06 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20210913141946.1884173-1-michel@daenzer.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0072.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::11) To DM4PR12MB5133.namprd12.prod.outlook.com
+ (2603:10b6:5:390::6)
 MIME-Version: 1.0
-References: <20210907085301.482579-1-daniel@qtec.com>
- <CADnq5_N3ue6c6XzX+Nu=adsfhCZ6jkUVwNvQqy-Z_TjjGgsPmA@mail.gmail.com>
- <CAH1Ww+QXyoE-YvCZhG3PQ0n43E0R8ydt=GMb08xYF3YqV8o5UQ@mail.gmail.com>
-In-Reply-To: <CAH1Ww+QXyoE-YvCZhG3PQ0n43E0R8ydt=GMb08xYF3YqV8o5UQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Sep 2021 11:10:53 -0400
-Message-ID: <CADnq5_PDjTNjZLrkdnpQVNzivXhLRQp7RqB_kzMNUYY-Z+Qdfw@mail.gmail.com>
-Subject: Re: [RFC][PATCH] drm/amdgpu/powerplay/smu10: Add custom profile
-To: Daniel Gomez <daniel@qtec.com>, Huang Rui <ray.huang@amd.com>, "Quan,
- Evan" <Evan.Quan@amd.com>, changzhu <Changfeng.Zhu@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Gomez <dagmcr@gmail.com>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- xinhui pan <Xinhui.Pan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from [192.168.2.100] (142.186.47.3) by
+ YT1PR01CA0072.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14 via Frontend Transport; Mon, 13 Sep 2021 15:19:08 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 68a4aad1-38cc-45fc-23e4-08d976c9d509
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5430:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM8PR12MB543044A93D260472528FAFC392D99@DM8PR12MB5430.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2uVfq6c7chPMSjJ2RTD565QluSZRgTBiizgK+eYDL52/iEI5MLZ4ooiVeIJVlqDPamLYXCNeWy00oSzdmxc3x04A/DTyX9BMCP97s7yurKVMLA1JJxRYnyL4DeZnF+QkSDfwP2cPtqDs6D6Qpxv5dNqjGoj8qIQ4YwRwMiByIibwjmFDn0LLWVI0fTn61m68r9Hr+7HiyWkCju5syvrIwI9C6WUD6oskA5LqusBDuL97jsXizGN7Zq5DP70qi59iokV2f3GfZGirSsrDDjJmYjPYdLUOGRe/vgO7xqX55PaakxaDBjNwNXBlHpTpQ7H6GrEiNUP8poUDz2yzDjR9BD1d2S/O1W+8GLAIv3urvwTAp25WtWahdhKXTnYE9l4ArHP+7YzUyzDRxAy+fhDx5BrJcvzbkKJPTEJV6Kh+zjsFU5LNkUzgH8F63ugt+ziSZjCjUm9r5y5Sespyz3OpidH/jSB/nCxhFyl697r2f4ZrcbcqDENrFnTLRLwDWzf9E+TOulc/sVmunqlb2ImSng3hEcmdIgvne9IRD8mp6lkaRikWXKqWyw1X0sjVh/kGUsimWH3qSpsW8un4eC9VDLY0eXh29KTxkIPf01oYV4S7zS1+iz4srlw/KJHRg7YO9QiMxlGSAvJnRbwpuhBuy9PGExZq/51eCqaXIg3QLJIeZijQFCY0cCFqnH1lzLSw0sGt4+khZWdXez9mGYaFHnB05fx5p92MFGDhAfY9dYU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5133.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(4326008)(2906002)(6486002)(38100700002)(8676002)(2616005)(26005)(110136005)(44832011)(5660300002)(508600001)(66476007)(956004)(66946007)(66556008)(6636002)(66574015)(186003)(316002)(8936002)(31696002)(36756003)(16576012)(31686004)(86362001)(83380400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3g5c0VEbk5lcld1d1Rha29JaTlZZ0lxeCttemhVa3U3cnN4SWxtTDk1OTdN?=
+ =?utf-8?B?dHRRSUhlRUFrRFQ5ZDg0NzJRRkhCZVlxUFJBcEpaS2g5VWV5THNyZWdQTTFv?=
+ =?utf-8?B?WTB3SEtZOE5laGxqUmZTRTZoZCt1MDM1Q3BJNUFCZ0JhNU85OVRFUFdBNUU1?=
+ =?utf-8?B?WjJVL2oydTNHd3Q4VzA4NzBrQkdOZ3M4MzFkQkxPYkdIWGQ2b1pJb0g4M2Fu?=
+ =?utf-8?B?L0xyYm4zdUJrNzJLejRzZHRoN3ZKdDZBaVdYZnBubENNWUl2bGcyZmRLQ3d3?=
+ =?utf-8?B?ZDNnb3hpb3BxcVBOTjFNYlA2SUp1c0I3ZGN3Rm9wTGxPNVd5WE0zZ0E1MkJQ?=
+ =?utf-8?B?N0R1S2RXdVZUMlNueEpBcGU3M0xDUk1ZbVVLR05hWnNDZ0dqMFdZbzR3VWd6?=
+ =?utf-8?B?ZGJEbEhSQU9sanlWNFhiRVV6aWlQRG9jRlYwYm1aeEdkaXVHQ1lLcnlyRlha?=
+ =?utf-8?B?QVdzY01nK0FtNW15V2pTREMrKzA5aTRXTVcxWDkybFMzQWE0a3QyWEh2WjNw?=
+ =?utf-8?B?QjBKa05Gbm5LRU5ud2todTRqU0ZoaTdhMk91UFl4RzI2d3YzMlFYUlF5NjZ4?=
+ =?utf-8?B?ZUhodlhqNjExYnFjL0g2Nk1yVkhFSEM1SFNnL1ZIcjFsVjIyVXhWNHJiUDJW?=
+ =?utf-8?B?M0VQNUkzZVFVbTQxemtJNjcyalFyVjlJcDBTanFPWHBsSEZEMWdMS0NVVk5M?=
+ =?utf-8?B?ZmNRWHNnUnYyUTV4bmRrRDA1ZlFWcWxyd3ZFamJnYVRFTUNWU3RmQzFaR0lW?=
+ =?utf-8?B?bXBWUzhQMkZjWmJrdTArZEZtek1iZjYwbE5CckZqZC9lRkRLMlo4NGVXLzFo?=
+ =?utf-8?B?c2RpdnNhU1BxY0NzbEpZWGxHa0piMVEwejF5SVVRMHBUdTNKeHIxeHh4OGRS?=
+ =?utf-8?B?THRkNG8wS29SRkdINkhkalozanlpYmdSd0lNcjZzbW9DTXh4R0kxd2ptbUZ1?=
+ =?utf-8?B?bUhGTFpyc2txek5WY3pVZGlSRWpYUHdza3laNkI4V0MyKzh1d3hsWTVkbHly?=
+ =?utf-8?B?ZGpNSDd1bEgrTzdqdkViSEU4SGdvMHY2WDV4VGdTa25jRE4veFFhWjg4SjNG?=
+ =?utf-8?B?V3I2S3RtMjdydWtSSjRhZXBOZUp0dlNqZmJZOHJaUk9LQWpNRFVMalM3YzE4?=
+ =?utf-8?B?azJWQmM5MjdVS2JoODBhbkdFemc2KzdkdXk0M2lXWmtSZkdGZVEyVjRhYzJh?=
+ =?utf-8?B?MG9kU25aTFA1YmZleW9BNU51RnRuTEx4M0xnaVU1V0VBUzFFaDhjQVp0djV0?=
+ =?utf-8?B?V3ZZdURZanFHdWJnU3NXeUxrRlorVnFFLzYveU8zY0ZWL2dEazFlZVVNN2Q1?=
+ =?utf-8?B?cFkrT1E1NkZBZVRFVkw0S0JaSmdZRjFScDRnQ3haang3SjdkdktNS3NkTmRt?=
+ =?utf-8?B?VWsrMjlpcTlRWVd3K1NTTUQyN2l0cEQzSXpCQm9uSWNmM0ZYbzM1L2x6Zys3?=
+ =?utf-8?B?YklpLzc1TEhIdnpVQlNXSjhLOFpqaWY3Yi9tWDZTakljR1pDbkZQMytGc0J5?=
+ =?utf-8?B?U1gxSkNxdjNZd0NrS0RPRkErRk0vTWpKVFhlcHo1eHBwU1p5ZkVVVURLcE1R?=
+ =?utf-8?B?c3QrQlNyakxNS0ZuRnVYQmRKZDJoalZZeXg5NllzN0pXSWRRdEhnZUlKcDlW?=
+ =?utf-8?B?eG4vQWwzcXdEM3I1VkRmWTlnUzgwcmJUTGJJdW1VUFQ4bFdsc1FKeGJFd2ls?=
+ =?utf-8?B?M1ZsL3JGU3pDSXFSSk5jY2lQNkltbWkvc2V2aS9xd01peTVQU0p1NnYyVTVC?=
+ =?utf-8?Q?hLxVVPwNtftOPSwMCobZSWU34BsJR/TWCmu3sVg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68a4aad1-38cc-45fc-23e4-08d976c9d509
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5133.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2021 15:19:08.5878 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HqhoxgedYij1mWnAheITEgbANhk3hY1GoNUU5e+kjj7IW97aSQlU2UnxL83b2dnWY6LuT10aL5iuLMPcghRaow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5430
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,276 +144,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 8, 2021 at 3:23 AM Daniel Gomez <daniel@qtec.com> wrote:
+Am 2021-09-13 um 10:19 a.m. schrieb Michel Dänzer:
+> From: Michel Dänzer <mdaenzer@redhat.com>
 >
-> On Tue, 7 Sept 2021 at 19:23, Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Tue, Sep 7, 2021 at 4:53 AM Daniel Gomez <daniel@qtec.com> wrote:
-> > >
-> > > Add custom power profile mode support on smu10.
-> > > Update workload bit list.
-> > > ---
-> > >
-> > > Hi,
-> > >
-> > > I'm trying to add custom profile for the Raven Ridge but not sure if
-> > > I'd need a different parameter than PPSMC_MSG_SetCustomPolicy to
-> > > configure the custom values. The code seemed to support CUSTOM for
-> > > workload types but it didn't show up in the menu or accept any user
-> > > input parameter. So far, I've added that part but a bit confusing to
-> > > me what is the policy I need for setting these parameters or if it's
-> > > maybe not possible at all.
-> > >
-> > > After applying the changes I'd configure the CUSTOM mode as follows:
-> > >
-> > > echo manual > /sys/class/drm/card0/device/hwmon/hwmon1/device/power_dpm_force_performance_level
-> > > echo "6 70 90 0 0" > /sys/class/drm/card0/device/hwmon/hwmon1/device/pp_power_profile_mode
-> > >
-> > > Then, using Darren Powell script for testing modes I get the following
-> > > output:
-> > >
-> > > 05:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Raven Ridge [Radeon Vega Series / Radeon Vega Mobile Series] [1002:15dd] (rev 83)
-> > > === pp_dpm_sclk ===
-> > > 0: 200Mhz
-> > > 1: 400Mhz *
-> > > 2: 1100Mhz
-> > > === pp_dpm_mclk ===
-> > > 0: 400Mhz
-> > > 1: 933Mhz *
-> > > 2: 1067Mhz
-> > > 3: 1200Mhz
-> > > === pp_power_profile_mode ===
-> > > NUM        MODE_NAME BUSY_SET_POINT FPS USE_RLC_BUSY MIN_ACTIVE_LEVEL
-> > >   0 BOOTUP_DEFAULT :             70  60          0              0
-> > >   1 3D_FULL_SCREEN :             70  60          1              3
-> > >   2   POWER_SAVING :             90  60          0              0
-> > >   3          VIDEO :             70  60          0              0
-> > >   4             VR :             70  90          0              0
-> > >   5        COMPUTE :             30  60          0              6
-> > >   6         CUSTOM*:             70  90          0              0
-> > >
-> > > As you can also see in my changes, I've also updated the workload bit
-> > > table but I'm not completely sure about that change. With the tests
-> > > I've done, using bit 5 for the WORKLOAD_PPLIB_CUSTOM_BIT makes the
-> > > gpu sclk locked around ~36%. So, maybe I'm missing a clock limit
-> > > configuraton table somewhere. Would you give me some hints to
-> > > proceed with this?
-> >
-> > I don't think APUs support customizing the workloads the same way
-> > dGPUs do.  I think they just support predefined profiles.
-> >
-> > Alex
+> Avoids warning with -Wformat:
 >
->
-> Thanks Alex for the quick response. Would it make sense then to remove
-> the custom workload code (PP_SMC_POWER_PROFILE_CUSTOM) from the smu10?
-> That workload was added in this commit:
-> f6f75ebdc06c04d3cfcd100f1b10256a9cdca407 [1] and not use at all in the
-> code as it's limited to PP_SMC_POWER_PROFILE_COMPUTE index. The
-> smu10.h also includes the custom workload bit definition and that was
-> a bit confusing for me to understand if it was half-supported or not
-> possible to use at all as I understood from your comment.
->
-> Perhaps could also be mentioned (if that's kind of standard) in the
-> documentation[2] so, the custom pp_power_profile_mode is only
-> supported in dGPUs.
->
-> I can send the patches if it makes sense.
+>   CC [M]  drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_smi_events.o
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_smi_events.c: In function ‘kfd_smi_event_update_thermal_throttling’:
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_smi_events.c:224:60: warning: format ‘%llx’ expects argument of type
+>  ‘long long unsigned int’, but argument 6 has type ‘long int’ [-Wformat=]
+>   224 |         len = snprintf(fifo_in, sizeof(fifo_in), "%x %x:%llx\n",
+>       |                                                         ~~~^
+>       |                                                            |
+>       |                                                            long long unsigned int
+>       |                                                         %lx
+>   225 |                        KFD_SMI_EVENT_THERMAL_THROTTLE, throttle_bitmask,
+>   226 |                        atomic64_read(&adev->smu.throttle_int_counter));
+>       |                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>       |                        |
+>       |                        long int
 
-I guess I was thinking of another asic.  @Huang Rui, @changzhu, @Quan,
-Evan can any of you comment on what is required for custom profiles on
-APUs?
+That's weird. As far as I can see, atomic64_read is defined to return
+s64, which should be the same as long long. Which architecture are you
+on? For the record, these are the definition for x86 and x86_64 on Linux
+5.13:
 
-Alex
+./arch/x86/include/asm/atomic64_32.h:static inline s64
+arch_atomic64_read(const atomic64_t *v)
+./arch/x86/include/asm/atomic64_64.h:static inline s64
+arch_atomic64_read(const atomic64_t *v)
+
+Looks like x86 uses int-ll64.h (64-bit types are long-long). Some other
+architectures use int-l64.h (64-bit types are long). On architectures
+that use int-l64.h, this patch just casts s64 (long) to u64 (unsigned
+long), which doesn't fix the problem.
+
+Regards,
+  Felix
 
 
 >
-> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c?id=f6f75ebdc06c04d3cfcd100f1b10256a9cdca407
-> [2]: https://www.kernel.org/doc/html/latest/gpu/amdgpu.html#pp-power-profile-mode
+> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Daniel
->
-> >
-> >
-> > >
-> > > Thanks in advance,
-> > > Daniel
-> > >
-> > >
-> > >  drivers/gpu/drm/amd/pm/inc/smu10.h            | 14 +++--
-> > >  .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  | 57 +++++++++++++++++--
-> > >  .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h  |  1 +
-> > >  3 files changed, 61 insertions(+), 11 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/pm/inc/smu10.h b/drivers/gpu/drm/amd/pm/inc/smu10.h
-> > > index 9e837a5014c5..b96520528240 100644
-> > > --- a/drivers/gpu/drm/amd/pm/inc/smu10.h
-> > > +++ b/drivers/gpu/drm/amd/pm/inc/smu10.h
-> > > @@ -136,12 +136,14 @@
-> > >  #define FEATURE_CORE_CSTATES_MASK     (1 << FEATURE_CORE_CSTATES_BIT)
-> > >
-> > >  /* Workload bits */
-> > > -#define WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT 0
-> > > -#define WORKLOAD_PPLIB_VIDEO_BIT          2
-> > > -#define WORKLOAD_PPLIB_VR_BIT             3
-> > > -#define WORKLOAD_PPLIB_COMPUTE_BIT        4
-> > > -#define WORKLOAD_PPLIB_CUSTOM_BIT         5
-> > > -#define WORKLOAD_PPLIB_COUNT              6
-> > > +#define WORKLOAD_DEFAULT_BIT              0
-> > > +#define WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT 1
-> > > +#define WORKLOAD_PPLIB_POWER_SAVING_BIT   2
-> > > +#define WORKLOAD_PPLIB_VIDEO_BIT          3
-> > > +#define WORKLOAD_PPLIB_VR_BIT             4
-> > > +#define WORKLOAD_PPLIB_COMPUTE_BIT        5
-> > > +#define WORKLOAD_PPLIB_CUSTOM_BIT         6
-> > > +#define WORKLOAD_PPLIB_COUNT              7
-> > >
-> > >  typedef struct {
-> > >         /* MP1_EXT_SCRATCH0 */
-> > > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-> > > index 1de3ae77e03e..fef9f9ac1c56 100644
-> > > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-> > > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-> > > @@ -110,6 +110,11 @@ static int smu10_initialize_dpm_defaults(struct pp_hwmgr *hwmgr)
-> > >         smu10_data->num_active_display = 0;
-> > >         smu10_data->deep_sleep_dcefclk = 0;
-> > >
-> > > +       smu10_data->custom_profile_mode[0] = 0;
-> > > +       smu10_data->custom_profile_mode[1] = 0;
-> > > +       smu10_data->custom_profile_mode[2] = 0;
-> > > +       smu10_data->custom_profile_mode[3] = 0;
-> > > +
-> > >         phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
-> > >                                         PHM_PlatformCaps_SclkDeepSleep);
-> > >
-> > > @@ -544,6 +549,10 @@ static int smu10_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
-> > >
-> > >         hwmgr->backend = data;
-> > >
-> > > +       hwmgr->workload_mask = 1 << hwmgr->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];
-> > > +       hwmgr->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-> > > +       hwmgr->default_power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-> > > +
-> > >         result = smu10_initialize_dpm_defaults(hwmgr);
-> > >         if (result != 0) {
-> > >                 pr_err("smu10_initialize_dpm_defaults failed\n");
-> > > @@ -1408,9 +1417,15 @@ static int conv_power_profile_to_pplib_workload(int power_profile)
-> > >         int pplib_workload = 0;
-> > >
-> > >         switch (power_profile) {
-> > > +       case PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT:
-> > > +               pplib_workload = WORKLOAD_DEFAULT_BIT;
-> > > +               break;
-> > >         case PP_SMC_POWER_PROFILE_FULLSCREEN3D:
-> > >                 pplib_workload = WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT;
-> > >                 break;
-> > > +       case PP_SMC_POWER_PROFILE_POWERSAVING:
-> > > +               pplib_workload = WORKLOAD_PPLIB_POWER_SAVING_BIT;
-> > > +               break;
-> > >         case PP_SMC_POWER_PROFILE_VIDEO:
-> > >                 pplib_workload = WORKLOAD_PPLIB_VIDEO_BIT;
-> > >                 break;
-> > > @@ -1430,22 +1445,24 @@ static int conv_power_profile_to_pplib_workload(int power_profile)
-> > >
-> > >  static int smu10_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
-> > >  {
-> > > +       struct smu10_hwmgr *smu10_data = (struct smu10_hwmgr *)(hwmgr->backend);
-> > >         uint32_t i, size = 0;
-> > >         static const uint8_t
-> > > -               profile_mode_setting[6][4] = {{70, 60, 0, 0,},
-> > > +               profile_mode_setting[7][4] = {{70, 60, 0, 0,},
-> > >                                                 {70, 60, 1, 3,},
-> > >                                                 {90, 60, 0, 0,},
-> > >                                                 {70, 60, 0, 0,},
-> > >                                                 {70, 90, 0, 0,},
-> > >                                                 {30, 60, 0, 6,},
-> > >                                                 };
-> > > -       static const char *profile_name[6] = {
-> > > +       static const char *profile_name[7] = {
-> > >                                         "BOOTUP_DEFAULT",
-> > >                                         "3D_FULL_SCREEN",
-> > >                                         "POWER_SAVING",
-> > >                                         "VIDEO",
-> > >                                         "VR",
-> > > -                                       "COMPUTE"};
-> > > +                                       "COMPUTE",
-> > > +                                       "CUSTOM"};
-> > >         static const char *title[6] = {"NUM",
-> > >                         "MODE_NAME",
-> > >                         "BUSY_SET_POINT",
-> > > @@ -1459,11 +1476,15 @@ static int smu10_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
-> > >         size += sysfs_emit_at(buf, size, "%s %16s %s %s %s %s\n",title[0],
-> > >                         title[1], title[2], title[3], title[4], title[5]);
-> > >
-> > > -       for (i = 0; i <= PP_SMC_POWER_PROFILE_COMPUTE; i++)
-> > > +       for (i = 0; i < PP_SMC_POWER_PROFILE_CUSTOM; i++)
-> > >                 size += sysfs_emit_at(buf, size, "%3d %14s%s: %14d %3d %10d %14d\n",
-> > >                         i, profile_name[i], (i == hwmgr->power_profile_mode) ? "*" : " ",
-> > >                         profile_mode_setting[i][0], profile_mode_setting[i][1],
-> > >                         profile_mode_setting[i][2], profile_mode_setting[i][3]);
-> > > +       size += sysfs_emit_at(buf, size, "%3d %14s%s: %14d %3d %10d %14d\n", i,
-> > > +                       profile_name[i], (i == hwmgr->power_profile_mode) ? "*" : " ",
-> > > +                       smu10_data->custom_profile_mode[0], smu10_data->custom_profile_mode[1],
-> > > +                       smu10_data->custom_profile_mode[2], smu10_data->custom_profile_mode[3]);
-> > >
-> > >         return size;
-> > >  }
-> > > @@ -1480,16 +1501,42 @@ static bool smu10_is_raven1_refresh(struct pp_hwmgr *hwmgr)
-> > >
-> > >  static int smu10_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, uint32_t size)
-> > >  {
-> > > +       struct smu10_hwmgr *smu10_data = (struct smu10_hwmgr *)(hwmgr->backend);
-> > > +       uint8_t busy_set_point, FPS, use_rlc_busy, min_active_level;
-> > > +       uint32_t power_profile_mode = input[size];
-> > >         int workload_type = 0;
-> > >         int result = 0;
-> > >
-> > > -       if (input[size] > PP_SMC_POWER_PROFILE_COMPUTE) {
-> > > +       if (input[size] > PP_SMC_POWER_PROFILE_CUSTOM) {
-> > >                 pr_err("Invalid power profile mode %ld\n", input[size]);
-> > >                 return -EINVAL;
-> > >         }
-> > >         if (hwmgr->power_profile_mode == input[size])
-> > >                 return 0;
-> > >
-> > > +       if (power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
-> > > +               if (size != 0 && size != 4)
-> > > +                       return -EINVAL;
-> > > +
-> > > +               if (size == 0) {
-> > > +                       if (smu10_data->custom_profile_mode[0] != 0)
-> > > +                               goto out;
-> > > +                       else
-> > > +                               return -EINVAL;
-> > > +               }
-> > > +
-> > > +               smu10_data->custom_profile_mode[0] = busy_set_point = input[0];
-> > > +               smu10_data->custom_profile_mode[1] = FPS = input[1];
-> > > +               smu10_data->custom_profile_mode[2] = use_rlc_busy = input[2];
-> > > +               smu10_data->custom_profile_mode[3] = min_active_level = input[3];
-> > > +               smum_send_msg_to_smc_with_parameter(hwmgr,
-> > > +                                       PPSMC_MSG_SetCustomPolicy,
-> > > +                                       busy_set_point | FPS<<8 |
-> > > +                                       use_rlc_busy << 16 | min_active_level<<24,
-> > > +                                       NULL);
-> > > +       }
-> > > +
-> > > +out:
-> > >         /* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> > >         workload_type =
-> > >                 conv_power_profile_to_pplib_workload(input[size]);
-> > > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
-> > > index 808e0ecbe1f0..4c4b2b1b510a 100644
-> > > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
-> > > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h
-> > > @@ -302,6 +302,7 @@ struct smu10_hwmgr {
-> > >         uint32_t                             num_active_display;
-> > >
-> > >         bool                                                    fine_grain_enabled;
-> > > +       uint8_t                              custom_profile_mode[4];
-> > >  };
-> > >
-> > >  struct pp_hwmgr;
-> > > --
-> > > 2.30.2
-> > >
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> index ed4bc5f844ce..46e1c0cda94c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -223,7 +223,7 @@ void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
+>  
+>  	len = snprintf(fifo_in, sizeof(fifo_in), "%x %llx:%llx\n",
+>  		       KFD_SMI_EVENT_THERMAL_THROTTLE, throttle_bitmask,
+> -		       atomic64_read(&adev->smu.throttle_int_counter));
+> +		       (u64)atomic64_read(&adev->smu.throttle_int_counter));
+>  
+>  	add_event_to_kfifo(dev, KFD_SMI_EVENT_THERMAL_THROTTLE,	fifo_in, len);
+>  }
