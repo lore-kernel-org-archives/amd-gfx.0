@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 91926C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 14:15:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BD4FFC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 14:19:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A589360F9F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 14:15:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A589360F9F
+	by mail.kernel.org (Postfix) with ESMTPS id 3354B60C40
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Sep 2021 14:19:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3354B60C40
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F26B6E0EC;
-	Mon, 13 Sep 2021 14:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF7B66E101;
+	Mon, 13 Sep 2021 14:19:48 +0000 (UTC)
 Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 299506E0EC
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 14:15:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0E5166E101
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Sep 2021 14:19:48 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 5CEE920201C;
- Mon, 13 Sep 2021 16:15:48 +0200 (CEST)
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 47F4220201C;
+ Mon, 13 Sep 2021 16:19:47 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
 Received: from netline-mail3.netline.ch ([127.0.0.1])
  by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id q5L_N3orHEej; Mon, 13 Sep 2021 16:15:48 +0200 (CEST)
+ with LMTP id s3E15aBkAvaE; Mon, 13 Sep 2021 16:19:46 +0200 (CEST)
 Received: from kaveri (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
  [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 0F9BF20201A;
- Mon, 13 Sep 2021 16:15:48 +0200 (CEST)
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id 93C9420201A;
+ Mon, 13 Sep 2021 16:19:46 +0200 (CEST)
 Received: from daenzer by kaveri with local (Exim 4.95-RC2)
- (envelope-from <michel@daenzer.net>) id 1mPmkN-007u9T-I1;
- Mon, 13 Sep 2021 16:15:47 +0200
+ (envelope-from <michel@daenzer.net>) id 1mPmoE-007uA4-85;
+ Mon, 13 Sep 2021 16:19:46 +0200
 From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
 To: Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -45,8 +45,8 @@ To: Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: Lyude Paul <lyude@redhat.com>,
 	amd-gfx@lists.freedesktop.org
 Subject: [PATCH] drm/amdkfd: Cast atomic64_read return value
-Date: Mon, 13 Sep 2021 16:15:47 +0200
-Message-Id: <20210913141547.1884136-1-michel@daenzer.net>
+Date: Mon, 13 Sep 2021 16:19:46 +0200
+Message-Id: <20210913141946.1884173-1-michel@daenzer.net>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
