@@ -4,67 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C87FAC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:23:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B947C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:51:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6BA94606A5
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:23:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6BA94606A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id 3D527610E6
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 13:51:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D527610E6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEA7089EAC;
-	Tue, 14 Sep 2021 13:23:46 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9D516E489;
- Tue, 14 Sep 2021 11:58:17 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f1048001e15ef619509992f.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f10:4800:1e15:ef61:9509:992f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8B7241EC04EC;
- Tue, 14 Sep 2021 13:58:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1631620690;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=b/N09IsvqYn24JfFZ47aDfAefXmwmXR82Pt3awNAfbs=;
- b=bxwwIzIyK+Rg4oIy01BbpgT86ORE1XKclCEYAaQ9uu2p2YFJBhtO9vvO21Z67RPc0ptMoP
- 47+Ry7kCX0P48iid+/PmdkrtsbH5uZdiuAmR5uxqjBKZy74znSrvhF2nYkipmdb9VWoPx/
- PSVn04awQpG91qOKWcYNAHUkxFtjb44=
-Date: Tue, 14 Sep 2021 13:58:04 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, iommu@lists.linux-foundation.org,
- kvm@vger.kernel.org, linux-efi@vger.kernel.org,
- platform-driver-x86@vger.kernel.org,
- linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
- Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Christoph Hellwig <hch@infradead.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>
-Subject: Re: [PATCH v3 4/8] powerpc/pseries/svm: Add a powerpc version of
- cc_platform_has()
-Message-ID: <YUCOTIPPsJJpLO/d@zn.tnic>
-References: <cover.1631141919.git.thomas.lendacky@amd.com>
- <9d4fc3f8ea7b325aaa1879beab1286876f45d450.1631141919.git.thomas.lendacky@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB1289E2B;
+	Tue, 14 Sep 2021 13:51:03 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D976589E2B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 13:51:01 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ g19-20020a1c9d13000000b003075062d4daso2642631wme.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 06:51:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=ZI0K8qc4rZxLq7jtYAJqS/SmV/KTlx51JZx+cGKL5Kg=;
+ b=cZuGk8/CyAUwAvBoFOyiRxMRsHRlWx+AG4RWmj5JV3EMhB/Wq7LlyD67SnjsyWgjbW
+ 2yslH3yTbiJ8k9jymJdaaq6d1Wrp8JW7xA3lV6n3Jq0OEJTJart70j85/mVBHUhwwiwd
+ NPJLOTynp6ozHHgg48xqD6FAfXyr3t6UgoCjk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=ZI0K8qc4rZxLq7jtYAJqS/SmV/KTlx51JZx+cGKL5Kg=;
+ b=sSxUW01vQlsXtr51xDbISXHLQYluVxEwN01jAjMcnDtzPxYIq6khyoTabJcNR9iQDZ
+ rVF0QFmSmme96u1w9EBAkKMBTKpythMKPN6o3P2gzKIG0qD8wa/dlkyhw/30tOBiGlg/
+ 6FFHd/Gr9HsMozqS+okMlvdc7/gTEOfwLdMQkb+YcZgMi9MOD36Il8rZHVu8MP/gxIzy
+ 5HdKfQjN9Zng8IbJ0gM4QrE7hR0zxcT8ZBjzLWOLu1tCS+BVZ0v61i48jHjD37YzoxYG
+ DLiQmdzzx1gIqimeWNneK2MeVIZSLSqyCJ+lL6RCkguu4PPXWepqclzQzf8cK8ce845o
+ kOfQ==
+X-Gm-Message-State: AOAM5318u9acIYd0ksRctr3LXVTcqn4NSz8CmGNuL0FBKcR5poymfU2V
+ DWCKNvnZqy+0XUQI+6gdS6wZ5A==
+X-Google-Smtp-Source: ABdhPJziX45T7pH2rT2CYssGCHRaqFbgOqRbDSgjmwdciQNVHXCD4xePZyogQKGeVc4w1GxbsohHyA==
+X-Received: by 2002:a05:600c:510a:: with SMTP id
+ o10mr2331091wms.81.1631627460256; 
+ Tue, 14 Sep 2021 06:51:00 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id u2sm1262397wmj.29.2021.09.14.06.50.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Sep 2021 06:50:59 -0700 (PDT)
+Date: Tue, 14 Sep 2021 15:50:57 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, xinhui pan <xinhui.pan@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [resend PATCH] drm/ttm: Fix a deadlock if the target BO is not
+ idle during swap
+Message-ID: <YUCowZxEhECTlgAH@phenom.ffwll.local>
+References: <20210907040832.1107747-1-xinhui.pan@amd.com>
+ <074efe24-db7a-df68-3624-05989596f44a@amd.com>
+ <YTcrcw+hxWuyyl4C@phenom.ffwll.local>
+ <37412f7e-9f6f-04bb-41b1-72931ea1381e@amd.com>
+ <YTkAnDncKU7ewW+5@phenom.ffwll.local>
+ <97ccbd16-ba3f-1b21-b6fb-5568d34f1af3@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <9d4fc3f8ea7b325aaa1879beab1286876f45d450.1631141919.git.thomas.lendacky@amd.com>
-X-Mailman-Approved-At: Tue, 14 Sep 2021 13:23:45 +0000
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <97ccbd16-ba3f-1b21-b6fb-5568d34f1af3@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,60 +90,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 08, 2021 at 05:58:35PM -0500, Tom Lendacky wrote:
-> Introduce a powerpc version of the cc_platform_has() function. This will
-> be used to replace the powerpc mem_encrypt_active() implementation, so
-> the implementation will initially only support the CC_ATTR_MEM_ENCRYPT
-> attribute.
+On Thu, Sep 09, 2021 at 09:10:39AM +0200, Christian König wrote:
+> Am 08.09.21 um 20:27 schrieb Daniel Vetter:
+> > On Tue, Sep 07, 2021 at 11:28:23AM +0200, Christian König wrote:
+> > > Am 07.09.21 um 11:05 schrieb Daniel Vetter:
+> > > > On Tue, Sep 07, 2021 at 08:22:20AM +0200, Christian König wrote:
+> > > > > Added a Fixes tag and pushed this to drm-misc-fixes.
+> > > > We're in the merge window, this should have been drm-misc-next-fixes. I'll
+> > > > poke misc maintainers so it's not lost.
+> > > Hui? It's a fix for a problem in stable and not in drm-misc-next.
+> > Ah the flow chart is confusing. There is no current -rc, so it's always
+> > -next-fixes. Or you're running the risk that it's lost until after -rc1.
+> > Maybe we should clarify that "is the bug in current -rc?" only applies if
+> > there is a current -rc.
 > 
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> Cc: Paul Mackerras <paulus@samba.org>
-> Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
-> ---
->  arch/powerpc/platforms/pseries/Kconfig       |  1 +
->  arch/powerpc/platforms/pseries/Makefile      |  2 ++
->  arch/powerpc/platforms/pseries/cc_platform.c | 26 ++++++++++++++++++++
->  3 files changed, 29 insertions(+)
->  create mode 100644 arch/powerpc/platforms/pseries/cc_platform.c
+> Yeah, I've noticed this as well.
+> 
+> But when there is no current -rc because we are in the merge window then the
+> question is how do I submit patches to the current stable?
 
-Michael,
+You never submit patches directly to stable. It's always "get it into
+Linus' tree asap" plus either Cc: stable or a Fixes: line. During merge
+window "get into Linus' tree asap" means "put it into drm-misc-next-fixes"
 
-can I get an ACK for the ppc bits to carry them through the tip tree
-pls?
+> In other words this patch here is really for 5.14 and should then be
+> backported to 5.13 and maybe even 5.10 as well.
+> 
+> The code was restructured for 5.15 and I even need to double check if that
+> still applies there as well.
+> 
+> Or should I send patches like those directly to Greg?
 
-Btw, on a related note, cross-compiling this throws the following error here:
+Nope. Just fastest path into Linus' tree is good enough. Greg picks up
+patches directly from the merge window if it has one of the tags. There's
+occasionally a bit of grumbling because there's so many stable patches
+coming in during the merge window, but otherwise it should be in stable in
+the next release like during -rc phase.
+-Daniel
 
-$ make CROSS_COMPILE=/home/share/src/crosstool/gcc-9.4.0-nolibc/powerpc64-linux/bin/powerpc64-linux- V=1 ARCH=powerpc
-
-...
-
-/home/share/src/crosstool/gcc-9.4.0-nolibc/powerpc64-linux/bin/powerpc64-linux-gcc -Wp,-MD,arch/powerpc/boot/.crt0.o.d -D__ASSEMBLY__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -O2 -msoft-float -mno-altivec -mno-vsx -pipe -fomit-frame-pointer -fno-builtin -fPIC -nostdinc -include ./include/linux/compiler_attributes.h -I./arch/powerpc/include -I./arch/powerpc/include/generated  -I./include -I./arch/powerpc/include/uapi -I./arch/powerpc/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/compiler-version.h -include ./include/linux/kconfig.h -m32 -isystem /home/share/src/crosstool/gcc-9.4.0-nolibc/powerpc64-linux/bin/../lib/gcc/powerpc64-linux/9.4.0/include -mbig-endian -nostdinc -c -o arch/powerpc/boot/crt0.o arch/powerpc/boot/crt0.S
-In file included from <command-line>:
-././include/linux/compiler_attributes.h:62:5: warning: "__has_attribute" is not defined, evaluates to 0 [-Wundef]
-   62 | #if __has_attribute(__assume_aligned__)
-      |     ^~~~~~~~~~~~~~~
-././include/linux/compiler_attributes.h:62:20: error: missing binary operator before token "("
-   62 | #if __has_attribute(__assume_aligned__)
-      |                    ^
-././include/linux/compiler_attributes.h:88:5: warning: "__has_attribute" is not defined, evaluates to 0 [-Wundef]
-   88 | #if __has_attribute(__copy__)
-      |     ^~~~~~~~~~~~~~~
-...
-
-Known issue?
-
-This __has_attribute() thing is supposed to be supported
-in gcc since 5.1 and I'm using the crosstool stuff from
-https://www.kernel.org/pub/tools/crosstool/ and gcc-9.4 above is pretty
-new so that should not happen actually.
-
-But it does...
-
-Hmmm.
+> Regards,
+> Christian.
+> 
+> > 
+> > Anyway Thomas sent out a pr, so it's all good.
+> > -Daniel
+> > 
+> > > Christian.
+> > > 
+> > > > -Daniel
+> > > > 
+> > > > > It will take a while until it cycles back into the development branches, so
+> > > > > feel free to push some version to amd-staging-drm-next as well. Just ping
+> > > > > Alex when you do this.
+> > > > > 
+> > > > > Thanks,
+> > > > > Christian.
+> > > > > 
+> > > > > Am 07.09.21 um 06:08 schrieb xinhui pan:
+> > > > > > The ret value might be -EBUSY, caller will think lru lock is still
+> > > > > > locked but actually NOT. So return -ENOSPC instead. Otherwise we hit
+> > > > > > list corruption.
+> > > > > > 
+> > > > > > ttm_bo_cleanup_refs might fail too if BO is not idle. If we return 0,
+> > > > > > caller(ttm_tt_populate -> ttm_global_swapout ->ttm_device_swapout) will
+> > > > > > be stuck as we actually did not free any BO memory. This usually happens
+> > > > > > when the fence is not signaled for a long time.
+> > > > > > 
+> > > > > > Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> > > > > > Reviewed-by: Christian König <christian.koenig@amd.com>
+> > > > > > ---
+> > > > > >     drivers/gpu/drm/ttm/ttm_bo.c | 6 +++---
+> > > > > >     1 file changed, 3 insertions(+), 3 deletions(-)
+> > > > > > 
+> > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > > index 8d7fd65ccced..23f906941ac9 100644
+> > > > > > --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > > @@ -1152,9 +1152,9 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+> > > > > >     	}
+> > > > > >     	if (bo->deleted) {
+> > > > > > -		ttm_bo_cleanup_refs(bo, false, false, locked);
+> > > > > > +		ret = ttm_bo_cleanup_refs(bo, false, false, locked);
+> > > > > >     		ttm_bo_put(bo);
+> > > > > > -		return 0;
+> > > > > > +		return ret == -EBUSY ? -ENOSPC : ret;
+> > > > > >     	}
+> > > > > >     	ttm_bo_del_from_lru(bo);
+> > > > > > @@ -1208,7 +1208,7 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+> > > > > >     	if (locked)
+> > > > > >     		dma_resv_unlock(bo->base.resv);
+> > > > > >     	ttm_bo_put(bo);
+> > > > > > -	return ret;
+> > > > > > +	return ret == -EBUSY ? -ENOSPC : ret;
+> > > > > >     }
+> > > > > >     void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
+> 
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
