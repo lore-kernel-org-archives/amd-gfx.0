@@ -2,73 +2,110 @@ Return-Path: <SRS0=i1uT=OE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CAE8FC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 19:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5865C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 21:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D04E60E9B
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 19:34:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D04E60E9B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6B89361168
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 21:05:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6B89361168
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E36726E5BD;
-	Tue, 14 Sep 2021 19:34:09 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF7C6E5BD;
- Tue, 14 Sep 2021 19:34:07 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- q11-20020a9d4b0b000000b0051acbdb2869so138394otf.2; 
- Tue, 14 Sep 2021 12:34:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Trvu9nlA00t2F84zxlJncsMRq1OyTstIv33vsK96jME=;
- b=EL3tMokWuM+bY8pDRfnqSPEtabiv7K+kLoxBw6cJmb4Q90HbsE24d6OpH1SYGgGi9g
- Nu+btKaeIGTU2gg4nHeG1ceW9p2/O+gB3AcHxrloMxolKubVqY1KoifrG0H0u5OjklLJ
- LIrfvreAou0Uua1loJFud9gzDCihoV5sre/oF4fpDQXSI+pRrSIh2ogVPfkkPWS6NS+F
- QzyrCPHfZJiSzIRrLLN+KWq91jW1a3OCVm+ipcJwPV8NMWFgpib6bpqvOQ/lN891+XB0
- /mfJPthPuT3VM+3aIgNW5JdXjmP0Z5ToblHS8Koam0uXAtcwN0hXGbWUka19ILANj6jA
- LrWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Trvu9nlA00t2F84zxlJncsMRq1OyTstIv33vsK96jME=;
- b=giF7MMMJNTowHjvGKfd+cZ3lrQEEXWJiZGBigFy7huwyKpdvoQJiIfxjTOkzImVFke
- Ta0Q3MkfD/lqPf04xxohiiVICHDAhBkgIe/3acdBV2psc8WKStNezCMpY40Ympic2RvI
- GcuZSUNtrpbG1ITez+nfswMz0mLAPfRy5PjCi82wPe9A9eL92eo9SgYUw3bgNBDhitXA
- 7/WB9IER+44p19T9kKMeo+9iaDJFyH/mUahJNA3hBPLsM/cOC6bZLfk6kkv9EkZ/H2hq
- AmBKwW6E3RcyQIaNLjG16y0Be1LEJlH0Rd0mGHPtgEIpuSWP33slaXDj3wwtdyvPWHgX
- Cg6Q==
-X-Gm-Message-State: AOAM531cnh/pLd6YA9e6kmyYIZilKgc2FWUK4JoaYFwX/TAsIqyq1yGI
- znYoa7QTJkuHDohT5uR0Gva629rwshJvhAQHhNMahevl
-X-Google-Smtp-Source: ABdhPJwudk4DN5ONA4OKPVTVyBme2DDqUGqkSKL3VoDnWYqbAmbcdDhMIHwclH/cVeGfnuZhx6G7uMCT8wpsIvn9+yM=
-X-Received: by 2002:a05:6830:2704:: with SMTP id
- j4mr16688605otu.299.1631648046893; 
- Tue, 14 Sep 2021 12:34:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADCE66E81C;
+	Tue, 14 Sep 2021 21:05:18 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2073.outbound.protection.outlook.com [40.107.95.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 696DA6E81C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 21:05:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MrNkvBJCdw0He6K/wAgkIVlaBRrOx09tPTbxI48u8SNaBIZ/O/B6tQi0mcnQhNf7Fd6FJgo2XmEKU+u1gCUmrVSxdnlXeYTSlXlJwSKWjxkC+yeQdNw7B96eK9QpBnuvuMXX3Sqhitm2kp4dnbrOyVYK4gMIFG8p45CyFQMu8FxH4vXJjl2n8tfqdUuT+HEbuQEuOeL9s780eJWJhJwrFs04sAaiHLfOE4NhTch2tIGTh2ijZI1QapDC7fHeo4icM/f0D5TTKiLckyhleBUouPzWljvvoZK8ELqvz/SmFZCyapP8u6tvMObI7P8wcBSDD8LGubbFp5iUXuiqt1lIFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=rpmbGee9oQ1wKoWYjZVyE6ai4Us21mxZP6EPdymzUHI=;
+ b=B+N/0mX1WiEi/N1ny67Bd+i9Q1UZqcKgQ8fNKKc+2nEmTb9X8MHefzW6MaW0m8f9Hu7J7laVQg/8IQ5HUUBDpE5cG5ovHF4GbFG77FPnONe9dRXvv7nLYZyxnxtriBFM8sT8fpvklerFJ4yAMfcpvPUK6AnH9Z1o3MRLbchbOi6cwdYj1yKDX0BRkaMQrCCGbaRe44U7s5FmPwc1AFCb4pDw9CGoM0f8T4ZcmjoPT+67sAS3q/CnbbKTcXTFwqTdlQakPkdP5f+MZ3K3DiA/xqt8hWqyBhQvSYigFe8VxSd/LXOVtIGu2FondSgq2ifNHKCAFWqoWn/NuPx/55UAGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rpmbGee9oQ1wKoWYjZVyE6ai4Us21mxZP6EPdymzUHI=;
+ b=fXENfJu534dQRv3ACy3Awjbz1ZJ7VhTLy7AvfUnormq3di/CND24leSjSdLW+wA1tDxBz9YZ0fFO5G9ROmsZco49zdcAAgQMQ0hUh45I8L/xs/p5EMe+xM2rz+5Am4u3RPFb1dp7j/V5gGYpHFSYkEu2XWQDniaK3RYZx0N+XU4=
+Received: from CO1PR15CA0060.namprd15.prod.outlook.com (2603:10b6:101:1f::28)
+ by DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Tue, 14 Sep
+ 2021 21:05:14 +0000
+Received: from CO1NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:101:1f:cafe::24) by CO1PR15CA0060.outlook.office365.com
+ (2603:10b6:101:1f::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Tue, 14 Sep 2021 21:05:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT044.mail.protection.outlook.com (10.13.175.188) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4523.14 via Frontend Transport; Tue, 14 Sep 2021 21:05:13 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 14 Sep
+ 2021 16:05:12 -0500
+Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
+ Transport; Tue, 14 Sep 2021 16:05:11 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <ndesaulniers@google.com>, <torvalds@linux-foundation.org>,
+ <linux-kernel@vger.kernel.org>, <arnd@kernel.org>, <sunpeng.li@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <nathan@kernel.org>, <linux@roeck-us.net>,
+ <llvm@lists.linux.dev>, Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Reduce stack size for
+ dml21_ModeSupportAndSystemConfigurationFull
+Date: Tue, 14 Sep 2021 17:05:08 -0400
+Message-ID: <20210914210508.10627-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-References: <1630457207-13107-1-git-send-email-Monk.Liu@amd.com>
- <28709f7f-8a48-40ad-87bb-c2f0dd89da38@gmail.com>
- <CADnq5_PRE4WyftqO15c08qwQx2CRszsj4gJQtDeon9TvtV+qkA@mail.gmail.com>
-In-Reply-To: <CADnq5_PRE4WyftqO15c08qwQx2CRszsj4gJQtDeon9TvtV+qkA@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Sep 2021 15:33:56 -0400
-Message-ID: <CADnq5_POHuuQYm5ZULWeumCmsy+eWbsRe0MSKuJcQxb7R=962g@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/sched: fix the bug of time out calculation(v4)
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Monk Liu <Monk.Liu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 542e9dfa-aa4d-40b1-6f8e-08d977c358a3
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5328:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB532829DBF81757CAADE056238CDA9@DM4PR12MB5328.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aYUD+qq+g/crLT96JbBk1dkTt+pC7JpymV0QCyG5wnHRL/QfLwgCZTOAaGDCVpc6Ou9buTq8OpcKQGA7g0yuicdKVa+g2FE7DJUXY3l1GmmRRoR38VJPnckJ3B4gfyegwyNv7uCilexnCHzlfccmbuMSLvHhOxzQD+pman5Hz85wt3hZGroj69NlQ2A3mEnoZ/66FCqY7O+7MSO7BrcNB72WTVgwqGDMyEiMN969LMvKdkYMTgbDp2ysEZ+/2AQUao8yT8nv2YcyypxUwFyzJq1fd1mmXp5nQXfe7+MkAI9gRdnf07YTvJ6tvYtoaZe6hFyVb3C1pDySEAuAA37nREpT4J7dcs7jhYXYVsm/NO0IPgHdf/N8u+VLQxw0AJPFaYtcAhJwaqcWCN21J/hofGYlx0oWpRPh+OrRtjh4T3C2YZe5zpfjMNLR8VJFh7EsNjkxbD/vT8LyDfprzbs5GIopMysOvjzdZBR4I8BXCmaJIvTGJNo7nfbm0bMjCulOc4cqEHh+wNYRIQbSuPBdttQH+BY9tBrrFGlKKlP8vsVMseFL56tBJ3f1U59/qn0logLO9y65AvfhDZd0RA4I0KBkpyI5hMkI2TEHwoF7MdyofmYM8G0OcMKZU99B7bF8GJ91d3C92Wu4+9Pp/Y6jwG6cSdd3jNjzrzBy/gYhJ2Xe3lDg56jEWz7+Gtv6sztAX4e52Yfa/DTPqyMpz/nvzCTUhdPtMJ9k8HnuNzWfde6SnEg73FKl38nJaiM5xnRMeyRxMwOn/HPjlWqAfHiRaS8ltSxv/pa7xfDaasj3C2A=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(346002)(39860400002)(136003)(36840700001)(46966006)(30864003)(8936002)(86362001)(2906002)(4326008)(186003)(316002)(356005)(478600001)(44832011)(70586007)(19627235002)(1076003)(36756003)(5660300002)(36860700001)(54906003)(336012)(66574015)(6666004)(26005)(82310400003)(81166007)(83380400001)(426003)(82740400003)(6916009)(70206006)(47076005)(2616005)(8676002)(7696005)(213903007)(36900700001)(44824005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 21:05:13.7450 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 542e9dfa-aa4d-40b1-6f8e-08d977c358a3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,126 +120,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Was this fix independent of the other discussions?  Should this be
-applied to drm-misc?
+[Why & How]
+With Werror enabled in the kernel we were failing the clang build since
+dml21_ModeSupportAndSystemConfigurationFull's stack frame is 1064 when
+building with clang, and exceeding the default 1024 stack frame limit.
 
-Alex
+The culprit seems to be the Pipe struct, so pull the relevant block
+out into its own sub-function.
 
-On Wed, Sep 1, 2021 at 4:42 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Sep 1, 2021 at 2:50 AM Christian K=C3=B6nig
-> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >
-> > Am 01.09.21 um 02:46 schrieb Monk Liu:
-> > > issue:
-> > > in cleanup_job the cancle_delayed_work will cancel a TO timer
-> > > even the its corresponding job is still running.
-> > >
-> > > fix:
-> > > do not cancel the timer in cleanup_job, instead do the cancelling
-> > > only when the heading job is signaled, and if there is a "next" job
-> > > we start_timeout again.
-> > >
-> > > v2:
-> > > further cleanup the logic, and do the TDR timer cancelling if the sig=
-naled job
-> > > is the last one in its scheduler.
-> > >
-> > > v3:
-> > > change the issue description
-> > > remove the cancel_delayed_work in the begining of the cleanup_job
-> > > recover the implement of drm_sched_job_begin.
-> > >
-> > > v4:
-> > > remove the kthread_should_park() checking in cleanup_job routine,
-> > > we should cleanup the signaled job asap
-> > >
-> > > TODO:
-> > > 1)introduce pause/resume scheduler in job_timeout to serial the handl=
-ing
-> > > of scheduler and job_timeout.
-> > > 2)drop the bad job's del and insert in scheduler due to above seriali=
-zation
-> > > (no race issue anymore with the serialization)
-> > >
-> > > tested-by: jingwen <jingwen.chen@@amd.com>
-> > > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
-> >
-> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >
->
-> Are you planning to push this to drm-misc?
->
-> Alex
->
->
-> > > ---
-> > >   drivers/gpu/drm/scheduler/sched_main.c | 26 +++++++++--------------=
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Fixes: 3fe617ccafd6 ("Enable '-Werror' by default for all kernel builds")
+Cc: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: llvm@lists.linux.dev
 ---
-> > >   1 file changed, 9 insertions(+), 17 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm=
-/scheduler/sched_main.c
-> > > index a2a9536..3e0bbc7 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > @@ -676,15 +676,6 @@ drm_sched_get_cleanup_job(struct drm_gpu_schedul=
-er *sched)
-> > >   {
-> > >       struct drm_sched_job *job, *next;
-> > >
-> > > -     /*
-> > > -      * Don't destroy jobs while the timeout worker is running  OR t=
-hread
-> > > -      * is being parked and hence assumed to not touch pending_list
-> > > -      */
-> > > -     if ((sched->timeout !=3D MAX_SCHEDULE_TIMEOUT &&
-> > > -         !cancel_delayed_work(&sched->work_tdr)) ||
-> > > -         kthread_should_park())
-> > > -             return NULL;
-> > > -
-> > >       spin_lock(&sched->job_list_lock);
-> > >
-> > >       job =3D list_first_entry_or_null(&sched->pending_list,
-> > > @@ -693,17 +684,21 @@ drm_sched_get_cleanup_job(struct drm_gpu_schedu=
-ler *sched)
-> > >       if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
-> > >               /* remove job from pending_list */
-> > >               list_del_init(&job->list);
-> > > +
-> > > +             /* cancel this job's TO timer */
-> > > +             cancel_delayed_work(&sched->work_tdr);
-> > >               /* make the scheduled timestamp more accurate */
-> > >               next =3D list_first_entry_or_null(&sched->pending_list,
-> > >                                               typeof(*next), list);
-> > > -             if (next)
-> > > +
-> > > +             if (next) {
-> > >                       next->s_fence->scheduled.timestamp =3D
-> > >                               job->s_fence->finished.timestamp;
-> > > -
-> > > +                     /* start TO timer for next job */
-> > > +                     drm_sched_start_timeout(sched);
-> > > +             }
-> > >       } else {
-> > >               job =3D NULL;
-> > > -             /* queue timeout for next job */
-> > > -             drm_sched_start_timeout(sched);
-> > >       }
-> > >
-> > >       spin_unlock(&sched->job_list_lock);
-> > > @@ -791,11 +786,8 @@ static int drm_sched_main(void *param)
-> > >                                         (entity =3D drm_sched_select_=
-entity(sched))) ||
-> > >                                        kthread_should_stop());
-> > >
-> > > -             if (cleanup_job) {
-> > > +             if (cleanup_job)
-> > >                       sched->ops->free_job(cleanup_job);
-> > > -                     /* queue timeout for next job */
-> > > -                     drm_sched_start_timeout(sched);
-> > > -             }
-> > >
-> > >               if (!entity)
-> > >                       continue;
-> >
+ .../dc/dml/dcn21/display_mode_vba_21.c        | 236 +++++++++---------
+ 1 file changed, 123 insertions(+), 113 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+index 4136eb8256cb..8a7485e21d53 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+@@ -3394,6 +3394,127 @@ static unsigned int TruncToValidBPP(
+ 	}
+ }
+ 
++
++static noinline void CalculatePrefetchSchedulePerPlane(
++		struct display_mode_lib *mode_lib,
++		int i,
++		unsigned j,
++		unsigned k)
++{
++	struct vba_vars_st *locals = &mode_lib->vba;
++	Pipe myPipe;
++	HostVM myHostVM;
++
++	if (mode_lib->vba.XFCEnabled[k] == true) {
++		mode_lib->vba.XFCRemoteSurfaceFlipDelay =
++				CalculateRemoteSurfaceFlipDelay(
++						mode_lib,
++						mode_lib->vba.VRatio[k],
++						locals->SwathWidthYThisState[k],
++						dml_ceil(locals->BytePerPixelInDETY[k], 1.0),
++						mode_lib->vba.HTotal[k] / mode_lib->vba.PixelClock[k],
++						mode_lib->vba.XFCTSlvVupdateOffset,
++						mode_lib->vba.XFCTSlvVupdateWidth,
++						mode_lib->vba.XFCTSlvVreadyOffset,
++						mode_lib->vba.XFCXBUFLatencyTolerance,
++						mode_lib->vba.XFCFillBWOverhead,
++						mode_lib->vba.XFCSlvChunkSize,
++						mode_lib->vba.XFCBusTransportTime,
++						mode_lib->vba.TimeCalc,
++						mode_lib->vba.TWait,
++						&mode_lib->vba.SrcActiveDrainRate,
++						&mode_lib->vba.TInitXFill,
++						&mode_lib->vba.TslvChk);
++	} else {
++		mode_lib->vba.XFCRemoteSurfaceFlipDelay = 0.0;
++	}
++
++	myPipe.DPPCLK = locals->RequiredDPPCLK[i][j][k];
++	myPipe.DISPCLK = locals->RequiredDISPCLK[i][j];
++	myPipe.PixelClock = mode_lib->vba.PixelClock[k];
++	myPipe.DCFCLKDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[0][0];
++	myPipe.DPPPerPlane = locals->NoOfDPP[i][j][k];
++	myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
++	myPipe.SourceScan = mode_lib->vba.SourceScan[k];
++	myPipe.BlockWidth256BytesY = locals->Read256BlockWidthY[k];
++	myPipe.BlockHeight256BytesY = locals->Read256BlockHeightY[k];
++	myPipe.BlockWidth256BytesC = locals->Read256BlockWidthC[k];
++	myPipe.BlockHeight256BytesC = locals->Read256BlockHeightC[k];
++	myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
++	myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
++	myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
++	myPipe.HTotal = mode_lib->vba.HTotal[k];
++
++
++	myHostVM.Enable = mode_lib->vba.HostVMEnable;
++	myHostVM.MaxPageTableLevels = mode_lib->vba.HostVMMaxPageTableLevels;
++	myHostVM.CachedPageTableLevels = mode_lib->vba.HostVMCachedPageTableLevels;
++
++
++	mode_lib->vba.IsErrorResult[i][j][k] = CalculatePrefetchSchedule(
++			mode_lib,
++			mode_lib->vba.PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
++			mode_lib->vba.PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
++			&myPipe,
++			locals->DSCDelayPerState[i][k],
++			mode_lib->vba.DPPCLKDelaySubtotal,
++			mode_lib->vba.DPPCLKDelaySCL,
++			mode_lib->vba.DPPCLKDelaySCLLBOnly,
++			mode_lib->vba.DPPCLKDelayCNVCFormater,
++			mode_lib->vba.DPPCLKDelayCNVCCursor,
++			mode_lib->vba.DISPCLKDelaySubtotal,
++			locals->SwathWidthYThisState[k] / mode_lib->vba.HRatio[k],
++			mode_lib->vba.OutputFormat[k],
++			mode_lib->vba.MaxInterDCNTileRepeaters,
++			dml_min(mode_lib->vba.MaxVStartup, locals->MaximumVStartup[0][0][k]),
++			locals->MaximumVStartup[0][0][k],
++			mode_lib->vba.GPUVMMaxPageTableLevels,
++			mode_lib->vba.GPUVMEnable,
++			&myHostVM,
++			mode_lib->vba.DynamicMetadataEnable[k],
++			mode_lib->vba.DynamicMetadataLinesBeforeActiveRequired[k],
++			mode_lib->vba.DynamicMetadataTransmittedBytes[k],
++			mode_lib->vba.DCCEnable[k],
++			mode_lib->vba.UrgentLatency,
++			mode_lib->vba.ExtraLatency,
++			mode_lib->vba.TimeCalc,
++			locals->PDEAndMetaPTEBytesPerFrame[0][0][k],
++			locals->MetaRowBytes[0][0][k],
++			locals->DPTEBytesPerRow[0][0][k],
++			locals->PrefetchLinesY[0][0][k],
++			locals->SwathWidthYThisState[k],
++			locals->BytePerPixelInDETY[k],
++			locals->PrefillY[k],
++			locals->MaxNumSwY[k],
++			locals->PrefetchLinesC[0][0][k],
++			locals->BytePerPixelInDETC[k],
++			locals->PrefillC[k],
++			locals->MaxNumSwC[k],
++			locals->SwathHeightYThisState[k],
++			locals->SwathHeightCThisState[k],
++			mode_lib->vba.TWait,
++			mode_lib->vba.XFCEnabled[k],
++			mode_lib->vba.XFCRemoteSurfaceFlipDelay,
++			mode_lib->vba.ProgressiveToInterlaceUnitInOPP,
++			&locals->dst_x_after_scaler,
++			&locals->dst_y_after_scaler,
++			&locals->LineTimesForPrefetch[k],
++			&locals->PrefetchBW[k],
++			&locals->LinesForMetaPTE[k],
++			&locals->LinesForMetaAndDPTERow[k],
++			&locals->VRatioPreY[i][j][k],
++			&locals->VRatioPreC[i][j][k],
++			&locals->RequiredPrefetchPixelDataBWLuma[i][j][k],
++			&locals->RequiredPrefetchPixelDataBWChroma[i][j][k],
++			&locals->VStartupRequiredWhenNotEnoughTimeForDynamicMetadata,
++			&locals->Tno_bw[k],
++			&locals->prefetch_vmrow_bw[k],
++			locals->swath_width_luma_ub,
++			locals->swath_width_chroma_ub,
++			&mode_lib->vba.VUpdateOffsetPix[k],
++			&mode_lib->vba.VUpdateWidthPix[k],
++			&mode_lib->vba.VReadyOffsetPix[k]);
++}
+ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+ {
+ 	struct vba_vars_st *locals = &mode_lib->vba;
+@@ -4676,120 +4797,9 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 						mode_lib->vba.DRAMClockChangeLatency,
+ 						mode_lib->vba.UrgentLatency,
+ 						mode_lib->vba.SREnterPlusExitTime);
+-				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+-					Pipe myPipe;
+-					HostVM myHostVM;
+-
+-					if (mode_lib->vba.XFCEnabled[k] == true) {
+-						mode_lib->vba.XFCRemoteSurfaceFlipDelay =
+-								CalculateRemoteSurfaceFlipDelay(
+-										mode_lib,
+-										mode_lib->vba.VRatio[k],
+-										locals->SwathWidthYThisState[k],
+-										dml_ceil(locals->BytePerPixelInDETY[k], 1.0),
+-										mode_lib->vba.HTotal[k] / mode_lib->vba.PixelClock[k],
+-										mode_lib->vba.XFCTSlvVupdateOffset,
+-										mode_lib->vba.XFCTSlvVupdateWidth,
+-										mode_lib->vba.XFCTSlvVreadyOffset,
+-										mode_lib->vba.XFCXBUFLatencyTolerance,
+-										mode_lib->vba.XFCFillBWOverhead,
+-										mode_lib->vba.XFCSlvChunkSize,
+-										mode_lib->vba.XFCBusTransportTime,
+-										mode_lib->vba.TimeCalc,
+-										mode_lib->vba.TWait,
+-										&mode_lib->vba.SrcActiveDrainRate,
+-										&mode_lib->vba.TInitXFill,
+-										&mode_lib->vba.TslvChk);
+-					} else {
+-						mode_lib->vba.XFCRemoteSurfaceFlipDelay = 0.0;
+-					}
++				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++)
++					CalculatePrefetchSchedulePerPlane(mode_lib, i, j, k);
+ 
+-					myPipe.DPPCLK = locals->RequiredDPPCLK[i][j][k];
+-					myPipe.DISPCLK = locals->RequiredDISPCLK[i][j];
+-					myPipe.PixelClock = mode_lib->vba.PixelClock[k];
+-					myPipe.DCFCLKDeepSleep = mode_lib->vba.ProjectedDCFCLKDeepSleep[0][0];
+-					myPipe.DPPPerPlane = locals->NoOfDPP[i][j][k];
+-					myPipe.ScalerEnabled = mode_lib->vba.ScalerEnabled[k];
+-					myPipe.SourceScan = mode_lib->vba.SourceScan[k];
+-					myPipe.BlockWidth256BytesY = locals->Read256BlockWidthY[k];
+-					myPipe.BlockHeight256BytesY = locals->Read256BlockHeightY[k];
+-					myPipe.BlockWidth256BytesC = locals->Read256BlockWidthC[k];
+-					myPipe.BlockHeight256BytesC = locals->Read256BlockHeightC[k];
+-					myPipe.InterlaceEnable = mode_lib->vba.Interlace[k];
+-					myPipe.NumberOfCursors = mode_lib->vba.NumberOfCursors[k];
+-					myPipe.VBlank = mode_lib->vba.VTotal[k] - mode_lib->vba.VActive[k];
+-					myPipe.HTotal = mode_lib->vba.HTotal[k];
+-
+-
+-					myHostVM.Enable = mode_lib->vba.HostVMEnable;
+-					myHostVM.MaxPageTableLevels = mode_lib->vba.HostVMMaxPageTableLevels;
+-					myHostVM.CachedPageTableLevels = mode_lib->vba.HostVMCachedPageTableLevels;
+-
+-
+-					mode_lib->vba.IsErrorResult[i][j][k] = CalculatePrefetchSchedule(
+-							mode_lib,
+-							mode_lib->vba.PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
+-							mode_lib->vba.PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
+-							&myPipe,
+-							locals->DSCDelayPerState[i][k],
+-							mode_lib->vba.DPPCLKDelaySubtotal,
+-							mode_lib->vba.DPPCLKDelaySCL,
+-							mode_lib->vba.DPPCLKDelaySCLLBOnly,
+-							mode_lib->vba.DPPCLKDelayCNVCFormater,
+-							mode_lib->vba.DPPCLKDelayCNVCCursor,
+-							mode_lib->vba.DISPCLKDelaySubtotal,
+-							locals->SwathWidthYThisState[k] / mode_lib->vba.HRatio[k],
+-							mode_lib->vba.OutputFormat[k],
+-							mode_lib->vba.MaxInterDCNTileRepeaters,
+-							dml_min(mode_lib->vba.MaxVStartup, locals->MaximumVStartup[0][0][k]),
+-							locals->MaximumVStartup[0][0][k],
+-							mode_lib->vba.GPUVMMaxPageTableLevels,
+-							mode_lib->vba.GPUVMEnable,
+-							&myHostVM,
+-							mode_lib->vba.DynamicMetadataEnable[k],
+-							mode_lib->vba.DynamicMetadataLinesBeforeActiveRequired[k],
+-							mode_lib->vba.DynamicMetadataTransmittedBytes[k],
+-							mode_lib->vba.DCCEnable[k],
+-							mode_lib->vba.UrgentLatency,
+-							mode_lib->vba.ExtraLatency,
+-							mode_lib->vba.TimeCalc,
+-							locals->PDEAndMetaPTEBytesPerFrame[0][0][k],
+-							locals->MetaRowBytes[0][0][k],
+-							locals->DPTEBytesPerRow[0][0][k],
+-							locals->PrefetchLinesY[0][0][k],
+-							locals->SwathWidthYThisState[k],
+-							locals->BytePerPixelInDETY[k],
+-							locals->PrefillY[k],
+-							locals->MaxNumSwY[k],
+-							locals->PrefetchLinesC[0][0][k],
+-							locals->BytePerPixelInDETC[k],
+-							locals->PrefillC[k],
+-							locals->MaxNumSwC[k],
+-							locals->SwathHeightYThisState[k],
+-							locals->SwathHeightCThisState[k],
+-							mode_lib->vba.TWait,
+-							mode_lib->vba.XFCEnabled[k],
+-							mode_lib->vba.XFCRemoteSurfaceFlipDelay,
+-							mode_lib->vba.ProgressiveToInterlaceUnitInOPP,
+-							&locals->dst_x_after_scaler,
+-							&locals->dst_y_after_scaler,
+-							&locals->LineTimesForPrefetch[k],
+-							&locals->PrefetchBW[k],
+-							&locals->LinesForMetaPTE[k],
+-							&locals->LinesForMetaAndDPTERow[k],
+-							&locals->VRatioPreY[i][j][k],
+-							&locals->VRatioPreC[i][j][k],
+-							&locals->RequiredPrefetchPixelDataBWLuma[i][j][k],
+-							&locals->RequiredPrefetchPixelDataBWChroma[i][j][k],
+-							&locals->VStartupRequiredWhenNotEnoughTimeForDynamicMetadata,
+-							&locals->Tno_bw[k],
+-							&locals->prefetch_vmrow_bw[k],
+-							locals->swath_width_luma_ub,
+-							locals->swath_width_chroma_ub,
+-							&mode_lib->vba.VUpdateOffsetPix[k],
+-							&mode_lib->vba.VUpdateWidthPix[k],
+-							&mode_lib->vba.VReadyOffsetPix[k]);
+-				}
+ 				mode_lib->vba.MaximumReadBandwidthWithoutPrefetch = 0.0;
+ 				mode_lib->vba.MaximumReadBandwidthWithPrefetch = 0.0;
+ 				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+-- 
+2.33.0
+
