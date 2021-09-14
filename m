@@ -7,68 +7,65 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15E09C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 23:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05628C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 23:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B238161184
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 23:59:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B238161184
+	by mail.kernel.org (Postfix) with ESMTPS id C5A0861184
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 23:59:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C5A0861184
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=froggi.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 328B76E856;
-	Tue, 14 Sep 2021 23:59:53 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEACB6E856
+	by gabe.freedesktop.org (Postfix) with ESMTP id 128E36E857;
+	Tue, 14 Sep 2021 23:59:54 +0000 (UTC)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E4686E856
  for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 23:59:52 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- c8-20020a7bc008000000b002e6e462e95fso3425439wmb.2
+Received: by mail-wr1-x432.google.com with SMTP id g16so946770wrb.3
  for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 16:59:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=froggi.es; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=qeCMw3RvpplpdDPL+c0dVenmmpl9grVi+/hSk2A6oqc=;
- b=IEiMzcqejHemt5p7tE01QGBjjHOvCxv74iujsdcsXR47The4Z+7lS6lyAKaR+nhHqc
- xNlLzfJSZffP3c3EoOiznt62DMPztIjJ1QrXE90bxsM1SiA4vkbAFvaXHCETIeJpQuXl
- tXqVn8GIByilJhQRl9yn8BEeEANRwMAV7iPLbltJJ4DOZPok2QR/VRYRd/8LrySNV3mR
- pst/CpmzZipmtLUNXRQ+2exM3T7QvtrXfuK8dJXLn/UHhiaFxgc85XxzMJVdt0LgJZ4+
- Dg3yZn2NgMJcfccYxluU5f5e984vlhzx4Zi3Cmu9Dq4CF7mxSpfK0c+T6OKxwytOvRhq
- CI9Q==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iyM/eWya5TXfoYKKCUoktyELxXnG3DZTINgRKCyeolk=;
+ b=YJrJlcLrhwsp5xTEcNe5GQ2VmxbqMZQvBoeBjE80NAOg8BNfTOUAB1gzDhr8zeJlIW
+ ayzg32K5cOl8c89DQnUxZxUYEO0DLr6XUd85JcdJ81XYYm4Um/cQ65Trtzuuognn6pBu
+ MQjkzNd8GAzTSsoqIAUBss0v10/R80pS1Xln964wsaFqjlHpS6pOSWT+SDVi9CwNsfGk
+ gr3zbXDkzHd65UWCb5qw0IO0LJoEeImcL1eRl67fpiX/P8NPqvN6zUG+TU8BqkKTW8mi
+ Nbby+rhe7z78QSKcfzCyUOCPYnVUOjmZeQD67OFO8LDBO6ycMyWw/xfp2WSQ/Lj6u+N2
+ zHbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=qeCMw3RvpplpdDPL+c0dVenmmpl9grVi+/hSk2A6oqc=;
- b=URKfW858oEiaFqsHOi6+AhhVKY4B9gjpGnSoM4W/YxuZhC4ZtSHbnM3OAsBR3GfDyI
- ZQ0pzayAvDRN+OsgNMDDLwt+8Kd2X5lSL+rSfWD8DdLDJJPU8yBuOr1mSskDHRK1GGFO
- APkb0H4PiDnkrqiDcqY59UJKu8yS5+cHsx/i4n4Zmp7tLfXchG0u1XvJakHQ0bOamrtA
- MBjuZeoh1f/tTqMVhzg8IYKiKoRivEmc9CBygbXqTyymrZE5MGsMOq7CxO99sdeRvbC9
- Dg6RUFhd4sS1swHru4+fWaB6kxmE9u453Ea9rgQLqLktYacIiZC6TuziVfAWk1uAx+rD
- QhPg==
-X-Gm-Message-State: AOAM531F1q1Lg2gUV2ZFhSkOT4MmDmmdjslyFBWPHl+YzdPnk9iaQt1b
- FIHRmyEwvTxAuE+plpYJIITd06TB2xn3ghsG7nk=
-X-Google-Smtp-Source: ABdhPJzAAC3izCvOUwa6rWJ9014BicD+/H/+nS4LCOgNETFFWPbCv4k1Fh9bczAxtQHgoxL0LQ2e+w==
-X-Received: by 2002:a7b:cd93:: with SMTP id y19mr1508576wmj.110.1631663991304; 
- Tue, 14 Sep 2021 16:59:51 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iyM/eWya5TXfoYKKCUoktyELxXnG3DZTINgRKCyeolk=;
+ b=DP1w5DJ+F1AyTs2nUbRsPv2BzEPXaF5tCG4TMJNz+H7eb3J0ucIGZHuvB4sBI7OXq3
+ 8IlDPtiq70nWZkQMkRjH6pAvsxxkVTQr6bhExtOVhKFIhmfVoUKQsZ1vHFRx5MqJiQFj
+ 4Kj3G1k8gdxqAjjE2khcO+ih0kVbcKsETwpcYiltFq/5z9iMpd85bmT9JvF2B2nasDJC
+ tgUK/Ig1+Lp12RWRkcGMW7YkIgfDgp/tyi2g9G9/hR1C/v3z/NvwvO6yteGCZedLAmRf
+ N4ipcAAqbYCepfo/OjpJW5p8EGYU8/vbrGm+PRCBruzviDzqOJYNrm2x2s5NafwvJyza
+ C4zQ==
+X-Gm-Message-State: AOAM531lSa7ZffBZMHh3o5Epcvkf0EqceDkdisFvuU3m26i1Ra48umUm
+ R6K+VtVw4w9qsbdppOLfDUZ0poJMSGT11b3+cQc=
+X-Google-Smtp-Source: ABdhPJwFlJhzU4H1Z4bp3nOOZglcubiFSsM2cjyYx7AtIPwhMo6kmzdut/GPLUlQ8oEdRaQhk/a+hg==
+X-Received: by 2002:adf:f8d2:: with SMTP id f18mr1775282wrq.140.1631663990784; 
+ Tue, 14 Sep 2021 16:59:50 -0700 (PDT)
 Received: from localhost.localdomain
  (cpc89720-darl9-2-0-cust754.11-2.cable.virginm.net. [86.2.110.243])
  by smtp.gmail.com with ESMTPSA id m29sm12571637wrb.89.2021.09.14.16.59.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Sep 2021 16:59:51 -0700 (PDT)
+ Tue, 14 Sep 2021 16:59:50 -0700 (PDT)
 From: Joshua Ashton <joshua@froggi.es>
 To: amd-gfx@lists.freedesktop.org
 Cc: Joshua Ashton <joshua@froggi.es>,
  Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Subject: [PATCH 2/3] drm/amd/display: Handle GFX10_RBPLUS modifiers for
- dcc_ind_blk
-Date: Wed, 15 Sep 2021 00:59:47 +0100
-Message-Id: <20210914235948.893422-2-joshua@froggi.es>
+Subject: [PATCH 1/3] drm/amd/display: Use dcc_ind_blk value to set register
+ directly
+Date: Wed, 15 Sep 2021 00:59:46 +0100
+Message-Id: <20210914235948.893422-1-joshua@froggi.es>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210914235948.893422-1-joshua@froggi.es>
-References: <20210914235948.893422-1-joshua@froggi.es>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,49 +82,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adds the missing logic to set the correct value of dcc_ind_blk for this tiling version.
+We don't need to do this workaround if we start setting this value when we fill the plane attributes.
 
 Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Reviewed-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 ++++++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c          | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c | 6 ------
+ 3 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9c6f2863ba96..2a24e43623cb 100644
+index 8837259215d9..9c6f2863ba96 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4915,14 +4915,26 @@ fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
+@@ -4914,10 +4914,15 @@ fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
+ 
  	if (modifier_has_dcc(modifier) && !force_disable_dcc) {
  		uint64_t dcc_address = afb->address + afb->base.offsets[1];
- 		bool independent_64b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_64B, modifier);
-+		bool independent_128b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_128B, modifier);
++		bool independent_64b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_64B, modifier);
  
  		dcc->enable = 1;
  		dcc->meta_pitch = afb->base.pitches[1];
- 		dcc->independent_64b_blks = independent_64b_blks;
--		if (independent_64b_blks)
--			dcc->dcc_ind_blk = hubp_ind_block_64b;
--		else
--			dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
-+		if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) {
-+			if (independent_64b_blks && independent_128b_blks)
-+				dcc->dcc_ind_blk = hubp_ind_block_64b;
-+			else if (independent_128b_blks)
-+				dcc->dcc_ind_blk = hubp_ind_block_128b;
-+			else if (independent_64b_blks && !independent_128b_blks)
-+				dcc->dcc_ind_blk = hubp_ind_block_64b_no_128bcl;
-+			else
-+				dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
-+		} else {
-+			if (independent_64b_blks)
-+				dcc->dcc_ind_blk = hubp_ind_block_64b;
-+			else
-+				dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
-+		}
+-		dcc->independent_64b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_64B, modifier);
++		dcc->independent_64b_blks = independent_64b_blks;
++		if (independent_64b_blks)
++			dcc->dcc_ind_blk = hubp_ind_block_64b;
++		else
++			dcc->dcc_ind_blk = hubp_ind_block_unconstrained;
  
  		address->grph.meta_addr.low_part = lower_32_bits(dcc_address);
  		address->grph.meta_addr.high_part = upper_32_bits(dcc_address);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index f58d3956f3e2..da360691e655 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2008,7 +2008,7 @@ static enum surface_update_type get_plane_info_update_type(const struct dc_surfa
+ 	}
+ 
+ 	if (u->plane_info->dcc.enable != u->surface->dcc.enable
+-			|| u->plane_info->dcc.independent_64b_blks != u->surface->dcc.independent_64b_blks
++			|| u->plane_info->dcc.dcc_ind_blk != u->surface->dcc.dcc_ind_blk
+ 			|| u->plane_info->dcc.meta_pitch != u->surface->dcc.meta_pitch) {
+ 		/* During DCC on/off, stutter period is calculated before
+ 		 * DCC has fully transitioned. This results in incorrect
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+index f24612523248..eac08926b574 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+@@ -356,12 +356,6 @@ void hubp3_dcc_control_sienna_cichlid(struct hubp *hubp,
+ {
+ 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
+ 
+-	/*Workaround until UMD fix the new dcc_ind_blk interface */
+-	if (dcc->independent_64b_blks && dcc->dcc_ind_blk == 0)
+-		dcc->dcc_ind_blk = 1;
+-	if (dcc->independent_64b_blks_c && dcc->dcc_ind_blk_c == 0)
+-		dcc->dcc_ind_blk_c = 1;
+-
+ 	REG_UPDATE_6(DCSURF_SURFACE_CONTROL,
+ 		PRIMARY_SURFACE_DCC_EN, dcc->enable,
+ 		PRIMARY_SURFACE_DCC_IND_BLK, dcc->dcc_ind_blk,
 -- 
 2.33.0
 
