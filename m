@@ -1,75 +1,71 @@
-Return-Path: <SRS0=i1uT=OE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=hzS6=OF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D966C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 23:59:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E0AFC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 01:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4424C61166
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 23:59:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4424C61166
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=froggi.es
+	by mail.kernel.org (Postfix) with ESMTPS id 3F5F061130
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 01:05:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3F5F061130
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDFB06E859;
-	Tue, 14 Sep 2021 23:59:54 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FBB96E857
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 23:59:53 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id q26so912975wrc.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 16:59:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=froggi.es; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=DbJsVGT9iT8OgSbIbO/1gnF8vwppi0fnPqOct14ikzw=;
- b=VYYsc8JWNOC9k1mWJpWE3dKrkwNlvlIzS9xPiwzogAMzNzH33m1Z6VRZJ0HIoV8sPy
- 0svdLni/DsBVVuXvW3kdoG3q1zBpM+dVKC/a9j/EFFL/LIUZdZoAEh+IXkUeU+kHVOP2
- SUlvuqteJSIHSpKums86GozINX16iH+3ywyx9jyV0N8DZyTGV7Tgo+FmlYsKdObrOOWh
- F/WEdqlPFncnjtQqGEebecnl9jevwx1ZkYhIut1FXYWbQu+H88qPRKsXie4eZ8NEK/Ym
- OWKITZFV/ZztAT7cLO3OpG3Owcz5DOfugOfkc3TAb4dKyxb34/cNvaygKONJhVp1D+S3
- 5SnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=DbJsVGT9iT8OgSbIbO/1gnF8vwppi0fnPqOct14ikzw=;
- b=EPzxNjadu/lSrNhTsNdGY3YnxxJfREDlrTA4r3YzQB4HHzKUQpei5mK2IogkYwU4J1
- 7dcDyiHqSA06LTUFBnQB2Kw6v3I8mWevRTHsfOBwB6RUdSjQNhrQKunSFv1VLyxNzRoY
- AQFfYpdPtQiRkFq+CvIdD420/+vDN3IqgFtxqDjnNB+TMXYbr5VJ+GlEbYSGb4tak68/
- LxqyBD7ZgBQr5+f4RD4OEcPC1NAIS+NAQnRl/B/hyEOC8EUxG9yfD0pMQ4VNLM6O8YtX
- Oea0zzgkm6aRcuDwCk9WlaHiUqO4OLzJX73JxNKz6IJkfzV/+UZt/JqZluWCNhY788V6
- zGGw==
-X-Gm-Message-State: AOAM531Zt3VFrhcZEJQZlyxpoh4bPHYpD0lTD2md8WiEjx2LD5Na4myT
- a7ObCzGzD3oHKdWucoNBajCJ8NfwJjz0t4Hf0A4=
-X-Google-Smtp-Source: ABdhPJz/mxIs7Z46/pq4ZtX0K12+RN3nGs6tlvPM2QrUQW2iP8r5bWdPlsn6JYHORyWaMeIhidvx0w==
-X-Received: by 2002:a5d:6a81:: with SMTP id s1mr1768020wru.274.1631663992157; 
- Tue, 14 Sep 2021 16:59:52 -0700 (PDT)
-Received: from localhost.localdomain
- (cpc89720-darl9-2-0-cust754.11-2.cable.virginm.net. [86.2.110.243])
- by smtp.gmail.com with ESMTPSA id m29sm12571637wrb.89.2021.09.14.16.59.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Sep 2021 16:59:51 -0700 (PDT)
-From: Joshua Ashton <joshua@froggi.es>
-To: amd-gfx@lists.freedesktop.org
-Cc: Joshua Ashton <joshua@froggi.es>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Subject: [PATCH 3/3] drm/amd/display: Add modifiers capable of DCC image
- stores for gfx10_3
-Date: Wed, 15 Sep 2021 00:59:48 +0100
-Message-Id: <20210914235948.893422-3-joshua@froggi.es>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210914235948.893422-1-joshua@froggi.es>
-References: <20210914235948.893422-1-joshua@froggi.es>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B75DC6E889;
+	Wed, 15 Sep 2021 01:05:18 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9F9B89B83;
+ Tue, 14 Sep 2021 18:25:05 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f1048008d634cac5b0c7131.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f10:4800:8d63:4cac:5b0c:7131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 763B31EC04D1;
+ Tue, 14 Sep 2021 20:24:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1631643899;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=ZiKIvLzxdvLHB/We39H7CYYWYKE3V9X7egkB0ENPsyE=;
+ b=GN7S7yA8avxg1KGLWQ5Wx4mPloiFO1PBUg1PdvgNlg1k2E8fi0qdXRRIE9kwM20ienZRVh
+ o8LBR3WQL8vRxBEN8UtVxzVQ4SPu4d1Dm2tyq3MgOH0kvt8jlqMPz4StWyaaodjjc84DcD
+ Q2fGTwl3VhF1WGvU/wGjdbzSHrnpkrw=
+Date: Tue, 14 Sep 2021 20:24:52 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Tom Lendacky <thomas.lendacky@amd.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+ iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
+ linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
+ Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ Christoph Hellwig <hch@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Will Deacon <will@kernel.org>
+Subject: Re: [PATCH v3 5/8] x86/sme: Replace occurrences of sme_active() with
+ cc_platform_has()
+Message-ID: <YUDo9CWyLVa1PeUF@zn.tnic>
+References: <cover.1631141919.git.thomas.lendacky@amd.com>
+ <367624d43d35d61d5c97a8b289d9ddae223636e9.1631141919.git.thomas.lendacky@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <367624d43d35d61d5c97a8b289d9ddae223636e9.1631141919.git.thomas.lendacky@amd.com>
+X-Mailman-Approved-At: Wed, 15 Sep 2021 01:05:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,57 +80,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some games, ie. Doom Eternal, present from compute following compute
-post-fx and would benefit from having DCC image stores available.
+On Wed, Sep 08, 2021 at 05:58:36PM -0500, Tom Lendacky wrote:
+> diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+> index 18fe19916bc3..4b54a2377821 100644
+> --- a/arch/x86/mm/mem_encrypt.c
+> +++ b/arch/x86/mm/mem_encrypt.c
+> @@ -144,7 +144,7 @@ void __init sme_unmap_bootdata(char *real_mode_data)
+>  	struct boot_params *boot_data;
+>  	unsigned long cmdline_paddr;
+>  
+> -	if (!sme_active())
+> +	if (!cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT))
+>  		return;
+>  
+>  	/* Get the command line address before unmapping the real_mode_data */
+> @@ -164,7 +164,7 @@ void __init sme_map_bootdata(char *real_mode_data)
+>  	struct boot_params *boot_data;
+>  	unsigned long cmdline_paddr;
+>  
+> -	if (!sme_active())
+> +	if (!cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT))
+>  		return;
+>  
+>  	__sme_early_map_unmap_mem(real_mode_data, sizeof(boot_params), true);
+> @@ -377,11 +377,6 @@ bool sev_active(void)
+>  {
+>  	return sev_status & MSR_AMD64_SEV_ENABLED;
+>  }
+> -
+> -bool sme_active(void)
+> -{
+> -	return sme_me_mask && !sev_active();
+> -}
+>  EXPORT_SYMBOL_GPL(sev_active);
+>  
+>  /* Needs to be called from non-instrumentable code */
 
-DCN on gfx10_3 doesn't need INDEPENDENT_128B_BLOCKS = 0 so we can expose
-these modifiers capable of DCC image stores.
+You forgot this hunk:
 
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
-Reviewed-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+index 5635ca9a1fbe..a3a2396362a5 100644
+--- a/arch/x86/mm/mem_encrypt.c
++++ b/arch/x86/mm/mem_encrypt.c
+@@ -364,8 +364,9 @@ int __init early_set_memory_encrypted(unsigned long vaddr, unsigned long size)
+ /*
+  * SME and SEV are very similar but they are not the same, so there are
+  * times that the kernel will need to distinguish between SME and SEV. The
+- * sme_active() and sev_active() functions are used for this.  When a
+- * distinction isn't needed, the mem_encrypt_active() function can be used.
++ * PATTR_HOST_MEM_ENCRYPT and PATTR_GUEST_MEM_ENCRYPT flags to
++ * amd_prot_guest_has() are used for this. When a distinction isn't needed,
++ * the mem_encrypt_active() function can be used.
+  *
+  * The trampoline code is a good example for this requirement.  Before
+  * paging is activated, SME will access all memory as decrypted, but SEV
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2a24e43623cb..a4e33a4336a0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4817,6 +4817,16 @@ add_gfx10_3_modifiers(const struct amdgpu_device *adev,
- 		    AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
- 		    AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
- 
-+	add_modifier(mods, size, capacity, AMD_FMT_MOD |
-+		    AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-+		    AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-+		    AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-+		    AMD_FMT_MOD_SET(PACKERS, pkrs) |
-+		    AMD_FMT_MOD_SET(DCC, 1) |
-+		    AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-+		    AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-+		    AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
-+
- 	add_modifier(mods, size, capacity, AMD_FMT_MOD |
- 		    AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
- 		    AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-@@ -4829,6 +4839,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device *adev,
- 		    AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
- 		    AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
- 
-+	add_modifier(mods, size, capacity, AMD_FMT_MOD |
-+		    AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-+		    AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-+		    AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-+		    AMD_FMT_MOD_SET(PACKERS, pkrs) |
-+		    AMD_FMT_MOD_SET(DCC, 1) |
-+		    AMD_FMT_MOD_SET(DCC_RETILE, 1) |
-+		    AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-+		    AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-+		    AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
-+
- 	add_modifier(mods, size, capacity, AMD_FMT_MOD |
- 		    AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
- 		    AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+because there's still a sme_active() mentioned there:
+
+$ git grep sme_active
+arch/x86/mm/mem_encrypt.c:367: * sme_active() and sev_active() functions are used for this.  When a
+
 -- 
-2.33.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
