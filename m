@@ -2,70 +2,73 @@ Return-Path: <SRS0=i1uT=OE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8758CC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 18:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CAE8FC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 19:34:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F6C660F44
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 18:19:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4F6C660F44
+	by mail.kernel.org (Postfix) with ESMTPS id 7D04E60E9B
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Sep 2021 19:34:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D04E60E9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1D046E528;
-	Tue, 14 Sep 2021 18:19:25 +0000 (UTC)
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E48316E528
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 18:19:24 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id a10so345074qka.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Sep 2021 11:19:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E36726E5BD;
+	Tue, 14 Sep 2021 19:34:09 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF7C6E5BD;
+ Tue, 14 Sep 2021 19:34:07 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ q11-20020a9d4b0b000000b0051acbdb2869so138394otf.2; 
+ Tue, 14 Sep 2021 12:34:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=a2HFB4rqcxAVoYtMbwTpx8gBKEbIlG8WOMnHiBGzcF4=;
- b=D0ui/ttYAGdS73AWWNJ45QrUWE7UyuF7ue/HgpIa0q9cAro8BxhDAE91xBYFYVYZ4G
- tpRKUCQseZiP+MhRi0wcYKRAUO4ROcHQk7Csngiv0RwYfhJ5+mn3EEB9BxsvzbsEyIl8
- HVFv3SiJCUblfU7dgGB63GyxHyJU0c0EDuLeUsMBvK5GG+YekxitTpMwzsqUM0AOsf80
- EPy3PAZrOo8ikFfppk8n71QdBa2sUwpBlnaY8X0zMXrnDlNC8EY8QlOE/rzlWcHYMKpn
- 4d7Fk3IiCz6JaxedoyUhqaA1ucPxeLig5JUE+wpdrAnAP7yDsPt/TeWLvS5vUsaZv5Rb
- CzeQ==
+ :cc:content-transfer-encoding;
+ bh=Trvu9nlA00t2F84zxlJncsMRq1OyTstIv33vsK96jME=;
+ b=EL3tMokWuM+bY8pDRfnqSPEtabiv7K+kLoxBw6cJmb4Q90HbsE24d6OpH1SYGgGi9g
+ Nu+btKaeIGTU2gg4nHeG1ceW9p2/O+gB3AcHxrloMxolKubVqY1KoifrG0H0u5OjklLJ
+ LIrfvreAou0Uua1loJFud9gzDCihoV5sre/oF4fpDQXSI+pRrSIh2ogVPfkkPWS6NS+F
+ QzyrCPHfZJiSzIRrLLN+KWq91jW1a3OCVm+ipcJwPV8NMWFgpib6bpqvOQ/lN891+XB0
+ /mfJPthPuT3VM+3aIgNW5JdXjmP0Z5ToblHS8Koam0uXAtcwN0hXGbWUka19ILANj6jA
+ LrWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=a2HFB4rqcxAVoYtMbwTpx8gBKEbIlG8WOMnHiBGzcF4=;
- b=YxS8O+JIlumgHpOgFbGrJep9DOe+F9jLaf/Kpv83C/5MOO6w+WeBDl3WFy8S/OAuGt
- KNR2dYNHo7i+Ax/cYOBKUtOFw2n2E2GSo8gr436l+tqEIRoMDGe037fGsdN+U5GTXoEO
- EtsSfYzXgOWGSt8iqWHuyhmiDeiajWZV8j4K+m0cROl9uxalaMpg3HGuUv4UUTrC2eYt
- x7ubvumpJ6hCVfEHn+H+BiWC3P1bIw0vnTvgqvrLLQfMksqOPX6/qmw93xh1VlCuinVs
- 64BAd7QeecINssx0y9z5RGcCxoiQiy5bjpKIacveh66AefmsHI6ajBcHr++9lO/O43Yb
- RBQA==
-X-Gm-Message-State: AOAM530s1UotlxYYYZ3KiuOZZK9UKFjnSNO+vrh+SC0AQIelBnv4pjd8
- ul3IRH4q8qk5XDYd1SI/tsmHkyorS3rDJSdbMK0=
-X-Google-Smtp-Source: ABdhPJysrAuh1E4uXoLdBgA3i59jCtwGAh4BUQq2A4bXZl1eSU9fKVcAs7oWQjA7U3HCOdwCe3DkCXN1y1zbql1uzlk=
-X-Received: by 2002:a37:a58b:: with SMTP id o133mr6207900qke.120.1631643564032; 
- Tue, 14 Sep 2021 11:19:24 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Trvu9nlA00t2F84zxlJncsMRq1OyTstIv33vsK96jME=;
+ b=giF7MMMJNTowHjvGKfd+cZ3lrQEEXWJiZGBigFy7huwyKpdvoQJiIfxjTOkzImVFke
+ Ta0Q3MkfD/lqPf04xxohiiVICHDAhBkgIe/3acdBV2psc8WKStNezCMpY40Ympic2RvI
+ GcuZSUNtrpbG1ITez+nfswMz0mLAPfRy5PjCi82wPe9A9eL92eo9SgYUw3bgNBDhitXA
+ 7/WB9IER+44p19T9kKMeo+9iaDJFyH/mUahJNA3hBPLsM/cOC6bZLfk6kkv9EkZ/H2hq
+ AmBKwW6E3RcyQIaNLjG16y0Be1LEJlH0Rd0mGHPtgEIpuSWP33slaXDj3wwtdyvPWHgX
+ Cg6Q==
+X-Gm-Message-State: AOAM531cnh/pLd6YA9e6kmyYIZilKgc2FWUK4JoaYFwX/TAsIqyq1yGI
+ znYoa7QTJkuHDohT5uR0Gva629rwshJvhAQHhNMahevl
+X-Google-Smtp-Source: ABdhPJwudk4DN5ONA4OKPVTVyBme2DDqUGqkSKL3VoDnWYqbAmbcdDhMIHwclH/cVeGfnuZhx6G7uMCT8wpsIvn9+yM=
+X-Received: by 2002:a05:6830:2704:: with SMTP id
+ j4mr16688605otu.299.1631648046893; 
+ Tue, 14 Sep 2021 12:34:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <CABXGCsOifMk4+VHi4bnHCL2L_tT+Tm_Rz+KxD3ZQOowx1xms4g@mail.gmail.com>
- <293189a2-3a6b-1e50-7607-33917743b9d8@amd.com>
- <CABXGCsMMUa=0+GAHxfVdOOFO0Lx=tCa4+ongHN8rF4TAR9nVmg@mail.gmail.com>
- <66f5fdcb-d414-603d-bdb8-70579335b4a2@gmail.com>
-In-Reply-To: <66f5fdcb-d414-603d-bdb8-70579335b4a2@gmail.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 14 Sep 2021 23:19:12 +0500
-Message-ID: <CABXGCsOPLH2DkZ09PDXSxStin6JJb_m5bJuQWmXooBLaSJ2Ezg@mail.gmail.com>
-Subject: Re: [BUG] VAAPI encoder cause kernel panic if encoded video in 4K
+References: <1630457207-13107-1-git-send-email-Monk.Liu@amd.com>
+ <28709f7f-8a48-40ad-87bb-c2f0dd89da38@gmail.com>
+ <CADnq5_PRE4WyftqO15c08qwQx2CRszsj4gJQtDeon9TvtV+qkA@mail.gmail.com>
+In-Reply-To: <CADnq5_PRE4WyftqO15c08qwQx2CRszsj4gJQtDeon9TvtV+qkA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Sep 2021 15:33:56 -0400
+Message-ID: <CADnq5_POHuuQYm5ZULWeumCmsy+eWbsRe0MSKuJcQxb7R=962g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/sched: fix the bug of time out calculation(v4)
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="00000000000008c7e505cbf89f0c"
+Cc: Monk Liu <Monk.Liu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,65 +83,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000008c7e505cbf89f0c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Was this fix independent of the other discussions?  Should this be
+applied to drm-misc?
 
-On Wed, 14 Apr 2021 at 11:48, Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
+Alex
 
+On Wed, Sep 1, 2021 at 4:42 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> That is expected behavior, the application is just buggy and causing a
-> page fault on the GPU.
+> On Wed, Sep 1, 2021 at 2:50 AM Christian K=C3=B6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+> >
+> > Am 01.09.21 um 02:46 schrieb Monk Liu:
+> > > issue:
+> > > in cleanup_job the cancle_delayed_work will cancel a TO timer
+> > > even the its corresponding job is still running.
+> > >
+> > > fix:
+> > > do not cancel the timer in cleanup_job, instead do the cancelling
+> > > only when the heading job is signaled, and if there is a "next" job
+> > > we start_timeout again.
+> > >
+> > > v2:
+> > > further cleanup the logic, and do the TDR timer cancelling if the sig=
+naled job
+> > > is the last one in its scheduler.
+> > >
+> > > v3:
+> > > change the issue description
+> > > remove the cancel_delayed_work in the begining of the cleanup_job
+> > > recover the implement of drm_sched_job_begin.
+> > >
+> > > v4:
+> > > remove the kthread_should_park() checking in cleanup_job routine,
+> > > we should cleanup the signaled job asap
+> > >
+> > > TODO:
+> > > 1)introduce pause/resume scheduler in job_timeout to serial the handl=
+ing
+> > > of scheduler and job_timeout.
+> > > 2)drop the bad job's del and insert in scheduler due to above seriali=
+zation
+> > > (no race issue anymore with the serialization)
+> > >
+> > > tested-by: jingwen <jingwen.chen@@amd.com>
+> > > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+> >
+> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >
 >
-> The kernel should just not crash with a backtrace.
+> Are you planning to push this to drm-misc?
 >
-> Regards,
-> Christian.
+> Alex
 >
-
-If after it GPU hangs with the message "[drm:amdgpu_dm_atomic_commit_tail
-[amdgpu]] *ERROR* Waiting for fences timed out!" is it also expected
-behavior?
-Kernel log: https://pastebin.com/WkhATKXX
-
-
---=20
-Best Regards,
-Mike Gavrilov.
-
---00000000000008c7e505cbf89f0c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-family:verdana,sans-serif"><span style=3D"font-family:Arial,Helvetica,san=
-s-serif">On Wed, 14 Apr 2021 at 11:48, Christian K=C3=B6nig &lt;<a href=3D"=
-mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</=
-a>&gt; wrote:</span><br></div></div><div class=3D"gmail_quote"><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex"><br>
-That is <span class=3D"gmail_default" style=3D"font-family:verdana,sans-ser=
-if"></span>expected behavior, the application is just buggy and causing a <=
-br>
-page fault on the <span class=3D"gmail_default" style=3D"font-family:verdan=
-a,sans-serif"></span>GPU.<br>
-<br>
-The kernel should just not crash with a backtrace.<br>
-<br>
-Regards,<br>
-Christian.<br>
-</blockquote></div><br clear=3D"all"><div><div class=3D"gmail_default" styl=
-e=3D"font-family:verdana,sans-serif">If after it=C2=A0<span class=3D"gmail_=
-default"></span><span style=3D"font-family:Arial,Helvetica,sans-serif">GPU =
-hangs with the message &quot;</span><span style=3D"font-family:Arial,Helvet=
-ica,sans-serif">[drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR* Waiting=
- for fences timed out!&quot; is it also=C2=A0</span><span class=3D"gmail_de=
-fault"></span><span style=3D"font-family:Arial,Helvetica,sans-serif">expect=
-ed behavior?</span></div><div class=3D"gmail_default" style=3D"font-family:=
-verdana,sans-serif">Kernel log: <a href=3D"https://pastebin.com/WkhATKXX">h=
-ttps://pastebin.com/WkhATKXX</a><br></div><br></div><div><br></div>-- <br><=
-div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr">Best Regards,<br=
->Mike Gavrilov.</div></div></div>
-
---00000000000008c7e505cbf89f0c--
+>
+> > > ---
+> > >   drivers/gpu/drm/scheduler/sched_main.c | 26 +++++++++--------------=
+---
+> > >   1 file changed, 9 insertions(+), 17 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm=
+/scheduler/sched_main.c
+> > > index a2a9536..3e0bbc7 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > @@ -676,15 +676,6 @@ drm_sched_get_cleanup_job(struct drm_gpu_schedul=
+er *sched)
+> > >   {
+> > >       struct drm_sched_job *job, *next;
+> > >
+> > > -     /*
+> > > -      * Don't destroy jobs while the timeout worker is running  OR t=
+hread
+> > > -      * is being parked and hence assumed to not touch pending_list
+> > > -      */
+> > > -     if ((sched->timeout !=3D MAX_SCHEDULE_TIMEOUT &&
+> > > -         !cancel_delayed_work(&sched->work_tdr)) ||
+> > > -         kthread_should_park())
+> > > -             return NULL;
+> > > -
+> > >       spin_lock(&sched->job_list_lock);
+> > >
+> > >       job =3D list_first_entry_or_null(&sched->pending_list,
+> > > @@ -693,17 +684,21 @@ drm_sched_get_cleanup_job(struct drm_gpu_schedu=
+ler *sched)
+> > >       if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+> > >               /* remove job from pending_list */
+> > >               list_del_init(&job->list);
+> > > +
+> > > +             /* cancel this job's TO timer */
+> > > +             cancel_delayed_work(&sched->work_tdr);
+> > >               /* make the scheduled timestamp more accurate */
+> > >               next =3D list_first_entry_or_null(&sched->pending_list,
+> > >                                               typeof(*next), list);
+> > > -             if (next)
+> > > +
+> > > +             if (next) {
+> > >                       next->s_fence->scheduled.timestamp =3D
+> > >                               job->s_fence->finished.timestamp;
+> > > -
+> > > +                     /* start TO timer for next job */
+> > > +                     drm_sched_start_timeout(sched);
+> > > +             }
+> > >       } else {
+> > >               job =3D NULL;
+> > > -             /* queue timeout for next job */
+> > > -             drm_sched_start_timeout(sched);
+> > >       }
+> > >
+> > >       spin_unlock(&sched->job_list_lock);
+> > > @@ -791,11 +786,8 @@ static int drm_sched_main(void *param)
+> > >                                         (entity =3D drm_sched_select_=
+entity(sched))) ||
+> > >                                        kthread_should_stop());
+> > >
+> > > -             if (cleanup_job) {
+> > > +             if (cleanup_job)
+> > >                       sched->ops->free_job(cleanup_job);
+> > > -                     /* queue timeout for next job */
+> > > -                     drm_sched_start_timeout(sched);
+> > > -             }
+> > >
+> > >               if (!entity)
+> > >                       continue;
+> >
