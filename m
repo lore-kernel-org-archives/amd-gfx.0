@@ -2,69 +2,78 @@ Return-Path: <SRS0=hzS6=OF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2176FC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 12:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8792BC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 12:35:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2B82610E9
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 12:35:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A2B82610E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id 44E4E610E9
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 12:35:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 44E4E610E9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD016E917;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 649026E920;
 	Wed, 15 Sep 2021 12:35:50 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 553CF6E8FD;
- Wed, 15 Sep 2021 10:08:26 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f0d070015682a2dbfe19a41.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f0d:700:1568:2a2d:bfe1:9a41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5C8AF1EC0493;
- Wed, 15 Sep 2021 12:08:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1631700500;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=84AiMC3UCE921bKjcL3MviV5+eDqG9h6JWVKVYivIsk=;
- b=gQHDZFKPDYNc3V1KjxBVvsh4bR+MVuvX2NsJ94AUYxVbw0WYPPRaOZoLdvqoJQnogW9X+8
- u/7mWvb/k4xW3BpHLLo/9AEwVjVY3UUhPajUzAZXgzgKnGBfWm5RVt5J0yPjSayDNAKsPC
- qBW9c0rQVO5QzNWXYERX94I+rK+vCYU=
-Date: Wed, 15 Sep 2021 12:08:13 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, iommu@lists.linux-foundation.org,
- kvm@vger.kernel.org, linux-efi@vger.kernel.org,
- platform-driver-x86@vger.kernel.org,
- linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
- Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Christoph Hellwig <hch@infradead.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>
-Subject: Re: [PATCH v3 4/8] powerpc/pseries/svm: Add a powerpc version of
- cc_platform_has()
-Message-ID: <YUHGDbtiGrDz5+NS@zn.tnic>
-References: <cover.1631141919.git.thomas.lendacky@amd.com>
- <9d4fc3f8ea7b325aaa1879beab1286876f45d450.1631141919.git.thomas.lendacky@amd.com>
- <YUCOTIPPsJJpLO/d@zn.tnic> <87lf3yk7g4.fsf@mpe.ellerman.id.au>
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCA316E8EE;
+ Wed, 15 Sep 2021 09:39:31 +0000 (UTC)
+Received: by mail-pf1-x433.google.com with SMTP id e16so2176505pfc.6;
+ Wed, 15 Sep 2021 02:39:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:subject:to:cc:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=9DwEurpv8pV9WAKblxk8PQ6MlsJLKqkLsk2uIwjdOs8=;
+ b=CHYtUWpojKuDZDp8++kUB6sBOmGkVp2FVI419Trr5GXtgFzVzUVDD+wZ339WENrz8n
+ LzaoQW5ksPbkLJC57SCoeeombrDIjB05zvwUeYFBhf86tHsq+kpPxZjubz3XaRw++fAl
+ OYw/wlU/FwEWtvGkrcHgyFb4U98CqPZNAPRZkbgScMMtXZQlg/cgcXREcnWskkH98n8i
+ bdOBFAwLupdlx4R+W5KqPTAH4bOdCKCQoJhvScfHvKs1JkO7sfHpJfdSZii+yLoHz2j9
+ ++COGMH++Ee04AmkKCF+dov94QQVsYm4Cw4ofpRlliJ/IKPSeJcj15g680EclieKGCgq
+ U8WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=9DwEurpv8pV9WAKblxk8PQ6MlsJLKqkLsk2uIwjdOs8=;
+ b=fNNTLLdsuqL5S+nxYqv5fsU1u3R7ZDld+bpkTjurKgPIcFpdRIDPNIapvYsIcaqanz
+ m8ExqZLt5s1Qrovag0eQ66+hBlvSQsNbJDutZVRBnXDCEHm/61DX0JQtnBB9+Dug9Bk0
+ u2TO6DVW9RhMNQe9Vf50Dt9dT4Zfpiy+YEZCTY3UoQoOqLe4m3r9nZo6y7x+NFHBOVjS
+ u6zPHrZeX3EvqmHAi1Sv/5NAOq3NK1EaXK50+mvUqpwjoptpsnIHbS5XYPSfkdA7t75w
+ EVvXpLw9lRPj3VgJqWYnhcil+c82XTer4rlx7pEloJWxnpgE5iQ6ekd22rvCq0NaoTCh
+ hp9Q==
+X-Gm-Message-State: AOAM533jGnTt0+wYCOsyBo7xr73EBHEd6w87o2Um40xB6n45ftQOSqsN
+ bMmTR1z/ttkIwXALd9a3Z4g=
+X-Google-Smtp-Source: ABdhPJz79Ykf/6lng9i3x2nmL9Wuw9ciMpAMALdLeYK2rnjmpUMc21B1gNwkYS30l6z927RkIZSdhw==
+X-Received: by 2002:a62:e902:0:b0:414:aaf2:2b4 with SMTP id
+ j2-20020a62e902000000b00414aaf202b4mr9587556pfh.10.1631698771533; 
+ Wed, 15 Sep 2021 02:39:31 -0700 (PDT)
+Received: from [166.111.139.129] ([166.111.139.129])
+ by smtp.gmail.com with ESMTPSA id w5sm14342387pgp.79.2021.09.15.02.39.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Sep 2021 02:39:31 -0700 (PDT)
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+Subject: [BUG] gpu: drm: amd: amdgpu: possible ABBA deadlock in
+ amdgpu_set_power_dpm_force_performance_level() and
+ amdgpu_debugfs_process_reg_op()
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, Hawking.Zhang@amd.com,
+ Felix.Kuehling@amd.com, ray.huang@amd.com, lee.jones@linaro.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel <linux-kernel@vger.kernel.org>
+Message-ID: <2dc31435-ba62-b6a4-76dc-cfe9747f4cfb@gmail.com>
+Date: Wed, 15 Sep 2021 17:39:28 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <87lf3yk7g4.fsf@mpe.ellerman.id.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Wed, 15 Sep 2021 12:35:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,29 +89,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 15, 2021 at 10:28:59AM +1000, Michael Ellerman wrote:
-> I don't love it, a new C file and an out-of-line call to then call back
-> to a static inline that for most configuration will return false ... but
-> whatever :)
+Hello,
 
-Yeah, hch thinks it'll cause a big mess otherwise:
+My static analysis tool reports a possible ABBA deadlock in the amdgpu 
+driver in Linux 5.10:
 
-https://lore.kernel.org/lkml/YSScWvpXeVXw%2Fed5@infradead.org/
+amdgpu_debugfs_process_reg_op()
+   mutex_lock(&adev->grbm_idx_mutex); --> Line 250 (Lock A)
+   mutex_lock(&adev->pm.mutex); --> Line 259 (Lock B)
 
-I guess less ifdeffery is nice too.
+amdgpu_set_power_dpm_force_performance_level()
+   mutex_lock(&adev->pm.mutex); --> Line 381 (Lock B)
+     pp_dpm_force_performance_level() --> function pointer via 
+"amdgpu_dpm_force_performance_level()"
+       pp_dpm_en_umd_pstate()
+         amdgpu_device_ip_set_clockgating_state()
+           gfx_v7_0_set_clockgating_state() --> function pointer via 
+"funcs->set_clockgating_state()"
+             gfx_v7_0_enable_mgcg()
+               mutex_lock(&adev->grbm_idx_mutex); --> Line 3646 (Lock A)
+               mutex_lock(&adev->grbm_idx_mutex); --> Line 3697 (Lock A)
 
-> Acked-by: Michael Ellerman <mpe@ellerman.id.au> (powerpc)
+When amdgpu_debugfs_process_reg_op() and 
+amdgpu_set_power_dpm_force_performance_level() are concurrently 
+executed, the deadlock can occur.
 
-Thx.
+I am not quite sure whether this possible deadlock is real and how to 
+fix it if it is real.
+Any feedback would be appreciated, thanks :)
 
-> Yeah, fixed in mainline today, thanks for trying to cross compile :)
+Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
 
-Always!
 
-:-)
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Best wishes,
+Jia-Ju Bai
