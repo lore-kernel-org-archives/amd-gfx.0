@@ -2,139 +2,86 @@ Return-Path: <SRS0=hzS6=OF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	HTTPS_HTTP_MISMATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 466E2C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 09:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 728BEC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 10:05:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F187C61214
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 09:56:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F187C61214
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3B1BB61214
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 10:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B1BB61214
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 654156E8F2;
-	Wed, 15 Sep 2021 09:56:00 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2073.outbound.protection.outlook.com [40.107.96.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF8916E8F2
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 09:55:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aa4rNf4bANJnsOi0nu3sXsjtqXHSbC1xhVU2DbBCPAID31Yj0dvX5xooECXSRqTX0wAImjozfamOkub1S5CQKXK7t0XBM8ECh03hA477/O4LcI1q3ismZxjO0Oz/r94YaFMK6JXRXW7+IxPsYX0FgSU5Oe6oLRMOt8k/fKj8WskYSmpOobg9WjUpJsRmZ1nj8C5Fv1PK+AxJBtd7kXXt+ojgENCd/27gVw94J1ooNh0jK25ieU7PoS3NlCaPOakNksX8IC/pmPbdBllnDtFkilkHEq3spL3BNsYFBQDVIId3uv4cuI5puA5sfaxbVkRhG0cyrjtZ+aHWrbdUnUQE0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=j1JPN+8Ey+Us4aOyHPDDLYm3xIW1Kg9dO+lu2ky7dM8=;
- b=RpPAAjNunuAmecu5QGM/AyrK6NPMth1p9boarfP8On1vgmj4j5ewVV3DitsgGK/Z3X/YKoNsyNXtD9iNQ3fNtGV92xujX9iPOXocJYjSkIGNwIQBfeUREevYTix4br0FUCNunfC1K6KtYHD2o6EzLL7Z/DJ6hQhUK3cH0I8CBIKjnent+EQqscn8jrUIWUDD3jTKxLPqnDO8E1+Uc1SVgfcAI735uRjU1tzHGFS27uM4UMjC6vh4Z3Ut+Sh61fCA63lhMurWukHNJ0R9RoavmUJDGRpbiqNAaailX7aCWVuutQB3iSxqVV0qNWrJ/XNaxe7XTHs2dt88WcwYE5rm3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j1JPN+8Ey+Us4aOyHPDDLYm3xIW1Kg9dO+lu2ky7dM8=;
- b=dnb0Z9vwauwIsOUhgQqzFDp8FA134Gmm8OKkEo4TWAGWayg4kp0L4kDQ6d0FHN3iuNT1iwDj358/bPpXJjlZygbJn6xBETCpmCoQndgl438BlR14puGd8efMf1OseChcHH+3ap3R16JMPz1zLIQUgjST1von6WfORib90pj02o0=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4112.namprd12.prod.outlook.com (2603:10b6:208:19a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Wed, 15 Sep
- 2021 09:55:55 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4523.014; Wed, 15 Sep 2021
- 09:55:55 +0000
-Subject: Re: [BUG] VAAPI encoder cause kernel panic if encoded video in 4K
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <CABXGCsOifMk4+VHi4bnHCL2L_tT+Tm_Rz+KxD3ZQOowx1xms4g@mail.gmail.com>
- <293189a2-3a6b-1e50-7607-33917743b9d8@amd.com>
- <CABXGCsMMUa=0+GAHxfVdOOFO0Lx=tCa4+ongHN8rF4TAR9nVmg@mail.gmail.com>
- <66f5fdcb-d414-603d-bdb8-70579335b4a2@gmail.com>
- <CABXGCsOPLH2DkZ09PDXSxStin6JJb_m5bJuQWmXooBLaSJ2Ezg@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <dcbb87cc-c95d-ae58-d601-413a6277a7f8@amd.com>
-Date: Wed, 15 Sep 2021 11:55:51 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB73C6E8F5;
+	Wed, 15 Sep 2021 10:05:41 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89C286E8F5;
+ Wed, 15 Sep 2021 10:05:41 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id q11so2932316wrr.9;
+ Wed, 15 Sep 2021 03:05:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=aHbX+vh7p38j0aXlja9z9KexFfI+M632QTahTG9s6tA=;
+ b=b+IEIGbJlAHO+fQWnJYrQww2FDpPPTVNVkP3V5NkcLfhvOJBQw70d5D0uQxWNeZnQI
+ /hufIj9DSeY3VMas8ZcWJ8S3JSS2kPQsIqfT/rtgqgHvJay9m3VT/o67/8K38k54uoON
+ pZRMfUqoO3jl3vX/jqJl8c17ZcKWfvuqs7NX3aQa34FKBuHboBU8Pu5jjAEWczR7l4IE
+ e0jSsDUF/1rTYjN4vL9AtGWkQ2LHDKE4HVMIPR7EzD7qI7B5YpPSHIP+VN5jPYWh54tb
+ p0ImxUIXvcgGeVbZKh0OBBOhDxcw9AaisMuXAVSk0qPgjp2WziTA+P0VEt7IMr3DVVEK
+ NHGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=aHbX+vh7p38j0aXlja9z9KexFfI+M632QTahTG9s6tA=;
+ b=hDNCf3Bc0/Xi9rMmCwo47URp36B2rbA9czkjpshLTsa+ONdsNMWYCp1UG6dqKHsySR
+ LHsbnT6ygxZBaqrkAcf3Uck0NgwBmmql7UTaPS1LnoZ2RrcEZaGOFR+883OBUErMSclM
+ UkIVqmyrEq2+p6hVnl6b8g/PWfgCMHmoKqEG4raQ3X7sRJ7vSFQTMf6+363hJ47KWHFd
+ n/Aa2zzxYrb917QpZRiq0ICiITfw0YUiCWjVSEHJ0YHeqnbOgKgron3vd9jPHHXfVNXN
+ oTuesTPf960GGps+X8VJz1B6qFNlts6II9Vuahmnn+BliCqnHyA/uWfYw7hgjKEMXZLI
+ sU7Q==
+X-Gm-Message-State: AOAM530H+Gqk36M4pgw6KQF8xqSs66Y8CHJDbSS3I1OgtMisYEfnzNOW
+ YmijC2SfyNNmKWcCqH0PM3DY2e9ohKU=
+X-Google-Smtp-Source: ABdhPJxByZZifTgDAjusP/293DDqsduEQUSsO+jbNrveCzk0+DMeUUonBdxOljE5gtnnZksri3rqPw==
+X-Received: by 2002:adf:b348:: with SMTP id k8mr4053447wrd.123.1631700339762; 
+ Wed, 15 Sep 2021 03:05:39 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:d03d:8939:3840:1f95?
+ ([2a02:908:1252:fb60:d03d:8939:3840:1f95])
+ by smtp.gmail.com with ESMTPSA id v8sm11569293wrt.12.2021.09.15.03.05.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Sep 2021 03:05:33 -0700 (PDT)
+Subject: Re: [resend PATCH] drm/ttm: Fix a deadlock if the target BO is not
+ idle during swap
+To: Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20210907040832.1107747-1-xinhui.pan@amd.com>
+ <074efe24-db7a-df68-3624-05989596f44a@amd.com>
+ <YTcrcw+hxWuyyl4C@phenom.ffwll.local>
+ <37412f7e-9f6f-04bb-41b1-72931ea1381e@amd.com>
+ <YTkAnDncKU7ewW+5@phenom.ffwll.local>
+ <97ccbd16-ba3f-1b21-b6fb-5568d34f1af3@amd.com>
+ <YUCowZxEhECTlgAH@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e87ad40d-9c07-c307-2b61-75ecc3d0986c@gmail.com>
+Date: Wed, 15 Sep 2021 12:05:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <CABXGCsOPLH2DkZ09PDXSxStin6JJb_m5bJuQWmXooBLaSJ2Ezg@mail.gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------EF33C0CDB06F06965B4EF6C7"
-Content-Language: en-US
-X-ClientProxiedBy: FR3P281CA0053.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::6) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
 MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:d03d:8939:3840:1f95]
- (2a02:908:1252:fb60:d03d:8939:3840:1f95) by
- FR3P281CA0053.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4a::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.9 via Frontend Transport; Wed, 15 Sep 2021 09:55:54 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f918a1ad-e8c0-4ab3-deba-08d9782f02a7
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4112:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4112478DB31482BF57A8095183DB9@MN2PR12MB4112.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:580;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6mpXX+Pmf9HEchnDSPEqFawHGHFNMhZ1bCGHIVODRxtpXE20RRzOAW8efXEWimNO8Kud/7lPJt3TNsdIWMUvH4zF9l65JlMgnlx563Y9EmVgwfWuKVJK2loXV9e9bYdidHJmtyREwkqy7yzlmEnF3bfrSnwRpxnQCt2Mu/eM/GhuOIJnsNau1bRukbSHJf85Cp0Bqq58fstXIEsrGlWfBzKcX1QjmWa0QFs4vYzWaRyDvaE2TilvuulrzT2rezp3/r/O6fjhOFFHlzl/J6MsxyKJSUOgRk4WnkUIYPDfqT//dvYxkfmWlSgFD9o/MCPa15NqJJVdTotmpOYPwn3yeFL2d1dNvL74BORzFPNOwksDYU7Uj7mNIwgkMJNi2oPDYoRE3eI/hq4GGjp1ba7BqV7BzG4Oe6cqsiAMScFNQ/PAtoBsqLn71hqjNaLF41DYmApxMKYmjsbgoyza3p5e67gUWBwVI9dBLub+HV9VKgtQVqotlySrHix9CjVBdoNtGhQE5Xaf3YQPfn8QXUSzk0jbi+uqcPbCw7MLFDh8VYm7tfGAWBxujc4Qoa0MHR6i8ssQvg187maXkaObYAlcmmDSmURuPdp8FWKy4lIcaCSJbgFbvW+s09UxTlWnTrNfKO7r/WEjMtvRaQK97sKulGcQnIpLxMCbld/egFruB5c9k7qseEoxuXLwrXUE44V5K084IJQERAnEQgb/OkxrBIbIBcUDrq0YED4U/cNfpjwOu3wjyMhpvfJHCYx0yGLON2sf2ZbBpQXyMxPr9RAABAIHLL+EeLEWkJTZ88OKwWpxA0EMhBKqcUh/luwZstLR/Qzwxl1yCx2UhlYVpHxv4n0w02Ycy+HUPxgBlp33o/g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(366004)(376002)(39860400002)(66946007)(478600001)(6486002)(166002)(83380400001)(8936002)(8676002)(110136005)(66556008)(45080400002)(2616005)(4326008)(66476007)(966005)(33964004)(316002)(54906003)(86362001)(38100700002)(186003)(6666004)(36756003)(31696002)(31686004)(5660300002)(2906002)(10126625002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M1dkcGlLZytwcnF1Yk5DM2R3aHBNQ09SbDcrcWVzM0hmY1BRUDNtdjUyS3Nh?=
- =?utf-8?B?N0NwUFp0VURpR2crYlRiWERnUFRMUk9MVkZKSXFTMnBvRy9ERFQ4N0lUa1B3?=
- =?utf-8?B?RVcvK1FCVUNuRVFyZjEzRVJoQnlPK2F2T1RnejBiUjZKeWg1R3gyZ3gyL3Zn?=
- =?utf-8?B?SXM0UERtNFBCbS91SjBPekNYZnNlbC8rcmpzdGM4ejQxZmQzbjFpT2Via1J3?=
- =?utf-8?B?NjUzSWNkTTI3dEdIUCtlanFBNndiNW9KMC9WdGh3Z1JZcUlGc2JQempHN2lM?=
- =?utf-8?B?V2o5MncxM1NPbHBhbVFGcmJybU4xMlVQMjhPT05BeHBGU2hqd0F4clh1djZJ?=
- =?utf-8?B?WTVyRTdSNldTYnEvdUNUSHZ5eEphaDZ1c3pVNWhVbDRnaldEM0phU2dxR1BR?=
- =?utf-8?B?Y3Ywb3NqeVM5dllGS2k4ZUdPZkpUTFk5UFlFOGo1cHNHRlphaENobHh4bHZu?=
- =?utf-8?B?aFlxRHJKRThPblp2STRvNEZaVy9udUJjMHZWYkdsMm5RZUYxeldkYklwbWZz?=
- =?utf-8?B?SGlncXRUd21RanM1eXpsNlg4elBXUEVzN1ZwV1l6dHVRTzNGR0VmMGJXbTc1?=
- =?utf-8?B?YjZsM0JXNkN2U2xDeWs4Q3J1VXlKNGt6cWtLSWJQZjJ2V0tGZi93R0F1bDE4?=
- =?utf-8?B?TjJ6eHJLbUliaHhsbktFOWtIcUhoL2JBb1ZyOWhMelJSVmNkaVlBTDkrZ1hC?=
- =?utf-8?B?eGM2VlBybGVoS21yRVFLYm1qQWF5Ym1URW5wZGlLWnVQWDVDd0tlM2U5Qncy?=
- =?utf-8?B?bG4xY3RTU2V5d2RPL0psU0h5K3ZlM2Nid0piRjB1Qk9GSVEzR3dmZzlXVGlt?=
- =?utf-8?B?WUo1S29uUU1NdnUrS3ZreTBkb21TbkMyU2tINE5WeXZLbHN0aFdrREpCT0RP?=
- =?utf-8?B?QnB6Q09VQVlWQ3BOUGtBQmJzajdzSmlERjYvNWlSd2QrRkovYU83VXQzQXZm?=
- =?utf-8?B?SWc1cVk0STF6R1lzSnp5MUc4enlVbHhHUmE4Ync2SEdQOTJtOTBKZnJzeUdo?=
- =?utf-8?B?Zm41VEo3VlBLOEtYZjg1V2M1UjZkWFZLNzZRQ0pqVStoOStFYTVIeFhLWWw5?=
- =?utf-8?B?V2MrZFdUR2VCK2FYKyt3eUJoVUtmTzFsVGJJakpmT2JxS1dWYTBVTjhvOWsy?=
- =?utf-8?B?c3N1bHR2TUhPTGtJd0Q5aXdxenBMemoxVm1sQTBMR1J1OFFQRnNjdDVjTHhF?=
- =?utf-8?B?M0VrTzRuSTBEaGFvcW1VMXd1cUs0Y0F0dUFSdWwxaCt5TXBaQ3Z3akdKR3hl?=
- =?utf-8?B?a0R0OGt3a3dNTEdQRDdmVHY4VEVZcmlkSEwveG9ac2R0T2poT09pemphSVlx?=
- =?utf-8?B?Y0x5dDZweVBhYm5tblpFY2U5L243Wm8zNHI3R1F5ZVVmWmRHYnRaa1JDUXNa?=
- =?utf-8?B?WWVDb05IcHZYZDdvUjFtaE96Y0hIM2U4SGtvc25FY0dCUnBPM3ZLZC9CQ0NY?=
- =?utf-8?B?RGhVbjlIcmRoRVRWanZLdzJsU0tkalFLQm9rUUovcCtkeXRsNjR6ejdDajlF?=
- =?utf-8?B?cDlvSERmZXBPYlViV3VPNmx1QUEyR2Vxbkh0bmhvbjVWOE9VRlplcW1NVUlB?=
- =?utf-8?B?R3JYdE5CYTJuS210U3NZb1d0SkthLzNsaWJBUEpxZGZwajhqaUdXVGFJV0wy?=
- =?utf-8?B?K1lmYVFORldSeXBJaWxSK1dhRldCQjNRS20rdThTdGlSVDdwcmxJaXBZOTVO?=
- =?utf-8?B?UFVGSmFCYi9TMTlmenNrUDVMbkR3d2grRzZvRGt2ZkJUUW1Db2s5bEFnNGFG?=
- =?utf-8?B?TnZ0b1JRUzNyR3ZsWGVwRFQ5d3lWMVU5SnhHWnlKam01TXpLNy9LL29RMkpt?=
- =?utf-8?B?Q1dWSXh1WXZyYWljWTZITVRhVWJSNVJvL1lweTZIWUNWQXlqOW81MUZmaEV6?=
- =?utf-8?Q?2VmcUfKnYcShv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f918a1ad-e8c0-4ab3-deba-08d9782f02a7
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 09:55:55.6345 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0FbOb7rnrw8uEP9PdmRy+A04q8NQeBL/W8ArHKqCoOFPUY4QyYcKe/fJdbfKJ5Y8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4112
+In-Reply-To: <YUCowZxEhECTlgAH@phenom.ffwll.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,112 +96,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------EF33C0CDB06F06965B4EF6C7
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Am 14.09.21 um 15:50 schrieb Daniel Vetter:
+> On Thu, Sep 09, 2021 at 09:10:39AM +0200, Christian König wrote:
+>> Am 08.09.21 um 20:27 schrieb Daniel Vetter:
+>>> On Tue, Sep 07, 2021 at 11:28:23AM +0200, Christian König wrote:
+>>>> Am 07.09.21 um 11:05 schrieb Daniel Vetter:
+>>>>> On Tue, Sep 07, 2021 at 08:22:20AM +0200, Christian König wrote:
+>>>>>> Added a Fixes tag and pushed this to drm-misc-fixes.
+>>>>> We're in the merge window, this should have been drm-misc-next-fixes. I'll
+>>>>> poke misc maintainers so it's not lost.
+>>>> Hui? It's a fix for a problem in stable and not in drm-misc-next.
+>>> Ah the flow chart is confusing. There is no current -rc, so it's always
+>>> -next-fixes. Or you're running the risk that it's lost until after -rc1.
+>>> Maybe we should clarify that "is the bug in current -rc?" only applies if
+>>> there is a current -rc.
+>> Yeah, I've noticed this as well.
+>>
+>> But when there is no current -rc because we are in the merge window then the
+>> question is how do I submit patches to the current stable?
+> You never submit patches directly to stable. It's always "get it into
+> Linus' tree asap" plus either Cc: stable or a Fixes: line.
 
-Am 14.09.21 um 20:19 schrieb Mikhail Gavrilov:
-> On Wed, 14 Apr 2021 at 11:48, Christian König 
-> <ckoenig.leichtzumerken@gmail.com 
-> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
->
->
->     That is expected behavior, the application is just buggy and
->     causing a
->     page fault on the GPU.
->
->     The kernel should just not crash with a backtrace.
->
->     Regards,
->     Christian.
->
->
-> If after it GPU hangs with the message 
-> "[drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR* Waiting for 
-> fences timed out!" is it also expected behavior?
+But what if the code in drm-misc-next-fixes has been restructured and 
+doesn't have that issue any more?
 
-Yes, absolutely. You should see GPU resets and recovery in the system 
-log after that.
+How do I get the patch into stable then? Submitting directly to Greg?
 
-Regards,
+Thanks,
 Christian.
 
-> Kernel log: https://pastebin.com/WkhATKXX 
-> <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpastebin.com%2FWkhATKXX&data=04%7C01%7Cchristian.koenig%40amd.com%7C83d3316107ce4c9fe42a08d977ac2ea3%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637672405000225872%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=BSCdZefdxpQPBdKzrcII8e9LDR8nN%2BbMkswE%2FEkaXv8%3D&reserved=0>
+>   During merge
+> window "get into Linus' tree asap" means "put it into drm-misc-next-fixes"
 >
+>> In other words this patch here is really for 5.14 and should then be
+>> backported to 5.13 and maybe even 5.10 as well.
+>>
+>> The code was restructured for 5.15 and I even need to double check if that
+>> still applies there as well.
+>>
+>> Or should I send patches like those directly to Greg?
+> Nope. Just fastest path into Linus' tree is good enough. Greg picks up
+> patches directly from the merge window if it has one of the tags. There's
+> occasionally a bit of grumbling because there's so many stable patches
+> coming in during the merge window, but otherwise it should be in stable in
+> the next release like during -rc phase.
+> -Daniel
 >
-> -- 
-> Best Regards,
-> Mike Gavrilov.
+>> Regards,
+>> Christian.
+>>
+>>> Anyway Thomas sent out a pr, so it's all good.
+>>> -Daniel
+>>>
+>>>> Christian.
+>>>>
+>>>>> -Daniel
+>>>>>
+>>>>>> It will take a while until it cycles back into the development branches, so
+>>>>>> feel free to push some version to amd-staging-drm-next as well. Just ping
+>>>>>> Alex when you do this.
+>>>>>>
+>>>>>> Thanks,
+>>>>>> Christian.
+>>>>>>
+>>>>>> Am 07.09.21 um 06:08 schrieb xinhui pan:
+>>>>>>> The ret value might be -EBUSY, caller will think lru lock is still
+>>>>>>> locked but actually NOT. So return -ENOSPC instead. Otherwise we hit
+>>>>>>> list corruption.
+>>>>>>>
+>>>>>>> ttm_bo_cleanup_refs might fail too if BO is not idle. If we return 0,
+>>>>>>> caller(ttm_tt_populate -> ttm_global_swapout ->ttm_device_swapout) will
+>>>>>>> be stuck as we actually did not free any BO memory. This usually happens
+>>>>>>> when the fence is not signaled for a long time.
+>>>>>>>
+>>>>>>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+>>>>>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>>>>>> ---
+>>>>>>>      drivers/gpu/drm/ttm/ttm_bo.c | 6 +++---
+>>>>>>>      1 file changed, 3 insertions(+), 3 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+>>>>>>> index 8d7fd65ccced..23f906941ac9 100644
+>>>>>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>>>>>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>>>>>>> @@ -1152,9 +1152,9 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+>>>>>>>      	}
+>>>>>>>      	if (bo->deleted) {
+>>>>>>> -		ttm_bo_cleanup_refs(bo, false, false, locked);
+>>>>>>> +		ret = ttm_bo_cleanup_refs(bo, false, false, locked);
+>>>>>>>      		ttm_bo_put(bo);
+>>>>>>> -		return 0;
+>>>>>>> +		return ret == -EBUSY ? -ENOSPC : ret;
+>>>>>>>      	}
+>>>>>>>      	ttm_bo_del_from_lru(bo);
+>>>>>>> @@ -1208,7 +1208,7 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+>>>>>>>      	if (locked)
+>>>>>>>      		dma_resv_unlock(bo->base.resv);
+>>>>>>>      	ttm_bo_put(bo);
+>>>>>>> -	return ret;
+>>>>>>> +	return ret == -EBUSY ? -ENOSPC : ret;
+>>>>>>>      }
+>>>>>>>      void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
 
-
---------------EF33C0CDB06F06965B4EF6C7
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Am 14.09.21 um 20:19 schrieb Mikhail Gavrilov:<br>
-    <blockquote type="cite" cite="mid:CABXGCsOPLH2DkZ09PDXSxStin6JJb_m5bJuQWmXooBLaSJ2Ezg@mail.gmail.com">
-      
-      <div dir="ltr">
-        <div dir="ltr">
-          <div class="gmail_default" style="font-family:verdana,sans-serif"><span style="font-family:Arial,Helvetica,sans-serif">On Wed, 14
-              Apr 2021 at 11:48, Christian König &lt;<a href="mailto:ckoenig.leichtzumerken@gmail.com" moz-do-not-send="true">ckoenig.leichtzumerken@gmail.com</a>&gt;
-              wrote:</span><br>
-          </div>
-        </div>
-        <div class="gmail_quote">
-          <blockquote class="gmail_quote" style="margin:0px 0px 0px
-            0.8ex;border-left:1px solid
-            rgb(204,204,204);padding-left:1ex"><br>
-            That is <span class="gmail_default" style="font-family:verdana,sans-serif"></span>expected
-            behavior, the application is just buggy and causing a <br>
-            page fault on the <span class="gmail_default" style="font-family:verdana,sans-serif"></span>GPU.<br>
-            <br>
-            The kernel should just not crash with a backtrace.<br>
-            <br>
-            Regards,<br>
-            Christian.<br>
-          </blockquote>
-        </div>
-        <br clear="all">
-        <div>
-          <div class="gmail_default" style="font-family:verdana,sans-serif">If after it&nbsp;<span class="gmail_default"></span><span style="font-family:Arial,Helvetica,sans-serif">GPU hangs
-              with the message &quot;</span><span style="font-family:Arial,Helvetica,sans-serif">[drm:amdgpu_dm_atomic_commit_tail
-              [amdgpu]] *ERROR* Waiting for fences timed out!&quot; is it
-              also&nbsp;</span><span class="gmail_default"></span><span style="font-family:Arial,Helvetica,sans-serif">expected
-              behavior?</span></div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Yes, absolutely. You should see GPU resets and recovery in the
-    system log after that.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:CABXGCsOPLH2DkZ09PDXSxStin6JJb_m5bJuQWmXooBLaSJ2Ezg@mail.gmail.com">
-      <div dir="ltr">
-        <div>
-          <div class="gmail_default" style="font-family:verdana,sans-serif">Kernel log: <a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpastebin.com%2FWkhATKXX&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C83d3316107ce4c9fe42a08d977ac2ea3%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637672405000225872%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=BSCdZefdxpQPBdKzrcII8e9LDR8nN%2BbMkswE%2FEkaXv8%3D&amp;reserved=0" originalsrc="https://pastebin.com/WkhATKXX" shash="byEtA2mSNqmxc/eIXmBwLPEBFaZGdliV7dBT2fsdkAYRnRv31M9fy5oNTfGKkYLJlErTxSSy6NjqGWuYkY4VvyyqakSuiIr+h+dAnzXr7TizY2sefLxORWOL7lEelWitLY/3Of03jiTlbUoqCzLJkvsna7K1kJ7U35ZzpoKXg3Y=" moz-do-not-send="true">https://pastebin.com/WkhATKXX</a><br>
-          </div>
-          <br>
-        </div>
-        <div><br>
-        </div>
-        -- <br>
-        <div dir="ltr" class="gmail_signature">
-          <div dir="ltr">Best Regards,<br>
-            Mike Gavrilov.</div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------EF33C0CDB06F06965B4EF6C7--
