@@ -2,72 +2,68 @@ Return-Path: <SRS0=hzS6=OF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49B86C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 15:18:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA03AC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 16:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E4E7361186
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 15:18:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E4E7361186
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 340A560F38
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 16:12:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 340A560F38
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jcline.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5326E95C;
-	Wed, 15 Sep 2021 15:18:23 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 247096E95D;
- Wed, 15 Sep 2021 15:18:22 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id p2so4668998oif.1;
- Wed, 15 Sep 2021 08:18:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=s47povPHC17mzUM43hPaNuCVlnjcb1YymD4IzB2Fw7Q=;
- b=H5F4SycB3G6lDTgS54F9rM3ChhQpYgNJ6rzJ/MlpVYRsFh4NNy5t+vxycNUk4J0bpq
- uBSSBADO+WczlshwtZ9iWPmfOFEaesG+uiSGFNXgrt7if6pt3y+UW4z0HmSkjepr/+f7
- Kth7/1V45EdcFF3f2QSrCBiiCjKYWskPav4ZPn0L2mmZkrO285uPXregr24jHwNOQuB9
- kSnBN0ykE54FkubHzqkmKCFgqkW7zIDKKyjTmqs07MQ+uLzfKs35ta6efet5njFOOm2Z
- kcpnBzuHIZQSNGenejWwO4/lSwy2G2Bp7z5SWsNUMdsCNGlBb732df9SwZWKKh+VyQ43
- mxBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=s47povPHC17mzUM43hPaNuCVlnjcb1YymD4IzB2Fw7Q=;
- b=RQbZzbSyotwAGjabJjmEY+t0rFQaEUCl8sNIBBD6e4LKu+8Jhnlz2rKspX8Y0LdoKH
- 01HaZ/10ia8zdQ51O2bWdWdjdN5tnLkS3syVG6HUVtXsr8McDisSP/3iZhV/s2pa8Qzl
- idLf3HGSFLgWX0lCM5/UAM5WDzfBSjNL8uh5vbfeJyvh4wr3T32gIA9pH8L0nr8al/Eu
- OKzPw6M30OB1hfh4XE4dyyVjkWaL+TSbXw+YX3XhtsEd4SOJ+KhXL5C0SdUQnzFo6dxx
- 9qgSKzzol5FCqzB3LNqucHpxNsR6fOYk4+6gucO2/KotjKbvX58Nx0ed1vU9S9PvufpO
- N6lA==
-X-Gm-Message-State: AOAM5303b4Dv/9FQRYEjoIPiS/WZdtt0EgAHjzqlrT7YFGghtbWw04Qa
- 40T0R8cXW4sh73i4tVEsM4PnadY/HTkfkUuo44M=
-X-Google-Smtp-Source: ABdhPJxN8y+U7oRECmZ+npqb9JFoI4RVReJOjBfUtqj5GftKFCmqUXmsC34nY5tds3nkg43tIAEhcR6O12emBYoBCQs=
-X-Received: by 2002:aca:706:: with SMTP id 6mr5449830oih.5.1631719101439; Wed,
- 15 Sep 2021 08:18:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210915113611.13620-1-colin.king@canonical.com>
-In-Reply-To: <20210915113611.13620-1-colin.king@canonical.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Sep 2021 11:18:10 -0400
-Message-ID: <CADnq5_NW11tad5-jVEEL4CDUcOm==2zsUMN+v594fKdSg5JErQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: make array encoded_lanes static
-To: Colin King <colin.king@canonical.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- xinhui pan <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 799E86E976;
+	Wed, 15 Sep 2021 16:12:29 +0000 (UTC)
+X-Greylist: delayed 565 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Sep 2021 16:00:25 UTC
+Received: from a8-61.smtp-out.amazonses.com (a8-61.smtp-out.amazonses.com
+ [54.240.8.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2666E972;
+ Wed, 15 Sep 2021 16:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=jdcmspyxk3papgv75oy2heb62hybqlxr; d=jcline.org; t=1631721059;
+ h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:MIME-Version:Content-Transfer-Encoding;
+ bh=6cZlNTQVzgnWdijsvjqjYm5Rce0lZ5PkihJv1QJEl2s=;
+ b=ES9/cjo8snKAOa36wdqVSXhWYoPfrhlJsMIlt+y5wIe7lyE455BXRcBzUHt5es9j
+ QOfd9EeDvjmqaqjvujPjJWJZwHX/+6mg2Ef/wZZmQ4kPDSDrHC9eZF7zq4JFJ49rc8s
+ 9JDW2ass0M5nefQgH21a32YnFz4gA54cw9HpHFlM=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug; d=amazonses.com; t=1631721059;
+ h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:MIME-Version:Content-Transfer-Encoding:Feedback-ID;
+ bh=6cZlNTQVzgnWdijsvjqjYm5Rce0lZ5PkihJv1QJEl2s=;
+ b=IGyNmfHUu4VEl2JW6Luzr38O0ZA/AuOzt74aTB84CND22Q1ADZuara9dbZOLRDu2
+ aQVTfsWeEuTBkvfBDWVkpX+tZz5IUhZ+SEBBnRGLWNhP7YI2a51Z3A13GOtf/YtpLkf
+ SC8gEJzIQvoKTX6Ifvc1Dugq5fcj94BNqm0pJjkw=
+Message-ID: <0100017bea276ec1-3b320d5b-3997-4024-8339-0f39f90ee991-000000@email.amazonses.com>
+Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+From: Jeremy Cline <jeremy@jcline.org>
+To: Pekka Paalanen <ppaalanen@gmail.com>, Harry Wentland
+ <harry.wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com, 
+ Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com, 
+ Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com, 
+ Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com, 
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com, Brian Starkey
+ <brian.starkey@arm.com>
+Date: Wed, 15 Sep 2021 15:50:58 +0000
+In-Reply-To: <20210915170127.31377385@eldfell>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
 Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Feedback-ID: 1.us-east-1.z18Isoc/FaoPOvCyJyi1mnTt8STwoRuibXVNoUcvG6g=:AmazonSES
+X-SES-Outgoing: 2021.09.15-54.240.8.61
+X-Mailman-Approved-At: Wed, 15 Sep 2021 16:12:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,48 +78,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 15, 2021 at 7:36 AM Colin King <colin.king@canonical.com> wrote:
->
-> From: Colin Ian King <colin.king@canonical.com>
->
-> Don't populate the read-only array encoded_lanes on the stack but instead it
-> static. Also makes the object code smaller by 97 bytes:
->
-> Before:
->    text    data    bss     dec    hex filename
->   38899    8064      0   46963   b773 ./drivers/gpu/drm/radeon/r600_dpm.o
->
-> After:
->    text    data    bss     dec    hex filename
->   38738    8128      0   46866   b712 ./drivers/gpu/drm/radeon/r600_dpm.o
->
-> (gcc version 11.2.0)
->
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+On Wed, 2021-09-15 at 17:01 +0300, Pekka Paalanen wrote:
+> On Fri, 30 Jul 2021 16:41:29 -0400
+> Harry Wentland <harry.wentland@amd.com> wrote:
+> 
+> > Use the new DRM RFC doc section to capture the RFC previously only
+> > described in the cover letter at
+> > https://patchwork.freedesktop.org/series/89506/
+> > 
+> > v3:
+> >  * Add sections on single-plane and multi-plane HDR
+> >  * Describe approach to define HW details vs approach to define SW
+> > intentions
+> >  * Link Jeremy Cline's excellent HDR summaries
+> >  * Outline intention behind overly verbose doc
+> >  * Describe FP16 use-case
+> >  * Clean up links
+> > 
+> > v2: create this doc
+> > 
+> > v1: n/a
+> > 
+> > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> 
+> Hi Harry,
+> 
+> I finally managed to go through this, comments below. Excellent to
+> have
+> pictures included. I wrote this reply over several days, sorry if
+> it's
+> not quite coherent.
+> 
+> 
+> 
+> 
 
-Applied.  Thanks!
+<snip>
 
-Alex
+> > +
+> > +
+> > +Overview and background
+> > +=======================
+> > +
+> > +I highly recommend you read `Jeremy Cline's HDR primer`_
+> > +
+> > +Jeremy Cline did a much better job describing this. I highly
+> > recommend
+> > +you read it at [1]:
+> > +
+> > +.. _Jeremy Cline's HDR primer:
+> > https://www.jcline.org/blog/fedora/graphics/hdr/2021/05/07/hdr-in-linux-p1.html
+> 
+> That's a nice write-up I didn't know about, thanks.
+> 
+> I just wish such write-ups would be somehow peer-reviewed for
+> correctness and curated for proper referencing. Perhaps like we
+> develop
+> code: at least some initial peer review and then fixes when anyone
+> notices something to improve. Like... what you are doing here! :-)
+> 
+> The post is perhaps a bit too narrow with OETF/EOTF terms,
+> accidentally
+> implying that OETF = EOTF^-1 which is not generally true, but that
+> all
+> depends on which O-to-E or E-to-O functions one is talking about.
+> Particularly there is a difference between functions used for signal
+> compression which needs an exact matching inverse function, and
+> functions containing tone-mapping and artistic effects that when
+> concatenated result in the (non-identity) OOTF.
+> 
+> Nothing in the post seems to disagree with my current understanding
+> FWI'mW.
 
-> ---
->  drivers/gpu/drm/radeon/r600_dpm.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
-> index fd4226b99862..9d2bcb9551e6 100644
-> --- a/drivers/gpu/drm/radeon/r600_dpm.c
-> +++ b/drivers/gpu/drm/radeon/r600_dpm.c
-> @@ -1361,7 +1361,9 @@ u16 r600_get_pcie_lane_support(struct radeon_device *rdev,
->
->  u8 r600_encode_pci_lane_width(u32 lanes)
->  {
-> -       u8 encoded_lanes[] = { 0, 1, 2, 0, 3, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 6 };
-> +       static const u8 encoded_lanes[] = {
-> +               0, 1, 2, 0, 3, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 6
-> +       };
->
->         if (lanes > 16)
->                 return 0;
-> --
-> 2.32.0
->
+I'm more than happy to update things that are incorrect or mis-leading
+since the last thing I want to do is muddy the waters. Personally, I
+would much prefer that any useful content from it be peer-reviewed and
+included directly in the documentation since, well, it's being hosted
+out of my laundry room and the cats have a habit of turning off the
+UPS...
+
+Do let me know if I can be of any assistance there; I'm no longer
+employed to do anything HDR-related, but I do like clear documentation
+so I could dedicate a bit of free time to it.
+
+- Jeremy
+
