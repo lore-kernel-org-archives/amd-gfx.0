@@ -2,113 +2,106 @@ Return-Path: <SRS0=hzS6=OF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-19.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED04DC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 05:32:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14D66C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 06:38:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5C38610A2
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 05:32:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B5C38610A2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id ADA9C61157
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 06:38:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ADA9C61157
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 657EC6E8CD;
-	Wed, 15 Sep 2021 05:32:43 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2088.outbound.protection.outlook.com [40.107.96.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEA76E8CC;
- Wed, 15 Sep 2021 05:32:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37CD389FBC;
+	Wed, 15 Sep 2021 06:38:01 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 234A589FBC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 06:38:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lr6iGmqcDa4O2nxOFBJ8XlM41yLt4cGJZDFyD1pryl1euprUHAuQVq2BG0+JSFRPttqmWXJyo2fKIl7UuUeGJGlLKAcdeYc4/mR+poV7WMfQjVi/S6hcwAewyxqJW4MG2OxKiA9ueetCe6WNXndUM4nOhwBvJE+5rtnnit1hjZFBcOSVLDdE933KDsbX5pZG972+LOlYQ/bTLsE/Ezo/sQaV1I+LqgLKr4t5HKs8jh09BNZTY0nbxoJi/Byl7v3S/0R7KKsPiy5uFzJVPmd+gS1hssHTw60cYzoFh5uCOLQ+MWxVo2Wa+oC7hFh8Pc7OFSNLGaaHsKu4Jbft+Gg+Gw==
+ b=NmsNWEXuWMtlH3fohdRwzK67uE/2cd3RChWH2w3mZicEZc0VXX8i2Ctw/EvnMkkhP1LcMy0v+t3tECfPNvcF45bfMIbklc7tUCQKe5ajUAoLovUyqfCRtrfF0GMxXUY9j3J0Dq+RirpF8Uu1oo74eGLs88hcPeGBtz3uOMRHqmVzUKkveyeyvHMFpKSt2zCvHDBTkaXgzwXHTe06wskxOGIqCYG1yoAj7MVOMIwsND0swANxucuyRB27/cJ+p/B44+c/uutsXjg3fFxn8bkOnndUvfKnb4HYiwCV1g02iCkisYxTHNdz+E/+CSf06mifrRHrwYjgo+iW8pr0B4eIcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=hSquNODS4hXGxXgLhLyM6e1QpD6QLO3SsEEymAnUFHg=;
- b=i56AUAiZEKhK9tZcjE/kO8RxgvcfxMkPQih9JRVgszqXOBc1epRHF3EcAbEOQaWC418qnwSzoEBOWSV0zLdAtHcdFLOeSXm8zheNyQ/1LOPBO9vcO1uCeCCNgDN1aszz5Tt1X1kk8YVBfWssfBv2Tb+ZJqC6oSzH8B20Bsgp4lBejdDL6QQdCE5QkB2e4S76S81P6TbTxhksBJXcKl8dHjhDH5A2kB4Hbz0pr8+7GPBbBsvbpoKxrmNTPCWyThwceZt2JjzW+yET11bqDFTlkHpZo3ahZidOktlTJwQKV8qm1Hq5g2NUXp3VH7iaRBWpOTgo4L9Yg+snQUzpNSClHg==
+ bh=0Q/3GlRL9jkeH2lUSZ5n1TR7F+M7OZhR+WKzy0k5o7Q=;
+ b=a2wCEkVa5PmSiA/cqGZO3phH6bM2EzlQzs5+rAcBoGCvQNDT0RJb+NUNzUvynZYWiuIayu9CtokrD3gB8MalbZAk8H6jQ6XPlUmbYJFN2yy6m2ZVpJZ0wFg8dfMoNJyV6trx6+NkCKwgsPWV3us1Uzadi0GdWAvfSrLrNxGh+SCJ6friIVy5EMeNuRSQ6J7fodi1ZqWcAgweFxlck90DX9qovmBXP9qtq0cJm7iPNHY8Ges+lBActoHWlHb2TX5jI7axofkZmSrLiqWa2b4wPgc9kS26LUQTPGe31HQ2A9JbMBVZLGsgW1rYVQY0j+8fSaA+9X3QEybiAy4icelccA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.34) smtp.rcpttodomain=kvack.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hSquNODS4hXGxXgLhLyM6e1QpD6QLO3SsEEymAnUFHg=;
- b=m46JH/XKdoTIJ8gJmks/INtmRAKRWt7elatsrwazXWGIZrg4mWbP736dvXZxfeyzEdapdoFKZiZbKtdrPO41V/TyvFWmd/V4t8T3ug6M6Lxu7plwr5kAPduVx0pWHElawKWa0lILAnj5DTd/z0vZEzn2hdrfRc3P09bDSxdgdtAlVCHnbh+q2+vfqx1lFJAAB4WcntA/TU4QOq2llhFSsNBPsvMQTZ5/ANefoouhSauzeZVfsfh1RSU3+9b2ZdzqaiQFC0f2Hyly9o7Ztxwd0foh9AqzOAkoqhgq/LYq6RLpdgwI7dTZhFw+A2CCFgF42VCoqJkv7SIO2BxgKsjlyA==
-Received: from CO2PR06CA0064.namprd06.prod.outlook.com (2603:10b6:104:3::22)
- by MW2PR12MB2539.namprd12.prod.outlook.com (2603:10b6:907:9::30) with
+ bh=0Q/3GlRL9jkeH2lUSZ5n1TR7F+M7OZhR+WKzy0k5o7Q=;
+ b=a2oVKSKiaM+fVbdkY3Owqk+7/9HuI0Wz3ij+5KoLxwQoCTcoawynDAt8QXSwv/9O1an71yWOVj7/yswWPBPMJ5nfUfH1wJiSMN6D39TcvYPuLdjZJ4S+6GO+pvNiRCbETJugOB3o/0+vKeH5OJB/N8u1L6OPggo1B6Jopi5fMQo=
+Received: from DS7PR03CA0254.namprd03.prod.outlook.com (2603:10b6:5:3b3::19)
+ by DM6PR12MB4433.namprd12.prod.outlook.com (2603:10b6:5:2a1::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Wed, 15 Sep
- 2021 05:32:38 +0000
-Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:3:cafe::5b) by CO2PR06CA0064.outlook.office365.com
- (2603:10b6:104:3::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Wed, 15 Sep 2021 05:32:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
- smtp.mailfrom=nvidia.com; kvack.org; dkim=none (message not signed)
- header.d=none;kvack.org; dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.34; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.34) by
- CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4523.14 via Frontend Transport; Wed, 15 Sep 2021 05:32:38 +0000
-Received: from HQMAIL105.nvidia.com (172.20.187.12) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 15 Sep
- 2021 05:32:37 +0000
-Received: from rcampbell-test.nvidia.com (172.20.187.5) by mail.nvidia.com
- (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1497.18 via Frontend
- Transport; Wed, 15 Sep 2021 05:32:37 +0000
-Subject: Re: [PATCH v2 02/12] mm: remove extra ZONE_DEVICE struct page refcount
-To: Alex Sierra <alex.sierra@amd.com>, <akpm@linux-foundation.org>,
- <Felix.Kuehling@amd.com>, <linux-mm@kvack.org>, <linux-ext4@vger.kernel.org>, 
- <linux-xfs@vger.kernel.org>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <hch@lst.de>, <jgg@nvidia.com>, <jglisse@redhat.com>
-References: <20210913161604.31981-1-alex.sierra@amd.com>
- <20210913161604.31981-3-alex.sierra@amd.com>
-From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <66933a59-9761-7f03-80af-4843c9210212@nvidia.com>
-Date: Tue, 14 Sep 2021 22:32:37 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.15; Wed, 15 Sep
+ 2021 06:37:58 +0000
+Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::9a) by DS7PR03CA0254.outlook.office365.com
+ (2603:10b6:5:3b3::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16 via Frontend
+ Transport; Wed, 15 Sep 2021 06:37:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4523.14 via Frontend Transport; Wed, 15 Sep 2021 06:37:57 +0000
+Received: from pp-server-two.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 15 Sep
+ 2021 01:37:54 -0500
+From: xinhui pan <xinhui.pan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <andrey.grodzovsky@amd.com>, xinhui pan <xinhui.pan@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Put drm_dev_enter/exit outside hot codepath
+Date: Wed, 15 Sep 2021 14:37:39 +0800
+Message-ID: <20210915063739.31244-1-xinhui.pan@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210913161604.31981-3-alex.sierra@amd.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: da02288f-f7f0-45c4-f738-08d9780a3ae4
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2539:
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2539E2F1E91B0CF37C944E8EC2DB9@MW2PR12MB2539.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: db2add4c-0549-4769-59d9-08d978135ad7
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4433:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB44332EBDFE17B581D5D5A61D87DB9@DM6PR12MB4433.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:569;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aw/VgQdMCN5DjsJ/VEXzOaxN7S5fhxS50gYSNXqVmcuO5Bg3I8DTPuzD+rzcgRaDJAlSXALd6JIkMHioulGf9ibjGYdPFO+7IRbjePv511shDBkrzvXFBm/PXeptqCzyPxmZpnxvV393HNAJXlLLFY5g+Dh01uVC2MpIvq1eFpog2epj28c+eMgjrLX18FqTQ6IVID2BlgDKz4szsRW/hOJ1vjN1tHJO8JZpJdPKf9NLlMq5pyrBorVj7Fq9bvWjA/Cn3yBAkDhSlgPNwM9NDhGvRWCG5lCAz6nn0eDOjT9R8ucQNSY8aYWE7oquDQsQssHhSMDIZhVGM5uRR3+L7ykJQRfMJ5tqiJV1PIE/5QE4mkbgvhm/UfxdOZi93yYUXPNBLBqWxqjt35CTeXqFvzlcu5hWGhCVvzxUs0plM+vtavkDuRwyoq+1hj8VZNo8SdGFFIJB8sW/6zBwH5x1i3JUk+Bogj5hTxrQBbLFbaVrKqFnGKlIOhKjzNgZJiNaDHQmWNByaoq0t/eoeKg4nHq1r2DcaN8HpX9T10Zirc5kE0oxxPu9B0UA8J5iQVHf1KVYyWUmPTEJOJ+meg43WbBb3m34sO4iO4CEIh5vlJjWdVQai9AfgxAG+xcPdcwQAvDOpVkspV90V8ckV+2SAJqpDp6uofRWti8dGQXqEYvHltuMST4hv5uPk8e9KZNxo+ujdmMxMQlCD4nzhGfrnjQTpzJqaq64tcg5Ci0gJ635VxaKw5gnoCgjTRGhSKtIRbc1HgqPxIV7fdsjTdtpn3ghCZndBkh8wsCQ07pd9j63iz87sgA5/1PhWDcI3vXSbFtKyv6UiceqX+n988xbFICKANQib9MbS40ibVZPvE7AFrGWHBNfX+66lkBeDVld
-X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(346002)(136003)(396003)(46966006)(36840700001)(82310400003)(36756003)(86362001)(5660300002)(47076005)(110136005)(26005)(356005)(4326008)(31686004)(53546011)(316002)(478600001)(70586007)(70206006)(31696002)(8936002)(7636003)(336012)(2906002)(426003)(186003)(2616005)(7416002)(82740400003)(83380400001)(966005)(7696005)(36860700001)(36906005)(8676002)(54906003)(43740500002)(2101003);
+X-Microsoft-Antispam-Message-Info: hDL4dzQ+ieEMjyfhTybNzNF9idxBLsgCDGK0+pt3x6QavLeXprUoSIVhBYxXbG661LHk+4lfwTBSRq7J8NM3wFWvU++7Fta4P3sfqQeLgdcgBpCdnZpyV3SYpjSvjsH1Dtc0A+JQGHQGmC+nv28TVTDYEJmPo0tdt8zXiHNcpTCYHYFT5STFW0ojkqsjw1Q2JjInsbqzCJV4mmTYj++6YrRV+RWbk1Ztz4pa1HDMF/63j5z09AJkUO82C4h1GEkNq5ijHNKCbMWTYfxWv1MP2lAuY3SfhvVupSxaoYzASV39oh+TcarmgsQCubhYZUuMXmP+pOduTJLAmW6KSH33CMWpbLzieDnEnOwNPNg8KEy1JOheoPBpasi1gkId2hX+GUHcds0NIGrJmsaJPonQjFqCMTPtC5nW4+J13lK2VlRtXVCOTvS5zX5A08p83Tv0sMtfIhhq+Fu2WcgnJUIxaohEXSX4HWggIXEnxvrex9qf/Ach2RNsR58HUJRVQ9PuplgpChLW4ab1A3sUbBpCczvKOxnWaLPu5x917+zTu5INAeH8vc4s4BTl8H1KsHqAJSOPN7oYGGmFB0sM1tjZjKu+wPPjS1Wg+cNr6YKR6ldTaIg1bCayH3TZKxupQy84r60PygM26o4PuqE+9u0EG7RoLa6r/vlVAQJruRSqrn1T+gL2q8+0QlhjYypOG9efuhopm5TSDOyLnnXu5K2kZuIpVIEhKFB+17674yKWOqU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(316002)(47076005)(36756003)(508600001)(5660300002)(1076003)(426003)(356005)(2616005)(81166007)(36860700001)(6666004)(16526019)(6916009)(26005)(2906002)(186003)(70586007)(86362001)(70206006)(54906003)(7696005)(336012)(82310400003)(8676002)(4326008)(8936002)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 05:32:38.1666 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da02288f-f7f0-45c4-f738-08d9780a3ae4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 06:37:57.2551 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db2add4c-0549-4769-59d9-08d978135ad7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2539
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4433
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,67 +116,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/13/21 9:15 AM, Alex Sierra wrote:
-> From: Ralph Campbell <rcampbell@nvidia.com>
->
-> ZONE_DEVICE struct pages have an extra reference count that complicates the
-> code for put_page() and several places in the kernel that need to check the
-> reference count to see that a page is not being used (gup, compaction,
-> migration, etc.). Clean up the code so the reference count doesn't need to
-> be treated specially for ZONE_DEVICE.
->
-> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> ---
-> v2:
-> AS: merged this patch in linux 5.11 version
->
-> v5:
-> AS: add condition at try_grab_page to check for the zone device type, while
-> page ref counter is checked less/equal to zero. In case of device zone, pages
-> ref counter are initialized to zero.
->
-> v7:
-> AS: fix condition at try_grab_page added at v5, is invalid. It supposed
-> to fix xfstests/generic/413 test, however, there's a known issue on
-> this test where DAX mapped area DIO to non-DAX expect to fail.
-> https://patchwork.kernel.org/project/fstests/patch/1489463960-3579-1-git-send-email-xzhou@redhat.com
-> This condition was removed after rebase over patch series
-> https://lore.kernel.org/r/20210813044133.1536842-4-jhubbard@nvidia.com
-> ---
->   arch/powerpc/kvm/book3s_hv_uvmem.c     |  2 +-
->   drivers/gpu/drm/nouveau/nouveau_dmem.c |  2 +-
->   fs/dax.c                               |  4 +-
->   include/linux/dax.h                    |  2 +-
->   include/linux/memremap.h               |  7 +--
->   include/linux/mm.h                     | 11 ----
->   lib/test_hmm.c                         |  2 +-
->   mm/internal.h                          |  8 +++
->   mm/memremap.c                          | 69 +++++++-------------------
->   mm/migrate.c                           |  5 --
->   mm/page_alloc.c                        |  3 ++
->   mm/swap.c                              | 45 ++---------------
->   12 files changed, 45 insertions(+), 115 deletions(-)
->
-I don't see mm/memcontrol.c listed here so I think you will need this fragment too:
+We hit soft hang while doing memory pressure test on one numa system.
+After a qucik look, this is because kfd invalid/valid userptr memory
+frequently with process_info lock hold.
+Looks like update page table mapping use too much cpu time.
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 389b5766e74f..0cc9c7c71e79 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5541,11 +5541,7 @@ static struct page *mc_handle_swap_pte(struct vm_area_struct *vma,
-  	 */
-  	if (is_device_private_entry(ent)) {
-  		page = pfn_swap_entry_to_page(ent);
--		/*
--		 * MEMORY_DEVICE_PRIVATE means ZONE_DEVICE page and which have
--		 * a refcount of 1 when free (unlike normal page)
--		 */
--		if (!page_ref_add_unless(page, 1, 1))
-+		if (!get_page_unless_zero(page))
-  			return NULL;
-  		return page;
-  	}
+perf top says below,
+75.81%  [kernel]       [k] __srcu_read_unlock
+ 6.19%  [amdgpu]       [k] amdgpu_gmc_set_pte_pde
+ 3.56%  [kernel]       [k] __srcu_read_lock
+ 2.20%  [amdgpu]       [k] amdgpu_vm_cpu_update
+ 2.20%  [kernel]       [k] __sg_page_iter_dma_next
+ 2.15%  [drm]          [k] drm_dev_enter
+ 1.70%  [drm]          [k] drm_prime_sg_to_dma_addr_array
+ 1.18%  [kernel]       [k] __sg_alloc_table_from_pages
+ 1.09%  [drm]          [k] drm_dev_exit
 
+So move drm_dev_enter/exit outside gmc code, instead let caller do it.
+They are gart_unbind, gart_map, vm_clear_bo, vm_update_pdes and
+gmc_init_pdb0. vm_bo_update_mapping already calls it.
+
+Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+---
+change from v1:
+add enter/exit in more gmc_set_pte_pde callers
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 11 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 11 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 28 +++++++++++++++++-------
+ 3 files changed, 36 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index 76efd5f8950f..d7e4f4660acf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -34,6 +34,7 @@
+ #include <asm/set_memory.h>
+ #endif
+ #include "amdgpu.h"
++#include <drm/drm_drv.h>
+ 
+ /*
+  * GART
+@@ -230,12 +231,16 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+ 	u64 page_base;
+ 	/* Starting from VEGA10, system bit must be 0 to mean invalid. */
+ 	uint64_t flags = 0;
++	int idx;
+ 
+ 	if (!adev->gart.ready) {
+ 		WARN(1, "trying to unbind memory from uninitialized GART !\n");
+ 		return -EINVAL;
+ 	}
+ 
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return 0;
++
+ 	t = offset / AMDGPU_GPU_PAGE_SIZE;
+ 	p = t / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+ 	for (i = 0; i < pages; i++, p++) {
+@@ -254,6 +259,7 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+ 	for (i = 0; i < adev->num_vmhubs; i++)
+ 		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
+ 
++	drm_dev_exit(idx);
+ 	return 0;
+ }
+ 
+@@ -276,12 +282,16 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+ {
+ 	uint64_t page_base;
+ 	unsigned i, j, t;
++	int idx;
+ 
+ 	if (!adev->gart.ready) {
+ 		WARN(1, "trying to bind memory to uninitialized GART !\n");
+ 		return -EINVAL;
+ 	}
+ 
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return 0;
++
+ 	t = offset / AMDGPU_GPU_PAGE_SIZE;
+ 
+ 	for (i = 0; i < pages; i++) {
+@@ -291,6 +301,7 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+ 			page_base += AMDGPU_GPU_PAGE_SIZE;
+ 		}
+ 	}
++	drm_dev_exit(idx);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 54f059501a33..1427fd70310c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -153,10 +153,6 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
+ {
+ 	void __iomem *ptr = (void *)cpu_pt_addr;
+ 	uint64_t value;
+-	int idx;
+-
+-	if (!drm_dev_enter(&adev->ddev, &idx))
+-		return 0;
+ 
+ 	/*
+ 	 * The following is for PTE only. GART does not have PDEs.
+@@ -165,8 +161,6 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
+ 	value |= flags;
+ 	writeq(value, ptr + (gpu_page_idx * 8));
+ 
+-	drm_dev_exit(idx);
+-
+ 	return 0;
+ }
+ 
+@@ -752,6 +746,10 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+ 		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+ 	u64 vram_end = vram_addr + vram_size;
+ 	u64 gart_ptb_gpu_pa = amdgpu_gmc_vram_pa(adev, adev->gart.bo);
++	int idx;
++
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return;
+ 
+ 	flags |= AMDGPU_PTE_VALID | AMDGPU_PTE_READABLE;
+ 	flags |= AMDGPU_PTE_WRITEABLE;
+@@ -773,6 +771,7 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+ 	flags |= AMDGPU_PDE_BFS(0) | AMDGPU_PTE_SNOOPED;
+ 	/* Requires gart_ptb_gpu_pa to be 4K aligned */
+ 	amdgpu_gmc_set_pte_pde(adev, adev->gmc.ptr_pdb0, i, gart_ptb_gpu_pa, flags);
++	drm_dev_exit(idx);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 0126ece898da..daa16d2f89da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -800,7 +800,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *adev,
+ 	struct amdgpu_bo *bo = &vmbo->bo;
+ 	unsigned entries, ats_entries;
+ 	uint64_t addr;
+-	int r;
++	int r, idx;
+ 
+ 	/* Figure out our place in the hierarchy */
+ 	if (ancestor->parent) {
+@@ -845,9 +845,12 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *adev,
+ 			return r;
+ 	}
+ 
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return -ENODEV;
++
+ 	r = vm->update_funcs->map_table(vmbo);
+ 	if (r)
+-		return r;
++		goto exit;
+ 
+ 	memset(&params, 0, sizeof(params));
+ 	params.adev = adev;
+@@ -856,7 +859,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *adev,
+ 
+ 	r = vm->update_funcs->prepare(&params, NULL, AMDGPU_SYNC_EXPLICIT);
+ 	if (r)
+-		return r;
++		goto exit;
+ 
+ 	addr = 0;
+ 	if (ats_entries) {
+@@ -872,7 +875,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *adev,
+ 		r = vm->update_funcs->update(&params, vmbo, addr, 0, ats_entries,
+ 					     value, flags);
+ 		if (r)
+-			return r;
++			goto exit;
+ 
+ 		addr += ats_entries * 8;
+ 	}
+@@ -895,10 +898,13 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *adev,
+ 		r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
+ 					     value, flags);
+ 		if (r)
+-			return r;
++			goto exit;
+ 	}
+ 
+-	return vm->update_funcs->commit(&params, NULL);
++	r = vm->update_funcs->commit(&params, NULL);
++exit:
++	drm_dev_exit(idx);
++	return r;
+ }
+ 
+ /**
+@@ -1384,11 +1390,14 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 			  struct amdgpu_vm *vm, bool immediate)
+ {
+ 	struct amdgpu_vm_update_params params;
+-	int r;
++	int r, idx;
+ 
+ 	if (list_empty(&vm->relocated))
+ 		return 0;
+ 
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return -ENODEV;
++
+ 	memset(&params, 0, sizeof(params));
+ 	params.adev = adev;
+ 	params.vm = vm;
+@@ -1396,7 +1405,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 
+ 	r = vm->update_funcs->prepare(&params, NULL, AMDGPU_SYNC_EXPLICIT);
+ 	if (r)
+-		return r;
++		goto exit;
+ 
+ 	while (!list_empty(&vm->relocated)) {
+ 		struct amdgpu_vm_bo_base *entry;
+@@ -1414,10 +1423,13 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 	r = vm->update_funcs->commit(&params, &vm->last_update);
+ 	if (r)
+ 		goto error;
++	drm_dev_exit(idx);
+ 	return 0;
+ 
+ error:
+ 	amdgpu_vm_invalidate_pds(adev, vm);
++exit:
++	drm_dev_exit(idx);
+ 	return r;
+ }
+ 
+-- 
+2.25.1
 
