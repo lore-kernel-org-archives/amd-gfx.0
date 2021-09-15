@@ -2,73 +2,71 @@ Return-Path: <SRS0=hzS6=OF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 729B2C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 18:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 817C3C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 19:10:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1358E60E97
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 18:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1358E60E97
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4AA056112E
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 19:10:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4AA056112E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B10D36E9D5;
-	Wed, 15 Sep 2021 18:22:15 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C7A16E9D5
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 18:22:15 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- o16-20020a9d2210000000b0051b1e56c98fso4768193ota.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 11:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KMkL0Na1bvBAspYFjJcYfpgdh40D2FivyKdNw6G36n4=;
- b=npaX80qfDCw/mkpH+tZs+p/a8ft2DWSc2AKGtdlgJumBstBS/6G5YiyT28WGkqhF7a
- cHS84ALecJVYe9irHhRkpGzg6baqIDP3xbXGi6LiOFbUyINPRIs7TIW/lToqmnppiIOB
- pFZFLPJfsWtR97hAtrDpWIKzX2BvB2BezzdEZolelI4QuzEDW+0YSzgLKdBkrLWwmJn4
- l2VDQPOsHcz59u1Kqzs0GsJhT8l6GEYyCdDgMjxn3RHh72wcAVgeZecet+H0DBd7guXy
- ZkFF69hC/O362E/yMGJX8T3tWdNNo4hjOW0uYBtMoRjQCph90LmdZvsCK/vdipuJ4+Ye
- Zgng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KMkL0Na1bvBAspYFjJcYfpgdh40D2FivyKdNw6G36n4=;
- b=botcgvBLN2TXs9xshoqJ8ck7FBI2ruruvVe4af5XRGpO4c5RV/waWxxOJdlbyHlqr7
- MQ3fivKmKPCKrOCq2os8zt/5R4teDeAiCH5d9k6OPcqBYVwdBCxRHcmwc2mNshLgS5i5
- j1aJcBSX4xerMA2hn/kA55eaMoVbEfHBDfRksUbwbkANR5rJQYLlhBbca1Jse9phLrkP
- K4isftfGWfgigpYgWes3QB4PO8LUzRBJrwM+XXN+b3BjZaGf+UCedbRjlXrFACUGnf76
- N4arjyfPK+kMDIE+vJmF+C0jm/oW0w/l98oeaUsx+R2zintL6Zo0CvxXdDQCp+9UOfvA
- pwhw==
-X-Gm-Message-State: AOAM531wSUtWj2gP8r5v4tWrtuC+oOWhuQzRXR1iIMrjvZUeltnJ0VDQ
- yoN7HNOaFpI7BvzFqqZNMbk6vx131jxLGHj0aYw=
-X-Google-Smtp-Source: ABdhPJwsWCn4udQX5x0G1kShI0rzQf/xKYGBphMFZ3qdRsT/wVe4fcktfDpAqsad09WksBs4ci1qMtiEoRzAXlhMOQM=
-X-Received: by 2002:a05:6830:214c:: with SMTP id
- r12mr1245369otd.200.1631730134339; 
- Wed, 15 Sep 2021 11:22:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B636EA00;
+	Wed, 15 Sep 2021 19:10:44 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B361C6E9D9;
+ Wed, 15 Sep 2021 18:47:48 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f0d0700f7a2811245428a79.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f0d:700:f7a2:8112:4542:8a79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2DD591EC0257;
+ Wed, 15 Sep 2021 20:47:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1631731663;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=lm6vQs2/Rhr3v+Gkqez9mosqAUPoKD4IW0wHjidPrGY=;
+ b=XN5RscNfsftBTFcuRzGdY1iuAMSDX6NKtwpYReOnfaZk/QSrf/8VqAHOkAjfLPxC1UO6qn
+ 9BHTplTlRlxpF7vtQWQch60eAekg1676yowhlJTxL/nJGxhj8z9rv3ulfK5vkpFuCcwh8v
+ CPa1Q28irpOcNBFG98fwkSAbgq7mLSg=
+Date: Wed, 15 Sep 2021 20:47:37 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Michael Ellerman <mpe@ellerman.id.au>,
+ Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ linux-efi@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
+ kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org,
+ Paul Mackerras <paulus@samba.org>, linux-s390@vger.kernel.org,
+ Andi Kleen <ak@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
+ x86@kernel.org, amd-gfx@lists.freedesktop.org,
+ Christoph Hellwig <hch@infradead.org>,
+ linux-graphics-maintainer@vmware.com,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v3 4/8] powerpc/pseries/svm: Add a powerpc version of
+ cc_platform_has()
+Message-ID: <YUI/yaut2f9ZoJBd@zn.tnic>
+References: <cover.1631141919.git.thomas.lendacky@amd.com>
+ <9d4fc3f8ea7b325aaa1879beab1286876f45d450.1631141919.git.thomas.lendacky@amd.com>
+ <YUCOTIPPsJJpLO/d@zn.tnic> <87lf3yk7g4.fsf@mpe.ellerman.id.au>
+ <YUHGDbtiGrDz5+NS@zn.tnic>
+ <f8388f18-5e90-5d0f-d681-0b17f8307dd4@csgroup.eu>
 MIME-Version: 1.0
-References: <20210914235948.893422-1-joshua@froggi.es>
- <20210914235948.893422-3-joshua@froggi.es>
- <d8cd6940-70ba-9c4d-38cb-4b1938f3c19b@amd.com>
-In-Reply-To: <d8cd6940-70ba-9c4d-38cb-4b1938f3c19b@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Sep 2021 14:22:03 -0400
-Message-ID: <CADnq5_N6DF-xpCmV2mSjpX-yFmx=Uj-i8u3L=OndO6iCjjCX0A@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: Add modifiers capable of DCC image
- stores for gfx10_3
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Joshua Ashton <joshua@froggi.es>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f8388f18-5e90-5d0f-d681-0b17f8307dd4@csgroup.eu>
+X-Mailman-Approved-At: Wed, 15 Sep 2021 19:10:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,69 +81,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, Sep 15, 2021 at 07:18:34PM +0200, Christophe Leroy wrote:
+> Could you please provide more explicit explanation why inlining such an
+> helper is considered as bad practice and messy ?
 
-Alex
+Tom already told you to look at the previous threads. Let's read them
+together. This one, for example:
 
-On Wed, Sep 15, 2021 at 2:02 PM Harry Wentland <harry.wentland@amd.com> wrote:
->
-> On 2021-09-14 19:59, Joshua Ashton wrote:
-> > Some games, ie. Doom Eternal, present from compute following compute
-> > post-fx and would benefit from having DCC image stores available.
-> >
-> > DCN on gfx10_3 doesn't need INDEPENDENT_128B_BLOCKS = 0 so we can expose
-> > these modifiers capable of DCC image stores.
-> >
-> > Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> > Reviewed-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->
-> Series is
-> Acked-by: Harry Wentland <harry.wentland@amd.com>
->
-> Harry
->
-> > ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 21 +++++++++++++++++++
-> >  1 file changed, 21 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 2a24e43623cb..a4e33a4336a0 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -4817,6 +4817,16 @@ add_gfx10_3_modifiers(const struct amdgpu_device *adev,
-> >                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> >                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
-> >
-> > +     add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                 AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                 AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> > +                 AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                 AMD_FMT_MOD_SET(PACKERS, pkrs) |
-> > +                 AMD_FMT_MOD_SET(DCC, 1) |
-> > +                 AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> > +                 AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> > +                 AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
-> > +
-> >       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> >                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> >                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> > @@ -4829,6 +4839,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device *adev,
-> >                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> >                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
-> >
-> > +     add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                 AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                 AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> > +                 AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                 AMD_FMT_MOD_SET(PACKERS, pkrs) |
-> > +                 AMD_FMT_MOD_SET(DCC, 1) |
-> > +                 AMD_FMT_MOD_SET(DCC_RETILE, 1) |
-> > +                 AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> > +                 AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> > +                 AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
-> > +
-> >       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> >                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> >                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> >
->
+https://lore.kernel.org/lkml/YSScWvpXeVXw%2Fed5@infradead.org/
+
+| > To take it out of line, I'm leaning towards the latter, creating a new
+| > file that is built based on the ARCH_HAS_PROTECTED_GUEST setting.
+| 
+| Yes.  In general everytime architectures have to provide the prototype
+| and not just the implementation of something we end up with a giant mess
+| sooner or later.  In a few cases that is still warranted due to
+| performance concerns, but i don't think that is the case here.
+
+So I think what Christoph means here is that you want to have the
+generic prototype defined in a header and arches get to implement it
+exactly to the letter so that there's no mess.
+
+As to what mess exactly, I'd let him explain that.
+
+> Because as demonstrated in my previous response some days ago, taking that
+> outline ends up with an unneccessary ugly generated code and we don't
+> benefit front GCC's capability to fold in and opt out unreachable code.
+
+And this is real fast path where a couple of instructions matter or what?
+
+set_memory_encrypted/_decrypted doesn't look like one to me.
+
+> I can't see your point here. Inlining the function wouldn't add any
+> ifdeffery as far as I can see.
+
+If the function is touching defines etc, they all need to be visible.
+If that function needs to call other functions - which is the case on
+x86, perhaps not so much on power - then you need to either ifdef around
+them or provide stubs with ifdeffery in the headers. And you need to
+make them global functions instead of keeping them static to the same
+compilation unit, etc, etc.
+
+With a separate compilation unit, you don't need any of that and it is
+all kept in that single file.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
