@@ -3,67 +3,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA03AC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 16:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37129C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 16:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 340A560F38
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 16:12:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 340A560F38
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jcline.org
+	by mail.kernel.org (Postfix) with ESMTPS id 0435E61242
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 16:40:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0435E61242
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 799E86E976;
-	Wed, 15 Sep 2021 16:12:29 +0000 (UTC)
-X-Greylist: delayed 565 seconds by postgrey-1.36 at gabe;
- Wed, 15 Sep 2021 16:00:25 UTC
-Received: from a8-61.smtp-out.amazonses.com (a8-61.smtp-out.amazonses.com
- [54.240.8.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2666E972;
- Wed, 15 Sep 2021 16:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=jdcmspyxk3papgv75oy2heb62hybqlxr; d=jcline.org; t=1631721059;
- h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:MIME-Version:Content-Transfer-Encoding;
- bh=6cZlNTQVzgnWdijsvjqjYm5Rce0lZ5PkihJv1QJEl2s=;
- b=ES9/cjo8snKAOa36wdqVSXhWYoPfrhlJsMIlt+y5wIe7lyE455BXRcBzUHt5es9j
- QOfd9EeDvjmqaqjvujPjJWJZwHX/+6mg2Ef/wZZmQ4kPDSDrHC9eZF7zq4JFJ49rc8s
- 9JDW2ass0M5nefQgH21a32YnFz4gA54cw9HpHFlM=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug; d=amazonses.com; t=1631721059;
- h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:MIME-Version:Content-Transfer-Encoding:Feedback-ID;
- bh=6cZlNTQVzgnWdijsvjqjYm5Rce0lZ5PkihJv1QJEl2s=;
- b=IGyNmfHUu4VEl2JW6Luzr38O0ZA/AuOzt74aTB84CND22Q1ADZuara9dbZOLRDu2
- aQVTfsWeEuTBkvfBDWVkpX+tZz5IUhZ+SEBBnRGLWNhP7YI2a51Z3A13GOtf/YtpLkf
- SC8gEJzIQvoKTX6Ifvc1Dugq5fcj94BNqm0pJjkw=
-Message-ID: <0100017bea276ec1-3b320d5b-3997-4024-8339-0f39f90ee991-000000@email.amazonses.com>
-Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
-From: Jeremy Cline <jeremy@jcline.org>
-To: Pekka Paalanen <ppaalanen@gmail.com>, Harry Wentland
- <harry.wentland@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com, 
- Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com, 
- Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com, 
- Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com, 
- laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com, Brian Starkey
- <brian.starkey@arm.com>
-Date: Wed, 15 Sep 2021 15:50:58 +0000
-In-Reply-To: <20210915170127.31377385@eldfell>
-References: <20210730204134.21769-1-harry.wentland@amd.com>
- <20210730204134.21769-2-harry.wentland@amd.com>
- <20210915170127.31377385@eldfell>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE9AE6E97E;
+	Wed, 15 Sep 2021 16:40:05 +0000 (UTC)
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFEDD6E97E;
+ Wed, 15 Sep 2021 16:40:04 +0000 (UTC)
+Received: by mail-il1-x129.google.com with SMTP id b8so3557001ilh.12;
+ Wed, 15 Sep 2021 09:40:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wDt8RHYkskYH5bCZrpjTNsOpmRiTxdwpQyKpfX6RY3A=;
+ b=c4nZOkxKhXrjzF+4aRawGgyBeuDQjMquxOQaXTLEjRuUh9Clvwgifr3VCvJ+3/BnMd
+ H3TsbOAAgDWfqJzfVi5rFN4vIsbwBxEJC/5SBt9ACtoMTKx0xS8dGLP8hlDxAE3qEeyj
+ aiUe7xoACIfeh/0AgBCa6WZklAaroRxXjZhxO0yGjFaCuUBgbCeHVIYWMNACkC6LczMr
+ Z/L9VPYLKhPHKwXF0GqI2tDWYGe4MsnOMPtlS3mLR8eGsmJXlWpzHeDtEwlL74nmtuLA
+ 8EtEkknEf0/uwfoyjNZPi4pZeTvv29i2rnJ1bXCqpf/4h5uwmcZgHRNdS5ND5bsMvC9n
+ H2Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wDt8RHYkskYH5bCZrpjTNsOpmRiTxdwpQyKpfX6RY3A=;
+ b=bBS9eXYcTJ+jzT9x1ebGkgxA/t7+Wly8Nl+lV0XeL6a6eaMhGrNGwny2HQLBBkFWNi
+ JNkM8pk6QSSdShTk3PXE+r5LwgWGRv/PTa6j2dhEiYmWLMxJO8uZXx6ml0CzFXuPCrVp
+ hS7HFl/tuNAdmR0z6ZRcBCBfeBqF81l7tFfyjRWxg8fsHu4Xgn/ufPGuL0Aj2EKhNS5w
+ imbwi43CcY1IKf2gkvbeXZVzPx8h1U8gQTAPkXljjsRfHGrSIwsf7Ju6FgTZ+1RA44hM
+ vYdMe7ozFXf0+LaEJRmjvzWF72cRROuGm92gIfZg1hgd11J/LSaDd0mOs0hTy1mvil2g
+ AV5w==
+X-Gm-Message-State: AOAM5314FxmtlbTn6k3U5AqPWZT1TcwREc93RmAMC19RQ5V9ph0rBOdb
+ 7JArfULZhh2ZH/7eFjHvVJw=
+X-Google-Smtp-Source: ABdhPJy5WFtRgBXIOMhVv5W9EirkoNRgDbTYeUFkQJ/30M5ye1Y7oMEnSngpAqjZtlR4c3M+5BW8vg==
+X-Received: by 2002:a92:d84f:: with SMTP id h15mr737927ilq.42.1631724003998;
+ Wed, 15 Sep 2021 09:40:03 -0700 (PDT)
+Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
+ by smtp.googlemail.com with ESMTPSA id a5sm299540ilf.27.2021.09.15.09.40.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Sep 2021 09:40:03 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch
+Cc: Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v8 00/16] use DYNAMIC_DEBUG to implement DRM.debug
+Date: Wed, 15 Sep 2021 10:39:41 -0600
+Message-Id: <20210915163957.2949166-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Feedback-ID: 1.us-east-1.z18Isoc/FaoPOvCyJyi1mnTt8STwoRuibXVNoUcvG6g=:AmazonSES
-X-SES-Outgoing: 2021.09.15-54.240.8.61
-X-Mailman-Approved-At: Wed, 15 Sep 2021 16:12:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,88 +82,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2021-09-15 at 17:01 +0300, Pekka Paalanen wrote:
-> On Fri, 30 Jul 2021 16:41:29 -0400
-> Harry Wentland <harry.wentland@amd.com> wrote:
-> 
-> > Use the new DRM RFC doc section to capture the RFC previously only
-> > described in the cover letter at
-> > https://patchwork.freedesktop.org/series/89506/
-> > 
-> > v3:
-> >  * Add sections on single-plane and multi-plane HDR
-> >  * Describe approach to define HW details vs approach to define SW
-> > intentions
-> >  * Link Jeremy Cline's excellent HDR summaries
-> >  * Outline intention behind overly verbose doc
-> >  * Describe FP16 use-case
-> >  * Clean up links
-> > 
-> > v2: create this doc
-> > 
-> > v1: n/a
-> > 
-> > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> 
-> Hi Harry,
-> 
-> I finally managed to go through this, comments below. Excellent to
-> have
-> pictures included. I wrote this reply over several days, sorry if
-> it's
-> not quite coherent.
-> 
-> 
-> 
-> 
+Hi Jason, Greg, Daniel, DRM folks,
 
-<snip>
+In DRM-debug currently, drm_debug_enabled() is called a lot to decide
+whether or not to write debug messages.  Each test is cheap, but costs
+continue with uptime.  DYNAMIC_DEBUG "dyndbg", when built with
+JUMP_LABEL, replaces each of those tests with a patchable NOOP, for
+"zero cost when off" debugs.
 
-> > +
-> > +
-> > +Overview and background
-> > +=======================
-> > +
-> > +I highly recommend you read `Jeremy Cline's HDR primer`_
-> > +
-> > +Jeremy Cline did a much better job describing this. I highly
-> > recommend
-> > +you read it at [1]:
-> > +
-> > +.. _Jeremy Cline's HDR primer:
-> > https://www.jcline.org/blog/fedora/graphics/hdr/2021/05/07/hdr-in-linux-p1.html
-> 
-> That's a nice write-up I didn't know about, thanks.
-> 
-> I just wish such write-ups would be somehow peer-reviewed for
-> correctness and curated for proper referencing. Perhaps like we
-> develop
-> code: at least some initial peer review and then fixes when anyone
-> notices something to improve. Like... what you are doing here! :-)
-> 
-> The post is perhaps a bit too narrow with OETF/EOTF terms,
-> accidentally
-> implying that OETF = EOTF^-1 which is not generally true, but that
-> all
-> depends on which O-to-E or E-to-O functions one is talking about.
-> Particularly there is a difference between functions used for signal
-> compression which needs an exact matching inverse function, and
-> functions containing tone-mapping and artistic effects that when
-> concatenated result in the (non-identity) OOTF.
-> 
-> Nothing in the post seems to disagree with my current understanding
-> FWI'mW.
+Broadly, this patchset does 3 things, in 2 trees:
 
-I'm more than happy to update things that are incorrect or mis-leading
-since the last thing I want to do is muddy the waters. Personally, I
-would much prefer that any useful content from it be peer-reviewed and
-included directly in the documentation since, well, it's being hosted
-out of my laundry room and the cats have a habit of turning off the
-UPS...
+Adds DEFINE_DYNAMIC_DEBUG_CATEGORIES, which defines a mapping from
+bits to "categorized" pr_debugs, a sysfs interface, and callbacks to
+implement the bits as dynamic_debug >controls.  This is modelled after
+DRM's debug interface.
 
-Do let me know if I can be of any assistance there; I'm no longer
-employed to do anything HDR-related, but I do like clear documentation
-so I could dedicate a bit of free time to it.
+Uses the new macro in amdgpu & i915 to control existing pr_debugs
+according to their ad-hoc categorizations.
 
-- Jeremy
+Adapts the drm-debug API (~20 macros) to configurably "replace"
+drm_dbg & drm_dev_dbg with pr_debug & dev_dbg, which avoids
+drm_debug_enabled() overheads.  CONFIG_DRM_USE_DYNAMIC_DEBUG controls
+this; the memory costs are substantial (many new/converted drm
+callsites, 56 bytes/pr_debug), so the choice should be made by the
+user.
+
+       	       #prdbgs  KiB     #with DRM_USE_DYNAMIC_DEBUG=y
+  kernel       3079	166k
+  drm		  1	.06k     376	 21k
+  drm_kms_helper		 207	 12k
+  i915	        167	9.3k	1811	101k
+  amdgpu       2339	130k	3917	220k
+  nouveau      	  3	.17k	 105	~60k
+
+DEFINE_DYNAMIC_DEBUG_CATEGORIES is used to create the controlling
+bitmap, which is wired to __drm_debug var so remaining
+drm_debug_enabled() users stay in sync.
+
+this is v8:
+- 7 small tweaks to dyndbg pr-infos etc, no functional changes
+- drop help field from dyndbg_bitdesc
+- simplify declarative interface
+- move ^ anchor, trailing space to macro helper
+  this makes callback slightly more generic
+- i915/gvt move code, Makefile bits per Tvrtko
+- mem cost numbers
+- more CI fixes
+
+I think the dyndbg patches qualify to get in this cycle; all but the
+last are no-functional-changes, the last is a new feature (which uses
+existing mechanics without any adjustments), and has no users yet, so
+it can't cause regressions.
+
+Obviously, DRM is the anticipated user.  I've fixed the patchwork CI
+problems I have seen on v6, v7, and lkp-robot reports since.  Since
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by default, it should have seen "on"
+testing, not just "off" testing.
+
+Jim Cromie (16):
+
+Dyndbg no-functional-changes chunk:
+  dyndbg: add module to a vpr-info in dd-exec-queries
+  dyndbg: pr-info in boot-param should say so
+  dyndbg: rationalize verbosity
+  dyndbg: use alt-quotes in vpr-infos, not those user might use
+  dyndbg: vpr-info on remove-module complete, not starting
+  dyndbg: no vpr-info on empty queries
+  dyndbg-doc: fix bootparam usage example (possible conflict
+
+New Feature, using unchanged mechanisms:  
+  dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES bitmap and callbacks
+
+DRM 1st user(s):
+  drm: fix doc grammar error
+  i915/gvt: remove spaces in pr_debug "gvt: core:" etc prefixes
+  i915/gvt: use DEFINE_DYNAMIC_DEBUG_CATEGORIES for existing prdbgs
+  amdgpu: use DEFINE_DYNAMIC_DEBUG_CATEGORIES on existing prdbgs
+  drm_print: add choice to use dynamic debug in drm-debug
+  drm_print: instrument drm_debug_enabled
+  amdgpu_ucode: reduce number of pr_debug calls
+  nouveau: fold multiple DRM_DEBUG_DRIVERs together
+
+ .../admin-guide/dynamic-debug-howto.rst       |   8 +-
+ drivers/gpu/drm/Kconfig                       |  26 ++
+ drivers/gpu/drm/Makefile                      |   3 +
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 293 ++++++++++--------
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |  43 ++-
+ drivers/gpu/drm/drm_print.c                   |  53 +++-
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
+ drivers/gpu/drm/i915/intel_gvt.c              |  34 ++
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  36 ++-
+ include/drm/drm_drv.h                         |   2 +-
+ include/drm/drm_print.h                       | 184 ++++++++---
+ include/linux/dynamic_debug.h                 |  62 ++++
+ lib/dynamic_debug.c                           | 121 ++++++--
+ 15 files changed, 650 insertions(+), 237 deletions(-)
+
+-- 
+2.31.1
 
