@@ -2,81 +2,98 @@ Return-Path: <SRS0=YYL8=OG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7A49C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:22:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01527C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7270860EE4
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:22:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7270860EE4
+	by mail.kernel.org (Postfix) with ESMTPS id 7460B60F21
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 12:31:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7460B60F21
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA0F6ED9C;
-	Thu, 16 Sep 2021 12:22:20 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 729D66ED9D
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 12:22:19 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id y132so4683093wmc.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 05:22:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 319B06EDA1;
+	Thu, 16 Sep 2021 12:31:39 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCFBA6EDA1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 12:31:38 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id d21so9178833wra.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 05:31:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=kra6YnAjZWRTxxxAs5XQIepeGYfZ4Rx3fQ5J07pAZC0=;
- b=Sgd0sj9QY0NLxV60P3vHebBOc6lMVJFSimAys3nxgFTc3VemkUmSRGRxivjGMHg5Ug
- PdE4Ru0pMCmMQY6qepZpUP+R9xXRfliItw2gpfiyMqdZe4w044mbMk796T7MXYiarvaP
- nUQ6MdmLUWxHklsOG/efHNGRCp7RidhkJTVq8=
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=yVn4bOUftTP0XsVCYOhP2MVjOD5RXLBjZ2je0UhYRc0=;
+ b=UllxjW1pQN4AmYZEbLg7VrErGUqD+1ja2ihP7bNIWt/uTZGlmL71/XP9jjO6KhmKY0
+ fiRtXpVcCH1hQKOY2jdfchmwYGS0XP4lfMRLycLsW6+OfxpIvDESU51aAUOmrcst/rON
+ qWFSoQtqfz711rHCKql1DqY94oNcjEZ2J6WVI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
  :in-reply-to;
- bh=kra6YnAjZWRTxxxAs5XQIepeGYfZ4Rx3fQ5J07pAZC0=;
- b=F67TfjFcNqu5D3g6Dg9c1I5AVd48mU3MLFgOPWpT8WOmdjJt9uncPObehcmZTQArr6
- ujTgQ97CsP2GheLsu0mqwJZnT+xIO/wTtdG67FjEr3Q8mNewEf2wOUWP+92bnG3fEQKG
- kQ6hFKuxS53R/NmIacKmqa0xg9W/jqEnoxaIzCNQOfcBHX/7sD6taVzD4GLZxZNvY8Cd
- a8ztihfyXkzziVBO4fC4LGEZLj0Qe8uNmr1xuF62AJN1exJzy9fVGMgw9xI07Z5I5Q3C
- flEcc/CPrcurdeNT27+gxLRhzgYIe4kp8SvhQZKlizC4Y0BpnPRocon5DQ2n02L4xFGU
- YYnw==
-X-Gm-Message-State: AOAM532T1YUyQAkeqOVEVUjm9bfSWlq4Alm1GMtpIx6LDVfCXkg8CAJi
- PgxXo/xNbyvlq4n2uF7YTP4od94kNuH0cA==
-X-Google-Smtp-Source: ABdhPJwJfMMYdSV6bI2C56HmJ/PjTCy11r3L+lOlGxKtlwfQ/YOn+1pYdcpf7apFRCv1oBkQbSCe0w==
-X-Received: by 2002:a7b:c384:: with SMTP id s4mr4870333wmj.108.1631794937949; 
- Thu, 16 Sep 2021 05:22:17 -0700 (PDT)
+ bh=yVn4bOUftTP0XsVCYOhP2MVjOD5RXLBjZ2je0UhYRc0=;
+ b=FySK7yqCPgyroWrmtPguhh77459oa2rTxMTH5gwKIFRaFSlJPc+zqi3fN6uaXNC5tE
+ Uh/1RyC5MiIrrfSncUQlmLQxmVZ9xmv3FB4ZN8dZ22/94DLw8h/qvKHA35DGlw6SA8Dp
+ PlnsMN+Se+CQzauRvEAfG4OWgouuYJdMEO0IjB7mv27JdxiDmHWJkDdvsYi8gCZN2WRx
+ Rh/rALg8X2E5jm2e5c1uSpQbhiZkPMPvTd1YN/ksFDEGWnYMJ7+Zzngrm3wGQ2szS6Il
+ DROrEzRpCu44kk6GZUizpIWKZCYUVoJiqdr6LXJ1uyzZHaL3Qh+UGrKTvGUEaK/Fa5fk
+ TcCA==
+X-Gm-Message-State: AOAM530QmJ2M35Wn0hNYVZRWF5nYgYtZU4Z5YbI56awC5TXvj6LEVDzZ
+ YnxuBhYeBmUnVrAcH5we8NOleA==
+X-Google-Smtp-Source: ABdhPJyNeVVi6f4gVXn8CFkrZVMl66WAIJsG4jZYF2OG8FsFOYQQOCNHITS4sqBQA+1lZuWg++BXfA==
+X-Received: by 2002:a5d:6da9:: with SMTP id u9mr5766027wrs.155.1631795497459; 
+ Thu, 16 Sep 2021 05:31:37 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id 10sm7247206wmi.1.2021.09.16.05.22.16
+ by smtp.gmail.com with ESMTPSA id g5sm3285526wrq.80.2021.09.16.05.31.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Sep 2021 05:22:17 -0700 (PDT)
-Date: Thu, 16 Sep 2021 14:22:15 +0200
+ Thu, 16 Sep 2021 05:31:36 -0700 (PDT)
+Date: Thu, 16 Sep 2021 14:31:34 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>,
+To: Oded Gabbay <ogabbay@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [resend PATCH] drm/ttm: Fix a deadlock if the target BO is not
- idle during swap
-Message-ID: <YUM297WiEcIhTyAB@phenom.ffwll.local>
-References: <20210907040832.1107747-1-xinhui.pan@amd.com>
- <074efe24-db7a-df68-3624-05989596f44a@amd.com>
- <YTcrcw+hxWuyyl4C@phenom.ffwll.local>
- <37412f7e-9f6f-04bb-41b1-72931ea1381e@amd.com>
- <YTkAnDncKU7ewW+5@phenom.ffwll.local>
- <97ccbd16-ba3f-1b21-b6fb-5568d34f1af3@amd.com>
- <YUCowZxEhECTlgAH@phenom.ffwll.local>
- <e87ad40d-9c07-c307-2b61-75ecc3d0986c@gmail.com>
+ Gal Pressman <galpress@amazon.com>, Yossi Leybovich <sleybo@amazon.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>, Dave Airlie <airlied@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
+Subject: Re: [PATCH v6 0/2] Add p2p via dmabuf to habanalabs
+Message-ID: <YUM5JoMMK7gceuKZ@phenom.ffwll.local>
+Mail-Followup-To: Oded Gabbay <ogabbay@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Gal Pressman <galpress@amazon.com>,
+ Yossi Leybovich <sleybo@amazon.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>, Dave Airlie <airlied@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
+References: <20210912165309.98695-1-ogabbay@kernel.org>
+ <YUCvNzpyC091KeaJ@phenom.ffwll.local>
+ <20210914161218.GF3544071@ziepe.ca>
+ <CAFCwf13322953Txr3Afa_MomuD148vnfpEog0xzW7FPWH9=6fg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e87ad40d-9c07-c307-2b61-75ecc3d0986c@gmail.com>
+In-Reply-To: <CAFCwf13322953Txr3Afa_MomuD148vnfpEog0xzW7FPWH9=6fg@mail.gmail.com>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,119 +109,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 15, 2021 at 12:05:30PM +0200, Christian König wrote:
-> Am 14.09.21 um 15:50 schrieb Daniel Vetter:
-> > On Thu, Sep 09, 2021 at 09:10:39AM +0200, Christian König wrote:
-> > > Am 08.09.21 um 20:27 schrieb Daniel Vetter:
-> > > > On Tue, Sep 07, 2021 at 11:28:23AM +0200, Christian König wrote:
-> > > > > Am 07.09.21 um 11:05 schrieb Daniel Vetter:
-> > > > > > On Tue, Sep 07, 2021 at 08:22:20AM +0200, Christian König wrote:
-> > > > > > > Added a Fixes tag and pushed this to drm-misc-fixes.
-> > > > > > We're in the merge window, this should have been drm-misc-next-fixes. I'll
-> > > > > > poke misc maintainers so it's not lost.
-> > > > > Hui? It's a fix for a problem in stable and not in drm-misc-next.
-> > > > Ah the flow chart is confusing. There is no current -rc, so it's always
-> > > > -next-fixes. Or you're running the risk that it's lost until after -rc1.
-> > > > Maybe we should clarify that "is the bug in current -rc?" only applies if
-> > > > there is a current -rc.
-> > > Yeah, I've noticed this as well.
-> > > 
-> > > But when there is no current -rc because we are in the merge window then the
-> > > question is how do I submit patches to the current stable?
-> > You never submit patches directly to stable. It's always "get it into
-> > Linus' tree asap" plus either Cc: stable or a Fixes: line.
-> 
-> But what if the code in drm-misc-next-fixes has been restructured and
-> doesn't have that issue any more?
-> 
-> How do I get the patch into stable then? Submitting directly to Greg?
+On Wed, Sep 15, 2021 at 10:45:36AM +0300, Oded Gabbay wrote:
+> On Tue, Sep 14, 2021 at 7:12 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> >
+> > On Tue, Sep 14, 2021 at 04:18:31PM +0200, Daniel Vetter wrote:
+> > > On Sun, Sep 12, 2021 at 07:53:07PM +0300, Oded Gabbay wrote:
+> > > > Hi,
+> > > > Re-sending this patch-set following the release of our user-space TPC
+> > > > compiler and runtime library.
+> > > >
+> > > > I would appreciate a review on this.
+> > >
+> > > I think the big open we have is the entire revoke discussions. Having the
+> > > option to let dma-buf hang around which map to random local memory ranges,
+> > > without clear ownership link and a way to kill it sounds bad to me.
+> > >
+> > > I think there's a few options:
+> > > - We require revoke support. But I've heard rdma really doesn't like that,
+> > >   I guess because taking out an MR while holding the dma_resv_lock would
+> > >   be an inversion, so can't be done. Jason, can you recap what exactly the
+> > >   hold-up was again that makes this a no-go?
+> >
+> > RDMA HW can't do revoke.
 
-Yes, that's the exception. With a reference to the commit in Linus' tree
-that resolves the issue, and an explainer why you need something else as a
-backport.
+Like why? I'm assuming when the final open handle or whatever for that MR
+is closed, you do clean up everything? Or does that MR still stick around
+forever too?
 
-https://dri.freedesktop.org/docs/drm/process/stable-kernel-rules.html#option-3
+> > So we have to exclude almost all the HW and several interesting use
+> > cases to enable a revoke operation.
+> >
+> > >   - For non-revokable things like these dma-buf we'd keep a drm_master
+> > >     reference around. This would prevent the next open to acquire
+> > >     ownership rights, which at least prevents all the nasty potential
+> > >     problems.
+> >
+> > This is what I generally would expect, the DMABUF FD and its DMA
+> > memory just floats about until the unrevokable user releases it, which
+> > happens when the FD that is driving the import eventually gets closed.
+> This is exactly what we are doing in the driver. We make sure
+> everything is valid until the unrevokable user releases it and that
+> happens only when the dmabuf fd gets closed.
+> And the user can't close it's fd of the device until he performs the
+> above, so there is no leakage between users.
 
-Cheers, Daniel
+Maybe I got the device security model all wrong, but I thought Guadi is
+single user, and the only thing it protects is the system against the
+Gaudi device trhough iommu/device gart. So roughly the following can
+happen:
 
-> 
-> Thanks,
-> Christian.
-> 
-> >   During merge
-> > window "get into Linus' tree asap" means "put it into drm-misc-next-fixes"
-> > 
-> > > In other words this patch here is really for 5.14 and should then be
-> > > backported to 5.13 and maybe even 5.10 as well.
-> > > 
-> > > The code was restructured for 5.15 and I even need to double check if that
-> > > still applies there as well.
-> > > 
-> > > Or should I send patches like those directly to Greg?
-> > Nope. Just fastest path into Linus' tree is good enough. Greg picks up
-> > patches directly from the merge window if it has one of the tags. There's
-> > occasionally a bit of grumbling because there's so many stable patches
-> > coming in during the merge window, but otherwise it should be in stable in
-> > the next release like during -rc phase.
-> > -Daniel
-> > 
-> > > Regards,
-> > > Christian.
-> > > 
-> > > > Anyway Thomas sent out a pr, so it's all good.
-> > > > -Daniel
-> > > > 
-> > > > > Christian.
-> > > > > 
-> > > > > > -Daniel
-> > > > > > 
-> > > > > > > It will take a while until it cycles back into the development branches, so
-> > > > > > > feel free to push some version to amd-staging-drm-next as well. Just ping
-> > > > > > > Alex when you do this.
-> > > > > > > 
-> > > > > > > Thanks,
-> > > > > > > Christian.
-> > > > > > > 
-> > > > > > > Am 07.09.21 um 06:08 schrieb xinhui pan:
-> > > > > > > > The ret value might be -EBUSY, caller will think lru lock is still
-> > > > > > > > locked but actually NOT. So return -ENOSPC instead. Otherwise we hit
-> > > > > > > > list corruption.
-> > > > > > > > 
-> > > > > > > > ttm_bo_cleanup_refs might fail too if BO is not idle. If we return 0,
-> > > > > > > > caller(ttm_tt_populate -> ttm_global_swapout ->ttm_device_swapout) will
-> > > > > > > > be stuck as we actually did not free any BO memory. This usually happens
-> > > > > > > > when the fence is not signaled for a long time.
-> > > > > > > > 
-> > > > > > > > Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-> > > > > > > > Reviewed-by: Christian König <christian.koenig@amd.com>
-> > > > > > > > ---
-> > > > > > > >      drivers/gpu/drm/ttm/ttm_bo.c | 6 +++---
-> > > > > > > >      1 file changed, 3 insertions(+), 3 deletions(-)
-> > > > > > > > 
-> > > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > > index 8d7fd65ccced..23f906941ac9 100644
-> > > > > > > > --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > > @@ -1152,9 +1152,9 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
-> > > > > > > >      	}
-> > > > > > > >      	if (bo->deleted) {
-> > > > > > > > -		ttm_bo_cleanup_refs(bo, false, false, locked);
-> > > > > > > > +		ret = ttm_bo_cleanup_refs(bo, false, false, locked);
-> > > > > > > >      		ttm_bo_put(bo);
-> > > > > > > > -		return 0;
-> > > > > > > > +		return ret == -EBUSY ? -ENOSPC : ret;
-> > > > > > > >      	}
-> > > > > > > >      	ttm_bo_del_from_lru(bo);
-> > > > > > > > @@ -1208,7 +1208,7 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
-> > > > > > > >      	if (locked)
-> > > > > > > >      		dma_resv_unlock(bo->base.resv);
-> > > > > > > >      	ttm_bo_put(bo);
-> > > > > > > > -	return ret;
-> > > > > > > > +	return ret == -EBUSY ? -ENOSPC : ret;
-> > > > > > > >      }
-> > > > > > > >      void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
-> 
+1. User A opens gaudi device, sets up dma-buf export
 
+2. User A registers that with RDMA, or anything else that doesn't support
+revoke.
+
+3. User A closes gaudi device
+
+4. User B opens gaudi device, assumes that it has full control over the
+device and uploads some secrets, which happen to end up in the dma-buf
+region user A set up
+
+5. User B extracts secrets.
+
+> > I still don't think any of the complexity is needed, pinnable memory
+> > is a thing in Linux, just account for it in mlocked and that is
+> > enough.
+
+It's not mlocked memory, it's mlocked memory and I can exfiltrate it.
+Mlock is fine, exfiltration not so much. It's mlock, but a global pool and
+if you didn't munlock then the next mlock from a completely different user
+will alias with your stuff.
+
+Or is there something that prevents that? Oded at least explain that gaudi
+works like a gpu from 20 years ago, single user, no security at all within
+the device.
+-Daniel
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
