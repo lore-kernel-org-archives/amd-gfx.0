@@ -7,65 +7,65 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4078C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A5B6C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7CB560E94
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7CB560E94
+	by mail.kernel.org (Postfix) with ESMTPS id 5810060E94
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5810060E94
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 147D36E92C;
-	Thu, 16 Sep 2021 21:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED4436EA46;
+	Thu, 16 Sep 2021 21:26:07 +0000 (UTC)
 Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
  [64.147.123.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 393276E92C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A65B6E93E;
  Thu, 16 Sep 2021 21:25:56 +0000 (UTC)
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.west.internal (Postfix) with ESMTP id 770D12B011F1;
- Thu, 16 Sep 2021 17:16:33 -0400 (EDT)
+ by mailnew.west.internal (Postfix) with ESMTP id 0482B2B011FA;
+ Thu, 16 Sep 2021 17:16:55 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Thu, 16 Sep 2021 17:16:34 -0400
+ by compute1.internal (MEProxy); Thu, 16 Sep 2021 17:16:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=1r7LWPE1P9TLq
- xYrOWDtBdsKuquMjbMq3eXbPJVwAkU=; b=jpAOhRqjEhRlLhb0UCB1SBFbWNzJn
- 4eZ1IKoY9P33uxOGD+Jx3xZpvwYdchMi9do2op7Glg3Uj0rNoAxJppAN1Eipf0CW
- +BtIg2r+Pckv3nQZHfTZAF+ZPgyvMqMmoo1gQJUtWYkqwEZKJn3DqR8D9mtGS8Yi
- yc9+8BSzDo+Bb4B7b8kNL4d3nZFOFL3h/k3Ed3IW5dim4SD4g6sAQZcmE2uzX/fv
- YLGWg030xfEUbE7Gis/9wiQrs32EgmZORBdFxQPX05Go1bDx7d5FO6TuNCxSUDwA
- 2EU7+UdM/CLFmjh3xnZ1B4NvuxXVW6hcSLlyuhkvdZd/wJjY06CkFK1JQ==
+ :mime-version:content-transfer-encoding; s=fm3; bh=RqF2Gla2XhI9m
+ prps508DrdpwyciwaRKEB2FwzxqOi0=; b=UwPnE7X4zxy+qg3JPQDeKNTnE/b4u
+ MvDMpm5++SYIo10YK52Qnjr/xU3RPIn2gRPABy5PX+RF4FIWSC50mTixX9jasj60
+ wxKtRmHQprtDWqTjJwL6D4vOVBL5aLrPwlEpbH+Lp0E21xEaSqI7T2a1uuIYVZYS
+ UkI0d8R6vN+a/PjbygfKmogg9Fz0k/3TWcGmT5ngKDnWO+Q57VfqSzS7+LUSbMeT
+ vMtQr4ITaniLBpSC1niiN9vjOTPbWodBK8WYahs4eszgjZSbN9LGw/83SPmY3fO+
+ ICOYG5hZaYFvjf4Nq90nJtA/6ZS65nJgyKs46DxeoZ3JkrDYBknqESv6A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=1r7LWPE1P9TLqxYrOWDtBdsKuquMjbMq3eXbPJVwAkU=; b=whauIIAr
- ZQ4Cya774GC22WqDwm9LEM/rjTTTLyeWPfzHoBGmmGab4mrHg4QV8QUtX0YFW2gQ
- d2LirD9Hzl40r2fkltirEmq+sVhDzDttRXKGMKgykmgoW/EV6DhiGxoXPfJj+Kts
- z1hDg9FEghPCVvTDeSBi9dgq1TttB1q4qn6p0LMjpGWNZrsGZUmA4swVz3llC02J
- 9FzVXpNXYvVxCN/3HuDSdtUe2VGoE+WJNpVg9tqLBaOs2KZnBoSFKO9p4gX7B6AX
- utMzUJkYPqFYOGNS5LfrWaTsOdgfLgIFdgAAPOraBYtFY/jD4nzdWFsFpy2C0yii
- 72W8ofvVbS8akg==
-X-ME-Sender: <xms:MbRDYdOzDGiISU8cw_n7zdvgHYNil1Cq9jel4sFd2G8j9TssQ6gqhQ>
- <xme:MbRDYf8-cr-CviJzFsyJZlq396bdvrYt0CT-hInjIBLShSwNcKGUjDZgRe5ivGFmn
- FC5_xq5HR0FhVX6jg>
-X-ME-Received: <xmr:MbRDYcREslTJNuaydz3R3Z6YMk9X2M040bGuILL7MZTstcmSm4k1-U9OokhMve3H1b0Q>
+ fm3; bh=RqF2Gla2XhI9mprps508DrdpwyciwaRKEB2FwzxqOi0=; b=usiSwk+4
+ P/UjUIXnDBiWHuSGxZKDwbQsIqF4vKNP6aE9l6ezB/oJoVH5spI1eO8Bi1GOQN1z
+ wmrLRqnvms7ofJTjAXsYRQdAOtTX0v6G6wEZftHz++JqV9plKhEAJNJJQkPnnw8r
+ 6Pj7sdQ+63i4NyOCNw5PwYRZGWWRD0ER0NUJDRJOgwcxuX5vZNX5ClJU0vz17dff
+ sDkcYQY6qkQWLHhTY865+UX4Yo4QFT+XVryb0kVobD0fqeVTsE4rEr9ngoo2PIb+
+ Po2m00K+i8t7ct3lQ7rKsJpZlVxjJUbX4YCnsFB51iBXMBcC5I0UC7MtOI2UACYo
+ NugxTd03REQjdg==
+X-ME-Sender: <xms:R7RDYYKggGlvJfaocuvduMKsghrvXR24AldXorFYlf4TFLaU_ybTWA>
+ <xme:R7RDYYI_x3dxK8lt-c-FI4xZLKhJw5_jwcmPXR3nBOrZxtTCAhVT0Qk0u9i1rhYeH
+ CJczg5v7cR38BkZ7Q>
+X-ME-Received: <xmr:R7RDYYsuHUKnzy4FTEVIvc2VFf1_oJpBAI5rEmZe6UcgA5zDm3LFMDMjT2UizdJxObyd>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehfecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
  ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedunecu
+ fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedvnecu
  rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:MbRDYZvLQts_TQ88W4FlqT42rNgFvy_5UzrZaB7dfEgAX7SMu21qRQ>
- <xmx:MbRDYVe3hbf-NBP-cE0NoFHBxuxrCLVLeyEcx5oMYEFNMYOPWGyxGw>
- <xmx:MbRDYV3WwT3-kSs93mapfHT15cCsEpy5BtG4sLBiu_PqP7zalS5Slw>
- <xmx:MbRDYR4J3rCl4APUp5DKMOVI4QALm5i80cI-s0Ra6l05dGeeDGeJd_bM4C0>
+X-ME-Proxy: <xmx:R7RDYVYfRRXWgy7WfviELGXjfs8rz4hiYJymAmDPpChiC4q5fDFMog>
+ <xmx:R7RDYfZfIdwfgnro-NaeEqdyl9j3WIc0IOjwv6Djh9pconC06HaGIw>
+ <xmx:R7RDYRB8GwITT1SKLxWujqJNtI_gtlVxENRhrgdYJjXgev05LIsuuA>
+ <xmx:R7RDYZnB2IBgIZgcnAxUp0prOlA2aPblvwEWvWuNCmGJ7xvhV9-Eyo9UoxM>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Sep 2021 17:16:30 -0400 (EDT)
+ 16 Sep 2021 17:16:52 -0400 (EDT)
 From: Fernando Ramos <greenfoo@u92.eu>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
@@ -73,10 +73,10 @@ Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org
-Subject: [PATCH 08/15] drm/radeon: cleanup: drm_modeset_lock_all() -->
+Subject: [PATCH 13/15] drm/gma500: cleanup: drm_modeset_lock_all() -->
  DRM_MODESET_LOCK_ALL_BEGIN()
-Date: Thu, 16 Sep 2021 23:15:45 +0200
-Message-Id: <20210916211552.33490-9-greenfoo@u92.eu>
+Date: Thu, 16 Sep 2021 23:15:50 +0200
+Message-Id: <20210916211552.33490-14-greenfoo@u92.eu>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
 References: <20210916211552.33490-1-greenfoo@u92.eu>
@@ -102,102 +102,75 @@ DRM_MODESET_LOCK_ALL_END()
 
 Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
 ---
- drivers/gpu/drm/radeon/radeon_device.c | 13 +++++++++----
- drivers/gpu/drm/radeon/radeon_dp_mst.c |  7 +++++--
- 2 files changed, 14 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/gma500/psb_device.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 4f0fbf667431..3feb1fd44409 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -37,6 +37,7 @@
- #include <drm/drm_cache.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
+diff --git a/drivers/gpu/drm/gma500/psb_device.c b/drivers/gpu/drm/gma500/psb_device.c
+index 951725a0f7a3..4e27f65a1f16 100644
+--- a/drivers/gpu/drm/gma500/psb_device.c
++++ b/drivers/gpu/drm/gma500/psb_device.c
+@@ -8,6 +8,7 @@
+ #include <linux/backlight.h>
+ 
+ #include <drm/drm.h>
 +#include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/radeon_drm.h>
-@@ -1559,7 +1560,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 	struct pci_dev *pdev;
+ 
+ #include "gma_device.h"
+ #include "intel_bios.h"
+@@ -169,8 +170,10 @@ static int psb_save_display_registers(struct drm_device *dev)
+ {
+ 	struct drm_psb_private *dev_priv = dev->dev_private;
  	struct drm_crtc *crtc;
- 	struct drm_connector *connector;
 +	struct drm_modeset_acquire_ctx ctx;
- 	int i, r;
+ 	struct gma_connector *connector;
+ 	struct psb_state *regs = &dev_priv->regs.psb;
 +	int ret;
  
- 	if (dev == NULL || dev->dev_private == NULL) {
- 		return -ENODEV;
-@@ -1573,12 +1576,12 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
+ 	/* Display arbitration control + watermarks */
+ 	regs->saveDSPARB = PSB_RVDC32(DSPARB);
+@@ -183,7 +186,7 @@ static int psb_save_display_registers(struct drm_device *dev)
+ 	regs->saveCHICKENBIT = PSB_RVDC32(DSPCHICKENBIT);
  
- 	drm_kms_helper_poll_disable(dev);
- 
+ 	/* Save crtc and output state */
 -	drm_modeset_lock_all(dev);
 +	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	/* turn off display hw */
- 	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
- 		drm_helper_connector_dpms(connector, DRM_MODE_DPMS_OFF);
- 	}
+ 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
+ 		if (drm_helper_crtc_in_use(crtc))
+ 			dev_priv->ops->save_crtc(crtc);
+@@ -193,7 +196,8 @@ static int psb_save_display_registers(struct drm_device *dev)
+ 		if (connector->save)
+ 			connector->save(&connector->base);
+ 
 -	drm_modeset_unlock_all(dev);
 +	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++
+ 	return 0;
+ }
  
- 	/* unpin the front buffers and cursors */
- 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
-@@ -1663,7 +1666,9 @@ int radeon_resume_kms(struct drm_device *dev, bool resume, bool fbcon)
- 	struct radeon_device *rdev = dev->dev_private;
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
+@@ -207,8 +211,10 @@ static int psb_restore_display_registers(struct drm_device *dev)
+ {
+ 	struct drm_psb_private *dev_priv = dev->dev_private;
  	struct drm_crtc *crtc;
 +	struct drm_modeset_acquire_ctx ctx;
- 	int r;
+ 	struct gma_connector *connector;
+ 	struct psb_state *regs = &dev_priv->regs.psb;
 +	int ret;
  
- 	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
- 		return 0;
-@@ -1741,11 +1746,11 @@ int radeon_resume_kms(struct drm_device *dev, bool resume, bool fbcon)
- 	if (fbcon) {
- 		drm_helper_resume_force_mode(dev);
- 		/* turn on display hw */
--		drm_modeset_lock_all(dev);
-+		DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 		list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
- 			drm_helper_connector_dpms(connector, DRM_MODE_DPMS_ON);
- 		}
--		drm_modeset_unlock_all(dev);
-+		DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 	}
- 
- 	drm_kms_helper_poll_enable(dev);
-diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-index ec867fa880a4..04fe7b0a6746 100644
---- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-+++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-@@ -4,6 +4,7 @@
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_file.h>
- #include <drm/drm_probe_helper.h>
-+#include <drm/drm_drv.h>
- 
- #include "atom.h"
- #include "ni_reg.h"
-@@ -737,11 +738,13 @@ static int radeon_debugfs_mst_info_show(struct seq_file *m, void *unused)
- 	struct radeon_device *rdev = (struct radeon_device *)m->private;
- 	struct drm_device *dev = rdev->ddev;
- 	struct drm_connector *connector;
-+	struct drm_modeset_acquire_ctx ctx;
- 	struct radeon_connector *radeon_connector;
- 	struct radeon_connector_atom_dig *dig_connector;
- 	int i;
-+	int ret;
+ 	/* Display arbitration + watermarks */
+ 	PSB_WVDC32(regs->saveDSPARB, DSPARB);
+@@ -223,7 +229,7 @@ static int psb_restore_display_registers(struct drm_device *dev)
+ 	/*make sure VGA plane is off. it initializes to on after reset!*/
+ 	PSB_WVDC32(0x80000000, VGACNTRL);
  
 -	drm_modeset_lock_all(dev);
 +	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
- 		if (connector->connector_type != DRM_MODE_CONNECTOR_DisplayPort)
- 			continue;
-@@ -759,7 +762,7 @@ static int radeon_debugfs_mst_info_show(struct seq_file *m, void *unused)
- 				   radeon_connector->cur_stream_attribs[i].fe,
- 				   radeon_connector->cur_stream_attribs[i].slots);
- 	}
+ 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head)
+ 		if (drm_helper_crtc_in_use(crtc))
+ 			dev_priv->ops->restore_crtc(crtc);
+@@ -232,7 +238,7 @@ static int psb_restore_display_registers(struct drm_device *dev)
+ 		if (connector->restore)
+ 			connector->restore(&connector->base);
+ 
 -	drm_modeset_unlock_all(dev);
 +	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
  	return 0;
