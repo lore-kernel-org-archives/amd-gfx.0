@@ -2,86 +2,131 @@ Return-Path: <SRS0=YYL8=OG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3067AC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE5CFC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3ED86112E
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:27:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F3ED86112E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 587D661206
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 587D661206
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A74DE6EA2B;
-	Thu, 16 Sep 2021 21:26:06 +0000 (UTC)
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 135A76E915;
- Thu, 16 Sep 2021 21:25:56 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.west.internal (Postfix) with ESMTP id 96CD22B011FD;
- Thu, 16 Sep 2021 17:17:00 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 16 Sep 2021 17:17:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=oMGdLpC5l6tjv
- DFFrBqsd4hGMo2mPV0ixLwfueaxDPE=; b=ISe2cYZdESxo1jvXPdHXb5dq8FfSr
- uU5mpTR2JZSYfg4aDav0C/suEj7WwqKUYOsK5Fzop99smn/b4NXOSVrO0L1wUvj3
- HZLR5OQeoUK3IMJxXh3LnKwxc68MCxDfRL1q+rUJfxe2XRAAWBTP/y3DUTZpNlVu
- 7aY/avlPF9R+vDg3SUrwJA+FMCjcadZoBE2u4fmBIHsH4/KonG1SlV2WSbIrF9/7
- /w15ZsAHW3Z+eaO+Xc66ritrpFjWKlQ9nizKGq66uP8ZPYsD9BwxKsOrVRDOTyTD
- PkQk9iJNsuR3kjS5sEGgRBrJzqrxBGmYaJmGiRr/6UxRkM2uPAucstTxg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=oMGdLpC5l6tjvDFFrBqsd4hGMo2mPV0ixLwfueaxDPE=; b=An2mmKGH
- c7DCYMjkcxnP2/0nz6lX59xoeBowiC4HBopElwWFzyrLd7JvQPMH63z9pN7J27lm
- NGa87/AhggO2VZ0QCon6uhP71ArzmGqahWRkp7rollBOko/ku3p4F4OZc+mNRf+G
- zkn/hkUprATi5tA/YJ0Tz32H/CBq4pAZ0qWrmQHRxbsF0SOBlZ718u3qy/sXo0Ue
- njT+iSguubEmmjPoKRsPVkjV85sAtvDcRH1Q7t97rpQbg75TRv7h76pKm4sq4gJ9
- ckfw7JaSPvvQg9adD52e6huPB4TYVCHVCtnOE93hN7WRemQj2a8RLmVIFdNGSruw
- bfW6K23SnXZmgg==
-X-ME-Sender: <xms:TLRDYRI83V6ln2t_F9yYCUITedjL0gFUoxlUxbhHHOI6KClDwzYRVA>
- <xme:TLRDYdLbuGzQHW0vdWW0Fp3PsxFjL46IEM6qY2IThkCGsO9WptG9sTDlb2Fuji1Ve
- k7srDId9MbMMQF5cQ>
-X-ME-Received: <xmr:TLRDYZucLBkF8uAqxcrP0WgnJMGhZqCdS2B0vLIiPV2GuMC40pE2IgtUC_DZOxs3lxb9>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehfecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
- ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedtnecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:TLRDYSZcedqCfbkmBdLgBYCzPwPLHzxailu-crIyuCLobwItp4C7yw>
- <xmx:TLRDYYYkwjFlGp7zCNgMzkhBy_y1qGykGuIN4aZ2YyLGUNIpuiUP-A>
- <xmx:TLRDYWCN6Pydi7WCExgA9Bfw-PAObW8eCN44x6ny49Wn3itn267EoA>
- <xmx:TLRDYWnS1YnNv22ZpDz0-Xcn3a2Y-jXKkMgOkLqAWeAI0nDWR84ABz0cDSQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Sep 2021 17:16:57 -0400 (EDT)
-From: Fernando Ramos <greenfoo@u92.eu>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Subject: [PATCH 14/15] drm/amd: cleanup: drm_modeset_lock_all() -->
- DRM_MODESET_LOCK_ALL_BEGIN()
-Date: Thu, 16 Sep 2021 23:15:51 +0200
-Message-Id: <20210916211552.33490-15-greenfoo@u92.eu>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
-References: <20210916211552.33490-1-greenfoo@u92.eu>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id F13BC6E83F;
+	Thu, 16 Sep 2021 21:37:24 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B3F6E5C8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 21:37:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JYyJ+aj/kX23/NUE9HrZTO25zHmKFPjKUVapaNATYs/rV0LbSbl6p5renuHSAu1x+SlZpW8VAy2lYm2qKDaJMeA7u6aAryXhAw+hdYEH01SYTcfrb+s81LCCGCus1nQq1LVdxLyR2RZzEHen92KQ5M1Ljl1A9CcpAsjg4dBO8ZyYitLY7JtFVawLeRLwcYZqPeK78ooo/AMn3VSXGd2JKgVMd/v1QVsMzMr8mnrANAosOIUBIU4Ip+k8XgMbg72HASHkbBaNPkRBnQqSJqQ4DO92TV7BsVPOYL0Evjyol29o1IUuNs+q45FbNEuslYaJahtbOkzMOhuA5l1iEdlDTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=FjXHiiemGQ4IGkZFdvp+enSk81SBYFjE7DFcHikgBao=;
+ b=YyoJJhU7uXBeMAcOqE73+/MugVtIP32agp0oaSketZAMhGgHvJjjGwf2AESX3IV3ud9jVEGjq0IkYLBYpEKXMCXIrZZOnJ3rABds5uYp6ipA4cJKyy09Ibv6mf1wzygYRw43RDbdhwKuuAaPZo9BDeRk/LFZ5IZJU/rFzUBkj5h8igIbxR9qLoY+V8yIqAaG7wWlybdmpTg/g7g6uUxvjwgpRuie0V7U8O6itkakn6+hhcxS0du/MXho7LAradMx4LM0W+rNFCDJWxiBVh17YTEMbL8ycBBkpJ0pBgVt9c7N1CZv/lPg/+qIyAzI/9z2KZ04Dik1SaLHOGjhg57SqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FjXHiiemGQ4IGkZFdvp+enSk81SBYFjE7DFcHikgBao=;
+ b=h/31IVTTdz9oiKWS4rqNRODJRzUrAFC8LJkoG9z6dBEJpGxVpDrN13AnqlomCeTzpsLGmc8j/FH8M3uSceNObFyZb4nhyr4pI7Da5o20DxMGEnNxkqgTzuyXz4vSE/EJpd141wG3QPyom5AWFWTbBoIlUphPvMr99ksiDBdCQhk=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5367.namprd12.prod.outlook.com (2603:10b6:408:104::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Thu, 16 Sep
+ 2021 21:37:21 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c%5]) with mapi id 15.20.4523.016; Thu, 16 Sep 2021
+ 21:37:21 +0000
+Subject: Re: [PATCH v2] drm/amdkfd: SVM map to gpus check vma boundary
+To: amd-gfx@lists.freedesktop.org, Philip Yang <Philip.Yang@amd.com>
+References: <20210913201100.27146-1-Philip.Yang@amd.com>
+ <20210916211132.20341-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+Message-ID: <0b30317b-b937-ddda-9a39-8f328b647860@amd.com>
+Date: Thu, 16 Sep 2021 17:37:20 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20210916211132.20341-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0067.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::26) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
+MIME-Version: 1.0
+Received: from [172.27.226.80] (165.204.55.251) by
+ YT3PR01CA0067.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 21:37:21 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7bd0cf7e-5f9c-4380-b5e1-08d9795a2a63
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5367:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5367635D205CE639544A760392DC9@BN9PR12MB5367.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TC+fpPaydxyMxYdIaYsDL6iww1c0Yjg6H7CZJIh75AJgUczsjrZ+RzqDCJ8NELGp7XnBgNO2jUhmCbDifO/Mycgp/Eg9bKDhjH3pGExaozAR+uz+Yz01bqSTZWW0QtVdmmBii+6qvm1jYleBX6QgeDt+U9lgEoupd1P3ZseZ2O8u7u5VENuiP645y6OKzDmKw0EJYm24u9xqTlqybqdchYBJakI42IJeH7UQWahgyapGlVqiQ0Ojd6vnFq0WwlXrTBB2kvQ0WiwdHFe8WLSLqVZ4hX6J5U4K4Emw2DeVi/BfUtKboiHpQbQdiG32C+45eKPt8cXFOtJfrpAtuFtkw/ccXO/TNj4bBWNjKskfXWEZXjpQE9rSbmx57jsm8ldfV5zPd5Nd9FP/YYpz2MlKFsv6L3KUvqmzrlySeqZncniVGfY9Khw9bXvdGh3eRnqjK3IOm5n9Y7qH1Pfyvi/OQdAfRGnAGjzhZ4QDMIvsCSXY9xCfiiCNR2LMQB+get/ZTJYc8XJh8vCpMn0bYUuofXbrImc1NbXyTiAdcVBTz8TFfavIKXnyZotr8uXD9HfEEnaIwfZvVqOEVDNTEKmDsH0It+1wVBWhZcaohD4KdVKKGLNTmHefhRyqFEIK6tLTYFhWm9IPPR2K4ndoTPA7Gb5CVNfE3e7WauLlJ1avc6xUzd0GZXc9KOaK9U9tq5/hIPxOpc0WAO+EOBdr0uO3xxtxTYMkmDO80AxR1Jz4JFw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(38100700002)(2616005)(16576012)(316002)(36756003)(6862004)(66556008)(31696002)(86362001)(6636002)(508600001)(37006003)(6486002)(8936002)(8676002)(26005)(5660300002)(53546011)(186003)(83380400001)(36916002)(2906002)(44832011)(66946007)(66476007)(956004)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eklXNkFIUU5NOHQyd2c5VUNpNTgvY2NCaXNFK0o5TFh6QUpyUmpwekpvYXZk?=
+ =?utf-8?B?TTk3a0J3TVpsUjFBcDVvMjVydHdKMkVsK0plYkorR2pPTHZXZ2d0bjBJQmoz?=
+ =?utf-8?B?UVp2NVBlMWVEOGp6RlFaaWxTQTJxNGxMVVF5bzVrV29CUDVWY2d6R1kvLzZY?=
+ =?utf-8?B?cFBkaFlmZVkyajc5UTRTRGxjdFp1c0FCbG5ZcmZrNFd4Nk9VRDl3eW9Sblcz?=
+ =?utf-8?B?a2NmNWF5VktnUkpZV0l5a1FMcFE1L01LdE1aOHpJeVdiNm9mNkRJMURzeHNR?=
+ =?utf-8?B?OEVSTEthTkFvZW5aclIyUFE5dkV1SDFFUjBiTXFCc2g1cXNhL3REcHpqaEdW?=
+ =?utf-8?B?TW0vcVY3RU5KaHhrUHJTTlp3cTB0SDJ6RzBnSDNKL0tia2FCUXo1OHhORlhJ?=
+ =?utf-8?B?V3F4SnhGZjRtM09UZ2xIQnVzdDN0U1pPRHgzc2VXcXp3WHd5RFY1MHQ2Q1pU?=
+ =?utf-8?B?U1Y3cWNBdGZ4bXkyMUJqQUdqMWdsbVBzc1ZxdXJHN05tZ0tKaHZwKytyOURT?=
+ =?utf-8?B?aW95eStLenZsUGRML2FMRUFQclJvY0FtellwTUQxWTRKbmZ4WHBsbnBLTHRt?=
+ =?utf-8?B?ZW1idVpHTkR1SjlqN2sxelZsbjh0M3AyVnNIbFJCMExRcVF5cnRtWEFBRGRx?=
+ =?utf-8?B?VzRBQjVHZkQySmdFRXZaMzVMTkxrNmZ2MjAxVERiaEkrOWtSUW04OWRtV0Z3?=
+ =?utf-8?B?WUQ5cmluOHVQL05aZHJRMlF1QTJUSWRYOWNpUTNzT3hmNWk4QnpyOTBFa2Rs?=
+ =?utf-8?B?Wi9YRXM5SmJSQ2lIQVFTaGpsQnhSb1M4d0RxU1Nna2JKeWJiYVZoS3ZSSUhu?=
+ =?utf-8?B?MEVjdkIxVGxMTVVjUG5WRkRUbzlwK0Z2NWRmNHM0eVdnelFnM3BuU1JKZm56?=
+ =?utf-8?B?eEdFU0pZV3RzR1ZJVmRjZEx4TllGalpRVDRoNzc0QitwOU5BSXYwTm5jUEYz?=
+ =?utf-8?B?RDAzb2FNUE1BcnZIOE5YNGVZK2RMWk13QjRyNzJ1ZFRMSXJqRFR2ZnNIc2JT?=
+ =?utf-8?B?UkYwakY1N2RVbGtBVW9HNlJtb0VRczROK2QxejFyRjdJUGtlNHZWL3FKL3Q2?=
+ =?utf-8?B?bE03aHRiSGE2RC8wQzFKZ0RXbGVFSGEremdPVEZqVVJPcWFLTjV0VWJ6Rmk3?=
+ =?utf-8?B?YURqanRLdjJWc2F2L2pjN2hrZnlMbi9uVU5LNnhMOGs2TnNOSVJjUlhlN3kr?=
+ =?utf-8?B?VWhLemdBSm11Rml5QXIxQzA2NlZDMnllT1V6U0lwTEJ0bWllN3RXM1RtaFZq?=
+ =?utf-8?B?VUtVSWZ3dUI1Y2xCcE9kOVBJeEZaZ0hFbFBteTc2WE94blk0a2tlL1hpakp3?=
+ =?utf-8?B?czRtSWc1OFJldkNpNzBBQ0xnWHVNVTFMTCtWTVdnQlIxR0FZcGRoWUJ0SzEy?=
+ =?utf-8?B?bzAvNkFmZTFHOHc4ZjZ6SnpCcUM2eFBWbld0VVJRSWUxMGtVeElJRE8wQUQ2?=
+ =?utf-8?B?aWNadVRVTGVwYVQ1d0hZMXJocWdYZ1REeEJ5U3VrdXNTVm56QllmM1Fud0pC?=
+ =?utf-8?B?ODdQcmR5SlUyRCs1SXMxSi82YU9Iemx2VTVKL0wxSk5lZk4zTFdYQnJnSmZT?=
+ =?utf-8?B?YmZwR1VtTEZaVVlTUS95ZFBPQWRNalFBMFowZ3pnam9XVlpVWEo0NUR2eUs3?=
+ =?utf-8?B?RE9pTHRSZE0ySU0xQ1pid0JHeXhOMkpXWnRKTmQ1RnI0QVlwZVpGRzVoRnNL?=
+ =?utf-8?B?cCsxdzBFRXZWU3N5NDBwQkRjb3kxSEwrZUxmTW0yMkhFTXJkdzFVQnJwY3B3?=
+ =?utf-8?Q?kcu/20H1sXhsDfQOntR+/0JgreodCqMpGBq+emp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bd0cf7e-5f9c-4380-b5e1-08d9795a2a63
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 21:37:21.5946 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rp6JuTgu5e2lCDDvJah6t6mdy/Z9quBogPpTHniNsUSI9GB6dD8xeHWy73XoEXAuvScZRaTeuKDcswEHXOvtog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5367
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,254 +141,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As requested in Documentation/gpu/todo.rst, replace driver calls to
-drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
-DRM_MODESET_LOCK_ALL_END()
+On 2021-09-16 5:11 p.m., Philip Yang wrote:
+> SVM range may includes multiple VMAs with different vm_flags, if prange
+> page index is the last page of the VMA offset + npages, update GPU
+> mapping to create GPU page table with same VMA access permission.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 110c46cd7fac..de91c7e83bb4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1178,7 +1178,12 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	for (i = offset; i < offset + npages; i++) {
+>   		last_domain = dma_addr[i] & SVM_RANGE_VRAM_DOMAIN;
+>   		dma_addr[i] &= ~SVM_RANGE_VRAM_DOMAIN;
+> -		if ((prange->start + i) < prange->last &&
+> +
+> +		/*
+> +		 * If i is not the last page in the range and next page is in
+> +		 * same VRAM or CPU domain
 
-Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 13 +++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 50 +++++++++----------
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 23 +++++----
- 3 files changed, 46 insertions(+), 40 deletions(-)
+This comment doesn't add any information. It basically just restates the 
+condition below without explaining the intention. Maybe something like 
+this would be helpful instead:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 7a7316731911..55ecc4aa859f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -40,6 +40,7 @@
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_drv.h>
- 
- static void amdgpu_display_flip_callback(struct dma_fence *f,
- 					 struct dma_fence_cb *cb)
-@@ -1543,16 +1544,18 @@ int amdgpu_display_suspend_helper(struct amdgpu_device *adev)
- 	struct drm_crtc *crtc;
- 	struct drm_connector *connector;
- 	struct drm_connector_list_iter iter;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int r;
-+	int ret;
- 
- 	/* turn off display hw */
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter)
- 		drm_helper_connector_dpms(connector,
- 					  DRM_MODE_DPMS_OFF);
- 	drm_connector_list_iter_end(&iter);
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 	/* unpin the front buffers and cursors */
- 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
- 		struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
-@@ -1590,7 +1593,9 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
- 	struct drm_connector *connector;
- 	struct drm_connector_list_iter iter;
- 	struct drm_crtc *crtc;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int r;
-+	int ret;
- 
- 	/* pin cursors */
- 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
-@@ -1612,7 +1617,7 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
- 	drm_helper_resume_force_mode(dev);
- 
- 	/* turn on display hw */
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter)
-@@ -1620,7 +1625,7 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
- 					  DRM_MODE_DPMS_ON);
- 	drm_connector_list_iter_end(&iter);
- 
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9b1fc54555ee..5196c1d26f87 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -80,6 +80,7 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_audio_component.h>
-+#include <drm/drm_drv.h>
- 
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
-@@ -2621,6 +2622,9 @@ static void handle_hpd_irq(void *param)
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- 	struct dm_connector_state *dm_con_state = to_dm_connector_state(connector->state);
- #endif
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
-+
- 
- 	if (adev->dm.disable_hpd_irq)
- 		return;
-@@ -2646,14 +2650,6 @@ static void handle_hpd_irq(void *param)
- 	if (aconnector->base.force && new_connection_type == dc_connection_none) {
- 		emulated_link_detect(aconnector->dc_link);
- 
--
--		drm_modeset_lock_all(dev);
--		dm_restore_drm_connector_state(dev, connector);
--		drm_modeset_unlock_all(dev);
--
--		if (aconnector->base.force == DRM_FORCE_UNSPECIFIED)
--			drm_kms_helper_hotplug_event(dev);
--
- 	} else if (dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD)) {
- 		if (new_connection_type == dc_connection_none &&
- 		    aconnector->dc_link->type == dc_connection_none)
-@@ -2661,13 +2657,18 @@ static void handle_hpd_irq(void *param)
- 
- 		amdgpu_dm_update_connector_after_detect(aconnector);
- 
--		drm_modeset_lock_all(dev);
--		dm_restore_drm_connector_state(dev, connector);
--		drm_modeset_unlock_all(dev);
--
--		if (aconnector->base.force == DRM_FORCE_UNSPECIFIED)
--			drm_kms_helper_hotplug_event(dev);
-+	} else {
-+		goto out;
- 	}
-+
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
-+	dm_restore_drm_connector_state(dev, connector);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
-+
-+	if (aconnector->base.force == DRM_FORCE_UNSPECIFIED)
-+		drm_kms_helper_hotplug_event(dev);
-+
-+out:
- 	mutex_unlock(&aconnector->hpd_lock);
- 
- }
-@@ -2756,12 +2757,14 @@ static void handle_hpd_rx_irq(void *param)
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
- 	struct dc_link *dc_link = aconnector->dc_link;
-+	struct drm_modeset_acquire_ctx ctx;
- 	bool is_mst_root_connector = aconnector->mst_mgr.mst_state;
- 	bool result = false;
- 	enum dc_connection_type new_connection_type = dc_connection_none;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	union hpd_irq_data hpd_irq_data;
- 	bool lock_flag = 0;
-+	int ret;
- 
- 	memset(&hpd_irq_data, 0, sizeof(hpd_irq_data));
- 
-@@ -2828,12 +2831,6 @@ static void handle_hpd_rx_irq(void *param)
- 
- 			amdgpu_dm_update_connector_after_detect(aconnector);
- 
--
--			drm_modeset_lock_all(dev);
--			dm_restore_drm_connector_state(dev, connector);
--			drm_modeset_unlock_all(dev);
--
--			drm_kms_helper_hotplug_event(dev);
- 		} else if (dc_link_detect(dc_link, DETECT_REASON_HPDRX)) {
- 
- 			if (aconnector->fake_enable)
-@@ -2841,14 +2838,17 @@ static void handle_hpd_rx_irq(void *param)
- 
- 			amdgpu_dm_update_connector_after_detect(aconnector);
- 
-+		} else {
-+			goto finish;
-+		}
- 
--			drm_modeset_lock_all(dev);
--			dm_restore_drm_connector_state(dev, connector);
--			drm_modeset_unlock_all(dev);
-+		DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
-+		dm_restore_drm_connector_state(dev, connector);
-+		DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 
--			drm_kms_helper_hotplug_event(dev);
--		}
-+		drm_kms_helper_hotplug_event(dev);
- 	}
-+finish:
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- 	if (hpd_irq_data.bytes.device_service_irq.bits.CP_IRQ) {
- 		if (adev->dm.hdcp_workqueue)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 87daa78a32b8..6e5a8f4fc6bd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -37,6 +37,8 @@
- #include "link_hwss.h"
- #include "dc/dc_dmub_srv.h"
- 
-+#include <drm/drm_drv.h>
-+
- struct dmub_debugfs_trace_header {
- 	uint32_t entry_count;
- 	uint32_t reserved[3];
-@@ -1191,12 +1193,14 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
- 	struct drm_connector *connector = &aconnector->base;
- 	struct dc_link *link = NULL;
- 	struct drm_device *dev = connector->dev;
-+	struct drm_modeset_acquire_ctx ctx;
- 	enum dc_connection_type new_connection_type = dc_connection_none;
- 	char *wr_buf = NULL;
- 	uint32_t wr_buf_size = 42;
- 	int max_param_num = 1;
- 	long param[1] = {0};
- 	uint8_t param_nums = 0;
-+	int ret;
- 
- 	if (!aconnector || !aconnector->dc_link)
- 		return -EINVAL;
-@@ -1236,12 +1240,6 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
- 			goto unlock;
- 
- 		amdgpu_dm_update_connector_after_detect(aconnector);
--
--		drm_modeset_lock_all(dev);
--		dm_restore_drm_connector_state(dev, connector);
--		drm_modeset_unlock_all(dev);
--
--		drm_kms_helper_hotplug_event(dev);
- 	} else if (param[0] == 0) {
- 		if (!aconnector->dc_link)
- 			goto unlock;
-@@ -1259,13 +1257,16 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
- 
- 		amdgpu_dm_update_connector_after_detect(aconnector);
- 
--		drm_modeset_lock_all(dev);
--		dm_restore_drm_connector_state(dev, connector);
--		drm_modeset_unlock_all(dev);
--
--		drm_kms_helper_hotplug_event(dev);
-+	} else {
-+		goto unlock;
- 	}
- 
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
-+	dm_restore_drm_connector_state(dev, connector);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
-+
-+	drm_kms_helper_hotplug_event(dev);
-+
- unlock:
- 	mutex_unlock(&aconnector->hpd_lock);
- 
--- 
-2.33.0
+/* Collect all pages in the same address range and memory domain that can
+  * be mapped with a single call to amdgpu_vm_bo_update_mapping.
+  */
 
+With that fixed, the patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+> +		 */
+> +		if (i < offset + npages - 1 &&
+>   		    last_domain == (dma_addr[i + 1] & SVM_RANGE_VRAM_DOMAIN))
+>   			continue;
+>   
