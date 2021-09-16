@@ -5,103 +5,85 @@ X-Spam-Level:
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 524FEC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:11:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4033CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E0E360EE9
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:11:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E0E360EE9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id D7D746113A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D7D746113A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A1106E8A8;
-	Thu, 16 Sep 2021 21:11:53 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1382B6E8A8
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 21:11:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wl9HG85Z4N9J7OKRofEUYEjCSpjdWXBlcjNEBGoi8hvi+/5+6G2xV/5ZXMqJJ3+i/RXV6slewHc8PiCF1dxgzLLhtY4OSV69AI+hoc/JBLAViSCSijXMqcaxm1Hgb0qGBbNBhYPtTnsMGYveZFl/0BFFmk8/74hBnM7LmKbybajjeG8G23LXloiQM7ePppgloRzZJ9gFwmJ9oMGkKJjz+OXoQhI/IlF/aMbfCg0tAlDsrmF5uN5E5NTVenWpPxvSgM4W6MEXR5MVNpEfr2TlyXIrB853Geh7ow9H9WOsNw/78X2Ss+Uqqf0vjoCeTWM9q307SXCkOhmydnFnOkOWJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=Mh7EOnm+CARTRFfhx6CGDvmu4SDDtObxgowzMQJr+JM=;
- b=a3tZ7kKyzepX1MdUCEadwF1j65FZAhrRkr6aGJUxhicy/7r/rfmIIUNV+90QsDUA2fBvdQL8Chp+JcGIt4pCaFIk+cdbt4E8BV+1/7JFYOCAIUCkHer8rxFje+ptG9v0RYXeCykHlIWTOx1imnvLxSB+gR7sqrPpgU8Ruif88okyUBSDEpDm6MtsvF97Uz9JC/jc58kUFYGFfpxGNVEG6h8fo+tglmYhfiTBucOsWGCfHxkjvPjFES0YeVyMJbI2X8XZa27nxyvkzs239oOd+rX53T6AaPGjmzVqEXNmIR//UtO2822YcyOBTZfB3DYPs/IFTVKIGtTOyQLf7Bqkbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mh7EOnm+CARTRFfhx6CGDvmu4SDDtObxgowzMQJr+JM=;
- b=dYQL5+ldTWX+0oi4lFrr+2fPHkeAcKNPf6JGhxBtfe9EXhGUdZKJV0ZDavrJdG+Utr8oCrjPBzPLSh+o/fkcIj7GZCMQ6IcyPb8yOUAAdK+4819i4EpnZV/HEabjyD3D66VnIWfeOlFzbWUL2EASY1F4kaAWrOWECnxX0ulpH1c=
-Received: from BN6PR1401CA0006.namprd14.prod.outlook.com
- (2603:10b6:405:4b::16) by DM6PR12MB3210.namprd12.prod.outlook.com
- (2603:10b6:5:185::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Thu, 16 Sep
- 2021 21:11:48 +0000
-Received: from BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:4b:cafe::25) by BN6PR1401CA0006.outlook.office365.com
- (2603:10b6:405:4b::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Thu, 16 Sep 2021 21:11:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT065.mail.protection.outlook.com (10.13.177.63) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 21:11:48 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 16 Sep
- 2021 16:11:47 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH v2] drm/amdkfd: SVM map to gpus check vma boundary
-Date: Thu, 16 Sep 2021 17:11:32 -0400
-Message-ID: <20210916211132.20341-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210913201100.27146-1-Philip.Yang@amd.com>
-References: <20210913201100.27146-1-Philip.Yang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC81A6E941;
+	Thu, 16 Sep 2021 21:25:56 +0000 (UTC)
+X-Greylist: delayed 593 seconds by postgrey-1.36 at gabe;
+ Thu, 16 Sep 2021 21:25:55 UTC
+Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
+ [64.147.123.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6D06E5B2;
+ Thu, 16 Sep 2021 21:25:55 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.west.internal (Postfix) with ESMTP id 98DB12B011F9;
+ Thu, 16 Sep 2021 17:16:51 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 16 Sep 2021 17:16:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm3; bh=pIW1yhpY2jJ4E
+ yxUk6a/ypbVJODE1udgZ5sxtZ0GTRI=; b=AbZcP37HkQXyuEBwbrDgw/fLN96WO
+ sQ2g1ycwvIABnzym8qRrfFgkITuW7GFi458AXCablFunMglNLU61bJ4wdl38x/N6
+ pPLz4SN+1ikJRgC53dMljr8yJyEiKg2prn3K/8m/iVshrPROs8LljBXL0L+4OvH0
+ Xww4Lz7TMZaeF6AAM+iDy/w7W5P4O8DENH31Z8dJh6zoMO2EyEFbV0Jq6QTwnB8x
+ Wd3TcDGh3ooGXoM3zmLdzV8x4BTqwgrfAkdiCqxulX05iMjKLxuitsLtUmKiMiKh
+ V+DaU3rLnFoVBDsfQiao4o+WsXIxD6GlhQygTzUgz5wavEkOMC5nnFd8g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=pIW1yhpY2jJ4EyxUk6a/ypbVJODE1udgZ5sxtZ0GTRI=; b=wSS2ZQqe
+ y+FppsI/3qt7stSAg4zqkuQAoomHm9Ig/YSkyxLx94KK+UwrAISuBT2/uvB6CHXl
+ gQEeH6qCrIGd22KjbP6Eou5YyhSC+tvu9PWmynmmDmbj5JYJhcFwu+fyK4MLWJbB
+ LR0ixS0UEZZcFZ6y5cDvwy151fxV/naNMjmFMpo6cPnBemsHLriGmFU66UzKG0d8
+ W6H7aOEXjfz04Hfz0RdGEc/TLy4WNamJsxxc2UGPxcs9hlVyRulbN5+h6PiWuQ4e
+ /q0+7GWJV3HSj8xk92QR71fh/eh8ZDhqL7jRZRQPnkICjf+oYscxCPnk0yf9EyuK
+ P5bO4B4YHxhXbg==
+X-ME-Sender: <xms:QrRDYQEVNp0tt_QeugCEUVLyP_Q7W8PKAOTmEyNAgiS99lTDGBPfVA>
+ <xme:QrRDYZXzxwlwRNHZ5FIoVPwNYKE8MLHyEaiBtIj_eV_TNIsph5853oYs9s8gRWtrd
+ C42BNvEAcBO_K8YmA>
+X-ME-Received: <xmr:QrRDYaLstome4ubLfVkOm4rpVZA76sbaP8ZtUGJbHFFObko-SAXLpuCeoMIPbsbKiGhA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehfecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
+ ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
+ ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
+ fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedunecu
+ rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
+X-ME-Proxy: <xmx:QrRDYSG5t-G1RPYk5E_b-GwJZxIC0SkOI-Le4QYzgb3N6jV1IiZ2kA>
+ <xmx:QrRDYWU9PbDen2N2fgVP3DeVioZdcmM8KS_oOoa9LrX98-uB8qffzA>
+ <xmx:QrRDYVN-Pr8ckA8VtwHvF-IbVxcZL6tjVmAENnnME9l1yEbZrLjdKQ>
+ <xmx:Q7RDYSRkIR8ksuGK1fnDV8TUckLdvi3MEdhiIaZ5BBIUIjWkdgBeWoIUFpM>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 16 Sep 2021 17:16:48 -0400 (EDT)
+From: Fernando Ramos <greenfoo@u92.eu>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+Subject: [PATCH 12/15] drm/i915: cleanup: drm_modeset_lock_all() -->
+ DRM_MODESET_LOCK_ALL_BEGIN()
+Date: Thu, 16 Sep 2021 23:15:49 +0200
+Message-Id: <20210916211552.33490-13-greenfoo@u92.eu>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
+References: <20210916211552.33490-1-greenfoo@u92.eu>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f453a5c2-7f47-4bd1-cd15-08d979569881
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3210:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB32103698C606E24CB0239ECAE6DC9@DM6PR12MB3210.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sIHhgJS+fIkr4Wxt/q5Lj38pQDbYtzKEmMDZ6d2WXlPm4HeD4Cc8/e4KZ/GKSfUZpTXsvJpenXWDuynvZCRyQGTOz2n1LKBeV38iWne1nzowLSryPtKT/GS3k6R4TfIa2QQyT95hpl+tvXhuHh941Nm5C6NmkwDPOCbLOiokIXMeo8d9Ug7xVYCMTApA9xmYUoo87Bk39TuHiYy3wCjNkgSJcwPeQ/1IlHcm31gu8K5TvT2MUgkGf5y5gZ3u42z79gPSfgbHik1Ga9/SWwXk5K9uJD6RPmQxztr96RfQlH2/4ai0bT4aw/JqAzPLAC8bSxr7Bb7IJkDbgAxT0BcswL7LdyBdkOX9bFfshg1aifwaf+5A93Cl2BP6hcbL0yxk/qkmv2WaBofQ2FNGTcfpHpZvwE+OCb+4qK+XhhNdtIW0Iqx2CmhiTX1CDY3+sa5/WEnFt6bCH5q10KQs8fFfSuX+hPIQ9pyuLYjSXnAoY5xDvDUjvqkvoZGZn9SrSEN3lLO6woFwXz1VrIMsa0n5IEAp69N7cNYuOqRtxHaPZEUVG2AKh9FZVIu21cEhSemvrHrWc1KkX+Eajf9txyaObHaCqF0o1B23W5AJbBkO0DR0iQO+RwejcxMnvVyzQKQBEiuCf0oKkmyXYg0RWjFkcecTyaFLHvdTB4VP5sFwjFuDI35SJ2jbObgBfWJ7AX/sizgBhI+fcc3wmGbKLNL2L+ZzLoQAQPpirzbDziwM03o=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(336012)(36860700001)(508600001)(26005)(16526019)(1076003)(426003)(356005)(36756003)(186003)(82310400003)(86362001)(5660300002)(2616005)(70206006)(47076005)(70586007)(83380400001)(316002)(6916009)(8676002)(8936002)(4326008)(81166007)(2906002)(7696005)(6666004)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 21:11:48.1997 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f453a5c2-7f47-4bd1-cd15-08d979569881
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3210
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,33 +98,413 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SVM range may includes multiple VMAs with different vm_flags, if prange
-page index is the last page of the VMA offset + npages, update GPU
-mapping to create GPU page table with same VMA access permission.
+As requested in Documentation/gpu/todo.rst, replace driver calls to
+drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
+DRM_MODESET_LOCK_ALL_END()
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_audio.c    | 12 +++--
+ drivers/gpu/drm/i915/display/intel_display.c  |  5 ++-
+ .../drm/i915/display/intel_display_debugfs.c  | 35 ++++++++++-----
+ drivers/gpu/drm/i915/display/intel_overlay.c  | 45 +++++++++----------
+ drivers/gpu/drm/i915/display/intel_pipe_crc.c |  5 ++-
+ drivers/gpu/drm/i915/i915_drv.c               | 12 +++--
+ 6 files changed, 67 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 110c46cd7fac..de91c7e83bb4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1178,7 +1178,12 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	for (i = offset; i < offset + npages; i++) {
- 		last_domain = dma_addr[i] & SVM_RANGE_VRAM_DOMAIN;
- 		dma_addr[i] &= ~SVM_RANGE_VRAM_DOMAIN;
--		if ((prange->start + i) < prange->last &&
-+
-+		/*
-+		 * If i is not the last page in the range and next page is in
-+		 * same VRAM or CPU domain
-+		 */
-+		if (i < offset + npages - 1 &&
- 		    last_domain == (dma_addr[i + 1] & SVM_RANGE_VRAM_DOMAIN))
- 			continue;
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index 532237588511..ab6a5a734b95 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -1214,7 +1214,9 @@ static int i915_audio_component_bind(struct device *i915_kdev,
+ {
+ 	struct i915_audio_component *acomp = data;
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(i915_kdev);
++	struct drm_modeset_acquire_ctx ctx;
+ 	int i;
++	int ret;
  
+ 	if (drm_WARN_ON(&dev_priv->drm, acomp->base.ops || acomp->base.dev))
+ 		return -EEXIST;
+@@ -1224,14 +1226,14 @@ static int i915_audio_component_bind(struct device *i915_kdev,
+ 					 DL_FLAG_STATELESS)))
+ 		return -ENOMEM;
+ 
+-	drm_modeset_lock_all(&dev_priv->drm);
++	DRM_MODESET_LOCK_ALL_BEGIN((&dev_priv->drm), ctx, 0, ret);
+ 	acomp->base.ops = &i915_audio_component_ops;
+ 	acomp->base.dev = i915_kdev;
+ 	BUILD_BUG_ON(MAX_PORTS != I915_MAX_PORTS);
+ 	for (i = 0; i < ARRAY_SIZE(acomp->aud_sample_rate); i++)
+ 		acomp->aud_sample_rate[i] = 0;
+ 	dev_priv->audio_component = acomp;
+-	drm_modeset_unlock_all(&dev_priv->drm);
++	DRM_MODESET_LOCK_ALL_END((&dev_priv->drm), ctx, ret);
+ 
+ 	return 0;
+ }
+@@ -1241,12 +1243,14 @@ static void i915_audio_component_unbind(struct device *i915_kdev,
+ {
+ 	struct i915_audio_component *acomp = data;
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(i915_kdev);
++	struct drm_modeset_acquire_ctx ctx;
++	int ret;
+ 
+-	drm_modeset_lock_all(&dev_priv->drm);
++	DRM_MODESET_LOCK_ALL_BEGIN((&dev_priv->drm), ctx, 0, ret);
+ 	acomp->base.ops = NULL;
+ 	acomp->base.dev = NULL;
+ 	dev_priv->audio_component = NULL;
+-	drm_modeset_unlock_all(&dev_priv->drm);
++	DRM_MODESET_LOCK_ALL_END((&dev_priv->drm), ctx, ret);
+ 
+ 	device_link_remove(hda_kdev, i915_kdev);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 997a16e85c85..dc2e4d89e5aa 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -12511,6 +12511,7 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+ {
+ 	struct drm_device *dev = &i915->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	enum pipe pipe;
+ 	struct intel_crtc *crtc;
+ 	int ret;
+@@ -12562,9 +12563,9 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+ 	intel_vga_disable(i915);
+ 	intel_setup_outputs(i915);
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 	intel_modeset_setup_hw_state(dev, dev->mode_config.acquire_ctx);
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	for_each_intel_crtc(dev, crtc) {
+ 		struct intel_initial_plane_config plane_config = {};
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 8fdacb252bb1..d73af228862e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -1057,11 +1057,13 @@ static int i915_display_info(struct seq_file *m, void *unused)
+ 	struct intel_crtc *crtc;
+ 	struct drm_connector *connector;
+ 	struct drm_connector_list_iter conn_iter;
++	struct drm_modeset_acquire_ctx ctx;
+ 	intel_wakeref_t wakeref;
++	int ret;
+ 
+ 	wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	seq_printf(m, "CRTC info\n");
+ 	seq_printf(m, "---------\n");
+@@ -1076,7 +1078,7 @@ static int i915_display_info(struct seq_file *m, void *unused)
+ 		intel_connector_info(m, connector);
+ 	drm_connector_list_iter_end(&conn_iter);
+ 
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
+ 
+@@ -1087,9 +1089,11 @@ static int i915_shared_dplls_info(struct seq_file *m, void *unused)
+ {
+ 	struct drm_i915_private *dev_priv = node_to_i915(m->private);
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	int i;
++	int ret;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	seq_printf(m, "PLL refclks: non-SSC: %d kHz, SSC: %d kHz\n",
+ 		   dev_priv->dpll.ref_clks.nssc,
+@@ -1132,7 +1136,7 @@ static int i915_shared_dplls_info(struct seq_file *m, void *unused)
+ 		seq_printf(m, " mg_pll_tdc_coldst_bias: 0x%08x\n",
+ 			   pll->state.hw_state.mg_pll_tdc_coldst_bias);
+ 	}
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	return 0;
+ }
+@@ -1193,13 +1197,15 @@ static int i915_ddb_info(struct seq_file *m, void *unused)
+ {
+ 	struct drm_i915_private *dev_priv = node_to_i915(m->private);
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	struct skl_ddb_entry *entry;
+ 	struct intel_crtc *crtc;
++	int ret;
+ 
+ 	if (DISPLAY_VER(dev_priv) < 9)
+ 		return -ENODEV;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	seq_printf(m, "%-15s%8s%8s%8s\n", "", "Start", "End", "Size");
+ 
+@@ -1223,7 +1229,7 @@ static int i915_ddb_info(struct seq_file *m, void *unused)
+ 			   entry->end, skl_ddb_entry_size(entry));
+ 	}
+ 
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	return 0;
+ }
+@@ -1303,10 +1309,12 @@ static int i915_drrs_status(struct seq_file *m, void *unused)
+ {
+ 	struct drm_i915_private *dev_priv = node_to_i915(m->private);
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	struct intel_crtc *crtc;
+ 	int active_crtc_cnt = 0;
++	int ret;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 	for_each_intel_crtc(dev, crtc) {
+ 		if (crtc->base.state->active) {
+ 			active_crtc_cnt++;
+@@ -1315,7 +1323,7 @@ static int i915_drrs_status(struct seq_file *m, void *unused)
+ 			drrs_status_per_crtc(m, dev, crtc);
+ 		}
+ 	}
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	if (!active_crtc_cnt)
+ 		seq_puts(m, "No active crtc found\n");
+@@ -1607,8 +1615,10 @@ static void wm_latency_show(struct seq_file *m, const u16 wm[8])
+ {
+ 	struct drm_i915_private *dev_priv = m->private;
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	int level;
+ 	int num_levels;
++	int ret;
+ 
+ 	if (IS_CHERRYVIEW(dev_priv))
+ 		num_levels = 3;
+@@ -1619,7 +1629,7 @@ static void wm_latency_show(struct seq_file *m, const u16 wm[8])
+ 	else
+ 		num_levels = ilk_wm_max_level(dev_priv) + 1;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	for (level = 0; level < num_levels; level++) {
+ 		unsigned int latency = wm[level];
+@@ -1640,7 +1650,7 @@ static void wm_latency_show(struct seq_file *m, const u16 wm[8])
+ 			   level, wm[level], latency / 10, latency % 10);
+ 	}
+ 
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ }
+ 
+ static int pri_wm_latency_show(struct seq_file *m, void *data)
+@@ -1724,6 +1734,7 @@ static ssize_t wm_latency_write(struct file *file, const char __user *ubuf,
+ 	struct seq_file *m = file->private_data;
+ 	struct drm_i915_private *dev_priv = m->private;
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	u16 new[8] = { 0 };
+ 	int num_levels;
+ 	int level;
+@@ -1753,12 +1764,12 @@ static ssize_t wm_latency_write(struct file *file, const char __user *ubuf,
+ 	if (ret != num_levels)
+ 		return -EINVAL;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	for (level = 0; level < num_levels; level++)
+ 		wm[level] = new[level];
+ 
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	return len;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
+index 7e3f5c6ca484..79c6940807a7 100644
+--- a/drivers/gpu/drm/i915/display/intel_overlay.c
++++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+@@ -1104,6 +1104,7 @@ int intel_overlay_put_image_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_crtc *drmmode_crtc;
+ 	struct intel_crtc *crtc;
+ 	struct drm_i915_gem_object *new_bo;
++	struct drm_modeset_acquire_ctx ctx;
+ 	int ret;
+ 
+ 	overlay = dev_priv->overlay;
+@@ -1112,24 +1113,24 @@ int intel_overlay_put_image_ioctl(struct drm_device *dev, void *data,
+ 		return -ENODEV;
+ 	}
+ 
+-	if (!(params->flags & I915_OVERLAY_ENABLE)) {
+-		drm_modeset_lock_all(dev);
+-		ret = intel_overlay_switch_off(overlay);
+-		drm_modeset_unlock_all(dev);
++	if (params->flags & I915_OVERLAY_ENABLE) {
+ 
+-		return ret;
+-	}
++		drmmode_crtc = drm_crtc_find(dev, file_priv, params->crtc_id);
++		if (!drmmode_crtc)
++			return -ENOENT;
++		crtc = to_intel_crtc(drmmode_crtc);
+ 
+-	drmmode_crtc = drm_crtc_find(dev, file_priv, params->crtc_id);
+-	if (!drmmode_crtc)
+-		return -ENOENT;
+-	crtc = to_intel_crtc(drmmode_crtc);
++		new_bo = i915_gem_object_lookup(file_priv, params->bo_handle);
++		if (!new_bo)
++			return -ENOENT;
++	}
+ 
+-	new_bo = i915_gem_object_lookup(file_priv, params->bo_handle);
+-	if (!new_bo)
+-		return -ENOENT;
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+-	drm_modeset_lock_all(dev);
++	if (!(params->flags & I915_OVERLAY_ENABLE)) {
++		ret = intel_overlay_switch_off(overlay);
++		goto out_unlock;
++	}
+ 
+ 	if (i915_gem_object_is_tiled(new_bo)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+@@ -1194,14 +1195,11 @@ int intel_overlay_put_image_ioctl(struct drm_device *dev, void *data,
+ 	if (ret != 0)
+ 		goto out_unlock;
+ 
+-	drm_modeset_unlock_all(dev);
+-	i915_gem_object_put(new_bo);
+-
+-	return 0;
+-
+ out_unlock:
+-	drm_modeset_unlock_all(dev);
+-	i915_gem_object_put(new_bo);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++
++	if (params->flags & I915_OVERLAY_ENABLE)
++		i915_gem_object_put(new_bo);
+ 
+ 	return ret;
+ }
+@@ -1263,6 +1261,7 @@ int intel_overlay_attrs_ioctl(struct drm_device *dev, void *data,
+ {
+ 	struct drm_intel_overlay_attrs *attrs = data;
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct drm_modeset_acquire_ctx ctx;
+ 	struct intel_overlay *overlay;
+ 	int ret;
+ 
+@@ -1272,7 +1271,7 @@ int intel_overlay_attrs_ioctl(struct drm_device *dev, void *data,
+ 		return -ENODEV;
+ 	}
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	ret = -EINVAL;
+ 	if (!(attrs->flags & I915_OVERLAY_UPDATE_ATTRS)) {
+@@ -1329,7 +1328,7 @@ int intel_overlay_attrs_ioctl(struct drm_device *dev, void *data,
+ 
+ 	ret = 0;
+ out_unlock:
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_pipe_crc.c b/drivers/gpu/drm/i915/display/intel_pipe_crc.c
+index 8ac263f471be..e50e514e4897 100644
+--- a/drivers/gpu/drm/i915/display/intel_pipe_crc.c
++++ b/drivers/gpu/drm/i915/display/intel_pipe_crc.c
+@@ -76,6 +76,7 @@ static int i9xx_pipe_crc_auto_source(struct drm_i915_private *dev_priv,
+ 				     enum intel_pipe_crc_source *source)
+ {
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	struct intel_encoder *encoder;
+ 	struct intel_crtc *crtc;
+ 	struct intel_digital_port *dig_port;
+@@ -83,7 +84,7 @@ static int i9xx_pipe_crc_auto_source(struct drm_i915_private *dev_priv,
+ 
+ 	*source = INTEL_PIPE_CRC_SOURCE_PIPE;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 	for_each_intel_encoder(dev, encoder) {
+ 		if (!encoder->base.crtc)
+ 			continue;
+@@ -120,7 +121,7 @@ static int i9xx_pipe_crc_auto_source(struct drm_i915_private *dev_priv,
+ 			break;
+ 		}
+ 	}
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 59fb4c710c8c..7a30e2ff2fed 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -1009,31 +1009,35 @@ static void i915_driver_postclose(struct drm_device *dev, struct drm_file *file)
+ static void intel_suspend_encoders(struct drm_i915_private *dev_priv)
+ {
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	struct intel_encoder *encoder;
++	int ret;
+ 
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 	for_each_intel_encoder(dev, encoder)
+ 		if (encoder->suspend)
+ 			encoder->suspend(encoder);
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ }
+ 
+ static void intel_shutdown_encoders(struct drm_i915_private *dev_priv)
+ {
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct drm_modeset_acquire_ctx ctx;
+ 	struct intel_encoder *encoder;
++	int ret;
+ 
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 	for_each_intel_encoder(dev, encoder)
+ 		if (encoder->shutdown)
+ 			encoder->shutdown(encoder);
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ }
+ 
+ void i915_driver_shutdown(struct drm_i915_private *i915)
 -- 
-2.17.1
+2.33.0
 
