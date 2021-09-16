@@ -7,65 +7,65 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18DEAC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CC28C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D03F56113A
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D03F56113A
+	by mail.kernel.org (Postfix) with ESMTPS id 46E2E60E94
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 46E2E60E94
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 815786E946;
-	Thu, 16 Sep 2021 21:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87AF76E5B2;
+	Thu, 16 Sep 2021 21:25:57 +0000 (UTC)
 Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
  [64.147.123.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06F506E8FC;
- Thu, 16 Sep 2021 21:25:56 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.west.internal (Postfix) with ESMTP id 199272B011E5;
- Thu, 16 Sep 2021 17:16:13 -0400 (EDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E259F6E8E5;
+ Thu, 16 Sep 2021 21:25:55 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.west.internal (Postfix) with ESMTP id F32C82B011DF;
+ Thu, 16 Sep 2021 17:16:03 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 16 Sep 2021 17:16:13 -0400
+ by compute5.internal (MEProxy); Thu, 16 Sep 2021 17:16:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=fnNE3/bpQJX1h
- pzoQSY26cMfUyUc1erwvXKd9/uTahY=; b=iUc/J+KqzYC/SOJ1n5Qm7Exfbz4e8
- rQNcaAdvb37kMX1+R8W+Ry3SuLhIXvRxwqUoMd93OjAkpLFFxrlg/6N0mDnROBVF
- EtlGUMu3JTgyidP1spB854VFSskpiZI+gVBi4AKn7qcn1zVyDHHpGKlzk/3hCpmX
- WHzfRyCxzVX8ywpP5FWXviF8lCbA7vrzl3YI3cZ9ACSQfknxzHugVLIv934ftwcz
- i80XDh9GlU9FqvUiY7Q9KVG0JApM6tXKmg3axJmSwaM1/LrIGZgJIbZIoHYMsbuY
- ptPHU+v1Fk0tF6FklbPWc3JsltaWJ5/gm5gGz3SQyapjLAMV3NK3Td8cw==
+ :mime-version:content-transfer-encoding; s=fm3; bh=7drGizuMVrgy3
+ XtFLhWzlftyWemSxaP+r0ayB6xLFcI=; b=joAmPfTP2CUq1mUhs+7TF0jmnc/n0
+ a9l16AYNEAWtSKpPDPLfMnrrxBoeHIJFjfAPKPYvt/E72nlcrwAcZh5yXWmXSMAC
+ 1EUHZYmXjPnbbbxqiuYvbZER4vR23GP2wNawwz8uy7r+thYVfRdZZXT9677zSbhr
+ 1NPMYwA2dB9tGZJLYQ7SYyTIJY1cAJZc3NFVi71HSS6w1uh8p/oWC1dR7wU8VfAt
+ an0HZEBGXXtYmRQlu5DnEi2YGZAwCYjeEqWRdacjVrX1E88MPP2t7wIA4FNZ0NMC
+ sMMfZIk9c8zXUYrVZDh/3ZsNeo2jw33Ep2Q5l2fZFzo6HdUme8DFRsByQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=fnNE3/bpQJX1hpzoQSY26cMfUyUc1erwvXKd9/uTahY=; b=qaZjebld
- CC4bFZrF8IIU/ploQNy+oGHZlHwai55D12mYP4YjZ2tsUMDwyWHTeYVIX4M60raF
- TMKKPs0YY/eFUWhGK7JdXmZXfpR3Rv5k69mjXjmDXpmawcDB24pOhEDsGQEQNwMM
- UaAj+uyH0fSgN7N6dN6cFVPwNpmIqzb7MwloYQyNaHP/R/zp7BL3jYtqVP/jx5HB
- MdChTSiVLpNI0Rhl0fI/9wftxdTdXbn6yxupIJUz1tQdDrNYo54sKW3uG+Rf8S7p
- UhtSFDAT65wh7LX0+DMOemIF8MbqOx6Ty0CkuD4KM9+78dl78q28upOeSXPVVXXG
- hyLEChyurmUjMw==
-X-ME-Sender: <xms:HLRDYXZkcU_hbBgclkdE4qElC42xnxyshGsk1AycjBB_UQDTPqdTGw>
- <xme:HLRDYWbmR-zpzKgVvNrEiI0fMObvt2lfewBpnCRjHOXQX3TVF0KDwEIW0mTRpRufE
- xG-A6rvBUwW3_CXzA>
-X-ME-Received: <xmr:HLRDYZ8VBQWTmKgMrLKeGVTUEP-C2IiWmJdD78RSpDCH8CIWdOD9MQQ2LptLPkLkon_V>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehfecutefuodetggdotefrod
+ fm3; bh=7drGizuMVrgy3XtFLhWzlftyWemSxaP+r0ayB6xLFcI=; b=mThYdNSJ
+ UA6B6s4cAfzUiJoAmUqiQKSBM7j1RuTZztIRudpdIpxQpg3gyWLV1fvKYsEV6sID
+ OMasYA5qnor+pcCiQ8i96/HREyYEi6Tc7q4FR/ssNXsUk9KPkGn+6yjDb6mrUbT4
+ 25bxFE3DuX1ge/PS6kVtxc3rnzqOsvJIdKZiOYTmv/Lqz78zxbsfKoE7iozwOiyK
+ 74rDN8qDBOBOXlruo3Tkyu/O+Hjbj6wyI8rwbnRajGl3mw3ULAMFgGO1vw/JXyI9
+ XKEt336bxwlGW62VfY0cWj2RvpAIKVdJQ8GCveB8AeBJ79C+N/4/5Piql/dFYs8D
+ bGHYXUiIhzV6KA==
+X-ME-Sender: <xms:E7RDYUYaydmQ4bnDJeZ2cXCy3cG1IHgwnA1NTZBz0XsTZDj5Fd3E0g>
+ <xme:E7RDYfYvuZy7QkXcFKq6DsE6UUS_8FbPs2P9Ef-GjmQkKx7PQMj9e1aKUPkXEqJ0X
+ IE42L70621vTk499w>
+X-ME-Received: <xmr:E7RDYe_HGJ7Sgl39IjzOywbClm6pdVU5jEckgJHFnavIu_het8QDhaOOjTT01snq8PSU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehvdcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
  ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
  fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedtnecu
  rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:HLRDYdp6Dsq9Fy3JypCrfwH5H0laosX6MZdk3DtYeI_q5cCOzUL8-Q>
- <xmx:HLRDYSrvxZPOjVqunjFjNd7ZO_MLrRYjMdx3pD6LTJWqEiSnyg8nPw>
- <xmx:HLRDYTQtxSeCND0MCZ-CPg3t21bwC5BMfSjUX3LtFuTbGcU8-3gvYg>
- <xmx:HLRDYR0GgPJN1Opw9eYer407-fQWgA7iH_kOVaTtxzrXR3Atj_qXp2dygAo>
+X-ME-Proxy: <xmx:E7RDYepGZWuxM7SWGgEc7seslnw_RSITX1SOUJ3eF7S-FMSojRPvNg>
+ <xmx:E7RDYfox0T-kxzBzP_7tR1vWKtP0EsEp1Ll7QVHHXpHUdhtCGlLvnA>
+ <xmx:E7RDYcR_V37ARJ5VjTaaixOM7M93W_lc_vGOBs9-iEIVMRxEZ-JJqw>
+ <xmx:E7RDYS32YQ75566ndscqtpAdV5d2m5LPgSBY7V3Q6CNJN6nEwQ_Z1gzFIzs>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Sep 2021 17:16:09 -0400 (EDT)
+ 16 Sep 2021 17:16:00 -0400 (EDT)
 From: Fernando Ramos <greenfoo@u92.eu>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
@@ -73,10 +73,10 @@ Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org
-Subject: [PATCH 03/15] dmr/msm: cleanup: drm_modeset_lock_all_ctx() -->
+Subject: [PATCH 01/15] dmr: cleanup: drm_modeset_lock_all_ctx() -->
  DRM_MODESET_LOCK_ALL_BEGIN()
-Date: Thu, 16 Sep 2021 23:15:40 +0200
-Message-Id: <20210916211552.33490-4-greenfoo@u92.eu>
+Date: Thu, 16 Sep 2021 23:15:38 +0200
+Message-Id: <20210916211552.33490-2-greenfoo@u92.eu>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
 References: <20210916211552.33490-1-greenfoo@u92.eu>
@@ -102,38 +102,43 @@ and DRM_MODESET_LOCK_ALL_END()
 
 Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
 ---
- drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_client_modeset.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-index cabe15190ec1..c83db90b0e02 100644
---- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-+++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-@@ -99,20 +99,18 @@ static void msm_disp_capture_atomic_state(struct msm_disp_state *disp_state)
- {
- 	struct drm_device *ddev;
+diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+index ced09c7c06f9..5f5184f071ed 100644
+--- a/drivers/gpu/drm/drm_client_modeset.c
++++ b/drivers/gpu/drm/drm_client_modeset.c
+@@ -574,6 +574,7 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
+ 	int num_connectors_detected = 0;
+ 	int num_tiled_conns = 0;
  	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
++	int err;
  
- 	disp_state->timestamp = ktime_get();
- 
- 	ddev = disp_state->drm_dev;
+ 	if (!drm_drv_uses_atomic_modeset(dev))
+ 		return false;
+@@ -585,10 +586,7 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
+ 	if (!save_enabled)
+ 		return false;
  
 -	drm_modeset_acquire_init(&ctx, 0);
 -
--	while (drm_modeset_lock_all_ctx(ddev, &ctx) != 0)
+-	while (drm_modeset_lock_all_ctx(dev, &ctx) != 0)
 -		drm_modeset_backoff(&ctx);
-+	DRM_MODESET_LOCK_ALL_BEGIN(ddev, ctx, 0, ret);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, err);
  
- 	disp_state->atomic_state = drm_atomic_helper_duplicate_state(ddev,
- 			&ctx);
+ 	memcpy(save_enabled, enabled, count);
+ 	mask = GENMASK(count - 1, 0);
+@@ -743,8 +741,7 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
+ 		ret = false;
+ 	}
+ 
 -	drm_modeset_drop_locks(&ctx);
 -	drm_modeset_acquire_fini(&ctx);
-+
-+	DRM_MODESET_LOCK_ALL_END(ddev, ctx, ret);
- }
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, err);
  
- void msm_disp_snapshot_capture_state(struct msm_disp_state *disp_state)
+ 	kfree(save_enabled);
+ 	return ret;
 -- 
 2.33.0
 
