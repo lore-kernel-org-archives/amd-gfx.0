@@ -2,69 +2,70 @@ Return-Path: <SRS0=YYL8=OG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 938A8C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29796C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6806460E94
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6806460E94
+	by mail.kernel.org (Postfix) with ESMTPS id EE8F060EE3
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EE8F060EE3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA1E6E9B6;
-	Thu, 16 Sep 2021 21:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD4D6EA57;
+	Thu, 16 Sep 2021 21:26:09 +0000 (UTC)
 Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
  [64.147.123.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE0A16E8EA;
- Thu, 16 Sep 2021 21:25:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6397D6E93F;
+ Thu, 16 Sep 2021 21:25:56 +0000 (UTC)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.west.internal (Postfix) with ESMTP id 1BAF52B011D0;
- Thu, 16 Sep 2021 17:15:59 -0400 (EDT)
+ by mailnew.west.internal (Postfix) with ESMTP id 0F7A92B011F0;
+ Thu, 16 Sep 2021 17:16:36 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 16 Sep 2021 17:15:59 -0400
+ by compute2.internal (MEProxy); Thu, 16 Sep 2021 17:16:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=v45RiqZN/i6oiIGNrZzNEXsh+f
- 6NSgjMOWlZQrk26uM=; b=dxfey06DfqMg90n/+BtczlPU39glJAkDJIV7LMm06M
- m8BCYqXT72dMAQ+Khc41PNOMmUgC0ajzA/6ezi2HNPUd983XJTTW5dBR1vH2wuco
- nYvIr3r6/09L09j7eElkKgfHT19wwhi8QplgSS3j3UXmSptXTb6eIZ3p3NBTiVTT
- T5aql7+bz8wgJesu4F+COmS1DjH8KVQyERJqkQZOEKU+VYjCnicJ+kWceSFg53MP
- qhpBxwVVzaJB6T0SrPJTOptA/IdINjwyI7FdboH4CmoUTkRpoYNdreHHyFFi7inP
- zbxP0vZ3BGcRW95PcjCIls4bJJQpzJee2YajrXRCiNTw==
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm3; bh=84fUwuxauQEIo
+ 8ROgvUlA+lf+FW+ZYdcIkY6uUfv0b0=; b=RJoWj4tOk7NvnP6UUKgjFp2R3+q1S
+ IwaYzA2yoX10b5n0g4N0CYgqvHQE44TpcuCoWXQrkoOiQifEaDg7wOFKY+7EONY2
+ x2ZQOf2qUimvSr2tGJyTZUtBZiC/ls1Gp1QQVqvcf970R+dhVbQX+ClA7qZYWkGi
+ gqQboaOIfCwmp4ozv+XFYFN4eH2ZzZiCB+jx+oATf/2ROynIUp6iIg0kszq9ebA1
+ y682ne16HENIHTG46loiH/sZBD3KG3jRQvFSxw1qo+mzQmKaPqkJwrkxafFl2MBD
+ z8dvQYxvgowPcIAdICLP1L7OYk++KYRe90K7uDU8ZRR+czklZ7i5d6N8g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=v45RiqZN/i6oiIGNr
- ZzNEXsh+f6NSgjMOWlZQrk26uM=; b=IYPiGcVe1V5ahNOjZHFtPOqQZDa1XkRIy
- RzHMh6lWCr6RTHexSYUBUja/QS1VoEPBXA6TXH6AOtI2iD8xEhWAvlQ16TwQkls4
- 4RagJ2Natj7UX1ccLlPx/vsOxc8j554vF1s27SfFBcOSnNZEcG3kkSEjn2AtxogS
- 7O185Eo6QVy3ChKtaRQpx91otiONpnpZ6M1DIUmnZOh5YhDsNnlRkzzk4XBi7m2k
- z0d/Rqe2I9wySThumhWl36kOBAyw/AdtmomTSB45E0qI8m9PP2co4em/gpHjU8XR
- Nl+rNLlbLQrjuPsO0AivDyHFfQX9NHJfJPBZOFjlAbGYjvlvZtwSA==
-X-ME-Sender: <xms:DrRDYS2YBBhC0muLD5cxiMUOIJrQxDCqFtrn1lTj7RiYEB1B49WyCw>
- <xme:DrRDYVFVH_IvVBSD9kC8ums35IM1hr2LEztXYPfUJlZK4J45fh7LZ4Zzhdu3_rs3d
- rDhakEox1dteuaOJw>
-X-ME-Received: <xmr:DrRDYa5xChptJGJBVStNset8NVN8nR-xwwVJ9psf1GbDfe6gnJ5MXS7dKpYCnB4CF_8M>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=84fUwuxauQEIo8ROgvUlA+lf+FW+ZYdcIkY6uUfv0b0=; b=R2ZpAS4J
+ 9bUrGuRl+8fnRWhsKXJnBKi1APHUsk9RFz/edk4qZ4mY2NzivnZXxl2HlhvoYtzZ
+ vvhyrDZrYzFzJnw8AriKJPRMaT4Rz7zoDTPcfUvrnNaOTqwNnDpE6/h2dOwrh2tA
+ guyvEguhyEk3pSarr0uG2xg7puy+9U0rNCR5zipsdJu7m0XRsNuTWnjkByDxsdC1
+ T5l3sXyzUVXmcX4k+185I9ax7KX1W9QvrhsDDv77ao3mcgarpuI4JIIedkCs6n3M
+ I7BGSnEVux8j2aBwhGUy/isb6IpEzLjlKsWn4/ybb7etgLHP7wRx33zmPuzMm3R+
+ IC4m4ZPViRo0Rg==
+X-ME-Sender: <xms:NLRDYSMz0niIQ2RtDAwKSvB3FBceHSas7doJNvM9Y5m_-CORq9LIJQ>
+ <xme:NLRDYQ9UqxF0dmjMkcc5plJ63D34WgvO40Cq0-j1f-YdNSk5pcM-Aq_6DSO-fGvAn
+ ThnlDXWmmsNkor4Ig>
+X-ME-Received: <xmr:NLRDYZScrOoiXX7WuEObDTdPk7blp-s3DIDmSRTAg53lEHQVHdDyJ_72uNT89BaNW9Iv>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehvdcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhhoohes
- uhelvddrvghuqeenucggtffrrghtthgvrhhnpeeiueevtdegtdffgeeggfeuteejkeekvd
- dvkeeiueekgfefgfeuueffgeelvdeggeenucevlhhushhtvghrufhiiigvpedtnecurfgr
- rhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:DrRDYT0n4G0IUQlTXvjeSyD0-Lrv2Pwm9g3_-WefWJQCreB9NnDi9Q>
- <xmx:DrRDYVFHMXp3SYuyB_NQi3348HnS15JlQSB9tHw3ICJ-gCcChO6YJg>
- <xmx:DrRDYc-_oMpbbkvdnJyBWXH6WZurqNHcGB81qLgmDUpTqv7G5Q2LBQ>
- <xmx:DrRDYUCR8Wr9Fu8JLjjRoaFZbJEAF63ayA3Z3UvSTMWGs3MfkZd7BRDzrIA>
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
+ ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
+ ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
+ fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpeegnecu
+ rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
+X-ME-Proxy: <xmx:NLRDYSsPf_W-19_8XwvUgkRa0oufhXWXU1DIMZc0jIDhnguHRWxi6A>
+ <xmx:NLRDYafboTCADGtSGsc2oDXTqYZJQJLyfo6xI8F7CuYb1fCHLJ2w9Q>
+ <xmx:NLRDYW0sHfFJEphzpcltPvMAddUnHM6V2Ju5qQceaNR65A5RsYYwlg>
+ <xmx:NLRDYa5Q8m-Mi-Xaxv6b4fsj0yqDkJJehYjXvmlt_pPIrfKS5gkbgsWKG-0>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Sep 2021 17:15:55 -0400 (EDT)
+ 16 Sep 2021 17:16:34 -0400 (EDT)
 From: Fernando Ramos <greenfoo@u92.eu>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
@@ -72,11 +73,13 @@ Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org
-Subject: [PATCH 00/15] drm: cleanup: Use DRM_MODESET_LOCK_ALL_* helpers where
- possible
-Date: Thu, 16 Sep 2021 23:15:37 +0200
-Message-Id: <20210916211552.33490-1-greenfoo@u92.eu>
+Subject: [PATCH 09/15] drm/omapdrm: cleanup: drm_modeset_lock_all() -->
+ DRM_MODESET_LOCK_ALL_BEGIN()
+Date: Thu, 16 Sep 2021 23:15:46 +0200
+Message-Id: <20210916211552.33490-10-greenfoo@u92.eu>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
+References: <20210916211552.33490-1-greenfoo@u92.eu>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,81 +96,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+As requested in Documentation/gpu/todo.rst, replace driver calls to
+drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
+DRM_MODESET_LOCK_ALL_END()
 
-One of the things in the DRM TODO list ("Documentation/gpu/todo.rst") was to
-"use DRM_MODESET_LOCAL_ALL_* helpers instead of boilerplate". That's what this
-patch series is about.
+Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
+---
+ drivers/gpu/drm/omapdrm/omap_fb.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-You will find two types of changes here:
-
-  - Replacing "drm_modeset_lock_all_ctx()" (and surrounding boilerplate) with
-    "DRM_MODESET_LOCK_ALL_BEGIN()/END()" in the remaining places (as it has
-    already been done in previous commits such as b7ea04d2)
-
-  - Replacing "drm_modeset_lock_all()" with "DRM_MODESET_LOCK_ALL_BEGIN()/END()"
-    in the remaining places (as it has already been done in previous commits
-    such as 57037094)
-    
-Most of the changes are straight forward, except for a few cases in the "amd"
-and "i915" drivers where some extra dancing was needed to overcome the
-limitation that the DRM_MODESET_LOCK_ALL_BEGIN()/END() macros can only be used
-once inside the same function (the reason being that the macro expansion
-includes *labels*, and you can not have two labels named the same inside one
-function)
-
-Notice that, even after this patch series, some places remain where
-"drm_modeset_lock_all()" and "drm_modeset_lock_all_ctx()" are still present,
-all inside drm core (which makes sense), except for two (in "amd" and "i915")
-which cannot be replaced due to the way they are being used.
-
-Fernando Ramos (15):
-  dmr: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  dmr/i915: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  dmr/msm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/vmwgfx: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/tegra: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/shmobile: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/radeon: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/omapdrm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/nouveau: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/msm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/gma500: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  drm/amd: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
-  doc: drm: remove TODO entry regarding DRM_MODSET_LOCK_ALL cleanup
-
- Documentation/gpu/todo.rst                    | 17 -------
- Documentation/locking/ww-mutex-design.rst     |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 13 +++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 50 +++++++++----------
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 23 +++++----
- drivers/gpu/drm/drm_client_modeset.c          | 14 +++---
- drivers/gpu/drm/drm_crtc_helper.c             | 18 ++++---
- drivers/gpu/drm/drm_fb_helper.c               | 10 ++--
- drivers/gpu/drm/drm_framebuffer.c             |  6 ++-
- drivers/gpu/drm/gma500/psb_device.c           | 14 ++++--
- drivers/gpu/drm/i915/display/intel_audio.c    | 12 +++--
- drivers/gpu/drm/i915/display/intel_display.c  | 22 +++-----
- .../drm/i915/display/intel_display_debugfs.c  | 35 ++++++++-----
- drivers/gpu/drm/i915/display/intel_overlay.c  | 45 ++++++++---------
- drivers/gpu/drm/i915/display/intel_pipe_crc.c |  5 +-
- drivers/gpu/drm/i915/i915_drv.c               | 12 +++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  6 ++-
- .../gpu/drm/msm/disp/msm_disp_snapshot_util.c | 10 ++--
- drivers/gpu/drm/nouveau/dispnv50/disp.c       | 12 +++--
- drivers/gpu/drm/omapdrm/omap_fb.c             |  6 ++-
- drivers/gpu/drm/radeon/radeon_device.c        | 13 +++--
- drivers/gpu/drm/radeon/radeon_dp_mst.c        |  7 ++-
- drivers/gpu/drm/shmobile/shmob_drm_drv.c      |  6 ++-
- drivers/gpu/drm/tegra/dsi.c                   |  6 ++-
- drivers/gpu/drm/tegra/hdmi.c                  |  5 +-
- drivers/gpu/drm/tegra/sor.c                   | 10 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c         | 11 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           | 12 +++--
- 28 files changed, 222 insertions(+), 180 deletions(-)
-
+diff --git a/drivers/gpu/drm/omapdrm/omap_fb.c b/drivers/gpu/drm/omapdrm/omap_fb.c
+index 190afc564914..56013c3ef701 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fb.c
++++ b/drivers/gpu/drm/omapdrm/omap_fb.c
+@@ -62,13 +62,15 @@ static int omap_framebuffer_dirty(struct drm_framebuffer *fb,
+ 				  unsigned num_clips)
+ {
+ 	struct drm_crtc *crtc;
++	struct drm_modeset_acquire_ctx ctx;
++	int ret;
+ 
+-	drm_modeset_lock_all(fb->dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(fb->dev, ctx, 0, ret);
+ 
+ 	drm_for_each_crtc(crtc, fb->dev)
+ 		omap_crtc_flush(crtc);
+ 
+-	drm_modeset_unlock_all(fb->dev);
++	DRM_MODESET_LOCK_ALL_END(fb->dev, ctx, ret);
+ 
+ 	return 0;
+ }
 -- 
 2.33.0
 
