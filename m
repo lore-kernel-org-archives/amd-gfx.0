@@ -7,65 +7,65 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E6E7C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E56CC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3CC4F60E94
+	by mail.kernel.org (Postfix) with ESMTPS id CE6AF60E94
 	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 21:26:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3CC4F60E94
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CE6AF60E94
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B15B6E9E8;
-	Thu, 16 Sep 2021 21:26:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2419D6EA15;
+	Thu, 16 Sep 2021 21:26:05 +0000 (UTC)
 Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
  [64.147.123.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46B196E934;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 516426E939;
  Thu, 16 Sep 2021 21:25:56 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.west.internal (Postfix) with ESMTP id 7CECF2B011E2;
- Thu, 16 Sep 2021 17:16:08 -0400 (EDT)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.west.internal (Postfix) with ESMTP id 075AE2B011FE;
+ Thu, 16 Sep 2021 17:17:04 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 16 Sep 2021 17:16:09 -0400
+ by compute1.internal (MEProxy); Thu, 16 Sep 2021 17:17:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=THT3r23bRB3DO
- SyAiuVpoYppTCo9NOFvRLFcWAQJ5Xg=; b=fzPkV/swvhkVUzk2HO/pxss5LUjVv
- rfi/aD58J9VRvld38mJVM01mniZ1GrY3QlwKKMf3C7MnMxp9+SXpfN/JKC5QgkPr
- Q5CgwrNnP3X0Fj6NmNKozImKZKdD/I+4/27dWneSQrbobkvKWiJIH7yNH/eVar1H
- ey2mSHiNzmOpBtAyl6HmkFinNFvCZeZzo637/NOLdEvN8oOwrWIQbuJu4osahaMq
- HPUM0uDodgEadgeXjoCAlUZzPbOkBQoxJ0vNHPOV0poFTZmofwwLWJCwLD883KGf
- RynggfEBlIl9IDFOeHeVYXzKEtNPK689/JjR92PoFEH+LYERvoAMTg2MQ==
+ :mime-version:content-transfer-encoding; s=fm3; bh=iroseorgTS5+5
+ 6n4OvAi9A0zE9zzgwEyhNq+UyaK88I=; b=JqB6MykZyikjd8FHQpkP2BVRiApCi
+ p97PKlwm5G0/L/4XVX3lqmTmwqebWnYTO76yp5b24TACA4mDucytOHtFwCKVR8pi
+ 5Ut3HOIY7pMqcVlQPruSd3NBk1nqJmyk6Q8GmUt/PhC6uecC5BsJCQbe7izkUB1N
+ 1oODFBA15PXUkwVN1edova19IWI1k7sl3D7GZlEfJxWteVbHVqnCXIiBON1YeF6Q
+ ke7f46GEo8x9M8/x8g/68cQq+/34OnakZm4nftR794yVgm7HS84DcfEz9/9Xquzn
+ NQIrRugchM7CwmINRox74fte0FisiWe+QHwoEe63kzk/D7XsFOC+W5/Hg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=THT3r23bRB3DOSyAiuVpoYppTCo9NOFvRLFcWAQJ5Xg=; b=d8LkK8Bd
- 6XK+FC7BimbCd93EyVc28yF6VPT5T+MvCk2csON9fhpq2v1YIrf3hWbmQVk4nXik
- zbzZ5S2T2JnKQi8kXV7+UAx0lVKMXR4ryI9eOvrotYTBR8ECAVGpWkGV5S5a2HHN
- w915K639KZM4lm3a2nLjokqAbcoNJjRToT2XoScT9t0l3IN97gq7LsjEnsxlZCG6
- yLGkJpA7ABDyWGMEMAFg97nv7meytb9EYS6WVRoiwQBqkabe011e8yfV8NswS2Kj
- oddD56VZsR990BjSCLlwug/3SF5Jkk2xkgvZomCFGCg9s1RLmxd1oom0EVO56KQG
- LN49xTHOHekVWg==
-X-ME-Sender: <xms:GLRDYTt659or1fsDtvvlRsyHfwtW4_QwHnUWEzxynzVf9KMZm4W9Eg>
- <xme:GLRDYUcpukyBXQOuEbgPMZMewThUX87g2sjdJr_eVrje6Lh7GrXQgWt-1o-Rp1N-B
- FtgsOKqxn5s8KQYLg>
-X-ME-Received: <xmr:GLRDYWy1LYMNwGBBtR3Z8HP4vpbGB9e9CbBHc-407042yF7cPJelJkm88anHyvT3xJsH>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehvdcutefuodetggdotefrod
+ fm3; bh=iroseorgTS5+56n4OvAi9A0zE9zzgwEyhNq+UyaK88I=; b=KFmCLz46
+ 1FPNUNZEQDILKwJHhkCM3LDNBWvz+Du0FfVwgzscjCIa1lfAFUMCnimOCnz+v2VN
+ OIGyPho+V34dOTg+c/liZ3nhJ8V7rjnRiHRq7+K4LuplvVdLlICSGB4EQRysKM3m
+ XsRnIfK3DrD1MuKduXDb3s4qXdjLNNXnWPtLpx+Svp+INZSW7vWv7S+5pgFBVO/7
+ YKtF8vjl/idG8MDmrMGP+k7KpEgPEie9FYkCHdSaT6Qs2myEMyviDTW4WP8Qkv3U
+ y+kmKM4SWxPDHOWwdVvrKTSZPvdibP0auTw41yvGQfEUDCrBhInYnVVyzHzf1P8w
+ /zDqSRxgO6ai9A==
+X-ME-Sender: <xms:ULRDYUreEiKr9-wfH7gjUQbDYKJlFusHfKWDogv7Ge602Ckdj2vj2g>
+ <xme:ULRDYao97dVnQm7nZvkBz6y2xX7-1i4D6m8xRuEBPuUiX83LHVnC-ALNHac7hyfxI
+ eqfXjkzgZz4MQdYaQ>
+X-ME-Received: <xmr:ULRDYZNVgneZAgEhKnokbUl8KnYcgUKXaZlcEOsOsRIX_j_8iuHMQKyHUnZMPLTcfbv1>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudehgedgudehfecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
  ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedtnecu
+ fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpeefnecu
  rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:GLRDYSOz6Be9YGmdd9N_ZLEYc_KIsu9wRRbUmvGKI0KxIe9RCqhbKg>
- <xmx:GLRDYT98jfmWDbYrg9Kt0nZlH0xeqVIyLqZlx89A37KcSnWKf3-4mQ>
- <xmx:GLRDYSUd2QtaDhh7JLgsY7LRT7b4RdJ4Ry3zRvfP8G11USUaSrx3rQ>
- <xmx:GLRDYabibEzn--v-DEbRT_IWmwl2Pkg_EJrOpP18MRKTbHYB8WEoDQVXkNs>
+X-ME-Proxy: <xmx:ULRDYb7tx52V7V4Uy3ZFmKN34pzWAWKKXV2pf9Luy9WJAsmvqBWktg>
+ <xmx:ULRDYT6yJPnE9_oDxHhEFQK0wZYXfux_ly9TKvbmMj96gpW4clHJnQ>
+ <xmx:ULRDYbg00qLPg30a5Fg6nDCEH4CMmlk7HY8xQlq1WDVb42fpgWPiGQ>
+ <xmx:ULRDYQH6y7bdl-ZVVuxrF3UsbDA2Ufy00zFfyaZw0zyk9jss2N3JQIvlack>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Sep 2021 17:16:05 -0400 (EDT)
+ 16 Sep 2021 17:17:01 -0400 (EDT)
 From: Fernando Ramos <greenfoo@u92.eu>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
@@ -73,10 +73,10 @@ Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org
-Subject: [PATCH 02/15] dmr/i915: cleanup: drm_modeset_lock_all_ctx() -->
- DRM_MODESET_LOCK_ALL_BEGIN()
-Date: Thu, 16 Sep 2021 23:15:39 +0200
-Message-Id: <20210916211552.33490-3-greenfoo@u92.eu>
+Subject: [PATCH 15/15] doc: drm: remove TODO entry regarding
+ DRM_MODSET_LOCK_ALL cleanup
+Date: Thu, 16 Sep 2021 23:15:52 +0200
+Message-Id: <20210916211552.33490-16-greenfoo@u92.eu>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
 References: <20210916211552.33490-1-greenfoo@u92.eu>
@@ -96,46 +96,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As requested in Documentation/gpu/todo.rst, replace the boilerplate code
-surrounding drm_modeset_lock_all_ctx() with DRM_MODESET_LOCK_ALL_BEGIN()
-and DRM_MODESET_LOCK_ALL_END()
+The previous commits do exactly what this entry in the TODO file asks
+for, thus we can remove it now as it is no longer applicable.
 
 Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+ Documentation/gpu/todo.rst                | 17 -----------------
+ Documentation/locking/ww-mutex-design.rst |  2 +-
+ 2 files changed, 1 insertion(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 134a6acbd8fb..997a16e85c85 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -13476,22 +13476,13 @@ void intel_display_resume(struct drm_device *dev)
- 	if (state)
- 		state->acquire_ctx = &ctx;
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index 12e61869939e..6613543955e9 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -353,23 +353,6 @@ converted, except for struct drm_driver.gem_prime_mmap.
  
--	drm_modeset_acquire_init(&ctx, 0);
+ Level: Intermediate
+ 
+-Use DRM_MODESET_LOCK_ALL_* helpers instead of boilerplate
+----------------------------------------------------------
 -
--	while (1) {
--		ret = drm_modeset_lock_all_ctx(dev, &ctx);
--		if (ret != -EDEADLK)
--			break;
+-For cases where drivers are attempting to grab the modeset locks with a local
+-acquire context. Replace the boilerplate code surrounding
+-drm_modeset_lock_all_ctx() with DRM_MODESET_LOCK_ALL_BEGIN() and
+-DRM_MODESET_LOCK_ALL_END() instead.
 -
--		drm_modeset_backoff(&ctx);
--	}
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+-This should also be done for all places where drm_modeset_lock_all() is still
+-used.
+-
+-As a reference, take a look at the conversions already completed in drm core.
+-
+-Contact: Sean Paul, respective driver maintainers
+-
+-Level: Starter
+-
+ Rename CMA helpers to DMA helpers
+ ---------------------------------
  
--	if (!ret)
--		ret = __intel_display_resume(dev, state, &ctx);
-+	ret = __intel_display_resume(dev, state, &ctx);
+diff --git a/Documentation/locking/ww-mutex-design.rst b/Documentation/locking/ww-mutex-design.rst
+index 6a4d7319f8f0..6a8f8beb9ec4 100644
+--- a/Documentation/locking/ww-mutex-design.rst
++++ b/Documentation/locking/ww-mutex-design.rst
+@@ -60,7 +60,7 @@ Concepts
+ Compared to normal mutexes two additional concepts/objects show up in the lock
+ interface for w/w mutexes:
  
- 	intel_enable_ipc(dev_priv);
--	drm_modeset_drop_locks(&ctx);
--	drm_modeset_acquire_fini(&ctx);
-+
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 
- 	if (ret)
- 		drm_err(&dev_priv->drm,
+-Acquire context: To ensure eventual forward progress it is important the a task
++Acquire context: To ensure eventual forward progress it is important that a task
+ trying to acquire locks doesn't grab a new reservation id, but keeps the one it
+ acquired when starting the lock acquisition. This ticket is stored in the
+ acquire context. Furthermore the acquire context keeps track of debugging state
 -- 
 2.33.0
 
