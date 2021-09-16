@@ -1,134 +1,72 @@
-Return-Path: <SRS0=hzS6=OF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=YYL8=OG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50A08C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 23:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC29BC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 00:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DDC0E61130
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Sep 2021 23:24:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DDC0E61130
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 994896103B
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Sep 2021 00:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 994896103B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DBEE6EA78;
-	Wed, 15 Sep 2021 23:24:08 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2056.outbound.protection.outlook.com [40.107.102.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1516EA78
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 23:24:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B+9uXrIPtLfxdJ/yGn3f6yL9vQU3xeL8VdoCOWlAyRFGRQxoAAiERCuPtYa2AUDUo0HGnc10qK8XLMKstwtRdiTLNI6HM9rBsjiXdlFtRm0UkRGmQGSDlbXd1QqAB9/glruNODxIvuD2nLvMNm3mCE7YC6bIDGTCOI5S0mKyuPiGn/xwAVp8kcUtkH+jPOnDjH2G9S5xpJ0L/ga+uA3GtlJPOfLE7faFP0VJ+dwPCBW/QHWeS4gcgP+2/MoLpkbno5Vpy2r7zvcZKezHSa2XbZ1S0v1L28sS87NcFherJtUbz0ABmKJ1B6TuHAP73pO6sxgQVSUkUaCQ4/GBteJpFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=jHpWLPnMxUwlsj1ohg5udpDk2G9+VNFxPaPwZg44abo=;
- b=ABeRAy3KoNBgFkPggbpaAcS805pxTsr6PX//sWEh0BKq02TJTDF81UKCBh5W99uONiQ2lvCPeNYi/tWUEym6pSvAnC2F9ccb2z0Mhlt/YqhC6kSV/01M/2tPW6q4C1s0RVEuJ/n4I/zw4dumSNXzG+R901eQBHyvxTSJnIHhgGt5RQcksmh1S0savbnKD5VkWZRyhUQ0UEM1f+H4d+M/wlfJX6JaYfli2ViPx2iaeXADM5aDfVCyQATUxqwW1kvtIrAm1K8wqJiJzohP03Fesmbnj1g54bAcTLBF1hSYUxGc61CLFIo0ImZsOdu9+XNnHmzTXb0FfQXygPgCFP1Cpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jHpWLPnMxUwlsj1ohg5udpDk2G9+VNFxPaPwZg44abo=;
- b=o4JrdQARdRJet1vUcW5Rj6ZRGB3AfGtm+92Rzd9/07IWHEMV3YIgCBYtVqoKFs0oHANa5rsDW31XPreKXf9opn7NG1nOW93mlbjdAZxM6mLNV6I3o1qJwQanA5gdhOTtKcp3P9o4+YS8dSWZCAkWFQIZp47sYp8Wpf6L/dIIMCk=
-Authentication-Results: lists.linux.dev; dkim=none (message not signed)
- header.d=none;lists.linux.dev; dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5072.namprd12.prod.outlook.com (2603:10b6:5:38b::22)
- by DM8PR12MB5429.namprd12.prod.outlook.com (2603:10b6:8:29::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Wed, 15 Sep
- 2021 23:24:05 +0000
-Received: from DM4PR12MB5072.namprd12.prod.outlook.com
- ([fe80::3d10:92c3:3a52:77d9]) by DM4PR12MB5072.namprd12.prod.outlook.com
- ([fe80::3d10:92c3:3a52:77d9%5]) with mapi id 15.20.4523.014; Wed, 15 Sep 2021
- 23:24:05 +0000
-Subject: Re: [3/4] drm/amd/display: Fix rest of pass-by-value structs in DML
-To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: ndesaulniers@google.com, torvalds@linux-foundation.org,
- linux-kernel@vger.kernel.org, arnd@kernel.org, sunpeng.li@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- nathan@kernel.org, linux@roeck-us.net, llvm@lists.linux.dev
-References: <20210909010023.29110-4-harry.wentland@amd.com>
-From: Anson Jacob <Anson.Jacob@amd.com>
-Message-ID: <9404bcb9-a7b9-4b65-5665-181639012828@amd.com>
-Date: Wed, 15 Sep 2021 19:24:03 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210909010023.29110-4-harry.wentland@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0199.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::19) To DM4PR12MB5072.namprd12.prod.outlook.com
- (2603:10b6:5:38b::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A9B76EA82;
+	Thu, 16 Sep 2021 00:12:18 +0000 (UTC)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBBD06EA82
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Sep 2021 00:12:16 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ f3-20020a17090a638300b00199097ddf1aso6265683pjj.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Sep 2021 17:12:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=HF7at2+2fqDHZYM+8hKA5o5AJgt9rHfAE/DoGG8T/ao=;
+ b=ZkRFO2D73R+UE5z70eKMJB+rPy43gautr1zXl6eHBcCWJys+e8eSocw8KrMmZ5ncBK
+ NHZT1OE8Z1XOKesoOg+WtBS6majmB8owgNGw/DOF1T8hC18JPARXIsD7f/rFe+1jA3Qt
+ E6KsIOCm1GLlBgVbtPvK4DApgEVVo6dAJmTRMlmIIs4/aGEAlcTROJuFarC9jY4aWcu+
+ cm3d3H4VcDgTt3sip3HJxKzgkj+hrTd4K79xvYZDPp63GpJPFycKZrmZBLixKC50uVTf
+ TIoeaZV0JhrGQDtaJMDnU6afKcKH6G/EtSPg5ABLn6tryYE4o7/R4sDgwW8su+4rgb5i
+ xMTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=HF7at2+2fqDHZYM+8hKA5o5AJgt9rHfAE/DoGG8T/ao=;
+ b=06vaPrFPl+1RDR66v9iQx4pLYjbmR/k71mmZZX6mSdebZqKGGjYERpkySpuJZRsoqx
+ dLpeaWZufEydKfZrL8AzywBulCwRQKWWc6FXz8iX28SS03aYzTWFjCTcGc5q2uFQ1VAv
+ T9qRVS9vGDqyOZRRtO0GxTUktdiZA1T3Udm5g8+82okm1JMQrDJ33gEZnOe3mgonXS5v
+ l1zy7uUYkqYrVFYHjtYAGlEe+RmtTW8gnov4NR0MIgUV7eW1U/EYvQC3NxnoUJ+lTl7l
+ X60qd/Fd6jvwuTyhAAfwGS49ERAllMRyDR7Om+Ejmp6Zw329Lat2wg139OdFE4f3K4s5
+ lJow==
+X-Gm-Message-State: AOAM532Pekk4PY2TtJjeUMUQj6/ZhpQHPBjfTfwS2GTSaAkiR7qiKH1/
+ 3tQMeX1T2e6XUvhjaD23zw/Ai03Vg7fB/d0fzTkdMPre/PAhWw==
+X-Google-Smtp-Source: ABdhPJxsAjULa6e2c273CkXBo7il0dPxZS9AzOt72Sm37YlIxFjDrvUfYfcqG5Utx4AUgKPKQfepWAYtui7HniP/0bo=
+X-Received: by 2002:a17:902:b218:b029:11a:bf7b:1a80 with SMTP id
+ t24-20020a170902b218b029011abf7b1a80mr2138410plr.82.1631751136332; Wed, 15
+ Sep 2021 17:12:16 -0700 (PDT)
 MIME-Version: 1.0
-Received: from [192.168.2.12] (142.118.127.251) by
- YQBPR0101CA0199.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:67::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Wed, 15 Sep 2021 23:24:04 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 32ec8e38-40ba-4008-5965-08d9789fe8df
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5429:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM8PR12MB54299547BC8FE01D25A5892EEBDB9@DM8PR12MB5429.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iLdGAfw0ciCktP5StSeNZgosaOFx4qSKXq1NWZYrGJC34MmY6QaZTz6M/+lS4fv9wjGKLztyhdcccE6kYqSKb44gPEeuM7tWhBPQ0tUEqjTCMokY8u4xz1auL6c1wO3ID0kyQOFkZiq/IYIovo95JZLsgXyIRQmvPOOvf6q1T1AmjKTy9wgbe2W5CMrJqKOwtAc3HSkvAnYRSzXuw7+I+7GP2p+r2TaINrFg7aX2CZUaicCyezeK8ub4YG1AvZ7KoJrmmGiC6VuswDRcy+8veB4uvndoY10nWmSMQp0Id6FKtIML3S2d+R1QEcEzooCqi08MWkrOdUetVlgiomehM4VXIUd+4BzAB1/iVGHENYuuDfYTWB6MtsFV9Ezd0ERyCfFKfjEcCXgi5AbOy7VGB7v6Ycf/fNH69kVl59itSPamJqmqGOsBRWfymHfodzi4X7GmwX5NaLqxJ1XN3pDv3PB+PRtVxg+uqPTVK9Y6KHRFp/3ErQrpPbPb5uZq+hljgtpZDkUQYHKKKl8AgUCC699fKV3Yk8bybYqEwTU5dC9UcJXmjJdy55TzA7iJTD0lPjbCwMBt891va5Uxtm9PMbINbsk7u++hfsdeJPTSa+/Ir4jMG4EGjRPZTgAIxA0sYj5v6uwSsh3bruQx5dcgPTOtB89icVrRWr59yYr5odPzDRhVkv/nFPFICgdOzEOBMTX0dNPTsIn3acqOd70KC6s6HYHChYbptmD3XzqFYCY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5072.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(136003)(396003)(39860400002)(376002)(66476007)(66946007)(2906002)(66556008)(36756003)(316002)(956004)(2616005)(186003)(4744005)(16576012)(86362001)(478600001)(38100700002)(5660300002)(31686004)(26005)(31696002)(4326008)(8676002)(6486002)(8936002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elpyYkFpQjRnMXlUOWZuSTE2TUYzRloxQWJINmpRTWt5VkVOTVo5UkFkcU5E?=
- =?utf-8?B?SmFQV2hkUlltV0x1R1FIMDZjUVFoSjJjdkNuNW5LaGVtQksrUFB6b0tqMzUr?=
- =?utf-8?B?LzJPNGdDNkowSXc4cGs1WXRCNnhZMEFrRWFjTXZ4ejZGV0tkd0h1Q3N6R21v?=
- =?utf-8?B?T0JRQ0p2NzJ3SExaZFcwMUF3V0o2emU4VlFBb04rSHEvbkpsaUk5OFpvN2lJ?=
- =?utf-8?B?dWluSUdnV3JXQ3R1all3RXhpSEdyWUxYWDcweXdNVmM2ejZCQW1YM3ZETFZk?=
- =?utf-8?B?bWxXYVRZNWJ5NjZUbHdZMUZXbFMvWi9XV1JBaE54ZUJvdWt5VHZmaTI4RUZj?=
- =?utf-8?B?aDN5TFZ2SlNJa0xFNTNvNXpGZnZaN283TUgvMlZlSnJvSTNqZUtHdVNKYjkv?=
- =?utf-8?B?QmViazByczVSZ245Y2VzM0tQZ2FkbEI4ejZBRnZHTitzb2U3WFpiZzNkNTNv?=
- =?utf-8?B?ZTNweFpmNHdIcStMaG5CUUJpaTJIR2wxU0NWcldhNmlxYlh3YThZUVFmZWR4?=
- =?utf-8?B?OUlmS2ZOR1R3KzlDRm5Nc1g0RVJKRUtMbHFDakx4M013Vm1vSlVMWUUxajNW?=
- =?utf-8?B?MFVlQ0tRSnIwczRybkRnZldLUUtrdlJjR3BUdnEvWUFQS05RUW81aFg0S3Vq?=
- =?utf-8?B?WllFbmsvS2lOQVVRSFMyYVcyZHVYSFNwREFRbEd0YnJWZ0xkL1lPNlk0WEg1?=
- =?utf-8?B?TVZudGtzR25ZMGZKb1IwTWdQSDk2S1BnOGZTQWNVOGY5MWtZUGdaRktwV2t4?=
- =?utf-8?B?cjFTS0swL0o1Qk5pWFFvU1VjN0pjL2lwTWRvTGxmdVVjVmVCVzFoK3Z1S2F6?=
- =?utf-8?B?RHBMQm0zVVMrOCtpMkdFdHV3d29NU1A1OHR2TXlJTnRFQlVhdmJSZjUwTmdD?=
- =?utf-8?B?WlQ2YmFQVW1sNzk1SnZyRWk3NkhrVGtWK0Y2b3ROejM4aHhvSldodUJMclRy?=
- =?utf-8?B?bk5uV1hWVDYyUWNidkRzUHZRTmNIY1hJdjNkemhzM3ZlTlM3cEk4YWY0UWtt?=
- =?utf-8?B?ZTZQU1V5eHdCaXJ0bGJKWWZMYWhYdW5CZ1hMcThIZlNiZ1hFaURvcFV6OTZF?=
- =?utf-8?B?VXdGMTljMzdnNUtMTHVISGpHL1Uwdk13dit4eVdrRThVbHNFazkxZzZPYnNB?=
- =?utf-8?B?MG9Pa2RpSTU3eEYyQlZGMWV5TUQ3Ym9yMEVJMHZXOFFpeW5KYXY2WVl2c0c3?=
- =?utf-8?B?M0QzcDhlVkVpNUJ4VWhyL2t2a2NJbStvcG9NUEYvV1paQWtHbkRhUjh3MCs3?=
- =?utf-8?B?N25BekdKVUtRNkFhejh4SUZ0eWZFWEF0UHBkdWpvMVhNYXRrMjVEemRCazNy?=
- =?utf-8?B?V1d2NGpXbDVYNGx3ZGJWaHhVSExLckwrM2tidE1jVnZIUHVHblZkZ3BMcTM2?=
- =?utf-8?B?ZmtHSFFmRTQrcXY1KzM5R2VIUTE5Y3pWck1vZGhGU3B2Z0p5SC9MUEJ1WHB3?=
- =?utf-8?B?TE5qL3AxTHlEdnkzbk1aNmJGbG4yZlVKNjB2QjBqVHp6cXRSZ2J1dHlzTWtK?=
- =?utf-8?B?eTFtelBKWEJNdVdhNkN5WWtlMVJaamh1Qm9VREdJQVZzTktzcjFqaVEyTDV0?=
- =?utf-8?B?U1pCQUUybEdURytYZUwxVkVSNERhVHpZSVZ1aTFNR0Y5OXhGRXFFTlVxL3kv?=
- =?utf-8?B?RW84eDU3dkp6WUtuU0R0ZXc0QXJLZXBQTEhvYmpNMGZkbWg2YUpLcTdGRWVm?=
- =?utf-8?B?WVpFRTRKU25JYmY3bTJmbTloU2lXNEg4Ri9HU2h2NzhEdFBKU2taTHpLaDVo?=
- =?utf-8?Q?GHMVE88e/tIyXiblVnMyE3ys1MsK7DtL4ZMZo3j?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32ec8e38-40ba-4008-5965-08d9789fe8df
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5072.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 23:24:05.4189 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T0ox6gO41G3d+OQEyvThT5zXHG0furtK4EkAdzCGLQiv9L/yNExPVBEc3h6ryfwRN3PY01zanca4csI74+idrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5429
+References: <20210914235948.893422-1-joshua@froggi.es>
+ <20210914235948.893422-3-joshua@froggi.es>
+In-Reply-To: <20210914235948.893422-3-joshua@froggi.es>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Wed, 15 Sep 2021 20:11:40 -0400
+Message-ID: <CAAxE2A4yR7aXPocAHdsKsyN-vVQFUKiX_7gyxD6-iG4mzHTs6A@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amd/display: Add modifiers capable of DCC image
+ stores for gfx10_3
+To: Joshua Ashton <joshua@froggi.es>
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Content-Type: multipart/alternative; boundary="000000000000d7d03405cc11aab2"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,13 +81,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Harry,
+--000000000000d7d03405cc11aab2
+Content-Type: text/plain; charset="UTF-8"
 
-This patch fixes the following CID's. Thanks.
+Based on the discussions we had about displayable DCC internally, only
+MAX_COMPRESSED_BLOCK = 64B with both DCC_INDEPENDENT_64B_BLOCKS and
+DCC_INDEPENDENT_128B_BLOCKS is supported by DCN on RDNA 2.
 
-Addresses-Coverity-ID: 1424031: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1424055: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1424072: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1423779: ("Big parameter passed by value")
+Is there something new on the hardware side that I missed?
 
--- Anson
+Marek
+
+On Tue, Sep 14, 2021 at 7:59 PM Joshua Ashton <joshua@froggi.es> wrote:
+
+> Some games, ie. Doom Eternal, present from compute following compute
+> post-fx and would benefit from having DCC image stores available.
+>
+> DCN on gfx10_3 doesn't need INDEPENDENT_128B_BLOCKS = 0 so we can expose
+> these modifiers capable of DCC image stores.
+>
+> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> Reviewed-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 21 +++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 2a24e43623cb..a4e33a4336a0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4817,6 +4817,16 @@ add_gfx10_3_modifiers(const struct amdgpu_device
+> *adev,
+>                     AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+>                     AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_64B));
+>
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_128B));
+> +
+>         add_modifier(mods, size, capacity, AMD_FMT_MOD |
+>                     AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+>                     AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> @@ -4829,6 +4839,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device
+> *adev,
+>                     AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+>                     AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_64B));
+>
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_128B));
+> +
+>         add_modifier(mods, size, capacity, AMD_FMT_MOD |
+>                     AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+>                     AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> --
+> 2.33.0
+>
+>
+
+--000000000000d7d03405cc11aab2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Based on the discussions we had about displayable DCC=
+ internally, only MAX_COMPRESSED_BLOCK =3D 64B with both DCC_INDEPENDENT_64=
+B_BLOCKS and DCC_INDEPENDENT_128B_BLOCKS is supported by DCN on RDNA 2.</di=
+v><div><br></div><div>Is there something new on the hardware side that I mi=
+ssed?<br></div><div><br></div><div>Marek<br></div></div><br><div class=3D"g=
+mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Sep 14, 2021 at 7=
+:59 PM Joshua Ashton &lt;<a href=3D"mailto:joshua@froggi.es">joshua@froggi.=
+es</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
+">Some games, ie. Doom Eternal, present from compute following compute<br>
+post-fx and would benefit from having DCC image stores available.<br>
+<br>
+DCN on gfx10_3 doesn&#39;t need INDEPENDENT_128B_BLOCKS =3D 0 so we can exp=
+ose<br>
+these modifiers capable of DCC image stores.<br>
+<br>
+Signed-off-by: Joshua Ashton &lt;<a href=3D"mailto:joshua@froggi.es" target=
+=3D"_blank">joshua@froggi.es</a>&gt;<br>
+Reviewed-by: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuizen.n=
+l" target=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<br>
+---<br>
+=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 21 ++++++++++++++++++=
++<br>
+=C2=A01 file changed, 21 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 2a24e43623cb..a4e33a4336a0 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -4817,6 +4817,16 @@ add_gfx10_3_modifiers(const struct amdgpu_device *ad=
+ev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PACKERS, pkrs) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
+@@ -4829,6 +4839,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device *ad=
+ev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PACKERS, pkrs) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_RETILE, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
+-- <br>
+2.33.0<br>
+<br>
+</blockquote></div>
+
+--000000000000d7d03405cc11aab2--
