@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D497AC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B397C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0EA8604E9
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A0EA8604E9
+	by mail.kernel.org (Postfix) with ESMTPS id 3668E60F6C
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3668E60F6C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06AE36EE7D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A006EE7B;
 	Fri, 17 Sep 2021 19:25:57 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2066.outbound.protection.outlook.com [40.107.95.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC8CF6EE7A
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 19:25:54 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B82D46EE7A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 19:25:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SaMKQzo8u0jPva4d38N251rjHIXnGG4ckV+lCE+FCUaIkOIFiZrzb9YxQwvUWYGodMhFlFLVqguBZlFvJCIW5CqhoAbLdwfIZ0VZXIPpNqnUO9sSAUDMy8v6LqgVaN4c3zkSKnEsQ43Di4sTjSSSwYuuWJL0z+1QBbQZ18kCEqMpi2XxWItP+ZiWQOSYdPzaEHnzBi8AtOCt1I9W8G7PAEGYUYl/dveBMaBzhR4ZmKiiYcKqCszm+WXqijloa1Zcf7mc6o3ToDfOIiF/jAcGy1FbWp1pPWuWI0iSW6sJtKljyUodkLoq2ULBrQskEJZ2UlotV9uGsNobdJ6ND//gZw==
+ b=YLPBSWBivDq8r1gLTHMY4Ry5u78K9Ah0ngA/SUWPw4tc0bwDhbPsK9KcMwaQtXwBhvSH6IJPCTThW+Hlf5UO/DJ4aVuIoq/M6HY5qUHTwrkxAnFpThv9+Oimaz8qT2LgEgoRk6fnDcztpvnjA8K1Tj5VUohJmIUZppcNBihgthlwZWqONvSRts6TIatNOK2OhzZOLxD8sTnKFiBGh1UB+Xwi4tOyQrPqmyuUT35OIn6gEoqah5GdWDgcqiZfThBgilnQaX7F5Kgnfjq4D6Ls2AIf+AlrUn1Vr0gGb/C8hXur/tGLz3vWIeZW1/BHMlvEhy2VScEGGJjfsZuB1P00+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=9VnPc6nABX7sdcA5yw7EOm/fk1T7F08ZW95C6hDaW+E=;
- b=dF33Tyt7Je6H9WwoRzZAXCrJykPZF/D7+LpipMgzUPvLaxsoQsPacWotpH0x9p3x7faKtK7uUBypeoZke0HuwxEJZkcOVqRe9r/5py9Wo5q74I4+2XpeEjP3fJEcVusSMnGGA79vNOxAPauVg4lsS5zDQbdgtEMkzYJnym5VGhLqWMTobnPh39Yo8ci5OghTn808GHWoD7K5V3j7EIHytpn/hVsAWMyhZObDVkdKoH+Nph1vi240Kbc/YSr4XfVxbcjxhHryqZnG0e4Q8ajS1JSPG9K9ORkfw+bmCutb9sHPJ2L2mWmNPS272ZuLzgAVeZDdxqCKseJ3ThnxhX86JQ==
+ bh=HlD6oZ0FHra9umC7NPanV3iU39qw0sNTJpnn1li9bnM=;
+ b=UA5C2ExW8vmXM5DXsLSXDfk3wsvdQIxDwN3zE2HxeumiMzoLijaSord0+yIQ+hmMmSYluTeF+AXnPdmTqBHNeotKzZnG1OtiLKkH814T0bg+kYj5ZzmmOOw2u9n7LQ2NZdaqmfFKvC8dZJZw6eetzglVTXjK36cAV1ukGGgsLWfQqdKoBEzgk8ROykQzGXhTryUmKttVhd3P+nz2DGISUGCwZnUKn9kqhqhiu3LUGiJLTax3JO7Sf7pTK9Tte/54wzSZ21A/9OmEiwhX4BATbmMWm+r1qrHme7UreOdrO6+CIJLoUC+gn4r8T6fHoUvS8Nk7OQ0/JyW+sgC5fw2Pew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9VnPc6nABX7sdcA5yw7EOm/fk1T7F08ZW95C6hDaW+E=;
- b=OH5A4FIdGqfPRPKDeoZr4bjFJX75coHQdlryK1Ye7L42DWrRTM/6IT0q05+UhppMduOqgPl3DsQ+qgYW7a886A3Nl3ZfvC80wM0wYF+h5zPmStdE841XHGs6Z4+H24iWDx1XNnd6QKy7UZmeNs8BKuSzj2cV+Yh7ybgfQ99eRVc=
-Received: from BN9PR03CA0019.namprd03.prod.outlook.com (2603:10b6:408:fa::24)
- by SJ0PR12MB5487.namprd12.prod.outlook.com (2603:10b6:a03:301::16)
+ bh=HlD6oZ0FHra9umC7NPanV3iU39qw0sNTJpnn1li9bnM=;
+ b=ieQfj/gO/ka+EPxpvYVxr1IfixlGxBDSDK5xya9RkH531gxgMbKjKjfIzSWPEpXi9fVzFTtcey4y9e6oJZheDybp9mJSrho/dbyLmlwOTKMBmz3zwI4pPOY+ElqFAn/j6chB1DtA1CH44cxONoip8gqNsrTDTQmXnTZa1I/dekM=
+Received: from BN9PR03CA0916.namprd03.prod.outlook.com (2603:10b6:408:107::21)
+ by BYAPR12MB3141.namprd12.prod.outlook.com (2603:10b6:a03:da::33)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Fri, 17 Sep
- 2021 19:25:52 +0000
-Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fa:cafe::ad) by BN9PR03CA0019.outlook.office365.com
- (2603:10b6:408:fa::24) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 19:25:53 +0000
+Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:107:cafe::f8) by BN9PR03CA0916.outlook.office365.com
+ (2603:10b6:408:107::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Fri, 17 Sep 2021 19:25:52 +0000
+ Transport; Fri, 17 Sep 2021 19:25:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,13 +57,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
+ BN8NAM11FT011.mail.protection.outlook.com (10.13.176.140) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 19:25:52 +0000
+ 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 19:25:53 +0000
 Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 17 Sep
- 2021 14:25:50 -0500
+ 2021 14:25:51 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
@@ -72,10 +72,9 @@ CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
  <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Jimmy Kizito
  <Jimmy.Kizito@amd.com>, Jun Lei <Jun.Lei@amd.com>
-Subject: [PATCH 06/18] drm/amd/display: Fix concurrent dynamic encoder
- assignment
-Date: Fri, 17 Sep 2021 15:25:12 -0400
-Message-ID: <20210917192524.3020276-7-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 07/18] drm/amd/display: Fix dynamic encoder reassignment
+Date: Fri, 17 Sep 2021 15:25:13 -0400
+Message-ID: <20210917192524.3020276-8-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210917192524.3020276-1-Rodrigo.Siqueira@amd.com>
 References: <20210917192524.3020276-1-Rodrigo.Siqueira@amd.com>
@@ -87,28 +86,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ce457091-8ba8-4906-f81f-08d97a10f671
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5487:
-X-Microsoft-Antispam-PRVS: <SJ0PR12MB548759658F4BE50EC0D4F43A98DD9@SJ0PR12MB5487.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-MS-Office365-Filtering-Correlation-Id: 808f3956-388a-44a1-41f7-08d97a10f722
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3141:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB31410185D3CA607134396C2D98DD9@BYAPR12MB3141.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iXwWr+6LDKPhPb7VakWe3fWUe8tXUBkvwqHQ2VGXAfOuCB1ImqSusSqzoddJXLyfnpmzrTdVO3+RpD+DnUee7deIzQiQo8wgVQDP+Fq5mEv+os39z1QPdReW70oxaROG4x5NOFbXSsH7Z8zWg83/qtb9SV/0mymlncCxoI3JIs3BLFumsrJpQalDp6eNcBhiNqoVgL/VFRhQND7h5Sdp4/FbxzsnbYgVswHKnxB4cAZD7zKp7gQoEMqoxk/luBYpTTNW6LzaddalVZAPJkZQhCK2HlYeaXfhFTmcZ9lRiz7RMa8ecjuvnUCrs7eM8BXSIbv3ZOdQ2v8hik+eINTHRZ9S6gtuNtTVUBA/n3kMCrnlZIGZrYV4QC8ifX6f9neLGZFWWn0M8Lx0+tNX/YC29vlZ+Hez7mVOl9XnbjwxJYKYJRnUJLx+cwgiNs3CNbhKK11vkNMtQmKli01EQAZgbpdAhYDKf9rylpwcSL2Ajf7liK+ISPaQ5+kCTEsh5Zwrv6opsD1CWnCblEwmaaITJjoEAr83dMdBkRwtXRvybF4FgMZtM0izYnUhKrPjQEdd//8pZB2W6DE52kU8k8dIA1I7ux50k5U9x6bXYmOXMbNgZyNEAudRVbEKkt7y2VjNiahAs2TVuFEHNJPpDtvoSvFk0hF1sEJ3lCjqLiy8PexInfLCtF2hJhDSmWtWRkOmKdQ/4iMeBMGmxTYO2jp8CbL74irZjWl3IhCP4zd8HCo=
+X-Microsoft-Antispam-Message-Info: VpGc6oke2MRKR0SyW4wNOVPaZhi9NY1qrLWZsZ5QfGeXpCJW+FdtC68uTiS5n796jqyiHPBxde0wVhuhtaMcNteJ/UpuaYvZAz1mj2mbDuJ+Bs6+qHwqSuigbA+HagrrVDDYpWNRWyHpE2V7JYH+jBEc+LduKdQr5yjDuYoe3DTcOxr+F9pNIpmxZiZriSXt37xpb/qW/sosw7TlUKbGliuW2k/MlQXFX8zuRa3Zfg8W8C2+1xcbZKShkUwbBu8/ivQavFoTC74vLRvY9oQBck8Bnecw6P36deCrkKOAErnJW73a5DGeOr80fI4nD1Vqfz3TafITh7tGNJnyfQt2wd7mFol7fz3BBhj+55s3Ts95uP/g2MiPVHldM4Nsb7jpHxiGu+iA6XXDnGdeVAwHSzJgDiePgmwN+euUizrSEM5Ek8FC1XznlGQpdWxjBYZbLqxpGyTujbRLbEx9/JisEWFP9oE63+JGtCCOTtB+mMILZr9w38PQXghtST9DuOx67eXBU7NLtwXwSvP9yTyqro8tjvFqkiI1iNA/T2L9H/4aP2jTuU9IVb6L+7rz3VjBDYw+fhvpNjaqQ5frE5J94H85xp8QeMylhRqgpK7wgKJ4i3aVUnd2mkoOKHJIZKfRMInZqEQpxk4wOvrU/sblRTVJHVKBW64MP2RzxCSkK7eq1WWx/u51ou/U7V2J4SqhgmmCYWdr02OSLRne/SdaLlYajC4u9WLwG89qFBNoTnw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(4326008)(36756003)(8676002)(54906003)(47076005)(86362001)(356005)(316002)(2616005)(81166007)(36860700001)(2906002)(186003)(336012)(26005)(508600001)(82310400003)(8936002)(16526019)(30864003)(426003)(5660300002)(70586007)(70206006)(83380400001)(1076003)(6916009)(6666004)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(8676002)(316002)(70586007)(6916009)(4326008)(82310400003)(81166007)(508600001)(6666004)(8936002)(70206006)(86362001)(47076005)(36756003)(2906002)(336012)(2616005)(426003)(186003)(16526019)(83380400001)(5660300002)(30864003)(36860700001)(54906003)(356005)(26005)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 19:25:52.1925 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce457091-8ba8-4906-f81f-08d97a10f671
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 19:25:53.3469 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 808f3956-388a-44a1-41f7-08d97a10f722
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5487
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3141
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,551 +125,829 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Jimmy Kizito <Jimmy.Kizito@amd.com>
 
 [Why]
-Trying to enable multiple displays simultaneously exposed shortcomings
-with the algorithm for dynamic link encoder assignment.
+Incorrect encoder assignments were being used while applying a new state
+to hardware.
 
-The main problems were:
-- Assuming stream order remained constant across states would sometimes
-lead to invalid DIG encoder assignment.
-- Incorrect logic for deciding whether or not a DIG could support a
-stream would also sometimes lead to invalid DIG encoder assignment.
-- Changes in encoder assignment were wholesale while updating of the
-pipe backend is incremental. This would lead to the hardware state not
-matching the software state even with valid encoder assignments.
+(1) When committing a new state to hardware requires resetting the
+back-end, the encoder assignments of the current or old state should be
+used when disabling the back-end; and the encoder assignments for the
+next or new state should be used when re-enabling the back-end.
+
+(2) Link training on hot plug could take over an encoder already in use
+by another stream without first disabling it.
 
 [How]
 
-The following changes fix the identified problems.
-- Use stream pointer rather than stream index to track streams across
-states.
-- Fix DIG compatibility check by examining the link signal type rather
-than the stream signal type.
-- Modify assignment algorithm to make incremental updates so software
-and hardware states remain coherent.
+(1) Introduce a resource context 'link_enc_cfg_context' which includes:
+- a mode to indicate when transitioning from current to next state.
+- transient encoder assignments to use during this state transition.
 
-Additionally:
-- Add assertions and an encoder assignment validation function
-link_enc_cfg_validate() to detect potential problems with encoder
-assignment closer to their root cause.
-- Reduce the frequency with which the assignment algorithm is executed.
-It should not be necessary for fast state validation.
+Update the encoder configuration interface to respond to queries about
+encoder assignment based on the mode of operation.
+
+(2) Check if an encoder is already in use before attempting to perform
+link training on hot plug.
 
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |   2 +-
- .../drm/amd/display/dc/core/dc_link_enc_cfg.c | 329 ++++++++++++++----
- .../gpu/drm/amd/display/dc/core/dc_resource.c |   2 +-
- .../drm/amd/display/dc/inc/hw/link_encoder.h  |   1 +
- .../gpu/drm/amd/display/dc/inc/link_enc_cfg.h |   3 +
- 5 files changed, 260 insertions(+), 77 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |  13 +-
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |  27 +--
+ .../drm/amd/display/dc/core/dc_link_enc_cfg.c | 178 +++++++++++++-----
+ .../drm/amd/display/dc/core/dc_link_hwss.c    |   6 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  15 +-
+ .../display/dc/dce110/dce110_hw_sequencer.c   |   2 +-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   4 +-
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |   5 +-
+ .../display/dc/dcn31/dcn31_dio_link_encoder.c |   6 +-
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    |   4 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  18 +-
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |   5 +
+ .../gpu/drm/amd/display/dc/inc/link_enc_cfg.h |  20 +-
+ 13 files changed, 215 insertions(+), 88 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 222509557672..4ec3de34bd67 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -3490,11 +3490,8 @@ static void update_psp_stream_config(struct pipe_ctx *pipe_ctx, bool dpms_off)
+ 			link_enc = pipe_ctx->stream->link->link_enc;
+ 			config.phy_idx = link_enc->transmitter - TRANSMITTER_UNIPHY_A;
+ 		} else if (pipe_ctx->stream->link->dc->res_pool->funcs->link_encs_assign) {
+-			/* Use link encoder assignment from current DC state - which may differ from the DC state to be
+-			 * committed - when updating PSP config.
+-			 */
+ 			link_enc = link_enc_cfg_get_link_enc_used_by_stream(
+-					pipe_ctx->stream->link->dc->current_state,
++					pipe_ctx->stream->ctx->dc,
+ 					pipe_ctx->stream);
+ 			config.phy_idx = 0; /* Clear phy_idx for non-physical display endpoints. */
+ 		}
+@@ -3619,7 +3616,7 @@ void core_link_enable_stream(
+ 		return;
+ 
+ 	if (dc->res_pool->funcs->link_encs_assign && stream->link->ep_type != DISPLAY_ENDPOINT_PHY)
+-		link_enc = stream->link_enc;
++		link_enc = link_enc_cfg_get_link_enc_used_by_stream(dc, stream);
+ 	else
+ 		link_enc = stream->link->link_enc;
+ 	ASSERT(link_enc);
+@@ -4216,14 +4213,14 @@ bool dc_link_is_fec_supported(const struct dc_link *link)
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign) {
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 		if (link_enc == NULL)
+-			link_enc = link_enc_cfg_get_next_avail_link_enc(link->dc, link->dc->current_state);
++			link_enc = link_enc_cfg_get_next_avail_link_enc(link->ctx->dc);
+ 	} else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+ 
+-	return (dc_is_dp_signal(link->connector_signal) &&
++	return (dc_is_dp_signal(link->connector_signal) && link_enc &&
+ 			link_enc->features.fec_supported &&
+ 			link->dpcd_caps.fec_cap.bits.FEC_CAPABLE &&
+ 			!IS_FPGA_MAXIMUS_DC(link->ctx->dce_environment));
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index c96a8694236e..920ae2b0b165 100644
+index 920ae2b0b165..938bfd8761d1 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2362,7 +2362,7 @@ bool perform_link_training_with_retries(
- 	/* Dynamically assigned link encoders associated with stream rather than
- 	 * link.
+@@ -282,7 +282,7 @@ static enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *li
  	 */
--	if (link->dc->res_pool->funcs->link_encs_assign)
-+	if (link->is_dig_mapping_flexible && link->dc->res_pool->funcs->link_encs_assign)
- 		link_enc = stream->link_enc;
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign)
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
  	else
  		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+@@ -317,7 +317,7 @@ static enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *li
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign)
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 	else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+@@ -2363,7 +2363,7 @@ bool perform_link_training_with_retries(
+ 	 * link.
+ 	 */
+ 	if (link->is_dig_mapping_flexible && link->dc->res_pool->funcs->link_encs_assign)
+-		link_enc = stream->link_enc;
++		link_enc = link_enc_cfg_get_link_enc_used_by_stream(link->ctx->dc, pipe_ctx->stream);
+ 	else
+ 		link_enc = link->link_enc;
+ 
+@@ -2645,9 +2645,9 @@ bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, struct dc_link_
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign) {
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 		if (link_enc == NULL)
+-			link_enc = link_enc_cfg_get_next_avail_link_enc(link->dc, link->dc->current_state);
++			link_enc = link_enc_cfg_get_next_avail_link_enc(link->ctx->dc);
+ 	} else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+@@ -2676,9 +2676,9 @@ static struct dc_link_settings get_max_link_cap(struct dc_link *link)
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign) {
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 		if (link_enc == NULL)
+-			link_enc = link_enc_cfg_get_next_avail_link_enc(link->dc, link->dc->current_state);
++			link_enc = link_enc_cfg_get_next_avail_link_enc(link->ctx->dc);
+ 	} else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+@@ -2860,7 +2860,13 @@ bool dp_verify_link_cap(
+ 	enum link_training_result status;
+ 	union hpd_irq_data irq_data;
+ 
+-	if (link->dc->debug.skip_detection_link_training) {
++	/* Accept reported capabilities if link supports flexible encoder mapping or encoder already in use. */
++	if (link->dc->debug.skip_detection_link_training ||
++			link->is_dig_mapping_flexible) {
++		link->verified_link_cap = *known_limit_link_setting;
++		return true;
++	} else if (link->link_enc && link->dc->res_pool->funcs->link_encs_assign &&
++			!link_enc_cfg_is_link_enc_avail(link->ctx->dc, link->link_enc->preferred_engine)) {
+ 		link->verified_link_cap = *known_limit_link_setting;
+ 		return true;
+ 	}
+@@ -5658,7 +5664,7 @@ enum dc_status dp_set_fec_ready(struct dc_link *link, bool ready)
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign)
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 	else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+@@ -5705,8 +5711,7 @@ void dp_set_fec_enable(struct dc_link *link, bool enable)
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign)
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(
+-				link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 	else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
-index 49b17bbea8d1..5536184fff46 100644
+index 5536184fff46..4dce25c39b75 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
-@@ -35,78 +35,116 @@ static bool is_dig_link_enc_stream(struct dc_stream_state *stream)
- 	int i;
- 
- 	/* Loop over created link encoder objects. */
--	for (i = 0; i < stream->ctx->dc->res_pool->res_cap->num_dig_link_enc; i++) {
--		link_enc = stream->ctx->dc->res_pool->link_encoders[i];
--
--		if (link_enc &&
--				((uint32_t)stream->signal & link_enc->output_signals)) {
--			if (dc_is_dp_signal(stream->signal)) {
--				/* DIGs do not support DP2.0 streams with 128b/132b encoding. */
--				struct dc_link_settings link_settings = {0};
--
--				decide_link_settings(stream, &link_settings);
--				if ((link_settings.link_rate >= LINK_RATE_LOW) &&
--						link_settings.link_rate <= LINK_RATE_HIGH3) {
-+	if (stream) {
-+		for (i = 0; i < stream->ctx->dc->res_pool->res_cap->num_dig_link_enc; i++) {
-+			link_enc = stream->ctx->dc->res_pool->link_encoders[i];
-+
-+			/* Need to check link signal type rather than stream signal type which may not
-+			 * yet match.
-+			 */
-+			if (link_enc && ((uint32_t)stream->link->connector_signal & link_enc->output_signals)) {
-+				if (dc_is_dp_signal(stream->signal)) {
-+					/* DIGs do not support DP2.0 streams with 128b/132b encoding. */
-+					struct dc_link_settings link_settings = {0};
-+
-+					decide_link_settings(stream, &link_settings);
-+					if ((link_settings.link_rate >= LINK_RATE_LOW) &&
-+							link_settings.link_rate <= LINK_RATE_HIGH3) {
-+						is_dig_stream = true;
-+						break;
-+					}
-+				} else {
- 					is_dig_stream = true;
- 					break;
- 				}
--			} else {
--				is_dig_stream = true;
--				break;
- 			}
- 		}
- 	}
--
+@@ -63,6 +63,18 @@ static bool is_dig_link_enc_stream(struct dc_stream_state *stream)
  	return is_dig_stream;
  }
  
--/* Update DIG link encoder resource tracking variables in dc_state. */
--static void update_link_enc_assignment(
-+/* Return stream using DIG link encoder resource. NULL if unused. */
-+static struct dc_stream_state *get_stream_using_link_enc(
-+		struct dc_state *state,
-+		enum engine_id eng_id)
++static struct link_enc_assignment get_assignment(struct dc *dc, int i)
 +{
-+	struct dc_stream_state *stream = NULL;
-+	int i;
++	struct link_enc_assignment assignment;
 +
-+	for (i = 0; i < state->stream_count; i++) {
-+		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++	if (dc->current_state->res_ctx.link_enc_cfg_ctx.mode == LINK_ENC_CFG_TRANSIENT)
++		assignment = dc->current_state->res_ctx.link_enc_cfg_ctx.transient_assignments[i];
++	else /* LINK_ENC_CFG_STEADY */
++		assignment = dc->current_state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
 +
-+		if ((assignment.valid == true) && (assignment.eng_id == eng_id)) {
-+			stream = state->streams[i];
-+			break;
-+		}
-+	}
-+
-+	return stream;
++	return assignment;
 +}
 +
-+static void remove_link_enc_assignment(
+ /* Return stream using DIG link encoder resource. NULL if unused. */
+ static struct dc_stream_state *get_stream_using_link_enc(
  		struct dc_state *state,
- 		struct dc_stream_state *stream,
--		enum engine_id eng_id,
--		bool add_enc)
-+		enum engine_id eng_id)
- {
- 	int eng_idx;
--	int stream_idx;
+@@ -72,7 +84,7 @@ static struct dc_stream_state *get_stream_using_link_enc(
  	int i;
  
- 	if (eng_id != ENGINE_ID_UNKNOWN) {
- 		eng_idx = eng_id - ENGINE_ID_DIGA;
--		stream_idx = -1;
+ 	for (i = 0; i < state->stream_count; i++) {
+-		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++		struct link_enc_assignment assignment = state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
  
--		/* Index of stream in dc_state used to update correct entry in
-+		/* stream ptr of stream in dc_state used to update correct entry in
+ 		if ((assignment.valid == true) && (assignment.eng_id == eng_id)) {
+ 			stream = state->streams[i];
+@@ -98,15 +110,15 @@ static void remove_link_enc_assignment(
  		 * link_enc_assignments table.
  		 */
--		for (i = 0; i < state->stream_count; i++) {
--			if (stream == state->streams[i]) {
--				stream_idx = i;
-+		for (i = 0; i < MAX_PIPES; i++) {
-+			struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
-+
-+			if (assignment.valid && assignment.stream == stream) {
-+				state->res_ctx.link_enc_assignments[i].valid = false;
-+				/* Only add link encoder back to availability pool if not being
-+				 * used by any other stream (i.e. removing SST stream or last MST stream).
-+				 */
-+				if (get_stream_using_link_enc(state, eng_id) == NULL)
-+					state->res_ctx.link_enc_avail[eng_idx] = eng_id;
-+				stream->link_enc = NULL;
+ 		for (i = 0; i < MAX_PIPES; i++) {
+-			struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++			struct link_enc_assignment assignment = state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
+ 
+ 			if (assignment.valid && assignment.stream == stream) {
+-				state->res_ctx.link_enc_assignments[i].valid = false;
++				state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i].valid = false;
+ 				/* Only add link encoder back to availability pool if not being
+ 				 * used by any other stream (i.e. removing SST stream or last MST stream).
+ 				 */
+ 				if (get_stream_using_link_enc(state, eng_id) == NULL)
+-					state->res_ctx.link_enc_avail[eng_idx] = eng_id;
++					state->res_ctx.link_enc_cfg_ctx.link_enc_avail[eng_idx] = eng_id;
+ 				stream->link_enc = NULL;
  				break;
  			}
- 		}
-+	}
-+}
-+
-+static void add_link_enc_assignment(
-+		struct dc_state *state,
-+		struct dc_stream_state *stream,
-+		enum engine_id eng_id)
-+{
-+	int eng_idx;
-+	int i;
-+
-+	if (eng_id != ENGINE_ID_UNKNOWN) {
-+		eng_idx = eng_id - ENGINE_ID_DIGA;
- 
--		/* Update link encoder assignments table, link encoder availability
--		 * pool and link encoder assigned to stream in state.
--		 * Add/remove encoder resource to/from stream.
-+		/* stream ptr of stream in dc_state used to update correct entry in
-+		 * link_enc_assignments table.
+@@ -130,14 +142,14 @@ static void add_link_enc_assignment(
  		 */
--		if (stream_idx != -1) {
--			if (add_enc) {
--				state->res_ctx.link_enc_assignments[stream_idx] = (struct link_enc_assignment){
-+		for (i = 0; i < state->stream_count; i++) {
-+			if (stream == state->streams[i]) {
-+				state->res_ctx.link_enc_assignments[i] = (struct link_enc_assignment){
+ 		for (i = 0; i < state->stream_count; i++) {
+ 			if (stream == state->streams[i]) {
+-				state->res_ctx.link_enc_assignments[i] = (struct link_enc_assignment){
++				state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i] = (struct link_enc_assignment){
  					.valid = true,
  					.ep_id = (struct display_endpoint_id) {
  						.link_id = stream->link->link_id,
  						.ep_type = stream->link->ep_type},
--					.eng_id = eng_id};
-+					.eng_id = eng_id,
-+					.stream = stream};
- 				state->res_ctx.link_enc_avail[eng_idx] = ENGINE_ID_UNKNOWN;
+ 					.eng_id = eng_id,
+ 					.stream = stream};
+-				state->res_ctx.link_enc_avail[eng_idx] = ENGINE_ID_UNKNOWN;
++				state->res_ctx.link_enc_cfg_ctx.link_enc_avail[eng_idx] = ENGINE_ID_UNKNOWN;
  				stream->link_enc = stream->ctx->dc->res_pool->link_encoders[eng_idx];
--			} else {
--				state->res_ctx.link_enc_assignments[stream_idx].valid = false;
--				state->res_ctx.link_enc_avail[eng_idx] = eng_id;
--				stream->link_enc = NULL;
-+				break;
+ 				break;
  			}
--		} else {
--			dm_output_to_console("%s: Stream not found in dc_state.\n", __func__);
- 		}
-+
-+		/* Attempted to add an encoder assignment for a stream not in dc_state. */
-+		ASSERT(i != state->stream_count);
- 	}
- }
- 
-@@ -127,30 +165,29 @@ static enum engine_id find_first_avail_link_enc(
- 	return eng_id;
- }
- 
--/* Return stream using DIG link encoder resource. NULL if unused. */
--static struct dc_stream_state *get_stream_using_link_enc(
--		struct dc_state *state,
--		enum engine_id eng_id)
-+static bool is_avail_link_enc(struct dc_state *state, enum engine_id eng_id)
- {
--	struct dc_stream_state *stream = NULL;
--	int stream_idx = -1;
--	int i;
-+	bool is_avail = false;
-+	int eng_idx = eng_id - ENGINE_ID_DIGA;
- 
--	for (i = 0; i < state->stream_count; i++) {
--		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
-+	if (eng_id != ENGINE_ID_UNKNOWN && state->res_ctx.link_enc_avail[eng_idx] != ENGINE_ID_UNKNOWN)
-+		is_avail = true;
- 
--		if ((assignment.valid == true) && (assignment.eng_id == eng_id)) {
--			stream_idx = i;
--			break;
--		}
--	}
-+	return is_avail;
-+}
- 
--	if (stream_idx != -1)
--		stream = state->streams[stream_idx];
--	else
--		dm_output_to_console("%s: No stream using DIG(%d).\n", __func__, eng_id);
-+/* Test for display_endpoint_id equality. */
-+static bool are_ep_ids_equal(struct display_endpoint_id *lhs, struct display_endpoint_id *rhs)
-+{
-+	bool are_equal = false;
- 
--	return stream;
-+	if (lhs->link_id.id == rhs->link_id.id &&
-+			lhs->link_id.enum_id == rhs->link_id.enum_id &&
-+			lhs->link_id.type == rhs->link_id.type &&
-+			lhs->ep_type == rhs->ep_type)
-+		are_equal = true;
-+
-+	return are_equal;
- }
- 
- void link_enc_cfg_init(
-@@ -175,11 +212,17 @@ void link_enc_cfg_link_encs_assign(
- {
- 	enum engine_id eng_id = ENGINE_ID_UNKNOWN;
+@@ -157,7 +169,7 @@ static enum engine_id find_first_avail_link_enc(
  	int i;
-+	int j;
-+
-+	ASSERT(state->stream_count == stream_count);
  
- 	/* Release DIG link encoder resources before running assignment algorithm. */
- 	for (i = 0; i < stream_count; i++)
- 		dc->res_pool->funcs->link_enc_unassign(state, streams[i]);
+ 	for (i = 0; i < ctx->dc->res_pool->res_cap->num_dig_link_enc; i++) {
+-		eng_id = state->res_ctx.link_enc_avail[i];
++		eng_id = state->res_ctx.link_enc_cfg_ctx.link_enc_avail[i];
+ 		if (eng_id != ENGINE_ID_UNKNOWN)
+ 			break;
+ 	}
+@@ -170,7 +182,7 @@ static bool is_avail_link_enc(struct dc_state *state, enum engine_id eng_id)
+ 	bool is_avail = false;
+ 	int eng_idx = eng_id - ENGINE_ID_DIGA;
  
-+	for (i = 0; i < MAX_PIPES; i++)
-+		ASSERT(state->res_ctx.link_enc_assignments[i].valid == false);
+-	if (eng_id != ENGINE_ID_UNKNOWN && state->res_ctx.link_enc_avail[eng_idx] != ENGINE_ID_UNKNOWN)
++	if (eng_id != ENGINE_ID_UNKNOWN && state->res_ctx.link_enc_cfg_ctx.link_enc_avail[eng_idx] != ENGINE_ID_UNKNOWN)
+ 		is_avail = true;
+ 
+ 	return is_avail;
+@@ -190,6 +202,28 @@ static bool are_ep_ids_equal(struct display_endpoint_id *lhs, struct display_end
+ 	return are_equal;
+ }
+ 
++static struct link_encoder *get_link_enc_used_by_link(
++		struct dc_state *state,
++		const struct dc_link *link)
++{
++	struct link_encoder *link_enc = NULL;
++	struct display_endpoint_id ep_id;
++	int i;
 +
- 	/* (a) Assign DIG link encoders to physical (unmappable) endpoints first. */
- 	for (i = 0; i < stream_count; i++) {
- 		struct dc_stream_state *stream = streams[i];
-@@ -191,26 +234,73 @@ void link_enc_cfg_link_encs_assign(
- 		/* Physical endpoints have a fixed mapping to DIG link encoders. */
- 		if (!stream->link->is_dig_mapping_flexible) {
- 			eng_id = stream->link->eng_id;
--			update_link_enc_assignment(state, stream, eng_id, true);
-+			add_link_enc_assignment(state, stream, eng_id);
-+		}
++	ep_id = (struct display_endpoint_id) {
++		.link_id = link->link_id,
++		.ep_type = link->ep_type};
++
++	for (i = 0; i < state->stream_count; i++) {
++		struct link_enc_assignment assignment = state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
++
++		if (assignment.valid == true && are_ep_ids_equal(&assignment.ep_id, &ep_id))
++			link_enc = link->dc->res_pool->link_encoders[assignment.eng_id - ENGINE_ID_DIGA];
 +	}
 +
-+	/* (b) Retain previous assignments for mappable endpoints if encoders still available. */
-+	eng_id = ENGINE_ID_UNKNOWN;
++	return link_enc;
++}
 +
-+	if (state != dc->current_state) {
-+		struct dc_state *prev_state = dc->current_state;
-+
-+		for (i = 0; i < stream_count; i++) {
-+			struct dc_stream_state *stream = state->streams[i];
-+
-+			/* Skip stream if not supported by DIG link encoder. */
-+			if (!is_dig_link_enc_stream(stream))
-+				continue;
-+
-+			if (!stream->link->is_dig_mapping_flexible)
-+				continue;
-+
-+			for (j = 0; j < prev_state->stream_count; j++) {
-+				struct dc_stream_state *prev_stream = prev_state->streams[j];
-+
-+				if (stream == prev_stream && stream->link == prev_stream->link &&
-+						prev_state->res_ctx.link_enc_assignments[j].valid) {
-+					eng_id = prev_state->res_ctx.link_enc_assignments[j].eng_id;
-+					if (is_avail_link_enc(state, eng_id))
-+						add_link_enc_assignment(state, stream, eng_id);
-+				}
-+			}
- 		}
+ void link_enc_cfg_init(
+ 		struct dc *dc,
+ 		struct dc_state *state)
+@@ -198,10 +232,12 @@ void link_enc_cfg_init(
+ 
+ 	for (i = 0; i < dc->res_pool->res_cap->num_dig_link_enc; i++) {
+ 		if (dc->res_pool->link_encoders[i])
+-			state->res_ctx.link_enc_avail[i] = (enum engine_id) i;
++			state->res_ctx.link_enc_cfg_ctx.link_enc_avail[i] = (enum engine_id) i;
+ 		else
+-			state->res_ctx.link_enc_avail[i] = ENGINE_ID_UNKNOWN;
++			state->res_ctx.link_enc_cfg_ctx.link_enc_avail[i] = ENGINE_ID_UNKNOWN;
  	}
++
++	state->res_ctx.link_enc_cfg_ctx.mode = LINK_ENC_CFG_STEADY;
+ }
  
--	/* (b) Then assign encoders to mappable endpoints. */
-+	/* (c) Then assign encoders to remaining mappable endpoints. */
- 	eng_id = ENGINE_ID_UNKNOWN;
+ void link_enc_cfg_link_encs_assign(
+@@ -221,7 +257,7 @@ void link_enc_cfg_link_encs_assign(
+ 		dc->res_pool->funcs->link_enc_unassign(state, streams[i]);
  
+ 	for (i = 0; i < MAX_PIPES; i++)
+-		ASSERT(state->res_ctx.link_enc_assignments[i].valid == false);
++		ASSERT(state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i].valid == false);
+ 
+ 	/* (a) Assign DIG link encoders to physical (unmappable) endpoints first. */
  	for (i = 0; i < stream_count; i++) {
- 		struct dc_stream_state *stream = streams[i];
+@@ -258,8 +294,8 @@ void link_enc_cfg_link_encs_assign(
+ 				struct dc_stream_state *prev_stream = prev_state->streams[j];
  
- 		/* Skip stream if not supported by DIG link encoder. */
--		if (!is_dig_link_enc_stream(stream))
-+		if (!is_dig_link_enc_stream(stream)) {
-+			ASSERT(stream->link->is_dig_mapping_flexible != true);
- 			continue;
-+		}
- 
- 		/* Mappable endpoints have a flexible mapping to DIG link encoders. */
- 		if (stream->link->is_dig_mapping_flexible) {
--			eng_id = find_first_avail_link_enc(stream->ctx, state);
--			update_link_enc_assignment(state, stream, eng_id, true);
-+			struct link_encoder *link_enc = NULL;
-+
-+			/* Skip if encoder assignment retained in step (b) above. */
-+			if (stream->link_enc)
-+				continue;
-+
-+			/* For MST, multiple streams will share the same link / display
-+			 * endpoint. These streams should use the same link encoder
-+			 * assigned to that endpoint.
-+			 */
-+			link_enc = link_enc_cfg_get_link_enc_used_by_link(state, stream->link);
-+			if (link_enc == NULL)
-+				eng_id = find_first_avail_link_enc(stream->ctx, state);
-+			else
-+				eng_id =  link_enc->preferred_engine;
-+			add_link_enc_assignment(state, stream, eng_id);
- 		}
+ 				if (stream == prev_stream && stream->link == prev_stream->link &&
+-						prev_state->res_ctx.link_enc_assignments[j].valid) {
+-					eng_id = prev_state->res_ctx.link_enc_assignments[j].eng_id;
++						prev_state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[j].valid) {
++					eng_id = prev_state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[j].eng_id;
+ 					if (is_avail_link_enc(state, eng_id))
+ 						add_link_enc_assignment(state, stream, eng_id);
+ 				}
+@@ -291,7 +327,7 @@ void link_enc_cfg_link_encs_assign(
+ 			 * endpoint. These streams should use the same link encoder
+ 			 * assigned to that endpoint.
+ 			 */
+-			link_enc = link_enc_cfg_get_link_enc_used_by_link(state, stream->link);
++			link_enc = get_link_enc_used_by_link(state, stream->link);
+ 			if (link_enc == NULL)
+ 				eng_id = find_first_avail_link_enc(stream->ctx, state);
+ 			else
+@@ -301,6 +337,15 @@ void link_enc_cfg_link_encs_assign(
  	}
+ 
+ 	link_enc_cfg_validate(dc, state);
 +
-+	link_enc_cfg_validate(dc, state);
++	/* Update transient assignments. */
++	for (i = 0; i < MAX_PIPES; i++) {
++		dc->current_state->res_ctx.link_enc_cfg_ctx.transient_assignments[i] =
++			state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
++	}
++
++	/* Current state mode will be set to steady once this state committed. */
++	state->res_ctx.link_enc_cfg_ctx.mode = LINK_ENC_CFG_STEADY;
  }
  
  void link_enc_cfg_link_enc_unassign(
-@@ -226,7 +316,7 @@ void link_enc_cfg_link_enc_unassign(
- 	if (stream->link_enc)
- 		eng_id = stream->link_enc->preferred_engine;
- 
--	update_link_enc_assignment(state, stream, eng_id, false);
-+	remove_link_enc_assignment(state, stream, eng_id);
+@@ -320,12 +365,12 @@ void link_enc_cfg_link_enc_unassign(
  }
  
  bool link_enc_cfg_is_transmitter_mappable(
-@@ -248,21 +338,18 @@ struct dc_link *link_enc_cfg_get_link_using_link_enc(
+-		struct dc_state *state,
++		struct dc *dc,
+ 		struct link_encoder *link_enc)
+ {
+ 	bool is_mappable = false;
+ 	enum engine_id eng_id = link_enc->preferred_engine;
+-	struct dc_stream_state *stream = get_stream_using_link_enc(state, eng_id);
++	struct dc_stream_state *stream = link_enc_cfg_get_stream_using_link_enc(dc, eng_id);
+ 
+ 	if (stream)
+ 		is_mappable = stream->link->is_dig_mapping_flexible;
+@@ -333,30 +378,43 @@ bool link_enc_cfg_is_transmitter_mappable(
+ 	return is_mappable;
+ }
+ 
+-struct dc_link *link_enc_cfg_get_link_using_link_enc(
+-		struct dc_state *state,
++struct dc_stream_state *link_enc_cfg_get_stream_using_link_enc(
++		struct dc *dc,
  		enum engine_id eng_id)
  {
- 	struct dc_link *link = NULL;
--	int stream_idx = -1;
+-	struct dc_link *link = NULL;
++	struct dc_stream_state *stream = NULL;
  	int i;
  
- 	for (i = 0; i < state->stream_count; i++) {
- 		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
+-	for (i = 0; i < state->stream_count; i++) {
+-		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++	for (i = 0; i < MAX_PIPES; i++) {
++		struct link_enc_assignment assignment = get_assignment(dc, i);
  
  		if ((assignment.valid == true) && (assignment.eng_id == eng_id)) {
--			stream_idx = i;
-+			link = state->streams[i]->link;
+-			link = state->streams[i]->link;
++			stream = assignment.stream;
  			break;
  		}
  	}
  
--	if (stream_idx != -1)
--		link = state->streams[stream_idx]->link;
--	else
-+	if (link == NULL)
- 		dm_output_to_console("%s: No link using DIG(%d).\n", __func__, eng_id);
+-	if (link == NULL)
+-		dm_output_to_console("%s: No link using DIG(%d).\n", __func__, eng_id);
++	return stream;
++}
  
- 	return link;
-@@ -282,13 +369,9 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
- 
- 	for (i = 0; i < state->stream_count; i++) {
- 		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
--		if (assignment.valid == true &&
--				assignment.ep_id.link_id.id == ep_id.link_id.id &&
--				assignment.ep_id.link_id.enum_id == ep_id.link_id.enum_id &&
--				assignment.ep_id.link_id.type == ep_id.link_id.type &&
--				assignment.ep_id.ep_type == ep_id.ep_type) {
++struct dc_link *link_enc_cfg_get_link_using_link_enc(
++		struct dc *dc,
++		enum engine_id eng_id)
++{
++	struct dc_link *link = NULL;
++	struct dc_stream_state *stream = NULL;
 +
-+		if (assignment.valid == true && are_ep_ids_equal(&assignment.ep_id, &ep_id))
++	stream = link_enc_cfg_get_stream_using_link_enc(dc, eng_id);
++
++	if (stream)
++		link = stream->link;
++
++	// dm_output_to_console("%s: No link using DIG(%d).\n", __func__, eng_id);
+ 	return link;
+ }
+ 
+ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+-		struct dc_state *state,
++		struct dc *dc,
+ 		const struct dc_link *link)
+ {
+ 	struct link_encoder *link_enc = NULL;
+@@ -367,41 +425,74 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+ 		.link_id = link->link_id,
+ 		.ep_type = link->ep_type};
+ 
+-	for (i = 0; i < state->stream_count; i++) {
+-		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++	for (i = 0; i < MAX_PIPES; i++) {
++		struct link_enc_assignment assignment = get_assignment(dc, i);
+ 
+-		if (assignment.valid == true && are_ep_ids_equal(&assignment.ep_id, &ep_id))
++		if (assignment.valid == true && are_ep_ids_equal(&assignment.ep_id, &ep_id)) {
  			link_enc = link->dc->res_pool->link_encoders[assignment.eng_id - ENGINE_ID_DIGA];
--		}
++			break;
++		}
  	}
  
  	return link_enc;
-@@ -318,3 +401,99 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
+ }
+ 
+-struct link_encoder *link_enc_cfg_get_next_avail_link_enc(
+-	const struct dc *dc,
+-	const struct dc_state *state)
++struct link_encoder *link_enc_cfg_get_next_avail_link_enc(struct dc *dc)
+ {
+ 	struct link_encoder *link_enc = NULL;
+-	enum engine_id eng_id;
++	enum engine_id encs_assigned[MAX_DIG_LINK_ENCODERS];
++	int i;
++
++	for (i = 0; i < MAX_DIG_LINK_ENCODERS; i++)
++		encs_assigned[i] = ENGINE_ID_UNKNOWN;
+ 
+-	eng_id = find_first_avail_link_enc(dc->ctx, state);
+-	if (eng_id != ENGINE_ID_UNKNOWN)
+-		link_enc = dc->res_pool->link_encoders[eng_id - ENGINE_ID_DIGA];
++	/* Add assigned encoders to list. */
++	for (i = 0; i < MAX_PIPES; i++) {
++		struct link_enc_assignment assignment = get_assignment(dc, i);
++
++		if (assignment.valid)
++			encs_assigned[assignment.eng_id - ENGINE_ID_DIGA] = assignment.eng_id;
++	}
++
++	for (i = 0; i < dc->res_pool->res_cap->num_dig_link_enc; i++) {
++		if (encs_assigned[i] == ENGINE_ID_UNKNOWN) {
++			link_enc = dc->res_pool->link_encoders[i];
++			break;
++		}
++	}
  
  	return link_enc;
  }
-+
-+bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state)
+ 
+ struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
+-		struct dc_state *state,
++		struct dc *dc,
+ 		const struct dc_stream_state *stream)
+ {
+ 	struct link_encoder *link_enc;
+ 
+-	link_enc = link_enc_cfg_get_link_enc_used_by_link(state, stream->link);
++	link_enc = link_enc_cfg_get_link_enc_used_by_link(dc, stream->link);
+ 
+ 	return link_enc;
+ }
+ 
++bool link_enc_cfg_is_link_enc_avail(struct dc *dc, enum engine_id eng_id)
 +{
-+	bool is_valid = false;
-+	bool valid_entries = true;
-+	bool valid_stream_ptrs = true;
-+	bool valid_uniqueness = true;
-+	bool valid_avail = true;
-+	bool valid_streams = true;
-+	int i, j;
-+	uint8_t valid_count = 0;
-+	uint8_t dig_stream_count = 0;
-+	int matching_stream_ptrs = 0;
-+	int eng_ids_per_ep_id[MAX_PIPES] = {0};
++	bool is_avail = true;
++	int i;
 +
-+	/* (1) No. valid entries same as stream count. */
++	/* Add assigned encoders to list. */
 +	for (i = 0; i < MAX_PIPES; i++) {
-+		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++		struct link_enc_assignment assignment = get_assignment(dc, i);
 +
-+		if (assignment.valid)
-+			valid_count++;
-+
-+		if (is_dig_link_enc_stream(state->streams[i]))
-+			dig_stream_count++;
-+	}
-+	if (valid_count != dig_stream_count)
-+		valid_entries = false;
-+
-+	/* (2) Matching stream ptrs. */
-+	for (i = 0; i < MAX_PIPES; i++) {
-+		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
-+
-+		if (assignment.valid) {
-+			if (assignment.stream == state->streams[i])
-+				matching_stream_ptrs++;
-+			else
-+				valid_stream_ptrs = false;
-+		}
-+	}
-+
-+	/* (3) Each endpoint assigned unique encoder. */
-+	for (i = 0; i < MAX_PIPES; i++) {
-+		struct link_enc_assignment assignment_i = state->res_ctx.link_enc_assignments[i];
-+
-+		if (assignment_i.valid) {
-+			struct display_endpoint_id ep_id_i = assignment_i.ep_id;
-+
-+			eng_ids_per_ep_id[i]++;
-+			for (j = 0; j < MAX_PIPES; j++) {
-+				struct link_enc_assignment assignment_j = state->res_ctx.link_enc_assignments[j];
-+
-+				if (j == i)
-+					continue;
-+
-+				if (assignment_j.valid) {
-+					struct display_endpoint_id ep_id_j = assignment_j.ep_id;
-+
-+					if (are_ep_ids_equal(&ep_id_i, &ep_id_j) &&
-+							assignment_i.eng_id != assignment_j.eng_id) {
-+						valid_uniqueness = false;
-+						eng_ids_per_ep_id[i]++;
-+					}
-+				}
-+			}
-+		}
-+	}
-+
-+	/* (4) Assigned encoders not in available pool. */
-+	for (i = 0; i < MAX_PIPES; i++) {
-+		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
-+
-+		if (assignment.valid) {
-+			for (j = 0; j < dc->res_pool->res_cap->num_dig_link_enc; j++) {
-+				if (state->res_ctx.link_enc_avail[j] == assignment.eng_id) {
-+					valid_avail = false;
-+					break;
-+				}
-+			}
-+		}
-+	}
-+
-+	/* (5) All streams have valid link encoders. */
-+	for (i = 0; i < state->stream_count; i++) {
-+		struct dc_stream_state *stream = state->streams[i];
-+
-+		if (is_dig_link_enc_stream(stream) && stream->link_enc == NULL) {
-+			valid_streams = false;
++		if (assignment.valid && assignment.eng_id == eng_id) {
++			is_avail = false;
 +			break;
 +		}
 +	}
 +
-+	is_valid = valid_entries && valid_stream_ptrs && valid_uniqueness && valid_avail && valid_streams;
-+	ASSERT(is_valid);
-+
-+	return is_valid;
++	return is_avail;
 +}
++
+ bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state)
+ {
+ 	bool is_valid = false;
+@@ -418,7 +509,7 @@ bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state)
+ 
+ 	/* (1) No. valid entries same as stream count. */
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++		struct link_enc_assignment assignment = state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
+ 
+ 		if (assignment.valid)
+ 			valid_count++;
+@@ -431,7 +522,7 @@ bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state)
+ 
+ 	/* (2) Matching stream ptrs. */
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++		struct link_enc_assignment assignment = state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
+ 
+ 		if (assignment.valid) {
+ 			if (assignment.stream == state->streams[i])
+@@ -443,14 +534,15 @@ bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state)
+ 
+ 	/* (3) Each endpoint assigned unique encoder. */
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		struct link_enc_assignment assignment_i = state->res_ctx.link_enc_assignments[i];
++		struct link_enc_assignment assignment_i = state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
+ 
+ 		if (assignment_i.valid) {
+ 			struct display_endpoint_id ep_id_i = assignment_i.ep_id;
+ 
+ 			eng_ids_per_ep_id[i]++;
+ 			for (j = 0; j < MAX_PIPES; j++) {
+-				struct link_enc_assignment assignment_j = state->res_ctx.link_enc_assignments[j];
++				struct link_enc_assignment assignment_j =
++					state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[j];
+ 
+ 				if (j == i)
+ 					continue;
+@@ -470,11 +562,11 @@ bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state)
+ 
+ 	/* (4) Assigned encoders not in available pool. */
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		struct link_enc_assignment assignment = state->res_ctx.link_enc_assignments[i];
++		struct link_enc_assignment assignment = state->res_ctx.link_enc_cfg_ctx.link_enc_assignments[i];
+ 
+ 		if (assignment.valid) {
+ 			for (j = 0; j < dc->res_pool->res_cap->num_dig_link_enc; j++) {
+-				if (state->res_ctx.link_enc_avail[j] == assignment.eng_id) {
++				if (state->res_ctx.link_enc_cfg_ctx.link_enc_avail[j] == assignment.eng_id) {
+ 					valid_avail = false;
+ 					break;
+ 				}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+index dae0ab761b61..64f76f57c85d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+@@ -87,7 +87,7 @@ void dp_enable_link_phy(
+ 
+ 	/* Link should always be assigned encoder when en-/disabling. */
+ 	if (link->is_dig_mapping_flexible && dc->res_pool->funcs->link_encs_assign)
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(dc, link);
+ 	else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+@@ -247,7 +247,7 @@ void dp_disable_link_phy(struct dc_link *link, enum signal_type signal)
+ 
+ 	/* Link should always be assigned encoder when en-/disabling. */
+ 	if (link->is_dig_mapping_flexible && dc->res_pool->funcs->link_encs_assign)
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(dc, link);
+ 	else
+ 		link_enc = link->link_enc;
+ 	ASSERT(link_enc);
+@@ -391,7 +391,7 @@ void dp_set_hw_test_pattern(
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign)
+-		encoder = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		encoder = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 	else
+ 		encoder = link->link_enc;
+ 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 8766b124d4b0..b4e986f736ad 100644
+index b4e986f736ad..adc656fc4848 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -2241,7 +2241,7 @@ enum dc_status dc_validate_global_state(
- 	 * Update link encoder to stream assignment.
- 	 * TODO: Split out reason allocation from validation.
- 	 */
--	if (dc->res_pool->funcs->link_encs_assign)
-+	if (dc->res_pool->funcs->link_encs_assign && fast_validate == false)
- 		dc->res_pool->funcs->link_encs_assign(
- 			dc, new_ctx, new_ctx->streams, new_ctx->stream_count);
+@@ -41,6 +41,7 @@
+ #include "set_mode_types.h"
+ #include "virtual/virtual_stream_encoder.h"
+ #include "dpcd_defs.h"
++#include "link_enc_cfg.h"
+ #include "dc_link_dp.h"
+ 
+ #if defined(CONFIG_DRM_AMD_DC_SI)
+@@ -2826,8 +2827,18 @@ bool pipe_need_reprogram(
  #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-index 5084289810e2..23af9640c544 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-@@ -212,6 +212,7 @@ struct link_enc_assignment {
- 	bool valid;
- 	struct display_endpoint_id ep_id;
- 	enum engine_id eng_id;
-+	struct dc_stream_state *stream;
- };
+ 
+ 	/* DIG link encoder resource assignment for stream changed. */
+-	if (pipe_ctx_old->stream->link_enc != pipe_ctx->stream->link_enc)
+-		return true;
++	if (pipe_ctx_old->stream->ctx->dc->res_pool->funcs->link_encs_assign) {
++		bool need_reprogram = false;
++		struct dc *dc = pipe_ctx_old->stream->ctx->dc;
++		enum link_enc_cfg_mode mode = dc->current_state->res_ctx.link_enc_cfg_ctx.mode;
++
++		dc->current_state->res_ctx.link_enc_cfg_ctx.mode = LINK_ENC_CFG_STEADY;
++		if (link_enc_cfg_get_link_enc_used_by_stream(dc, pipe_ctx_old->stream) != pipe_ctx->stream->link_enc)
++			need_reprogram = true;
++		dc->current_state->res_ctx.link_enc_cfg_ctx.mode = mode;
++
++		return need_reprogram;
++	}
+ 
+ 	return false;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 102f76462752..af3e68d3e747 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -1219,7 +1219,7 @@ void dce110_disable_stream(struct pipe_ctx *pipe_ctx)
+ 	if (link->ep_type == DISPLAY_ENDPOINT_PHY)
+ 		link_enc = link->link_enc;
+ 	else if (dc->res_pool->funcs->link_encs_assign)
+-		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+ 	ASSERT(link_enc);
  
  #if defined(CONFIG_DRM_AMD_DC_DCN)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index c0aed7d07eeb..fc83744149d9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -54,6 +54,7 @@
+ #include "hw_sequencer.h"
+ #include "inc/link_dpcd.h"
+ #include "dpcd_defs.h"
++#include "inc/link_enc_cfg.h"
+ 
+ #define DC_LOGGER_INIT(logger)
+ 
+@@ -2385,9 +2386,10 @@ void dcn20_enable_stream(struct pipe_ctx *pipe_ctx)
+ 
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign)
+-		link_enc = pipe_ctx->stream->link_enc;
++		link_enc = link_enc_cfg_get_link_enc_used_by_stream(link->ctx->dc, pipe_ctx->stream);
+ 	else
+ 		link_enc = link->link_enc;
++	ASSERT(link_enc);
+ 
+ 	/* For MST, there are multiply stream go to only one link.
+ 	 * connect DIG back_end to front_end while enable_stream and
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index e69f553d680f..cb49375d83c8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -1610,10 +1610,9 @@ static void get_pixel_clock_parameters(
+ 	 */
+ 	if (link->is_dig_mapping_flexible &&
+ 			link->dc->res_pool->funcs->link_encs_assign) {
+-		link_enc = link_enc_cfg_get_link_enc_used_by_stream(stream->link->dc->current_state, stream);
++		link_enc = link_enc_cfg_get_link_enc_used_by_stream(stream->ctx->dc, stream);
+ 		if (link_enc == NULL)
+-			link_enc = link_enc_cfg_get_next_avail_link_enc(stream->link->dc,
+-				stream->link->dc->current_state);
++			link_enc = link_enc_cfg_get_next_avail_link_enc(stream->ctx->dc);
+ 	} else
+ 		link_enc = stream->link->link_enc;
+ 	ASSERT(link_enc);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
+index 77b81f6c24b9..03f0290d41f2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
+@@ -367,7 +367,7 @@ void dcn31_link_encoder_enable_dp_output(
+ 	enum clock_source_id clock_source)
+ {
+ 	/* Enable transmitter and encoder. */
+-	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc->current_state, enc)) {
++	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc, enc)) {
+ 
+ 		dcn20_link_encoder_enable_dp_output(enc, link_settings, clock_source);
+ 
+@@ -383,7 +383,7 @@ void dcn31_link_encoder_enable_dp_mst_output(
+ 	enum clock_source_id clock_source)
+ {
+ 	/* Enable transmitter and encoder. */
+-	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc->current_state, enc)) {
++	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc, enc)) {
+ 
+ 		dcn10_link_encoder_enable_dp_mst_output(enc, link_settings, clock_source);
+ 
+@@ -398,7 +398,7 @@ void dcn31_link_encoder_disable_output(
+ 	enum signal_type signal)
+ {
+ 	/* Disable transmitter and encoder. */
+-	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc->current_state, enc)) {
++	if (!link_enc_cfg_is_transmitter_mappable(enc->ctx->dc, enc)) {
+ 
+ 		dcn10_link_encoder_disable_output(enc, signal);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+index d3598ce1f5de..0713910a3aa9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+@@ -48,6 +48,7 @@
+ #include "dc_link_dp.h"
+ #include "inc/link_dpcd.h"
+ #include "dcn10/dcn10_hw_sequencer.h"
++#include "inc/link_enc_cfg.h"
+ 
+ #define DC_LOGGER_INIT(logger)
+ 
+@@ -599,4 +600,7 @@ void dcn31_reset_hw_ctx_wrap(
+ 				old_clk->funcs->cs_power_down(old_clk);
+ 		}
+ 	}
++
++	/* New dc_state in the process of being applied to hardware. */
++	dc->current_state->res_ctx.link_enc_cfg_ctx.mode = LINK_ENC_CFG_TRANSIENT;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index ed254c2771f0..8cff054db29f 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -384,6 +384,17 @@ struct pipe_ctx {
+ 	bool vtp_locked;
+ };
+ 
++/* Data used for dynamic link encoder assignment.
++ * Tracks current and future assignments; available link encoders;
++ * and mode of operation (whether to use current or future assignments).
++ */
++struct link_enc_cfg_context {
++	enum link_enc_cfg_mode mode;
++	struct link_enc_assignment link_enc_assignments[MAX_PIPES];
++	enum engine_id link_enc_avail[MAX_DIG_LINK_ENCODERS];
++	struct link_enc_assignment transient_assignments[MAX_PIPES];
++};
++
+ struct resource_context {
+ 	struct pipe_ctx pipe_ctx[MAX_PIPES];
+ 	bool is_stream_enc_acquired[MAX_PIPES * 2];
+@@ -391,12 +402,7 @@ struct resource_context {
+ 	uint8_t clock_source_ref_count[MAX_CLOCK_SOURCES];
+ 	uint8_t dp_clock_source_ref_count;
+ 	bool is_dsc_acquired[MAX_PIPES];
+-	/* A table/array of encoder-to-link assignments. One entry per stream.
+-	 * Indexed by stream index in dc_state.
+-	 */
+-	struct link_enc_assignment link_enc_assignments[MAX_PIPES];
+-	/* List of available link encoders. Uses engine ID as encoder identifier. */
+-	enum engine_id link_enc_avail[MAX_DIG_LINK_ENCODERS];
++	struct link_enc_cfg_context link_enc_cfg_ctx;
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	bool is_hpo_dp_stream_enc_acquired[MAX_HPO_DP2_ENCODERS];
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+index 23af9640c544..bb0e91756ddd 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+@@ -215,6 +215,11 @@ struct link_enc_assignment {
+ 	struct dc_stream_state *stream;
+ };
+ 
++enum link_enc_cfg_mode {
++	LINK_ENC_CFG_STEADY, /* Normal operation - use current_state. */
++	LINK_ENC_CFG_TRANSIENT /* During commit state - use state to be committed. */
++};
++
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ enum dp2_link_mode {
+ 	DP2_LINK_TRAINING_TPS1,
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
-index 2472c9aed095..09f7c868feed 100644
+index 09f7c868feed..83b2199b2c83 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
-@@ -93,4 +93,7 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
- 		struct dc_state *state,
+@@ -70,29 +70,35 @@ void link_enc_cfg_link_enc_unassign(
+  * endpoint.
+  */
+ bool link_enc_cfg_is_transmitter_mappable(
+-		struct dc_state *state,
++		struct dc *dc,
+ 		struct link_encoder *link_enc);
+ 
++/* Return stream using DIG link encoder resource. NULL if unused. */
++struct dc_stream_state *link_enc_cfg_get_stream_using_link_enc(
++		struct dc *dc,
++		enum engine_id eng_id);
++
+ /* Return link using DIG link encoder resource. NULL if unused. */
+ struct dc_link *link_enc_cfg_get_link_using_link_enc(
+-		struct dc_state *state,
++		struct dc *dc,
+ 		enum engine_id eng_id);
+ 
+ /* Return DIG link encoder used by link. NULL if unused. */
+ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+-		struct dc_state *state,
++		struct dc *dc,
+ 		const struct dc_link *link);
+ 
+ /* Return next available DIG link encoder. NULL if none available. */
+-struct link_encoder *link_enc_cfg_get_next_avail_link_enc(
+-	const struct dc *dc,
+-	const struct dc_state *state);
++struct link_encoder *link_enc_cfg_get_next_avail_link_enc(struct dc *dc);
+ 
+ /* Return DIG link encoder used by stream. NULL if unused. */
+ struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
+-		struct dc_state *state,
++		struct dc *dc,
  		const struct dc_stream_state *stream);
  
-+/* Returns true if encoder assignments in supplied state pass validity checks. */
-+bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state);
++/* Return true if encoder available to use. */
++bool link_enc_cfg_is_link_enc_avail(struct dc *dc, enum engine_id eng_id);
 +
- #endif /* DC_INC_LINK_ENC_CFG_H_ */
+ /* Returns true if encoder assignments in supplied state pass validity checks. */
+ bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state);
+ 
 -- 
 2.25.1
 
