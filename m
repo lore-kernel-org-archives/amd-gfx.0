@@ -2,126 +2,133 @@ Return-Path: <SRS0=2XV/=OH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FBC0C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:35:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35BE1C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 67BCF60F51
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:35:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 67BCF60F51
+	by mail.kernel.org (Postfix) with ESMTPS id E595560F38
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 07:43:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E595560F38
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 062596EC08;
-	Fri, 17 Sep 2021 07:35:14 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70F886EC08
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 07:35:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F23C6EC0D;
+	Fri, 17 Sep 2021 07:43:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC9696EC0D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 07:43:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kRJO/pye0Uy2yUKDksDzP3nSD4vLQhmuK9QM+n25iw/YAM+VjjV+k+YcaTLRyVZdOHszMtsL8sAIGxdCNp/cfmk//6bljBG6dq8N2ZB9BAQGETQAQ60U2vjM6Kuytpyrm02/Flfrjn9P6MnOuJbklesoWimOpCYwzsP6PmFNtR9eAaOaboAshS99Im+hDktE6eM0I1kSc7un0iV1FCm8wW4CWAUiVLb9tycxyJRTCutKgEwxjxuoEfyzjF1NHLeGcqNlYCzqamikPr7XsUYrnbu61wfWXCkzwjbgAXLWmGiFMBqUPwOrzXAlgzPqBXVzlHto2WtQzMX01NQwmV7UlA==
+ b=hKtUVbb0lDx/IEC6a/YZaCrzcRf1twPx2vjmyaalzFyShH4+YRMpMwAEJEVMiX4noCbC2ihnObt3H3RXzEL68gO3WXuZU68za9hHPfGcFg2JSWBtUot3JwwdHfh6PYGTZVtrj8tN5yneNdnbIrd0ZtYXK669CnIRXmJD/+I3gKqzs2h4IHPK5t+B/8yO9tWSQcJXOVEckm8YUA/0w/o/0lMEjvceYWL2Q35ga/iELT8xC4UB5ZTiRxQjuhxFJ28X3ULelQ7cdWU/2PV8FQ93Awtd+6h92goIKwMh1k6VdlBEcl2/LCKAlmdiba2DGAmjGeOBLhpJZLUAmD8G58zgcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=QjPGlifbGXwwHppTAmYCzMwoOnJ37gAiLKLZoDpEv0k=;
- b=a32Ay9J/csQyGHKqXMzHI6kjh5/ZeEhvS5X+llQ5/CgmIXf5Fj4RlghaQzgffa7d+diPdkRddnK2WFuhCLs5WaGTbIiMa5lVbLz7SOSPzfaGr0XeuxTlX0QvI7XCC6ssLM5UNydYjnWhiCq4CLLtTa0wJQDTXqOlc5xbTzMP/SxjeL00w4I4Yz6DEqbcDJTV07qnDz3bhD+7SekicYyw2dg1fgXCNNjIl8GcNe3vH+PxKxdW4xIIYkVLyq7yU+VlbJbbA4ArEaHmZ5h2wcRSvUR8okFlB9V/z8forYd6e36bXw3pEbweEOa8/YG/z64ENVb2icqYuQGjiAXlaJGQYQ==
+ bh=dqOozFoSMjayB6BTucO+HEkqVYlmizHEdq1mAxAtB+c=;
+ b=BIKG8wMp7mPfjjDvR3TkAY9huXdjY8PtftLJJDn8xbtolhUbeNc5Q4fur6JljlQgLECpyAdj0WCIm0TcpcAX2H006CX2UsijwbX+g26MnjQfJXIvJ+Cqe5B6Bv6szrTG+lMm18xSdVrXQ43qZztcswnRB2mw3ttHsdW0d49YnFQvMN35Ps1wOOCLO8gN38/TpVzJzdx3J3HlRZL0P4GhD+y6Kk6aFvnUnLnJbYkiLvrDfBo082htkFaeqG3edgC3J7E60PWwtK6frWfVAfDjZUQ3zv7NcLMyHgedIHZCHo+Axy+eHJVllIdsjyxSw/yNrGZYcLyZR1Z32EsVgO6cKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QjPGlifbGXwwHppTAmYCzMwoOnJ37gAiLKLZoDpEv0k=;
- b=qNdT8ntbdrRvmto3d9Liw3qkoG6fGHSEtpjv9jLo7A8WJOdPf9ir6rYIwG2zIBHuxTsdmxqcSG1imSVdVQiZ/WFslia1ksvjmUjKmrFZxYdEYbHXUI+Rjywr/s7MZzLGW1PO3v0bt2qhS9q70tBsLYdN6UzyW71E1MM81Fxlumk=
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
- DM4PR12MB5262.namprd12.prod.outlook.com (2603:10b6:5:399::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14; Fri, 17 Sep 2021 07:35:12 +0000
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::79d6:3902:9bcd:37ca]) by DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::79d6:3902:9bcd:37ca%9]) with mapi id 15.20.4523.017; Fri, 17 Sep 2021
- 07:35:12 +0000
-From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig, 
- Christian" <Christian.Koenig@amd.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+ bh=dqOozFoSMjayB6BTucO+HEkqVYlmizHEdq1mAxAtB+c=;
+ b=o9kVNs8qd6+rEbIOtH+69OXejjfwRNAPSYE/IgjUT6jZh60dwqac1FVqbjYavRzNJsJB4zaSjZmXOH8SN5aZucaa2VBuOMUcbM2M5xbBUy38/6OpzhHGMwyMk8XAfRWxk5iCAhxDq7lA7QCWpeX4S/LSNTNX1MtzSTrFDEdJcxw=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB3949.namprd12.prod.outlook.com (2603:10b6:208:167::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Fri, 17 Sep
+ 2021 07:42:57 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::dce2:96e5:aba2:66fe]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::dce2:96e5:aba2:66fe%6]) with mapi id 15.20.4523.016; Fri, 17 Sep 2021
+ 07:42:56 +0000
 Subject: Re: [PATCH] drm/amdgpu: Let BO created in its allowed_domain
-Thread-Topic: [PATCH] drm/amdgpu: Let BO created in its allowed_domain
-Thread-Index: AQHXq5JUy5WVKjfp5Ey9U5r5OtNv26unzd4AgAAH3HY=
-Date: Fri, 17 Sep 2021 07:35:12 +0000
-Message-ID: <DM4PR12MB5165DDADEE756AA4B3BAD54987DD9@DM4PR12MB5165.namprd12.prod.outlook.com>
+To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 References: <20210917070444.4867-1-xinhui.pan@amd.com>
  <59a231be-f623-196e-e547-8d5c75d0f314@amd.com>
-In-Reply-To: <59a231be-f623-196e-e547-8d5c75d0f314@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-17T07:34:23.4182955Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Privileged
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b0e8f095-ccc7-46f4-7063-08d979adaf1b
-x-ms-traffictypediagnostic: DM4PR12MB5262:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM4PR12MB526253E9160871490272B0B687DD9@DM4PR12MB5262.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Fl03m0XOVKtg7K63RNVN8MQ4KCRgmaEnrbieBNzVFU8Kr95cCPGOE5un4dZAgXj5Q8uiu5n3ZwyDow9IAyhfoDY0+9erAvm73/1xLrH7WXHNKVb8COHlv9ThdQEjr6Wy++4yF5nF13CceqwCYmvVPi9wEhRzSVoFLjbxxdgI0ux0aMoY9Yn0sW8dOCpysZw4wizswJhZWl1UdsPJjDQtq0I41XORF9oaEH1S9TcYZZJ3/x8fuXQN7blLOIhH27CeenHZhEAwytUCcpBiS+dZHyrN7bLNljTWtHUr5fGfWho1K+jJBFK4AxteYQv6WILnRiX1IyOYWp0DUD40dh3sGY7M7rG2PmviwVqPlaXncAgUive80QAmBw9hWmFCeVFeQK8O8p10wOClNpGDTYE9C/SfipOOhtfJLcqo1YJYjXiVgFn881ekhRjwaCa/20zYpnPcxZJtLBXVD+/CIRNu8MPAXNxsacrvrXyvrJApQb4YmihZ08nK4uPwANJxyQrbKsG5lj04l9K2dENLp9qTPfElthG46GTm7vD83ZUuwPv8t81S+dGFs0g/qjlxRF01hoaoRz7eHXW940ApGUKB6BBzJ0krfNY+jehnaHoz7ZQvlP3L6gxCGnxRY5YvCs1HbRJiyBHT6G0PXKOso8KAp5xVMFv9lIGkIHlGaioVeUvfVYBGZdrfpBGYa52xVUsSKmQDlapWQoc64xlBV4bLOA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(396003)(376002)(136003)(346002)(38100700002)(122000001)(71200400001)(83380400001)(8936002)(8676002)(9686003)(186003)(55016002)(7696005)(53546011)(6506007)(26005)(316002)(6636002)(110136005)(478600001)(52536014)(64756008)(86362001)(76116006)(91956017)(66556008)(66476007)(66946007)(4326008)(66446008)(2906002)(33656002)(38070700005)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7oxRWJzz/DAx7oBzboPEqHOqHSlcl5A4qsLE8FJa3xaBdgL0AQHN1ej2WB1Z?=
- =?us-ascii?Q?K6JYWniN+a19T5T78V6aB5zML3NDgaQeQwQeuT4hxDkU2HN0J8t0HG1wNR/1?=
- =?us-ascii?Q?N+l2F+FH/hwSQF8txXiEdJ5FcLk0hvZtdgpnjv/vsIgHh2iieXCY+tVME5zR?=
- =?us-ascii?Q?489pBsuztCDi8aP9OZWEwCkOHSrgUwvMLC2qSc0ehBxQr/qbVUREYmyYCNFc?=
- =?us-ascii?Q?G0P4K91fjb3iiSibo+TaS8jXTuGVa7PCbp0+19cPj5MghQTUNEbJJ+SbVJoq?=
- =?us-ascii?Q?4hytNIdvIcRlFn50SlPkL+n04sZAou6GD4XG2834M5sX7mnHwi4uYhYfKi2Y?=
- =?us-ascii?Q?P+Aq3b4kbiaLvDZKjzrJMMJqjxBKmIDRLeSHxekS5LUDMJxBi4HLkEwC6/rE?=
- =?us-ascii?Q?Fo9GB8rPodFulN4mssR93MI2MNXUoduPgY3s94a0/42mMoBFSl97yOsx2Q2x?=
- =?us-ascii?Q?ZMcmMWw1IQCv1SWErE+i5OQK+4OrmO/dqOgAqNLvCF2V1rQS9dY3bJgsql1x?=
- =?us-ascii?Q?Qy82Nu7A52YYOsbCkXjMzezS0F7hA6/ccf83bSraWfpiKFRVY3orGyMNqKbq?=
- =?us-ascii?Q?XFD0fgahFefuL3WPm0po/7vmfUA9rBd9TljJDfUkNhyDktctuZhSpDnqDn7s?=
- =?us-ascii?Q?5NRNs6fp7IfkBm90Gifnm9w1sxKHvTROATNa5IQHceOvZswgH2P6TsM8tLFF?=
- =?us-ascii?Q?/7ji27wUF5HW/G1edhCWK1xqjoicjntnYOs0V9elXGkOu33XOPwj19wmx5M+?=
- =?us-ascii?Q?fJQo2cWwkIfBYVKAapwsX50xAAyuYSp6Sc+S4orGbc7CnmOVGbKwYgIS5a8n?=
- =?us-ascii?Q?ahiTNiuswT1Onxnpxl4Blgthofr3feifBQ4+syAJzKZMLCDrgimutj38i599?=
- =?us-ascii?Q?fefLpswBjLZW4gwMAR1NFnBq6I0O3Mz6sgKpC330Sfa0DkYyFx8F/tLWa9nQ?=
- =?us-ascii?Q?bPwSH1bwmnzXHHwAhRm2H4HgBIqCvNZAB3sJGzMD+qYDokmbUAMyQzRKQ7bO?=
- =?us-ascii?Q?CEBdytBtq0THamKOa93mPbhuNlKAD73paHQav2Kx0pTxZdCHpcsAm3YRzuhl?=
- =?us-ascii?Q?LkYVQol3FmK2U+J/wkbokPw/feswgzS9i8PnvcK1pm/60ginFJ9bGN2Dx0EU?=
- =?us-ascii?Q?2KiBxk/j5zLnpk6soWdj52OcoFsfJWhKs2aSs6O/YmDFtfT2aNAkQG+L7Edy?=
- =?us-ascii?Q?ZpgNXd4Hn7OHn75CdXLDjSZvV74DOm0OLdJffHyoNUFQyKWz9H/0nWtPh4v3?=
- =?us-ascii?Q?jUYBa79KAYrlRV+dFOefwOZ7AonGRHottCr9dYCrYBnX6HDrGa7xrE4GNnKE?=
- =?us-ascii?Q?QtVw09qgzSYf6x+4nX31BIUa4BlTMYEQAZrBshTfDFXqPQ=3D=3D?=
+ <DM4PR12MB5165DDADEE756AA4B3BAD54987DD9@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <a76d81ef-03f5-2d99-8a07-ddf5be1f2c7c@amd.com>
+Date: Fri, 17 Sep 2021 09:42:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <DM4PR12MB5165DDADEE756AA4B3BAD54987DD9@DM4PR12MB5165.namprd12.prod.outlook.com>
 Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB5165DDADEE756AA4B3BAD54987DD9DM4PR12MB5165namp_"
+ boundary="------------CB8CC640FD9E837939987BBA"
+Content-Language: en-US
+X-ClientProxiedBy: AM0PR06CA0132.eurprd06.prod.outlook.com
+ (2603:10a6:208:ab::37) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
+Received: from [192.168.178.21] (91.14.161.181) by
+ AM0PR06CA0132.eurprd06.prod.outlook.com (2603:10a6:208:ab::37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 07:42:55 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac227611-d950-48ba-a084-08d979aec3bb
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3949:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB394970696B9D5F23AE34E1E683DD9@MN2PR12MB3949.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3gLyZXq6C9J4wDqunNir033IjsvVr+BBgc0OdyBSAIoitB17faRkPOnuBkNFdUsmO12Q6NB3jVRZDV5qk9SvlSUbcXZxY97r1Z/R1+uXgNnFiazwcJKC1GvtgzeAS2MdDaLBrZS6glOpuDsXbuiNbEYMfkp1uFpp7el0F1zyumXcto2R0ro+Ykf1gIzYWjxFxskQ79kVIOWC6WSJnl8XKsK7/AaD3hkLD0RTJkH1HpYHPn/AzAb9DG4s+Q6GLJ1Ek5rrD2FfU8AIIDs39n+qkEHBCT30hq3yHQgkNa6tyySWtDTFFEHM3Uk3YRZ4BkLHv9qQsGwJziFdhI3HwF4GtkENlDKHFhdiOFX91/1U48X326R+aNVpE2jDpQRO4a4nOSK56DrGmWdYuZjt3TVqPe9wyU6N6z+TETE2TB6R/G5lkQnBm7oMttRUnWKjKJ3Chnj0PCWc7uimUck6mSgyO+gSuOU3x4Timvh34w02yQqNw1POhAVNpW3CmwXb80BGFJSGM5E3zUpeZ7lF0DPYd5xeOYjRtE6rObEiVz8vqeC3OchSgcf34p3anvfj8W4bpDjXhmf1wioTx0BsK/Sk5GvrWi0MT+vIQjKgn19JwKLHJyjcxh7ep2QNz4yK6T2KQ1GcnOAjNeqVP4LQggKVVb7DkIw5+5SrUAOlNzCFA0qoAC2sM/SNbZPmf2A+SalkJF8dyVs5i73S3u30RhUKfNBxfWXc0NUItrq1t03A8xAgHl/OpTDXpUJpZKWTfVGJ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(366004)(39860400002)(136003)(346002)(83380400001)(186003)(31686004)(6486002)(26005)(33964004)(16576012)(316002)(53546011)(86362001)(110136005)(2906002)(36756003)(66556008)(8936002)(478600001)(66476007)(66946007)(8676002)(38100700002)(5660300002)(956004)(2616005)(4326008)(31696002)(6666004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1RzTWJFSHBDd1ZrdDRHZTNGSDBYcFdmK1RKU1VDaHlCL1JnSXFGMVRPd21p?=
+ =?utf-8?B?aHhSQ3NaSndTdWNhMlFWZGhSTU52YzN2ZHUzb1BLTVVlWUtFR0tSek9raSt0?=
+ =?utf-8?B?a084ckdmUmlQY1JpOUZIMFltSGxLRm5XOVR4SGlJL252cDlmTS9OSGgwb2NT?=
+ =?utf-8?B?VGRkMXJlaEUycWVlRU5QZ3FSZTFmbTJMU2hWV1pRU1pXeit2blIwRllLbUtq?=
+ =?utf-8?B?cVRQb3JLeFRRS2EvMnVOcml1ZEVaSW03YlVXdG5tTk1Rd0YzeGdNMCtVRUY1?=
+ =?utf-8?B?bVBxRmEycWk1SlNwb2Z0d1V4a1FOSUl5Q240bDhMUUhwWkJoV1RVaVJpcndr?=
+ =?utf-8?B?R20rR0MvQ01QV295MHlEU0R6N21zMVBraXR4NlFrbld5cVdiSEFUWkNHUHdo?=
+ =?utf-8?B?Y0haRWVZL1JCY01zSjMxLysyNXJCWC9rZklSN0h2L2NZTHRrMjlTSXJJZmMr?=
+ =?utf-8?B?MnlRdGowdWczRkRQaUdNUVFUcVZZdjlHc0YyV2NNT054M1hDKzJpK2RmY1pY?=
+ =?utf-8?B?UnZ1MzdDUXBRRVdhV3doMFVzYnJxbW5NakI0T3JKbW9OMmpxa1FiV3U4K1Jz?=
+ =?utf-8?B?UHFhVlFSMzBIdndpNTU5WDVSVi9MekFHQXp2a3FybVl0eDV1aTgvSjNKZ29M?=
+ =?utf-8?B?eFNTRCtXbE1Yd0NRMW5sUHFPZWJqcTAxcDJLYWhrUnN2VER6QUhUakdZc3ZR?=
+ =?utf-8?B?RUd5Nm9OVmQ5OElleC9HZ29UVlg5OWR1RWpydlRISFhsREczaG8zaUJ5TFgw?=
+ =?utf-8?B?K1hOL3poVVRxZUw4QXdOYWdXVU5kZzM1M2FqSjhZZUVDVEp6TVR3YmNaa0ps?=
+ =?utf-8?B?YmxqR2Y3bzEzNkNEYmc4QjJUOXR1d2hEMWdOK3hQcWVHOWY2MS9mV3FONzFI?=
+ =?utf-8?B?K29lR0VvU1VNR2NZU053SUs4dXUxeEZYc1BDM0VvcHpIREZjMlcwc2hjV2dG?=
+ =?utf-8?B?M0ZiOVduWXQ4Y2x2RG5URjJGd0V1bjJHMW4xdTQ3UjRrWTRSR1IyUVVwRm1S?=
+ =?utf-8?B?S080S1paMWgyR2loaEFnNGw1UmVxbnZGOGtVZTM2SjBNOHpPZklOVnQ2dk1v?=
+ =?utf-8?B?MkoxdGIrRCs0VGlYVTBPcnJadDROSi9VYURaYWdxM25sbjBZOE8rRis4Ykk0?=
+ =?utf-8?B?TnZiUHg5OFpaMTM0NUx5bzc1dGp5alZ2c0hTT1h6bzNicnR4NFVjZmhNOVNN?=
+ =?utf-8?B?RE5PaTVoUG5MNlBmb042QVNJU1dUL0t1KzBIVWpEVkN1TlRPQllDN0ZDSDY1?=
+ =?utf-8?B?bW15clRTRnFEL01iNGFFQWt0ZmJNSmhESGZFbDNSVW80Q2k2TlVNazR3d3hV?=
+ =?utf-8?B?Zk9ENE1oeFJ0ZjVJQ3JGU1hkTnM0UGQwNk16T3MvQmJDbFAwbVZKajR6cTNu?=
+ =?utf-8?B?UTkrNTdvTE5iYjN0WUtqVzZSODBDTmY5QW9nMDgzR3kvdys2N2hRaFVYVHNs?=
+ =?utf-8?B?WnN4dmw5bEFyYTdSam5FOVY2TlRMdS93aG9NSnRGRkh6TVdCaWhHcmNJUlpa?=
+ =?utf-8?B?OEh0VUU1cGJqMEozNzF6emZPa2o3TE44TUV6cVBsQ1VJa0JCQnFpYk80U29X?=
+ =?utf-8?B?QVBUa2xTMUlTcjVFblBRWTQ2Wm1mTUxmK3BEVEhZd25KQ1hmWGZaVmkwY1VR?=
+ =?utf-8?B?em9qazFsRXd1Q3gyQmlsR0YwLzU4VWZ4ZTRySU04VjByQktoZmE0TmYvZWJn?=
+ =?utf-8?B?ZGIveCtreFJGeDZpNSs0am5PYXJKNjhjMDMyTnVQY0RmVGZOcmxRK3hNSHhv?=
+ =?utf-8?Q?D6zarxJH5VcpH8GYJKNpOZAwXKjGXrwNAiiK1vH?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac227611-d950-48ba-a084-08d979aec3bb
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0e8f095-ccc7-46f4-7063-08d979adaf1b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2021 07:35:12.2893 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: e88GpBsMWYIoykix3v+xxmJhCAhMN7jtFFDyA/LB7b3CPOMf8+WaX5Ke7KYAhCo1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5262
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 07:42:56.6728 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VeTgHfOiAwIAzSFc7sgUinJCf981eDVY7LAUH0Jq3Vn6cmUCY3JvO5LVzaYYrKF4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3949
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,139 +143,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB5165DDADEE756AA4B3BAD54987DD9DM4PR12MB5165namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--------------CB8CC640FD9E837939987BBA
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-[AMD Official Use Only]
+Exactly that, yes. The idea is that we want to create at least some 
+pressure on VRAM when VRAM|GTT is specified.
 
-Why? just to evict some inactive vram BOs?
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Friday, September 17, 2021 3:06:16 PM
-To: Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Let BO created in its allowed_domain
+Essentially we would like to have that for CS as well, but it's just 
+hard to find the right balance between no pressure and the full pressure 
+of VRAM placement for VRAM|GTT BOs.
 
-Am 17.09.21 um 09:04 schrieb xinhui pan:
-> For any user BO, it is allowed to alloc memory in both GTT and VRAM
-> domain. That means one VRAM BO could be eviced to GTT.
->
-> Now if device is already lack of VRAM, this BO could alloc memory from
-> GTT directly without evicting other VRAM BO. In this way we can reduce
-> memory evictions.
-
-NAK, that is intentional pressure on VRAM during allocation of new memory.
+It's on my todo list to tackle that and I'm currently working on an 
+userspace tool to better simulate those setups, but it's just a side 
+project.
 
 Christian.
 
+Am 17.09.21 um 09:35 schrieb Pan, Xinhui:
 >
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> [AMD Official Use Only]
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index 66bb8a53bb20..9a547bb38cda 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -579,7 +579,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->                          AMDGPU_GEM_DOMAIN_GDS))
->                amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU)=
-;
->        else
-> -             amdgpu_bo_placement_from_domain(bo, bp->domain);
-> +             amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
->        if (bp->type =3D=3D ttm_bo_type_kernel)
->                bo->tbo.priority =3D 1;
+>
+> Why? just to evict some inactive vram BOs?
+> ------------------------------------------------------------------------
+> *From:* Koenig, Christian <Christian.Koenig@amd.com>
+> *Sent:* Friday, September 17, 2021 3:06:16 PM
+> *To:* Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org 
+> <amd-gfx@lists.freedesktop.org>
+> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>
+> *Subject:* Re: [PATCH] drm/amdgpu: Let BO created in its allowed_domain
+> Am 17.09.21 um 09:04 schrieb xinhui pan:
+> > For any user BO, it is allowed to alloc memory in both GTT and VRAM
+> > domain. That means one VRAM BO could be eviced to GTT.
+> >
+> > Now if device is already lack of VRAM, this BO could alloc memory from
+> > GTT directly without evicting other VRAM BO. In this way we can reduce
+> > memory evictions.
+>
+> NAK, that is intentional pressure on VRAM during allocation of new memory.
+>
+> Christian.
+>
+> >
+> > Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > index 66bb8a53bb20..9a547bb38cda 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > @@ -579,7 +579,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+> >                          AMDGPU_GEM_DOMAIN_GDS))
+> >                amdgpu_bo_placement_from_domain(bo, 
+> AMDGPU_GEM_DOMAIN_CPU);
+> >        else
+> > -             amdgpu_bo_placement_from_domain(bo, bp->domain);
+> > +             amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
+> >        if (bp->type == ttm_bo_type_kernel)
+> >                bo->tbo.priority = 1;
+> >
 >
 
 
---_000_DM4PR12MB5165DDADEE756AA4B3BAD54987DD9DM4PR12MB5165namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--------------CB8CC640FD9E837939987BBA
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0px; padding: 0px; font-=
-family: sans-serif; font-size: 11pt; color: black; text-align: left;">
-Why? just to evict some inactive vram BOs?</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Friday, September 17, 2021 3:06:16 PM<br>
-<b>To:</b> Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Let BO created in its allowed_domai=
-n</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Am 17.09.21 um 09:04 schrieb xinhui pan:<br>
-&gt; For any user BO, it is allowed to alloc memory in both GTT and VRAM<br=
->
-&gt; domain. That means one VRAM BO could be eviced to GTT.<br>
-&gt;<br>
-&gt; Now if device is already lack of VRAM, this BO could alloc memory from=
-<br>
-&gt; GTT directly without evicting other VRAM BO. In this way we can reduce=
-<br>
-&gt; memory evictions.<br>
-<br>
-NAK, that is intentional pressure on VRAM during allocation of new memory.<=
-br>
-<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: xinhui pan &lt;xinhui.pan@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-<br>
-&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; index 66bb8a53bb20..9a547bb38cda 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; @@ -579,7 +579,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; AMDGPU_GEM_DOMAIN_GDS))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_C=
-PU);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_bo_placement_from_domain(bo, bp-&gt;domain);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_bo_placement_from_domain(bo, bo-&gt;allowed_domains);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bp-&gt;type =3D=3D ttm_b=
-o_type_kernel)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; bo-&gt;tbo.priority =3D 1;<br>
-&gt;&nbsp;&nbsp; <br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Exactly that, yes. The idea is that we want to create at least some
+    pressure on VRAM when VRAM|GTT is specified.<br>
+    <br>
+    Essentially we would like to have that for CS as well, but it's just
+    hard to find the right balance between no pressure and the full
+    pressure of VRAM placement for VRAM|GTT BOs.<br>
+    <br>
+    It's on my todo list to tackle that and I'm currently working on an
+    userspace tool to better simulate those setups, but it's just a side
+    project.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 17.09.21 um 09:35 schrieb Pan,
+      Xinhui:<br>
+    </div>
+    <blockquote type="cite" cite="mid:DM4PR12MB5165DDADEE756AA4B3BAD54987DD9@DM4PR12MB5165.namprd12.prod.outlook.com">
+      
+      <p style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" align="Left">
+        [AMD Official Use Only]<br>
+      </p>
+      <br>
+      <div>
+        <div dir="auto" style="direction: ltr; margin: 0px; padding:
+          0px; font-family: sans-serif; font-size: 11pt; color: black;
+          text-align: left;">
+          Why? just to evict some inactive vram BOs?</div>
+        <hr style="display:inline-block;width:98%" tabindex="-1">
+        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
+            Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
+            <b>Sent:</b> Friday, September 17, 2021 3:06:16 PM<br>
+            <b>To:</b> Pan, Xinhui <a class="moz-txt-link-rfc2396E" href="mailto:Xinhui.Pan@amd.com">&lt;Xinhui.Pan@amd.com&gt;</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
+            <b>Cc:</b> Deucher, Alexander
+            <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a><br>
+            <b>Subject:</b> Re: [PATCH] drm/amdgpu: Let BO created in
+            its allowed_domain</font>
+          <div>&nbsp;</div>
+        </div>
+        <div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
+              <div class="PlainText">Am 17.09.21 um 09:04 schrieb xinhui
+                pan:<br>
+                &gt; For any user BO, it is allowed to alloc memory in
+                both GTT and VRAM<br>
+                &gt; domain. That means one VRAM BO could be eviced to
+                GTT.<br>
+                &gt;<br>
+                &gt; Now if device is already lack of VRAM, this BO
+                could alloc memory from<br>
+                &gt; GTT directly without evicting other VRAM BO. In
+                this way we can reduce<br>
+                &gt; memory evictions.<br>
+                <br>
+                NAK, that is intentional pressure on VRAM during
+                allocation of new memory.<br>
+                <br>
+                Christian.<br>
+                <br>
+                &gt;<br>
+                &gt; Signed-off-by: xinhui pan
+                <a class="moz-txt-link-rfc2396E" href="mailto:xinhui.pan@amd.com">&lt;xinhui.pan@amd.com&gt;</a><br>
+                &gt; ---<br>
+                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-<br>
+                &gt;&nbsp;&nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+                &gt;<br>
+                &gt; diff --git
+                a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+                &gt; index 66bb8a53bb20..9a547bb38cda 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+                &gt; @@ -579,7 +579,7 @@ int amdgpu_bo_create(struct
+                amdgpu_device *adev,<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GDS))<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_placement_from_domain(bo,
+                AMDGPU_GEM_DOMAIN_CPU);<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+                &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_placement_from_domain(bo,
+                bp-&gt;domain);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_placement_from_domain(bo,
+                bo-&gt;allowed_domains);<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bp-&gt;type == ttm_bo_type_kernel)<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo-&gt;tbo.priority = 1;<br>
+                &gt;&nbsp;&nbsp; <br>
+                <br>
+              </div>
+            </span></font></div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
 </html>
 
---_000_DM4PR12MB5165DDADEE756AA4B3BAD54987DD9DM4PR12MB5165namp_--
+--------------CB8CC640FD9E837939987BBA--
