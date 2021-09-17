@@ -4,110 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3672DC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BD88FC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 06B1360F9C
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 06B1360F9C
+	by mail.kernel.org (Postfix) with ESMTPS id 73594611C8
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 73594611C8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4574C6EE89;
-	Fri, 17 Sep 2021 19:26:10 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2079.outbound.protection.outlook.com [40.107.93.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8656EE82
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 19:26:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 020C16EE91;
+	Fri, 17 Sep 2021 19:52:39 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FD796EE91
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 19:52:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X4tIQgh57lP9Vyp1DGJxifOn7Q9E0Mi0CpdQAYRDy43XCAA8Xr0DP9qeZSRE1z/U/HHaXEuLgBK4srq1uv0UnRLHxOY2CFig2q8WjqyRhNZPRHl4H5SyqPcX9wXqfgzjtjZgJutv21jgCj7FQWB3DEFni9T7S1hskWqGvOAwvMbOh9se3wI+xcmklUaAlURyJPfcQ4kp7p+OKIJ3VxLEHWXLiUvtApzVkkMisx/tVVhWgp15EuvrAdhNWItgaYn1cRLHohxUgLrPmRtwhLiKo7y51vbpF6rWlSG3bMi4Ylh0JOCGwLjXGj9jQaHPqkqgMpY3KJF34WZ05YIWDioz/A==
+ b=eWdbgR7dJuigPEkfyAsE9tYoVXV92vI66gH+Gt1G3rR/X3syZLJvvyJ5Hm/iFAdCivx2JVBxwstIjt9n/3S3aQ+k7Ai6RUgj9avVNlS4BKEDd3BK6iAUC79wct85q4f8zVRmaphu444BNHDs4zdtbLF3cuFKLt50lZq3FWy57ynK68xlDTx7zn10OMfMMURfPlUfre2/vxMnfVKDO/SNOlYPlhVbmH6co9Z1jbyGRzX1vDQAkkiaIfNqDhssdMR+/UsW/EmYyd8bvVg2xelea2WC7lzQIMvdEE1m/NaV3p6Qh9I8K5sy1qgJjfIEuuEnT8c4ANiSxV/v072xilncpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=qZXY++ji7ri4UbrqcaETBGU+Wqc8kqpQ1698/a7LPSs=;
- b=hMtxdI2bColUQHcTgjkDOfhHV8hi8pBkbiGhUuR1R5y8sCjU8xBMFpI0YfyipIm46bAcavkcU+C+8kmGttngqIhsjiZVM7bE8FwFgnu/I1F6NekUkcLgduOn6qK6Ns3Nu1UO933WqSj+kGkXmOKagwuHrFXMFcSfZldiSPWBifWWcCmHlpCUOOuPlWOo6WUs/6rl+DXhT7w2lgCos7dIGih5Iya22luZCS38SZJpG0pILDme7KefjGj3gY9gPJG8IC9c4KL+trWIxSNcKYA0wnhpykXoSq7gXICQZNd/V8LBcKlHOdWhOg8K3X1gj5NawsKN3RYtR18GibQxm/1G3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=eoVcbi7VRLWrLcmk8JjsrZrGFPZIWtrh/2R+av1i6pU=;
+ b=MTS1EVaxuBOCCh//O+rBnVs7Nk5k7B45TdsfxVNiTsXrbYPiVp/UUSwFPiDOMsSMZ4+oucslsbFMpDNNiL1bdPkyW5Jc9h3s0ScsgVgG1CIMuQUDM0SuEdrjeaoSF32ZkkRTGiQVfik+DlJH1dT7hWfqIsPWhs+90IA0csnt+MGBaW+LW/b7vZ39wqlT4ty6FK1IrEh4zLiMvJhz9sSDiNbpzj81qG5V23lDIEPRClDJAQQ88BodNTcNn0wPWmvkZMD6xMkyiYSDLNJexhyBRJODiGfydu8hGaO6X3e41fFkVlDOHNP+LHFoP0713dAmUdiJQIUbRZG2KihC+I9CIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qZXY++ji7ri4UbrqcaETBGU+Wqc8kqpQ1698/a7LPSs=;
- b=1KITDAo2cFm/6/fLTyd6+/F7QEdEChiZbictdSIYhivy+dKcjqbjHJAKMJpGwiDKKV/OYAA0nNkE8XJzFW2xNNkPtQzg88uJL8tWPyOWOPLGzYvval7dn6KePPKHLjNUqdRPCzkzBxHspK4mvqQAav/EzKYpOrq/PAQ4asExsQw=
-Received: from BN7PR06CA0041.namprd06.prod.outlook.com (2603:10b6:408:34::18)
- by DM4PR12MB5214.namprd12.prod.outlook.com (2603:10b6:5:395::22) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=eoVcbi7VRLWrLcmk8JjsrZrGFPZIWtrh/2R+av1i6pU=;
+ b=HKT84u00goYGdI3WKTalTInhwedtNyEvgJzJ4ymK5t4iSsLD23bf2xurPTj8fBJUPhzRcnLkNWx4JCF6gwU4/ClsLU7VwFepjWz/DHD61pPsHHxVGXN5v3UPGIE7KlkeOD26h/en4wBIwkP078sThAVYJ6Ksk3WMSLcGVnhDC+U=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5196.namprd12.prod.outlook.com (2603:10b6:408:11d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Fri, 17 Sep
- 2021 19:26:00 +0000
-Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:34:cafe::81) by BN7PR06CA0041.outlook.office365.com
- (2603:10b6:408:34::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Fri, 17 Sep 2021 19:25:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 19:25:59 +0000
-Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 17 Sep
- 2021 14:25:58 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
- <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
- <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
- <stylon.wang@amd.com>, <solomon.chiu@amd.com>, "Liu, Zhan"
- <Zhan.Liu@amd.com>, Jimmy Kizito <jimmy.kizito@amd.com>
-Subject: [PATCH 13/18] drm/amd/display: DIG mapping change is causing a blocker
-Date: Fri, 17 Sep 2021 15:25:19 -0400
-Message-ID: <20210917192524.3020276-14-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210917192524.3020276-1-Rodrigo.Siqueira@amd.com>
-References: <20210917192524.3020276-1-Rodrigo.Siqueira@amd.com>
+ 2021 19:52:36 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::94bc:6146:87a:9f3c%5]) with mapi id 15.20.4523.017; Fri, 17 Sep 2021
+ 19:52:36 +0000
+Subject: Re: [PATCH v3] drm/amdkfd: fix dma mapping leaking warning
+To: amd-gfx@lists.freedesktop.org, Philip Yang <Philip.Yang@amd.com>
+References: <20210917180436.13923-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+Message-ID: <4b03b58c-bc8a-19cf-94db-dd9f4b27c109@amd.com>
+Date: Fri, 17 Sep 2021 15:52:34 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20210917180436.13923-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0074.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::32) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+Received: from [172.27.226.80] (165.204.55.251) by
+ YT3PR01CA0074.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 19:52:35 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: abd49e35-eeef-437e-ac9b-08d97a10fadc
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5214:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5214F6ACC7FCA7BA8C3F156198DD9@DM4PR12MB5214.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
+X-MS-Office365-Filtering-Correlation-Id: fc5ad8aa-34ea-4a7f-d789-08d97a14b249
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5196:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB51962B782E3F09595C59D00392DD9@BN9PR12MB5196.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MkCTltcWQdqD0aWKqRRLNyjqiDGRP/WAli0skHd1ta1ZNWJglcQ01L+xmAcFtfpWclKa9LhsfrKRUs7VWG2tUOZRQIg7ILECRihLLyPCYTcDO6UVYaclSKqi1F4Qh1HFit5gIcDuXnFdIwBmoddG3Ut7rXfQwzDPFjuZV9hOOY4Z2aVfgESs44pt9F3zaITyuFriKuQM92qloQADb1MFq1T5688lT2uyG2aXIlHX0sMQ6zmTUE5lVmLtxysusI/gzRDQooZ+fO8SUcHaJ+P5cvkNdhPGXWranyLc+DTZUseDetrKldR+ZKkH6cp/87+7a1sV2l0KZNWRhXiEwLXseif0TXwBF36eIit67Dt8baHnGCVRLk5l/GTUY8sWMpwhRZqisDndsLYzV/AsM+yxI/VBAjnApqmQ3cc/iVNX2C5bIW4y1IAZDxcvHfRMiTen+1DXv9l2qoz180QcbOBEEDSPUYimuL+4CYovMD8kd9KKPplWuYQFjTNSfUNG9AkB+6bGRhNPRgUju/zYBuTygNWvAQD9Hc2yx3oKtddUHp5AvcpLRBZMWN4W2f5k/3MuL/kihqWGjAvRQTrGV+D+iFxjIny64rYtL5t/BVm5UFAVJ1gXd+iROgPmzAooBKJ4VGpQxYSLGwppN2IKv4rAlJzKt5yx3tg5f4gAeI04ukIWV6AyMC4Kj6DKg4A68NZozs0RAJ7HwtlHlI9KlSxpmENKoemrW/Tc4stykURkn/E=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(376002)(396003)(346002)(39860400002)(46966006)(36840700001)(82740400003)(316002)(356005)(47076005)(26005)(2906002)(336012)(16526019)(70586007)(186003)(1076003)(36860700001)(2616005)(86362001)(426003)(8676002)(81166007)(5660300002)(82310400003)(4326008)(36756003)(6666004)(83380400001)(8936002)(54906003)(478600001)(6916009)(70206006)(36900700001);
+X-Microsoft-Antispam-Message-Info: p59k7ozllEfL+NYQ1MlTUn9GR7PRMgDIUxohWrHbbuBjHQKNjv8dZFTXlLonQqDeJnZJqzXR20NueTuur90qRocg8ukxp9nouOpPugSlTB+gK09o03CFwW3fOu124sGBkxsbDrvdRynd6QrVHk3OwPtm7zvg1So61Jk84veHz5c7TBsJ6+r2TmJGwEE785pWtaCnvKQ2s78ljZuGGtK73WJmgoWyQCtOdcsusD1L4IzsSY/3Pc34iQhEqlWg9TxXh8n0tpd4rwnFa2MMHGgVNCcMAGoTdQhFejJRlclL+Q80Ki3+9DefWcH1P7k+YXTPaG0Uw50Wg+uw0Lep+j2v7OvZDV0Br4orv6V4Gf7O5A1cCLOPqlj5wrnO5GTVfcJ5yfOJb6Q6BUdrKrN1QXMIBXXCizQK6dtnBQs5saPJY00oDZ8W4JqrELHyy9KwJKuIHkm5NehzmtmUlStrNGeeabQr5rVGUqUI+IldJ1uOZ1UAPbAKqPXGuSa5H0gC1gjkL6xc1DwsMEsw5xDFut/GbPgMhmrRfLb+kfasGRaAiytg86dzuQWjtRRzqaDzVN2Qbu270qmQAgpQJuc5QH90Y5k7G+Bj1UYiMwyJPZ6FZ4r/fMhluovGGoqCy3E3gjKqEqqrIlalYd6wmpe8/9kJ/W+bLGVPB8Fw1X7DXIIpWFa70xcnUgH+dGQnJ/NNWI7E9jXz+mypOYv6xWqIta22O5O2kwx7P939w+twz6meSJPMlAIUUOTTlShpfuNwPNtH
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(83380400001)(5660300002)(8936002)(38100700002)(66556008)(53546011)(66946007)(8676002)(86362001)(6636002)(66476007)(36756003)(186003)(956004)(2906002)(2616005)(6862004)(31686004)(508600001)(6486002)(31696002)(37006003)(316002)(16576012)(26005)(44832011)(36916002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MW9SWkNIN3llZ3hkSmpDME5Edk4wQTJGVFRnRDFreXdmRHhrUlVmdzdQVjFB?=
+ =?utf-8?B?UnlLMlpncHI1U3NKUnpRU1lTaEtLbEJwZ25kejZlVmU3OW5wNzZEOFU0emJL?=
+ =?utf-8?B?Tnl3RUJha3Y1TmtiR1J1L2lEMUFxQmRvN01YNHlTNTlFYVlwR1FyZkpqVHlw?=
+ =?utf-8?B?dW1iVTRDd1F5SmxYODl6THRvY3EvRGpKUlNVMDRiNXpValRjd0RXSThFZnYv?=
+ =?utf-8?B?c0lMMTgrdkNNSnZER05pMHlpK08yZ0M4UHVON2oxWkZmN2lpb0tsbGFueE5I?=
+ =?utf-8?B?ZEk1Mi9ocjlvMjRnUTNNNHl3UnNxNkVieWQ1K083VE8rTFhKMVkxRWdQYTVI?=
+ =?utf-8?B?Ty9BMytyZmRqblRMV0EzRDhxU3hYMkRybk9OdUxGWDBlTGF0cHRQUW02S0gy?=
+ =?utf-8?B?MUE0dXFRTnhLMjY3UENvRkxSeXJrYTduYytITWhTaHNjZmdRM3NZRk55d1R3?=
+ =?utf-8?B?eFhIWkVyRktBc2dJejc2Yy9sRlZDUVcxVkJpSkFFbW9tWHk3Ukt3L0xhWmVy?=
+ =?utf-8?B?ZktHTDR2Mi9vUVAzZUs1eW1Vb1NCVDd1ak8vZi81TGlDaUpIVHBkLzhQeEhQ?=
+ =?utf-8?B?ZGpHU241d203dTIyNllhcm1vL2hvY3EvWGlSSTJ1bjMyKzNNeStoTmZPRVIr?=
+ =?utf-8?B?V2JkaVRJbFR2NHpFNHhjNnQrTzdFcTEyRzlxY2U4ZVpvVlV3ZkN2MXRDREhv?=
+ =?utf-8?B?VEsxQzY3ejdkc3lkUEJYanoyeEdxOC84RWlUSUVFblhqcEsxNU1Ybm9xK1Vi?=
+ =?utf-8?B?YTBxNnU5M2xKSWVtYklQTHUxY1R3aS9sdUVVWXhvVHY3VGlGaWdUUVpuc0Na?=
+ =?utf-8?B?Y01WVmVELzdCVStSclIvdk82cE1weUx4dURKZm5xNC9mY0IwWGRPZHdvQTJE?=
+ =?utf-8?B?SE8zUWNJN1RtL1RVVXVHdjV4cDNzVHliZVcrNGRDRXZqQzFDbDNiVmcrNUhI?=
+ =?utf-8?B?ZGNDOXVHUXdLM3NYMm1yaXI4ckN2K3BqNHRtL2cxaEhYZHpGUEp1V0xGOENJ?=
+ =?utf-8?B?MVhGMllvL3k3WCtZcjBaMGR3akFhS2txUEJ3ckRMSFhPbmVqV0xOV0thNG1s?=
+ =?utf-8?B?Y2ZpdGt2cUVaMWJmUEx0ckk0R3JQYjNzaUZIVUo2SVpvT093SEJtUGJNdDF5?=
+ =?utf-8?B?b3cxenErOU83YWhud0ZHNW93MHA3SmtubmxIMnJLZ1IydFl4bG1DV0ZpT1FO?=
+ =?utf-8?B?V0VpV3h2aDc3elY3MXlmTy9PbmtSa25yZGVqY0paeDR2ZDJySFpUSm15NldO?=
+ =?utf-8?B?MllaR0x3UEdxK3owTWp0WG84MUt5NkRzdVQ0bzZjQ1dXeS9FYU42N2dLTzM3?=
+ =?utf-8?B?NlFFWHBPZUt6NzNkZ1RoM2pxczRVT3V3VmM0TFpvNlZteWJOUm1CWmNFL1BW?=
+ =?utf-8?B?aHNOMElHQUNpL0loS3ZOVU5RdmlGaWF6clZPb3EzY2ZhelBBTkxiMEdMdHpH?=
+ =?utf-8?B?MjFpY0tFTk9UekNQdXpxN3I4MklYM0tNc2Vyb3hvL2N5aG94ak0xU3Fha3Y1?=
+ =?utf-8?B?aW9ZOUpScFBvaGVISU5IVkFUaWtwV0VSOVViMUFzakE4VjBubFRkZHUvNC9a?=
+ =?utf-8?B?TklLd0I1SzNJcXRJaGNPOFB4OWt2UGQydkhCUURuUUtlZHFHcXBPTTUrMDQr?=
+ =?utf-8?B?dmNzUGdpYlMrNG5GV2UxNGVYaitwUlVuV3NHbmZUZUlSMkovLzdpZzJnR05l?=
+ =?utf-8?B?aExkTGk4SUFoUDU3dWtCekRpZDBxV0NqNUlhcWlyTm9LOVN1NlpicTBaYkkx?=
+ =?utf-8?Q?BOWzyRT97jr2HdRDCeIqqBOsfxMwoB0grbX7Gx4?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 19:25:59.6027 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: abd49e35-eeef-437e-ac9b-08d97a10fadc
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc5ad8aa-34ea-4a7f-d789-08d97a14b249
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 19:52:36.0496 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5214
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8mSBPsX8Hscg2EwolvslEhLrdwnM4hpYAwSk2Lv3MBWEfMwD7kDg/OeLS0eDihT6wQTyU0XBIuM6MggL0jBb3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,38 +140,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Liu, Zhan" <Zhan.Liu@amd.com>
+On 2021-09-17 2:04 p.m., Philip Yang wrote:
+> For xnack off, restore work dma unmap previous system memory page, and
+> dma map the updated system memory page to update GPU mapping, this is
+> not dma mapping leaking, remove the WARN_ONCE for dma mapping leaking.
+>
+> prange->dma_addr store the VRAM page pfn after the range migrated to
+> VRAM, should not dma unmap VRAM page when updating GPU mapping or
+> remove prange. Add helper svm_is_valid_dma_mapping_addr to check VRAM
+> page and error cases.
+>
+> Mask out SVM_RANGE_VRAM_DOMAIN flag in dma_addr before calling amdgpu vm
+> update to avoid BUG_ON(*addr & 0xFFFF00000000003FULL), and set it again
+> immediately after. This flag is used to know the type of page later to
+> dma unmapping system memory page.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 ++++++++++++++----
+>   1 file changed, 14 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 57318edc4020..e47f1219ad84 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -118,6 +118,13 @@ static void svm_range_remove_notifier(struct svm_range *prange)
+>   		mmu_interval_notifier_remove(&prange->notifier);
+>   }
+>   
+> +static bool
+> +svm_is_valid_dma_mapping_addr(struct device *dev, dma_addr_t dma_addr)
+> +{
+> +	return dma_addr && !dma_mapping_error(dev, dma_addr) &&
+> +	       !(dma_addr & SVM_RANGE_VRAM_DOMAIN);
+> +}
+> +
+>   static int
+>   svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
+>   		      unsigned long offset, unsigned long npages,
+> @@ -139,8 +146,7 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
+>   
+>   	addr += offset;
+>   	for (i = 0; i < npages; i++) {
+> -		if (WARN_ONCE(addr[i] && !dma_mapping_error(dev, addr[i]),
+> -			      "leaking dma mapping\n"))
+> +		if (svm_is_valid_dma_mapping_addr(dev, addr[i]))
+>   			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
+>   
+>   		page = hmm_pfn_to_page(hmm_pfns[i]);
+> @@ -209,7 +215,7 @@ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
+>   		return;
+>   
+>   	for (i = offset; i < offset + npages; i++) {
+> -		if (!dma_addr[i] || dma_mapping_error(dev, dma_addr[i]))
+> +		if (!svm_is_valid_dma_mapping_addr(dev, dma_addr[i]))
+>   			continue;
+>   		pr_debug("dma unmapping 0x%llx\n", dma_addr[i] >> PAGE_SHIFT);
+>   		dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
+> @@ -1165,7 +1171,7 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	unsigned long last_start;
+>   	int last_domain;
+>   	int r = 0;
+> -	int64_t i;
+> +	int64_t i, j;
+>   
+>   	last_start = prange->start + offset;
+>   
+> @@ -1205,6 +1211,10 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   						NULL, dma_addr,
+>   						&vm->last_update,
+>   						&table_freed);
+> +
+> +		for (j = last_start; j <= prange->start + i; j++)
+> +			dma_addr[j - prange->start] |= last_domain;
 
-[Why]
-DIG mapping change is causing a blocker
+This would be slightly more readable like this:
 
-[How]
-Revert the change for now. We will re-implement it later.
+	for (j = last_start - prange->start; j <= i; j++)
+		dma_addr[j] |= last_domain;
 
-Reviewed-by: Jimmy Kizito <jimmy.kizito@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Zhan Liu <Zhan.Liu@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 6 ------
- 1 file changed, 6 deletions(-)
+Other than that, the patch is
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-index 0b60ac676423..6f0c788d1904 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-@@ -1383,12 +1383,6 @@ static struct stream_encoder *dcn31_stream_encoder_create(
- 		return NULL;
- 	}
- 
--	if (ctx->asic_id.chip_family == FAMILY_YELLOW_CARP &&
--			ctx->asic_id.hw_internal_rev == YELLOW_CARP_B0) {
--		if ((eng_id == ENGINE_ID_DIGC) || (eng_id == ENGINE_ID_DIGD))
--			eng_id = eng_id + 3; // For B0 only. C->F, D->G.
--	}
--
- 	dcn30_dio_stream_encoder_construct(enc1, ctx, ctx->dc_bios,
- 					eng_id, vpg, afmt,
- 					&stream_enc_regs[eng_id],
--- 
-2.25.1
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
+
+> +
+>   		if (r) {
+>   			pr_debug("failed %d to map to gpu 0x%lx\n", r, prange->start);
+>   			goto out;
