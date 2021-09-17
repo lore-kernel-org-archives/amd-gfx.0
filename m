@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94631C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE4F2C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41E0660F6C
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 41E0660F6C
+	by mail.kernel.org (Postfix) with ESMTPS id 79B8360F6C
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 19:26:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 79B8360F6C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF8D6EE7A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D65206EE80;
 	Fri, 17 Sep 2021 19:25:58 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25D386EE7A
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 19:25:57 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1663C6EE7B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 19:25:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z0eUxRl2ulMme7zigQKlknWUy2FhyblHtksVQAw/361o/OQkjdc19vK0HsdqDb9MpVvV606U1hHwohSUHe8U4i0WCrwZXMLKn6RDPg/R5Z//shH7MxPBja7V4c5CYpkXYJUL6Zb40A3B4J3UnizMOQXyG/82ug0+CEYUkuph9NrGrkfLvDx/EdDB1GTg+qXQra0mjePLYy1FsZ1wI4dLS8iQ9q+Z4GXBO0qkIptRhTbKwaIpulSy1hmuVW84Vwqm0rpcjhAw9g4t5mzZI8hxjmL90qazbO68VenrAlGa6PnCl2BammOADeL/KA+baNNtPvSdnV//pYKJv/vCXtH6lA==
+ b=RP3mcc61Jfke1bvzprbUkQt3zSLpdokwpO+JcmG4e1gt8xwNTUbC4QIJV/YwBTGYpgD7mLgh4ryYiXnOHK2RjsSJLT7YfqyXhRu7oG3CGrpsl+rlJhuhCJwkdCy0xweO8ls1Z0EMKVY6mD75TrVjt1JIMZMVNKPfJn/CYm0/8W2bxyPZ8sskwMGYqtXgXKzX5nfdCXsQe7iGPMVX1ZmAU13ruPP5RkxvXpd/Dq6ZBfbouu0pG00zSk8PDrZQkfIb186whzAPRhob+J21BNh0KDsMNWuSwqn8SrOZN7X7h8RxJhgV5LEubU6ixP3mUkkquWHa+e6nilOA4TGlUFQNmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=j6CJpfq4yFeAHozcaIK2hiO9Fpydxvo8RKnvCQ0SIcg=;
- b=TKqu73ZgkMtatmhqukneKBIKI84P34jeUG8YPVSdKFLzj2zKszFPEysf3hWNhBWwLkSppxH5cxmPnpBsL5mZuJ4kOjkensMkZ/2Hm+Tux3MdyxDU13P2GLtMFoHxDOgYC/KEHwPC25yD58YBAgRghrh2vPeH+zcgVa6eZKpGmegpn0BCdzI3+y+lmgUpw0At8i1LI5JOBT/40mL4bG1e06I1j5NLknbKCDH94fC1x7t2/xcOkwhmHYc3EwKxMa0dK1e7pz5XFap7D0pDoyQ2wiV50bH52ENjbSDrJm28Wus78GsK96BnRKGcsl3zY0uH9TZe0GqxlhibS+vlkZLoQg==
+ bh=X+9O13F5y+LyqQYxLpJQRfxRwsMX+tJ/o6qki4NjRek=;
+ b=KQBlVAcoSGnJ9vhalWlM6p4t0x4/+BE4w8BQ+Bwt4XUVTKDL/c/zR4UlcxH4EBurm4dhWV4NLTIOOcXQPqlq1gK4dFvyUc+0DxYV3LMmVK8FELDhC1COVp6YzLZ5r7BKw0+dFUXdwaMRQlPYPjLJ4911fP4ryL+g3eX1TovhSAuTvc7X5Qh9V2WN+Xdo0+h6V7EkX9hJnIeJuVacox/iPZtKQr4Ez1Py7v4pb5A616psfvlf1T2G0n6YAFjNuKK3vARYAQxT0hlwHiFW8GCsy74rTbnlv/H8o927xUhfbO989S/rCVdT6Rpn6yqf9Px4HNY++0uIfTK11y/pYHfGWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j6CJpfq4yFeAHozcaIK2hiO9Fpydxvo8RKnvCQ0SIcg=;
- b=VqQFhay17WwCIgPFWa9L4F1w7BSl87FgpKVCgd8aiSDAKMSxzTFIKJ15NQhk2683tcGWEOzbweyMpVo4MFXAhQeJrEaqAaSjN5DAwVSF2KFuEYpZdVPg81riRW+VO9GmH/rx9dp/T7/NNhScBo5QgK7MFzLdZnlfoDN+oVtM+bE=
-Received: from BN9PR03CA0238.namprd03.prod.outlook.com (2603:10b6:408:f8::33)
- by BN7PR12MB2644.namprd12.prod.outlook.com (2603:10b6:408:2d::20)
+ bh=X+9O13F5y+LyqQYxLpJQRfxRwsMX+tJ/o6qki4NjRek=;
+ b=LWv3Tdx2zJ7+ZS2lfGL/xpsgfml8mpn3Hi3Pl/ElFxGJW9ay+qeRyD2hUE0QEYHAL3kBw5eeFeYJ5x6Pgp43L0npM8dvFlo4brI9OeX1Q102uTg2KFlnlPpJ/CjEZz2XYgbDhDHnvyjd3NiIBZGLjaxPO2vxa5isWlhkV3p3t3M=
+Received: from BN9PR03CA0231.namprd03.prod.outlook.com (2603:10b6:408:f8::26)
+ by CH0PR12MB5249.namprd12.prod.outlook.com (2603:10b6:610:d0::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Fri, 17 Sep
- 2021 19:25:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Fri, 17 Sep
+ 2021 19:25:51 +0000
 Received: from BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f8::4) by BN9PR03CA0238.outlook.office365.com
- (2603:10b6:408:f8::33) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:f8:cafe::c1) by BN9PR03CA0231.outlook.office365.com
+ (2603:10b6:408:f8::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Fri, 17 Sep 2021 19:25:54 +0000
+ Transport; Fri, 17 Sep 2021 19:25:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,22 +59,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT033.mail.protection.outlook.com (10.13.177.149) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 19:25:54 +0000
+ 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 19:25:51 +0000
 Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 17 Sep
- 2021 14:25:52 -0500
+ 2021 14:25:49 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
- <stylon.wang@amd.com>, <solomon.chiu@amd.com>, "Lai, Derek"
- <Derek.Lai@amd.com>, Anthony Koo <anthony.koo@amd.com>
-Subject: [PATCH 08/18] drm/amd/display: Added power down on boot for DCN3
-Date: Fri, 17 Sep 2021 15:25:14 -0400
-Message-ID: <20210917192524.3020276-9-Rodrigo.Siqueira@amd.com>
+ <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Jimmy Kizito
+ <Jimmy.Kizito@amd.com>, Meenakshikumar Somasundaram
+ <meenakshikumar.somasundaram@amd.com>, Jun Lei <Jun.Lei@amd.com>
+Subject: [PATCH 05/18] drm/amd/display: Fix link training fallback logic
+Date: Fri, 17 Sep 2021 15:25:11 -0400
+Message-ID: <20210917192524.3020276-6-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210917192524.3020276-1-Rodrigo.Siqueira@amd.com>
 References: <20210917192524.3020276-1-Rodrigo.Siqueira@amd.com>
@@ -86,28 +87,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ef009241-8e57-4097-04aa-08d97a10f7b4
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2644:
-X-Microsoft-Antispam-PRVS: <BN7PR12MB2644482336BFAC11939BA95798DD9@BN7PR12MB2644.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-MS-Office365-Filtering-Correlation-Id: d3415003-9210-430f-39c7-08d97a10f5cf
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5249:
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5249EE22093A1F892D49895398DD9@CH0PR12MB5249.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:51;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Hs8dVOu9vUROmBmKLOBVin9ZqA+Z5uuKAHuDFZeT54VQ8eZrbgjfKZug/fmaPj7Z60vNAMa0YQlFUgSWlVF1et+Gf9Oq4V2XZXTc9JLQogJZR2V8MQ5kyxgIWho/fJyZk3A8hYxACX3OuKBO5yV5BxNELDn3LvoKCSbKsQSOscIDAs4UWhclQbt7KohsXRn1yKOPJ0izDuXOAAPKVZNCAlOMLL9nCEyQlboCwNtqno6whL8MWj0vBEDDQ8XdMOhr+GrgI6amKxTUsRNXrgG8BpLg21neK9lR6GraXGFzUvnSnEmZ79Jjy17qZqUwuNeNpCO/YD/3bj9U/k47yW7yqurKp336MHBxQ8JCPTkmbHjwkc196xckVVWZ/0DXVfLUtvQLkxlJ9r1EO+FF0Od5OlTWM1B0g4U18n7EBzBsLZTdqH+zb4/kBI9g7U6TESf4dIy35jiq3gR1DHi+cc9W8YzTZ+5Uxjh3VBFV2KgJNv7ZadToGnETqUUJASfoBbC2LMvWrKNBB4UpUzYuQRBjNwDohBo7pAf9mZH230ML86NDtjoyeEJFAhGdTsjUxE54ZFEb55BFY/UdWSipNePo+RueDUniqEh1p0C6LVAObvPZe4YlPaKTJAdMhnJBm7NnF0x/YIqWUNgmItLeEgWiHWdKidqlwnYu082Km0E854aWtgNhfaVNJ2TiVICtgaJUvcRAWODquctcRP2OpeBqYgMh6Zu26u9X7qf5IvTIwC4=
+X-Microsoft-Antispam-Message-Info: FGLSFl4vSuZ8pnpSfE3XptHpzX0C1UMD+y3ipU1KzgJfC2Tu34Fx6U97Iim29oFFO7ZKIKdmkxsCp9XTgHCTvnJ+AGoCwHxcvVlXgowwa5VhuVcjJ41fIYDVFOxal0k8Vc8VI8etXngZc7lL6VNxSTO6n6rif5J8lu3ul0zI0AKLosvS4+hVOu2clYaD2OIJGgXK/xWJjYhhEE4iMhx0VqnTX8W7DjFhJX3dLEtVYVaM/LIEOu/UX3y+WLSoK7cEqVE8/EL8s7TAEdaoMtwZNiZG7NAlViHQ5qOfKm/TPj//+B/MX88p661bgNAW5LDqGzLMyuvbjT0sGSVLLvd3NDOVhqeDtKobOmX0K8dAxuvkgCeKzjzhjSmj4QlXpqCtOjF9MQ7ktzglaayydudr9qIamC2Pc0fMkgbTwj9E2IAIXCICiKBe68yj42rtxfqP+VOGxtQgJODLQG/uxLw4nf26vbpp7rdRBkCaqC8AOOXYgsK7vmhw03MaKAC6o/i1RrVbN5Eplzwfkl0JvNdKpfrI/M1jpi05eEznHlIAnYUUibLhqSukQTQQnO/z1RRKf82rWS3fGYWsFR3ueItG3Ai9l8pxycdujvbdNLw0Laq9KBKOCd393YIMnMLqRsnAXeCPU1PP2JdryQOCPxiIHlCVXaghCkoklTrd0VdXsz4N2ielklw6Out4vn4q6RldslYW8ZqEtzjRae5BJ0FEcceueYM0pCEq5xFQq7hhT0g=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(36840700001)(46966006)(8936002)(1076003)(26005)(8676002)(478600001)(6666004)(2906002)(336012)(4326008)(426003)(70206006)(82310400003)(70586007)(16526019)(186003)(5660300002)(83380400001)(2616005)(54906003)(316002)(36860700001)(47076005)(6916009)(356005)(81166007)(36756003)(82740400003)(86362001)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(2616005)(1076003)(5660300002)(81166007)(186003)(4326008)(54906003)(426003)(16526019)(6916009)(336012)(36860700001)(47076005)(26005)(83380400001)(8676002)(2906002)(8936002)(6666004)(86362001)(316002)(36756003)(82310400003)(508600001)(70586007)(70206006)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 19:25:54.3022 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef009241-8e57-4097-04aa-08d97a10f7b4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 19:25:51.1265 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3415003-9210-430f-39c7-08d97a10f5cf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2644
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,42 +123,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Lai, Derek" <Derek.Lai@amd.com>
+From: Jimmy Kizito <Jimmy.Kizito@amd.com>
 
 [Why]
-The change of setting a timer callback on boot for 10 seconds is still
-working, just lost power down on boot and power down for DCN3.
+Link training should fail if stream bandwidth exceeds link bandwidth.
 
 [How]
-Added power down on boot and power down for DCN3.
+Correct fallback logic and use named variables to make intention clear.
 
-Reviewed-by: Anthony Koo <anthony.koo@amd.com>
+Reviewed-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Derek Lai <Derek.Lai@amd.com>
+Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
-index 10c83f4083b5..c6a737781ad1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
-@@ -34,6 +34,7 @@
- static const struct hw_sequencer_funcs dcn31_funcs = {
- 	.program_gamut_remap = dcn10_program_gamut_remap,
- 	.init_hw = dcn31_init_hw,
-+	.power_down_on_boot = dcn10_power_down_on_boot,
- 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
- 	.apply_ctx_for_surface = NULL,
- 	.program_front_end_for_ctx = dcn20_program_front_end_for_ctx,
-@@ -93,6 +94,7 @@ static const struct hw_sequencer_funcs dcn31_funcs = {
- 	.set_flip_control_gsl = dcn20_set_flip_control_gsl,
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
-+	.power_down = dce110_power_down,
- 	.set_backlight_level = dcn21_set_backlight_level,
- 	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
- 	.set_pipe = dcn21_set_pipe,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index ac4896ff912c..c96a8694236e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -2441,12 +2441,16 @@ bool perform_link_training_with_retries(
+ 			if (type == dc_connection_none)
+ 				break;
+ 		} else if (do_fallback) {
++			uint32_t req_bw;
++			uint32_t link_bw;
++
+ 			decide_fallback_link_setting(*link_setting, &current_setting, status);
+ 			/* Fail link training if reduced link bandwidth no longer meets
+ 			 * stream requirements.
+ 			 */
+-			if (dc_bandwidth_in_kbps_from_timing(&stream->timing) <
+-					dc_link_bandwidth_kbps(link, &current_setting))
++			req_bw = dc_bandwidth_in_kbps_from_timing(&stream->timing);
++			link_bw = dc_link_bandwidth_kbps(link, &current_setting);
++			if (req_bw > link_bw)
+ 				break;
+ 		}
+ 
 -- 
 2.25.1
 
