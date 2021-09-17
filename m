@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D50BC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 15:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2B6BC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 15:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00CDD61212
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 15:41:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00CDD61212
+	by mail.kernel.org (Postfix) with ESMTPS id 9A09B60E94
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 15:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A09B60E94
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C3396EDE1;
-	Fri, 17 Sep 2021 15:41:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C391D6EE2A;
+	Fri, 17 Sep 2021 15:41:40 +0000 (UTC)
 Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
  [IPv6:2607:f8b0:4864:20::734])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93C076EDE1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 15:41:00 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id c10so18671434qko.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 08:41:00 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BCDC6EDDB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 15:41:39 +0000 (UTC)
+Received: by mail-qk1-x734.google.com with SMTP id 73so13652845qki.4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 08:41:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=G/b3XiXy0Sb8x2PtTRvVL/40239eORGz1ZL98EY1EC8=;
- b=fzPGLaz85DNSjT8BpuMHmKOqlTmjcQ0qE3xixhpENWlDBqA/2YO/GHW63weTUvqukt
- /hTvkY+SrTcPo885plyDeFM72/dI9tOCbng/4AcduL2xIMkCXnVtu7q+T7+a/dD51gTH
- L7gwVnqTw/HxFpzCGCbsHv4pnw4VgWgPaHdZVIoNesVklyEarxWWcfWZeFjT4RjtbAt0
- zKMyHOGfRmRVSf82T/XUmWcFRHrKWywI2DYIEWYrkh+TpOc6k/7I+sqzH4nT9t/FGY5F
- hAHLlOmKX+HDxFDYattoDa8cZNtr6c5DAixr6gOGgaZ9CCc1QkEkWDxuavEl/4geEn+l
- 1U9g==
+ bh=sD9uOm5tvP8G0xyXDbxUkajObP/tQsvPQSYJ5ZYdDAM=;
+ b=Rg3pQPgRu26LSb3Ym25tiFmMLVhLfw9SdEEPoUud66ykQ931PiVOz52pLoXgAwC0ox
+ /mHm2+hTiXHgLGuu8t2OWBPxQeOxDuKiW2UWpQCJgV/9B2iyAFVPcdrDxhJyA8LPkxyJ
+ OVEGgkK3fO0TjncIvsrXlzuOkF9DG2sCzr1V8nefKneQvr08Iin7PI1M/USyeat1+qSV
+ cOlTWgRk5Y/SwKT1Vqv7vzUsbBQS0nxnQuYMU4VQRwxuRpApDeTEvusujkPUACV+t5Rr
+ PqWzgleLdsIFdM+KfFpZGV0L6vGeeHDCvPQNK/XrwqX+BsWpcls4hgKiAqKiOlKNQk9K
+ vi7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=G/b3XiXy0Sb8x2PtTRvVL/40239eORGz1ZL98EY1EC8=;
- b=bJuPVz9bK8bTCXRE7ZnDQE1Zdgzb3kIghC/fhJlgHs7sTaQJw1IpFMui2mbbWYtqAw
- XFPPACxrtn+iuAsEwPOSzvcv2OqDi95s35i6qZlFdP5jmYfX3K1ES5rmqhcvBTnVj70M
- 9+5pXH1jRrVvgIylTAlbxm7sMFahRTH1Z8GDUnNi0PIVa1fx+lHCiePovMizhBx0jwnD
- WK3T0frBWagyRV7qZ71/gs5SMDEuZVSEyY/zni1FO0haU3z+aEmbQvnGbAZqvMQoIDq3
- rEtLWifFFRu545hWQz3gKkm2Vu+O+znmQXPr3WllK9j8EH6NTHXehI3byVrqeOa8yVav
- 0llw==
-X-Gm-Message-State: AOAM532XH9NbaDTAPDqab6g50Er9FX1k3Qb5Um4rFNem0ZoHCfq6GAjW
- YNo7OzZEzN++Gi/jeBaPKtnvEg==
-X-Google-Smtp-Source: ABdhPJwEOXquIsSStFswyl2f30Mm94RU8fNeBCXsfk8xn7q1LDa0ztl6hhBn29sVtbQXy6Bzc6IuSA==
-X-Received: by 2002:a37:9b93:: with SMTP id
- d141mr10910675qke.236.1631893259801; 
- Fri, 17 Sep 2021 08:40:59 -0700 (PDT)
+ bh=sD9uOm5tvP8G0xyXDbxUkajObP/tQsvPQSYJ5ZYdDAM=;
+ b=CjLcOvcaEx5E4vxNQMDeDZHjfSHcRLhooPhhH+AP5JWBV0rkdCGQQ7imnGZv3nsmBB
+ mSrmxcj35zHsnGpSKoF1Jz2jJViwe5dFfkSGyOdWawc3u+JSk1nJSz1KljGUeS4ThF+D
+ TwdVVZz+SWqhSvXxFm6LDSe74DyYuzet2dpu2TO/LgAXT0Pm1T1N/nzhWp7WgsL5WH0x
+ 3RHqWEk5E3U+h5YNZ8K1dXM+9hT8LA+K+H9P9PX5Dkgbm+kQF8WJsXZ7oADL8wmNU4hJ
+ +GvYnYHK/fRLO/i8Z0IhWJngIomzmpS5CW74q8Nt9tOV5y7Pv37wx1safufGORFZPjYK
+ L0Vg==
+X-Gm-Message-State: AOAM533PPw1bPmE6mBYaIaWuVw0M/0pKDWD9Z/Moz8qAIQ/uiHZdo/3m
+ ZCb1r5nlEYupghlMLcTKmKPuFg==
+X-Google-Smtp-Source: ABdhPJyjGqSsuJH7awGUj/YMxh1AbnFOYdGXvCtauKtD0RAp5YpZ9/RTGbsIl79Pjc1kmnuFaGBLDw==
+X-Received: by 2002:a37:a87:: with SMTP id 129mr3162058qkk.448.1631893298377; 
+ Fri, 17 Sep 2021 08:41:38 -0700 (PDT)
 Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id l195sm3821941qke.98.2021.09.17.08.40.58
+ by smtp.gmail.com with ESMTPSA id 9sm4122038qtz.83.2021.09.17.08.41.37
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 17 Sep 2021 08:40:59 -0700 (PDT)
-Date: Fri, 17 Sep 2021 11:40:57 -0400
+ Fri, 17 Sep 2021 08:41:37 -0700 (PDT)
+Date: Fri, 17 Sep 2021 11:41:36 -0400
 From: Sean Paul <sean@poorly.run>
 To: Fernando Ramos <greenfoo@u92.eu>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
@@ -68,7 +67,7 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org
 Subject: Re: [PATCH 09/15] drm/omapdrm: cleanup: drm_modeset_lock_all() -->
  DRM_MODESET_LOCK_ALL_BEGIN()
-Message-ID: <20210917154057.GI2515@art_vandelay>
+Message-ID: <20210917154136.GJ2515@art_vandelay>
 References: <20210916211552.33490-1-greenfoo@u92.eu>
  <20210916211552.33490-10-greenfoo@u92.eu>
 MIME-Version: 1.0
@@ -122,7 +121,10 @@ On Thu, Sep 16, 2021 at 11:15:46PM +0200, Fernando Ramos wrote:
 >  
 >  	return 0;
 
-Return ret here
+Return ret here, with that,
+
+Reviewed-by: Sean Paul <sean@poorly.run>
+
 
 >  }
 > -- 
