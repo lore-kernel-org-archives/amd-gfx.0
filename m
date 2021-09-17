@@ -2,79 +2,104 @@ Return-Path: <SRS0=2XV/=OH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-23.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18E92C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 15:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42D19C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 16:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D05FA61260
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 15:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D05FA61260
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
+	by mail.kernel.org (Postfix) with ESMTPS id 05E36611C4
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Sep 2021 16:16:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 05E36611C4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5E116EE48;
-	Fri, 17 Sep 2021 15:56:55 +0000 (UTC)
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [IPv6:2607:f8b0:4864:20::833])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67F116EDDB
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 15:56:54 +0000 (UTC)
-Received: by mail-qt1-x833.google.com with SMTP id u21so9142777qtw.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Sep 2021 08:56:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=0sCoJcMzph8m7gHdWZKN3dp454V4z1+jmuXCQGYY1eU=;
- b=UX6GzuE3DTpJzHN/aIeG3aCWzhBV+fCkDtBgEsxVhOm3+8K8AyENBXdIjuOYPRQKxs
- CTuel8m/m8KvyUEtzzp6eSepsKHiz/6oQvR50EcDMCZsQ3D7ykraTZ1895PCkIJHaqP5
- sfVz/lJFm7SXIqu1gLW50masMo1/nUD/Q4NJaqleeYLk/IDnaaWJNf0YBugq8do4COrv
- tgciBCa4sJznbQ680HUkBOi8azZ7pZjDQk932tTjNeS8fwuKs1XZMUEsUQPyod+7kBIn
- PX4L5mBmBUGYZaIWPqPbQt+e/XskkfcMsuLlF5APW7WdqHZcqEAGziGAp2Q4K1+CChVa
- kfMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=0sCoJcMzph8m7gHdWZKN3dp454V4z1+jmuXCQGYY1eU=;
- b=DVpW1Dj5u/Z8vu7YFQtSd3Zfo2oF72CJHU1aFa4jv/B0JLrrtxzXdwZTeCMtZDUle4
- pxhMtEmiN1igmI8QoXvG6ID83FvexHAuffsZufUQRZDv9D+AdQLTUic+sQjzMvaO5hzE
- 0c/r9YjT2pHT4OKV2EH24EuTo5QUPi3KpucJmat6QFizHW8wz2utpQisv+BILt4G+Q3e
- SfzstVw3J3dnt0wXaaSxkH9D2DpOqk84p3rXDJ+N2nGUGd4sxOeeTyfIiArPEnqIqkFC
- 0dyP8ooQBk4FTGFvmdyX431dbGs/pLbunVHwtVfwtNLcG+5DV4R3S5zx2HGK1iyo2UoA
- xX0w==
-X-Gm-Message-State: AOAM530eLRojt/f4v/Z06oVcV/ZhEiRYvlnEpUfHekk+9a6vRdyoh0JM
- WR8VplffrMnXTjQ+j6yOfg8+jQ==
-X-Google-Smtp-Source: ABdhPJy2rUDs6BeN9kdSRBI5w9E4e4qiGJ6kgMTqOz5qaJIsLmkzMmZBlXt+Y/EFA7itiDo5nxOSnA==
-X-Received: by 2002:ac8:4a90:: with SMTP id l16mr5492592qtq.154.1631894213604; 
- Fri, 17 Sep 2021 08:56:53 -0700 (PDT)
-Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id a8sm4075889qtx.39.2021.09.17.08.56.53
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 17 Sep 2021 08:56:53 -0700 (PDT)
-Date: Fri, 17 Sep 2021 11:56:52 -0400
-From: Sean Paul <sean@poorly.run>
-To: Fernando Ramos <greenfoo@u92.eu>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- sean@poorly.run, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 15/15] doc: drm: remove TODO entry regarding
- DRM_MODSET_LOCK_ALL cleanup
-Message-ID: <20210917155652.GP2515@art_vandelay>
-References: <20210916211552.33490-1-greenfoo@u92.eu>
- <20210916211552.33490-16-greenfoo@u92.eu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56C3B6EE51;
+	Fri, 17 Sep 2021 16:15:59 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80DA96EE50;
+ Fri, 17 Sep 2021 16:15:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=R/f7pza4tSAZOClugKwW3tIv85LIZ3jzDDHtvqcPIoKlmVIK3Dt94z5VbLku4SpeumSOQ46g4ifkscEm601tp9sksLiu3ZdLeHtLvg1pVidb9Us1KpPXYPhXWOchpM3+UWPkbcog2r4rQUaJCkEc5QboIK+oE2HjGp/klU0nzTJb9OfZdwr/iQMkNKiKpnTQqJzg+g6y87WKP+Yy72gFpCq+t4wUZFt9p7EwGRNUmMXHKyiTDTh0SdQCEs1u5Pz3l9Ucmo00JkH/kYlny08qSkG35sA6wfIfaKiVh/4/q4LnDLFmtdID6/6E8Q/XXEAU+Fr7890I1xyQK56DPFAp+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=j+JSUv4VAzY27oUubqiXR0pjtOkrzFlzd0/XTPbcolA=;
+ b=d6p8pxw8dRdRdRtI0DxQO+KjYIyq+HcVZUm81i5MmXOwsW4u0A71jOhVZK1SFdzCaWpqmhh81FioRWDtEo9q98w3AI0beWQbxz2YWgXzynmUZ9JvHBslsBbs4XkEcuamFCJFkNsGS3C5z9CCG7vEAhGOk/mPzjeWc8S+M2oYG74pqGIBdYh/1Jh/7a6ITy1O2/QE+cAHLioXeJgXbiprSaVnveeuIoKeGH8Ym0U7LZuBlBAPjoZREbQwvyCeTNhnL1fg7f5lNh2cI6KstQ/MciLpO8T49No/5NG6RJwKb4UocxWviT3iYW8NfSs+A4+2xyHieo0hCLTAxEbGzFfj0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j+JSUv4VAzY27oUubqiXR0pjtOkrzFlzd0/XTPbcolA=;
+ b=QzByFYRIBN+xZqbhH+9X+bAZN7tVTspnFgW/4F73fiAtTQRcef+qTaqogN7g4oTkS2PLRUQR7raiEe259gP6dpvCr8TGm92HNJ7ZwAESlJB5TV3hNshYPM5PTmJA1EjqZIlPJnT4/2N599CuBLGdgSpF4CqL2/Sze+b9gdI0jlw=
+Received: from CO2PR04CA0203.namprd04.prod.outlook.com (2603:10b6:104:5::33)
+ by DM5PR12MB1564.namprd12.prod.outlook.com (2603:10b6:4:f::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14; Fri, 17 Sep 2021 16:15:56 +0000
+Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:5:cafe::80) by CO2PR04CA0203.outlook.office365.com
+ (2603:10b6:104:5::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
+ Transport; Fri, 17 Sep 2021 16:15:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 16:15:56 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 17 Sep
+ 2021 11:15:55 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/2] MAINTAINERS: fix up entry for AMD Powerplay
+Date: Fri, 17 Sep 2021 12:15:39 -0400
+Message-ID: <20210917161540.822282-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210916211552.33490-16-greenfoo@u92.eu>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ca6ec183-66b7-451d-3167-08d979f66e23
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1564:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1564A4FCD8B9F8F477C5EE1EF7DD9@DM5PR12MB1564.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: y7jENjHiJ6H7d8vvG/WyUmdTQfeNNgRBkeC7Udbv2IldyVDW6N70WhjRMaBtuK2sDpa2hksYQAjN3x9rL16nW+a0FPZcurXdp7v5R31bKjugF+B6P6bWKbSoHvxWkSl7nzIXKqT6t9/npbwrL+eF9MKnoP0acSvTtdzoo61I7I4yFoxNIFQ+7FL4K4wh7tDKqwqnYlRiTLkQdidDp6omVwZ5yLtdPufBnPP5pvNBJM+BIinzo0tNGM1dHE893VFF6MWc432V8bbVLE9Q/9fhejZ9KfqwFrWQw6qkLDkHodKkweviUcfM2Uf1XezQPt8vnmVZzHuftmpDSHm/Ov5HfAOdxuKp2O5jiTEAT/R+ho/dUNtRpMKKpq7M44eywsBJNaD+EUE3wxaRceJQPMtHGwaoF0RhWnyxLFUjo7SbuPTbf+glUOzOHbwiDeebRgiw4IZhlzzFGrvzfOHsX7Ee4u+KhuF70r13VetqpVNSsAqMSJWKbe22bLPDTBXCpe7LvTIwZtVBm1RapXIzJzAh5KOBnaLL2IQFUcvYERJS1jc8+ia6L3AIUSxVSE1R60zKb1CqfZr+Nmk05uJjGqqj8kuV4kQJbity+rM+tvDV7sKDQ65jY8U31cbdgDghz9Hmi7Ju7Mjf9vB2/HEcsH86edtwrwLopyUt4kqMpEm1uoHpPMmTs5vB1Z7j+agEFs5z/rzWRSx1QZRMcI0V0f7mVGotwHloppm7hipgMX9TStA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(376002)(136003)(396003)(46966006)(36840700001)(316002)(81166007)(4744005)(70206006)(8936002)(82310400003)(966005)(7696005)(70586007)(110136005)(82740400003)(426003)(2906002)(336012)(2616005)(8676002)(6666004)(1076003)(86362001)(186003)(36860700001)(83380400001)(26005)(36756003)(16526019)(5660300002)(4326008)(450100002)(356005)(47076005)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 16:15:56.4722 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca6ec183-66b7-451d-3167-08d979f66e23
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1564
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,70 +114,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 16, 2021 at 11:15:52PM +0200, Fernando Ramos wrote:
-> The previous commits do exactly what this entry in the TODO file asks
-> for, thus we can remove it now as it is no longer applicable.
+Fix the path to cover both the older powerplay infrastructure
+and the newer SwSMU infrastructure.
 
-Thanks for doing this work!
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ MAINTAINERS | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Can we remove drm_modeset_lock_all[_ctx] now? If so, let's queue that up as part
-of the set.
-
-
-Reviewed-by: Sean Paul <sean@poorly.run>
-
-
-> 
-> Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
-> ---
->  Documentation/gpu/todo.rst                | 17 -----------------
->  Documentation/locking/ww-mutex-design.rst |  2 +-
->  2 files changed, 1 insertion(+), 18 deletions(-)
-> 
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index 12e61869939e..6613543955e9 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -353,23 +353,6 @@ converted, except for struct drm_driver.gem_prime_mmap.
->  
->  Level: Intermediate
->  
-> -Use DRM_MODESET_LOCK_ALL_* helpers instead of boilerplate
-> ----------------------------------------------------------
-> -
-> -For cases where drivers are attempting to grab the modeset locks with a local
-> -acquire context. Replace the boilerplate code surrounding
-> -drm_modeset_lock_all_ctx() with DRM_MODESET_LOCK_ALL_BEGIN() and
-> -DRM_MODESET_LOCK_ALL_END() instead.
-> -
-> -This should also be done for all places where drm_modeset_lock_all() is still
-> -used.
-> -
-> -As a reference, take a look at the conversions already completed in drm core.
-> -
-> -Contact: Sean Paul, respective driver maintainers
-> -
-> -Level: Starter
-> -
->  Rename CMA helpers to DMA helpers
->  ---------------------------------
->  
-> diff --git a/Documentation/locking/ww-mutex-design.rst b/Documentation/locking/ww-mutex-design.rst
-> index 6a4d7319f8f0..6a8f8beb9ec4 100644
-> --- a/Documentation/locking/ww-mutex-design.rst
-> +++ b/Documentation/locking/ww-mutex-design.rst
-> @@ -60,7 +60,7 @@ Concepts
->  Compared to normal mutexes two additional concepts/objects show up in the lock
->  interface for w/w mutexes:
->  
-> -Acquire context: To ensure eventual forward progress it is important the a task
-> +Acquire context: To ensure eventual forward progress it is important that a task
->  trying to acquire locks doesn't grab a new reservation id, but keeps the one it
->  acquired when starting the lock acquisition. This ticket is stored in the
->  acquire context. Furthermore the acquire context keeps track of debugging state
-> -- 
-> 2.33.0
-> 
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 851255b71ccc..379092f34fff 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -972,12 +972,12 @@ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	drivers/platform/x86/amd-pmc.*
+ 
+-AMD POWERPLAY
++AMD POWERPLAY AND SWSMU
+ M:	Evan Quan <evan.quan@amd.com>
+ L:	amd-gfx@lists.freedesktop.org
+ S:	Supported
+ T:	git https://gitlab.freedesktop.org/agd5f/linux.git
+-F:	drivers/gpu/drm/amd/pm/powerplay/
++F:	drivers/gpu/drm/amd/pm/
+ 
+ AMD SEATTLE DEVICE TREE SUPPORT
+ M:	Brijesh Singh <brijeshkumar.singh@amd.com>
 -- 
-Sean Paul, Software Engineer, Google / Chromium OS
+2.31.1
+
