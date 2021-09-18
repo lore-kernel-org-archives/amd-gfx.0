@@ -2,107 +2,74 @@ Return-Path: <SRS0=x7R6=OI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.4 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8F3BC433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:08:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE584C433FE
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:39:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 853F761212
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:08:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 853F761212
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B148B61268
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B148B61268
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 233BD6E0FB;
-	Sat, 18 Sep 2021 08:08:15 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2063.outbound.protection.outlook.com [40.107.96.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 703EF6E0FB
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 08:08:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WqSkg9Y86uZ4bpGQwny9W9J08MJkek699bVXcDItEI2mQWpGm+PkOwDPI+CZO/Remrrwi8rOy5d4PWOpFYwyv++3/A8Fvz/TJ6rlg+9wBNuGaXIf4tpVKXsVfnD0sJxNwvK73zqKw8SI5Rfvin9/rjtJkzaNfP4qUtw6RmZA4tJOdVNV7vwI60VOAG4W6XEjbWd3rSew14nHZG/493Au+2anWWzb+BNJkTjAunDOGyRP3G52J337H2v80nkYEgsRSgWG17aOuMmq9+nKuzaxTf5mQYuMu54gQuLIxIBggYk8xtviaot5wib+eKyvt80RrYzYE6fQob3WJ7sACUXoEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=GEwo1wkD1tPd+34XJ9lOYLsC6p+fPNZZzGGj9McqfnU=;
- b=EsxeYttPT0qg3GcOJiQb2ba/0YET2iiNqwGbWQpAV8kr6YgQkagImNHuGkAG3h/bfYoXdG6u1QJULqGHp5nY9FTySWg96QRzK7eAngT7Dhgge3gE16qxpo2FfrJIeLjVslQywkfy6S7qCniHQ4/xQFV7OzcUyvp0+m1vmsC3e5LoyUzTVVBg5N7zJj0kHpDFzPJ0QEdWG7ootSsstyRy1Wsds6b/EdkEmNkxuLSmn7HPBdKe2jVIuZ3NRvn8R+8Zag/slcnD0GS+RPoA8Dhh/8DO/1/zfeIkAhn9IoN7Ewa0Cvvybny22VtyPiJRWP1LRyUYf4UXaEWWZO/TESTI3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GEwo1wkD1tPd+34XJ9lOYLsC6p+fPNZZzGGj9McqfnU=;
- b=uVHoG7w+Ev+nqGn5PZ08Sg2IiFRnMwaz1cdwU1LuAmh/LX1HQ9IivRny7DIQ/M+juUao23R40ay0uVi+ioa93GZfN3MmxB97c4O07vZ5oFPIxz0+/Cg2tWhHKhdlCbzrMrsfseeZd5cAaN0CiqfX7zgGex6usPzhBAg4BIiJzeo=
-Received: from BN1PR12CA0014.namprd12.prod.outlook.com (2603:10b6:408:e1::19)
- by BL0PR12MB5539.namprd12.prod.outlook.com (2603:10b6:208:1c3::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Sat, 18 Sep
- 2021 08:08:09 +0000
-Received: from BN8NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e1:cafe::44) by BN1PR12CA0014.outlook.office365.com
- (2603:10b6:408:e1::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Sat, 18 Sep 2021 08:08:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT027.mail.protection.outlook.com (10.13.177.96) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Sat, 18 Sep 2021 08:08:09 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Sat, 18 Sep
- 2021 03:08:03 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <john.clements@amd.com>, <stanley.yang@amd.com>
-CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: skip umc ras irq handling in poison mode
-Date: Sat, 18 Sep 2021 16:07:51 +0800
-Message-ID: <20210918080751.23615-3-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210918080751.23615-1-tao.zhou1@amd.com>
-References: <20210918080751.23615-1-tao.zhou1@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37E526E10C;
+	Sat, 18 Sep 2021 08:39:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C43426E105;
+ Sat, 18 Sep 2021 08:39:11 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7B5E761251;
+ Sat, 18 Sep 2021 08:39:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1631954351;
+ bh=I3OXBH6Jsft3MeFXXif2KAYrH0PL5mHvHWDLsrpF3p0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=a9hjTcoDC0ygV/THN5MB4kBvc1nnulxFRN2ENZlTd88T2ditC8k61LEK7nro1pcKy
+ 58YoRM/lwtdqh8GyJ8qXWBf/3Vx0F85rmORFagsAOyvTiRfGxdRnqMcvWAcFYC1YKF
+ 375MnAbUtdYufFWtwtFjnlbzHb6ShWIbS2AWBWorMK1G9X3G85uL7vshrzItTf70VH
+ KTqdnkocRfkn3jy+f8FEJabg3VvC7uH3Jng6O9C4dPMmbmv18gCNn/jpIMEJRH7Dyi
+ MKcdnMDQZoWAMPe1dUw+5D79OrlymmveofL+SMizg3O59N3058HbTxrnBCSp1x6q3B
+ G5psP8Km2jW+A==
+Received: by mail-oo1-f44.google.com with SMTP id
+ m14-20020a4ad50e000000b002912a944a47so3999705oos.12; 
+ Sat, 18 Sep 2021 01:39:11 -0700 (PDT)
+X-Gm-Message-State: AOAM532cA5f4rO01/aaI4hI5Im5k94R1SXFNgipX7r7FlwYtF46Zc/E1
+ K+Djimv3doFLAxEjiTrbjkEIlVsc8msX4sKlZ6E=
+X-Google-Smtp-Source: ABdhPJwhjcwUIBun9pdQA2AKk6/UkuNunTe3+nY6kMyQMkX2egUVkh/hJR0L43iF+/kZGTei1N8EB2+UDKBIhXdrDvg=
+X-Received: by 2002:a05:6820:1049:: with SMTP id
+ x9mr4953726oot.40.1631954350758; 
+ Sat, 18 Sep 2021 01:39:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0f7e83c4-2b54-4f17-5900-08d97a7b73e8
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5539:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB55397634AD1790646DBF75D8B0DE9@BL0PR12MB5539.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2de9HbotxKVyNTwyj7TLCJ9Lh2WtsoSDrsuR8MASS/cKMwTXCFJphGvIusLdgAUwF1O3iyu/tyv3PfAAUCf0mRCXvvJ+opPOGUihXV6uxEfp03SzWLGeflBDPh7jii0Y1i8JqW71Q2wtmaUFTD/jxbxASK42ORc7EsgXFqg7bJnmz9NqJI6/2eob9Tw3F+8qQt7WjrW4OzCDSENF3+iQxYI08CX+4pfhlEEY9BWY4OaffGgaPA82GnCGxkn9RIzR5ar7pAqAq+arFmhCTvmRuKUj+Rk/Ol5b+3QirEWNw0014BvkCRkcE/FSOxv9dN7iaeuFSQpzFgZ7JO2am7NZzYuDXNQo6NTamWJ62JDJ27UZ2IeFcrXiZbpu0o1g5qVUNm6b+vPiAStVswGwB2yxls3owb670UrtlSGvLqHE4Dd1UIFpjBmUF1VBLGONQnd4Ygn5ZKz6vJidtwsR2dJR+MXMLe0O0vELkfCkgbEy6kiJOgUSd3maz9nebZEthMTyJiVnF82g9Eh94s4rKaSfy0T2XToXbrUIAR3JqKgmwbMMxbTku2EYHvbbKBQ96IibsSETDMnHFSTNvravO9PHHZHMzPVH0yQYHWHMf7HH5TWIjJxVYdwFFNrYWe41kvAnwqaj3UkpyJWzCvSDBYzDg8okZSkiB9JEkUi15VXe+cH5AUVd1Q4EYR91XeA0GG5FLRrGAX3vd1FLAEUOFdcFu2s78XVbHfqMaIbT9EDDKeI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(8936002)(110136005)(26005)(7696005)(86362001)(36756003)(186003)(336012)(5660300002)(2906002)(2616005)(36860700001)(508600001)(356005)(47076005)(4326008)(316002)(8676002)(6636002)(83380400001)(70586007)(82310400003)(16526019)(426003)(70206006)(1076003)(6666004)(81166007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2021 08:08:09.3379 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f7e83c4-2b54-4f17-5900-08d97a7b73e8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT027.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5539
+References: <20210912165309.98695-1-ogabbay@kernel.org>
+ <YUCvNzpyC091KeaJ@phenom.ffwll.local>
+ <20210914161218.GF3544071@ziepe.ca>
+ <CAFCwf13322953Txr3Afa_MomuD148vnfpEog0xzW7FPWH9=6fg@mail.gmail.com>
+ <YUM5JoMMK7gceuKZ@phenom.ffwll.local> <20210916131014.GK3544071@ziepe.ca>
+ <YUSKSHBC9uI49wZZ@phenom.ffwll.local>
+In-Reply-To: <YUSKSHBC9uI49wZZ@phenom.ffwll.local>
+From: Oded Gabbay <ogabbay@kernel.org>
+Date: Sat, 18 Sep 2021 11:38:42 +0300
+X-Gmail-Original-Message-ID: <CAFCwf12o-+wtbk8J8k8hP4_k0a8Lco4m9f4s1vBobkQwNtn39w@mail.gmail.com>
+Message-ID: <CAFCwf12o-+wtbk8J8k8hP4_k0a8Lco4m9f4s1vBobkQwNtn39w@mail.gmail.com>
+Subject: Re: [PATCH v6 0/2] Add p2p via dmabuf to habanalabs
+To: Jason Gunthorpe <jgg@ziepe.ca>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Gal Pressman <galpress@amazon.com>, Yossi Leybovich <sleybo@amazon.com>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, 
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>, 
+ Dave Airlie <airlied@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,61 +84,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In ras poison mode, umc uncorrectable error will be ignored until
-the corrupted data consumed by another ras module (such as gfx, sdma).
+On Fri, Sep 17, 2021 at 3:30 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Thu, Sep 16, 2021 at 10:10:14AM -0300, Jason Gunthorpe wrote:
+> > On Thu, Sep 16, 2021 at 02:31:34PM +0200, Daniel Vetter wrote:
+> > > On Wed, Sep 15, 2021 at 10:45:36AM +0300, Oded Gabbay wrote:
+> > > > On Tue, Sep 14, 2021 at 7:12 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> > > > >
+> > > > > On Tue, Sep 14, 2021 at 04:18:31PM +0200, Daniel Vetter wrote:
+> > > > > > On Sun, Sep 12, 2021 at 07:53:07PM +0300, Oded Gabbay wrote:
+> > > > > > > Hi,
+> > > > > > > Re-sending this patch-set following the release of our user-space TPC
+> > > > > > > compiler and runtime library.
+> > > > > > >
+> > > > > > > I would appreciate a review on this.
+> > > > > >
+> > > > > > I think the big open we have is the entire revoke discussions. Having the
+> > > > > > option to let dma-buf hang around which map to random local memory ranges,
+> > > > > > without clear ownership link and a way to kill it sounds bad to me.
+> > > > > >
+> > > > > > I think there's a few options:
+> > > > > > - We require revoke support. But I've heard rdma really doesn't like that,
+> > > > > >   I guess because taking out an MR while holding the dma_resv_lock would
+> > > > > >   be an inversion, so can't be done. Jason, can you recap what exactly the
+> > > > > >   hold-up was again that makes this a no-go?
+> > > > >
+> > > > > RDMA HW can't do revoke.
+> > >
+> > > Like why? I'm assuming when the final open handle or whatever for that MR
+> > > is closed, you do clean up everything? Or does that MR still stick around
+> > > forever too?
+> >
+> > It is a combination of uAPI and HW specification.
+> >
+> > revoke here means you take a MR object and tell it to stop doing DMA
+> > without causing the MR object to be destructed.
+> >
+> > All the drivers can of course destruct the MR, but doing such a
+> > destruction without explicit synchronization with user space opens
+> > things up to a serious use-after potential that could be a security
+> > issue.
+> >
+> > When the open handle closes the userspace is synchronized with the
+> > kernel and we can destruct the HW objects safely.
+> >
+> > So, the special HW feature required is 'stop doing DMA but keep the
+> > object in an error state' which isn't really implemented, and doesn't
+> > extend very well to other object types beyond simple MRs.
+>
+> Yeah revoke without destroying the MR doesn't work, and it sounds like
+> revoke by destroying the MR just moves the can of worms around to another
+> place.
+>
+> > > 1. User A opens gaudi device, sets up dma-buf export
+> > >
+> > > 2. User A registers that with RDMA, or anything else that doesn't support
+> > > revoke.
+> > >
+> > > 3. User A closes gaudi device
+> > >
+> > > 4. User B opens gaudi device, assumes that it has full control over the
+> > > device and uploads some secrets, which happen to end up in the dma-buf
+> > > region user A set up
+> >
+> > I would expect this is blocked so long as the DMABUF exists - eg the
+> > DMABUF will hold a fget on the FD of #1 until the DMABUF is closed, so
+> > that #3 can't actually happen.
+> >
+> > > It's not mlocked memory, it's mlocked memory and I can exfiltrate
+> > > it.
+> >
+> > That's just bug, don't make buggy drivers :)
+>
+> Well yeah, but given that habanalabs hand rolled this I can't just check
+> for the usual things we have to enforce this in drm. And generally you can
+> just open chardevs arbitrarily, and multiple users fighting over each
+> another. The troubles only start when you have private state or memory
+> allocations of some kind attached to the struct file (instead of the
+> underlying device), or something else that requires device exclusivity.
+> There's no standard way to do that.
+>
+> Plus in many cases you really want revoke on top (can't get that here
+> unfortunately it seems), and the attempts to get towards a generic
+> revoke() just never went anywhere. So again it's all hand-rolled
+> per-subsystem. *insert lament about us not having done this through a
+> proper subsystem*
+>
+> Anyway it sounds like the code takes care of that.
+> -Daniel
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 34 +++++++++++++++----------
- 1 file changed, 20 insertions(+), 14 deletions(-)
+Daniel, Jason,
+Thanks for reviewing this code.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 7b7e54fdd785..195637725c7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1473,22 +1473,28 @@ static void amdgpu_ras_interrupt_handler(struct ras_manager *obj)
- 		data->rptr = (data->aligned_element_size +
- 				data->rptr) % data->ring_size;
- 
--		/* Let IP handle its data, maybe we need get the output
--		 * from the callback to udpate the error type/count, etc
--		 */
- 		if (data->cb) {
--			ret = data->cb(obj->adev, &err_data, &entry);
--			/* ue will trigger an interrupt, and in that case
--			 * we need do a reset to recovery the whole system.
--			 * But leave IP do that recovery, here we just dispatch
--			 * the error.
--			 */
--			if (ret == AMDGPU_RAS_SUCCESS) {
--				/* these counts could be left as 0 if
--				 * some blocks do not count error number
-+			if (amdgpu_ras_is_poison_enabled(obj->adev) &&
-+			    obj->head.block == AMDGPU_RAS_BLOCK__UMC)
-+				dev_warn(obj->adev->dev, "Poison mode, no need to do page retirement"
-+								"in UMC ras handler!\n");
-+			else {
-+				/* Let IP handle its data, maybe we need get the output
-+				 * from the callback to udpate the error type/count, etc
-+				 */
-+				ret = data->cb(obj->adev, &err_data, &entry);
-+				/* ue will trigger an interrupt, and in that case
-+				 * we need do a reset to recovery the whole system.
-+				 * But leave IP do that recovery, here we just dispatch
-+				 * the error.
- 				 */
--				obj->err_data.ue_count += err_data.ue_count;
--				obj->err_data.ce_count += err_data.ce_count;
-+				if (ret == AMDGPU_RAS_SUCCESS) {
-+					/* these counts could be left as 0 if
-+					 * some blocks do not count error number
-+					 */
-+					obj->err_data.ue_count += err_data.ue_count;
-+					obj->err_data.ce_count += err_data.ce_count;
-+				}
- 			}
- 		}
- 	}
--- 
-2.17.1
+Can I get an R-B / A-B from you for this patch-set ?
 
+Thanks,
+Oded
