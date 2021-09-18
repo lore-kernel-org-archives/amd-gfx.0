@@ -7,122 +7,121 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A952DC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:59:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13741C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:59:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E5396124B
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:59:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4E5396124B
+	by mail.kernel.org (Postfix) with ESMTPS id C864B6124B
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 08:59:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C864B6124B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFE1F6E111;
-	Sat, 18 Sep 2021 08:59:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC326E122;
+	Sat, 18 Sep 2021 08:59:15 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 578DA6E111
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 08:59:08 +0000 (UTC)
+ (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D0D46E122
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 08:59:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BrDjixEATVdXEcENZrJzd6iqU59kyVaTN5Laj+2VEZFWXaLK8tEu8VcY3jnE/RdYkK11HexFOqLR5r49muTSgkrEAyeHkN0ZGIFSMW10Vlbx7zwMpbYNg4L8uVMfQsaH/9sX0OjJ/hT0p6xagR/o/oszpMF5cQa9OGRi1U4wdTTti+leX0cV03S82lJTg9+D0UC3NJA1i39bBF+DcyU30RQw5mtFgbbkpEkQQ8c6uraaEcBOtkoCNLU30t/aS+go88Z75LNq7b8CYdEnjcyRgqNefDNkV6sjKxPztZVSOXKV/NpK/xyquTMM7DWUY8Samm+fseuGyG5bpr5g17zm1w==
+ b=b3QnrxqopD6/LTBRXjwI6R1Gq5DNTOO9gtlaRCXlmBOWABAnnh+4n0crST+7/R0I6CmHO6pzE5jhas8uszTxRYO6Mv0TA2a0rxgNDLKIZsAWa/BK80ZFZikTFGD0ZsMc9PNhj0wdrwuNmYFvGb2afG6JdwkvUqe+uj72Sl+D9Kc/bYRnG7ueCRclIKDOmHDwtZA787av6HFIsh7eJvXqv0mDRyFgfdEfA9Tzb7XwfpHF6WWuEXLdoXN6fermJNFZK7V461aupvR7MHAIJ1/606lDjANSwJ39z0MtactfUoNaYJMuDwdLRdKoN3aAaM/j7nw0j6DyAAfkhki/BGXJ2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=fbdLIQLCG9UetVScFr/1Sbd++p5DEAAzjxwZb51GNqo=;
- b=GQ/LHZlKMkGF/2IeMaubjQhUHGXG44EqMT+NLEAMkOePh+VBE1+ctMjpk+99xF8w34VnT3FR1pb7PgZbnit2DuiGlKB3K2u2CyHNaEY2jMxtUa+9HbGIbtnIoRTeHcC3BXMcmgmg/C6qJmxk3k0TnYaLflylZ5GVhX0YXwrLpK6irFiQbdMx6Vx2M2QcDmeIMcsdwbThXhH0dlBd9O5KMjE/g2DHNCS+J8MiEg80ML3bHFV86/QZHAdF532+fpo3BUN0iRQDtQPBe7SFppqm4AFefjFyPnapKjrekyE8D5gaTMigqXLdeDqPwR4MtWa0xTN+LezZaVRqb0PVdxFAoQ==
+ bh=UGzdsMHTkYwFq6HwTFFWd66coyTbd1/Hl7PdZRDWtTI=;
+ b=MtPxAyW2U4Ay/pKPQ16FaqiW0bAmxQkB602thG5d6H3Lm6q28v1qIYW8pkj2ci3PE2q85Bh2LhXZoLzIEjSgVXvqXk0Cwue5H5QEmqNEG6gX+ygdCVkXkfV41n8McUrLMP2BRllx2DoPOwCk4aWpSlGzw6oE7U9q4mzYni6BGU2nf3u51bECJQEexpkt3Schc7ZCeiFw7TfT4DetHvhyHUSK8djf6VxAt9X5x+zZVtatMsZFVkoY5hfk4S6TSv+KfZIaNIMwEIcCoRZ7qQoIUxrrfAClpgX2u2qTsWV3RVxRq4KfBU2Es7f6doGG0W06IEj8hgbGpQciPVjbyRCH8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fbdLIQLCG9UetVScFr/1Sbd++p5DEAAzjxwZb51GNqo=;
- b=Hnl/NOUi6Ng+NpohR2RuHQH8NH7C8hmnqbDZp3ZxfMVTVfl2yEQ9e7wLr7JR2TZIAmivUZ3iMDg5x0KeUG2RevkdqNp7KPmR6AbiDh6n45RHqIue+++jDbu2mSkyVqD0SNfRJT2TbyD07vXPIs5hxa4NsSAjJ0W8CFHRNST01CU=
+ bh=UGzdsMHTkYwFq6HwTFFWd66coyTbd1/Hl7PdZRDWtTI=;
+ b=OakAyIJlL6KTst0uy/Ad+JuN5ztQczX2bA87OCkRl4eP5ah6D9EhcShaM2zs2uy5gn9ux5uQy1KVlKun1Uw/KUlXRj+jPQW7ktcKK8CYOfMik9sR4I3noThOG12kO9wBUa4TzpjtZ45pNUVMRLgsocpjcJkgJ2c7KPJ3jtABtWY=
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
  by BN9PR12MB5161.namprd12.prod.outlook.com (2603:10b6:408:11a::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Sat, 18 Sep
- 2021 08:59:06 +0000
+ 2021 08:59:12 +0000
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::5101:db26:96eb:2ce4]) by BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::5101:db26:96eb:2ce4%7]) with mapi id 15.20.4523.018; Sat, 18 Sep 2021
- 08:59:06 +0000
+ 08:59:12 +0000
 From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Clements, John" <John.Clements@amd.com>,
  "Yang, Stanley" <Stanley.Yang@amd.com>
-Subject: RE: [PATCH 2/3] drm/amdgpu: set poison mode for RAS
-Thread-Topic: [PATCH 2/3] drm/amdgpu: set poison mode for RAS
-Thread-Index: AQHXrGRV6KD6a3rrB0mzXGXMYR3nfKupfWig
-Date: Sat, 18 Sep 2021 08:59:06 +0000
-Message-ID: <BN9PR12MB5257DBA732DD7BED5FB54C1AFCDE9@BN9PR12MB5257.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 1/3] drm/amdgpu: add poison mode query for UMC
+Thread-Topic: [PATCH 1/3] drm/amdgpu: add poison mode query for UMC
+Thread-Index: AQHXrGRSmqNa/Jhpj0y9Dc4WNyI/1aupfUYw
+Date: Sat, 18 Sep 2021 08:59:12 +0000
+Message-ID: <BN9PR12MB5257E84F56621EDE58CF6497FCDE9@BN9PR12MB5257.namprd12.prod.outlook.com>
 References: <20210918080751.23615-1-tao.zhou1@amd.com>
- <20210918080751.23615-2-tao.zhou1@amd.com>
-In-Reply-To: <20210918080751.23615-2-tao.zhou1@amd.com>
+In-Reply-To: <20210918080751.23615-1-tao.zhou1@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-18T08:59:03Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-18T08:59:07Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
  Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=56330e0b-95db-442a-b887-0d1913f494c5;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=af588c0b-d87f-47eb-873a-b301c22dbf95;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9546036a-a6ea-4dbe-301f-08d97a8291f6
+x-ms-office365-filtering-correlation-id: daa8f78c-aa19-4a4c-c42b-08d97a8295d5
 x-ms-traffictypediagnostic: BN9PR12MB5161:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN9PR12MB5161708770FB6F165FD9C7F0FCDE9@BN9PR12MB5161.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-microsoft-antispam-prvs: <BN9PR12MB51614419C88A2B5E155C0633FCDE9@BN9PR12MB5161.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:345;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: V2D1PXqof0dw9Z1E04suvuzuv8vBl25RcdkBu+mKp2r6n7p28szLjytm68+3whU+Zkl6DGpfgj4Tc8AFm29cM37IT28bvipuu/ikR/AgecUWmb4voMzPI3aAKlA2lVCj9vPX3la2hfta4wuS+sGkysZ2FnXpr1ijYdN9hOpoY2lG28mhkLw2CxXRrLk7Xx2WQMJaNDHC1lCrj1fD5WYkVpPk2laTZlfESY6wo3VsVra2bze9qP14SQuTYbgKSrzLCmIZs8s+wXm8jVYteSyqD2IS+RUXQkul9vrP4UArwbVF0vx5hv2Nm0Fud2dViYc4a2O2kgx5CzememJoGg5sVdD4xzpONHgEleFCwlfcbChN/fL9aqf4qul9li9SO0fAZX/aW4PdHKV4DCcWGvMTC29i9OBN/caMSDaOyEioQih4xWOH5Ha4vn9FRK9/zBlE22oV/ZCVqbUKnq2td4DKktZ9zjEHWgtfE3HMykH1awEtoYJVGM/lCChWT4QVhwNpd1SF6u8MfeipH+rXiFIkr8RexXJJOHu4VUh47Pm0FsHeBxXKlpQtPlz+oxHie01gHWV8gYxwcS3XScfK3EvQ613dKJRajzzIO5igtbJApwqB/ATLdyddel4xo02SIgRDb6R07S9AjSAg82kHK4utDbG3264ZVztH5t0mHYe/yxEuv05up4DnGYEX/XnD83f6iDMFXfbglmLaIJLgHI9HBA==
+x-microsoft-antispam-message-info: X36ipX+Q5BDifHg8ZbUvh14VFHk53Nmh+bJGalZfdXlx1TdARv3ADRrPAWltoOV7jgjvDAeSO8+hKF0UXgU8EnlAf6dl0vgCY/6Dljt7boC/75haZ3bWsls68VX3OG1eJqcYMQ/GnkVeXRpKlBe0hFIN9b8Zq2hrZkSLzO95WWQNCwdft+923kFT3PpC+vNlcxJfGcAYk5deMat06CQXYM4OwiGMq8/KyLZA2WI/OOVhBN+5A3Ff/tUgLZAPGYfbLX4iXv1z5KF7v8MU/pp/h2WrqHCLlQBz763hsUvu7OzVXmQtUC2jj/X3iIreRZ3aQ01jNoOzxQlYz5LgaNX2Utj9KcnSUfToJyhpBvnaXo8BuFBS9jPF99Xy2qArG+8SyI8LjCXZN1CzN+fTLFKfhXCYKO2rDWe/fFk6PUGdL8v1W4nCoyomUq1T50U2Yx2XZlbojQL1dbHw67KiZ5vBIfX/U/wSRPRd8ape1s1q6pNL5bugFDUcUya5NWq0bwkYK9PMy4/KBgpP6FZrOX2NjV0PkShvMiTv2hGvMCwcw0t/qV3tkr0jtWI2Axjg4AUAun+IWeYqGky1AahcLMsyQu73CyX683GTeuyM5eLs+PS1+URhn+PQHM2vwm5lAad+Yf1i2agdBj7bMpEs8XzIOxL/GIb32DOo1wCeS3kbt/ntAlU15RnAu9/ubH1A6NAUSZERBZL/Fzu8KNuLo0RIOQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(396003)(136003)(346002)(39860400002)(376002)(316002)(33656002)(64756008)(110136005)(52536014)(122000001)(66476007)(76116006)(66556008)(186003)(38100700002)(83380400001)(66446008)(6636002)(2906002)(66946007)(5660300002)(26005)(53546011)(6506007)(86362001)(478600001)(8936002)(9686003)(55016002)(8676002)(38070700005)(7696005)(71200400001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HKq94UStFvOddnvpCOFSSmFBVXIUApbfQb/1elgujg2xbGKw1jjLRpYyZh2M?=
- =?us-ascii?Q?C6eCZYFgqvzGpCVsr/OQJo9xs8H/ng6ScfaKga6agnivIJC9aslb5MLo+eK0?=
- =?us-ascii?Q?22Aj/rby5k++3cKBOKJZM9gYGQVXHY4S/U3T4SzCe8cApC5XjlBUtyniidPq?=
- =?us-ascii?Q?m59839sRvXM0SePYoKudbAmqjIRIwDSkGJ1Hn4Ee9T0SnunFYINO9RaTq7le?=
- =?us-ascii?Q?29zOYJtcKOgWsPtHr5tUJWthUeG/yRWxMOD8KgVEhn5ZdEuz8v6tx2kFUwg5?=
- =?us-ascii?Q?jnhMgvjFzK555Q+CWg+mDg+EOJvNS08//vVETrVMKd9iH+ZDGI73XPNvguBU?=
- =?us-ascii?Q?WUevKzju4Wr1FUCyfJu4iZXf+yHafY84qGLaNrFBN7wiADOvYZwmV3jAuSoU?=
- =?us-ascii?Q?TCzZm+5pj3UZGxZuT0qWdP4tJnogOzl0KmTDrWQP4o3Mhp8idQfNVHpQOBhK?=
- =?us-ascii?Q?CZ4QgTrm/1hNimzewADzZzYxjlBzJJQCINRBTyPGKd5DT2IagufOkLjtcbIc?=
- =?us-ascii?Q?Smhj+kJ9NbVPmpIZmI+Lh5h6ckhydnHyZM42aKv6d/EoRPR97/7j7qvgfQ7g?=
- =?us-ascii?Q?2FBnutC9K0yeQOPJp2IXEscIlNOCA4cRfT/yIU68fHWfM0U9NcPL2LydIc48?=
- =?us-ascii?Q?zz2cQOfmyJP8zqDRk4E+O0sKeAyrb9A0DuihPAPLHOLuRAp6fie+3pc9bomG?=
- =?us-ascii?Q?ch7UiiS6SPrhayeb7Z4gITAD85MQ1A1TwrpfwAYrsZi2Rck3pjM3gbHKMumA?=
- =?us-ascii?Q?zwYHDI35WdFQG+4FDoZDCbeWNahsfQ7xwPX48rV636Z4i8fC0RkEnMhRoRMh?=
- =?us-ascii?Q?kTzuUfNOKfwQ2GApgxYmqZdtD6MBmMeH1nuD6yqDTVhgTd6ko4jSK6WWfBMW?=
- =?us-ascii?Q?fl2j5kJp2XhdwQTfAYQbDZhBpS2abFsnTQV6b5G9lxF/G2MQw/I3Ix3nbeWl?=
- =?us-ascii?Q?Ub7v0BFY6x5ivATSoSpb77AC9FEP/iRYkCLUb4uQpKuUAmAwv4m6WYQh8wlw?=
- =?us-ascii?Q?BvPRBnwwOwb2FSlyMDwfR24XfVd+0DGEUBGaDRvdwt8TRbVWIWHVjT78idaG?=
- =?us-ascii?Q?WSvWGLBu3a1fFo7sH6Py6wKTaiYPaZlUzqLPt5lF+/tLdd2R9kZIrCey3EXC?=
- =?us-ascii?Q?rw5O9DL236MmDcJG02P4Kygqp17+p8w7GjABRJ4pkdp2ZSNj76mw8Ef1ysNh?=
- =?us-ascii?Q?D/XWZ2seaIGmfnVdJU8CuvqUnTufpo5UkQP6yBNq/j40VmxGPQgdRbXP9Em4?=
- =?us-ascii?Q?AuKtEW/+AevOb3SrQKwGk0Iz12yznIi17VzO2Xbz9t1STpfrdMrYjWT0bJhO?=
- =?us-ascii?Q?QvIBLcGJ7vFXKvTXLp4qGV4l?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?y0tNiZUKpZLye5vk6QdV305/vv6dZ1oGXHbfPkvcjFo5+23oE5rsZFUCFlc+?=
+ =?us-ascii?Q?BjpmrpxX+WfP1GHkjetpNLji8P/V0xWcKPqp/2oRK2dkU6n1SA/we1IqXzCe?=
+ =?us-ascii?Q?hcH3CWzkwuOP6ZfmSuu4ga5WUPjGOtgJLuGTkgNh/nzQZbAjO6r3ps/2xpow?=
+ =?us-ascii?Q?DdVKKoBQZP9ti/U+UzioSmhsEY/YkNeRp49KFLCveJIxfCd9NebUnUn64OD8?=
+ =?us-ascii?Q?T4vpB6aaUuwMqTeZE+tlfoaNtPpQMKQlOvIJGTac1zoeI1GQQf5kHAk4JhF6?=
+ =?us-ascii?Q?roJ2dfty74vp/yj9iUCRx3/9oc8jGGWKPt7BTrlJ5HfDfGQ4qCpV+AH05jRy?=
+ =?us-ascii?Q?4GlMQEetzomBf7dVCSKJz1xlRMQl+F2HqZYuuLjYCiick8ELvu1s+Cx9/ATk?=
+ =?us-ascii?Q?DzZu3WQkNdPaaT3SrsGFzGQNKItYMGp9wVmjnVcsAmNylPiYC3jMIxUknmSC?=
+ =?us-ascii?Q?vKTuxYmYMoGWSuZ4QLmMODdL4HkX0yHPYqVjTNQ25NNzkl2bGb24O5sZhYPX?=
+ =?us-ascii?Q?Sfn8lzlKdOK3bUaQLpqV+BsGJI/RhH86DxK6vpojSVTYkI6oAVsQ8+YZ5ncF?=
+ =?us-ascii?Q?AylU/4YbyMDYgtSKxaua65O1haO/KPk/N7aIe3uHQwTBCnP3pmuG4NjwO49l?=
+ =?us-ascii?Q?oJ2YjTcQiIVDvast9zndjV1gWjspBsDIKsHCfj8TJe/E2Q/GGiF5Q7jyeEp3?=
+ =?us-ascii?Q?gYoNFmwRj3SZEa6g6yv05ojcHZn8aqOlhNzz63wv9Y+nCj5TnQGcX7EWUslZ?=
+ =?us-ascii?Q?8VPdU9PXLoND0NOPqsq1w0t8VQPhDRPgZ+7RNDxeFUPu1pfBWk/fiymWYGqJ?=
+ =?us-ascii?Q?CKg3qjgIAno2y+T2lJf4Cj/cBEc/5iAdXmKcLFlQFuXFqVOTI/8tvsUY4rAb?=
+ =?us-ascii?Q?UhI60asPJtCZKX5npduF9ljRWxNUyu4DMSgQOXk/HH/Nc6Dqx9xjLtegqlCD?=
+ =?us-ascii?Q?flU7iPzmtbOIkE6YP0/F/Stb8PEGp1eJmmmpNSMxEOLj8grxMuzh6rtKFg3N?=
+ =?us-ascii?Q?MdMPN1wFLSsCd/NcT2Wd87x55UuNiJWX5M0/0DDl06LkYhBetklgFXMp7o1W?=
+ =?us-ascii?Q?GUiQ2stZdTRrDjJJFTDpCsAtnqKsZDaTL6qpAkg3RllEHZXBf5Tb8F3OBy0M?=
+ =?us-ascii?Q?t6QmrN7jp78fqxuOBqyO515vNy/hhguhsA9T7TmaYW7jgy+pPabHFcyhKETr?=
+ =?us-ascii?Q?J0S8I57CpxkJd/60Wb5/6kHFFPgVeagCTIq9dP0rSZJqih9s516VJ4JdoMPt?=
+ =?us-ascii?Q?XztbsMEr0ES09CBLIu+aH53DgMp7a9TMKcOpAfK4aVYCAvLM8zEiJvv8oSWV?=
+ =?us-ascii?Q?JKHyXvKxYlerTLbqk8ahAacs?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9546036a-a6ea-4dbe-301f-08d97a8291f6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2021 08:59:06.1230 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: daa8f78c-aa19-4a4c-c42b-08d97a8295d5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2021 08:59:12.6194 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CISSTwoxWHLIjTI8qAsZFiXAKyfKTmoLLLionuPr7XUkk1ZVKkKaCOhRSNBnzXxwAf8jpMwFYksem4ZTxFRr5w==
+X-MS-Exchange-CrossTenant-userprincipalname: P4qqop5VFRV/cOnshIu8D/V79Eya9//lH+spDb6sYJnDj5faGh7TnHZWIvSsy39IU+r5OV3k+FMeuskNheVeWQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5161
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,19 +139,10 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only]
 
-+	if (amdgpu_ras_is_poison_enabled(adev))
- 		ras_cmd->ras_in_message.init_flags.poison_mode_en =3D 1;
--	else
-+	if (!adev->gmc.xgmi.connected_to_cpu)
- 		ras_cmd->ras_in_message.init_flags.dgpu_mode =3D 1;
-
-I'd expect these flags are set in enable_feature command per IP block if ne=
-eded. Instead of global setting at firmware/TA initialization phase, though=
-ts?
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
 Hawking
-
 -----Original Message-----
 From: Zhou1, Tao <Tao.Zhou1@amd.com>=20
 Sent: Saturday, September 18, 2021 16:08
@@ -160,113 +150,77 @@ To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
 Clements, John <John.Clements@amd.com>; Yang, Stanley <Stanley.Yang@amd.com=
 >
 Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: set poison mode for RAS
+Subject: [PATCH 1/3] drm/amdgpu: add poison mode query for UMC
 
-Add RAS poison mode flag and tell PSP RAS TA about the info.
+Add ras poison mode query interface for UMC.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  4 ++--  drivers/gpu/drm/amd/amd=
-gpu/amdgpu_ras.c | 28 +++++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu=
-/amdgpu_ras.h |  5 +++++
- 3 files changed, 35 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.c   | 34 +++++++++++++++++++++++++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index 7d09b28889af..140b94da2f5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1442,9 +1442,9 @@ static int psp_ras_initialize(struct psp_context *psp=
-)
- 	ras_cmd =3D (struct ta_ras_shared_memory *)psp->ras_context.context.mem_c=
-ontext.shared_buf;
- 	memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_umc.h
+index e5a75fb788dd..1f5fe2315236 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+@@ -48,6 +48,7 @@ struct amdgpu_umc_ras_funcs {
+ 				      void *ras_error_status);
+ 	void (*query_ras_error_address)(struct amdgpu_device *adev,
+ 					void *ras_error_status);
++	bool (*query_ras_poison_mode)(struct amdgpu_device *adev);
+ };
 =20
--	if (psp->adev->gmc.xgmi.connected_to_cpu)
-+	if (amdgpu_ras_is_poison_enabled(adev))
- 		ras_cmd->ras_in_message.init_flags.poison_mode_en =3D 1;
--	else
-+	if (!adev->gmc.xgmi.connected_to_cpu)
- 		ras_cmd->ras_in_message.init_flags.dgpu_mode =3D 1;
-=20
- 	ret =3D psp_ras_load(psp);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index b5332db4d287..7b7e54fdd785 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2180,6 +2180,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)  {
- 	struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
- 	int r;
-+	bool df_poison, umc_poison;
-=20
- 	if (con)
- 		return 0;
-@@ -2249,6 +2250,23 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 			goto release_con;
+ struct amdgpu_umc_funcs {
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/am=
+dgpu/umc_v6_7.c
+index bb30336b1e8d..f7ec3fe134e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+@@ -288,9 +288,43 @@ static void umc_v6_7_query_ras_error_address(struct am=
+dgpu_device *adev,
  	}
-=20
-+	/* Init poison mode, the default value is false */
-+	if (adev->df.funcs &&
-+	    adev->df.funcs->query_ras_poison_mode &&
-+	    adev->umc.ras_funcs &&
-+	    adev->umc.ras_funcs->query_ras_poison_mode) {
-+		df_poison =3D
-+			adev->df.funcs->query_ras_poison_mode(adev);
-+		umc_poison =3D
-+			adev->umc.ras_funcs->query_ras_poison_mode(adev);
-+		/* Only poison is set in both DF and UMC, we can enable it */
-+		if (df_poison && umc_poison)
-+			con->poison_mode_en =3D true;
-+		else if (df_poison !=3D umc_poison)
-+			dev_warn(adev->dev, "Poison setting is inconsistent in DF/UMC(%d:%d)!\n=
-",
-+					df_poison, umc_poison);
-+	}
-+
- 	if (amdgpu_ras_fs_init(adev)) {
- 		r =3D -EINVAL;
- 		goto release_con;
-@@ -2292,6 +2310,16 @@ static int amdgpu_persistent_edc_harvesting(struct a=
-mdgpu_device *adev,
- 	return 0;
  }
 =20
-+bool amdgpu_ras_is_poison_enabled(struct amdgpu_device *adev) {
-+       struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
++static uint32_t umc_v6_7_query_ras_poison_mode_per_channel(
++						struct amdgpu_device *adev,
++						uint32_t umc_reg_offset)
++{
++	uint32_t ecc_ctrl_addr, ecc_ctrl;
 +
-+       if (!con)
-+               return false;
++	ecc_ctrl_addr =3D
++		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_0_EccCtrl);
++	ecc_ctrl =3D RREG32_PCIE((ecc_ctrl_addr +
++					umc_reg_offset) * 4);
 +
-+       return con->poison_mode_en;
++	return REG_GET_FIELD(ecc_ctrl, UMCCH0_0_EccCtrl, UCFatalEn); }
++
++static bool umc_v6_7_query_ras_poison_mode(struct amdgpu_device *adev)=20
++{
++	uint32_t umc_inst        =3D 0;
++	uint32_t ch_inst         =3D 0;
++	uint32_t umc_reg_offset  =3D 0;
++
++	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
++		umc_reg_offset =3D get_umc_v6_7_reg_offset(adev,
++							umc_inst,
++							ch_inst);
++		/* Enabling fatal error in one channel will be considered
++		   as fatal error mode */
++		if (umc_v6_7_query_ras_poison_mode_per_channel(adev, umc_reg_offset))
++			return false;
++	}
++
++	return true;
 +}
 +
- /* helper function to handle common stuff in ip late init phase */  int am=
-dgpu_ras_late_init(struct amdgpu_device *adev,
- 			 struct ras_common_if *ras_block,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.h
-index 1670467c2054..044bd19b7cce 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -345,6 +345,9 @@ struct amdgpu_ras {
- 	/* disable ras error count harvest in recovery */
- 	bool disable_ras_err_cnt_harvest;
-=20
-+	/* is poison mode */
-+	bool poison_mode_en;
-+
- 	/* RAS count errors delayed work */
- 	struct delayed_work ras_counte_delay_work;
- 	atomic_t ras_ue_count;
-@@ -640,4 +643,6 @@ void amdgpu_release_ras_context(struct amdgpu_device *a=
-dev);
-=20
- int amdgpu_persistent_edc_harvesting_supported(struct amdgpu_device *adev)=
-;
-=20
-+bool amdgpu_ras_is_poison_enabled(struct amdgpu_device *adev);
-+
- #endif
+ const struct amdgpu_umc_ras_funcs umc_v6_7_ras_funcs =3D {
+ 	.ras_late_init =3D amdgpu_umc_ras_late_init,
+ 	.ras_fini =3D amdgpu_umc_ras_fini,
+ 	.query_ras_error_count =3D umc_v6_7_query_ras_error_count,
+ 	.query_ras_error_address =3D umc_v6_7_query_ras_error_address,
++	.query_ras_poison_mode =3D umc_v6_7_query_ras_poison_mode,
+ };
 --
 2.17.1
