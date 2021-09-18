@@ -2,107 +2,75 @@ Return-Path: <SRS0=x7R6=OI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9F3FC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 06:09:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FCEDC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 07:20:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C18B61212
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 06:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7C18B61212
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id CDE6B60F51
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Sep 2021 07:20:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CDE6B60F51
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB24C6E0D8;
-	Sat, 18 Sep 2021 06:09:34 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2049.outbound.protection.outlook.com [40.107.237.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF936E0D8
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 06:09:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a9+5xEOk83bDnC5bOwkFEk8hqei/mmK1x8IuKMb4o4Jp+2hL0u9q7f61KcLzIw9xYECdNgRxPPjlSI1BVgQJ31USNPRRU6hLqjN7zHhdiaKP2vGixsvwka3kNl++qCT1gLwCGRkUEX7DtoIWJ9YVg5nOfLiEGq3gVdPXrDUHx9JDQT1WlSgjAXHJQf1rvCz5bPUARUt0+cz3ZT6lCy5JAJHeB7Nvhaqp9YHdZ4wmkMAupY4+OP4KHo/RrTjKg/9C83tskV8Q62S6pFYFQmEB281KhJOI7ENP0m12aT54ok6Cg7Im6XYx1RxBTD8cNoanaQhUkLCS0/ZzYlp+CdYGGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=NZWP+z6SJHLZ7IO0HQRtqbsv8wQ0uZGH5dUOexxFBIM=;
- b=VIBj/yDA8ZYWoYLmMtrmp1PTefP0e8+6Y/q4j4gnmVwKmGekmlOYekwNlqPHeKoejnFof/o+GlS0KgMzAbXEZR26VfEjZ8wBCgYN48gSBIF++CXomDtHhTDHVXH87SYlJUJyEIKmA0Yjbh4GCRPnqaULHDXajbtXqv7kYrR937RPWGM4VNIL2jUZDVnWqzpNJUqi7YsYOCb8e3wcDVeR3zJbjdo8NFteUlJzeh6E7N9g6mk5yaiI0KctFGqGCcWgc8ugzg7aPk2M2lByljwnRCK66NXk8Hoz+iK76EW+FKi47mpArBINxbDyWVND7w2Mq5ZwVqxt7ZnyJSN6jWsVSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NZWP+z6SJHLZ7IO0HQRtqbsv8wQ0uZGH5dUOexxFBIM=;
- b=oA3fhjzesoAQJ2dENcELixqvuevIdPbnkoWrVaBUdyXVIc+ONSR0z2+MeUJdnzy7lMm03++5tL0jw3ipdf9hsnBVuQpadJ9JjYWY50nGilicfCdOkNjgACIaubIQ/RnKiFP2NSpratxtrsx7oeUUEyIDlWyCA3kq69VlSVGO+V4=
-Received: from MWHPR17CA0051.namprd17.prod.outlook.com (2603:10b6:300:93::13)
- by DM6PR12MB3561.namprd12.prod.outlook.com (2603:10b6:5:3e::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Sat, 18 Sep
- 2021 06:09:28 +0000
-Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:93:cafe::b7) by MWHPR17CA0051.outlook.office365.com
- (2603:10b6:300:93::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Sat, 18 Sep 2021 06:09:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Sat, 18 Sep 2021 06:09:27 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.8; Sat, 18 Sep 2021 01:09:24 -0500
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
- <xinhui.pan@amd.com>, <alexander.deucher@amd.com>,
- <andrey.grodzovsky@amd.com>, <monk.liu@amd.com>
-CC: Guchun Chen <guchun.chen@amd.com>, Leslie Shi <Yuliang.Shi@amd.com>
-Subject: [PATCH] drm/amdgpu: move amdgpu_virt_release_full_gpu to fini_early
- stage
-Date: Sat, 18 Sep 2021 14:09:09 +0800
-Message-ID: <20210918060909.8068-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 161E86E0DF;
+	Sat, 18 Sep 2021 07:20:17 +0000 (UTC)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BE3A6E0DB
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 07:20:14 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ f3-20020a17090a638300b00199097ddf1aso11646131pjj.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Sep 2021 00:20:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8zm7yyW0xmDYNaXfS1pmGLjR09AtdVSZ5qKbdyipfTs=;
+ b=jY7DP5mg6+lvd9mr8+QQJV63C/lhZQKLf4wLtwRzXFBJRmcfiCuZBpe95QtFNFanjm
+ F/FFFJhsJxyOrcp6bP2UuDAz2IaV0mqhFGFbCNDqdvOdEMTjV1hj9gQRLiLHb2wufV4r
+ dcGvoaRYTcDZl1YLDW/AMgj53BPVY54qbD2q8BKCS05VXtn6i5pxiTFkxc/Af0a1Yojv
+ MMM9/b29ra8mYIQGx5qZgSFUqHtm+po/iAUNtG69n4zenDVJtXOXm6h0GmHHnE+1jnvC
+ e7KFlsIzCLuQYFAC4QtbHhgCgZ/brZOaNEwun5NAQ7YhMtylGckEoH0zum0fAdZSEIzk
+ vQYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8zm7yyW0xmDYNaXfS1pmGLjR09AtdVSZ5qKbdyipfTs=;
+ b=fxTWecPUMJSyp7LYa48T1lKZ4JlzZKll+L7Xm3Vow7fBzP9QaoQL7jVf0Ol989ivcv
+ PVCnpynfXIddT5lddtHorTM1CdrE0tbIoZc/aqRQ9KKjzJJuQi+SU7Sd91LfSyuDxmXL
+ ZCqnMyj7JlgimUCmwtR0tQNYD913uomsg1iVlO4yVlK5Lmj0Jsj573LrIGp7nt7q3W75
+ qXEag086o3oC4wtVRleYtlSStGLGWFOK12MlGWaKkoS9xg33cVNCwfYbtVmijDrqWlcq
+ LZ1/m8fXCMkR5Qd4pdImG3O5Ll8iwIgT45NZhJIpSa3croyT2is+luSJgNVl9fYhL9gf
+ 0UQg==
+X-Gm-Message-State: AOAM5304a9C91IuReSXeC2kDHd1zBwveisrHpnjdefMfNgmv07GDgqEw
+ ZwY239lLTEC/vcLSI2GLbqSKX83tXKWpmL3Mmdw=
+X-Google-Smtp-Source: ABdhPJz9r9+HoBscQgmVBJ1sCsmjmCQK86Ui5WWzoI4mD0S+qkiMuqbvsH1GfKLtwmUvts9Zw8hXX9Wiair8/NFs/GU=
+X-Received: by 2002:a17:90a:1db:: with SMTP id
+ 27mr5953336pjd.106.1631949614158; 
+ Sat, 18 Sep 2021 00:20:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a1ab80f6-3dcc-4c5a-ce72-08d97a6adecd
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3561:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB35619415961BF2FA69CB2FDBF1DE9@DM6PR12MB3561.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xxjLaqaH4NPE6OZwo8bHQ+dm5heP/LnN/skCLmTJrX6jBaBr5n++rWbttyaHjFVlFJXKiAa9VqAa7Nysv3j2NYzyf9+yZcR7om+FtMZohwjoDOyqZWpQ8QGMzQFVm2T0BN82vvMPn1sxQpwfhlLjTzIsOim9XIxqF4b6VtmCPPCdPH297OZPwDagAoNPfznRbLqaxtejLbbrT/o8Mi1N8a/0VyY+4NjHlOa9M/8SEx8FWX2jkcvIF/B26dSOu58rwa2QzJkAeCda7Y/eb9C5qpIZytfRM2xiFoDASTtKrbeiU1guJKeHh/EQ6doQwrN8NvsnQ2DftaRgZh3Ra4yH5G799xWR6IgtTo71uiAiN9pYKiFh7xSwMn6lBoioRgP+dKgOBwQtFEo16eeuI3o3FR30oPMIBZQ3Tih69ogRnGAHLRiDy3YVbcUMBiZzGRsQr7oMMNvnicH0Nt9cn80ro5okncwEswZn/mY8z+8201jfbEZWIB5rsV7ZzMBya6jqcgOaQv8V0o92brDwUr79d3PVrkVoHfo+osJskKAU6s3FNVTmJV3b9ztwn881nbb3zbgDxGSgP0yUGFr1py1LBtC2TnXVth9+PCZSOsGWp9I2b1g2nLioRfaaHBt2feROfNRGg4qjJMFFkdZw8SMIw+PljY1rPw5nLeSnxChqR63tM8Wg3tqcF5K5shITcULkBjWioVMdw5kIVLeW0FQar1KvewlID0qbj3n3zfRc8k0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(336012)(44832011)(26005)(16526019)(6636002)(5660300002)(508600001)(2906002)(70206006)(7696005)(70586007)(81166007)(186003)(316002)(86362001)(356005)(36756003)(110136005)(83380400001)(82310400003)(8936002)(4326008)(36860700001)(2616005)(426003)(54906003)(47076005)(1076003)(6666004)(8676002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2021 06:09:27.1158 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1ab80f6-3dcc-4c5a-ce72-08d97a6adecd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3561
+References: <DM6PR12MB2619F306147E803C1C10FF8BE4DC9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <4ded93f1-e6b1-06c3-9f03-b6135911392c@gmail.com>
+ <d8293063-6f0e-b808-2636-631fe2f08fcf@daenzer.net>
+ <DM6PR12MB261970C1F0CDB0D1D91EE7C9E4DD9@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB261970C1F0CDB0D1D91EE7C9E4DD9@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Sat, 18 Sep 2021 03:19:38 -0400
+Message-ID: <CAAxE2A7RL+LEgwtQwH2s9_Zm5FZFKvGYpRqTZzxiXAwXdaeR6w@mail.gmail.com>
+Subject: Re: DRM IOCTLS come regularly(every minute) still even after screen
+ off
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/alternative; boundary="0000000000000b179a05cc3fe1e0"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,46 +85,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-adev->rmmio is set to be NULL in amdgpu_device_unmap_mmio to prevent
-access after pci_remove, however, in SRIOV case, amdgpu_virt_release_full_gpu
-will still use adev->rmmio for access after amdgpu_device_unmap_mmio.
-The patch is to move such SRIOV calling earlier to fini_early stage.
+--0000000000000b179a05cc3fe1e0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 07775fc13878("drm/amdgpu: Unmap all MMIO mappings")
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Hi,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index f3da97086f7d..2a75c09c4884 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2810,6 +2810,11 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
- 		adev->ip_blocks[i].status.hw = false;
- 	}
- 
-+	if (amdgpu_sriov_vf(adev)) {
-+		if (amdgpu_virt_release_full_gpu(adev, false))
-+			DRM_ERROR("failed to release exclusive mode on fini\n");
-+	}
-+
- 	return 0;
- }
- 
-@@ -2870,10 +2875,6 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
- 
- 	amdgpu_ras_fini(adev);
- 
--	if (amdgpu_sriov_vf(adev))
--		if (amdgpu_virt_release_full_gpu(adev, false))
--			DRM_ERROR("failed to release exclusive mode on fini\n");
--
- 	return 0;
- }
- 
--- 
-2.17.1
+Printing the backtrace from si_flush_gfx_cs while /etc/environment contains
+GALLIUM_THREAD=3D0 at boot should show which GL call and X call caused the
+flush.
 
+Marek
+
+On Thu, Sep 16, 2021 at 10:58 PM Quan, Evan <Evan.Quan@amd.com> wrote:
+
+> [Public]
+>
+>
+>
+> > -----Original Message-----
+> > From: Michel D=C3=A4nzer <michel@daenzer.net>
+> > Sent: Thursday, September 16, 2021 4:12 PM
+> > To: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>; Quan, Evan
+> > <Evan.Quan@amd.com>
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; 'amd-gfx@lists.freedesktop.org' <amd-
+> > gfx@lists.freedesktop.org>
+> > Subject: Re: DRM IOCTLS come regularly(every minute) still even after
+> screen
+> > off
+> >
+> > On 2021-09-16 08:27, Christian K=C3=B6nig wrote:
+> > > Good morning,
+> > >
+> > > for the background I advised to contact you Michel since we couldn't
+> find
+> > an explanation.
+> > >
+> > > Alex explanation might be correct, but the CS seems to come from the =
+X
+> > server and is always roughly 60 seconds after going into power save.
+> > >
+> > > Any idea what that could be?
+> >
+> > For the DRM_IOCTL_MODE_* ioctls, attaching gdb to Xorg and setting a
+> > breakpoint on drmIoctl should show where they're coming from.
+> >
+> > The AMDGPU_CS ioctls are probably from glamor calling OpenGL, most like=
+ly
+> > for X11 drawing protocol requests. Note that in this case drmIoctl/ioct=
+l
+> will
+> > likely be called from a separate thread. Pierre / Marek should be able
+> to help
+> > you find out where the OpenGL calls are coming from.
+> >
+> >
+> > In general, Xorg only ever does anything in response to:
+> >
+> > * X11 protocol requests, i.e. on behalf of clients.
+> > * Input events, i.e. on behalf of the user.
+> > * Other kernel events, e.g. hotplug events.
+> >
+> Thanks for sharing these.
+> >
+> > FWIW, with only xfwm4 & xterm running on Xorg, I'm not seeing any
+> drmIoctl
+> > calls during DPMS off. So the ioctls you're seeing are most likely
+> triggered by
+> > clients.
+> >
+> Got it. Thanks!
+>
+> Evan
+> >
+> > --
+> > Earthling Michel D=C3=A4nzer               |
+> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fred=
+h
+> > at.com%2F&amp;data=3D04%7C01%7CEvan.Quan%40amd.com%7C296d316427
+> > b4469f8eb908d978e9b46a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7
+> > C0%7C637673767426116632%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4w
+> > LjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&am
+> > p;sdata=3DgBj4idZGCuaPdyaH1g1mfuDqPCcKhFMjPCbqpM8drlg%3D&amp;res
+> > erved=3D0
+> > Libre software enthusiast             |             Mesa and X develope=
+r
+>
+
+--0000000000000b179a05cc3fe1e0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>Printing the backtrace f=
+rom<span style=3D"color:rgb(0,0,0);background-color:rgb(255,255,255)"> si_f=
+lush_gfx_cs while /etc/environment contains GALLIUM_THREAD=3D0 at boot shou=
+ld show which GL call and X call caused the flush.</span></div><div><span s=
+tyle=3D"color:rgb(0,0,0);background-color:rgb(255,255,255)"><br></span></di=
+v><div><span style=3D"color:rgb(0,0,0);background-color:rgb(255,255,255)">M=
+arek<br></span></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Thu, Sep 16, 2021 at 10:58 PM Quan, Evan &lt;<a hre=
+f=3D"mailto:Evan.Quan@amd.com">Evan.Quan@amd.com</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">[Public]<br>
+<br>
+<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel@daenzer.net" tar=
+get=3D"_blank">michel@daenzer.net</a>&gt;<br>
+&gt; Sent: Thursday, September 16, 2021 4:12 PM<br>
+&gt; To: Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@=
+gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt;; Quan=
+, Evan<br>
+&gt; &lt;<a href=3D"mailto:Evan.Quan@amd.com" target=3D"_blank">Evan.Quan@a=
+md.com</a>&gt;<br>
+&gt; Cc: Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com=
+" target=3D"_blank">Alexander.Deucher@amd.com</a>&gt;; Koenig, Christian<br=
+>
+&gt; &lt;<a href=3D"mailto:Christian.Koenig@amd.com" target=3D"_blank">Chri=
+stian.Koenig@amd.com</a>&gt;; &#39;<a href=3D"mailto:amd-gfx@lists.freedesk=
+top.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>&#39; &lt;amd-<=
+br>
+&gt; <a href=3D"mailto:gfx@lists.freedesktop.org" target=3D"_blank">gfx@lis=
+ts.freedesktop.org</a>&gt;<br>
+&gt; Subject: Re: DRM IOCTLS come regularly(every minute) still even after =
+screen<br>
+&gt; off<br>
+&gt; <br>
+&gt; On 2021-09-16 08:27, Christian K=C3=B6nig wrote:<br>
+&gt; &gt; Good morning,<br>
+&gt; &gt;<br>
+&gt; &gt; for the background I advised to contact you Michel since we could=
+n&#39;t find<br>
+&gt; an explanation.<br>
+&gt; &gt;<br>
+&gt; &gt; Alex explanation might be correct, but the CS seems to come from =
+the X<br>
+&gt; server and is always roughly 60 seconds after going into power save.<b=
+r>
+&gt; &gt;<br>
+&gt; &gt; Any idea what that could be?<br>
+&gt; <br>
+&gt; For the DRM_IOCTL_MODE_* ioctls, attaching gdb to Xorg and setting a<b=
+r>
+&gt; breakpoint on drmIoctl should show where they&#39;re coming from.<br>
+&gt; <br>
+&gt; The AMDGPU_CS ioctls are probably from glamor calling OpenGL, most lik=
+ely<br>
+&gt; for X11 drawing protocol requests. Note that in this case drmIoctl/ioc=
+tl will<br>
+&gt; likely be called from a separate thread. Pierre / Marek should be able=
+ to help<br>
+&gt; you find out where the OpenGL calls are coming from.<br>
+&gt; <br>
+&gt; <br>
+&gt; In general, Xorg only ever does anything in response to:<br>
+&gt; <br>
+&gt; * X11 protocol requests, i.e. on behalf of clients.<br>
+&gt; * Input events, i.e. on behalf of the user.<br>
+&gt; * Other kernel events, e.g. hotplug events.<br>
+&gt; <br>
+Thanks for sharing these.<br>
+&gt; <br>
+&gt; FWIW, with only xfwm4 &amp; xterm running on Xorg, I&#39;m not seeing =
+any drmIoctl<br>
+&gt; calls during DPMS off. So the ioctls you&#39;re seeing are most likely=
+ triggered by<br>
+&gt; clients.<br>
+&gt; <br>
+Got it. Thanks!<br>
+<br>
+Evan<br>
+&gt; <br>
+&gt; --<br>
+&gt; Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|<br>
+&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
+%3A%2F%2Fredh" rel=3D"noreferrer" target=3D"_blank">https://nam11.safelinks=
+.protection.outlook.com/?url=3Dhttps%3A%2F%2Fredh</a><br>
+&gt; <a href=3D"http://at.com" rel=3D"noreferrer" target=3D"_blank">at.com<=
+/a>%2F&amp;amp;data=3D04%7C01%7CEvan.Quan%<a href=3D"http://40amd.com" rel=
+=3D"noreferrer" target=3D"_blank">40amd.com</a>%7C296d316427<br>
+&gt; b4469f8eb908d978e9b46a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7<br>
+&gt; C0%7C637673767426116632%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4w<br>
+&gt; LjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;am<b=
+r>
+&gt; p;sdata=3DgBj4idZGCuaPdyaH1g1mfuDqPCcKhFMjPCbqpM8drlg%3D&amp;amp;res<b=
+r>
+&gt; erved=3D0<br>
+&gt; Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br=
+>
+</blockquote></div>
+
+--0000000000000b179a05cc3fe1e0--
