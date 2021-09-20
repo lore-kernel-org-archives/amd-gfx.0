@@ -2,135 +2,87 @@ Return-Path: <SRS0=Av9g=OK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E646C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 20:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF2FFC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 21:25:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 677BF61262
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 20:05:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 677BF61262
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B167D61213
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Sep 2021 21:25:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B167D61213
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE4189FC0;
-	Mon, 20 Sep 2021 20:05:37 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2050.outbound.protection.outlook.com [40.107.212.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACE989FC0;
- Mon, 20 Sep 2021 20:05:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RFBFbDYyWpdq4Cxqb79jXYUxdnCL4YvhfvHvv2TM8RhEsuJvvg46gG8Jea4tCb28wKvcOMqd3C/o6tyjJHaa+yCOHvwXlIEmeCIDdkUcxt5AfBb5Hx92BP/6QHe/wMJVEDiab04CgQN6yUhj0LmVX/temY2tCpEMjsk6fwwAby6irRgnuRCgPaPwA4vyOAMhLJjd1DevHa4qaAVfGpuvdY6gJO+bNG2Kdr8llUnpr5+ZtyOxHW4ORVE0s3Z8h709SRzoRboFJqFqzts+HNuzkfaIvI+xBg6TVVTupfh9PKK4lp9nV0ELQKKv9k6J6kuOMq64WlmyL1VyrSBLGmAAfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=e6QiknsDtDbo16MzY8mXMYYJhjEFtjlG6PbZJmVHPZw=;
- b=m4k0NbtZMBtE3OqWLgFoJlNKZEXIg9xfCPWDeuuLe/xSD4rWhD7W+YZ/aW38oyw4aSU/53t1OKa3JiLsiC3DXnsOfDJUUjRWhVpl73827MVjUNt8QS0Wq0IwnDBGQuC8IQ93DeNxjripdozuKm+bfOMOEJs57BtgYLRGJjAW1MjX047Qt4ZoUA+JvB/2fvsnGAWRfwS8iMG5nsQ1EFqQQErwZlM/ype5uZmVfw+efxAmMDRk2eVyNSj6FglGCpEmRY6wP499mPusqhlrOxDLRChIh/B18HBU3Szcx4LdWmlroLMm6Q+9XvxqgKYbqE+CvyX4k3ur8VxnvUC35PkF/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e6QiknsDtDbo16MzY8mXMYYJhjEFtjlG6PbZJmVHPZw=;
- b=5adnuL+jK5hKus77SlJBVQiUpFVDTLJYylryKIBBhglmFLvYhNHkStDmuNzIEaKaiXb+hD2t7sr2T4ezz6UiuwuWrxiBOP3kL5yI78TSIAf/NNUtiJv1tVTty3YdmiYZjfNAXI6Cm+9aCTPUUOxCM2JRkK6b4IIbmWOkETi9RKs=
-Authentication-Results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
- by SA0PR12MB4510.namprd12.prod.outlook.com (2603:10b6:806:94::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Mon, 20 Sep
- 2021 20:05:33 +0000
-Received: from SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::f1aa:9adc:b4f:4d14]) by SA0PR12MB4430.namprd12.prod.outlook.com
- ([fe80::f1aa:9adc:b4f:4d14%7]) with mapi id 15.20.4523.018; Mon, 20 Sep 2021
- 20:05:33 +0000
-Subject: Re: [PATCH v2 09/12] lib: test_hmm add module param for zone device
- type
-To: Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org,
- Felix.Kuehling@amd.com, linux-mm@kvack.org, rcampbell@nvidia.com,
- linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- hch@lst.de, jgg@nvidia.com, jglisse@redhat.com
-References: <20210913161604.31981-1-alex.sierra@amd.com>
- <20210913161604.31981-10-alex.sierra@amd.com> <2139200.KYAmxeAneQ@nvdebian>
-From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
-Message-ID: <729f833c-e880-96ce-5f49-2d72a93faa21@amd.com>
-Date: Mon, 20 Sep 2021 15:05:30 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <2139200.KYAmxeAneQ@nvdebian>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: SA9PR13CA0122.namprd13.prod.outlook.com
- (2603:10b6:806:27::7) To SA0PR12MB4430.namprd12.prod.outlook.com
- (2603:10b6:806:70::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7892E6E889;
+	Mon, 20 Sep 2021 21:25:37 +0000 (UTC)
+Received: from wnew1-smtp.messagingengine.com (wnew1-smtp.messagingengine.com
+ [64.147.123.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39C256E87C;
+ Mon, 20 Sep 2021 21:25:35 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.west.internal (Postfix) with ESMTP id EECA82B012E5;
+ Mon, 20 Sep 2021 17:25:31 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Mon, 20 Sep 2021 17:25:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=date
+ :from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=AWImI2KGSpvCbthaTGpOCk4QbRl
+ 8dZEEYq4SHjBTZJE=; b=USXGjuU+4R2n9u+CDG6f9J49IGnM33Ay4XL+MlmTPNv
+ zeb26cRTrDZymp/Wy0xOKrb0j7P0vB55p2h5DS5Co/L1vAGjJoI0JQcZh93opH11
+ 4hsuQsFzDJ4FhOR4s7lTtgsnMNm+7OJWq8pl9qVcXWJF1hr9RNClUgeMfBLC8kcb
+ WyhUfNH8fNniw9f56QJwijgyaUFVFtXVm0bLLG/NskWpOyT6fINV5jlub6v5TEPQ
+ VsBBXzNvOEzK+lONgNf2QcFjqJvJG3T8ipYXGF4VfGvx8NtLjS2OlTOKVN/Oy1pT
+ LUKfj8RyH4XVxQ7OUFm/X8+0xVYdgIpKJSzQ0okyh3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=AWImI2
+ KGSpvCbthaTGpOCk4QbRl8dZEEYq4SHjBTZJE=; b=Aaj6hUmY/KPtF72LH13Yrv
+ mhXLRAym+vY8SVlWlLweQ7NtjfFgQ8vEjItH8b++bypf/hy2iQn7jXeRszrOQgwP
+ bXw8UJGlZzVijGiBljQD7wCXpJriQ+UJnLTQq0TINKW2ITc6xyX1sxYD3uohAlQu
+ 6NXwJfYejUwBe4HT5zuWM3MzCB5nfIJSe2ywV7rnVQevRT4FOiZsdm/CiUuvY9Ur
+ +w/vhof0UnA4w+UPfcdCYlDEWSOhnSlYH+YUv0M8vfe3CCycZx+YQprmNbDIjPC5
+ Cm8RaSUQGSODp8Y/5sbZydYQDDu4pZLzEq8bUfLwBEXWTYEB65RxOuAwkjZCPNrw
+ ==
+X-ME-Sender: <xms:SvxIYb_SD3L6GKZGVyKR7v3MeCFNcaciiz1aAknxnzN1mAygQkqBOw>
+ <xme:SvxIYXtxHvokL16p3vxzx4LR9djf0dxSIuc0NrHJnrHy5ApNkIX81_FKyP9MujcT9
+ HkykA1gYSfghYEL1Q>
+X-ME-Received: <xmr:SvxIYZArrxeoKSowR3xIM7iucgEBrsqP3y96noTubNXQwy3MMLQSSHnoIGnz94lvXMXyUj08>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudeivddgudehlecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttd
+ ertddttdejnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
+ ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpedvjeeifeelhfetiefhhfdthfefke
+ fhhfeutdetvdfgvefgveefheffgfekjeefheenucevlhhushhtvghrufhiiigvpedtnecu
+ rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
+X-ME-Proxy: <xmx:SvxIYXdYXMRZ0FKBeMVhN17WTZvhEpWL2Yj5nRDic3kSBqDeyY_H4g>
+ <xmx:SvxIYQNZxI6Eiljl_BP_kv2DzxGV3Hrcbf9AGmdTrdbaPqAM5R83Zw>
+ <xmx:SvxIYZk0PVsalhpoyFR0uPrwJJnzF_M7F_mQGyC2mlSLjujPt_T2Ug>
+ <xmx:S_xIYREyT86uoIjKzNQk2NcGSP8U-MKgIMOwk712MBk4AtGVUt2psHpZW2g>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 20 Sep 2021 17:25:27 -0400 (EDT)
+Date: Mon, 20 Sep 2021 23:25:24 +0200
+From: Fernando Ramos <greenfoo@u92.eu>
+To: kernel test robot <lkp@intel.com>
+Cc: dri-devel@lists.freedesktop.org, kbuild-all@lists.01.org,
+ linux-kernel@vger.kernel.org, sean@poorly.run,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 03/15] dmr/msm: cleanup: drm_modeset_lock_all_ctx() -->
+ DRM_MODESET_LOCK_ALL_BEGIN()
+Message-ID: <YUj8RHdl7aIONPa0@zacax395.localdomain>
+References: <20210916211552.33490-4-greenfoo@u92.eu>
+ <202109200942.M3etmn3s-lkp@intel.com>
 MIME-Version: 1.0
-Received: from [172.31.9.47] (165.204.77.11) by
- SA9PR13CA0122.namprd13.prod.outlook.com (2603:10b6:806:27::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.6 via Frontend Transport; Mon, 20 Sep 2021 20:05:32 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f2b93f99-51f1-441b-2601-08d97c7200d0
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4510:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4510CCFB0D09BA1A1D525CF3FDA09@SA0PR12MB4510.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: g1WPuHuS9tpFdhaZkYgdajFEI7Wak/4eenYUdY8evXUEN3FFg4XK+/MgDAwCD1atfis88Lzctiv5L+j3OuPhs++r8fo93lOV0nfkdtvGh/9IwTTcarbaEzsFGVyQ5pg+mO/pqfDn1VJZfF/cuek9rDyG4Xw5PXneap4n9cyHsls2+ENkN5b0yzxnNyEY/3y3aRgsYUoby91Zv3USI00uDQ940jMV3hyRjZ5D+FxXj54XQ5MkzVWyr+276M+vjvl4MDC8sraNC501sS31iGM+6qwq5Vp+b9gueQzw0gKUeczcGCN/mO66V2xZbY8VxvngXOfIsVzjuEuOD1jBH+VHBYZ5NPsPpH5SIaF7L+vIbg3sl4e6vcAyRkRO1VMIvv5KEC4A5odLi/dc5ke3KNlrB/eVIfNCtG9XRNF/grOQ4u82UyZpg0li6ILdBt3pPHlPEf+DISci4qGWdTWCEIYkZzC2ePQdTOfRuk3BUVCzuyqFk8Gw2kI3VeydtskvKevkrEKG6IEjYKljfVmvYzdu4MUfl0tJ8JE28ImCSEDWpUBZT7Zchn+10vBLpLCMbN7vnTOQDExoOG32XvfG7y6e06ddffs0dep3Ae+JRl2LlObfPNM0ZnVk9IHUgTNSZSbr3wdvoSaf6IzDwDkJhizXhoc8gAdfoMhUXZudANzz1vMhyi0aOfpp/3G5F3CpF2xEeARID+nlCiRLp5uLCW8TumNe7G8Eyt3kJxdwAgFeW0o82ED27rm9fb2grI2QsCKAb5Hpo7c3dYQ+nV79mQDRbg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(86362001)(2616005)(4326008)(2906002)(956004)(16576012)(5660300002)(83380400001)(26005)(316002)(8936002)(7416002)(8676002)(31686004)(52116002)(6486002)(36756003)(31696002)(508600001)(186003)(53546011)(38100700002)(66556008)(66946007)(38350700002)(66476007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWV0blpOZm9oK1lHOVF3bFIrOXViRC9uYmNtV3lkRnBVbHpIekVNRFlLdS9z?=
- =?utf-8?B?eU83aU5pbk02eXVkTzZGMU9FR3VmSEtPME5ncGZ6L3M1MklMdm4vclZSeXFl?=
- =?utf-8?B?USs4cTBET09OcWl0YUlEdEFzNEZIbWhrK3FyOUNqUzgrWFZQTEVGNHlwd083?=
- =?utf-8?B?UU9jMXB3UzVvcUVnZXNEd3ZoVld0bmVQUVJzbmtjUUtDYW9XcmJIck4wWVlW?=
- =?utf-8?B?c0R3UGorRFkzaWtnTC9lbks5akg3R1BzcHJZV2dWeEhMNTlLNFNhcnZlOENU?=
- =?utf-8?B?aU5scUdrVXR0bHRnejRaeThBS0YrS1R0MnUzRDRZK011dkg5eG4yc1BKNFh6?=
- =?utf-8?B?aHUxOERiZ0Y3MTFLMGRFSlVWcHkxQlNsR3psL3FDZGEySkE0YXZaMTFCSDBl?=
- =?utf-8?B?NFU0enhzcVVaY3ExNktuRGlhTUhmMmRyVmJMZjVpWVNPR2JIYTNpamJuL2VB?=
- =?utf-8?B?MzdkQnVrazl5Sng3dFJVVm5JaThwREp6bHc1ZHBLbjRLU21NM3I4RThKL3NC?=
- =?utf-8?B?NUp5a09MWGEzS2s2dXhhTSs2WXE3cFp0MENvUXlMNVJDdTZjZ0oxS1hWVFF3?=
- =?utf-8?B?UGZZRWFSQXhZSDZmSDJiYjZLa2NzdWgxWDI1RW5LNDFHS3UxcmlHVmxlWXRl?=
- =?utf-8?B?NEpQcjF3elBZUVE4TWRoN3VXcXBCY0dMRi92TVVzeGtwaEJpZWtEY2VrVHJ4?=
- =?utf-8?B?L2FuVjd6Tzk1V2lleTliYXkyR0xXZ2NSd2ZwYnBOVkl3WjZkellqTHlqOGxi?=
- =?utf-8?B?a1V5Z1BOVEk0N0xkZW9GUGJ6eEpONzBjSkVkR095WlprMFVTV1pKWGJDUEs1?=
- =?utf-8?B?aHdiM0UxUUFHaTFaQjRnWUNLenE2WCtlR3RzSWQrZEc3cGg0NC82RG9ORUlh?=
- =?utf-8?B?WDBwYW91VE1rWlE1QUg2aERYbHZwRzZ6Mmh0d1MxS2FWUmxUMGt6MjZ5eVdX?=
- =?utf-8?B?MnVLVmJPWXpjbjBWOVlzeCtRNjBKUTRRZmZlUjI2YW1BR1RTOHFJbDh5WGox?=
- =?utf-8?B?RXN2Ly9QOWkvRVZ6R2h4QUtwU2VnNE96Ny9BMmNaeU42ZUszSWRpQXMrVm5O?=
- =?utf-8?B?SUE3YU5za3RoaHFPUVAyK291MTJMamRNd243OGlJZmU1aEh2YzJWT2pydHNG?=
- =?utf-8?B?alF1MFRKZSsyd01WRVZMTWVKWFhWeTlGcXdwMzNYNXZwbEVSWFhDVU93RFZy?=
- =?utf-8?B?OWhDZzJ5U3NnVHk5RHJxUHZEeDlJeEoxWVdQQk42TXJHNjdGRS9PZXlDRGRO?=
- =?utf-8?B?TnQwbUlyVFArSGw3bTMvMGp5QTFZMDBBeXpUWTlFbHJNcmdyd3dHb2t2dGJk?=
- =?utf-8?B?OUxlY0lRUkRZTmlsUVlGREt3VHZoUUNPNjhqS0lYaUNxc2N6c1Q4NVNNRWJT?=
- =?utf-8?B?R3V1UzhXN0FNY1BuN1UvRmsrMDRZdGxYZkxRdHBVbTNiY1F1UjZyTnppNDh3?=
- =?utf-8?B?UlhBbTVLRm5mVWpmb3BIWTloc2t5NDBqZFR0Zk1BbXl6Q1V4aE5UVUpWZGVL?=
- =?utf-8?B?SzlZdC9TK1oxNndrYjBoVFRLM3F2d2EvVlQ4dkM3cVFXNFRIWGYyVUxZWExV?=
- =?utf-8?B?QVQ5dEpIRE5EcTVXc0w5amJSM3RoQVRybkpHdmozYWQ4ZWtOL1JRb3JzbTJO?=
- =?utf-8?B?RmdKWlhVRlVNMG1kU2o2SE5mN3ExV3pNb2EybGxkaW90b2J3NC93S3dKQ01D?=
- =?utf-8?B?T29TMUZFZE5WdmlHUHUrWDBHRVF0RjFNZDNpYXVaWEpJWFRLKzdLbE9BM1hT?=
- =?utf-8?Q?+411FrIG4EVvLMNYx35cWrJmKwQDjEOEzsj+wLB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2b93f99-51f1-441b-2601-08d97c7200d0
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2021 20:05:33.3005 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fvtxYjd2jJSo2qLPxFqG1ctqljB0X5HTGABiVewIlyalXtwo/etum8fpS5txyAN6EWTKNf+r8SNyOUsMSaXUaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4510
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <202109200942.M3etmn3s-lkp@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,195 +97,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 21/09/20 09:54AM, kernel test robot wrote:
+> 
+> [auto build test ERROR on drm-exynos/exynos-drm-next]
+> [also build test ERROR on tegra-drm/drm/tegra/for-next linus/master v5.15-rc2 next-20210917]
 
-On 9/20/2021 3:53 AM, Alistair Popple wrote:
-> On Tuesday, 14 September 2021 2:16:01 AM AEST Alex Sierra wrote:
->> In order to configure device public in test_hmm, two module parameters
->> should be passed, which correspond to the SP start address of each
->> device (2) spm_addr_dev0 & spm_addr_dev1. If no parameters are passed,
->> private device type is configured.
-> It's a pity that testing this seems to require some amount of special setup to
-> test. Is there a way this could be made to work on a more standard setup
-> similar to how DEVICE_PRIVATE is tested?
-Hi Alistair
-We tried to do it as simpler as possible. Unfortunately, there are two main
-requirements to register dev memory as DEVICE_PUBLIC type. This memory must
-NOT be accessed by any memory allocator (SLAB, SLOB, SLUB) plus, it has 
-to be
-CPU coherently accessed.  We also want to avoid aliasing the same PFNs for
-different page types (regular system memory and DEVICE_PUBLIC). So we don't
-want the reserved memory to be part of the kernel's memory map before we 
-call
-memremap_pages. A transparent way of doing it, without any special HW, was
-setting a portion of system memory as SPM (Special purpose memory). And use
-this as our “device fake” memory.
+I forgot to #include <drm/drm_drv.h> for those platforms and didn't notice
+because I only tried to build for X86. I'll fix it.
 
-Regards,
-Alex Sierra
 
->
->> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->> ---
->> v5:
->> Remove devmem->pagemap.type = MEMORY_DEVICE_PRIVATE at
->> dmirror_allocate_chunk that was forcing to configure pagemap.type
->> to MEMORY_DEVICE_PRIVATE
->>
->> v6:
->> Check for null pointers for resource and memremap references
->> at dmirror_allocate_chunk
->>
->> v7:
->> Due to patch dropped from these patch series "kernel: resource:
->> lookup_resource as exported symbol", lookup_resource was not longer a
->> callable function. This was used in public device configuration, to
->> get start and end addresses, to create pgmap->range struct. This
->> information is now taken directly from the spm_addr_devX parameters and
->> the fixed size DEVMEM_CHUNK_SIZE.
->> ---
->>   lib/test_hmm.c      | 66 +++++++++++++++++++++++++++++++--------------
->>   lib/test_hmm_uapi.h |  1 +
->>   2 files changed, 47 insertions(+), 20 deletions(-)
->>
->> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
->> index 3cd91ca31dd7..ef27e355738a 100644
->> --- a/lib/test_hmm.c
->> +++ b/lib/test_hmm.c
->> @@ -33,6 +33,16 @@
->>   #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
->>   #define DEVMEM_CHUNKS_RESERVE		16
->>   
->> +static unsigned long spm_addr_dev0;
->> +module_param(spm_addr_dev0, long, 0644);
->> +MODULE_PARM_DESC(spm_addr_dev0,
->> +		"Specify start address for SPM (special purpose memory) used for device 0. By setting this Generic device type will be used. Make sure spm_addr_dev1 is set too");
->> +
->> +static unsigned long spm_addr_dev1;
->> +module_param(spm_addr_dev1, long, 0644);
->> +MODULE_PARM_DESC(spm_addr_dev1,
->> +		"Specify start address for SPM (special purpose memory) used for device 1. By setting this Generic device type will be used. Make sure spm_addr_dev0 is set too");
->> +
->>   static const struct dev_pagemap_ops dmirror_devmem_ops;
->>   static const struct mmu_interval_notifier_ops dmirror_min_ops;
->>   static dev_t dmirror_dev;
->> @@ -450,11 +460,11 @@ static int dmirror_write(struct dmirror *dmirror, struct hmm_dmirror_cmd *cmd)
->>   	return ret;
->>   }
->>   
->> -static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
->> +static int dmirror_allocate_chunk(struct dmirror_device *mdevice,
->>   				   struct page **ppage)
->>   {
->>   	struct dmirror_chunk *devmem;
->> -	struct resource *res;
->> +	struct resource *res = NULL;
->>   	unsigned long pfn;
->>   	unsigned long pfn_first;
->>   	unsigned long pfn_last;
->> @@ -462,17 +472,29 @@ static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
->>   
->>   	devmem = kzalloc(sizeof(*devmem), GFP_KERNEL);
->>   	if (!devmem)
->> -		return false;
->> +		return -ENOMEM;
->>   
->> -	res = request_free_mem_region(&iomem_resource, DEVMEM_CHUNK_SIZE,
->> -				      "hmm_dmirror");
->> -	if (IS_ERR(res))
->> -		goto err_devmem;
->> +	if (!spm_addr_dev0 && !spm_addr_dev1) {
->> +		res = request_free_mem_region(&iomem_resource, DEVMEM_CHUNK_SIZE,
->> +					      "hmm_dmirror");
->> +		if (IS_ERR_OR_NULL(res))
->> +			goto err_devmem;
->> +		devmem->pagemap.range.start = res->start;
->> +		devmem->pagemap.range.end = res->end;
->> +		devmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
->> +		mdevice->zone_device_type = HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
->> +	} else if (spm_addr_dev0 && spm_addr_dev1) {
->> +		devmem->pagemap.range.start = MINOR(mdevice->cdevice.dev) ?
->> +							spm_addr_dev0 :
->> +							spm_addr_dev1;
->> +		devmem->pagemap.range.end = devmem->pagemap.range.start +
->> +					    DEVMEM_CHUNK_SIZE - 1;
->> +		devmem->pagemap.type = MEMORY_DEVICE_PUBLIC;
->> +		mdevice->zone_device_type = HMM_DMIRROR_MEMORY_DEVICE_PUBLIC;
->> +	} else {
->> +		pr_err("Both spm_addr_dev parameters should be set\n");
->> +	}
->>   
->> -	mdevice->zone_device_type = HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
->> -	devmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
->> -	devmem->pagemap.range.start = res->start;
->> -	devmem->pagemap.range.end = res->end;
->>   	devmem->pagemap.nr_range = 1;
->>   	devmem->pagemap.ops = &dmirror_devmem_ops;
->>   	devmem->pagemap.owner = mdevice;
->> @@ -493,10 +515,14 @@ static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
->>   		mdevice->devmem_capacity = new_capacity;
->>   		mdevice->devmem_chunks = new_chunks;
->>   	}
->> -
->>   	ptr = memremap_pages(&devmem->pagemap, numa_node_id());
->> -	if (IS_ERR(ptr))
->> +	if (IS_ERR_OR_NULL(ptr)) {
->> +		if (ptr)
->> +			ret = PTR_ERR(ptr);
->> +		else
->> +			ret = -EFAULT;
->>   		goto err_release;
->> +	}
->>   
->>   	devmem->mdevice = mdevice;
->>   	pfn_first = devmem->pagemap.range.start >> PAGE_SHIFT;
->> @@ -529,7 +555,8 @@ static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
->>   
->>   err_release:
->>   	mutex_unlock(&mdevice->devmem_lock);
->> -	release_mem_region(devmem->pagemap.range.start, range_len(&devmem->pagemap.range));
->> +	if (res)
->> +		release_mem_region(devmem->pagemap.range.start, range_len(&devmem->pagemap.range));
->>   err_devmem:
->>   	kfree(devmem);
->>   
->> @@ -1097,10 +1124,8 @@ static int dmirror_device_init(struct dmirror_device *mdevice, int id)
->>   	if (ret)
->>   		return ret;
->>   
->> -	/* Build a list of free ZONE_DEVICE private struct pages */
->> -	dmirror_allocate_chunk(mdevice, NULL);
->> -
->> -	return 0;
->> +	/* Build a list of free ZONE_DEVICE struct pages */
->> +	return dmirror_allocate_chunk(mdevice, NULL);
->>   }
->>   
->>   static void dmirror_device_remove(struct dmirror_device *mdevice)
->> @@ -1113,8 +1138,9 @@ static void dmirror_device_remove(struct dmirror_device *mdevice)
->>   				mdevice->devmem_chunks[i];
->>   
->>   			memunmap_pages(&devmem->pagemap);
->> -			release_mem_region(devmem->pagemap.range.start,
->> -					   range_len(&devmem->pagemap.range));
->> +			if (devmem->pagemap.type == MEMORY_DEVICE_PRIVATE)
->> +				release_mem_region(devmem->pagemap.range.start,
->> +						   range_len(&devmem->pagemap.range));
->>   			kfree(devmem);
->>   		}
->>   		kfree(mdevice->devmem_chunks);
->> diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
->> index ee88701793d5..00259d994410 100644
->> --- a/lib/test_hmm_uapi.h
->> +++ b/lib/test_hmm_uapi.h
->> @@ -65,6 +65,7 @@ enum {
->>   enum {
->>   	/* 0 is reserved to catch uninitialized type fields */
->>   	HMM_DMIRROR_MEMORY_DEVICE_PRIVATE = 1,
->> +	HMM_DMIRROR_MEMORY_DEVICE_PUBLIC,
->>   };
->>   
->>   #endif /* _LIB_TEST_HMM_UAPI_H */
->>
->
->
->
+> [cannot apply to drm-intel/for-linux-next tegra/for-next drm-tip/drm-tip airlied/drm-next]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base'.
+
+I built this patch against drm-next, which currently points to v5.15-rc1.
+
+Should I be targeting a different branch? In any case, as suggested, I'll
+remember to use "--base" in the future to make it easier to apply. Thanks for
+the hint.
+
+
+> All errors (new ones prefixed by >>):
+> 
+>    In file included from include/drm/drm_crtc.h:36,
+>                     from include/drm/drm_atomic_helper.h:31,
+>                     from drivers/gpu/drm/msm/disp/msm_disp_snapshot.h:9,
+>                     from drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c:8:
+>    drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c: In function 'msm_disp_capture_atomic_state':
+> >> include/drm/drm_modeset_lock.h:167:14: error: implicit declaration of function 'drm_drv_uses_atomic_modeset' [-Werror=implicit-function-declaration]
+>      167 |         if (!drm_drv_uses_atomic_modeset(dev))                          \
+>          |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c:108:9: note: in expansion of macro 'DRM_MODESET_LOCK_ALL_BEGIN'
+>      108 |         DRM_MODESET_LOCK_ALL_BEGIN(ddev, ctx, 0, ret);
+>          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+>    cc1: some warnings being treated as errors
+
+Out of curiosity: The top comment says there were two build errors (one on
+exynos and another one on tegra), but there is only one reported bug (on msm).
+
+Is this because the bot only reports the first error found? Is there a link to
+a report with each of the build errors on each of the platforms?
+
+Thanks.
