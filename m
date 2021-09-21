@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28752C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 281A1C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F218D60527
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F218D60527
+	by mail.kernel.org (Postfix) with ESMTPS id ED53560527
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ED53560527
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 919DA6EAA1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFF86EA7F;
 	Tue, 21 Sep 2021 18:08:18 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8630C6EA8B
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:08:02 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11FE36EA7A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:08:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AFUk9TUCm8kwJKtaaMQ/p4dmFL2qPsMI+8wI28KcNQifv1CjcJv3L61Bakxrg39Lq2qdeCW3vwoGs17/Ie6pdV8Q7TJnS8RBMvG3kQoDPAWr6PUVk9wswdTSUw9VxGyeetpDspssyIrzw44doNIFwUkhKC9iXDVSAS2B264VDWganXJjYK0obnoAo9Hxp6qM2jAsHU+36l5Mauu8j54U6GmkIVPT+XEQrkzkCwuaFP+aYOQywwFQoVHzb4guitWGFHaPCKQSrsHUw9ybcYN9c++M3R3/YSpSUIN6cAYrNaZynz4fsddMoTWkeRNosogDojy7y6dKXPaqEQmFno4pKg==
+ b=covBwiXK91w6PXIEW/AnL06XdemtvpMD2KPGgbmwnjAh8ENm4K+C5LGpTnFEAWHAlm/KSa4gnZs5UanfGTbWlwJG/NiLYNetPt1bxaoZO+q2ZcIORwRRz3DNgI8KDVCuF/RheloKREJrqGdnC/8Q4AMMhTRP7DSS+g2rqiIRdV30AuN3mgfVKz5lEu5PBJWYidP+JhZSAoGKQxA6siaKcK7L/HteHvMJp5cE5azXYxMkDBSaMWe+LSKoGphmDJNZC3U9kIRQvGdyfvThtc5PqbBalD5tukp72JhvDIWB+qSka62WbaVGagVydI+6TBHk51xTpsxEGVi0cHQuro8pqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=nrZCi/YAcSL1OohDOkyDaDVaWyo9Jp7JDOMe7A6Cwjk=;
- b=Xxuq438Tc/qdOm3gNuI8xp97tET2JpiQLpGV0/K1R/T8Clpmc1+LrRBZ1RLZB/7BiJYB5hB9BZo6meZb8zGWozDWFE2Ts9oMaSqFVgw1P8kmfAt0Mljx754O9WF40QWw5NSi/wqAmQYhzssn8LUpf/bv/4nF3E/6AU2f/At12SX84rjNiXWMAavOTGdzhRrMpnc5fGnJ08KxKnAP15WaJX6DmZU1LYUAL1L4jQkYW46j5U20ZgohOXota9DjpcwBiF48vctLbec4Qk49TjwZV8B847F3raMouuyijF+3+zUfV53u11ZBqoFstsdTCFqn+42mBNr6O2Io+bFQu/ddEg==
+ bh=rfrxhJcWVVKv2AjKRVYPhEWnLAuayrbnzB+EfSjY7T0=;
+ b=eHwOnKFJz6NROiUZWB9t9aVx3tRoC9y+E1JcbRknEDjdp9YYiOFftbuzFT/3QTl7QaGiCwNN8UIVtc4YHqLcG0ll5iMq2AK19DGPV1/uY4B8zC/5S5utfWbR7z8apTcvKds21ziE3aEzITcH9g7D8Ha3HI8cJMXetyd/cKFBLYnEo2qhhA1TwLxJG8qLoSlf0fzvT+OfksvluFC6chWjFNDEQ1MRi+CIWn94lTQr2KQ+WTThX94KD3iDkQuZM3jIObrHSJtMPgBGKJkG1Fl/TR7bYjGATAGb/TR71wf8HukZm60RlmrrAh4mYw0m6Q9BnqBQiewuAMvdlVigevIJhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nrZCi/YAcSL1OohDOkyDaDVaWyo9Jp7JDOMe7A6Cwjk=;
- b=oVT+847eYu1ambRfnHeovVeCxPEaqXSSIBzc+55AT9vXomkNnVQh2zK8SChng8ck4c9YuIQSTT5r/9gpQUjMOedJbo7wMkPp7fwBb8s4PeXCqzfZ2GZFKB/vHWhhA0wvH8qm/9QSjhVjz8hp51xQ0IE5gLjFh390krDqB3HqSWI=
-Received: from DM3PR12CA0047.namprd12.prod.outlook.com (2603:10b6:0:56::15) by
- DM4PR12MB5344.namprd12.prod.outlook.com (2603:10b6:5:39f::11) with
+ bh=rfrxhJcWVVKv2AjKRVYPhEWnLAuayrbnzB+EfSjY7T0=;
+ b=y5zEUpdyUpL0EjdX0LIHne6WyDORDFSTcZLvrqcfkSkg93hJFwUXHrhbjXQfB5qQ0bdJ12JtC4Lc2tCruKC0wAyoo6Fb0vVM8kGBvSesG69j5evgbfG8fm/gRN6UBpVbXRAhkAvYdXncrVMkrFAuDLH2wJ+BVC21bocCfdhQp6g=
+Received: from DM3PR12CA0043.namprd12.prod.outlook.com (2603:10b6:0:56::11) by
+ BN8PR12MB2884.namprd12.prod.outlook.com (2603:10b6:408:97::18) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.4523.14; Tue, 21 Sep 2021 18:08:01 +0000
 Received: from DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:56:cafe::b6) by DM3PR12CA0047.outlook.office365.com
- (2603:10b6:0:56::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
+ (2603:10b6:0:56:cafe::6a) by DM3PR12CA0043.outlook.office365.com
+ (2603:10b6:0:56::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
  Transport; Tue, 21 Sep 2021 18:08:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
@@ -67,9 +67,9 @@ Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 43/66] drm/amdgpu/psp_v13.0: convert to IP version checking
-Date: Tue, 21 Sep 2021 14:07:02 -0400
-Message-ID: <20210921180725.1985552-44-alexander.deucher@amd.com>
+Subject: [PATCH 44/66] drm/amdgpu/pm/smu_v11.0: update IP version checking
+Date: Tue, 21 Sep 2021 14:07:03 -0400
+Message-ID: <20210921180725.1985552-45-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210921180725.1985552-1-alexander.deucher@amd.com>
 References: <20210921180725.1985552-1-alexander.deucher@amd.com>
@@ -81,28 +81,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a491b09d-6be6-4361-861a-08d97d2abfe2
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5344:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5344431FC700502D9000C52EF7A19@DM4PR12MB5344.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:431;
+X-MS-Office365-Filtering-Correlation-Id: 5d1c4c87-6c2a-438e-6d35-08d97d2ac010
+X-MS-TrafficTypeDiagnostic: BN8PR12MB2884:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB2884AFCFB16F3B15E1BF96B4F7A19@BN8PR12MB2884.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:651;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GY+QzCxy4LpkdbOB80Fbi2XMRkjMizQs1CWoauadngLqiAINumETdT8mqNWSUz0xh9fIDRbmOdgKO3Sc/2k33D5Qppgoj1U3tdanAsb5uqyW6ZlatdIjUlbXicAcHrR96CvysgBZYCgRwKuUxtfzA65Ih/vJ2Az5vPVYQRiGHH3r3w2wthok9kIOScqUkTGvPyQcH59Yyubz2eYbzwhs4cTxXfinVkOcSuoz46DYmmzYplBLihuqxB5ax9+1IbPM5iCCifR8jfUPiKRz99UDNf3AYUkhlrZrILi/rxVVLpta/uiPJ9DOEJ+XXbKO/BadGkwIjktkH4eED83nH7WTOopTr14Lrz0qAC5lI+ni4saLUK6e3r8JOo7SRpwkRVO3pjuOx0geU9rIRN4IQb6vLdcq2dvKJrzslme3lPyuOSJH8GKNdr0KK3tFd80Xybves7a5nSiZY7N+s2BgIeB9keb36+M4VeHGx8Rp99w72JNNqYuCzVPUOcwsbEJ+l9ChOT/bZxjVh0gPXSTXcGoR1A3YJzUGzvDlTa7r3/v0KA6BXvLo3p4C7vg85tgAVsYDT4GNSiVhfoNY19+Dn/WyUnJeaZkcuA7N+DfKOWZBpZMDHnIUUvtvRT6cUUyT/LJ6mkUT1h7r7gzLc+5/XliXglRcKh3ubhJu4ysNy5+ndyg2pCnSJEr3MH+HwC1ms4xMxjJmlSbxp7AuO+Tc7vZc8tNBPPXa9GIF36klCq6BWaI=
+X-Microsoft-Antispam-Message-Info: qv9dXHsbN+dZHu8PdO/jDL94nj3JFvlUgXkLrvqjhiJQ4iu33Z2QbwAGDBpZCXwlnlFYlpgjVw+wrf8Jy4Pn+URaYV6QKQElzQxzQ1jWIfNZQpcZMPnLi288qdXYF6zKiw8y5YeIrptyrH2ZuXTY27ePWLAe2lHisINPOOOS/SjapT9yGIOz5M8K7QxG7FkPwZ4e8VuabsuQNxdZGydt7TAFooUgkaLOcAghK/pM66EyKKrH1XY6lB1CeXMMPNyyvPr7c3OODI53SAnP4NKDVjJSHs26f0bgtnyfg0Sw1t9uEsTepanXuu8XMIbdSYyHh3eV3ZEkLyezeZEedCS5U8OFnmz0KIqiCtnhbsSmNK1lxv3pi6mhVRgIXrxwROSUXilnnurCABes7QadsRQ0noRpYqzJJshKcZ8sRN1d3Pjo6W6oSaLrUmW8s5UH2C3HLb2kN3e6mAQrMK6FlzZWFnwduSKAZUTVc1fC3FBTvbeB5wPtG20GfMG+rVFNs7X2pNAmkJWVIOg1v1q+IT3GtwXOvsO/LOy6c5tbn4kDDZa+6w7dXzkWyPHSMPFMAzfiYEo7vUd9R6NHlPA23tfC2Jkb1LSLQ0Gdj+R8x5b2gMG+PVh1oHTANA/QGYpw9h8kRe4TCfIWlyXTCNcwdzHZhvNWxcSF4FqBuxEQLBtJah+vKTH3IUvL3Bj8qprlysThsLybId9pr7q5lNY7Q0wB/tCeZ0dK0PFJS5lThRn1DeM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(8676002)(86362001)(81166007)(1076003)(6916009)(6666004)(316002)(426003)(8936002)(26005)(2906002)(356005)(5660300002)(36860700001)(7696005)(336012)(2616005)(4326008)(70586007)(70206006)(16526019)(36756003)(186003)(47076005)(83380400001)(82310400003)(508600001)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(26005)(86362001)(8936002)(81166007)(16526019)(186003)(4326008)(70586007)(2906002)(36860700001)(6916009)(508600001)(336012)(83380400001)(426003)(36756003)(47076005)(356005)(2616005)(6666004)(7696005)(1076003)(70206006)(8676002)(5660300002)(316002)(82310400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:08:01.0168 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a491b09d-6be6-4361-861a-08d97d2abfe2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:08:01.2876 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d1c4c87-6c2a-438e-6d35-08d97d2ac010
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5344
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2884
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,48 +122,67 @@ IP version specific features.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 24 +++++++++----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index 47a500f64db2..64b52c5ea981 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -47,18 +47,19 @@ static int psp_v13_0_init_microcode(struct psp_context *psp)
- 	const char *chip_name;
- 	int err = 0;
- 
--	switch (adev->asic_type) {
--	case CHIP_ALDEBARAN:
-+	switch (adev->ip_versions[MP0_HWIP]) {
-+	case IP_VERSION(13, 0, 2):
- 		chip_name = "aldebaran";
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index 5af7c8b7806f..1ae8b8dc3bd3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -116,12 +116,12 @@ int smu_v11_0_init_microcode(struct smu_context *smu)
+ 	case IP_VERSION(11, 0, 13):
+ 		chip_name = "beige_goby";
  		break;
--	case CHIP_YELLOW_CARP:
-+	case IP_VERSION(13, 0, 1):
-+	case IP_VERSION(13, 0, 3):
- 		chip_name = "yellow_carp";
- 		break;
++	case IP_VERSION(11, 0, 2):
++		chip_name = "arcturus";
++		break;
  	default:
- 		BUG();
+-		if (adev->asic_type == CHIP_ARCTURUS) {
+-			chip_name = "arcturus";
+-			break;
+-		}
+-		dev_err(adev->dev, "Unsupported ASIC type %d\n", adev->asic_type);
++		dev_err(adev->dev, "Unsupported IP version 0x%x\n",
++			adev->ip_versions[MP1_HWIP]);
+ 		return -EINVAL;
  	}
--	switch (adev->asic_type) {
--	case CHIP_ALDEBARAN:
-+	switch (adev->ip_versions[MP0_HWIP]) {
-+	case IP_VERSION(13, 0, 2):
- 		err = psp_init_sos_microcode(psp, chip_name);
- 		if (err)
- 			return err;
-@@ -66,7 +67,8 @@ static int psp_v13_0_init_microcode(struct psp_context *psp)
- 		if (err)
- 			return err;
+ 
+@@ -267,12 +267,12 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)
+ 	case IP_VERSION(11, 0, 8):
+ 		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Cyan_Skillfish;
  		break;
--	case CHIP_YELLOW_CARP:
-+	case IP_VERSION(13, 0, 1):
-+	case IP_VERSION(13, 0, 3):
- 		err = psp_init_asd_microcode(psp, chip_name);
- 		if (err)
- 			return err;
++	case IP_VERSION(11, 0, 2):
++		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_ARCT;
++		break;
+ 	default:
+-		if (adev->asic_type == CHIP_ARCTURUS) {
+-			smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_ARCT;
+-			break;
+-		}
+-		dev_err(smu->adev->dev, "smu unsupported asic type:%d.\n", smu->adev->asic_type);
++		dev_err(smu->adev->dev, "smu unsupported IP version: 0x%x.\n",
++			adev->ip_versions[MP1_HWIP]);
+ 		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_INV;
+ 		break;
+ 	}
+@@ -1653,7 +1653,7 @@ int smu_v11_0_baco_set_state(struct smu_context *smu, enum smu_baco_state state)
+ 		default:
+ 			if (!ras || !adev->ras_enabled ||
+ 			    adev->gmc.xgmi.pending_reset) {
+-				if (adev->asic_type == CHIP_ARCTURUS) {
++				if (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 2)) {
+ 					data = RREG32_SOC15(THM, 0, mmTHM_BACO_CNTL_ARCT);
+ 					data |= 0x80000000;
+ 					WREG32_SOC15(THM, 0, mmTHM_BACO_CNTL_ARCT, data);
+@@ -1935,7 +1935,7 @@ int smu_v11_0_set_performance_level(struct smu_context *smu,
+ 	 * Separate MCLK and SOCCLK soft min/max settings are not allowed
+ 	 * on Arcturus.
+ 	 */
+-	if (adev->asic_type == CHIP_ARCTURUS) {
++	if (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 2)) {
+ 		mclk_min = mclk_max = 0;
+ 		socclk_min = socclk_max = 0;
+ 	}
 -- 
 2.31.1
 
