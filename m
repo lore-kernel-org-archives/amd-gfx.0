@@ -2,131 +2,76 @@ Return-Path: <SRS0=vd7l=OL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12870C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 19:25:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8974DC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 21:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3D9B60F4C
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 19:25:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C3D9B60F4C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 501E661165
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 21:00:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 501E661165
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1BBE6E961;
-	Tue, 21 Sep 2021 19:25:01 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2081.outbound.protection.outlook.com [40.107.236.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B97276E964
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 19:24:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jBS9W5BgmPjxmF/kjbIkdPvQmC/1NLmK2w87LxlzqHIYZcLVBoAD25NfsmVQ/c/sZa0pKMWK+u2CVmo2O7UAcEL9ZrbHZ+wPzY3eSfCIWprc1Ln1noqRSTqNhcY9klLApKFo5rm6GHLqgFCxwL2RLasIadtAvEpw/fqxACPsSOnFPrCjdA6qUvKHolIhTPbL5lOnUfjzXh3lrLjyofDZRL/G/LPUPIeAwHwDkTLhRJlJDI0tcNf+NYvbj37K3KaQDokwfUk5lLPrRHBmY1DSUJ9hwJFChOyvzRaMJVwvf/g9Djwcx++t+iqupFORG/ULq2cVwUt5buiv8DVu7tYdwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=lzYVb2A2iW3sHz8vqqh9Ya5OuXb1784WG1ESegU2URo=;
- b=VSJWaUN0h/MQAvK6fQ6UhFHPF60vcyitFw1uh2KPt4q2dPIu6Ru1xyrRJW69PAXJ7E+Pnsk48/R7GbAIabAX/TAydYk5BHeVasWizXX5BcSNco+SDB8IX6RZOvgR/+TaE4ozx1rJ0+mWrY7lG1DwGHMJsCW8QHRVoKwFiC/A4Ri/UTOKCOSQDfdMUzxu4mytOfYepGzjmWSKXP9lplteeiHpFIyRWUXcXXnK4fKo4+mLy089YItwAZbQj/NT60Amwj0VgCP2XCnvgLdulVq2qfb/kFmOyWnTIgSW2vRnQGMYNQSEeNuL8tMQEu2XlOfmeoZDoQUaoQsiFpsRi2ywpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lzYVb2A2iW3sHz8vqqh9Ya5OuXb1784WG1ESegU2URo=;
- b=tIUmMg31w5e9WRrOBGCz18MZoCaZkNxk5cJlFls/BwjehLbXiTlVsfwR4aWrTeVBtMtm5N0QyPBEGgTMrVolEMkaWNnT9AVONXPXVLQD+OMt2IDUHPSFrY0EaCg5wOAW1c+Mks495j6XcWQg0DNYw3evb66X2AEMLvzkzO0oVM8=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Tue, 21 Sep
- 2021 19:24:57 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::94bc:6146:87a:9f3c]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::94bc:6146:87a:9f3c%5]) with mapi id 15.20.4523.018; Tue, 21 Sep 2021
- 19:24:57 +0000
-Subject: Re: [PATCH v2 1/2] drm/amdkfd: handle svm migrate init error
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210921185307.25811-1-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <a0bc09aa-540d-4dd5-a481-6f9805f49b6a@amd.com>
-Date: Tue, 21 Sep 2021 15:24:54 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210921185307.25811-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: YT3PR01CA0089.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::20) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC6116E834;
+	Tue, 21 Sep 2021 21:00:06 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F34F6E834
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 21:00:05 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id v22so1261101edd.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 14:00:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+ :mime-version:content-transfer-encoding;
+ bh=siqBb6uXo9+E+AQiRrpuzidYtOWAY+4r/1fjfvEl7Vs=;
+ b=gw5CdomazoUWvPABKdRT22/7/YkOpDudyxImy6tEBnuefZpB4lCfyGBXLCBkXdae2P
+ dN+2mej3Qu8HHKfxbEhRh+7xg6Xh+OMpU74KodI8WPmeYOS4DQ9bw5mRVIZmiakqoWbj
+ g7fEunjQET8F4x5tv8F5wUc9uAWig63txN3aqscrUI0i8OPCuYKadB7woq92+PYglV8s
+ zP0S5d3jd3rvGiD8IJN89s57f5mJ9NAdNCqYYD3+VoenGGBKnMXML/AZEqk/btlLPv3y
+ KwdymZO5tvezbaP0h/GWDXz7WgTVolcsCUetcpl5JRfSholbsBhf29FHQoWteaV5gELY
+ Zd9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=siqBb6uXo9+E+AQiRrpuzidYtOWAY+4r/1fjfvEl7Vs=;
+ b=TnvblksZ/ZkmUi/FE8Wf4en9Bc7cgnkvBRFwlcGAb/tIYwwe0+Y1GK5crtOpm8xE6R
+ k4K17/NefXCv0ZTcacWsHU1VIVqcKerCqTr1BFcFYIPN4XDxCWyQNh73QEXBB0nr9/ji
+ OthLyFLj5DDvjxOVjMYZKqR3PMKQyYMgqOZ+zyjKjJ/m8skYpTYpUHmX7gK5T+8BMNxc
+ lTdiKLY0BxAUXupdjFbjwlFXkq5R9tLhpprZBWNDqpLwdB5w8YIikqNd3Zh8oi52Qewc
+ TmK+PT377ukrIIbfVaXJErojOYhIGiKdE8PEbNHCAgbzwl7OiFMPQc/5DX9+RohWmFt9
+ 9grA==
+X-Gm-Message-State: AOAM530TRrPt5RtsPybsaUrkMfDosHFa74/A7McRq1lZKy6AwHdhwu/O
+ znUTwpS4nnoNywx7g1ewTSc=
+X-Google-Smtp-Source: ABdhPJxDq5OftbOJ0L/NF95erXfZj0kBs33wjUE5fOqna73lw1ZTh7rBRuDiz94D9LWKHtsc0KOZ3w==
+X-Received: by 2002:a17:906:5e43:: with SMTP id
+ b3mr20453803eju.424.1632258003558; 
+ Tue, 21 Sep 2021 14:00:03 -0700 (PDT)
+Received: from [192.168.1.10] (c83-254-134-100.bredband.tele2.se.
+ [83.254.134.100])
+ by smtp.gmail.com with ESMTPSA id d16sm22943ejk.39.2021.09.21.14.00.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Sep 2021 14:00:02 -0700 (PDT)
+Message-ID: <6768ce5600f8b20b1e5fbe20298a0296f3c053a5.camel@gmail.com>
+Subject: Re: [PATCH 65/66] drm/amdkfd: convert kfd_device.c to use GC IP
+ version
+From: ernstp@gmail.com
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Tue, 21 Sep 2021 23:00:01 +0200
+In-Reply-To: <20210921180725.1985552-66-alexander.deucher@amd.com>
+References: <20210921180725.1985552-1-alexander.deucher@amd.com>
+ <20210921180725.1985552-66-alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.0-1 
 MIME-Version: 1.0
-Received: from [172.27.226.80] (165.204.55.251) by
- YT3PR01CA0089.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.13 via Frontend Transport; Tue, 21 Sep 2021 19:24:56 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 622c4f9c-9cf8-4bb1-2e4c-08d97d357f49
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5129:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5129DF5395558591165644EA92A19@BN9PR12MB5129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TCUD1JJuOGi9MIHD1V2opPZ+FnWsw0HygIKCvJObIO0NUp0QIrSF1Jk5IyGRSTlBSU0JcwnZcWvo6yP6hn2vvYv75s1d4TrkvfeVojRXeOimehV4UTTzT0ucHWH4impveE+j811gcqjj4IQllle35LbBdpOR1xSgIkgRqfjVvNj2iEkEXkuapAv7nMgyEsM9Hi94n1WFPd7IWXqnWuq5ks20Nlkga01kF/cQMlpceSqTB/1K0mvUyOjTiWWz4yniyIhQL/536juz0Go5NsJ+5IdmJnzcn9CqKw03EOgq257eF1lR/U+j4e8xHJ5mbMjo94b35Qun3X70cDvPaiJSmEySYiGfoObdu4KrkFCl4ThaufROKIhT/ybpWVN7cW3wnaq+uVWznChP7pethcdmYld750jAu8hsfVWmGSG5rzzvsjK0uK3LDS06S94axKkpL48k72ZaZZ6OdIzmi5uFQcGqJzuXpIMjdyNbThiPOC2nPtb8myLlo4FXQtcSR4qp+OdVRhrtIVMV8Eaeoi7q08tkADNiLG3KSRwqRmpk+8DD2Jf07KBO4n1NBemxrSk9t5reQk32hbWbcR19b1HaKl67wN/iWzuVxjSbUGpbXStgYQs5tKYV+9txgWpJ6NMt/NYA3JurlcYIZEB1Ts9rJbUsFCkcXPygT1DUque4CGDm3syhIzCtH3T7OnMkMzwaVJ6szDShn9sPNiRUxkCK4MDJUo99XI1xVT7a9cwb0Pw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(36756003)(8676002)(956004)(26005)(2616005)(44832011)(508600001)(53546011)(31696002)(31686004)(38100700002)(8936002)(36916002)(66946007)(316002)(66476007)(6486002)(5660300002)(16576012)(66556008)(186003)(4744005)(86362001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnZYZEoxaEdzVHNvbVpoK2xucVlta1dLTkhpQWFweFdBbjkyby9OYlRTdXYx?=
- =?utf-8?B?UGNOSFM0bU00cFpoZzZIdjBYTWtxdHJ1UktGSWRWdlN2QXpoY2MvQWRCRkRV?=
- =?utf-8?B?U0tydnphSVA3WWZmaFpSZzRsTkxtc3dxRFlJWHZENktoYzhHMXlVSGVQK1F3?=
- =?utf-8?B?MEo5SzRGUmp6ZHM5eS9uSjlxQlNNMmswdHVSVHI3NVVmbEtZYXo1MmRSTGFD?=
- =?utf-8?B?WGZLUjRzRlUxTVJTMnZWZytLQkRkb0VYODlwQ2JqWm0xb0p3bGFmb0RGN0c2?=
- =?utf-8?B?L2YvNk14MFRheXJtVGZSMmJwb255OUZpaG5HcFkwNDZyYmowSzRMWDFGa25X?=
- =?utf-8?B?M0xhdEVnZU1HM01vc2JEc2h1N2NQQWFkMUNFNFQ2QmM4K2toS0ZNdXBjelFw?=
- =?utf-8?B?NjhVMVFjWUNvUG5yTmRYK3JvdDZ6alpBTDhiTkZkdFBPN1dYVnZZRDErYkVj?=
- =?utf-8?B?NDNoTnVhWjhGM01KQnJKcUlpTnR4N0lzSmpWLytIaHpmdkk2ZEwwUkNmc0xU?=
- =?utf-8?B?cWYzRWViRjdmandWTVJFR1REakl5aGZzT1huM091Qi9NK05xcEZ4aEViSWxj?=
- =?utf-8?B?YUxxRnBoSnZiTkhUWVlTZGtPaEV4Uk00bEErWFRIZFA3bmpSK1k5TVJZaHE1?=
- =?utf-8?B?WXRLQ1NZK1VrRmtkclNhNzF0dDhLcGd4eFMxMzdjRjlYOTh5NnI3dithWVJh?=
- =?utf-8?B?MFZKekVHR095bGhIclh4ZkVGaUhjYlB5UldKaGFHeWJ5bzNzMWlwLzBTcjlD?=
- =?utf-8?B?NjdiL0MyVkRZZEV4ZFN5Q0JVanp3cGZWVVlvbThjOVgxMHd0TU9ZdHNPcm04?=
- =?utf-8?B?MmhzMEhTWG5qV2daelhUUUFQNGxkaGQ1UW1PLzhIQlRjRjE0RWJtaCtrR2ox?=
- =?utf-8?B?ZGxPZHFFN1ErbGh5cGdSM2dKWi9Kc2JhM29EbUdiSXNla3BGSEszRG0wY0xB?=
- =?utf-8?B?d1F4Y1VVb2plWDlCTTBsL2VaMTVqSmovZXJDa1R4V1R3S3M4a3hHQmJieUZ3?=
- =?utf-8?B?OCtXOHd3cFNUQjZEQitFRjdEVFlNcGN1RnhNdVZSOE5DTGtzM1daQXFKTkRZ?=
- =?utf-8?B?VStrdiswNzhkYm9XMUpEL2wwaEUxVlNNL2dpajdrelZrcXZFMzNYMzlBYm96?=
- =?utf-8?B?QlRuZ2ZNSjUxbjE4VVZkTDhndE5xb0tYL0hrTzZWWUpLaTUyalorOFpBTjM5?=
- =?utf-8?B?L252TzJSNWVndDI1RnZzcjhORk9sd0NQeXFCNmJocW52WFpKc2RIVDh0OXJy?=
- =?utf-8?B?czYwN2FFUkQ1bE1uZ1dveElUTFRIUUI2Sk5MdTl0WkVtaVd2cFVBWmFySUtN?=
- =?utf-8?B?QnBTa2dmOFZLSHJBMjlvVjdibVhCMysybGw0QXpNa3cxZGYyMlh3ZjhrRWF3?=
- =?utf-8?B?TENQNDRnRktQTzQvcFhUQUU5NTZDTnB3amZhRTBxQmhPbkZjcHhNRWUzK2Uv?=
- =?utf-8?B?OE13VGhxS2t2N2FDeEIwUkxQMUdQdmd1dXhTcFVNQ3IyMkZ2YldpYUZVWXdy?=
- =?utf-8?B?VnpwRFZqWFM5RFV4L1duVEZwWXBqL1dBdC9KL0wrcFRnMW9lWmZxb2l1VExT?=
- =?utf-8?B?N1ZRdlM2N0tzdmNQMlJqb0ZOVktMTU52Rzl3SjlRQkVsdHR0RlA0WFY5M1gz?=
- =?utf-8?B?SThra1oxSFJCczlVZ3JVVk9qUWd3WlQ1YWlUUU1QTHNWcHZwVVFUVHVxTzdS?=
- =?utf-8?B?UHhMMkpyek5iZmtHU0kwZnZoSXNJTlB1NlFvNURGWUhsMEt2c2NQT1ZFazVw?=
- =?utf-8?Q?Vtxt6HP6oIs7218ZEWg9WDD+FZ+rf56iCkKzNBQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 622c4f9c-9cf8-4bb1-2e4c-08d97d357f49
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 19:24:57.2892 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hpv9naPLEoeeIxCZaxAre011xIytIrl+ABN7WosCBRCJWH2LW2FiJpLyAFnqtadCMggZeVeCq8Jf4rTaK29q+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5129
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,32 +86,306 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-09-21 2:53 p.m., Philip Yang wrote:
-> If svm migration init failed to create pgmap for device memory, set
-> pgmap type to 0 to disable device SVM support capability.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-
-The series is
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
+tis 2021-09-21 klockan 14:07 -0400 skrev Alex Deucher:
+> rather than asic type.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index dab290a4d19d..165e0ebb619d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -894,6 +894,9 @@ int svm_migrate_init(struct amdgpu_device *adev)
->   	r = devm_memremap_pages(adev->dev, pgmap);
->   	if (IS_ERR(r)) {
->   		pr_err("failed to register HMM device memory\n");
-> +
-> +		/* Disable SVM support capability */
-> +		pgmap->type = 0;
->   		devm_release_mem_region(adev->dev, res->start,
->   					res->end - res->start + 1);
->   		return PTR_ERR(r);
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 254 +++++++++++++++++-------
+>  1 file changed, 178 insertions(+), 76 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 9269b5e3aed1..25614a86b2c9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -53,41 +53,6 @@ extern const struct kfd2kgd_calls aldebaran_kfd2kgd;
+>  extern const struct kfd2kgd_calls gfx_v10_kfd2kgd;
+>  extern const struct kfd2kgd_calls gfx_v10_3_kfd2kgd;
+>  
+> 
+> -static const struct kfd2kgd_calls *kfd2kgd_funcs[] = {
+> -#ifdef KFD_SUPPORT_IOMMU_V2
+> -#ifdef CONFIG_DRM_AMDGPU_CIK
+> -	[CHIP_KAVERI] = &gfx_v7_kfd2kgd,
+> -#endif
+> -	[CHIP_CARRIZO] = &gfx_v8_kfd2kgd,
+> -	[CHIP_RAVEN] = &gfx_v9_kfd2kgd,
+> -#endif
+> -#ifdef CONFIG_DRM_AMDGPU_CIK
+> -	[CHIP_HAWAII] = &gfx_v7_kfd2kgd,
+> -#endif
+> -	[CHIP_TONGA] = &gfx_v8_kfd2kgd,
+> -	[CHIP_FIJI] = &gfx_v8_kfd2kgd,
+> -	[CHIP_POLARIS10] = &gfx_v8_kfd2kgd,
+> -	[CHIP_POLARIS11] = &gfx_v8_kfd2kgd,
+> -	[CHIP_POLARIS12] = &gfx_v8_kfd2kgd,
+> -	[CHIP_VEGAM] = &gfx_v8_kfd2kgd,
+> -	[CHIP_VEGA10] = &gfx_v9_kfd2kgd,
+> -	[CHIP_VEGA12] = &gfx_v9_kfd2kgd,
+> -	[CHIP_VEGA20] = &gfx_v9_kfd2kgd,
+> -	[CHIP_RENOIR] = &gfx_v9_kfd2kgd,
+> -	[CHIP_ARCTURUS] = &arcturus_kfd2kgd,
+> -	[CHIP_ALDEBARAN] = &aldebaran_kfd2kgd,
+> -	[CHIP_NAVI10] = &gfx_v10_kfd2kgd,
+> -	[CHIP_NAVI12] = &gfx_v10_kfd2kgd,
+> -	[CHIP_NAVI14] = &gfx_v10_kfd2kgd,
+> -	[CHIP_SIENNA_CICHLID] = &gfx_v10_3_kfd2kgd,
+> -	[CHIP_NAVY_FLOUNDER] = &gfx_v10_3_kfd2kgd,
+> -	[CHIP_VANGOGH] = &gfx_v10_3_kfd2kgd,
+> -	[CHIP_DIMGREY_CAVEFISH] = &gfx_v10_3_kfd2kgd,
+> -	[CHIP_BEIGE_GOBY] = &gfx_v10_3_kfd2kgd,
+> -	[CHIP_YELLOW_CARP] = &gfx_v10_3_kfd2kgd,
+> -	[CHIP_CYAN_SKILLFISH] = &gfx_v10_kfd2kgd,
+> -};
+> -
+>  #ifdef KFD_SUPPORT_IOMMU_V2
+>  static const struct kfd_device_info kaveri_device_info = {
+>  	.asic_family = CHIP_KAVERI,
+> @@ -654,38 +619,6 @@ static const struct kfd_device_info cyan_skillfish_device_info = {
+>  	.num_sdma_queues_per_engine = 8,
+>  };
+>  
+> 
+> -/* For each entry, [0] is regular and [1] is virtualisation device. */
+> -static const struct kfd_device_info *kfd_supported_devices[][2] = {
+> -#ifdef KFD_SUPPORT_IOMMU_V2
+> -	[CHIP_KAVERI] = {&kaveri_device_info, NULL},
+> -	[CHIP_CARRIZO] = {&carrizo_device_info, NULL},
+> -#endif
+> -	[CHIP_RAVEN] = {&raven_device_info, NULL},
+> -	[CHIP_HAWAII] = {&hawaii_device_info, NULL},
+> -	[CHIP_TONGA] = {&tonga_device_info, NULL},
+> -	[CHIP_FIJI] = {&fiji_device_info, &fiji_vf_device_info},
+> -	[CHIP_POLARIS10] = {&polaris10_device_info, &polaris10_vf_device_info},
+> -	[CHIP_POLARIS11] = {&polaris11_device_info, NULL},
+> -	[CHIP_POLARIS12] = {&polaris12_device_info, NULL},
+> -	[CHIP_VEGAM] = {&vegam_device_info, NULL},
+> -	[CHIP_VEGA10] = {&vega10_device_info, &vega10_vf_device_info},
+> -	[CHIP_VEGA12] = {&vega12_device_info, NULL},
+> -	[CHIP_VEGA20] = {&vega20_device_info, NULL},
+> -	[CHIP_RENOIR] = {&renoir_device_info, NULL},
+> -	[CHIP_ARCTURUS] = {&arcturus_device_info, &arcturus_device_info},
+> -	[CHIP_ALDEBARAN] = {&aldebaran_device_info, &aldebaran_device_info},
+> -	[CHIP_NAVI10] = {&navi10_device_info, NULL},
+> -	[CHIP_NAVI12] = {&navi12_device_info, &navi12_device_info},
+> -	[CHIP_NAVI14] = {&navi14_device_info, NULL},
+> -	[CHIP_SIENNA_CICHLID] = {&sienna_cichlid_device_info, &sienna_cichlid_device_info},
+> -	[CHIP_NAVY_FLOUNDER] = {&navy_flounder_device_info, &navy_flounder_device_info},
+> -	[CHIP_VANGOGH] = {&vangogh_device_info, NULL},
+> -	[CHIP_DIMGREY_CAVEFISH] = {&dimgrey_cavefish_device_info, &dimgrey_cavefish_device_info},
+> -	[CHIP_BEIGE_GOBY] = {&beige_goby_device_info, &beige_goby_device_info},
+> -	[CHIP_YELLOW_CARP] = {&yellow_carp_device_info, NULL},
+> -	[CHIP_CYAN_SKILLFISH] = {&cyan_skillfish_device_info, NULL},
+> -};
+> -
+>  static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+>  				unsigned int chunk_size);
+>  static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+> @@ -698,21 +631,190 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd, bool vf)
+>  	const struct kfd_device_info *device_info;
+>  	const struct kfd2kgd_calls *f2g;
+>  	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -	unsigned int asic_type = adev->asic_type;
+>  	struct pci_dev *pdev = adev->pdev;
+>  
+> 
+> -	if (asic_type >= sizeof(kfd_supported_devices) / (sizeof(void *) * 2)
+> -		|| asic_type >= sizeof(kfd2kgd_funcs) / sizeof(void *)) {
+> -		dev_err(kfd_device, "asic_type %d out of range\n", asic_type);
+> -		return NULL; /* asic_type out of range */
+> +	switch (adev->asic_type) {
+> +#ifdef KFD_SUPPORT_IOMMU_V2
+> +#ifdef CONFIG_DRM_AMDGPU_CIK
+> +	case CHIP_KAVERI:
+> +		if (vf)
+> +			device_info = NULL;
+> +		else
+> +			device_info = &kaveri_device_info;
+> +		f2g = &gfx_v7_kfd2kgd;
+> +		break;
+> +#endif
+> +	case CHIP_CARRIZO:
+> +		if (vf)
+> +			device_info = NULL;
+> +		else
+> +			device_info = &kaveri_device_info;
+
+That should probably be carrizo. Found with W=1.
+
+> +		f2g = &gfx_v8_kfd2kgd;
+> +		break;
+> +#endif
+> +#ifdef CONFIG_DRM_AMDGPU_CIK
+> +	case CHIP_HAWAII:
+> +		if (vf)
+> +			device_info = NULL;
+> +		else
+> +			device_info = &hawaii_device_info;
+> +		f2g = &gfx_v7_kfd2kgd;
+> +		break;
+> +#endif
+> +	case CHIP_TONGA:
+> +		if (vf)
+> +			device_info = NULL;
+> +		else
+> +			device_info = &tonga_device_info;
+> +		f2g = &gfx_v8_kfd2kgd;
+> +		break;
+> +	case CHIP_FIJI:
+> +		if (vf)
+> +			device_info = &fiji_vf_device_info;
+> +		else
+> +			device_info = &fiji_device_info;
+> +		f2g = &gfx_v8_kfd2kgd;
+> +		break;
+> +	case CHIP_POLARIS10:
+> +		if (vf)
+> +			device_info = &polaris10_vf_device_info;
+> +		else
+> +			device_info = &polaris10_device_info;
+> +		f2g = &gfx_v8_kfd2kgd;
+> +		break;
+> +	case CHIP_POLARIS11:
+> +		if (vf)
+> +			device_info = NULL;
+> +		else
+> +			device_info = &polaris11_device_info;
+> +		f2g = &gfx_v8_kfd2kgd;
+> +		break;
+> +	case CHIP_POLARIS12:
+> +		if (vf)
+> +			device_info = NULL;
+> +		else
+> +			device_info = &polaris12_device_info;
+> +		f2g = &gfx_v8_kfd2kgd;
+> +		break;
+> +	case CHIP_VEGAM:
+> +		if (vf)
+> +			device_info = NULL;
+> +		else
+> +			device_info = &vegam_device_info;
+> +		f2g = &gfx_v8_kfd2kgd;
+> +		break;
+> +	default:
+> +		switch (adev->ip_versions[GC_HWIP][0]) {
+> +		case IP_VERSION(9, 0, 1):
+> +			if (vf)
+> +				device_info = &vega10_vf_device_info;
+> +			else
+> +				device_info = &vega10_device_info;
+> +			f2g = &gfx_v9_kfd2kgd;
+> +			break;
+> +#ifdef KFD_SUPPORT_IOMMU_V2
+> +		case IP_VERSION(9, 1, 0):
+> +		case IP_VERSION(9, 2, 2):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &raven_device_info;
+> +			f2g = &gfx_v9_kfd2kgd;
+> +			break;
+> +#endif
+> +		case IP_VERSION(9, 2, 1):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &vega12_device_info;
+> +			f2g = &gfx_v9_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(9, 3, 0):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &renoir_device_info;
+> +			f2g = &gfx_v9_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(9, 4, 0):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &vega20_device_info;
+> +			f2g = &gfx_v9_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(9, 4, 1):
+> +			device_info = &arcturus_device_info;
+> +			f2g = &arcturus_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(9, 4, 2):
+> +			device_info = &aldebaran_device_info;
+> +			f2g = &aldebaran_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 1, 10):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &navi10_device_info;
+> +			f2g = &gfx_v10_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 1, 2):
+> +			device_info = &navi12_device_info;
+> +			f2g = &gfx_v10_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 1, 1):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &navi14_device_info;
+> +			f2g = &gfx_v10_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 1, 3):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &cyan_skillfish_device_info;
+> +			f2g = &gfx_v10_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 3, 0):
+> +			device_info = &sienna_cichlid_device_info;
+> +			f2g = &gfx_v10_3_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 3, 2):
+> +			device_info = &navy_flounder_device_info;
+> +			f2g = &gfx_v10_3_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 3, 1):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &vangogh_device_info;
+> +			f2g = &gfx_v10_3_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 3, 4):
+> +			device_info = &dimgrey_cavefish_device_info;
+> +			f2g = &gfx_v10_3_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 3, 5):
+> +			device_info = &beige_goby_device_info;
+> +			f2g = &gfx_v10_3_kfd2kgd;
+> +			break;
+> +		case IP_VERSION(10, 3, 3):
+> +			if (vf)
+> +				device_info = NULL;
+> +			else
+> +				device_info = &yellow_carp_device_info;
+> +			f2g = &gfx_v10_3_kfd2kgd;
+> +			break;
+> +		default:
+> +			return NULL;
+> +		}
+> +		break;
+>  	}
+>  
+> 
+> -	device_info = kfd_supported_devices[asic_type][vf];
+> -	f2g = kfd2kgd_funcs[asic_type];
+> -
+>  	if (!device_info || !f2g) {
+>  		dev_err(kfd_device, "%s %s not supported in kfd\n",
+> -			amdgpu_asic_name[asic_type], vf ? "VF" : "");
+> +			amdgpu_asic_name[adev->asic_type], vf ? "VF" : "");
+>  		return NULL;
+>  	}
+>  
+> 
+
+
