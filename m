@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A63DAC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EC66C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 714CA60527
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 714CA60527
+	by mail.kernel.org (Postfix) with ESMTPS id 3AD9F61168
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3AD9F61168
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB3196EA89;
-	Tue, 21 Sep 2021 18:07:58 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 106C16EA3D
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96C956EA85;
+	Tue, 21 Sep 2021 18:08:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD806EA77
  for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:07:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SWUoOk6SqaHp7ochAzpLJEYRnw8eF5eOPoX5+bdfhTGgrE1sCmWOCEebEE35BqSCFk26mDU3jn3zHZjIAQescf7fAhUWYw1QDgrWQ3uanjPC7WO88mPICKZOiPqf8+QbbjP6IhETUP7/C5C//JMw/tF1ovhiXabpinj4VD7wRq7TZp6BW+FhbGu+g6hxdXm6H9GbCV89v1CjQ3yhoMLmslZZTLSC37xVHNoVnyUb/t5vj9pjZRyQWWN7KFUjD5JWwRGvB/tsaDnVR2H9+8IVS+/uO5984za7xsKvyDFACdMLDFR7awZ4IPt4IScd7wpyeRFKQQ0dqqqwMYbaOFSC9g==
+ b=KOjSyCZE/Kt0xCEX0OfDl50ISdiFS69JJW9EvWybuyUAzHEIJW17w66R6UfUHdbyLcbZJhXteyN/h1leLfpqvqOZ9KwrsQRL4CYJgSHbnNFz8ipurr4dSOqUE5c/SXWL58hX/5DyWboS6ZRqPAoLdVE7iwFbZf/fLQ3TqacOVZAmKNg0h2JVlbJm5/qGCS8E3E2DCNjbr13Jg43VSvZJ9J+Mo0ZwBIWmp1XeY3FM6DsdBWv/vEPCAD5HdRQc8Ey/kRpCch60K/mIQiqTRs+V50cRXwUAqfd/9+lg6lEFDTYktERDLdqMGQCSJfYIP8lVQJwPmcQVZWmupqJFsJlotQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=B8jAFugh0c5GpkwKm5S9gyMEXgWJE7kdHLYafYhyfJE=;
- b=n2O8yp9V9Yt1n+lKBpZdkhwLeiDVwkmb94egPa9HjDOXPRk9qDcfPrYhCVePnX4kDTQ+1e19yzeSQdSR0+62b1mvfsDA3yhyb9FJpg0zPdP07RwtpDgIXhDRkvxD8sUM0i1yW804tH7EEA0HLp99fpKYFTmI9yng99wa9M828NA7EHJKzZ7DCNyU43wCT7uqr/agP3IEIUIUNqL4+euphpm2KUfcrJJf8JJlHvYJDTud2/h03/c56rScpDs7pLSK+VRkeJxPB6zHKrGDurekYYLETGgmCtyXBHBoFECEJUpcHMvLJuVyn8vLzbFLULOPWczM1qJvavNI+yTgQstbOA==
+ bh=YMJ0BNJSGXM6VWrhuytLrmlQPAroL3Au9IKWnBvDip8=;
+ b=hfTOBN2lEra9MAZ8prnu11pFGc3I0CXjB6hkYg7L4hUdGKWW8iK16ZS9xwS2VkID3aHOxR/M2P7mvVdijbpiIaG+86on68eNmeL/wip8gxK15Jm4hymdCRwkpIvr96grXZYN7RaEex6TTsXNOrcPsvDF5D57pveRQiAh/ijRyd43GXgQtoxn/rWseSegst5JrIP7TBCV6ZD2mFn9ZaluMJY2cB5i9k1t65lNyomjDMuYijpldU9pTq3FAl8nw4cXpE4WMP8HVrl7jFqx207wgs/nxVqHHP+FercuTm5d7pa6cuUlc9d9NwlaccN47jjZ46Bq9WnZrQVUrCHMgaoKPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B8jAFugh0c5GpkwKm5S9gyMEXgWJE7kdHLYafYhyfJE=;
- b=kMDavUgnvRP4NaTVa6zIdvhVrfHth+7SlA3ao4Rsm9RJAnEwjPWP4WfuukeDetEdA6NInsRdYrXlK+LGm729yozCf/nWgkZGSYYho4wcn0wjokejgzuidbhk+K3ZwSXYxYr16qIqc+9dKGAoj2T60UHz2Xd7mvOnhX95vXyralg=
-Received: from DM5PR11CA0015.namprd11.prod.outlook.com (2603:10b6:3:115::25)
- by MN2PR12MB4830.namprd12.prod.outlook.com (2603:10b6:208:1bc::19) with
+ bh=YMJ0BNJSGXM6VWrhuytLrmlQPAroL3Au9IKWnBvDip8=;
+ b=J5y/p1BVwg4E6FNhNi0aU40YAVTppLv9+QtDbwLTJKJY6MsIkhMX0PHLTaHcsgNIr56k4qe5LKNWzeomDYdSeixwhWX2KrFaZ9KwOSx4tTiQIWXkxwrC0UILaH7N2HOCmrOpaITy5Pu8/UgnaQVoF+yMT1uVHTETAwmCkE/A4FA=
+Received: from DM5PR11CA0017.namprd11.prod.outlook.com (2603:10b6:3:115::27)
+ by MN2PR12MB3038.namprd12.prod.outlook.com (2603:10b6:208:cb::28) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Tue, 21 Sep
- 2021 18:07:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Tue, 21 Sep
+ 2021 18:07:51 +0000
 Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:115:cafe::4d) by DM5PR11CA0015.outlook.office365.com
- (2603:10b6:3:115::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Tue, 21 Sep 2021 18:07:50 +0000
+ (2603:10b6:3:115:cafe::78) by DM5PR11CA0017.outlook.office365.com
+ (2603:10b6:3:115::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
+ Transport; Tue, 21 Sep 2021 18:07:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -63,13 +63,13 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 21 Sep
- 2021 13:07:47 -0500
+ 2021 13:07:48 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 17/66] drm/amdgpu/mmhub2.0: convert to IP version checking
-Date: Tue, 21 Sep 2021 14:06:36 -0400
-Message-ID: <20210921180725.1985552-18-alexander.deucher@amd.com>
+Subject: [PATCH 18/66] drm/amdgpu/mmhub2.1: convert to IP version checking
+Date: Tue, 21 Sep 2021 14:06:37 -0400
+Message-ID: <20210921180725.1985552-19-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210921180725.1985552-1-alexander.deucher@amd.com>
 References: <20210921180725.1985552-1-alexander.deucher@amd.com>
@@ -81,28 +81,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bbe3ac20-f13f-4fea-9f51-08d97d2ab988
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4830:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB483056884C577DA71A0E113BF7A19@MN2PR12MB4830.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:431;
+X-MS-Office365-Filtering-Correlation-Id: 3b09bab0-03b6-4c67-ec1e-08d97d2ab9d7
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3038:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3038075290E57E0D22A9E389F7A19@MN2PR12MB3038.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:361;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eaJTh94eY7dPvbskB9oqT3qTzBl+CNs6WIC2KC9W7jAKLSsUMQU8zaGkJyh+ZXSCiFXNrDbAooopPlikkqmXf4hKZ5xntvF1IsdE5exnqGkj90aM/GEQ59zcQKewypLDz3vHzi1E0RhXRh8+Fw3WwLDa9HDNnFOnnytB0DhJ0IW8mCSqMra+amLDnGmZMlPZ3+kk7wW3RIE9LE8WWOGSp/p9K8m8SndPPUQ8PSnmGcgyAzdCEEepcx1estJlpPTvIA8GOi8tstoNzjXwNtCUK2n6mNZnUyU2JmvH5wPpatbPsEQ1D79Mvqtdb+RA7njN9gwINDprnr4pTmUVW5OrEKhOwMeSIIq48/JhfFy1bh115aWuuc+W/Cxc9KCbLUOKRz8NVFXZLgWRIGbhMXOwrctNPN644KtKjNJCZz2xPZ+jISEumf1NK0k25xcup8xr+10bBqBK8AyH1L0/wSyyYwLxK38rTpMoI2eV/S+wFP6sYzTLsWHztLZT7YizMNW/DHu4U9V8v2eb26dvh7kXVVq/ZZW9dN/CRhwpxH/pl5X7FJU0uzHqKqjYcFGxmw80CTDR618g7n8rQZhV6BoXsVs8Tye4WgDkVgwYRSYvBO+D09+92OUd2R/oo4miL4OabAyaEKhFoS+GfpC3exnBvL6WQWtpCAlwRT9O7y2TYchryrBfs/t0mKfC/Fj1XntLp2FYfNH/ZeXzXoq9uIlJeY0OAJ7drmrAPUTkUBk1sb4=
+X-Microsoft-Antispam-Message-Info: ghuVjSsIpxjas3wOS6lcdkHD1EffnF9BOctkVHtO9VsI7RlJKhjVh1KcbtSa+yuDdSUc+xWT9XRF7u2d4XKkFMDeHp+tHEAdTyh+cODF49T4/5/CPdotxhQDJHmqL7MiltdfttArJx36zdw4o+QHGCFhZ/WQhXO9znc9DO6OccCHUR93Y+bEHzy16VOWr6UMTMPTtRHnb6UI7RBHPkoL4fcn+LNWJMq1+vbMB05HmSoJw/vyBhGrMD/ZvWDV7kN+IqbUxfyOOPUxXFhZDDk4V+ZyuYSrR8xL+OjPiiU+pdhFc5v7i+5d3t32ML13geAPOG6CGvSliOAD7Y0Bux8ocLR3/JKXLK32owjK830t0wKOFAsKX2WGGGgArLywEZLagnA0/9b1xm+vfm8bqIFa9OV6FHUnkm+Lj9LBCa25uZfRp1uNPEEtI+xD+Fh6V6mlTSgfLCW0HdQLN9yY0v8HEBk45YQ5m6B9Rkc1+XN3S+jAwtNU0b/TRwNoAIZ+AJeIexi993MH4GPosAuxHztCmWMczYCB59737OVQ1DpN3dmaUWvZe+9uKfbGEF51VTbpgqz097a8lmuk8ezWOUrwqchsQEPCzFc+sWgFmMa1DT2kSw0vINkUt5Yc2wWHM7/8sO2Qf19OsR/OHEyIaMthPCFzYQt4J8f0YlGqNRPAsTTcyV4i7wAxiC+ewgaqwHPogbJjoRgw3PSxRfxp7pCGdiIlOVFcCgoUht7E9Uyomlw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(36756003)(426003)(83380400001)(5660300002)(8936002)(70586007)(47076005)(4326008)(316002)(81166007)(186003)(86362001)(2906002)(508600001)(82310400003)(26005)(2616005)(6916009)(356005)(36860700001)(16526019)(7696005)(70206006)(8676002)(1076003)(336012)(6666004)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(36756003)(316002)(86362001)(47076005)(6916009)(186003)(82310400003)(4744005)(16526019)(8936002)(8676002)(1076003)(2616005)(26005)(508600001)(70586007)(36860700001)(81166007)(5660300002)(2906002)(7696005)(356005)(336012)(83380400001)(70206006)(426003)(4326008)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:07:50.3673 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbe3ac20-f13f-4fea-9f51-08d97d2ab988
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:07:50.8820 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b09bab0-03b6-4c67-ec1e-08d97d2ab9d7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4830
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3038
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,139 +122,26 @@ IP version specific features.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 73 +++++++++++--------------
- 1 file changed, 32 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index 7ded6b2f058e..e0cb919b4814 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -153,18 +153,16 @@ mmhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+index 88e457a150e0..4cf5d0595bbe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+@@ -90,9 +90,9 @@ mmhub_v2_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
  	dev_err(adev->dev,
  		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
  		status);
 -	switch (adev->asic_type) {
--	case CHIP_NAVI10:
--	case CHIP_NAVI12:
--	case CHIP_NAVI14:
+-	case CHIP_VANGOGH:
+-	case CHIP_YELLOW_CARP:
 +	switch (adev->ip_versions[MMHUB_HWIP]) {
-+	case IP_VERSION(2, 0, 0):
-+	case IP_VERSION(2, 0, 2):
- 		mmhub_cid = mmhub_client_ids_navi1x[cid][rw];
- 		break;
--	case CHIP_SIENNA_CICHLID:
--	case CHIP_NAVY_FLOUNDER:
--	case CHIP_DIMGREY_CAVEFISH:
-+	case IP_VERSION(2, 1, 0):
-+	case IP_VERSION(2, 1, 1):
- 		mmhub_cid = mmhub_client_ids_sienna_cichlid[cid][rw];
- 		break;
--	case CHIP_BEIGE_GOBY:
-+	case IP_VERSION(2, 1, 2):
- 		mmhub_cid = mmhub_client_ids_beige_goby[cid][rw];
++	case IP_VERSION(2, 3, 0):
++	case IP_VERSION(2, 4, 0):
+ 		mmhub_cid = mmhub_client_ids_vangogh[cid][rw];
  		break;
  	default:
-@@ -571,11 +569,10 @@ static void mmhub_v2_0_update_medium_grain_clock_gating(struct amdgpu_device *ad
- 	if (!(adev->cg_flags & AMD_CG_SUPPORT_MC_MGCG))
- 		return;
- 
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
--	case CHIP_NAVY_FLOUNDER:
--	case CHIP_DIMGREY_CAVEFISH:
--	case CHIP_BEIGE_GOBY:
-+	switch (adev->ip_versions[MMHUB_HWIP]) {
-+	case IP_VERSION(2, 1, 0):
-+	case IP_VERSION(2, 1, 1):
-+	case IP_VERSION(2, 1, 2):
- 		def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid);
- 		def1 = data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2_Sienna_Cichlid);
- 		break;
-@@ -606,11 +603,10 @@ static void mmhub_v2_0_update_medium_grain_clock_gating(struct amdgpu_device *ad
- 			  DAGB0_CNTL_MISC2__DISABLE_TLBRD_CG_MASK);
- 	}
- 
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
--	case CHIP_NAVY_FLOUNDER:
--	case CHIP_DIMGREY_CAVEFISH:
--	case CHIP_BEIGE_GOBY:
-+	switch (adev->ip_versions[MMHUB_HWIP]) {
-+	case IP_VERSION(2, 1, 0):
-+	case IP_VERSION(2, 1, 1):
-+	case IP_VERSION(2, 1, 2):
- 		if (def != data)
- 			WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid, data);
- 		if (def1 != data1)
-@@ -633,11 +629,10 @@ static void mmhub_v2_0_update_medium_grain_light_sleep(struct amdgpu_device *ade
- 	if (!(adev->cg_flags & AMD_CG_SUPPORT_MC_LS))
- 		return;
- 
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
--	case CHIP_NAVY_FLOUNDER:
--	case CHIP_DIMGREY_CAVEFISH:
--	case CHIP_BEIGE_GOBY:
-+	switch (adev->ip_versions[MMHUB_HWIP]) {
-+	case IP_VERSION(2, 1, 0):
-+	case IP_VERSION(2, 1, 1):
-+	case IP_VERSION(2, 1, 2):
- 		def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid);
- 		break;
- 	default:
-@@ -651,11 +646,10 @@ static void mmhub_v2_0_update_medium_grain_light_sleep(struct amdgpu_device *ade
- 		data &= ~MM_ATC_L2_MISC_CG__MEM_LS_ENABLE_MASK;
- 
- 	if (def != data) {
--		switch (adev->asic_type) {
--		case CHIP_SIENNA_CICHLID:
--		case CHIP_NAVY_FLOUNDER:
--		case CHIP_DIMGREY_CAVEFISH:
--		case CHIP_BEIGE_GOBY:
-+		switch (adev->ip_versions[MMHUB_HWIP]) {
-+		case IP_VERSION(2, 1, 0):
-+		case IP_VERSION(2, 1, 1):
-+		case IP_VERSION(2, 1, 2):
- 			WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid, data);
- 			break;
- 		default:
-@@ -671,14 +665,12 @@ static int mmhub_v2_0_set_clockgating(struct amdgpu_device *adev,
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
--	switch (adev->asic_type) {
--	case CHIP_NAVI10:
--	case CHIP_NAVI14:
--	case CHIP_NAVI12:
--	case CHIP_SIENNA_CICHLID:
--	case CHIP_NAVY_FLOUNDER:
--	case CHIP_DIMGREY_CAVEFISH:
--	case CHIP_BEIGE_GOBY:
-+	switch (adev->ip_versions[MMHUB_HWIP]) {
-+	case IP_VERSION(2, 0, 0):
-+	case IP_VERSION(2, 0, 2):
-+	case IP_VERSION(2, 1, 0):
-+	case IP_VERSION(2, 1, 1):
-+	case IP_VERSION(2, 1, 2):
- 		mmhub_v2_0_update_medium_grain_clock_gating(adev,
- 				state == AMD_CG_STATE_GATE);
- 		mmhub_v2_0_update_medium_grain_light_sleep(adev,
-@@ -698,11 +690,10 @@ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
- 	if (amdgpu_sriov_vf(adev))
- 		*flags = 0;
- 
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
--	case CHIP_NAVY_FLOUNDER:
--	case CHIP_DIMGREY_CAVEFISH:
--	case CHIP_BEIGE_GOBY:
-+	switch (adev->ip_versions[MMHUB_HWIP]) {
-+	case IP_VERSION(2, 1, 0):
-+	case IP_VERSION(2, 1, 1):
-+	case IP_VERSION(2, 1, 2):
- 		data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid);
- 		data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2_Sienna_Cichlid);
- 		break;
 -- 
 2.31.1
 
