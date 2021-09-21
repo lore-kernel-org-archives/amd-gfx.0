@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4605C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F103C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B422060527
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B422060527
+	by mail.kernel.org (Postfix) with ESMTPS id 3C14860527
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:08:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C14860527
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B8A76EAAE;
-	Tue, 21 Sep 2021 18:08:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D21886EAA6;
+	Tue, 21 Sep 2021 18:08:24 +0000 (UTC)
 Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2052.outbound.protection.outlook.com [40.107.95.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559B66EA7F
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:08:06 +0000 (UTC)
+ (mail-dm3nam07on2077.outbound.protection.outlook.com [40.107.95.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F22506EA92
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:08:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KZlPwuK7DB6VG7RK/etq/1prbF3gWoiA+Kz0r4WzaZv5hmUFqDCoakSchZTEY+1FNT2JZMFPxH+KEcs1YZjpdKBkpjOmbIUQBXGkuYJpYHBXyUlRedDXYarY86FxurLP4U06rTU6iogreZFWUSC06/OLm2scXfqgLSD2cTqQfDbdwWvPMyBvnwM4X+TiPtiU930a3sswyQCeS0DlGdxxPMrd8zkkS04MkW5Bp9zmjoiCvdX4qLau8K8yRBqZUQlZ4dcrca60Rrr49+X4E+BJfM9kAZTcDpcYi0ga5IoOeEt3TEXaJ6eGd4JhFkkVvBmmoG3NvQNUa13+bY1Csac9Mg==
+ b=BxGBNZLpKIwvyGWQ3d79Y7uS9QYM7FnTveefuQoeB/4okPwLY8s3ZsN/jbwA7uF0Se/bKJLfb5MUfASYZPB9BoGLr+GBEMVg9f9EyP4FAvg6fJZCvQlSUXSCIZctr5QuRRkteWzJlqMdX/3O+Rt0BO2iG732n6gge7s2UpANmKaa9ameFN0igW1VklQ7rsGZ468+k7C/AOv5QhLudnnSZP+CXhrg70s7Dcuq3fnadJTIbknYtcePBsU58w9SXmo+cXLgJo0ytD+T1pmncIv++RohSszJcfb/iR7OowqkI/Qb+9H5ihMymsNOVW39ABrBB7ZQ9Zpe2ifd2AsPFccuUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=NYAF6l3TzVx2XDhqLBgjfgHfD+9LPS2GIS5Codivq7o=;
- b=Khg4zhkVPxYmSAqpzTZW76jPSxCfB/YfNRnNagoO2olxOUcEwBL9cnMZvD49hfKQ/xUWvf1Cthw1KqFiidWMfQkjRBputx8n/uKhbpY3Ia+pPG6v/4T7KyQMU8+seMmJqihj1/kdS8P4WGt/W8/+jofAYNgLuZtXzs3+sd7EfYUTun1ZDJNtE17UJj7cM9nPCZVNwBuCLlaJm4Yu/ZOZZD4CfOAO5XVucJLLSj/Vot+eVLoUhrK/thhYT1Zzfa7aYfBapAKEsWJ4OchzD3HXtCBdnGaF0eZ8SThuCgA/a6McaUlNrL77TcuP2dfKy/HCotellZFPhlNIpYN1kFkJcA==
+ bh=/EnQ5kZL2UlSzrnl0NDuYRAvZsIHWlvByxfi1jBYbs0=;
+ b=hJPlyX2c12Gcs90FthQ8Se5A4YdzMQD2DQC4oETyBbobLXsp4FbzZLvnZmlEGFSsd5EwAr8GHbMBUO5vbPAY1mtts21WH36PbahRZ84fVX1eQ6ZVsqq8QtpC+G9tvWEkK+TRiqSRLhTgHZfw9kv/9QU/BFiRmaAytx5YUgOgEwvcOLG8mhg54wDFbZFf8JZjzaSMSyhYeZqA1t+reUDM6fQzYRT9v6MfwtnZ3sqJHd81CfdsvCJ97jHKqyxF+4LG9yiLBFctuOo0x1CSxT9TgOURYDMC/U2KV5E+q4lrFlF2GubSTsbwq2wp0HT+ayRWQawksTBx2lix8VazS9NDYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NYAF6l3TzVx2XDhqLBgjfgHfD+9LPS2GIS5Codivq7o=;
- b=sYyLxyYi8mzll4JcjEPjKZo8bFvpflKv2UAyCHe5IBH3Kjvqm/9gS35xXKECZuvqZ0iyxXSDafpCwHVWMdSJb6dR+KsdpiXNxQMUNNfvVz509XMllE8QarhnnUkVb5OaK++OTjIU7DEhUf6s0aQvDdAaK7X4iSMNZb790CkJTvk=
-Received: from DM3PR12CA0066.namprd12.prod.outlook.com (2603:10b6:0:56::34) by
- BYAPR12MB2775.namprd12.prod.outlook.com (2603:10b6:a03:6b::20) with
+ bh=/EnQ5kZL2UlSzrnl0NDuYRAvZsIHWlvByxfi1jBYbs0=;
+ b=YuVDsOev2xBDlB9V15VadxVsKuIE7HzuopZSxIxBK+IJX9DmUW4DiepLtXpAtP/QyfiJarwAgaRcg75Wy2MVlniMXTD//+3ESVuvNLOGgJUZD5OF1yzmWZrbKf+bfKBaPqOeFHreQVhDPemkFc4laHXpwRhDDC2RJa9p+bX0yEM=
+Received: from DM3PR14CA0140.namprd14.prod.outlook.com (2603:10b6:0:53::24) by
+ PH0PR12MB5497.namprd12.prod.outlook.com (2603:10b6:510:eb::22) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.18; Tue, 21 Sep 2021 18:08:04 +0000
-Received: from DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:56:cafe::84) by DM3PR12CA0066.outlook.office365.com
- (2603:10b6:0:56::34) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4523.14; Tue, 21 Sep 2021 18:08:07 +0000
+Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:53:cafe::7f) by DM3PR14CA0140.outlook.office365.com
+ (2603:10b6:0:53::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
- Transport; Tue, 21 Sep 2021 18:08:04 +0000
+ Transport; Tue, 21 Sep 2021 18:08:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,19 +57,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT003.mail.protection.outlook.com (10.13.173.162) with Microsoft SMTP
+ DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4544.13 via Frontend Transport; Tue, 21 Sep 2021 18:08:04 +0000
+ 15.20.4523.14 via Frontend Transport; Tue, 21 Sep 2021 18:08:07 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 21 Sep
- 2021 13:08:02 -0500
+ 2021 13:08:04 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 49/66] drm/amdgpu/soc15: convert to IP version checking
-Date: Tue, 21 Sep 2021 14:07:08 -0400
-Message-ID: <20210921180725.1985552-50-alexander.deucher@amd.com>
+Subject: [PATCH 54/66] drm/amdgpu: get VCN and SDMA instances from IP
+ discovery table
+Date: Tue, 21 Sep 2021 14:07:13 -0400
+Message-ID: <20210921180725.1985552-55-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210921180725.1985552-1-alexander.deucher@amd.com>
 References: <20210921180725.1985552-1-alexander.deucher@amd.com>
@@ -81,28 +82,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ab0ff69d-b2fc-4977-67f5-08d97d2ac1cf
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2775:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB27758C0FFC8A3C7E8930A8DFF7A19@BYAPR12MB2775.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Office365-Filtering-Correlation-Id: d3200a01-eba7-4d5e-968f-08d97d2ac3a9
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5497:
+X-Microsoft-Antispam-PRVS: <PH0PR12MB5497683498574A79A26EDC3BF7A19@PH0PR12MB5497.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7DyGwyddZ6SYYGzsEfg0EkcfaQcFNOfBox5CeFheI8VzGYdWnSvlZjiv0Y57Gn/zX5MAlie9XuBalMhGey/2D4BKw7hwsMogffXwKDUZQvS23dV5hzDTsFiXfB/G5X2Q3UTb+po04cOm/3gYpm8AcFvIphr/VA2Ob85sSKPdQb+y4ldJFPXBEDnnJ3qg55MrcffX8BwV/ya0HHtQRABng8f1z1sPbyNvDgJq3/C0xvDHO3gjsEL8jHAfnc7Z1PLQK6k7aTzl6FGf5EIdwSCfuHWhPTAEJwoxcnk2q1oZp2yX5LcaA49x4U+LXzkFuD6SBTpuzwhyvgtVaY/lvg9Wlvo01C2XuTJtx6intQjfhJNwuJ9eUwMX+4k8AYHIarrloYOO3cesQN1PFHJuNf4Q5qca9DPkz4uhaj02CKCApa126MI2BSmAJtjt4mqXX1+8iR3ddrUnG2WMD0vqCwjhRz/UYE9yX8E1dxvBYsuQcggdTn4Ge7AtglHgbJwxL7clycgqv9oRRFdXQqtLM5WnHJ+hUzlGauAlXWWL9J1wali/mHocawFOXsWlR+ZfMBwvUYX8MjMV6R4ICQaQtBCoLmq1YIL26ZCUtfvdPOZFuMznYq3pBqeM/nNqzWBfPdvU/0o+Nu40ZdgDO1zOqzquDkHCg/MZUoFj5bauDYVAup0sxnJiko1ApBf4ZqaweZBgdUAGDyEk6bJ0hSwLmLmEbWw4D6vCUuAnGZx/Fdp06Lg=
+X-Microsoft-Antispam-Message-Info: CDg44iZzijG+sd+mEtsgouKWqWNi+q04GeJHySRbEOebJhE7NzHFPQUQXsHGQDtJLE31vDU2cBMi5Cja9L/QoGwL7mdX0OExzjXiAKZEEAGZ6POs22DDS08I69aqwfH5IVB+hwDViFR5ZuMoFbLXXKKf7C1qjXA6wqQsof/CVy69erCAbTtXX6PdsSA/+EcplyS2S7pVwqA+F4MDhYezmJT4izPLOUN+Xzh5sbwab0tCRUJzcuOtsn2+5gfkdGZwACJOy7TYcxZiVGAr9FE2vcIP/tKjYnN9fsIBqYoS2VxX1Tobik6AAcxYHLGBEF4OefCCFNQYN21qIAPRDUh+QHLTCAwls1W+Yg60ilSuN+uJkQCe2nWFL/Sx9S1s81BgwLTbIxM4T/DMiCQBJYSxaSNsUerwjGZOL+QggbYJux6A7jPUF6R/rg1RceQalq2Br9vZqioJbQZNIBH5EZ8gQQXqpFP5jddKjPTli7K9cRfqPy4/GNwWvU9xjDzKijSqU70qL32hw8ofVnT6uFpzj1OCd+Z5es35XENh5Y2Fgn8WaZHU7I9zP3LeVsJU4x5Sz/NJkhcqvl7XIZrfDdTxwbjb5A8+00AI7RY1P4OipWKTQXmdhnVMyiGuRSQCUso5PCgSjTUTy98wtmetU3vY/Cq7QZTs2kWikOvaGN1aAJidBoNHsr9nP+55KhspSW5m9FpzV+pdNVBTKS+fm8OJUqNwUDeFny6oDYpJFl0IVys=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(36756003)(356005)(508600001)(426003)(336012)(2616005)(6916009)(36860700001)(316002)(83380400001)(70586007)(70206006)(82310400003)(4326008)(5660300002)(26005)(7696005)(86362001)(1076003)(8676002)(47076005)(8936002)(81166007)(186003)(16526019)(2906002)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(16526019)(36756003)(83380400001)(186003)(5660300002)(7696005)(508600001)(2906002)(316002)(356005)(82310400003)(47076005)(86362001)(8936002)(426003)(8676002)(26005)(2616005)(4326008)(36860700001)(6916009)(81166007)(6666004)(1076003)(70586007)(70206006)(336012)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:08:04.2450 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab0ff69d-b2fc-4977-67f5-08d97d2ac1cf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:08:07.3615 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3200a01-eba7-4d5e-968f-08d97d2ac3a9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2775
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5497
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,287 +118,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use IP versions rather than asic_type to differentiate
-IP version specific features.
+Rather than hardcoding it.
+
+v2: squash in checks for SDMA3,4 (Guchun)
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15.c | 159 ++++++++++++++++-------------
- 1 file changed, 88 insertions(+), 71 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index f26d33faa0cb..7f4cd1a4f6cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -156,31 +156,38 @@ static const struct amdgpu_video_codecs rn_video_codecs_decode =
- static int soc15_query_video_codecs(struct amdgpu_device *adev, bool encode,
- 				    const struct amdgpu_video_codecs **codecs)
- {
--	switch (adev->asic_type) {
--	case CHIP_VEGA20:
--	case CHIP_VEGA10:
--	case CHIP_VEGA12:
--		if (encode)
--			*codecs = &vega_video_codecs_encode;
--		else
--			*codecs = &vega_video_codecs_decode;
--		return 0;
--	case CHIP_RAVEN:
--		if (encode)
--			*codecs = &vega_video_codecs_encode;
--		else
--			*codecs = &rv_video_codecs_decode;
--		return 0;
--	case CHIP_ARCTURUS:
--	case CHIP_ALDEBARAN:
--	case CHIP_RENOIR:
--		if (encode)
--			*codecs = &vega_video_codecs_encode;
--		else
--			*codecs = &rn_video_codecs_decode;
--		return 0;
--	default:
--		return -EINVAL;
-+	if (adev->ip_versions[VCE_HWIP]) {
-+		switch (adev->ip_versions[VCE_HWIP]) {
-+		case IP_VERSION(4, 0, 0):
-+		case IP_VERSION(4, 1, 0):
-+			if (encode)
-+				*codecs = &vega_video_codecs_encode;
-+			else
-+				*codecs = &vega_video_codecs_decode;
-+			return 0;
-+		default:
-+			return -EINVAL;
-+		}
-+	} else {
-+		switch (adev->ip_versions[UVD_HWIP]) {
-+		case IP_VERSION(1, 0, 0):
-+		case IP_VERSION(1, 0, 1):
-+			if (encode)
-+				*codecs = &vega_video_codecs_encode;
-+			else
-+				*codecs = &rv_video_codecs_decode;
-+			return 0;
-+		case IP_VERSION(2, 5, 0):
-+		case IP_VERSION(2, 6, 0):
-+		case IP_VERSION(2, 2, 0):
-+			if (encode)
-+				*codecs = &vega_video_codecs_encode;
-+			else
-+				*codecs = &rn_video_codecs_decode;
-+			return 0;
-+		default:
-+			return -EINVAL;
-+		}
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 572a634f7a1e..9e59fb792643 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -348,6 +348,11 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
  
-@@ -334,9 +341,11 @@ static u32 soc15_get_xclk(struct amdgpu_device *adev)
- {
- 	u32 reference_clock = adev->clock.spll.reference_freq;
+ 			if (le16_to_cpu(ip->hw_id) == VCN_HWID)
+ 				adev->vcn.num_vcn_inst++;
++			if (le16_to_cpu(ip->hw_id) == SDMA0_HWID ||
++			    le16_to_cpu(ip->hw_id) == SDMA1_HWID ||
++			    le16_to_cpu(ip->hw_id) == SDMA2_HWID ||
++			    le16_to_cpu(ip->hw_id) == SDMA3_HWID)
++				adev->sdma.num_instances++;
  
--	if (adev->asic_type == CHIP_RENOIR)
-+	if (adev->ip_versions[MP1_HWIP] == IP_VERSION(12, 0, 0) ||
-+	    adev->ip_versions[MP1_HWIP] == IP_VERSION(12, 0, 1))
- 		return 10000;
--	if (adev->asic_type == CHIP_RAVEN)
-+	if (adev->ip_versions[MP1_HWIP] == IP_VERSION(10, 0, 0) ||
-+	    adev->ip_versions[MP1_HWIP] == IP_VERSION(10, 0, 1))
- 		return reference_clock / 4;
- 
- 	return reference_clock;
-@@ -567,28 +576,29 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
- 		dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
- 				  amdgpu_reset_method);
- 
--	switch (adev->asic_type) {
--	case CHIP_RAVEN:
--	case CHIP_RENOIR:
-+	switch (adev->ip_versions[MP1_HWIP]) {
-+	case IP_VERSION(10, 0, 0):
-+	case IP_VERSION(10, 0, 1):
-+	case IP_VERSION(12, 0, 0):
-+	case IP_VERSION(12, 0, 1):
- 		return AMD_RESET_METHOD_MODE2;
--	case CHIP_VEGA10:
--	case CHIP_VEGA12:
--	case CHIP_ARCTURUS:
--		baco_reset = amdgpu_dpm_is_baco_supported(adev);
--		break;
--	case CHIP_VEGA20:
--		if (adev->psp.sos.fw_version >= 0x80067)
-+	case IP_VERSION(9, 0, 0):
-+	case IP_VERSION(11, 0, 2):
-+		if (adev->asic_type == CHIP_VEGA20) {
-+			if (adev->psp.sos.fw_version >= 0x80067)
-+				baco_reset = amdgpu_dpm_is_baco_supported(adev);
-+			/*
-+			 * 1. PMFW version > 0x284300: all cases use baco
-+			 * 2. PMFW version <= 0x284300: only sGPU w/o RAS use baco
-+			 */
-+			if (ras && adev->ras_enabled &&
-+			    adev->pm.fw_version <= 0x283400)
-+				baco_reset = false;
-+		} else {
- 			baco_reset = amdgpu_dpm_is_baco_supported(adev);
--
--		/*
--		 * 1. PMFW version > 0x284300: all cases use baco
--		 * 2. PMFW version <= 0x284300: only sGPU w/o RAS use baco
--		 */
--		if (ras && adev->ras_enabled &&
--		    adev->pm.fw_version <= 0x283400)
--			baco_reset = false;
-+		}
+ 			for (k = 0; k < num_base_address; k++) {
+ 				/*
+@@ -515,6 +520,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 	switch (adev->asic_type) {
+ 	case CHIP_VEGA10:
+ 		vega10_reg_base_init(adev);
++		adev->sdma.num_instances = 2;
+ 		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 0, 0);
+ 		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 0, 0);
+ 		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 0, 0);
+@@ -534,6 +540,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
  		break;
--	case CHIP_ALDEBARAN:
-+	case IP_VERSION(13, 0, 2):
- 		 /*
- 		 * 1.connected to cpu: driver issue mode2 reset
- 		 * 2.discret gpu: driver issue mode1 reset
-@@ -631,15 +641,17 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
- 
- static bool soc15_supports_baco(struct amdgpu_device *adev)
- {
--	switch (adev->asic_type) {
--	case CHIP_VEGA10:
--	case CHIP_VEGA12:
--	case CHIP_ARCTURUS:
--		return amdgpu_dpm_is_baco_supported(adev);
--	case CHIP_VEGA20:
--		if (adev->psp.sos.fw_version >= 0x80067)
-+	switch (adev->ip_versions[MP1_HWIP]) {
-+	case IP_VERSION(9, 0, 0):
-+	case IP_VERSION(11, 0, 2):
-+		if (adev->asic_type == CHIP_VEGA20) {
-+			if (adev->psp.sos.fw_version >= 0x80067)
-+				return amdgpu_dpm_is_baco_supported(adev);
-+			return false;
-+		} else {
- 			return amdgpu_dpm_is_baco_supported(adev);
--		return false;
-+		}
-+		break;
- 	default:
- 		return false;
- 	}
-@@ -1157,8 +1169,11 @@ static int soc15_common_early_init(void *handle)
- 
- 	adev->rev_id = soc15_get_rev_id(adev);
- 	adev->external_rev_id = 0xFF;
--	switch (adev->asic_type) {
--	case CHIP_VEGA10:
-+	/* TODO: split the GC and PG flags based on the relevant IP version for which
-+	 * they are relevant.
-+	 */
-+	switch (adev->ip_versions[GC_HWIP]) {
-+	case IP_VERSION(9, 0, 1):
- 		adev->asic_funcs = &soc15_asic_funcs;
- 		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_GFX_MGLS |
-@@ -1182,7 +1197,7 @@ static int soc15_common_early_init(void *handle)
- 		adev->pg_flags = 0;
- 		adev->external_rev_id = 0x1;
+ 	case CHIP_VEGA12:
+ 		vega10_reg_base_init(adev);
++		adev->sdma.num_instances = 2;
+ 		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 3, 0);
+ 		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 3, 0);
+ 		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 0, 1);
+@@ -553,6 +560,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
  		break;
--	case CHIP_VEGA12:
-+	case IP_VERSION(9, 2, 1):
- 		adev->asic_funcs = &soc15_asic_funcs;
- 		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_GFX_MGLS |
-@@ -1205,7 +1220,7 @@ static int soc15_common_early_init(void *handle)
- 		adev->pg_flags = 0;
- 		adev->external_rev_id = adev->rev_id + 0x14;
+ 	case CHIP_RAVEN:
+ 		vega10_reg_base_init(adev);
++		adev->sdma.num_instances = 1;
++		adev->vcn.num_vcn_inst = 1;
+ 		if (adev->apu_flags & AMD_APU_IS_RAVEN2) {
+ 			adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 2, 0);
+ 			adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 2, 0);
+@@ -589,6 +598,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
  		break;
--	case CHIP_VEGA20:
-+	case IP_VERSION(9, 4, 0):
- 		adev->asic_funcs = &vega20_asic_funcs;
- 		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_GFX_MGLS |
-@@ -1228,7 +1243,8 @@ static int soc15_common_early_init(void *handle)
- 		adev->pg_flags = 0;
- 		adev->external_rev_id = adev->rev_id + 0x28;
+ 	case CHIP_VEGA20:
+ 		vega20_reg_base_init(adev);
++		adev->sdma.num_instances = 2;
+ 		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 4, 0);
+ 		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 4, 0);
+ 		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 2, 0);
+@@ -608,6 +618,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
  		break;
--	case CHIP_RAVEN:
-+	case IP_VERSION(9, 1, 0):
-+	case IP_VERSION(9, 2, 2):
- 		adev->asic_funcs = &soc15_asic_funcs;
- 
- 		if (adev->rev_id >= 0x8)
-@@ -1302,7 +1318,7 @@ static int soc15_common_early_init(void *handle)
- 			adev->pg_flags = AMD_PG_SUPPORT_SDMA | AMD_PG_SUPPORT_VCN;
- 		}
+ 	case CHIP_ARCTURUS:
+ 		arct_reg_base_init(adev);
++		adev->sdma.num_instances = 8;
++		adev->vcn.num_vcn_inst = 2;
+ 		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 4, 1);
+ 		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 4, 1);
+ 		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 2, 1);
+@@ -625,6 +637,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
  		break;
--	case CHIP_ARCTURUS:
-+	case IP_VERSION(9, 4, 1):
- 		adev->asic_funcs = &vega20_asic_funcs;
- 		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_GFX_MGLS |
-@@ -1321,7 +1337,7 @@ static int soc15_common_early_init(void *handle)
- 		adev->pg_flags = AMD_PG_SUPPORT_VCN | AMD_PG_SUPPORT_VCN_DPG;
- 		adev->external_rev_id = adev->rev_id + 0x32;
- 		break;
--	case CHIP_RENOIR:
-+	case IP_VERSION(9, 3, 0):
- 		adev->asic_funcs = &soc15_asic_funcs;
- 
- 		if (adev->apu_flags & AMD_APU_IS_RENOIR)
-@@ -1352,7 +1368,7 @@ static int soc15_common_early_init(void *handle)
- 				 AMD_PG_SUPPORT_JPEG |
- 				 AMD_PG_SUPPORT_VCN_DPG;
- 		break;
--	case CHIP_ALDEBARAN:
-+	case IP_VERSION(9, 4, 2):
- 		adev->asic_funcs = &vega20_asic_funcs;
- 		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_GFX_MGLS |
-@@ -1567,10 +1583,10 @@ static int soc15_common_set_clockgating_state(void *handle,
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
--	switch (adev->asic_type) {
--	case CHIP_VEGA10:
--	case CHIP_VEGA12:
--	case CHIP_VEGA20:
-+	switch (adev->ip_versions[NBIO_HWIP]) {
-+	case IP_VERSION(6, 1, 0):
-+	case IP_VERSION(6, 2, 0):
-+	case IP_VERSION(7, 4, 0):
- 		adev->nbio.funcs->update_medium_grain_clock_gating(adev,
- 				state == AMD_CG_STATE_GATE);
- 		adev->nbio.funcs->update_medium_grain_light_sleep(adev,
-@@ -1586,8 +1602,9 @@ static int soc15_common_set_clockgating_state(void *handle,
- 		adev->df.funcs->update_medium_grain_clock_gating(adev,
- 				state == AMD_CG_STATE_GATE);
- 		break;
--	case CHIP_RAVEN:
--	case CHIP_RENOIR:
-+	case IP_VERSION(7, 0, 0):
-+	case IP_VERSION(7, 0, 1):
-+	case IP_VERSION(2, 5, 0):
- 		adev->nbio.funcs->update_medium_grain_clock_gating(adev,
- 				state == AMD_CG_STATE_GATE);
- 		adev->nbio.funcs->update_medium_grain_light_sleep(adev,
-@@ -1599,8 +1616,8 @@ static int soc15_common_set_clockgating_state(void *handle,
- 		soc15_update_drm_light_sleep(adev,
- 				state == AMD_CG_STATE_GATE);
- 		break;
--	case CHIP_ARCTURUS:
--	case CHIP_ALDEBARAN:
-+	case IP_VERSION(7, 4, 1):
-+	case IP_VERSION(7, 4, 4):
- 		adev->hdp.funcs->update_clock_gating(adev,
- 				state == AMD_CG_STATE_GATE);
- 		break;
-@@ -1622,7 +1639,7 @@ static void soc15_common_get_clockgating_state(void *handle, u32 *flags)
- 
- 	adev->hdp.funcs->get_clock_gating_state(adev, flags);
- 
--	if (adev->asic_type != CHIP_ALDEBARAN) {
-+	if (adev->ip_versions[MP0_HWIP] != IP_VERSION(13, 0, 2)) {
- 
- 		/* AMD_CG_SUPPORT_DRM_MGCG */
- 		data = RREG32(SOC15_REG_OFFSET(MP0, 0, mmMP0_MISC_CGTT_CTRL0));
+ 	case CHIP_ALDEBARAN:
+ 		aldebaran_reg_base_init(adev);
++		adev->sdma.num_instances = 5;
++		adev->vcn.num_vcn_inst = 2;
+ 		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 4, 2);
+ 		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 4, 2);
+ 		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 4, 0);
 -- 
 2.31.1
 
