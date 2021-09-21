@@ -2,106 +2,133 @@ Return-Path: <SRS0=vd7l=OL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C317C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FE87C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 599D461186
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:53:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 599D461186
+	by mail.kernel.org (Postfix) with ESMTPS id 55F9760FDA
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Sep 2021 18:59:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 55F9760FDA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DADDE6E909;
-	Tue, 21 Sep 2021 18:53:27 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754566E909
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:53:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4FA36E59B;
+	Tue, 21 Sep 2021 18:58:59 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2066.outbound.protection.outlook.com [40.107.102.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F3976E59B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:58:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bdShhTi98rpMnRrpdt8AE35elwBxe2hhQkI5+l3itNeBCEd56sFxKME/usc4tKpbbvn9oUrrrgTqH0/v0cfDG4kZ3UluT6cyL00GWA/fEF81R1TqWKkK7/Qloq0CxzMrNBLtdzM3pI7lnUpaV+pcVS5FEYY1rCrX0Dh89+WyWmmC2T9hFZOALTGzj540mZhudYMT4NK5Cr5lGxDui//uSQVBfhhYJjOq0HrIgqug8ZYrVAJjePmD68fq8ynphwrnMsXMs+q730KNrVZfpJYQ2yYulV7O8L/Ixms4b4uAKcoUehv+TUOtRLkPfPcw2ZEfT7yQWmLEaFhri2iC41e20Q==
+ b=oQJ64mBO2EiWeJqahLoeeUR+zdOg+RmCxOPWrv0O3bBqlpJkrutQDyWcarFRPrWxG+Gyt6h3q9Ldi2AHo6ok7bGyCPteEmqeSnoYp9KGbPP70ZqjxCV52R2eKjDfaR6hVjjQKsl9JXznuclweQvU3bCbDZGKbkUA9YZMV7KirKZPlOPrmTbqqQ6z1A6hauwWAvmieweFEM4TJWHfXbXMiuxEAU3JTfkh4Jss4aHunrEKpZFDU4vyeX+GhHiidxdxtq6lwaa6T+uqqdGJ3yWezkDxvumiKBr0Ylk0NROglEXURH4DM3Y9Pz9gbVaW41g4IBSHhsTdkH5HarXE5I77FQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=rxSOB7XuCrBmfEapHvbRhKbk1hlUO8YMwZDYR+z/F2k=;
- b=CEXureP8BQNZbZ2bcQnT6Mh3xabcL+ne+w3wy9jEzXVnek+CtA65wZZnOA6s4XHHeicZKY7jwEfXiw8Zwutv7p0ZJ1hVbiPB3Bdo9H1o9yPe7mPH2gO9S1vR8ueHdHfV/Je/+us4vK1tzVhScA6a6GlwJ3efcwHBzZQ80bEoDQhBOY+Bsmel6kKYw1eV8Pj4Ck20rQuIJtEWDQk9KjILkIv8QUXEbJPExkmxKoTeb2ImPOMuF7nLLdTXxXNs2O6g6hxF+TKi0ZSH2W1QOx7C+OYQR/wqvNcebXQmm1Iamr+yBo6OIQNPDQrvJWmT8yLk8MsOflEaqOzlrbknEZDgtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=HRR0bvu8taWmefOZhMgXp0lpIgjBlfR7iq+hyJLin6g=;
+ b=SqwDeKPZwu+b0fqK10+eIyst35sQnxzm0PzpDS4wzqjDGET91GtVFZRORMmLdusIfAjlpO8wAWR/YoX5SI6aI+ilaSzz9lcmcg/CpCOEt3LwbFEP1DJVQqiATH/HTwBwIvECgp670DVsXOmHAtppAU2JcrPjQ8+eZD75gejS8CTTtItYkjDO9i1LkUFZXI+I5EQM6nxitlQa1ZRXyTU9MSvA3ov+ENdNLjJE6vTbiG3loYqFctl5CpNdj8tMrBLKS5KCo0Lm5moGsoiBFQr3boS4NdtJzHkKkmQlNdBDnt8X53fuyLaGQKoGnh9qC9PopMqjWidl6HD1Qf3xPh/t9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rxSOB7XuCrBmfEapHvbRhKbk1hlUO8YMwZDYR+z/F2k=;
- b=fLEa3Obqk67Lk6vnwDDtOOtBbZPvhHKV9QG/23GVK8optsgiQtfs4/NdSWfvOSJoARKRg9LLRsTJ/2IumbntiaHo892TdZ7icJna6FiCCEgHzw7l02pbYckJ5HKVE5krK2WFBANT1c+cLDnr8V7Ii8Cr03oJhwzVzZWPSGzB8vg=
-Received: from DM5PR13CA0033.namprd13.prod.outlook.com (2603:10b6:3:7b::19) by
- SJ0PR12MB5405.namprd12.prod.outlook.com (2603:10b6:a03:3af::11) with
+ bh=HRR0bvu8taWmefOZhMgXp0lpIgjBlfR7iq+hyJLin6g=;
+ b=4bKebmnVp2QO2PvwAzJk1VwCvV6VhxRhrrOiKYFHQoFymbGAxwvW6gR0mfIz/Om+5XqmxzvQon6u/L6Z6nEESSlRZhi5owfjKZ1B3PtnkL2JNe2Qfy/n49+QBP6uRstffo7IGVVdSCyvP8WQlsT9LkYGxE8Rt222AnE+ybn/O+4=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DM6PR12MB4329.namprd12.prod.outlook.com (2603:10b6:5:211::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Tue, 21 Sep
- 2021 18:53:24 +0000
-Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:7b:cafe::ce) by DM5PR13CA0033.outlook.office365.com
- (2603:10b6:3:7b::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.6 via Frontend
- Transport; Tue, 21 Sep 2021 18:53:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Tue, 21 Sep 2021 18:53:23 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 21 Sep
- 2021 13:53:22 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH v2 2/2] drm/amdkfd: fix svm_migrate_fini warning
-Date: Tue, 21 Sep 2021 14:53:07 -0400
-Message-ID: <20210921185307.25811-2-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210921185307.25811-1-Philip.Yang@amd.com>
+ 2021 18:58:57 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::3153:3d7b:e216:74c0]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::3153:3d7b:e216:74c0%11]) with mapi id 15.20.4523.018; Tue, 21 Sep
+ 2021 18:58:57 +0000
+Subject: Re: [PATCH v2 1/2] drm/amdkfd: handle svm migrate init error
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20210921185307.25811-1-Philip.Yang@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <476938b2-1e11-2fe3-f471-fda9ca417a9d@amd.com>
+Date: Tue, 21 Sep 2021 14:58:55 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20210921185307.25811-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0145.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::24) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+Received: from [IPv6:2607:fea8:3edf:49b0:591f:ecc8:119a:23e7]
+ (2607:fea8:3edf:49b0:591f:ecc8:119a:23e7) by
+ YT1PR01CA0145.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Tue, 21 Sep 2021 18:58:57 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9a3b9402-d1a4-436b-7e32-08d97d3116db
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5405:
-X-Microsoft-Antispam-PRVS: <SJ0PR12MB54051B027641AFB9281A7DB9E6A19@SJ0PR12MB5405.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1360;
+X-MS-Office365-Filtering-Correlation-Id: f1f6c2d4-fc3e-49b4-2561-08d97d31dda8
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4329:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB432940FBA60796502670AF37EAA19@DM6PR12MB4329.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1186;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Hj/IZeXbzWQnJZGv1vYARzOnlZiIDn452/6mwe/xodlttqp/WXm/COtknn6Ry/83V8IIMMW7DHl2zOpUIFANQ9TYUx15A9v5uJ3GH8/FiYG9jvga00RcRP8L16tySZyusan1I4+F2agcSJ4BbWzD8tLRK7rk2vfA7fsn93K+mPMS8c2iy1NqsCcmb0hMpSZjmCcJCYkEQW/c3J9No5eJSuYEELcJChePziRVX6a4pT1VpaWATHVuefBy1tEPJCIcj6jSG/NqiEGPwm3vXZx3XVkk1gT0Pyxm+yKk+0nCD1sgKTOuWNy6m9xG6BBCLaSelQVjgca9Q06Tr2EDOjIPKCtMfKcx9KWH/5ObrYqOlgRCAQ4BExcHW3LNTTkPvxfaW9hhC32Lzu0FCX9JfYO2TtCA3pGwa/c1O0cPrvRK1yVqFs/m+SO9Ohf/sUi0+Xjy/9LoNu6iA8gWsn4CzN0cBNgDYcRMbFqtr3WDyjMh2devMmMcvqpJp4x3GS2elKuyPosOV85s8lqng4+fHDj905Ln1IQ1NPN/Amm2DmT8PtZ6NlKk2Qs8D7cditKtgM5TaL0ZTF1RALUVuzVVJ8L5rTIWIUA/e7sAvF+ttLFP60rngwislfXi4iq3CrVL3XsH8/n4MYfGDcc860QPsN6w3izB+Yx1mhf1wzPo/csPSP+9EzQXsmNUbZczVhj1gUo4atGkZVoAmjaFUM9Qke3d3FgXZ/vYOcmahZ/HKhBxo90=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(83380400001)(70586007)(82310400003)(7696005)(26005)(426003)(4326008)(336012)(508600001)(2616005)(36860700001)(86362001)(966005)(36756003)(186003)(81166007)(6916009)(356005)(1076003)(47076005)(16526019)(5660300002)(70206006)(8676002)(6666004)(316002)(8936002)(2906002)(36900700001);
+X-Microsoft-Antispam-Message-Info: 6khHAuLQrxx6M+PI9Kl6dmU5aYnFSZoRsluOhF+ng7mJkO5DHnI7gtOWkLIbaZHB3ks4DZfaLNnJpvUFjT1xpYeXlihrBaKF5RIuoBAs7g7pRZNeT5LxaZ5Q+ehRjPV0cm+eM4xC8dewC3pTxIlHdALMxeggOyMrj7VhYDVVoBv/kAHvNvh9wC4QfaRCJX5n8Nf2S+l80liZy9QZbcWoLIgU4jn5jP4wUyOPvsS8oNCj+Duyq4Bk2bXU9ghBU8A/oSh5I3LLkRHMPMqIDTXi8MAeefguGCkmuLf6sOlIokDU5g0fcDK7ZZ02zHb9wuvts7YDx8QyIhWrTlHGYjI87CW4Onf6DS32VVRNpOSnV3ZQjuaJ1el6u7Bi8yRxMGVSYl53v5L2YbqNKtHJaA1H8JkTjCGh2Q/lBmMHqmSpQp7AhIyRNVPztLanLDjBn3txcx66BwewLht8JhnCwSkIzSxUT70Qb2V+EZl3xxLPKcGBwrGotbZ5+ZGGRfd8078MVUCoxlLRFTongx1iM+w9GIYoxfQIAy/boO1sf1lW1VyCmXqCyx5PBsiAUsZa4tZInb+6By6WyeI+sAUeJrMUhAitjEGPVeoaUmXss5y729O2g7qeEgpGG6oEd6XrYhq07a8v2gp7DGKr8J76Hkqv9tJzIrMSy3oMxBZ8ZQuhCHjTDps0+SXyHNM+QjgZX1X2r4iM9HAwlCCfXu5cD/zkPBfXwcwKEcSZvz2iKG0Mkeo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6486002)(508600001)(4744005)(186003)(38100700002)(44832011)(53546011)(2616005)(66946007)(31686004)(8936002)(31696002)(316002)(66476007)(66556008)(5660300002)(8676002)(86362001)(2906002)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YVhUR3BtSFhCdFE3V0NrLzRXSWNVb051cFpFUDJxL2ovZklWNW9ucmtIcXJ0?=
+ =?utf-8?B?Q1ppL1QrVzkrb1BRMzM4Lzh2YXNrYjBzTE5HTXR2Z0ExNmtUQmF5YjRUT0Zs?=
+ =?utf-8?B?UVZkb2pQZWFQUjZMa2xRcnFabE9ZbmxXMWdnNGNXRlNhNVF4R21CUndDelRG?=
+ =?utf-8?B?Sk9iK2J0ZE5NbVNobkV0WXhWNkhxNU8xcWdrRzJrQ1NjdkpGQXpUekNUb1dI?=
+ =?utf-8?B?bkI4UjZHWE5zVFFCK3o1SU53V1krT2E3K0pITC92NTdDUm5JKzZkYncwOWwr?=
+ =?utf-8?B?TDRJMnpJeHE3ZWg1QkRJSmZmNldrcm9LOHhmQUNwU0puSDY2ZUN3ZXdkYzJx?=
+ =?utf-8?B?QnQ2NndKR1FJUGlaL21SNU1GYloyWloxWEZ0TUttR3prWmdKYW4zYloxU1Az?=
+ =?utf-8?B?N2Q3ZHRsQ0RCeWpteTRFVFg5SGwwQUpuR1dBTmxLaStwSkpwd2c4S2pTVWQz?=
+ =?utf-8?B?M0VzbG5aLy91M1haWHlxMjBGc3hzZHZQV2dudFNpWnJEY2M5Q3ZCTHk5SGx0?=
+ =?utf-8?B?TUVqREQrUzk0aWoyMW5YQ0hnNmIrSDFLY25CdmE1dzJ1dXVDeGtpQy9kbDNP?=
+ =?utf-8?B?WEFjeTE0WElVUE5VTEZ5clkxdTZ0VElxUWRmK0QyR1FJZWQ1Um1HZXVVWmdX?=
+ =?utf-8?B?WWYvcWx0eTVSNHpGQ1g0bUlEYjdQdmJxY2dvQ3cxYTI4S1M4a0tjbVZ4cGhC?=
+ =?utf-8?B?NUF5QUorNmFRNDE3T2VzVXM3VFhDN3JLOVZHZHJRSC9UVHlraGNBMXNLaW5S?=
+ =?utf-8?B?eVVrZEJXU2ovajlIRTRSSkF1VTBOTlhPdC91OUZsOVJjZ2JtbFU0WFh5bEgy?=
+ =?utf-8?B?a09TODJPTkNrRlN5ZEo1NGVOYnJHV2lnd21KSTBIaE9EaEQ3ckxpWjlsS0Yv?=
+ =?utf-8?B?ZU90WUErcGpiSW5LcW1KRTdtRERUclc1SGQvNk83RzZ2TEptV1d5WlpzRGlY?=
+ =?utf-8?B?RnRKalpoZFhwdlI2eG51QTZYWkdRS0drNk4zODNQT285WUY3UDJoSjJlSmMz?=
+ =?utf-8?B?NFNZQ0NRcFlVL2wyb2xxNFdKeWJEWXk0bHoxSGtnS2wwdVZzWklDWXhqUUdh?=
+ =?utf-8?B?SEo1NHdVeXhNVTdKdnJyQlMyNVVMb3FuUnNwQnZMY25ndXBnMWtjeEd0b3Ax?=
+ =?utf-8?B?eWh6RVp1M2VOdTFOOUtLNjBnV3hxeDJaUDJOVVFueTVtNEd6b3RuMkNvSXZx?=
+ =?utf-8?B?RXZvdW1MRjNveUhndWYxK2h0ZVdzS1hjY2dzTENsNWJsODJuQnk1MUsxUnhW?=
+ =?utf-8?B?dmhBbjR0Q1k3WTAzMFFuQVpaeGcvN2tQL2VFam1PMGMzWmFvU1ozaVF6ZGJ6?=
+ =?utf-8?B?OEtWaDJVRUQzRjFwYWx4bXJOYzlEejBlT08vZDJkbTZBdXNUYnkwUDJSMm9a?=
+ =?utf-8?B?RUNiVjJRU1BTR01nWUgwaUlVbC8vVitqZFlXdVBNbGFFQkJiTzcwZjg5M0dw?=
+ =?utf-8?B?enVQeWNpWkVRQTlnOXp6WE12YUgxeDg2WlZKeUQ2ZEwwTFU5NEUwOGtPY0FR?=
+ =?utf-8?B?c1BPOElFWWw3NU5VZ0h2eGIxMnhTMVp5WCtnS3VxcHgxMnhsbUQrMDlpUktE?=
+ =?utf-8?B?cDEvZW40NGJUdEtPWGtGOTE3WVQyUU9vKy9mSHgwWjZ1YmU5TEhoMDdsQytO?=
+ =?utf-8?B?QkpmMi9YaUxlWlE5VmFsRkl0eHV5TWFKVUhJa1ZwdFZxYmoySGdvTXc4T3pB?=
+ =?utf-8?B?cDBaQm91eldWQjRvR1VtS1lCNlJaV2lmQ0FmN2xNeElJZ3hFa1picHlEcXdo?=
+ =?utf-8?B?Q0V1WDVUUmVLeHFGZXhFdnFtd0RmVmx4YldteEc0Sm5lSGFzUm9lM3Q3ZGJY?=
+ =?utf-8?B?ZUZYWnlBR3A1TDZ1SFR2aldvUUt3cTRWQldYaVExTy9sMFQwcUozMEVNaDZE?=
+ =?utf-8?Q?ThdQ3c8zRqGjl?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:53:23.9109 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a3b9402-d1a4-436b-7e32-08d97d3116db
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1f6c2d4-fc3e-49b4-2561-08d97d31dda8
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 18:58:57.6958 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5405
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rtf4sjPp4EPdaxCc4zuOBZ56ML1Yk2fV0YLiJmMk2PqMz5hOEs0ROi28wQPsRNhkPuPAyrgfEd6SqxK3FR6kPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4329
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,103 +143,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Device manager releases device-specific resources when a driver
-disconnects from a device, devm_memunmap_pages and
-devm_release_mem_region calls in svm_migrate_fini are redundant.
+Series is Acked-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 
-It causes below warning trace after patch "drm/amdgpu: Split
-amdgpu_device_fini into early and late", so remove function
-svm_migrate_fini.
+Andrey
 
-BUG: https://gitlab.freedesktop.org/drm/amd/-/issues/1718
-
-WARNING: CPU: 1 PID: 3646 at drivers/base/devres.c:795
-devm_release_action+0x51/0x60
-Call Trace:
-    ? memunmap_pages+0x360/0x360
-    svm_migrate_fini+0x2d/0x60 [amdgpu]
-    kgd2kfd_device_exit+0x23/0xa0 [amdgpu]
-    amdgpu_amdkfd_device_fini_sw+0x1d/0x30 [amdgpu]
-    amdgpu_device_fini_sw+0x45/0x290 [amdgpu]
-    amdgpu_driver_release_kms+0x12/0x30 [amdgpu]
-    drm_dev_release+0x20/0x40 [drm]
-    release_nodes+0x196/0x1e0
-    device_release_driver_internal+0x104/0x1d0
-    driver_detach+0x47/0x90
-    bus_remove_driver+0x7a/0xd0
-    pci_unregister_driver+0x3d/0x90
-    amdgpu_exit+0x11/0x20 [amdgpu]
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c  |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 13 ++++---------
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |  5 -----
- 3 files changed, 4 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 98d1b3ab3a46..c2a4d920da40 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -971,7 +971,6 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- void kgd2kfd_device_exit(struct kfd_dev *kfd)
- {
- 	if (kfd->init_complete) {
--		svm_migrate_fini((struct amdgpu_device *)kfd->kgd);
- 		device_queue_manager_uninit(kfd->dqm);
- 		kfd_interrupt_exit(kfd);
- 		kfd_topology_remove_device(kfd);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 165e0ebb619d..4a16e3c257b9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -891,6 +891,10 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 	pgmap->ops = &svm_migrate_pgmap_ops;
- 	pgmap->owner = SVM_ADEV_PGMAP_OWNER(adev);
- 	pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
-+
-+	/* Device manager releases device-specific resources, memory region and
-+	 * pgmap when driver disconnects from device.
-+	 */
- 	r = devm_memremap_pages(adev->dev, pgmap);
- 	if (IS_ERR(r)) {
- 		pr_err("failed to register HMM device memory\n");
-@@ -911,12 +915,3 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 
- 	return 0;
- }
--
--void svm_migrate_fini(struct amdgpu_device *adev)
--{
--	struct dev_pagemap *pgmap = &adev->kfd.dev->pgmap;
--
--	devm_memunmap_pages(adev->dev, pgmap);
--	devm_release_mem_region(adev->dev, pgmap->range.start,
--				pgmap->range.end - pgmap->range.start + 1);
--}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-index 0de76b5d4973..2f5b3394c9ed 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-@@ -47,7 +47,6 @@ unsigned long
- svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr);
- 
- int svm_migrate_init(struct amdgpu_device *adev);
--void svm_migrate_fini(struct amdgpu_device *adev);
- 
- #else
- 
-@@ -55,10 +54,6 @@ static inline int svm_migrate_init(struct amdgpu_device *adev)
- {
- 	return 0;
- }
--static inline void svm_migrate_fini(struct amdgpu_device *adev)
--{
--	/* empty */
--}
- 
- #endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
- 
--- 
-2.17.1
-
+On 2021-09-21 2:53 p.m., Philip Yang wrote:
+> If svm migration init failed to create pgmap for device memory, set
+> pgmap type to 0 to disable device SVM support capability.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index dab290a4d19d..165e0ebb619d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -894,6 +894,9 @@ int svm_migrate_init(struct amdgpu_device *adev)
+>   	r = devm_memremap_pages(adev->dev, pgmap);
+>   	if (IS_ERR(r)) {
+>   		pr_err("failed to register HMM device memory\n");
+> +
+> +		/* Disable SVM support capability */
+> +		pgmap->type = 0;
+>   		devm_release_mem_region(adev->dev, res->start,
+>   					res->end - res->start + 1);
+>   		return PTR_ERR(r);
