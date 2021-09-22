@@ -2,63 +2,72 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C1FFC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 01:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C789C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 01:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7D6A61184
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 01:37:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C7D6A61184
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
+	by mail.kernel.org (Postfix) with ESMTPS id 2D60661159
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 01:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D60661159
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 608456E9FC;
-	Wed, 22 Sep 2021 01:37:08 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38E2D6E984;
- Wed, 22 Sep 2021 00:45:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1632271553;
- bh=hXvO8OuNaSrv4ooeA7gU5YK2T3P3KpeyR9oPEm4Yo00=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kfCZzOV/BNPyfmmev8lERFb8HVJxeVKlts9ZdlReU2u+djE5F0TPYQMTFNkc73tAx
- lypC1B+PrpTDullSCk2CQEgnBtJTmUrVR03tP6+59h6WSDinVZ/RYk0frn0UQP+Hxq
- GIzDQzh8uy5a5H6pPzS3PyGQHKcfYiSgHyVZks8iSyryDDWB32Qjq/6dEFFvb50bg2
- Z0x/lTkYvTv4ZzNCz6tK3lxQ1vW6BJZJMcrFvAjILR019qHwZ3nXWa/6KDuSdY+Xto
- tOkMZ05EGyNUNU1Z2lKVg3wCCKSnLJkMr8MHTqE8XsiyIubQmUGDDHeRoVCn/9KzFE
- 6WXAK3Wfi8Pfw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4HDfjW4Rr6z9sW4;
- Wed, 22 Sep 2021 10:45:51 +1000 (AEST)
-Date: Wed, 22 Sep 2021 10:45:50 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
- manasi.d.navare@intel.com, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-next@vger.kernel.org
-Subject: Re: [Intel-gfx] [PATCH v3 03/13] drm/dp: add LTTPR DP 2.0 DPCD
- addresses
-Message-ID: <20210922104550.744a96ca@canb.auug.org.au>
-In-Reply-To: <YUpjj7IwBqMYSR7z@archlinux-ax161>
-References: <cover.1631191763.git.jani.nikula@intel.com>
- <def17e2329722f22c35807be26b35590ccb93bfd.1631191763.git.jani.nikula@intel.com>
- <YUpjj7IwBqMYSR7z@archlinux-ax161>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C9746EA03;
+	Wed, 22 Sep 2021 01:44:50 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0BB6EA03
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 01:44:48 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ x33-20020a9d37a4000000b0054733a85462so1227589otb.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Sep 2021 18:44:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/ixN5Zk43cOYcbmejFYjnsfakmyNFMe1Zjg/spH2nxE=;
+ b=GDTxFraje4z84ldB/K8G8xYUGgzaKujYo4TocsjASXch+3bE8srzXESnDCpB331+sF
+ MvZTQj0ALpHjL3hxUjiGajKzYIYgPiHvU6d6hTefuAtkEWnPRKOiKNlpEkTVJfD9uwbS
+ Z3s3UWrz4az7K4lcxo9VN8X7VCoxqT/yXzcJ5PlcJvvy/a0S1rEYPjUejKMU0jr1hndj
+ Qtvd/V5wloYTWRIdxlKKg12zSLTGBmPrVr1KAJIigr3qqpzUu01DsB2o6n+JpdknHFaO
+ BDmt3Oj1mQrj3bQHfEObz+Q6ERlj96KruX6K6gwAlKV7CgX1oh5ENd4EnBLdFjCqKPGQ
+ 2fYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/ixN5Zk43cOYcbmejFYjnsfakmyNFMe1Zjg/spH2nxE=;
+ b=Bk9gJZLOZnAQNLk08aznvlkc2GDu/ZH71uytz2QH2bWGOa3E6iHQ+DY+ivUy3LKFEQ
+ UE2ORl8OxymbWam4q92wMoaIrUlAvWmls8kYviaJulW7vMwyHgG8Wi9Z5eQXcpyS6kA6
+ 5MZ4ni8+KI5qCmz5iLO736Dx9pZwIFLA1oS9nPv2WudrTJBebx5AYHuz+WrtJ7aG4CxV
+ swi4HFytAVN0M4dFkUXjM7R6iswez3iy01SSNFII5MXp8xeq9X0bl7typw0zyHYsLgur
+ X3/O2QYYYLu3UlryCor48dhL3sq0BSalm1bAuIeRGHRjiqVTtp3+mPp3Lc+gAKRypjlS
+ MGfg==
+X-Gm-Message-State: AOAM532+zQnE+VZuaaakKD/6gSxL+Siu82n6uX6WmhEVKs5WI6BMSLgi
+ 7Cz4TPlsPdl0hBvAS9YpEjKY0j2ataTYO6T0PiU=
+X-Google-Smtp-Source: ABdhPJxhSDqhzMasj/4k1mj/DQh33CjxWnFEQv5wb4lYeL3Rm+lJ0gP2JcW14QLqoHqqMnO1qoSQxTc7266kMSZnlik=
+X-Received: by 2002:a05:6830:2704:: with SMTP id
+ j4mr29242779otu.299.1632275088087; 
+ Tue, 21 Sep 2021 18:44:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/+_2Du7kYJPSA8cCB7WSmVyA";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Wed, 22 Sep 2021 01:37:04 +0000
+References: <20210921180725.1985552-1-alexander.deucher@amd.com>
+ <20210921180725.1985552-66-alexander.deucher@amd.com>
+ <6768ce5600f8b20b1e5fbe20298a0296f3c053a5.camel@gmail.com>
+In-Reply-To: <6768ce5600f8b20b1e5fbe20298a0296f3c053a5.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Sep 2021 21:44:36 -0400
+Message-ID: <CADnq5_OFq1AzjyE_UsGX79psCkx5h0=7wjd4DZ-LHRNoEszqhw@mail.gmail.com>
+Subject: Re: [PATCH 65/66] drm/amdkfd: convert kfd_device.c to use GC IP
+ version
+To: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,122 +82,313 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/+_2Du7kYJPSA8cCB7WSmVyA
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Hi Nathan,
-
-On Tue, 21 Sep 2021 15:58:23 -0700 Nathan Chancellor <nathan@kernel.org> wr=
-ote:
+On Tue, Sep 21, 2021 at 5:00 PM <ernstp@gmail.com> wrote:
 >
-> On Thu, Sep 09, 2021 at 03:51:55PM +0300, Jani Nikula wrote:
-> > DP 2.0 brings some new DPCD addresses for PHY repeaters.
-> >=20
-> > Cc: dri-devel@lists.freedesktop.org
-> > Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
-> > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> tis 2021-09-21 klockan 14:07 -0400 skrev Alex Deucher:
+> > rather than asic type.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > > ---
-> >  include/drm/drm_dp_helper.h | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >=20
-> > diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> > index 1d5b3dbb6e56..f3a61341011d 100644
-> > --- a/include/drm/drm_dp_helper.h
-> > +++ b/include/drm/drm_dp_helper.h
-> > @@ -1319,6 +1319,10 @@ struct drm_panel;
-> >  #define DP_MAX_LANE_COUNT_PHY_REPEATER			    0xf0004 /* 1.4a */
-> >  #define DP_Repeater_FEC_CAPABILITY			    0xf0004 /* 1.4 */
-> >  #define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT		    0xf0005 /* 1.4a */
-> > +#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	    0xf0006 /* 2.0 */
-> > +# define DP_PHY_REPEATER_128B132B_SUPPORTED		    (1 << 0)
-> > +/* See DP_128B132B_SUPPORTED_LINK_RATES for values */
-> > +#define DP_PHY_REPEATER_128B132B_RATES			    0xf0007 /* 2.0 */
-> > =20
-> >  enum drm_dp_phy {
-> >  	DP_PHY_DPRX,
-> > --=20
-> > 2.30.2
-> >=20
-> >  =20
->=20
-> This patch causes a build failure in -next when combined with the AMD
-> tree:
->=20
-> In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:33:
-> In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:70:
-> In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_mode.=
-h:36:
-> ./include/drm/drm_dp_helper.h:1322:9: error: 'DP_MAIN_LINK_CHANNEL_CODING=
-_PHY_REPEATER' macro redefined [-Werror,-Wmacro-redefined]
-> #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER            0xf0006 /* 2.=
-0 */
->         ^
-> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dp_types.h:881:9: note: pre=
-vious definition is here
-> #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER        0xF0006
->         ^
-> 1 error generated.
->=20
-> Perhaps something like this should be applied during the merge of the
-> second tree or maybe this patch should be in a branch that could be
-> shared between the Intel and AMD trees so that this diff could be
-> applied to the AMD tree directly? Not sure what the standard procedure
-> for this is.
->=20
-> Cheers,
-> Nathan
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/g=
-pu/drm/amd/display/dc/core/dc_link_dp.c
-> index 234dfbea926a..279863b5c650 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -4590,7 +4590,7 @@ bool dp_retrieve_lttpr_cap(struct dc_link *link)
->  								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
-> =20
->  		link->dpcd_caps.lttpr_caps.supported_128b_132b_rates.raw =3D
-> -				lttpr_dpcd_data[DP_PHY_REPEATER_128b_132b_RATES -
-> +				lttpr_dpcd_data[DP_PHY_REPEATER_128B132B_RATES -
->  								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
->  #endif
-> =20
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/d=
-rm/amd/display/dc/dc_dp_types.h
-> index a5e798b5da79..8caf9af5ffa2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> @@ -878,8 +878,6 @@ struct psr_caps {
->  # define DP_DSC_DECODER_COUNT_MASK			(0b111 << 5)
->  # define DP_DSC_DECODER_COUNT_SHIFT			5
->  #define DP_MAIN_LINK_CHANNEL_CODING_SET			0x108
-> -#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	0xF0006
-> -#define DP_PHY_REPEATER_128b_132b_RATES			0xF0007
->  #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1	0xF0022
->  #define DP_INTRA_HOP_AUX_REPLY_INDICATION		(1 << 3)
->  /* TODO - Use DRM header to replace above once available */
+> >  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 254 +++++++++++++++++-------
+> >  1 file changed, 178 insertions(+), 76 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> > index 9269b5e3aed1..25614a86b2c9 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> > @@ -53,41 +53,6 @@ extern const struct kfd2kgd_calls aldebaran_kfd2kgd;
+> >  extern const struct kfd2kgd_calls gfx_v10_kfd2kgd;
+> >  extern const struct kfd2kgd_calls gfx_v10_3_kfd2kgd;
+> >
+> >
+> > -static const struct kfd2kgd_calls *kfd2kgd_funcs[] = {
+> > -#ifdef KFD_SUPPORT_IOMMU_V2
+> > -#ifdef CONFIG_DRM_AMDGPU_CIK
+> > -     [CHIP_KAVERI] = &gfx_v7_kfd2kgd,
+> > -#endif
+> > -     [CHIP_CARRIZO] = &gfx_v8_kfd2kgd,
+> > -     [CHIP_RAVEN] = &gfx_v9_kfd2kgd,
+> > -#endif
+> > -#ifdef CONFIG_DRM_AMDGPU_CIK
+> > -     [CHIP_HAWAII] = &gfx_v7_kfd2kgd,
+> > -#endif
+> > -     [CHIP_TONGA] = &gfx_v8_kfd2kgd,
+> > -     [CHIP_FIJI] = &gfx_v8_kfd2kgd,
+> > -     [CHIP_POLARIS10] = &gfx_v8_kfd2kgd,
+> > -     [CHIP_POLARIS11] = &gfx_v8_kfd2kgd,
+> > -     [CHIP_POLARIS12] = &gfx_v8_kfd2kgd,
+> > -     [CHIP_VEGAM] = &gfx_v8_kfd2kgd,
+> > -     [CHIP_VEGA10] = &gfx_v9_kfd2kgd,
+> > -     [CHIP_VEGA12] = &gfx_v9_kfd2kgd,
+> > -     [CHIP_VEGA20] = &gfx_v9_kfd2kgd,
+> > -     [CHIP_RENOIR] = &gfx_v9_kfd2kgd,
+> > -     [CHIP_ARCTURUS] = &arcturus_kfd2kgd,
+> > -     [CHIP_ALDEBARAN] = &aldebaran_kfd2kgd,
+> > -     [CHIP_NAVI10] = &gfx_v10_kfd2kgd,
+> > -     [CHIP_NAVI12] = &gfx_v10_kfd2kgd,
+> > -     [CHIP_NAVI14] = &gfx_v10_kfd2kgd,
+> > -     [CHIP_SIENNA_CICHLID] = &gfx_v10_3_kfd2kgd,
+> > -     [CHIP_NAVY_FLOUNDER] = &gfx_v10_3_kfd2kgd,
+> > -     [CHIP_VANGOGH] = &gfx_v10_3_kfd2kgd,
+> > -     [CHIP_DIMGREY_CAVEFISH] = &gfx_v10_3_kfd2kgd,
+> > -     [CHIP_BEIGE_GOBY] = &gfx_v10_3_kfd2kgd,
+> > -     [CHIP_YELLOW_CARP] = &gfx_v10_3_kfd2kgd,
+> > -     [CHIP_CYAN_SKILLFISH] = &gfx_v10_kfd2kgd,
+> > -};
+> > -
+> >  #ifdef KFD_SUPPORT_IOMMU_V2
+> >  static const struct kfd_device_info kaveri_device_info = {
+> >       .asic_family = CHIP_KAVERI,
+> > @@ -654,38 +619,6 @@ static const struct kfd_device_info cyan_skillfish_device_info = {
+> >       .num_sdma_queues_per_engine = 8,
+> >  };
+> >
+> >
+> > -/* For each entry, [0] is regular and [1] is virtualisation device. */
+> > -static const struct kfd_device_info *kfd_supported_devices[][2] = {
+> > -#ifdef KFD_SUPPORT_IOMMU_V2
+> > -     [CHIP_KAVERI] = {&kaveri_device_info, NULL},
+> > -     [CHIP_CARRIZO] = {&carrizo_device_info, NULL},
+> > -#endif
+> > -     [CHIP_RAVEN] = {&raven_device_info, NULL},
+> > -     [CHIP_HAWAII] = {&hawaii_device_info, NULL},
+> > -     [CHIP_TONGA] = {&tonga_device_info, NULL},
+> > -     [CHIP_FIJI] = {&fiji_device_info, &fiji_vf_device_info},
+> > -     [CHIP_POLARIS10] = {&polaris10_device_info, &polaris10_vf_device_info},
+> > -     [CHIP_POLARIS11] = {&polaris11_device_info, NULL},
+> > -     [CHIP_POLARIS12] = {&polaris12_device_info, NULL},
+> > -     [CHIP_VEGAM] = {&vegam_device_info, NULL},
+> > -     [CHIP_VEGA10] = {&vega10_device_info, &vega10_vf_device_info},
+> > -     [CHIP_VEGA12] = {&vega12_device_info, NULL},
+> > -     [CHIP_VEGA20] = {&vega20_device_info, NULL},
+> > -     [CHIP_RENOIR] = {&renoir_device_info, NULL},
+> > -     [CHIP_ARCTURUS] = {&arcturus_device_info, &arcturus_device_info},
+> > -     [CHIP_ALDEBARAN] = {&aldebaran_device_info, &aldebaran_device_info},
+> > -     [CHIP_NAVI10] = {&navi10_device_info, NULL},
+> > -     [CHIP_NAVI12] = {&navi12_device_info, &navi12_device_info},
+> > -     [CHIP_NAVI14] = {&navi14_device_info, NULL},
+> > -     [CHIP_SIENNA_CICHLID] = {&sienna_cichlid_device_info, &sienna_cichlid_device_info},
+> > -     [CHIP_NAVY_FLOUNDER] = {&navy_flounder_device_info, &navy_flounder_device_info},
+> > -     [CHIP_VANGOGH] = {&vangogh_device_info, NULL},
+> > -     [CHIP_DIMGREY_CAVEFISH] = {&dimgrey_cavefish_device_info, &dimgrey_cavefish_device_info},
+> > -     [CHIP_BEIGE_GOBY] = {&beige_goby_device_info, &beige_goby_device_info},
+> > -     [CHIP_YELLOW_CARP] = {&yellow_carp_device_info, NULL},
+> > -     [CHIP_CYAN_SKILLFISH] = {&cyan_skillfish_device_info, NULL},
+> > -};
+> > -
+> >  static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+> >                               unsigned int chunk_size);
+> >  static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+> > @@ -698,21 +631,190 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd, bool vf)
+> >       const struct kfd_device_info *device_info;
+> >       const struct kfd2kgd_calls *f2g;
+> >       struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> > -     unsigned int asic_type = adev->asic_type;
+> >       struct pci_dev *pdev = adev->pdev;
+> >
+> >
+> > -     if (asic_type >= sizeof(kfd_supported_devices) / (sizeof(void *) * 2)
+> > -             || asic_type >= sizeof(kfd2kgd_funcs) / sizeof(void *)) {
+> > -             dev_err(kfd_device, "asic_type %d out of range\n", asic_type);
+> > -             return NULL; /* asic_type out of range */
+> > +     switch (adev->asic_type) {
+> > +#ifdef KFD_SUPPORT_IOMMU_V2
+> > +#ifdef CONFIG_DRM_AMDGPU_CIK
+> > +     case CHIP_KAVERI:
+> > +             if (vf)
+> > +                     device_info = NULL;
+> > +             else
+> > +                     device_info = &kaveri_device_info;
+> > +             f2g = &gfx_v7_kfd2kgd;
+> > +             break;
+> > +#endif
+> > +     case CHIP_CARRIZO:
+> > +             if (vf)
+> > +                     device_info = NULL;
+> > +             else
+> > +                     device_info = &kaveri_device_info;
+>
+> That should probably be carrizo. Found with W=1.
 
-Thanks for the heads up.  I have applied the above as a merge fix patch
-until something else happens.
+Thanks.  Fixed locally.
 
---=20
-Cheers,
-Stephen Rothwell
+Alex
 
---Sig_/+_2Du7kYJPSA8cCB7WSmVyA
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmFKfL4ACgkQAVBC80lX
-0Gz2Awf/Q8TFzd9c5tHgftmNV0J36OaxF54OWCngyKdEb1OcK2nrFhQY0pxgaFSx
-/pY+fppfi66VxX9b33/SUZo0jxGgSV/UfOXzp/qOr+WZCBUo3ywqtpTPWn9dx4LO
-yv2C7sp93Mc8xNhjE3bwMZpTqyqQoTLTPQ/ogiQzGV5be8EE5AIyaFeSFblT71L4
-Ah9pS5xQ0eI21anOoi3t4ifqmehhIeu/DP/LjyZE4Q4/jWHwI4pBdn+KccagS/2c
-qlml6fQFcEF2kPIYrFssdz1+2/KGwBmFJXED7J2Xac3XnkexcCSyn/XF/OHoqLmc
-OL4U7Ry7cZvqmwbfao4tCu+dTF/kNQ==
-=+5Xi
------END PGP SIGNATURE-----
-
---Sig_/+_2Du7kYJPSA8cCB7WSmVyA--
+>
+> > +             f2g = &gfx_v8_kfd2kgd;
+> > +             break;
+> > +#endif
+> > +#ifdef CONFIG_DRM_AMDGPU_CIK
+> > +     case CHIP_HAWAII:
+> > +             if (vf)
+> > +                     device_info = NULL;
+> > +             else
+> > +                     device_info = &hawaii_device_info;
+> > +             f2g = &gfx_v7_kfd2kgd;
+> > +             break;
+> > +#endif
+> > +     case CHIP_TONGA:
+> > +             if (vf)
+> > +                     device_info = NULL;
+> > +             else
+> > +                     device_info = &tonga_device_info;
+> > +             f2g = &gfx_v8_kfd2kgd;
+> > +             break;
+> > +     case CHIP_FIJI:
+> > +             if (vf)
+> > +                     device_info = &fiji_vf_device_info;
+> > +             else
+> > +                     device_info = &fiji_device_info;
+> > +             f2g = &gfx_v8_kfd2kgd;
+> > +             break;
+> > +     case CHIP_POLARIS10:
+> > +             if (vf)
+> > +                     device_info = &polaris10_vf_device_info;
+> > +             else
+> > +                     device_info = &polaris10_device_info;
+> > +             f2g = &gfx_v8_kfd2kgd;
+> > +             break;
+> > +     case CHIP_POLARIS11:
+> > +             if (vf)
+> > +                     device_info = NULL;
+> > +             else
+> > +                     device_info = &polaris11_device_info;
+> > +             f2g = &gfx_v8_kfd2kgd;
+> > +             break;
+> > +     case CHIP_POLARIS12:
+> > +             if (vf)
+> > +                     device_info = NULL;
+> > +             else
+> > +                     device_info = &polaris12_device_info;
+> > +             f2g = &gfx_v8_kfd2kgd;
+> > +             break;
+> > +     case CHIP_VEGAM:
+> > +             if (vf)
+> > +                     device_info = NULL;
+> > +             else
+> > +                     device_info = &vegam_device_info;
+> > +             f2g = &gfx_v8_kfd2kgd;
+> > +             break;
+> > +     default:
+> > +             switch (adev->ip_versions[GC_HWIP][0]) {
+> > +             case IP_VERSION(9, 0, 1):
+> > +                     if (vf)
+> > +                             device_info = &vega10_vf_device_info;
+> > +                     else
+> > +                             device_info = &vega10_device_info;
+> > +                     f2g = &gfx_v9_kfd2kgd;
+> > +                     break;
+> > +#ifdef KFD_SUPPORT_IOMMU_V2
+> > +             case IP_VERSION(9, 1, 0):
+> > +             case IP_VERSION(9, 2, 2):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &raven_device_info;
+> > +                     f2g = &gfx_v9_kfd2kgd;
+> > +                     break;
+> > +#endif
+> > +             case IP_VERSION(9, 2, 1):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &vega12_device_info;
+> > +                     f2g = &gfx_v9_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(9, 3, 0):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &renoir_device_info;
+> > +                     f2g = &gfx_v9_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(9, 4, 0):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &vega20_device_info;
+> > +                     f2g = &gfx_v9_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(9, 4, 1):
+> > +                     device_info = &arcturus_device_info;
+> > +                     f2g = &arcturus_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(9, 4, 2):
+> > +                     device_info = &aldebaran_device_info;
+> > +                     f2g = &aldebaran_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 1, 10):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &navi10_device_info;
+> > +                     f2g = &gfx_v10_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 1, 2):
+> > +                     device_info = &navi12_device_info;
+> > +                     f2g = &gfx_v10_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 1, 1):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &navi14_device_info;
+> > +                     f2g = &gfx_v10_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 1, 3):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &cyan_skillfish_device_info;
+> > +                     f2g = &gfx_v10_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 3, 0):
+> > +                     device_info = &sienna_cichlid_device_info;
+> > +                     f2g = &gfx_v10_3_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 3, 2):
+> > +                     device_info = &navy_flounder_device_info;
+> > +                     f2g = &gfx_v10_3_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 3, 1):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &vangogh_device_info;
+> > +                     f2g = &gfx_v10_3_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 3, 4):
+> > +                     device_info = &dimgrey_cavefish_device_info;
+> > +                     f2g = &gfx_v10_3_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 3, 5):
+> > +                     device_info = &beige_goby_device_info;
+> > +                     f2g = &gfx_v10_3_kfd2kgd;
+> > +                     break;
+> > +             case IP_VERSION(10, 3, 3):
+> > +                     if (vf)
+> > +                             device_info = NULL;
+> > +                     else
+> > +                             device_info = &yellow_carp_device_info;
+> > +                     f2g = &gfx_v10_3_kfd2kgd;
+> > +                     break;
+> > +             default:
+> > +                     return NULL;
+> > +             }
+> > +             break;
+> >       }
+> >
+> >
+> > -     device_info = kfd_supported_devices[asic_type][vf];
+> > -     f2g = kfd2kgd_funcs[asic_type];
+> > -
+> >       if (!device_info || !f2g) {
+> >               dev_err(kfd_device, "%s %s not supported in kfd\n",
+> > -                     amdgpu_asic_name[asic_type], vf ? "VF" : "");
+> > +                     amdgpu_asic_name[adev->asic_type], vf ? "VF" : "");
+> >               return NULL;
+> >       }
+> >
+> >
+>
+>
