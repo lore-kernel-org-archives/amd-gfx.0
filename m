@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2316AC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 10:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BF56C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 10:33:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D694360F4B
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 10:33:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D694360F4B
+	by mail.kernel.org (Postfix) with ESMTPS id 516FB60F41
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 10:33:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 516FB60F41
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94DBE6EB68;
-	Wed, 22 Sep 2021 10:33:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 993CF6EB68
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 10:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73D46EB6C;
+	Wed, 22 Sep 2021 10:33:12 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 406706EB6C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 10:33:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aOtohkldmetDjKG4zCbjDlb494NcSq0VMPWsEZj5A9mlCI16YF2QzmAmN6MpTTWzDV3t75NX8bYs87LSA2Ins2JakJ8sNCFbLPBfRfuUOJR+JdbrYt+Nd22IIgNnlOYg5dGLWTfL9kqpEqbBv/XOwcROmupqqiLGLdENOc49lvBEc4UdZsDXY0CkW+mG4yifcSN0fFSJupmRuf1LZftz2bSMOQA9UBZ3oTf8wKHwSXwhGEAoet5yHJFbLhzHO5sfhb4bIPtQg5yqMG8XLRRbHf7Zq3PEWQr3mESP+kEl+0l2ABQd7Z5CvwKcD7uA9BzjAAipUVXtHuL6IM1gD2s85A==
+ b=CVNwfzS5EV7yqRTxLgHNP9aEQziLCKMtwbGGdD/alNWPJPTnPWUp4rX4/B6SdbQvhVRVD1V72lyUUoFSH6lpCF/ZFcdr/wHeJONyIyu1lS0MbWPHuYKlBCzdorhTPcj/m6+sBPedGmZYMptGfiNXViE5J2+KLIIsMKb00tF+9YJ64V7aj97VFSwv9pbPsJl8x9br7bJDRBzkTcmHeZJuUcHggcDd0R29kcM01Dx7pbzWiDdAq1dA88pZI1Bx9HMLf6pItX6NaewdtHRKLo5CoyVu9pzg7iq44sdcXxC/KYUolg4iFUy0bKhEUbT/vAHT6uWyY7Z52Np5lTLpi8PFNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=Gdx8wCNW8PvCy87w4eNhqWS48GPNl7VAzbMmCAY49KE=;
- b=npEKurhC5CN8Tc5fbc2PxxUKi2kSSmCl19Mlix2919+D+uq9+hk+N8t/fJNLP9DZIyHuYB+bptEn132nwY1Gk7KVgYoQXH/u0DURmqofKtA7U6mK9VsK/swtMOqCxuKj4hKMlOJupqQPYrr8RDHbwp8rwz70IwldQh+W0LROaSPKLRKFm/fYHL/Ye3ehHSwXo2gMJ0jFxZOLUrCSJ2dB/OGBmvLNqeUeAh5my4PTyfhTAF2LlAmG++IT2jF5idVe47vu/2SFazzeViJsRz6AKeFR8QiBCbx7BAvbhy0d5GMzQJyWz9HSVu1fWZKNDY/UR2Lv9p1QCTGKEe8GiWLZkw==
+ bh=2nbjPwe3wZE7WsPE08InhT8Q2C4kMJVSrhOgKn5+fPs=;
+ b=Dpnd1KoZHchAk0kKg6VXju4+Mu5mvAu04dUv1kQZufroJtrxxeHXtoLGOcjzVkduPoOY1Gwt478Z322Qg1Lw0Z0rIAhsLC85rUbP7sucOEOS/ufQC7fkfjVuc4G9N3pBjp3Wgdl3poBs7F3hoCeYOoHJUdQJNwivuHp+KkuIs1nCNWRUXbFgVrAau19LXGNfA97i9W7R51+oO5hUXqMnS33DbwqpsO+FEyZlOdUeGvcB8ACTh0uPaxRxa1KXo7A4Inzs74kFWoLEbnP3P4Mv0/+2c73OAfXnd619v+tRzGVUnFT0gCo6YhwOlvtM2vpoRh7j3jYoe0Om3zbKIV4pug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gdx8wCNW8PvCy87w4eNhqWS48GPNl7VAzbMmCAY49KE=;
- b=0QClvq381hmG/BUPKT+8HGmoE0RCJGH9iiLaYrT6o/dCo7jI2kIyglKLeuYCdxEfrAGMbHUT8XNiiqUSf7pbML/9b+d+sJ2rRmcecx1HA6toM6ZwUj803Xq/WDxfM/oS/87Ihvbmp5ZALxot877vBP2XEKDVHH93ynoeE1vievk=
-Received: from BN6PR1101CA0024.namprd11.prod.outlook.com
- (2603:10b6:405:4a::34) by DM4PR12MB5357.namprd12.prod.outlook.com
- (2603:10b6:5:39b::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Wed, 22 Sep
- 2021 10:33:03 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:4a:cafe::33) by BN6PR1101CA0024.outlook.office365.com
- (2603:10b6:405:4a::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
- Transport; Wed, 22 Sep 2021 10:33:03 +0000
+ bh=2nbjPwe3wZE7WsPE08InhT8Q2C4kMJVSrhOgKn5+fPs=;
+ b=GCRWbcwpeFkcTtlwHuSONPTDTCjHiCzsfrUs3tZ852f3Trpuar1dDTJtuVvfauqnVF8ba2HzHeC6ZmHlUGab7FLLnZxdgXufav9fNd260qMCanUlyEThJAgl2Bvjtv0kRlUL1dEShHjlFiV3V5gtdmrHee9AjOZW4xk4FhjtzN8=
+Received: from BN9PR03CA0640.namprd03.prod.outlook.com (2603:10b6:408:13b::15)
+ by BN6PR1201MB0244.namprd12.prod.outlook.com (2603:10b6:405:54::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Wed, 22 Sep
+ 2021 10:33:00 +0000
+Received: from BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13b:cafe::b8) by BN9PR03CA0640.outlook.office365.com
+ (2603:10b6:408:13b::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16 via Frontend
+ Transport; Wed, 22 Sep 2021 10:33:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,23 +57,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
+ BN8NAM11FT052.mail.protection.outlook.com (10.13.177.210) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 10:33:03 +0000
+ 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 10:33:00 +0000
 Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 22 Sep
- 2021 05:33:00 -0500
+ 2021 05:32:58 -0500
 From: Tao Zhou <tao.zhou1@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
  <john.clements@amd.com>, <stanley.yang@amd.com>
 CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: set poison supported flag for RAS (v2)
-Date: Wed, 22 Sep 2021 18:32:47 +0800
-Message-ID: <20210922103248.2401-2-tao.zhou1@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: add poison mode query for UMC
+Date: Wed, 22 Sep 2021 18:32:46 +0800
+Message-ID: <20210922103248.2401-1-tao.zhou1@amd.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210922103248.2401-1-tao.zhou1@amd.com>
-References: <20210922103248.2401-1-tao.zhou1@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
@@ -81,28 +79,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 667a4d6d-2f18-4ee4-7942-08d97db45bba
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5357:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5357863B57445DBFB0C32919B0A29@DM4PR12MB5357.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:334;
+X-MS-Office365-Filtering-Correlation-Id: b33eda03-8bae-4887-9ce2-08d97db459d0
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0244:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB02441299B361863C0F36ACF4B0A29@BN6PR1201MB0244.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:345;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3ua58Lu2sDseVKNwwQ1cEN4YfSw8HV5HMIdcsCIhHeloST1MJolSGqz52uZY82/PAZ7oIcbmuGOfGJi0b1v8ps4GjXLWLSVAWvxharh8MxSBmthLJIFf351Yv952dL0bh5lk9JepypMlZtWmdLKiGFUx3tOPaNhKdq4guVaum2ucV49ERVLwBRTsKKCHQGSMjYhGQWOnp0au3KOjlATOeySC1hFGH+PnLE7Vj9vRk9UPOCHIgrtPc8lIG0qM1RsC8qsMOmvJc/Sy28guN+VLMuOZausyTf1uX5wG/oREC8ixLdSvTx9GRXBP2GxHADSRJYROMdlDGEg5xayWEhOFQoOj0ALWttwFRHZfRMSnatsbclcPNfNSGy73g4A/m9bXIM8ZtNNkrOCG3Vlqc8XrWATKBH90yo0KsaEWaqHogbwZEcg/WJEr+w2rX8xIA0P4kEPVTucN0W5zC6ijAJoJSU3BCJafDzcRvmaip9aJy6Ke51KEMsj2Yd3Vu62EqYVIcC6AokAvLs55330zpOyXyMI/4KoyGyBN8WISrZK2NvHcIZRggmXEqy0DaliZh8pD2eOZ3na9TOFCz+lXZTy6eUNcKghJ5ZVO+5D8YdVZoe5+FaYKv72GjgnDxb8qYMl7i6SfwXy80Lta5WFEfjF2ivyxg2Kj/eEkciL2mC7lTSKFK/dapKjJzfVtP0Q7owPBlaMb6Zq19+rwZFFPGG4ajmNUFC9hdoleLTdzYUi8V/c=
+X-Microsoft-Antispam-Message-Info: pC41duYRbFC0ZFkR7wcI0Ow5Ok9pf4K1vBC1j0S3urBEYvuNTd4Qm79u4tHtfFzmEc4X/8wT/u8u1shCNJiabMs0BZoX+dJ/Nh1UjuvW+2RgUJB7mUeJGnQ4VwIf0vIyHHCe6fhDUnAiMVnnUgY+MbXJNZi+pIp9JLWHgcsZtynAxjJhbFEwUiETU5Wma6qKGUu7G/yGms2AEgNlaEO+qsMKstc7qhSUwk9TDDMjTNF3v2RAXAGZAL8x+0b7im62QyTYuqv575K6e4R9gkz3VwoRyScTavrClTHe6NF8CA5Z8CHXsS4UjRanCuYjkxCpT+N1SLAoC2iAVYa3jr746XlTdv4bku1Md61IQKMls6KoSbAZpyzCskzItsuEg9fcpmCk1vkd7u3g2oQ5BCZ6S707r1QWHnTxiq1zZx9VYAuGW+SVOM/9ucu8rEgq6z+HgNUyr5e0QHGC98uotbfrbsut5kX44bULWBk1ryH58DGKNIK79irs5Uf0fv9VC4DC3o/xtEiCu4eIpreEr+cr5AeWmxyipXGbeKsI+hj3TJVZlM4SNjxA9mtltpdLWR1tJBcuxc0+uusw4qd/iexn1m8GQ4twz+kfTFJeOOdYKv2MWO1lJR8XU6SE4zDMYWmFQ3T8e0KKHbGDXLF0341TD4gd3RR88DWiPpyZOpn5X6WA+T8td40VN4Vqd9fRHo5uOZTcFqSyvpeooAmc19dG2vCbVWoLsQPR5PVMkkiJGP8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(316002)(8676002)(336012)(6666004)(70206006)(356005)(110136005)(36860700001)(26005)(16526019)(36756003)(186003)(7696005)(47076005)(81166007)(6636002)(5660300002)(2906002)(426003)(86362001)(2616005)(83380400001)(70586007)(82310400003)(4326008)(1076003)(508600001)(8936002)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(86362001)(36860700001)(8676002)(356005)(7696005)(70206006)(508600001)(36756003)(70586007)(336012)(5660300002)(426003)(16526019)(186003)(316002)(6666004)(6636002)(47076005)(81166007)(8936002)(2906002)(2616005)(26005)(4326008)(1076003)(110136005)(82310400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 10:33:03.5748 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 667a4d6d-2f18-4ee4-7942-08d97db45bba
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 10:33:00.3615 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b33eda03-8bae-4887-9ce2-08d97db459d0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5357
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0244
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,122 +115,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add RAS poison supported flag and tell PSP RAS TA about the info.
-
-v2: rename poison_mode to poison_supported, we can also disable poison
-mode even we support it.
-    print poison_supported value if ras feature enablement fails.
+Add ras poison mode query interface for UMC.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 32 +++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  5 ++++
- 3 files changed, 37 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.c   | 34 +++++++++++++++++++++++++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 7d09b28889af..c5cf84829ea8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1442,9 +1442,9 @@ static int psp_ras_initialize(struct psp_context *psp)
- 	ras_cmd = (struct ta_ras_shared_memory *)psp->ras_context.context.mem_context.shared_buf;
- 	memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+index e5a75fb788dd..1f5fe2315236 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+@@ -48,6 +48,7 @@ struct amdgpu_umc_ras_funcs {
+ 				      void *ras_error_status);
+ 	void (*query_ras_error_address)(struct amdgpu_device *adev,
+ 					void *ras_error_status);
++	bool (*query_ras_poison_mode)(struct amdgpu_device *adev);
+ };
  
--	if (psp->adev->gmc.xgmi.connected_to_cpu)
-+	if (amdgpu_ras_is_poison_supported(adev))
- 		ras_cmd->ras_in_message.init_flags.poison_mode_en = 1;
--	else
-+	if (!adev->gmc.xgmi.connected_to_cpu)
- 		ras_cmd->ras_in_message.init_flags.dgpu_mode = 1;
- 
- 	ret = psp_ras_load(psp);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 912ea1f9fd04..5b362e944541 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -710,10 +710,10 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
- 	if (!amdgpu_ras_intr_triggered()) {
- 		ret = psp_ras_enable_features(&adev->psp, info, enable);
- 		if (ret) {
--			dev_err(adev->dev, "ras %s %s failed %d\n",
-+			dev_err(adev->dev, "ras %s %s failed poison:%d ret:%d\n",
- 				enable ? "enable":"disable",
- 				get_ras_block_str(head),
--				ret);
-+				amdgpu_ras_is_poison_supported(adev), ret);
- 			goto out;
- 		}
+ struct amdgpu_umc_funcs {
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+index bb30336b1e8d..f7ec3fe134e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+@@ -288,9 +288,43 @@ static void umc_v6_7_query_ras_error_address(struct amdgpu_device *adev,
  	}
-@@ -2251,6 +2251,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	int r;
-+	bool df_poison, umc_poison;
- 
- 	if (con)
- 		return 0;
-@@ -2321,6 +2322,23 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 			goto release_con;
- 	}
- 
-+	/* Init poison supported flag, the default value is false */
-+	if (adev->df.funcs &&
-+	    adev->df.funcs->query_ras_poison_mode &&
-+	    adev->umc.ras_funcs &&
-+	    adev->umc.ras_funcs->query_ras_poison_mode) {
-+		df_poison =
-+			adev->df.funcs->query_ras_poison_mode(adev);
-+		umc_poison =
-+			adev->umc.ras_funcs->query_ras_poison_mode(adev);
-+		/* Only poison is set in both DF and UMC, we can support it */
-+		if (df_poison && umc_poison)
-+			con->poison_supported = true;
-+		else if (df_poison != umc_poison)
-+			dev_warn(adev->dev, "Poison setting is inconsistent in DF/UMC(%d:%d)!\n",
-+					df_poison, umc_poison);
-+	}
-+
- 	if (amdgpu_ras_fs_init(adev)) {
- 		r = -EINVAL;
- 		goto release_con;
-@@ -2364,6 +2382,16 @@ static int amdgpu_persistent_edc_harvesting(struct amdgpu_device *adev,
- 	return 0;
  }
  
-+bool amdgpu_ras_is_poison_supported(struct amdgpu_device *adev)
++static uint32_t umc_v6_7_query_ras_poison_mode_per_channel(
++						struct amdgpu_device *adev,
++						uint32_t umc_reg_offset)
 +{
-+       struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	uint32_t ecc_ctrl_addr, ecc_ctrl;
 +
-+       if (!con)
-+               return false;
++	ecc_ctrl_addr =
++		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_0_EccCtrl);
++	ecc_ctrl = RREG32_PCIE((ecc_ctrl_addr +
++					umc_reg_offset) * 4);
 +
-+       return con->poison_supported;
++	return REG_GET_FIELD(ecc_ctrl, UMCCH0_0_EccCtrl, UCFatalEn);
 +}
 +
- /* helper function to handle common stuff in ip late init phase */
- int amdgpu_ras_late_init(struct amdgpu_device *adev,
- 			 struct ras_common_if *ras_block,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index ec42e9873aaa..d6377e1ad20a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -352,6 +352,9 @@ struct amdgpu_ras {
- 	/* disable ras error count harvest in recovery */
- 	bool disable_ras_err_cnt_harvest;
- 
-+	/* is poison mode supported */
-+	bool poison_supported;
++static bool umc_v6_7_query_ras_poison_mode(struct amdgpu_device *adev)
++{
++	uint32_t umc_inst        = 0;
++	uint32_t ch_inst         = 0;
++	uint32_t umc_reg_offset  = 0;
 +
- 	/* RAS count errors delayed work */
- 	struct delayed_work ras_counte_delay_work;
- 	atomic_t ras_ue_count;
-@@ -649,4 +652,6 @@ int amdgpu_persistent_edc_harvesting_supported(struct amdgpu_device *adev);
- 
- const char *get_ras_block_str(struct ras_common_if *ras_block);
- 
-+bool amdgpu_ras_is_poison_supported(struct amdgpu_device *adev);
++	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
++		umc_reg_offset = get_umc_v6_7_reg_offset(adev,
++							umc_inst,
++							ch_inst);
++		/* Enabling fatal error in one channel will be considered
++		   as fatal error mode */
++		if (umc_v6_7_query_ras_poison_mode_per_channel(adev, umc_reg_offset))
++			return false;
++	}
 +
- #endif
++	return true;
++}
++
+ const struct amdgpu_umc_ras_funcs umc_v6_7_ras_funcs = {
+ 	.ras_late_init = amdgpu_umc_ras_late_init,
+ 	.ras_fini = amdgpu_umc_ras_fini,
+ 	.query_ras_error_count = umc_v6_7_query_ras_error_count,
+ 	.query_ras_error_address = umc_v6_7_query_ras_error_address,
++	.query_ras_poison_mode = umc_v6_7_query_ras_poison_mode,
+ };
 -- 
 2.17.1
 
