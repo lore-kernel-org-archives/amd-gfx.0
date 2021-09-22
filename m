@@ -2,57 +2,56 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC728C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 13:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A210C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 13:08:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A25B61100
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 13:08:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A25B61100
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D7FA061100
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 13:08:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D7FA061100
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D57A6EB92;
-	Wed, 22 Sep 2021 13:08:49 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59AFD6EB78;
- Wed, 22 Sep 2021 11:10:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="210648503"
-X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="210648503"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 04:10:30 -0700
-X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="550207398"
-Received: from vidyaram-mobl1.gar.corp.intel.com (HELO localhost)
- ([10.251.218.73])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 04:10:26 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- ville.syrjala@linux.intel.com, manasi.d.navare@intel.com, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>, "Pan\, Xinhui" <Xinhui.Pan@amd.com>,
- amd-gfx@lists.freedesktop.org, Stephen Rothwell <sfr@canb.auug.org.au>,
- linux-next@vger.kernel.org, Dave Airlie <airlied@gmail.com>, Daniel Vetter
- <daniel.vetter@ffwll.ch>
-Subject: Re: [Intel-gfx] [PATCH v3 03/13] drm/dp: add LTTPR DP 2.0 DPCD
- addresses
-In-Reply-To: <YUpjj7IwBqMYSR7z@archlinux-ax161>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1631191763.git.jani.nikula@intel.com>
- <def17e2329722f22c35807be26b35590ccb93bfd.1631191763.git.jani.nikula@intel.com>
- <YUpjj7IwBqMYSR7z@archlinux-ax161>
-Date: Wed, 22 Sep 2021 14:10:23 +0300
-Message-ID: <87a6k4n9wg.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0507A6EBA0;
+	Wed, 22 Sep 2021 13:08:50 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF0236EB80
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 11:40:37 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f0efa008ea00e11d58cbc58.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f0e:fa00:8ea0:e11:d58c:bc58])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7D7F71EC051E;
+ Wed, 22 Sep 2021 13:40:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1632310832;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=tei5VEk46/vgxQtg8qR60le/A/E3Os9/MyCI0V+1IWU=;
+ b=erym6u3FYSc9xDzK/+A4ZS9nnNujVrv0n6pr3LTIz1VQqWyfdOS7zCQEXU9nOOami+kKSz
+ SWdbJndsJ/z5rhu8bjtGOSGmpiLbjaDYuQqcDlUBFlZlpBj6G2MIcvGZvoHtQp4BycYgH/
+ Ml7ZBpoiU5pw2FWxHqjBs8+VzsVmZzg=
+Date: Wed, 22 Sep 2021 13:40:31 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Mukul Joshi <mukul.joshi@amd.com>
+Cc: linux-edac@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, mingo@redhat.com, mchehab@kernel.org,
+ yazen.ghannam@amd.com, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCHv2 2/2] drm/amdgpu: Register MCE notifier for Aldebaran RAS
+Message-ID: <YUsWLw1gSD/AQbcH@zn.tnic>
+References: <20210511152538.148084-2-nchatrad@amd.com>
+ <20210913021311.12896-1-mukul.joshi@amd.com>
+ <20210913021311.12896-2-mukul.joshi@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20210913021311.12896-2-mukul.joshi@amd.com>
 X-Mailman-Approved-At: Wed, 22 Sep 2021 13:08:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,96 +67,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 21 Sep 2021, Nathan Chancellor <nathan@kernel.org> wrote:
-> On Thu, Sep 09, 2021 at 03:51:55PM +0300, Jani Nikula wrote:
->> DP 2.0 brings some new DPCD addresses for PHY repeaters.
->> 
->> Cc: dri-devel@lists.freedesktop.org
->> Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
->>  include/drm/drm_dp_helper.h | 4 ++++
->>  1 file changed, 4 insertions(+)
->> 
->> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
->> index 1d5b3dbb6e56..f3a61341011d 100644
->> --- a/include/drm/drm_dp_helper.h
->> +++ b/include/drm/drm_dp_helper.h
->> @@ -1319,6 +1319,10 @@ struct drm_panel;
->>  #define DP_MAX_LANE_COUNT_PHY_REPEATER			    0xf0004 /* 1.4a */
->>  #define DP_Repeater_FEC_CAPABILITY			    0xf0004 /* 1.4 */
->>  #define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT		    0xf0005 /* 1.4a */
->> +#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	    0xf0006 /* 2.0 */
->> +# define DP_PHY_REPEATER_128B132B_SUPPORTED		    (1 << 0)
->> +/* See DP_128B132B_SUPPORTED_LINK_RATES for values */
->> +#define DP_PHY_REPEATER_128B132B_RATES			    0xf0007 /* 2.0 */
->>  
->>  enum drm_dp_phy {
->>  	DP_PHY_DPRX,
->> -- 
->> 2.30.2
->> 
->> 
->
-> This patch causes a build failure in -next when combined with the AMD
-> tree:
->
-> In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:33:
-> In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:70:
-> In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_mode.h:36:
-> ./include/drm/drm_dp_helper.h:1322:9: error: 'DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER' macro redefined [-Werror,-Wmacro-redefined]
-> #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER            0xf0006 /* 2.0 */
->         ^
-> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dp_types.h:881:9: note: previous definition is here
-> #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER        0xF0006
->         ^
-> 1 error generated.
->
-> Perhaps something like this should be applied during the merge of the
-> second tree or maybe this patch should be in a branch that could be
-> shared between the Intel and AMD trees so that this diff could be
-> applied to the AMD tree directly? Not sure what the standard procedure
-> for this is.
+On Sun, Sep 12, 2021 at 10:13:11PM -0400, Mukul Joshi wrote:
+> On Aldebaran, GPU driver will handle bad page retirement
+> even though UMC is host managed. As a result, register a
+> bad page retirement handler on the mce notifier chain to
+> retire bad pages on Aldebaran.
+> 
+> v1->v2:
+> - Use smca_get_bank_type() to determine MCA bank.
+> - Envelope the changes under #ifdef CONFIG_X86_MCE_AMD.
+> - Use MCE_PRIORITY_UC instead of MCE_PRIO_ACCEL as we are
+>   only handling uncorrectable errors.
+> - Use macros to determine UMC instance and channel instance
+>   where the uncorrectable error occured.
+> - Update the headline.
 
-What's in the drm-intel-next branch is changing DRM DP helpers in
-include/drm/drm_dp_helper.h with acks from a drm-misc maintainer. That's
-where this stuff is supposed to land, not in a driver specific file, and
-especially not if added with just a DP_ prefix.
+Same note as for the previous patch.
 
+> +static int amdgpu_bad_page_notifier(struct notifier_block *nb,
+> +				    unsigned long val, void *data)
+> +{
+> +	struct mce *m = (struct mce *)data;
+> +	struct amdgpu_device *adev = NULL;
+> +	uint32_t gpu_id = 0;
+> +	uint32_t umc_inst = 0;
+> +	uint32_t ch_inst, channel_index = 0;
+> +	struct ras_err_data err_data = {0, 0, 0, NULL};
+> +	struct eeprom_table_record err_rec;
+> +	uint64_t retired_page;
+> +
+> +	/*
+> +	 * If the error was generated in UMC_V2, which belongs to GPU UMCs,
+> +	 * and error occurred in DramECC (Extended error code = 0) then only
+> +	 * process the error, else bail out.
+> +	 */
+> +	if (!m || !((smca_get_bank_type(m->bank) == SMCA_UMC_V2) &&
+> +		    (XEC(m->status, 0x1f) == 0x0)))
+> +		return NOTIFY_DONE;
+> +
+> +	/*
+> +	 * GPU Id is offset by GPU_ID_OFFSET in MCA_IPID_UMC register.
+> +	 */
+> +	gpu_id = GET_MCA_IPID_GPUID(m->ipid) - GPU_ID_OFFSET;
+> +
+> +	adev = find_adev(gpu_id);
+> +	if (!adev) {
+> +		dev_warn(adev->dev, "%s: Unable to find adev for gpu_id: %d\n",
+> +				     __func__, gpu_id);
+> +		return NOTIFY_DONE;
+> +	}
+> +
+> +	/*
+> +	 * If it is correctable error, return.
+> +	 */
+> +	if (mce_is_correctable(m)) {
+> +		return NOTIFY_OK;
+> +	}
 
-BR,
-Jani.
+This can run before you find_adev().
 
->
-> Cheers,
-> Nathan
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 234dfbea926a..279863b5c650 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -4590,7 +4590,7 @@ bool dp_retrieve_lttpr_cap(struct dc_link *link)
->  								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
->  
->  		link->dpcd_caps.lttpr_caps.supported_128b_132b_rates.raw =
-> -				lttpr_dpcd_data[DP_PHY_REPEATER_128b_132b_RATES -
-> +				lttpr_dpcd_data[DP_PHY_REPEATER_128B132B_RATES -
->  								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
->  #endif
->  
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> index a5e798b5da79..8caf9af5ffa2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> @@ -878,8 +878,6 @@ struct psr_caps {
->  # define DP_DSC_DECODER_COUNT_MASK			(0b111 << 5)
->  # define DP_DSC_DECODER_COUNT_SHIFT			5
->  #define DP_MAIN_LINK_CHANNEL_CODING_SET			0x108
-> -#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	0xF0006
-> -#define DP_PHY_REPEATER_128b_132b_RATES			0xF0007
->  #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1	0xF0022
->  #define DP_INTRA_HOP_AUX_REPLY_INDICATION		(1 << 3)
->  /* TODO - Use DRM header to replace above once available */
+> +static void amdgpu_register_bad_pages_mca_notifier(void)
+> +{
+> +	/*
+> +	 * Register the x86 notifier only once
+> +	 * with MCE subsystem.
+> +	 */
+> +	if (notifier_registered == false) {
+> +		mce_register_decode_chain(&amdgpu_bad_page_nb);
+> +		notifier_registered = true;
+> +	}
+
+I have a patchset which will get rid of the need to do this silliness -
+only if I had some time to actually prepare it for submission... :-\
 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
