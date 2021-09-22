@@ -2,76 +2,132 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2382BC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 07:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0114DC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 08:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DBFF861215
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 07:54:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DBFF861215
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BDBE161209
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 08:16:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BDBE161209
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 763DA6EAC5;
-	Wed, 22 Sep 2021 07:54:42 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58AD66EAC5
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 07:54:41 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id w29so4042447wra.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 00:54:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=6o5HDPDreWjYGXMWtYj4IyMRLWA8s6b2+rzI5/4yZhU=;
- b=ALpC3lKas+VJ5fJMsdp80BYD/66jiQCxZ//PshvLExLh0Hgs459NGu26IV5DQUJyLu
- Ylrdiv8dv+9A+2LyTfXK1jgq9z1XIIyWon2+iPRAebScPQwc5mqS/62JL60dJ9a8RVI2
- DJSs9B2eMjislMl70ucfXwbNfX8t8t6P30DPzXp5UdSP7wsCJk8hpV9yYeA/MaqbgAlr
- 6hK5ftiuRhyq9p00KQmb++2f68Hl9YBHXLWB2Ow5piFXiRLct1h5bZXsCB5jheGO6jP5
- TUR79XqHtZ4aVRP3Ra/9SPuwiDi4VP9XvpnekX5zBlitAHfiW96tWYbz6Z5M1AFENPrb
- cLwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=6o5HDPDreWjYGXMWtYj4IyMRLWA8s6b2+rzI5/4yZhU=;
- b=B1RS6zmgljWiV5T8p1YM4XIb0/9v6qdWYAoJvh7yL7qC5NwKjwZDyQMMxbsWoml9Na
- U6xVkqFx59cL4c2CHWCAxZc5xb3Ryuldl81CABbWNvPgGb13CnZRKO0/g27bxS3bJLuP
- XlQLKBAJn6CshnJAllbzHWX1PWhTYYT/fqlXVAhAQVt9/Jlp3WCTiot4/LeO1H7L2eZ2
- LCgYX9DIpdqY0oFXhV8qEFsUprqynjMVD2rY5qcSqudQ7JFjwDpHqesWR7UUz6q+hTH+
- ZJ8GI7sQVzYKlbBN6P7bAL+QZ6CDfoyRc8ln8yAmjCfWD3a4MY59LvVelKzKjyV1p1W4
- AwOg==
-X-Gm-Message-State: AOAM530YvzhbSDeXvLASBUy3OZa1tfCqn4qX8nTyDHU4FZQt0ZV1937k
- fabQJfV9CDBa0o7MMJvZEZDwg522QW0=
-X-Google-Smtp-Source: ABdhPJydrxA+74+2H/X89spXuAkHdXMgnyyD6IfGjrUQw3Ls5NX0E1lO1++KM/kjtjj95MA4JEDY+A==
-X-Received: by 2002:a1c:f70a:: with SMTP id v10mr9024797wmh.3.1632297279855;
- Wed, 22 Sep 2021 00:54:39 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id v20sm1373333wra.73.2021.09.22.00.54.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Sep 2021 00:54:39 -0700 (PDT)
-Subject: Re: [PATCH 00/66] Move to IP driven device enumeration
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76DA86EADB;
+	Wed, 22 Sep 2021 08:16:54 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB33A6EAD2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 08:16:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QOl96uAHpyg+ZBt65jy3Zaryu0a9wN7FQ2V25Gj10SzRE3+Q50IrVVaiFgL9f629Uy1ZBZwGH86OcxmUUChTeWE0q8VQV3Tk29Oj62WFxP05AHdAVFz+oXOodOwFnRZKY9wvOEcbogUfF/Drf4vzO9zggEVJhhxBb+6L1NkBSOMRRGllWTFYfAx66l5WeCC8c+16NnI2qq5ZDwrSNWyHja1QGNEAelKBcrRgn2hxyGHv7DGxZiaZb6pBUA+pNIY7gttVZUEfpt2K092S12Q8/ffI24wbRFXh3YHyfVRsh+oMh7UJcyTi6thmbVQlbyIZVlgm8K/i5eWbLiJEihhLmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=Hd88MeTWPvfpRJBPYXkiEAPAyDG9NyKHTPwCf8iJl3I=;
+ b=INZd/IILyiW4jkNjY/+AuMAmU3AHGDkCDi/pYsa8A08M3oy5DHFbxTYBu3RTjK3bxvfXE43w+XoopSH5A7slcJyjcDh1nJc+uqSg9BWCuAiTlgAhujUk3zloe1XWn/k8Nti0IMfTPpnUoI1faYkAB1BvDF7+H5BMwSSIFNeEyUA7Z9ilnnZ8wcpyd7DaKDyreyHUpIh98q92wT+6ni5dslnnlQ95Jt+katv+iHDWyY9uh12lqtnk6Fyh2CKPTIuc0RiQ0aiR1s8V2sAFru9Z/hLsMJzYoMW109qWZQYGXLc94GqcPRSG6Ym7b11foyrihMU/8EY8cnyuRmmYEpr/tQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hd88MeTWPvfpRJBPYXkiEAPAyDG9NyKHTPwCf8iJl3I=;
+ b=KWoB3oKzAIHCQfEmQ9D9G3xgLwrMmfUTLN9VXkKWuSRdBXbNlzNp0Bxe9J7aJdMsh/jxIdHVdd5zgc+f9UkPQWUSSDq2VFTI8o4Jg73qSZHPdBli+eS+J0vMkbJf9mPzKh3QrCNYIWwy79AjQZIKL6f9ydpcHrOver25CPCl+OQ=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
+ by DM5PR12MB2438.namprd12.prod.outlook.com (2603:10b6:4:b5::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Wed, 22 Sep
+ 2021 08:16:49 +0000
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::5879:5961:8a30:6a57]) by DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::5879:5961:8a30:6a57%7]) with mapi id 15.20.4523.018; Wed, 22 Sep 2021
+ 08:16:49 +0000
+Subject: Re: [PATCH 46/66] drm/amdgpu/pm/amdgpu_smu: convert more IP version
+ checking
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20210921180725.1985552-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <54e06b10-1921-5791-75a8-38a0041ef569@gmail.com>
-Date: Wed, 22 Sep 2021 09:54:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <20210921180725.1985552-1-alexander.deucher@amd.com>
+ <20210921180725.1985552-47-alexander.deucher@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+Message-ID: <7fbaf500-dc08-df63-2483-115be7e543a2@amd.com>
+Date: Wed, 22 Sep 2021 13:46:38 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20210921180725.1985552-47-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN1PR01CA0093.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:1::33) To DM6PR12MB3930.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::19)
+MIME-Version: 1.0
+Received: from [10.252.81.250] (165.204.159.242) by
+ PN1PR01CA0093.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:1::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 08:16:46 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 696dbb9a-07d4-45aa-75cb-08d97da1539a
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2438:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2438822A08B1753E9142B31897A29@DM5PR12MB2438.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VSWqxoAR5JhEKizYSOgVTiGTjh8TMGtylD+TgiA200HIu+iFtOvj9Z4EWKe4p+QPdsYnWw7TbADipSsZVWlY5dpYnZ4DRUcgcocQ5RDqJ7IYD2wvu/O+TjRUQvakNlI6K6j6DWCHFZ5diY3GNOFgiSbyPY21uqbQ5atPc0eqzYFlOScQMhifr/vHevd/4MrxnCoryuq+ZsxTMk0RCapo8/ecbLaf8+c4iHBGYi5Omg8E/lNFjl4B2tgnlH/uN8LHLloJCENCSrqRZ6/H08xCMIHKp+unvFiXze9oRByHct8V8gRIfsFW/ys4L7VuokhTPpE8ZvheqomGXZGss70IRgXnXAS6DiBMO5a84Nr4D88/i9UY6kRYkRdKRsT1VXAzXTHSwUzTJqx0bb9df44UYxQ4ENQnP7B3IqClbZCivzKV4BMPJocoBPVEnWDE4HOixj6PhKvcMMmwOwmJawOD5ie4rRIpcDaJ4wc3/LqILfq2nUipE5gYwlCOZpWXl1THGU42S7CzLsYSxg6DVjL6I9A50Qtwp+eAwmK4eOlB2AqtcAT+ftb7gSYCNOeAuWPwy/GKPwCY1iR3CuBAhKzHP19apxJmdsStJU2hRHMRvN78F0uj9DOAlU+dGrCqbIqyBT6sES6bMisuk6TIBuDB07rfY0jug3qPFTcObiMo308AE0f3acUF5sGeb3j4OMnftEahMhLDHSAAyi0cTDHm3K1XW3x0A0uacZuknhzZwWk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(86362001)(2616005)(53546011)(38100700002)(956004)(36756003)(6666004)(316002)(2906002)(16576012)(83380400001)(508600001)(6486002)(26005)(8936002)(31696002)(186003)(31686004)(8676002)(5660300002)(66946007)(66556008)(66476007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHp5U3Y4aHB1eERlT3R4TmZxdEd3OGlqdUdaTjY1SnZMZTEwUHB0U2dyTndm?=
+ =?utf-8?B?cUtyRzFhVnpBUTBaRE1mYkNKSThSYXJZckQzV0xtalpTZWVIMzlnVzVUU2du?=
+ =?utf-8?B?eHkxUTg5eW45M0I5Z1N3bUJPM3ZBa3RmWVcxbC9qUkRvdWtBNHhrL045Z3JJ?=
+ =?utf-8?B?eGplTDl4ejRHUmtmaVZxUUpHdWdQcFdHTmxvK0Q5TmQrdXRaRTA3SWxEejdC?=
+ =?utf-8?B?aStFcUJLdjBKVVhEV0hzVVdPUy9SaWFjbEVXekRWR1FoZEVpUDhLKzhGSDlw?=
+ =?utf-8?B?VUMydkN0Wkk2ckh2U3RhUnA2MUsrdEgzbUJXcm9QbXZPNytHdWx6Y29xOFhO?=
+ =?utf-8?B?T1paK2Q3c3VXeDBFcXJEMXBnNWJiRXhoSVBiRUNkVkZiejIydmpWL3FKeVBr?=
+ =?utf-8?B?dWE3Ti8zMFJ0TkNxeGxGTitSa2pJQjNjOUtkbURGUlNKOE1Lc0hBdmU4K3hj?=
+ =?utf-8?B?Ylp0UlV2ZEtnYkg1Umw5ZmFYaytEVTlZcHRkODU0aDE1YVliVHNKRzlQRW9E?=
+ =?utf-8?B?SmhkYmtqc2xHbkRyZE0yVGdyVEczZnByK1RQSytFN2d5S1A1UFc0aGJHazN5?=
+ =?utf-8?B?alVkazFBdkU5VWdTYTdvZHhEUzlYei9YcjBjZXFCRU4xZnJLRFFsOGVHUzBx?=
+ =?utf-8?B?LzNPdklmL1hCTHlVVk5mK0Jjb1loRGtIQkVCZU9mQXU2MjhPbTlUKzVtNWhO?=
+ =?utf-8?B?dTlPSDlBUXhoallaODNpM3RiUURhWERkSWtpcHFycHVzbHpnWDJZRWtMOTFK?=
+ =?utf-8?B?WU5vUzBldEZHei9WM2trRUY1NHJKUmowdlIzTlpZeWU2RnRYa3M2ZUtaMjhT?=
+ =?utf-8?B?Z3lXNm1aaEhHODA3N05YVFpsaHE4VDdkVFIxL1F3ZVdDUTJCSWRiSWcvU1F4?=
+ =?utf-8?B?bHAxUEZGS2tGRDBIcnVCOURxcHIyOGRDQTlyTkZ0NjVGWFFINWRNZCtRZE9Q?=
+ =?utf-8?B?QjR4NVNlak9HVFJZZHdOMVJodWNQZTg2b3pEYXlWb0ZlbE9ZZldDUXdWaTZW?=
+ =?utf-8?B?YldLMDM4TWVBV2ZjRkRjcEhoaDZJWE16Y3VCSVMwVzRJSndNaEs3MmgvbjM0?=
+ =?utf-8?B?VmZCaXF4UjhYZXk3SWFxRWR6M1lleXVGMHlBSUJzOFRKQzFwdW1jaExhbkJi?=
+ =?utf-8?B?UldRbWhYVG1lODhNcFVvM1k3NnRoMmdGYWhtbERGV3h0d1NRbzRIdmJnZ3pt?=
+ =?utf-8?B?Ry8wVG9sTmlBcGtjOVNYZDk3N2V2cnMxODROc2tJa3M4TFYxaWl1d3J5R1Mz?=
+ =?utf-8?B?NWt5bWRBVUVVUmh6Nm5xcWdGMVFHOTNxdXh2UndMNllZYUprOFQ1QjJaajh4?=
+ =?utf-8?B?OTU0Y3QvSFZuMHlKQU5YeFYwbzRINU5NdUNDckFQM05Td1NzMlgwajlCM2ZG?=
+ =?utf-8?B?dS9VVUtiYjBubDBYanV5TXlFbE9NM3liZTJMWWJUeG53SElMdytyd3IvbGQz?=
+ =?utf-8?B?Q3BGZU5PVUFTcjVjNFBRbkl6NXBxU0xPd21nclREZkE0RjlGU2NwelA1S0Fz?=
+ =?utf-8?B?eWdtUFdMV3dFQmxmUHVwc1BydlBJcnY2Njhsa25uVytyMU5nQ3pINFNJRUFr?=
+ =?utf-8?B?Z1pTdG0yOU1FTUMrQWpnRjV6OXBNdy80aTJQTE5kUno0QWh2cWZNTVlxZW9W?=
+ =?utf-8?B?OFA5Zko0NGxVTFJJTjdXWkFDRlQrM2NnTFN6NzFIbFlnQ2VPbFhMMTNTQ1V4?=
+ =?utf-8?B?Q0VxN1BoRmtmR0hGdDNHaXVsUytzeGo3Q3BpdytyWkNEdFhkTStONDRtNDl0?=
+ =?utf-8?Q?aItUUE1CDXYijhYdhxmsrz9qag+VAf39aI3Au4r?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 696dbb9a-07d4-45aa-75cb-08d97da1539a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 08:16:49.6853 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I7fPq7UzaT/NI95KCR7YUVDpYafis4+fJdWhQht9sRRAUpzYc3OVlsZ1FKJZ5L3R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2438
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,180 +142,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-OMFG what mother of all patch sets.
 
-Patches #1-#6, #12, #14-#15, #27, #31, #35-#36, #59-#60, #64, #66 are 
-Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Patches #7-#11, #13, #16-#26, #29-#30, #33-#34, #37-#50, #53, #55-#56, 
-#58, #62, #65 are Acked-by: Christian König <christian.koenig@amd.com>
+On 9/21/2021 11:37 PM, Alex Deucher wrote:
+> Use IP versions rather than asic_type to differentiate
+> IP version specific features.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 41 ++++++++++-------------
+>   1 file changed, 18 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 5f372d353d9d..150cac4ea75c 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -455,8 +455,7 @@ static int smu_get_power_num_states(void *handle,
+>   
+>   bool is_support_sw_smu(struct amdgpu_device *adev)
+>   {
+> -	if ((adev->asic_type >= CHIP_ARCTURUS) ||
+> -	    (adev->ip_versions[MP1_HWIP] >= IP_VERSION(11, 0, 0)))
+> +	if (adev->ip_versions[MP1_HWIP] >= IP_VERSION(11, 0, 0))
+>   		return true;
+>   
+>   	return false;
+> @@ -600,23 +599,19 @@ static int smu_set_funcs(struct amdgpu_device *adev)
+>   	case IP_VERSION(11, 0, 8):
+>   		cyan_skillfish_set_ppt_funcs(smu);
+>   		break;
+> -	default:
+> -		switch (adev->asic_type) {
+> -		case CHIP_ARCTURUS:
+> -			adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+> -			arcturus_set_ppt_funcs(smu);
+> -			/* OD is not supported on Arcturus */
+> -			smu->od_enabled =false;
+> -			break;
+> -		case CHIP_ALDEBARAN:
+> -			aldebaran_set_ppt_funcs(smu);
+> -			/* Enable pp_od_clk_voltage node */
+> -			smu->od_enabled = true;
+> -			break;
+> -		default:
+> -			return -EINVAL;
+> -		}
+> +	case IP_VERSION(11, 0, 2):
+> +		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+> +		arcturus_set_ppt_funcs(smu);
+> +		/* OD is not supported on Arcturus */
+> +		smu->od_enabled =false;
+> +		break;
+> +	case IP_VERSION(13, 0, 2):
+> +		aldebaran_set_ppt_funcs(smu);
+> +		/* Enable pp_od_clk_voltage node */
+> +		smu->od_enabled = true;
+>   		break;
+> +	default:
+> +		return -EINVAL;
+>   	}
+>   
+>   	return 0;
+> @@ -2288,11 +2283,11 @@ int smu_get_power_limit(void *handle,
+>   	} else {
+>   		switch (limit_level) {
+>   		case SMU_PPT_LIMIT_CURRENT:
+> -			if ((smu->adev->asic_type == CHIP_ALDEBARAN) ||
+> -			     (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 7)) ||
+> -			     (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 11)) ||
+> -			     (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 12)) ||
+> -			     (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 13)))
+> +			if ((adev->ip_versions[MP1_HWIP] == IP_VERSION(13, 0, 2)) ||
+> +			    (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 7)) ||
+> +			    (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 11)) ||
+> +			    (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 12)) ||
+> +			    (adev->ip_versions[MP1_HWIP] == IP_VERSION(11, 0, 13)))
 
-Comment for patch #28:
+Maybe seen/commented before, anyway switch...case
 
-Doesn't this one needs to come before #27?
+Thanks,
+Lijo
 
-Comment for patch #32:
-
-Maybe adjust the commit subject, otherwise somebody could think it's a 
-revert the the previous patch.
-
-Comment on patch #51, #52 and #61:
-
-That looks just a little bit questionable. Could we clean that up or 
-would that be to much churn for little gain?
-
-Comment on patch #54:
-
-Looks like this is only adding SDMA instances and not VCN as said in the 
-subject.
-
-Comment on patch #57:
-
-Where is the removing of the harvest register access?
-
-Comment on patch #63:
-
->   		case IP_VERSION(7, 2, 0):
-> -			amdgpu_device_ip_block_add(adev, &uvd_v7_0_ip_block);
-> +			if (!(adev->asic_type == CHIP_VEGA20 && amdgpu_sriov_vf(adev)))
-> +				amdgpu_device_ip_block_add(adev, &uvd_v7_0_ip_block);
-
-Checking the IP version and then the chip type looks questionable. I 
-have an idea where this comes from, but please confirm with a comment.
-
-Regards,
-Christian.
-
-Am 21.09.21 um 20:06 schrieb Alex Deucher:
-> This patch set moves the driver to an IP driven discovery model
-> rather than one tied to PCI device ids.  This allows the
-> GPU driver to claim all ATI PCI display class devices.  The
-> driver will then either load or not based on the IPs (GC, SDMA,
-> DCN, VCN, etc.) that are enumerated on the device.  All recent
-> asics contain an IP discovery table which enumerates the
-> number and version of all IPs on the board. This avoids the need
-> to add new DIDs for new parts even if the driver would already
-> otherwise support the new chip (i.e., support for all of the IPs
-> are in place). It also better handles asics which have different
-> numbers of instances of IPs.  We can just use the IP discovery
-> table rather than maintaining hardcoded information in the
-> driver.  Finally, we can avoid adding lots of asic type checks
-> all over the driver to add a new asic if the IP version is
-> already supported.
->
-> Alex Deucher (64):
->    drm/amdgpu: move headless sku check into harvest function
->    drm/amdgpu: add debugfs access to the IP discovery table
->    drm/amdgpu: store HW IP versions in the driver structure
->    drm/amdgpu: fill in IP versions from IP discovery table
->    drm/amdgpu: add XGMI HWIP
->    drm/amdgpu/nv: export common IP functions
->    drm/amdgpu: add initial IP enumeration via IP discovery table
->    drm/amdgpu/sdma5.0: convert to IP version checking
->    drm/amdgpu/sdma5.2: convert to IP version checking
->    drm/amdgpu/gfx10: convert to IP version checking
->    drm/amdgpu: filter out radeon PCI device IDs
->    drm/amdgpu: bind to any 0x1002 PCI diplay class device
->    drm/amdgpu/gmc10.0: convert to IP version checking
->    drm/amdgpu: Use IP discovery to drive setting IP blocks by default
->    drm/amdgpu: drive nav10 from the IP discovery table
->    drm/amdgpu/gfxhub2.1: convert to IP version checking
->    drm/amdgpu/mmhub2.0: convert to IP version checking
->    drm/amdgpu/mmhub2.1: convert to IP version checking
->    drm/amdgpu/vcn3.0: convert to IP version checking
->    drm/amdgpu/athub2.0: convert to IP version checking
->    drm/amdgpu/athub2.1: convert to IP version checking
->    drm/amdgpu/navi10_ih: convert to IP version checking
->    drm/amdgpu/amdgpu_smu: convert to IP version checking
->    drm/amdgpu/smu11.0: convert to IP version checking
->    drm/amdgpu/navi10_ppt: convert to IP version checking
->    drm/amdgpu/sienna_cichlid_ppt: convert to IP version checking
->    drm/amdgpu: drive all navi asics from the IP discovery table
->    drm/amdgpu/nv: convert to IP version checking
->    drm/amdgpu/display/dm: convert to IP version checking
->    drm/amdgpu: add DCI HWIP
->    drm/amdgpu: make soc15_common_ip_funcs static
->    drm/amdgpu/soc15: export common IP functions
->    drm/amdgpu: add initial IP discovery support for vega based parts
->    drm/amdgpu/soc15: get rev_id in soc15_common_early_init
->    drm/amdgpu: drive all vega asics from the IP discovery table
->    drm/amdgpu: default to true in amdgpu_device_asic_has_dc_support
->    drm/amdgpu/display/dm: convert RAVEN to IP version checking
->    drm/amdgpu/sdma4.0: convert to IP version checking
->    drm/amdgpu/hdp4.0: convert to IP version checking
->    drm/amdgpu/gfx9.0: convert to IP version checking
->    drm/amdgpu/amdgpu_psp: convert to IP version checking
->    drm/amdgpu/psp_v11.0: convert to IP version checking
->    drm/amdgpu/psp_v13.0: convert to IP version checking
->    drm/amdgpu/pm/smu_v11.0: update IP version checking
->    drm/amdgpu/pm/smu_v13.0: convert IP version checking
->    drm/amdgpu/pm/amdgpu_smu: convert more IP version checking
->    drm/amdgpu/amdgpu_vcn: convert to IP version checking
->    drm/amdgpu/vcn2.5: convert to IP version checking
->    drm/amdgpu/soc15: convert to IP version checking
->    drm/amdgpu: add VCN1 hardware IP
->    drm/amdgpu: store all instances of IPs in the IP version table
->    drm/amdgpu: get VCN and SDMA instances from IP discovery table
->    drm/amdgpu/sdma: remove manual instance setting
->    drm/amdgpu/vcn: remove manual instance setting
->    drm/amdgpu: get VCN harvest information from IP discovery table
->    drm/amdgpu/ucode: add default behavior
->    drm/amdgpu: add new asic_type for IP discovery
->    drm/amdgpu: set CHIP_IP_DISCOVERY as the asic type by default
->    drm/amdgpu: convert IP version array to include instances
->    drm/amdgpu: clean up set IP function
->    drm/amdgpu: add support for SRIOV in IP discovery path
->    drm/amdkfd: clean up parameters in kgd2kfd_probe
->    drm/amdkfd: convert kfd_device.c to use GC IP version
->    drm/amdgpu: add an option to override IP discovery table from a file
->
-> Guchun Chen (2):
->    drm/amd/display: fix error case handling
->    drm/amdgpu: add HWID of SDMA instance 2 and 3
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   8 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |   3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   5 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  44 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 818 +++++++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |   1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 578 ++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 101 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     |   7 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  47 +-
->   drivers/gpu/drm/amd/amdgpu/athub_v2_0.c       |   7 +-
->   drivers/gpu/drm/amd/amdgpu/athub_v2_1.c       |   9 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 380 ++++----
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 227 ++---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c      |   6 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  91 +-
->   drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c         |  15 +-
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c       |  73 +-
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c       |   6 +-
->   drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |  13 +-
->   drivers/gpu/drm/amd/amdgpu/nv.c               |  91 +-
->   drivers/gpu/drm/amd/amdgpu/nv.h               |   2 +
->   drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        |  44 +-
->   drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  14 +-
->   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        | 100 +--
->   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  32 +-
->   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  51 +-
->   drivers/gpu/drm/amd/amdgpu/soc15.c            | 167 ++--
->   drivers/gpu/drm/amd/amdgpu/soc15.h            |   4 +-
->   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |   1 -
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |   1 -
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |   6 +-
->   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  12 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 259 ++++--
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 216 ++---
->   drivers/gpu/drm/amd/include/soc15_hw_ip.h     |   2 +
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  89 +-
->   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  50 +-
->   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  24 +-
->   .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  96 +-
->   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  22 +-
->   include/drm/amd_asic_type.h                   |   1 +
->   43 files changed, 2595 insertions(+), 1131 deletions(-)
->
-
+>   				ret = smu_get_asic_power_limits(smu,
+>   								&smu->current_power_limit,
+>   								NULL,
+> 
