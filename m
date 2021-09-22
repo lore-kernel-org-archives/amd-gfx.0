@@ -2,131 +2,83 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1739CC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 08:18:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0156CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 08:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D11416113E
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 08:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D11416113E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id C2A3F61242
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 08:31:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2A3F61242
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F0B6EAD6;
-	Wed, 22 Sep 2021 08:18:31 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 922F46EAD6
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 08:18:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E/l8nQh8bA2qQCXLHnMwc6CQtNNwazQoauV2LOQM0JvH9VoqEh8ne1LHIyQFdMDGXTGD3Nw31iuSGGVmusrCob659VPZcgpX+OEJwmVjrOQmOZ7jzpqTJmpb3rPAM84TfqpRcwtK6azdgWLoacb1fYOHFRJTvZ1RaLPKzifFCn2YMoP0KxntAqbLEbWyM9KlEwAa3RmNifN6TvKlO6Qn9f9m58y1F1xcW92yQ/lrlHTZJrJEdxQbStMZ5rBiw6s/scOP+73tHm2pMkFBj1+WvA6FAsytyqCKZccWBiq/Ut/KMwKVk6uxBF4K6pbTqZvo+pl8LqzOlY0Q6Pdf6BP5aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=lD/h+8DS1QHuSFQko1W5+ONyLn8p1GSaoXFNi+4kgEA=;
- b=GgrqULzWnyCOQyQBJN0Q5CmquvpTQ95AbJe33Ye2fQOjKJfR87PxzJnP2C9Oh+cSonhfmAICfz3++oZteSfqH04t1CoMjsMLkHwzzD3z4UkPQrbRS6NWYCjzRkMnX2BR66Vzn/rSFuzTRK6iLjJ6kOqJwLDjzRH6+2rhbe5rkzzKlQt9Fc5tVATh0CL112uu3mldKVKzlvKBKpFYXlegLOchkatBq17wX9aBKYmxDMAe1ryx5HKMl/hOyj3IffFZPFF9Wfr0cfZfNjg5kDOxAfx0+Xek22DHcI5xmdjs7ox/6IiXqhHI4HRKXPYjtJA3TiT+aEIGtqHRJZFDZB2FUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lD/h+8DS1QHuSFQko1W5+ONyLn8p1GSaoXFNi+4kgEA=;
- b=DWva4bN8A55poItWLxKvAGSRFmesJnkg6QiC5jGgnUS7wPLHu0uPRGf40n1kGiP5HBBn9u5Z9xpdsYK2JhrOl9CTkQ8lpdQQf9YCTyhEdJTpVvvgevGFRjy4y4u2GkqSKu+JoND7eE+Xnf1d5AX4K08w1z8EYcO4CQw9L1/Kvho=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM5PR12MB2438.namprd12.prod.outlook.com (2603:10b6:4:b5::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Wed, 22 Sep
- 2021 08:18:29 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::5879:5961:8a30:6a57]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::5879:5961:8a30:6a57%7]) with mapi id 15.20.4523.018; Wed, 22 Sep 2021
- 08:18:29 +0000
-Subject: Re: [PATCH 45/66] drm/amdgpu/pm/smu_v13.0: convert IP version checking
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210921180725.1985552-1-alexander.deucher@amd.com>
- <20210921180725.1985552-46-alexander.deucher@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <e0d26fe6-e1d2-b716-e664-c11b5e20989e@amd.com>
-Date: Wed, 22 Sep 2021 13:48:17 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20210921180725.1985552-46-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0114.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:96::23) To DM6PR12MB3930.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4856EB0B;
+	Wed, 22 Sep 2021 08:31:19 +0000 (UTC)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143416EB0A;
+ Wed, 22 Sep 2021 08:31:18 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id i4so8920723lfv.4;
+ Wed, 22 Sep 2021 01:31:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=lUPo1hSCb4YKyq3jLPqD+zKgPCU9dG6V2bR2IVY81I0=;
+ b=L+p55wCDG+tVubfTjr+VHsBK+s5XSLNZ3OAa3m7jOVO9u3NOhmWP7nnXw2qqhNqc8k
+ UCuNtUc+gD9lJhLMn1HxWmjYh6y2YvjUKbdLsPewdys0cygaTnHChoEEGcA/CU9kkWJk
+ P1H6MWZiuO2ZfRnDm92M5ZMEZrRI35z62tsPNJsZ6/RX7nKmZn3N6WBJQ2GawHIhsLNh
+ jqiSn480LrISRU8dJOZzlBMFnRXulQgOUnl6M6IgFPm+0WP//3UE4XANiJQlrjpx0Mgq
+ 8nK8XNFPPChkY48uDDOMIaPL9MPF1mIEnlsel13N9LIoH+IjzqYPd7oZnMp2I80r5CSN
+ InJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=lUPo1hSCb4YKyq3jLPqD+zKgPCU9dG6V2bR2IVY81I0=;
+ b=tMSn1IfE+3a/ikmaIDNk/PodmrQ1bcs42egpGwUVzfnULE4iicv6P3jAqOiYVxmcnW
+ rSLdqkHLEiQeZ0n6VbjIhLrwstW1kTYcagX3mwKcnk5Ip2FInvsQCWhqIHYLlFNJe97N
+ rsOX7hAc2fy6LUM+jBrtvG++7f/lWGi1tUXC9Ky7QeLYouMQQCWA8cjDfrnKnE/7YWpK
+ wEc/+uhanFaVHmVJqPZBYTQb1kV63Rw/FLBMFdH3xCylSQYu8nIBYkug82SORC2YM2bl
+ zfGb4S46frKNjcwDzddEyiAO3/jS8wnYkvrEyaBn4PsyxAGUskoW2o+2zxreVbf4/J/F
+ IVNQ==
+X-Gm-Message-State: AOAM530XsT+1GlrbrQemDM5HpJ1bp0AD/dEx7H4fhgroJKf8L3y31L3H
+ D1iJC1FAKogDSkHiQumdlzk=
+X-Google-Smtp-Source: ABdhPJwHCt9/tH9Xuhi1QvFILBbOz1LBnhcPLRkiocdcSCxhKBlyChUW8+VC9Z3bxn1vLgXhDsYD5g==
+X-Received: by 2002:a2e:6e19:: with SMTP id j25mr14066294ljc.360.1632299475940; 
+ Wed, 22 Sep 2021 01:31:15 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id l2sm121381lfe.1.2021.09.22.01.31.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Sep 2021 01:31:15 -0700 (PDT)
+Date: Wed, 22 Sep 2021 11:31:05 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com,
+ Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
+ Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com,
+ Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
+ jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
+Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+Message-ID: <20210922113105.2e42754c@eldfell>
+In-Reply-To: <0c673cf8-2b90-c1ca-a0b0-c809e7e10c2c@amd.com>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
+ <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+ <20210921163158.688c26bc@eldfell>
+ <0c673cf8-2b90-c1ca-a0b0-c809e7e10c2c@amd.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Received: from [10.252.81.250] (165.204.159.242) by
- PN3PR01CA0114.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:96::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 08:18:27 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 54bfa828-293c-497f-3cd9-08d97da18f00
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2438:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB24389A3D92647F37E0F53B6B97A29@DM5PR12MB2438.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3rEIFqY4iXKr5XlLZxgcOgN4GDoOXq90K7o/u24vs9hYgXB7nA2Qvh139vrkHHytHACAQOMmMykVYs6f+1Rr8PvSWPc6NIM4Neoa3ayJ6pioop3frMwg1CgmaY3pEZ1SDpy5YqbtH6pJ9EEL5Z4gFV0Rm91/7N8i0ZpWv11FnxqINpq3RQdT75qWHwJUWVQMDZI+Qk6FYFObJqlCwERUv8YiU+VYpeUVTg3EPlxsrCJF0Vsjz9H5WVRG98VcD9mjVXzZ3ur5CXyS29lZBgT2AHUdVh/tJ/mTn6cZIQe259bKnPWRotDiT9SZ9D/KQ+CVCGiWEdNinYmg6hi0RjIjd7+qIgzzJyRemUxemUR54xjVhawOTfFyQkfRa3eeA5ImBNVJKOhp50Xw1yOrS/1eU5s7/39/Iz0xKFnYSvPUJM51zHwg4gbgHJy4mBe4UDcF7cdVOfASjng6iXZpki+x7edLgoj3liLCqlDzKqRM2sh15+AA9Aiju3+1cZV74FqN/HcSS/tmvKgFW6vvKeWKyWDLXg9Ts+Fo5kfDN4Q55Wj7cdN/TziErPALxFfbnB6AenewVAvJggIR1hEQh0BLCRZ8Dz439EJkSIaHBCSdiwCaDbB1Rq0fwxFJHO7VQMXV7pXWbWOFbawwiyM/b8LXppMcT7f/M2OgxxvW8wqpncgHrQVJZTrMTZGfyyFVU2GrfI84arNewDAIOdbYr0yKjwe72abdUgH/mAm8hCKefeQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(86362001)(2616005)(53546011)(38100700002)(956004)(36756003)(6666004)(316002)(2906002)(16576012)(83380400001)(508600001)(6486002)(26005)(8936002)(31696002)(186003)(31686004)(8676002)(5660300002)(66946007)(66556008)(66476007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlRmWi9vbW4yTVVWc2h5ZENPQ1QvbjdxeVpHVVdjdGo5bmRmSXBibU1QOURx?=
- =?utf-8?B?TjdRd3Q2TkVoMTJxbG5mNURhWW1jVHAwTDQvZ0Q2S1NkR2R1ZTJUalhET0pV?=
- =?utf-8?B?UFM0OGJoaHYrM3NtcjRYM2R0RHlZTWpFTzJmQ244blM5RWZQQXRWdFhucUEv?=
- =?utf-8?B?R29XczJpNEo4cTNRUi9vVDRCYVFJVTVlOWIrV3R2enZFKzNCcmxzTXRUQ3RO?=
- =?utf-8?B?QW1ScE9JVlU3OFBKU2V3dlFvdW91UTVaWmxTZXhvRzl2a0NUNWxoMGdWeHRY?=
- =?utf-8?B?KzA1UDNmOEgvV1luZjZja1JweEs5T1IzdGZpRlZkN3YvK3VnTFhYRG43WUNO?=
- =?utf-8?B?YnBkSGVmZ21WTTdueTIyNWlnOHAwQUhMOTR0Z1RhbnRsanM1NlZIbi85eklB?=
- =?utf-8?B?ck5NY0VLdlhkbktlMXlXQlNxUUlvTEhKZzVNbCszY2c0LzBLSjVRWmtHZUJ0?=
- =?utf-8?B?eXgwT3RUbGE4Y1B4aDZHNTB1OHY0VEN0M0xvQ04yNktzcHB5UjVYOUZvZ0xu?=
- =?utf-8?B?MXYvdHF4UEFxN0x5K2JvRy9oMHlibHFMREJBbU9VTHBEQi9oclZiMkl6Vjgx?=
- =?utf-8?B?ZTNNTXozckoxcmJ5c1Bsb2wrSDc2MWVMSHZBbnJiV2h5M0xtVEE0TWR4b1dV?=
- =?utf-8?B?Nm9QL2FOM2FVUkQ4Mm05cncwN1VRMGVTczRHSW4xa1ovZTJrYWdXNnlIUG41?=
- =?utf-8?B?Wm40b3N1SDhRRXdYQUl1VHE1UXhObUdzWWlXTzlZVWZvU2ZaYzZJcTA2R09G?=
- =?utf-8?B?b1FkYnNweUNkR3pZSG9YU1RobUtUSExWVXM4aG8yK2p6MXFzZVcrLzRXTHNr?=
- =?utf-8?B?Q0Rqb2lHV3NYeU9ybHljbVlNMzVOOEFTMUFEc2lYZzdkS0JMUm11dE82aXVM?=
- =?utf-8?B?bzFLMERnN3hMWXhsMzVYS3luV1BQVi9xUDF3WngxNkkyQVVEZ1dZTWcyMVB6?=
- =?utf-8?B?QXVCaGZWd2wxb09DVXUwbnB1NG9XWHZUeW5YZEdoNTF0WHE2akd2SnRnYk9M?=
- =?utf-8?B?TFV2dW9Ybm5hZWtoQ0lZeVpqNnlHNFMvWGZhTGZSY2huN0p2M2dObHZGeXBU?=
- =?utf-8?B?Z09BTVhNQ3hudm1pZzJoV3p3aFlEbnhuNjhHeVk4NHZhY01MKzI3Z0VJU2N4?=
- =?utf-8?B?N1N2emlaRTUrUUVsU2V4YmFOTlIxTmdqVStMaVdNZHd1R0pkUERDOU1NTW5B?=
- =?utf-8?B?cnc0R3F2Um5hb2QyN2U4c0dSMDFRNFhKTUhHNmpnWDF4OGc2VWtwOFF2RFY3?=
- =?utf-8?B?bHlTaHpjVXpZK1AyZDVydFpac01iRXFNS0NKcG5tK1VUWVkwdVNyWjdzN0Ni?=
- =?utf-8?B?d3RmT01FRXQ5eHJ2MFhkNEl3WUhuMFlyY0xPUzhxWmdVYWNqcVNDa2RYNHZa?=
- =?utf-8?B?N24wdDlrTW9WVEhueFY4WHlIWHZBamYzSzdvczZjQzZBam50MjdFbWphQmJD?=
- =?utf-8?B?UGNsRllJUlpQWVZ0M3hzYXRXOGYvamtYQTJmZkozK0RBL2podUVGV3ppTUdX?=
- =?utf-8?B?VXZtNVF0bHhDRFRCQU4xMTlsNkJDQTFYZ1BFL21oVVkybThlSUdOa0NEQlY1?=
- =?utf-8?B?VTcyYTNrOFpodEZGK3ZUZVZSR2ZOR1UvUC9ma2l2ZzZQNytURnR1bURKOG5r?=
- =?utf-8?B?MmNwRmpGRVZvNGx4cGRzSkFZR0tjMXM4NDJSZDc2QTRSZHhBRXFZYkdqUnZI?=
- =?utf-8?B?UzVITHljMjV1RG9ML0hTT0hXejN2TVVhL3JpU0Nhc1Q4ZFVJMWpWaGVETmpl?=
- =?utf-8?Q?kiUmqoT8qnFHWMhir+yxQDEhac0jKDtexDL9mrp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54bfa828-293c-497f-3cd9-08d97da18f00
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 08:18:29.3119 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rya/ZCOuc0XvMAIstNiaZvN70yS35UZelcgfu+SBFzffMj2TzpyPU2tXF9XYOwj/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2438
+Content-Type: multipart/signed; boundary="Sig_/lmb5Ri0lX7eSX3I4O0PBb_O";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,77 +93,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--Sig_/lmb5Ri0lX7eSX3I4O0PBb_O
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, 21 Sep 2021 14:05:05 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-On 9/21/2021 11:37 PM, Alex Deucher wrote:
-> Use IP versions rather than asic_type to differentiate
-> IP version specific features.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 22 +++++++++++--------
->   1 file changed, 13 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index a0e50f23b1dd..08f3cc809fc6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -89,12 +89,13 @@ int smu_v13_0_init_microcode(struct smu_context *smu)
->   	if (amdgpu_sriov_vf(adev))
->   		return 0;
->   
-> -	switch (adev->asic_type) {
-> -	case CHIP_ALDEBARAN:
-> +	switch (adev->ip_versions[MP1_HWIP]) {
-> +	case IP_VERSION(13, 0, 2):
->   		chip_name = "aldebaran";
->   		break;
->   	default:
-> -		dev_err(adev->dev, "Unsupported ASIC type %d\n", adev->asic_type);
-> +		dev_err(adev->dev, "Unsupported IP version 0x%x\n",
-> +			adev->ip_versions[MP1_HWIP]);
->   		return -EINVAL;
->   	}
->   
-> @@ -210,15 +211,17 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
->   	smu_minor = (smu_version >> 8) & 0xff;
->   	smu_debug = (smu_version >> 0) & 0xff;
->   
-> -	switch (smu->adev->asic_type) {
-> -	case CHIP_ALDEBARAN:
-> +	switch (smu->adev->ip_versions[MP1_HWIP]) {
-> +	case IP_VERSION(13, 0, 2):
->   		smu->smc_driver_if_version = SMU13_DRIVER_IF_VERSION_ALDE;
->   		break;
-> -	case CHIP_YELLOW_CARP:
-> +	case IP_VERSION(13, 0, 1):
-> +	case IP_VERSION(13, 0, 3):
->   		smu->smc_driver_if_version = SMU13_DRIVER_IF_VERSION_YELLOW_CARP;
->   		break;
+> On 2021-09-21 09:31, Pekka Paalanen wrote:
+> > On Mon, 20 Sep 2021 20:14:50 -0400
+> > Harry Wentland <harry.wentland@amd.com> wrote:
+> >  =20
+> >> On 2021-09-15 10:01, Pekka Paalanen wrote:> On Fri, 30 Jul 2021 16:41:=
+29 -0400 =20
+> >>> Harry Wentland <harry.wentland@amd.com> wrote:
+> >>>    =20
+> >>>> Use the new DRM RFC doc section to capture the RFC previously only
+> >>>> described in the cover letter at
+> >>>> https://patchwork.freedesktop.org/series/89506/
+> >>>>
+> >>>> v3:
+> >>>>  * Add sections on single-plane and multi-plane HDR
+> >>>>  * Describe approach to define HW details vs approach to define SW i=
+ntentions
+> >>>>  * Link Jeremy Cline's excellent HDR summaries
+> >>>>  * Outline intention behind overly verbose doc
+> >>>>  * Describe FP16 use-case
+> >>>>  * Clean up links
+> >>>>
+> >>>> v2: create this doc
+> >>>>
+> >>>> v1: n/a
+> >>>>
+> >>>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>   =20
+> >=20
+> > Hi Harry!
+> >=20
+> > ...
+> >  =20
+> >>>> ---
+> >>>>  Documentation/gpu/rfc/color_intentions.drawio |   1 +
+> >>>>  Documentation/gpu/rfc/color_intentions.svg    |   3 +
+> >>>>  Documentation/gpu/rfc/colorpipe               |   1 +
+> >>>>  Documentation/gpu/rfc/colorpipe.svg           |   3 +
+> >>>>  Documentation/gpu/rfc/hdr-wide-gamut.rst      | 580 +++++++++++++++=
++++
+> >>>>  Documentation/gpu/rfc/index.rst               |   1 +
+> >>>>  6 files changed, 589 insertions(+)
+> >>>>  create mode 100644 Documentation/gpu/rfc/color_intentions.drawio
+> >>>>  create mode 100644 Documentation/gpu/rfc/color_intentions.svg
+> >>>>  create mode 100644 Documentation/gpu/rfc/colorpipe
+> >>>>  create mode 100644 Documentation/gpu/rfc/colorpipe.svg
+> >>>>  create mode 100644 Documentation/gpu/rfc/hdr-wide-gamut.rst   =20
 
-Ah, there are two versions. Commented about something similar in another 
-patch. Please ignore.
+...
+
+> I think we need to talk about what 1.0 means. Apple's EDR defines 1.0
+> as "reference white" or in other words the max SDR white.
+>=20
+> That definition might change depending on the content type.
+
+Yes, the definition of 1.0 depends on the... *cough* encoding. Semantic
+encoding? Sometimes it just means max signal value (like everywhere
+until now), sometimes it maps to something else. It might be relative
+(other than PQ system) or absolute (PQ system) luminance, with a fixed
+scale after non-linear encoding.
+
+The definition of 0.0, or { 0.0, 0.0, 0.0 } more like, is pretty much
+always the darkest possible black - or is it? The darkest possible
+black is not usually 0 cd/m=C2=B2, but something above that depending on bo=
+th
+the device and the viewing environment. A display necessarily reflects
+some light from the environment which sets the black level of the
+image, even if the display itself was capable of exactly 0 cd/m=C2=B2. Maybe
+VR goggles are an exception.
+
+As a side note: if the viewing environment sets the display black
+level, then the environment also sets the display black's white point,
+and that may be different from the display's own white point. Also HVS
+has rods for low light vision, while color management concentrates
+wholly on the cones that provide color vision. So dark shades might be
+in the rod range where color cannot be perceived. I digress though.
+
+Then there is the whole issue of HVS adaptation which basically sets
+the observable dynamic range bracket (and what one considers as white I
+think). Minimum observable color and luminance difference depends on
+that bracket and the color position inside the bracket.
+
+Trying to look at a monitor in bright daylight is a painful example of
+these. ;-)
+
+Btw. is was an awesome experience many years ago to spend 15-30 minutes
+in a room lit with a pale green light only, and then walking outside. I
+have never ever seen so vivid and saturated reds, yellows, violets,
+browns(!), etc. than just after coming out of that room. That was the
+real world, not a display. :-)
+
+...
+
+> > One thing I realised yesterday is that HLG displays are much better
+> > defined than PQ displays, because HLG defines what OOTF the display
+> > must implement. In a PQ system, the signal carries the full 10k nits
+> > range, and then the monitor must do vendor magic to display it. That's
+> > for tone mapping, not sure if HLG has an advantage in gamut mapping as
+> > well.
+> >  =20
+>=20
+> Doesn't the metadata describe the max content white? So even if the signal
+> carries the full 10k nits the actual max luminance of the content should
+> be incoded as part of the metadata.
+
+It is in the HDR static metadata, yes, if present. There is also
+dynamic metadata version.
+
+However, the static metadata describes the presentation on the
+(professional) mastering display, more or less. Almost certainly the
+display an end user has is not a mastering display capable device, so
+arbitrary magic still needs to happen to squeeze the signal down to
+what the display can do.
+
+Or, I suppose, if the signal (image) does not need squeezing for people
+who bought the average HDR display, then people who bought high-end HDR
+displays will be unimpressed by the image on their display. Thinking of
+buying a new fancy TV and then the image looks exactly the same as in
+the old one. Ironically, that is exactly what color management might do
+to SDR content.
+
+One could expand a narrow range to a wider range, and I'm sure displays
+do that too for more sales, but I guess you would have the usual
+problems of upscaling. It's hard to invent detail where there was none
+recorded.
+
+...
+
+> Did anybody start any CM doc patches in Weston or Wayland yet?
+
+There is the
+https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/unstabl=
+e/color-management/color.rst
+we started a long time ago, and have not really touched it for a while.
+Since we last touched it, at least my understanding has developed
+somewhat.
+
+It is linked from the overview in
+https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/14
+and if you want to propose changes, the way to do it is file a MR in
+https://gitlab.freedesktop.org/swick/wayland-protocols/-/merge_requests
+against the 'color' branch. Patches very much welcome, that doc does
+not need to limit itself to Wayland. :-)
+
+We also have issues tracked at
+https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues?scope=3Dall=
+&utf8=3D%E2%9C%93&state=3Dopened
+
+> > Pre-curve for instance could be a combination of decoding to linear
+> > light and a shaper for the 3D LUT coming next. That's why we don't call
+> > them gamma or EOTF, that would be too limiting.
+> >=20
+> > (Using a shaper may help to keep the 3D LUT size reasonable - I suppose
+> > very much like those multi-segmented LUTs.)
+> >  =20
+>=20
+> AFAIU a 3D LUTs will need a shaper as they don't have enough precision.
+> But that's going deeper into color theory than I understand. Vitaly would
+> know better all the details around 3D LUT usage.
+
+There is a very practical problem: the sheer number of elements in a 3D
+LUT grows to the power of three. So you can't have very many taps per
+channel without storage requirements blowing up. Each element needs to
+be a 3-channel value, too. And then 8 bits is not enough.
+
+I'm really happy that Vitaly is working with us on Weston and Wayland. :-)
+He's a huge help, and I feel like I'm currently the one slowing things
+down by being backlogged in reviews.
+
 
 Thanks,
-Lijo
+pq
 
->   	default:
-> -		dev_err(smu->adev->dev, "smu unsupported asic type:%d.\n", smu->adev->asic_type);
-> +		dev_err(smu->adev->dev, "smu unsupported IP version: 0x%x.\n",
-> +			smu->adev->ip_versions[MP1_HWIP]);
->   		smu->smc_driver_if_version = SMU13_DRIVER_IF_VERSION_INV;
->   		break;
->   	}
-> @@ -740,8 +743,9 @@ int smu_v13_0_gfx_off_control(struct smu_context *smu, bool enable)
->   	int ret = 0;
->   	struct amdgpu_device *adev = smu->adev;
->   
-> -	switch (adev->asic_type) {
-> -	case CHIP_YELLOW_CARP:
-> +	switch (adev->ip_versions[MP1_HWIP]) {
-> +	case IP_VERSION(13, 0, 1):
-> +	case IP_VERSION(13, 0, 3):
->   		if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
->   			return 0;
->   		if (enable)
-> 
+--Sig_/lmb5Ri0lX7eSX3I4O0PBb_O
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmFK6ckACgkQI1/ltBGq
+qqe6Cw//TOVEgruOCb0e+KRdc8KFwB2xLI5DOXDtqRKrzxotnNb8Gtgiwi27SCml
+1Q+lhcgeLk6zkLt8Iav8Op78CFueNCmOxBJCpmm2QBORlw8vEUE4WTAyHNFu1vYm
+H4Gw7HvtVvur53YCXFnSTZR7+BznqSPz1vaiwAcQdk1UNwFuhlMKFRYkO50ERSMA
+vp4SGjssxguNRTcU3c4vvOe82zDche4DQwFlrRjybekdn+sLX20CeO3W3YRrWh9+
+BczqLRvvBUKINa0AKQnd8ZPquRPbc43IM0WTUVVdZYJiYFjwlgjTUf76FvO/c6ek
+yz/6nZWCVzYC8wuNk9rtb6WwSPMV/vo9K0GPshpLQb0tK0gmZPLbiT03VgFg6jpi
+4jUI/9Cyz9PTIB+O+sJqX4DEpC5JrhOHq9ZP2phMtezZGklHiS3Jp3O2E0W4seEL
+ryDbX30Jjw3QIYEtb1kpJ0PDt9OlxEYvAf89+hjKzw/Injlz0Z4cVYJKuGP9hwoE
+lrthA2GdcNVTxDh7hmv+GDMcKvnMGF3x5ADoEUV8i9WNid34q6RHWikh3rjutcyR
+JDUXu2nOcom7Ia1wjqoec3ShCDdgl5YN1jJFoCIk939AefNVitOiPtImPjXZBm6b
+r6TI3LTr3Ey/uBHDk5hUYeonLW1gxZzZZZKyP9k1YEIHrPUs2L4=
+=Dall
+-----END PGP SIGNATURE-----
+
+--Sig_/lmb5Ri0lX7eSX3I4O0PBb_O--
