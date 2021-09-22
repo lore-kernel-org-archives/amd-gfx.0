@@ -2,129 +2,107 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36624C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 18:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1361C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 19:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5E8660F6B
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 18:38:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E5E8660F6B
+	by mail.kernel.org (Postfix) with ESMTPS id C1E3061100
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 19:36:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C1E3061100
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6321A6E02F;
-	Wed, 22 Sep 2021 18:38:06 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 160B36E02F
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 18:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 443BD6E037;
+	Wed, 22 Sep 2021 19:36:40 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2069.outbound.protection.outlook.com [40.107.100.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 015B36E037
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 19:36:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FQRcF/T6FXLgCBWxYE7byhjyGwfdIfapswWwEZtFySEIzXHZ2QYXjNS/xXT2SRYxBeaPhdl2bxQ1bL1dfQn5Cr2P/C7GYiy/uGSg6eSrZBV7IE3eyk2VpXvvoujXagj3H4MLLXJt8nXNChQ9TOxmftdGdA+8rv1sHPi07/W0RhsJ3WmTZasKLUUzbZ7CWLGYscSQjO5lAge0XjEf54omaL1Pr2BJdJ6o50OrvkF9iKf3NJvMGEl//llK+Mg3La7dDMPBb65eRD4vDVGFdUIM2j0Z3R8zoSM4OZ44GRIlMpnew+rmeqncCmkDWADnw3wlBo6xytKRjThq5K88w43CJQ==
+ b=OnxGCP3216TpappxpIVAChEP2KmDpROQwrCpwGLGJrrvjaBPJ6S4HSDtIH6wzk+ic2+nl4IxESgJfb9j4EKuFwQlGum1Ok8jafKJaTOOKaOuGpcVp+G5VrVLlGidp0Pr31yIYFjyEDZaVQfVFiMuhGpTVgC5ZPt4R7SQqgcj3VWuoDm5Bo7bkCDVYQEWa3WG0EbV9iFwXPRxgTxjiyHgcPJTaFtpAf5IsTGtsTFdXXaPNFDrc42QUUT7m3ZTasy3DzxK7actamBJCr/VOyD3lc5G6qOmAo0kiLF+L7QXy/jKJgDBeqcvLv4GZ/t8IehiaMWzGV0ubxsBPIIBpUE2Pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=nOktyNZCSlJQ22OwZyZF+5WYII9PVTGdBKY1IWr7c6k=;
- b=Rvpl399YJ1NW78ORVHYIk+P5rfNAUAPoQLmUnUfE6GjZeCHWyGkDYTKQj13zh5CSzNKYrRXP/uw+bMehLS9oyHQGfFPVBJ8XJzg/yR2wT6y4GfFGyqCT1rOQ+TnqluSgi3SHf9kfj9AEuhVwghTrBBKyu9QOtU05IuuZL81dmOxi+WSfjgPUVsOTcTpYkYW61X1YPEUFas7NbNjwMuCnPr98pkVfw7kC1R/wtc/G7mMW6zxfeSSvwngFhg671n7Fkmcop/y8sm+qzjExjpKQHLBCTkjkUv7J6E0Uci7D4WfkznvA5BMeo2DJAUG6cN1y1yHr3idT36Ta5SktBQFuRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=/Jdu3yWAbR5sktOSy6S+NvWEzKufuEyKN8Nibxm6yF0=;
+ b=DahGC/pZpdUPR5B1VEDLhL/Wmex0ujpVUekoABmeJwI81jXTUMbobw5w17Ze+hCbeFtDjls8aBLF5xhc/LG7gqoepRfhLH5BnvdvkVXZrmoJ4qnat3WOGWDmDoF12+dGUHmBc3SFzs8yM3sC9d8DrTnHBl2/J4SSAv6873rt1FA1aoLNM1dqr+KZHfy6BAF2c71d55MUCHxsR7v7ypCWyb+Ybu5qeNdfaGQopod29Atj0/97T6LOj3Pc5t/MV+zUlETWgFA92a0lgp8uqjEWbb8ONMBLyxBC8QJiOyQiNrkb4hSiSyHdzP0s/zma5/RlABbHjzl9GgSRRFaK6giAyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nOktyNZCSlJQ22OwZyZF+5WYII9PVTGdBKY1IWr7c6k=;
- b=BzUCikJFvu1Fcm1XbwQqQ830CnRlWuxfawHksBTBmFwOc7Y+WSTQF5pkl7iXbrtGgEOjCjMjrXm5MZkXiOLwi2XDUyUa6HU18zhn1f7WHM6Dd7sYfBjRzgJlTUCGgjgmoiOT1WnXQ3DGpcmoQdQ1rWt0hWZP77LhEojTxM/Kc4w=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5428.namprd12.prod.outlook.com (2603:10b6:5:35c::19) with
+ bh=/Jdu3yWAbR5sktOSy6S+NvWEzKufuEyKN8Nibxm6yF0=;
+ b=4AD5+Y5zi4gGro7haWfz158FVkw7wI8UYMqStWuZA6es+7msXlXSkc1ooKtL9CSSdTgCy7sHs4fXp7iybw1H5CdpoDL9u7VmJ3ZSLFnyx34c/9f6iBtQZe2DB2dGxkeD/S97EOyy06p0gQD3/Kr1KfsbMe1lYEl8o5SrXvHwK6M=
+Received: from MWHPR15CA0055.namprd15.prod.outlook.com (2603:10b6:301:4c::17)
+ by DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Wed, 22 Sep
- 2021 18:38:03 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465%9]) with mapi id 15.20.4544.014; Wed, 22 Sep 2021
- 18:38:03 +0000
-Message-ID: <3e5bd0d6-c8b4-a962-a2d2-a6bdfbad5e9a@amd.com>
-Date: Wed, 22 Sep 2021 14:37:59 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Subject: Re: [PATCH] drm/amd/display: Fix Display Flicker on embedded panels
-Content-Language: en-US
-To: Praful.Swarnakar@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, hersenxs.wu@amd.com, sunpeng.li@amd.com
-References: <20210922175823.2160290-1-Praful.Swarnakar@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20210922175823.2160290-1-Praful.Swarnakar@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN0PR04CA0131.namprd04.prod.outlook.com
- (2603:10b6:408:ed::16) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Wed, 22 Sep
+ 2021 19:36:36 +0000
+Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:4c:cafe::8b) by MWHPR15CA0055.outlook.office365.com
+ (2603:10b6:301:4c::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
+ Transport; Wed, 22 Sep 2021 19:36:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 19:36:35 +0000
+Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 22 Sep
+ 2021 14:36:34 -0500
+From: Mukul Joshi <mukul.joshi@amd.com>
+To: <linux-edac@vger.kernel.org>, <x86@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <bp@alien8.de>, <mingo@redhat.com>,
+ <mchehab@kernel.org>, <yazen.ghannam@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, Mukul Joshi <mukul.joshi@amd.com>
+Subject: [PATCHv3 2/2] drm/amdgpu: Register MCE notifier for Aldebaran RAS
+Date: Wed, 22 Sep 2021 15:36:20 -0400
+Message-ID: <20210922193620.15925-1-mukul.joshi@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210913021311.12896-2-mukul.joshi@amd.com>
+References: <20210913021311.12896-2-mukul.joshi@amd.com>
 MIME-Version: 1.0
-Received: from [10.254.40.247] (165.204.84.11) by
- BN0PR04CA0131.namprd04.prod.outlook.com (2603:10b6:408:ed::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.15 via Frontend Transport; Wed, 22 Sep 2021 18:38:01 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e0ea7243-1c23-4e35-f401-08d97df81c43
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5428:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5428D0078C74220C3A4AD94A8CA29@CO6PR12MB5428.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: 0c506468-ccea-408e-d50b-08d97e004a42
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2988:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2988A65F014F764238EE8888EEA29@DM6PR12MB2988.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6Ytcujlq9wvC+9qc5c5U83OZ6EUKmY+vuTI0WjlpbQBCm4aJBoOoyQdGGgBfAtcDT43fUGYnhDCgPX+78nSZLuRYFu7O/1jik4OOBCrHTzzMUoTz0dwjHuIVc2sh1fY+nVmCXtCbHgtA7+GmUlUU9l+Jplo3kN/HSxeWSLB9NAtY6r1xghQJ8sx8Y8eBN63Ji2cFBzTvORRhIKeQDTdEzWBQ0sDDyGUqRoih0wpmee49bIOUXY66huTfrFiiMzquD9g+ih1DJ59INvqHSt8PrP/nhWveFPlzxIKEOkPA7+daakmdCQ5Nx7UhPMSlXBYsFd6UJsNutyDVC2RPZTvZ2krnocYoDY7Zr4JWMYX6RaivJcqBx3mx6U/b1tlWkWsRwDDGIRks2KZGKxeBazWBSMa8FkcmThgTuZOHZflYcygDJuD8Hfo6pIR6iwQwwpT4ZZW8c8W2EWdHK4Ks/i/y5bDim1okKiEGZGE73AddlnaBeMg1k9W8gW+Nk6bnrbz9zZUYDz5aMRCuMYTCTkbORueDb0GS/strwg6Lm562y9sSSbjZfwOXX4YAj9w4ULpWylWSjvVkZGCMZ5z0T88IcLI2wh8yugOwYhdJossNb1XX6Bp3XikoiWoXc+hmUX4+lWVg7AIGqKyUxXVzaMwVwvOPjeafWKxDuBy1mlGYwqJ8JJ21x978n+UhDbRj7h2LgDCnSq+oFmlFOSmTN9G0Ybjwz5H9JR/L+c7jFNWjImc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(16576012)(8936002)(2906002)(186003)(316002)(53546011)(36756003)(26005)(4326008)(31686004)(508600001)(66476007)(66556008)(44832011)(83380400001)(86362001)(31696002)(38100700002)(956004)(2616005)(8676002)(6486002)(66946007)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: Gh0/Cb+8d2dgAX6RONglFuaoYrmWdrrMIIMle2OZR2uMvOKRzpFT8CyTd71HQzuyT26QSVHi3bVFHz0CquE26kN6xaP3nm0DYTJCOaFtYnaIeC871Nb5YNywGA2zLei071YLS7+noFYWJjC8KOn4EIGq/P+FI/LdYDlMgmAUOv1Fkn4ukV1HeqdOmp/+2OqC+EfA4epDHNqRNT3Q4WzI/NnCz+9ouJa1FWYMoFXYW4RDPw3OdSHeJ4FpqHFb79DNXm7N9WB01mJ+Q0N4nQ2fem+syjV/y/F2dLfeJHjqigYBCmMBBiMGomz6lMRb5bjiehN2h4KNA9me5+LLZbs8PCT6c2gOV5kW3Gov4WCBNafUI5+EXrgRFGSFNR1MHUfk9Ei9re+RbS/FFxjgmsvIEPwbEowhiHPWInMrF7Mg8f3kUVrV3TlFI6pIe/ogZHNfk5V3fY/iIMakN4vgmjSIAvubQYyzdcxCRjJGBUy4YW1GDNtmirRWdIlDGu2xu2jGLAG2HrbHTvMPFD5O/KHHwawXdQRaWRqq+43JTkUTG36uSzsOSuxGwjLcXEeRz3PzmTKtnLgT8tTfnRX/79L5yFtaM6+L6mEej8pocy6j2xrWbCgXnczgCeMbb54MX+YP19mgOskIW7UiHWygEmf9fLeiO/g1DwHyegr8r6McK95L4Wmuu4jxR263u7PauIhIcTQD/JzhJDr+0Ozqh3qXH9l8/6JwPFbHmBR7foM+C+Y=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(86362001)(70586007)(508600001)(2906002)(426003)(110136005)(5660300002)(81166007)(6666004)(316002)(82310400003)(7696005)(70206006)(8936002)(26005)(2616005)(1076003)(47076005)(36860700001)(356005)(336012)(83380400001)(44832011)(8676002)(16526019)(54906003)(4326008)(186003)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzNJYXlkMUJLQTQreWpDckF3blZtNFFlUVlFeU9KZDZ1MU52eUtNclhMS3V0?=
- =?utf-8?B?L2JXaytYN2orOHlneWphdkNoU1prNWs4VTFvT25scWM2ejJ0a21IeExseGRo?=
- =?utf-8?B?OVBKMjdnbUJBVjlGb3UrMlpyakh6ZERiNGhYZEJWNURTSWx3NThaR2pHSW1s?=
- =?utf-8?B?aHFHUXBERm5oS0RFTjAvM3dtNW5ac2x0ajhQeU00R2ZxdFVhWXFvRmIxdkR2?=
- =?utf-8?B?MTlUYStUSyt0UmZKRDk4UEUwdUZ6M25uZDE1RDRHQ3N6OFkzSE0yd09adE43?=
- =?utf-8?B?Y3MwSm1FM2hNb0lqVlIvN0ltR0I5T0RwUHlPRm0zanVSTHJZV1dnRW4va2w0?=
- =?utf-8?B?NFY4eXM1QXY4NGFmLzNoMDRjZnpud0ZNVXMzY3Mvc3JkeUN3QXI4dXpCY1Fh?=
- =?utf-8?B?S09jbStwVkY0RC9nNTA5WE43UmwrU1I4MUIyVDJsRjZFdlF5SDdMTjBHY2pm?=
- =?utf-8?B?NkxCRGE5TXNoVlQ4bk1XY1o1OXVzbENwOXF5b09FcitiYzlsTUVnc2NicHhK?=
- =?utf-8?B?dXBCeEtxYnMrZG84STY5cDZ4NGg4UHV5UWV4cDYvY0FnNTBTeDVhMFVuUXpE?=
- =?utf-8?B?RmVwbks4dzRwejR0dmZJTnprdlh1b3lVdWlVaHM0bGdlbFNpTUtmYkJ5eHpU?=
- =?utf-8?B?YitDTHdmcXRkRWt1ejVqVTQ1ZlV3UkM1eUxFWmVEN012YkJUYzE3a2FndXFM?=
- =?utf-8?B?TUJJZDk1Y2ozQ0hLUGZyNFVUNHl5djFUU3IvRklzUnZKUmNzNmplZWZaUXFh?=
- =?utf-8?B?enozYThkOEtScjRKam5jY2ZaRVhyZm9wZFlCSWd4VHdnT0N6T096MExZWVR3?=
- =?utf-8?B?VERwYlRpZk1uQ213d0IyeEdRWEMwODNnYUZ0aWt4WWliWjB6c0FHbXduakJJ?=
- =?utf-8?B?NVhtMklKVFRGU3kzQXlKS1hSL04vc3NEbUx4Smw5UllMZURZUmp0UmdtOHVN?=
- =?utf-8?B?M3pCbE5NRytIQzdiUWcxNEw2NHpSNUI4c3V3bDFTNlBxTjRtenFCd0Y3dWdz?=
- =?utf-8?B?bEhlaE1LWUpxR1VjVUdPSDA2TlplQnAxSG5EeWFMT0l0bHFjYjllTzVuNThZ?=
- =?utf-8?B?ZHZ3aHR3cmRORks5bSswUXVzUDZmdlFuMzBoZitTV3VoQmtVaHZPRXhiSmwy?=
- =?utf-8?B?ZzByQmpiRkt5dG0wOWxXR0dGcUFwTVNCTU12M3pMWURSdUwweGFDeG1KcGo5?=
- =?utf-8?B?dElDWVhzTU5YMy9wUHUwbFJmMkRJdXdTanVTUVZoZE0xVGxmV25xeE5ONXJl?=
- =?utf-8?B?VjRDM1BlWmMwM2J1aHZyQTMxbXFFNmZHNUxOc2V4OXRYOVpXeklZbjlTK3pw?=
- =?utf-8?B?M0VYQ3F5dExURnVQeElHMXRoKzRxWXdKS21TeTU2OHkrMnAyZjdVWXU2N3Vt?=
- =?utf-8?B?N0lVNkFBN2JMc2ZzV3RmQ1JjWU1EMWRwc2dTUEFLSWNjbmt3My9ENXRZQ2g0?=
- =?utf-8?B?ZWVuMVlFd2J5VHdUTldWTVdtSm44TFdrdG9LMi9DTVBLNElxbU44aEgvd1gy?=
- =?utf-8?B?Y1RFK1liMkFIU0d5Rk5IaHllekpid2pRNnNFb1I5dWlmdDBxU29MYmdSSmxS?=
- =?utf-8?B?eXB3dUs2Z3d4MXJBY0dWZG9wcllKaE5WWmdxU3ZzVmlUK084d1RxZTFXL3lY?=
- =?utf-8?B?ZGlXUVR5aXVtVWxCWi94TkE3cE5leXFJOVIwek01NW1vV1hZUzQ5Yk5wTi96?=
- =?utf-8?B?dkIxUXk5dXVMV2c1R0ZMT3BZamJzVDJ0R0F3UEV4T1hUMzFNVjJQQWtrZ3lL?=
- =?utf-8?Q?r1B7FuzVHJi0Hck7QI9XXOHdQzKrBPzKBsGFfLr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0ea7243-1c23-4e35-f401-08d97df81c43
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 18:38:03.0915 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 19:36:35.9130 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c506468-ccea-408e-d50b-08d97e004a42
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 74AmZHMDqzHU6EFDJYpRn37XqgrBmrjQAl2uJbcaabz8smC6eP30s0K0Bds4uBce+iPjFyTUVkOp94oAgUAL6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5428
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,61 +117,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-09-22 13:58, Praful.Swarnakar@amd.com wrote:
-> From: Praful Swarnakar <Praful.Swarnakar@amd.com>
-> 
-> [Why]
-> ASSR is dependent on Signed PSP Verstage to enable Content
-> Protection for eDP panels. Unsigned PSP verstage is used
-> during development phase causing ASSR to FAIL.
-> As a result, link training is performed with
-> DP_PANEL_MODE_DEFAULT instead of DP_PANEL_MODE_EDP for
-> eDP panels that causes display flicker on some panels.
-> 
-> [How]
-> - Do not change panel mode, if ASSR is disabled
-> - Just report and continue to perform eDP link training
-> with right settings further.
-> 
-> Signed-off-by: Praful Swarnakar <Praful.Swarnakar@amd.com>
+On Aldebaran, GPU driver will handle bad page retirement
+even though UMC is host managed. As a result, register a
+bad page retirement handler on the mce notifier chain to
+retire bad pages on Aldebaran.
 
-Good catch. ASSR for content protection purposes requires
-signed PSP but there are eDP panels that require ASSR in
-order to light up correctly.
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+---
+v1->v2:
+- Use smca_get_bank_type() to determine MCA bank.
+- Envelope the changes under #ifdef CONFIG_X86_MCE_AMD.
+- Use MCE_PRIORITY_UC instead of MCE_PRIO_ACCEL as we are
+  only handling uncorrectable errors.
+- Use macros to determine UMC instance and channel instance
+  where the uncorrectable error occured.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+v2->v3:
+- Move the check for correctable error before find_adev().
+- Fix a NULL pointer dereference if find_adev() returns NULL.
 
-Harry
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 141 ++++++++++++++++++++++++
+ 1 file changed, 141 insertions(+)
 
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 6421c896f2a1..120c9955cafb 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -2419,14 +2419,13 @@ bool perform_link_training_with_retries(
->  		if (panel_mode == DP_PANEL_MODE_EDP) {
->  			struct cp_psp *cp_psp = &stream->ctx->cp_psp;
->  
-> -			if (cp_psp && cp_psp->funcs.enable_assr) {
-> -				if (!cp_psp->funcs.enable_assr(cp_psp->handle, link)) {
-> -					/* since eDP implies ASSR on, change panel
-> -					 * mode to disable ASSR
-> -					 */
-> -					panel_mode = DP_PANEL_MODE_DEFAULT;
-> -				}
-> -			}
-> +			if (cp_psp && cp_psp->funcs.enable_assr)
-> +				/* ASSR is bound to fail with unsigned PSP
-> +				 * verstage used during devlopment phase.
-> +				 * Report and continue with eDP panel mode to
-> +				 * perform eDP link training with right settings
-> +				 */
-> +				cp_psp->funcs.enable_assr(cp_psp->handle, link);
->  		}
->  #endif
->  
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 912ea1f9fd04..c1e806762e41 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -35,7 +35,11 @@
+ #include "amdgpu_xgmi.h"
+ #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+ #include "atom.h"
++#ifdef CONFIG_X86_MCE_AMD
++#include <asm/mce.h>
+ 
++static bool notifier_registered;
++#endif
+ static const char *RAS_FS_NAME = "ras";
+ 
+ const char *ras_error_string[] = {
+@@ -107,6 +111,9 @@ static bool amdgpu_ras_check_bad_page_unlock(struct amdgpu_ras *con,
+ 				uint64_t addr);
+ static bool amdgpu_ras_check_bad_page(struct amdgpu_device *adev,
+ 				uint64_t addr);
++#ifdef CONFIG_X86_MCE_AMD
++static void amdgpu_register_bad_pages_mca_notifier(void);
++#endif
+ 
+ void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, bool ready)
+ {
+@@ -2089,6 +2096,11 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
+ 			adev->smu.ppt_funcs->send_hbm_bad_pages_num(&adev->smu, con->eeprom_control.ras_num_recs);
+ 	}
+ 
++#ifdef CONFIG_X86_MCE_AMD
++	if ((adev->asic_type == CHIP_ALDEBARAN) &&
++	    (adev->gmc.xgmi.connected_to_cpu))
++		amdgpu_register_bad_pages_mca_notifier();
++#endif
+ 	return 0;
+ 
+ free:
+@@ -2583,3 +2595,132 @@ void amdgpu_release_ras_context(struct amdgpu_device *adev)
+ 		kfree(con);
+ 	}
+ }
++
++#ifdef CONFIG_X86_MCE_AMD
++static struct amdgpu_device *find_adev(uint32_t node_id)
++{
++	struct amdgpu_gpu_instance *gpu_instance;
++	int i;
++	struct amdgpu_device *adev = NULL;
++
++	mutex_lock(&mgpu_info.mutex);
++
++	for (i = 0; i < mgpu_info.num_gpu; i++) {
++		gpu_instance = &(mgpu_info.gpu_ins[i]);
++		adev = gpu_instance->adev;
++
++		if (adev->gmc.xgmi.connected_to_cpu &&
++		    adev->gmc.xgmi.physical_node_id == node_id)
++			break;
++		adev = NULL;
++	}
++
++	mutex_unlock(&mgpu_info.mutex);
++
++	return adev;
++}
++
++#define GET_MCA_IPID_GPUID(m)	(((m) >> 44) & 0xF)
++#define GET_UMC_INST(m)		(((m) >> 21) & 0x7)
++#define GET_CHAN_INDEX(m)	((((m) >> 12) & 0x3) | (((m) >> 18) & 0x4))
++#define GPU_ID_OFFSET		8
++
++static int amdgpu_bad_page_notifier(struct notifier_block *nb,
++				    unsigned long val, void *data)
++{
++	struct mce *m = (struct mce *)data;
++	struct amdgpu_device *adev = NULL;
++	uint32_t gpu_id = 0;
++	uint32_t umc_inst = 0;
++	uint32_t ch_inst, channel_index = 0;
++	struct ras_err_data err_data = {0, 0, 0, NULL};
++	struct eeprom_table_record err_rec;
++	uint64_t retired_page;
++
++	/*
++	 * If the error was generated in UMC_V2, which belongs to GPU UMCs,
++	 * and error occurred in DramECC (Extended error code = 0) then only
++	 * process the error, else bail out.
++	 */
++	if (!m || !((smca_get_bank_type(m->bank) == SMCA_UMC_V2) &&
++		    (XEC(m->status, 0x1f) == 0x0)))
++		return NOTIFY_DONE;
++
++	/*
++	 * If it is correctable error, return.
++	 */
++	if (mce_is_correctable(m))
++		return NOTIFY_OK;
++
++	/*
++	 * GPU Id is offset by GPU_ID_OFFSET in MCA_IPID_UMC register.
++	 */
++	gpu_id = GET_MCA_IPID_GPUID(m->ipid) - GPU_ID_OFFSET;
++
++	adev = find_adev(gpu_id);
++	if (!adev) {
++		DRM_WARN("%s: Unable to find adev for gpu_id: %d\n", __func__,
++								gpu_id);
++		return NOTIFY_DONE;
++	}
++
++	/*
++	 * If it is uncorrectable error, then find out UMC instance and
++	 * channel index.
++	 */
++	umc_inst = GET_UMC_INST(m->ipid);
++	ch_inst = GET_CHAN_INDEX(m->ipid);
++
++	dev_info(adev->dev, "Uncorrectable error detected in UMC inst: %d, chan_idx: %d",
++			     umc_inst, ch_inst);
++
++	memset(&err_rec, 0x0, sizeof(struct eeprom_table_record));
++
++	/*
++	 * Translate UMC channel address to Physical address
++	 */
++	channel_index =
++		adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num
++					  + ch_inst];
++
++	retired_page = ADDR_OF_8KB_BLOCK(m->addr) |
++			ADDR_OF_256B_BLOCK(channel_index) |
++			OFFSET_IN_256B_BLOCK(m->addr);
++
++	err_rec.address = m->addr;
++	err_rec.retired_page = retired_page >> AMDGPU_GPU_PAGE_SHIFT;
++	err_rec.ts = (uint64_t)ktime_get_real_seconds();
++	err_rec.err_type = AMDGPU_RAS_EEPROM_ERR_NON_RECOVERABLE;
++	err_rec.cu = 0;
++	err_rec.mem_channel = channel_index;
++	err_rec.mcumc_id = umc_inst;
++
++	err_data.err_addr = &err_rec;
++	err_data.err_addr_cnt = 1;
++
++	if (amdgpu_bad_page_threshold != 0) {
++		amdgpu_ras_add_bad_pages(adev, err_data.err_addr,
++						err_data.err_addr_cnt);
++		amdgpu_ras_save_bad_pages(adev);
++	}
++
++	return NOTIFY_OK;
++}
++
++static struct notifier_block amdgpu_bad_page_nb = {
++	.notifier_call  = amdgpu_bad_page_notifier,
++	.priority       = MCE_PRIO_UC,
++};
++
++static void amdgpu_register_bad_pages_mca_notifier(void)
++{
++	/*
++	 * Register the x86 notifier only once
++	 * with MCE subsystem.
++	 */
++	if (notifier_registered == false) {
++		mce_register_decode_chain(&amdgpu_bad_page_nb);
++		notifier_registered = true;
++	}
++}
++#endif
+-- 
+2.17.1
 
