@@ -2,100 +2,138 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B4D2C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5519AC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EED3D611C9
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EED3D611C9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+	by mail.kernel.org (Postfix) with ESMTPS id 1DFDC61153
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:07:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1DFDC61153
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C21A6EC01;
-	Wed, 22 Sep 2021 14:38:12 +0000 (UTC)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE386EBFE
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 14:32:09 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id u18so12389697lfd.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 07:32:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=shutemov-name.20210112.gappssmtp.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=ayCGrHt4GWDBHksaWpDlFPsTDgmCQyv1ZQQyBUlWV+I=;
- b=vKVQE5RUe8kMs0wun4XuDGO3eTujOGs2RwESdLhyIqK2JwxlqZrlSJy3MrsXJkRafX
- gBAYy/nccugQKoUll1gn8VoFbzjQhjrLzptB1R76SapyouDJT5ZGJIWbG+FX4hwJyS6V
- RHRd5aepSbIC42CmHtd5u+dR4xuEL++muo/z0NTk8BMGL92wAA2PmP9KOi2aYe71/Bfr
- QklC4Nhk0K/0QbQiJZijepS1OZ+jtAxihfchh+jQ4jf5+4U17tQ1xXPBbmD5a5nhc0Gd
- SVGSB9p7xAW0QvKqL518rFLXTD4w7KZA2wBif/Kp2RKz31Lh+5HyNQaqaSmkfOyisrNC
- k+Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=ayCGrHt4GWDBHksaWpDlFPsTDgmCQyv1ZQQyBUlWV+I=;
- b=vW/tGLbi4lb2Jn/j5TKGQesA26zPaSBlk9+9lzKd0rCcMDK2beLabz5ctg6iZUL91Z
- V3ciWqSj8c9hWEEnHTRorLNYscnHiYNaHV6v3CCimkgegmmh4S53eW8PYerfwBK3RW9J
- HKv911AbooxTSyffxPKDqQdS1uVl0QHDp/Mkpw7r/Gl3Q6yGcbC7f7AT+Fe9zvdc1DFt
- 67of06KdFFk2uxphPypo9Z10UGHc/n6AXJOME4AQOlQ2v4XASKAAKmHvL+6desZ0961d
- f/fHAMvTOf1D8AJLWY6VXX+SSWVTOj7MGgYxOvUrZZfA6FUqpHQMgxLDovtpc58DLSSy
- VohA==
-X-Gm-Message-State: AOAM5306kw0phomwY8VNaZ+JLVI024EDUn65yg6BoO/094AXEePGurnF
- YJ+PdZpxQQcNLam44wERdbS/ag==
-X-Google-Smtp-Source: ABdhPJz3SPlP/oK9QpFHL+xKtQ0nQUgNyOd556PIkN1KxMSQUqIwOiDbPwtupEbWOJByEgde/ChetQ==
-X-Received: by 2002:a05:651c:512:: with SMTP id
- o18mr35155713ljp.199.1632321016184; 
- Wed, 22 Sep 2021 07:30:16 -0700 (PDT)
-Received: from box.localdomain ([86.57.175.117])
- by smtp.gmail.com with ESMTPSA id y9sm205960lfl.240.2021.09.22.07.30.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Sep 2021 07:30:15 -0700 (PDT)
-Received: by box.localdomain (Postfix, from userid 1000)
- id E147C10304D; Wed, 22 Sep 2021 17:30:15 +0300 (+03)
-Date: Wed, 22 Sep 2021 17:30:15 +0300
-From: "Kirill A. Shutemov" <kirill@shutemov.name>
-To: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: Borislav Petkov <bp@alien8.de>, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
- x86@kernel.org, iommu@lists.linux-foundation.org,
- kvm@vger.kernel.org, linux-efi@vger.kernel.org,
- platform-driver-x86@vger.kernel.org,
- linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
- Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>,
- Christoph Hellwig <hch@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Will Deacon <will@kernel.org>
-Subject: Re: [PATCH v3 5/8] x86/sme: Replace occurrences of sme_active() with
- cc_platform_has()
-Message-ID: <20210922143015.vvxvh6ec73lffvkf@box.shutemov.name>
-References: <367624d43d35d61d5c97a8b289d9ddae223636e9.1631141919.git.thomas.lendacky@amd.com>
- <20210920192341.maue7db4lcbdn46x@box.shutemov.name>
- <77df37e1-0496-aed5-fd1d-302180f1edeb@amd.com>
- <YUoao0LlqQ6+uBrq@zn.tnic>
- <20210921212059.wwlytlmxoft4cdth@box.shutemov.name>
- <YUpONYwM4dQXAOJr@zn.tnic>
- <20210921213401.i2pzaotgjvn4efgg@box.shutemov.name>
- <00f52bf8-cbc6-3721-f40e-2f51744751b0@amd.com>
- <20210921215830.vqxd75r4eyau6cxy@box.shutemov.name>
- <01891f59-7ec3-cf62-a8fc-79f79ca76587@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73FF26EC0F;
+	Wed, 22 Sep 2021 15:07:02 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06FB46EC05;
+ Wed, 22 Sep 2021 15:07:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VzpADjqdZgY7l7lbNzuJu3NQ7BBfaEdObJjikGbHgmybUnNV15ye4rLGqH7H4bXwwslvy1l+3yTs5lXWm6JyzOdQ9eq7V8HrUPvhzM/jGb6PXD+qEMqdyWvj33DA0vIRTsfrbO/3DzJtIoDRfc3g44vX1GXLHgr5NA+72tNiiyTWZNo549UOiW77devldJTK5KFB+RKJtVL7vpBT8451qcJNThNOpZEbIjr8RMWbfVul0dpDv7bG4Wch+mfpg+8M4XVEGw65Cch1voa308dLXE232u5W7Gf2nAEqk3lJSFzHUQmoiihbkEPkFJgocVZozWAoHvCWdPdxooSRzUhSjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=J1Mvm8OzyJRcxEhDYAOFHILNyMgAYW9hUPfAO3wfAY8=;
+ b=QQW6ep2Gk8lw4hJLcxok2jdkz0a59gqMikZmG7ayQIgBtSZw6kVniqQEIK+FDd4BUscctUm/Zzqlgnhb4tFgvKy5zE0LtXM7AI6+DrfC2qvYT83tP9Li+b4yx39YWEoV4bfNC4gNqmcrZ+ZEmI2X6u1Ro+bTDBaQS2Whb1ogj4mffhNNmND5vpzExeGIuNcxpFJdDPdC7RSeroLuRVAlPfj+2R+KzhYXO7YEbHAViUU38M3ABNUcJiw+gHPwlKrIP5f9mUsdguffyBn9jntgeIL694ycPkJYUbFtI5at0vSye2iepr58LjBGdJ7BquGdWTNJTZy6P9xJ5pxhq4M17A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J1Mvm8OzyJRcxEhDYAOFHILNyMgAYW9hUPfAO3wfAY8=;
+ b=IfoBpWi/CxrEAqxp+/Xgf6+f852dmd/Boy3f933T4tJX24ocUbYCSPDadNntLlF6xOoDVCtIKpgqrs7V+r62V2oRJ29KZutMlX8Myizd2NVmy7HlYcDfRjFxAwN6FUn5DjyIrs1/2LH7K0E6pg7D0elXY8Coh43TVSEitjcntMM=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CO6PR12MB5412.namprd12.prod.outlook.com (2603:10b6:5:35e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Wed, 22 Sep
+ 2021 15:06:59 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465%9]) with mapi id 15.20.4544.014; Wed, 22 Sep 2021
+ 15:06:59 +0000
+Message-ID: <a13d64b1-7b24-5fd5-41d3-b55d2bd388e0@amd.com>
+Date: Wed, 22 Sep 2021 11:06:53 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
+Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com,
+ Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
+ Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com,
+ Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
+ jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
+ <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+In-Reply-To: <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0128.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::28) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <01891f59-7ec3-cf62-a8fc-79f79ca76587@amd.com>
-X-Mailman-Approved-At: Wed, 22 Sep 2021 14:38:11 +0000
+Received: from [192.168.50.4] (198.200.67.104) by
+ YQBPR01CA0128.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:1::28) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 15:06:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a4e1e693-762d-465d-03d0-08d97dda9fbb
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5412:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CO6PR12MB54121BB885453F83EBB1B0608CA29@CO6PR12MB5412.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wWfe10nNRSjDIJUjpbNvq3hy2gSBXepo3ClSHBA4Jn8S/IRIewDZvClbMsd8Ks/rW5xqocDc6nsyweFTt9FR62f0cw1nf7WJgVWEx26x5OntAsaSPRST1Tdnue5+GSQobfvt4iRHnPiJzrpynW6B4kAOZANWVJfpPk31bMWPPzj1f9i0EgyuWgkCjbhs/yf5hg2o4lF9695X/YL6EcukMyI4MHBawJgRQk2W8IFUGWEdu0VrOhzo9HtfyZpz/kHJ49g0hgLjx4OsORABpYTf/AJ71h6S8sq7vuwJksKv53fva3Rvf+OyJr6PKe3Wbx+foZepDUdl/JLDeTBbdSE4LTf+fPpmZaD98MKxC++uzgiAjGG0JPXKaDplVH4jXrCIN4s0BXokKvdOmt6hUseTq/PeTjwzBWvlRMTieZsk85Q5uMS5vuPhGipL2lo6dD+jTRzDHd6zW5k1vRJdR+NKxkMo22jcs4zW5AAVIsuMwpm/gKyLBn8/iqLEDpkG1t+mF/81YTfF6q6htyuYtWWoj5B0Ey0v3/hJukI4BQtLJgA/qKuKApfbEd3SlI9Kyc6Voy+XbwATkFBoQYXLEpo/jjHxzydK4Eo3UuXG6X+N83Jfv16sLuApr0y5DSDc3Zj2KoJKitL48issuDcREDsXAH/vd1759ocrWfXO+URxHf1eJM7gtJnqpnb1rp3PPw5dUFrp82LXpA1HZ2jvp/qC/TtgB0Dj03dgbxzvw381rO8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(7416002)(956004)(38100700002)(86362001)(6916009)(16576012)(66946007)(44832011)(2906002)(6486002)(83380400001)(31696002)(26005)(53546011)(508600001)(316002)(66556008)(2616005)(5660300002)(66476007)(6666004)(31686004)(8676002)(8936002)(36756003)(4326008)(186003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REgxSFcyS3JtSEcxUmNOMmNHMlhINUY0eGhsRm9CZ3BtaUJaVVFxRWNxNzBU?=
+ =?utf-8?B?NzNjcHRnRGlJb254TGJ6OVdCUzh5RTk1dUF6Wk1sUkVOcmQwdTV1amIvUUhq?=
+ =?utf-8?B?Qk9kVUZLYU9QMEE5VjZsM0Y5ZnpUdEdLS2Nza3NSL0FUcU8wM0RDcW5oNk1L?=
+ =?utf-8?B?b3hwSUhKeU8zMXR4VEMvT1l3T2VCZ3lmRm4wRDlOQTJJdjMxZjVaTWlLMHdu?=
+ =?utf-8?B?elZOdXhtcVAybVRFZS9rZTFGM1A2MjlocDBDendMSjQ2cEJuZWYxVTFDcERV?=
+ =?utf-8?B?dGM2cDVhNEZZMWlRTUd6dVBjQUZpcFV5dVRxeGdXMGFTbjJnd3llWUMzSlVp?=
+ =?utf-8?B?WXZ1a2IvNmREVzVGYzdoYzN3WThYT2JDd2RnNnBMblVqNWprTlFiSEd1alRy?=
+ =?utf-8?B?OG9yRE1SL1ZrMWg4YXNEbnRCZkFGcUxsdk1Dd3hWaExTZlNid3NDNEF2cnVp?=
+ =?utf-8?B?bjRPNmJzZEM1S1dpRlp0eTFOY0dOQXovbElxNk0ybVY2alJ4NlRpdDViR0NH?=
+ =?utf-8?B?blk1NFpLcGgvWHBRaTdQVmFzaXl6SWFyY004NzhndnhWQ0NjaVVLYW9KUjBw?=
+ =?utf-8?B?eVRQQmNobVkxV0dRNlhGYnhxWDlOTThndG9vazlEMWV2dnhyMHVyajBsZkh6?=
+ =?utf-8?B?ZHhnQ1BRUzFpOTV4QVVJK0thZm43RjUyeDJ3MzVQM1lTOU9iRUhpbUROQS8w?=
+ =?utf-8?B?VityQm9iV0dBeTNGQndyMXBmRHBBaHZqS0Z1T2JYRnluQUVTRHJtRVB6MlRH?=
+ =?utf-8?B?TnRjSUZJclJaYnQzOVRxSkZmZjZMTEdyc0czNUZnYk9lY2VxM0IwNUl3Zmxl?=
+ =?utf-8?B?YWlxWXM1SVE1YkdSWUVhelJabkh4RW05c2o3UlR5dlNXbTFYenFSc3lUamQw?=
+ =?utf-8?B?b0c0R21MVVNlQWtHc2FuU3ljd0N1T3pCMmdhMXZOWS9GRWlpdVQ5YjVsS0xK?=
+ =?utf-8?B?REVlRzFHcWpicnY3eEZYZ2lLdVpTdkMrSVdyd2NBckRrVHRxdjBNR2Z0Qm9P?=
+ =?utf-8?B?ZzBNMXJackJXM1krVzV4amZyOGdWaEtFYldmeExER0hiK2d5WS9ZTzJzNktI?=
+ =?utf-8?B?K3phNG0yS2gyZ29SMlUzeFR5cWc2OWZrMS9RYy9OTEdKcHEvQ2ExL21XZG5W?=
+ =?utf-8?B?bWtwbmhGT2N2aHE2bW5ZYTVIUnlVb2I0c04zb0dGR25iMGVRRUhZUFQ3ckor?=
+ =?utf-8?B?azdyNUxJVkZIWXAyUWRGanhrRkR3SWZsZ2duaC8wcDF2bWcvRmhVVW1VY1hH?=
+ =?utf-8?B?Z0dMc2dQa1JrVGF1T3VXZmI0NVM1UGs0OWdsVDlISkprOWdtcU1zdXJ6bEVI?=
+ =?utf-8?B?SmM4OFhtaWV1VHlFMHcrc3paOFJ4SzRiYzRERTFsdWc5VmZtcVVCeXJrNDF5?=
+ =?utf-8?B?U3Y5UVFRbTZRWUZzM0tGWUM5WkdoVkhTbTI3QUdyTVRndzN5S0s0OU5MdERs?=
+ =?utf-8?B?U2VublpwL0NoTTJ5WWFiQmp0UEpBSTA0aS8yS040TEt5ZzEzRjlBcExjSnFl?=
+ =?utf-8?B?RHEvbU5lRVdVYzN2YTRha0cwL1hUclJSTmtObEthWk9nL20xZTBkbGQ4cU05?=
+ =?utf-8?B?NVFaZ1g0UVQxckl4ZlFXVHFqK2RyNkNETXBsMFBrWFN1dXNBOERUQzY4eElC?=
+ =?utf-8?B?QjczaHdhaUFSTWgvMkw4WDhMZ0hIOXF0djVZUDIvLzlSckZkQUtqdWI5Sm5t?=
+ =?utf-8?B?TTVpMWJBN2dLTHcvNS96THJaQ0diMEZjeERibWJxVFZxTUozbmYyOXk1YzN4?=
+ =?utf-8?Q?Tt2RQJ3PnfE15k9sLQ1Q4Pz7aDdwgpCONkcTPCV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4e1e693-762d-465d-03d0-08d97dda9fbb
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 15:06:59.1068 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iLaLRjzkmun5/QNinldbR3hnfgDk+bQgtb/Axk91Q7hXNUqWKc2Cf3a+GuRWJj31zQt5TrEpW1XyNiL+bMZxew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5412
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,46 +148,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 22, 2021 at 08:40:43AM -0500, Tom Lendacky wrote:
-> On 9/21/21 4:58 PM, Kirill A. Shutemov wrote:
-> > On Tue, Sep 21, 2021 at 04:43:59PM -0500, Tom Lendacky wrote:
-> > > On 9/21/21 4:34 PM, Kirill A. Shutemov wrote:
-> > > > On Tue, Sep 21, 2021 at 11:27:17PM +0200, Borislav Petkov wrote:
-> > > > > On Wed, Sep 22, 2021 at 12:20:59AM +0300, Kirill A. Shutemov wrote:
-> > > > > > I still believe calling cc_platform_has() from __startup_64() is totally
-> > > > > > broken as it lacks proper wrapping while accessing global variables.
-> > > > > 
-> > > > > Well, one of the issues on the AMD side was using boot_cpu_data too
-> > > > > early and the Intel side uses it too. Can you replace those checks with
-> > > > > is_tdx_guest() or whatever was the helper's name which would check
-> > > > > whether the the kernel is running as a TDX guest, and see if that helps?
-> > > > 
-> > > > There's no need in Intel check this early. Only AMD need it. Maybe just
-> > > > opencode them?
-> > > 
-> > > Any way you can put a gzipped/bzipped copy of your vmlinux file somewhere I
-> > > can grab it from and take a look at it?
-> > 
-> > You can find broken vmlinux and bzImage here:
-> > 
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1n74vUQHOGebnF70Im32qLFY8iS3wvjIs%3Fusp%3Dsharing&amp;data=04%7C01%7Cthomas.lendacky%40amd.com%7C1c7adf380cbe4c1a6bb708d97d4af6ff%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637678583935705530%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=gA30x%2Bfu97tUx0p2UqI8HgjiL8bxDbK1GqgJBbUrUE4%3D&amp;reserved=0
-> > 
-> > Let me know when I can remove it.
+
+
+On 2021-09-20 20:14, Harry Wentland wrote:
+> On 2021-09-15 10:01, Pekka Paalanen wrote:> On Fri, 30 Jul 2021 16:41:29 -0400
+>> Harry Wentland <harry.wentland@amd.com> wrote:
+>>
+
+<snip>
+
+>>> +If a display's maximum HDR white level is correctly reported it is trivial
+>>> +to convert between all of the above representations of SDR white level. If
+>>> +it is not, defining SDR luminance as a nits value, or a ratio vs a fixed
+>>> +nits value is preferred, assuming we are blending in linear space.
+>>> +
+>>> +It is our experience that many HDR displays do not report maximum white
+>>> +level correctly
+>>
+>> Which value do you refer to as "maximum white", and how did you measure
+>> it?
+>>
+> Good question. I haven't played with those displays myself but I'll try to
+> find out a bit more background behind this statement.
 > 
-> Looking at everything, it is all RIP relative addressing, so those
-> accesses should be fine.
 
-Not fine, but waiting to blowup with random build environment change.
 
-> Your image has the intel_cc_platform_has()
-> function, does it work if you remove that call? Because I think it may be
-> the early call into that function which looks like it has instrumentation
-> that uses %gs in __sanitizer_cov_trace_pc and %gs is not setup properly
-> yet. And since boot_cpu_data.x86_vendor will likely be zero this early it
-> will match X86_VENDOR_INTEL and call into that function.
+Some TVs report the EOTF but not the luminance values.
+For an example edid-code capture of my eDP HDR panel:
 
-Right removing call to intel_cc_platform_has() or moving it to
-cc_platform.c fixes the issue.
+  HDR Static Metadata Data Block:
+    Electro optical transfer functions:
+      Traditional gamma - SDR luminance range
+      SMPTE ST2084
+    Supported static metadata descriptors:
+      Static metadata type 1
+    Desired content max luminance: 115 (603.666 cd/m^2)
+    Desired content max frame-average luminance: 109 (530.095 cd/m^2)
+    Desired content min luminance: 7 (0.005 cd/m^2)
 
--- 
- Kirill A. Shutemov
+I suspect on those TVs it looks like this:
+
+  HDR Static Metadata Data Block:
+    Electro optical transfer functions:
+      Traditional gamma - SDR luminance range
+      SMPTE ST2084
+    Supported static metadata descriptors:
+      Static metadata type 1
+
+Windows has some defaults in this case and our Windows driver also has
+some defaults.
+
+Using defaults in the 1000-2000 nits range would yield much better
+tone-mapping results than assuming the monitor can support a full
+10k nits.
+
+As an aside, recently we've come across displays where the max
+average luminance is higher than the max peak luminance. This is
+not a mistake but due to how the display's dimming zones work.
+
+Not sure what impact this might have on tone-mapping, other than
+to keep in mind that we can assume that max_avg < max_peak.
+
+Harry
+
