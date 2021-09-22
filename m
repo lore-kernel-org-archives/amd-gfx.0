@@ -2,71 +2,142 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0D7DC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:21:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 656D8C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A35D160249
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:21:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A35D160249
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2AAAF60F21
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 15:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2AAAF60F21
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 186D76EC18;
-	Wed, 22 Sep 2021 15:21:34 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15EF56EC18
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 15:21:33 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- c42-20020a05683034aa00b0051f4b99c40cso4055552otu.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 08:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=e53o8BTTMpWGc/YFimYF1BKmO44erYRBoEPAE/EpAac=;
- b=QI0o0KSfdqc4r+v2goWEj+AoUkbZioNEEUbOJTndmxYBzfdYnsX1joJlWuUU4hqFvV
- iUSNB3tgrzO6m7Bgm+6wqy5cIvvBpmbRPFAuDKGE5nfKDGIFy1jrxFenWXEDL3QJz8Me
- hULflgBdF8e/D2OBsp4pEkS6R7I+/RSfOyQk4cGWINp63UU5f6lsQ1T/DTBA+9mhQDQT
- Waa0fSpnmIGPzqGmmW7XKFvU0TmpSCJ2PkMoBAuRzeLtgPSj1tB1zD8phk9WxYwib8iA
- iJEeqFywNVL0vkOXhWh3cJaZ2ZbIOyXc0pWxjmqpa/mYp2eGo4BQBAO/dLDrOcFlxPdb
- OpPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=e53o8BTTMpWGc/YFimYF1BKmO44erYRBoEPAE/EpAac=;
- b=YlZLfSdHwh+S3CowZ3PUYBZR3cC5hX5w7XhP/oIbeQH8FKdJ53dtO6Ovd7/kDpOEnR
- 1mDW0Ma9TgeTTDrrzJxTi8bjo4ym0JzVC5E7NswzfOZjB6DnI3lzu27fWSpomIfkNxEm
- 0TPQ/E4TMDixElqBI/h5hwA0mMqobMZZYDTwebW+nMM+nRjqxLXTqbwPvZlqBLHzGg2N
- mt8FSYvBbGG3DC4+rdVpcamZ+IbPxvOpX5PZ+XGvv1bJWG8PfXuXy/yLnSzv277L9Vkl
- gbzsusnaV0DxUpCT4yie2m5vbgAUaoVbcFiGVPQBgv8qOyu37WOc9e2XvX9TCfs60BpR
- 5YTw==
-X-Gm-Message-State: AOAM533wTPk4BAPY25PVuVoTqCYMTFhB9G4ZBMnf20LejGYO2gU67uWB
- K+SzH0xiIcxNu6LxqJgYU01A05YHMtyUtzpr6XI=
-X-Google-Smtp-Source: ABdhPJzIKfC3cDeNw7QNJAOVBPahhhv1Y8CMHnxcntCshxLx+wXC7SIUjILMdRiGRrs+hk/FW7tns00Bj8LeRg5KT3A=
-X-Received: by 2002:a05:6830:214c:: with SMTP id
- r12mr365741otd.200.1632324092204; 
- Wed, 22 Sep 2021 08:21:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2F656EC21;
+	Wed, 22 Sep 2021 15:28:47 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C43989D7C;
+ Wed, 22 Sep 2021 15:28:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YQC0sQZA4HhfqcMULBZAjlUU+BDatQTJEqIeeA+0PsZMoRlqJS7Y0EtNcIGT/JPHAhdFegTg7pCbCigL4XSH1qcGaJC0tJAUYZ8fmhEQE7aV3zv6rwIFAp7RjDx6gCsHPsHmxReDqVHT2bV4rgvBUAPlYKassbA3tLqwYhaPF2lFzMqsIh4XGQ39U91RfFClC1d14Arkp1hDkTrCWf2QsYx/t6zGxI9fkCbfHC7HX1uVn4QdxrcD3ZGXpWrsyLGY9v1Q0u0IBaw8gDVgMR17NKXE9nXJYe4Owq7c91dM7feSYibqbXbx2P98P8joegiXr1otAaN3C8Wy/7V9uaRCNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=G1fOHXxw4KoCjxn5QC+kW69aNX4hSh1x/EIkPzJsev8=;
+ b=ZoX06r7btmNDCACkXtUlEECPqd8Ft/TYSclAHq/eQeyEgXeLfrHr3GKHqHbgxxPiGSD0W2yWhmNt5+ZxMFUPrgEJAhxnY2UbkHV7ROHo1NHMzucDIw+/6ynMbQXXgBiluhHuX8nHdKtSRK3Ek7xfG6YPjvDKmnfYpOLKNKvplMyBZ9TBOYe5sYYj90vavLoEErwKYf724js2rBhM+Slk777Bt6wL0ygaAs3NcPrvldiOqU8A737rICSS778XiVsRHZl0OriclPJCHRHClLn7aDmzwrBceW/EIwptPYuokSmF5yZqo+oJFnFHwUOj/8vbAmvSHM+uXmJBnjTO80rb1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G1fOHXxw4KoCjxn5QC+kW69aNX4hSh1x/EIkPzJsev8=;
+ b=L3ZNa3tbIMRQ7VhQmQ5vUj/N+cC6MZMSwrSzhn1TwnUX7Lm1GD/i2gBu6hyy98sYmCDpNwbhWdH+1S1XQnG6d2UA9P252N5YrSUnAiXykw0AKcYO232FgGVOfKLC8aoEDieAA/PoAEi1RPJXN8toagpUlCto+z+gL5+I5MmGo14=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CO6PR12MB5428.namprd12.prod.outlook.com (2603:10b6:5:35c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Wed, 22 Sep
+ 2021 15:28:43 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465%9]) with mapi id 15.20.4544.014; Wed, 22 Sep 2021
+ 15:28:43 +0000
+Message-ID: <823898e8-a8fe-cc74-e5b4-c4907826efbc@amd.com>
+Date: Wed, 22 Sep 2021 11:28:37 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
+Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+Content-Language: en-US
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com,
+ Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
+ Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com,
+ Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
+ jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
+ <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+ <20210921163158.688c26bc@eldfell>
+ <0c673cf8-2b90-c1ca-a0b0-c809e7e10c2c@amd.com>
+ <20210922113105.2e42754c@eldfell>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20210922113105.2e42754c@eldfell>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0190.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::33) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20210921180725.1985552-1-alexander.deucher@amd.com>
- <20210921180725.1985552-29-alexander.deucher@amd.com>
- <deee930b-0214-e165-e23f-93a6ffd150a0@amd.com>
-In-Reply-To: <deee930b-0214-e165-e23f-93a6ffd150a0@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Sep 2021 11:21:21 -0400
-Message-ID: <CADnq5_MgT8Kn5bUTFDjaaHhTFKXGi9MRK+sJCqPfdv-NZi5Vcg@mail.gmail.com>
-Subject: Re: [PATCH 28/66] drm/amdgpu/nv: convert to IP version checking
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from [192.168.50.4] (198.200.67.104) by
+ YQBPR0101CA0190.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:f::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
+ Transport; Wed, 22 Sep 2021 15:28:40 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ef98c44e-8581-478e-edfe-08d97ddda90c
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5428:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CO6PR12MB542896DE312BF1F811BCB4E58CA29@CO6PR12MB5428.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HujBMsoBtR9F5l8hgzRcjHv/F8063Tnp50FC7dFKSQ8aYh8t4fWysyURwOFhnbm02dxyk6AlFGxeaqNMYxcQEG5Vc44DDpZWio3ehjMgjXfJVkjek+GLXLJUWIOMW1rkDggf5rW4Hz7JZoTZnkayWPY5XTsFtsq/fbU/crX7tpz3pfwk+iiUu0xwfhbKnZgV52VmCua7oW/7DKqWgy9IjcH8X+WC9hzBPYwaJ40ZcN1nZKFk0Y0iL3Jc3FaBqoxmnJUtincbbXYKQIXxn0TShMJwP0flxh7QIMJokIbBmNoHiqG+FDyd5sxrpOTv+p1CyYUcQfMcc1eCDvLx7ctXU8xhuqGo6mIxBuG3p3sfLROIlb89N3m7TgHsgjiFpHhbTesmXTkUHjrKyTTiyhvrvDOK0F5D0WAyd6kLNustuvNwLZTNmahJQSOELuxMn/lcOslcUyAR/lZK9mJlS3F+bcbD7tKsq8ub616tVNNvkLL3Lj+005034sWaSClrboVHG88VaoE2aVFTC+uTApTMSUxQVf7L2OKUGg7oLgPVDrZJ+TYWGfVOj2pP2x577Uflc4XL9byNxF+HlB0+p1ITiVv37bco5geHR7B3IthJzkhrQ1sGFnM2zqfQ5+5Kkp0X1Wmf7ZwWRtv1jcMZVsB4aoC4YGe2Rmmyys3hMAnELjwTtA59Mi3pSq0IhVI7AoZeyDq/8ii+SHZu1mv4VTa1XpvUaYMOGlrVTRZ+0ruR+w3HKNNY+iOLCWy9uVdpiyhR
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(44832011)(6916009)(7416002)(86362001)(83380400001)(508600001)(66476007)(66556008)(8676002)(66946007)(6486002)(966005)(31696002)(38100700002)(2616005)(956004)(186003)(316002)(16576012)(5660300002)(8936002)(4326008)(31686004)(2906002)(36756003)(6666004)(26005)(53546011)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGp1SVdpWTlmRzhzTUNzQ2JqYjNaYTZDU2FGL2hPMGdXWGRiWW1veUlmSGtL?=
+ =?utf-8?B?ZTlFVnF2RVY0TkVLdDhYS2VIWmhYcjY4TlI0RTYxMDRCL1hDTEY2dmFYTUFa?=
+ =?utf-8?B?bkRnejdhSlZMeG9vOE50YlJWemRpaVFsYXNHZUZTR3pSVHJ2aHpRVmI0aXds?=
+ =?utf-8?B?L2JzY1BEeXExQjhLOXVFVFlJbE1PMzF6aUhmSUhkYzhSNDJvWVRWd0Y2MkN4?=
+ =?utf-8?B?aXFxV0t6VjhlcGovMlhIYmM1LzNNNHp5RUlNWkEvSlgwU1FZS2lBMEZ6QVRZ?=
+ =?utf-8?B?enBnWGhIQ3U3bldGdy9VWmVDVGNMV0JueW9FMTB0MXpPNkNtWFJ2VkwyU0hh?=
+ =?utf-8?B?ckUxQUFaNGVKeHR5Y2tnZEFaVVphV2Q5SkxQSXl1VUdTWi9hSjZkZzUzYml6?=
+ =?utf-8?B?NG9nUVd4L1VQWFdrTVJDNjdNbjc5RWdWdWdiZDFMUGE4OUJIbXFsQm9XQm9H?=
+ =?utf-8?B?a3FYQkdVeDVIN3krUkVGNDBUNmJvUkhyYkc0N2ZzQ3BYVmQ0OHJheEtjRUtq?=
+ =?utf-8?B?UG5JdHpLbExyMmFXZlB4Vk1sTzJhMWtjTTE5a2FMa3VlVGd2TFc3M0dHUEd5?=
+ =?utf-8?B?Uit3QmZ6WEg5aGhubk5MS0JpZUE5SEZUUFd5ejFsaW9pOTJvZStDNmRBMDF6?=
+ =?utf-8?B?WUhRaC9xcW9uREtNb1dzV0VaOXVlWWtUU25DTnF2T1BhWnF3ODIwRWxtRmVZ?=
+ =?utf-8?B?eW9nenFiZ1d3RG1yRGhFNnlMVjd1UDJCcWtIRmR2aG1vR3NCT1hLRU00UVY5?=
+ =?utf-8?B?RnFET0h5SDNtVFZWcmNYZHVZWFNkc2paRFp5d0xNRHN0VzRHMmVHVGFielV6?=
+ =?utf-8?B?d25WZUdML2dEbWRNYnFjOTR2VnR2UVdlTlJwR0EySEJOMHpZNTNQOFpsdVUy?=
+ =?utf-8?B?OE0razZxWmQyZGx0WlVUWXZST1FtaHN5MVlrZ25XQjRvaW16SXpVa2k1WGZt?=
+ =?utf-8?B?M2FCcUhjVzcydWIvRDV0SVJoaTJYODJPN2I0cGM5ZEVIRThhdFI0RzlxeUVr?=
+ =?utf-8?B?RDF6UDVTWU9PZUUvMEQxVjFRakdmSDcwaWFkVzdHV1Q4emdWazJ3SnVJa1FS?=
+ =?utf-8?B?NVdjUWlCRHBzNTRaclhpdEhaOFQyakoreDNuRDRqUk05NkN5MFpRNFdzQWFw?=
+ =?utf-8?B?NnlMMFprblJNSVhXRHZLZUdmeHNId0Izb1NTMnJOV3diZWc5SVJYS2Z1UVFY?=
+ =?utf-8?B?WGNOUmdVVEs3b1o2dGkrNmNGdW91dHZON08vNW5ldmJlemtFam9MSE42LzY0?=
+ =?utf-8?B?Zmp1Mjk3UmRqWms3QzlTYzRYZ1JZN1FTQWErQ0ZBdVlzZFIwZGI2MzVrd3dD?=
+ =?utf-8?B?S0o0cE9URTJ5d0VFUktrazYyZkkxTUM4RWJhaVFyR0dSWjJiUEUxT3BkWFM1?=
+ =?utf-8?B?YTBKT2pDNS83dXRZOHFHc3JQRWlPSGQ5clg2MkFUMHNNUmYrcVNVZVJjMW1i?=
+ =?utf-8?B?V0hhMFVZY0FhRWVaMmVWQTBpMnJXYWdBeHR3UXNwNm1Lc1M4aW5QMlB4b3Uy?=
+ =?utf-8?B?ZmZVM1p2Nm5VMHZNNDdJd1hNVHdWTDVsQldGRHRTcnZ6ODNuY2lGd25EeG9P?=
+ =?utf-8?B?TnUrVkZxeUM5QVVwOWZmcnJxK0YwdE9CS1dKdytTOXg3NjhZcWVHY05hOVBC?=
+ =?utf-8?B?TEx2NjBpbnE2UG5VR2xJTS9YU3YyNlVRTUtMWXh5TXhKMi9veTRUdkxLcWcz?=
+ =?utf-8?B?ZDlFOFRtWTE5UExQUnlmKzlDdE8yS2RUTE9xb0FPcDVtcS9XdEpsVXN3VEN2?=
+ =?utf-8?Q?ezpCO473fdufFW1ir/BekAa+NgOM97HH2VmN2Ir?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef98c44e-8581-478e-edfe-08d97ddda90c
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 15:28:43.0283 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3iqpzp+PAAu5jR72l6RdynqqfOxZGgwR5DBa9DaNy3Go3ItNswkAcW5OD4KRf7haEjtpK/n9Q4Vrxi6c6ZK+Og==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5428
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,221 +152,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 22, 2021 at 3:32 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->
->
-> On 9/21/2021 11:36 PM, Alex Deucher wrote:
-> > Use IP versions rather than asic_type to differentiate
-> > IP version specific features.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/nv.c | 75 +++++++++++++++++----------------
-> >   1 file changed, 38 insertions(+), 37 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> > index 0dc390a7509f..57be517d70bf 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> > @@ -180,8 +180,8 @@ static const struct amdgpu_video_codecs yc_video_codecs_decode = {
-> >   static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
-> >                                const struct amdgpu_video_codecs **codecs)
-> >   {
-> > -     switch (adev->asic_type) {
-> > -     case CHIP_SIENNA_CICHLID:
-> > +     switch (adev->ip_versions[UVD_HWIP]) {
-> > +     case IP_VERSION(3, 0, 0):
-> >               if (amdgpu_sriov_vf(adev)) {
-> >                       if (encode)
-> >                               *codecs = &sriov_sc_video_codecs_encode;
-> > @@ -194,29 +194,27 @@ static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
-> >                               *codecs = &sc_video_codecs_decode;
-> >               }
-> >               return 0;
-> > -     case CHIP_NAVY_FLOUNDER:
-> > -     case CHIP_DIMGREY_CAVEFISH:
-> > -     case CHIP_VANGOGH:
-> > +     case IP_VERSION(3, 0, 16):
-> > +     case IP_VERSION(3, 0, 2):
-> >               if (encode)
-> >                       *codecs = &nv_video_codecs_encode;
-> >               else
-> >                       *codecs = &sc_video_codecs_decode;
-> >               return 0;
-> > -     case CHIP_YELLOW_CARP:
-> > +     case IP_VERSION(3, 1, 1):
-> >               if (encode)
-> >                       *codecs = &nv_video_codecs_encode;
-> >               else
-> >                       *codecs = &yc_video_codecs_decode;
-> >               return 0;
-> > -     case CHIP_BEIGE_GOBY:
-> > +     case IP_VERSION(3, 0, 33):
-> >               if (encode)
-> >                       *codecs = &bg_video_codecs_encode;
-> >               else
-> >                       *codecs = &bg_video_codecs_decode;
-> >               return 0;
-> > -     case CHIP_NAVI10:
-> > -     case CHIP_NAVI14:
-> > -     case CHIP_NAVI12:
-> > +     case IP_VERSION(2, 0, 0):
-> > +     case IP_VERSION(2, 0, 2):
-> >               if (encode)
-> >                       *codecs = &nv_video_codecs_encode;
-> >               else
-> > @@ -511,14 +509,15 @@ nv_asic_reset_method(struct amdgpu_device *adev)
-> >               dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
-> >                                 amdgpu_reset_method);
-> >
-> > -     switch (adev->asic_type) {
-> > -     case CHIP_VANGOGH:
-> > -     case CHIP_YELLOW_CARP:
-> > +     switch (adev->ip_versions[MP1_HWIP]) {
-> > +     case IP_VERSION(11, 5, 0):
-> > +     case IP_VERSION(13, 0, 1):
-> > +     case IP_VERSION(13, 0, 3):
->
-> Odd. Two cases replaced by 3 - are there two versions for YC?
 
-The versions of some IPs changed with newer silicon spins.
 
-Alex
+On 2021-09-22 04:31, Pekka Paalanen wrote:
+> On Tue, 21 Sep 2021 14:05:05 -0400
+> Harry Wentland <harry.wentland@amd.com> wrote:
+> 
+>> On 2021-09-21 09:31, Pekka Paalanen wrote:
+>>> On Mon, 20 Sep 2021 20:14:50 -0400
+>>> Harry Wentland <harry.wentland@amd.com> wrote:
+>>>   
 
->
+...
+
+> 
+>> Did anybody start any CM doc patches in Weston or Wayland yet?
+> 
+> There is the
+> https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/unstable/color-management/color.rst
+> we started a long time ago, and have not really touched it for a while.
+> Since we last touched it, at least my understanding has developed
+> somewhat.
+> 
+> It is linked from the overview in
+> https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/14
+> and if you want to propose changes, the way to do it is file a MR in
+> https://gitlab.freedesktop.org/swick/wayland-protocols/-/merge_requests
+> against the 'color' branch. Patches very much welcome, that doc does
+> not need to limit itself to Wayland. :-)
+> 
+
+Right, I've read all that a while back.
+
+It might be a good place to consolidate most of the Linux CM/HDR discussion,
+since gitlab is good with allowing discussions, we can track changes, and
+it's more formatting and diagram friendly than text-only email.
+
+> We also have issues tracked at
+> https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues?scope=all&utf8=%E2%9C%93&state=opened
+> 
+>>> Pre-curve for instance could be a combination of decoding to linear
+>>> light and a shaper for the 3D LUT coming next. That's why we don't call
+>>> them gamma or EOTF, that would be too limiting.
+>>>
+>>> (Using a shaper may help to keep the 3D LUT size reasonable - I suppose
+>>> very much like those multi-segmented LUTs.)
+>>>   
+>>
+>> AFAIU a 3D LUTs will need a shaper as they don't have enough precision.
+>> But that's going deeper into color theory than I understand. Vitaly would
+>> know better all the details around 3D LUT usage.
+> 
+> There is a very practical problem: the sheer number of elements in a 3D
+> LUT grows to the power of three. So you can't have very many taps per
+> channel without storage requirements blowing up. Each element needs to
+> be a 3-channel value, too. And then 8 bits is not enough.
+> 
+
+And those storage requirements would have a direct impact on silicon real
+estate and therefore the price and power usage of the HW.
+
+Harry
+
+> I'm really happy that Vitaly is working with us on Weston and Wayland. :-)
+> He's a huge help, and I feel like I'm currently the one slowing things
+> down by being backlogged in reviews.
+> 
+> 
 > Thanks,
-> Lijo
->
-> >               return AMD_RESET_METHOD_MODE2;
-> > -     case CHIP_SIENNA_CICHLID:
-> > -     case CHIP_NAVY_FLOUNDER:
-> > -     case CHIP_DIMGREY_CAVEFISH:
-> > -     case CHIP_BEIGE_GOBY:
-> > +     case IP_VERSION(11, 0, 7):
-> > +     case IP_VERSION(11, 0, 11):
-> > +     case IP_VERSION(11, 0, 12):
-> > +     case IP_VERSION(11, 0, 13):
-> >               return AMD_RESET_METHOD_MODE1;
-> >       default:
-> >               if (amdgpu_dpm_is_baco_supported(adev))
-> > @@ -1042,8 +1041,11 @@ static int nv_common_early_init(void *handle)
-> >
-> >       adev->rev_id = nv_get_rev_id(adev);
-> >       adev->external_rev_id = 0xff;
-> > -     switch (adev->asic_type) {
-> > -     case CHIP_NAVI10:
-> > +     /* TODO: split the GC and PG flags based on the relevant IP version for which
-> > +      * they are relevant.
-> > +      */
-> > +     switch (adev->ip_versions[GC_HWIP]) {
-> > +     case IP_VERSION(10, 1, 10):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> >                       AMD_CG_SUPPORT_IH_CG |
-> > @@ -1065,7 +1067,7 @@ static int nv_common_early_init(void *handle)
-> >                       AMD_PG_SUPPORT_ATHUB;
-> >               adev->external_rev_id = adev->rev_id + 0x1;
-> >               break;
-> > -     case CHIP_NAVI14:
-> > +     case IP_VERSION(10, 1, 1):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> >                       AMD_CG_SUPPORT_IH_CG |
-> > @@ -1086,7 +1088,7 @@ static int nv_common_early_init(void *handle)
-> >                       AMD_PG_SUPPORT_VCN_DPG;
-> >               adev->external_rev_id = adev->rev_id + 20;
-> >               break;
-> > -     case CHIP_NAVI12:
-> > +     case IP_VERSION(10, 1, 2):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_MGLS |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> > @@ -1115,7 +1117,7 @@ static int nv_common_early_init(void *handle)
-> >                       adev->rev_id = 0;
-> >               adev->external_rev_id = adev->rev_id + 0xa;
-> >               break;
-> > -     case CHIP_SIENNA_CICHLID:
-> > +     case IP_VERSION(10, 3, 0):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGLS |
-> > @@ -1139,7 +1141,7 @@ static int nv_common_early_init(void *handle)
-> >               }
-> >               adev->external_rev_id = adev->rev_id + 0x28;
-> >               break;
-> > -     case CHIP_NAVY_FLOUNDER:
-> > +     case IP_VERSION(10, 3, 2):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGLS |
-> > @@ -1158,8 +1160,7 @@ static int nv_common_early_init(void *handle)
-> >                       AMD_PG_SUPPORT_MMHUB;
-> >               adev->external_rev_id = adev->rev_id + 0x32;
-> >               break;
-> > -
-> > -     case CHIP_VANGOGH:
-> > +     case IP_VERSION(10, 3, 1):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_MGLS |
-> >                       AMD_CG_SUPPORT_GFX_CP_LS |
-> > @@ -1182,7 +1183,7 @@ static int nv_common_early_init(void *handle)
-> >               if (adev->apu_flags & AMD_APU_IS_VANGOGH)
-> >                       adev->external_rev_id = adev->rev_id + 0x01;
-> >               break;
-> > -     case CHIP_DIMGREY_CAVEFISH:
-> > +     case IP_VERSION(10, 3, 4):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGLS |
-> > @@ -1201,7 +1202,7 @@ static int nv_common_early_init(void *handle)
-> >                       AMD_PG_SUPPORT_MMHUB;
-> >               adev->external_rev_id = adev->rev_id + 0x3c;
-> >               break;
-> > -     case CHIP_BEIGE_GOBY:
-> > +     case IP_VERSION(10, 3, 5):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> >                       AMD_CG_SUPPORT_GFX_CGLS |
-> > @@ -1218,7 +1219,7 @@ static int nv_common_early_init(void *handle)
-> >                       AMD_PG_SUPPORT_MMHUB;
-> >               adev->external_rev_id = adev->rev_id + 0x46;
-> >               break;
-> > -     case CHIP_YELLOW_CARP:
-> > +     case IP_VERSION(10, 3, 3):
-> >               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
-> >                       AMD_CG_SUPPORT_GFX_MGLS |
-> >                       AMD_CG_SUPPORT_GFX_CGCG |
-> > @@ -1247,7 +1248,7 @@ static int nv_common_early_init(void *handle)
-> >               else
-> >                       adev->external_rev_id = adev->rev_id + 0x01;
-> >               break;
-> > -     case CHIP_CYAN_SKILLFISH:
-> > +     case IP_VERSION(10, 1, 3):
-> >               adev->cg_flags = 0;
-> >               adev->pg_flags = 0;
-> >               adev->external_rev_id = adev->rev_id + 0x82;
-> > @@ -1374,14 +1375,14 @@ static int nv_common_set_clockgating_state(void *handle,
-> >       if (amdgpu_sriov_vf(adev))
-> >               return 0;
-> >
-> > -     switch (adev->asic_type) {
-> > -     case CHIP_NAVI10:
-> > -     case CHIP_NAVI14:
-> > -     case CHIP_NAVI12:
-> > -     case CHIP_SIENNA_CICHLID:
-> > -     case CHIP_NAVY_FLOUNDER:
-> > -     case CHIP_DIMGREY_CAVEFISH:
-> > -     case CHIP_BEIGE_GOBY:
-> > +     switch (adev->ip_versions[NBIO_HWIP]) {
-> > +     case IP_VERSION(2, 3, 0):
-> > +     case IP_VERSION(2, 3, 1):
-> > +     case IP_VERSION(2, 3, 2):
-> > +     case IP_VERSION(3, 3, 0):
-> > +     case IP_VERSION(3, 3, 1):
-> > +     case IP_VERSION(3, 3, 2):
-> > +     case IP_VERSION(3, 3, 3):
-> >               adev->nbio.funcs->update_medium_grain_clock_gating(adev,
-> >                               state == AMD_CG_STATE_GATE);
-> >               adev->nbio.funcs->update_medium_grain_light_sleep(adev,
-> >
+> pq
+> 
+
