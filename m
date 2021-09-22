@@ -2,83 +2,100 @@ Return-Path: <SRS0=EYW0=OM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90DB6C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 13:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B4D2C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D810611CA
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 13:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5D810611CA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id EED3D611C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Sep 2021 14:38:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EED3D611C9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1397A6E938;
-	Wed, 22 Sep 2021 13:49:14 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B119A6E938;
- Wed, 22 Sep 2021 13:49:13 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- n65-20020a9d2047000000b00547334367efso3585001ota.1; 
- Wed, 22 Sep 2021 06:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+ED/VYArWk+tFyr/VrOfeccky6C6F3tOGHMzTDTf1Io=;
- b=RPx1BdcdOLL3JI275MTV3hsOkcqlu12MCUa1UXyP2/q5lsLfpmeV8JmEb0Po6EXYtQ
- oKnvMniC6z5ckIU4YOVqW+IyJxxn0EdNEN/PRbDHa1Mf+ZnjK/6J7MVknquX54C7SKlq
- UxVPDkN4uSUHJJgveTj6xKGQ+P6m5Va6GV29pgKV24jz6PHGwGIEwWA+HAVAVtsWCzJ7
- YUmocd3o9qCx/RiPT/XH/8vHUGa6ovisHdIy6Nr8s5du1SoxCjSpIW5xcfmiWByOF7M5
- P9bhv+R+IQDu/jyBFjT/bg7VMohaVAC1iFjfyO0bTRnwqWm+cq+LgGHkdRTRlYXVEyiE
- DGfQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C21A6EC01;
+	Wed, 22 Sep 2021 14:38:12 +0000 (UTC)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE386EBFE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 14:32:09 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id u18so12389697lfd.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Sep 2021 07:32:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=shutemov-name.20210112.gappssmtp.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ayCGrHt4GWDBHksaWpDlFPsTDgmCQyv1ZQQyBUlWV+I=;
+ b=vKVQE5RUe8kMs0wun4XuDGO3eTujOGs2RwESdLhyIqK2JwxlqZrlSJy3MrsXJkRafX
+ gBAYy/nccugQKoUll1gn8VoFbzjQhjrLzptB1R76SapyouDJT5ZGJIWbG+FX4hwJyS6V
+ RHRd5aepSbIC42CmHtd5u+dR4xuEL++muo/z0NTk8BMGL92wAA2PmP9KOi2aYe71/Bfr
+ QklC4Nhk0K/0QbQiJZijepS1OZ+jtAxihfchh+jQ4jf5+4U17tQ1xXPBbmD5a5nhc0Gd
+ SVGSB9p7xAW0QvKqL518rFLXTD4w7KZA2wBif/Kp2RKz31Lh+5HyNQaqaSmkfOyisrNC
+ k+Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+ED/VYArWk+tFyr/VrOfeccky6C6F3tOGHMzTDTf1Io=;
- b=PMcLPMN44AeiaVL0t7c9T89OxitKrsYn4DXRZ4JujvMrbXRsJcCQ4wIXqCOP1sut5B
- hhScM6SbT6IOw8q11Bilg2lXe2jt6zu3GBN5RAmq+HP5w+VTe9rMkPqZO+MOIR1oqoji
- cLYyz9/3rVKRUGLbdSDlnDrfnzSXldoyUclOK4Z7a1xToQ3LwYd1TkyBpaDuAF1nKjWY
- mpGxPzayRc4mh2uw38ZJIK+RM/IgAog0aej0ZagRnYgJrZmzlXROw+Afdis6OkHYcVb6
- CynZJz0mG71k2c35oo2so1nk2s6IyQGHU1JCnlC/zJ9MWG8RkJm+O6mG7/rzzQB7UpTN
- kXdg==
-X-Gm-Message-State: AOAM531Wem16hcXXAye5FfmF+bZg2yZ3ZEt3nSkcGa+970GmrsozgOAE
- mUrDvz/9uzq5Z9ZtdPgiAeA1T791OWH+zns6slo=
-X-Google-Smtp-Source: ABdhPJym8KBy2bO4o2Jw59ayfh7QPyCfs4aYGmUyiTH/1VkUDqqSc2RKjPE6CnATM6PlBSeurdUo7meYcRtaFktvyGE=
-X-Received: by 2002:a05:6830:25d3:: with SMTP id
- d19mr31718804otu.357.1632318551756; 
- Wed, 22 Sep 2021 06:49:11 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ayCGrHt4GWDBHksaWpDlFPsTDgmCQyv1ZQQyBUlWV+I=;
+ b=vW/tGLbi4lb2Jn/j5TKGQesA26zPaSBlk9+9lzKd0rCcMDK2beLabz5ctg6iZUL91Z
+ V3ciWqSj8c9hWEEnHTRorLNYscnHiYNaHV6v3CCimkgegmmh4S53eW8PYerfwBK3RW9J
+ HKv911AbooxTSyffxPKDqQdS1uVl0QHDp/Mkpw7r/Gl3Q6yGcbC7f7AT+Fe9zvdc1DFt
+ 67of06KdFFk2uxphPypo9Z10UGHc/n6AXJOME4AQOlQ2v4XASKAAKmHvL+6desZ0961d
+ f/fHAMvTOf1D8AJLWY6VXX+SSWVTOj7MGgYxOvUrZZfA6FUqpHQMgxLDovtpc58DLSSy
+ VohA==
+X-Gm-Message-State: AOAM5306kw0phomwY8VNaZ+JLVI024EDUn65yg6BoO/094AXEePGurnF
+ YJ+PdZpxQQcNLam44wERdbS/ag==
+X-Google-Smtp-Source: ABdhPJz3SPlP/oK9QpFHL+xKtQ0nQUgNyOd556PIkN1KxMSQUqIwOiDbPwtupEbWOJByEgde/ChetQ==
+X-Received: by 2002:a05:651c:512:: with SMTP id
+ o18mr35155713ljp.199.1632321016184; 
+ Wed, 22 Sep 2021 07:30:16 -0700 (PDT)
+Received: from box.localdomain ([86.57.175.117])
+ by smtp.gmail.com with ESMTPSA id y9sm205960lfl.240.2021.09.22.07.30.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Sep 2021 07:30:15 -0700 (PDT)
+Received: by box.localdomain (Postfix, from userid 1000)
+ id E147C10304D; Wed, 22 Sep 2021 17:30:15 +0300 (+03)
+Date: Wed, 22 Sep 2021 17:30:15 +0300
+From: "Kirill A. Shutemov" <kirill@shutemov.name>
+To: Tom Lendacky <thomas.lendacky@amd.com>
+Cc: Borislav Petkov <bp@alien8.de>, linuxppc-dev@lists.ozlabs.org,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+ x86@kernel.org, iommu@lists.linux-foundation.org,
+ kvm@vger.kernel.org, linux-efi@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org,
+ linux-graphics-maintainer@vmware.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, Brijesh Singh <brijesh.singh@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Andi Kleen <ak@linux.intel.com>,
+ Sathyanarayanan Kuppuswamy <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ Christoph Hellwig <hch@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Will Deacon <will@kernel.org>
+Subject: Re: [PATCH v3 5/8] x86/sme: Replace occurrences of sme_active() with
+ cc_platform_has()
+Message-ID: <20210922143015.vvxvh6ec73lffvkf@box.shutemov.name>
+References: <367624d43d35d61d5c97a8b289d9ddae223636e9.1631141919.git.thomas.lendacky@amd.com>
+ <20210920192341.maue7db4lcbdn46x@box.shutemov.name>
+ <77df37e1-0496-aed5-fd1d-302180f1edeb@amd.com>
+ <YUoao0LlqQ6+uBrq@zn.tnic>
+ <20210921212059.wwlytlmxoft4cdth@box.shutemov.name>
+ <YUpONYwM4dQXAOJr@zn.tnic>
+ <20210921213401.i2pzaotgjvn4efgg@box.shutemov.name>
+ <00f52bf8-cbc6-3721-f40e-2f51744751b0@amd.com>
+ <20210921215830.vqxd75r4eyau6cxy@box.shutemov.name>
+ <01891f59-7ec3-cf62-a8fc-79f79ca76587@amd.com>
 MIME-Version: 1.0
-References: <cover.1631191763.git.jani.nikula@intel.com>
- <def17e2329722f22c35807be26b35590ccb93bfd.1631191763.git.jani.nikula@intel.com>
- <YUpjj7IwBqMYSR7z@archlinux-ax161> <87a6k4n9wg.fsf@intel.com>
-In-Reply-To: <87a6k4n9wg.fsf@intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Sep 2021 09:49:00 -0400
-Message-ID: <CADnq5_OCbZ8Y299ZcC+7ZwhfgqN+TRM+TWPZtkvFGvvNguvuzA@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH v3 03/13] drm/dp: add LTTPR DP 2.0 DPCD
- addresses
-To: Jani Nikula <jani.nikula@intel.com>, Harry Wentland <hwentlan@amd.com>, 
- "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, 
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Manasi Navare <manasi.d.navare@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux-Next Mailing List <linux-next@vger.kernel.org>, 
- Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <01891f59-7ec3-cf62-a8fc-79f79ca76587@amd.com>
+X-Mailman-Approved-At: Wed, 22 Sep 2021 14:38:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,104 +110,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Harry, Leo
+On Wed, Sep 22, 2021 at 08:40:43AM -0500, Tom Lendacky wrote:
+> On 9/21/21 4:58 PM, Kirill A. Shutemov wrote:
+> > On Tue, Sep 21, 2021 at 04:43:59PM -0500, Tom Lendacky wrote:
+> > > On 9/21/21 4:34 PM, Kirill A. Shutemov wrote:
+> > > > On Tue, Sep 21, 2021 at 11:27:17PM +0200, Borislav Petkov wrote:
+> > > > > On Wed, Sep 22, 2021 at 12:20:59AM +0300, Kirill A. Shutemov wrote:
+> > > > > > I still believe calling cc_platform_has() from __startup_64() is totally
+> > > > > > broken as it lacks proper wrapping while accessing global variables.
+> > > > > 
+> > > > > Well, one of the issues on the AMD side was using boot_cpu_data too
+> > > > > early and the Intel side uses it too. Can you replace those checks with
+> > > > > is_tdx_guest() or whatever was the helper's name which would check
+> > > > > whether the the kernel is running as a TDX guest, and see if that helps?
+> > > > 
+> > > > There's no need in Intel check this early. Only AMD need it. Maybe just
+> > > > opencode them?
+> > > 
+> > > Any way you can put a gzipped/bzipped copy of your vmlinux file somewhere I
+> > > can grab it from and take a look at it?
+> > 
+> > You can find broken vmlinux and bzImage here:
+> > 
+> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1n74vUQHOGebnF70Im32qLFY8iS3wvjIs%3Fusp%3Dsharing&amp;data=04%7C01%7Cthomas.lendacky%40amd.com%7C1c7adf380cbe4c1a6bb708d97d4af6ff%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637678583935705530%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=gA30x%2Bfu97tUx0p2UqI8HgjiL8bxDbK1GqgJBbUrUE4%3D&amp;reserved=0
+> > 
+> > Let me know when I can remove it.
+> 
+> Looking at everything, it is all RIP relative addressing, so those
+> accesses should be fine.
 
-Can you guys get someone to clean this up?
+Not fine, but waiting to blowup with random build environment change.
 
-Alex
+> Your image has the intel_cc_platform_has()
+> function, does it work if you remove that call? Because I think it may be
+> the early call into that function which looks like it has instrumentation
+> that uses %gs in __sanitizer_cov_trace_pc and %gs is not setup properly
+> yet. And since boot_cpu_data.x86_vendor will likely be zero this early it
+> will match X86_VENDOR_INTEL and call into that function.
 
-On Wed, Sep 22, 2021 at 7:10 AM Jani Nikula <jani.nikula@intel.com> wrote:
->
-> On Tue, 21 Sep 2021, Nathan Chancellor <nathan@kernel.org> wrote:
-> > On Thu, Sep 09, 2021 at 03:51:55PM +0300, Jani Nikula wrote:
-> >> DP 2.0 brings some new DPCD addresses for PHY repeaters.
-> >>
-> >> Cc: dri-devel@lists.freedesktop.org
-> >> Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
-> >> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> >> ---
-> >>  include/drm/drm_dp_helper.h | 4 ++++
-> >>  1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> >> index 1d5b3dbb6e56..f3a61341011d 100644
-> >> --- a/include/drm/drm_dp_helper.h
-> >> +++ b/include/drm/drm_dp_helper.h
-> >> @@ -1319,6 +1319,10 @@ struct drm_panel;
-> >>  #define DP_MAX_LANE_COUNT_PHY_REPEATER                          0xf0004 /* 1.4a */
-> >>  #define DP_Repeater_FEC_CAPABILITY                      0xf0004 /* 1.4 */
-> >>  #define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT                   0xf0005 /* 1.4a */
-> >> +#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER        0xf0006 /* 2.0 */
-> >> +# define DP_PHY_REPEATER_128B132B_SUPPORTED             (1 << 0)
-> >> +/* See DP_128B132B_SUPPORTED_LINK_RATES for values */
-> >> +#define DP_PHY_REPEATER_128B132B_RATES                          0xf0007 /* 2.0 */
-> >>
-> >>  enum drm_dp_phy {
-> >>      DP_PHY_DPRX,
-> >> --
-> >> 2.30.2
-> >>
-> >>
-> >
-> > This patch causes a build failure in -next when combined with the AMD
-> > tree:
-> >
-> > In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:33:
-> > In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:70:
-> > In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_mode.h:36:
-> > ./include/drm/drm_dp_helper.h:1322:9: error: 'DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER' macro redefined [-Werror,-Wmacro-redefined]
-> > #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER            0xf0006 /* 2.0 */
-> >         ^
-> > ./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dp_types.h:881:9: note: previous definition is here
-> > #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER        0xF0006
-> >         ^
-> > 1 error generated.
-> >
-> > Perhaps something like this should be applied during the merge of the
-> > second tree or maybe this patch should be in a branch that could be
-> > shared between the Intel and AMD trees so that this diff could be
-> > applied to the AMD tree directly? Not sure what the standard procedure
-> > for this is.
->
-> What's in the drm-intel-next branch is changing DRM DP helpers in
-> include/drm/drm_dp_helper.h with acks from a drm-misc maintainer. That's
-> where this stuff is supposed to land, not in a driver specific file, and
-> especially not if added with just a DP_ prefix.
->
->
-> BR,
-> Jani.
->
-> >
-> > Cheers,
-> > Nathan
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> > index 234dfbea926a..279863b5c650 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> > @@ -4590,7 +4590,7 @@ bool dp_retrieve_lttpr_cap(struct dc_link *link)
-> >                                                               DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
-> >
-> >               link->dpcd_caps.lttpr_caps.supported_128b_132b_rates.raw =
-> > -                             lttpr_dpcd_data[DP_PHY_REPEATER_128b_132b_RATES -
-> > +                             lttpr_dpcd_data[DP_PHY_REPEATER_128B132B_RATES -
-> >                                                               DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
-> >  #endif
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> > index a5e798b5da79..8caf9af5ffa2 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> > @@ -878,8 +878,6 @@ struct psr_caps {
-> >  # define DP_DSC_DECODER_COUNT_MASK                   (0b111 << 5)
-> >  # define DP_DSC_DECODER_COUNT_SHIFT                  5
-> >  #define DP_MAIN_LINK_CHANNEL_CODING_SET                      0x108
-> > -#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER     0xF0006
-> > -#define DP_PHY_REPEATER_128b_132b_RATES                      0xF0007
-> >  #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1  0xF0022
-> >  #define DP_INTRA_HOP_AUX_REPLY_INDICATION            (1 << 3)
-> >  /* TODO - Use DRM header to replace above once available */
->
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+Right removing call to intel_cc_platform_has() or moving it to
+cc_platform.c fixes the issue.
+
+-- 
+ Kirill A. Shutemov
