@@ -2,131 +2,142 @@ Return-Path: <SRS0=N7Ef=ON=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBF42C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 15:43:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE202C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 15:50:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69EF760E8B
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 15:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 69EF760E8B
+	by mail.kernel.org (Postfix) with ESMTPS id 74F096008E
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 15:50:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 74F096008E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E69C6E0BA;
-	Thu, 23 Sep 2021 15:43:13 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB2BD6E0BA
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 15:43:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC8AD6ED88;
+	Thu, 23 Sep 2021 15:50:12 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92BCE6ED15;
+ Thu, 23 Sep 2021 15:50:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fc99aUFTCUZlpj+bLnkNyzTWUQTyed12/PD0oPcxM7FOuhLDJUPmio6svyrwCODOYGm6V6YB4BXBsOByMJnYcykfunYY8QbTsjeIy4Eq+EiAhVJmxQDDYBR+vXt3sOQpCLrN1IXDKpFiJh3SV8jJ5rZPP2NgS1XTZacIBPHsAW8SvJ/qFZPw1lgh58BXzsOoT3p1tHigj89FxWDnJEupZSJQLtZNRKbzcntQvxRAG5lrYYrLIIjPxheEu7dFSDEYehXshUGsx5WbvJOLdrcg54yexuuvdbsEBC8P3E+WTk1EAYj+/auHi2kYxHaUUSWev2uAkUqeM/Dk2T7yuaZH5A==
+ b=mYJbeW/3/0cU42U8S0RwJZ3OdBNXvAFjxi5LIXij/X/jSoNaHwRlw6AbvsltD17DUw4n4eKrmNnarjrIKqk2l0w8u9Id5MUkrhXBrbXVCDOo8ppzUK7I/r1I1fxkZ923N+59VuTsGLmcyzFRy3cliutACSZRZlwOikA0kpgToSqoWqJWFnaWyPCsVKX7xfS2Wtcqnkf7vrvVkd0VyS9xpK8PLeg5XmS7RZZLqpEQt4Uwo8NSk3FoSrnzK2kzrlpL18mGyzNXXdIQlYJn8NYxLa/xnPV1FXWWheHQ8HdgrTipTSF3JMlgvL4x5TVikKo1Ut0zYUJCtNAFd7WdrKrbKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=T+cxuTeLQ0BhYJ+5zioRutQlDN3NzZ9oHrRhhks2GNI=;
- b=FLR0y0kVelpB2QLrCn46pV8y5CGuqgL45mHHBJDLyZM30iu6GtmNETtj0ReiuKKdAexSeqBf2f0wiwf2aaHMbI8/NVW/JIBlb8EkDl8IiOFCEiddxJMibsS+zt/Y1L8ef9tRnsxYRh+7V4+JPr6D7rQtfBw+s7JLsLgFmLnP3t6VAnEySex3cdrta/ncZER9b9EtHjfPd3v3TAf1+7PB5yh/5GbY+T8IGsvP7MFCQl0xi2h2ls4aw4M6driTkKu0+iowcEnSa6rGCljTZTqxq9beXBXuzRd0Y5WHXj9wOo2XTJWDafgyAdKTnrZf5wnbG5ic3jpiN/zsvNe0j/tiaQ==
+ bh=zjgloGJTp8IoX1mtny/JZYy/eMbuy6jAZxMTNH0gkic=;
+ b=Uk8sFF7lmXYGTbDtO3UVQAB+mMhtRivHfQYi+r6ZcQf2VY4Qvr5mV9B7Y/AnMN9cSry0wlE14HkvNDwbguNiMLWS9qeEJhGRYktjbb2pfBlyp6P0M5CBypycLSlHSfdw83r8T+0Lep8ZSXmgCBdvroFA5VYgsXCS4fk8AZcfrKcjmI5PLLgdqGllwnSuxYkOB+vGj86R2R00asdkXbAwpRN+jUymQNzcwpCK/u/A8b4YMi9UAKTMyOxAW0nUysru/hRukf/C2VRpx+JXAkJLUxJX2bsHUZ5X2jikeVQcZWHtSO+aEHaBwEhH6fgkzubF5Wq2pT96V9zjjfz6tspW1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T+cxuTeLQ0BhYJ+5zioRutQlDN3NzZ9oHrRhhks2GNI=;
- b=Zb44uoio3DHl4cNwu8/ytM1dpGCWbZov55mnoYmYcsYgIz26n9Hd0Qj/sAeFqtmF3aN5yZ19SUIkoCyz2ZPqAfEy1QSUJJZjFrVh/K9KDFtx764HGSmm5jg1hY7PeG7n4CSJPg9Uvu3eDKrOowUxPHcPMDiDQCHGBOtNQREUcM4=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5474.namprd12.prod.outlook.com (2603:10b6:303:139::9) with
+ bh=zjgloGJTp8IoX1mtny/JZYy/eMbuy6jAZxMTNH0gkic=;
+ b=kdV1tFiA0QJ4lRJdssHc/gGIhberWSN5f/0FcoaJk79QJ548csHOoGNmZjiJqecVcNpGd0Fiz5/TmzUqs1Z9ahS1Zwni6B0YQJYBjZ5it2EnGlcLyqneWi1AJIxn73dqqj6X9nyzFQfojHBb6l/r+8irUEibpoOQgryEn2RX1Kw=
+Authentication-Results: arm.com; dkim=none (message not signed)
+ header.d=none;arm.com; dmarc=none action=none header.from=amd.com;
+Received: from CH0PR12MB5268.namprd12.prod.outlook.com (2603:10b6:610:d3::23)
+ by CH0PR12MB5170.namprd12.prod.outlook.com (2603:10b6:610:b9::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Thu, 23 Sep
- 2021 15:43:09 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465%9]) with mapi id 15.20.4544.015; Thu, 23 Sep 2021
- 15:43:09 +0000
-Message-ID: <ebe17aa2-bf8e-c305-e275-d80e1f01537e@amd.com>
-Date: Thu, 23 Sep 2021 11:43:06 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Subject: Re: [PATCH 30/66] drm/amdgpu: add DCI HWIP
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210921180725.1985552-1-alexander.deucher@amd.com>
- <20210921180725.1985552-31-alexander.deucher@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20210921180725.1985552-31-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0196.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::8) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Thu, 23 Sep
+ 2021 15:50:08 +0000
+Received: from CH0PR12MB5268.namprd12.prod.outlook.com
+ ([fe80::9011:de18:14b4:2260]) by CH0PR12MB5268.namprd12.prod.outlook.com
+ ([fe80::9011:de18:14b4:2260%6]) with mapi id 15.20.4544.015; Thu, 23 Sep 2021
+ 15:50:08 +0000
+Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+To: Harry Wentland <harry.wentland@amd.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com,
+ Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
+ aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com, Krunoslav.Kovac@amd.com,
+ hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
+ jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
+ <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+ <a13d64b1-7b24-5fd5-41d3-b55d2bd388e0@amd.com>
+ <20210923110130.1928d8bf@eldfell>
+ <27a41be5-3563-6334-7bf8-e6d8f334359a@amd.com>
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Message-ID: <8b49d401-135d-0eb2-992f-821058435876@amd.com>
+Date: Thu, 23 Sep 2021 11:50:05 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <27a41be5-3563-6334-7bf8-e6d8f334359a@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-CA
+X-ClientProxiedBy: YT2PR01CA0007.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::12) To CH0PR12MB5268.namprd12.prod.outlook.com
+ (2603:10b6:610:d3::23)
 MIME-Version: 1.0
-Received: from [192.168.50.4] (198.200.67.104) by
- YQBPR0101CA0196.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:67::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15 via Frontend
- Transport; Thu, 23 Sep 2021 15:43:08 +0000
+Received: from [10.0.0.16] (38.64.189.249) by
+ YT2PR01CA0007.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.15 via Frontend Transport; Thu, 23 Sep 2021 15:50:07 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5f2cc3e4-f3b0-4be8-7829-08d97ea8d7e9
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5474:
+X-MS-Office365-Filtering-Correlation-Id: 67b03664-559a-4f04-60d3-08d97ea9d1b6
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5170:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5474BE7FFABC479B4837733F8CA39@CO6PR12MB5474.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5170295089252968AB0872CC81A39@CH0PR12MB5170.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZvE4jDgdRMQpo9dxDMabGHXM+dz0YZ95QmoWdUSz+Kf+AhgFLI/8KZSm78mCflKvYwjS/1JDXPAiXBOODOxEVOPbs+m+V2bsBvuKUlZWwKdnc6Lmq2L1c1H+ujNw9TVi261kOPwX9h6zSCsSPO1gc9kOMaUM/wPSUw95Ay0lEruRHDl7jejPae0dgKpnO3Zl6ry14ViwFmmdJaXYu6eh/KRcrlHxtUTz9fPyhfBbb6OWSQ22ASPJUJof9s8HT25ZVc/GiBR24sOr50mWEgOpgx+EIkA9qH7ziIRwnnB3s5CZbFP9U2isR4eSnwJhRQR1QE+ZxV2jqyKpcEygLrxSgQgGXTUGXK0Wp/GZWMZ+uO0miu3j1or/thE2YrYU3owJ9uaVFGNz2UmScL9wsYVHqJWfsTcS2+l7OOnswzas08WIsvt6eZdLVpebcz5hoiR0QKx0THoXGnHm3nKi3u80KegP9WVHgqsowkHwlbLof1hYbctImPZbqXtCv2AwAxsWSz6MIlehocAm7UvajGMO91oPJzWHQcSJdg73Epanbfk/ceCGLYU6wgh4sS15udwGSVnexePLuyjjD3gtW43wo864alBg1klyMh4+xnEvHlLqH1nH+xgZrtdWZbZG4//si0hOq87r0UYVq7PT9gJpMTb7tPTY+IcV2FHleMy+Io3v+sXp5qwM7OiVZzg8bDhJ0k/KhGpRRs9r1EoV5FjiXNsLD5/IGNe47xSfIWVnIyHmoMtFHjUOkjk0ebiaezg5
+X-Microsoft-Antispam-Message-Info: yxpZRGrmR0PdLzMg0AsSopBozcWNp+hIUh/NWBJfX8h/yXFi30edV2mxJjDDszn7V0IqXSTGkFUDNHo19b8msYRNAUUXX2UeWz3aJuz1GqxWcQxk9AtGDhVMF3dA4H55habKYIJGdrbD0nvhDnURTh6dDP6UAIlbp2+tTSAnNcWG7WfJO4LkMYA8ah2rqJLVMVChRhZN3utWJ3jI/rhIxxflz9wMeE1SZEEh5MnOMrbOUA7LstUiPDHa2RNDkhCd3BgaDojk5H7y0hAbGDYJBaRmOpywAhCXgrQhh221z/UpXHpdl6pFwBbH36oP4qfKNr6qylnXzQ3bPbwrMTcQuIY9duisEFc5v66eIqv7+SG8psCqBOIab0qVFYF8PSC8ohJVNBaFW8cqNNM605nVY4LC9EPCI8qu1o7I4uKfXauJYrlZ3LELB/DBRGauDbC/SjWswK2xcHISB/khVJtmkm6eF6nhKHFcYboN8FPDSbzSKNY3nyHcmFCugRyceSjKOG097Sio7IXQuIvlal8yLg1pfxaESzxc1cPSeI/uAoXap0cjZSRPq8WczOXjc5+e3JMATAe/OrOJgGJ32oAP95igivrrQAlT/pRH6Iziy4fiBAhzQSrTZhZ/BPqyUke/98awnIoSDiMDmoFEFkuU9jB3smb2SmzNdt62Sqd0DfrTe0BF0ZDCJd4h4qpVmWChqKoNpNa44yUBlkcSbFGReGUIHu6RCXnWLq6knX088Wc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(44832011)(66556008)(6486002)(36756003)(53546011)(5660300002)(2906002)(66946007)(66476007)(31686004)(316002)(16576012)(508600001)(956004)(83380400001)(31696002)(86362001)(8676002)(2616005)(8936002)(186003)(38100700002)(26005)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5268.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(2616005)(110136005)(956004)(316002)(16576012)(44832011)(26005)(2906002)(53546011)(66476007)(508600001)(8676002)(31686004)(83380400001)(8936002)(36756003)(66946007)(6486002)(966005)(4326008)(86362001)(186003)(38100700002)(66556008)(5660300002)(7416002)(31696002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2ZZanhJNGRVZ1JnaUg2d25sL2NrRVpaTUQzWi9QMUNmOGZpNVp1QVRCYTlC?=
- =?utf-8?B?cmxseUxJT3lmVWhVdzA0cmJDbWpmTFQ4VHVWWlM2cEY1Z2R3dERRZ1ZQdmt2?=
- =?utf-8?B?VUdBM1JnalMyWnhMVXBLRXhXTm90NFlnQWZWVGhkMmdVQ2dMa3RUMVYyWjNa?=
- =?utf-8?B?dU9UYllpMjQ1NWxFVEhjQU0velM2OVR4SjZZS20rNm4vWkw2a2pJNTZSK2FM?=
- =?utf-8?B?Q3dCaC8vMmNZVzlFZG9pMkswSnBWTDZyMzU3bWRGS0pmUzEySVRKcFN1bTVS?=
- =?utf-8?B?K0l4UCswQ25QclFTS3lIK2xwVWNwcUFmK1hMM1FsYWdhYi9kWmFjZ0tFMDlq?=
- =?utf-8?B?UWJ1a3RJMzF2aWNsM1V5T0V5bHVJUmF2OCtKZ3hyc1Zxa1l3bXlNQ1hTSUg3?=
- =?utf-8?B?QzR0VzNZbzFHTERoRzdTazlncm0zYzVTU1drUWFyeWVuSWJGSk9pUHNIQWRI?=
- =?utf-8?B?WEp3YS9FSk5BaFpRa1MraktqZUZyd1BEdTZkMUpiMWJKNWZOMlBZN3JIaGVH?=
- =?utf-8?B?aVQ2MHNEUzY0WGJ0Uko2TXp2cEZBNStQZUEwVzJqd3d5S040YjFwcFNXcFpr?=
- =?utf-8?B?bEhnUHpSaUZLQ0o2OVAxTFcvODdLTk5qSzQ5OFJKZ0hFc293anJSYzZyQkQ1?=
- =?utf-8?B?cHVSNHY0Qk9TWWV5QjJwc3QwY210djRiVFRqRG4yTXdLZ0QrajVvL3NuTVBX?=
- =?utf-8?B?ZTdablNpOWRtMDNiOGpORFRqSUpPbmxQVk9xdkJpbnd1c0ZwQ2RrN1hTL2lw?=
- =?utf-8?B?TVp3cHhjeDVyRFJCejVDQ2M4Qk1ib29VcURzSUdFVG1HKzREUU5uK0FKUHpp?=
- =?utf-8?B?bURJNjcwL2lvbWFMeVNlMC9tNTV0OCtDRkZFdUhKeHZmNFBzdmZ1WlRpS1o0?=
- =?utf-8?B?c2hMU1FGVUtkTHJDcVh3Q3ZNNCtvL3g2Rm0wbStYUEZiWGxLUG14V01iVWJj?=
- =?utf-8?B?cVRuZjJEVDVGc1JtdVZ0SlZBV2RCU282ZFBQUlpPaUhDZWhrZ1RKZElKblV4?=
- =?utf-8?B?OW9DVnhraXZKR3Zrb1ZSN3hRNlRXZ0k4S09oVEJ2LzR1K3A0ZDJsUWNZaWNt?=
- =?utf-8?B?eUlYZWl4VDJMKzhjZS9PYTVWSEFubGZCOHJyMTg1WjBUTDlHcGtWbzlHRE5V?=
- =?utf-8?B?dGVLYUVkc1BZcjRrRXZSckhmdUlSVWVrb0VpeTBUc2xUZnNNczlta2MzRkpM?=
- =?utf-8?B?bExERFBpNEdlSHozN2VPVGgycmc3bUlFNis3YVI4WUlaT0J1OVAzOW52OGpv?=
- =?utf-8?B?NWRZaXllVTlUaVpXdkZCK2pURjJVM3htenNwZEhudXhtdEJ2VEptSGd5UVpx?=
- =?utf-8?B?ZWFCbUJYRGRoVGdxd09PWE0vVTV4Nnl5S1FacGtXaGsvWEhzOEgwRHcvbDZQ?=
- =?utf-8?B?aDg5dExkSGxQT1ZVTmN5bXVRaktqdEVFbDNrNy9kTzZ4S2JyQkdwK05NZzdx?=
- =?utf-8?B?NTU4aUxPQ3RselhudjdUWXU3SC8ybUhZWUNpKzMxdHBEVDNWOTVwcHlPeTBP?=
- =?utf-8?B?NXRxUjF6TnllUjlkeFpoL205MlN1LzBsM205VFBzQnBJT1ZyTGxVSWdoTGQy?=
- =?utf-8?B?UXVYQS85WlliV2ZvTlJSYlIxZUd5UkZ4VFJxejRVb1hGTDVKOHRWQmdQRFNK?=
- =?utf-8?B?b093M0pjQmNhT3hPaWJNZkoxUzd2UUpybjZZMklBRHNCVDNjVFlBV1N0RXVM?=
- =?utf-8?B?bnphb1hjb0Y1Yi9YclIrek4wM1RYRHkwYi9PMW9TWFhrVUdHVzBsaFgrQ3Jq?=
- =?utf-8?Q?m+HMsEjhiLwAudQ0O418/jNt6mwJ72DVly1/Awn?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T3B0OGttQUNNeVd6QU9tbXJiL3hWQk1saXU4SHhOY3NudnlYTjNrRVNOMk12?=
+ =?utf-8?B?cCtWdmtGaEdYSEttN05ab3czb3pvZDFYUzBPdTBYc252TGx1bjVVWGozOWNN?=
+ =?utf-8?B?eCtjTE9lT2VGRlVnSS96ZlYvTFI1UmxRV2kxK0JwSzNFa2FvSWZvbCt3UDdX?=
+ =?utf-8?B?U1NXZ0x2QXR6QnArSFF5TWs2WmIxbWZiZUZSQW1VK2krTjYvZ2RPaC9sYWpr?=
+ =?utf-8?B?aktJOGlmWXIyQWFBLzR0ZFgvckFUMlNta2NWcG5uUEhuSzJiaG5uRWdxOEdk?=
+ =?utf-8?B?Vm1rclcrN0swQUd4bGQ3T1p6LzJJQzRtaGwxT0lWeW02Sjl3S3Z2Q2dmdGhU?=
+ =?utf-8?B?WWVSMGk3dG5TNDBtTjd6R29LVll0U0IzTFI5bUM3NU9IcjBIeExsS1ZSSnd1?=
+ =?utf-8?B?SFQ3aU9HNVpzUTI3enJhR3dWNnI2b2pBZ1ROYVlOR1BKUVNYTTc0Ky9qSGZR?=
+ =?utf-8?B?aTdLTDNrRmVsT2MxSW9lK3R5TjkzYW5BUzJNbXVQOVU0dWxJSXlreThISXBQ?=
+ =?utf-8?B?SEFpMVEzNnYwQVhieEM2U3dPQW92VWxuODBaU202b0xiRDB1N2M1NjNzOEd4?=
+ =?utf-8?B?czJ3NDcwd2pDWGlTeEowa0pFRUVPQ2JMdkszdS9wdmhZQkhRdi9JU3A1Q1dr?=
+ =?utf-8?B?VzI1OEd5dmk4MjZuOFRkVTFJeHRybHR0SWZJbkcyQ2xsdmkraGJ2UXkrTnlH?=
+ =?utf-8?B?VFpUT2tCY1pzT2RIVmVncFNMamNPdDIvWUpTb2ptSkFXT1lPWTJxcm5GcU1y?=
+ =?utf-8?B?dHBSd0NlK2pKb1A4ejV1cm80WDZnTy9keVF6Tzlyb2pxczJwd2FhKzVqRGcy?=
+ =?utf-8?B?S0hPY1NFM0xHc212THNxRXhQRXV5d3dwbENwcDRnQTdVMVpUYmszSGpLL09k?=
+ =?utf-8?B?THdvRTVrS1VENWcwaHdweWNFNVlOTTlCQ1lKclg1c002NThCL1hoR0hYS3ZD?=
+ =?utf-8?B?V3BHK2QyOG9sZE9EVzM4aU5jUlEyby9hL3gvSGEvVERJNDZJRmU4WTBEM0Qr?=
+ =?utf-8?B?M0hURkZpdHQ0NXdWbkZUNlJOdGxJankrbGtlVXJIZlo1RThlK1Q5dFk3WlJK?=
+ =?utf-8?B?QmJpaVVzT204aEwzTVdwcUdwTC90UGdEYVVYVnFLYU5yYjF3SnlyVXkvOTh6?=
+ =?utf-8?B?cS9GUHVJNGdBU3lUVWpZRitmTVFuTENEL2U1SUMvNHZZblhDQTBqTjJub0FL?=
+ =?utf-8?B?dFpDa1ZLdHAxSlRhWnhmMlJQVThGaVlnSGprTjZodFd5Y0ZaQkhHWjd5d1Vt?=
+ =?utf-8?B?OFF1NDVubHJhYzg2NWlneE1LcWsrYXUvNkRlbTlMMTFvbTkvOGN6REpwQmI3?=
+ =?utf-8?B?RXY3M2dhdTRkcm9sQVpHcnZhQ1hzeVdCbkJOT254ZG5uVzdFRkJTelREZG80?=
+ =?utf-8?B?NVFmYW1KdExCWVhNY0dFVzdmdnZBK2tlTlBtclRoRk5JRVkxUnk5eU8zdDVJ?=
+ =?utf-8?B?ejMwY2JKTHorc1k1aC9OSkI1alc0S05tZnJySmtTNXdlbFFPN29aeE9KVnY2?=
+ =?utf-8?B?dG9vQzFyb0dtVzI4bW1OWWUvTTl5V0pLQy9UY0ZUVlZQMHJ0MzRsTmVEVFZD?=
+ =?utf-8?B?ZWlKU1ZtNzY0eGpNU05ON01IY0NtMDU5dDJxU1lHUkcwbjRWdm5qelBseWhV?=
+ =?utf-8?B?a2V3Y1ZMMHZOOThRNUc3K2lrZ0tOS2phOWZDQTdzSnZZWndrTDVHTVZWaUpY?=
+ =?utf-8?B?ckMrN3NQMWJHOFZucjNNSUZDc3hDZm10Zmw1cEhXVnk4TDErWlBiRzM1TmZY?=
+ =?utf-8?Q?wH3WjoOhySbxqTSgvCE+kSeA70f22CmljJ00Fxf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f2cc3e4-f3b0-4be8-7829-08d97ea8d7e9
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67b03664-559a-4f04-60d3-08d97ea9d1b6
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5268.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 15:43:09.4232 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 15:50:08.5864 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2umzo1fGuEYEBsLSKMm2L5gkU8KlkOwz87D8hW5eGzPWStAla7I7y3rpiaMjVnfgT7Vslo+oUxqrsLSGFOmEyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5474
+X-MS-Exchange-CrossTenant-UserPrincipalName: eX7mBUmjnp61vDxqfcaxy1U4YRGX335oE2lyfbW8aC/VwwKcBLA3XNXn/QXgIU2gwyjugD11Lnnp96vkzt0VkQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5170
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,49 +152,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-09-21 14:06, Alex Deucher wrote:
-> So we can track grab the appropriate DCE info out of the
-> IP discovery table.  This is a separare IP from DCN.
-> 
 
-I've never looked at the HWID stuff before. Do I understand it correctly
-that DCI_HWID is for DCE IP and DMU_HWID for DCN IP?
+On 2021-09-23 9:40 a.m., Harry Wentland wrote:
+>
+> On 2021-09-23 04:01, Pekka Paalanen wrote:
+>> On Wed, 22 Sep 2021 11:06:53 -0400
+>> Harry Wentland <harry.wentland@amd.com> wrote:
+>>
+>>> On 2021-09-20 20:14, Harry Wentland wrote:
+>>>> On 2021-09-15 10:01, Pekka Paalanen wrote:> On Fri, 30 Jul 2021 16:41:29 -0400
+>>>>> Harry Wentland <harry.wentland@amd.com> wrote:
+>>>>>   
+>>> <snip>
+>>>
+>>>>>> +If a display's maximum HDR white level is correctly reported it is trivial
+>>>>>> +to convert between all of the above representations of SDR white level. If
+>>>>>> +it is not, defining SDR luminance as a nits value, or a ratio vs a fixed
+>>>>>> +nits value is preferred, assuming we are blending in linear space.
+>>>>>> +
+>>>>>> +It is our experience that many HDR displays do not report maximum white
+>>>>>> +level correctly
+>>>>> Which value do you refer to as "maximum white", and how did you measure
+>>>>> it?
+>>>>>   
+>>>> Good question. I haven't played with those displays myself but I'll try to
+>>>> find out a bit more background behind this statement.
+>>>>    
+>>>
+>>> Some TVs report the EOTF but not the luminance values.
+>>> For an example edid-code capture of my eDP HDR panel:
+>>>
+>>>    HDR Static Metadata Data Block:
+>>>      Electro optical transfer functions:
+>>>        Traditional gamma - SDR luminance range
+>>>        SMPTE ST2084
+>>>      Supported static metadata descriptors:
+>>>        Static metadata type 1
+>>>      Desired content max luminance: 115 (603.666 cd/m^2)
+>>>      Desired content max frame-average luminance: 109 (530.095 cd/m^2)
+>>>      Desired content min luminance: 7 (0.005 cd/m^2)
+>>>
+>> I forget where I heard (you, Vitaly, someone?) that integrated panels
+>> may not have the magic gamut and tone mapping hardware, which means
+>> that software (or display engine) must do the full correct thing.
+>>
+>> That's another reason to not rely on magic display functionality, which
+>> suits my plans perfectly.
+>>
+> I've mentioned it before but there aren't really a lot of integrated
+> HDR panels yet. I think we've only seen one or two without tone-mapping
+> ability.
+>
+> Either way we probably need at least the ability to tone-map the output
+> on the transmitter side (SW, GPU, or display HW).
 
-In that case it might be good to rename DCE_HWIP to DCN_HWIP to avoid
-confusion. Ideally as a prep patch so as to avoid excessive renames
-later.
+It is really interesting to see the quality of panel TM algorithm by 
+specifying different metadata
 
-Harry
+and validate how severe loss of details which could mean no TM at all or 
+1DLUT  is used to soften the
 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
->  2 files changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 8df4be702870..815db33190ca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -756,6 +756,7 @@ enum amd_hw_ip_block_type {
->  	UMC_HWIP,
->  	RSMU_HWIP,
->  	XGMI_HWIP,
-> +	DCI_HWIP,
->  	MAX_HWIP
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 048a08d7f480..6a993043badc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -149,6 +149,7 @@ static int hw_id_map[MAX_HWIP] = {
->  	[CLK_HWIP]	= CLKA_HWID,
->  	[UMC_HWIP]	= UMC_HWID,
->  	[XGMI_HWIP]	= XGMI_HWID,
-> +	[DCI_HWIP]	= DCI_HWID,
->  };
->  
->  static int amdgpu_discovery_read_binary(struct amdgpu_device *adev, uint8_t *binary)
-> 
+clipping or 3DLUT( which has wider possibilities for TM)
 
+To facilitate this development we may use LCMS proofing capabilities to 
+allow simulate the image
+
+view on high end(wide gamut display) how it may looks on low end
+
+(narrow gamut displays or integrated panels)
+
+>>> I suspect on those TVs it looks like this:
+>>>
+>>>    HDR Static Metadata Data Block:
+>>>      Electro optical transfer functions:
+>>>        Traditional gamma - SDR luminance range
+>>>        SMPTE ST2084
+>>>      Supported static metadata descriptors:
+>>>        Static metadata type 1
+>>>
+>>> Windows has some defaults in this case and our Windows driver also has
+>>> some defaults.
+>> Oh, missing information. Yay.
+>>
+>>> Using defaults in the 1000-2000 nits range would yield much better
+>>> tone-mapping results than assuming the monitor can support a full
+>>> 10k nits.
+>> Obviously.
+>>
+>>> As an aside, recently we've come across displays where the max
+>>> average luminance is higher than the max peak luminance. This is
+>>> not a mistake but due to how the display's dimming zones work.
+>> IOW, the actual max peak luminance in absolute units depends on the
+>> current image average luminance. Wonderful, but what am I (the content
+>> producer, the display server) supposed to do with that information...
+>>
+>>> Not sure what impact this might have on tone-mapping, other than
+>>> to keep in mind that we can assume that max_avg < max_peak.
+>> *cannot
+>>
+> Right
+>
+>> Seems like it would lead to a very different tone mapping algorithm
+>> which needs to compute the image average luminance before it can
+>> account for max peak luminance (which I wouldn't know how to infer). So
+>> either a two-pass algorithm, or taking the average from the previous
+>> frame.
+>>
+>> I imagine that is going to be fun considering one needs to composite
+>> different types of input images together, and the final tone mapping
+>> might need to differ for each. Strictly thinking that might lead to an
+>> iterative optimisation algorithm which would be quite intractable in
+>> practise to complete for a single frame at a time.
+>>
+> Maybe a good approach for this would be to just consider MaxAvg = MaxPeak
+> in this case. At least until one would want to consider dynamic tone-mapping,
+> i.e. tone-mapping that is changing frame-by-frame based on content.
+> Dynamic tone-mapping might be challenging to do in SW but could be a possibility
+> with specialized HW. Though I'm not sure exactly how that HW would look like.
+> Maybe something like a histogram engine like Laurent mentions in
+> https://lists.freedesktop.org/archives/dri-devel/2021-June/311689.html.
+>
+> Harry
+>
+>> Thanks,
+>> pq
+>>
