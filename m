@@ -2,132 +2,85 @@ Return-Path: <SRS0=N7Ef=ON=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2F42C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 06:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E375C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:44:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AE4E60E08
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 06:47:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5AE4E60E08
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1DED661038
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:44:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1DED661038
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 777E76ED09;
-	Thu, 23 Sep 2021 06:47:54 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8219B6ECEB
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 06:47:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W4oSDbS2wsmaXP7D6d23/4lixTHStzzSWAxxwVcUzDhxIDQtwaBsMA4aJxk5HGw87VZyQ7cG1ENA6+OSweUI4eoVv3PslPG1eLn/lKQtRC/uQiLz7kDSpKNyVQj/Uo4aBmwzllFpbbpPnOUk9sy3t1ibMog+V7EPLDB/JCoTT/GXoTwH+WaFZw+3h2EDYBAVu4f8nMOfckpGg36Ja/H6Zaz3eqhhsWOW5deyjPjSuhqaLX5CxHsmiLbRO7jbGDn0+4pY+pAcUPLVaPIjUuE+FyzYPqcpqyhVqDCyz2aXDsj8jPcvwfmwxPvIeFCnlFt38GjivLTI00TWRfSPM2YNzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=ytS0BZFyVvIGu+GDwKHzT0n685gTBKLM7IJtlOEHbBs=;
- b=XbGINrt7d3N1ICyEXLexOUVrT7whzjiEGsrU0ZCTFUIco5vFfYbuJyPtM4Tf7lLto6ERc3cS0CW8tzanVtTqv8HdohfA8Hdv1YQZjBj05AN2I5bu1hI81hvaXkn7igc6tZMeXpj3dJWTr+sh03Xq+dMd34eHX30brBqRSPvYUPtGZfPL3uV20q5sNuNe9tf3Ke2JpEnidLHiXh3gzJAjgmsVCIpP7l+ATZMhuIsGWggbSwDqCT45OSwfAfSoNNi95Gp1hdBJooiKlww0G1g09wvj1H2UbFhm/EGArjQ8I5OonH2Hkvtl5RX4Iy9eMM/djVFdcM+DRNij+80+UsBRhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ytS0BZFyVvIGu+GDwKHzT0n685gTBKLM7IJtlOEHbBs=;
- b=aXiUhqI5rV+54EwVV95uLzx7h79VVTfH67JG92ASvx07fY0s/2wxpd2kQUnrUMTCtMKsWdaITyqGKSpbGPD7cyqWkF/3exr9YxwqKqL0wekAIqnid0fc5v6BzA1cShCnDKjXoX6Verd7RJRbbY40decrhywC1HZ8iV1G43hu3OI=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM5PR12MB1147.namprd12.prod.outlook.com (2603:10b6:3:79::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Thu, 23 Sep
- 2021 06:47:51 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::5879:5961:8a30:6a57]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::5879:5961:8a30:6a57%7]) with mapi id 15.20.4544.015; Thu, 23 Sep 2021
- 06:47:51 +0000
-Subject: Re: [PATCH 60/66] drm/amdgpu: set CHIP_IP_DISCOVERY as the asic type
- by default
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210921180725.1985552-1-alexander.deucher@amd.com>
- <20210921180725.1985552-61-alexander.deucher@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-Message-ID: <2bec6445-429a-c12e-f807-6105d99051a3@amd.com>
-Date: Thu, 23 Sep 2021 12:17:39 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20210921180725.1985552-61-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0051.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:98::13) To DM6PR12MB3930.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 614086E0F1;
+	Thu, 23 Sep 2021 07:44:10 +0000 (UTC)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03B2B6ECF3;
+ Thu, 23 Sep 2021 07:44:08 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id i25so23243323lfg.6;
+ Thu, 23 Sep 2021 00:44:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=sxO9wiKWU8LxvoAFdFHc7ptlbcuUg/7qHSamou9zy0k=;
+ b=ibLpNIL3lMgiaDddC1aHZVnOjPVw2QXg0/gKOmtmRgKjeqfNctglnvSo5IloYbooVY
+ kdJdB76H6spUnaX4Q0zHN10PmPhNTdxkOKpJ0JpGm10Zq29rN9aZwbC0VaLraed0R08O
+ kC9Hmqueh0D7sRrWlnz3AuVoHDoDVV0t3UpjAZwzz7i4wCAtgRywaCZjM1XnJAEfIMFS
+ IuWMTKvSXLA+8XphvhCeuKsNuTWQuZtPAA332lg9OBi2bpm5eWkM+340mJMw3Nc7o9CM
+ miSz6IT3CjpfYWLJn5RNPgkYQ8DKYiJVu8Qhje1stDbr8hXPDB/Nh8ADAUY6SbCIzsRF
+ lmPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=sxO9wiKWU8LxvoAFdFHc7ptlbcuUg/7qHSamou9zy0k=;
+ b=GtFNR0YslihdCq2WjBmmmOzQJDmYBK2vnFM0ryl9fnHwyhAMGvQ01QTmDiswuAHjha
+ rH0n+BhAXCYyoOGttd7ONfP2IoY9vEtrcv4fVdqpp1QEEtgmavW/HcU3foGoV/sLtDJ8
+ 0lTqZwtDh4n/lM8D9BJgoxHnTuQTKHIJjVXKoWNXsEgffxwK+COT+0xB+wg8I87S1CiE
+ eS8JlA2GXv0W+SjeTzZhPvyqtgkuT/oqWrXCQ2UHmB4UBz7c9wX9kwIyCG2gYWWy2LKB
+ XNqQpfZNuwwYJ/CIaSyjIW9RhijdwvAKrbBMViFw4p1+dYyoINH7vahTOeLIQ1BLspi3
+ cIFA==
+X-Gm-Message-State: AOAM530JOuBLqwNI6xpfshIaXLOnzyR/zvPXQ/r/xZ3LaDhDLvBaqwq2
+ rbr2kJ3k/t+OGMEp+sZDQLc=
+X-Google-Smtp-Source: ABdhPJwOKzXjzrsxRyIAJnbyyctqIr5LFWVCT990i9WjwMV1tUPSecE0GclRCxZRXOyDIsjP5wsEyg==
+X-Received: by 2002:a19:501e:: with SMTP id e30mr2915618lfb.123.1632383047141; 
+ Thu, 23 Sep 2021 00:44:07 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id r15sm381913lfi.167.2021.09.23.00.44.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Sep 2021 00:44:06 -0700 (PDT)
+Date: Thu, 23 Sep 2021 10:43:54 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, sebastian@sebastianwick.net,
+ "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mcasas@google.com, jshargo@google.com, Shashank.Sharma@amd.com,
+ Deepak.Sharma@amd.com, Shirish.S@amd.com, Vitaly.Prosyak@amd.com,
+ aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com, Krunoslav.Kovac@amd.com,
+ hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
+ jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
+Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+Message-ID: <20210923104354.585ed9b1@eldfell>
+In-Reply-To: <823898e8-a8fe-cc74-e5b4-c4907826efbc@amd.com>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
+ <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+ <20210921163158.688c26bc@eldfell>
+ <0c673cf8-2b90-c1ca-a0b0-c809e7e10c2c@amd.com>
+ <20210922113105.2e42754c@eldfell>
+ <823898e8-a8fe-cc74-e5b4-c4907826efbc@amd.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Received: from [10.252.81.250] (165.204.159.242) by
- PN3PR01CA0051.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:98::13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.15 via Frontend Transport; Thu, 23 Sep 2021 06:47:49 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 32cd36c4-3b1a-4a47-c56a-08d97e5e0ff7
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1147:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB11470B4B3DEBEECBC74244E597A39@DM5PR12MB1147.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: duNGhL5OyHPnBM9Q4rBqQdtpobpqxPUuonaF6F2t0wpMKvmend+0asGSe4oJ2eySQdMph5rCzIkdrtqlCDROfAsL0N4L/wcoX56XLq/0ggDMsw+eHzcvP/7TG9dJLTCir6Ud4vQf6nkyLgFHmVY0G2h0c0rMMYMamP5dyfgTwvldAuQhYEvYOC2Ma+DEW7o3Je9TuUZ1nVOMrOPvkEMcyQ2qNv4UrVGyejjTwTS/zS9nDbJTlBYM3U37+oTM4se8RsKVSi3eGne8CDfjwQoptF07CdBID/i4tzc0FvR5L6sS/HcQkRgySGWh0ltPGRqGJB8JBQaGhnnZeMF+kLqxFfFX6oa1sZiUtKJWSVPw0Ga+NjpiKuqVwI1aUBdcK16XwBvutvTNV1LOhQWasB7Axim6hUJWeSbG2mDUn5uFLLi3p8T1P53K6c1oA6T4uXUkJlsBep2ux7CouApuTsLvU/c7tXjcnyQB7+MFd+iWPRUfv9DbNTB1csGCj/SjOk+owXFgTOCB1tRBGH+3ogSM5SiV0h2meVl2ktwoQ4ST5bXmU8CbhonA0srZgAhweiu+gzRkpN6Ej2SYpCHfeGqMqWh87K78JEdjnWfIm1Y41aygW+jtIiW825U8tg83i1ZFOmPNX57U3NcljwSD8NLQ7AJ4zMUnrZMwUHNN0ZTwfk9AxeSkZGHrUpjsyMvcH0l6rg9IA3wZ/r/ZrvNzMvWwVsmXg/8Fk2vlwj+6PpWlo2I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8936002)(83380400001)(186003)(2906002)(66476007)(508600001)(38100700002)(956004)(53546011)(26005)(2616005)(31696002)(36756003)(66556008)(86362001)(66946007)(6666004)(31686004)(6486002)(5660300002)(316002)(16576012)(8676002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXRtSUM0VkdtcE00NjNDaDFvVEJ2VFhhb3B6enBWakp2c2RTSUhYNDRWTG5E?=
- =?utf-8?B?TDlhdVY5WGxBa2xwYW1zcjMzNzBwMUFQTFY5RTB4a0pBVE9oTDBBU3JzVzN4?=
- =?utf-8?B?UmpsQVFDa2pVck96TkRHMXNHV0tpeXQzWlhUWFJzZktzeXBReE8xbkZTMndS?=
- =?utf-8?B?U3d6bzNZM1JySHdiVUtjWUJYM0NiWlpPai9CODVRU1R6SmpsYnVTcUw3L0M0?=
- =?utf-8?B?bUhRNUxhdC9Eb0JJVkR1OHZ5dHdnZDJWVXRVQTMrSkJDbmErb2Z3OWNzV1p2?=
- =?utf-8?B?Q24vQUx5QStPb3YzeThlZHdZYVA4d1M2aXB3S0JxTlpaOTd5c2VTQzdSdnkw?=
- =?utf-8?B?akdJOTJvekF1U2xZUVBBZEtGWWFpQmdUVEZ3TGJSYWtFWW5JZEpaZWd5am1P?=
- =?utf-8?B?RTNCNytEYTU3VUtUbzZoUHQ4Y2ZjUXJoNW9ndnp4K0RBRUVaSXVYYitWWXlq?=
- =?utf-8?B?N2szc1BFWFJITlJzOEhMaURnTVhnbGd4S1lQUFNhK3FPVEFCRWxyakVaNXFq?=
- =?utf-8?B?Q000TFRveUdhRzdkYkErTU9zajlCbUQvWmIxOHc0NGVPNGg1dFhpVWlYVUZt?=
- =?utf-8?B?TkVrZFhiRnl3M1Jtc2lGN3JVSXlNcVFuRndPL1N1OVhZYUNGaVFCQlJ3MElk?=
- =?utf-8?B?Y3BIaUIrM3ppaU1sUjBDVmxVTmpPQzJoMmlyd0d4MXFFbDgvTEhEYXFtTTE4?=
- =?utf-8?B?aHpwTUZyaEJPWTBaUVFmV1pZMG5EVWJEL01La1Z6dGR2c3l1SVRzbEtkQjg0?=
- =?utf-8?B?UXdnemxwNnBLMmgrdmpka24rbkZuc24vb0gwNUhZeFBVUXNrM0dJcVZFYXBp?=
- =?utf-8?B?SGpvQ0lBZlZUZjFBdnpwTWpoMW5LU2tlL3k3Z29oYitDN3VNREJDK3Q4Rk1L?=
- =?utf-8?B?dnVMRjlxeE50czFxM0FIOHVZcVZwME05WmV1OWUxTnlUUWQ5SG1mMG5PWVA1?=
- =?utf-8?B?OWNhRDRXdS9ZdHdaK1h1R3ZXMzYzUDBYOUtUdjZDbjdIcG1VSjFrNkRtZ3c4?=
- =?utf-8?B?OElweUwvdVhxaWxRd1E0OHF1VFEyczV0ZGV2aldhaFRPWDdyYVVMcE01eGpw?=
- =?utf-8?B?QzRwWWtVSVd6Rit5S2cxSzg3dlJoV3YvL0lyd3NTVnRmTjFJUGtuV2Y2cUhQ?=
- =?utf-8?B?ZGhDMFh4V3FDMEVKS3JjQWttU3JTa2VVSW9OeTFPbmlJWXpQNFVudFJVc0xZ?=
- =?utf-8?B?Zm9Jd2kwL2RtYkIwYzhUcy81N2ZlL1g2d0hKNmE3MERIVzUzbWtNS0dhWXVH?=
- =?utf-8?B?aU11UVV4ZWJTK1cwbEFCb08xOU1xdjlLTmgwMlVUQnJRaHlvQXdTWkQycUZ3?=
- =?utf-8?B?UXJFMzRWU0F3YWFNTDV6SEtKQUVMMXZnS3BjU0x0bVdXZVU3cWg2TTlUUGF0?=
- =?utf-8?B?V2h4cnZON0NsaG9uYkpzaTJLUzV0Y2RlODRxV3h2WkhuMmRmeEdJN0JzdG1v?=
- =?utf-8?B?S3djbVkrTkllWFRsVFpZajlsbCt4eDZ6bWVLaFFTQVN6NHJRS2FXdHNKcCtU?=
- =?utf-8?B?d0lScmJCV0pxQzlSbEtxV09mMy9EN2FmV2ZqZmZ2RUt4cFhkQWpIZndERTB3?=
- =?utf-8?B?YkdSNE41SEV3OUZoN3N3em5IYTlHektXTDhKZEM5RUpERVJFWWNIczB3MEY4?=
- =?utf-8?B?cXhibTE4emJ2ZEpBMlVlYVdTZzhUandqcDcwZml5bjN3WGFkYjhoMkxTVDho?=
- =?utf-8?B?V2pzSml4U3pyWXZ3RFpZM29FS0JMcjF3My9ScEIwY2dmTUNKNW81dEZoSEFa?=
- =?utf-8?Q?g2dDiOGb4RrZ30AGKdsfBtlczb6BmtZ7PWbF8ZE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32cd36c4-3b1a-4a47-c56a-08d97e5e0ff7
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 06:47:51.1386 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pz8RmSc08Q9mLo6wTtjcJ61fAIKL4Z1rb9s3YXss+uFY5Fxztlt6JrIXA+MKQNrS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1147
+Content-Type: multipart/signed; boundary="Sig_/KZJFcJ42xx2mtwZ8U/l6Sra";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,52 +95,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--Sig_/KZJFcJ42xx2mtwZ8U/l6Sra
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, 22 Sep 2021 11:28:37 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-On 9/21/2021 11:37 PM, Alex Deucher wrote:
-> For new chips with no explicit entry in the PCI ID list.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index c21eac6216a8..c7da1f7cc880 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1796,12 +1796,12 @@ static const struct pci_device_id pciidlist[] = {
->   	{ PCI_DEVICE(0x1002, PCI_ANY_ID),
->   	  .class = PCI_CLASS_DISPLAY_VGA << 8,
->   	  .class_mask = 0xffffff,
-> -	  .driver_data = 0 },
-> +	  .driver_data = CHIP_IP_DISCOVERY },
->   
->   	{ PCI_DEVICE(0x1002, PCI_ANY_ID),
->   	  .class = PCI_CLASS_DISPLAY_OTHER << 8,
->   	  .class_mask = 0xffffff,
-> -	  .driver_data = 0 },
-> +	  .driver_data = CHIP_IP_DISCOVERY },
->
+> On 2021-09-22 04:31, Pekka Paalanen wrote:
+> > On Tue, 21 Sep 2021 14:05:05 -0400
+> > Harry Wentland <harry.wentland@amd.com> wrote:
+> >  =20
+> >> On 2021-09-21 09:31, Pekka Paalanen wrote: =20
+> >>> On Mon, 20 Sep 2021 20:14:50 -0400
+> >>> Harry Wentland <harry.wentland@amd.com> wrote:
+> >>>    =20
+>=20
+> ...
+>=20
+> >  =20
+> >> Did anybody start any CM doc patches in Weston or Wayland yet? =20
+> >=20
+> > There is the
+> > https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/uns=
+table/color-management/color.rst
+> > we started a long time ago, and have not really touched it for a while.
+> > Since we last touched it, at least my understanding has developed
+> > somewhat.
+> >=20
+> > It is linked from the overview in
+> > https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_reques=
+ts/14
+> > and if you want to propose changes, the way to do it is file a MR in
+> > https://gitlab.freedesktop.org/swick/wayland-protocols/-/merge_requests
+> > against the 'color' branch. Patches very much welcome, that doc does
+> > not need to limit itself to Wayland. :-)
+> >  =20
+>=20
+> Right, I've read all that a while back.
+>=20
+> It might be a good place to consolidate most of the Linux CM/HDR discussi=
+on,
+> since gitlab is good with allowing discussions, we can track changes, and
+> it's more formatting and diagram friendly than text-only email.
 
-While listing the devices one by one, some of the below flags are also 
-used to indicate the device type/support. Since the patch is replacing 
-this method, I guess the series needs to address this one also 
-(especially AMD_IS_APU, it is used extensively).
+Fine by me, but the way things are right now, we'd be hijacking
+Sebastian's personal repository for these things. That's not ideal.
 
-enum amd_chip_flags {
-         AMD_ASIC_MASK = 0x0000ffffUL,
-         AMD_FLAGS_MASK  = 0xffff0000UL,
-         AMD_IS_MOBILITY = 0x00010000UL,
-         AMD_IS_APU      = 0x00020000UL,
-         AMD_IS_PX       = 0x00040000UL,
-         AMD_EXP_HW_SUPPORT = 0x00080000UL,
-};
+We can't merge the protocol XML into wayland-protocols until it has the
+accepted implementations required by the governance rules, but I wonder
+if we could land color.rst ahead of time, then work on that in
+wayland-protocols upstream repo.
+
+It's hard to pick a good place for a cross-project document. Any other
+ideas?
+
+> > We also have issues tracked at
+> > https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues?scope=
+=3Dall&utf8=3D%E2%9C%93&state=3Dopened
+
 
 Thanks,
-Lijo
+pq
 
+--Sig_/KZJFcJ42xx2mtwZ8U/l6Sra
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
->   	{0, 0, 0}
->   };
-> 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmFMMDoACgkQI1/ltBGq
+qqeAfg/9FSk5m2yP7blP4mZoHPVhn+S6ICSGkyYnFYZvs1t6N00RnYdq32R4e0oA
+mnkOHaVzWseGGRVWR6I+31cGz1qu7Mt8vRKRoEswK9IU9MOyEj6sU9VlT1HoMFaY
+k+IKE7mYU7hD9m7jvJGlFPR2KjfSgrrB4TCdF0YLc4QWJJnNM4revMwQ8Hlurqoc
+nT7I9/3clMcfH8IJ4QrkI9XYG7RaOUXCkoq9AJ4PnNH6DQ9VHdXWsgAzx5Y9VOnH
+eSAQdJt9BdU3onerNSxthLyTmZN4/N28OVAxcohJ2RQ0zg76pkOrrcg6KRfzGaQz
+epeJZBMD7B6RRdRhCjFzDS3JRhBENagjKdCQvSpSGSDRcJjuex8J/E1wGiDc1em7
+hYpFCcPp1BE1s18n9WI1zOU5MtgB898+4XJ05ASrif1IfoNjpslLUsjndTRW6N4t
+9YpKKwqOFt00+TzFCMGhf4jDNcFpXp1LFH4oNzs66aIQLCdJe4+o7kRlzsfe+cWW
+oCNGqyhvMbJjbsH28s2PrHMG5dQChX4JXoD7ByzIiBec6HWu1m8mcOayQQU8silo
+L6avZudWDNO8MiHuGWvLGbVDYHOHlhjUwp/I5WY4AgSA37mN2KSQ6nqTIb/UHIpq
+c9kHejjjy2wYtv+7HeEuw/+caKpJI6e9Uj6tacgraF63s6raiJs=
+=ce7y
+-----END PGP SIGNATURE-----
+
+--Sig_/KZJFcJ42xx2mtwZ8U/l6Sra--
