@@ -2,85 +2,55 @@ Return-Path: <SRS0=N7Ef=ON=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E375C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:44:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66DBDC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DED661038
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 07:44:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1DED661038
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0E67261164
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E67261164
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 614086E0F1;
-	Thu, 23 Sep 2021 07:44:10 +0000 (UTC)
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03B2B6ECF3;
- Thu, 23 Sep 2021 07:44:08 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id i25so23243323lfg.6;
- Thu, 23 Sep 2021 00:44:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=sxO9wiKWU8LxvoAFdFHc7ptlbcuUg/7qHSamou9zy0k=;
- b=ibLpNIL3lMgiaDddC1aHZVnOjPVw2QXg0/gKOmtmRgKjeqfNctglnvSo5IloYbooVY
- kdJdB76H6spUnaX4Q0zHN10PmPhNTdxkOKpJ0JpGm10Zq29rN9aZwbC0VaLraed0R08O
- kC9Hmqueh0D7sRrWlnz3AuVoHDoDVV0t3UpjAZwzz7i4wCAtgRywaCZjM1XnJAEfIMFS
- IuWMTKvSXLA+8XphvhCeuKsNuTWQuZtPAA332lg9OBi2bpm5eWkM+340mJMw3Nc7o9CM
- miSz6IT3CjpfYWLJn5RNPgkYQ8DKYiJVu8Qhje1stDbr8hXPDB/Nh8ADAUY6SbCIzsRF
- lmPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=sxO9wiKWU8LxvoAFdFHc7ptlbcuUg/7qHSamou9zy0k=;
- b=GtFNR0YslihdCq2WjBmmmOzQJDmYBK2vnFM0ryl9fnHwyhAMGvQ01QTmDiswuAHjha
- rH0n+BhAXCYyoOGttd7ONfP2IoY9vEtrcv4fVdqpp1QEEtgmavW/HcU3foGoV/sLtDJ8
- 0lTqZwtDh4n/lM8D9BJgoxHnTuQTKHIJjVXKoWNXsEgffxwK+COT+0xB+wg8I87S1CiE
- eS8JlA2GXv0W+SjeTzZhPvyqtgkuT/oqWrXCQ2UHmB4UBz7c9wX9kwIyCG2gYWWy2LKB
- XNqQpfZNuwwYJ/CIaSyjIW9RhijdwvAKrbBMViFw4p1+dYyoINH7vahTOeLIQ1BLspi3
- cIFA==
-X-Gm-Message-State: AOAM530JOuBLqwNI6xpfshIaXLOnzyR/zvPXQ/r/xZ3LaDhDLvBaqwq2
- rbr2kJ3k/t+OGMEp+sZDQLc=
-X-Google-Smtp-Source: ABdhPJwOKzXjzrsxRyIAJnbyyctqIr5LFWVCT990i9WjwMV1tUPSecE0GclRCxZRXOyDIsjP5wsEyg==
-X-Received: by 2002:a19:501e:: with SMTP id e30mr2915618lfb.123.1632383047141; 
- Thu, 23 Sep 2021 00:44:07 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id r15sm381913lfi.167.2021.09.23.00.44.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 00:44:06 -0700 (PDT)
-Date: Thu, 23 Sep 2021 10:43:54 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, sebastian@sebastianwick.net,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- mcasas@google.com, jshargo@google.com, Shashank.Sharma@amd.com,
- Deepak.Sharma@amd.com, Shirish.S@amd.com, Vitaly.Prosyak@amd.com,
- aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com, Krunoslav.Kovac@amd.com,
- hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
- laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
- jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
-Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
-Message-ID: <20210923104354.585ed9b1@eldfell>
-In-Reply-To: <823898e8-a8fe-cc74-e5b4-c4907826efbc@amd.com>
-References: <20210730204134.21769-1-harry.wentland@amd.com>
- <20210730204134.21769-2-harry.wentland@amd.com>
- <20210915170127.31377385@eldfell>
- <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
- <20210921163158.688c26bc@eldfell>
- <0c673cf8-2b90-c1ca-a0b0-c809e7e10c2c@amd.com>
- <20210922113105.2e42754c@eldfell>
- <823898e8-a8fe-cc74-e5b4-c4907826efbc@amd.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6876ECFA;
+	Thu, 23 Sep 2021 08:01:08 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D51DB6ECF6;
+ Thu, 23 Sep 2021 08:01:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="246237859"
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; 
+ d="asc'?scan'208";a="246237859"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2021 01:01:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; 
+ d="asc'?scan'208";a="550748427"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
+ by FMSMGA003.fm.intel.com with ESMTP; 23 Sep 2021 01:01:03 -0700
+Date: Thu, 23 Sep 2021 15:36:59 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Jim Cromie <jim.cromie@gmail.com>
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch
+Subject: Re: [PATCH v8 10/16] i915/gvt: remove spaces in pr_debug "gvt:
+ core:" etc prefixes
+Message-ID: <20210923073659.GZ14689@zhen-hp.sh.intel.com>
+References: <20210915163957.2949166-1-jim.cromie@gmail.com>
+ <20210915163957.2949166-11-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/KZJFcJ42xx2mtwZ8U/l6Sra";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="Bu8it7iiRSEf40bY"
+Content-Disposition: inline
+In-Reply-To: <20210915163957.2949166-11-jim.cromie@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,91 +62,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/KZJFcJ42xx2mtwZ8U/l6Sra
-Content-Type: text/plain; charset=US-ASCII
+
+--Bu8it7iiRSEf40bY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 22 Sep 2021 11:28:37 -0400
-Harry Wentland <harry.wentland@amd.com> wrote:
-
-> On 2021-09-22 04:31, Pekka Paalanen wrote:
-> > On Tue, 21 Sep 2021 14:05:05 -0400
-> > Harry Wentland <harry.wentland@amd.com> wrote:
-> >  =20
-> >> On 2021-09-21 09:31, Pekka Paalanen wrote: =20
-> >>> On Mon, 20 Sep 2021 20:14:50 -0400
-> >>> Harry Wentland <harry.wentland@amd.com> wrote:
-> >>>    =20
+On 2021.09.15 10:39:51 -0600, Jim Cromie wrote:
+> Taking embedded spaces out of existing prefixes makes them better
+> class-prefixes; simplifying the extra quoting needed otherwise:
 >=20
-> ...
+>   $> echo format "^gvt: core:" +p >control
 >=20
-> >  =20
-> >> Did anybody start any CM doc patches in Weston or Wayland yet? =20
-> >=20
-> > There is the
-> > https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/uns=
-table/color-management/color.rst
-> > we started a long time ago, and have not really touched it for a while.
-> > Since we last touched it, at least my understanding has developed
-> > somewhat.
-> >=20
-> > It is linked from the overview in
-> > https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_reques=
-ts/14
-> > and if you want to propose changes, the way to do it is file a MR in
-> > https://gitlab.freedesktop.org/swick/wayland-protocols/-/merge_requests
-> > against the 'color' branch. Patches very much welcome, that doc does
-> > not need to limit itself to Wayland. :-)
-> >  =20
+> Dropping the internal spaces means any trailing space in a query will
+> more clearly terminate the prefix being searched for.
 >=20
-> Right, I've read all that a while back.
+> Consider a generic drm-debug example:
 >=20
-> It might be a good place to consolidate most of the Linux CM/HDR discussi=
-on,
-> since gitlab is good with allowing discussions, we can track changes, and
-> it's more formatting and diagram friendly than text-only email.
+>   # turn off ATOMIC reports
+>   echo format "^drm:atomic: " -p > control
+>=20
+>   # turn off all ATOMIC:* reports, including any sub-categories
+>   echo format "^drm:atomic:" -p > control
+>=20
+>   # turn on ATOMIC:FAIL: reports
+>   echo format "^drm:atomic:fail: " +p > control
+>=20
+> Removing embedded spaces in the class-prefixes simplifies the
+> corresponding match-prefix.  This means that "quoted" match-prefixes
+> are only needed when the trailing space is desired, in order to
+> exclude explicitly sub-categorized pr-debugs; in this example,
+> "drm:atomic:fail:".
+>=20
+> RFC: maybe the prefix catenation should paste in the " " class-prefix
+> terminator explicitly.  A pr_debug_() flavor could exclude the " ",
+> allowing ad-hoc sub-categorization by appending for example, "fail:"
+> to "drm:atomic:" without the default " " insertion.
+>=20
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+> v8:
+> . fix patchwork CI warning
+> ---
+>  drivers/gpu/drm/i915/gvt/debug.h | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gvt/debug.h b/drivers/gpu/drm/i915/gvt/=
+debug.h
+> index c6027125c1ec..bbecc279e077 100644
+> --- a/drivers/gpu/drm/i915/gvt/debug.h
+> +++ b/drivers/gpu/drm/i915/gvt/debug.h
+> @@ -36,30 +36,30 @@ do {									\
+>  } while (0)
+> =20
+>  #define gvt_dbg_core(fmt, args...) \
+> -	pr_debug("gvt: core: "fmt, ##args)
+> +	pr_debug("gvt:core: " fmt, ##args)
+> =20
+>  #define gvt_dbg_irq(fmt, args...) \
+> -	pr_debug("gvt: irq: "fmt, ##args)
+> +	pr_debug("gvt:irq: " fmt, ##args)
+> =20
+>  #define gvt_dbg_mm(fmt, args...) \
+> -	pr_debug("gvt: mm: "fmt, ##args)
+> +	pr_debug("gvt:mm: " fmt, ##args)
+> =20
+>  #define gvt_dbg_mmio(fmt, args...) \
+> -	pr_debug("gvt: mmio: "fmt, ##args)
+> +	pr_debug("gvt:mmio: " fmt, ##args)
+> =20
+>  #define gvt_dbg_dpy(fmt, args...) \
+> -	pr_debug("gvt: dpy: "fmt, ##args)
+> +	pr_debug("gvt:dpy: " fmt, ##args)
+> =20
+>  #define gvt_dbg_el(fmt, args...) \
+> -	pr_debug("gvt: el: "fmt, ##args)
+> +	pr_debug("gvt:el: " fmt, ##args)
+> =20
+>  #define gvt_dbg_sched(fmt, args...) \
+> -	pr_debug("gvt: sched: "fmt, ##args)
+> +	pr_debug("gvt:sched: " fmt, ##args)
+> =20
+>  #define gvt_dbg_render(fmt, args...) \
+> -	pr_debug("gvt: render: "fmt, ##args)
+> +	pr_debug("gvt:render: " fmt, ##args)
+> =20
+>  #define gvt_dbg_cmd(fmt, args...) \
+> -	pr_debug("gvt: cmd: "fmt, ##args)
+> +	pr_debug("gvt:cmd: " fmt, ##args)
+> =20
+>  #endif
+> --=20
 
-Fine by me, but the way things are right now, we'd be hijacking
-Sebastian's personal repository for these things. That's not ideal.
+Looks good to me. Thanks!
 
-We can't merge the protocol XML into wayland-protocols until it has the
-accepted implementations required by the governance rules, but I wonder
-if we could land color.rst ahead of time, then work on that in
-wayland-protocols upstream repo.
+Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
 
-It's hard to pick a good place for a cross-project document. Any other
-ideas?
-
-> > We also have issues tracked at
-> > https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues?scope=
-=3Dall&utf8=3D%E2%9C%93&state=3Dopened
-
-
-Thanks,
-pq
-
---Sig_/KZJFcJ42xx2mtwZ8U/l6Sra
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+--Bu8it7iiRSEf40bY
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmFMMDoACgkQI1/ltBGq
-qqeAfg/9FSk5m2yP7blP4mZoHPVhn+S6ICSGkyYnFYZvs1t6N00RnYdq32R4e0oA
-mnkOHaVzWseGGRVWR6I+31cGz1qu7Mt8vRKRoEswK9IU9MOyEj6sU9VlT1HoMFaY
-k+IKE7mYU7hD9m7jvJGlFPR2KjfSgrrB4TCdF0YLc4QWJJnNM4revMwQ8Hlurqoc
-nT7I9/3clMcfH8IJ4QrkI9XYG7RaOUXCkoq9AJ4PnNH6DQ9VHdXWsgAzx5Y9VOnH
-eSAQdJt9BdU3onerNSxthLyTmZN4/N28OVAxcohJ2RQ0zg76pkOrrcg6KRfzGaQz
-epeJZBMD7B6RRdRhCjFzDS3JRhBENagjKdCQvSpSGSDRcJjuex8J/E1wGiDc1em7
-hYpFCcPp1BE1s18n9WI1zOU5MtgB898+4XJ05ASrif1IfoNjpslLUsjndTRW6N4t
-9YpKKwqOFt00+TzFCMGhf4jDNcFpXp1LFH4oNzs66aIQLCdJe4+o7kRlzsfe+cWW
-oCNGqyhvMbJjbsH28s2PrHMG5dQChX4JXoD7ByzIiBec6HWu1m8mcOayQQU8silo
-L6avZudWDNO8MiHuGWvLGbVDYHOHlhjUwp/I5WY4AgSA37mN2KSQ6nqTIb/UHIpq
-c9kHejjjy2wYtv+7HeEuw/+caKpJI6e9Uj6tacgraF63s6raiJs=
-=ce7y
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYUwulgAKCRCxBBozTXgY
+J8qzAJ9cfZulZLyzqg5hhI9G1fLDqKMDlQCgi+YapDkpvZuzya6guQeaCyf+Nps=
+=+ZKA
 -----END PGP SIGNATURE-----
 
---Sig_/KZJFcJ42xx2mtwZ8U/l6Sra--
+--Bu8it7iiRSEf40bY--
