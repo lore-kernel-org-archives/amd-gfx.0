@@ -7,112 +7,101 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EE8AC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 09:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0988C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 09:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F422D60EE4
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 09:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F422D60EE4
+	by mail.kernel.org (Postfix) with ESMTPS id 8C4CB60F39
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 09:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8C4CB60F39
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 921FA6E0F4;
-	Thu, 23 Sep 2021 09:03:38 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 893946E0F4;
- Thu, 23 Sep 2021 09:03:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0226E6E0F7;
+	Thu, 23 Sep 2021 09:11:56 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 491E36E0F7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 09:11:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ki0+SDyMVV3AfDFMWKdEwnLfQ7C0TwzFLBesBomnbP9DbJN0V7qz+6iUrYGKwIGYNXGdNfEgwi1Us2q7mcG2KZLCAjoPWNf+UfdLh0M+OO99UhXuc3IFuF0owQ9hnzmAb5mbQJnb5bpNQU4+Pk2XVOr2dmOQDcN63AAgA6/0uymJJwLsTz3Y6JYlqnPjG+q9oQprEydc9dYBtJ19octNybRULFhx0ZqKFYe0VUkfW0rGvD6PYIUmLqkL+HlTQ+i+t/0ZBySeBOp/d0nEVSlkvIcA/smoc1bkHsRh9B+nSUd0ouU6FwTJSI56rTGN4afSxBWb1xNWUu1gGTAkaTlujw==
+ b=is59JVAS7S2KGg2iF9hJWBPUhU03LKMLbnJHaQC+pXhmsf0e6zzpqarljB/NnRWNIM8NhT/AewZplKdI7NIlcPCF0paJM9tnNKj7VmWOuZXnMLj7oIUmPHLJwB5GlovIBtEhT42z0OqwGgkrmcm1iIhvdhX0Mucueq/f1vXC8G28dh1tAzSfvnUDoXYjQOAv2Sn3wGKYZ2x6Q7RzY6PJqf1iK4sTKyeLnkqGgVb0XecHUwIVq+jqJjOAMVVy292/RQKOlH2lzd0qOUz8ZTWa1/Krz0oOVg3GCJFW+DZM/Pww7IShdp/LAi3vRLTJZ93Xv9XsAF6mU5iTH0HW2DKCBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=Z5IvkNW+PQl5XE+cn9sNi/+NRSmilfcnoHM0rpMFc3g=;
- b=nyTA9XqWcP2kufF0nfrmZv7oVeGrVyf7pKMB3xsynsPR2GS55cdpAqCVIU4vdVUuMXteWBM13VhDRinOdBI95PSrSNdfrocRdkxDsfqjyLMOH0DDwm20CdulUQVYz0uThixKyALZ7A7kQiLlGuTPirqfzIPBp3rRkLqPfZtcGCGJQDMcitoYj7UyNEXwYRL9jSQLiAlsm1A5+2unHTnHJeQx8RIr5QcRXmyPWVxL1pNTWX5uhBQ14G8dj1i0MRG3XPX09HKFxYL+B0zGmvxB9/t46MMyKIHS5ep9y/q/Qpm+B+DHv6O4rNiH+jOfmtXCDgNSxvQYOVKwEPl42t/GWw==
+ bh=VgNsP+1KKefr9+JRvDO5DR8oGXnkaP7w9DZgDFkZrRY=;
+ b=ae1aFVvwe84GBemb5jdFKTC2MOi9JSMtKWDGvrgJu+SHHUikCPLVtYcElKZHkcOSg7u4y1COob8xdRHMfN7R5+mPa3fMmWwtFgG36BFlbFIMeVg5LBOGCptfGo8Mc1cqjS0eYwDDwS6jihNY3Ve+BSg3I2zXaMmvznnO8h906+fxXz81JXlO3FwW3MN6CiRXbCJU620gCZzmH0sBWTTBwnSdKuHkPEsB+7kC3sdSVvIiSiuYyjNP4bYvHAjWWF8HVm8eYIYjn0+Oyh/SBy0RFzHt6iVHY4Cpw8CCcF7cL0uX9sJDFV0fCDM4LSF0erjsXB6cb04k5ZYhMCKLJ4+NMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z5IvkNW+PQl5XE+cn9sNi/+NRSmilfcnoHM0rpMFc3g=;
- b=XV303PX18FvfHYqbfVQVvQdiX7WOpuSoZ8xcqbKFTVe5iGlh5ka2M8TTZ5yzQLnk9IuWmv7obaGCyQVa+UZIZlM3hc9nK/Auy3vBWwuqaZq2lb3ldgnS4ipueIQghcw1gyTcvpTviV3B6KEfWsBM7xVXNiJfNzwRiHnfeYV0iAo=
-Received: from DM5PR1401CA0006.namprd14.prod.outlook.com (2603:10b6:4:4a::16)
- by BL0PR12MB4740.namprd12.prod.outlook.com (2603:10b6:208:84::13)
+ bh=VgNsP+1KKefr9+JRvDO5DR8oGXnkaP7w9DZgDFkZrRY=;
+ b=5QB2Ocqv73QuO20Wnu5XtxSKFVs55jhI4rn9HogoPP9HFNIIuODf/paQV1BWahTlYoSBNeZZLutsrSN3QTaib86SVy8Nh+oWHQTpuwwfrxeN7jawNrCw9eq05w9Ep+5kpDiR6yPrmrtJUvE7yk5UmUGWRZ1Ulag74vzj+Q0Ijp4=
+Received: from BN9P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::19)
+ by BYAPR12MB2949.namprd12.prod.outlook.com (2603:10b6:a03:12f::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Thu, 23 Sep
- 2021 09:03:35 +0000
-Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:4a:cafe::a1) by DM5PR1401CA0006.outlook.office365.com
- (2603:10b6:4:4a::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
- Transport; Thu, 23 Sep 2021 09:03:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 23 Sep
+ 2021 09:11:50 +0000
+Received: from BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::dd) by BN9P220CA0014.outlook.office365.com
+ (2603:10b6:408:13e::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15 via Frontend
+ Transport; Thu, 23 Sep 2021 09:11:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; linux.ie; dkim=none (message not signed)
- header.d=none;linux.ie; dmarc=pass action=none header.from=amd.com;
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT036.mail.protection.outlook.com (10.13.177.168) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4544.13 via Frontend Transport; Thu, 23 Sep 2021 09:03:35 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4544.13 via Frontend Transport; Thu, 23 Sep 2021 09:11:50 +0000
+Received: from canli.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 23 Sep
- 2021 04:03:34 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 23 Sep
- 2021 04:03:34 -0500
-Received: from jasdv6.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Thu, 23 Sep 2021 04:03:29 -0500
-From: <yipeng.chen@amd.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <qingqing.zhuo@amd.com>, <Aric.Cyr@amd.com>,
- <Anson.Jacob@amd.com>, <bindu.r@amd.com>, <martin.tsai@amd.com>,
- <bing.guo@amd.com>, <roy.chan@amd.com>, <george.shen@amd.com>,
- <joshua.aberback@amd.com>, <Ashley.Thomas2@amd.com>, <Jing.Zhou@amd.com>,
- <dale.zhao@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, "Yipeng Chen (Jasber)" <yipeng.chen@amd.com>, 
- Roman Li <Roman.Li@amd.com>
-Subject: [PATCH] drm/amd/display: Fix randomly flicking on overlay with
- enabled ABM
-Date: Thu, 23 Sep 2021 17:02:32 +0800
-Message-ID: <20210923090232.61559-1-yipeng.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2021 04:11:49 -0500
+From: Candice Li <candice.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: John Clements <john.clements@amd.com>, Candice Li <candice.li@amd.com>
+Subject: [PATCH] drm/amdgpu: Remove all code paths under the EAGAIN path in
+ RAS late init
+Date: Thu, 23 Sep 2021 17:11:36 +0800
+Message-ID: <20210923091136.29080-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4ee36f0d-0d0b-42ae-4146-08d97e71069e
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4740:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB47406829332999C395DC5ADFFFA39@BL0PR12MB4740.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Office365-Filtering-Correlation-Id: 641992eb-208e-4d98-d859-08d97e722da2
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2949:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB294991278831729C5DDD7A2C91A39@BYAPR12MB2949.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Q0TQyc+kODCMTuTwfSA3lsIiWmMC+dPz3epT/Vru8rd7jUR3MeCnz88sNyiz7qawobBbLZUkFcvCdg49W8XpUTpg0mXQpFWkoHftQcH1zvk4XPJA+b+HvIIcqKgaKZpLfP83QdCVtECjStmresMR0Jr71D6tXbMQJEKiF++qv7NR6S/fM2wZRUjH5IlFrfGByH/8N4dGcZtHr3ZcTQ/a0sU5LEYa/Rq+J93RC/gSrAuM+pBsJ9Da9utWM9jbscnlQ3kXU91k5EiHG/e7h7g5rx9fV1PlzYiZWDsU9+FrhJj48oIykEevKMb6GYaEXSzyGoaBINus5WEnerJbbknP3zMn2kDIUBHK3ATErCRCdTyaONAT3R7C1uBrwzqwfn5JcycH7e3OWKEIFISSw7CoLD6xg5WzLOqgLFE3U0j5vxaPccwB/4r8LXwLB4c7wxDNMIYujTN1Oev7cvui6oANr8Fw66+LwuMGz8Na3y5PIYzvrVF+vnmKBekrv4B9DdwUJExbvbFNhuMH+2qrpNBsqU4MK66TzINjPvDXwITK4yDXRcTEvroWgTRVSwkGpttHsAUHOo+vWBJ8FcIrR/oYM4EI6OV2gp01pejn0fSX1HvuQ1LnHqBtV63TtBDTL3s6irr0ab1VvkCe3kh3SX9z2UYsTH0oSmKotYdK7Tmn/a5L7vciUGepkCsAJvA/8DMrUWjQGj8NjjFWM5wdGjcTPO1s6pExE61sb939RhAeMYmYxaOs1TWxL8Eo4gTKjTtb
+X-Microsoft-Antispam-Message-Info: 6wObQmQr8TVraTCfbYGo6H3bFX55qlY+sXfYDg7QcFFRYfK8E+AZkrBELfKVg7F+Z1xV42HUmhZGLeAVnNdJb7F4Q+nUbZkNb1GbRlXpKK9RmhJtMQPSXDiWlypjNlpsqfSQaA37ehg4zYt+3rXkrVPZsZwoHnKQtqvYTKVHquOUlH+vLbhZ3pQjaHnMN+seSeMr8slmkTGzJFXJhLbTU8BI+vRiWQzHbnKlFZ2qxuetGPqjaNy65yB+kJVjnJSlASW0hQVsf4Ib+KWcEhVWAVASLRF4raJ5EvhnBTleo5fyUwZ/UPrHzMH6+2OZDJTmB2Yg7UjNb32VjvsIM+zsVLzfRW1FWB45InK+12EyXskEfkCiz0ykPMkjltdoXXhgqW9VVfQWzU93YLpiS41OgRL0pAqWe4t75UUJ6PXHljybdSBhrS5jM3q/JMdKin0jpz+CxXtzmtCpra715Byx09KTJlCB0oV08leryt7i6JX+rP0+2Z0QaxqIphK6SqJJKOES8NZFVsYBUvrjPmC2X/LpUXmNn/2b2j8r7NJBh7F0Y5BIICRjyjGVlOvtf3HWMrFnWb3CqkZ3WJItn/FD97mTe8ZJwxlJwvWY+tWu1FDPKoSRAwYZBDjjc2EUQ62JPJMJqpiscVaWY4aYijthyHKIddPc7o0EtG/3NFOKFU3xdpFx2iuzc0hgr4VEGruup0xg9yLm8h8kALqavWE9WcnCpx3c0zR7gO2viDg4aIg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(54906003)(2876002)(1076003)(316002)(426003)(4326008)(47076005)(36756003)(2616005)(2906002)(508600001)(36860700001)(356005)(110136005)(8676002)(6666004)(186003)(6636002)(8936002)(81166007)(921005)(7696005)(83380400001)(82310400003)(86362001)(26005)(5660300002)(336012)(70586007)(70206006)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(81166007)(86362001)(54906003)(2616005)(2906002)(1076003)(7696005)(82310400003)(8676002)(70586007)(508600001)(6916009)(83380400001)(70206006)(47076005)(44832011)(36860700001)(316002)(356005)(8936002)(4326008)(426003)(6666004)(26005)(36756003)(16526019)(5660300002)(336012)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 09:03:35.6235 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ee36f0d-0d0b-42ae-4146-08d97e71069e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 09:11:50.6224 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 641992eb-208e-4d98-d859-08d97e722da2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4740
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2949
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,38 +116,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Yipeng Chen (Jasber)" <yipeng.chen@amd.com>
+All code paths under the EAGAIN path in RAS late init are unused.
 
-[Why]
-Enabled ABM (level != 0) would raise short pluse irq DC_IRQ_SOURCE_HPD1RX
-randomly with PSR error LINK_CRC_ERROR. Actually there is no hot plugging
-on EDP panel. After correcting CRC error, there is no need to send drm
-hotplug event.
-
-[How]
-Returning false would skip doing hot-plug when handle_hpd_irq_psr_sink()
-handled irq. Hot-plug process causes visible flicking on overlay.
-
-Signed-off-by: Yipeng Chen (Jasber) <yipeng.chen@amd.com>
-Reviewed-by: Roman Li <Roman.Li@amd.com>
-             Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Candice Li <candice.li@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 33 +------------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  3 ---
+ 2 files changed, 1 insertion(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 1e4794e2825c..9b9fbe5e9bd4 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -3007,7 +3007,7 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index b5332db4d28730..6cf5f6e06b76ad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2060,19 +2060,6 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
+ }
+ /* recovery end */
  
- 	if (handle_hpd_irq_psr_sink(link))
- 		/* PSR-related error was detected and handled */
--		return true;
-+		return false;
+-/* return 0 if ras will reset gpu and repost.*/
+-int amdgpu_ras_request_reset_on_boot(struct amdgpu_device *adev,
+-		unsigned int block)
+-{
+-	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+-
+-	if (!ras)
+-		return -EINVAL;
+-
+-	ras->flags |= AMDGPU_RAS_FLAG_INIT_NEED_RESET;
+-	return 0;
+-}
+-
+ static bool amdgpu_ras_asic_supported(struct amdgpu_device *adev)
+ {
+ 	return adev->asic_type == CHIP_VEGA10 ||
+@@ -2310,12 +2297,7 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev,
  
- 	/* If PSR-related error handled, Main link may be off,
- 	 * so do not handle as a normal sink status change interrupt.
+ 	r = amdgpu_ras_feature_enable_on_boot(adev, ras_block, 1);
+ 	if (r) {
+-		if (r == -EAGAIN) {
+-			/* request gpu reset. will run again */
+-			amdgpu_ras_request_reset_on_boot(adev,
+-					ras_block->block);
+-			return 0;
+-		} else if (adev->in_suspend || amdgpu_in_reset(adev)) {
++		if (adev->in_suspend || amdgpu_in_reset(adev)) {
+ 			/* in resume phase, if fail to enable ras,
+ 			 * clean up all ras fs nodes, and disable ras */
+ 			goto cleanup;
+@@ -2407,19 +2389,6 @@ void amdgpu_ras_resume(struct amdgpu_device *adev)
+ 			}
+ 		}
+ 	}
+-
+-	if (con->flags & AMDGPU_RAS_FLAG_INIT_NEED_RESET) {
+-		con->flags &= ~AMDGPU_RAS_FLAG_INIT_NEED_RESET;
+-		/* setup ras obj state as disabled.
+-		 * for init_by_vbios case.
+-		 * if we want to enable ras, just enable it in a normal way.
+-		 * If we want do disable it, need setup ras obj as enabled,
+-		 * then issue another TA disable cmd.
+-		 * See feature_enable_on_boot
+-		 */
+-		amdgpu_ras_disable_all_features(adev, 1);
+-		amdgpu_ras_reset_gpu(adev);
+-	}
+ }
+ 
+ void amdgpu_ras_suspend(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 1670467c205463..30a3eafbf6d095 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -32,7 +32,6 @@
+ #include "amdgpu_ras_eeprom.h"
+ 
+ #define AMDGPU_RAS_FLAG_INIT_BY_VBIOS		(0x1 << 0)
+-#define AMDGPU_RAS_FLAG_INIT_NEED_RESET		(0x1 << 1)
+ 
+ enum amdgpu_ras_block {
+ 	AMDGPU_RAS_BLOCK__UMC = 0,
+@@ -488,8 +487,6 @@ static inline int amdgpu_ras_is_supported(struct amdgpu_device *adev,
+ }
+ 
+ int amdgpu_ras_recovery_init(struct amdgpu_device *adev);
+-int amdgpu_ras_request_reset_on_boot(struct amdgpu_device *adev,
+-		unsigned int block);
+ 
+ void amdgpu_ras_resume(struct amdgpu_device *adev);
+ void amdgpu_ras_suspend(struct amdgpu_device *adev);
 -- 
-2.25.1
+2.17.1
 
