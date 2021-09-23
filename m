@@ -2,140 +2,129 @@ Return-Path: <SRS0=N7Ef=ON=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D589C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 13:40:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB80BC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 14:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2738A6058D
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 13:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2738A6058D
+	by mail.kernel.org (Postfix) with ESMTPS id 9E30E60527
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 14:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E30E60527
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06AA66ED23;
-	Thu, 23 Sep 2021 13:40:19 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D976ED22;
- Thu, 23 Sep 2021 13:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14A916E092;
+	Thu, 23 Sep 2021 14:18:55 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3099A6E092
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 14:18:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SMAy3DGVQqv4y2bZKx8ocVAtjLNojBpzpusGvaCoBEvGKPMU1bFccHy1jlpksigbpt4AOYdePxuXtwcIx12aUsGsJJGQkVfUzQSC43VIUTL9a/dN82x80iUFEuBTe2mPdyY8/T3ysPO0NoydYNL+6XkiCL1U4xlLKjX4s3D/FXe6xyackih+TnADpKfD9l3dpM7NAVd95ISK4dIePBOoEItOJI0u6aU7s1JsOhkarQ82K5nu+ktjp/2vIfCpsqCzSEUVkHtOmm4cxitDoz3tKKC8LWtWOnZtNlYc7ru2TnsfsW/Xn3GQm5Sl8uKf6CFeEF+Q9MANYFr05T06FACilQ==
+ b=fMBa6zWEujJ5dtE9b+340ODvGCSXCoLxBljgNRCwKuNDXugXspPoSaI5e+isEC7//5uT1YUGLXwwwz5Qc9qXg+6C2S2GKvdwCrqRiQCC5eDx8Agu+1QcBOPUwNfz7vnq9tDpUJhVKgCLH3PFydv4uLQJvvOuny68jS+OHYCdOhu/iUjD6wDwu7/yogac5w61cE1O6HzoR2K4p3o04f7wo+eiqQPvTOk/0zdpOJ+Ol3fUFV2muPrGSmvopa9zqfNliLLdKVo6l3Rhfi6qSo1ZIBD0Pu9ZOeEPUkWdrQ6/xeUkLoEVjOry64lEAbIKEOlpZpWedtHgUbb7nX2vgxKV0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=zjaXWFFkxeu2jzdOiC4H90ewpU0DXdir5Dhh5O7RdtU=;
- b=fssR9bzUaE3IyZ1jC5KzpkKmR40PzUE3QkISxcglHLj2DYxHyeEhe2Dd2iArREY/uw9Z8bYxheV0/TDLIXLuPImyu/lfPdmZdlng53nWYkqrHsUNAdQcBfAzZI/6UlfmGHdoUKxn2qmBokhoEi01z1gQRgtOTaShODNDXgf/VQMNSAhpWxHsgovH7JZP4t9oS3CMEOIyxbAAaAq996G/e+lfRkdojvCm8j72cWM3Cx5m4WUXX0qXfCtHYrILn3Kh3J6ZOgKxI/8twQsD3YEGReJ4lCCbIiNgpBYKSeC1q4wpXmL86uer0nKVIN5+7h7jeISWstjDLD49NsIngKemOQ==
+ bh=BlC+m63AJw9jE4w2Hh/ri7dW6Z0j8NQEoGYZ5k3vEKY=;
+ b=TSuXsiah4Qjc0ZPeQvVvy+CQ8UOb3Wk1z3coKrOHt55ZMGB9oxYOlg7kKYCvyFHGctj638FohFLllPEB8wh/gkS7zS//VEbBk0CpZ7TqMlznDJyhTjdH147nL/YKLW/M2XcYCwrqTihMGWR48F0LIb0zFCgIYAErGXH3TvzM48nWlRDw4GQOsUFw/+5hHk9ZcqWIgGIPcv7VJbjhyynN5/DGNnxxQQ9UipCphPIyJqKhU8TuHeEM8Xip2rI4mbAS6OpXc1giJOs5Ld0cM/hT8b9q0vmZ7iHljspIck8MlrqLnTor5NT6W46hPTLX+Mc5H5eSBxcqQF8WrA6EAk93Jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zjaXWFFkxeu2jzdOiC4H90ewpU0DXdir5Dhh5O7RdtU=;
- b=lmrd4e8P6siatT02rhXZ3lg+faAYQc9J3nGcZEuyDkQ2MEB9JuyjeZxIhPvfpNrd2FqUmevdz+VXVdT/6OP+TtrjirHoMduQGT1dtk8bqz6qGJNZeRYFXpga1OO7k6LnYIImBTbbXPZmh+WX8oJUR1J3kqhEvdTZ8C0lQPqMvIE=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5457.namprd12.prod.outlook.com (2603:10b6:5:355::16) with
+ bh=BlC+m63AJw9jE4w2Hh/ri7dW6Z0j8NQEoGYZ5k3vEKY=;
+ b=D+oWuGb/Kw6e3hB3RnqM7m4HlrHHbb5A5xmGCvCfr85OA3VAWyk6a0jdxhs4FD/VP7a5wJ/1pEi4LEOGd4wfCP1n0SmSxka5zs37JSdVjlHQOKwRN25qVE+fqtL+Cgki+tk++e7k5OoCWJ9Y/Rn9+X8rhLJTz8YQ1RgMZdj5Wjk=
+Received: from DM4PR12MB5263.namprd12.prod.outlook.com (2603:10b6:5:39b::23)
+ by DM4PR12MB5118.namprd12.prod.outlook.com (2603:10b6:5:391::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Thu, 23 Sep
- 2021 13:40:14 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465%9]) with mapi id 15.20.4544.015; Thu, 23 Sep 2021
- 13:40:14 +0000
-Message-ID: <27a41be5-3563-6334-7bf8-e6d8f334359a@amd.com>
-Date: Thu, 23 Sep 2021 09:40:07 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Thu, 23 Sep
+ 2021 14:18:53 +0000
+Received: from DM4PR12MB5263.namprd12.prod.outlook.com
+ ([fe80::90b2:e7f6:c5e5:c80f]) by DM4PR12MB5263.namprd12.prod.outlook.com
+ ([fe80::90b2:e7f6:c5e5:c80f%7]) with mapi id 15.20.4544.015; Thu, 23 Sep 2021
+ 14:18:53 +0000
+From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Clements, John" <John.Clements@amd.com>, "Yang, Stanley"
+ <Stanley.Yang@amd.com>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Subject: RE: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sdma
+Thread-Topic: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sdma
+Thread-Index: AQHXsGKWsDZ2Q44nA0qs7ivz/+lt86uxpyhg
+Date: Thu, 23 Sep 2021 14:18:52 +0000
+Message-ID: <DM4PR12MB52634039157E168108B39F2CEEA39@DM4PR12MB5263.namprd12.prod.outlook.com>
+References: <20210923100529.10807-1-tao.zhou1@amd.com>
+In-Reply-To: <20210923100529.10807-1-tao.zhou1@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Pekka Paalanen <ppaalanen@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com,
- Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
- Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com,
- Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
- laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
- jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
-References: <20210730204134.21769-1-harry.wentland@amd.com>
- <20210730204134.21769-2-harry.wentland@amd.com>
- <20210915170127.31377385@eldfell>
- <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
- <a13d64b1-7b24-5fd5-41d3-b55d2bd388e0@amd.com>
- <20210923110130.1928d8bf@eldfell>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20210923110130.1928d8bf@eldfell>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN0PR02CA0019.namprd02.prod.outlook.com
- (2603:10b6:408:e4::24) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-Received: from [10.254.41.68] (165.204.84.11) by
- BN0PR02CA0019.namprd02.prod.outlook.com (2603:10b6:408:e4::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.14 via Frontend Transport; Thu, 23 Sep 2021 13:40:10 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dfb68d89-bb5e-4e44-bd54-08d97e97ab9b
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5457:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CO6PR12MB545708F238100FCEB1F57C018CA39@CO6PR12MB5457.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9ywTExTK+Hl+hA1B9H8H9KPLVradLwvQ/CX9vCm/u+CmvGwOGwku3RXGWeMeAcUPLwCo7mg9ne3RwMqwq4A5WMR52Wd2w9/p9UmIsVCZHLG/c1hFrxfnTUjXSwGLnExtJRnDuby2K3uJKeseZWG5wQSSLO3y+0orGNdVcznZaW/cS8jZVaiUx83XQU6E5YZjCuCT+VbdrOB4graMqp7+fs7ZEz/EU4BRNq+p4rNLOPQnXRcO1ovvohadCJRn5hw7onzpLzKLPZN5f0FotCsHtXRWuoS0UHdN0DWipGLZWcPFpjEZslvfcHEB402zcMN16K0IQqkHSxOgPBD/S3sIdKrkXpS9kC8pn8zSGCsPGWLnAFa+71RCc+LJPV7p6d34bPxOSutcWh4pTQJ834X7tcfCvQL1VxhkAw4fDCiuSiapYYQbNwequfaQK/abyc33Syjrewt0Jn2SDp87/nGIClnhw7ceOpN6E66HAOAl9ejKdkttZpJpIYFDsd/FIhXaNcoP+5VSwvRfnxTwe/XlYFT3gMiJI5xJ9Rcu9mRfHQZio9CEq1eR6Np/vnB3csF4bLu9spkYyioCsSmybhvT4PnUSoXYfZuAMiPFE+l4OZFL9XKa87akuAUDu18o2q9U8d0ZAHHkzxzZJbRryiCCALoaQVgZTkL10o8FYrX4vZqRuPTMlYNWlaRFw+ivF7Nq4PI0STW+wJa9cK8fXmm80xcEKFsIuprp+7dgKSxcMU4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6916009)(31696002)(86362001)(44832011)(83380400001)(508600001)(66476007)(66556008)(36756003)(7416002)(6666004)(8676002)(66946007)(2616005)(956004)(966005)(38100700002)(2906002)(8936002)(5660300002)(16576012)(4326008)(186003)(316002)(53546011)(31686004)(26005)(6486002)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-23T14:18:51Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=d11e38a9-3b57-4ad1-9665-6d2e640512ec;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 45f7dc9b-ea7e-47b9-3e72-08d97e9d123e
+x-ms-traffictypediagnostic: DM4PR12MB5118:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM4PR12MB51189246A2395784CC1BD765EEA39@DM4PR12MB5118.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /o7BHqz2vf2H5kngELfvtbJmEI4/MySPcDsAfiVyUlOqlXy2uFkryd/0NJ8wJypVYepN0aL8+DdaT4WEq5EQ962ymEIjCsRopiziaYR5Mmsv3N6myYyRUfhxRChbQ6JIw7croTJnUSteUyUqLNdXcDG3izZLeQ+K6Bnk7QP5IkZupfCDumwGBtbceNehqvmd1kOHUI1a30cz41fTJv9LhHiZEkIOCU19Jv3FroC9IaEXIgnl5ye/tbXB0ErAofwsGOHlZMqMDTENhsMEyRd5imzlcZq8e+pzeALbUEoGL/b/T9eqNIRx8A/szzQv1HZbjeE84NiRN6oHIjWaVaIR7+fZDhngoyf8Sucw7R8jVYkFfHp5SFcA+ujScSL4x5aBCZwNSj6fe9jjweItGuvfBUUCipa18pbyNsY2UFfe998vEevzS2VFCz2WdKCA2pV9+6KO1TJ6UpLIFaZaemOVnZTzAB4kkn+aNkVe4PlHoI/mHr9n1U5pUHWZiJVwWnh5GIroATX2FLkgmopFDKPlzAtRReQ9q52/t065CVyef08jQ36SwIyiMQsiz9sFOCT1uIKuem/I75Y2k1hl2TevfLTWESbsCDhu6lbClztUP+sxvDj9iv5wwdy1Li7+UHD+5nS6sqTGC15vpFbBC9plhGlWem1FYHL+HC41IhTCOGxy+W+zyetNxa9C/GhX+RLSVhmnPKDSGWpwV9Ytcl1ZPA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5263.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(71200400001)(2906002)(4326008)(186003)(53546011)(55016002)(76116006)(7696005)(110136005)(8676002)(26005)(5660300002)(8936002)(9686003)(52536014)(6506007)(508600001)(86362001)(38100700002)(66556008)(38070700005)(64756008)(66446008)(66476007)(6636002)(66946007)(316002)(83380400001)(122000001)(33656002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVdPM0w2V3Z0UU1nVy9QamY4K0xOT1ZtYW9QNURQSXRWS09lemVaVXlEUmZv?=
- =?utf-8?B?eVVnbmdnakxSRFVveS8rRWFYQWNmMXZJV3dQWHUrV3ZpZzh6VFJnN0E5SnBn?=
- =?utf-8?B?MmRKbVh6U1E2S090ZzI2R2ZKRWR4Z2VMZkxjWTQ4MjJ3cFlQaEZvb0sxR3Vu?=
- =?utf-8?B?czFsMnNXc3JjVzVQclFCVzgrbkZzcStqVnZXaXZ4MzQrYUhmeXgzN3BJcDFt?=
- =?utf-8?B?TzZZd1dBSWVwZFNsSE1pcHVlTTFPT1ZteWYxaHgwbkNpVnpwWmc0UjVjZCtC?=
- =?utf-8?B?L1BIRGM0K0ZMYnlGQThlb1JPUWQ1bUUzakk0ZlFsQ0ZaT3hIalBDWk5aU0tJ?=
- =?utf-8?B?dENwSTdFb2w1OFd6VUNwMlo5S1N6YU9qQXh3cExnUlRGTWJhSHN0UERhYWVL?=
- =?utf-8?B?VGZ1Sjh6dm96Nk43QUt0V3lxWkRXK2d2K1VMWFI3MGxITmgzcHVvSVhhVENJ?=
- =?utf-8?B?RUplNG5GSlBEbnk2TnlqUmRLVlY1ZzJjZTJOcHk1bWNtZks5aEZMVE5tMXBL?=
- =?utf-8?B?V2JaOUZ3ajgzc1J0YWVJL29naTZVaU5mdFhkdlA4eTRwTEd0OS83cHUrNmhI?=
- =?utf-8?B?a1VuWVlxOFgyR05kWkJ1RHJraXQvQzh4M1Q0TGZzUHRoTEdFQUZuUnByVndu?=
- =?utf-8?B?eHVlenE5NmJ6Y1Z2WmYyRmxWb3pQeVdVQWg3UDFKVXhBRkV3MFNROTJqNXVE?=
- =?utf-8?B?VjhLSEhzM0NjUy83c1JPalpKR3NJNzJjOWZkVkpNMUhwMzRMcVZmWUxrR1ZF?=
- =?utf-8?B?M3Bqc2ZZelZjNXo2VnR6THVYVnZyTlVFTmJXRjBDM2ZDTVJiOEJLazhhL3BF?=
- =?utf-8?B?WmMzbUZTcWNXL3EvZjlSYktVdjZQUEx5VzFnN21XRnZWclpMcTdBZ3hzUGNX?=
- =?utf-8?B?dlpTcnA3aW56cERFcTJwUGVBbzlmT0t1K29HaTBqL0lDQSt5ZmRvS0t2QzRi?=
- =?utf-8?B?NGo3TG1hWnkxdExoOHl1dTZ0TDNoalNyaFJFMzJCSEhET2ZPV0RzVzExRkg1?=
- =?utf-8?B?RnQxSUZXMjhNVThqTURDc1cwa0JNT0NFdko0WGdVakpHZG1WYnRjWE5zOHJV?=
- =?utf-8?B?WTk4Mll4a3ZJakhYNExiWWs2V0RScGZNa29kVGVkdjRqQkVkd3E1bHB2dHh5?=
- =?utf-8?B?Nkk1MVZ6OW9CM2FIQnlEaEh0RktOakFDOFYyRFFjbWlycWtNV3I1REJnYWRv?=
- =?utf-8?B?eWVVVG5kUGVvTldOVjlxRzMxaFZUUUREc1NVWk90RzN0SWhmbmMzUFdIWXVM?=
- =?utf-8?B?dnl4VDI0RXljTExhTXlGTEM3S0RxaWZBbUN5SDBpTXpxcEc2bFkwTXR6bi94?=
- =?utf-8?B?MUJmSVdEcTdzYVQ5elFCV0pxZ1pndE5qeUJzcFRiYWxBdzB5WkkxelZkZmMz?=
- =?utf-8?B?cHF1dG5ENUtSYzRlVXhkZUJrdkhHRlZIaFh5eVYwVUJzUXV6ZGxyQk15RW5l?=
- =?utf-8?B?b2JUVzBoaDRoQlBoUjRnRW9qNmNmRDlPNC9SUmpHZ3R6NVA4SlQ0ZVhuSEtR?=
- =?utf-8?B?N1FIYnNYbTRyUmQ3Tk5BeGJpbGc0MGZrdlNNWjdxTjd0T1JlY3B2d3lCcFQr?=
- =?utf-8?B?QThJUEhNQmlLTHFvdjA3S1BsczVHVWp6WkVxbyt5K0psU3VRMHVvNFlIV3RY?=
- =?utf-8?B?d0FUNElLMXRIOUk3Ymk0K3c2NnVRSzB3VUdyaXYybCtYZTV1ZSttWWxxM3RI?=
- =?utf-8?B?WUN0RFg2QmMyb2lUZjNQb01tanh0MW10UnpuRnBQQmlzZTkxUzUzU3BUS2Zm?=
- =?utf-8?Q?jsZzlAx/xM8XQjQnbjvBNO/3q0DJfHEIjJfqbrb?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?oiWik3U3OP66G/cixfRjSzwpZEB9myTDQZOKikoBo94YWboJEyRhN4Axjoa0?=
+ =?us-ascii?Q?QfGcMUj5Oo3r3yiil92kokPOXvo/lgn4UouXa88gLvAW5SmrOt/tc2D0wV3+?=
+ =?us-ascii?Q?KTkJAIyZY/0Nosj78S3wzu0QQhWnntvIcMXvRwwRqeWsl3ZU8f5Vc+YGPtGJ?=
+ =?us-ascii?Q?gJ8t+998kjZ01Iwkxy8KBKeMZinB+lj5V4t5qrq0tlf4CLBSXclNnUuvu9g8?=
+ =?us-ascii?Q?GBV7HupWB/qQIfXZnJWLTbQ8HMbHGyOPIA1pDswijF+LTHP4Wjl4h2UKYod1?=
+ =?us-ascii?Q?5euRqRWqTmL+gRKXG+QYkzBwW9PiBnUeMJupynFUnt+X9RM37zmwn1TdIS75?=
+ =?us-ascii?Q?75JpWCxz8qE+yZ/LzHZzuy0CyvkEudh/ZypBoLmZhsNepcNu/pV/WTUT4CtF?=
+ =?us-ascii?Q?zwEVO2SS3BCrN+sbq5TlfQdvzyBuFXOZBCAr68vI3lq7ozpJ/TFqWFLyxMs8?=
+ =?us-ascii?Q?dTlkLfu87v1Hab2mbkwKLQ4Yy9MGq3kNHPhDB8jGwX7lIHCrs9Io9AhCmb69?=
+ =?us-ascii?Q?G5qhKwpySuoytUTdp7fDnd+S4HTGrJ7LOtPzOXth6mJPbe1B//P82K2zQwkY?=
+ =?us-ascii?Q?RTCrJeiiwEGkNQ2d8Nr0Wyo+GX4bjxaZjYd9s9QxXZtDwYN2umZaJH7rG+E0?=
+ =?us-ascii?Q?1E8x/JkUT2Ok33HQ1YUWR2OVOhM1BQHokePG8ecHTc+ea/up2owc03wD+FiD?=
+ =?us-ascii?Q?NlQDaO5klx0W7hk3Z37onQciPYpr/cmVH+GLqctR6KOEtph70EqcQXOg/SMa?=
+ =?us-ascii?Q?ArNtC2kHzpTQWBttAdNvze5SxySrb3ZQsWI2xFwn/RMAelMJxdNYdvKVoxe3?=
+ =?us-ascii?Q?zMKItHB3JmswDJecQjuRgme+B1SK+QdTVRw+/fH99KniGjSoMrJoS41OKAAb?=
+ =?us-ascii?Q?tzC4hF77NsgETKI5jedyvsLbDUlgemXz16NKcaK78x3dRGfIQ1ATFH8ujLKW?=
+ =?us-ascii?Q?dVWSghzsspwODzgzNNqRuIzvGOFw4mdpP3jKBb2oehlC2Nd5qalxMlACzqaL?=
+ =?us-ascii?Q?xeURMi2l/EC7794HkiUXrd83JYICosiej+/e4yPpqisSbw5WjvjAALTGjcqJ?=
+ =?us-ascii?Q?PxIFr2B/AcqyiFF/SVxSDxwWL2r0664E3AeC1PuUB2XoWsBz6DBD9borbLGB?=
+ =?us-ascii?Q?YB8Xgz6EHePK4rzOYLtNmgdpQjZq8ExabJtG2ITgz5SC4Sdp7j6f/kKmmO9M?=
+ =?us-ascii?Q?7DR1n6cymeAWhjpfPwcDoPAsKtYIi9GaPxsZCqspZfZKzLZdpn2GUGFnMjLL?=
+ =?us-ascii?Q?VZ5NFQHrD8voGjPK6s/TGdrbieZpzxHON0Vk5Fes38NGkF1xojzFPuZ67Zuq?=
+ =?us-ascii?Q?7qM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfb68d89-bb5e-4e44-bd54-08d97e97ab9b
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 13:40:13.8119 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ij+gNEJFgu32liiZ6z2DttWKbApPZs80Rp0Et7MFc9k4KycMR2wVS16d5uGndmhLSG8v8OBtBi4VP5aG+3llxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5457
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5263.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45f7dc9b-ea7e-47b9-3e72-08d97e9d123e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2021 14:18:52.9136 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: P2ZOILak06RIYR/sw8KvCbY5bXZwX4rF2zg9LxWFvwNelAFXpxpDlWhSVNay47EayhJl/CeBPeKtfO9N7HyRNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5118
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,125 +139,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only]
 
 
-On 2021-09-23 04:01, Pekka Paalanen wrote:
-> On Wed, 22 Sep 2021 11:06:53 -0400
-> Harry Wentland <harry.wentland@amd.com> wrote:
-> 
->> On 2021-09-20 20:14, Harry Wentland wrote:
->>> On 2021-09-15 10:01, Pekka Paalanen wrote:> On Fri, 30 Jul 2021 16:41:29 -0400  
->>>> Harry Wentland <harry.wentland@amd.com> wrote:
->>>>  
->>
->> <snip>
->>
->>>>> +If a display's maximum HDR white level is correctly reported it is trivial
->>>>> +to convert between all of the above representations of SDR white level. If
->>>>> +it is not, defining SDR luminance as a nits value, or a ratio vs a fixed
->>>>> +nits value is preferred, assuming we are blending in linear space.
->>>>> +
->>>>> +It is our experience that many HDR displays do not report maximum white
->>>>> +level correctly  
->>>>
->>>> Which value do you refer to as "maximum white", and how did you measure
->>>> it?
->>>>  
->>> Good question. I haven't played with those displays myself but I'll try to
->>> find out a bit more background behind this statement.
->>>   
->>
->>
->> Some TVs report the EOTF but not the luminance values.
->> For an example edid-code capture of my eDP HDR panel:
->>
->>   HDR Static Metadata Data Block:
->>     Electro optical transfer functions:
->>       Traditional gamma - SDR luminance range
->>       SMPTE ST2084
->>     Supported static metadata descriptors:
->>       Static metadata type 1
->>     Desired content max luminance: 115 (603.666 cd/m^2)
->>     Desired content max frame-average luminance: 109 (530.095 cd/m^2)
->>     Desired content min luminance: 7 (0.005 cd/m^2)
->>
-> 
-> I forget where I heard (you, Vitaly, someone?) that integrated panels
-> may not have the magic gamut and tone mapping hardware, which means
-> that software (or display engine) must do the full correct thing.
-> 
-> That's another reason to not rely on magic display functionality, which
-> suits my plans perfectly.
-> 
 
-I've mentioned it before but there aren't really a lot of integrated
-HDR panels yet. I think we've only seen one or two without tone-mapping
-ability.
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao
+> Zhou
+> Sent: Thursday, September 23, 2021 6:05 AM
+> To: amd-gfx@lists.freedesktop.org; Zhang, Hawking
+> <Hawking.Zhang@amd.com>; Clements, John <John.Clements@amd.com>;
+> Yang, Stanley <Stanley.Yang@amd.com>
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Subject: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sdma
+>=20
+> [CAUTION: External Email]
+>=20
+> In ras poison mode, page retirement will be handled by the irq handler of=
+ the
+> module which consumes corrupted data.
+>=20
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+> ---
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c    | 17 ++++++++++++++++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c |  6 ++++--
+> drivers/gpu/drm/amd/include/kgd_kfd_interface.h |  2 ++
+>  3 files changed, 22 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> index 46cd4ee6bafb..27fc4e52aba9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> @@ -23,6 +23,20 @@
+>  #include "amdgpu_amdkfd.h"
+>  #include "amdgpu_amdkfd_arcturus.h"
+>  #include "amdgpu_amdkfd_gfx_v9.h"
+> +#include "amdgpu_ras.h"
+> +#include "amdgpu_umc.h"
+> +
+> +int kgd_aldebaran_ras_process_cb(struct kgd_dev *kgd) {
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
+> +       struct ras_err_data err_data =3D {0, 0, 0, NULL};
+> +
+> +       /* cpu mca will handle it if connected_to_cpu is 1 */
+> +       if (!adev->gmc.xgmi.connected_to_cpu)
+> +               return amdgpu_umc_process_ras_data_cb(adev, &err_data, NU=
+LL);
+> +       else
+> +               return 0;
+> +}
+>=20
+>  const struct kfd2kgd_calls aldebaran_kfd2kgd =3D {
+>         .program_sh_mem_settings =3D kgd_gfx_v9_program_sh_mem_settings,
+> @@ -44,5 +58,6 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd =3D {
+>         .get_atc_vmid_pasid_mapping_info =3D
+>                                 kgd_gfx_v9_get_atc_vmid_pasid_mapping_inf=
+o,
+>         .set_vm_context_page_table_base =3D
+> kgd_gfx_v9_set_vm_context_page_table_base,
+> -       .program_trap_handler_settings =3D
+> kgd_gfx_v9_program_trap_handler_settings
+> +       .program_trap_handler_settings =3D
+> kgd_gfx_v9_program_trap_handler_settings,
+> +       .ras_process_cb =3D kgd_aldebaran_ras_process_cb
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> index 12d91e53556c..4a48b78f918e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> @@ -231,7 +231,8 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev=
+,
+>                                 if (sq_intr_err !=3D SQ_INTERRUPT_ERROR_T=
+YPE_ILLEGAL_INST
+> &&
+>                                         sq_intr_err !=3D SQ_INTERRUPT_ERR=
+OR_TYPE_MEMVIOL) {
+>                                         kfd_signal_poison_consumed_event(=
+dev, pasid);
+> -                                       amdgpu_amdkfd_gpu_reset(dev->kgd)=
+;
+> +                                       if (dev->kfd2kgd->ras_process_cb)
+> +
+> + dev->kfd2kgd->ras_process_cb(dev->kgd);
 
-Either way we probably need at least the ability to tone-map the output
-on the transmitter side (SW, GPU, or display HW).
+Firstly, removing the call, amdgpu_amdkfd_gpu_reset(), will prevent the GPU=
+ from mode-2 reset when an application consumes a poison in GFX/SDMA.
+That is not correct.
 
->> I suspect on those TVs it looks like this:
->>
->>   HDR Static Metadata Data Block:
->>     Electro optical transfer functions:
->>       Traditional gamma - SDR luminance range
->>       SMPTE ST2084
->>     Supported static metadata descriptors:
->>       Static metadata type 1
->>
->> Windows has some defaults in this case and our Windows driver also has
->> some defaults.
-> 
-> Oh, missing information. Yay.
-> 
->> Using defaults in the 1000-2000 nits range would yield much better
->> tone-mapping results than assuming the monitor can support a full
->> 10k nits.
-> 
-> Obviously.
-> 
->> As an aside, recently we've come across displays where the max
->> average luminance is higher than the max peak luminance. This is
->> not a mistake but due to how the display's dimming zones work.
-> 
-> IOW, the actual max peak luminance in absolute units depends on the
-> current image average luminance. Wonderful, but what am I (the content
-> producer, the display server) supposed to do with that information...
-> 
->> Not sure what impact this might have on tone-mapping, other than
->> to keep in mind that we can assume that max_avg < max_peak.
-> 
-> *cannot
-> 
+Secondly, page retirement and poison consumption are independent events. Yo=
+u can have page retirement without the application consuming a poison.
+So, we should not calling page retirement everytime application consumes a =
+poison.
 
-Right
+>                                         return;
+>                                 }
+>                                 break;
+> @@ -253,7 +254,8 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev=
+,
+>                         kfd_signal_event_interrupt(pasid, context_id0 & 0=
+xfffffff, 28);
+>                 } else if (source_id =3D=3D SOC15_INTSRC_SDMA_ECC) {
+>                         kfd_signal_poison_consumed_event(dev, pasid);
+> -                       amdgpu_amdkfd_gpu_reset(dev->kgd);
+> +                       if (dev->kfd2kgd->ras_process_cb)
+> +                               dev->kfd2kgd->ras_process_cb(dev->kgd);
 
-> Seems like it would lead to a very different tone mapping algorithm
-> which needs to compute the image average luminance before it can
-> account for max peak luminance (which I wouldn't know how to infer). So
-> either a two-pass algorithm, or taking the average from the previous
-> frame.
-> 
-> I imagine that is going to be fun considering one needs to composite
-> different types of input images together, and the final tone mapping
-> might need to differ for each. Strictly thinking that might lead to an
-> iterative optimisation algorithm which would be quite intractable in
-> practise to complete for a single frame at a time.
-> 
+The same comment as before.
 
-Maybe a good approach for this would be to just consider MaxAvg = MaxPeak
-in this case. At least until one would want to consider dynamic tone-mapping,
-i.e. tone-mapping that is changing frame-by-frame based on content.
-Dynamic tone-mapping might be challenging to do in SW but could be a possibility
-with specialized HW. Though I'm not sure exactly how that HW would look like.
-Maybe something like a histogram engine like Laurent mentions in 
-https://lists.freedesktop.org/archives/dri-devel/2021-June/311689.html.
+Regards,
+Mukul
 
-Harry
-
-> 
-> Thanks,
-> pq
-> 
-
+>                         return;
+>                 }
+>         } else if (client_id =3D=3D SOC15_IH_CLIENTID_VMC || diff --git
+> a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index c84bd7b2cf59..828131415901 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -301,6 +301,8 @@ struct kfd2kgd_calls {
+>                         int *max_waves_per_cu);
+>         void (*program_trap_handler_settings)(struct kgd_dev *kgd,
+>                         uint32_t vmid, uint64_t tba_addr, uint64_t tma_ad=
+dr);
+> +
+> +       int (*ras_process_cb)(struct kgd_dev *kgd);
+>  };
+>=20
+>  #endif /* KGD_KFD_INTERFACE_H_INCLUDED */
+> --
+> 2.17.1
