@@ -2,79 +2,117 @@ Return-Path: <SRS0=N7Ef=ON=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 101FDC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EE8AC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 09:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CCF6061152
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:50:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CCF6061152
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id F422D60EE4
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 09:03:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F422D60EE4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB436E0E7;
-	Thu, 23 Sep 2021 08:50:28 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B74C26E0E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 08:50:27 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id w17so14868652wrv.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 01:50:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=N5Z7ncvRx/oFI2vw9KL/AIgChANeo8j+W7x0UNkj+FE=;
- b=pVlRmxf8laHmhRDNYn5wx8O0Ad3hL6uq5YMqXPDo3qQC/vAhf27OM0VX6Zjif83DJd
- kcwxc/FvBMkPGKB4Npcx2MPDYQmGAYFkGt9S03T8gQDrtImiH0/g9DfM5+WwUvXsizAE
- ZQesRebP9eAGNMn8yBYRURvhU21fZi1NGDElOTTFxoHjlFuio644v17+FtyxZya71Kqi
- RM/HWFZ/MSVvBVVR+sIo2wNuogr92F5ukuPHMQiTkavjkFE8IebOvL9EhvSDqz7P9oNu
- XbeXbFB0JlAWGkzfJMBUFY71yeFpVqZAU+ehk6DQqds9ey02U24ULBGJCeFR8saeSm4i
- zXoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=N5Z7ncvRx/oFI2vw9KL/AIgChANeo8j+W7x0UNkj+FE=;
- b=33F1IG4cOCH3KAnVDbXYsOTZRwKpScBMxz2eL8bVxtngnA8rVoSb/nquKxCmidTlQc
- kWDGGXnQBHq6xp0yhsjKlTwBtRjOeUw7MZtkQQbGe62gkyosRD1Z1lhcK9OApyfZHMBS
- Ohayd9yxcgMORtyhLv6NukPPCIn69GDEHXsVgBUeQXiD/8wHPB0a7IYZ5nd3KSQ+ix8i
- yWYe1gOUHzbgUj2k9nCCxE9kQRfCwJAJE006biXlVOSqoUyU0+qWK7GQGCeWJwt1wKKw
- Lh6hy0hWJuUGprtmS2yw12p1jmP74WmqU2C1P/Q9UiWpjNEP+IGEjXdBVpnNYEFRPPp3
- PNSQ==
-X-Gm-Message-State: AOAM533FMJLnfqfOm42+qXvDiS4To5bAYwFA4Q5wnTKWbGTGIiknGcsU
- 4OnE4zLnUxS84Kt7V4nSiRU=
-X-Google-Smtp-Source: ABdhPJztRVbzFbv2qADYXq8hBHE31lPqyLVbWwsGcZBN42HuVIz2y8q5J7udW8vhp0ho+nCzEULYOw==
-X-Received: by 2002:a05:6000:1284:: with SMTP id
- f4mr3776361wrx.88.1632387026264; 
- Thu, 23 Sep 2021 01:50:26 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id j19sm4590328wra.92.2021.09.23.01.49.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Sep 2021 01:49:57 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: fix gart.bo pin_count leak
-To: Leslie Shi <Yuliang.Shi@amd.com>, amd-gfx@lists.freedesktop.org,
- hawking.zhang@amd.com
-Cc: guchun.chen@amd.com
-References: <20210923081618.74243-1-Yuliang.Shi@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <84d319a1-4e15-5cb7-d5f9-b0010bfc17a2@gmail.com>
-Date: Thu, 23 Sep 2021 10:49:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 921FA6E0F4;
+	Thu, 23 Sep 2021 09:03:38 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 893946E0F4;
+ Thu, 23 Sep 2021 09:03:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ki0+SDyMVV3AfDFMWKdEwnLfQ7C0TwzFLBesBomnbP9DbJN0V7qz+6iUrYGKwIGYNXGdNfEgwi1Us2q7mcG2KZLCAjoPWNf+UfdLh0M+OO99UhXuc3IFuF0owQ9hnzmAb5mbQJnb5bpNQU4+Pk2XVOr2dmOQDcN63AAgA6/0uymJJwLsTz3Y6JYlqnPjG+q9oQprEydc9dYBtJ19octNybRULFhx0ZqKFYe0VUkfW0rGvD6PYIUmLqkL+HlTQ+i+t/0ZBySeBOp/d0nEVSlkvIcA/smoc1bkHsRh9B+nSUd0ouU6FwTJSI56rTGN4afSxBWb1xNWUu1gGTAkaTlujw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=Z5IvkNW+PQl5XE+cn9sNi/+NRSmilfcnoHM0rpMFc3g=;
+ b=nyTA9XqWcP2kufF0nfrmZv7oVeGrVyf7pKMB3xsynsPR2GS55cdpAqCVIU4vdVUuMXteWBM13VhDRinOdBI95PSrSNdfrocRdkxDsfqjyLMOH0DDwm20CdulUQVYz0uThixKyALZ7A7kQiLlGuTPirqfzIPBp3rRkLqPfZtcGCGJQDMcitoYj7UyNEXwYRL9jSQLiAlsm1A5+2unHTnHJeQx8RIr5QcRXmyPWVxL1pNTWX5uhBQ14G8dj1i0MRG3XPX09HKFxYL+B0zGmvxB9/t46MMyKIHS5ep9y/q/Qpm+B+DHv6O4rNiH+jOfmtXCDgNSxvQYOVKwEPl42t/GWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z5IvkNW+PQl5XE+cn9sNi/+NRSmilfcnoHM0rpMFc3g=;
+ b=XV303PX18FvfHYqbfVQVvQdiX7WOpuSoZ8xcqbKFTVe5iGlh5ka2M8TTZ5yzQLnk9IuWmv7obaGCyQVa+UZIZlM3hc9nK/Auy3vBWwuqaZq2lb3ldgnS4ipueIQghcw1gyTcvpTviV3B6KEfWsBM7xVXNiJfNzwRiHnfeYV0iAo=
+Received: from DM5PR1401CA0006.namprd14.prod.outlook.com (2603:10b6:4:4a::16)
+ by BL0PR12MB4740.namprd12.prod.outlook.com (2603:10b6:208:84::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Thu, 23 Sep
+ 2021 09:03:35 +0000
+Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4a:cafe::a1) by DM5PR1401CA0006.outlook.office365.com
+ (2603:10b6:4:4a::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
+ Transport; Thu, 23 Sep 2021 09:03:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4544.13 via Frontend Transport; Thu, 23 Sep 2021 09:03:35 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 23 Sep
+ 2021 04:03:34 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 23 Sep
+ 2021 04:03:34 -0500
+Received: from jasdv6.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
+ Transport; Thu, 23 Sep 2021 04:03:29 -0500
+From: <yipeng.chen@amd.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <qingqing.zhuo@amd.com>, <Aric.Cyr@amd.com>,
+ <Anson.Jacob@amd.com>, <bindu.r@amd.com>, <martin.tsai@amd.com>,
+ <bing.guo@amd.com>, <roy.chan@amd.com>, <george.shen@amd.com>,
+ <joshua.aberback@amd.com>, <Ashley.Thomas2@amd.com>, <Jing.Zhou@amd.com>,
+ <dale.zhao@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "Yipeng Chen (Jasber)" <yipeng.chen@amd.com>, 
+ Roman Li <Roman.Li@amd.com>
+Subject: [PATCH] drm/amd/display: Fix randomly flicking on overlay with
+ enabled ABM
+Date: Thu, 23 Sep 2021 17:02:32 +0800
+Message-ID: <20210923090232.61559-1-yipeng.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210923081618.74243-1-Yuliang.Shi@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4ee36f0d-0d0b-42ae-4146-08d97e71069e
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4740:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB47406829332999C395DC5ADFFFA39@BL0PR12MB4740.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Q0TQyc+kODCMTuTwfSA3lsIiWmMC+dPz3epT/Vru8rd7jUR3MeCnz88sNyiz7qawobBbLZUkFcvCdg49W8XpUTpg0mXQpFWkoHftQcH1zvk4XPJA+b+HvIIcqKgaKZpLfP83QdCVtECjStmresMR0Jr71D6tXbMQJEKiF++qv7NR6S/fM2wZRUjH5IlFrfGByH/8N4dGcZtHr3ZcTQ/a0sU5LEYa/Rq+J93RC/gSrAuM+pBsJ9Da9utWM9jbscnlQ3kXU91k5EiHG/e7h7g5rx9fV1PlzYiZWDsU9+FrhJj48oIykEevKMb6GYaEXSzyGoaBINus5WEnerJbbknP3zMn2kDIUBHK3ATErCRCdTyaONAT3R7C1uBrwzqwfn5JcycH7e3OWKEIFISSw7CoLD6xg5WzLOqgLFE3U0j5vxaPccwB/4r8LXwLB4c7wxDNMIYujTN1Oev7cvui6oANr8Fw66+LwuMGz8Na3y5PIYzvrVF+vnmKBekrv4B9DdwUJExbvbFNhuMH+2qrpNBsqU4MK66TzINjPvDXwITK4yDXRcTEvroWgTRVSwkGpttHsAUHOo+vWBJ8FcIrR/oYM4EI6OV2gp01pejn0fSX1HvuQ1LnHqBtV63TtBDTL3s6irr0ab1VvkCe3kh3SX9z2UYsTH0oSmKotYdK7Tmn/a5L7vciUGepkCsAJvA/8DMrUWjQGj8NjjFWM5wdGjcTPO1s6pExE61sb939RhAeMYmYxaOs1TWxL8Eo4gTKjTtb
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(54906003)(2876002)(1076003)(316002)(426003)(4326008)(47076005)(36756003)(2616005)(2906002)(508600001)(36860700001)(356005)(110136005)(8676002)(6666004)(186003)(6636002)(8936002)(81166007)(921005)(7696005)(83380400001)(82310400003)(86362001)(26005)(5660300002)(336012)(70586007)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 09:03:35.6235 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ee36f0d-0d0b-42ae-4146-08d97e71069e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4740
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,62 +127,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 23.09.21 um 10:16 schrieb Leslie Shi:
-> gmc_v{9,10}_0_gart_disable() isn't called matched with
-> correspoding gart_enbale function in SRIOV case. This will
-> lead to gart.bo pin_count leak on driver unload.
->
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
-> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+From: "Yipeng Chen (Jasber)" <yipeng.chen@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+[Why]
+Enabled ABM (level != 0) would raise short pluse irq DC_IRQ_SOURCE_HPD1RX
+randomly with PSR error LINK_CRC_ERROR. Actually there is no hot plugging
+on EDP panel. After correcting CRC error, there is no need to send drm
+hotplug event.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 3 ++-
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 3 ++-
->   2 files changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 41c3a0d70b7c..e47104a1f559 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -1098,6 +1098,8 @@ static int gmc_v10_0_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	gmc_v10_0_gart_disable(adev);
-> +
->   	if (amdgpu_sriov_vf(adev)) {
->   		/* full access mode, so don't touch any GMC register */
->   		DRM_DEBUG("For SRIOV client, shouldn't do anything.\n");
-> @@ -1106,7 +1108,6 @@ static int gmc_v10_0_hw_fini(void *handle)
->   
->   	amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
->   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
-> -	gmc_v10_0_gart_disable(adev);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index d90c16a6b2b8..5551359d5dfd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1794,6 +1794,8 @@ static int gmc_v9_0_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	gmc_v9_0_gart_disable(adev);
-> +
->   	if (amdgpu_sriov_vf(adev)) {
->   		/* full access mode, so don't touch any GMC register */
->   		DRM_DEBUG("For SRIOV client, shouldn't do anything.\n");
-> @@ -1802,7 +1804,6 @@ static int gmc_v9_0_hw_fini(void *handle)
->   
->   	amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
->   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
-> -	gmc_v9_0_gart_disable(adev);
->   
->   	return 0;
->   }
+[How]
+Returning false would skip doing hot-plug when handle_hpd_irq_psr_sink()
+handled irq. Hot-plug process causes visible flicking on overlay.
+
+Signed-off-by: Yipeng Chen (Jasber) <yipeng.chen@amd.com>
+Reviewed-by: Roman Li <Roman.Li@amd.com>
+             Anthony Koo <Anthony.Koo@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 1e4794e2825c..9b9fbe5e9bd4 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3007,7 +3007,7 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 
+ 	if (handle_hpd_irq_psr_sink(link))
+ 		/* PSR-related error was detected and handled */
+-		return true;
++		return false;
+ 
+ 	/* If PSR-related error handled, Main link may be off,
+ 	 * so do not handle as a normal sink status change interrupt.
+-- 
+2.25.1
 
