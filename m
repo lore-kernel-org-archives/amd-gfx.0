@@ -2,55 +2,81 @@ Return-Path: <SRS0=N7Ef=ON=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66DBDC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE1FDC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E67261164
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E67261164
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 98EA660E08
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Sep 2021 08:01:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 98EA660E08
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6876ECFA;
-	Thu, 23 Sep 2021 08:01:08 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D51DB6ECF6;
- Thu, 23 Sep 2021 08:01:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="246237859"
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; 
- d="asc'?scan'208";a="246237859"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2021 01:01:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,316,1624345200"; 
- d="asc'?scan'208";a="550748427"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
- by FMSMGA003.fm.intel.com with ESMTP; 23 Sep 2021 01:01:03 -0700
-Date: Thu, 23 Sep 2021 15:36:59 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Jim Cromie <jim.cromie@gmail.com>
-Cc: jbaron@akamai.com, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, daniel@ffwll.ch
-Subject: Re: [PATCH v8 10/16] i915/gvt: remove spaces in pr_debug "gvt:
- core:" etc prefixes
-Message-ID: <20210923073659.GZ14689@zhen-hp.sh.intel.com>
-References: <20210915163957.2949166-1-jim.cromie@gmail.com>
- <20210915163957.2949166-11-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 479726ECF7;
+	Thu, 23 Sep 2021 08:01:36 +0000 (UTC)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 985706ECF7;
+ Thu, 23 Sep 2021 08:01:35 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id b15so22676857lfe.7;
+ Thu, 23 Sep 2021 01:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=W58bQYCiGhRBD3/68MNvqc8I7i8N/bbc7IpEgttWBqY=;
+ b=BiAfuJD6VZetd9keBXxVdAw8zP5x3EZEQq4MbMYFqxvW1vetPRC4AfqRdno5vYQujz
+ RzFjIKWgLhRawAoCU5dBVISjUxdw7eBPz6qWEhzEa1lHwep/hstMrpIxBecCfwbnDlLE
+ OSm4i00zPJlZb9H+oqzX94zKh2YN6AbOSTdmQDEDlw4jB4sFlLULgzShKs33o87QCRu/
+ MF3vBykO7UDP8RNQgq18A52uXbxt0HDmDMom+gkC4/J2jUlODNBvrZH3WBp/crNAKSdR
+ g20GKdvAxVGw+lezg7g4rUHXCLui17aatOomgk516fbglRfkzW9EBC6pHAEidPprhbHj
+ 2Jgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=W58bQYCiGhRBD3/68MNvqc8I7i8N/bbc7IpEgttWBqY=;
+ b=zJ35R3FzsbqUG8iD788Gfm7Or6Jt8C5QIJnc00ysdLoQNis3pGtzsqlfg48WxEJYke
+ xgiGzqHn8pC7x6mLi55/I+LfpxCWvDl3/A2J0BUFQvKtO+rqLtnKc0DisBiH/qLVLwWK
+ YchQgYxPXVydxoiUmJAN+xqT9Rc+R5vYNwUs3r1PtlBCaK6QWbf8YnvOkf9g5/CoE8Tq
+ EFgZ9Ywjgw8hzXZt2vas9+BT6KIDjXz93fdIzsR7wPUXKwsFXgHjOLFaz8Iufn57tX27
+ 3BFAyHvvC8FkOero1DAVHzVtgqgTJVyPoxBHOmRmS2VnQ3CSxaLHjoHWGd7Ztw6PkPOf
+ Xkdw==
+X-Gm-Message-State: AOAM5331u7h+/SX1nc+qezv/sDZW/+41D/LyRI+H6m+LacwJ4k/2Y+sn
+ 2R7rldMvEKMK2tLhwNefgpA=
+X-Google-Smtp-Source: ABdhPJwqS4uXgRmEpfbv73qmVurm8Ys5MqdJU31TaF7GARzVfXU25EBmCpm41aJgMh0hHO4mbCPjcg==
+X-Received: by 2002:a2e:a78d:: with SMTP id c13mr3701929ljf.314.1632384093819; 
+ Thu, 23 Sep 2021 01:01:33 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id v28sm387443lfi.22.2021.09.23.01.01.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Sep 2021 01:01:33 -0700 (PDT)
+Date: Thu, 23 Sep 2021 11:01:30 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ sebastian@sebastianwick.net, mcasas@google.com, jshargo@google.com,
+ Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
+ Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com,
+ Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
+ jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>
+Subject: Re: [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC
+Message-ID: <20210923110130.1928d8bf@eldfell>
+In-Reply-To: <a13d64b1-7b24-5fd5-41d3-b55d2bd388e0@amd.com>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
+ <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+ <a13d64b1-7b24-5fd5-41d3-b55d2bd388e0@amd.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="Bu8it7iiRSEf40bY"
-Content-Disposition: inline
-In-Reply-To: <20210915163957.2949166-11-jim.cromie@gmail.com>
+Content-Type: multipart/signed; boundary="Sig_/f8kn+CdAE5nyzAWtsZGPeV5";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,114 +88,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---Bu8it7iiRSEf40bY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--Sig_/f8kn+CdAE5nyzAWtsZGPeV5
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On 2021.09.15 10:39:51 -0600, Jim Cromie wrote:
-> Taking embedded spaces out of existing prefixes makes them better
-> class-prefixes; simplifying the extra quoting needed otherwise:
->=20
->   $> echo format "^gvt: core:" +p >control
->=20
-> Dropping the internal spaces means any trailing space in a query will
-> more clearly terminate the prefix being searched for.
->=20
-> Consider a generic drm-debug example:
->=20
->   # turn off ATOMIC reports
->   echo format "^drm:atomic: " -p > control
->=20
->   # turn off all ATOMIC:* reports, including any sub-categories
->   echo format "^drm:atomic:" -p > control
->=20
->   # turn on ATOMIC:FAIL: reports
->   echo format "^drm:atomic:fail: " +p > control
->=20
-> Removing embedded spaces in the class-prefixes simplifies the
-> corresponding match-prefix.  This means that "quoted" match-prefixes
-> are only needed when the trailing space is desired, in order to
-> exclude explicitly sub-categorized pr-debugs; in this example,
-> "drm:atomic:fail:".
->=20
-> RFC: maybe the prefix catenation should paste in the " " class-prefix
-> terminator explicitly.  A pr_debug_() flavor could exclude the " ",
-> allowing ad-hoc sub-categorization by appending for example, "fail:"
-> to "drm:atomic:" without the default " " insertion.
->=20
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
-> v8:
-> . fix patchwork CI warning
-> ---
->  drivers/gpu/drm/i915/gvt/debug.h | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/gvt/debug.h b/drivers/gpu/drm/i915/gvt/=
-debug.h
-> index c6027125c1ec..bbecc279e077 100644
-> --- a/drivers/gpu/drm/i915/gvt/debug.h
-> +++ b/drivers/gpu/drm/i915/gvt/debug.h
-> @@ -36,30 +36,30 @@ do {									\
->  } while (0)
-> =20
->  #define gvt_dbg_core(fmt, args...) \
-> -	pr_debug("gvt: core: "fmt, ##args)
-> +	pr_debug("gvt:core: " fmt, ##args)
-> =20
->  #define gvt_dbg_irq(fmt, args...) \
-> -	pr_debug("gvt: irq: "fmt, ##args)
-> +	pr_debug("gvt:irq: " fmt, ##args)
-> =20
->  #define gvt_dbg_mm(fmt, args...) \
-> -	pr_debug("gvt: mm: "fmt, ##args)
-> +	pr_debug("gvt:mm: " fmt, ##args)
-> =20
->  #define gvt_dbg_mmio(fmt, args...) \
-> -	pr_debug("gvt: mmio: "fmt, ##args)
-> +	pr_debug("gvt:mmio: " fmt, ##args)
-> =20
->  #define gvt_dbg_dpy(fmt, args...) \
-> -	pr_debug("gvt: dpy: "fmt, ##args)
-> +	pr_debug("gvt:dpy: " fmt, ##args)
-> =20
->  #define gvt_dbg_el(fmt, args...) \
-> -	pr_debug("gvt: el: "fmt, ##args)
-> +	pr_debug("gvt:el: " fmt, ##args)
-> =20
->  #define gvt_dbg_sched(fmt, args...) \
-> -	pr_debug("gvt: sched: "fmt, ##args)
-> +	pr_debug("gvt:sched: " fmt, ##args)
-> =20
->  #define gvt_dbg_render(fmt, args...) \
-> -	pr_debug("gvt: render: "fmt, ##args)
-> +	pr_debug("gvt:render: " fmt, ##args)
-> =20
->  #define gvt_dbg_cmd(fmt, args...) \
-> -	pr_debug("gvt: cmd: "fmt, ##args)
-> +	pr_debug("gvt:cmd: " fmt, ##args)
-> =20
->  #endif
-> --=20
+On Wed, 22 Sep 2021 11:06:53 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-Looks good to me. Thanks!
+> On 2021-09-20 20:14, Harry Wentland wrote:
+> > On 2021-09-15 10:01, Pekka Paalanen wrote:> On Fri, 30 Jul 2021 16:41:2=
+9 -0400 =20
+> >> Harry Wentland <harry.wentland@amd.com> wrote:
+> >> =20
+>=20
+> <snip>
+>=20
+> >>> +If a display's maximum HDR white level is correctly reported it is t=
+rivial
+> >>> +to convert between all of the above representations of SDR white lev=
+el. If
+> >>> +it is not, defining SDR luminance as a nits value, or a ratio vs a f=
+ixed
+> >>> +nits value is preferred, assuming we are blending in linear space.
+> >>> +
+> >>> +It is our experience that many HDR displays do not report maximum wh=
+ite
+> >>> +level correctly =20
+> >>
+> >> Which value do you refer to as "maximum white", and how did you measure
+> >> it?
+> >> =20
+> > Good question. I haven't played with those displays myself but I'll try=
+ to
+> > find out a bit more background behind this statement.
+> >  =20
+>=20
+>=20
+> Some TVs report the EOTF but not the luminance values.
+> For an example edid-code capture of my eDP HDR panel:
+>=20
+>   HDR Static Metadata Data Block:
+>     Electro optical transfer functions:
+>       Traditional gamma - SDR luminance range
+>       SMPTE ST2084
+>     Supported static metadata descriptors:
+>       Static metadata type 1
+>     Desired content max luminance: 115 (603.666 cd/m^2)
+>     Desired content max frame-average luminance: 109 (530.095 cd/m^2)
+>     Desired content min luminance: 7 (0.005 cd/m^2)
+>=20
 
-Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+I forget where I heard (you, Vitaly, someone?) that integrated panels
+may not have the magic gamut and tone mapping hardware, which means
+that software (or display engine) must do the full correct thing.
 
---Bu8it7iiRSEf40bY
-Content-Type: application/pgp-signature; name="signature.asc"
+That's another reason to not rely on magic display functionality, which
+suits my plans perfectly.
+
+> I suspect on those TVs it looks like this:
+>=20
+>   HDR Static Metadata Data Block:
+>     Electro optical transfer functions:
+>       Traditional gamma - SDR luminance range
+>       SMPTE ST2084
+>     Supported static metadata descriptors:
+>       Static metadata type 1
+>=20
+> Windows has some defaults in this case and our Windows driver also has
+> some defaults.
+
+Oh, missing information. Yay.
+
+> Using defaults in the 1000-2000 nits range would yield much better
+> tone-mapping results than assuming the monitor can support a full
+> 10k nits.
+
+Obviously.
+
+> As an aside, recently we've come across displays where the max
+> average luminance is higher than the max peak luminance. This is
+> not a mistake but due to how the display's dimming zones work.
+
+IOW, the actual max peak luminance in absolute units depends on the
+current image average luminance. Wonderful, but what am I (the content
+producer, the display server) supposed to do with that information...
+
+> Not sure what impact this might have on tone-mapping, other than
+> to keep in mind that we can assume that max_avg < max_peak.
+
+*cannot
+
+Seems like it would lead to a very different tone mapping algorithm
+which needs to compute the image average luminance before it can
+account for max peak luminance (which I wouldn't know how to infer). So
+either a two-pass algorithm, or taking the average from the previous
+frame.
+
+I imagine that is going to be fun considering one needs to composite
+different types of input images together, and the final tone mapping
+might need to differ for each. Strictly thinking that might lead to an
+iterative optimisation algorithm which would be quite intractable in
+practise to complete for a single frame at a time.
+
+
+Thanks,
+pq
+
+--Sig_/f8kn+CdAE5nyzAWtsZGPeV5
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYUwulgAKCRCxBBozTXgY
-J8qzAJ9cfZulZLyzqg5hhI9G1fLDqKMDlQCgi+YapDkpvZuzya6guQeaCyf+Nps=
-=+ZKA
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmFMNFoACgkQI1/ltBGq
+qqdJ/w/7B6O0HE64NZidI6jqgduz7e1oCBkU6i0gDC7nQEBMswNf0IHHc/OlHEzE
+2tMmOI6aQl6f9HSyXNSyV+wqUg5WLZwrpQwqDTUr2Ztb9dcuv2OTWCWjE9zxfcJR
+RgpDPqP1zLo5WrRdjXNhTvujp5CSvIxpRmRHxNFX+VQtJIzn/hd1kLcDAKi8KRoG
+Ee6cw/C1Vs+3gzeywU5amDgT2cg7ZOjXb2X0l60lxWT+tlaNr2kwNiEGukCJ0NVK
+sGozUabuCeEcMJdL7QPZRrCWWsOTYVGosuuo9mUp1M/Y7YnrWkKd7LblHu35A6Pt
+Bsg9kKCH14lFY6q+tFylKoEz4iECTt2kOQqSSVkfcj1tNhPwe/MrdwXbCx1mne6P
+/zkMyORFguRhgRB1JKzw72ZwJ3RTv7xhbfXHFRPK5RtLOdm4KjkF0jueLP6f+boV
+WPnhPwRQVkpLxnw2HuJirDBc+wc8XlrBy8HI0azBWoAltYHJyOyw8BvYnR7iV6pG
+b5m/D/9g1AQKMnhu5gvBAJPnO1wnjfDA4e4M6yFDwoNbbxPZ8Iowo0Q7Iy2k781W
+TiWdOp2AS62/+e5W81wlcLL+dDuJixj73R14Ygsz9rkREe/mxjpaGWJtms+6jYYF
+PD5pyOT0PuSqJUemmhE2HJUm6/sfEZac/QjtJLQySLsTuut7PTg=
+=mX7L
 -----END PGP SIGNATURE-----
 
---Bu8it7iiRSEf40bY--
+--Sig_/f8kn+CdAE5nyzAWtsZGPeV5--
