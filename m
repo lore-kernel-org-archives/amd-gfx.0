@@ -2,118 +2,65 @@ Return-Path: <SRS0=WCud=OO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE23CC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16683C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:58:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F64F6103D
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:53:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6F64F6103D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id C22B66103D
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:58:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C22B66103D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1AC76E239;
-	Fri, 24 Sep 2021 19:53:24 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D1DD6E239
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 19:53:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QqrWCAeVV15VAdiB8SNTQIVh4J2cAniBFYxzEVv3gz+yTFB2FMhsrqR7BjGEXuq2haEQgw9ho79SkvjejYI+vhxy9625FbBtCJ0+nVII4sU1ZnO+4/y+ayfYi4OvVI8Up1Qtp6U9O0sEcSJRVI8K7mmsqnZgTo9B+FWfi82FiSbR5pMjwas2nOZGrvkM6PY4k3cqdClZJqp0JqfKrBnNCiitMVhLSYg92toxIF6ktQZvzWB2YhsXj9/9O29M1B44xWAil1SJICSh+1Rlgu36zSIJIUaSzCn7HEsM4VbixI/zi+Mu9Mh5/HD0bozi2CQ78YlG2JRiAgVmpZFStzQ83g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=RqS+9EU+z0WR9EGxQEsn+4rQdssY1JoVSPQLSNBvhbo=;
- b=JuV8/xAQwKAV+K0DHqqTM9pBw9leh/Xaq0sDkRxZKC4kV+Mfh+WbXSe0khTG7o3bgh9gdB48iC+9Y8xGndAXsSl/9zYYmvkxIQf3BMQjrKylE9ac2glBO3T2DeZgBXOVz1+GCznHFNWBCrSjLTqsUZ73Pg0VVJnRCbu5vNJy+Nlk05llG42irNXyJlMS233ospTnlAoQfGsKBpUzmAlh6P0/FnSFMKZ8D+AexCYuKeenwfYYAO0MxySIs+tDX8LxiLZGV8OYP7VwlpHZXG0WvzfjOJ1l3LoUpjhYZxw5+1PU+T2bk1GcdAxJzQA3i4yQRgd6zNDjirSVpAw97a3HWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RqS+9EU+z0WR9EGxQEsn+4rQdssY1JoVSPQLSNBvhbo=;
- b=x+Nm9kaCr23rD5Lm0hsisAnHv9kVU2elhL8yOwfC6SZKfw7GRMdkGvdYfTvt9qq5Y3bDhxu4Fm2fmFAjdiFxqa6Q9cNyhFg/Pb8O0e7yRsTOYNU4YNxs88hwjQXhayewHTqUUTL+oPsO8uREY78EALZfmOldJE9UlJY/CtOSMI8=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3108.namprd12.prod.outlook.com (2603:10b6:408:40::20)
- by BN8PR12MB3283.namprd12.prod.outlook.com (2603:10b6:408:9f::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Fri, 24 Sep
- 2021 19:53:19 +0000
-Received: from BN8PR12MB3108.namprd12.prod.outlook.com
- ([fe80::fd41:979d:a3e1:d958]) by BN8PR12MB3108.namprd12.prod.outlook.com
- ([fe80::fd41:979d:a3e1:d958%4]) with mapi id 15.20.4544.018; Fri, 24 Sep 2021
- 19:53:19 +0000
-Date: Fri, 24 Sep 2021 19:53:08 +0000
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Mukul Joshi <mukul.joshi@amd.com>
-Cc: linux-edac@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, bp@alien8.de, mingo@redhat.com,
- mchehab@kernel.org, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCHv4 2/2] drm/amdgpu: Register MCE notifier for Aldebaran RAS
-Message-ID: <YU4spAoQCfwxvnET@yaz-ubuntu>
-References: <20210922193620.15925-1-mukul.joshi@amd.com>
- <20210923220434.25245-1-mukul.joshi@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210923220434.25245-1-mukul.joshi@amd.com>
-X-ClientProxiedBy: BN9PR03CA0936.namprd03.prod.outlook.com
- (2603:10b6:408:108::11) To BN8PR12MB3108.namprd12.prod.outlook.com
- (2603:10b6:408:40::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABA26E245;
+	Fri, 24 Sep 2021 19:58:32 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BFE96E245
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 19:58:32 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 77-20020a9d0ed3000000b00546e10e6699so14702829otj.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 12:58:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=By51bhPXmF5v7P0VuXtEzVMMD3zJ6kKSJafoqorFTE0=;
+ b=iyDGZpHyqLAr+rTBg8HrmyGg7GEnn38qvI6SFKg57GZH4AZ/+bBflRQ/UpaxxNygni
+ mA3Z+0bJw9DPXgEbeZjUdmf46MU66WmMoG5Bfau4+V+YCrR+z+teLkh2mfrxgCUoyXLZ
+ b/GIqYThFvRvnstSpsHV9fxMYtgQYHtrLU60WW5Cyr8iS3y25OSX64OD12VfEl16c9yV
+ yxmOnPXIixLmvUA9rF2LDC9UsmWeoJmYzidNWSocuKihEd3xCGm1Y+z5t/332SKxgZnq
+ Qexwlh6gUJbWMOopBBMmhoenBNjVq6mGcaSRuFb169XoVcx6Kam7yR3tUXFpmjYa3MtJ
+ S1fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=By51bhPXmF5v7P0VuXtEzVMMD3zJ6kKSJafoqorFTE0=;
+ b=ZysgY2zWbzSkhoST/U6RIKDxdDpESMb+zBN4LZbWGvDqjEG8shYoFW4tVEQbAS+cj6
+ XlCmf1EeEqTCuyIIQ39V3SLOAB+dyQAVrFnmcqLXDNbYu/6aqsoTmoeJnK7SPLt0rpL6
+ 8caNUVK9TYAMdcsNU9nxG9N2xI4q0hqNRWWp44sWvdhF67eZ9Ck/wve2yj5bnUaLwNpE
+ GY8b72Fv5eH+pFtDOLvOdEsg8xRmxYjcRp1hPDoP0khn7Azg1Y669p+t5a39X722+l0h
+ N8cfZ7g2XPHVudnaViBNBc4jfZqimWigsvHOmcxIhNJ8T3VNxqnvCzKo5rGCOsQIa4Hb
+ N6Ig==
+X-Gm-Message-State: AOAM530STqjM87tEK0dIJ7IVO0tT7gtt9RMyL92bt0CaQQdoX/OuX0m/
+ 10xz/tSCQmtRiZ6oceDc193jsnLC9yYCHpZf54M=
+X-Google-Smtp-Source: ABdhPJyGjNhV+JSzlSVT3DbjyY9mw7lXBa+ZfOID5uk7bdpxmLUBP/xoGm7e4az1Q+JIlkLcyIBE0N6z8GsH+xgNL4M=
+X-Received: by 2002:a05:6830:25d3:: with SMTP id
+ d19mr5783619otu.357.1632513511377; 
+ Fri, 24 Sep 2021 12:58:31 -0700 (PDT)
 MIME-Version: 1.0
-Received: from yaz-ubuntu (165.204.25.250) by
- BN9PR03CA0936.namprd03.prod.outlook.com (2603:10b6:408:108::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15 via Frontend
- Transport; Fri, 24 Sep 2021 19:53:18 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 55c002a4-f7af-4f48-e93e-08d97f94f536
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3283:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3283AC8D1F8AD789F05E9B48F8A49@BN8PR12MB3283.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eGIbXVV/iBX1pPx9eaMOXOb3Y5Nf90qIwqpQgxLJcjSkJdkoc4CDdNkld5Oq2n290MlHg1G0T16+Ll3UgCMVYRkM+kIVL7WNuqb3f+ewElasAmdbEyDymTiwGBRSRKD/w73Sag9KKIuMjodNwZ52nFa+wy8JeVv/FYlEIMiG8qot6h0T8tMlVYrAhJyCv1bvYHz2lvQBzfgobc4uc+j274bo7U6Ri4Qkmr15vsUSys5/deMRtgONQBA4iZQArH7Izd5+UnyEReMH+jMKaw10/RT6GkfZ5NUUf7cC5R1NJHJVHk23LC4O9JAR8HbNaKnXEhbFAjyn8IVuHbuP0FXRys3JuB7JTI23Q0YHqUbwB143VP4DeSrNYuV8Bks+gE89yROAS8B4hEs68Ywhk78giQuJgdO3IJpGHhZDlTpL0qttRl25aF0hS0BrFXxrmNjHWlXsv+G2FI8kuIrTUAvAz6mOdGAB+1msR4EKrp/tEt+sKxFLWxkZVAHyLvld8CDzkWza68xe8x+J/zAMqGSJUI9Xl+4iXK6piMGivHsbXdSGiskFRSO/A+tvwM7FKCpCKugy7k+MUnvera36uz5GXPkS6tNH2pK+p05yuk09jgUDuB2fcQLzvXFJbQuEmrZb7V4C3mVayvsMjKrrXC+z+w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3108.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(186003)(86362001)(6636002)(4326008)(33716001)(6666004)(6862004)(956004)(2906002)(26005)(8936002)(5660300002)(8676002)(66946007)(66556008)(38100700002)(66476007)(6496006)(316002)(4744005)(55016002)(9686003)(508600001)(44832011);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jQuRNwDdMSYq9zEuwX/dEQPW+y8QF2c+BQZ/z7j9inScmogLD24lic+ySJVK?=
- =?us-ascii?Q?oTMbUG8+gbT9Elzvr63mVrT172VMSS1SYY/3kRlkrE0hTjc3cdr3RoxROYWR?=
- =?us-ascii?Q?8Nc/Xh+1qywnx7mSRVaZTrhPMzEIlltQj0+6QhIYfWuB4p2NqGbI4BGLRmm7?=
- =?us-ascii?Q?vtM8KozzWVeylh+RE4OPfEXLGcfF2SEU24os/tWWRjKWWxUIUwROgBFkFwaI?=
- =?us-ascii?Q?I7gJgyhkTWzF6tCFB5SkVlDeEbHcjbFZdc8WIn81s6zmv9CVtn563/ztkAEd?=
- =?us-ascii?Q?MySbXMjcB0y7gBnfSYDe3deQARlxu50OBT+O4wS86N2eCCSEkBXgVnFisz9r?=
- =?us-ascii?Q?Nf7H1ipXiW+ZY83FmymFJAYJLg/8IwOOqcwBKgblFpxIU+vVOhZ+dvpC4CM6?=
- =?us-ascii?Q?FDI6izCg8I+UttOy/wqehnhR6g6+mt09cFi93NzYbn6ySiA8VSaZEZ9nXzs6?=
- =?us-ascii?Q?V/HCLJxr0kw4w49ebR4cRJ6IfsTUaUj1XJVV/FS9JIsTFWoRVBbfIqCJ/Rn6?=
- =?us-ascii?Q?SI2PKnZ6Zn5l50Bcpg740HL5VD0JH3ifbLiWW6qT/vbPm6Sd8OX/he3d21Js?=
- =?us-ascii?Q?zl/BgE+jh6qrtkze5D+ODM7sNXAQzl9wRwkN7HroRb+EbpG4b5Yx3ZVObEhH?=
- =?us-ascii?Q?9LtP1JnD3kBjIf7IXKShe/7gKDyiO63KRc+qjorYHz3tNR/uw8CyQXheAW8y?=
- =?us-ascii?Q?UbNqT+1vsi12cS4UG0X8rWOi3lk8yim2lyh9K8j+5eoXQgqGFHJ2bjG7yJtp?=
- =?us-ascii?Q?DDyVByRZ7ZKnSvi5DYt3hJdZs9zutcCT1rinmXhAo8H/Nj+L8XhWDGNCd0n9?=
- =?us-ascii?Q?aLWaGDbTSjuVSJsnuqPYv7R8/lQW0M8w6KBYZYUvg+emHzy6pSMrkaZ3Bx9Q?=
- =?us-ascii?Q?ZXJPWFflB4Ydo5CUxR1OuRfYyTgx2NYLlW2mocv+EuPAprsrpXmAqAlNP/NQ?=
- =?us-ascii?Q?3zzgQdj1fM7yE2d5AEaf3kmvzxItpcCiGwsw1fYRdLIco9L/laIQd3DHNiBO?=
- =?us-ascii?Q?6h/KZEiIIKBbbZ5fkGiVcCprDVFUdPbXSNqoQYv2+nzA8spNNykW5wVt4TVx?=
- =?us-ascii?Q?6ns+t3qdCdgA1gSBRU43SwIX6zjNWExj6Zh+68r814WFWXWxd/qHLqg14Zby?=
- =?us-ascii?Q?dFiB32rjFCn1B8bPg94Sv6ZK1PioKfDPDqJ2/ltowuo/PxcsLV6UbcNPgmqu?=
- =?us-ascii?Q?hNm5CxNOlnPPm/rYxjBpb4hBGHBm0/y0HAePaKbzLdh4X8wuQ+rajuIqvZcG?=
- =?us-ascii?Q?62e7JDBjv3p98nC5Z0TU+XmjudBP3DLorFnQ7DIcAyqAF54g5ax+GJwT/XDk?=
- =?us-ascii?Q?VTY5HYNqFVjRbJRWP6OEqBjK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55c002a4-f7af-4f48-e93e-08d97f94f536
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3108.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 19:53:19.6988 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QztRHHcxQolsY5e59VP7EPQVLOGZGmyjBqHD/xIS9wdfw7dUqbox1nlrauAfwIgx7Ky7PwmHyDa2laklq5N9OQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3283
+References: <20210921180725.1985552-1-alexander.deucher@amd.com>
+ <20210921180725.1985552-31-alexander.deucher@amd.com>
+ <ebe17aa2-bf8e-c305-e275-d80e1f01537e@amd.com>
+In-Reply-To: <ebe17aa2-bf8e-c305-e275-d80e1f01537e@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 24 Sep 2021 15:58:20 -0400
+Message-ID: <CADnq5_PXO43XBRjCg99=CqUQtYKbVfF7b_8h+K+98N=yP7HASA@mail.gmail.com>
+Subject: Re: [PATCH 30/66] drm/amdgpu: add DCI HWIP
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,18 +75,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 23, 2021 at 06:04:34PM -0400, Mukul Joshi wrote:
-> On Aldebaran, GPU driver will handle bad page retirement
-> for GPU memory even though UMC is host managed. As a result,
-> register a bad page retirement handler on the mce notifier
-> chain to retire bad pages on Aldebaran.
-> 
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-> ---
+On Thu, Sep 23, 2021 at 11:43 AM Harry Wentland <harry.wentland@amd.com> wrote:
+>
+> On 2021-09-21 14:06, Alex Deucher wrote:
+> > So we can track grab the appropriate DCE info out of the
+> > IP discovery table.  This is a separare IP from DCN.
+> >
+>
+> I've never looked at the HWID stuff before. Do I understand it correctly
+> that DCI_HWID is for DCE IP and DMU_HWID for DCN IP?
 
-This patch looks good to me overall.
+yes.
 
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+>
+> In that case it might be good to rename DCE_HWIP to DCN_HWIP to avoid
+> confusion. Ideally as a prep patch so as to avoid excessive renames
+> later.
 
-Thanks,
-Yazen
+The names align with what we use internally in the IP discovery
+documentation.  I'd prefer to keep them aligned, but I guess it's not
+a big deal.
+
+Alex
+
+
+>
+> Harry
+>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 1 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+> >  2 files changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > index 8df4be702870..815db33190ca 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -756,6 +756,7 @@ enum amd_hw_ip_block_type {
+> >       UMC_HWIP,
+> >       RSMU_HWIP,
+> >       XGMI_HWIP,
+> > +     DCI_HWIP,
+> >       MAX_HWIP
+> >  };
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > index 048a08d7f480..6a993043badc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > @@ -149,6 +149,7 @@ static int hw_id_map[MAX_HWIP] = {
+> >       [CLK_HWIP]      = CLKA_HWID,
+> >       [UMC_HWIP]      = UMC_HWID,
+> >       [XGMI_HWIP]     = XGMI_HWID,
+> > +     [DCI_HWIP]      = DCI_HWID,
+> >  };
+> >
+> >  static int amdgpu_discovery_read_binary(struct amdgpu_device *adev, uint8_t *binary)
+> >
+>
