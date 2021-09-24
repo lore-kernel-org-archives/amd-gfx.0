@@ -2,48 +2,48 @@ Return-Path: <SRS0=WCud=OO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55879C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF244C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1EAA661250
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:09:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1EAA661250
+	by mail.kernel.org (Postfix) with ESMTPS id 785A461250
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:09:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 785A461250
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0E716E20B;
-	Fri, 24 Sep 2021 19:09:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E045F6E20B
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 19:09:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12F6C6E20E;
+	Fri, 24 Sep 2021 19:09:57 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D78466E20E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 19:09:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A/vFePiBJUCRcPnB02w4Uflh+FHe4TjnwD/YiHPgdC5Uv5j1GT58/oxfvnFP3zWnxQvuZ1GPhVjCRFsKpDJy4KPdFmGVN2W519amK2P4aZCNBYR7Bpg1DW79mx+eiONKmY4fLhrM1j/4D30jupeGYB6ab4Fi3jIeTiKl2DFKatoMvRIwk3aOQK0zc8c/5dEKZ9uDrT/9/4KPUVnC5v/IpaZutZx9YA53GwJDruQlP21xHocaBSVwdvLF6itJWGb/zsYpXpaE7tBKbF7lhpNypaj2gI2AYHHsLnzLSrzDPPkRGIEheDIap/yDU9N6H8FsrTs9lIo2Fx0U3sa7Lg8lcA==
+ b=hYn2RuI+qr/eO+s0aZo8iFU1D7jC1sPXXK1s4S/Y/S+Uu0Rk4nTb8e1wwG7jd+u/v0K2rbrvS1lUaQBa40h3PHXlF6zk04EaSPRxDF7L8AS7BhS00Ibe+so902LXyqL4ySoRE7gyitRC2I0gU6o/AUdHOht6cQ257KrJUhBmM0RcI8WPKOPTpiivu8SzniO2rB+kT0VNJRol1SbB3J5NFJ4UNL7yrRNT+eWtIA02GUi3p8mdncGiz0HDblGsJ7E0kj+kewPvTKFC+Gn/3uYUUr8XypyVebDDFWfHfU8Eq7xgok4cP75UrF9clfvZtrepnwoJSTa3tw4wc+3Xq5YLEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=EpNoN+a6Y2xpv4s0vxRuSSKn3rpKPyWm2VLtJMOXb9Q=;
- b=fR17VdlEKBcVoLeVwxt99iMykhqIZKe6z2U5+yhmPhKUxPMU6lL3/FJM1oufWWANbjBrLG2PAEucPVjM+z5cwiLiRNuG35Bl7XHjC1KKMfFqkAGWZ7zUAqI/nHLh4ACo8EHAkhGuiAbOpfuVQv9urWact0+rTfNvIp68AyFMmjXTQ6Hs33QMNfyX8EDp7bv0Bf1VNVSnCMT0D1gG5N8Qc3qnJNhy0ozXWYv+4y8DSAtguvDYm44da8iBIPtlLUaXPoT0n8UXPGVSnoWdqxKO0USaNIBazrbuytpGVquYgTbuUieOJZiE2uyCAyEWXRBhDFlXA/s6o/ju4ScDjAUOaA==
+ bh=K47i1ut11uj0qkfiOFPjRQT1rKnIs/EdXNP2pTQtc+w=;
+ b=Zohavqb404xPpFjdLuv7tejiVbTO8p94h5w+NEJUZd06nZBJDaLfbSpnqXGC32VGI9QBDSI15IXdIATNCm9VRFw8Z9j5y5ae9JpOATBNgR+adccWKVQOlI6llysjUR3PQ3OSfPfyF2/ZJkCDlWsASxcfijHSF+wL0JA+9HJbGRHQ/NkhBB+B1x34MNR5pviDrDT/qPgZy355lbjYCVS5tAf5cNwxu5AMfSRrWHDnTd3rbUMoxU4z+hHbZMWRZabinlnCACV9OU++GdfHoC+vADkzTaWyNWlD9mUqGbhyBdjQKG2jzrIYyGBSuDjXn7FWqOwoS4gFvyVmUmJykcgxqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EpNoN+a6Y2xpv4s0vxRuSSKn3rpKPyWm2VLtJMOXb9Q=;
- b=VGuOSowiT9lVHk/3D83Bo/ITV5nquz42B6wIiWsiGjj2k8ABTGLABPXsxcOaRW2W3BdhlL+dKA3UkAcgsP5O0RsDS4YKtD3jJRz5ySd8+H3UObDR/sF5PeMBjn1BH7nsp9YoQwnWteX9+NElRRc0aEWwh5JoU9TwYr5yNlP+XeI=
-Received: from MWHPR22CA0072.namprd22.prod.outlook.com (2603:10b6:300:12a::34)
- by BY5PR12MB4885.namprd12.prod.outlook.com (2603:10b6:a03:1de::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Fri, 24 Sep
- 2021 19:09:49 +0000
-Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:12a:cafe::1a) by MWHPR22CA0072.outlook.office365.com
- (2603:10b6:300:12a::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
- Transport; Fri, 24 Sep 2021 19:09:49 +0000
+ bh=K47i1ut11uj0qkfiOFPjRQT1rKnIs/EdXNP2pTQtc+w=;
+ b=O7nHmvqQmeD/Z7eTZgvjOmqsqc98lUNCe0KzMqOxV2zmSgs0/HfY2PZ1YB5GmEtPvkaY2IxAhHv1jufd2aHa8/Xc0YvBL0U1O7jiRmTSsQlStq3HCyyxX9nwAg+M2DzZ492Wpd/yDDjRuSlR7HKAXnOPMNaES2z53BhMsrTvcQk=
+Received: from MW4PR03CA0015.namprd03.prod.outlook.com (2603:10b6:303:8f::20)
+ by DM6PR12MB2953.namprd12.prod.outlook.com (2603:10b6:5:189::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Fri, 24 Sep
+ 2021 19:09:53 +0000
+Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8f:cafe::d7) by MW4PR03CA0015.outlook.office365.com
+ (2603:10b6:303:8f::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
+ Transport; Fri, 24 Sep 2021 19:09:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,28 +52,31 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
+ CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 19:09:49 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 19:09:52 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 24 Sep
- 2021 14:09:46 -0500
+ 2021 14:09:50 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 24 Sep
+ 2021 12:09:50 -0700
 Received: from Optimus.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Fri, 24 Sep 2021 14:09:44 -0500
+ Transport; Fri, 24 Sep 2021 14:09:48 -0500
 From: Anson Jacob <Anson.Jacob@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
- <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Wenjing Liu
- <wenjing.liu@amd.com>, Michael Strauss <michael.strauss@amd.com>
-Subject: [PATCH 01/24] drm/amd/display: use correct vpg instance for 128b/132b
- encoding
-Date: Fri, 24 Sep 2021 15:09:11 -0400
-Message-ID: <20210924190934.1193379-2-Anson.Jacob@amd.com>
+ <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Michael Strauss
+ <michael.strauss@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 03/24] drm/amd/display: Don't enable AFMT for DP audio stream
+Date: Fri, 24 Sep 2021 15:09:13 -0400
+Message-ID: <20210924190934.1193379-4-Anson.Jacob@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210924190934.1193379-1-Anson.Jacob@amd.com>
 References: <20210924190934.1193379-1-Anson.Jacob@amd.com>
@@ -82,28 +85,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 27faeeae-6c61-4fee-9274-08d97f8ee16c
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4885:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4885E4796E14677B2874A4E0EBA49@BY5PR12MB4885.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
+X-MS-Office365-Filtering-Correlation-Id: 3bd42c43-9212-4c5a-d654-08d97f8ee368
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2953:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB295376F79818137B00459606EBA49@DM6PR12MB2953.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: b5163r8kDUNJS0lqp0HP64CnQkz15hMTKopi5uVi/3ZnJfZPZjR+r8H/4VlwjnWMZky0k1Im3N3asMRR85zHfgZmwnXKyVwbGRClWwTderCXKcWwy3d4p2oTZjsrAv1cfCP5nT9klyNPovbgrS0NMpJt4hZ87477DNdZtTraXO4/2pgGC9iHeSac0GcuVQkaMjK9MwP+wG/RqZSg7tG8zEiGyd3RJ7PcLSnjKUBcRGCjXqc0b8ok+V+Da3Rpvikbsg5wvO5anxJFPyhNSgR1Qt02RnIDnw96JzhcI7f+fiKntWQGev6vNjphxgi/aVtKD8Z+emAuk+Ppkg/dnrj16Xjd3hJNJST4+NqLDwrP4Tp/mZZbUf0aPLApSUO51s5+s0edO8NNqLWJNgrABEKj4860drflxENkCAkPcoorrhLDgI9DDG9qdzeZ4wM8s7EnLiJV3zkVB3H/JuMaE0knLa+wMDc5qgiq4RxKWfvITtKzCG9pU5RMYbjUdLkypmWgRecjbIuh3aYyivLOY1o2yodaPWgcoYq5lwklnQhS324yqItD+kP8/FEYOTzyW+JLI5yo7TcNxGAonTaH+FrfJ37lNN3hZULsApe/xsbDK8cm0ctx1N2InjkRlQQxlXrk4LgY4rYeeSsqWWekUCexTr2GdPH14/KAMdemX4D4iL3GgEQ4OVxxVirziTC2SzwejlQeTftHH2J+DK/FfaG7DghF1fiRZp5K+zpu39t16vc=
+X-Microsoft-Antispam-Message-Info: FxWqS+TYb0SQ6McC1awRB/eItwW3sBF31TDqBdRGrhbRjbmOcfApF6HCA8uYxGHnrCdkdLaD8XvfiwemRGUOGcan0yemSxq73Echl9PXJKfBzhlbMGLDDLGF6FzxigtPyKC3G9E4wGmkaF6IXqLqw4GAwWuT0dSTjL0JNvy3aMQ6xrp+ibpdeVBXuKOimXRkrJtVXbwEpZcNPgWtThl8Uy2qcQOrwCPz47r6urrgkquBtrUOLTVN6ep3ny648UK6J6x6syp3Y7+nDndJowH5FOLc+Sy+5KCaGqQ6NgvanoMitFnZVbs78oHMoUQPv+NYzeb7odXyhoTk89ta0U1juPeKRg4PmpkZy9rZiMLDkl+SiDrPWhJvcGouRUX7ZsqGQ6nreoEABy/EQgtx/6AeXmWr43HqcBMfNdFOWQc1hWOvwDFvJOJ8gd84pm9JXcPVxq0lx/4kk0AHxjirhhS02eYt1URzwgFJLjxNd+/QXyvqzxjhT3lNso3ovwT/4hiBGW2fjkpyLs3yUqqMHBz1ncCDtqS23WyvnNX3m9CGShUxucA80ObtQvNNN4vHXMWvDW93l05a1RGBTVv6QU690K7acCBPgoD7jU1P5DHsekMWwq6IcmL6A2F3ApqhiEWeBR02jLFV6dd/1eE0OsTidLWEYS8A/L4gFBxwMkeYo3/NWkdJy5utIykwgzsO+4KS2rDZxhEMTgOZVwL7Op3uj++KNNktCU9yUxo4DcR86ik=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(70206006)(36860700001)(316002)(70586007)(186003)(508600001)(8676002)(54906003)(81166007)(36756003)(26005)(4326008)(2906002)(1076003)(336012)(356005)(7696005)(6666004)(6916009)(5660300002)(426003)(47076005)(2616005)(8936002)(82310400003)(86362001)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(81166007)(1076003)(356005)(47076005)(426003)(70586007)(82310400003)(508600001)(54906003)(36756003)(2616005)(86362001)(83380400001)(7696005)(4326008)(36860700001)(8676002)(186003)(336012)(8936002)(6666004)(26005)(5660300002)(6916009)(2906002)(316002)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 19:09:49.2179 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27faeeae-6c61-4fee-9274-08d97f8ee16c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 19:09:52.5498 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bd42c43-9212-4c5a-d654-08d97f8ee368
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4885
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2953
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,45 +121,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Michael Strauss <michael.strauss@amd.com>
 
-[why]
-128b/132b uses the vpg instance assigned to hpo dp stream encoder.
-The current vpg used is assigned to dio stream encoder.
-This is incorrect and cause display black screen because the
-actual vpg is powered off.
+[WHY]
+AFMT is unused for DP audio, so powering it on for DP is unnecessary.
 
-Reviewed-by: Michael Strauss <michael.strauss@amd.com>
+[HOW]
+APG block should be powered down instead, however HW defaults to shutdown
+state when not enabled so no further work is required.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Michael Strauss <michael.strauss@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c  | 5 -----
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c  | 2 --
+ 2 files changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 2bd38d19a447..cab7993b4cc5 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3608,6 +3608,9 @@ void core_link_enable_stream(
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	enum otg_out_mux_dest otg_out_dest = OUT_MUX_DIO;
- 	struct vpg *vpg = pipe_ctx->stream_res.stream_enc->vpg;
-+
-+	if (is_dp_128b_132b_signal(pipe_ctx))
-+		vpg = pipe_ctx->stream_res.hpo_dp_stream_enc->vpg;
- #endif
- 	DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
+index a97bdaa54f73..687c3c6881a9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
+@@ -1402,11 +1402,6 @@ static void enc1_se_disable_dp_audio(
+ 	struct dcn10_stream_encoder *enc1 = DCN10STRENC_FROM_STRENC(enc);
+ 	uint32_t value = 0;
  
-@@ -3853,6 +3856,9 @@ void core_link_disable_stream(struct pipe_ctx *pipe_ctx)
- 	struct dc_link *link = stream->sink->link;
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	struct vpg *vpg = pipe_ctx->stream_res.stream_enc->vpg;
-+
-+	if (is_dp_128b_132b_signal(pipe_ctx))
-+		vpg = pipe_ctx->stream_res.hpo_dp_stream_enc->vpg;
- #endif
- 
- 	if (!IS_DIAG_DC(dc->ctx->dce_environment) &&
+-#if defined(CONFIG_DRM_AMD_DC_DCN)
+-	if (enc->afmt && enc->afmt->funcs->afmt_powerdown)
+-		enc->afmt->funcs->afmt_powerdown(enc->afmt);
+-#endif
+-
+ 	/* Disable Audio packets */
+ 	REG_UPDATE_5(DP_SEC_CNTL,
+ 			DP_SEC_ASP_ENABLE, 0,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c
+index 3ea6dacec80c..ebd9c35c914f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c
+@@ -710,8 +710,6 @@ static void enc3_se_setup_dp_audio(
+ static void enc3_se_dp_audio_enable(
+ 	struct stream_encoder *enc)
+ {
+-	if (enc->afmt->funcs->afmt_poweron)
+-		enc->afmt->funcs->afmt_poweron(enc->afmt);
+ 	enc1_se_enable_audio_clock(enc, true);
+ 	enc3_se_setup_dp_audio(enc);
+ 	enc1_se_enable_dp_audio(enc);
 -- 
 2.25.1
 
