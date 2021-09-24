@@ -2,90 +2,128 @@ Return-Path: <SRS0=WCud=OO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5FC4C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31E1BC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:38:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7227560F48
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7227560F48
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E771360F48
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:38:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E771360F48
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9AC6EDEE;
-	Fri, 24 Sep 2021 06:37:31 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA536EDEE
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 06:37:29 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id w17so23967530wrv.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Sep 2021 23:37:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=lpW/P5edHM3N8nIRcWIR9tX1q1peneiUW2W1g9+fsng=;
- b=C1SQc0iukqhwKAyFcZI96AFqTG7jNZLkmJoiVxuRPzT+7mFJKWI+/FvoK3dX4+LFCQ
- BkClOCUqtWJW2JPpljpHTmGTeoq0csEhHsLARsuveGGH0LmdnMXtSDXBcu1eOt5ueuWz
- HG0sQs+ykch8QlOHbsTqXoHQKLQiGoN8f+8avZw9LJW5WxlY9ZU3L5PBINVjCPSaryI2
- bbVwL9dTLkHcQBKnG8iOe+3db0rjkOygYsyx7WdOVPdo6m073kn5TJWcMqE8jJkvUw9g
- 3g0TUxVCmFN2pJXBGeT6UNuJIJ+O/tZsIIF7cIl/gO4SXl+4p+1sD8JpY744qqxZCgTA
- HMYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=lpW/P5edHM3N8nIRcWIR9tX1q1peneiUW2W1g9+fsng=;
- b=X6DStXtYBFIVn4RfZCxw5eHjEZMZ5RNHJt4EgunH8WnvkgyS4pltXdtg7f0K+XsHRd
- 76Jvp6EIYEo8zdMF2I0NHcBgFmStThRDh2fPk17oWKFnxCQyTakwVezvGrub8sFvwWdj
- V8c0bg+0Ll1bLbgT/L5WoTDHxsGF7uytpcjGqHXd+YejQU7xxETolUUO4gCzBh6k82tS
- 9uquDTbBT64xSufVHnohg9yOKaekhu0ZSFjf8cxYae49qdvwYUdYtOBI6eKnCrKmQ8Fq
- 6/L8o3WMJU42lzXUh96L+tifCrt0jqHot2N1r/6YegZbXuZ5f4HtBkiMFxoxtQaZQy/o
- EVTg==
-X-Gm-Message-State: AOAM531DvTchNdkPDpmyR9grXCjvrW2zuT+s3CISjKqwSxg3sb3R+SNy
- 8lmLw3eKB3h2OP1XnkEC2rDjcs439z0=
-X-Google-Smtp-Source: ABdhPJzVswThZs/i3O4GrsQM1n1CvfiNVaDorPGxdOzcnGyLtkHumjPSLWe7EyeBMPAMFa8tUsRxFQ==
-X-Received: by 2002:a5d:6ac7:: with SMTP id u7mr9395794wrw.219.1632465447641; 
- Thu, 23 Sep 2021 23:37:27 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:5264:89d9:5fe9:27b8?
- ([2a02:908:1252:fb60:5264:89d9:5fe9:27b8])
- by smtp.gmail.com with ESMTPSA id v20sm7387453wra.73.2021.09.23.23.37.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Sep 2021 23:37:27 -0700 (PDT)
-Subject: Re: [PATCH] drm/kfd: fix ttm_bo_release warning
-To: "Yu, Lang" <Lang.Yu@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Huang, Ray"
- <Ray.Huang@amd.com>
-References: <20210923094405.144613-1-lang.yu@amd.com>
- <063d904f-4083-f5db-b3d0-eb4e080b055f@amd.com>
- <DM6PR12MB4250123CDF0A1F69AD1C1131FBA39@DM6PR12MB4250.namprd12.prod.outlook.com>
- <dc3b075f-70f9-6724-9b00-3e00afa922fa@amd.com>
- <DM6PR12MB42507FAA5B24CB49218517ECFBA39@DM6PR12MB4250.namprd12.prod.outlook.com>
- <066e138e-3eab-8c4c-04b9-6c7b5d6a4acc@amd.com>
- <DM6PR12MB425014A356EE6C8D865D5AC3FBA49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <6d9ae09f-4347-8a58-0cd4-1efb0955fe0f@amd.com>
- <DM6PR12MB4250C7EC2039EC6405C5EDAAFBA49@DM6PR12MB4250.namprd12.prod.outlook.com>
- <1ae03ed5-95ee-7e8a-b850-d0958aa974e6@amd.com>
- <DM6PR12MB4250D2851824AA4F27BE7FDBFBA49@DM6PR12MB4250.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <fc860cdc-e17a-ac94-b863-df8c21d4bacf@gmail.com>
-Date: Fri, 24 Sep 2021 08:37:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <DM6PR12MB4250D2851824AA4F27BE7FDBFBA49@DM6PR12MB4250.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91CB06EDEF;
+	Fri, 24 Sep 2021 06:38:10 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF0F26EDEF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 06:38:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GnysRZZ6klz8qefwWl0zzjk8JH1vaVE5ZONtMqAfK/vmK5xzHYrLzh99JUOK7d8S+m7AshccLMz4xv93lT7WBpuJV2JFUgQQueJ3yE4+rYBjXweRq1TWzziGKv/2zo3aDyr2zySeYMPGWglSu9kHv31q0IUbkbSLA7JWMPyed0xcL+qm+vhkh4qNoilfL5j86bBcaBRbtPHuWHw5R6Ek3M/JRL8K5ORyrs3rnnk9my6uiwKIjjSfh+yVR00GhQcoEAgoxnCEM8p2q+qL09G7GZxJw+iV3cqKtt8gid70h32ULpHf8QSGfL4xC72af6Yxq1/I1ijQ/JQ6iijRMR3BvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=mgaz0usRmGV95oxolFVsWqjQfo1SHZvdUrMfEnQSRIk=;
+ b=cVKIcj6IEzfkAgj5icQekSEAG0luLk2e7rVKVnt5IJYbjB8/+YhaKhoZhsU8NLxiitA1aRlwWhaManZES/33QIb6ti2mzP/a6MGRkVOuqFQQeyBwEE8FLW+oNRFbRkmvvRxX5614sGsCwdPVQoSzdsVQB9uUWUgDSZBdPin48ypemIrMTwSzYVN5VmBXEs7bZ5lF32lQ9vsX7+GTqHsq57r4rdILVaU53Gbrie9LK/tJMuvIDXLpgybESiC7jGOro2sG9CBeVuENwkSo3bTEJRWdR4O0bnUfzlGmiDs3mYTCX0UUXLkPMCCb4Pi+3QkN6m8q5B7SQ2dqDj17VW2uAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mgaz0usRmGV95oxolFVsWqjQfo1SHZvdUrMfEnQSRIk=;
+ b=4ksT4efWZOrWPd3KNyySKR5RL2svn26u9G4wOFyfH85kPsvZ7B7ySUe9r+9oV7DLdw/Oq2NsX8r1xp5WPYdPG8oRB5uUosJxce/nAMtTvmYLTtfFCcM7OHXYZM4D4f25Py/2INhi+u0lRfAxfla1u3JPFGAd3aYgJM9S/zmbVn0=
+Received: from BN9PR12MB5226.namprd12.prod.outlook.com (2603:10b6:408:11f::11)
+ by BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Fri, 24 Sep
+ 2021 06:38:07 +0000
+Received: from BN9PR12MB5226.namprd12.prod.outlook.com
+ ([fe80::a3:7688:bffe:880e]) by BN9PR12MB5226.namprd12.prod.outlook.com
+ ([fe80::a3:7688:bffe:880e%3]) with mapi id 15.20.4544.015; Fri, 24 Sep 2021
+ 06:38:07 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Update PSP TA Invoke to use common TA context
+ as input
+Thread-Topic: [PATCH] drm/amdgpu: Update PSP TA Invoke to use common TA
+ context as input
+Thread-Index: AQHXsQ3jCl1bmbpQqUK34NUHmxQm86uyu0Tg
+Date: Fri, 24 Sep 2021 06:38:06 +0000
+Message-ID: <BN9PR12MB52267A9AC934194DDBEE9246FBA49@BN9PR12MB5226.namprd12.prod.outlook.com>
+References: <20210924063144.31230-1-candice.li@amd.com>
+In-Reply-To: <20210924063144.31230-1-candice.li@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-24T06:38:04Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=f19a4c25-f106-4e1f-9baa-01c3451e85bd;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 42bef5b9-1eba-4dc6-b6ce-08d97f25de5b
+x-ms-traffictypediagnostic: BN9PR12MB5356:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN9PR12MB535670B6C7E621406BAABE1DFBA49@BN9PR12MB5356.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:336;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: EKjejfwMex9jFW/j/6cC5CQp9OihUjg1w3nGsSr2EaMqUWs23wpyss5YbidigB0By1wtsh2nLUdwz2/dX2+UHOWsTgGXumf3RJYWlVWiKlDyDGH7HQf25GXKJd9eZNSGYFOmw8EKLcZciTqacbrp17v0wc/6dS4eax1PoQtItNwfQNc8GwzgN/LyxHcN+452Gwz64lOmA69vvGcJhqoJ3KM2t7JDA5vgWW423sV8B2EveWJIF4hm/IYo1vw68g1hPb2kMLQxi7uBjdSisRrtsDxXYXAk4pKWfvgnziUnozjVL+MTQI6JRDhOrV3W0JchEpBl8bkAWTbjUtUo0RED6XibIY4MYj3PG6SKzPCD9tKE1QrKXy80Ots9vklgEl1KWYCiUPROUDe4LjveavKph8IjkkGp3VC/s5vteryd/PoJwgnh9reSCsVqcBTBGE7IYUrcBdSrffVmRRaaNhC187apz/qAUaJZWKeGKUao5UR7BcSKzaQ+avKYUQJrLOUTjjJMSbBxAw7sjs8tAyGFmdO0frda7yMTb9Q5ZikGm0Aok1Wu1S2s+0ykfshP6EZ5UtcXF3j4P8ZaeesqXYkj9hrZ3S3sHcKUWv0IYKdU3+J3WeVpYFtPGqDYe2Ra6HjbUKNWzl5E9ZmCy1tVp2vz5VGKFXXD2K1TZaBpOzUq39sw+kPBUhFIXrPWXZLW2fqZmjoIm2R+SUIQkLkBWfgp0g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5226.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66446008)(52536014)(15650500001)(508600001)(66476007)(110136005)(71200400001)(38100700002)(66946007)(9686003)(38070700005)(26005)(86362001)(186003)(7696005)(83380400001)(64756008)(76116006)(5660300002)(8936002)(33656002)(66556008)(55016002)(53546011)(316002)(2906002)(6506007)(122000001)(8676002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fITXiRTrzfTJz0Hex+BW7uUaCLStFL5hsH1FeIIwZCeWzy1p1A6NDMSYmPSg?=
+ =?us-ascii?Q?HybpkeFs8V1MWJRpCviHn4rNuud3kTl8zMzPYxYOrqSpawLrs4wq0hTmJuFL?=
+ =?us-ascii?Q?mmPRGF4Ps/81NSszmffVuWTp8gt7P+2luohjGBnjo+g9PqBwk1pMnfDj+IM6?=
+ =?us-ascii?Q?A5xfHRPAHD6f2Zq8euE/RwioLCnwiObFTx/J/JNRtcRAyHRZWQIbNPDs4IeR?=
+ =?us-ascii?Q?oZ+phQQ8Evky6yevXUpVYzqeEjF7qDfsZS/7bF9AaK+6JWuveS/yABF0kE1F?=
+ =?us-ascii?Q?8esOL1a+WSO0fDpG0TlLjslROGhh92Tvecz5KmVpOaxkLoN7Bw8ap8Sfr65r?=
+ =?us-ascii?Q?NRXNqb3EpY7DCGruTU+ceWrurZ+NXWDUVjnGiwMxgelQF1/FUXIIB++uhwJO?=
+ =?us-ascii?Q?3EhX+gQqQ0gz8Ogo+6ft2ShKp4zmAKamI6lGxHEv84gsaGdcRe6UyrHjS/M+?=
+ =?us-ascii?Q?i4HveVsCkkpjfisaF5uRYeC3oLreTFHuCsKFVm0WGFVnDmelr2E+NIu9mMUF?=
+ =?us-ascii?Q?fy2FXdv6ahG9fRkSQSO2riuM2QGNop+ESo9WJPdauxsqfqYyzpcwlD5PTcl2?=
+ =?us-ascii?Q?Cwa01XT9QQIX7Xla6lIYYG7ynVY44Wozq5h7qplu5shD/bigVybseNHlc/2O?=
+ =?us-ascii?Q?MHHD0wYLdU58zoeo10dwJbqJqbvrD75RxqURoHH1R9AxQz/tejW0UCY2zZJ+?=
+ =?us-ascii?Q?jEmvEQyQLstgqtUeBZ7HpnyDD0Hv2f1jbOONTlFcFTtPX4lWXnrzqH8L1PxD?=
+ =?us-ascii?Q?xznIX1KDkiqUHV2wjzxkt5ZtZyQQnRpW53X2i5ComFQMAHWL4P1F8Oll3md1?=
+ =?us-ascii?Q?kp738erZUkWaOUo18+fvIVBW6zbEdaloKddjzg3NdSZ65Mr5J2Dy+X0L6qFA?=
+ =?us-ascii?Q?dhJcdbrAAFxDXiwOHPUqbROSe69LDoRdUzdpjzOv9m+lzKRPSpX7VuwltIsF?=
+ =?us-ascii?Q?LBr59lw68KQw6q8Rrv641p6trDnC62R4veBdF3ZAhVno3edoZJZ+Cd+APz00?=
+ =?us-ascii?Q?URqHwNRP/Ddg47fyWkhUGB8a87cHqRD00+bkMwQ0XKhNRGCoQQHkzlwsOh5q?=
+ =?us-ascii?Q?WDE1aINB0jfneK3GP/y1Nlg2u3dxhs1XZCqJMHZMoBCiTw+JHWU8om7770tx?=
+ =?us-ascii?Q?ZlK/zdsA9rXb2cqAsettLy2eZcTf9L0ScYc6QPpj5eD59dQNZH6DY/RDzl2M?=
+ =?us-ascii?Q?4us/OYUCEpgHM00DxoAc9U9kNRSzCMTZUsbI4sPrlZYqZz3Z6diqmxE5B3qq?=
+ =?us-ascii?Q?W287TAEWTNOfTLWY5L2CfWvfRVVktb3iDqBEFXpgF/CMH94PCcWkrk4ImYnr?=
+ =?us-ascii?Q?Paxk8D2nMZpDgvEYQWUz7ZFY?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5226.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42bef5b9-1eba-4dc6-b6ce-08d97f25de5b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2021 06:38:06.9202 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HaiNngp+8GzsN9yGGv0cTiIgZrM8xd1XpwL/e21FCa79psFRJE7gXWobtLAc4pHuoF0s/Tct/MQwGxeg3a71uA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,141 +138,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 24.09.21 um 08:34 schrieb Yu, Lang:
-> [AMD Official Use Only]
->
->
->
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Friday, September 24, 2021 1:54 PM
->> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Huang, Ray
->> <Ray.Huang@amd.com>
->> Subject: Re: [PATCH] drm/kfd: fix ttm_bo_release warning
->>
->>
->> Am 24.09.21 um 07:50 schrieb Yu, Lang:
->>> [AMD Official Use Only]
->>>> [SNIP]
->>>>>>> Hi Christian,
->>>>>>>
->>>>>>> Thanks for your explanation and advice. I got your point.
->>>>>>> Actually, these BOs are allocated and pinned during a kfd process lifecycle.
->>>>>>> I will try to add a flag into struct kgd_mem to indicate which BO
->>>>>>> is pined and should be unpinned. Which will make
->>>>>>> amdgpu_bo_pin/amdgpu_bo_unpin calls balanced. Thanks!
->>>>>> That isn't to much better. The real solution would be to unpin them
->>>>>> when the kfd process is destroyed.
->>>>> Yes, will unpin them when the kfd process is destroyed.
->>>>> But we should indicate which BO is pinned and should be unpinned. Right?
->>>> Well not with a flag or something like that.
->>>>
->>>> The knowledge which BO is pinned and needs to be unpinned should come
->>>> from the control logic and not be papered over by some general handling.
->>>> That's the background why we have removed the general handling for
->>>> this from TTM in the first place.
->>>>
->>>> In other words when you need to pin a BO because it is kmapped it
->>>> should be unpinned when it is kunmapped and if you don't kunmap at
->>>> all then there is something wrong with the code structure from a higher level
->> point of view.
->>> Yes, this function "amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel" did a
->>> kmap, but without a kunmap when the kfd process is destroyed. The flag
->> actually indicates kmap/kunmap.
->>
->> Well that's the wrong approach then. I mean you need to have the BO reference
->> and the mapped pointer somewhere, don't you?
->>
->> How do you clean those up?
-> They are respectively cleaned by " kfd_process_device_free_bos " and " kfd_process_destroy_pdds".
-> Let me put the code here. Thanks!
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index ec028cf963f5..d65b3bf13fd8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -81,6 +81,7 @@ struct kgd_mem {
->
->          bool aql_queue;
->          bool is_imported;
-> +       bool is_mapped_to_kernel;
+[AMD Official Use Only]
 
-Yeah, that is exactly what you absolutely should NOT do.
+Reviewe-by: John Clements <john.clements@amd.com>
 
->   };
+-----Original Message-----
+From: Li, Candice <Candice.Li@amd.com>=20
+Sent: Friday, September 24, 2021 2:32 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Clements, John <John.Clements@amd.com>; Li, Candice <Candice.Li@amd.com=
 >
->   /* KFD Memory Eviction */
-> @@ -278,6 +279,8 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
->                  struct kgd_dev *kgd, struct kgd_mem *mem, bool intr);
->   int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_dev *kgd,
->                  struct kgd_mem *mem, void **kptr, uint64_t *size);
+Subject: [PATCH] drm/amdgpu: Update PSP TA Invoke to use common TA context =
+as input
 
-The real question is who is calling this function here?
+Updated invoke to use new common TA structure similarily to load/unload.
 
-> +void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_dev *kgd,
-> +               struct kgd_mem *mem);
->   int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
->                                              struct dma_fence **ef);
->   int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct kgd_dev *kgd,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 2d6b2d77b738..45ccbe9f63ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1857,6 +1857,8 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_dev *kgd,
->
->          amdgpu_bo_unreserve(bo);
->
-> +       mem->is_mapped_to_kernel = true;
-> +
->          mutex_unlock(&mem->process_info->lock);
->          return 0;
->
-> @@ -1870,6 +1872,20 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_dev *kgd,
->          return ret;
->   }
->
-> +void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_dev *kgd, struct kgd_mem *mem)
-> +{
-> +       struct amdgpu_bo *bo = mem->bo;
-> +
-> +       if (!mem->is_mapped_to_kernel)
-> +               return;
-> +
-> +       amdgpu_bo_reserve(bo, true);
-> +       amdgpu_bo_kunmap(bo);
-> +       amdgpu_bo_unpin(bo);
-> +       amdgpu_bo_unreserve(bo);
-> +       mem->is_mapped_to_kernel = false;
-> +}
-> +
->   int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct kgd_dev *kgd,
->                                                struct kfd_vm_fault_info *mem)
->   {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 21ec8a18cad2..f5506b153aed 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -941,6 +941,8 @@ static void kfd_process_device_free_bos(struct kfd_process_device *pdd)
->                                  peer_pdd->dev->kgd, mem, peer_pdd->drm_priv);
->                  }
->
-> +               amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(pdd->dev->kgd, mem);
-> +
+Signed-off-by: Candice Li <candice.li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-That's a general cleanup function for user space allocations and should 
-not be abused for stuff like that.
-
-Regards,
-Christian.
-
->                  amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->kgd, mem,
->                                                         pdd->drm_priv, NULL);
->                  kfd_process_device_remove_obj_handle(pdd, id);
->
-> Regards,
-> Lang
->
->> Regards,
->> Christian.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c
+index 55ffc3da89ced2..17d09771be3ee0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -938,12 +938,12 @@ static void psp_prep_ta_invoke_cmd_buf(struct psp_gfx=
+_cmd_resp *cmd,
+=20
+ static int psp_ta_invoke(struct psp_context *psp,
+ 		  uint32_t ta_cmd_id,
+-		  uint32_t session_id)
++		  struct ta_context *context)
+ {
+ 	int ret;
+ 	struct psp_gfx_cmd_resp *cmd =3D acquire_psp_cmd_buf(psp);
+=20
+-	psp_prep_ta_invoke_cmd_buf(cmd, ta_cmd_id, session_id);
++	psp_prep_ta_invoke_cmd_buf(cmd, ta_cmd_id, context->session_id);
+=20
+ 	ret =3D psp_cmd_submit_buf(psp, NULL, cmd,
+ 				 psp->fence_buf_mc_addr);
+@@ -989,7 +989,7 @@ static int psp_xgmi_unload(struct psp_context *psp)
+=20
+ int psp_xgmi_invoke(struct psp_context *psp, uint32_t ta_cmd_id)  {
+-	return psp_ta_invoke(psp, ta_cmd_id, psp->xgmi_context.context.session_id=
+);
++	return psp_ta_invoke(psp, ta_cmd_id, &psp->xgmi_context.context);
+ }
+=20
+ int psp_xgmi_terminate(struct psp_context *psp) @@ -1291,7 +1291,7 @@ int =
+psp_ras_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+=20
+-	ret =3D psp_ta_invoke(psp, ta_cmd_id, psp->ras_context.context.session_id=
+);
++	ret =3D psp_ta_invoke(psp, ta_cmd_id, &psp->ras_context.context);
+=20
+ 	if (amdgpu_ras_intr_triggered())
+ 		return ret;
+@@ -1551,7 +1551,7 @@ int psp_hdcp_invoke(struct psp_context *psp, uint32_t=
+ ta_cmd_id)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+=20
+-	return psp_ta_invoke(psp, ta_cmd_id, psp->hdcp_context.context.session_id=
+);
++	return psp_ta_invoke(psp, ta_cmd_id, &psp->hdcp_context.context);
+ }
+=20
+ static int psp_hdcp_terminate(struct psp_context *psp) @@ -1643,7 +1643,7 =
+@@ int psp_dtm_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+=20
+-	return psp_ta_invoke(psp, ta_cmd_id, psp->dtm_context.context.session_id)=
+;
++	return psp_ta_invoke(psp, ta_cmd_id, &psp->dtm_context.context);
+ }
+=20
+ static int psp_dtm_terminate(struct psp_context *psp) @@ -1777,7 +1777,7 @=
+@ int psp_rap_invoke(struct psp_context *psp, uint32_t ta_cmd_id, enum ta_r=
+ap_stat
+ 	rap_cmd->cmd_id =3D ta_cmd_id;
+ 	rap_cmd->validation_method_id =3D METHOD_A;
+=20
+-	ret =3D psp_ta_invoke(psp, rap_cmd->cmd_id, psp->rap_context.context.sess=
+ion_id);
++	ret =3D psp_ta_invoke(psp, rap_cmd->cmd_id, &psp->rap_context.context);
+ 	if (ret)
+ 		goto out_unlock;
+=20
+@@ -1899,7 +1899,7 @@ int psp_securedisplay_invoke(struct psp_context *psp,=
+ uint32_t ta_cmd_id)
+=20
+ 	mutex_lock(&psp->securedisplay_context.mutex);
+=20
+-	ret =3D psp_ta_invoke(psp, ta_cmd_id, psp->securedisplay_context.context.=
+session_id);
++	ret =3D psp_ta_invoke(psp, ta_cmd_id,=20
++&psp->securedisplay_context.context);
+=20
+ 	mutex_unlock(&psp->securedisplay_context.mutex);
+=20
+--
+2.17.1
