@@ -5,83 +5,102 @@ X-Spam-Level:
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48879C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8D3DC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 08:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E6D1610C7
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 06:52:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1E6D1610C7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 615DA61100
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 08:37:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 615DA61100
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD356EDF4;
-	Fri, 24 Sep 2021 06:51:07 +0000 (UTC)
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16CE6EDF4;
- Fri, 24 Sep 2021 06:50:54 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id 146B858105A;
- Fri, 24 Sep 2021 02:43:44 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 24 Sep 2021 02:43:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=gI1USBF13b/WC
- 9GWwIX4Z1gzLGplb53rIeUu1Mo8b4o=; b=D0x7zw1JXwx7CoS+GIttUAVpXJNri
- 9RutguKJ5/bA5QBCVNooj+UJVmN8/SeycK8+eHBCl1MSWC54E+7JLRZ+v3stJl82
- bK37taAM5pTTmmMAkrXYP7WqqM8yUjz4QHTG1duJemcyNgyfbXwdMLA8bdjfjPo6
- bNsf/Y89r2ujS/IjkXLUmyq6rNU6gsCZLpdmQHpaifPjchyP8RnJDXEiIgCeRqz/
- OlWaIxsW6oCOgU62v4tkxBRGGwuZkCZSJIu6Yw5y/NXn9aCWiMQ1cjzNZr53Ggj2
- gqXpJUziJRZHzuq4SmUUDVXsnRZbRDTATyzsnlsaZ2rlIjrmbdvNLM56g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=gI1USBF13b/WC9GWwIX4Z1gzLGplb53rIeUu1Mo8b4o=; b=VmgsT00D
- So6sLP/s7+MvXRtB/P4vks7IsiEO2ho4PmQ0XQaU8+KioM3Z4i1Q8lrUpDXiqLOq
- 7NXTv7Gm4C1FKDKjzY6fv2AfyhRelcUqrUXqBEqWXB3BKK5rcPVGJsxm3rVSs5xu
- 6Pg0rmMGnkPrsYD+dZp5IJxp9ClXUu27QyTkz4HKdt3iCSXMw998ugCbksxVaX1e
- k6xD//mlEcuJEzCjJf+s8Tp1HvbbxBDI5/cD3Nu0SyywxuSk/nEoDipF0jN9p2ky
- Ai2vIlTyEMK1bAlzZP9rGvhqMZddq8MbwGZxW6pzH8IYqCOIcUvdQEZuGl/eyErn
- Ay32K5QMcti87A==
-X-ME-Sender: <xms:n3NNYbZ6FEtneoYHQiJ2uaLteVBUXqCJSGy2tOzt4dc5ys7giiVANQ>
- <xme:n3NNYabftZnGlR8uNBDHDvpAW-17ombYn6aDcqfVAtxl60TExK9yfX225NzmXrVxv
- Rxof1Ks8_CXPHugQw>
-X-ME-Received: <xmr:n3NNYd-1x_HvXC18arMggXCD1187YE-tnQ7trC_bgNJIlXTHHHAZw6l9-Bks0qzv6TRy>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejtddguddtkecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
- ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedunecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:n3NNYRo25q8PdmT-EmsdL9yrEUZuydJt6kbg6_Iu47SDERpBfuRfyQ>
- <xmx:n3NNYWop3GGchQn5xl7zKLNZV13mzOiSGliI_Eb7tkRXALRXCg6Hlw>
- <xmx:n3NNYXR6kRLJnWccfsrbRIp9XkSKEYVQYYRFWqRLn38XDQxDGSpwdw>
- <xmx:oHNNYV0RvdbZ61w0BUpIWuRcZL-bmcnsa_3trz6UWp78MxtKTUasmw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 24 Sep 2021 02:43:41 -0400 (EDT)
-From: Fernando Ramos <greenfoo@u92.eu>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Subject: [PATCH v2 04/17] drm: cleanup: drm_modeset_lock_all() -->
- DRM_MODESET_LOCK_ALL_BEGIN()
-Date: Fri, 24 Sep 2021 08:43:11 +0200
-Message-Id: <20210924064324.229457-5-greenfoo@u92.eu>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210924064324.229457-1-greenfoo@u92.eu>
-References: <20210924064324.229457-1-greenfoo@u92.eu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E10906E1F4;
+	Fri, 24 Sep 2021 08:37:41 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2081.outbound.protection.outlook.com [40.107.243.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63776E1CD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 08:37:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=n2wKRIY92Zlkt3mRjvo6Xmlhn/j47appDofk8Pi9Hr+WwNW7Twd4A/PvrASe/WMDvBO8sMtMfwUr1bv6Wy/+FEP6xh8Zv52zFGrbDnBtcKXrgkjHs55VbsogjQU5RTUPOqSuov8fMUh5DmkwlzjBzqBvEOJi91TbDfwLbmIQfNAfRfiCduApN14IdNV0oXEpKOmY0PK6mcwjdrsBg3wNn2snEShNDUDd2Bnhmfr5qyBd43BajHOSXGBXA/jOjcQCERgWS0nC8+3y7nipzk8FqwcFcWRzCyknIIkwawqr9aaAv36WmxhuEgpEDcuyCp/6oKoLSzPioEGnUfJ04NWEJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=DwUxnkQtu1ylR/YHrG9AXYgwW2i3htJwmas+X59GDQk=;
+ b=SunS2wprxIlMZnVcWyfJ7sp2SHZMdO5pMxPXhnB60T3nJg5XESlVgeTqYfKYpKqnocIzuYGEWay9VVpajnhRb0hEfajzbNc/kikU3fguSt3Sdxol35DOKn5pj6dOeo64eIWC195K1cpWBjiBp+OArtSfX6oj3D1mwJDFAwNz7STWcKOVfk/Qy7exojxwdllPH6SjSTiUuqaqsa7wB67Hht9Em9/yDU7w4reKPqvXsRp4DrFiOkZIZCcO9FIHICHR0n9pBmu1OCF2nUjNlwyQi/ur74jZZ6y4Y2TDMlQ0Uk/ESFu9f+7HsDOYZrVKYHuB02PdAfaU0fdRYyjso0WYNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DwUxnkQtu1ylR/YHrG9AXYgwW2i3htJwmas+X59GDQk=;
+ b=pCI/uKUf6QdOjp2fIQ8LoqOCS0dqH5xqupF5nMtbC6B/oELAuszqQii4e7LoPyoyVmDNtVzcPY+o6luphb2G0i5pbaRN1TwewFCi02xUi31RsV3kABRuLnoxU85IV3ILW219xK6qLs0/UjndDSj+lQd26r+cry3ImtuCznPDFto=
+Received: from BN9PR03CA0133.namprd03.prod.outlook.com (2603:10b6:408:fe::18)
+ by BL1PR12MB5141.namprd12.prod.outlook.com (2603:10b6:208:309::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Fri, 24 Sep
+ 2021 08:37:39 +0000
+Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fe:cafe::43) by BN9PR03CA0133.outlook.office365.com
+ (2603:10b6:408:fe::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
+ Transport; Fri, 24 Sep 2021 08:37:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 08:37:38 +0000
+Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 24 Sep
+ 2021 03:37:35 -0500
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
+ <felix.kuehling@amd.com>, <mukul.joshi@amd.com>, <stanley.yang@amd.com>
+CC: Tao Zhou <tao.zhou1@amd.com>
+Subject: [PATCH] amd/amdkfd: add ras page retirement handling for sq/sdma (v2)
+Date: Fri, 24 Sep 2021 16:37:25 +0800
+Message-ID: <20210924083725.17318-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6d6cb640-729d-477f-5776-08d97f3690fc
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5141:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB51417C446B81A3BC41219460B0A49@BL1PR12MB5141.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QiWzB64yem4BUxNfRbqJlp22T0VkWWyYivFRORmHKUmT3f4KbRNukfj1Ybp+DnVfFHy7eQ5y8VJqJEdVfBG8Vybk7kUQgYykC06J0Db3lx0p9c1DOfr0UFvVpeRXuqnKStl4wA0WVqaw018w3CBOGiNAlbIZC4NK/tZ94EEbbm4EAGnl8BuPoQE5yPeT+unZlYqAPUAUuu6IIkPeXtUvPyIrGk1P6phPgMLXqGneQzAbmPBQQkrM3fK8g4KVhabzeFm9DtBTFy/l0KMSF8h7HfB9l3qQiYsqJn6pW0I+y+JzoNCzRHw3Mzn/c35kTKKnTwww1ZC4clpXnoakpBwGoLmeYD3I+0QqskdBSqacHu6CMPqKtBSb+2+PlEYWYOLmDFkcbHILdhYE484+qcj8MNxFXignqcicv0IL2JNaA+Xes7pATzMSXd3hwS1NavX+Td3N5dQFEBoGeKPQzZobJne+H31SpQbOxzc0eGy5IDI7CsSeVdvtrgRK7kA27CHJU5ZW9wVu8BoKcMgIfJyt/zQWCYW7FZDbTpAEHPN6Ca3EAA1IPyekLkBhJ6eZIQl5ehzHmDVYvVIhH7Aj9gAOUQCc6Y40/AyTjl+NscxfrSsr8yfRG7wGmDDEcOnJceb+KPjRNAhh09PAX29XUuCTr9kzDPU02o1XGvz+O+w/wX89Kk8ChV14OxPysYpVUrzmXePKZSd1Eq/F4FYgFUgp2PlNfclUMmd93O7Od4f9jaw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(6666004)(83380400001)(82310400003)(2616005)(2906002)(26005)(356005)(16526019)(316002)(110136005)(186003)(8936002)(81166007)(8676002)(426003)(336012)(70586007)(86362001)(70206006)(36756003)(508600001)(7696005)(47076005)(5660300002)(1076003)(4326008)(6636002)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 08:37:38.6624 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6cb640-729d-477f-5776-08d97f3690fc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5141
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,184 +115,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As requested in Documentation/gpu/todo.rst, replace driver calls to
-drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
-DRM_MODESET_LOCK_ALL_END()
+In ras poison mode, page retirement will be handled by the irq handler of the
+module which consumes corrupted data.
 
-Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
-Reviewed-by: Sean Paul <sean@poorly.run>
+v2: rename ras_process_cb to ras_poison_consumption_handler.
+    move the handler's implementation from ASIC specific file to common
+file.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/drm_client_modeset.c |  5 +++--
- drivers/gpu/drm/drm_crtc_helper.c    | 18 ++++++++++++------
- drivers/gpu/drm/drm_fb_helper.c      | 10 ++++++----
- drivers/gpu/drm/drm_framebuffer.c    |  6 ++++--
- 4 files changed, 25 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c      | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h      |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c |  4 ++--
+ 3 files changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index 5f5184f071ed..43f772543d2a 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -1062,9 +1062,10 @@ static int drm_client_modeset_commit_legacy(struct drm_client_dev *client)
- 	struct drm_device *dev = client->dev;
- 	struct drm_mode_set *mode_set;
- 	struct drm_plane *plane;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 1d41c2c00623..7bc4248a8d49 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -31,6 +31,8 @@
+ #include <linux/dma-buf.h>
+ #include "amdgpu_xgmi.h"
+ #include <uapi/linux/kfd_ioctl.h>
++#include "amdgpu_ras.h"
++#include "amdgpu_umc.h"
  
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	drm_for_each_plane(plane, dev) {
- 		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
- 			drm_plane_force_disable(plane);
-@@ -1093,7 +1094,7 @@ static int drm_client_modeset_commit_legacy(struct drm_client_dev *client)
- 			goto out;
- 	}
- out:
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ /* Total memory size in system memory and all GPU VRAM. Used to
+  * estimate worst case amount of memory to reserve for page tables
+@@ -780,3 +782,15 @@ bool amdgpu_amdkfd_have_atomics_support(struct kgd_dev *kgd)
  
- 	return ret;
+ 	return adev->have_atomics_support;
  }
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index bff917531f33..f3ce073dff79 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -218,11 +218,14 @@ static void __drm_helper_disable_unused_functions(struct drm_device *dev)
-  */
- void drm_helper_disable_unused_functions(struct drm_device *dev)
- {
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
 +
- 	WARN_ON(drm_drv_uses_atomic_modeset(dev));
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	__drm_helper_disable_unused_functions(dev);
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- }
- EXPORT_SYMBOL(drm_helper_disable_unused_functions);
- 
-@@ -942,12 +945,14 @@ void drm_helper_resume_force_mode(struct drm_device *dev)
- 	struct drm_crtc *crtc;
- 	struct drm_encoder *encoder;
- 	const struct drm_crtc_helper_funcs *crtc_funcs;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int encoder_dpms;
- 	bool ret;
-+	int err;
- 
- 	WARN_ON(drm_drv_uses_atomic_modeset(dev));
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, err);
- 	drm_for_each_crtc(crtc, dev) {
- 
- 		if (!crtc->enabled)
-@@ -982,7 +987,7 @@ void drm_helper_resume_force_mode(struct drm_device *dev)
- 
- 	/* disable the unused connectors while restoring the modesetting */
- 	__drm_helper_disable_unused_functions(dev);
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, err);
- }
- EXPORT_SYMBOL(drm_helper_resume_force_mode);
- 
-@@ -1002,9 +1007,10 @@ EXPORT_SYMBOL(drm_helper_resume_force_mode);
- int drm_helper_force_disable_all(struct drm_device *dev)
- {
- 	struct drm_crtc *crtc;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int ret = 0;
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	drm_for_each_crtc(crtc, dev)
- 		if (crtc->enabled) {
- 			struct drm_mode_set set = {
-@@ -1016,7 +1022,7 @@ int drm_helper_force_disable_all(struct drm_device *dev)
- 				goto out;
++int amdgpu_amdkfd_ras_poison_consumption_handler(struct kgd_dev *kgd)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
++	struct ras_err_data err_data = {0, 0, 0, NULL};
++
++	/* CPU MCA will handle it if connected_to_cpu is 1 */
++	if (!adev->gmc.xgmi.connected_to_cpu)
++		return amdgpu_umc_process_ras_data_cb(adev, &err_data, NULL);
++	else
++		return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 3bc52b2c604f..d118e1dc273d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -290,6 +290,7 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct kgd_dev *kgd,
+ 				      uint64_t *mmap_offset);
+ int amdgpu_amdkfd_get_tile_config(struct kgd_dev *kgd,
+ 				struct tile_config *config);
++int amdgpu_amdkfd_ras_poison_consumption_handler(struct kgd_dev *kgd);
+ #if IS_ENABLED(CONFIG_HSA_AMD)
+ void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
+ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index 12d91e53556c..543e7ea75593 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -231,7 +231,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
+ 				if (sq_intr_err != SQ_INTERRUPT_ERROR_TYPE_ILLEGAL_INST &&
+ 					sq_intr_err != SQ_INTERRUPT_ERROR_TYPE_MEMVIOL) {
+ 					kfd_signal_poison_consumed_event(dev, pasid);
+-					amdgpu_amdkfd_gpu_reset(dev->kgd);
++					amdgpu_amdkfd_ras_poison_consumption_handler(dev->kgd);
+ 					return;
+ 				}
+ 				break;
+@@ -253,7 +253,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
+ 			kfd_signal_event_interrupt(pasid, context_id0 & 0xfffffff, 28);
+ 		} else if (source_id == SOC15_INTSRC_SDMA_ECC) {
+ 			kfd_signal_poison_consumed_event(dev, pasid);
+-			amdgpu_amdkfd_gpu_reset(dev->kgd);
++			amdgpu_amdkfd_ras_poison_consumption_handler(dev->kgd);
+ 			return;
  		}
- out:
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 	return ret;
- }
- EXPORT_SYMBOL(drm_helper_force_disable_all);
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 3ab078321045..6860223f0068 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -940,10 +940,11 @@ static int setcmap_legacy(struct fb_cmap *cmap, struct fb_info *info)
- 	struct drm_fb_helper *fb_helper = info->par;
- 	struct drm_mode_set *modeset;
- 	struct drm_crtc *crtc;
-+	struct drm_modeset_acquire_ctx ctx;
- 	u16 *r, *g, *b;
- 	int ret = 0;
- 
--	drm_modeset_lock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(fb_helper->dev, ctx, 0, ret);
- 	drm_client_for_each_modeset(modeset, &fb_helper->client) {
- 		crtc = modeset->crtc;
- 		if (!crtc->funcs->gamma_set || !crtc->gamma_size) {
-@@ -970,7 +971,7 @@ static int setcmap_legacy(struct fb_cmap *cmap, struct fb_info *info)
- 			goto out;
- 	}
- out:
--	drm_modeset_unlock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_END(fb_helper->dev, ctx, ret);
- 
- 	return ret;
- }
-@@ -1441,10 +1442,11 @@ static int pan_display_legacy(struct fb_var_screeninfo *var,
- 	struct drm_fb_helper *fb_helper = info->par;
- 	struct drm_client_dev *client = &fb_helper->client;
- 	struct drm_mode_set *modeset;
-+	struct drm_modeset_acquire_ctx ctx;
- 	int ret = 0;
- 
- 	mutex_lock(&client->modeset_mutex);
--	drm_modeset_lock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(fb_helper->dev, ctx, 0, ret);
- 	drm_client_for_each_modeset(modeset, client) {
- 		modeset->x = var->xoffset;
- 		modeset->y = var->yoffset;
-@@ -1457,7 +1459,7 @@ static int pan_display_legacy(struct fb_var_screeninfo *var,
- 			}
- 		}
- 	}
--	drm_modeset_unlock_all(fb_helper->dev);
-+	DRM_MODESET_LOCK_ALL_END(fb_helper->dev, ctx, ret);
- 	mutex_unlock(&client->modeset_mutex);
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-index 07f5abc875e9..205e9aa9a409 100644
---- a/drivers/gpu/drm/drm_framebuffer.c
-+++ b/drivers/gpu/drm/drm_framebuffer.c
-@@ -1059,8 +1059,10 @@ static void legacy_remove_fb(struct drm_framebuffer *fb)
- 	struct drm_device *dev = fb->dev;
- 	struct drm_crtc *crtc;
- 	struct drm_plane *plane;
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
- 
--	drm_modeset_lock_all(dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
- 	/* remove from any CRTC */
- 	drm_for_each_crtc(crtc, dev) {
- 		if (crtc->primary->fb == fb) {
-@@ -1082,7 +1084,7 @@ static void legacy_remove_fb(struct drm_framebuffer *fb)
- 			drm_plane_force_disable(plane);
- 		}
- 	}
--	drm_modeset_unlock_all(dev);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- }
- 
- /**
+ 	} else if (client_id == SOC15_IH_CLIENTID_VMC ||
 -- 
-2.33.0
+2.17.1
 
