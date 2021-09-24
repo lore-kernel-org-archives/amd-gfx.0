@@ -2,82 +2,77 @@ Return-Path: <SRS0=WCud=OO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF7C7C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC794C433F5
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:10:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8527E61250
+	by mail.kernel.org (Postfix) with ESMTPS id A48BA610FD
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Sep 2021 19:10:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8527E61250
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A48BA610FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 081BF6E210;
-	Fri, 24 Sep 2021 19:10:00 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12E516E20F
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC566E20F;
+	Fri, 24 Sep 2021 19:09:59 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2043.outbound.protection.outlook.com [40.107.236.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F6FC6E210
  for <amd-gfx@lists.freedesktop.org>; Fri, 24 Sep 2021 19:09:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Sq5m4up5tAZevFtqEBlM5RWBn3Lo6HoKMKWoj4IX1xyr0kkb1kVOOZ+pI3txFNK4jcBnR3yJj2KEeDd8hBpVtwYaim6SXiYL+aPIO4RvDSsknPHAtGUezldci5aGJGBQvvOtk1iBEFTOwMipIE3bs7c4jdGJO7jshOAc7U5tjYodz2nNvgLtWrkUWY6TRNAd1tGK6MVN7KROhZl8VV86S9mmasg0xGV2zt9MYMUh564VR/oSBbxPYvcd2qnGNerApIBLAexmNunVeb01Ml6BPKog+oxYunmSROlAvp2fSr8HmaLYNTRd0NoNUDpVqy7aFhi6MC20Loa8czVeXpsUSQ==
+ b=AnQCwfMWRn1NNi6JR4lch8tI6W1b3LDx546tnnntu/7lA7mu0LVujZGGMyF5HfdCVU3dzRzmazlMaJBshCF1oR8p58DQmM17/Emw2sQK6PgRwEjT/KrmhVz4xtEDlXA1PnkG9uWEasdeIfQcs7Q1cPjiTUldNGt71BX4RNsZaNqRpqY6Pj7TpIB0E4LDSBZavALNEoVzdTzCBr82bglUyXMKqfCD6wC1leXkZvi1oojak0H0x0bOVMu6FmdY3B2zvmowt5lwGaJ/ZNoSjYwOR9z6vnjESE9qhaTLS8n1jUTDVOq0wLa/J5/geEtcgWG4opdh1Y3ovOhur1SHARjAQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=4rvc2Lp4moooOusR7glEpX/6vmmluCTNZEAQ4M0E5R8=;
- b=hgFPH2stzKLUfnNcxZk3ztECA1fEH5Vr3I+pyCMGcTvR/KdgVtuf/O+p2CKPRnvW11cCGZsIvsYgVGv9I5NP2hUshhX0WqF3UooXtp769QNF4KcGvX5VCukn7D1dY6BR8nHoy1z/B4sJrNV2NK17k3skaKczKZtUpCQLrUcyi/vyGYAMOXKl62lPxTlfWY7uzoPgK+YNDlRVrkYnX7IOhWPTuUvcft058K3xgzSs9+nc5FVpWppJTCiBpT8YRpxPAJKMIKiZlzRli9nqqiliXPFNNR02LkrunkHSfwsxp/U2Xqtju3w0SOnHf9yjeQt3CkiN4CTwLPag18CjmXyFJA==
+ bh=Ab88xKK37TioklC5SC5hD5t9y0Tl/DuW4RafbEFOjzQ=;
+ b=ar+KcWi0Mk9UnYLWvwqc6vnc+tEnyV0VgnLeRS4c/L3rvpL3/wU0os3mnBiQEk91BaEmSgPqH7j4MkTo2hSqhoRnY3XtJ96XplKsOfbuzZJCFeWB6USJYn2IjS+yGQ4ip/WdBe+NfEnGHjO5lGFt1k8Y64Zjf0Tj1sD89tv46obx+ERp7Awy6jZiytClRneyW3OONX9xYSNQwkgTGmUT9KNfy7POKFCdjrnwuqcskbsMEmqFwQCW7WIKsg+HsAyex8Ze/PSmMl/DSGnoVo1frqGrEf74dwHwp4Gfs44ER1fFZP4cnuJuPyDTf6wWHkuJecJS8U4Xhtxs/Zzt2YxqQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4rvc2Lp4moooOusR7glEpX/6vmmluCTNZEAQ4M0E5R8=;
- b=LPvV6hr3/mBE7XlILsmKeOiEZwq2tibArWcPeHPv+AvIVx6PtmMoO3e+Mb9LWKa8klNKWBDrY05VWxgpT1IudgmHG7T65UJ+NmXcIBDhHvIIz/TB5/Q37EZ/Ctv/LFMC2vSUX5pquT2baeowf/tDi+1RV4MD46A7BXNWtVxDM5o=
-Received: from BN0PR07CA0027.namprd07.prod.outlook.com (2603:10b6:408:141::29)
- by BN8PR12MB2898.namprd12.prod.outlook.com (2603:10b6:408:9a::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=Ab88xKK37TioklC5SC5hD5t9y0Tl/DuW4RafbEFOjzQ=;
+ b=fFs0C2YofLEhFkHfKYc55KweQ/NS45L5b9egHT1iau/zXcWvFdBkqUKHSPlQZ1qKCXj5e3Tj9bzFzoWumNq5LWr2RW5mAVykIz9XRQ92i7vLSoZSwcmSdtQRB7OmCvZCXScnc+Zajf3OFgEP8PNvUePcv/+iBFcM/d+sob2dL3M=
+Received: from MW4PR03CA0012.namprd03.prod.outlook.com (2603:10b6:303:8f::17)
+ by DM6PR12MB3244.namprd12.prod.outlook.com (2603:10b6:5:18c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Fri, 24 Sep
  2021 19:09:55 +0000
-Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141:cafe::87) by BN0PR07CA0027.outlook.office365.com
- (2603:10b6:408:141::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
- Transport; Fri, 24 Sep 2021 19:09:55 +0000
+Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8f:cafe::80) by MW4PR03CA0012.outlook.office365.com
+ (2603:10b6:303:8f::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18 via Frontend
+ Transport; Fri, 24 Sep 2021 19:09:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 19:09:55 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 19:09:54 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 24 Sep
- 2021 14:09:54 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Fri, 24 Sep
- 2021 12:09:54 -0700
+ 2021 14:09:52 -0500
 Received: from Optimus.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Fri, 24 Sep 2021 14:09:52 -0500
+ Transport; Fri, 24 Sep 2021 14:09:50 -0500
 From: Anson Jacob <Anson.Jacob@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Bhawanpreet.Lakha@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
- <stylon.wang@amd.com>, <solomon.chiu@amd.com>, David Galiffi
- <David.Galiffi@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>
-Subject: [PATCH 05/24] drm/amd/display: Add debug support to override the
- Minimum DRAM Clock
-Date: Fri, 24 Sep 2021 15:09:15 -0400
-Message-ID: <20210924190934.1193379-6-Anson.Jacob@amd.com>
+ <stylon.wang@amd.com>, <solomon.chiu@amd.com>, Eric Yang
+ <Eric.Yang2@amd.com>, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Subject: [PATCH 04/24] drm/amd/display: add vsync notify to dmub for abm pause
+Date: Fri, 24 Sep 2021 15:09:14 -0400
+Message-ID: <20210924190934.1193379-5-Anson.Jacob@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210924190934.1193379-1-Anson.Jacob@amd.com>
 References: <20210924190934.1193379-1-Anson.Jacob@amd.com>
@@ -86,29 +81,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 04a29112-1b6a-4590-9b98-08d97f8ee507
-X-MS-TrafficTypeDiagnostic: BN8PR12MB2898:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN8PR12MB2898176D78A1CC7632781099EBA49@BN8PR12MB2898.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-MS-Office365-Filtering-Correlation-Id: 625613d0-5759-40f4-2ecb-08d97f8ee48d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3244:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3244CFD9CC5E3AAC91F02D9EEBA49@DM6PR12MB3244.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:252;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MdcE5R5z7zY8Jc0RqJ2lrhVVFR2I/mRhkf0yk1b4mraT4siA0irWg9y4L15z8Mdd9zWiQboEG9g9IrQyATIaE1e6/YJIyuZkYldj65fx93WFU/TzLy6PVY92lxhO/2Q/AKFgPWBKMVQo6oRVUWXP+X0oKlEA3QK7BblHmZVLR3Pxs7mdBF26gYNlE3Ak5sF9AseaZoosVXAIgxtwKaKys5uxISsfqCJ3MOLHLEqCpoydUfLNKBmHGDwt1zmsrwlwGJbM5CZMKUcnLxuttMRAOsbsQiBVoon1RUFRhgS8wHeBm33Q69RGReWUeTiRgjtR5jf2/eaz1Nq4h5Rs/9Eh/uRurHXw9zMdMhn+MRaW3tz4wwSJxki9BUANI7Cuh86breqtUL3QsOLUancTp0l3wwlDbao5ju9CGRwoiqcNS8Ba48j0x9luIQKahE9mgKokqdUx4G/uDJeOecKGElokLK9R/S4EDEXpTDVtOPiPDg3NbFWnsXmtXNxcbRr9ILs8slmR3LsDZ+bPFpGx4fVhaFJUqHeQic9aDUOG/rggzTdtQBcwkaNXevsdyN1LucXrXf9Y/Oz1qBaZY0OUToYNiXqvHFwiqMZ9ydAfEmI12adxFyjK26oBtewDCs7G/IlvjHpBAQ0cv6/SrC10D3SvKEK1PoRhb+Gj8GSbmy+PxbvtpejrvMQJDyWj/8pMPdsWlwOgGCkJArUOvxHIJiAbkOUG+RZ+5qUUrwzW+hF81+0=
+X-Microsoft-Antispam-Message-Info: xP28Ww3t8Y6+tcYo1gix35IzPFA59nk/sL61g0YsHC8G7SmtnGs2gGRtWW5MRde1ElCoJ18gcUUj3o1d09YBEhT9sNHYL5DgH0jfCEU07K1pFQ6qfwuFmkkgLpZO9B5+v5P6nM7w70G4hQjBv0wh0zqQ7Pc8B1qcJDVIT33lXWSnGf1T/61Uf+xPwMcFrE2eaZKrysh2hFzwA5gRjlJWfC9sGgY8Fl82c6fxr15HH11mS+8+KHW4Ge5LosqGNnSTMzkFsguMNu9vHBqkZhdAGtCCE/pPPJKHRpL5mlPOL8+P5X7qqt+BHjD3M65jHi2Cs/by/+RAq56RTGVdJRUk+IdpcJpA0qrUsJVdiEkiaHbamoE6UGkMcJo65a2uIBd1u4W8T8/vbE4xoyAhsphQdS7PE+upTjJhtDoTdtpBPXHSNlW301KNqdkSnYjZRLKIbq1AxbUxWmdU2lhytfZhcFwQ0HEpuuTcTdtXeDQJJP611l+o9Kzf2UwwxDXBIc/BxSGI7nEBZIPAKAD88DxvH4zksoLWya5ZmnnIjCRXLB6Rl4VtndeeunBzCjM6xF2Rnzh+nxn2VpqXxDebYAFYHBkY8c6JWQRV2Zu44y4AKiMT5SpHh4Jzlrbh9/W0mVaLrWMneD8Cece3vy+ZI6+SiBVRdmKJ4Ih6WyZqHg0CFQRK5tjHEcxYT5PsbdHdOHmgK2fzfMx9nv5jvgYzeC2jts8imBtjDE9hWi1OgQ9rszA=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(356005)(8936002)(7696005)(6916009)(81166007)(1076003)(82310400003)(426003)(54906003)(5660300002)(86362001)(8676002)(4326008)(47076005)(336012)(508600001)(316002)(70206006)(36756003)(2906002)(26005)(83380400001)(6666004)(70586007)(36860700001)(186003)(2616005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(6916009)(70206006)(86362001)(83380400001)(356005)(508600001)(2616005)(82310400003)(8676002)(36756003)(81166007)(6666004)(70586007)(5660300002)(54906003)(8936002)(4326008)(47076005)(1076003)(186003)(2906002)(316002)(426003)(336012)(26005)(7696005)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 19:09:55.3770 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04a29112-1b6a-4590-9b98-08d97f8ee507
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 19:09:54.4648 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 625613d0-5759-40f4-2ecb-08d97f8ee48d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2898
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3244
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,51 +117,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Galiffi <David.Galiffi@amd.com>
+From: Eric Yang <Eric.Yang2@amd.com>
 
 [Why]
-Requested feature to assist with Thermal, Acoustic, Power, and
-Performance tuning.
+To prevent unnecessary wake up of DMCUB when ABM is enabled without PSR
+enabled, driver will notify DMCUB to stop ABM's vertical interrupts
+if vsync is disabled and steady state is reached.
 
 [How]
-Add a debug field that will override calculated minimum DRAM clock,
-if the debug value is larger than the calculate value.
+Send inbox message to notify ABM pause based on vsync on/off
 
-Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
-Signed-off-by: David Galiffi <David.Galiffi@amd.com>
+Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                   | 1 +
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 4 ++++
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 54 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 21 ++++++++
+ drivers/gpu/drm/amd/display/dc/inc/hw/abm.h   |  1 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 54 +++++++++++++++++++
+ 5 files changed, 132 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 331a7517176b..644005846433 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3536,3 +3536,57 @@ void dc_disable_accelerated_mode(struct dc *dc)
+ {
+ 	bios_set_scratch_acc_mode_change(dc->ctx->dc_bios, 0);
+ }
++
++
++/**
++ *****************************************************************************
++ *  dc_notify_vsync_int_state() - notifies vsync enable/disable state
++ *  @dc: dc structure
++ *	@stream: stream where vsync int state changed
++ *	@enable: whether vsync is enabled or disabled
++ *
++ *  Called when vsync is enabled/disabled
++ *	Will notify DMUB to start/stop ABM interrupts after steady state is reached
++ *
++ *****************************************************************************
++ */
++void dc_notify_vsync_int_state(struct dc *dc, struct dc_stream_state *stream, bool enable)
++{
++	int i;
++	int edp_num;
++	struct pipe_ctx *pipe = NULL;
++	struct dc_link *link = stream->sink->link;
++	struct dc_link *edp_links[MAX_NUM_EDP];
++
++
++	if (link->psr_settings.psr_feature_enabled)
++		return;
++
++	/*find primary pipe associated with stream*/
++	for (i = 0; i < MAX_PIPES; i++) {
++		pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++
++		if (pipe->stream == stream && pipe->stream_res.tg)
++			break;
++	}
++
++	if (i == MAX_PIPES) {
++		ASSERT(0);
++		return;
++	}
++
++	get_edp_links(dc, edp_links, &edp_num);
++
++	/* Determine panel inst */
++	for (i = 0; i < edp_num; i++) {
++		if (edp_links[i] == link)
++			break;
++	}
++
++	if (i == edp_num) {
++		return;
++	}
++
++	if (pipe->stream_res.abm && pipe->stream_res.abm->funcs->set_abm_pause)
++		pipe->stream_res.abm->funcs->set_abm_pause(pipe->stream_res.abm, !enable, i, pipe->stream_res.tg->inst);
++}
 diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index b194a2727bd8..a46c663ed8c5 100644
+index e5dcbee6e672..b194a2727bd8 100644
 --- a/drivers/gpu/drm/amd/display/dc/dc.h
 +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -565,6 +565,7 @@ struct dc_debug_options {
- 	enum wm_report_mode pplib_wm_report_mode;
- 	unsigned int min_disp_clk_khz;
- 	unsigned int min_dpp_clk_khz;
-+	unsigned int min_dram_clk_khz;
- 	int sr_exit_time_dpm0_ns;
- 	int sr_enter_plus_exit_time_dpm0_ns;
- 	int sr_exit_time_ns;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 3c388afa06dc..aeb868ace31c 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3117,6 +3117,10 @@ void dcn20_calculate_dlg_params(
- 	context->bw_ctx.bw.dcn.clk.dcfclk_khz = context->bw_ctx.dml.vba.DCFCLK * 1000;
- 	context->bw_ctx.bw.dcn.clk.socclk_khz = context->bw_ctx.dml.vba.SOCCLK * 1000;
- 	context->bw_ctx.bw.dcn.clk.dramclk_khz = context->bw_ctx.dml.vba.DRAMSpeed * 1000 / 16;
+@@ -1313,6 +1313,8 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src);
+ enum dc_irq_source dc_get_hpd_irq_source_at_index(
+ 		struct dc *dc, uint32_t link_index);
+ 
++void dc_notify_vsync_int_state(struct dc *dc, struct dc_stream_state *stream, bool enable);
 +
-+	if (dc->debug.min_dram_clk_khz > context->bw_ctx.bw.dcn.clk.dramclk_khz)
-+		context->bw_ctx.bw.dcn.clk.dramclk_khz = dc->debug.min_dram_clk_khz;
+ /*******************************************************************************
+  * Power Interfaces
+  ******************************************************************************/
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+index 54a1408c8015..fb0dec4ed3a6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+@@ -203,12 +203,33 @@ static bool dmub_abm_init_config(struct abm *abm,
+ 	return true;
+ }
+ 
++static bool dmub_abm_set_pause(struct abm *abm, bool pause, unsigned int panel_inst, unsigned int stream_inst)
++{
++	union dmub_rb_cmd cmd;
++	struct dc_context *dc = abm->ctx;
++	uint8_t panel_mask = 0x01 << panel_inst;
 +
- 	context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = context->bw_ctx.dml.vba.DCFCLKDeepSleep * 1000;
- 	context->bw_ctx.bw.dcn.clk.fclk_khz = context->bw_ctx.dml.vba.FabricClock * 1000;
- 	context->bw_ctx.bw.dcn.clk.p_state_change_support =
++	memset(&cmd, 0, sizeof(cmd));
++	cmd.abm_pause.header.type = DMUB_CMD__ABM;
++	cmd.abm_pause.header.sub_type = DMUB_CMD__ABM_PAUSE;
++	cmd.abm_pause.abm_pause_data.enable = pause;
++	cmd.abm_pause.abm_pause_data.panel_mask = panel_mask;
++	cmd.abm_set_level.header.payload_bytes = sizeof(struct dmub_cmd_abm_pause_data);
++
++	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
++	dc_dmub_srv_cmd_execute(dc->dmub_srv);
++	dc_dmub_srv_wait_idle(dc->dmub_srv);
++
++	return true;
++}
++
+ static const struct abm_funcs abm_funcs = {
+ 	.abm_init = dmub_abm_init,
+ 	.set_abm_level = dmub_abm_set_level,
+ 	.get_current_backlight = dmub_abm_get_current_backlight,
+ 	.get_target_backlight = dmub_abm_get_target_backlight,
+ 	.init_abm_config = dmub_abm_init_config,
++	.set_abm_pause = dmub_abm_set_pause,
+ };
+ 
+ static void dmub_abm_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h b/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h
+index 142753644377..ecb4191b6e64 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h
+@@ -54,6 +54,7 @@ struct abm_funcs {
+ 			const char *src,
+ 			unsigned int bytes,
+ 			unsigned int inst);
++	bool (*set_abm_pause)(struct abm *abm, bool pause, unsigned int panel_inst, unsigned int otg_inst);
+ };
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 03110f59b50d..4a41549109dd 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -1732,6 +1732,11 @@ enum dmub_cmd_abm_type {
+ 	 * Enable/disable fractional duty cycle for backlight PWM.
+ 	 */
+ 	DMUB_CMD__ABM_SET_PWM_FRAC	= 5,
++
++	/**
++	 * unregister vertical interrupt after steady state is reached
++	 */
++	DMUB_CMD__ABM_PAUSE	= 6,
+ };
+ 
+ /**
+@@ -2087,6 +2092,50 @@ struct dmub_rb_cmd_abm_init_config {
+ 	struct dmub_cmd_abm_init_config_data abm_init_config_data;
+ };
+ 
++/**
++ * Data passed from driver to FW in a DMUB_CMD__ABM_PAUSE command.
++ */
++
++struct dmub_cmd_abm_pause_data {
++
++	/**
++	 * Panel Control HW instance mask.
++	 * Bit 0 is Panel Control HW instance 0.
++	 * Bit 1 is Panel Control HW instance 1.
++	 */
++	uint8_t panel_mask;
++
++	/**
++	 * OTG hw instance
++	 */
++	uint8_t otg_inst;
++
++	/**
++	 * Enable or disable ABM pause
++	 */
++	uint8_t enable;
++
++	/**
++	 * Explicit padding to 4 byte boundary.
++	 */
++	uint8_t pad[1];
++};
++
++/**
++ * Definition of a DMUB_CMD__ABM_PAUSE command.
++ */
++struct dmub_rb_cmd_abm_pause {
++	/**
++	 * Command header.
++	 */
++	struct dmub_cmd_header header;
++
++	/**
++	 * Data passed from driver to FW in a DMUB_CMD__ABM_PAUSE command.
++	 */
++	struct dmub_cmd_abm_pause_data abm_pause_data;
++};
++
+ /**
+  * Data passed from driver to FW in a DMUB_CMD__QUERY_FEATURE_CAPS command.
+  */
+@@ -2365,6 +2414,11 @@ union dmub_rb_cmd {
+ 	 */
+ 	struct dmub_rb_cmd_abm_init_config abm_init_config;
+ 
++	/**
++	 * Definition of a DMUB_CMD__ABM_PAUSE command.
++	 */
++	struct dmub_rb_cmd_abm_pause abm_pause;
++
+ 	/**
+ 	 * Definition of a DMUB_CMD__DP_AUX_ACCESS command.
+ 	 */
 -- 
 2.25.1
 
