@@ -2,122 +2,100 @@ Return-Path: <SRS0=gBm/=OQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 697AEC433F5
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Sep 2021 03:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E437CC433F5
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Sep 2021 13:13:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 22E216108B
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Sep 2021 03:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 22E216108B
+	by mail.kernel.org (Postfix) with ESMTPS id 9736261019
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Sep 2021 13:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9736261019
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 882216E4FE;
-	Sun, 26 Sep 2021 03:03:02 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0956F6E4FE
- for <amd-gfx@lists.freedesktop.org>; Sun, 26 Sep 2021 03:03:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70F2F6E520;
+	Sun, 26 Sep 2021 13:13:57 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 562766E520
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Sep 2021 13:13:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BiZTO1Bv5dbg8jBH4xu7f8aFY7klNDgOUTtdJX2a8X3GrkSuw1wtR/oEpMlJ5ZIoGghuoqa1iLRTn4sz1/MhDQ4sH/zJYU8VBdeK+GSi07xNotkuPUGrHgd6WFtemBjvyoHVEGosJNefcrTWhDJfRUGsPoRJiMvv/jNxR0X6lz3UT1yAWY69jjfcPsX7RP72/f75mijV7ppjhTOqM6y/DZCtwrEY7zxl1AeSuqzLuVlXyxI07Co1jBkVuvlsV8m8XPrFQp6eCnl7weuuflkL17ibec3qnn8tvZ/1fNgzZ/6oE1uesxALvAxR1YW4HPgmszg5KmatuqLT0/o400IfHQ==
+ b=ZogEJwQZ7+T1g6exkCACp6Ev+AfUfWpOFbj4o9eDPRpaQ8BJaFdPk2bbSKfFmAQx+OTsn6/fzxq0c8Bzlo+nk08AekHLD25ToQL4/AVgPAgrp9sdhzRpUEwtPaATB5VpUTjNDGazCKuMRBGdQEBpo0jHu+6u0c17kIG2k5+b2vVL608btsDr6glxaSlKtEeW+0T5I4NbpHWF29PdUv3bgE1PfpmgDiJ1kBirDApAu/g8PQnVoo1ePsNDYAhHxLkApaMeCMrJUBZO/Omjk5MV6OsG+zauefSGQdWtlDegUa4L9a+eYinRwDmUZFluhb5BZ/6Z73W35WHlM2+s9FKcUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=ZrkcWIOwOUG4Kjvcu8h8Yfp2eHZfEqdyTibLOTpoj9E=;
- b=FDSU3ty6wVe9xE68q47c4b0Bh1e7dUzUOa+QIFVXWRGQs7GgHmx/2D4HVq6qke4dSlaydqTiKpjl8FvY7mFTvzceBk3a/CFsFFbCJdj56NwkOkZVdDPUj/xFOnOe3fk8rx95xR/zsv4yGa0LrYpa2lMUecNC6X8/MMHtGiwpUhNL/H/XAHoeZ8fxv+gVY5OwszsmQLD9XSz+3HzKcQUGhElQ0ErJ10TDcgThMtH3w4Brz6LHZ7LoU49jr035/1skpuykRTCsdofjhBK29DQgk2/4739LlHdUUAEw8HOalN1OKjg66j2dfHQBxV1Vq74FaM5LQ/f6JvQ3iZm87H+p5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=s5Hj3wtuRE18ZuWuD2lZ5TaKYzDuk9KERQC/lfSHIRk=;
+ b=iOmKfYRJRYxY6SWvTvxvD+8xxSPqFJEGYOkC+R8DTkqfMQwOshAxtrhRJmwXr0IqE9ieuSs28pAXBA3rKz+raBLeSqfKFvk2ChSnaffayGTSWxPUIml9WqTucFzdgNZ2g5Pl79Ec1YPFXFtCGGdQdlQJJQkkCWSlE6AwUCx/09HyuP+PuAWdlvvYXCldn8NIOgKgc6QLdUp5FEJi2CKzfdQNCj2vgnNi5ngDyhWJj6PkXtdkYWdN8Aj3RiQmg0Rq4S/SHTKhPdxzVmFb198Ie06g24xDQau8BfE5H3MRWRjZlG9I+UmU117lIWhxaaqHQyqHst3exjAtRDRGvKrmMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZrkcWIOwOUG4Kjvcu8h8Yfp2eHZfEqdyTibLOTpoj9E=;
- b=Me1DGzeVdl0qnT72QsuUQiBWyntf8IBRzaGUx5MhbELT6chxcAe5Qf4mxCVmkLVzUtm3PWl1T6cUF2uv/IxERD0BsN+xkDm8d71YniwQ8rKyhjOTM6jq3bkBctQcLSn9vbnTZLLvxJS4uiUDyO5ReY7IHcU5yMIBSL/XMbf3Dok=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BN9PR12MB5244.namprd12.prod.outlook.com (2603:10b6:408:101::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=s5Hj3wtuRE18ZuWuD2lZ5TaKYzDuk9KERQC/lfSHIRk=;
+ b=HpbPfxLw3ZcyYSTuAO8cOC7kZobuhMeGd103BRs2qIPA+JVJkzPzyYralwpIJvlF87yjy7MapueK9SJLRhI6tmkl1Cz5QH0JjZ+xeiOdXnkpUWaIsZ+ciqxG2rRzqboerTh6hjAupvx+Fsp6qoadKPJT43762csrvVnIm553d2k=
+Received: from CO2PR04CA0053.namprd04.prod.outlook.com (2603:10b6:102:1::21)
+ by BN8PR12MB3059.namprd12.prod.outlook.com (2603:10b6:408:42::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Sun, 26 Sep
- 2021 03:02:57 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5101:db26:96eb:2ce4]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5101:db26:96eb:2ce4%7]) with mapi id 15.20.4544.021; Sun, 26 Sep 2021
- 03:02:57 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add poison mode query for DF (v2)
-Thread-Topic: [PATCH] drm/amdgpu: add poison mode query for DF (v2)
-Thread-Index: AQHXsn+LGtGwlIOuckO4cSTZXrdSWqu1oOuA
-Date: Sun, 26 Sep 2021 03:02:57 +0000
-Message-ID: <BN9PR12MB5257B596B88A651FF62976E1FCA69@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20210926023741.28736-1-tao.zhou1@amd.com>
-In-Reply-To: <20210926023741.28736-1-tao.zhou1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-26T03:02:54Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=8796844b-711e-4074-9349-0cc1669ed4de;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cb15ea0c-5d0f-47ad-7631-08d9809a2480
-x-ms-traffictypediagnostic: BN9PR12MB5244:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN9PR12MB52449280DF3303653FAE2028FCA69@BN9PR12MB5244.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:619;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: UbmTRj3mvcT6jU8qz8Hvzf2n7AHPf1SzhdGhYhy6aEpzZ3EMQV2n/TI0CEB6+SUtasZFOYP1CkzFM2zhBqwq+SnXGrqseW8CjtRdQ1ud3Bblhw5ESoIdVPaxMvwZG1lL8bQiIQslkN/IlmpQYogFKZCVoDs/P1Yzmi8kJWVpImE1hhB8t793/0eZhMHiA4rytkHlYm9kWsxANEuPbg7/nE2v8Wgkx1lK/VUoZa3cFahSoevviV6yZYTAZh6surcRoa9CSdzfeNaYRKrmq7Qiu3DScJA++gu+S6mGc5/o7qGhYeHAozUXdffy+t2mmr0ZPf1oOCFWO14wCFbmS7wPHbrzU/qX7OfN1ZQSI6749PmkxpWuhZ/NM7eLx/hdVb8tHFS5PgAplhXeK4PKVfuYINgeF32Edpq+ay0Zs6Ykq5AFvfyMcKrVDWfM2aJRFpYvxRPq8CRo/f7jZJmRv6fDrJz2MEr2s7KMifNHpUi6VwUtegA06Jwbk9ZWdcRrhJ/mQKw3sduBOXy0XHpAVDwuP71Yy8GiF8CWr/aj52u5JjhzC2eUR4zBPc9HiceY28ZjE4Oh0aWBwmf2l2I81I6Px5jyZ7G91xQ2Nrt/aFAzvylCl1RlQUCe3H4CkLGCiqHr/k+ec0bZcnqe0PlWYBUpOXmHRrTvpwkicwEDTk47uz+NQdof8+W4bTVh7jLCPHcI7cQORZAK2dqfFEYIP08YCg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(508600001)(2906002)(19627235002)(316002)(7696005)(33656002)(30864003)(6506007)(53546011)(71200400001)(26005)(83380400001)(76116006)(66946007)(5660300002)(8676002)(186003)(38100700002)(8936002)(122000001)(55016002)(9686003)(4326008)(66446008)(64756008)(66556008)(66476007)(86362001)(38070700005)(52536014)(110136005)(579004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GvBwfoFUCgh9pjTL+i4Xg9h1e30zhebo+FwyQfjsFBjhNB3lWXyp8Qu/GJp0?=
- =?us-ascii?Q?qpuRQcjmVvtj64O93V0/Wsd6Q9DnBgPHsqXRoAXEVm0rQb72RUYUoVp/jHkD?=
- =?us-ascii?Q?OFRDaUKZxBKH9Rsklo34ozhPEpaShmzln6h2B+lx9mXSDz0ardc30NLdhjJX?=
- =?us-ascii?Q?f88OYQcth1vzSExjYymjC36wGxk208exUcvfwqV8gsNZt4JH41BJiVI9SuQt?=
- =?us-ascii?Q?0GOhOWne224xxRomV+9+Hyu6zCqjRCRQRCk0YT092kGHcgU9uq7I296aDB3J?=
- =?us-ascii?Q?wNHdyqG01KVjtLHLY0+FBOiFu/lvuFFLx+39EIOpPRYt8VgxD2N4OPAVHe9m?=
- =?us-ascii?Q?ZF3rVSsph3gwz4XJNuvQ6+cMIig1XqDR5uaDf86nIYDebvYZLeIuMiOqo115?=
- =?us-ascii?Q?F2Uz63NDx32ro6FTaEbatUccuuuoL40tcSRn5OZoEvvLjj1VX9Oqsu1VqfIs?=
- =?us-ascii?Q?Ywx80R5/eNC9c5MEXJ8YR8HIhO3/BFV9eQt0e/BGeSkQ7cRIYL617S5NxFY7?=
- =?us-ascii?Q?DhDW2RWMwclYObLhtdEQ+eWm68EqHrrkN3yLkrUYuqnzV7NaoQJuJXBjcROH?=
- =?us-ascii?Q?bvQOYpStXCtFTKvorOh9w3YyMHscqAJ/dpmoC+at0oATW2rNYoadfRUV3Xxq?=
- =?us-ascii?Q?DcdQMC+DpABZfwWYuAA7w+Q+aWrtpKXi5lq6DgGJh1ctyPo5xY/9oH8a8KlG?=
- =?us-ascii?Q?57WomdFgELLA7DeEpDR7WNAsXzX9MIuB6BpKoSAvxkBwYiQqj122Uin4bGRB?=
- =?us-ascii?Q?Rq9qo46mKt46AexGNN4Dqb+A3o7u76+IHI5CpXW6TDYEpuYa8tssdoHo/XTF?=
- =?us-ascii?Q?YGBRK6qFj2W7sqKZFLerbAoagchPYiaSXPILdhXS2DQtSR+vYLhIsw17ajrM?=
- =?us-ascii?Q?4vfhrCBNG3iln6ujDExU5KZ11JgFbXwsSLZjZlJhpm3z9pL9RDvu6GoyDtY0?=
- =?us-ascii?Q?lc10MDG58verl0aKK1xmh8L+iupLLiQiPTxKV5igBCEhRl+08ErIdPINAIOb?=
- =?us-ascii?Q?+cQid22+O3Y0/ZsEasIjkP4qH6jAPHH/QRx0XN5XHB9yjTyTwLVh1DxKcg82?=
- =?us-ascii?Q?1WcRTZFVdfAJ8PjL2qV20iBe/U39eIOx8G26XZep7iDUmrfypg1q6Uo+EujQ?=
- =?us-ascii?Q?e5hZHKMam+3mftO+JfFy3yAI8ZIvcFQE5AKyIXNbLdSBe7yW3lbwr48G282+?=
- =?us-ascii?Q?Y8OrVFNA2AweGgbP7F98D6PkH3LuRcGn9I+tm8izXFiUHwGL0INR+YlsZehV?=
- =?us-ascii?Q?Nbv3CWsU9SGMVWjrBbbISepl9+XjKPSAa8nrwygbMuurZeuj0LJ0ZF/c/bK6?=
- =?us-ascii?Q?GlVn5yEOMtg7FOtKbYdMzjNi?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2021 13:13:53 +0000
+Received: from CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:102:1:cafe::42) by CO2PR04CA0053.outlook.office365.com
+ (2603:10b6:102:1::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
+ Transport; Sun, 26 Sep 2021 13:13:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT068.mail.protection.outlook.com (10.13.175.142) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4544.13 via Frontend Transport; Sun, 26 Sep 2021 13:13:52 +0000
+Received: from prike.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Sun, 26 Sep
+ 2021 08:13:48 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <ray.huang@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu: force exit gfxoff on sdma resume for rmb s0ix
+Date: Sun, 26 Sep 2021 21:10:43 +0800
+Message-ID: <1632661843-3923-1-git-send-email-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f0989942-f0ff-405b-7229-08d980ef7c7f
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3059:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3059A6A83908B3A601710D52FBA69@BN8PR12MB3059.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: R4L1WlRVnqhurTzlXjmg8eDm7HdZmaymY+g1pcLIRUfDEakg6t825dFZrAgd7mCkDx65NvCClryJi+4WEcgh14kRkNcayROl26Fbwb2YzIWeU6f85p0mp1NSJWGm0v5L9CvcEmwWZrv17CcYOW1l1qRZpREzLZ3lXxcXZBjTny1Jy3eCM0k5k5S3FqMq7ZGQ5ZfU8uOjJepgM0XYp7O3M4n7R3RfvGOHDH4Sz/4k2hUU7Ogzr7zqvN/oG4cYlKDhN2Gw+xx6roODAk+OKri5k+MRyGZhkKe30y8J4VJtKUIM+UUGeAqn45vcl/0fJnwSLzgQSqLSceMkaiQBdRM5heB4olyPUuH8W7sRiuz/T+dVtg0H1USSugyT96ERNbif5Shy5IKoLl7W9JrVuze0S4OiVN08gs6R0b93qpRiKMr9GAjcWA2o+yuNEm6nVOJapBDQ52EqenxBAEQyhBfHmXiGLM1JhkuBQwtRuxuV1O/Vyrk43+/nutEnLkjLTWNjLBiDWhNWwJjCKqZGwVXsMdgChLFBeuVoXWaEA57wryhxwhquLxcRlZ7PNt6MrtcQLm/82JoBS/BBG6lLJtPKAHbhyuZSHuSw5NsKJPRIck9gsOGnJTPBg0qYXNUYOjXhszvt2jsYhuYe9ubdIKC7Xsmx5GSSkpq4nG9xcz/Ec3SJfTjVSG80Kf1ojaPeJEVhm/O/ZVOjPH4JXmblfxtBA8D567pfTI2tdTWzUMNpBHjFSVY9nCb09dUHOwoAoQoDk8u/ItgBVlPElj0TroGjJg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(7696005)(508600001)(186003)(316002)(82310400003)(36860700001)(16526019)(8936002)(70586007)(426003)(54906003)(81166007)(8676002)(47076005)(70206006)(2906002)(356005)(6916009)(86362001)(83380400001)(26005)(336012)(36756003)(6666004)(4326008)(5660300002)(2616005)(32563001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb15ea0c-5d0f-47ad-7631-08d9809a2480
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2021 03:02:57.4298 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Wa89ejep90diRy5ejsRp34yAs8+euZlDNJ5hwS97sDJKQxdcOndj0NEejI+Fz/k6f/9Upt+JopgLLNuOrN70tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5244
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2021 13:13:52.2392 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0989942-f0ff-405b-7229-08d980ef7c7f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3059
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,383 +110,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+In the s2idle stress test sdma resume fail occasionally,in the
+failed case GPU is in the gfxoff state.This issue may introduce
+by FSDL miss handle doorbell S/R and now temporary fix the issue
+by forcing exit gfxoff for sdma resume.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
-Sent: Sunday, September 26, 2021 10:38
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH] drm/amdgpu: add poison mode query for DF (v2)
-
-Add ras poison mode query interface for DF.
-
-v2: replace RREG32_PCIE with RREG32_SOC15.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_df.h        |   1 +
- drivers/gpu/drm/amd/amdgpu/df_v3_6.c          |  31 ++++
- .../amd/include/asic_reg/df/df_3_6_offset.h   |   5 +
- .../amd/include/asic_reg/df/df_3_6_sh_mask.h  | 132 ++++++++++++++++++
- 4 files changed, 169 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_df.h
-index 52488bb45112..6b25837955c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
-@@ -52,6 +52,7 @@ struct amdgpu_df_funcs {
- 	uint64_t (*get_fica)(struct amdgpu_device *adev, uint32_t ficaa_val);
- 	void (*set_fica)(struct amdgpu_device *adev, uint32_t ficaa_val,
- 			 uint32_t ficadl_val, uint32_t ficadh_val);
-+	bool (*query_ras_poison_mode)(struct amdgpu_device *adev);
- };
-=20
- struct amdgpu_df {
-diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amd=
-gpu/df_v3_6.c
-index 14514a145c17..43c5e3ec9a39 100644
---- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-+++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-@@ -637,6 +637,36 @@ static void df_v3_6_pmc_get_count(struct amdgpu_device=
- *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index e4a96e7e386d..81906955ef52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -868,6 +868,12 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
+ 			msleep(1000);
  	}
- }
-=20
-+static bool df_v3_6_query_ras_poison_mode(struct amdgpu_device *adev) {
-+	uint32_t hw_assert_msklo, hw_assert_mskhi;
-+	uint32_t v0, v1, v28, v31;
+ 
++	/* TODO: check whether can submit a doorbell request to raise
++	 * a doorbell fence to exit gfxoff.
++	 */
++	if (adev->in_s0ix)
++		amdgpu_gfx_off_ctrl(adev, false);
 +
-+	hw_assert_msklo =3D RREG32_SOC15(DF, 0,
-+				mmDF_CS_UMC_AON0_HardwareAssertMaskLow);
-+	hw_assert_mskhi =3D RREG32_SOC15(DF, 0,
-+				mmDF_NCS_PG0_HardwareAssertMaskHigh);
-+
-+	v0 =3D REG_GET_FIELD(hw_assert_msklo,
-+		DF_CS_UMC_AON0_HardwareAssertMaskLow, HWAssertMsk0);
-+	v1 =3D REG_GET_FIELD(hw_assert_msklo,
-+		DF_CS_UMC_AON0_HardwareAssertMaskLow, HWAssertMsk1);
-+	v28 =3D REG_GET_FIELD(hw_assert_mskhi,
-+		DF_NCS_PG0_HardwareAssertMaskHigh, HWAssertMsk28);
-+	v31 =3D REG_GET_FIELD(hw_assert_mskhi,
-+		DF_NCS_PG0_HardwareAssertMaskHigh, HWAssertMsk31);
-+
-+	if (v0 && v1 && v28 && v31)
-+		return true;
-+	else if (!v0 && !v1 && !v28 && !v31)
-+		return false;
-+	else {
-+		dev_warn(adev->dev, "DF poison setting is inconsistent(%d:%d:%d:%d)!\n",
-+				v0, v1, v28, v31);
-+		return false;
-+	}
-+}
-+
- const struct amdgpu_df_funcs df_v3_6_funcs =3D {
- 	.sw_init =3D df_v3_6_sw_init,
- 	.sw_fini =3D df_v3_6_sw_fini,
-@@ -651,4 +681,5 @@ const struct amdgpu_df_funcs df_v3_6_funcs =3D {
- 	.pmc_get_count =3D df_v3_6_pmc_get_count,
- 	.get_fica =3D df_v3_6_get_fica,
- 	.set_fica =3D df_v3_6_set_fica,
-+	.query_ras_poison_mode =3D df_v3_6_query_ras_poison_mode,
- };
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_offset.h b/driv=
-ers/gpu/drm/amd/include/asic_reg/df/df_3_6_offset.h
-index bd37aa6b6560..b4b2584bbd66 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_offset.h
-@@ -77,4 +77,9 @@
- #define smnDF_CS_UMC_AON0_DramBaseAddress0 	0x1c110UL
- #define smnDF_CS_UMC_AON0_DramLimitAddress0 	0x1c114UL
-=20
-+#define mmDF_CS_UMC_AON0_HardwareAssertMaskLow                            =
-                             0x067e
-+#define mmDF_CS_UMC_AON0_HardwareAssertMaskLow_BASE_IDX                   =
-                             0
-+#define mmDF_NCS_PG0_HardwareAssertMaskHigh                               =
-                             0x067f
-+#define mmDF_NCS_PG0_HardwareAssertMaskHigh_BASE_IDX                      =
-                             0
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h b/dri=
-vers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h
-index f804e13b002e..f45ec6f97ff2 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h
-@@ -62,4 +62,136 @@
- #define DF_CS_UMC_AON0_DramLimitAddress0__AllowReqIO_MASK                 =
-                                    0x00000400L
- #define DF_CS_UMC_AON0_DramLimitAddress0__DramLimitAddr_MASK              =
-                                    0xFFFFF000L
-=20
-+//DF_CS_UMC_AON0_HardwareAssertMaskLow
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk0__SHIFT         =
-                                    0x0
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk1__SHIFT         =
-                                    0x1
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk2__SHIFT         =
-                                    0x2
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk3__SHIFT         =
-                                    0x3
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk4__SHIFT         =
-                                    0x4
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk5__SHIFT         =
-                                    0x5
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk6__SHIFT         =
-                                    0x6
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk7__SHIFT         =
-                                    0x7
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk8__SHIFT         =
-                                    0x8
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk9__SHIFT         =
-                                    0x9
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk10__SHIFT        =
-                                    0xa
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk11__SHIFT        =
-                                    0xb
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk12__SHIFT        =
-                                    0xc
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk13__SHIFT        =
-                                    0xd
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk14__SHIFT        =
-                                    0xe
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk15__SHIFT        =
-                                    0xf
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk16__SHIFT        =
-                                    0x10
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk17__SHIFT        =
-                                    0x11
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk18__SHIFT        =
-                                    0x12
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk19__SHIFT        =
-                                    0x13
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk20__SHIFT        =
-                                    0x14
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk21__SHIFT        =
-                                    0x15
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk22__SHIFT        =
-                                    0x16
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk23__SHIFT        =
-                                    0x17
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk24__SHIFT        =
-                                    0x18
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk25__SHIFT        =
-                                    0x19
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk26__SHIFT        =
-                                    0x1a
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk27__SHIFT        =
-                                    0x1b
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk28__SHIFT        =
-                                    0x1c
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk29__SHIFT        =
-                                    0x1d
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk30__SHIFT        =
-                                    0x1e
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk31__SHIFT        =
-                                    0x1f
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk0_MASK           =
-                                    0x00000001L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk1_MASK           =
-                                    0x00000002L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk2_MASK           =
-                                    0x00000004L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk3_MASK           =
-                                    0x00000008L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk4_MASK           =
-                                    0x00000010L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk5_MASK           =
-                                    0x00000020L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk6_MASK           =
-                                    0x00000040L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk7_MASK           =
-                                    0x00000080L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk8_MASK           =
-                                    0x00000100L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk9_MASK           =
-                                    0x00000200L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk10_MASK          =
-                                    0x00000400L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk11_MASK          =
-                                    0x00000800L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk12_MASK          =
-                                    0x00001000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk13_MASK          =
-                                    0x00002000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk14_MASK          =
-                                    0x00004000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk15_MASK          =
-                                    0x00008000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk16_MASK          =
-                                    0x00010000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk17_MASK          =
-                                    0x00020000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk18_MASK          =
-                                    0x00040000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk19_MASK          =
-                                    0x00080000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk20_MASK          =
-                                    0x00100000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk21_MASK          =
-                                    0x00200000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk22_MASK          =
-                                    0x00400000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk23_MASK          =
-                                    0x00800000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk24_MASK          =
-                                    0x01000000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk25_MASK          =
-                                    0x02000000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk26_MASK          =
-                                    0x04000000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk27_MASK          =
-                                    0x08000000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk28_MASK          =
-                                    0x10000000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk29_MASK          =
-                                    0x20000000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk30_MASK          =
-                                    0x40000000L
-+#define DF_CS_UMC_AON0_HardwareAssertMaskLow__HWAssertMsk31_MASK          =
-                                    0x80000000L
-+
-+//DF_NCS_PG0_HardwareAssertMaskHigh
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk0__SHIFT            =
-                                    0x0
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk1__SHIFT            =
-                                    0x1
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk2__SHIFT            =
-                                    0x2
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk3__SHIFT            =
-                                    0x3
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk4__SHIFT            =
-                                    0x4
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk5__SHIFT            =
-                                    0x5
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk6__SHIFT            =
-                                    0x6
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk7__SHIFT            =
-                                    0x7
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk8__SHIFT            =
-                                    0x8
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk9__SHIFT            =
-                                    0x9
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk10__SHIFT           =
-                                    0xa
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk11__SHIFT           =
-                                    0xb
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk12__SHIFT           =
-                                    0xc
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk13__SHIFT           =
-                                    0xd
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk14__SHIFT           =
-                                    0xe
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk15__SHIFT           =
-                                    0xf
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk16__SHIFT           =
-                                    0x10
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk17__SHIFT           =
-                                    0x11
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk18__SHIFT           =
-                                    0x12
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk19__SHIFT           =
-                                    0x13
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk20__SHIFT           =
-                                    0x14
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk21__SHIFT           =
-                                    0x15
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk22__SHIFT           =
-                                    0x16
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk23__SHIFT           =
-                                    0x17
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk24__SHIFT           =
-                                    0x18
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk25__SHIFT           =
-                                    0x19
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk26__SHIFT           =
-                                    0x1a
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk27__SHIFT           =
-                                    0x1b
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk28__SHIFT           =
-                                    0x1c
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk29__SHIFT           =
-                                    0x1d
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk30__SHIFT           =
-                                    0x1e
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk31__SHIFT           =
-                                    0x1f
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk0_MASK              =
-                                    0x00000001L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk1_MASK              =
-                                    0x00000002L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk2_MASK              =
-                                    0x00000004L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk3_MASK              =
-                                    0x00000008L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk4_MASK              =
-                                    0x00000010L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk5_MASK              =
-                                    0x00000020L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk6_MASK              =
-                                    0x00000040L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk7_MASK              =
-                                    0x00000080L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk8_MASK              =
-                                    0x00000100L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk9_MASK              =
-                                    0x00000200L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk10_MASK             =
-                                    0x00000400L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk11_MASK             =
-                                    0x00000800L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk12_MASK             =
-                                    0x00001000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk13_MASK             =
-                                    0x00002000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk14_MASK             =
-                                    0x00004000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk15_MASK             =
-                                    0x00008000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk16_MASK             =
-                                    0x00010000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk17_MASK             =
-                                    0x00020000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk18_MASK             =
-                                    0x00040000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk19_MASK             =
-                                    0x00080000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk20_MASK             =
-                                    0x00100000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk21_MASK             =
-                                    0x00200000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk22_MASK             =
-                                    0x00400000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk23_MASK             =
-                                    0x00800000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk24_MASK             =
-                                    0x01000000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk25_MASK             =
-                                    0x02000000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk26_MASK             =
-                                    0x04000000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk27_MASK             =
-                                    0x08000000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk28_MASK             =
-                                    0x10000000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk29_MASK             =
-                                    0x20000000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk30_MASK             =
-                                    0x40000000L
-+#define DF_NCS_PG0_HardwareAssertMaskHigh__HWAssertMsk31_MASK             =
-                                    0x80000000L
-+
- #endif
---
+ 	sdma_v5_2_soft_reset(adev);
+ 	/* unhalt the MEs */
+ 	sdma_v5_2_enable(adev, true);
+@@ -876,6 +882,8 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
+ 
+ 	/* start the gfx rings and rlc compute queues */
+ 	r = sdma_v5_2_gfx_resume(adev);
++	if (adev->in_s0ix)
++		amdgpu_gfx_off_ctrl(adev, true);
+ 	if (r)
+ 		return r;
+ 	r = sdma_v5_2_rlc_resume(adev);
+-- 
 2.17.1
+
