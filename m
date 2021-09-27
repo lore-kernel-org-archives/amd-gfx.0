@@ -2,62 +2,102 @@ Return-Path: <SRS0=K0ja=OR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C782FC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 15:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1576CC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 15:41:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8829B60F44
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 15:16:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8829B60F44
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C61EF61041
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 15:41:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C61EF61041
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460B889C19;
-	Mon, 27 Sep 2021 15:16:53 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B924889C19
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 15:16:51 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id x124so25970140oix.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 08:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2Ca/r9ETMmPOVufBW2LfgkfXzloR+h0A9e0IDDcfpeY=;
- b=XBP1jOtY7C7Tuy5C8sbMz2l9f9twIqUbcrxKqBS9i9Dmn48s4pEdrZvXvnj7zAckCA
- 7yPdYui4ZfQOixbVRvmSczdIT0bwKH/JyEBcnpkWeDKq7PS0mcN8mQ7mjW4UszgFuj8G
- p+PASvgOvlQMtgQ65xNzzMtDLaI5ze+TF7tTfKewuBAE9GRIr9dFzMEYl3+XFfGCH84R
- 1HeizmFm/D5VRVzC6gAIDBLjwhZBuw1ODCcOTtzID67ahmVJch684jBZw3lzsERT25rT
- FJV9vS12hs8Tlz/qages3e+sJI2jQp3wwfR4JgOuwJZdZwyjVnQFR7GcAorvszpBtzn9
- Ptdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2Ca/r9ETMmPOVufBW2LfgkfXzloR+h0A9e0IDDcfpeY=;
- b=mPNvj8yUSBhFCz0eByosc7rYug+g+8VfFpz/2UjxBnwo6Jur0rLygvi6hIv4yCBtAy
- uTCB2vasb9OebqAhYiRQK05ISCl09rR5rBqezmm4iaZ+xoXMp9DHvNX0Kd4qYuT5Ww11
- Rm4NW/AvovKqwvMi+/2Mdwbiyn30csZBd1BgJzrWTiJdNgsfZzUS3jwHnoNzek7cSl2p
- qcvXrkZgUANMM3I8e4IVS9UuwMKOh0PlBTNmkkpxqWz2MsYQsXQM7JECfuZXvkBbCcrM
- Nup5ZOMxv/X02izc2D4utOxLyhtrDMcn/ljW6e3LiZcYy2rAU00owALCgRQPrT+F4Nqd
- 8xTQ==
-X-Gm-Message-State: AOAM531si0apjc0dSesy7ViYrBKBIsi+k2tab3TVJ4E6KUqJSpG1PK/X
- eWevzv2oojAj3a4vPdySkpw3lJUIjOMB2alptpo3Untd
-X-Google-Smtp-Source: ABdhPJxJfB5b7PhJ7aJTxy+3nWiFOCoqE55kzakV9ZKuQoYf4cv0/Jm/W4YGJW7EW+ZF5QZUUO1Q8UXAAhHW0u028E4=
-X-Received: by 2002:a05:6808:1141:: with SMTP id
- u1mr344230oiu.123.1632755811069; 
- Mon, 27 Sep 2021 08:16:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 504686E857;
+	Mon, 27 Sep 2021 15:41:30 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D77C89F92;
+ Mon, 27 Sep 2021 15:41:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=m48lwqsiNIJFWwgHBusPP2CShRoUK2B6XgKGqQVTaLutFRGtU1QHYfICcnHr1ItZDaD5DDel2XzcY6irTojMnSnpQuT7gq0JVMkzTRLH9bFv//yyQUeo5PW+GmsGVmu7QXETU296hvtA81JNn6lS7i+gDfMnQYGP708mx55D9FDiCG7EqqvgVPEhA3TG+LCyWVEWGN6Yd/vfOV/vT57wMQyXSsfnpQFcpXofS6jgmfHii61tORn9TdcfKC8oYvPVKdZbNtrjlJ+PW5Mna9v/gIQvIysdYww7/RBQ9ZZPb2Pd+2pZs7BfZSB+SqYNTensSns23Psd7LAo74dhpfXr9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=lNaiS9AOgR670eXV/WrShhySRdwAxL8cyGWv4zfP3qI=;
+ b=gTf2nyq10SWii0vRfEutxDVI1YHPuO8TEDxiv+AAVICLgacjzzwR6rtrC0D51UcDYx68YH2Zr8W6O+flesulZp1QsumJn50LBfKAG0pRIN+Moj7R3/23EWMgQLSeAK6rxQESC52aQ8BWCjM4i+giXtzgD8AL76DE2/zEGg0OEW9ZuxtOJfLdGbyTYQqPZzcS8JqQ5+ADw6uSFvaxAbvXPLkjbuo5qaKL340HhhsS2z0EZLBiREsXD8YO/Sp6gp8hpemwn55N9FBzQm+qKsQmPCSLFCSFQUu1njQAFRTj0NrkjUa8G6nbe7Fa23VDa+NEg4kM3qVO0YLgOz1kJ98cLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lNaiS9AOgR670eXV/WrShhySRdwAxL8cyGWv4zfP3qI=;
+ b=hgoDnL/GY2erRRiUzWSIf3dx2vjE4fYGUatZmgMZRJMeFQOt4EjQ6Zj6sBrtG659PHNgNsuvWEX1ASyWxR+5yO1d/YJfzmpfVs7lkH/hJOgRE51PtA01RjNV/oqTqG4UyHGCCl4sdLk7PIoLNcMrUn5qzQVyf0Th8QQ3Mj67X0g=
+Received: from BN6PR11CA0061.namprd11.prod.outlook.com (2603:10b6:404:f7::23)
+ by MWHPR12MB1886.namprd12.prod.outlook.com (2603:10b6:300:10f::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Mon, 27 Sep
+ 2021 15:41:24 +0000
+Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:f7:cafe::3) by BN6PR11CA0061.outlook.office365.com
+ (2603:10b6:404:f7::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
+ Transport; Mon, 27 Sep 2021 15:41:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4544.13 via Frontend Transport; Mon, 27 Sep 2021 15:41:23 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 27 Sep
+ 2021 10:41:20 -0500
+Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
+ Transport; Mon, 27 Sep 2021 10:41:19 -0500
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <jani.nikula@intel.com>
+CC: <harry.wentland@amd.com>, <Nicholas.Kazlauskas@amd.com>,
+ <wayne.lin@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
+Subject: [PATCH v2] drm/dp: Add Additional DP2 Headers
+Date: Mon, 27 Sep 2021 11:39:41 -0400
+Message-ID: <20210927153941.2231704-1-Jerry.Zuo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1632661843-3923-1-git-send-email-Prike.Liang@amd.com>
-In-Reply-To: <1632661843-3923-1-git-send-email-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Sep 2021 11:16:40 -0400
-Message-ID: <CADnq5_NGSMJUs_WJKwWX7K9WboN6PuoTVtTeHNnFiCVYmfaWog@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: force exit gfxoff on sdma resume for rmb s0ix
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, Huang Rui <ray.huang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8b8a0a3c-c58a-4232-97fb-08d981cd42d2
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1886:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1886AD9B35DD30A546E0DE37E5A79@MWHPR12MB1886.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: REtI7GR5AtOz4Hlwl/1Fmkw7yyE4u4o5CjUDux8aYLAtkrklL/ayoW4H30//6iJKKItOE0mRiNY2R9HpQs1vMDFs/i8KaZXCVNvFShKWv00LhSMhESd6yNSnkqU9p/30hNUluapzjxFXKZweLXot77bdSZXg+Ze0tzCgXaIgjRzsKMkmFJn808sO530uML53fIXRjh3Ge2nnx22AsKUYLl8UedQ+kWhUNvdiyL/xcq7lzL7gV2igxZx30X0zHLg8eANOOTSb+pybsAlKYzTFDpyCrASGPWkk1MuUGeuZm0798e6rAKS3M+PS1ydjl26eeLPaav9w0ZiCFI+oifMQhJbu1biZ3POtbxZyhbbz79WdlEuvCPrAPHfenq9eYVpx3ujhgfBIdJxIdqJfVA07cuZZcgdCjXcA5rbOdKAfWjWjnlkiF2AWQynvO25Jo/uxCdpTUbaJQLaNtolEuciXfdsJtCdwQNPGVI8WIBmJxv0Emwye+DdZ1sasBE9TLsbL5YqgpK5aqG/ORbAWdl/LuPpJHMNKwC7OCl/pzMNqvnZf+t+hiJvjqtmQ6Em9EX4EZfOp98o/lpk+EhpUBSPy8i3n4BRpJ0TQY4IjMA/Lu555FVBZwsNeBb3iUDXSf/nRd1u5Nu82Q2TkObZWxq5TVbOrJd6LdLfPLQOENwNyc22aH/hTDpJ2hMzmA/6ZAyX7kxy1xG5S5oq5RKh/2VAFCjOpuP+Arfz6AikNdYPIUOykKX6uR60lzPEMxGwQRoUS
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(8676002)(110136005)(8936002)(47076005)(2616005)(70206006)(508600001)(426003)(36756003)(6666004)(356005)(70586007)(336012)(83380400001)(7696005)(5660300002)(2906002)(316002)(36860700001)(4326008)(54906003)(81166007)(1076003)(26005)(82310400003)(86362001)(186003)(21314003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2021 15:41:23.8572 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b8a0a3c-c58a-4232-97fb-08d981cd42d2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1886
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +112,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Sep 26, 2021 at 9:14 AM Prike Liang <Prike.Liang@amd.com> wrote:
->
-> In the s2idle stress test sdma resume fail occasionally,in the
-> failed case GPU is in the gfxoff state.This issue may introduce
-> by FSDL miss handle doorbell S/R and now temporary fix the issue
-> by forcing exit gfxoff for sdma resume.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Include FEC, DSC, Link Training related headers.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+---
+This patch is based on top of the other DP2.0 work in
+"drm/dp: add LTTPR DP 2.0 DPCD addresses"
+---
+ include/drm/drm_dp_helper.h | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> index e4a96e7e386d..81906955ef52 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> @@ -868,6 +868,12 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
->                         msleep(1000);
->         }
->
-> +       /* TODO: check whether can submit a doorbell request to raise
-> +        * a doorbell fence to exit gfxoff.
-> +        */
-> +       if (adev->in_s0ix)
-> +               amdgpu_gfx_off_ctrl(adev, false);
-> +
->         sdma_v5_2_soft_reset(adev);
->         /* unhalt the MEs */
->         sdma_v5_2_enable(adev, true);
-> @@ -876,6 +882,8 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
->
->         /* start the gfx rings and rlc compute queues */
->         r = sdma_v5_2_gfx_resume(adev);
-> +       if (adev->in_s0ix)
-> +               amdgpu_gfx_off_ctrl(adev, true);
->         if (r)
->                 return r;
->         r = sdma_v5_2_rlc_resume(adev);
-> --
-> 2.17.1
->
+diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+index 1d5b3dbb6e56..f1fd9889f190 100644
+--- a/include/drm/drm_dp_helper.h
++++ b/include/drm/drm_dp_helper.h
+@@ -453,6 +453,7 @@ struct drm_panel;
+ # define DP_FEC_UNCORR_BLK_ERROR_COUNT_CAP  (1 << 1)
+ # define DP_FEC_CORR_BLK_ERROR_COUNT_CAP    (1 << 2)
+ # define DP_FEC_BIT_ERROR_COUNT_CAP	    (1 << 3)
++#define DP_FEC_CAPABILITY_1			0x091   /* 2.0 */
+ 
+ /* DP-HDMI2.1 PCON DSC ENCODER SUPPORT */
+ #define DP_PCON_DSC_ENCODER_CAP_SIZE        0xC	/* 0x9E - 0x92 */
+@@ -537,6 +538,9 @@ struct drm_panel;
+ #define DP_DSC_BRANCH_OVERALL_THROUGHPUT_1  0x0a1
+ #define DP_DSC_BRANCH_MAX_LINE_WIDTH        0x0a2
+ 
++/* DFP Capability Extension */
++#define DP_DFP_CAPABILITY_EXTENSION_SUPPORT	0x0a3	/* 2.0 */
++
+ /* Link Configuration */
+ #define	DP_LINK_BW_SET		            0x100
+ # define DP_LINK_RATE_TABLE		    0x00    /* eDP 1.4 */
+@@ -688,6 +692,7 @@ struct drm_panel;
+ 
+ #define DP_DSC_ENABLE                       0x160   /* DP 1.4 */
+ # define DP_DECOMPRESSION_EN                (1 << 0)
++#define DP_DSC_CONFIGURATION				0x161	/* DP 2.0 */
+ 
+ #define DP_PSR_EN_CFG				0x170   /* XXX 1.2? */
+ # define DP_PSR_ENABLE				BIT(0)
+@@ -743,6 +748,7 @@ struct drm_panel;
+ # define DP_RECEIVE_PORT_0_STATUS	    (1 << 0)
+ # define DP_RECEIVE_PORT_1_STATUS	    (1 << 1)
+ # define DP_STREAM_REGENERATION_STATUS      (1 << 2) /* 2.0 */
++# define DP_INTRA_HOP_AUX_REPLY_INDICATION	(1 << 3) /* 2.0 */
+ 
+ #define DP_ADJUST_REQUEST_LANE0_1	    0x206
+ #define DP_ADJUST_REQUEST_LANE2_3	    0x207
+@@ -865,6 +871,8 @@ struct drm_panel;
+ # define DP_PHY_TEST_PATTERN_80BIT_CUSTOM   0x4
+ # define DP_PHY_TEST_PATTERN_CP2520         0x5
+ 
++#define DP_PHY_SQUARE_PATTERN				0x249
++
+ #define DP_TEST_HBR2_SCRAMBLER_RESET        0x24A
+ #define DP_TEST_80BIT_CUSTOM_PATTERN_7_0    0x250
+ #define	DP_TEST_80BIT_CUSTOM_PATTERN_15_8   0x251
+@@ -1109,6 +1117,18 @@ struct drm_panel;
+ #define DP_128B132B_TRAINING_AUX_RD_INTERVAL   0x2216 /* 2.0 */
+ # define DP_128B132B_TRAINING_AUX_RD_INTERVAL_MASK 0x7f
+ 
++#define DP_TEST_264BIT_CUSTOM_PATTERN_7_0		0x2230
++#define DP_TEST_264BIT_CUSTOM_PATTERN_263_256	0x2250
++
++/* DSC Extended Capability Branch Total DSC Resources */
++#define DP_DSC_SUPPORT_AND_DECODER_COUNT			0x2260	/* 2.0 */
++# define DP_DSC_DECODER_COUNT_MASK			(0b111 << 5)
++# define DP_DSC_DECODER_COUNT_SHIFT			5
++#define DP_DSC_MAX_SLICE_COUNT_AND_AGGREGATION_0	0x2270	/* 2.0 */
++# define DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK	(1 << 0)
++# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK	(0b111 << 1)
++# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT	1
++
+ /* Protocol Converter Extension */
+ /* HDMI CEC tunneling over AUX DP 1.3 section 5.3.3.3.1 DPCD 1.4+ */
+ #define DP_CEC_TUNNELING_CAPABILITY            0x3000
+-- 
+2.25.1
+
