@@ -2,65 +2,70 @@ Return-Path: <SRS0=K0ja=OR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8391EC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 19:17:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07360C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 19:20:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 458BF60EFD
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 19:17:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 458BF60EFD
+	by mail.kernel.org (Postfix) with ESMTPS id BF5EF60F94
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 19:20:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BF5EF60F94
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B27DB89E0D;
-	Mon, 27 Sep 2021 19:17:32 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAE4289E0D
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 19:17:30 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id x124so26928304oix.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 12:17:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE476E02F;
+	Mon, 27 Sep 2021 19:20:25 +0000 (UTC)
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2274F6E02D;
+ Mon, 27 Sep 2021 19:20:24 +0000 (UTC)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ a17-20020a4a6851000000b002b59bfbf669so2332904oof.9; 
+ Mon, 27 Sep 2021 12:20:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=h+G678zxTRNy+ObotE/FKbBlfNAHM072vsCplvAPsEQ=;
- b=UIjLNr3EL8hr7Po9/wuhxK0n4v+MySBr55Of6fye6DPmi5EZhTkmawfs/ciuznqD+p
- sqya0bpZBR1lxQBHel3BJSXpJ3v6g4YtPKEn/lrtwj+vsFhkFgcCtTlFI6bIoN6P9IXL
- mlSY4c73VTS+Jgrurk5YO0vbFvkysMdrerVHpBjqEmhTwgEA7m/c1WXeClr5XeC0aMdw
- WeN8bNgZ6LMjU/kU7NkBNqD7TKjjZheMoqXer/6SYCrWFCxZd9TlqrOfZslrugPYgjMo
- txSenfDrEj3fvvNqWY5s8HgfUDCDUE6m6TbquiBpZ3Zp39sZw6NAQzOI8OPrPA3jCQdq
- aQzg==
+ bh=DxxDnArAuqMzLOKrnNqBxORaTd+7/JcrK9bDcFPx9BQ=;
+ b=E9fwq5bTre/IrnXwZ/2oEJhk10H+KaHc08PWNXgjOdhLuUJdU3V/PDBPGGcH4aB6EG
+ vbqUjNv9ClfzM9n9n8OdWHiQaBYKlO6riTNMumO2z35RshxodLeNmh7FEphBSza23fvF
+ /RW6yO5Y0JV916oTome5iBE3PMnJ8aCKZ1Y4XPDKv5YQH18GO90n97xXLlEQrSgNK6Pi
+ /P2EQmG63tM/8mFlDUzWK5I3KY9XTT6C9zdrUQTveO3EcOCxrHQIHB2omyozhfaGhKo9
+ XQFrYfgyss99y3+08WWPCMBbbsvy8SoaCiwiXiBYZNmvO7Wkm/vzlC6JgSRNAiofslBs
+ IsUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=h+G678zxTRNy+ObotE/FKbBlfNAHM072vsCplvAPsEQ=;
- b=5lJVQhryBUNp8KhQY5vWD+h6/Rnv6lvx5OrL2KDFxqiBT/sCXlD66/NWHL1LYIkPvk
- qD5Axjen9c0hkXp07MRFNKzwjTIsNfByxb+Vx7wleoWuOeiYsFDnbluCy4a/tOTF85LG
- hQmsHBioST5m0iKw5QT58x+fduUS8SDDiSV3cuKPZl1Dmf66BhMGPAY47+UeMV53sxKf
- TTvI+ytHwASm6jNeU3P1JOz9aLgRiChM//ZLuXWFXZj9+4rD1rUj4f6wvgCT6m4YSeTb
- i65SlMjVfqJRWs+EBZ5lszTi4B/PX1hLgYX4OMiA9wayQVbU1v2iLlga/d1NIkSpg1mp
- f3fw==
-X-Gm-Message-State: AOAM531QfHXtYPmgxWqVKuypvjlRt4Wt2m1BLECB2yyB2ZZ3khsURpwE
- 2dL9onWPYt3Qul9TlPWBtSANzp/WPtzZAqGXmrGNIEbR
-X-Google-Smtp-Source: ABdhPJzo0+qvBUpeSqQwZQadzMHzvW+MA+7T1FSaw9yy6sRIGTge8vuiHqKw63qiqTKhME6H7Djgjgws76L1YVnJBdg=
-X-Received: by 2002:aca:ab4d:: with SMTP id u74mr561061oie.120.1632770249962; 
- Mon, 27 Sep 2021 12:17:29 -0700 (PDT)
+ bh=DxxDnArAuqMzLOKrnNqBxORaTd+7/JcrK9bDcFPx9BQ=;
+ b=k0SsEez2ljqAAQsxoiIY8/7GQ18A9XQvznbiy+nfDWqteXrR9Nj/uwRzcBLcHRzTpp
+ TrdJV4QnRtdIXB5rK8Cr7AUnrOXzGKAkGoFrzcxfCSI2vObE4Zecdubg7Nqg11rwQYHZ
+ 9hciFBOmud3CJDzkDisIfJu1sGpGYsMarY3KotlCsPlQjEoq5S49nvQ8jx27623e5MYG
+ S90Jp/7rs3OkPjLW/PxUfq+x3/GFE/iGHyE8//91M86CXk0oAtBp0RjRhkH3NWkPiSth
+ VkGGJFBNdBsn+dShrwd3O5ECP5uDEZNICou9eJRWuYkHq+5/PLMp3pXg5GaY+N9JjBsY
+ ox2Q==
+X-Gm-Message-State: AOAM532/1dBSP/p5lDq9QPH528ezrQ0d3RdPvCgxfwvvJB1IZ5owTUp0
+ jp0NrvUOj35+qdcvo9d7LD5jeRUrB1Uc7gluCD0=
+X-Google-Smtp-Source: ABdhPJxK9Pl7nDDrEjCckoKhzIkfsziDqe9p0oskMIry7aZ1ewD2rkdZK6eZm+ZpzCPRqBiNvG4eBEMomJ0BLTdG8Ws=
+X-Received: by 2002:a4a:e899:: with SMTP id g25mr1334984ooe.68.1632770423330; 
+ Mon, 27 Sep 2021 12:20:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210927150821.389427-1-contact@emersion.fr>
-In-Reply-To: <20210927150821.389427-1-contact@emersion.fr>
+References: <20210927125824.1583474-1-arnd@kernel.org>
+ <a27a9db3-1186-8fea-8952-fca4171bcee5@amd.com>
+In-Reply-To: <a27a9db3-1186-8fea-8952-fca4171bcee5@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Sep 2021 15:17:19 -0400
-Message-ID: <CADnq5_MBVmec4MP5YizegcdQZe2XKBwsVdqSCWizo73n4x1Z=w@mail.gmail.com>
-Subject: Re: [PATCH v2] amdgpu: check tiling flags when creating FB on GFX8-
-To: Simon Ser <contact@emersion.fr>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "for 3.8" <stable@vger.kernel.org>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>, 
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Mon, 27 Sep 2021 15:20:12 -0400
+Message-ID: <CADnq5_NcRQO=VAGONoBBebZAXXaNDshUZk9=RpLVu3LdGnztXA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix warning for overflow check
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Arnd Bergmann <arnd@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Chunming Zhou <david1.zhou@amd.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,108 +82,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 27, 2021 at 11:09 AM Simon Ser <contact@emersion.fr> wrote:
->
-> On GFX9+, format modifiers are always enabled and ensure the
-> frame-buffers can be scanned out at ADDFB2 time.
->
-> On GFX8-, format modifiers are not supported and no other check
-> is performed. This means ADDFB2 IOCTLs will succeed even if the
-> tiling isn't supported for scan-out, and will result in garbage
-> displayed on screen [1].
->
-> Fix this by adding a check for tiling flags for GFX8 and older.
-> The check is taken from radeonsi in Mesa (see how is_displayable
-> is populated in gfx6_compute_surface).
->
-> Changes in v2: use drm_WARN_ONCE instead of drm_WARN (Michel)
->
-> [1]: https://github.com/swaywm/wlroots/issues/3185
->
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Cc: stable@vger.kernel.org
-> Acked-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Applied.  Thanks!
 
-Applied.  Thanks.
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 31 +++++++++++++++++++++
->  1 file changed, 31 insertions(+)
+On Mon, Sep 27, 2021 at 9:07 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_display.c
-> index 58bfc7f00d76..5faf3ef28080 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -837,6 +837,28 @@ static int convert_tiling_flags_to_modifier(struct a=
-mdgpu_framebuffer *afb)
->         return 0;
->  }
+> Am 27.09.21 um 14:58 schrieb Arnd Bergmann:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > The overflow check in amdgpu_bo_list_create() causes a warning with
+> > clang-14 on 64-bit architectures, since the limit can never be
+> > exceeded.
+> >
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:74:18: error: result of com=
+parison of constant 256204778801521549 with expression of type 'unsigned in=
+t' is always false [-Werror,-Wtautological-constant-out-of-range-compare]
+> >          if (num_entries > (SIZE_MAX - sizeof(struct amdgpu_bo_list))
+> >              ~~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >
+> > The check remains useful for 32-bit architectures, so just avoid the
+> > warning by using size_t as the type for the count.
+> >
+> > Fixes: 920990cb080a ("drm/amdgpu: allocate the bo_list array after the =
+list")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 >
-> +/* Mirrors the is_displayable check in radeonsi's gfx6_compute_surface *=
-/
-> +static int check_tiling_flags_gfx6(struct amdgpu_framebuffer *afb)
-> +{
-> +       u64 micro_tile_mode;
-> +
-> +       /* Zero swizzle mode means linear */
-> +       if (AMDGPU_TILING_GET(afb->tiling_flags, SWIZZLE_MODE) =3D=3D 0)
-> +               return 0;
-> +
-> +       micro_tile_mode =3D AMDGPU_TILING_GET(afb->tiling_flags, MICRO_TI=
-LE_MODE);
-> +       switch (micro_tile_mode) {
-> +       case 0: /* DISPLAY */
-> +       case 3: /* RENDER */
-> +               return 0;
-> +       default:
-> +               drm_dbg_kms(afb->base.dev,
-> +                           "Micro tile mode %llu not supported for scano=
-ut\n",
-> +                           micro_tile_mode);
-> +               return -EINVAL;
-> +       }
-> +}
-> +
->  static void get_block_dimensions(unsigned int block_log2, unsigned int c=
-pp,
->                                  unsigned int *width, unsigned int *heigh=
-t)
->  {
-> @@ -1103,6 +1125,7 @@ int amdgpu_display_framebuffer_init(struct drm_devi=
-ce *dev,
->                                     const struct drm_mode_fb_cmd2 *mode_c=
-md,
->                                     struct drm_gem_object *obj)
->  {
-> +       struct amdgpu_device *adev =3D drm_to_adev(dev);
->         int ret, i;
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
->         /*
-> @@ -1122,6 +1145,14 @@ int amdgpu_display_framebuffer_init(struct drm_dev=
-ice *dev,
->         if (ret)
->                 return ret;
->
-> +       if (!dev->mode_config.allow_fb_modifiers) {
-> +               drm_WARN_ONCE(dev, adev->family >=3D AMDGPU_FAMILY_AI,
-> +                             "GFX9+ requires FB check based on format mo=
-difier\n");
-> +               ret =3D check_tiling_flags_gfx6(rfb);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
->         if (dev->mode_config.allow_fb_modifiers &&
->             !(rfb->base.flags & DRM_MODE_FB_MODIFIERS)) {
->                 ret =3D convert_tiling_flags_to_modifier(rfb);
-> --
-> 2.33.0
->
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 2 +-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h | 2 +-
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_bo_list.c
+> > index 15c45b2a3983..714178f1b6c6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> > @@ -61,7 +61,7 @@ static void amdgpu_bo_list_free(struct kref *ref)
+> >
+> >   int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file=
+ *filp,
+> >                         struct drm_amdgpu_bo_list_entry *info,
+> > -                       unsigned num_entries, struct amdgpu_bo_list **r=
+esult)
+> > +                       size_t num_entries, struct amdgpu_bo_list **res=
+ult)
+> >   {
+> >       unsigned last_entry =3D 0, first_userptr =3D num_entries;
+> >       struct amdgpu_bo_list_entry *array;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_bo_list.h
+> > index c905a4cfc173..044b41f0bfd9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+> > @@ -61,7 +61,7 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdg=
+pu_bo_list_in *in,
+> >   int amdgpu_bo_list_create(struct amdgpu_device *adev,
+> >                                struct drm_file *filp,
+> >                                struct drm_amdgpu_bo_list_entry *info,
+> > -                              unsigned num_entries,
+> > +                              size_t num_entries,
+> >                                struct amdgpu_bo_list **list);
+> >
+> >   static inline struct amdgpu_bo_list_entry *
 >
