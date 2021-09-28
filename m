@@ -2,48 +2,48 @@ Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DDF3C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 16:45:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC21EC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 16:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F2BB61266
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 16:45:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4F2BB61266
+	by mail.kernel.org (Postfix) with ESMTPS id BEF4661266
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 16:45:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BEF4661266
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1735D89A5E;
-	Tue, 28 Sep 2021 16:45:20 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C7A689A5E
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 16:45:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C79E6E8D6;
+	Tue, 28 Sep 2021 16:45:25 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04D6F6E8D6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 16:45:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ft1iTRFNbT/WwuZejOEhw3KQlxuhnxLdIM4BFtujjHbnIzkbkUshs/fHsZN0mN3cMc9awVyWGX5z2lnaJxoKN7f2Qc2SEgqd3doYzUYjPYlpZGhW9QGUrXHRn2Tw2lCcbnh7eGZ4YRP3K9U/9lh8AorMqP77php76s+4qiks12eY1V3oKP1iHpphp4JvAg1WAgI7h+0PmmgmggW/DXlP7rZ+mEq3jTZEEBL4C5zeNtEWwvAEJbgVnEZhFPJOBtmv95woXxGWHijEdHIe99CEgiqtFAbGGgGOnk+NsQzrzoFgpe3/DNzWUdHDXZU8Or0rG3AuH84K7ytupwf3Mbhxxg==
+ b=kUsanQDHAogk7z9EcC9/9je+yfaKO8qRdXxYHggPAXXXOr3GYhx86u2IzOCZ+7OdLNYe/qWvcVaHNCuVRN1ToSVU6U/rX2A45viRVeLz2i9llyCWVXXr20cGdEgGkJSDAZWwupGCxIGC562pv1NyYuJcig2+tJo+NHIWS/nCsbXQBNH5Wg3ZNHFplwVFwVXwdAoFRh26fkPoZZTUOJ20bR9vGBrUKNq+mJjvbBwvWLv/DQ0erWapoxxKkyPiSzhIjbeNelaYNVL75Z9FGnFqFJg1iqKeTNeAEOMO0dykExyGZmkVBt9LwhcNpzgYtV3pTcqeEalWc+tgQDy4Q9pZnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=+bEW6ROyFDRRIM+1prFE5Nane/Dfxb8T0D3MNL0vn0A=;
- b=V09XeTq/R40HLGwpHgNcQZWq2Ibt2tT5IBDjEVTpB4zmlbf3f/zexp6DpFAoAEQ6X7C196wYfGSHqNHTaFPvtM6+y+xWnh/FvQgDi7YRlTLj4+hqHIfBfcYPmRayD8IMmd8GYP0utcHoJmLmcoV4e62TNSon72pBA6tMMXUKq3n95gRn+2g9VmK4A3ZsrNdXqtpthYjg0huL13MYHJyze/wQUWypmWbcYgqolhW45sY9jbn+gPEE2swzd6WJlpSedcFashjXAo1cINbg0UZGS0u9TUnVEolbgRu211zpgMWz6GXShyDuEP7FrjxFybJd+LA9k0RL9sB5lhN1Y9Ncmg==
+ bh=JEoEbOXDC9IHjFD+LTJo4Mk+A8qnAQWnSMiXGYa6S+I=;
+ b=mmZjqrfdSPUEYebl0XV9958WCxrdns0GAZJ/6V+rhov9SlfG8gnue5kI5REqSj9NnpJE9bnCCmsOXafuJBy/hnc0n2bmJqIssPGuAbMketji7BWhRTgD4XWhMAXzbhLLQE0DYLFDJFyAva9i4AKvVZQo9dywJXv6VG2Px1acbUQdRlcrCiqqsV65h76OTb6ej2cVj0L0hF/WPri2oVl3PJcupaCJZfQm2T6MENS6IYIieUSnHqnT5xm9VOgaIPola/IMpIQPxPxL5aiBLaQOWp3zJQMcpXs4k58BwFmuZ1B9c09Cs0bP9OhEKhYTUz4VpCiCfNYfuKCQpKfoVfZx6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+bEW6ROyFDRRIM+1prFE5Nane/Dfxb8T0D3MNL0vn0A=;
- b=MgXfrG/ng67ulFDzhurExv2NRcRk+RAPhuwux9ywq7gZJ6Cq4iaHLCFcgl9Csxb5f7YkXU7QGclizlkxuo0IYOFzJq4LCBX591GP6OfxbHHDCuOwjUF8pwKq1MHdniFXLIEtAgBpsBGgcgEm7I9qCf4f12aJdNinJLHFAYMzwAg=
-Received: from DM5PR13CA0039.namprd13.prod.outlook.com (2603:10b6:3:7b::25) by
- DM5PR1201MB0202.namprd12.prod.outlook.com (2603:10b6:4:4d::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.15; Tue, 28 Sep 2021 16:45:18 +0000
-Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:7b:cafe::37) by DM5PR13CA0039.outlook.office365.com
- (2603:10b6:3:7b::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.7 via Frontend
- Transport; Tue, 28 Sep 2021 16:45:18 +0000
+ bh=JEoEbOXDC9IHjFD+LTJo4Mk+A8qnAQWnSMiXGYa6S+I=;
+ b=a/KMPl0r4UJe9GSWCqydtbQE+jWyAU+CJR1cpxk5gR7ZgF6zcdK/qpNGdiz1hK8kQ9MXEjiOrA1tOrHL3niEViw3M5ldGYZnhCY2jWQMJ1eWpj0sh17fAMrv6GQ3/BOXT8okrwnRVd4DDeVMA2CHGN0OtL3BX0nd/TOjml/Mbwc=
+Received: from DM3PR12CA0048.namprd12.prod.outlook.com (2603:10b6:0:56::16) by
+ BL1PR12MB5063.namprd12.prod.outlook.com (2603:10b6:208:31a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Tue, 28 Sep
+ 2021 16:45:21 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:56:cafe::56) by DM3PR12CA0048.outlook.office365.com
+ (2603:10b6:0:56::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
+ Transport; Tue, 28 Sep 2021 16:45:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,20 +52,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4544.13 via Frontend Transport; Tue, 28 Sep 2021 16:45:17 +0000
+ 15.20.4544.13 via Frontend Transport; Tue, 28 Sep 2021 16:45:21 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 28 Sep
- 2021 11:45:13 -0500
+ 2021 11:45:17 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH 38/64] drm/amdgpu/hdp4.0: convert to IP version checking
-Date: Tue, 28 Sep 2021 12:42:11 -0400
-Message-ID: <20210928164237.833132-39-alexander.deucher@amd.com>
+Subject: [PATCH 39/64] drm/amdgpu/gfx9.0: convert to IP version checking
+Date: Tue, 28 Sep 2021 12:42:12 -0400
+Message-ID: <20210928164237.833132-40-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210928164237.833132-1-alexander.deucher@amd.com>
 References: <20210928164237.833132-1-alexander.deucher@amd.com>
@@ -77,28 +77,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e04e6924-468f-48bf-7ae1-08d9829f5a51
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0202:
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0202754BECC4161EE64E5A2DF7A89@DM5PR1201MB0202.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:826;
+X-MS-Office365-Filtering-Correlation-Id: 8f9df7a5-3da4-4e9d-c79a-08d9829f5ca0
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5063:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB50638849263408B6B0688AB9F7A89@BL1PR12MB5063.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2150;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qGRtPHXMWAwUNrkCmFFZQX706izobNy1i67rHo/bmW4JgdI9dUUoGjildLQMIkvwKpiIjv34jSvaCNpD3/+Y0yIMYkv/zQt/olIwzCYOAbY/yxeBEmbPh3GadicM1Ez7q6/u0jtp01MzHFDU50gYUPokXtZMwOLO2Ee56+MQg4+iR/RTBmN8WVPa8E21mRQmD1fvPjUxJP8jpUcD8fvf0sexjj3ApGUF1JkdciTkTD2R29nWU2ZAbd+5Xgl3R2jw2jhKaslOFGDL8PGnkD9mAR4Fnb1tMqSuzNLWOFG3CVZGpZ2azRCfXDMEt/kVcWvH2CFcwOdEB9C6yy5KVka7KAtKDg9ji7stQ6C+TgqXfhRUXLZ5NZzcUXINqT5uQ26ThnbMoH614uIEA6Wg5Z+OAzboGgrVN3Caz2iWA67DXgYl4aoOHYoKyaWNKiFqD4T9w0p5PZ6GIQYjphLupgjyHFfarLfu6GVgmyODVcXHg32S7fTS5VpaID+jLQrm4G8WciICGjRPwv0G5QAJRY5ocBJC7lrwxlbgNYtdSwozEVrLcpm7ogRgWOKiUEMxvNvdH/EWXS8wFXIEV4jjk4xjbnAeTNHK4PEVCbpV4Z41r8ZchOyc8Tl+xFEYG4vsrMh/EkE8C3KjXeLKcb//pehKcekbbF0+Xef7Qwrc4XtBScanEJKK5KkSrBqVldnRkAdZYUclfC1ZV9oZtUeUf+WDA0cELCakJJM3fd3Ht0oI1V8=
+X-Microsoft-Antispam-Message-Info: NFYc/7O3jq9w7/uRNTkBVONjx+yCT9QTqY+WfA0XjxFgPOJOB4ZxyaI0/ysFi7pDLPtzsv0/bbQpGe6nnFYtfFo0EAQAUgnbGSiC7fV33FaLw6C6FXS3sCJ3Y91hNTkh46xWbk403rbcA33Jr6MnvaTrz+bflOZVph+MnUOPZbAaGl03pEGMx56VXM3xjTsqOLoftZajdqRlAxPLejnroFlAcu/PiZOTS+C4NuznknHxmpaxB3utHOPJ7zcGjpui57Z2MsrUxgk16rY+vXZJGLnmPvTRv02BtKOrGzLGFHlo0lGpXdJ0rLLnr/l6RwiAa9QafIjmRLcEzKmPMa6dhh4KBuicejM8QLmRHbV5BisIvCCZGZTuit5t1of8iAYWaU/gRb3IK9OnURaz8giSJVVN+b3j+eviOUZQkNaut7u+h3AQYEhPQqBp7RwLor03VlcR2E0GzPFinRWfbA5zFwwzkbnylhEn3s0GH9Zx7ZRARD2JP/z+R3HSu0bvxVEPoLrKf4WVZdm9BoLFEkC/Q/jSwkZowc1wX9vO3ndn5T4WHX14lm+sQZq/hpja6KGEyC4jkBOLZML0Ig1xymU69uhQd4Zn9dJMrgPtf4K20ZWV0DncBOc+LfSfctRHFXXsJIQ75jRJf2sfAup1s7yN2+Nd7Swfrv6BKAE6x1Qdp2jiQIhZ8QJNBlO/gi1/ZGThtORMJfnWKci+DzccccLHQodHYRjFhkNXLoL0lIgoXXU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(356005)(16526019)(186003)(8936002)(7696005)(5660300002)(508600001)(36860700001)(82310400003)(4326008)(8676002)(6916009)(83380400001)(66574015)(47076005)(86362001)(36756003)(54906003)(26005)(2906002)(70206006)(81166007)(316002)(2616005)(70586007)(426003)(1076003)(336012)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(508600001)(8936002)(70206006)(36756003)(70586007)(36860700001)(186003)(16526019)(26005)(2906002)(6666004)(8676002)(1076003)(81166007)(5660300002)(30864003)(54906003)(86362001)(4326008)(66574015)(336012)(316002)(7696005)(47076005)(2616005)(83380400001)(6916009)(426003)(356005)(82310400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2021 16:45:17.5526 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e04e6924-468f-48bf-7ae1-08d9829f5a51
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2021 16:45:21.4228 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f9df7a5-3da4-4e9d-c79a-08d9829f5ca0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0202
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5063
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,56 +119,612 @@ IP version specific features.
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 227 ++++++++++++++------------
+ 1 file changed, 120 insertions(+), 107 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-index 74b90cc2bf48..88938115557b 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-@@ -49,7 +49,7 @@ static void hdp_v4_0_flush_hdp(struct amdgpu_device *adev,
- static void hdp_v4_0_invalidate_hdp(struct amdgpu_device *adev,
- 				    struct amdgpu_ring *ring)
- {
--	if (adev->asic_type == CHIP_ALDEBARAN)
-+	if (adev->ip_versions[HDP_HWIP] == IP_VERSION(4, 4, 0))
- 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index adb91fdaff64..51b47f23a40c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -953,8 +953,8 @@ static void gfx_v9_0_set_kiq_pm4_funcs(struct amdgpu_device *adev)
  
- 	if (!ring || !ring->funcs->emit_wreg)
-@@ -79,7 +79,7 @@ static void hdp_v4_0_reset_ras_error_count(struct amdgpu_device *adev)
- 	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__HDP))
- 		return;
- 
--	if (adev->asic_type >= CHIP_ALDEBARAN)
-+	if (adev->ip_versions[HDP_HWIP] >= IP_VERSION(4, 4, 0))
- 		WREG32_SOC15(HDP, 0, mmHDP_EDC_CNT, 0);
- 	else
- 		/*read back hdp ras counter to reset it to 0 */
-@@ -91,9 +91,10 @@ static void hdp_v4_0_update_clock_gating(struct amdgpu_device *adev,
- {
- 	uint32_t def, data;
- 
--	if (adev->asic_type == CHIP_VEGA10 ||
--	    adev->asic_type == CHIP_VEGA12 ||
--	    adev->asic_type == CHIP_RAVEN) {
-+	if (adev->ip_versions[HDP_HWIP] == IP_VERSION(4, 0, 0) ||
-+	    adev->ip_versions[HDP_HWIP] == IP_VERSION(4, 0, 1) ||
-+	    adev->ip_versions[HDP_HWIP] == IP_VERSION(4, 1, 1) ||
-+	    adev->ip_versions[HDP_HWIP] == IP_VERSION(4, 1, 0)) {
- 		def = data = RREG32(SOC15_REG_OFFSET(HDP, 0, mmHDP_MEM_POWER_LS));
- 
- 		if (enable && (adev->cg_flags & AMD_CG_SUPPORT_HDP_LS))
-@@ -135,8 +136,8 @@ static void hdp_v4_0_get_clockgating_state(struct amdgpu_device *adev,
- 
- static void hdp_v4_0_init_registers(struct amdgpu_device *adev)
+ static void gfx_v9_0_init_golden_registers(struct amdgpu_device *adev)
  {
 -	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_9_0,
+ 						ARRAY_SIZE(golden_settings_gc_9_0));
+@@ -962,7 +962,7 @@ static void gfx_v9_0_init_golden_registers(struct amdgpu_device *adev)
+ 						golden_settings_gc_9_0_vg10,
+ 						ARRAY_SIZE(golden_settings_gc_9_0_vg10));
+ 		break;
+-	case CHIP_VEGA12:
++	case IP_VERSION(9, 2, 1):
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_9_2_1,
+ 						ARRAY_SIZE(golden_settings_gc_9_2_1));
+@@ -970,7 +970,7 @@ static void gfx_v9_0_init_golden_registers(struct amdgpu_device *adev)
+ 						golden_settings_gc_9_2_1_vg12,
+ 						ARRAY_SIZE(golden_settings_gc_9_2_1_vg12));
+ 		break;
+-	case CHIP_VEGA20:
++	case IP_VERSION(9, 4, 0):
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_9_0,
+ 						ARRAY_SIZE(golden_settings_gc_9_0));
+@@ -978,12 +978,13 @@ static void gfx_v9_0_init_golden_registers(struct amdgpu_device *adev)
+ 						golden_settings_gc_9_0_vg20,
+ 						ARRAY_SIZE(golden_settings_gc_9_0_vg20));
+ 		break;
 -	case CHIP_ARCTURUS:
-+	switch (adev->ip_versions[HDP_HWIP]) {
-+	case IP_VERSION(4, 2, 1):
- 		WREG32_FIELD15(HDP, 0, HDP_MMHUB_CNTL, HDP_MMHUB_GCC, 1);
++	case IP_VERSION(9, 4, 1):
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_9_4_1_arct,
+ 						ARRAY_SIZE(golden_settings_gc_9_4_1_arct));
+ 		break;
+-	case CHIP_RAVEN:
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
+ 		soc15_program_register_sequence(adev, golden_settings_gc_9_1,
+ 						ARRAY_SIZE(golden_settings_gc_9_1));
+ 		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
+@@ -995,12 +996,12 @@ static void gfx_v9_0_init_golden_registers(struct amdgpu_device *adev)
+ 							golden_settings_gc_9_1_rv1,
+ 							ARRAY_SIZE(golden_settings_gc_9_1_rv1));
+ 		break;
+-	 case CHIP_RENOIR:
++	 case IP_VERSION(9, 3, 0):
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_9_1_rn,
+ 						ARRAY_SIZE(golden_settings_gc_9_1_rn));
+ 		return; /* for renoir, don't need common goldensetting */
+-	case CHIP_ALDEBARAN:
++	case IP_VERSION(9, 4, 2):
+ 		gfx_v9_4_2_init_golden_registers(adev,
+ 						 adev->smuio.funcs->get_die_id(adev));
+ 		break;
+@@ -1008,8 +1009,8 @@ static void gfx_v9_0_init_golden_registers(struct amdgpu_device *adev)
+ 		break;
+ 	}
+ 
+-	if ((adev->asic_type != CHIP_ARCTURUS) &&
+-	    (adev->asic_type != CHIP_ALDEBARAN))
++	if ((adev->ip_versions[GC_HWIP] != IP_VERSION(9, 4, 1)) &&
++	    (adev->ip_versions[GC_HWIP] != IP_VERSION(9, 4, 2)))
+ 		soc15_program_register_sequence(adev, golden_settings_gc_9_x_common,
+ 						(const u32)ARRAY_SIZE(golden_settings_gc_9_x_common));
+ }
+@@ -1193,15 +1194,15 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
+ 	adev->gfx.me_fw_write_wait = false;
+ 	adev->gfx.mec_fw_write_wait = false;
+ 
+-	if ((adev->asic_type != CHIP_ARCTURUS) &&
++	if ((adev->ip_versions[GC_HWIP] != IP_VERSION(9, 4, 1)) &&
+ 	    ((adev->gfx.mec_fw_version < 0x000001a5) ||
+ 	    (adev->gfx.mec_feature_version < 46) ||
+ 	    (adev->gfx.pfp_fw_version < 0x000000b7) ||
+ 	    (adev->gfx.pfp_feature_version < 46)))
+ 		DRM_WARN_ONCE("CP firmware version too old, please update!");
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
+ 		if ((adev->gfx.me_fw_version >= 0x0000009c) &&
+ 		    (adev->gfx.me_feature_version >= 42) &&
+ 		    (adev->gfx.pfp_fw_version >=  0x000000b1) &&
+@@ -1212,7 +1213,7 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
+ 		    (adev->gfx.mec_feature_version >= 42))
+ 			adev->gfx.mec_fw_write_wait = true;
+ 		break;
+-	case CHIP_VEGA12:
++	case IP_VERSION(9, 2, 1):
+ 		if ((adev->gfx.me_fw_version >= 0x0000009c) &&
+ 		    (adev->gfx.me_feature_version >= 44) &&
+ 		    (adev->gfx.pfp_fw_version >=  0x000000b2) &&
+@@ -1223,7 +1224,7 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
+ 		    (adev->gfx.mec_feature_version >= 44))
+ 			adev->gfx.mec_fw_write_wait = true;
+ 		break;
+-	case CHIP_VEGA20:
++	case IP_VERSION(9, 4, 0):
+ 		if ((adev->gfx.me_fw_version >= 0x0000009c) &&
+ 		    (adev->gfx.me_feature_version >= 44) &&
+ 		    (adev->gfx.pfp_fw_version >=  0x000000b2) &&
+@@ -1234,7 +1235,8 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
+ 		    (adev->gfx.mec_feature_version >= 44))
+ 			adev->gfx.mec_fw_write_wait = true;
+ 		break;
+-	case CHIP_RAVEN:
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 2, 2):
+ 		if ((adev->gfx.me_fw_version >= 0x0000009c) &&
+ 		    (adev->gfx.me_feature_version >= 42) &&
+ 		    (adev->gfx.pfp_fw_version >=  0x000000b1) &&
+@@ -1299,7 +1301,7 @@ static bool is_raven_kicker(struct amdgpu_device *adev)
+ 
+ static bool check_if_enlarge_doorbell_range(struct amdgpu_device *adev)
+ {
+-	if ((adev->asic_type == CHIP_RENOIR) &&
++	if ((adev->ip_versions[GC_HWIP] == IP_VERSION(9, 3, 0)) &&
+ 	    (adev->gfx.me_fw_version >= 0x000000a5) &&
+ 	    (adev->gfx.me_feature_version >= 52))
+ 		return true;
+@@ -1312,12 +1314,13 @@ static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
+ 	if (gfx_v9_0_should_disable_gfxoff(adev->pdev))
+ 		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
++	case IP_VERSION(9, 2, 1):
++	case IP_VERSION(9, 4, 0):
+ 		break;
+-	case CHIP_RAVEN:
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
+ 		if (!((adev->apu_flags & AMD_APU_IS_RAVEN2) ||
+ 		      (adev->apu_flags & AMD_APU_IS_PICASSO)) &&
+ 		    ((!is_raven_kicker(adev) &&
+@@ -1331,7 +1334,7 @@ static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
+ 				AMD_PG_SUPPORT_CP |
+ 				AMD_PG_SUPPORT_RLC_SMU_HS;
+ 		break;
+-	case CHIP_RENOIR:
++	case IP_VERSION(9, 3, 0):
+ 		if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+ 			adev->pg_flags |= AMD_PG_SUPPORT_GFX_PG |
+ 				AMD_PG_SUPPORT_CP |
+@@ -1555,9 +1558,9 @@ static int gfx_v9_0_init_rlc_microcode(struct amdgpu_device *adev,
+ 
+ static bool gfx_v9_0_load_mec2_fw_bin_support(struct amdgpu_device *adev)
+ {
+-	if (adev->asic_type == CHIP_ALDEBARAN ||
+-	    adev->asic_type == CHIP_ARCTURUS ||
+-	    adev->asic_type == CHIP_RENOIR)
++	if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 2) ||
++	    adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 1) ||
++	    adev->ip_versions[GC_HWIP] == IP_VERSION(9, 3, 0))
+ 		return false;
+ 
+ 	return true;
+@@ -1665,17 +1668,18 @@ static int gfx_v9_0_init_microcode(struct amdgpu_device *adev)
+ 
+ 	DRM_DEBUG("\n");
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
+ 		chip_name = "vega10";
+ 		break;
+-	case CHIP_VEGA12:
++	case IP_VERSION(9, 2, 1):
+ 		chip_name = "vega12";
+ 		break;
+-	case CHIP_VEGA20:
++	case IP_VERSION(9, 4, 0):
+ 		chip_name = "vega20";
+ 		break;
+-	case CHIP_RAVEN:
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
+ 		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
+ 			chip_name = "raven2";
+ 		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
+@@ -1683,16 +1687,16 @@ static int gfx_v9_0_init_microcode(struct amdgpu_device *adev)
+ 		else
+ 			chip_name = "raven";
+ 		break;
+-	case CHIP_ARCTURUS:
++	case IP_VERSION(9, 4, 1):
+ 		chip_name = "arcturus";
+ 		break;
+-	case CHIP_RENOIR:
++	case IP_VERSION(9, 3, 0):
+ 		if (adev->apu_flags & AMD_APU_IS_RENOIR)
+ 			chip_name = "renoir";
+ 		else
+ 			chip_name = "green_sardine";
+ 		break;
+-	case CHIP_ALDEBARAN:
++	case IP_VERSION(9, 4, 2):
+ 		chip_name = "aldebaran";
  		break;
  	default:
+@@ -1796,7 +1800,7 @@ static void gfx_v9_0_init_always_on_cu_mask(struct amdgpu_device *adev)
+ 
+ 	if (adev->flags & AMD_IS_APU)
+ 		always_on_cu_num = 4;
+-	else if (adev->asic_type == CHIP_VEGA12)
++	else if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 2, 1))
+ 		always_on_cu_num = 8;
+ 	else
+ 		always_on_cu_num = 12;
+@@ -1965,11 +1969,12 @@ static int gfx_v9_0_rlc_init(struct amdgpu_device *adev)
+ 			return r;
+ 	}
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_RAVEN:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
+ 		gfx_v9_0_init_lbpw(adev);
+ 		break;
+-	case CHIP_VEGA20:
++	case IP_VERSION(9, 4, 0):
+ 		gfx_v9_4_init_lbpw(adev);
+ 		break;
+ 	default:
+@@ -2144,8 +2149,8 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 
+ 	adev->gfx.funcs = &gfx_v9_0_gfx_funcs;
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+ 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
+@@ -2153,7 +2158,7 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 		adev->gfx.config.sc_earlyz_tile_fifo_size = 0x4C0;
+ 		gb_addr_config = VEGA10_GB_ADDR_CONFIG_GOLDEN;
+ 		break;
+-	case CHIP_VEGA12:
++	case IP_VERSION(9, 2, 1):
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+ 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
+@@ -2162,7 +2167,7 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 		gb_addr_config = VEGA12_GB_ADDR_CONFIG_GOLDEN;
+ 		DRM_INFO("fix gfx.config for vega12\n");
+ 		break;
+-	case CHIP_VEGA20:
++	case IP_VERSION(9, 4, 0):
+ 		adev->gfx.ras_funcs = &gfx_v9_0_ras_funcs;
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+@@ -2177,7 +2182,8 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 		if (err)
+ 			return err;
+ 		break;
+-	case CHIP_RAVEN:
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+ 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
+@@ -2188,7 +2194,7 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 		else
+ 			gb_addr_config = RAVEN_GB_ADDR_CONFIG_GOLDEN;
+ 		break;
+-	case CHIP_ARCTURUS:
++	case IP_VERSION(9, 4, 1):
+ 		adev->gfx.ras_funcs = &gfx_v9_4_ras_funcs;
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+@@ -2199,7 +2205,7 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 		gb_addr_config &= ~0xf3e777ff;
+ 		gb_addr_config |= 0x22014042;
+ 		break;
+-	case CHIP_RENOIR:
++	case IP_VERSION(9, 3, 0):
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+ 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
+@@ -2209,7 +2215,7 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 		gb_addr_config &= ~0xf3e777ff;
+ 		gb_addr_config |= 0x22010042;
+ 		break;
+-	case CHIP_ALDEBARAN:
++	case IP_VERSION(9, 4, 2):
+ 		adev->gfx.ras_funcs = &gfx_v9_4_2_ras_funcs;
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+@@ -2307,14 +2313,15 @@ static int gfx_v9_0_sw_init(void *handle)
+ 	struct amdgpu_kiq *kiq;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
+-	case CHIP_RAVEN:
+-	case CHIP_ARCTURUS:
+-	case CHIP_RENOIR:
+-	case CHIP_ALDEBARAN:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
++	case IP_VERSION(9, 2, 1):
++	case IP_VERSION(9, 4, 0):
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 4, 1):
++	case IP_VERSION(9, 3, 0):
++	case IP_VERSION(9, 4, 2):
+ 		adev->gfx.mec.num_mec = 2;
+ 		break;
+ 	default:
+@@ -2598,8 +2605,8 @@ static void gfx_v9_0_init_sq_config(struct amdgpu_device *adev)
+ {
+ 	uint32_t tmp;
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_ARCTURUS:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 4, 1):
+ 		tmp = RREG32_SOC15(GC, 0, mmSQ_CONFIG);
+ 		tmp = REG_SET_FIELD(tmp, SQ_CONFIG,
+ 					DISABLE_BARRIER_WAITCNT, 1);
+@@ -2934,7 +2941,7 @@ static void gfx_v9_0_init_gfx_power_gating(struct amdgpu_device *adev)
+ 		/* program GRBM_REG_SAVE_GFX_IDLE_THRESHOLD to 0x55f0 */
+ 		data |= (0x55f0 << RLC_AUTO_PG_CTRL__GRBM_REG_SAVE_GFX_IDLE_THRESHOLD__SHIFT);
+ 		WREG32(SOC15_REG_OFFSET(GC, 0, mmRLC_AUTO_PG_CTRL), data);
+-		if (adev->asic_type != CHIP_RENOIR)
++		if (adev->ip_versions[GC_HWIP] != IP_VERSION(9, 3, 0))
+ 			pwr_10_0_gfxip_control_over_cgpg(adev, true);
+ 	}
+ }
+@@ -3046,7 +3053,7 @@ static void gfx_v9_0_init_pg(struct amdgpu_device *adev)
+ 	 * And it's needed by gfxoff feature.
+ 	 */
+ 	if (adev->gfx.rlc.is_rlc_v2_1) {
+-		if (adev->asic_type == CHIP_VEGA12 ||
++		if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 2, 1) ||
+ 		    (adev->apu_flags & AMD_APU_IS_RAVEN2))
+ 			gfx_v9_1_init_rlc_save_restore_list(adev);
+ 		gfx_v9_0_enable_save_restore_machine(adev);
+@@ -3159,14 +3166,15 @@ static int gfx_v9_0_rlc_resume(struct amdgpu_device *adev)
+ 			return r;
+ 	}
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_RAVEN:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
+ 		if (amdgpu_lbpw == 0)
+ 			gfx_v9_0_enable_lbpw(adev, false);
+ 		else
+ 			gfx_v9_0_enable_lbpw(adev, true);
+ 		break;
+-	case CHIP_VEGA20:
++	case IP_VERSION(9, 4, 0):
+ 		if (amdgpu_lbpw > 0)
+ 			gfx_v9_0_enable_lbpw(adev, true);
+ 		else
+@@ -3961,8 +3969,8 @@ static void gfx_v9_0_init_tcp_config(struct amdgpu_device *adev)
+ {
+ 	u32 tmp;
+ 
+-	if (adev->asic_type != CHIP_ARCTURUS &&
+-	    adev->asic_type != CHIP_ALDEBARAN)
++	if (adev->ip_versions[GC_HWIP] != IP_VERSION(9, 4, 1) &&
++	    adev->ip_versions[GC_HWIP] != IP_VERSION(9, 4, 2))
+ 		return;
+ 
+ 	tmp = RREG32_SOC15(GC, 0, mmTCP_ADDR_CONFIG);
+@@ -4002,7 +4010,7 @@ static int gfx_v9_0_hw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	if (adev->asic_type == CHIP_ALDEBARAN)
++	if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 2))
+ 		gfx_v9_4_2_set_power_brake_sequence(adev);
+ 
+ 	return r;
+@@ -4234,7 +4242,7 @@ static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ 
+ 	amdgpu_gfx_off_ctrl(adev, false);
+ 	mutex_lock(&adev->gfx.gpu_clock_mutex);
+-	if (adev->asic_type == CHIP_VEGA10 && amdgpu_sriov_runtime(adev)) {
++	if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 0, 1) && amdgpu_sriov_runtime(adev)) {
+ 		clock = gfx_v9_0_kiq_read_clock(adev);
+ 	} else {
+ 		WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
+@@ -4584,7 +4592,7 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ 	if (!ring->sched.ready)
+ 		return 0;
+ 
+-	if (adev->asic_type == CHIP_ARCTURUS) {
++	if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 1)) {
+ 		vgpr_init_shader_ptr = vgpr_init_compute_shader_arcturus;
+ 		vgpr_init_shader_size = sizeof(vgpr_init_compute_shader_arcturus);
+ 		vgpr_init_regs_ptr = vgpr_init_regs_arcturus;
+@@ -4734,8 +4742,8 @@ static int gfx_v9_0_early_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	if (adev->asic_type == CHIP_ARCTURUS ||
+-	    adev->asic_type == CHIP_ALDEBARAN)
++	if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 1) ||
++	    adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 2))
+ 		adev->gfx.num_gfx_rings = 0;
+ 	else
+ 		adev->gfx.num_gfx_rings = GFX9_NUM_GFX_RINGS;
+@@ -4769,7 +4777,7 @@ static int gfx_v9_0_ecc_late_init(void *handle)
+ 	}
+ 
+ 	/* requires IBs so do in late init after IB pool is initialized */
+-	if (adev->asic_type == CHIP_ALDEBARAN)
++	if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 2))
+ 		r = gfx_v9_4_2_do_edc_gpr_workarounds(adev);
+ 	else
+ 		r = gfx_v9_0_do_edc_gpr_workarounds(adev);
+@@ -4897,7 +4905,7 @@ static void gfx_v9_0_update_medium_grain_clock_gating(struct amdgpu_device *adev
+ 		/* 1 - RLC_CGTT_MGCG_OVERRIDE */
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 
+-		if (adev->asic_type != CHIP_VEGA12)
++		if (adev->ip_versions[GC_HWIP] != IP_VERSION(9, 2, 1))
+ 			data &= ~RLC_CGTT_MGCG_OVERRIDE__CPF_CGTT_SCLK_OVERRIDE_MASK;
+ 
+ 		data &= ~(RLC_CGTT_MGCG_OVERRIDE__GRBM_CGTT_SCLK_OVERRIDE_MASK |
+@@ -4931,7 +4939,7 @@ static void gfx_v9_0_update_medium_grain_clock_gating(struct amdgpu_device *adev
+ 		/* 1 - MGCG_OVERRIDE */
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 
+-		if (adev->asic_type != CHIP_VEGA12)
++		if (adev->ip_versions[GC_HWIP] != IP_VERSION(9, 2, 1))
+ 			data |= RLC_CGTT_MGCG_OVERRIDE__CPF_CGTT_SCLK_OVERRIDE_MASK;
+ 
+ 		data |= (RLC_CGTT_MGCG_OVERRIDE__RLC_CGTT_SCLK_OVERRIDE_MASK |
+@@ -5037,7 +5045,7 @@ static void gfx_v9_0_update_coarse_grain_clock_gating(struct amdgpu_device *adev
+ 		/* enable cgcg FSM(0x0000363F) */
+ 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL);
+ 
+-		if (adev->asic_type == CHIP_ARCTURUS)
++		if (adev->ip_versions[GC_HWIP] == IP_VERSION(9, 4, 1))
+ 			data = (0x2000 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+ 				RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
+ 		else
+@@ -5163,9 +5171,10 @@ static int gfx_v9_0_set_powergating_state(void *handle,
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	bool enable = (state == AMD_PG_STATE_GATE);
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_RAVEN:
+-	case CHIP_RENOIR:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 3, 0):
+ 		if (!enable)
+ 			amdgpu_gfx_off_ctrl(adev, false);
+ 
+@@ -5191,7 +5200,7 @@ static int gfx_v9_0_set_powergating_state(void *handle,
+ 		if (enable)
+ 			amdgpu_gfx_off_ctrl(adev, true);
+ 		break;
+-	case CHIP_VEGA12:
++	case IP_VERSION(9, 2, 1):
+ 		amdgpu_gfx_off_ctrl(adev, enable);
+ 		break;
+ 	default:
+@@ -5209,14 +5218,15 @@ static int gfx_v9_0_set_clockgating_state(void *handle,
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
+-	case CHIP_RAVEN:
+-	case CHIP_ARCTURUS:
+-	case CHIP_RENOIR:
+-	case CHIP_ALDEBARAN:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
++	case IP_VERSION(9, 2, 1):
++	case IP_VERSION(9, 4, 0):
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 4, 1):
++	case IP_VERSION(9, 3, 0):
++	case IP_VERSION(9, 4, 2):
+ 		gfx_v9_0_update_gfx_clock_gating(adev,
+ 						 state == AMD_CG_STATE_GATE);
+ 		break;
+@@ -5258,7 +5268,7 @@ static void gfx_v9_0_get_clockgating_state(void *handle, u32 *flags)
+ 	if (data & CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK)
+ 		*flags |= AMD_CG_SUPPORT_GFX_CP_LS | AMD_CG_SUPPORT_GFX_MGLS;
+ 
+-	if (adev->asic_type != CHIP_ARCTURUS) {
++	if (adev->ip_versions[GC_HWIP] != IP_VERSION(9, 4, 1)) {
+ 		/* AMD_CG_SUPPORT_GFX_3D_CGCG */
+ 		data = RREG32_KIQ(SOC15_REG_OFFSET(GC, 0, mmRLC_CGCG_CGLS_CTRL_3D));
+ 		if (data & RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK)
+@@ -7029,14 +7039,15 @@ static void gfx_v9_0_set_irq_funcs(struct amdgpu_device *adev)
+ 
+ static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device *adev)
+ {
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
+-	case CHIP_RAVEN:
+-	case CHIP_ARCTURUS:
+-	case CHIP_RENOIR:
+-	case CHIP_ALDEBARAN:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
++	case IP_VERSION(9, 2, 1):
++	case IP_VERSION(9, 4, 0):
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 4, 1):
++	case IP_VERSION(9, 3, 0):
++	case IP_VERSION(9, 4, 2):
+ 		adev->gfx.rlc.funcs = &gfx_v9_0_rlc_funcs;
+ 		break;
+ 	default:
+@@ -7047,17 +7058,18 @@ static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device *adev)
+ static void gfx_v9_0_set_gds_init(struct amdgpu_device *adev)
+ {
+ 	/* init asci gds info */
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
++	case IP_VERSION(9, 2, 1):
++	case IP_VERSION(9, 4, 0):
+ 		adev->gds.gds_size = 0x10000;
+ 		break;
+-	case CHIP_RAVEN:
+-	case CHIP_ARCTURUS:
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 4, 1):
+ 		adev->gds.gds_size = 0x1000;
+ 		break;
+-	case CHIP_ALDEBARAN:
++	case IP_VERSION(9, 4, 2):
+ 		/* aldebaran removed all the GDS internal memory,
+ 		 * only support GWS opcode in kernel, like barrier
+ 		 * semaphore.etc */
+@@ -7068,24 +7080,25 @@ static void gfx_v9_0_set_gds_init(struct amdgpu_device *adev)
+ 		break;
+ 	}
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA20:
++	switch (adev->ip_versions[GC_HWIP]) {
++	case IP_VERSION(9, 0, 1):
++	case IP_VERSION(9, 4, 0):
+ 		adev->gds.gds_compute_max_wave_id = 0x7ff;
+ 		break;
+-	case CHIP_VEGA12:
++	case IP_VERSION(9, 2, 1):
+ 		adev->gds.gds_compute_max_wave_id = 0x27f;
+ 		break;
+-	case CHIP_RAVEN:
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 1, 0):
+ 		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
+ 			adev->gds.gds_compute_max_wave_id = 0x77; /* raven2 */
+ 		else
+ 			adev->gds.gds_compute_max_wave_id = 0x15f; /* raven1 */
+ 		break;
+-	case CHIP_ARCTURUS:
++	case IP_VERSION(9, 4, 1):
+ 		adev->gds.gds_compute_max_wave_id = 0xfff;
+ 		break;
+-	case CHIP_ALDEBARAN:
++	case IP_VERSION(9, 4, 2):
+ 		/* deprecated for Aldebaran, no usage at all */
+ 		adev->gds.gds_compute_max_wave_id = 0;
+ 		break;
 -- 
 2.31.1
 
