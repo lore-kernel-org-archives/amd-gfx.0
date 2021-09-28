@@ -1,67 +1,52 @@
-Return-Path: <SRS0=K0ja=OR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 854F7C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 21:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6744C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 00:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38C3460EE2
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Sep 2021 21:37:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 38C3460EE2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1937861052
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 00:57:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1937861052
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=hnu.edu.cn
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB506E864;
-	Mon, 27 Sep 2021 21:37:16 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F546E872
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 21:37:15 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- q26-20020a4adc5a000000b002918a69c8eeso6479374oov.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 14:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=p7rMBu1JVmjcHzDG68/56/VZDdc1BL1xwLYd7kqXCKA=;
- b=L2pQv7La1QrykFZoLb7xXjQKdzdOEnpNy6eyvvOL+qQUEKi97tfwh4iPlcRylbH8eZ
- RKAeV8I9mXFHZV3WufL7ZtnASWWxPmUPPphxFAUssV5VTwtnHkimO+utmqSazr9WRF8N
- yhA54BbYsUi8DCVX6tZc7JvJhVkkVU8CQETlCuJKySZLgQqmBIpKqu52+Z7yfbzFe3fD
- fMYKFsfdbGnSS4MijAWypCUYst8XhnrhorVxuteBVo+0acDMQHMrkALC0EMPXKdTlwuR
- FuqLktJ4/X6qQ7uyks81VoDSqU/oDvqE4qY3LjFN8VE6fvkGZDCwr/sredQKJtQjuqPC
- MLsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=p7rMBu1JVmjcHzDG68/56/VZDdc1BL1xwLYd7kqXCKA=;
- b=Y5qF3GUp6I2RMhYJOV9QwuYDE203s0hd847F1j91xP0/g3E54hFtHz/Psomo9AT2v+
- Ww9ZybF32VhsTMIAC+pZrlpdm2es5zw+xnVG4/MSV9EwroZv7BCjmIVcT25ItupQkx3O
- DYNe+hS0/TS8exXpfkqaZkIeWu++CE9r6Fal83ff9ny1GauTH1uAxWay5tFYuKAjshuM
- iup3vzMcRcTUlVdf7vWsWcm+wPiLCQun8TeClJZ+Pny6Ovuow5B8x9aIhAKiaQ7kEkaE
- clZSWPqNzdObLzigObseJ6hB0GntJyeh0FfB0rMjGTzdimOH1uDzd+R1D8nsXvwtFoTO
- W3JQ==
-X-Gm-Message-State: AOAM531tUZN2vLFDTX7/CzN9WEZ2noqsN5D2RqncVYcNY2c/rYLZfWMz
- cZNLDyYYz+r8aj/qj7ax/feEMTJ52yp3aP1m90KMyHNMWek=
-X-Google-Smtp-Source: ABdhPJyiDyPYBK8RPa5xjmbnY7KMNf3vcdNWumr5YNZneQe0CUF4/E24GBU+yjJbm9ayeJM9rsc+aAt3dd/tRpZBlDk=
-X-Received: by 2002:a4a:a6c6:: with SMTP id i6mr1766229oom.73.1632778635042;
- Mon, 27 Sep 2021 14:37:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A27F889D83;
+	Tue, 28 Sep 2021 00:57:56 +0000 (UTC)
+X-Greylist: delayed 428 seconds by postgrey-1.36 at gabe;
+ Tue, 28 Sep 2021 00:57:54 UTC
+Received: from qq.com (smtpbg477.qq.com [59.36.132.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1BCF89D83
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 00:57:54 +0000 (UTC)
+X-QQ-mid: bizesmtp46t1632790195tw1jgkm7
+Received: from localhost.lan (unknown [58.20.74.166])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Tue, 28 Sep 2021 08:49:54 +0800 (CST)
+X-QQ-SSF: 0140000000800080Z000000B0000000
+X-QQ-FEAT: nnjWNCC3Pd2b6FQi5COo3XVZw8NRIvie/GWZqwA4gZn0/ccedwScm2HEILv7B
+ yHdlwcNG/8S193gJ365NO9ENNG4kJi7ZuYZ7nv3rCe3CGMw2+P5MaLoqlQfvqZ9Pxa3Aigf
+ 9nbNqyfPL31DEm0/e6hVuzK6RUcrokjnKGpauzMxIx7Apo6auLHcWl4+fLPDkz5GYTtyRwO
+ QhR8ceeAPgQ5PBiZnGgCBr9jzdNgA+833bBT9XwfLnHSYTWHNy5yu4xhcRAeWkS0wZqFBFo
+ oi/KTkyEqaS8mRvKd1m+jwzDkU22VJUSh5Cghrxl8Pb989b0wD99wIWZElCntysLykiErZQ
+ NKv3JrS0omvtk2Vq6exi4QH9onVQg==
+X-QQ-GoodBg: 2
+From: huangyizhi <huangyizhi@hnu.edu.cn>
+To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ lee.jones@linaro.org, lijo.lazar@amd.com
+Cc: amd-gfx@lists.freedesktop.org,
+	huangyizhi <huangyizhi@hnu.edu.cn>
+Subject: [PATCH] drm/amd/pm: Fix that RPM cannot be obtained for specific GPU
+Date: Tue, 28 Sep 2021 08:49:41 +0800
+Message-Id: <20210928004941.6978-1-huangyizhi@hnu.edu.cn>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-References: <CH0PR12MB520112519F74BF4E6F2A9FAE9EA79@CH0PR12MB5201.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB520112519F74BF4E6F2A9FAE9EA79@CH0PR12MB5201.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Sep 2021 17:37:04 -0400
-Message-ID: <CADnq5_Nkc53ws2Z5YM+Ges+Jgg9QfrLt9oMJbjy8_EJVC9PaOg@mail.gmail.com>
-Subject: Re: [PATCH 02/02 v2] drm/amd/display: add cyan_skillfish display
- support
-To: "Liu, Zhan" <Zhan.Liu@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
- Charlene" <Charlene.Liu@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, 
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:hnu.edu.cn:qybgforeign:qybgforeign1
+X-QQ-Bgrelay: 1
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,39 +61,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 27, 2021 at 5:16 PM Liu, Zhan <Zhan.Liu@amd.com> wrote:
->
-> [Public]
->
-> [Why]
-> add display related cyan_skillfish files in.
->
-> makefile controlled by CONFIG_DRM_AMD_DC_DCN201 flag.
->
-> Signed-off-by: Charlene Liu <charlene.liu@amd.com>
-> Signed-off-by: Zhan Liu <zhan.liu@amd.com>
-> Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-> Acked-by: Jun Lei <jun.lei@amd.com>
-> ---
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 1d6cc93..0c669e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1968,6 +1968,9 @@
->         case CHIP_VANGOGH:
->                 chip_name = "vangogh";
->                 break;
-> +       case CHIP_CYAN_SKILLFISH:
-> +               chip_name = "cyan_skillfish";
-> +               break;
->         case CHIP_YELLOW_CARP:
->                 chip_name = "yellow_carp";
->                 break;
+The current mechanism for obtaining RPM is to read tach_period from
+the register, and then calculate the RPM together with the frequency.
+But we found that on specific GPUs, such as RX 550 and RX 560D,
+tach_period always reads as 0 and smu7_fan_ctrl_get_fan_speed_rpm
+will returns -EINVAL.
 
-Sorry I missed this before.  This change is unnecessary.  there is no
-gpu_info firmware for cyan skillfish.  Please drop this hunk.  With
-that fixed:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+To solve this problem, when reading tach_period as 0, we try
+to estimate the current RPM using the percentage of current pwm, the
+maximum and minimum RPM.
 
-Alex
+Signed-off-by: huangyizhi <huangyizhi@hnu.edu.cn>
+---
+ .../drm/amd/pm/powerplay/hwmgr/smu7_thermal.c | 28 ++++++++++++++++---
+ 1 file changed, 24 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+index a6c3610db23e..307dd87d6882 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+@@ -81,6 +81,11 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr *hwmgr, uint32_t *speed)
+ {
+ 	uint32_t tach_period;
+ 	uint32_t crystal_clock_freq;
++	uint32_t duty100;
++	uint32_t duty;
++	uint32_t speed_percent;
++	uint64_t tmp64;
++
+ 
+ 	if (hwmgr->thermal_controller.fanInfo.bNoFan ||
+ 	    !hwmgr->thermal_controller.fanInfo.ucTachometerPulsesPerRevolution)
+@@ -89,13 +94,28 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr *hwmgr, uint32_t *speed)
+ 	tach_period = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
+ 			CG_TACH_STATUS, TACH_PERIOD);
+ 
+-	if (tach_period == 0)
+-		return -EINVAL;
++	if (tach_period == 0) {
+ 
+-	crystal_clock_freq = amdgpu_asic_get_xclk((struct amdgpu_device *)hwmgr->adev);
++		duty100 = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
++				CG_FDO_CTRL1, FMAX_DUTY100);
++		duty = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
++				CG_THERMAL_STATUS, FDO_PWM_DUTY);
+ 
+-	*speed = 60 * crystal_clock_freq * 10000 / tach_period;
++		if (duty100 == 0)
++			return -EINVAL;
+ 
++		tmp64 = (uint64_t)duty * 100;
++		do_div(tmp64, duty100);
++		speed_percent = MIN((uint32_t)tmp64, 100);
++
++		*speed = speed_percent * (hwmgr->thermal_controller.fanInfo.ulMaxRPM
++			- hwmgr->thermal_controller.fanInfo.ulMinRPM) / 100;
++	} else {
++
++		crystal_clock_freq = amdgpu_asic_get_xclk((struct amdgpu_device *)hwmgr->adev);
++
++		*speed = 60 * crystal_clock_freq * 10000 / tach_period;
++	}
+ 	return 0;
+ }
+ 
+-- 
+2.30.0
+
+
+
