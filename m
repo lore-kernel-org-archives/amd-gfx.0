@@ -2,104 +2,111 @@ Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55C69C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 16:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D6A4C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 17:08:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19A716101E
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 16:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 19A716101E
+	by mail.kernel.org (Postfix) with ESMTPS id 64767611BD
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 17:08:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 64767611BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC6C6E8F1;
-	Tue, 28 Sep 2021 16:46:53 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0BD56E8F0
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 16:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 844886E8F0;
+	Tue, 28 Sep 2021 17:08:48 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA90D89E7C;
+ Tue, 28 Sep 2021 17:08:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aIath6r2iofnVdQr4JNnXV4WjHSQYqe0WwDygxRBcg6aFeCPR0y81KORDbyrdzsqgteKRRaya+OpbLaV4V7mXH2qu2nxHPnL9wN3FvARmqU+nfqaYUtOOoxhjT7ZGu23wLNKgfzOItDaS9ZAkm2YzmWW6g+mweOt/ABl+dpetmPZdgqcRQXsiHKCrLhFCDqgt6SCLFVAkyv5gkBI+fmWzx01CmsQRpWH1V3vpyVrMEHCh9OxonLJUnwKk4BTUNt+6k9XNm0vNXsuxjqTgUpigX+Wk2RMiM8ttdl7IVVHqHT1S9sShv9kCfFsUJPkLqvNynWce5WGVAenClGR+gouEA==
+ b=RTBUZdDHqrpgELogUzk5r/ycPW5vImpb0KgTN5UJ1kvSjPi7Zi5X7urYUMfxfVCxPtSTf90kBZj4nb7y58sm4srpWX75owHZcyzlK9484NTSlUaJITupeLkSBBqVOopZ1amPVIlyWZJ6R0wDREzxX7HnzvVrz3R3X3GzxQ4ZrrrvqYGCl3Ni6g5sN5ww6ws4aVwjIwRdpywlIMk4k9H7gsgkeSGvDj/nbqtsVRX+NEpwhxZv7D7KnfZLTa1xID3CjOf52uFTQt+lvQgKTszrewtcCb6/T6NzMuV4AhvumCtl0/aUS9U/KPcAUSzcVsgONg8xu9Ih1xsCVo6dBUe8rw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=h4v/+oVFDwWjpMC1U/iGSms5q3Risvmxm2hdfPH+VHI=;
- b=gFO2cMGJmtZe41mmwgTnnDFWvHMhslqUQWNy/+vvxvn8++e02v/QEIMtSokAE+VJBXo/tRB4RKkT0EaUg8wFKp+g45g0VaI7lkH+lTQwfIPpCyqUYFysBOq7IVePnP2Bz2lCs+SY3pAownBGzjLEimefU1gygPuPhmRL2Vu3l8YaSfvMB0anq7XKKIKTT9jY+wbkIOUBparR2W0Lp2+j6SzWneuc6T08s19d3NTz9UAHTKPHh/j+IMuY2+VcQ3XNUFmvOoWPayNiMBYOj57Ud4PZzrZdT2rSLqRbR0ArZ/i98W6PL+qogth+2D3rGGULKAcOT6S95c0g/eCIUmVGUA==
+ bh=BAiIH5O8RK9hSo6r/5vJeZkVh9JEMy+pTgxQmfncCWw=;
+ b=BMpLFvGgei4YxJ18FxA9HwDlsiuk4T1J/uPrFQ64nY2GggJlCDzz/w/tHMskZ2Z3UpvL6gnqPIqKVbx/v8C9l7WFpnj5tEkWv01UZqTVYYsRXa7AXFoYvzadiToY4v/4B32q6gS5tC/yPjJAm9ypfFhmdaGryldVbWKhSkMTO69PgQ5lk3JbxUaDMk1MI7msECZ+f9a1GULWprrNhMy44jmrOMeqhAaQXFc8uR19sUREkOif3LuQfbpEUWoShbeFXUovlkIJjkdi3Xu1u9UwZrlsJc0fnrcYtRPu8VlsIXWppde1tF8xypnxLXBgtf8WSZbQoxHs6VacmOfDLeG9wQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h4v/+oVFDwWjpMC1U/iGSms5q3Risvmxm2hdfPH+VHI=;
- b=ggIYCNSwkhuUT+OIZE9xXNL6ikHrTagbv2Ths7SgEfCFFPdID+/P93P1af/fXFoaeJpqN1rBgndz5bxGMWKP2NPot4L/C2nysvm2ZC+ffzpc8pAURaICEjPo+mtm3Pt5o83yvbb9i5c64OfqZNzBFtjDXS1M44Q99YuPzdtWWMU=
-Received: from DM5PR07CA0127.namprd07.prod.outlook.com (2603:10b6:3:13e::17)
- by BY5PR12MB4084.namprd12.prod.outlook.com (2603:10b6:a03:205::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Tue, 28 Sep
- 2021 16:46:50 +0000
-Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:13e:cafe::e) by DM5PR07CA0127.outlook.office365.com
- (2603:10b6:3:13e::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14 via Frontend
- Transport; Tue, 28 Sep 2021 16:46:50 +0000
+ bh=BAiIH5O8RK9hSo6r/5vJeZkVh9JEMy+pTgxQmfncCWw=;
+ b=AAD540yfsqIiCfz1fzZQc5ivG4gtP3E2FqkX7IDUPT1f0JrOKutTfX+S5XPmxFfY5RAmcKskraCcwfHTxBHL7fjZRy8550MBsM4abWqRFdOR3eCS5LJrSKejcVvkkesrxnyOEUn5e3ROCtfMsuab/h1CU4m4nlAssIIJ4gRTkT0=
+Received: from MWHPR1701CA0009.namprd17.prod.outlook.com
+ (2603:10b6:301:14::19) by MN2PR12MB3375.namprd12.prod.outlook.com
+ (2603:10b6:208:cc::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Tue, 28 Sep
+ 2021 17:08:44 +0000
+Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:14:cafe::a1) by MWHPR1701CA0009.outlook.office365.com
+ (2603:10b6:301:14::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.13 via Frontend
+ Transport; Tue, 28 Sep 2021 17:08:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4544.13 via Frontend Transport; Tue, 28 Sep 2021 16:46:49 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4544.13 via Frontend Transport; Tue, 28 Sep 2021 17:08:43 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 28 Sep
- 2021 11:46:45 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH 64/64] drm/amdgpu: add an option to override IP discovery
- table from a file
-Date: Tue, 28 Sep 2021 12:42:37 -0400
-Message-ID: <20210928164237.833132-65-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210928164237.833132-1-alexander.deucher@amd.com>
-References: <20210928164237.833132-1-alexander.deucher@amd.com>
+ 2021 12:08:41 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 28 Sep
+ 2021 10:08:41 -0700
+Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
+ Transport; Tue, 28 Sep 2021 12:08:32 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <jerry.zuo@amd.com>
+CC: <jani.nikula@intel.com>, <Sunpeng.Li@amd.com>, <nathan@kernel.org>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <ville.syrjala@linux.intel.com>, <manasi.d.navare@intel.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <sfr@canb.auug.org.au>,
+ <linux-next@vger.kernel.org>, <airlied@gmail.com>, <daniel.vetter@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH v2] drm/amd/display: Only define DP 2.0 symbols if not already
+ defined
+Date: Tue, 28 Sep 2021 13:08:28 -0400
+Message-ID: <20210928170828.26452-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d2f54055-c952-4836-c976-08d9829f9144
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4084:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB408462FE8F299B4703D3F2B5F7A89@BY5PR12MB4084.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: ea7f2e8c-76bc-4de3-1f4d-08d982a2a067
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3375:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB33750DCE42CDE4053A5339A58CA89@MN2PR12MB3375.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cockLi4VkqlphSWAmN8R5Es/rCoAKPdCxjIj7PXotkBHvFPE0dMP5WTBTVymejQDyynMWUe0GpVvz1Si/u+KObjjHfIbCi4q2f3P4bkLQh+MgmcBS1ooRJBqbLDBXobifpMfvFSBzcjIFWd12bYA/Pz0b0DE6++kp/B1w8tEtV2nR76MmIZrtsnfTTNWYxDEO6GUA1XP8LPop6RNTcp1a9nd68Aq00XhOL076QXsZn4ki69/TA7ckYlndOmkiLvL5s+tEDT4Gq1qYGs7SWGb8wVq2K1np+xVg466h18FRRWChfbozlWZ66PNjVAl5jDers71CSuHQ49Poc4ffXcAC+gYMnLLBc8m8P3Q5s7qNmI5l848mFgKpDk+2UrX3bC+4dOwjQS8Fr526fpJDLwDBhGFCKYXcCM3zy4yklAs3v3hzIAiQnBLXJcZQc4dH9574gFmLIysj4wgUeGVWKj0lGFE9nWoqcZYBQOIFOpKhx34D6uxR0rI0JPiUE3h9c0ayJEiy7n4nEhI5mm3PwXovLbJZ0FUN8uRFmIL6OUu8jHyyLbckMQ9CkoeMRG7tfIfADoi+DGz2g/O4DecfEk0KyoGSpust6VSx05Z8Gz3vvxeAylAn3wJkTp6TGhMcPF8mY8GKVabAgqIwxz3rBeSEspZMtGSyBDd+jdMg5r6bTikUHbXZpRF6giQghitGeVTkl/zIhKyNJPvw3tH3trkOfoFy9N5InUHBObXjYzhfQA=
+X-Microsoft-Antispam-Message-Info: eMzRp0r1tpRdZhJnKUj7PwkJH/3hf16xVRmtU5Hbv6dyRA8tPSxsbstKar4iM5F4UQkhi3kaHVsrhcvIOVrHPUkgCq7IzJ5U1BXYdrtzKzW+qxlccP9//0bjco7/BsVE3FAQa1jOOgFeOrtqnUFah8jMiNvxKFAx59ToMePE4ReebtskE7NRJYICJrLf46RNhX0i4M/rJ8doJy4UhQtG/yXSXwhnwgI2icIf+D6hycSHQems2ix8aJ2YflGITUOF6bvRT/sicWbYmu+HF/MtBvooOmYsGJVtPnVvbrT276bD2rxGXmkuzhx6t1voQPdKHWA2SUkWOjqsjMHUddCYf1tRUoQUu99fpnZeZAcFC5csCBisc/ZGahGjDbH1xd45tzsq0hl/DKv94oDMngGRckiM2x7nYLd3//uvGKISeYWxb6Lylok5oVc1catP95l2rrY8aWPwTDkOHvXwOvwAkbAjbeq554Tm19MKA3Su/HOKceBm4tigkFYIlqfTxAMDJxSem8yMNK05dJlQPL4yYRNSYerohXy1oIRzdPfu9u+1x3DHb6IK3YGzc48BR/a/3Em2DjIv8tsexfLOM4whFPLq7SAM2nK85wTIv3x5k8qfpQOymnqUjNVglYsDyUIuboePD+EbQycfQPahJ9IL4Eaob8LXh550wtYFhUo4EK/+2fBojpEdpRDuRmSneQxlqQ73fAw4xzjdUB4NnHz6rNvTz1QTo8Pi/TAHa9q/wv1r3M6PV4Bq6UHnFyMQetbv
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(81166007)(70586007)(70206006)(316002)(54906003)(6666004)(26005)(2906002)(4326008)(7696005)(83380400001)(86362001)(36860700001)(16526019)(508600001)(2616005)(6916009)(186003)(1076003)(356005)(8676002)(8936002)(5660300002)(82310400003)(36756003)(426003)(336012)(47076005)(66574015)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(1076003)(81166007)(426003)(186003)(6636002)(508600001)(83380400001)(86362001)(36860700001)(7696005)(336012)(2616005)(36756003)(47076005)(2906002)(4326008)(82310400003)(5660300002)(44832011)(7416002)(316002)(110136005)(70586007)(356005)(54906003)(6666004)(26005)(70206006)(8676002)(8936002)(2101003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2021 16:46:49.7441 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2f54055-c952-4836-c976-08d9829f9144
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2021 17:08:43.5512 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea7f2e8c-76bc-4de3-1f4d-08d982a2a067
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4084
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3375
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,87 +121,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If you set amdgpu.discovery=2 you can force the the driver to
-fetch the IP discovery table from a file rather than from the
-table shipped on the device.  This is useful for debugging and
-for device bring up and emulation when the tables may be in flux.
+[Why]
+For some reason we're defining DP 2.0 definitions inside our
+driver. Now that patches to introduce relevant definitions
+are slated to be merged into drm-next this is causing conflicts.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:33:
+In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:70:
+In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_mode.h:36:
+./include/drm/drm_dp_helper.h:1322:9: error: 'DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER' macro redefined [-Werror,-Wmacro-redefined]
+        ^
+./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dp_types.h:881:9: note: previous definition is here
+        ^
+1 error generated.
+
+v2: Add one missing endif
+
+[How]
+Guard all display driver defines with #ifndef for now. Once we pull
+in the new definitions into amd-staging-drm-next we will follow
+up and drop definitions from our driver and provide follow-up
+header updates for any addition DP 2.0 definitions required
+by our driver.
+
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 24 +++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  2 +-
- 2 files changed, 21 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h | 54 ++++++++++++++++++--
+ 1 file changed, 49 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 091ded38545f..291a47f7992a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -21,6 +21,8 @@
-  *
-  */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index a5e798b5da79..9de86ff5ef1b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -860,28 +860,72 @@ struct psr_caps {
+ };
  
-+#include <linux/firmware.h>
-+
- #include "amdgpu.h"
- #include "amdgpu_discovery.h"
- #include "soc15_hw_ip.h"
-@@ -67,6 +69,8 @@
- #include "smuio_v11_0_6.h"
- #include "smuio_v13_0.h"
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
++#ifndef DP_MAIN_LINK_CHANNEL_CODING_CAP
+ #define DP_MAIN_LINK_CHANNEL_CODING_CAP			0x006
++#endif
++#ifndef DP_SINK_VIDEO_FALLBACK_FORMATS
+ #define DP_SINK_VIDEO_FALLBACK_FORMATS			0x020
++#endif
++#ifndef DP_FEC_CAPABILITY_1
+ #define DP_FEC_CAPABILITY_1				0x091
++#endif
++#ifndef DP_DFP_CAPABILITY_EXTENSION_SUPPORT
+ #define DP_DFP_CAPABILITY_EXTENSION_SUPPORT		0x0A3
++#endif
++#ifndef DP_DSC_CONFIGURATION
+ #define DP_DSC_CONFIGURATION				0x161
++#endif
++#ifndef DP_PHY_SQUARE_PATTERN
+ #define DP_PHY_SQUARE_PATTERN				0x249
++#endif
++#ifndef DP_128b_132b_SUPPORTED_LINK_RATES
+ #define DP_128b_132b_SUPPORTED_LINK_RATES		0x2215
++#endif
++#ifndef DP_128b_132b_TRAINING_AUX_RD_INTERVAL
+ #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL		0x2216
++#endif
++#ifndef DP_TEST_264BIT_CUSTOM_PATTERN_7_0
+ #define DP_TEST_264BIT_CUSTOM_PATTERN_7_0		0X2230
++#endif
++#ifndef DP_TEST_264BIT_CUSTOM_PATTERN_263_256
+ #define DP_TEST_264BIT_CUSTOM_PATTERN_263_256		0X2250
++#endif
++#ifndef DP_DSC_SUPPORT_AND_DECODER_COUNT
+ #define DP_DSC_SUPPORT_AND_DECODER_COUNT		0x2260
++#endif
++#ifndef DP_DSC_MAX_SLICE_COUNT_AND_AGGREGATION_0
+ #define DP_DSC_MAX_SLICE_COUNT_AND_AGGREGATION_0	0x2270
+-# define DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK	(1 << 0)
+-# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK	(0b111 << 1)
+-# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT	1
+-# define DP_DSC_DECODER_COUNT_MASK			(0b111 << 5)
+-# define DP_DSC_DECODER_COUNT_SHIFT			5
++#endif
++#ifndef DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK
++#define DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK	(1 << 0)
++#endif
++#ifndef DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK
++#define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK	(0b111 << 1)
++#endif
++#ifndef DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT
++#define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT	1
++#endif
++#ifndef DP_DSC_DECODER_COUNT_MASK
++#define DP_DSC_DECODER_COUNT_MASK			(0b111 << 5)
++#endif
++#ifndef DP_DSC_DECODER_COUNT_SHIFT
++#define DP_DSC_DECODER_COUNT_SHIFT			5
++#endif
++#ifndef DP_MAIN_LINK_CHANNEL_CODING_SET
+ #define DP_MAIN_LINK_CHANNEL_CODING_SET			0x108
++#endif
++#ifndef DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER
+ #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	0xF0006
++#endif
++#ifndef DP_PHY_REPEATER_128b_132b_RATES
+ #define DP_PHY_REPEATER_128b_132b_RATES			0xF0007
++#endif
++#ifndef DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1
+ #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1	0xF0022
++#endif
++#ifndef DP_INTRA_HOP_AUX_REPLY_INDICATION
+ #define DP_INTRA_HOP_AUX_REPLY_INDICATION		(1 << 3)
++#endif
+ /* TODO - Use DRM header to replace above once available */
  
-+MODULE_FIRMWARE("amdgpu/ip_discovery.bin");
-+
- #define mmRCC_CONFIG_MEMSIZE	0xde3
- #define mmMM_INDEX		0x0
- #define mmMM_INDEX_HI		0x6
-@@ -206,6 +210,7 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
- 	struct binary_header *bhdr;
- 	struct ip_discovery_header *ihdr;
- 	struct gpu_info_header *ghdr;
-+	const struct firmware *fw;
- 	uint16_t offset;
- 	uint16_t size;
- 	uint16_t checksum;
-@@ -216,10 +221,21 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
- 	if (!adev->mman.discovery_bin)
- 		return -ENOMEM;
- 
--	r = amdgpu_discovery_read_binary(adev, adev->mman.discovery_bin);
--	if (r) {
--		DRM_ERROR("failed to read ip discovery binary\n");
--		goto out;
-+	if (amdgpu_discovery == 2) {
-+		r = request_firmware(&fw, "amdgpu/ip_discovery.bin", adev->dev);
-+		if (r)
-+			goto get_from_vram;
-+		dev_info(adev->dev, "Using IP discovery from file\n");
-+		memcpy((u8 *)adev->mman.discovery_bin, (u8 *)fw->data,
-+		       adev->mman.discovery_tmr_size);
-+		release_firmware(fw);
-+	} else {
-+get_from_vram:
-+		r = amdgpu_discovery_read_binary(adev, adev->mman.discovery_bin);
-+		if (r) {
-+			DRM_ERROR("failed to read ip discovery binary\n");
-+			goto out;
-+		}
- 	}
- 
- 	bhdr = (struct binary_header *)adev->mman.discovery_bin;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 670b09fb5d34..439b27c802bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -628,7 +628,7 @@ module_param_named(mcbp, amdgpu_mcbp, int, 0444);
- /**
-  * DOC: discovery (int)
-  * Allow driver to discover hardware IP information from IP Discovery table at the top of VRAM.
-- * (-1 = auto (default), 0 = disabled, 1 = enabled)
-+ * (-1 = auto (default), 0 = disabled, 1 = enabled, 2 = use ip_discovery table from file)
-  */
- MODULE_PARM_DESC(discovery,
- 	"Allow driver to discover hardware IPs from IP Discovery table at the top of VRAM");
+ union dp_main_line_channel_coding_cap {
 -- 
-2.31.1
+2.33.0
 
