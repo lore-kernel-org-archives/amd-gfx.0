@@ -2,49 +2,41 @@ Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8253DC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 19:30:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C197C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 19:30:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5042361139
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 19:30:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5042361139
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id 0A1276127C
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 19:30:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0A1276127C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7D086E961;
-	Tue, 28 Sep 2021 19:30:31 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A82B76E947;
- Tue, 28 Sep 2021 19:10:21 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f13b20078349fd04295260b.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f13:b200:7834:9fd0:4295:260b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1CB931EC06D9;
- Tue, 28 Sep 2021 21:10:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1632856219;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ezqIhy/GzEctU/BzXXa8nRx9BM/oenaY5A3bWVYyogc=;
- b=L15WdFBZiGsmF9pfPIN2c5ZAgIU4PtH28ptrgSgBhWpm+4j822yrxCFG5g1HkliRhUi5uF
- CRYVq82aPiFD57CtKa57/vA4L1iRWeGtkZ/r3TuxAhU5th8F6Q2wEbSDYpjVyB2e++vhJZ
- NSdeH98yXiBNfY80fDZLfpkLkYe+4+I=
-From: Borislav Petkov <bp@alien8.de>
-To: LKML <linux-kernel@vger.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 584F56E96A;
+	Tue, 28 Sep 2021 19:30:32 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C75EC6E964;
+ Tue, 28 Sep 2021 19:19:53 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10121"; a="247303090"
+X-IronPort-AV: E=Sophos;i="5.85,330,1624345200"; d="scan'208";a="247303090"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 12:19:53 -0700
+X-IronPort-AV: E=Sophos;i="5.85,330,1624345200"; d="scan'208";a="554270019"
+Received: from oogunmoy-mobl1.amr.corp.intel.com (HELO
+ skuppusw-mobl5.amr.corp.intel.com) ([10.212.221.219])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 12:19:51 -0700
+Subject: Re: [PATCH v4 0/8] Implement generic cc_platform_has() helper function
+To: Borislav Petkov <bp@alien8.de>, LKML <linux-kernel@vger.kernel.org>
 Cc: Andi Kleen <ak@linux.intel.com>, Andy Lutomirski <luto@kernel.org>,
  Ard Biesheuvel <ardb@kernel.org>, Baoquan He <bhe@redhat.com>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Christian Borntraeger <borntraeger@de.ibm.com>,
  Daniel Vetter <daniel@ffwll.ch>, Dave Young <dyoung@redhat.com>,
  David Airlie <airlied@linux.ie>, Heiko Carstens <hca@linux.ibm.com>,
- Joerg Roedel <joro@8bytes.org>,
- "Kirill A. Shutemov" <kirill@shutemov.name>,
- "Kuppuswamy, Sathyanarayanan" <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, "Kirill A. Shutemov" <kirill@shutemov.name>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
  Paul Mackerras <paulus@samba.org>, Tom Lendacky <thomas.lendacky@amd.com>,
@@ -56,15 +48,18 @@ Cc: Andi Kleen <ak@linux.intel.com>, Andy Lutomirski <luto@kernel.org>,
  linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  kexec@lists.infradead.org
-Subject: [PATCH 1/8] x86/ioremap: Selectively build arch override encryption
- functions
-Date: Tue, 28 Sep 2021 21:10:02 +0200
-Message-Id: <20210928191009.32551-2-bp@alien8.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210928191009.32551-1-bp@alien8.de>
 References: <20210928191009.32551-1-bp@alien8.de>
+From: "Kuppuswamy, Sathyanarayanan"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>
+Message-ID: <80593893-c63b-d481-45f1-42a3a6fd762a@linux.intel.com>
+Date: Tue, 28 Sep 2021 12:19:49 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210928191009.32551-1-bp@alien8.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 28 Sep 2021 19:30:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,81 +75,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Lendacky <thomas.lendacky@amd.com>
 
-In preparation for other uses of the cc_platform_has() function
-besides AMD's memory encryption support, selectively build the
-AMD memory encryption architecture override functions only when
-CONFIG_AMD_MEM_ENCRYPT=y. These functions are:
 
-- early_memremap_pgprot_adjust()
-- arch_memremap_can_ram_remap()
+On 9/28/21 12:10 PM, Borislav Petkov wrote:
+> From: Borislav Petkov <bp@suse.de>
+> 
+> Hi all,
+> 
+> here's v4 of the cc_platform_has() patchset with feedback incorporated.
+> 
+> I'm going to route this through tip if there are no objections.
 
-Additionally, routines that are only invoked by these architecture
-override functions can also be conditionally built. These functions are:
+Intel CC support patch is not included in this series. You want me
+to address the issue raised by Joerg before merging it?
 
-- memremap_should_map_decrypted()
-- memremap_is_efi_data()
-- memremap_is_setup_data()
-- early_memremap_is_setup_data()
+> 
+> Thx.
+> 
+> Tom Lendacky (8):
+>    x86/ioremap: Selectively build arch override encryption functions
+>    arch/cc: Introduce a function to check for confidential computing
+>      features
+>    x86/sev: Add an x86 version of cc_platform_has()
+>    powerpc/pseries/svm: Add a powerpc version of cc_platform_has()
+>    x86/sme: Replace occurrences of sme_active() with cc_platform_has()
+>    x86/sev: Replace occurrences of sev_active() with cc_platform_has()
+>    x86/sev: Replace occurrences of sev_es_active() with cc_platform_has()
+>    treewide: Replace the use of mem_encrypt_active() with
+>      cc_platform_has()
+> 
+>   arch/Kconfig                                 |  3 +
+>   arch/powerpc/include/asm/mem_encrypt.h       |  5 --
+>   arch/powerpc/platforms/pseries/Kconfig       |  1 +
+>   arch/powerpc/platforms/pseries/Makefile      |  2 +
+>   arch/powerpc/platforms/pseries/cc_platform.c | 26 ++++++
+>   arch/powerpc/platforms/pseries/svm.c         |  5 +-
+>   arch/s390/include/asm/mem_encrypt.h          |  2 -
+>   arch/x86/Kconfig                             |  1 +
+>   arch/x86/include/asm/io.h                    |  8 ++
+>   arch/x86/include/asm/kexec.h                 |  2 +-
+>   arch/x86/include/asm/mem_encrypt.h           | 12 +--
+>   arch/x86/kernel/Makefile                     |  6 ++
+>   arch/x86/kernel/cc_platform.c                | 69 +++++++++++++++
+>   arch/x86/kernel/crash_dump_64.c              |  4 +-
+>   arch/x86/kernel/head64.c                     |  9 +-
+>   arch/x86/kernel/kvm.c                        |  3 +-
+>   arch/x86/kernel/kvmclock.c                   |  4 +-
+>   arch/x86/kernel/machine_kexec_64.c           | 19 +++--
+>   arch/x86/kernel/pci-swiotlb.c                |  9 +-
+>   arch/x86/kernel/relocate_kernel_64.S         |  2 +-
+>   arch/x86/kernel/sev.c                        |  6 +-
+>   arch/x86/kvm/svm/svm.c                       |  3 +-
+>   arch/x86/mm/ioremap.c                        | 18 ++--
+>   arch/x86/mm/mem_encrypt.c                    | 55 ++++--------
+>   arch/x86/mm/mem_encrypt_identity.c           |  9 +-
+>   arch/x86/mm/pat/set_memory.c                 |  3 +-
+>   arch/x86/platform/efi/efi_64.c               |  9 +-
+>   arch/x86/realmode/init.c                     |  8 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  4 +-
+>   drivers/gpu/drm/drm_cache.c                  |  4 +-
+>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c          |  4 +-
+>   drivers/gpu/drm/vmwgfx/vmwgfx_msg.c          |  6 +-
+>   drivers/iommu/amd/init.c                     |  7 +-
+>   drivers/iommu/amd/iommu.c                    |  3 +-
+>   drivers/iommu/amd/iommu_v2.c                 |  3 +-
+>   drivers/iommu/iommu.c                        |  3 +-
+>   fs/proc/vmcore.c                             |  6 +-
+>   include/linux/cc_platform.h                  | 88 ++++++++++++++++++++
+>   include/linux/mem_encrypt.h                  |  4 -
+>   kernel/dma/swiotlb.c                         |  4 +-
+>   40 files changed, 310 insertions(+), 129 deletions(-)
+>   create mode 100644 arch/powerpc/platforms/pseries/cc_platform.c
+>   create mode 100644 arch/x86/kernel/cc_platform.c
+>   create mode 100644 include/linux/cc_platform.h
+> 
 
-And finally, phys_mem_access_encrypted() is conditionally built as well,
-but requires a static inline version of it when CONFIG_AMD_MEM_ENCRYPT is
-not set.
-
-Signed-off-by: Tom Lendacky <thomas.lendacky@amd.com>
-Signed-off-by: Borislav Petkov <bp@suse.de>
----
- arch/x86/include/asm/io.h | 8 ++++++++
- arch/x86/mm/ioremap.c     | 2 +-
- 2 files changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/include/asm/io.h b/arch/x86/include/asm/io.h
-index 841a5d104afa..5c6a4af0b911 100644
---- a/arch/x86/include/asm/io.h
-+++ b/arch/x86/include/asm/io.h
-@@ -391,6 +391,7 @@ extern void arch_io_free_memtype_wc(resource_size_t start, resource_size_t size)
- #define arch_io_reserve_memtype_wc arch_io_reserve_memtype_wc
- #endif
- 
-+#ifdef CONFIG_AMD_MEM_ENCRYPT
- extern bool arch_memremap_can_ram_remap(resource_size_t offset,
- 					unsigned long size,
- 					unsigned long flags);
-@@ -398,6 +399,13 @@ extern bool arch_memremap_can_ram_remap(resource_size_t offset,
- 
- extern bool phys_mem_access_encrypted(unsigned long phys_addr,
- 				      unsigned long size);
-+#else
-+static inline bool phys_mem_access_encrypted(unsigned long phys_addr,
-+					     unsigned long size)
-+{
-+	return true;
-+}
-+#endif
- 
- /**
-  * iosubmit_cmds512 - copy data to single MMIO location, in 512-bit units
-diff --git a/arch/x86/mm/ioremap.c b/arch/x86/mm/ioremap.c
-index 60ade7dd71bd..ccff76cedd8f 100644
---- a/arch/x86/mm/ioremap.c
-+++ b/arch/x86/mm/ioremap.c
-@@ -508,6 +508,7 @@ void unxlate_dev_mem_ptr(phys_addr_t phys, void *addr)
- 	memunmap((void *)((unsigned long)addr & PAGE_MASK));
- }
- 
-+#ifdef CONFIG_AMD_MEM_ENCRYPT
- /*
-  * Examine the physical address to determine if it is an area of memory
-  * that should be mapped decrypted.  If the memory is not part of the
-@@ -746,7 +747,6 @@ bool phys_mem_access_encrypted(unsigned long phys_addr, unsigned long size)
- 	return arch_memremap_can_ram_remap(phys_addr, size, 0);
- }
- 
--#ifdef CONFIG_AMD_MEM_ENCRYPT
- /* Remap memory with encryption */
- void __init *early_memremap_encrypted(resource_size_t phys_addr,
- 				      unsigned long size)
 -- 
-2.29.2
-
+Sathyanarayanan Kuppuswamy
+Linux Kernel Developer
