@@ -2,52 +2,74 @@ Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10689C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 05:55:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D6C1C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 06:29:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1D20611BD
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 05:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D1D20611BD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id F28C361153
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 06:29:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F28C361153
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0932689DB5;
-	Tue, 28 Sep 2021 05:55:37 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB6189DB5;
- Tue, 28 Sep 2021 05:55:34 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 284FB611BD;
- Tue, 28 Sep 2021 05:55:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632808534;
- bh=Bs6gr4YUdAh+y8PTvt9L460J2iLXolfu9zohbMbR750=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BXV4YVYsPFpbDoTSjCXDVV4JRAzEvE3VC7fLcX1xxDUPsEoGEXpni76emM91JlLkY
- MYaH/mhhfvoPWEAQyqPg5tMxrkqxMtM7mcVhJJjGraJRRGJe7GmQPhsKuDOe9jXrOQ
- iwCAy2ICxiIjL0AQvGLYblxBuSbaLCWK4Ri9S8ynaYm7/Zf3/xqUMlpAYmMiqU/HW1
- eQSdR4KkFD5DM9KXCpkFXZAU2nBGUtpX+bhpn/RQZFD1DEAMYnP4wScBafb+ZfLYUZ
- QTQeXnLLb1NcGA3DSPwoWO2WbEKcqpj7EdFYMs45JOkaOaT1sXIK1vNXBLMMeArMhV
- YtE8DyPDVjwJw==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.14 15/40] drm/amdkfd: fix svm_migrate_fini warning
-Date: Tue, 28 Sep 2021 01:54:59 -0400
-Message-Id: <20210928055524.172051-15-sashal@kernel.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210928055524.172051-1-sashal@kernel.org>
-References: <20210928055524.172051-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BBBC89F38;
+	Tue, 28 Sep 2021 06:29:18 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C63589F38
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 06:29:16 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id v17so12586369wrv.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 23:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=dMC5sczHaGYzi5J9He9T8K1OGjMRvuSlvMbS4UO00mM=;
+ b=WbZre7jzopO50Tvwu4zzE8aqOQoxAMQF5OnT8lQgKrIOuaB0xQCjJKOdm8HvGSH3pI
+ egCS70smVNqr1m+/zS7knIeBGUIA48f8apIqtmuxaKzAehfFln4OQY1KhwCUXSxsYp1X
+ UF1g2pADUGaSHU8qFvyy30iclWHIDXKs5M8vMu1VgVhsfmv/M7lmTIa92L2RcI6OdrAK
+ kjc8G9XDgkCtOZW+ddOXeKADQnP7tsSB7o/fao0YpwMUX5mFn1NPlcYu8dLo9lkUmKY1
+ 42VYdQOcU9Wfs7XXqgF58RfKElohKoXOUMhMU5waFz/pbyW1jmWgwbGkhqvsgzAfrT8U
+ OKhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=dMC5sczHaGYzi5J9He9T8K1OGjMRvuSlvMbS4UO00mM=;
+ b=E/TVK3V88KhkXjGbt10bdNQIErsT0eQSDw3rXVQZ8kVA4P27ReMfHXp0DaXFLN7jZx
+ olBQ7DU+M3Lh19hYkWL/bnCbLgxHWT2Y4LEBCvzKfxksld5yq2yPQsbDDBUBFXryagaN
+ O/gNnVqF0m9l8W0C9xkDSoMY+vF2bPEey6xQ3ocpDln1jsTsjLROF/AhGloH3XZefmMW
+ Zi6JFQuPRuzr4Ljd4/tTAedr4GCg4Y+Z+3jARqQukITtd4b/nMgkYjBFcTRKTfSXuvwb
+ bh3MnFpj3JgfAEUIU17z+nlOSOdBPVeMaZXmKmL+u+Yx8QKs07zWRw3brVpaqyTgg4SD
+ CBqg==
+X-Gm-Message-State: AOAM530NRzrvuF2FAvCZsOIYnbn/zm9GpNxS8zYTBq/IktkSxJeIu4pB
+ qihutqMrbwkgeOby3BJIg8PcghxMyqQ=
+X-Google-Smtp-Source: ABdhPJzyjc4OfAzpmCg2mT1Kt7UNMh65vhhCbhYdYSsFsMrfK5tGgXf0ZvLg0nb4YPj5XJoDoNVPxA==
+X-Received: by 2002:adf:f08e:: with SMTP id n14mr326511wro.259.1632810555515; 
+ Mon, 27 Sep 2021 23:29:15 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id 61sm18683896wrl.94.2021.09.27.23.29.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Sep 2021 23:29:15 -0700 (PDT)
+Subject: Re: [PATCH] drm/amd/pm: Fix that RPM cannot be obtained for specific
+ GPU
+To: huangyizhi <huangyizhi@hnu.edu.cn>, evan.quan@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, lee.jones@linaro.org, lijo.lazar@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+References: <20210928004941.6978-1-huangyizhi@hnu.edu.cn>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <5e4e8b4e-a8be-300c-8c9c-96a65e0a467f@gmail.com>
+Date: Tue, 28 Sep 2021 08:29:13 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210928004941.6978-1-huangyizhi@hnu.edu.cn>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,110 +84,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+Am 28.09.21 um 02:49 schrieb huangyizhi:
+> The current mechanism for obtaining RPM is to read tach_period from
+> the register, and then calculate the RPM together with the frequency.
+> But we found that on specific GPUs, such as RX 550 and RX 560D,
+> tach_period always reads as 0 and smu7_fan_ctrl_get_fan_speed_rpm
+> will returns -EINVAL.
+>
+> To solve this problem, when reading tach_period as 0, we try
+> to estimate the current RPM using the percentage of current pwm, the
+> maximum and minimum RPM.
 
-[ Upstream commit 197ae17722e989942b36e33e044787877f158574 ]
+Well that is most likely a bad idea.
 
-Device manager releases device-specific resources when a driver
-disconnects from a device, devm_memunmap_pages and
-devm_release_mem_region calls in svm_migrate_fini are redundant.
+When the fan speed is not available faking some value is certainly not 
+the right solution, especially when you don't know the topology of the 
+DC conversion driven by the PWM.
 
-It causes below warning trace after patch "drm/amdgpu: Split
-amdgpu_device_fini into early and late", so remove function
-svm_migrate_fini.
+Christian.
 
-BUG: https://gitlab.freedesktop.org/drm/amd/-/issues/1718
-
-WARNING: CPU: 1 PID: 3646 at drivers/base/devres.c:795
-devm_release_action+0x51/0x60
-Call Trace:
-    ? memunmap_pages+0x360/0x360
-    svm_migrate_fini+0x2d/0x60 [amdgpu]
-    kgd2kfd_device_exit+0x23/0xa0 [amdgpu]
-    amdgpu_amdkfd_device_fini_sw+0x1d/0x30 [amdgpu]
-    amdgpu_device_fini_sw+0x45/0x290 [amdgpu]
-    amdgpu_driver_release_kms+0x12/0x30 [amdgpu]
-    drm_dev_release+0x20/0x40 [drm]
-    release_nodes+0x196/0x1e0
-    device_release_driver_internal+0x104/0x1d0
-    driver_detach+0x47/0x90
-    bus_remove_driver+0x7a/0xd0
-    pci_unregister_driver+0x3d/0x90
-    amdgpu_exit+0x11/0x20 [amdgpu]
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c  |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 13 ++++---------
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |  5 -----
- 3 files changed, 4 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 9e52948d4992..0e5ebb384164 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -910,7 +910,6 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- void kgd2kfd_device_exit(struct kfd_dev *kfd)
- {
- 	if (kfd->init_complete) {
--		svm_migrate_fini((struct amdgpu_device *)kfd->kgd);
- 		device_queue_manager_uninit(kfd->dqm);
- 		kfd_interrupt_exit(kfd);
- 		kfd_topology_remove_device(kfd);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 165e0ebb619d..4a16e3c257b9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -891,6 +891,10 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 	pgmap->ops = &svm_migrate_pgmap_ops;
- 	pgmap->owner = SVM_ADEV_PGMAP_OWNER(adev);
- 	pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
-+
-+	/* Device manager releases device-specific resources, memory region and
-+	 * pgmap when driver disconnects from device.
-+	 */
- 	r = devm_memremap_pages(adev->dev, pgmap);
- 	if (IS_ERR(r)) {
- 		pr_err("failed to register HMM device memory\n");
-@@ -911,12 +915,3 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 
- 	return 0;
- }
--
--void svm_migrate_fini(struct amdgpu_device *adev)
--{
--	struct dev_pagemap *pgmap = &adev->kfd.dev->pgmap;
--
--	devm_memunmap_pages(adev->dev, pgmap);
--	devm_release_mem_region(adev->dev, pgmap->range.start,
--				pgmap->range.end - pgmap->range.start + 1);
--}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-index 0de76b5d4973..2f5b3394c9ed 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-@@ -47,7 +47,6 @@ unsigned long
- svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr);
- 
- int svm_migrate_init(struct amdgpu_device *adev);
--void svm_migrate_fini(struct amdgpu_device *adev);
- 
- #else
- 
-@@ -55,10 +54,6 @@ static inline int svm_migrate_init(struct amdgpu_device *adev)
- {
- 	return 0;
- }
--static inline void svm_migrate_fini(struct amdgpu_device *adev)
--{
--	/* empty */
--}
- 
- #endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
- 
--- 
-2.33.0
+>
+> Signed-off-by: huangyizhi <huangyizhi@hnu.edu.cn>
+> ---
+>   .../drm/amd/pm/powerplay/hwmgr/smu7_thermal.c | 28 ++++++++++++++++---
+>   1 file changed, 24 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> index a6c3610db23e..307dd87d6882 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> @@ -81,6 +81,11 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr *hwmgr, uint32_t *speed)
+>   {
+>   	uint32_t tach_period;
+>   	uint32_t crystal_clock_freq;
+> +	uint32_t duty100;
+> +	uint32_t duty;
+> +	uint32_t speed_percent;
+> +	uint64_t tmp64;
+> +
+>   
+>   	if (hwmgr->thermal_controller.fanInfo.bNoFan ||
+>   	    !hwmgr->thermal_controller.fanInfo.ucTachometerPulsesPerRevolution)
+> @@ -89,13 +94,28 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr *hwmgr, uint32_t *speed)
+>   	tach_period = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
+>   			CG_TACH_STATUS, TACH_PERIOD);
+>   
+> -	if (tach_period == 0)
+> -		return -EINVAL;
+> +	if (tach_period == 0) {
+>   
+> -	crystal_clock_freq = amdgpu_asic_get_xclk((struct amdgpu_device *)hwmgr->adev);
+> +		duty100 = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
+> +				CG_FDO_CTRL1, FMAX_DUTY100);
+> +		duty = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
+> +				CG_THERMAL_STATUS, FDO_PWM_DUTY);
+>   
+> -	*speed = 60 * crystal_clock_freq * 10000 / tach_period;
+> +		if (duty100 == 0)
+> +			return -EINVAL;
+>   
+> +		tmp64 = (uint64_t)duty * 100;
+> +		do_div(tmp64, duty100);
+> +		speed_percent = MIN((uint32_t)tmp64, 100);
+> +
+> +		*speed = speed_percent * (hwmgr->thermal_controller.fanInfo.ulMaxRPM
+> +			- hwmgr->thermal_controller.fanInfo.ulMinRPM) / 100;
+> +	} else {
+> +
+> +		crystal_clock_freq = amdgpu_asic_get_xclk((struct amdgpu_device *)hwmgr->adev);
+> +
+> +		*speed = 60 * crystal_clock_freq * 10000 / tach_period;
+> +	}
+>   	return 0;
+>   }
+>   
 
