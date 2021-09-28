@@ -2,74 +2,70 @@ Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D6C1C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 06:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1514FC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 07:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F28C361153
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 06:29:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F28C361153
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D8A4A604D2
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 07:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D8A4A604D2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BBBC89F38;
-	Tue, 28 Sep 2021 06:29:18 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C63589F38
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 06:29:16 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id v17so12586369wrv.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Sep 2021 23:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=dMC5sczHaGYzi5J9He9T8K1OGjMRvuSlvMbS4UO00mM=;
- b=WbZre7jzopO50Tvwu4zzE8aqOQoxAMQF5OnT8lQgKrIOuaB0xQCjJKOdm8HvGSH3pI
- egCS70smVNqr1m+/zS7knIeBGUIA48f8apIqtmuxaKzAehfFln4OQY1KhwCUXSxsYp1X
- UF1g2pADUGaSHU8qFvyy30iclWHIDXKs5M8vMu1VgVhsfmv/M7lmTIa92L2RcI6OdrAK
- kjc8G9XDgkCtOZW+ddOXeKADQnP7tsSB7o/fao0YpwMUX5mFn1NPlcYu8dLo9lkUmKY1
- 42VYdQOcU9Wfs7XXqgF58RfKElohKoXOUMhMU5waFz/pbyW1jmWgwbGkhqvsgzAfrT8U
- OKhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=dMC5sczHaGYzi5J9He9T8K1OGjMRvuSlvMbS4UO00mM=;
- b=E/TVK3V88KhkXjGbt10bdNQIErsT0eQSDw3rXVQZ8kVA4P27ReMfHXp0DaXFLN7jZx
- olBQ7DU+M3Lh19hYkWL/bnCbLgxHWT2Y4LEBCvzKfxksld5yq2yPQsbDDBUBFXryagaN
- O/gNnVqF0m9l8W0C9xkDSoMY+vF2bPEey6xQ3ocpDln1jsTsjLROF/AhGloH3XZefmMW
- Zi6JFQuPRuzr4Ljd4/tTAedr4GCg4Y+Z+3jARqQukITtd4b/nMgkYjBFcTRKTfSXuvwb
- bh3MnFpj3JgfAEUIU17z+nlOSOdBPVeMaZXmKmL+u+Yx8QKs07zWRw3brVpaqyTgg4SD
- CBqg==
-X-Gm-Message-State: AOAM530NRzrvuF2FAvCZsOIYnbn/zm9GpNxS8zYTBq/IktkSxJeIu4pB
- qihutqMrbwkgeOby3BJIg8PcghxMyqQ=
-X-Google-Smtp-Source: ABdhPJzyjc4OfAzpmCg2mT1Kt7UNMh65vhhCbhYdYSsFsMrfK5tGgXf0ZvLg0nb4YPj5XJoDoNVPxA==
-X-Received: by 2002:adf:f08e:: with SMTP id n14mr326511wro.259.1632810555515; 
- Mon, 27 Sep 2021 23:29:15 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id 61sm18683896wrl.94.2021.09.27.23.29.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Sep 2021 23:29:15 -0700 (PDT)
-Subject: Re: [PATCH] drm/amd/pm: Fix that RPM cannot be obtained for specific
- GPU
-To: huangyizhi <huangyizhi@hnu.edu.cn>, evan.quan@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, lee.jones@linaro.org, lijo.lazar@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20210928004941.6978-1-huangyizhi@hnu.edu.cn>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <5e4e8b4e-a8be-300c-8c9c-96a65e0a467f@gmail.com>
-Date: Tue, 28 Sep 2021 08:29:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F00089F69;
+	Tue, 28 Sep 2021 07:04:56 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80EA189F69;
+ Tue, 28 Sep 2021 07:04:55 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 21E5D611CA;
+ Tue, 28 Sep 2021 07:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632812695;
+ bh=uk0cBqp8mJmxC4hvpD+WS8Fqi0WFUUo+M5zqdDQbazY=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=ZYDfy30/tBP5/iCcMrH4okxJH98hSVzSe0pHLCxrxNCdYHE0/mDev9XllrrCJRE9B
+ 7Mk4dWURNWeAaz33Mj6Cu5pQtxE2qHGKhgD2F8Wn0MoEsttBsBIgdUN9Ft3MC3m+bZ
+ yNlUoWIAzhKfLvhvHziiUERFnyWi4HO+uXMuvB4Q3/8xhSLN7vMhdAeKHAsDC/GQTy
+ xb1YIltPnbmNP53U4svjLs+CZZZfIGgQLl/5pV9boVk2p62lG3/RsawwZgD3/isy1f
+ ESY0Bsi3N9m1humhlZjWtb9oy2khd+hy4HO2qiQX5/ciGOrK040W+3VpS1eAbyPFCp
+ oN0WjKPKJrI1A==
+Received: by mail-yb1-f181.google.com with SMTP id v10so29609552ybq.7;
+ Tue, 28 Sep 2021 00:04:55 -0700 (PDT)
+X-Gm-Message-State: AOAM533sBNsjft5BFXFlGki5OAzAApm1JWloO3m9Am4xPuNAvG7jmKwN
+ Y88MB2JZipyxd9HVHDUB39gHw+UR1Mf0lhMo3Ug=
+X-Google-Smtp-Source: ABdhPJzCFYplamGxooBWwJyp1KX8cm27ANY5LYxIJdr3J9BPyZ9mLw/SlxUYU2bbcrwj4fdC1tykp7PZzcufB4sjcI0=
+X-Received: by 2002:a25:5b85:: with SMTP id p127mr744801ybb.444.1632812694370; 
+ Tue, 28 Sep 2021 00:04:54 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210928004941.6978-1-huangyizhi@hnu.edu.cn>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+References: <20210912165309.98695-1-ogabbay@kernel.org>
+ <YUCvNzpyC091KeaJ@phenom.ffwll.local>
+ <20210914161218.GF3544071@ziepe.ca>
+ <CAFCwf13322953Txr3Afa_MomuD148vnfpEog0xzW7FPWH9=6fg@mail.gmail.com>
+ <YUM5JoMMK7gceuKZ@phenom.ffwll.local> <20210916131014.GK3544071@ziepe.ca>
+ <YUSKSHBC9uI49wZZ@phenom.ffwll.local>
+ <CAFCwf12o-+wtbk8J8k8hP4_k0a8Lco4m9f4s1vBobkQwNtn39w@mail.gmail.com>
+ <CAFCwf11UFVh-88Z=d=EH07_nx=3tf9kQkHhJ4pF6hfgO=80u0g@mail.gmail.com>
+In-Reply-To: <CAFCwf11UFVh-88Z=d=EH07_nx=3tf9kQkHhJ4pF6hfgO=80u0g@mail.gmail.com>
+From: Oded Gabbay <ogabbay@kernel.org>
+Date: Tue, 28 Sep 2021 10:04:29 +0300
+X-Gmail-Original-Message-ID: <CAFCwf121CuNOesSRECUY9y7KWSGOZ2dHPCVvBqu8C4PCYj5PTw@mail.gmail.com>
+Message-ID: <CAFCwf121CuNOesSRECUY9y7KWSGOZ2dHPCVvBqu8C4PCYj5PTw@mail.gmail.com>
+Subject: Re: [PATCH v6 0/2] Add p2p via dmabuf to habanalabs
+To: Jason Gunthorpe <jgg@ziepe.ca>, Daniel Vetter <daniel.vetter@ffwll.ch>, 
+ Dave Airlie <airlied@gmail.com>
+Cc: "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Gal Pressman <galpress@amazon.com>, Yossi Leybovich <sleybo@amazon.com>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, 
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, Leon Romanovsky <leonro@nvidia.com>, 
+ Christoph Hellwig <hch@lst.de>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,78 +80,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.09.21 um 02:49 schrieb huangyizhi:
-> The current mechanism for obtaining RPM is to read tach_period from
-> the register, and then calculate the RPM together with the frequency.
-> But we found that on specific GPUs, such as RX 550 and RX 560D,
-> tach_period always reads as 0 and smu7_fan_ctrl_get_fan_speed_rpm
-> will returns -EINVAL.
+On Thu, Sep 23, 2021 at 12:22 PM Oded Gabbay <ogabbay@kernel.org> wrote:
 >
-> To solve this problem, when reading tach_period as 0, we try
-> to estimate the current RPM using the percentage of current pwm, the
-> maximum and minimum RPM.
-
-Well that is most likely a bad idea.
-
-When the fan speed is not available faking some value is certainly not 
-the right solution, especially when you don't know the topology of the 
-DC conversion driven by the PWM.
-
-Christian.
-
+> On Sat, Sep 18, 2021 at 11:38 AM Oded Gabbay <ogabbay@kernel.org> wrote:
+> >
+> > On Fri, Sep 17, 2021 at 3:30 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > >
+> > > On Thu, Sep 16, 2021 at 10:10:14AM -0300, Jason Gunthorpe wrote:
+> > > > On Thu, Sep 16, 2021 at 02:31:34PM +0200, Daniel Vetter wrote:
+> > > > > On Wed, Sep 15, 2021 at 10:45:36AM +0300, Oded Gabbay wrote:
+> > > > > > On Tue, Sep 14, 2021 at 7:12 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> > > > > > >
+> > > > > > > On Tue, Sep 14, 2021 at 04:18:31PM +0200, Daniel Vetter wrote:
+> > > > > > > > On Sun, Sep 12, 2021 at 07:53:07PM +0300, Oded Gabbay wrote:
+> > > > > > > > > Hi,
+> > > > > > > > > Re-sending this patch-set following the release of our user-space TPC
+> > > > > > > > > compiler and runtime library.
+> > > > > > > > >
+> > > > > > > > > I would appreciate a review on this.
+> > > > > > > >
+> > > > > > > > I think the big open we have is the entire revoke discussions. Having the
+> > > > > > > > option to let dma-buf hang around which map to random local memory ranges,
+> > > > > > > > without clear ownership link and a way to kill it sounds bad to me.
+> > > > > > > >
+> > > > > > > > I think there's a few options:
+> > > > > > > > - We require revoke support. But I've heard rdma really doesn't like that,
+> > > > > > > >   I guess because taking out an MR while holding the dma_resv_lock would
+> > > > > > > >   be an inversion, so can't be done. Jason, can you recap what exactly the
+> > > > > > > >   hold-up was again that makes this a no-go?
+> > > > > > >
+> > > > > > > RDMA HW can't do revoke.
+> > > > >
+> > > > > Like why? I'm assuming when the final open handle or whatever for that MR
+> > > > > is closed, you do clean up everything? Or does that MR still stick around
+> > > > > forever too?
+> > > >
+> > > > It is a combination of uAPI and HW specification.
+> > > >
+> > > > revoke here means you take a MR object and tell it to stop doing DMA
+> > > > without causing the MR object to be destructed.
+> > > >
+> > > > All the drivers can of course destruct the MR, but doing such a
+> > > > destruction without explicit synchronization with user space opens
+> > > > things up to a serious use-after potential that could be a security
+> > > > issue.
+> > > >
+> > > > When the open handle closes the userspace is synchronized with the
+> > > > kernel and we can destruct the HW objects safely.
+> > > >
+> > > > So, the special HW feature required is 'stop doing DMA but keep the
+> > > > object in an error state' which isn't really implemented, and doesn't
+> > > > extend very well to other object types beyond simple MRs.
+> > >
+> > > Yeah revoke without destroying the MR doesn't work, and it sounds like
+> > > revoke by destroying the MR just moves the can of worms around to another
+> > > place.
+> > >
+> > > > > 1. User A opens gaudi device, sets up dma-buf export
+> > > > >
+> > > > > 2. User A registers that with RDMA, or anything else that doesn't support
+> > > > > revoke.
+> > > > >
+> > > > > 3. User A closes gaudi device
+> > > > >
+> > > > > 4. User B opens gaudi device, assumes that it has full control over the
+> > > > > device and uploads some secrets, which happen to end up in the dma-buf
+> > > > > region user A set up
+> > > >
+> > > > I would expect this is blocked so long as the DMABUF exists - eg the
+> > > > DMABUF will hold a fget on the FD of #1 until the DMABUF is closed, so
+> > > > that #3 can't actually happen.
+> > > >
+> > > > > It's not mlocked memory, it's mlocked memory and I can exfiltrate
+> > > > > it.
+> > > >
+> > > > That's just bug, don't make buggy drivers :)
+> > >
+> > > Well yeah, but given that habanalabs hand rolled this I can't just check
+> > > for the usual things we have to enforce this in drm. And generally you can
+> > > just open chardevs arbitrarily, and multiple users fighting over each
+> > > another. The troubles only start when you have private state or memory
+> > > allocations of some kind attached to the struct file (instead of the
+> > > underlying device), or something else that requires device exclusivity.
+> > > There's no standard way to do that.
+> > >
+> > > Plus in many cases you really want revoke on top (can't get that here
+> > > unfortunately it seems), and the attempts to get towards a generic
+> > > revoke() just never went anywhere. So again it's all hand-rolled
+> > > per-subsystem. *insert lament about us not having done this through a
+> > > proper subsystem*
+> > >
+> > > Anyway it sounds like the code takes care of that.
+> > > -Daniel
+> >
+> > Daniel, Jason,
+> > Thanks for reviewing this code.
+> >
+> > Can I get an R-B / A-B from you for this patch-set ?
+> >
+> > Thanks,
+> > Oded
 >
-> Signed-off-by: huangyizhi <huangyizhi@hnu.edu.cn>
-> ---
->   .../drm/amd/pm/powerplay/hwmgr/smu7_thermal.c | 28 ++++++++++++++++---
->   1 file changed, 24 insertions(+), 4 deletions(-)
+> A kind reminder.
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-> index a6c3610db23e..307dd87d6882 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-> @@ -81,6 +81,11 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr *hwmgr, uint32_t *speed)
->   {
->   	uint32_t tach_period;
->   	uint32_t crystal_clock_freq;
-> +	uint32_t duty100;
-> +	uint32_t duty;
-> +	uint32_t speed_percent;
-> +	uint64_t tmp64;
-> +
->   
->   	if (hwmgr->thermal_controller.fanInfo.bNoFan ||
->   	    !hwmgr->thermal_controller.fanInfo.ucTachometerPulsesPerRevolution)
-> @@ -89,13 +94,28 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr *hwmgr, uint32_t *speed)
->   	tach_period = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
->   			CG_TACH_STATUS, TACH_PERIOD);
->   
-> -	if (tach_period == 0)
-> -		return -EINVAL;
-> +	if (tach_period == 0) {
->   
-> -	crystal_clock_freq = amdgpu_asic_get_xclk((struct amdgpu_device *)hwmgr->adev);
-> +		duty100 = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
-> +				CG_FDO_CTRL1, FMAX_DUTY100);
-> +		duty = PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
-> +				CG_THERMAL_STATUS, FDO_PWM_DUTY);
->   
-> -	*speed = 60 * crystal_clock_freq * 10000 / tach_period;
-> +		if (duty100 == 0)
-> +			return -EINVAL;
->   
-> +		tmp64 = (uint64_t)duty * 100;
-> +		do_div(tmp64, duty100);
-> +		speed_percent = MIN((uint32_t)tmp64, 100);
-> +
-> +		*speed = speed_percent * (hwmgr->thermal_controller.fanInfo.ulMaxRPM
-> +			- hwmgr->thermal_controller.fanInfo.ulMinRPM) / 100;
-> +	} else {
-> +
-> +		crystal_clock_freq = amdgpu_asic_get_xclk((struct amdgpu_device *)hwmgr->adev);
-> +
-> +		*speed = 60 * crystal_clock_freq * 10000 / tach_period;
-> +	}
->   	return 0;
->   }
->   
+> Thanks,
+> Oded
 
+Hi,
+I know last week was LPC and maybe this got lost in the inbox, so I'm
+sending it again to make sure you got my request for R-B / A-B.
+
+Thanks,
+Oded
