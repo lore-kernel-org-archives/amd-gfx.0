@@ -2,74 +2,71 @@ Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D567AC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 21:41:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12469C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 21:51:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A367661288
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 21:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A367661288
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id CBD6061368
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 21:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CBD6061368
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E60D6E9CD;
-	Tue, 28 Sep 2021 21:41:22 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD4556E9C7;
- Tue, 28 Sep 2021 21:40:35 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f13b200371079131a9f19c8.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f13:b200:3710:7913:1a9f:19c8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 185C51EC06C1;
- Tue, 28 Sep 2021 23:40:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1632865234;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=3zAlBZi1O1Z7iGiOtlzR59oObKF3oTwf3vRM6tWoLcY=;
- b=K5Ca7t9hqqMM2deF0li2lbysEHXsHTs91GSL2ZqKLhzfX9w19AiIGCNaZ3Y63sCu3hsepG
- fIbQEa5D8HQEE2RRoDDCLkqS/Fxfaghkv3CiOoHYu4QVTSTfUfcSzUHkFkeeRHlHYg9afU
- kuT2sPlWmWHkAbKxJ37GJ775LHgIgQc=
-Date: Tue, 28 Sep 2021 23:40:28 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: "Kuppuswamy, Sathyanarayanan" <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Andi Kleen <ak@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Baoquan He <bhe@redhat.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Daniel Vetter <daniel@ffwll.ch>, Dave Young <dyoung@redhat.com>,
- David Airlie <airlied@linux.ie>, Heiko Carstens <hca@linux.ibm.com>,
- Joerg Roedel <joro@8bytes.org>,
- "Kirill A. Shutemov" <kirill@shutemov.name>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
- Paul Mackerras <paulus@samba.org>, Tom Lendacky <thomas.lendacky@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Vasily Gorbik <gor@linux.ibm.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Will Deacon <will@kernel.org>,
- Christoph Hellwig <hch@infradead.org>, x86@kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
- iommu@lists.linux-foundation.org, kvm@vger.kernel.org,
- linux-efi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kexec@lists.infradead.org
-Subject: Re: [PATCH v4 0/8] Implement generic cc_platform_has() helper function
-Message-ID: <YVOLzMwyXP3ZSR0F@zn.tnic>
-References: <20210928191009.32551-1-bp@alien8.de>
- <80593893-c63b-d481-45f1-42a3a6fd762a@linux.intel.com>
- <YVN7vPE/7jecXcJ/@zn.tnic>
- <7319b756-55dc-c4d1-baf6-4686f0156ac4@linux.intel.com>
- <YVOB3mFV1Kj3MXAs@zn.tnic>
- <695a3bf6-5382-68df-3ab5-8841b777fca2@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6384A6E06B;
+	Tue, 28 Sep 2021 21:51:11 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E67206E06B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 21:51:09 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ 77-20020a9d0ed3000000b00546e10e6699so324537otj.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 14:51:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=58yJeliGr+CUYg6aOkmIrZzaNvrv5tDGflJAQS98cUA=;
+ b=Y3aJMaXchxDUQaunVokiILlLEuyk1fit+1VbTcCibPOYdq9FZpnl3YEtUJOD5n5/n3
+ 5avGB+I18RgjWqirwqYeL09ZvbFceLELeD3coVS1BSALcagvYWekagAyVDJ2ew7YOv1F
+ rv8Vi36HkCtC1OJdqcZM4XK2jvhwLvalTMe0rjpk2WeLf9wK1kQFYWQ8r1IXAot9IxNl
+ 6o7NbiAgKYiD22PefcM23eO3KsWFckHxFha2F2+mFRrRFHgrfnO3mPBbnRDSBumO9F0t
+ UJB/i+kqvaprof9ayn9onfwlVP2VPCrcihQZyPGd9UFphpqDK491HAgn+l/wUlAz5SYR
+ tVug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=58yJeliGr+CUYg6aOkmIrZzaNvrv5tDGflJAQS98cUA=;
+ b=u+MDRcytC6VuGSWN0vY1FKYWpb6S2mP/Gz2ZRulNwlMHqACCg+d+oAxscSKGyaZj/4
+ bJ1tHD6okstqnweTbLYtEkijc27CFMybHg17n4A3BqvvQlv90tYpjvFDoX5uZdHFQiF9
+ bNAn3zuKa3SvGMgh813BXWC6i4C8j/8E+TgpULkP58Cb3YSVVY5ohcNT7Yv45HZpWu/G
+ JuLhPz1ujg78V8/3wandwDfg41RgGWa4DCBKNpHHxZfRa9W8AhdjHmGIuB9OvpNn9SS9
+ tg85+r6L1BgF8zruYPWYAYLwO2VyCpRBkIjG/DyMpVbZ2l57a9Q5q6k4GvD6Icq8is/d
+ LeEQ==
+X-Gm-Message-State: AOAM5336wBX4afDTjcV1hgozGFHHS8l7zCZrx4CFcIPrsNBF7v9/5JZt
+ TNe6EWhK6XiL9jhLPiChPtjb0xaQn8sM9Qj805w=
+X-Google-Smtp-Source: ABdhPJz2eGEb0GIzYS3lT2mtiGtur4am7ePCHaCAAU075yL8Psni3oJ+YQBbi0+rNck1w0pyc98jpqsp4zK/x05dt/A=
+X-Received: by 2002:a9d:6d14:: with SMTP id o20mr7264385otp.357.1632865868813; 
+ Tue, 28 Sep 2021 14:51:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <695a3bf6-5382-68df-3ab5-8841b777fca2@linux.intel.com>
-X-Mailman-Approved-At: Tue, 28 Sep 2021 21:41:20 +0000
+References: <20210928004941.6978-1-huangyizhi@hnu.edu.cn>
+ <5e4e8b4e-a8be-300c-8c9c-96a65e0a467f@gmail.com>
+In-Reply-To: <5e4e8b4e-a8be-300c-8c9c-96a65e0a467f@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 28 Sep 2021 17:50:57 -0400
+Message-ID: <CADnq5_Mw_652K=Oe0OGPCfzcdfk68nqXp-yLeUDLGxM-41HVSw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Fix that RPM cannot be obtained for specific
+ GPU
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: huangyizhi <huangyizhi@hnu.edu.cn>, "Quan, Evan" <evan.quan@amd.com>, 
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ xinhui pan <Xinhui.Pan@amd.com>, Dave Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Lee Jones <lee.jones@linaro.org>, "Lazar, Lijo" <lijo.lazar@amd.com>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,22 +81,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 28, 2021 at 02:01:57PM -0700, Kuppuswamy, Sathyanarayanan wrote:
-> Yes. But, since the check is related to TDX, I just want to confirm whether
-> you are fine with naming the function as intel_*().
+On Tue, Sep 28, 2021 at 2:29 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 28.09.21 um 02:49 schrieb huangyizhi:
+> > The current mechanism for obtaining RPM is to read tach_period from
+> > the register, and then calculate the RPM together with the frequency.
+> > But we found that on specific GPUs, such as RX 550 and RX 560D,
+> > tach_period always reads as 0 and smu7_fan_ctrl_get_fan_speed_rpm
+> > will returns -EINVAL.
+> >
+> > To solve this problem, when reading tach_period as 0, we try
+> > to estimate the current RPM using the percentage of current pwm, the
+> > maximum and minimum RPM.
+>
+> Well that is most likely a bad idea.
+>
+> When the fan speed is not available faking some value is certainly not
+> the right solution, especially when you don't know the topology of the
+> DC conversion driven by the PWM.
+>
 
-Why is this such a big of a deal?!
+I think there is a flag in the vbios to determine whether a specific
+board supports rpm based fan control.  This used to be an AIB specific
+option.  If the flag is not set, the driver should not expose the rpm
+interface for fan control, only the PWM interface.  I think at some
+point rpm fan control became mandatory, but maybe it was still an
+option on polaris and we are missing a check for that flag.
 
-There's amd_cc_platform_has() and intel_cc_platform_has() will be the
-corresponding Intel version.
+Alex
 
-> Since this patch is going to have dependency on TDX code, I will include
-> this patch in TDX patch set.
 
-Ok.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+> Christian.
+>
+> >
+> > Signed-off-by: huangyizhi <huangyizhi@hnu.edu.cn>
+> > ---
+> >   .../drm/amd/pm/powerplay/hwmgr/smu7_thermal.c | 28 ++++++++++++++++--=
+-
+> >   1 file changed, 24 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/dr=
+ivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> > index a6c3610db23e..307dd87d6882 100644
+> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
+> > @@ -81,6 +81,11 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr =
+*hwmgr, uint32_t *speed)
+> >   {
+> >       uint32_t tach_period;
+> >       uint32_t crystal_clock_freq;
+> > +     uint32_t duty100;
+> > +     uint32_t duty;
+> > +     uint32_t speed_percent;
+> > +     uint64_t tmp64;
+> > +
+> >
+> >       if (hwmgr->thermal_controller.fanInfo.bNoFan ||
+> >           !hwmgr->thermal_controller.fanInfo.ucTachometerPulsesPerRevol=
+ution)
+> > @@ -89,13 +94,28 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr=
+ *hwmgr, uint32_t *speed)
+> >       tach_period =3D PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_I=
+ND_REG__SMC,
+> >                       CG_TACH_STATUS, TACH_PERIOD);
+> >
+> > -     if (tach_period =3D=3D 0)
+> > -             return -EINVAL;
+> > +     if (tach_period =3D=3D 0) {
+> >
+> > -     crystal_clock_freq =3D amdgpu_asic_get_xclk((struct amdgpu_device=
+ *)hwmgr->adev);
+> > +             duty100 =3D PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, C=
+GS_IND_REG__SMC,
+> > +                             CG_FDO_CTRL1, FMAX_DUTY100);
+> > +             duty =3D PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_=
+IND_REG__SMC,
+> > +                             CG_THERMAL_STATUS, FDO_PWM_DUTY);
+> >
+> > -     *speed =3D 60 * crystal_clock_freq * 10000 / tach_period;
+> > +             if (duty100 =3D=3D 0)
+> > +                     return -EINVAL;
+> >
+> > +             tmp64 =3D (uint64_t)duty * 100;
+> > +             do_div(tmp64, duty100);
+> > +             speed_percent =3D MIN((uint32_t)tmp64, 100);
+> > +
+> > +             *speed =3D speed_percent * (hwmgr->thermal_controller.fan=
+Info.ulMaxRPM
+> > +                     - hwmgr->thermal_controller.fanInfo.ulMinRPM) / 1=
+00;
+> > +     } else {
+> > +
+> > +             crystal_clock_freq =3D amdgpu_asic_get_xclk((struct amdgp=
+u_device *)hwmgr->adev);
+> > +
+> > +             *speed =3D 60 * crystal_clock_freq * 10000 / tach_period;
+> > +     }
+> >       return 0;
+> >   }
+> >
+>
