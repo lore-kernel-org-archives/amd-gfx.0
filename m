@@ -1,72 +1,82 @@
-Return-Path: <SRS0=UpsA=OS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=/upn=OT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12469C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 21:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BD4CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 03:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CBD6061368
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Sep 2021 21:51:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CBD6061368
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 111EA613D0
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 03:58:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 111EA613D0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6384A6E06B;
-	Tue, 28 Sep 2021 21:51:11 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E67206E06B
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 21:51:09 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- 77-20020a9d0ed3000000b00546e10e6699so324537otj.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Sep 2021 14:51:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=58yJeliGr+CUYg6aOkmIrZzaNvrv5tDGflJAQS98cUA=;
- b=Y3aJMaXchxDUQaunVokiILlLEuyk1fit+1VbTcCibPOYdq9FZpnl3YEtUJOD5n5/n3
- 5avGB+I18RgjWqirwqYeL09ZvbFceLELeD3coVS1BSALcagvYWekagAyVDJ2ew7YOv1F
- rv8Vi36HkCtC1OJdqcZM4XK2jvhwLvalTMe0rjpk2WeLf9wK1kQFYWQ8r1IXAot9IxNl
- 6o7NbiAgKYiD22PefcM23eO3KsWFckHxFha2F2+mFRrRFHgrfnO3mPBbnRDSBumO9F0t
- UJB/i+kqvaprof9ayn9onfwlVP2VPCrcihQZyPGd9UFphpqDK491HAgn+l/wUlAz5SYR
- tVug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=58yJeliGr+CUYg6aOkmIrZzaNvrv5tDGflJAQS98cUA=;
- b=u+MDRcytC6VuGSWN0vY1FKYWpb6S2mP/Gz2ZRulNwlMHqACCg+d+oAxscSKGyaZj/4
- bJ1tHD6okstqnweTbLYtEkijc27CFMybHg17n4A3BqvvQlv90tYpjvFDoX5uZdHFQiF9
- bNAn3zuKa3SvGMgh813BXWC6i4C8j/8E+TgpULkP58Cb3YSVVY5ohcNT7Yv45HZpWu/G
- JuLhPz1ujg78V8/3wandwDfg41RgGWa4DCBKNpHHxZfRa9W8AhdjHmGIuB9OvpNn9SS9
- tg85+r6L1BgF8zruYPWYAYLwO2VyCpRBkIjG/DyMpVbZ2l57a9Q5q6k4GvD6Icq8is/d
- LeEQ==
-X-Gm-Message-State: AOAM5336wBX4afDTjcV1hgozGFHHS8l7zCZrx4CFcIPrsNBF7v9/5JZt
- TNe6EWhK6XiL9jhLPiChPtjb0xaQn8sM9Qj805w=
-X-Google-Smtp-Source: ABdhPJz2eGEb0GIzYS3lT2mtiGtur4am7ePCHaCAAU075yL8Psni3oJ+YQBbi0+rNck1w0pyc98jpqsp4zK/x05dt/A=
-X-Received: by 2002:a9d:6d14:: with SMTP id o20mr7264385otp.357.1632865868813; 
- Tue, 28 Sep 2021 14:51:08 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210928004941.6978-1-huangyizhi@hnu.edu.cn>
- <5e4e8b4e-a8be-300c-8c9c-96a65e0a467f@gmail.com>
-In-Reply-To: <5e4e8b4e-a8be-300c-8c9c-96a65e0a467f@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Sep 2021 17:50:57 -0400
-Message-ID: <CADnq5_Mw_652K=Oe0OGPCfzcdfk68nqXp-yLeUDLGxM-41HVSw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Fix that RPM cannot be obtained for specific
- GPU
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: huangyizhi <huangyizhi@hnu.edu.cn>, "Quan, Evan" <evan.quan@amd.com>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- xinhui pan <Xinhui.Pan@amd.com>, Dave Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Lee Jones <lee.jones@linaro.org>, "Lazar, Lijo" <lijo.lazar@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B058C6E162;
+	Wed, 29 Sep 2021 03:58:18 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D36CC6E160;
+ Wed, 29 Sep 2021 03:58:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10121"; a="212109307"
+X-IronPort-AV: E=Sophos;i="5.85,331,1624345200"; d="scan'208";a="212109307"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 20:58:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,331,1624345200"; d="scan'208";a="707030719"
+Received: from irsmsx603.ger.corp.intel.com ([163.33.146.9])
+ by fmsmga006.fm.intel.com with ESMTP; 28 Sep 2021 20:58:13 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ irsmsx603.ger.corp.intel.com (163.33.146.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Wed, 29 Sep 2021 04:58:11 +0100
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.012;
+ Tue, 28 Sep 2021 20:58:10 -0700
+From: "Navare, Manasi D" <manasi.d.navare@intel.com>
+To: "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Nikula, Jani" <jani.nikula@intel.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "nathan@kernel.org" <nathan@kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "sfr@canb.auug.org.au" <sfr@canb.auug.org.au>, "linux-next@vger.kernel.org"
+ <linux-next@vger.kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>
+Subject: RE: [PATCH v2] drm/amd/display: Only define DP 2.0 symbols if not
+ already defined
+Thread-Topic: [PATCH v2] drm/amd/display: Only define DP 2.0 symbols if not
+ already defined
+Thread-Index: AQHXtIuAL0vs/jg+d0q0VwbXvyqk8Ku6LEQAgAA2mbA=
+Date: Wed, 29 Sep 2021 03:58:10 +0000
+Message-ID: <2c69ff90750f40ecad3cd4053bc46497@intel.com>
+References: <20210928170828.26452-1-harry.wentland@amd.com>
+ <DM6PR12MB49125AD4817D693AA3987B08E5A89@DM6PR12MB4912.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB49125AD4817D693AA3987B08E5A89@DM6PR12MB4912.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-version: 11.6.200.16
+dlp-product: dlpe-windows
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=6d37b753-7317-49e9-b10f-7dd42dee753a;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-28T17:35:51Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d
+x-originating-ip: [10.1.200.100]
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,104 +91,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 28, 2021 at 2:29 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Am 28.09.21 um 02:49 schrieb huangyizhi:
-> > The current mechanism for obtaining RPM is to read tach_period from
-> > the register, and then calculate the RPM together with the frequency.
-> > But we found that on specific GPUs, such as RX 550 and RX 560D,
-> > tach_period always reads as 0 and smu7_fan_ctrl_get_fan_speed_rpm
-> > will returns -EINVAL.
-> >
-> > To solve this problem, when reading tach_period as 0, we try
-> > to estimate the current RPM using the percentage of current pwm, the
-> > maximum and minimum RPM.
->
-> Well that is most likely a bad idea.
->
-> When the fan speed is not available faking some value is certainly not
-> the right solution, especially when you don't know the topology of the
-> DC conversion driven by the PWM.
->
+We have merged such DRM definition dependencies previously through a topic =
+branch in order to avoid redefining inside the driver.
+But yes guarding this with ifdef is good.
 
-I think there is a flag in the vbios to determine whether a specific
-board supports rpm based fan control.  This used to be an AIB specific
-option.  If the flag is not set, the driver should not expose the rpm
-interface for fan control, only the PWM interface.  I think at some
-point rpm fan control became mandatory, but maybe it was still an
-option on polaris and we are missing a check for that flag.
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 
-Alex
+Manasi
 
+-----Original Message-----
+From: Zuo, Jerry <Jerry.Zuo@amd.com>=20
+Sent: Tuesday, September 28, 2021 11:11 PM
+To: Wentland, Harry <Harry.Wentland@amd.com>; Deucher, Alexander <Alexander=
+.Deucher@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Nikula, Jani <jani.nikula@intel.com>; Li, Sun peng (Leo) <Sunpeng.Li@am=
+d.com>; nathan@kernel.org; intel-gfx@lists.freedesktop.org; dri-devel@lists=
+.freedesktop.org; ville.syrjala@linux.intel.com; Navare, Manasi D <manasi.d=
+.navare@intel.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinh=
+ui <Xinhui.Pan@amd.com>; sfr@canb.auug.org.au; linux-next@vger.kernel.org; =
+airlied@gmail.com; daniel.vetter@ffwll.ch; Wentland, Harry <Harry.Wentland@=
+amd.com>
+Subject: RE: [PATCH v2] drm/amd/display: Only define DP 2.0 symbols if not =
+already defined
 
-> Christian.
+[AMD Official Use Only]
+
+> -----Original Message-----
+> From: Harry Wentland <harry.wentland@amd.com>
+> Sent: September 28, 2021 1:08 PM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-=20
+> gfx@lists.freedesktop.org; Zuo, Jerry <Jerry.Zuo@amd.com>
+> Cc: jani.nikula@intel.com; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>;=20
+> nathan@kernel.org; intel-gfx@lists.freedesktop.org; dri-=20
+> devel@lists.freedesktop.org; ville.syrjala@linux.intel.com;=20
+> manasi.d.navare@intel.com; Koenig, Christian=20
+> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;=20
+> sfr@canb.auug.org.au; linux- next@vger.kernel.org; airlied@gmail.com;=20
+> daniel.vetter@ffwll.ch; Wentland, Harry <Harry.Wentland@amd.com>
+> Subject: [PATCH v2] drm/amd/display: Only define DP 2.0 symbols if not=20
+> already defined
 >
-> >
-> > Signed-off-by: huangyizhi <huangyizhi@hnu.edu.cn>
-> > ---
-> >   .../drm/amd/pm/powerplay/hwmgr/smu7_thermal.c | 28 ++++++++++++++++--=
--
-> >   1 file changed, 24 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c b/dr=
-ivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-> > index a6c3610db23e..307dd87d6882 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_thermal.c
-> > @@ -81,6 +81,11 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr =
-*hwmgr, uint32_t *speed)
-> >   {
-> >       uint32_t tach_period;
-> >       uint32_t crystal_clock_freq;
-> > +     uint32_t duty100;
-> > +     uint32_t duty;
-> > +     uint32_t speed_percent;
-> > +     uint64_t tmp64;
-> > +
-> >
-> >       if (hwmgr->thermal_controller.fanInfo.bNoFan ||
-> >           !hwmgr->thermal_controller.fanInfo.ucTachometerPulsesPerRevol=
-ution)
-> > @@ -89,13 +94,28 @@ int smu7_fan_ctrl_get_fan_speed_rpm(struct pp_hwmgr=
- *hwmgr, uint32_t *speed)
-> >       tach_period =3D PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_I=
-ND_REG__SMC,
-> >                       CG_TACH_STATUS, TACH_PERIOD);
-> >
-> > -     if (tach_period =3D=3D 0)
-> > -             return -EINVAL;
-> > +     if (tach_period =3D=3D 0) {
-> >
-> > -     crystal_clock_freq =3D amdgpu_asic_get_xclk((struct amdgpu_device=
- *)hwmgr->adev);
-> > +             duty100 =3D PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, C=
-GS_IND_REG__SMC,
-> > +                             CG_FDO_CTRL1, FMAX_DUTY100);
-> > +             duty =3D PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device, CGS_=
-IND_REG__SMC,
-> > +                             CG_THERMAL_STATUS, FDO_PWM_DUTY);
-> >
-> > -     *speed =3D 60 * crystal_clock_freq * 10000 / tach_period;
-> > +             if (duty100 =3D=3D 0)
-> > +                     return -EINVAL;
-> >
-> > +             tmp64 =3D (uint64_t)duty * 100;
-> > +             do_div(tmp64, duty100);
-> > +             speed_percent =3D MIN((uint32_t)tmp64, 100);
-> > +
-> > +             *speed =3D speed_percent * (hwmgr->thermal_controller.fan=
-Info.ulMaxRPM
-> > +                     - hwmgr->thermal_controller.fanInfo.ulMinRPM) / 1=
-00;
-> > +     } else {
-> > +
-> > +             crystal_clock_freq =3D amdgpu_asic_get_xclk((struct amdgp=
-u_device *)hwmgr->adev);
-> > +
-> > +             *speed =3D 60 * crystal_clock_freq * 10000 / tach_period;
-> > +     }
-> >       return 0;
-> >   }
-> >
+> [Why]
+> For some reason we're defining DP 2.0 definitions inside our driver.=20
+> Now that patches to introduce relevant definitions are slated to be=20
+> merged into drm- next this is causing conflicts.
 >
+> In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:33:
+> In file included
+> from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:70:
+> In file included
+> from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_mode.h:36:
+> ./include/drm/drm_dp_helper.h:1322:9: error:
+> 'DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER' macro redefined [-=20
+> Werror,-Wmacro-redefined]
+>         ^
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dp_types.h:881:9: note:
+> previous definition is here
+>         ^
+> 1 error generated.
+>
+> v2: Add one missing endif
+>
+> [How]
+> Guard all display driver defines with #ifndef for now. Once we pull in=20
+> the new definitions into amd-staging-drm-next we will follow up and=20
+> drop definitions from our driver and provide follow-up header updates=20
+> for any addition DP
+> 2.0 definitions required by our driver.
+>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+
+Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dc_dp_types.h | 54
+> ++++++++++++++++++--
+>  1 file changed, 49 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+> b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+> index a5e798b5da79..9de86ff5ef1b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+> @@ -860,28 +860,72 @@ struct psr_caps {  };
+>
+>  #if defined(CONFIG_DRM_AMD_DC_DCN)
+> +#ifndef DP_MAIN_LINK_CHANNEL_CODING_CAP
+>  #define DP_MAIN_LINK_CHANNEL_CODING_CAP                      0x006
+> +#endif
+> +#ifndef DP_SINK_VIDEO_FALLBACK_FORMATS
+>  #define DP_SINK_VIDEO_FALLBACK_FORMATS                       0x020
+> +#endif
+> +#ifndef DP_FEC_CAPABILITY_1
+>  #define DP_FEC_CAPABILITY_1                          0x091
+> +#endif
+> +#ifndef DP_DFP_CAPABILITY_EXTENSION_SUPPORT
+>  #define DP_DFP_CAPABILITY_EXTENSION_SUPPORT          0x0A3
+> +#endif
+> +#ifndef DP_DSC_CONFIGURATION
+>  #define DP_DSC_CONFIGURATION                         0x161
+> +#endif
+> +#ifndef DP_PHY_SQUARE_PATTERN
+>  #define DP_PHY_SQUARE_PATTERN                                0x249
+> +#endif
+> +#ifndef DP_128b_132b_SUPPORTED_LINK_RATES
+>  #define DP_128b_132b_SUPPORTED_LINK_RATES            0x2215
+> +#endif
+> +#ifndef DP_128b_132b_TRAINING_AUX_RD_INTERVAL
+>  #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL
+>       0x2216
+> +#endif
+> +#ifndef DP_TEST_264BIT_CUSTOM_PATTERN_7_0
+>  #define DP_TEST_264BIT_CUSTOM_PATTERN_7_0            0X2230
+> +#endif
+> +#ifndef DP_TEST_264BIT_CUSTOM_PATTERN_263_256
+>  #define DP_TEST_264BIT_CUSTOM_PATTERN_263_256
+>       0X2250
+> +#endif
+> +#ifndef DP_DSC_SUPPORT_AND_DECODER_COUNT
+>  #define DP_DSC_SUPPORT_AND_DECODER_COUNT             0x2260
+> +#endif
+> +#ifndef DP_DSC_MAX_SLICE_COUNT_AND_AGGREGATION_0
+>  #define DP_DSC_MAX_SLICE_COUNT_AND_AGGREGATION_0
+>       0x2270
+> -# define DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK   (1 <<
+> 0)
+> -# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK
+>       (0b111 << 1)
+> -# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT  1
+> -# define DP_DSC_DECODER_COUNT_MASK                   (0b111 << 5)
+> -# define DP_DSC_DECODER_COUNT_SHIFT                  5
+> +#endif
+> +#ifndef DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK
+> +#define DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK    (1 <<
+> 0)
+> +#endif
+> +#ifndef DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK
+> +#define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK
+>       (0b111 << 1)
+> +#endif
+> +#ifndef DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT
+> +#define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT   1
+> +#endif
+> +#ifndef DP_DSC_DECODER_COUNT_MASK
+> +#define DP_DSC_DECODER_COUNT_MASK                    (0b111 << 5)
+> +#endif
+> +#ifndef DP_DSC_DECODER_COUNT_SHIFT
+> +#define DP_DSC_DECODER_COUNT_SHIFT                   5
+> +#endif
+> +#ifndef DP_MAIN_LINK_CHANNEL_CODING_SET
+>  #define DP_MAIN_LINK_CHANNEL_CODING_SET                      0x108
+> +#endif
+> +#ifndef DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER
+>  #define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER     0xF0006
+> +#endif
+> +#ifndef DP_PHY_REPEATER_128b_132b_RATES
+>  #define DP_PHY_REPEATER_128b_132b_RATES
+>       0xF0007
+> +#endif
+> +#ifndef DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1
+>  #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1
+>       0xF0022
+> +#endif
+> +#ifndef DP_INTRA_HOP_AUX_REPLY_INDICATION
+>  #define DP_INTRA_HOP_AUX_REPLY_INDICATION            (1 << 3)
+> +#endif
+>  /* TODO - Use DRM header to replace above once available */
+>
+>  union dp_main_line_channel_coding_cap {
+> --
+> 2.33.0
+
