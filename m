@@ -2,42 +2,43 @@ Return-Path: <SRS0=/upn=OT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FDDAC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 19:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D1D4C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 19:06:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92294613CE
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 19:06:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 92294613CE
+	by mail.kernel.org (Postfix) with ESMTPS id DFB59610A0
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 19:06:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DFB59610A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 461D86E0B8;
-	Wed, 29 Sep 2021 19:06:31 +0000 (UTC)
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B62796E0B8
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 19:06:29 +0000 (UTC)
-Date: Wed, 29 Sep 2021 19:06:14 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B013898ED;
+	Wed, 29 Sep 2021 19:06:33 +0000 (UTC)
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4BE96E0B8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 19:06:30 +0000 (UTC)
+Date: Wed, 29 Sep 2021 19:06:16 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1632942383;
- bh=2zRpPMSYOwEMoHucti8MQE7oGxlNAJZdR1g7TPhcoqM=;
- h=Date:To:From:Cc:Reply-To:Subject:From;
- b=OwUlANPVGYMKyjG1lCTIBmfsyi5C0mpavD9KUedDhKQnnF8644/Nh6ZKtFOGfBcco
- n2VMILwu9d9Uig7WO2QrUn/aAbrACfKX40tzxXH+pbY+3nAtoT1tPPhtBG3oZEB0WK
- yc2pjZ1lfa+3YfqXtvLWxyGKSt4qGfowIRi+LoAmlWcmaqOLCM9q8xi7sZOqezicNj
- 3qfLTAnrKULxzlkFBeezjouWaeVKXpv/vFG4EwF2VtXpLaRWOiz0jtbLoVMLrSjXh0
- jERY93jSn2ZmTxJZhVhEig6IatrVLV/EHBaJCNPmhEjRO7yM3AhO6RKpqLawg4zq/4
- FJ+0dyHV7xDCA==
+ s=protonmail; t=1632942388;
+ bh=+8cQR2u19W48XnS/TPvp8JhQHk2vQbVRFzfSOM7p9k4=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=JF6ZFhYOFVLtkm9H+JCcF6nsjyOY8XrnrS8Nbaed7+gKKx9r/ikpj6b/au50XY7pm
+ pDUsrVVxWS/QkRCRpHz9kA2BRtK5sxm00HuJPunM9fUge3gXetvGcW9Vf4mTEIvWFP
+ 7d9W+VCNdr0YDBSq0eS/JAar8gaxt64yulVG7TcN2uisiKweVlG2ssRNuuqbxKFe3F
+ InB8WZMIgnuXuqNziWLTlewra4kzgLJ2XEovUVJRUNMQ1Zi63aMSOEuCZuqOzO+z7C
+ VK/u8VUVho4oEqUWimZJueATKMI16OlGrq1UKji9K+808mFerzwHumlKhmT9qDjQ4H
+ QNxifG67auicg==
 To: amd-gfx@lists.freedesktop.org
 From: Simon Ser <contact@emersion.fr>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
  Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Subject: [PATCH v3 1/2] amd/display: check cursor plane matches underlying
- plane
-Message-ID: <20210929190603.48890-1-contact@emersion.fr>
+Subject: [PATCH v3 2/2] amd/display: only require overlay plane to cover whole
+ CRTC on ChromeOS
+Message-ID: <20210929190603.48890-2-contact@emersion.fr>
+In-Reply-To: <20210929190603.48890-1-contact@emersion.fr>
+References: <20210929190603.48890-1-contact@emersion.fr>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -56,112 +57,50 @@ Reply-To: Simon Ser <contact@emersion.fr>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The current logic checks whether the cursor plane blending
-properties match the primary plane's. However that's wrong,
-because the cursor is painted on all planes underneath. If
-the cursor is over the primary plane and the cursor plane,
-it's painted on both pipes.
+Commit ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when
+using overlay") changed the atomic validation code to forbid the
+overlay plane from being used if it doesn't cover the whole CRTC. The
+motivation is that ChromeOS uses the atomic API for everything except
+the cursor plane (which uses the legacy API). Thus amdgpu must always
+be prepared to enable/disable/move the cursor plane at any time without
+failing (or else ChromeOS will trip over).
 
-Iterate over the CRTC planes and check their scaling match
-the cursor's.
+As discussed in [1], there's no reason why the ChromeOS limitation
+should prevent other fully atomic users from taking advantage of the
+overlay plane. Let's limit the check to ChromeOS.
+
+[1]: https://lore.kernel.org/amd-gfx/JIQ_93_cHcshiIDsrMU1huBzx9P9LVQxucx8hQ=
+ArpQu7Wk5DrCl_vTXj_Q20m_L-8C8A5dSpNcSJ8ehfcCrsQpfB5QG_Spn14EYkH9chtg0=3D@em=
+ersion.fr/
 
 Signed-off-by: Simon Ser <contact@emersion.fr>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Harry Wentland <hwentlan@amd.com>
 Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Fixes: ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when usin=
+g overlay")
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 49 +++++++++++++------
- 1 file changed, 34 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
 u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3c7a8f869b40..6472c0032b54 100644
+index 6472c0032b54..f06d6e794721 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10505,18 +10505,18 @@ static int dm_check_crtc_cursor(struct drm_atomic=
-_state *state,
- =09=09=09=09struct drm_crtc *crtc,
- =09=09=09=09struct drm_crtc_state *new_crtc_state)
- {
--=09struct drm_plane_state *new_cursor_state, *new_primary_state;
--=09int cursor_scale_w, cursor_scale_h, primary_scale_w, primary_scale_h;
-+=09struct drm_plane *cursor =3D crtc->cursor, *underlying;
-+=09struct drm_plane_state *new_cursor_state, *new_underlying_state;
-+=09int i;
-+=09int cursor_scale_w, cursor_scale_h, underlying_scale_w, underlying_scal=
-e_h;
+@@ -10590,6 +10590,10 @@ static int validate_overlay(struct drm_atomic_stat=
+e *state)
+ =09struct drm_plane_state *new_plane_state;
+ =09struct drm_plane_state *primary_state, *overlay_state =3D NULL;
 =20
- =09/* On DCE and DCN there is no dedicated hardware cursor plane. We get a
- =09 * cursor per pipe but it's going to inherit the scaling and
- =09 * positioning from the underlying pipe. Check the cursor plane's
--=09 * blending properties match the primary plane's. */
-+=09 * blending properties match the underlying planes'. */
-=20
--=09new_cursor_state =3D drm_atomic_get_new_plane_state(state, crtc->cursor=
-);
--=09new_primary_state =3D drm_atomic_get_new_plane_state(state, crtc->prima=
-ry);
--=09if (!new_cursor_state || !new_primary_state ||
--=09    !new_cursor_state->fb || !new_primary_state->fb) {
-+=09new_cursor_state =3D drm_atomic_get_new_plane_state(state, cursor);
-+=09if (!new_cursor_state || !new_cursor_state->fb) {
- =09=09return 0;
- =09}
-=20
-@@ -10525,15 +10525,34 @@ static int dm_check_crtc_cursor(struct drm_atomic=
-_state *state,
- =09cursor_scale_h =3D new_cursor_state->crtc_h * 1000 /
- =09=09=09 (new_cursor_state->src_h >> 16);
-=20
--=09primary_scale_w =3D new_primary_state->crtc_w * 1000 /
--=09=09=09 (new_primary_state->src_w >> 16);
--=09primary_scale_h =3D new_primary_state->crtc_h * 1000 /
--=09=09=09 (new_primary_state->src_h >> 16);
-+=09for_each_new_plane_in_state_reverse(state, underlying, new_underlying_s=
-tate, i) {
-+=09=09/* Narrow down to non-cursor planes on the same CRTC as the cursor *=
-/
-+=09=09if (new_underlying_state->crtc !=3D crtc || underlying =3D=3D crtc->=
-cursor)
-+=09=09=09continue;
-=20
--=09if (cursor_scale_w !=3D primary_scale_w ||
--=09    cursor_scale_h !=3D primary_scale_h) {
--=09=09drm_dbg_atomic(crtc->dev, "Cursor plane scaling doesn't match primar=
-y plane\n");
--=09=09return -EINVAL;
-+=09=09/* Ignore disabled planes */
-+=09=09if (!new_underlying_state->fb)
-+=09=09=09continue;
++=09/* This is a workaround for ChromeOS only */
++=09if (strcmp(current->comm, "chrome") !=3D 0)
++=09=09return 0;
 +
-+=09=09underlying_scale_w =3D new_underlying_state->crtc_w * 1000 /
-+=09=09=09=09     (new_underlying_state->src_w >> 16);
-+=09=09underlying_scale_h =3D new_underlying_state->crtc_h * 1000 /
-+=09=09=09=09     (new_underlying_state->src_h >> 16);
-+
-+=09=09if (cursor_scale_w !=3D underlying_scale_w ||
-+=09=09    cursor_scale_h !=3D underlying_scale_h) {
-+=09=09=09drm_dbg_atomic(crtc->dev,
-+=09=09=09=09       "Cursor [PLANE:%d:%s] scaling doesn't match underlying =
-[PLANE:%d:%s]\n",
-+=09=09=09=09       cursor->base.id, cursor->name, underlying->base.id, und=
-erlying->name);
-+=09=09=09return -EINVAL;
-+=09=09}
-+
-+=09=09/* If this plane covers the whole CRTC, no need to check planes unde=
-rneath */
-+=09=09if (new_underlying_state->crtc_x <=3D 0 &&
-+=09=09    new_underlying_state->crtc_y <=3D 0 &&
-+=09=09    new_underlying_state->crtc_x + new_underlying_state->crtc_w >=3D=
- new_crtc_state->mode.hdisplay &&
-+=09=09    new_underlying_state->crtc_y + new_underlying_state->crtc_h >=3D=
- new_crtc_state->mode.vdisplay)
-+=09=09=09break;
- =09}
-=20
- =09return 0;
+ =09/* Check if primary plane is contained inside overlay */
+ =09for_each_new_plane_in_state_reverse(state, plane, new_plane_state, i) {
+ =09=09if (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY) {
 --=20
 2.33.0
 
