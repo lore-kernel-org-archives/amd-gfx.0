@@ -2,68 +2,70 @@ Return-Path: <SRS0=/upn=OT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16123C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 09:17:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C288CC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 09:18:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D27E461139
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 09:17:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D27E461139
+	by mail.kernel.org (Postfix) with ESMTPS id 8A613613A9
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 09:18:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8A613613A9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 891736E198;
-	Wed, 29 Sep 2021 09:17:47 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A95116E198
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 09:17:46 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id k7so2963660wrd.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 02:17:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2C66EA15;
+	Wed, 29 Sep 2021 09:18:51 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB5B6EA15
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 09:18:50 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ l18-20020a05600c4f1200b002f8cf606262so4647879wmq.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 02:18:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-transfer-encoding:content-language;
- bh=b6TZ1Gdy+NsHNRYnaTEXXtScFilK6u/Y8Hfi3pXfXpI=;
- b=hfX6AeapVZFWxYcA5XEQZv3Vwclyr3nAr45rV/Q5A7wWluQfUf8EZD5lVdjesppxHI
- XBBXWpumCNCodj+Vs7KE6uvO6/t5T/kOfY8/Eebal/KWiyXDaYk/HihnVUv2Fra9uQWP
- az3kb8qfyg0S093M8kd/L6yNVP1z8wQ5gwfvDb3JkoQC8/kEtVA9UQagQshGtoDy1r3h
- sTo8N4iAqFM+UqZ77oto2nEyxvNjMemngHW64Ilx5ax9ELoQxZobs2W7P4mrnx24dPJO
- iSpFbgB7Fpvxm5/qCoc3tkIYEhSYxYM2PTuA8C5RDJKkKF/FiF771M/vywZ9pIs2t/K0
- 3ghA==
+ bh=BUBj9ykhw028wa2ermedbaUrHPJ6b7wyasyqR4N4ENo=;
+ b=V3Txsm4HqYUE2uGxIL3RGIPICGgCdMydcYchYc6zsgYehYeok4O4sGnwg1MPglE2P4
+ ORhxn/40ivu1wSUWJwNBQH08aYUATWmXxEtwZJCc+sufgnsTyffm1YjhVsiTGW/ECFVB
+ ww1qDsoDbj43AyLt74mFyFaymZStZtFQXyG0zVIfJFSk+mlgpnFGl8c4rVQfIWjAGGUb
+ 60hbb9uxxv89I+745PcyJrWaV+WmuBD+nbb2geVc16DH8HHlJiGXjXvw1hbSR9dFa6I9
+ m7XrR2ECQwMbr8eDEbkzKFVwGKIfW94EkvoNmFEkuzLO/bGgw2451F7dP2aZ4k/bQOWN
+ KbNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=b6TZ1Gdy+NsHNRYnaTEXXtScFilK6u/Y8Hfi3pXfXpI=;
- b=PswbZl5k/ICP8XwCcTkk+OQwh2Yrdkf04FzqheW4zggnWjE4eVDqIaegEh/0Y72Scv
- IeH6fnQ8OzFDULTntzSuLbx95gz3q4u1hiar3jZkcE7H/6u6dd3vPqUsWDLzkz18G12a
- +csRipiH4d5Xy9maM/FkqFjKqwGUkqm0Dys183/mlmUIAJ2iHDb3y7E4HB8tVK7ezHEd
- F8U3CeiX8bwcj3cx6ZIWglhTpVHCJ9YMTZgZn0UCXsGG0Tx0AQG/pyrPDxOCg0ilJMyr
- qAlA3Jyuk/35vrPSghGKBPbiSbCCdQMRLJxPkUavoSOnb2QpXuKfwuPmQluFhs5Om7Ik
- /Zrg==
-X-Gm-Message-State: AOAM532dX61bLH4Ox5MLGL298IkMnrAJ8r08l5fEz2QLVxvxUTSNbZix
- maVTF/C1k6VrswYdDUmjcGA0c9YQoQU=
-X-Google-Smtp-Source: ABdhPJxdwuYru9nCeMEj8mG1ptCLw/wjb/vMNlzO7eb8YCcdEoRnfLc8+spSYCTLtJ3P5PLOnZiyDA==
-X-Received: by 2002:a5d:530a:: with SMTP id e10mr5662759wrv.277.1632907064271; 
- Wed, 29 Sep 2021 02:17:44 -0700 (PDT)
+ bh=BUBj9ykhw028wa2ermedbaUrHPJ6b7wyasyqR4N4ENo=;
+ b=PN3YNY9JLFdylZEry04eETLMRBqfIBXY/EuTZiR83aej7lug0WPNNIAk10WKwM11bL
+ uIALL8nBmbRjTQ9rQJy0/MX4I0rLJd5Fgzn15AjrXL0IqvRt0loUVfbmiGyrBkL0ApxF
+ 9JtBs9SNLKxrx5xTjPGzbeIh8Ed3Q/H8yysGKXYh+50PusutkSkThr/L/S5ek43gMhhr
+ upX1qwd4hXJNPYI7Ukll27WyWInlkNOImw69SHtWfjTxSYt/hnFaphV4veGTz9yHwMb1
+ KP3c4pE4khljp9Uwf5EW1TY+F2urFhW+C2zHbzN3kNztqheE74T7bPDGocppzi80jEih
+ Ejmg==
+X-Gm-Message-State: AOAM531+NIWCMJX4JM6P/yTnwT81OEUB/KqMNK3SVKKgFzEYpVXklWE5
+ gzzKV13bLYBnO8qOfOrNhulUv71+8nk=
+X-Google-Smtp-Source: ABdhPJw/8CegBWR8RFgs2hvGq2Q8hvQIzqBxgBcKgINteHisFGKqVTlkbypzInLJHigl9qG/wDiUqw==
+X-Received: by 2002:a1c:7f52:: with SMTP id a79mr9209328wmd.34.1632907129082; 
+ Wed, 29 Sep 2021 02:18:49 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:4405:6e4f:ef81:78d1?
  ([2a02:908:1252:fb60:4405:6e4f:ef81:78d1])
- by smtp.gmail.com with ESMTPSA id m29sm1656545wrb.89.2021.09.29.02.17.43
+ by smtp.gmail.com with ESMTPSA id v18sm903304wml.44.2021.09.29.02.18.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Sep 2021 02:17:43 -0700 (PDT)
-Subject: Re: [PATCH 50/64] drm/amdgpu: add VCN1 hardware IP
+ Wed, 29 Sep 2021 02:18:48 -0700 (PDT)
+Subject: Re: [PATCH 52/64] drm/amdgpu: get VCN and SDMA instances from IP
+ discovery table
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20210928164237.833132-1-alexander.deucher@amd.com>
- <20210928164237.833132-51-alexander.deucher@amd.com>
+ <20210928164237.833132-53-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <16bca756-785f-11fd-443e-57ffb47ae58e@gmail.com>
-Date: Wed, 29 Sep 2021 11:17:43 +0200
+Message-ID: <ade696b4-925f-2949-b03f-a2192fadd198@gmail.com>
+Date: Wed, 29 Sep 2021 11:18:47 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20210928164237.833132-51-alexander.deucher@amd.com>
+In-Reply-To: <20210928164237.833132-53-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
@@ -82,26 +84,86 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 28.09.21 um 18:42 schrieb Alex Deucher:
-> So we can store the VCN IP revision for each instance of VCN.
+> Rather than hardcoding it.  We already have the number of VCN
+> instances from a previous patch, so just update the VCN
+> instances for chips with static tables.
+>
+> v2: squash in checks for SDMA3,4 (Guchun)
+> v3: clarify VCN changes
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 14 ++++++++++++++
+>   1 file changed, 14 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 815db33190ca..b153c3740307 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -744,6 +744,7 @@ enum amd_hw_ip_block_type {
->   	UVD_HWIP,
->   	VCN_HWIP = UVD_HWIP,
->   	JPEG_HWIP = VCN_HWIP,
-> +	VCN1_HWIP,
->   	VCE_HWIP,
->   	DF_HWIP,
->   	DCE_HWIP,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index d3069841ff79..13cd814f2626 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -363,6 +363,11 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   
+>   			if (le16_to_cpu(ip->hw_id) == VCN_HWID)
+>   				adev->vcn.num_vcn_inst++;
+> +			if (le16_to_cpu(ip->hw_id) == SDMA0_HWID ||
+> +			    le16_to_cpu(ip->hw_id) == SDMA1_HWID ||
+> +			    le16_to_cpu(ip->hw_id) == SDMA2_HWID ||
+> +			    le16_to_cpu(ip->hw_id) == SDMA3_HWID)
+> +				adev->sdma.num_instances++;
+>   
+>   			for (k = 0; k < num_base_address; k++) {
+>   				/*
+> @@ -529,6 +534,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>   	switch (adev->asic_type) {
+>   	case CHIP_VEGA10:
+>   		vega10_reg_base_init(adev);
+> +		adev->sdma.num_instances = 2;
+>   		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 0, 0);
+>   		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 0, 0);
+>   		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 0, 0);
+> @@ -548,6 +554,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>   		break;
+>   	case CHIP_VEGA12:
+>   		vega10_reg_base_init(adev);
+> +		adev->sdma.num_instances = 2;
+>   		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 3, 0);
+>   		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 3, 0);
+>   		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 0, 1);
+> @@ -567,6 +574,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>   		break;
+>   	case CHIP_RAVEN:
+>   		vega10_reg_base_init(adev);
+> +		adev->sdma.num_instances = 1;
+> +		adev->vcn.num_vcn_inst = 1;
+>   		if (adev->apu_flags & AMD_APU_IS_RAVEN2) {
+>   			adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 2, 0);
+>   			adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 2, 0);
+> @@ -603,6 +612,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>   		break;
+>   	case CHIP_VEGA20:
+>   		vega20_reg_base_init(adev);
+> +		adev->sdma.num_instances = 2;
+>   		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 4, 0);
+>   		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 4, 0);
+>   		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 2, 0);
+> @@ -622,6 +632,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>   		break;
+>   	case CHIP_ARCTURUS:
+>   		arct_reg_base_init(adev);
+> +		adev->sdma.num_instances = 8;
+> +		adev->vcn.num_vcn_inst = 2;
+>   		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 4, 1);
+>   		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 4, 1);
+>   		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 2, 1);
+> @@ -639,6 +651,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>   		break;
+>   	case CHIP_ALDEBARAN:
+>   		aldebaran_reg_base_init(adev);
+> +		adev->sdma.num_instances = 5;
+> +		adev->vcn.num_vcn_inst = 2;
+>   		adev->ip_versions[MMHUB_HWIP] = IP_VERSION(9, 4, 2);
+>   		adev->ip_versions[ATHUB_HWIP] = IP_VERSION(9, 4, 2);
+>   		adev->ip_versions[OSSSYS_HWIP] = IP_VERSION(4, 4, 0);
 
