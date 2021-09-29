@@ -2,101 +2,71 @@ Return-Path: <SRS0=/upn=OT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D0BCCC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 19:57:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33289C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 20:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9601161501
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 19:57:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9601161501
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id E551B61504
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 20:05:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E551B61504
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 025A96E219;
-	Wed, 29 Sep 2021 19:57:23 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3E4E6E21C
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 19:57:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bQA6N06/9VVfWuHSw+aNaHeXF9oHQmxXb207M0qxkJ1RkYiDdMsBiX8uvgZghjnLGgflyg1Cy1EqlrF4fQaq4JlKAUx106CShEDbYvzxZo5BIjlrS/4Gv6NcqcCxAfOsMXtCw/wwMPd1VVi2XVA9aw3L8CSB2JBd0Bag8xUBdz1tgMGXUasZ0UAQLcxPutCAqObhTvwnP2SePSgoGEQIvMV5SKM0XIrtWrfl+1RbDjLV7Qbvc9F0ajxV73lkRbRteBr2ug/Dq5Ha5lqCQ7wWOznrcbyIImUMowib5z+c7ioMZhTxc9FrKUxNHhQrg4DTgWD+7rie3LUYWRXtcb5tMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=xBIP9iZfS2rluYYAQ+0NrYHi5IlaEU4lLad9MgGiVfw=;
- b=Q6PuIxZBZ5WOJQ8hjPqt9LYz0oMAMQGhm4O0NCFDAVqpZFYWH6D5SCeV7v3DMtJMgpVc3Le5n9wn3IDMd2t5jmLro5ywBsADEtfE/NIcgfGg1Wg6bUl5TFuY0mwPRBf0waUXGVVFEbTq8LkD0YdLXu3uY2wVJRBfJxpGfg7o496dcPJVAQd3w1iApIJyeQqbUDSTHFlvOKsdzcdKCdyTz1Yp9OXwGf3LpIxtIHQvDr9xAWZepoEgPr8Ku5+x8RWgxivuUS/CNHuS4dizLiz7OKXIZlIDwGwjC7Dj7u2NE/E+VLeu+APoZf9qq9H57nC+NDF0BQe+mCrix3C1dMmTbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xBIP9iZfS2rluYYAQ+0NrYHi5IlaEU4lLad9MgGiVfw=;
- b=jwrRjEjPeoUAqP7excBbfSJ5FvQ/9xZbrJ323R1ETBX9qmMB3L+7K6FHmNxaFtuEGn7WYW94i9oCqT42bLiFQ6fvkhFXS4q6S9C2XIhb5oF1hKcbOwaX8wNa7uuXt4n5grQvoudtlgRMn6iMb/APoaqTOjW3q+UaNm72FL7p190=
-Received: from MW4PR04CA0079.namprd04.prod.outlook.com (2603:10b6:303:6b::24)
- by BY5PR12MB4323.namprd12.prod.outlook.com (2603:10b6:a03:211::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Wed, 29 Sep
- 2021 19:57:19 +0000
-Received: from CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6b:cafe::9e) by MW4PR04CA0079.outlook.office365.com
- (2603:10b6:303:6b::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
- Transport; Wed, 29 Sep 2021 19:57:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT008.mail.protection.outlook.com (10.13.175.191) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 19:57:18 +0000
-Received: from work_495456.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 29 Sep
- 2021 14:57:16 -0500
-From: James Zhu <James.Zhu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <jamesz@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/jpeg: add jpeg2.6 start/end
-Date: Wed, 29 Sep 2021 15:57:09 -0400
-Message-ID: <1632945429-7902-2-git-send-email-James.Zhu@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1632945429-7902-1-git-send-email-James.Zhu@amd.com>
-References: <1632945429-7902-1-git-send-email-James.Zhu@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF1F6EB09;
+	Wed, 29 Sep 2021 20:05:23 +0000 (UTC)
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [IPv6:2607:f8b0:4864:20::f35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C950A6E1FB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 19:40:34 +0000 (UTC)
+Received: by mail-qv1-xf35.google.com with SMTP id gs10so2138084qvb.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 12:40:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PF633gou+bl3sCpIJ8wv85xDA5ZlnT4KC1I1tt3b3Dw=;
+ b=h7pT+4lZyr9pCDyJbrAsH5Y5h6S4YUyYmsnrKRK9b024dTy0SWgieLBPe6oHRIP57g
+ tACIdjc8P5aqUla/jrS++A039Nb6t3lQlMoVATBxiYU0jBjn6EaANh/anNYlD+iClCLb
+ HjDPAyteVgB2CXzeoP0en0yZysG0JqIQlh/QE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PF633gou+bl3sCpIJ8wv85xDA5ZlnT4KC1I1tt3b3Dw=;
+ b=5z5o9EDHFQxp9oAwWdsXzjgRoGEKT7zUMDRmOiAK6RqeNSkH6TBnTs1uPXhy+c1P2C
+ KNyvX86POWpkhuZqD8MQAaMrII7OqbK8R1QtteBt8+cbucxeaH5muVJ3aMbuR7hSP52D
+ 2sU1/Ic77fjpJxYoutXxajNfSlxjshUIdaIthdkf7WRgIenLrUWBe8EhqXxl83fClKug
+ +aWaHEPwLzTZdbJvOx8B7WZJ9A4AmpsFR7onS8QuFSU9ftwkX6u79qg7W8aitFV9knI4
+ LJAFO7RPYDCPCsD8t8NOZJtKWBSAl3zaR1cl883kwL45Scr+ZzJsKDBYjh9AFIkDgK97
+ +5xQ==
+X-Gm-Message-State: AOAM532XpCEGX819PuVQlMX19mhIIR2cfjlgL2Yr7lS7wdCYvVWnHh5/
+ ekuAgmlXnvAlO0kH+5c76mOd6g==
+X-Google-Smtp-Source: ABdhPJz2jnoGe84xsN5bbYup7kT30gQg9aDhyQ18dDkvFdc4nX3/qf7bpM20C7AqYvDQ0SnkqJIDjA==
+X-Received: by 2002:ad4:5554:: with SMTP id v20mr224403qvy.16.1632944432914;
+ Wed, 29 Sep 2021 12:40:32 -0700 (PDT)
+Received: from markyacoub.nyc.corp.google.com
+ ([2620:15c:6c:200:db75:cbbd:56c0:9891])
+ by smtp.gmail.com with ESMTPSA id c4sm395064qkf.122.2021.09.29.12.40.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Sep 2021 12:40:32 -0700 (PDT)
+From: Mark Yacoub <markyacoub@chromium.org>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Cc: seanpaul@chromium.org, Rodrigo.Siqueira@amd.com, anson.jacob@amd.com,
+ Mark Yacoub <markyacoub@google.com>, Mark Yacoub <markyacoub@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Subject: [PATCH 1/2] drm: Add Gamma and Degamma LUT sizes props to drm_crtc to
+ validate.
+Date: Wed, 29 Sep 2021 15:39:25 -0400
+Message-Id: <20210929194012.3433306-1-markyacoub@chromium.org>
+X-Mailer: git-send-email 2.33.0.685.g46640cef36-goog
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c0cd696-a5b7-4844-114a-08d9838357e6
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4323:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4323BCB6A0CB0C5CBF6D0D14E4A99@BY5PR12MB4323.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WaAHh1rVIjekZBN5m510CBfBzXv74O9asJVDSzds67jDT3ijRhiQglEJyN7GrzakwoHcD6ns7wWoUHornTbmXewPqzoc4XEksAP4HgOVM+ii+0zStPkQzS/B0pByA57/eqX77G9Y4/8V7BTmfbJo43XG2aeKZBESz1Fu0E9aQUP3mDLVBQKWCFnfq90Qlfs4y7nIBDWx6GC9JuJr+NSllQoAAhUon3eHXEu3cW2TSr7U8+hfMZm1+us6mruRnlG01Zv1eJ0jTplekF/LcqopjUN33+oql25488wmKdT+VpFMCEEI9WwmNHmACAaKMjinv2sHHF2oLcEWjchSLwRbFPl1bq0iZ7vnq0XJ0NSw7Ln/wsLufxQWr3Hx6WFsOKQDyRiJDbc6ize/GFp4IJ/fTvGLMT/AAK6k4SGwkVxGHnXPxDKIlilub8/nnqsLuRB7pS83v5HAQs+X+Bs34WZqUS4OMkyrSJu6szCbnPcQKg4OlV6vyAs8AzxeQgh4xe2hL7vLR68HUcc/GiLxvhrRNi5OxktufijGxfqWfvIscQGk5Jjwn25hFfGat1B6tH7O84CsIWUoa7I3gPbu0TGFtGcUdWUL7cWcyHKZD24S1fzDj3rKg/cdxGEpDKheVnw6Ec7NEpUc/UvkzL27SCEOpI1T7Ibc3ijDHOnW7iOAxYpbBJpfVxTXippuQKjldM4ertKi3QGiAzMG2OOUkqqE+X24fXckpOTBhvoy1WBklDo=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(26005)(86362001)(316002)(83380400001)(2906002)(8936002)(2616005)(82310400003)(36756003)(5660300002)(47076005)(508600001)(426003)(6916009)(186003)(4326008)(8676002)(6666004)(336012)(70206006)(81166007)(16526019)(356005)(36860700001)(70586007)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 19:57:18.6866 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c0cd696-a5b7-4844-114a-08d9838357e6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4323
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 29 Sep 2021 20:05:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,71 +81,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add jpeg2.6 with updated PCTL0_MMHUB_DEEPSLEEP_IB address in start/end.
+From: Mark Yacoub <markyacoub@google.com>
 
-Signed-off-by: James Zhu <James.Zhu@amd.com>
+[Why]
+1. drm_atomic_helper_check doesn't check for the LUT sizes of either Gamma
+or Degamma props in the new CRTC state, allowing any invalid size to
+be passed on.
+2. Each driver has its own LUT size, which could also be different for
+legacy users.
+
+[How]
+1. Create |degamma_lut_size| and |gamma_lut_size| to save the LUT sizes
+assigned by the driver when it's initializing its color and CTM
+management.
+2. Create drm_atomic_helper_check_crtc which is called by
+drm_atomic_helper_check to check the LUT sizes saved in drm_crtc that
+they match the sizes in the new CRTC state.
+
+Fixes: igt@kms_color@pipe-A-invalid-gamma-lut-sizes on MTK
+Tested on Zork(amdgpu) and Jacuzzi(mediatek)
+
+Signed-off-by: Mark Yacoub<markyacoub@chromium.org>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 40 ++++++++++++++++++++++++++++++++--
- 1 file changed, 38 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic_helper.c | 56 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_color_mgmt.c    |  2 ++
+ include/drm/drm_atomic_helper.h     |  1 +
+ include/drm/drm_crtc.h              | 11 ++++++
+ 4 files changed, 70 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index 46096ad..a29c866 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -423,6 +423,42 @@ static void jpeg_v2_5_dec_ring_set_wptr(struct amdgpu_ring *ring)
- 	}
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 2c0c6ec928200..265b9747250d1 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -930,6 +930,58 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
  }
+ EXPORT_SYMBOL(drm_atomic_helper_check_planes);
  
 +/**
-+ * jpeg_v2_6_dec_ring_insert_start - insert a start command
++ * drm_atomic_helper_check_planes - validate state object for CRTC changes
++ * @state: the driver state object
 + *
-+ * @ring: amdgpu_ring pointer
++ * Check the CRTC state object such as the Gamma/Degamma LUT sizes if the new
++ * state holds them.
 + *
-+ * Write a start command to the ring.
++ * RETURNS:
++ * Zero for success or -errno
 + */
-+static void jpeg_v2_6_dec_ring_insert_start(struct amdgpu_ring *ring)
++int drm_atomic_helper_check_crtc(struct drm_atomic_state *state)
 +{
-+	amdgpu_ring_write(ring, PACKETJ(mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET,
-+		0, 0, PACKETJ_TYPE0));
-+	amdgpu_ring_write(ring, 0x6aa04); /* PCTL0_MMHUB_DEEPSLEEP_IB */
++	struct drm_crtc *crtc;
++	struct drm_crtc_state *new_crtc_state;
++	int i;
 +
-+	amdgpu_ring_write(ring, PACKETJ(JRBC_DEC_EXTERNAL_REG_WRITE_ADDR,
-+		0, 0, PACKETJ_TYPE0));
-+	amdgpu_ring_write(ring, 0x80000000 | (1 << (ring->me * 2 + 14)));
++	for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
++		if (new_crtc_state->gamma_lut) {
++			uint64_t supported_lut_size = crtc->gamma_lut_size;
++			uint32_t supported_legacy_lut_size = crtc->gamma_size;
++			uint32_t new_state_lut_size =
++				drm_color_lut_size(new_crtc_state->gamma_lut);
++
++			if (new_state_lut_size != supported_lut_size &&
++			    new_state_lut_size != supported_legacy_lut_size) {
++				DRM_DEBUG_DRIVER(
++					"Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
++					supported_lut_size,
++					supported_legacy_lut_size,
++					new_state_lut_size);
++				return -EINVAL;
++			}
++		}
++
++		if (new_crtc_state->degamma_lut) {
++			uint32_t new_state_lut_size =
++				drm_color_lut_size(new_crtc_state->degamma_lut);
++			uint64_t supported_lut_size = crtc->degamma_lut_size;
++
++			if (new_state_lut_size != supported_lut_size) {
++				DRM_DEBUG_DRIVER(
++					"Invalid Degamma LUT size. Should be %u but got %u.\n",
++					supported_lut_size, new_state_lut_size);
++				return -EINVAL;
++			}
++		}
++	}
++
++	return 0;
 +}
++EXPORT_SYMBOL(drm_atomic_helper_check_crtc);
 +
-+/**
-+ * jpeg_v2_6_dec_ring_insert_end - insert a end command
-+ *
-+ * @ring: amdgpu_ring pointer
-+ *
-+ * Write a end command to the ring.
-+ */
-+static void jpeg_v2_6_dec_ring_insert_end(struct amdgpu_ring *ring)
-+{
-+	amdgpu_ring_write(ring, PACKETJ(mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET,
-+		0, 0, PACKETJ_TYPE0));
-+	amdgpu_ring_write(ring, 0x6aa04); /* PCTL0_MMHUB_DEEPSLEEP_IB */
+ /**
+  * drm_atomic_helper_check - validate state object
+  * @dev: DRM device
+@@ -975,6 +1027,10 @@ int drm_atomic_helper_check(struct drm_device *dev,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = drm_atomic_helper_check_crtc(state);
++	if (ret)
++		return ret;
 +
-+	amdgpu_ring_write(ring, PACKETJ(JRBC_DEC_EXTERNAL_REG_WRITE_ADDR,
-+		0, 0, PACKETJ_TYPE0));
-+	amdgpu_ring_write(ring, (1 << (ring->me * 2 + 14)));
-+}
+ 	if (state->legacy_cursor_update)
+ 		state->async_update = !drm_atomic_helper_async_check(dev, state);
+ 
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index bb14f488c8f6c..72a1b628e7cdd 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -166,6 +166,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+ 	struct drm_mode_config *config = &dev->mode_config;
+ 
+ 	if (degamma_lut_size) {
++		crtc->degamma_lut_size = degamma_lut_size;
+ 		drm_object_attach_property(&crtc->base,
+ 					   config->degamma_lut_property, 0);
+ 		drm_object_attach_property(&crtc->base,
+@@ -178,6 +179,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+ 					   config->ctm_property, 0);
+ 
+ 	if (gamma_lut_size) {
++		crtc->gamma_lut_size = gamma_lut_size;
+ 		drm_object_attach_property(&crtc->base,
+ 					   config->gamma_lut_property, 0);
+ 		drm_object_attach_property(&crtc->base,
+diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
+index 4045e2507e11c..3eda13622ca1e 100644
+--- a/include/drm/drm_atomic_helper.h
++++ b/include/drm/drm_atomic_helper.h
+@@ -38,6 +38,7 @@ struct drm_atomic_state;
+ struct drm_private_obj;
+ struct drm_private_state;
+ 
++int drm_atomic_helper_check_crtc(struct drm_atomic_state *state);
+ int drm_atomic_helper_check_modeset(struct drm_device *dev,
+ 				struct drm_atomic_state *state);
+ int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 13eeba2a750af..c602be2cafca9 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -1072,6 +1072,17 @@ struct drm_crtc {
+ 	/** @funcs: CRTC control functions */
+ 	const struct drm_crtc_funcs *funcs;
+ 
++	/**
++	 * @degamma_lut_size: Size of degamma LUT.
++	 */
++	uint32_t degamma_lut_size;
 +
- static bool jpeg_v2_5_is_idle(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -633,8 +669,8 @@ static const struct amdgpu_ring_funcs jpeg_v2_6_dec_ring_vm_funcs = {
- 	.test_ring = amdgpu_jpeg_dec_ring_test_ring,
- 	.test_ib = amdgpu_jpeg_dec_ring_test_ib,
- 	.insert_nop = jpeg_v2_0_dec_ring_nop,
--	.insert_start = jpeg_v2_0_dec_ring_insert_start,
--	.insert_end = jpeg_v2_0_dec_ring_insert_end,
-+	.insert_start = jpeg_v2_6_dec_ring_insert_start,
-+	.insert_end = jpeg_v2_6_dec_ring_insert_end,
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.begin_use = amdgpu_jpeg_ring_begin_use,
- 	.end_use = amdgpu_jpeg_ring_end_use,
++	/**
++	 * @gamma_lut_size: Size of Gamma LUT. Not used by legacy userspace such as
++	 * X, which doesn't support large lut sizes.
++	 */
++	uint32_t gamma_lut_size;
++
+ 	/**
+ 	 * @gamma_size: Size of legacy gamma ramp reported to userspace. Set up
+ 	 * by calling drm_mode_crtc_set_gamma_size().
 -- 
-2.7.4
+2.33.0.685.g46640cef36-goog
 
