@@ -2,101 +2,72 @@ Return-Path: <SRS0=/upn=OT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05844C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 08:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63AFBC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 09:16:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB8666138E
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 08:22:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AB8666138E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1905760F58
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Sep 2021 09:16:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1905760F58
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3761A6E9F8;
-	Wed, 29 Sep 2021 08:22:37 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC696E9F8
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 08:22:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kort6ARcEh4oFKYIY92l1xdhvyApqCChRYWBpSZ9Gny2chJny+Bd8XUiGdIbWWeG9oODvDOZ0dT0cQ/d/kDTVI4l524vo5i3J8HHpWz/UUOhI9n6SJdM0F6MSNb/z/7oCwfOdOlEfV71OHaPWBhXYp30RMNLrAavVTYXSMkUXP2B1sqr2ZZ0rhm/Dx4tyuIr6GQitXSptSy7aAUnakrwMMo9kexaDp9dZi7DnVEptlLl5xLe5zvoNFMACQGc/Fm9QYuUe598liJKZOXjpgL4Oj7GdivQnxscSktV3iqGs9o+V3yrCWYu206iwuZ4S+8CAF/Ki8zoQRX3PKFTwInQYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=RgyiHBygE29Nb8cebQG0wHaQRKK5NXg2O6VRkZOG5wQ=;
- b=ChPcffXQuH3ny1jE5LZ0UlWnskxN0nANK8TP9siiFHxp9tPzxRYMYa8LVrQkOw4YaSusfbLBboocqHZLNF4X0hqG+dGoJ/cqxv+hjG3i6zn/gylLbOzFiS5QqKQvV2nMo/AJwBjfn25U2Ps3BFxFk5X/Pxvck7oZQEcIxuTArd1CDWHij0lilEJyApyYBKPzoTJlLPVUX9Z/MJJPkxaXmZ+ve+jutZCaFL/scj64gCI16H/84Rga1GusVnFFmqDLqFoirwdyQNMV02BhNFbR3BtQ8h9HhtC7YxqTk24fjF1zRCUVUcan32rvBy+3zK1i6XUg8JksM32iENEseypEXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RgyiHBygE29Nb8cebQG0wHaQRKK5NXg2O6VRkZOG5wQ=;
- b=j61gmFr25z05lqqvFmo5vbazy8I8af8Ze35xcmpxeg7/iFQvJjYuluDbm2WMoMXobaPOtqrQjCv3CbrKUpUwLrILtJ5jDA+fiRu8aTq6IS2/2jKyb/gVZhQZ1EFMS33w1nde3JRBmnPJ92w7HXJnV0me18E34kkc0s+NsA1UBxI=
-Received: from DM3PR12CA0094.namprd12.prod.outlook.com (2603:10b6:0:55::14) by
- BL0PR12MB2484.namprd12.prod.outlook.com (2603:10b6:207:4e::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.13; Wed, 29 Sep 2021 08:22:33 +0000
-Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:55:cafe::88) by DM3PR12CA0094.outlook.office365.com
- (2603:10b6:0:55::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14 via Frontend
- Transport; Wed, 29 Sep 2021 08:22:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 08:22:32 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 29 Sep
- 2021 03:22:26 -0500
-From: Lang Yu <lang.yu@amd.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>, <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- Lang Yu <lang.yu@amd.com>
-Subject: [PATCH] drm/amdkfd: fix a potential cu_mask memory leak
-Date: Wed, 29 Sep 2021 16:22:12 +0800
-Message-ID: <20210929082212.1806312-1-lang.yu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E87F6EA10;
+	Wed, 29 Sep 2021 09:16:15 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 964DB6EA10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 09:16:13 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ t16-20020a1c7710000000b003049690d882so4607712wmi.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 02:16:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=xp/ptP6GHYoR4dprEkGuqIx7nfia7pARblXeNADRoPc=;
+ b=HYSC1xYZdWnzwBZMmxcfLlHqfvrlMYBE2Dhg37HQsRhmL3FAtOf826JmgJs28qNOxt
+ tORW0trBvDWtuMaSHrOlyU9DbqF85NQcu73Y86CEg5IiffO118H3KBVJVdROM+YmCWju
+ sZM1+M+oFu7OySujBHQtGSQsDrbMQb+cNz5Heb3atSG67Xh0d5pFo/xB+nKAdcBlS5JV
+ AIwssGtc2OIJMVcFiMxIKwSP7sJVMoAtOECZMKMAa7ZsVYNjn4zbQ8zxkQgm3x+AHChz
+ 3o3sr+yIiY6iVtewfkSWBePGVLvrus4ufaVLtuGqhZqtOtThGa4RvlUqz+uVSv3RYjS+
+ /Grg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=xp/ptP6GHYoR4dprEkGuqIx7nfia7pARblXeNADRoPc=;
+ b=cC9+Jq9hGq6XkGnZMiM1aFMmOPK3GE0+tUTpnMrkJDAxHQKNgAudXPY8dDGeE9+ErY
+ jqiBI4p2YvbXjmjB5VeBHWjS7RxR1Yf4GtHNytjkkpXG0VRDiUFITwh1RirkrDmvLXq7
+ f9Kq+zgAQdHsEEZFdB5+9XyHmVPfGTwSHhL8iTEu6fvJFTXDxtnn2cSicsfJRnbiCEgY
+ ulci7AjGYAeDhay7RQZomMSHVMQLVygMwBdr2IPPmAdc6NaCAXus1nDTBMb3Lu0md33u
+ zd9MSShFu35MiOWmEDBT+3YKl0eKmVKWJXUFZzQMKABcoyj/G1j/Pbad5YoHc26iKopT
+ R/Dw==
+X-Gm-Message-State: AOAM530sHGPB8J5iBt4pFj7PBHyhbRkJqVEeEP/uvi8Egcb9b081pbBW
+ oepbQrriUPgAj4TdgCWbqyjAGuzIP2Y=
+X-Google-Smtp-Source: ABdhPJx3c/K/20VXsPlO7lHpv1hb2uYpJfg0w5vLysVbdTR5TivEt+ZJyIDpPmbVQxJRcwDH0YLtug==
+X-Received: by 2002:a1c:ac86:: with SMTP id v128mr9233153wme.3.1632906972096; 
+ Wed, 29 Sep 2021 02:16:12 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:4405:6e4f:ef81:78d1?
+ ([2a02:908:1252:fb60:4405:6e4f:ef81:78d1])
+ by smtp.gmail.com with ESMTPSA id n11sm1065337wmq.19.2021.09.29.02.16.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Sep 2021 02:16:11 -0700 (PDT)
+Subject: Re: [PATCH 27/64] drm/amdgpu/nv: convert to IP version checking
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210928164237.833132-1-alexander.deucher@amd.com>
+ <20210928164237.833132-28-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <a290f1ee-8526-b971-0b77-6c3864515097@gmail.com>
+Date: Wed, 29 Sep 2021 11:16:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
+In-Reply-To: <20210928164237.833132-28-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 244d5a84-be79-4821-9918-08d983224918
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2484:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB2484800FC1F7AEB61B69AC1BFBA99@BL0PR12MB2484.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ESY2NAyovAQK6eVvFVdqlFYFi9pIrX8BHMyxkNNAynIGZG2nJ4DTYaRlFCQHovYlijfaZZQCRctyM/lRK873Yj/+KsBWnNHU92EAO2LMVc/blgNEJwZfvieatmeGAk5Km+b7QzPR+vGhwbvCOUyXH84bWecGlZlOr1MwczbTJfRGBsWNkwaskoCDmhMzAwRp6dSG9HCSQtsNRIz2SqklpVJe6PJmUyMbMInqhlg7UUDpV51jPOcOuPSCH8AqvnBmpZIU7jUyItAgfEvdP2DA2IdmGivRNlMrB8NUs+D0kW/SrkUK8mkAEJFYQ/mOufP3BMGZeaCMPEYz+MEyOUP2GBZlKedlLlAwDQT+7RVj8zObmywil7RbBdcqXtVVmIZ7f8D4Zqfuwm4kCpZj6DGe9vc2HRd77Uo/FtrG/G0xA+f46pfcjpY3izZqo/4woOMBFLBoMxW90Rdg1lVPDz1AnTYdZDyQtX6P4wwEpSF30UWVt1txQDaIfbt9fkjMkmT3m4/WbCoT3lzTOT92LtdqduE955nLTpcrtmeAPc4mtZ2aD+xCDhIJNMyjrxneP5sHmWV0KRcqt8YytEWkdCK7kMMAdL1OwmMNil0FbvTy2EAlW+or/NQSlvqhQSM11oXa08qjuYsqgKKd3MXzpp62+u9T01wFnNYV0go5s5BQWvbMXopczmkNt1D93iEsmB+dv81/yTiGSAy4ZADUP19QV4gnLjKBc6g0sE8Q8f6gh+g=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(426003)(2906002)(1076003)(5660300002)(7696005)(82310400003)(86362001)(316002)(6666004)(36860700001)(356005)(4326008)(8676002)(336012)(81166007)(83380400001)(70206006)(70586007)(8936002)(110136005)(2616005)(16526019)(26005)(186003)(508600001)(47076005)(54906003)(36756003)(44832011)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 08:22:32.7321 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 244d5a84-be79-4821-9918-08d983224918
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2484
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,79 +82,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If user doesn't explicitly call kfd_ioctl_destroy_queue
-to destroy all created queues, when the kfd process is
-destroyed, some queues' cu_mask memory are not freed.
+Am 28.09.21 um 18:42 schrieb Alex Deucher:
+> Use IP versions rather than asic_type to differentiate
+> IP version specific features.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-To avoid forgetting to free them in some places,
-free them immediately after use.
+Acked-by: Christian König <christian.koenig@amd.com>
 
-Signed-off-by: Lang Yu <lang.yu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c               |  8 ++++----
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 10 ++++------
- 2 files changed, 8 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 4de907f3e66a..5c0e6dcf692a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -451,8 +451,8 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
- 	retval = copy_from_user(properties.cu_mask, cu_mask_ptr, cu_mask_size);
- 	if (retval) {
- 		pr_debug("Could not copy CU mask from userspace");
--		kfree(properties.cu_mask);
--		return -EFAULT;
-+		retval = -EFAULT;
-+		goto out;
- 	}
- 
- 	mutex_lock(&p->mutex);
-@@ -461,8 +461,8 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
- 
- 	mutex_unlock(&p->mutex);
- 
--	if (retval)
--		kfree(properties.cu_mask);
-+out:
-+	kfree(properties.cu_mask);
- 
- 	return retval;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 243dd1efcdbf..4c81d690f31a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -394,8 +394,6 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 			pdd->qpd.num_gws = 0;
- 		}
- 
--		kfree(pqn->q->properties.cu_mask);
--		pqn->q->properties.cu_mask = NULL;
- 		uninit_queue(pqn->q);
- 	}
- 
-@@ -448,16 +446,16 @@ int pqm_set_cu_mask(struct process_queue_manager *pqm, unsigned int qid,
- 		return -EFAULT;
- 	}
- 
--	/* Free the old CU mask memory if it is already allocated, then
--	 * allocate memory for the new CU mask.
--	 */
--	kfree(pqn->q->properties.cu_mask);
-+	WARN_ON_ONCE(pqn->q->properties.cu_mask);
- 
- 	pqn->q->properties.cu_mask_count = p->cu_mask_count;
- 	pqn->q->properties.cu_mask = p->cu_mask;
- 
- 	retval = pqn->q->device->dqm->ops.update_queue(pqn->q->device->dqm,
- 							pqn->q);
-+
-+	pqn->q->properties.cu_mask = NULL;
-+
- 	if (retval != 0)
- 		return retval;
- 
--- 
-2.25.1
+> ---
+>   drivers/gpu/drm/amd/amdgpu/nv.c | 75 +++++++++++++++++----------------
+>   1 file changed, 38 insertions(+), 37 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+> index 0dc390a7509f..57be517d70bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -180,8 +180,8 @@ static const struct amdgpu_video_codecs yc_video_codecs_decode = {
+>   static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
+>   				 const struct amdgpu_video_codecs **codecs)
+>   {
+> -	switch (adev->asic_type) {
+> -	case CHIP_SIENNA_CICHLID:
+> +	switch (adev->ip_versions[UVD_HWIP]) {
+> +	case IP_VERSION(3, 0, 0):
+>   		if (amdgpu_sriov_vf(adev)) {
+>   			if (encode)
+>   				*codecs = &sriov_sc_video_codecs_encode;
+> @@ -194,29 +194,27 @@ static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
+>   				*codecs = &sc_video_codecs_decode;
+>   		}
+>   		return 0;
+> -	case CHIP_NAVY_FLOUNDER:
+> -	case CHIP_DIMGREY_CAVEFISH:
+> -	case CHIP_VANGOGH:
+> +	case IP_VERSION(3, 0, 16):
+> +	case IP_VERSION(3, 0, 2):
+>   		if (encode)
+>   			*codecs = &nv_video_codecs_encode;
+>   		else
+>   			*codecs = &sc_video_codecs_decode;
+>   		return 0;
+> -	case CHIP_YELLOW_CARP:
+> +	case IP_VERSION(3, 1, 1):
+>   		if (encode)
+>   			*codecs = &nv_video_codecs_encode;
+>   		else
+>   			*codecs = &yc_video_codecs_decode;
+>   		return 0;
+> -	case CHIP_BEIGE_GOBY:
+> +	case IP_VERSION(3, 0, 33):
+>   		if (encode)
+>   			*codecs = &bg_video_codecs_encode;
+>   		else
+>   			*codecs = &bg_video_codecs_decode;
+>   		return 0;
+> -	case CHIP_NAVI10:
+> -	case CHIP_NAVI14:
+> -	case CHIP_NAVI12:
+> +	case IP_VERSION(2, 0, 0):
+> +	case IP_VERSION(2, 0, 2):
+>   		if (encode)
+>   			*codecs = &nv_video_codecs_encode;
+>   		else
+> @@ -511,14 +509,15 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+>   		dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
+>   				  amdgpu_reset_method);
+>   
+> -	switch (adev->asic_type) {
+> -	case CHIP_VANGOGH:
+> -	case CHIP_YELLOW_CARP:
+> +	switch (adev->ip_versions[MP1_HWIP]) {
+> +	case IP_VERSION(11, 5, 0):
+> +	case IP_VERSION(13, 0, 1):
+> +	case IP_VERSION(13, 0, 3):
+>   		return AMD_RESET_METHOD_MODE2;
+> -	case CHIP_SIENNA_CICHLID:
+> -	case CHIP_NAVY_FLOUNDER:
+> -	case CHIP_DIMGREY_CAVEFISH:
+> -	case CHIP_BEIGE_GOBY:
+> +	case IP_VERSION(11, 0, 7):
+> +	case IP_VERSION(11, 0, 11):
+> +	case IP_VERSION(11, 0, 12):
+> +	case IP_VERSION(11, 0, 13):
+>   		return AMD_RESET_METHOD_MODE1;
+>   	default:
+>   		if (amdgpu_dpm_is_baco_supported(adev))
+> @@ -1042,8 +1041,11 @@ static int nv_common_early_init(void *handle)
+>   
+>   	adev->rev_id = nv_get_rev_id(adev);
+>   	adev->external_rev_id = 0xff;
+> -	switch (adev->asic_type) {
+> -	case CHIP_NAVI10:
+> +	/* TODO: split the GC and PG flags based on the relevant IP version for which
+> +	 * they are relevant.
+> +	 */
+> +	switch (adev->ip_versions[GC_HWIP]) {
+> +	case IP_VERSION(10, 1, 10):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+>   			AMD_CG_SUPPORT_IH_CG |
+> @@ -1065,7 +1067,7 @@ static int nv_common_early_init(void *handle)
+>   			AMD_PG_SUPPORT_ATHUB;
+>   		adev->external_rev_id = adev->rev_id + 0x1;
+>   		break;
+> -	case CHIP_NAVI14:
+> +	case IP_VERSION(10, 1, 1):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+>   			AMD_CG_SUPPORT_IH_CG |
+> @@ -1086,7 +1088,7 @@ static int nv_common_early_init(void *handle)
+>   			AMD_PG_SUPPORT_VCN_DPG;
+>   		adev->external_rev_id = adev->rev_id + 20;
+>   		break;
+> -	case CHIP_NAVI12:
+> +	case IP_VERSION(10, 1, 2):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_MGLS |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+> @@ -1115,7 +1117,7 @@ static int nv_common_early_init(void *handle)
+>   			adev->rev_id = 0;
+>   		adev->external_rev_id = adev->rev_id + 0xa;
+>   		break;
+> -	case CHIP_SIENNA_CICHLID:
+> +	case IP_VERSION(10, 3, 0):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+>   			AMD_CG_SUPPORT_GFX_CGLS |
+> @@ -1139,7 +1141,7 @@ static int nv_common_early_init(void *handle)
+>   		}
+>   		adev->external_rev_id = adev->rev_id + 0x28;
+>   		break;
+> -	case CHIP_NAVY_FLOUNDER:
+> +	case IP_VERSION(10, 3, 2):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+>   			AMD_CG_SUPPORT_GFX_CGLS |
+> @@ -1158,8 +1160,7 @@ static int nv_common_early_init(void *handle)
+>   			AMD_PG_SUPPORT_MMHUB;
+>   		adev->external_rev_id = adev->rev_id + 0x32;
+>   		break;
+> -
+> -	case CHIP_VANGOGH:
+> +	case IP_VERSION(10, 3, 1):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_MGLS |
+>   			AMD_CG_SUPPORT_GFX_CP_LS |
+> @@ -1182,7 +1183,7 @@ static int nv_common_early_init(void *handle)
+>   		if (adev->apu_flags & AMD_APU_IS_VANGOGH)
+>   			adev->external_rev_id = adev->rev_id + 0x01;
+>   		break;
+> -	case CHIP_DIMGREY_CAVEFISH:
+> +	case IP_VERSION(10, 3, 4):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+>   			AMD_CG_SUPPORT_GFX_CGLS |
+> @@ -1201,7 +1202,7 @@ static int nv_common_early_init(void *handle)
+>   			AMD_PG_SUPPORT_MMHUB;
+>   		adev->external_rev_id = adev->rev_id + 0x3c;
+>   		break;
+> -	case CHIP_BEIGE_GOBY:
+> +	case IP_VERSION(10, 3, 5):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+>   			AMD_CG_SUPPORT_GFX_CGLS |
+> @@ -1218,7 +1219,7 @@ static int nv_common_early_init(void *handle)
+>   			AMD_PG_SUPPORT_MMHUB;
+>   		adev->external_rev_id = adev->rev_id + 0x46;
+>   		break;
+> -	case CHIP_YELLOW_CARP:
+> +	case IP_VERSION(10, 3, 3):
+>   		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+>   			AMD_CG_SUPPORT_GFX_MGLS |
+>   			AMD_CG_SUPPORT_GFX_CGCG |
+> @@ -1247,7 +1248,7 @@ static int nv_common_early_init(void *handle)
+>   		else
+>   			adev->external_rev_id = adev->rev_id + 0x01;
+>   		break;
+> -	case CHIP_CYAN_SKILLFISH:
+> +	case IP_VERSION(10, 1, 3):
+>   		adev->cg_flags = 0;
+>   		adev->pg_flags = 0;
+>   		adev->external_rev_id = adev->rev_id + 0x82;
+> @@ -1374,14 +1375,14 @@ static int nv_common_set_clockgating_state(void *handle,
+>   	if (amdgpu_sriov_vf(adev))
+>   		return 0;
+>   
+> -	switch (adev->asic_type) {
+> -	case CHIP_NAVI10:
+> -	case CHIP_NAVI14:
+> -	case CHIP_NAVI12:
+> -	case CHIP_SIENNA_CICHLID:
+> -	case CHIP_NAVY_FLOUNDER:
+> -	case CHIP_DIMGREY_CAVEFISH:
+> -	case CHIP_BEIGE_GOBY:
+> +	switch (adev->ip_versions[NBIO_HWIP]) {
+> +	case IP_VERSION(2, 3, 0):
+> +	case IP_VERSION(2, 3, 1):
+> +	case IP_VERSION(2, 3, 2):
+> +	case IP_VERSION(3, 3, 0):
+> +	case IP_VERSION(3, 3, 1):
+> +	case IP_VERSION(3, 3, 2):
+> +	case IP_VERSION(3, 3, 3):
+>   		adev->nbio.funcs->update_medium_grain_clock_gating(adev,
+>   				state == AMD_CG_STATE_GATE);
+>   		adev->nbio.funcs->update_medium_grain_light_sleep(adev,
 
