@@ -2,83 +2,122 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B16CCC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE89FC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:09:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6579D613A7
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6579D613A7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B7ACD619EB
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7ACD619EB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD2446E3F5;
-	Thu, 30 Sep 2021 13:04:48 +0000 (UTC)
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08EB16E3F5;
- Thu, 30 Sep 2021 13:04:48 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id e15so25003737lfr.10;
- Thu, 30 Sep 2021 06:04:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=o+4eSVAKrZEsPcw4dpXxfrqsUjsymJtzaRHSa/JgmUg=;
- b=IhS/r2TLvS0vuo8maPzTPXsad/2BT51uaMQp1LkLPJrx210A/2mDwMo0JeMYNpGMtF
- ZsySL9QVXt39jQhTXvlkSvSxQCPgo9fK3Rh5vnF6PLxB3tvWC3wDmYSbIEbFB2c5NpT7
- zvQkhdwSzWD/T6X7gd1v4S9baXYj0W/IBgzVoVwOL/gYapDD3C7MjWhEHLRELlUwRmcD
- tDcJHIuqJ3ciUxUMBZ+IzfCOXNAxSSMsPzlfEPuBy2RLd6TYC3h1IEAUe5+j0Q5Soxmv
- M+3+HSkn2RtI9fyCw9qIokThU6cBQg0wVOnbJcumrK8eddb3nc01oQxZbtXNAyGjbZvm
- nQ6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=o+4eSVAKrZEsPcw4dpXxfrqsUjsymJtzaRHSa/JgmUg=;
- b=S/DDpG+LtQQOmKQmPSd1hX2O/ISGaHJSumafY3cCLws5B9ILQZdsiWAKZczSxAe9Fm
- CJbjpmVVlG0tT2iTi3+4KHc0+sWHB619UVsnplLkVpVTBxWNn/iLyv1ldShdAKpoBUB+
- V+ni542JKqey/TnAC1p6TraHDk3r3UpvxbjFOzn+Ld95ekQuK8ry8JX+M6xtQjEHOimT
- Rzb5dMpWJabap+dlvGv7QfIS0qyojqaOxoYDLAJWCZTHsgVYhsNC4hIeXn/Gixrg5VuB
- YbIc/EPvgyVry6t2Wbs7vKNzOZuXN7ZPM153d5WfGg8nTtsMp2xHmGDWiBaQAmvgVUuP
- bqvA==
-X-Gm-Message-State: AOAM5304OAKgEDllEd/l54zccsbGbQ4CzIIzevz4mU0tJhJnNVYGgPWx
- H3LhIGugkYdPPJdFl8MJXYM=
-X-Google-Smtp-Source: ABdhPJwJ+KH5jRthwhiRCi9YGtM5XK8x2hV2h9HgimF4k7J93IBM56FSn+eQ8QdZE0zz7GSBeFfyqQ==
-X-Received: by 2002:a2e:83c5:: with SMTP id s5mr5661372ljh.515.1633007085825; 
- Thu, 30 Sep 2021 06:04:45 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id n8sm401925lfl.260.2021.09.30.06.04.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Sep 2021 06:04:44 -0700 (PDT)
-Date: Thu, 30 Sep 2021 16:04:30 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: sebastian@sebastianwick.net, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, mcasas@google.com, jshargo@google.com,
- Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
- Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com,
- Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
- laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
- jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>, Jeremy Cline
- <jeremy@jcline.org>
-Subject: Repository for additional color and HDR related documentation (Re:
- [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC)
-Message-ID: <20210930160430.1e4fbc23@eldfell>
-In-Reply-To: <20210923104354.585ed9b1@eldfell>
-References: <20210730204134.21769-1-harry.wentland@amd.com>
- <20210730204134.21769-2-harry.wentland@amd.com>
- <20210915170127.31377385@eldfell>
- <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
- <20210921163158.688c26bc@eldfell>
- <0c673cf8-2b90-c1ca-a0b0-c809e7e10c2c@amd.com>
- <20210922113105.2e42754c@eldfell>
- <823898e8-a8fe-cc74-e5b4-c4907826efbc@amd.com>
- <20210923104354.585ed9b1@eldfell>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D586E3F2;
+	Thu, 30 Sep 2021 13:09:37 +0000 (UTC)
+Received: from APC01-PU1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1320118.outbound.protection.outlook.com [40.107.132.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F00C86E3C1;
+ Thu, 30 Sep 2021 09:43:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dpL5DUfu0Hi/Hr5P0RbyimMtwF6o0vJyqxFqMNXdXdpp0b4Dqn4J5YfJAl4Ht4JHiBUWAgdPcp8cD0XQ136N7P5ugy2m1dsoZpoa9N9+/cvXk3vQF3bRGZiIRkLDKc0JHTT0LvX3FCmZFyRvfoQH1xgzM+PD9d8xYR+e2Z+yxGlQNj/4eTDYIvp37+f/sMI7/UXGFEeNVkva11yUMOzxSEs1GI4UNu8y5VislMp3KtX1qh4YskWa9CCAop9ITvBLQTgElZN2QN1G7EHDWTNkXVL79ecNgRuWWzCiUbXCmXHNNQ5cI3v0DGqnJOYFc6Fn0KFkN4HbI9gQ7RWBbSpoig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=1YfAmbMmiU9GZUOQZxb17hIS+xktquCrY8RQjnlbvNE=;
+ b=OHdsNaCijltRfUlEeySr3kGH7kLIvXpVix4cnpKDKjNRvIbw0pUAscOYUltS4uTmbgsl6lq88AT1QBXFPTTurMXRsgf2JayvG2FIxxjYt0A0ZhENqTvr+VKF/yroIdFPxH255SMG3rb6d1Qh9m+wR7XH0nbKqCDw95vQ5yqQ0S8aS/6HLomV0VJhLYLorfbDwfYbH+qrnsD14z+2dyjPsOXTdovgxqT/mWZmnOCYqahTNHRArJfGTT8qkAeOmsIBEcsHDBsCyf8X7f4u3NMdDFz8/khgXDe20C8TtdqIFpxPK++PbiLae662BD57YToNdwVUBfHZNIIj2t2B+zYIgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1YfAmbMmiU9GZUOQZxb17hIS+xktquCrY8RQjnlbvNE=;
+ b=DrF9HtwZ7OljeIJWCzDTzx+pF19ck1XAEdUyc2UvimPc8UCWL+LowPaSUPqZ2tai8Y6Xkoh4hWT0GwgDE+UQSve8skticaZGjlYkljdJJM8398KpjeX0e8nKMc1kYTCFQpEXpm0hNdbN+1KQy370YxLqwr94HEcy+z+ExB+p8O8=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=vivo.com;
+Received: from HK2PR06MB3492.apcprd06.prod.outlook.com (2603:1096:202:2f::10)
+ by HK0PR06MB2721.apcprd06.prod.outlook.com (2603:1096:203:57::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Thu, 30 Sep
+ 2021 09:43:36 +0000
+Received: from HK2PR06MB3492.apcprd06.prod.outlook.com
+ ([fe80::80d9:d4e4:300f:3156]) by HK2PR06MB3492.apcprd06.prod.outlook.com
+ ([fe80::80d9:d4e4:300f:3156%5]) with mapi id 15.20.4544.023; Thu, 30 Sep 2021
+ 09:43:36 +0000
+From: Guo Zhengkui <guozhengkui@vivo.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Guchun Chen <guchun.chen@amd.com>,
+ Peng Ju Zhou <PengJu.Zhou@amd.com>, Bokun Zhang <Bokun.Zhang@amd.com>,
+ Likun GAO <Likun.Gao@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: kernel@vivo.com,
+	Guo Zhengkui <guozhengkui@vivo.com>
+Subject: [PATCH] drm/amdgpu: fix some repeated includings
+Date: Thu, 30 Sep 2021 17:42:32 +0800
+Message-Id: <20210930094239.7435-1-guozhengkui@vivo.com>
+X-Mailer: git-send-email 2.20.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: HKAPR03CA0005.apcprd03.prod.outlook.com
+ (2603:1096:203:c8::10) To HK2PR06MB3492.apcprd06.prod.outlook.com
+ (2603:1096:202:2f::10)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/ddt++=ysGel8BF_eUzWWEl2";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Received: from localhost.localdomain (218.213.202.190) by
+ HKAPR03CA0005.apcprd03.prod.outlook.com (2603:1096:203:c8::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4566.13 via Frontend Transport; Thu, 30 Sep 2021 09:43:35 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 09254884-03d9-49df-1e49-08d983f6c60b
+X-MS-TrafficTypeDiagnostic: HK0PR06MB2721:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <HK0PR06MB2721EAC8A75D29C2F5F1DFC4C7AA9@HK0PR06MB2721.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:854;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: n42Rru+AHtRdwP2w0lvzktFfykmbLvYGBwPgfeEeNBSMZFZFyKpf2T1a7/BLxXpPVrg8Q5CLO4LQPJ0s1WXgUqhT8zD2fOxvJ3JBOG/HlEavC0UgVrMPcmkJwy3PK1v+90YN6vdeExbbD/WkoKpJhO7BBm9RWnGIPUDT+4XsJvzFGLrD674X7fNS/ZTUmXra0J23uv929Dnt8chMJE1TEoWLN550ePQH5CWbweTIqN/sTcYRm6VeTAV43k5l72JDPN/62DESqulNlfTKvgfZe61/7CPR6BsFtKQQAmUhnQI6P9oBjV+jbZH7ekt74D4CWJye9d7UTdjuxWIZYaNgqVeCn8bY53mlit+sd2TKBuVxTJACgE/kgEzwV6e61Hk/+QNH6XjWhH8qodfYLrtH873gG0SIpNmKvWFtKrIjRFWlrOvIEIvZAvbXuaP7PwdaaBZnX9J2+9xk8/sQI8doA6KPPNXsHOIj/XuaCRusHH0yb5/ZJAJSHm8Ym0EVPOz+tPUsTERoubOgzxdm1j8d4mGHuzyT7+L1efT9KLk/3KYgBuEOUwBWyyMt/DS1i71T+kslOXW3CcZeVjOr3QdD4rshjhPN4Sr3l/1wIAZ5cyEnTh2DeWTGc8gzUhfZ4tEk1zRQLW6tkC6YA4dNlKMlfxP8r8QvVoOy0KPBWl38LXzKoDycAWguWMG+FfEGEw7O0qSfsl2AjcEWdabIXYIq1gAZvlZM68/ZP99whaThf7Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HK2PR06MB3492.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8936002)(4744005)(5660300002)(508600001)(7416002)(86362001)(921005)(4326008)(36756003)(186003)(6486002)(6512007)(6666004)(316002)(38100700002)(38350700002)(110136005)(956004)(2616005)(6506007)(8676002)(107886003)(66946007)(2906002)(1076003)(83380400001)(66476007)(26005)(66556008)(52116002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QttDZiI1LvnyoPKir2JN3LFxpyryf7LAleY3uctpjVHM85qCRRjhnrxwos85?=
+ =?us-ascii?Q?/tl0hR2C6kv9MX+Dlu/EFdLfbAwy1y3jm5eICmeO2mJV1AHMvzixCADLjypW?=
+ =?us-ascii?Q?v0Xhp/Cm9FtZr2yfawM6Vt5uG0zHBo0K4pwSYOUHf+TaXZO11vARFlOew/Cr?=
+ =?us-ascii?Q?TY0gcZApE4PyHQcXnX/nSWKXYqQ9tWBIQHpOoylcpi1GHuGLzXNdrPkuPsAf?=
+ =?us-ascii?Q?BiYCCbaXBVyyzljzaANVE8e1aroDfE8tLj0MHLzbmBPcFgAhkROw9VKkORT9?=
+ =?us-ascii?Q?80uB5FKb+BBgOzKkn0kFsIJbOJTn6/ivuYnQrcNLirGUCeAbTV7I+4dYxb2j?=
+ =?us-ascii?Q?+zclVLrrbrha3iy7EMhie9vlO6pGrYzwhh89Az9Snfaz3Wl3PeLotT0QKnLp?=
+ =?us-ascii?Q?tIHtRBfkWjuYBSDMgiN3nAPHK8yPt2+P1XlWFon3xFCJsBJcpNRrfO1L0GAD?=
+ =?us-ascii?Q?KmHEs4bfQuwZKGWbZmQJmYtqIf+6q6AA68hn41G60zbj4DsI9IoblPJS2Nmc?=
+ =?us-ascii?Q?rwlHKrJ8+CdXCl+ggQ612DQbv4Fu9OBo7+zzDWra3deVyR17bgJC6w0pwc1G?=
+ =?us-ascii?Q?m0hMTxejh8o5Z+1LFbA8pnA5bM7xwS9qnYQp+pHo3uFwlt2TDToi84VoCTTu?=
+ =?us-ascii?Q?p4kbcsNALIVBl5GE10grToMBG7aeJXFrPAeaJRqsM0A1amPMzYlRdqE26Y25?=
+ =?us-ascii?Q?UldyHo1amY7IdNB121xfE986RI5AhvU8Li3HGT8q4125Kq6Y88M1yqZz/3MA?=
+ =?us-ascii?Q?Dm5eQ0c6rCceoyAM1cp+cfjq0AdF/zE6LS+YVI0ZSwczMzzg7vRzIQoqOteW?=
+ =?us-ascii?Q?q+yhad0iitm4fmAelh0M8qI7DblwJQ9BTYRYjN+hl+7X+8M1tqI6Hkt7NC9X?=
+ =?us-ascii?Q?fUPLAYtZAT8NM4vkt7IGgXODzy2Zaa6ON+CFQE2kq3gQ6X3LSxgCdSvIQdOF?=
+ =?us-ascii?Q?Q7KxAla1e+GlCKzBfJ5UhrbJ0Vnr3RJpGQQpPp4OXO9U/G6kuBcH8uiP/eDi?=
+ =?us-ascii?Q?rQQ1sElsqauoa3r6TWF60QspwA0OzZhoAqHoMuTwAJHKxZq7LQby8nrRACO2?=
+ =?us-ascii?Q?ORkcaWJ5ETa42JtELoCHbEVpnEy0k7hAdf15GUB1sbg+0pnTW+FqBRS9KLYA?=
+ =?us-ascii?Q?k9HEekFuOxcytThoFz+uq1vYxXNhfddvUbuI34mzjkgkEFzOY0mbjOOzGfjO?=
+ =?us-ascii?Q?+lCum22dyM8rI1YI8f/8D7sDuQS0rWgnZhOkEuEnahPmVAUS6unVUpowEpRJ?=
+ =?us-ascii?Q?GYRcpnP7Xao0SwjlxGBkQyBpwHPmVFGzR6oO8//NmgBvv02/5Nfc6LXSVEgy?=
+ =?us-ascii?Q?IRN+NZkfUZZZzb6yx0ONWWAg?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09254884-03d9-49df-1e49-08d983f6c60b
+X-MS-Exchange-CrossTenant-AuthSource: HK2PR06MB3492.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2021 09:43:35.9295 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C1PgYXHtQ05/+/5v2qmLqArGRWrzYX7AD1n7fMeiotHRC3jvtMQLiCbGs0RVPVisaeNMVCVa0/WlkDGKjI3c2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR06MB2721
+X-Mailman-Approved-At: Thu, 30 Sep 2021 13:09:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,119 +132,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/ddt++=ysGel8BF_eUzWWEl2
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Remove two repeated includings in line 62 and 63.
 
-On Thu, 23 Sep 2021 10:43:54 +0300
-Pekka Paalanen <ppaalanen@gmail.com> wrote:
+Signed-off-by: Guo Zhengkui <guozhengkui@vivo.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-> On Wed, 22 Sep 2021 11:28:37 -0400
-> Harry Wentland <harry.wentland@amd.com> wrote:
->=20
-> > On 2021-09-22 04:31, Pekka Paalanen wrote: =20
-> > > On Tue, 21 Sep 2021 14:05:05 -0400
-> > > Harry Wentland <harry.wentland@amd.com> wrote:
-> > >    =20
-> > >> On 2021-09-21 09:31, Pekka Paalanen wrote:   =20
-> > >>> On Mon, 20 Sep 2021 20:14:50 -0400
-> > >>> Harry Wentland <harry.wentland@amd.com> wrote:
-> > >>>      =20
-> >=20
-> > ...
-> >  =20
-> > >    =20
-> > >> Did anybody start any CM doc patches in Weston or Wayland yet?   =20
-> > >=20
-> > > There is the
-> > > https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/u=
-nstable/color-management/color.rst
-> > > we started a long time ago, and have not really touched it for a whil=
-e.
-> > > Since we last touched it, at least my understanding has developed
-> > > somewhat.
-> > >=20
-> > > It is linked from the overview in
-> > > https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requ=
-ests/14
-> > > and if you want to propose changes, the way to do it is file a MR in
-> > > https://gitlab.freedesktop.org/swick/wayland-protocols/-/merge_reques=
-ts
-> > > against the 'color' branch. Patches very much welcome, that doc does
-> > > not need to limit itself to Wayland. :-)
-> > >    =20
-> >=20
-> > Right, I've read all that a while back.
-> >=20
-> > It might be a good place to consolidate most of the Linux CM/HDR discus=
-sion,
-> > since gitlab is good with allowing discussions, we can track changes, a=
-nd
-> > it's more formatting and diagram friendly than text-only email. =20
->=20
-> Fine by me, but the way things are right now, we'd be hijacking
-> Sebastian's personal repository for these things. That's not ideal.
->=20
-> We can't merge the protocol XML into wayland-protocols until it has the
-> accepted implementations required by the governance rules, but I wonder
-> if we could land color.rst ahead of time, then work on that in
-> wayland-protocols upstream repo.
->=20
-> It's hard to pick a good place for a cross-project document. Any other
-> ideas?
->=20
-> > > We also have issues tracked at
-> > > https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues?scope=
-=3Dall&utf8=3D%E2%9C%93&state=3Dopened =20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 291a47f7992a..94fca56583a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -59,8 +59,6 @@
+ #include "gfx_v10_0.h"
+ #include "sdma_v5_0.h"
+ #include "sdma_v5_2.h"
+-#include "vcn_v2_0.h"
+-#include "jpeg_v2_0.h"
+ #include "vcn_v3_0.h"
+ #include "jpeg_v3_0.h"
+ #include "amdgpu_vkms.h"
+-- 
+2.20.1
 
-Hi all,
-
-we discussed things in
-https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues/6
-
-and we have a new home for the color related WIP documentation we can
-use across Wayland, Mesa, DRM, and even X11 if people want to:
-
-https://gitlab.freedesktop.org/pq/color-and-hdr
-
-Yes, it's still someone's personal repository, but we avoid entangling
-it with wayland-protocols which also means we can keep the full git
-history. If this gets enough traction, the repository can be moved from
-under my personal group to somewhere more communal, and if that is
-still inside gitlab.fd.o then all merge requests and issues will move
-with it.
-
-The README notes that we will deal out merge permissions as well.
-
-This is not meant to supersede the documentation of individual APIs,
-but to host additional documentation that would be too verbose, too
-big, or out of scope to host within respective API docs.
-
-Feel free to join the effort or just to discuss.
-
-
-Thanks,
-pq
-
---Sig_/ddt++=ysGel8BF_eUzWWEl2
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmFVtd4ACgkQI1/ltBGq
-qqeuAg/+Myd7Qdq39RFm3xljW4XBoE5xgzsEr9UBFBUbW+E/P4yoV7oJY1qqe+gV
-2XHxSu6alfYY/y7qga5g05N9cyZ7FFxsmlUVVFHadhHBIehOk8MkMEJyoVRmfKVq
-U5D3oIOlJtFMrQ4rQXcn5OET1NTrWNU4st8DjoScWK88YnIjIky71BvK+oVJ83Hy
-TbKg4CYPQdtAE1SGp3SIg/dmiOoCpt1C1Pr2796A0KqRdT1FXHQNmdX8iJFqTmn0
-TvZh9adW46xzchSxBT23Yac2yV3DtNfagNA2kQRkSexYIlWJURfLV1KsHL8jqDzF
-MP+Ul6y77loCgeGPO3b8tZDU6VAliDjQg0YiwlcOjRBvH+WSElPsiV7/iIEGnujs
-BGZ67hnH0e39e3WTKD9UKH48l+Q+3IlZjlr9V64kQnbzAKZHx+bW9PYFZ0puAmpP
-DmtgLaSz8ndu+q2VGOFHTKpEz1nDYSk++1xyxFBDp+PNrd7wNZ1JsRN+7/rFmaPv
-fwp+nbs3FF+y7fAjFo3RTifTq1hcP9oW+GPEGja2m41Ly9SXRc9g7ZYk1yQK/ZG/
-arKZUCdcgKtlDftRzpLjeOyn9H59t3pXTEKYvWU0HEVDv4TwsYKItbw+cAUkI0en
-wkOmAT8JfMw42xFRCUXeAu6/ubl7T78rSuXBzSXJNKTfZvX8pkE=
-=Ziuu
------END PGP SIGNATURE-----
-
---Sig_/ddt++=ysGel8BF_eUzWWEl2--
