@@ -2,61 +2,70 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BCDBC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B272CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:12:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 12BDC60FC0
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 12BDC60FC0
+	by mail.kernel.org (Postfix) with ESMTPS id 78EF561268
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 78EF561268
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFBE389803;
-	Thu, 30 Sep 2021 14:12:01 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CABA89803
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 14:12:00 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id u22so7423976oie.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 07:12:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D380899F2;
+	Thu, 30 Sep 2021 14:12:34 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCDC389996
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 14:12:32 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ e66-20020a9d2ac8000000b0054da8bdf2aeso5211906otb.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 07:12:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=un67s0+UogBGJNSkuPfni5Dlt5mijLUjBDTjBsLAn/c=;
- b=MoHiWw7d+e5Ho7Pf7xkw1hUAuiEAJyTOFWAjGWFR6bblzSKvg1erMTUsL5WAsX6gej
- jB++HekHEdEgEl8h7pcTW5ojjF7rWGOIM/wxC7mCuu+fWZJ9EDc9APwxliySj3fIGZcZ
- RQvchJqQ8qz0+CCcZ84Am2Zph8vT/pucI7SiD6kDuc6s4UxkAO6zuklGLk/0fyPF+13k
- XzVJn7Fepr7TJ7pBQo0DmFDGBTIjEPQ7PCMMVVT/GRRR4xLfmjYOcXsp/urO5hmN6pzc
- NzkD7ZOQFItK09/ppvtUDUwQMOLZBax9GVV7Ghc4wav1o1jI77xc9HkAj6REWKYn8nSo
- x4/A==
+ :cc; bh=I8OiS86lOBsiaFssvtlEX4SKkA4CHhF5h1V16Hyw27I=;
+ b=FKQmNmvJTtEmosYKq8ZHpVTokplS0iQu7ymYFxEdNpe+ZFCDYh+KDD1SOa34INbo0L
+ aZuDupcTw4xujTyj3TLo1TVVzJmD8U+u55+qBumOJjSCa8MG1rf1tQH2EhqgK2QBG28x
+ Ytos/9JjAE/ZwbmA64X/BnvxR0z8hb90UTJstznXLzIBAsGRjk5ctYw6tqDBFZiKnRKK
+ bgiSyq5FXNdIwVaKaTQKS2uTvUJrI8F1juqWarqOP5skaDNMN/LfaraPY/1JcgwZUqXi
+ bj2p6+owtyUuI25sDLU23Z5DxBb/yc8qmM741I1tEFw0p+APAC4IQ7NqmNjQ7T57w2Sg
+ 4ORA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=un67s0+UogBGJNSkuPfni5Dlt5mijLUjBDTjBsLAn/c=;
- b=CdANuV3KVlVMhdX7A90+hjJSJ1YACjt8+ffvlKy4tQOPkYE7zbzbuv7DBnZbBGneAl
- CKsObial/dtt1ujlNGSiLjWEDG1DqUybQqs9cgTg7UGnK4CHPJdvZJy6wPgWEDKGZGej
- HtBY5h6Kt+gxxAPudIcSULglHTbMbarIv/Un0TnYA7zeKEZxy/HzIVIc9ks+37uY0JDb
- KAcl5JNyVrFjI77V2F5DGAeQ9qL1+RE4KYxRGslih28FSIaqPSOwvvSHjTEVYUHARlfL
- y1AYVisdE+imx1kX/NOB1bHAPIpe34/USIrqkgI0dCCDTMapbpjSS9DbCbRs2yogU65y
- 4OGA==
-X-Gm-Message-State: AOAM530O0ao4zYlRCuJdMNCM15lEChRJYbKFrTfjURMsWYemII4aDjR3
- 9nEqzV5q+irAFVq7zwyR7X79ZxLVuiRKQSDkWxRbh5g2
-X-Google-Smtp-Source: ABdhPJzwuh1KiZ8RRgvHFsRanuiX/Oz2159pwcp2LZo63fXkGTebQi5xKTcPFS+/UNDkFKaar4V+ZFPSeMKsYUqQ/4w=
-X-Received: by 2002:aca:706:: with SMTP id 6mr2944398oih.5.1633011119752; Thu,
- 30 Sep 2021 07:11:59 -0700 (PDT)
+ bh=I8OiS86lOBsiaFssvtlEX4SKkA4CHhF5h1V16Hyw27I=;
+ b=bGMpXTdpGrICr7GoyAyzeDi6twlXjvLBP+2E+9jdgWtVde34zOIDkH33v3B6zVX3ly
+ OkFGYYSR5ZY55r6Fhdfga1skSb8mBPkYC0OTygS9u28GOy2dSZfr1XSI6OkpKNKQBNQG
+ owshx8a+hdQWCRVbpyOC9z0uKWvIlFqyxfZ0AL/ulEq34Oo7FQcrHkDsmdvg580qyTh8
+ IBP86cUzpwIGg2k3dFnkM9nY+mI6vlGL4Tl4tLYqhwVG0syAaoEo+NfE88ZfOCiusPSx
+ 3PShLoSp7/WbLYV0V8w4iX8fzzb2bRTbTcWyzsG4vQDT4ByjrQVakHGmD6e9Lf2gn7Do
+ wR+A==
+X-Gm-Message-State: AOAM530PDndxg9yGHv8Rf5G1QKRMrR91fDDWw14xVO3marH4DoA3lRGC
+ zyvzUiYf9upGD8Vf/vUP4CR7XNfCYYBj4PH7Xd4Jg2ZF
+X-Google-Smtp-Source: ABdhPJx1KwZPUFeVWgz8gNQPI5SxgN6IZJStBA21xhaTB38H1h4yr2WyjQmAd3pvYz6g0cfo4ft7EebRgUN9rqkEUL8=
+X-Received: by 2002:a05:6830:1bc6:: with SMTP id
+ v6mr5343260ota.299.1633011152016; 
+ Thu, 30 Sep 2021 07:12:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210930140227.64818-1-harry.wentland@amd.com>
-In-Reply-To: <20210930140227.64818-1-harry.wentland@amd.com>
+References: <CH0PR12MB520112519F74BF4E6F2A9FAE9EA79@CH0PR12MB5201.namprd12.prod.outlook.com>
+ <CAHbf0-FbZqpR=F1eteqtNo6X45ZvBNP-2FF4oEg_0W0+7Mu2gg@mail.gmail.com>
+ <CADnq5_MQao2NuE3+oQXzvyk8=3Wuu8g-aD=usKr0p++4NpEMYA@mail.gmail.com>
+ <CADnq5_OZFdXQLOsaN+1QB=mg-t0GSrZ_XkaLEjBPBdB3rF5YLA@mail.gmail.com>
+In-Reply-To: <CADnq5_OZFdXQLOsaN+1QB=mg-t0GSrZ_XkaLEjBPBdB3rF5YLA@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Sep 2021 10:11:48 -0400
-Message-ID: <CADnq5_OLVho6EHMoz-+-W4iGh2kz5EZAKHCsouTjcnXMH9SL_Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Don't use mpreferred-stack-boundary for
- clang on DCN201
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Zhan Liu <Zhan.Liu@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Date: Thu, 30 Sep 2021 10:12:20 -0400
+Message-ID: <CADnq5_NPe2Qq6bXifsFis5tfe=2Uh4nwOZ4RubfhezkvcPucZg@mail.gmail.com>
+Subject: Re: [PATCH 02/02 v2] drm/amd/display: add cyan_skillfish display
+ support
+To: Mike Lothian <mike@fireburn.co.uk>
+Cc: "Liu, Zhan" <Zhan.Liu@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
+ Charlene" <Charlene.Liu@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, 
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,39 +81,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 30, 2021 at 10:02 AM Harry Wentland <harry.wentland@amd.com> wrote:
+On Thu, Sep 30, 2021 at 10:10 AM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> We were erroneously setting IS_OLD_GCC for clang since we didn't
-> check first whether we're doing a GCC build.
+> On Wed, Sep 29, 2021 at 10:00 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Wed, Sep 29, 2021 at 7:23 PM Mike Lothian <mike@fireburn.co.uk> wrote:
+> > >
+> > > Hi
+> > >
+> > > This patch is causing a failure for me when building with clang:
+> > >
+> > >
+> > > Enable DCN201 support in DC (DRM_AMD_DC_DCN201) [Y/n/?] (NEW) y
+> > > Enable HDCP support in DC (DRM_AMD_DC_HDCP) [Y/n/?] y
+> > > AMD DC support for Southern Islands ASICs (DRM_AMD_DC_SI) [N/y/?] n
+> > > Enable secure display support (DRM_AMD_SECURE_DISPLAY) [Y/n/?] y
+> > >  DESCEND objtool
+> > >  CALL    scripts/atomic/check-atomics.sh
+> > >  CALL    scripts/checksyscalls.sh
+> > >  CHK     include/generated/compile.h
+> > >  UPD     kernel/config_data
+> > >  GZIP    kernel/config_data.gz
+> > >  CC      kernel/configs.o
+> > >  AR      kernel/built-in.a
+> > >  CC      drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/clk_mgr.o
+> > >  CC      drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.o
+> > > clang-12: error: unknown argument: '-mpreferred-stack-boundary=4'
+> > > make[4]: *** [scripts/Makefile.build:278:
+> > > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.o] Error 1
+> > > make[4]: *** Waiting for unfinished jobs....
+> > > make[3]: *** [scripts/Makefile.build:540: drivers/gpu/drm/amd/amdgpu] Error 2
+> > > make[2]: *** [scripts/Makefile.build:540: drivers/gpu/drm] Error 2
+> > > make[1]: *** [scripts/Makefile.build:540: drivers/gpu] Error 2
+> > > make: *** [Makefile:1868: drivers] Error 2
+> >
+> > The Makefiles for the new stuff added probably need to be fixed up for
+> > clang like the other Makefiles.  I can take a look tomorrow.
 >
-> See dcn30/Makefile for reference.
+> I don't see anything off in the Makefiles.  Can you try with a clean tree?
 >
-> Fixes: 4ac93fa0ec12 ("drm/amd/display: add cyan_skillfish display support")
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Nevermind, Harry found it.  patch on the list.
 
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn201/Makefile | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> index d98d69705117..f68038ceb1b1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> @@ -14,9 +14,12 @@ ifdef CONFIG_PPC64
->  CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o := -mhard-float -maltivec
->  endif
->
-> +ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> +CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o += -mhard-float
-> +endif
->
->  ifdef CONFIG_X86
->  ifdef IS_OLD_GCC
-> --
-> 2.33.0
->
+Alex
