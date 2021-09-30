@@ -2,70 +2,49 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71239C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 331D4C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C64F615E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:00:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C64F615E2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E2EA961881
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 10:17:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E2EA961881
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C466B6E3DA;
-	Thu, 30 Sep 2021 10:00:18 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C2666E3DA
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 10:00:17 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- r83-20020a1c4456000000b0030cfc00ca5fso7912951wma.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 03:00:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=WjqXiPavKL9aC+DZp19V2JL0bO/PkJeCzorreHTPeTU=;
- b=A+sObxTY35YP8YnyFacdaY/OrpcLTSMXeu+grfVmt+70ZEFL0Q9zucRXlPr9Vso4tG
- b86WyF1oVoyzCxOhKwf8W7qf7zFtSJO0XaVrmen07XhMg2xBEFCjNXWBUG74Lqaq+MYC
- gbivVPtMfjsRuiEeFxRyt90nC8e6VJ8nlvIBBTWIe8SxR7HZCTQJ2AEKq/ce26VGhWR5
- LGleLsHOtIl8slc6dxup29VJAiN3ihfpBnWfklEulzSVD902CvyDAtRQkGvDSJ/cvynB
- oylQy4O07GPYARpgrK5Ysn62lNwmAFfoLS5EygkB0bs+kWBqW64InOSYQNR+rQx39EmG
- tFtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=WjqXiPavKL9aC+DZp19V2JL0bO/PkJeCzorreHTPeTU=;
- b=ltA/sYdOT2WIDm6n/pBe6vk2s5R9UBNWcllek/jBeqLa8dSgNVSyIRlyt4trFXCpkG
- bQSyhoWV5igcYWgd+2q1lezUhpd+uEYfaCt2i529yBs9yXGeZBzT9TFZfOvSJ0RdpiZp
- RhHZZh54ixbhGj8czFVcOVznlDdCyl95/YBtfGHiQ4TzF8GsRMKPesnVlG4IPtE/NAnW
- AbPpXQHi1thnsjDJty9dHUdJWa6lRrxKsBDEI5qparXKAEq6DDe10ONcbwvcmUOx59XD
- Gg1f82hkRLISgNSIuxwe3lRc6U0UrGV2G9TN1qvgXfeSL8PkOJXweaUsbbhXBtJghQLX
- 1wjw==
-X-Gm-Message-State: AOAM533/nnvo/bNqpxGIPQD1TZZwD7EWAfbVlJFocB0m885pYaydr7nG
- 0I2HqQkfEnCO2AfupoH2cM0=
-X-Google-Smtp-Source: ABdhPJwdDYATM39wfi95EnX4cCGk9kuaGyEJ4sxzrTzAvwVi+B6hoshkYn2IoJTlDo/ojtxdW+z96A==
-X-Received: by 2002:a1c:95:: with SMTP id 143mr4434838wma.29.1632996015548;
- Thu, 30 Sep 2021 03:00:15 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- a63sm2453057wme.18.2021.09.30.03.00.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Sep 2021 03:00:15 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: print warning and taint kernel if lockup timeout
- is disabled
-Date: Thu, 30 Sep 2021 12:00:14 +0200
-Message-Id: <20210930100014.1337-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 753786EB5D;
+	Thu, 30 Sep 2021 10:17:34 +0000 (UTC)
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30A496EB5D;
+ Thu, 30 Sep 2021 10:17:33 +0000 (UTC)
+Date: Thu, 30 Sep 2021 10:17:29 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1632997050;
+ bh=omu6kUN/ZbjN/MA32O0UnYTGse061XaoIw5SVvXsMJg=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=kFLPl7HPxuXTisHVHRjo3tmjECLclF4sbz9BepfxOoj+K+F3V6xyK+RCwvy4v8zLY
+ CUadODmeZxu+MWJsdu6xVmzimRpEfHQQbP+4IAtabwp9Y106PoqMvngC0QmY4kVW4I
+ DKE9KzxLLNtMZcjOka56mhNvJQSkEwM7ddIhrNxJCWyZtEhcMixRZ30ufpj0PkAdtT
+ LgTLVOKJ/wv5O1TW1ip1u4D0qQZgizRv6MBbKf/Q07JShMJzgufNX8HkCRCTFvyilB
+ v8Gq+JBb0AY9bPx4nxZgo5G0baPoy88aluPiK6d7YuDxqRmZHcg9y8SDR+WHCkPts2
+ GzjrPYCFQs0rg==
+To: Guo Zhengkui <guozhengkui@vivo.com>
+From: Simon Ser <contact@emersion.fr>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Guchun Chen <guchun.chen@amd.com>,
+ Peng Ju Zhou <PengJu.Zhou@amd.com>, Bokun Zhang <Bokun.Zhang@amd.com>,
+ Likun GAO <Likun.Gao@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel@vivo.com
+Subject: Re: [PATCH] drm/amdgpu: fix some repeated includings
+Message-ID: <AGiYadRf5XyGUqLxwu3ykKzfwM2BgZo4yCAaEXdQiYfH2dbyKmipDNrclnI2lZH3HzNh71VBy5QKz3O4fFvQETjTI9hoKzKHjZNBz9ERKI8=@emersion.fr>
+In-Reply-To: <20210930094239.7435-1-guozhengkui@vivo.com>
+References: <20210930094239.7435-1-guozhengkui@vivo.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,29 +56,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Simon Ser <contact@emersion.fr>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make sure that we notice this in error reports.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 4d34b2da8582..8ee5bbc19f62 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3346,6 +3346,8 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
- 				continue;
- 			} else if (timeout < 0) {
- 				timeout = MAX_SCHEDULE_TIMEOUT;
-+				dev_warn(adev->dev, "lockup timeout disabled");
-+				add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
- 			} else {
- 				timeout = msecs_to_jiffies(timeout);
- 			}
--- 
-2.25.1
-
+One include is v2, the other is v3, or am I missing something?
