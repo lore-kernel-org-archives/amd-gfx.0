@@ -2,68 +2,83 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9313DC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 12:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B16CCC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2B94A61994
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 12:47:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2B94A61994
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 6579D613A7
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 13:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6579D613A7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C3A6E3EC;
-	Thu, 30 Sep 2021 12:47:04 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D966A6E3EC;
- Thu, 30 Sep 2021 12:47:03 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A533F61390;
- Thu, 30 Sep 2021 12:47:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633006023;
- bh=JTmzQB+pflTzM1mfQgrPdTorix5E8st9bH6ZyEeegJs=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=fRASeIpUDgm8NED/mIKjjzb/vGekv/fo1hgMMMoOEhhefjQA0Z3+fYsBq8xOs5Jqs
- yFVLj0TyBQ2Sy1HDWyAlop3oAPAwBMJRCWGM8dKTGMYMAEV3K1QO3kK3N278P1Rg4o
- HYtS1fSU7UsfHNslI0GFbRTpZbR5xMullramEnwG01cg3HSX/DygO6t448uABq4cXV
- DKw2GuRRi6E4SLbnpR/+TH/8uZiUTxfSkO34Q4YtUyjAjvlE9qu7owHTy/AT2F2hBA
- egHe+XOnTEZ8InLm2Mmr7yDvvb95VmaltZ53lyI5zFm7pjcxX9c+t1pZai3bd9IBRf
- chWUZMA7I8GBQ==
-Received: by mail-yb1-f175.google.com with SMTP id v195so12422450ybb.0;
- Thu, 30 Sep 2021 05:47:03 -0700 (PDT)
-X-Gm-Message-State: AOAM531PEFVJBHMj+3shSNJZ5heL83QU7nqT55tddbo0yXfnqL/VkcX5
- mXYcGgJU9dU7loLzXARg3g8W7/7OTMWrsa/hY+c=
-X-Google-Smtp-Source: ABdhPJyTStpkMKHkhoIYFbtlxJ/TC2ZI25fBmmZDCRfQFH0IL0hwLAUggx/tm+N2ny3rd5SxaW3pmTAPfO6hs7UQPlI=
-X-Received: by 2002:a25:4507:: with SMTP id s7mr6894930yba.445.1633006022711; 
- Thu, 30 Sep 2021 05:47:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD2446E3F5;
+	Thu, 30 Sep 2021 13:04:48 +0000 (UTC)
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08EB16E3F5;
+ Thu, 30 Sep 2021 13:04:48 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id e15so25003737lfr.10;
+ Thu, 30 Sep 2021 06:04:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=o+4eSVAKrZEsPcw4dpXxfrqsUjsymJtzaRHSa/JgmUg=;
+ b=IhS/r2TLvS0vuo8maPzTPXsad/2BT51uaMQp1LkLPJrx210A/2mDwMo0JeMYNpGMtF
+ ZsySL9QVXt39jQhTXvlkSvSxQCPgo9fK3Rh5vnF6PLxB3tvWC3wDmYSbIEbFB2c5NpT7
+ zvQkhdwSzWD/T6X7gd1v4S9baXYj0W/IBgzVoVwOL/gYapDD3C7MjWhEHLRELlUwRmcD
+ tDcJHIuqJ3ciUxUMBZ+IzfCOXNAxSSMsPzlfEPuBy2RLd6TYC3h1IEAUe5+j0Q5Soxmv
+ M+3+HSkn2RtI9fyCw9qIokThU6cBQg0wVOnbJcumrK8eddb3nc01oQxZbtXNAyGjbZvm
+ nQ6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=o+4eSVAKrZEsPcw4dpXxfrqsUjsymJtzaRHSa/JgmUg=;
+ b=S/DDpG+LtQQOmKQmPSd1hX2O/ISGaHJSumafY3cCLws5B9ILQZdsiWAKZczSxAe9Fm
+ CJbjpmVVlG0tT2iTi3+4KHc0+sWHB619UVsnplLkVpVTBxWNn/iLyv1ldShdAKpoBUB+
+ V+ni542JKqey/TnAC1p6TraHDk3r3UpvxbjFOzn+Ld95ekQuK8ry8JX+M6xtQjEHOimT
+ Rzb5dMpWJabap+dlvGv7QfIS0qyojqaOxoYDLAJWCZTHsgVYhsNC4hIeXn/Gixrg5VuB
+ YbIc/EPvgyVry6t2Wbs7vKNzOZuXN7ZPM153d5WfGg8nTtsMp2xHmGDWiBaQAmvgVUuP
+ bqvA==
+X-Gm-Message-State: AOAM5304OAKgEDllEd/l54zccsbGbQ4CzIIzevz4mU0tJhJnNVYGgPWx
+ H3LhIGugkYdPPJdFl8MJXYM=
+X-Google-Smtp-Source: ABdhPJwJ+KH5jRthwhiRCi9YGtM5XK8x2hV2h9HgimF4k7J93IBM56FSn+eQ8QdZE0zz7GSBeFfyqQ==
+X-Received: by 2002:a2e:83c5:: with SMTP id s5mr5661372ljh.515.1633007085825; 
+ Thu, 30 Sep 2021 06:04:45 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id n8sm401925lfl.260.2021.09.30.06.04.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Sep 2021 06:04:44 -0700 (PDT)
+Date: Thu, 30 Sep 2021 16:04:30 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: sebastian@sebastianwick.net, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, mcasas@google.com, jshargo@google.com,
+ Shashank.Sharma@amd.com, Deepak.Sharma@amd.com, Shirish.S@amd.com,
+ Vitaly.Prosyak@amd.com, aric.cyr@amd.com, Bhawanpreet.Lakha@amd.com,
+ Krunoslav.Kovac@amd.com, hersenxs.wu@amd.com, Nicholas.Kazlauskas@amd.com,
+ laurentiu.palcu@oss.nxp.com, ville.syrjala@linux.intel.com,
+ jeremy@jcline.org, Brian Starkey <brian.starkey@arm.com>, Jeremy Cline
+ <jeremy@jcline.org>
+Subject: Repository for additional color and HDR related documentation (Re:
+ [RFC PATCH v3 1/6] drm/doc: Color Management and HDR10 RFC)
+Message-ID: <20210930160430.1e4fbc23@eldfell>
+In-Reply-To: <20210923104354.585ed9b1@eldfell>
+References: <20210730204134.21769-1-harry.wentland@amd.com>
+ <20210730204134.21769-2-harry.wentland@amd.com>
+ <20210915170127.31377385@eldfell>
+ <4ed51ca0-ca98-cf84-33ed-ab172e3548d3@amd.com>
+ <20210921163158.688c26bc@eldfell>
+ <0c673cf8-2b90-c1ca-a0b0-c809e7e10c2c@amd.com>
+ <20210922113105.2e42754c@eldfell>
+ <823898e8-a8fe-cc74-e5b4-c4907826efbc@amd.com>
+ <20210923104354.585ed9b1@eldfell>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20210912165309.98695-1-ogabbay@kernel.org>
- <20210912165309.98695-3-ogabbay@kernel.org>
- <20210928173621.GG3544071@ziepe.ca>
- <CAFCwf10z-baRm8c-UD_=jcZYD0VAGrMiNo7Q5Fm-2txYmVWGcQ@mail.gmail.com>
-In-Reply-To: <CAFCwf10z-baRm8c-UD_=jcZYD0VAGrMiNo7Q5Fm-2txYmVWGcQ@mail.gmail.com>
-From: Oded Gabbay <ogabbay@kernel.org>
-Date: Thu, 30 Sep 2021 15:46:35 +0300
-X-Gmail-Original-Message-ID: <CAFCwf110SPfqpjKO7e2W-MSs6iSdecCwS6CwKx4cL-DjqriT2Q@mail.gmail.com>
-Message-ID: <CAFCwf110SPfqpjKO7e2W-MSs6iSdecCwS6CwKx4cL-DjqriT2Q@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] habanalabs: add support for dma-buf exporter
-To: Jason Gunthorpe <jgg@ziepe.ca>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, 
- Gal Pressman <galpress@amazon.com>, Yossi Leybovich <sleybo@amazon.com>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- linux-rdma <linux-rdma@vger.kernel.org>, 
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Doug Ledford <dledford@redhat.com>, 
- Dave Airlie <airlied@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Tomer Tayar <ttayar@habana.ai>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; boundary="Sig_/ddt++=ysGel8BF_eUzWWEl2";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,430 +93,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 29, 2021 at 12:17 AM Oded Gabbay <ogabbay@kernel.org> wrote:
->
-> On Tue, Sep 28, 2021 at 8:36 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > On Sun, Sep 12, 2021 at 07:53:09PM +0300, Oded Gabbay wrote:
-> > > From: Tomer Tayar <ttayar@habana.ai>
-> > >
-> > > Implement the calls to the dma-buf kernel api to create a dma-buf
-> > > object backed by FD.
-> > >
-> > > We block the option to mmap the DMA-BUF object because we don't support
-> > > DIRECT_IO and implicit P2P.
-> >
-> > This statement doesn't make sense, you can mmap your dmabuf if you
-> > like. All dmabuf mmaps are supposed to set the special bit/etc to
-> > exclude them from get_user_pages() anyhow - and since this is BAR
-> > memory not struct page memory this driver would be doing it anyhow.
-> >
-> But we block mmap the dmabuf fd from user-space.
-> If you try to do it, you will get MAP_FAILED.
-> That's because we don't supply a function to the mmap callback in dmabuf.
-> We did that per Christian's advice. It is in one of the long email
-> threads on previous versions of this patch.
->
->
-> > > We check the p2p distance using pci_p2pdma_distance_many() and refusing
-> > > to map dmabuf in case the distance doesn't allow p2p.
-> >
-> > Does this actually allow the p2p transfer for your intended use cases?
-> >
-> It depends on the system. If we are working bare-metal, then yes, it allows.
-> If inside a VM, then no. The virtualized root complex is not
-> white-listed and the kernel can't know the distance.
-> But I remember you asked me to add this check, in v3 of the review IIRC.
-> I don't mind removing this check if you don't object.
->
-> > > diff --git a/drivers/misc/habanalabs/common/memory.c b/drivers/misc/habanalabs/common/memory.c
-> > > index 33986933aa9e..8cf5437c0390 100644
-> > > +++ b/drivers/misc/habanalabs/common/memory.c
-> > > @@ -1,7 +1,7 @@
-> > >  // SPDX-License-Identifier: GPL-2.0
-> > >
-> > >  /*
-> > > - * Copyright 2016-2019 HabanaLabs, Ltd.
-> > > + * Copyright 2016-2021 HabanaLabs, Ltd.
-> > >   * All Rights Reserved.
-> > >   */
-> > >
-> > > @@ -11,11 +11,13 @@
-> > >
-> > >  #include <linux/uaccess.h>
-> > >  #include <linux/slab.h>
-> > > +#include <linux/pci-p2pdma.h>
-> > >
-> > >  #define HL_MMU_DEBUG 0
-> > >
-> > >  /* use small pages for supporting non-pow2 (32M/40M/48M) DRAM phys page sizes */
-> > > -#define DRAM_POOL_PAGE_SIZE SZ_8M
-> > > +#define DRAM_POOL_PAGE_SIZE          SZ_8M
-> > > +
-> >
-> > ??
-> ok, I 'll remove
-> >
-> > >  /*
-> > >   * The va ranges in context object contain a list with the available chunks of
-> > > @@ -347,6 +349,13 @@ static int free_device_memory(struct hl_ctx *ctx, struct hl_mem_in *args)
-> > >                       return -EINVAL;
-> > >               }
-> > >
-> > > +             if (phys_pg_pack->exporting_cnt) {
-> > > +                     dev_err(hdev->dev,
-> > > +                             "handle %u is exported, cannot free\n", handle);
-> > > +                     spin_unlock(&vm->idr_lock);
-> >
-> > Don't write to the kernel log from user space triggered actions
-> at all ?
-> It's the first time I hear about this limitation...
-> How do you tell the user it has done something wrong ?
-> I agree it might be better to rate limit it, but why not give the
-> information to the user ?
->
-> >
-> > > +static int alloc_sgt_from_device_pages(struct hl_device *hdev,
-> > > +                                     struct sg_table **sgt, u64 *pages,
-> > > +                                     u64 npages, u64 page_size,
-> > > +                                     struct device *dev,
-> > > +                                     enum dma_data_direction dir)
-> >
-> > Why doesn't this return a sg_table * and an ERR_PTR?
-> Basically I modeled this function after amdgpu_vram_mgr_alloc_sgt()
-> And in that function they also return int and pass the sg_table as **
->
-> If it's critical I can change.
->
-> >
-> > > +{
-> > > +     u64 chunk_size, bar_address, dma_max_seg_size;
-> > > +     struct asic_fixed_properties *prop;
-> > > +     int rc, i, j, nents, cur_page;
-> > > +     struct scatterlist *sg;
-> > > +
-> > > +     prop = &hdev->asic_prop;
-> > > +
-> > > +     dma_max_seg_size = dma_get_max_seg_size(dev);
-> >
-> > > +
-> > > +     /* We would like to align the max segment size to PAGE_SIZE, so the
-> > > +      * SGL will contain aligned addresses that can be easily mapped to
-> > > +      * an MMU
-> > > +      */
-> > > +     dma_max_seg_size = ALIGN_DOWN(dma_max_seg_size, PAGE_SIZE);
-> > > +     if (dma_max_seg_size < PAGE_SIZE) {
-> > > +             dev_err_ratelimited(hdev->dev,
-> > > +                             "dma_max_seg_size %llu can't be smaller than PAGE_SIZE\n",
-> > > +                             dma_max_seg_size);
-> > > +             return -EINVAL;
-> > > +     }
-> > > +
-> > > +     *sgt = kzalloc(sizeof(**sgt), GFP_KERNEL);
-> > > +     if (!*sgt)
-> > > +             return -ENOMEM;
-> > > +
-> > > +     /* If the size of each page is larger than the dma max segment size,
-> > > +      * then we can't combine pages and the number of entries in the SGL
-> > > +      * will just be the
-> > > +      * <number of pages> * <chunks of max segment size in each page>
-> > > +      */
-> > > +     if (page_size > dma_max_seg_size)
-> > > +             nents = npages * DIV_ROUND_UP_ULL(page_size, dma_max_seg_size);
-> > > +     else
-> > > +             /* Get number of non-contiguous chunks */
-> > > +             for (i = 1, nents = 1, chunk_size = page_size ; i < npages ; i++) {
-> > > +                     if (pages[i - 1] + page_size != pages[i] ||
-> > > +                                     chunk_size + page_size > dma_max_seg_size) {
-> > > +                             nents++;
-> > > +                             chunk_size = page_size;
-> > > +                             continue;
-> > > +                     }
-> > > +
-> > > +                     chunk_size += page_size;
-> > > +             }
-> > > +
-> > > +     rc = sg_alloc_table(*sgt, nents, GFP_KERNEL | __GFP_ZERO);
-> > > +     if (rc)
-> > > +             goto error_free;
-> > > +
-> > > +     /* Because we are not going to include a CPU list we want to have some
-> > > +      * chance that other users will detect this by setting the orig_nents
-> > > +      * to 0 and using only nents (length of DMA list) when going over the
-> > > +      * sgl
-> > > +      */
-> > > +     (*sgt)->orig_nents = 0;
-> >
-> > Maybe do this at the end so you'd have to undo it on the error path?
-> Agreed, less code
->
-> >
-> > > +     cur_page = 0;
-> > > +
-> > > +     if (page_size > dma_max_seg_size) {
-> > > +             u64 size_left, cur_device_address = 0;
-> > > +
-> > > +             size_left = page_size;
-> > > +
-> > > +             /* Need to split each page into the number of chunks of
-> > > +              * dma_max_seg_size
-> > > +              */
-> > > +             for_each_sgtable_dma_sg((*sgt), sg, i) {
-> > > +                     if (size_left == page_size)
-> > > +                             cur_device_address =
-> > > +                                     pages[cur_page] - prop->dram_base_address;
-> > > +                     else
-> > > +                             cur_device_address += dma_max_seg_size;
-> > > +
-> > > +                     chunk_size = min(size_left, dma_max_seg_size);
-> > > +
-> > > +                     bar_address = hdev->dram_pci_bar_start + cur_device_address;
-> > > +
-> > > +                     rc = set_dma_sg(sg, bar_address, chunk_size, dev, dir);
-> > > +                     if (rc)
-> > > +                             goto error_unmap;
-> > > +
-> > > +                     if (size_left > dma_max_seg_size) {
-> > > +                             size_left -= dma_max_seg_size;
-> > > +                     } else {
-> > > +                             cur_page++;
-> > > +                             size_left = page_size;
-> > > +                     }
-> > > +             }
-> > > +     } else {
-> > > +             /* Merge pages and put them into the scatterlist */
-> > > +             for_each_sgtable_dma_sg((*sgt), sg, i) {
-> > > +                     chunk_size = page_size;
-> > > +                     for (j = cur_page + 1 ; j < npages ; j++) {
-> > > +                             if (pages[j - 1] + page_size != pages[j] ||
-> > > +                                             chunk_size + page_size > dma_max_seg_size)
-> > > +                                     break;
-> > > +
-> > > +                             chunk_size += page_size;
-> > > +                     }
-> > > +
-> > > +                     bar_address = hdev->dram_pci_bar_start +
-> > > +                                     (pages[cur_page] - prop->dram_base_address);
-> > > +
-> > > +                     rc = set_dma_sg(sg, bar_address, chunk_size, dev, dir);
-> > > +                     if (rc)
-> > > +                             goto error_unmap;
-> > > +
-> > > +                     cur_page = j;
-> > > +             }
-> > > +     }
-> >
-> > We have this sg_append stuff now that is intended to help building
-> > these things. It can only build CPU page lists, not these DMA lists,
-> > but I do wonder if open coding in drivers is slipping back a
-> > bit. Especially since AMD seems to be doing something different.
-> >
-> > Could the DMABUF layer gain some helpers styled after the sg_append to
-> > simplify building these things? and convert the AMD driver of course.
-> >
-> I will take it as a task to do in the near future, but I prefer to
-> first upstream these patches as-is,
-> because I don't have a way to check AMD devices and I guess converting them
-> might take some time.
->
-> > > +static int hl_dmabuf_attach(struct dma_buf *dmabuf,
-> > > +                             struct dma_buf_attachment *attachment)
-> > > +{
-> > > +     struct hl_dmabuf_wrapper *hl_dmabuf;
-> > > +     struct hl_device *hdev;
-> > > +     int rc;
-> > > +
-> > > +     hl_dmabuf = dmabuf->priv;
-> > > +     hdev = hl_dmabuf->ctx->hdev;
-> > > +
-> > > +     rc = pci_p2pdma_distance_many(hdev->pdev, &attachment->dev, 1, true);
-> > > +
-> > > +     if (rc < 0)
-> > > +             attachment->peer2peer = false;
-> >
-> > Extra blank line
-> >
-> > > +
-> > > +     return 0;
-> > > +}
-> > > +
-> > > +static struct sg_table *hl_map_dmabuf(struct dma_buf_attachment *attachment,
-> > > +                                     enum dma_data_direction dir)
-> > > +{
-> > > +     struct dma_buf *dma_buf = attachment->dmabuf;
-> > > +     struct hl_vm_phys_pg_pack *phys_pg_pack;
-> > > +     struct hl_dmabuf_wrapper *hl_dmabuf;
-> > > +     struct hl_device *hdev;
-> > > +     struct sg_table *sgt;
-> > > +     int rc;
-> > > +
-> > > +     hl_dmabuf = dma_buf->priv;
-> > > +     hdev = hl_dmabuf->ctx->hdev;
-> > > +     phys_pg_pack = hl_dmabuf->phys_pg_pack;
-> > > +
-> > > +     if (!attachment->peer2peer) {
-> > > +             dev_err(hdev->dev,
-> > > +                     "Failed to map dmabuf because p2p is disabled\n");
-> > > +             return ERR_PTR(-EPERM);
-> >
-> > User triggered printable again?
-> But how will the user know what the reason for the failure is ?
->
-> >
-> > > +static void hl_unmap_dmabuf(struct dma_buf_attachment *attachment,
-> > > +                               struct sg_table *sgt,
-> > > +                               enum dma_data_direction dir)
-> > > +{
-> > > +     struct scatterlist *sg;
-> > > +     int i;
-> > > +
-> > > +     for_each_sgtable_dma_sg(sgt, sg, i)
-> > > +             dma_unmap_resource(attachment->dev, sg_dma_address(sg),
-> > > +                                     sg_dma_len(sg), dir,
-> > > +                                     DMA_ATTR_SKIP_CPU_SYNC);
-> >
-> > Why can we skip the CPU_SYNC? Seems like a comment is needed
-> >
-> > Something has to do a CPU_SYNC before recylcing this memory for
-> > another purpose, where is it?
-> I have to ask for further explanation here.
-> Same as before, this function is modeled after the amdgpu one -
-> amdgpu_vram_mgr_free_sgt()
-> They also use CPU_SYNC in that function.
-> Christain, maybe you know ?
->
-> Maybe it is not relevant to our case as it represents a PCI bar ?
->
-Hi Jason,
-After reading the kernel iommu code, I think this is not relevant
-here, and I'll add a comment
-appropriately but I'll also write it here, and please correct me if my
-understanding
-is wrong.
+--Sig_/ddt++=ysGel8BF_eUzWWEl2
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-The memory behind this specific dma-buf has *always* resided on the
-device itself, i.e. it lives
-only in the 'device' domain (after all, it maps a PCI bar address
-which points to the device memory).
-Therefore, it was never in the 'CPU' domain and hence, there is no
-need to perform a sync
-of the memory to the CPU's cache, as it was never inside that cache to
-begin with.
+On Thu, 23 Sep 2021 10:43:54 +0300
+Pekka Paalanen <ppaalanen@gmail.com> wrote:
 
-This is not the same case as with regular memory which is dma-mapped
-and then copied
-into the device using a dma engine. In that case, the memory started
-in the 'CPU' domain
-and moved to the 'device' domain. When it is unmapped it will indeed
-be recycled to be
-used for another purpose and therefore we need to sync the CPU cache.
+> On Wed, 22 Sep 2021 11:28:37 -0400
+> Harry Wentland <harry.wentland@amd.com> wrote:
+>=20
+> > On 2021-09-22 04:31, Pekka Paalanen wrote: =20
+> > > On Tue, 21 Sep 2021 14:05:05 -0400
+> > > Harry Wentland <harry.wentland@amd.com> wrote:
+> > >    =20
+> > >> On 2021-09-21 09:31, Pekka Paalanen wrote:   =20
+> > >>> On Mon, 20 Sep 2021 20:14:50 -0400
+> > >>> Harry Wentland <harry.wentland@amd.com> wrote:
+> > >>>      =20
+> >=20
+> > ...
+> >  =20
+> > >    =20
+> > >> Did anybody start any CM doc patches in Weston or Wayland yet?   =20
+> > >=20
+> > > There is the
+> > > https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/u=
+nstable/color-management/color.rst
+> > > we started a long time ago, and have not really touched it for a whil=
+e.
+> > > Since we last touched it, at least my understanding has developed
+> > > somewhat.
+> > >=20
+> > > It is linked from the overview in
+> > > https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requ=
+ests/14
+> > > and if you want to propose changes, the way to do it is file a MR in
+> > > https://gitlab.freedesktop.org/swick/wayland-protocols/-/merge_reques=
+ts
+> > > against the 'color' branch. Patches very much welcome, that doc does
+> > > not need to limit itself to Wayland. :-)
+> > >    =20
+> >=20
+> > Right, I've read all that a while back.
+> >=20
+> > It might be a good place to consolidate most of the Linux CM/HDR discus=
+sion,
+> > since gitlab is good with allowing discussions, we can track changes, a=
+nd
+> > it's more formatting and diagram friendly than text-only email. =20
+>=20
+> Fine by me, but the way things are right now, we'd be hijacking
+> Sebastian's personal repository for these things. That's not ideal.
+>=20
+> We can't merge the protocol XML into wayland-protocols until it has the
+> accepted implementations required by the governance rules, but I wonder
+> if we could land color.rst ahead of time, then work on that in
+> wayland-protocols upstream repo.
+>=20
+> It's hard to pick a good place for a cross-project document. Any other
+> ideas?
+>=20
+> > > We also have issues tracked at
+> > > https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues?scope=
+=3Dall&utf8=3D%E2%9C%93&state=3Dopened =20
 
-Is my understanding correct ?
+Hi all,
+
+we discussed things in
+https://gitlab.freedesktop.org/swick/wayland-protocols/-/issues/6
+
+and we have a new home for the color related WIP documentation we can
+use across Wayland, Mesa, DRM, and even X11 if people want to:
+
+https://gitlab.freedesktop.org/pq/color-and-hdr
+
+Yes, it's still someone's personal repository, but we avoid entangling
+it with wayland-protocols which also means we can keep the full git
+history. If this gets enough traction, the repository can be moved from
+under my personal group to somewhere more communal, and if that is
+still inside gitlab.fd.o then all merge requests and issues will move
+with it.
+
+The README notes that we will deal out merge permissions as well.
+
+This is not meant to supersede the documentation of individual APIs,
+but to host additional documentation that would be too verbose, too
+big, or out of scope to host within respective API docs.
+
+Feel free to join the effort or just to discuss.
+
 
 Thanks,
-Oded
-> >
-> > > +static void hl_release_dmabuf(struct dma_buf *dmabuf)
-> > > +{
-> > > +     struct hl_dmabuf_wrapper *hl_dmabuf = dmabuf->priv;
-> >
-> > Maybe hl_dmabuf_wrapper should be hl_dmabuf_priv
-> Agreed.
->
-> >
-> > > + * export_dmabuf_from_addr() - export a dma-buf object for the given memory
-> > > + *                             address and size.
-> > > + * @ctx: pointer to the context structure.
-> > > + * @device_addr:  device memory physical address.
-> > > + * @size: size of device memory.
-> > > + * @flags: DMA-BUF file/FD flags.
-> > > + * @dmabuf_fd: pointer to result FD that represents the dma-buf object.
-> > > + *
-> > > + * Create and export a dma-buf object for an existing memory allocation inside
-> > > + * the device memory, and return a FD which is associated with the dma-buf
-> > > + * object.
-> > > + *
-> > > + * Return: 0 on success, non-zero for failure.
-> > > + */
-> > > +static int export_dmabuf_from_addr(struct hl_ctx *ctx, u64 device_addr,
-> > > +                                     u64 size, int flags, int *dmabuf_fd)
-> > > +{
-> > > +     struct hl_dmabuf_wrapper *hl_dmabuf;
-> > > +     struct hl_device *hdev = ctx->hdev;
-> > > +     struct asic_fixed_properties *prop;
-> > > +     u64 bar_address;
-> > > +     int rc;
-> > > +
-> > > +     prop = &hdev->asic_prop;
-> > > +
-> > > +     if (!IS_ALIGNED(device_addr, PAGE_SIZE)) {
-> > > +             dev_err_ratelimited(hdev->dev,
-> > > +                     "address of exported device memory should be aligned to 0x%lx, address 0x%llx\n",
-> > > +                     PAGE_SIZE, device_addr);
-> > > +             return -EINVAL;
-> > > +     }
-> > > +
-> > > +     if (size < PAGE_SIZE) {
-> > > +             dev_err_ratelimited(hdev->dev,
-> > > +                     "size %llu of exported device memory should be equal to or greater than %lu\n",
-> > > +                     size, PAGE_SIZE);
-> > > +             return -EINVAL;
-> > > +     }
-> > > +
-> > > +     if (device_addr < prop->dram_user_base_address ||
-> > > +                             device_addr + size > prop->dram_end_address ||
-> > > +                             device_addr + size < device_addr) {
-> > > +             dev_err_ratelimited(hdev->dev,
-> > > +                     "DRAM memory range is outside of DRAM boundaries, address 0x%llx, size 0x%llx\n",
-> > > +                     device_addr, size);
-> > > +             return -EINVAL;
-> > > +     }
-> > > +
-> > > +     bar_address = hdev->dram_pci_bar_start +
-> > > +                     (device_addr - prop->dram_base_address);
-> > > +
-> > > +     if (bar_address + size >
-> > > +                     hdev->dram_pci_bar_start + prop->dram_pci_bar_size ||
-> > > +                     bar_address + size < bar_address) {
-> > > +             dev_err_ratelimited(hdev->dev,
-> > > +                     "DRAM memory range is outside of PCI BAR boundaries, address 0x%llx, size 0x%llx\n",
-> > > +                     device_addr, size);
-> > > +             return -EINVAL;
-> > > +     }
-> >
-> > More prints from userspace
-> >
-> > > +static int export_dmabuf_from_handle(struct hl_ctx *ctx, u64 handle, int flags,
-> > > +                                     int *dmabuf_fd)
-> > > +{
-> > > +     struct hl_vm_phys_pg_pack *phys_pg_pack;
-> > > +     struct hl_dmabuf_wrapper *hl_dmabuf;
-> > > +     struct hl_device *hdev = ctx->hdev;
-> > > +     struct asic_fixed_properties *prop;
-> > > +     struct hl_vm *vm = &hdev->vm;
-> > > +     u64 bar_address;
-> > > +     u32 idr_handle;
-> > > +     int rc, i;
-> > > +
-> > > +     prop = &hdev->asic_prop;
-> > > +
-> > > +     idr_handle = lower_32_bits(handle);
-> >
-> > Why silent truncation? Shouldn't setting the upper 32 bits be an
-> > error?
-> Yes, you are correct. I will fix it.
->
-> >
-> > > +     case HL_MEM_OP_EXPORT_DMABUF_FD:
-> > > +             rc = export_dmabuf_from_addr(ctx,
-> > > +                             args->in.export_dmabuf_fd.handle,
-> > > +                             args->in.export_dmabuf_fd.mem_size,
-> > > +                             args->in.flags,
-> > > +                             &dmabuf_fd);
-> > > +             memset(args, 0, sizeof(*args));
-> > > +             args->out.fd = dmabuf_fd;
-> >
-> > Would expect the installed fd to be the positive return, not a pointer
-> yeah, changed it to s32 as you suggested.
-> >
-> > Jason
+pq
+
+--Sig_/ddt++=ysGel8BF_eUzWWEl2
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmFVtd4ACgkQI1/ltBGq
+qqeuAg/+Myd7Qdq39RFm3xljW4XBoE5xgzsEr9UBFBUbW+E/P4yoV7oJY1qqe+gV
+2XHxSu6alfYY/y7qga5g05N9cyZ7FFxsmlUVVFHadhHBIehOk8MkMEJyoVRmfKVq
+U5D3oIOlJtFMrQ4rQXcn5OET1NTrWNU4st8DjoScWK88YnIjIky71BvK+oVJ83Hy
+TbKg4CYPQdtAE1SGp3SIg/dmiOoCpt1C1Pr2796A0KqRdT1FXHQNmdX8iJFqTmn0
+TvZh9adW46xzchSxBT23Yac2yV3DtNfagNA2kQRkSexYIlWJURfLV1KsHL8jqDzF
+MP+Ul6y77loCgeGPO3b8tZDU6VAliDjQg0YiwlcOjRBvH+WSElPsiV7/iIEGnujs
+BGZ67hnH0e39e3WTKD9UKH48l+Q+3IlZjlr9V64kQnbzAKZHx+bW9PYFZ0puAmpP
+DmtgLaSz8ndu+q2VGOFHTKpEz1nDYSk++1xyxFBDp+PNrd7wNZ1JsRN+7/rFmaPv
+fwp+nbs3FF+y7fAjFo3RTifTq1hcP9oW+GPEGja2m41Ly9SXRc9g7ZYk1yQK/ZG/
+arKZUCdcgKtlDftRzpLjeOyn9H59t3pXTEKYvWU0HEVDv4TwsYKItbw+cAUkI0en
+wkOmAT8JfMw42xFRCUXeAu6/ubl7T78rSuXBzSXJNKTfZvX8pkE=
+=Ziuu
+-----END PGP SIGNATURE-----
+
+--Sig_/ddt++=ysGel8BF_eUzWWEl2--
