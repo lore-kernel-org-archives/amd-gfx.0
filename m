@@ -2,58 +2,59 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DCD08C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E02D0C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90C85619F6
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:10:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 90C85619F6
+	by mail.kernel.org (Postfix) with ESMTPS id B2EDC617E5
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B2EDC617E5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B424E6EC11;
-	Thu, 30 Sep 2021 17:10:02 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3759B6E444;
- Thu, 30 Sep 2021 17:10:01 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id s24so8156325oij.8;
- Thu, 30 Sep 2021 10:10:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 281606EC16;
+	Thu, 30 Sep 2021 17:18:57 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDFF6EC16;
+ Thu, 30 Sep 2021 17:18:56 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ e66-20020a9d2ac8000000b0054da8bdf2aeso6019790otb.12; 
+ Thu, 30 Sep 2021 10:18:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yQogwYZrvFu5Jfwlkrcfq3WvY8WdwXPWkmnjzSEdhJA=;
- b=BnTi5yVXAfDjmWTBRPXF8NGo1YE+5AZtAQsVeFujbgn52DpBNG/u8BQCEA6yTZObMG
- wehpKbgoGdQ9/QTuH+G5l39mHnrCNXaZC3HRFNjQuNBadU1z9yvSWHC06Gx7uhyZHMFc
- mib9yjTtb6lr7ZhK1la1hOWvhyIRII+nMOl9PVfm9aUTXNvmW0hANEbfugTvEBEmSatI
- xaTq4+hIWVdNRE4a/lKOUOeV8VynnBZxyRIZFtxa6m7GTlSsM8qRTDLXcILWujx6ipOb
- JRUqVVydfpl1D/YwKGad+pUGCOBKPdk/EgzL3PB30/ZwSzU2g7QUYKe9HVgDJt3wcLmo
- BDHw==
+ :cc; bh=0AEwdvslYHUXs1dqzetG2U/icJ2B0o3I7Pc5jNQMpJk=;
+ b=Z6NVRoXyvyBymM0wfTEIbRdKEFzPE3zEoQfQzXBE1Sa3C8tcMvesMOL73y29kgY8ux
+ Q0tX6Lx8bD/XPIbppY9xCiNQcnwITqaA+VP8kH7xmzG2yPhsVXAC/9llUIr8trDN2aZG
+ 1q6NoEoZAyr2unmZZGnkm4YCz4bvoALVAdfJtgsRBXbF3Y7AYtM8sfJRcFJ9rrwat2XF
+ F6F55z2CU+T+id9GUYKLdeaa6t/Vqwcg8EnOYf1/MpnpWeK0Nm5Y3mVS3n1RT+h60prQ
+ n9GfgfylrpmQoLhGkylpedNBAWT3rDQOqo1fLNYm49NAxy91YgXG3LneBVGQXjWluEjG
+ NKJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=yQogwYZrvFu5Jfwlkrcfq3WvY8WdwXPWkmnjzSEdhJA=;
- b=4ppO9BFLSdY0NSRgMHizDVfWe69Pom5RQfWrO5Jys5dvFnQTV/P4VbMUGDPy5V4TTt
- ukwkADDhOq4P1Aq0fvBHZcDlaN3zDcWPuMMpGx/IDNbE6ey5wLFADvgh6BeVUHH+YIaj
- ub7rjc3fBO0u+ydSBB/ogvBVOMify6guxuGIY1Yump/AM34jcy4OzsSF6nBsQnmVfc8M
- Cf3l4F39BYlCpWj11BABFQLXirwJoxDvjYw1YFAOPSdoBIwzkeDMh2LJ2yES7D5Jw06u
- np6Bplw6GfqC+dlvLEyGBL5/OiawZYJu5yWClFBsU/FhVGaDhXYZFOlKoOfqWvs1rpKl
- pPQQ==
-X-Gm-Message-State: AOAM530RfEEDnQq8kuCwj/Jv7cMaEAnEHIryTn8iZR3KuQ5GKYlbIrvL
- uOuJX03ni9nRloOR2A5jBplWV/gTIqyCLdGtiaE=
-X-Google-Smtp-Source: ABdhPJyRKPsrHxUPVPxsmZJBSYdQhA0oY4DyYGw0Ib3s43wNku5L4chLBN6tFR9C67rUuP9Cv4X16bsCZ1CgRYrsJxc=
-X-Received: by 2002:aca:706:: with SMTP id 6mr283505oih.5.1633021800478; Thu,
- 30 Sep 2021 10:10:00 -0700 (PDT)
+ bh=0AEwdvslYHUXs1dqzetG2U/icJ2B0o3I7Pc5jNQMpJk=;
+ b=x/VlkuJnhfxtDGVlEnAkIFUucEtwxAgwG+eprynhV73vHB7yUd/oFKMNC0yEHwWFkc
+ wcrlqmnyb3jZSc5mJ/xow87/u1k8e7CtUqTGST9GotKRPzyIIupamA2F15jzKrCTZ0eb
+ mgt1mtlVOGW8wF0/jKAIBPKM73h4xO+nzTciBH4cr3BeQEeLpA4HWcQi87MWWoUS9H6L
+ JuYeOEQfECofcsFlCDLySD9XJM/ps4GCbAG4c1tsQJdHFUXhaAfF8Tw16Z+1nGp9HguF
+ IeCU0TaV2irCTYyYivMFMts+MO363/sKP+u00jv5EaKUzMczeUNp0zlvXyblI11DC0hT
+ oC1Q==
+X-Gm-Message-State: AOAM533CIR/ZUn0VhTw5lZCqDcbujYaAuHtU0uddcga+J/V3BB980VFU
+ ZVro+atZSM0pPDl7L8HdFWNcxfprwVF1FpzqlQ8=
+X-Google-Smtp-Source: ABdhPJwZ+f3/GZr7/EhQcpADsCHcDrnSO+IWU2DxU0XdnmmE+Gn2F4P1HkTjRXY64eJeiizqhK+U7IZvCsBBAiYV2JQ=
+X-Received: by 2002:a05:6830:214c:: with SMTP id
+ r12mr6263825otd.200.1633022335866; 
+ Thu, 30 Sep 2021 10:18:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210930162302.2344542-1-nathan@kernel.org>
-In-Reply-To: <20210930162302.2344542-1-nathan@kernel.org>
+References: <20210930161641.2333583-1-nathan@kernel.org>
+In-Reply-To: <20210930161641.2333583-1-nathan@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Sep 2021 13:09:49 -0400
-Message-ID: <CADnq5_PBMGdUG8VMUQ2UOSdd9qXbZ7QoyGH2RTgUPnTjdzKqFA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Return NULL instead of false in
- dcn201_acquire_idle_pipe_for_layer()
+Date: Thu, 30 Sep 2021 13:18:44 -0400
+Message-ID: <CADnq5_PS3T6GpqL0zi6ct+QFFzutPJEuTy638O=-ik=LETKMYQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Initialize remove_mpcc in dcn201_update_mpcc()
 To: Nathan Chancellor <nathan@kernel.org>
 Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>,
@@ -81,40 +82,51 @@ Applied.  Thanks!
 
 Alex
 
-On Thu, Sep 30, 2021 at 12:23 PM Nathan Chancellor <nathan@kernel.org> wrote:
+On Thu, Sep 30, 2021 at 12:16 PM Nathan Chancellor <nathan@kernel.org> wrote:
 >
 > Clang warns:
 >
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_resource.c:1017:10: error: expression which evaluates to zero treated as a null pointer constant of type 'struct pipe_ctx *' [-Werror,-Wnon-literal-null-conversion]
->                 return false;
->                        ^~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c:505:6: error: variable 'remove_mpcc' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
+>         if (mpc->funcs->get_mpcc_for_dpp_from_secondary)
+>             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c:509:6: note: uninitialized use occurs here
+>         if (remove_mpcc != NULL && mpc->funcs->remove_mpcc_from_secondary)
+>             ^~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c:505:2: note: remove the 'if' if its condition is always true
+>         if (mpc->funcs->get_mpcc_for_dpp_from_secondary)
+>         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c:442:26: note: initialize the variable 'remove_mpcc' to silence this warning
+>         struct mpcc *remove_mpcc;
+>                                 ^
+>                                  = NULL
 > 1 error generated.
 >
-> Use NULL instead of false since the function is returning a pointer
-> rather than a boolean.
+> The code already handles remove_mpcc being NULL just fine so initialize
+> it to NULL at the beginning of the function so it is never used
+> uninitialized.
 >
 > Fixes: ff7e396f822f ("drm/amd/display: add cyan_skillfish display support")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1470
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1469
 > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> index aec276e1db65..8523a048e6f6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> @@ -1014,7 +1014,7 @@ static struct pipe_ctx *dcn201_acquire_idle_pipe_for_layer(
->                 ASSERT(0);
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+> index ceaaeeb8f2de..cfd09b3f705e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+> @@ -439,7 +439,7 @@ void dcn201_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
+>         bool per_pixel_alpha = pipe_ctx->plane_state->per_pixel_alpha && pipe_ctx->bottom_pipe;
+>         int mpcc_id, dpp_id;
+>         struct mpcc *new_mpcc;
+> -       struct mpcc *remove_mpcc;
+> +       struct mpcc *remove_mpcc = NULL;
+>         struct mpc *mpc = dc->res_pool->mpc;
+>         struct mpc_tree *mpc_tree_params = &(pipe_ctx->stream_res.opp->mpc_tree_params);
 >
->         if (!idle_pipe)
-> -               return false;
-> +               return NULL;
 >
->         idle_pipe->stream = head_pipe->stream;
->         idle_pipe->stream_res.tg = head_pipe->stream_res.tg;
->
-> base-commit: b47b99e30cca8906753c83205e8c6179045dd725
+> base-commit: 30fc33064c846df29888c3c61e30a064aad3a342
 > --
 > 2.33.0.591.gddb1055343
 >
