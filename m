@@ -2,67 +2,71 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 119CEC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:37:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83D30C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 18:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A54A661439
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 17:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A54A661439
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4C677619F6
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 18:00:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C677619F6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 617E66EC3B;
-	Thu, 30 Sep 2021 17:37:42 +0000 (UTC)
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB68F6EC3B
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 17:30:03 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id i19so25177549lfu.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 10:30:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCCE6EC3C;
+	Thu, 30 Sep 2021 18:00:07 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC1B6EC3C;
+ Thu, 30 Sep 2021 18:00:05 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id x124so8329926oix.9;
+ Thu, 30 Sep 2021 11:00:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ye/qqO0p8PKVzbuUoEwamPcpYGy0s9HnvVApER+R6kA=;
- b=ftI3Z0SVqMbhoWdnhg5bUeF+owpQShwFKiFCCXBcdn4RZHbJbc2J0o5nj5aw/QCKc0
- Vdv2kgukq9RGNxjvjCA3DkRkCBBBad79JhJxxgNrkccjH4TiJmRBW0i0ltEOb3yFMdev
- fFeMeE/vjhHmOt6rD9YvGkHtfgRxvfpXrATQ9+w5QnzKHBDo8urSjo0OMyTAAQJAH+zc
- EwvsOhDC+BRkFf8OyUTq4uGhLOTBNWDzgLni0BSbv5tf0eiZ2g1db+Bz2V5XwFVunwsL
- zbC/56A/1fmE7NB8Ti2l0dQyedYulC894HG+7anlAY/mFjb5fTXbiZUoIMQ/I8y6CLKy
- 8uww==
+ :cc; bh=Fw8pwH1OA13DiwW71Gp8zTFcOzlqtHtiksx8vBnSuZo=;
+ b=m5+pnYPhp5Mbbl/i9v8Rayru7Xk0LHfsYZ/3ARwECIFS8Pg8nv5paLDPvYkwyh4Ca0
+ arVdov2yDLqKrEtQAVe7Byn4CiqcTi2C0JwPArKj6xt/qkc65HNDbv4HSUHo1BqhTjPc
+ dJdaY85okFWxMiOoGC5V6/loSkBmKHz8mYi/LACtdatdLYOB1mU5NHnLYXDlYmUbE7wJ
+ PLbg0ZkPm+Ysz8O0c2kUx+pvWoWDVe3+WSgEKpw9nHMvoH2AmvHIn8NUt8C1uZf+4KTq
+ hxPOTJ0Z0JDOrTp9TBwHkHbKXbwNaxX6R2HQgMghcbkMssONuWMb+Q58XNPQfoEcXHMA
+ njIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ye/qqO0p8PKVzbuUoEwamPcpYGy0s9HnvVApER+R6kA=;
- b=ngk8SJJMPX0FXCBX965RobWzq15PoB0E4joC9sS5SZuuTM17zZaiHQGq4zRuvFbZrL
- 3iuOypot8U8yZezI3DgxP/HPGyqLxy6GhX045roz2sOJ6MrR3bzil1iwu+qrfHjUOi2L
- iYznHJueFfL5eH7oSo+i3B297DSwxgHc24FXJMLPGSd/9ivF8y6SZSrxiqgpJagmdry0
- ebVro63XIivunC5wAvJGCqWuhymJ8GAGDapx0tysv3b6f3XUHH6pEF7UXp8clqL2xnND
- W+1lRtpbraXvL6IoK8vQ/cekbskLeWC9OgcFCUGrFF68r9S2jJWlj39iDeZIScCt5jUt
- 7eIQ==
-X-Gm-Message-State: AOAM532shbWWP+/lxX33zt+O1P+wTxncIPMLC0E9aCNGiThCuh9TNdkW
- tyXeI02iXaAPxcOdthBGQfWdR+5pjTYqnXO+LgSsTQ==
-X-Google-Smtp-Source: ABdhPJyhCryWkdo+UwgKGKjWkIyiSDBhEOEx2SxpkNiPWf9uVV7dyEnhQqYnZexjKufQh9L+L+s2Toet+ZTQxKlAHrM=
-X-Received: by 2002:a05:651c:b20:: with SMTP id
- b32mr7192491ljr.62.1633023000715; 
- Thu, 30 Sep 2021 10:30:00 -0700 (PDT)
+ bh=Fw8pwH1OA13DiwW71Gp8zTFcOzlqtHtiksx8vBnSuZo=;
+ b=cb2cDFUs222uSLvojj6c0kXGX0chGD4p/YeXC9Ml6mnjYNoN84wWbf8bUrvPxbd6qg
+ peSwPwUMEz0WgQgLqcf76D9S20JsDr3K2vT83DxmOjLHEeGlp8B276BMrFsu09EXPWTK
+ HpAQcUsrQ0p14lybN1rangqROyyOqFxmAETXXdYhI0kFn5tUCwElQwfxEsF80Jvx7dDh
+ WM1tY7379OeJddDIRqV48MyZsNxcDb9WCdOON3+R3ReuxdoY/VWVkPirvQX62oErH6PP
+ xfmPx6MLnPBpRRXxgj1kXM6mKBu38g9Vlbjf9YZBWfZ8WSxbbYKyrqB6m9zKWYIzSzuB
+ 0suA==
+X-Gm-Message-State: AOAM532LIrX8Z973JJ2uuuGHoqfycyI28cizL5kabOxmHewoPxULtImX
+ qZRp3pVTohgEz42H9kO4A3ShtIV937j4b7xqZJA=
+X-Google-Smtp-Source: ABdhPJwXt1IhVLGQOfviPEsWczuXrnB2viox7TeVfyjdkXam/lIb60V/M9UNSLtcAmDLi1dT0ZBzUFXTJQRA5PgV35o=
+X-Received: by 2002:a05:6808:1141:: with SMTP id
+ u1mr440287oiu.123.1633024805243; 
+ Thu, 30 Sep 2021 11:00:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210930160142.2301257-1-nathan@kernel.org>
-In-Reply-To: <20210930160142.2301257-1-nathan@kernel.org>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Thu, 30 Sep 2021 10:29:49 -0700
-Message-ID: <CAKwvOdkrD4WuZzUnBc2LeCjLVAumBCKXJdyr=k=dPDX1BsMhOg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Guard IS_OLD_GCC assignment with CONFIG_CC_IS_GCC
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev
+References: <20210930162302.2344542-1-nathan@kernel.org>
+ <CADnq5_PBMGdUG8VMUQ2UOSdd9qXbZ7QoyGH2RTgUPnTjdzKqFA@mail.gmail.com>
+ <CAKwvOdk56-7UQDs_EAn+WK397mnd5H7_JMrsjROPk5ZFCw2QLw@mail.gmail.com>
+In-Reply-To: <CAKwvOdk56-7UQDs_EAn+WK397mnd5H7_JMrsjROPk5ZFCw2QLw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 30 Sep 2021 13:59:54 -0400
+Message-ID: <CADnq5_N=x-PFvU2oYtLLSHcos1G_K=2qhSE0+1LS=zuBNov0JQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Return NULL instead of false in
+ dcn201_acquire_idle_pipe_for_layer()
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, 
+ "Koenig, Christian" <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, 
+ Nathan Chancellor <nathan@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 30 Sep 2021 17:37:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,61 +81,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 30, 2021 at 9:02 AM Nathan Chancellor <nathan@kernel.org> wrote:
+On Thu, Sep 30, 2021 at 1:23 PM Nick Desaulniers
+<ndesaulniers@google.com> wrote:
 >
-> cc-ifversion only works for GCC, as clang pretends to be GCC 4.2.1 for
-> glibc compatibility, which means IS_OLD_GCC will get set and unsupported
-> flags will be passed to clang when building certain code within the DCN
-> files:
+> On Thu, Sep 30, 2021 at 10:10 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > Applied.  Thanks!
+> >
+> > Alex
+> >
+> > On Thu, Sep 30, 2021 at 12:23 PM Nathan Chancellor <nathan@kernel.org> wrote:
+> > >
+> > > Clang warns:
 >
-> clang-14: error: unknown argument: '-mpreferred-stack-boundary=4'
-> make[5]: *** [scripts/Makefile.build:277: drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_resource.o] Error 1
->
-> Guard the call to cc-ifversion with CONFIG_CC_IS_GCC so that everything
-> continues to work properly. See commit 00db297106e8 ("drm/amdgpu: fix stack
-> alignment ABI mismatch for GCC 7.1+") for more context.
->
-> Fixes: ff7e396f822f ("drm/amd/display: add cyan_skillfish display support")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1468
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> Any chance AMDGPU folks can look into adding clang to the CI roster?
 
-Thanks for the patch!
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+We can look into it.  We may already be doing it for some groups.
 
-$ grep -rn "ifdef IS_OLD_GCC" drivers/gpu/drm/amd/display/dc/ | wc -l
-11
+Alex
 
-It's probably time to put this pattern in a Makefile under scripts/
-and include it in all of these Makefiles.  Anything to minimize the
-amount of code that has to be carried forward to new subdirs.
-
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn201/Makefile | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> index d98d69705117..96cbd4ccd344 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-> @@ -14,9 +14,11 @@ ifdef CONFIG_PPC64
->  CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o := -mhard-float -maltivec
->  endif
->
-> +ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> +endif
->
->  ifdef CONFIG_X86
->  ifdef IS_OLD_GCC
->
-> base-commit: b47b99e30cca8906753c83205e8c6179045dd725
 > --
-> 2.33.0.591.gddb1055343
->
-
-
--- 
-Thanks,
-~Nick Desaulniers
+> Thanks,
+> ~Nick Desaulniers
