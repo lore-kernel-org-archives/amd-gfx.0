@@ -2,106 +2,69 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E4F5C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59490C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 33AB5619E7
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:02:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 33AB5619E7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 240A1619F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 14:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 240A1619F5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA6486EB94;
-	Thu, 30 Sep 2021 14:02:33 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2068.outbound.protection.outlook.com [40.107.102.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CAD6EB94
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 14:02:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GRo88+840DK+z6UHPz1ZVs9pGzNTqtO9Iy9Wl96EbyWUqjaL/54HPl3PFWCHKh75i8TcO+U3dZL14q1wG+uKgTF5yVMgvdR9I7Ho5JDAdbZzKqMcMcKCWFfiqsBfO0NSBWSb5Q2nJ+kbOGmKm3Dh8h6ahsjnHqUAjSNrQ9uZB5XfmFFWqIgKv+PGon0L1wD966d5deITjRBVvmfsvNvmoiaUFjRobNDxANsTDcxrj2TJ4UqvsN5YvMhJ5SZmA1qzGTCDiQoJb9WBUXdpGQJn4UaZY+djLg+PA5JUCzktDvBbuGvcUvPTv/f3y2MwDXeXqazGJWwDw3m4gI+Lrpmz+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=T4CsPx3+702F69HFGYEqAiXQ71PWMKvrrQf9RiNMaks=;
- b=T9IrazGlb/tYXmXjgej04VSOdFu/hzVMKVB/J23CFZkJerjFaU8f5gWVRw4dOIKPzOGfDQp4qseL47KYxDE4EV1qQOgP08XEqfVNIEsZcz1HELIfLSEnxJThH68OriWDoBYl6elX5Wb7V7H3/+6T1F+tioPspX44bWfIQL2TKCjDHDKbvlUG4vNNzfQOqOgoFEQxJ9QGnzgH/Xk8PglyDyqCjVvnYmtXL9cdsvK7SiEb5RDU1YCXvgb7Zzvrq4GH8tUNuOcuHnHSfdN71y5QJtEFIs7OhLG3PyBU5IlPdLh52LMUJgIyE+HJoYtPcC2VtGylkbZXnM4+aQVep9FEwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T4CsPx3+702F69HFGYEqAiXQ71PWMKvrrQf9RiNMaks=;
- b=koJWwPm4h76xzt0NXCHI6oQeZh73RSCUVbI9vYT/wkNtKQuKHB1qVc0RZsKtRiig1YjTXGQgvUmK1AJeq+jyL7gRd5tvGTTQ26IRSmvy6MbBgTYcREd1128GLyQAjBXwvHi7LQedM+C7wYhi6RCQNfhyy7chHl9zCydqLsra6ms=
-Received: from BN8PR04CA0033.namprd04.prod.outlook.com (2603:10b6:408:70::46)
- by DM6PR12MB3129.namprd12.prod.outlook.com (2603:10b6:5:3b::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Thu, 30 Sep
- 2021 14:02:31 +0000
-Received: from BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:70:cafe::59) by BN8PR04CA0033.outlook.office365.com
- (2603:10b6:408:70::46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
- Transport; Thu, 30 Sep 2021 14:02:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT030.mail.protection.outlook.com (10.13.177.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4566.14 via Frontend Transport; Thu, 30 Sep 2021 14:02:30 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 30 Sep
- 2021 09:02:29 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 30 Sep
- 2021 09:02:29 -0500
-Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Thu, 30 Sep 2021 09:02:29 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Zhan.Liu@amd.com>, <Alexander.Deucher@amd.com>, Harry Wentland
- <harry.wentland@amd.com>
-Subject: [PATCH] drm/amd/display: Don't use mpreferred-stack-boundary for
- clang on DCN201
-Date: Thu, 30 Sep 2021 10:02:27 -0400
-Message-ID: <20210930140227.64818-1-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.33.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 633826E40D;
+	Thu, 30 Sep 2021 14:10:53 +0000 (UTC)
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 377426E40D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 14:10:52 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id
+ l16-20020a9d6a90000000b0053b71f7dc83so7403468otq.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 07:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=jxJYAEg41OYhNZMSNUY1eZAVBT8EpxEJB/ULJSPBTgA=;
+ b=j0W1pJFSfo58sgiWkuMkJBgzVjoluTpdqcwtyqGVb4b9stSp89pnFmwCl/cAdhVGxK
+ 5tzkIW3wkkTgMddhfcNHFLbJJOn906wzJ+Rc1XDDHTSdv0daGdKDxAL54wLiCP2nYD/9
+ naDboGDXdsl6ZhXtVW8nhW4Ibb3jUUhTqyT71PDijC9fZw3oGpIWywX4VkFLlwDDvc+c
+ quHCbMYNtS4chIY82Pebrre1EQSwqN2BJpgNYJkqS1ipZqC6RHRK0Nqi6F+iVfEsjty/
+ blr9rq1mKb4taLSS4zks/ZmYuxhwnBtPvp5v7r7ElQJdBBzRGZHIWMEWUNqLTz1S8moL
+ gr9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=jxJYAEg41OYhNZMSNUY1eZAVBT8EpxEJB/ULJSPBTgA=;
+ b=6JSQy15EGwGYJ8l9/Ru5OCPBdmRn1xK0cHlX9sn7nvsoqWtKnkUR5rkajYRU6CD2/r
+ npy2Pz/3zPKtrK203PcpUkGSnqKdMqMF+WMC4gtghi26k0Yc/giwgUecMcpmjugpvAxR
+ HdyzIeruNj43hZKSF4hi9e4YIB0OJMrh378k2eqEP0YymbxL6yb6Aknk/2oWqj9vrnvr
+ 49LtyOE1j6HwLPlZejJSrajMogfg2mBJrIhn9KnyBloDLfFi5YjOUFNszmJ7v9nvi3lL
+ M9wChkBz69NYWUJevdd/BO4Q3gonidon4qQ7WzpmVYmZ1gi21/2RcTHHDuQnK7NWfVkG
+ 1I1w==
+X-Gm-Message-State: AOAM530YxzCR/YBUxdeV3zJXkeu1U2qPlAkFy0Qjx6c0BlVQqpm+vB/3
+ X1PYaTeAHrzFXzm7IJ0EWPYeYz8di8KQJ/sAxXA=
+X-Google-Smtp-Source: ABdhPJysv7pAbxhSudZ585gT9KvWk5OtCyYq6Qk5987lrmzVE2c9yv1vtqyfR9xtN1e7M28SLFvAH/wBUzU+AUDnrBo=
+X-Received: by 2002:a9d:6d14:: with SMTP id o20mr5562664otp.357.1633011051297; 
+ Thu, 30 Sep 2021 07:10:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e8d8332a-c414-4e49-5fbf-08d9841af189
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3129:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB31292B951C257E2E9C6FF50C8CAA9@DM6PR12MB3129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:238;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NBAzecJ178qqPY2EjchH1a4D16BcJuZ9/aHtCjKdNPLS0R6k7WM0tWOvgc0WlK3yFxyMfL/Tuo5DworvV/+ZnnoO9ld85Sy3xVlYWtC0kEdn7zi2XCXeYwh0QjxQukFI6mhApX0RqdbJQMEtHjcPXqu26RTSEurxxRkBHXqwykP2fsAjuqCo7z2MgkpX8eloTgfBQkLLjk9ddKmFnhybp0RZSO7d0oFS7b0yag1TFnXScZzNDCmF7FSzZ5aw0I6WMoZHEorzr1PQ9w7/Ky6M2oGr9iDXP/DUsiKYIhNJITqqF6+w/S5eZ/laUvD64MvqeyyMpKrC7Yv7I3/QOB9kenpycPkryYrCSs9Yvr8M2UbP+1lXoPzTIcU62znTbd0XQkC5QVxQfDQor3Nt9zNwbYz52gTgATF6R08hA7sVus/+2vzy8Nw9vQ8tAT+nVqUIm+3m9ddQW+51CQ00x5Dqfw1FEcisgxTDSmJM8cfufbg5oDjzgo5ERl0fAtVlEpWIapcRxtndXl5SJm/oVu4i8g7ukvVPXzIY5bvbj90J8ru5o8iic0vk8cNCARysAZhwBnzsZWpttrYv9/tno484Xngflfa6WvRxZ4hmy3ZEvgh4geK2svQXnmWI0Hbe0TrnWwEj0yxmvInzSiPB9c9J5hljzmF/ZrLYsn2fYjJ72fTlCK8htjgsJpCHWOIhCB4NVhjMyYe5ExN7p3FtfUu9CTBVxvU11POMublU/eJqyXA=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(8936002)(36860700001)(70586007)(316002)(6916009)(70206006)(7696005)(4326008)(356005)(82310400003)(54906003)(5660300002)(336012)(1076003)(8676002)(26005)(47076005)(81166007)(4744005)(2906002)(36756003)(426003)(44832011)(2616005)(86362001)(186003)(508600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2021 14:02:30.5260 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8d8332a-c414-4e49-5fbf-08d9841af189
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3129
+References: <CH0PR12MB520112519F74BF4E6F2A9FAE9EA79@CH0PR12MB5201.namprd12.prod.outlook.com>
+ <CAHbf0-FbZqpR=F1eteqtNo6X45ZvBNP-2FF4oEg_0W0+7Mu2gg@mail.gmail.com>
+ <CADnq5_MQao2NuE3+oQXzvyk8=3Wuu8g-aD=usKr0p++4NpEMYA@mail.gmail.com>
+In-Reply-To: <CADnq5_MQao2NuE3+oQXzvyk8=3Wuu8g-aD=usKr0p++4NpEMYA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 30 Sep 2021 10:10:40 -0400
+Message-ID: <CADnq5_OZFdXQLOsaN+1QB=mg-t0GSrZ_XkaLEjBPBdB3rF5YLA@mail.gmail.com>
+Subject: Re: [PATCH 02/02 v2] drm/amd/display: add cyan_skillfish display
+ support
+To: Mike Lothian <mike@fireburn.co.uk>
+Cc: "Liu, Zhan" <Zhan.Liu@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
+ Charlene" <Charlene.Liu@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, 
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,34 +79,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We were erroneously setting IS_OLD_GCC for clang since we didn't
-check first whether we're doing a GCC build.
+On Wed, Sep 29, 2021 at 10:00 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Wed, Sep 29, 2021 at 7:23 PM Mike Lothian <mike@fireburn.co.uk> wrote:
+> >
+> > Hi
+> >
+> > This patch is causing a failure for me when building with clang:
+> >
+> >
+> > Enable DCN201 support in DC (DRM_AMD_DC_DCN201) [Y/n/?] (NEW) y
+> > Enable HDCP support in DC (DRM_AMD_DC_HDCP) [Y/n/?] y
+> > AMD DC support for Southern Islands ASICs (DRM_AMD_DC_SI) [N/y/?] n
+> > Enable secure display support (DRM_AMD_SECURE_DISPLAY) [Y/n/?] y
+> >  DESCEND objtool
+> >  CALL    scripts/atomic/check-atomics.sh
+> >  CALL    scripts/checksyscalls.sh
+> >  CHK     include/generated/compile.h
+> >  UPD     kernel/config_data
+> >  GZIP    kernel/config_data.gz
+> >  CC      kernel/configs.o
+> >  AR      kernel/built-in.a
+> >  CC      drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/clk_mgr.o
+> >  CC      drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.o
+> > clang-12: error: unknown argument: '-mpreferred-stack-boundary=4'
+> > make[4]: *** [scripts/Makefile.build:278:
+> > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.o] Error 1
+> > make[4]: *** Waiting for unfinished jobs....
+> > make[3]: *** [scripts/Makefile.build:540: drivers/gpu/drm/amd/amdgpu] Error 2
+> > make[2]: *** [scripts/Makefile.build:540: drivers/gpu/drm] Error 2
+> > make[1]: *** [scripts/Makefile.build:540: drivers/gpu] Error 2
+> > make: *** [Makefile:1868: drivers] Error 2
+>
+> The Makefiles for the new stuff added probably need to be fixed up for
+> clang like the other Makefiles.  I can take a look tomorrow.
 
-See dcn30/Makefile for reference.
+I don't see anything off in the Makefiles.  Can you try with a clean tree?
 
-Fixes: 4ac93fa0ec12 ("drm/amd/display: add cyan_skillfish display support")
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dcn201/Makefile | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-index d98d69705117..f68038ceb1b1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn201/Makefile
-@@ -14,9 +14,12 @@ ifdef CONFIG_PPC64
- CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o := -mhard-float -maltivec
- endif
- 
-+ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
-+CFLAGS_$(AMDDALPATH)/dc/dcn201/dcn201_resource.o += -mhard-float
-+endif
- 
- ifdef CONFIG_X86
- ifdef IS_OLD_GCC
--- 
-2.33.0
-
+Alex
