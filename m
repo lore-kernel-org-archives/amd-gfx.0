@@ -2,122 +2,119 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58CAAC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 21:18:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EE30C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 21:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05BEE615A2
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 21:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 05BEE615A2
+	by mail.kernel.org (Postfix) with ESMTPS id 533AE61A0B
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 21:21:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 533AE61A0B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8264B6EC81;
-	Thu, 30 Sep 2021 21:18:47 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 679E66EC81
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 21:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D71936EC8A;
+	Thu, 30 Sep 2021 21:21:21 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFB756EC88;
+ Thu, 30 Sep 2021 21:21:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mpK+a8fZM5KTUOC2FU+B6ksAeG3BSsGJ1pcTsooND+6yveR0nE4kNGeJMaEFgC6iAeyI/ytu6RvnkoM7Pp2+KE4disw0JhIdTNBaL/KrttEISz8QY62aRJTleSdkkWEsyStA6ZKiQU8qqRukf/brHEfSILaocBdNAiYyA/kFDI3kDiP+ZIQ04eAEu0CzEGwZERbfCWxQ3cLdMlwghVWwK9UzjT+WeTxjU2l48P4yqM6c+MGi4bw9FIkO5TF7xcHQVuFPlqtt31ErffdDcVIwjfiPjphXIQRQKgsBetbMxWbkP2xHrUH6T+TLk7Y+QyjsA5eU/SkpfFVxvEed1H10ig==
+ b=oVlG/urynTinFaey/nOzRMY1Fdlzd9p0FnElUQhuwo5R3XBKi8cX0JpLPlSVLMKK+vVkBpStlnug1m5f5/HJry1HKB1axo2zqgwyjWnTQpejE9NurrY4lQE5GjX6oG5h9WyugPV80uRWpnk8KphTD1VTDVMTfllztDsRYvRb8Tfzyp0rHEELr5GrrEGzyrESewW5K2sVnrDbXfjw7RUZ+b+ZCIYvKKGqyO+k+uIIuaZd/CdLLRTTSQN96H+OwrWLpbYs69jMvg45gR3gAZ7Sc7laBs5vpB5mHelNo1jQboM8MhAErRv98FSVYnHKpzlduWGnoRgFeRqL7jnnZ4cBaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hf1FjMI7Ot3A/rchXn207UOP046CFVbQqfn/hucs9kQ=;
- b=bVFuvynBwmMWcXBbAr3JbqNzjYb3k5IIV5GqIr8apGVuYkyszlxvknfBcMan1u+t3sF5p78zfFcNtGOL0YnZ3AfEjGX2LMTBf9+qNzVGI9S7pwGCAg+W9Bd1pjaCFIFz2T9PvRpClFAp2uLhNqveuE9PJ/+HQwRT2uHwy6DyG1bWkEuYkhoCAOagW+eQNf9Up3a/OMLHdGc5wbHAvZDI0j+F1I3XIjEKG8xuFcVtOCSKd1Pi9Rl9YhCrluyY20DbJzKaCt51VNZ9SdtcOxpKbeNyXFTODNRLYAu4ssW4EnaujFWLehNtqtNE0mqLGy9f1iDPjAZAiyCdYwLkNa93dw==
+ bh=9DcyhT9ZSgg83mcqrz4kcVLRO9SVivkDP6UpXs8JKxo=;
+ b=DulqdZDfEjFr+4XSbs+RefaUQIZWCMRpQAMgpPKj0OLyp4FGJWxdfQGscTd91fP7gWe8tUPs3Dcd4SVZx5ANzNQZO2KDod81c31BrMixrE2d6Wv3d1zVsqcFz9lLMlFXyJuPgmHe7NrwTAImwztPlJt/kGrovs2q6TbUJteaS54c8bADHMCB7Yy1jQ4NKKU1LEElcCL4pd/yTvAhBChIH437aao4R/tgHgQJUNByM2Kg+g1MKdrBVifSD/6LROIP3+T46actJAEXd+xWTH4rFnTHwgPggEz/P4HDm0MsoJDUtCGqkUzdU2DUvDIPAY6GNTvgEognyX0W7zMDcXLzpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hf1FjMI7Ot3A/rchXn207UOP046CFVbQqfn/hucs9kQ=;
- b=MeiqA7TuFIm7pOhawjIpU4R4aJ+IbbFQV8FO99trKkvrymXhUQA53doZCLSVcRFPbH/HadREHfK1fKJhLky6xrSn/Y6DJV5ICJC9zQFBjpud19mviObe+yslupqG7ippauzN+rc2uDYTLvyOaxuw9oBvRzVAHAXDwdzHIkP4mY4=
-Received: from DM5PR12MB1884.namprd12.prod.outlook.com (2603:10b6:3:10d::12)
- by DM6PR12MB3514.namprd12.prod.outlook.com (2603:10b6:5:183::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15; Thu, 30 Sep
- 2021 21:18:44 +0000
-Received: from DM5PR12MB1884.namprd12.prod.outlook.com
- ([fe80::d054:bfe9:a655:d24b]) by DM5PR12MB1884.namprd12.prod.outlook.com
- ([fe80::d054:bfe9:a655:d24b%7]) with mapi id 15.20.4566.017; Thu, 30 Sep 2021
- 21:18:44 +0000
-From: "Zhu, James" <James.Zhu@amd.com>
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Subject: Re: [PATCH 1/2] drm/amdkfd: remove redundant iommu cleanup code
-Thread-Topic: [PATCH 1/2] drm/amdkfd: remove redundant iommu cleanup code
-Thread-Index: AQHXtELcHFQGCvXu20SIRzrKf1Fwlau9GLfm
-Date: Thu, 30 Sep 2021 21:18:44 +0000
-Message-ID: <DM5PR12MB1884D648FC0046AF178BF02FE4AA9@DM5PR12MB1884.namprd12.prod.outlook.com>
-References: <20210928082819.205231-1-yifan1.zhang@amd.com>
-In-Reply-To: <20210928082819.205231-1-yifan1.zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-09-30T21:18:43.563Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: a455e43c-35f0-ef94-1405-ac9ea434c83b
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=9DcyhT9ZSgg83mcqrz4kcVLRO9SVivkDP6UpXs8JKxo=;
+ b=LBtpAt1gj7lRCXw2IFYmhZ3JXstytR7iv4lIn3A/4cEWA3+qmlx672y4mIHs9ECeQQGBoIG62/l55N4FU3a6RlUD/qdqCpY4Ti77C+xc50t9qVds6g3VPT4HKpjF7oyL8VPJZpNCRi1E/cjRafUWa0PL1quhbo4+jkAJJ5Ej+tQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 87623876-3009-47a3-705f-08d98457e27e
-x-ms-traffictypediagnostic: DM6PR12MB3514:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB3514B16D87A42CD4757E644FE4AA9@DM6PR12MB3514.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1148;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iHHn3x/+Pz/lcpc0JQn6PAyRQXApss3H0a2kEIfBcS93MCIPC2qR7OQTZcBMZShGgzUunLiKJ6qEYFB6F1RiPYerxG5WCyHGOxZBcSNMMVZb+oOijWjJIwlMudzWGzA9wJJK/bwaXsuc/ttHTCQJxtExbcv6mrpaeadD9I5sf6z0ygkJvPCch1J+tMw1I14XMAYEpJ5ZOIF6RbAxWcwl1rJeRG3w1zN4+a6rt6RTKzf9sHVwfXCSB1Sn2HK0iRwOR/MFPr9Nq1uI8gEfXroXZGsBkp4Uawj5fetEBHeWlmlwuvnhVQShmByba7bFB4M7XR+irxFPdx9jKz1XDbWFv/8R9OYcdoWQZughROiauc+QPJSXQx7KzHQbzCY/mFx15o3+s7GzfXQS8TaE51cSokHHvcddqqMrhuty2HHTD6jZ+VNWPVMNDUH+iXCmvzi+kb6eQRnTDpbfFb1pdxqmyLDnRHY4pu+JPfupDKcTNsSeSsuaeVaqqnCzY80P7SBM1H9GOlO85lluWKNilfoTsfkYskhmSchnbTZrBUsVIhhY6xiMs8PNExoMTavO5RuLutsNE0fUj9zae1WOH9RNVd7LnwIDlQFPoo+5ErNCxAfi7640FNklUTLQ/0G/iSi5WyE5U2XuSfMybtbkJCw30fNfSuy7IW9ZisgYBbNEYsyzNgKYVLsvCYjPGuhtkB8XdyhysCF0Iqnd6RtRxSVdxA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1884.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(110136005)(76116006)(7696005)(316002)(71200400001)(66476007)(66556008)(66446008)(64756008)(66946007)(4326008)(53546011)(6506007)(86362001)(33656002)(2906002)(83380400001)(38100700002)(91956017)(5660300002)(9686003)(26005)(19627405001)(8936002)(122000001)(186003)(55016002)(8676002)(52536014)(508600001)(38070700005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jhe3Cyf2TKg6qelQbBWnsfJRAr+95I9v4xmRnRWBDrIg6cLtoIn8D3zNBKA3?=
- =?us-ascii?Q?4lqUqZg5wI2AMFn0owkuZldMjUmxR9pBr/2D2IiTVcrE1EYvo+efQL7IYAw/?=
- =?us-ascii?Q?FzAfNXZUUtuZdv8Towvoi650epA1VP9BifAdhNlOoIDVRiecIcZse0wxZ17Y?=
- =?us-ascii?Q?xrH24/hclUo/FrNMwJPPP2vya8agCOtS4xdQXAzOGI7xr8B5nICeK2AkZYOS?=
- =?us-ascii?Q?fOBx7xqBMrEiAn+5c7cGR+x818Uj7iCWG9dNOcuXqkmHRZTdKEiEnVgTgjuL?=
- =?us-ascii?Q?dTVnR36SygsDblChREA8W+QInwT2gFrgxPv0FfOe/cjuPlNkqBrKvbSuiuM/?=
- =?us-ascii?Q?MjpgIy3IVQeqDtWXCXoKeyzVa6Fk8uHL1/05ASZ6Rgl28+FauMUUXsX2O2Xk?=
- =?us-ascii?Q?1M5cNLzdd59ynGXYpIELikoSsE6FWqWotrkiSl2OPavW2ZTDT3vy9a/sjuM5?=
- =?us-ascii?Q?brEVXM3+jxYrKQs43ZSFw1ISY9Gk3O4SAvZBDWD3IchcTvsZ8zTBd0x/DUwu?=
- =?us-ascii?Q?Ut+2w3q5oVbTMdOt++xJXgkhKv0O71LMdiDN826kjau+t4t+vT6CgdTibmKP?=
- =?us-ascii?Q?Umvhugd6AU9VZovOcouunmaTT1L4NSDD+g7ew92ZuNs72fqo47vFHWjUWuVI?=
- =?us-ascii?Q?eYZ4Wo/8PhmRE39eAooYlvBWdHV5WCi+hg3oHmosjTL8Cyoew3WQaN/7nWHr?=
- =?us-ascii?Q?MbSJopvjav98QLjJQWhuwo9Ro/y7VRCZA7sPJU6j+mWbJO+S1DchnMNh8ZkI?=
- =?us-ascii?Q?6mTYph5jZGpylLcjGNRJZfQmY/58d2XRHDbVfRitAzxx2si20PwC6rd88S4Q?=
- =?us-ascii?Q?XLeZpEriAEUReL68S9fkLRbqPWaL9Prx4GO8GvQE+SZUHJU6fbqZTBUpXFVN?=
- =?us-ascii?Q?vv2MZGKutnWG+n8xziD82qaRwlp4nf7Yqz2M6gw9Uv22HPbrHPfDMvKijZk+?=
- =?us-ascii?Q?OBjI10UKvj2/YfA+HNCgZ/13eoZpCxhGTAIxldeJDffmYeVzTp9mgNlb0EkV?=
- =?us-ascii?Q?7vpi4u/stpH2JZ01sW/xBiOYoyM63luGE591OATvwyxLheDYR9CC2004/f8j?=
- =?us-ascii?Q?Y6htaN3l3AbMWxJGhFRJ99O0j+qUmBOdwtF5+Uouzein+gtQNlEh1XGx4W8b?=
- =?us-ascii?Q?mHH0GSpjDGOCCiaSzH6+F+AckOwAyLQy9v0UZq64OZmvwXL+bMl9Lzwe1DqZ?=
- =?us-ascii?Q?/w1WxTJX3/2sAAmdVKlBDejkZamnfBThc+YGH8kcEiY+gA0P8EX3Wu3AU9pM?=
- =?us-ascii?Q?IWqwjwxFci5WRbELA+jLd6uQ38AUfVIu6sY/6WAI6J3kISG7CGtBt9zvHDhe?=
- =?us-ascii?Q?XqS8+IifIXRjUwP00+rPaJ7P?=
-Content-Type: multipart/alternative;
- boundary="_000_DM5PR12MB1884D648FC0046AF178BF02FE4AA9DM5PR12MB1884namp_"
+Received: from CH2PR12MB5564.namprd12.prod.outlook.com (2603:10b6:610:65::24)
+ by CH0PR12MB5235.namprd12.prod.outlook.com (2603:10b6:610:d2::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Thu, 30 Sep
+ 2021 21:21:16 +0000
+Received: from CH2PR12MB5564.namprd12.prod.outlook.com
+ ([fe80::7988:8b2a:5575:4510]) by CH2PR12MB5564.namprd12.prod.outlook.com
+ ([fe80::7988:8b2a:5575:4510%4]) with mapi id 15.20.4544.021; Thu, 30 Sep 2021
+ 21:21:16 +0000
+Date: Thu, 30 Sep 2021 17:21:13 -0400
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ jani.nikula@intel.com, Nicholas.Kazlauskas@amd.com, wayne.lin@amd.com
+Subject: Re: [PATCH v3] drm/dp: Add Additional DP2 Headers
+Message-ID: <20210930212113.rsy5lbg3mhejvsdo@outlook.office365.com>
+References: <20210927192324.5428-1-Jerry.Zuo@amd.com>
+ <b2ce7b34-23f1-75c8-182e-3e7fe9b845e1@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b2ce7b34-23f1-75c8-182e-3e7fe9b845e1@amd.com>
+X-ClientProxiedBy: YT1PR01CA0126.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::35) To CH2PR12MB5564.namprd12.prod.outlook.com
+ (2603:10b6:610:65::24)
 MIME-Version: 1.0
+Received: from outlook.office365.com (2607:fea8:56e0:6d60:65bc:e9ef:c548:6ef5)
+ by YT1PR01CA0126.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::35) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
+ Transport; Thu, 30 Sep 2021 21:21:15 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 05fc3cef-2731-458b-e37c-08d984583cb3
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5235:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CH0PR12MB52355E5F15B5EEEDAED853B098AA9@CH0PR12MB5235.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fLtGDFrhIzon+nR6kAI4GHThkd/Cqi0oSgUK3v4x+lK9vxb01yPXvjllGpZ3cYLJdkLa+e+lAEaHGsN2sduCr37Gdp8bQr9K4MqYMUuR/zocMQt/XOSWyTchaYQiz791ykdhnzkYNk0JeV8MQp510i/QNaAzwoXKS+5D0myEGn2OoOL30PMCaUomxukZYczT8CHfyQOVXnWVUcPh+keJwlloG7upiSdkJZ2VMpibNleOseR+D/UBDlpyVVdQsUcmCyfYCJ8za5CmIpyzbQpcbTQ4KjKb6U0rfiPfaK8QgJXp1PC8Q0FGU8BxP7VkGO/aGv1x6qugWbi/BQ+OcUd4otJekCLxoQtAmhp3wPjdIbkkgaPCNaNUg16LtFCQb4mMlqxlQD6ox9TUH6uj/6TCcXIZ260cbSvsfgRn/pIgDgoMNNSk7MBif/8/X4W7JUXSOh+A2lJBwq0akwyaY5IJy2dExmHsffwMiIlBhcAkOZSHtfTD7LQePTAtMhxV2ggszQCdYp5M478yh6J6GSmH4u8W8eizN/egXbzatde2ooIFDZE2gI7bQxXzapMDD7J+tWi3Yjjk06vlavuTRL1nL4MiAwYrsj74M6YDopfDHruSFam9wZIzV4ICQqNZAdTl0SE42Ndq3jCJmRyj656QqTqgfdK75eKEi4xeOqYq6of5BgoXVH+DMByrOWnwqCg+opwjs3G7aiJVH7eeQLGNsYvJkAqXlVfz+MGJRTwKsxQpvPH8WBWlZFq4foJSg/PCUWOBRLvV8+sh1NXTL4UfkA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB5564.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6636002)(4326008)(6862004)(316002)(38100700002)(508600001)(6506007)(52116002)(9686003)(55016002)(66946007)(66556008)(1076003)(2906002)(66476007)(5660300002)(8936002)(8676002)(83380400001)(966005)(186003)(86362001)(7696005)(53546011)(21314003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZwcX1145ouDxlyLvLSDZbQfYqGY3KoNY3x+pZxK1SDHytXnsxCHQD/eYJm+f?=
+ =?us-ascii?Q?ZfV4h+tFHcfJn24BTqZ714k+nSc3Q4A4C7OniIrvV9v57MKOSPbk+WGYc35T?=
+ =?us-ascii?Q?oHFgmWexD3X4fKtiZbSPPXctdRI3wrUAbZzDQmtc0c9XRbsZKg5tRCCwVUd5?=
+ =?us-ascii?Q?dLRYalknneymOwhzMhqhhthH4ounizGxPMXr3aJv3fMhro34krosW1VpbR0W?=
+ =?us-ascii?Q?/b8x8mWuZ98/9FuuY23pLGr1DZAQoqHOe9Sl+i/8nR2GdH4+a/NESNAkzlFb?=
+ =?us-ascii?Q?ZjIntkrfogHJ6KGXuiItkivvOoawkaFiSFUjaQtcbU1jwa1EcqY34lJx5ibm?=
+ =?us-ascii?Q?Ihnj0m45wVKNjNc4jlsIuYMq3w62/58S39e9DGuZxH80Rvt1ZVfMSOrYfrXs?=
+ =?us-ascii?Q?4JpufprdS7KmB33fpAFCXjaFpcBb3QeouQRZj/90Jt5+2984sjThBP3tGd/5?=
+ =?us-ascii?Q?YybxFuRRgNoA6AissbhRPoxiDjN5vU9M/M1vBnh3dSTwoJi2R6Nvbbf50LEq?=
+ =?us-ascii?Q?Jna13or81fJDL49TzYaCVrucKPaV277huqKOZeXe5jpOJTg1wPLa70fGzcRG?=
+ =?us-ascii?Q?fmSOtDPl8liQ2stj/SVt5OhHN8JVtrA7Ztbe77LH/LShEkYGBaGo3CdwZwfw?=
+ =?us-ascii?Q?U9HD9qmD4mNNXl4EYFje9PLmKtGFKWAcurh+R4zfeTYQxidOtUFdTX9DDSEI?=
+ =?us-ascii?Q?sh37fJsDnGEX86kM/1eE09/K5klwvZthXH/9wLJWt66bGx9wC/bCTuJKqpD/?=
+ =?us-ascii?Q?YexSE1yRMp/g4LUM9sVdeZVrFwJC921ZjYwxSw9mVY7IjCqyyOmAxjM4DvIW?=
+ =?us-ascii?Q?4aZ+E4dXIN4dSK22lhTCYBlHof/JTNqN82bELnMwce4wh0FIYnvyXefn6/TC?=
+ =?us-ascii?Q?3s4+FaLxGtK2vXapvCCLQihJvFHNuWiTcNBV8rKS4Ivu+ag9lP3SBiOvmdH0?=
+ =?us-ascii?Q?uoc13n11KKeagq6VwAfbSra4Odqyur/dPIoBlDJfp7Ex3iw5fW50ejCiCdsi?=
+ =?us-ascii?Q?XdVrJNspPFZ20ATsqTkMq/0N5Y4abGxBYWKDV5cE7n7gvEXbzKOPbrB2hBIY?=
+ =?us-ascii?Q?VXLziQ70vveQox6g0jCb2f5tsdpk6UxaR/sDM1CrlMj+v0RzALKQNBTjmmdb?=
+ =?us-ascii?Q?AMXNtUguVlDJhGzi/seX4Smulc8n6Oo4SPlZQoUg+DoO/KlJ6z3kMjFoiGUn?=
+ =?us-ascii?Q?LgRqXvtK5KsZaNAJq3bbMbsHYtTbem2EjdjgMbeyywqqb08x4ScwUgwmPfca?=
+ =?us-ascii?Q?vYe8iEnc2iOxNHvNjrnVcZQGgPPI+HWdUksRPMUStly/9PtA5HvZhext7tMr?=
+ =?us-ascii?Q?ctxp6iPRqCAB2O2JBDig0sj0EYiG1MwB2TnhHxziyiW8Mwl90sJEEwdCoNda?=
+ =?us-ascii?Q?1TnEFXNt1K0wFfwRM5q/ijI3e2wD?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05fc3cef-2731-458b-e37c-08d984583cb3
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB5564.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1884.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87623876-3009-47a3-705f-08d98457e27e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2021 21:18:44.3185 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nBdpdwsFarsxOkzKM2+02ednRuPIlBL18DXU9EqfGjyx/XayiDVQdnTZRMn0U3jx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3514
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2021 21:21:16.3113 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RCi5J6yTyURSwFDdemKA42tbsw2bUmCdGdJe5kzG3D00qttzcrTKFYHv4GIMR/lLHZm5mfHJB6kIPEdlETL7xA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5235
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,177 +129,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM5PR12MB1884D648FC0046AF178BF02FE4AA9DM5PR12MB1884namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Applied to drm-misc-next.
 
-[AMD Official Use Only]
+Thanks
 
+On 09/28, Harry Wentland wrote:
+> On 2021-09-27 15:23, Fangzhi Zuo wrote:
+> > Include FEC, DSC, Link Training related headers.
+> > 
+> > Change since v2
+> > - Align with the spec for DP_DSC_SUPPORT_AND_DSC_DECODER_COUNT
+> > 
+> > Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> 
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> 
+> Harry
+> 
+> > ---
+> > This patch is based on top of the other DP2.0 work in
+> > "drm/dp: add LTTPR DP 2.0 DPCD addresses"
+> > ---
+> >  include/drm/drm_dp_helper.h | 20 ++++++++++++++++++++
+> >  1 file changed, 20 insertions(+)
+> > 
+> > diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+> > index 1d5b3dbb6e56..a1df35aa6e68 100644
+> > --- a/include/drm/drm_dp_helper.h
+> > +++ b/include/drm/drm_dp_helper.h
+> > @@ -453,6 +453,7 @@ struct drm_panel;
+> >  # define DP_FEC_UNCORR_BLK_ERROR_COUNT_CAP  (1 << 1)
+> >  # define DP_FEC_CORR_BLK_ERROR_COUNT_CAP    (1 << 2)
+> >  # define DP_FEC_BIT_ERROR_COUNT_CAP	    (1 << 3)
+> > +#define DP_FEC_CAPABILITY_1			0x091   /* 2.0 */
+> >  
+> >  /* DP-HDMI2.1 PCON DSC ENCODER SUPPORT */
+> >  #define DP_PCON_DSC_ENCODER_CAP_SIZE        0xC	/* 0x9E - 0x92 */
+> > @@ -537,6 +538,9 @@ struct drm_panel;
+> >  #define DP_DSC_BRANCH_OVERALL_THROUGHPUT_1  0x0a1
+> >  #define DP_DSC_BRANCH_MAX_LINE_WIDTH        0x0a2
+> >  
+> > +/* DFP Capability Extension */
+> > +#define DP_DFP_CAPABILITY_EXTENSION_SUPPORT	0x0a3	/* 2.0 */
+> > +
+> >  /* Link Configuration */
+> >  #define	DP_LINK_BW_SET		            0x100
+> >  # define DP_LINK_RATE_TABLE		    0x00    /* eDP 1.4 */
+> > @@ -688,6 +692,7 @@ struct drm_panel;
+> >  
+> >  #define DP_DSC_ENABLE                       0x160   /* DP 1.4 */
+> >  # define DP_DECOMPRESSION_EN                (1 << 0)
+> > +#define DP_DSC_CONFIGURATION				0x161	/* DP 2.0 */
+> >  
+> >  #define DP_PSR_EN_CFG				0x170   /* XXX 1.2? */
+> >  # define DP_PSR_ENABLE				BIT(0)
+> > @@ -743,6 +748,7 @@ struct drm_panel;
+> >  # define DP_RECEIVE_PORT_0_STATUS	    (1 << 0)
+> >  # define DP_RECEIVE_PORT_1_STATUS	    (1 << 1)
+> >  # define DP_STREAM_REGENERATION_STATUS      (1 << 2) /* 2.0 */
+> > +# define DP_INTRA_HOP_AUX_REPLY_INDICATION	(1 << 3) /* 2.0 */
+> >  
+> >  #define DP_ADJUST_REQUEST_LANE0_1	    0x206
+> >  #define DP_ADJUST_REQUEST_LANE2_3	    0x207
+> > @@ -865,6 +871,8 @@ struct drm_panel;
+> >  # define DP_PHY_TEST_PATTERN_80BIT_CUSTOM   0x4
+> >  # define DP_PHY_TEST_PATTERN_CP2520         0x5
+> >  
+> > +#define DP_PHY_SQUARE_PATTERN				0x249
+> > +
+> >  #define DP_TEST_HBR2_SCRAMBLER_RESET        0x24A
+> >  #define DP_TEST_80BIT_CUSTOM_PATTERN_7_0    0x250
+> >  #define	DP_TEST_80BIT_CUSTOM_PATTERN_15_8   0x251
+> > @@ -1109,6 +1117,18 @@ struct drm_panel;
+> >  #define DP_128B132B_TRAINING_AUX_RD_INTERVAL   0x2216 /* 2.0 */
+> >  # define DP_128B132B_TRAINING_AUX_RD_INTERVAL_MASK 0x7f
+> >  
+> > +#define DP_TEST_264BIT_CUSTOM_PATTERN_7_0		0x2230
+> > +#define DP_TEST_264BIT_CUSTOM_PATTERN_263_256	0x2250
+> > +
+> > +/* DSC Extended Capability Branch Total DSC Resources */
+> > +#define DP_DSC_SUPPORT_AND_DSC_DECODER_COUNT		0x2260	/* 2.0 */
+> > +# define DP_DSC_DECODER_COUNT_MASK			(0b111 << 5)
+> > +# define DP_DSC_DECODER_COUNT_SHIFT			5
+> > +#define DP_DSC_MAX_SLICE_COUNT_AND_AGGREGATION_0	0x2270	/* 2.0 */
+> > +# define DP_DSC_DECODER_0_MAXIMUM_SLICE_COUNT_MASK	(1 << 0)
+> > +# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_MASK	(0b111 << 1)
+> > +# define DP_DSC_DECODER_0_AGGREGATION_SUPPORT_SHIFT	1
+> > +
+> >  /* Protocol Converter Extension */
+> >  /* HDMI CEC tunneling over AUX DP 1.3 section 5.3.3.3.1 DPCD 1.4+ */
+> >  #define DP_CEC_TUNNELING_CAPABILITY            0x3000
+> > 
+> 
 
-Reviewed-by: James Zhu <James.Zhu@amd.com> for the series
-
-
-
-James Zhu
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Yifan Zh=
-ang <yifan1.zhang@amd.com>
-Sent: Tuesday, September 28, 2021 4:28 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Zhang, Yifan <Yifan1.Zhang@am=
-d.com>
-Subject: [PATCH 1/2] drm/amdkfd: remove redundant iommu cleanup code
-
-kfd_resume doesn't involve iommu operation, remove
-redundant iommu cleanup code.
-
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c
-index c2a4d920da40..4a416231b24c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1085,18 +1085,12 @@ static int kfd_resume(struct kfd_dev *kfd)
-         int err =3D 0;
-
-         err =3D kfd->dqm->ops.start(kfd->dqm);
--       if (err) {
-+       if (err)
-                 dev_err(kfd_device,
-                         "Error starting queue manager for device %x:%x\n",
-                         kfd->pdev->vendor, kfd->pdev->device);
--               goto dqm_start_error;
--       }
-
-         return err;
--
--dqm_start_error:
--       kfd_iommu_suspend(kfd);
--       return err;
- }
-
- static inline void kfd_queue_work(struct workqueue_struct *wq,
---
-2.25.1
-
-
---_000_DM5PR12MB1884D648FC0046AF178BF02FE4AA9DM5PR12MB1884namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-</div>
-Reviewed-by:<span style=3D"color:#c0c0c0"> </span>James<span style=3D"color=
-:#c0c0c0">
-</span>Zhu<span style=3D"color:#c0c0c0"> </span>&lt;James.Zhu@amd.com&gt;<s=
-pan style=3D"color:#c0c0c0">
-</span><span style=3D"color:#ff9d04"></span><span style=3D"color:#c0c0c0"><=
-/span>for the<span style=3D"color:#c0c0c0">
-</span>series
-<pre style=3D"margin-top:0px;margin-bottom:0px"><br></pre>
-<div id=3D"Signature">
-<div>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"></p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">James Zhu<br>
-</p>
-</div>
-</div>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Yifan Zhang &lt;yifan1.zhang@=
-amd.com&gt;<br>
-<b>Sent:</b> Tuesday, September 28, 2021 4:28 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Zhang, Yifan &lt=
-;Yifan1.Zhang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 1/2] drm/amdkfd: remove redundant iommu cleanup code=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">kfd_resume doesn't involve iommu operation, remove=
-<br>
-redundant iommu cleanup code.<br>
-<br>
-Signed-off-by: Yifan Zhang &lt;yifan1.zhang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device.c | 8 +-------<br>
-&nbsp;1 file changed, 1 insertion(+), 7 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c<br>
-index c2a4d920da40..4a416231b24c 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
-@@ -1085,18 +1085,12 @@ static int kfd_resume(struct kfd_dev *kfd)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int err =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D kfd-&gt;dqm-&gt;op=
-s.start(kfd-&gt;dqm);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dev_err(kfd_device,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
-;Error starting queue manager for device %x:%x\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;pdev-&gt;vendor, kfd-&gt;pdev-&gt;device);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; goto dqm_start_error;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return err;<br>
--<br>
--dqm_start_error:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_iommu_suspend(kfd);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return err;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static inline void kfd_queue_work(struct workqueue_struct *wq,<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB1884D648FC0046AF178BF02FE4AA9DM5PR12MB1884namp_--
+-- 
+Rodrigo Siqueira
+https://siqueira.tech
