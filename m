@@ -2,77 +2,103 @@ Return-Path: <SRS0=sE/Q=OU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5C00C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 06:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2F1FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 09:13:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7BF161390
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 06:30:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7BF161390
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 65350619E3
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Sep 2021 09:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 65350619E3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 189566E301;
-	Thu, 30 Sep 2021 06:30:14 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1106E301
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 06:30:12 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id x20so8131378wrg.10
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Sep 2021 23:30:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=EA24UXiMFlIl5fG/vXIjHZNw7v9KXw3YfgbowKfBJ7Y=;
- b=I/yTEOR5r4A1LqBAl+wlGyWwbw6Da93OFHgiU0QoqYaxM94vOBLUZIXxqJGTy4TvkO
- Pavrw3k8l9sEYDmgUgxKFuQ7e8qbNHXxA1AXpveQ9HbMY+gtXOK/Se1dXQlAUbCIxskV
- OcroeeL5Gnl6L/m2Zt+T6GHO9hBn/iJu+g0srDxfcLTiFAEIBfPGVoA5NwXcmdLxqgxT
- NvpeABKbAhZn+6uJayHroeGpajBWMB1BRLazB6zr1nmnLApTZZ6PmxCyyHPJ74cADCLT
- ppy4b+PTHB1PUTiSXE2b/8BmvT0/EU0uCc4OhTzLuyWs/elGjlbqeSruqYZoMH/HBmi1
- 39Mg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0426EB54;
+	Thu, 30 Sep 2021 09:13:06 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24BC66EB6E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 09:13:05 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ c73-20020a1c9a4c000000b0030d040bb895so3783974wme.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Sep 2021 02:13:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=elEeaMy1+9KonQWqwwLNAlzYtOXt+PkIIF5xVf4W7iU=;
+ b=RpyQc43teUEBvT9JUv6TY3eG4vK6FM3J7wuhrlTcN1QmT/aghUj5qJw2VxHXWUpxUq
+ 5wn/RraApaXmMbXeJs2W2H9heKSDMU7LZzEFnGHTgUN4vfbVY2zJ5esTgCApFAozZS8n
+ qJwesz68hZ/+B0MKBuxlZmVAy7SjJpAnamEKg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=EA24UXiMFlIl5fG/vXIjHZNw7v9KXw3YfgbowKfBJ7Y=;
- b=Xssz3XY/3rEqQ0jcMCTNH9WqFF1+HhX6xHNjdcg7VGOMWkX2PNJSOoJz1t1jrb+qF2
- sCAwoWpH+pA4cYNNIykzPUidXNwqQp7gBGcXkVJyzgbTkNCY6aBGKK4RHRaKEKrUZhja
- POWD+rcAdc+kC6wEh/KujQL4hEtFgEjkWl4c0VdBbLGJ0/5+ojZ3exR/4zG53+ggHDnR
- KpiU3PiOHZQJMVnBBqjg92NQC7kN4wj3LmwcfouhoaWWPLWEQOqV0n2AQiEI0hmUGoqq
- dCMJd1YyPq+A9U4zqq4dN3dDwGQ+NyiRUQiDKsTSNEHblssnVfSHalFyInRakYT5knyJ
- QmqQ==
-X-Gm-Message-State: AOAM530R4X1OzH0y+nAELaKl3pICjXmXveBcJHj6LGa/mWnuUdrCTWvd
- lukZYDLGeI3mmqzv1990qzw1Z6w5uA0=
-X-Google-Smtp-Source: ABdhPJwUe+eUryNdBb6ORDvdhVbvRDC/6rxsWiO5HF9AXsVx/Tbh7rlcIBopGNyvYBKyS/nKu/hgGQ==
-X-Received: by 2002:a05:6000:160c:: with SMTP id
- u12mr4148810wrb.128.1632983411196; 
- Wed, 29 Sep 2021 23:30:11 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id i2sm1906191wrq.78.2021.09.29.23.30.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Sep 2021 23:30:10 -0700 (PDT)
-Subject: Re: amdgpu driver halted on suspend of shutdown
-To: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <f5d30be9-7980-e44d-0eca-7cfe7c0c1d05@kylinos.cn>
- <CADnq5_MC4XPWcgT0FE5mmghZD9+YPaaAXPAkzUjFEO-hxr20Eg@mail.gmail.com>
- <dc3c0e5c-a1cf-4d98-030a-967bad2c8d01@kylinos.cn>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ed106229-56ed-99f8-e2ea-67755750265e@gmail.com>
-Date: Thu, 30 Sep 2021 08:30:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=elEeaMy1+9KonQWqwwLNAlzYtOXt+PkIIF5xVf4W7iU=;
+ b=utazgfMwcuEbAqjwFwtFDvQ+FDqtfyn49QFACnJ5Ov9Hx4Vwsfy4AiSD2l926YQSQp
+ 2tYuxiMBTCf3RQj7X40pM73yMrGx3UkxM4vHxJOzfjlajpgXkxtQhC15Z9RjW6JIj598
+ J6GI27h2vE3ITZ2O2ChHS1uLmG5td7zQDpCTSLQLK/oMHEo6N9ZeAdR9W5r9XdjecgqB
+ Mdjx7c6EI/yxgkweb8TCC0JIrgBdKgu1iGMcGdfolB8XeelZBySGxIlWEoaDZIH5PfcG
+ LVd50SmJ4wRpB1v67rtdryKlQqad42Y2hWZemTdgQ+YpxE1GExIir6TP9NxySz/Ls2g2
+ HTEQ==
+X-Gm-Message-State: AOAM5316mNNO7h6GzeYcn/U9qXCrQY2YQOxRMyHNRlw8uYGyk5HiKWZD
+ i21c6ajY1dVegPrsJNpUsIIilg==
+X-Google-Smtp-Source: ABdhPJyjl3VeEvqgrpXI1HnSJv/tX2ccaXjRCxWiO5hP7LA/fyTgLST6AdkigSP21R27lbj4q5oOGg==
+X-Received: by 2002:a1c:a94a:: with SMTP id s71mr14468560wme.32.1632993183602; 
+ Thu, 30 Sep 2021 02:13:03 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id r27sm2358165wrr.70.2021.09.30.02.13.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Sep 2021 02:13:03 -0700 (PDT)
+Date: Thu, 30 Sep 2021 11:13:01 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Oded Gabbay <ogabbay@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dave Airlie <airlied@gmail.com>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Gal Pressman <galpress@amazon.com>, Yossi Leybovich <sleybo@amazon.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
+Subject: Re: [PATCH v6 0/2] Add p2p via dmabuf to habanalabs
+Message-ID: <YVV/nc4iQlQMtkS8@phenom.ffwll.local>
+Mail-Followup-To: Oded Gabbay <ogabbay@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Dave Airlie <airlied@gmail.com>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Gal Pressman <galpress@amazon.com>,
+ Yossi Leybovich <sleybo@amazon.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
+References: <20210912165309.98695-1-ogabbay@kernel.org>
+ <YUCvNzpyC091KeaJ@phenom.ffwll.local>
+ <20210914161218.GF3544071@ziepe.ca>
+ <CAFCwf13322953Txr3Afa_MomuD148vnfpEog0xzW7FPWH9=6fg@mail.gmail.com>
+ <YUM5JoMMK7gceuKZ@phenom.ffwll.local>
+ <20210916131014.GK3544071@ziepe.ca>
+ <YUSKSHBC9uI49wZZ@phenom.ffwll.local>
+ <CAFCwf12o-+wtbk8J8k8hP4_k0a8Lco4m9f4s1vBobkQwNtn39w@mail.gmail.com>
+ <CAFCwf11UFVh-88Z=d=EH07_nx=3tf9kQkHhJ4pF6hfgO=80u0g@mail.gmail.com>
+ <CAFCwf121CuNOesSRECUY9y7KWSGOZ2dHPCVvBqu8C4PCYj5PTw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <dc3c0e5c-a1cf-4d98-030a-967bad2c8d01@kylinos.cn>
-Content-Type: multipart/alternative;
- boundary="------------8A310AF8AA9BC6A196A36A36"
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFCwf121CuNOesSRECUY9y7KWSGOZ2dHPCVvBqu8C4PCYj5PTw@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,163 +113,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------8A310AF8AA9BC6A196A36A36
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Tue, Sep 28, 2021 at 10:04:29AM +0300, Oded Gabbay wrote:
+> On Thu, Sep 23, 2021 at 12:22 PM Oded Gabbay <ogabbay@kernel.org> wrote:
+> >
+> > On Sat, Sep 18, 2021 at 11:38 AM Oded Gabbay <ogabbay@kernel.org> wrote:
+> > >
+> > > On Fri, Sep 17, 2021 at 3:30 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > > >
+> > > > On Thu, Sep 16, 2021 at 10:10:14AM -0300, Jason Gunthorpe wrote:
+> > > > > On Thu, Sep 16, 2021 at 02:31:34PM +0200, Daniel Vetter wrote:
+> > > > > > On Wed, Sep 15, 2021 at 10:45:36AM +0300, Oded Gabbay wrote:
+> > > > > > > On Tue, Sep 14, 2021 at 7:12 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> > > > > > > >
+> > > > > > > > On Tue, Sep 14, 2021 at 04:18:31PM +0200, Daniel Vetter wrote:
+> > > > > > > > > On Sun, Sep 12, 2021 at 07:53:07PM +0300, Oded Gabbay wrote:
+> > > > > > > > > > Hi,
+> > > > > > > > > > Re-sending this patch-set following the release of our user-space TPC
+> > > > > > > > > > compiler and runtime library.
+> > > > > > > > > >
+> > > > > > > > > > I would appreciate a review on this.
+> > > > > > > > >
+> > > > > > > > > I think the big open we have is the entire revoke discussions. Having the
+> > > > > > > > > option to let dma-buf hang around which map to random local memory ranges,
+> > > > > > > > > without clear ownership link and a way to kill it sounds bad to me.
+> > > > > > > > >
+> > > > > > > > > I think there's a few options:
+> > > > > > > > > - We require revoke support. But I've heard rdma really doesn't like that,
+> > > > > > > > >   I guess because taking out an MR while holding the dma_resv_lock would
+> > > > > > > > >   be an inversion, so can't be done. Jason, can you recap what exactly the
+> > > > > > > > >   hold-up was again that makes this a no-go?
+> > > > > > > >
+> > > > > > > > RDMA HW can't do revoke.
+> > > > > >
+> > > > > > Like why? I'm assuming when the final open handle or whatever for that MR
+> > > > > > is closed, you do clean up everything? Or does that MR still stick around
+> > > > > > forever too?
+> > > > >
+> > > > > It is a combination of uAPI and HW specification.
+> > > > >
+> > > > > revoke here means you take a MR object and tell it to stop doing DMA
+> > > > > without causing the MR object to be destructed.
+> > > > >
+> > > > > All the drivers can of course destruct the MR, but doing such a
+> > > > > destruction without explicit synchronization with user space opens
+> > > > > things up to a serious use-after potential that could be a security
+> > > > > issue.
+> > > > >
+> > > > > When the open handle closes the userspace is synchronized with the
+> > > > > kernel and we can destruct the HW objects safely.
+> > > > >
+> > > > > So, the special HW feature required is 'stop doing DMA but keep the
+> > > > > object in an error state' which isn't really implemented, and doesn't
+> > > > > extend very well to other object types beyond simple MRs.
+> > > >
+> > > > Yeah revoke without destroying the MR doesn't work, and it sounds like
+> > > > revoke by destroying the MR just moves the can of worms around to another
+> > > > place.
+> > > >
+> > > > > > 1. User A opens gaudi device, sets up dma-buf export
+> > > > > >
+> > > > > > 2. User A registers that with RDMA, or anything else that doesn't support
+> > > > > > revoke.
+> > > > > >
+> > > > > > 3. User A closes gaudi device
+> > > > > >
+> > > > > > 4. User B opens gaudi device, assumes that it has full control over the
+> > > > > > device and uploads some secrets, which happen to end up in the dma-buf
+> > > > > > region user A set up
+> > > > >
+> > > > > I would expect this is blocked so long as the DMABUF exists - eg the
+> > > > > DMABUF will hold a fget on the FD of #1 until the DMABUF is closed, so
+> > > > > that #3 can't actually happen.
+> > > > >
+> > > > > > It's not mlocked memory, it's mlocked memory and I can exfiltrate
+> > > > > > it.
+> > > > >
+> > > > > That's just bug, don't make buggy drivers :)
+> > > >
+> > > > Well yeah, but given that habanalabs hand rolled this I can't just check
+> > > > for the usual things we have to enforce this in drm. And generally you can
+> > > > just open chardevs arbitrarily, and multiple users fighting over each
+> > > > another. The troubles only start when you have private state or memory
+> > > > allocations of some kind attached to the struct file (instead of the
+> > > > underlying device), or something else that requires device exclusivity.
+> > > > There's no standard way to do that.
+> > > >
+> > > > Plus in many cases you really want revoke on top (can't get that here
+> > > > unfortunately it seems), and the attempts to get towards a generic
+> > > > revoke() just never went anywhere. So again it's all hand-rolled
+> > > > per-subsystem. *insert lament about us not having done this through a
+> > > > proper subsystem*
+> > > >
+> > > > Anyway it sounds like the code takes care of that.
+> > > > -Daniel
+> > >
+> > > Daniel, Jason,
+> > > Thanks for reviewing this code.
+> > >
+> > > Can I get an R-B / A-B from you for this patch-set ?
+> > >
+> > > Thanks,
+> > > Oded
+> >
+> > A kind reminder.
+> >
+> > Thanks,
+> > Oded
+> 
+> Hi,
+> I know last week was LPC and maybe this got lost in the inbox, so I'm
+> sending it again to make sure you got my request for R-B / A-B.
 
-Well you could remove it locally if it solves your problem at hand.
+I was waiting for some clarity from the maintainers summit, but that's
+still about as unclear as it gets. Either way technically it sounds ok,
+but I'm a bit burried so didn't look at the code.
 
-But keep in mind that a lot of ARM boards are simply not compliant to 
-the PCIe specification and the hardware won't work correctly on those in 
-general.
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-I'm pretty sure you have one of those cases here.
+But looking beyond the strict lens of dma-buf I'm still impressed by the
+mess this created, to get to the same endpoint of "we open our stack" in
+the same time it takes others to sort this out. I'm still looking for some
+kind of plan to fix this.
 
-Christian.
-
-Am 30.09.21 um 03:26 schrieb 李真能:
->
-> So, Can I remove suspend process in amdgpu_pci_shutdown if  I don't  
-> use amdgpu driver in vm?
->
-> Thank you so much foryour reply!
->
-> 在 2021/9/30 上午5:12, Alex Deucher 写道:
->> On Wed, Sep 29, 2021 at 3:25 AM 李真能<lizhenneng@kylinos.cn>  wrote:
->>> Hello:
->>>
->>>           When I do loop  auto test of reboot, I found  kernel may halt
->>> on memcpy_fromio of amdgpu's amdgpu_uvd_suspend, so I remove suspend
->>> process in amdgpu_pci_shutdown, and it will fix this bug.
->>>
->>> I have 3 questions to ask:
->>>
->>> 1. In amdgpu_pci_shutdown, the comment explains why we must execute
->>> suspend,  so I know VM will call amdgpu driver in which situations, as I
->>> know, VM's graphics card is a virtual card;
->>>
->>> 2. I see a path that is commited by Alex Deucher, the commit message is
->>> as follows:
->>>
->>> drm/amdgpu: just suspend the hw on pci shutdown
->>>
->>> We can't just reuse pci_remove as there may be userspace still
->>>       doing things.
->>>
->>> My question is:In which situations, there may be  userspace till doing
->>> things.
->>>
->>> 3. Why amdgpu driver is halted on memcpy_fromio of amdgpu_uvd_suspend, I
->>> haven't launch any video app during reboot test, is it the bug of pci bus?
->>>
->>> Test environment:
->>>
->>> CPU: arm64
->> I suspect the problem is something ARM specific.  IIRC, we added the
->> memcpy_fromio() to work around a limitation in ARM related to CPU
->> mappings of PCI BAR memory.  The whole point of the PCI shutdown
->> callback is to put the device into a quiescent state (e.g., stop all
->> DMAs and asynchronous engines, etc.).  Some of that tear down requires
->> access to PCI BARs.
->>
->> Alex
->>
->>
->>> Graphics card: r7340(amdgpu), rx550
->>>
->>> OS: ubuntu 2004
->>>
-
-
---------------8A310AF8AA9BC6A196A36A36
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Well you could remove it locally if it solves your problem at hand.<br>
-    <br>
-    But keep in mind that a lot of ARM boards are simply not compliant
-    to the PCIe specification and the hardware won't work correctly on
-    those in general.<br>
-    <br>
-    I'm pretty sure you have one of those cases here.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 30.09.21 um 03:26 schrieb 李真能:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:dc3c0e5c-a1cf-4d98-030a-967bad2c8d01@kylinos.cn">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p>So, Can I remove suspend process in amdgpu_pci_shutdown if  I
-        don't  use amdgpu driver in vm?</p>
-      <p><span id="tran_0_0" class="">Thank you so much for</span><span>
-          your </span><span id="tran_0_1" class="">reply</span><span>!</span></p>
-      <div class="moz-cite-prefix">在 2021/9/30 上午5:12, Alex Deucher 写道:<br>
-      </div>
-      <blockquote type="cite"
-cite="mid:CADnq5_MC4XPWcgT0FE5mmghZD9+YPaaAXPAkzUjFEO-hxr20Eg@mail.gmail.com">
-        <pre class="moz-quote-pre" wrap="">On Wed, Sep 29, 2021 at 3:25 AM 李真能 <a class="moz-txt-link-rfc2396E" href="mailto:lizhenneng@kylinos.cn" moz-do-not-send="true">&lt;lizhenneng@kylinos.cn&gt;</a> wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Hello:
-
-         When I do loop  auto test of reboot, I found  kernel may halt
-on memcpy_fromio of amdgpu's amdgpu_uvd_suspend, so I remove suspend
-process in amdgpu_pci_shutdown, and it will fix this bug.
-
-I have 3 questions to ask:
-
-1. In amdgpu_pci_shutdown, the comment explains why we must execute
-suspend,  so I know VM will call amdgpu driver in which situations, as I
-know, VM's graphics card is a virtual card;
-
-2. I see a path that is commited by Alex Deucher, the commit message is
-as follows:
-
-drm/amdgpu: just suspend the hw on pci shutdown
-
-We can't just reuse pci_remove as there may be userspace still
-     doing things.
-
-My question is:In which situations, there may be  userspace till doing
-things.
-
-3. Why amdgpu driver is halted on memcpy_fromio of amdgpu_uvd_suspend, I
-haven't launch any video app during reboot test, is it the bug of pci bus?
-
-Test environment:
-
-CPU: arm64
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I suspect the problem is something ARM specific.  IIRC, we added the
-memcpy_fromio() to work around a limitation in ARM related to CPU
-mappings of PCI BAR memory.  The whole point of the PCI shutdown
-callback is to put the device into a quiescent state (e.g., stop all
-DMAs and asynchronous engines, etc.).  Some of that tear down requires
-access to PCI BARs.
-
-Alex
-
-
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Graphics card: r7340(amdgpu), rx550
-
-OS: ubuntu 2004
-
-</pre>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------8A310AF8AA9BC6A196A36A36--
+Also you probably want to get Dave to ack this too, I pinged him on irc
+last week about this after maintainer summit.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
