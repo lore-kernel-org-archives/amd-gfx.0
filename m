@@ -2,88 +2,69 @@ Return-Path: <SRS0=Ip3g=OV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95FB5C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE83DC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:52:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64CE7619E7
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:52:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 64CE7619E7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	by mail.kernel.org (Postfix) with ESMTPS id B97A3619E7
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:52:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B97A3619E7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D46066EE0B;
-	Fri,  1 Oct 2021 14:52:38 +0000 (UTC)
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D12E96EDE4
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 14:50:54 +0000 (UTC)
-Received: by mail-qt1-x82e.google.com with SMTP id c20so9172855qtb.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 Oct 2021 07:50:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C70E6EDE4;
+	Fri,  1 Oct 2021 14:52:41 +0000 (UTC)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE2C76EDE4
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 14:52:39 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ t16-20020a1c7710000000b003049690d882so11436757wmi.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Oct 2021 07:52:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=oMNtHpa9fOC6yHUao3VzpuzxSz0y+O1ZI66YcUTNbDE=;
- b=nPwDUL9pffjM/L5QBu2UuSP1A0QIAziR9mEhIiS0bbykKDNwFwDOCdZZPQRjytSfOl
- 9664AO5c95SsAo845UWJ4llFoeGA34AMkf8JM8Jvz4IkmXmAVxiKZPf8ueKyZDj2nnhD
- 7UMSgYwkQcaDxSswDKUHvCys3TK5Y5wkz2BXHjVliu2eyg29AZhT/OjKvCBrw1uscGKD
- 3z+t3x/PORSTQiMEajcEoJWDN8W44+RDWzJ3OAr4hPg7SAnPZ5GisI2uKci8/QKl7Dj2
- HOKVC2LuGCjbjYvGuNPd82eSxLSRf0G3YcULGIl6j0TQwgvkOpcvnHfxonQ1DnaiELwg
- iLrw==
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=/CGT87weSLNSLviR6HDxsD3ODsSwC6t+MSAnoc0H6x4=;
+ b=Dtfz/uJtIn8A4gWLnZhsOqj7PUHvf7J0RhRjTqSerZkCA/F3luAcT/tYT1PTEFIR/5
+ tl+miazljU4T8KYep5Jij1lGOBK9XPVi2hZaYQOQ2E40N69CnhipbkjPKtgHHHlfH277
+ Gmt6S/SjExk4qI/d2InV7A72765UFEgmkkb4Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=oMNtHpa9fOC6yHUao3VzpuzxSz0y+O1ZI66YcUTNbDE=;
- b=M6+1x9/izjIcycgSSKUFtHXkvb+KfVx1xpQRFFJyCD2C8aCLl+/uVznOANHwE6sziK
- jpyzAGealcrs8azpkyClfJKpdhutW5J5LQpSgrYBfijAFjgEdcuXoFTuPF37pURernCM
- uWlMThJFji0an/Mx8eFTcss08Nj/X5nqoQx2QIbviieQDOfbNsM4rdlRLulhLxxux5bs
- CfXO9aXJD+esbts6C65CPv6FcFRZPC8bcZ6U01/glidm6BMpnhV24ltRjpiEluXJJ/jL
- 50BPaI+LO14BRSOhl9ciTR2g5BDqn6ppDwsyG0H/n9Db5ZTh+G0Lh4i+PwJNRiLMSPw/
- V9WA==
-X-Gm-Message-State: AOAM530Bc/Tc6aAmznc26heuwQ7SPNSdXKBWnt/wdNll+Tkh+6bmfag7
- vEsGA9pV2JFe5YoMnABQQ+FKbA==
-X-Google-Smtp-Source: ABdhPJzIs8hTLztUjiDoh78mr4hOo7pek1hrPgd5bVCfeiCLQexgpwtMxfq7+czidzCd0A+vIMG+mg==
-X-Received: by 2002:a05:622a:1a1c:: with SMTP id
- f28mr13416941qtb.346.1633099853922; 
- Fri, 01 Oct 2021 07:50:53 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-113-129.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.113.129])
- by smtp.gmail.com with ESMTPSA id i20sm3149803qke.102.2021.10.01.07.50.53
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=/CGT87weSLNSLviR6HDxsD3ODsSwC6t+MSAnoc0H6x4=;
+ b=3K2OUrB2rl76YSEHMnoTANrfnbH3CUJVsNe7KYimJPRaG/sI9YZM9JXEOyoxXdDaSe
+ w5NcReoBCKzQhvdSicWiEkal6rOmxYI5JBFDUCB98FBHlxkvuu5xvHPPRsQhLEypM86t
+ lKciMCthQ3gvefIzREMcyRkdfex0igyLMKdmgtBr6o8vkDMDYARy5lGxVsPLhCG3YySr
+ Rhf8zRQ8jQioI5mNiV6EXhPFTNkfMWlIO33O3ppqz+v6skY5xO18B9JoNsURUflgq7+3
+ wOjj8hMG2t93mQKb9uKTXVb/bkC4KLUvZ35C96hQ63ALo0zbqyKaiBLdgMrz5tNPa3U+
+ lmaw==
+X-Gm-Message-State: AOAM532cBrWPS121KslLkaeO6NXa77WQcCbDftR+BaFVasfgIO95OmFn
+ OOifgnu+aDEivgihX2SEixWjGFGAf8uuwg==
+X-Google-Smtp-Source: ABdhPJyz/V/hiM+gvpgyDu2/QXEUTQiVsBbzQoWwm2Ar03thNSGQaeuWMja+19M6F2a4mPieID6TdA==
+X-Received: by 2002:a1c:1dcb:: with SMTP id d194mr2131815wmd.161.1633099958260; 
+ Fri, 01 Oct 2021 07:52:38 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id j4sm6074660wrt.67.2021.10.01.07.52.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 07:50:53 -0700 (PDT)
-Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
- id 1mWJsC-008ctY-Nj; Fri, 01 Oct 2021 11:50:52 -0300
-Date: Fri, 1 Oct 2021 11:50:52 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Oded Gabbay <ogabbay@kernel.org>
-Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Gal Pressman <galpress@amazon.com>,
- Yossi Leybovich <sleybo@amazon.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Doug Ledford <dledford@redhat.com>, Dave Airlie <airlied@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+ Fri, 01 Oct 2021 07:52:37 -0700 (PDT)
+Date: Fri, 1 Oct 2021 16:52:36 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Tomer Tayar <ttayar@habana.ai>
-Subject: Re: [PATCH v6 2/2] habanalabs: add support for dma-buf exporter
-Message-ID: <20211001145052.GO3544071@ziepe.ca>
-References: <20210912165309.98695-1-ogabbay@kernel.org>
- <20210912165309.98695-3-ogabbay@kernel.org>
- <20210928173621.GG3544071@ziepe.ca>
- <CAFCwf10z-baRm8c-UD_=jcZYD0VAGrMiNo7Q5Fm-2txYmVWGcQ@mail.gmail.com>
+ dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: Lockdep spalt on killing a processes
+Message-ID: <YVcgtLTlPXb5vLXg@phenom.ffwll.local>
+References: <73c163b4-1917-1cde-b75f-831ac66f6ea0@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CAFCwf10z-baRm8c-UD_=jcZYD0VAGrMiNo7Q5Fm-2txYmVWGcQ@mail.gmail.com>
-X-Mailman-Approved-At: Fri, 01 Oct 2021 14:52:37 +0000
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <73c163b4-1917-1cde-b75f-831ac66f6ea0@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,65 +79,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 29, 2021 at 12:17:35AM +0300, Oded Gabbay wrote:
-> On Tue, Sep 28, 2021 at 8:36 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > On Sun, Sep 12, 2021 at 07:53:09PM +0300, Oded Gabbay wrote:
-> > > From: Tomer Tayar <ttayar@habana.ai>
-> > >
-> > > Implement the calls to the dma-buf kernel api to create a dma-buf
-> > > object backed by FD.
-> > >
-> > > We block the option to mmap the DMA-BUF object because we don't support
-> > > DIRECT_IO and implicit P2P.
-> >
-> > This statement doesn't make sense, you can mmap your dmabuf if you
-> > like. All dmabuf mmaps are supposed to set the special bit/etc to
-> > exclude them from get_user_pages() anyhow - and since this is BAR
-> > memory not struct page memory this driver would be doing it anyhow.
-> >
-> But we block mmap the dmabuf fd from user-space.
-> If you try to do it, you will get MAP_FAILED.
-
-You do, I'm saying the above paragraph explaining *why* that was done
-is not correct.
-
-> > > We check the p2p distance using pci_p2pdma_distance_many() and refusing
-> > > to map dmabuf in case the distance doesn't allow p2p.
-> >
-> > Does this actually allow the p2p transfer for your intended use cases?
->
-> It depends on the system. If we are working bare-metal, then yes, it allows.
-> If inside a VM, then no. The virtualized root complex is not
-> white-listed and the kernel can't know the distance.
-> But I remember you asked me to add this check, in v3 of the review IIRC.
-> I don't mind removing this check if you don't object.
-
-Yes, i tis the right code, I was curious how far along things have
-gotten
-
-> > Don't write to the kernel log from user space triggered actions
-> at all ?
-
-At all.
-
-> It's the first time I hear about this limitation...
-
-Oh? It is a security issue, we don't want to allow userspace to DOS
-the kerne logging.
-
-> How do you tell the user it has done something wrong ?
-
-dev_dbg is the usual way and then users doing debugging can opt in to
-the logging.
-
-
-> > Why doesn't this return a sg_table * and an ERR_PTR?
-> Basically I modeled this function after amdgpu_vram_mgr_alloc_sgt()
-> And in that function they also return int and pass the sg_table as **
+On Fri, Oct 01, 2021 at 12:50:35PM +0200, Christian König wrote:
+> Hey, Andrey.
 > 
-> If it's critical I can change.
+> while investigating some memory management problems I've got the logdep
+> splat below.
+> 
+> Looks like something is wrong with drm_sched_entity_kill_jobs_cb(), can you
+> investigate?
 
-Please follow the normal kernel style
+Probably needs more irq_work so that we get rid of fence completion
+signalling recursions.
+-Daniel
 
-Jason
+> 
+> Thanks,
+> Christian.
+> 
+> [11176.741052] ============================================
+> [11176.741056] WARNING: possible recursive locking detected
+> [11176.741060] 5.15.0-rc1-00031-g9d546d600800 #171 Not tainted
+> [11176.741066] --------------------------------------------
+> [11176.741070] swapper/12/0 is trying to acquire lock:
+> [11176.741074] ffff9c337ed175a8 (&fence->lock){-.-.}-{3:3}, at:
+> dma_fence_signal+0x28/0x80
+> [11176.741088]
+>                but task is already holding lock:
+> [11176.741092] ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, at:
+> dma_fence_signal+0x28/0x80
+> [11176.741100]
+>                other info that might help us debug this:
+> [11176.741104]  Possible unsafe locking scenario:
+> 
+> [11176.741108]        CPU0
+> [11176.741110]        ----
+> [11176.741113]   lock(&fence->lock);
+> [11176.741118]   lock(&fence->lock);
+> [11176.741122]
+>                 *** DEADLOCK ***
+> 
+> [11176.741125]  May be due to missing lock nesting notation
+> 
+> [11176.741128] 2 locks held by swapper/12/0:
+> [11176.741133]  #0: ffff9c339c30f768 (&ring->fence_drv.lock){-.-.}-{3:3},
+> at: dma_fence_signal+0x28/0x80
+> [11176.741142]  #1: ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, at:
+> dma_fence_signal+0x28/0x80
+> [11176.741151]
+>                stack backtrace:
+> [11176.741155] CPU: 12 PID: 0 Comm: swapper/12 Not tainted
+> 5.15.0-rc1-00031-g9d546d600800 #171
+> [11176.741160] Hardware name: System manufacturer System Product Name/PRIME
+> X399-A, BIOS 0808 10/12/2018
+> [11176.741165] Call Trace:
+> [11176.741169]  <IRQ>
+> [11176.741173]  dump_stack_lvl+0x5b/0x74
+> [11176.741181]  dump_stack+0x10/0x12
+> [11176.741186]  __lock_acquire.cold+0x208/0x2df
+> [11176.741197]  lock_acquire+0xc6/0x2d0
+> [11176.741204]  ? dma_fence_signal+0x28/0x80
+> [11176.741212]  _raw_spin_lock_irqsave+0x4d/0x70
+> [11176.741219]  ? dma_fence_signal+0x28/0x80
+> [11176.741225]  dma_fence_signal+0x28/0x80
+> [11176.741230]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
+> [11176.741240]  drm_sched_entity_kill_jobs_cb+0x1c/0x50 [gpu_sched]
+> [11176.741248]  dma_fence_signal_timestamp_locked+0xac/0x1a0
+> [11176.741254]  dma_fence_signal+0x3b/0x80
+> [11176.741260]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
+> [11176.741268]  drm_sched_job_done.isra.0+0x7f/0x1a0 [gpu_sched]
+> [11176.741277]  drm_sched_job_done_cb+0x12/0x20 [gpu_sched]
+> [11176.741284]  dma_fence_signal_timestamp_locked+0xac/0x1a0
+> [11176.741290]  dma_fence_signal+0x3b/0x80
+> [11176.741296]  amdgpu_fence_process+0xd1/0x140 [amdgpu]
+> [11176.741504]  sdma_v4_0_process_trap_irq+0x8c/0xb0 [amdgpu]
+> [11176.741731]  amdgpu_irq_dispatch+0xce/0x250 [amdgpu]
+> [11176.741954]  amdgpu_ih_process+0x81/0x100 [amdgpu]
+> [11176.742174]  amdgpu_irq_handler+0x26/0xa0 [amdgpu]
+> [11176.742393]  __handle_irq_event_percpu+0x4f/0x2c0
+> [11176.742402]  handle_irq_event_percpu+0x33/0x80
+> [11176.742408]  handle_irq_event+0x39/0x60
+> [11176.742414]  handle_edge_irq+0x93/0x1d0
+> [11176.742419]  __common_interrupt+0x50/0xe0
+> [11176.742426]  common_interrupt+0x80/0x90
+> [11176.742431]  </IRQ>
+> [11176.742436]  asm_common_interrupt+0x1e/0x40
+> [11176.742442] RIP: 0010:cpuidle_enter_state+0xff/0x470
+> [11176.742449] Code: 0f a3 05 04 54 24 01 0f 82 70 02 00 00 31 ff e8 37 5d
+> 6f ff 80 7d d7 00 0f 85 e9 01 00 00 e8 58 a2 7f ff fb 66 0f 1f 44 00 00 <45>
+> 85 ff 0f 88 01 01 00 00 49 63 c7 4c 2b 75 c8 48 8d 14 40 48 8d
+> [11176.742455] RSP: 0018:ffffb6970021fe48 EFLAGS: 00000202
+> [11176.742461] RAX: 000000000059be25 RBX: 0000000000000002 RCX:
+> 0000000000000000
+> [11176.742465] RDX: 0000000000000000 RSI: 0000000000000000 RDI:
+> ffffffff9efeed78
+> [11176.742470] RBP: ffffb6970021fe80 R08: 0000000000000001 R09:
+> 0000000000000001
+> [11176.742473] R10: 0000000000000001 R11: 0000000000000001 R12:
+> ffff9c3350b0e800
+> [11176.742477] R13: ffffffffa00e9680 R14: 00000a2a49ada060 R15:
+> 0000000000000002
+> [11176.742483]  ? cpuidle_enter_state+0xf8/0x470
+> [11176.742489]  ? cpuidle_enter_state+0xf8/0x470
+> [11176.742495]  cpuidle_enter+0x2e/0x40
+> [11176.742500]  call_cpuidle+0x23/0x40
+> [11176.742506]  do_idle+0x201/0x280
+> [11176.742512]  cpu_startup_entry+0x20/0x30
+> [11176.742517]  start_secondary+0x11f/0x160
+> [11176.742523]  secondary_startup_64_no_verify+0xb0/0xbb
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
