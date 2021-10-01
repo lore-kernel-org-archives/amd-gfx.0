@@ -2,75 +2,75 @@ Return-Path: <SRS0=Ip3g=OV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D620C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 20:34:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D23B2C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 20:48:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0392361A38
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 20:34:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0392361A38
+	by mail.kernel.org (Postfix) with ESMTPS id 9E91461AAB
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 20:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E91461AAB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F396F3CF;
-	Fri,  1 Oct 2021 20:34:38 +0000 (UTC)
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [IPv6:2607:f8b0:4864:20::730])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 693146E546
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 20:34:36 +0000 (UTC)
-Received: by mail-qk1-x730.google.com with SMTP id f130so10406520qke.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 Oct 2021 13:34:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 077496F3FE;
+	Fri,  1 Oct 2021 20:48:20 +0000 (UTC)
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [IPv6:2607:f8b0:4864:20::82a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4CE6F3F9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 20:48:18 +0000 (UTC)
+Received: by mail-qt1-x82a.google.com with SMTP id r16so10185046qtw.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Oct 2021 13:48:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Nj8oRTbAtRm7lq7MnhS+kFWdG1RYcP2lw06Z6aHxPzA=;
- b=YAjd1boiIRtYky+zdi3URcoA8PK/ByKk02XmePxzc8HLMDYQ7lt5BICOuCFjlrbwjC
- pUUceNy4gXil6Eemf5y7iNdIs/vPzj0/RTBqGwOYFY6iDqnp/moK0U7JyQijOKG3+MoB
- Jv/LHcf2PsP3bC4PS5EJOd96iEMceuQcPxxBD2MDsG+M1Ek8vA868zNxU4+zVpugysk4
- KAFs/d2RnLFI+qJBDr9Z2unhAxIqA/7xMNhvz6LCcAr2T1Wy7XNuZFMda9kkEh58Gnps
- wwg62VJ2qJn8aytuT+IDuGPi3pkgWcK3x5RtjW7JjICA4PValWPZVpMfHoxRvnGJi3ez
- QXFw==
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=fTwGjqOo2qpFUBnSVDlFyolMyzUY3P07s+PYc+sfnxY=;
+ b=DoDhvCYRyP3bI52k2WCEwtOJHIoz8ay9LklCmI5z0nlSjdj2gKo5hP9c/Xbp0MpgYa
+ QkDbjNuGI1fN3ObZzMb/IffcrHuMfDl1JqpDiziGrymys0Mj0bpC18FoM/SQRJ2yhh+H
+ mokkTqv/ZnP32g0hiEA/BcCjek8ynV3GjR40GtWy0/S2DA10ernlOVr5p65Kb0An0xqp
+ ZaOOZjGcZtf04Mml416DbxGvTXbpoK3UueGTN5Jdjky0/3POHDtxBxU2PKWtUz0cjVCU
+ D9jMXomhHB/OKNZVK51aa82CckJviyHHBn4r+QId2nGXfkZzAme7XSAZs0jtbiyCVQ2n
+ AokQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Nj8oRTbAtRm7lq7MnhS+kFWdG1RYcP2lw06Z6aHxPzA=;
- b=Xbb1ra8nei7CtFwJtfWXJ64LEvnrlRTIa7rwSSdeflzx5Euui6HbKNKBN+b3LcSYeA
- VAzj9dICCsFqoaAuLSCzGNBwrM7myDJ5VqKe4cnyRnS5xEbS52l3xU5t0hDNypYAa5KR
- bug4ckyofkaaZq3F6kDnD1ul6VWe4crWUAgw5mFUAjE9L4SNEc5dgfmy41LtlpL32FWm
- Bo9MjPRZ35HkV2KTYfYv1/v76vwUp5TbyUGlWwl74o2160ycXHBQCHTB+RIC4ZZTVY12
- x+PQkfdIig9RlsITAkUPNeHZQaPObhjjeP19Y0sZV74tupsxkLewqotgEv/e9lnZNwQ/
- euPA==
-X-Gm-Message-State: AOAM531WSpOXtUdaO2juCBX9S8CZZA7Sn2LU/2m0ZCBwHuwYXa4sziqT
- lQHSjeuCw0KElB8ocosQn2gWVQ==
-X-Google-Smtp-Source: ABdhPJyoachuv1qDDiKersh47H7l/jsML3QCUvofWJIF/WNGVURyOQSviJCIxhGW+M8ocfj/d0jZLA==
-X-Received: by 2002:a37:5a45:: with SMTP id o66mr67220qkb.258.1633120475551;
- Fri, 01 Oct 2021 13:34:35 -0700 (PDT)
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=fTwGjqOo2qpFUBnSVDlFyolMyzUY3P07s+PYc+sfnxY=;
+ b=o1OFGZp+mPDAEggVY6B23UK9odORE7TGFwnSE6spijoi1iIR+fXf+MSt5A02hrU078
+ X81F2iVTBdoZSBDH3w5Ii+nZ6iRB+7HjbSXGGuyDQD0Ll00xXuemli7rZK09boKfalon
+ EMC3QH8VyKyP2pef2fhEfwxtyyv9uUxI/T9wWhQKwAh5b3jieIRLqtoworo7ODUy8Lwa
+ kLXADeisj0kHUqVzYu+bvc/s2KkgCH45A0/uiYv4zT3fkJmLoUqRQWCBKhcO+oxiHhaL
+ TDv/dUOmTzv/hIGmrXb1umWj4m/uQG5DkyDO7wEJ9pTkq3SrpPolDQxOax9GCelv7CkX
+ ltWQ==
+X-Gm-Message-State: AOAM533sN/JmWJg/ShexbhS6KqYPTxYMaFcWa9ZN2zhrS1j5durbT6XY
+ 09l2ijHwwVMg0Lm1Zy64qX3aXw==
+X-Google-Smtp-Source: ABdhPJxa6tbnxCBVxCCTZMZ2tB2zzEWn+wtu5XraFB8rYcu4iq9lSU2A8XqbxRaJTOI7W1N9S6DK7A==
+X-Received: by 2002:a05:622a:1206:: with SMTP id y6mr82618qtx.68.1633121297387; 
+ Fri, 01 Oct 2021 13:48:17 -0700 (PDT)
 Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id p15sm3990970qti.70.2021.10.01.13.34.35
+ by smtp.gmail.com with ESMTPSA id d16sm3951352qtw.14.2021.10.01.13.48.16
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 01 Oct 2021 13:34:35 -0700 (PDT)
-Date: Fri, 1 Oct 2021 16:34:34 -0400
+ Fri, 01 Oct 2021 13:48:17 -0700 (PDT)
+Date: Fri, 1 Oct 2021 16:48:15 -0400
 From: Sean Paul <sean@poorly.run>
-To: Mark Yacoub <markyacoub@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- seanpaul@chromium.org, Rodrigo.Siqueira@amd.com,
- anson.jacob@amd.com, Mark Yacoub <markyacoub@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 1/2] drm: Add Gamma and Degamma LUT sizes props to
- drm_crtc to validate.
-Message-ID: <20211001203434.GY2515@art_vandelay>
-References: <20210929194012.3433306-1-markyacoub@chromium.org>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: Sean Paul <sean@poorly.run>, Fernando Ramos <greenfoo@u92.eu>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 00/17] drm: cleanup: Use DRM_MODESET_LOCK_ALL_*
+ helpers where possible
+Message-ID: <20211001204815.GA2515@art_vandelay>
+References: <20210924064324.229457-1-greenfoo@u92.eu>
+ <20211001183655.GW2515@art_vandelay> <YVda4jNSGuQf50JV@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20210929194012.3433306-1-markyacoub@chromium.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YVda4jNSGuQf50JV@intel.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,222 +86,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 29, 2021 at 03:39:25PM -0400, Mark Yacoub wrote:
-> From: Mark Yacoub <markyacoub@google.com>
+On Fri, Oct 01, 2021 at 10:00:50PM +0300, Ville Syrjälä wrote:
+> On Fri, Oct 01, 2021 at 02:36:55PM -0400, Sean Paul wrote:
+> > On Fri, Sep 24, 2021 at 08:43:07AM +0200, Fernando Ramos wrote:
+> > > Hi all,
+> > > 
+> > > One of the things in the DRM TODO list ("Documentation/gpu/todo.rst") was to
+> > > "use DRM_MODESET_LOCAL_ALL_* helpers instead of boilerplate". That's what this
+> > > patch series is about.
+> > > 
+> > > You will find two types of changes here:
+> > > 
+> > >   - Replacing "drm_modeset_lock_all_ctx()" (and surrounding boilerplate) with
+> > >     "DRM_MODESET_LOCK_ALL_BEGIN()/END()" in the remaining places (as it has
+> > >     already been done in previous commits such as b7ea04d2)
+> > > 
+> > >   - Replacing "drm_modeset_lock_all()" with "DRM_MODESET_LOCK_ALL_BEGIN()/END()"
+> > >     in the remaining places (as it has already been done in previous commits
+> > >     such as 57037094)
+> > >     
+> > > Most of the changes are straight forward, except for a few cases in the "amd"
+> > > and "i915" drivers where some extra dancing was needed to overcome the
+> > > limitation that the DRM_MODESET_LOCK_ALL_BEGIN()/END() macros can only be used
+> > > once inside the same function (the reason being that the macro expansion
+> > > includes *labels*, and you can not have two labels named the same inside one
+> > > function)
+> > > 
+> > > Notice that, even after this patch series, some places remain where
+> > > "drm_modeset_lock_all()" and "drm_modeset_lock_all_ctx()" are still present,
+> > > all inside drm core (which makes sense), except for two (in "amd" and "i915")
+> > > which cannot be replaced due to the way they are being used.
+> > > 
+> > > Changes in v2:
+> > > 
+> > >   - Fix commit message typo
+> > >   - Use the value returned by DRM_MODESET_LOCK_ALL_END when possible
+> > >   - Split drm/i915 patch into two simpler ones
+> > >   - Remove drm_modeset_(un)lock_all()
+> > >   - Fix build problems in non-x86 platforms
+> > > 
+> > > Fernando Ramos (17):
+> > >   drm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/i915: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/msm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN() drm/vmwgfx: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/tegra: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/shmobile: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/radeon: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/omapdrm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/nouveau: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/msm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN() part 2
+> > >   drm/gma500: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm/amd: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+> > >   drm: cleanup: remove drm_modeset_(un)lock_all()
+> > >   doc: drm: remove TODO entry regarding DRM_MODSET_LOCK_ALL cleanup
+> > > 
+> > 
+> > Thank you for revising, Fernando! I've pushed the set to drm-misc-next (along
+> > with the necessary drm-tip conflict resolutions).
 > 
-> [Why]
-> 1. drm_atomic_helper_check doesn't check for the LUT sizes of either Gamma
-> or Degamma props in the new CRTC state, allowing any invalid size to
-> be passed on.
-> 2. Each driver has its own LUT size, which could also be different for
-> legacy users.
+> Ugh. Did anyone actually review the locking changes this does?
+> I shot the previous i915 stuff down because the commit messages
+> did not address any of it.
+
+I reviewed the set on 9/17, I didn't see your feedback on that thread.
+
+Sean
+
 > 
-> [How]
-> 1. Create |degamma_lut_size| and |gamma_lut_size| to save the LUT sizes
-> assigned by the driver when it's initializing its color and CTM
-> management.
-> 2. Create drm_atomic_helper_check_crtc which is called by
-> drm_atomic_helper_check to check the LUT sizes saved in drm_crtc that
-> they match the sizes in the new CRTC state.
-> 
-
-Did you consider extending drm_color_lut_check() with the size checks?
-
-> Fixes: igt@kms_color@pipe-A-invalid-gamma-lut-sizes on MTK
-> Tested on Zork(amdgpu) and Jacuzzi(mediatek)
-> 
-> Signed-off-by: Mark Yacoub<markyacoub@chromium.org>
-
-nit: missing a space between name and email
-
-
-> ---
->  drivers/gpu/drm/drm_atomic_helper.c | 56 +++++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_color_mgmt.c    |  2 ++
->  include/drm/drm_atomic_helper.h     |  1 +
->  include/drm/drm_crtc.h              | 11 ++++++
->  4 files changed, 70 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 2c0c6ec928200..265b9747250d1 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -930,6 +930,58 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
->  }
->  EXPORT_SYMBOL(drm_atomic_helper_check_planes);
->  
-> +/**
-> + * drm_atomic_helper_check_planes - validate state object for CRTC changes
-
-Ctrl+c/Ctrl+v error here
-
-> + * @state: the driver state object
-> + *
-> + * Check the CRTC state object such as the Gamma/Degamma LUT sizes if the new
-
-Are there missing words between "object" and "such"?
-
-> + * state holds them.
-> + *
-> + * RETURNS:
-> + * Zero for success or -errno
-> + */
-> +int drm_atomic_helper_check_crtc(struct drm_atomic_state *state)
-
-drm_atomic_helper_check_crtcs to be consistent with
-drm_atomic_helper_check_planes
-
-> +{
-> +	struct drm_crtc *crtc;
-> +	struct drm_crtc_state *new_crtc_state;
-> +	int i;
-> +
-> +	for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
-
-no space before (
-
-> +		if (new_crtc_state->gamma_lut) {
-
-Perhaps gate these with a check of state->color_mgmt_changed first?
-
-> +			uint64_t supported_lut_size = crtc->gamma_lut_size;
-> +			uint32_t supported_legacy_lut_size = crtc->gamma_size;
-> +			uint32_t new_state_lut_size =
-> +				drm_color_lut_size(new_crtc_state->gamma_lut);
-
-nit: new_state_lut_size and supported_lut_size can be pulled out to top level scope
-to avoid re-instantiation on each iteration
-
-> +
-> +			if (new_state_lut_size != supported_lut_size &&
-> +			    new_state_lut_size != supported_legacy_lut_size) {
-
-According to the docbook, "If drivers support multiple LUT sizes then they
-should publish the largest size, and sub-sample smaller sized LUTs". So
-should this check be > instead of != ?
-
-> +				DRM_DEBUG_DRIVER(
-
-drm_dbg_state() is probably more appropriate
-
-> +					"Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
-> +					supported_lut_size,
-> +					supported_legacy_lut_size,
-> +					new_state_lut_size);
-> +				return -EINVAL;
-> +			}
-> +		}
-> +
-> +		if (new_crtc_state->degamma_lut) {
-> +			uint32_t new_state_lut_size =
-> +				drm_color_lut_size(new_crtc_state->degamma_lut);
-> +			uint64_t supported_lut_size = crtc->degamma_lut_size;
-> +
-> +			if (new_state_lut_size != supported_lut_size) {
-> +				DRM_DEBUG_DRIVER(
-
-drm_dbg_state()
-
-> +					"Invalid Degamma LUT size. Should be %u but got %u.\n",
-> +					supported_lut_size, new_state_lut_size);
-> +				return -EINVAL;
-> +			}
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_atomic_helper_check_crtc);
-> +
->  /**
->   * drm_atomic_helper_check - validate state object
->   * @dev: DRM device
-> @@ -975,6 +1027,10 @@ int drm_atomic_helper_check(struct drm_device *dev,
->  	if (ret)
->  		return ret;
->  
-> +	ret = drm_atomic_helper_check_crtc(state);
-> +	if (ret)
-> +		return ret;
-> +
->  	if (state->legacy_cursor_update)
->  		state->async_update = !drm_atomic_helper_async_check(dev, state);
->  
-> diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-> index bb14f488c8f6c..72a1b628e7cdd 100644
-> --- a/drivers/gpu/drm/drm_color_mgmt.c
-> +++ b/drivers/gpu/drm/drm_color_mgmt.c
-> @@ -166,6 +166,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
->  	struct drm_mode_config *config = &dev->mode_config;
->  
->  	if (degamma_lut_size) {
-> +		crtc->degamma_lut_size = degamma_lut_size;
->  		drm_object_attach_property(&crtc->base,
->  					   config->degamma_lut_property, 0);
->  		drm_object_attach_property(&crtc->base,
-> @@ -178,6 +179,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
->  					   config->ctm_property, 0);
->  
->  	if (gamma_lut_size) {
-> +		crtc->gamma_lut_size = gamma_lut_size;
->  		drm_object_attach_property(&crtc->base,
->  					   config->gamma_lut_property, 0);
->  		drm_object_attach_property(&crtc->base,
-> diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-> index 4045e2507e11c..3eda13622ca1e 100644
-> --- a/include/drm/drm_atomic_helper.h
-> +++ b/include/drm/drm_atomic_helper.h
-> @@ -38,6 +38,7 @@ struct drm_atomic_state;
->  struct drm_private_obj;
->  struct drm_private_state;
->  
-> +int drm_atomic_helper_check_crtc(struct drm_atomic_state *state);
->  int drm_atomic_helper_check_modeset(struct drm_device *dev,
->  				struct drm_atomic_state *state);
->  int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
-> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> index 13eeba2a750af..c602be2cafca9 100644
-> --- a/include/drm/drm_crtc.h
-> +++ b/include/drm/drm_crtc.h
-> @@ -1072,6 +1072,17 @@ struct drm_crtc {
->  	/** @funcs: CRTC control functions */
->  	const struct drm_crtc_funcs *funcs;
->  
-> +	/**
-> +	 * @degamma_lut_size: Size of degamma LUT.
-> +	 */
-> +	uint32_t degamma_lut_size;
-> +
-> +	/**
-> +	 * @gamma_lut_size: Size of Gamma LUT. Not used by legacy userspace such as
-> +	 * X, which doesn't support large lut sizes.
-> +	 */
-> +	uint32_t gamma_lut_size;
-> +
-
-Above, you're checking 
-
-if (new_state_lut_size != gamma_size && new_state_lut_size != gamma_lut_size)
-        fail;
-
-doesn't that imply that gamma_size and gamma_lut_size must always be equal? If
-so, perhaps turf this new state and rename degamma_lut_size to degamma_size to
-be consistent.
-
-De-duping this and initializing crtc->gamma_size in the initialization would
-mean the if (crtc->gamma_size) check in drm_crtc_supports_legacy_check() is no
-longer useful (and possibly other similar checks), so some care will need to be
-taken to avoid regression. I think the effort is worthwhile to avoid introducing
-new state.
-
-
-
->  	/**
->  	 * @gamma_size: Size of legacy gamma ramp reported to userspace. Set up
->  	 * by calling drm_mode_crtc_set_gamma_size().
 > -- 
-> 2.33.0.685.g46640cef36-goog
-> 
+> Ville Syrjälä
+> Intel
 
 -- 
 Sean Paul, Software Engineer, Google / Chromium OS
