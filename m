@@ -2,68 +2,64 @@ Return-Path: <SRS0=Ip3g=OV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE83DC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11BAAC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 15:03:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B97A3619E7
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 14:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B97A3619E7
+	by mail.kernel.org (Postfix) with ESMTPS id C9D4361A40
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Oct 2021 15:03:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C9D4361A40
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C70E6EDE4;
-	Fri,  1 Oct 2021 14:52:41 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE2C76EDE4
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 14:52:39 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- t16-20020a1c7710000000b003049690d882so11436757wmi.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 Oct 2021 07:52:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9E5C6EE19;
+	Fri,  1 Oct 2021 15:03:14 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F35026EE14
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Oct 2021 15:03:12 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id k7so15849570wrd.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Oct 2021 08:03:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=/CGT87weSLNSLviR6HDxsD3ODsSwC6t+MSAnoc0H6x4=;
- b=Dtfz/uJtIn8A4gWLnZhsOqj7PUHvf7J0RhRjTqSerZkCA/F3luAcT/tYT1PTEFIR/5
- tl+miazljU4T8KYep5Jij1lGOBK9XPVi2hZaYQOQ2E40N69CnhipbkjPKtgHHHlfH277
- Gmt6S/SjExk4qI/d2InV7A72765UFEgmkkb4Q=
+ :content-disposition:in-reply-to;
+ bh=KWmQXpLHkhyGLgFEQEFT8AbrwfuWm4NU/3P6wqUzTH8=;
+ b=i1jFcfzbhpQoY5s3SBOsylE4AD6ip5tVwNR9uaRaMg9fjtImiP3DmwLmRMDSFreyer
+ nFbsji3vwYbEAVouE8YZsRd/q+WXJhhNzTHcJm7VciqUpT/q0/wBprW++9tmPA7YDRf+
+ 0DIpT5u3FgBj/PTVMF4eaqoP/zPKEde3hyYgQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=/CGT87weSLNSLviR6HDxsD3ODsSwC6t+MSAnoc0H6x4=;
- b=3K2OUrB2rl76YSEHMnoTANrfnbH3CUJVsNe7KYimJPRaG/sI9YZM9JXEOyoxXdDaSe
- w5NcReoBCKzQhvdSicWiEkal6rOmxYI5JBFDUCB98FBHlxkvuu5xvHPPRsQhLEypM86t
- lKciMCthQ3gvefIzREMcyRkdfex0igyLMKdmgtBr6o8vkDMDYARy5lGxVsPLhCG3YySr
- Rhf8zRQ8jQioI5mNiV6EXhPFTNkfMWlIO33O3ppqz+v6skY5xO18B9JoNsURUflgq7+3
- wOjj8hMG2t93mQKb9uKTXVb/bkC4KLUvZ35C96hQ63ALo0zbqyKaiBLdgMrz5tNPa3U+
- lmaw==
-X-Gm-Message-State: AOAM532cBrWPS121KslLkaeO6NXa77WQcCbDftR+BaFVasfgIO95OmFn
- OOifgnu+aDEivgihX2SEixWjGFGAf8uuwg==
-X-Google-Smtp-Source: ABdhPJyz/V/hiM+gvpgyDu2/QXEUTQiVsBbzQoWwm2Ar03thNSGQaeuWMja+19M6F2a4mPieID6TdA==
-X-Received: by 2002:a1c:1dcb:: with SMTP id d194mr2131815wmd.161.1633099958260; 
- Fri, 01 Oct 2021 07:52:38 -0700 (PDT)
+ :mime-version:content-disposition:in-reply-to;
+ bh=KWmQXpLHkhyGLgFEQEFT8AbrwfuWm4NU/3P6wqUzTH8=;
+ b=JQ/qvFItRJK0ehcaFLAWZ1LSzuwHKuqKR/Te1yskZpRSqmpL5Pa7zO+eYc7ijMqZPP
+ x5sFLgKu5m/9PJVKn/NESV1uV4++1mVD49grOMlMK/mYi5V+VsoGDpWZ2S3eovO0y87J
+ GbhaA/6iKGfV8I/1VmtiTWjxdoBqZA5bHch0md6+hNae2cDJ1c19uDr/+X3XGQEtIPaf
+ jOLHXUh4+ih0nKtqawJjITkcd9pFfg1FC5U6syHuRBT9DaFmE5DiFuDgyYg65Rv7lB9v
+ CMQ4mLd5jFV9gImDp5vlqTSBBD3J+uvG/N9Z3T+Yjqlk91Mm5ud3Pa3+WMuvMNwmKk6d
+ 21/Q==
+X-Gm-Message-State: AOAM533RDrTiepzjM00J95TAbVMgvTX1P8cVx2HHw+LtmXNTqACV3lDj
+ Eg6hWzlRujj6dk9tOXSOcHN3uA==
+X-Google-Smtp-Source: ABdhPJz3WGG2lTH8HBNLyxhI45br2zjZJ/VxzsL6MekKCDZIpSgZzvJVNdw8C/knu7gtNEFq/Topbw==
+X-Received: by 2002:adf:b7c1:: with SMTP id t1mr12849639wre.387.1633100591355; 
+ Fri, 01 Oct 2021 08:03:11 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id j4sm6074660wrt.67.2021.10.01.07.52.37
+ by smtp.gmail.com with ESMTPSA id o1sm6029547wru.91.2021.10.01.08.03.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 07:52:37 -0700 (PDT)
-Date: Fri, 1 Oct 2021 16:52:36 +0200
+ Fri, 01 Oct 2021 08:03:10 -0700 (PDT)
+Date: Fri, 1 Oct 2021 17:03:09 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: Lockdep spalt on killing a processes
-Message-ID: <YVcgtLTlPXb5vLXg@phenom.ffwll.local>
-References: <73c163b4-1917-1cde-b75f-831ac66f6ea0@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: Re: [pull] amdgpu drm-fixes-5.15
+Message-ID: <YVcjLX87xQPrXh2N@phenom.ffwll.local>
+References: <20210930023013.5207-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <73c163b4-1917-1cde-b75f-831ac66f6ea0@amd.com>
+In-Reply-To: <20210930023013.5207-1-alexander.deucher@amd.com>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,114 +75,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 01, 2021 at 12:50:35PM +0200, Christian König wrote:
-> Hey, Andrey.
+On Wed, Sep 29, 2021 at 10:30:13PM -0400, Alex Deucher wrote:
+> Hi Dave, Daniel,
 > 
-> while investigating some memory management problems I've got the logdep
-> splat below.
+> Fixes for 5.15.
 > 
-> Looks like something is wrong with drm_sched_entity_kill_jobs_cb(), can you
-> investigate?
+> The following changes since commit 05812b971c6d605c00987750f422918589aa4486:
+> 
+>   Merge tag 'drm/tegra/for-5.15-rc3' of ssh://git.freedesktop.org/git/tegra/linux into drm-fixes (2021-09-28 17:08:44 +1000)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.15-2021-09-29
+> 
+> for you to fetch changes up to 26db706a6d77b9e184feb11725e97e53b7a89519:
+> 
+>   drm/amdgpu: force exit gfxoff on sdma resume for rmb s0ix (2021-09-28 14:40:27 -0400)
 
-Probably needs more irq_work so that we get rid of fence completion
-signalling recursions.
+Pulled into drm-fixes, thanks.
 -Daniel
 
 > 
-> Thanks,
-> Christian.
+> ----------------------------------------------------------------
+> amd-drm-fixes-5.15-2021-09-29:
 > 
-> [11176.741052] ============================================
-> [11176.741056] WARNING: possible recursive locking detected
-> [11176.741060] 5.15.0-rc1-00031-g9d546d600800 #171 Not tainted
-> [11176.741066] --------------------------------------------
-> [11176.741070] swapper/12/0 is trying to acquire lock:
-> [11176.741074] ffff9c337ed175a8 (&fence->lock){-.-.}-{3:3}, at:
-> dma_fence_signal+0x28/0x80
-> [11176.741088]
->                but task is already holding lock:
-> [11176.741092] ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, at:
-> dma_fence_signal+0x28/0x80
-> [11176.741100]
->                other info that might help us debug this:
-> [11176.741104]  Possible unsafe locking scenario:
+> amdgpu:
+> - gart pin count fix
+> - eDP flicker fix
+> - GFX9 MQD fix
+> - Display fixes
+> - Tiling flags fix for pre-GFX9
+> - SDMA resume fix for S0ix
 > 
-> [11176.741108]        CPU0
-> [11176.741110]        ----
-> [11176.741113]   lock(&fence->lock);
-> [11176.741118]   lock(&fence->lock);
-> [11176.741122]
->                 *** DEADLOCK ***
+> ----------------------------------------------------------------
+> Charlene Liu (1):
+>       drm/amd/display: Pass PCI deviceid into DC
 > 
-> [11176.741125]  May be due to missing lock nesting notation
+> Hawking Zhang (1):
+>       drm/amdgpu: correct initial cp_hqd_quantum for gfx9
 > 
-> [11176.741128] 2 locks held by swapper/12/0:
-> [11176.741133]  #0: ffff9c339c30f768 (&ring->fence_drv.lock){-.-.}-{3:3},
-> at: dma_fence_signal+0x28/0x80
-> [11176.741142]  #1: ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, at:
-> dma_fence_signal+0x28/0x80
-> [11176.741151]
->                stack backtrace:
-> [11176.741155] CPU: 12 PID: 0 Comm: swapper/12 Not tainted
-> 5.15.0-rc1-00031-g9d546d600800 #171
-> [11176.741160] Hardware name: System manufacturer System Product Name/PRIME
-> X399-A, BIOS 0808 10/12/2018
-> [11176.741165] Call Trace:
-> [11176.741169]  <IRQ>
-> [11176.741173]  dump_stack_lvl+0x5b/0x74
-> [11176.741181]  dump_stack+0x10/0x12
-> [11176.741186]  __lock_acquire.cold+0x208/0x2df
-> [11176.741197]  lock_acquire+0xc6/0x2d0
-> [11176.741204]  ? dma_fence_signal+0x28/0x80
-> [11176.741212]  _raw_spin_lock_irqsave+0x4d/0x70
-> [11176.741219]  ? dma_fence_signal+0x28/0x80
-> [11176.741225]  dma_fence_signal+0x28/0x80
-> [11176.741230]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
-> [11176.741240]  drm_sched_entity_kill_jobs_cb+0x1c/0x50 [gpu_sched]
-> [11176.741248]  dma_fence_signal_timestamp_locked+0xac/0x1a0
-> [11176.741254]  dma_fence_signal+0x3b/0x80
-> [11176.741260]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
-> [11176.741268]  drm_sched_job_done.isra.0+0x7f/0x1a0 [gpu_sched]
-> [11176.741277]  drm_sched_job_done_cb+0x12/0x20 [gpu_sched]
-> [11176.741284]  dma_fence_signal_timestamp_locked+0xac/0x1a0
-> [11176.741290]  dma_fence_signal+0x3b/0x80
-> [11176.741296]  amdgpu_fence_process+0xd1/0x140 [amdgpu]
-> [11176.741504]  sdma_v4_0_process_trap_irq+0x8c/0xb0 [amdgpu]
-> [11176.741731]  amdgpu_irq_dispatch+0xce/0x250 [amdgpu]
-> [11176.741954]  amdgpu_ih_process+0x81/0x100 [amdgpu]
-> [11176.742174]  amdgpu_irq_handler+0x26/0xa0 [amdgpu]
-> [11176.742393]  __handle_irq_event_percpu+0x4f/0x2c0
-> [11176.742402]  handle_irq_event_percpu+0x33/0x80
-> [11176.742408]  handle_irq_event+0x39/0x60
-> [11176.742414]  handle_edge_irq+0x93/0x1d0
-> [11176.742419]  __common_interrupt+0x50/0xe0
-> [11176.742426]  common_interrupt+0x80/0x90
-> [11176.742431]  </IRQ>
-> [11176.742436]  asm_common_interrupt+0x1e/0x40
-> [11176.742442] RIP: 0010:cpuidle_enter_state+0xff/0x470
-> [11176.742449] Code: 0f a3 05 04 54 24 01 0f 82 70 02 00 00 31 ff e8 37 5d
-> 6f ff 80 7d d7 00 0f 85 e9 01 00 00 e8 58 a2 7f ff fb 66 0f 1f 44 00 00 <45>
-> 85 ff 0f 88 01 01 00 00 49 63 c7 4c 2b 75 c8 48 8d 14 40 48 8d
-> [11176.742455] RSP: 0018:ffffb6970021fe48 EFLAGS: 00000202
-> [11176.742461] RAX: 000000000059be25 RBX: 0000000000000002 RCX:
-> 0000000000000000
-> [11176.742465] RDX: 0000000000000000 RSI: 0000000000000000 RDI:
-> ffffffff9efeed78
-> [11176.742470] RBP: ffffb6970021fe80 R08: 0000000000000001 R09:
-> 0000000000000001
-> [11176.742473] R10: 0000000000000001 R11: 0000000000000001 R12:
-> ffff9c3350b0e800
-> [11176.742477] R13: ffffffffa00e9680 R14: 00000a2a49ada060 R15:
-> 0000000000000002
-> [11176.742483]  ? cpuidle_enter_state+0xf8/0x470
-> [11176.742489]  ? cpuidle_enter_state+0xf8/0x470
-> [11176.742495]  cpuidle_enter+0x2e/0x40
-> [11176.742500]  call_cpuidle+0x23/0x40
-> [11176.742506]  do_idle+0x201/0x280
-> [11176.742512]  cpu_startup_entry+0x20/0x30
-> [11176.742517]  start_secondary+0x11f/0x160
-> [11176.742523]  secondary_startup_64_no_verify+0xb0/0xbb
+> Josip Pavic (1):
+>       drm/amd/display: initialize backlight_ramping_override to false
 > 
+> Leslie Shi (1):
+>       drm/amdgpu: fix gart.bo pin_count leak
+> 
+> Praful Swarnakar (1):
+>       drm/amd/display: Fix Display Flicker on embedded panels
+> 
+> Prike Liang (1):
+>       drm/amdgpu: force exit gfxoff on sdma resume for rmb s0ix
+> 
+> Simon Ser (1):
+>       drm/amdgpu: check tiling flags when creating FB on GFX8-
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 31 +++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c             |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c            |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c             |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c            |  8 ++++++
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 ++
+>  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c  | 15 +++++------
+>  7 files changed, 53 insertions(+), 11 deletions(-)
 
 -- 
 Daniel Vetter
