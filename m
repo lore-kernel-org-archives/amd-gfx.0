@@ -2,89 +2,65 @@ Return-Path: <SRS0=D5He=OW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE777C433F5
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 07:13:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A307EC433F5
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 10:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 953D461A56
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 07:13:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 953D461A56
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 62AEB61216
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 10:34:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 62AEB61216
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=zoho.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E36CD6F4A6;
-	Sat,  2 Oct 2021 07:13:35 +0000 (UTC)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E566F4A2;
- Sat,  2 Oct 2021 07:13:34 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id EFE27581013;
- Sat,  2 Oct 2021 03:13:30 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sat, 02 Oct 2021 03:13:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=date
- :from:to:cc:subject:message-id:references:mime-version
- :content-type:content-transfer-encoding:in-reply-to; s=fm3; bh=h
- kdwWmElPEdAAxaQYiaUG9iDPW9L8k80trrD6uyRPLo=; b=b+qy2lC7OANZhdcFY
- lTuHru7sN/+DtcqTrF4SpXic1GmtM7cUT2qmnPzpzBoOwlJLK+z7eh8TFrUFqSQD
- TQ8jkhtPZqfnj2vBf+fDgE4RoYWo8WlREzgRC0Kgkb5u5KRBrrNW9I+jLw68qq5K
- nR1QEz/T3vXeMOnlNj/Kte72tUeYYrYxUq90NqOZhz8H/aQau8o3YqPwNJNR9p51
- IjEDlpgp6u3tl97X5eFyj1ScaFTQnCPDxidv6nerNdEjj30tannDQtOgGzaF9LP9
- ywzRJBQ3oe9A57JmpNxlJeehLxTyoJAGbhhjUtwcTPnRaupVb4E9JI7Bx0avudQu
- wU7Zw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=hkdwWmElPEdAAxaQYiaUG9iDPW9L8k80trrD6uyRP
- Lo=; b=D/XRLalTmeWLNXMgGrYTT36Ur+ARcjhRea20l1zZycriBriaimr4jYDvH
- Y/163WSY2WWorF7d3pv3hpERLm6NZDJlTk//5jLEVXcIMWmMoPJNQxbhgBi1BWBn
- Cya7cwjtn+FBF1NZP0fA4N1ZLelGM6CeBzY0yS2wBDAcnYs2k7uqp2sBcpzNWjb6
- i2zLNiZLVqztUinKNFfAh4HmJdPap30w+S9jG7OBxVgGj0AGGzwot5oYlTBmBwa3
- wt4cnG/tw8mgyWw7yKANX9GzEEYCNUrYCiZAngxSNFSdx9IvgQwTnhE894+IssxT
- TFpzih5gWDYejAq9jm76uBihYwVjQ==
-X-ME-Sender: <xms:mQZYYR7VpWIekz5jKw9rfJZPtY7gObW-Ps2HK3WAeJ6thHYPvyedzQ>
- <xme:mQZYYe7NssF99qddped0Oz3y0xvsSlXqyEN9IInl1E0lXOHMmNnU3P09OPy6-VZVV
- Kq6QxkN1Uw7cqd15Q>
-X-ME-Received: <xmr:mQZYYYfa7VDv6N19FC4M0Vettj4NdhNIg1PrJFkZXVaEfhz91yBv0dzwZCvP5KfF1YQRSpIl>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudekjedgudduhecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefhvghr
- nhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhhoohesuhelvddrvghuqeenucggtffrrg
- htthgvrhhnpeffleelfeejkefgfffhvdffjedvteelhefgvdfftdehfefghfdtgeevgfek
- keeuleenucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghdptddurdhorhhgne
- cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvggv
- nhhfohhosehuledvrdgvuh
-X-ME-Proxy: <xmx:mgZYYaLB8vJT6HmaAyecptRqqdECxDA3-U7v-ucSTdOqaK0yFO0hbA>
- <xmx:mgZYYVLC78TXBxqTVCuTBFhpEgbixvlFTNJh-8rLG1dppSYC7Y77OQ>
- <xmx:mgZYYTwFKgNks0BLJyv6wDGWqMfiEngurGR3Api93phNOr_Ls8Qtcg>
- <xmx:mgZYYSCN8z0NaX2WnaxUXdRraVDUxKHnoPfZ_ydCt_0QpVQB9btRYQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 2 Oct 2021 03:13:26 -0400 (EDT)
-Date: Sat, 2 Oct 2021 09:13:22 +0200
-From: Fernando Ramos <greenfoo@u92.eu>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Subject: Re: [Intel-gfx] [PATCH v2 00/17] drm: cleanup: Use
- DRM_MODESET_LOCK_ALL_* helpers where possible
-Message-ID: <YVgGklsHT5fkavDL@zacax395.localdomain>
-References: <20210924064324.229457-1-greenfoo@u92.eu>
- <20211001183655.GW2515@art_vandelay> <YVda4jNSGuQf50JV@intel.com>
- <20211001204815.GA2515@art_vandelay> <YVeGOyLzuhN7zzV7@intel.com>
- <YVfEWaLfYWdhezCa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 033AD6E83B;
+	Sat,  2 Oct 2021 10:34:20 +0000 (UTC)
+X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
+ Sat, 02 Oct 2021 10:34:18 UTC
+Received: from sender4-pp-o93.zoho.com (sender4-pp-o93.zoho.com
+ [136.143.188.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F95E6E83B
+ for <amd-gfx@lists.freedesktop.org>; Sat,  2 Oct 2021 10:34:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1633169954; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PgQmyflizmzCgHsUFwzEb0U2P+34Fseu0hdXBHo/dlxESPAPMLlx0pDwvAYCk86XYnsHm3izrGVElSKU9Ay04QNkhcOKQUh7d1zrhb90ATgIH/0E5LujGRIOIPRw5eWpPyZjBX0U3qi2c0PYXOG278GdVWw/WfOPLzno7Yn+B/Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; 
+ t=1633169954; h=Content-Type:Date:From:MIME-Version:Message-ID:Subject:To; 
+ bh=2Bvhf78KylY3fN1OuolghHe0A9d5xPfN/rMVTBxE1Jo=; 
+ b=oHe2TgnynkrhCOYJzT+wjMuCPaWzZg3zrZRy8WxcSe4RVE7pE98lvJIehx2neC/2gaKh6h0RtCJ4mEhF6gyczyClANwIBj/pqvwUV+SrN6FQT8GBJpkXhzyUMKkR+Qnl8tPjybesItByluf13EBeqaR5bTvOk0j+bns/bDgxdiw=
+ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass  header.i=zoho.com;
+ spf=pass  smtp.mailfrom=dufresnep@zoho.com;
+ dmarc=pass header.from=<dufresnep@zoho.com>
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
+ h=date:from:to:message-id:in-reply-to:subject:mime-version:content-type:user-agent;
+ b=KIc2Q3ZpOedVsHVAo+VRBiHpOgWx0FsZOrrX3oK7Jwqc0izBWgw5duJ0mnIsMREq605OwcLnJSFm
+ FkFRmC1e5Jzs3X/QYyetQl4heXERMQgyBTIYCfoRtPzBSxdZ8/fr  
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1633169954; 
+ s=zm2020; d=zoho.com; i=dufresnep@zoho.com;
+ h=Date:From:To:Message-Id:In-Reply-To:Subject:MIME-Version:Content-Type;
+ bh=2Bvhf78KylY3fN1OuolghHe0A9d5xPfN/rMVTBxE1Jo=;
+ b=KIA0HMWpTD03RlXV0rWkiMBlgkaw6tRLJHsVVKQQwnttYsKMxp9n4CJkclAUVG7P
+ 8h8bjILWFEglp2MNzX2RFyQrpk2/1NVhRok9Bc/pxfGmL2fcwa2D4XJca9EW+71FTQO
+ XaLHfUaKqd60lYg+/xMzcBQtKiQZxgPy0N2F+E5Y=
+Received: from mail.zoho.com by mx.zohomail.com
+ with SMTP id 1633169947002547.8195777189461;
+ Sat, 2 Oct 2021 03:19:07 -0700 (PDT)
+Received: from  [66.129.153.16] by mail.zoho.com
+ with HTTP;Sat, 2 Oct 2021 03:19:06 -0700 (PDT)
+Date: Sat, 02 Oct 2021 06:19:06 -0400
+From: Paul Dufresne <dufresnep@zoho.com>
+To: "amd-gfx" <amd-gfx@lists.freedesktop.org>
+Message-Id: <17c4083b965.fc30d96a13861.7509103532064047090@zoho.com>
+In-Reply-To: 
+Subject: how to help pinpoint ring 0 stalling on resuming from suspend only
+ when ShadowPrimary is disabled?
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <YVfEWaLfYWdhezCa@intel.com>
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_35035_1037527480.1633169946981"
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,41 +75,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 21/10/02 05:30AM, Ville Syrjälä wrote:
-> On Sat, Oct 02, 2021 at 01:05:47AM +0300, Ville Syrjälä wrote:
-> > On Fri, Oct 01, 2021 at 04:48:15PM -0400, Sean Paul wrote:
-> > > On Fri, Oct 01, 2021 at 10:00:50PM +0300, Ville Syrjälä wrote:
-> > > > On Fri, Oct 01, 2021 at 02:36:55PM -0400, Sean Paul wrote:
-> > > > > 
-> > > > > Thank you for revising, Fernando! I've pushed the set to drm-misc-next (along
-> > > > > with the necessary drm-tip conflict resolutions).
-> > > > 
-> > > > Ugh. Did anyone actually review the locking changes this does?
-> > > > I shot the previous i915 stuff down because the commit messages
-> > > > did not address any of it.
-> > > 
-> > > I reviewed the set on 9/17, I didn't see your feedback on that thread.
-> > 
-> > It was much earlir than that.
-> > https://lists.freedesktop.org/archives/dri-devel/2021-June/313193.html
-> > 
-> > And I think I might have also shot down a similar thing earlier.
-> > 
-> > I was actually half considering sending a patch to nuke that
-> > misleading TODO item. I don't think anything which changes
-> > which locks are taken should be considred a starter level task.
-> > And the commit messages here don't seem to address any of it.
-> 
-> And i915 is now broken :(
-> 
-> https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10680/fi-bwr-2160/boot.html
+------=_Part_35035_1037527480.1633169946981
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-I completely overlooked the side effects of not having a global context anymore.
-Sorry for all the trouble.
+Hi! I am a unsure how this message is appropriate here as most messages are patches.
 
-Sean, could you revert the whole patch series? I'll have a deeper look into the
-patch set and come up with a v3 where all these issues will be addressed.
 
-Thanks and sorry once again for the extra overhead this might have caused.
 
+I have temporary access (while helping the computer with a full disk situation), to test a computer with RS780C GPU,
+
+where when resuming with default ShadowPrimary off, ring 0 stalled happens on almost each resume from suspend to ram.
+
+Seems fixed by enabling ShadowPrimary (radeon driver).
+
+https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1944991
+
+I mentions this bug on: https://bugzilla.kernel.org/show_bug.cgi?id=85421
+
+
+
+The question is there some test I could do that would help pinpoint the problem?
+
+Like a particular drm.debug value boot parameter or something similar?
+------=_Part_35035_1037527480.1633169946981
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>=
+<meta content=3D"text/html;charset=3DUTF-8" http-equiv=3D"Content-Type"></h=
+ead><body ><div style=3D"font-family: Verdana, Arial, Helvetica, sans-serif=
+; font-size: 10pt;"><div>Hi! I am a unsure how this message is appropriate =
+here as most messages are patches.<br></div><div><br></div><div>I have temp=
+orary access (while helping the computer with a full disk situation), to te=
+st a computer with RS780C GPU,<br></div><div>where when resuming with defau=
+lt ShadowPrimary off, <span class=3D"colour" style=3D"color:rgb(42, 42, 42)=
+">ring 0 stalled happens on almost each resume from suspend to ram.</span><=
+br></div><div><span class=3D"colour" style=3D"color:rgb(42, 42, 42)">Seems =
+fixed by enabling ShadowPrimary (radeon driver).</span><br></div><div><span=
+ class=3D"colour" style=3D"color:rgb(42, 42, 42)"><a target=3D"_blank" href=
+=3D"https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1944991">https://b=
+ugs.launchpad.net/ubuntu/+source/linux/+bug/1944991</a></span><br></div><di=
+v>I mentions this bug on: <a target=3D"_blank" href=3D"https://bugzilla.ker=
+nel.org/show_bug.cgi?id=3D85421">https://bugzilla.kernel.org/show_bug.cgi?i=
+d=3D85421</a><br></div><div><br></div><div>The question is there some test =
+I could do that would help pinpoint the problem?<br></div><div>Like a parti=
+cular drm.debug value boot parameter or something similar?<br></div></div><=
+br></body></html>
+------=_Part_35035_1037527480.1633169946981--
 
