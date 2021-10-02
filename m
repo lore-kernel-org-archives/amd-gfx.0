@@ -2,65 +2,77 @@ Return-Path: <SRS0=D5He=OW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A307EC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 10:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EA4EC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 14:28:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62AEB61216
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 10:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 62AEB61216
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=zoho.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3A3F461AF7
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Oct 2021 14:28:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3A3F461AF7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 033AD6E83B;
-	Sat,  2 Oct 2021 10:34:20 +0000 (UTC)
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Sat, 02 Oct 2021 10:34:18 UTC
-Received: from sender4-pp-o93.zoho.com (sender4-pp-o93.zoho.com
- [136.143.188.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F95E6E83B
- for <amd-gfx@lists.freedesktop.org>; Sat,  2 Oct 2021 10:34:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1633169954; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PgQmyflizmzCgHsUFwzEb0U2P+34Fseu0hdXBHo/dlxESPAPMLlx0pDwvAYCk86XYnsHm3izrGVElSKU9Ay04QNkhcOKQUh7d1zrhb90ATgIH/0E5LujGRIOIPRw5eWpPyZjBX0U3qi2c0PYXOG278GdVWw/WfOPLzno7Yn+B/Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; 
- t=1633169954; h=Content-Type:Date:From:MIME-Version:Message-ID:Subject:To; 
- bh=2Bvhf78KylY3fN1OuolghHe0A9d5xPfN/rMVTBxE1Jo=; 
- b=oHe2TgnynkrhCOYJzT+wjMuCPaWzZg3zrZRy8WxcSe4RVE7pE98lvJIehx2neC/2gaKh6h0RtCJ4mEhF6gyczyClANwIBj/pqvwUV+SrN6FQT8GBJpkXhzyUMKkR+Qnl8tPjybesItByluf13EBeqaR5bTvOk0j+bns/bDgxdiw=
-ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass  header.i=zoho.com;
- spf=pass  smtp.mailfrom=dufresnep@zoho.com;
- dmarc=pass header.from=<dufresnep@zoho.com>
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
- h=date:from:to:message-id:in-reply-to:subject:mime-version:content-type:user-agent;
- b=KIc2Q3ZpOedVsHVAo+VRBiHpOgWx0FsZOrrX3oK7Jwqc0izBWgw5duJ0mnIsMREq605OwcLnJSFm
- FkFRmC1e5Jzs3X/QYyetQl4heXERMQgyBTIYCfoRtPzBSxdZ8/fr  
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1633169954; 
- s=zm2020; d=zoho.com; i=dufresnep@zoho.com;
- h=Date:From:To:Message-Id:In-Reply-To:Subject:MIME-Version:Content-Type;
- bh=2Bvhf78KylY3fN1OuolghHe0A9d5xPfN/rMVTBxE1Jo=;
- b=KIA0HMWpTD03RlXV0rWkiMBlgkaw6tRLJHsVVKQQwnttYsKMxp9n4CJkclAUVG7P
- 8h8bjILWFEglp2MNzX2RFyQrpk2/1NVhRok9Bc/pxfGmL2fcwa2D4XJca9EW+71FTQO
- XaLHfUaKqd60lYg+/xMzcBQtKiQZxgPy0N2F+E5Y=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1633169947002547.8195777189461;
- Sat, 2 Oct 2021 03:19:07 -0700 (PDT)
-Received: from  [66.129.153.16] by mail.zoho.com
- with HTTP;Sat, 2 Oct 2021 03:19:06 -0700 (PDT)
-Date: Sat, 02 Oct 2021 06:19:06 -0400
-From: Paul Dufresne <dufresnep@zoho.com>
-To: "amd-gfx" <amd-gfx@lists.freedesktop.org>
-Message-Id: <17c4083b965.fc30d96a13861.7509103532064047090@zoho.com>
-In-Reply-To: 
-Subject: how to help pinpoint ring 0 stalling on resuming from suspend only
- when ShadowPrimary is disabled?
+	by gabe.freedesktop.org (Postfix) with ESMTP id 240056E844;
+	Sat,  2 Oct 2021 14:28:28 +0000 (UTC)
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555266E841
+ for <amd-gfx@lists.freedesktop.org>; Sat,  2 Oct 2021 14:28:26 +0000 (UTC)
+Received: by mail-qt1-x834.google.com with SMTP id m26so11821628qtn.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 02 Oct 2021 07:28:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=wEzqs645xmRwJp4mRemHk76RcaEvYgrjojFh4Zf4bX4=;
+ b=HXfkDjyGdfTom0BYeHTu+FgJNf3b9p7yDDiXDTdLpSfZerQw84QoJamSgGiq4gaX8g
+ lxGoH0r6eVJaw9E8XTOKwTO0Giqb5zkJf5iikVyYkd0LKuXDzp1+m7D/jicd1pPpLGZx
+ B09k85S3XR6qWLW/f4Io1aaqfNHaxawlyGkq74FvA6svIaqlNcqHDllEugswMHduCdfS
+ PvCbW+BU6X/G9uWvty+ecdpMffszdEvmLdxCmi5Vijl0K3/UPjQOB08mb9IMAyES3b95
+ ckWOvEfYAUssTYaLZR/yQbzf3AHbOEnvOOc/sqmKAWvPvaSUSW/wgODQsCIuXyyrMngB
+ l0fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=wEzqs645xmRwJp4mRemHk76RcaEvYgrjojFh4Zf4bX4=;
+ b=yv1/i4I9D+lLtEpEFHWrRU4AmpTZjXx8bTGSRkQG4snKU9yfmYXfTsaGr+gMHrGddI
+ anC3M9zxk0pC3/g/kyQu8fR+ohSovwrTHuhRyWoVD8r/5XVL2/JFBP0CmnzhVZSCfsVE
+ PnklC8GtOrWAZwQi5yadH9yQWXY12n7n5r2puiTieNlYSokoIiSdHbzjFuOd7yjRb3gM
+ nvavW6XzBZcoiieT2YXQA0Gk47BLqhq5CYNHZ/YOQI3ezWxQOtMdaqkqkEClqr0xC5UU
+ JwGn4GwXCmwl+YTBCK5TIjbim3YS97gK9OEzWR9RdX7jCh/lLYxOpqTahhA8tnchWS42
+ i0xw==
+X-Gm-Message-State: AOAM531usCNIGYRIvA3q1wrfkczcvCwoaSU+nF3IFh7ya4dTWVGmaDF1
+ HJVwPzVpusauqEallvhM2oEP9Q==
+X-Google-Smtp-Source: ABdhPJxuPaeVXo0Ga7lKs/++Uv0MVqMrdVwTt2AYDgj7zqmtyoxkSX3F6FsEQ1KpUXTxP/BrChIYUQ==
+X-Received: by 2002:ac8:4e92:: with SMTP id 18mr3780735qtp.323.1633184905392; 
+ Sat, 02 Oct 2021 07:28:25 -0700 (PDT)
+Received: from localhost ([167.100.64.199])
+ by smtp.gmail.com with ESMTPSA id u4sm5227228qtq.31.2021.10.02.07.28.24
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sat, 02 Oct 2021 07:28:24 -0700 (PDT)
+Date: Sat, 2 Oct 2021 10:28:23 -0400
+From: Sean Paul <sean@poorly.run>
+To: Mark Yacoub <markyacoub@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ seanpaul@chromium.org, Rodrigo.Siqueira@amd.com,
+ anson.jacob@amd.com, Mark Yacoub <markyacoub@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 1/2] drm: Add Gamma and Degamma LUT sizes props to
+ drm_crtc to validate.
+Message-ID: <20211002142823.GB2515@art_vandelay>
+References: <20210929194012.3433306-1-markyacoub@chromium.org>
+ <20211001203434.GY2515@art_vandelay>
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
- boundary="----=_Part_35035_1037527480.1633169946981"
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211001203434.GY2515@art_vandelay>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,52 +87,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-------=_Part_35035_1037527480.1633169946981
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+On Fri, Oct 01, 2021 at 04:34:34PM -0400, Sean Paul wrote:
+> On Wed, Sep 29, 2021 at 03:39:25PM -0400, Mark Yacoub wrote:
+> > From: Mark Yacoub <markyacoub@google.com>
+> > 
+> > [Why]
+> > 1. drm_atomic_helper_check doesn't check for the LUT sizes of either Gamma
+> > or Degamma props in the new CRTC state, allowing any invalid size to
+> > be passed on.
+> > 2. Each driver has its own LUT size, which could also be different for
+> > legacy users.
+> > 
+> > [How]
+> > 1. Create |degamma_lut_size| and |gamma_lut_size| to save the LUT sizes
+> > assigned by the driver when it's initializing its color and CTM
+> > management.
+> > 2. Create drm_atomic_helper_check_crtc which is called by
+> > drm_atomic_helper_check to check the LUT sizes saved in drm_crtc that
+> > they match the sizes in the new CRTC state.
+> > 
+> 
+> Did you consider extending drm_color_lut_check() with the size checks?
+> 
+> > Fixes: igt@kms_color@pipe-A-invalid-gamma-lut-sizes on MTK
+> > Tested on Zork(amdgpu) and Jacuzzi(mediatek)
+> > 
+> > Signed-off-by: Mark Yacoub<markyacoub@chromium.org>
+> 
+> nit: missing a space between name and email
+> 
+> 
+> > ---
+> >  drivers/gpu/drm/drm_atomic_helper.c | 56 +++++++++++++++++++++++++++++
+> >  drivers/gpu/drm/drm_color_mgmt.c    |  2 ++
+> >  include/drm/drm_atomic_helper.h     |  1 +
+> >  include/drm/drm_crtc.h              | 11 ++++++
+> >  4 files changed, 70 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> > index 2c0c6ec928200..265b9747250d1 100644
+> > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > @@ -930,6 +930,58 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
+> >  }
+> >  EXPORT_SYMBOL(drm_atomic_helper_check_planes);
+> >  
+> > +/**
+> > + * drm_atomic_helper_check_planes - validate state object for CRTC changes
+> 
+> Ctrl+c/Ctrl+v error here
+> 
+> > + * @state: the driver state object
+> > + *
+> > + * Check the CRTC state object such as the Gamma/Degamma LUT sizes if the new
+> 
+> Are there missing words between "object" and "such"?
+> 
+> > + * state holds them.
+> > + *
+> > + * RETURNS:
+> > + * Zero for success or -errno
+> > + */
+> > +int drm_atomic_helper_check_crtc(struct drm_atomic_state *state)
+> 
+> drm_atomic_helper_check_crtcs to be consistent with
+> drm_atomic_helper_check_planes
+> 
+> > +{
+> > +	struct drm_crtc *crtc;
+> > +	struct drm_crtc_state *new_crtc_state;
+> > +	int i;
+> > +
+> > +	for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
+> 
+> no space before (
 
-Hi! I am a unsure how this message is appropriate here as most messages are patches.
+Ignore this, parsing error on my behalf.
 
+> 
+> > +		if (new_crtc_state->gamma_lut) {
+> 
+> Perhaps gate these with a check of state->color_mgmt_changed first?
+> 
+> > +			uint64_t supported_lut_size = crtc->gamma_lut_size;
+> > +			uint32_t supported_legacy_lut_size = crtc->gamma_size;
+> > +			uint32_t new_state_lut_size =
+> > +				drm_color_lut_size(new_crtc_state->gamma_lut);
+> 
+> nit: new_state_lut_size and supported_lut_size can be pulled out to top level scope
+> to avoid re-instantiation on each iteration
+> 
+> > +
+> > +			if (new_state_lut_size != supported_lut_size &&
+> > +			    new_state_lut_size != supported_legacy_lut_size) {
+> 
+> According to the docbook, "If drivers support multiple LUT sizes then they
+> should publish the largest size, and sub-sample smaller sized LUTs". So
+> should this check be > instead of != ?
+> 
+> > +				DRM_DEBUG_DRIVER(
+> 
+> drm_dbg_state() is probably more appropriate
+> 
+> > +					"Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
+> > +					supported_lut_size,
+> > +					supported_legacy_lut_size,
+> > +					new_state_lut_size);
+> > +				return -EINVAL;
+> > +			}
+> > +		}
+> > +
+> > +		if (new_crtc_state->degamma_lut) {
+> > +			uint32_t new_state_lut_size =
+> > +				drm_color_lut_size(new_crtc_state->degamma_lut);
+> > +			uint64_t supported_lut_size = crtc->degamma_lut_size;
+> > +
+> > +			if (new_state_lut_size != supported_lut_size) {
+> > +				DRM_DEBUG_DRIVER(
+> 
+> drm_dbg_state()
+> 
+> > +					"Invalid Degamma LUT size. Should be %u but got %u.\n",
+> > +					supported_lut_size, new_state_lut_size);
+> > +				return -EINVAL;
+> > +			}
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +EXPORT_SYMBOL(drm_atomic_helper_check_crtc);
+> > +
+> >  /**
+> >   * drm_atomic_helper_check - validate state object
+> >   * @dev: DRM device
+> > @@ -975,6 +1027,10 @@ int drm_atomic_helper_check(struct drm_device *dev,
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > +	ret = drm_atomic_helper_check_crtc(state);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> >  	if (state->legacy_cursor_update)
+> >  		state->async_update = !drm_atomic_helper_async_check(dev, state);
+> >  
+> > diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+> > index bb14f488c8f6c..72a1b628e7cdd 100644
+> > --- a/drivers/gpu/drm/drm_color_mgmt.c
+> > +++ b/drivers/gpu/drm/drm_color_mgmt.c
+> > @@ -166,6 +166,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+> >  	struct drm_mode_config *config = &dev->mode_config;
+> >  
+> >  	if (degamma_lut_size) {
+> > +		crtc->degamma_lut_size = degamma_lut_size;
+> >  		drm_object_attach_property(&crtc->base,
+> >  					   config->degamma_lut_property, 0);
+> >  		drm_object_attach_property(&crtc->base,
+> > @@ -178,6 +179,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+> >  					   config->ctm_property, 0);
+> >  
+> >  	if (gamma_lut_size) {
+> > +		crtc->gamma_lut_size = gamma_lut_size;
+> >  		drm_object_attach_property(&crtc->base,
+> >  					   config->gamma_lut_property, 0);
+> >  		drm_object_attach_property(&crtc->base,
+> > diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
+> > index 4045e2507e11c..3eda13622ca1e 100644
+> > --- a/include/drm/drm_atomic_helper.h
+> > +++ b/include/drm/drm_atomic_helper.h
+> > @@ -38,6 +38,7 @@ struct drm_atomic_state;
+> >  struct drm_private_obj;
+> >  struct drm_private_state;
+> >  
+> > +int drm_atomic_helper_check_crtc(struct drm_atomic_state *state);
+> >  int drm_atomic_helper_check_modeset(struct drm_device *dev,
+> >  				struct drm_atomic_state *state);
+> >  int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+> > diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> > index 13eeba2a750af..c602be2cafca9 100644
+> > --- a/include/drm/drm_crtc.h
+> > +++ b/include/drm/drm_crtc.h
+> > @@ -1072,6 +1072,17 @@ struct drm_crtc {
+> >  	/** @funcs: CRTC control functions */
+> >  	const struct drm_crtc_funcs *funcs;
+> >  
+> > +	/**
+> > +	 * @degamma_lut_size: Size of degamma LUT.
+> > +	 */
+> > +	uint32_t degamma_lut_size;
+> > +
+> > +	/**
+> > +	 * @gamma_lut_size: Size of Gamma LUT. Not used by legacy userspace such as
+> > +	 * X, which doesn't support large lut sizes.
+> > +	 */
+> > +	uint32_t gamma_lut_size;
+> > +
+> 
+> Above, you're checking 
+> 
+> if (new_state_lut_size != gamma_size && new_state_lut_size != gamma_lut_size)
+>         fail;
+> 
+> doesn't that imply that gamma_size and gamma_lut_size must always be equal? If
+> so, perhaps turf this new state and rename degamma_lut_size to degamma_size to
+> be consistent.
 
+Yeah... so not sure what I was thinking when I wrote this, but my brain decided
+to remind me this was wrong last night while I was trying to fall asleep (thanks
+for checking in, brain). I still think perhaps the naming could be improved here
+to more clearly delineate legacy from current.
 
-I have temporary access (while helping the computer with a full disk situation), to test a computer with RS780C GPU,
+Apologies for the churn.
 
-where when resuming with default ShadowPrimary off, ring 0 stalled happens on almost each resume from suspend to ram.
+> 
+> De-duping this and initializing crtc->gamma_size in the initialization would
+> mean the if (crtc->gamma_size) check in drm_crtc_supports_legacy_check() is no
+> longer useful (and possibly other similar checks), so some care will need to be
+> taken to avoid regression. I think the effort is worthwhile to avoid introducing
+> new state.
+> 
+> 
+> 
+> >  	/**
+> >  	 * @gamma_size: Size of legacy gamma ramp reported to userspace. Set up
+> >  	 * by calling drm_mode_crtc_set_gamma_size().
+> > -- 
+> > 2.33.0.685.g46640cef36-goog
+> > 
+> 
+> -- 
+> Sean Paul, Software Engineer, Google / Chromium OS
 
-Seems fixed by enabling ShadowPrimary (radeon driver).
-
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1944991
-
-I mentions this bug on: https://bugzilla.kernel.org/show_bug.cgi?id=85421
-
-
-
-The question is there some test I could do that would help pinpoint the problem?
-
-Like a particular drm.debug value boot parameter or something similar?
-------=_Part_35035_1037527480.1633169946981
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>=
-<meta content=3D"text/html;charset=3DUTF-8" http-equiv=3D"Content-Type"></h=
-ead><body ><div style=3D"font-family: Verdana, Arial, Helvetica, sans-serif=
-; font-size: 10pt;"><div>Hi! I am a unsure how this message is appropriate =
-here as most messages are patches.<br></div><div><br></div><div>I have temp=
-orary access (while helping the computer with a full disk situation), to te=
-st a computer with RS780C GPU,<br></div><div>where when resuming with defau=
-lt ShadowPrimary off, <span class=3D"colour" style=3D"color:rgb(42, 42, 42)=
-">ring 0 stalled happens on almost each resume from suspend to ram.</span><=
-br></div><div><span class=3D"colour" style=3D"color:rgb(42, 42, 42)">Seems =
-fixed by enabling ShadowPrimary (radeon driver).</span><br></div><div><span=
- class=3D"colour" style=3D"color:rgb(42, 42, 42)"><a target=3D"_blank" href=
-=3D"https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1944991">https://b=
-ugs.launchpad.net/ubuntu/+source/linux/+bug/1944991</a></span><br></div><di=
-v>I mentions this bug on: <a target=3D"_blank" href=3D"https://bugzilla.ker=
-nel.org/show_bug.cgi?id=3D85421">https://bugzilla.kernel.org/show_bug.cgi?i=
-d=3D85421</a><br></div><div><br></div><div>The question is there some test =
-I could do that would help pinpoint the problem?<br></div><div>Like a parti=
-cular drm.debug value boot parameter or something similar?<br></div></div><=
-br></body></html>
-------=_Part_35035_1037527480.1633169946981--
-
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
