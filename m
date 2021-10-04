@@ -2,72 +2,55 @@ Return-Path: <SRS0=otPk=OY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6858C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 08:31:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB966C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 08:40:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 700E761130
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 08:31:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 700E761130
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A4B556113A
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 08:40:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A4B556113A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7A086E95B;
-	Mon,  4 Oct 2021 08:31:26 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF696E95B
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 08:31:26 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id t8so29414748wri.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Oct 2021 01:31:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=UdUrSHVFZvxtnxaz4hN+hmBUeV2/FrCsSbPjleSsdbc=;
- b=RGLKBURBhjreR6PFU6EWP1tya68JKv8/E+oN3JGIXWhqFB6RgKGZ73duRgZRnNe+NH
- k/cUhU/IP/siJHMOLGn/stpXgomweeA0+sEDebZYUFdluL8r0Y6S894HlmfQhnTDZBNF
- pZ32GgGITXfafPjIZrqsxFTJ9lXiqeihDpNLPFCshXpdcgvevmZT7gGwMQPWs9M2ncV4
- GuDXby+93KsEP5YrJnKod81HSGNUEwmEsGD+v4S7gNIMLiZ9PImVB9TNP/U6JVR7xpYm
- TCD+i6x6j3n7xdUYJs6wYTytss8klfqJ4th4rnlOHMkxFQEekTLmQJEvVFb5fB+4nqNp
- Ygng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=UdUrSHVFZvxtnxaz4hN+hmBUeV2/FrCsSbPjleSsdbc=;
- b=qF2VC8H8kJkHfAh2zERj03eQq7OXYGA5JYwF/XsUUl+z5guTqzs35tlHqeM/DXYUBn
- aIG9Wustz/xZtnx+Aj23AY23GODFVAj9aPkTAqKRtJeI4+I5HrjyKfSX9+L2kOBNxeYp
- Zyt+Yx+3Yc3OMjMC2J8H79Iadgl9/M51muoZaWHYAI9lzSXKPOkyPc4nCfzlqegcp8cU
- DV5bsn4TXXK29qH1GDQZn55J/S2OX1d+ZfFyif65+rPfz3D5Bs6sQlvsI9sPcibUnHyb
- 0Zvkbv38fxxRUZwrg6myuGTMmTtvA4v933b4F58s3COwuPwvK4nQBnwhIbONjXiaYd4a
- piWA==
-X-Gm-Message-State: AOAM532zd3qYYYqq9O3XEv2GE+igdPKmuZMNbxNgmQPYO+774+NG/S1G
- ZRl6OG6QqFTc8Xq0L97SPzzzUqWxbFU=
-X-Google-Smtp-Source: ABdhPJyD3CXp+hroYZmJdi7MzlFciOq6ujWzD4liqHQf44y7XImwRJsU3vcDpoICAPMXKM9g2UB8RA==
-X-Received: by 2002:adf:bb09:: with SMTP id r9mr12526808wrg.238.1633336284575; 
- Mon, 04 Oct 2021 01:31:24 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id f8sm13437246wrx.15.2021.10.04.01.31.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Oct 2021 01:31:24 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: revert "Add autodump debugfs node for gpu
- reset v8"
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org, Jiange.Zhao@amd.com
-References: <20210930092611.13615-1-christian.koenig@amd.com>
-Message-ID: <ad72c18d-d0a6-51bb-540f-dde0688dc567@gmail.com>
-Date: Mon, 4 Oct 2021 10:31:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FFA46E969;
+	Mon,  4 Oct 2021 08:40:31 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 157C36E95F;
+ Mon,  4 Oct 2021 08:40:28 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10126"; a="248594898"
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="248594898"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 01:39:34 -0700
+X-IronPort-AV: E=Sophos;i="5.85,345,1624345200"; d="scan'208";a="621779755"
+Received: from pmittal1-mobl.gar.corp.intel.com (HELO localhost)
+ ([10.251.223.27])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 01:39:30 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Fernando
+ Ramos <greenfoo@u92.eu>
+Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+Subject: Re: [Intel-gfx] [PATCH v2 00/17] drm: cleanup: Use
+ DRM_MODESET_LOCK_ALL_* helpers where possible
+In-Reply-To: <YVq49SWuC3T7i1a6@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210924064324.229457-1-greenfoo@u92.eu>
+ <20211001183655.GW2515@art_vandelay> <YVda4jNSGuQf50JV@intel.com>
+ <20211001204815.GA2515@art_vandelay> <YVeGOyLzuhN7zzV7@intel.com>
+ <YVfEWaLfYWdhezCa@intel.com> <YVgGklsHT5fkavDL@zacax395.localdomain>
+ <YVjd7hLKtYG2bkY7@zacax395.localdomain> <YVq49SWuC3T7i1a6@intel.com>
+Date: Mon, 04 Oct 2021 11:39:27 +0300
+Message-ID: <87ee912ngg.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210930092611.13615-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,181 +65,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping? Alex any objections to this?
-
-Otherwise I'm going to push it with Nirmoy's acked-by.
-
-Christian.
-
-Am 30.09.21 um 11:26 schrieb Christian König:
-> This reverts commit 728e7e0cd61899208e924472b9e641dbeb0775c4.
+On Mon, 04 Oct 2021, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Sun, Oct 03, 2021 at 12:32:14AM +0200, Fernando Ramos wrote:
+>> On 21/10/02 09:13AM, Fernando Ramos wrote:
+>> >=20
+>> > Sean, could you revert the whole patch series? I'll have a deeper look=
+ into the
+>> > patch set and come up with a v3 where all these issues will be address=
+ed.
+>> >=20
+>>=20
+>> Hi Sean,
+>>=20
+>> I now understand the nature of the issue that caused the problem with i9=
+15 and
+>> have proceed to remove the global context structure (which revealed a si=
+milar
+>> issue in the amdgpu driver).
+>>=20
+>> I have prepared a V3 version of the patch set where these issues should
+>> hopefully be fixed for both the i915 and amdgpu drivers.
+>>=20
+>> In order to prevent causing more disruption, could you tell me what the =
+proper
+>> way to proceed would be? In particular:
+>>=20
+>>   1. Is there any place where I can push my changes so that they are tes=
+ted
+>>      on a i915 machine? (Some type of automated pool)
 >
-> Further discussion reveals that this feature is severely broken
-> and needs to be reverted ASAP.
+> cc:intel-gfx, which it looks like you did, _but_ your patches did
+> did not even apply against drm-tip so our CI rejected it. There was
+> a reply to the patches from CI indicating that. And that is one
+> reason I probably just ignored the whole thing. If it doesn't
+> even apply/build it's not worth my time to read.
 >
-> GPU reset can never be delayed by userspace even for debugging or
-> otherwise we can run into in kernel deadlocks.
+>>=20
+>>   2. I can test the amdgpu driver on my machine but, what about all the =
+other
+>>      architectures? What is the standard procedure? Should I simply publ=
+ish V3
+>>      and wait for feedback from the different vendors? (I would hate to =
+cause a
+>>      simular situation again)
+>>=20
+>>   3. Should I post V3 on top of drm-next or drm-misc-next?
 >
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  2 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 80 ---------------------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  5 --
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  4 --
->   4 files changed, 91 deletions(-)
+> The normal rule is: always work on drm-tip. That is what gets
+> tested by our CI as well. Yes, it does mean a bit of extra hurdles
+> during development since drm-tip is a rebasing tree, but there are
+> tools like dim retip to help out here.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index dc3c6b3a00e5..6a1928a720a6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1078,8 +1078,6 @@ struct amdgpu_device {
->   	char				product_name[32];
->   	char				serial[20];
->   
-> -	struct amdgpu_autodump		autodump;
-> -
->   	atomic_t			throttling_logging_enabled;
->   	struct ratelimit_state		throttling_logging_rs;
->   	uint32_t                        ras_hw_enabled;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 277128846dd1..0b89ba142a59 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -27,7 +27,6 @@
->   #include <linux/pci.h>
->   #include <linux/uaccess.h>
->   #include <linux/pm_runtime.h>
-> -#include <linux/poll.h>
->   
->   #include "amdgpu.h"
->   #include "amdgpu_pm.h"
-> @@ -37,85 +36,7 @@
->   #include "amdgpu_securedisplay.h"
->   #include "amdgpu_fw_attestation.h"
->   
-> -int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev)
-> -{
->   #if defined(CONFIG_DEBUG_FS)
-> -	unsigned long timeout = 600 * HZ;
-> -	int ret;
-> -
-> -	wake_up_interruptible(&adev->autodump.gpu_hang);
-> -
-> -	ret = wait_for_completion_interruptible_timeout(&adev->autodump.dumping, timeout);
-> -	if (ret == 0) {
-> -		pr_err("autodump: timeout, move on to gpu recovery\n");
-> -		return -ETIMEDOUT;
-> -	}
-> -#endif
-> -	return 0;
-> -}
-> -
-> -#if defined(CONFIG_DEBUG_FS)
-> -
-> -static int amdgpu_debugfs_autodump_open(struct inode *inode, struct file *file)
-> -{
-> -	struct amdgpu_device *adev = inode->i_private;
-> -	int ret;
-> -
-> -	file->private_data = adev;
-> -
-> -	ret = down_read_killable(&adev->reset_sem);
-> -	if (ret)
-> -		return ret;
-> -
-> -	if (adev->autodump.dumping.done) {
-> -		reinit_completion(&adev->autodump.dumping);
-> -		ret = 0;
-> -	} else {
-> -		ret = -EBUSY;
-> -	}
-> -
-> -	up_read(&adev->reset_sem);
-> -
-> -	return ret;
-> -}
-> -
-> -static int amdgpu_debugfs_autodump_release(struct inode *inode, struct file *file)
-> -{
-> -	struct amdgpu_device *adev = file->private_data;
-> -
-> -	complete_all(&adev->autodump.dumping);
-> -	return 0;
-> -}
-> -
-> -static unsigned int amdgpu_debugfs_autodump_poll(struct file *file, struct poll_table_struct *poll_table)
-> -{
-> -	struct amdgpu_device *adev = file->private_data;
-> -
-> -	poll_wait(file, &adev->autodump.gpu_hang, poll_table);
-> -
-> -	if (amdgpu_in_reset(adev))
-> -		return POLLIN | POLLRDNORM | POLLWRNORM;
-> -
-> -	return 0;
-> -}
-> -
-> -static const struct file_operations autodump_debug_fops = {
-> -	.owner = THIS_MODULE,
-> -	.open = amdgpu_debugfs_autodump_open,
-> -	.poll = amdgpu_debugfs_autodump_poll,
-> -	.release = amdgpu_debugfs_autodump_release,
-> -};
-> -
-> -static void amdgpu_debugfs_autodump_init(struct amdgpu_device *adev)
-> -{
-> -	init_completion(&adev->autodump.dumping);
-> -	complete_all(&adev->autodump.dumping);
-> -	init_waitqueue_head(&adev->autodump.gpu_hang);
-> -
-> -	debugfs_create_file("amdgpu_autodump", 0600,
-> -		adev_to_drm(adev)->primary->debugfs_root,
-> -		adev, &autodump_debug_fops);
-> -}
->   
->   /**
->    * amdgpu_debugfs_process_reg_op - Handle MMIO register reads/writes
-> @@ -1590,7 +1511,6 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
->   	}
->   
->   	amdgpu_ras_debugfs_create_all(adev);
-> -	amdgpu_debugfs_autodump_init(adev);
->   	amdgpu_rap_debugfs_init(adev);
->   	amdgpu_securedisplay_debugfs_init(adev);
->   	amdgpu_fw_attestation_debugfs_init(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> index 141a8474e24f..8b641f40fdf6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> @@ -26,10 +26,6 @@
->   /*
->    * Debugfs
->    */
-> -struct amdgpu_autodump {
-> -	struct completion		dumping;
-> -	struct wait_queue_head		gpu_hang;
-> -};
->   
->   int amdgpu_debugfs_regs_init(struct amdgpu_device *adev);
->   int amdgpu_debugfs_init(struct amdgpu_device *adev);
-> @@ -37,4 +33,3 @@ void amdgpu_debugfs_fini(struct amdgpu_device *adev);
->   void amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
->   void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
->   void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
-> -int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 41c6b3aacd37..4d34b2da8582 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4458,10 +4458,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
->   	if (reset_context->reset_req_dev == adev)
->   		job = reset_context->job;
->   
-> -	/* no need to dump if device is not in good state during probe period */
-> -	if (!adev->gmc.xgmi.pending_reset)
-> -		amdgpu_debugfs_wait_dump(adev);
-> -
->   	if (amdgpu_sriov_vf(adev)) {
->   		/* stop the data exchange thread */
->   		amdgpu_virt_fini_data_exchange(adev);
+> As for where to merge them. I would generally recommed against merging
+> i915 patches through drm-misc unless there is a very compelling reason
+> to do so. i915 is a fast moving target and if there are significant
+> changes coming in via drm-misc they usually will cause conflicts for
+> people during drm-tip rebuild. Also I would expect to see an ack
+> requested from i915 maintainers for merging anything significant via
+> drm-misc, which I don't think happened in this case.
 
+Indeed. All other things aside, it looks like it has enough conflict
+potential to warrant merging via drm-intel anyway.
+
+BR,
+Jani.
+
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
