@@ -2,48 +2,48 @@ Return-Path: <SRS0=otPk=OY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 216DAC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:45:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA3E8C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCC9F61391
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:45:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DCC9F61391
+	by mail.kernel.org (Postfix) with ESMTPS id 7883061391
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 14:46:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7883061391
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A2C76EA18;
-	Mon,  4 Oct 2021 14:45:52 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CEC56EA17
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 14:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F3FA6EA17;
+	Mon,  4 Oct 2021 14:46:02 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78B976EA17
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 14:46:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OV1uObkJIlB/F9qQFPJ+kZ/OtGjuAPJ9+iQxj21hBC7V50r9ks5aY9ep1xS4O6cfG1XgvZtPgF2pGbE9iRFqjsjuXmfsjtv/lmIEkFi04k7tMFgWNCdlcZcZE9SoefIoj7oPssaAfbMWQFEisSYqgaXBxknCiprzJNv4tsC59i2yghfixJSidPTUpAYNv5U3lZsJe/9VFSZd6s7oizvY6RGV/4NI+ILqckdSLb8PINiHW5ev5m++MAEdntV5FF9biLYtLYLy6czKHPmfCQsCtY4vlIZnj142AFCP7Hw+wNqsI7HkWFS1SdzGl0t1X2wYTLGuTxwUEZotnXx1mcFTHA==
+ b=BGe1qZKJEOuQgk8YKIVUqzbCxBozXitR+B91d/lkjRqR7Lr5VMVffKRIaRxf44nx81PjaORZdUZdoNgyS4JwYCc3w6M6k21Pc8Gff3wMduw7CBBDtoQL8C+GtvEhLN61QSSQJuhUsvCoGfCBIgY91eISHSIUIZP2lePu+JvwABoOkeKf1gDc7t7niw1ie7eVgijdXbeBcw56u2F857QOoLsoBtOgJbmRzc3zK5v8Q9M+2BMhWp0UmglpxY+qEfpj64Zo4U/7/gTFiY3iYWDWvXThzCEpDAnmppyg/w7p+dSaRvqUeTBVk2LipWgjU+YDEQb4cQnndyot96spuSTXyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Op3cuyxFwUOWYqvDLn++DDS8fko+0kWIdBi+DjGAmg=;
- b=fnksuL9HEF8tPjFSfxzNec26yKtx6+p3eGE4kQ/d6Jqx1HYc+SsY6LvYO9Io9rrJxZigK8YZjh12JHMff0TgPjEwvD/tVmWHxCKqGO7reUpDYeWMHbnNH7th3Ow1yYdV3+atjeWyFYc8sNuaCeOMcUqCsMX8qFOFlqlk2oXCQPWT+ZCOxgPTEaOH3lxfqOEFwzPYDn+0H98Hd36jVKMS/+tKpO7ufDGZSShT+nFVaav1mSHeB5PDLaLtlbfHMTfO+I43rIJ6kYLJHjxfZyc4y5gHQ/vxvbn0l18Ny04IIQNNDkGzLTEk/dCiAy3MShOeCP/Ut4Bnd4uYepniCkUrBA==
+ bh=lbo8/8Xpu4532brjbAi7duU2LeqRU4VomFRH8Ak2M+s=;
+ b=Jld9hWQdh6YX4JOKKNIVMXLW6ekDca5VGvW30UKl1PiCpyeOPu42KXqSinRP95YKU4oEfPKOI+D6QMebIhf/Rt13Iui4E0Ke7UR7YCZc8dh+1AyfJJjtTiWoko95SYq170mXiPgN0hFjLKzl6UgzpeITZMX9IKvUxhpWAYzbq0Ytohj2m19wq9YoMADrt1FUZdkzaHvy4uTvVl+pJlZ3eHlW7RwCtXl9RXmROwBEChvbzMu27di2vTj59L1CY8JqIqOwaeuGdMDNYnNsacwb3xrCmpU7991qBtQk01TZGzG9eWCPuSufWVPnhMKUeOWQ/1gTfo6LFMrgQPuMezGO5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Op3cuyxFwUOWYqvDLn++DDS8fko+0kWIdBi+DjGAmg=;
- b=INzbOHH08s57ka9vQRwzA+bVIdy6RzZdbQYgjGuUEhXqEBPAUVA3deYhoHfq/yLZoXp/+OF4gCwz5RoRBOvoBJwDFmW3Rc6eBCmauRv95y4fS+YTDVGuKCezkmANZCqfqjxuu1v+ILSEXFZF3YRDoeGRSBOdkk06iUi/I1jhraY=
-Received: from MWHPR02CA0024.namprd02.prod.outlook.com (2603:10b6:300:4b::34)
- by DM6PR12MB3499.namprd12.prod.outlook.com (2603:10b6:5:11e::20) with
+ bh=lbo8/8Xpu4532brjbAi7duU2LeqRU4VomFRH8Ak2M+s=;
+ b=kZy/vD3w7PHof9E8w7UFAtIh6VOFDP6mSqx2jdWpoWLPtO1LKRsdxj8NJp0wgnh3IDcISbAURSGys7h436l0Y6fLYd+BtL7pjzaiQVVROVOaraWZ7emyxwvkWxyOwShHq3UJ6pGrmgAVfivbiD+XBHBUjdZr/YqkWPdS9EEXaZw=
+Received: from MW4PR04CA0178.namprd04.prod.outlook.com (2603:10b6:303:85::33)
+ by DM5PR12MB2486.namprd12.prod.outlook.com (2603:10b6:4:b2::32) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.21; Mon, 4 Oct
- 2021 14:45:49 +0000
-Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:4b:cafe::ae) by MWHPR02CA0024.outlook.office365.com
- (2603:10b6:300:4b::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
- Transport; Mon, 4 Oct 2021 14:45:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.19; Mon, 4 Oct
+ 2021 14:45:59 +0000
+Received: from CO1NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:85:cafe::93) by MW4PR04CA0178.outlook.office365.com
+ (2603:10b6:303:85::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.16 via Frontend
+ Transport; Mon, 4 Oct 2021 14:45:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,31 +52,30 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
+ CO1NAM11FT020.mail.protection.outlook.com (10.13.174.149) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4566.14 via Frontend Transport; Mon, 4 Oct 2021 14:45:48 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ 15.20.4566.14 via Frontend Transport; Mon, 4 Oct 2021 14:45:58 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 4 Oct 2021
- 09:45:48 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 09:45:57 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 4 Oct 2021
- 09:45:47 -0500
+ 07:45:57 -0700
 Received: from wayne-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8
- via Frontend Transport; Mon, 4 Oct 2021 09:45:34 -0500
+ via Frontend Transport; Mon, 4 Oct 2021 09:45:49 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <Harry.Wentland@amd.com>,
  <nicholas.kazlauskas@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <wayne.lin@amd.com>, <stylon.wang@amd.com>, <jude.shih@amd.com>,
- <jimmy.kizito@amd.com>, <meenakshikumar.somasundaram@amd.com>, Jimmy Kizito
- <Jimmy.Kizito@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
-Subject: [PATCH 20/23] drm/amd/display: Fix for access for ddc pin and aux
- engine
-Date: Mon, 4 Oct 2021 22:40:47 +0800
-Message-ID: <20211004144050.3425351-21-Wayne.Lin@amd.com>
+ <jimmy.kizito@amd.com>, <meenakshikumar.somasundaram@amd.com>, Jude Shih
+ <shenshih@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Subject: [PATCH 21/23] drm/amd/display: Deadlock/HPD Status/Crash Bug Fix
+Date: Mon, 4 Oct 2021 22:40:48 +0800
+Message-ID: <20211004144050.3425351-22-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211004144050.3425351-1-Wayne.Lin@amd.com>
 References: <20211004144050.3425351-1-Wayne.Lin@amd.com>
@@ -85,28 +84,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: da16673d-ad2f-4e48-21dc-08d98745a7ef
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3499:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB34993636B2A99FD6EBE04BDAFCAE9@DM6PR12MB3499.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:151;
+X-MS-Office365-Filtering-Correlation-Id: 8f8271c4-edf9-46c2-6374-08d98745aded
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2486:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2486502ECFDE711D914B7054FCAE9@DM5PR12MB2486.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 97tabuFsc/WSI6hRyCIDXe8KCCA3BSojVeBszOF+yy7E5FxmCpAyHr6Qdp7xCa6gZTDlFE5+zMdKVbnbiR7pkrootE5Lh3OvGheCrXtjqf0rwig4z8gF4vES1e18w6XvOPtSztlAywNKBCfD+waBKRs2nonTvkNs8bdJCQPM9X8c9+6iRFAh/GV5bpZqGEwxVUiJjStSwmYIOO13fkBnOza0KdE5Z+wNfnTH9l7EEY4vcgwn6miSvp6ncDZ/IxhNdcGZkeqco5gwPLlxMxtAxXa2+4INF5nLJxkA6VJ9OpGV4TUfzlKjM71TrZsvmlUQ13/n4wCCe27R6VKgqGDoUlbit+/flpmx8fM9xlYn5QBlZMFGIUIt2lekxHr0ZrsWSoEKeP634d5OuRfsS4tSYAof23vxEwcy2s4yOqLuMGNSJFH24PvXGdX1ezENQVNuHOzFS0PnskknYW0aKwi+LB6YrCLzFcFH5pdnyHIMDIvbUU1V2e5I0gaGPVrTAFkO0tdOpSEppqvTbEKzxsqNY+iFLQsLP9Jf9g8favBCQjn561BhTCoQjeW7qsZ9wOnZGSo7ADtxyaJ/EC/IbTzkp5e0qg39/2a3OZfXOCptoCjKeQk0Ww6JZTCYP739qUtQOVsbDqZ5KaX///YgrmbssspWXbodiBvYPx1UxfbQtmdt5y+zI6OLbSSYc/ht2OuiA3eC7APeJD0j0RbEK10rHsZj8+rBvO0fRnltTOGA/cY=
+X-Microsoft-Antispam-Message-Info: f+IFxxTlu1cbXykyn3zgANir/xLTY5W5wk8kAtgCRPjNDmVIcKmSzx/HYyaNipSEB/wk5RwpvjP+9aggcAzvfJcoczLMGwNg/MywxSTdDZEjgzfM3pmDNNCQCv7I3n3ciIKLsfxFb2HQ8IK35ubwlyhd5dIMKSIGxfk1vW3emgsHxgrsrsgyDvLDOqs5EKf/AV7/oMhYt8+daxG6+XGFi1tE29Wsg2fnFFP7I6c9PIKePNCRxJPn0LeWHjY4o3lUZq/ldjKqLu49a3ULNw3+tT9SizUWsY6Yc0Pn4D4CMW1+rmj+Do2sIcs2VSJ0zl63RxtIPF7EDFoXeYsWAe/s4Wd7CjyG9Can+CWuGT6nj4zoWDCyv3EiJHGUA9k8tHUPYLQWVLglDCv/ToZELD+rL7x/qLoZ66nyQiCNoeUvAKx7oXVk9158LC0XcZEVx6mUcjutiPEMnFgMgmXBbTf7t3ikxThFI0uvX9V1LloLUJPtsssCzmPrKOe6Sl25am2MD1p7Jq+SNnP7AHwNK3l8mjskwTGtV/bLQpU56QJBvzta0jVUIEkyxt/o2VHBjSuTEAvEyjqQB9sFzU6G0t7+fveXRpUrNMGfEywmfkwOB5eQ5qHfR06XdgYuB+zizDR9SmcfT5HDqmA62XYginwFUpvmWgiTWy+v39KJMeIrnjbPoWI90eCLW5kone0S3RWeJmrS91XRuUbBCbHj2jq8GxxXWZiotfsMuf8phbYGzPg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(356005)(5660300002)(81166007)(83380400001)(186003)(26005)(47076005)(6916009)(36860700001)(316002)(54906003)(86362001)(336012)(70206006)(1076003)(36756003)(6666004)(426003)(70586007)(2616005)(508600001)(8676002)(8936002)(7696005)(82310400003)(2906002)(4326008)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(36756003)(82310400003)(2906002)(316002)(70586007)(6916009)(83380400001)(47076005)(70206006)(36860700001)(86362001)(54906003)(2616005)(356005)(5660300002)(26005)(1076003)(7696005)(336012)(426003)(8676002)(508600001)(4326008)(186003)(81166007)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2021 14:45:48.8106 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da16673d-ad2f-4e48-21dc-08d98745a7ef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2021 14:45:58.8677 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f8271c4-edf9-46c2-6374-08d98745aded
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT020.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3499
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2486
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,109 +120,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+From: Jude Shih <shenshih@amd.com>
 
-[Why & How]
-Add codes for commit "b693dfe24d61 drm/amd/display: Fix for null
-pointer access for ddc pin and aux engine" to take USB4 feature
-into account.
+[why]
+1. HPD callback function has deadlock problem
+2. HPD status is not assigned
+3. There is crash due to null pointer
+4. link_enc is NULL in DPIA case
 
-Reviewed-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
+[How]
+1. Fix deadlock problem by moving it out of the
+   drm_modeset_lock
+2. Assign HPD status from the notify of outbox
+   from dmub FW
+3. Fix the crash by checking if pin or enc exists
+4. Use link_enc_cfg_get_link_enc_used_by_link to
+   dynamically assign
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Acked-by: Wayne Lin <Wayne.Lin@amd.com>
-Acked-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+Signed-off-by: Jude Shih <shenshih@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c      | 6 +++---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c | 6 +++---
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c       | 3 +++
- drivers/gpu/drm/amd/display/dc/irq_types.h         | 5 +----
- 4 files changed, 10 insertions(+), 10 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 30 +++++++++++++++----
+ 1 file changed, 24 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 6b5ddf0a29c1..ca5dc3c168ec 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1709,9 +1709,9 @@ static bool dc_link_construct_dpia(struct dc_link *link,
- 
- 	DC_LOGGER_INIT(dc_ctx->logger);
- 
--	/* Initialized dummy hpd and hpd rx */
--	link->irq_source_hpd = DC_IRQ_SOURCE_USB4_DMUB_HPD;
--	link->irq_source_hpd_rx = DC_IRQ_SOURCE_USB4_DMUB_HPDRX;
-+	/* Initialized irq source for hpd and hpd rx */
-+	link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
-+	link->irq_source_hpd_rx = DC_IRQ_SOURCE_INVALID;
- 	link->link_status.dpcd_caps = &link->dpcd_caps;
- 
- 	link->dc = init_params->dc;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-index ce15a38c2aea..b8b1fa0d4ae3 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-@@ -230,7 +230,7 @@ static enum dc_status dpcd_set_lt_pattern(struct dc_link *link,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 41692ae30822..cbf83a6e56b9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -29,6 +29,7 @@
+ #include "dm_services_types.h"
+ #include "dc.h"
+ #include "dc_link_dp.h"
++#include "link_enc_cfg.h"
+ #include "dc/inc/core_types.h"
+ #include "dal_asic_id.h"
+ #include "dmub/dmub_srv.h"
+@@ -648,6 +649,7 @@ void dmub_aux_setconfig_callback(struct amdgpu_device *adev, struct dmub_notific
+ void dmub_hpd_callback(struct amdgpu_device *adev, struct dmub_notification *notify)
+ {
+ 	struct amdgpu_dm_connector *aconnector;
++	struct amdgpu_dm_connector *hpd_aconnector = NULL;
+ 	struct drm_connector *connector;
+ 	struct drm_connector_list_iter iter;
+ 	struct dc_link *link;
+@@ -678,13 +680,15 @@ void dmub_hpd_callback(struct amdgpu_device *adev, struct dmub_notification *not
+ 		aconnector = to_amdgpu_dm_connector(connector);
+ 		if (link && aconnector->dc_link == link) {
+ 			DRM_INFO("DMUB HPD callback: link_index=%u\n", link_index);
+-			handle_hpd_irq_helper(aconnector);
++			hpd_aconnector = aconnector;
+ 			break;
+ 		}
  	}
+ 	drm_connector_list_iter_end(&iter);
+ 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
  
- 	status = core_link_write_dpcd(link,
--				      DP_TRAINING_PATTERN_SET,
-+				      dpcd_tps_offset,
- 				      &dpcd_pattern.raw,
- 				      sizeof(dpcd_pattern.raw));
++	if (hpd_aconnector)
++		handle_hpd_irq_helper(hpd_aconnector);
+ }
  
-@@ -788,7 +788,7 @@ static enum dc_status dpcd_clear_lt_pattern(struct dc_link *link, uint32_t hop)
- 			((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (hop - 1));
+ /**
+@@ -747,7 +751,7 @@ static void dm_dmub_outbox1_low_irq(void *interrupt_params)
+ 	struct dmcub_trace_buf_entry entry = { 0 };
+ 	uint32_t count = 0;
+ 	struct dmub_hpd_work *dmub_hpd_wrk;
+-
++	struct dc_link *plink = NULL;
+ 	if (dc_enable_dmub_notifications(adev->dm.dc)) {
+ 		dmub_hpd_wrk = kzalloc(sizeof(*dmub_hpd_wrk), GFP_ATOMIC);
+ 		if (!dmub_hpd_wrk) {
+@@ -767,6 +771,11 @@ static void dm_dmub_outbox1_low_irq(void *interrupt_params)
+ 				if (dm->dmub_thread_offload[notify.type] == true) {
+ 					dmub_hpd_wrk->dmub_notify = &notify;
+ 					dmub_hpd_wrk->adev = adev;
++					if (notify.type == DMUB_NOTIFICATION_HPD) {
++						plink = adev->dm.dc->links[notify.link_index];
++						if (plink)
++							plink->hpd_status = notify.hpd_status == DP_HPD_PLUG ? true : false;
++					}
+ 					queue_work(adev->dm.delayed_hpd_wq, &dmub_hpd_wrk->handle_hpd_work);
+ 				} else {
+ 					dm->dmub_callback[notify.type](adev, &notify);
+@@ -794,7 +803,8 @@ static void dm_dmub_outbox1_low_irq(void *interrupt_params)
  
- 	status = core_link_write_dpcd(link,
--			DP_TRAINING_PATTERN_SET,
-+			dpcd_tps_offset,
- 			&dpcd_pattern.raw,
- 			sizeof(dpcd_pattern.raw));
+ 	} while (count <= DMUB_TRACE_MAX_READ);
  
-@@ -898,7 +898,7 @@ enum link_training_result dc_link_dpia_perform_link_training(struct dc_link *lin
- 	enum link_training_result result;
- 	struct link_training_settings lt_settings;
- 	uint8_t repeater_cnt = 0; /* Number of hops/repeaters in display path. */
--	uint8_t repeater_id; /* Current hop. */
-+	int8_t repeater_id; /* Current hop. */
+-	ASSERT(count <= DMUB_TRACE_MAX_READ);
++	if (count > DMUB_TRACE_MAX_READ)
++		DRM_DEBUG_DRIVER("Warning : count > DMUB_TRACE_MAX_READ");
+ }
+ #endif
  
- 	/* Configure link as prescribed in link_setting and set LTTPR mode. */
- 	result = dpia_configure_link(link, link_setting, &lt_settings);
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-index 5666543f095b..95cb4d7cc76a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-@@ -627,6 +627,7 @@ int dce_aux_transfer_dmub_raw(struct ddc_service *ddc,
- #define AUX_MAX_I2C_DEFER_RETRIES 7
- #define AUX_MAX_INVALID_REPLY_RETRIES 2
- #define AUX_MAX_TIMEOUT_RETRIES 3
-+#define AUX_DEFER_DELAY_FOR_DPIA 4 /*ms*/
+@@ -2913,7 +2923,6 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
+ 	if (aconnector->base.force && new_connection_type == dc_connection_none) {
+ 		emulated_link_detect(aconnector->dc_link);
  
- static void dce_aux_log_payload(const char *payload_name,
- 	unsigned char *payload, uint32_t length, uint32_t max_length_to_log)
-@@ -772,6 +773,8 @@ bool dce_aux_transfer_with_retries(struct ddc_service *ddc,
- 				/* polling_timeout_period is in us */
- 				if (aux110)
- 					defer_time_in_ms += aux110->polling_timeout_period / 1000;
-+				else
-+					defer_time_in_ms += AUX_DEFER_DELAY_FOR_DPIA;
- 				++aux_defer_retries;
- 				fallthrough;
- 			case AUX_TRANSACTION_REPLY_I2C_OVER_AUX_DEFER:
-diff --git a/drivers/gpu/drm/amd/display/dc/irq_types.h b/drivers/gpu/drm/amd/display/dc/irq_types.h
-index 7a9f667d5edb..530c2578db40 100644
---- a/drivers/gpu/drm/amd/display/dc/irq_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/irq_types.h
-@@ -153,10 +153,7 @@ enum dc_irq_source {
- 	DC_IRQ_SOURCE_DMCUB_OUTBOX,
- 	DC_IRQ_SOURCE_DMCUB_OUTBOX0,
- 	DC_IRQ_SOURCE_DMCUB_GENERAL_DATAOUT,
--	DAL_IRQ_SOURCES_NUMBER,
--	/* Dummy interrupt source for USB4 HPD & HPD RX */
--	DC_IRQ_SOURCE_USB4_DMUB_HPD,
--	DC_IRQ_SOURCE_USB4_DMUB_HPDRX,
-+	DAL_IRQ_SOURCES_NUMBER
- };
+-
+ 		drm_modeset_lock_all(dev);
+ 		dm_restore_drm_connector_state(dev, connector);
+ 		drm_modeset_unlock_all(dev);
+@@ -8101,7 +8110,15 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 		break;
+ 	case DRM_MODE_CONNECTOR_DisplayPort:
+ 		aconnector->base.polled = DRM_CONNECTOR_POLL_HPD;
+-		aconnector->base.ycbcr_420_allowed =
++		if (link->is_dig_mapping_flexible &&
++		    link->dc->res_pool->funcs->link_encs_assign) {
++			link->link_enc = link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
++			if (!link->link_enc)
++				link->link_enc = link_enc_cfg_get_next_avail_link_enc(link->ctx->dc);
++		}
++
++		if (link->link_enc)
++			aconnector->base.ycbcr_420_allowed =
+ 			link->link_enc->features.dp_ycbcr420_supported ? true : false;
+ 		break;
+ 	case DRM_MODE_CONNECTOR_DVID:
+@@ -8216,7 +8233,8 @@ create_i2c(struct ddc_service *ddc_service,
+ 	snprintf(i2c->base.name, sizeof(i2c->base.name), "AMDGPU DM i2c hw bus %d", link_index);
+ 	i2c_set_adapdata(&i2c->base, i2c);
+ 	i2c->ddc_service = ddc_service;
+-	i2c->ddc_service->ddc_pin->hw_info.ddc_channel = link_index;
++	if (i2c->ddc_service->ddc_pin)
++		i2c->ddc_service->ddc_pin->hw_info.ddc_channel = link_index;
  
- enum irq_type
+ 	return i2c;
+ }
 -- 
 2.25.1
 
