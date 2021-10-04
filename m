@@ -2,129 +2,133 @@ Return-Path: <SRS0=otPk=OY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43CC9C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5815C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:27:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1CA4610FC
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:00:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1CA4610FC
+	by mail.kernel.org (Postfix) with ESMTPS id 7000861207
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Oct 2021 15:27:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7000861207
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59B1F6EA00;
-	Mon,  4 Oct 2021 15:00:13 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2054.outbound.protection.outlook.com [40.107.96.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC0A76EA00
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Oct 2021 15:00:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09FF46EA2C;
+	Mon,  4 Oct 2021 15:27:26 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2088.outbound.protection.outlook.com [40.107.236.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DFD46EA25;
+ Mon,  4 Oct 2021 15:27:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Eo0P8/uixDBiBcHfiuCUGgvv8RJJFXMC57mcubPG5Zbg09GxSvNu0pEZGo9Naj7qCrGgI+BRejiv9PUCQ1ciM0Z+PMLSCtWL79LY1q8AJLmOl1hWc7V6aYhYsy2P+yOQJg1V3evHQnHfDLCJRv3/V59ZFSR8pl0VmwW0wAAHx/kvdZ/M1BAl512c9UvhkqsMKJcEpGonodTlYG+udlr2fYHkiIEyvK52xPprfWd2UDVHWfHFs37M4VXtNa0d00z2L1wEYTeg+MefM5TKfPRiNwgWlx/LxSKGkmx6RXKgwE+QLnCuGI6rW46d+Bhytf/bA0FLblIHiXF5xwJKrVk57g==
+ b=W9QnJe1pZBdfI76D5G1n/0XNSmCXgtojqyWecmuKKFz8Go2fpzhBeo6tmtHfiyShiJHYgbD0IPgpEGyH14kj3TNXQ9IJFsjdLcH2L33ooBt7PvKLChAH4vK3Ccjwwtj2PJUrH8LZKI/GlrFmbwmmae3l54cLls6XwBVEDdlRu5Q7ifmGBSQd7+Ski0tfpJ7iTcSOidN1rWRMEW37Q6PhinX7E++QPvYq3kf+GQ44xbXEgRMHnqHLLW/TkxxHhcSVFlmCQThXj+cvsjU07BAGUfnApqHus/tm4GKnIui1s+VCfFkBwAa+ro7n7zJwF4oNvOoA+paH2pFu4abB/SjWjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BwwfsvQ5Gs3rKKc+Ekv1w1MH2nENcqNIZVqmap5vZFI=;
- b=Iqrf0ZT6zFVvzQh3pxJDdylvVmkpJ+WmSe04qO5vA/BsaPWwXQUIvjFLWjEuwMvyu9dUbo9v6jmWWiKVP+cxo8zHO6Zsg9qL2znomgynw0ZXuRfSEVfSYJJMFx85IhiNW2hUQNfG68d+pFQrX2hjwgtiYjC9wTeyJ0Do8AblFk7AXCO1JPJFSH+ArtKNTKGyHWEXv5fhKhhi9pgZrGkV9LTuvZHGB0ixGWa8ejnK/FBNfGZ8P+TakHVn+QrN9sQlq1J9U3hlAPPiruTxW56bwlOi0JQtCMI2SYQFMtR5t3fUqysgG+1hqY/kxJul/xO0helHJqkqDSvZR7X1e6gnVQ==
+ bh=pppmBjIrgcfim7viWeF35IW4/FuOQts6CdmkYNbchNs=;
+ b=d2WXiaUq3L1eh8Hs3AC2U8wI/5QCNqVouim62GtUipi3oMi2G0zao4V/6LKWtctr8qKghXT5R8Ivnp0DJrhMlpGdd+4UBZXeVyJTqadQNFZSpZMeD0GaaIjf/78IKxx3gDdpM9QKF3fxIzg/rjwsSRk5HNEp7QEsuWNORmqBgARKkV/z7C40qA1tQH2xlOR2g+FG+EJWAEFDlWlXkZHmaoNEEBmDg1CVYeQGNDY1/kpxypLRFDmuj7Kb4tlAkUnM+LslLEA9y59cQa77Vr3ynVXVZ8TBtpLk3kGjGcXPALnJzD0gLQb4i6qKmNy7M98F2FNUta5IUxFk4pXwyoetRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BwwfsvQ5Gs3rKKc+Ekv1w1MH2nENcqNIZVqmap5vZFI=;
- b=k23miP/I3q5E86hlUtocTc5qjP4x/Vxu52vtNSdt+IIpuT/1czwTvWpL1+DHJgkfEXH6zPOS7ZxiVXBkzH7Cw0wa9/EdCQUdRd9ovFTnzeFnjHeFFHaMO9M8PKedYYxNLFJ92z0mdJbLSIlsNjltlqx66qitARHXCoShziq4zUU=
+ bh=pppmBjIrgcfim7viWeF35IW4/FuOQts6CdmkYNbchNs=;
+ b=avUm3/QhqLhM74IeXfvZK0BaYbGKz9n+dcAYUXAzfCg2op5BIoGMp9qbz8CjPz/lnrwzWfkAPNTq919hDqzowpKHhdpUIZy1x1gVZhj9AVFVEsPFLjaHL+dwBwjJKhp3AVKrnj7xe4wfdFhMIvkufugUGB3EJi9zCbTfph/SzSo=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM5PR1201MB2491.namprd12.prod.outlook.com (2603:10b6:3:eb::23)
- by DM5PR12MB1242.namprd12.prod.outlook.com (2603:10b6:3:6d::18) with
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DM6PR12MB3482.namprd12.prod.outlook.com (2603:10b6:5:3d::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.17; Mon, 4 Oct
- 2021 15:00:06 +0000
-Received: from DM5PR1201MB2491.namprd12.prod.outlook.com
- ([fe80::70bf:51ab:7cba:45c2]) by DM5PR1201MB2491.namprd12.prod.outlook.com
- ([fe80::70bf:51ab:7cba:45c2%2]) with mapi id 15.20.4566.022; Mon, 4 Oct 2021
- 15:00:06 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: init iommu after amdkfd device init
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20210928082819.205231-1-yifan1.zhang@amd.com>
- <20210928082819.205231-2-yifan1.zhang@amd.com>
- <11cc6ad8-5c08-6846-930b-f935c1e29936@amd.com>
- <DM5PR12MB18849F60DEE73D7FB8E20017E4A99@DM5PR12MB1884.namprd12.prod.outlook.com>
- <BN6PR12MB11875C3AC679F399E01C5D12C1AE9@BN6PR12MB1187.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <58199fef-3e27-4c18-07cc-a8d4fe8d0b29@amd.com>
-Date: Mon, 4 Oct 2021 11:00:04 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15; Mon, 4 Oct
+ 2021 15:27:20 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::3153:3d7b:e216:74c0]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::3153:3d7b:e216:74c0%11]) with mapi id 15.20.4566.022; Mon, 4 Oct 2021
+ 15:27:20 +0000
+Subject: Re: Lockdep spalt on killing a processes
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+References: <73c163b4-1917-1cde-b75f-831ac66f6ea0@amd.com>
+ <2090e8e6-4b0a-4b75-a776-64dde1ecdfd5@amd.com>
+ <152adb05-e863-525a-f586-ecccb39a4724@gmail.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <d4b3524e-719b-ca68-bcf3-f3574922be01@amd.com>
+Date: Mon, 4 Oct 2021 11:27:17 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <BN6PR12MB11875C3AC679F399E01C5D12C1AE9@BN6PR12MB1187.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <152adb05-e863-525a-f586-ecccb39a4724@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0127.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::6) To DM5PR1201MB2491.namprd12.prod.outlook.com
- (2603:10b6:3:eb::23)
+X-ClientProxiedBy: YTOPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::25) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
-Received: from [192.168.2.100] (142.118.126.231) by
- YT1PR01CA0127.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.13 via Frontend Transport; Mon, 4 Oct 2021 15:00:06 +0000
+Received: from [IPv6:2607:fea8:3edf:49b0:bc6f:8108:e4c4:3301]
+ (2607:fea8:3edf:49b0:bc6f:8108:e4c4:3301) by
+ YTOPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.17 via Frontend
+ Transport; Mon, 4 Oct 2021 15:27:19 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d9d186fa-05d2-40d7-ae2d-08d98747a6f9
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1242:
+X-MS-Office365-Filtering-Correlation-Id: 9154a2db-9d18-4949-a290-08d9874b7481
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3482:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB124274731033FD07532E767192AE9@DM5PR12MB1242.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3482A230C7FC37B1FABE2487EAAE9@DM6PR12MB3482.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ddS8ZaT0aolg41702kksGtbocXPMxSK4xO8g6v+VsaMfJlEkMKDJhNEL82J8GeA4SdWxlWQDThI4uxP8QXXM+pv8DaEjHD8AaaTRXNWWCYra4ZWsYaI+NC72ilOesLE1/t3jx6s93lFptclTdBbj/UmkXR5QkAIChzY6UFQNKFY/H7OEXxav/02lAtxt1w84rsYREirK8rWLvimFe8mtgnu3ur/zl0cpk5f5lPZwp00b8R+51IKSk3Q1LjltkSduEWLpNS5xo76/3v0hvmkedperNesalG4XVc4tNQtKJjWlyy9ZXyuPzTjvAB9Z6vPOzpUwUOZ3w8Dy8sqWNKRlx87bpE97PsYQCHI4HCIndut+g0aYj0/GrbmrCiAj4fNVErGh7hRHoh0Uv25BEp0KvtPLUGi5OWAzVdnSAUDaSxWKhSfVuVBJ9HUinZ2R0gPg2/OaD1n8CA44IvFcUAWC6KaPlHtW+LloG1Qx3vArAdGyjRxJzILwFfrzyoOcf7GUtSlQsgnkKXn5lCsGGkOb37XUW7/zYjETp25eEyVe/DepGH9nL/b9F0Yg052ryfcq0K5NWQfg2YZOgvs6WvBsn8yv+TnXqgf9mD/hXZiSjeDDcKEFpsshN6uw8s878onpIBpqesDe1cWNCIhpv7qSuMumsuDQ8e9o6YPQD6jdi9+hQ/vWQD43hHdu3YzPZUKpqZOs69Psc63qRyuUTXUsIAvA3EaiKBR36BJnev8+3xpbjKGZLRV5uSzFGNRDT2j9
+X-Microsoft-Antispam-Message-Info: HO9+cR8BDlf1vh/PdEjSUqrJufg67Jic97DoEUhWFWx7VBO1RbV/NxUK653bMwkXq7pgmK71KqMPdw1VakRjbB/wrW0YYuiEyxiGx+YdsixSSlrYwjrgQlEfPpVLBYSqmkESMYkhVXTGvOhoGc7C0yMeqY9MIAYXLBwEAophu1yR2xOipVb/yS06j5fdSHPnaywwYdhOl3XespMx3qcsHmx4QrYzziSrFAWZtu9jj6YFn4Dx1T4qFrZdNzQi6y8jTb+NB8kGldYi0NQQKiWHhHhiNkxxnxXJkpexOyIXqAU+Sfbf8XqGxDfeKbz9wMGjVCkLeLgjv8bRHEjE/Y+CXxSWKy5flHDVUQKl511oRV8Fy0UBWsn5ZaZANOoS6cCGB8ErR0x/DBrCKolxXn2pyZShUrgndGmVCT1IdGMhjwBC627akawE/J2W6k5Txi/hqLOpjbvlAAXg0hEpkkH9qSTP+hEfM3DjkQjtlyJBJXbT/+t+CvMAkM4Q20A5JrOM/cG7zzyz4e1cd6IXpU/Ob7xa/de4gzXxSmkGh+5qJJXvoLiv6FRvA5H8QRsNEUJJby3phmZeHZmVxPP5Jq6s7blinI/9jd4iKaC1dhEVCMglCh78kqB0VlR7QLXFI1sJJWXBa0B1iZNXNj4mOaehjw8BfYRuglEtgMC4SS0TciHlZ0hjeWjvfug4rsBonq6UcchgS+wSGiVVIMZejZGc7zmrhh6ejNebqQIO8mNI4ng8iFWWvWL6FIeZpe82x98q
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR1201MB2491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(8936002)(38100700002)(66476007)(66556008)(5660300002)(110136005)(36756003)(8676002)(16576012)(66946007)(6486002)(44832011)(83380400001)(31686004)(186003)(956004)(2616005)(31696002)(2906002)(86362001)(26005)(508600001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6486002)(110136005)(66946007)(316002)(31686004)(66556008)(31696002)(53546011)(86362001)(508600001)(66476007)(2616005)(8936002)(8676002)(5660300002)(186003)(36756003)(66574015)(83380400001)(2906002)(38100700002)(44832011)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SktBWE1wZ3AyOERjZ1ZFWXRRb3hYRmlUQXkxK3c1RnZHalZsSmFvWEN0Q01x?=
- =?utf-8?B?WVZnR0l4VjZRb0tDUTd3dW0vZ2VHcjI5OFVtTFQ3Y2pBTkJ2WmNYK1IwQ1hH?=
- =?utf-8?B?NFgzY1B6aStpRm1oSkJvWWVMZ2xhZVBuUHpBbHNhWjU5V1FoVmNrNitFRGNq?=
- =?utf-8?B?bXN5Ty94dWdjYTNXZUxIMGgyM0xyNkpXRmRKZEhVLytZYW9vMzk4YWo1Uk1q?=
- =?utf-8?B?bVRESk9ITzhlR1FXckhrVVpSS0N0SXJxM3dXR0xqc0ZoK3NyU25UWmk3QmN5?=
- =?utf-8?B?c1hra2V1aXNqdndFaTI4TTdwRURYSXBWNFpwVUdROUVqTEZ2cmVtRXhvSllU?=
- =?utf-8?B?QVdESWZ5WVE1aW1mazZnWkJOcUFwS1E4UTNSeU5CVkZTbENDald1ejJjY0Ns?=
- =?utf-8?B?WEg1SWhWQkwzbktjYXlQQTRmNThTUHNGYmF0ZklhZy9jelVqVEhsVkF0WWYr?=
- =?utf-8?B?STR6eGlrVlpZd0taRE52aHg1OERYVnVyYmcrRTZJS3lVNSswRmFEZjYwMFZz?=
- =?utf-8?B?OHB1czhRWjdBYklYQzlFSWxCcUllYm9ZdFRHN3N1VzVHMm9RdFRiVlFkRUZu?=
- =?utf-8?B?MStwZ1V0VG9oZ0xrWE4vNitaYWlvYU12NGU3d2NldWw1VE5uLzZORWRaRjdv?=
- =?utf-8?B?RS95YTNYai9wZjlBbHlkOVN3dHFuV0ZsNkRpMERiZ0xzZGxkSWNPVVZ0aFpN?=
- =?utf-8?B?Y1Z4OWNNYXZ4STFqeTNubVY1b0dOaFhRZlZEOTJVV3ppaXROR2lmUEx5Tm53?=
- =?utf-8?B?bXFVczMvN0JGUTYrMDNTZEIzZFU1Vy80RUR0U0JMT0ViR3FuN1pzcTFFNHFn?=
- =?utf-8?B?SGhmMHRUK3preW9iQ0dqR2l2RHNVOVpnc2FWZmRPVkcrVHZUbS9NYlFGaXhr?=
- =?utf-8?B?MWJCZGNSdHp0L2VXSHJ6QWR5dlBBZ0xPckRBZ08yZXoyRWRlVEdINXl0QTdN?=
- =?utf-8?B?NENwQU0yUjd6Y09zZkNkUXFlSjdVaFNBN09SNXB3d3ltMFJKT3dDTW82ZXZz?=
- =?utf-8?B?cXBGNHRtZTIwWTBSZmoyUFFhb1VRNElIVUo3OGtyMEV3bUNvMkoxcTJ1RXNK?=
- =?utf-8?B?eUcyV0RTZVlvUnFmSDRxZWF4YmNHS2NtWjBndk9NdWtka3dTZlVKTXQ0VU1J?=
- =?utf-8?B?K0pScDluQ2k2NUYvMXZYYmlsQlJ1MnRiRXVoWFVxZS9yN0hhOHlkMVdYLytH?=
- =?utf-8?B?MmxHdEVJbU0yZkQ3Y3krL09IVTI2dGJudUppK1NVYUpVcnJSbFVNQmcwNlRJ?=
- =?utf-8?B?YVNnVlh1R1lSVlhqNkg5Z2RJdDBsQWRBcjYyNWx6dTFGVk8rbU5zbi9VQnU5?=
- =?utf-8?B?aGpxbHZ4Q3R6YW5UTG53K0FOeTBJdThUYkdOR3pHc25ibkpFU1hIbjQwUitX?=
- =?utf-8?B?V2k5dFRkazlRZUVNV29YcC93Z2cwa2lsYlhQKzN3MG1YVEpmSzBHUkM2QzBi?=
- =?utf-8?B?VTAwNi9SM3RuNkhycStWeVZuZEcxdG9TZHlzTUo1dG1sWExzS0xxbDloTWt4?=
- =?utf-8?B?cm9kaXNqeDYrRFFRaUQzV1NhQ2gxTVhNdjhLVytIT3BuNWNMWkNmZEowV1kr?=
- =?utf-8?B?a1JyVm11VDM4MHNkVjJWVUlUOG9sam93aFJqKzYzR0Z2YkQ1M2VoSXQ0WkZ1?=
- =?utf-8?B?aDh6UWEvWUM1U09VbTNlNGx1ek4rQVdRYi9hdHdrbzFKRnBTT1YvblczNTFn?=
- =?utf-8?B?MFRSVFJVTXhaczl0QktaOHFvNk9mSkJ1STVPSm4xRHpTc1oybDdUSjhwWUhX?=
- =?utf-8?Q?IR6vKBaHrqO13udNDYyJgY/iEpy+puZ9UcoGvC3?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2NGQW1LMllnOW54SjlYWmw2Z3Jqa3NVUlJzVmNtaEZQNHpLQ2ppWU9SbFo3?=
+ =?utf-8?B?ankySlB6YnRFYUd6TnBzQWF4QmhsRVNBQTNFQnlpNmNMc3kyaGhUNW0wVjhH?=
+ =?utf-8?B?V0taSTFmNDB1RjBPdEsxWXpUbFZXVk81dG1qNHJWWVB0em5pL2dQRkc0Uld6?=
+ =?utf-8?B?QjgvWWRnUk15WTZJNFI4Y2crY3RuUUtqMC9NaUcrdjBZZTNwT1ZMZmR6SDNl?=
+ =?utf-8?B?dDBqVnpJUTJxR2huWlBHcE5VMFhwZEhWUy9JUDNSNkFOclJvSnZkcVZCZ0Q3?=
+ =?utf-8?B?aUZlc2o1cndNMjFlemF0RjRhR0s4dkdXb0hsWEI1QnJDR3k3V2hCRjBmMTFU?=
+ =?utf-8?B?UUNQWmNMV0M2VWR3MUlKN3E2V2R6OW9DdzFFc1Y0dnU4YjhlR0JQdkRBemxi?=
+ =?utf-8?B?Rjd2S3czODVTTUdEQnppMlg2K2RMSVZZTHY3aDhRMWY0OGM4M2pWdFBQM29m?=
+ =?utf-8?B?VW53amdxOS8zMEptK0hZQnQ1MlY0SlNiblIzZW5oaVV5eUlLYzdNQ3dDNDVE?=
+ =?utf-8?B?TlZja1g4L2liaWZKMndpbnZ5UHZLeE0xQ3BwODhyalZNNGZWNFVwWGUrL2do?=
+ =?utf-8?B?RXJwY3R4LzNWL3BXZ1d5OUk5a1dzMStXcVNnSUpzbjRVRlhvVVZWT2hUK0Mw?=
+ =?utf-8?B?c1hWQ095dTZ5UmxTajdwbU8vaS94c0x6cERNY1FZOFNkcE9OZ0V5OXIzQm1X?=
+ =?utf-8?B?NlBoNUliMDlWYk1QVVFISGpxbTZOUGVXT3dtTWNPNDVyS1d5VFFKbVNOMlZN?=
+ =?utf-8?B?d3dVZEpZWEVWUW4rT09wUnpTZ3N1MzBVU3g1UXhSc2F5QmdtZkFUWExTVmNO?=
+ =?utf-8?B?bHlrMHVydGdzY0djWGFFUUo3UEtMZENuaVF6SzhnS0ZDVlpUMEQ2cDlPUTlo?=
+ =?utf-8?B?cmlaZTlETTZhMmZCamZSa2tneUVkTUlrWHNDeDlvSldhNEMrcXdDb3QwMVZL?=
+ =?utf-8?B?UGUyekkyS0NwclNjZmRGbU53QlFwZXlUMmZYOXVyUmdCdTc4bURGQ08xM202?=
+ =?utf-8?B?QmwvRGV0b1FnaGhteWxaYVZRQWhiOTQyVUZ2WVAvWVdLVzJYWFJPVGtBaUlX?=
+ =?utf-8?B?UVdnd1RaMHNrZEl3ZHdOb0xuT08vdVBpUW9YK1MvdWh6QmFueFVvZjNMdWEx?=
+ =?utf-8?B?Vzc5SjJYVmdWNHV3KytNNktvMmt6Tk1wTUFDbURkK3RxUVk4TE1YZ2J4dzBD?=
+ =?utf-8?B?SEwraXVYUU5WUURsSzNDUk9uamJ4NUhhc0gvRU0yTVYrYnlLY1I2SWJBQmEv?=
+ =?utf-8?B?T1N1cWNDTW05TEhIOUUzZHlpd21mamo3aXJ1dDZOcGJiLzM3SWM4VU5DWG1z?=
+ =?utf-8?B?aDhhd2FUMVdRdzc5c1BTSjVWalQrU3EwUzYwY2hzSnd4d1UzSG0wejZYbDlI?=
+ =?utf-8?B?RGhQYUhoV1FJZVRBWnU3SlJUR1dhVXRXZHBsZVpQcXRrWGJnTGt6SnlLYzZD?=
+ =?utf-8?B?WS9jVHM1SEdSM2pqdGtHODhJVENnUXN3SWMvd3Z0VVFLdktUREtQMm4vRUpE?=
+ =?utf-8?B?R1FYQVAxdHR4SG9Cd2hQV09WbDEzRnh4d0dNMGJTVE1hUnFmVXpzUzZTckhG?=
+ =?utf-8?B?Z0FGREgvSUhpU0xMWHlpTWlMbERoTUt5bURoOTU5L1ZlQ0RwOWs1OXI4elc2?=
+ =?utf-8?B?YTJaaE1EWFFxRTdvWDdnYVVGVm4xK1BnR1JWU0gvSWpjUGQyU0FEQWxrTzJu?=
+ =?utf-8?B?YkM2UWExN3VISXhqeUYrTHNUcURQV1hjcElralEzdTVLSkpxYWJMS05QRGlv?=
+ =?utf-8?B?R0IrbUo1bG84anY0dVVCK0ZxWTNzMmwvWGNOWjZHZU5MTnhsdXp5TDQvM3pG?=
+ =?utf-8?B?TmE5MWtmOU5JWGFrQVpEWHl3V2kwb2FaSmFrTThJMk83dDRvZ0NEaDB2bGQ4?=
+ =?utf-8?Q?k4KExFDRHEPvb?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9d186fa-05d2-40d7-ae2d-08d98747a6f9
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB2491.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9154a2db-9d18-4949-a290-08d9874b7481
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2021 15:00:06.4444 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2021 15:27:19.8784 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Cblsi+zj04Oyg6v04yXUthkkY8vGDNnm9xxjk/Do/vgfNBaRNgWMWgWAGEKhzwblQtjj1qjCWUgWc0PSS00GWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1242
+X-MS-Exchange-CrossTenant-UserPrincipalName: PReMlSLyiyiALaEKgPtsG3nCGyRC7LYtwEhuts96/oeZWF5Ffynd5JEF74L2o82ADZ57sDiUdTAs7ZUAzMl5Dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3482
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,152 +143,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I'm trying to understand what the end result is after James' and your
-patches. If I'm reading it correctly, we now initialize IOMMUv2 after
-kfd_device_init during initialization, but before kfd_device_init during
-resume from S3. Is  that the correct understanding?
+I see my confusion, we hang all unsubmitted jobs on the last submitted 
+to HW job.
+Yea, in this case indeed rescheduling to a different thread context will 
+avoid the splat but
+the schedule work cannot be done for each dependency signalling but 
+rather they way we do
+for ttm_bo_delayed_delete with a list of dependencies to signal. 
+Otherwise some of the schedule
+work will be drop because previous invocation is still pending execution.
 
-My concern is, that we may run into related problems again if the root
-cause and the mechanism of the fix are poorly understood. Do you have an
-explanation why this different sequence is needed during init and resume?
+Andrey
 
-That said, given that your patches are tested and reviewed by James, you
-can add my Acked-by to both patches. The series is
-
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-Thanks,
-  Felix
-
-
-Am 2021-10-04 um 5:42 a.m. schrieb Zhang, Yifan:
+On 2021-10-04 4:14 a.m., Christian König wrote:
+> The problem is a bit different.
 >
-> [AMD Official Use Only]
+> The callback is on the dependent fence, while we need to signal the 
+> scheduler fence.
 >
->  
+> Daniel is right that this needs an irq_work struct to handle this 
+> properly.
 >
-> Hi Felix,
+> Christian.
 >
->  
->
-> After sync w/ James, we agree that this patch series could fix both
-> our problems, and he verified this patch series will not cause
-> regression of his previous issue. Do you have more comments regarding
-> this patch series ? Thanks.
->
->  
->
-> BRs,
->
-> Yifan
->
->  
->
-> *From:* Zhu, James <James.Zhu@amd.com>
-> *Sent:* Wednesday, September 29, 2021 9:19 PM
-> *To:* Kuehling, Felix <Felix.Kuehling@amd.com>; Zhang, Yifan
-> <Yifan1.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
-> *Subject:* Re: [PATCH 2/2] drm/amdgpu: init iommu after amdkfd device init
->
->  
->
-> [AMD Official Use Only]
->
->  
->
-> H Felix,
->
->  
->
-> Since the previous patch can help on PCO suspend/resume hung issue.
-> Let me work with YiFan to see if
->
-> there is proper way to cover both cases.
->
->  
->
-> Thanks & Best Regards!
->
->  
->
-> James Zhu
->
-> ------------------------------------------------------------------------
->
-> *From:*Kuehling, Felix <Felix.Kuehling@amd.com
-> <mailto:Felix.Kuehling@amd.com>>
-> *Sent:* Tuesday, September 28, 2021 11:41 AM
-> *To:* Zhang, Yifan <Yifan1.Zhang@amd.com
-> <mailto:Yifan1.Zhang@amd.com>>; amd-gfx@lists.freedesktop.org
-> <mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org
-> <mailto:amd-gfx@lists.freedesktop.org>>; Zhu, James <James.Zhu@amd.com
-> <mailto:James.Zhu@amd.com>>
-> *Subject:* Re: [PATCH 2/2] drm/amdgpu: init iommu after amdkfd device
-> init
->
->  
->
-> [+James]
->
-> This basically undoes James's change "drm/amdgpu: move iommu_resume
-> before ip init/resume". I assume James made his change for a reason. Can
-> you please discuss the issue with him and determine a solution that
-> solves both your problem and his?
->
-> If James' patch series was a mistake, I'd prefer to revert his patches,
-> because his patches complicated the initialization sequence and exposed
-> the iommu init sequence in amdgpu.
->
-> Thanks,
->   Felix
->
->
-> Am 2021-09-28 um 4:28 a.m. schrieb Yifan Zhang:
-> > This patch is to fix clinfo failure in Raven/Picasso:
-> >
-> > Number of platforms: 1
-> >   Platform Profile: FULL_PROFILE
-> >   Platform Version: OpenCL 2.2 AMD-APP (3364.0)
-> >   Platform Name: AMD Accelerated Parallel Processing
-> >   Platform Vendor: Advanced Micro Devices, Inc.
-> >   Platform Extensions: cl_khr_icd cl_amd_event_callback
-> >
-> >   Platform Name: AMD Accelerated Parallel Processing Number of
-> devices: 0
-> >
-> > Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com
-> <mailto:yifan1.zhang@amd.com>>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 4c8f2f4647c0..89ed9b091386 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -2393,10 +2393,6 @@ static int amdgpu_device_ip_init(struct
-> amdgpu_device *adev)
-> >        if (r)
-> >                goto init_failed;
-> > 
-> > -     r = amdgpu_amdkfd_resume_iommu(adev);
-> > -     if (r)
-> > -             goto init_failed;
-> > -
-> >        r = amdgpu_device_ip_hw_init_phase1(adev);
-> >        if (r)
-> >                goto init_failed;
-> > @@ -2435,6 +2431,10 @@ static int amdgpu_device_ip_init(struct
-> amdgpu_device *adev)
-> >        if (!adev->gmc.xgmi.pending_reset)
-> >                amdgpu_amdkfd_device_init(adev);
-> > 
-> > +     r = amdgpu_amdkfd_resume_iommu(adev);
-> > +     if (r)
-> > +             goto init_failed;
-> > +
-> >        amdgpu_fru_get_product_info(adev);
-> > 
-> >  init_failed:
+> Am 01.10.21 um 17:10 schrieb Andrey Grodzovsky:
+>> From what I see here you supposed to have actual deadlock and not 
+>> only warning, sched_fence->finished is  first signaled from within
+>> hw fence done callback (drm_sched_job_done_cb) but then again from 
+>> within it's own callback (drm_sched_entity_kill_jobs_cb) and so
+>> looks like same fence  object is recursively signaled twice. This 
+>> leads to attempt to lock fence->lock second time while it's already
+>> locked. I don't see a need to call drm_sched_fence_finished from 
+>> within drm_sched_entity_kill_jobs_cb as this callback already registered
+>> on sched_fence->finished fence (entity->last_scheduled == 
+>> s_fence->finished) and hence the signaling already took place.
+>>
+>> Andrey
+>>
+>> On 2021-10-01 6:50 a.m., Christian König wrote:
+>>> Hey, Andrey.
+>>>
+>>> while investigating some memory management problems I've got the 
+>>> logdep splat below.
+>>>
+>>> Looks like something is wrong with drm_sched_entity_kill_jobs_cb(), 
+>>> can you investigate?
+>>>
+>>> Thanks,
+>>> Christian.
+>>>
+>>> [11176.741052] ============================================
+>>> [11176.741056] WARNING: possible recursive locking detected
+>>> [11176.741060] 5.15.0-rc1-00031-g9d546d600800 #171 Not tainted
+>>> [11176.741066] --------------------------------------------
+>>> [11176.741070] swapper/12/0 is trying to acquire lock:
+>>> [11176.741074] ffff9c337ed175a8 (&fence->lock){-.-.}-{3:3}, at: 
+>>> dma_fence_signal+0x28/0x80
+>>> [11176.741088]
+>>>                but task is already holding lock:
+>>> [11176.741092] ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, at: 
+>>> dma_fence_signal+0x28/0x80
+>>> [11176.741100]
+>>>                other info that might help us debug this:
+>>> [11176.741104]  Possible unsafe locking scenario:
+>>>
+>>> [11176.741108]        CPU0
+>>> [11176.741110]        ----
+>>> [11176.741113]   lock(&fence->lock);
+>>> [11176.741118]   lock(&fence->lock);
+>>> [11176.741122]
+>>>                 *** DEADLOCK ***
+>>>
+>>> [11176.741125]  May be due to missing lock nesting notation
+>>>
+>>> [11176.741128] 2 locks held by swapper/12/0:
+>>> [11176.741133]  #0: ffff9c339c30f768 
+>>> (&ring->fence_drv.lock){-.-.}-{3:3}, at: dma_fence_signal+0x28/0x80
+>>> [11176.741142]  #1: ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, at: 
+>>> dma_fence_signal+0x28/0x80
+>>> [11176.741151]
+>>>                stack backtrace:
+>>> [11176.741155] CPU: 12 PID: 0 Comm: swapper/12 Not tainted 
+>>> 5.15.0-rc1-00031-g9d546d600800 #171
+>>> [11176.741160] Hardware name: System manufacturer System Product 
+>>> Name/PRIME X399-A, BIOS 0808 10/12/2018
+>>> [11176.741165] Call Trace:
+>>> [11176.741169]  <IRQ>
+>>> [11176.741173]  dump_stack_lvl+0x5b/0x74
+>>> [11176.741181]  dump_stack+0x10/0x12
+>>> [11176.741186]  __lock_acquire.cold+0x208/0x2df
+>>> [11176.741197]  lock_acquire+0xc6/0x2d0
+>>> [11176.741204]  ? dma_fence_signal+0x28/0x80
+>>> [11176.741212]  _raw_spin_lock_irqsave+0x4d/0x70
+>>> [11176.741219]  ? dma_fence_signal+0x28/0x80
+>>> [11176.741225]  dma_fence_signal+0x28/0x80
+>>> [11176.741230]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
+>>> [11176.741240]  drm_sched_entity_kill_jobs_cb+0x1c/0x50 [gpu_sched]
+>>> [11176.741248]  dma_fence_signal_timestamp_locked+0xac/0x1a0
+>>> [11176.741254]  dma_fence_signal+0x3b/0x80
+>>> [11176.741260]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
+>>> [11176.741268]  drm_sched_job_done.isra.0+0x7f/0x1a0 [gpu_sched]
+>>> [11176.741277]  drm_sched_job_done_cb+0x12/0x20 [gpu_sched]
+>>> [11176.741284]  dma_fence_signal_timestamp_locked+0xac/0x1a0
+>>> [11176.741290]  dma_fence_signal+0x3b/0x80
+>>> [11176.741296]  amdgpu_fence_process+0xd1/0x140 [amdgpu]
+>>> [11176.741504]  sdma_v4_0_process_trap_irq+0x8c/0xb0 [amdgpu]
+>>> [11176.741731]  amdgpu_irq_dispatch+0xce/0x250 [amdgpu]
+>>> [11176.741954]  amdgpu_ih_process+0x81/0x100 [amdgpu]
+>>> [11176.742174]  amdgpu_irq_handler+0x26/0xa0 [amdgpu]
+>>> [11176.742393]  __handle_irq_event_percpu+0x4f/0x2c0
+>>> [11176.742402]  handle_irq_event_percpu+0x33/0x80
+>>> [11176.742408]  handle_irq_event+0x39/0x60
+>>> [11176.742414]  handle_edge_irq+0x93/0x1d0
+>>> [11176.742419]  __common_interrupt+0x50/0xe0
+>>> [11176.742426]  common_interrupt+0x80/0x90
+>>> [11176.742431]  </IRQ>
+>>> [11176.742436]  asm_common_interrupt+0x1e/0x40
+>>> [11176.742442] RIP: 0010:cpuidle_enter_state+0xff/0x470
+>>> [11176.742449] Code: 0f a3 05 04 54 24 01 0f 82 70 02 00 00 31 ff e8 
+>>> 37 5d 6f ff 80 7d d7 00 0f 85 e9 01 00 00 e8 58 a2 7f ff fb 66 0f 1f 
+>>> 44 00 00 <45> 85 ff 0f 88 01 01 00 00 49 63 c7 4c 2b 75 c8 48 8d 14 
+>>> 40 48 8d
+>>> [11176.742455] RSP: 0018:ffffb6970021fe48 EFLAGS: 00000202
+>>> [11176.742461] RAX: 000000000059be25 RBX: 0000000000000002 RCX: 
+>>> 0000000000000000
+>>> [11176.742465] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 
+>>> ffffffff9efeed78
+>>> [11176.742470] RBP: ffffb6970021fe80 R08: 0000000000000001 R09: 
+>>> 0000000000000001
+>>> [11176.742473] R10: 0000000000000001 R11: 0000000000000001 R12: 
+>>> ffff9c3350b0e800
+>>> [11176.742477] R13: ffffffffa00e9680 R14: 00000a2a49ada060 R15: 
+>>> 0000000000000002
+>>> [11176.742483]  ? cpuidle_enter_state+0xf8/0x470
+>>> [11176.742489]  ? cpuidle_enter_state+0xf8/0x470
+>>> [11176.742495]  cpuidle_enter+0x2e/0x40
+>>> [11176.742500]  call_cpuidle+0x23/0x40
+>>> [11176.742506]  do_idle+0x201/0x280
+>>> [11176.742512]  cpu_startup_entry+0x20/0x30
+>>> [11176.742517]  start_secondary+0x11f/0x160
+>>> [11176.742523]  secondary_startup_64_no_verify+0xb0/0xbb
+>>>
 >
