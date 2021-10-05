@@ -2,48 +2,48 @@ Return-Path: <SRS0=e3IM=OZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9C79C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 214EDC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80A1B61354
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:58:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 80A1B61354
+	by mail.kernel.org (Postfix) with ESMTPS id DE7E461165
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:58:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DE7E461165
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3736C6F53A;
-	Tue,  5 Oct 2021 07:58:20 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D596F53A
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 07:58:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7130B6F59A;
+	Tue,  5 Oct 2021 07:58:40 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2058.outbound.protection.outlook.com [40.107.101.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8822D6F59A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 07:58:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jrfrYgUce0M7v5Dy+fSUAGhjXMrAXxc37wzdr966CVx6C9KKCL4sUbnQY/U/0kEeimwgky1VDTTUf6mnveOO1V5Uog1kPz3nM1epUizg5/aYxle+oB4ZuPXZTnheCG+04cujHTXut+oiWp2s9L7ukEhIt3MQElsD6TlHLXpciSRnxEBJ4WAtt91Z7ZZE/HbaippC3w8ToDuQ538qizsMXOTaP+B0R3gq6r/UumlMCg8QR054seZRTbukBbqdXRGTqitEKXSjbop7s32zIyScaW7uORxpX1eSPF11/76owA+wjQTNuFOMdZyjWV2nW5rSjn2A9ULrgsli6oh9zSF2mw==
+ b=HKIiIL6ed+1GXBpT93FAtymtcO6LWvgWOuITAo9jYUSOV6V66HyQD/CnMHrndWu2WrWvIxE4VpW7yxvidjiohDsk6Nu4rp0RDzB43glHgs9gzepVnkbcgAkLsUVDJJt58zWEedDKEvzeHZfwxrrBgnvRWIIzcTDYf/c4fmeeHX7tzj/4Rjsf2OikGmPvy2rn856K439j+jpZhToby+VwsEqojGIkv11FLgxOflZfzl1k633/q127QMnLjFAC/dbrZY04a6GUp8HYpGKHNCKMpCSsc6zkn71m1X0iwFeRReFb//tnsvImpWWkDIAHDU6spxOtE3bwrQIiCUPBTPCT7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oFccYn5otprhcT2/7XvMpftfOYRdoKxIz7oY9gzeQp0=;
- b=WIvvNHgFmv7Ohofq+zV2VVOeOV65drXe/jedln/rEhQbFTiz3xTNqFy7XkSt69PEprKfElojoqlcR0IhgB0vjbdvITd5lBbcoX369WUNM7O7iH0drt/t0zqY1XFpnn0qKEbOURpHxMc/YmF1fja/XXl0EWbM/FlRDmZfGWP6jNbMezhIrtyNEoprAMpBRfRO937XYRo/9JSkMMg0i5A1SqSqFRvKK1hPvHl/WpNdolI9+opRABk+Rpmrhs6lm+NluqIv6628mLCzqwvEX7cT8RzI2LcgEsuGVPCPwY2I+AvEIE7U4YVCP0TPK5MiwMSMCmj/bvQ9j8dAMef7dGv28Q==
+ bh=WMWJR6V8P8Y9jUc4gAYNyckHUDyuRxmocrvew+BdF+0=;
+ b=gGQM8oNCydLArFy6whB7zla8h+lqdDHx26+GcF8+lNM3aUB4gJyMi8jM2Hgk00BO0lFAG/r1u6q/W9IBa6pEvlmHzcGup4j5qfIXjK37fiewMTpjBwY5BtIcFI0mvf97se8zuVRrlBgXEElPZ8oWRB5T7EffKft7+5ldM0tW4bIHEUAwmnfpFJiYEn0YEEmk3P3ugP+/eP1pLGeiNdYnYI+TyHepA121RQpZiZfdHOwqoH6adbiVuqV5AJMtac2IgSPA2U1hDEhf4Ohiva3LqZEStUm02E4vD42QhtxzVerjGwKaisFektpZYjk/TTfY6ANgt1KklNZPb+ruigvsng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oFccYn5otprhcT2/7XvMpftfOYRdoKxIz7oY9gzeQp0=;
- b=2blyMpwTlZqatkrtreo9BHiXDXSp6yPGBwxSjXVw2/tO4eXLAFAJ73vAtZi4WYfRZsgicLErqX2wddaIPmSqShEXWOO3skQAi4yNUGSdi/3DL8vaRbQeiai2M28QOKmu07BURZdgVpyCepwNX+mJ/D0NjCP7yFTi+A9YiW625YA=
-Received: from BN9PR03CA0596.namprd03.prod.outlook.com (2603:10b6:408:10d::31)
- by BN8PR12MB3585.namprd12.prod.outlook.com (2603:10b6:408:49::18)
+ bh=WMWJR6V8P8Y9jUc4gAYNyckHUDyuRxmocrvew+BdF+0=;
+ b=M9TE8+TLVS11bILmmq2UPThTRhq4z2QzXHcdqvHY/B3sfOlUynv+esaxvOMp6mUEO99mHg/JTot2waBw+u3TX8QJFYaLOtILtbeiC6oAUii7OSUNOk3cPOEzqMCLSeqQhIDiCK+vhFRSPZedDhi/U/uWl3STFoxn2NYNdj68pj4=
+Received: from BN6PR19CA0105.namprd19.prod.outlook.com (2603:10b6:404:a0::19)
+ by MN2PR12MB4797.namprd12.prod.outlook.com (2603:10b6:208:a4::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Tue, 5 Oct
- 2021 07:58:16 +0000
-Received: from BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10d:cafe::6d) by BN9PR03CA0596.outlook.office365.com
- (2603:10b6:408:10d::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.19; Tue, 5 Oct
+ 2021 07:58:33 +0000
+Received: from BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:a0:cafe::a6) by BN6PR19CA0105.outlook.office365.com
+ (2603:10b6:404:a0::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14 via Frontend
- Transport; Tue, 5 Oct 2021 07:58:16 +0000
+ Transport; Tue, 5 Oct 2021 07:58:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,32 +52,31 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT065.mail.protection.outlook.com (10.13.177.63) with Microsoft SMTP
+ BN8NAM11FT048.mail.protection.outlook.com (10.13.177.117) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4566.14 via Frontend Transport; Tue, 5 Oct 2021 07:58:15 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ 15.20.4566.14 via Frontend Transport; Tue, 5 Oct 2021 07:58:32 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 5 Oct 2021
- 02:58:14 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 02:58:31 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 5 Oct 2021
- 00:58:13 -0700
+ 00:58:31 -0700
 Received: from wayne-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8
- via Frontend Transport; Tue, 5 Oct 2021 02:58:01 -0500
+ via Frontend Transport; Tue, 5 Oct 2021 02:58:23 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <Harry.Wentland@amd.com>,
  <nicholas.kazlauskas@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <wayne.lin@amd.com>, <stylon.wang@amd.com>, <jude.shih@amd.com>,
- <jimmy.kizito@amd.com>, <meenakshikumar.somasundaram@amd.com>, Jimmy Kizito
- <Jimmy.Kizito@amd.com>, Jun Lei <Jun.Lei@amd.com>, Wayne Lin
- <Wayne.Lin@amd.com>
-Subject: [PATCH v2 13/23] drm/amd/display: Implement end of training for hop
- in DPIA display path
-Date: Tue, 5 Oct 2021 15:51:55 +0800
-Message-ID: <20211005075205.3467938-14-Wayne.Lin@amd.com>
+ <jimmy.kizito@amd.com>, <meenakshikumar.somasundaram@amd.com>, Jun Lei
+ <Jun.Lei@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Subject: [PATCH v2 14/23] drm/amd/display: Support for SET_CONFIG processing
+ with DMUB
+Date: Tue, 5 Oct 2021 15:51:56 +0800
+Message-ID: <20211005075205.3467938-15-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211005075205.3467938-1-Wayne.Lin@amd.com>
 References: <20211005075205.3467938-1-Wayne.Lin@amd.com>
@@ -86,28 +85,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 69ac16fd-ad18-4a8e-422d-08d987d5e331
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3585:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB35857998ADAE71B2E1A36867FCAF9@BN8PR12MB3585.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:110;
+X-MS-Office365-Filtering-Correlation-Id: 134b86b9-5d02-4d07-1aec-08d987d5ed2c
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4797:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB47976B8A9F1C5CF814530D8FFCAF9@MN2PR12MB4797.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:281;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qTtWV4S5dNwp6HTfG26xzvFWiaesl0f+Vb1wLXRWscKyppHOFQ3RFDtXO4+NBVNmX9JPRyAHviJtONQwxzhh22d7EVdmUq8lLoXNXg8W1/VnOov71OvClogyArxC0yRleLHUPB8KLi5h0LMHRHqVpNuN/cYOH10cdMW1Ml9u2DfR4gJdh9jLxWJ2pOOVOCkM1EeDp18wpjviAtGZPv35Pm5GwbnBYV3ZfihsKRTNNN1tUfIG2suxftVA+ufwXoPXYKkcy9MXIIMErjOhRkwTHCEfNWaBqXohgNKXFNJfhgFV8EYfXgXyg0xxhhLxeM1IrLQu3t7y7gZ0867dZdmPnjrvqwEbhd1gTt5pxaDHtc1XFNUvo7CPjLY9bJFFRqw1qmLzr85ezWdaroIBfX+XEmZ7y4c/1VRCpQEEK6LJZnsVty3tInL3Ai6joTmzufkkCK5xWAoVEzIRhuGahFM6k8kQV6FBT14GuoiIz+vc/Jq0vs44nVwts0ECjYLkQh+/FSU7Hn2LV9syoPRkij3eGQDnQ27HcXt5hkmIjd4+hp/TDc0OnQXLYKi8NyAD1QTLDMSCqGIuf5hGtZgiIeE9k1lMnugTLRfnsHVsUqNr0ZBww2M9FUV8NWakt5OKhY8kZA57ZrFS0aK+NB1y54163F/FZPrmM3xDtbNEFU+KX/2j6DB1atZxTzkDiNMYJB7FfOjhRSIWnhxxKxEsKxnjcs1KNo9UHHxfGUVfk/uHNSQ=
+X-Microsoft-Antispam-Message-Info: ueH8pfqWm3HTk6EYCPPUW0ulRWFi9OPomYTNvI1S1/UK1yvtClB1smSFIlGFfX5EbCYY++lye70hGLlTBqv4f5pM+lG68G6dlPqEJhRiyc9nXGrZxD1y+kD9uVAZp+q/VFm2CTs4zbmabH6JmHOxYlUFNbX3WAZ+IwyxVWeQtLcKLbixWkv63nvn/C71xpfoueatfUvfFjzdusFyy9suvoV23ZZR/VjLpbtxXOUD7FTwOb1V0Ib17DEtefsnSAPm/X/Q18UeEsr6ZhQy+KWIeqgrGwZdjhbdLeNo4K8Q0bFV+JBd38kopfWw+315d+aTwvKNmP6sB5EIyUwq4rP/pxD0oVZN1lQbTW0P4aH/fOJz0IXURNYzIx6EQ5rgZajd8duXCEPH/3vtvAADV/CfNyRSPMMQaXYU2rIPfmKizYjh1I5ihH7lWYCNgDmkB3S11AP/lcLpPCiyXLaVzVGSCm24nA+ukbS9ryrouEFr9cvkGcLNdCPpMO5NESlev+j64LD8mtDMMmDi2gvpEi7U7L5waIipXbE9qPBDZP5yiW0NGJ7WWGHE9mg6ukpia5xiRHfRO9ctEeA57JhdTh86t3ibAfQwbpLH/dXfEfd/u6R9r1p3o5fZNFMk/817vcal+kFQJb75UyzEnet4UrXf5W8XBVPIvAp2SgGXGNrmlIhM17uOcAK5mws4JOb0Oxudw8Y45hZF7QOm/udUO2ALWawgsnY3K0C3kIjBFsXfGws=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(36860700001)(186003)(2616005)(81166007)(1076003)(426003)(47076005)(6666004)(54906003)(36756003)(5660300002)(8676002)(356005)(83380400001)(316002)(6916009)(26005)(508600001)(7696005)(2906002)(4326008)(70206006)(86362001)(82310400003)(70586007)(336012)(8936002)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(26005)(6916009)(30864003)(70206006)(316002)(47076005)(54906003)(356005)(336012)(81166007)(508600001)(186003)(426003)(2906002)(2616005)(7696005)(4326008)(83380400001)(82310400003)(8676002)(5660300002)(36756003)(36860700001)(8936002)(6666004)(1076003)(70586007)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2021 07:58:15.8631 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69ac16fd-ad18-4a8e-422d-08d987d5e331
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2021 07:58:32.6080 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 134b86b9-5d02-4d07-1aec-08d987d5ed2c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3585
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,140 +121,331 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jimmy Kizito <Jimmy.Kizito@amd.com>
+From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 
-[Why & How]
-Clear training pattern sequence for hop in display path once clock
-recovery and equalization phases of DP tunnel link training completed.
+[Why]
+To process SET_CONFIG transactions with DMUB using inbox1 and
+outbox1 mail boxes.
+
+[How]
+1) Added inbox1 DPIA command subtype DMUB_CMD__DPIA_SET_CONFIG_ACCESS to
+   issue SET_CONFIG command to DMUB in dc_process_dmub_set_config_async().
+   DMUB processes the command with DPIA sends reply back immediately or
+   in an outbox1 message triggering an outbox1 interrupt to driver.
+2) DMUB posts SET_CONFIG reply as an Outbox1 message of type
+   DMUB_OUT_CMD__SET_CONFIG_REPLY.
+3) The dmub async to sync mechanism for AUX is modified to accommodate
+   SET_CONFIG commands for both command issue and reply code paths.
 
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Wayne Lin <Wayne.Lin@amd.com>
 Acked-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
+Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 10 ++-
- .../drm/amd/display/dc/core/dc_link_dpia.c    | 77 ++++++++++++++++++-
- 2 files changed, 82 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 50 ++++++++++++++
+ .../drm/amd/display/dc/core/dc_link_dpia.c    | 16 ++++-
+ drivers/gpu/drm/amd/display/dc/core/dc_stat.c |  3 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  7 ++
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  5 ++
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  2 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 65 +++++++++++++++++++
+ .../drm/amd/display/dmub/src/dmub_srv_stat.c  |  5 ++
+ 8 files changed, 149 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 7f6fd0a3bf18..bfba1d2c6a18 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2391,14 +2391,20 @@ bool perform_link_training_with_retries(
- 			dc_link_dp_perform_link_training_skip_aux(link, &current_setting);
- 			return true;
- 		} else {
--			if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA)
-+			/** @todo Consolidate USB4 DP and DPx.x training. */
-+			if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA) {
- 				status = dc_link_dpia_perform_link_training(link,
- 									    &current_setting,
- 									    skip_video_pattern);
--			else
-+
-+				/* Transmit idle pattern once training successful. */
-+				if (status == LINK_TRAINING_SUCCESS)
-+					dp_set_hw_test_pattern(link, DP_TEST_PATTERN_VIDEO_MODE, NULL, 0);
-+			} else {
- 				status = dc_link_dp_perform_link_training(link,
- 									  &current_setting,
- 									  skip_video_pattern);
-+			}
- 
- 			if (status == LINK_TRAINING_SUCCESS)
- 				return true;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-index fa7539916c77..4b1ad057bd1f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-@@ -730,13 +730,84 @@ static enum link_training_result dpia_training_eq_phase(struct dc_link *link,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 6cdf68ca9048..517a2f0b4ba1 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3678,6 +3678,56 @@ uint8_t get_link_index_from_dpia_port_index(const struct dc *dc,
+ 	return link_index;
  }
  
- /* End training of specified hop in display path. */
-+static enum dc_status dpcd_clear_lt_pattern(struct dc_link *link, uint32_t hop)
-+{
-+	union dpcd_training_pattern dpcd_pattern = { {0} };
-+	uint32_t dpcd_tps_offset = DP_TRAINING_PATTERN_SET;
-+	enum dc_status status;
-+
-+	if (hop != DPRX)
-+		dpcd_tps_offset = DP_TRAINING_PATTERN_SET_PHY_REPEATER1 +
-+			((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (hop - 1));
-+
-+	status = core_link_write_dpcd(link,
-+			DP_TRAINING_PATTERN_SET,
-+			&dpcd_pattern.raw,
-+			sizeof(dpcd_pattern.raw));
-+
-+	return status;
-+}
-+
-+/* End training of specified hop in display path.
++/**
++ *****************************************************************************
++ *  Function: dc_process_dmub_set_config_async
 + *
-+ * In transparent LTTPR mode:
-+ * - driver clears training pattern for the specified hop in DPCD.
-+ * In non-transparent LTTPR mode:
-+ * - in addition to clearing training pattern, driver issues USB4 tunneling
-+ * (SET_CONFIG) messages to notify DPOA when training is done for first hop
-+ * (DPTX-to-DPIA) and last hop (DPRX).
++ *  @brief
++ *		Submits set_config command to dmub via inbox message
 + *
-+ * @param link DPIA link being trained.
-+ * @param hop Hop in display path. DPRX = 0.
++ *  @param
++ *		[in] dc: dc structure
++ *		[in] link_index: link index
++ *		[in] payload: aux payload
++ *		[out] notify: set_config immediate reply
++ *
++ *	@return
++ *		True if successful, False if failure
++ *****************************************************************************
 + */
- static enum link_training_result dpia_training_end(struct dc_link *link,
- 		uint32_t hop)
- {
--	enum link_training_result result;
-+	enum link_training_result result = LINK_TRAINING_SUCCESS;
-+	uint8_t repeater_cnt = 0; /* Number of hops/repeaters in display path. */
-+	enum dc_status status;
- 
--	/** @todo Fail until implemented. */
--	result = LINK_TRAINING_ABORT;
-+	if (link->lttpr_mode == LTTPR_MODE_NON_TRANSPARENT) {
-+		repeater_cnt = dp_convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
++bool dc_process_dmub_set_config_async(struct dc *dc,
++				uint32_t link_index,
++				struct set_config_cmd_payload *payload,
++				struct dmub_notification *notify)
++{
++	union dmub_rb_cmd cmd = {0};
++	struct dc_dmub_srv *dmub_srv = dc->ctx->dmub_srv;
++	bool is_cmd_complete = true;
 +
-+		if (hop == repeater_cnt) { /* DPTX-to-DPIA */
-+			/* Send SET_CONFIG(SET_TRAINING:0xff) to notify DPOA that
-+			 * DPTX-to-DPIA hop trained. No DPCD write needed for first hop.
-+			 */
-+			status = core_link_send_set_config(link,
-+					DPIA_SET_CFG_SET_TRAINING,
-+					DPIA_TS_UFP_DONE);
-+			if (status != DC_OK)
-+				result = LINK_TRAINING_ABORT;
-+		} else { /* DPOA-to-x */
-+			/* Write 0x0 to TRAINING_PATTERN_SET */
-+			status = dpcd_clear_lt_pattern(link, hop);
-+			if (status != DC_OK)
-+				result = LINK_TRAINING_ABORT;
-+		}
++	/* prepare SET_CONFIG command */
++	cmd.set_config_access.header.type = DMUB_CMD__DPIA;
++	cmd.set_config_access.header.sub_type = DMUB_CMD__DPIA_SET_CONFIG_ACCESS;
 +
-+		/* Notify DPOA that non-transparent link training of DPRX done. */
-+		if (hop == DPRX && result != LINK_TRAINING_ABORT) {
-+			status = core_link_send_set_config(link,
-+					DPIA_SET_CFG_SET_TRAINING,
-+					DPIA_TS_DPRX_DONE);
-+			if (status != DC_OK)
-+				result = LINK_TRAINING_ABORT;
-+		}
++	cmd.set_config_access.set_config_control.instance = dc->links[link_index]->ddc_hw_inst;
++	cmd.set_config_access.set_config_control.cmd_pkt.msg_type = payload->msg_type;
++	cmd.set_config_access.set_config_control.cmd_pkt.msg_data = payload->msg_data;
 +
-+	} else { /* non-LTTPR or transparent LTTPR. */
-+		/* Write 0x0 to TRAINING_PATTERN_SET */
-+		status = dpcd_clear_lt_pattern(link, hop);
-+		if (status != DC_OK)
-+			result = LINK_TRAINING_ABORT;
++	if (!dc_dmub_srv_cmd_with_reply_data(dmub_srv, &cmd)) {
++		/* command is not processed by dmub */
++		notify->sc_status = SET_CONFIG_UNKNOWN_ERROR;
++		return is_cmd_complete;
 +	}
 +
-+	DC_LOG_HW_LINK_TRAINING("%s\n DPIA(%d) end\n - hop(%d)\n - result(%d)\n - LTTPR mode(%d)\n",
-+				__func__,
-+				link->link_id.enum_id - ENUM_ID_1,
-+				hop,
-+				result,
-+				link->lttpr_mode);
++	/* command processed by dmub, if ret_status is 1, it is completed instantly */
++	if (cmd.set_config_access.header.ret_status == 1)
++		notify->sc_status = cmd.set_config_access.set_config_control.immed_status;
++	else
++		/* cmd pending, will receive notification via outbox */
++		is_cmd_complete = false;
++
++	return is_cmd_complete;
++}
++
+ /**
+  * dc_disable_accelerated_mode - disable accelerated mode
+  * @dc: dc structure
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
+index 4b1ad057bd1f..a7fc60565bda 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
+@@ -31,6 +31,8 @@
+ #include "dpcd_defs.h"
+ #include "link_hwss.h"
+ #include "inc/link_dpcd.h"
++#include "dm_helpers.h"
++#include "dmub/inc/dmub_cmd.h"
  
- 	return result;
+ #define DC_LOGGER \
+ 	link->ctx->logger
+@@ -91,10 +93,18 @@ static enum link_training_result dpia_configure_link(struct dc_link *link,
  }
+ 
+ static enum dc_status core_link_send_set_config(struct dc_link *link,
+-		uint8_t msg_type, uint8_t msg_data)
++	uint8_t msg_type,
++	uint8_t msg_data)
+ {
+-	/** @todo Implement */
+-	return DC_OK;
++	struct set_config_cmd_payload payload;
++	enum set_config_status set_config_result = SET_CONFIG_PENDING;
++
++	/* prepare set_config payload */
++	payload.msg_type = msg_type;
++	payload.msg_data = msg_data;
++
++	/* set_config should return ACK if successful */
++	return (set_config_result == SET_CONFIG_ACK_RECEIVED) ? DC_OK : DC_ERROR_UNEXPECTED;
+ }
+ 
+ /* Build SET_CONFIG message data payload for specified message type. */
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stat.c b/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
+index 7d4a5dc8fc91..4b372aa52801 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
+@@ -64,7 +64,8 @@ void dc_stat_get_dmub_notification(const struct dc *dc, struct dmub_notification
+ 
+ 	/* For HPD/HPD RX, convert dpia port index into link index */
+ 	if (notify->type == DMUB_NOTIFICATION_HPD ||
+-	    notify->type == DMUB_NOTIFICATION_HPD_IRQ) {
++	    notify->type == DMUB_NOTIFICATION_HPD_IRQ ||
++	    notify->type == DMUB_NOTIFICATION_SET_CONFIG_REPLY) {
+ 		notify->link_index =
+ 			get_link_index_from_dpia_port_index(dc, notify->link_index);
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index d51c7b000eb9..082706c921af 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -44,6 +44,8 @@
+ 
+ /* forward declaration */
+ struct aux_payload;
++struct set_config_cmd_payload;
++struct dmub_notification;
+ 
+ #define DC_VER "3.2.156"
+ 
+@@ -1398,6 +1400,11 @@ bool dc_process_dmub_aux_transfer_async(struct dc *dc,
+ /* Get dc link index from dpia port index */
+ uint8_t get_link_index_from_dpia_port_index(const struct dc *dc,
+ 				uint8_t dpia_port_index);
++
++bool dc_process_dmub_set_config_async(struct dc *dc,
++				uint32_t link_index,
++				struct set_config_cmd_payload *payload,
++				struct dmub_notification *notify);
+ /*******************************************************************************
+  * DSC Interfaces
+  ******************************************************************************/
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+index 3a905fb667bf..0fe66b080a03 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+@@ -179,4 +179,9 @@ int dm_helper_dmub_aux_transfer_sync(
+ 		const struct dc_link *link,
+ 		struct aux_payload *payload,
+ 		enum aux_return_code_type *operation_result);
++enum set_config_status;
++int dm_helpers_dmub_set_config_sync(struct dc_context *ctx,
++		const struct dc_link *link,
++		struct set_config_cmd_payload *payload,
++		enum set_config_status *operation_result);
+ #endif /* __DM_HELPERS__ */
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index efb667cf6c98..7a86c97af910 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -119,6 +119,7 @@ enum dmub_notification_type {
+ 	DMUB_NOTIFICATION_AUX_REPLY,
+ 	DMUB_NOTIFICATION_HPD,
+ 	DMUB_NOTIFICATION_HPD_IRQ,
++	DMUB_NOTIFICATION_SET_CONFIG_REPLY,
+ 	DMUB_NOTIFICATION_MAX
+ };
+ 
+@@ -440,6 +441,7 @@ struct dmub_notification {
+ 	union {
+ 		struct aux_reply_data aux_reply;
+ 		enum dp_hpd_status hpd_status;
++		enum set_config_status sc_status;
+ 	};
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 8461442b03a9..4c61e73ceccd 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -684,11 +684,16 @@ enum dmub_out_cmd_type {
+ 	 * Command type used for DP HPD event notification
+ 	 */
+ 	DMUB_OUT_CMD__DP_HPD_NOTIFY = 2,
++	/**
++	 * Command type used for SET_CONFIG Reply notification
++	 */
++	DMUB_OUT_CMD__SET_CONFIG_REPLY = 3,
+ };
+ 
+ /* DMUB_CMD__DPIA command sub-types. */
+ enum dmub_cmd_dpia_type {
+ 	DMUB_CMD__DPIA_DIG1_DPIA_CONTROL = 0,
++	DMUB_CMD__DPIA_SET_CONFIG_ACCESS = 1,
+ };
+ 
+ #pragma pack(push, 1)
+@@ -1038,6 +1043,31 @@ struct dmub_rb_cmd_dig1_dpia_control {
+ 	struct dmub_cmd_dig_dpia_control_data dpia_control;
+ };
+ 
++/**
++ * SET_CONFIG Command Payload
++ */
++struct set_config_cmd_payload {
++	uint8_t msg_type; /* set config message type */
++	uint8_t msg_data; /* set config message data */
++};
++
++/**
++ * Data passed from driver to FW in a DMUB_CMD__DPIA_SET_CONFIG_ACCESS command.
++ */
++struct dmub_cmd_set_config_control_data {
++	struct set_config_cmd_payload cmd_pkt;
++	uint8_t instance; /* DPIA instance */
++	uint8_t immed_status; /* Immediate status returned in case of error */
++};
++
++/**
++ * DMUB command structure for SET_CONFIG command.
++ */
++struct dmub_rb_cmd_set_config_access {
++	struct dmub_cmd_header header; /* header */
++	struct dmub_cmd_set_config_control_data set_config_control; /* set config data */
++};
++
+ /**
+  * struct dmub_rb_cmd_dpphy_init - DPPHY init.
+  */
+@@ -1285,6 +1315,33 @@ struct dmub_rb_cmd_dp_hpd_notify {
+ 	struct dp_hpd_data hpd_data;
+ };
+ 
++/**
++ * Definition of a SET_CONFIG reply from DPOA.
++ */
++enum set_config_status {
++	SET_CONFIG_PENDING = 0,
++	SET_CONFIG_ACK_RECEIVED,
++	SET_CONFIG_RX_TIMEOUT,
++	SET_CONFIG_UNKNOWN_ERROR,
++};
++
++/**
++ * Definition of a set_config reply
++ */
++struct set_config_reply_control_data {
++	uint8_t instance; /* DPIA Instance */
++	uint8_t status; /* Set Config reply */
++	uint16_t pad; /* Alignment */
++};
++
++/**
++ * Definition of a DMUB_OUT_CMD__SET_CONFIG_REPLY command.
++ */
++struct dmub_rb_cmd_dp_set_config_reply {
++	struct dmub_cmd_header header;
++	struct set_config_reply_control_data set_config_reply_control;
++};
++
+ /*
+  * Command IDs should be treated as stable ABI.
+  * Do not reuse or modify IDs.
+@@ -2483,6 +2540,10 @@ union dmub_rb_cmd {
+ 	 * Definition of a DMUB_CMD__DPIA_DIG1_CONTROL command.
+ 	 */
+ 	struct dmub_rb_cmd_dig1_dpia_control dig1_dpia_control;
++	/**
++	 * Definition of a DMUB_CMD__DPIA_SET_CONFIG_ACCESS command.
++	 */
++	struct dmub_rb_cmd_set_config_access set_config_access;
+ 	/**
+ 	 * Definition of a DMUB_CMD__EDID_CEA command.
+ 	 */
+@@ -2505,6 +2566,10 @@ union dmub_rb_out_cmd {
+ 	 * HPD notify command.
+ 	 */
+ 	struct dmub_rb_cmd_dp_hpd_notify dp_hpd_notify;
++	/**
++	 * SET_CONFIG reply command.
++	 */
++	struct dmub_rb_cmd_dp_set_config_reply set_config_reply;
+ };
+ #pragma pack(pop)
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
+index d7f66e5285c0..44502ec919a2 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
+@@ -87,6 +87,11 @@ enum dmub_status dmub_srv_stat_get_notification(struct dmub_srv *dmub,
+ 		notify->link_index = cmd.dp_hpd_notify.hpd_data.instance;
+ 		notify->result = AUX_RET_SUCCESS;
+ 		break;
++	case DMUB_OUT_CMD__SET_CONFIG_REPLY:
++		notify->type = DMUB_NOTIFICATION_SET_CONFIG_REPLY;
++		notify->link_index = cmd.set_config_reply.set_config_reply_control.instance;
++		notify->sc_status = cmd.set_config_reply.set_config_reply_control.status;
++		break;
+ 	default:
+ 		notify->type = DMUB_NOTIFICATION_NO_DATA;
+ 		break;
 -- 
 2.25.1
 
