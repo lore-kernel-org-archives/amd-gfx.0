@@ -2,48 +2,48 @@ Return-Path: <SRS0=e3IM=OZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A378BC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 920A7C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:52:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 671A66126A
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 671A66126A
+	by mail.kernel.org (Postfix) with ESMTPS id 59DD6610FC
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 07:52:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 59DD6610FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C326EB18;
-	Tue,  5 Oct 2021 07:52:40 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2081.outbound.protection.outlook.com [40.107.102.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1BF26EB33
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 07:52:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7EBF6EB33;
+	Tue,  5 Oct 2021 07:52:53 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2AB36EB33
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 07:52:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T6aStPOw2dzdK7ez7qRI66XDtdIRvjgrb9mAX04dp3OPnnv0CAPM0NJYXzkQ+08kUzSbGAVGoKS2e/EqKji46Xk+dgowsovu2Z96y8Y3rajOlgRiiT5innAIm4GQUtJY8nDM/xLln+2KUfU3M9/GUNsdu8HUS5U8ntUARlJFfia856i5zc7GDz+URvaPF47l6uXzo5W+gf18NitgstKJa/IAA5vtxBq0T13eJrfVlvTCRrM3I47A2luVBBO5gifaXFiNEntNKmRfzrJmeoZEDDiZ+ShJJBJi6uz+qNmgUBAsH+c6BlA15+KNV1o3mk3Nh7GIFrEhpLUeMB9ehS+usw==
+ b=QnaPpr8PtW5WG6vkRVbxmipe62h5ww8kYhL8YgFMkhBlYoFFHPrMwBxQuq7xJappeSkxLDv8bF+FY+fPhqbScHFa0p1CqnQcEleRlzurOAKllRmATGH9Z8BOvRud+jZsKDOsUZzGUcimCfMgqLvQqR3lBdi32URA/U4NQ16lb3o89+dW21fFpXwgr67nL2XeX7+E1J2Bn7l8wQdDHkys9whj7e49DUl2PO7HTBMtjD2VfwK2SII1D+Ui1AvDhWpHXRENEwWdiQm5WqgxuB8B47wEM+udmH/O4Xw5iCtbUqzZgT3WC//HRQjTXrUtFxm8Us7hHfwjGBR24h/TowOEEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iA7q0BEJXdmHLqgv7EKySvNgkCK1JFS7k2kow1mhexw=;
- b=hZUWweT5NED7r7OGWCmI7PoPUu5K1EYsplzC7/9YWsdGGggnS2rew5gO15qrmMnBC2M2NN5pd4sQFgqsCyyZpg5umUy0ThlA2MIZFTjTjYmIcvAzgqT/JHEWYG9nIVqivk5/QIVGtbRCOJtAuJEAJlgzB3so1bMvvP0un0DxJfCs3G6T95nDZ+KnuECKcL/yykHy1Zgpnx6WRIWKSr4IeiIU8hy7DkH3K7yj9DAFgTAkg53PFmABF4PAMaJXOnHkmf4hftQQCxPTna+zd/8+pNZ5Su6nnOnorb9X57fJu3Ay5pJt9SMW93pqAZzfIUnBAv8/dgUgDEEDLfKgF++8sw==
+ bh=usRmkwegPO1MKEWwEfi0eY7mCFK4O0xe6RIG1GgC6as=;
+ b=Q3uiRDjiBxaDJt4nRLg80lb84VDyC9bdpqTv8M/vE5DtOHD8K9rGXX0mW1FW0RPe5qoNhKkdf+6/fz4Iy3wBf16oAMmY1ZH9JSOl72iBXlJWdbrUDOMSgiF/BAHRyNmAprfbVHlSLDUXdnF4ZnudBMpDmOHkKJpovOKVtREpxOeuPehd4XK2PM0WHZT/Ynljs8Zcovv0FAnsFy2is81w2AsXVWVysU751193Q/lOTKi42BvWdQl/0/lqPSGevxnLK98V8fp+cPhEfF3xbv/PP9FNe1Y6o/2Uq/6DHNc3aibFXnnWs/5uBSU+SmR8zdrLtUyNWcrZz0TAKsr+XeCjHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iA7q0BEJXdmHLqgv7EKySvNgkCK1JFS7k2kow1mhexw=;
- b=Cl0NE8L/9SqQu4HiffFi9da1OqxFmn7L6/OAouLydf8qVHhtH13Qlre1N6vphAm6BkV7Ze6rT5MdenOr5lG8Yp6HJqzrVbiESu+MQxoCZe56j/JBzIA6GMr6xoJvMzJHWMr0BIG+gCtiG5F9A1fZGLXlm7VtJH8M6xhhAeC/OUw=
-Received: from MWHPR10CA0001.namprd10.prod.outlook.com (2603:10b6:301::11) by
- DM5PR12MB1803.namprd12.prod.outlook.com (2603:10b6:3:10d::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.22; Tue, 5 Oct 2021 07:52:37 +0000
-Received: from CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:0:cafe::44) by MWHPR10CA0001.outlook.office365.com
- (2603:10b6:301::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
- Transport; Tue, 5 Oct 2021 07:52:37 +0000
+ bh=usRmkwegPO1MKEWwEfi0eY7mCFK4O0xe6RIG1GgC6as=;
+ b=O8nLqikSZ2S5uRttizQTbubIg5CXyVlxb6hELEHidhnCfg+gxUbncj5huGD6K0Le+N64VctH22LTnisR2qA9pTvm+U2a43CSocR/1t1ZGOaTbg6x9W3VJdL2AN2GcMKu25gbB28ssflVuiZu3v6j+QlHP81ZJjNgAA8vF9FNlnM=
+Received: from MWHPR15CA0032.namprd15.prod.outlook.com (2603:10b6:300:ad::18)
+ by CY4PR12MB1749.namprd12.prod.outlook.com (2603:10b6:903:11d::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Tue, 5 Oct
+ 2021 07:52:50 +0000
+Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:ad:cafe::b9) by MWHPR15CA0032.outlook.office365.com
+ (2603:10b6:300:ad::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14 via Frontend
+ Transport; Tue, 5 Oct 2021 07:52:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,31 +52,31 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT042.mail.protection.outlook.com (10.13.174.250) with Microsoft SMTP
+ CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4566.14 via Frontend Transport; Tue, 5 Oct 2021 07:52:36 +0000
+ 15.20.4566.14 via Frontend Transport; Tue, 5 Oct 2021 07:52:49 +0000
 Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 5 Oct 2021
- 02:52:30 -0500
+ 02:52:48 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 5 Oct 2021
- 02:52:30 -0500
+ 02:52:48 -0500
 Received: from wayne-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8
- via Frontend Transport; Tue, 5 Oct 2021 02:52:17 -0500
+ via Frontend Transport; Tue, 5 Oct 2021 02:52:35 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <Harry.Wentland@amd.com>,
  <nicholas.kazlauskas@amd.com>, <Rodrigo.Siqueira@amd.com>,
  <wayne.lin@amd.com>, <stylon.wang@amd.com>, <jude.shih@amd.com>,
  <jimmy.kizito@amd.com>, <meenakshikumar.somasundaram@amd.com>, Jimmy Kizito
- <Jimmy.Kizito@amd.com>, Jun Lei <Jun.Lei@amd.com>, Wayne Lin
- <Wayne.Lin@amd.com>
-Subject: [PATCH v2 01/23] drm/amd/display: Update link encoder object creation.
-Date: Tue, 5 Oct 2021 15:51:43 +0800
-Message-ID: <20211005075205.3467938-2-Wayne.Lin@amd.com>
+ <Jimmy.Kizito@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Subject: [PATCH v2 02/23] drm/amd/display: USB4 DPIA enumeration and AUX
+ Tunneling
+Date: Tue, 5 Oct 2021 15:51:44 +0800
+Message-ID: <20211005075205.3467938-3-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211005075205.3467938-1-Wayne.Lin@amd.com>
 References: <20211005075205.3467938-1-Wayne.Lin@amd.com>
@@ -85,28 +85,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 54e7f7c9-adc2-4492-bfe2-08d987d5190f
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1803:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1803E9C3B9DC204A3463AF9BFCAF9@DM5PR12MB1803.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:341;
+X-MS-Office365-Filtering-Correlation-Id: 2cc43f8a-ee3a-4985-206e-08d987d520ea
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1749:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB174976CBF4BF6205F0B668B5FCAF9@CY4PR12MB1749.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mNSqQQsdyiRiFuzjL3KRfcdDv381UTY8wkQAPPgiWO97VKyVfNY8RsDomVJ9Uw536CwwKAVH7yjeWKJEfi3WcnCZ0bB0AvNRdGkOUTpvcXzsvdq6gLzFMS61A5DV46/oX0pKwn9JhoES1t4OQ5nwRj3TiEX8nGg7tCWWnq8L6g3opJ/dUsmSB+GGwE4HtBo8AY6L+CoigBsEykk5wkk9vzZwrBfP39zg/8TL0Gh3KIo6QjctQ56tsnaAY4kjnULJicsWntM0U2bMDYzWwdn50EMIUKy1U8eBZmE7narw82XI4pmQx54jn3xHiiYS8KVKzlTqcWEtrF0SlmqbgWJX7Q4QXkKJSffMm0GrmIcLbc3FPXeq3JRPzSmdyLcFxdRjf4O6Q74KjXfdhfRpYHa6zJ+jYMIdDDXft0faH5BonAay/2f1gldE2q6fAQG30ITQMHoAwalhswAGEhLhMRuygKJidtSN2IoxXcFfqdo/j1Wle0VLFlPA3WK59v7kXwW5qoSZqWlqu7m6bj9s+q8FzbyOhzoyW+JHu9PjYZ3aCJGSgQjf1dXjyp3Q8+/KFv9ZCjxAbwS+bJC3ddT3ayYyFDUvainnrL2wn33g5zNlgrGnmAfXWBruh6yTnMYS6RhkUHn6m+Nrc0/Yl3JZRE4h0WI4Dx56PDeNzah1xbyP8ocaoSYnoK6cgO48ml1tORnB58vVv4RTwLZWBbyzkSTbFfbx0T6w/OpxKToggwrywLY=
+X-Microsoft-Antispam-Message-Info: bZ+IuOXe4Vutt/yXdu6pnMhm8x7sbeYXBtKrqubrK1kXN3NcWBDJxv0MDffkoLFW/Z720O2dHdedJBcFs/tkL3eyo6SQGuAbMT/enwmdfXnzR9ugGJKbX5O5A9ac9gkLUjon+GTkLVRST5dOgr8+u2hwH0bhSUpGuoMkzrk2Bar/ie5GH8cpGNCo+gqTNStdC1CjeSTfCU3t7zyTJgBfgCUQUm4mD4h7abOY52y0DAM3qLfn2FuVZnWOOzYG725g5KX7VkgtlkVtMw3PmhgonJAIcaY+FVbB7kmujyjQXme1ytpnk+GWyDHzppWRyAnR6OjW/eKB8kF5poAF/IhL8HeSBxsVlQzMn4UfGU5A1rp9CyYhHMBAA/4D9ih7St4h99N5qiOjp3ggYnsLXglwmEjhTmDrydCdG/wtw+kUl0wHmj2O9epfOHDq1uehniRHBTvg4uVQ1r5fc+U7X8m+hUvHJatEMyAa6e135WWwAxftbIb7A7rS51xwP5siP01erM7K2qgdF71MlWeAOEOafJOx02jzo0wHVy9+xsHl3kUiZpaV+Cjp+xOAipwG8sU7hdFYSRQ3CfUX/hZvG94a/OBqVdgF73jwKyrZRGcUHS3uYo/0jA+avZO57tRTZAFSDkrRrU/JjbXFnfEPNjWaWYaPs7fl3vpCxcSMB/o4yzbRFmc2Ka08QKcEJaXp8unYQRpT26XPnTZtwwHRjQgQtCaOLFk4Gey9ve6Y62pPyuM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(6666004)(8936002)(54906003)(4326008)(508600001)(70586007)(81166007)(186003)(356005)(26005)(36756003)(1076003)(2906002)(316002)(336012)(82310400003)(8676002)(47076005)(5660300002)(2616005)(15650500001)(86362001)(7696005)(83380400001)(36860700001)(426003)(6916009)(70206006)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(8676002)(2616005)(316002)(36860700001)(83380400001)(36756003)(426003)(30864003)(82310400003)(7696005)(6666004)(8936002)(336012)(2906002)(47076005)(54906003)(508600001)(81166007)(356005)(26005)(186003)(86362001)(70206006)(6916009)(70586007)(5660300002)(1076003)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2021 07:52:36.6383 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54e7f7c9-adc2-4492-bfe2-08d987d5190f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2021 07:52:49.8185 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cc43f8a-ee3a-4985-206e-08d987d520ea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1803
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1749
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,149 +121,281 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jimmy Kizito <Jimmy.Kizito@amd.com>
+From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 
-[Why & How]
-Add codes for commit "e1f4328f22c0 drm/amd/display: Update link
-encoder object creation" to support USB4 DP tunneling feature
+[WHY]
+To enable dc links for USB4 DPIA ports and AUX command tunneling
+for YELLOW_CARP_B0.
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+[HOW]
+1) Created dc links for all USB4 DPIA ports in create_links().
+   dc_link_construct() implementation is split for legacy DDC and DPIAs.
+   As usb4 has no ddc, ddc->ddc_pin will be set to NULL for its dc link
+   and this parameter will be used to identify the dc links as DPIA. The
+   dc link for DPIA is further to be enhanced with implementation for link
+   encoder and link initialization.
+2) usb4_dpia_count in struct resource_pool will be initialized to 4 in
+   dcn31_resource_construct() if the DCN is YELLOW_CARP_B0.
+3) Enabled DMUB AUX via outbox for YELLOW_CARP_B0.
+
+Reviewed-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
 Acked-by: Wayne Lin <Wayne.Lin@amd.com>
 Acked-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
+Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 77 +++++++++++++++++++
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  2 +
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  1 +
- 3 files changed, 80 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 32 ++++++++-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 71 ++++++++++++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_link_ddc.c |  3 +-
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    |  6 ++
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  6 ++
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  1 +
+ .../gpu/drm/amd/display/dc/inc/dc_link_ddc.h  |  1 +
+ drivers/gpu/drm/amd/display/dc/irq_types.h    |  5 +-
+ 8 files changed, 120 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 8e0bcd4fd000..673fb0ef7a89 100644
+index 673fb0ef7a89..f4bb8ea4e83a 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -296,6 +296,75 @@ static bool create_links(
+@@ -231,6 +231,25 @@ static bool create_links(
+ 
+ 	DC_LOG_DC("BIOS object table - end");
+ 
++	/* Create a link for each usb4 dpia port */
++	for (i = 0; i < dc->res_pool->usb4_dpia_count; i++) {
++		struct link_init_data link_init_params = {0};
++		struct dc_link *link;
++
++		link_init_params.ctx = dc->ctx;
++		link_init_params.connector_index = i;
++		link_init_params.link_index = dc->link_count;
++		link_init_params.dc = dc;
++		link_init_params.is_dpia_link = true;
++
++		link = link_create(&link_init_params);
++		if (link) {
++			dc->links[dc->link_count] = link;
++			link->dc = dc;
++			++dc->link_count;
++		}
++	}
++
+ 	for (i = 0; i < num_virtual_links; i++) {
+ 		struct dc_link *link = kzalloc(sizeof(*link), GFP_KERNEL);
+ 		struct encoder_init_data enc_init = {0};
+@@ -3559,6 +3578,12 @@ void dc_hardware_release(struct dc *dc)
+  */
+ bool dc_enable_dmub_notifications(struct dc *dc)
+ {
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	/* YELLOW_CARP B0 USB4 DPIA needs dmub notifications for interrupts */
++	if (dc->ctx->asic_id.chip_family == FAMILY_YELLOW_CARP &&
++	    dc->ctx->asic_id.hw_internal_rev == YELLOW_CARP_B0)
++		return true;
++#endif
+ 	/* dmub aux needs dmub notifications to be enabled */
+ 	return dc->debug.enable_dmub_aux_for_legacy_ddc;
+ }
+@@ -3584,7 +3609,12 @@ bool dc_process_dmub_aux_transfer_async(struct dc *dc,
+ 
+ 	cmd.dp_aux_access.header.type = DMUB_CMD__DP_AUX_ACCESS;
+ 	cmd.dp_aux_access.header.payload_bytes = 0;
+-	cmd.dp_aux_access.aux_control.type = AUX_CHANNEL_LEGACY_DDC;
++	/* For dpia, ddc_pin is set to NULL */
++	if (!dc->links[link_index]->ddc->ddc_pin)
++		cmd.dp_aux_access.aux_control.type = AUX_CHANNEL_DPIA;
++	else
++		cmd.dp_aux_access.aux_control.type = AUX_CHANNEL_LEGACY_DDC;
++
+ 	cmd.dp_aux_access.aux_control.instance = dc->links[link_index]->ddc_hw_inst;
+ 	cmd.dp_aux_access.aux_control.sw_crc_enabled = 0;
+ 	cmd.dp_aux_access.aux_control.timeout = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 64b9c493dce2..20b4819b73e4 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1425,8 +1425,8 @@ static enum transmitter translate_encoder_to_transmitter(struct graphics_object_
+ 	}
+ }
+ 
+-static bool dc_link_construct(struct dc_link *link,
+-			      const struct link_init_data *init_params)
++static bool dc_link_construct_legacy(struct dc_link *link,
++				     const struct link_init_data *init_params)
+ {
+ 	uint8_t i;
+ 	struct ddc_service_init_data ddc_service_init_data = { { 0 } };
+@@ -1701,6 +1701,73 @@ static bool dc_link_construct(struct dc_link *link,
  	return false;
  }
  
-+/* Create additional DIG link encoder objects if fewer than the platform
-+ * supports were created during link construction. This can happen if the
-+ * number of physical connectors is less than the number of DIGs.
-+ */
-+static bool create_link_encoders(struct dc *dc)
++static bool dc_link_construct_dpia(struct dc_link *link,
++				   const struct link_init_data *init_params)
 +{
-+	bool res = true;
-+	unsigned int num_usb4_dpia = dc->res_pool->res_cap->num_usb4_dpia;
-+	unsigned int num_dig_link_enc = dc->res_pool->res_cap->num_dig_link_enc;
-+	int i;
++	struct ddc_service_init_data ddc_service_init_data = { { 0 } };
++	struct dc_context *dc_ctx = init_params->ctx;
 +
-+	/* A platform without USB4 DPIA endpoints has a fixed mapping between DIG
-+	 * link encoders and physical display endpoints and does not require
-+	 * additional link encoder objects.
-+	 */
-+	if (num_usb4_dpia == 0)
-+		return res;
++	DC_LOGGER_INIT(dc_ctx->logger);
 +
-+	/* Create as many link encoder objects as the platform supports. DPIA
-+	 * endpoints can be programmably mapped to any DIG.
-+	 */
-+	if (num_dig_link_enc > dc->res_pool->dig_link_enc_count) {
-+		for (i = 0; i < num_dig_link_enc; i++) {
-+			struct link_encoder *link_enc = dc->res_pool->link_encoders[i];
++	/* Initialized dummy hpd and hpd rx */
++	link->irq_source_hpd = DC_IRQ_SOURCE_USB4_DMUB_HPD;
++	link->irq_source_hpd_rx = DC_IRQ_SOURCE_USB4_DMUB_HPDRX;
++	link->link_status.dpcd_caps = &link->dpcd_caps;
 +
-+			if (!link_enc && dc->res_pool->funcs->link_enc_create_minimal) {
-+				link_enc = dc->res_pool->funcs->link_enc_create_minimal(dc->ctx,
-+						(enum engine_id)(ENGINE_ID_DIGA + i));
-+				if (link_enc) {
-+					dc->res_pool->link_encoders[i] = link_enc;
-+					dc->res_pool->dig_link_enc_count++;
-+				} else {
-+					res = false;
-+				}
-+			}
-+		}
++	link->dc = init_params->dc;
++	link->ctx = dc_ctx;
++	link->link_index = init_params->link_index;
++
++	memset(&link->preferred_training_settings, 0,
++	       sizeof(struct dc_link_training_overrides));
++	memset(&link->preferred_link_setting, 0,
++	       sizeof(struct dc_link_settings));
++
++	/* Dummy Init for linkid */
++	link->link_id.type = OBJECT_TYPE_CONNECTOR;
++	link->link_id.id = CONNECTOR_ID_DISPLAY_PORT;
++	link->is_internal_display = false;
++	link->connector_signal = SIGNAL_TYPE_DISPLAY_PORT;
++	LINK_INFO("Connector[%d] description:signal %d\n",
++		  init_params->connector_index,
++		  link->connector_signal);
++
++	/* TODO: Initialize link : funcs->link_init */
++
++	ddc_service_init_data.ctx = link->ctx;
++	ddc_service_init_data.id = link->link_id;
++	ddc_service_init_data.link = link;
++	/* Set indicator for dpia link so that ddc won't be created */
++	ddc_service_init_data.is_dpia_link = true;
++
++	link->ddc = dal_ddc_service_create(&ddc_service_init_data);
++	if (!link->ddc) {
++		DC_ERROR("Failed to create ddc_service!\n");
++		goto ddc_create_fail;
 +	}
 +
-+	return res;
++	/* Set dpia port index : 0 to number of dpia ports */
++	link->ddc_hw_inst = init_params->connector_index;
++
++	/* TODO: Create link encoder */
++
++	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
++
++	return true;
++
++ddc_create_fail:
++	return false;
 +}
 +
-+/* Destroy any additional DIG link encoder objects created by
-+ * create_link_encoders().
-+ * NB: Must only be called after destroy_links().
-+ */
-+static void destroy_link_encoders(struct dc *dc)
++static bool dc_link_construct(struct dc_link *link,
++			      const struct link_init_data *init_params)
 +{
-+	unsigned int num_usb4_dpia = dc->res_pool->res_cap->num_usb4_dpia;
-+	unsigned int num_dig_link_enc = dc->res_pool->res_cap->num_dig_link_enc;
-+	int i;
-+
-+	/* A platform without USB4 DPIA endpoints has a fixed mapping between DIG
-+	 * link encoders and physical display endpoints and does not require
-+	 * additional link encoder objects.
-+	 */
-+	if (num_usb4_dpia == 0)
-+		return;
-+
-+	for (i = 0; i < num_dig_link_enc; i++) {
-+		struct link_encoder *link_enc = dc->res_pool->link_encoders[i];
-+
-+		if (link_enc) {
-+			link_enc->funcs->destroy(&link_enc);
-+			dc->res_pool->link_encoders[i] = NULL;
-+			dc->res_pool->dig_link_enc_count--;
-+		}
-+	}
++	/* Handle dpia case */
++	if (init_params->is_dpia_link)
++		return dc_link_construct_dpia(link, init_params);
++	else
++		return dc_link_construct_legacy(link, init_params);
 +}
+ /*******************************************************************************
+  * Public functions
+  ******************************************************************************/
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+index ba6b56f20269..dd6c473be072 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+@@ -196,7 +196,8 @@ static void ddc_service_construct(
+ 	ddc_service->link = init_data->link;
+ 	ddc_service->ctx = init_data->ctx;
+ 
+-	if (BP_RESULT_OK != dcb->funcs->get_i2c_info(dcb, init_data->id, &i2c_info)) {
++	if (init_data->is_dpia_link ||
++	    dcb->funcs->get_i2c_info(dcb, init_data->id, &i2c_info) != BP_RESULT_OK) {
+ 		ddc_service->ddc_pin = NULL;
+ 	} else {
+ 		DC_LOGGER_INIT(ddc_service->ctx->logger);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+index 80f06ceccea8..18e33ef3d217 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+@@ -174,6 +174,10 @@ void dcn31_init_hw(struct dc *dc)
+ 		if (hws->funcs.dsc_pg_control != NULL)
+ 			hws->funcs.dsc_pg_control(hws, res_pool->dscs[i]->inst, false);
+ 
++	/* Enables outbox notifications for usb4 dpia */
++	if (dc->res_pool->usb4_dpia_count)
++		dmub_enable_outbox_notification(dc);
 +
- static struct dc_perf_trace *dc_perf_trace_create(void)
- {
- 	return kzalloc(sizeof(struct dc_perf_trace), GFP_KERNEL);
-@@ -729,6 +798,8 @@ static void dc_destruct(struct dc *dc)
+ 	/* we want to turn off all dp displays before doing detection */
+ 	if (dc->config.power_down_display_on_boot)
+ 		blank_all_dp_displays(dc, true);
+@@ -278,8 +282,10 @@ void dcn31_init_hw(struct dc *dc)
+ 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
+ 		dc->res_pool->hubbub->funcs->force_pstate_change_control(
+ 				dc->res_pool->hubbub, false, false);
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	if (dc->res_pool->hubbub->funcs->init_crb)
+ 		dc->res_pool->hubbub->funcs->init_crb(dc->res_pool->hubbub);
++#endif
+ }
  
- 	destroy_links(dc);
+ void dcn31_dsc_pg_control(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index d5b58025f0cc..2e021f9345c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -2427,6 +2427,12 @@ static bool dcn31_resource_construct(
+ 		pool->base.sw_i2cs[i] = NULL;
+ 	}
  
-+	destroy_link_encoders(dc);
++	if (dc->ctx->asic_id.chip_family == FAMILY_YELLOW_CARP &&
++	    dc->ctx->asic_id.hw_internal_rev == YELLOW_CARP_B0) {
++		/* YELLOW CARP B0 has 4 DPIA's */
++		pool->base.usb4_dpia_count = 4;
++	}
 +
- 	if (dc->clk_mgr) {
- 		dc_destroy_clk_mgr(dc->clk_mgr);
- 		dc->clk_mgr = NULL;
-@@ -933,6 +1004,12 @@ static bool dc_construct(struct dc *dc,
- 	if (!create_links(dc, init_params->num_virtual_links))
- 		goto fail;
- 
-+	/* Create additional DIG link encoder objects if fewer than the platform
-+	 * supports were created during link construction.
-+	 */
-+	if (!create_link_encoders(dc))
-+		goto fail;
-+
- 	/* Initialise DIG link encoder resource tracking variables. */
- 	link_enc_cfg_init(dc, dc->current_state);
- 
+ 	/* Audio, Stream Encoders including HPO and virtual, MPC 3D LUTs */
+ 	if (!resource_construct(num_virtual_links, dc, &pool->base,
+ 			(!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment) ?
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 0fea258c6db3..ed09af238911 100644
+index ed09af238911..6fc6488c54c0 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -245,6 +245,8 @@ struct resource_pool {
- 	 * entries in link_encoders array.
- 	 */
- 	unsigned int dig_link_enc_count;
-+	/* Number of USB4 DPIA (DisplayPort Input Adapter) link objects created.*/
-+	unsigned int usb4_dpia_count;
+@@ -62,6 +62,7 @@ struct link_init_data {
+ 	uint32_t connector_index; /* this will be mapped to the HPD pins */
+ 	uint32_t link_index; /* this is mapped to DAL display_index
+ 				TODO: remove it when DC is complete. */
++	bool is_dpia_link;
+ };
  
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	unsigned int hpo_dp_stream_enc_count;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index 3fbda9d7e257..372c0898facd 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -49,6 +49,7 @@ struct resource_caps {
- 	int num_vmid;
- 	int num_dsc;
- 	unsigned int num_dig_link_enc; // Total number of DIGs (digital encoders) in DIO (Display Input/Output).
-+	unsigned int num_usb4_dpia; // Total number of USB4 DPIA (DisplayPort Input Adapters).
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	int num_hpo_dp_stream_encoder;
- 	int num_hpo_dp_link_encoder;
+ struct dc_link *link_create(const struct link_init_data *init_params);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
+index 4d7b271b6409..95fb61d62778 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
+@@ -69,6 +69,7 @@ struct ddc_service_init_data {
+ 	struct graphics_object_id id;
+ 	struct dc_context *ctx;
+ 	struct dc_link *link;
++	bool is_dpia_link;
+ };
+ 
+ struct ddc_service *dal_ddc_service_create(
+diff --git a/drivers/gpu/drm/amd/display/dc/irq_types.h b/drivers/gpu/drm/amd/display/dc/irq_types.h
+index 530c2578db40..7a9f667d5edb 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq_types.h
++++ b/drivers/gpu/drm/amd/display/dc/irq_types.h
+@@ -153,7 +153,10 @@ enum dc_irq_source {
+ 	DC_IRQ_SOURCE_DMCUB_OUTBOX,
+ 	DC_IRQ_SOURCE_DMCUB_OUTBOX0,
+ 	DC_IRQ_SOURCE_DMCUB_GENERAL_DATAOUT,
+-	DAL_IRQ_SOURCES_NUMBER
++	DAL_IRQ_SOURCES_NUMBER,
++	/* Dummy interrupt source for USB4 HPD & HPD RX */
++	DC_IRQ_SOURCE_USB4_DMUB_HPD,
++	DC_IRQ_SOURCE_USB4_DMUB_HPDRX,
+ };
+ 
+ enum irq_type
 -- 
 2.25.1
 
