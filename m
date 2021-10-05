@@ -2,54 +2,54 @@ Return-Path: <SRS0=e3IM=OZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7152EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7C04C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 423296120A
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:57:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 423296120A
+	by mail.kernel.org (Postfix) with ESMTPS id 819F66120A
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Oct 2021 15:58:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 819F66120A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B3B6E408;
-	Tue,  5 Oct 2021 15:57:37 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183E36E408
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 15:57:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDB56E424;
+	Tue,  5 Oct 2021 15:58:52 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 592266E424
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Oct 2021 15:58:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BTG8t9ODux3sj8CpsucYKGIhyfYaQdCW5Ix61VwJnkh1oqQ7DWfcDoMjjPVWgBiLSxh7OAxt9amHNVbYgK4e4G79BwORKakFrbW3mfZSCv2QwsD/5sCheeCMrePwNZYSHNjJ7pOkEdFTVAuTEFys3R79SohfpVOEiIYbd5CO087vNqN/WaqQ+wV9AOrovIb9IgEqv9i/Us76y/IkCLkgbH2mlcMbAj7hh/HA2Qd7EOc36TpKwmM2iF0MVFPgqnIXfJ0fklTv/7lZJUObhVtGaW00ch0UyYJqJzAFXYDIfOwaNrwGBuZQPfk2JeAnC2GvhzPOnszkv+6DdatoXr6A1Q==
+ b=DARFvlVUTa+o8D3ZJXVUmze7B828znulbFfZBzRbHi+pGdZveOFyf8r/WS1jSbKArA5JaVS7ZCamRk/I1jizgkEcc9lf0EMsyaR5j0JpVPpo1Vh3lcI/LoWwBNs0ZrbD5lel6UoGo4VdInSEld3Cf5ac1hvY/chmJ3CYWNI2JPnW2AMZqqk/ps/3pcS2IscJxT+7ueqI4UNSzeUhekB8v46Qa8wmnaZLqnew1yfDlMOanVra/104FWfKJvMxRVLDMUjmXkxe5cBPlTCVKwGsDnzTqze/eOUStQEokCmzYexjuLzB1SRMJ1mWCLJFsKJ03JGZDOoKriqpyLsjN5446g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JVg1NOBTex09krCoMvbcwdQRsEbJnBkz8aBBEOhnxgg=;
- b=XFHiwtz35dPIPIL+dzSQmzRTMdvHoAKQ9YXSUDPgbHPZXx47J4S9xSltkE1EMcqmT3B5I/iS4Q9yP5CUafXL71a9qex5VKERdlCy3LEmSXWwxwHQ3PjNX7qViUcIb/CdfipE/phyfuIn5hndZgS/4D0zhsLof3zdtPWCvh6k3kMpN6I23Jgzi+SJCwmx5dzcJWZvty3NNrrpnQA8FfW3GN8GTXW7ttAtB+gMZEwgCDO/V/9V+sp+oXal9Q7v0EitrCG1ysrLwAzzjG/jA3Q34He3QDUonWoYa8CQclm8i6SzBLrWivfzBVe6zQvIoCM8261u8fYLtsdwxk6zb7ReFg==
+ bh=iDhaVK/FWgINhREXXMBA9POtAP6DYKNZ8bXAyL3Iu5I=;
+ b=EfLewoSkt3T518JwvqVkIWaqSEpNJEXORpWlg6ZFGcOG3/u7xWxol8Ij0ubw6vR6wn7zKcnVZ+mFpqX+Hgf6MCESaXNf7FzFrnW3LXEYHovfDNM7eIqTqsylKSCkeABZgL2w7x8Ess/DqhclnTGwtlxN7jdcApEVihkKjXxuoy7mVZCYDJF+ejKlRM1ZeEUShnHWe34wg7s+d2vm2uDSehoE+3vDL6sYbsJBueQmQr6mQi+295QPxoQc+mvmx83ih/fpw6m921J7kEy3upYrQNdHVd4+qvGhBCQ8pK0m8PeStm7R6N3Ao2xIzA2qrmC7JwXJp2GaidSqvlZtmlFmdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JVg1NOBTex09krCoMvbcwdQRsEbJnBkz8aBBEOhnxgg=;
- b=m918/Lo2DNic5dYBJ1QVl5Vb1O4pAuIYZIzUclzfKQUPPUyAErgkKZCdO+Y4vCl+kfLm/nNWcgTqWZ51q8kFMAyzYUG2FsuFp5frk2FfIzxzkK7ii8tC/AwudNOVPDI+pwRmsbFOPHxfigwDOlJ6HKf8fyj+DbiQLSTd9jZOiD4=
+ bh=iDhaVK/FWgINhREXXMBA9POtAP6DYKNZ8bXAyL3Iu5I=;
+ b=B4PDOTT8g1OBbmCNJ15yQbj3UGFOXVNTQxqBWPN1sLeod0AxERVNlJVPBIs8CAhB6Q5MPbkdGooSKWM1XEs3LE9qcS+VSFx0N/a3zlA77TqEX6KBtjBbtgvAGmjt84Lp6bJ7FSshELeG+eiZUCQu8svujpUSQP7QmRFbvgqCXKc=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5426.namprd12.prod.outlook.com (2603:10b6:5:35d::9) with
+ by CO6PR12MB5395.namprd12.prod.outlook.com (2603:10b6:303:13a::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Tue, 5 Oct
- 2021 15:57:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.21; Tue, 5 Oct
+ 2021 15:58:49 +0000
 Received: from CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
  ([fe80::d82f:e8c3:96ac:5465%8]) with mapi id 15.20.4587.018; Tue, 5 Oct 2021
- 15:57:34 +0000
-Message-ID: <bad6931f-b976-1129-35f9-20be019df900@amd.com>
-Date: Tue, 5 Oct 2021 11:57:28 -0400
+ 15:58:49 +0000
+Message-ID: <892bc0cb-3593-071c-388e-d8eeb87be08c@amd.com>
+Date: Tue, 5 Oct 2021 11:58:44 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.1.1
-Subject: Re: [PATCH v2 06/23] drm/amd/display: Support DP tunneling when DPRX
- detection
+Subject: Re: [PATCH v2 07/23] drm/amd/display: Update training parameters for
+ DPIA links
 Content-Language: en-US
 To: Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, nicholas.kazlauskas@amd.com,
@@ -57,75 +57,75 @@ Cc: alexander.deucher@amd.com, nicholas.kazlauskas@amd.com,
  jimmy.kizito@amd.com, meenakshikumar.somasundaram@amd.com,
  Jun Lei <Jun.Lei@amd.com>
 References: <20211005075205.3467938-1-Wayne.Lin@amd.com>
- <20211005075205.3467938-7-Wayne.Lin@amd.com>
+ <20211005075205.3467938-8-Wayne.Lin@amd.com>
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20211005075205.3467938-7-Wayne.Lin@amd.com>
+In-Reply-To: <20211005075205.3467938-8-Wayne.Lin@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0765.namprd03.prod.outlook.com
- (2603:10b6:408:13a::20) To CO6PR12MB5427.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN9PR03CA0767.namprd03.prod.outlook.com
+ (2603:10b6:408:13a::22) To CO6PR12MB5427.namprd12.prod.outlook.com
  (2603:10b6:5:358::13)
 MIME-Version: 1.0
 Received: from [10.254.46.98] (165.204.84.11) by
- BN9PR03CA0765.namprd03.prod.outlook.com (2603:10b6:408:13a::20) with
+ BN9PR03CA0767.namprd03.prod.outlook.com (2603:10b6:408:13a::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.16 via Frontend
- Transport; Tue, 5 Oct 2021 15:57:31 +0000
+ Transport; Tue, 5 Oct 2021 15:58:47 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f6f1a81d-ff58-4214-4702-08d98818d81d
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5426:
+X-MS-Office365-Filtering-Correlation-Id: b23f4e4a-63a7-4fe8-49f1-08d988190545
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5395:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CO6PR12MB54267E29714F9E2C1476284B8CAF9@CO6PR12MB5426.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <CO6PR12MB53950CE8609AF2C3656145BB8CAF9@CO6PR12MB5395.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:569;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +8S+4+2MwCm9SNa8QHcNuvI1GfULxISBAUdR95YvIIyiHUTRFn3SXXA7K0XW5GJNY2TjXDo3emwobzI7ZDF2w1RaoavsQVTIc7Qb9rd5Y9QDwlN2w2Gn+O1zAb5Um4+NUKThs/fMzQfVtySwRRDk8AjP+4CeTsyoiw33B9icJujikn6Dc4Qe118zgrTorWDd02e3Bmhp+aVCCwjjTkY0VRJ+BsQYlITpx2S9Vd/vvoZNHng/5yQcLCgwSEoKI+4igY1eaJFYziaaLEA6QVCZ12KJo77EolMrWxbLJBW5e5c9W0ddOvHa0Bnvya00vO6GXsCh51oNOxlxjF26yNKs9BaFl9LCHAcffu/vfK/leS0l5W30zkkegkh9Bk9EjFxDrT7tTrQIgcHXEZA2gLw1jSrjoN9yIZjfOwZfOGkphjyrVNrp1mCasB/5pTeWEL127NzH+ss87FQWXRCDkVe4wgDlrHmo9OVPM0/fuWRJt4l3dv6dvo8JaaxHDrVh7Rj9cg2zT/822Rh43m3VuK1PbyNvhRuP166U4UZkTE18w2ih9WLPth40J7r5BrbQCTlPS0uBXJVVPxkPlY2ZO7z8WI34qDQZXgAi4vebnskbcAPrfh99FGOQk3xvYJu8SEY0aIKty3pswLNgGhYVRUZfX5rAEJA3lm5eh6PP6zLo5fU3oq/6ZVaUbqTQ044oWhjudpvbktI8752WXKFSBrpvq9loN7HpE6z5raHKEv45N6Y=
+X-Microsoft-Antispam-Message-Info: 35yarHZe2/8s4fgo/99bEfkvgfkehJGWN2A5W3sO09jQto0MdCDrCLrQwgYgMemOFvxA64jx4kWXlAzFIEm/rln6OG7A6busuh7JKe7W+lOUNJ4p+xMtYOmn9WeWs42GVy8Jp3S3oDKlGc/l8pAwJx9IJdcxreXJBaSumv9c2YlbesKai8SjWVfEYoCSKy28WIcvA1K9focuNxL0kvikywRx0jOradyk/vTRPVJNgwMDcdSrkoJBgXyAQLP5xWNdAsO32HytBCPS5OimgLlAA7ti7FAe39wo9h/utlrYQ4WkhHmH5yYoXDYxW5NUGe18YEhZ9CyQs2BDW3jWjzlCiz8skBQ5RSzRrCzbdFIT1/ltR1uxs3XPcEw0xp5qYYKN6qHuc3vcGOsY8fkBljBbEmw+WBu9SPDaXvn6Ct3a5QqYc7cfWSMF/u18BKNmVxXo0kct70rrFwO8ywL0zmJLmCIQdvdUIqVvPKeAUXvHRxawjOtR/CPKWsVm7a6TjK9TQFB6BlvrGe5X2hVLQNdz3ER8nWgtRYl8+TtFeflgIndjR+UuCyJ2To31FJbSNddRtyCDJBGQlgt7Xnjd8dqSDl6lIkRMLxQVvkTbWUDRmPzGNPjvwnHmwJ4iVfeHp0LUO8HrXIl1BDKillVkUAH9EEHIhE7ST95y8Ootb6kk2Ff/dBf7VLz+KAt9TvuPW0ofHkQZwnjQJSN0CUSrNAVOG24AFisHRH2udniYIAeWoi0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31686004)(66476007)(6486002)(38100700002)(86362001)(2906002)(66946007)(66556008)(5660300002)(508600001)(4326008)(8676002)(956004)(83380400001)(26005)(186003)(2616005)(31696002)(16576012)(316002)(36756003)(8936002)(53546011)(44832011)(6666004)(45980500001)(43740500002);
+ SFS:(4636009)(366004)(36756003)(83380400001)(8936002)(6486002)(66476007)(4326008)(26005)(2906002)(186003)(38100700002)(44832011)(316002)(8676002)(2616005)(66556008)(956004)(53546011)(66946007)(16576012)(15650500001)(6666004)(86362001)(31686004)(31696002)(5660300002)(508600001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjFjQ1Q5bEMzZVNsUyt0Y3NDVWErcjNnRFpsbmMxdnJoMFFqUmVnVWtWRWdD?=
- =?utf-8?B?UUd4S3JLNTVBMkdwOFB1MFpneE51V2lOclFLTm1XRjVPVC9QY2cvbG93Q05q?=
- =?utf-8?B?UEVTUWYxRWdSZis0cDJqTmFmT1NabmNPUTdoMndkOHlEb1hua2JJdjRXV3V5?=
- =?utf-8?B?UExtVWJqQkF4WVcra2J0TER0QnJTb1ozbXNpbmpYbG9tWXo2VGl1Uys4WnJO?=
- =?utf-8?B?MFJpVnZ5ajlZZTZNTzV5SWRJNW1aSjBUaVRUbmVucEZzaytnbUN1Q0psQWlL?=
- =?utf-8?B?R3laeXp6UUhKZkhLUGpsU3M0UXZWam5ZOHJSSjhHeDFBNDk4SDVSRHcvVkho?=
- =?utf-8?B?MVBFR00vWm9Yd2pMK1YvMVhXNWpKbHJoUDVqTDM5Rmd5RlZINEUwa1NqSWpW?=
- =?utf-8?B?WlRuUHEyeTFJajlIck4rVTZnV3cvREJaU1RJSVEyQWkxc3JYVnBMTndjN3hD?=
- =?utf-8?B?WFZPOW5waDZDL2NIOTdXMWw1UllGWSs0VzBzWkpYUnZVWnhMRkRpRTVCYW9X?=
- =?utf-8?B?eXY3RHRIU0VpeGJyYmVRdWxpeHR1TUNmeEhxdnR0TDI1OVdHVC8yMEU4SWtS?=
- =?utf-8?B?elo5UTRSTXJVcm1Uc3ZZWTJvTFRNeFU3WFB6UjBSSFFoT3l2OU1YV1B5bUE1?=
- =?utf-8?B?UHAvNk9UT3Y2SjlGb0ovTXk4cXUrbVQwazRJQlBIWk5LMEJ2SGRRaHdHT0JP?=
- =?utf-8?B?YndseFRMc3dYTnFudlllVjMwUzIzUUIvTnJ2T25GdklLZWMwRnQ2NjhtcE9W?=
- =?utf-8?B?emtYZFVLN20rUjdBNTMrKzk5dmtIRnlZN2k0SkNrWlJkOVpJd252SXdING5p?=
- =?utf-8?B?WTVXQURveHlGTUFyVVdIUVlhUVlLREpUbUJsRjYvSk5UZm94YnJ4L25TY2lG?=
- =?utf-8?B?Q0pKM2FFUk1EcmpyNS8wVUNMR2FHaFNUYkxWMWswamRFblFDd2tpNitrSHkv?=
- =?utf-8?B?UTUwbVZOYWYrK1BLa1k3UlVHYnFudXh2eUZKaUlBeWNPVURSRjFiWkZCamh1?=
- =?utf-8?B?bmJ6MjJINHlZRXlFbWQ0SW1ya2txbWtUK1hudGwxdWVMNVFEbWVXdkNUUzFa?=
- =?utf-8?B?MmpNYkZqSzFCUWdLU2NINEF5aE9pTUJKWmZod3JkUFo1SFlZNExQZHcxT2xp?=
- =?utf-8?B?ZSswV0ZBRTBBbVRKVk5MYWppSFhmYlNXemJJejl4YXR5RUllZ0dmanF3cDhW?=
- =?utf-8?B?azlkS3EyWVUzd25qb1pzTUpEU0NiRmljdm9IMUU1aVZFeHJ0RDZ3bnQyQW54?=
- =?utf-8?B?WEZJSVBLSmZZcGovVDNOelkydVIrYkN1SXZoSzROYnpvdE5nS2Zuci9wZ09l?=
- =?utf-8?B?S05SYjRMNUFQOE5OS3A3dVluRGlWYUdWMWNzWS9BTlFUYWc0TW1WamdtRUU0?=
- =?utf-8?B?d2h2aFNqNWhPL0RKbmtrTlJVR0h5TERXcjZwNjlGSnp5OENUbStVR1B2ZXpt?=
- =?utf-8?B?dFBnSzJqaHdCUXJ2d0RMVENtb0ZpRXhHMytMSkpkb2FaR3o1NVkxc0wzekV1?=
- =?utf-8?B?YnR4Q094TG01ekYxZldSdi9oNlFqTFcySm9RZVRQZ250V3JBbG1Oa3VzUlFs?=
- =?utf-8?B?RGljeXBDYzIrbE80Y0tqZnFZMWV3eENkUGF0dDRSS0NEcFhyLzdSdUUyaHha?=
- =?utf-8?B?eXpMYjVoODNCZUFiUVhXdVc5K0RYQnZKdklTM2dWQU5lZEliMk5lV1JqT3hF?=
- =?utf-8?B?N01WMitZN2RMSHpKOTUxejlMRGhnb2IxcEZhdDdleTU1ZVp6TVVxRXJxSjRB?=
- =?utf-8?Q?7N7Oa0LAhrg4Je7hS5J4guC/afIaCtmXSbiPnJs?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzhsQkJyYURTNFd0MEJkZ1Z5UEdBMFVYTGZSUWc0bFhpYVNYU1JNMWRmU0F5?=
+ =?utf-8?B?VXM3Y3F3UXhyNmJsdzdGc2tVS0hFOExXZjlOQ2g3dEpvZWFpVjZ4eW55eElN?=
+ =?utf-8?B?UjQwUzZvdGU4SGVRRVIvNytxQlJTNExqeldTSzJ4RldhcFBOWG1oSnRVTERP?=
+ =?utf-8?B?QnNVTkJJOXJDc0FnM3MwV2pUOVNGcjg3eFhQUU9nM3I4clpkSDd3alg0bW00?=
+ =?utf-8?B?QlJmZkp3Vk81R016QjRYc3UyMHJYVFlGUTFaUkFTRUZoVnB3ODhYRHVBQ3VP?=
+ =?utf-8?B?RmJTS2FQb2tiUkVLYU54M3FWaUh1NWptL0pkY2FvN0hZVnZuYjZza2Ribk9L?=
+ =?utf-8?B?MlBQZVJPdEp6S3FBQThqeEVRUWRGRXM0MjVqK1NneXBHRTRwVTF1T1BVc0Qw?=
+ =?utf-8?B?VmJodmhidjZjZUFVL0pBZHVtNnBaRHpXQ0VRSU9zR3grSmRWR3hNR093N0Y2?=
+ =?utf-8?B?NWY2WlpsZjhFNWpKazZQcEt0TE56QmMyMTdqYlJBWmRrRG94eDdpKzlXc1V0?=
+ =?utf-8?B?M2VVVG9XT2FybEwxQ3RRaUJLTnhKNEVzbVpQdmIzWFphQW8rOUF3dFhxQk83?=
+ =?utf-8?B?eWVOUExLKzYyRWw1RXd5Yjh5UkRBMnIrRUxEL2pSbkMwSXdjYWltam1DeE1V?=
+ =?utf-8?B?TDlRamsrSVI5VU90V2dkcHE2MCt6ZlFQY3lZUjQ3dlZrYlhnM1pDWmtBci9Z?=
+ =?utf-8?B?QkhPNVRaMVZkeVV5aU84cTNwaGZTc244eWNZa21vZTFSL3Q1T1JtZ3lyZE9w?=
+ =?utf-8?B?WnNQaDZrL3ZSMG1LNXAxbkZwOXkxM0pLRG1HQUhUV2hnM1FubW50Y0oxb2tv?=
+ =?utf-8?B?RnRvNDRKc0tzRnRRMUdqUWY1MEJlU2xuZjlBVVN0SWlvZW85VVRxZVdnSnVV?=
+ =?utf-8?B?Uk9QY09MWGhJK3RBS0xCdGlBelpsVEVxaDVtQUdrNkdIcHc0cm4yMFJRY3J6?=
+ =?utf-8?B?dmo4cXdOVXA2aDFSSXovMVdEbE9jU05VTVd1SmxGUHM5Yko0aG5MNVhtMUxp?=
+ =?utf-8?B?Q1E1WnhXRUh6M081U2F4M1lJQWJKSHJPRDFXb3NncjRMcFhGNWZoNnBxTjlt?=
+ =?utf-8?B?Y1FNY3MwemZsSW9kR05rZ2VXTWsxQUZCU2JGRVZ6emV1SGpGdmhnM21QQlpK?=
+ =?utf-8?B?ZDUyTGtJTlMyTzArcFdOZ1ovcStRT1RiZkxqOExsbkswLzR3WFpkNGJ6N2dW?=
+ =?utf-8?B?NE1MT3dLWEdkQ2FDTnRMZE04WFZzYkUzRVZEWjFia3IwWFU0cjdUTGxJMzBV?=
+ =?utf-8?B?NW4vN3hpODA3eG5uMFdKWjhRQkg1c0ZZMWRwMGRjTkw2M1JkK2tDNzBDTTRz?=
+ =?utf-8?B?NUZCNXRCbUs2QlhLUS9DaEZRdnRVcFRTNUZKNExCa3JOOFhuTlVQVVAwTzNC?=
+ =?utf-8?B?amlMeEJmZTdDSytOeEw1cWgvNS8yWVpQeENnZnJ6QVRBUVo4ZWxsSTFnMjE5?=
+ =?utf-8?B?cld4VXZLRE14djdSSWJHU0h4bkw4K3hiOWhrK2IvNjhiYkRKZS9sdnNqNHJZ?=
+ =?utf-8?B?ZDRwUDVXQldEQlZqZy9FOVMzUHQ0T3RFTTQ0YjdIRUJIUStuTU1lTlZSNEhy?=
+ =?utf-8?B?ZWQ0LytYUmtubWs2NTFGTW4wMDc1Rnl2WTdIeDJMeEpyZ3p5MmZIWlpXOWhC?=
+ =?utf-8?B?dVVxdVpvNSt1NWgvQ2U4a0dIR2VneWJ0RUJvWE9XS2VXTmxUc2VHSFJsRTRz?=
+ =?utf-8?B?RHBpS1VWckp6N2xuNUlDaXVkbEdjMnRHS2hTcC9OTVAvaFV2clBNeFFsbkRB?=
+ =?utf-8?Q?NtfCPqWiz5S+8LBLi6Ch6ejqvqJjSI9AcMozMjG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6f1a81d-ff58-4214-4702-08d98818d81d
+X-MS-Exchange-CrossTenant-Network-Message-Id: b23f4e4a-63a7-4fe8-49f1-08d988190545
 X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2021 15:57:33.8594 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2021 15:58:49.5345 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yEYwMU5Uzpnl5i2hxxaaEyXw4jt8giIzk7+dr4IV1SkdDnL7PfNFEWQgQixTTBPSo98+vpiKvU6cVDor7wnK6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5426
+X-MS-Exchange-CrossTenant-UserPrincipalName: jFtqNKYOWCy+Ixhm8jZCiehaXpE2tYV+o86yfDXZnqMc8eChbSQ5XZ2LnLY4JGlvjoSEKlJOJ1aLZQUdiyC0Gw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5395
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,25 +144,14 @@ On 2021-10-05 03:51, Wayne Lin wrote:
 > From: Jimmy Kizito <Jimmy.Kizito@amd.com>
 > 
 > [why & how]
-> Add codes for commit "99732e52e7f8 drm/amd/display: Update DPRX detection"
-> to support USB4 DP tunneling feature
+> Add codes for commit "ede4f6dac99e drm/amd/display: Update
+> setting of DP training parameters." to support USB4 DP tunneling
+> feature
 > 
 
-This patch does a few, seemingly unrelated, changes:
-1. Add stub for getting tunneling device data
-2. Add check for phy_repeater_cnt < 0xff to LTTPR check
-3. Add two more bits of information to DPIA links
+Suggested title: Skip DPCD read for DPTX-to-DPIA hop
 
-Does item 2 have potential to change existing LTTPR behavior? If so,
-it might be better in a separate patch to ease potential regressions
-in the future. Probably not a big deal here, though.
-
-Suggested title: "Add stub to get DPIA tunneling device data"
-
-Suggested description, something like:
-1. Add stub for getting tunneling device data
-2. Add check for phy_repeater_cnt < 0xff to LTTPR check
-3. Add two more bits of information to DPIA links
+Suggested description: Driver does not need to train the first hop.
 
 Harry
 
@@ -171,160 +160,26 @@ Harry
 > Acked-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 > Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/Makefile       |  2 +-
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c |  2 +
->  .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |  4 ++
->  .../drm/amd/display/dc/core/dc_link_dpia.c    | 34 +++++++++++++++++
->  .../gpu/drm/amd/display/dc/inc/dc_link_dpia.h | 38 +++++++++++++++++++
->  5 files changed, 79 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
->  create mode 100644 drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
+>  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-> index 520f58538364..1a0e462bed42 100644
-> --- a/drivers/gpu/drm/amd/display/dc/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/Makefile
-> @@ -61,7 +61,7 @@ include $(AMD_DC)
->  
->  DISPLAY_CORE = dc.o  dc_stat.o dc_link.o dc_resource.o dc_hw_sequencer.o dc_sink.o \
->  dc_surface.o dc_link_hwss.o dc_link_dp.o dc_link_ddc.o dc_debug.o dc_stream.o \
-> -dc_link_enc_cfg.o dc_link_dpcd.o
-> +dc_link_enc_cfg.o dc_link_dpia.o dc_link_dpcd.o
->  
->  ifdef CONFIG_DRM_AMD_DC_DCN
->  DISPLAY_CORE += dc_vm_helper.o
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index 66182b8c217b..1c397d5551ba 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -1726,6 +1726,7 @@ static bool dc_link_construct_dpia(struct dc_link *link,
->  	/* Dummy Init for linkid */
->  	link->link_id.type = OBJECT_TYPE_CONNECTOR;
->  	link->link_id.id = CONNECTOR_ID_DISPLAY_PORT;
-> +	link->link_id.enum_id = ENUM_ID_1 + init_params->connector_index;
->  	link->is_internal_display = false;
->  	link->connector_signal = SIGNAL_TYPE_DISPLAY_PORT;
->  	LINK_INFO("Connector[%d] description:signal %d\n",
-> @@ -1733,6 +1734,7 @@ static bool dc_link_construct_dpia(struct dc_link *link,
->  		  link->connector_signal);
->  
->  	link->ep_type = DISPLAY_ENDPOINT_USB4_DPIA;
-> +	link->is_dig_mapping_flexible = true;
->  
->  	/* TODO: Initialize link : funcs->link_init */
->  
 > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 4df71d728319..9bc5f49ea2ec 100644
+> index 9bc5f49ea2ec..dd1d0262ba40 100644
 > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
 > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -36,6 +36,7 @@
->  #include "dpcd_defs.h"
->  #include "dc_dmub_srv.h"
->  #include "dce/dmub_hw_lock_mgr.h"
-> +#include "inc/dc_link_dpia.h"
->  #include "inc/link_enc_cfg.h"
+> @@ -1777,6 +1777,13 @@ static enum dc_status configure_lttpr_mode_non_transparent(
 >  
->  /*Travis*/
-> @@ -4582,6 +4583,7 @@ bool dp_retrieve_lttpr_cap(struct dc_link *link)
->  
->  		/* Attempt to train in LTTPR transparent mode if repeater count exceeds 8. */
->  		is_lttpr_present = (dp_convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt) != 0 &&
-> +				link->dpcd_caps.lttpr_caps.phy_repeater_cnt < 0xff &&
->  				link->dpcd_caps.lttpr_caps.max_lane_count > 0 &&
->  				link->dpcd_caps.lttpr_caps.max_lane_count <= 4 &&
->  				link->dpcd_caps.lttpr_caps.revision.raw >= 0x14);
-> @@ -4630,6 +4632,8 @@ static bool retrieve_link_cap(struct dc_link *link)
->  			LINK_AUX_DEFAULT_LTTPR_TIMEOUT_PERIOD);
->  
->  	is_lttpr_present = dp_retrieve_lttpr_cap(link);
-> +	/* Read DP tunneling information. */
-> +	status = dpcd_get_tunneling_device_data(link);
->  
->  	status = core_link_read_dpcd(link, DP_SET_POWER,
->  			&dpcd_power_state, sizeof(dpcd_power_state));
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-> new file mode 100644
-> index 000000000000..183601e300fe
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-> @@ -0,0 +1,34 @@
-> +/*
-> + * Copyright 2021 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + * Authors: AMD
-> + *
-> + */
+>  		if (encoding == DP_8b_10b_ENCODING) {
+>  			repeater_cnt = dp_convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
 > +
-> +#include "dc_link_dpia.h"
-> +#include "inc/core_status.h"
-> +#include "dc_link.h"
+> +			/* Driver does not need to train the first hop. Skip DPCD read and clear
+> +			 * AUX_RD_INTERVAL for DPTX-to-DPIA hop.
+> +			 */
+> +			if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA)
+> +				link->dpcd_caps.lttpr_caps.aux_rd_interval[--repeater_cnt] = 0;
 > +
-> +enum dc_status dpcd_get_tunneling_device_data(struct dc_link *link)
-> +{
-> +	/** @todo Read corresponding DPCD region and update link caps. */
-> +	return DC_OK;
-> +}
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
-> new file mode 100644
-> index 000000000000..8ed0c9f6414b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
-> @@ -0,0 +1,38 @@
-> +/*
-> + * Copyright 2021 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + * Authors: AMD
-> + *
-> + */
-> +
-> +#ifndef __DC_LINK_DPIA_H__
-> +#define __DC_LINK_DPIA_H__
-> +
-> +/* This module implements functionality for training DPIA links. */
-> +
-> +struct dc_link;
-> +
-> +/* Read tunneling device capability from DPCD and update link capability
-> + * accordingly.
-> + */
-> +enum dc_status dpcd_get_tunneling_device_data(struct dc_link *link);
-> +
-> +#endif /* __DC_LINK_DPIA_H__ */
+>  			for (repeater_id = repeater_cnt; repeater_id > 0; repeater_id--) {
+>  				aux_interval_address = DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1 +
+>  							((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (repeater_id - 1));
 > 
 
