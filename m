@@ -2,133 +2,136 @@ Return-Path: <SRS0=XefO=O2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AAC3C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 14:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DFA7C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 14:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EBBA260F6D
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 14:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EBBA260F6D
+	by mail.kernel.org (Postfix) with ESMTPS id EE48C6105A
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 14:02:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EE48C6105A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B4A66E514;
-	Wed,  6 Oct 2021 14:02:02 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2069.outbound.protection.outlook.com [40.107.101.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 545AA6E514
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 14:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D6E56E524;
+	Wed,  6 Oct 2021 14:02:58 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2072.outbound.protection.outlook.com [40.107.102.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D72D6E519
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Oct 2021 14:02:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q2U8S11DAVcG6s6p0Eox/odQSvWY1cCZPg9+Q4M3RHaxhYC3CRk8sc/xsr6Ze8Tjalq3VT+Bbci3ce/c/yOllDjEIBHF2JuCZR4yby/W5SQUjMQBW5hzGH3v0+PtzCCoGKntTSyQ7LPYahJcVhqCQXURE+GLBvqkdfdI8Ma6wocrWwV05dBLpXOStDSWjzX4aAC85hnj3pgdGOXFLoo9gfFh/51lXvO7hwlhV3dJeXLarbUgHTfSuGlGPu2tme/xEwBKZ7feWvGv4nruBrWLZyEduJ+Oqa0Kcu5k+QQiw0QCX8wH26UXLk0FaILjCL3uxWRy9tR7DqlFCrmFDZ9row==
+ b=Hy+RXuhKlFgQ9sN2ngd/xHneklQ4oCVRrwbRB3M2OfrNjwpBJJdAn08EMaLDoMEPMIhWxU+Z4Q5XLTUgr2Rl4wUcZpXsnzhWkO+6hArVfk6wcz5JuQ/K3BloS5DiQ+rIh1emgFTZ2UWJSweRjwg1GLnNlAJA+ZlhnyRRDEKPv/hrcDFwzT50qIAFXs6DPTvJajHI6XzZUrGeVEQvTfu1o5L8dM3JMEk2VwlY6hghFFiJ2YDmzPegxtBkd9QqXx7SuT28sIdR1oxumohFralC72+C12cJL+0uPDQ+Ps5OcNZs/lZrt0rT+qY7lh4G7/Y165GCOj9et6OczGGrydXpow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dj3tnp0VRvr/gjwnAbWvkuwtSQEe8zeL37/eP2eLc+E=;
- b=eodtBMXR3FlfqtnxqkUrq+p2WVM1MaBUP1azirtGJ3XJ7NmA0kWleqk2a0Ch7sCKgAXtFUZwJVAdpyqKAea+iAYXD7DN886sax9nDgMtILoPCEacayidpsPkjKPRfI7JDu03v4frCL8yp4ApIBz9lY967LJM0G4c2L43JUVi1nm2vX3xBq41kNnPiweFw6vjcTjAzmKzkpTfgkEBcJHv7hKbGRv7KXHf0iZCeHiKw5pc6/uXOER7ElPjjGzJ+Pv/8MsXnqVUaw2lVyyUk797IZ54PzLHpHRIsNQyc2vLcn5vz+USy2R3LTV6UI00c+aYd0HLMbWIGp1V9dP747NUOA==
+ bh=2KNeahUoceR5zK7gbtZrsz/pSQrtEf2/X/2tTyZAhkA=;
+ b=j5xQPLWHRqwjgCY1j0r2D14efIqRhKh0UFxGYn5acZ5byj3qpOjYEo8T4EVZULLgA8s/c7GMV8sqR70mXvCo1vGSrxOmX9ks9FKIbbtzyTvYmfP5YKJZjw2AJ1wRJNHTDUTVI9OgKivoTNnys1f5QgFiGuGw7jnMYkN51Srqn/mktVspWNWdXY7U94U+RZ2ZcHHkxewzr2SesGYk3VuwYIbS94WP6k07QJA/n2/KSZm/9yYq9pZtOaQ6CYGWBX6FLkuKSe39xX6wnlTvRvpcSGMe7z3+sCJLbIR2VNs5yZrJXtvr0MKyePbDB25c2Aa4cyQrAHEDoSW7JnlgMAcYwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dj3tnp0VRvr/gjwnAbWvkuwtSQEe8zeL37/eP2eLc+E=;
- b=KOf5thvTeNn3skmg/sldx7q2HieRaGXdzXSoxVLZaZMtXniqGJ5D1QInlXoe/7xODgJd9BqB+BMIcc43KqrGQy7cwPMLAb9pF/eylhqOY55GUClfqJgYwN5csNpTUGy47HsyWNcb/VqdXyrX4PzZ5es8+Xa1CWP1BISD6axMNHU=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5229.namprd12.prod.outlook.com (2603:10b6:5:398::12)
- by DM4PR12MB5134.namprd12.prod.outlook.com (2603:10b6:5:391::17) with
+ bh=2KNeahUoceR5zK7gbtZrsz/pSQrtEf2/X/2tTyZAhkA=;
+ b=QYT38hV55wZPgJ9G0nL3QZ4qVIrqrO5K2YdGfpGnTNpuzWvXjwbNlvKYGTDRF32eu94uyx4OWpDIN2WOrxqUOqAXBT1a2I57li/Y/QyqmyiiPCzaz89Q87PdEB3qSURHcXFOmuillWq7lf2dkbtwRlBVgaFixMagdpJAgU6Dbsg=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CO6PR12MB5425.namprd12.prod.outlook.com (2603:10b6:303:13e::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Wed, 6 Oct
- 2021 14:01:59 +0000
-Received: from DM4PR12MB5229.namprd12.prod.outlook.com
- ([fe80::d560:d21:cd59:9418]) by DM4PR12MB5229.namprd12.prod.outlook.com
- ([fe80::d560:d21:cd59:9418%6]) with mapi id 15.20.4587.019; Wed, 6 Oct 2021
- 14:01:59 +0000
-Subject: Re: `AMD_MEM_ENCRYPT_ACTIVE_BY_DEFAULT=y` causes AMDGPU to fail on
- Ryzen: amdgpu: SME is not compatible with RAVEN
-To: Alex Deucher <alexdeucher@gmail.com>, Borislav Petkov <bp@alien8.de>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, Thomas Gleixner
- <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, X86 ML
- <x86@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <8bbacd0e-4580-3194-19d2-a0ecad7df09c@molgen.mpg.de>
- <CADnq5_ONNvuvTbiJDFfRwfnPUBeAqPmDJRmESDYG_7CymikJpQ@mail.gmail.com>
- <YV1vcKpRvF9WTwAo@zn.tnic>
- <CADnq5_N5+SEW4JyXLc=FdSHnSbXrGKWjEw4vW1Jxv9-KdWf+Jg@mail.gmail.com>
-From: Tom Lendacky <thomas.lendacky@amd.com>
-Message-ID: <96f6dbed-b027-c65e-6888-c0e8630cc006@amd.com>
-Date: Wed, 6 Oct 2021 09:01:56 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <CADnq5_N5+SEW4JyXLc=FdSHnSbXrGKWjEw4vW1Jxv9-KdWf+Jg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Wed, 6 Oct
+ 2021 14:02:54 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465%8]) with mapi id 15.20.4587.019; Wed, 6 Oct 2021
+ 14:02:54 +0000
+Message-ID: <16f62843-883d-0ddf-8545-d2806a5ab82b@amd.com>
+Date: Wed, 6 Oct 2021 10:02:49 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
+Subject: Re: [PATCH v2 19/23] drm/amd/display: Add debug flags for USB4 DP
+ link training
 Content-Language: en-US
+To: "Lin, Wayne" <Wayne.Lin@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "Wang, Chao-kai (Stylon)" <Stylon.Wang@amd.com>,
+ "Shih, Jude" <Jude.Shih@amd.com>, "Kizito, Jimmy" <Jimmy.Kizito@amd.com>,
+ "Somasundaram, Meenakshikumar" <Meenakshikumar.Somasundaram@amd.com>,
+ "Lei, Jun" <Jun.Lei@amd.com>
+References: <20211005075205.3467938-1-Wayne.Lin@amd.com>
+ <20211005075205.3467938-20-Wayne.Lin@amd.com>
+ <33774abc-c31d-e3d6-43ec-b80bc7e946c5@amd.com>
+ <CO6PR12MB5489C5E88F098D2C6BC7AF69FCB09@CO6PR12MB5489.namprd12.prod.outlook.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <CO6PR12MB5489C5E88F098D2C6BC7AF69FCB09@CO6PR12MB5489.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN6PR16CA0062.namprd16.prod.outlook.com
- (2603:10b6:805:ca::39) To DM4PR12MB5229.namprd12.prod.outlook.com
- (2603:10b6:5:398::12)
+X-ClientProxiedBy: YQXPR0101CA0006.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:15::19) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Received: from [10.236.30.241] (165.204.77.1) by
- SN6PR16CA0062.namprd16.prod.outlook.com (2603:10b6:805:ca::39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.15 via Frontend Transport; Wed, 6 Oct 2021 14:01:58 +0000
+Received: from [192.168.50.4] (198.200.67.104) by
+ YQXPR0101CA0006.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:15::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
+ Transport; Wed, 6 Oct 2021 14:02:52 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bb7c588e-a671-4223-d063-08d988d1dd29
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5134:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5134BC645FEEC7CD7191BC73ECB09@DM4PR12MB5134.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Office365-Filtering-Correlation-Id: a2100440-9ae6-4509-17be-08d988d1fde7
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5425:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5425072449B445C284D95E0B8CB09@CO6PR12MB5425.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kEyLFA6ZXN+SUZJLitp+4dtdOr4pA0WF83FoHE6rl6ik/Ex67yqy5Kmv7kPGCUGs1n9Fxtq1ZJsqswydHX/1dKXxuNXYU12Zk7MRgArybQTvXW2fGGrV9MztqJouR76XxKyVKx3dVUBAHXu9nqqU5XbTbxD7cImgVjdUVGtkwtiHfGAYOjhr18j0c+VcZQXNeuikLANw0C8id9M1cfggTOuG+6U/YE8bnbyKVrgdZAAr42vjPIZdI7gvvYF9kq04TwnftUeiThf4+eXHHe6hlU/nACGV+a3vns8M5AXohIVi21DMmd7wpfY2Y8iIcFCn9Jq4WZ3UdBzT+eupdqpXYV5ha6dCEmyReFy0ts5m/ftiZYJTyh4c0C9sGgST+YeSUwAN/d16Ua40kPmRynHKQlC5m15L7qgfHkrLhBdBuAZlrAkBOrH+/OzGvDkLd1cYrTEcBym+qgvVsOwmDu/7fJazLxR1FxOZnOXzClh1K3ZSkwbOttgyO9hc0KoYSrZBXIRxIYqm7j5KZsZ34SnQUzrHlsUAknR3oHkqFSh1ra+Re/5/BRR8wFuh4yxbjwKzzwKUh6HVuVRHj0b1ITUGda2bmUaTjIErfcNoqB81VgI4o/jsaYm8AJwXmuV1p0WaFRfGjHTfg3WxK9TlLxl0ahgrqjE1yM3lkwVhydzWYc2cG+h5e5zVN3uhAnoqsXocpCDh+BN/WAgm4UR79FOVLD08jBzc8LYH6pMyN+u0O5/aoZzBwAwnEUQ19anGiVRR6FblH15NTNJLKsHlFu4DNRYB4rglA6DEKb5eGRJHQYTLQm92ZnoIIi7fk/rBkOv/kbkcFNi2u2OEKcTKcfbPHQ8pj7vKEbzi6MRvNtW1Umc=
+X-Microsoft-Antispam-Message-Info: 54qCZHG7a61V8Nxlh6CYN8vYBgveZtKUAIbM3ZN5v1U7gm/bfhYBg6nhNC7jD2DTKKuRJZCiqd/Qrvs08qiswSKavukWr7Xt/7yR5iUR9nZk/SDnrang0HhOyCAbKiij0sYAPyckRabMMXWbK3AyMHyjV6iOuwrRgvmPL/GHUeBL3ovtXPjHK8Ycek/dSdFq9IRLh+PBfncUALwiLjh5gjMtAEttbZZnQpHS9/L6gsxKxuvDHoBcfoAc9Hkyy1CiTXhWrxLTBJNQp01vc+8Iu9Myc+Cz0kLLKzanht2qy85qnhFPXwFtoc8AKvwAapIwRF8LSvINGwteijJGGMpDCqx5to31zAv5grOjSGgk9lgIgwekJdc+bLbnCMJ78/Xwqg56Bf0+Xl/Lk8mxg8SPzLQ5RjLXVQSzKtxhDPumTXQnxlmLFfO7F1FaON/JJCJgCUTez8H8Smzc0bkWph4HvSWtBPHF0/0bdarj1YZQCIMP1spoTWvGvfw1caRlI26FePFkLv5rU4ztZ/Wumrlnk/rRS2n9zuWS0M1nvh7fucZym+FMuVGZgtfh929XL58XmXPXpDfPHUVMTCAVAV46Lgx5jwITE4TbdxPIeiCBv6xn8cesvTzZ52CFZEQH+VjI9aUGsCdW3sIp5znXN1Zjz1EbaNEJUKvZ0zuq62euCWxvcJ5aausqOShFifnxzs3BdPu+wFLgicQ+rVav0qaNk8tc2NxhODGnGV9irrMb7hg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5229.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(31686004)(8676002)(956004)(2616005)(186003)(8936002)(66476007)(6486002)(53546011)(26005)(5660300002)(66946007)(83380400001)(66556008)(38100700002)(966005)(7416002)(31696002)(508600001)(16576012)(316002)(36756003)(54906003)(110136005)(45080400002)(86362001)(4326008)(81973001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(508600001)(54906003)(316002)(16576012)(38100700002)(31686004)(5660300002)(110136005)(83380400001)(186003)(4326008)(6486002)(66946007)(31696002)(8676002)(956004)(66476007)(66556008)(2616005)(26005)(53546011)(6666004)(86362001)(2906002)(36756003)(44832011)(8936002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R3NSVjh6eEdVanpJK3lQcU5sMFV6VEpTT3dZOU9mc2NDSmtjdHY0RUdsZklN?=
- =?utf-8?B?dmdoT3VNUE9adDFUbmVBdExCbjdJWFdvV1hDbXdJc1NKT25JT20yU3V2eHFU?=
- =?utf-8?B?eE5JT3grb1FvVFVSN1VHMmRaSHhBWjNSSEpKRkc5aGdKK3dpeTdDTG02b29W?=
- =?utf-8?B?RDFiVjRrVzIzb2JjbUFCcjJ3UkJKOHdnN2kzRjk5OGdLMitIdEJ6d2ROZ2o0?=
- =?utf-8?B?eUI4WWlRc3p6MC85TTBCVW5jOGpPa3Y4eXNQSFltQnp1dnNyazk1ZVFnTGI2?=
- =?utf-8?B?NHk4b05LeDlRRS8rRURjYUNtR0dZbjJQWUhId05sRHdoSWFBRFBQQVlRUFIr?=
- =?utf-8?B?dENnVHlDWWxPZy8zbDlLWElpYzA0cEdFakpkOENZdllWUk1qUC9EaHZCOVFj?=
- =?utf-8?B?bnk2ejF6OXNpNzVTT2hEN0JNOVk4QVBTOEcyVnROUCtaWG9QOGxHT2JIK1or?=
- =?utf-8?B?WC9ocVNld2hxZGVUV2VlWTdhVldTZ2syNVNEa1ZNZmdaT2Y2dGhKc0FuVjRv?=
- =?utf-8?B?dk5DQndoaXNWb2h0TXJHa3BFVWFnMXpRUlZQbUV5V0orTUYzQjNoQXh1bXJB?=
- =?utf-8?B?MERwOWdyWmJqS2N6NDVZandyTXl1ZlZBTzZHTjVGRm9NWDNnY01XZzBYSjZp?=
- =?utf-8?B?RTZLQ0psdE53NkEzcUhSNXlaenlLc1ZSbUxMZTBRMHhKUXQ5OHdqb1Bxd3lH?=
- =?utf-8?B?dkpYL1ZWT29iT0hJREU3QTlQUGpuWnNjbk4razVmYUtrTjBmeitOQzI3Yjky?=
- =?utf-8?B?b252NDd3My9MMnNlR2IyMExlSDBYQWxXL0c0K05XVnVRZE5zQnNPc0Fadklj?=
- =?utf-8?B?OUtzOUMrbk1pQmsvNjErbUVWbnp3K2RXd3N6emRiKzRQUitVSWVRNmtxOVc0?=
- =?utf-8?B?ZERzUTB3WXJRcm1SZXNTRVVXMFBCazB3K1U3d2g5QlFmRU9Ed3VVUEUrRUZm?=
- =?utf-8?B?alNsSCtPMS9LOU1WazBUY3V0bHdBbk9yeXBCQzVHdWdCYS9LOVU4eWkyNkow?=
- =?utf-8?B?NC94QWRYMERSU1J6SlE0RWxsbkkycUpldFM2UE1RNnRyUFBHdXdPaTUvWTRi?=
- =?utf-8?B?UVZlOW94a0NoMGVsMnFxQmF3Y1hkVlhNNVloQXMxbWREYkpSQVZONjdteDFy?=
- =?utf-8?B?QS9NNGZyNmlVRzJieUljT1Jyek03TzA1ZGFSTEd5dkd6OWpwOFRZUDRFb0NT?=
- =?utf-8?B?b04wSGFqTG5JYUF2ai95cDdITHMyQmdORGVlSUJtQWVMUG56TlpLdXlVUWVo?=
- =?utf-8?B?L2NFdW1lRU03MmViWDg2Zkk3eTBEeU1BeTJaZS9oQnE2K2tybytnOGp4UkVa?=
- =?utf-8?B?d2NMUVNJWkNnMGkwVURmVVJDKzFSSzg1KzhhNEZ3WXh2TWVMc2x1cWk3VmUx?=
- =?utf-8?B?aDF3ODhkc2gxRmlReXR1bWZBdjcydjhkT05ZaG5udnp5M3NLeGdmS2pSalpD?=
- =?utf-8?B?T0c2Nzk3aGVHRlVEMHhxZE45MTh4amdNN2VRWGNEd3RVWHJaTlRYNE9UVEg0?=
- =?utf-8?B?ZUJtN0ZGUHRKcWtEWVdGY240RER0L3dwNGpucGZtR2dpdStwQzlGTHlIV1FI?=
- =?utf-8?B?TFZFTDFoOUdUeWd3K0hMWlJFeHo1dmNhRnI1eDlKU1IrcldTSVl5eFlpZTc1?=
- =?utf-8?B?TDJpaGJkR2xIbFN6dDVhenAvNG1vWDFzTTJGSFVGVUNscjFSK0JCM0lQTi9s?=
- =?utf-8?B?QzRiMFNIWkVZaWVaZzJLU3BqWDBBaTlZekV4N0F1eFhqbFpYdXB1cnVUNnhT?=
- =?utf-8?Q?B8GdNPQ3EXVmPYk897FHOm8XlovXjj1iXTo/1xN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mk1MMTNCTnRPTmxCSWY4M2FQWmZGeWNKQ3hIQ3lxeVJjMHltOWk5ZDRWUkV2?=
+ =?utf-8?B?bDlROEN6QzBPK2xtNUgvMGs2VmUxMm5OOVlnc0VpOHZxVXBBTW5mSkxLaWph?=
+ =?utf-8?B?dzE5dDB1bVZNVlE3cTZyT2JrV0ZDTzBGVGxzNGNuZmZiU0d2SE05V2dPd2ZB?=
+ =?utf-8?B?Mjk0d1dOSjR2MHErS1ZNdGtnV1pjdy9rb1BLZ3ZGd0hHS251WVRheWxqZ0J1?=
+ =?utf-8?B?cEpBWFA5OWlpWGRpeXpEYmNGTEpFb0NsRzF6YWNRL0ZsZ3pKaXA3Mk9DcnFo?=
+ =?utf-8?B?cEMxVVROYjl6Mmw2elBhQnhxSEM1NHN6RGJIZ3Rka1ZaWWdLWSt0TEtBL2VD?=
+ =?utf-8?B?cG5zeDcxalhNdGMyVDhMWFpqR1dGVEVWUmY1RzlVUC9HR3gzZjFGbys3aVhh?=
+ =?utf-8?B?MHNCSUZtWGFnOHlEY2ZXaHBNbkU3RFZ4WnNwOVpZek1jMWtMTTE0R3Y1RDRL?=
+ =?utf-8?B?dFJ1SzEzcTU3Znl2dnEwYmwxR3V4SHRxTmVMemtuRDA2NWlMTUNaNFIwZUFi?=
+ =?utf-8?B?N2dyYXNlYjdmVHlVMDQxMjVYTFpOS1RPbHR0MnZ1T2V2eGV3OGM2U3dUWHIz?=
+ =?utf-8?B?YXFkT24vK3lvbjZiS0xmOWU2WmZHcFIvYVhrdmZzajNLLzd1MEJTaGt3Vmk1?=
+ =?utf-8?B?M1d1UnVSUjhBWWovM2QyWURPMlkrNnhpNExZNXkvWXRJdHJTSDRDZ2FBakQ0?=
+ =?utf-8?B?bkVYKzgrTDFValN6MXdSSnpJM0dWdlkwSmw0RkZkR1R4S2NqMnUwMmY1TUY5?=
+ =?utf-8?B?eFVUcWdyV253VHZwTkQ0aTRpUnoxY1cxZVMrMWpaN1QwTTd4a3JQT3IxV2hx?=
+ =?utf-8?B?UVl3MXEvK0l3T2Z3aXBnV3ZoazRJTVRvb09KZStTZ1gxMU9KVWMxWEcwMk1i?=
+ =?utf-8?B?dkEvaXVERVdTMW1objdLZG9WTENjODd4UVlTaUYzT1AzcHcyK2tRa3F0M2VP?=
+ =?utf-8?B?ZkcyQlhFTEVzcUJmTml6MUMyajBvOWI1a1BPVklqK2pGU0lCbDhXOVJrVjI0?=
+ =?utf-8?B?YlcrRDBoaTFoaEM1Y3d6TE02c2hsVGZUbDRiUmhlUXRqT3FMRDFkQjBVWkVE?=
+ =?utf-8?B?Z1Vld2duR285cG1DalFnVk9adit6c2x4SkNNK1hDQXdTTUlrcERpRkJWOVNv?=
+ =?utf-8?B?MXU5aHdqZmNER252SE9IZjJaTVh3WHJOYU5iNlEzNStnUkR5dFF4bEhPc3ha?=
+ =?utf-8?B?MEpmWEwyR3BEWlN6YUNqcDJOcndxWUtNL0ZrWnphV2E0SGlyKzg3czNzNE9l?=
+ =?utf-8?B?ZDRvTTk0Y0tKbEFlQlc3Q3REZm5FamQrTmhTdXE4ck5MUlZCTVdrNGdQNVZX?=
+ =?utf-8?B?Q1hpNlVjb2cvaUsrLzBIekdRdll3MzdtSElXQjhqelNlMUNqQW85QVE1VzZz?=
+ =?utf-8?B?YTJYeXZRQXd1T0wrVXhsRUZqWHZUTGxUYklCL1JrYzlrUkFjNlBiT0ErSFdp?=
+ =?utf-8?B?djBjRWRkNmM3RFVpa2h5YVBmRFpRbTJ0cThHMmFyTm9KWExPQ1REajlOaDVt?=
+ =?utf-8?B?eUsvR0YzWThjRnA0TVJFanc1ckJTd05iZzNsMGk3SjNjR0RJVHU4Z2UvTWw5?=
+ =?utf-8?B?Q2pMVGdDVDMzVE9Gc1lxbEo3UzVWT3JOMXBEN2VLMC9GVUhhRGMySnZvUHp6?=
+ =?utf-8?B?a2lJVXd1YW4rNm8rVmpkclJWOCtja2FVSmNHK3ZZUGUrMklPbkZaSVdxUll4?=
+ =?utf-8?B?aWJzTnJwOUtkUjRFc0drZVVaYTlCc3lkNERhcGpPWWRPMnZtNzV3K0FHMzFv?=
+ =?utf-8?Q?pkaDeW/ydFhr15ZfZ2J+Be8yaG0PbYeheLzJgF0?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb7c588e-a671-4223-d063-08d988d1dd29
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5229.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2100440-9ae6-4509-17be-08d988d1fde7
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2021 14:01:59.1156 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2021 14:02:54.5181 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nSm0d/e88BuvDZCAK4wis3tCdJul5cWllg3o0Is8kBZlwhyDMNtMgdG2PK9WmrsEUAvP6HlfRyvmIfpxOr5f9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5134
+X-MS-Exchange-CrossTenant-UserPrincipalName: U0gWIPSKNZkArbiGpVCHQw9o8ewfbLXib4r9O/0Q5+5u6a997nA5+bSqcI2DeEgWDrFEcUkey7yElizy+J3GzQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5425
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,63 +146,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/6/21 8:23 AM, Alex Deucher wrote:
-> On Wed, Oct 6, 2021 at 5:42 AM Borislav Petkov <bp@alien8.de> wrote:
->>
->> On Tue, Oct 05, 2021 at 10:48:15AM -0400, Alex Deucher wrote:
->>> It's not incompatible per se, but SEM requires the IOMMU be enabled
->>> because the C bit used for encryption is beyond the dma_mask of most
->>> devices.  If the C bit is not set, the en/decryption for DMA doesn't
->>> occur.  So you need IOMMU to be enabled in remapping mode to use SME
->>> with most devices.  Raven has further requirements in that it requires
->>> IOMMUv2 functionality to support some features which currently uses a
->>> direct mapping in the IOMMU and hence the C bit is not properly
->>> handled.
->>
->> So lemme ask you this: do Raven-containing systems exist out there which
->> don't have IOMMUv2 functionality and which can cause boot failures when
->> SME is enabled in the kernel .config?
-> 
-> There could be some OEM systems that disable the IOMMU on the platform
-> and don't provide a switch in the bios to enable it.  The GPU driver
-> will still work in that case, it will just not be able to enable KFD
-> support for ROCm compute.  SME won't work for most devices in that
-> case however since most devices have a DMA mask too small to handle
-> the C bit for encryption.  SME should be dependent on IOMMU being
-> enabled.
 
-That's not completely true. If the IOMMU is not enabled (off or in 
-passthrough mode), then the DMA api will check the DMA mask and use 
-SWIOTLB to bounce the DMA if the device doesn't support DMA at the 
-position where the c-bit is located (see force_dma_unencrypted() in 
-arch/x86/mm/mem_encrypt.c).
 
-To avoid bounce buffering, though, commit 2cc13bb4f59f was introduced to 
-disable passthrough mode when SME is active (unless iommu=pt was 
-explicitly specified).
+On 2021-10-06 06:14, Lin, Wayne wrote:
+> [Public]
+> 
+>> -----Original Message-----
+>> From: Wentland, Harry <Harry.Wentland@amd.com>
+>> Sent: Wednesday, October 6, 2021 1:11 AM
+>> To: Lin, Wayne <Wayne.Lin@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Siqueira, Rodrigo
+>> <Rodrigo.Siqueira@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Shih, Jude <Jude.Shih@amd.com>; Kizito, Jimmy
+>> <Jimmy.Kizito@amd.com>; Somasundaram, Meenakshikumar <Meenakshikumar.Somasundaram@amd.com>; Lei, Jun <Jun.Lei@amd.com>
+>> Subject: Re: [PATCH v2 19/23] drm/amd/display: Add debug flags for USB4 DP link training
+>>
+>>
+>>
+>> On 2021-10-05 03:52, Wayne Lin wrote:
+>>> From: Jimmy Kizito <Jimmy.Kizito@amd.com>
+>>>
+>>> [Why & How]
+>>> Additional debug flags that can be useful for testing USB4 DP link
+>>> training.
+>>>
+>>> Add flags:
+>>> - 0x2 : Forces USB4 DP link to non-LTTPR mode
+>>> - 0x4 : Extends status read intervals to about 60s.
+>>>
+>>> Reviewed-by: Meenakshikumar Somasundaram
+>>> <meenakshikumar.somasundaram@amd.com>
+>>> Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+>>> Acked-by: Wayne Lin <Wayne.Lin@amd.com>
+>>> Acked-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+>>> Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
+>>> ---
+>>>  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   | 6 ++++++
+>>>  drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c | 6 ++++++
+>>>  drivers/gpu/drm/amd/display/dc/dc.h                | 4 +++-
+>>>  drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h  | 3 +++
+>>>  4 files changed, 18 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>>> b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>>> index bfba1d2c6a18..423fbd2b9b39 100644
+>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>>> @@ -4528,6 +4528,12 @@ bool dp_retrieve_lttpr_cap(struct dc_link *link)
+>>>             else
+>>>                     link->lttpr_mode = LTTPR_MODE_NON_TRANSPARENT;
+>>>     }
+>>> +#if defined(CONFIG_DRM_AMD_DC_DCN)
+>>
+>> Why is this guarded with DC_DCN when all other DPIA code isn't?
+>> It looks like it might be unnecessary.
+> Thanks Harry.
+> 
+> Since declaration of dpia_debug variable is guarded by CONFIG_DRM_AMD_DC_DCN,
+> we should keep this here.
+> 
 
-Thanks,
-Tom
+Ah, that's the one I was missing.
 
+We could probably move it out of the DCN guard in patch 16 but
+that can be done with a follow-up patch.
+
+Technically DPIA only makes sense for DCN but there is no reason
+to guard it specifically for DCN. The only reason we have the DCN
+guard is to allow builds of our driver without floating point on
+older HW. I wonder if that's even still needed since we now have
+the fixups of the floating point stuff for PPC and ARM.
+
+Harry
+
+> Thanks!
+>>
+>>> +   /* Check DP tunnel LTTPR mode debug option. */
+>>> +   if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA &&
+>>> +       link->dc->debug.dpia_debug.bits.force_non_lttpr)
+>>> +           link->lttpr_mode = LTTPR_MODE_NON_LTTPR; #endif
+>>>
+>>>     if (link->lttpr_mode == LTTPR_MODE_NON_TRANSPARENT || link->lttpr_mode == LTTPR_MODE_TRANSPARENT) {
+>>>             /* By reading LTTPR capability, RX assumes that we will enable diff
+>>> --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
+>>> b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
+>>> index 7407c755a73e..ce15a38c2aea 100644
+>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
+>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
+>>> @@ -528,6 +528,12 @@ static uint32_t dpia_get_eq_aux_rd_interval(const struct dc_link *link,
+>>>                             dp_translate_training_aux_read_interval(
+>>>                                     link->dpcd_caps.lttpr_caps.aux_rd_interval[hop - 1]);
+>>>
+>>> +#if defined(CONFIG_DRM_AMD_DC_DCN)
+>>
+>> Same here. Please drop this guard if we don't need it.
+>>
+>> Harry
+>>
+>>> +   /* Check debug option for extending aux read interval. */
+>>> +   if (link->dc->debug.dpia_debug.bits.extend_aux_rd_interval)
+>>> +           wait_time_microsec = DPIA_DEBUG_EXTENDED_AUX_RD_INTERVAL_US;
+>>> +#endif
+>>> +
+>>>     return wait_time_microsec;
+>>>  }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h
+>>> b/drivers/gpu/drm/amd/display/dc/dc.h
+>>> index e3f884942e04..86fa94a2ef48 100644
+>>> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+>>> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+>>> @@ -499,7 +499,9 @@ union root_clock_optimization_options {  union
+>>> dpia_debug_options {
+>>>     struct {
+>>>             uint32_t disable_dpia:1;
+>>> -           uint32_t reserved:31;
+>>> +           uint32_t force_non_lttpr:1;
+>>> +           uint32_t extend_aux_rd_interval:1;
+>>> +           uint32_t reserved:29;
+>>>     } bits;
+>>>     uint32_t raw;
+>>>  };
+>>> diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
+>>> b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
+>>> index 790b904e37e1..e3dfe4c89ce0 100644
+>>> --- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
+>>> +++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
+>>> @@ -34,6 +34,9 @@ struct dc_link_settings;
+>>>  /* The approximate time (us) it takes to transmit 9 USB4 DP clock
+>>> sync packets. */  #define DPIA_CLK_SYNC_DELAY 16000
+>>>
+>>> +/* Extend interval between training status checks for manual testing.
+>>> +*/ #define DPIA_DEBUG_EXTENDED_AUX_RD_INTERVAL_US 60000000
+>>> +
+>>>  /** @note Can remove once DP tunneling registers in upstream
+>>> include/drm/drm_dp_helper.h */
+>>>  /* DPCD DP Tunneling over USB4 */
+>>>  #define DP_TUNNELING_CAPABILITIES_SUPPORT 0xe000d
+>>>
+> --
+> Regards,
+> Wayne
 > 
->>
->> IOW, can we handle this at boot time properly, i.e., disable SME if we
->> detect Raven or IOMMUv2 support is missing?
->>
->> If not, then we really will have to change the default.
-> 
-> I'm not an SME expert, but I thought that that was already the case.
-> We just added the error condition in the GPU driver to prevent the
-> driver from loading when the user forced SME on.  IIRC, there were
-> users that cared more about SME than graphics support.
-> 
-> Alex
-> 
->>
->> Thx.
->>
->> --
->> Regards/Gruss,
->>      Boris.
->>
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpeople.kernel.org%2Ftglx%2Fnotes-about-netiquette&amp;data=04%7C01%7Cthomas.lendacky%40amd.com%7Cbab2eedbc1704f90f63408d988cc7fb2%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637691234178637291%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=xCXc1pcfJiWvKG1DTJKq986Ecid8M7M7K3gvCDWrZL8%3D&amp;reserved=0
+
