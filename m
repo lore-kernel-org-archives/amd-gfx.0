@@ -2,52 +2,53 @@ Return-Path: <SRS0=XefO=O2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4CCBC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 06:59:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 328C4C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 08:52:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CC8C611C0
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 06:59:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5CC8C611C0
+	by mail.kernel.org (Postfix) with ESMTPS id ED5906115A
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Oct 2021 08:52:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ED5906115A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E86726F628;
-	Wed,  6 Oct 2021 06:59:49 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8E2F6ECEF;
- Wed,  6 Oct 2021 06:59:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91E656ED1A;
+	Wed,  6 Oct 2021 08:52:44 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A2BD6E5A1;
+ Wed,  6 Oct 2021 08:52:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bk17A8wNSUnUyHI3bWP+jeHfUrH2fn9+eiK0lhRUbEmJ+/eGtKSyczW2TKvRcIirx1yGxvtplfZ3x8hkrf4Sa9+6yxknBV6e7S4jZsSd+bR/maLuBwn85RpLg9LeoPHZZtsjeJjiuUusnK+IL4Dbcn1DCzY7m/bCJakr95uomgQguPH3DXkNfZoO34N+Ho5hgqFW4/MAxVKaQk69iu5PRBjj+jJtEbH/jFHhvxo1F330MvgpxzoQoFh4uLhzyVB3YTHBV2/XAVdJsZHlfI4U+Y3Dk6hx4Elu3xKXy7tIGWQ8VwPZ5LQbbPazuvB27LzxuN+8FFVRJYL9NZPVGnWtoA==
+ b=UQLdaXJWQ42C7HYrPJWy3iRsKAk8suw0JlA3WuOkujNVJHUMC9M8UGF77EtPzwuOskg5orVyF2Xi/xn/xTpq2+WrpGzCSW7Z4qNxVv2gCFpexk4MvYlJwILk2M7FDPjdFJlK/I/KmmQQRxDaDZoFLe5JZyY2ma1dtXaf7l6rcv75nqv3V+FzJv357ndINYXMYZ08ti3nFOgkRcWaZ0WyaHjVbI1sFIDKvgAPXbVvivLD9r2FhP1l7mJlAa10CMZIdBznUv/iTVr8OdBj8R2AG7AiNhfyX8mD9JAVXxA1/k1EX34FyoZ0oliv3ctDfhvR/QAStEyNrggS3ro0DMQr6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MZHR9BAkLgpJduEmxYyDFgG9De3oZz0WSU3eP3YApyU=;
- b=aylMRDL8+SxhAJBJVFGTkiOWMi+jDJ3riHsuGvVOxsW0eCqH7auHlTOUASd6CoMMXvb05xh5y6tOusZA+xwWvSQAoxevNAiJE/4coN4oMuz1UFa/McNXCEYKGk/4Fr056AA2fipsQNzXg343t02bf6jG+Z4Q+DRH7uXwaV01Zll+H0c7xGyS2qlfXiQZ366r3ErY2l8DHSrYH6JmqTY5wOa6Evrzues/XxbliSgwV9ZwtuGlr0LgXNSRwAQd/IMDAnZAhvwinUQ5xzZYGcvA8o1JNZq8NH1gvXBLYkmwlF5S1dSz85c4NIre4r0ZHp+1Jrs56r+6+UWtjaSwmgDDaQ==
+ bh=Lxqa/OSh1pEP/NuTg+3n457K59s59HdS4YeF23kJFQQ=;
+ b=WYFY9px/tVe9EkDHNFQUB76qxV7m2JMzoxiIBMUt50NMU+Nzn6idYqmWQqWSkTisjP8ETB3AIa2YmiBjSYR1PdN+DueUiAu2agj/mzfawbAoRhPvOTtpYtLqe8LJpHwBuXj437mS7ga2KqRM0/VT5wNvaS2HmwimISJt66ht4ZLuZKWlStB6LCmc9x755npQAyYWuvlIBLA3Krf7y7fK5+wldq4gY+eJY6tbF96qEMuy80U4wjDmDBhDsEEQqFKi6X6qPeLhcngWWOTAvSUILVj6xXECrBx8h3z/m9g9LZVCRw53wNcEYF4VNSy2a2vX2XGY11LdGb4g2RQnoRIzrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MZHR9BAkLgpJduEmxYyDFgG9De3oZz0WSU3eP3YApyU=;
- b=jR9CJ2bVf5KOv9VFJ5rBprIhgLYIKVC1sZC5vd62S9VAyIqWQcAew3R3Sp4Xdz/E2H8zcdp85AGaXy8b1o9y/y0vjpPwjLJsh28bVOF/nHgkC9bJN7tePVX8WFwhsK2LTDzvJGqE6arL6/x7Ecmz44Dq/FH8YWS/cnZopt4ubrI=
+ bh=Lxqa/OSh1pEP/NuTg+3n457K59s59HdS4YeF23kJFQQ=;
+ b=0z98hU0wyZEhRjPL9ljEL8BbsncFnYb6yfapDCeV+gk8VqLbAKwxyxCJRSGPmAbEhFCI8HPWIZYtEmNrm16YcxRicXKXkj4kdQtdrspR1nhmt82cQ6vfyg/3MexgEjWVdjvK6pUUFPRA6EK9byc3DtEcpoLK6oY4CodQCnoIsms=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MWHPR1201MB0111.namprd12.prod.outlook.com
- (2603:10b6:301:55::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.19; Wed, 6 Oct
- 2021 06:59:46 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::55c7:6fc9:b2b1:1e6a]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::55c7:6fc9:b2b1:1e6a%10]) with mapi id 15.20.4587.018; Wed, 6 Oct 2021
- 06:59:46 +0000
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
+ by DM8PR12MB5463.namprd12.prod.outlook.com (2603:10b6:8:27::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Wed, 6 Oct
+ 2021 08:52:41 +0000
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::555a:2980:a5c2:8d29]) by DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::555a:2980:a5c2:8d29%7]) with mapi id 15.20.4566.022; Wed, 6 Oct 2021
+ 08:52:41 +0000
 Subject: Re: [PATCH 1/1] drm/amdgpu: ignore -EPERM error from debugfs
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, "Das, Nirmoy" <nirmoy.das@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>
 Cc: shashank.sharma@amd.com
 References: <20211005131115.25595-1-nirmoy.das@amd.com>
  <ab673b77-e8b7-94a4-76f6-588ad9e472f7@amd.com>
@@ -58,78 +59,83 @@ References: <20211005131115.25595-1-nirmoy.das@amd.com>
  <84a62bf8-65e3-0b3b-91ef-bef5f4060601@amd.com>
  <43403acf-d6f6-ed4e-2954-f9cdc7ea88b0@amd.com>
  <a9053dbf-a8f6-2e00-73fe-5e1e6cd0bfdb@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <5b66b08a-44ef-eaac-9af0-a7114d7162ba@amd.com>
-Date: Wed, 6 Oct 2021 08:59:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <a9053dbf-a8f6-2e00-73fe-5e1e6cd0bfdb@amd.com>
+ <5b66b08a-44ef-eaac-9af0-a7114d7162ba@amd.com>
+From: "Das, Nirmoy" <nirmoy.das@amd.com>
+Message-ID: <1a7186c5-df9d-a2dc-95f0-f9f5f034b8fa@amd.com>
+Date: Wed, 6 Oct 2021 10:52:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <5b66b08a-44ef-eaac-9af0-a7114d7162ba@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: AM6PR10CA0086.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:8c::27) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+X-ClientProxiedBy: AM7PR03CA0010.eurprd03.prod.outlook.com
+ (2603:10a6:20b:130::20) To DM4PR12MB5136.namprd12.prod.outlook.com
+ (2603:10b6:5:393::23)
 MIME-Version: 1.0
-Received: from [192.168.178.21] (91.14.161.181) by
- AM6PR10CA0086.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:209:8c::27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4587.18 via Frontend Transport; Wed, 6 Oct 2021 06:59:43 +0000
+Received: from [IPv6:2003:c5:8f21:1d00:5c98:f8:60b6:e70a]
+ (2003:c5:8f21:1d00:5c98:f8:60b6:e70a) by
+ AM7PR03CA0010.eurprd03.prod.outlook.com (2603:10a6:20b:130::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14 via Frontend
+ Transport; Wed, 6 Oct 2021 08:52:39 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c6c32b4f-7eaa-4b39-a1cb-08d98896e128
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0111:
+X-MS-Office365-Filtering-Correlation-Id: 25fcc55a-db30-4eb4-c764-08d988a6a7cc
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5463:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0111A8BD9B6347E88987932783B09@MWHPR1201MB0111.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <DM8PR12MB5463A9CB8D6D82330F3EE6BA8BB09@DM8PR12MB5463.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:525;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FuxZ3mtSuFuZYgzQ7HMqIQBzI4+dFcCzvRd5KQnIFiEM8t+WveaoVdJTGipjDh7Kas/vXiHOoq3VmE9XHcgicshoyz3ULbyWyDr8RDZS2d/0bBwbe11j38+cLcflzKhsbvpWjcuAi0yGLzajL5V6tVAbTI/StQweDW8CwbF6tGhwelqttynjhRIesPNlBNaS7Lvipo6vvWTRw7sN4ZTueMVfLKL0LDxjDMRIlFhXyvoazS2ImpOwgZrLnR8LB7mEIzASMLpOWr9YUHcAbPh0xV8xobA2s1YyUwW1L9TO5spteJXFjjioJ/WYTVf4pGeTIDjd0R264pu3r10PUqjezuyTwGJF/zLt9LVbwWcAE9BKYVjDT6DEYZDKzd9A2uw9h6VnSD2gOz0UdfSRKnG1Fk6QVfxuPmzhdF/0+lUX1vgKCdiAMN20z+BsdMYeQ2Q72LdkI0qVRVGYJzhT2Bed5JN7rnOnMQilCxYDqaAhwK1fHSs+gzHmiCgtzDOwnoYeXsY3KM5OdItfoG+5nMalGjXvOWTslw4TCklB0dJLAwUQlNIiSdeJg4n4PTFiF+xCtpcOhWbyEjvzi5K0ZtCBlfkh8LoiPvZECj8srVAl0iySLDC6dwwHxqglHYIZ7GO6FL4jm46sAjzMg9qdRCLPYVrfRzEvlwATYE5jgmHME/AUTOjQy3H+2GbkPxeqIm/ewxPXSTKhqarUzW/9j9DjX3rRpTUjfY1f0fyo+/HE+KYGN5V4uv0bAFWjbmuxWg/S
+X-Microsoft-Antispam-Message-Info: QAw18Fb/sFPe0mrSchujk6HLSsUWI+n2fEh79oqLkMpxP6xvX62Y2pY1bCxuzzk07EJWvwxvdDL4DHyGGAeVMEhoWJhOfEZDt9KYuUHmx6uwi1u3HwzthOG6NUBhPqrtjO804uiUZsemy0YhNw48CSsDd2muCs1A4+CJjKUXeHD3Q3tB+WhqXXpoLHdlk0dYnkGr4kYcToVy3StcH0IR3WLoOwde8tXHYeKI0PtxKVcwDH35a97SCXbJ+koNtUZGpvdH7XbcA2pVJlAAhrnqPOV0Xr91j1bibq2KNKQG04kMDW+sfo91Ll8wQWPm3QdNJ5aPXvSr9kQJnhYr6xlNy5pPyzfBm5ikERtZM3YdSW1JhziEewX5EPm4unqva7OZb1+uv+wJbjd2OT+uyeftyVi+QiPikNZ3uOgnbYi8AAMl0EsDEw7rimN/623mSBAxSt43qdDsC7H2wSFLeIZpAcraUdFCQ5rNYivu9Ix4fsJqStV+AztYtjkDL6084uPyne1ND9MypOMeUqtWUVXGRe1xSrbpyr6kEWP6KIVIsg20SKlfvp4By87gzpizKIx8dZqPTuDPo4rA3+CsVPyXA5cLKWQxCeB7nqpI0obekmchVQfdGg0/frVacgC0tizNaM+lSpyqu+46yhNlLG66o+JNLtp0p3M+WZ8n1mF24CBB378BmzRDg7n0AfHEMrlPMIOr6QfJR7qebpga95tQd2Kq4iKJ7IpQRnx8WKMDjKg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(6666004)(31686004)(316002)(38100700002)(956004)(508600001)(36756003)(66556008)(8676002)(8936002)(66476007)(66946007)(86362001)(186003)(31696002)(83380400001)(53546011)(26005)(4326008)(6486002)(66574015)(2906002)(2616005)(16576012)(110136005)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(4326008)(53546011)(52116002)(38100700002)(8676002)(31686004)(86362001)(36756003)(110136005)(316002)(2616005)(2906002)(8936002)(66476007)(66946007)(31696002)(5660300002)(66574015)(6666004)(66556008)(83380400001)(6486002)(508600001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDA0aTJ2OEhHa3BreUQ4ZWF1cUQ0Z1FJSWZmd0srY2JBZVBBY1NlcTB6RE1C?=
- =?utf-8?B?NkpaN1h6YkR6cnBtL3djUjVpaE8wbkl1SENKaEhObTF2K2RtaEJyUVZ2d3di?=
- =?utf-8?B?T2UxV3d3RFVSN3h2MFZJK2lzdUJkeW5Sa0lwZE9RTWdPTlk5Q3g0dkNVWnlR?=
- =?utf-8?B?a3ZOTzJTN0dqenhXL0ZnMHBILzJWekloMkpSU2xnTFdQVHFuMGZhZjVuWkhC?=
- =?utf-8?B?cW8xN2dBTVc3MmQxR25YdmFPalB6SlhvcnZPTndLT3h1UzNGOGhxcDAyajJn?=
- =?utf-8?B?Qml4eTJ4WlpNbUIvK2lsN3VkVjBqZ1NsQzhmVCt2THBpQ0hBYm9GZ2tzVllR?=
- =?utf-8?B?K3Rqakd1VVhFbkt1WGZmRnEyNGlHZHF3SG91bUUxQ0RIWlJlK0VzUWwzbk1a?=
- =?utf-8?B?V2ZUZ2ZWUVM5U2RyMkd3c3J4UW5uUGFOT1NVN2dYZmppbnBjeGxwMGtrckxQ?=
- =?utf-8?B?ZEhGMU1MVnh4RU5qTzBPcDlRdVhja3FjSHo4ZVlNTFdiRE1keUZNMEpkZUlS?=
- =?utf-8?B?ZGhlUVdkcDF6UjE4VjJ4ZHR6aXV3ME82bHJwUkhhM3hxd1Q2Q1NlMGt1eExR?=
- =?utf-8?B?a3puN1FLWVVVRFJNTU1tbmJoRktYT0c2RVluaHRMZFBiOHNaYWpRSGRKUGlE?=
- =?utf-8?B?clhLdG1lbTZ6Q1JaZHhicDI1VFJ0VjBQaGZpSVYyeVFFaGNXeHROZmI4cmhv?=
- =?utf-8?B?c2o2YWVneWRRbW94RWtIZjIrQy9JRmp5bE50eFp4QThsOTMvc0pucWJvcWtB?=
- =?utf-8?B?QkxZNkhhZDArRU55UUI2a1pMKzRjeTJHcno2em9JL0pCNGRuYjZhM0ZrRnM3?=
- =?utf-8?B?aEF2SER6Q3p1bSsxbGRUN3Fjd2RkQlRtamZkNU84Wi9vT1hEOG5kR09PMXBC?=
- =?utf-8?B?cnhQUzV5SytYVlJMSDgxZDFieHc1ZnVkbHZWMFdrUWtIZlZqem5hNk4rZURn?=
- =?utf-8?B?QnNjRFZsZzJHUWFDbmFNT2NtMkFIWmovTWxFZXNmZE82cmdSWUo4USt1dXVS?=
- =?utf-8?B?NnN1c0JJMERCRm4yMnpMYno4YXl6ZDZQRWx0aXJpay9aVk9KclAyWTkwM2Zh?=
- =?utf-8?B?b2xTdlFTOTlDcTBxSkQrc0QySUx3bGpBZm14cXl5WGpvek1mMnV1dVpHWkxn?=
- =?utf-8?B?MmtybVBNMzVmSGVxRWpLcCt6VXRLREErTGRxaGJwbG1NZHBNMjJNcG9hSXpZ?=
- =?utf-8?B?emVNWmJOQlNPb0g4QUl0TEtWR1E1Uk1zc3NxeWdCVFdMdlVxN1ZaT2hsczBq?=
- =?utf-8?B?K3plZk1POW1wM1RNa2xOQnQraEN5N3FmTWZsQmxHZkZPMTJieUJ1YWtqZURC?=
- =?utf-8?B?N2Y3OVBuTnU0MnB4amo0QVFteENhMFV2bjB6V3NFM2lrUTRWVllPdWIybjVu?=
- =?utf-8?B?aG53ZmE0ZUdQVU5QMnY0SFhRb0RuWXpPTHNqU09ZcHkyMVlJOXM3U1Y0SUIy?=
- =?utf-8?B?ZEp0dG1BVG5TN1czZmNLV1BibDJreitTWk5LYkhEa1FLVFVDK3FpT2lmYlhP?=
- =?utf-8?B?dTZxS2l6a0pveHZBdXFJQm9NTDR4U1hMZ2NncVVGMEhyN2tjM01SaHhCZDdO?=
- =?utf-8?B?S3oyQlBZUCtRVWptRFo5MTN1RTNPd3BCRkRDd0JyQlFIUGUwd0t3L2NKL3Z1?=
- =?utf-8?B?ZmgrWFpPQlVOMFAzVXpMNkxlY01jeHpZOTU3K0VhSzNIeHVXWjN6ZHg0N1hT?=
- =?utf-8?B?WnZ3aWVvOW84MlljYVJRUjlEdkJhQlN6U0ppNWNNQ0tKMW9obnpCTGpyTFRT?=
- =?utf-8?Q?yGPvAAJIXOLj9IIMZU84LyGLM9/LlONZeea3PV1?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmhXbkpCejRZalQ4SCtidnliTHgxOTN5UUlVN0tmblFlM0ZpWUVvQjFPckZp?=
+ =?utf-8?B?bXJZTXVOUi9kMGhtNVhvRHlESmc1SjJWa0JRTHBoMVQ1bmpDdE9LdXI2L2E1?=
+ =?utf-8?B?cUhQV1AvSXVBWTJHSkVmTDh5VjdHN1I2VEFRbjljVFhJeVdoUkNOVzlTR01P?=
+ =?utf-8?B?U2U1QlU5ZTU1M1grMmJYVGZBN1VKWnpiZHdBQVRsRm1POC9INzR1bTJPMXg2?=
+ =?utf-8?B?K3FhTnJvaUROQUtLV09sb3BRclBNbTBzV05iRE10UjhqbVd1QzF3N1JwR2Zu?=
+ =?utf-8?B?K0dZeU9UMG9HY2ovY3o4K1FNMk51U2hiTFZIaFBBdnUrdkdUcDh0ZG5INTNT?=
+ =?utf-8?B?UG9qZWVSSHJCcit4cWtUc1Uwaytra1pvNit6WU5WY3QxZFFGN29IWXdwdEky?=
+ =?utf-8?B?NWE2T2lBTDNzbmh2VEhPaFZLSnRTZk5Fa3hyL1FzOGg4aHJ4N3lpNGUvZjVT?=
+ =?utf-8?B?ZEtDY3VTb2VGRUdZamNQdjFuZFIwWENuUFI3OHJEU3Byam5lSU9OaFRzVjZl?=
+ =?utf-8?B?NVUxWVR0MzdtUGpISDgwbmxtallwT0FZWWY1blBudFZTb1BWcEt1Z2lSczNL?=
+ =?utf-8?B?YndQc0dNVGpMOHRoV2Yrei9IcWFIY2JwNlNwSjVQa2RXUGYvWWlUdHpoNjBP?=
+ =?utf-8?B?RklQYmxUZHptUUFCMFBjQWVPeE9VdUhLeGNMNk5VNmVDdG54eUZSejJQL1Jh?=
+ =?utf-8?B?ZDRKaERGQVNQVEo0bTM1dFFvaW05MmZ5b3RnKzNYVURPdTRGdW5VWlI1SzJp?=
+ =?utf-8?B?Q3h5MEc5SXgycUFaUnZhbGVEUVJlTmxleE1sYXFaRjZBNURNMzVKR3ZxaEFi?=
+ =?utf-8?B?YlpFdEpYNEIyWjUvcHUwSVloMENRT3dNUVpSOE8wRkV2Si9UbXpldGZXTkFk?=
+ =?utf-8?B?SzhIL0d2aHM5dXZjaDBjQXMvUVR5Q0Y4U255Yjc1T0FJSjN4dE00Q0RnN2xu?=
+ =?utf-8?B?QWlHZXNQMk9xZGdCL1FmZ1crUG5hYVVqUFNEMUZweG9CYkFOajcvbExIdmxi?=
+ =?utf-8?B?ODNOeHF6cFN2Yy9ZUkpPTjlYSHZxQTN3SldpOXBRZ1cvOWRjMC92emVHaHll?=
+ =?utf-8?B?U1JOSHJoUUxDTW1pVDFqWHZ5V3FzY3pwS1RPcmV3NVdtS2JzdlZRMDZQb0Jm?=
+ =?utf-8?B?emtQMk1meG9MMzJaRkZHaldvWGdGRWp5S2RFUU91UCtDM1FvakYvTTluTE4v?=
+ =?utf-8?B?ZkxjSzlIV1ROTjArZzN1VmRpM1ZsV2RyWmtLR05KRjFmNVBleG9jV0VaeW5X?=
+ =?utf-8?B?K1diQnh3NkI2OHZHNHFoc0xhWVRBUzZ1azhQdlpjd3hEazBJbnJzcGEvRUVB?=
+ =?utf-8?B?OUE3QTNCclUrUEFpeXFWSGNXcUpsOFBIY1dsVkovSFowcW1xQkFzS1hGVkpZ?=
+ =?utf-8?B?ZHpOQ2hxb2l6MVlIYnorVld6QXp3bm05Y25xcjlBOFg4bjROZmVJS1Z2WnNH?=
+ =?utf-8?B?czlOTElxOXN1NTB5M2Q5WHh0SlFYQkRPRkgza2ZmR0lnejQ0SXRzbWdwVHNZ?=
+ =?utf-8?B?OG1TSjROQUxXM0c5L2wvcWV5Tlc0aHhPb1RpRjNhMFQ2Y0JXN2E5ZnJGQm8y?=
+ =?utf-8?B?WWNGNEcxKzJOallaZzlVQXU0eEt1MWtnOXMvUzk0OVE0S1M1NDlaZWpob2hh?=
+ =?utf-8?B?cHlyWVZXU1RQWnNHd2ZsbTFrWUNuMWpsVy9McDlNT0Fvak5CclRHUGg0YTZB?=
+ =?utf-8?B?NkMrYmlaTlJQSUJ6VFY0YkdKRWJ1djVqSFo0SHFzdHNyNDg3WE5uV2F1OTMy?=
+ =?utf-8?B?K0FkdFdoRTJiNDhvOU5Db3lkYitqcFl2UWtXc3BGTTBnTVJPUWZzWWRzMDls?=
+ =?utf-8?B?MUszRjRKY05TdDRkN0lDQlZGa0Z5NkNPNGthMkY1elpXM3lCNTNuZW9EVkNr?=
+ =?utf-8?Q?zphqQ48Fb59yH?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6c32b4f-7eaa-4b39-a1cb-08d98896e128
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25fcc55a-db30-4eb4-c764-08d988a6a7cc
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2021 06:59:45.9051 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2021 08:52:41.3298 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AQneCRKBN4WIbugujWnQr3Pv41TYr09g1+/6zYhX7pzefjK79shY6G/B/yeeLzEm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0111
+X-MS-Exchange-CrossTenant-UserPrincipalName: u/2kPDAxOM1S83351CcIiM6KlfTOb7WVukCoHPRsXXSIHDJkmNO3vcweKxEt/7HPSwZc7FdKkNHiyPY8btxukA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5463
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,156 +150,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.10.21 um 08:55 schrieb Lazar, Lijo:
->
->
-> On 10/6/2021 12:05 PM, Christian König wrote:
->> Am 06.10.21 um 08:32 schrieb Lazar, Lijo:
->>>
->>>
->>> On 10/6/2021 11:49 AM, Christian König wrote:
->>>> Am 06.10.21 um 06:51 schrieb Lazar, Lijo:
->>>>>
->>>>>
->>>>> On 10/5/2021 10:15 PM, Christian König wrote:
->>>>>> Am 05.10.21 um 15:49 schrieb Das, Nirmoy:
->>>>>>>
->>>>>>> On 10/5/2021 3:22 PM, Christian König wrote:
+
+On 10/6/2021 8:59 AM, Christian König wrote:
+> Am 06.10.21 um 08:55 schrieb Lazar, Lijo:
+>>
+>>
+>> On 10/6/2021 12:05 PM, Christian König wrote:
+>>> Am 06.10.21 um 08:32 schrieb Lazar, Lijo:
+>>>>
+>>>>
+>>>> On 10/6/2021 11:49 AM, Christian König wrote:
+>>>>> Am 06.10.21 um 06:51 schrieb Lazar, Lijo:
+>>>>>>
+>>>>>>
+>>>>>> On 10/5/2021 10:15 PM, Christian König wrote:
+>>>>>>> Am 05.10.21 um 15:49 schrieb Das, Nirmoy:
 >>>>>>>>
->>>>>>>>
->>>>>>>> Am 05.10.21 um 15:11 schrieb Nirmoy Das:
->>>>>>>>> Debugfs core APIs will throw -EPERM when user disables debugfs
->>>>>>>>> using CONFIG_DEBUG_FS_ALLOW_NONE or with kernel param. We 
->>>>>>>>> shouldn't
->>>>>>>>> see that as an error. Also validate drm root dentry before 
->>>>>>>>> creating
->>>>>>>>> amdgpu debugfs files.
+>>>>>>>> On 10/5/2021 3:22 PM, Christian König wrote:
 >>>>>>>>>
->>>>>>>>> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
->>>>>>>>> ---
->>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 ++++++++++
->>>>>>>>>   1 file changed, 10 insertions(+)
 >>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>>>>>> index 6611b3c7c149..d786072e918b 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>>>>>> @@ -1617,6 +1617,16 @@ int amdgpu_debugfs_init(struct 
->>>>>>>>> amdgpu_device *adev)
->>>>>>>>>       struct dentry *ent;
->>>>>>>>>       int r, i;
->>>>>>>>>   +    if (IS_ERR(root)) {
->>>>>>>>> +        /* When debugfs is disabled we get -EPERM which is 
->>>>>>>>> not an
->>>>>>>>> +         * error as this is user controllable.
->>>>>>>>> +         */
+>>>>>>>>> Am 05.10.21 um 15:11 schrieb Nirmoy Das:
+>>>>>>>>>> Debugfs core APIs will throw -EPERM when user disables debugfs
+>>>>>>>>>> using CONFIG_DEBUG_FS_ALLOW_NONE or with kernel param. We 
+>>>>>>>>>> shouldn't
+>>>>>>>>>> see that as an error. Also validate drm root dentry before 
+>>>>>>>>>> creating
+>>>>>>>>>> amdgpu debugfs files.
+>>>>>>>>>>
+>>>>>>>>>> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+>>>>>>>>>> ---
+>>>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 ++++++++++
+>>>>>>>>>>   1 file changed, 10 insertions(+)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
+>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>>>>> index 6611b3c7c149..d786072e918b 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>>>>> @@ -1617,6 +1617,16 @@ int amdgpu_debugfs_init(struct 
+>>>>>>>>>> amdgpu_device *adev)
+>>>>>>>>>>       struct dentry *ent;
+>>>>>>>>>>       int r, i;
+>>>>>>>>>>   +    if (IS_ERR(root)) {
+>>>>>>>>>> +        /* When debugfs is disabled we get -EPERM which is 
+>>>>>>>>>> not an
+>>>>>>>>>> +         * error as this is user controllable.
+>>>>>>>>>> +         */
+>>>>>>>>>
+>>>>>>>>> Well setting primary->debugfs_root to an error code is 
+>>>>>>>>> probably not a good idea to begin with.
+>>>>>>>>>
+>>>>>>>>> When debugfs is disabled that should most likely be NULL.
 >>>>>>>>
->>>>>>>> Well setting primary->debugfs_root to an error code is probably 
->>>>>>>> not a good idea to begin with.
 >>>>>>>>
->>>>>>>> When debugfs is disabled that should most likely be NULL.
+>>>>>>>> If we set primary->debugfs_root to  NULL then we need to add 
+>>>>>>>> bunch of NULL checks everywhere before creating any debugfs files
+>>>>>>>>
+>>>>>>>> because debugfs_create_{file|dir}() with NULL root is still 
+>>>>>>>> valid. I am assuming a hypothetical case when debugfs_root dir 
+>>>>>>>> creation fails even with debugfs enabled
+>>>>>>>>
+>>>>>>>> but further calls are successful.  This wont be a problem if we 
+>>>>>>>> propagate the error code.
 >>>>>>>
+>>>>>>> Yeah, but an error code in members is ugly like hell and 
+>>>>>>> potentially causes crashes instead.
 >>>>>>>
->>>>>>> If we set primary->debugfs_root to  NULL then we need to add 
->>>>>>> bunch of NULL checks everywhere before creating any debugfs files
->>>>>>>
->>>>>>> because debugfs_create_{file|dir}() with NULL root is still 
->>>>>>> valid. I am assuming a hypothetical case when debugfs_root dir 
->>>>>>> creation fails even with debugfs enabled
->>>>>>>
->>>>>>> but further calls are successful.  This wont be a problem if we 
->>>>>>> propagate the error code.
+>>>>>>> I strongly suggest to fix this so that root is NULL when debugfs 
+>>>>>>> isn't available and we add proper checks for that instead.
 >>>>>>
->>>>>> Yeah, but an error code in members is ugly like hell and 
->>>>>> potentially causes crashes instead.
+>>>>>> This shouldn't be done. A NULL is a valid parent for debugfs API. 
+>>>>>> An invalid parent is always checked like this
+>>>>>>           if (IS_ERR(parent))
+>>>>>>                 return parent;
 >>>>>>
->>>>>> I strongly suggest to fix this so that root is NULL when debugfs 
->>>>>> isn't available and we add proper checks for that instead.
+>>>>>> Instead of adding redundant work like NULL checks, let the API do 
+>>>>>> its work and don't break the API contract. For ex: usage of 
+>>>>>> sample client, you may look at the drm usage; it does the same.
 >>>>>
->>>>> This shouldn't be done. A NULL is a valid parent for debugfs API. 
->>>>> An invalid parent is always checked like this
->>>>>           if (IS_ERR(parent))
->>>>>                 return parent;
+>>>>> Yeah, but that is horrible API design and should be avoided.
 >>>>>
->>>>> Instead of adding redundant work like NULL checks, let the API do 
->>>>> its work and don't break the API contract. For ex: usage of sample 
->>>>> client, you may look at the drm usage; it does the same.
+>>>>> ERR_PTR(), PTR_ERR(), IS_ERR() and similar are supposed to be used 
+>>>>> as alternative to signaling errors as return values from functions 
+>>>>> and should *never* ever be used to signal errors in pointer members.
+>>>>>
 >>>>
->>>> Yeah, but that is horrible API design and should be avoided.
->>>>
->>>> ERR_PTR(), PTR_ERR(), IS_ERR() and similar are supposed to be used 
->>>> as alternative to signaling errors as return values from functions 
->>>> and should *never* ever be used to signal errors in pointer members.
->>>>
+>>>> One escape route may be - add another export from debugfs like 
+>>>> debugfs_is_valid_node() which adheres to the current logic in 
+>>>> debugfs API and use that in client code. Whenever debugfs changes 
+>>>> to a different logic from IS_ERR, let that be changed.
 >>>
->>> One escape route may be - add another export from debugfs like 
->>> debugfs_is_valid_node() which adheres to the current logic in 
->>> debugfs API and use that in client code. Whenever debugfs changes to 
->>> a different logic from IS_ERR, let that be changed.
->>
->> Well that would then rather be drm_is_debugfs_enabled(), because that 
->> we separate debugfs handling into a drm core and individual drivers 
->> is drm specific.
->>
->
-> Had one more look and looks like this will do the job. In other cases, 
-> API usage is allowed.
->
->     if (!debugfs_initialized())
->         return;
-
-Yeah, that might work as well.
-
-Potentially a good idea to add that to both the core drm function and 
-the amdgpu function. and not attempt to create debugfs files in the 
-first place.
-
-Christian.
-
->
-> Thanks,
-> Lijo
->
->> Christian.
->>
+>>> Well that would then rather be drm_is_debugfs_enabled(), because 
+>>> that we separate debugfs handling into a drm core and individual 
+>>> drivers is drm specific.
 >>>
->>> Thanks,
->>> Lijo
+>>
+>> Had one more look and looks like this will do the job. In other 
+>> cases, API usage is allowed.
+>>
+>>     if (!debugfs_initialized())
+>>         return;
+>
+> Yeah, that might work as well.
+>
+> Potentially a good idea to add that to both the core drm function and 
+> the amdgpu function. and not attempt to create debugfs files in the 
+> first place.
+
+
+Sounds good, I will send patches to add this check.
+
+
+Thanks,
+
+Nirmoy
+
+
+>
+> Christian.
+>
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> Christian.
 >>>
->>>> Regards,
->>>> Christian.
 >>>>
->>>>>
->>>>> Thanks,
->>>>> Lijo
+>>>> Thanks,
+>>>> Lijo
+>>>>
+>>>>> Regards,
+>>>>> Christian.
 >>>>>
 >>>>>>
->>>>>> Regards,
->>>>>> Christian.
+>>>>>> Thanks,
+>>>>>> Lijo
 >>>>>>
->>>>>>>
 >>>>>>>
 >>>>>>> Regards,
+>>>>>>> Christian.
 >>>>>>>
->>>>>>> Nirmoy
->>>>>>>
+>>>>>>>>
 >>>>>>>>
 >>>>>>>> Regards,
->>>>>>>> Christian.
 >>>>>>>>
->>>>>>>>> +        if (PTR_ERR(root) == -EPERM)
->>>>>>>>> +            return 0;
->>>>>>>>> +
->>>>>>>>> +        return PTR_ERR(ent);
->>>>>>>>> +    }
->>>>>>>>> +
->>>>>>>>>       ent = debugfs_create_file("amdgpu_preempt_ib", 0600, 
->>>>>>>>> root, adev,
->>>>>>>>>                     &fops_ib_preempt);
->>>>>>>>>       if (IS_ERR(ent)) {
+>>>>>>>> Nirmoy
 >>>>>>>>
->>>>>>
->>>>
->>
-
+>>>>>>>>>
+>>>>>>>>> Regards,
+>>>>>>>>> Christian.
+>>>>>>>>>
+>>>>>>>>>> +        if (PTR_ERR(root) == -EPERM)
+>>>>>>>>>> +            return 0;
+>>>>>>>>>> +
+>>>>>>>>>> +        return PTR_ERR(ent);
+>>>>>>>>>> +    }
+>>>>>>>>>> +
+>>>>>>>>>>       ent = debugfs_create_file("amdgpu_preempt_ib", 0600, 
+>>>>>>>>>> root, adev,
+>>>>>>>>>>                     &fops_ib_preempt);
+>>>>>>>>>>       if (IS_ERR(ent)) {
+>>>>>>>>>
+>>>>>>>
+>>>>>
+>>>
+>
