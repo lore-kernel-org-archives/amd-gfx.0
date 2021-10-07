@@ -2,126 +2,102 @@ Return-Path: <SRS0=WxFm=O3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2FC6C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 10:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00C10C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 11:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A88CA60F58
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 10:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A88CA60F58
+	by mail.kernel.org (Postfix) with ESMTPS id BE24361002
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 11:40:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE24361002
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 242CF6F400;
-	Thu,  7 Oct 2021 10:59:33 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2088.outbound.protection.outlook.com [40.107.223.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CAA26F400
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 10:59:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 170276F413;
+	Thu,  7 Oct 2021 11:40:22 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 682F86E86D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 11:40:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QpDuYrM5OGQlpfbIVKc/VRjoUX5fe4U8BKcs9Y1WmZYUCppaRt0IViOip8dYjqsD1zTtPjR1rUGnQQMpkUKP/iHMFHTNF6HHy9bfAMZzu6N2y/1mGNNnQaf7oKpSSlSnbtvVEJnOuRpVJP9Gcdvm55C38Dw4zmctsx4v5Jtw7FelCffnx/hbnTdUd7Kw2KmUE358ONJQ4vitD/8gQ4+PiLCLk9fBL8CpJkhTWQBW8sFt62Hb/IaaX9hxfqNPBTAGP7aMFX4xwHklS61Ns0Sv3xdSAqtAFflQhg4g6cOOZlyGSrHLa/YJOyg8c3hlniTVkgVLG2P+Azqc06l4wHm6DQ==
+ b=mR92ffw6UsOmjnxa5BT5vdKVm8yFwiYkXWKMHcJavj82hpMDP0RZJKgEpLlNTFj1MfeM4VKiIhjHI65A7VWiLuidEWHht4NC9rf6gnnF8pPIIRxBFShboEh7UNWoBaz5NqeSrt2INOx15dP+6bCd0j0aYbx9LMuBwz6iIaTidDcv2K1ctrVj3k8Dvt/xARwiTZa2MrhcjriFE3hkT9jQ6y/qesWpBOu4JbKzSw7qaMm16ZRHiD0999T+efqFt6Kfo4QLnIAuO5o8u3il1BJ01wPO5PXggTmdQsHbTZchuvuyc0k+VZCX+D8UiQ15lw5fLlTBWmebnUdyOacR/fTnWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ykMYeOLLVxsv5GaDHltnlzFdUsHbs4zpR7fZPd5NFeE=;
- b=alhK7o3Ftn6buhEnWogHlEq51R3MP9yPhwBiDI6vooJIAq3LdVF0LsL3fPR5HloHvP5oQnSXDZMUZhD31Fi4GH9rF2PY6UO3kMPSBHNw+OofAujOKpPU1weNjMKkbT85UNqAEddG+O+Ys+9cFUACM93U9WWl29pG2hsVZDA2cEf3nXBbbBNqd8BLwribe90tMYTmxWEmQ8+A+U0Dy5Hx+Z1yTwk72XtJKCQwqzYcqg2V7dssPkLyT+rgWM36b2O4Vuzmt00tx7gRbRPeP5A1yZx92OEvJpshooXwyhFZYUD7u2N3+631aFRYGY6je1A2qcekl9XKJEERuhjGd6TKCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=KlOhLhZ0VXkKjJ5+A/yMoJFv4as5cqwOF4R1jegQHQU=;
+ b=awGrCUBdvOl8464ihdMGZYFSahlvsipKINLAUJnzR8VSdGkeXe+zxhdGobmp5j+fsQWCUygZmMqZQD6ygKE6FWEzX+m2c0KVkGSKM2DIL8Ui9XSF4SC6sacJeMtmEIyNgxbjqQ3LObr0UueYSKVcxKYslgBJee6mymqxUb/lbRX+NFbCJ9kS0HJcXKVQr+TV8zxUIq1F/XgWXOKDJLQOTKlab/yCRa/v+Q0L1A54iYvkiB1N8w6ZfOjRCuMqSf1Lma4fT+aOUD+u8e4o2+/Xx2CJBVp+iniEWeCuQMDjOKBaqcnTRNRl1ZxnwUQfzUA+IRZ+sTiDV9WnCFzCUO5VwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ykMYeOLLVxsv5GaDHltnlzFdUsHbs4zpR7fZPd5NFeE=;
- b=hqCmsRNeKY9VZRAE+rdegtkindA2La4WRimw8AXRHLpn3YT3NS9/IRgxqSMBgZRs8sUJvxYTORCVN1R+qP4Jn6lvFz3tNWYPhdqUdb0Wn93/hd4JVCyFsTEW0EzBHFNRKuQHNKf2gX6/YLl3/UBn/HCcXq8YJvb9NWj9ws9iDFs=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
- by DM6PR12MB5536.namprd12.prod.outlook.com (2603:10b6:5:1ba::20) with
+ bh=KlOhLhZ0VXkKjJ5+A/yMoJFv4as5cqwOF4R1jegQHQU=;
+ b=Q1tUUM3Nk9v1EjsHaYA8+NeXLuTZaNhQKQgIkP6ps6Wl+VDpA9LVIqn0TeJzXdoYTiQK09VFfOnjecVd+awqQFv56eHFdVonRV96tvvLt4tk+FEY3LmOmfD7LGYMSdIsXcJJqIgEdBCXKWixdKDazkowmFzhLWyvDXMdHoRaCiE=
+Received: from MW4PR04CA0091.namprd04.prod.outlook.com (2603:10b6:303:83::6)
+ by CH2PR12MB3877.namprd12.prod.outlook.com (2603:10b6:610:27::32) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Thu, 7 Oct
- 2021 10:59:30 +0000
-Received: from DM4PR12MB5136.namprd12.prod.outlook.com
- ([fe80::555a:2980:a5c2:8d29]) by DM4PR12MB5136.namprd12.prod.outlook.com
- ([fe80::555a:2980:a5c2:8d29%8]) with mapi id 15.20.4587.020; Thu, 7 Oct 2021
- 10:59:30 +0000
-Subject: Re: [PATCH 1/1] drm/amdgpu: unify BO evicting method in amdgpu_ttm
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Christian.Koenig@amd.com
-References: <20211007100032.8140-1-nirmoy.das@amd.com>
- <722d6f33-4353-768f-1509-cc82e81654cc@gmail.com>
-From: "Das, Nirmoy" <nirmoy.das@amd.com>
-Message-ID: <4b6452af-9028-e591-e6bd-13928575bf8a@amd.com>
-Date: Thu, 7 Oct 2021 12:59:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <722d6f33-4353-768f-1509-cc82e81654cc@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::12) To DM4PR12MB5136.namprd12.prod.outlook.com
- (2603:10b6:5:393::23)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Thu, 7 Oct
+ 2021 11:40:17 +0000
+Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::51) by MW4PR04CA0091.outlook.office365.com
+ (2603:10b6:303:83::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.22 via Frontend
+ Transport; Thu, 7 Oct 2021 11:40:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4587.18 via Frontend Transport; Thu, 7 Oct 2021 11:40:17 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.8; Thu, 7 Oct 2021 06:40:13 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <xinhui.pan@amd.com>, <alexander.deucher@amd.com>,
+ <andrey.grodzovsky@amd.com>
+CC: Guchun Chen <guchun.chen@amd.com>
+Subject: [PATCH] drm/amdgpu: use adev_to_drm for consistency when accessing
+ drm_device
+Date: Thu, 7 Oct 2021 19:40:01 +0800
+Message-ID: <20211007114001.12123-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Received: from [192.168.178.88] (217.86.121.191) by
- FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4a::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.4 via Frontend Transport; Thu, 7 Oct 2021 10:59:29 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e499e64b-eca9-4f1e-0c4c-08d989818993
-X-MS-TrafficTypeDiagnostic: DM6PR12MB5536:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB55361684AE15CB8E427FB0878BB19@DM6PR12MB5536.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1060;
+X-MS-Office365-Filtering-Correlation-Id: d5023783-bf23-42b2-fcd8-08d989873c25
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3877:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB38778BF0547A8FF53AF4F73CF1B19@CH2PR12MB3877.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:23;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tKStH9vgIkxIEwsQOgqhi5duclSWXg/qfy7qEElwTDGitLBUpbsjwXdzHjMYbGP/o+JnPMoa1N+q09PrqJ9Qbe08GqslIpmoIqbTqUvqDe6ui1ceZdAAHayPv+dnlTLosIkPxkClLBNRwE1XgMZASzNv/HgfP4jBrCMuXVn0WR8OWSm/Y42nXYRlD+FfOf9Yinq4rSVHaIyxa4jEz3y5MAAEw1wZdNxrP/+jq3Nhj4cm2Tz9b0synjA0d5U5QFkxGcmagXqG4TmGruWCu5O6ATKC/mmhmddiQ44taHYC6BePDnnCL1MhZjsGbQXrFSBla4BemSRxIVw8n8JKEEftG399SQoTaO29cSuEMz/qI/ox+Z1xmAQtVrt/05p8lYVYR/jTA6q11tq+NdyDtYJqQDS0NH34fOH82qQsTXTybkZMpdjgr8/VhuUa/Clha2XvMfNmFAXWO06+Q/JR4pNdeUONzV3p/pVK4Uo9hcPcMqcR2RyNEST3Yjk9Dy4YRe57Q3lp5yLXSU99gbyOQEECyzhipItgXZhid+/yh/IuHgqMinDoVQkArqtkIU/lFMZb2yyguGktqg9vgxPKE3L7vUqcTo8BwcpdYY8KgO6T7gyXfKmA78cKzdzvDLISWVxiwP76X1EKBVtFWmvWhvXM0XXg00YrtU+B8dIM5J38phWm0PosebznbAtNocKEOPnM9jbTlSd0iLZRro2TRH2hasnIsI9s8c8aKXGFWDKQeVDxPh75/btVpYUDcC7DGZE2MjOAXIKWVc+hdslPngP8cA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31686004)(5660300002)(6486002)(8936002)(8676002)(508600001)(66574015)(16576012)(316002)(53546011)(86362001)(26005)(186003)(31696002)(4326008)(38100700002)(38350700002)(2616005)(956004)(6666004)(66946007)(66476007)(66556008)(52116002)(83380400001)(36756003)(2906002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: U6edePHL0qMlJnyv0/KIUzEjm1h5v0tSYmU/C0ADOXA5UZ0Vu19bT6baRR2irRZcMZRUpuknlAjkrVP8DIZfqxPha72OJeDKOSWsUG+G0eS/efNj7pdVg9+FBADhO8njwQdn9uN7FdfKg+3i8oR8HlNZ9IZ0Z/MpnuNzE0zaRGeQc00/AXFqgWi/TkOSw5uVp4gapb3ZN6Yt6vN1CIGx3vg4cEqT0OPgP2LZomanZ4V3iYkJfSYYq+qW/azq7s7KNUir4ApmoP/rYDOIiB5a9NSrOOBqu7ul1TXX4eawRMdhbPHMOATAycrMIargzGoqMKG4xllnz5dOb8MW4pNyGY4H1JQORi8MBrqO7KFS6Lzs8OGqf3XQicNa6EmfF4imJpn9MygTjiJmESnqOu/q9uuzHdP3L/cpe1QsQMAkMzlsHrXhm/B9ZJBpb8A8IDaTHjG1yLEjGYVgH7xWTB3gwaE3Zxjx+3/nwqgav5a+oR/00B1POTdLSWUjIOI5Y0mJXnoVLNyGgiRlA18QrFUAPKg7GA+RBM6LS5SM/7KikFugOF1TfHYfi1bEuF/ycHHrjB34k5WEhN8WFoC5xjCh8bwZoudOAM4WmYdxqeBZ8Ato1hu9Uo4vHC4SpjkQ6FzmQCzV3kX//cCTk0/MFMUc0Iyor54eqwuLEeyTbLemrGc09zUHNJYq7M7jR3ReA7ZK3Avm25oxU6tVYuWF7mF/daxnsf112ebJ3hPkqxb8LP0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(26005)(336012)(4326008)(186003)(16526019)(316002)(82310400003)(70206006)(70586007)(508600001)(426003)(36756003)(1076003)(6666004)(7696005)(2616005)(30864003)(8676002)(8936002)(2906002)(110136005)(86362001)(356005)(36860700001)(47076005)(83380400001)(81166007)(6636002)(44832011)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWdYVFo2SUJNbllwSEdKMEhkeXpoVjRMK1ExN09vOE9TTUxGVDhYNjRFM2hM?=
- =?utf-8?B?SVJSSVNNT1BHc3d4MkxEaUFsdERiTUJYUzE3bTR2RHhkVEwzMXR0Y21ROGhY?=
- =?utf-8?B?R2VtbVY4OXRYOW04UXVXREFUMm5teEhJam5sTnRQanlERFpIa1h1ci9mUW9W?=
- =?utf-8?B?TEJ6WUFDUUJST1U2UFMyZFVXY3lMZy90aWFQQ3RoRFBaL0xMNXFqVHFGamRu?=
- =?utf-8?B?WmJKOTJYYm9lSTBwM21IcVEzUGhnaU8yMWFLZUZlTlZmR0tobTF6UjlFSGpZ?=
- =?utf-8?B?VnhPNEZPcWxlMEI5Q2ZkTmxpVkFNRjB3TEZjVmNXVDRna2tQbXhlUWFUNHhY?=
- =?utf-8?B?MUpoWTBaMUh5eXowK1duRFpVQStHZUhKSVZ3UnAzOEQrS1U5d3FHWHRudzFX?=
- =?utf-8?B?NlcwZUR5SmduUVArZVVyOFVGQnBxaDV1R0Y5blk4TmozcWJUTnJvZUxMNW96?=
- =?utf-8?B?bGRrck05Q1lYZFh3ZEx0WmZqbDd1d3hLN2NiTE1MbGpJaUNWTG10MVBLdWd6?=
- =?utf-8?B?bkZDYkdJRUpaOTFkQ21wczc1eTlZTXlCbWcyMnh4dFNBVWhWNThpcUxZN3Fw?=
- =?utf-8?B?eUxoa0c2RlkxejlSSlZlemZGL2NMUUwyNHVudUlodktLd1ZvZGQ3THZMSnZV?=
- =?utf-8?B?L3g3NnFHOFZFdUIyNXhxNDZZYVpKS2s0Z2FKZ3lTZUJTRU1BNTJWMXlla0s1?=
- =?utf-8?B?M01FZ0RXTkNmUHhYT1kzb0NRNzZ1SytGRFlIekVnUnFkcHF5UTBrZ1pqU3di?=
- =?utf-8?B?aDh4UzgrOHcrQXRONEJKa2dkemNEOVVtTkl0SWtqcDczUktDcnNTQ3RkS3pr?=
- =?utf-8?B?bUlsKzRaR0ptOFZZN2E1S01VenVmd292WDlXQmtHVVFLbEQvY0hwZFdiZDQv?=
- =?utf-8?B?QU1HN3VQc0FqRGJYZWRkSHE0SW9CN1FFRTRNNDBrMjhRYm01QTZpOEdCYW1i?=
- =?utf-8?B?eFBmSGhwMGhoT0ljOWJBdGlmQ0VzVXdacUxCemh0WkVpYkJNTmhPY3F0NFpB?=
- =?utf-8?B?ZnlHMFVxQjFPYjNVZUdubHgwc2hGZkNGRTQ4RUpzR1VzVjUxay9YQmxOQTNq?=
- =?utf-8?B?ZDVUaEkrMkl4NmhCdHlVb3VPMHlwMHRqU3ZDb2FwNmw3US9UTDNOdjhLNHgz?=
- =?utf-8?B?UUhSaVVoZ296aDBjaW13RG9JQ0xFMFlmWXhmelZJZHhydXJaNnpHc2k4ckIx?=
- =?utf-8?B?c3Z2ZjlUQVYrNGpJNXI1ZTdtdklQV2grVkhwQUR6WXpkRTR6MWVmaUV1Qkl5?=
- =?utf-8?B?T0NxejdKWE5wMnptbTNlb0t4Z2luQlBQa08wbEVpQVNHTW5qTUJTalNxY3Fs?=
- =?utf-8?B?ZE5HQ2VpazJ1ZHZTQzJKSzNRb09RUHo3VkZBQWtMR0V4L3E5R3pBNDlXWTl6?=
- =?utf-8?B?RkhuN2V2ZlF5R0lBWXJUeFVpT1d1R3VvZFlXbmpBcUlhOW5KVTRTN2pDWE9x?=
- =?utf-8?B?OVl5MGlDZmpVSDArSFg3bUliTTNBSUx2Mis2emRzOEJWUFBXUkgvYUpId3Uv?=
- =?utf-8?B?YkVoL0dQOGROUnkvQVFTTmhBUis4YkVaOXRoZVBRbHNWK1ZpbUpvZjNwbTVZ?=
- =?utf-8?B?cHB5dEJOdTZFZFZWMUdKYUlIUUg4OXcrMUxQNEpRNm0rVmxNV2RxZXNjRXdU?=
- =?utf-8?B?Z2lOWU9uY2FjUkNqb3dEc1pUdkFXM1BYSmZoZys1d2lpd1V3STBhcmZsR0NQ?=
- =?utf-8?B?bktOV1psMWxvcVlvbjRNNXp6NVJ0NFBRclJFemJkajlQNGlzdTNHUEVFS09i?=
- =?utf-8?Q?W6BWrDzu9DnqJ0KR0ioUDEM/aKHcstWgthjBk8O?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e499e64b-eca9-4f1e-0c4c-08d989818993
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2021 10:59:30.4016 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2021 11:40:17.0709 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5023783-bf23-42b2-fcd8-08d989873c25
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OkbvLKxB6cx5B5m67eiMr/nr3RyuvoXbJfjVlv9MvrlScxqQQCCbEPtomLOxmTsLdbXDUlAHHLBl4NyVkKvBYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5536
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3877
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,219 +112,318 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+adev_to_drm is used everywhere, so improve recent changes
+when accessing drm_device pointer from amdgpu_device.
 
-On 10/7/2021 12:38 PM, Christian König wrote:
-> Am 07.10.21 um 12:00 schrieb Nirmoy Das:
->> Unify BO evicting functionality for possible memory
->> types in amdgpu_ttm.c.
->>
->> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  8 +++---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 30 ++++++++++++++++-----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 23 ----------------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  1 -
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 30 +++++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 +
->>   6 files changed, 58 insertions(+), 35 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> index 5497e2d31d1a..164d6a9e9fbb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> @@ -1328,7 +1328,7 @@ static int amdgpu_debugfs_evict_vram(void 
->> *data, u64 *val)
->>           return r;
->>       }
->>   -    *val = amdgpu_bo_evict_vram(adev);
->> +    *val = amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM);
->>         pm_runtime_mark_last_busy(dev->dev);
->>       pm_runtime_put_autosuspend(dev->dev);
->> @@ -1341,17 +1341,15 @@ static int amdgpu_debugfs_evict_gtt(void 
->> *data, u64 *val)
->>   {
->>       struct amdgpu_device *adev = (struct amdgpu_device *)data;
->>       struct drm_device *dev = adev_to_drm(adev);
->> -    struct ttm_resource_manager *man;
->>       int r;
->>         r = pm_runtime_get_sync(dev->dev);
->>       if (r < 0) {
->> -        pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->> +        pm_runtime_put_autosuspend(dev->dev);
->>           return r;
->>       }
->>   -    man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
->> -    *val = ttm_resource_manager_evict_all(&adev->mman.bdev, man);
->> +    *val = amdgpu_ttm_evict_resources(adev, TTM_PL_TT);
->>         pm_runtime_mark_last_busy(dev->dev);
->>       pm_runtime_put_autosuspend(dev->dev);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 57638fe9cfc2..032deca4cea2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -3880,6 +3880,25 @@ void amdgpu_device_fini_sw(struct 
->> amdgpu_device *adev)
->>     }
->>   +/**
->> + * amdgpu_device_evict_resources - evict device resources
->> + * @adev: amdgpu device object
->> + *
->> + * Evicts all ttm device resources(vram BOs, gart table) from the 
->> lru list
->> + * of the vram memory type. Mainly used for evicting device resources
->> + * at suspend time.
->> + *
->> + */
->> +void amdgpu_device_evict_resources(struct amdgpu_device *adev)
->
-> Please add static here, apart from that the patch is Reviewed-by: 
-> Christian König <christian.koenig@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c    | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c    | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c     | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c      | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c      | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c      | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c      | 2 +-
+ 16 files changed, 25 insertions(+), 25 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 57638fe9cfc2..37f6c3a43541 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -306,7 +306,7 @@ void amdgpu_device_mm_access(struct amdgpu_device *adev, loff_t pos,
+ 	uint64_t last;
+ 	int idx;
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return;
+ 
+ 	BUG_ON(!IS_ALIGNED(pos, 4) || !IS_ALIGNED(size, 4));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index fd4ba076ff8a..1320f84c63cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -556,7 +556,7 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
+ 			drm_sched_stop(&ring->sched, NULL);
+ 
+ 		/* You can't wait for HW to signal if it's gone */
+-		if (!drm_dev_is_unplugged(&adev->ddev))
++		if (!drm_dev_is_unplugged(adev_to_drm(adev)))
+ 			r = amdgpu_fence_wait_empty(ring);
+ 		else
+ 			r = -ENODEV;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index d7e4f4660acf..d3e4203f6217 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -238,7 +238,7 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return 0;
+ 
+ 	t = offset / AMDGPU_GPU_PAGE_SIZE;
+@@ -289,7 +289,7 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return 0;
+ 
+ 	t = offset / AMDGPU_GPU_PAGE_SIZE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 8d2716297070..45761d0328c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -748,7 +748,7 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+ 	u64 gart_ptb_gpu_pa = amdgpu_gmc_vram_pa(adev, adev->gart.bo);
+ 	int idx;
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return;
+ 
+ 	flags |= AMDGPU_PTE_VALID | AMDGPU_PTE_READABLE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index e1aa4a5e6a98..054d6210be7e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -368,7 +368,7 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
+ void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
+ {
+ 	if (adev->irq.installed) {
+-		drm_irq_uninstall(&adev->ddev);
++		drm_irq_uninstall(adev_to_drm(adev));
+ 		adev->irq.installed = false;
+ 		if (adev->irq.msi_enabled)
+ 			pci_free_irq_vectors(adev->pdev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index de29518673dd..f222ec17a523 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -38,7 +38,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 	struct amdgpu_device *adev = ring->adev;
+ 	int idx;
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx)) {
++	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 		DRM_INFO("%s - device unplugged skipping recovery on scheduler:%s",
+ 			 __func__, s_job->sched->name);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index fd6e38ad493c..6b39e6c02dd8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -440,7 +440,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 	if (psp->adev->no_hw_access)
+ 		return 0;
+ 
+-	if (!drm_dev_enter(&psp->adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
+ 		return 0;
+ 
+ 	memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+@@ -3272,7 +3272,7 @@ void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size
+ {
+ 	int idx;
+ 
+-	if (!drm_dev_enter(&psp->adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
+ 		return;
+ 
+ 	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index 8a26459bd80b..6f8de11a17f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -454,7 +454,7 @@ int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+ 		if (!adev->uvd.inst[j].saved_bo)
+ 			return -ENOMEM;
+ 
+-		if (drm_dev_enter(&adev->ddev, &idx)) {
++		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 			/* re-write 0 since err_event_athub will corrupt VCPU buffer */
+ 			if (in_ras_intr)
+ 				memset(adev->uvd.inst[j].saved_bo, 0, size);
+@@ -487,7 +487,7 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+ 		ptr = adev->uvd.inst[i].cpu_addr;
+ 
+ 		if (adev->uvd.inst[i].saved_bo != NULL) {
+-			if (drm_dev_enter(&adev->ddev, &idx)) {
++			if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 				memcpy_toio(ptr, adev->uvd.inst[i].saved_bo, size);
+ 				drm_dev_exit(idx);
+ 			}
+@@ -500,7 +500,7 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+ 			hdr = (const struct common_firmware_header *)adev->uvd.fw->data;
+ 			if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+ 				offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
+-				if (drm_dev_enter(&adev->ddev, &idx)) {
++				if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 					memcpy_toio(adev->uvd.inst[i].cpu_addr, adev->uvd.fw->data + offset,
+ 						    le32_to_cpu(hdr->ucode_size_bytes));
+ 					drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index caa4d3420e00..688bef1649b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -313,7 +313,7 @@ int amdgpu_vce_resume(struct amdgpu_device *adev)
+ 	hdr = (const struct common_firmware_header *)adev->vce.fw->data;
+ 	offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
+ 
+-	if (drm_dev_enter(&adev->ddev, &idx)) {
++	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 		memcpy_toio(cpu_addr, adev->vce.fw->data + offset,
+ 			    adev->vce.fw->size - offset);
+ 		drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 4d3f2386ef53..c7d316850570 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -325,7 +325,7 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
+ 		if (!adev->vcn.inst[i].saved_bo)
+ 			return -ENOMEM;
+ 
+-		if (drm_dev_enter(&adev->ddev, &idx)) {
++		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 			memcpy_fromio(adev->vcn.inst[i].saved_bo, ptr, size);
+ 			drm_dev_exit(idx);
+ 		}
+@@ -349,7 +349,7 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
+ 		ptr = adev->vcn.inst[i].cpu_addr;
+ 
+ 		if (adev->vcn.inst[i].saved_bo != NULL) {
+-			if (drm_dev_enter(&adev->ddev, &idx)) {
++			if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 				memcpy_toio(ptr, adev->vcn.inst[i].saved_bo, size);
+ 				drm_dev_exit(idx);
+ 			}
+@@ -362,7 +362,7 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
+ 			hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+ 			if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+ 				offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
+-				if (drm_dev_enter(&adev->ddev, &idx)) {
++				if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 					memcpy_toio(adev->vcn.inst[i].cpu_addr, adev->vcn.fw->data + offset,
+ 						    le32_to_cpu(hdr->ucode_size_bytes));
+ 					drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index a1ddf74bbdba..0e7dc23f78e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -845,7 +845,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *adev,
+ 			return r;
+ 	}
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return -ENODEV;
+ 
+ 	r = vm->update_funcs->map_table(vmbo);
+@@ -1395,7 +1395,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 	if (list_empty(&vm->relocated))
+ 		return 0;
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return -ENODEV;
+ 
+ 	memset(&params, 0, sizeof(params));
+@@ -1718,7 +1718,7 @@ int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+ 	enum amdgpu_sync_mode sync_mode;
+ 	int r, idx;
+ 
+-	if (!drm_dev_enter(&adev->ddev, &idx))
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return -ENODEV;
+ 
+ 	memset(&params, 0, sizeof(params));
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index aaf200ec982b..21a325ea49cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -698,7 +698,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+ 			return -ENOMEM;
+ 		}
+ 
+-		if (drm_dev_enter(&adev->ddev, &idx)) {
++		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 			memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
+ 			ret = psp_v11_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
+ 			if (ret) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+index 226b79254db8..d1fc4e0b8265 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+@@ -565,7 +565,7 @@ static int vce_v4_0_suspend(void *handle)
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return 0;
+ 
+-	if (drm_dev_enter(&adev->ddev, &idx)) {
++	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 			unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
+ 			void *ptr = adev->vce.cpu_addr;
+@@ -615,7 +615,7 @@ static int vce_v4_0_resume(void *handle)
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 
+-		if (drm_dev_enter(&adev->ddev, &idx)) {
++		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 			unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
+ 			void *ptr = adev->vce.cpu_addr;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 43f46ab07dda..091d8c0f6801 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -198,7 +198,7 @@ static int vcn_v2_0_sw_fini(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	volatile struct amdgpu_fw_shared *fw_shared = adev->vcn.inst->fw_shared_cpu_addr;
+ 
+-	if (drm_dev_enter(&adev->ddev, &idx)) {
++	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 		fw_shared->present_flag_0 = 0;
+ 		drm_dev_exit(idx);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index f4a7a30ecebd..59f469bab005 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -240,7 +240,7 @@ static int vcn_v2_5_sw_fini(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	volatile struct amdgpu_fw_shared *fw_shared;
+ 
+-	if (drm_dev_enter(&adev->ddev, &idx)) {
++	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+ 			if (adev->vcn.harvest_config & (1 << i))
+ 				continue;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 135a9c553af8..dbfd92984655 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -263,7 +263,7 @@ static int vcn_v3_0_sw_fini(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int i, r, idx;
+ 
+-	if (drm_dev_enter(&adev->ddev, &idx)) {
++	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+ 			volatile struct amdgpu_fw_shared *fw_shared;
+ 
+-- 
+2.17.1
 
-Thanks, I will add that and push the commit.
-
-
-Nirmoy
-
->
-> Thanks,
-> Christian.
->
->> +{
->> +    /* No need to evict vram on APUs for suspend to ram */
->> +    if (adev->in_s3 && (adev->flags & AMD_IS_APU))
->> +        return;
->> +
->> +    if (amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM))
->> +        DRM_WARN("evicting device resources failed\n");
->> +
->> +}
->>     /*
->>    * Suspend & resume.
->> @@ -3920,17 +3939,16 @@ int amdgpu_device_suspend(struct drm_device 
->> *dev, bool fbcon)
->>       if (!adev->in_s0ix)
->>           amdgpu_amdkfd_suspend(adev, adev->in_runpm);
->>   -    /* evict vram memory */
->> -    amdgpu_bo_evict_vram(adev);
->> +    /* First evict vram memory */
->> +    amdgpu_device_evict_resources(adev);
->>         amdgpu_fence_driver_hw_fini(adev);
->>         amdgpu_device_ip_suspend_phase2(adev);
->> -    /* evict remaining vram memory
->> -     * This second call to evict vram is to evict the gart page table
->> -     * using the CPU.
->> +    /* This second call to evict device resources is to evict
->> +     * the gart page table using the CPU.
->>        */
->> -    amdgpu_bo_evict_vram(adev);
->> +    amdgpu_device_evict_resources(adev);
->>         return 0;
->>   }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 4ec904f36ceb..073ba2af0b9c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -1004,29 +1004,6 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
->>       }
->>   }
->>   -/**
->> - * amdgpu_bo_evict_vram - evict VRAM buffers
->> - * @adev: amdgpu device object
->> - *
->> - * Evicts all VRAM buffers on the lru list of the memory type.
->> - * Mainly used for evicting vram at suspend time.
->> - *
->> - * Returns:
->> - * 0 for success or a negative error code on failure.
->> - */
->> -int amdgpu_bo_evict_vram(struct amdgpu_device *adev)
->> -{
->> -    struct ttm_resource_manager *man;
->> -
->> -    if (adev->in_s3 && (adev->flags & AMD_IS_APU)) {
->> -        /* No need to evict vram on APUs for suspend to ram */
->> -        return 0;
->> -    }
->> -
->> -    man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
->> -    return ttm_resource_manager_evict_all(&adev->mman.bdev, man);
->> -}
->> -
->>   static const char *amdgpu_vram_names[] = {
->>       "UNKNOWN",
->>       "GDDR1",
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> index 8ff61bad4138..d787e0e89e0b 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> @@ -305,7 +305,6 @@ int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain);
->>   int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
->>                    u64 min_offset, u64 max_offset);
->>   void amdgpu_bo_unpin(struct amdgpu_bo *bo);
->> -int amdgpu_bo_evict_vram(struct amdgpu_device *adev);
->>   int amdgpu_bo_init(struct amdgpu_device *adev);
->>   void amdgpu_bo_fini(struct amdgpu_device *adev);
->>   int amdgpu_bo_set_tiling_flags(struct amdgpu_bo *bo, u64 
->> tiling_flags);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index e2896ac2c9ce..bd5dda8066fa 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -2034,6 +2034,36 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->>       return r;
->>   }
->>   +/**
->> + * amdgpu_ttm_evict_resources - evict memory buffers
->> + * @adev: amdgpu device object
->> + * @mem_type: evicted BO's memory type
->> + *
->> + * Evicts all @mem_type buffers on the lru list of the memory type.
->> + *
->> + * Returns:
->> + * 0 for success or a negative error code on failure.
->> + */
->> +int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int 
->> mem_type)
->> +{
->> +    struct ttm_resource_manager *man;
->> +
->> +    switch (mem_type) {
->> +    case TTM_PL_VRAM:
->> +    case TTM_PL_TT:
->> +    case AMDGPU_PL_GWS:
->> +    case AMDGPU_PL_GDS:
->> +    case AMDGPU_PL_OA:
->> +        man = ttm_manager_type(&adev->mman.bdev, mem_type);
->> +        break;
->> +    default:
->> +        DRM_ERROR("Trying to evict invalid memory type\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    return ttm_resource_manager_evict_all(&adev->mman.bdev, man);
->> +}
->> +
->>   #if defined(CONFIG_DEBUG_FS)
->>     static int amdgpu_mm_vram_table_show(struct seq_file *m, void 
->> *unused)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> index e69f3e8e06e5..ba5c864b8de1 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> @@ -190,6 +190,7 @@ bool amdgpu_ttm_tt_is_readonly(struct ttm_tt *ttm);
->>   uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct 
->> ttm_resource *mem);
->>   uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct 
->> ttm_tt *ttm,
->>                    struct ttm_resource *mem);
->> +int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int 
->> mem_type);
->>     void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev);
->
