@@ -2,49 +2,100 @@ Return-Path: <SRS0=WxFm=O3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D415C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:03:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45E04C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5FEF60FC3
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:03:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D5FEF60FC3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id 1429261130
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Oct 2021 18:23:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1429261130
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C7E86F37F;
-	Thu,  7 Oct 2021 18:03:17 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6A56F37F
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 18:00:37 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f1265004099ae2673030416.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f12:6500:4099:ae26:7303:416])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C8AE71EC04B9;
- Thu,  7 Oct 2021 20:00:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1633629634;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=0HErzW2Xgd+VAD7lO25L8kiE23nsQSgkQGKELNJ6VJo=;
- b=VWyU/9ueUrqDniR8A788IwMfLzyokAUUvacI7Zz2k0dx7L2hj7NoEOgfDYcn4BgtAr5YJF
- NWMzSYI1Y7AnnFQUc4JhjGm4TSmSPRODvBV01iYQnTkYIGStpairtzbm7owOHJoRI10hia
- WF2QukU/B8YydOqJr1TSqRwWkl1sA1c=
-Date: Thu, 7 Oct 2021 20:00:30 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- xinhui pan <xinhui.pan@amd.com>, Guchun Chen <guchun.chen@amd.com>
-Subject: bf756fb833cb ("drm/amdgpu: add missing cleanups for Polaris12
- UVD/VCE on suspend")
-Message-ID: <YV81vidWQLWvATMM@zn.tnic>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A34AC6E027;
+	Thu,  7 Oct 2021 18:23:54 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F120C6E027
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Oct 2021 18:23:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UOCh8nXGac/PukCl41OQsbUa0nzj6ybfry/YpkWWf94KzpRvLODTwUGC9glCjjMEUewvuBB+ofSdxfhsM8XJ8ptlFuoMckDBeOYI9W5L/DM9fGRNBwtzlGaNZ7cAbfps/JAgWJcNdosvynaLkzCQ1jMSOP6P3Zs0I/6Yg04Yi4OM9UDzV1oZHI/AYWKeUv+WucBscNNkodl/EHfpurwV0sA2lc7o/JQCWsGHJX3y885yhmppSNXcsnjwEo213pccR5Gsn7B6dQOtjYVolTjMqVdZbYT+pdbPaXH9+qxOM0x6Buf0Ovfy0W70ncfqamBuJ5cKRPxOMiRF6uT1Bxt+XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SXSNDRx5jl4hXNqR13PXPbqRaMX2xbUVJbArHFhJw7A=;
+ b=WU0Q4tOwOp8yx6HFnBnAG0eXT/2xoRNNn/tUyXvAXe4/Erp26tk/DtBUd1s+DNZaP1+zBIwigZJpDAcZXQQ69dgxZJCAyznEvp8xUc7AIebup/XN2W61yhCAsJTcEvnvxcMdr4i52435YdiQPRbgz84QnEpbUV46zQBWbdrweL9G8aPYGGfW4JRIN+VsCS+WYzC8uxNElY0C49E+TpCrSTvBsmSETLKMmf3i9gt5gFlDjuy/s2BNeOTDiPGlbXkrbnFU4XalpHjSHkDyZHz0fmMKb41snnQM86c74VLtA5vhBCanEOnh/+GAEdNMpXc7aollMn6Pn4/g6BzjpV7trw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SXSNDRx5jl4hXNqR13PXPbqRaMX2xbUVJbArHFhJw7A=;
+ b=lNNn/YzbWHaOv00fSvj+xvrPn+cmC4Nxe348ZdCmcM8hkIIfKRHpRG9eQiwZKM5FzOQZawllp/C2KS744NA9tCMvjhnlwYJZAUJzOAgetqVrQIcKxcBiISanUt0EbiwsMmR42ZID/PIj22R3tMtTJ7BfEm83iZbUmaiyxTk1uSA=
+Received: from MWHPR02CA0006.namprd02.prod.outlook.com (2603:10b6:300:4b::16)
+ by BN8PR12MB3028.namprd12.prod.outlook.com (2603:10b6:408:43::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Thu, 7 Oct
+ 2021 18:23:50 +0000
+Received: from CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:4b:cafe::b) by MWHPR02CA0006.outlook.office365.com
+ (2603:10b6:300:4b::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18 via Frontend
+ Transport; Thu, 7 Oct 2021 18:23:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT014.mail.protection.outlook.com (10.13.175.99) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4587.18 via Frontend Transport; Thu, 7 Oct 2021 18:23:47 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 7 Oct 2021
+ 13:23:46 -0500
+From: Alex Sierra <alex.sierra@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Sierra <alex.sierra@amd.com>
+Subject: [PATCH] drm/amdkfd: rm BO resv on validation to avoid deadlock
+Date: Thu, 7 Oct 2021 13:23:35 -0500
+Message-ID: <20211007182335.17152-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-Mailman-Approved-At: Thu, 07 Oct 2021 18:03:16 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 253c9747-639f-40ef-f900-08d989bf9ada
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3028:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3028D31868700FA72F047DEAFDB19@BN8PR12MB3028.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KXP7a+7dAaF/Hz1Cg5HRsnF2r73ST4+jXWLIBcUYcWPVM1ZgzVbFmIVqX59OlD+7C7lSqbLnsxIS3b8FyNmBDJuXBBrm0sWB/hc3KWm3OK9HRuRSV2Ba6KXpQlLO584ISmMjCPkeHv5DJfGFkrAdnBxnHOMcaW+xq/5JQfO056xGO5gYTZzjAFe7rn2dKVScNuz5lrycee3m2afXU9DTLtAAnLnpiM0cFXMA+DJRtAmcN7bjySSC+S/66Ul1+1rx/a2eQRIBRc8QFIRXRgSrBbi/Hu3NGaMFWCOjiadGImSVJcBZPxy3nc1CWDmIjXWccxXlCioQxVAKjhIRUOj2HqJONp+bg1eSIY+vYdY5fmJ+CMNBs6Lxe/zHxNIlLEDSFJccjvdxYBWa6vD1MJVckwlwLlYWjzW7l+P/8fEe4ePUodefXyvY+l9AFGFaNv1b4VaoBWIHTG5TlhdufCaO5qq9QKkyawfDZGiNyUCA2wr8CeSBVPJ0ygvhrhXK9ifCe7XRqDXkspca5x+RoB/wtITNdjOnPWFeZrzNyn0Yveh5ctpW8r/4uc2OtGBruedPITNv8m5itAOt4B08A1U/EOqsZnbgwVJtGBQIAT50PxUm8v6HAgC2oq/aDLQD7IKoexUE9L931hwaXJfv0m9krwzk5VUeA9lgHaatK17xTQsDMDYOI5LJ4YHd9DzjF6K85K8Q5zH5fvs91Qb74oX+S6O1mIxipH50XrTTq427JEQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(2906002)(26005)(1076003)(83380400001)(16526019)(70206006)(2616005)(186003)(6916009)(36860700001)(316002)(44832011)(508600001)(4326008)(70586007)(82310400003)(6666004)(86362001)(81166007)(47076005)(356005)(8676002)(5660300002)(336012)(8936002)(426003)(7696005)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2021 18:23:47.7897 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 253c9747-639f-40ef-f900-08d989bf9ada
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3028
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,101 +110,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi folks,
+This fix the deadlock with the BO reservations during SVM_BO evictions
+while allocations in VRAM are concurrently performed. More specific,
+while the ttm waits for the fence to be signaled (ttm_bo_wait), it
+already has the BO reserved. In parallel, the restore worker might be
+running, prefetching memory to VRAM. This also requires to reserve the
+BO, but blocks the mmap semaphore first. The deadlock happens when the
+SVM_BO eviction worker kicks in and waits for the mmap semaphore held
+in restore worker. Preventing signal the fence back, causing the
+deadlock until the ttm times out.
 
-commit in $Subject breaks rebooting an HP laptop here with a Carrizo
-chipset: after typing "reboot" and pressing Enter, it powers off the
-machine up to a certain point but the fans remain on, screen goes black
-and nothing happens anymore. No reboot. I have to power it off by
-holding the power key down for 4 seconds.
+We don't need to hold the BO reservation anymore during validation
+and mapping. Now the physical addresses are taken from hmm_range_fault.
 
-Reverting the patch fixes the issue.
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-GPU info on that machine:
-
-[    1.462214] [drm] amdgpu kernel modesetting enabled.
-[    1.465150] amdgpu 0000:00:01.0: vgaarb: deactivate vga console
-[    1.466259] Console: switching to colour dummy device 80x25
-[    1.466844] [drm] initializing kernel modesetting (CARRIZO 0x1002:0x9874 0x103C:0x807E 0xC4).
-[    1.467242] amdgpu 0000:00:01.0: amdgpu: Trusted Memory Zone (TMZ) feature not supported
-[    1.467552] [drm] register mmio base: 0xD0C00000
-[    1.467750] [drm] register mmio size: 262144
-[    1.467901] [drm] add ip block number 0 <vi_common>
-[    1.468067] [drm] add ip block number 1 <gmc_v8_0>
-[    1.468266] [drm] add ip block number 2 <cz_ih>
-[    1.468436] [drm] add ip block number 3 <gfx_v8_0>
-[    1.468603] [drm] add ip block number 4 <sdma_v3_0>
-[    1.468809] [drm] add ip block number 5 <powerplay>
-[    1.468975] [drm] add ip block number 6 <dm>
-[    1.469120] [drm] add ip block number 7 <uvd_v6_0>
-[    1.469282] [drm] add ip block number 8 <vce_v3_0>
-[    1.485350] [drm] BIOS signature incorrect 20 7
-[    1.485494] resource sanity check: requesting [mem 0x000c0000-0x000dffff], which spans more than PCI Bus 0000:00 [mem 0x000c0000-
-0x000c3fff window]
-[    1.485922] caller pci_map_rom+0x68/0x1b0 mapping multiple BARs
-[    1.486273] amdgpu 0000:00:01.0: amdgpu: Fetched VBIOS from ROM BAR
-[    1.486488] amdgpu: ATOM BIOS: SWBRT27354.001
-[    1.486701] [drm] UVD is enabled in physical mode
-[    1.486862] [drm] VCE enabled in physical mode
-[    1.487061] [drm] vm size is 64 GB, 2 levels, block size is 10-bit, fragment size is 9-bit
-[    1.487339] amdgpu 0000:00:01.0: amdgpu: VRAM: 512M 0x000000F400000000 - 0x000000F41FFFFFFF (512M used)
-[    1.487652] amdgpu 0000:00:01.0: amdgpu: GART: 1024M 0x000000FF00000000 - 0x000000FF3FFFFFFF
-[    1.487939] [drm] Detected VRAM RAM=512M, BAR=512M
-[    1.488101] [drm] RAM width 128bits UNKNOWN
-[    1.488309] [drm] amdgpu: 512M of VRAM memory ready
-[    1.488522] [drm] amdgpu: 3072M of GTT memory ready.
-[    1.488707] [drm] GART: num cpu pages 262144, num gpu pages 262144
-[    1.488997] [drm] PCIE GART of 1024M enabled (table at 0x000000F400900000).
-[    1.491962] amdgpu: hwmgr_sw_init smu backed is smu8_smu
-[    1.492544] [drm] Found UVD firmware Version: 1.91 Family ID: 11
-[    1.492764] [drm] UVD ENC is disabled
-[    1.494177] [drm] Found VCE firmware Version: 52.4 Binary ID: 3
-[    1.495765] amdgpu: smu version 18.62.00
-[    1.501983] [drm] DM_PPLIB: values for Engine clock
-[    1.502201] [drm] DM_PPLIB:   300000
-[    1.502321] [drm] DM_PPLIB:   360000
-[    1.502441] [drm] DM_PPLIB:   423530
-[    1.502561] [drm] DM_PPLIB:   514290
-[    1.502680] [drm] DM_PPLIB:   626090
-[    1.502799] [drm] DM_PPLIB:   720000
-[    1.502919] [drm] DM_PPLIB: Validation clocks:
-[    1.503069] [drm] DM_PPLIB:    engine_max_clock: 72000
-[    1.503242] [drm] DM_PPLIB:    memory_max_clock: 80000
-[    1.503415] [drm] DM_PPLIB:    level           : 8
-[    1.503578] [drm] DM_PPLIB: values for Display clock
-[    1.503745] [drm] DM_PPLIB:   300000
-[    1.503864] [drm] DM_PPLIB:   400000
-[    1.503984] [drm] DM_PPLIB:   496560
-[    1.504147] [drm] DM_PPLIB:   626090
-[    1.504275] [drm] DM_PPLIB:   685720
-[    1.504403] [drm] DM_PPLIB:   757900
-[    1.504526] [drm] DM_PPLIB: Validation clocks:
-[    1.504678] [drm] DM_PPLIB:    engine_max_clock: 72000
-[    1.504891] [drm] DM_PPLIB:    memory_max_clock: 80000
-[    1.505063] [drm] DM_PPLIB:    level           : 8
-[    1.505225] [drm] DM_PPLIB: values for Memory clock
-[    1.505389] [drm] DM_PPLIB:   333000
-[    1.505508] [drm] DM_PPLIB:   800000
-[    1.505628] [drm] DM_PPLIB: Validation clocks:
-[    1.505777] [drm] DM_PPLIB:    engine_max_clock: 72000
-[    1.505950] [drm] DM_PPLIB:    memory_max_clock: 80000
-[    1.506123] [drm] DM_PPLIB:    level           : 8
-[    1.506375] [drm] Display Core initialized with v3.2.149!
-[    1.584817] [drm] UVD initialized successfully.
-[    1.784234] [drm] VCE initialized successfully.
-[    1.784415] amdgpu 0000:00:01.0: amdgpu: SE 1, SH per SE 1, CU per SH 8, active_cu_number 8
-[    1.787958] [drm] fb mappable at 0xA0EE4000
-[    1.788118] [drm] vram apper at 0xA0000000
-[    1.788258] [drm] size 14745600
-[    1.788367] [drm] fb depth is 24
-[    1.788503] [drm]    pitch is 10240
-[    1.789198] fbcon: amdgpu (fb0) is primary device
-[    1.880014] Console: switching to colour frame buffer device 320x90
-[    1.903779] amdgpu 0000:00:01.0: [drm] fb0: amdgpu frame buffer device
-[    1.918353] [drm] Initialized amdgpu 3.42.0 20150101 for 0000:00:01.0 on minor 0
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index c4de7ce2f21c..6de3fb5266bf 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1326,11 +1326,6 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx)
+ 		ctx->tv[gpuidx].num_shared = 4;
+ 		list_add(&ctx->tv[gpuidx].head, &ctx->validate_list);
+ 	}
+-	if (ctx->prange->svm_bo && ctx->prange->ttm_res) {
+-		ctx->tv[MAX_GPU_INSTANCE].bo = &ctx->prange->svm_bo->bo->tbo;
+-		ctx->tv[MAX_GPU_INSTANCE].num_shared = 1;
+-		list_add(&ctx->tv[MAX_GPU_INSTANCE].head, &ctx->validate_list);
+-	}
+ 
+ 	r = ttm_eu_reserve_buffers(&ctx->ticket, &ctx->validate_list,
+ 				   ctx->intr, NULL);
 -- 
-Regards/Gruss,
-    Boris.
+2.32.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
