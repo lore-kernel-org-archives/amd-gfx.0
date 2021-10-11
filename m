@@ -2,46 +2,46 @@ Return-Path: <SRS0=iyzK=O7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7772C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A943C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:02:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8CE6360EE5
+	by mail.kernel.org (Postfix) with ESMTPS id C831B60EE9
 	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:02:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8CE6360EE5
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C831B60EE9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01B396E507;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EA306E511;
 	Mon, 11 Oct 2021 15:02:41 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE0536E4F3
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 15:02:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A23C6E4F3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 15:02:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kiAqyfz/CItSt+i2kqcNg7wy22a78sHKiM1mLu09nwgf+w/1TnJotxVpmcXeyyswE/RAU6renRRLK0tUWbTiEIJnQEVY+CjD4l/9+sgQJMUd/TGWirGtGlABwj8CJI5y0Xap1d0rVwU3QtTCQurG1sv6FvmVHLAKaf3C7kMpDUVkQs+eS6AgFoQC+RDrrNOp0YEezw7Iq5L6q+Bq+6JsGmG5aj/3XuM3SqcoMmRlcrwz3EYaJ82M1AF73T9hqzHjkLmoqHZXOC0q0suq6YWBsdTxrWJDRRQd8oNI3za9ETIYSDSXZgMLTQ7AivZftG7BVLbCqOunuQLui+M/fhaRnQ==
+ b=UuN9MFZnMs4+bEi9cCmxPlidnoGphORY5ORxd+504eiuAAZS3FpFFmBvoZuPWWwmCfTPxdPqofczor8K0rUhE/YETF2DYyK6/Ezllqef197L6M1NL0IdfRVR0256N+3j1HkOAKitVGPEZZZwt7pNVgZk2xAeYTVn5d64hc8fQnqXMx+uStBUa+uknjmh99HygVcg32qSxEhjM6Q6oXc985yiavOHsT+hUByJqci7gJcvbGz7N2/QEPMcR0Py9Lwxdb+6wHLjI1fG2mNzm6XKwwgh423472RM4kETbHivEitY0jF/Lvzory47/LQAdv0tgw5sUYdnUi+vZn7M7SxFvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DzXOxa7Ghp/N0EPDcIozqpnUglKCfq+P9gQTQ4UaKjI=;
- b=iOYSCtyOOwFvEOaubw50Ba7BI6Q4sRH/4E2A2RCWN6BWxTTWE+3DrmYIUsGhNIRowmBQRaGAkeSw3gTZk78+Gv9ZA7tLUZbG9j0R/HC6bN5GsE4dhdq7O9NW71sC5VFbp6+RRQdfjQcaTs/LSGlGgv01zHHBRXpBiuunbNtE0KEVYmrOrDuptExGvZa3Bem/Q+03rpYaeBX8cRjArvHziQa83AhC79ZOhZK/u8c2B6bmfX3zy143UooxDO4/7RDV2BLhxTdL8wTgTc+E2Wu/6WAJtEGAdEnHoMlOVLdniFBUNq6JyiZuZt+PKEoxux4TCiLMAMiXBm/8UyAJQ4BGAg==
+ bh=IkjZfGST85YCJlQxyr9weNjNaVxiTO2dWu53TcfFxXA=;
+ b=VW6CG9S+kJv2ljz864WVpfukhXa86Sou1XyxzYvuEbyYrQ1yBEslAXfUzxPV79AMPIaEUgx8blPf2hYjWxRh/MwILXYeHk8o8t5fTh0BMdlgf/o9xkPv2W8FFnya51Y33+UtLoZzM0PAjtxKPIzd3YmxYoxt3H/3BJZDdOH/wBljtoWgwgSzaHZEy7+OJ8VG+b1z5S3XDib0lQzsplNQM5aAqu1sJuCN0ZyrP04xgjy0M3gJrsTIToVuYHMn9M1fgM6UcTDNBCKnP6cAeFcQ4/Uqn3+rj7DRkVO6sdvQZaPmayxizzI9XFgujvkJVFNWxwIfH7uRLCo8J3X8GRnBVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DzXOxa7Ghp/N0EPDcIozqpnUglKCfq+P9gQTQ4UaKjI=;
- b=l5uRy9IOEO+arQFxfvGj2ybL/B1t1J5n3h//RgWd3h2h4l9ZkbNNoKZjlWP5tCjokFPoyXJ5z2NptcmoO05CwoJBprcUjCdgyWGx7cmVDBkpc54Hyt4nIypoe/KIBdtfgS8B5X2CeSh0iTQpvbKFO7puwEiU9DZ1RY+szuk7qN0=
-Received: from CO2PR05CA0078.namprd05.prod.outlook.com (2603:10b6:102:2::46)
- by CH0PR12MB5385.namprd12.prod.outlook.com (2603:10b6:610:d4::14) with
+ bh=IkjZfGST85YCJlQxyr9weNjNaVxiTO2dWu53TcfFxXA=;
+ b=DS3owJp3NVMp2GUphuUV4VxEReQKKICdRfbzsKY5CVAnWK1Cu2x4eWcQ2cvqIaA1U3LQUA7JnSLa+JDqjHqCMODgS2GhnFsEg4na9JDbdNd2rLNwo9wpsrmKWqKArvk37mC1dktntAcDk883BjDbUN0Bd3bJK7lB1xSMvOApk/c=
+Received: from CO2PR05CA0062.namprd05.prod.outlook.com (2603:10b6:102:2::30)
+ by BYAPR12MB3414.namprd12.prod.outlook.com (2603:10b6:a03:aa::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Mon, 11 Oct
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Mon, 11 Oct
  2021 15:02:36 +0000
 Received: from CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:102:2:cafe::26) by CO2PR05CA0078.outlook.office365.com
- (2603:10b6:102:2::46) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:102:2:cafe::26) by CO2PR05CA0062.outlook.office365.com
+ (2603:10b6:102:2::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.5 via Frontend
  Transport; Mon, 11 Oct 2021 15:02:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -54,7 +54,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT048.mail.protection.outlook.com (10.13.175.148) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 15:02:35 +0000
+ 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 15:02:36 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 11 Oct
@@ -62,9 +62,9 @@ Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 3/5] drm/amdgpu: drop soc15_set_ip_blocks()
-Date: Mon, 11 Oct 2021 11:02:15 -0400
-Message-ID: <20211011150217.165699-3-alexander.deucher@amd.com>
+Subject: [PATCH 4/5] drm/amdgpu: drop nv_set_ip_blocks()
+Date: Mon, 11 Oct 2021 11:02:16 -0400
+Message-ID: <20211011150217.165699-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211011150217.165699-1-alexander.deucher@amd.com>
 References: <20211011150217.165699-1-alexander.deucher@amd.com>
@@ -76,28 +76,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 34b59b99-7c9a-4346-b50c-08d98cc828da
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5385:
-X-Microsoft-Antispam-PRVS: <CH0PR12MB53853F6294332B0B6A2E4130F7B59@CH0PR12MB5385.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:989;
+X-MS-Office365-Filtering-Correlation-Id: 63cd64d1-bef6-436f-bcd9-08d98cc82962
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3414:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3414D00C89C3BBB5F8AD1753F7B59@BYAPR12MB3414.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:330;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: v/ytymtbxIbe/WxES9BcWoIFudKB6XZGpcHOktZtCXWab6loCLJHwAkuFcl6H31gC42BtJytyTNpbaLG9zh5SMBafDx94AVi3wd46n3PC9E93P7l3IVhi/7lVFiRQStloiTZsI4X1v6gF1qeVoZUH+Wh6TkXkgiR8Y0vpnVIKAouyu0NHCukiImrwNaVlawOi+GJ5usvazLTSowCdeVZblxv3tEnse9jc0awVMDFR1qPMF4fAc+/5PCjIGx38uHmMc95psSBwAOljOxLaZGMO60h5WNk2qGVLBMrVQhg+1pQdQzrorxQnPsNVi3ujR976frAoNc52tC16py+GUwXwSLLJDQ6INb/wFczUDaI2xYC/jtY/3K/mRmwp2C0E7q+QJcB3gWBaOvTU+rkpQhRsDsKessZc8h5UgOzKeXr741NbYJ27a9cC6RBoCse7yf+9I/0aA3uZnwnPHJsqGU5ml1ILePEZNpTNlWUAbn7gy9fQpWkqueSu5dPUw3CAuB9VDK3sY6Jfjk5GVfyTrKnmpIV2yn0aPKtSsSnEFK5lAN5GUrmZsIwguwHN7g0OSFBRZJ9EFnxI+GAi0KhFPipKQduOG165YPeicHwGJaqzUXQSEICmZhlsKqE1BosGtdhPw39ztfOGW8dTpC04ioHFvNTz1T5Cmga0DXtYqgijSED1oVyEXGHzQT5zvXGFyjwVeBALFJoeOQP+Py+hjA4iZQROZGvvFw5IfHCpSPehOM=
+X-Microsoft-Antispam-Message-Info: x/SGce18hKJoA1hd4mVjp5DoZPfNAv0V7UhBWaBcSqVMTJjSqvDGlWeCU+ZS9TCp1YnrgbS5kVbjgedwJ7GgiXOOIlEHMy4uiQX6x2IaLjlxSCBeTtFIHYAXLHOj9K1b87n4rv4UE1f1pBxSwixM7lxXQykN6QjdpPwamoI7GAHUJpSMc50gWQ7HdqvvX5wCUKCplbBNh3x/ilZl3TfHulyuuYLXHWkmdXPnix7uuscXxaWzzJQa0KnTu/aH0KqI3TEywtLJud44ZZGnW3bdDZ1FMabRUZgVeIKfT7l1VA8J6MjVfSApXFbNeDHsaj98+m5KFCE41ic04wL+PmIMXBSh1zLJ4LpWE+AeaR5vbQVSlMCCgUCw1n3BmIP706nDv3RHKiXpP54+YkyjdLbhEgOOKDLaQ+3UKv/UAKAsYRBHP2RV3ffKiMytY2Mg9W+Jtfd9dBOI1gry7nkEdnHnQoij86ch/KRMS7oY4q905thBpDKAMraU0Fkv9bbJnzcGoW+KQbLXRG3lCmqWyNS9PVaS2sZmSVAnX+cXXlyEHOuYbN8MwrVnLjQfVPIiTFdfc7xnkrRgzvTGsEdiiku8+ipzt5x5MvjtlqXIdFTBtrFOvqM/L8SCbNdk9d/q0nco2Q86NKp23OcfIypvtnqBe9ORdGwH0COB2Jj/YRqH/wEKVa8qfMgHI4o20VglxzUyxCVeJdPKWdRkuhGktrUzoBW768cHYBYGqgOk0f7/hlE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(8936002)(81166007)(356005)(7696005)(8676002)(316002)(4326008)(36860700001)(2616005)(336012)(47076005)(426003)(5660300002)(508600001)(6666004)(83380400001)(36756003)(6916009)(70586007)(2906002)(70206006)(186003)(16526019)(86362001)(1076003)(26005)(82310400003)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(356005)(70586007)(6666004)(8676002)(36860700001)(2906002)(426003)(36756003)(336012)(6916009)(70206006)(508600001)(81166007)(316002)(26005)(186003)(47076005)(30864003)(5660300002)(86362001)(83380400001)(8936002)(4326008)(16526019)(1076003)(2616005)(7696005)(82310400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 15:02:35.4976 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34b59b99-7c9a-4346-b50c-08d98cc828da
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 15:02:36.3881 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63cd64d1-bef6-436f-bcd9-08d98cc82962
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5385
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3414
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,189 +117,64 @@ amdgpu IP discovery code.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15.c | 179 -----------------------------
- drivers/gpu/drm/amd/amdgpu/soc15.h |   1 -
- 2 files changed, 180 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 293 --------------------------------
+ drivers/gpu/drm/amd/amdgpu/nv.h |   1 -
+ 2 files changed, 294 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 74310bb4216a..b5d7f21018cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -780,185 +780,6 @@ void soc15_set_virt_ops(struct amdgpu_device *adev)
- 	soc15_reg_base_init(adev);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 898e688be63c..90ae5d99e94a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -607,304 +607,11 @@ const struct amdgpu_ip_block_version nv_common_ip_block =
+ 	.funcs = &nv_common_ip_funcs,
+ };
  
--int soc15_set_ip_blocks(struct amdgpu_device *adev)
+-static int nv_reg_base_init(struct amdgpu_device *adev)
 -{
--	/* for bare metal case */
--	if (!amdgpu_sriov_vf(adev))
--		soc15_reg_base_init(adev);
+-	int r;
 -
--	if (adev->flags & AMD_IS_APU) {
--		adev->nbio.funcs = &nbio_v7_0_funcs;
--		adev->nbio.hdp_flush_reg = &nbio_v7_0_hdp_flush_reg;
--	} else if (adev->asic_type == CHIP_VEGA20 ||
--		   adev->asic_type == CHIP_ARCTURUS ||
--		   adev->asic_type == CHIP_ALDEBARAN) {
--		adev->nbio.funcs = &nbio_v7_4_funcs;
--		adev->nbio.hdp_flush_reg = &nbio_v7_4_hdp_flush_reg;
--	} else {
--		adev->nbio.funcs = &nbio_v6_1_funcs;
--		adev->nbio.hdp_flush_reg = &nbio_v6_1_hdp_flush_reg;
+-	if (amdgpu_discovery) {
+-		r = amdgpu_discovery_reg_base_init(adev);
+-		if (r) {
+-			DRM_WARN("failed to init reg base from ip discovery table, "
+-					"fallback to legacy init method\n");
+-			goto legacy_init;
+-		}
+-
+-		amdgpu_discovery_harvest_ip(adev);
+-
+-		return 0;
 -	}
--	adev->hdp.funcs = &hdp_v4_0_funcs;
 -
--	if (adev->asic_type == CHIP_VEGA20 ||
--	    adev->asic_type == CHIP_ARCTURUS ||
--	    adev->asic_type == CHIP_ALDEBARAN)
--		adev->df.funcs = &df_v3_6_funcs;
--	else
--		adev->df.funcs = &df_v1_7_funcs;
--
--	if (adev->asic_type == CHIP_VEGA20 ||
--	    adev->asic_type == CHIP_ARCTURUS)
--		adev->smuio.funcs = &smuio_v11_0_funcs;
--	else if (adev->asic_type == CHIP_ALDEBARAN)
--		adev->smuio.funcs = &smuio_v13_0_funcs;
--	else
--		adev->smuio.funcs = &smuio_v9_0_funcs;
--
--	adev->rev_id = soc15_get_rev_id(adev);
--
+-legacy_init:
 -	switch (adev->asic_type) {
--	case CHIP_VEGA10:
--	case CHIP_VEGA12:
--	case CHIP_VEGA20:
--		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
--		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
--
--		/* For Vega10 SR-IOV, PSP need to be initialized before IH */
--		if (amdgpu_sriov_vf(adev)) {
--			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)) {
--				if (adev->asic_type == CHIP_VEGA20)
--					amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
--				else
--					amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
--			}
--			if (adev->asic_type == CHIP_VEGA20)
--				amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
--			else
--				amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
--		} else {
--			if (adev->asic_type == CHIP_VEGA20)
--				amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
--			else
--				amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
--			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)) {
--				if (adev->asic_type == CHIP_VEGA20)
--					amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
--				else
--					amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
--			}
--		}
--		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
--		if (is_support_sw_smu(adev)) {
--			if (!amdgpu_sriov_vf(adev))
--				amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
--		} else {
--			amdgpu_device_ip_block_add(adev, &pp_smu_ip_block);
--		}
--		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
--			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
--#if defined(CONFIG_DRM_AMD_DC)
--		else if (amdgpu_device_has_dc_support(adev))
--			amdgpu_device_ip_block_add(adev, &dm_ip_block);
--#endif
--		if (!(adev->asic_type == CHIP_VEGA20 && amdgpu_sriov_vf(adev))) {
--			amdgpu_device_ip_block_add(adev, &uvd_v7_0_ip_block);
--			amdgpu_device_ip_block_add(adev, &vce_v4_0_ip_block);
--		}
+-	case CHIP_NAVI10:
+-		navi10_reg_base_init(adev);
 -		break;
--	case CHIP_RAVEN:
--		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
--		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
--		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
--			amdgpu_device_ip_block_add(adev, &psp_v10_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &pp_smu_ip_block);
--		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
--			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
--#if defined(CONFIG_DRM_AMD_DC)
--		else if (amdgpu_device_has_dc_support(adev))
--			amdgpu_device_ip_block_add(adev, &dm_ip_block);
--#endif
--		amdgpu_device_ip_block_add(adev, &vcn_v1_0_ip_block);
+-	case CHIP_NAVI14:
+-		navi14_reg_base_init(adev);
 -		break;
--	case CHIP_ARCTURUS:
--		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
--		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
--
--		if (amdgpu_sriov_vf(adev)) {
--			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
--				amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
--			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
--		} else {
--			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
--			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
--				amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
--		}
--
--		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
--			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
--		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
--
--		if (amdgpu_sriov_vf(adev)) {
--			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
--				amdgpu_device_ip_block_add(adev, &vcn_v2_5_ip_block);
--		} else {
--			amdgpu_device_ip_block_add(adev, &vcn_v2_5_ip_block);
--		}
--		if (!amdgpu_sriov_vf(adev))
--			amdgpu_device_ip_block_add(adev, &jpeg_v2_5_ip_block);
+-	case CHIP_NAVI12:
+-		navi12_reg_base_init(adev);
 -		break;
--	case CHIP_RENOIR:
--		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
--		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
--		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
--			amdgpu_device_ip_block_add(adev, &psp_v12_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &smu_v12_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
--		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
--			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
--#if defined(CONFIG_DRM_AMD_DC)
--                else if (amdgpu_device_has_dc_support(adev))
--			amdgpu_device_ip_block_add(adev, &dm_ip_block);
--#endif
--		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
+-	case CHIP_SIENNA_CICHLID:
+-	case CHIP_NAVY_FLOUNDER:
+-		sienna_cichlid_reg_base_init(adev);
 -		break;
--	case CHIP_ALDEBARAN:
--		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
--		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
--
--		if (amdgpu_sriov_vf(adev)) {
--			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
--				amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
--			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
--		} else {
--			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
--			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
--				amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
--		}
--
--		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
--
--		amdgpu_device_ip_block_add(adev, &smu_v13_0_ip_block);
--		amdgpu_device_ip_block_add(adev, &vcn_v2_6_ip_block);
--		amdgpu_device_ip_block_add(adev, &jpeg_v2_6_ip_block);
+-	case CHIP_VANGOGH:
+-		vangogh_reg_base_init(adev);
+-		break;
+-	case CHIP_DIMGREY_CAVEFISH:
+-		dimgrey_cavefish_reg_base_init(adev);
+-		break;
+-	case CHIP_BEIGE_GOBY:
+-		beige_goby_reg_base_init(adev);
+-		break;
+-	case CHIP_YELLOW_CARP:
+-		yellow_carp_reg_base_init(adev);
+-		break;
+-	case CHIP_CYAN_SKILLFISH:
+-		cyan_skillfish_reg_base_init(adev);
 -		break;
 -	default:
 -		return -EINVAL;
@@ -308,21 +183,265 @@ index 74310bb4216a..b5d7f21018cb 100644
 -	return 0;
 -}
 -
- static bool soc15_need_full_reset(struct amdgpu_device *adev)
+ void nv_set_virt_ops(struct amdgpu_device *adev)
  {
- 	/* change this when we implement soft reset */
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgpu/soc15.h
-index f9359003385d..efc2a253e8db 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
-@@ -102,7 +102,6 @@ struct soc15_ras_field_entry {
- void soc15_grbm_select(struct amdgpu_device *adev,
- 		    u32 me, u32 pipe, u32 queue, u32 vmid);
- void soc15_set_virt_ops(struct amdgpu_device *adev);
--int soc15_set_ip_blocks(struct amdgpu_device *adev);
+ 	adev->virt.ops = &xgpu_nv_virt_ops;
+ }
  
- void soc15_program_register_sequence(struct amdgpu_device *adev,
- 					     const struct soc15_reg_golden *registers,
+-int nv_set_ip_blocks(struct amdgpu_device *adev)
+-{
+-	int r;
+-
+-	if (adev->asic_type == CHIP_CYAN_SKILLFISH) {
+-		adev->nbio.funcs = &nbio_v2_3_funcs;
+-		adev->nbio.hdp_flush_reg = &nbio_v2_3_hdp_flush_reg;
+-	} else if (adev->flags & AMD_IS_APU) {
+-		adev->nbio.funcs = &nbio_v7_2_funcs;
+-		adev->nbio.hdp_flush_reg = &nbio_v7_2_hdp_flush_reg;
+-	} else {
+-		adev->nbio.funcs = &nbio_v2_3_funcs;
+-		adev->nbio.hdp_flush_reg = &nbio_v2_3_hdp_flush_reg;
+-	}
+-	adev->hdp.funcs = &hdp_v5_0_funcs;
+-
+-	if (adev->asic_type >= CHIP_SIENNA_CICHLID)
+-		adev->smuio.funcs = &smuio_v11_0_6_funcs;
+-	else
+-		adev->smuio.funcs = &smuio_v11_0_funcs;
+-
+-	if (adev->asic_type == CHIP_SIENNA_CICHLID)
+-		adev->gmc.xgmi.supported = true;
+-
+-	/* Set IP register base before any HW register access */
+-	r = nv_reg_base_init(adev);
+-	if (r)
+-		return r;
+-
+-	switch (adev->asic_type) {
+-	case CHIP_NAVI10:
+-	case CHIP_NAVI14:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
+-		    !amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
+-		    !amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
+-		if (adev->enable_mes)
+-			amdgpu_device_ip_block_add(adev, &mes_v10_1_ip_block);
+-		break;
+-	case CHIP_NAVI12:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		if (!amdgpu_sriov_vf(adev)) {
+-			amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		} else {
+-			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-			amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		}
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
+-		    !amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
+-		if (!amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
+-		break;
+-	case CHIP_SIENNA_CICHLID:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		if (!amdgpu_sriov_vf(adev)) {
+-			amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		} else {
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-			amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		}
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
+-		    is_support_sw_smu(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+-		if (!amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
+-		if (adev->enable_mes)
+-			amdgpu_device_ip_block_add(adev, &mes_v10_1_ip_block);
+-		break;
+-	case CHIP_NAVY_FLOUNDER:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
+-		    is_support_sw_smu(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
+-		    is_support_sw_smu(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		break;
+-	case CHIP_VANGOGH:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
+-		break;
+-	case CHIP_DIMGREY_CAVEFISH:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
+-		    is_support_sw_smu(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-                else if (amdgpu_device_has_dc_support(adev))
+-                        amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
+-		break;
+-	case CHIP_BEIGE_GOBY:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
+-		    is_support_sw_smu(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
+-		    is_support_sw_smu(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+-		break;
+-	case CHIP_YELLOW_CARP:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-			amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &smu_v13_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
+-		break;
+-	case CHIP_CYAN_SKILLFISH:
+-		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+-		if (adev->apu_flags & AMD_APU_IS_CYAN_SKILLFISH2) {
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &psp_v11_0_8_ip_block);
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		}
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+ static uint32_t nv_get_rev_id(struct amdgpu_device *adev)
+ {
+ 	return adev->nbio.funcs->get_rev_id(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.h b/drivers/gpu/drm/amd/amdgpu/nv.h
+index 7df2f85bbcd0..c6e9233afd17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.h
++++ b/drivers/gpu/drm/amd/amdgpu/nv.h
+@@ -31,7 +31,6 @@ extern const struct amdgpu_ip_block_version nv_common_ip_block;
+ void nv_grbm_select(struct amdgpu_device *adev,
+ 		    u32 me, u32 pipe, u32 queue, u32 vmid);
+ void nv_set_virt_ops(struct amdgpu_device *adev);
+-int nv_set_ip_blocks(struct amdgpu_device *adev);
+ int navi10_reg_base_init(struct amdgpu_device *adev);
+ int navi14_reg_base_init(struct amdgpu_device *adev);
+ int navi12_reg_base_init(struct amdgpu_device *adev);
 -- 
 2.31.1
 
