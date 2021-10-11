@@ -2,104 +2,69 @@ Return-Path: <SRS0=iyzK=O7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88EC6C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 12:57:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0263FC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 13:01:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2CF8660EE2
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 12:57:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2CF8660EE2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B938C60EE2
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 13:01:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B938C60EE2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B200D6E4BA;
-	Mon, 11 Oct 2021 12:57:53 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2066.outbound.protection.outlook.com [40.107.236.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 603DA6E4AD
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 12:57:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nMVFP9na2GzKHv+faaNLvSkN3mJAgIKOHSUGnShUojNDjwGTa9iGoGNd1WWhddlyZeh6x2a5bePNHIO3dfZ59h0uHnNUhDOLc8ypNkWPaI/CBVXrM2IljGND39Amiw82hNyjNCgcxa+KNGBT7r90RVsUuzCu6J2yXSeQPs/mByXOGYQAEZ0zSGUWTyCXSDpCxhYnnq1dCsvZPBrjv4F0fLS5MbYrUZ3+knl93olOCiF5LsP4+Av/B2MHj340WZgIwltfCwbku/nS1/QAtIf3XmJE19/Kwub/r0/GpJTozgpscQ8ktdoVXkx//MZfc1+uf8Cw3oe4vLdo3Ysffdvaew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rz4m8fe8EZd3qhnlASIeLJHggWtpeGJl4k8e9KvOWVM=;
- b=Y0V78/0PaBsIpsgsf/cWM279STdjCxjxhm/I4oyU9Y7P92xnWwsswDNdV+QG8j/SJQVmTfAjuyY/0wfLheiJSNT4llddcSbXUR072yQAF6duWtHPZNZy75yfc4FCqww7rDtxJcXTOvsi3YxfNqIAydTau9dteGE5IwpkMdMlhZdZ74N9F72WgYEaB79RyAlq3bPv1bkrPISf1Sl7ZPKIm5Nh6+h/df/M/APGoagxicEJ4sdhrbNB8jrJH/nr38LuziSF+0orU+TF01cQwFXrkFe59DyiHQAYvbddOH3o5u5sqXv08Ds8p4SaVkBdFMBwrEOG9K3ctrChrD6NVktDZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rz4m8fe8EZd3qhnlASIeLJHggWtpeGJl4k8e9KvOWVM=;
- b=S3PhIfcKYPhHbWQo04E2+9w5vwmC2H4crcm6Ilg5zxOod5KqumGtKGFNu3U9/678CJSIsvvSgRtq3O6riRtJWPpXFZS7XVi0gUseYZ2gUq5FqTN3eNQb7U8TRNB/Ev4nUcwG1VMQp2EG4JvJ9QyCppobLpU9rGS2Hwh+T/H6csg=
-Received: from DM3PR08CA0006.namprd08.prod.outlook.com (2603:10b6:0:52::16) by
- CH2PR12MB3782.namprd12.prod.outlook.com (2603:10b6:610:23::28) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4587.25; Mon, 11 Oct 2021 12:57:49 +0000
-Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:52:cafe::31) by DM3PR08CA0006.outlook.office365.com
- (2603:10b6:0:52::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19 via Frontend
- Transport; Mon, 11 Oct 2021 12:57:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 12:57:49 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 11 Oct
- 2021 07:57:46 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <jamesz@amd.com>, <youling257@gmail.com>, "Yifan
- Zhang" <yifan1.zhang@amd.com>
-Subject: [PATCH 2/2] drm/amdkfd: fix resume error when iommu disabled in
- Picasso
-Date: Mon, 11 Oct 2021 20:57:01 +0800
-Message-ID: <20211011125701.2800114-2-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211011125701.2800114-1-yifan1.zhang@amd.com>
-References: <20211011125701.2800114-1-yifan1.zhang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5248A6E4AA;
+	Mon, 11 Oct 2021 13:01:22 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB0326E47A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 10:20:15 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id o4so23968800oia.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 03:20:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=UgTh+Pd4KBKIkRlPzvMUAxKYgzh6qBN0XBGwuvG+9rI=;
+ b=FzEn9NCeJUAKPgz3QfSMbc1vH8GH2moLVGgpXAee4H6+6tPflspwOjia2BE7zdoEKZ
+ bdJcDqp72C2P50sN6bLY/+qwdr1u3CDaziXw+mwzQ0f1GSCcn5ujiOAyy0PemJbE+Rpf
+ 1tWzaSkha7GMeb2ZuR2KuWmndkrCgaliss/87qyaBR8xQZYKIOpsDGHg0aXhyB+X5rxJ
+ S0p49NA7gPq9exHnFIDA/+ymP3Ho9kClSQbjVc7Zo/ojFQB/vjX8+J1uAdt3rNNmuxuu
+ 1nYwQiBzt/B7GUsAZXxO4Tx4pzJj8TPoaoIy13OfZA+od29Av52m50AqJZ2Jmb3sNnEs
+ Dq3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=UgTh+Pd4KBKIkRlPzvMUAxKYgzh6qBN0XBGwuvG+9rI=;
+ b=CU3UXNz0xTELRkvt6fIOHZv26feOfegxCrUnmk0erJ72QSIUHkz+YYmvoTwDyRBvP1
+ uOGD8TbHeOVAkmzrFUW20JLJ7CgVZ/MUDNxbScmmHn7QJjyoLNUggtJJMVYXJvlCkv0m
+ ocGoP3HD1Ox4O3GMK9mjgLUypBk6GbV1rbhxM8bIgYo5a7hOwF09f1lIrpP0Pxqnb2wH
+ 5IjxUc47TUrGme2ofh4UPbbT/tCNA9GUQ/hBnDxFv1nIQevsHKbbOancDX0hr2QGKkZ9
+ TE+jZLSRFG/6UW3YopZG8wS3AoAEtBT8iqCzD+n79qzxI3AJeO1YIGg+BJp3N+pe6HFB
+ c/DQ==
+X-Gm-Message-State: AOAM533nP3NCBxkpuBN3g+IIJY+nQdzgBaJTvtbWq51WfSFn0DhcBE+O
+ l5Hlt2lTrJzW+U8ovSLv/Qum94765lv3z+2t0ns=
+X-Google-Smtp-Source: ABdhPJzAY0Vu7CKq3ubRG0UZFVAHUldzqPy0KYKt/K6UthU/fx6FFuCNbYsegHH2eCvOWN9YXzxThHaWaDGnDalRJQA=
+X-Received: by 2002:aca:30c3:: with SMTP id
+ w186mr13343178oiw.171.1633947615161; 
+ Mon, 11 Oct 2021 03:20:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 19b3e3b6-93dd-4edf-b001-08d98cb6bab4
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3782:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB37826FFBEF759D9AEBFBF6D6C1B59@CH2PR12MB3782.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:949;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0yxxaQRN9Zu9ArE6SvAcMETNBc7aBfj80DzVxVDPPRylSeXrSS8H5hZP10xDF3vCBhnahFQBr/y1SUQgGTHoc9OoeHrwpgT5ZdkGXr+nZh2Dw0cA/6A2KvrrNnjiVaidfTwBqjfRJ/NLya3bJp4Ynsz27HMhJkb8oWlLAdBy89gB+BUCRbXpE1cr9dLscDic4OhMKTp3UW3Xx6yKp1/TAAwOuFiUNYE6fsi95Kxf0FD8EWHzHTNZn3VpaTQDjyI0kQYVmpm9Alorr/9Jf9cPIdeRPwXN6u9RjUQ+8gJLXZjx7DCRTOK8lh0tbk4liObF73iBdHm8P9a5JBmeayoE0plOdk2pi2B0UvtWtuLK1HkaXL2RTk89cx9eCedxSltvQqHfAkuenK3xONDLTv6IWABeTPYZv1xhwbz00UjprUuTu731n5AsXngbYduWzKmw2Z43YdRIAA3dK/wVzAieoWs9MIirapgS0ZnW/FEErmL7mzSA53afMq3XcK+MNdwCPyT6wrMcwsoAEmb1eEAyUK8qhtSjevoI5HNzmExGpnl26yY8ZT3Wvfapqk3M6fvcPV+dy9hs/KwLgHGe7aglLmPas9r+459ARJjVq1tBtDiiVzOkk7uWgxNyxTS9mEEepCsjxHwrPAYUx56XacFc7OrleiBiM+hqmrAuNxPVp3a2GAqOB39gX8B9+bUqk52I5XaXnfueaJD65yFYEdN3GFXqs73AwOp4d4ib69wShD8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(83380400001)(82310400003)(54906003)(8936002)(2906002)(316002)(186003)(86362001)(8676002)(4744005)(70586007)(70206006)(36860700001)(16526019)(6916009)(426003)(2616005)(1076003)(5660300002)(26005)(4326008)(508600001)(47076005)(6666004)(7696005)(36756003)(336012)(81166007)(356005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 12:57:49.3096 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19b3e3b6-93dd-4edf-b001-08d98cb6bab4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3782
+Received: by 2002:a9d:705e:0:0:0:0:0 with HTTP; Mon, 11 Oct 2021 03:20:14
+ -0700 (PDT)
+In-Reply-To: <BN6PR12MB1187E3D949682D0714EA6253C1B59@BN6PR12MB1187.namprd12.prod.outlook.com>
+References: <20210928082819.205231-2-yifan1.zhang@amd.com>
+ <20211011061326.13718-1-youling257@gmail.com>
+ <CAOzgRdaG2Zo-_kDGo2d-AZ0zoSHHW5T_dh9HFrk46i3kXiMitg@mail.gmail.com>
+ <BN6PR12MB1187E3D949682D0714EA6253C1B59@BN6PR12MB1187.namprd12.prod.outlook.com>
+From: youling 257 <youling257@gmail.com>
+Date: Mon, 11 Oct 2021 18:20:14 +0800
+Message-ID: <CAOzgRdZmOcg19wL00u-S6MSCwBufJBzpVDo2mQYKiReF7JE0Zw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: init iommu after amdkfd device init
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhu,
+ James" <James.Zhu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Mon, 11 Oct 2021 13:01:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,29 +79,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When IOMMU disabled in sbios and kfd in iommuv2 path,
-IOMMU resume failure blocks system resume. Don't allow kfd to
-use iommu v2 when iommu is disabled.
+test this patch can fix my boot and suspend problem.
 
-Reported-by: youling <youling257@gmail.com>
-Tested-by: youling <youling257@gmail.com>
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index bb652ee35c25..1fadc9fb168d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -916,6 +916,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- 	kfd_double_confirm_iommu_support(kfd);
- 
- 	if (kfd_iommu_device_init(kfd)) {
-+		kfd->use_iommu_v2 = false;
- 		dev_err(kfd_device, "Error initializing iommuv2\n");
- 		goto device_iommu_error;
- 	}
--- 
-2.25.1
-
+2021-10-11 18:03 GMT+08:00, Zhang, Yifan <Yifan1.Zhang@amd.com>:
+> [Public]
+>
+> Hi youling,
+>
+> Would you pls try this patch ?
+>
+> BRs,
+> Yifan
+>
+> -----Original Message-----
+> From: youling 257 <youling257@gmail.com>
+> Sent: Monday, October 11, 2021 2:18 PM
+> To: Zhang, Yifan <Yifan1.Zhang@amd.com>
+> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH 2/2] drm/amdgpu: init iommu after amdkfd device init
+>
+> drm/amdgpu: init iommu after amdkfd device init but CONFIG_AMD_IOMMU=y
+> CONFIG_AMD_IOMMU_V2=y
+> [    0.203386] AMD-Vi: AMD IOMMUv2 driver by Joerg Roedel <jroedel@suse.de>
+> [    0.203387] AMD-Vi: AMD IOMMUv2 functionality not available on this
+> system
+> [    7.622052] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
+> [    7.622128] kfd kfd: amdgpu: error getting iommu info. is the iommu
+> enabled?
+> [    7.622129] kfd kfd: amdgpu: Error initializing iommuv2
+> [    7.622430] kfd kfd: amdgpu: device 1002:15d8 NOT added due to errors
+>
+> 2021-10-11 14:13 GMT+08:00, youling257 <youling257@gmail.com>:
+>> my kernel config CONFIG_AMD_IOMMU=y CONFIG_AMD_IOMMU_V2=y.
+>> linux kernel 5.15rc2 "drm/amdgpu: move iommu_resume before ip
+>> init/resume"
+>> cause my amd 3400g suspend to disk resume failed, have to press power
+>> button to force shutdown.
+>> linux kernel 5.15rc5 "drm/amdgpu: init iommu after amdkfd device init"
+>> cause my amd 3400g blackscreen when boot enter my userspace.
+>> i need revert "drm/amdgpu: init iommu after amdkfd device init" and
+>> "drm/amdgpu: move iommu_resume before ip init/resume" for my
+>> userspace, running androidx86 with mesa21.3 on amdgpu.
+>>
+>
