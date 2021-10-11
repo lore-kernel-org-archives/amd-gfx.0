@@ -2,48 +2,48 @@ Return-Path: <SRS0=iyzK=O7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6089C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:02:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7772C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:02:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C06F60EE5
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:02:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C06F60EE5
+	by mail.kernel.org (Postfix) with ESMTPS id 8CE6360EE5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Oct 2021 15:02:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8CE6360EE5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 475BF89193;
-	Mon, 11 Oct 2021 15:02:37 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2049.outbound.protection.outlook.com [40.107.101.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 588EA89193
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 15:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01B396E507;
+	Mon, 11 Oct 2021 15:02:41 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE0536E4F3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Oct 2021 15:02:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ob1rHsIrqo1gVMUfFnH2u9X4va905SS//T+jgmuMsV2/dqzKaMctQlRB2fnCSfJM90upOHkCLOw6Mq1rZNGw96cUN33Ennq9GI+0oWfZ3iCGd+YJB7paP1y7IE7V9y0eeu7KSN2F7k5z6TEsdNPBsx5tLtmLkkBx3vU8Oxz2Zv3rrb5Kna+Ms7VLfAwuP8Wu/nepwC23zxFHHzUhwUBtCfod2VyDzQVmcxgLK9tdGXtTh+axyUUcVgmd9oZv7VLlN419il2ZunK84MnBkGuSLV7KntsGlyYi/SWQik3hmXr6vehuqg3gtYpauwt0RNnGjXl8Xu8UyfpAv09CuiP8Qg==
+ b=kiAqyfz/CItSt+i2kqcNg7wy22a78sHKiM1mLu09nwgf+w/1TnJotxVpmcXeyyswE/RAU6renRRLK0tUWbTiEIJnQEVY+CjD4l/9+sgQJMUd/TGWirGtGlABwj8CJI5y0Xap1d0rVwU3QtTCQurG1sv6FvmVHLAKaf3C7kMpDUVkQs+eS6AgFoQC+RDrrNOp0YEezw7Iq5L6q+Bq+6JsGmG5aj/3XuM3SqcoMmRlcrwz3EYaJ82M1AF73T9hqzHjkLmoqHZXOC0q0suq6YWBsdTxrWJDRRQd8oNI3za9ETIYSDSXZgMLTQ7AivZftG7BVLbCqOunuQLui+M/fhaRnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ra1piNRkCYUbyxmTuHMH8Yz5zF0pllA9zQE8NoqCKTs=;
- b=WcL28JbzcUPgjl5G/tYtws/VbZN9J+yaZtVqxBTp3rrc5fEJ6rTtzo2thEeDq0WVWnuVXSxPr3LC7hV6oYWmOPYIKs+1FhYa5hXhLSvPeZOCVyfYVLfBtVQi/jn+MFnGbaAOInilvJurJD2Ph3puTiJ7Z5IdxTT2Nv7VSS2Vs+dRKmTpVQxZbPTapLtdLZYOerDtNPqU41mniCAoJF9HdJH57gMGgBVUNQuZnU7azrq96Xd1GGwrbti4Fr2jCzarLKjWA4BU84sWThdlMQwuBEwHpIj3cA+ixrqXK0CJ3hAVSx12JRxtxvgtTxdycXvJOCmRH124HD9LEvBOW/TRAQ==
+ bh=DzXOxa7Ghp/N0EPDcIozqpnUglKCfq+P9gQTQ4UaKjI=;
+ b=iOYSCtyOOwFvEOaubw50Ba7BI6Q4sRH/4E2A2RCWN6BWxTTWE+3DrmYIUsGhNIRowmBQRaGAkeSw3gTZk78+Gv9ZA7tLUZbG9j0R/HC6bN5GsE4dhdq7O9NW71sC5VFbp6+RRQdfjQcaTs/LSGlGgv01zHHBRXpBiuunbNtE0KEVYmrOrDuptExGvZa3Bem/Q+03rpYaeBX8cRjArvHziQa83AhC79ZOhZK/u8c2B6bmfX3zy143UooxDO4/7RDV2BLhxTdL8wTgTc+E2Wu/6WAJtEGAdEnHoMlOVLdniFBUNq6JyiZuZt+PKEoxux4TCiLMAMiXBm/8UyAJQ4BGAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ra1piNRkCYUbyxmTuHMH8Yz5zF0pllA9zQE8NoqCKTs=;
- b=lO/JcEHLz6C2RoU9gGj5vp1ZpH2EmGvahpJbcBoZB0SgL4qPj82oVwxggdraxh8KDs/17Hk7Rr4xpM3Ust/JY7fDSS/kxJ7Gmb4TRcPmG7Nx6/5ByKnuQ84UWEhid+2q0r6C1itotR/xH3DyZtXrI+6cSXhGON3ncg8EBHME3lc=
-Received: from CO2PR05CA0007.namprd05.prod.outlook.com (2603:10b6:102:2::17)
- by DM6PR12MB4121.namprd12.prod.outlook.com (2603:10b6:5:220::14) with
+ bh=DzXOxa7Ghp/N0EPDcIozqpnUglKCfq+P9gQTQ4UaKjI=;
+ b=l5uRy9IOEO+arQFxfvGj2ybL/B1t1J5n3h//RgWd3h2h4l9ZkbNNoKZjlWP5tCjokFPoyXJ5z2NptcmoO05CwoJBprcUjCdgyWGx7cmVDBkpc54Hyt4nIypoe/KIBdtfgS8B5X2CeSh0iTQpvbKFO7puwEiU9DZ1RY+szuk7qN0=
+Received: from CO2PR05CA0078.namprd05.prod.outlook.com (2603:10b6:102:2::46)
+ by CH0PR12MB5385.namprd12.prod.outlook.com (2603:10b6:610:d4::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Mon, 11 Oct
- 2021 15:02:34 +0000
+ 2021 15:02:36 +0000
 Received: from CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:102:2:cafe::4f) by CO2PR05CA0007.outlook.office365.com
- (2603:10b6:102:2::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.4 via Frontend
- Transport; Mon, 11 Oct 2021 15:02:33 +0000
+ (2603:10b6:102:2:cafe::26) by CO2PR05CA0078.outlook.office365.com
+ (2603:10b6:102:2::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.5 via Frontend
+ Transport; Mon, 11 Oct 2021 15:02:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,19 +54,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT048.mail.protection.outlook.com (10.13.175.148) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 15:02:33 +0000
+ 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 15:02:35 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 11 Oct
- 2021 10:02:31 -0500
+ 2021 10:02:33 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 1/5] drm/amdkfd: protect hawaii_device_info with
- CONFIG_DRM_AMDGPU_CIK
-Date: Mon, 11 Oct 2021 11:02:13 -0400
-Message-ID: <20211011150217.165699-1-alexander.deucher@amd.com>
+Subject: [PATCH 3/5] drm/amdgpu: drop soc15_set_ip_blocks()
+Date: Mon, 11 Oct 2021 11:02:15 -0400
+Message-ID: <20211011150217.165699-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20211011150217.165699-1-alexander.deucher@amd.com>
+References: <20211011150217.165699-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -75,28 +76,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cc05fa90-3237-4136-c8a3-08d98cc82786
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4121:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB412104B81540F142FD96D76AF7B59@DM6PR12MB4121.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:546;
+X-MS-Office365-Filtering-Correlation-Id: 34b59b99-7c9a-4346-b50c-08d98cc828da
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5385:
+X-Microsoft-Antispam-PRVS: <CH0PR12MB53853F6294332B0B6A2E4130F7B59@CH0PR12MB5385.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:989;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r1icYKNi2V6orL/mVt+Qduuxg3ljMWMjYfLt1jSc2RRFSWno9PCoETFq1VYpqIRq67kfu7qvFtx4yFl9pgF2jtobT8npASCw84sHg0dOkQKCAjzJsSUS9ILqsa7W1MetT39gq6G5QTbCtW2GumZsbfLV43PosHIRBI6nsVSXjaB/ycgQ1gqh+bFwMO1OjrGbp77bttiMqeFvpAR5Aj7CVGk5PwfzFMQBxlEzUF7CIgqHg9oMd+lGR/2M4EtJlEOaWcv5ah1RmbLUxAoRtUoce3h3h4GC43NtsNONztxXzeoGl76hVGMJPMK+f+LGXPSkzqVH4jPkOxMj9ymbSYzaSc1CgtU4juPzBRaF8U0NL0sBn/Ju9/YJRWYUFKs9+HxCfoqDTIV+/2HSzXBT1q3Ye/foHZS1KjZ6rcXqeb8td7OjIADTAX3yx4cLJnpSz+fZRu8velq7ejkpvJeGE1rPvJuCXzpsEd+HonOpyyEE46TRAJKzHVp0IHeHwJ1vxNXPfqZ6qYpv64zIQJ2fNlkFN9KXwP8BImnZ9+ISSJDwwUr6Io2tod+rDLlN8maU6xUCfzoFVtDuLHd6q17JJ9dcxq2q6tS3IQnIM9TehgJMCDkwfkqoyfmaVgcn9Bzgh3jO4/X/JbWHGmz5+Ml2+hm4xPYQRVlKxYxuu2TFuSqyHVgI0d2w2czAu2DQze7hzVUB+j+gm0hvDP/lT5wIqwr0qLAmXTDgmZbVcI4KTVQ0C7U=
+X-Microsoft-Antispam-Message-Info: v/ytymtbxIbe/WxES9BcWoIFudKB6XZGpcHOktZtCXWab6loCLJHwAkuFcl6H31gC42BtJytyTNpbaLG9zh5SMBafDx94AVi3wd46n3PC9E93P7l3IVhi/7lVFiRQStloiTZsI4X1v6gF1qeVoZUH+Wh6TkXkgiR8Y0vpnVIKAouyu0NHCukiImrwNaVlawOi+GJ5usvazLTSowCdeVZblxv3tEnse9jc0awVMDFR1qPMF4fAc+/5PCjIGx38uHmMc95psSBwAOljOxLaZGMO60h5WNk2qGVLBMrVQhg+1pQdQzrorxQnPsNVi3ujR976frAoNc52tC16py+GUwXwSLLJDQ6INb/wFczUDaI2xYC/jtY/3K/mRmwp2C0E7q+QJcB3gWBaOvTU+rkpQhRsDsKessZc8h5UgOzKeXr741NbYJ27a9cC6RBoCse7yf+9I/0aA3uZnwnPHJsqGU5ml1ILePEZNpTNlWUAbn7gy9fQpWkqueSu5dPUw3CAuB9VDK3sY6Jfjk5GVfyTrKnmpIV2yn0aPKtSsSnEFK5lAN5GUrmZsIwguwHN7g0OSFBRZJ9EFnxI+GAi0KhFPipKQduOG165YPeicHwGJaqzUXQSEICmZhlsKqE1BosGtdhPw39ztfOGW8dTpC04ioHFvNTz1T5Cmga0DXtYqgijSED1oVyEXGHzQT5zvXGFyjwVeBALFJoeOQP+Py+hjA4iZQROZGvvFw5IfHCpSPehOM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(70206006)(2906002)(316002)(356005)(81166007)(47076005)(6916009)(336012)(4744005)(82310400003)(4326008)(508600001)(426003)(2616005)(6666004)(36756003)(36860700001)(26005)(16526019)(186003)(70586007)(8936002)(1076003)(8676002)(86362001)(5660300002)(7696005)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(8936002)(81166007)(356005)(7696005)(8676002)(316002)(4326008)(36860700001)(2616005)(336012)(47076005)(426003)(5660300002)(508600001)(6666004)(83380400001)(36756003)(6916009)(70586007)(2906002)(70206006)(186003)(16526019)(86362001)(1076003)(26005)(82310400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 15:02:33.2699 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc05fa90-3237-4136-c8a3-08d98cc82786
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 15:02:35.4976 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34b59b99-7c9a-4346-b50c-08d98cc828da
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4121
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,34 +112,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hawaii_device_info is not used when CONFIG_DRM_AMDGPU_CIK is not
-set.
+No longer used since IP enumeration is now driven by
+amdgpu IP discovery code.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 179 -----------------------------
+ drivers/gpu/drm/amd/amdgpu/soc15.h |   1 -
+ 2 files changed, 180 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 064d42acd54e..31e255ba15ed 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -114,6 +114,7 @@ static const struct kfd_device_info raven_device_info = {
- 	.num_sdma_queues_per_engine = 2,
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 74310bb4216a..b5d7f21018cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -780,185 +780,6 @@ void soc15_set_virt_ops(struct amdgpu_device *adev)
+ 	soc15_reg_base_init(adev);
+ }
  
-+#ifdef CONFIG_DRM_AMDGPU_CIK
- static const struct kfd_device_info hawaii_device_info = {
- 	.asic_family = CHIP_HAWAII,
- 	.asic_name = "hawaii",
-@@ -133,6 +134,7 @@ static const struct kfd_device_info hawaii_device_info = {
- 	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
-+#endif
+-int soc15_set_ip_blocks(struct amdgpu_device *adev)
+-{
+-	/* for bare metal case */
+-	if (!amdgpu_sriov_vf(adev))
+-		soc15_reg_base_init(adev);
+-
+-	if (adev->flags & AMD_IS_APU) {
+-		adev->nbio.funcs = &nbio_v7_0_funcs;
+-		adev->nbio.hdp_flush_reg = &nbio_v7_0_hdp_flush_reg;
+-	} else if (adev->asic_type == CHIP_VEGA20 ||
+-		   adev->asic_type == CHIP_ARCTURUS ||
+-		   adev->asic_type == CHIP_ALDEBARAN) {
+-		adev->nbio.funcs = &nbio_v7_4_funcs;
+-		adev->nbio.hdp_flush_reg = &nbio_v7_4_hdp_flush_reg;
+-	} else {
+-		adev->nbio.funcs = &nbio_v6_1_funcs;
+-		adev->nbio.hdp_flush_reg = &nbio_v6_1_hdp_flush_reg;
+-	}
+-	adev->hdp.funcs = &hdp_v4_0_funcs;
+-
+-	if (adev->asic_type == CHIP_VEGA20 ||
+-	    adev->asic_type == CHIP_ARCTURUS ||
+-	    adev->asic_type == CHIP_ALDEBARAN)
+-		adev->df.funcs = &df_v3_6_funcs;
+-	else
+-		adev->df.funcs = &df_v1_7_funcs;
+-
+-	if (adev->asic_type == CHIP_VEGA20 ||
+-	    adev->asic_type == CHIP_ARCTURUS)
+-		adev->smuio.funcs = &smuio_v11_0_funcs;
+-	else if (adev->asic_type == CHIP_ALDEBARAN)
+-		adev->smuio.funcs = &smuio_v13_0_funcs;
+-	else
+-		adev->smuio.funcs = &smuio_v9_0_funcs;
+-
+-	adev->rev_id = soc15_get_rev_id(adev);
+-
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
+-		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
+-
+-		/* For Vega10 SR-IOV, PSP need to be initialized before IH */
+-		if (amdgpu_sriov_vf(adev)) {
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)) {
+-				if (adev->asic_type == CHIP_VEGA20)
+-					amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-				else
+-					amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
+-			}
+-			if (adev->asic_type == CHIP_VEGA20)
+-				amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
+-			else
+-				amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
+-		} else {
+-			if (adev->asic_type == CHIP_VEGA20)
+-				amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
+-			else
+-				amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)) {
+-				if (adev->asic_type == CHIP_VEGA20)
+-					amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-				else
+-					amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
+-			}
+-		}
+-		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
+-		if (is_support_sw_smu(adev)) {
+-			if (!amdgpu_sriov_vf(adev))
+-				amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-		} else {
+-			amdgpu_device_ip_block_add(adev, &pp_smu_ip_block);
+-		}
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		if (!(adev->asic_type == CHIP_VEGA20 && amdgpu_sriov_vf(adev))) {
+-			amdgpu_device_ip_block_add(adev, &uvd_v7_0_ip_block);
+-			amdgpu_device_ip_block_add(adev, &vce_v4_0_ip_block);
+-		}
+-		break;
+-	case CHIP_RAVEN:
+-		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
+-		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-			amdgpu_device_ip_block_add(adev, &psp_v10_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &pp_smu_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-		else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &vcn_v1_0_ip_block);
+-		break;
+-	case CHIP_ARCTURUS:
+-		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
+-
+-		if (amdgpu_sriov_vf(adev)) {
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
+-		} else {
+-			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+-		}
+-
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+-
+-		if (amdgpu_sriov_vf(adev)) {
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &vcn_v2_5_ip_block);
+-		} else {
+-			amdgpu_device_ip_block_add(adev, &vcn_v2_5_ip_block);
+-		}
+-		if (!amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &jpeg_v2_5_ip_block);
+-		break;
+-	case CHIP_RENOIR:
+-		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
+-		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-			amdgpu_device_ip_block_add(adev, &psp_v12_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &smu_v12_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
+-		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+-#if defined(CONFIG_DRM_AMD_DC)
+-                else if (amdgpu_device_has_dc_support(adev))
+-			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+-#endif
+-		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
+-		break;
+-	case CHIP_ALDEBARAN:
+-		amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
+-		amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
+-
+-		if (amdgpu_sriov_vf(adev)) {
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
+-			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
+-		} else {
+-			amdgpu_device_ip_block_add(adev, &vega20_ih_ip_block);
+-			if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
+-				amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
+-		}
+-
+-		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
+-
+-		amdgpu_device_ip_block_add(adev, &smu_v13_0_ip_block);
+-		amdgpu_device_ip_block_add(adev, &vcn_v2_6_ip_block);
+-		amdgpu_device_ip_block_add(adev, &jpeg_v2_6_ip_block);
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+ static bool soc15_need_full_reset(struct amdgpu_device *adev)
+ {
+ 	/* change this when we implement soft reset */
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgpu/soc15.h
+index f9359003385d..efc2a253e8db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
+@@ -102,7 +102,6 @@ struct soc15_ras_field_entry {
+ void soc15_grbm_select(struct amdgpu_device *adev,
+ 		    u32 me, u32 pipe, u32 queue, u32 vmid);
+ void soc15_set_virt_ops(struct amdgpu_device *adev);
+-int soc15_set_ip_blocks(struct amdgpu_device *adev);
  
- static const struct kfd_device_info tonga_device_info = {
- 	.asic_family = CHIP_TONGA,
+ void soc15_program_register_sequence(struct amdgpu_device *adev,
+ 					     const struct soc15_reg_golden *registers,
 -- 
 2.31.1
 
