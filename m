@@ -2,77 +2,100 @@ Return-Path: <SRS0=oPsV=PA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EE69C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 20:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D512BC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 20:57:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5500960E90
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 20:56:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5500960E90
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 88C0460720
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 20:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 88C0460720
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEA986E84A;
-	Tue, 12 Oct 2021 20:56:38 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07FB86E84A
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 20:56:36 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id m67so968808oif.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 13:56:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=HcRps6nkzbah+WUrXLDWnqHW/T2uSN3UBUZW9QAn5MU=;
- b=ZUcEzMxn/WrwCnRRzDAPBfODSGVLjotpgOGF4WtEGrizpcnsGq4ImPhYGnz2+0YLx+
- nmQYZ6ElfoI/j9DY1BwbgzlWCeR9quglRft04qpss5M949iPWxs6yLMMBWdBk3PMqtFW
- i1xdtec1pQZgPRqoERcUthFZ2XLlCNwJfcLicgD26qkdmza5yUEUnkPUoJ42TgLt1OAM
- YezqbNCBVNgprWGMx8EzVPu19Sjf3GRE1WqymVjDRKyaZ1Jk/N+5uDIT721XoKZWP3jH
- R0bzjCv4OJI9OLwN3VPDDv+wKF2NJyaBlWRm0vdC/8EveYLj+GKZ6At1ERoLrAzqW3cM
- 6ucQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=HcRps6nkzbah+WUrXLDWnqHW/T2uSN3UBUZW9QAn5MU=;
- b=0bQ84PPuUR33LbVDnAxq5zIpGZ0Cx06aeiyu6/mOTIXB5JO2uioAgK4pxHz8n13h4l
- /xNqy6bJtgZiCyqUFUyRuUV3ZtdKQTlpS4FEUCXimaqFwErn2IBl1zF67BXbSDaAdWFh
- 7UCIpeAyKyi59AzukdrfPeehw7E7/QccEVLgSsFSr7239p+D2zNH0XLbqrHOr1Ua2pK5
- fwRIRQy58qJ+fMlQUELkmzOXgXy7RsQp6eRa0UTfuQAGALJSJxWYFvWuzUQi+ayGSOkA
- MVXwQWMk1K3mGIAhNfbE4D4UdPrSwGyDa+sPlly2EUFKbK9XE/FaakwqrRwkOuiJHMex
- 9C2A==
-X-Gm-Message-State: AOAM531NryG7HMsj2ME4KLzuvboIoxlkhIUzovMoPDlglMFT9qYCe2Qi
- YiQ3+LgqeTG/sJKKYlKdUYwuTTqGT4oNFXYN5rU=
-X-Google-Smtp-Source: ABdhPJyYSWn974NVSs56Dy4+wa7w2UdjkdOOJ31sWwLFUZjw5ya0Xqku89I5E+byxZNOlw7bXOtn3kus7EDhcvsotQE=
-X-Received: by 2002:a05:6808:1527:: with SMTP id
- u39mr2365224oiw.123.1634072196097; 
- Tue, 12 Oct 2021 13:56:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25FFF6E9CC;
+	Tue, 12 Oct 2021 20:57:05 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2084.outbound.protection.outlook.com [40.107.96.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0BBA6E9CC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 20:57:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KrDZMbjSoRUFweoiOUsCXMKoGTARh3sNhF37Q7emae809xx0orsCQG/fLg8q9xvepSkSPSQyJfn+HPJBkRElXoUWvl2WmRb2yNVU5fWuuIVasveAIVImmk/B6jkFzhDpSZyuE5SBJyxUCRJwlt4atDBtehMOiiN0ovpEYmpd0v1zs6i/Nbph8XdM3Srg+IstTpo0OBftCqE7or7AaSDcWVyjzBLA5IYjdLNBgBfGZKzL7YE04HVCQRWvlCK6BCFI62x2kjAZIRDaJHavhaR2QCEGIy5imrzcRS8JyF6H0/i/ZgbKSS4Iu2MjipC+Z/84DDYmk5npMqENoqGOCC8BUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dCPD4dOjm5JPp7Ij9wPfCGdrBEHciiZBz5Jg3E4yuq0=;
+ b=bxeQy1QHpR6vJ9kpWqddV+IXOLIBZDBC0A2melK7A1SXJrN5OVuc+wq+Qn48gJl59ANDFz6D+lNepZW9W5roGwiqhvhMUD7XpWtgeXxsCS+JSFoF3ejA+yK5VJgRyC4FZcYNVf/skavpnjZav8Z5nf/UWkBHU27DXEKiTtPTjn4o5/eoGFgK3lUjw7JF5lbbG7fxU1V7FmUA5jtYLgHaRcj7UOvFmyv1PLhDjoR6VjxyFwTGJY4za340h0KBxJ6GWNmYfWde3ALxU8DA5eyN8V0BRIO8iWJxtQ2oE/sFUfXd9AUo6nvZ3yhAZL53cDwBrDGIvbOeDBMars2gkE4Ucw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dCPD4dOjm5JPp7Ij9wPfCGdrBEHciiZBz5Jg3E4yuq0=;
+ b=SI14v/lazhBiNWlUoAhPBDEkea1nzyrjdHDfLZ2YRK6YME6re2mKS4kjiz7Wdbp9KOVfs12aVOfPyCD9fE4+VyxGkMIVBXmsTVjFLze52aenWNg+dBVged4ku367gpirUskwxJEgZhs3Et9jxIFVvNz+jTo22lk8nMSJbLiHUTI=
+Received: from DS7PR03CA0316.namprd03.prod.outlook.com (2603:10b6:8:2b::17) by
+ SA0PR12MB4478.namprd12.prod.outlook.com (2603:10b6:806:9c::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.19; Tue, 12 Oct 2021 20:57:01 +0000
+Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2b:cafe::56) by DS7PR03CA0316.outlook.office365.com
+ (2603:10b6:8:2b::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.24 via Frontend
+ Transport; Tue, 12 Oct 2021 20:57:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4587.18 via Frontend Transport; Tue, 12 Oct 2021 20:57:00 +0000
+Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 12 Oct
+ 2021 15:56:59 -0500
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Kent Russell <kent.russell@amd.com>
+Subject: [PATCH] drm/amdgpu: Warn when bad pages approaches threshold
+Date: Tue, 12 Oct 2021 16:56:50 -0400
+Message-ID: <20211012205650.570388-1-kent.russell@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20211011202158.GA19208@t>
- <CADN=F_muAvmp6NcDnMgPGpTtz75KH2hhv3jbiWuW+Zz35Hc-Kw@mail.gmail.com>
- <76a1cb8c-c1a9-b052-9e41-1738aaf94bfa@gmail.com>
- <CADN=F_k1hm5GB1pQRqSxA6Mf0+dWATyRqMUbXfwU8vPWwumcNw@mail.gmail.com>
-In-Reply-To: <CADN=F_k1hm5GB1pQRqSxA6Mf0+dWATyRqMUbXfwU8vPWwumcNw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 12 Oct 2021 16:56:24 -0400
-Message-ID: <CADnq5_OZg42TYe=tjb+rwxrjE1c_Bz8UUKTMmLRQDMH177Bhgg@mail.gmail.com>
-Subject: Re: Fwd: [PATCH] Size can be any value and is user controlled
- resulting in overwriting the 40 byte array wr_buf with an arbitrary length of
- data from buf.
-To: "T. Williams" <tdwilliamsiv@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, "Lipski, Mikita" <mikita.lipski@amd.com>, 
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
- Stylon Wang <stylon.wang@amd.com>, 
- Eryk Brol <eryk.brol@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, 
- Victor Lu <victorchengchi.lu@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, 
- Nirmoy Das <nirmoy.das@amd.com>, Anson Jacob <Anson.Jacob@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: edb6e9cd-9b08-488d-95fe-08d98dc2d649
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4478:
+X-Microsoft-Antispam-PRVS: <SA0PR12MB4478E31575B8E3C1D7ED4EC185B69@SA0PR12MB4478.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XEQVR2QpuUgMhmPxABtuIjaFp0nQF3HqiDVZnwpD6L3hNN47ricMbrr4pOzZUlYydWPY4g64QAKCig8nZAjbkWM6TRzOdY1ZP+KxnaoT8yvpqIS23pA1TywByDOLAK64WsqX9CMyqh4DD4gmTiSs1nldQENJ08CGWeGqOGHY9MCU7A6uBqBmCRO2ls+zGCxQfbKV5vaFvkY6fv+Xfv7y5ztU5GUlKrBkAMXYxzarbguwedNGfqmlh4yuiQfoNhB3AqkrSnsNDI7uzE7KmH+VJMSmo6/WaKeh/BZ9ISlb/L2b9yg3paVfTsap92+19T1OcWmEQGxB6z5fez8T2TCnSe9FUwtHpETnkrAGpfWSE0FsjaQ+yd3w2virDesRjoZDVafmGuacQnz+NcFsJHWc6NIV+vnqgLx9rbS70LGE1D5i6rTvLl+YTdtZZDDkyBz3TPH3TVkekMiv00px1Z+X4hcqBX42t0cXSM/PG/Y6ukFSevSOnM92duBkrLffrdeBNb6dSE5eOX80O2AaNEv3dNu8VzkERMSulkJls9/cJewDWkfLIIGqeV+NG8Z/3RdaTY30d6ifzn5jGWbCUYBN5VN9rYUYHGBAcJnWsojOvoTijbVZ57Kxlcvo24NTUQC3h8ikrWaAj6IWD8W++I5aJqcDOZ0lOO577302zh2EK66/53+ltzDfj+OTr4xxien5Zq/rtpaFiJNe34x6s32fzMenYKlUGitWD5qrCotgAk0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(508600001)(82310400003)(316002)(36860700001)(336012)(8936002)(36756003)(8676002)(426003)(1076003)(5660300002)(44832011)(2616005)(47076005)(6666004)(83380400001)(2906002)(7696005)(6916009)(356005)(70586007)(86362001)(16526019)(186003)(81166007)(70206006)(26005)(4326008)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 20:57:00.7144 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: edb6e9cd-9b08-488d-95fe-08d98dc2d649
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4478
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,84 +110,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 12, 2021 at 4:45 PM T. Williams <tdwilliamsiv@gmail.com> wrote:
->
-> Should I resubmit the patch email with correct formatting? MITRE assigned=
- this bug as CVE-2021-42327. Does AMD/kernel do public vulnerability report=
-s? Do I need to email someone else or something(sorry for dumb questions th=
-is is my first time doing this and I don't know what to do)?
-> I am trying to do step 11 from here: https://cve.mitre.org/cve/researcher=
-_reservation_guidelines.
+Currently dmesg doesn't warn when the number of bad pages approaches the
+threshold for page retirement. WARN when the number of bad pages
+is at 90% or greater for easier checks and planning, instead of waiting
+until the GPU is full of bad pages
 
-Just resend the fixed up patch using git-send-email and we'll apply it.
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 98732518543e..eda823294dc8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -1077,6 +1077,8 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+ 		if (res)
+ 			DRM_ERROR("RAS table incorrect checksum or error:%d\n",
+ 				  res);
++		if (control->ras_num_recs >= (amdgpu_bad_page_threshold * 9 / 10))
++			DRM_WARN("RAS records:%d approaching threshold:%d");
+ 	} else if (hdr->header == RAS_TABLE_HDR_BAD &&
+ 		   amdgpu_bad_page_threshold != 0) {
+ 		res = __verify_ras_table_checksum(control);
+-- 
+2.25.1
 
->
-> On Tue, Oct 12, 2021 at 3:18 AM Christian K=C3=B6nig <ckoenig.leichtzumer=
-ken@gmail.com> wrote:
->>
->> Am 11.10.21 um 22:24 schrieb T. Williams:
->>
->>
->>
->> ---------- Forwarded message ---------
->> From: docfate111 <tdwilliamsiv@gmail.com>
->> Date: Mon, Oct 11, 2021 at 4:22 PM
->> Subject: [PATCH] Size can be any value and is user controlled resulting =
-in overwriting the 40 byte array wr_buf with an arbitrary length of data fr=
-om buf.
->> To: <dri-devel@lists.freedesktop.org>
->> Cc: <harry.wentland@amd.com>, <sunpeng.li@amd.com>
->>
->>
->> Signed-off-by: docfate111 <tdwilliamsiv@gmail.com>
->>
->>
->> While the find might be correct there are a couple of style problems wit=
-h the patch.
->>
->> First of all the subject line must be shorter and should be something li=
-ke "drm/amdgpu: fix out of bounds write".
->>
->> The detailed description of the bug then comes into the commit message.
->>
->> And finally please use your real name for the Signed-off-by line.
->>
->> Apart from that good catch,
->> Christian.
->>
->> ---
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b=
-/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
->> index 87daa78a32b8..17f2756a64dc 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
->> @@ -263,7 +263,7 @@ static ssize_t dp_link_settings_write(struct file *f=
-, const char __user *buf,
->>         if (!wr_buf)
->>                 return -ENOSPC;
->>
->> -       if (parse_write_buffer_into_params(wr_buf, size,
->> +       if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>                                            (long *)param, buf,
->>                                            max_param_num,
->>                                            &param_nums)) {
->> --
->> 2.25.1
->>
->>
->>
->> --
->> Thank you for your time,
->> Thelford Williams
->>
->>
->
->
-> --
-> Thank you for your time,
-> Thelford Williams
