@@ -2,125 +2,127 @@ Return-Path: <SRS0=oPsV=PA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08EE1C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 14:18:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D0CCC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 14:19:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8B1B6101D
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 14:18:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C8B1B6101D
+	by mail.kernel.org (Postfix) with ESMTPS id A568860EFE
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 14:19:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A568860EFE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 628EB6E999;
-	Tue, 12 Oct 2021 14:18:46 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCFA16E999
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 14:18:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 589306E99D;
+	Tue, 12 Oct 2021 14:19:30 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2068.outbound.protection.outlook.com [40.107.212.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 505126E99D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 14:19:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U3gKtZEG4m+7h48Bv94mzRAIfKTXxFEGxOe4a/SYMou7iHyalOzWKUtUBb+DBoKcNo7v8m1BUcxryH7fBjD+Wq2usMODpPJutw25nkfmP/lquDfQ5ivBvCMVquHdnTJQP6L0xif7nOhy4ZEtIawsUHBtL3nuq7NN4ben+awWtqgVxz2x8Ih8dhGUGb3B3A6YLXJgAJXaE+rvwym935poNH3t06t4gpN5rdwyxOdFjnofKgyJzuABHKieBXdNajiy6rBV9iC5+fJj0fh3qB/iRBG3DpqEtK2SJFciaJWcuZPyrVIAxne40Z4uM8yc8E1WPu55y4u7oyvAxObjNfxMfw==
+ b=N+1U0yjAfuCYmOXIEGX+pKHS/9lIuxmx0nOoCmjv7awGaHQhaTRr2FvUdWbQbcA1Z+oC0RH1Tp77tjHhFEz51J+by1231IkJ5aa2En9S4acte2takM/kjX1KixEqRUZewUZazmEqMRSgEe6FKI9GNWV3oDbEMpssZNWje+15YpwzeRCQ0PaIxLk7VPfzfmU2gRcDqWM6Zh08NoKovJVsvPfPMlq3d+RslQ0QDkkCnrkUdp0TXuWritEtViq8BjCVC82t2Wp4QbUtphDb8DoM6boXT8Mswh6oEX4UN30Ew+G1XTKLaio0PeneddYw7Oto0Qn5gjN+mxnj8kNp0LU4lA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dUEimGbfIVKkvmIo3Ka/2b1jqWoWSiBqhvjYOwrcZ70=;
- b=kUg2ztnduOkAzkd5LfxyI33Crle0qFU3XWcAelvlQV8AU0RX8bawYRd9o6CgSyekyOqLv/+8zhnck2SkUnnmwbN9Ln1lwdZ8TbLgFsmhluw/j8J6IJzHOMXhGoJ/Gew7xikGaI2wznDRmbPYGOJyQmnK0D3VjBnbnal4Dn6Hlxy2XGE2qsMsJuCsfS5bFGCaehb2SIbuQV8KHMfxjmPfwhS7lM431F3UUGIZemAAujxIdsYi+0CfdutSyfYGYU1CUdiy0El4HLltT35efjlpUazipkeJg881mAxO6k3xEAFzs2GxH87nrrB9K0lEs9HA1YihTHSZWZO75bgDKEvKVg==
+ bh=fNKmJxyj0rN1Ijxwrux8ytAs6LKEAs1GxtMx+DvaXu0=;
+ b=IKVQGlc5M6yeSJnLoXoG7BloZO9wSKZFqQTiOHrTLChYI+zPIyRH5GDsPylPII2ZEPD4eS/FXbzvj3nPtFaGklcW8igViYkah8ZKLk6R8x/ShqJ/rI/EN9vpKBLNwqo+NZ5E4ghBkFwPLoOG6M7zjgruXffODsWwpxtFen/yWqyO3mTJSyRvqycLwPZAr5udbY9PhL2J57bGzb3/aZhXlbwz60UIQmPnVfI3iWe3/QH4cPi6vbm1kvN6ZVEGQ6yx6BmlIqJqIVfxsq/da+850GMW8Cc3FaQY/1jK13QCh98HCnKMhjbZgMbKdS0lNOssOGEDPR7uch9zOUc9i1QNVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dUEimGbfIVKkvmIo3Ka/2b1jqWoWSiBqhvjYOwrcZ70=;
- b=bomWOLeP6pUO+J54mJ41iom+GaoZuBigX7VS4+eUZCnx0H6Fy25yoVrBZ7zbqPyV7B1qDxXIm64DEfS+S9lWSbWbY3+Jp0I/AXDUwH8X01uQMjDBobLLUtuC6OC2GIblYRHT1graobEkwgVV/j9TEnxFpmAxRDQLZUDwK/U1Jm8=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5393.namprd12.prod.outlook.com (2603:10b6:5:356::9) with
+ bh=fNKmJxyj0rN1Ijxwrux8ytAs6LKEAs1GxtMx+DvaXu0=;
+ b=4XhhVQVbGbQLVOD3k9gRH31KitikU0a8KJeSKjkT7SWSeAVLfJK+Q19t4Hzdqfd4Pz9O+SkSynXenDL/3qJNX7gUAJaSrj76GuRRJuZki8ARj+K7zU78OYPMA8syjJNgh9cwKUY8lVAKznM60ZAvzNm1aZiVQ7CskU1MOCEVb18=
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com (2603:10b6:5:18a::20)
+ by DM6PR12MB2731.namprd12.prod.outlook.com (2603:10b6:5:45::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Tue, 12 Oct
- 2021 14:18:42 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465%8]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
- 14:18:42 +0000
-Message-ID: <52a5b39b-28bc-59ce-364b-02dbc009e0b8@amd.com>
-Date: Tue, 12 Oct 2021 10:18:38 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.2
-Subject: Re: [PATCH] drm/amd/display: Enable PSR by default on DCN3.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Tue, 12 Oct
+ 2021 14:19:26 +0000
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::d9bd:9fce:27a0:e1be]) by DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::d9bd:9fce:27a0:e1be%2]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
+ 14:19:26 +0000
+From: "StDenis, Tom" <Tom.StDenis@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "Kazlauskas, Nicholas"
+ <Nicholas.Kazlauskas@amd.com>
+CC: amd-gfx list <amd-gfx@lists.freedesktop.org>, "Lakha, Bhawanpreet"
+ <Bhawanpreet.Lakha@amd.com>, "Lipski, Mikita" <Mikita.Lipski@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Fix surface optimization regression on
+ Carrizo
+Thread-Topic: [PATCH] drm/amd/display: Fix surface optimization regression on
+ Carrizo
+Thread-Index: AQHXv3ME+ykj2ak2b0Wvp4Q6/ZihBavPaHQAgAAA5W4=
+Date: Tue, 12 Oct 2021 14:19:26 +0000
+Message-ID: <DM6PR12MB3547B8C2BAA700E46FCD0C15F7B69@DM6PR12MB3547.namprd12.prod.outlook.com>
+References: <20211012141102.4590-1-nicholas.kazlauskas@amd.com>
+ <CADnq5_NU2PQjmJSuta-aBUZbuM=cLgrEFeGxtXSONRNF3D2Rkg@mail.gmail.com>
+In-Reply-To: <CADnq5_NU2PQjmJSuta-aBUZbuM=cLgrEFeGxtXSONRNF3D2Rkg@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Roman Li <roman.li@amd.com>
-References: <20211008161415.4296-1-nicholas.kazlauskas@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20211008161415.4296-1-nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0052.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::24) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-Received: from [192.168.50.4] (198.200.67.104) by
- YQBPR01CA0052.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:2::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.15 via Frontend Transport; Tue, 12 Oct 2021 14:18:41 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c64c6d2-2bb8-482b-7b30-08d98d8b3167
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5393:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CO6PR12MB53935A42974AA219C92DC63F8CB69@CO6PR12MB5393.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VZG49DERMBLIdZb/qOX97pualM4vLg8X6xLQIgKdKmNwU8esiZ1QoP9a9V99SvKgn0j8dLCg1NCAaW5VqdsU30ew9WRSoHK7usqwNLtJR7+gVg3vQEoS8v4eIfQXx/TFYC1wLQlNop93+b5CJljg47r3w7vk3FmZMSnIWcaEOjlvTcSIOV14YmVBm09DRzbLjNU8NnalAfORlvnZ1EyPzKs2YOUlRA9ujeg2B0x/UvXMgnufiHB+Tsi3yeLBelT6Sp1tnhn9GdwWGAb7SMwl6+wxuCganOG2K6jgG0hKGIkYWqqM9h6nm/ACPs96rQwnceASUmTGkwZckA0EdYxeFYXI3QYVIOgiHRHhisMNInx2S/9g96eNXWnjkVED6f+7pyfqYETCdArEK2rScSXmd/IlIj1u5+ESU3zcdvDqbITcfiEkEvQW4nVolGWAPQMU/N4Kd/LOU4yjeaxW12kawULIiUoXgTt90oU/+1YHgSlsVTLtcWFAgVSx8t3AzuvyChEfde3GA6yTk6FIDnCH16BiKSxMZbv0O9zEfmM9/z+P9Nr3c70exMNyV6K7oARG9runN6v3nZzrFsWI3+hERj2gLeO6ujGxtS5oWuVB49aeiMIJbGoPy86ucSV6YRXI6iqOBbUnpjm3UPZ1HgXuTrfi14cqzwTvuhFY7e+TPmBeC8P45oQcbD3eUVV9zq+sub3TUuRbyWobiFajtrbdaqE8WPQJd/ZOOZAQDo/fMtA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8936002)(508600001)(86362001)(2906002)(6666004)(83380400001)(38100700002)(31686004)(4326008)(31696002)(44832011)(2616005)(26005)(66946007)(186003)(66476007)(316002)(16576012)(5660300002)(36756003)(6486002)(66556008)(956004)(53546011)(8676002)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-12T14:19:26.282Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+suggested_attachment_session_id: b9aa0208-bdf7-dc3b-51d0-baf7feb41051
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 9ab58dae-b811-4d31-2a80-08d98d8b4c34
+x-ms-traffictypediagnostic: DM6PR12MB2731:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB273122FC554C64DB9F282ABAF7B69@DM6PR12MB2731.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:538;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: mdhCr66hRbpakowkuRJoD1qYkMqOdNipx3gL7CbTt61B6kEqIlRjbVb9dDEQiR23+wqvH/H7JzJLN9kpvKp4fAh4OTCai0OX75P851cKniCIWaxSIjFyL5psBg5W0z5tUZaaRaPWCKyQ/rQpcA6tuYW8KGKvxw/mqv7RsDs15+1JlzhX+HQGg4u2pN26bEdchvffCVI/MhAnq+F4EO4278UwXpwTUnqPWwvwdegL//EtmYFqbnbH1nMI9u+rrnAwo8gDFhQxy6zH91Nr0F9LGE7LzjhCUB3hg4fGgopMpdrUdrL9/nJuhV66+7Q38AB54YiwviUxG/tSZY0dI8URUsV3Kh333dZWODFCFCAA9vNTr9x0HLS6DHsRLq2EWx9DiKujC83V1l6O04h+2IyWnxVrGQilgtuOg6F4Vzo09rWRLRIhdtYu5oTOu4nYVVi6is0Ny8zhGJoVwqJziXeBYnYZu5eevIFOB1Z/c4L3ENNTBY2SBAGtq/SOnNPJyf0w7ryWgn9nvYbBfO9HLhSCKFWjHfyqAq8xd3haKqglT7H4S5tJUumA12xtLiEpERbZTG36ZRQ8WW+Qdizb99q2NtZlXwFl0dYv0Z8Yh8A7rW+QyfCnwANHm7irsobLGKBmNnY14PzF9FuaS2PWdVpcgvvSoOF1udvOkDHRtpX+1G9v89U/NicwJRnVxhlGFsHjYbhB1nd+1RKYL++QM22l+A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3547.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8936002)(5660300002)(6506007)(33656002)(8676002)(83380400001)(316002)(6636002)(52536014)(110136005)(4326008)(54906003)(2906002)(186003)(53546011)(508600001)(7696005)(66946007)(86362001)(71200400001)(9686003)(122000001)(76116006)(91956017)(66476007)(66446008)(64756008)(66556008)(38070700005)(38100700002)(55016002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzdySU1JVUJXSWt6bWF3L3NXOGZjdlBuZGdNQ0xPaXBqbkw5eDBMUXg0aHFU?=
- =?utf-8?B?N3c3ek5EME80ZC9sWGFLSkJCTUhtS1pNcGM2eGd0VXhyamRjS25VQkxFYXFW?=
- =?utf-8?B?TXZPNHdYdnlyVGFZNEwxSmczcDJsNEsveU9ZbkNRRnQ5WE04bEsrY0xPTEZK?=
- =?utf-8?B?OUJLVE04aisvbDMwcVBZaUdpcDVmQU5PMlp0NUxlVGhGRTVqemJUeEVQNE44?=
- =?utf-8?B?djZxaFJTNXVDbHFzNk1aT1lrc1BqZjc5dEZwNzcwZVpNd2hkb2E1dHk5elpP?=
- =?utf-8?B?VW4wbHEyRVJONEpsdDRQcDdPbUFaQ0l2ZWhzT0tQYkpnY1hhYUhGWkFoQk9j?=
- =?utf-8?B?OFE2TzlEb0ZzMlRqWTV1VXdnK09pdXJmVFU3WEpuemcwMmxhcjJ1TURwYmE3?=
- =?utf-8?B?cUxGOWZwc1Y0N091cDlFcjZnL3EyeXVFRVAveDk5UTQxUUs4eDR4NEc0ZEhO?=
- =?utf-8?B?MFkyQTdBREw0Q0ZacGJtNEFldVN5YjdvWHRsTnMxdHFmMHFDVmoxejlLMmI2?=
- =?utf-8?B?bWxNRk8rTkhQSkR1NEsxa2FHbUxYUHNIZE9RWERPYUtxeGpCcDYvSnR2c3V4?=
- =?utf-8?B?RDFKR0hVd0xKYWFwMUJRMFdraTV1NFJWaUFLK1QxUElQU0RVcTBUajhyOVl0?=
- =?utf-8?B?Ylg2Q2tZQVVpbzRVNkpHNGpXVUZhQUFmVWdXNGUvOEhWaW40cFVRQ3cxVWxj?=
- =?utf-8?B?T3Jiam9GR3VPbCtRelY5bmx2OTRxOFJFTDJUV29BYkJnZGVqeVdTUTA5VEVk?=
- =?utf-8?B?WXd5OTdZb0VnaVV1Q09Wa3NteXh3UnBIMmZNZGkwcEF0dUh5QnhhRC9SK1o5?=
- =?utf-8?B?ZS9IUGxFMWJ5SG0zSlNidGxTa0Njdi9SVmVkalFTdXdXUkYvUXNMNk16ZGVz?=
- =?utf-8?B?SVl4bjhIT2lXOGhwSGt2TlVReGc1OEVTRVlYQktKTjYxTlNZZlNvWUo1NDk1?=
- =?utf-8?B?QjU0VTRPaEsrZlh3NzZwejRuUHJ5ZWdlckFOWkJGNGdjbFEwMzZoMkhEcU1q?=
- =?utf-8?B?M0VLdlpJZmdpVUFzeVRuZk1idEl2NU9sM1VXWkZhSXlJWExwSWJpNFQzQi96?=
- =?utf-8?B?SXlsTXgvRWwzZEl0dkN3eWlONVFHbnZKYVNhTTh0aUc2c2N2ZzBVR0haeW44?=
- =?utf-8?B?b0V4ZVNFTHFpQXhoYlh2b3phejV3eUlhNHR6ZXJvMTd0YStsQi83YkhzWjA3?=
- =?utf-8?B?bkhueTE2cml4M1AvV1Zhamg4dnZHTHFqNWJXVmRSam4xVmY0eXB3NlVYdnFi?=
- =?utf-8?B?bTNJV1lrTFdMKzRRcGF3QnhkZW90OTdSVDhxQUpkbk9aMDVoeWpIRGF3aWJh?=
- =?utf-8?B?UEc1VTd2eWovVjJFZkVSQmlKOTBSanB4TS9ESWdXWEIrRmlGcUt5czN5V2Vi?=
- =?utf-8?B?VXU4alVUZDJzeXpJY3ZJcmxJT0Uxckhla0E3TmdITEVTcEt5alU4SnQvckxH?=
- =?utf-8?B?QmJHYmZ4R0gxQ1ZmMTNxYTRnY0tPeFU1NXhzMUVrY1dRZ3Q5K1lSbXFIcUhZ?=
- =?utf-8?B?NnlhV1NLcDNWR3gyVFZSVC80NGRqS0FjODkxUms2R2YzSjB0Snkxc2Y4Wng3?=
- =?utf-8?B?SThRKzlsWk0xWDZ6OHJhMVhGTWl1K3lEZDBnM2FwUWZsMHY1ZzhYenJ6Yk9U?=
- =?utf-8?B?aUVSbzBtY2o3SmZIbHM2dWpKcVBFVmVERjBsekdjREpVYStpdjVyRmQrd2hh?=
- =?utf-8?B?cFF3VnR6WGc1S0tORHhNd1I5clVkV3grbTdsRXM1WXhOd24xWHN6bWJndkVW?=
- =?utf-8?Q?wTRRMjs8eX6xlQ8RrA0W/hUWiYW8kFh/dNvTFH9?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?e7my6cyHNTPkUi/59POtIlv70+npW6HmaP/gsRyajqQ6O0qoleT8CILK3b?=
+ =?iso-8859-1?Q?H4YXcWGjd+chIVonn7IzNslZ5bLUvyGwXkqUyA3EO0GNSq8Eqdy8YmcdrB?=
+ =?iso-8859-1?Q?giCvyWglM0H2a9VhfZEkGiSta/QGYy3sFsqHISJ3a8Ar0puXlyqdZTfW4C?=
+ =?iso-8859-1?Q?dsICEWfeOT0Kx/ae0q+Tp4JoWLTb9XobJZTKI82LrYAPEppAjmOhMAcHm/?=
+ =?iso-8859-1?Q?K7DWGtGn6xu+V3XvG/CzOAPRRcDamjB8MVF9ffOzwCp1JsJ33XEmtfgJKs?=
+ =?iso-8859-1?Q?u8wAsqYezz0tqessKeX7bq8FuRdi6Ir5NTMYldpuwRmcoSegVIyUtRbalJ?=
+ =?iso-8859-1?Q?t9LA7NNBSJbAUMaZtkMeQiUUXTnjphInMb5djepdEkK2JQ6fJxaW9Gh9A+?=
+ =?iso-8859-1?Q?3c3KkwCiks/J9PwDngDRB0MovE76cMT0DPRMy7HP1rVBRubqRDtLgGd4mv?=
+ =?iso-8859-1?Q?wEFTfZzAXyITtcydphXsoqq7tN5JPvE912dhZl0EMrfGYPhcT/P65sLvAR?=
+ =?iso-8859-1?Q?3mmaXk9s+jexIEPNcSVN6DV4i4h0xhgKcrfbhvzJeYf/a3FFE8EeZhYYG1?=
+ =?iso-8859-1?Q?VJl/J7+TpTjU9/PvCWOBbh2pMlK5jUF41A1WbdTXwWBqmWcsMazAQCv0Jr?=
+ =?iso-8859-1?Q?ZWuCfm5ah4+TZsbUqMiwNAgEbQoHnbp9xmUNHcyzQaVlfUQIiBcp86wU5y?=
+ =?iso-8859-1?Q?smjI0PY/gux8M1+17BMW7puD8ZrMGGRH+1OW3DpIupZe1rbdA0fqHDXqMl?=
+ =?iso-8859-1?Q?7lh0IULaT5cL7lwPMvmBEo4grMeYeG0V1aPJIXIy1kES/yyJ9kS/e37q43?=
+ =?iso-8859-1?Q?/Sr+hh9K4kMdJl7cKfYz72Mf7DZirnPNouuKVYOGtpjuWW7Xr6fH8+dPjr?=
+ =?iso-8859-1?Q?7V66VsJfn5vOJONfGYlIbu72gbnwjvbvoQhmed4P4WYvVciY1avlq5KpTK?=
+ =?iso-8859-1?Q?DiyS40ObqwlYntFtshgWxsg6wJXK8H8iT6q5ulOmoEds1sEJ5RuM3rbXpn?=
+ =?iso-8859-1?Q?r6nbrquWciksOFsFEyV86iAAVy3jHpUiiuKVooeC0rS01po3yZvMuHaGss?=
+ =?iso-8859-1?Q?zwOVbgLNTUQLxDErc18e3L9ZFrkWlKuFbQxvgzafqqzesv9ES1nm8ATRqJ?=
+ =?iso-8859-1?Q?pOtj0dJkyh2MRJOtjeuQBNcyatfIQuLAiGethNo+DB4DVm2UTeogsd+mQp?=
+ =?iso-8859-1?Q?66eLy6ouZAJxNSAhNR8dblLheQd7QjBfK92otbOa1Y/7jJnkoRWtgoGWt3?=
+ =?iso-8859-1?Q?0mgKD6Od51B12N3AsbsFoscC+gW4vgEUo6wUXkbGkCckuSGCkm3veVBP22?=
+ =?iso-8859-1?Q?NXSjm/+mMKDq6Vp+ippiIcqDjvZ1FZbNLfHd9G589Sb4Yy8ujg1BWf4jQ4?=
+ =?iso-8859-1?Q?cXeM0LvKu7/Lc+LNGHfzLqoyZeM4G5iA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c64c6d2-2bb8-482b-7b30-08d98d8b3167
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 14:18:42.0781 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XPy6xBF+Ybp701yYK9ICjhZK0JRJeuc0sRSnyKD2L8mszrDgKSRJuhRUosAlywaK3ljpCRgtKqfVxDsfowI47g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5393
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3547.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ab58dae-b811-4d31-2a80-08d98d8b4c34
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2021 14:19:26.6804 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BsXCfNapipA8hlQ3uFooomIZZejMV9O8OJd7DlRNnLdVBDz/lmVbjrFtmldUbZGuDp0pGxInv1WPwSt4VkV47g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2731
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,105 +137,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-10-08 12:14, Nicholas Kazlauskas wrote:
+[AMD Official Use Only]
+
+Tested-by: Tom St Denis <tom.stdenis@amd.com>
+
+Thanks.
+
+________________________________________
+From: Alex Deucher <alexdeucher@gmail.com>
+Sent: Tuesday, October 12, 2021 10:15
+To: Kazlauskas, Nicholas
+Cc: amd-gfx list; Lakha, Bhawanpreet; Lipski, Mikita; StDenis, Tom
+Subject: Re: [PATCH] drm/amd/display: Fix surface optimization regression o=
+n Carrizo
+
+On Tue, Oct 12, 2021 at 10:11 AM Nicholas Kazlauskas
+<nicholas.kazlauskas@amd.com> wrote:
+>
 > [Why]
-> New idle optimizations for DCN3.1 require PSR for optimal power savings
-> on panels that support it.
-> 
-> This was previously left disabled by default because of issues with
-> compositors that do not pageflip and scan out directly to the
-> frontbuffer.
-> 
-> For these compositors we now have detection methods that wait for x
-> number of pageflips after a full update - triggered by a buffer or
-> format change typically.
-> 
-> This may introduce bugs or new cases not tested by users so this is
-> only currently targeting DCN31.
-> 
+> DCE legacy optimization path isn't well tested under new DC optimization
+> flow which can result in underflow occuring when initializing X11 on
+> Carrizo.
+>
 > [How]
-> Add code in DM to set PSR state by default for DCN3.1 while falling
-> back to the feature mask for older DCN.
-> 
-> Add a global debug flag that can be set to disable it for either.
-> 
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
+> Retain the legacy optimization flow for DCE and keep the new one for DCN
+> to satisfy optimizations being correctly applied for ASIC that can
+> support it.
+>
+> Fixes: ab37c6527bb1 ("drm/amd/display: Optimize bandwidth on following fa=
+st update")
+> Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+> Cc: Mikita Lipski <mikita.lipski@amd.com>
+> Reported-by: Tom St Denis <tom.stdenis@amd.com>
 > Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   | 17 ++++++++++++++++-
->  drivers/gpu/drm/amd/include/amd_shared.h        |  5 +++--
->  2 files changed, 19 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index dc595ecec595..ff545503a6ed 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4031,6 +4031,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->  	int32_t primary_planes;
->  	enum dc_connection_type new_connection_type = dc_connection_none;
->  	const struct dc_plane_cap *plane;
-> +	bool psr_feature_enabled = false;
->  
->  	dm->display_indexes_num = dm->dc->caps.max_streams;
->  	/* Update the actual used number of crtc */
-> @@ -4113,6 +4114,19 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->  		DRM_DEBUG_KMS("Unsupported DCN IP version for outbox: 0x%X\n",
->  			      adev->ip_versions[DCE_HWIP][0]);
->  	}
+>  drivers/gpu/drm/amd/display/dc/core/dc.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
+md/display/dc/core/dc.c
+> index da942e9f5142..f9876e429f26 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -3118,8 +3118,13 @@ void dc_commit_updates_for_stream(struct dc *dc,
+>                         if (new_pipe->plane_state && new_pipe->plane_stat=
+e !=3D old_pipe->plane_state)
+>                                 new_pipe->plane_state->force_full_update =
+=3D true;
+>                 }
+> -       } else if (update_type =3D=3D UPDATE_TYPE_FAST) {
+> -               /* Previous frame finished and HW is ready for optimizati=
+on. */
+> +       } else if (update_type =3D=3D UPDATE_TYPE_FAST && dc_ctx->dce_ver=
+sion >=3D DCE_VERSION_MAX) {
+> +               /*
+> +                * Previous frame finished and HW is ready for optimizati=
+on.
+> +                *
+> +                * Only relevant for DCN behavior where we can guarantee =
+the optimization
+> +                * is safe to apply - retain the legacy behavior for DCE.
+> +                */
+>                 dc_post_update_surfaces_to_stream(dc);
+>         }
+>
+> @@ -3178,6 +3183,12 @@ void dc_commit_updates_for_stream(struct dc *dc,
+>                 }
+>         }
+>
+> +       /* Legacy optimization path for DCE. */
+> +       if (update_type >=3D UPDATE_TYPE_FULL && dc_ctx->dce_version < DC=
+E_VERSION_MAX) {
+> +               dc_post_update_surfaces_to_stream(dc);
+> +               TRACE_DCE_CLOCK_STATE(&context->bw_ctx.bw.dce);
+> +       }
 > +
-> +	/* Determine whether to enable PSR support by default. */
-> +	if (!(amdgpu_dc_debug_mask & DC_DISABLE_PSR)) {
-> +		switch (adev->ip_versions[DCE_HWIP][0]) {
-> +		case IP_VERSION(3, 1, 2):
-> +		case IP_VERSION(3, 1, 3):
-> +			psr_feature_enabled = true;
-> +			break;
-> +		default:
-> +			psr_feature_enabled = amdgpu_dc_feature_mask & DC_PSR_MASK;
-> +			break;
-> +		}
-> +	}
->  #endif
->  
->  	/* loops over all connectors on the board */
-> @@ -4156,7 +4170,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->  		} else if (dc_link_detect(link, DETECT_REASON_BOOT)) {
->  			amdgpu_dm_update_connector_after_detect(aconnector);
->  			register_backlight_device(dm, link);
-> -			if (amdgpu_dc_feature_mask & DC_PSR_MASK)
-> +
-> +			if (psr_feature_enabled)
->  				amdgpu_dm_set_psr_caps(link);
->  		}
->  
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-> index 257f280d3d53..f1a46d16f7ea 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -228,7 +228,7 @@ enum DC_FEATURE_MASK {
->  	DC_FBC_MASK = (1 << 0), //0x1, disabled by default
->  	DC_MULTI_MON_PP_MCLK_SWITCH_MASK = (1 << 1), //0x2, enabled by default
->  	DC_DISABLE_FRACTIONAL_PWM_MASK = (1 << 2), //0x4, disabled by default
-> -	DC_PSR_MASK = (1 << 3), //0x8, disabled by default
-> +	DC_PSR_MASK = (1 << 3), //0x8, disabled by default for dcn < 3.1
->  	DC_EDP_NO_POWER_SEQUENCING = (1 << 4), //0x10, disabled by default
->  };
->  
-> @@ -236,7 +236,8 @@ enum DC_DEBUG_MASK {
->  	DC_DISABLE_PIPE_SPLIT = 0x1,
->  	DC_DISABLE_STUTTER = 0x2,
->  	DC_DISABLE_DSC = 0x4,
-> -	DC_DISABLE_CLOCK_GATING = 0x8
-> +	DC_DISABLE_CLOCK_GATING = 0x8,
-> +	DC_DISABLE_PSR = 0x10,
->  };
->  
->  enum amd_dpm_forced_level;
-> 
-
+>         return;
+>
+>  }
+> --
+> 2.25.1
+>
