@@ -2,131 +2,126 @@ Return-Path: <SRS0=oPsV=PA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AFA7C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 14:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15639C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 15:35:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 34E1C6103D
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 14:39:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 34E1C6103D
+	by mail.kernel.org (Postfix) with ESMTPS id C6DB06103D
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 15:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C6DB06103D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA5A6E9A2;
-	Tue, 12 Oct 2021 14:39:44 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF4686E9A2
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 14:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4597489CD3;
+	Tue, 12 Oct 2021 15:35:49 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2075.outbound.protection.outlook.com [40.107.101.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 372D089CD3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 15:35:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jnUbjC60ppZn3+q1DpW33YD2ONAq65jfx6Ngwp6p04/jaIfG/ZKUFzhmfgSq/WSb3Jze9VMB99M71E/hibgdgax9jqL470QbzDAFAP+anfvClDR4rhknD0+uBs9BglWf1yp4GeEC8BooAjo5F+WLN9lMsTKnbcJ5cy6t77zsD8F3TqJv5oFSGbbH3i9bM5v8rV21rq+b450EA+Q4bFs7mD5KcoYloboiRFByh4r7PTYPJvMIDwvn6+ZGFPfxtOgmBR31ZPxvExpbun9qc6is/sP+AqYO/VtpaYIQqlBGF1P54/HKJ42+QEmvNkrSFSHtimLi+ejZMa6t/H+qkzByvg==
+ b=RvVgwhvYaSatrhP02fk1mJJ4XsPj8ikl4fwJhBXsDo2OWixPH49Cg3Xq4bHw5DGzJ5QYwKGRnmO2i+nmb172PuDuiFm90m0Gh0yaH9cFUZONSV89SYrM7pR7liikeDbZwvdPdfmgM1Krvcq064rlhUBNEzWaulAf66LHtzLiIXVS5pAEXksayPcFq10EIQAjVFiKkmWcawI3jjwHiTvcUb6TiPuOYbWBrQSEWA7OUbVf3YIjG1qdg8cpRSQCyLl77Kx9MvAeoB98vEnS/DOu4u8D7Je4lmk8jPg5HeRv1NsAieuw0O35eZFBwOXQ+1vmbKN+PzSwQDEx0gsJJan6Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dukKNFmLeYAJvk+4QoHRtFrABMkF4Msq7cMq5aJo89M=;
- b=JPyLtg8rkMyqENgcgPLrHZW5/+t26DK1n2DC0vKVQLE+yu5TRMw936eLqmbqYnNHyFHPKiJJOB77+JA+sbuBzcPXkdwkdm6yZjYeACi8fBha7nkxBgxZ6srZ8dmCwIa/MUuOFV6//LgmU6g17KPrZoDpN7iDOGlIoBZrrqRCEzMEpbjSR7Xi3WuctZGcBVZbDhqocUD6YnY5hpKjCsluHthEuqqV+EnSSL8thCM9cZLjq2OofG+kEcrbdbfaKGb0uNyrB2/2p4Q6m0U/ijmk/AfRYXYayJCQgtmuNUUWZS+z7Sd5Y/9vO1kdWb9+4lJnMw1eSD2QF4UZjK7VMB2nLg==
+ bh=LF5RlifMMMoZoeDYU4GAfCA1x5LejzYXqy9cnEikYbU=;
+ b=EZ+kXj8fkwemnbgS9aw/aCgNaMf8pCKUkRve6FMT797j0Kb9MtUdyQJvj+I/LwUbSftEAkCNg7uozjFoIheyhgTokct8oyGjaC+Q4qI/c8AO2zWJw6rcToeEm8cM1cv4xDdZ+rajoXVGL6HWSYul/Wn6ixtwgkdqcNb9hAE+KBxNhKNLim2C3Q1jnDVtzxg/4n2es7TED/AvOvH4ZvNq2TTk2GDHEk3RY8h/MrPgGYvReD3W6aAvi9eQ5CEz0iHzAEIJ/z4a6dqRD+XsANhUSP1D2dbwujH3Y95bIoQPVsJNM2HbmpHqFLBqfbJ2bEvC4SdhXJYWcFoGzgyy6aP9Vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dukKNFmLeYAJvk+4QoHRtFrABMkF4Msq7cMq5aJo89M=;
- b=ITUfassXhp62f6rO97MYnDFGCXjWOkfKVxBiTM9+qrAsY6+TqbYwID5LSKC+6ZVCEW7JpZxu5ixhfQUhz542BJOls1ZioYe2qMN1roMvQ7MFk+WYj6+PMgGeoCddr4pJKFYcZ0pvKeQV8c2/JB6YaK3PJ2yVbpPm+3WQ3CcMvwI=
-Authentication-Results: emersion.fr; dkim=none (message not signed)
- header.d=none;emersion.fr; dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CO6PR12MB5396.namprd12.prod.outlook.com (2603:10b6:303:139::8) with
+ bh=LF5RlifMMMoZoeDYU4GAfCA1x5LejzYXqy9cnEikYbU=;
+ b=UBjtvKuAp8QAnnwI4gLa6KmxM6rsuU4eJvBnMmOqOkXVfPoGeKdnLEXM6L2CedzfmXgkRKLTH61mqadrSxYvhtor2j8HSFwBM1dbDZpxVwzZQVExz5SJuvgZkMsYQHC2TyIl16NH+UAR6fRVKxcpDPyeLLSZiW1ytc/Z/fCZ8ZI=
+Received: from DM4PR12MB5263.namprd12.prod.outlook.com (2603:10b6:5:39b::23)
+ by DM4PR12MB5327.namprd12.prod.outlook.com (2603:10b6:5:39e::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Tue, 12 Oct
- 2021 14:39:41 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::d82f:e8c3:96ac:5465%8]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
- 14:39:41 +0000
-Message-ID: <44154452-aa21-3f08-ffe8-e68fb8036271@amd.com>
-Date: Tue, 12 Oct 2021 10:39:36 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.2
-Subject: Re: [PATCH v5] amd/display: only require overlay plane to cover whole
- CRTC on ChromeOS
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Tue, 12 Oct
+ 2021 15:35:46 +0000
+Received: from DM4PR12MB5263.namprd12.prod.outlook.com
+ ([fe80::90b2:e7f6:c5e5:c80f]) by DM4PR12MB5263.namprd12.prod.outlook.com
+ ([fe80::90b2:e7f6:c5e5:c80f%7]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
+ 15:35:46 +0000
+From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Clements, John" <John.Clements@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Fix RAS page retirement with mode2 reset
+ on Aldebaran
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Fix RAS page retirement with mode2 reset
+ on Aldebaran
+Thread-Index: AQHXvxGdd6ETGcvR80CCYCnuCIktb6vOu8sAgADDXiA=
+Date: Tue, 12 Oct 2021 15:35:46 +0000
+Message-ID: <DM4PR12MB5263CF8C314A5B7092F6AF71EEB69@DM4PR12MB5263.namprd12.prod.outlook.com>
+References: <20211012023343.23935-1-mukul.joshi@amd.com>
+ <20211012023343.23935-2-mukul.joshi@amd.com>
+ <DM6PR12MB465071A7F950599FA16CDA6EB0B69@DM6PR12MB4650.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB465071A7F950599FA16CDA6EB0B69@DM6PR12MB4650.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Simon Ser <contact@emersion.fr>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Sean Paul <seanpaul@chromium.org>
-References: <20211011151609.452132-1-contact@emersion.fr>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20211011151609.452132-1-contact@emersion.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0206.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::25) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-Received: from [192.168.50.4] (198.200.67.104) by
- YQBPR0101CA0206.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:67::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.14 via Frontend
- Transport; Tue, 12 Oct 2021 14:39:39 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 63302098-763b-4051-60b3-08d98d8e1ff8
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5396:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5396B5CACA1E78804A726CE88CB69@CO6PR12MB5396.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uXZfa2oYrdh1d45RBFNMDonZNzOTuMFBoTacA/rCtcQ+jQrtjuRaa6x9j1DglMI0vJt1ywJMoh7/kJPfCGvfaGXYsUTOx9cBR0kLH1DEG0hFdun9ZQ5V5HHVFpj9G56a2xdI6Fli2ESgRy9yk6vCTKekernD+dIaH21x+VUL73A+YsdbTsVK8Ms6vJ9beNZLGaOAx6IEI2E59S5dmjXUO/OoAjHISVUipWJvzFh/Gnsg4GuQh2RNAY2IiY5LQIHNsIsEQyWEVcbbxy1ko4bWSdSQAQmCuZyDBHVv8s11z6AAJeZvETyvOTXgDh3tUenzwPY7oj0k+9i229g4clGRldwpz58QKoHSNINIMuvvakMny2yODKBFCQtb3NTqn1l5ut40T6ZB1bvH395Ni18oZC8pb1o8KabeHiT/KvdfH91/qHWrxipotS2bH6YVyQ5ESnwiakbJ2yMlEcfoHZomq4gHeeyPb02x3g1rYsvDN5vSfMlIeQGy6cppnPRjVEWL+u8Exs5HYFssVxjcr3tVSjYirCrMQsZu1GptwY24xpwliRx7ksqWzqdLHURFJ8zhEuSXLTn+NKjsrq5pmrjIC1TbdA8WpCINuZ0k4aOukRNlay08/adErs4nXew/XGkWsf+t9JcSNM39c1oB1steGeS6yIMEwUdpvBktbOZXIEOT8mJxNBpKGRexVoj2NrV29fcgGMuGRobGzvRN41CIizEpgDt+57h1Cbr5fNBJD1B7UbJX8Xm4/BQZWsjn3vMBs+9y9kKZjD5DrORqCUBKAxz6pwYgzkc3sYZdLIIg6w6TNi5iTQmzzd4TYOhbdwFPbR3039b6SD2OIZNij4xveg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(16576012)(86362001)(54906003)(966005)(38100700002)(316002)(508600001)(5660300002)(26005)(4326008)(53546011)(6486002)(4001150100001)(44832011)(2906002)(8936002)(66556008)(66946007)(83380400001)(6666004)(66476007)(2616005)(31686004)(186003)(956004)(31696002)(8676002)(36756003)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-12T15:35:44Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 02a6c8c0-601a-4192-d699-08d98d95f5d0
+x-ms-traffictypediagnostic: DM4PR12MB5327:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM4PR12MB5327CEDA81055A6F4B19A519EEB69@DM4PR12MB5327.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jV9LADZSAD2PeoxGAFfmLEtylwRe26nfmoR1vt0SEDE+ZOKC2DPZ0mhBHqtmodz5vIbTkMrYE+30RApx+g+thuteZNHtleS87EbSTVuT0QpB3/6iQ7zfET/HCa/x73M63qJu230FfFYu5+zPi3Pw2QyjEORO3+w+0uVhNLtJp7S7r5e3ic+7+6DPglJhIJXeHONJsqF6JxwoG925KbWP8S3yfYvh1U4UR2BT0cn0Byyk7gPP+Rj8Xf8YNLGa6Jqb2gYgcP3YOe1c0chHQPqLZR2p3k+xI4F2lMfac390GKj81jOuBV0IdE+H1onJ/uE9GtdNaGWz/eEHG6OPndD91h5V8ZdTNhef7JI839gKPfZ4Z5uvbQMhViIDlpyGHPhn7o4SDAt1UqLqcQuZ1kiKgBYXK+qSMFXh5Rppqb9OzWXVixKgDcwv5DBm+kFS/EXvOJjXREFfABAKrMOZOXBeQa3wEbuUrpRyqIyEznOFL6NtocCZ4JDXOlc3BuNTQxCI3AyHeSAMCjFSOqOeJiw4WnzEAWUrYrVtQnuHcjK9R3R/O2pLGgmq2CHuBu5vEh0XdDTpH6P3Z18RkLppG32ud9UqMwq+GimfeDmIoZ87FR75i/a7HHyWow8q9qBCAYv7rohE48g3BBHrfI1Jq24EHyOsFL2llv7KsVpeEPr9Q9ROsmTKXK0r+gpUYBp+5qWLzYmIj0rsRcMK8MWFO7foog==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5263.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8676002)(71200400001)(316002)(26005)(83380400001)(52536014)(66946007)(186003)(66446008)(66556008)(64756008)(66476007)(76116006)(110136005)(86362001)(2906002)(8936002)(7696005)(38100700002)(38070700005)(122000001)(9686003)(53546011)(6506007)(33656002)(5660300002)(55016002)(508600001)(4326008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZU14VDR4S2dOa2lpU1ZnUktzQUg4OEtlaDBmbzVqQ1YvcHlTZS9LT1N1UjZ4?=
- =?utf-8?B?aXNjRklWWnBhdC9aM0tBSWJ0NXdpTElNSm9reDdFcTNoeFBKYTZsdnRWTU81?=
- =?utf-8?B?WERGbVJpZXJESi9RaXNFWUk5aVRJSFNNSDUrRkZVOEVKK0tQQTRPeEp3TUpT?=
- =?utf-8?B?K3RTRHBSa2tQNDAzUVRVVmhabmFjMU8zbldlcDhrK0ZJNUxCOXc4eEE4SjRu?=
- =?utf-8?B?emJIakF3eTlzdVhjYnBldnJ4THZtditSQlJEVy9WOGFObnhoOEJRTjlLSWJ1?=
- =?utf-8?B?S0pORVFKa3dDQ1YvSXdpdlBWNGhOSC9EQnhyc0tKMVVMZ2hnSW9UMWFxZ29Y?=
- =?utf-8?B?YXhPNFdIU0tsaEVud3JlamV0aDg0dDkrcDVtOEd1UCtMaEtSZHMxQ1ZxTXVZ?=
- =?utf-8?B?WWdsTldSNFZCc2dybkhZVGlzRHgyb3UwcG1KSjMrVEt0Nmd3ZVlucUV1OS9Y?=
- =?utf-8?B?WWtZNDh6ZWxIOXlUVXJETm4zdkZYbU9OemhjZXk0dThrMzV5NHZPdlh2enZi?=
- =?utf-8?B?V216V2JpRjVoSFpSQ2R2Z2VKa2VKZnRsVG1ncGVYaTNGL2M4WGxkNXBGRkhP?=
- =?utf-8?B?UVl1Q2c2RmJwQUQ5MU1BS3Nqd1BGVnMyRkhGbHdEVmFXOTlvdUc5bUZieTRK?=
- =?utf-8?B?dFdhbHNNNGtxSUxmV3ZUb052VVlYdERNcjd0UG16RTJaZGhqWDRGbUZqSjZD?=
- =?utf-8?B?UE1pZmpTMWVJR1RFb1lOMzJrc1lhb0tNZHNMaTNKSDRrR1RTMDRJTXNRbkJS?=
- =?utf-8?B?MXYxYXZhaUx6aThkSWVHYlI1SGxsUkozdGxWdC9pZ0JvdUdHZXllWW9yZjQw?=
- =?utf-8?B?RmlOR28zTi9reHRkOG5la1lyeXFWQkxVREFiUnJoN000QjVPQXZIWnRZNyt0?=
- =?utf-8?B?QXA4bGFOZlNYeldlQVJvUHorN2J0cFdPNHdZVEkreHByOS9LbnhiSmpvUWJC?=
- =?utf-8?B?ZVRSMGRjdGdtSG4zaUtnMmV2bldMYXFwdmdXYWZaeS94NkxQRGU2aGxHOHIy?=
- =?utf-8?B?SVhweER6YnZnS0xUNHNkWVlibUJqMXBUVC85cmNtdXgrQmQ2dHhpYjBNRU45?=
- =?utf-8?B?MWI1SnBDUlVScUROM1A3bXVDNkhXZHRrYzlaYm9MZUpvRWpDdHZPQ1dXTTdB?=
- =?utf-8?B?dkpzMUVHMFpmY2hZQmpaTG9WYWtzUGpLRVVwOWNBQWN3TXpPbGhZUkMvaVdq?=
- =?utf-8?B?YklsaGdNVHVPSjhoYk5IQnBESHQ5ZTB1VjFOODl1aWJidGc2d1NsNStVR1g2?=
- =?utf-8?B?ZFd3ZlNBSXBqYUdNVEJDRHVPS1QxNUVWKzhiT3FBSk9tVHZ5YkVBS01wd1RF?=
- =?utf-8?B?ZUczeEoyOEpuUEN3dGUyNkpSV1lyTkZJQUhpSXN3RElISTMyeEZoVEpGZEVm?=
- =?utf-8?B?V3RTbmMwb2V5WG1GU0JqWUJOcmhycUVLRmIycFlFQWVFZWNOdEpRbzZJdnc4?=
- =?utf-8?B?UFhNWFUvSi9yYTZKdEtZb0MxdDlzZ1NKK3A1K3NqMGxjY2dkcXUzZ3Zkbktk?=
- =?utf-8?B?RjJNcjdacHJiV3BnNmdUZlhYWjhlb09FZWlqUUVJR3dEazJhTHg4R0xuUjZG?=
- =?utf-8?B?QXRNT0dvc2Juckk0L0dKU2dHb1RQWVNCS1VnSlZXVzBjYmJ3L2VSU29SRW41?=
- =?utf-8?B?YXI4enllTnJhS05xVm45MWE4L1h4bUZVQnRXWlpYTGFGRUtlUGFTbFpSSlZR?=
- =?utf-8?B?VHZOZWkrQllvTVp4cC92bjgyOTczYktVNUU5ODcxeW5UOWQ3YzJ2MDNNSkhP?=
- =?utf-8?Q?Vu8pkdQiCeJcScmDKyWFXmH67C4bE6qYSFi/NcD?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tvmxYJoNBhfbNhxfrGt5Qor6xlS7vaxV3nFDToahQVOp3LthdxywywvL71Qf?=
+ =?us-ascii?Q?kvoDzWGSyZQgZe10TWLvXKHGjmnZ/zHzkxXL7w/nkUbbExbkFnuNZHieaq3O?=
+ =?us-ascii?Q?Y3aPvMCY4Ffhwsersb2AvvV6zDCHVWyn+56MyIQzmc6xijXr5ikvel8J3Opb?=
+ =?us-ascii?Q?LNa3HyNcJFBVsZyYL/BaZEJVziDsOsguFv2DiMSw5OZavb3QfRE3kthSmFBm?=
+ =?us-ascii?Q?O4Axb5PbuujRdmUz0r7KRpxPdIu6Rcl/nPQ/jRBMQNvI6KZH7nkh5+9Lq1Sd?=
+ =?us-ascii?Q?fKh4iFeP/l8rPetp1NY+jgZRiCa7avICTIoQQsFFFLdl3QmsV5Dh7UiyNMLE?=
+ =?us-ascii?Q?xu08mx36TKlTWalVFu7IJoLTl01gP/nRP1lQRAVGbr8y5DGYpyKhDGgI1CIk?=
+ =?us-ascii?Q?XqfweeOTzE1xfUCdBxN8xnOJmYFSJYI4AVgwjbGN7ylMfhRrqNBWQQMOXh8M?=
+ =?us-ascii?Q?IQHKK4IRvy71GNLVTqYZlVkn5vQweMnzkNMeoWjpwFfOAgaZEXh++qdaWXuP?=
+ =?us-ascii?Q?SEWT/MBfT19jpYDci0WucOnShL1rQ8ZsxAvQkc5owIVr+/Z6SGHwXIV/YeKG?=
+ =?us-ascii?Q?+nXNl6pD+zWO5aWHjPDj+Tlc1U1NjRXke8dw6Nr1s7z6vlco0QYQUn++8Wrb?=
+ =?us-ascii?Q?I9bMOP5wxw5KISToY2bCj4wGvU1V43AALbyiS5in8PNIhTn2LmPOLrjte4PF?=
+ =?us-ascii?Q?81e4HS/kkHiRZ2T3BYsacu+esD2klgnCML4t4abonD/hler7vbdWyeZD8UNC?=
+ =?us-ascii?Q?w432kM0GRERTLIuuiVl1H8cBUYhhQ2u22L99X673ih3bbiHi9MVrepplyyfh?=
+ =?us-ascii?Q?3j2T2SzjFXMxC7CSlxjRvUNIZLj0+MCsGfaFRLtHZn0kgMQIyeu+wh2jcff7?=
+ =?us-ascii?Q?GiV6F+sj8LMCJxpzdBm9vKUmKaTP6+O6KYManG+p91upVPZRsayEJvGHjhFM?=
+ =?us-ascii?Q?5evFOA0wHAQMvF2iWnPebmapF1MkEFo/MGy1h+LY8VSOA5UBmykGnORW7tnY?=
+ =?us-ascii?Q?j1JskdkUkojBo3KhrUzehwm56NnMZlx9zTaDGnlW6q4puALX4zAe379+p9VF?=
+ =?us-ascii?Q?/SUIxJ8RGtKaYjryWGhjBp2u7Y8FZtmvrnUkOHMLSMwBNi0XA15y8k92oM6X?=
+ =?us-ascii?Q?p/6+v3Z96GeFnESw0k7bo+vz623230jN+ak+u2gVE6w6Daosqdf9A8LbGNZ0?=
+ =?us-ascii?Q?X8xdQpkesvk6mShe6LDyql1LdxlkcT1ZPOzyNQlOQH0wAIXiHjBALCqEfsJH?=
+ =?us-ascii?Q?EzxwqCj+d8gQ7uF/LCTnLM8biq8hFGbDNOx0eC4Jg2E52I8bpLflWwks4U2O?=
+ =?us-ascii?Q?5H5+dgTJm7zIIgR2mJhaCR3S?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB5263CF8C314A5B7092F6AF71EEB69DM4PR12MB5263namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63302098-763b-4051-60b3-08d98d8e1ff8
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 14:39:41.3209 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +dLG/+3EI9A/1A4lLnJ9+kQ0pDwwNXBhUb+2tQjZQxkCkC2X1nVc0MvznGKtCflSgAGkYs5Sykp11ZulrOddHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5396
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5263.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02a6c8c0-601a-4192-d699-08d98d95f5d0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2021 15:35:46.1780 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YeqbedAu0gnKWosDXZdtltz4noa8d4cHCHJxAfvu98KgIKRPCretChbaQMbknLLAB6i5KEAQB1d9FRN1wndPvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5327
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,87 +136,401 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-10-11 11:16, Simon Ser wrote:
-> Commit ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when
-> using overlay") changed the atomic validation code to forbid the
-> overlay plane from being used if it doesn't cover the whole CRTC. The
-> motivation is that ChromeOS uses the atomic API for everything except
-> the cursor plane (which uses the legacy API). Thus amdgpu must always
-> be prepared to enable/disable/move the cursor plane at any time without
-> failing (or else ChromeOS will trip over).
-> 
-> As discussed in [1], there's no reason why the ChromeOS limitation
-> should prevent other fully atomic users from taking advantage of the
-> overlay plane. Let's limit the check to ChromeOS.
-> 
-> v4: fix ChromeOS detection (Harry)
-> 
-> v5: fix conflict with linux-next
-> 
-> [1]: https://lore.kernel.org/amd-gfx/JIQ_93_cHcshiIDsrMU1huBzx9P9LVQxucx8hQArpQu7Wk5DrCl_vTXj_Q20m_L-8C8A5dSpNcSJ8ehfcCrsQpfB5QG_Spn14EYkH9chtg0=@emersion.fr/>> 
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Sean Paul <seanpaul@chromium.org>
-> Fixes: ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when using overlay")
+--_000_DM4PR12MB5263CF8C314A5B7092F6AF71EEB69DM4PR12MB5263namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+[AMD Official Use Only]
 
-Harry
+Thanks Tao.
+I will add a comment as you suggested before committing the change.
 
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +++++++++++++++++++
->  1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index f35561b5a465..2eeda1fec506 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10594,6 +10594,31 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
->  }
->  #endif
->  
-> +static bool is_chromeos(void)
-> +{
-> +	struct mm_struct *mm = current->mm;
-> +	struct file *exe_file;
-> +	bool ret;
-> +
-> +	/* ChromeOS renames its thread to DrmThread. Also check the executable
-> +	 * name. */
-> +	if (strcmp(current->comm, "DrmThread") != 0 || !mm)
-> +		return false;
-> +
-> +	rcu_read_lock();
-> +	exe_file = rcu_dereference(mm->exe_file);
-> +	if (exe_file && !get_file_rcu(exe_file))
-> +		exe_file = NULL;
-> +	rcu_read_unlock();
-> +
-> +	if (!exe_file)
-> +		return false;
-> +	ret = strcmp(exe_file->f_path.dentry->d_name.name, "chrome") == 0;
-> +	fput(exe_file);
-> +
-> +	return ret;
-> +}
-> +
->  static int validate_overlay(struct drm_atomic_state *state)
->  {
->  	int i;
-> @@ -10601,6 +10626,10 @@ static int validate_overlay(struct drm_atomic_state *state)
->  	struct drm_plane_state *new_plane_state;
->  	struct drm_plane_state *primary_state, *overlay_state = NULL;
->  
-> +	/* This is a workaround for ChromeOS only */
-> +	if (!is_chromeos())
-> +		return 0;
-> +
->  	/* Check if primary plane is contained inside overlay */
->  	for_each_new_plane_in_state_reverse(state, plane, new_plane_state, i) {
->  		if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
-> 
+Regards,
+Mukul
 
+From: Zhou1, Tao <Tao.Zhou1@amd.com>
+Sent: Monday, October 11, 2021 11:55 PM
+To: Joshi, Mukul <Mukul.Joshi@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Clements, John <John.Clements@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix RAS page retirement with mode2 res=
+et on Aldebaran
+
+
+[AMD Official Use Only]
+
+The patch looks good for me, but it's better to add comment in amdgpu_regis=
+ter_bad_pages_mca_notifier to explain why we need to reserve GPU info inste=
+ad of using mgpu_info list, with this addressed, the patch is:
+
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com<mailto:tao.zhou1@amd.com>>
+
+________________________________
+From: Joshi, Mukul <Mukul.Joshi@amd.com<mailto:Mukul.Joshi@amd.com>>
+Sent: Tuesday, October 12, 2021 10:33 AM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Clements, Joh=
+n <John.Clements@amd.com<mailto:John.Clements@amd.com>>; Joshi, Mukul <Muku=
+l.Joshi@amd.com<mailto:Mukul.Joshi@amd.com>>
+Subject: [PATCH 2/2] drm/amdgpu: Fix RAS page retirement with mode2 reset o=
+n Aldebaran
+
+During mode2 reset, the GPU is temporarily removed from the
+mgpu_info list. As a result, page retirement fails because it
+cannot find the GPU in the GPU list.
+To fix this, create our own list of GPUs that support MCE notifier
+based page retirement and use that list to check if the UMC error
+occurred on a GPU that supports MCE notifier based page retirement.
+
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com<mailto:mukul.joshi@amd.com>=
+>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index e8875351967e..e8d88c77eb46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -112,7 +112,12 @@ static bool amdgpu_ras_check_bad_page_unlock(struct am=
+dgpu_ras *con,
+ static bool amdgpu_ras_check_bad_page(struct amdgpu_device *adev,
+                                 uint64_t addr);
+ #ifdef CONFIG_X86_MCE_AMD
+-static void amdgpu_register_bad_pages_mca_notifier(void);
++static void amdgpu_register_bad_pages_mca_notifier(struct amdgpu_device *a=
+dev);
++struct mce_notifier_adev_list {
++       struct amdgpu_device *devs[MAX_GPU_INSTANCE];
++       int num_gpu;
++};
++static struct mce_notifier_adev_list mce_adev_list;
+ #endif
+
+ void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, bool rea=
+dy)
+@@ -2108,7 +2113,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *ad=
+ev)
+ #ifdef CONFIG_X86_MCE_AMD
+         if ((adev->asic_type =3D=3D CHIP_ALDEBARAN) &&
+             (adev->gmc.xgmi.connected_to_cpu))
+-               amdgpu_register_bad_pages_mca_notifier();
++               amdgpu_register_bad_pages_mca_notifier(adev);
+ #endif
+         return 0;
+
+@@ -2605,24 +2610,18 @@ void amdgpu_release_ras_context(struct amdgpu_devic=
+e *adev)
+ #ifdef CONFIG_X86_MCE_AMD
+ static struct amdgpu_device *find_adev(uint32_t node_id)
+ {
+-       struct amdgpu_gpu_instance *gpu_instance;
+         int i;
+         struct amdgpu_device *adev =3D NULL;
+
+-       mutex_lock(&mgpu_info.mutex);
+-
+-       for (i =3D 0; i < mgpu_info.num_gpu; i++) {
+-               gpu_instance =3D &(mgpu_info.gpu_ins[i]);
+-               adev =3D gpu_instance->adev;
++       for (i =3D 0; i < mce_adev_list.num_gpu; i++) {
++               adev =3D mce_adev_list.devs[i];
+
+-               if (adev->gmc.xgmi.connected_to_cpu &&
++               if (adev && adev->gmc.xgmi.connected_to_cpu &&
+                     adev->gmc.xgmi.physical_node_id =3D=3D node_id)
+                         break;
+                 adev =3D NULL;
+         }
+
+-       mutex_unlock(&mgpu_info.mutex);
+-
+         return adev;
+ }
+
+@@ -2718,8 +2717,9 @@ static struct notifier_block amdgpu_bad_page_nb =3D {
+         .priority       =3D MCE_PRIO_UC,
+ };
+
+-static void amdgpu_register_bad_pages_mca_notifier(void)
++static void amdgpu_register_bad_pages_mca_notifier(struct amdgpu_device *a=
+dev)
+ {
++       mce_adev_list.devs[mce_adev_list.num_gpu++] =3D adev;
+         /*
+          * Register the x86 notifier only once
+          * with MCE subsystem.
+--
+2.33.0
+
+--_000_DM4PR12MB5263CF8C314A5B7092F6AF71EEB69DM4PR12MB5263namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
+	{mso-style-name:msipheadera4477989;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks Tao.<o:p></o:p></p>
+<p class=3D"MsoNormal">I will add a comment as you suggested before committ=
+ing the change.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Mukul<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt; <b=
+r>
+<b>Sent:</b> Monday, October 11, 2021 11:55 PM<br>
+<b>To:</b> Joshi, Mukul &lt;Mukul.Joshi@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org<br>
+<b>Cc:</b> Clements, John &lt;John.Clements@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Fix RAS page retirement with mo=
+de2 reset on Aldebaran<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">The pat=
+ch looks good for me, but it's better to add comment in&nbsp;amdgpu_registe=
+r_bad_pages_mca_notifier to explain why we need to reserve GPU info instead=
+ of using mgpu_info list, with this addressed,
+ the patch is:<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black;backgrou=
+nd:white">Reviewed-by: Tao Zhou &lt;</span><span style=3D"font-size:12.0pt;=
+color:black"><a href=3D"mailto:tao.zhou1@amd.com" target=3D"_blank"><span s=
+tyle=3D"background:white">tao.zhou1@amd.com</span></a><span style=3D"backgr=
+ound:white">&gt;</span><o:p></o:p></span></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Joshi, Mukul &lt;<a href=3D"mailto:Mukul.Joshi@amd.=
+com">Mukul.Joshi@amd.com</a>&gt;<br>
+<b>Sent:</b> Tuesday, October 12, 2021 10:33 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao.Zhou1@am=
+d.com</a>&gt;; Clements, John &lt;<a href=3D"mailto:John.Clements@amd.com">=
+John.Clements@amd.com</a>&gt;; Joshi, Mukul &lt;<a href=3D"mailto:Mukul.Jos=
+hi@amd.com">Mukul.Joshi@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: Fix RAS page retirement with mode2 =
+reset on Aldebaran</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">During mode2 reset, t=
+he GPU is temporarily removed from the<br>
+mgpu_info list. As a result, page retirement fails because it<br>
+cannot find the GPU in the GPU list.<br>
+To fix this, create our own list of GPUs that support MCE notifier<br>
+based page retirement and use that list to check if the UMC error<br>
+occurred on a GPU that supports MCE notifier based page retirement.<br>
+<br>
+Signed-off-by: Mukul Joshi &lt;<a href=3D"mailto:mukul.joshi@amd.com">mukul=
+.joshi@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 24 ++++++++++++------------=
+<br>
+&nbsp;1 file changed, 12 insertions(+), 12 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c<br>
+index e8875351967e..e8d88c77eb46 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+@@ -112,7 +112,12 @@ static bool amdgpu_ras_check_bad_page_unlock(struct am=
+dgpu_ras *con,<br>
+&nbsp;static bool amdgpu_ras_check_bad_page(struct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr);<br>
+&nbsp;#ifdef CONFIG_X86_MCE_AMD<br>
+-static void amdgpu_register_bad_pages_mca_notifier(void);<br>
++static void amdgpu_register_bad_pages_mca_notifier(struct amdgpu_device *a=
+dev);<br>
++struct mce_notifier_adev_list {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *devs[MAX_GPU_IN=
+STANCE];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int num_gpu;<br>
++};<br>
++static struct mce_notifier_adev_list mce_adev_list;<br>
+&nbsp;#endif<br>
+&nbsp;<br>
+&nbsp;void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, boo=
+l ready)<br>
+@@ -2108,7 +2113,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *ad=
+ev)<br>
+&nbsp;#ifdef CONFIG_X86_MCE_AMD<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;asic_type =
+=3D=3D CHIP_ALDEBARAN) &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (a=
+dev-&gt;gmc.xgmi.connected_to_cpu))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_register_bad_pages_mca_notifier();<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_register_bad_pages_mca_notifier(adev);<br>
+&nbsp;#endif<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+@@ -2605,24 +2610,18 @@ void amdgpu_release_ras_context(struct amdgpu_devic=
+e *adev)<br>
+&nbsp;#ifdef CONFIG_X86_MCE_AMD<br>
+&nbsp;static struct amdgpu_device *find_adev(uint32_t node_id)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_gpu_instance *gpu_insta=
+nce;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D NULL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;mgpu_info.mutex);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; mgpu_info.num_gp=
+u; i++) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gpu_instance =3D &amp;(mgpu_info.gpu_ins[i]);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev =3D gpu_instance-&gt;adev;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; mce_adev_list.nu=
+m_gpu; i++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev =3D mce_adev_list.devs[i];<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (adev-&gt;gmc.xgmi.connected_to_cpu &amp;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (adev &amp;&amp; adev-&gt;gmc.xgmi.connected_to_cpu &amp;&amp=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.xgmi.physical_no=
+de_id =3D=3D node_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev =3D NULL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;mgpu_info.mutex);<b=
+r>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return adev;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -2718,8 +2717,9 @@ static struct notifier_block amdgpu_bad_page_nb =3D {=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .priority&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; =3D MCE_PRIO_UC,<br>
+&nbsp;};<br>
+&nbsp;<br>
+-static void amdgpu_register_bad_pages_mca_notifier(void)<br>
++static void amdgpu_register_bad_pages_mca_notifier(struct amdgpu_device *a=
+dev)<br>
+&nbsp;{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mce_adev_list.devs[mce_adev_list.num_=
+gpu++] =3D adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Register the x86 n=
+otifier only once<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * with MCE subsystem=
+.<br>
+-- <br>
+2.33.0<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB5263CF8C314A5B7092F6AF71EEB69DM4PR12MB5263namp_--
