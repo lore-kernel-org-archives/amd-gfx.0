@@ -2,76 +2,123 @@ Return-Path: <SRS0=oPsV=PA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BDFDC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 07:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9FA0C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 07:56:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2275760EE5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 07:18:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2275760EE5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9517360F92
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 07:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9517360F92
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA76289F89;
-	Tue, 12 Oct 2021 07:18:29 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE2789F89
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 07:18:28 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id m22so63936140wrb.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 00:18:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language;
- bh=Z4AZ8sVEIdMS2pqASqZylzlPbybmJYpnArQn8oq+Lbc=;
- b=m1r/yZt7U/UdYSUmVMJTMBq4+OK7cE8dCUN29OO8OZRzmenNDK7eDF1Z3TEiySNn/1
- 3d88djOxCsoUueVJbMlEFu6cMoCUqJnwPEhSmwMO9harx4NZzhY8zQA9HkbS27eoLxdC
- hpbnq25tDHlCg0DFpiAUmKrr9I+x6EfWBGDCwHdcBi9z/c3J86ms5Xbp6qwacfg+AwJi
- jT5C896dWGnyDak3cWgPGdTzhdV04QXBDZjPffSNxTumyGNUrBQCJialbQvIFGZuWXiP
- k/ycOsWzPzprySgBC6W1WugUPPFSFIqHlArK0J5lBY40Md3fLVbTiZNIjC5UTIc28ZeY
- 2hYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=Z4AZ8sVEIdMS2pqASqZylzlPbybmJYpnArQn8oq+Lbc=;
- b=D8Pa5T3mw98Yelrmr2uWvBijgA2JMEGhcbO7XHNeRLUd10jxoDTij6cTv1jHdCwcfK
- GTYqmP97DhXvu0JvNyj3FD69quEUCa2PVQMhVwZ/mbEsIcsBKRIVcWkb8LdXpoFMkAPJ
- TTA+ZwGQjqUnjNCaR+Uz6tilrfO2jE9//thD28M5388bsHLIYXJxsRVHbkXOqTgupZ7T
- hc/erG063owMrLyj2WPobXh7ZtlUq+7ypGvf4O3EuZXL1tQQ7ULoVYFdRa6m7K3+xfwi
- SsddW23HC6ZPNNymXJ6a5IVXv6pcbuRsc89HyNioyTa4GsEohmDl1eSuM7N7lUUbieuC
- XgeQ==
-X-Gm-Message-State: AOAM530g7SyBmMIO9/YMjo+7Ej5hM78Sg8LrlhHryJZcZZ0LrcoKr5my
- DnklOiPrYQkY1vXbccqINB9q49UC2zM=
-X-Google-Smtp-Source: ABdhPJyq8NNYnq5hSN0bFbJ+m9H7L8Y+AG+6v01fD+RNTcBcDGDdWF+DRE54VI9UOpykAMxwVrlUtw==
-X-Received: by 2002:adf:a154:: with SMTP id r20mr30704416wrr.326.1634023107429; 
- Tue, 12 Oct 2021 00:18:27 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:87c8:f860:ca5d:9823?
- ([2a02:908:1252:fb60:87c8:f860:ca5d:9823])
- by smtp.gmail.com with ESMTPSA id n15sm10003716wrg.58.2021.10.12.00.18.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Oct 2021 00:18:26 -0700 (PDT)
-Subject: Re: Fwd: [PATCH] Size can be any value and is user controlled
- resulting in overwriting the 40 byte array wr_buf with an arbitrary length of
- data from buf.
-To: "T. Williams" <tdwilliamsiv@gmail.com>, airlied@linux.ie,
- daniel@ffwll.ch, Wayne.Lin@amd.com, mikita.lipski@amd.com,
- Nicholas.Kazlauskas@amd.com, stylon.wang@amd.com, eryk.brol@amd.com,
- Jerry.Zuo@amd.com, victorchengchi.lu@amd.com, aurabindo.pillai@amd.com,
- nirmoy.das@amd.com, Anson.Jacob@amd.com, amd-gfx@lists.freedesktop.org
-References: <20211011202158.GA19208@t>
- <CADN=F_muAvmp6NcDnMgPGpTtz75KH2hhv3jbiWuW+Zz35Hc-Kw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <76a1cb8c-c1a9-b052-9e41-1738aaf94bfa@gmail.com>
-Date: Tue, 12 Oct 2021 09:18:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <CADN=F_muAvmp6NcDnMgPGpTtz75KH2hhv3jbiWuW+Zz35Hc-Kw@mail.gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------FE4A381890E874BC37901A32"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B8876E7D2;
+	Tue, 12 Oct 2021 07:56:38 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2084.outbound.protection.outlook.com [40.107.212.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A05816E7D2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 07:56:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K4gcDxqz53SO4E0wwW2GMXzFjK3DL4v+XH6eLS57wgoHvVjd9k7a+elEuTeTJBOBuKh57sBgqzwe5WmrRHdhRCwNFDJJnjYj/Hk4+KBxWB21qB7vUupvx843R1tw4xc/zvcnkr3VAZSPn+TG2+fyCj/m94N8sLTFKv0IMxUp9gTgXwn6y/LPmnY7/5jp9slfO9kLwlS4rNPABskFrMK+9igkpsOyALUodzHUDF3exNjJ6h1iwIdkynRYa1im1nTUbfAnYeAf0Dw88jhyrwqrF5CFYLCZ//hxi2GQS3NWLLwFUkrFJ5mVtWgLRSquPho1dIHUL7p/tvq1EoLNqi4QsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lnurBhhr+5XBkGaFZLv1WVW4ADIofIo6rKQlOg6qHY0=;
+ b=oc5wjXPBDwOwDj1tXVvJo/c9S/N9jOE0BoBKYxjijYGwsBoQSWXDUDFSWYWtVrHY68D99S2oesS8D30xTAX9SQ67A3ev7kKV1UBUSYLP9pb7LeQtsXN6wgoiA2X0YKZ770VwBnNb+nv2N3hTNBwB+lqI+hn80kR2odGX+OsbdLTnCBWS4Bvo/+/fhrs/4YkQeOuCg3knW+53Fk2pPF+3TVwkn8fuPkDshx5ZdwvEJmaw39wNCDWD5LQZqiH6j5L5VL2KzYozOUd2bab2xcA/YW5M3rgYrCP8k7FaUS8Ujtuzlky3Uc7xkUbGkWKp505RNcFpCZDOlNlCSRM5kJiMog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lnurBhhr+5XBkGaFZLv1WVW4ADIofIo6rKQlOg6qHY0=;
+ b=DWjX1HveFowJDApvB4n5VyibxLSFQ7fYFcI3stCT0ZTJSCKBEzi2AM8/zt4f/nMbq67Y40pS/O2SaHTQqk5iCcdbvG218/S0lsZ8M28rmJyJwm3QLc24LSMG4XWrdrhD0smv5VesEVtAaTKH5ZndExitnpboUyueVuu5eSFs7AE=
+Received: from CY4PR1201MB0246.namprd12.prod.outlook.com
+ (2603:10b6:910:23::16) by CY4PR1201MB0183.namprd12.prod.outlook.com
+ (2603:10b6:910:20::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.24; Tue, 12 Oct
+ 2021 07:56:34 +0000
+Received: from CY4PR1201MB0246.namprd12.prod.outlook.com
+ ([fe80::91ce:4fae:eca6:9456]) by CY4PR1201MB0246.namprd12.prod.outlook.com
+ ([fe80::91ce:4fae:eca6:9456%9]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
+ 07:56:34 +0000
+From: "Huang, Ray" <Ray.Huang@amd.com>
+To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liu, Charlene"
+ <Charlene.Liu@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: enable display for cyan skillfish
+Thread-Topic: [PATCH] drm/amdgpu: enable display for cyan skillfish
+Thread-Index: AQHXvzCwrfprOXvAfkWY6fvGWgtAp6vO/e+A
+Date: Tue, 12 Oct 2021 07:56:33 +0000
+Message-ID: <CY4PR1201MB02461A6C6C1556665D787E99ECB69@CY4PR1201MB0246.namprd12.prod.outlook.com>
+References: <20211012061605.809634-1-lang.yu@amd.com>
+In-Reply-To: <20211012061605.809634-1-lang.yu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-12T07:56:30Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=2ec7421d-549e-4470-928b-4c264d1a087b;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: ce094777-23c6-4ba1-3f57-08d98d55cf62
+x-ms-traffictypediagnostic: CY4PR1201MB0183:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR1201MB0183B9469FAF6A8CF64BC711ECB69@CY4PR1201MB0183.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:765;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: h0my7gmummX3QguafGQHYGo1rG9HGfTf1eiKZTOIB96CR42edm6t08gWt5/7JLqBE0MRxT4f9s9xgtQ5tQvnhLe+687y2zGgiRI88puFXFf5JTgSGkbsUcx2qKqboG88JTj51KEs4/+KiF/ckeTX3M+OU7AFK3D+2oCMkbuxmwZdEMGeKI710wfOL/GuhvmSiYMSVuZtPc9dkbqwKiOCwSxN2OAij90zcDy65d6P2sBmCcfpQMA3bOnugJaikqES2dy42zHSDSfQUqfyUaKYsUDVdlqShJzU1cFtJincgIhHOhVAZtxFAwLx8PwwrHZPW6lPNGWQ7da7s7hgVwUVSfUfIYBm4eLQN6PxSF/y/vV0p//DFUf5KttrXL3aFTsUQy0fO4QRmEAgDflv9CmZyc45CKc+OeVaax9lxbMLMS45dlwFD/q+x2ELYSmCAnrbK0HgV5WOB2aRgdfhJN4cD9BUbPnPQnRBiBKb/vzZCfHp/Wf6xiB+iVRpdPwFOP4XzwReG/VKy6iPqkF2rlEIyjWxBgwzI2fWsD4rDofZq5DX8ZkhB4MWchONsZ1n+7sAgUNCNwDQPrlduBUvHcip0kqI1An7hOfxyMG1CEQxrVVZNkN5VdCCWi7yzlAyLBD3gU1WRJ+QiBBp1HDROtdz/Qn6Bgs4EfhIcoWTQFVp63wBeAzFZPSl4KEvcH10sRcSDveAgliEqozHxXczk77xVg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR1201MB0246.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66946007)(38070700005)(64756008)(54906003)(316002)(110136005)(4326008)(2906002)(76116006)(66446008)(83380400001)(8676002)(7696005)(86362001)(71200400001)(66476007)(66556008)(122000001)(38100700002)(8936002)(26005)(52536014)(508600001)(55016002)(5660300002)(9686003)(33656002)(186003)(53546011)(6506007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7wBOgFMgZoc0qWQzDGhl43HLtKBwNJFMuAAWw3hlyiQzJK4tDSr7I9gIm9IT?=
+ =?us-ascii?Q?noX46QlOUrP28GnmJPIHKdQqKNDH57bFPUdGzGSyZXi4t1kKAgSQOt5Pk7FI?=
+ =?us-ascii?Q?RxM4WHT8P2VF7J3329i3OoJP5FhX8tmu5yAoQ15ZkuiXuOAm1UJgYJPgtmJJ?=
+ =?us-ascii?Q?kUxE7O7pw8y5AMfWP+I0HsRr89LazlYKevtPXGO4kmpN5ndwvseUedM4vPEA?=
+ =?us-ascii?Q?tJZRSbvnR5m1RZJIiAbqehXlYGLBpgLkJKxHU1PPc7aTu4t4Y5wjvJeTxslM?=
+ =?us-ascii?Q?z1Go2y4eb0OzzZtNrlqp7D2IiZZ/xIDY3zF6rxov9LWi8sPIEecXr8e+kXI5?=
+ =?us-ascii?Q?DmioTxYtmJ5GxjF4snHo0z9N4z0V4kS1LRpD92sXVSg/AF+el1cZk44iPmsf?=
+ =?us-ascii?Q?2RxrTun1Z9CezOPMrK/69Em/gNJmlzgiGHXNZYCtwhXGPEseBlsNzaanTqsW?=
+ =?us-ascii?Q?VyqnXZj/x6GGRzuMRZIr1zhnw8Ik7ryO1FrxdCVXrLD0AzZMoAHImr1hQy7I?=
+ =?us-ascii?Q?Kc5+X/WUwDUfOBHfsq06gd9r3AJupQacboUZTsmbezZkkuRSLGMaiWhhfEHb?=
+ =?us-ascii?Q?L+a7kBqIZsFRxTa3CmTiD54c8I7TDyG0itQm6LFXsgbwi/e8D6GCDzQ2eyzr?=
+ =?us-ascii?Q?i/jUv6hnUJQflcmkjiLumgnN5taQrI7hAmrC+NlO+eNmAW7zMJrSqgBy/PRE?=
+ =?us-ascii?Q?bknxizQNmTmW1srR1ggrIwh9dTfcXchR/VXA5+spLMNRsV5z+CkeX392EZEu?=
+ =?us-ascii?Q?Im/bWVp7fjOKqZAnIBy3zrLKV98Hb1bjsjIaHY73rqm12QL+YgzSOK4xzrDP?=
+ =?us-ascii?Q?w6r8fEQprP4qHpUk2nhM3qzb7x4A1aC8xSZKpaRrL6sCgoU+L/1WoDb1zscs?=
+ =?us-ascii?Q?32Pch7Npqg9B+FBWNj04LSVwYoXkF1YsdbIjuNJFKlxJCzrltncxqms9+90l?=
+ =?us-ascii?Q?lnAbQGWUxWzg6iBi+gNlSjgZefcCeGKfiVEIiJkPBVA4F6g9x0mQZlBcTLw3?=
+ =?us-ascii?Q?y84Je0Yx+6eaNsUT27Pm+CDSr/Fnev/DhkSq/QaOxCQWOnm010CgV3CowE+I?=
+ =?us-ascii?Q?2iy+TxbMKtnMxN1O+HHASx6yGETlrLm8dI4d2S8PHmaxwqgD8j1AmluAVQOl?=
+ =?us-ascii?Q?NH3Aowo9K5Spi4xyoFeA6pi3X7ogBkBV6VaRCiifufA1jsLs8ov4H8U0O6zq?=
+ =?us-ascii?Q?IXYr8dlruNdq0WYuiai0+NFniEQ+Bvd9htTMA3hFylS1cIHg6QIwE2XI4MSM?=
+ =?us-ascii?Q?sxy3ZSs0dKvFn/5xCO2EuTAi/F+yezuhr9u1DP80u9muZQsNkWvWpNAFt4JH?=
+ =?us-ascii?Q?F+aCamJWZYy7kwXUAnXG/RSd?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR1201MB0246.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce094777-23c6-4ba1-3f57-08d98d55cf62
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2021 07:56:33.8765 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hth+DYi1R5YsfU/2b2vuqpmuRZ9IcdNzkrMB1jp+czpUEOrkCBv7RxCJb+E4qt1P1VJKcuAY2bjZphDCNbcH6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0183
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,174 +133,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------FE4A381890E874BC37901A32
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+[AMD Official Use Only]
 
-Am 11.10.21 um 22:24 schrieb T. Williams:
->
->
-> ---------- Forwarded message ---------
-> From: *docfate111* <tdwilliamsiv@gmail.com 
-> <mailto:tdwilliamsiv@gmail.com>>
-> Date: Mon, Oct 11, 2021 at 4:22 PM
-> Subject: [PATCH] Size can be any value and is user controlled 
-> resulting in overwriting the 40 byte array wr_buf with an arbitrary 
-> length of data from buf.
-> To: <dri-devel@lists.freedesktop.org 
-> <mailto:dri-devel@lists.freedesktop.org>>
-> Cc: <harry.wentland@amd.com <mailto:harry.wentland@amd.com>>, 
-> <sunpeng.li@amd.com <mailto:sunpeng.li@amd.com>>
->
->
-> Signed-off-by: docfate111 <tdwilliamsiv@gmail.com 
-> <mailto:tdwilliamsiv@gmail.com>>
++ Charlene.
 
-While the find might be correct there are a couple of style problems 
-with the patch.
+Reviewed-by: Huang Rui <ray.huang@amd.com>
 
-First of all the subject line must be shorter and should be something 
-like "drm/amdgpu: fix out of bounds write".
+-----Original Message-----
+From: Yu, Lang <Lang.Yu@amd.com>=20
+Sent: Tuesday, October 12, 2021 2:16 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
+md.com>; Yu, Lang <Lang.Yu@amd.com>
+Subject: [PATCH] drm/amdgpu: enable display for cyan skillfish
 
-The detailed description of the bug then comes into the commit message.
+Display support for cyan skillfish is ready now. Enable it!
 
-And finally please use your real name for the Signed-off-by line.
+Signed-off-by: Lang Yu <lang.yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Apart from that good catch,
-Christian.
-
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c 
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index 87daa78a32b8..17f2756a64dc 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -263,7 +263,7 @@ static ssize_t dp_link_settings_write(struct file 
-> *f, const char __user *buf,
->         if (!wr_buf)
->                 return -ENOSPC;
->
-> -       if (parse_write_buffer_into_params(wr_buf, size,
-> +       if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->                                            (long *)param, buf,
->                                            max_param_num,
->                                            &param_nums)) {
-> -- 
-> 2.25.1
->
->
->
-> -- 
-> Thank you for your time,
-> Thelford Williams
-
-
---------------FE4A381890E874BC37901A32
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 11.10.21 um 22:24 schrieb T. Williams:<br>
-    <blockquote type="cite"
-cite="mid:CADN=F_muAvmp6NcDnMgPGpTtz75KH2hhv3jbiWuW+Zz35Hc-Kw@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr"><br>
-        <br>
-        <div class="gmail_quote">
-          <div dir="ltr" class="gmail_attr">---------- Forwarded message
-            ---------<br>
-            From: <b class="gmail_sendername" dir="auto">docfate111</b>
-            <span dir="auto">&lt;<a href="mailto:tdwilliamsiv@gmail.com"
-                moz-do-not-send="true">tdwilliamsiv@gmail.com</a>&gt;</span><br>
-            Date: Mon, Oct 11, 2021 at 4:22 PM<br>
-            Subject: [PATCH] Size can be any value and is user
-            controlled resulting in overwriting the 40 byte array wr_buf
-            with an arbitrary length of data from buf.<br>
-            To: &lt;<a href="mailto:dri-devel@lists.freedesktop.org"
-              moz-do-not-send="true">dri-devel@lists.freedesktop.org</a>&gt;<br>
-            Cc: &lt;<a href="mailto:harry.wentland@amd.com"
-              moz-do-not-send="true">harry.wentland@amd.com</a>&gt;,
-            &lt;<a href="mailto:sunpeng.li@amd.com"
-              moz-do-not-send="true">sunpeng.li@amd.com</a>&gt;<br>
-          </div>
-          <br>
-          <br>
-          Signed-off-by: docfate111 &lt;<a
-            href="mailto:tdwilliamsiv@gmail.com" target="_blank"
-            moz-do-not-send="true">tdwilliamsiv@gmail.com</a>&gt;<br>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    While the find might be correct there are a couple of style problems
-    with the patch.<br>
-    <br>
-    First of all the subject line must be shorter and should be
-    something like "drm/amdgpu: fix out of bounds write".<br>
-    <br>
-    The detailed description of the bug then comes into the commit
-    message.<br>
-    <br>
-    And finally please use your real name for the Signed-off-by line.<br>
-    <br>
-    Apart from that good catch,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CADN=F_muAvmp6NcDnMgPGpTtz75KH2hhv3jbiWuW+Zz35Hc-Kw@mail.gmail.com">
-      <div dir="ltr">
-        <div class="gmail_quote">
-          ---<br>
-           drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 2
-          +-<br>
-           1 file changed, 1 insertion(+), 1 deletion(-)<br>
-          <br>
-          diff --git
-          a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-          b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c<br>
-          index 87daa78a32b8..17f2756a64dc 100644<br>
-          ---
-          a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c<br>
-          +++
-          b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c<br>
-          @@ -263,7 +263,7 @@ static ssize_t
-          dp_link_settings_write(struct file *f, const char __user *buf,<br>
-                  if (!wr_buf)<br>
-                          return -ENOSPC;<br>
-          <br>
-          -       if (parse_write_buffer_into_params(wr_buf, size,<br>
-          +       if (parse_write_buffer_into_params(wr_buf,
-          wr_buf_size,<br>
-                                                     (long *)param, buf,<br>
-                                                     max_param_num,<br>
-                                                     &amp;param_nums)) {<br>
-          -- <br>
-          2.25.1<br>
-          <br>
-        </div>
-        <br clear="all">
-        <br>
-        -- <br>
-        <div dir="ltr" class="gmail_signature"
-          data-smartmail="gmail_signature">
-          <div dir="ltr">
-            <div>Thank you for your time,<br>
-            </div>
-            Thelford Williams<br>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------FE4A381890E874BC37901A32--
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c
+index 2bebd2ce6474..4228c7964175 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -736,6 +736,7 @@ static int amdgpu_discovery_set_display_ip_blocks(struc=
+t amdgpu_device *adev)
+ 		case IP_VERSION(1, 0, 1):
+ 		case IP_VERSION(2, 0, 2):
+ 		case IP_VERSION(2, 0, 0):
++		case IP_VERSION(2, 0, 3):
+ 		case IP_VERSION(2, 1, 0):
+ 		case IP_VERSION(3, 0, 0):
+ 		case IP_VERSION(3, 0, 2):
+@@ -745,8 +746,6 @@ static int amdgpu_discovery_set_display_ip_blocks(struc=
+t amdgpu_device *adev)
+ 		case IP_VERSION(3, 1, 3):
+ 			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+ 			break;
+-		case IP_VERSION(2, 0, 3):
+-			break;
+ 		default:
+ 			return -EINVAL;
+ 		}
+--=20
+2.25.1
