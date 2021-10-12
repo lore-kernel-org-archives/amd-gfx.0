@@ -2,49 +2,49 @@ Return-Path: <SRS0=oPsV=PA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48724C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 09:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C40C0C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 09:16:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8340761039
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 09:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8340761039
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id 73D9960EFE
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Oct 2021 09:16:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 73D9960EFE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3041C6E81F;
-	Tue, 12 Oct 2021 09:08:36 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56AEB6E81F
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 09:08:34 +0000 (UTC)
-Received: from [192.168.0.2] (ip5f5ae924.dynamic.kabel-deutschland.de
- [95.90.233.36])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id BA4A561E64761;
- Tue, 12 Oct 2021 11:08:32 +0200 (CEST)
-Subject: Re: [PATCH v5] amd/display: only require overlay plane to cover whole
- CRTC on ChromeOS
-To: Simon Ser <contact@emersion.fr>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <hwentlan@amd.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF506E824;
+	Tue, 12 Oct 2021 09:16:04 +0000 (UTC)
+Received: from mail-4022.proton.ch (mail-4022.proton.ch [185.70.40.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36486E824
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Oct 2021 09:16:02 +0000 (UTC)
+Date: Tue, 12 Oct 2021 09:15:56 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1634030160;
+ bh=QZW3z27uTjk7iq1mE4l0Td3zpbgtO4lx9r20xXMvZBQ=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=OxXkrvIIhUrTXokMzEe7uZ3DAyYDQ9cTydVQfi4OdV9POrbQ2wx7ZG+ahdhxrIF7Q
+ I0P9KNkCIqwimpdmRo1FYQMWhrC5Qb0TdtLHabNsXrY9JYHR8tk/UZbFNf/k6onWR2
+ EOe89yr7fk8LcrbyISI+t7KGIImPE5SgvSPSKhMNUY0nX0+aiaFG535sNV5D2udt+8
+ BjPKYFxlE/J5JHpBGrmZOcnSwgutYL7o5vDAe0fFtqUCDdClEC7EsQ8f3QirGDNCil
+ CtmIs6oab8XmJZ7wwCBp1vl0dTIfESPeSk0b4M3RvIeVIkS4sn0z6ugSRDrSKRYok2
+ YJ7EuyX+iQ4hg==
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+From: Simon Ser <contact@emersion.fr>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
  Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Sean Paul <seanpaul@chromium.org>, amd-gfx@lists.freedesktop.org
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v5] amd/display: only require overlay plane to cover whole
+ CRTC on ChromeOS
+Message-ID: <L-g5Eua556aLUOp3ikTg8s3Te9CMSKsDoO14SNj3-A7yn0jRNgzGovqdBFKgpKavD_LtHh6Yeig8FOO_kLG9uCcFxP5887tZWH3NROlQtyY=@emersion.fr>
+In-Reply-To: <0ad9c8ef-974f-8b94-d8c9-35efd9f1f1b3@molgen.mpg.de>
 References: <20211011151609.452132-1-contact@emersion.fr>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Message-ID: <0ad9c8ef-974f-8b94-d8c9-35efd9f1f1b3@molgen.mpg.de>
-Date: Tue, 12 Oct 2021 11:08:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ <0ad9c8ef-974f-8b94-d8c9-35efd9f1f1b3@molgen.mpg.de>
 MIME-Version: 1.0
-In-Reply-To: <20211011151609.452132-1-contact@emersion.fr>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,109 +56,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Simon Ser <contact@emersion.fr>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Simon,
+On Tuesday, October 12th, 2021 at 11:08, Paul Menzel <pmenzel@molgen.mpg.de=
+> wrote:
 
+> > the cursor plane (which uses the legacy API). Thus amdgpu must always
+> > be prepared to enable/disable/move the cursor plane at any time without
+> > failing (or else ChromeOS will trip over).
+>
+> What ChromeOS version did you test with? Are there plans to improve
+> ChromeOS?
 
-Am 11.10.21 um 17:16 schrieb Simon Ser:
-> Commit ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when
-> using overlay") changed the atomic validation code to forbid the
-> overlay plane from being used if it doesn't cover the whole CRTC. The
-> motivation is that ChromeOS uses the atomic API for everything except
+No idea, I haven't received feedback from the ChromeOS folks.
 
-s/motivation/problem/
+> > As discussed in [1], there's no reason why the ChromeOS limitation
+> > should prevent other fully atomic users from taking advantage of the
+> > overlay plane. Let's limit the check to ChromeOS.
+>
+> How do we know, no other userspace programs are affected, breaking
+> Linux=E2=80=99 no-regression in userspace policy?
 
-> the cursor plane (which uses the legacy API). Thus amdgpu must always
-> be prepared to enable/disable/move the cursor plane at any time without
-> failing (or else ChromeOS will trip over).
+Actually this is the other way around: the ChromeOS fix which landed
+has broken my user-space. This patch tries to fix the situation for
+both ChromeOS and gamescope.
 
-What ChromeOS version did you test with? Are there plans to improve 
-ChromeOS?
+That said, it seems like amdgpu maintainers are open to just revert the
+ChromeOS fix, thus fixing gamescope. ChromeOS can carry the fix in their
+kernel tree. More on that soon.
 
-> As discussed in [1], there's no reason why the ChromeOS limitation
-> should prevent other fully atomic users from taking advantage of the
-> overlay plane. Let's limit the check to ChromeOS.
+> > v4: fix ChromeOS detection (Harry)
+> >
+> > v5: fix conflict with linux-next
+> >
+> > [1]: https://lore.kernel.org/amd-gfx/JIQ_93_cHcshiIDsrMU1huBzx9P9LVQxuc=
+x8hQArpQu7Wk5DrCl_vTXj_Q20m_L-8C8A5dSpNcSJ8ehfcCrsQpfB5QG_Spn14EYkH9chtg0=
+=3D@emersion.fr/
+> >
+> > Signed-off-by: Simon Ser <contact@emersion.fr>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Harry Wentland <hwentlan@amd.com>
+> > Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> > Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> > Cc: Sean Paul <seanpaul@chromium.org>
+> > Fixes: ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when =
+using overlay")
+> > ---
+> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 ++++++++++++++++++=
++
+> >   1 file changed, 29 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index f35561b5a465..2eeda1fec506 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -10594,6 +10594,31 @@ static int add_affected_mst_dsc_crtcs(struct d=
+rm_atomic_state *state, struct drm
+> >   }
+> >   #endif
+> >
+> > +static bool is_chromeos(void)
+> > +{
+> > +=09struct mm_struct *mm =3D current->mm;
+> > +=09struct file *exe_file;
+> > +=09bool ret;
+> > +
+> > +=09/* ChromeOS renames its thread to DrmThread. Also check the executa=
+ble
+> > +=09 * name. */
+> > +=09if (strcmp(current->comm, "DrmThread") !=3D 0 || !mm)
+> > +=09=09return false;
+> > +
+> > +=09rcu_read_lock();
+> > +=09exe_file =3D rcu_dereference(mm->exe_file);
+> > +=09if (exe_file && !get_file_rcu(exe_file))
+> > +=09=09exe_file =3D NULL;
+> > +=09rcu_read_unlock();
+> > +
+> > +=09if (!exe_file)
+> > +=09=09return false;
+> > +=09ret =3D strcmp(exe_file->f_path.dentry->d_name.name, "chrome") =3D=
+=3D 0;
+> > +=09fput(exe_file);
+> > +
+> > +=09return ret;
+> > +}
+> > +
+> >   static int validate_overlay(struct drm_atomic_state *state)
+> >   {
+> >   =09int i;
+> > @@ -10601,6 +10626,10 @@ static int validate_overlay(struct drm_atomic_=
+state *state)
+> >   =09struct drm_plane_state *new_plane_state;
+> >   =09struct drm_plane_state *primary_state, *overlay_state =3D NULL;
+> >
+> > +=09/* This is a workaround for ChromeOS only */
+> > +=09if (!is_chromeos())
+> > +=09=09return 0;
+>
+> I would have expected the check to be the other way around, as no the
+> behavior on non-Chrome OS is changed?
 
-How do we know, no other userspace programs are affected, breaking 
-Linux’ no-regression in userspace policy?
-
-> v4: fix ChromeOS detection (Harry)
-> 
-> v5: fix conflict with linux-next
-> 
-> [1]: https://lore.kernel.org/amd-gfx/JIQ_93_cHcshiIDsrMU1huBzx9P9LVQxucx8hQArpQu7Wk5DrCl_vTXj_Q20m_L-8C8A5dSpNcSJ8ehfcCrsQpfB5QG_Spn14EYkH9chtg0=@emersion.fr/
-> 
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Sean Paul <seanpaul@chromium.org>
-> Fixes: ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when using overlay")
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +++++++++++++++++++
->   1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index f35561b5a465..2eeda1fec506 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10594,6 +10594,31 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
->   }
->   #endif
->   
-> +static bool is_chromeos(void)
-> +{
-> +	struct mm_struct *mm = current->mm;
-> +	struct file *exe_file;
-> +	bool ret;
-> +
-> +	/* ChromeOS renames its thread to DrmThread. Also check the executable
-> +	 * name. */
-> +	if (strcmp(current->comm, "DrmThread") != 0 || !mm)
-> +		return false;
-> +
-> +	rcu_read_lock();
-> +	exe_file = rcu_dereference(mm->exe_file);
-> +	if (exe_file && !get_file_rcu(exe_file))
-> +		exe_file = NULL;
-> +	rcu_read_unlock();
-> +
-> +	if (!exe_file)
-> +		return false;
-> +	ret = strcmp(exe_file->f_path.dentry->d_name.name, "chrome") == 0;
-> +	fput(exe_file);
-> +
-> +	return ret;
-> +}
-> +
->   static int validate_overlay(struct drm_atomic_state *state)
->   {
->   	int i;
-> @@ -10601,6 +10626,10 @@ static int validate_overlay(struct drm_atomic_state *state)
->   	struct drm_plane_state *new_plane_state;
->   	struct drm_plane_state *primary_state, *overlay_state = NULL;
->   
-> +	/* This is a workaround for ChromeOS only */
-> +	if (!is_chromeos())
-> +		return 0;
-
-I would have expected the check to be the other way around, as no the 
-behavior on non-Chrome OS is changed?
-
-> +
-
-Could some log be added, if ChromeOS is detected?
-
->   	/* Check if primary plane is contained inside overlay */
->   	for_each_new_plane_in_state_reverse(state, plane, new_plane_state, i) {
->   		if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
-> 
-
-
-Kind regards,
-
-Paul
+This function performs a check which is only necessary on ChromeOS. On
+non-ChromeOS, this function prevents user-space from using some hardware
+features. The early return ensures non-ChromeOS user-space can use these
+features.
