@@ -2,60 +2,59 @@ Return-Path: <SRS0=F65H=PB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00E40C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB2A1C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:21:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7EB861154
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:20:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7EB861154
+	by mail.kernel.org (Postfix) with ESMTPS id 7E0DB61165
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 18:21:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E0DB61165
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ECDE6EA77;
-	Wed, 13 Oct 2021 18:20:48 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD6E6EA77
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 18:20:46 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- 62-20020a9d0a44000000b00552a6f8b804so4253807otg.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 11:20:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A796EA78;
+	Wed, 13 Oct 2021 18:21:10 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B98B56EA78
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 18:21:08 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ x33-20020a9d37a4000000b0054733a85462so4829891otb.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Oct 2021 11:21:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hiy2L543+OOFHcrIJlhRdDTSEae9Bgj8fBEnl5ZOrBk=;
- b=ZHD7lpBx5uFFXy34Z+WtQLA6Z3qziB3OwW1x7G5nT0EKBVNQCyCyZy/kqI0pBXTtY/
- j4deK0E3WDKHSLOj7FubQsz380PyESSzV1hEmFKBFCkecn9heXVgzoO2OJl+CzFvrdye
- IuvoqYkm80n2rYjcqm5B1SeFbnDcrNQMFQkqouSWE3LBrq/8fI8nOyy65up6sYWpcEOP
- 9irxPXBpzJ4upPPmW8pfJ+9ZspFvg947ZaSZKip5oSA2EwuZHbxI3oKmkBL4U7h7go2A
- WqKk/gi4yvp51NgdslOyWDqugeo8nVxnKpYRtpiZfmhHJFt/pLfHsnw6a+JiN5K+HToS
- TSCA==
+ :cc; bh=6zabzF8Syuf4SA3leJyx4tt3KkIjTF0lHls+vbvw7qw=;
+ b=ci0de0GGLyeDOJ2/4GwyNvO+eECbmQLKO5zGqkhD0njCQDDxo5Vvl+PaJFmQvkY27i
+ nLiUsYjg8sl0RVxgI1p/RviY/CPkUWxDmOf1ywW0rT5QGony8pMFh1hBD982Cn7dxlr4
+ VLSSwMOyLpqazCJaIHFdpFZ+DprHMghy+1CTUh3YXfh6sRvFeH36Qc2DPlxxV1Y+wEsJ
+ vClcMNyt23vj2LVv/sNN1b3uCJOlJeem1xSpq3HwmT8+73oy0tFW12XMKGe3xi4pRTRK
+ B3TJr9gLgec/BYm+X9SrnWlfUXNhIjIvgDhQ+GOJz5ILnH03WHD1RLQ7NlXm4tI1zmc3
+ l5lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=hiy2L543+OOFHcrIJlhRdDTSEae9Bgj8fBEnl5ZOrBk=;
- b=UYyzczuCHz8KeDViiJl5uBxRs8sySJLxwnOK6eIIsmlj9nOn35r9NE9SQuL+OWs1sj
- 7DCipVNvM++JNoC3kfNfYMEnoehffEBvyGqJkIrlfXXfYoPmfpNlPz2w20ghv3QRO0zm
- sJaB2GH3TwJT9dEmcir4PnEykC6RiXb7A5CPjIxXQ1DcHgNGKVRBh61ZIidyoTiKBo4v
- J4R1rg8iMoS7g9wsTrLW7EIZskyLEByYV81gEui5eeMidjwv1BI0LZA6l5Zrjp92zGY/
- y9/pJGkLg9zeYEXYXXnxusbTxSG/6pH74RPj+3kewQhL2yKCsZj8jq1fB5L6IWgGSANc
- etqQ==
-X-Gm-Message-State: AOAM530HmGuGAgplPQj891SIca6VOLhUFL4L9sQaCYCRBvge8ZqBdz4T
- wKR8XGqKqOlHz//aWwP3NQLFBwyGlxiD8IX88y6e+lOducI=
-X-Google-Smtp-Source: ABdhPJxHJRcuQ+j6U7YV3NDzeW8mqzl/OTDTdvtTMJHng5mRT0AYkzlP4GzrCeuei0zesj417Esc6Luuqtz4lXBPT8s=
-X-Received: by 2002:a05:6830:23ac:: with SMTP id
- m12mr644132ots.357.1634149246250; 
- Wed, 13 Oct 2021 11:20:46 -0700 (PDT)
+ bh=6zabzF8Syuf4SA3leJyx4tt3KkIjTF0lHls+vbvw7qw=;
+ b=VAyOluvF0kDm8Wl0u/pwRXwZURzDViGAbW05KfgZ9qvI+aKWgDbDqxZ/JxrBqWDYtR
+ 8Gwi2Zxj0nXuERX1Y8jOsTrUEMV52FELseQXKwY1OXa2RmhXixUWZ1FcF6XwJ/Y193h4
+ W3PEKzlaQavNV15f9KThHqIfzJwABKAPFI2N4jAlm7hGjZ8YIJqt285XBfzwE3NDzG1p
+ xugsSw+pfCJcZSRupalZNzSecOP3UhNuSOlcl3rUwQ0ynlmZW6HDLr9ZSpZyGPYL4jJz
+ wY3oTTI/4l4wTNcg+5ZLRXHIflmWsmGX8rpv2JY3DVtKlAfCZ+0sox/k+BI6uFzidlcw
+ Bszw==
+X-Gm-Message-State: AOAM5327FzGaaZcgKnE9uq4hY20CU8F26IpVRIVOn/dQm4mbDH1uSJBr
+ xHms974wztSiY8DytjV46PVsJGPl5asmWEpNsdT6ninnU+7Y8Q==
+X-Google-Smtp-Source: ABdhPJxhLb7EwQZzNdNDG0cPi79MgPRyYDmuUT+rslwxGVcBqdgur8jcwb3s2MLvtXIwd1OkaWInDt8JljR2wo9pSBs=
+X-Received: by 2002:a9d:718e:: with SMTP id o14mr627788otj.299.1634149268067; 
+ Wed, 13 Oct 2021 11:21:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20211011150217.165699-1-alexander.deucher@amd.com>
-In-Reply-To: <20211011150217.165699-1-alexander.deucher@amd.com>
+References: <20211012155307.1059170-1-alexander.deucher@amd.com>
+ <20211012155307.1059170-2-alexander.deucher@amd.com>
+In-Reply-To: <20211012155307.1059170-2-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Oct 2021 14:20:35 -0400
-Message-ID: <CADnq5_M3PZzbDoiirQ-59BapS0bMPwwTuuyT=ACbTyVd0+6EQw@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/amdkfd: protect hawaii_device_info with
- CONFIG_DRM_AMDGPU_CIK
+Date: Wed, 13 Oct 2021 14:20:57 -0400
+Message-ID: <CADnq5_OtDxiY8NcB40GUVWH+FCTJO72hQxaow2VFgPbU9mzrCA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amdgpu/swsmu: fix is_support_sw_smu() for VEGA20
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -75,36 +74,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Ping on this series.
 
-On Mon, Oct 11, 2021 at 11:02 AM Alex Deucher <alexander.deucher@amd.com> wrote:
+On Tue, Oct 12, 2021 at 11:53 AM Alex Deucher <alexander.deucher@amd.com> wrote:
 >
-> hawaii_device_info is not used when CONFIG_DRM_AMDGPU_CIK is not
-> set.
+> VEGA20 is 11.0.2, but it's handled by powerplay, not
+> swsmu.
 >
+> Fixes: a8967967f6a554 ("drm/amdgpu/amdgpu_smu: convert to IP version checking")
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 064d42acd54e..31e255ba15ed 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -114,6 +114,7 @@ static const struct kfd_device_info raven_device_info = {
->         .num_sdma_queues_per_engine = 2,
->  };
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 4ea7e90ef60d..f5bf3ab0ebad 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -455,6 +455,10 @@ static int smu_get_power_num_states(void *handle,
 >
-> +#ifdef CONFIG_DRM_AMDGPU_CIK
->  static const struct kfd_device_info hawaii_device_info = {
->         .asic_family = CHIP_HAWAII,
->         .asic_name = "hawaii",
-> @@ -133,6 +134,7 @@ static const struct kfd_device_info hawaii_device_info = {
->         .num_xgmi_sdma_engines = 0,
->         .num_sdma_queues_per_engine = 2,
->  };
-> +#endif
+>  bool is_support_sw_smu(struct amdgpu_device *adev)
+>  {
+> +       /* vega20 is 11.0.2, but it's supported via the powerplay code */
+> +       if (adev->asic_type == CHIP_VEGA20)
+> +               return false;
+> +
+>         if (adev->ip_versions[MP1_HWIP][0] >= IP_VERSION(11, 0, 0))
+>                 return true;
 >
->  static const struct kfd_device_info tonga_device_info = {
->         .asic_family = CHIP_TONGA,
 > --
 > 2.31.1
 >
