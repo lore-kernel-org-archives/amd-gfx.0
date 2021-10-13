@@ -2,65 +2,65 @@ Return-Path: <SRS0=F65H=PB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 578EEC4321E
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93C21C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 26F7961165
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26F7961165
+	by mail.kernel.org (Postfix) with ESMTPS id 666B16101D
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Oct 2021 20:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 666B16101D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=u92.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 893916EB43;
-	Wed, 13 Oct 2021 20:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89C936EB4C;
+	Wed, 13 Oct 2021 20:49:32 +0000 (UTC)
 Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E886C6EB3D;
- Wed, 13 Oct 2021 20:49:25 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 1FFC5581177;
- Wed, 13 Oct 2021 16:49:25 -0400 (EDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4E086EB53;
+ Wed, 13 Oct 2021 20:49:31 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 29EDD581179;
+ Wed, 13 Oct 2021 16:49:31 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 13 Oct 2021 16:49:25 -0400
+ by compute3.internal (MEProxy); Wed, 13 Oct 2021 16:49:31 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=wTeB+AcsPUqMT
- kq0tx5O/S28gFdBW8XNnb+QC7S+PpM=; b=wKRI4ru/5mGdxKbXoV389wBbxUoub
- XFYtTacCNpsC0tGZj5GZ3G33WPqdTDGyZhWaq+E15xF1lv8kP8azHlCblEqPBVuj
- C7Gyq0MYj2nJ+kocASrkB9bkCFQgM4VNe2GhQfu/1AJnrArHZ+33fgBXkMWyFiKl
- 6jdEej6H+adb2/Ns3U4yBYHTrtmLzrLkL8hZy/gm9DMavoOlbNzMgm0EkgyGJKEx
- UnJvztEZUPA9a45b8oWcY5rvUfi3kZXM3eVEThlSHTyjRAd9dbwC9rNVXi48WrcZ
- SnTcBeOERM1LzrHwGMbOplqVwsxzcdWxA8sO8mv5fXWYlntteeChZcStQ==
+ :mime-version:content-transfer-encoding; s=fm3; bh=TsnieD8JNOkvc
+ CeHrO6O329V8uto/kVQnYqCrL+jTDk=; b=TxzuU9TkZPUZjMI3OAr5W++HTHKFc
+ Ubi6IO9nGEDBKdEcfesFlJ7OnWrtgf1A2GvtTBEtEvHqSxF7Z241/ziElJkFtHSi
+ We+8eQXZRHw/Iht46UWPt8lQJxcOyfU4ETa/9ztLpU9M8rAhQpWhKl68NaJq+GdM
+ ACZAX0PVQiBzPvT1ZudTchK9haGS9v9Uf4TpZQyVrgpatXIWkkmDLea1ddZkc6Km
+ 2tOsg3GOByBxWOwnR9WEx7AVyIXCjHk2ZRlL5r3u3F72LfU44pLZa6xMCpY3o19L
+ /P0Rxs13wfShGvE8kIdN9fa6GwwWeo6RP8Ftfmkg9oKrq8IBQxzpilPzg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=wTeB+AcsPUqMTkq0tx5O/S28gFdBW8XNnb+QC7S+PpM=; b=SwVLD4MW
- 9nUg8dCNsHVB6ibxALzWVqUnVqP682UqfneZ4BTt6IYTai8pmbVJVaQkmJR8se9N
- ZOdCfG6hxIuIi00yc9MOy/gbuBxOQ9SrmF7MoXxecFeS/m3LVtN2J085ycUwMkcA
- mbckJXbf3moMFcPE0rCfokwNUpbI0/sgR4a8cKpBr80fuLJy4NRED4l013BvmGPt
- ggXFNWjILN0IuQB2zFTuw/aeYoA7DxP9xcZGf1zw6DzFC5XUi2pPgrHAyKXK3tyc
- zMrLMGPCxBJxIVsKJqbf2uoo2BQ78cX/l1nNfIwxpcv4kjsaP/WkfXHr4++SgaKG
- CA63JxV7p3YH2w==
-X-ME-Sender: <xms:VEZnYbrJmSXxkl4Nr1CfGrN46N5uQAplfY2A3_3SCnuaKjaE2wdaaA>
- <xme:VEZnYVocJrlRHxQQVOi9cQNn0fV6IE6DRNSpUret_JQwhEYW8zanRGdvW8Y0ydby0
- OeUnBjPTubPbzAmnQ>
-X-ME-Received: <xmr:VEZnYYNGCzmTmwmHGmU9cfmHAwNIrDyMx1XAfegTtJDwFMvuyvbrJNwe4Oqye9DRDP79>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddutddgudehvdcutefuodetggdotefrod
+ fm1; bh=TsnieD8JNOkvcCeHrO6O329V8uto/kVQnYqCrL+jTDk=; b=HIUjLJB3
+ Lasiw3KMpps+DtwtLNp5sEQ9xPSyknXCT51Fueb4jVFakJ8soAY0LrF8xU9/UDnp
+ HK1OvfuOSLAR/nUAKmm6FEUV1MVwBifjTMe2G6kPenN75wfocDNrdwMTHcVfsDmf
+ x7kNObgDeW4EprO6cGEedPsfjtClyxlZR5cN2HNOoUv6Mrycci3kmqbrMzLPGfKk
+ 9A8hvkt+AIqaV5eNpqjOLuMK/WEH/iHqaBwUnO+CqbxNX76GKptFVSZGFcGrNrjH
+ 0zE8Ayna67X+l/kW8tOD2BeUo+Pd8ENhczJPgqD1Lht/6bH4U9z5rbTpJwkqv2mA
+ UcxzAUA03XYdtw==
+X-ME-Sender: <xms:W0ZnYXvu-NcWBnrH0uTBhDI5CeLJq1-6nCDc4_ATbbwdgaS-Be80Rw>
+ <xme:W0ZnYYcommaD8OOnlrlqgO1WhyBHj6nHbzUK5GzC4QFLNBAAMA69MsHm7Y1GTh_td
+ DRDSd6cBfNrO-75tA>
+X-ME-Received: <xmr:W0ZnYazj4JVXZIfO8Qp0Y5JxdPLqyc-JyVPucoJ7e0ZC-9_bBCt45GevTbf0NIYZhG6N>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddutddgudehudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
  ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedunecu
+ fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpedtnecu
  rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:VUZnYe4jzkqzEyD4bCZ8IoZWZNMOXVkl39VRzrqBXHXByJ9VaxhKCw>
- <xmx:VUZnYa7kuM3l0Gc4_9tztp4rb6b1L7gl8WU3fLDIxLKPKvMzAOy2yw>
- <xmx:VUZnYWhOfOpzjFUWJIimOtN_2s49mxErRFIxwi1qO7tdnGBRlFLkCA>
- <xmx:VUZnYTEcjD90oqNIZXA5-OvBdx4b031kYcdRaid0LiHHkndrVGFSJA>
+X-ME-Proxy: <xmx:W0ZnYWPkwCzipoGXPRhFwotBAh58wt4G6ZDY-SGMw85rjG873s9fmA>
+ <xmx:W0ZnYX_02fyNHIStvLn_Zl8MliwaoJmkItJV7TWWpNbrosMaWW9uPw>
+ <xmx:W0ZnYWXQcYLU6oWDBpodiOmkQJTaxyItYSraacWrylr2OqnmOj5-_g>
+ <xmx:W0ZnYebjs5g78AlWpqJ1CksbDpWTAvzk9v60MG4zFNpE7AQPschmoA>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 13 Oct 2021 16:49:22 -0400 (EDT)
+ 13 Oct 2021 16:49:28 -0400 (EDT)
 From: Fernando Ramos <greenfoo@u92.eu>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
@@ -68,10 +68,10 @@ Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  linux-tegra@vger.kernel.org
-Subject: [PATCH v4 11/20] drm/msm: cleanup: drm_modeset_lock_all() -->
- DRM_MODESET_LOCK_ALL_BEGIN()
-Date: Wed, 13 Oct 2021 22:48:37 +0200
-Message-Id: <20211013204846.90026-12-greenfoo@u92.eu>
+Subject: [PATCH v4 13/20] drm/i915: cleanup: drm_modeset_lock_all() -->
+ DRM_MODESET_LOCK_ALL_BEGIN() [part 2]
+Date: Wed, 13 Oct 2021 22:48:39 +0200
+Message-Id: <20211013204846.90026-14-greenfoo@u92.eu>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211013204846.90026-1-greenfoo@u92.eu>
 References: <20211013204846.90026-1-greenfoo@u92.eu>
@@ -95,53 +95,57 @@ As requested in Documentation/gpu/todo.rst, replace driver calls to
 drm_modeset_lock_all() with DRM_MODESET_LOCK_ALL_BEGIN() and
 DRM_MODESET_LOCK_ALL_END()
 
+NOTE:
+
+I separated this change from the rest of modifications to the i915
+driver to point out something special explained next.
+
+The only difference between the old drm_modeset_{lock,unlock}_all()
+functions and the new DRM_MODESET_LOCK_ALL_{BEGIN,END}() macros is that
+the former use a global context stored in dev->mode_config.acquire_ctx
+while the latter depend on a user provided one (typically in the stack).
+
+This means that as long as no one accesses the global
+dev->mode_config.acquire_ctx context in the block that runs between
+lock/BEGIN and unlock/END, the code should be equivalent before and
+after my changes.
+
+The only place where I had to take special action to preserve this
+condition was here, where I need to modify the old call to
+intel_modeset_setup_hw_state() to use the new stack allocated context
+structure instead of the global one.
+
 Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 768012243b44..b89687074890 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -18,6 +18,7 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_rect.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_drv.h>
- 
- #include "dpu_kms.h"
- #include "dpu_hw_lm.h"
-@@ -1172,14 +1173,15 @@ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
- 	struct drm_display_mode *mode;
- 	struct drm_framebuffer *fb;
- 	struct drm_plane_state *state;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index c7d9a58f9f98..75b45c01c573 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -10992,6 +10992,7 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+ {
+ 	struct drm_device *dev = &i915->drm;
 +	struct drm_modeset_acquire_ctx ctx;
- 	struct dpu_crtc_state *cstate;
+ 	enum pipe pipe;
+ 	struct intel_crtc *crtc;
+ 	int ret;
+@@ -11043,10 +11044,10 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+ 	intel_vga_disable(i915);
+ 	intel_setup_outputs(i915);
  
--	int i, out_width;
-+	int i, out_width, ret;
+-	drm_modeset_lock_all(dev);
+-	intel_modeset_setup_hw_state(dev, dev->mode_config.acquire_ctx);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
++	intel_modeset_setup_hw_state(dev, &ctx);
+ 	intel_acpi_assign_connector_fwnodes(i915);
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
  
- 	dpu_crtc = s->private;
- 	crtc = &dpu_crtc->base;
- 
--	drm_modeset_lock_all(crtc->dev);
-+	DRM_MODESET_LOCK_ALL_BEGIN(crtc->dev, ctx, 0, ret);
- 	cstate = to_dpu_crtc_state(crtc->state);
- 
- 	mode = &crtc->state->adjusted_mode;
-@@ -1263,9 +1265,9 @@ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
- 		dpu_crtc->vblank_cb_time = ktime_set(0, 0);
- 	}
- 
--	drm_modeset_unlock_all(crtc->dev);
-+	DRM_MODESET_LOCK_ALL_END(crtc->dev, ctx, ret);
- 
--	return 0;
-+	return ret;
- }
- 
- DEFINE_SHOW_ATTRIBUTE(_dpu_debugfs_status);
+ 	for_each_intel_crtc(dev, crtc) {
+ 		if (!to_intel_crtc_state(crtc->base.state)->uapi.active)
 -- 
 2.33.0
 
