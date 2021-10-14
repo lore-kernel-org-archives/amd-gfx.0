@@ -2,76 +2,125 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7EA1C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:25:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7939C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EB9061108
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:25:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7EB9061108
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7150A61073
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7150A61073
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 351D36E226;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 467716E22B;
 	Fri, 15 Oct 2021 07:25:39 +0000 (UTC)
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A223B6ECBD
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 01:37:46 +0000 (UTC)
-Received: by mail-pj1-x1032.google.com with SMTP id om14so6084599pjb.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 18:37:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Nr8k1aUv3z2OzOm3G6XuPV/NnMghC3CxLAXi8H1jgq0=;
- b=Mq60g49KQfqJSx9Hlnpx1LkISuHFFWCkdhMNhbH31PDqxasC1fBD6r9vXBbknkaWMK
- lChJJPt+7b3pndrbO9E/vbjDaPud20IbnvRAMOogvsJsZT2U7U2B08GDOjq5mJAz//YT
- pUFXQlTk6FHl/Y5XqZwpAwYXkmA/nd/FXzsy+ADUyTODVVWD0me/6KKjEDCOhGFa4tU4
- wSxvbpsQXT+KAhdAkd80WrKMMrzTxWLBZMYNVG9REGY3Ujp+K9XNl6UD/fgSRvtPtXtz
- 0QqqOunHYakkVaxUm+vSHdYXntEMMCYCrb+aUsaBUqYAJXyC9rdXR8U+kphiap+Pl4pP
- hPXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Nr8k1aUv3z2OzOm3G6XuPV/NnMghC3CxLAXi8H1jgq0=;
- b=jWt+f5XJ9fsR+sAvKP3EYdgGNhAIme1tPd/HlYUa6Lx8bb91e+/Wq+khmWeSGJaprW
- DbPY96m7iJVzRU7NcMQE4Ezo5QKbLVKrKzkshrXNU6A1y4uzbChBxiZjZg97gWbbGxbE
- NcObgNCGDbWHh9O7sSwzu/Snza9gu6qjvCzBik1W7j45RAX7lb5mD1Jeo0CHPPqpr9h2
- I12g1ePXDGfaEhz8GJvA30KGfZFDqWS6sKBH+lu8GBmc/ugc8JJc3X6pIJO8rncICH5C
- mTEieoWurTeDyrW1RNZBFveE1oiqIQj5cwsRGWAyS9eoE1yVYhlwGmSVgWMf+8iuVt+d
- eFHA==
-X-Gm-Message-State: AOAM532Hee2thncuycVGL4WxCfB3uNQJMoIul6cBK8kDaJxchJArDyZl
- EqBAlcKqhS+1RfB0IfB/jISdkYs3SfSyisATXETy0w==
-X-Google-Smtp-Source: ABdhPJzJeyDQ3E7K9800YlGpr55I5n0doDZS1y4ODUC2mgk0GCjS+vEI9q19Hu7ebbpj4/v0RR4BsGE6NqO67YdMecY=
-X-Received: by 2002:a17:902:ab50:b0:13f:4c70:9322 with SMTP id
- ij16-20020a170902ab5000b0013f4c709322mr8238204plb.89.1634261866111; Thu, 14
- Oct 2021 18:37:46 -0700 (PDT)
-MIME-Version: 1.0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 286B26E1D2;
+ Thu, 14 Oct 2021 18:01:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mgmJ5HRlS4ylOQbQcw1ULWD2QjMdcDZW1ledq4gCrs7j4TmY21eYIaZM+7ws79hwJdk6HHz/aPUt0k0o8mKHDKqOm3gBgaWzkgGjNIVBvJk0Iy4WMXO7A0ySgGRzKp7nJ8Wy5lRh5FnpFmX3YwhoIBILHpwirnGdihL/y8LTk9qCglbnLOvx0BkDNyNQhpOqSmrbdKwY4Jr0S/uQD4eFtFQHJw0zsjbyf8en1V9Cwe07RWOPEyGLXKnG5Nv6rdpmF81vTqZ4Ajzp0QiZeqyilpK4tjHO1EkU5BbXxNo9XCydDvcAOlTTGuJYZ0WmsYYMxPd3uluymgQIdAwV5AMrvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pTWeaN6k/Bpt+VIU1uOGBAwXLCiqUfRLhPyU/tj/XHg=;
+ b=UAY5ql79CeoPWrA8/Hv+8AK3Mnmvxitl4MSUVs0ZD8m8G7eCn8mk4lFa6ciDALxxH/9tP1k76/DYL0IR3BCHMMpqx7WFcypBLOxtLK05XIytylXAPI4bYSK2xtGt6qTTInkeA+fPMSwiVpz6IHzSgxH4MQig57hGndXQ5Z8bGBhPcKEqu+l4I0GUx0Gu5Gip0vFeU1QDRaMYm2xGva1w1Gwpc0lkx/HsIrXp/E8eztRTTfW+c3nd2TOXEhSoS2n//+JRkSCkza7+XHg449Y3j5KvFmDWezpTsl9uV6nmvmz2WgY2bZEhc9cnfGrLlBwBfSk1x2aJcL2BZV6lOXISsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pTWeaN6k/Bpt+VIU1uOGBAwXLCiqUfRLhPyU/tj/XHg=;
+ b=g4d3Q+zZ4tXudjsV7dNhuHoG2pD4vVWvUzfwlRy+3oWTCvfuo8rbS8YvWVbpwtwMRRyk/tLe+db13G05aJ6NOG6R76KW1HhBuqVHx5RjovzZpLImfQX23lwntIB1WzfAjFiBBdZqzZmdh95oTc0Eiw5Fvtkp3IPDHaeb1TMWcGo9kjJLtMSm1U823yPxcsYrIz+KPNTXIZjC8v1EZzMh3Hnbvefhjh+3Abnh+vW/YVSxBK42fiIC00Ix9KaxeAuv2wJZcWHNTJ6kAuHMHrsjwHcehd/BUsNAu9fCvjGxI3z/olmr1LoQneg7O7u9UgkSDkSkzD01K4w7o0ECLMic4w==
+Authentication-Results: nvidia.com; dkim=none (message not signed)
+ header.d=none;nvidia.com; dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5349.namprd12.prod.outlook.com (2603:10b6:208:31f::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Thu, 14 Oct
+ 2021 18:01:33 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::e8af:232:915e:2f95]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::e8af:232:915e:2f95%6]) with mapi id 15.20.4608.017; Thu, 14 Oct 2021
+ 18:01:33 +0000
+Date: Thu, 14 Oct 2021 15:01:32 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, akpm@linux-foundation.org,
+ Felix.Kuehling@amd.com, linux-mm@kvack.org,
+ linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ hch@lst.de, jglisse@redhat.com, apopple@nvidia.com, willy@infradead.org
+Subject: Re: [PATCH v1 2/2] mm: remove extra ZONE_DEVICE struct page refcount
+Message-ID: <20211014180132.GA3567687@nvidia.com>
 References: <20211014153928.16805-1-alex.sierra@amd.com>
  <20211014153928.16805-3-alex.sierra@amd.com>
- <20211014170634.GV2744544@nvidia.com> <YWh6PL7nvh4DqXCI@casper.infradead.org>
- <CAPcyv4hBdSwdtG6Hnx9mDsRXiPMyhNH=4hDuv8JZ+U+Jj4RUWg@mail.gmail.com>
- <20211014230606.GZ2744544@nvidia.com>
-In-Reply-To: <20211014230606.GZ2744544@nvidia.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Thu, 14 Oct 2021 18:37:35 -0700
-Message-ID: <CAPcyv4hC4qxbO46hp=XBpDaVbeh=qdY6TgvacXRprQ55Qwe-Dg@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] mm: remove extra ZONE_DEVICE struct page refcount
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Matthew Wilcox <willy@infradead.org>, Alex Sierra <alex.sierra@amd.com>, 
- Andrew Morton <akpm@linux-foundation.org>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, 
- Linux MM <linux-mm@kvack.org>, Ralph Campbell <rcampbell@nvidia.com>, 
- linux-ext4 <linux-ext4@vger.kernel.org>, linux-xfs <linux-xfs@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Christoph Hellwig <hch@lst.de>, 
- =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, 
- Alistair Popple <apopple@nvidia.com>, Vishal Verma <vishal.l.verma@intel.com>, 
- Dave Jiang <dave.jiang@intel.com>, Linux NVDIMM <nvdimm@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+ <20211014170634.GV2744544@nvidia.com>
+ <eafbccb5-f94b-0ddd-bb46-7ee92ed36ee8@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eafbccb5-f94b-0ddd-bb46-7ee92ed36ee8@nvidia.com>
+X-ClientProxiedBy: MN2PR16CA0064.namprd16.prod.outlook.com
+ (2603:10b6:208:234::33) To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
+MIME-Version: 1.0
+Received: from mlx.ziepe.ca (142.162.113.129) by
+ MN2PR16CA0064.namprd16.prod.outlook.com (2603:10b6:208:234::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Thu, 14 Oct 2021 18:01:33 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1mb52q-00F0Gn-G3; Thu, 14 Oct 2021 15:01:32 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 67f71548-4169-45a7-d721-08d98f3ca84e
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5349:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB534938FADF618AD8F90B7974C2B89@BL1PR12MB5349.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1443;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TAx7q8UJaBbAeNdGpDcObsMuPlCQB561ARegScjE0sDb0xzRaJD+jCwHrW8/jtkK3WmgizXJ6nXPNKc4dwEr8ZAEFwYIoH7ctNDUL+cSAMLOLyugg7qMYCjjrVEXZ4HmmMSFcmMFdXsIj+nnf6C9exFcaMTXcPSgWiOnYbqQOZmfztOJ4sOETxJqQ3I7W5kh7eeOB8owxb3JszjCGjHwk3LG3iYV/2ok55Lyf3HIVhyi0pJ4JvmWfACiRdyI1Bmkv52DArK9AZT+DKakSop1umMNGsRRjh731DHkTg0TwY+1jowHC58mZOGMjOyJwvOGnyne0nBZHxgn7jr31t+CNqCHSDYTqzibJZil5qMNeIzj6T7r2tF20s6VhwxPHFNUyo8s8lcDsKZOxqySboE8BfNs83oijaGK8PGKQJCJU3KD05bWlki9Sf14OtaYolSDAi1Yfc3IccCdRHWwPDazVxGKkLG/p2bC04S1LVh3pZCjuL/S6QZHoJP8JaCvxoCT4IyC47mtct8EiVDJeoVIimeT4cuuz/YzV5eKH94TWNYINRmB0dPnX0YvUf8L6Vsu8LztIR4PyhV+Ahrzh7kXaBzrDBBXvVzwRz+IMCa9CtuSqMj7VDxI0dP1S8hT3N3Ii9ScJLyes0g0rOxrwEfWjA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(86362001)(2906002)(426003)(8936002)(2616005)(508600001)(7416002)(9786002)(9746002)(38100700002)(1076003)(6862004)(4744005)(5660300002)(4326008)(6636002)(316002)(66476007)(36756003)(66946007)(8676002)(66556008)(186003)(33656002)(26005)(37006003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?As3jK/DyNCazXR6k/je9X5gZkXzkw1b60WjA67ZCPZm6zc+/CRQi4FeFEK0W?=
+ =?us-ascii?Q?uCX+sZEUoFMZpJg8xxfJgu26f9LsM6urVJGYVUPUGaG2oeknmRKU4ZSr/4TH?=
+ =?us-ascii?Q?qp+ENGwHY/TSFifyw+uecz5ibM69MqLkev4RqZEHMqdoUDar6bW8fTQoeiNw?=
+ =?us-ascii?Q?R5P/2z/jSqg5EMnkonfbiu8I3XmHETLIbgdry9M0/L5X4bMLeVSUIn9iB8Ya?=
+ =?us-ascii?Q?PzrYkJO4ngo+gzrUBf29zCJBzWKi5lcb2mdTKFC0+J1Y4EJ/QKC1kjJqshk8?=
+ =?us-ascii?Q?1yMz/0oOyodUDS42rxfg0UrcsiRTZaF1/wGJxhOX9fq62TiSIQvpdglXqSZz?=
+ =?us-ascii?Q?rO/x1rZbRbkQKUJb0d3HtUolLuPTIbBfyfsGadEBmQGQ9LwHviRiH77QYq6g?=
+ =?us-ascii?Q?8uA8NWG9ZYU+HW+GbDjyGasDu/BuTik6LhnUUFTt+q7A7vqvQn4m7vHZTGiB?=
+ =?us-ascii?Q?TSi1SjOo0y3cP7VtP/pxlbEahN/P50WtQVCRwAvt1qupBIFdExjEOKsPGGVB?=
+ =?us-ascii?Q?VpmVVjNIbAQ2Q/BtEOg8PLXuZhA2bSe4qqp6ZcsfADEFI2hSoVV25KL+pFDw?=
+ =?us-ascii?Q?VN7i43p3eJYhGvjuowzVbi+3FJkSKqA6UZN6rNImmBVL66pJUeJ+mQk3lhf3?=
+ =?us-ascii?Q?Y+6nsUWXwyFWNA63z5FdlH3s2H+f9C+6zbanFgEKhbuVy/5kTjNbnEDu+RsB?=
+ =?us-ascii?Q?/dXFCa51S6gQk8UFQU6nfZ9d7sOxXWehVabrcM1PShM6+UqZR42Bona7J8x+?=
+ =?us-ascii?Q?Rls2ueLdk+qkArnUavymr3yoBX5ncfQ+1lra8XG03lZ6m9sY2zdolaGRFe9J?=
+ =?us-ascii?Q?Cn+72AKMJHMfu0FKkra7jPIo6v9Lep3BieFUxq8hj2n2TJMEUysMLyrWBuhE?=
+ =?us-ascii?Q?MQNqZXjNmpzcPw+v8h8/zXJbLPzlZK9SMB5PTU9eCzOPRy18Y/K5y9Mu6twj?=
+ =?us-ascii?Q?2l2pccGerShzMBo4w1Ukr1CLlRLsJzOcR8pRFi7ADk/dDP0iHa6CUa7O/BgD?=
+ =?us-ascii?Q?DnLNmvj7ndV0WPZiiKFp88l/mP0Xv+klxwTSXYZw+k4AowYkBQchObAgOHpv?=
+ =?us-ascii?Q?FuupqoDCbvahTCoDfAgkDgFT9q2iee9P+g2RQfy7F/lIcjVJFcLtrz+JANYS?=
+ =?us-ascii?Q?gjvhe4r1aR9h/yzJbH/F+PKQTITUfDlvoF2z9FjSYP/AdkRwAfP2S0DSgnHJ?=
+ =?us-ascii?Q?19DhkTElrMy57w1EmTG2Fal+x85jvhE2jEiil4OKOf3Yc9BcjAquS3lEF+7n?=
+ =?us-ascii?Q?/B/rYxy/S+2/iE2eRoH+rxU6CFY/ak9eRuv2OTCfxhj+EIsMBhQR1+JQAlAG?=
+ =?us-ascii?Q?zp3h/mpEwgSaZY+M3N9M+uxSfPpswRJkJu5VIGrCT+jP2Q=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67f71548-4169-45a7-d721-08d98f3ca84e
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 18:01:33.6683 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7iCqo0/S//TRdR9g3NtiuEnxK/vF5jpwAkJ+fCktAWXkxrcf1zuaqtO/ZZpBRIJk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5349
 X-Mailman-Approved-At: Fri, 15 Oct 2021 07:25:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,90 +136,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 14, 2021 at 4:06 PM Jason Gunthorpe <jgg@nvidia.com> wrote:
->
-> On Thu, Oct 14, 2021 at 12:01:14PM -0700, Dan Williams wrote:
-> > > > Does anyone know why devmap is pte_special anyhow?
-> >
-> > It does not need to be special as mentioned here:
-> >
-> > https://lore.kernel.org/all/CAPcyv4iFeVDVPn6uc=aKsyUvkiu3-fK-N16iJVZQ3N8oT00hWA@mail.gmail.com/
->
-> I added a remark there
->
-> Not special means more to me, it means devmap should do the refcounts
-> properly like normal memory pages.
->
-> It means vm_normal_page should return !NULL and it means insert_page,
-> not insert_pfn should be used to install them in the PTE. VMAs should
-> not be MIXED MAP, but normal struct page maps.
->
-> I think this change alone would fix all the refcount problems
-> everwhere in DAX and devmap.
->
-> > The refcount dependencies also go away after this...
-> >
-> > https://lore.kernel.org/all/161604050866.1463742.7759521510383551055.stgit@dwillia2-desk3.amr.corp.intel.com/
-> >
-> > ...but you can see that patches 1 and 2 in that series depend on being
-> > able to guarantee that all mappings are invalidated when the undelying
-> > device that owns the pgmap goes away.
->
-> If I have put everything together right this is because of what I
-> pointed to here. FS-DAX is installing 0 refcount pages into PTEs and
-> expecting that to work sanely.
->
-> This means the page map cannot be removed until all the PTEs are fully
-> flushed, which buggily doesn't happen because of the missing unplug.
->
-> However, this is all because nobody incrd a refcount to represent the
-> reference in the PTE and since this ment that 0 refcount pages were
-> wrongly stuffed into PTEs then devmap used the refcount == 1 hack to
-> unbreak GUP?
->
-> So.. Is there some reason why devmap pages are trying so hard to avoid
-> sane refcounting???
+On Thu, Oct 14, 2021 at 10:35:27AM -0700, Ralph Campbell wrote:
 
-I wouldn't put it that way. It's more that the original sin of
-ZONE_DEVICE that sought to reuse the lru field space, by never having
-a zero recount, then got layered upon and calcified in malignant ways.
-In the meantime surrounding infrastructure got decrustified. Work like
-the 'struct page' cleanup among other things, made it clearer and
-clearer over time that the original design choice needed to be fixed.
+> I ran xfstests-dev using the kernel boot option to "fake" a pmem device
+> when I first posted this patch. The tests ran OK (or at least the same
+> tests passed with and without my patch). 
 
-> If the PTE itself holds the refcount (by not being special) then there
-> is no need for the pagemap stuff in GUP. pagemap already waits for
-> refs to go to 0 so the missing shootdown during nvdimm unplug will
-> cause pagemap to block until the address spaces are invalidated. IMHO
-> this is already better than the current buggy situation of allowing
-> continued PTE reference to memory that is now removed from the system.
->
-> > For that to happen there needs to be communication back to the FS for
-> > device-gone / failure events. That work is in progress via this
-> > series:
-> >
-> > https://lore.kernel.org/all/20210924130959.2695749-1-ruansy.fnst@fujitsu.com/
->
-> This is fine, but I don't think it should block fixing the mm side -
-> the end result here still cannot be 0 ref count pages installed in
-> PTEs.
->
-> Fixing that does not depend on shootdown during device removal, right?
->
-> It requires holding refcounts while pages are installed into address
-> spaces - and this lack is a direct cause of making the PTEs all
-> special and using insert_pfn and MIXED_MAP.
+Hmm. I know nothing of xfstests but 
 
-The MIXED_MAP and insert_pfn were a holdover from page-less DAX, but
-now that we have page-available DAX, yes, we can skip the FS
-notification and just rely on typical refcounting and hanging until
-the FS has a chance to uninstall the PTEs. You're right, the FS
-notification is an improvement to the conversion, not a requirement.
+tests/generic/413
 
-However, there still needs to be something in the gup-fast path to
-indicate that GUP_LONGTERM is not possible because the PTE represents
-a pfn that can not support typical page-cache behavior for truncate
-which is to just disconnect the page from the file and keep the page
-pinned indefinitely. I think the "no longterm" caveat would be the
-only remaining utility of PTE_DEVMAP after the above conversion to use
-typical page refcounts throughout DAX.
+Looks kind of like it might cover this situation?
+
+Did it run for you?
+
+Jason
