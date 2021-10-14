@@ -2,44 +2,106 @@ Return-Path: <SRS0=AM0C=PC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60652C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3982C43217
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:39:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B60F60ED4
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:35:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1B60F60ED4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
+	by mail.kernel.org (Postfix) with ESMTPS id A682060FDC
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:39:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A682060FDC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A53406E16F;
-	Thu, 14 Oct 2021 15:35:26 +0000 (UTC)
-Received: from mail-40136.proton.ch (mail-40136.proton.ch [185.70.40.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF0D6E16F
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 15:35:25 +0000 (UTC)
-Date: Thu, 14 Oct 2021 15:35:13 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1634225722;
- bh=j1mECW+vPzc0Mw/48CC43zPn0HB+6IpsBcgg4TIYQME=;
- h=Date:To:From:Cc:Reply-To:Subject:From;
- b=vbfI1OxICGKFhywARmHgcXFvlBluxehnFG1DYO7jhBizRkCv/jkZUOPMlbopqv0xt
- dY8gDFMnkBdqBK8Lv6Vf3+7J1lB1rG3iu8NwBY2YYGvfAeCC3hdIl8QtBPWt5xZhQd
- rCfFqMzgLboEutprBxnVw0cR3UbvJJQCYsEWZx/ggb5+dLbryumeah8haU0FpuaMRk
- MI9P3xJwL4Wbp8X0H4gIxN+9g4KE9FHWA+LYP1VmOvtSQW8DHh103FFhZJiFTwN7iH
- okowYM8G+Mc6RNzctKBzmEQc1GykQHH6T2vS8j2sHLi48m1CZFQNv9EgDPDhxhzmvV
- DHAZMPSNdaDnA==
-To: amd-gfx@lists.freedesktop.org
-From: Simon Ser <contact@emersion.fr>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Sean Paul <seanpaul@chromium.org>
-Subject: [PATCH] amd/display: remove ChromeOS workaround
-Message-ID: <20211014153433.169454-1-contact@emersion.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 180746E18F;
+	Thu, 14 Oct 2021 15:39:46 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2068.outbound.protection.outlook.com [40.107.100.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBE6E6E182;
+ Thu, 14 Oct 2021 15:39:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gel4gWG9D6b5qmwCdzKccv2oGLIwfpVljMjnd0rW1pUvQq96UhSrdNiw5JSwTYTBA2qlaeNFLsDpnO3kuljQa8AR2wcPd4bvubJK5+HnyTp5gyd428CL6CUvJwCeEtKo5ScBI/TFwVGbdArVHOE0fhmpJVPYpF4u8Ioap8J7aj5dmvZQQEWDyBfboG7V22w67zPFMKo3+Z8Bon23BZYrFPuBiL4hiI095rxdzNkFjrEvvA9w+E0SR1PIvHdbvqD5lQaKocLu2EQY+uhgOktRW+Z6c8TrGDh9X4QaiNiNnCN7ROSN+mSBnWKXpu00DsO4gplKP5uSFjl1CAWvv3tnPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=prqqgRWlNmUY+FCzPMwMlLKkTVbC2ZOWpWdIq8n/6hw=;
+ b=BUgxhNKwONLvTINwPDgk3VUJFKUogrrnsjf37OlkozQdhRzhM7IVLtCd+5Xn1hZun5fOwA9m+RHZKdaNmIj/AerGy6glMotzJcSn5JIj9m1cChEoLcVTwDHyCtHQvvGPbDXMEg4Qn/ko8h+Vt2oqOyGS6l5vl/jXuOgkXEJK/VSQoeqWbPMw8dLcFi4utAvtowXdejEhX2FZ6rTImdbQIei8p7/TgIV/0eZZWd1w78MhGTTEc45poNZpRcrXtUnTmTQ3bagC2OLT7uIMij+EcxVWLnhP9PW99d58tFaxPXbzOaowlpdT4jSVXqvsahPJ/Y4qASwrSgq3YNsbKq59Yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=prqqgRWlNmUY+FCzPMwMlLKkTVbC2ZOWpWdIq8n/6hw=;
+ b=wbIAmdpSUioMQxaX3O8nrWOeU/whLhxRGMk7Tiqt3PKCwRpH6RDsueobt3grw5uS0yg0P4qntV+KwpV8lTwtI869ZWBgXvPwtJYrtTcrVO7do8K5Me6g2HArHxafnIVpnPEgWvoAOr9CKmhq7+d1tS7vIiDFWqALpuzDWMne13Q=
+Received: from CO2PR04CA0090.namprd04.prod.outlook.com (2603:10b6:104:6::16)
+ by DM5PR12MB1420.namprd12.prod.outlook.com (2603:10b6:3:78::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.20; Thu, 14 Oct
+ 2021 15:39:41 +0000
+Received: from CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:6:cafe::ed) by CO2PR04CA0090.outlook.office365.com
+ (2603:10b6:104:6::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Thu, 14 Oct 2021 15:39:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; linux-foundation.org; dkim=none (message not signed)
+ header.d=none;linux-foundation.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT022.mail.protection.outlook.com (10.13.175.199) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Thu, 14 Oct 2021 15:39:41 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 14 Oct
+ 2021 10:39:39 -0500
+From: Alex Sierra <alex.sierra@amd.com>
+To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
+ <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
+ <linux-xfs@vger.kernel.org>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <hch@lst.de>, <jgg@nvidia.com>, <jglisse@redhat.com>, <apopple@nvidia.com>,
+ <willy@infradead.org>
+Subject: [PATCH v1 1/2] ext4/xfs: add page refcount helper
+Date: Thu, 14 Oct 2021 10:39:27 -0500
+Message-ID: <20211014153928.16805-2-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211014153928.16805-1-alex.sierra@amd.com>
+References: <20211014153928.16805-1-alex.sierra@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a75f7739-a1aa-49a7-68d0-08d98f28d6e9
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1420:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB142058475F17D5232B75DB66FDB89@DM5PR12MB1420.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OMY9qBYuTUMbWPDtRB3m20VNerWmm9jew5Cyw/ubnMrbQIKxWWyg2qruVgnAY8yDec8JP27nLPyMmTvVlTK+aJFzcnSSGN5caAlR4BnXBXCJs4Gp97uI+9wc4P8aZ6PTu6bDv+i1AWq9KNtTg05zES/cOlIDbJfc9AHSEnRpExsqrPSo2JKJp4vAGThRef1ELxAH+ApIyegNtppK5dwXtdP6e1S9u2wzj1i86nB0nDIE8emUDpaq2E5h7GOB+QzsREtKIGr2MaJuxL5cOOqiZd5IMBzmF8M+ScitaqwvSIcnz/XkBqI1hYK1uvqcfZWAm2xMQFMthGDMZpi31llJx8oMEafRcAtlEFhv9vgtuNSg4vnSowoLXg4vG2r8f7axLiqE7C3vxlZ0VadQa938JPFXZddljSgZz9deln7vgfzY1v/2t1IwcGrsIK+bXt0GFffAGv8eC0unNMN5PbtgTiuGozQxqiPvYkbbRQf8oN0BZqCTc+Ot31UbGV+CEb2becp4IvDlDCqL4dl8ypMBjMxeH6c6Oe6tSeO6lLSQ3hXW/XuptgCBzE24rkVigj+tBwoyMlmT327vy+ACMrKzeGY+8aeaBo0GjGNSNllTekjEFYP2EKDkQxSwL+c9ZGBXKLDvPxlu0kXL7Wc8bmpNFP+0X9HmCY+GradpSmsQ8y+qybiqup1aWRGMFDNLTP+qCq7OA9r4Ij0RK4+K2QLm5ikn8wdk0+eavUj3end3Hrc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(110136005)(36860700001)(508600001)(8936002)(70206006)(70586007)(8676002)(6666004)(54906003)(81166007)(356005)(1076003)(86362001)(316002)(83380400001)(36756003)(5660300002)(26005)(16526019)(186003)(4326008)(82310400003)(2906002)(336012)(7416002)(426003)(2616005)(47076005)(7696005)(44832011)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 15:39:41.5111 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a75f7739-a1aa-49a7-68d0-08d98f28d6e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1420
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,128 +113,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commits ddab8bd788f5 ("drm/amd/display: Fix two cursor duplica=
-tion
-when using overlay") and e7d9560aeae5 ("Revert "drm/amd/display: Fix overla=
-y
-validation by considering cursors"").
+From: Ralph Campbell <rcampbell@nvidia.com>
 
-tl;dr ChromeOS uses the atomic interface for everything except the cursor. =
-This
-is incorrect and forces amdgpu to disable some hardware features. Let's rev=
-ert
-the ChromeOS-specific workaround in mainline and allow the Chrome team to k=
-eep
-it internally in their own tree.
+There are several places where ZONE_DEVICE struct pages assume a reference
+count == 1 means the page is idle and free. Instead of open coding this,
+add a helper function to hide this detail.
 
-See [1] for more details. This patch is an alternative to [2], which added
-ChromeOS detection.
-
-[1]: https://lore.kernel.org/amd-gfx/JIQ_93_cHcshiIDsrMU1huBzx9P9LVQxucx8hQ=
-ArpQu7Wk5DrCl_vTXj_Q20m_L-8C8A5dSpNcSJ8ehfcCrsQpfB5QG_Spn14EYkH9chtg0=3D@em=
-ersion.fr/
-[2]: https://lore.kernel.org/amd-gfx/20211011151609.452132-1-contact@emersi=
-on.fr/
-
-Signed-off-by: Simon Ser <contact@emersion.fr>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <hwentlan@amd.com>
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Fixes: ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when usin=
-g overlay")
-Fixes: e7d9560aeae5 ("Revert "drm/amd/display: Fix overlay validation by co=
-nsidering cursors"")
+Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Theodore Ts'o <tytso@mit.edu>
+Acked-by: Darrick J. Wong <djwong@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 51 -------------------
- 1 file changed, 51 deletions(-)
+v3:
+[AS]: rename dax_layout_is_idle_page func to dax_page_unused
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 20065a145851..014c5a9fe461 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10628,53 +10628,6 @@ static int add_affected_mst_dsc_crtcs(struct drm_a=
-tomic_state *state, struct drm
+v4:
+[AS]: This ref count functionality was missing on fuse/dax.c.
+---
+ fs/dax.c            |  4 ++--
+ fs/ext4/inode.c     |  5 +----
+ fs/fuse/dax.c       |  4 +---
+ fs/xfs/xfs_file.c   |  4 +---
+ include/linux/dax.h | 10 ++++++++++
+ 5 files changed, 15 insertions(+), 12 deletions(-)
+
+diff --git a/fs/dax.c b/fs/dax.c
+index 62352cbcf0f4..c387d09e3e5a 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -369,7 +369,7 @@ static void dax_disassociate_entry(void *entry, struct address_space *mapping,
+ 	for_each_mapped_pfn(entry, pfn) {
+ 		struct page *page = pfn_to_page(pfn);
+ 
+-		WARN_ON_ONCE(trunc && page_ref_count(page) > 1);
++		WARN_ON_ONCE(trunc && !dax_page_unused(page));
+ 		WARN_ON_ONCE(page->mapping && page->mapping != mapping);
+ 		page->mapping = NULL;
+ 		page->index = 0;
+@@ -383,7 +383,7 @@ static struct page *dax_busy_page(void *entry)
+ 	for_each_mapped_pfn(entry, pfn) {
+ 		struct page *page = pfn_to_page(pfn);
+ 
+-		if (page_ref_count(page) > 1)
++		if (!dax_page_unused(page))
+ 			return page;
+ 	}
+ 	return NULL;
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index fe6045a46599..05ffe6875cb1 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -3971,10 +3971,7 @@ int ext4_break_layouts(struct inode *inode)
+ 		if (!page)
+ 			return 0;
+ 
+-		error = ___wait_var_event(&page->_refcount,
+-				atomic_read(&page->_refcount) == 1,
+-				TASK_INTERRUPTIBLE, 0, 0,
+-				ext4_wait_dax_page(ei));
++		error = dax_wait_page(ei, page, ext4_wait_dax_page);
+ 	} while (error == 0);
+ 
+ 	return error;
+diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
+index ff99ab2a3c43..2b1f190ba78a 100644
+--- a/fs/fuse/dax.c
++++ b/fs/fuse/dax.c
+@@ -677,9 +677,7 @@ static int __fuse_dax_break_layouts(struct inode *inode, bool *retry,
+ 		return 0;
+ 
+ 	*retry = true;
+-	return ___wait_var_event(&page->_refcount,
+-			atomic_read(&page->_refcount) == 1, TASK_INTERRUPTIBLE,
+-			0, 0, fuse_wait_dax_page(inode));
++	return dax_wait_page(inode, page, fuse_wait_dax_page);
  }
- #endif
-=20
--static int validate_overlay(struct drm_atomic_state *state)
--{
--=09int i;
--=09struct drm_plane *plane;
--=09struct drm_plane_state *new_plane_state;
--=09struct drm_plane_state *primary_state, *overlay_state =3D NULL;
--
--=09/* Check if primary plane is contained inside overlay */
--=09for_each_new_plane_in_state_reverse(state, plane, new_plane_state, i) {
--=09=09if (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY) {
--=09=09=09if (drm_atomic_plane_disabling(plane->state, new_plane_state))
--=09=09=09=09return 0;
--
--=09=09=09overlay_state =3D new_plane_state;
--=09=09=09continue;
--=09=09}
--=09}
--
--=09/* check if we're making changes to the overlay plane */
--=09if (!overlay_state)
--=09=09return 0;
--
--=09/* check if overlay plane is enabled */
--=09if (!overlay_state->crtc)
--=09=09return 0;
--
--=09/* find the primary plane for the CRTC that the overlay is enabled on *=
-/
--=09primary_state =3D drm_atomic_get_plane_state(state, overlay_state->crtc=
-->primary);
--=09if (IS_ERR(primary_state))
--=09=09return PTR_ERR(primary_state);
--
--=09/* check if primary plane is enabled */
--=09if (!primary_state->crtc)
--=09=09return 0;
--
--=09/* Perform the bounds check to ensure the overlay plane covers the prim=
-ary */
--=09if (primary_state->crtc_x < overlay_state->crtc_x ||
--=09    primary_state->crtc_y < overlay_state->crtc_y ||
--=09    primary_state->crtc_x + primary_state->crtc_w > overlay_state->crtc=
-_x + overlay_state->crtc_w ||
--=09    primary_state->crtc_y + primary_state->crtc_h > overlay_state->crtc=
-_y + overlay_state->crtc_h) {
--=09=09DRM_DEBUG_ATOMIC("Overlay plane is enabled with hardware cursor but =
-does not fully cover primary plane\n");
--=09=09return -EINVAL;
--=09}
--
--=09return 0;
--}
--
- /**
-  * amdgpu_dm_atomic_check() - Atomic check implementation for AMDgpu DM.
-  * @dev: The DRM device
-@@ -10856,10 +10809,6 @@ static int amdgpu_dm_atomic_check(struct drm_devic=
-e *dev,
- =09=09=09goto fail;
- =09}
-=20
--=09ret =3D validate_overlay(state);
--=09if (ret)
--=09=09goto fail;
--
- =09/* Add new/modified planes */
- =09for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, n=
-ew_plane_state, i) {
- =09=09ret =3D dm_update_plane_state(dc, state, plane,
---=20
-2.33.0
-
+ 
+ /* dmap_end == 0 leads to unmapping of whole file */
+diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+index 396ef36dcd0a..182057281086 100644
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@ -840,9 +840,7 @@ xfs_break_dax_layouts(
+ 		return 0;
+ 
+ 	*retry = true;
+-	return ___wait_var_event(&page->_refcount,
+-			atomic_read(&page->_refcount) == 1, TASK_INTERRUPTIBLE,
+-			0, 0, xfs_wait_dax_page(inode));
++	return dax_wait_page(inode, page, xfs_wait_dax_page);
+ }
+ 
+ int
+diff --git a/include/linux/dax.h b/include/linux/dax.h
+index b52f084aa643..8b5da1d60dbc 100644
+--- a/include/linux/dax.h
++++ b/include/linux/dax.h
+@@ -243,6 +243,16 @@ static inline bool dax_mapping(struct address_space *mapping)
+ 	return mapping->host && IS_DAX(mapping->host);
+ }
+ 
++static inline bool dax_page_unused(struct page *page)
++{
++	return page_ref_count(page) == 1;
++}
++
++#define dax_wait_page(_inode, _page, _wait_cb)				\
++	___wait_var_event(&(_page)->_refcount,				\
++		dax_page_unused(_page),				\
++		TASK_INTERRUPTIBLE, 0, 0, _wait_cb(_inode))
++
+ #ifdef CONFIG_DEV_DAX_HMEM_DEVICES
+ void hmem_register_device(int target_nid, struct resource *r);
+ #else
+-- 
+2.32.0
 
