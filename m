@@ -2,106 +2,78 @@ Return-Path: <SRS0=AM0C=PC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 136E6C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0809C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D829460FDC
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 15:39:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D829460FDC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id A725361152
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A725361152
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 664B36E197;
-	Thu, 14 Oct 2021 15:39:47 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 299B26E182;
- Thu, 14 Oct 2021 15:39:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VjgT8a9beIfCrDWqDtQlPELag29YV5HKOcJDsnglLHvSelEFJI6iVXGwKt7QyGq2i4M+dzSdDW0kt51xNufqdvMIMprOR8kBemqfDPYXpHKMZDMzTsy2ujFy0aTTIkGNF0kwedvHDbs66J1frT9aW6MB/SDNEH3Fvw7ZYZw/p0Ta9IWz0cXfK3oCV7C+F/y3R/WRsPu1Tj3YRdO4V33e94+bdvLcIrnt+p3Q/toBgZFKhfJtOJkrC2CkivRK9yJHTAKozorqoh05MQ4jXLAgu6F+P2DVfHmqLxN6k3PX6pptb0AOXOpYEh5mtWzNPHlj00iksYKjGh50QH+atM3Fdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YOpucbc/fJ96/axSQRUqL6YobnSoy0nbWQSNVNqOGY4=;
- b=OVtS0iyp52ag7kQQ7255gl0xIAFqvbpKFWt9TDOCcBtXPyK67gZ410lB/Et5W3Zkpcyf3KLhkfk9ZxoVN8aiE626abcQrAIMfJlIlBuLeNDjb1M7gxW2oUwngh0+jTVDn1qzgSjt9orGXROSjUwbn3ijCHB8MrcEBGM9PyGfuMIzQov9bO3meu2WTuarx1K8MRhvcXYR8KKXIKazlBMwIwMPyx2mn6l6Y6ADKeUKud3Yq4BlnRM0XbwHBCDV4QwlgvaoVmqrfT7AoAIDkn7IKvVjKBOGp7Ur2v3kJeDArNCe338H8Tf847uK8xk4Ze+HyFLJnJxsFXkv1jnaBAD+nA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YOpucbc/fJ96/axSQRUqL6YobnSoy0nbWQSNVNqOGY4=;
- b=BfmzJaxksXfNf52cjHd1FGdVGMM6t8OSPKNEoJSpeATgE2GyoLYV8JDepmZgytL7nT1/tRr0493Msd4bxsi/F7qqjukn82qKu1WRSPSo7L475W7eIFISfEWzhPDFMOcsHOeqwOYljF4XlxkFSIo3QA7JJIChriuQpYnCKrdeEcA=
-Received: from CO2PR04CA0106.namprd04.prod.outlook.com (2603:10b6:104:6::32)
- by BL0PR12MB2561.namprd12.prod.outlook.com (2603:10b6:207:3e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Thu, 14 Oct
- 2021 15:39:42 +0000
-Received: from CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:6:cafe::5e) by CO2PR04CA0106.outlook.office365.com
- (2603:10b6:104:6::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Thu, 14 Oct 2021 15:39:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; linux-foundation.org; dkim=none (message not signed)
- header.d=none;linux-foundation.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT022.mail.protection.outlook.com (10.13.175.199) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Thu, 14 Oct 2021 15:39:42 +0000
-Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 14 Oct
- 2021 10:39:39 -0500
-From: Alex Sierra <alex.sierra@amd.com>
-To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
- <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
- <linux-xfs@vger.kernel.org>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <hch@lst.de>, <jgg@nvidia.com>, <jglisse@redhat.com>, <apopple@nvidia.com>,
- <willy@infradead.org>
-Subject: [PATCH v1 2/2] mm: remove extra ZONE_DEVICE struct page refcount
-Date: Thu, 14 Oct 2021 10:39:28 -0500
-Message-ID: <20211014153928.16805-3-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211014153928.16805-1-alex.sierra@amd.com>
-References: <20211014153928.16805-1-alex.sierra@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 314A06E1A4;
+	Thu, 14 Oct 2021 17:14:36 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA3C6E1A4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 17:14:34 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ n40-20020a05600c3ba800b0030da2439b21so68999wms.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 10:14:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=jma+RRB/JEjhJnPIEyqcuLNmdQvSz0TeXJF1pp4DlRo=;
+ b=GY2xEnlrNE/oAaP6JJgF2ziscv6eCPfF1htI571cc1/zBcK0MlvpNozLH57UfA1n+/
+ gpvYXla0sVovFMy7YA3Bl5U7doKcpnTJoIMpNEKfsvMRC/YhyE15jDHJGcti4JkSc3+l
+ B/cQOEHm3ZIvgrWia/EqHbLOuGE9g7FxyDg0snQ/gTaRopE9FU2/cI14GKcIUK/Rf8HS
+ 0+/Y6seEiHhBZm9/plDB+BcgFdPJvuHBa6/rB+F9qwiJgbspyK3dgHqiaua9jI+depxJ
+ 9EMtj1Gc3nKzsn6mzim7XQMs6/pXkJAHXebQezGw/LyZ83TFVtIqmFKSa908jxXzKmIE
+ MEUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=jma+RRB/JEjhJnPIEyqcuLNmdQvSz0TeXJF1pp4DlRo=;
+ b=iG6TuOdduWFGxsoHfkdFXaKLz4qb11EX8tXLUBxhGD8Roc4yvhGcmTHAwlFhLawpac
+ Y2zQ0cXDRbA17cuI9VE4iQOu4s0oSRgXNQmp2FzWFg07k0zud3nAsGAxkbAyxG5mMXmO
+ OFJ8PUHZ0MDUyqFnXxclXMpa9SxUC9YNjJEYYkF4h4qLOsedcOAfkNyUhTFPq7/TxSYQ
+ p1G5y5tHEvf0Ne43JEDZ1ld9JlCssRozbO/JCltSaQ8BdUwa+DJ+5/8W9PhJzWmMGFeg
+ dgaMCxnN6GfzdJkk1j2GIj54jKQdf1jZsNJEEExFP1230noYUS5Ua5nn9Z50PjCTO1DZ
+ orHw==
+X-Gm-Message-State: AOAM533uX0soKlfjo8hgsQZeiEXs2bNqRtIuPtrD5gyerMP40s/nRat3
+ 1wA12MKDiFe5EApRzF6AVEQ=
+X-Google-Smtp-Source: ABdhPJzuU1HWYte1qkMwYwMJgQnCge6kL7YGSruybDoCVRVQ6vUV3B3zuqPFXVxLAJcj2emfE7m/XQ==
+X-Received: by 2002:a1c:29c2:: with SMTP id p185mr20715361wmp.43.1634231673095; 
+ Thu, 14 Oct 2021 10:14:33 -0700 (PDT)
+Received: from ?IPv6:2a02:8109:333f:edd8:ab97:c24:6a8b:9407?
+ ([2a02:8109:333f:edd8:ab97:c24:6a8b:9407])
+ by smtp.gmail.com with ESMTPSA id k17sm8991826wmj.0.2021.10.14.10.14.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Oct 2021 10:14:32 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdkfd: Separate pinned BOs destruction from general
+ routine
+To: "Yu, Lang" <Lang.Yu@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>
+References: <20211011085837.611326-1-lang.yu@amd.com>
+ <9902c8e8-bd54-d750-2030-7065e91201b2@amd.com>
+ <DM6PR12MB42503869EEEA54190E29A531FBB89@DM6PR12MB4250.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <41874e7f-305d-7be2-e8ca-a9a69e47c8c6@gmail.com>
+Date: Thu, 14 Oct 2021 19:14:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
+In-Reply-To: <DM6PR12MB42503869EEEA54190E29A531FBB89@DM6PR12MB4250.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f5088b4c-a39b-4ca4-c449-08d98f28d75d
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2561:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB256146FDD4FB8BF3C33D554BFDB89@BL0PR12MB2561.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MvxSOYTMgSOaONyOeTAezx8KtNDaCyvyFaTKes5z4IPPeLTsHWBiUu78G9oYtJega6PudEPeSAFkn5TH/Fa+YzD9b/BmvLESSoJQ/LPsdPWu1wEodNmQvZFEEhaXO5/6v6DDgReU+PwTteTbA8xaQDG8TFLar4xmdunNRqiCXIV2WBxZuUZxUHoA/DYWJj3++H1kvLaw2BUWAiVYcLZ8/ZYT+WSu3tnXFkOXhkX9JX1In1qxUq6D/2b5MwD3izNUhORJQ7VRK5MFu7apeACayqkUC+1o35DVrbKWqA7YPmugI6VWIqwTRjY3h5mVqqRrKbgbn4R7M+BMg50w99jH80nWXYiQI4QN+N+pNlWqVeOASxk7ti+15Sz8X6w5ppl4vF03t5mPZZorah7cY8ucUkr5SIbgSslVDAFOAUTJtqVTKb2E4b61XVRAnxzb5M6X+kkPYjLzyVGyefXRcLaAFroOb5hOl+w9214HdHvPHOYiOllc5DhMNhpKA+YFy9YsCXh4o9Pb5oGJ+U/7eYG87FIzmecxZ2/e7W7lBqOCaWAbTxhH2NyL3OxMBhs/BNNFGRXSgiqNcEWSEDhA2sEM/jvY/bB/1h5v6mPA29zy3WSgmDGk6GgzJgesqvF9QG5aAM8uCfaC5jh1R6njGc4vTeXmbb3UBIonE3uOO6QDl2u8vAh6EyiYS9RAzVoIFUcrlBH1hrdHiuUS7JfLO1qkzttKyzZXEi9rIDV12tzKgcu3zvLA2gGTy/1zRe5VcQ7mQ3XNIEF4BJKc36sPtg51dSFd5uEoqQEi6Ur+7OluVW1kVgADuWoljx6p2M6NQOTjktsmCMy8gju+ouzvMPMRxCSSZzxfMUTUYB48ujceO9s=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(4326008)(8676002)(8936002)(110136005)(70206006)(54906003)(70586007)(356005)(7416002)(5660300002)(426003)(316002)(1076003)(36860700001)(82310400003)(86362001)(81166007)(36756003)(44832011)(47076005)(30864003)(2906002)(6666004)(966005)(2616005)(16526019)(83380400001)(186003)(7696005)(26005)(508600001)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 15:39:42.2737 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5088b4c-a39b-4ca4-c449-08d98f28d75d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2561
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,437 +88,449 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ralph Campbell <rcampbell@nvidia.com>
+Am 14.10.21 um 12:14 schrieb Yu, Lang:
+> [AMD Official Use Only]
+>
+>
+>
+>> -----Original Message-----
+>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>> Sent: Wednesday, October 13, 2021 11:25 PM
+>> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+>> Subject: Re: [PATCH] drm/amdkfd: Separate pinned BOs destruction from
+>> general routine
+>>
+>> Am 2021-10-11 um 4:58 a.m. schrieb Lang Yu:
+>>> Currently, all kfd BOs use same destruction routine. But pinned BOs
+>>> are not unpinned properly. Separate them from general routine.
+>>>
+>>> Signed-off-by: Lang Yu <lang.yu@amd.com>
+>> I think the general idea is right. However, we need another safeguard for the
+>> signal BO, which is allocated by user mode and can be freed by user mode at
+>> any time. We can solve this in one of two ways:
+>>
+>> 1. Add special handling for the signal BO in
+>>     kfd_ioctl_free_memory_of_gpu to kunmap the BO and make sure the
+>>     signal handling code is aware of it
+>> 2. Fail kfd_ioctl_free_memory_of_gpu for signal BOs and only allow them
+>>     to be destroyed at process termination
+>>
+>> I think #2 is easier, and is consistent with what current user mode does.
+> Will add safeguard to prevent that according to #2.
 
-ZONE_DEVICE struct pages have an extra reference count that complicates the
-code for put_page() and several places in the kernel that need to check the
-reference count to see that a page is not being used (gup, compaction,
-migration, etc.). Clean up the code so the reference count doesn't need to
-be treated specially for ZONE_DEVICE.
+Well, exactly that are the things why upstream people insisted on this :)
 
-Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
----
-v2:
-AS: merged this patch in linux 5.11 version
+Sounds like the best solution to me as well.
 
-v5:
-AS: add condition at try_grab_page to check for the zone device type, while
-page ref counter is checked less/equal to zero. In case of device zone, pages
-ref counter are initialized to zero.
+Thanks for taking care of this,
+Christian.
 
-v7:
-AS: fix condition at try_grab_page added at v5, is invalid. It supposed
-to fix xfstests/generic/413 test, however, there's a known issue on
-this test where DAX mapped area DIO to non-DAX expect to fail.
-https://patchwork.kernel.org/project/fstests/patch/1489463960-3579-1-git-send-email-xzhou@redhat.com
-This condition was removed after rebase over patch series
-https://lore.kernel.org/r/20210813044133.1536842-4-jhubbard@nvidia.com
----
- arch/powerpc/kvm/book3s_hv_uvmem.c     |  2 +-
- drivers/gpu/drm/nouveau/nouveau_dmem.c |  2 +-
- fs/dax.c                               |  4 +-
- include/linux/dax.h                    |  2 +-
- include/linux/memremap.h               |  7 +--
- include/linux/mm.h                     | 11 ----
- lib/test_hmm.c                         |  2 +-
- mm/internal.h                          |  8 +++
- mm/memcontrol.c                        |  6 +--
- mm/memremap.c                          | 69 +++++++-------------------
- mm/migrate.c                           |  5 --
- mm/page_alloc.c                        |  3 ++
- mm/swap.c                              | 45 ++---------------
- 13 files changed, 46 insertions(+), 120 deletions(-)
-
-diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
-index 84e5a2dc8be5..acee67710620 100644
---- a/arch/powerpc/kvm/book3s_hv_uvmem.c
-+++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
-@@ -711,7 +711,7 @@ static struct page *kvmppc_uvmem_get_page(unsigned long gpa, struct kvm *kvm)
- 
- 	dpage = pfn_to_page(uvmem_pfn);
- 	dpage->zone_device_data = pvt;
--	get_page(dpage);
-+	init_page_count(dpage);
- 	lock_page(dpage);
- 	return dpage;
- out_clear:
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-index 92987daa5e17..8bc7120e1216 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-@@ -324,7 +324,7 @@ nouveau_dmem_page_alloc_locked(struct nouveau_drm *drm)
- 			return NULL;
- 	}
- 
--	get_page(page);
-+	init_page_count(page);
- 	lock_page(page);
- 	return page;
- }
-diff --git a/fs/dax.c b/fs/dax.c
-index c387d09e3e5a..1166630b7190 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -571,14 +571,14 @@ static void *grab_mapping_entry(struct xa_state *xas,
- 
- /**
-  * dax_layout_busy_page_range - find first pinned page in @mapping
-- * @mapping: address space to scan for a page with ref count > 1
-+ * @mapping: address space to scan for a page with ref count > 0
-  * @start: Starting offset. Page containing 'start' is included.
-  * @end: End offset. Page containing 'end' is included. If 'end' is LLONG_MAX,
-  *       pages from 'start' till the end of file are included.
-  *
-  * DAX requires ZONE_DEVICE mapped pages. These pages are never
-  * 'onlined' to the page allocator so they are considered idle when
-- * page->count == 1. A filesystem uses this interface to determine if
-+ * page->count == 0. A filesystem uses this interface to determine if
-  * any page in the mapping is busy, i.e. for DMA, or other
-  * get_user_pages() usages.
-  *
-diff --git a/include/linux/dax.h b/include/linux/dax.h
-index 8b5da1d60dbc..05fc982ce153 100644
---- a/include/linux/dax.h
-+++ b/include/linux/dax.h
-@@ -245,7 +245,7 @@ static inline bool dax_mapping(struct address_space *mapping)
- 
- static inline bool dax_page_unused(struct page *page)
- {
--	return page_ref_count(page) == 1;
-+	return page_ref_count(page) == 0;
- }
- 
- #define dax_wait_page(_inode, _page, _wait_cb)				\
-diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-index 45a79da89c5f..77ff5fd0685f 100644
---- a/include/linux/memremap.h
-+++ b/include/linux/memremap.h
-@@ -66,9 +66,10 @@ enum memory_type {
- 
- struct dev_pagemap_ops {
- 	/*
--	 * Called once the page refcount reaches 1.  (ZONE_DEVICE pages never
--	 * reach 0 refcount unless there is a refcount bug. This allows the
--	 * device driver to implement its own memory management.)
-+	 * Called once the page refcount reaches 0. The reference count
-+	 * should be reset to one with init_page_count(page) before reusing
-+	 * the page. This allows the device driver to implement its own
-+	 * memory management.
- 	 */
- 	void (*page_free)(struct page *page);
- 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index d8f98d652164..e24c904deeec 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1220,17 +1220,6 @@ static inline void put_page(struct page *page)
- {
- 	page = compound_head(page);
- 
--	/*
--	 * For devmap managed pages we need to catch refcount transition from
--	 * 2 to 1, when refcount reach one it means the page is free and we
--	 * need to inform the device driver through callback. See
--	 * include/linux/memremap.h and HMM for details.
--	 */
--	if (page_is_devmap_managed(page)) {
--		put_devmap_managed_page(page);
--		return;
--	}
--
- 	if (put_page_testzero(page))
- 		__put_page(page);
- }
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index 80a78877bd93..6998f10350ea 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -561,7 +561,7 @@ static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevice)
- 	}
- 
- 	dpage->zone_device_data = rpage;
--	get_page(dpage);
-+	init_page_count(dpage);
- 	lock_page(dpage);
- 	return dpage;
- 
-diff --git a/mm/internal.h b/mm/internal.h
-index e8fdb531f887..5438cceca4b9 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -667,4 +667,12 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
- 
- void vunmap_range_noflush(unsigned long start, unsigned long end);
- 
-+#ifdef CONFIG_DEV_PAGEMAP_OPS
-+void free_zone_device_page(struct page *page);
-+#else
-+static inline void free_zone_device_page(struct page *page)
-+{
-+}
-+#endif
-+
- #endif	/* __MM_INTERNAL_H */
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 64ada9e650a5..9a6bfb4fd36c 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5350,11 +5350,7 @@ static struct page *mc_handle_swap_pte(struct vm_area_struct *vma,
- 	 */
- 	if (is_device_private_entry(ent)) {
- 		page = device_private_entry_to_page(ent);
--		/*
--		 * MEMORY_DEVICE_PRIVATE means ZONE_DEVICE page and which have
--		 * a refcount of 1 when free (unlike normal page)
--		 */
--		if (!page_ref_add_unless(page, 1, 1))
-+		if (!get_page_unless_zero(page))
- 			return NULL;
- 		return page;
- 	}
-diff --git a/mm/memremap.c b/mm/memremap.c
-index 15a074ffb8d7..ab949a571e78 100644
---- a/mm/memremap.c
-+++ b/mm/memremap.c
-@@ -12,6 +12,7 @@
- #include <linux/types.h>
- #include <linux/wait_bit.h>
- #include <linux/xarray.h>
-+#include "internal.h"
- 
- static DEFINE_XARRAY(pgmap_array);
- 
-@@ -37,32 +38,6 @@ unsigned long memremap_compat_align(void)
- EXPORT_SYMBOL_GPL(memremap_compat_align);
- #endif
- 
--#ifdef CONFIG_DEV_PAGEMAP_OPS
--DEFINE_STATIC_KEY_FALSE(devmap_managed_key);
--EXPORT_SYMBOL(devmap_managed_key);
--
--static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
--{
--	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
--	    pgmap->type == MEMORY_DEVICE_FS_DAX)
--		static_branch_dec(&devmap_managed_key);
--}
--
--static void devmap_managed_enable_get(struct dev_pagemap *pgmap)
--{
--	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
--	    pgmap->type == MEMORY_DEVICE_FS_DAX)
--		static_branch_inc(&devmap_managed_key);
--}
--#else
--static void devmap_managed_enable_get(struct dev_pagemap *pgmap)
--{
--}
--static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
--{
--}
--#endif /* CONFIG_DEV_PAGEMAP_OPS */
--
- static void pgmap_array_delete(struct range *range)
- {
- 	xa_store_range(&pgmap_array, PHYS_PFN(range->start), PHYS_PFN(range->end),
-@@ -102,16 +77,6 @@ static unsigned long pfn_end(struct dev_pagemap *pgmap, int range_id)
- 	return (range->start + range_len(range)) >> PAGE_SHIFT;
- }
- 
--static unsigned long pfn_next(unsigned long pfn)
--{
--	if (pfn % 1024 == 0)
--		cond_resched();
--	return pfn + 1;
--}
--
--#define for_each_device_pfn(pfn, map, i) \
--	for (pfn = pfn_first(map, i); pfn < pfn_end(map, i); pfn = pfn_next(pfn))
--
- static void dev_pagemap_kill(struct dev_pagemap *pgmap)
- {
- 	if (pgmap->ops && pgmap->ops->kill)
-@@ -167,20 +132,18 @@ static void pageunmap_range(struct dev_pagemap *pgmap, int range_id)
- 
- void memunmap_pages(struct dev_pagemap *pgmap)
- {
--	unsigned long pfn;
- 	int i;
- 
- 	dev_pagemap_kill(pgmap);
- 	for (i = 0; i < pgmap->nr_range; i++)
--		for_each_device_pfn(pfn, pgmap, i)
--			put_page(pfn_to_page(pfn));
-+		percpu_ref_put_many(pgmap->ref, pfn_end(pgmap, i) -
-+						pfn_first(pgmap, i));
- 	dev_pagemap_cleanup(pgmap);
- 
- 	for (i = 0; i < pgmap->nr_range; i++)
- 		pageunmap_range(pgmap, i);
- 
- 	WARN_ONCE(pgmap->altmap.alloc, "failed to free all reserved pages\n");
--	devmap_managed_enable_put(pgmap);
- }
- EXPORT_SYMBOL_GPL(memunmap_pages);
- 
-@@ -382,8 +345,6 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
- 		}
- 	}
- 
--	devmap_managed_enable_get(pgmap);
--
- 	/*
- 	 * Clear the pgmap nr_range as it will be incremented for each
- 	 * successfully processed range. This communicates how many
-@@ -498,16 +459,9 @@ struct dev_pagemap *get_dev_pagemap(unsigned long pfn,
- EXPORT_SYMBOL_GPL(get_dev_pagemap);
- 
- #ifdef CONFIG_DEV_PAGEMAP_OPS
--void free_devmap_managed_page(struct page *page)
-+static void free_device_page(struct page *page)
- {
--	/* notify page idle for dax */
--	if (!is_device_private_page(page)) {
--		wake_up_var(&page->_refcount);
--		return;
--	}
--
- 	__ClearPageWaiters(page);
--
- 	mem_cgroup_uncharge(page);
- 
- 	/*
-@@ -534,4 +488,19 @@ void free_devmap_managed_page(struct page *page)
- 	page->mapping = NULL;
- 	page->pgmap->ops->page_free(page);
- }
-+
-+void free_zone_device_page(struct page *page)
-+{
-+	switch (page->pgmap->type) {
-+	case MEMORY_DEVICE_PRIVATE:
-+		free_device_page(page);
-+		return;
-+	case MEMORY_DEVICE_FS_DAX:
-+		/* notify page idle */
-+		wake_up_var(&page->_refcount);
-+		return;
-+	default:
-+		return;
-+	}
-+}
- #endif /* CONFIG_DEV_PAGEMAP_OPS */
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 41ff2c9896c4..e3a10e2a1bb3 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -350,11 +350,6 @@ static int expected_page_refs(struct address_space *mapping, struct page *page)
- {
- 	int expected_count = 1;
- 
--	/*
--	 * Device private pages have an extra refcount as they are
--	 * ZONE_DEVICE pages.
--	 */
--	expected_count += is_device_private_page(page);
- 	if (mapping)
- 		expected_count += thp_nr_pages(page) + page_has_private(page);
- 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index ef2265f86b91..1ef1f733af5b 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -6414,6 +6414,9 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 
- 		__init_single_page(page, pfn, zone_idx, nid);
- 
-+		/* ZONE_DEVICE pages start with a zero reference count. */
-+		set_page_count(page, 0);
-+
- 		/*
- 		 * Mark page reserved as it will need to wait for onlining
- 		 * phase for it to be fully associated with a zone.
-diff --git a/mm/swap.c b/mm/swap.c
-index dfb48cf9c2c9..9e821f1951c5 100644
---- a/mm/swap.c
-+++ b/mm/swap.c
-@@ -114,12 +114,11 @@ static void __put_compound_page(struct page *page)
- void __put_page(struct page *page)
- {
- 	if (is_zone_device_page(page)) {
--		put_dev_pagemap(page->pgmap);
--
- 		/*
- 		 * The page belongs to the device that created pgmap. Do
- 		 * not return it to page allocator.
- 		 */
-+		free_zone_device_page(page);
- 		return;
- 	}
- 
-@@ -917,29 +916,18 @@ void release_pages(struct page **pages, int nr)
- 		if (is_huge_zero_page(page))
- 			continue;
- 
-+		if (!put_page_testzero(page))
-+			continue;
-+
- 		if (is_zone_device_page(page)) {
- 			if (lruvec) {
- 				unlock_page_lruvec_irqrestore(lruvec, flags);
- 				lruvec = NULL;
- 			}
--			/*
--			 * ZONE_DEVICE pages that return 'false' from
--			 * page_is_devmap_managed() do not require special
--			 * processing, and instead, expect a call to
--			 * put_page_testzero().
--			 */
--			if (page_is_devmap_managed(page)) {
--				put_devmap_managed_page(page);
--				continue;
--			}
--			if (put_page_testzero(page))
--				put_dev_pagemap(page->pgmap);
-+			free_zone_device_page(page);
- 			continue;
- 		}
- 
--		if (!put_page_testzero(page))
--			continue;
--
- 		if (PageCompound(page)) {
- 			if (lruvec) {
- 				unlock_page_lruvec_irqrestore(lruvec, flags);
-@@ -1143,26 +1131,3 @@ void __init swap_setup(void)
- 	 * _really_ don't want to cluster much more
- 	 */
- }
--
--#ifdef CONFIG_DEV_PAGEMAP_OPS
--void put_devmap_managed_page(struct page *page)
--{
--	int count;
--
--	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
--		return;
--
--	count = page_ref_dec_return(page);
--
--	/*
--	 * devmap page refcounts are 1-based, rather than 0-based: if
--	 * refcount is 1, then the page is free and the refcount is
--	 * stable because nobody holds a reference on the page.
--	 */
--	if (count == 1)
--		free_devmap_managed_page(page);
--	else if (!count)
--		__put_page(page);
--}
--EXPORT_SYMBOL(put_devmap_managed_page);
--#endif
--- 
-2.32.0
+>   
+>> A few more comment inline ...
+>>
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   2 +
+>>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  10 ++
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   3 +
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   3 +
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 125 ++++++++++++++---
+>> -
+>>>   5 files changed, 114 insertions(+), 29 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>>> index 69de31754907..751557af09bb 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>>> @@ -279,6 +279,8 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+>>>   		struct kgd_dev *kgd, struct kgd_mem *mem, bool intr);  int
+>>> amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_dev *kgd,
+>>>   		struct kgd_mem *mem, void **kptr, uint64_t *size);
+>>> +void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct
+>> kgd_dev
+>>> +*kgd, struct kgd_mem *mem);
+>>> +
+>>>   int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+>>>   					    struct dma_fence **ef);
+>>>   int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct kgd_dev *kgd, diff
+>>> --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> index 054c1a224def..6acc78b02bdc 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> @@ -1871,6 +1871,16 @@ int
+>> amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_dev *kgd,
+>>>   	return ret;
+>>>   }
+>>>
+>>> +void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct
+>> kgd_dev
+>>> +*kgd, struct kgd_mem *mem) {
+>>> +	struct amdgpu_bo *bo = mem->bo;
+>>> +
+>>> +	amdgpu_bo_reserve(bo, true);
+>>> +	amdgpu_bo_kunmap(bo);
+>>> +	amdgpu_bo_unpin(bo);
+>>> +	amdgpu_bo_unreserve(bo);
+>>> +}
+>>> +
+>>>   int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct kgd_dev *kgd,
+>>>   					      struct kfd_vm_fault_info *mem)
+>> { diff --git
+>>> a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> index f1e7edeb4e6b..0db48ac10fde 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> @@ -1051,6 +1051,9 @@ static int kfd_ioctl_create_event(struct file *filp,
+>> struct kfd_process *p,
+>>>   			pr_err("Failed to set event page\n");
+>> Need to kunmap the signal BO here.
+> Will kunmap it here.
+>
+>>>   			return err;
+>>>   		}
+>>> +
+>>> +		p->signal_handle = args->event_page_offset;
+>>> +
+>>>   	}
+>>>
+>>>   	err = kfd_event_create(filp, p, args->event_type, diff --git
+>>> a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> index 6d8f9bb2d905..30f08f1606bb 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> @@ -608,12 +608,14 @@ struct qcm_process_device {
+>>>   	uint32_t sh_hidden_private_base;
+>>>
+>>>   	/* CWSR memory */
+>>> +	struct kgd_mem *cwsr_mem;
+>>>   	void *cwsr_kaddr;
+>>>   	uint64_t cwsr_base;
+>>>   	uint64_t tba_addr;
+>>>   	uint64_t tma_addr;
+>>>
+>>>   	/* IB memory */
+>>> +	struct kgd_mem *ib_mem;
+>>>   	uint64_t ib_base;
+>>>   	void *ib_kaddr;
+>>>
+>>> @@ -808,6 +810,7 @@ struct kfd_process {
+>>>   	/* Event ID allocator and lookup */
+>>>   	struct idr event_idr;
+>>>   	/* Event page */
+>>> +	u64 signal_handle;
+>>>   	struct kfd_signal_page *signal_page;
+>>>   	size_t signal_mapped_size;
+>>>   	size_t signal_event_count;
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> index 21ec8a18cad2..c024f2e2efaa 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> @@ -72,6 +72,8 @@ static int kfd_process_init_cwsr_apu(struct
+>>> kfd_process *p, struct file *filep);  static void
+>>> evict_process_worker(struct work_struct *work);  static void
+>>> restore_process_worker(struct work_struct *work);
+>>>
+>>> +static void kfd_process_device_destroy_cwsr_dgpu(struct
+>>> +kfd_process_device *pdd);
+>>> +
+>>>   struct kfd_procfs_tree {
+>>>   	struct kobject *kobj;
+>>>   };
+>>> @@ -685,10 +687,15 @@ void kfd_process_destroy_wq(void)  }
+>>>
+>>>   static void kfd_process_free_gpuvm(struct kgd_mem *mem,
+>>> -			struct kfd_process_device *pdd)
+>>> +			struct kfd_process_device *pdd, void *kptr)
+>>>   {
+>>>   	struct kfd_dev *dev = pdd->dev;
+>>>
+>>> +	if (kptr) {
+>>> +		amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(dev-
+>>> kgd, mem);
+>>> +		kptr = NULL;
+>>> +	}
+>>> +
+>>>   	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->kgd,
+>> mem, pdd->drm_priv);
+>>>   	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->kgd, mem,
+>> pdd->drm_priv,
+>>>   					       NULL);
+>>> @@ -702,63 +709,46 @@ static void kfd_process_free_gpuvm(struct
+>> kgd_mem *mem,
+>>>    */
+>>>   static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
+>>>   				   uint64_t gpu_va, uint32_t size,
+>>> -				   uint32_t flags, void **kptr)
+>>> +				   uint32_t flags, struct kgd_mem **mem, void
+>> **kptr)
+>>>   {
+>>>   	struct kfd_dev *kdev = pdd->dev;
+>>> -	struct kgd_mem *mem = NULL;
+>>> -	int handle;
+>>>   	int err;
+>>>
+>>>   	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(kdev->kgd,
+>> gpu_va, size,
+>>> -						 pdd->drm_priv, &mem, NULL,
+>> flags);
+>>> +						 pdd->drm_priv, mem, NULL,
+>> flags);
+>>>   	if (err)
+>>>   		goto err_alloc_mem;
+>>>
+>>> -	err = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(kdev->kgd,
+>> mem,
+>>> +	err = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(kdev->kgd,
+>> *mem,
+>>>   			pdd->drm_priv, NULL);
+>>>   	if (err)
+>>>   		goto err_map_mem;
+>>>
+>>> -	err = amdgpu_amdkfd_gpuvm_sync_memory(kdev->kgd, mem,
+>> true);
+>>> +	err = amdgpu_amdkfd_gpuvm_sync_memory(kdev->kgd, *mem,
+>> true);
+>>>   	if (err) {
+>>>   		pr_debug("Sync memory failed, wait interrupted by user
+>> signal\n");
+>>>   		goto sync_memory_failed;
+>>>   	}
+>>>
+>>> -	/* Create an obj handle so kfd_process_device_remove_obj_handle
+>>> -	 * will take care of the bo removal when the process finishes.
+>>> -	 * We do not need to take p->mutex, because the process is just
+>>> -	 * created and the ioctls have not had the chance to run.
+>>> -	 */
+>>> -	handle = kfd_process_device_create_obj_handle(pdd, mem);
+>>> -
+>>> -	if (handle < 0) {
+>>> -		err = handle;
+>>> -		goto free_gpuvm;
+>>> -	}
+>>> -
+>>>   	if (kptr) {
+>>>   		err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(kdev-
+>>> kgd,
+>>> -				(struct kgd_mem *)mem, kptr, NULL);
+>>> +				(struct kgd_mem *)*mem, kptr, NULL);
+>>>   		if (err) {
+>>>   			pr_debug("Map GTT BO to kernel failed\n");
+>>> -			goto free_obj_handle;
+>>> +			goto sync_memory_failed;
+>>>   		}
+>>>   	}
+>>>
+>>>   	return err;
+>>>
+>>> -free_obj_handle:
+>>> -	kfd_process_device_remove_obj_handle(pdd, handle);
+>>> -free_gpuvm:
+>>>   sync_memory_failed:
+>>> -	kfd_process_free_gpuvm(mem, pdd);
+>>> -	return err;
+>>> +	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(kdev->kgd,
+>> *mem,
+>>> +pdd->drm_priv);
+>>>
+>>>   err_map_mem:
+>>> -	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->kgd, mem,
+>> pdd->drm_priv,
+>>> +	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->kgd, *mem,
+>>> +pdd->drm_priv,
+>>>   					       NULL);
+>>>   err_alloc_mem:
+>>> +	*mem = NULL;
+>>>   	*kptr = NULL;
+>>>   	return err;
+>>>   }
+>>> @@ -776,6 +766,7 @@ static int
+>> kfd_process_device_reserve_ib_mem(struct kfd_process_device *pdd)
+>>>   			KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE |
+>>>   			KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
+>>>   			KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
+>>> +	struct kgd_mem *mem;
+>>>   	void *kaddr;
+>>>   	int ret;
+>>>
+>>> @@ -784,15 +775,26 @@ static int
+>>> kfd_process_device_reserve_ib_mem(struct kfd_process_device *pdd)
+>>>
+>>>   	/* ib_base is only set for dGPU */
+>>>   	ret = kfd_process_alloc_gpuvm(pdd, qpd->ib_base, PAGE_SIZE, flags,
+>>> -				      &kaddr);
+>>> +				      &mem, &kaddr);
+>>>   	if (ret)
+>>>   		return ret;
+>>>
+>>> +	qpd->ib_mem = mem;
+>>>   	qpd->ib_kaddr = kaddr;
+>>>
+>>>   	return 0;
+>>>   }
+>>>
+>>> +static void kfd_process_device_destroy_ib_mem(struct
+>>> +kfd_process_device *pdd) {
+>>> +	struct qcm_process_device *qpd = &pdd->qpd;
+>>> +
+>>> +	if (!qpd->ib_kaddr || !qpd->ib_base)
+>>> +		return;
+>>> +
+>>> +	kfd_process_free_gpuvm(qpd->ib_mem, pdd, qpd->ib_kaddr); }
+>>> +
+>>>   struct kfd_process *kfd_create_process(struct file *filep)  {
+>>>   	struct kfd_process *process;
+>>> @@ -947,6 +949,52 @@ static void kfd_process_device_free_bos(struct
+>> kfd_process_device *pdd)
+>>>   	}
+>>>   }
+>>>
+>>> +static void kfd_process_free_signal_bo(struct kfd_process *p) {
+>>> +	struct kfd_process_device *pdd;
+>>> +	struct kfd_dev *kdev;
+>>> +	void *mem;
+>>> +	int i;
+>>> +
+>>> +	kdev = kfd_device_by_id(GET_GPU_ID(p->signal_handle));
+>>> +	if (!kdev)
+>>> +		return;
+>>> +
+>>> +	mutex_lock(&p->mutex);
+>>> +
+>>> +	pdd = kfd_get_process_device_data(kdev, p);
+>>> +	if (!pdd) {
+>>> +		mutex_unlock(&p->mutex);
+>>> +		return;
+>>> +	}
+>>> +
+>>> +	mem = kfd_process_device_translate_handle(
+>>> +		pdd, GET_IDR_HANDLE(p->signal_handle));
+>>> +	if (!mem) {
+>>> +		mutex_unlock(&p->mutex);
+>>> +		return;
+>>> +	}
+>>> +
+>>> +	mutex_unlock(&p->mutex);
+>>> +
+>>> +	for (i = 0; i < p->n_pdds; i++) {
+>>> +		struct kfd_process_device *peer_pdd = p->pdds[i];
+>>> +
+>>> +		if (!peer_pdd->drm_priv)
+>>> +			continue;
+>>> +		amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+>>> +				peer_pdd->dev->kgd, mem, peer_pdd-
+>>> drm_priv);
+>>> +	}
+>>> +
+>>> +	amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(kdev->kgd,
+>> mem);
+>>
+>> I think you only need to do the kunmap here. You can leave
+>> "unmap_memory_from_gpu" and "free_memory_of_gpu" and
+>> "remove_obj_handle"
+>> to be done in the regular kfd_process_free_outstanding_kfd_bos to avoid
+>> duplicating that code.
+> Good idea. Will just kunmap it here.
+>>> +
+>>> +	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->kgd, mem,
+>>> +		pdd->drm_priv, NULL);
+>>> +
+>>> +	kfd_process_device_remove_obj_handle(pdd,
+>>> +		GET_IDR_HANDLE(p->signal_handle));
+>>> +}
+>>> +
+>>>   static void kfd_process_free_outstanding_kfd_bos(struct kfd_process
+>>> *p)  {
+>>>   	int i;
+>>> @@ -965,6 +1013,9 @@ static void kfd_process_destroy_pdds(struct
+>> kfd_process *p)
+>>>   		pr_debug("Releasing pdd (topology id %d) for process (pasid
+>> 0x%x)\n",
+>>>   				pdd->dev->id, p->pasid);
+>>>
+>>> +		kfd_process_device_destroy_cwsr_dgpu(pdd);
+>>> +		kfd_process_device_destroy_ib_mem(pdd);
+>>> +
+>>>   		if (pdd->drm_file) {
+>>>   			amdgpu_amdkfd_gpuvm_release_process_vm(
+>>>   					pdd->dev->kgd, pdd->drm_priv);
+>>> @@ -1049,9 +1100,11 @@ static void kfd_process_wq_release(struct
+>>> work_struct *work)  {
+>>>   	struct kfd_process *p = container_of(work, struct kfd_process,
+>>>   					     release_work);
+>>> +
+>>>   	kfd_process_remove_sysfs(p);
+>>>   	kfd_iommu_unbind_process(p);
+>>>
+>>> +	kfd_process_free_signal_bo(p);
+>>>   	kfd_process_free_outstanding_kfd_bos(p);
+>>>   	svm_range_list_fini(p);
+>>>
+>>> @@ -1066,6 +1119,7 @@ static void kfd_process_wq_release(struct
+>> work_struct *work)
+>>>   	put_task_struct(p->lead_thread);
+>>>
+>>>   	kfree(p);
+>>> +
+>> Unnecessary, trailing whitespace.
+> Will remove it.
+>
+> Regards,
+> Lang
+>
+>> Regards,
+>>    Felix
+>>
+>>
+>>>   }
+>>>
+>>>   static void kfd_process_ref_release(struct kref *ref) @@ -1198,6
+>>> +1252,7 @@ static int kfd_process_device_init_cwsr_dgpu(struct
+>> kfd_process_device *pdd)
+>>>   	uint32_t flags = KFD_IOC_ALLOC_MEM_FLAGS_GTT
+>>>   			| KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE
+>>>   			| KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
+>>> +	struct kgd_mem *mem;
+>>>   	void *kaddr;
+>>>   	int ret;
+>>>
+>>> @@ -1206,10 +1261,11 @@ static int
+>>> kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
+>>>
+>>>   	/* cwsr_base is only set for dGPU */
+>>>   	ret = kfd_process_alloc_gpuvm(pdd, qpd->cwsr_base,
+>>> -				      KFD_CWSR_TBA_TMA_SIZE, flags, &kaddr);
+>>> +				      KFD_CWSR_TBA_TMA_SIZE, flags, &mem,
+>> &kaddr);
+>>>   	if (ret)
+>>>   		return ret;
+>>>
+>>> +	qpd->cwsr_mem = mem;
+>>>   	qpd->cwsr_kaddr = kaddr;
+>>>   	qpd->tba_addr = qpd->cwsr_base;
+>>>
+>>> @@ -1222,6 +1278,17 @@ static int
+>> kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
+>>>   	return 0;
+>>>   }
+>>>
+>>> +static void kfd_process_device_destroy_cwsr_dgpu(struct
+>>> +kfd_process_device *pdd) {
+>>> +	struct kfd_dev *dev = pdd->dev;
+>>> +	struct qcm_process_device *qpd = &pdd->qpd;
+>>> +
+>>> +	if (!dev->cwsr_enabled || !qpd->cwsr_kaddr || !qpd->cwsr_base)
+>>> +		return;
+>>> +
+>>> +	kfd_process_free_gpuvm(qpd->cwsr_mem, pdd, qpd->cwsr_kaddr); }
+>>> +
+>>>   void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+>>>   				  uint64_t tba_addr,
+>>>   				  uint64_t tma_addr)
 
