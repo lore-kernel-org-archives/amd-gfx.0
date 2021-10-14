@@ -2,109 +2,101 @@ Return-Path: <SRS0=AM0C=PC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E259C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FA5BC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D88A611AD
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D88A611AD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5DA5561037
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 17:45:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5DA5561037
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91C3A6E1BB;
-	Thu, 14 Oct 2021 17:35:32 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F3756E1BB;
- Thu, 14 Oct 2021 17:35:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7A9F6E593;
+	Thu, 14 Oct 2021 17:45:11 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1406E591
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 17:45:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cT/wXuK05mbOCnBeLElg7Id8BAP+FDW2bGG+u6JuhOngeJXv3fwIFAiJsZgQL8RRnVdYmkDC71AVl9Ft9g1adGgOEBa4jXtb1zaEeEfouCHixzWmuxLMF7+V0mfJnMbj+XiU238x55V7M4YmDZak2eN37U13jARPhh5RGmq1wvpGQp5IiEVp/vykL3zu+5ZP6ZeWsb3sflmSXSHV7ni5PHNMLw2R4Sylr/ycjrKQaR3eGVEpbEjFNWknrcrav0YG8FE+RJazE/lpRMPrMjTUkxPn+Hunne0bU1TdwFdS/9CTO10sGRfGE5lcZpesfMsgJ4NM7XinrOQfaZmfk3Uu6A==
+ b=bypOy0+HZiVeG/Wseo9P6BTb2aHArrEV223IQuH0x5eCIK1Z5jmjx6U/v0VYd26fP0lN1KGBRaIfJ8DalZOYhOp7ALo3MYoKCJ5omAhHzkiCOQ14JjG3/DrXAMbp9/y7yQys7Ccv6RxnUsd+977FcBqu7BiB55JoZBvb+YLMyF46jyvk9q0F7kW8NgpR/V0/oG7DW0JBdGq9MU8ztej0AXiHk4JxhD5ZevY/myZEjxxeG2tMdXlTWWrDzkH8n7K6Ngzy9h522mVdqjLxsNjy3h0Zfk4fW2zinl/Zeh0FnaAHJZng636axmT0SUOZMF7gpNS9VeOUQvmZJknQzuGoWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dWvb25JkDfMpg3JxqpciD0ArRBV2EnzgM1d7p/8xxTI=;
- b=FLHQ9ovUjEFw+LMDid1WT2+3gGUcgrjoWgYwsDEJXvpAdLOLZ7K/1E2C4c+fWGaahD87FA1o0Kz9pN4g4UP/pghHYEZ10MUCOFYFjNDNVeYLZ8Gc0vvAX1p69gGGz4FOoA7cgb0I1KNnX551bz1NA6iYoNemR2Onp3SpnBlmKvNxhIIVnskTr84aIUfJOcoBIygvIRDYHpUqssySOf2O0Ddv2uDhaZ8ixEIDCzkwH3gAbczEXkOwS2scx4CvANzFv4HGApcPEfezdkrmh/kvJ+48iPV47MKAlVdT0yi9EIssYtq4aEAQviuzxmUOprbraYEohIY2zMNel8MFqFfAmg==
+ bh=JxUbqESeGn01Ii10kx9K45lmrlc0JP0Z+beGTa4ZSqg=;
+ b=LKyHOawu/be7YcygeNzt0f3vvujLYpuBb36lTL+xp6sShsJYyGI9737AR/pm7yWNJB26BNrbXplTUzYPefzJEBjygsZJIwiUraUJYPdYiB8bxwR79phr9o1wdoCwfE0tYVU4PBY6THuNA/idrbzmSrJQqHMJqi6plSBGUhn536XczYrXSpflDLJhMv8bNTI2udj6R9AKbfQMRtT2UUGXvLcWpuYGSRZgrYZPfmrmtyW1Cn7L0rMl9x/0HtA7jnHG6AnsMJipCMkzfAiVDr2LzgX66lgV48BltChCSoDq2rfqTbJp108Xokif+WxCD06wiVOH3d7sgvNGkBzR0nmuhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.32) smtp.rcpttodomain=kvack.org smtp.mailfrom=nvidia.com;
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dWvb25JkDfMpg3JxqpciD0ArRBV2EnzgM1d7p/8xxTI=;
- b=g768QAHuDw0Ng2zLQE5QDPZNedGanyXZng4H/fI08unqpVuzSnXOtWWBcMr58ilohwO1V0aE4CDxGNu6w+H7jUvUSLcpXlFmi+rSqdU2ZMxQ89QAgL6G4IzmYjuRAeiJkFWNc82D7wcWkPD3AmdypJfmjhSydg4JTUOtUQAo0VDqX8D2sahdL3RpfMevBJ5OBAOr7lMOUfjCrjg5JgmuUDci164FhR6pZweEnEu/h1neOzJGwAyoPpC8aHd1JVIpda4vqQCmML6gs5gL46exSjoUsbHCdD8kGOsJ2oSrXTTvClV6Sj6Ga5P8toa4J/An7PGUH/t/GKWBHWag25qXKA==
-Received: from DM3PR08CA0006.namprd08.prod.outlook.com (2603:10b6:0:52::16) by
- DM6PR12MB4265.namprd12.prod.outlook.com (2603:10b6:5:211::14) with
+ bh=JxUbqESeGn01Ii10kx9K45lmrlc0JP0Z+beGTa4ZSqg=;
+ b=Y1mDWD+nR8N9z2LUWGMnp5uLjRnpk2REIpJQO/uW3KnOhVgg18rS+NLWWyiGp6FOh1Ck2RgvBskC5Zsnmyo0BLLsk6Mmb+oEdu6W+PSJ0gT0zwQBIdhXLRMZxfFacbOv3i1KguNdu/ZCZ2Wd8grjGnhrtPD0DuyU0WJ4gu0C8Cs=
+Received: from DM3PR12CA0049.namprd12.prod.outlook.com (2603:10b6:0:56::17) by
+ BY5PR12MB5014.namprd12.prod.outlook.com (2603:10b6:a03:1c4::8) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4587.20; Thu, 14 Oct 2021 17:35:29 +0000
-Received: from DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:52:cafe::aa) by DM3PR08CA0006.outlook.office365.com
- (2603:10b6:0:52::16) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4608.14; Thu, 14 Oct 2021 17:45:08 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:56:cafe::92) by DM3PR12CA0049.outlook.office365.com
+ (2603:10b6:0:56::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Thu, 14 Oct 2021 17:35:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.32)
- smtp.mailfrom=nvidia.com; kvack.org; dkim=none (message not signed)
- header.d=none;kvack.org; dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.32 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.32; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.32) by
- DM6NAM11FT019.mail.protection.outlook.com (10.13.172.172) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4608.15 via Frontend Transport; Thu, 14 Oct 2021 17:35:28 +0000
-Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL109.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Thu, 14 Oct
- 2021 10:35:27 -0700
-Received: from rcampbell-test.nvidia.com (172.20.187.6) by mail.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1497.18 via Frontend
- Transport; Thu, 14 Oct 2021 17:35:27 +0000
-Subject: Re: [PATCH v1 2/2] mm: remove extra ZONE_DEVICE struct page refcount
-To: Jason Gunthorpe <jgg@nvidia.com>, Alex Sierra <alex.sierra@amd.com>
-CC: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
- <linux-mm@kvack.org>, <linux-ext4@vger.kernel.org>,
- <linux-xfs@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <hch@lst.de>, <jglisse@redhat.com>,
- <apopple@nvidia.com>, <willy@infradead.org>
-References: <20211014153928.16805-1-alex.sierra@amd.com>
- <20211014153928.16805-3-alex.sierra@amd.com>
- <20211014170634.GV2744544@nvidia.com>
-From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <eafbccb5-f94b-0ddd-bb46-7ee92ed36ee8@nvidia.com>
-Date: Thu, 14 Oct 2021 10:35:27 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Transport; Thu, 14 Oct 2021 17:45:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Thu, 14 Oct 2021 17:45:07 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 14 Oct
+ 2021 12:45:06 -0500
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, <Sean.Keely@amd.com>, Jonathan Kim
+ <jonathan.kim@amd.com>
+Subject: [PATCH] drm/amdkfd: map gpu hive id to xgmi connected cpu
+Date: Thu, 14 Oct 2021 13:44:54 -0400
+Message-ID: <20211014174454.3342996-1-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20211014170634.GV2744544@nvidia.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d3b98879-206f-4164-4711-08d98f3903d8
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4265:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4265133C80AC57DCE4C93BE6C2B89@DM6PR12MB4265.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 7d0ccae0-5c16-423d-269d-08d98f3a5cc3
+X-MS-TrafficTypeDiagnostic: BY5PR12MB5014:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB50147D2BA0EE1934E8FB583785B89@BY5PR12MB5014.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YPqtKOkWVoOdxIrOIlGmhwpjBfOMas1PkaxppOZ7ozZi2CJk8eVO0I+wQ8Y2YEIdfdD+7X3mlnQJwfET6ftctNHlRS4cnslfshH11HWhhE4tBW9dH25hL7Kugh7zq/tDCZIuUDUEFAvMDRqBu8Bb5T0I0g0QrAF7C4wGZaCoy1hSQK84I5KFHOfAnAwsht4qgnPub3fQ7l9Et4asl3qB74ju48zS0WiXbm/1Yp0uPMDbHMDP6KZxERkgQuhU/xvpEPSrMQSDdfSQ2Gf9qRBSDXF7qInCXFU3yiSaFRYZIy1liDeu9lxzee9k/ld+8zDTMO2JzIwLscx6e0rhJafjoo2yZuWu3aZFAmyYCcaWR1+JoORLG8cFqqJOkRaU4PPrytSIUH9cq8/z/92un1PiwcXLKX324X4ZCEDAYDBMyDzav+FclTLV2vAg6NLIN60ecbZGD71ElD56/dRMWoyqYOCztMjvZBm0GifwmmmNKHnSnSIo6BdiX8/SNHqrBOrrdVZsHQDoLDwBM0pA9EtZxeI4w1SY4B+o6ZvqhBTNihd7fscTvnVTtlHrZg02GD7dXu9Dkvmhl9yxOl1Pn4V2unOHXEfuJJWXlO2MdiHSoUyJtKCzlluDM+BFTOjOpHeMzgo6Hl/Bmg1xKFZf4fCWB6CcOHt1NvevSZbXuk4mfbYvpTg0SAINyIA7ymsECSpQGcrwXwFUAIgAVjfYILEYhDyk4JFq+tm/c1+SDL6QSujGO/NVwKew4pVkDbkH7ccYBwVIsUtBkoWylKU4pOivJ9MbaKG2Y+g9/LEVZwqfg4RFwdZVqMjX+WDN4XvUlzafPVZsBkSjSmYD2jEJzjhpEz4kfOX5qbDvZyozEG7EMf4=
-X-Forefront-Antispam-Report: CIP:216.228.112.32; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid01.nvidia.com; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(7416002)(4326008)(31686004)(53546011)(8676002)(8936002)(7696005)(70586007)(70206006)(426003)(47076005)(83380400001)(2616005)(508600001)(7636003)(336012)(356005)(2906002)(316002)(186003)(31696002)(36860700001)(966005)(5660300002)(54906003)(36756003)(82310400003)(110136005)(26005)(86362001)(43740500002);
+X-Microsoft-Antispam-Message-Info: /hHyMO7WwpTgokqujmsZ7UzSekuibXTlcEhOazWhinVZfA1oTkdwAmHaNzEALkEuTj7oVNh9whw/IEVj7T4K8ho9D8uT7oMllnTKapF1jJHi3MTtDkcjlNVKjHupwkXVHInbAzoSMTTd/2TCyAzZM3ptgqqRWLQUJgYW2xrnzsaomywVms1mnuYr/aTNL5ietOhKy/OXM5zWSVO6lhyv6AJk7GpoYHIY7GgQfLozpufcj26IP1KAffSlUGR0E4tlX5XqeAO+tjNiBV4bn6yN90olm+QqM9/1Fed2LLus766iCOmdck7WRrUJYQgldJb0B+Hp2TJeLZbyMhwPNTPhKnoSyIpjorTIrYao5pHhN5h/Wkf2rVgkE7FmhcAjwJzws36aa6NtKb7o7m7bsYpvEALOKAUWWfCnfqdWqQPcc+Pc67mM4ZY+do1qxJFFf0MO8PFz8KkI7Xseo0P4IezENbbcUu6bN2XXb1R4fFQBcG7Ar7ULkYgDpdcN4xImCiWvQ1lSyBSQ4tSqpVErC1vmaO4X9bV/HCW2St4Yoe59yvIRV/oi+uQKk1hjm6cP6Tc1E0HEVzBzmfxnKsZPHAh12OCQ3wooeaNM75SwHMnCfLq/mtghZnSuXiqZheXoH/ZwSVSMrifUOQ9ejOM5TOZ8VFqQZukPhgxtdj6zdhMWGEJ0tVtmMSuw2tsxpzd21ajDox3roO1i26hzV3V7go/5GZEEpxnaSPTaJMYOwd9ZVPc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(8936002)(2616005)(86362001)(7696005)(336012)(83380400001)(81166007)(36756003)(47076005)(6666004)(44832011)(4326008)(8676002)(508600001)(26005)(36860700001)(356005)(54906003)(2906002)(1076003)(316002)(82310400003)(5660300002)(186003)(16526019)(6916009)(70206006)(426003)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 17:35:28.9049 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3b98879-206f-4164-4711-08d98f3903d8
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.32];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 17:45:07.6014 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d0ccae0-5c16-423d-269d-08d98f3a5cc3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4265
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5014
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,136 +111,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+ROCr needs to be able to identify all devices that have direct access to
+fine grain memory, which should include CPUs that are connected to GPUs
+over xGMI. The GPU hive ID can be mapped onto the CPU hive ID since the
+CPU is part of the hive.
 
-On 10/14/21 10:06 AM, Jason Gunthorpe wrote:
-> On Thu, Oct 14, 2021 at 10:39:28AM -0500, Alex Sierra wrote:
->> From: Ralph Campbell <rcampbell@nvidia.com>
->>
->> ZONE_DEVICE struct pages have an extra reference count that complicates the
->> code for put_page() and several places in the kernel that need to check the
->> reference count to see that a page is not being used (gup, compaction,
->> migration, etc.). Clean up the code so the reference count doesn't need to
->> be treated specially for ZONE_DEVICE.
->>
->> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
->> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->> Reviewed-by: Christoph Hellwig <hch@lst.de>
->> ---
->> v2:
->> AS: merged this patch in linux 5.11 version
->>
->> v5:
->> AS: add condition at try_grab_page to check for the zone device type, while
->> page ref counter is checked less/equal to zero. In case of device zone, pages
->> ref counter are initialized to zero.
->>
->> v7:
->> AS: fix condition at try_grab_page added at v5, is invalid. It supposed
->> to fix xfstests/generic/413 test, however, there's a known issue on
->> this test where DAX mapped area DIO to non-DAX expect to fail.
->> https://patchwork.kernel.org/project/fstests/patch/1489463960-3579-1-git-send-email-xzhou@redhat.com
->> This condition was removed after rebase over patch series
->> https://lore.kernel.org/r/20210813044133.1536842-4-jhubbard@nvidia.com
->> ---
->>   arch/powerpc/kvm/book3s_hv_uvmem.c     |  2 +-
->>   drivers/gpu/drm/nouveau/nouveau_dmem.c |  2 +-
->>   fs/dax.c                               |  4 +-
->>   include/linux/dax.h                    |  2 +-
->>   include/linux/memremap.h               |  7 +--
->>   include/linux/mm.h                     | 11 ----
->>   lib/test_hmm.c                         |  2 +-
->>   mm/internal.h                          |  8 +++
->>   mm/memcontrol.c                        |  6 +--
->>   mm/memremap.c                          | 69 +++++++-------------------
->>   mm/migrate.c                           |  5 --
->>   mm/page_alloc.c                        |  3 ++
->>   mm/swap.c                              | 45 ++---------------
->>   13 files changed, 46 insertions(+), 120 deletions(-)
-> Has anyone tested this with FSDAX? Does get_user_pages() on fsdax
-> backed memory still work?
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-I ran xfstests-dev using the kernel boot option to "fake" a pmem device
-when I first posted this patch. The tests ran OK (or at least the same
-tests passed with and without my patch). However, I could never really
-convince myself the changes were "OK" for fsdax since I didn't understand
-the code that well. I would still like to see a xfsdax maintainer or
-expert ACK this change.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 98cca5f2b27f..d04c48dfd72b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1296,6 +1296,27 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 
+ 	proximity_domain = atomic_inc_return(&topology_crat_proximity_domain);
+ 
++	adev = (struct amdgpu_device *)(gpu->kgd);
++
++	/* Include the CPU in xGMI hive if xGMI connected by assigning it the hive ID. */
++	if (gpu->hive_id && adev->gmc.xgmi.connected_to_cpu) {
++		int i;
++
++		for (i = 0; i < proximity_domain; i++) {
++			struct kfd_topology_device *to_dev =
++						kfd_topology_device_by_proximity_domain(i);
++
++			if (!to_dev)
++				continue;
++
++			if (to_dev->gpu)
++				break;
++
++			to_dev->node_props.hive_id = gpu->hive_id;
++			break;
++		}
++	}
++
+ 	/* Check to see if this gpu device exists in the topology_device_list.
+ 	 * If so, assign the gpu to that device,
+ 	 * else create a Virtual CRAT for this gpu device and then parse that
+@@ -1457,7 +1478,6 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 		dev->node_props.max_waves_per_simd = 10;
+ 	}
+ 
+-	adev = (struct amdgpu_device *)(dev->gpu->kgd);
+ 	/* kfd only concerns sram ecc on GFX and HBM ecc on UMC */
+ 	dev->node_props.capability |=
+ 		((adev->ras_enabled & BIT(AMDGPU_RAS_BLOCK__GFX)) != 0) ?
+-- 
+2.25.1
 
-https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git
-
-> What refcount value does the struct pages have when they are installed
-> in the PTEs? Remember a 0 refcount will make all the get_user_pages()
-> fail.
->
-> I'm looking at the call path starting in ext4_punch_hole() and I would
-> expect to see something manipulating the page ref count before
-> the ext4_break_layouts() call path gets to the dax_page_unused() test.
->
-> All I see is we go into unmap_mapping_pages() - that would normally
-> put back the page references held by PTEs but insert_pfn() has this:
->
-> 	if (pfn_t_devmap(pfn))
-> 		entry = pte_mkdevmap(pfn_t_pte(pfn, prot));
->
-> And:
->
-> static inline pte_t pte_mkdevmap(pte_t pte)
-> {
-> 	return pte_set_flags(pte, _PAGE_SPECIAL|_PAGE_DEVMAP);
-> }
->
-> Which interacts with vm_normal_page():
->
-> 		if (pte_devmap(pte))
-> 			return NULL;
->
-> To disable that refcounting?
->
-> So... I have a feeling this will have PTEs pointing to 0 refcount
-> pages? Unless FSDAX is !pte_devmap which is not the case, right?
->
-> This seems further confirmed by this comment:
->
-> 	/*
-> 	 * If we race get_user_pages_fast() here either we'll see the
-> 	 * elevated page count in the iteration and wait, or
-> 	 * get_user_pages_fast() will see that the page it took a reference
-> 	 * against is no longer mapped in the page tables and bail to the
-> 	 * get_user_pages() slow path.  The slow path is protected by
-> 	 * pte_lock() and pmd_lock(). New references are not taken without
-> 	 * holding those locks, and unmap_mapping_pages() will not zero the
-> 	 * pte or pmd without holding the respective lock, so we are
-> 	 * guaranteed to either see new references or prevent new
-> 	 * references from being established.
-> 	 */
->
-> Which seems to explain this scheme relies on unmap_mapping_pages() to
-> fence GUP_fast, not on GUP_fast observing 0 refcounts when it should
-> stop.
->
-> This seems like it would be properly fixed by using normal page
-> refcounting for PTEs - ie stop using special for these pages?
->
-> Does anyone know why devmap is pte_special anyhow?
->
->> +void free_zone_device_page(struct page *page)
->> +{
->> +	switch (page->pgmap->type) {
->> +	case MEMORY_DEVICE_PRIVATE:
->> +		free_device_page(page);
->> +		return;
->> +	case MEMORY_DEVICE_FS_DAX:
->> +		/* notify page idle */
->> +		wake_up_var(&page->_refcount);
->> +		return;
-> It is not for this series, but I wonder if we should just always call
-> ops->page_free and have free_device_page() logic in that callback for
-> the non-fs-dax cases?
->
-> For instance where is the mem_cgroup_charge() call to pair with the
-> mem_cgroup_uncharge() in free_device_page()?
->
-> Isn't cgroup charging (or not) the responsibility of the "allocator"
-> eg the pgmap_ops owner?
->
-> Jason
