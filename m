@@ -2,48 +2,48 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D1F2C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 00:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35121C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 00:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0BFB360EB4
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 00:51:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0BFB360EB4
+	by mail.kernel.org (Postfix) with ESMTPS id EA6BD6108B
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 00:51:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EA6BD6108B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 633CA6ECB4;
-	Fri, 15 Oct 2021 00:51:13 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2FB76ECB3
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 00:51:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 632A36ECB5;
+	Fri, 15 Oct 2021 00:51:15 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF166ECB3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 00:51:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=evIVQVvAHd/KCO74hzzdcJiY9vAzc+d6STvqerpb1Y+pJ7dO7R78niGgIP7xa390+0BV1mMSfy7IZex7RPc0knGyl8lqhxInN4DEesLV2KUCYnaSv41Rdjr5qGHUFtPnNOWiHr+DVKOHjoUCtN+3GOdcu8v4bA+pK8wAei95434P/JXXutJaJSH9GTxag6oLTETAhxipiyrjT02CkXdPHKRrknAb9WAj61Rk/aVbNxCfoW+d6vHK1mAkzmE0Kgkx/i9IcUglRWyWBGnfs+qEF81EpCPIwOSCJ057HWES9zhx2F8aO/Ki+1OM5OuK+2z6tlHrcYT95aSesKn658AnOw==
+ b=A8Jg/0befRPqkPqT8rx6zIQbPEwEK+orRJSQJU8eNc91hzyuokRQF0msMR89ulj/Z2L+1i7Z7tqUId7xGJkhoyx7LOna918ZI4e3KO1wZQemVIIlm0ldD1NcjsJpY6rBTfjXHsQ0y+OckQcTnLNdSMwDR6MXUpDwDyV+aJDxltuAj2BCOUSFcX+D+3+CRTTTtEL6QW0LIF2aZxMfrwTq/kKYRZGH8QdFirDGkozjrdKHJNWMV2+n/uxjKfctw1Miny3ahi5bK7y6XYNYOdxuYiztdOc4BhaGpb20rNoS/FRaLiGaFPzUw4mOX/Vcmpfr7fqjoqXf00fIK81l9ScfbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5BZ09jl5qgRicXAtu0CzcxrdH+If04+qbTZ7uAt+keY=;
- b=IqGP0GTmIEQ5wm2nRh5KA80zPFru7e5hKhg7KZKN4qhseunUUQTgDqZe+IaO9Qvd8/SEsJDYTXjTlhh9iMW53OuJJjfrpI/Rb+2qL4LJUyKyQasSjEXA2XfZ+r53ek89wU4awPlXrPjoK9kMEehJqB7ZU1s8dRuM01S7OeOL64eWdjrbPwS08p1SzWxKGMYCy3XwIsyE/+XZ7qg7Q8jrNu5XQjcDWNU/ZelZzztnc3LlunEU62ljKkshmlLsOfRS6oTzmmr9wzBBgrMTOh2woA+ntKDmex90uhf3qAs3ZCcYt2mPvO+c+/Dhi4WqO9XqZE4OiQFheQgne1SnWgLZmA==
+ bh=+uFErse6u/Nul9LghaX0GzrU25xzDaP9WfUOEKogcVw=;
+ b=U4/VSAHMExOOfZckOqkeyU354HvF7TyXugHRX9vfdPjVWAVV1fdLd86A+th6qett38VLRGMfPlP9je/8A3MJNyCewmNQ5spoXB7if3hw4JIzTQti4IZgv8jzggMnwUlQYl15RShR94iJEhGT1lms7l5bWFMABV6ONOM6APKg40/x5Gbl35Ja7eJ5oK5xgA0tQeF++A10GUyR9KH2DYwubPa/n9CvaZBa/Nm0Oz63lTPW//4ppP70vKt01Qrjs+b3S8PbsfWyZeJGK3MFM1NQ21QHE+VMeEfJmtz5KyzklQNtwscjEOzXYwdltMRFjuehJ32XvJRIL1xM+CF30Onkbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5BZ09jl5qgRicXAtu0CzcxrdH+If04+qbTZ7uAt+keY=;
- b=RT61a/rw4XSW1hca7MUDBFu3WxOJb5oCCsHZOTErBKHu1CrL/9/JlAU8XLeXqrNYkFP+bKtsJoUimPuplXXQEKmr3FV26kW9nu/jVgC4aovk5Cmh6bu8oliNydhjPby7s34Mlje2aXSBNgcDqmzWVkYXuR9cJf6DFwPWgrfr2nE=
-Received: from MW4PR03CA0280.namprd03.prod.outlook.com (2603:10b6:303:b5::15)
- by BN8PR12MB3443.namprd12.prod.outlook.com (2603:10b6:408:63::19)
+ bh=+uFErse6u/Nul9LghaX0GzrU25xzDaP9WfUOEKogcVw=;
+ b=iGcGhz1b8KvssDRC23BbabnMp3DuHA3jziBOAdEcp68SCFnUFrceVGot1gBJ5rzgVTp3br2YTSz1HFOMT6lwUceAtlzWMYhzEBzk7DFj7NWs3LGFV3M6BnmMTjEzWLzNj8zm/K/qXsA+GDIfBXlw3yDtUZ2Z1eRkVoux5I6xh64=
+Received: from MW4PR03CA0281.namprd03.prod.outlook.com (2603:10b6:303:b5::16)
+ by BYAPR12MB2631.namprd12.prod.outlook.com (2603:10b6:a03:6b::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Fri, 15 Oct
- 2021 00:51:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.20; Fri, 15 Oct
+ 2021 00:51:10 +0000
 Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b5:cafe::59) by MW4PR03CA0280.outlook.office365.com
- (2603:10b6:303:b5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Fri, 15 Oct 2021 00:51:08 +0000
+ (2603:10b6:303:b5:cafe::40) by MW4PR03CA0281.outlook.office365.com
+ (2603:10b6:303:b5::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Fri, 15 Oct 2021 00:51:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,18 +54,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 00:51:08 +0000
+ 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 00:51:10 +0000
 Received: from localhost.localdomain.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.8; Thu, 14 Oct 2021 19:51:04 -0500
+ 15.1.2308.8; Thu, 14 Oct 2021 19:51:05 -0500
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Luben Tuikov <luben.tuikov@amd.com>, Alex Deucher
  <Alexander.Deucher@amd.com>
-Subject: [PATCH 1/5] drm/amd/pm: Slight function rename (v2)
-Date: Thu, 14 Oct 2021 20:50:42 -0400
-Message-ID: <20211015005046.43486-2-luben.tuikov@amd.com>
+Subject: [PATCH 3/5] drm/amd/pm: Rename freq_values --> freq_value
+Date: Thu, 14 Oct 2021 20:50:44 -0400
+Message-ID: <20211015005046.43486-4-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.33.1.558.g2bd2f258f4
 In-Reply-To: <20211015005046.43486-1-luben.tuikov@amd.com>
 References: <20211015005046.43486-1-luben.tuikov@amd.com>
@@ -77,28 +77,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 47106818-9969-475e-4ef1-08d98f75e005
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3443:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB344342E88638BCC312D817EA99B99@BN8PR12MB3443.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:262;
+X-MS-Office365-Filtering-Correlation-Id: 37ec100e-8c22-49cf-85d3-08d98f75e140
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2631:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB26311E748378EEAD43006D1799B99@BYAPR12MB2631.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:232;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OFG97cLu2/AiTZexfKMmS6fY6RQa7nrjd8ew0WvF9Ij3qDhBtpJ0G4CYIsKLUKTUhUy3AZL0I3cap99DV0ySABIKbxdMu3+pcZ/yB3Sr9d+qlXcMhUYYEMqZCi8DDIYSISErWU5OSfIPP+pkDC+rmsUVxOqJKAtB8uRZ+Km9UcRWUM/JJCrv31fVAzem61x7GfwqQx4zRufkVyxj+rQ2R/cmewS1RkMkTsKju5JMmPHq1jUYSGygdp40Caw3jX8p/miMRH1udjtAT54ZpyRaHnBJ7BUP/3IssjaEMHl+NY9rcpDjg6Mp198PXcsdpj4giO3sTJojRWUgrIMtHAM0vw+a3xBeppPpQreY2Xt+mCs2qirH6PrG6TcAbH0NOUPNipGdnJuaspjKCij7ZSz4BltJq9ZDa2QTn5CmaVwVGgeUrUpgKh/Sj1W/aT8Inn75zNYgkndTkpAEqbN5srGIB2NFptJY0PB5nXOikAu3z+8O78iFAj8qDyqSjNiGi/dFfdd3yTfD3VnxJg4h/e+/Nx4qFtGazOpF7xhwiqy+gqpHCNQ7JKGJjQMM9XNyJ6Rmp0BI3kuFlvNqSwuWxj+vFTl8A8/4g2YknM11Vc3M7lrCaQuLAd/PFcANpt2wOsO4GvnsWqXuJy/SMf8n65lC2s92Ls2U64xgTWIy8s/T+uJAdEv4TMWEg2remPGxrkbAPlPotRsTxGRgFl6cgOsV4nVC+7oRHciZUysVdcYf8wQ=
+X-Microsoft-Antispam-Message-Info: pgZP4Frm8U2dl5HV4FNh+/YbL0qb0G2Thd80cQgY5uGa8EJ0LIUNTjs+PKTKY5P1rR1NP759ULmiDpGRKws8ME/Wv4OQ9MF0o/1PadJd2+90jZ3PA7Zd4Qnwd8MluZNVtMq3h64xyjBz1c76xORJkXU7ojMIwMy0qfclfxDaNGeRwm5ekAsuEZPXW1fn+J6UNlwjVhxHBRFjtTwi+PCjJlSEXvDlf1gzVrk5Pp+x84SI/wDtlUhBvIEUUEzpjSbXiMl80/UISIFHn6tvJJ1UVxAtRysWE4YCWgOLaB/JNcONuOKQHJJ4bmEkUWIEmuW9HjzmoM2P0TGkc9dPJBgMR6aZyJJZmRlD/sO9Yz65UtkrTFfsl0WtqLfUkK3qOZg1yssGDl7qoUVW5qKbMx53zcFcr2Akg9WUtQ4x6/eawjteVyVstPSEAkCTOxJcoG/xaehdfzYOEOb98NHGxerHbyQwuN5w5+lNnwvYqgJLdTm98Uvul6sKx8JFjlFu/pARRjHxl/lbbMksYwLsCz7tyJpnVE8fRCdOg/h7hyEHLLtHanihUfed89OpVNqbC5o+A4zwMauNTU7PX/OOHMzd2Gd/rZa/zYmfNYFiOM89dicMw7QSkIx68vLvkbgJVQztroL9MeUaC1vRuAvRBHdUrunPE7YGFEPtvHwztWfM+ASNqSIJifLp9CGYGEgp/7Ejq2zZpFqy3jiWEWYrGmN4Br6R6AZR7ngv77td40KwXIs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(70206006)(2616005)(426003)(186003)(16526019)(356005)(86362001)(70586007)(8936002)(8676002)(6916009)(4326008)(7696005)(26005)(336012)(54906003)(36756003)(5660300002)(316002)(81166007)(83380400001)(44832011)(2906002)(36860700001)(82310400003)(47076005)(508600001)(1076003)(6666004)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(86362001)(356005)(81166007)(4326008)(6916009)(1076003)(16526019)(5660300002)(2616005)(54906003)(6666004)(186003)(26005)(36756003)(70206006)(336012)(83380400001)(82310400003)(426003)(47076005)(44832011)(70586007)(8936002)(8676002)(2906002)(36860700001)(508600001)(316002)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 00:51:08.0356 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47106818-9969-475e-4ef1-08d98f75e005
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 00:51:10.0474 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37ec100e-8c22-49cf-85d3-08d98f75e140
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3443
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2631
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,87 +113,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rename
-sienna_cichlid_is_support_fine_grained_dpm() to
-sienna_cichlid_supports_fine_grained_dpm().
-
-Rename
-navi10_is_support_fine_grained_dpm() to
-navi10_supports_fine_grained_dpm().
-
-v2: Fix function name in commit message to reflect
-the change being done: add a missing 's'.
+By usage: read freq_values[x] to freq_value[x].
 
 Cc: Alex Deucher <Alexander.Deucher@amd.com>
 Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 7 ++++---
- drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 7 ++++---
- 2 files changed, 8 insertions(+), 6 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    | 16 ++++++++--------
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 18 +++++++++---------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 71161f6b78fea9..0fe9790f67f5af 100644
+index f810549df493d5..646e9bbf8af42a 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1231,7 +1231,8 @@ static int navi10_get_current_clk_freq_by_table(struct smu_context *smu,
- 					   value);
- }
+@@ -1268,7 +1268,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 	uint16_t *curve_settings;
+ 	int i, size = 0, ret = 0;
+ 	uint32_t curr_value = 0, value = 0, count = 0;
+-	uint32_t freq_values[3] = {0};
++	uint32_t freq_value[3] = {0, 0, 0};
+ 	uint32_t mark_index = 0;
+ 	struct smu_table_context *table_context = &smu->smu_table;
+ 	uint32_t gen_speed, lane_width;
+@@ -1310,21 +1310,21 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 						curr_value == value ? "*" : "");
+ 			}
+ 		} else {
+-			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
++			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_value[0]);
+ 			if (ret)
+ 				return size;
+-			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
++			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_value[2]);
+ 			if (ret)
+ 				return size;
  
--static bool navi10_is_support_fine_grained_dpm(struct smu_context *smu, enum smu_clk_type clk_type)
-+static bool navi10_supports_fine_grained_dpm(struct smu_context *smu,
-+					     enum smu_clk_type clk_type)
- {
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
- 	DpmDescriptor_t *dpm_desc = NULL;
-@@ -1299,7 +1300,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
- 		if (ret)
- 			return size;
+-			freq_values[1] = curr_value;
+-			mark_index = curr_value == freq_values[0] ? 0 :
+-				     curr_value == freq_values[2] ? 2 : 1;
++			freq_value[1] = curr_value;
++			mark_index = curr_value == freq_value[0] ? 0 :
++				     curr_value == freq_value[2] ? 2 : 1;
+ 			if (mark_index != 1)
+-				freq_values[1] = (freq_values[0] + freq_values[2]) / 2;
++				freq_value[1] = (freq_value[0] + freq_value[2]) / 2;
  
--		if (!navi10_is_support_fine_grained_dpm(smu, clk_type)) {
-+		if (!navi10_supports_fine_grained_dpm(smu, clk_type)) {
- 			for (i = 0; i < count; i++) {
- 				ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
- 				if (ret)
-@@ -1465,7 +1466,7 @@ static int navi10_force_clk_levels(struct smu_context *smu,
- 	case SMU_UCLK:
- 	case SMU_FCLK:
- 		/* There is only 2 levels for fine grained DPM */
--		if (navi10_is_support_fine_grained_dpm(smu, clk_type)) {
-+		if (navi10_supports_fine_grained_dpm(smu, clk_type)) {
- 			soft_max_level = (soft_max_level >= 1 ? 1 : 0);
- 			soft_min_level = (soft_min_level >= 1 ? 1 : 0);
- 		}
+ 			for (i = 0; i < 3; i++) {
+-				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, freq_values[i],
++				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, freq_value[i],
+ 						i == mark_index ? "*" : "");
+ 			}
+ 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 15e66e1912de33..3f5721baa5ff50 100644
+index 3ebded3a99b5f2..f630d5e928ccfe 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -1006,7 +1006,8 @@ static int sienna_cichlid_get_current_clk_freq_by_table(struct smu_context *smu,
+@@ -1053,7 +1053,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 		(OverDriveTable_t *)table_context->overdrive_table;
+ 	int i, size = 0, ret = 0;
+ 	uint32_t curr_value = 0, value = 0, count = 0;
+-	uint32_t freq_values[3] = {0};
++	uint32_t freq_value[3] = {0, 0, 0};
+ 	uint32_t mark_index = 0;
+ 	uint32_t gen_speed, lane_width;
+ 	uint32_t min_value, max_value;
+@@ -1096,26 +1096,26 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 						curr_value == value ? "*" : "");
+ 			}
+ 		} else {
+-			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
++			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_value[0]);
+ 			if (ret)
+ 				goto print_clk_out;
+-			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
++			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_value[2]);
+ 			if (ret)
+ 				goto print_clk_out;
  
- }
+-			freq_values[1] = curr_value;
+-			mark_index = curr_value == freq_values[0] ? 0 :
+-				     curr_value == freq_values[2] ? 2 : 1;
++			freq_value[1] = curr_value;
++			mark_index = curr_value == freq_value[0] ? 0 :
++				     curr_value == freq_value[2] ? 2 : 1;
  
--static bool sienna_cichlid_is_support_fine_grained_dpm(struct smu_context *smu, enum smu_clk_type clk_type)
-+static bool sienna_cichlid_supports_fine_grained_dpm(struct smu_context *smu,
-+						     enum smu_clk_type clk_type)
- {
- 	DpmDescriptor_t *dpm_desc = NULL;
- 	DpmDescriptor_t *table_member;
-@@ -1084,7 +1085,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
- 		if (ret)
- 			goto print_clk_out;
+ 			count = 3;
+ 			if (mark_index != 1) {
+ 				count = 2;
+-				freq_values[1] = freq_values[2];
++				freq_value[1] = freq_value[2];
+ 			}
  
--		if (!sienna_cichlid_is_support_fine_grained_dpm(smu, clk_type)) {
-+		if (!sienna_cichlid_supports_fine_grained_dpm(smu, clk_type)) {
  			for (i = 0; i < count; i++) {
- 				ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
- 				if (ret)
-@@ -1235,7 +1236,7 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
- 	case SMU_UCLK:
- 	case SMU_FCLK:
- 		/* There is only 2 levels for fine grained DPM */
--		if (sienna_cichlid_is_support_fine_grained_dpm(smu, clk_type)) {
-+		if (sienna_cichlid_supports_fine_grained_dpm(smu, clk_type)) {
- 			soft_max_level = (soft_max_level >= 1 ? 1 : 0);
- 			soft_min_level = (soft_min_level >= 1 ? 1 : 0);
+-				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, freq_values[i],
+-						curr_value  == freq_values[i] ? "*" : "");
++				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, freq_value[i],
++						curr_value  == freq_value[i] ? "*" : "");
+ 			}
+ 
  		}
 -- 
 2.33.1.558.g2bd2f258f4
