@@ -2,48 +2,48 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE761C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7803AC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E18660BD3
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E18660BD3
+	by mail.kernel.org (Postfix) with ESMTPS id 3BAE260BD3
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3BAE260BD3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 150046E39B;
-	Fri, 15 Oct 2021 18:39:14 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2068.outbound.protection.outlook.com [40.107.102.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 711CF6E39B
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 18:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B68CD6E3AE;
+	Fri, 15 Oct 2021 18:39:16 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00166E3AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 18:39:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ATLI4oZbr2zPE/xujx1c8GOCj0y/ZRXNCFA5NRNIgM6JBayoqHiTP25mq7rnBN/xzgHZfTzUIffsnKBGT805XlsRcz9wXGSOhNUWWC6hcQOGE4WBmhSKxFJnkwUv7P9hm+rREOE1/D8l0uFVnKNS4cqC8jro9tnO0PyjIn2dk9stPSfIE9xz0DVpcnrGAX9nfEyhPt2K1RF/u5uPJDbAWjRcc+gNt74bZ8bcD1d7wA9HJitqZIQi1CNZiyZVoRoba/hx1DVWc5k8qtBOqZSVOyL/EEqELPJZIPbPBqatQLozflgOyPrnTHjCt/s1ysVBT2MOTSzCQMWe2yT4V4hAdA==
+ b=hLYLski8V1N2Vh3gk3EfOdyTnNRFkQQP4P+SdjxeNi1Q9mOhmbcVKwZ99cH3IbpmGj/z23/aPNpp7bQyAbavgaQ0fl4ZSm+SAkYNHcgH9HLpggyeWY782JoPVIkx4gly/FNwELZcgP+x2Mr+w1rSeU1ubDM4Vc/kcVU06bB4y2qmtHvrDUH0NmSKFbV5p9ygY30v1GRYfmVaEQlMTTSHJZyuC/Uq8zL4emqjSvZBtkZVR+mhrG7AejikbVLQPmjUQzbTW73M0Ge22DJC2427CVUa6x4P+5dTVPvgm4YJPbhpOECGwHHA3MdA10UO9E6n2J9Y5zPWX+XLTLMhc1YtHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cm/NoxMJGj3n1OwYit3vnFZke3rA2Zs9HiKrcFw+kbY=;
- b=C8zHzqsRev5fe1+XETGFrI/Hh3lwLb+fsLP4Blzj27PnMDCS4hyCEruIkl9LttiL0LynckqoC5JFSXD+PcZajEHcktgNdhCBpcVsUfyVl20NUsJMciGyBhxqK+ApPBKhMbK3Bmnw5I3GKQpPFGH34xJt26WRkd1UTflnglrhX749F7SXmq4i3qMx/WLOBiWKA6IyJDsiMgkmf2grsfXuHR47OHqrd4VuxcCSDhWSCkvaoktzn8tep6OensyN+fd1+ABTHaRIIBhdFnqfceahDoKB7IXodDP0Qev+Tcp6FUSZd9MXwz/S36qjCG8ePIIE0fc1rg8pNlJF3f4EBKfmXw==
+ bh=9f2dEIrRJ2IL+04lrkklGl9btWqSdGQIeOF4nfVdArY=;
+ b=VfuMGxF8zschGBmmkRJQ25yga6AgDg+1rHyGdeh1He0nCu8TJsn0uT51vSPKZLXSi9TKRXyxIukJLxitW0CRu3xXqGp98RoNtRfDB4upC6Q5NvRJiDT86KfBpemdNAkQxsg4S3PHzWzKJkJrNI3r9T4cWqWMw1bBJE49UHyi/GleyJDrAp5Dk7dN9U4Lc9o+1Gas5FJUIMTMD50MavZ1Difs64MJcC4bamegrxOHwNcRQh7l4J3OD5yQN/vYKpKBIIpqk01M4Bn+L3GBXoglhLSrdIN9TMqTrjyTW04137Y4EvVUZZbTOJkMKzhY7qQa+YhKNCxIzudHkRZbw6aFHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cm/NoxMJGj3n1OwYit3vnFZke3rA2Zs9HiKrcFw+kbY=;
- b=19y0XOHMuv9+TULI1LUIdHS+0Ii0hIOj4Rf2NJczhG9rElNvFAcoTrT9VY7ub2MNpdcjd1M7NXXuxpb02SUcbMJpAK7sC7caXrHGgtbRd/CqLs7HKjp7xJtJTb1naB1Tq373n/+t8seFG+xnElFAN9WF321Hr/XQpj6M0MZTbDU=
-Received: from MWHPR04CA0064.namprd04.prod.outlook.com (2603:10b6:300:6c::26)
- by BYAPR12MB3288.namprd12.prod.outlook.com (2603:10b6:a03:130::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Fri, 15 Oct
- 2021 18:39:11 +0000
+ bh=9f2dEIrRJ2IL+04lrkklGl9btWqSdGQIeOF4nfVdArY=;
+ b=a+KwFpMJWN3DmI5pVHK4yF1TGob81VO3L9/SVfH6CYZKMk8kT6AAmkkImihmVqDMgS0gEAW4cfJx9PtWOafSbHtNck02sWZ+XHL6+tds9T7qcKO8wz8yey+EWQGME4PHnMxw/X97r7aeZbMeyQtf7x3ami7UUQZ10z2ux/I7kdc=
+Received: from MWHPR04CA0051.namprd04.prod.outlook.com (2603:10b6:300:6c::13)
+ by DM6PR12MB4156.namprd12.prod.outlook.com (2603:10b6:5:218::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Fri, 15 Oct
+ 2021 18:39:12 +0000
 Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:6c:cafe::35) by MWHPR04CA0064.outlook.office365.com
- (2603:10b6:300:6c::26) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:300:6c:cafe::c4) by MWHPR04CA0051.outlook.office365.com
+ (2603:10b6:300:6c::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Fri, 15 Oct 2021 18:39:11 +0000
+ Transport; Fri, 15 Oct 2021 18:39:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,11 +54,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 18:39:10 +0000
+ 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 18:39:11 +0000
 Received: from ubuntu.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 15 Oct
- 2021 13:39:08 -0500
+ 2021 13:39:09 -0500
 From: Agustin Gutierrez <agustin.gutierrez@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
@@ -69,10 +69,10 @@ CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <agustin.gutierrez@amd.com>, Jimmy Kizito <Jimmy.Kizito@amd.com>,
  Meenakshikumar Somasundaram <Meenakshikumar.Somasundaram@amd.com>, Jun Lei
  <Jun.Lei@amd.com>
-Subject: [PATCH 02/27] drm/amd/display: Clear encoder assignment for copied
- streams
-Date: Fri, 15 Oct 2021 14:38:20 -0400
-Message-ID: <20211015183845.220831-3-agustin.gutierrez@amd.com>
+Subject: [PATCH 03/27] drm/amd/display: Do not skip link training on DP quick
+ hot plug
+Date: Fri, 15 Oct 2021 14:38:21 -0400
+Message-ID: <20211015183845.220831-4-agustin.gutierrez@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211015183845.220831-1-agustin.gutierrez@amd.com>
 References: <20211015183845.220831-1-agustin.gutierrez@amd.com>
@@ -84,28 +84,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 36d3c285-bba1-45e2-1483-08d9900b1435
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3288:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3288F876D5756FFB3A27302DF5B99@BYAPR12MB3288.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Office365-Filtering-Correlation-Id: 01567983-3c31-4e1b-da48-08d9900b14c8
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4156:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB41565B99AED723EDBA2D906BF5B99@DM6PR12MB4156.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QArC7T+WthfCMUqBd4l7LN7600ladHs4l28SLOXq0q46cIirrby76LypPYakn4S/p4oKQ6se4NGlaTd/1NpeW6xtJByQkPT6v8UvTZZCyqFgG6eP1C9hOHR4FzGUSPeXKZapDLvrIamYIQ1tTBo+rjgcxTwkgYK8oi4dbB3A8ZoJQi9rf6M2RnS4rCBgZVcNyVElv44PJaUXK/l2+SVATsdJ4aYulvTw8TxMsBa36yQgv1wQm9Lb4Q+jgl5kxuSRSykqS0VPJkDyU0XVM9WgloFoi/bp0xEtZUNJxR7PPeGhCGf1g+25+VI97iR40kvmQHVGFhNKkMm50XnfotNkOYGdyzWz0X81wV7agPTvZj2AK3cog5HMYonCdO4ltPz4wexRbv5XfDWlYwFxOtZ5ioBpj8kxJaysesO3afPQs8Wvm+CXhR+FqbC9rp/QjU8vGP03tCpVBwKzZU5C/VUt6rX3xWU/BVjSP5dxWeBTb1KrWmIAh7XXH0OW29OV7n9BSNQ4Q/AIcmOIn7yXhhLxPoj/ZObcZywoZ3tzdlm8pJ4iNni/VbzUNjQCto3hvBJUg/ntGaNrGdKtM/HtZdmYzvt33DzcBxqbWswHCEufIP88/PraB/ofBJdaMxqZevnJg8bQOJucq1UQHvcPc46288GnvxP74Am7zOzWeqGlCOaP5EuK98s+h6Ls4rM/X4mxozAMd5Y3JnKwTxZLoxBORm1irpaT1+R5kgAvLbVCbVY=
+X-Microsoft-Antispam-Message-Info: M2C+FrKU+L88Ers8NYPXR08qV45j+Ykf1Hb0Ewcflo/Pj2zwxyy1wbbVT1K+xsLS2vkBxZ4gz6ZLRiD4IJ4BnyLrAj1Zo5x6e1iMA2JS9ixXSNv2rb9GmXMl+G3nmErALfAHkYmKxiPs2/k0y/M8Nu/0pQ9G9RSkwxZ82V4+M4Y7IMxHx8BFKWrBD2pRYhgkHLF5q0qoI95XMKmTnNFZS0wYtq25pPTzOTLFSvAX9onrqCwaKrgNiGnLrtholBA1/TXpcr3+XfO6srT5qxUNChTPmi9GnDSEZic2R5W5DXH4znL0rczA9tVj5CHOVYItZDPtPi5g3EfOBf8gApWGi2K6wzJ07ursrfnp7FSwT9rNVBdJJMIAu+4e2kgRD4U1EL0fBZ3m/vID5M79ylqlN7uYjUryuZUuxohFPL/aS491RFSaLR5DWbAtjhhr1UdV5RdZShW1XThBdd2DtjjxF/bNpatpNYgoT7tQufOzFNAuEQBW2E10IYitMPYkXdF3cIZ11Si6zE8CqgUyNzMxF4Og3tAFJAu4f6vYnG45a4WdSygkb1lbVXDQsUYMxT3+DJ0WKUUGVyZ4qLD04FpqTAk1TzPp9t/PloNVtr30u3MMVJedLMRt7Vy0/okenvDUhciIzQlAKBMuQfx9Yy7ghRca2OOVessXMx3ORW8TnXB7DuMdjfI9umE+RgVEnQYTpDbiJLnwv5QRtbNvhuimsSCHU5oHeAUrnAuLe6ybqSE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(2616005)(336012)(508600001)(426003)(44832011)(54906003)(2906002)(8936002)(26005)(8676002)(316002)(36860700001)(6916009)(16526019)(186003)(86362001)(4326008)(5660300002)(82310400003)(47076005)(356005)(81166007)(6666004)(70206006)(36756003)(70586007)(1076003)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(70586007)(44832011)(70206006)(8936002)(83380400001)(356005)(336012)(82310400003)(508600001)(54906003)(8676002)(316002)(5660300002)(6916009)(81166007)(426003)(6666004)(16526019)(2906002)(186003)(86362001)(1076003)(26005)(2616005)(4326008)(36860700001)(47076005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 18:39:10.6259 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36d3c285-bba1-45e2-1483-08d9900b1435
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 18:39:11.5934 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01567983-3c31-4e1b-da48-08d9900b14c8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3288
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4156
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,36 +123,83 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Jimmy Kizito <Jimmy.Kizito@amd.com>
 
 [Why]
-When copying a stream, the encoder assigned to it is copied too.
-Encoder assignment should only happen when executing the encoder
-assignment function link_encs_assign().
+When rapidly plugging and unplugging a DP sink, detection link
+training can be mistakenly skipped.
+
+This is due to the hotplug processing occurring before the
+encoder assignment logic has had a chance to process the removal
+of a stream. The encoder that would be used for detection link
+training is then erroneously reported as already in use and
+detection link training is skipped.
 
 [How]
-Clear the link encoder pointer for copied stream.
+During hot plug processing, only determine a link encoder to be
+unavailable for a particular link if it has been assigned to a
+different link.
 
 Reviewed-by: Meenakshikumar Somasundaram <Meenakshikumar.Somasundaram@amd.com>
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Agustin Gutierrez Sanchez <agustin.gutierrez@amd.com>
 Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c      | 2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c | 9 ++++++---
+ drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h     | 2 +-
+ 3 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index f0f54f4d3d9b..57cf4cb82370 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -202,6 +202,10 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
- 	new_stream->stream_id = new_stream->ctx->dc_stream_id_count;
- 	new_stream->ctx->dc_stream_id_count++;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 54662d74c65a..8e0b40c7a1ee 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -2863,7 +2863,7 @@ bool dp_verify_link_cap(
+ 		link->verified_link_cap = *known_limit_link_setting;
+ 		return true;
+ 	} else if (link->link_enc && link->dc->res_pool->funcs->link_encs_assign &&
+-			!link_enc_cfg_is_link_enc_avail(link->ctx->dc, link->link_enc->preferred_engine)) {
++			!link_enc_cfg_is_link_enc_avail(link->ctx->dc, link->link_enc->preferred_engine, link)) {
+ 		link->verified_link_cap = initial_link_settings;
+ 		return true;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+index 1cab4bf06abe..72b0f8594b4a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+@@ -488,16 +488,19 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
+ 	return link_enc;
+ }
  
-+	/* If using dynamic encoder assignment, wait till stream committed to assign encoder. */
-+	if (new_stream->ctx->dc->res_pool->funcs->link_encs_assign)
-+		new_stream->link_enc = NULL;
-+
- 	kref_init(&new_stream->refcount);
+-bool link_enc_cfg_is_link_enc_avail(struct dc *dc, enum engine_id eng_id)
++bool link_enc_cfg_is_link_enc_avail(struct dc *dc, enum engine_id eng_id, struct dc_link *link)
+ {
+ 	bool is_avail = true;
+ 	int i;
  
- 	return new_stream;
+-	/* Add assigned encoders to list. */
++	/* An encoder is not available if it has already been assigned to a different endpoint. */
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		struct link_enc_assignment assignment = get_assignment(dc, i);
++		struct display_endpoint_id ep_id = (struct display_endpoint_id) {
++				.link_id = link->link_id,
++				.ep_type = link->ep_type};
+ 
+-		if (assignment.valid && assignment.eng_id == eng_id) {
++		if (assignment.valid && assignment.eng_id == eng_id && !are_ep_ids_equal(&ep_id, &assignment.ep_id)) {
+ 			is_avail = false;
+ 			break;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
+index 83b2199b2c83..10dcf6a5e9b1 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
+@@ -97,7 +97,7 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
+ 		const struct dc_stream_state *stream);
+ 
+ /* Return true if encoder available to use. */
+-bool link_enc_cfg_is_link_enc_avail(struct dc *dc, enum engine_id eng_id);
++bool link_enc_cfg_is_link_enc_avail(struct dc *dc, enum engine_id eng_id, struct dc_link *link);
+ 
+ /* Returns true if encoder assignments in supplied state pass validity checks. */
+ bool link_enc_cfg_validate(struct dc *dc, struct dc_state *state);
 -- 
 2.25.1
 
