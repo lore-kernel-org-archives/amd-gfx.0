@@ -1,79 +1,101 @@
-Return-Path: <SRS0=AM0C=PC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4218BC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 23:43:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5112FC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 00:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01F57610EA
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Oct 2021 23:43:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 01F57610EA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 06A1D6108B
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 00:51:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 06A1D6108B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD0E6ECA0;
-	Thu, 14 Oct 2021 23:43:08 +0000 (UTC)
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [IPv6:2607:f8b0:4864:20::72b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F10B6ECA0
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 23:43:07 +0000 (UTC)
-Received: by mail-qk1-x72b.google.com with SMTP id t63so7061096qkf.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 16:43:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=J7Isl4QOCcY0eFas2cTgbyTZfPWz2wwFdAIcWRYre7Y=;
- b=PjuIacqaroe9e7akOnjznTZzvaYEQs53UCr321AtQruM5hAZBg92Qj8kesAnbb7Muy
- qMyCuA6zzoG9BjWGJkG3AUzx167f73QL6aeUPu/LReks/1mIUnrk5z/B5qDTtrMszNiU
- YKvlgeUM3yXHj7PZ+FF3LnyQOfymhIhwnyq/U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=J7Isl4QOCcY0eFas2cTgbyTZfPWz2wwFdAIcWRYre7Y=;
- b=WzsXv50aduqdKPQZIOw68NJJDHOqXuUwFeSwV3TLuGNkjXLSiTc31e/yBxiKTR0TXz
- 1Wn9CjjAeVhab5tWeEb6h61Y25eWun0oKOqK10gLpjEgBI7IR/Do0KU7LnMcy+1T5rnl
- sknu9RANFsm144SDh1eA5PU8Qog+VpZQM5xVaIdHpw/ocAm3Kpmbnv8FVtoLd24/XHkV
- NCnWUIcyGnYmyRNBDmXkW8Uc4cZ7OLQe0qXVFQsj3hsVUHXTyGV47JEtCj0CH+RNSUaR
- Gc7R5HdhMig778q9Y90wz0LfKilmlvR8Wj73wzDd4gdcNnpvoGx+QIF0HETDo2HJnLQm
- CAYA==
-X-Gm-Message-State: AOAM533ZAdiNsxrYgr0V7L+zKQSVr8FHHePEibJxPhJGT224F3SrjFX/
- HPTtpPT/XuF00aJ3eoa3R1pQV3w+720VdQ==
-X-Google-Smtp-Source: ABdhPJytu2KcJsMDZGLZYvXL/7rXgRTWCRjgo1viiWf63q7WtZW91/09RZitJRBK55/NEVd03KGvFQ==
-X-Received: by 2002:a05:620a:4101:: with SMTP id
- j1mr6993839qko.5.1634254986793; 
- Thu, 14 Oct 2021 16:43:06 -0700 (PDT)
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com.
- [209.85.219.171])
- by smtp.gmail.com with ESMTPSA id i67sm1927776qkd.90.2021.10.14.16.43.06
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Oct 2021 16:43:06 -0700 (PDT)
-Received: by mail-yb1-f171.google.com with SMTP id a7so18496048yba.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Oct 2021 16:43:06 -0700 (PDT)
-X-Received: by 2002:a25:4251:: with SMTP id p78mr9457761yba.47.1634254985831; 
- Thu, 14 Oct 2021 16:43:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6237A6ECB0;
+	Fri, 15 Oct 2021 00:51:10 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1FE86ECB0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 00:51:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YeQctHw40tR9SoqhHa7wGnmOsTKLYR+ULYvsdqQ9qTy+ZCkcV2Y1b0lyF48EfWsofuIEYrJK81xnUvl3L06tQA892iCYBBPfMmjhEwuWTch6FGps3G+YIL50Q6/ipltVavVndK0W85K7mqEloVWBOXHmqnH1u6OtNMXFvPZ5wzPqv+2cCkH/Y8rbd0HUXadMPRHZj6cl7+AzqpS/L79whR7RJIGbFZFcrljAFn6NKGecT8cjMF08Zt33Q68NnG/l9RMbVR+FQMMaf20+A3RHyAMh1OWYoeCw6qKMq4Z32iQy6ghsgPWUyRYZN1XqZkVjMeqna5Q1D9D2ix4k6oD7SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PG9FP/9WIMMuUxp0AdkrS/cvyFmCLnKtEvL8o7NQe2A=;
+ b=cbr3411gKQAKxGVvR+H2yJC1oRkpvc0mUj5qVsroepOJBJnq6IFDAyKpstXj9f485eNyQqacr8Z22d8VhFS/MCCnUtfKNcJrquohFOup5Lm3rtF8W644xUmAlDrm5MKQRubmHz31wR8wkuphbuNNpP4LyaDt/uattu5+kP4QkLyAIEroEfjrNgrivIxOVCsiwgQjWYe8zA6kPfAlvukDj5wBJV1DcSNKB/EKEC0y5zSksKMTqFLHt4uU7oB4549jJCAMB3OXq4uyuZpxRXcIXkgrPjrFfbMbteBo1UZPRGx4sTgTwZ3FnOtggPag+ro8P57QjD8wGGwcqsmWiQer2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PG9FP/9WIMMuUxp0AdkrS/cvyFmCLnKtEvL8o7NQe2A=;
+ b=YS36zMqKaraK8M2yYPKowO/uc6o8GG9h0EC42Fgo9q9EB0wyCSHZNyBQ4Zkgk/1GRiKpPRWFWXT77dtJu8m7Qx/5HGmefRrzed5UL7uYAznquLbjLMKUWtkFOv0dlhBK0ClEc7oIPpNHLQYqSuWluSom9XVvXv3czOGB5o1rQpI=
+Received: from MW4PR03CA0281.namprd03.prod.outlook.com (2603:10b6:303:b5::16)
+ by MN2PR12MB3744.namprd12.prod.outlook.com (2603:10b6:208:166::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Fri, 15 Oct
+ 2021 00:51:07 +0000
+Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::40) by MW4PR03CA0281.outlook.office365.com
+ (2603:10b6:303:b5::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Fri, 15 Oct 2021 00:51:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 00:51:06 +0000
+Received: from localhost.localdomain.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.8; Thu, 14 Oct 2021 19:51:04 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Luben Tuikov <luben.tuikov@amd.com>
+Subject: [PATCH 0/5] 0 MHz is not a valid current frequency (v3)
+Date: Thu, 14 Oct 2021 20:50:41 -0400
+Message-ID: <20211015005046.43486-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.33.1.558.g2bd2f258f4
 MIME-Version: 1.0
-References: <20210929194012.3433306-1-markyacoub@chromium.org>
- <20211013181228.1578201-1-markyacoub@chromium.org>
- <20211013181228.1578201-2-markyacoub@chromium.org>
-In-Reply-To: <20211013181228.1578201-2-markyacoub@chromium.org>
-From: Sean Paul <seanpaul@chromium.org>
-Date: Thu, 14 Oct 2021 19:42:29 -0400
-X-Gmail-Original-Message-ID: <CAOw6vb+AaG2B1zRfLW54TDjinuirXAT+v2AvXeWmVjYNyJJXMQ@mail.gmail.com>
-Message-ID: <CAOw6vb+AaG2B1zRfLW54TDjinuirXAT+v2AvXeWmVjYNyJJXMQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] amd/amdgpu_dm: Verify Gamma and Degamma LUT sizes
- using DRM Core check
-To: Mark Yacoub <markyacoub@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, harry.wentland@amd.com, 
- Mark Yacoub <markyacoub@google.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: dd56d8da-b5d8-462d-cede-08d98f75df2f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3744:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3744A148A54F34041EF1AD1899B99@MN2PR12MB3744.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cVe514y4ymKhB15xQk3PEodhfDo3TmaPoyHYC6koetGzCdtNuudAKyY+Yc1XfXzeIxy5o4iefbjC1rqTvuaBOHY/7nWEUxXVspscXXnm8+R23fM6uA99iWToKzy0HtxI8Z14i4hJr7f68NQdH2GXH1oSpU8BHHXbb45dmp1x9LPc5HlJf8uy746/cwfLnMzbv2FOVLrH88e09uM3T/myDeHHngAcYkp7naZfOJA29DQaUQNZPEMEXSOcpy2hThu2s5ZCTqdNpLVbFyvvCyy+MyppsZz8MaTeqaTjkugAj+BBOSECmrutUMNMURgtPSFmsRLxMTT3+96CEkgaXdK+49hVG0kZgtouhXCujFRUf7GWc4yme3Lx0Owt85UQhw5gCWpnYgMI/8iwwTvEX2vXQm8RwtGEXxqKHoR7N+iQYo4hdSTH6siTWR8pk2bW/NVIQRL5ybuSTNdQdM4xccyE/QyRgVN81cg/XS+ODA0YoXL+ytMJmjU0N6/LD/w9ebTKL+sB+obFysyYZOtSyfPbKVYEZ8YN4dj+EYmMGfQNVC0+QDqycyjadhKosXcw/iXzAD4nMh1HkpmQTRbgPOxj19U1Zbnh5WxD6OlWdREVGGLfubw38drmjX9J4d3QZDQ7LL4996ydr+O5sZMBH034k/x+wDgCxtNOnne2HBNKWPywMxrg+if+8Wqd2u8r5KCJykFqFgS+wScjQxEQBxtzfoffScGJ5zh6A2Dfxh37dxY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(2616005)(86362001)(6916009)(7696005)(70206006)(4326008)(426003)(1076003)(81166007)(26005)(316002)(2906002)(82310400003)(70586007)(336012)(186003)(44832011)(16526019)(8936002)(36756003)(508600001)(83380400001)(356005)(5660300002)(8676002)(36860700001)(47076005)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 00:51:06.6344 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd56d8da-b5d8-462d-cede-08d98f75df2f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3744
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,124 +110,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 13, 2021 at 2:12 PM Mark Yacoub <markyacoub@chromium.org> wrote:
->
-> From: Mark Yacoub <markyacoub@google.com>
->
-> [Why]
-> drm_atomic_helper_check_crtc now verifies both legacy and non-legacy LUT
-> sizes. There is no need to check it within amdgpu_dm_atomic_check.
->
-> [How]
-> Remove the local call to verify LUT sizes and use DRM Core function
-> instead.
->
-> Tested on ChromeOS Zork.
->
-> v1:
-> Remove amdgpu_dm_verify_lut_sizes everywhere.
->
+Some ASICs support low-power functionality for the whole ASIC or just
+an IP block. When in such low-power mode, some sysfs interfaces would
+report a frequency of 0, e.g.,
 
-Reviewed-by: Sean Paul <seanpaul@chromium.org>
+$cat /sys/class/drm/card0/device/pp_dpm_sclk
+0: 500Mhz 
+1: 0Mhz *
+2: 2200Mhz 
+$_
 
-> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 -
->  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 35 -------------------
->  3 files changed, 4 insertions(+), 40 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index f74663b6b046e..47f8de1cfc3a5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10244,6 +10244,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
->                 }
->         }
->  #endif
-> +       ret = drm_atomic_helper_check_crtcs(state);
-> +       if (ret)
-> +               return ret;
-> +
->         for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
->                 dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
->
-> @@ -10253,10 +10257,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
->                         dm_old_crtc_state->dsc_force_changed == false)
->                         continue;
->
-> -               ret = amdgpu_dm_verify_lut_sizes(new_crtc_state);
-> -               if (ret)
-> -                       goto fail;
-> -
->                 if (!new_crtc_state->enable)
->                         continue;
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index fcb9c4a629c32..22730e5542092 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -617,7 +617,6 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
->  #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
->
->  void amdgpu_dm_init_color_mod(void);
-> -int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
->  int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
->  int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
->                                       struct dc_plane_state *dc_plane_state);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index a022e5bb30a5c..319f8a8a89835 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -284,37 +284,6 @@ static int __set_input_tf(struct dc_transfer_func *func,
->         return res ? 0 : -ENOMEM;
->  }
->
-> -/**
-> - * Verifies that the Degamma and Gamma LUTs attached to the |crtc_state| are of
-> - * the expected size.
-> - * Returns 0 on success.
-> - */
-> -int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
-> -{
-> -       const struct drm_color_lut *lut = NULL;
-> -       uint32_t size = 0;
-> -
-> -       lut = __extract_blob_lut(crtc_state->degamma_lut, &size);
-> -       if (lut && size != MAX_COLOR_LUT_ENTRIES) {
-> -               DRM_DEBUG_DRIVER(
-> -                       "Invalid Degamma LUT size. Should be %u but got %u.\n",
-> -                       MAX_COLOR_LUT_ENTRIES, size);
-> -               return -EINVAL;
-> -       }
-> -
-> -       lut = __extract_blob_lut(crtc_state->gamma_lut, &size);
-> -       if (lut && size != MAX_COLOR_LUT_ENTRIES &&
-> -           size != MAX_COLOR_LEGACY_LUT_ENTRIES) {
-> -               DRM_DEBUG_DRIVER(
-> -                       "Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
-> -                       MAX_COLOR_LUT_ENTRIES, MAX_COLOR_LEGACY_LUT_ENTRIES,
-> -                       size);
-> -               return -EINVAL;
-> -       }
-> -
-> -       return 0;
-> -}
-> -
->  /**
->   * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
->   * @crtc: amdgpu_dm crtc state
-> @@ -348,10 +317,6 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
->         bool is_legacy;
->         int r;
->
-> -       r = amdgpu_dm_verify_lut_sizes(&crtc->base);
-> -       if (r)
-> -               return r;
-> -
->         degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
->         regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
->
-> --
-> 2.33.0.882.g93a45727a2-goog
->
+An operating frequency of 0 MHz doesn't make sense, and this interface
+is designed to report only operating clock frequencies, i.e. non-zero,
+and possibly the current one.
+
+When in this low-power state, round to the smallest
+operating frequency, for this interface, as follows,
+
+$cat /sys/class/drm/card0/device/pp_dpm_sclk
+0: 500Mhz *
+1: 2200Mhz 
+$_
+
+v2: Fix description to reflect change in patch 1--add an 's'.
+v3: Don't tag a current if current is 0.
+
+Luben Tuikov (5):
+  drm/amd/pm: Slight function rename (v2)
+  drm/amd/pm: Rename cur_value to curr_value
+  drm/amd/pm: Rename freq_values --> freq_value
+  dpm/amd/pm: Sienna: 0 MHz is not a current clock frequency (v2)
+  dpm/amd/pm: Navi10: 0 MHz is not a current clock frequency (v2)
+
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 57 ++++++++------
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 74 ++++++++++++-------
+ 2 files changed, 83 insertions(+), 48 deletions(-)
+
+
+base-commit: b81c53cdbe1482b1f4013ba7a41bca2174cde109
+-- 
+2.33.1.558.g2bd2f258f4
+
