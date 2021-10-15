@@ -2,33 +2,33 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76EBEC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14298C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:22:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4886261056
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4886261056
+	by mail.kernel.org (Postfix) with ESMTPS id DC38F6109E
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC38F6109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F37C36ED87;
-	Fri, 15 Oct 2021 12:21:52 +0000 (UTC)
-Received: from msg-6.mailo.com (ip-16.mailobj.net [213.182.54.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 232716ED7E;
- Fri, 15 Oct 2021 12:21:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CADF6ED8F;
+	Fri, 15 Oct 2021 12:22:02 +0000 (UTC)
+Received: from msg-3.mailo.com (ip-8.mailobj.net [213.182.54.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C5B66ED65;
+ Fri, 15 Oct 2021 12:21:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1634297909; bh=ZmCRcmXfOn4brch3sFsuOuXp9yHp219e3PYR0mVapZM=;
+ t=1634297909; bh=elbQ/Rfa9XPzohbQeT5mZjhN0nLEuIl5gnGjqEs1gGI=;
  h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding;
- b=O1128Skmtr1SnhdEANDNi1hkk68ts5HX9BPS/Moq8Cp0kafvyh4fVew4RqhGtSpSl
- PWnHN/5XofmnK7/15qMUq2sy3vay/EbycsHJ+7BIZ22cmHx3LocG8QPq3ZG1N7kudw
- ErWB7aWu8gheb6mhdv8TjUOUAYLxHOrcSs5XIQbA=
+ b=uhQhLYcExiNlDlHMmi2fXqvIXIdT9Zsx177AWWe8lBnJwiintXzX/ujeyxEXR+On7
+ 2wIInhwG+MuP+dGrumWHNLbDl5SnrksHRvz0CfdiYEk5iZxfadz0zCYqgweFZEoMTn
+ lBHsxXLB3In8AG0xTzRo8fWAwXnP7PczDI8aTMnA=
 Received: by b-3.in.mailobj.net [192.168.90.13] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Fri, 15 Oct 2021 13:38:28 +0200 (CEST)
-X-EA-Auth: 46lMFJD6Kb7RTlUcDx4XAtaoqqK5Xf3+bswRZVaGohlCdBZPTG6jvNqcKCz65iozGBzSQRWBCPS9VhU6L3a6aIuBaQS38CqL
+ Fri, 15 Oct 2021 13:38:26 +0200 (CEST)
+X-EA-Auth: m+yuPqoVfZfKJvzhs4WwYWS6mMZQLuB1wXfYQyDkgGVWy09v7/iqIciNYT8F/CkgK5SECL4YhfCcPlve7qthz5S1NaR1VBAr
 From: Claudio Suarez <cssk@net-c.es>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
@@ -53,10 +53,10 @@ To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
  nouveau@lists.freedesktop.org
 Cc: Claudio Suarez <cssk@net-c.es>
-Subject: [PATCH 09/15] drm/sun4i: replace drm_detect_hdmi_monitor() with
+Subject: [PATCH 08/15] drm/msm: replace drm_detect_hdmi_monitor() with
  drm_display_info.is_hdmi
-Date: Fri, 15 Oct 2021 13:37:07 +0200
-Message-Id: <20211015113713.630119-10-cssk@net-c.es>
+Date: Fri, 15 Oct 2021 13:37:06 +0200
+Message-Id: <20211015113713.630119-9-cssk@net-c.es>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211015113713.630119-1-cssk@net-c.es>
 References: <20211015113713.630119-1-cssk@net-c.es>
@@ -83,27 +83,23 @@ drm_display_info.is_hdmi
 
 Signed-off-by: Claudio Suarez <cssk@net-c.es>
 ---
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi_connector.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-index 2f2c9f0a1071..f57bedbbeeb8 100644
---- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-@@ -215,11 +215,11 @@ static int sun4i_hdmi_get_modes(struct drm_connector *connector)
- 	if (!edid)
- 		return 0;
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+index 58707a1f3878..07585092f919 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+@@ -364,8 +364,8 @@ static int msm_hdmi_connector_get_modes(struct drm_connector *connector)
  
--	hdmi->hdmi_monitor = drm_detect_hdmi_monitor(edid);
-+	drm_connector_update_edid_property(connector, edid);
-+	hdmi->hdmi_monitor = connector->display_info.is_hdmi;
- 	DRM_DEBUG_DRIVER("Monitor is %s monitor\n",
- 			 hdmi->hdmi_monitor ? "an HDMI" : "a DVI");
+ 	hdmi_write(hdmi, REG_HDMI_CTRL, hdmi_ctrl);
  
--	drm_connector_update_edid_property(connector, edid);
- 	cec_s_phys_addr_from_edid(hdmi->cec_adap, edid);
- 	ret = drm_add_edid_modes(connector, edid);
- 	kfree(edid);
+-	hdmi->hdmi_mode = drm_detect_hdmi_monitor(edid);
+ 	drm_connector_update_edid_property(connector, edid);
++	hdmi->hdmi_mode = connector->display_info.is_hdmi;
+ 
+ 	if (edid) {
+ 		ret = drm_add_edid_modes(connector, edid);
 -- 
 2.33.0
 
