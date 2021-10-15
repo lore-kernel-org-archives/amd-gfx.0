@@ -2,37 +2,37 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E113BC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:03:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33271C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A858F60E54
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A858F60E54
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F04056108B
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:20:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F04056108B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41F906ED0D;
-	Fri, 15 Oct 2021 12:03:24 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4221A6ED0D;
- Fri, 15 Oct 2021 12:03:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="208015447"
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="208015447"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 05:03:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="488090838"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga007.fm.intel.com with SMTP; 15 Oct 2021 05:03:14 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 15 Oct 2021 15:03:13 +0300
-Date: Fri, 15 Oct 2021 15:03:13 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Claudio Suarez <cssk@net-c.es>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id B76DD6E47A;
+	Fri, 15 Oct 2021 12:20:32 +0000 (UTC)
+X-Greylist: delayed 2573 seconds by postgrey-1.36 at gabe;
+ Fri, 15 Oct 2021 12:20:30 UTC
+Received: from msg-3.mailo.com (ip-8.mailobj.net [213.182.54.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D79E6E2D5;
+ Fri, 15 Oct 2021 12:20:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
+ t=1634297909; bh=QBcYM19WYIft9nyGf96kprXPvyWbRp1gWatVdt76c0U=;
+ h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding;
+ b=ZztwFt1HtLz+ROpeY1J85VZapMqZASbFXSmZ5GB2VcMYc+cvCiJ7KBgU1gFpJX4HE
+ e8M7Bq80v1n3fWMxiP1aUngoTSQ27V96sbW+CInQ6SLSdZKJACWmEGA9pvmJPHzdqW
+ 1wzCOEExSVWdFicxjEbti5/MrJNxigsElB5z6prE=
+Received: by b-1.in.mailobj.net [192.168.90.11] with ESMTP
+ via ip-206.mailobj.net [213.182.55.206]
+ Fri, 15 Oct 2021 13:38:02 +0200 (CEST)
+X-EA-Auth: poGc6xz6ZqqEJXNZ9UjzI5MiSKkhrUJ4AW0hkIeTezxOINaMqijrue2rwcYd3CC4y3eESmyNBCSifR1JG/ltACbh1gPUm7js
+From: Claudio Suarez <cssk@net-c.es>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
@@ -40,7 +40,7 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
  Maxime Ripard <mripard@kernel.org>,
  Thierry Reding <thierry.reding@gmail.com>,
@@ -52,19 +52,18 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
  Andrzej Hajda <a.hajda@samsung.com>,
  Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
-Subject: Re: [PATCH 01/15] gpu/drm: make drm_add_edid_modes() consistent when
- updating connector->display_info
-Message-ID: <YWluAX6LA2DupE+E@intel.com>
+ Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
+ nouveau@lists.freedesktop.org
+Cc: Claudio Suarez <cssk@net-c.es>
+Subject: [PATCH 07/15] drm/exynos: replace drm_detect_hdmi_monitor() with
+ drm_display_info.is_hdmi
+Date: Fri, 15 Oct 2021 13:37:05 +0200
+Message-Id: <20211015113713.630119-8-cssk@net-c.es>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211015113713.630119-1-cssk@net-c.es>
 References: <20211015113713.630119-1-cssk@net-c.es>
- <20211015113713.630119-2-cssk@net-c.es>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211015113713.630119-2-cssk@net-c.es>
-X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,48 +78,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 15, 2021 at 01:36:59PM +0200, Claudio Suarez wrote:
-> According to the documentation, drm_add_edid_modes
-> "... Also fills out the &drm_display_info structure and ELD in @connector
-> with any information which can be derived from the edid."
-> 
-> drm_add_edid_modes accepts a struct edid *edid parameter which may have a
-> value or may be null. When it is not null, connector->display_info and
-> connector->eld are updated according to the edid. When edid=NULL, only
-> connector->eld is reset. Reset connector->display_info to be consistent
-> and accurate.
-> 
-> Signed-off-by: Claudio Suarez <cssk@net-c.es>
-> ---
->  drivers/gpu/drm/drm_edid.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 6325877c5fd6..6cbe09b2357c 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -5358,10 +5358,12 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
->  
->  	if (edid == NULL) {
->  		clear_eld(connector);
-> +		drm_reset_display_info(connector);
->  		return 0;
->  	}
->  	if (!drm_edid_is_valid(edid)) {
->  		clear_eld(connector);
-> +		drm_reset_display_info(connector);
+Once EDID is parsed, the monitor HDMI support information is available
+through drm_display_info.is_hdmi. Retriving the same information with
+drm_detect_hdmi_monitor() is less efficient. Change to
+drm_display_info.is_hdmi
 
-Looks easier if you pull both of those out from these branches and
-just call them unconditionally at the start.
+Signed-off-by: Claudio Suarez <cssk@net-c.es>
+---
+ drivers/gpu/drm/exynos/exynos_hdmi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
->  		drm_warn(connector->dev, "%s: EDID invalid.\n",
->  			 connector->name);
->  		return 0;
-> -- 
-> 2.33.0
-> 
-> 
-
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index 7655142a4651..a563d6386abe 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -893,12 +893,14 @@ static int hdmi_get_modes(struct drm_connector *connector)
+ 	if (!edid)
+ 		return -ENODEV;
+ 
+-	hdata->dvi_mode = !drm_detect_hdmi_monitor(edid);
++	/* This updates connector->display_info */
++	drm_connector_update_edid_property(connector, edid);
++
++	hdata->dvi_mode = !connector->display_info.is_hdmi;
+ 	DRM_DEV_DEBUG_KMS(hdata->dev, "%s : width[%d] x height[%d]\n",
+ 			  (hdata->dvi_mode ? "dvi monitor" : "hdmi monitor"),
+ 			  edid->width_cm, edid->height_cm);
+ 
+-	drm_connector_update_edid_property(connector, edid);
+ 	cec_notifier_set_phys_addr_from_edid(hdata->notifier, edid);
+ 
+ 	ret = drm_add_edid_modes(connector, edid);
 -- 
-Ville Syrjälä
-Intel
+2.33.0
+
+
