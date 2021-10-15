@@ -2,33 +2,33 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6BDCC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 632C1C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8ABCB6108B
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8ABCB6108B
+	by mail.kernel.org (Postfix) with ESMTPS id 354706108E
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 354706108E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE676ED27;
-	Fri, 15 Oct 2021 12:21:15 +0000 (UTC)
-Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B73F6ED24;
- Fri, 15 Oct 2021 12:21:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC97F6ED72;
+	Fri, 15 Oct 2021 12:21:26 +0000 (UTC)
+Received: from msg-6.mailo.com (ip-16.mailobj.net [213.182.54.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B848A6ED72;
+ Fri, 15 Oct 2021 12:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1634297970; bh=0RqSfZcuztAsxl5Z9RHnZDIQ5/yjlTF9rwDwZXErkHI=;
+ t=1634297913; bh=rwTF5+9x+ye/AXjZbx/MNNkZB6C1fknU5OsMIO6dc6Y=;
  h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding;
- b=JiBJc9ICNjEPGchTO1nCRIhe2IQUWHB7JfmXKnse4hG3SQ1ztIn7ssZEATA2lzdYv
- 6qqhHv7dOu28A2otnNbS9w+Vc3EGicBySG7lxbO62tG8Hs36ug3kNB6JT4Brl/A+Ix
- qYyX5UH4+dmt281G4A2k2LA2y01aGUg8T9ozKgQM=
+ b=oHUsGLHtfbeb2lGALHUBGTI30IfYZng4BA0Pgb1nYlc5NLFRFPJL4VRH0qcInrwTI
+ R4DZHDfHREoHHNDkyBsu5TeqvmL0ayJDQJ3wPsWF50RTeirVtXu37PdhLm4a2/OnPr
+ g7j8v/OFiCk72bexXhWRezta3jl2h05vLpb4G+qU=
 Received: by b-3.in.mailobj.net [192.168.90.13] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Fri, 15 Oct 2021 13:38:55 +0200 (CEST)
-X-EA-Auth: 6mlP1jvI0uJdWnepf1t2wfFzPxS7+ki6kjVCm1DK6IKAqO+JzkYYrEOlPV9PEUbDU2q0kjOYpQN+Y3xhOuNF/tTZMgv04dzM
+ Fri, 15 Oct 2021 13:38:30 +0200 (CEST)
+X-EA-Auth: MAlTL+AUq+EWJ84udQHBcLVV0XXC0LRrWCTFfpav7VipNI+ImD8muRM/+7Gm3INHfKmO5lgjsSbOiH9QnieqiSo5u25ul0uL
 From: Claudio Suarez <cssk@net-c.es>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
@@ -53,10 +53,10 @@ To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
  nouveau@lists.freedesktop.org
 Cc: Claudio Suarez <cssk@net-c.es>
-Subject: [PATCH 12/15] drm/rockchip: replace drm_detect_hdmi_monitor() with
+Subject: [PATCH 10/15] drm/sti: replace drm_detect_hdmi_monitor() with
  drm_display_info.is_hdmi
-Date: Fri, 15 Oct 2021 13:37:10 +0200
-Message-Id: <20211015113713.630119-13-cssk@net-c.es>
+Date: Fri, 15 Oct 2021 13:37:08 +0200
+Message-Id: <20211015113713.630119-11-cssk@net-c.es>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211015113713.630119-1-cssk@net-c.es>
 References: <20211015113713.630119-1-cssk@net-c.es>
@@ -83,40 +83,34 @@ drm_display_info.is_hdmi
 
 Signed-off-by: Claudio Suarez <cssk@net-c.es>
 ---
- drivers/gpu/drm/rockchip/inno_hdmi.c   | 4 ++--
- drivers/gpu/drm/rockchip/rk3066_hdmi.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/sti/sti_hdmi.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/inno_hdmi.c b/drivers/gpu/drm/rockchip/inno_hdmi.c
-index 7afdc54eb3ec..d479f230833e 100644
---- a/drivers/gpu/drm/rockchip/inno_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/inno_hdmi.c
-@@ -553,9 +553,9 @@ static int inno_hdmi_connector_get_modes(struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index f3ace11209dd..3f8b04a1407e 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -984,14 +984,16 @@ static int sti_hdmi_connector_get_modes(struct drm_connector *connector)
+ 	if (!edid)
+ 		goto fail;
  
- 	edid = drm_get_edid(connector, hdmi->ddc);
- 	if (edid) {
--		hdmi->hdmi_data.sink_is_hdmi = drm_detect_hdmi_monitor(edid);
--		hdmi->hdmi_data.sink_has_audio = drm_detect_monitor_audio(edid);
- 		drm_connector_update_edid_property(connector, edid);
-+		hdmi->hdmi_data.sink_is_hdmi = connector->display_info.is_hdmi;
-+		hdmi->hdmi_data.sink_has_audio = drm_detect_monitor_audio(edid);
- 		ret = drm_add_edid_modes(connector, edid);
- 		kfree(edid);
- 	}
-diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-index 1c546c3a8998..03aaae39cf61 100644
---- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-@@ -472,8 +472,8 @@ static int rk3066_hdmi_connector_get_modes(struct drm_connector *connector)
+-	hdmi->hdmi_monitor = drm_detect_hdmi_monitor(edid);
+-	DRM_DEBUG_KMS("%s : %dx%d cm\n",
+-		      (hdmi->hdmi_monitor ? "hdmi monitor" : "dvi monitor"),
+-		      edid->width_cm, edid->height_cm);
+ 	cec_notifier_set_phys_addr_from_edid(hdmi->notifier, edid);
  
- 	edid = drm_get_edid(connector, hdmi->ddc);
- 	if (edid) {
--		hdmi->hdmi_data.sink_is_hdmi = drm_detect_hdmi_monitor(edid);
- 		drm_connector_update_edid_property(connector, edid);
-+		hdmi->hdmi_data.sink_is_hdmi = connector->display_info.is_hdmi;
- 		ret = drm_add_edid_modes(connector, edid);
- 		kfree(edid);
- 	}
+ 	count = drm_add_edid_modes(connector, edid);
++
++	/* This updates connector->display_info */
+ 	drm_connector_update_edid_property(connector, edid);
++	hdmi->hdmi_monitor = connector->display_info.is_hdmi;
++	DRM_DEBUG_KMS("%s : %dx%d cm\n",
++		      (hdmi->hdmi_monitor ? "hdmi monitor" : "dvi monitor"),
++		      edid->width_cm, edid->height_cm);
+ 
+ 	kfree(edid);
+ 	return count;
 -- 
 2.33.0
 
