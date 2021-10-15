@@ -2,123 +2,103 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9320DC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A9A5C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 08:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F4CC6115C
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 07:50:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F4CC6115C
+	by mail.kernel.org (Postfix) with ESMTPS id 44E5A61090
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 08:48:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 44E5A61090
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1D276ECEF;
-	Fri, 15 Oct 2021 07:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C846E245;
+	Fri, 15 Oct 2021 08:48:38 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA63A6ECEF
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 07:50:15 +0000 (UTC)
+ (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B6DF6E245
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 08:48:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dl8EMpOTCJIvsZ4dDzYRr/EgAWbL4kHwOs30E89V+mtlZUJqFmL73wunuNFDq0YQLo+mvjkow8uEcShIH+dmTa6TALLTY10QVflIe/3oc8NyZ8wkVRi/Zii+sVQ7iO27PTOvrY7eG6Sqiu1H4/HX2+wiYuZJRmKGws6I8eDG5Enp+SS1uIdCOTjDoKT1E8YUi/f2QNkqCTC2Nq3bexMFQ2DjN7lCdzzAnHjiJjytXMEu0qezpwctTAyjJXwsGntuQArdbTG2fenqIMYSaU7u8UDlawYcdO1SjDILf6eiTgbWuQ/AXQb0Jof8MMY0PxPDPA4PIAOsZUTk0Ou9B0oQZw==
+ b=USdezl9/eBYkdeoi4Qf5x00OrKiGeKhsTkBZ5Y0qT7QSb2seZtlVJQOH5HdYMXFaxP0xQNnVuFjf87dtHy5/5Iz8Xj/VXwlPDVFsJdUce6uxUh5rFheqW+3u5qnGoPo+GmEHk/OtitB5N6Qvmk/JQ0D+wicy/bqkhVov1D3QMzSn27O0Ql8iu6+gNGQlfF8TilPHTS0RvajcENq0fiZdTL68bZFKaocrULyZEzIPh78/AyRh7kuoxYnpxaYRd58wLhe+unIcF0m5pB6sX/gvznl1n/quz1q1ygNfTgeV95THNtekWgpG5OqT83bmbH/lJSg4dHB2UexuMvvIea/MNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kUlwo1Cw2mfrdYqV2WQxGEVW1E15kmf5AWCwO/m0pCA=;
- b=CW2ReJeFEpj4ywETUExJwNy/eB1bPwQ3adpZBWxJoNGDV3n2NsM5EnBzLKCBGTT5jITRvSELCExPy6e8ukcESK0WIefqOwKQ12VAnu7obdjlS9jXhknvGsd4rY69MAoWTNWhqNLN9r3lJFQx3aqb0lh2bxywnAGGzP6Ksapdp2wz/JyFb8waSa0mALTJ8AH/CePGg3OSrcxIr+vp4MfRsd8qcIQVePAHtInUi4D61lMdzigMNYJW9N7Az1knPzlmEd73Nrt23h3j8f51o6/G+ZnxWRbNBZRzcNhXe4OGHuLPZU2klClDzLIGmBL18ixH8+nnxVsg3PSh+UFLE3og+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=topnrQ5S5HmOQsCbzqjZ+fBwkxnorv6jFxcC9htultk=;
+ b=JfSkFgE6Q8F5jfBtHjSpXGzlpBmEKB6Yab5TelCsD6rDV2Ml1k/urcIktaJfmf+8OdUDGybVqYx+/yy0ZT4xnh3IiNKBlnYdD7CjQoC/O32xZ62hJnyCiTEXZ5+CMZobeSHk05z1l8JdOyaOKwcmCgfKtn4m8fuFLQNzMiWSN8c85KMMaqyo0NmITzF3GOSaTKnpj1FOd0TJFj3xavRrtgughZQC4Q8ud8VkEzYbNl3JhaGhmyVsymz5GwfnAcDE/3GiC3JvGPt4dY0kh0+LsDumOTTDlzTRrgiaAkUOWeTdXC18VQexlvE9fnURTS2ksPqkGBkfZcm+9CxXhM3Pjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kUlwo1Cw2mfrdYqV2WQxGEVW1E15kmf5AWCwO/m0pCA=;
- b=rGK+N1j34dvQdcAqQi6mPEKqXT0A9H6mTxfCVs2Fi2zxVWXkcMErwVeYks5lmLO2FWehasjBANqwkIpUFb2XX5CYM+pOT29AmonqcyLDyEFnaJsKsB5V5qHRQMUhHATzovEqCZdOJw4Fr7n+KQosiXomdsL8ZbqgD2Rxn2ZxXJQ=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BN9PR12MB5100.namprd12.prod.outlook.com (2603:10b6:408:119::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Fri, 15 Oct
- 2021 07:50:14 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5101:db26:96eb:2ce4]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5101:db26:96eb:2ce4%7]) with mapi id 15.20.4608.016; Fri, 15 Oct 2021
- 07:50:14 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Clements, John" <John.Clements@amd.com>,
- "Yang, Stanley" <Stanley.Yang@amd.com>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: load PSP RL in resume path
-Thread-Topic: [PATCH] drm/amdgpu: load PSP RL in resume path
-Thread-Index: AQHXwZaLg16EN3FU20KGdJvhsxnR2avTr1QA
-Date: Fri, 15 Oct 2021 07:50:14 +0000
-Message-ID: <BN9PR12MB525797ACD40C2C04899E6547FCB99@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20211015072819.17036-1-tao.zhou1@amd.com>
-In-Reply-To: <20211015072819.17036-1-tao.zhou1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-15T07:50:12Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=7f7ddedc-ebb3-4446-91f6-18801905cf39;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 83c4d140-1658-4c0b-9b6c-08d98fb06c6a
-x-ms-traffictypediagnostic: BN9PR12MB5100:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN9PR12MB5100CE15A882170E900E7D5AFCB99@BN9PR12MB5100.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2887;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qlr/XJP7pP1BTfLD3D5zmlkEB09FRQ+5gNjB0pSnmd+bSL70gPzxKPiTlEXJ3FZFecJ1ajzM5WsrTTo0F5v+tN1zptuQ9CHX+08hKDpyV9AHUGC8MSHALUmq0UL6AwAoel9VpYDNsXqjzqAGNgKn4xQgfZuI3SraiI7U/80EijwaEmWaU9rQkc8Nk+OGrr1AqfRq9LUx2i5mccQuzb9nZSe46sYaj/aGQMGTGv35JL18APEratYKF+qrih3gvwaiW21D8tHh3n3zYYny8cTrxfZY50CkaSDbZj8FBbe8puDrQpbz0ymgpsxWGjBDOVssnk92x+DJHrGop11jIixdAM6YxMfVywtiTQTVuSZ/ubVqAVMxqBRpP2I1+kOuXZOylkd9bvR9C5xELAyK0h5WJ4QOk81bf0XDYQg49TPdLO3e0MOb2RTV0vUSLbl8J/L5eRl4tUGdqlQu6OGfHQsCUCkVREOXuVPr5+K/9iV/oKwsmxG+97/B6W0ggCfKsFqpkoGZC6+ySkmuREcQcgSTG18+VlpTybXNzbqDgrTDMEBinR/FBr5m6X2t+iaQ+0ttaJhQGLQWiVO07jJaRIJzNL/9jpGA9cZcuQkx0gu381vHoHaXaiQzEmc4JBtN5vq25bINZHJ04uR66jngEiAs1142fmPVwIrJIbVKrJQVG5Frcq9b5HlR1M9mc9AJ5Kx4w+Z+8K8HDrE93zC5ux9AMQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(26005)(6636002)(66446008)(64756008)(8676002)(66556008)(38070700005)(66476007)(8936002)(76116006)(4326008)(66946007)(86362001)(33656002)(508600001)(71200400001)(316002)(52536014)(38100700002)(110136005)(55016002)(5660300002)(186003)(9686003)(2906002)(122000001)(6506007)(53546011)(83380400001)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/LIcU9YoFoT64O+LaMCNluI33KKifhs8zMgLGMVJEmlcEK7qFWPlSht+Jve4?=
- =?us-ascii?Q?9O0orMtx0e2FaUoFr+Qv/EESOy4KT11Qk0PKB6rvlAyQPIjrFP+6beeBMhay?=
- =?us-ascii?Q?oQxbeG3biQUtC6IQAbeFBT1mjtd0IsKwjHfDvjDiE/TDnTSSAXE5OqOjx2Vl?=
- =?us-ascii?Q?NnJ44OXJIxmhPHIxm3tl3Oc45ZB1HivPXGRd78gSnH7TKJruLAuDEzSGWkpZ?=
- =?us-ascii?Q?S1pAS9FoBS+FlohIQeDafUlmyC8qDNruTczZNiFxAuQm3zJYV/xeZ6VNH8PN?=
- =?us-ascii?Q?pv+F1dq25LZx5EzNhcwIA+96XXPYyYuT2Hzt6QCuhJw/NoK0zGgNLdPic+76?=
- =?us-ascii?Q?CxOKGGsEIzqwiWjYX0scJFjfHjNnIKRu+9qYH+tvSrsO9fPs2adMP+4VV8cN?=
- =?us-ascii?Q?X694xBUwiQ7c6YCML8E9dbqlfulOWeGJlaz/YFa3LPVsgYqG+gVwz2790QWc?=
- =?us-ascii?Q?alUu4IbhhtRRdxfkJXrvL/NOHM9c8TJkeV3kjGp0ctZFs5uw+fjh4Oh0f+zx?=
- =?us-ascii?Q?Av/MD2T9Os2GxRl52U7fUSt7JgzPL5dmw5lfxTbOxjx+HYmr0d27TcEq3Zxm?=
- =?us-ascii?Q?++rvwh6pHPVMwAHBAhNagY9jo5rmif4AdeRHHbxwj62dBdKGjtKhwMlA6/sw?=
- =?us-ascii?Q?Ed2sDsHGqGNuiYhYtQk7OgXvWC1gZ8/5oTVpZYjBFBMh5VLcoAVZeQSElVLC?=
- =?us-ascii?Q?+VERVkknlswFa5dNc22k/a1RYbqlQy56MZwgRjk9Gcd1J5bXIDOY6RczqXSP?=
- =?us-ascii?Q?Al//dkEga7H7L7uBE0pxAdU+OXE1ItNdhkkc/hoToxj8f8KDt/Ol7eF4Q7/b?=
- =?us-ascii?Q?Aq5vQ7J4ycqMm+UV5pi64ZyN2WcK5FBX3pTwZd2kbbZir7TPLs4bmzLJLjig?=
- =?us-ascii?Q?0P+v2Kxw8wUwefxoKQJOrMFCLTYsnpvo0v3tvi58YimOGAZaWrcXx1bpj7QJ?=
- =?us-ascii?Q?lnprIkDkXaMT0oXIzFLEA1Ie36437Nbzjiannk3EwdoWt3l44j8MQbzKhav5?=
- =?us-ascii?Q?/xxgxyJ17xpIaUIxo/oE56a7qvQwO0sFbnXOZqEXaqMYPK+2VIwhrxdoC4Qe?=
- =?us-ascii?Q?1H9/QgSPW+8ULpzbC0rtMBF5AfP57tvCGPnYw/zRLJokCMHsPVFE4X4S7lbu?=
- =?us-ascii?Q?OkSASOUmD2TPj8RLUR4zjGq8KQ0wpNCTdeThnmQCYN7LgvOkDFSQV1G+A0k+?=
- =?us-ascii?Q?QJIMYYJAyqe6znNQsYZepNDFQsCGMNMKVL0wRzjo5o63vpMAD+b6ARg3Is6D?=
- =?us-ascii?Q?2x0AyArTY6yXpZNLr/D02DC8zP8f+qnwXLLwz3UVdssZ10hVHmRgpwkeHl+k?=
- =?us-ascii?Q?jkjEG1BrpiDJa0+5TQoKWRkx?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=topnrQ5S5HmOQsCbzqjZ+fBwkxnorv6jFxcC9htultk=;
+ b=Hi/8KdQWNnrPOHXJ91FTo5fLpy5Tzh4Mm4xBJYYH4j5m65AI0grdKJcDwiUB3vngYeTiAMTs6UFnAtmMlsSlhbQdCc5cAmwXSa/Bse1v7+23sSd9ziiuxbFDIqCzonhG80+GWFEue0ZVA9B1F8bxlmHGl9ggEjqmpvGcF0CR6go=
+Received: from DS7PR03CA0310.namprd03.prod.outlook.com (2603:10b6:8:2b::9) by
+ DM5PR12MB1129.namprd12.prod.outlook.com (2603:10b6:3:7a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.25; Fri, 15 Oct 2021 08:48:35 +0000
+Received: from DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2b:cafe::c9) by DS7PR03CA0310.outlook.office365.com
+ (2603:10b6:8:2b::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.14 via Frontend
+ Transport; Fri, 15 Oct 2021 08:48:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT032.mail.protection.outlook.com (10.13.173.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 08:48:35 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 15 Oct
+ 2021 03:48:31 -0500
+From: Lang Yu <lang.yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>, Lang Yu
+ <lang.yu@amd.com>
+Subject: [PATCH 1/2] drm/amdkfd: Add an optional argument into update queue
+ operation
+Date: Fri, 15 Oct 2021 16:48:06 +0800
+Message-ID: <20211015084807.2062053-1-lang.yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac235e83-2160-474c-e80e-08d98fb8931d
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1129:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB11296814EB02B044305B4133FBB99@DM5PR12MB1129.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: d89iQOHjT2HwBy1QT0Jcbo0OLA3PHf4OkWtlN1gX2aA9ujJB6kaA0kFHm4z70LyPykPZwZqLHAwHlDuuD2leVVOFhuq4kGbHGWphp7CDcvMOcOppIEKUJW83jc08/L2QhAScluGXNqprLCv/UInqT3W1Y28hjP8ElOMMPnJzewyxH1DS5tavCP/M4SYYSGaTdmr22c8HqVDGckEeKGzmczYK/dfycLa/mx54xD8DklVqH/8NlUNaYfwgWcy1KPpOwbh/vycBgbm5TMgb8cAxP8mYSm8xTIy/Iftl6k5S+ouWBnR7KO3a8JpYaa5AxZZV5Mgx73KBLAUrtymtyUQvMlQAjFhin1P2P9z408gSMgrRR0MdJdOHjU0xy4+YGpK2utGgOkvDjrlnwxXHwKnycskd8I2LP+GcaUCSd1KwwtLM98EivBau3BdU1OAA/LhpC52Hq5e86eRZznjNVmZjGRAxP4wwOeroiBVNQyg+4ti9Epw03O0Y3apjzU7Y2U8JPV+ja7n5nQ8iTcB/2lHQENfgQtHjAzLR7tdvcnHEk3+p5KqsBBr/Qe/ayaRGnYBS9NziPWKqBRyUNBZ2rVw3J2HZWIbro8VlgLrPnWE/dZlmZNZQDy4ZZYmIaGONXOV6+6Uir6vWn6TXD3dZaPbHSVdPYzZv/kO9klIuE8S0ZP9U9+Mb/uQJGokFBacymK2dfAx3Nek0flY+zFWPFTJpkLN/F4DePsfLddaaIc3KVFo=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(36756003)(16526019)(82310400003)(8936002)(7696005)(30864003)(2616005)(44832011)(186003)(36860700001)(1076003)(508600001)(4326008)(81166007)(86362001)(2906002)(8676002)(70586007)(15650500001)(356005)(70206006)(26005)(5660300002)(316002)(83380400001)(426003)(47076005)(54906003)(336012)(6916009)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83c4d140-1658-4c0b-9b6c-08d98fb06c6a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2021 07:50:14.4363 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Rps09jLEpn24V03GqscQiqA+rBkO6hgNdqn2EVLy3lymtqEJ0uvLa2aaZMOC7n8H5pRsw3aTJn03ZxB7MQqncA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5100
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 08:48:35.3851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac235e83-2160-474c-e80e-08d98fb8931d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1129
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,45 +113,335 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+Currently, queue is updated with data stored in queue_properties.
+And all allocated resource in queue_properties will not be freed
+until the queue is destroyed.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+But some properties(e.g., cu mask) bring some memory management
+headaches(e.g., memory leak) and make code complex. Actually they
+don't have to persist in queue_properties.
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
-Sent: Friday, October 15, 2021 15:28
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
-Clements, John <John.Clements@amd.com>; Yang, Stanley <Stanley.Yang@amd.com=
->
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH] drm/amdgpu: load PSP RL in resume path
+So add an argument into update queue to pass such properties and
+remove them from queue_properties.
 
-Some registers' access will fail without PSP RL after resume.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Lang Yu <lang.yu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  4 ++--
+ .../drm/amd/amdkfd/kfd_device_queue_manager.h |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  | 18 +++++++--------
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  8 +++----
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  8 +++----
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   | 22 +++++++++----------
+ .../amd/amdkfd/kfd_process_queue_manager.c    |  6 ++---
+ 8 files changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index 2bfe0682e0e6..88274c254c76 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2623,6 +2623,12 @@ static int psp_resume(void *handle)
- 		goto failed;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index f8fce9d05f50..7f6f4937eedb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -557,7 +557,7 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
+ 	return retval;
+ }
+ 
+-static int update_queue(struct device_queue_manager *dqm, struct queue *q)
++static int update_queue(struct device_queue_manager *dqm, struct queue *q, void *args)
+ {
+ 	int retval = 0;
+ 	struct mqd_manager *mqd_mgr;
+@@ -605,7 +605,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q)
+ 		}
  	}
-=20
-+	ret =3D psp_rl_load(adev);
-+	if (ret) {
-+		dev_err(adev->dev, "PSP load RL failed!\n");
-+		goto failed;
-+	}
-+
- 	if (adev->gmc.xgmi.num_physical_nodes > 1) {
- 		ret =3D psp_xgmi_initialize(psp, false, true);
- 		/* Warning the XGMI seesion initialize failure
---=20
-2.17.1
+ 
+-	mqd_mgr->update_mqd(mqd_mgr, q->mqd, &q->properties);
++	mqd_mgr->update_mqd(mqd_mgr, q->mqd, &q->properties, args);
+ 
+ 	/*
+ 	 * check active state vs. the previous state and modify
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+index c8719682c4da..08cfc2a2fdbb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@ -93,7 +93,7 @@ struct device_queue_manager_ops {
+ 				struct queue *q);
+ 
+ 	int	(*update_queue)(struct device_queue_manager *dqm,
+-				struct queue *q);
++				struct queue *q, void *args);
+ 
+ 	int	(*register_process)(struct device_queue_manager *dqm,
+ 					struct qcm_process_device *qpd);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index 6e6918ccedfd..6ddf93629b8c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -80,7 +80,7 @@ struct mqd_manager {
+ 				struct mm_struct *mms);
+ 
+ 	void	(*update_mqd)(struct mqd_manager *mm, void *mqd,
+-				struct queue_properties *q);
++				struct queue_properties *q, void *args);
+ 
+ 	int	(*destroy_mqd)(struct mqd_manager *mm, void *mqd,
+ 				enum kfd_preempt_type type,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+index 064914e1e8d6..8bb2fd4cba41 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+@@ -135,7 +135,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	*mqd = m;
+ 	if (gart_addr)
+ 		*gart_addr = addr;
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static void init_mqd_sdma(struct mqd_manager *mm, void **mqd,
+@@ -152,7 +152,7 @@ static void init_mqd_sdma(struct mqd_manager *mm, void **mqd,
+ 	if (gart_addr)
+ 		*gart_addr = mqd_mem_obj->gpu_addr;
+ 
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static void free_mqd(struct mqd_manager *mm, void *mqd,
+@@ -185,7 +185,7 @@ static int load_mqd_sdma(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+-			struct queue_properties *q, unsigned int atc_bit)
++			struct queue_properties *q, void *args, unsigned int atc_bit)
+ {
+ 	struct cik_mqd *m;
+ 
+@@ -221,9 +221,9 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ static void update_mqd(struct mqd_manager *mm, void *mqd,
+-			struct queue_properties *q)
++			struct queue_properties *q, void *args)
+ {
+-	__update_mqd(mm, mqd, q, 1);
++	__update_mqd(mm, mqd, q, args, 1);
+ }
+ 
+ static uint32_t read_doorbell_id(void *mqd)
+@@ -234,13 +234,13 @@ static uint32_t read_doorbell_id(void *mqd)
+ }
+ 
+ static void update_mqd_hawaii(struct mqd_manager *mm, void *mqd,
+-			struct queue_properties *q)
++			struct queue_properties *q, void *args)
+ {
+-	__update_mqd(mm, mqd, q, 0);
++	__update_mqd(mm, mqd, q, args, 0);
+ }
+ 
+ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
+-				struct queue_properties *q)
++				struct queue_properties *q, void *args)
+ {
+ 	struct cik_sdma_rlc_registers *m;
+ 
+@@ -318,7 +318,7 @@ static void init_mqd_hiq(struct mqd_manager *mm, void **mqd,
+ }
+ 
+ static void update_mqd_hiq(struct mqd_manager *mm, void *mqd,
+-				struct queue_properties *q)
++				struct queue_properties *q, void *args)
+ {
+ 	struct cik_mqd *m;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index c7fb59ca597f..6d468b6c8d7d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -136,7 +136,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	*mqd = m;
+ 	if (gart_addr)
+ 		*gart_addr = addr;
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static int load_mqd(struct mqd_manager *mm, void *mqd,
+@@ -162,7 +162,7 @@ static int hiq_load_mqd_kiq(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ static void update_mqd(struct mqd_manager *mm, void *mqd,
+-		      struct queue_properties *q)
++		      struct queue_properties *q, void *args)
+ {
+ 	struct v10_compute_mqd *m;
+ 
+@@ -311,7 +311,7 @@ static void init_mqd_sdma(struct mqd_manager *mm, void **mqd,
+ 	if (gart_addr)
+ 		*gart_addr = mqd_mem_obj->gpu_addr;
+ 
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static int load_mqd_sdma(struct mqd_manager *mm, void *mqd,
+@@ -326,7 +326,7 @@ static int load_mqd_sdma(struct mqd_manager *mm, void *mqd,
+ #define SDMA_RLC_DUMMY_DEFAULT 0xf
+ 
+ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
+-		struct queue_properties *q)
++		struct queue_properties *q, void *args)
+ {
+ 	struct v10_sdma_mqd *m;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 7f4e102ff4bd..f6c10b1b5f8b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -188,7 +188,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	*mqd = m;
+ 	if (gart_addr)
+ 		*gart_addr = addr;
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static int load_mqd(struct mqd_manager *mm, void *mqd,
+@@ -212,7 +212,7 @@ static int hiq_load_mqd_kiq(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ static void update_mqd(struct mqd_manager *mm, void *mqd,
+-		      struct queue_properties *q)
++		      struct queue_properties *q, void *args)
+ {
+ 	struct v9_mqd *m;
+ 
+@@ -366,7 +366,7 @@ static void init_mqd_sdma(struct mqd_manager *mm, void **mqd,
+ 	if (gart_addr)
+ 		*gart_addr = mqd_mem_obj->gpu_addr;
+ 
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static int load_mqd_sdma(struct mqd_manager *mm, void *mqd,
+@@ -381,7 +381,7 @@ static int load_mqd_sdma(struct mqd_manager *mm, void *mqd,
+ #define SDMA_RLC_DUMMY_DEFAULT 0xf
+ 
+ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
+-		struct queue_properties *q)
++		struct queue_properties *q, void *args)
+ {
+ 	struct v9_sdma_mqd *m;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index 33dbd22d290f..bddd6d8fdf32 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -150,7 +150,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	*mqd = m;
+ 	if (gart_addr)
+ 		*gart_addr = addr;
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static int load_mqd(struct mqd_manager *mm, void *mqd,
+@@ -167,8 +167,8 @@ static int load_mqd(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+-			struct queue_properties *q, unsigned int mtype,
+-			unsigned int atc_bit)
++			struct queue_properties *q, void *args,
++			unsigned int mtype, unsigned int atc_bit)
+ {
+ 	struct vi_mqd *m;
+ 
+@@ -238,9 +238,9 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 
+ static void update_mqd(struct mqd_manager *mm, void *mqd,
+-			struct queue_properties *q)
++			struct queue_properties *q, void *args)
+ {
+-	__update_mqd(mm, mqd, q, MTYPE_CC, 1);
++	__update_mqd(mm, mqd, q, args, MTYPE_CC, 1);
+ }
+ 
+ static uint32_t read_doorbell_id(void *mqd)
+@@ -251,9 +251,9 @@ static uint32_t read_doorbell_id(void *mqd)
+ }
+ 
+ static void update_mqd_tonga(struct mqd_manager *mm, void *mqd,
+-			struct queue_properties *q)
++			struct queue_properties *q, void *args)
+ {
+-	__update_mqd(mm, mqd, q, MTYPE_UC, 0);
++	__update_mqd(mm, mqd, q, args, MTYPE_UC, 0);
+ }
+ 
+ static int destroy_mqd(struct mqd_manager *mm, void *mqd,
+@@ -317,9 +317,9 @@ static void init_mqd_hiq(struct mqd_manager *mm, void **mqd,
+ }
+ 
+ static void update_mqd_hiq(struct mqd_manager *mm, void *mqd,
+-			struct queue_properties *q)
++			struct queue_properties *q, void *args)
+ {
+-	__update_mqd(mm, mqd, q, MTYPE_UC, 0);
++	__update_mqd(mm, mqd, q, args, MTYPE_UC, 0);
+ }
+ 
+ static void init_mqd_sdma(struct mqd_manager *mm, void **mqd,
+@@ -336,7 +336,7 @@ static void init_mqd_sdma(struct mqd_manager *mm, void **mqd,
+ 	if (gart_addr)
+ 		*gart_addr = mqd_mem_obj->gpu_addr;
+ 
+-	mm->update_mqd(mm, m, q);
++	mm->update_mqd(mm, m, q, NULL);
+ }
+ 
+ static int load_mqd_sdma(struct mqd_manager *mm, void *mqd,
+@@ -349,7 +349,7 @@ static int load_mqd_sdma(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
+-		struct queue_properties *q)
++		struct queue_properties *q, void *args)
+ {
+ 	struct vi_sdma_mqd *m;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 243dd1efcdbf..37529592457d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -121,7 +121,7 @@ int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
+ 	pdd->qpd.num_gws = gws ? amdgpu_amdkfd_get_num_gws(dev->kgd) : 0;
+ 
+ 	return pqn->q->device->dqm->ops.update_queue(pqn->q->device->dqm,
+-							pqn->q);
++							pqn->q, NULL);
+ }
+ 
+ void kfd_process_dequeue_from_all_devices(struct kfd_process *p)
+@@ -429,7 +429,7 @@ int pqm_update_queue(struct process_queue_manager *pqm, unsigned int qid,
+ 	pqn->q->properties.priority = p->priority;
+ 
+ 	retval = pqn->q->device->dqm->ops.update_queue(pqn->q->device->dqm,
+-							pqn->q);
++							pqn->q, NULL);
+ 	if (retval != 0)
+ 		return retval;
+ 
+@@ -457,7 +457,7 @@ int pqm_set_cu_mask(struct process_queue_manager *pqm, unsigned int qid,
+ 	pqn->q->properties.cu_mask = p->cu_mask;
+ 
+ 	retval = pqn->q->device->dqm->ops.update_queue(pqn->q->device->dqm,
+-							pqn->q);
++							pqn->q, NULL);
+ 	if (retval != 0)
+ 		return retval;
+ 
+-- 
+2.25.1
+
