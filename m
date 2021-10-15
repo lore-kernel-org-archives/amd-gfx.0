@@ -2,33 +2,33 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 632C1C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CBDEC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 354706108E
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 354706108E
+	by mail.kernel.org (Postfix) with ESMTPS id 2C82461056
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 12:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2C82461056
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC97F6ED72;
-	Fri, 15 Oct 2021 12:21:26 +0000 (UTC)
-Received: from msg-6.mailo.com (ip-16.mailobj.net [213.182.54.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B848A6ED72;
- Fri, 15 Oct 2021 12:21:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C40106ECFE;
+	Fri, 15 Oct 2021 12:21:37 +0000 (UTC)
+Received: from msg-2.mailo.com (msg-2.mailo.com [213.182.54.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D376ECFE;
+ Fri, 15 Oct 2021 12:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1634297913; bh=rwTF5+9x+ye/AXjZbx/MNNkZB6C1fknU5OsMIO6dc6Y=;
- h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
- References:MIME-Version:Content-Transfer-Encoding;
- b=oHUsGLHtfbeb2lGALHUBGTI30IfYZng4BA0Pgb1nYlc5NLFRFPJL4VRH0qcInrwTI
- R4DZHDfHREoHHNDkyBsu5TeqvmL0ayJDQJ3wPsWF50RTeirVtXu37PdhLm4a2/OnPr
- g7j8v/OFiCk72bexXhWRezta3jl2h05vLpb4G+qU=
-Received: by b-3.in.mailobj.net [192.168.90.13] with ESMTP
+ t=1634297849; bh=xi9ic6rNqNfCIC+YJGI2Qm9dmzmQTWcVKBbK7NFXYTk=;
+ h=X-EA-Auth:From:To:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+ Content-Transfer-Encoding;
+ b=OmJv4PLckPjknJhn0d4syEDqIRksrDZ/mWSxGN5cEWGIQdy/ieVxmM6l7ju27JiYp
+ 0xMWKv8ifisKXgIknFw6vWmfV4B0udu15xnn60hwr4XtWY4aWdMyOzIaPlpa00GLSx
+ rn1bdevk+AZmxmoKp3R47M/isNzRWt3JveBcrLF8=
+Received: by b-5.in.mailobj.net [192.168.90.15] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Fri, 15 Oct 2021 13:38:30 +0200 (CEST)
-X-EA-Auth: MAlTL+AUq+EWJ84udQHBcLVV0XXC0LRrWCTFfpav7VipNI+ImD8muRM/+7Gm3INHfKmO5lgjsSbOiH9QnieqiSo5u25ul0uL
+ Fri, 15 Oct 2021 13:37:28 +0200 (CEST)
+X-EA-Auth: 08sQSZ7/eUlrG/v1waT2s0v4RKFNiGr8japsCPLL1asNAYrDQHDNT4gppui4+kCQ9szInBhEU478UxEKqmZHFa/iYlv5DVF8
 From: Claudio Suarez <cssk@net-c.es>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
@@ -52,14 +52,11 @@ To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Neil Armstrong <narmstrong@baylibre.com>,
  Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
  nouveau@lists.freedesktop.org
-Cc: Claudio Suarez <cssk@net-c.es>
-Subject: [PATCH 10/15] drm/sti: replace drm_detect_hdmi_monitor() with
+Subject: [PATCH 00/15] replace drm_detect_hdmi_monitor() with
  drm_display_info.is_hdmi
-Date: Fri, 15 Oct 2021 13:37:08 +0200
-Message-Id: <20211015113713.630119-11-cssk@net-c.es>
+Date: Fri, 15 Oct 2021 13:36:58 +0200
+Message-Id: <20211015113713.630119-1-cssk@net-c.es>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211015113713.630119-1-cssk@net-c.es>
-References: <20211015113713.630119-1-cssk@net-c.es>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,42 +73,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Once EDID is parsed, the monitor HDMI support information is available
-through drm_display_info.is_hdmi. Retriving the same information with
-drm_detect_hdmi_monitor() is less efficient. Change to
-drm_display_info.is_hdmi
+Copy&paste from the TODO document Documentation/gpu/todo.rst 
 
-Signed-off-by: Claudio Suarez <cssk@net-c.es>
----
- drivers/gpu/drm/sti/sti_hdmi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+===
+Replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+---------------------------------------------------------------
 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index f3ace11209dd..3f8b04a1407e 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -984,14 +984,16 @@ static int sti_hdmi_connector_get_modes(struct drm_connector *connector)
- 	if (!edid)
- 		goto fail;
- 
--	hdmi->hdmi_monitor = drm_detect_hdmi_monitor(edid);
--	DRM_DEBUG_KMS("%s : %dx%d cm\n",
--		      (hdmi->hdmi_monitor ? "hdmi monitor" : "dvi monitor"),
--		      edid->width_cm, edid->height_cm);
- 	cec_notifier_set_phys_addr_from_edid(hdmi->notifier, edid);
- 
- 	count = drm_add_edid_modes(connector, edid);
-+
-+	/* This updates connector->display_info */
- 	drm_connector_update_edid_property(connector, edid);
-+	hdmi->hdmi_monitor = connector->display_info.is_hdmi;
-+	DRM_DEBUG_KMS("%s : %dx%d cm\n",
-+		      (hdmi->hdmi_monitor ? "hdmi monitor" : "dvi monitor"),
-+		      edid->width_cm, edid->height_cm);
- 
- 	kfree(edid);
- 	return count;
--- 
-2.33.0
+Once EDID is parsed, the monitor HDMI support information is available through
+drm_display_info.is_hdmi. Many drivers still call drm_detect_hdmi_monitor() to
+retrieve the same information, which is less efficient.
+
+Audit each individual driver calling drm_detect_hdmi_monitor() and switch to
+drm_display_info.is_hdmi if applicable.
+=====
+
+I did it in two steps:
+- check that drm_display_info has a correct value.
+- in that case, replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+
+Almost all occurrences of drm_detect_hdmi_monitor() could be changed. Some
+small inconsistencies have been solved.
+
+Stats:
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c            | 23 ++++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.h            |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c               |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c              |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/atombios_encoders.c            |  6 +++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         |  3 +--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 39 ++++++++++++---------------------------
+ drivers/gpu/drm/amd/display/dc/core/dc.c                  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h               |  2 +-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c              |  2 +-
+ drivers/gpu/drm/bridge/sii902x.c                          |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c                 |  2 +-
+ drivers/gpu/drm/drm_edid.c                                |  2 ++
+ drivers/gpu/drm/exynos/exynos_hdmi.c                      |  6 ++++--
+ drivers/gpu/drm/gma500/cdv_intel_hdmi.c                   |  3 ++-
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c                   |  6 ++++--
+ drivers/gpu/drm/i915/display/intel_connector.c            |  5 +++++
+ drivers/gpu/drm/i915/display/intel_connector.h            |  1 +
+ drivers/gpu/drm/i915/display/intel_hdmi.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c                 |  3 ++-
+ drivers/gpu/drm/msm/hdmi/hdmi_connector.c                 |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c                   |  4 ++--
+ drivers/gpu/drm/nouveau/dispnv50/head.c                   |  8 +-------
+ drivers/gpu/drm/nouveau/nouveau_connector.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.h               |  6 ++++++
+ drivers/gpu/drm/radeon/atombios_encoders.c                |  6 +++---
+ drivers/gpu/drm/radeon/radeon_connectors.c                | 20 ++++++++++++++------
+ drivers/gpu/drm/radeon/radeon_display.c                   |  2 +-
+ drivers/gpu/drm/radeon/radeon_encoders.c                  |  4 ++--
+ drivers/gpu/drm/radeon/radeon_mode.h                      |  1 +
+ drivers/gpu/drm/rockchip/inno_hdmi.c                      |  4 ++--
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c                    |  2 +-
+ drivers/gpu/drm/sti/sti_hdmi.c                            | 10 ++++++----
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c                    |  4 ++--
+ drivers/gpu/drm/tegra/hdmi.c                              |  6 +-----
+ drivers/gpu/drm/vc4/vc4_hdmi.c                            |  6 +++---
+ drivers/gpu/drm/zte/zx_hdmi.c                             |  4 ++--
+ 37 files changed, 112 insertions(+), 96 deletions(-)
+
+Best regards.
+Claudio Suarez
+
+
 
 
