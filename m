@@ -2,104 +2,71 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F251C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 22:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61C12C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 23:53:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CBDF60F39
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 22:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5CBDF60F39
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B5174611C2
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 23:53:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B5174611C2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC2196EE00;
-	Fri, 15 Oct 2021 22:32:58 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 288536EE00
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 22:32:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gxyK0jrHj41GJCQr/BsQ18P91itCRATfVRyZn9zCDTzso9RciqMT//JinajHSOJDt2ohSFScIc2Nb3AbRWUhYEe2BcqM3fMDEcc5kOBRCLHudEpy4sWJIqkRQYgWI54xeVsSHH8j706Vx0EiOop1QRPPw1b1iSGgxdkEf3g/EB8stzUB8PagQkSdHEFVKfWbcMTRJoFuspgBvMqCe8aDbqohdl/RUiKNNG1jYMD3zMdHVaHffWFiOxC8lOxA1IvXgsCIM4uWaDsbTvd0UmCFGjvdofbx9z4+9HSRek2JaBsu0cjS65ZjbOnTSkyo7/YVxLvNvK8l5fwddA5oZWoRPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SlQsl467a1c6lVEjLfasL/RhgEarYp3P6iDL9XjX7Nw=;
- b=OXdWeIungdXcYSSOJi/JzqVfQ0I5E0OEQVTcbNUTHUKV57AkoCjv1O7l8YoM0RtAtKy97W+b3hQbSbzIaoqeMPAZmZoLmKMcbyUPlGa79G+C/UPLr12RBPsWUJcD2zltIBO8N/rQWoEgxWED21hTuhYudtJP+2whAwisug6XyYJKaF7K7C11OlxPyXdGW5aH635NxoqVdBN3ydELcBrJl+CJZBcGjrUMw1mcbXMztTbYi1YAfyEXZEBcXcDgFcgOx5XIwse0nXEgsVBwlHXbCNjIvzQpXVxz/yTEeAdv3TnbvrTbwB5uJx/lsu/bTD+A43u2qpykeIrHZFE3bydsDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SlQsl467a1c6lVEjLfasL/RhgEarYp3P6iDL9XjX7Nw=;
- b=Pa+BHGHL823zdxHPkOya519DOlYeExbmPMSXLhKNOqRyrimQv06jh0XVhgfRrK3E1XJUwqrBr8a7zCW9NUYIlq0n7DPikdpWXgnfAOy3T7hPorZlS9yoFv40qyHa63aBA5g7DtlLKQkkhcHqyP/s4DilOarleP+j/o6avQgeW7o=
-Received: from BN9PR03CA0560.namprd03.prod.outlook.com (2603:10b6:408:138::25)
- by MN2PR12MB3616.namprd12.prod.outlook.com (2603:10b6:208:cc::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Fri, 15 Oct
- 2021 22:32:54 +0000
-Received: from BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:138:cafe::c3) by BN9PR03CA0560.outlook.office365.com
- (2603:10b6:408:138::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Fri, 15 Oct 2021 22:32:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT023.mail.protection.outlook.com (10.13.177.103) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 22:32:53 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 15 Oct
- 2021 17:32:53 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 15 Oct
- 2021 17:32:52 -0500
-Received: from roma-lnx-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.15 via Frontend
- Transport; Fri, 15 Oct 2021 17:32:52 -0500
-From: <Roman.Li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <Mario.Limonciello@amd.com>, <rodrigo.siqueira@amd.com>
-CC: Roman Li <Roman.Li@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] drm/amd/display: Fully switch to dmub for all dcn21 asics
-Date: Fri, 15 Oct 2021 18:31:40 -0400
-Message-ID: <1634337100-12682-1-git-send-email-Roman.Li@amd.com>
-X-Mailer: git-send-email 2.7.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75DC16EE0D;
+	Fri, 15 Oct 2021 23:53:18 +0000 (UTC)
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18D0D6EE0D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 23:53:18 +0000 (UTC)
+Received: by mail-qk1-x72a.google.com with SMTP id bj31so7254925qkb.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 16:53:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VcaW94SQGHd6a0GmPqK8E/egawOqzbg2uplAODuOJjQ=;
+ b=hy6guPAg82Yb9eS6sezHzrqgXV8A5YPCPe0ZCV0ICUcr9BTK22wOQnMhcLheflYGxX
+ j47lTpPYb6jXqtw7UArNqpMoGLbQQyyMWiAs0PIuCW2Ry3eo+U75ItJvyTjzxBAjTmz0
+ zmu9KdzNL7I5mqjn14VVuDbsVXb4jTzdw8Et7JteM5Q1+RfPn3zO8NcFNU7ijsWniyVk
+ 9HdbRZryN6hCTDnM2d8DQp6+o4fqB9GZRDv8+qgQX4F00mF8uWSJp+PkYNILq+2hph43
+ gF2Wn7wcc3D9niB4B39Yk/TxHIgBriRZadO/N7mV4Z4Yy6zAzUojYaSI0cnpDmYm9q/8
+ CZ0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VcaW94SQGHd6a0GmPqK8E/egawOqzbg2uplAODuOJjQ=;
+ b=WfFVQcJTdWrYLu7LQ1gq/bkM7fhlJNnesPILiNFf7m0o0aHKmSNGvTNC9ks3fSjYUk
+ 7JX3f06iGcOGVCs5JykMik2BHnHBMkcI7NEpHKF/KFaCH23Ine3l7KHLlIURq1tHIP1c
+ mDZSd5TRX4z3x8yB6m49OQQ4VoOXFK71XCEWk6eXJxsg9NeVp3gn548XYpZwEkq0BkLx
+ WG01PjvE77+wfO17Gcqa2EwzIaeIbSpU6eTTjqA4B42QgaAguDjqlmhhP7AgXHwv4Zyb
+ sIAOI68/l/uQsIugeW9PnDPkcZdcypHwAmX/AGpw7IrwAZTnlMsG/fOVMwUufStacE5V
+ 6Zhg==
+X-Gm-Message-State: AOAM531RHhE6XTmeEvSIb1HzsPgrCWpU1zzsJQBAtRwE8t7ODUmbBnWj
+ ufhMJb8cwtVbveTadSiEeTtofQ6ET363pQqChzN2Fg==
+X-Google-Smtp-Source: ABdhPJwLbao9WFaQdiGJv2wYaNKj8k6RDnblWi/hAB5gNFVbpewGpl4rG7BA1b7ls29sF5sPrfURUcFhGOFD2RBLYOc=
+X-Received: by 2002:a37:6c42:: with SMTP id h63mr12252558qkc.243.1634341996982; 
+ Fri, 15 Oct 2021 16:53:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d934d7b5-55fa-4e94-7b83-08d9902bbab3
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3616:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3616C2EA823321A2F906622689B99@MN2PR12MB3616.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kxUcFekQOXtp/PuvE3yNJ7Xj+Sr3Y3fOenmzT0AmNGL7i+m+08662Jql07c2C3YaeV5pUDlC7wAuEX9DhVqqHinayxZ35RzyMj/XvQHfX0UXccECtF3Ln3hDr92ffW9vWjYz9ljBZK1Vz567nTWxzP3xws/mEj707gZbNd7CiHfXMH0ZjaXIKLRkemEsp7TrzsrQRoRs4nVhmIZTOgLyj6HDTESKqxcQolYCS/kF/5WOAUzHQTfL1pIsXtQQ1yl8w/EIcOHl2ZhcGv/MVLridpw3+QUn/XFUvWuL/HZ8yLb1HbX67RGKZd7SbPit/2D9KEEBX5B08mW5q6RjeHC85EnPj1kQvzidjaNa4yQTqiskfrYGcFNSPuRtzTXUjJbmRG2TLXh5SV81qqniX3jnrgNwwDSLHfk/sLrGR7hkf+XMntEP3jPiY/GK8J/TmDQ2IA9qfvdUCBsLPAEc0EnE2aSXaXX8XEHs6TQOygoCJmFIN3JAnOghD/aL3djgZBpxDlwf2YHaY4VFhe59pPqc4HbHMpyeBwuh3r+axwZNKSJ54gIDc6ZrkOIrOHjQVu6S2jjlCX1HN+kb99FVeAUUtS2YED0rMkTrOer8XP5nq9dcc9pdR+QmkOExzTTqAPLxSNA3OYZuMji+WOlKybXHr6qg9GcwYvlJ0WYravKhPsml3Znce9Lzvpekqmv7WgINENax7zZu4wtufbfwajRWkfH2ZhiBOkTi1fiH77FpnqOa5TGUKTkwZtGQTe3ESK94
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(8936002)(5660300002)(2906002)(86362001)(336012)(26005)(7696005)(36756003)(8676002)(316002)(6666004)(2616005)(70206006)(70586007)(426003)(186003)(54906003)(36860700001)(508600001)(2876002)(4326008)(966005)(81166007)(83380400001)(110136005)(82310400003)(47076005)(356005)(6636002)(2101003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 22:32:53.9519 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d934d7b5-55fa-4e94-7b83-08d9902bbab3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3616
+References: <20211015184332.221091-1-agustin.gutierrez@amd.com>
+ <20211015184332.221091-17-agustin.gutierrez@amd.com>
+In-Reply-To: <20211015184332.221091-17-agustin.gutierrez@amd.com>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Sat, 16 Oct 2021 00:53:05 +0100
+Message-ID: <CAHbf0-HyA2EPHq74e_oq_X1bbSd9-uNwuX6aWYjf7Hz3UYTx3Q@mail.gmail.com>
+Subject: Re: [PATCH 16/27] drm/amd/display: increase Z9 latency to workaround
+ underflow in Z9
+To: Agustin Gutierrez <agustin.gutierrez@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Harry Wentland <Harry.Wentland@amd.com>, 
+ Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Rodrigo.Siqueira@amd.com, 
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, qingqing.zhuo@amd.com, 
+ "Lipski, Mikita" <mikita.lipski@amd.com>, Roman Li <roman.li@amd.com>,
+ Anson.Jacob@amd.com, 
+ Wayne Lin <wayne.lin@amd.com>, stylon.wang@amd.com, solomon.chiu@amd.com, 
+ pavle.kotarac@amd.com, Eric Yang <Eric.Yang2@amd.com>, 
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,42 +81,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <Roman.Li@amd.com>
+This patch seems to change z8 - not that I know what z8 or z9 are
 
-[Why]
-On renoir usb-c port stops functioning on resume after f/w update.
-New dmub firmware caused regression due to conflict with dmcu.
-With new dmub f/w dmcu is superseded and should be disabled.
-
-[How]
-- Disable dmcu for all dcn21.
-
-Check dmesg for dmub f/w version.
-The old firmware (before regression):
-[drm] DMUB hardware initialized: version=0x00000001
-All other versions require that patch for renoir.
-
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1735
-Cc: stable@vger.kernel.org
-Signed-off-by: Roman Li <Roman.Li@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ff54550..e56f73e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1356,8 +1356,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 		switch (adev->ip_versions[DCE_HWIP][0]) {
- 		case IP_VERSION(2, 1, 0):
- 			init_data.flags.gpu_vm_support = true;
--			if (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
--				init_data.flags.disable_dmcu = true;
-+			init_data.flags.disable_dmcu = true;
- 			break;
- 		case IP_VERSION(1, 0, 0):
- 		case IP_VERSION(1, 0, 1):
--- 
-2.7.4
-
+On Fri, 15 Oct 2021 at 19:44, Agustin Gutierrez
+<agustin.gutierrez@amd.com> wrote:
+>
+> From: Eric Yang <Eric.Yang2@amd.com>
+>
+> [Why]
+> Z9 latency is higher than when we originally tuned the watermark
+> parameters, causing underflow. Increasing the value until the latency
+> issues is resolved.
+>
+> Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+> Acked-by: Agustin Gutierrez Sanchez <agustin.gutierrez@amd.com>
+> Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> index c9d3d691f4c6..12ebd9f8912f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> @@ -222,8 +222,8 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_1_soc = {
+>         .num_states = 5,
+>         .sr_exit_time_us = 9.0,
+>         .sr_enter_plus_exit_time_us = 11.0,
+> -       .sr_exit_z8_time_us = 402.0,
+> -       .sr_enter_plus_exit_z8_time_us = 520.0,
+> +       .sr_exit_z8_time_us = 442.0,
+> +       .sr_enter_plus_exit_z8_time_us = 560.0,
+>         .writeback_latency_us = 12.0,
+>         .dram_channel_width_bytes = 4,
+>         .round_trip_ping_latency_dcfclk_cycles = 106,
+> --
+> 2.25.1
+>
