@@ -2,48 +2,48 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E337C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F825C433FE
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:44:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E632761040
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:44:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E632761040
+	by mail.kernel.org (Postfix) with ESMTPS id 5E9C960C4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:44:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E9C960C4A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F776EDEC;
-	Fri, 15 Oct 2021 18:44:17 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF476EDE7
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 18:44:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 813A76EDE9;
+	Fri, 15 Oct 2021 18:44:16 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 332CA6EDE2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 18:44:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D+XhMt6EWByo1x/zEQ6vL22HTfOgfpuQ/xOneURcC7Zmb5T5IptBXv42qTsYnYUz+OprJppGOBs/RgwLh/ydfVcEDJXwWKmfGIEdDeBIil0q/Tm6OeJiN6awtY5Y0JHJfVG3duHD3aj9a2+bCF9G5XnM8aS/904X2z35XEQxf65v8u42NGmKuaO2a9gcKLSQBZIF8r56T0dKjcxR5dIgw19QPJTbccH2KO8b/oGUumn7E6U2KJ99AyDXqDqK4kv8WmXceA+9nUfXWBiieYWR4ueJG5CB+gdPg4RgBTVgXyrctSG1Nryd1PFFHebfCQPy1zW2u9L9M9dGqwOBa9BYDw==
+ b=RiT+5jD482svEL6Ks/W+BTgRuRuoul1DFLJsFpQbTPEYdmm8IwbU4qJ3xtRDLC5BkaQjfx+pemTK/Q82llWPsAUbgGZ0GmNIUZqnZj12wCpmaEX1WyhI7aWHxAf8c7308xDxhBmMGdg6BCSpL1yk1eMBJcJdQxZRIezZanyyLp0RTMYfxX1eEQIDWpueMr3rftDWk2F+uH9GC7Qn/Dy5hbhZymqLbQWp+xcjlkE5PV32L0Hy2LCOHm8b9RiGZCh/2EoZFce4D/5kGQSY6w7BeZi5PZuU8PfWqFQPEjLRSBoXzwiWYGl5mUkBTNDdrLBXa4Rd3qkXr4Nu8msp/Wl9IA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BAa4vCVZQb0He2P0+QWSbPSNJQX62UVUGyLtTqcq0uA=;
- b=gMWurL0ahZ69ahbblF1y6Zdw1RQOcs8pGIHXVs+d/QxB/4Jf3AZmHHTZOpTsX5Tbiw4Jy75ZbsVhBmdpwU4gvyiFZ+AsW2MFTxLnnz97z8xOiUHP5UYz9j+16zAYE8vEt/EUWABEhVJ3nou1K7QtMXeezSKIVAp3mvMNStda+FOQSJYHTgok8aB7rQSaHweUFhhAPqd06HbPx6LMxFLIo3q0nuL9G00trvpKBL/bK7SlXkBem1Sq72hA9/WhpI6Z1Ngxw1VDlzJK7yyO/5MJlLDagOWpqldZoF5sbHasapIl/gHVr1abtwWWhZH7iemrWKzvt6+CzUNKjGJjm0MKEQ==
+ bh=GKJcUPLlI198ojUvWGZcRH6skaIwwxZk5hX37AoUJqs=;
+ b=hfTG4NHeH5JKEwcxjSmnRsNqc4h2MZ2fjQh4hr20Vuz8pjOOrMrOmKxIEBXu1EQMGpia/LK6dK6/D7Kz/2E2uRCtZiLUx+NxNormQtmrFDaLWhFSkJGKAx/7QomyMNQuWK+HMDBQ2S0Gq9AH1tIOZdb6ua522fUB1om6XplCpE92ut6ZLwJm30mf1M/F49iGIVLTxmYzfbuhy577Sg1M41PSZPjo//aMY7IWVuKH5L3AOli3Vrp5OJjiNUV9TQKbyXwdENBmVH6MS+1Rlv2BTjbPQjR0+ovpykWeyMW6yHnShO/bPPW7z/d1JMWX74RJQ0n3q/q17CDATuf/iYgQiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BAa4vCVZQb0He2P0+QWSbPSNJQX62UVUGyLtTqcq0uA=;
- b=0oRRtwG+fnJ20T2FyM91aXrSNttRz9jN+u1rJBG1tu0V1zq/1nB9R2mFA6zKBbqdpV3WqZXULdQ+Q2O+M9SqGqA9ogMdHvDyZLMwNPvRHSnVpYYIKGz2Pio5La/+Sy18eTk6+L09XqS3jHS9F2yb1G0Ayj5UvSA3f2e5kRYn/xc=
-Received: from DS7PR06CA0030.namprd06.prod.outlook.com (2603:10b6:8:54::22) by
- DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21) with
+ bh=GKJcUPLlI198ojUvWGZcRH6skaIwwxZk5hX37AoUJqs=;
+ b=fJ4ZShRQ/OA0FiiTLQNsWgbOMeXuU0sBneRUaWvnJRd8fNBHR7B9O8Xw9/21Onuh7ZWZ75RGFDvY+cWuLbx11AJxvqc3ZVvRYSSqSaDyKZJbNKYJpofMJyrjmyJPx9Z+eletldJqYxrQMxl8bJXwL9s8z6I7QflLIzmNSn9BQ40=
+Received: from DS7PR06CA0031.namprd06.prod.outlook.com (2603:10b6:8:54::11) by
+ MN2PR12MB3150.namprd12.prod.outlook.com (2603:10b6:208:c7::15) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.17; Fri, 15 Oct 2021 18:44:13 +0000
+ 15.20.4587.25; Fri, 15 Oct 2021 18:44:12 +0000
 Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:54:cafe::aa) by DS7PR06CA0030.outlook.office365.com
- (2603:10b6:8:54::22) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:8:54:cafe::b1) by DS7PR06CA0031.outlook.office365.com
+ (2603:10b6:8:54::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Fri, 15 Oct 2021 18:44:13 +0000
+ Transport; Fri, 15 Oct 2021 18:44:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,11 +54,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 18:44:13 +0000
+ 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 18:44:11 +0000
 Received: from ubuntu.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 15 Oct
- 2021 13:44:11 -0500
+ 2021 13:44:07 -0500
 From: Agustin Gutierrez <agustin.gutierrez@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
@@ -66,12 +66,12 @@ CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
  <stylon.wang@amd.com>, <solomon.chiu@amd.com>, <pavle.kotarac@amd.com>,
- <agustin.gutierrez@amd.com>, Nevenko Stupar <Nevenko.Stupar@amd.com>, Jun Lei
- <Jun.Lei@amd.com>
-Subject: [PATCH 24/27] drm/amd/display: Add bios parser support for latest
- firmware_info
-Date: Fri, 15 Oct 2021 14:43:29 -0400
-Message-ID: <20211015184332.221091-25-agustin.gutierrez@amd.com>
+ <agustin.gutierrez@amd.com>, Jake Wang <haonan.wang2@amd.com>, Aric Cyr
+ <Aric.Cyr@amd.com>, Eric Yang <eric.yang2@amd.com>
+Subject: [PATCH 20/27] drm/amd/display: Moved dccg init to after bios golden
+ init
+Date: Fri, 15 Oct 2021 14:43:25 -0400
+Message-ID: <20211015184332.221091-21-agustin.gutierrez@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211015184332.221091-1-agustin.gutierrez@amd.com>
 References: <20211015184332.221091-1-agustin.gutierrez@amd.com>
@@ -83,28 +83,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c62fdc29-f561-4260-f473-08d9900bc87b
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4283:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB42834311F4409AF212914A46F5B99@DM6PR12MB4283.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:913;
+X-MS-Office365-Filtering-Correlation-Id: dc1d6c69-b403-4252-978b-08d9900bc79f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3150:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB315041C645924FA570E1066EF5B99@MN2PR12MB3150.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1091;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A7/K2oLe3uettNTpaGyMnJJLLzZGGuIEVfiPklb5zpS6aFNnQpsJZ1OF/02X7jeK9yeUlCATW2UUoFQJQlYP6m4FpjPYflJ+PGXwJI4heCu8fo+ejfcy+SjFqlZ+oUQ2AJvvZfgKOEAcU4m/13SZ610tEhlagU7SVsBTat72IgYsxwmuaYeK+923/3ThOt0Ww2pl957E+7tXmX0W8m3v7qCJQyWBn+tDXB3bNTG9U2fZrU6lWMp83kU1ijG0s3Q0dCuC4s3aICu/KbT9/OWVxkqFKgNUZh48usCYjtG2HfqjsFQcPEiRYfX3v0V/ZncZqdAc9sxhWQfqwgls54THmIKy1cp2e9AT51iySaBoDNNNNyBdyeIXcb+rDuoB+EU+u5QgUuEbAKTYUbFIIsfmOF2kNi8oYVziGvgidluWcjE58CYiCKeVX5ZFGy9XKEEuDQtGaiibiGPSlo210IOOF0AaNXqm8gxNEaEqB8bOczaX//zlJ09pw//R99sNsPe0iW1UOJPIzkUQMhM0bf4CTpU9p12lD2xGF1sbNrgMk7HKaT/RL3SpoguZD1xRRAcKGzZKrRcIe3Fp1fsakdaC/lw3zTJPzLtWNXH6SXJtZAaMhoUGDe9VdfHJmyTeHTgV6zGb5d54mYgCpR5sdYJCM2uOcWdyo+c6JIo77tDJtiEwdA6c3fyszYGK8/SyVofuV/LebqL6TvBXQyi3PNouERGdiVjnRGhnxPuTY0G325I=
+X-Microsoft-Antispam-Message-Info: xeInO3W3OgwgGsHEbmw7AZzzMRfqIxn6MIhAmhsUhiN7qX5A6SqJd2EwpF4VZFoCsHT5aqG+NhPbtvUeKTGSMAd1buANcqXyp2QjFY8XqD/WFrkdEJyqy7kHn90jsLhfpkjkgDCnm2XfKgP7sR5Bsnlh486xL2tV3rlANDFzPtJOSsbu5RjxZBCIFzZb/SdkZUdioSKLI/V/8CrJzGd0UMa4VC08uDcnf5xSUGY6WT+ISRDNb+v5Xs9ggaq/IbiEEjnUHyy34w+KUUS0laCy0pootlSSmVK4LnAWaTuz0kaysgKWX7X/zuY9p2nvYLf12dOmuw1vozf3uVK5oOJSMPHMRLcSImb9kOoe2bSznNHqXG3Kp8fP2IX+GFHGNdwXXOqVd6ui31aty+tHatm0eGAIay1B/Z729uMtyM9QWaQb+gQ+y6wlB4uOGvgayC8qQBAOecHLgtUZFgRKxpt91udorksFQUUPgnWo3EZ0IgS9eB3qzm++qVYEyn9pnRzEVYFVmR6CIWVl/hjWv6z2wRneAYPpdaW8b96g1pXyhi3c0cMKghCbsxfQzVJSRCGaom3s3R0T2186j766Yr9xirVx5FYbzXqR/8emkbCcyDizfehEplNFMWBr9DkvQmreyPHBZRnhyciN24WT/OXxsjiA36bMgnI8SI5cK0Af3ziY5xOuuz4qsyWD2NR54R9SKbE+P/JymFkSFCmrYCRsR5fajgLO4CrmtgKegYobmOE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(82310400003)(36756003)(83380400001)(36860700001)(81166007)(356005)(8936002)(508600001)(8676002)(316002)(54906003)(1076003)(6666004)(5660300002)(4326008)(2906002)(70206006)(70586007)(47076005)(86362001)(2616005)(44832011)(186003)(16526019)(26005)(336012)(426003)(6916009)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(186003)(2616005)(26005)(83380400001)(81166007)(426003)(16526019)(82310400003)(47076005)(5660300002)(6916009)(508600001)(36756003)(4326008)(36860700001)(44832011)(336012)(70586007)(8936002)(1076003)(316002)(8676002)(356005)(2906002)(54906003)(86362001)(70206006)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 18:44:13.1443 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c62fdc29-f561-4260-f473-08d9900bc87b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 18:44:11.6991 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc1d6c69-b403-4252-978b-08d9900bc79f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4283
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3150
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,139 +119,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nevenko Stupar <Nevenko.Stupar@amd.com>
+From: Jake Wang <haonan.wang2@amd.com>
 
 [Why]
-V3_4 is latest in use.
+bios_golden_init will override dccg_init during init_hw.
 
 [How]
-Add bios parser support for firmware_info_v3_4 along
-with some relevant fields it is also retrieving from dce_info
-and smu_info.
+Move dccg_init to after bios_golden_init.
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Reviewed-by: Eric Yang <eric.yang2@amd.com>
 Acked-by: Agustin Gutierrez Sanchez <agustin.gutierrez@amd.com>
-Signed-off-by: Nevenko Stupar <Nevenko.Stupar@amd.com>
+Signed-off-by: Jake Wang <haonan.wang2@amd.com>
 ---
- .../drm/amd/display/dc/bios/bios_parser2.c    | 90 ++++++++++++++++++-
- 1 file changed, 89 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index cdb5c027411a..c17732fba039 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -99,6 +99,10 @@ static enum bp_result get_firmware_info_v3_2(
- 	struct bios_parser *bp,
- 	struct dc_firmware_info *info);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+index 65f66687af4c..186d08aec812 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+@@ -77,10 +77,6 @@ void dcn31_init_hw(struct dc *dc)
+ 	if (dc->clk_mgr && dc->clk_mgr->funcs->init_clocks)
+ 		dc->clk_mgr->funcs->init_clocks(dc->clk_mgr);
  
-+static enum bp_result get_firmware_info_v3_4(
-+	struct bios_parser *bp,
-+	struct dc_firmware_info *info);
-+
- static struct atom_hpd_int_record *get_hpd_record(struct bios_parser *bp,
- 		struct atom_display_object_path_v2 *object);
+-	// Initialize the dccg
+-	if (res_pool->dccg->funcs->dccg_init)
+-		res_pool->dccg->funcs->dccg_init(res_pool->dccg);
+-
+ 	if (IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
  
-@@ -1426,8 +1430,10 @@ static enum bp_result bios_parser_get_firmware_info(
- 				break;
- 			case 2:
- 			case 3:
--			case 4:
- 				result = get_firmware_info_v3_2(bp, info);
-+                                break;
-+			case 4:
-+				result = get_firmware_info_v3_4(bp, info);
- 				break;
- 			default:
- 				break;
-@@ -1575,6 +1581,88 @@ static enum bp_result get_firmware_info_v3_2(
- 	return BP_RESULT_OK;
- }
+ 		REG_WRITE(REFCLK_CNTL, 0);
+@@ -107,6 +103,9 @@ void dcn31_init_hw(struct dc *dc)
+ 		hws->funcs.bios_golden_init(dc);
+ 		hws->funcs.disable_vga(dc->hwseq);
+ 	}
++	// Initialize the dccg
++	if (res_pool->dccg->funcs->dccg_init)
++		res_pool->dccg->funcs->dccg_init(res_pool->dccg);
  
-+static enum bp_result get_firmware_info_v3_4(
-+	struct bios_parser *bp,
-+	struct dc_firmware_info *info)
-+{
-+	struct atom_firmware_info_v3_4 *firmware_info;
-+	struct atom_common_table_header *header;
-+	struct atom_data_revision revision;
-+	struct atom_display_controller_info_v4_1 *dce_info_v4_1 = NULL;
-+	struct atom_display_controller_info_v4_4 *dce_info_v4_4 = NULL;
-+	if (!info)
-+		return BP_RESULT_BADINPUT;
-+
-+	firmware_info = GET_IMAGE(struct atom_firmware_info_v3_4,
-+			DATA_TABLES(firmwareinfo));
-+
-+	if (!firmware_info)
-+		return BP_RESULT_BADBIOSTABLE;
-+
-+	memset(info, 0, sizeof(*info));
-+
-+	header = GET_IMAGE(struct atom_common_table_header,
-+					DATA_TABLES(dce_info));
-+
-+	get_atom_data_table_revision(header, &revision);
-+
-+	switch (revision.major) {
-+	case 4:
-+		switch (revision.minor) {
-+		case 4:
-+			dce_info_v4_4 = GET_IMAGE(struct atom_display_controller_info_v4_4,
-+							DATA_TABLES(dce_info));
-+
-+			if (!dce_info_v4_4)
-+				return BP_RESULT_BADBIOSTABLE;
-+
-+			/* 100MHz expected */
-+			info->pll_info.crystal_frequency = dce_info_v4_4->dce_refclk_10khz * 10;
-+			info->dp_phy_ref_clk             = dce_info_v4_4->dpphy_refclk_10khz * 10;
-+			/* 50MHz expected */
-+			info->i2c_engine_ref_clk         = dce_info_v4_4->i2c_engine_refclk_10khz * 10;
-+
-+			/* Get SMU Display PLL VCO Frequency in KHz*/
-+			info->smu_gpu_pll_output_freq =	dce_info_v4_4->dispclk_pll_vco_freq * 10;
-+			break;
-+
-+		default:
-+			/* should not come here, keep as backup, as was before */
-+			dce_info_v4_1 = GET_IMAGE(struct atom_display_controller_info_v4_1,
-+							DATA_TABLES(dce_info));
-+
-+			if (!dce_info_v4_1)
-+				return BP_RESULT_BADBIOSTABLE;
-+
-+			info->pll_info.crystal_frequency = dce_info_v4_1->dce_refclk_10khz * 10;
-+			info->dp_phy_ref_clk             = dce_info_v4_1->dpphy_refclk_10khz * 10;
-+			info->i2c_engine_ref_clk         = dce_info_v4_1->i2c_engine_refclk_10khz * 10;
-+			break;
-+		}
-+		break;
-+
-+	default:
-+		ASSERT(0);
-+		break;
-+	}
-+
-+	header = GET_IMAGE(struct atom_common_table_header,
-+					DATA_TABLES(smu_info));
-+	get_atom_data_table_revision(header, &revision);
-+
-+	 // We need to convert from 10KHz units into KHz units.
-+	info->default_memory_clk = firmware_info->bootup_mclk_in10khz * 10;
-+
-+	if (firmware_info->board_i2c_feature_id == 0x2) {
-+		info->oem_i2c_present = true;
-+		info->oem_i2c_obj_id = firmware_info->board_i2c_feature_gpio_id;
-+	} else {
-+		info->oem_i2c_present = false;
-+	}
-+
-+	return BP_RESULT_OK;
-+}
-+
- static enum bp_result bios_parser_get_encoder_cap_info(
- 	struct dc_bios *dcb,
- 	struct graphics_object_id object_id,
+ 	if (dc->debug.enable_mem_low_power.bits.dmcu) {
+ 		// Force ERAM to shutdown if DMCU is not enabled
 -- 
 2.25.1
 
