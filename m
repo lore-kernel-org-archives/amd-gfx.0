@@ -2,48 +2,48 @@ Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E118EC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:44:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0CDEC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:44:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4AB960C4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B4AB960C4A
+	by mail.kernel.org (Postfix) with ESMTPS id 6B65D61041
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 18:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6B65D61041
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B612E6EDCF;
-	Fri, 15 Oct 2021 18:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 130956EDDE;
+	Fri, 15 Oct 2021 18:44:12 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6E2F6EDCA
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 18:44:05 +0000 (UTC)
+ (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 763806EDE0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 18:44:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NggGvgUSiug9KEQlKySTrvH/Ehqzm7lRQlrAAYerjrCxcZGYbpHUXAD7lJUN8RJoM3jX96IzbCCdmGp4BJuKaHZxe/MvMkuTNCVp+5ATda8LGI566pLUXDhe9of2mUD3/Gcm2Ho/GW/cpgUMVQtzE2Sokkt2LfMcPvl5W7SI+jVC0JWg6er0ei2VUSBixrJQyjx1wRJObMGKjq24vB8skM8KD//dGBH8t22GwUt9jYtahFSyGcAUtVfqhgsRqmc52Btdgrq14FwEJpfkEC+ngIrk59tft+r6RHz1nH4GoXiCE8H8kZpwXXV2uMykYhvMwxSjv0SgyZj19/vK6Uj60A==
+ b=j/Nmw/2Xj0sKapauc5tjPioK2hi6xF1Ecse0MHPwkEsP9XEomvQYSk5oc1DFXk+kgPTJIrl8ByByXjC8GjPPFYNgOoaGtyGuTOHX6Fna8/YyUisWvQdFZh0K5Sga8AASqof08NNWtrsLXJmUzZ6MzjuIrH9/uJre0YpZhqNldg4FeL6axQ5pCKigP67vsae6kGG89eH5k2li8w8pPpuDC/E+Iu/poYEuntia6ixpNsFAlKk8HSFvpP3r0W5T2TWnu789l/40YyYUJmjR2XO5uTHMfyJQ1p/xptmd06vrK+l6+2Iu+a1AmZVfi9QY/skj1TOaIYUI2LKROU+vrIBwLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g9cps7bkY6tKZk7uDxvxB3NLWofjeYpr5BJtdPK54V0=;
- b=TejLH2FqhmkYt7QiAP5LHLd/tc6fu8b0TBTEXnZFxxa3epkAlUsQwWNPJj8cH55/XqGqkifUY9U9VpMR5cMXkVNC3DqCrUpxmfyuLCBoaF/d84jNRv32k07bAnymeuGIeGM9K4QdmPVdmJbBydnbAGEv9YMR4OgXLcSBHyf8aarWelCHXQEoScZXSv1LyYqUSmfSO38zEHoptOJ+tnN+nQ/I5HGSVOLNU6+Qk315VWWXRvfR0mGXeyw8vDjAcxX33BqSjcRP/a22N0auKJG/Bspswfx6NSlawEHNGSmYUf4IiCtAu2EtHNjcRL1/EgZZCQLmGm8zSFbArrvlEoSNSQ==
+ bh=P6nw4s6KatTgZ4+YD0Pn6f+PGC6trDLHyFwY88weJJo=;
+ b=czj4gMU+oDAENc5qmMfoQI43Sq68VrK1VwYiTqGpSeFWaxquQZlrEnwlkPeyquTJ21oZlOSUTcilaMS+3Q0SMn8YimItFggGI1C/ZRpW8AUb2dfSxZiLmRKk6M75b3pdl8b1p1uXrh8Udt55N7ZNutVRwGCWlUqL9QsY6CiY8oBZ9WcC04WalUEDnoPzOnv1LVi+i8oA86zcEQ/FBj5h3HNxfkIu7Nwv8s3Sk0L5z6WV2H0pVVB0c3fcajsV4EGSzyGJPZughAY4K7OHeWBUmfP0vEC4X4k52iBvJO+m4TxL3OOaYRkYgawKNu85I7A2nPlSctjgypI7kGpn60g85w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g9cps7bkY6tKZk7uDxvxB3NLWofjeYpr5BJtdPK54V0=;
- b=2sqXhZ8DseogMMsUKT3UZIsrMwt6V4yT6NWa/Ngw7cqPHvzAxLb+7r4eADxzylmUhy5qkYBqFxP/JiScrEa//QZm0VtwDgegqux3PvHoH5nhRyJU32Lq8g1Qi+6Vnw24YrumCieMxIgvnzjmdE/KXeIJncn+DVOW48S5AM4wAQE=
-Received: from DM6PR08CA0019.namprd08.prod.outlook.com (2603:10b6:5:80::32) by
- MN2PR12MB4333.namprd12.prod.outlook.com (2603:10b6:208:1d3::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Fri, 15 Oct
- 2021 18:44:02 +0000
-Received: from DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:80:cafe::2c) by DM6PR08CA0019.outlook.office365.com
- (2603:10b6:5:80::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
- Transport; Fri, 15 Oct 2021 18:44:02 +0000
+ bh=P6nw4s6KatTgZ4+YD0Pn6f+PGC6trDLHyFwY88weJJo=;
+ b=0v9KSyg2FE3UX4mfjXjDqVfnHGwIiqco5S630qoaPeXAW2DQydimNFs1fOXPyr7suQWDeo+FwpZ1pcQw0tR6cwBIBpl55Qvqnc+4vB7BeNmEYxGXnVAwLpuWB5tNwtmSeGSP2APUvqfW3dHIfjAswjNfUopKrNN5cU22ijl2xl8=
+Received: from DS7PR06CA0034.namprd06.prod.outlook.com (2603:10b6:8:54::18) by
+ SN6PR12MB2687.namprd12.prod.outlook.com (2603:10b6:805:73::26) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.25; Fri, 15 Oct 2021 18:44:05 +0000
+Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:54:cafe::cf) by DS7PR06CA0034.outlook.office365.com
+ (2603:10b6:8:54::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
+ Transport; Fri, 15 Oct 2021 18:44:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,13 +52,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT063.mail.protection.outlook.com (10.13.172.219) with Microsoft SMTP
+ DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 18:44:02 +0000
+ 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 18:44:04 +0000
 Received: from ubuntu.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 15 Oct
- 2021 13:44:00 -0500
+ 2021 13:44:03 -0500
 From: Agustin Gutierrez <agustin.gutierrez@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
@@ -66,12 +66,12 @@ CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Aurabindo.Pillai@amd.com>, <qingqing.zhuo@amd.com>, <mikita.lipski@amd.com>, 
  <roman.li@amd.com>, <Anson.Jacob@amd.com>, <wayne.lin@amd.com>,
  <stylon.wang@amd.com>, <solomon.chiu@amd.com>, <pavle.kotarac@amd.com>,
- <agustin.gutierrez@amd.com>, Jake Wang <haonan.wang2@amd.com>, Nikola Cornij
- <Nikola.Cornij@amd.com>
-Subject: [PATCH 14/27] drm/amd/display: Disable dsc root clock when not being
- used
-Date: Fri, 15 Oct 2021 14:43:19 -0400
-Message-ID: <20211015184332.221091-15-agustin.gutierrez@amd.com>
+ <agustin.gutierrez@amd.com>, Eric Yang <Eric.Yang2@amd.com>, "Nicholas
+ Kazlauskas" <Nicholas.Kazlauskas@amd.com>
+Subject: [PATCH 16/27] drm/amd/display: increase Z9 latency to workaround
+ underflow in Z9
+Date: Fri, 15 Oct 2021 14:43:21 -0400
+Message-ID: <20211015184332.221091-17-agustin.gutierrez@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211015184332.221091-1-agustin.gutierrez@amd.com>
 References: <20211015184332.221091-1-agustin.gutierrez@amd.com>
@@ -83,28 +83,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f9466b72-cacb-4e84-2fe0-08d9900bc1fa
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4333:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB43339F81F264A3511294CFD1F5B99@MN2PR12MB4333.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Office365-Filtering-Correlation-Id: e99c6c6c-b426-456f-3e97-08d9900bc36b
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2687:
+X-Microsoft-Antispam-PRVS: <SN6PR12MB268708BC896A464BD398C386F5B99@SN6PR12MB2687.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yLLN2SKy/gSVgSYD+fsjRrOF80B4XfLraAuiJQqR97+2A7v+QUBsLRzWAjSWNa3RPeaVdG9F4FyXonNEFSm/Lxb1L+laFkFEha5PlvOTUR8clE1B36R+ktl1eo2ZbALU/5Lb8aYTbCFrhDUwQc6PndMHu8/0HJouR88L/WtiCvijrNgPUQZhEK+0YXMLSN77Nml0D/B8fBWdVb2lLEniypsES5fr/vDqUgpbEnf6jytZhyzAHMSybViN5OnXLg/kkgBAJ3zf+XHQme/YzcMhjOu4WFwhMWIiXMUvswNXf4R8OCoEmkyj3VCYjdPmNddUM+tTQTofG3JHfucwsess3Vv4PZ2s4a5zrz7HKptAF8QPxSvtg59VCrPRs56ik7l2fT/Msp8qTOy34E84AP7eK/lfiAIfj0Txi0o3RXMGmaOUvxprvrF+GPz60AtQbbBJ+wE5E6p0snGvNy2RpORKPNZE5IU/KampUVB1aD5gXOaYASLYikpVKgNJjtsqLVuOKxerecATZ/vL86f8sbdw0vk0rWlV0XLyi4bugST7KV8RD35r4X3EbolPBqvAJKRtvs9y2IZouNXMTFVup77vmVNB+WRTIymXX2iQEzoA2Y+3+zD5AZEzkHR/PbVnEWM3gYi6ShvTqJhPX0ihbg9VRnMqc9qlSxraDl4C9fDzxBkCDdEN0XHL6gdci8Cz2D0yFYzussxBN41ggFfjxoUlkB+AQYmTLwZs+z6+SXKjPk0=
+X-Microsoft-Antispam-Message-Info: FUc7K33pVZqtu0cU0DTmd+T50JqFw+tXzwOS6WBcQswXw/FDjpnS/YTkY4v9RqG5pv2elKhE0ilOJsfRgWFg+D2Bed+xiujhD3sIkvPLSuslKRoooj+Odp+5yoOrDs9PHiFGSV4X+HnP2mN+0olbwEITtac0G9MZE6wUvu2dVQl7IzBhkqopt210ACN6VQymqvd1zvbktoqS+wqMfYjFokY7KTEgRftLI68VuvQ+avpSenMcR5kkqE0xiAdJWdrmniqNw+gyaU2WR8rV/3zufS6xfyj3PjZFxavP6x1x90HnguWpZfUUgkEo1QEg+cYyo4dxqtierJ7E/hqvGlV0BRZfT8+N+gMJ+f+dbIdRclBpel4igLYVdnQeG0+vj383Hm/R8U2fn77jDCdpCDNTFEt8uvLefbzR656ADQnNRcDHMMLVxQt6nhVt5ruUV2zuBmqICJ7VHgMVOV/jt16Zoec0nvmncgIqXDMzz7iOQwTjaaf5bcP0jha8facA9fblSsDZr08E/JA6sI4zFfFdDpuS/kkthomZK31yP5VrIlUKyVUD2DovJ3n/y+vCUanxnvLPFLhvbbOwDqAEXkkn9D9anCQVlTPiI5zxqSGkNp1QaVBu0NLZq6/2N/GXG/GAMyFUmZoJau5SnoJuo2WovpELWg/l08gnmZSDQ61YHS5u36VdGPw+fTV4MWMCr9XexAU3szDqKm5HCwXUNMt4erUUG8ifnuqaRZUqmSGhaqU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(6666004)(81166007)(82310400003)(186003)(16526019)(44832011)(356005)(8676002)(36860700001)(83380400001)(26005)(47076005)(86362001)(70206006)(2906002)(336012)(36756003)(5660300002)(70586007)(4326008)(2616005)(8936002)(316002)(6916009)(1076003)(54906003)(426003)(508600001)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(8936002)(8676002)(70586007)(316002)(356005)(2906002)(83380400001)(26005)(36756003)(36860700001)(508600001)(6666004)(5660300002)(70206006)(54906003)(2616005)(4326008)(44832011)(186003)(16526019)(47076005)(336012)(86362001)(6916009)(426003)(82310400003)(1076003)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 18:44:02.2261 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9466b72-cacb-4e84-2fe0-08d9900bc1fa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 18:44:04.6451 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e99c6c6c-b426-456f-3e97-08d9900bc36b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4333
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2687
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,237 +119,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jake Wang <haonan.wang2@amd.com>
+From: Eric Yang <Eric.Yang2@amd.com>
 
-[Why & How]
-Disable root clock for dsc when not being used.
+[Why]
+Z9 latency is higher than when we originally tuned the watermark
+parameters, causing underflow. Increasing the value until the latency
+issues is resolved.
 
-Reviewed-by: Nikola Cornij <Nikola.Cornij@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Agustin Gutierrez Sanchez <agustin.gutierrez@amd.com>
-Signed-off-by: Jake Wang <haonan.wang2@amd.com>
+Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h | 16 ++++-
- .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c | 72 +++++++++++++++++++
- .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h | 18 ++++-
- .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    | 17 +++++
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |  9 +++
- 5 files changed, 129 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-index ede65100a050..f6f2d48a70c1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h
-@@ -169,7 +169,17 @@
- 	type DTBCLK_DTO_DIV[MAX_PIPES];\
- 	type DCCG_AUDIO_DTO_SEL;\
- 	type DCCG_AUDIO_DTO0_SOURCE_SEL;\
--	type DENTIST_DISPCLK_CHG_MODE;
-+	type DENTIST_DISPCLK_CHG_MODE;\
-+	type DSCCLK0_DTO_PHASE;\
-+	type DSCCLK0_DTO_MODULO;\
-+	type DSCCLK1_DTO_PHASE;\
-+	type DSCCLK1_DTO_MODULO;\
-+	type DSCCLK2_DTO_PHASE;\
-+	type DSCCLK2_DTO_MODULO;\
-+	type DSCCLK0_DTO_ENABLE;\
-+	type DSCCLK1_DTO_ENABLE;\
-+	type DSCCLK2_DTO_ENABLE;
-+
- 
- struct dccg_shift {
- 	DCCG_REG_FIELD_LIST(uint8_t)
-@@ -205,6 +215,10 @@ struct dccg_registers {
- 	uint32_t SYMCLK32_SE_CNTL;
- 	uint32_t SYMCLK32_LE_CNTL;
- 	uint32_t DENTIST_DISPCLK_CNTL;
-+	uint32_t DSCCLK_DTO_CTRL;
-+	uint32_t DSCCLK0_DTO_PARAM;
-+	uint32_t DSCCLK1_DTO_PARAM;
-+	uint32_t DSCCLK2_DTO_PARAM;
- };
- 
- struct dcn_dccg {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
-index 152adb597d48..3a325e4afe2f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c
-@@ -247,6 +247,76 @@ void dccg31_disable_symclk32_le(
- 	}
- }
- 
-+static void dccg31_disable_dscclk(struct dccg *dccg, int inst)
-+{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+
-+	if (!dccg->ctx->dc->debug.root_clock_optimization.bits.dsc)
-+		return;
-+	//DTO must be enabled to generate a 0 Hz clock output
-+	switch (inst) {
-+	case 0:
-+		REG_UPDATE(DSCCLK_DTO_CTRL,
-+				DSCCLK0_DTO_ENABLE, 1);
-+		REG_UPDATE_2(DSCCLK0_DTO_PARAM,
-+				DSCCLK0_DTO_PHASE, 0,
-+				DSCCLK0_DTO_MODULO, 1);
-+		break;
-+	case 1:
-+		REG_UPDATE(DSCCLK_DTO_CTRL,
-+				DSCCLK1_DTO_ENABLE, 1);
-+		REG_UPDATE_2(DSCCLK1_DTO_PARAM,
-+				DSCCLK1_DTO_PHASE, 0,
-+				DSCCLK1_DTO_MODULO, 1);
-+		break;
-+	case 2:
-+		REG_UPDATE(DSCCLK_DTO_CTRL,
-+				DSCCLK2_DTO_ENABLE, 1);
-+		REG_UPDATE_2(DSCCLK2_DTO_PARAM,
-+				DSCCLK2_DTO_PHASE, 0,
-+				DSCCLK2_DTO_MODULO, 1);
-+		break;
-+	default:
-+		BREAK_TO_DEBUGGER();
-+		return;
-+	}
-+}
-+
-+static void dccg31_enable_dscclk(struct dccg *dccg, int inst)
-+{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+
-+	if (!dccg->ctx->dc->debug.root_clock_optimization.bits.dsc)
-+		return;
-+	//Disable DTO
-+	switch (inst) {
-+	case 0:
-+		REG_UPDATE_2(DSCCLK0_DTO_PARAM,
-+				DSCCLK0_DTO_PHASE, 0,
-+				DSCCLK0_DTO_MODULO, 0);
-+		REG_UPDATE(DSCCLK_DTO_CTRL,
-+				DSCCLK0_DTO_ENABLE, 0);
-+		break;
-+	case 1:
-+		REG_UPDATE_2(DSCCLK1_DTO_PARAM,
-+				DSCCLK1_DTO_PHASE, 0,
-+				DSCCLK1_DTO_MODULO, 0);
-+		REG_UPDATE(DSCCLK_DTO_CTRL,
-+				DSCCLK1_DTO_ENABLE, 0);
-+		break;
-+	case 2:
-+		REG_UPDATE_2(DSCCLK2_DTO_PARAM,
-+				DSCCLK2_DTO_PHASE, 0,
-+				DSCCLK2_DTO_MODULO, 0);
-+		REG_UPDATE(DSCCLK_DTO_CTRL,
-+				DSCCLK2_DTO_ENABLE, 0);
-+		break;
-+	default:
-+		BREAK_TO_DEBUGGER();
-+		return;
-+	}
-+}
-+
- void dccg31_set_physymclk(
- 		struct dccg *dccg,
- 		int phy_inst,
-@@ -469,6 +539,8 @@ static const struct dccg_funcs dccg31_funcs = {
- 	.set_dtbclk_dto = dccg31_set_dtbclk_dto,
- 	.set_audio_dtbclk_dto = dccg31_set_audio_dtbclk_dto,
- 	.set_dispclk_change_mode = dccg31_set_dispclk_change_mode,
-+	.disable_dsc = dccg31_disable_dscclk,
-+	.enable_dsc = dccg31_enable_dscclk,
- };
- 
- struct dccg *dccg31_create(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
-index 1e5aabcb7799..61b457ab790d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.h
-@@ -61,7 +61,11 @@
- 	SR(DCCG_AUDIO_DTBCLK_DTO_MODULO),\
- 	SR(DCCG_AUDIO_DTBCLK_DTO_PHASE),\
- 	SR(DCCG_AUDIO_DTO_SOURCE),\
--	SR(DENTIST_DISPCLK_CNTL)
-+	SR(DENTIST_DISPCLK_CNTL),\
-+	SR(DSCCLK0_DTO_PARAM),\
-+	SR(DSCCLK1_DTO_PARAM),\
-+	SR(DSCCLK2_DTO_PARAM),\
-+	SR(DSCCLK_DTO_CTRL)
- 
- 
- #define DCCG_MASK_SH_LIST_DCN31(mask_sh) \
-@@ -119,7 +123,17 @@
- 	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DTBCLK_DTO, DIV, 3, mask_sh),\
- 	DCCG_SF(DCCG_AUDIO_DTO_SOURCE, DCCG_AUDIO_DTO_SEL, mask_sh),\
- 	DCCG_SF(DCCG_AUDIO_DTO_SOURCE, DCCG_AUDIO_DTO0_SOURCE_SEL, mask_sh),\
--	DCCG_SF(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_CHG_MODE, mask_sh)
-+	DCCG_SF(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_CHG_MODE, mask_sh), \
-+	DCCG_SF(DSCCLK0_DTO_PARAM, DSCCLK0_DTO_PHASE, mask_sh),\
-+	DCCG_SF(DSCCLK0_DTO_PARAM, DSCCLK0_DTO_MODULO, mask_sh),\
-+	DCCG_SF(DSCCLK1_DTO_PARAM, DSCCLK1_DTO_PHASE, mask_sh),\
-+	DCCG_SF(DSCCLK1_DTO_PARAM, DSCCLK1_DTO_MODULO, mask_sh),\
-+	DCCG_SF(DSCCLK2_DTO_PARAM, DSCCLK2_DTO_PHASE, mask_sh),\
-+	DCCG_SF(DSCCLK2_DTO_PARAM, DSCCLK2_DTO_MODULO, mask_sh),\
-+	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK0_DTO_ENABLE, mask_sh),\
-+	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK1_DTO_ENABLE, mask_sh),\
-+	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK2_DTO_ENABLE, mask_sh)
-+
- 
- 
- struct dccg *dccg31_create(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-index 52947c03be31..fee385e37c9b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-@@ -270,6 +270,12 @@ void dcn31_dsc_pg_control(
- 	if (hws->ctx->dc->debug.disable_dsc_power_gate)
- 		return;
- 
-+	if (hws->ctx->dc->debug.root_clock_optimization.bits.dsc &&
-+		hws->ctx->dc->res_pool->dccg->funcs->enable_dsc &&
-+		power_on)
-+		hws->ctx->dc->res_pool->dccg->funcs->enable_dsc(
-+			hws->ctx->dc->res_pool->dccg, dsc_inst);
-+
- 	REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
- 	if (org_ip_request_cntl == 0)
- 		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 1);
-@@ -306,6 +312,17 @@ void dcn31_dsc_pg_control(
- 
- 	if (org_ip_request_cntl == 0)
- 		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 0);
-+
-+	if (hws->ctx->dc->debug.root_clock_optimization.bits.dsc) {
-+		if (hws->ctx->dc->res_pool->dccg->funcs->disable_dsc && !power_on)
-+			hws->ctx->dc->res_pool->dccg->funcs->disable_dsc(
-+				hws->ctx->dc->res_pool->dccg, dsc_inst);
-+
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+		dc_z10_save_init(hws->ctx->dc);
-+#endif
-+	}
-+
- }
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-index 09237d5819f4..c940fdfda144 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-@@ -123,6 +123,15 @@ struct dccg_funcs {
- 	void (*set_dispclk_change_mode)(
- 			struct dccg *dccg,
- 			enum dentist_dispclk_change_mode change_mode);
-+
-+	void (*disable_dsc)(
-+		struct dccg *dccg,
-+		int inst);
-+
-+	void (*enable_dsc)(
-+		struct dccg *dccg,
-+		int inst);
-+
- };
- 
- #endif //__DAL_DCCG_H__
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index c9d3d691f4c6..12ebd9f8912f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -222,8 +222,8 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_1_soc = {
+ 	.num_states = 5,
+ 	.sr_exit_time_us = 9.0,
+ 	.sr_enter_plus_exit_time_us = 11.0,
+-	.sr_exit_z8_time_us = 402.0,
+-	.sr_enter_plus_exit_z8_time_us = 520.0,
++	.sr_exit_z8_time_us = 442.0,
++	.sr_enter_plus_exit_z8_time_us = 560.0,
+ 	.writeback_latency_us = 12.0,
+ 	.dram_channel_width_bytes = 4,
+ 	.round_trip_ping_latency_dcfclk_cycles = 106,
 -- 
 2.25.1
 
