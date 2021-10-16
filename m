@@ -1,72 +1,69 @@
-Return-Path: <SRS0=EPaF=PD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=O5Im=PE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61C12C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 23:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F52BC433F5
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 08:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5174611C2
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Oct 2021 23:53:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B5174611C2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 134F661245
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 08:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 134F661245
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75DC16EE0D;
-	Fri, 15 Oct 2021 23:53:18 +0000 (UTC)
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [IPv6:2607:f8b0:4864:20::72a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18D0D6EE0D
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 23:53:18 +0000 (UTC)
-Received: by mail-qk1-x72a.google.com with SMTP id bj31so7254925qkb.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Oct 2021 16:53:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VcaW94SQGHd6a0GmPqK8E/egawOqzbg2uplAODuOJjQ=;
- b=hy6guPAg82Yb9eS6sezHzrqgXV8A5YPCPe0ZCV0ICUcr9BTK22wOQnMhcLheflYGxX
- j47lTpPYb6jXqtw7UArNqpMoGLbQQyyMWiAs0PIuCW2Ry3eo+U75ItJvyTjzxBAjTmz0
- zmu9KdzNL7I5mqjn14VVuDbsVXb4jTzdw8Et7JteM5Q1+RfPn3zO8NcFNU7ijsWniyVk
- 9HdbRZryN6hCTDnM2d8DQp6+o4fqB9GZRDv8+qgQX4F00mF8uWSJp+PkYNILq+2hph43
- gF2Wn7wcc3D9niB4B39Yk/TxHIgBriRZadO/N7mV4Z4Yy6zAzUojYaSI0cnpDmYm9q/8
- CZ0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=VcaW94SQGHd6a0GmPqK8E/egawOqzbg2uplAODuOJjQ=;
- b=WfFVQcJTdWrYLu7LQ1gq/bkM7fhlJNnesPILiNFf7m0o0aHKmSNGvTNC9ks3fSjYUk
- 7JX3f06iGcOGVCs5JykMik2BHnHBMkcI7NEpHKF/KFaCH23Ine3l7KHLlIURq1tHIP1c
- mDZSd5TRX4z3x8yB6m49OQQ4VoOXFK71XCEWk6eXJxsg9NeVp3gn548XYpZwEkq0BkLx
- WG01PjvE77+wfO17Gcqa2EwzIaeIbSpU6eTTjqA4B42QgaAguDjqlmhhP7AgXHwv4Zyb
- sIAOI68/l/uQsIugeW9PnDPkcZdcypHwAmX/AGpw7IrwAZTnlMsG/fOVMwUufStacE5V
- 6Zhg==
-X-Gm-Message-State: AOAM531RHhE6XTmeEvSIb1HzsPgrCWpU1zzsJQBAtRwE8t7ODUmbBnWj
- ufhMJb8cwtVbveTadSiEeTtofQ6ET363pQqChzN2Fg==
-X-Google-Smtp-Source: ABdhPJwLbao9WFaQdiGJv2wYaNKj8k6RDnblWi/hAB5gNFVbpewGpl4rG7BA1b7ls29sF5sPrfURUcFhGOFD2RBLYOc=
-X-Received: by 2002:a37:6c42:: with SMTP id h63mr12252558qkc.243.1634341996982; 
- Fri, 15 Oct 2021 16:53:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B066F6E41A;
+	Sat, 16 Oct 2021 08:25:16 +0000 (UTC)
+Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF7A46E419;
+ Sat, 16 Oct 2021 08:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
+ t=1634372706; bh=yZzgPykl4Bs+bjn8VyGJS4/uveNfNvHA1+ZdWhCtElE=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To;
+ b=wWMsPosvxYC0hUTuNskQtjaK4A0OSCkYJLfNsRREaPprBWK5/hFofHtPAM+pf+mFw
+ A8v6EwrivfPxjx2zz5g7sjcn2k6+1RMH1RIDAtESrMwq18LSo8OpckCitXvzPsCyeF
+ 7Lyg0wwMrnehjqaNydEV5nmunSRisHnMLDQjhizo=
+Received: by b-2.in.mailobj.net [192.168.90.12] with ESMTP
+ via ip-206.mailobj.net [213.182.55.206]
+ Sat, 16 Oct 2021 10:25:06 +0200 (CEST)
+X-EA-Auth: NRS5ipq4PdTt+JAH6bHxz4H2hBw4isFILYBvQU7UNrUFLZTxbjQJHTD8I+F5D0UsnPjvvuhUpwJExaACHSHoV/oeR/31d9wx
+Date: Sat, 16 Oct 2021 10:25:03 +0200
+From: Claudio Suarez <cssk@net-c.es>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
+ Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
+Subject: Re: [Freedreno] [PATCH 01/15] gpu/drm: make drm_add_edid_modes()
+ consistent when updating connector->display_info
+Message-ID: <YWqMX+EOjk++HPOe@gineta.localdomain>
+References: <20211015113713.630119-1-cssk@net-c.es>
+ <20211015113713.630119-2-cssk@net-c.es>
+ <YWluAX6LA2DupE+E@intel.com> <YWnVVoCipTXxx8NW@gineta.localdomain>
+ <YWnXierh4TSXpDMc@intel.com>
 MIME-Version: 1.0
-References: <20211015184332.221091-1-agustin.gutierrez@amd.com>
- <20211015184332.221091-17-agustin.gutierrez@amd.com>
-In-Reply-To: <20211015184332.221091-17-agustin.gutierrez@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Sat, 16 Oct 2021 00:53:05 +0100
-Message-ID: <CAHbf0-HyA2EPHq74e_oq_X1bbSd9-uNwuX6aWYjf7Hz3UYTx3Q@mail.gmail.com>
-Subject: Re: [PATCH 16/27] drm/amd/display: increase Z9 latency to workaround
- underflow in Z9
-To: Agustin Gutierrez <agustin.gutierrez@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Harry Wentland <Harry.Wentland@amd.com>, 
- Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Rodrigo.Siqueira@amd.com, 
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, qingqing.zhuo@amd.com, 
- "Lipski, Mikita" <mikita.lipski@amd.com>, Roman Li <roman.li@amd.com>,
- Anson.Jacob@amd.com, 
- Wayne Lin <wayne.lin@amd.com>, stylon.wang@amd.com, solomon.chiu@amd.com, 
- pavle.kotarac@amd.com, Eric Yang <Eric.Yang2@amd.com>, 
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YWnXierh4TSXpDMc@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,40 +78,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch seems to change z8 - not that I know what z8 or z9 are
+On Fri, Oct 15, 2021 at 10:33:29PM +0300, Ville Syrjälä wrote:
+> On Fri, Oct 15, 2021 at 09:24:06PM +0200, Claudio Suarez wrote:
+> > On Fri, Oct 15, 2021 at 03:03:13PM +0300, Ville Syrjälä wrote:
+> > > On Fri, Oct 15, 2021 at 01:36:59PM +0200, Claudio Suarez wrote:
+> > > > According to the documentation, drm_add_edid_modes
+> > > > "... Also fills out the &drm_display_info structure and ELD in @connector
+> > > > with any information which can be derived from the edid."
+> > > > 
+> > > > drm_add_edid_modes accepts a struct edid *edid parameter which may have a
+> > > > value or may be null. When it is not null, connector->display_info and
+> > > > connector->eld are updated according to the edid. When edid=NULL, only
+> > > > connector->eld is reset. Reset connector->display_info to be consistent
+> > > > and accurate.
+> > > > 
+> > > > Signed-off-by: Claudio Suarez <cssk@net-c.es>
+> > > > ---
+> > > >  drivers/gpu/drm/drm_edid.c | 2 ++
+> > > >  1 file changed, 2 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> > > > index 6325877c5fd6..6cbe09b2357c 100644
+> > > > --- a/drivers/gpu/drm/drm_edid.c
+> > > > +++ b/drivers/gpu/drm/drm_edid.c
+> > > > @@ -5358,10 +5358,12 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+> > > >  
+> > > >  	if (edid == NULL) {
+> > > >  		clear_eld(connector);
+> > > > +		drm_reset_display_info(connector);
+> > > >  		return 0;
+> > > >  	}
+> > > >  	if (!drm_edid_is_valid(edid)) {
+> > > >  		clear_eld(connector);
+> > > > +		drm_reset_display_info(connector);
+> > > 
+> > > Looks easier if you pull both of those out from these branches and
+> > > just call them unconditionally at the start.
+> > 
+> > After looking at the full code, I am not sure. This is the code:
+> > ==================
+> > int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+> > {
+> >         int num_modes = 0;
+> >         u32 quirks;
+> > 
+> >         if (edid == NULL) {
+> >                 clear_eld(connector);
+> >                 drm_reset_display_info(connector); <--- added by me
+> >                 return 0;
+> >         }
+> >         if (!drm_edid_is_valid(edid)) {
+> >                 clear_eld(connector);
+> >                 drm_reset_display_info(connector); <--- added by me
+> >                 drm_warn(connector->dev, "%s: EDID invalid.\n",
+> >                          connector->name);
+> >                 return 0;
+> >         }
+> > 
+> >         drm_edid_to_eld(connector, edid);
+> > 
+> >         quirks = drm_add_display_info(connector, edid);
+> > 	etc...
+> > =================
+> > 
+> > If we move those out of these branches and edid != NULL, we are executing an
+> > unnecessary clear_eld(connector) and an unnecessary drm_reset_display_info(connector)
+> > because the fields will be set in the next drm_edid_to_eld(connector, edid) and
+> > drm_add_display_info(connector, edid)
+> > 
+> > Do we want this ?
+> 
+> Seems fine by me. And maybe we could nuke the second
+> drm_reset_display_info() from deeper inside drm_add_display_info()?
+> Not sure if drm_add_display_info() still has to be able to operate
+> standalone or not.
+> 
+> Hmm. Another option is to just move all these NULL/invalid edid
+> checks into drm_edid_to_eld() and drm_add_display_info().
 
-On Fri, 15 Oct 2021 at 19:44, Agustin Gutierrez
-<agustin.gutierrez@amd.com> wrote:
->
-> From: Eric Yang <Eric.Yang2@amd.com>
->
-> [Why]
-> Z9 latency is higher than when we originally tuned the watermark
-> parameters, causing underflow. Increasing the value until the latency
-> issues is resolved.
->
-> Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-> Acked-by: Agustin Gutierrez Sanchez <agustin.gutierrez@amd.com>
-> Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> index c9d3d691f4c6..12ebd9f8912f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> @@ -222,8 +222,8 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_1_soc = {
->         .num_states = 5,
->         .sr_exit_time_us = 9.0,
->         .sr_enter_plus_exit_time_us = 11.0,
-> -       .sr_exit_z8_time_us = 402.0,
-> -       .sr_enter_plus_exit_z8_time_us = 520.0,
-> +       .sr_exit_z8_time_us = 442.0,
-> +       .sr_enter_plus_exit_z8_time_us = 560.0,
->         .writeback_latency_us = 12.0,
->         .dram_channel_width_bytes = 4,
->         .round_trip_ping_latency_dcfclk_cycles = 106,
-> --
-> 2.25.1
->
+I was thinking about this. We can use a boolean variable:
+===============
+        bool edid_is_invalid;
+
+	edid_is_invalid = !drm_edid_is_valid(edid);
+
+        if (edid == NULL || edid_is_invalid) {
+                clear_eld(connector);
+                drm_reset_display_info(connector);
+                if (edid_is_invalid)
+                         drm_warn(connector->dev, "%s: EDID invalid.\n",
+                                  connector->name);
+                return 0;
+        }
+
+        drm_edid_to_eld(connector, edid);
+...
+===============
+Internally, drm_edid_is_valid() handles NULL pointers properly.
+It is a quite elegant solution with a small change in the original
+design, and it improves this part in the way you pointed out.
+
+Best regards,
+Claudio Suarez
+
+
+
