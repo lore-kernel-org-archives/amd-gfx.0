@@ -2,33 +2,33 @@ Return-Path: <SRS0=O5Im=PE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AFE2C433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 19:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3031C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 19:18:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6BE4760F56
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 19:18:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6BE4760F56
+	by mail.kernel.org (Postfix) with ESMTPS id BF7F060E98
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 19:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BF7F060E98
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 325E66E4EA;
-	Sat, 16 Oct 2021 19:18:20 +0000 (UTC)
-Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882236E4E3;
- Sat, 16 Oct 2021 19:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44A5B6E4A6;
+	Sat, 16 Oct 2021 19:18:32 +0000 (UTC)
+Received: from msg-6.mailo.com (ip-16.mailobj.net [213.182.54.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEFD36E4F4;
+ Sat, 16 Oct 2021 19:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1634409788; bh=fAZBlXdW20V7B6rubts4j3AhP0Cl8xUukv0+rRfZYFI=;
+ t=1634409871; bh=1/OydcnVwUBndNkWR/YOnashKy6VPirsEbA4L+EOJZ4=;
  h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding;
- b=ZM7Y0GmRm9+RsKEclLVGSTr/d/ZgqfZ5Kof6c/2+cRS0MIvU35pa1Vxk9+YRlMRpb
- H8Wt6jC/NRjVTtyNtKOL8gu0XNzjuEV2NEJtqajxhx9xwjBK1JLBFSmtzktqWu8gm2
- r/C+VTX3W2AUZRU+FNfWbTbkMNspw3z5iX1ifdfY=
-Received: by b-2.in.mailobj.net [192.168.90.12] with ESMTP
+ b=B+raApksCV4XRqSp/CLYivelmjavkNwNTYU3glC0Wkh/vSU/vSsj1/9suEmuxRRNT
+ gAyLMUD8ZKXgVUVE8NYDSHJ9eFo5ZxRyZmI2zQEc2G+5NiCQYeA7rzLA2pjNhxwetc
+ PxLfzkekLTPDpFCscTAhBTojzRJaLFUIrzG6d5hE=
+Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Sat, 16 Oct 2021 20:43:08 +0200 (CEST)
-X-EA-Auth: bMa72/rpZ8KA+zrHRU52NItHoBU81sC/gUx2aRv8jn8f9cT532jMh/ja7ZdIluXsIxxgfgWkRfj77mZEvqU0+BT6X67qVtWf
+ Sat, 16 Oct 2021 20:44:05 +0200 (CEST)
+X-EA-Auth: H/qsRidbIT3KyEA1EBIFm5A01FGasDKWzj1hSWYlxZfFW7bFlONyivG9ZdF8Eyke822OO7m3noOUPyoxCYBst0C4EfHo4iWT
 From: Claudio Suarez <cssk@net-c.es>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
@@ -51,10 +51,10 @@ To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
  nouveau@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Cc: Claudio Suarez <cssk@net-c.es>
-Subject: [PATCH v2 05/13] drm/gma500: replace drm_detect_hdmi_monitor() with
+Subject: [PATCH v2 13/13] drm/i915: replace drm_detect_hdmi_monitor() with
  drm_display_info.is_hdmi
-Date: Sat, 16 Oct 2021 20:42:18 +0200
-Message-Id: <20211016184226.3862-6-cssk@net-c.es>
+Date: Sat, 16 Oct 2021 20:42:26 +0200
+Message-Id: <20211016184226.3862-14-cssk@net-c.es>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211016184226.3862-1-cssk@net-c.es>
 References: <20211016184226.3862-1-cssk@net-c.es>
@@ -77,54 +77,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Once EDID is parsed, the monitor HDMI support information is available
 through drm_display_info.is_hdmi. Retriving the same information with
 drm_detect_hdmi_monitor() is less efficient. Change to
-drm_display_info.is_hdmi
+drm_display_info.is_hdmi where possible.
+
+This is a TODO task in Documentation/gpu/todo.rst
 
 Signed-off-by: Claudio Suarez <cssk@net-c.es>
 ---
- drivers/gpu/drm/gma500/cdv_intel_hdmi.c | 3 ++-
- drivers/gpu/drm/gma500/psb_intel_sdvo.c | 6 ++++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/cdv_intel_hdmi.c b/drivers/gpu/drm/gma500/cdv_intel_hdmi.c
-index e525689f84f0..d9db5d52d52e 100644
---- a/drivers/gpu/drm/gma500/cdv_intel_hdmi.c
-+++ b/drivers/gpu/drm/gma500/cdv_intel_hdmi.c
-@@ -130,6 +130,7 @@ static enum drm_connector_status cdv_hdmi_detect(
- 	struct edid *edid = NULL;
- 	enum drm_connector_status status = connector_status_disconnected;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index b04685bb6439..008e5b0ba408 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2355,7 +2355,7 @@ intel_hdmi_set_edid(struct drm_connector *connector)
+ 	to_intel_connector(connector)->detect_edid = edid;
+ 	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
+ 		intel_hdmi->has_audio = drm_detect_monitor_audio(edid);
+-		intel_hdmi->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
++		intel_hdmi->has_hdmi_sink = connector->display_info.is_hdmi;
  
-+	/* This updates connector->display_info */
- 	edid = drm_get_edid(connector, &gma_encoder->i2c_bus->adapter);
- 
- 	hdmi_priv->has_hdmi_sink = false;
-@@ -138,7 +139,7 @@ static enum drm_connector_status cdv_hdmi_detect(
+ 		connected = true;
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 6cb27599ea03..b4065e4df644 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -2060,8 +2060,9 @@ intel_sdvo_tmds_sink_detect(struct drm_connector *connector)
  		if (edid->input & DRM_EDID_INPUT_DIGITAL) {
  			status = connector_status_connected;
- 			hdmi_priv->has_hdmi_sink =
--						drm_detect_hdmi_monitor(edid);
-+						connector->display_info.is_hdmi;
- 			hdmi_priv->has_hdmi_audio =
- 						drm_detect_monitor_audio(edid);
- 		}
-diff --git a/drivers/gpu/drm/gma500/psb_intel_sdvo.c b/drivers/gpu/drm/gma500/psb_intel_sdvo.c
-index 355da2856389..5ef49d17de98 100644
---- a/drivers/gpu/drm/gma500/psb_intel_sdvo.c
-+++ b/drivers/gpu/drm/gma500/psb_intel_sdvo.c
-@@ -1266,8 +1266,10 @@ psb_intel_sdvo_hdmi_sink_detect(struct drm_connector *connector)
- 		if (edid->input & DRM_EDID_INPUT_DIGITAL) {
- 			status = connector_status_connected;
- 			if (psb_intel_sdvo->is_hdmi) {
--				psb_intel_sdvo->has_hdmi_monitor = drm_detect_hdmi_monitor(edid);
--				psb_intel_sdvo->has_hdmi_audio = drm_detect_monitor_audio(edid);
-+				psb_intel_sdvo->has_hdmi_monitor =
-+						connector->display_info.is_hdmi;
-+				psb_intel_sdvo->has_hdmi_audio =
-+						drm_detect_monitor_audio(edid);
+ 			if (intel_sdvo_connector->is_hdmi) {
+-				intel_sdvo->has_hdmi_monitor = drm_detect_hdmi_monitor(edid);
+ 				intel_sdvo->has_hdmi_audio = drm_detect_monitor_audio(edid);
++				intel_sdvo->has_hdmi_monitor =
++							    connector->display_info.is_hdmi;
  			}
  		} else
  			status = connector_status_disconnected;
 -- 
 2.33.0
-
 
 
