@@ -1,63 +1,44 @@
-Return-Path: <SRS0=O5Im=PE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=QO8y=PF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51D59C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 19:18:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79ECCC433EF
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Oct 2021 11:35:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 240EB60F35
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Oct 2021 19:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 240EB60F35
+	by mail.kernel.org (Postfix) with ESMTPS id 17B9760F46
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Oct 2021 11:35:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 17B9760F46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8FDB6E4FB;
-	Sat, 16 Oct 2021 19:18:36 +0000 (UTC)
-Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 150336E4DD;
- Sat, 16 Oct 2021 19:18:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76DE46E5CE;
+	Sun, 17 Oct 2021 11:35:08 +0000 (UTC)
+Received: from msg-6.mailo.com (ip-16.mailobj.net [213.182.54.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96C0C6E7D2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 17 Oct 2021 11:35:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1634409817; bh=ZmCRcmXfOn4brch3sFsuOuXp9yHp219e3PYR0mVapZM=;
+ t=1634470504; bh=9aYpAk8ke5yNrj/XbYquYFYv/cvOLiIapCejGUA4C8c=;
  h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding;
- b=rljxmyj0IrzWjJEZhtHkuZ5kKfyDeKlD2uPtd0sZ5b8xYuXy8yFNMSY/sTJFdIciy
- cTJ4G5MWFK7WsnC/M+h+OE4jDJn4o60mSnKW5stzmme9KeLcYpvtJeUEc3jYjLJJFU
- nE6iF+Zlu+eDNaM/eM2d5hgF8uPwvXCSYczoFeq8=
+ b=TeZt608ysPGw56pk5ZvFBD5P8YWwFKB96ijP+nu5P5Qx03yUWwrjS/KcbuCWiBhMK
+ L7muZjwh4xTrJG0o59H0DuMyOyGXdh77WWycWhxgig2Ng2r1oFak6MKwCTASnUl/Fq
+ 9u5Kmi50q54nzwBGkOPF4zg/WZiQooSQt9XFtQ90=
 Received: by b-2.in.mailobj.net [192.168.90.12] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Sat, 16 Oct 2021 20:43:34 +0200 (CEST)
-X-EA-Auth: IbIiNW/0NCb1fjsuAO9oo//00h6X9/vtgHnLMRK0Dh+QuhMgo9s3GIoWiwDVwcp8NHt0WzykDFkyFO31LEaRnzjiuVzewoCp
+ Sun, 17 Oct 2021 13:35:04 +0200 (CEST)
+X-EA-Auth: wy6VgHX5gh6YhrFNZ00BAtN1quAqs2R6zRL/x+94NHsqtyyEGljMqp3hnjz5KRQrwK3BBziEWHvgagHplhs0WWkMjN9fakuy
 From: Claudio Suarez <cssk@net-c.es>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
- nouveau@lists.freedesktop.org, ville.syrjala@linux.intel.com
+To: amd-gfx@lists.freedesktop.org
 Cc: Claudio Suarez <cssk@net-c.es>
-Subject: [PATCH v2 08/13] drm/sun4i: replace drm_detect_hdmi_monitor() with
- drm_display_info.is_hdmi
-Date: Sat, 16 Oct 2021 20:42:21 +0200
-Message-Id: <20211016184226.3862-9-cssk@net-c.es>
+Subject: [PATCH 2/3] drm/amdgpu: use drm_edid_get_monitor_name() instead of
+ duplicating the code
+Date: Sun, 17 Oct 2021 13:34:59 +0200
+Message-Id: <20211017113500.7033-3-cssk@net-c.es>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211016184226.3862-1-cssk@net-c.es>
-References: <20211016184226.3862-1-cssk@net-c.es>
+In-Reply-To: <20211017113500.7033-1-cssk@net-c.es>
+References: <20211017113500.7033-1-cssk@net-c.es>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,35 +55,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Once EDID is parsed, the monitor HDMI support information is available
-through drm_display_info.is_hdmi. Retriving the same information with
-drm_detect_hdmi_monitor() is less efficient. Change to
-drm_display_info.is_hdmi
+Use drm_edid_get_monitor_name() instead of duplicating the code that
+parses the EDID in dm_helpers_parse_edid_caps()
 
 Signed-off-by: Claudio Suarez <cssk@net-c.es>
 ---
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-index 2f2c9f0a1071..f57bedbbeeb8 100644
---- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-@@ -215,11 +215,11 @@ static int sun4i_hdmi_get_modes(struct drm_connector *connector)
- 	if (!edid)
- 		return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 6fee12c91ef5..bc58ee29306a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -59,7 +59,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	int sad_count = -1;
+ 	int sadb_count = -1;
+ 	int i = 0;
+-	int j = 0;
+ 	uint8_t *sadb = NULL;
  
--	hdmi->hdmi_monitor = drm_detect_hdmi_monitor(edid);
-+	drm_connector_update_edid_property(connector, edid);
-+	hdmi->hdmi_monitor = connector->display_info.is_hdmi;
- 	DRM_DEBUG_DRIVER("Monitor is %s monitor\n",
- 			 hdmi->hdmi_monitor ? "an HDMI" : "a DVI");
+ 	enum dc_edid_status result = EDID_OK;
+@@ -78,20 +77,9 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	edid_caps->manufacture_week = edid_buf->mfg_week;
+ 	edid_caps->manufacture_year = edid_buf->mfg_year;
  
--	drm_connector_update_edid_property(connector, edid);
- 	cec_s_phys_addr_from_edid(hdmi->cec_adap, edid);
- 	ret = drm_add_edid_modes(connector, edid);
- 	kfree(edid);
+-	/* One of the four detailed_timings stores the monitor name. It's
+-	 * stored in an array of length 13. */
+-	for (i = 0; i < 4; i++) {
+-		if (edid_buf->detailed_timings[i].data.other_data.type == 0xfc) {
+-			while (j < 13 && edid_buf->detailed_timings[i].data.other_data.data.str.str[j]) {
+-				if (edid_buf->detailed_timings[i].data.other_data.data.str.str[j] == '\n')
+-					break;
+-
+-				edid_caps->display_name[j] =
+-					edid_buf->detailed_timings[i].data.other_data.data.str.str[j];
+-				j++;
+-			}
+-		}
+-	}
++	drm_edid_get_monitor_name(edid_buf,
++				  edid_caps->display_name,
++				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
+ 
+ 	edid_caps->edid_hdmi = drm_detect_hdmi_monitor(
+ 			(struct edid *) edid->raw_edid);
 -- 
 2.33.0
+
 
 
