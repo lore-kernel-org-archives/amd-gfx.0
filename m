@@ -2,94 +2,127 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 731C2C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 07:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81A1AC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 07:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09888611EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 07:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 09888611EF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	by mail.kernel.org (Postfix) with ESMTPS id 4BE976136F
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 07:43:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4BE976136F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D27A6E8A6;
-	Tue, 19 Oct 2021 07:33:31 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5119E6EA9A
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Oct 2021 23:06:17 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id w8so16745789qts.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Oct 2021 16:06:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=t13jy1xQQB0gmrT1NW6zHUJeUfFTnWrh5vLufzqGSOo=;
- b=fs+pNVjSp3t08y/Qek5U1K5zYFVoFGvNZNYlFKrOzb5uFIcN616uN4ceFhbswCQe7X
- GUI/334ZkDOCYAG+JpNB9RdhrVATD0hQUjfxnS5ctmLY2ZenBoqQuwH76SRvkXdP3cM+
- Qj0Fbzxqk/1FraNlERd968zbnq2JTCiCQ5CDO3Q9WlBmC+057YzLvNhj4/rxypVAcP6J
- rQjumGXPcmEExt0Lzf/PYTPfWRlJ1vp+BUyWiM8N59qwmvNjm9ZC55jAARqDBFWT2HWZ
- 3jklaTYrhAgcwaVE5TpN3HHyWJ9JCIz/QYjAgjghO3lQCIQG8A268X/1sctoDSt10rLN
- uwfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=t13jy1xQQB0gmrT1NW6zHUJeUfFTnWrh5vLufzqGSOo=;
- b=aWG0JQDXrZ+4SSj2HnlvgNWdBTwg62z2/6ohXDeeqiohNK0FwCmQ5eQbChp3VeNAN8
- DBlEw0d8q7+SWE4EVQqWXDGlIeWl4PGwvXQIrGMp8Hs20MeeCO9OQra9NYvAPNDP8cQy
- JR7g2hlMCsN5GtVpouk7fjm1FCx+A5tY3GQBTzovuHWZZ2pqnknSgxLORuJwPveqVf9y
- XJsdsIbPZVdhRzeVC8786rPbcsQR9qO/0If+TjDo24kBCdyZ0H7fL2YFqk4qoUW20t3T
- 5FzjkKo+Z3dMolAblbSQGhEzHNsZAUwl5FflRhjacz+qSuAT9hE3JfCkXy4ogijosVBd
- i9eQ==
-X-Gm-Message-State: AOAM532iTaBy+cvL2ink1Hz2aKdiZSI5RCSLt6crouklZxOfSUri2I/J
- 24BiP3QrBc43xCQ9MENwYEwrEw==
-X-Google-Smtp-Source: ABdhPJwMWFSkjHgN749nnHNdzV4ycZUrAg1Cl3jWHBuFmRmB/uqZm1f8+nVTShmwK2hP+IrC5sCFZQ==
-X-Received: by 2002:ac8:5755:: with SMTP id 21mr32075024qtx.353.1634598376340; 
- Mon, 18 Oct 2021 16:06:16 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-113-129.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.113.129])
- by smtp.gmail.com with ESMTPSA id e16sm6723324qkl.108.2021.10.18.16.06.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Oct 2021 16:06:15 -0700 (PDT)
-Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
- id 1mcbhu-00GP5O-UW; Mon, 18 Oct 2021 20:06:14 -0300
-Date: Mon, 18 Oct 2021 20:06:14 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Dan Williams <dan.j.williams@intel.com>
-Cc: Matthew Wilcox <willy@infradead.org>, Alex Sierra <alex.sierra@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>, Linux MM <linux-mm@kvack.org>,
- Ralph Campbell <rcampbell@nvidia.com>,
- linux-ext4 <linux-ext4@vger.kernel.org>,
- linux-xfs <linux-xfs@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Christoph Hellwig <hch@lst.de>,
- =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
- Linux NVDIMM <nvdimm@lists.linux.dev>,
- David Hildenbrand <david@redhat.com>,
- Joao Martins <joao.m.martins@oracle.com>
-Subject: Re: [PATCH v1 2/2] mm: remove extra ZONE_DEVICE struct page refcount
-Message-ID: <20211018230614.GF3686969@ziepe.ca>
-References: <20211014153928.16805-3-alex.sierra@amd.com>
- <20211014170634.GV2744544@nvidia.com>
- <YWh6PL7nvh4DqXCI@casper.infradead.org>
- <CAPcyv4hBdSwdtG6Hnx9mDsRXiPMyhNH=4hDuv8JZ+U+Jj4RUWg@mail.gmail.com>
- <20211014230606.GZ2744544@nvidia.com>
- <CAPcyv4hC4qxbO46hp=XBpDaVbeh=qdY6TgvacXRprQ55Qwe-Dg@mail.gmail.com>
- <20211016154450.GJ2744544@nvidia.com>
- <CAPcyv4j0kHREAOG6_07E2foz6e4FP8D72mZXH6ivsiUBu_8c6g@mail.gmail.com>
- <20211018182559.GC3686969@ziepe.ca>
- <CAPcyv4jvZjeMcKLVuOEQ_gXRd87i3NUX5D=MmsJ++rWafnK-NQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB1E66EB3B;
+	Tue, 19 Oct 2021 07:43:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2064.outbound.protection.outlook.com [40.107.236.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACD486EB3B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 07:43:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Lhw42YvG7Whk6i2SMk937GEYtbH9nTGPEN+nDtU5UJHSxPnFQZ9XY+60gDyWSDorO6AU+2Sv4i/5RYB5cBD3GrAMzLblmB8lAxt4YtLAo7H/dhvW4SyJweBuNH1LIW3zdciW0J/pvYbg0PS7kaA7oume9nx2njSD9PRVS0f83m6O4gmHk7qJuaK6SYuFRo4hkSb5N6ZsjXnlY4Yuus8GLUejGMV3hjBeGStbiIR442TXbRaSeuWwzGxHYcEIoYtb/oudT2QqWaB45F8SdJ7aWPRZMnFXPKetpR0t6oHWp9mYRFgkQa0Ssz6/xzt6o5Sn+VpWPsb+FFwUhrCMyaVcLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h36stZM+JZu9kCJ6Qz66jfUCbOzoHO3jea3xwM7wa+U=;
+ b=hNODUJzKogDaFa8Ndp8NnD0ho+E3RAUtWAXZ4v+JLZgzWFY1wbOmW72MoJiB9icnyath3he4rl1WlliLvjiUEcQ1qY5TF1vEh1hICfb3hGjmJrs0hlpSCBjLxOz7E8HNA8UoJjXsNoQZnnkrkofJIMmY/YU15wcFPvws5M8f3DLfAFmQ0GvSALPzZE/jFaNaKueqeGx6Gygyk8TAYaYD34NpIBrDskQEgP7GmViG0wgR6WElQzpqUL0GluFODAnH7co+mEBkRideg9dI+ctmoFdUv1wuMqRil4onylsya32KnHBEZWuVApVIWiwgAYvOqDenopiqRNvi1bq0m6uUPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h36stZM+JZu9kCJ6Qz66jfUCbOzoHO3jea3xwM7wa+U=;
+ b=sQvoTg16U8ZH4YuOjSNQ/Hg00fFDxRWF4FIWUR7UM3BayrEo5IiRGu2jaKVyg6nSd30zBgyBnmrzMV2JjI/QDyUB1jgv+hBBpeUTY+vGNt/SE+CmFOSi3LmnKZaebx2LvfOmd0+o1b1vw+qnfxIbl59S9smRhKRSTfUC2jyZSI8=
+Authentication-Results: molgen.mpg.de; dkim=none (message not signed)
+ header.d=none;molgen.mpg.de; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Tue, 19 Oct
+ 2021 07:43:55 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::4447:dad4:f8e9:c5f3]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::4447:dad4:f8e9:c5f3%7]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
+ 07:43:55 +0000
+Message-ID: <6ce5dbce-fe8e-3535-d9c3-1a45e0fcb7f0@amd.com>
+Date: Tue, 19 Oct 2021 03:43:52 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.0.1
+From: Luben Tuikov <luben.tuikov@amd.com>
+Subject: Re: [PATCH 0/5] Remove 0 MHz as a valid current frequency (v4)
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Cc: amd-gfx@lists.freedesktop.org,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Tuikov, Luben" <Luben.Tuikov@amd.com>
+References: <20211018234913.42349-1-luben.tuikov@amd.com>
+ <a653a699-69a9-9671-4bfd-e02f3d22fc2f@molgen.mpg.de>
+Content-Language: en-CA
+In-Reply-To: <a653a699-69a9-9671-4bfd-e02f3d22fc2f@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0045.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::14) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPcyv4jvZjeMcKLVuOEQ_gXRd87i3NUX5D=MmsJ++rWafnK-NQ@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 19 Oct 2021 07:33:30 +0000
+Received: from [192.168.1.14] (135.23.225.238) by
+ YT1PR01CA0045.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.18 via Frontend Transport; Tue, 19 Oct 2021 07:43:54 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 645aa1e9-1e2b-46ad-c194-08d992d433c1
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2988:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB29886A579275F04C51B60BB799BD9@DM6PR12MB2988.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: w737YaZlIUMiU1KwotXiR6Bp2J1/UO0kNvAT/Oa4uYoPE/E8VTjhNBiW9Vt/vlgoRrF/1hi7RChBGAIkrNPiVuBZ+DgcoJgLQ3tO5FyuDxUPP27hDRf3AO3Nupxe4sw/kPRJUDyM3iYAfmWDb4z+r7qE6qvMATOX5EfyKNIPsnQRCAjckz1PAYMbaSFLJnDY+Q1iFWo4L1yv5ThZ+7fByjdgUaP8YG61ipOOCXvZX+0mDR+woDp2HecJxEiu/1LQgzJOV5cSJNnJT+neBVHaB9C6Snt7FZCZlJJElg6/21WE6LjHghIqYH6Go2FHZgXgVVe/mzUt6k3vR6N+aFCG3v2m1xGaaFUjgVFNzItzRednR40dKMQOUepTHzNqLr+Dy4/g/wfNBMJWDTlY9gV5IkIvsY0VJKAZY3pxP8mrwDGJxY7azoIlQ1jb5xRKhKjvZu+kQLSwSsy00DXM5dRUnPBqtxDDDrmew6eD4lMjshYuWmEUJ9pxZIj1KX6wIEAp+z854z+8lFwsDZeWX6oTkLbptQgtNmHcRdZlElRdFBd8iwAy7h5avPNnF2iOQZBnDTT+yH4Xk3zKkFPHvVmuKsw79UkI13kzgm99ZqdEBeyAcPFAm/iGYjusyoXERLifsQz9vEXYGCwuuk5Xm0iJDc+l0Rubn4P4N8bHR+ly0dcKdIRF3UBU1j6L+1nONpS2UXWUqr35SnsWLXqnZPAwqjmX4pl3+tFsRv3fDDbD8hDOe3KgzKUvgqDeJRtiu0Sf
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8676002)(38100700002)(8936002)(54906003)(36756003)(186003)(26005)(2906002)(4001150100001)(6916009)(44832011)(86362001)(83380400001)(4744005)(956004)(4326008)(6486002)(66556008)(31686004)(316002)(16576012)(31696002)(66476007)(508600001)(5660300002)(2616005)(53546011)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NElUQkF4cXVScldPSDV6clhuZkUyTit1Q1Z2RG12UEFDL1grODhEVk5vd0Jy?=
+ =?utf-8?B?SmJ5cG1PaTJ5eWVWNUxybjNKd0xNcGpIanlhV3V5Z0xYNmM5VG5JKzdBQ3ls?=
+ =?utf-8?B?aFVpdWZZZHdYbk8wV25mMjdtTTJWeTVmWEMzbkV6alRsd2Jjb0RCMmF3TXRR?=
+ =?utf-8?B?RElaUjN3UW12aFk5czhYNjVJQnpyR3JvZVRuZ3M4eFFtTmNZT1NLUmM1TVZu?=
+ =?utf-8?B?Q2JzZDZSbHVsOHRnVm9BN1ZtaHhyLzUzL3hoQmlWR3QyUkRac2Ftano5T1JW?=
+ =?utf-8?B?d3RZdHAwam5GTGU4SXFqcFhSQjQxMEJrNjNlcm00aFlhTFVHaG85SnNaTDQy?=
+ =?utf-8?B?dVUxYXZwWGYzbnhIUjcyQmR0SUIyZ3MvR3VVMUlYdFlnL0RSdDZFR21xWUtM?=
+ =?utf-8?B?ZUZubFpDRGdFK1NxUnlhQzFoS3FycWlma21jeVRySFFCcDZLMmJGR3drK1N0?=
+ =?utf-8?B?eU5OUFJxWlJPMVRxcFNyK0NxSXgrdFY1OEVaT1BGRGpMaHF3dGlmMm0vZG1S?=
+ =?utf-8?B?MFFnUXdRSlA4c3hQU2t3bTh5M2M3M0JONmZRMW1kZXhFSjBtRlF4UXFpZSti?=
+ =?utf-8?B?RFBXSFI5VWx5RmllU3NjMnZTMlc4S1pEZDg4UmcrOGI5U0tzQ0VnZkJmOXZD?=
+ =?utf-8?B?NVNiZ1BwR3ZVQ1Q4N21MTWhBVk9UWnc2TkNOb29BeFMvV0xTcHNXYWIyb1Rh?=
+ =?utf-8?B?M3V2UGZkRkpBUzdOWUtZb203WDBzM3JpK0RMSVZramFTemJJYUF6SXExOHdv?=
+ =?utf-8?B?WWs4UXBlZmsydFVHbGIreWErS1llV0hKOEVtaEd3OW1jZzBLNzNQVWdvdFY1?=
+ =?utf-8?B?dW9FcEdBVzNLTmdHcEFzMElGcjVSZkx0bG43alZFeGNmbjFra3JtMU1HcG9B?=
+ =?utf-8?B?emE5b0FlYTU2SmNwSzZrQnd2cTJpeW5CTzU4WUJ6NnhxTC9JN2liQzhGbWto?=
+ =?utf-8?B?cWdVRWc1cUJ1OE1HWFFuOWh4N0JMN1Z5V3JBNjRDd2tPeWxCMUJOMlJ0bE5v?=
+ =?utf-8?B?K3F5UGEzVGVJTWZMV1BGZWJQeWYxTXl3dmVZR2p5TkY3dDQ5QnI1ZmoyeDAx?=
+ =?utf-8?B?bEptN1JVL0pkU1d5bFF5WGNaWEQza0RqYW5tYXBVQ0Y0T3VaK3AvUWp5OXor?=
+ =?utf-8?B?OGU2M2hRTDlNS3JCallTU29MdXVkQXNJeWliZjE1bFE3VUp5aEJJeFcrcncy?=
+ =?utf-8?B?V25WRmhKQnZoYUF4VDdkMW5ScnhFejh2VktSSExVL3ZvZFAydDhqM2ZuMkVU?=
+ =?utf-8?B?QVo1MVBaMGY5YTI5Sll2Q0pMOFFVbCt3dG1paktaSkFoZWwwZnNZWC80eXRo?=
+ =?utf-8?B?Q2FZYmo5V2Zrc3lJNENWaW1tL0J3U0Zva1NaMUc5TmJRdDF0UmlvbHh1Tm54?=
+ =?utf-8?B?WkxQcU5mRjNEL2ZXNUo3VmtQZ2lvL2ZEdG1SQnpMN2xTay9zQTVzZmEzRzN6?=
+ =?utf-8?B?VnQ0WEo0aXR0am5EUFZqTVRpSWlSaERKZDkyZlpRU0Jkb25sRFAxYTczbzlP?=
+ =?utf-8?B?b2kwOS9QSHZQUkUycS9XUVp4eEFVRE9jTkFmbklkK0JZOUpiYmczQ2FXOGFN?=
+ =?utf-8?B?bWhtQ0RXUGM1djBGbjViY3VvOHNVNmQ0cXNrRzNKOFdQdGdNYWtxVnVQRTNq?=
+ =?utf-8?B?S0NpM0NPOXc2M1dpeXdvMHk3c0xjbkVwYVJSOVphaUFFZVlzTGxMelJSY1RC?=
+ =?utf-8?B?cWdwTS9hbHkvTU9HOVZWaThNd0J3ajE1QlJ5Wk93bGpmQXFBY21udEJJclBL?=
+ =?utf-8?Q?JqSEm7qzmnvNE4Fj5rhXFXCkPqGKS4o55yDzLOT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 645aa1e9-1e2b-46ad-c194-08d992d433c1
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 07:43:55.1182 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BpHpbycI7Z19HTXe9sUu+ERt1wa0PRDf49MRpRcvABXhtlqcxi5ffvRDrUyV1pK+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,118 +137,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 18, 2021 at 12:37:30PM -0700, Dan Williams wrote:
+On 2021-10-19 03:23, Paul Menzel wrote:
+> Dear Luben,
+>
+>
+> Sorry, two more style nits.
+>
+> 1.  Could you please use 75 characters per line for the text width of 
+> the commit messages. Currently, especially 4/5, are hard to read being 
+> so short.
 
-> > device-dax uses PUD, along with TTM, they are the only places. I'm not
-> > sure TTM is a real place though.
-> 
-> I was setting device-dax aside because it can use Joao's changes to
-> get compound-page support.
+This is the default we use--I've not made any changes to the wrap. git-log(1) indents the text by 4/8 chars and it looks better if the text doesn't roll past 75 chars per line in git-log.
+>
+> 2.  No idea, what is done in amd-gfx, but for me it is more common to 
+> put the iteration number (reroll count) in the PATCH tag in the 
+> beginning. No idea, how Patchwork deals with it.
 
-Ideally, but that ideas in that patch series have been floating around
-for a long time now..
- 
-> > As I understand things, something like FSDAX post-folio should
-> > generate maximal compound pages for extents in the page cache that are
-> > physically contiguous.
-> >
-> > A high order folio can be placed in any lower order in the page
-> > tables, so we never have to fracture it, unless the underlying page
-> > are moved around - which requires an unmap_mapping_range() cycle..
-> 
-> That would be useful to disconnect the compound-page size from the
-> page-table-entry installed for the page. However, don't we need
-> typical compound page fracturing in the near term until folios move
-> ahead?
+This is what we do in amd-gfx and particularly in amdgpu, so that the version of the patch is recorded in the title of the patch and in history.
 
-I do not know, just mindful not to get ahead of Matthew
- 
-> > > There are end users that would notice the PMD regression, and I think
-> > > FSDAX PMDs with proper compound page metadata is on the same order of
-> > > work as fixing the refcount.
-> >
-> > Hmm, I don't know.. I sketched out the refcount stuff and the code is
-> > OK but ugly and will add a conditional to some THP cases
-> 
-> That reminds me that there are several places that do:
-> 
-> pmd_devmap(pmd) || pmd_trans_huge(pmd)
+Regards,
+Luben
 
-I haven't tried to look at this yet. I did check that the pte_devmap()
-flag can be deleted, but this is more tricky.
+>
+>
+> Kind regards,
+>
+> Paul
 
-We have pmd_huge(), pmd_large(), pmd_devmap(), pmd_trans_huge(),
-pmd_leaf(), at least
-
-and I couldn't tell you today the subtle differences between all of
-these things on every arch :\
-
-AFAIK there should only be three case:
- - pmd points to a pte table
- - pmd is in the special hugetlb format
- - pmd points at something described by struct page(s)
-
-> ...for the common cases where a THP and DEVMAP page are equivalent,
-> but there are a few places where those paths are not shared when the
-> THP path expects that the page came from the page allocator. So while
-> DEVMAP is not needed in GUP after this conversion, there still needs
-> to be an audit of when THP needs to be careful of DAX mappings.
-
-Yes, it is a tricky job to do the full work, but I think in the end,
-'pmd points at something described by struct page(s)' is enough for
-all code to use is_zone_device_page() instead of a PTE bit or VMA flag
-to drive its logic.
-
-> > Here I imagine the thing that creates the pgmap would specify the
-> > policy it wants. In most cases the policy is tightly coupled to what
-> > the free function in the the provided dev_pagemap_ops does..
-> 
-> The thing that creates the pgmap is the device-driver, and
-> device-driver does not implement truncate or reclaim. It's not until
-> the FS mounts that the pgmap needs to start enforcing pin lifetime
-> guarantees.
-
-I am explaining this wrong, the immediate need is really 'should
-foll_longterm fail fast-gup to the slow path' and something like the
-nvdimm driver can just set that to 1 and rely on VMA flags to control
-what the slow path does - as is today.
-
-It is not as elegant as more flags in the pgmap, but it would get the
-job done with minimal fuss.
-
-Might be nice to either rely fully on VMA flags or fully on pgmap
-holder flags for FOLL_LONGTERM?
-
-> > Anyhow, I'm wondering on a way forward. There are many balls in the
-> > air, all linked:
-> >  - Joao's compound page support for device_dax and more
-> >  - Alex's DEVICE_COHERENT
-> 
-> I have not seen these patches.
-
-It is where this series came from. As DEVICE_COHERENT is focused on
-changing the migration code and, as I recall, the 1 == free thing
-complicated that enough that Christoph requested it be cleaned.
-
-> >  - The refcount normalization
-> >  - Removing the pgmap test from GUP
-> >  - Removing the need for the PUD/PMD/PTE special bit
-> >  - Removing the need for the PUD/PMD/PTE devmap bit
-> 
-> It's not clear that this anything but pure cleanup once the special
-> bit can be used for architectures that don't have devmap. Those same
-> archs presumably don't care about the THP collisions with DAX.
-
-I understood there was some community that was interested in DAX on
-other arches that don't have the PTE bits to spare, so this would be
-of interest to them?
-
-> Completing the DAX reflink work is in my near term goals and that
-> includes "shootdown for fsdax and removing the pgmap test from GUP",
-> but probably not in the order that "refcount normalization" folks
-> would prefer.
-
-Indeed, I don't think that will help many of the stuck items on the
-list move ahead.
-
-Jason
