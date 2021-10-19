@@ -2,126 +2,86 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2524C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 18:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36830C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 19:27:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A03F60F46
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 18:47:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6A03F60F46
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id E888261373
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 19:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E888261373
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2BC6E1D6;
-	Tue, 19 Oct 2021 18:47:13 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 087AA6E1D6
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 18:47:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gFMffqB+tvnYsMtBYT64bH+L+oGb0NG3T72D0hTFz2Wxqhi/fAmrJqD2UzL+nf6t8uvJRf87A/BWVWGlwo52TzpnOAHTtetRTZ7JHYtIDw5sohwSXD3H3k/iVWQdY9j+9m+rKHGEA6Jl1gGy3VYazQ72extNCHmidGc9KFRgdg6j47HoBt35u6HAyMv5OqOr69G21DtH+PuOqfl7+mQu3RWHROWfTp0OGN68XzmYQP1k0KyiEpZhNRFXJR430F1QHxVFZC3F1VNaPsqDAHoXVZghmIUBs4vCBB9A0n+ICcMMuy49OTWtKdb1oEB5FOetTBtGoWbRcd2mGlkJHF1OfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bVmM4Pc1kcYA9NmNCgumhPSDJWYNOhIjwQk73XetYJQ=;
- b=dA76VnkymtE86mHYRi0w5Bd2DM6RRz9zqly460qhIcqaO1ST5IoPK1JGNUgmVgz02HaYl8Kx7GsnrKpMa9UM03mOORyAdece0blEnwXO6dbnZj4tM1GURJkhtzPSQccLIHQOUnnx3H/mSpnIJx9485x4pay92dJV+o+HkfEIpc4zJ/6rxCRJcOBCmhCudhYg+WsGwsjzPZZD0eEPKbzUDi/RSFDg/AHhnsri+fF1+wXIeo6Dsyem9UJZTIF0Cfo4J7Huog8+5XXjS6m5GObUZHnT7B/av4py9wb5JA4IkI6ErJ3Nr6QbFedAfCitxD1ecSSjLu5bxt82mgNXKUPm3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bVmM4Pc1kcYA9NmNCgumhPSDJWYNOhIjwQk73XetYJQ=;
- b=lgKD1PnoUN0xpu2ueNTu75Y0xT6+oOf5DNTsSO6eVo8qJ7hfUOXdv9beTtkjkQE51cwqlQUB8LlP7lAHIBo+hh806v1vNwZokanfI6VgYcwFqqyXSIYIMCzsojj13xgY/MwDxYaTNUG7Vq9NKZeU1flTWGnr2tOLtbdyo6H5Zio=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
- by DM6PR12MB4777.namprd12.prod.outlook.com (2603:10b6:5:16f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Tue, 19 Oct
- 2021 18:47:07 +0000
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::4447:dad4:f8e9:c5f3]) by DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::4447:dad4:f8e9:c5f3%7]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
- 18:47:07 +0000
-Message-ID: <2ae6641d-2ec2-e330-b6e3-7d92a6b74d01@amd.com>
-Date: Tue, 19 Oct 2021 14:47:04 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.0.1
-Subject: Re: [PATCH 2/4] drm/amdgpu: Clarify error when hitting bad page
- threshold
-Content-Language: en-CA
-To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Mukul Joshi <Mukul.Joshi@amd.com>
-References: <20211019175050.934527-1-kent.russell@amd.com>
- <20211019175050.934527-2-kent.russell@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20211019175050.934527-2-kent.russell@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0029.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::34) To DM6PR12MB3962.namprd12.prod.outlook.com
- (2603:10b6:5:1ce::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7AD89F6D;
+	Tue, 19 Oct 2021 19:27:41 +0000 (UTC)
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72B2C6E87F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 19:21:19 +0000 (UTC)
+Received: by mail-pj1-x1030.google.com with SMTP id
+ ez7-20020a17090ae14700b001a132a1679bso699949pjb.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 12:21:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=A0ozvNXsQJNcX/pewDd9ckpqp0ETylCl5PX4CkgxTjA=;
+ b=dIpN/4YGGNH4r1EZENPOoUM36qbNMxX0AlEbDXR+QAUuWgDJulDqEi3wGiq/1+ers/
+ MtNK0sg7f9C/QkJyKAJlFRYKqMBrTfln8PJngSh8ITqopx0o8J1obkFmoFdux9294FXa
+ 0ool0au7ytqQW+k+FPfqnMPWwg5vnKGiVhNgNjwxlfxeranZOVIdAnN2DTdpI6wVKD3S
+ 78DmFolU0SXPPnnv6NF8puovRVgO1rRm/SJEGKuOaaGFJvzVcaTz85rlz8++NBOOAXd7
+ t/YIuxqKfUmA5B4vTl9lTDomRDwyKSQWYZDfBGBNdaXHm7+cgFxwO+idryj4IONEZqwU
+ vC2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=A0ozvNXsQJNcX/pewDd9ckpqp0ETylCl5PX4CkgxTjA=;
+ b=MCF1xVN4ch2DjTq1sVPo5EMF2Jj2GfnMz9Q4PkVJfmOu1isWeB8D0+qq6G64xAN6Hz
+ QSeHHpwMFkFRAU11YPb6IvWZXjFZHzc7CKR0c1PssZ8x8fNB0hfBYC8bbHFzp1o/8+yt
+ RggQ6N9pKGpC1rxWK46JlraBBsTsQwz1HZe1EA+vMK/xrfYJCrJDdFVXeU7pXH+GDFHa
+ MpASobF0Ob3H4Wbt7en2ojAk908fTJtIoBEBZmbwOfHTb8I06Owmrjw0BTFQcHb4h7hN
+ Slck+8jEOFcCXisKv1Jgaas5zjxKAPVyio2Vigu/ddKhekJ1pytsN/FX7JSsP5QJ3jar
+ Zy8w==
+X-Gm-Message-State: AOAM530VL5i78ZCXr2cU9coKuU5Jbqbvjp3IskH3s6WiXtsSjyQN8+DR
+ 214B06qNNtXghi2WymaAYmf1EkPc2YQnxGHNZpT+PA==
+X-Google-Smtp-Source: ABdhPJxnZNNxl4GB/nPoKZm/Jigqlqq+b5Yi5opJ2SeB60SRKWrnwAOzNK7EVcYCxhzXA3M9GeWcrmYdSBdgg3eEB9o=
+X-Received: by 2002:a17:90b:350f:: with SMTP id
+ ls15mr1918933pjb.220.1634671278933; 
+ Tue, 19 Oct 2021 12:21:18 -0700 (PDT)
 MIME-Version: 1.0
-Received: from [192.168.1.14] (135.23.225.238) by
- YT2PR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::34) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.15 via Frontend Transport; Tue, 19 Oct 2021 18:47:06 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b3790c4f-a82a-479f-cae7-08d99330d9aa
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4777:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4777F64052F2B97260A9DDA799BD9@DM6PR12MB4777.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Qgun1bvF/hxQShU/uhsJcQUZKjLwKOmgl4iu7hcPsvpJ2A5DdqXu6nhaNh09y5i4IBx0YOAe2ojY6wVV7kZIGAgn+/AaZ0wDPJhedZs+HjnddPSFA7Z91AcaBEZowdH+BEDRSqA2UVLGXLxJ5yQwWwzizpFUqtmiSqhIBE2dlmwf0/BHgAAooFS2dFngbLlbRwybMo/uTuS9Jifzgcfv2uOkeNbqZgJAtOfYuzK+q1/U/2jzBCc1sRB+CAwdIPA7IvOhjI93l9EVVoRapBKU+n27CmV5O3pvhHNx/NZHlQu+uRnWWRqYcZ6J7okTPSNsZCenI5sv5+enelRFBeRokTcXkmc1UU65c7Nib43m+4YUCbYME8kv64D9BFYRYuDV2eUOgFA1FhsTer75Yu2Aeo2vKf1VUHIrihIymHU1TU4CbiAXZ2QuUiFVZl6cQzPwApmPLRJTJ/yEdOqIhcoa0zuLdnAmvzo9MDowiXUJVdTFV5loAEkC/DJPGOATRm5izDe51y7K1KsLDVzrpf0D42GA/fjBhcvZaav7p+Idn8HmFj5Un6ZROwDlzFk1mt/1tjn+xFhYtbH7p2hM/2r3St7ccrgntlc8mOW1qmQrMd53KqA5fHoAyxDs6zH2xcUm7pFElGw9vwoaL/2xD39es3qO7uggLd7LR9L3yI1YWixbzi1RxAKmwhYHgGl1QVp7+AuaYCbEFkAypYmmUV2E8NnZnWarBcu5BuFsYssGB20=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31686004)(6486002)(8676002)(5660300002)(83380400001)(4001150100001)(53546011)(36756003)(4326008)(26005)(186003)(8936002)(38100700002)(66946007)(508600001)(16576012)(316002)(956004)(44832011)(66556008)(66476007)(2616005)(86362001)(31696002)(2906002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHRKQXZHZXR0VDE2WnRVb2QzUTZNNDdOckliSVN4aFUwMmsvTTFlYklMS0Ux?=
- =?utf-8?B?SjNDWnRpbE9rOEUxRWRaZUg4U1ViazRzNWw3NkhMRjVvaE1HWWF4UnExUUtj?=
- =?utf-8?B?RHpYLzIzL1NaU0h0dzcxQ0lOUUZpLzFjeUd4WGRKZFpEQ0JsdW5OdUw4U01K?=
- =?utf-8?B?RURaL0ZZbEh2bnRndGxlOWpzMWVWMis1NlA5bitBTnZ1UkVrZlRoVmtaTFN6?=
- =?utf-8?B?Z1hZQmtCOG5MckRYMlM3Z3dYaTRhcHNtRGJ3TnBwdW82YWwvQjZjWHBZczlo?=
- =?utf-8?B?aWkrb0daRk1JdEsvQVB6ZC9KSmdFUTZMTnBpMGVROUo4ZGNxMUZ0VjBHWEo2?=
- =?utf-8?B?WHRWSjdyak5vV2ROUG1DbHNjUGR3eVJlR3BTbGtxeW5KUytOYWRWL3pFN0Fw?=
- =?utf-8?B?NVUrMUZ2Y0V5djEwUkhZd2JvUUdkelJQRHNyNHFjSkR2QTV3NXlEL1VleFhj?=
- =?utf-8?B?SHZsbTF0RnJWTE10K2VuMXlDb2tlU2o1T1BQQkRnZzVwNHVpNDY1NldZRXBD?=
- =?utf-8?B?Q3hpc3BuREIxc0lpSUdmVm96b0kyTk5ZS1g4dWVhRm5zSUJKRUhsT3JrZGg4?=
- =?utf-8?B?NlR0RDlnT0crZ2tMZ3RPSkpQdUxuTHF4cHNhMitYVTNZVjFHOE1FcGg5amNI?=
- =?utf-8?B?UFBaMFdLaU52WGdWWkxrd2tJbkNOQTF6amNKKzRZTERYbzA5aU04SThxOUo4?=
- =?utf-8?B?MGtNODZERlJKQSttdm1hMnZiR2ZiZmduU2EzbEY3MGFnbk1BUVBGVEVWYlJt?=
- =?utf-8?B?Z2h5VzlJQjluam5lUTRHTUtDY1RhQ2VOR3M2a25rYThQTUNCZnkyWUpkV2V0?=
- =?utf-8?B?QnFUMTl5Nm1nejNpekZ3cXYzVUNHc3FpNFFTTE0vOFVGVzErWUUzRGozVDcv?=
- =?utf-8?B?RTZBUDhiZ2JVY3FJYmRYNUxrQ3BKbktPc2llZk5ieU1xcDlJcUliNnplTVgv?=
- =?utf-8?B?WmpaNHdPYnlIS09wTDBoS2xjWHZZZXZ2UEVWN3NFUHBqYlJzMFJYZVZudGpi?=
- =?utf-8?B?a2psZ25Va0ZYWEpsYW1BVURNQUV2RUo1RHdqRk9sUWo4SUpyTU1uSm1OVUZi?=
- =?utf-8?B?UHVkSE5BWGpFbTc4TGdyVDliN2x0ZkU5cS9zeHJ5WDJPVmJqeFhBU09CeVBh?=
- =?utf-8?B?aDlqQTlzZUJWZDl3akh5Z2FBdzNScjhEc1pUMko3ZEhVRkJMeDVRcGlydVdx?=
- =?utf-8?B?WkFYd0c2Y01tbEQwMVpyZjdDWjlxNzdFQXAvQUVDV2JOUXlxZ2IvWis5aDZQ?=
- =?utf-8?B?TnliSDBKbnUwRDAyTnFISzF5Wm45NmpLK3NZMUlkWHRxS2pTbURTUUZUQTdR?=
- =?utf-8?B?cEllZXVwRXZ1VVJPL251cmo3dklUcFhUeVRJT1lMV2ZETmlnQ08wZEVpaTM1?=
- =?utf-8?B?aWFBWnZkY3hQaVJJMjI3WGhRQ2x0UTlVNFlSU3hHbnI2TXFIbEZnQ09hTWEz?=
- =?utf-8?B?dnBqY29NZWhHK3dvSWVSd0dwWlhTcE82YkVqNFpTdENZN1phcUFzdXg5NlBh?=
- =?utf-8?B?a3JMZFNjZTY2ZmxFLzFFQ09UY1BrOTZSdGZYSXJuMFFSS0tjZnR4TTk5NmRL?=
- =?utf-8?B?US95aXNhZi9yVzBEUWZkMGFSY2U0VFA3VWJtSzlLZUQwdFU4TDNXeCtBekdC?=
- =?utf-8?B?MGVjb3g0Zk5reGtnWjhVK3FKS1Nua216bklmQjlIU25oOGVjYmRFRGFONmk5?=
- =?utf-8?B?ckhEaVVwWFVFZjVFU21rMHhNeXFGOFFHeC9OWGU1akc3WG5nZ0Ruak1rUW0w?=
- =?utf-8?Q?C4UTsHfmOpJWsWhbsQaINMQaX0lEAIIOZM78QJq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3790c4f-a82a-479f-cae7-08d99330d9aa
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 18:47:07.0517 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V4JDFMOCX1TEoAwiJ40t/bzZv9H7H0/T2CT1frHvizWe/onKmc5Lt0bCoal8u0rX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4777
+References: <YWh6PL7nvh4DqXCI@casper.infradead.org>
+ <CAPcyv4hBdSwdtG6Hnx9mDsRXiPMyhNH=4hDuv8JZ+U+Jj4RUWg@mail.gmail.com>
+ <20211014230606.GZ2744544@nvidia.com>
+ <CAPcyv4hC4qxbO46hp=XBpDaVbeh=qdY6TgvacXRprQ55Qwe-Dg@mail.gmail.com>
+ <20211016154450.GJ2744544@nvidia.com>
+ <CAPcyv4j0kHREAOG6_07E2foz6e4FP8D72mZXH6ivsiUBu_8c6g@mail.gmail.com>
+ <20211018182559.GC3686969@ziepe.ca>
+ <CAPcyv4jvZjeMcKLVuOEQ_gXRd87i3NUX5D=MmsJ++rWafnK-NQ@mail.gmail.com>
+ <20211018230614.GF3686969@ziepe.ca>
+ <499043a0-b3d8-7a42-4aee-84b81f5b633f@oracle.com>
+ <20211019160136.GH3686969@ziepe.ca>
+In-Reply-To: <20211019160136.GH3686969@ziepe.ca>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Tue, 19 Oct 2021 12:21:09 -0700
+Message-ID: <CAPcyv4gmvxi5tpT+xgxPLMPGZiLqKsft_5PzpMQZ-aCvwpbCvw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] mm: remove extra ZONE_DEVICE struct page refcount
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joao Martins <joao.m.martins@oracle.com>,
+ Matthew Wilcox <willy@infradead.org>, 
+ Alex Sierra <alex.sierra@amd.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>, Linux MM <linux-mm@kvack.org>, 
+ Ralph Campbell <rcampbell@nvidia.com>, linux-ext4 <linux-ext4@vger.kernel.org>,
+ linux-xfs <linux-xfs@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Christoph Hellwig <hch@lst.de>, 
+ =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, 
+ Alistair Popple <apopple@nvidia.com>, Vishal Verma <vishal.l.verma@intel.com>, 
+ Dave Jiang <dave.jiang@intel.com>, Linux NVDIMM <nvdimm@lists.linux.dev>, 
+ David Hildenbrand <david@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 19 Oct 2021 19:27:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,33 +96,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
-
-Regards,
-Luben
-
-On 2021-10-19 13:50, Kent Russell wrote:
-> Change the error message when the bad_page_threshold is reached,
-> explicitly stating that the GPU will not be initialized.
+On Tue, Oct 19, 2021 at 9:02 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
 >
-> Cc: Luben Tuikov <luben.tuikov@amd.com>
-> Cc: Mukul Joshi <Mukul.Joshi@amd.com>
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> On Tue, Oct 19, 2021 at 04:13:34PM +0100, Joao Martins wrote:
+> > On 10/19/21 00:06, Jason Gunthorpe wrote:
+> > > On Mon, Oct 18, 2021 at 12:37:30PM -0700, Dan Williams wrote:
+> > >
+> > >>> device-dax uses PUD, along with TTM, they are the only places. I'm not
+> > >>> sure TTM is a real place though.
+> > >>
+> > >> I was setting device-dax aside because it can use Joao's changes to
+> > >> get compound-page support.
+> > >
+> > > Ideally, but that ideas in that patch series have been floating around
+> > > for a long time now..
+> > >
+> > The current status of the series misses a Rb on patches 6,7,10,12-14.
+> > Well, patch 8 too should now drop its tag, considering the latest
+> > discussion.
+> >
+> > If it helps moving things forward I could split my series further into:
+> >
+> > 1) the compound page introduction (patches 1-7) of my aforementioned series
+> > 2) vmemmap deduplication for memory gains (patches 9-14)
+> > 3) gup improvements (patch 8 and gup-slow improvements)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> index 8270aad23a06..7bb506a0ebd6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> @@ -1111,7 +1111,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
->  			*exceed_err_limit = true;
->  			dev_err(adev->dev,
->  				"RAS records:%d exceed threshold:%d, "
-> -				"maybe retire this GPU?",
-> +				"GPU will not be initialized. Replace this GPU or increase the threshold",
->  				control->ras_num_recs, ras->bad_page_cnt_threshold);
->  		}
->  	} else {
+> I would split it, yes..
+>
+> I think we can see a general consensus that making compound_head/etc
+> work consistently with how THP uses it will provide value and
+> opportunity for optimization going forward.
+>
+> > Whats the benefit between preventing longterm at start
+> > versus only after mounting the filesystem? Or is the intended future purpose
+> > to pass more context into an holder potential future callback e.g. nack longterm
+> > pins on a page basis?
+>
+> I understood Dan's remark that the device-dax path allows
+> FOLL_LONGTERM and the FSDAX path does not ?
+>
+> Which, IIRC, today is signaled basd on vma properties and in all cases
+> fast-gup is denied.
 
+Yeah, I forgot that 7af75561e171 eliminated any possibility of
+longterm-gup-fast for device-dax, let's not disturb that status quo.
+
+> > Maybe we can start by at least not add any flags and just prevent
+> > FOLL_LONGTERM on fsdax -- which I guess was the original purpose of
+> > commit 7af75561e171 ("mm/gup: add FOLL_LONGTERM capability to GUP fast").
+> > This patch (which I can formally send) has a sketch of that (below scissors mark):
+> >
+> > https://lore.kernel.org/linux-mm/6a18179e-65f7-367d-89a9-d5162f10fef0@oracle.com/
+>
+> Yes, basically, whatever test we want for 'deny fast gup foll
+> longterm' is fine.
+>
+> Personally I'd like to see us move toward a set of flag specifying
+> each special behavior and not a collection of types that imply special
+> behaviors.
+>
+> Eg we have at least:
+>  - Block gup fast on foll_longterm
+>  - Capture the refcount ==1 and use the pgmap free hook
+>    (confusingly called page_is_devmap_managed())
+>  - Always use a swap entry
+>  - page->index/mapping are used in the usual file based way?
+>
+> Probably more things..
+
+Yes, agree with the principle of reducing type-implied special casing.
