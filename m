@@ -2,127 +2,124 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25F39C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 03:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A71EC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 03:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD7D560F9E
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 03:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AD7D560F9E
+	by mail.kernel.org (Postfix) with ESMTPS id 3C08761207
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 03:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C08761207
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9946E12C;
-	Tue, 19 Oct 2021 03:39:10 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2043.outbound.protection.outlook.com [40.107.102.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF81A6E12C
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 03:39:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8F286E140;
+	Tue, 19 Oct 2021 03:53:29 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2070.outbound.protection.outlook.com [40.107.92.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF5F76E140
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 03:53:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BdaoseDWmREpSO21NNRbmSTVKciGrpsBC9b5Sjs7srHTWeWPPuSsR4Tctp4YTUTYwxjzQznaRYFgPIQ5KZB1R3vOWvwBDFwW/TubJpHsgL+tARN9eE86goUdwvuEf8KW+NntqhwCHqHGKDXLmfUtZHRG08CBGsAUg3BoXPynKVs7k5Z5FqEo0Yt/OKbe/yGyv/3O6xPmstsOU0YZ3g+N1yqWc921DteqmYj9tjgVQg1my8vG+A2LzAcA7xh63+NU78YAExj7lHj7VWNbBuIq8M7SDrnmPx5ZB1/2v8osbm+mnKuTy2cIQAGv6A4wEGdHlxVt8X3hdCMuK4xjokv06g==
+ b=UyoPe/U5hzBorTymHcQHzh6i6TTwrl1MZDtqQ9AK9RkuIxA+ZkFmgKzHQe7SgdQ0O4DHHORRlKDWPCbllFziwfuBB1J6/ZlUu+zvyzmJjAraXcscBPyl+tppKOErWuaRi5+WQv9L8kouDHNfAGi5nGHp8TESEhecwvx/SDFTscXn3Jq7fTMPwDd4bDutrJpE7NnyBXRimdegzgJ8mP4pkCeLJr2cfaJ0vIjDZk92+vPZcGvQIxpQ9HnS4CO/uqM2zzEx3Q+s2yIOt+wxzkBsOmcRwsskvR441mS+CBDCg8c51zQd/jwhuWTZ5ERENXKGix3ycXS/NpSIdBvLR5zQAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UHzps/eDS85ArBzvFPvEeSRMF1YnPR9WgxsgqM+oIfA=;
- b=K5+BeuNVhudgDNfAhKmpepGm+TE1KNXaqPostpm0YRXleffRFXimSIT1SS+V38pjPBVTELp+5C4zE48Fh8YzFuv7KjGdGNKXr68zWD4u5tj9FoRBErpU1nGci04w6tXfLrQ4Ccka4BRsPDsTv2GBVF9kFj1yos6MwYOPGd25HqC+BBSg747k3Tyx0vig3O/yWbmudGfVdEFYrDmp2hcYThPa428bh+QReSt0tJfyW1h8yTpAlwZin7ePS0AgN2WJ6GCyGiZ3i56/xeibB6Zcd2yOxiUALEFWR9lb7akKbtqURV47/ZeUjcXtszImZXIysH4++0x03t42zEfXBUWcIg==
+ bh=JKwnuaju9Ao68Pl1NSJMpO3iBeAWYG8Sl3Wihg1rdxA=;
+ b=XNRKAAT9p651dVwopJKkWFiCw1NU5WMqroalm0HUN02AN/ewbjCeCRw9cTysz0WN6Yb2Xx1N4zz9CP/eggj9YT4cCD/wwiwCQkDq5IaC4ztgUuLcy5/2/3ZNrsTvscDJWP6MLVRZMCawiqINmcTaCPrMgOo8UyIXrS/SjvlY5kVHN0yO3ljRchf6H1sMg6+Xjco4L0Cq+rVOhOvbuXP0Jq7WleyN6DF26mK4VRn31mnX3dMvPkyKDBS0xqh/FqsCvvYr4WSZIyhMji7jDc5ENQrxU9XKhrTNNRGu7VLcZvDjY6oXHAF5BTB7bTAH6Uw7VUIxAGyPl4LpGWGc30llag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UHzps/eDS85ArBzvFPvEeSRMF1YnPR9WgxsgqM+oIfA=;
- b=H6b3nbDH5f/3u6myc5FrIma5t/cZLn6fIIFvBJsQ5RNPVN8GR56mqSwCe8ZGPdWAtC/H1x1QHSFqJcGKMtum0cKDykuTRVhigXpgQsDyePGyNCcnjAvbf0kpw5d6i5LBINe1ppXd4jQp7LgxYriqKfZhe4QaNUtMzvbBOj/EimM=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM5PR12MB2488.namprd12.prod.outlook.com (2603:10b6:4:b5::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Tue, 19 Oct
- 2021 03:39:06 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
- 03:39:06 +0000
-Message-ID: <20faabaf-36a2-5836-2ec4-2da534149c6c@amd.com>
-Date: Tue, 19 Oct 2021 09:08:54 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Subject: Re: [PATCH 4/5] dpm/amd/pm: Sienna: Remove 0 MHz as a current clock
- frequency (v3)
+ bh=JKwnuaju9Ao68Pl1NSJMpO3iBeAWYG8Sl3Wihg1rdxA=;
+ b=b5CGuWo20nIwdZ1uLXdD3T/L7Ffbm3IReDEvveJwSiX0Ma6u4ttd2IMwmMDp8X5VR2dV640lsn7p5/S5iKZDEDfMVT/LSVMThEiDoGD3Neo2900nPy8v5NphxZ7/Xuk2mK/izWmYMIxfBtKO+qAhCmcg7q1m7ItnOUsMc2qR8q8=
+Received: from CY4PR1201MB0246.namprd12.prod.outlook.com
+ (2603:10b6:910:23::16) by CY4PR12MB1445.namprd12.prod.outlook.com
+ (2603:10b6:910:11::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Tue, 19 Oct
+ 2021 03:53:26 +0000
+Received: from CY4PR1201MB0246.namprd12.prod.outlook.com
+ ([fe80::91ce:4fae:eca6:9456]) by CY4PR1201MB0246.namprd12.prod.outlook.com
+ ([fe80::91ce:4fae:eca6:9456%9]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
+ 03:53:26 +0000
+From: "Huang, Ray" <Ray.Huang@amd.com>
+To: "Liu, Aaron" <Aaron.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: support B0&B1 external revision id for yellow
+ carp
+Thread-Topic: [PATCH] drm/amdgpu: support B0&B1 external revision id for
+ yellow carp
+Thread-Index: AQHXxJiYLNwtOKmHM0+3jaxVKby0QKvZr8uQ
+Date: Tue, 19 Oct 2021 03:53:26 +0000
+Message-ID: <CY4PR1201MB0246E67CFC2E504C224D5DE6ECBD9@CY4PR1201MB0246.namprd12.prod.outlook.com>
+References: <20211019032232.2202316-1-aaron.liu@amd.com>
+In-Reply-To: <20211019032232.2202316-1-aaron.liu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Paul Menzel <pmenzel@molgen.mpg.de>
-References: <20211018234913.42349-1-luben.tuikov@amd.com>
- <20211018234913.42349-5-luben.tuikov@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20211018234913.42349-5-luben.tuikov@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0118.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:96::19) To DM6PR12MB3930.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::19)
-MIME-Version: 1.0
-Received: from [10.252.81.250] (165.204.159.242) by
- PN3PR01CA0118.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:96::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.16 via Frontend Transport; Tue, 19 Oct 2021 03:39:03 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2374141e-34af-46c3-f3fd-08d992b200c9
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2488:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB248857075478764E079F66C697BD9@DM5PR12MB2488.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1728;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JYYVxibQpjNB2w1b7uOXEN5sDNmnBai0TWvAlLD51hBORSNhYXnmi9yK9n3r0v6nY1PpNAG8EQpKbqe5kGs8U2ioLIHsgxYInHxz63QJHTLUGdCVhIP/U8cljGAWPJNNRqTSQsNQqdfK7BeH0flE5Z+lYCPpY7dkD2MKq1LyiRb94nTR1trt+KoKuhE9xrlHBt3ZukKfOF70zOrVOYlTIQsIHqmYGDCSyvRqBASv5e0Q4fQX1dhuoPIZ1R+swga6Z8EjfDeoDo/v3JFmxTT1j3u3nvjaHJ4a4IV+PuzXuItlYpz6r2u8tZczpcqKi/EHhp7n0lSFwB9XA64eH1BSEYhJSLu7gIwSkTGWEntZqqmjgHjzJnKaSAo6oyU3MiulGlS7jmw0ZfKs8ZE2A8WN725CMQyFzRe/RGuX196yjF4H9U8DUqqGhAgJODR0eeEFvLXEFO29ezXEK8p2A5gv7yyez8RZHawSlqkAwSkL7dIDzuEUKOwHD3b4gkgrabSsl920QUJCex5Dn8PGp+YjoINAbdQkh8dMD1bq8yDReYT7pA5hYImApIKOJpOmtw1Ox6xrrG6pBKL0sOmaaYKJ23BIrEUrCtyk86aml8zGKoZJUgiq6dzB9CssGGJvAD72CTY/C/CUdmQzxGvLx098zKoKFvSI6brMdHY+B9bO6sI4poXe9KBPHUMt5oHHMWMldv1a7g7oP1rJm+WOFVXTJwTaH9r08lG8dkF9xB3Pm/Cjmrxc++ckuu5HYNvoxFaD86dBYHjQXFHVWE8B6KJ/gGPE5FDlcE+SGpdXYBeWjmS2XNLb1kdIRW2GHQE+iEfy
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(966005)(31686004)(83380400001)(8936002)(8676002)(26005)(66946007)(31696002)(38100700002)(186003)(54906003)(2906002)(6486002)(16576012)(5660300002)(956004)(6666004)(66476007)(66556008)(4326008)(316002)(508600001)(2616005)(53546011)(36756003)(86362001)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-19T03:53:22Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=6ec6f51d-5a8f-46d4-986d-008ee272dd6f;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a7475c20-a28e-4a60-26e9-08d992b4015b
+x-ms-traffictypediagnostic: CY4PR12MB1445:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR12MB1445919204496B9EE476F1DBECBD9@CY4PR12MB1445.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1227;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: GEcc4exZNHeEPqe3Q2oC62dDCF0XBHW3JaFkZEyZFA6DBc3s7ya3IdzzI945ptrjSqTqxxQ2Vt0dzkxavaImMKbZKgyrQCqLzv+n84HXniXDcnNkNI1lXCq/JmMkOqgfAa2pS5PKrabsHKkd3fd8mluu4sWgp7SzmWnGRnIz3kQ9co2F5HpS4WLGRkzKm9KQ/CXmYKFhvQvJuXaC9oG7rzxWDYCvzn+cDvR8aFebx7TWab6a/ag6p0i1WDth7K5YnvjkdShraCULW5IGLy05fwx3gYiE6Bvm6YAZUDuVYflfjqgQnp985F87WHQUdWvvKqfRx4IFnTVZo5gwQnLGaKrCuYxfd4NQp8qNblU2Wnz2GL9hFgvJgVEttKaYNsXHad0BwBGFqYh3hu/zVgEX/AE8NPvYyM25Yp+x93QChes72dhwHRwVt7N+SHeNiTCOwUOSGt9Vl6HqaHziOGromxF24e00ZS1G0ErgCGAuzr9JRrDXhBAbw9ITCXGaa7+dAjTwGvCmBTiMrsLrCDTJE2T7MiMqcPCh1EGpwtr/heE0v6rd7ybPMZGr62WzqJzprVrPQmUudW9P2SDE6ozMZFWomN8IcZRoQts37FIOLjBcJjM/hWRQxYjSd11uZAXCn7KXLAQ43zQGne1dAXpuioNdiS1y48+/BwTWMEwx+rGcOhFcfUNuYuXQRWqFfCt0CdM5p2Ifsow3kVryD1X1tw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR1201MB0246.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6506007)(53546011)(38070700005)(66556008)(186003)(64756008)(66946007)(9686003)(4326008)(76116006)(66476007)(38100700002)(316002)(8676002)(122000001)(66446008)(2906002)(110136005)(86362001)(7696005)(55016002)(508600001)(5660300002)(8936002)(33656002)(71200400001)(83380400001)(26005)(52536014);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXRwaEc3bVB0UGZWUzgrMUtQNk5HcVA1Z3ppOWgwVjVsbUFMZERtQk0vbHkz?=
- =?utf-8?B?bjNiRnhhVGlqaTRxSCtzSkNnOUxkREViYS84VjUyOEFjMTZmUElHeUcvNXd6?=
- =?utf-8?B?RWhIMkxDRzZqZFNTcEIxMFBKVFZSUDkrbWpDTEdsaGZLVU5qQVdrU3Z1NHdt?=
- =?utf-8?B?WXBIZjZHekxyM0M3eHlzaDlTaWVMVUlaR1lGaXNPZGRHU3FwcWVnbzBIUFhI?=
- =?utf-8?B?SnFaWVR1M1dpOHY2UFZHbDcza1ZFWEp6bys2YVBIZjdUVVExUnkvNjBPLzc4?=
- =?utf-8?B?QTZIUnFWWnlBY1dwWWlJNWxMcXJobmZDZXZTWWJ1NklMekQzVDBlTGQ0NmtM?=
- =?utf-8?B?ME1iWW44bVkwa3AwaXZINHdzMUxpZHc4WGVIbGM5cTJVcWEyT0tNWlVmVDdk?=
- =?utf-8?B?SUtTbWE4L2d6UkdmTXBhZktBbGtYNE9mN1J3d2RweHkwcEx0Z1gvU24rMlVH?=
- =?utf-8?B?a0lZUHZUWm5zK2hMQ2RSWkRIc0o0L2QxVkV3SmhXMElqcFBOYmZyMGhTT3dJ?=
- =?utf-8?B?YnluOTJqd1RwYmx2YldLZG9Ua1BZdy9xZUVQRFRydEE4Q0ppQzVjcFVxd2w2?=
- =?utf-8?B?Rm9QTUlJNGlLdjNsRTVobVNsQmVPZ0QxUC9SM2MwdHd1bDUzWHFsYVhJRkVF?=
- =?utf-8?B?Slljczd4anVMaC84WWFpLzIyNzdaTXdaNmNEdjRRWVc0ZzV6Nk5aTnV1K3hN?=
- =?utf-8?B?WTNPY3Zubi9vS1J2UHh6QTJlZkVqODE0Tmp6U0MxT2JzT2xTRFQxaklIUzVF?=
- =?utf-8?B?L3JjK0xuOVM2SDFkUzNIdU1vekVmNU1WQ01neEJmSTVjMm1xQnBpbGVKaUJ2?=
- =?utf-8?B?S1ArcjVhR0ROZ3poeW95cGdyQmVwRTlLbHQzRkNDdzQ5YzVpRTkwS0o0a01j?=
- =?utf-8?B?RFUwRXdQZ1kwbmhXcXduT0RMenFZaDNHaEpSeWJLU0Mwa2JvUVpBUnlZcGlt?=
- =?utf-8?B?N0NTNklGbk5DOEtHMk14a1JlTE14amppNVBrVWxkSk9CWThzMW9OVndnS29D?=
- =?utf-8?B?NVc3Mjk3MXJvNVdrV0ZyUjdTeklhMFdORHBmcUxQR3liZEZ4NmdqUmgvWGN0?=
- =?utf-8?B?cTBJaTlvbGowRE9aTW5CNnJxSjRDYWl0NU1nUEphcDh4MGZFTDE3bkNsZGZk?=
- =?utf-8?B?RkJxTGxMd3h5dEI4VXRVZWJSSm9xdVk1OGhtVVRNRFcvdDg0bS9YWjFqWmx3?=
- =?utf-8?B?VVZvOEFRemtmdEN5WFAvU2Q1Tnl3WE4rRmF2bGk0WmZjRWFQZHk1VDQxOWEy?=
- =?utf-8?B?dUx6MU4rSXd1dThRM0YweHlGdXE5bmJYYVlRN3FWSndXNlZrWGhRVzBzbUlK?=
- =?utf-8?B?a0VPT2Mzc0hsMHM3YWg2SmwrY25XUzExR1Nvakpua1kvTmJ6M0JuYzdTN0Yr?=
- =?utf-8?B?WHFSeGVBSTdzMkJqeU1tbndFQUhBcXRIYXdQNXh6WHFqVUxaMTdoNFRwVnBL?=
- =?utf-8?B?VU1ScmY0eEo2VU5XVU5rc3VnTlVkZVFkMklpNFMxa0k0aDVRWUxtNFFYOFVB?=
- =?utf-8?B?VERaWis5cGt2cVltVHJaVjBFTmhpODM1ZVR4dzUyZ3JaN0NmRVErL1AzRnpr?=
- =?utf-8?B?cHR3RjRXV1ZDT3U4ZmVOcVZCOWQvKzkvWXdZMk54NDBWV0U5STYxcFhqaEhJ?=
- =?utf-8?B?akZEQjk0a1RHYTZPNk00STRJV1NORjBOczBUTkpmS0F1SWJ3ZWtORHR1NzFB?=
- =?utf-8?B?RGkzT04xOGJCdVJteUNUcmVyYm5ocTg2V3RCUnV0YUxlbXNmYkE4N3BTT0NC?=
- =?utf-8?Q?TmY6xFDGOGalEj/y2ylksai1iyy4x2Xywvr7qYX?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JQow4yLBR1ekLeIP3q+rt0s0+hDHk0OC5wDO7B0INg3T7iYfJT5yO89DHLWE?=
+ =?us-ascii?Q?Ug+VWI45LfIjk3YI8krI+s0Q/8ug3PflFxUDowFpTCMmaeFKlW4LK/0t9Syq?=
+ =?us-ascii?Q?PqWipme6HJk1ZmgzURY+QyhquVFz1fYDW1FigDapzZSwkXToqfHPNsEfTJ2R?=
+ =?us-ascii?Q?cK+1usMvt4fw4UxlB7YVVbrGM6W4Z+WYxGNV/1/11bzWUJMORVkRRmYOSUyD?=
+ =?us-ascii?Q?ONnXaj/gnstfSlSMX+cT28/7+MV1C/TDoTfMH17wILcQ+8PqzkqNQoVgm+Ds?=
+ =?us-ascii?Q?7QtZZ51f8+O27SpRG0NK82BTkoPbsnSdTI8R3C4t2W2DDt7wgizagnzsb4Kd?=
+ =?us-ascii?Q?eBXU0Yz+z+xSFEqRjbuDMXUwpTjDzqPerkej6s6eY7NX+N6Lac0S1kXDwYel?=
+ =?us-ascii?Q?OX7KZW6TTB/OiOrTOk9RIpFynVjswJURK8GemqOPJIlCts/7lsnkllzYPoqD?=
+ =?us-ascii?Q?ECcopUujAtSDsUu1Wr4f+kQkwf7fApuP4jUM1m2jgOuh7Pcz2BXjHxHPSjhK?=
+ =?us-ascii?Q?xokpbnSXzX67oucOZozOPz9FFC171PSxo3VlTaicr2sXo6QTadHWWH/JwaTn?=
+ =?us-ascii?Q?nr77ukM7aHu1G1gb3LbvrxzLrq2FTuYTd4vTw32UCGN8I+qDVz/I+YkmJ4g5?=
+ =?us-ascii?Q?P2bbpeQSk6psoL2rAllBgUU4oQpwnfiF/UDDhoxdWltXckqRgiWVcCpTSmYn?=
+ =?us-ascii?Q?LK9gi9lf+d+ft2xmyO+rLG8zUeJgG1l9CcdbBulWoHVqEZYl+LSoApYs+r2g?=
+ =?us-ascii?Q?Zah6W5xaV18OGVAsrSNITObxL2BvfI4ty3lHPV6OqZtevZzyXzpjNQpQtLEY?=
+ =?us-ascii?Q?1CwAz29iPnF5DYJsQ+aoguQ86P1S2Iq6Jpt4CgiU4AuExc+gOr+QUEjWBpUx?=
+ =?us-ascii?Q?KiVUNuzaVLOYeYll0W0WFBifTwUJ0/JPPtNaG5eMU3zDiJ2Bv/FOJOgvLC+G?=
+ =?us-ascii?Q?XFyvJtFfyo0XrZBmRCdsSyllzlh+vifqt6viuIwKyHygD8GCXooIb3IpARea?=
+ =?us-ascii?Q?zHE33CKkrF24xRzfCmRgfpgW4mRiAATwtcQCE4MKoj96NPGhJW3b7g+btHb5?=
+ =?us-ascii?Q?h+BO0iu6mrPQeSxRFL8TUvcmVRjuelQRh/Lm2boSuRjgVaeekRuI7nKSociA?=
+ =?us-ascii?Q?jbquPwH9P7sxKYTfZM4vLKPH4+n5A0bQWuHLOEN68BycRX8Iszk9LFkWZzwR?=
+ =?us-ascii?Q?e7hzQVZXAnv3L91mDXIUmi0M7L8O0RUNkdpQLlF4SWQ87t2T4a0FfD4K5h4e?=
+ =?us-ascii?Q?VRZA2zWmWaax0nPmeVros2yOb1U8e0kfAXRInye/Q3K/OqEcntCt3eT5k9xg?=
+ =?us-ascii?Q?bawJsFmlmnuyYGG2rhkmfiRA?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2374141e-34af-46c3-f3fd-08d992b200c9
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 03:39:06.8173 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 96hHNJSbjVqmRW4+aEAtUQMtv11j4Oj3N0YB9zjti99kvx0d4oyBSCuEecmR/aP1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2488
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR1201MB0246.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7475c20-a28e-4a60-26e9-08d992b4015b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2021 03:53:26.2316 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: zc9COYJrrWs2F2EA+Dimty7K8F3IWkYtOPujMZf9tCDagZ1C2YveM9fZ519aiC+vwaJmBaiVQWrUKrMKwyuZOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1445
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,150 +134,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only]
 
+> -----Original Message-----
+> From: Liu, Aaron <Aaron.Liu@amd.com>
+> Sent: Tuesday, October 19, 2021 11:23 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
+> <Ray.Huang@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>
+> Subject: [PATCH] drm/amdgpu: support B0&B1 external revision id for yello=
+w
+> carp
+>=20
+> B0 internal rev_id is 0x01, B1 internal rev_id is 0x02.
+> The external rev_id for B0 and B1 is 0x20.
+> The original expression is not suitable for B1.
+>=20
+> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
 
-On 10/19/2021 5:19 AM, Luben Tuikov wrote:
-> A current value of a clock frequency of 0, means
-> that the IP block is in some kind of low power
-> state. Ignore it and don't report it here. Here we
-> only report the possible operating (non-zero)
-> frequencies of the block requested. So, if the
-> current clock value is 0, then print the DPM
-> frequencies, but don't report a current value.
-> 
-> v2: Don't report the minimum one as the current
-> one when reported one is 0, i.e. don't add an
-> asterisk (Lijo). LT: It is conceivable that this
-> may confuse user-mode tools if they scan and look
-> for a current one, i.e. look for an asterisk, but
-> they'll have to adapt and use other methods for
-> finding power states of the chip--we can't report
-> 0 as current.
-> v3: Start the subject title with a verb. (PaulM)
-> 
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
-> Cc: Paul Menzel <pmenzel@molgen.mpg.de>
-> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+Reviewed-by: Huang Rui <ray.huang@amd.com>
+
 > ---
->   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 60 ++++++++++++-------
->   1 file changed, 40 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index f630d5e928ccfe..6fe792be77dbbb 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -1040,7 +1040,8 @@ static void sienna_cichlid_get_od_setting_range(struct smu_11_0_7_overdrive_tabl
->   }
->   
->   static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
-> -			enum smu_clk_type clk_type, char *buf)
-> +					   enum smu_clk_type clk_type,
-> +					   char *buf)
->   {
->   	struct amdgpu_device *adev = smu->adev;
->   	struct smu_table_context *table_context = &smu->smu_table;
-> @@ -1052,12 +1053,12 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
->   	OverDriveTable_t *od_table =
->   		(OverDriveTable_t *)table_context->overdrive_table;
->   	int i, size = 0, ret = 0;
-> -	uint32_t curr_value = 0, value = 0, count = 0;
-> +	uint32_t curr_value, value, count;
->   	uint32_t freq_value[3] = {0, 0, 0};
-> -	uint32_t mark_index = 0;
->   	uint32_t gen_speed, lane_width;
->   	uint32_t min_value, max_value;
->   	uint32_t smu_version;
-> +	bool     fine_grained;
->   
->   	smu_cmn_get_sysfs_buf(&buf, &size);
->   
-> @@ -1077,6 +1078,20 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
->   		if (ret)
->   			goto print_clk_out;
->   
-> +		ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0,
-> +						      &freq_value[0]);
-> +		if (ret)
-> +			goto print_clk_out;
-> +
-> +		/* A current value of a clock frequency of 0, means
-> +		 * that the IP block is in some kind of low power
-> +		 * state. Ignore it and don't report it here. Here we
-> +		 * only report the possible operating (non-zero)
-> +		 * frequencies of the block requested. So, if the
-> +		 * current clock value is 0, then we don't report a
-> +		 * "current" value from the DPM states, i.e. we don't
-> +		 * add an asterisk.
-> +		 */
->   
->   		/* no need to disable gfxoff when retrieving the current gfxclk */
->   		if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
-> @@ -1086,38 +1101,43 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
->   		if (ret)
->   			goto print_clk_out;
->   
-> -		if (!sienna_cichlid_supports_fine_grained_dpm(smu, clk_type)) {
-> -			for (i = 0; i < count; i++) {
-> +		fine_grained = sienna_cichlid_supports_fine_grained_dpm(smu, clk_type);
-> +		if (!fine_grained) {
-> +			/* We already got the 0-th index--print it
-> +			 * here and continue thereafter.
-> +			 */
-> +			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", 0, freq_value[0],
-> +					      curr_value == freq_value[0] ? "*" : "");
-> +			for (i = 1; i < count; i++) {
->   				ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
->   				if (ret)
->   					goto print_clk_out;
-> -
->   				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, value,
->   						curr_value == value ? "*" : "");
->   			}
->   		} else {
-> -			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_value[0]);
-> -			if (ret)
-> -				goto print_clk_out;
-> +			freq_value[1] = curr_value ?: freq_value[0];
-
-Omitting second expression is not standard C - 
-https://gcc.gnu.org/onlinedocs/gcc/Conditionals.html
-
-Thanks,
-Lijo
->   			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_value[2]);
->   			if (ret)
->   				goto print_clk_out;
->   
-> -			freq_value[1] = curr_value;
-> -			mark_index = curr_value == freq_value[0] ? 0 :
-> -				     curr_value == freq_value[2] ? 2 : 1;
-> -
-> -			count = 3;
-> -			if (mark_index != 1) {
-> +			if (freq_value[1] == freq_value[0]) {
-> +				i = 1;
-> +				count = 3;
-> +			} else if (freq_value[1] == freq_value[2]) {
-> +				i = 0;
->   				count = 2;
-> -				freq_value[1] = freq_value[2];
-> +			} else {
-> +				i = 0;
-> +				count = 3;
->   			}
->   
-> -			for (i = 0; i < count; i++) {
-> -				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, freq_value[i],
-> -						curr_value  == freq_value[i] ? "*" : "");
-> +			for ( ; i < count; i++) {
-> +				size += sysfs_emit_at(buf, size,
-> +						      "%d: %uMhz %s\n",
-> +						      i, freq_value[i],
-> +						      curr_value == freq_value[i] ? "*" : "");
->   			}
-> -
->   		}
->   		break;
->   	case SMU_PCIE:
-> 
+>  drivers/gpu/drm/amd/amdgpu/nv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
+> b/drivers/gpu/drm/amd/amdgpu/nv.c index 898e688be63c..5166a1573e7e
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -1248,7 +1248,7 @@ static int nv_common_early_init(void *handle)
+>  			AMD_PG_SUPPORT_VCN_DPG |
+>  			AMD_PG_SUPPORT_JPEG;
+>  		if (adev->pdev->device =3D=3D 0x1681)
+> -			adev->external_rev_id =3D adev->rev_id + 0x19;
+> +			adev->external_rev_id =3D 0x20;
+>  		else
+>  			adev->external_rev_id =3D adev->rev_id + 0x01;
+>  		break;
+> --
+> 2.25.1
