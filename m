@@ -2,48 +2,48 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE6A8C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 21:15:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92EF6C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 21:15:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 750DE60174
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 21:15:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 750DE60174
+	by mail.kernel.org (Postfix) with ESMTPS id 5975460174
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 21:15:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5975460174
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FFE6E1F7;
-	Tue, 19 Oct 2021 21:15:01 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2083.outbound.protection.outlook.com [40.107.94.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B8E46E1F7
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 21:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6A916E0C4;
+	Tue, 19 Oct 2021 21:15:04 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 185B36E8E9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 21:15:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FJE69iYH8daK5T29FqF+tDdguzpvlNqISuyWNfsHktk4Nbh9XPTN6wbysmK6TD30u3pzn0/DqI+q5EpDRfdl+acETIkTa1pPV7KWHRinhG53WPnQ4/3+u/Li9RrxK0AJjU61NYMj6OpWJS5bdj1FXBN4hA8CedyWh/juiFmavpcgP33VjfW1E4Uk8IKojdxgpiTr8IjvFqzwaXpBQ4bKl2alP/sxPmzG3m+HH061WLJogRIxhipdcoggeLfM7pnQBs1ULZBDQSbKUR/tZqXDJRnFdh/xuErRUsHLEzj7p9rbkNXSSzIdJS+6cDZJaguePE+afAvPv1ItfbdXBHSX9w==
+ b=H+WTg1IR4IiCOeuPWlBHiLKDumPpeKTUOtXWCQ0vAsF8btSfJGZz+SXrI19ZrXwmKOy5OmFWjCNtJzxmCsp0foyl18qEaQLqzK/yuFi1AOmHj89zpnklLI8OiXAdtFMeMRo9vJ471Qa3FYZNZjyjrZnGxbgXFIV7J1MFHWWT7Li93eHu2a+9CJeyDDAj3dLeNJ3pKaOjP9+cSFqqfamxcAs0bG3WPgMl8LBBJ4UAhwrojo9yEpW8HHrvilCXzqOgaZKfw/sSVHBB3v+vhz9RHnqhXF/LUQFOfTaq2jrlq5PrrDd4DtapdO3nfhs2mQwOihT5DxNx/JTGBjzYlxPJew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=21dYagi4ZLJ7i+YxCve8a8ooTCsOa6T4wTzqMVPCa64=;
- b=FCVww9j3U8lXuvJGvH1E3uEYHk9CzEFM/Ww7rbbeZnTAv20y8ijjcZ4WE72TK7OF5GojglTT4VK5dJfA2hG71HkP/mzqeovgKKnaMH0YjEgFb9UkfOylkOYLCBBDLu1szkTtPdPArV3uVoDGaVAq/K9Z+2u7j5W800Cvp/j2agC6EHQQ1CQ99nWW3ejBkZAtkaL3PecRKSP4PXbwMawtRIsP5Ctx/yRczn19DUi0dhi5FPbpYRWnG15jfxqMIXQ9luAmd3Xdx8Z16W+h99zBOXcsqKzjEhXh4zpgHp1g57CRCS4UV79jGOCSKy084BydPrxnIi4iFO1uSIVwd56+CQ==
+ bh=qs82ZVqbxntxFOrg8yd2XFiyxsFCcK6+vmQBDFQLHfU=;
+ b=Sjs7MIBpk1J7cwEuXp6h7w2+FXStgomkSWt9YUXkRiq4UrMChPXSRWy8qa6pvbJk88+4poWkXk1FAPGNJ3b76uyNaEc42RE0evwzlyPz4Iuyp6+8azeg0jl3np3HYzg0SnkunHzUNqBUWFJMRMgjpjuBQPSF/EGjdXnrCeXYwG0JrF/7ToaGg3vpP1If353capO1QmAPJfAhaw43n9yu2UAmAoiVyxyO4Z4U7H5fiJgwx6C9zV1cMWZxy2b8S5NbkYjx4D5/0zZcJmT/XpPTOfnhI8bRBfeww2gzbuAwAZ8kPt08ubJ5/u2cOniM6+y2JbbYLdfFAIp5acLeFijv7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=21dYagi4ZLJ7i+YxCve8a8ooTCsOa6T4wTzqMVPCa64=;
- b=w6a2ZMdiqbHg2R6pl8gmir8AxC5VQi1IgRpiMptTgNSSLXfKrbrg+7qVSo4+VBK4gqdMx5t1oq12vxctr5ROolhlb7XfQYY7PmlNPuTzvbRjrTvJv7EExJXuZ/+uIQ9VpC1bpWPbW6khHOu/rZPtxv6iC1zkDOx0FkoN9EctdQU=
-Received: from BN9PR03CA0301.namprd03.prod.outlook.com (2603:10b6:408:112::6)
- by MWHPR12MB1616.namprd12.prod.outlook.com (2603:10b6:301:b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Tue, 19 Oct
- 2021 21:14:57 +0000
+ bh=qs82ZVqbxntxFOrg8yd2XFiyxsFCcK6+vmQBDFQLHfU=;
+ b=Pa0u7BVFIwg23bwiyvGkVEolReTnBedWayn6y6bEZyID9hRUjIz2SJHY5rEPNkRmNWYyJEDlchcl5jdvmse+XaFRRLUvhZ5bet5LcA15+lPw4bBVhCXlrfqHtw5v3/s6PKAZjbj+zViEEV1TgCTJ76yzuXnNmQEVETuZt+W3v70=
+Received: from BN9PR03CA0330.namprd03.prod.outlook.com (2603:10b6:408:112::35)
+ by CH2PR12MB4070.namprd12.prod.outlook.com (2603:10b6:610:ae::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Tue, 19 Oct
+ 2021 21:14:58 +0000
 Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:112:cafe::58) by BN9PR03CA0301.outlook.office365.com
- (2603:10b6:408:112::6) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:112:cafe::4c) by BN9PR03CA0330.outlook.office365.com
+ (2603:10b6:408:112::35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
- Transport; Tue, 19 Oct 2021 21:14:57 +0000
+ Transport; Tue, 19 Oct 2021 21:14:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,18 +54,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 21:14:57 +0000
+ 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 21:14:58 +0000
 Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Tue, 19 Oct
- 2021 16:14:55 -0500
+ 2021 16:14:56 -0500
 From: Graham Sider <Graham.Sider@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <felix.kuehling@amd.com>, <mukul.joshi@amd.com>, Graham Sider
  <Graham.Sider@amd.com>
-Subject: [PATCH 05/13] drm/amdkfd: replace kgd_dev in static gfx v10 funcs
-Date: Tue, 19 Oct 2021 17:13:26 -0400
-Message-ID: <20211019211334.1552825-5-Graham.Sider@amd.com>
+Subject: [PATCH 06/13] drm/amdkfd: replace kgd_dev in static gfx v10_3 funcs
+Date: Tue, 19 Oct 2021 17:13:27 -0400
+Message-ID: <20211019211334.1552825-6-Graham.Sider@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211019211334.1552825-1-Graham.Sider@amd.com>
 References: <20211019211334.1552825-1-Graham.Sider@amd.com>
@@ -77,28 +77,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ce285456-2028-4918-18c9-08d9934580e0
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1616:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1616968BF95129FCDE10FE568ABD9@MWHPR12MB1616.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:549;
+X-MS-Office365-Filtering-Correlation-Id: 0a60832e-d397-42a3-bd4c-08d993458168
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4070:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4070140502E774E377F63C738ABD9@CH2PR12MB4070.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:473;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GnGDHN1xdDkvXngm5THDzXE+H4WiQDTYOIOb8alexZJR8drWfp2J2LluTLG9HZQ3AfmubnvptqVdDBPVGt/5F3E970hHdpc+5yPj9bGtSj65WH9XUWhSwC1UkCaaMChKWl9IfAiOOPqeUVfmRLah8MGvSX/wbBdyPUwsalqSa1dk5WoE3k6qb5BKLC8hGM0regXJhvaS0yWrv3+VFYMc6sxH+yOBpP7zwBHMZeSv42SP7ZHEYC/8EUZLOGvSurlt8Lc972V6k5XQyIwBcSecYUIBIrNUaAmx0qQ6oGCpqeRc6N9r523T03IZ1J+thf6EixHTz9dCI8O7NTqIwEJvjHEQF+9SfC57aAKDOzj2lKiNmpHmHoS9jEO63VmTQhV0eX0TYiPEUId2iuscaZ4QBtf6P8DLYcdHDhdo/D4EOI4nq9vxAyYs5wqM23S9MIn6yy1flrs8r5gBKcHeXHOE/9mtJ7bkA8uj+U8hc0Zb8lh2MyqY5YhURYA2rMqRDMtM17v9lexvRbApk+pGRJ8mJnErjT6s7iRV26FXznusiFbW8AKN0P251qDManF3jFh70/5OyxyCqKAcD6nEaIVOPE8fEMCY7xqEFPBDSTHUyztwo4NMjv8L+nHEPRX4PwlHhWcnH3xtOYjURGlTiHUionDyDt1sGtM2laqSEXXrMmpwuiGD+KsUs6+TaUicveswAbC9VDxtathlT0038KCe509W7di1KeQTwaHSy3W0yHE=
+X-Microsoft-Antispam-Message-Info: OQEOPhdTENkY0/Apoc4FgCpnCJN4dCCe6f0F0IzEW/kGnghiuJaelxfbmPfHR/hlbv0csEOl2aYqM/giHFo7U8rn6tyUdcFeUOIrY5ihXelgZ1SuYkygYmP9hefRGH0heGGqNFYs2GoetFHTW8XSyZ9Nz5U/zViWHJ5H+6Uv2blKGG7hrsO9wZuDwWAWYPFD8P0f7iBwXodvpLA0GC5l5tVenjLCqfibRua5Rg7w5ADF7yWs5rhcOzr0ihVhGHM0erbjzSOA2YXtdCijy6c0dEC8viYtVc2zYV1O5cJE4WXEn9x8kGjTB13JU5enZbjrohf0u1Ny2dSBJGxXUqGKALxbR1+SZhtXAbuX0qhe4gknuSwugA+dxCAmPFOBnsjmg7ly7b3WminhFBMcWOglrVoQ966CUwJ8EiP286qQW44XsCNWRQqE9gdFI7NZHh1NpA+oglThW1pdC0cu8bNyX/6LzdVCOww92MwIIWZ41rA11yhwW50YBWxHX1xwzkssjbs19A8O0+4/3z31fmpW51ghlZcO4eMt1g8ZdZiNa+UDmECaWzrrmFDFjL+AIeg0tGgJ4CphcIGC9/1ntYnSgI9tx9oGdwbd4jntwwzbYDHEC1MnA7zolnFL6o3lOOvRb31oj2O4+2ZC+3GMpTXXiCadmY2wKyAZgVvzMOpDcMuQfEdtxQB1mgY3U+f0dWTP3646es52SYppZ/K1femXXyB16/6xgEQo3YZrmNgx+ak=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(36756003)(70586007)(5660300002)(16526019)(336012)(426003)(2906002)(356005)(81166007)(8936002)(186003)(316002)(508600001)(8676002)(47076005)(86362001)(6666004)(2616005)(54906003)(36860700001)(26005)(6916009)(4326008)(70206006)(7696005)(1076003)(83380400001)(82310400003)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(86362001)(2906002)(81166007)(186003)(26005)(7696005)(8936002)(54906003)(336012)(4326008)(82310400003)(8676002)(5660300002)(47076005)(6666004)(36756003)(70586007)(1076003)(2616005)(36860700001)(508600001)(316002)(16526019)(83380400001)(356005)(70206006)(6916009)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 21:14:57.3412 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce285456-2028-4918-18c9-08d9934580e0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 21:14:58.2367 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a60832e-d397-42a3-bd4c-08d993458168
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1616
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,18 +113,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Static funcs in amdgpu_amdkfd_gfx_v10.c now using amdgpu_device.
+Static funcs in amdgpu_amdkfd_gfx_v10_3.c now using amdgpu_device.
 
 Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 52 ++++++++-----------
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  | 52 ++++++++-----------
  1 file changed, 23 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 960acf68150a..69aee5b52f64 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -44,32 +44,26 @@ static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+index dac0d751d5af..b33a9fe715cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+@@ -43,32 +43,26 @@ static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
  	return (struct amdgpu_device *)kgd;
  }
  
@@ -161,7 +161,7 @@ index 960acf68150a..69aee5b52f64 100644
  }
  
  static uint64_t get_queue_mask(struct amdgpu_device *adev,
-@@ -81,9 +75,9 @@ static uint64_t get_queue_mask(struct amdgpu_device *adev,
+@@ -80,9 +74,9 @@ static uint64_t get_queue_mask(struct amdgpu_device *adev,
  	return 1ull << bit;
  }
  
@@ -172,8 +172,8 @@ index 960acf68150a..69aee5b52f64 100644
 +	unlock_srbm(adev);
  }
  
- static void kgd_program_sh_mem_settings(struct kgd_dev *kgd, uint32_t vmid,
-@@ -94,13 +88,13 @@ static void kgd_program_sh_mem_settings(struct kgd_dev *kgd, uint32_t vmid,
+ static void program_sh_mem_settings_v10_3(struct kgd_dev *kgd, uint32_t vmid,
+@@ -93,13 +87,13 @@ static void program_sh_mem_settings_v10_3(struct kgd_dev *kgd, uint32_t vmid,
  {
  	struct amdgpu_device *adev = get_amdgpu_device(kgd);
  
@@ -188,8 +188,8 @@ index 960acf68150a..69aee5b52f64 100644
 +	unlock_srbm(adev);
  }
  
- static int kgd_set_pasid_vmid_mapping(struct kgd_dev *kgd, u32 pasid,
-@@ -159,13 +153,13 @@ static int kgd_init_interrupts(struct kgd_dev *kgd, uint32_t pipe_id)
+ /* ATC is defeatured on Sienna_Cichlid */
+@@ -127,13 +121,13 @@ static int init_interrupts_v10_3(struct kgd_dev *kgd, uint32_t pipe_id)
  	mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
  	pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
  
@@ -205,16 +205,16 @@ index 960acf68150a..69aee5b52f64 100644
  
  	return 0;
  }
-@@ -231,7 +225,7 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
+@@ -201,7 +195,7 @@ static int hqd_load_v10_3(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
  	m = get_mqd(mqd);
  
  	pr_debug("Load hqd of pipe %d queue %d\n", pipe_id, queue_id);
 -	acquire_queue(kgd, pipe_id, queue_id);
 +	acquire_queue(adev, pipe_id, queue_id);
  
- 	/* HQD registers extend from CP_MQD_BASE_ADDR to CP_HQD_EOP_WPTR_MEM. */
- 	mqd_hqd = &m->cp_mqd_base_addr_lo;
-@@ -296,7 +290,7 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
+ 	/* HIQ is set during driver init period with vmid set to 0*/
+ 	if (m->cp_hqd_vmid == 0) {
+@@ -281,7 +275,7 @@ static int hqd_load_v10_3(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
  	data = REG_SET_FIELD(m->cp_hqd_active, CP_HQD_ACTIVE, ACTIVE, 1);
  	WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, data);
  
@@ -223,7 +223,7 @@ index 960acf68150a..69aee5b52f64 100644
  
  	return 0;
  }
-@@ -313,7 +307,7 @@ static int kgd_hiq_mqd_load(struct kgd_dev *kgd, void *mqd,
+@@ -298,7 +292,7 @@ static int hiq_mqd_load_v10_3(struct kgd_dev *kgd, void *mqd,
  
  	m = get_mqd(mqd);
  
@@ -232,7 +232,7 @@ index 960acf68150a..69aee5b52f64 100644
  
  	mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
  	pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
-@@ -349,7 +343,7 @@ static int kgd_hiq_mqd_load(struct kgd_dev *kgd, void *mqd,
+@@ -334,7 +328,7 @@ static int hiq_mqd_load_v10_3(struct kgd_dev *kgd, void *mqd,
  
  out_unlock:
  	spin_unlock(&adev->gfx.kiq.ring_lock);
@@ -241,7 +241,7 @@ index 960acf68150a..69aee5b52f64 100644
  
  	return r;
  }
-@@ -372,13 +366,13 @@ static int kgd_hqd_dump(struct kgd_dev *kgd,
+@@ -357,13 +351,13 @@ static int hqd_dump_v10_3(struct kgd_dev *kgd,
  	if (*dump == NULL)
  		return -ENOMEM;
  
@@ -257,7 +257,7 @@ index 960acf68150a..69aee5b52f64 100644
  
  	WARN_ON_ONCE(i != HQD_N_REGS);
  	*n_regs = i;
-@@ -496,7 +490,7 @@ static bool kgd_hqd_is_occupied(struct kgd_dev *kgd, uint64_t queue_address,
+@@ -481,7 +475,7 @@ static bool hqd_is_occupied_v10_3(struct kgd_dev *kgd, uint64_t queue_address,
  	bool retval = false;
  	uint32_t low, high;
  
@@ -266,7 +266,7 @@ index 960acf68150a..69aee5b52f64 100644
  	act = RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE);
  	if (act) {
  		low = lower_32_bits(queue_address >> 8);
-@@ -506,7 +500,7 @@ static bool kgd_hqd_is_occupied(struct kgd_dev *kgd, uint64_t queue_address,
+@@ -491,7 +485,7 @@ static bool hqd_is_occupied_v10_3(struct kgd_dev *kgd, uint64_t queue_address,
  		   high == RREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE_HI))
  			retval = true;
  	}
@@ -275,19 +275,19 @@ index 960acf68150a..69aee5b52f64 100644
  	return retval;
  }
  
-@@ -548,7 +542,7 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
- 	int retry;
- #endif
+@@ -525,7 +519,7 @@ static int hqd_destroy_v10_3(struct kgd_dev *kgd, void *mqd,
+ 	uint32_t temp;
+ 	struct v10_compute_mqd *m = get_mqd(mqd);
  
 -	acquire_queue(kgd, pipe_id, queue_id);
 +	acquire_queue(adev, pipe_id, queue_id);
  
  	if (m->cp_hqd_vmid == 0)
  		WREG32_FIELD15(GC, 0, RLC_CP_SCHEDULERS, scheduler1, 0);
-@@ -633,13 +627,13 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
- 			break;
+@@ -555,13 +549,13 @@ static int hqd_destroy_v10_3(struct kgd_dev *kgd, void *mqd,
  		if (time_after(jiffies, end_jiffies)) {
- 			pr_err("cp queue preemption time out.\n");
+ 			pr_err("cp queue pipe %d queue %d preemption failed\n",
+ 					pipe_id, queue_id);
 -			release_queue(kgd);
 +			release_queue(adev);
  			return -ETIME;
@@ -300,7 +300,7 @@ index 960acf68150a..69aee5b52f64 100644
  	return 0;
  }
  
-@@ -762,7 +756,7 @@ static void program_trap_handler_settings(struct kgd_dev *kgd,
+@@ -666,7 +660,7 @@ static void program_trap_handler_settings_v10_3(struct kgd_dev *kgd,
  {
  	struct amdgpu_device *adev = get_amdgpu_device(kgd);
  
@@ -309,15 +309,15 @@ index 960acf68150a..69aee5b52f64 100644
  
  	/*
  	 * Program TBA registers
-@@ -781,7 +775,7 @@ static void program_trap_handler_settings(struct kgd_dev *kgd,
+@@ -685,7 +679,7 @@ static void program_trap_handler_settings_v10_3(struct kgd_dev *kgd,
  	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_SHADER_TMA_HI),
- 			upper_32_bits(tma_addr >> 8));
+ 			 upper_32_bits(tma_addr >> 8));
  
 -	unlock_srbm(kgd);
 +	unlock_srbm(adev);
  }
  
- const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+ #if 0
 -- 
 2.25.1
 
