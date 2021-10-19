@@ -2,132 +2,135 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C734C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 01:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1E84C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 02:35:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5749661212
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 01:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5749661212
+	by mail.kernel.org (Postfix) with ESMTPS id 4841360F24
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 02:35:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4841360F24
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF54E6EACD;
-	Tue, 19 Oct 2021 01:06:20 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2060.outbound.protection.outlook.com [40.107.212.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4FD36E125
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 01:06:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E08996E11F;
+	Tue, 19 Oct 2021 02:35:44 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2083.outbound.protection.outlook.com [40.107.94.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C7926E11F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 02:35:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j9KSqlr26hfchF223CluRxqGl6m61lYdMrwgY5gPy3sTxQzDvk7yRZlBQqJK3PvXnygs2EcFpuauooEms5vAHO942XsiqpMWujKGDhJnOFX8E+LAnirnBiwJyEHdHFzzSwX71JSH3LJq/NBmm1hym9tSMLMRDI4bl+Fo8E+F/XHY2zxuySYFA/uVAUg5wEqjBbuBxWVw+NHnSn3x9JVDG2wMYUI8pxkYvnpehwyGUHoKHmqyXo8BWKy2yoBdlSM5TdCwM2Nr813t3HqkhuWmcavUiiGz0qfibW67D6vUjp1iuB7K3RNMftBLUph4hevVtP9/B+60AmwXiTPdLAj25w==
+ b=mZhUp2PfKf2+rWfOb1gCp9psSCmYjb+CGoGtQfzeARgqRv7I0lQxtzR7Vwc2phK4e9Nus4OSSF2lL3bnuelizteQ0o09L/vH8KDrQtXbENZg9UyrWe5NMwjLppBzupt7DteWhnPGGuZ8EQ3NH4XORU/goZrEs4eDirVXMcxBoa5DOUbIW9JvYpwOvlgXYWeAm5c3N54viGIzX7/pz8uvvBF0AGBfjGDQ+Buty6rnjOce8u60UdEjOF27NhuJdx1b6C2oGOpexUSeu7S88MDnByFNasYThUEHtaFe2IKpamG8CT/Upu57uPjadpYLfguuKeXsTozDH1XQVaTEy0hAzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f+QMxiXLei7mZQ+RGXLdJmLASFl6CTWebI0OCADBcS4=;
- b=FkuaCD9Yq4WPC7ov2xgwvyoy++kGFyvBRpDDAAYO7MqFLAYxj4fCL8Owii1V7i2yqJZPszKlsOz+7U2yX2iuuLsjaug3+Mxzl1mj+75HfZxq3iKz5i6RBbEE+0d3vX21dzqkzo+1bthic/wXfDS1WOE7hpF/QFlkOcreegHvvry0PFJS4EQVDqZxJ93g5sr8dV8S7TGJJbXBQtFZ8bdSUqvPzQepKG5CFwi7VsF/i7VDo512GJR2ViM+mtWNb929F12gF5WCutBpgnZFfkC4r5hfGaStaHWwzsOyzmfFG/9Kxyp9CmQ09kiQYgq7HKYtzsqvHbDYjhKWLtOIsEz3Qw==
+ bh=yA4s3SlBie9MdomJ/R/Wy87CAvUTkJmp9a8YV+Xe+AQ=;
+ b=GmmFlPaVOHUjdIDS95H7h7c7K7po6+2c10H/zLeHrCWyziQ4uUOCHuO+03IavCFMwWhVeJHl9A+Ua/nmfm7TbisZ9Ly7CgFyodyOTMF17wOjp1nD67NTsi8Urjubs48dk+mI+UWnxG5RyjDHfAZN3zdbUu6/2RBe4pGmM2VXxHfZuDk1D1/PrbdwCYN95xCdLP2nFr1LWlnq99nmbZ+oJKpL5vmRBN5SVEQMcioXBMTjdh11tkrhIqG83EGYd29mMYxVs3pCHq2Qs9X9JjQlJREwE9g7Dcyj8uL+B4oYrH2ccygi6AHkCR4RK7sl6nUYDDNizef0H9S3pGA2m55sEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f+QMxiXLei7mZQ+RGXLdJmLASFl6CTWebI0OCADBcS4=;
- b=s/PrfFXJyisaxTw7Wx4E3uxMeyfrADOphSnolPZzO/87zp6MLkzvdIumr5bAj08tGbpbq/ZytIIJkyIDGZl3IGEoE25p7W4WnJx0aWLHnBxQ7ElhSnOlEBpnOeM1JHL6rRHNwqPHg9GfW++HmFnZY1vIalFD7ER2BfELJvWOuAg=
-Received: from DM6PR12MB3324.namprd12.prod.outlook.com (2603:10b6:5:11e::26)
- by DM6PR12MB2844.namprd12.prod.outlook.com (2603:10b6:5:45::32) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Tue, 19 Oct
- 2021 01:06:16 +0000
-Received: from DM6PR12MB3324.namprd12.prod.outlook.com
- ([fe80::545:e133:60d8:d646]) by DM6PR12MB3324.namprd12.prod.outlook.com
- ([fe80::545:e133:60d8:d646%7]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
- 01:06:16 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Russell, Kent" <Kent.Russell@amd.com>, "Tuikov, Luben"
- <Luben.Tuikov@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Quan, Evan" <Evan.Quan@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-Subject: RE: [PATCH 0/5] 0 MHz is not a valid current frequency
-Thread-Topic: [PATCH 0/5] 0 MHz is not a valid current frequency
-Thread-Index: AQHXv9/4JcAOE/SCekOaHpPFBC2rB6vQUc0AgADLY4CAAAx0gIACLlUAgAXjEoCAAAL8AIAATLbwgAAAQGA=
-Date: Tue, 19 Oct 2021 01:06:15 +0000
-Message-ID: <DM6PR12MB3324C490C0CF191F6F34602C85BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
-References: <20211013031042.53540-1-luben.tuikov@amd.com>
- <858da53c-7937-3ebf-360d-f20f30f825d9@amd.com>
- <e3d94e8a-ea9b-85cc-8e85-2ee2e6725f2f@amd.com>
- <DM6PR12MB39307EA02DE72479774D8FF297B79@DM6PR12MB3930.namprd12.prod.outlook.com>
- <DM6PR12MB26196111DA43A1EE11266558E4B99@DM6PR12MB2619.namprd12.prod.outlook.com>
- <BL1PR12MB51443E4EA64480401839E135F7BC9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <091c6805-a72c-a286-f7fb-9d5d5da344d3@amd.com>
- <DM6PR12MB3324CDCA68D04483A57C150985BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB3324CDCA68D04483A57C150985BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ bh=yA4s3SlBie9MdomJ/R/Wy87CAvUTkJmp9a8YV+Xe+AQ=;
+ b=ukgjauNoGdWfNK8pCKPhqaSi3f5LuRqLmFXC8Ee8nP+ZNA6KUxDaTnhIVbO61aAv8e7hItRmmSAr2BwBlCWfcxA9IvJKv8Mh5qXZnp8bPSLxcf1D8PQHumnnLXxnp0rl7sobck4xn9ckDD2YlnlOQXyKUTxVXi5IkF1TkGjcPZ4=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR1201MB0121.namprd12.prod.outlook.com (2603:10b6:4:56::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.15; Tue, 19 Oct 2021 02:35:41 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::35c8:7b2f:1090:d3a5]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::35c8:7b2f:1090:d3a5%6]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
+ 02:35:41 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "bp@alien8.de"
+ <bp@alien8.de>
+Subject: RE: [PATCH] drm/amdgpu: fix the hang observed on Carrizo due to UVD
+ suspend failure
+Thread-Topic: [PATCH] drm/amdgpu: fix the hang observed on Carrizo due to UVD
+ suspend failure
+Thread-Index: AQHXw/KptwZ8Klc65kmsh84HzYwfCavYY7qAgAAT4iCAABuMgIABBjmA
+Date: Tue, 19 Oct 2021 02:35:41 +0000
+Message-ID: <DM6PR12MB261981999134F6D4F5931FAAE4BD9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20211018073432.1525697-1-evan.quan@amd.com>
+ <c995c339-1b9d-2a8d-930b-ae48ffe44b99@amd.com>
+ <DM6PR12MB26195457A0FA18D65FA93DDDE4BC9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <1bae8d09-ebe4-6b1f-aef6-e39905a441bf@amd.com>
+In-Reply-To: <1bae8d09-ebe4-6b1f-aef6-e39905a441bf@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-19T01:06:12Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-19T02:35:37Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
  Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=82b41623-7f99-470f-84e5-57bcf36809df;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=882cb8c2-9e86-4f49-ae7c-8a1429a049b1;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3a5707c8-0f92-4675-4b34-08d9929ca6c3
-x-ms-traffictypediagnostic: DM6PR12MB2844:
+x-ms-office365-filtering-correlation-id: 32687b01-f733-4f76-f5ad-08d992a924a2
+x-ms-traffictypediagnostic: DM5PR1201MB0121:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB28440A7A4D688B0EC5236CEF85BD9@DM6PR12MB2844.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-microsoft-antispam-prvs: <DM5PR1201MB01217D0EB4F87709FE7CFF08E4BD9@DM5PR1201MB0121.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7bpyd3/W4lgkkb7TXoEQjSNUh9glMor2ZAI0WEgrThkVuPGWxgM7bLlNdLh7SNqMrLrLxXPTdB5MxcwsX80Q42n8Yal2FTOoH4UXo0a/s+OX4Cia8kzzdA8KVRtaKuxJr+nFSDq9Sw5usIDC6gPAdRX2v0KI/sVzrnExjJx1/t5piXTRENCU3wueXpuVGni7fye1MgwvaVtzRr0e5kzzLww/7Xk2fd//A9vEssPT3XCk9tOFYXziLPVlXm3cqbht7WanTKAPhoFnRSVmF3W69t+dRwBEYCijMhApJc4boc/SWeiwZA9iiPImyE+Vtp1Ex2evT4FHgzznzsAmDLFDVW+6WfOE4XG41MKf6ZLWFLr1cS1+FeBqy6NzbJuuTMCt2pT92uDGOrtQAaS3hl/rMCUXK+34yQhkfSEf2iClFAzuXE7K1JD1rWP46IzJrvUiDnzguDrQKXvJwdax/qFbnv3ddGGQrdqFSiJucLlaxA02QG2heW4qeRFGjrldevNj5tLdrSvQ6TtO5MBbizfuYSl6zYOE4+YKeRj3xy97wPmcWNTpQkRVpWHgmuTB9I+vCp82c+vdPeYOLCmDNiNZqWQlsiv3AwfDYo+CvHCqhWhDJT2zVdenT/D+filFIR4xO+5kECTV0DckpUTUOe5vu8ZFKE+48HVLR5mHksRlVBVSs8QfabRwKphq0sBTt3wBOeMK7fQd7D6DwiJb6F+Z0lBTwA6tBjKa7yqiBhySgoY=
+x-microsoft-antispam-message-info: 5WQyz1Vawz8/Lh5ikPEPyMc1WW8/UTV18hy9OjTd/ux9nVVLLs1TZ49E1lrA0E2pGUe3HkSG9booIQ/yjRA/04bNKKU3iNfdstVkBrqf31+bclIsH+sAOM6Fo+nGRyS+6rrn0R/wHUOHYmD+huxzyDQE5upqxo3ZtUXxiY6CUVxtvS7ngcwLdSL3ZbcgW/oX3odWe8qwtGu1dqG5zpwsEe2/MKDoxYzfKqjJt5jMBdPT0qM5iai1dHi6P5mb3hgFT/OcpxmHqDCnP0ghR7BNKVSWb+LWemg3n18wWOTQQbbBDuaLROek/VqQ5iSuCyb2RL737+O1rQpwGEQOsR2ymLsW+5trrZyIJmqPB6qv9z1gngbTMFXQsJXJ4bgj/fB7KVrXoF6wSA7Ozobul4sy+xiHrUtscwmjX5TmenewaaHTCWUQNqFoRB1qRHLaNo8inlyVZRRliFeQhzKDbJKH1+ymAASf3QEzAKiAYI5HzKL2GbyD+WT2tWbd2T00aUQIphIg2sZuYSfziOktgrjC9EMczHupZ1s1DVpVZZGBurfoOLVlD151isIN1Fk6SIf9ZlXC6rsU3PwKl5bjyuJhwqB9QSXbMFAK7PLFJxufTY25eLIyDqNB2wq1zNUrR34/97V/jNkS8l5H+O1hQq5Y+2hYVDl8+aASnnRC7QreydSaExRsH9NMCOYoAgQntEV6wzOVtwfEvlgzTvugkzpCcQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3324.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66446008)(66476007)(76116006)(64756008)(66556008)(122000001)(66946007)(71200400001)(4001150100001)(38100700002)(6506007)(86362001)(33656002)(2906002)(53546011)(508600001)(5660300002)(2940100002)(8936002)(110136005)(7696005)(55016002)(83380400001)(9686003)(8676002)(316002)(4326008)(921005)(38070700005)(52536014)(186003)(579004)(559001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(54906003)(66446008)(5660300002)(76116006)(122000001)(508600001)(66946007)(71200400001)(186003)(8936002)(38100700002)(6506007)(316002)(55016002)(66556008)(8676002)(83380400001)(15650500001)(26005)(110136005)(33656002)(9686003)(53546011)(66476007)(52536014)(7696005)(38070700005)(4326008)(64756008)(86362001)(2906002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?89DpnTeHkq0a5UBD9VxcXf8SIn9f7HMYUUdPityXYpfA8HBUUpdkThratnSB?=
- =?us-ascii?Q?SDgQVi/2MvtzfNQWuzTMCqsv8orpY4rvk+V8hAJQSwg4QRQvmGf1tIhSYFB1?=
- =?us-ascii?Q?OffmrXLzM6oa96Q761XIxHDYSNoUjg2inELgxvRTsm1nERvpeAZa499LGXH9?=
- =?us-ascii?Q?RVjYjK+1yhKtw69FBUCf2aB7aXzsVZY7aAX2tuLi+b7mGLHT5h28S5Vv3HiK?=
- =?us-ascii?Q?7kmnt5uc5kUt3YE7t/+HbY3y7P9cr+i1lbKO5ilBd5sYzZk/ZgIxVnXAlDNr?=
- =?us-ascii?Q?CqESmAfFZITW6h8PhfYID9oxWPYjbun4HQst2Vq2bcdEJmG83ewL1fEON+9V?=
- =?us-ascii?Q?fLkgZa3sX9isQYhFBTCTI6cF7sRa89HJRTMcrCWfd0O7UblklUeiBtZiFuV1?=
- =?us-ascii?Q?oZnkQm1/Hhu4Kb2uZzoGNTAfs7844rEEJ5SnpJ1Prs/SMSwpOq/pITMjLM7F?=
- =?us-ascii?Q?KjBpajKJIhCE8PxLOZ0lWTQHjkIcT1TPaK3I4fX0rC/Idd/NgR3oTb8iXK0u?=
- =?us-ascii?Q?9f0k6IMCiNd1ZXgtX07cFHN0+V5/kK23L7oxZ1Kh9DgjvanazytH7TaM8CwN?=
- =?us-ascii?Q?fjUARwTo5d9BneSbtdxxUkp4B3khblP4I4jcvJkjdoJ8u1kbyKCu7lp2ASHu?=
- =?us-ascii?Q?/5KaiDSqHt/iXQR1LBYgh3Mu0nptGTR2j0unaQqkR9Pp3mw92uUIy4TMkCJb?=
- =?us-ascii?Q?pcQ6B82bWJjyej2R5mxya796Fy0YssizRe7sG4O2r8B1Veu+y5BNeaW5QeR2?=
- =?us-ascii?Q?xk40UAh2VaPWBooH+gnlkKKrPAEZAxbScddoq85ukuiZb+pu3/05xWAYNbpu?=
- =?us-ascii?Q?lb6c1mO7caxZ4S10Z6QgaIXrt9YUhxVI0+locXuyxcYHedz/U1dQirIJXYlY?=
- =?us-ascii?Q?D2muri7dYYkFAZoXIVZMJuWOOFKoogla9NE31MOof0GFvC/AleiRfhwg5Y47?=
- =?us-ascii?Q?WXcQ41k2HUKGYMOzW1MfuOVVXgOuUOIBcqWwfpH+VREDh5V/2sEBDgMiYZ/3?=
- =?us-ascii?Q?93cJzGS0qjQ/QxZXQMvFdkIiq5skCyxj5dDRP5l0pAEZ72sI1J86MEfI9Ic6?=
- =?us-ascii?Q?Iqf9mJYjqQ4PoWsEe1AUCw33mpW3QkKRZz5dNoRiw3Lwgo1cB01N5IWcKVZl?=
- =?us-ascii?Q?cSVuLh9t8DoK8y6JX+h05vT9SFbDhiVBuAh9PK6L2c/MbHlg6KT07Fxy8NpS?=
- =?us-ascii?Q?yuPGXnXNMaulcuXFJHXdbFkWHIPS46wMQSHOKW7ZnDZSoiW6a8xtoWIqL8Hh?=
- =?us-ascii?Q?tNVxlqfdESSLJAGxqvoETrJsNyfceqfEM27DowrGxcyl5v6gA9QseY7KBAtx?=
- =?us-ascii?Q?ZoWAGmN2JmQHVoO26ZfThvG03jQ1WxFCNDCCacb2F9CX2qnM6MMHAnNlu7CW?=
- =?us-ascii?Q?1M/aSNmAHoFzms5ku0YL4duZhAC/?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_"
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TlFYdWFnN3hFd2hpdU8yT3pvRWtTOWN0Z2tOMWNCNjRaQmlRTUIxOW9vNkIx?=
+ =?utf-8?B?Z2RLdUxzYldqWkI0UmtVT3NXU05hVUpSQjFzVFUrRCtPTEllSHRrWWd6OEEw?=
+ =?utf-8?B?ZTRZbjBINmsveFN3WlltYUlVbEVtK0VLQ2hrOE1DNmVqSW0vdzhBNEIyYlpw?=
+ =?utf-8?B?YllEdnlzNGxsdmovQ1pLK3Q4MkFWMjRBT0MraEVQVzJKK3MrTmRUTUpZeDZs?=
+ =?utf-8?B?QWlhMllibnNmQWsyb3VzSmNuQzR3WFdWTmpURzAxNy81dllvajBQajR1YkZF?=
+ =?utf-8?B?QWU2V2hWWVRaWlRjQ1orM3BBOXpzdHBobkxhTjNGOGtWMGEza053eTJFUnIy?=
+ =?utf-8?B?NkdBNi9hclpoSXVGaVk0REdKVkluOExJRGJvUmxVT3liNGxWNFhya1BSZith?=
+ =?utf-8?B?d0ZnNWd6ZjE2OWVKUWVUUk1SaTZ5NDhRTzZFVEpvTzQyUkF2RmYybE1WQndo?=
+ =?utf-8?B?d2w3by9nVUFYd1FnU2k1OG53WWFIcmVwaDlWU3l1SHZEK2toNHJWVzdza2da?=
+ =?utf-8?B?MlVPVkNuZE9WcEtGLzk3NEFWU1l4MFBEVzBZTStYZ1cwcy9oWk5KbXZIZTlK?=
+ =?utf-8?B?QTRUaTgwbDV4TUM3T2N0MmxZUE8wSW5qZUdvcTc5U01iUTk1aEptUGw3aDM1?=
+ =?utf-8?B?U0NMV3crSFh6Q2phK040L0tpcWJoR24yY1Q1emc4T0t1eEd5TDkram1lelpD?=
+ =?utf-8?B?L2QyZW5vQ255aW0yTTlNYnhmNjZKSTdHZ3N1N0VnbVg1aDBZcVJJRUpVakVI?=
+ =?utf-8?B?SlhsYWY4R0dlQzZLR3pQN2orWVZkTU5sUlJ1dTByZmphNUh0WGFtUlZ6amJP?=
+ =?utf-8?B?eUxwL3E3UTBvWWl4RlBHVW5nSjVMaDBTRjRhd1JBMU8zVTI4NTJFZzVhVmNC?=
+ =?utf-8?B?VTRDM0Y4Wm9vLzExU09NNjk4Z2d1d1dqQzNldEJFTjR6Ly9rVkJPQ05lcjVn?=
+ =?utf-8?B?RnpzeEQvZVd6dmU3L3FPOThITCtGZGxoZkdHUlJSdzU5YUNrVGc5UGV3bVEx?=
+ =?utf-8?B?WHBXa291RWIvaHlueFZGZUxNRTdybDRpR0lWbGNqNTJkZTBPWWdPa2Jaeldz?=
+ =?utf-8?B?bWxmazV4SEtsbnpldmVLS3BtZkNYZVBKa0puUDV3Q3dNMjNlWE5IQUdUcVA1?=
+ =?utf-8?B?RnpORHRXTG5YbWwzZENmSXFUampGVTlMTHRxaTMvZnpWMlBHZUJCOWxJaXRi?=
+ =?utf-8?B?UW5JRWRaNVdIZjk2RHl2cTV4TGI3YjkzMlIwVTZGU2pqcXNSSUtja1RqaThp?=
+ =?utf-8?B?TUVncFBwSDlFU2UwaEJJRmJPMnVaT1FmYkcwanQyMHJkczVCREFWWWEyU2FR?=
+ =?utf-8?B?NHIyTm8rZ3hreDZEZzI5cGcrUHF2MzJtZlR0LzhFanViTk8xRGhGU1RxR3lV?=
+ =?utf-8?B?Mk1vZFdaNmFNOXRGWVAxQnBiaEh6QzZtSGc4bnA5bkx1MnV1Q1BUbldGQTFY?=
+ =?utf-8?B?dndZRlN6aWZNSU9Na25penJrUXQraUdzU2x0T2tOR2ZoMWhKUlg3Mjh2SmJL?=
+ =?utf-8?B?UGJiQnpLWWRRLzZra3FGb01RK0tJZUNvdTkzV3QySWRldmxDMC9OWU5QNFI5?=
+ =?utf-8?B?aDA5T2FlUk9RVjdkQTN1cUJrZUx2SmNkMitrMUFJUkRTM3A0MFo4cVJabkEr?=
+ =?utf-8?B?aTk3aStCMXYyNkd5TnM2cytRbEs4QTAwWG9DVFpqUVQ0a2VSOC9DWFVOWUZr?=
+ =?utf-8?B?Ujc1Q1lqV3RmeW1jcEw2TmdVRkpaekt2d0RITlV6UUpWN2NDTGptTHo0bXNz?=
+ =?utf-8?Q?I7Ox170RoauXb4xcaP3tcPzP2jC3ICqqxAMxV3W?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3324.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a5707c8-0f92-4675-4b34-08d9929ca6c3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2021 01:06:15.9396 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32687b01-f733-4f76-f5ad-08d992a924a2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2021 02:35:41.0264 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: E6eeQxZvdAiLOhzA6tx0yzZDw4tqeK04FjnIyAoptl5TRptAzMWjHQuaAsvbmm765HcD+eQfpChF4dQLvvY13g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2844
+X-MS-Exchange-CrossTenant-userprincipalname: NdaEfKcUT16YgX2P3oa1Aw4lp8gUQisESLSOkP4hW43RC0YTz632QzlD3wzhJcbx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,1510 +145,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only]
-
-The * is required for the rocm-smi's functionality for showing what the cur=
-rent clocks are. We had a bug before where the * was removed, then the SMI =
-died fantastically. Work could be done to try to handle that type of situat=
-ion, but the SMI has a "show current clocks" and uses the * to determine wh=
-ich one is active
-
-Kent
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Russell,=
- Kent
-Sent: Monday, October 18, 2021 9:05 PM
-To: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deu=
-cher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.=
-com>; amd-gfx@lists.freedesktop.org
-Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-Subject: RE: [PATCH 0/5] 0 MHz is not a valid current frequency
-
-
-[AMD Official Use Only]
-
-+Harish, rocm-smi falls under his purview now.
-
-Kent
-
-From: Tuikov, Luben <Luben.Tuikov@amd.com<mailto:Luben.Tuikov@amd.com>>
-Sent: Monday, October 18, 2021 4:30 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
-amd.com>>; Quan, Evan <Evan.Quan@amd.com<mailto:Evan.Quan@amd.com>>; Lazar,=
- Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@lists.freede=
-sktop.org<mailto:amd-gfx@lists.freedesktop.org>; Russell, Kent <Kent.Russel=
-l@amd.com<mailto:Kent.Russell@amd.com>>
-Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
-
-I think Kent is already seen these patches as he did comment on 1/5 patch.
-
-The v3 version of the patch, posted last week, removes the asterisk to repo=
-rt the lowest frequency as the current frequency, when the current frequenc=
-y is 0, i.e. when the block is in low power state. Does the tool rely on th=
-e asterisk? If this information is necessary could it not use amdgpu_pm_inf=
-o?
-
-Regards,
-Luben
-
-On 2021-10-18 16:19, Deucher, Alexander wrote:
-
-[Public]
-
-We the current behavior (0 for clock) already crashes the tool, so I don't =
-think we can really make things worse.
-
-Alex
-
-________________________________
-From: Quan, Evan <Evan.Quan@amd.com><mailto:Evan.Quan@amd.com>
-Sent: Thursday, October 14, 2021 10:25 PM
-To: Lazar, Lijo <Lijo.Lazar@amd.com><mailto:Lijo.Lazar@amd.com>; Tuikov, Lu=
-ben <Luben.Tuikov@amd.com><mailto:Luben.Tuikov@amd.com>; amd-gfx@lists.free=
-desktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedeskto=
-p.org><mailto:amd-gfx@lists.freedesktop.org>; Russell, Kent <Kent.Russell@a=
-md.com><mailto:Kent.Russell@amd.com>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com><mailto:Alexander.Deucher=
-@amd.com>
-Subject: RE: [PATCH 0/5] 0 MHz is not a valid current frequency
-
-
-[AMD Official Use Only]
-
-
-
-+Kent who maintains the Rocm tool
-
-
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> On Behalf Of Lazar, Lijo
-Sent: Thursday, October 14, 2021 1:07 AM
-To: Tuikov, Luben <Luben.Tuikov@amd.com><mailto:Luben.Tuikov@amd.com>; amd-=
-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com><mailto:Alexander.Deucher=
-@amd.com>
-Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
-
-
-
-[AMD Official Use Only]
-
-
-
-[AMD Official Use Only]
-
-
-
->Or maybe just a list without default hint, i.e. no asterisk?
-
-
-
-I think this is also fine meaning we are having trouble in determining the =
-current frequency or DPM level. Evan/Alex? Don't know if this will crash th=
-e tools.
-
-
-
-Thanks,
-Lijo
-
-________________________________
-
-From: Tuikov, Luben <Luben.Tuikov@amd.com<mailto:Luben.Tuikov@amd.com>>
-Sent: Wednesday, October 13, 2021 9:52:09 PM
-To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
-sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.fr=
-eedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
-amd.com>>
-Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
-
-
-
-On 2021-10-13 00:14, Lazar, Lijo wrote:
->
-> On 10/13/2021 8:40 AM, Luben Tuikov wrote:
->> Some ASIC support low-power functionality for the whole ASIC or just
->> an IP block. When in such low-power mode, some sysfs interfaces would
->> report a frequency of 0, e.g.,
->>
->> $cat /sys/class/drm/card0/device/pp_dpm_sclk
->> 0: 500Mhz
->> 1: 0Mhz *
->> 2: 2200Mhz
->> $_
->>
->> An operating frequency of 0 MHz doesn't make sense, and this interface
->> is designed to report only operating clock frequencies, i.e. non-zero,
->> and possibly the current one.
->>
->> When in this low-power state, round to the smallest
->> operating frequency, for this interface, as follows,
->>
-> Would rather avoid this -
->
-> 1) It is manipulating FW reported value. If at all there is an uncaught
-> issue in FW reporting of frequency values, that is masked here.
-> 2) Otherwise, if 0MHz is described as GFX power gated case, this
-> provides a convenient interface to check if GFX is power gated.
->
-> If seeing a '0' is not pleasing, consider changing to something like
->        "NA" - not available (frequency cannot be fetched at the moment).
-
-There's a ROCm tool which literally asserts if the values are not ordered i=
-n increasing order. Now since 0 < 550, but 0 is listed as the second entry,=
- the tool simply asserts and crashes.
-
-It is not clear what you'd rather see here:
-
-$cat /sys/class/drm/card0/device/pp_dpm_sclk
-0: 550Mhz
-1: N/A *
-2: 2200MHz
-$_
-
-Is this what you want to see? (That'll crash other tools which expect %uMhz=
-.)
-
-Or maybe just a list without default hint, i.e. no asterisk?
-
-$cat /sys/class/drm/card0/device/pp_dpm_sclk
-0: 550Mhz
-1: 2200MHz
-$_
-
-What should the output be?
-
-We want to avoid showing 0, but still show numbers.
-
-Regards,
-Luben
-
->
-> Thanks,
-> Lijo
->
->> $cat /sys/class/drm/card0/device/pp_dpm_sclk
->> 0: 500Mhz *
->> 1: 2200Mhz
->> $_
->>
->> Luben Tuikov (5):
->>    drm/amd/pm: Slight function rename
->>    drm/amd/pm: Rename cur_value to curr_value
->>    drm/amd/pm: Rename freq_values --> freq_value
->>    dpm/amd/pm: Sienna: 0 MHz is not a current clock frequency
->>    dpm/amd/pm: Navi10: 0 MHz is not a current clock frequency
->>
->>   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 60 +++++++++------
->>   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 73 ++++++++++++-------
->>   2 files changed, 86 insertions(+), 47 deletions(-)
->>
-
-
---_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"ProgId" content=3D"Word.Document">
-<meta name=3D"Generator" content=3D"Microsoft Word 15">
-<meta name=3D"Originator" content=3D"Microsoft Word 15">
-<link rel=3D"File-List" href=3D"cid:filelist.xml@01D7C463.FB79F840"><link r=
-el=3D"Edit-Time-Data" href=3D"cid:editdata.mso"><!--[if !mso]><style>v\:* {=
-behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><!--[if gte mso 9]><xml>
-<o:OfficeDocumentSettings>
-<o:AllowPNG/>
-</o:OfficeDocumentSettings>
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<w:WordDocument>
-<w:DocumentKind>DocumentEmail</w:DocumentKind>
-<w:TrackMoves/>
-<w:TrackFormatting/>
-<w:EnvelopeVis/>
-<w:ValidateAgainstSchemas/>
-<w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
-<w:IgnoreMixedContent>false</w:IgnoreMixedContent>
-<w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
-<w:DoNotPromoteQF/>
-<w:LidThemeOther>EN-US</w:LidThemeOther>
-<w:LidThemeAsian>X-NONE</w:LidThemeAsian>
-<w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
-<w:Compatibility>
-<w:DoNotExpandShiftReturn/>
-<w:BreakWrappedTables/>
-<w:SnapToGridInCell/>
-<w:WrapTextWithPunct/>
-<w:UseAsianBreakRules/>
-<w:DontGrowAutofit/>
-<w:SplitPgBreakAndParaMark/>
-<w:EnableOpenTypeKerning/>
-<w:DontFlipMirrorIndents/>
-<w:OverrideTableStyleHps/>
-</w:Compatibility>
-<w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
-<m:mathPr>
-<m:mathFont m:val=3D"Cambria Math"/>
-<m:brkBin m:val=3D"before"/>
-<m:brkBinSub m:val=3D"&#45;-"/>
-<m:smallFrac m:val=3D"off"/>
-<m:dispDef/>
-<m:lMargin m:val=3D"0"/>
-<m:rMargin m:val=3D"0"/>
-<m:defJc m:val=3D"centerGroup"/>
-<m:wrapIndent m:val=3D"1440"/>
-<m:intLim m:val=3D"subSup"/>
-<m:naryLim m:val=3D"undOvr"/>
-</m:mathPr></w:WordDocument>
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<w:LatentStyles DefLockedState=3D"false" DefUnhideWhenUsed=3D"false" DefSem=
-iHidden=3D"false" DefQFormat=3D"false" DefPriority=3D"99" LatentStyleCount=
-=3D"376">
-<w:LsdException Locked=3D"false" Priority=3D"0" QFormat=3D"true" Name=3D"No=
-rmal"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" QFormat=3D"true" Name=3D"he=
-ading 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 7"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 8"/>
-<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" QFormat=3D"true" Name=3D"heading 9"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 5"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 6"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 7"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 8"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index 9"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 7"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 8"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"toc 9"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Normal Indent"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"footnote text"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"annotation text"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"header"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"footer"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"index heading"/>
-<w:LsdException Locked=3D"false" Priority=3D"35" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" QFormat=3D"true" Name=3D"caption"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"table of figures"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"envelope address"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"envelope return"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"footnote reference"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"annotation reference"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"line number"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"page number"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"endnote reference"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"endnote text"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"table of authorities"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"macro"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"toa heading"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Bullet"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Number"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List 5"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Bullet 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Bullet 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Bullet 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Bullet 5"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Number 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Number 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Number 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Number 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"10" QFormat=3D"true" Name=3D"T=
-itle"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Closing"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Signature"/>
-<w:LsdException Locked=3D"false" Priority=3D"1" SemiHidden=3D"true" UnhideW=
-henUsed=3D"true" Name=3D"Default Paragraph Font"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text Indent"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Continue"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Continue 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Continue 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Continue 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"List Continue 5"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Message Header"/>
-<w:LsdException Locked=3D"false" Priority=3D"11" QFormat=3D"true" Name=3D"S=
-ubtitle"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Salutation"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Date"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text First Indent"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text First Indent 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Note Heading"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text Indent 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Body Text Indent 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Block Text"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Hyperlink"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"FollowedHyperlink"/>
-<w:LsdException Locked=3D"false" Priority=3D"22" QFormat=3D"true" Name=3D"S=
-trong"/>
-<w:LsdException Locked=3D"false" Priority=3D"20" QFormat=3D"true" Name=3D"E=
-mphasis"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Document Map"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Plain Text"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"E-mail Signature"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Top of Form"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Bottom of Form"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Normal (Web)"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Acronym"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Address"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Cite"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Code"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Definition"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Keyboard"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Preformatted"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Sample"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Typewriter"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"HTML Variable"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Normal Table"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"annotation subject"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"No List"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Outline List 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Outline List 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Outline List 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Simple 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Simple 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Simple 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Classic 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Classic 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Classic 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Classic 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Colorful 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Colorful 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Colorful 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Columns 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Columns 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Columns 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Columns 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Columns 5"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 5"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 6"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 7"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Grid 8"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 4"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 5"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 6"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 7"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table List 8"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table 3D effects 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table 3D effects 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table 3D effects 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Contemporary"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Elegant"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Professional"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Subtle 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Subtle 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Web 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Web 2"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Web 3"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Balloon Text"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" Name=3D"Table Grid"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Table Theme"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" Name=3D"Placeholder Te=
-xt"/>
-<w:LsdException Locked=3D"false" Priority=3D"1" QFormat=3D"true" Name=3D"No=
- Spacing"/>
-<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading"/>
-<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List"/>
-<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid"/>
-<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1"/=
->
-<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2"/=
->
-<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List"/>
-<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading"/=
->
-<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List"/>
-<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid"/>
-<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
-1"/>
-<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
-1"/>
-<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
-ccent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
-ccent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" Name=3D"Revision"/>
-<w:LsdException Locked=3D"false" Priority=3D"34" QFormat=3D"true" Name=3D"L=
-ist Paragraph"/>
-<w:LsdException Locked=3D"false" Priority=3D"29" QFormat=3D"true" Name=3D"Q=
-uote"/>
-<w:LsdException Locked=3D"false" Priority=3D"30" QFormat=3D"true" Name=3D"I=
-ntense Quote"/>
-<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 1=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
-ccent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
-nt 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
-2"/>
-<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
-2"/>
-<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
-ccent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
-ccent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 2=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
-ccent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
-nt 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
-3"/>
-<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
-3"/>
-<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
-ccent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
-ccent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 3=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
-ccent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
-nt 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
-4"/>
-<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
-4"/>
-<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
-ccent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
-ccent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 4=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
-ccent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
-nt 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
-5"/>
-<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
-5"/>
-<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
-ccent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
-ccent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 5=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
-ccent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
-nt 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
-6"/>
-<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
-6"/>
-<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
-ccent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
-ccent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 6=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
-ccent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
-nt 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"19" QFormat=3D"true" Name=3D"S=
-ubtle Emphasis"/>
-<w:LsdException Locked=3D"false" Priority=3D"21" QFormat=3D"true" Name=3D"I=
-ntense Emphasis"/>
-<w:LsdException Locked=3D"false" Priority=3D"31" QFormat=3D"true" Name=3D"S=
-ubtle Reference"/>
-<w:LsdException Locked=3D"false" Priority=3D"32" QFormat=3D"true" Name=3D"I=
-ntense Reference"/>
-<w:LsdException Locked=3D"false" Priority=3D"33" QFormat=3D"true" Name=3D"B=
-ook Title"/>
-<w:LsdException Locked=3D"false" Priority=3D"37" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" Name=3D"Bibliography"/>
-<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
-WhenUsed=3D"true" QFormat=3D"true" Name=3D"TOC Heading"/>
-<w:LsdException Locked=3D"false" Priority=3D"41" Name=3D"Plain Table 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"42" Name=3D"Plain Table 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"43" Name=3D"Plain Table 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"44" Name=3D"Plain Table 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"45" Name=3D"Plain Table 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"40" Name=3D"Grid Table Light"/=
->
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark"=
-/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
-ful"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
-ful"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
- Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
-t 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
-t 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
-t 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
-Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
-ful Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
-ful Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
- Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
-t 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
-t 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
-t 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
-Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
-ful Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
-ful Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
- Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
-t 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
-t 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
-t 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
-Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
-ful Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
-ful Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
- Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
-t 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
-t 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
-t 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
-Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
-ful Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
-ful Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
- Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
-t 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
-t 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
-t 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
-Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
-ful Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
-ful Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
- Accent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
-t 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
-t 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
-t 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
-Accent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
-ful Accent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
-ful Accent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
-"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark"=
-/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
-ful"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
-ful"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
- Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
-t 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
-t 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
-t 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
-Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
-ful Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
-ful Accent 1"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
- Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
-t 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
-t 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
-t 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
-Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
-ful Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
-ful Accent 2"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
- Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
-t 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
-t 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
-t 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
-Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
-ful Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
-ful Accent 3"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
- Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
-t 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
-t 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
-t 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
-Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
-ful Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
-ful Accent 4"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
- Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
-t 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
-t 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
-t 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
-Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
-ful Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
-ful Accent 5"/>
-<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
- Accent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
-t 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
-t 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
-t 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
-Accent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
-ful Accent 6"/>
-<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
-ful Accent 6"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Mention"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Smart Hyperlink"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Hashtag"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Unresolved Mention"/>
-<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
-" Name=3D"Smart Link"/>
-</w:LatentStyles>
-</xml><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:0;
-	mso-generic-font-family:roman;
-	mso-font-pitch:variable;
-	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;
-	mso-font-charset:0;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-469750017 -1073732485 9 0 511 0;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"";
-	margin:0in;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-a:link, span.MsoHyperlink
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;
-	text-underline:single;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;
-	text-underline:single;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-style-unhide:no;
-	margin:0in;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-p.xmsonormal, li.xmsonormal, div.xmsonormal
-	{mso-style-name:x_msonormal;
-	mso-style-unhide:no;
-	margin:0in;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-p.xmsipheadera4477989, li.xmsipheadera4477989, div.xmsipheadera4477989
-	{mso-style-name:x_msipheadera4477989;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-p.xmsochpdefault, li.xmsochpdefault, div.xmsochpdefault
-	{mso-style-name:x_msochpdefault;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-p.msipheader9f8d35bc, li.msipheader9f8d35bc, div.msipheader9f8d35bc
-	{mso-style-name:msipheader9f8d35bc;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-span.xmsohyperlink
-	{mso-style-name:x_msohyperlink;
-	mso-style-unhide:no;
-	color:#0563C1;
-	text-decoration:underline;
-	text-underline:single;}
-span.xemailstyle18
-	{mso-style-name:x_emailstyle18;
-	mso-style-unhide:no;
-	font-family:"Calibri",sans-serif;
-	mso-ascii-font-family:Calibri;
-	mso-hansi-font-family:Calibri;
-	mso-bidi-font-family:Calibri;
-	color:windowtext;}
-span.EmailStyle24
-	{mso-style-type:personal;
-	mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-ansi-font-size:11.0pt;
-	mso-bidi-font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-ascii-font-family:Calibri;
-	mso-fareast-font-family:Calibri;
-	mso-hansi-font-family:Calibri;
-	mso-bidi-font-family:"Times New Roman";
-	color:windowtext;}
-span.EmailStyle25
-	{mso-style-type:personal-reply;
-	mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-ansi-font-size:11.0pt;
-	mso-bidi-font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-ascii-font-family:Calibri;
-	mso-fareast-font-family:Calibri;
-	mso-hansi-font-family:Calibri;
-	mso-bidi-font-family:"Times New Roman";
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	mso-default-props:yes;
-	font-size:10.0pt;
-	mso-ansi-font-size:10.0pt;
-	mso-bidi-font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;
-	mso-header-margin:.5in;
-	mso-footer-margin:.5in;
-	mso-paper-source:0;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 10]><style>/* Style Definitions */
-table.MsoNormalTable
-	{mso-style-name:"Table Normal";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-parent:"";
-	mso-padding-alt:0in 5.4pt 0in 5.4pt;
-	mso-para-margin:0in;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;}
-</style><![endif]--><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"purple" style=3D"tab-interva=
-l:.5in;word-wrap:break-word">
-<div class=3D"WordSection1">
-<p class=3D"msipheader9f8d35bc" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
-l Use Only]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
-ew Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;">The * is required for the rocm-smi&#8217;s functionality for s=
-howing what the current clocks are. We had a bug before where the * was rem=
-oved, then the SMI died fantastically. Work could be
- done to try to handle that type of situation, but the SMI has a &#8220;sho=
-w current clocks&#8221; and uses the * to determine which one is active<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;">Kent<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"mso-fareast-font-family:&quot;Time=
-s New Roman&quot;">From:</span></b><span style=3D"mso-fareast-font-family:&=
-quot;Times New Roman&quot;"> amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.=
-org&gt;
-<b>On Behalf Of </b>Russell, Kent<br>
-<b>Sent:</b> Monday, October 18, 2021 9:05 PM<br>
-<b>To:</b> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;; Laz=
-ar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
-<b>Cc:</b> Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan@amd.com&gt;<b=
-r>
-<b>Subject:</b> RE: [PATCH 0/5] 0 MHz is not a valid current frequency<o:p>=
-</o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"msipheader9f8d35bc" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
-l Use Only]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
-ew Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;">+Harish, rocm-smi falls under his purview now.<o:p></o:p></spa=
-n></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;">Kent<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal" style=3D"mso-outline-level:1"><b><span style=3D"mso-=
-fareast-font-family:&quot;Times New Roman&quot;">From:</span></b><span styl=
-e=3D"mso-fareast-font-family:&quot;Times New Roman&quot;"> Tuikov, Luben &l=
-t;<a href=3D"mailto:Luben.Tuikov@amd.com">Luben.Tuikov@amd.com</a>&gt;
-<br>
-<b>Sent:</b> Monday, October 18, 2021 4:30 PM<br>
-<b>To:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om">Alexander.Deucher@amd.com</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Eva=
-n.Quan@amd.com">Evan.Quan@amd.com</a>&gt;; Lazar, Lijo &lt;<a href=3D"mailt=
-o:Lijo.Lazar@amd.com">Lijo.Lazar@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a>; Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Rus=
-sell@amd.com</a>&gt;<br>
-<b>Subject:</b> Re: [PATCH 0/5] 0 MHz is not a valid current frequency<o:p>=
-</o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
-ew Roman&quot;">I think Kent is already seen these patches as he did commen=
-t on 1/5 patch.<br>
-<br>
-The v3 version of the patch, posted last week, removes the asterisk to repo=
-rt the lowest frequency as the current frequency, when the current frequenc=
-y is 0, i.e. when the block is in low power state. Does the tool rely on th=
-e asterisk? If this information
- is necessary could it not use amdgpu_pm_info?<br>
-<br>
-Regards,<br>
-Luben<br>
-<br>
-On 2021-10-18 16:19, Deucher, Alexander wrote:<o:p></o:p></span></p>
-</div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
-ew Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;mso-fareast-font-fam=
-ily:&quot;Times New Roman&quot;;color:black">We the current behavior (0 for=
- clock) already crashes the tool, so I don't think we can really make thing=
-s worse.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;mso-fareast-font-fam=
-ily:&quot;Times New Roman&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;mso-fareast-font-fam=
-ily:&quot;Times New Roman&quot;;color:black">Alex<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;mso-fareast-font-fam=
-ily:&quot;Times New Roman&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
- style=3D"mso-fareast-font-family:&quot;Times New Roman&quot;">
-<hr size=3D"1" width=3D"98%" align=3D"center">
-</span></div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal" style=3D"mso-outline-level:1"><b><span style=3D"mso-=
-fareast-font-family:&quot;Times New Roman&quot;;color:black">From:</span></=
-b><span style=3D"mso-fareast-font-family:&quot;Times New Roman&quot;;color:=
-black"> Quan, Evan
-<a href=3D"mailto:Evan.Quan@amd.com">&lt;Evan.Quan@amd.com&gt;</a><br>
-<b>Sent:</b> Thursday, October 14, 2021 10:25 PM<br>
-<b>To:</b> Lazar, Lijo <a href=3D"mailto:Lijo.Lazar@amd.com">&lt;Lijo.Lazar=
-@amd.com&gt;</a>; Tuikov, Luben
-<a href=3D"mailto:Luben.Tuikov@amd.com">&lt;Luben.Tuikov@amd.com&gt;</a>; <=
-a href=3D"mailto:amd-gfx@lists.freedesktop.org">
-amd-gfx@lists.freedesktop.org</a> <a href=3D"mailto:amd-gfx@lists.freedeskt=
-op.org">
-&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Russell, Kent <a href=3D"mailto:=
-Kent.Russell@amd.com">
-&lt;Kent.Russell@amd.com&gt;</a><br>
-<b>Cc:</b> Deucher, Alexander <a href=3D"mailto:Alexander.Deucher@amd.com">=
-&lt;Alexander.Deucher@amd.com&gt;</a><br>
-<b>Subject:</b> RE: [PATCH 0/5] 0 MHz is not a valid current frequency</spa=
-n><span style=3D"mso-fareast-font-family:&quot;Times New Roman&quot;">
-<o:p></o:p></span></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
-ew Roman&quot;">&nbsp;<o:p></o:p></span></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"xmsipheadera4477989" style=3D"margin:0in"><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Offici=
-al Use Only]</span><o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<p class=3D"xmsonormal">+Kent who maintains the Rocm tool<o:p></o:p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"xmsonormal" style=3D"mso-outline-level:1"><b>From:</b> amd-gfx =
-<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.org">
-&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> <b>On Behalf Of </b>Lazar=
-, Lijo<br>
-<b>Sent:</b> Thursday, October 14, 2021 1:07 AM<br>
-<b>To:</b> Tuikov, Luben <a href=3D"mailto:Luben.Tuikov@amd.com">&lt;Luben.=
-Tuikov@amd.com&gt;</a>;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<b>Cc:</b> Deucher, Alexander <a href=3D"mailto:Alexander.Deucher@amd.com">=
-&lt;Alexander.Deucher@amd.com&gt;</a><br>
-<b>Subject:</b> Re: [PATCH 0/5] 0 MHz is not a valid current frequency<o:p>=
-</o:p></p>
-</div>
-</div>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]</span><o:p></o:=
-p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<div>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]</span><o:p></o:=
-p></p>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-<div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">&gt;Or maybe just a list without default hint, i.e. no asterisk?</spa=
-n><o:p></o:p></p>
-</div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">&nbsp;</span><o:p></o:p></p>
-</div>
-<div>
-<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"color:#21=
-2121">I think this is also fine meaning we are having trouble in determinin=
-g the current frequency or DPM level. Evan/Alex? Don't know if this will cr=
-ash the tools.</span><o:p></o:p></p>
-</div>
-<div id=3D"x_ms-outlook-mobile-signature">
-<div>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-</div>
-<p class=3D"xmsonormal">Thanks,<br>
-Lijo<o:p></o:p></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
- style=3D"mso-fareast-font-family:&quot;Times New Roman&quot;">
-<hr size=3D"1" width=3D"98%" align=3D"center">
-</span></div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"xmsonormal" style=3D"mso-outline-level:1"><b><span style=3D"col=
-or:black">From:</span></b><span style=3D"color:black"> Tuikov, Luben &lt;<a=
- href=3D"mailto:Luben.Tuikov@amd.com">Luben.Tuikov@amd.com</a>&gt;<br>
-<b>Sent:</b> Wednesday, October 13, 2021 9:52:09 PM<br>
-<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
-@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om">Alexander.Deucher@amd.com</a>&gt;<br>
-<b>Subject:</b> Re: [PATCH 0/5] 0 MHz is not a valid current frequency</spa=
-n> <o:p>
-</o:p></p>
-<div>
-<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"xmsonormal" style=3D"margin-bottom:12.0pt">On 2021-10-13 00:14,=
- Lazar, Lijo wrote:<br>
-&gt;<br>
-&gt; On 10/13/2021 8:40 AM, Luben Tuikov wrote:<br>
-&gt;&gt; Some ASIC support low-power functionality for the whole ASIC or ju=
-st<br>
-&gt;&gt; an IP block. When in such low-power mode, some sysfs interfaces wo=
-uld<br>
-&gt;&gt; report a frequency of 0, e.g.,<br>
-&gt;&gt;<br>
-&gt;&gt; $cat /sys/class/drm/card0/device/pp_dpm_sclk<br>
-&gt;&gt; 0: 500Mhz<br>
-&gt;&gt; 1: 0Mhz *<br>
-&gt;&gt; 2: 2200Mhz<br>
-&gt;&gt; $_<br>
-&gt;&gt;<br>
-&gt;&gt; An operating frequency of 0 MHz doesn't make sense, and this inter=
-face<br>
-&gt;&gt; is designed to report only operating clock frequencies, i.e. non-z=
-ero,<br>
-&gt;&gt; and possibly the current one.<br>
-&gt;&gt;<br>
-&gt;&gt; When in this low-power state, round to the smallest<br>
-&gt;&gt; operating frequency, for this interface, as follows,<br>
-&gt;&gt;<br>
-&gt; Would rather avoid this -<br>
-&gt;<br>
-&gt; 1) It is manipulating FW reported value. If at all there is an uncaugh=
-t <br>
-&gt; issue in FW reporting of frequency values, that is masked here.<br>
-&gt; 2) Otherwise, if 0MHz is described as GFX power gated case, this <br>
-&gt; provides a convenient interface to check if GFX is power gated.<br>
-&gt;<br>
-&gt; If seeing a '0' is not pleasing, consider changing to something like<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;NA&quot; - not availab=
-le (frequency cannot be fetched at the moment).<br>
-<br>
-There's a ROCm tool which literally asserts if the values are not ordered i=
-n increasing order. Now since 0 &lt; 550, but 0 is listed as the second ent=
-ry, the tool simply asserts and crashes.<br>
-<br>
-It is not clear what you'd rather see here:<br>
-<br>
-$cat /sys/class/drm/card0/device/pp_dpm_sclk<br>
-0: 550Mhz<br>
-1: N/A *<br>
-2: 2200MHz<br>
-$_<br>
-<br>
-Is this what you want to see? (That'll crash other tools which expect %uMhz=
-.)<br>
-<br>
-Or maybe just a list without default hint, i.e. no asterisk?<br>
-<br>
-$cat /sys/class/drm/card0/device/pp_dpm_sclk<br>
-0: 550Mhz<br>
-1: 2200MHz<br>
-$_<br>
-<br>
-What should the output be?<br>
-<br>
-We want to avoid showing 0, but still show numbers.<br>
-<br>
-Regards,<br>
-Luben<br>
-<br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt; Lijo<br>
-&gt;<br>
-&gt;&gt; $cat /sys/class/drm/card0/device/pp_dpm_sclk<br>
-&gt;&gt; 0: 500Mhz *<br>
-&gt;&gt; 1: 2200Mhz<br>
-&gt;&gt; $_<br>
-&gt;&gt;<br>
-&gt;&gt; Luben Tuikov (5):<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; drm/amd/pm: Slight function rename<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; drm/amd/pm: Rename cur_value to curr_value<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; drm/amd/pm: Rename freq_values --&gt; freq_value=
-<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; dpm/amd/pm: Sienna: 0 MHz is not a current clock=
- frequency<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; dpm/amd/pm: Navi10: 0 MHz is not a current clock=
- frequency<br>
-&gt;&gt;<br>
-&gt;&gt;&nbsp;&nbsp; .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c&nbsp;&nbsp=
-; | 60 +++++++++------<br>
-&gt;&gt;&nbsp;&nbsp; .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c&nbsp;&nbsp=
-; | 73 ++++++++++++-------<br>
-&gt;&gt;&nbsp;&nbsp; 2 files changed, 86 insertions(+), 47 deletions(-)<br>
-&gt;&gt;<o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-<p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
-ew Roman&quot;"><o:p>&nbsp;</o:p></span></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0t
+LS0NCj4gRnJvbTogTGF6YXIsIExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4NCj4gU2VudDogTW9u
+ZGF5LCBPY3RvYmVyIDE4LCAyMDIxIDY6NDcgUE0NCj4gVG86IFF1YW4sIEV2YW4gPEV2YW4uUXVh
+bkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERldWNoZXIs
+IEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IGJwQGFsaWVuOC5kZQ0KPiBT
+dWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXggdGhlIGhhbmcgb2JzZXJ2ZWQgb24g
+Q2Fycml6byBkdWUgdG8NCj4gVVZEIHN1c3BlbmQgZmFpbHVyZQ0KPiANCj4gDQo+IA0KPiBPbiAx
+MC8xOC8yMDIxIDM6MjEgUE0sIFF1YW4sIEV2YW4gd3JvdGU6DQo+ID4gW0FNRCBPZmZpY2lhbCBV
+c2UgT25seV0NCj4gPg0KPiA+DQo+ID4NCj4gPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
+Cj4gPj4gRnJvbTogTGF6YXIsIExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4NCj4gPj4gU2VudDog
+TW9uZGF5LCBPY3RvYmVyIDE4LCAyMDIxIDM6NTggUE0NCj4gPj4gVG86IFF1YW4sIEV2YW4gPEV2
+YW4uUXVhbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPj4gQ2M6
+IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IGJwQGFsaWVu
+OC5kZQ0KPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXggdGhlIGhhbmcg
+b2JzZXJ2ZWQgb24gQ2Fycml6byBkdWUNCj4gPj4gdG8gVVZEIHN1c3BlbmQgZmFpbHVyZQ0KPiA+
+Pg0KPiA+Pg0KPiA+Pg0KPiA+PiBPbiAxMC8xOC8yMDIxIDE6MDQgUE0sIEV2YW4gUXVhbiB3cm90
+ZToNCj4gPj4+IEl0J3MgY29uZmlybWVkIHRoYXQgb24gc29tZSBBUFVzIHRoZSBpbnRlcmFjdGlv
+biB3aXRoIFNNVShhYm91dCBEUE0NCj4gPj4+IGRpc2FibGVtZW50KSB3aWxsIHBvd2VyIG9mZiB0
+aGUgVVZELiBUaGF0IHdpbGwgbWFrZSB0aGUgc3VjY2VlZGluZw0KPiA+Pj4gaW50ZXJhY3Rpb25z
+IHdpdGggVVZEIG9uIHRoZSBzdXNwZW5kIHBhdGggaW1wb3NzaWJsZS4gQW5kIHRoZSBzeXN0ZW0N
+Cj4gPj4+IHdpbGwgaGFuZyBkdWUgdG8gdGhhdC4gVG8gd29ya2Fyb3VuZCB0aGUgaXNzdWUsIHdl
+IHdpbGwgc2tpcCB0aGUNCj4gPj4+IFVWRChvciBWQ0UpIHBvd2VyIG9mZiBkdXJpbmcgaW50ZXJh
+Y3Rpb24gd2l0aCBTTVUgZm9yIHN1c3BlbmQNCj4gc2NlbmFyaW8uDQo+ID4+Pg0KPiA+Pg0KPiA+
+PiBUaGUgb3JpZ2luYWwgaXNzdWUgcmVwb3J0ZWQgYnkgQm9yaXMgaXMgcmVsYXRlZCB0byBzeXRl
+bSByZWJvb3QgYW5kDQo+ID4+IGh3X2ZpbmkgY2FsbHMgKFNNVSBpcyBod19maW5pIGJlZm9yZSBV
+VkQvVkNFKS4gQm9yaXMgYWxzbyBtZW50aW9uZWQNCj4gPj4gdGhhdCBpdCBnb3Qgc29sdmVkIGJ5
+IHJldmVydGluZyB0aGUgZGlzYWJsZSBEUE0gY2FsbHMgZHVyaW5nIGh3X2ZpbmkuDQo+ID4+IFNv
+LCBJJ20gc3RpbGwgbm90IHN1cmUgaG93IHRoaXMgaXMgcmVsYXRlZCB0byBzdXNwZW5kIHBhdGgu
+DQo+ID4gW1F1YW4sIEV2YW5dIGh3X2ZpbmkoKSB3YXMgbm90IG9uIHRoZSBwYXRoIG9mIHN5c3Rl
+bSByZWJvb3QgYXMgSQ0KPiBjb25maXJtZWQuIEl0J3MgZGlmZmVyZW50IGZyb20gdGhlIGlzc3Vl
+IEFuZHJleSBmb3VuZChkdXJpbmcgZHJpdmVyIHVubG9hZCkuDQo+ID4gVGhlIGNhbGwgZmxvdyBm
+b3Igc3lzdGVtIHJlYm9vdCBpczogYW1kZ3B1X3BjaV9zaHV0ZG93bigpIC0+DQo+IGFtZGdwdV9k
+ZXZpY2VfaXBfc3VzcGVuZCgpIC0+IC4uLg0KPiA+DQo+IA0KPiBTb3JyeSB0aGVuIEkgbWlzdW5k
+ZXJzdG9vZC4gSSBjb25mdXNlZCBpdCB3aXRoIHBjaV9yZW1vdmUgYW5kIHRoZSBod19maW5pDQo+
+IHNlcXVlbmNlLiBJdCB3YXMgc3VzcGVuZCgpIGNhbGxpbmcgaHdfZmluaSgpIHRoZW4uDQo+IA0K
+PiBCVFcsIGlzIHRoaXMgdW5yZWxhdGVkIHRvIHRoZSByZWJvb3QgaXNzdWUgdGhlbj8gDQpbUXVh
+biwgRXZhbl0gTm8sIHRoaXMgdGFyZ2V0cyB0aGUgcmVib290IGlzc3VlLg0KPiBpbl9zdXNwZW5k
+IGlzIG5vdCBzZXQgZHVyaW5nDQo+IGFtZGdwdV9wY2lfc2h1dGRvd24oKS4gDQpbUXVhbiwgRXZh
+bl0gT29wcywgbWlzc2VkIHRoYXQuIEkgd2lsbCBwcm92aWRlIGFuIHVwZGF0ZWQgVjIuDQo+V291
+bGRuJ3QgaXQgYmUgYmV0dGVyIHRvIHNraXAgdXZkL3ZjZSBwb3dlcm9mZg0KPiB3aGVuIHRoZWly
+IERQTSBpcyBkaXNhYmxlZD8NCltRdWFuLCBFdmFuXSBOb3QgcXVpdGUgc3VyZS4gQXMgdGhlIFVW
+RC9WQ0UgcG93ZXJvZmYgKyBEUE0gZGlzYWJsZW1lbnQgYXJlIGFsc28gdXNlZCBpbiBhbWRncHVf
+dXZkX2lkbGVfd29ya19oYW5kbGVyKCkuIEFuZCB0aGV5IHNlZW0gd29ya2luZyBxdWl0ZSB3ZWxs
+IHRoZXJlLiBTbywgaXQgc2VlbXMgdGhlIGlzc3VlIGlzIHNwZWNpZmljIHRvIHRoZSAtPnN1c3Bl
+bmQoZS5nLiB1dmRfdjZfMF9zdXNwZW5kKSByb3V0aW5lLiBJbiBmYWN0LCB0aGUgcGF0Y2ggaXMg
+YWltZWQgdG8gcHJvdmlkZSBhIHF1aWNrIHNvbHV0aW9uLiBBcyB0aGUgY29tbWVudCBhZGRlZCBp
+biB0aGUgY29kZSwgYSBiZXR0ZXIgc29sdXRpb24gbmVlZHMgTU0gdGVhbSdzIGd1aWRlLg0KKyAg
+ICAgICAgKiBUT0RPOiBhIGJldHRlciBzb2x1dGlvbiBpcyB0byByZW9yZyB0aGUgYWN0aW9uIGNo
+YWlucyBwZXJmb3JtZWQgb24gc3VzcGVuZA0KKyAgICAgICAgKiBhbmQgbWFrZSB0aGUgYWN0aW9u
+IGhlcmUgdGhlIGxhc3Qgb25lLiBCdXQgdGhhdCB3aWxsIGludm9sdmUgYSBsb3QgYW5kIG5lZWRz
+DQorICAgICAgICAqIE1NIHRlYW0ncyBoZWxwLg0KKyAgICAgICAgKi8NCg0KQlINCkV2YW4NCj4g
+DQo+IFRoYW5rcywNCj4gTGlqbw0KPiANCj4gPiBCUg0KPiA+IEV2YW4NCj4gPj4NCj4gPj4gVGhh
+bmtzLA0KPiA+PiBMaWpvDQo+ID4+DQo+ID4+PiBTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2
+YW4ucXVhbkBhbWQuY29tPg0KPiA+Pj4gQ2hhbmdlLUlkOiBJNzgwNGQzODM1YWFkYmM3Y2Y0YjY4
+NmRhNDk5NGU4MzMzMzQ2MTc0OA0KPiA+Pj4gLS0tDQo+ID4+PiAgICAuLi4vcG93ZXJwbGF5L2h3
+bWdyL3NtdTdfY2xvY2twb3dlcmdhdGluZy5jICAgfCAyMA0KPiA+PiArKysrKysrKysrKysrKysr
+Ky0tDQo+ID4+PiAgICAuLi4vZHJtL2FtZC9wbS9wb3dlcnBsYXkvaHdtZ3Ivc211OF9od21nci5j
+ICAgfCAxNg0KPiA+PiArKysrKysrKysrKysrLS0NCj4gPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvcG0vcG93ZXJwbGF5L2t2X2RwbS5jICAgICB8ICA0ICsrLS0NCj4gPj4+ICAgIDMgZmlsZXMg
+Y2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCj4gPj4+DQo+ID4+PiBk
+aWZmIC0tZ2l0DQo+ID4+Pg0KPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L2h3
+bWdyL3NtdTdfY2xvY2twb3dlcmdhdGluZy5jDQo+ID4+Pg0KPiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG0vcG93ZXJwbGF5L2h3bWdyL3NtdTdfY2xvY2twb3dlcmdhdGluZy5jDQo+ID4+PiBpbmRl
+eCBmMmJkYTNiY2JiZGUuLmQyYzZmZThmZTQ3MyAxMDA2NDQNCj4gPj4+IC0tLQ0KPiA+Pg0KPiBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L2h3bWdyL3NtdTdfY2xvY2twb3dlcmdh
+dGluZy5jDQo+ID4+PiArKysNCj4gPj4NCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2Vy
+cGxheS9od21nci9zbXU3X2Nsb2NrcG93ZXJnYXRpbmcuYw0KPiA+Pj4gQEAgLTU3LDcgKzU3LDE3
+IEBAIHN0YXRpYyBpbnQgc211N191cGRhdGVfdmNlX2RwbShzdHJ1Y3QNCj4gcHBfaHdtZ3INCj4g
+Pj4+ICpod21nciwgYm9vbCBiZ2F0ZSkNCj4gPj4+DQo+ID4+PiAgICBpbnQgc211N19wb3dlcmRv
+d25fdXZkKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpDQo+ID4+PiAgICB7DQo+ID4+PiAtCWlmIChw
+aG1fY2Zfd2FudF91dmRfcG93ZXJfZ2F0aW5nKGh3bWdyKSkNCj4gPj4+ICsJc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKilod21nci0NCj4gPj4+IGFk
+ZXY7DQo+ID4+PiArDQo+ID4+PiArCS8qDQo+ID4+PiArCSAqIEZ1cnRoZXIgaW5hY3Rpb25zIHdp
+dGggVVZEIGFyZSBzdGlsbCBuZWVkZWQgb24gdGhlIHN1c3BlbmQgcGF0aC4NCj4gPj4gVGh1cw0K
+PiA+Pj4gKwkgKiB0aGUgcG93ZXIgb2ZmIGZvciBVVkQgaGVyZSBzaG91bGQgYmUgYXZvaWRlZC4N
+Cj4gPj4+ICsJICoNCj4gPj4+ICsJICogVE9ETzogYSBiZXR0ZXIgc29sdXRpb24gaXMgdG8gcmVv
+cmcgdGhlIGFjdGlvbiBjaGFpbnMgcGVyZm9ybWVkDQo+ID4+PiArb24NCj4gPj4gc3VzcGVuZA0K
+PiA+Pj4gKwkgKiBhbmQgbWFrZSB0aGUgYWN0aW9uIGhlcmUgdGhlIGxhc3Qgb25lLiBCdXQgdGhh
+dCB3aWxsIGludm9sdmUgYQ0KPiA+Pj4gK2xvdA0KPiA+PiBhbmQgbmVlZHMNCj4gPj4+ICsJICog
+TU0gdGVhbSdzIGhlbHAuDQo+ID4+PiArCSAqLw0KPiA+Pj4gKwlpZiAocGhtX2NmX3dhbnRfdXZk
+X3Bvd2VyX2dhdGluZyhod21ncikgJiYgIWFkZXYtDQo+ID4+PiBpbl9zdXNwZW5kKQ0KPiA+Pj4g
+ICAgCQlyZXR1cm4gc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsDQo+ID4+PiAgICAJCQkJUFBT
+TUNfTVNHX1VWRFBvd2VyT0ZGLA0KPiA+Pj4gICAgCQkJCU5VTEwpOw0KPiA+Pj4gQEAgLTgyLDcg
+KzkyLDEzIEBAIHN0YXRpYyBpbnQgc211N19wb3dlcnVwX3V2ZChzdHJ1Y3QgcHBfaHdtZ3INCj4g
+Pj4gKmh3bWdyKQ0KPiA+Pj4NCj4gPj4+ICAgIHN0YXRpYyBpbnQgc211N19wb3dlcmRvd25fdmNl
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpDQo+ID4+PiAgICB7DQo+ID4+PiAtCWlmIChwaG1fY2Zf
+d2FudF92Y2VfcG93ZXJfZ2F0aW5nKGh3bWdyKSkNCj4gPj4+ICsJc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKilod21nci0NCj4gPj4+IGFkZXY7DQo+
+ID4+PiArDQo+ID4+PiArCS8qDQo+ID4+PiArCSAqIEZ1cnRoZXIgaW5hY3Rpb25zIHdpdGggVkNF
+IGFyZSBzdGlsbCBuZWVkZWQgb24gdGhlIHN1c3BlbmQgcGF0aC4NCj4gPj4gVGh1cw0KPiA+Pj4g
+KwkgKiB0aGUgcG93ZXIgb2ZmIGZvciBWQ0UgaGVyZSBzaG91bGQgYmUgYXZvaWRlZC4NCj4gPj4+
+ICsJICovDQo+ID4+PiArCWlmIChwaG1fY2Zfd2FudF92Y2VfcG93ZXJfZ2F0aW5nKGh3bWdyKSAm
+JiAhYWRldi0+aW5fc3VzcGVuZCkNCj4gPj4+ICAgIAkJcmV0dXJuIHNtdW1fc2VuZF9tc2dfdG9f
+c21jKGh3bWdyLA0KPiA+Pj4gICAgCQkJCVBQU01DX01TR19WQ0VQb3dlck9GRiwNCj4gPj4+ICAg
+IAkJCQlOVUxMKTsNCj4gPj4+IGRpZmYgLS1naXQNCj4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
+L3Bvd2VycGxheS9od21nci9zbXU4X2h3bWdyLmMNCj4gPj4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wbS9wb3dlcnBsYXkvaHdtZ3Ivc211OF9od21nci5jDQo+ID4+PiBpbmRleCBiOTRhNzdlNGU3
+MTQuLjA5ZTc1NTk4MGM0MiAxMDA2NDQNCj4gPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG0vcG93ZXJwbGF5L2h3bWdyL3NtdThfaHdtZ3IuYw0KPiA+Pj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wbS9wb3dlcnBsYXkvaHdtZ3Ivc211OF9od21nci5jDQo+ID4+PiBAQCAtMTI0Nyw3
+ICsxMjQ3LDEzIEBAIHN0YXRpYyBpbnQgc211OF9kcG1fZm9yY2VfZHBtX2xldmVsKHN0cnVjdA0K
+PiA+Pj4gcHBfaHdtZ3IgKmh3bWdyLA0KPiA+Pj4NCj4gPj4+ICAgIHN0YXRpYyBpbnQgc211OF9k
+cG1fcG93ZXJkb3duX3V2ZChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQ0KPiA+Pj4gICAgew0KPiA+
+Pj4gLQlpZiAoUFBfQ0FQKFBITV9QbGF0Zm9ybUNhcHNfVVZEUG93ZXJHYXRpbmcpKQ0KPiA+Pj4g
+KwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWh3
+bWdyLQ0KPiA+Pj4gYWRldjsNCj4gPj4+ICsNCj4gPj4+ICsJLyoNCj4gPj4+ICsJICogRnVydGhl
+ciBpbmFjdGlvbnMgd2l0aCBVVkQgYXJlIHN0aWxsIG5lZWRlZCBvbiB0aGUgc3VzcGVuZCBwYXRo
+Lg0KPiA+PiBUaHVzDQo+ID4+PiArCSAqIHRoZSBwb3dlciBvZmYgZm9yIFVWRCBoZXJlIHNob3Vs
+ZCBiZSBhdm9pZGVkLg0KPiA+Pj4gKwkgKi8NCj4gPj4+ICsJaWYgKFBQX0NBUChQSE1fUGxhdGZv
+cm1DYXBzX1VWRFBvd2VyR2F0aW5nKSAmJiAhYWRldi0NCj4gPj4+IGluX3N1c3BlbmQpDQo+ID4+
+PiAgICAJCXJldHVybiBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nciwNCj4gPj4gUFBTTUNfTVNH
+X1VWRFBvd2VyT0ZGLCBOVUxMKTsNCj4gPj4+ICAgIAlyZXR1cm4gMDsNCj4gPj4+ICAgIH0NCj4g
+Pj4+IEBAIC0xMzAxLDcgKzEzMDcsMTMgQEAgc3RhdGljIGludA0KPiBzbXU4X2RwbV91cGRhdGVf
+dmNlX2RwbShzdHJ1Y3QNCj4gPj4+IHBwX2h3bWdyICpod21ncikNCj4gPj4+DQo+ID4+PiAgICBz
+dGF0aWMgaW50IHNtdThfZHBtX3Bvd2VyZG93bl92Y2Uoc3RydWN0IHBwX2h3bWdyICpod21ncikN
+Cj4gPj4+ICAgIHsNCj4gPj4+IC0JaWYgKFBQX0NBUChQSE1fUGxhdGZvcm1DYXBzX1ZDRVBvd2Vy
+R2F0aW5nKSkNCj4gPj4+ICsJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKilod21nci0NCj4gPj4+IGFkZXY7DQo+ID4+PiArDQo+ID4+PiArCS8qDQo+
+ID4+PiArCSAqIEZ1cnRoZXIgaW5hY3Rpb25zIHdpdGggVkNFIGFyZSBzdGlsbCBuZWVkZWQgb24g
+dGhlIHN1c3BlbmQgcGF0aC4NCj4gPj4gVGh1cw0KPiA+Pj4gKwkgKiB0aGUgcG93ZXIgb2ZmIGZv
+ciBWQ0UgaGVyZSBzaG91bGQgYmUgYXZvaWRlZC4NCj4gPj4+ICsJICovDQo+ID4+PiArCWlmIChQ
+UF9DQVAoUEhNX1BsYXRmb3JtQ2Fwc19WQ0VQb3dlckdhdGluZykgJiYgIWFkZXYtDQo+ID4+PiBp
+bl9zdXNwZW5kKQ0KPiA+Pj4gICAgCQlyZXR1cm4gc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3Is
+DQo+ID4+PiAgICAJCQkJCSAgICBQUFNNQ19NU0dfVkNFUG93ZXJPRkYsDQo+ID4+PiAgICAJCQkJ
+CSAgICBOVUxMKTsNCj4gPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bv
+d2VycGxheS9rdl9kcG0uYw0KPiA+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxh
+eS9rdl9kcG0uYw0KPiA+Pj4gaW5kZXggYmNhZTQyY2VmMzc0Li40ZTljOWRhMjU1YTcgMTAwNjQ0
+DQo+ID4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9rdl9kcG0uYw0K
+PiA+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkva3ZfZHBtLmMNCj4g
+Pj4+IEBAIC0xNjgzLDcgKzE2ODMsNyBAQCBzdGF0aWMgdm9pZCBrdl9kcG1fcG93ZXJnYXRlX3V2
+ZCh2b2lkDQo+ICpoYW5kbGUsDQo+ID4+IGJvb2wgZ2F0ZSkNCj4gPj4+ICAgIAkJYW1kZ3B1X2Rl
+dmljZV9pcF9zZXRfcG93ZXJnYXRpbmdfc3RhdGUoYWRldiwNCj4gPj4gQU1EX0lQX0JMT0NLX1RZ
+UEVfVVZELA0KPiA+Pj4gICAgCQkJCQkJICAgICAgIEFNRF9QR19TVEFURV9HQVRFKTsNCj4gPj4+
+ICAgIAkJa3ZfdXBkYXRlX3V2ZF9kcG0oYWRldiwgZ2F0ZSk7DQo+ID4+PiAtCQlpZiAocGktPmNh
+cHNfdXZkX3BnKQ0KPiA+Pj4gKwkJaWYgKHBpLT5jYXBzX3V2ZF9wZyAmJiAhYWRldi0+aW5fc3Vz
+cGVuZCkNCj4gPj4+ICAgIAkJCS8qIHBvd2VyIG9mZiB0aGUgVVZEIGJsb2NrICovDQo+ID4+PiAg
+ICAJCQlhbWRncHVfa3Zfbm90aWZ5X21lc3NhZ2VfdG9fc211KGFkZXYsDQo+ID4+IFBQU01DX01T
+R19VVkRQb3dlck9GRik7DQo+ID4+PiAgICAJfSBlbHNlIHsNCj4gPj4+IEBAIC0xNzEwLDcgKzE3
+MTAsNyBAQCBzdGF0aWMgdm9pZCBrdl9kcG1fcG93ZXJnYXRlX3ZjZSh2b2lkDQo+ICpoYW5kbGUs
+DQo+ID4+IGJvb2wgZ2F0ZSkNCj4gPj4+ICAgIAkJYW1kZ3B1X2RldmljZV9pcF9zZXRfcG93ZXJn
+YXRpbmdfc3RhdGUoYWRldiwNCj4gPj4gQU1EX0lQX0JMT0NLX1RZUEVfVkNFLA0KPiA+Pj4gICAg
+CQkJCQkJICAgICAgIEFNRF9QR19TVEFURV9HQVRFKTsNCj4gPj4+ICAgIAkJa3ZfZW5hYmxlX3Zj
+ZV9kcG0oYWRldiwgZmFsc2UpOw0KPiA+Pj4gLQkJaWYgKHBpLT5jYXBzX3ZjZV9wZykgLyogcG93
+ZXIgb2ZmIHRoZSBWQ0UgYmxvY2sgKi8NCj4gPj4+ICsJCWlmIChwaS0+Y2Fwc192Y2VfcGcgJiYg
+IWFkZXYtPmluX3N1c3BlbmQpIC8qIHBvd2VyIG9mZiB0aGUNCj4gPj4gVkNFDQo+ID4+PiArYmxv
+Y2sgKi8NCj4gPj4+ICAgIAkJCWFtZGdwdV9rdl9ub3RpZnlfbWVzc2FnZV90b19zbXUoYWRldiwN
+Cj4gPj4gUFBTTUNfTVNHX1ZDRVBvd2VyT0ZGKTsNCj4gPj4+ICAgIAl9IGVsc2Ugew0KPiA+Pj4g
+ICAgCQlpZiAocGktPmNhcHNfdmNlX3BnKSAvKiBwb3dlciBvbiB0aGUgVkNFIGJsb2NrICovDQo+
+ID4+Pg==
