@@ -2,57 +2,57 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B082C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 01:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C734C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 01:06:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D37C66128E
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 01:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D37C66128E
+	by mail.kernel.org (Postfix) with ESMTPS id 5749661212
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 01:06:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5749661212
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED826E10D;
-	Tue, 19 Oct 2021 01:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF54E6EACD;
+	Tue, 19 Oct 2021 01:06:20 +0000 (UTC)
 Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2041.outbound.protection.outlook.com [40.107.212.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BDA6E10D
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 01:04:47 +0000 (UTC)
+ (mail-bn1nam07on2060.outbound.protection.outlook.com [40.107.212.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4FD36E125
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 01:06:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fYGPXSVd8SoikImBT7IvsJKcD7XVu/VXkWNpLIb7CoTUPZu+SzdSjDHuNGoFgkP6UmyAYMLOkJUuYWF21BAFfgJU4MhTIYkn3atsw8z4+5gre+ptKzMTOCMAK5igyzhAQsAYXmLwuqCurgZHhGNJ1pJ74xLmgIBKR0Pg0rWr8YXmOCYI4emxzN0XimU5s7clJ78o6Do0VSstQzYCuD7EeEWRalM8daaZHZVakEhv5rHSEaTGYEdgTc4lLfekbUMYfiYqMqCTFL+cF6+RtZ561aLjS4Vx/XTnomjxAq3itU67WcsackHeHBMjLxJ5lVTq3ALxuBI9qAPy9uF5r+qNuw==
+ b=j9KSqlr26hfchF223CluRxqGl6m61lYdMrwgY5gPy3sTxQzDvk7yRZlBQqJK3PvXnygs2EcFpuauooEms5vAHO942XsiqpMWujKGDhJnOFX8E+LAnirnBiwJyEHdHFzzSwX71JSH3LJq/NBmm1hym9tSMLMRDI4bl+Fo8E+F/XHY2zxuySYFA/uVAUg5wEqjBbuBxWVw+NHnSn3x9JVDG2wMYUI8pxkYvnpehwyGUHoKHmqyXo8BWKy2yoBdlSM5TdCwM2Nr813t3HqkhuWmcavUiiGz0qfibW67D6vUjp1iuB7K3RNMftBLUph4hevVtP9/B+60AmwXiTPdLAj25w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ONgw0SjYBO6wlzIHAeJ7V1oz4ancPipdZed/VZp0jeM=;
- b=KuRlct7bXWlFdRRN8oQ4fgJF6oTRxiY2IOWAdZpcQoLo2BZ9EwMiSAk79OYoF7eny89Z9/94k0ICho2NM9XSXxVVtkQ3UbQzp545hkJWaSoDbyxmGJmbNRUa+LEHU9JGkW980Jh3udqoUJzl42wEiEE3rNzhsAYLvfKXZOJdu8kBNyx/sH7kKW+S9b6Dt+y2qLFAjh3ib+S/o7lLjPr06XkNDOHxzmlxZLkpAGFi7jMqeSlNJZfilF7OdRP8Wbf5tUjw5U69WEf+Jl9arDZO99hxYlJuBceTuvkOe/bHN6c7HawgtMJkCX5UWDWFoxX3PZRWQ4Z1yzmHm5/nE5eVqw==
+ bh=f+QMxiXLei7mZQ+RGXLdJmLASFl6CTWebI0OCADBcS4=;
+ b=FkuaCD9Yq4WPC7ov2xgwvyoy++kGFyvBRpDDAAYO7MqFLAYxj4fCL8Owii1V7i2yqJZPszKlsOz+7U2yX2iuuLsjaug3+Mxzl1mj+75HfZxq3iKz5i6RBbEE+0d3vX21dzqkzo+1bthic/wXfDS1WOE7hpF/QFlkOcreegHvvry0PFJS4EQVDqZxJ93g5sr8dV8S7TGJJbXBQtFZ8bdSUqvPzQepKG5CFwi7VsF/i7VDo512GJR2ViM+mtWNb929F12gF5WCutBpgnZFfkC4r5hfGaStaHWwzsOyzmfFG/9Kxyp9CmQ09kiQYgq7HKYtzsqvHbDYjhKWLtOIsEz3Qw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ONgw0SjYBO6wlzIHAeJ7V1oz4ancPipdZed/VZp0jeM=;
- b=BuU6x7WQc1r9ZO4LLGNfL9YhZnCt3FfSfZSgywJ6BgJwmt1aGM5WOaG0qP1Y2/9wRcdF5g4cdvRWCbhowSnTTgfsHhSFCAtEouz6U64o2ROltBG2QJdkxWxICEp2g/VUfsvqDz5Zchv/32yw10Sj0WLSjWBPIZTMUH7jda2dESk=
+ bh=f+QMxiXLei7mZQ+RGXLdJmLASFl6CTWebI0OCADBcS4=;
+ b=s/PrfFXJyisaxTw7Wx4E3uxMeyfrADOphSnolPZzO/87zp6MLkzvdIumr5bAj08tGbpbq/ZytIIJkyIDGZl3IGEoE25p7W4WnJx0aWLHnBxQ7ElhSnOlEBpnOeM1JHL6rRHNwqPHg9GfW++HmFnZY1vIalFD7ER2BfELJvWOuAg=
 Received: from DM6PR12MB3324.namprd12.prod.outlook.com (2603:10b6:5:11e::26)
  by DM6PR12MB2844.namprd12.prod.outlook.com (2603:10b6:5:45::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Tue, 19 Oct
- 2021 01:04:45 +0000
+ 2021 01:06:16 +0000
 Received: from DM6PR12MB3324.namprd12.prod.outlook.com
  ([fe80::545:e133:60d8:d646]) by DM6PR12MB3324.namprd12.prod.outlook.com
  ([fe80::545:e133:60d8:d646%7]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
- 01:04:45 +0000
+ 01:06:16 +0000
 From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
+To: "Russell, Kent" <Kent.Russell@amd.com>, "Tuikov, Luben"
+ <Luben.Tuikov@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Quan, Evan" <Evan.Quan@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
 Subject: RE: [PATCH 0/5] 0 MHz is not a valid current frequency
 Thread-Topic: [PATCH 0/5] 0 MHz is not a valid current frequency
-Thread-Index: AQHXv9/4JcAOE/SCekOaHpPFBC2rB6vQUc0AgADLY4CAAAx0gIACLlUAgAXjEoCAAAL8AIAATLbw
-Date: Tue, 19 Oct 2021 01:04:45 +0000
-Message-ID: <DM6PR12MB3324CDCA68D04483A57C150985BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
+Thread-Index: AQHXv9/4JcAOE/SCekOaHpPFBC2rB6vQUc0AgADLY4CAAAx0gIACLlUAgAXjEoCAAAL8AIAATLbwgAAAQGA=
+Date: Tue, 19 Oct 2021 01:06:15 +0000
+Message-ID: <DM6PR12MB3324C490C0CF191F6F34602C85BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
 References: <20211013031042.53540-1-luben.tuikov@amd.com>
  <858da53c-7937-3ebf-360d-f20f30f825d9@amd.com>
  <e3d94e8a-ea9b-85cc-8e85-2ee2e6725f2f@amd.com>
@@ -60,13 +60,14 @@ References: <20211013031042.53540-1-luben.tuikov@amd.com>
  <DM6PR12MB26196111DA43A1EE11266558E4B99@DM6PR12MB2619.namprd12.prod.outlook.com>
  <BL1PR12MB51443E4EA64480401839E135F7BC9@BL1PR12MB5144.namprd12.prod.outlook.com>
  <091c6805-a72c-a286-f7fb-9d5d5da344d3@amd.com>
-In-Reply-To: <091c6805-a72c-a286-f7fb-9d5d5da344d3@amd.com>
+ <DM6PR12MB3324CDCA68D04483A57C150985BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB3324CDCA68D04483A57C150985BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-19T01:04:42Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-19T01:06:12Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
  Only-AIP 2.0;
@@ -76,56 +77,56 @@ msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 22bc9026-5ef0-4b1e-8925-08d9929c70b2
+x-ms-office365-filtering-correlation-id: 3a5707c8-0f92-4675-4b34-08d9929ca6c3
 x-ms-traffictypediagnostic: DM6PR12MB2844:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2844E8D107B5C4CDB6BE924D85BD9@DM6PR12MB2844.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <DM6PR12MB28440A7A4D688B0EC5236CEF85BD9@DM6PR12MB2844.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VQUqLfaDnS052G+R416EndzIlEhaMW7uxiIZXsnb8wFj9E04vjuFqHP6YAM9jM2QLe9gN8rkBzVBP35AC0KzEGl1tGo90WI6zasE0pPZ68apgh2Ao/+kVI7KAwdwMFDpv7FN7ZeotMa+WphgVpjOEruz9jJCvOJdRoVwNKzKZV8ScoMKObHgRZFWbcDz2l1nIySm0WV0EqS/i6S8rmt8itSBX2DK2opOvsEfvDTNV2LeJnpHv0kH+dJ+90a8sVSboDsQdsCwkFN3hKZflituwWP34ekEuX+tbliGtTt+n4cg6oieR2tZb7GZT7xcIf8JCSB+PTt1m3JnuZizgeRnrD4fA2H+W6IW/m15r1Z35aorpe82rPMKmCg/fYIfqHD+nYH6Z89tvXidH/MBXxJ7VizWyfftGP3kROv10wMOYxRXMbX5bGYGqq5OmNDLjoGiWm5Kzg0GxIsuaLTVw3pkTM+YtPcVbow0hb4kiQ3m1qYoxnm60s9nYcBgx/vLpW3dq7rGybh1OgK9NK+OESqDIpPo2HkJLj7ezKRZAc8UPOxQ1rBR7NpWEIuX/8moD4iVcP+5tTJD/ySp5M63YrvvIenzXpqKqXbcjZafXjC37t9buReFZHbTEEuZTNWh6ub8uzVp2Sh8vKBTAY0gOQsNK92btG81OoyuTM82AIDYU9DU71o06ra7cwk7uyDivVrTI98jij8fhKTRk9NhIUUy6A==
+x-microsoft-antispam-message-info: 7bpyd3/W4lgkkb7TXoEQjSNUh9glMor2ZAI0WEgrThkVuPGWxgM7bLlNdLh7SNqMrLrLxXPTdB5MxcwsX80Q42n8Yal2FTOoH4UXo0a/s+OX4Cia8kzzdA8KVRtaKuxJr+nFSDq9Sw5usIDC6gPAdRX2v0KI/sVzrnExjJx1/t5piXTRENCU3wueXpuVGni7fye1MgwvaVtzRr0e5kzzLww/7Xk2fd//A9vEssPT3XCk9tOFYXziLPVlXm3cqbht7WanTKAPhoFnRSVmF3W69t+dRwBEYCijMhApJc4boc/SWeiwZA9iiPImyE+Vtp1Ex2evT4FHgzznzsAmDLFDVW+6WfOE4XG41MKf6ZLWFLr1cS1+FeBqy6NzbJuuTMCt2pT92uDGOrtQAaS3hl/rMCUXK+34yQhkfSEf2iClFAzuXE7K1JD1rWP46IzJrvUiDnzguDrQKXvJwdax/qFbnv3ddGGQrdqFSiJucLlaxA02QG2heW4qeRFGjrldevNj5tLdrSvQ6TtO5MBbizfuYSl6zYOE4+YKeRj3xy97wPmcWNTpQkRVpWHgmuTB9I+vCp82c+vdPeYOLCmDNiNZqWQlsiv3AwfDYo+CvHCqhWhDJT2zVdenT/D+filFIR4xO+5kECTV0DckpUTUOe5vu8ZFKE+48HVLR5mHksRlVBVSs8QfabRwKphq0sBTt3wBOeMK7fQd7D6DwiJb6F+Z0lBTwA6tBjKa7yqiBhySgoY=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3324.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66446008)(66476007)(76116006)(64756008)(66556008)(122000001)(66946007)(71200400001)(4001150100001)(38100700002)(6506007)(86362001)(33656002)(2906002)(53546011)(508600001)(5660300002)(8936002)(110136005)(7696005)(55016002)(83380400001)(9686003)(8676002)(316002)(4326008)(38070700005)(52536014)(186003)(579004);
+ SFS:(4636009)(366004)(66446008)(66476007)(76116006)(64756008)(66556008)(122000001)(66946007)(71200400001)(4001150100001)(38100700002)(6506007)(86362001)(33656002)(2906002)(53546011)(508600001)(5660300002)(2940100002)(8936002)(110136005)(7696005)(55016002)(83380400001)(9686003)(8676002)(316002)(4326008)(921005)(38070700005)(52536014)(186003)(579004)(559001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JWEVbrbATLpIyA64gzEE13kCvmrlbS0GyCsbZCZTRDa40bNf3JxZAi+lEJfJ?=
- =?us-ascii?Q?2awMNGZMckVg9b5OpNmP3jdxAd8SrRy9WZVBQStcCaAu+8fGvkE87qwexfKV?=
- =?us-ascii?Q?9dAwojh8LBCg1TGOZY69SoHXfaxOIH6coBK4KwgFcY8yhDbNVd9GzxSM591R?=
- =?us-ascii?Q?Y0pQku7Sgzg8ep+QSYe13eSMJ1+8sWx3GaO9EdajmZ+R4MJ+VkLpR/zar9Y7?=
- =?us-ascii?Q?SVcPnOQEH4wR0oxFuLOR6oDJq5TtXiLbqy8tfpwjPx33lHT7ewqiR1VkT+BY?=
- =?us-ascii?Q?ZfL4iCaQMCezLz6bBRPevmccD6TKfnkTI+azTmxPTF63nES766LjMjlh6IJG?=
- =?us-ascii?Q?3EF34VgtFBCJTdR1KrKMej5GAdXhVy/Fa1kWbkXq+u+a8QYjbWtcWB0S/nCI?=
- =?us-ascii?Q?GEtmDHKvuv5+PV5S9zVXNks8i+feap8yHed4JLjrWxD9zq56+QOjJQifrJTP?=
- =?us-ascii?Q?+SkliTCVQL5BgLv525utNKmrjpLTdZOF9TvcZQXpKXqtE/haZckgYCNDBt7s?=
- =?us-ascii?Q?RKVfsTsv7hJGSfeBqkv8+vxIxKOKLU2psUFrqWdnoNUeBtjm1ZfWxjvmemE+?=
- =?us-ascii?Q?aZ+k1GIRLuNeuDRbhGV4yECXKNpolUrE3P2KPFVEQl2EHfXCFxJyBretTwgt?=
- =?us-ascii?Q?O5382wQu1XPxcl+Y9JLXgdrvhYTkNdOT0pA9ezH02QLbR4dhhrvAWwVq8CHT?=
- =?us-ascii?Q?ar6KKkiDowYyX/TF6wNmek8Zm1NUNGDRgDJY45x0A9kQyo/rCy6tc4JHm4AR?=
- =?us-ascii?Q?a0zbpDoEsh2RE/QuSfAzmUU3szh4xpvRIuc1WYZ/DI1iu33OZ3qKO7AuVvCf?=
- =?us-ascii?Q?vLG7IrDwPCv59EYfhsxH6L9zbKNGqh/0US0SWkPOkyU8hdsTvq3vRpiksa7P?=
- =?us-ascii?Q?7Nh6AEMLLYJQ8ikGoZh4hgvZ2TEejIpw6ndgQVb4TtkyVaIEF+Y3tXCJhJau?=
- =?us-ascii?Q?DzZww0hk0iYLJTXUpAoDeIxSev5vwzD/gOldQcYriapBdAFCv3IqsOdX35qr?=
- =?us-ascii?Q?bIWlrsFmIIhrfZF7cs61z/jb9FvU3qMjQNk4J0wXpFVWQIUIsSDY0XXhfwKc?=
- =?us-ascii?Q?lNIqI1zPLyrCYhSBPqyi4INyoFJSZQOw4kNHkNgJgUoHdlvf/wc6zQrIMckq?=
- =?us-ascii?Q?PXfoDg7XlBlh0pm39a0+vQXXK8UumqiyhDXI7D8XUPq2E4wWa6GvIDZkpEE4?=
- =?us-ascii?Q?HnlIJVQ7JxXd+tdd/vwcnsurrDEHi//TxzuQlEAeT+2IgmY3wEA6GxqF4yAs?=
- =?us-ascii?Q?OuOzrkIxSRyy23C9if2pDFA5Jnuy4M8gvZ/zB1B+vR8ltOTmOVWfvSTutwt/?=
- =?us-ascii?Q?odx4I4rouyBNYQMNIyKf7QSKTR6wCOVAxfU85mHMJ7yfCzsM4LMd3F+GN6jF?=
- =?us-ascii?Q?T9dCdpNToWcFAdHrGp1t9ZuPcynN?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?89DpnTeHkq0a5UBD9VxcXf8SIn9f7HMYUUdPityXYpfA8HBUUpdkThratnSB?=
+ =?us-ascii?Q?SDgQVi/2MvtzfNQWuzTMCqsv8orpY4rvk+V8hAJQSwg4QRQvmGf1tIhSYFB1?=
+ =?us-ascii?Q?OffmrXLzM6oa96Q761XIxHDYSNoUjg2inELgxvRTsm1nERvpeAZa499LGXH9?=
+ =?us-ascii?Q?RVjYjK+1yhKtw69FBUCf2aB7aXzsVZY7aAX2tuLi+b7mGLHT5h28S5Vv3HiK?=
+ =?us-ascii?Q?7kmnt5uc5kUt3YE7t/+HbY3y7P9cr+i1lbKO5ilBd5sYzZk/ZgIxVnXAlDNr?=
+ =?us-ascii?Q?CqESmAfFZITW6h8PhfYID9oxWPYjbun4HQst2Vq2bcdEJmG83ewL1fEON+9V?=
+ =?us-ascii?Q?fLkgZa3sX9isQYhFBTCTI6cF7sRa89HJRTMcrCWfd0O7UblklUeiBtZiFuV1?=
+ =?us-ascii?Q?oZnkQm1/Hhu4Kb2uZzoGNTAfs7844rEEJ5SnpJ1Prs/SMSwpOq/pITMjLM7F?=
+ =?us-ascii?Q?KjBpajKJIhCE8PxLOZ0lWTQHjkIcT1TPaK3I4fX0rC/Idd/NgR3oTb8iXK0u?=
+ =?us-ascii?Q?9f0k6IMCiNd1ZXgtX07cFHN0+V5/kK23L7oxZ1Kh9DgjvanazytH7TaM8CwN?=
+ =?us-ascii?Q?fjUARwTo5d9BneSbtdxxUkp4B3khblP4I4jcvJkjdoJ8u1kbyKCu7lp2ASHu?=
+ =?us-ascii?Q?/5KaiDSqHt/iXQR1LBYgh3Mu0nptGTR2j0unaQqkR9Pp3mw92uUIy4TMkCJb?=
+ =?us-ascii?Q?pcQ6B82bWJjyej2R5mxya796Fy0YssizRe7sG4O2r8B1Veu+y5BNeaW5QeR2?=
+ =?us-ascii?Q?xk40UAh2VaPWBooH+gnlkKKrPAEZAxbScddoq85ukuiZb+pu3/05xWAYNbpu?=
+ =?us-ascii?Q?lb6c1mO7caxZ4S10Z6QgaIXrt9YUhxVI0+locXuyxcYHedz/U1dQirIJXYlY?=
+ =?us-ascii?Q?D2muri7dYYkFAZoXIVZMJuWOOFKoogla9NE31MOof0GFvC/AleiRfhwg5Y47?=
+ =?us-ascii?Q?WXcQ41k2HUKGYMOzW1MfuOVVXgOuUOIBcqWwfpH+VREDh5V/2sEBDgMiYZ/3?=
+ =?us-ascii?Q?93cJzGS0qjQ/QxZXQMvFdkIiq5skCyxj5dDRP5l0pAEZ72sI1J86MEfI9Ic6?=
+ =?us-ascii?Q?Iqf9mJYjqQ4PoWsEe1AUCw33mpW3QkKRZz5dNoRiw3Lwgo1cB01N5IWcKVZl?=
+ =?us-ascii?Q?cSVuLh9t8DoK8y6JX+h05vT9SFbDhiVBuAh9PK6L2c/MbHlg6KT07Fxy8NpS?=
+ =?us-ascii?Q?yuPGXnXNMaulcuXFJHXdbFkWHIPS46wMQSHOKW7ZnDZSoiW6a8xtoWIqL8Hh?=
+ =?us-ascii?Q?tNVxlqfdESSLJAGxqvoETrJsNyfceqfEM27DowrGxcyl5v6gA9QseY7KBAtx?=
+ =?us-ascii?Q?ZoWAGmN2JmQHVoO26ZfThvG03jQ1WxFCNDCCacb2F9CX2qnM6MMHAnNlu7CW?=
+ =?us-ascii?Q?1M/aSNmAHoFzms5ku0YL4duZhAC/?=
 Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3324CDCA68D04483A57C150985BD9DM6PR12MB3324namp_"
+ boundary="_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3324.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22bc9026-5ef0-4b1e-8925-08d9929c70b2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2021 01:04:45.2518 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a5707c8-0f92-4675-4b34-08d9929ca6c3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2021 01:06:15.9396 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T6GO7T+xBvPPohW18xy0RWlkBEbeadVm0oqQA+ul+kZL11Eret1GGZ39KKXBeKlG8u/wmvXvglTLJe75iwIZBg==
+X-MS-Exchange-CrossTenant-userprincipalname: E6eeQxZvdAiLOhzA6tx0yzZDw4tqeK04FjnIyAoptl5TRptAzMWjHQuaAsvbmm765HcD+eQfpChF4dQLvvY13g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2844
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,9 +142,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3324CDCA68D04483A57C150985BD9DM6PR12MB3324namp_
+--_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+The * is required for the rocm-smi's functionality for showing what the cur=
+rent clocks are. We had a bug before where the * was removed, then the SMI =
+died fantastically. Work could be done to try to handle that type of situat=
+ion, but the SMI has a "show current clocks" and uses the * to determine wh=
+ich one is active
+
+Kent
+
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Russell,=
+ Kent
+Sent: Monday, October 18, 2021 9:05 PM
+To: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deu=
+cher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.=
+com>; amd-gfx@lists.freedesktop.org
+Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
+Subject: RE: [PATCH 0/5] 0 MHz is not a valid current frequency
+
 
 [AMD Official Use Only]
 
@@ -151,11 +172,13 @@ Content-Transfer-Encoding: quoted-printable
 
 Kent
 
-From: Tuikov, Luben <Luben.Tuikov@amd.com>
+From: Tuikov, Luben <Luben.Tuikov@amd.com<mailto:Luben.Tuikov@amd.com>>
 Sent: Monday, October 18, 2021 4:30 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
-md.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org; R=
-ussell, Kent <Kent.Russell@amd.com>
+To: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Quan, Evan <Evan.Quan@amd.com<mailto:Evan.Quan@amd.com>>; Lazar,=
+ Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@lists.freede=
+sktop.org<mailto:amd-gfx@lists.freedesktop.org>; Russell, Kent <Kent.Russel=
+l@amd.com<mailto:Kent.Russell@amd.com>>
 Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
 
 I think Kent is already seen these patches as he did comment on 1/5 patch.
@@ -325,7 +348,7 @@ Luben
 >>
 
 
---_000_DM6PR12MB3324CDCA68D04483A57C150985BD9DM6PR12MB3324namp_
+--_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -339,7 +362,7 @@ xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
 <meta name=3D"ProgId" content=3D"Word.Document">
 <meta name=3D"Generator" content=3D"Microsoft Word 15">
 <meta name=3D"Originator" content=3D"Microsoft Word 15">
-<link rel=3D"File-List" href=3D"cid:filelist.xml@01D7C463.C58B8320"><link r=
+<link rel=3D"File-List" href=3D"cid:filelist.xml@01D7C463.FB79F840"><link r=
 el=3D"Edit-Time-Data" href=3D"cid:editdata.mso"><!--[if !mso]><style>v\:* {=
 behavior:url(#default#VML);}
 o\:* {behavior:url(#default#VML);}
@@ -1198,6 +1221,17 @@ p.xmsochpdefault, li.xmsochpdefault, div.xmsochpdefault
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;
 	mso-fareast-font-family:Calibri;}
+p.msipheader9f8d35bc, li.msipheader9f8d35bc, div.msipheader9f8d35bc
+	{mso-style-name:msipheader9f8d35bc;
+	mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:Calibri;}
 span.xmsohyperlink
 	{mso-style-name:x_msohyperlink;
 	mso-style-unhide:no;
@@ -1212,7 +1246,19 @@ span.xemailstyle18
 	mso-hansi-font-family:Calibri;
 	mso-bidi-font-family:Calibri;
 	color:windowtext;}
-span.EmailStyle23
+span.EmailStyle24
+	{mso-style-type:personal;
+	mso-style-noshow:yes;
+	mso-style-unhide:no;
+	mso-ansi-font-size:11.0pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-ascii-font-family:Calibri;
+	mso-fareast-font-family:Calibri;
+	mso-hansi-font-family:Calibri;
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+span.EmailStyle25
 	{mso-style-type:personal-reply;
 	mso-style-noshow:yes;
 	mso-style-unhide:no;
@@ -1224,17 +1270,6 @@ span.EmailStyle23
 	mso-hansi-font-family:Calibri;
 	mso-bidi-font-family:"Times New Roman";
 	color:windowtext;}
-p.msipheader9f8d35bc, li.msipheader9f8d35bc, div.msipheader9f8d35bc
-	{mso-style-name:msipheader9f8d35bc;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -1278,8 +1313,12 @@ l Use Only]</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
 ew Roman&quot;"><o:p>&nbsp;</o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
-Roman&quot;">+Harish, rocm-smi falls under his purview now.<o:p></o:p></spa=
-n></p>
+Roman&quot;">The * is required for the rocm-smi&#8217;s functionality for s=
+howing what the current clocks are. We had a bug before where the * was rem=
+oved, then the SMI died fantastically. Work could be
+ done to try to handle that type of situation, but the SMI has a &#8220;sho=
+w current clocks&#8221; and uses the * to determine which one is active<o:p=
+></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
 Roman&quot;"><o:p>&nbsp;</o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
@@ -1293,12 +1332,52 @@ Roman&quot;"><o:p>&nbsp;</o:p></span></p>
 0in 0in">
 <p class=3D"MsoNormal"><b><span style=3D"mso-fareast-font-family:&quot;Time=
 s New Roman&quot;">From:</span></b><span style=3D"mso-fareast-font-family:&=
-quot;Times New Roman&quot;"> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;
+quot;Times New Roman&quot;"> amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.=
+org&gt;
+<b>On Behalf Of </b>Russell, Kent<br>
+<b>Sent:</b> Monday, October 18, 2021 9:05 PM<br>
+<b>To:</b> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander &=
+lt;Alexander.Deucher@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;; Laz=
+ar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>Cc:</b> Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan@amd.com&gt;<b=
+r>
+<b>Subject:</b> RE: [PATCH 0/5] 0 MHz is not a valid current frequency<o:p>=
+</o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader9f8d35bc" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-font-family:&quot;Times N=
+ew Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
+Roman&quot;">+Harish, rocm-smi falls under his purview now.<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
+Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
+Roman&quot;">Kent<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-bidi-font-family:&quot;Times New =
+Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal" style=3D"mso-outline-level:1"><b><span style=3D"mso-=
+fareast-font-family:&quot;Times New Roman&quot;">From:</span></b><span styl=
+e=3D"mso-fareast-font-family:&quot;Times New Roman&quot;"> Tuikov, Luben &l=
+t;<a href=3D"mailto:Luben.Tuikov@amd.com">Luben.Tuikov@amd.com</a>&gt;
 <br>
 <b>Sent:</b> Monday, October 18, 2021 4:30 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Quan, Evan=
- &lt;Evan.Quan@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx=
-@lists.freedesktop.org; Russell, Kent &lt;Kent.Russell@amd.com&gt;<br>
+<b>To:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher@amd.com</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Eva=
+n.Quan@amd.com">Evan.Quan@amd.com</a>&gt;; Lazar, Lijo &lt;<a href=3D"mailt=
+o:Lijo.Lazar@amd.com">Lijo.Lazar@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a>; Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Rus=
+sell@amd.com</a>&gt;<br>
 <b>Subject:</b> Re: [PATCH 0/5] 0 MHz is not a valid current frequency<o:p>=
 </o:p></span></p>
 </div>
@@ -1565,7 +1644,8 @@ Luben<br>
 ew Roman&quot;"><o:p>&nbsp;</o:p></span></p>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_DM6PR12MB3324CDCA68D04483A57C150985BD9DM6PR12MB3324namp_--
+--_000_DM6PR12MB3324C490C0CF191F6F34602C85BD9DM6PR12MB3324namp_--
