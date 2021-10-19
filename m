@@ -2,48 +2,48 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3B89C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CA85C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E5F8611AE
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E5F8611AE
+	by mail.kernel.org (Postfix) with ESMTPS id E1CA5611AE
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E1CA5611AE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 750F16E8A8;
-	Tue, 19 Oct 2021 20:11:04 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBF2F6E1CE
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 20:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7E86E1CE;
+	Tue, 19 Oct 2021 20:11:08 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2052.outbound.protection.outlook.com [40.107.243.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDA06E8A9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 20:11:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PGPgloFDw9EE/N5e2tVn0l5m86ScZAcEENpzgPWfNQT6JwvW1AzVA7q+6UlHohkjVDIlnqx489eWuS8n3MgsG9uOi+BoG07EN77MT2QCY9FUajUnW4/zXKH2fpPcFAwyvVzvTwsL18X05FYaq693xq0ZIm97hLrFLJ2Z0kK8PpqOUkSc3b12jQTdZAydNEGoGu2h1nsMNZLqvGDnQAmEejjstoaI/2fsE3dRiBjoYWdkxuKEzbcZUvTr9kFyiu3jxlYoizKx8h9fKJBVQQH3X8qfEhGT5gJfxJTYM4kIicwYo2HiULo6VsewxWXDOzm43ZkrDiS0khiJ35A/sm8lDw==
+ b=WgPD4KxiTOlWcJDO4DQ5BO/6Ch2fZiwTE/zriRrFtxLsa0sH0gwk7zQmeEaaDQitotl6ma6xIv1Mb6znJJ3kGxDqbkV42UxN9qEnGGuAWR263W1M2JpzNQsntSZrNyduCU0FKuMLrSv4c0j8NVaIJrVRx+5nJLUOwMDChAv77Xo+Pdx7nIqIlh5dCIyRP2P6yONJJT9E1lw4uSN6ZbDTCWb4fo6GDNYtgNGXzbyClSRlXAPcMIv7ZrmGe6t0MxuGZdNam80qHKjbsRhQdMy2/kZ/ZwjsEGzLftcxrMpXYgCUcIfCQrdgbcsYj/i81SF7ZRlVJFWRHJkHnuaS/Rw9Sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E4LkQMKzbAiJTqkfWEmoX0aGJWC4ROValH326KSFtPg=;
- b=f9AdDwLrEnqxdv5QUCrhrtL3+wXo1wdRgqMZGqtaDseIpDuPNi0t6hmMsGHJmjCjkgYntjku0+Y+rGrGqM5+U7soWQZgQ7jqVHCLntsay+nPp+7KsEqwUQ7EdUQHN735oSt3tm6LNI3GmMxF/tELnIOvghcBHqiQegzvM3sxkTdo1cBJOACyqIWeymRKaF0/gP6mhw3IYjboY3pMfOziM28D8f6743uIxjzzqMxwLBiNAJgF2QLJasqoKglUr8sQq/AeTA4OSOvUEjkbGVL9CVO18ljvuDjShZDQCyDreGOekkgWmbdz6CCr7x7Di8nQXrSH//eXsFTibSwStcH+6w==
+ bh=heiBy1M+NhfE+i51zGTOTBjIEkjafjNLAVf4jbzSlcU=;
+ b=GIuVdiRqlYlpJBKBfBuOnoBihb9R4ZS3A0XfSy7Q9ayKW/UBdkVu4yOT786jA69HFtnZAJOS9d+YsPM/3CgpGf5BZHPi6I0V9EDZCX6NUCYcg+9zZ00FS4Q08USvrHZJIWz5m09JLQsFrCATKRv8QTtUzBBFburp3uzE07WhnOKQCXQWLV2PYWvbLZGfDNc94Fm8vmUSTptLtA3CjDJ1hiFS/K/JGGjyOyfAODYx3yx3rj1ijCnWKN4CkiCLnBqZZaAZq53sxf/25VA4rYPYANSxNe1FhR42GZCZmwdtqUejcgmo3+/vWRucw3XeVCeerKq16hpKVH5zoCCCupedJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E4LkQMKzbAiJTqkfWEmoX0aGJWC4ROValH326KSFtPg=;
- b=KJSamWM3BdT0L4oiaLn8OrHFVBWquCU+o1SGXgowleBuzhDMJlYNpLaT8o/o4zKYzXddfpRU/SI04w3CyMi1WYnjpaX6+JlWzUIaYspl4naBgCHl89qM1qmu74H5s03F/QnIE+zVdrPGih+v3qlqcDRWMGqdE33QXxsIzI0JuEY=
-Received: from BN9PR03CA0032.namprd03.prod.outlook.com (2603:10b6:408:fb::7)
- by BY5PR12MB5557.namprd12.prod.outlook.com (2603:10b6:a03:1d4::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Tue, 19 Oct
- 2021 20:11:00 +0000
+ bh=heiBy1M+NhfE+i51zGTOTBjIEkjafjNLAVf4jbzSlcU=;
+ b=jhe5s+ve6PLPuZkCBzFh+Qpiox0GQ6TsIkqAk/x3krerBIH2zi/WUKavBYWP51IHO2/V8nF1aKuSLB/CrB9xPEjnMGxIcOxh/pyd/+yibDcPVuMujEydHUz+VN51KnkbwdEBo1efoyhqFncQ8t0lk7bGFNHPdZjLo6nlaRWRq40=
+Received: from BN9PR03CA0042.namprd03.prod.outlook.com (2603:10b6:408:fb::17)
+ by MN2PR12MB3757.namprd12.prod.outlook.com (2603:10b6:208:15a::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Tue, 19 Oct
+ 2021 20:11:01 +0000
 Received: from BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fb:cafe::55) by BN9PR03CA0032.outlook.office365.com
- (2603:10b6:408:fb::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17 via Frontend
- Transport; Tue, 19 Oct 2021 20:10:59 +0000
+ (2603:10b6:408:fb:cafe::73) by BN9PR03CA0042.outlook.office365.com
+ (2603:10b6:408:fb::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Tue, 19 Oct 2021 20:11:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,17 +54,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT044.mail.protection.outlook.com (10.13.177.219) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 20:10:59 +0000
+ 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 20:11:00 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Tue, 19 Oct
- 2021 15:10:58 -0500
+ 2021 15:10:59 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, James Zhu <James.Zhu@amd.com>
-Subject: [PATCH 2/4] drm/amdgpu: Consolidate VCN firmware setup code
-Date: Tue, 19 Oct 2021 16:10:42 -0400
-Message-ID: <20211019201044.426871-2-alexander.deucher@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu/vcn3.0: remove intermediate variable
+Date: Tue, 19 Oct 2021 16:10:44 -0400
+Message-ID: <20211019201044.426871-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211019201044.426871-1-alexander.deucher@amd.com>
 References: <20211019201044.426871-1-alexander.deucher@amd.com>
@@ -76,28 +76,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 587b62ed-2d85-4cad-56c2-08d9933c9177
-X-MS-TrafficTypeDiagnostic: BY5PR12MB5557:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB5557E5C088D1ACEF3B5ACCFBF7BD9@BY5PR12MB5557.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Office365-Filtering-Correlation-Id: be3a3a69-7f0d-4dd9-795b-08d9933c9239
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3757:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3757FB280B925A9507680614F7BD9@MN2PR12MB3757.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:913;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2sk9hye8xFgxq1IiG/B4cGWHuxR18yn1lxeAhrX8vqomZY/p+RWYt86UOn07XibLnxyYirCQqJkCLkapVdMhM2Ia5rfgYQBJQGiSiADYBOMRWbur3fYzGY7Pb2t9mSuQZncMaQvACdDWtOB3JubEIK0PKqHq8AnBMxEuAy2VtHzu+NyB+QSEXlfl/5QllbSDlLTGujehyD0DEgg+RmwV3MjbLHsh5KfnLQ4iXCWYdupzL+X1nt5qBwPOKyxgLI1bA/8plS7bsmHk1kY+rMcdQKQGStBlkcPMCne3UUK1lRAdI+Vmvc+lHlRADiIJLU6dvK1aSaFAM6ELNxOFNNMCcN+XVC3Zc3l3M3WE1Mu3YBeZ5IX2YrLgMPezCVJZPlXxJ1m3dK8XSz2TBXBMp6VGoyGuXwJA7Ml3rMPgg4mKS9vwAdAT47y3WiVHCO3Vv58L5viWusTyE03QnSklinM6+raDfVJHBkb7tFvY5VxxTcbWOx/Ibf+r1FsVASUcu8YqQuuIt5KjA8g/1DtV+cF4G5ZZBuO2e/SYxy9vJ4Sd+rZUPz5IozILQ6p7CWdK2nokC6iI7KAv3wQc03+JS+50cIWGFl0gnZhwdxWptFE/SdtI/f/P9/wtYhd86JiiqSKPBSCDk9rkvDuStGOwpOY5spp49j+7XPfBKIHMaQOAVKhs5CjCJT2X6pfI44k8YlMred4OwVjTLlnaEBgtsrd7AU7ApI/BobaCKUf5efulong=
+X-Microsoft-Antispam-Message-Info: gZztI4Mhmcp5THI2yNc+R/qe6ZZljqGxVJRXS1B+TWAORaNbvYWejA26YinYUxE4ZrkVVKeqClz1lSgvIEyjSB/l3TYx5bnfj9ze9sM5ISBg+O1Pj6Sku5sLQm0MS1IJU/wUd8AJRFDsknkf1pEiJ6vWIYU0FdF8BuUwXaect7hq7G13xpxT/LLbIgkkYy55ZVJyCYP5KJ0z3VyK6lqObFRp+Z1rDUqUD/fkllUMRPdd0Y8WBetVY5xZlQcFdcy9xKeQm+USubEMOdGWO3f/g7kytDTLi0VDR06sxn6ziboG+bqMEm2w0fiqeKac5oO1ht0CZ+BGoWD+Xk0INhmcMCz2FKjNsocuomV9frz3iZyRmlLyDM3YqYV74j8/2fFDHj1FzMr6ifm8UTGHUFB5pYp3wy9I+/6l6mn3P+WB4rC8TtgtR0r+3xr+akeXfahgKgUluHZLDvdBSFOJgyUpzM1letAJltYjZXq3H7a3WujJFVlWANnieZVZ9/gghmxajWsnG5yWrtxLufVoi7agtXIqB+VHlB6BUrgA85GN4cMLq7zfB6+Cp0xLKjZ7w2IityxRNkUNUngb/VCYYZVla2tTWvZ/c1Mu07OWSAk/p0QY9aX9jPUM+Cb9heTqwgDzxXbTZuUoziZ8N7tfbL0cyXKD8cmTsG2gAfLYtkH9wCJGmEjJe/NBvtVDC42NlYW7IIQCGppB4nVzltVylw8XVERveE6t0ilZpx1KyTCdcIk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(7696005)(4326008)(316002)(81166007)(54906003)(82310400003)(26005)(70586007)(83380400001)(6916009)(8676002)(86362001)(186003)(47076005)(16526019)(356005)(5660300002)(6666004)(8936002)(2616005)(336012)(508600001)(36860700001)(2906002)(70206006)(36756003)(1076003)(426003)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(8936002)(508600001)(356005)(82310400003)(70586007)(70206006)(36756003)(1076003)(336012)(81166007)(26005)(426003)(5660300002)(7696005)(86362001)(83380400001)(6666004)(8676002)(2616005)(36860700001)(4326008)(6916009)(316002)(186003)(2906002)(16526019)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 20:10:59.6994 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 587b62ed-2d85-4cad-56c2-08d9933c9177
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 20:11:00.9777 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: be3a3a69-7f0d-4dd9-795b-08d9933c9239
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5557
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3757
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,173 +112,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Roughly the same code was present in all VCN versions.
-Consolidate it into a single function.
-
-v2: use AMDGPU_UCODE_ID_VCN + i, check if num_inst >= 2
+No need to use the id variable, just use the constant
+plus instance offset directly.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: James Zhu <James.Zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 27 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 10 +--------
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 10 +--------
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 17 +---------------
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 17 +---------------
- 6 files changed, 33 insertions(+), 50 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index c7d316850570..2658414c503d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -949,3 +949,30 @@ enum amdgpu_ring_priority_level amdgpu_vcn_get_enc_ring_prio(int ring)
- 		return AMDGPU_RING_PRIO_0;
- 	}
- }
-+
-+void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev)
-+{
-+	int i;
-+	unsigned int idx;
-+
-+	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
-+		const struct common_firmware_header *hdr;
-+		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
-+
-+		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-+			if (adev->vcn.harvest_config & (1 << i))
-+				continue;
-+			/* currently only support 2 FW instances */
-+			if (i >= 2) {
-+				dev_info(adev->dev, "More then 2 VCN FW instances!\n");
-+				break;
-+			}
-+			idx = AMDGPU_UCODE_ID_VCN + i;
-+			adev->firmware.ucode[idx].ucode_id = idx;
-+			adev->firmware.ucode[idx].fw = adev->vcn.fw;
-+			adev->firmware.fw_size +=
-+				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
-+		}
-+		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index 795cbaa02ff8..bfa27ea94804 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -310,4 +310,6 @@ int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout);
- 
- enum amdgpu_ring_priority_level amdgpu_vcn_get_enc_ring_prio(int ring);
- 
-+void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index ad0d2564087c..d54d720b3cf6 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -111,15 +111,7 @@ static int vcn_v1_0_sw_init(void *handle)
- 	/* Override the work func */
- 	adev->vcn.idle_work.work.func = vcn_v1_0_idle_work_handler;
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--		const struct common_firmware_header *hdr;
--		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
--		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id = AMDGPU_UCODE_ID_VCN;
--		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
--		adev->firmware.fw_size +=
--			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
--		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
--	}
-+	amdgpu_vcn_setup_ucode(adev);
- 
- 	r = amdgpu_vcn_resume(adev);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index 091d8c0f6801..3883df5b31ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -115,15 +115,7 @@ static int vcn_v2_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--		const struct common_firmware_header *hdr;
--		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
--		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id = AMDGPU_UCODE_ID_VCN;
--		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
--		adev->firmware.fw_size +=
--			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
--		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
--	}
-+	amdgpu_vcn_setup_ucode(adev);
- 
- 	r = amdgpu_vcn_resume(adev);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 59f469bab005..44fc4c218433 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -139,22 +139,7 @@ static int vcn_v2_5_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--		const struct common_firmware_header *hdr;
--		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
--		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id = AMDGPU_UCODE_ID_VCN;
--		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
--		adev->firmware.fw_size +=
--			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
--
--		if (adev->vcn.num_vcn_inst == VCN25_MAX_HW_INSTANCES_ARCTURUS) {
--			adev->firmware.ucode[AMDGPU_UCODE_ID_VCN1].ucode_id = AMDGPU_UCODE_ID_VCN1;
--			adev->firmware.ucode[AMDGPU_UCODE_ID_VCN1].fw = adev->vcn.fw;
--			adev->firmware.fw_size +=
--				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
--		}
--		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
--	}
-+	amdgpu_vcn_setup_ucode(adev);
- 
- 	r = amdgpu_vcn_resume(adev);
- 	if (r)
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 49752574a13c..57b62fb04750 100644
+index 57b62fb04750..da11ceba0698 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -123,7 +123,6 @@ static int vcn_v3_0_sw_init(void *handle)
- {
- 	struct amdgpu_ring *ring;
- 	int i, j, r;
--	unsigned int idx;
- 	int vcn_doorbell_index = 0;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -60,11 +60,6 @@ static int amdgpu_ih_clientid_vcns[] = {
+ 	SOC15_IH_CLIENTID_VCN1
+ };
  
-@@ -131,21 +130,7 @@ static int vcn_v3_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--		const struct common_firmware_header *hdr;
--		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+-static int amdgpu_ucode_id_vcns[] = {
+-	AMDGPU_UCODE_ID_VCN,
+-	AMDGPU_UCODE_ID_VCN1
+-};
 -
--		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
--			if (adev->vcn.harvest_config & (1 << i))
--				continue;
--			idx = AMDGPU_UCODE_ID_VCN + i;
--			adev->firmware.ucode[idx].ucode_id = idx;
--			adev->firmware.ucode[idx].fw = adev->vcn.fw;
--			adev->firmware.fw_size +=
--				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
--		}
--		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
--	}
-+	amdgpu_vcn_setup_ucode(adev);
+ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev);
+ static void vcn_v3_0_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void vcn_v3_0_set_enc_ring_funcs(struct amdgpu_device *adev);
+@@ -1278,7 +1273,6 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+ 	uint32_t param, resp, expected;
+ 	uint32_t offset, cache_size;
+ 	uint32_t tmp, timeout;
+-	uint32_t id;
  
- 	r = amdgpu_vcn_resume(adev);
- 	if (r)
+ 	struct amdgpu_mm_table *table = &adev->virt.mm_table;
+ 	uint32_t *table_loc;
+@@ -1322,13 +1316,12 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+ 		cache_size = AMDGPU_GPU_PAGE_ALIGN(adev->vcn.fw->size + 4);
+ 
+ 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-			id = amdgpu_ucode_id_vcns[i];
+ 			MMSCH_V3_0_INSERT_DIRECT_WT(SOC15_REG_OFFSET(VCN, i,
+ 				mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
+-				adev->firmware.ucode[id].tmr_mc_addr_lo);
++				adev->firmware.ucode[AMDGPU_UCODE_ID_VCN + i].tmr_mc_addr_lo);
+ 			MMSCH_V3_0_INSERT_DIRECT_WT(SOC15_REG_OFFSET(VCN, i,
+ 				mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
+-				adev->firmware.ucode[id].tmr_mc_addr_hi);
++				adev->firmware.ucode[AMDGPU_UCODE_ID_VCN + i].tmr_mc_addr_hi);
+ 			offset = 0;
+ 			MMSCH_V3_0_INSERT_DIRECT_WT(SOC15_REG_OFFSET(VCN, i,
+ 				mmUVD_VCPU_CACHE_OFFSET0),
 -- 
 2.31.1
 
