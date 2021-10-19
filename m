@@ -2,67 +2,100 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 875D1C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:33:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA440C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:51:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D54C61212
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:33:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4D54C61212
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7AAFB6135F
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 20:51:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7AAFB6135F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB7FB6E1F2;
-	Tue, 19 Oct 2021 20:33:33 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52CA56E1B5;
- Tue, 19 Oct 2021 20:33:32 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- s18-20020a0568301e1200b0054e77a16651so5630883otr.7; 
- Tue, 19 Oct 2021 13:33:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DOqRh/1Ua7gaB2YIvupL83cX+ks/UH4oOCeOkubEg+I=;
- b=QSxSD64FavqWcg0SCB8tgXGbDjsJOCFew8H88qS4b6OOiAdL2oRBvoVd+8JMND2d9M
- sQQMburzQHky4ALFU5u/9isSpKrx8H6JSSmP1SFdTWF9NEbvc0G25h1N0vcyuC06YPXl
- k6sO9GgOQpWeWj10j4KXuRbngWbqZkc8dCr1KloSLZAruMZrIOUWV/bmS6mx0drRNTpx
- GglfYIxSk6hQI1aPpc3Sjvq7U5L5QTucwo14yQk4nhl6KH/C1/SP2xl6gWtF2+4Z2bJa
- fLOYu3iv/tnyz23vMmDZ301p6qgolhx3P/4FtK1+MzC1PIyR1L1jTMS+2iVxzPUPwOBD
- AkVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=DOqRh/1Ua7gaB2YIvupL83cX+ks/UH4oOCeOkubEg+I=;
- b=kuHcsBr0fcapWOGbuU0zJZoC8XXI/vpyEOkKpxS871rPX4803P/L7J6g0tBZKtDJ61
- qIITsFhGM5euXCUnYoF0qesqQkVdD1alA0FuQ1uoZCX2AdTPRAMwnZ1nePoiBbRoi3ST
- qtnG0AxAdxldAnH91GwWOTPhkhRNOqWgMrojX33fauODUxqE+1MvzvXg6T/NCvu1wWLk
- m8o+6xv7fSYgqzy7XpU5iYczQh9oLe+yVAllwXH7L8b59WQtWrbsy6pRpnDOLCEss51X
- UmVLkMGEkd48G6s3C1p30CoZgBONXNUfAyGlPWAXw1pwxHbG8smlFLeG8l5mumLJj6sv
- bPwA==
-X-Gm-Message-State: AOAM532Iw+cypeYclt45N2XMCkzOfws7O4c+ZSpMqjDL4o0AVJuCkVw8
- ljZetP4MCPkwTVJ/dt99mOrngCdfwdGF36L/MCQ=
-X-Google-Smtp-Source: ABdhPJwbvBP3caz6rJULs5wo0+7q702H1t6nq5mSszwrMHFvV3psA+RHqSmLUNlp8fraE3I5E5R5j0u3z70DoRNKLak=
-X-Received: by 2002:a9d:718e:: with SMTP id o14mr7374367otj.299.1634675611573; 
- Tue, 19 Oct 2021 13:33:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 104DB6E8BF;
+	Tue, 19 Oct 2021 20:51:29 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2083.outbound.protection.outlook.com [40.107.92.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20ECA6E8BF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 20:51:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e/1vgMqLIhzgO83wdO30lZmGGyAYoz9V9ixeJTP+wO5px45BmrSBrfY+xhB/IwCYu4PxL2NnYSfSyQ6ROMD/mSbH1+lAf1iJNvo1au97FTP+gVKMdvG5rBOK8Zs1iBt/lNp8+QmOKTSaZgj0wbYuJHmcTykP6cPGVz0y6ElsYgVk3frkn99o6rLusfo7IuSLmKRJeA6AW9vpZdCCv+zQy2XylrplESSRw+o5+KERIF/ARCZ3ZF4LpXjfReOLOeitVc0BwCfZLry7pRfiK6WwavanBC5FdGneSIk93/C4eXWvl1jp5t6c2YY77kVlTyPcO4SUM5VN1CzZmWGzpBFDKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GWuAG2jSGMgJIFMijnNE79ovlz+xexqjpLVxXbQmKwg=;
+ b=fNHvJsuhhK6e8+BtaKIIOomR/g+bU6eRgRac1XGag70vl52+iHrGSHPjZXZb6ITX0cnA8eoe3Y0C89sL6h+fmKxU+sJdTKm7TTMzeH/KByAP4J0t1VONo0STINDOb5Et+68ik72gMVPCDZulK7hiVXouog6P/88qLh1rv5qjKXeoyieVdKqeyV0H9lQTrTcARmtYsd6v8iObZOv/2vI82a4TdrPDUYpTBGbEVNDNQOxR3DWiOG0JVP1zslDnGp9Rpn277T6QsYm4KGZHxILSxlZ0ug5lEH6qJ3a3sCX9ft65aQwAKPtPJbZg7fcKFnConAVacW9pb2GRfuc59LKIWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GWuAG2jSGMgJIFMijnNE79ovlz+xexqjpLVxXbQmKwg=;
+ b=OipNOJkgd7ZxYzJes7M2+cLEdMdzm54loUmp49/tQy47HRsBZ9y+BMeTCi5Qy27DSXyG/APR9SQPhHoptRoPGKkqP3agQQxKkTDnCPM8VJtQhPK7ANOgoCn98joFF5H5xor/91lvO3wugNUUuLNhU3SlsNGEYts/ADHLVG4K1ow=
+Received: from BN6PR1401CA0022.namprd14.prod.outlook.com
+ (2603:10b6:405:4b::32) by BL1PR12MB5350.namprd12.prod.outlook.com
+ (2603:10b6:208:31d::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Tue, 19 Oct
+ 2021 20:51:25 +0000
+Received: from BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:4b:cafe::32) by BN6PR1401CA0022.outlook.office365.com
+ (2603:10b6:405:4b::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15 via Frontend
+ Transport; Tue, 19 Oct 2021 20:51:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT024.mail.protection.outlook.com (10.13.177.38) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 20:51:24 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Tue, 19 Oct
+ 2021 15:51:24 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/display: remove unused variable in dcn31_init_hw()
+Date: Tue, 19 Oct 2021 16:51:12 -0400
+Message-ID: <20211019205112.682009-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <1634280441-4248-1-git-send-email-wangqing@vivo.com>
-In-Reply-To: <1634280441-4248-1-git-send-email-wangqing@vivo.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Oct 2021 16:33:20 -0400
-Message-ID: <CADnq5_PVZ_nFA=adGMXyBsMHMVV6JhDYTDN9sk7rVuKsTZDfYw@mail.gmail.com>
-Subject: Re: [PATCH] amdgpu: replace snprintf in show functions with sysfs_emit
-To: Qing Wang <wangqing@vivo.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3ddc2e58-a100-43f3-54b4-08d9934236fd
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5350:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5350DCA9A1A113385B7245C9F7BD9@BL1PR12MB5350.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IEwaTwisYqBGau1G49SPKJEB+DAv98icffqTI0qYUUPc/i7evVLjTOgKu7/+NJUYMf9Kyfdk1AvWHRb6fpyvd4vrfgLOpue8/4kZ1n/pkHD1m1HRSxH70FMPyHRenUcF3t6xoLKasXQOUAfzcEnURha3cSwu8Swolie3m7TLLiVy0/AypztNdzoy0Cf4Y93uvkkKSEnRLPcZAVW9EZx8VGLLdByg4Vi30KC1roNQZ/Alx2NLqvPznZvCm3UuENrYF4aK1FKB1A9FX95nI6thgytv5Nj0whb1XyXpT5EEBYsn6H60OtXyOVEAmSqcqm1m90TVbDWCKC5xt8eFUrU0ZLOsxUg4stmoZfl6+TmqcEH3V5s5Rua3P1FL/UGS1wBlS6ifthxgM8YCnnn4ZoM8VJWA9Y3yVWEFAbtUDWxyzW/v/MhV4rNvY6ni6UFJiNLQrF+o5N91DGUbeTxes7ufyFCm0j/9CoZmc0Klsy/e54p1kf7bZklWbcYGqR/iRRO6uSAHC3Qz64TFHfGKpWrCiFUCMBjhNF52dMY9w7cRojwwm+girlvf0it2PHh2QYUwZYOTN9CeRhfZWkX1DRaLPj6M0aS6SmZraRQAdLYzCrgMrNOAtpaMftHqnmqfwd1seM/FXNMkeHmaiRKhLGzDgjtMJN8aiqNvBXgIQA9e1Mwnk+rlyCQ5gqY2JCj8pDkOYHuEf2eCjTs4LI9149v10KktBv4mh+XfzB+rktxGl/o=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(70586007)(508600001)(426003)(336012)(4744005)(4326008)(1076003)(356005)(186003)(16526019)(47076005)(7696005)(36756003)(2616005)(81166007)(316002)(8676002)(70206006)(6666004)(26005)(6916009)(82310400003)(5660300002)(86362001)(83380400001)(8936002)(36860700001)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 20:51:24.8892 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ddc2e58-a100-43f3-54b4-08d9934236fd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5350
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,35 +110,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  thanks!
+Unused.  Remove it.
 
-On Fri, Oct 15, 2021 at 2:48 AM Qing Wang <wangqing@vivo.com> wrote:
->
-> show() must not use snprintf() when formatting the value to be
-> returned to user space.
->
-> Fix the following coccicheck warning:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:427:
-> WARNING: use scnprintf or sprintf.
->
-> Signed-off-by: Qing Wang <wangqing@vivo.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index 2834981..faf4011 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -424,7 +424,7 @@ static ssize_t show_##name(struct device *dev,                              \
->         struct drm_device *ddev = dev_get_drvdata(dev);                 \
->         struct amdgpu_device *adev = drm_to_adev(ddev);                 \
->                                                                         \
-> -       return snprintf(buf, PAGE_SIZE, "0x%08x\n", adev->field);       \
-> +       return sysfs_emit(buf, "0x%08x\n", adev->field);        \
->  }                                                                      \
->  static DEVICE_ATTR(name, mode, show_##name, NULL)
->
-> --
-> 2.7.4
->
+Fixes: d1065882691179 ("Revert "drm/amd/display: Add helper for blanking all dp displays"")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+index 7308c4c744ba..9a6ad1cebc85 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+@@ -73,7 +73,6 @@ void dcn31_init_hw(struct dc *dc)
+ 	struct resource_pool *res_pool = dc->res_pool;
+ 	uint32_t backlight = MAX_BACKLIGHT_LEVEL;
+ 	int i, j;
+-	int edp_num;
+ 
+ 	if (dc->clk_mgr && dc->clk_mgr->funcs->init_clocks)
+ 		dc->clk_mgr->funcs->init_clocks(dc->clk_mgr);
+-- 
+2.31.1
+
