@@ -2,74 +2,100 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8801C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 15:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3A58C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 15:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9FBFF6113D
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 15:54:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9FBFF6113D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9536160F9D
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 15:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9536160F9D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197886EB37;
-	Tue, 19 Oct 2021 15:54:33 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A5996EB37
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 15:54:31 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- n40-20020a05600c3ba800b0030da2439b21so3566571wms.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 08:54:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=YQ6cnDmasmTHJhPpC/NlH+gmjY9gt/qM6QGDz1K/rlo=;
- b=Yyu/GP+81Tiag4fVW+wghITZ8EShE01JOPqsOR6MNLoJ71PBVY5duKhEeYJR3mK6aD
- eo7y5phxkZCmpDAbMd83vy0ako/3LS/rhMeyC5Q25izYq0HoQX5S4qsBPB1pHofkaoHY
- OKhAyMGQTi2hPIopLm3ADcoqmvdHBNN756vdrsyzDsJcI1ilwUD3HI+m78sI/8xsB6BG
- Bqc8F18BmvfTOMIxXff6BcsnFBt5zU1KU4FXSJeGDKbqyEUPUBNC88knsngEc5vWc2DO
- S9usBNNZdp0ap6BhjYdBIm0FFgMDkPZHDZFW4w78v3a93VYEJUxXgT2tDrukWVqNGfjh
- 5D2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=YQ6cnDmasmTHJhPpC/NlH+gmjY9gt/qM6QGDz1K/rlo=;
- b=qhHkz9WtBocBS7lBs7aOJBqgnDLYh4vlQiSBSyzu1FYn+HS67IRh+4TeY4RJPpuKb/
- LVQbXk1/EhM/rbXdfD+phQLtUopI3lCh8S1ADs4/8ggnc6n4PgBMO5b29m5nrQSRRxGH
- 8ktmasl+IfkKfzS8pL/QIke04bOAbpBPvn58WsgCVo+/yTT7BQOJaIeTRLDgFeYevBHD
- bw/HwigzKMQg5YYcGAJfYWhszTwy5OQVQvF8ukBRZUv3ODQEf9wrTld+CCF3abavNL/0
- eF57D92jiOg5s6zcF5jQlrQaaRbWAH9lLh7tuIZJHpHjQdiO0EKe+DtZF317Lin0SF+C
- bbbA==
-X-Gm-Message-State: AOAM530NuLg8SnTv+6qild/QD4KVzQyufRY8ZC5RftoFNmsQ0G3Y0iQ9
- +f5jULNiU8LnvO3Z9TrgOkw=
-X-Google-Smtp-Source: ABdhPJyY19fLzTQtu+SbsYRhSbRcfczY4qdMQr6uTuAatVOoNiRVOyOZzsSttq5cOXd/6AymQVz6zQ==
-X-Received: by 2002:a5d:42c2:: with SMTP id t2mr45178536wrr.409.1634658870231; 
- Tue, 19 Oct 2021 08:54:30 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:4fc4:fae2:bc41:a808?
- ([2a02:908:1252:fb60:4fc4:fae2:bc41:a808])
- by smtp.gmail.com with ESMTPSA id w5sm15344060wra.87.2021.10.19.08.54.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Oct 2021 08:54:29 -0700 (PDT)
-Subject: Re: [PATCH 1/1] drm/amdgpu: recover gart table at resume
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org,
- "Christian.Koenig@amd.com" <Christian.Koenig@amd.com>
-References: <20211019132200.10352-1-nirmoy.das@amd.com>
- <28201f2b-e524-4192-bafc-29c5871fbb16@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <0865a77f-7a84-61c1-4375-f9b180616311@gmail.com>
-Date: Tue, 19 Oct 2021 17:54:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7BA6EC25;
+	Tue, 19 Oct 2021 15:57:09 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2088.outbound.protection.outlook.com [40.107.223.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F4086EC31
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 15:57:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cfv+mjyhkuMGlVaUvCiPp20eLYilNChdZJ4oeM+mDKM+jkYjEGX7GTr4dShBM3UVvGvSfuRBP9srDsVatBafOrot/9kYRUq4B19Y7kYwycLlXwCKiZ7cQfhi82r8b+c2rZXiGNPN9wF+hIuinEENrIWBTFKrZnjb2mmBnyfB8FAyI/NKSvNkR5buuw0PP47BFOrPOJmHLSCfzm8he+rtXT/+1x8DzSeqFa6f+ClX2zE20hb2urJtGdo3e/yFTWkiKn1BsSV2Ewx5x1Jah/ctvpb4cwQztb2AokRRlT2J3JkH3wyITZsMbmMMOVGnf6bD42KluDzV61uRK33kk0OZOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2EC2r7c5lhPQopInwZyzANvx4dWgn1KKVbdSfZ+gXv8=;
+ b=fFOUKBIOO2L3RZwZX8Ne1aw1OBm824NN/RFxicSs45A0OSPLC9CsHlPrnD4yEncSTaO350t50hDo4SGBFi3Z9WFIjtyVC/dwzTe50GvyjHiiZSk7Ym2C3x90pFgNCKUdBHg18CHtNcrgxqdq/mgD0H4pIpV4n+UJJjD82avtfJPm6Zf39oCmLISbSz81MkhxLzjUR7Dgl8nqfehnqnWZAs05HYnhJKKnDMTOkvg84KqGwT29Oekxa9z74iSKpaDAIMdXiitsk3eMG09aNZR6MhRJeBUBBovlqvCGn4hcoVfKtOaG+csP37PfEKvjZC7tpEmQF+75Vv3PQldd/7bfww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2EC2r7c5lhPQopInwZyzANvx4dWgn1KKVbdSfZ+gXv8=;
+ b=OKRd2gMj2Pu41dxCnoqjW67CnBT9QB8op1W5qwoyO3DrnLyeYgdOIxY3l7XFOJ295kT8e9RumdqxuyYK+kWsZuMAs4RuxkG+HtLxbcHJk+SNiwvsnWswhNarjFleCt6nzbRK1DC3IzQ2MlqeUljOlv7iX6Vf1jsWu+H0V7tZkF4=
+Received: from MWHPR18CA0047.namprd18.prod.outlook.com (2603:10b6:320:31::33)
+ by CY4PR1201MB0165.namprd12.prod.outlook.com (2603:10b6:910:1c::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Tue, 19 Oct
+ 2021 15:57:05 +0000
+Received: from CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:320:31:cafe::31) by MWHPR18CA0047.outlook.office365.com
+ (2603:10b6:320:31::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
+ Transport; Tue, 19 Oct 2021 15:57:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT060.mail.protection.outlook.com (10.13.175.132) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Tue, 19 Oct 2021 15:57:05 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Tue, 19 Oct
+ 2021 10:57:02 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Consolidate VCN firmware setup code
+Date: Tue, 19 Oct 2021 11:56:44 -0400
+Message-ID: <20211019155644.338589-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <28201f2b-e524-4192-bafc-29c5871fbb16@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c9295a5d-90c1-4852-aab3-08d9931918f1
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0165:
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB01653A8B5EBED66A5480EEC0F7BD9@CY4PR1201MB0165.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KRBV8EXUeil5PTd0MIyWZURAMV4L984T9KRKiAGVtuhFeGJk8wrHuWvZeAE5rSQk1YaDAnC/xh4Rlq5P9JvB/71+9gNuKrTMPYPYRRm1TBOz3JbxOs/X1IzoXwDJH2TvvdB4kMWrWYwMbCEKxLRb3mmakJHVGPwchuGOuKK8HN2CbpbLQQ5C4B+6kphYyMPMmh7Df4O/9ZDaLcJHxjOgHagSUBd/qI25fgeStYHNJMKTWYHS58gwKXDDUpwrEgVKF197v8Fao+KO9QUzny+qV0t+nzKovVEqj7BryHn1j8ShRevh7wOeI0EeS1T+Lo4NQG1crb5p6f1NP7ofH+bdl9GPyuUapczgSVdSHZefkerWuVLo6Ddt7C/ceUQWT0Kt3eEeXKE0RRY6hI6EgK4JXZEPZgD5OK6vivi32b2K4thFkYvmtScqWYMRt/lKo/wl8GG521hEUxgHoPXO0vBr2ER65oKfdhxFn4hxXzbz6rDsBCuVniPSmhySzsGGouClB43f7tu6j2LfP5aNoLtaOWI2wvBz9sQtC6eYx7Rgw6tNQ32H9wi0O5bSwmz/9ldn32rhNKArJnhIPLulyg3tVQ96BOuKh9yktiRgbUHz0R90EkqChR0vpQcpxHiUudFgh4z2cLfi+jR+/aAx/9Lx/2F7Cloe0Js4FMJ6iQLlIE/QfjWYx+l47inOIuTiIHJnuiAVmc0A54aoTDMMcgfu2i4uhMBfGK1EvRXYsxRq2f0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(6666004)(82310400003)(70206006)(1076003)(336012)(47076005)(2616005)(83380400001)(2906002)(7696005)(70586007)(86362001)(426003)(4326008)(16526019)(5660300002)(316002)(356005)(26005)(8936002)(8676002)(36756003)(508600001)(81166007)(36860700001)(6916009)(186003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 15:57:05.0145 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9295a5d-90c1-4852-aab3-08d9931918f1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,162 +110,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 19.10.21 um 17:41 schrieb Andrey Grodzovsky:
->
-> On 2021-10-19 9:22 a.m., Nirmoy Das wrote:
->> Get rid off pin/unpin and evict and swap back gart
->> page table which should make things less likely to break.
->
-> +Christian
->
-> Could you guys also clarify what exactly are the stability issues this 
-> fixes ?
+Roughly the same code was present in all VCN versions.
+Consolidate it into a single function.
 
-When we evict the GART table during suspend it is theoretically possible 
-that we run into an OOM situation.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 25 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  2 ++
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 10 +---------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 10 +---------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 17 +----------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 20 +-------------------
+ 6 files changed, 31 insertions(+), 53 deletions(-)
 
-But since the OOM killer and the buffer move functions are already 
-disable that is basically not gracefully handle able.
-
-When we just keep the GART pinned all the time and restore it's content 
-during resume from the metadata we should be able to avoid any memory 
-allocation for the move.
-
-Christian.
-
->
-> Andrey
->
->
->>
->> Also remove 2nd call to amdgpu_device_evict_resources()
->> as we don't need it.
->>
->> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 -----
->>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     | 16 ++++++++++++----
->>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      | 17 +++++++++++++----
->>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 16 ++++++++++++----
->>   4 files changed, 37 insertions(+), 17 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 41ce86244144..22ff229ab981 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -3941,11 +3941,6 @@ int amdgpu_device_suspend(struct drm_device 
->> *dev, bool fbcon)
->>       amdgpu_fence_driver_hw_fini(adev);
->>         amdgpu_device_ip_suspend_phase2(adev);
->> -    /* This second call to evict device resources is to evict
->> -     * the gart page table using the CPU.
->> -     */
->> -    amdgpu_device_evict_resources(adev);
->> -
->>       return 0;
->>   }
->>   diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c 
->> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> index 3ec5ff5a6dbe..18e3f3c5aae6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> @@ -992,9 +992,16 @@ static int gmc_v10_0_gart_enable(struct 
->> amdgpu_device *adev)
->>           return -EINVAL;
->>       }
->>   -    r = amdgpu_gart_table_vram_pin(adev);
->> -    if (r)
->> -        return r;
->> +    if (!adev->in_suspend) {
->> +        r = amdgpu_gart_table_vram_pin(adev);
->> +        if (r)
->> +            return r;
->> +    } else {
->> +        r = amdgpu_gtt_mgr_recover(ttm_manager_type(&adev->mman.bdev,
->> +                                TTM_PL_TT));
->> +        if (r)
->> +            return r;
->> +    }
->>         r = adev->gfxhub.funcs->gart_enable(adev);
->>       if (r)
->> @@ -1062,7 +1069,8 @@ static void gmc_v10_0_gart_disable(struct 
->> amdgpu_device *adev)
->>   {
->>       adev->gfxhub.funcs->gart_disable(adev);
->>       adev->mmhub.funcs->gart_disable(adev);
->> -    amdgpu_gart_table_vram_unpin(adev);
->> +    if (!adev->in_suspend)
->> +        amdgpu_gart_table_vram_unpin(adev);
->>   }
->>     static int gmc_v10_0_hw_fini(void *handle)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c 
->> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->> index 492ebed2915b..0ef50ad3d7d5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->> @@ -837,9 +837,17 @@ static int gmc_v8_0_gart_enable(struct 
->> amdgpu_device *adev)
->>           dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
->>           return -EINVAL;
->>       }
->> -    r = amdgpu_gart_table_vram_pin(adev);
->> -    if (r)
->> -        return r;
->> +
->> +    if (!adev->in_suspend) {
->> +        r = amdgpu_gart_table_vram_pin(adev);
->> +        if (r)
->> +            return r;
->> +    } else {
->> +        r = amdgpu_gtt_mgr_recover(ttm_manager_type(&adev->mman.bdev,
->> +                                TTM_PL_TT));
->> +        if (r)
->> +            return r;
->> +    }
->>         table_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
->>   @@ -992,7 +1000,8 @@ static void gmc_v8_0_gart_disable(struct 
->> amdgpu_device *adev)
->>       tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
->>       WREG32(mmVM_L2_CNTL, tmp);
->>       WREG32(mmVM_L2_CNTL2, 0);
->> -    amdgpu_gart_table_vram_unpin(adev);
->> +    if (!adev->in_suspend)
->> +        amdgpu_gart_table_vram_unpin(adev);
->>   }
->>     /**
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c 
->> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> index cb82404df534..1bbcefd53974 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> @@ -1714,9 +1714,16 @@ static int gmc_v9_0_gart_enable(struct 
->> amdgpu_device *adev)
->>           return -EINVAL;
->>       }
->>   -    r = amdgpu_gart_table_vram_pin(adev);
->> -    if (r)
->> -        return r;
->> +    if (!adev->in_suspend) {
->> +        r = amdgpu_gart_table_vram_pin(adev);
->> +        if (r)
->> +            return r;
->> +    } else {
->> +        r = amdgpu_gtt_mgr_recover(ttm_manager_type(&adev->mman.bdev,
->> +                                TTM_PL_TT));
->> +        if (r)
->> +            return r;
->> +    }
->>         r = adev->gfxhub.funcs->gart_enable(adev);
->>       if (r)
->> @@ -1793,7 +1800,8 @@ static void gmc_v9_0_gart_disable(struct 
->> amdgpu_device *adev)
->>   {
->>       adev->gfxhub.funcs->gart_disable(adev);
->>       adev->mmhub.funcs->gart_disable(adev);
->> -    amdgpu_gart_table_vram_unpin(adev);
->> +    if (!adev->in_suspend)
->> +        amdgpu_gart_table_vram_unpin(adev);
->>   }
->>     static int gmc_v9_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index c7d316850570..dc823349f870 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -949,3 +949,28 @@ enum amdgpu_ring_priority_level amdgpu_vcn_get_enc_ring_prio(int ring)
+ 		return AMDGPU_RING_PRIO_0;
+ 	}
+ }
++
++void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev)
++{
++	int i;
++	unsigned int idx;
++
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		const struct common_firmware_header *hdr;
++		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
++
++		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
++			if (adev->vcn.harvest_config & (1 << i))
++				continue;
++			if (i == 0)
++				idx = AMDGPU_UCODE_ID_VCN;
++			else
++				idx = AMDGPU_UCODE_ID_VCN1;
++			adev->firmware.ucode[idx].ucode_id = idx;
++			adev->firmware.ucode[idx].fw = adev->vcn.fw;
++			adev->firmware.fw_size +=
++				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
++		}
++		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 795cbaa02ff8..bfa27ea94804 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -310,4 +310,6 @@ int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout);
+ 
+ enum amdgpu_ring_priority_level amdgpu_vcn_get_enc_ring_prio(int ring);
+ 
++void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index ad0d2564087c..d54d720b3cf6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -111,15 +111,7 @@ static int vcn_v1_0_sw_init(void *handle)
+ 	/* Override the work func */
+ 	adev->vcn.idle_work.work.func = vcn_v1_0_idle_work_handler;
+ 
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-		const struct common_firmware_header *hdr;
+-		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id = AMDGPU_UCODE_ID_VCN;
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
+-		adev->firmware.fw_size +=
+-			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+-		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+-	}
++	amdgpu_vcn_setup_ucode(adev);
+ 
+ 	r = amdgpu_vcn_resume(adev);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 091d8c0f6801..3883df5b31ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -115,15 +115,7 @@ static int vcn_v2_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-		const struct common_firmware_header *hdr;
+-		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id = AMDGPU_UCODE_ID_VCN;
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
+-		adev->firmware.fw_size +=
+-			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+-		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+-	}
++	amdgpu_vcn_setup_ucode(adev);
+ 
+ 	r = amdgpu_vcn_resume(adev);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 59f469bab005..44fc4c218433 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -139,22 +139,7 @@ static int vcn_v2_5_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-		const struct common_firmware_header *hdr;
+-		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id = AMDGPU_UCODE_ID_VCN;
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw = adev->vcn.fw;
+-		adev->firmware.fw_size +=
+-			ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+-
+-		if (adev->vcn.num_vcn_inst == VCN25_MAX_HW_INSTANCES_ARCTURUS) {
+-			adev->firmware.ucode[AMDGPU_UCODE_ID_VCN1].ucode_id = AMDGPU_UCODE_ID_VCN1;
+-			adev->firmware.ucode[AMDGPU_UCODE_ID_VCN1].fw = adev->vcn.fw;
+-			adev->firmware.fw_size +=
+-				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+-		}
+-		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+-	}
++	amdgpu_vcn_setup_ucode(adev);
+ 
+ 	r = amdgpu_vcn_resume(adev);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index e311303a5e01..57b62fb04750 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -123,7 +123,6 @@ static int vcn_v3_0_sw_init(void *handle)
+ {
+ 	struct amdgpu_ring *ring;
+ 	int i, j, r;
+-	unsigned int idx;
+ 	int vcn_doorbell_index = 0;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+@@ -131,24 +130,7 @@ static int vcn_v3_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-		const struct common_firmware_header *hdr;
+-		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+-
+-		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+-			if (adev->vcn.harvest_config & (1 << i))
+-				continue;
+-			if (i == 0)
+-				idx = AMDGPU_UCODE_ID_VCN;
+-			else
+-				idx = AMDGPU_UCODE_ID_VCN1;
+-			adev->firmware.ucode[idx].ucode_id = idx;
+-			adev->firmware.ucode[idx].fw = adev->vcn.fw;
+-			adev->firmware.fw_size +=
+-				ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE);
+-		}
+-		dev_info(adev->dev, "Will use PSP to load VCN firmware\n");
+-	}
++	amdgpu_vcn_setup_ucode(adev);
+ 
+ 	r = amdgpu_vcn_resume(adev);
+ 	if (r)
+-- 
+2.31.1
 
