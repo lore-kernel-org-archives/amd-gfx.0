@@ -2,124 +2,128 @@ Return-Path: <SRS0=2AtA=PH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A71EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 03:53:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8744C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 04:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C08761207
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 03:53:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C08761207
+	by mail.kernel.org (Postfix) with ESMTPS id 7821860F02
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Oct 2021 04:15:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7821860F02
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8F286E140;
-	Tue, 19 Oct 2021 03:53:29 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2070.outbound.protection.outlook.com [40.107.92.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF5F76E140
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 03:53:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C495D6E89E;
+	Tue, 19 Oct 2021 04:15:27 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2045.outbound.protection.outlook.com [40.107.100.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F064A6E89E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Oct 2021 04:15:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UyoPe/U5hzBorTymHcQHzh6i6TTwrl1MZDtqQ9AK9RkuIxA+ZkFmgKzHQe7SgdQ0O4DHHORRlKDWPCbllFziwfuBB1J6/ZlUu+zvyzmJjAraXcscBPyl+tppKOErWuaRi5+WQv9L8kouDHNfAGi5nGHp8TESEhecwvx/SDFTscXn3Jq7fTMPwDd4bDutrJpE7NnyBXRimdegzgJ8mP4pkCeLJr2cfaJ0vIjDZk92+vPZcGvQIxpQ9HnS4CO/uqM2zzEx3Q+s2yIOt+wxzkBsOmcRwsskvR441mS+CBDCg8c51zQd/jwhuWTZ5ERENXKGix3ycXS/NpSIdBvLR5zQAA==
+ b=M7pXp43zsOruMD1fXi7bmqMxIwaDP4yU8GeOscTbOVvIUdJlgDH2s0GqAkQad1qzsJ1T4O6r04XM4EabacFP3wCyu8Z4KJQde22voZMbf+l0zlPMHBDHlIt1llqkETrMLy+xw2RUYHHAa0Ss/GGYz+ZqJu2FpmBGSdrYcah0SI/diR14nzgbnDxShjbJDHlIpO9ot+uYLxV0Y6+qKB+Myudu67/aCzFK0DfTRupXwOjzpGFylvKHhaWNI+S3V14OL7KAa6STuTpmrZnGimebCTmTnf67XA+5A8GcQDklJ9iuleBtYY1evYwIWVr2Vy2XL+scf5hFF0m43xMIZFdyGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JKwnuaju9Ao68Pl1NSJMpO3iBeAWYG8Sl3Wihg1rdxA=;
- b=XNRKAAT9p651dVwopJKkWFiCw1NU5WMqroalm0HUN02AN/ewbjCeCRw9cTysz0WN6Yb2Xx1N4zz9CP/eggj9YT4cCD/wwiwCQkDq5IaC4ztgUuLcy5/2/3ZNrsTvscDJWP6MLVRZMCawiqINmcTaCPrMgOo8UyIXrS/SjvlY5kVHN0yO3ljRchf6H1sMg6+Xjco4L0Cq+rVOhOvbuXP0Jq7WleyN6DF26mK4VRn31mnX3dMvPkyKDBS0xqh/FqsCvvYr4WSZIyhMji7jDc5ENQrxU9XKhrTNNRGu7VLcZvDjY6oXHAF5BTB7bTAH6Uw7VUIxAGyPl4LpGWGc30llag==
+ bh=U1oaU4YSEV3QLRHWucLTxNoweSeBcWb9xuj0HjKP/zA=;
+ b=Q8RiNaeD8on/SOQzJBfrphixy6tQo74BlGxcdp9euarbTGnZA5P+lWpTjqOYWO2Hg/LB4GFcfkth8fIzTUf/eJykds63+uqyDSIJkSpkNJEV7ShX4DrxFSby25yNTGxuI2f11mv+s9DUDHZxAu8C0L/Aa3dapJWDzNPLW4V/p8UOy82czwRuktslM5KSWTH9GhHIb1eVwgPoM65BGYvk6AOwmh+3CiNhKM1AMh216kGdX7BSm1ZwwEFVqEigjd4p6ZlJoiSbg32WAlyhiv9edKrfpb5JSNqkweWQSf6LzutAUqwkJxcm2F1KPVjNnkshq6VcRqbtbYu7n0zc+qNYTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JKwnuaju9Ao68Pl1NSJMpO3iBeAWYG8Sl3Wihg1rdxA=;
- b=b5CGuWo20nIwdZ1uLXdD3T/L7Ffbm3IReDEvveJwSiX0Ma6u4ttd2IMwmMDp8X5VR2dV640lsn7p5/S5iKZDEDfMVT/LSVMThEiDoGD3Neo2900nPy8v5NphxZ7/Xuk2mK/izWmYMIxfBtKO+qAhCmcg7q1m7ItnOUsMc2qR8q8=
-Received: from CY4PR1201MB0246.namprd12.prod.outlook.com
- (2603:10b6:910:23::16) by CY4PR12MB1445.namprd12.prod.outlook.com
- (2603:10b6:910:11::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Tue, 19 Oct
- 2021 03:53:26 +0000
-Received: from CY4PR1201MB0246.namprd12.prod.outlook.com
- ([fe80::91ce:4fae:eca6:9456]) by CY4PR1201MB0246.namprd12.prod.outlook.com
- ([fe80::91ce:4fae:eca6:9456%9]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
- 03:53:26 +0000
-From: "Huang, Ray" <Ray.Huang@amd.com>
-To: "Liu, Aaron" <Aaron.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: support B0&B1 external revision id for yellow
- carp
-Thread-Topic: [PATCH] drm/amdgpu: support B0&B1 external revision id for
- yellow carp
-Thread-Index: AQHXxJiYLNwtOKmHM0+3jaxVKby0QKvZr8uQ
-Date: Tue, 19 Oct 2021 03:53:26 +0000
-Message-ID: <CY4PR1201MB0246E67CFC2E504C224D5DE6ECBD9@CY4PR1201MB0246.namprd12.prod.outlook.com>
-References: <20211019032232.2202316-1-aaron.liu@amd.com>
-In-Reply-To: <20211019032232.2202316-1-aaron.liu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-19T03:53:22Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=6ec6f51d-5a8f-46d4-986d-008ee272dd6f;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=U1oaU4YSEV3QLRHWucLTxNoweSeBcWb9xuj0HjKP/zA=;
+ b=vAyxYf849cmr2sCVcPjMJzPYeR1x4iembOnqKOIAutLI/jp9jQ0YEpYfrhE2YmuPLTFLAKizvzlICyzIJMEO81GOtcW9VBjhQO+QcnyPUFDW3855yF2nMRGH+Lm6sN0BD25JO+2E2NUzjYI2Hr/B5oUqclQjjq8v63SXw82lxyM=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a7475c20-a28e-4a60-26e9-08d992b4015b
-x-ms-traffictypediagnostic: CY4PR12MB1445:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB1445919204496B9EE476F1DBECBD9@CY4PR12MB1445.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1227;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GEcc4exZNHeEPqe3Q2oC62dDCF0XBHW3JaFkZEyZFA6DBc3s7ya3IdzzI945ptrjSqTqxxQ2Vt0dzkxavaImMKbZKgyrQCqLzv+n84HXniXDcnNkNI1lXCq/JmMkOqgfAa2pS5PKrabsHKkd3fd8mluu4sWgp7SzmWnGRnIz3kQ9co2F5HpS4WLGRkzKm9KQ/CXmYKFhvQvJuXaC9oG7rzxWDYCvzn+cDvR8aFebx7TWab6a/ag6p0i1WDth7K5YnvjkdShraCULW5IGLy05fwx3gYiE6Bvm6YAZUDuVYflfjqgQnp985F87WHQUdWvvKqfRx4IFnTVZo5gwQnLGaKrCuYxfd4NQp8qNblU2Wnz2GL9hFgvJgVEttKaYNsXHad0BwBGFqYh3hu/zVgEX/AE8NPvYyM25Yp+x93QChes72dhwHRwVt7N+SHeNiTCOwUOSGt9Vl6HqaHziOGromxF24e00ZS1G0ErgCGAuzr9JRrDXhBAbw9ITCXGaa7+dAjTwGvCmBTiMrsLrCDTJE2T7MiMqcPCh1EGpwtr/heE0v6rd7ybPMZGr62WzqJzprVrPQmUudW9P2SDE6ozMZFWomN8IcZRoQts37FIOLjBcJjM/hWRQxYjSd11uZAXCn7KXLAQ43zQGne1dAXpuioNdiS1y48+/BwTWMEwx+rGcOhFcfUNuYuXQRWqFfCt0CdM5p2Ifsow3kVryD1X1tw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR1201MB0246.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6506007)(53546011)(38070700005)(66556008)(186003)(64756008)(66946007)(9686003)(4326008)(76116006)(66476007)(38100700002)(316002)(8676002)(122000001)(66446008)(2906002)(110136005)(86362001)(7696005)(55016002)(508600001)(5660300002)(8936002)(33656002)(71200400001)(83380400001)(26005)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JQow4yLBR1ekLeIP3q+rt0s0+hDHk0OC5wDO7B0INg3T7iYfJT5yO89DHLWE?=
- =?us-ascii?Q?Ug+VWI45LfIjk3YI8krI+s0Q/8ug3PflFxUDowFpTCMmaeFKlW4LK/0t9Syq?=
- =?us-ascii?Q?PqWipme6HJk1ZmgzURY+QyhquVFz1fYDW1FigDapzZSwkXToqfHPNsEfTJ2R?=
- =?us-ascii?Q?cK+1usMvt4fw4UxlB7YVVbrGM6W4Z+WYxGNV/1/11bzWUJMORVkRRmYOSUyD?=
- =?us-ascii?Q?ONnXaj/gnstfSlSMX+cT28/7+MV1C/TDoTfMH17wILcQ+8PqzkqNQoVgm+Ds?=
- =?us-ascii?Q?7QtZZ51f8+O27SpRG0NK82BTkoPbsnSdTI8R3C4t2W2DDt7wgizagnzsb4Kd?=
- =?us-ascii?Q?eBXU0Yz+z+xSFEqRjbuDMXUwpTjDzqPerkej6s6eY7NX+N6Lac0S1kXDwYel?=
- =?us-ascii?Q?OX7KZW6TTB/OiOrTOk9RIpFynVjswJURK8GemqOPJIlCts/7lsnkllzYPoqD?=
- =?us-ascii?Q?ECcopUujAtSDsUu1Wr4f+kQkwf7fApuP4jUM1m2jgOuh7Pcz2BXjHxHPSjhK?=
- =?us-ascii?Q?xokpbnSXzX67oucOZozOPz9FFC171PSxo3VlTaicr2sXo6QTadHWWH/JwaTn?=
- =?us-ascii?Q?nr77ukM7aHu1G1gb3LbvrxzLrq2FTuYTd4vTw32UCGN8I+qDVz/I+YkmJ4g5?=
- =?us-ascii?Q?P2bbpeQSk6psoL2rAllBgUU4oQpwnfiF/UDDhoxdWltXckqRgiWVcCpTSmYn?=
- =?us-ascii?Q?LK9gi9lf+d+ft2xmyO+rLG8zUeJgG1l9CcdbBulWoHVqEZYl+LSoApYs+r2g?=
- =?us-ascii?Q?Zah6W5xaV18OGVAsrSNITObxL2BvfI4ty3lHPV6OqZtevZzyXzpjNQpQtLEY?=
- =?us-ascii?Q?1CwAz29iPnF5DYJsQ+aoguQ86P1S2Iq6Jpt4CgiU4AuExc+gOr+QUEjWBpUx?=
- =?us-ascii?Q?KiVUNuzaVLOYeYll0W0WFBifTwUJ0/JPPtNaG5eMU3zDiJ2Bv/FOJOgvLC+G?=
- =?us-ascii?Q?XFyvJtFfyo0XrZBmRCdsSyllzlh+vifqt6viuIwKyHygD8GCXooIb3IpARea?=
- =?us-ascii?Q?zHE33CKkrF24xRzfCmRgfpgW4mRiAATwtcQCE4MKoj96NPGhJW3b7g+btHb5?=
- =?us-ascii?Q?h+BO0iu6mrPQeSxRFL8TUvcmVRjuelQRh/Lm2boSuRjgVaeekRuI7nKSociA?=
- =?us-ascii?Q?jbquPwH9P7sxKYTfZM4vLKPH4+n5A0bQWuHLOEN68BycRX8Iszk9LFkWZzwR?=
- =?us-ascii?Q?e7hzQVZXAnv3L91mDXIUmi0M7L8O0RUNkdpQLlF4SWQ87t2T4a0FfD4K5h4e?=
- =?us-ascii?Q?VRZA2zWmWaax0nPmeVros2yOb1U8e0kfAXRInye/Q3K/OqEcntCt3eT5k9xg?=
- =?us-ascii?Q?bawJsFmlmnuyYGG2rhkmfiRA?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Tue, 19 Oct
+ 2021 04:15:23 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::4447:dad4:f8e9:c5f3]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::4447:dad4:f8e9:c5f3%7]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
+ 04:15:23 +0000
+Message-ID: <131b2193-8718-4f3b-4862-94aa18d0c209@amd.com>
+Date: Tue, 19 Oct 2021 00:15:20 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.0.1
+Subject: Re: [PATCH 4/5] dpm/amd/pm: Sienna: Remove 0 MHz as a current clock
+ frequency (v3)
+Content-Language: en-CA
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Paul Menzel <pmenzel@molgen.mpg.de>
+References: <20211018234913.42349-1-luben.tuikov@amd.com>
+ <20211018234913.42349-5-luben.tuikov@amd.com>
+ <20faabaf-36a2-5836-2ec4-2da534149c6c@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+In-Reply-To: <20faabaf-36a2-5836-2ec4-2da534149c6c@amd.com>
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0040.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::9) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
+Received: from [192.168.1.14] (135.23.225.238) by
+ YT1PR01CA0040.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.18 via Frontend Transport; Tue, 19 Oct 2021 04:15:22 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2dae7e29-66db-4461-5642-08d992b7123d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4435:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4435E98567FC321668222E5599BD9@DM6PR12MB4435.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1824;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: M4ML7710zLs1inALvnF4rr9izUIwf0sS72Bh0zDn5ECFLTb0BMtvZL5BBaxqikbVsJm16VBstdhjz9C58cpllnSO9PYBuYJdiiTjgBAAT9hkodRJWmnQv3tG2O1fw2ztfOjDNitxuts+eW/iNtO2JdD6pNjhKvByUeEK5c7vhIkW/rVztf7pd1wYRzdkN7cNfcqEnZAHhM4gyR7uTHfcuhsx//NhV8pGCor7mqdMhpmdGBwLce8zcs2s2aktMOUopZzIGWfeXpA8rdPza11khgOTFmyETierE87axBbCJVrQErA4v6oEFdJKOifjgwkq1sfbM6xwMg8RoMEOqu5xSkfpJEzXhyhezkiTAGbAmJ07KOXMMiWbL6kM8q2SdVzJkdDPOxsYI7Esvme/1e/yeOARG9Nd9szsdSeexM//zkeH84892J03gd6FRknVKeTTpfKHpHKcM4W0L1KuGwx6q644WawuXGGVzbaBFzNjPXb+JNrByCdVsu50GRQNRcoNe0Gz/byuiVOEyaNcxrAdgMUmwMv4ckL8cF0/+b4yPa+ipRoQ2PGLab8gZCtzwgf1mw9asbUGZCmnagGkQ17gnFSpzagaCOhHaYP18roQ8EgaLRcjkozdvPJ75Cbb6JG6SJjb9KJul25xoTgpWEktSpXolVclzIlsCm9nsAnQ8Hjx/2CEQQfY6AcW+kEQy+QH/WjYRcfr8c4CevW5ps289onf4wCQyBwBdm820NID/u0JyhHFe3olZE17sRzWMxWPiGLEwSLsVhklbwlRdzqrLSlL8TqSfrZK7w4uVH7jG31cx2aySZnKGK9QkLJSCUQ+
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(54906003)(21615005)(956004)(186003)(8676002)(2616005)(508600001)(66946007)(66476007)(2906002)(5660300002)(4001150100001)(66556008)(966005)(316002)(8936002)(36756003)(53546011)(31686004)(38100700002)(83380400001)(6486002)(86362001)(16576012)(44832011)(4326008)(166002)(31696002)(26005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dE1Ldi9EUVp0L2E0ekJaZVIwU0pITGF6UUMraW8zVVlRNUo0dFcrcHNPS0dE?=
+ =?utf-8?B?NHBuUmxsaHV2ZVFBK0hWcnNSeEt1bzFBc0o5VGhzMjRwZzYzWGovWTI0V0h1?=
+ =?utf-8?B?MWlQZTI2VnJZcldia1d2WWJ2cGd6QXRDNEVSNGI2b2tHTnBxVFJiS01OYkl6?=
+ =?utf-8?B?OHdXMDBGTWJxT1hsZGpmTHdjd3hFMjRDdmdTYUhiaVlGUGxmejd3YlR2WUVu?=
+ =?utf-8?B?dkJpajAvWEZXR25FVmRrNlJ4bEI3MmdMM2wvK0dZYllySC9qSm5oWEdWcHlr?=
+ =?utf-8?B?VENGWEZjd0NyZit0Nk9aWmw0TFNnSndQTDZKc3E1SHc3dGRnaWd5aDZJdjZ2?=
+ =?utf-8?B?b2d6U2VMczRteXRHV3FlcDB4VFZMbXQxRkZZT3ZhVTJxbWlQcmtZVkovbmhv?=
+ =?utf-8?B?K0sxR2RzZXBIMzQxeVV4WUZJTDdPNUNJaklMaFVrNUxCdnVDbGx5eWkzcjky?=
+ =?utf-8?B?L3NBVmNHYUhLYk4rK291NkxxK3B4YzRha0syajJrL1BoZ3lrSTZuS3JoaTRT?=
+ =?utf-8?B?M3JiVnZWVTNzN3dyNnR5Z2dOcU5PY1pqOWpEMHNYY0VLVlNDU0VjeERtZDM4?=
+ =?utf-8?B?a0l5Qnc5TzE4bG1zV3Vqb01jSnBZRXdHUElndzlFN2h3SjhuWVpDRHJFanpI?=
+ =?utf-8?B?TEdlajRmcjl5TVlSODhDWk9sLzJVNmx3d0RXcStZVUwwRTlGTi90TEp1VzN3?=
+ =?utf-8?B?cVVaL0F1alVQaVJORXJ2L2g2aGpWREhqbVRRR0tTYlZDV0FCTm5jajBWakdG?=
+ =?utf-8?B?bU1sTVBxMzZEZVB1c1BKRFpJYlNTWUVTK0NMQzZ6TE9NaFVldTdBQjhzWVVt?=
+ =?utf-8?B?dXJsZGtwcFE1ay9yY0V6bEd6Mm9DYXRlZzFQRzA5S2pDOGZFeUlmU3J3bCts?=
+ =?utf-8?B?eVRpNE1HUnk3a1BaYlNlUnRpMlNEOWhGZVRJVjNNb2Zobkw0WmtKc1p6b2FR?=
+ =?utf-8?B?WVdKMlg5Q0VhTVJDNXdteEp5L1ZBdXQydE5CTkhMelR4d095YUNxMjljdU5O?=
+ =?utf-8?B?RWRISjlpd3NtTkxTZFRySXl0dis4MkZFYkEwTjZaTXUvWnA1RGFkbS96ZjVk?=
+ =?utf-8?B?ckcrUTZaZGZwRzU4Njlrb21TTVQ3RUdqVDZFdUlJOU1BeXhMN3EvdnhIQXd4?=
+ =?utf-8?B?OU5sMno3RXBHTTlmd3U1aisvbWd1Q1pGdUpuZnM0NFFwYVl3aHExSzZHM3ZV?=
+ =?utf-8?B?RUJnWGJydGFLMy9UbDVxSk9Vc1JqcXFUdDF4T2xuQmFzOU95bEJ0ZGphYUFZ?=
+ =?utf-8?B?TklRRGhKZ3VNVnEvR2NDUVhaRDZ3bE1NckV4VlFKVy9YekVIalNRN2VnVHlt?=
+ =?utf-8?B?V3JtT2dpLzZnTGNhVHRGYjA5cnArUjUvZDE4U1pDZWZwejZ3RXh2SHcwT2Vw?=
+ =?utf-8?B?dnB4eGJFWGlwUitNSnl6dEN4WWplQWtQOXBOUDl4TE9jOEZyZ1FuZ0NoMmxP?=
+ =?utf-8?B?V1k2ZWJ4TEpEUE9hRDBabHFscHFub0dQcmpKU3ZKd1REd0ErUWEyYUp4VTdx?=
+ =?utf-8?B?ZXhGeWd6S09IUVlOZmluQjdlaitVdFE0UzVTVWQ2eXl2QWhJR2ZYaGExMGd4?=
+ =?utf-8?B?N1d5ejZwWW13QUE3ZzYweGdmRkVmY2xvZWdGS2dGTGR1NHlxOWJzT2ZaclA0?=
+ =?utf-8?B?R0s5VmRBRzk1KzVDY2RXMDB3c2E5dFJvVHY3M2dUYWUwaVhoYVhrbEpFWXNT?=
+ =?utf-8?B?WFROb2tHZ1hMU3pVRW83TVBGdHFHcVA0eGpldFN6d200K2RDY0J4ZlBYSFQ4?=
+ =?utf-8?Q?nx1OgPbSmyKMAGhHvIaZ9ZvkButnt3mwMnuH3pc?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dae7e29-66db-4461-5642-08d992b7123d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR1201MB0246.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7475c20-a28e-4a60-26e9-08d992b4015b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2021 03:53:26.2316 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zc9COYJrrWs2F2EA+Dimty7K8F3IWkYtOPujMZf9tCDagZ1C2YveM9fZ519aiC+vwaJmBaiVQWrUKrMKwyuZOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1445
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 04:15:23.3685 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fVG4F4Tetz+sDHSZgtBkJZcOwzZwoq3zYf9TimrG7WBRnqphTvz2YtlTzWLORTf7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,43 +138,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 2021-10-18 23:38, Lazar, Lijo wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20faabaf-36a2-5836-2ec4-2da534149c6c@amd.com">
+      <pre class="moz-quote-pre" wrap="">
 
-> -----Original Message-----
-> From: Liu, Aaron <Aaron.Liu@amd.com>
-> Sent: Tuesday, October 19, 2021 11:23 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
-> <Ray.Huang@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>
-> Subject: [PATCH] drm/amdgpu: support B0&B1 external revision id for yello=
-w
-> carp
->=20
-> B0 internal rev_id is 0x01, B1 internal rev_id is 0x02.
-> The external rev_id for B0 and B1 is 0x20.
-> The original expression is not suitable for B1.
->=20
-> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+On 10/19/2021 5:19 AM, Luben Tuikov wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">A current value of a clock frequency of 0, means
+that the IP block is in some kind of low power
+state. Ignore it and don't report it here. Here we
+only report the possible operating (non-zero)
+frequencies of the block requested. So, if the
+current clock value is 0, then print the DPM
+frequencies, but don't report a current value.
 
-Reviewed-by: Huang Rui <ray.huang@amd.com>
+v2: Don't report the minimum one as the current
+one when reported one is 0, i.e. don't add an
+asterisk (Lijo). LT: It is conceivable that this
+may confuse user-mode tools if they scan and look
+for a current one, i.e. look for an asterisk, but
+they'll have to adapt and use other methods for
+finding power states of the chip--we can't report
+0 as current.
+v3: Start the subject title with a verb. (PaulM)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/nv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
-> b/drivers/gpu/drm/amd/amdgpu/nv.c index 898e688be63c..5166a1573e7e
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -1248,7 +1248,7 @@ static int nv_common_early_init(void *handle)
->  			AMD_PG_SUPPORT_VCN_DPG |
->  			AMD_PG_SUPPORT_JPEG;
->  		if (adev->pdev->device =3D=3D 0x1681)
-> -			adev->external_rev_id =3D adev->rev_id + 0x19;
-> +			adev->external_rev_id =3D 0x20;
->  		else
->  			adev->external_rev_id =3D adev->rev_id + 0x01;
->  		break;
-> --
-> 2.25.1
+Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>
+Cc: Lijo Lazar <a class="moz-txt-link-rfc2396E" href="mailto:Lijo.Lazar@amd.com">&lt;Lijo.Lazar@amd.com&gt;</a>
+Cc: Paul Menzel <a class="moz-txt-link-rfc2396E" href="mailto:pmenzel@molgen.mpg.de">&lt;pmenzel@molgen.mpg.de&gt;</a>
+Signed-off-by: Luben Tuikov <a class="moz-txt-link-rfc2396E" href="mailto:luben.tuikov@amd.com">&lt;luben.tuikov@amd.com&gt;</a>
+---
+  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 60 ++++++++++++-------
+  1 file changed, 40 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index f630d5e928ccfe..6fe792be77dbbb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1040,7 +1040,8 @@ static void sienna_cichlid_get_od_setting_range(struct smu_11_0_7_overdrive_tabl
+  }
+  
+  static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+-			enum smu_clk_type clk_type, char *buf)
++					   enum smu_clk_type clk_type,
++					   char *buf)
+  {
+  	struct amdgpu_device *adev = smu-&gt;adev;
+  	struct smu_table_context *table_context = &amp;smu-&gt;smu_table;
+@@ -1052,12 +1053,12 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+  	OverDriveTable_t *od_table =
+  		(OverDriveTable_t *)table_context-&gt;overdrive_table;
+  	int i, size = 0, ret = 0;
+-	uint32_t curr_value = 0, value = 0, count = 0;
++	uint32_t curr_value, value, count;
+  	uint32_t freq_value[3] = {0, 0, 0};
+-	uint32_t mark_index = 0;
+  	uint32_t gen_speed, lane_width;
+  	uint32_t min_value, max_value;
+  	uint32_t smu_version;
++	bool     fine_grained;
+  
+  	smu_cmn_get_sysfs_buf(&amp;buf, &amp;size);
+  
+@@ -1077,6 +1078,20 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+  		if (ret)
+  			goto print_clk_out;
+  
++		ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0,
++						      &amp;freq_value[0]);
++		if (ret)
++			goto print_clk_out;
++
++		/* A current value of a clock frequency of 0, means
++		 * that the IP block is in some kind of low power
++		 * state. Ignore it and don't report it here. Here we
++		 * only report the possible operating (non-zero)
++		 * frequencies of the block requested. So, if the
++		 * current clock value is 0, then we don't report a
++		 * &quot;current&quot; value from the DPM states, i.e. we don't
++		 * add an asterisk.
++		 */
+  
+  		/* no need to disable gfxoff when retrieving the current gfxclk */
+  		if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
+@@ -1086,38 +1101,43 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+  		if (ret)
+  			goto print_clk_out;
+  
+-		if (!sienna_cichlid_supports_fine_grained_dpm(smu, clk_type)) {
+-			for (i = 0; i &lt; count; i++) {
++		fine_grained = sienna_cichlid_supports_fine_grained_dpm(smu, clk_type);
++		if (!fine_grained) {
++			/* We already got the 0-th index--print it
++			 * here and continue thereafter.
++			 */
++			size += sysfs_emit_at(buf, size, &quot;%d: %uMhz %s\n&quot;, 0, freq_value[0],
++					      curr_value == freq_value[0] ? &quot;*&quot; : &quot;&quot;);
++			for (i = 1; i &lt; count; i++) {
+  				ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &amp;value);
+  				if (ret)
+  					goto print_clk_out;
+-
+  				size += sysfs_emit_at(buf, size, &quot;%d: %uMhz %s\n&quot;, i, value,
+  						curr_value == value ? &quot;*&quot; : &quot;&quot;);
+  			}
+  		} else {
+-			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &amp;freq_value[0]);
+-			if (ret)
+-				goto print_clk_out;
++			freq_value[1] = curr_value ?: freq_value[0];
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Omitting second expression is not standard C - 
+<a class="moz-txt-link-freetext" href="https://gcc.gnu.org/onlinedocs/gcc/Conditionals.html">https://gcc.gnu.org/onlinedocs/gcc/Conditionals.html</a></pre>
+    </blockquote>
+    <br>
+    Lijo just clarified to me that:<br>
+    <br>
+    <blockquote type="cite"><span style="color: rgb(36, 36, 36);
+        font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color
+        Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size:
+        14px; font-style: normal; font-variant-ligatures: normal;
+        font-variant-caps: normal; font-weight: 400; letter-spacing:
+        normal; orphans: 2; text-align: start; text-indent: 0px;
+        text-transform: none; white-space: normal; widows: 2;
+        word-spacing: 0px; -webkit-text-stroke-width: 0px;
+        background-color: rgb(255, 255, 255); text-decoration-style:
+        initial; text-decoration-color: initial; display: inline
+        !important; float: none;">well, i had to look up as I haven't
+        seen it before</span></blockquote>
+    <br>
+    I hope the following should make it clear about its usage:<br>
+    <br>
+    <font face="monospace">$cd linux/<br>
+      $find . -name &quot;*.[ch]&quot; -exec grep -E &quot;\?:&quot; \{\} \+ | wc -l<br>
+      1042<br>
+      $_</font><br>
+    <br>
+    Regards,<br>
+    Luben<br>
+    <br>
+    <blockquote type="cite" cite="mid:20faabaf-36a2-5836-2ec4-2da534149c6c@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+
+Thanks,
+Lijo
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">  			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &amp;freq_value[2]);
+  			if (ret)
+  				goto print_clk_out;
+  
+-			freq_value[1] = curr_value;
+-			mark_index = curr_value == freq_value[0] ? 0 :
+-				     curr_value == freq_value[2] ? 2 : 1;
+-
+-			count = 3;
+-			if (mark_index != 1) {
++			if (freq_value[1] == freq_value[0]) {
++				i = 1;
++				count = 3;
++			} else if (freq_value[1] == freq_value[2]) {
++				i = 0;
+  				count = 2;
+-				freq_value[1] = freq_value[2];
++			} else {
++				i = 0;
++				count = 3;
+  			}
+  
+-			for (i = 0; i &lt; count; i++) {
+-				size += sysfs_emit_at(buf, size, &quot;%d: %uMhz %s\n&quot;, i, freq_value[i],
+-						curr_value  == freq_value[i] ? &quot;*&quot; : &quot;&quot;);
++			for ( ; i &lt; count; i++) {
++				size += sysfs_emit_at(buf, size,
++						      &quot;%d: %uMhz %s\n&quot;,
++						      i, freq_value[i],
++						      curr_value == freq_value[i] ? &quot;*&quot; : &quot;&quot;);
+  			}
+-
+  		}
+  		break;
+  	case SMU_PCIE:
+
+</pre>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
