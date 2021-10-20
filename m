@@ -2,129 +2,72 @@ Return-Path: <SRS0=xYMq=PI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74C72C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 07:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E082C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 08:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 396326103B
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 07:52:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 396326103B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 33ACE611C6
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 08:21:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 33ACE611C6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1EDD89CB9;
-	Wed, 20 Oct 2021 07:52:08 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F87E89CB9;
- Wed, 20 Oct 2021 07:52:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H/RmtdRguAJihKLDWu/gzmEYvsJ7Vjix1Fh0kPD1F62CojIYxVvoHgckNmv6klcj13sd+FO1r56K3bJ6bK2KWzhFmvWpKisGkBdG/J53EhF9r4hXz4flP67l4u7n9JhugmVasrCDcFPLn1XUSsJ0vCWcpDk6m2CaxvkkMBTSjye3ww/Q564PL64cL6jNPulvOMiNCyWBUrun9rTpL+k6FTq7bJRne3pYat16/SuqGYnTRfHoj6ucUECDs0GvwTsLhQm3d3o9pQB/FIQWVLHjEA27l44LCtZpzWHR4Ya2lH6N80n+UfGlbTPrqGYKYPNhWq39FYakhr+dj8Slv52Bjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q0h9pEFbPa5hnZvsZDE7nPiuxfcEo/jxxJF9svtPoaw=;
- b=hfAELbBBZFuMj1uKpyj5eD2+LEZdqVjQsed9QK4o7bce9zIrJYK8N8dmiWwCxpM0IpkdNX8hjD15NziAWmn5WsFurUpkj3/r+x8zrxKcwKp0MtNRSYdnKCnNT7JS7LpBJa/Dtkprwg2onT0dGsCKrMz9ZWseSZsP6cRsT5NMWxiFkGxBm/uA8uCmy/lIMxxiCVbUxIliax2w1/H7Uu32ci1pz40KYwoxa+VNOGAByQ64OejKLxiAC50TL8KZGJYnqGnoGEuqihqw295bpuQ0tK9ie9pnbQ/rCD6w/TJOMNhMVWh2wc6GnzwY0mSJds+g1Fb2Avzoq5nBL3CmlK7brg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q0h9pEFbPa5hnZvsZDE7nPiuxfcEo/jxxJF9svtPoaw=;
- b=QroUGGJF87Zd815V6jyL1lJqFNv1EO6WvF2LTn8o5OFyouKySlEDMc3Z1VHty+XgUtS2qtTsNMKxm3SGefj7WYtn/tzF23y5UDQHOSYmb4Edo/wkq9zBf6wCu+W+4FWMWdPDiVJqQ2face78QFFGVbTePyMbmWGuKCOMh7C6gW8=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MWHPR1201MB0111.namprd12.prod.outlook.com
- (2603:10b6:301:55::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Wed, 20 Oct
- 2021 07:52:05 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::55c7:6fc9:b2b1:1e6a]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::55c7:6fc9:b2b1:1e6a%10]) with mapi id 15.20.4608.018; Wed, 20 Oct
- 2021 07:52:04 +0000
-Subject: Re: [PATCH 00/13] drm: Enable buddy allocator support
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93A8F6E8D7;
+	Wed, 20 Oct 2021 08:21:15 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4826E8D2;
+ Wed, 20 Oct 2021 08:21:13 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 472C31FD9D;
+ Wed, 20 Oct 2021 08:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634718072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/t5w3Oy5KHGFXvGLXI6TU0p3a/8pg5S2V/9clDUNR7A=;
+ b=kFg1ajISOD0Aqy/Z3AH/HCGPRyeKZlsxz07Gbj6W2gqn3SkP9r4c24uLlNPOmxZltL7I58
+ 1q8nmnO9/+expMBceOeBIqYrUtYztv0omDBPF78rv6ceEdNzp5NqWzeNbu6b6rMvqsGz77
+ 0dYa0ES0y2VLnpz/bUqlnjzMWaJBdS8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634718072;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/t5w3Oy5KHGFXvGLXI6TU0p3a/8pg5S2V/9clDUNR7A=;
+ b=4nAQh3Mv5Llsp13EfLGAzX/TAbsEIZQ9N2W5h6I9U/sr12nMsNMf5zXMwYjxttP9PD97dJ
+ eu8lnBmXWPBLjyCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1909A13F7C;
+ Wed, 20 Oct 2021 08:21:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id h02RBHjRb2EMXgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 20 Oct 2021 08:21:12 +0000
+Message-ID: <84ff2d86-345c-8bcf-81c6-467b9737f652@suse.de>
+Date: Wed, 20 Oct 2021 10:21:11 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH 03/13] drm: add Makefile support for drm buddy
+Content-Language: en-US
 To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Cc: daniel@ffwll.ch, matthew.auld@intel.com, alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, daniel@ffwll.ch, matthew.auld@intel.com,
+ alexander.deucher@amd.com
 References: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <976374b4-6852-15f7-fcbb-eb260fbd6409@amd.com>
-Date: Wed, 20 Oct 2021 09:51:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: AS8PR04CA0094.eurprd04.prod.outlook.com
- (2603:10a6:20b:31e::9) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
-MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:6048:8836:7968:5df6]
- (2a02:908:1252:fb60:6048:8836:7968:5df6) by
- AS8PR04CA0094.eurprd04.prod.outlook.com (2603:10a6:20b:31e::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.16 via Frontend Transport; Wed, 20 Oct 2021 07:52:02 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 11324c7a-ef67-4c67-207d-08d9939e81f7
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0111:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB01112FCABCC8A76EB9FD635B83BE9@MWHPR1201MB0111.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sZQq3l3p9+qhpx91dO9hVQUrjYw/YtVIhd3pIYXZeuyYVT67GxXkJOB7Zp3rfOCKJu43cfpIQ5DrjgZ1QFpsXWSaWIXbiY6kroAHIC1ItyUv9tTHaF3BN1aKXKFtd2uB8Yy2F1AsM+Ha/IJgZ/p78oChCfOrph30CWVXHirdRrvq26z3tCDFzbcXWUP8onu7O/lk9DP0pn8XLp0Qz2r5H7pazfZnZNrmbuIT/2oLXLd2gcnr2L1QV30rz0cCzNIhAh5V1UbwgBzCCKaYLLfrQ8w5vnW468jIEa7mb35BVufcKZKp+gO0yiYgOqWGMPaekeQsF51UP0hMgJc41Rs76UMgmKO85x4TeQsA9xX9asx9CR1ZQolhcLAehNuk27v/1TLjdKSC3aGWdnVASFa81VAYLLDdBTzg+9qaDX8Uv3EMgyTmAcgSGizTF6tMq4hcv9LOWFuYeMjZp5+6RGycyIFXLEC364Ld4OI/Ybddl7xTUInMe1KnXRlR3CeozfGk1JuQVYPUo+kOJ+FouhzTkEKtaddMlbwynlucMfgSVdEzhBP6vwassh5WugErFUAeJ9j6RjQIVTa4BdO6/Es+HKBhce1T32DTrB6OW1f7TYTsm4HT7Ttaaz4jdwaVrfcwwCM1QKII6pQDsIFRyOTCn3Xz1ehDNgVCEbNABA1X4mjr/L3oSHUnDXbLbpYg9iefHb7rOmPo2nn11LN33p5i5xF+XUfXAWhSQ0LkuvtQteJVA//K8QyqueI5rkGFGnJO
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(83380400001)(66476007)(86362001)(66946007)(6666004)(66556008)(8936002)(2616005)(36756003)(5660300002)(186003)(31696002)(2906002)(38100700002)(4326008)(508600001)(8676002)(6486002)(316002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2ZoTThscVdoZ3N4ajhXOUpjQWpoMGJXcDFpK2hGWlUxeGk4OHU1M0VwVG55?=
- =?utf-8?B?eG4wNURwZUNmemNQMmEvTWl4Vk1IeTFZREc3aklzWURhK2VmOXpITlVQM0No?=
- =?utf-8?B?VnprWUFXTW5hbklLTitUbmxBeUhMbUNkT0VySUxNVXVsTEIwZGZOVWJOalNX?=
- =?utf-8?B?NTB6Z1JHVGNGbm45Z1VsNElEQnR1NGtoVUI0U0g4YktQYklmeDJOc2o2Y2o3?=
- =?utf-8?B?d1JmenFORFRGbGcwTWhzcmNtZmhLRUpuTWZFdUcvc1U5bDE3Y25ObEJGSjB0?=
- =?utf-8?B?L2o4b1RqcTRpcFNhZWdHcGYwdGFaVHlwRzZUcTBGM0tMUVJGZE5Gazh0SU43?=
- =?utf-8?B?UDdReHg0RHpVWUNDZHRhejRudmZpOTlVcE5BL2s1c2g0VmVYZE81WjNReklr?=
- =?utf-8?B?bUErcUlKRTZhdVdIV0dvY0VXSGlHdHpBc2pGNVczRExCV2crVDVHbFprMEZY?=
- =?utf-8?B?TEsvUXhWRGFIb0FGNUw0NC9wRzhjS3A3YTM2QVBhMWxDNk1RSGVackF5L0oz?=
- =?utf-8?B?eXV5My9XaVRZKytxWDR4Q0RncDZPYlJRTEFTMUJYYlZyZm51dmcyMGl5SFhK?=
- =?utf-8?B?eXdsRFdUUVZrVjhONWNWME1wZGI2RWsyMnhrM2c4U0tTK2Jkb2V0blQxVk1G?=
- =?utf-8?B?NFlQWnA1UVQ1OVRheUExdEY5UnlTbllFTFZNdWlmK0JNMWVJZktrdWdDc3J3?=
- =?utf-8?B?anFDbzlsWVpXQ1lPTXE2OWtkYk1hb3JaekFJZ1ZZelgxUlgxTklTK2ordWVH?=
- =?utf-8?B?SzUwbXBJQnBKamlUbkYyUnpiWVpXNm9YOUVtQUxLRFpBS056eGJud3FZa3B3?=
- =?utf-8?B?ZFAyVVM1aGY2RkVrRHA4bkU4TFRVSU53KzJXUmorSGpCSDN5RzhnbmNIYk9W?=
- =?utf-8?B?WUkzR0kvZUx2dVN4R1BYd0NnTWZnaThGUFl3cXlqVG1wQ2dBNmkrQ3JqY0E5?=
- =?utf-8?B?LzhTSHVaSzNmYXV3UU9ZdGh5QXV3SlVVNFJ3N0V2YmcrSy91UXdZckJyZm5v?=
- =?utf-8?B?TXBPSnBPQm52NlltZXNxY3VBSTc0VHE2clFDczFTMktsQi85T2tDYkZ6Wi96?=
- =?utf-8?B?Zy84YVpLVXNrYTFvWHlpRkYvalJQU1B1N1NzOWNSKzByUUsva2JPMlcwWUF4?=
- =?utf-8?B?U0ZkSEZEclNPUXRzR3RSVXYvMEFvUStWZTZrSDA4ejN2TGpHU1Q5R3VhWFFV?=
- =?utf-8?B?aTB4RGx2UzgvYXl1OGFzSS9MYWpQQzVvaW5nUysycFlLMnBLaWtpcVQ2Ulh4?=
- =?utf-8?B?Ukpab2tjKzVsdFh4NkY0OFVCYlV1RTA5RDN3dE5vbVczTzR1TkNPVkFwdmZn?=
- =?utf-8?B?aTJtSnByUkJYdkpLV1pyQURGTDBrMmdBemNpNFhLMzZ4RlNqWWNvd09oUk9m?=
- =?utf-8?B?aGE4THA5b1FpTzJzby9xeGdYTjNLckVMZVNrcnlPNlNOTksrQkFDRURSN1FB?=
- =?utf-8?B?YlplUGowUHY3cFlEMHNoRnNFcjZGMHU3SE1tRzdySTV2ZC9xVTdoUzhvc3Ns?=
- =?utf-8?B?NVRIZ0VPU1gvMHN5T0dpTlpoclZwNSs2eUZoVGFGUHVMazU4L1dvdmFsSzR1?=
- =?utf-8?B?N2V2di9OSWZuc2tzdGxlRGdDZk8yMVl1SmVvTHRDWHNVWnRyRE11dlNUQjhq?=
- =?utf-8?B?L2ZURDYwTEdYcWUvR1VYVDRmek1wMUVlOVRuQ2VjV0lvaktObEx4c3B3MktN?=
- =?utf-8?B?RnMyYjNWMmJaVGhlSUJVcS9TYW9STFl3K0xNZUVDRUpsV3ZCTHVRVjlRUHgx?=
- =?utf-8?B?eWZvTEJjNlBwYk5lbnc0Y3NrR3RFcTFhakM3cTVOY05ISUpzTFd4aU1MRDl3?=
- =?utf-8?B?ZE5wSkZNbGtqNkhmSG9JUnJRUGsrVEJQejhSQ0VSRHZ4cHpTT0xaQXliUXU5?=
- =?utf-8?Q?lI3CJMraSGACg?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11324c7a-ef67-4c67-207d-08d9939e81f7
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 07:52:04.7296 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nJXPwPfl+T3NAZyhdIalHeSXpIIfDdymD/8ffW159oI1zTsGBQDO8r7E7X9CPyja
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0111
+ <20211019225409.569355-4-Arunpravin.PaneerSelvam@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20211019225409.569355-4-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------agyJ8GFf7ECqg7Ybaxwx8ly8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,62 +82,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Well please keep in mind that each patch on its own should not break 
-anything.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------agyJ8GFf7ECqg7Ybaxwx8ly8
+Content-Type: multipart/mixed; boundary="------------1oRyLfLhoa4yqL2KbIoqJ9fC";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, daniel@ffwll.ch, matthew.auld@intel.com,
+ alexander.deucher@amd.com
+Message-ID: <84ff2d86-345c-8bcf-81c6-467b9737f652@suse.de>
+Subject: Re: [PATCH 03/13] drm: add Makefile support for drm buddy
+References: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
+ <20211019225409.569355-4-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20211019225409.569355-4-Arunpravin.PaneerSelvam@amd.com>
 
-Especially patches #1, #2, #3 and #10 look like they need to be squashed 
-together to cleanly move the i915 code into a common place.
+--------------1oRyLfLhoa4yqL2KbIoqJ9fC
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Christian.
+SGkNCg0KQW0gMjAuMTAuMjEgdW0gMDA6NTMgc2NocmllYiBBcnVucHJhdmluOg0KPiAtIElu
+Y2x1ZGUgZHJtIGJ1ZGR5IHRvIERSTSByb290IE1ha2VmaWxlDQo+IC0gQWRkIGRybSBidWRk
+eSBpbml0IGFuZCBleGl0IGZ1bmN0aW9uIGNhbGxzDQo+ICAgIHRvIGRybSBjb3JlDQoNCklz
+IHRoZXJlIGEgaGFyZCByZXF1aXJlbWVudCB0byBoYXZlIHRoaXMgY29kZSBpbiB0aGUgY29y
+ZT8NCg0KSU1ITyB0aGVyZSdzIGFscmVhZHkgdG9vIG11Y2ggY29kZSBpbiB0aGUgRFJNIGNv
+cmUgdGhhdCBzaG91bGQgcmF0aGVyIGdvIA0KaW50byBoZWxwZXJzLiBUaGUgYWxsb2NhdG9y
+IHNob3VsZCBsaXZlIGluIGl0J3Mgb3duIG1vZHVsZSBhbmQgZHJpdmVyIA0Kc2hvdWxkIGlu
+aXQgaXQgaWYgbmVlZGVkLg0KDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBcnVucHJhdmluIDxB
+cnVucHJhdmluLlBhbmVlclNlbHZhbUBhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dw
+dS9kcm0vTWFrZWZpbGUgIHwgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMg
+fCAzICsrKw0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0
+aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL01ha2VmaWxlIGIv
+ZHJpdmVycy9ncHUvZHJtL01ha2VmaWxlDQo+IGluZGV4IDBkZmY0MGJiODYzYy4uZGM2MWU5
+MWEzMTU0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vTWFrZWZpbGUNCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL01ha2VmaWxlDQo+IEBAIC0xOCw3ICsxOCw3IEBAIGRybS15
+ICAgICAgIDo9CWRybV9hcGVydHVyZS5vIGRybV9hdXRoLm8gZHJtX2NhY2hlLm8gXA0KPiAg
+IAkJZHJtX2R1bWJfYnVmZmVycy5vIGRybV9tb2RlX2NvbmZpZy5vIGRybV92YmxhbmsubyBc
+DQo+ICAgCQlkcm1fc3luY29iai5vIGRybV9sZWFzZS5vIGRybV93cml0ZWJhY2subyBkcm1f
+Y2xpZW50Lm8gXA0KPiAgIAkJZHJtX2NsaWVudF9tb2Rlc2V0Lm8gZHJtX2F0b21pY191YXBp
+Lm8gZHJtX2hkY3AubyBcDQo+IC0JCWRybV9tYW5hZ2VkLm8gZHJtX3ZibGFua193b3JrLm8N
+Cj4gKwkJZHJtX21hbmFnZWQubyBkcm1fdmJsYW5rX3dvcmsubyBkcm1fYnVkZHkubw0KPiAg
+IA0KPiAgIGRybS0kKENPTkZJR19EUk1fTEVHQUNZKSArPSBkcm1fYWdwc3VwcG9ydC5vIGRy
+bV9idWZzLm8gZHJtX2NvbnRleHQubyBkcm1fZG1hLm8gXA0KPiAgIAkJCSAgICBkcm1fbGVn
+YWN5X21pc2MubyBkcm1fbG9jay5vIGRybV9tZW1vcnkubyBkcm1fc2NhdHRlci5vIFwNCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMgYi9kcml2ZXJzL2dwdS9k
+cm0vZHJtX2Rydi5jDQo+IGluZGV4IDdhNTA5NzQ2N2JhNS4uNjcwN2VlYzIxYmVmIDEwMDY0
+NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5jDQo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9kcm1fZHJ2LmMNCj4gQEAgLTQzLDYgKzQzLDcgQEANCj4gICAjaW5jbHVkZSA8
+ZHJtL2RybV9tYW5hZ2VkLmg+DQo+ICAgI2luY2x1ZGUgPGRybS9kcm1fbW9kZV9vYmplY3Qu
+aD4NCj4gICAjaW5jbHVkZSA8ZHJtL2RybV9wcmludC5oPg0KPiArI2luY2x1ZGUgPGRybS9k
+cm1fYnVkZHkuaD4NCg0KSW4gYWxwaGFiZXRpY2FsIG9yZGVyIHBsZWFzZS4gSGVyZSBhbmQg
+ZXZlcnl3aGVyZSBlbHNlLg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+ICAgDQo+ICAg
+I2luY2x1ZGUgImRybV9jcnRjX2ludGVybmFsLmgiDQo+ICAgI2luY2x1ZGUgImRybV9pbnRl
+cm5hbC5oIg0KPiBAQCAtMTAzNCw2ICsxMDM1LDcgQEAgc3RhdGljIHZvaWQgZHJtX2NvcmVf
+ZXhpdCh2b2lkKQ0KPiAgIAlkcm1fc3lzZnNfZGVzdHJveSgpOw0KPiAgIAlpZHJfZGVzdHJv
+eSgmZHJtX21pbm9yc19pZHIpOw0KPiAgIAlkcm1fY29ubmVjdG9yX2lkYV9kZXN0cm95KCk7
+DQo+ICsJZHJtX2J1ZGR5X21vZHVsZV9leGl0KCk7DQo+ICAgfQ0KPiAgIA0KPiAgIHN0YXRp
+YyBpbnQgX19pbml0IGRybV9jb3JlX2luaXQodm9pZCkNCj4gQEAgLTEwNDMsNiArMTA0NSw3
+IEBAIHN0YXRpYyBpbnQgX19pbml0IGRybV9jb3JlX2luaXQodm9pZCkNCj4gICAJZHJtX2Nv
+bm5lY3Rvcl9pZGFfaW5pdCgpOw0KPiAgIAlpZHJfaW5pdCgmZHJtX21pbm9yc19pZHIpOw0K
+PiAgIAlkcm1fbWVtY3B5X2luaXRfZWFybHkoKTsNCj4gKwlkcm1fYnVkZHlfbW9kdWxlX2lu
+aXQoKTsNCj4gICANCj4gICAJcmV0ID0gZHJtX3N5c2ZzX2luaXQoKTsNCj4gICAJaWYgKHJl
+dCA8IDApIHsNCj4gDQoNCi0tIA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERyaXZl
+ciBEZXZlbG9wZXINClNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0KTWF4
+ZmVsZHN0ci4gNSwgOTA0MDkgTsO8cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5LCBBRyBO
+w7xybmJlcmcpDQpHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVyDQo=
 
-Am 20.10.21 um 00:53 schrieb Arunpravin:
-> This series of patches implemented to move i915 buddy allocator
-> to drm root, and introduce new features include
->
-> - make drm_buddy_alloc a prime vehicle for allocation
-> - TOPDOWN range of address allocation support
-> - a function to free unused pages on contiguous allocation
-> - a function to allocate required size comply with range limitations
-> - cleanup i915 and amdgpu old mm manager references
-> - and finally add drm buddy support to i915 and amdgpu driver modules
->
-> selftest patches will be sent in a separate series.
->
-> Arunpravin (13):
->    drm: Move and rename i915 buddy header
->    drm: Move and rename i915 buddy source
->    drm: add Makefile support for drm buddy
->    drm: make drm_buddy_alloc a commonplace
->    drm: remove drm_buddy_alloc_range
->    drm: implement top-down allocation method
->    drm: Implement method to free unused pages
->    drm: export functions and write description
->    drm: remove i915 selftest config check
->    drm/i915: cleanup i915 buddy and apply DRM buddy
->    drm/amdgpu: move vram defines into a header
->    drm/amdgpu: add cursor support for drm buddy
->    drm/amdgpu: cleanup drm_mm and apply DRM buddy
->
->   drivers/gpu/drm/Makefile                      |   2 +-
->   .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    |  97 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |   4 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  | 251 ++++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h  |  72 ++
->   drivers/gpu/drm/drm_buddy.c                   | 704 ++++++++++++++++++
->   drivers/gpu/drm/drm_drv.c                     |   3 +
->   drivers/gpu/drm/i915/Makefile                 |   1 -
->   drivers/gpu/drm/i915/i915_buddy.c             | 466 ------------
->   drivers/gpu/drm/i915/i915_buddy.h             | 143 ----
->   drivers/gpu/drm/i915/i915_module.c            |   3 -
->   drivers/gpu/drm/i915/i915_scatterlist.c       |  11 +-
->   drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |  91 ++-
->   drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |   5 +-
->   include/drm/drm_buddy.h                       | 164 ++++
->   15 files changed, 1214 insertions(+), 803 deletions(-)
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
->   create mode 100644 drivers/gpu/drm/drm_buddy.c
->   delete mode 100644 drivers/gpu/drm/i915/i915_buddy.c
->   delete mode 100644 drivers/gpu/drm/i915/i915_buddy.h
->   create mode 100644 include/drm/drm_buddy.h
->
+--------------1oRyLfLhoa4yqL2KbIoqJ9fC--
 
+--------------agyJ8GFf7ECqg7Ybaxwx8ly8
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmFv0XcFAwAAAAAACgkQlh/E3EQov+Dl
+yQ//fkZdi4V/v4rsD40KuzqJHNaaYsyufS4uOp091GMQyAr5XQ2HssdXQiMMPrtedDady8Dd8kVm
+EeUvOqEd9eXGzUVfiYK9n0whbepP+udBKjgAeQbL0g3kX4Q2yc0JopuhEFpo35mY68gxxReirqdX
+MFNQv3SB/4Qv49Gq83KsJLQGy/npexSTB7VY1bGRGf45UdJoxau1RRKSC8Bv0glDSmbZu4EjYRFI
+4kR8GhZqIomTiF/KWtBsVWDk88G2uMLeufnepIjSIQnwcMR4sIYvsdCBzEwhBxYiBhJQDxc6P6xR
+XZVq5T/hd0RZTMytZca1nGeJ7bJgahxXSI/WsdHh0/y00fQMSNRgtjdLQ1gfNhY7D0lcWETE6PUE
+VMaUz/pR+iFgQe0cdNds1OxgdAjrXJwl6E29MNvscy1Mo6uQh7eyURYraWwMsZWzi3AIRkj2RPSR
+8RtXu49HgiNqPvPkhpeayuHYimlLpS1Y/TYPQCc9F5hxU7Efsb6/Lxv41HHrGwXnl4gCqaqaNFpx
+0dsoyTWSwrZx7YjWFQLWO+swmFXkfe0PVq+l8eYlCRl2ZJBR+SAAFJjKZJYNogFD8KUbZjnunoeP
+VflHgnimbmB+eGIM61UioXJCRqaAbCeirB10TOz203uw1BKZ0mWZn3N8uIz3GTPMIwFrnIe2ia+X
+lcU=
+=gOfK
+-----END PGP SIGNATURE-----
+
+--------------agyJ8GFf7ECqg7Ybaxwx8ly8--
