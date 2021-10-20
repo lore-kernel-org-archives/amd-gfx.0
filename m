@@ -2,125 +2,132 @@ Return-Path: <SRS0=xYMq=PI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD6D6C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 21:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A20A2C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 21:50:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9340A6113D
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 21:47:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9340A6113D
+	by mail.kernel.org (Postfix) with ESMTPS id 58CC2611CB
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 21:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 58CC2611CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12ED189C51;
-	Wed, 20 Oct 2021 21:47:46 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 462D789C51
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 21:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE466E3D6;
+	Wed, 20 Oct 2021 21:50:33 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D5D6E3D6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 21:50:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i7sMAq1MWoCItK1GiHR4DJJBZSU4DHZEf5SXRR5SHW070H5A+H2erdPswF4Nugqigm0JKGE0xJWvkCgsDGi6i/R6Roh1idXTOB23iwsK1uU7hiAJCb6FV4SGiYw2XsUohiYCoyb+48ItUuJKOONnNgX+RGshHkpiJMSJTnuzDkC5Wiq/pPRNYKZsavaCwwPPzjj2pvTCMRMCFAGlolf22yCvGwdxA/JXpkrPqCH7EvoVsS6z0iMV8bUa7XZXdvSIQrSoNaK061sJmpa5UFxycEA/PR5rjYmgeJr05RTzy9PXpFQXji31+fQYOgJ0gaIrYmwNqmTeyGilKya1e7hlyg==
+ b=VZFflkFzSWEol2KUGfoCdynP2d8tmkudugrYqbGnNcEqjH05MeMzXVyPZpfhoW8ByAwW05o89d1fElRx2Qj6RVS0youKKHOr/hE7sG65axUTVR7SPqVhnf16wW4FcUurUK1efb/3eZyZdt3Y/jkrooikLWZIJ1VMaR/vNBRiXxOAjke9TtqrlvrI+EoZV9w2p2COsekFtsmRYo9X8qeq5oTc+8q9c3x4g+S77u1G3O82p4zp/WunDO9FdW5uAoDNkRy8LrPLTQQgpHpInBw55bzayNpMnxCZ6sTcU1+aucmjRV5EmfzN3dnhILEC2f2fYQF3wxzA3Ibx8RatKtT1fA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lPXMyZ/rQdH852GX7g7WuVl4lGFDogZQk5UPzEQH4Mg=;
- b=nt07qApUkOhsavOIp1JN04uGx/3p38yAIyqncexqKfIdDGM0Ro0wywEdQyzQfzntiBhVgfSZTdf1SN5eQh3QYfb10JOG9adjf4iYOVbBtaJ5JyLxTClEdc81phj4DSSNt6HLgEDjUFd1jI0JbXa42Qy6vb9jmS9T+LkosmnPqoX4UnuuphVWAQftOR2kzS64sR869jFhuycTri/2QkpxdgpxzsrK2G0VgcZ6ChadZ7nwE1AmzZ0NVRZVs+eAlJb4Cpb8zB3z/RGOypS1UuC6sZd9fvRpXwHp0KRmca9NM3tcwSLZMSd+MdBRUx2mHxjLKQngx0uOBYyeYkO4hxOrWg==
+ bh=6VehgKItbATpXU8J9Z5PeIrq9/gmh9/j2sF/ZnbxJ20=;
+ b=EX29Jsvwjtt/zkK0MOlb6nSUDXxUiz5He0Yw/VEujLjAihUMKFEAbe2CQGmZoBJamDHFcC5C8BsJFc3VwEvHyhoHRDl5d9efk8bCx0NwZBHh9n00okWjvkqY5U+OO4ypJ3shWPVKmKziuxU6FnWjK68ThB5R+zrMAlwGmsOi6AMGYma5AM/q+MGuypDosOd3c/Q8i8Ci4PB80dAQAUa3lv55pbak9rdsY64iT6emwwnQqHw21VP4nL5w1I1dJcxaYZmjFH5HLrkg0QnQYoLmSu/+b8HSOxMJ7BKluWE66BDwL8L2yXYlpY+P21lcfHSEugBqSq+LUKjp5I1MZGaP0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lPXMyZ/rQdH852GX7g7WuVl4lGFDogZQk5UPzEQH4Mg=;
- b=L37N45y0E9Lg+3u71EPOFznB8i5HfKF5gafRfsJRzeXxcQvE/th/FTimZrDwj0QON/Frk4wTDM0Slij/FoMSUtFfKY3pqRI/i3CEkG4lSJAE09grqhxNKHNQFbcEZZKrgllCVucnAw4mtikwqr66v49c7V2QpdvQMbMwqWsshao=
+ bh=6VehgKItbATpXU8J9Z5PeIrq9/gmh9/j2sF/ZnbxJ20=;
+ b=Ox5Cobv3esvHMG1GOPy2efxgL2PeN68zlASk8Sj3UcxfiwwNCcscoV9bHl/SKFvm60mppg2myT5Ssw/MnEwghVdZnJ4uL7ifOg5+2Eqvc9Ipk4xqO+Spb1ZIZKb8jwyqCY3mFqu4M4DPz7Hr5TDYJejPz8XPxMVkvDFiTNxLsZI=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
- by DM6PR12MB2828.namprd12.prod.outlook.com (2603:10b6:5:77::11) with
+Received: from DM5PR1201MB2491.namprd12.prod.outlook.com (2603:10b6:3:eb::23)
+ by DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Wed, 20 Oct
- 2021 21:47:41 +0000
-Received: from DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::4447:dad4:f8e9:c5f3]) by DM6PR12MB3962.namprd12.prod.outlook.com
- ([fe80::4447:dad4:f8e9:c5f3%7]) with mapi id 15.20.4608.018; Wed, 20 Oct 2021
- 21:47:41 +0000
-Message-ID: <ee745dec-ab0b-9ebe-3b79-dbc0e14808fe@amd.com>
-Date: Wed, 20 Oct 2021 17:47:39 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.0.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16; Wed, 20 Oct
+ 2021 21:50:30 +0000
+Received: from DM5PR1201MB2491.namprd12.prod.outlook.com
+ ([fe80::d153:3aa6:4677:e29]) by DM5PR1201MB2491.namprd12.prod.outlook.com
+ ([fe80::d153:3aa6:4677:e29%7]) with mapi id 15.20.4608.019; Wed, 20 Oct 2021
+ 21:50:30 +0000
 Subject: Re: [PATCH 1/3] drm/amdgpu: Warn when bad pages approaches 90%
  threshold
-Content-Language: en-CA
-To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Mukul Joshi <Mukul.Joshi@amd.com>
+To: amd-gfx@lists.freedesktop.org, "Russell, Kent" <Kent.Russell@amd.com>
 References: <20211020163520.1167214-1-kent.russell@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+Cc: Luben Tuikov <luben.tuikov@amd.com>, Mukul Joshi <Mukul.Joshi@amd.com>
+Message-ID: <50882392-beb7-b7bc-01c9-04945ffdec00@amd.com>
+Date: Wed, 20 Oct 2021 17:50:23 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 In-Reply-To: <20211020163520.1167214-1-kent.russell@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0033.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:82::19) To DM6PR12MB3962.namprd12.prod.outlook.com
- (2603:10b6:5:1ce::21)
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: LNXP265CA0038.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:5c::26) To DM5PR1201MB2491.namprd12.prod.outlook.com
+ (2603:10b6:3:eb::23)
 MIME-Version: 1.0
-Received: from [192.168.1.14] (135.23.225.238) by
- YT3PR01CA0033.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:82::19) with Microsoft
+Received: from [172.27.226.80] (165.204.55.251) by
+ LNXP265CA0038.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:5c::26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.16 via Frontend Transport; Wed, 20 Oct 2021 21:47:40 +0000
+ 15.20.4628.16 via Frontend Transport; Wed, 20 Oct 2021 21:50:28 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 311f8c3b-fbbc-46fb-1818-08d994133db8
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2828:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB28284FF95E0FDA7E999EA2F999BE9@DM6PR12MB2828.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 233807d0-57fe-489f-b39b-08d99413a233
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2583:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB258380A25D9DFE6F3FA8B62092BE9@DM5PR12MB2583.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BVFqltYXE273ePcCFu1Q8dtGLln2MizNSvvVmLPgJ6VEzv7ASqiryn5gn8+1Zla7HGNXuucmVIXpXIbHzExYMMTQsqXNJ3whP+wn2A9FqGEIb201Hlj9DSvuoQoU394JVSxgkEGmY3IdnoLCyi/rp+5NLNULxSL+G0VJYxykgMQaopW/CYb38psfiolKpDwXhmBNpXWpoYAjHPmbOAArCYIfhe7PMsFHs8w3eUilc23j7a9m4eLx2P27SCvZrLLJX3x8zbCLdU1ej2kRY+lIhapA+W9T+Lj2QBE/xvGFSCI0WIriNXhuSjgg6DRdIe3MEZNUK+69M8he8WB5ElfcvpXrDkxWYocPMhzRYDxG3/52kZd2xHCmGf+Z8HXHIQVRLIKFi+4LRxG41NCiZfh16e1c2acRcUlJMYnGdSAV+owtQyOjFOk/sAypCYtkYanYWHGId0OULVd6N08XrpPGHURIfdzE5bNTrHiO3oda412+WcxcOnS5M2bRgO22VOEifXgmKhd874w5b+BRvODYRJryDLcm4dpCmHG3zYoZnXFMKjWQUBsxRHGNe5rd/Xjn/J4fpf/5q06VYr2eoaaZmD2CMsB6N56DHrW/0uQWj5PubZR5vP9DnUOy/eB699QRNdFYzNsdJUYGg3jU3xJEDKOFyCRDwek3kDdjDqN7Fe6OihRs6D6+8HzZ8f+aMGbvbvcFrCd32SJuwc6rFik2Ix8TRQnwLjwxlCN2n6PfMi4=
+X-Microsoft-Antispam-Message-Info: s+tS3dqaeqnIUcDyrnvaAlzv78cOuYlACow4wwtm9Wik9kgErjVOOd8EAn5OHSmw3YJ2HNd6FRLai2awgFOTrvPqLeFiDSbAW1ZTorhnqTqcizOnp7cA5Z5xC5jfryv/Sy6BmbzwlTsekb0z41cTVmQL0j0s+CTSVDm+KndqRbrcfo1uhWkChiSdeMPq5ZIdjd8UCEdg7LpWpq/ikjBIjF8QvzNAywDZS4DmBRuuUd6o8zjEM+mLzlD1aIEHjiKyMOqYmAFsSuWVmLFXj4qIvX3xs+c3QUrS89Z0EI5HzSwGBIcgElbVouQQ3WmVr0Vh//UAas6cGHXWfjBOLYW2NlHCxyRwcY12okn4B8Rg5q/McH0vOnMHJZeNIEco7gz0kUNLTumRPZjbQD3sTamtaAIXuyWC8sN+FlJ7DkpLGPuCXGwweJTUToXwfPQUUpsKRqOd0i2VjqgvSHUNgOIBBHSNx8ZSqLiKGZxIHG0l48O73zMov2xgJKrFUJGHwRfaiy4r/ehWc5Yh6AkAocZevrStN0kTBnbvV1eU5IOt2dIuZRxVrvxJJeRUiJbMZDIcY19R6QB7Cv+rS0El7ATAX250LDCOdT66U/PwOrzv0kF99jNc584Qx6V3JEEJZmzcdhpXvof3HMmwowCHQ4IpiTmZEqdWF3HpLqxQTKplqh+6i2rQguCm3FpnwAw0yH1O90Ftph2XQ+H3No9gMPaqpy/VWcrdK3wIeopbzB7lk0g=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8936002)(66476007)(26005)(316002)(2906002)(6486002)(83380400001)(508600001)(53546011)(86362001)(31696002)(38100700002)(66556008)(8676002)(2616005)(956004)(44832011)(66946007)(186003)(4326008)(36756003)(5660300002)(4001150100001)(16576012)(31686004)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB2491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(31696002)(2616005)(83380400001)(36756003)(956004)(66476007)(4326008)(66556008)(86362001)(31686004)(38100700002)(6666004)(8676002)(6636002)(4001150100001)(316002)(186003)(5660300002)(8936002)(26005)(6862004)(16576012)(54906003)(6486002)(508600001)(53546011)(66946007)(2906002)(37006003)(36916002)(44832011)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L044M1RFSXRWWkVWN0taNS9JbWs1dW5uenpDcDIvdE5kRWlQSVRxVG8wblBa?=
- =?utf-8?B?R2NaK08yNlFzUGYybGNMYzZTbGtwYW00cUZHTGhVLzdJM2FVRlZyaTB0QW1v?=
- =?utf-8?B?cWc3ME5saGdCZWpkaXVjeXhLaDkyTEVpWU9tY0xXdGxMWHQ2ZHJkNndhNmp3?=
- =?utf-8?B?TXFtR1VNb29RKzRwYkQwdW54MHFpN0JDQkx0YmRiWHQ4UWtLU25keTJKL0FV?=
- =?utf-8?B?UVFKc2dHa2hKVFJrVFJWN25NbGh4Y29hdDFZWDIzS0Y5RmdzZVZ5ZGpSTnNu?=
- =?utf-8?B?NHRWMlhOcDhTT1MwTzRiN1dZUkFnMHRvemk4eXBqNUVkdzVsTU8wemh5TmVv?=
- =?utf-8?B?dm1IWE1HN0ZRYlZVMGN5d0NCTjM5ZWNTckl2K0N3a20xOGxHWmdDdXF3ZGpD?=
- =?utf-8?B?YU81YkV6OGZsL25YaU91cGl6YUgycW5QVHk3Y3plTzZqcWNUWWp1NGd1bkM5?=
- =?utf-8?B?M2ZqTzBaQWFKdHFvQVY0OVFCSHQrT2wzSkcxWHRFVDhqT0NLR2xlTExkUWx4?=
- =?utf-8?B?dm5JcXJ1Ull6QlhmeTZVdC9YcWxTNFp4UGNyOURmOWI2SmhkajRPMGVqbXlr?=
- =?utf-8?B?M3JLWnFjNkFqR0FZR1ZCRlZOTGVmeFlKbGpyRHBETThqVVhqYkd1b280aGxx?=
- =?utf-8?B?SGNXMGcrcUYrWmlpeE52YUxWTFpPbG1hMUlVZlN5dFR6S25MS0gvWXJlUUhI?=
- =?utf-8?B?U2p3Q3oxSkRoU1Bod09GN2tVQnBuRCsvNklJSkc5UldjaGV1VnYyeDl0NVk5?=
- =?utf-8?B?Uk1Oc0RQbXk1QTlmU0t4ZWpaczJlcWQrUEJ6Slg5a0VjTDFQUDNLVzgvMnlF?=
- =?utf-8?B?ckVadHNUQWNoNTQ1SUQrQm5hc0NjSVV6UnRmcU1tQlhtYlRrRitzTWVVaHNr?=
- =?utf-8?B?ZGMrUzRLTFpIMzkzSjIwM3gxcWFFTEdEZURzZk95c2ZieW9rQU9lUzJ0RExm?=
- =?utf-8?B?VDRDWU1oZ0tIZ0IwS2dSbnY5MklscDRtVUhCY0ZSODBmMGlCdWh1Vmdicmxh?=
- =?utf-8?B?eXg4OStzYnYzWTB5MWoxZjlHNXoyTkF4TGozRS9nOXUzbVFCWHNVekdzWE56?=
- =?utf-8?B?M0FGRURzbDcwRWVEc3JhRzc1VFBXOE5KUG1XVTY0WlBVak9Da0FQclNOUytM?=
- =?utf-8?B?TWlGZlVIcnpKbk9XeHF1UEc5R0Q3V0tJeDd4WXcvSEJiM3dtVmNGTWZyL3cw?=
- =?utf-8?B?dGZlWXhDK2FYUytUaXZ6WjVaemhMRVIvRVB3RXJycHNhNlFsajhsdEZER1pB?=
- =?utf-8?B?YW1OUG11TVo2RjAybGhLRnAzYnMrQi9ZZHM5cjhTdVVVMytCTXI1WFA5ZDcv?=
- =?utf-8?B?S25ZbFlOUENPdkpJL3JvUEQ5MlpRSmpTbWZOcW5iT3NZcTVtV1ZRbFZOUDBv?=
- =?utf-8?B?MVFFWHcwV3FxcVByQ2ZtZU13S2lUYWs1SXFGdnpVOEliVnBaTUkzT0M3V2ha?=
- =?utf-8?B?MFV3Ry93bmsrR2JoNUpNVFRvQ3R2RERsTVpsZlNpTVpqdmQ1Uzd5YS9HRTNQ?=
- =?utf-8?B?d2dKdW5KTVpWak1qR1c3eUlkemJsN01rVm1taWlUUzhrei9yQVFsNGlMSEFM?=
- =?utf-8?B?RTJGVHlXQnd0NVVzK0tCKzRnTEMyemxyY0htMVZaWDVRWUI2L3RQUTN3TkdQ?=
- =?utf-8?B?Nzl0d0Q5UlJxSjAvVVhLWnpzRUxRK3l0Snd5OGFYSTJBNFNLaitzUzhvbFhk?=
- =?utf-8?B?RDRiVFN1VHdoZTBELzlDUkpDdmhnV2NhUFkvRGZjSkxnRlpHY1l5SUVUYzlM?=
- =?utf-8?Q?G/XQ8cZPCr3wwUwh547Kkv5tNoGI4IKI7khhC3e?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STZXZzB1YzlndEx2K21CRW5OUUV5OXN2NE01RWFwN3FHRFNrbVJUcVZkak5v?=
+ =?utf-8?B?dnI2Z2VFdWZIaXJJZStNWW8yK3g3MWRHZ0R1aS9lVlUveXdTaHBEM2FGbHE4?=
+ =?utf-8?B?TVJNaDZqUW05ZGltbUxCOWhuZVBWSXVlc3NZTGtXNzlCUTYrVFR0VDAyNFdE?=
+ =?utf-8?B?MU9BTExFL1RYV3lOcXFNN1h2cVFzcytCUGJMazNZaHVsZS9qcEFCTzJpdytR?=
+ =?utf-8?B?a2tTMUMzaWFBMmFDOTlDUW9BY2RjWTVyNW1FT1RUTzhGVS9OWVZhTXhwd2VS?=
+ =?utf-8?B?MERDb3hLa0ZDQzExU25TdWF2bTBDMkFTbDZrNHN5QTVjTFpMQ3B2MW1EWFla?=
+ =?utf-8?B?S011aTRoZm5uYTJvOWxFeU4wVGRKY1BoeFVuUnJKUU5XRXVhUjVFT2FWOHpa?=
+ =?utf-8?B?RUxBM0NpdmloTWJNRDRtY3duZTJLKzQ1dFJSVi92SEs2bGlKeDJsMjNLY0FQ?=
+ =?utf-8?B?S3JQQWx1OURmQTR6UnhaMHdKSExNYUpKWUp3TWRWY0cwd3ZDNnpTMkU4TjVM?=
+ =?utf-8?B?dTk2bEVWVjFBanNiNEFvM1licTU0RFFpaDZWc1Ftai9LdkllMGREb3ZmdG5J?=
+ =?utf-8?B?SmI0cFBiUlZDV0pVU1ZsUkVNYkY2NXVKeUJOYi9oalNYeDBVTUo1Rm9qSmVH?=
+ =?utf-8?B?d05GdTRxN1NPUVhKY3RUNkIxZVhUTG9wNXJFdWpQeW5jOUl5d2lMU3V0bUdS?=
+ =?utf-8?B?a2p0SU0yOGoxUncrZEJvMy9tOGo1SUpYRm83NE9XTDNReHZMV0V2RmN2Smxs?=
+ =?utf-8?B?cmVNTFA1Q3FFbXBGOTA4bXhqNGlRSzgwTHk1TlZsMThYY1M0eVNSbkliOHZl?=
+ =?utf-8?B?VTdqTm96YmxISnYrdGRPRnUxRERvRlVBaWJNdnRBN1RNWjhJK3pSVE9MN2Rm?=
+ =?utf-8?B?QWxjd2J4cHFVQWtVRG1JeTZvSEV6aTVTSWszVmZqOTVCejcvL25UUkRaaWdD?=
+ =?utf-8?B?b1dsWEN1RDdmZjVuM1BzWlhoZ05ZLzcvMEpTODQ0SzRndFZBTDlGell6ZXl4?=
+ =?utf-8?B?TUFkQmdnYzV1UFVrcW1sNnUxZFhsNHNkaXlPY2pQRDVMSXIyVENLZGMybyt5?=
+ =?utf-8?B?aVpmVU5paWFwS1o4NzZoU2hiZE5HMVVja3EvNU9kUUhPZVk3bWtFNE5hcEdO?=
+ =?utf-8?B?aVF5M3B0S2NvVStQNGtsYlNpdGtUTG5Scm5VWVVqZXZJRDZPOEZwdFhMRVZm?=
+ =?utf-8?B?WmpOM1FtallYZHM4ai8vMEtPQ1RpOUY0T0ErQ3YwVkE1OWVld3YxSElSVG5E?=
+ =?utf-8?B?emk3SXoxZmdTdThCSjZhZ3FpMUFWNloxN2NJaG9ES3FYdWcxcGp2bS9QSnBh?=
+ =?utf-8?B?R2lXSEdCR3ZGZisxSlJBUVBXQUN2OFdoVzhnRTd6ZU9XT1FnQXFOS3RCd0dQ?=
+ =?utf-8?B?SmxZQVppTG9VK29yQlovSUU0NzQvY1BFK3k4WTBaNVIzQ2N2MStMVU9JYUhr?=
+ =?utf-8?B?cGZKQVRvN0Z3bXJ3VWZmbEI2aDNDUzhob2JrTG1UK3EzQVJjVHVHNGZEazNs?=
+ =?utf-8?B?ZGZ3REtKa0t6V2FtRkY5Y0pnSVhYWWd5WUVoMFNERDNFR0JYVzhvRTE4S3g0?=
+ =?utf-8?B?NXh0dU11dVpUUk5vbHZUdlMvZmdwYVNKcktvQlI1Q24yTWZPRm1McGE0OFBw?=
+ =?utf-8?B?M2hOMjF1M3pVS3p5WERzQU93WWdOWjk5cG8vQ1pxYStpS09NR042WnA0cE4w?=
+ =?utf-8?B?VTlFU0N3Mjl0WlJyb0pNN0o0TWE2UCtEREI0V3NQcHdhUHNxSFhHQ1pqT2NW?=
+ =?utf-8?B?NEc2SDJmQjNYWTN2TStHbnV5bFhYRG41cFl0ajdHbk9udmplOGRXa1l1Tmcw?=
+ =?utf-8?B?NzUxVkVkZVdNK3RWbG1ZUGRnczlUTW5ra1E4d3FWdTN0ZzduWDZ6M01qUThy?=
+ =?utf-8?B?dnNVOVJ3VFVsQXprR1JPV25IY0NrZDlmbVJKakFOZ2FUandRcFZoVXVyajBQ?=
+ =?utf-8?B?a2JtR0tIblg2RHBOOURWa3c4bkxhZzE4MEJ3VDFzclZyZFQ0NjRLMUszUHY1?=
+ =?utf-8?B?Slp3T0RDUmdCWmh3QkJ1enR2WE56MW9Sb0pYZkZJSXZSamd0bHFBM3QzUC9v?=
+ =?utf-8?B?bkJKdlBvbFlSSFdzR2U2NG1DVk94WXJGQjFKS1Y5azIwbXNqQVpkVWY1Yitk?=
+ =?utf-8?B?eHRocnQzaktlL3hybG4yaVVEbFR6QU93ZkZURW95NGZkMHd3ckg2dVptTDVv?=
+ =?utf-8?Q?QcsNE1UZB67Qb4PC24sIVQs=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 311f8c3b-fbbc-46fb-1818-08d994133db8
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 233807d0-57fe-489f-b39b-08d99413a233
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB2491.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 21:47:41.1769 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 21:50:29.8421 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yr6RnbhwW+qV4RBYkGveGhzbocA1ZqyeiZl90XbGl9mk/T13SWBnMZcIvcQeptb7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2828
+X-MS-Exchange-CrossTenant-UserPrincipalName: fkort6bJdrasshDpsnzLDTRTL4LGXNfPeE5a7/6lV4xUCa2yIsv1uTJa3ln30C1pW4taxk3CXHqTqwfzXMQMSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2583
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,178 +142,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2021-10-20 12:35, Kent Russell
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20211020163520.1167214-1-kent.russell@amd.com">
-      <pre class="moz-quote-pre" wrap="">Currently dmesg doesn't warn when the number of bad pages approaches the</pre>
-    </blockquote>
-    <br>
-    &quot;Currently&quot; is redundant in this sentence as it is already in
-    present simple tense.<br>
-    <br>
-    <blockquote type="cite" cite="mid:20211020163520.1167214-1-kent.russell@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-threshold for page retirement. WARN when the number of bad pages
-is at 90% or greater for easier checks and planning, instead of waiting
-until the GPU is full of bad pages</pre>
-    </blockquote>
-    <br>
-    Missing full-stop (period) above.<br>
-    <br>
-    <blockquote type="cite" cite="mid:20211020163520.1167214-1-kent.russell@amd.com">
-      <pre class="moz-quote-pre" wrap="">
+On 2021-10-20 12:35 p.m., Kent Russell wrote:
+> Currently dmesg doesn't warn when the number of bad pages approaches the
+> threshold for page retirement. WARN when the number of bad pages
+> is at 90% or greater for easier checks and planning, instead of waiting
+> until the GPU is full of bad pages
+>
+> Cc: Luben Tuikov <luben.tuikov@amd.com>
+> Cc: Mukul Joshi <Mukul.Joshi@amd.com>
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> index f4c05ff4b26c..1ede0f0d6f55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> @@ -1071,12 +1071,29 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+>   	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
+>   
+>   	if (hdr->header == RAS_TABLE_HDR_VAL) {
+> +		int threshold = 0;
 
-Cc: Luben Tuikov <a class="moz-txt-link-rfc2396E" href="mailto:luben.tuikov@amd.com">&lt;luben.tuikov@amd.com&gt;</a>
-Cc: Mukul Joshi <a class="moz-txt-link-rfc2396E" href="mailto:Mukul.Joshi@amd.com">&lt;Mukul.Joshi@amd.com&gt;</a>
-Signed-off-by: Kent Russell <a class="moz-txt-link-rfc2396E" href="mailto:kent.russell@amd.com">&lt;kent.russell@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ras->bad_page_cnt_threshold is uint32_t. I'd recommend using the same 
+type. Also add an empty line after the declaration to avoid a checkpatch 
+warning.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index f4c05ff4b26c..1ede0f0d6f55 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -1071,12 +1071,29 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
- 	control-&gt;ras_fri = RAS_OFFSET_TO_INDEX(control, hdr-&gt;first_rec_offset);
- 
- 	if (hdr-&gt;header == RAS_TABLE_HDR_VAL) {
-+		int threshold = 0;
- 		DRM_DEBUG_DRIVER(&quot;Found existing EEPROM table with %d records&quot;,
- 				 control-&gt;ras_num_recs);
- 		res = __verify_ras_table_checksum(control);
- 		if (res)
- 			DRM_ERROR(&quot;RAS table incorrect checksum or error:%d\n&quot;,
- 				  res);
-+
-+		/* threshold = 0 means that page retirement is disabled, while
-+		 * threshold = -1 means default behaviour
-+		 */
-+		if (amdgpu_bad_page_threshold == -1)
-+			threshold = ras-&gt;bad_page_cnt_threshold;
-+		else if (amdgpu_bad_page_threshold &gt; 0)
-+			threshold = amdgpu_bad_page_threshold;</pre>
-    </blockquote>
-    <br>
-    I believe we don't need this calculation here as it's already been
-    done for us in <i>amdgpu_ras_validate_threshold()</i>, in
-    amdgpu_ras.c.<br>
-    <br>
-    I believe you want to use &quot;ras-&gt;bad_page_cnt_threshold&quot; here
-    instead. For instance of this, see a bit further down in this very
-    function this check including the comment, in italics:<br>
-    <br>
-    <font face="monospace">&nbsp;&nbsp;&nbsp; } else if (hdr-&gt;header ==
-      RAS_TABLE_HDR_BAD &amp;&amp;<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; amdgpu_bad_page_threshold != 0) {<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; res = __verify_ras_table_checksum(control);<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; if (res)<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;RAS Table incorrect checksum or
-      error:%d\n&quot;,<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; res);<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; </font><i><font face="monospace">if
-        (ras-&gt;bad_page_cnt_threshold &gt; control-&gt;ras_num_recs) {<br>
-        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /* This means that, the threshold was increased
-        since<br>
-        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* the last time the system was booted, and now,<br>
-        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* ras-&gt;bad_page_cnt_threshold -
-        control-&gt;num_recs &gt; 0,<br>
-        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* so that at least one more record can be saved,<br>
-        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* before the page count threshold is reached.<br>
-        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/</font></i><br>
-    <br>
-    And on the &quot;else&quot;, a bit further down, again in italics:<br>
-    <br>
-    <font face="monospace">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; *exceed_err_limit = true;<br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <i>dev_err(adev-&gt;dev,</i><i><br>
-      </i><i>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &quot;RAS records:%d exceed threshold:%d, &quot;</i><i><br>
-      </i><i>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &quot;maybe retire this GPU?&quot;,</i><i><br>
-      </i><i>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; control-&gt;ras_num_recs,
-        ras-&gt;bad_page_cnt_threshold);</i><br>
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; }</font><br>
-    <br>
-    <br>
-    See how it says &quot;<i>records exceed threshold</i>&quot;--well, with this
-    patch you want to say &quot;<i>records exceed </i>90%<i> of threshold.</i>&quot;
-    :-) So these are the quantities we gauge each other to.<br>
-    <br>
-    Clarification on this below.<br>
-    <br>
-    <blockquote type="cite" cite="mid:20211020163520.1167214-1-kent.russell@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-+
-+		/* Since multiplcation is transitive, a = 9b/10 is the same
-+		 * as 10a = 9b. Use this for our 90% limit to avoid rounding
-+		 */
-</pre>
-    </blockquote>
-    <br>
-    I really like the format of the comment. But I feel that the comment
-    itself isn't necessary... at least the way it is written (&quot;9b&quot; may
-    mean &quot;9 bits&quot; or &quot;9 binary&quot;. I'd avoid getting into arithmetic
-    theory, and remove the comment completely. Anything else (explaining
-    the math) really distracts from the real purpose of what we're
-    doing. (After all, this is C, not a class on arithmetic--they who
-    can, will figure it out.)<br>
-    <br>
-    Perhaps something like:<br>
-    <br>
-    <font face="monospace">/* Warn if we get past 90% of the threshold.<br>
-      &nbsp;*/<br>
-    </font><br>
-    <blockquote type="cite" cite="mid:20211020163520.1167214-1-kent.russell@amd.com">
-      <pre class="moz-quote-pre" wrap="">+		if (threshold &gt; 0 &amp;&amp; ((control-&gt;ras_num_recs * 10) &gt;= (threshold * 9)))</pre>
-    </blockquote>
-    <br>
-    Right, so here perhaps we want to do this instead:<br>
-    <br>
-    <font face="monospace">diff --git
-      a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-      b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-      index 98732518543e53..2aab62fa488eba 100644<br>
-      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-      @@ -1077,6 +1077,12 @@ int amdgpu_ras_eeprom_init(struct
-      amdgpu_ras_eeprom_control *control,<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (res)<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;RAS table incorrect checksum or
-      error:%d\n&quot;,<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res);<br>
-      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Warn if we get past 90% of the threshold.<br>
-      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (10 * control-&gt;ras_num_recs &gt;= 9 *
-      ras-&gt;bad_page_cnt_threshold)<br>
-      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_WARN(&quot;RAS records:%u exceeds 90%% of
-      threshold:%d&quot;,<br>
-      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; control-&gt;ras_num_recs,<br>
-      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras-&gt;bad_page_cnt_threshold);<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (hdr-&gt;header == RAS_TABLE_HDR_BAD &amp;&amp;<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bad_page_threshold != 0) {<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res = __verify_ras_table_checksum(control);<br>
-    </font><br>
-    Also note that up until this point of the boot process, we don't
-    qualify the boot by amdgpu_bad_page_threshold and I feel that this
-    check in this embedded if-conditional shouldn't do that as well.<br>
-    <br>
-    Regards,<br>
-    Luben<br>
-    <br>
-    <blockquote type="cite" cite="mid:20211020163520.1167214-1-kent.russell@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-+			DRM_WARN(&quot;RAS records:%u exceeds 90%% of threshold:%d&quot;,
-+					control-&gt;ras_num_recs,
-+					threshold);
- 	} else if (hdr-&gt;header == RAS_TABLE_HDR_BAD &amp;&amp;
- 		   amdgpu_bad_page_threshold != 0) {
- 		res = __verify_ras_table_checksum(control);
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
+
+>   		DRM_DEBUG_DRIVER("Found existing EEPROM table with %d records",
+>   				 control->ras_num_recs);
+>   		res = __verify_ras_table_checksum(control);
+>   		if (res)
+>   			DRM_ERROR("RAS table incorrect checksum or error:%d\n",
+>   				  res);
+> +
+> +		/* threshold = 0 means that page retirement is disabled, while
+> +		 * threshold = -1 means default behaviour
+> +		 */
+> +		if (amdgpu_bad_page_threshold == -1)
+> +			threshold = ras->bad_page_cnt_threshold;
+> +		else if (amdgpu_bad_page_threshold > 0)
+> +			threshold = amdgpu_bad_page_threshold;
+> +
+> +		/* Since multiplcation is transitive, a = 9b/10 is the same
+> +		 * as 10a = 9b. Use this for our 90% limit to avoid rounding
+> +		 */
+> +		if (threshold > 0 && ((control->ras_num_recs * 10) >= (threshold * 9)))
+
+Not sure how big these values can get, but you may need to cast to 
+(uint64_t) before the multiplications to avoid overflows. Alternatively 
+you could use (control->ras_num_recs / 9 >= threshold / 10). It'll 
+round, but never overflow.
+
+
+> +			DRM_WARN("RAS records:%u exceeds 90%% of threshold:%d",
+
+Nitpick: I'd add space after the two colons for readability. The 
+threshold should use %u if you make it uint32_t. This can never be negative.
+
+Regards,
+   Felix
+
+
+> +					control->ras_num_recs,
+> +					threshold);
+>   	} else if (hdr->header == RAS_TABLE_HDR_BAD &&
+>   		   amdgpu_bad_page_threshold != 0) {
+>   		res = __verify_ras_table_checksum(control);
