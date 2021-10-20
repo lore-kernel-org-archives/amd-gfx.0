@@ -2,129 +2,129 @@ Return-Path: <SRS0=xYMq=PI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57FDEC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 06:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74C72C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 07:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1926661074
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 06:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1926661074
+	by mail.kernel.org (Postfix) with ESMTPS id 396326103B
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Oct 2021 07:52:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 396326103B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA3D36E214;
-	Wed, 20 Oct 2021 06:52:18 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D05E96E214
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 06:52:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1EDD89CB9;
+	Wed, 20 Oct 2021 07:52:08 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F87E89CB9;
+ Wed, 20 Oct 2021 07:52:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BHYsoePcTFeXXEzjsvZzJAzFGDwDCGbCaaewx/zfTjhj2+bBRBsXCW9xmbFoWq+/HkT4GWZRsg8juZ4ZXptQaeSYHYeq7XENf0V301uq7U25veYbfbHtE8lMYBgnerKIHxfHQaazMWoE4ZLrmO+bnVh+cV4JHOWIZJ6XsW/YyPmrQJ3lkP0f7cgw9reIXHd+KVDOH+tlAkCCASG0kLtQjUPnXJUsY7Zl0ZejbLLPU8a1lav+xm7j9yyg7U5RO23vpKCv16zWtwrFRqu7Kbkd9xIiN1KC9GLJhL1KXMUhNkS6jt0NHfoxpDbfYgyPPTE3GXsd8fmIze773xmntllNdA==
+ b=H/RmtdRguAJihKLDWu/gzmEYvsJ7Vjix1Fh0kPD1F62CojIYxVvoHgckNmv6klcj13sd+FO1r56K3bJ6bK2KWzhFmvWpKisGkBdG/J53EhF9r4hXz4flP67l4u7n9JhugmVasrCDcFPLn1XUSsJ0vCWcpDk6m2CaxvkkMBTSjye3ww/Q564PL64cL6jNPulvOMiNCyWBUrun9rTpL+k6FTq7bJRne3pYat16/SuqGYnTRfHoj6ucUECDs0GvwTsLhQm3d3o9pQB/FIQWVLHjEA27l44LCtZpzWHR4Ya2lH6N80n+UfGlbTPrqGYKYPNhWq39FYakhr+dj8Slv52Bjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vAz0dOMa0/4Yy8Gxep5QQhcBHzP631pC85dKOLs/WGw=;
- b=MvKuVKUjCDEJmXLVpfelNq7Tyzn47Sx3IdwTrKNHjNCu69IDZWDShkgbJkgT+pgmHVotlBI5/Cg5IKMqTvYF37iBdMTP7d0SKfPrpwL28bW4HDoJ6woUylqOx8APDyFbB870dNOROCgMMPlIxBPw3V6W4orCuepGizxCLp3SdMuHqeUbqct75VKrcBHG3dOam4fk1pFvEF4oL1erKWJ5MYqMyQl0ODcV6fer85i/uCVWP2FJXwcmKX0BrH8lyzRbHuZBwbZySyWxUsL6NvGFOWrsAOABDG6pdZ0BJ2QjufGLZZtVdh+1+BO8do3Jw4ULRshgGWc8kUQU3WHbpYKQWA==
+ bh=Q0h9pEFbPa5hnZvsZDE7nPiuxfcEo/jxxJF9svtPoaw=;
+ b=hfAELbBBZFuMj1uKpyj5eD2+LEZdqVjQsed9QK4o7bce9zIrJYK8N8dmiWwCxpM0IpkdNX8hjD15NziAWmn5WsFurUpkj3/r+x8zrxKcwKp0MtNRSYdnKCnNT7JS7LpBJa/Dtkprwg2onT0dGsCKrMz9ZWseSZsP6cRsT5NMWxiFkGxBm/uA8uCmy/lIMxxiCVbUxIliax2w1/H7Uu32ci1pz40KYwoxa+VNOGAByQ64OejKLxiAC50TL8KZGJYnqGnoGEuqihqw295bpuQ0tK9ie9pnbQ/rCD6w/TJOMNhMVWh2wc6GnzwY0mSJds+g1Fb2Avzoq5nBL3CmlK7brg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vAz0dOMa0/4Yy8Gxep5QQhcBHzP631pC85dKOLs/WGw=;
- b=BSYGUHqKrqkPr7kKCNKUhUqZ2i0Xb0oZqLngPpqmToqh81vRUNQeRHx9igxPlupfEuW7xt8kvwXhQeF/k0NSj7EJvQT1EbU+/bDdY+pv57NmDq2YMF+QFC+HMs2Jf+rLdjKUQ9m4MCCWbABqLQbnAW6z86RUd/kdAVpWl120Es8=
+ bh=Q0h9pEFbPa5hnZvsZDE7nPiuxfcEo/jxxJF9svtPoaw=;
+ b=QroUGGJF87Zd815V6jyL1lJqFNv1EO6WvF2LTn8o5OFyouKySlEDMc3Z1VHty+XgUtS2qtTsNMKxm3SGefj7WYtn/tzF23y5UDQHOSYmb4Edo/wkq9zBf6wCu+W+4FWMWdPDiVJqQ2face78QFFGVbTePyMbmWGuKCOMh7C6gW8=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MW2PR12MB2553.namprd12.prod.outlook.com
- (2603:10b6:907:9::32) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:301:5a::14) by MWHPR1201MB0111.namprd12.prod.outlook.com
+ (2603:10b6:301:55::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Wed, 20 Oct
- 2021 06:52:16 +0000
+ 2021 07:52:05 +0000
 Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
  ([fe80::55c7:6fc9:b2b1:1e6a]) by MWHPR1201MB0192.namprd12.prod.outlook.com
  ([fe80::55c7:6fc9:b2b1:1e6a%10]) with mapi id 15.20.4608.018; Wed, 20 Oct
- 2021 06:52:16 +0000
-Subject: Re: [PATCH v2 3/3] drm/amdgpu: recover gart table at resume
-To: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: andrey.grodzovsky@amd.com
-References: <20211019181449.12356-1-nirmoy.das@amd.com>
- <20211019181449.12356-3-nirmoy.das@amd.com>
+ 2021 07:52:04 +0000
+Subject: Re: [PATCH 00/13] drm: Enable buddy allocator support
+To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: daniel@ffwll.ch, matthew.auld@intel.com, alexander.deucher@amd.com
+References: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <e80e95fa-5acc-1cc4-dc38-14c7469144a8@amd.com>
-Date: Wed, 20 Oct 2021 08:52:09 +0200
+Message-ID: <976374b4-6852-15f7-fcbb-eb260fbd6409@amd.com>
+Date: Wed, 20 Oct 2021 09:51:56 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <20211019181449.12356-3-nirmoy.das@amd.com>
+In-Reply-To: <20211019225409.569355-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-ClientProxiedBy: AM5PR1001CA0031.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:206:2::44) To MWHPR1201MB0192.namprd12.prod.outlook.com
+X-ClientProxiedBy: AS8PR04CA0094.eurprd04.prod.outlook.com
+ (2603:10a6:20b:31e::9) To MWHPR1201MB0192.namprd12.prod.outlook.com
  (2603:10b6:301:5a::14)
 MIME-Version: 1.0
 Received: from [IPv6:2a02:908:1252:fb60:6048:8836:7968:5df6]
  (2a02:908:1252:fb60:6048:8836:7968:5df6) by
- AM5PR1001CA0031.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:206:2::44) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18 via Frontend
- Transport; Wed, 20 Oct 2021 06:52:14 +0000
+ AS8PR04CA0094.eurprd04.prod.outlook.com (2603:10a6:20b:31e::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4628.16 via Frontend Transport; Wed, 20 Oct 2021 07:52:02 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 84896fd4-9f26-45b0-e161-08d9939626f4
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2553:
+X-MS-Office365-Filtering-Correlation-Id: 11324c7a-ef67-4c67-207d-08d9939e81f7
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0111:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2553C35439FF9F44FDC8C85383BE9@MW2PR12MB2553.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB01112FCABCC8A76EB9FD635B83BE9@MWHPR1201MB0111.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +fRpYCwFBe5FiCwMcwWEVkEANRw8gQayHObwC6t62jjgOe+B46ZSqqPl0XrTThG7AHboROEKGBJpiGzi48QCBRU1buUD4Vy6XQcAexvGITXgkfYIr5/hMHzWrBQnlOM2MZ/uDgXdqqmubn64HQkcXqWnqulp4u0Tq5KChhBjsXhPtaUPDstTKP6aNK4Dts9mXOeY12mHMvliUik+FObBjmDAYT9ql2EQdUS4u6uZaxkjBQZRX9CnAwB6X9qg+PsjPkkzJlQR8cif2jbavyJVxML2Q6Q3cFWSQ+E9brI8qCFRUsgTk2LZflibkU0JfNdS0HjxQQcJveYr69PnqT/exLCwfMUmZWt3BnKWNulebL25MyzrvcXKWjCBAxqNoHe9bckzMb8aWrdvAkb5eVnKz4KWIgmQzzBdmTZrOieMCcZ0yM5F6eh6lSoZJzki4AmHQzcrtY+BlmjtU8Lm2+ImSNYIeV0f/3NQnOQ5xkwWtk9Wre/MMyiRM6+KVd3CmbBdDvfFaKRCrWWBHjW4R3bn692Dar7yGvxxJwvVihPep7omQheJKZFQD0m7TRNfv6VmXRGGt8Xc0b5ZRgXxqOyaYxssrydz6eb/Jk4G3z1yC63hO9XsCijP57bWclAR3/9Xu32McWDFEX1tA9JSVKxzM6rqHX82yDtDM5RoOPEGPS8i8aj6zrFSwtqEFohfd7byBYVK6fvdA1bQNOx8dY4TLA+WM8K+cz19eGtoogK2Yweix/NVUuzBwL8yRPOGM70M
+X-Microsoft-Antispam-Message-Info: sZQq3l3p9+qhpx91dO9hVQUrjYw/YtVIhd3pIYXZeuyYVT67GxXkJOB7Zp3rfOCKJu43cfpIQ5DrjgZ1QFpsXWSaWIXbiY6kroAHIC1ItyUv9tTHaF3BN1aKXKFtd2uB8Yy2F1AsM+Ha/IJgZ/p78oChCfOrph30CWVXHirdRrvq26z3tCDFzbcXWUP8onu7O/lk9DP0pn8XLp0Qz2r5H7pazfZnZNrmbuIT/2oLXLd2gcnr2L1QV30rz0cCzNIhAh5V1UbwgBzCCKaYLLfrQ8w5vnW468jIEa7mb35BVufcKZKp+gO0yiYgOqWGMPaekeQsF51UP0hMgJc41Rs76UMgmKO85x4TeQsA9xX9asx9CR1ZQolhcLAehNuk27v/1TLjdKSC3aGWdnVASFa81VAYLLDdBTzg+9qaDX8Uv3EMgyTmAcgSGizTF6tMq4hcv9LOWFuYeMjZp5+6RGycyIFXLEC364Ld4OI/Ybddl7xTUInMe1KnXRlR3CeozfGk1JuQVYPUo+kOJ+FouhzTkEKtaddMlbwynlucMfgSVdEzhBP6vwassh5WugErFUAeJ9j6RjQIVTa4BdO6/Es+HKBhce1T32DTrB6OW1f7TYTsm4HT7Ttaaz4jdwaVrfcwwCM1QKII6pQDsIFRyOTCn3Xz1ehDNgVCEbNABA1X4mjr/L3oSHUnDXbLbpYg9iefHb7rOmPo2nn11LN33p5i5xF+XUfXAWhSQ0LkuvtQteJVA//K8QyqueI5rkGFGnJO
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6666004)(31696002)(2906002)(6486002)(66476007)(2616005)(5660300002)(31686004)(36756003)(83380400001)(316002)(38100700002)(86362001)(66556008)(508600001)(8936002)(66946007)(4326008)(8676002)(186003)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(83380400001)(66476007)(86362001)(66946007)(6666004)(66556008)(8936002)(2616005)(36756003)(5660300002)(186003)(31696002)(2906002)(38100700002)(4326008)(508600001)(8676002)(6486002)(316002)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1lYY0NXSEVtOEFNUHdPWW9TZHc0UXFBTjNQZ0lZTGNHZXVHRFBBRVBhU2Fq?=
- =?utf-8?B?SjNnWnFZTWdCU2Y1V0ZSVlcwQkdScTlWdHFVNTVUTDZ2dm9ibVM4NFltVnVa?=
- =?utf-8?B?bE91MTRqMTRMVlFmL2U5RE91ZTdvZmhhTi9ZblRjUldTWitqaG5kUGRFUWpw?=
- =?utf-8?B?Zyt5c2o2MC9VSjh2cUlLNlh0ZUw3RmgxMFM3TWdSZ2ZORnJSK1p5WkxoSEFP?=
- =?utf-8?B?MG0rS0hGM1lRM2EzaUczMkxyTVE3ZDZCUy9BWnhtaE4rY3JoR0RNdkEvRXgz?=
- =?utf-8?B?NHBUNVRXdGQvTzZLSnlLaFVCR21PRmdPNmNiVmZqQlcwVVE5cytMVUFhcmY0?=
- =?utf-8?B?N2p3TFVJblRaZXlSR0FJWS9WeDFrQlNUSjNDS3UwWVdOWks3OXhBemFKbHlR?=
- =?utf-8?B?WDFMTnQvUXA2TVEvWjNQWFFqTnVSWmFJdFJPZGhURmY5MWwwRHRpT2ZiM1Vr?=
- =?utf-8?B?VWlMZ1RKdmROT0l1T1R6TElMWTFZRmF3ZExxVS9aM0lWU2ZrTmQvUVdLQ0oz?=
- =?utf-8?B?Qy9rY0xvNVR5cEdCQURnNWxjemkycWJMT05CQlFjWXlNZEdBQzFxeXZTNHlt?=
- =?utf-8?B?SDVtU2ZwRnFxeGk5NGxka0dIN3d2UzREZXNGM0h2cHI1cGcrNk45WVBpSmND?=
- =?utf-8?B?NVlGblJQYThreEhMSWJML3hzZnQ1aDFxcE1ld1UxTWhpNlVURURPMkRlOSt2?=
- =?utf-8?B?cWRBVjJyV2tYaHNkTEJ1c09qNC9OUXl1Z1AvRnk1QThqRnVwb1J6M3BicjlR?=
- =?utf-8?B?UGhDT3kvMHZFSGd3RktETDd5ZjJNb0VJOFhiSW9EMGJ5WTN5TDJnaTk0aGxy?=
- =?utf-8?B?cmNpUUFuV3BQcDdzc1M4OE9UZU5HRDBPcExqRk9UZVBxL0VWaVpXQTJmejhD?=
- =?utf-8?B?eFFZYkRFd1BEM01oUEkxNXg2ODRLMU8yVDZjWXFnQjFmYmNGOUhXQjVEMGx4?=
- =?utf-8?B?UlVMckNrWEIzVmwrNHhEelFBOHIxdFpiek1MWHlwMTRpeERjWWZBNDZyMU9L?=
- =?utf-8?B?bHo2eDkzbXVYQmJuRFhkU3l0aU1FVUx2eFVpSXNvelBRV2pySmdZRkxESFFB?=
- =?utf-8?B?RlRoVGR4WEpic2twdmVqcEk2ZWdIazRBT0VmMEFrMzU3WDNvcHIyR3lndEpF?=
- =?utf-8?B?STlDRFIyQlRQMlR6dVZvSkZkWklsRktpaWNVdHJvSGZ4U0ZaK21xcHF2czdX?=
- =?utf-8?B?TklJTWtTSXZXVGJ2OExuY1VGcFJLbkpzSWZVL0pBcnRaQ1FTR2tLaUhuMjdC?=
- =?utf-8?B?NGx6MC9uZFVKQUVVWkUrQUFZd2ttMGFQbVI2RHlzWlFCbDhjdVkwVHdYWUIr?=
- =?utf-8?B?aE81cWVBZy85dS9LbmFoa3J3bW1FRW9vNDNpQUphaFluZHpsZjRRanF1eWpM?=
- =?utf-8?B?T21iZ1pqeG93cUcrL3NXRTFPTmFvaFZMYi8wQnAvMmFHQUswV1JaMXZONkE2?=
- =?utf-8?B?RG14K2hUdXJFaE1CL212Z3d2T0ZmNE91R1dheE40SkYxeGhXUWVtTlZtZ0RV?=
- =?utf-8?B?S0RlR24wYkxNM1NRSTlsTWVNZk42aXgvcGdPcnNuMkJmL1BYWDJlVjVIQnZE?=
- =?utf-8?B?TUlBWHlWRTZHcWVvTXNMTkpTcXYrSW1LWWZLdDV3T09hYnExWXlxZHp5Zmhm?=
- =?utf-8?B?L2NGSmhlZ3NXeTRVN2NDS2xYVXJKT2xQTWllYzNoSUkxMTVobm1QK3pxbkc2?=
- =?utf-8?B?MzRNQjc4UWZkRklXTW9OWk1NcVF5ckt5Nk04K0pzMVlzbFFvZVZmUjhvYjBm?=
- =?utf-8?B?bVZDM1JLQ0c4R2tzK3I0RzFwdTJOaEcvVmpJdzJDbCtPUGNtOURYeW5ta0pX?=
- =?utf-8?B?T01nSnlwdFdEaExQbHJFaGIrS0NDSG9pc2wyMWVjSHd5azB3OWhTTW1KTjV6?=
- =?utf-8?Q?XrUB4Z7XHnwBw?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2ZoTThscVdoZ3N4ajhXOUpjQWpoMGJXcDFpK2hGWlUxeGk4OHU1M0VwVG55?=
+ =?utf-8?B?eG4wNURwZUNmemNQMmEvTWl4Vk1IeTFZREc3aklzWURhK2VmOXpITlVQM0No?=
+ =?utf-8?B?VnprWUFXTW5hbklLTitUbmxBeUhMbUNkT0VySUxNVXVsTEIwZGZOVWJOalNX?=
+ =?utf-8?B?NTB6Z1JHVGNGbm45Z1VsNElEQnR1NGtoVUI0U0g4YktQYklmeDJOc2o2Y2o3?=
+ =?utf-8?B?d1JmenFORFRGbGcwTWhzcmNtZmhLRUpuTWZFdUcvc1U5bDE3Y25ObEJGSjB0?=
+ =?utf-8?B?L2o4b1RqcTRpcFNhZWdHcGYwdGFaVHlwRzZUcTBGM0tMUVJGZE5Gazh0SU43?=
+ =?utf-8?B?UDdReHg0RHpVWUNDZHRhejRudmZpOTlVcE5BL2s1c2g0VmVYZE81WjNReklr?=
+ =?utf-8?B?bUErcUlKRTZhdVdIV0dvY0VXSGlHdHpBc2pGNVczRExCV2crVDVHbFprMEZY?=
+ =?utf-8?B?TEsvUXhWRGFIb0FGNUw0NC9wRzhjS3A3YTM2QVBhMWxDNk1RSGVackF5L0oz?=
+ =?utf-8?B?eXV5My9XaVRZKytxWDR4Q0RncDZPYlJRTEFTMUJYYlZyZm51dmcyMGl5SFhK?=
+ =?utf-8?B?eXdsRFdUUVZrVjhONWNWME1wZGI2RWsyMnhrM2c4U0tTK2Jkb2V0blQxVk1G?=
+ =?utf-8?B?NFlQWnA1UVQ1OVRheUExdEY5UnlTbllFTFZNdWlmK0JNMWVJZktrdWdDc3J3?=
+ =?utf-8?B?anFDbzlsWVpXQ1lPTXE2OWtkYk1hb3JaekFJZ1ZZelgxUlgxTklTK2ordWVH?=
+ =?utf-8?B?SzUwbXBJQnBKamlUbkYyUnpiWVpXNm9YOUVtQUxLRFpBS056eGJud3FZa3B3?=
+ =?utf-8?B?ZFAyVVM1aGY2RkVrRHA4bkU4TFRVSU53KzJXUmorSGpCSDN5RzhnbmNIYk9W?=
+ =?utf-8?B?WUkzR0kvZUx2dVN4R1BYd0NnTWZnaThGUFl3cXlqVG1wQ2dBNmkrQ3JqY0E5?=
+ =?utf-8?B?LzhTSHVaSzNmYXV3UU9ZdGh5QXV3SlVVNFJ3N0V2YmcrSy91UXdZckJyZm5v?=
+ =?utf-8?B?TXBPSnBPQm52NlltZXNxY3VBSTc0VHE2clFDczFTMktsQi85T2tDYkZ6Wi96?=
+ =?utf-8?B?Zy84YVpLVXNrYTFvWHlpRkYvalJQU1B1N1NzOWNSKzByUUsva2JPMlcwWUF4?=
+ =?utf-8?B?U0ZkSEZEclNPUXRzR3RSVXYvMEFvUStWZTZrSDA4ejN2TGpHU1Q5R3VhWFFV?=
+ =?utf-8?B?aTB4RGx2UzgvYXl1OGFzSS9MYWpQQzVvaW5nUysycFlLMnBLaWtpcVQ2Ulh4?=
+ =?utf-8?B?Ukpab2tjKzVsdFh4NkY0OFVCYlV1RTA5RDN3dE5vbVczTzR1TkNPVkFwdmZn?=
+ =?utf-8?B?aTJtSnByUkJYdkpLV1pyQURGTDBrMmdBemNpNFhLMzZ4RlNqWWNvd09oUk9m?=
+ =?utf-8?B?aGE4THA5b1FpTzJzby9xeGdYTjNLckVMZVNrcnlPNlNOTksrQkFDRURSN1FB?=
+ =?utf-8?B?YlplUGowUHY3cFlEMHNoRnNFcjZGMHU3SE1tRzdySTV2ZC9xVTdoUzhvc3Ns?=
+ =?utf-8?B?NVRIZ0VPU1gvMHN5T0dpTlpoclZwNSs2eUZoVGFGUHVMazU4L1dvdmFsSzR1?=
+ =?utf-8?B?N2V2di9OSWZuc2tzdGxlRGdDZk8yMVl1SmVvTHRDWHNVWnRyRE11dlNUQjhq?=
+ =?utf-8?B?L2ZURDYwTEdYcWUvR1VYVDRmek1wMUVlOVRuQ2VjV0lvaktObEx4c3B3MktN?=
+ =?utf-8?B?RnMyYjNWMmJaVGhlSUJVcS9TYW9STFl3K0xNZUVDRUpsV3ZCTHVRVjlRUHgx?=
+ =?utf-8?B?eWZvTEJjNlBwYk5lbnc0Y3NrR3RFcTFhakM3cTVOY05ISUpzTFd4aU1MRDl3?=
+ =?utf-8?B?ZE5wSkZNbGtqNkhmSG9JUnJRUGsrVEJQejhSQ0VSRHZ4cHpTT0xaQXliUXU5?=
+ =?utf-8?Q?lI3CJMraSGACg?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84896fd4-9f26-45b0-e161-08d9939626f4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11324c7a-ef67-4c67-207d-08d9939e81f7
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 06:52:15.9155 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 07:52:04.7296 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PdPJRUQjqxH2zNeiGTiTFq7DGAvpg3eIrTlSuL6nGQjAyOSfnDciR9tGwwZ6pv+P
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2553
+X-MS-Exchange-CrossTenant-UserPrincipalName: nJXPwPfl+T3NAZyhdIalHeSXpIIfDdymD/8ffW159oI1zTsGBQDO8r7E7X9CPyja
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0111
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,222 +139,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 19.10.21 um 20:14 schrieb Nirmoy Das:
-> Get rid off pin/unpin of gart BO at resume/suspend and
-> instead pin only once and try to recover gart content
-> at resume time. This is much more stable in case there
-> is OOM situation at 2nd call to amdgpu_device_evict_resources()
-> while evicting GART table.
->
-> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   | 42 ++++++++++++----------
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  9 ++---
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      | 10 +++---
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      | 10 +++---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  9 ++---
->   6 files changed, 45 insertions(+), 39 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5807df52031c..f69e613805db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3941,10 +3941,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
->   	amdgpu_fence_driver_hw_fini(adev);
->
->   	amdgpu_device_ip_suspend_phase2(adev);
-> -	/* This second call to evict device resources is to evict
-> -	 * the gart page table using the CPU.
-> -	 */
-> -	amdgpu_device_evict_resources(adev);
->
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> index d3e4203f6217..97a9f61fa106 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> @@ -107,33 +107,37 @@ void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
->    *
->    * @adev: amdgpu_device pointer
->    *
-> - * Allocate video memory for GART page table
-> + * Allocate and pin video memory for GART page table
->    * (pcie r4xx, r5xx+).  These asics require the
->    * gart table to be in video memory.
->    * Returns 0 for success, error for failure.
->    */
->   int amdgpu_gart_table_vram_alloc(struct amdgpu_device *adev)
->   {
-> +	struct amdgpu_bo_param bp;
->   	int r;
->
-> -	if (adev->gart.bo == NULL) {
-> -		struct amdgpu_bo_param bp;
-> -
-> -		memset(&bp, 0, sizeof(bp));
-> -		bp.size = adev->gart.table_size;
-> -		bp.byte_align = PAGE_SIZE;
-> -		bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
-> -		bp.flags = AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
-> -			AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
-> -		bp.type = ttm_bo_type_kernel;
-> -		bp.resv = NULL;
-> -		bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-> -
-> -		r = amdgpu_bo_create(adev, &bp, &adev->gart.bo);
-> -		if (r) {
-> -			return r;
-> -		}
-> -	}
-> +	if (adev->gart.bo != NULL)
-> +		return 0;
-> +
-> +	memset(&bp, 0, sizeof(bp));
-> +	bp.size = adev->gart.table_size;
-> +	bp.byte_align = PAGE_SIZE;
-> +	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
-> +	bp.flags = AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
-> +		AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
-> +	bp.type = ttm_bo_type_kernel;
-> +	bp.resv = NULL;
-> +	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-> +
-> +	r = amdgpu_bo_create(adev, &bp, &adev->gart.bo);
-> +	if (r)
-> +		return r;
-> +
-> +	r = amdgpu_gart_table_vram_pin(adev);
-> +	if (r)
-> +		return r;
-> +
+Well please keep in mind that each patch on its own should not break 
+anything.
 
-Instead of all this you should be able to use amdgpu_bo_create_kernel().
-
->   	return 0;
->   }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 3ec5ff5a6dbe..75d584e1b0e9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -992,9 +992,11 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
->   		return -EINVAL;
->   	}
->
-> -	r = amdgpu_gart_table_vram_pin(adev);
-> -	if (r)
-> -		return r;
-> +	if (adev->in_suspend) {
-> +		r = amdgpu_gtt_mgr_recover(adev);
-> +		if (r)
-> +			return r;
-> +	}
-
-Please drop the in_suspend check here.
-
-If I'm not completely mistaken the GTT domain should already be 
-initialized here and if it's not then we can easily check for that in 
-amdgpu_gtt_mgr_recover.
+Especially patches #1, #2, #3 and #10 look like they need to be squashed 
+together to cleanly move the i915 code into a common place.
 
 Christian.
 
+Am 20.10.21 um 00:53 schrieb Arunpravin:
+> This series of patches implemented to move i915 buddy allocator
+> to drm root, and introduce new features include
 >
->   	r = adev->gfxhub.funcs->gart_enable(adev);
->   	if (r)
-> @@ -1062,7 +1064,6 @@ static void gmc_v10_0_gart_disable(struct amdgpu_device *adev)
->   {
->   	adev->gfxhub.funcs->gart_disable(adev);
->   	adev->mmhub.funcs->gart_disable(adev);
-> -	amdgpu_gart_table_vram_unpin(adev);
->   }
+> - make drm_buddy_alloc a prime vehicle for allocation
+> - TOPDOWN range of address allocation support
+> - a function to free unused pages on contiguous allocation
+> - a function to allocate required size comply with range limitations
+> - cleanup i915 and amdgpu old mm manager references
+> - and finally add drm buddy support to i915 and amdgpu driver modules
 >
->   static int gmc_v10_0_hw_fini(void *handle)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 0a50fdaced7e..02e90d9443c1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -620,9 +620,12 @@ static int gmc_v7_0_gart_enable(struct amdgpu_device *adev)
->   		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
->   		return -EINVAL;
->   	}
-> -	r = amdgpu_gart_table_vram_pin(adev);
-> -	if (r)
-> -		return r;
-> +
-> +	if (adev->in_suspend) {
-> +		r = amdgpu_gtt_mgr_recover(adev);
-> +		if (r)
-> +			return r;
-> +	}
+> selftest patches will be sent in a separate series.
 >
->   	table_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+> Arunpravin (13):
+>    drm: Move and rename i915 buddy header
+>    drm: Move and rename i915 buddy source
+>    drm: add Makefile support for drm buddy
+>    drm: make drm_buddy_alloc a commonplace
+>    drm: remove drm_buddy_alloc_range
+>    drm: implement top-down allocation method
+>    drm: Implement method to free unused pages
+>    drm: export functions and write description
+>    drm: remove i915 selftest config check
+>    drm/i915: cleanup i915 buddy and apply DRM buddy
+>    drm/amdgpu: move vram defines into a header
+>    drm/amdgpu: add cursor support for drm buddy
+>    drm/amdgpu: cleanup drm_mm and apply DRM buddy
 >
-> @@ -758,7 +761,6 @@ static void gmc_v7_0_gart_disable(struct amdgpu_device *adev)
->   	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
->   	WREG32(mmVM_L2_CNTL, tmp);
->   	WREG32(mmVM_L2_CNTL2, 0);
-> -	amdgpu_gart_table_vram_unpin(adev);
->   }
->
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 492ebed2915b..dc2577e37688 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -837,9 +837,12 @@ static int gmc_v8_0_gart_enable(struct amdgpu_device *adev)
->   		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
->   		return -EINVAL;
->   	}
-> -	r = amdgpu_gart_table_vram_pin(adev);
-> -	if (r)
-> -		return r;
-> +
-> +	if (adev->in_suspend) {
-> +		r = amdgpu_gtt_mgr_recover(adev);
-> +		if (r)
-> +			return r;
-> +	}
->
->   	table_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
->
-> @@ -992,7 +995,6 @@ static void gmc_v8_0_gart_disable(struct amdgpu_device *adev)
->   	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
->   	WREG32(mmVM_L2_CNTL, tmp);
->   	WREG32(mmVM_L2_CNTL2, 0);
-> -	amdgpu_gart_table_vram_unpin(adev);
->   }
->
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index cb82404df534..732d91dbf449 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1714,9 +1714,11 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
->   		return -EINVAL;
->   	}
->
-> -	r = amdgpu_gart_table_vram_pin(adev);
-> -	if (r)
-> -		return r;
-> +	if (adev->in_suspend) {
-> +		r = amdgpu_gtt_mgr_recover(adev);
-> +		if (r)
-> +			return r;
-> +	}
->
->   	r = adev->gfxhub.funcs->gart_enable(adev);
->   	if (r)
-> @@ -1793,7 +1795,6 @@ static void gmc_v9_0_gart_disable(struct amdgpu_device *adev)
->   {
->   	adev->gfxhub.funcs->gart_disable(adev);
->   	adev->mmhub.funcs->gart_disable(adev);
-> -	amdgpu_gart_table_vram_unpin(adev);
->   }
->
->   static int gmc_v9_0_hw_fini(void *handle)
-> --
-> 2.32.0
+>   drivers/gpu/drm/Makefile                      |   2 +-
+>   .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    |  97 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |   4 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  | 251 ++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h  |  72 ++
+>   drivers/gpu/drm/drm_buddy.c                   | 704 ++++++++++++++++++
+>   drivers/gpu/drm/drm_drv.c                     |   3 +
+>   drivers/gpu/drm/i915/Makefile                 |   1 -
+>   drivers/gpu/drm/i915/i915_buddy.c             | 466 ------------
+>   drivers/gpu/drm/i915/i915_buddy.h             | 143 ----
+>   drivers/gpu/drm/i915/i915_module.c            |   3 -
+>   drivers/gpu/drm/i915/i915_scatterlist.c       |  11 +-
+>   drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |  91 ++-
+>   drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |   5 +-
+>   include/drm/drm_buddy.h                       | 164 ++++
+>   15 files changed, 1214 insertions(+), 803 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+>   create mode 100644 drivers/gpu/drm/drm_buddy.c
+>   delete mode 100644 drivers/gpu/drm/i915/i915_buddy.c
+>   delete mode 100644 drivers/gpu/drm/i915/i915_buddy.h
+>   create mode 100644 include/drm/drm_buddy.h
 >
 
