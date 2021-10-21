@@ -2,104 +2,52 @@ Return-Path: <SRS0=oZ58=PJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8293C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 16:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 476F8C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 16:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A6D16108E
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 16:01:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A6D16108E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0E50F60FC0
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 16:08:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E50F60FC0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C4D06ECBE;
-	Thu, 21 Oct 2021 16:01:36 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C76E96ECBE
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 16:01:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U3A3hRtFb58n5xwerWq/OflsGtlRE1zyK1ZMXCP39zrBWmkzmA3upm6bRVi6b8vrPSkwrKkFl49pEv++xaFxgIuTaHiIinDR9wAP5xGzntPDG32MaBcjzLZtN3AyVAM7bwmoPmMoAJO03iWYHdGUIMgHTWN3D1sbb2X2gqfT3JLMb5ORkqq80Y8vsakt89rNHDpupqVGpKUnhfdfZcafrwOLZ5jEV/Fy/Q7vLrEoGj8XroC6Re8p6N8IvqTTC7aelnDu9pI/rSFwCupq7bx2va9IoMOoAYdcUlh9dA5mr0liOzGjh8qRoVxUwa1npic17KHxCSXKh0mRlzWuPeibCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sNOmlhZG4e8sSV+ki9PqFyTyI2u6hIK3m6GtW7XrrIc=;
- b=gQpz26dmMWVssmznm0evtIVq+7P7tj/FpcM8Cd9EXemX9gNV6Xqitmj7zUbJ2r9AZDIa/OfnIaiEKOBbbKH5PM21PzNRBDJI1WeKz/rgFVZm5knWTeLwh+g/kBudQy/nDRHbat8M4V3E7oxXDCmDq5THRlmEezN+z9O5InfDanXBMeijymHuCxT7tia/JzK9hy6RTWv3bamM5d1wioPAysTi2DBbec3bdY+k2NTA6yI2+FtN4xD+3wy7Y0twkKtWE45F2BIONojuLq7V+BKQsYwrM7GJQqJ0Rx9G9lu5qZgPVh82Bng6lWmf/wASuGCB+Qf6RjhvAqaVKsZD5L9T9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sNOmlhZG4e8sSV+ki9PqFyTyI2u6hIK3m6GtW7XrrIc=;
- b=a6B8iWTfTqdFcSqHo6IF7pkyYQ58CtteofmdKP2vlL/Aadkk/dWxIY1dNGCgA+jPQaYH70B15rV0MyjBLWyWTLr2lsAq+j5s62biiwmy3BQWAb70pmQXKpQE+O2NFFnct0mqBo88fJ7wU/ikCW26Ny/ju+qnpmX4lYSv0LfdWEA=
-Received: from DM5PR06CA0086.namprd06.prod.outlook.com (2603:10b6:3:4::24) by
- DM5PR12MB1433.namprd12.prod.outlook.com (2603:10b6:3:73::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.18; Thu, 21 Oct 2021 16:01:32 +0000
-Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:4:cafe::29) by DM5PR06CA0086.outlook.office365.com
- (2603:10b6:3:4::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15 via Frontend
- Transport; Thu, 21 Oct 2021 16:01:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4628.16 via Frontend Transport; Thu, 21 Oct 2021 16:01:31 +0000
-Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Thu, 21 Oct
- 2021 11:01:30 -0500
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Kent Russell <kent.russell@amd.com>, Luben Tuikov <luben.tuikov@amd.com>, 
- Mukul Joshi <Mukul.Joshi@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Add kernel parameter support for ignoring bad
- page threshold
-Date: Thu, 21 Oct 2021 11:57:11 -0400
-Message-ID: <20211021155711.1191830-2-kent.russell@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211021155711.1191830-1-kent.russell@amd.com>
-References: <20211021155711.1191830-1-kent.russell@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 961166E441;
+	Thu, 21 Oct 2021 16:08:12 +0000 (UTC)
+Received: from mail-4323.proton.ch (mail-4323.proton.ch [185.70.43.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49D6F6E441
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 16:08:11 +0000 (UTC)
+Date: Thu, 21 Oct 2021 16:08:07 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1634832488;
+ bh=PjzLQbkDeTspeM+lvAlGyy3VwRm3FlDmOgNgAeozuQw=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=nfD+74yrGZAdClXrQ24m1DIXljkQpsZJnm7OR5L27JGum0z5LH0j3MvTqWWWPCyFe
+ kgRct57YXrSPGhWHSHOJHj3Y9QNs30EK18iHPW4LcFHS02CDMnhPnZ2dmnXaBJbJPs
+ vpqHnfs0sfxk6Rm3ljnEYsoOZh3zX45aGvd9U5MSYORPJH3+vK9i3Q2XXpw52Csh8h
+ RJfgGsB5iyuczCnzV3InL3Na0sLP79n1fZPkAYUJ3uHuTMtH13aQCj6YJZ7DQMCVaD
+ 7NEOg76BDFRcdR/vPmnrC+wif3cfN4q+yOPHbcI8joqvDOkOlyDIma/uqG57gLq1uL
+ XTZ0b1J/g9ylw==
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+From: Simon Ser <contact@emersion.fr>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] amd/display: remove ChromeOS workaround
+Message-ID: <efB1psbYCe4-s-z3dSVSYSX4IOsO5f7WiaTKoMuJP-efh_KmRNiN1AyqY_4UB21nMTAVdkW1XjuLOPEYRI8aW52SRcrEB9XoTNaYL3KxLh0=@emersion.fr>
+In-Reply-To: <6610f563-0693-54c3-c905-efabf1d4d524@molgen.mpg.de>
+References: <20211014153433.169454-1-contact@emersion.fr>
+ <7105dc75-eaba-d3b6-3d81-c92528961e0a@molgen.mpg.de>
+ <83v0yDp6ECf071d9soan6ioi2tnd6POWo1kem9kUb08Vdlf1cMkYQlKp-mD5M1e7Vnr9Y-XBdP4R8CcvuAUOZWTod-KI3DdoNhAN-hnOfss=@emersion.fr>
+ <9e6e9cbc-676d-4b2e-4a45-16f6f82d96e4@molgen.mpg.de>
+ <IbTspowQBQlcRaVOdJ40EaV2xtWsqFXO1SbYF4AXqpDPehiAwIWyuMOBmuItYsLAHxbI2wAk5vxE2ydg_WeXoehmP51XBoiHnOPlqdl1tOg=@emersion.fr>
+ <6610f563-0693-54c3-c905-efabf1d4d524@molgen.mpg.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c3ac25d-b2b1-4c6d-84d0-08d994ac0cc0
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1433:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB14334C2075F8D35C11FF157885BF9@DM5PR12MB1433.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EoGHMKun8N9XUANTc/ihb/A7APXH7Up8jUqTBwqEi/5sUpOPQ+f5rnCOp9w2iKpVYWvOI7MdLtR3//2Cpa4b6I9pvuuTsXQQ4iR4k5jIwY/KRC3xEtK08ITHPizgrGxEQLkt5xhB+AQ40483EwGqqRAhafWY83/L0Oxm5zfaD7dQ9gQEEbv3236w2euGJnAdPyjxUPJ+hbuYXRZiPl5Zr3+ObO4yxRiHqKLj1NCWdsxJWTeZo2zy4Ny0cROxqzeVH32Afnl1j4nH37uiBQJvPsAZiN1ZEBqkYbBGjy14+D4XxZkbzVReymSaHnoYHp9WCzHK41bPFMQ8/3Ymp7IQAHx1cFhe1nfsUEZUs9xMuGMTMu2E5WuGUD7bcgkbsRAUvT/cy54DpFCAQqenjRZ6PyWPLcJ5vQLRD2kKT1tXdbiJu0aThkYqdUsFBGsFcWd15cvPROAjuY7+WSEJb/yENBUfnujabsqb28IY0d3g71xcR2Q0PPevaUGJxsHgpAghaAPW2yRMc3YYUU86YwKa0ITf1KKSqcwc1dLn0K6P7obkzJlBu/WuNvxXdvrwqSGRBkZzVpu5c2TeAEnbs9aVMqk6TVFjLHvVcERsGWKeR0X4sSGtex5FB+10rb7BJJ24GO0/84NMiaq4xXNBONoB48U/mWznPPwNvAnetmQMV9RFo8O3/iKFS9tKzpDJhmKLm+9VK6ake8cVKgJK7LURrmDzJp9cqt+MypGJSqRXvbI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(86362001)(81166007)(82310400003)(356005)(44832011)(1076003)(83380400001)(47076005)(36756003)(2616005)(36860700001)(4326008)(8936002)(6666004)(7696005)(70586007)(70206006)(2906002)(426003)(16526019)(336012)(8676002)(316002)(54906003)(5660300002)(6916009)(186003)(508600001)(26005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 16:01:31.8045 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c3ac25d-b2b1-4c6d-84d0-08d994ac0cc0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1433
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,77 +59,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Simon Ser <contact@emersion.fr>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a GPU hits the bad_page_threshold, it will not be initialized by
-the amdgpu driver. This means that the table cannot be cleared, nor can
-information gathering be performed (getting serial number, BDF, etc).
+Hi again,
 
-If the bad_page_threshold kernel parameter is set to -2,
-continue to initialize the GPU, while printing a warning to dmesg that
-this action has been done
+On Tuesday, October 19th, 2021 at 10:25, Paul Menzel <pmenzel@molgen.mpg.de=
+> wrote:
 
-Cc: Luben Tuikov <luben.tuikov@amd.com>
-Cc: Mukul Joshi <Mukul.Joshi@amd.com>
-Signed-off-by: Kent Russell <kent.russell@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h            |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 12 ++++++++----
- 3 files changed, 10 insertions(+), 5 deletions(-)
+> Dear Simon,
+>
+>
+> Am 19.10.21 um 10:10 schrieb Simon Ser:
+> > On Tuesday, October 19th, 2021 at 01:21, Paul Menzel <pmenzel@molgen.mp=
+g.de> wrote:
+> >
+> >> Am 19.10.21 um 01:06 schrieb Simon Ser:
+> >>> On Tuesday, October 19th, 2021 at 01:03, Paul Menzel wrote:
+> >>>
+> >>>> Excuse my ignorance. Reading the commit message, there was a Linux
+> >>>> kernel change, that broke Chrome OS userspace, right? If so, and we =
+do
+> >>>> not know if there is other userspace using the API incorrectly,
+> >>>> shouldn=E2=80=99t the patch breaking Chrome OS userspace be reverted=
+ to adhere
+> >>>> to Linux=E2=80=99 no-regression rule?
+> >>>
+> >>> No. There was a ChromeOS bug which has been thought to be an amdgpu b=
+ug. But
+> >>> fixing that "bug" breaks other user-space.
+> >>
+> >> Thank you for the explanation. I guess the bug was only surfacing
+> >> because Chrome OS device, like Chromebooks, are only using AMD hardwar=
+e
+> >> since a short while (maybe last year).
+> >>
+> >> Reading your message *amdgpu: atomic API and cursor/overlay planes* [1=
+]
+> >> again, it says:
+> >>
+> >>> Up until now we were using cursor and overlay planes in gamescope [3]=
+,
+> >>> but some changes in the amdgpu driver [1] makes us unable to use plan=
+es
+> >>
+> >> So this statement was incorrect? Which changes are that? Or did Chrome
+> >> OS ever work correctly with an older Linux kernel or not?
+> >
+> > The sequence of events is as follows:
+> >
+> > - gamescope can use cursor and overlay planes.
+> > - ChromeOS-specific commit lands, fixing some ChromeOS issues related t=
+o video
+> >    playback. This breaks gamescope overlays.
+>
+> I guess, I am confused, which Chrome OS specific commit that is. Is it
+> one of the reverted commits below? Which one?
+>
+> 1.  ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication
+> when using overlay")
+> 2.  e7d9560aeae5 ("Revert "drm/amd/display: Fix overlay validation by
+> considering cursors"")
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index d58e37fd01f4..b85b67a88a3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -205,6 +205,7 @@ extern struct amdgpu_mgpu_info mgpu_info;
- extern int amdgpu_ras_enable;
- extern uint amdgpu_ras_mask;
- extern int amdgpu_bad_page_threshold;
-+extern bool amdgpu_ignore_bad_page_threshold;
- extern struct amdgpu_watchdog_timer amdgpu_watchdog_timer;
- extern int amdgpu_async_gfx_ring;
- extern int amdgpu_mcbp;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 96bd63aeeddd..eee3cf874e7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -877,7 +877,7 @@ module_param_named(reset_method, amdgpu_reset_method, int, 0444);
-  * result in the GPU entering bad status when the number of total
-  * faulty pages by ECC exceeds the threshold value.
-  */
--MODULE_PARM_DESC(bad_page_threshold, "Bad page threshold(-1 = auto(default value), 0 = disable bad page retirement)");
-+MODULE_PARM_DESC(bad_page_threshold, "Bad page threshold(-1 = auto(default value), 0 = disable bad page retirement, -2 = ignore bad page threshold)");
- module_param_named(bad_page_threshold, amdgpu_bad_page_threshold, int, 0444);
- 
- MODULE_PARM_DESC(num_kcq, "number of kernel compute queue user want to setup (8 if set to greater than 8 or less than 0, only affect gfx 8+)");
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index ce5089216474..bd6ed43b0df2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -1104,11 +1104,15 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
- 			res = amdgpu_ras_eeprom_correct_header_tag(control,
- 								   RAS_TABLE_HDR_VAL);
- 		} else {
--			*exceed_err_limit = true;
--			dev_err(adev->dev,
--				"RAS records:%d exceed threshold:%d, "
--				"GPU will not be initialized. Replace this GPU or increase the threshold",
-+			dev_err(adev->dev, "RAS records:%d exceed threshold:%d",
- 				control->ras_num_recs, ras->bad_page_cnt_threshold);
-+			if (amdgpu_bad_page_threshold == -2) {
-+				dev_warn(adev->dev, "GPU will be initialized due to bad_page_threshold = -2.");
-+				res = 0;
-+			} else {
-+				*exceed_err_limit = true;
-+				dev_err(adev->dev, "GPU will not be initialized. Replace this GPU or increase the threshold.");
-+			}
- 		}
- 	} else {
- 		DRM_INFO("Creating a new EEPROM table");
--- 
-2.25.1
+ddab8bd788f5 ("drm/amd/display: Fix two cursor duplication when using overl=
+ay")
+is the commit which introduced the validate_overlay logic fixing ChromeOS a=
+nd
+breaking gamescope.
 
+Later, 33f409e60eb0 ("drm/amd/display: Fix overlay validation by considerin=
+g
+cursors") relaxed validate_overlay. This breaks ChromeOS and partially fixe=
+s
+gamescope (when the overlay is used and the cursor plane is unused).
+
+Finally, e7d9560aeae5 ("Revert "drm/amd/display: Fix overlay validation by
+considering cursors"") has reverted that change, fixing ChromeOS (again) an=
+d
+breaking gamescope completely again.
+
+> > - Discussion to restrict the ChromeOS-specific logic to ChromeOS, or to=
+ revert
+> >    it, either of these fix gamescope.
+> >
+> > Given this, I don't see how the quoted statement is incorrect? Maybe I'=
+m
+> > missing something?
+>
+> Your reply from August 2021 to commit ddab8bd788f5 (drm/amd/display: Fix
+> two cursor duplication when using overlay) from April 2021 [2]:
+>
+> > Hm. This patch causes a regression for me. I was using primary + overla=
+y
+> > not covering the whole primary plane + cursor before. This patch breaks=
+ it.
+> >
+> > This patch makes the overlay plane very useless for me, because the pri=
+mary
+> > plane is always under the overlay plane.
+>
+> So, I would have thought, everything worked fine before some Linux
+> kernel commit changed behavior, and regressed userspace.
+
+I've tried to explain the full story above. My user-space went from working=
+ to
+broken to partially broken to broken. The quoted reply is a complaint that =
+the
+commit flipped gamescope from partially broken to completely broken. At the
+time I didn't realize that ddab8bd788f5 caused some pain too.
+
+Does that clear things up?
