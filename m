@@ -2,102 +2,69 @@ Return-Path: <SRS0=oZ58=PJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3F84C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 13:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BC6FC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E6326112D
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 13:57:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E6326112D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id DBFE5611F2
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 14:01:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DBFE5611F2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 113D76EC7A;
-	Thu, 21 Oct 2021 13:57:50 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA116EC76
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 13:57:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gGDV/JLdjWCoAizMCUh3kd5RbXU0VldjKq700x+Zp2dWI8DhfoHo9P3YgnVSNF0ztrar9Dz9VXwtqllXqzPgcqrW64RA7NvKP3YT/gMhRoVR+xBmXYbQR4Xi68cPHJ7aMXY8l3D7iEn2OYxU2qMSwhSCOJSHFdJqtGD/LWC04RK/18Z7rFXDDYuj759KzHGlrcBa+BK/YbLRGcJw6HjkbeANbnA6bHj75cadg04LnSCnCxP7X44N6j1pdpNQa/487KLF3JaL5SP894Q9cfAbiCKjkV42vmjbFVkn5bpZ2i1k/nw2XARLU4fl1MFg3KkFdQ004YxQML2RJ4ZhsgVGtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4lSDDzgilmM/m6INdslLx1UjkuEuLS/Wg9/F+axorqU=;
- b=OIHjU/3aJmuESwfoYTwj2je3xr9QIszb4srL1ddhy+dxGn0cJteXP2GV3E+/w/N90ysZYtVZVQzsTo5m1RcwAv5aBamXcjzUIir3u5VvaFBHP3UtlgxaLVsgvpUgQB+iEtX68HTLv24b/a0BZHwTtbNP7ntRaDq6lDnefgrvFSMCocVyHJfNWNul5vB1REQyWqXSUT3v9csfZVWbRKofYD7u7YXCCeMeSj/ZRT0QWemDW/ELqpRAhndwvpXQ0aPvHDhFYQtprS7gziEab/krD1HT+hU1wreb/N255u2nkPHTibiS2Ysg8LURtUzjZZHm9xMQ2YmrkazmbwllD5xVGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4lSDDzgilmM/m6INdslLx1UjkuEuLS/Wg9/F+axorqU=;
- b=BGTBRRBu5KIlbcVMrzkvAarhv7GAQ40Yu5u82cf5OP7Oia6rEgRHQnseAM6BfD3flV3zzmftZwT2kst2/x1NwTYkZ5FJ/mKM56y0cxv+tLVx3vgTu3V+P+wnx1Mv5dRplj/w42VFzvoh9Jlcqs/H0FiC6QEIJpNZagvbpaWwdKs=
-Received: from MW4PR03CA0153.namprd03.prod.outlook.com (2603:10b6:303:8d::8)
- by CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15; Thu, 21 Oct
- 2021 13:57:46 +0000
-Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8d:cafe::ec) by MW4PR03CA0153.outlook.office365.com
- (2603:10b6:303:8d::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16 via Frontend
- Transport; Thu, 21 Oct 2021 13:57:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4628.16 via Frontend Transport; Thu, 21 Oct 2021 13:57:45 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Thu, 21 Oct
- 2021 08:57:44 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/swsmu: handle VCN harvesting for VCN PG control
-Date: Thu, 21 Oct 2021 09:57:32 -0400
-Message-ID: <20211021135732.2033128-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211021135732.2033128-1-alexander.deucher@amd.com>
-References: <20211021135732.2033128-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 999B66E462;
+	Thu, 21 Oct 2021 14:01:51 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E29B86E462
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 14:01:50 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id r6so990178oiw.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 07:01:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=52ktmSD4+LW/TPNx/tRP7h9xebN3MTyMg9J0keAcRLo=;
+ b=Di3uOhne/ifZpXKpNXTl6WZDH10/BfnjimhPaqDhj+OFQ4CS8GBf40NKLQCA+ZkB2H
+ SskM7g6ygid6qP7ocTZiGBVZPEZbrS8TtxerXnIvS+HgP83jAyQp2MfneQbvdMIkCRLW
+ TQUbG5tgQ/vCiv0nCv7T6GMjyI0SEDbM01kEBu8stjlUekdK7Z72eosCkFDp6dMyVtEM
+ 5lT2NbXjBe4KSrJljoq6KSyd1SPtlVTtzFKYTTOq9L4IBCvIhtbWeIOgOC9KQuBr2XGN
+ 7VopRQ6faWFIMKJweAsXiKP5fiW6nt3eANKYsVcKVrY6b00zZVtlRmL51E+gLCDdn7aE
+ TUVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=52ktmSD4+LW/TPNx/tRP7h9xebN3MTyMg9J0keAcRLo=;
+ b=2/K6Osv4zqYfkwzNPubyr2a9NMoYoWP4ygt3UxwCo4QRUszVDQfu4Yv8dwIqj1G7+v
+ aw15dDLe98BRLawZlFgUV4nXCM8uIxpHw9sf6NFwXbgD9cbrLhQZB/gnGtXrdkf9wcB3
+ mzGZoG8GTRnbJUAs15HTkxFoAjG+sZJh6DB+IShLqghktreL0v8rXR48SDTWNBFHYfhv
+ mpd4YIqBsqcDh5dSXYQtCFVUWwu6Xrtadw6UDXhCgTPAEdot0N67XzlIbw9NW1ufNOf0
+ 3AMD8SHpcb5rIuwLNBPJwpZa4hkkpTehBeSyDs7IIPBOINMas/N8GAwPgt+UIT3LL3MV
+ r6Hw==
+X-Gm-Message-State: AOAM533r49+ekjE4wiFnuqC4CbmF9IMg0en9Gzl/OF/t0gcx4ERrR9w6
+ BVj+qB2TKLIgVT7qKUzaf6T1BpS/wdgVaxMKXUw=
+X-Google-Smtp-Source: ABdhPJz9AHqhGdgjzzE7VGa4LEnioCTf9VAXFecSJVuCMR5ysky3WpWHIb8CHn5g7SLNyjVLOLU/jAxL4GFhXgx/ls8=
+X-Received: by 2002:aca:3f87:: with SMTP id m129mr4719840oia.5.1634824908723; 
+ Thu, 21 Oct 2021 07:01:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 43af869e-04bf-488c-3d9c-08d9949ac2a4
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5489:
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5489875BACE6BFF6872AA66EF7BF9@CO6PR12MB5489.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:651;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MYpyW9cesdoHs2cTLPlT2UiapsRImKlquC6lbQeSLS5R4wISNojVLqQVF2yiWSuoHZo09yzD79wdrSls/DFfsJ6+B/NKyS8P85ptM7v6ws2arZojCSPmG4Zw/gHjgHI1DopZvmj6H79YFMBuQL45uIR/+B8brOyQgz87FwXs+67bbmpYfbfmPXUAdsE+My81wlVHDqRp1DRQwfUVy343VJr1kd8yW4C65T40jxEGGxIb4YSmmA9KW5eWwNy+IAM3TBx5GxwpajVDARiiGzgBnGMss0W5jPfhpCRaiPyaLUx3M6fX2QIRMM8QC6inCNAxtlfGA8PmQ9DA+rM8MmFzn7M3AM5kNI8gDCXSAd/ygAhrB8FlGXpDRnBVr5M6KOof8doHbLCLamIT9bjhnfwF4IdAXMlXjN8q0iN5CCLKr91O4SnYkSQrV3neF28LJLKhTVnGK5RzxWmpzvAU6XFBbOZLTaaR59fJCLjvDXE+XvLLYbZH6gP/4ZMv0+wR3pxgNWBn3mJulCEQKMqolj7sgOn+KeABihWADEwaJwBgqVaEYy/LhZFEJXR4bQIqLLrTIMMj3rtdaBWGTD4drCI4qeHxH+yccs3ctFo7NihfQ9ZlnwiWm0tBWTbbr4oWpxkrKTB0ZZHBnZKL4qf3/uQ7ZJZ0lacUhr2/c9a8v+uTFtymMVqikNnaRKRvvRHqDvVG7Dkd54VZJ23bwxtecizYJMynfzhm9EgyUXcXxfN+kYE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(5660300002)(7696005)(2616005)(36860700001)(47076005)(70206006)(356005)(83380400001)(70586007)(6666004)(316002)(81166007)(6916009)(86362001)(2906002)(186003)(16526019)(82310400003)(4326008)(8936002)(508600001)(1076003)(336012)(8676002)(966005)(26005)(36756003)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 13:57:45.9424 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43af869e-04bf-488c-3d9c-08d9949ac2a4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5489
+References: <20211021071512.20034-1-guchun.chen@amd.com>
+ <CADnq5_PJZDfNJOrFLsn5+FeWPm=eS4CE2d4FTdTSUKkDkDZg6g@mail.gmail.com>
+ <DM5PR12MB2469DF82D13B3FE947FCCC82F1BF9@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <DM5PR12MB2469B136862C34B770761404F1BF9@DM5PR12MB2469.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB2469B136862C34B770761404F1BF9@DM5PR12MB2469.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 21 Oct 2021 10:01:37 -0400
+Message-ID: <CADnq5_MgRY6WpyhD57zQZtJjpFqg0WTTH3=f1b2crGYK7n7Y0A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: limit VCN instance number to 1 for
+ NAVY_FLOUNDER
+To: "Chen, Guchun" <Guchun.Chen@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,60 +79,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check if VCN instances are harvested when controlling
-VCN power gating.
+Thanks.  I think this patch set fixes it in a bit more future proof way:
+https://patchwork.freedesktop.org/series/96132/
 
-Fixes: 1b592d00b4ac83 ("drm/amdgpu/vcn: remove manual instance setting")
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1743
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 28 +++++--------------
- 1 file changed, 7 insertions(+), 21 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 15e66e1912de..9326547fe5fb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -902,32 +902,18 @@ static int sienna_cichlid_set_default_dpm_table(struct smu_context *smu)
- static int sienna_cichlid_dpm_set_vcn_enable(struct smu_context *smu, bool enable)
- {
- 	struct amdgpu_device *adev = smu->adev;
--	int ret = 0;
-+	int i, ret = 0;
- 
--	if (enable) {
-+	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-+		if (adev->vcn.harvest_config & (1 << i))
-+			continue;
- 		/* vcn dpm on is a prerequisite for vcn power gate messages */
- 		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_MM_DPM_PG_BIT)) {
--			ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_PowerUpVcn, 0, NULL);
-+			ret = smu_cmn_send_smc_msg_with_param(smu, enable ?
-+							      SMU_MSG_PowerUpVcn : SMU_MSG_PowerDownVcn,
-+							      0x10000 * i, NULL);
- 			if (ret)
- 				return ret;
--			if (adev->vcn.num_vcn_inst > 1) {
--				ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_PowerUpVcn,
--								  0x10000, NULL);
--				if (ret)
--					return ret;
--			}
--		}
--	} else {
--		if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_MM_DPM_PG_BIT)) {
--			ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_PowerDownVcn, 0, NULL);
--			if (ret)
--				return ret;
--			if (adev->vcn.num_vcn_inst > 1) {
--				ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_PowerDownVcn,
--								  0x10000, NULL);
--				if (ret)
--					return ret;
--			}
- 		}
- 	}
- 
--- 
-2.31.1
-
+On Thu, Oct 21, 2021 at 9:34 AM Chen, Guchun <Guchun.Chen@amd.com> wrote:
+>
+> Additionally, in sienna_cichlid_dpm_set_vcn_enable, we also use num_vcn_i=
+nst to set dpm for VCN1 if it's > 1.
+> The main problem here is VCN harvest info is not set correctly, so vcn.ha=
+rvest_config is not reliable in this case.
+>
+> if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_MM_DPM_PG_BIT)) {
+>                         ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_=
+MSG_PowerUpVcn, 0, NULL);
+>                         if (ret)
+>                                 return ret;
+>                         if (adev->vcn.num_vcn_inst > 1) {
+>                                 ret =3D smu_cmn_send_smc_msg_with_param(s=
+mu, SMU_MSG_PowerUpVcn,
+>                                                                   0x10000=
+, NULL);
+>                                 if (ret)
+>                                         return ret;
+>                         }
+>                 }
+>
+> Regards,
+> Guchun
+>
+> -----Original Message-----
+> From: Chen, Guchun
+> Sent: Thursday, October 21, 2021 9:14 PM
+> To: Alex Deucher <alexdeucher@gmail.com>
+> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Deucher, Alexander=
+ <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.com>
+> Subject: RE: [PATCH] drm/amdgpu: limit VCN instance number to 1 for NAVY_=
+FLOUNDER
+>
+> Hi Alex,
+>
+> No, it does not help.
+>
+> adev->vcn.harvest_config is 0 after retrieving harvest info from VBIOS. L=
+ooks that harvest info in VBIOs does not reflect the case that VCN1 is powe=
+r gated.
+>
+> I checked several navy flounders SKUs, the observation is the same, so th=
+is is likely a common case. Perhaps we need to check with VBIOS/SMU guys.
+>
+> Regards,
+> Guchun
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Thursday, October 21, 2021 9:06 PM
+> To: Chen, Guchun <Guchun.Chen@amd.com>
+> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Deucher, Alexander=
+ <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: limit VCN instance number to 1 for NAVY_=
+FLOUNDER
+>
+> On Thu, Oct 21, 2021 at 3:15 AM Guchun Chen <guchun.chen@amd.com> wrote:
+> >
+> > VCN instance 1 is power gated permanently by SMU.
+> >
+> > Bug:
+> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit=
+l
+> > ab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1743&amp;data=3D04%7C01%7=
+C
+> > guchun.chen%40amd.com%7Cda80a308a28049d543ad08d99493847d%7C3dd8961fe48
+> > 84e608e11a82d994e183d%7C0%7C0%7C637704183581593964%7CUnknown%7CTWFpbGZ
+> > sb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3
+> > D%7C1000&amp;sdata=3D2vNLj9bXE2oV97rxBiUOiaFNpKopVSJefL%2BMcQE%2BSfo%3D=
+&
+> > amp;reserved=3D0
+> >
+> > Fixes: f6b6d7d6bc2d("drm/amdgpu/vcn: remove manual instance setting")
+> > Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+>
+> Doesn't this patch effectively do the same thing?
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fpatch=
+work.freedesktop.org%2Fpatch%2F460329%2F&amp;data=3D04%7C01%7Cguchun.chen%4=
+0amd.com%7Cda80a308a28049d543ad08d99493847d%7C3dd8961fe4884e608e11a82d994e1=
+83d%7C0%7C0%7C637704183581593964%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD=
+AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DjPu3Yh%=
+2B6OHR4F1BS5MWL3VyZ3pui6c0dP97Zl7yBJKY%3D&amp;reserved=3D0
+> Where else is num_vcn_inst used that it causes a problem?  Or is the VCN =
+harvesting not set correctly on some navy flounders?
+>
+> Alex
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> > index dbfd92984655..4848922667f2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> > @@ -103,6 +103,15 @@ static int vcn_v3_0_early_init(void *handle)
+> >                         adev->vcn.num_enc_rings =3D 0;
+> >                 else
+> >                         adev->vcn.num_enc_rings =3D 2;
+> > +
+> > +               /*
+> > +                * Fix ME.
+> > +                * VCN instance number is limited to 1 for below ASIC d=
+ue to
+> > +                * VCN instnace 1 is permanently power gated.
+> > +                */
+> > +               if ((adev->ip_versions[UVD_HWIP][0] =3D=3D IP_VERSION(3=
+, 0, 0)) &&
+> > +                       (adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSIO=
+N(10, 3, 2)))
+> > +                       adev->vcn.num_vcn_inst =3D 1;
+> >         }
+> >
+> >         vcn_v3_0_set_dec_ring_funcs(adev);
+> > --
+> > 2.17.1
+> >
