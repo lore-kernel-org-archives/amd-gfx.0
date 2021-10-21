@@ -2,59 +2,103 @@ Return-Path: <SRS0=oZ58=PJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC383C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 02:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A4EAC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 02:27:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95C2D611CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 02:24:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 95C2D611CC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
+	by mail.kernel.org (Postfix) with ESMTPS id D9E4D611CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 02:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D9E4D611CC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E5C26EA4F;
-	Thu, 21 Oct 2021 02:24:43 +0000 (UTC)
-X-Greylist: delayed 952 seconds by postgrey-1.36 at gabe;
- Thu, 21 Oct 2021 02:23:34 UTC
-Received: from mail-m971.mail.163.com (mail-m971.mail.163.com [123.126.97.1])
- by gabe.freedesktop.org (Postfix) with ESMTP id CF4A36EA4F
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 02:23:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Message-ID:Date:MIME-Version:Subject:From; bh=5croE
- 5CFj58p76AseTrfqIm0L8YSM0PBRqSAK6RwLQ0=; b=gH7YxwQ+Yfba0fyBwn/XE
- v2VkzeFonQ5KWOoVE4z4vXMlYzHKm2pHDJBOwJ/CAjsefNJa0eGgJ1bKCy+4FCdT
- dpyx8cYg3Pj4/iGPoP7USiohq9u9DgeXX26V4weeQRGazhUpjrryymw10YiJufH/
- ilMIG2o/NBaXArXtNz5Fzg=
-Received: from [10.20.41.172] (unknown [114.242.206.180])
- by smtp1 (Coremail) with SMTP id GdxpCgA3xE9ny3BhLtNcHQ--.6007S2;
- Thu, 21 Oct 2021 10:07:35 +0800 (CST)
-Message-ID: <4141c2c0-fa61-d5ad-7302-4718d68d33c7@163.com>
-Date: Thu, 21 Oct 2021 10:07:35 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4A26EA59;
+	Thu, 21 Oct 2021 02:27:54 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01FD76EA57
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 02:27:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Boe2uDBHrMLFWQXonP3BW5PUOHrnFXLfFSuLg5d+7CK0EvZcDfMXdELQUZxi8LB0CbzPEHY832e4hypMzLlQM+cNDX6QkPuLYzSr0Cmno6R4/WiQvX0KamkhaXlfxH/GSvtGmUFeaY4vOPy+yziRoRSTSiILCyoFa5UujflyPqF0Hf587Xlv8A2qHIiK0VIjGgRJpw9JhErbFJbWseUHJ4qeERHH0fT4d+RdDZwdN62Qtu3x9oarhuiawQGODhnayAAm6e+lzLf/Kqm+gYm27TnQxNwpqHeqd0MyuLsCUb+ZDUgerlrZ5tG+MPa8YiagNqtQHotOS77T0fZXG3nQLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wgKcSvAaS0uwSDjtsEByXN7IBhvji9lHx4WDl3O41jA=;
+ b=P/cDc9hdU4JQT9NFOeQUsJKepJLyJG2NYrZbJeOrsNzBamKaJG75q5b89lkJ2EEA1ZDhTWD2ZKsqm552ro5XMTxR3JemZQPGVZLS+WKNHju2Yc4nLDBcGg8GDHQcm3HKqM8s2e3CXGwRmdpuHVsw5P3m1WoDjqpxgK82VgbpwIyBdVbYgSYgN5zNdkYZqKfHnGK3rmXJdHubIuQXoXJXEUghl26pd2nBWlPVpMsW1dwDA6L9gaoqB2iFfVV+SyvyMGSolBK0MImuIJYZWQh6LCW6JL5R3t3Gw+3YZAh8wcosThpSeP6yRtX4vnAvVYetWlWUPSiGgi45Oz4LUsnb8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wgKcSvAaS0uwSDjtsEByXN7IBhvji9lHx4WDl3O41jA=;
+ b=sI1vo9AVTeRMua0lUlqJdWzERhqGOLgnnkKh/5PYkzX+StdBe0FQiJ0Dgp6SeQMjOUEk6NYBSaNGCWVkfbZLMFDwvuUO3zqxWonZTpda60F6hsP6/25ajJVmlFXvHIgGyTL6l6034xKnZkG8zEFZLjwFleXSaZaWi+YttnNapk4=
+Received: from BN0PR04CA0080.namprd04.prod.outlook.com (2603:10b6:408:ea::25)
+ by MWHPR12MB1487.namprd12.prod.outlook.com (2603:10b6:301:3::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Thu, 21 Oct
+ 2021 02:27:49 +0000
+Received: from BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ea:cafe::1a) by BN0PR04CA0080.outlook.office365.com
+ (2603:10b6:408:ea::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Thu, 21 Oct 2021 02:27:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT036.mail.protection.outlook.com (10.13.177.168) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4628.16 via Frontend Transport; Thu, 21 Oct 2021 02:27:47 +0000
+Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Wed, 20 Oct
+ 2021 21:27:44 -0500
+From: Huang Rui <ray.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Hawking Zhang
+ <Hawking.Zhang@amd.com>, Lang Yu <Lang.Yu@amd.com>, Huang Rui
+ <ray.huang@amd.com>
+Subject: [PATCH v2] drm/amdgpu: remove grbm cam index/data operations for gfx
+ v10
+Date: Thu, 21 Oct 2021 10:27:23 +0800
+Message-ID: <20211021022724.576045-1-ray.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.2
-Subject: Re: [PATCH 1/1] drm/amdgpu: fix BO leak after successful move test
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Christian.Koenig@amd.com, Alexander.Deucher@amd.com
-References: <20211012121018.81693-1-nirmoy.das@amd.com>
- <20211013150902.6646-1-nirmoy.das@amd.com>
- <7f990838-a3e3-333e-3237-09f4595ee452@gmail.com>
- <b246a463-0774-b4f4-8d28-86c71e791f49@gmail.com>
-From: zhang <botton_zhang@163.com>
-In-Reply-To: <b246a463-0774-b4f4-8d28-86c71e791f49@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: GdxpCgA3xE9ny3BhLtNcHQ--.6007S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZr18AF47Cr1ruw17Gw1kAFb_yoW5Aw4rpr
- WFqFWY9F4UZF17J34293WjqFyrt3WaqFyfGrWUZ3W093s8Xr98J3Z8Jr15KF95ur4kur4I
- yrWUt3y7Wan0qrJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jtxhLUUUUU=
-X-Originating-IP: [114.242.206.180]
-X-CM-SenderInfo: xerw30xqb2xtlqj6il2tof0z/xtbByRczmF1vmOg-6wAAsj
-X-Mailman-Approved-At: Thu, 21 Oct 2021 02:24:42 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a57dfdbd-4159-4cf4-938f-08d9943a5f74
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1487:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB14872EB0A987E8BCFC28D101ECBF9@MWHPR12MB1487.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wd9C+QbG/IX3SdalX1lqRx10q/5oT4gk7JM617sHmY7btcXen0AzCTDZtWyBst7PiyI90Vr3CD81QbXY3dAtTFBPzCa4RWIhLppHujQXNcaOnng0dazrN9rGLwMsHAdZOgMAipnn1d3LIaLDkmROupjeAywyJ9WAompO3N4+M2hJuAaCBdZXjGO3wXwzak/ZeT8xxCaG4QMaCP7vpSjJg+E4yDL84RFGgmrE2rH8DChguJWa+2dSSKlfBN0nE6Ulc4kviWyVOtUFfrwdpW8Wh9jH8TLrkyrRaZsmlCSK2X8IPEYhVvfqHO5oYuOmfaLYcWq/6nl5m5ecDAvutBkqC9CvE77RVX+oOzE6wzC6Wdvq5Qq3vuK0wrZOHa/jcCaCXbWy5+5ss4B8anPCJJNExOqM3ZvhYpHh5kZ+2m69zQUJXyBTEbdX3QcVIIdv/u+6ZV9HIgoWQYXWVlujyoXkSZFUJ5EZGH9eK5B/h/NSNjVv5RSbg47Gt712/aHZmeYdxCCUpFUFp1eI4JSmfIllgnNWqctmvwknNYg7ZLmt0vgoYDN5jwUhoppVKRBSd9sW7mLiU9dztDQ62NL66wU3rfA54WO4DUe39gTdkZCCZKUYiY8ab59AkvOlVCWLhctqqFUEjRWf3XP48Ow8801waPfjFEG9fV5nnad5nLxmLgDwn7P7NTCqodV2uhl3ugpgGp85eTvf8yNhvCQ8KlpsrMtrLf9+i3gMzkXSU/uvIUU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(16526019)(6666004)(2906002)(47076005)(2616005)(336012)(316002)(86362001)(7696005)(356005)(4326008)(186003)(36756003)(54906003)(508600001)(26005)(81166007)(70586007)(1076003)(426003)(70206006)(83380400001)(6916009)(5660300002)(8676002)(82310400003)(8936002)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 02:27:47.8866 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a57dfdbd-4159-4cf4-938f-08d9943a5f74
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1487
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,100 +113,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+PSP firmware will be responsible for applying the GRBM CAM remapping in
+the production. And the GRBM_CAM_INDEX / GRBM_CAM_DATA registers will be
+protected by PSP under security policy. So remove it according to the
+new security policy.
 
-On 2021/10/20 19:51, Christian König wrote:
-> Am 20.10.21 um 13:50 schrieb Christian König:
->>
->>
->> Am 13.10.21 um 17:09 schrieb Nirmoy Das:
->>> GTT BO cleanup code is with in the test for loop and
->>> we would skip cleaning up GTT BO on success.
->>>
->>> Reported-by: zhang <botton_zhang@163.com>
->>> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_test.c | 25 
->>> ++++++++++++------------
->>>   1 file changed, 12 insertions(+), 13 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
->>> index 909d830b513e..5fe7ff680c29 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
->>> @@ -35,6 +35,7 @@ static void amdgpu_do_test_moves(struct 
->>> amdgpu_device *adev)
->>>       struct amdgpu_bo *vram_obj = NULL;
->>>       struct amdgpu_bo **gtt_obj = NULL;
->>>       struct amdgpu_bo_param bp;
->>> +    struct dma_fence *fence = NULL;
->>>       uint64_t gart_addr, vram_addr;
->>>       unsigned n, size;
->>>       int i, r;
->>> @@ -82,7 +83,6 @@ static void amdgpu_do_test_moves(struct 
->>> amdgpu_device *adev)
->>>           void *gtt_map, *vram_map;
->>>           void **gart_start, **gart_end;
->>>           void **vram_start, **vram_end;
->>> -        struct dma_fence *fence = NULL;
->>>             bp.domain = AMDGPU_GEM_DOMAIN_GTT;
->>>           r = amdgpu_bo_create(adev, &bp, gtt_obj + i);
->>> @@ -212,24 +212,23 @@ static void amdgpu_do_test_moves(struct 
->>> amdgpu_device *adev)
->>>             DRM_INFO("Tested GTT->VRAM and VRAM->GTT copy for GTT 
->>> offset 0x%llx\n",
->>>                gart_addr - adev->gmc.gart_start);
->>> -        continue;
->>> +    }
->>>   +    --i;
->>>   out_lclean_unpin:
->>> -        amdgpu_bo_unpin(gtt_obj[i]);
->>> +    amdgpu_bo_unpin(gtt_obj[i]);
->>>   out_lclean_unres:
->>> -        amdgpu_bo_unreserve(gtt_obj[i]);
->>> +    amdgpu_bo_unreserve(gtt_obj[i]);
->>>   out_lclean_unref:
->>> -        amdgpu_bo_unref(&gtt_obj[i]);
->>> +    amdgpu_bo_unref(&gtt_obj[i]);
->>>   out_lclean:
->>> -        for (--i; i >= 0; --i) {
->>> -            amdgpu_bo_unpin(gtt_obj[i]);
->>> -            amdgpu_bo_unreserve(gtt_obj[i]);
->>> -            amdgpu_bo_unref(&gtt_obj[i]);
->>> -        }
->>> -        if (fence)
->>> -            dma_fence_put(fence);
->>> -        break;
->>> +    for (--i; i >= 0; --i) {
->>
->> The usual idiom for cleanups like that is "while (i--)..." because 
->> that also works with an unsigned i.
->>
->> Apart from that looks good to me.
->
-> But I'm not sure that we would want to keep the in kernel tests around 
-> anyway.
->
-> We now have my amdgpu_stress tool to test memory bandwidth and mesa 
-> has an option for that for a long time as well.
->
-> Christian.
->
-   I found a  testsuit about "bo eviction Test"  for amdgpu . in libdrm  
-tests.
+Signed-off-by: Huang Rui <ray.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 22 ----------------------
+ 1 file changed, 22 deletions(-)
 
-But I couldn't found  amdgpu_stress tool to test memory bandwid anywhere
-
->>
->> Christian.
->>
->>> +        amdgpu_bo_unpin(gtt_obj[i]);
->>> +        amdgpu_bo_unreserve(gtt_obj[i]);
->>> +        amdgpu_bo_unref(&gtt_obj[i]);
->>>       }
->>> +    if (fence)
->>> +        dma_fence_put(fence);
->>>         amdgpu_bo_unpin(vram_obj);
->>>   out_unres:
->>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 71bb3c0dc1da..df54aa834f9e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -270,25 +270,6 @@ MODULE_FIRMWARE("amdgpu/cyan_skillfish2_mec.bin");
+ MODULE_FIRMWARE("amdgpu/cyan_skillfish2_mec2.bin");
+ MODULE_FIRMWARE("amdgpu/cyan_skillfish2_rlc.bin");
+ 
+-static const struct soc15_reg_golden golden_settings_gc_10_0[] =
+-{
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_INDEX, 0xffffffff, 0x00000000),
+-	/* TA_GRAD_ADJ_UCONFIG -> TA_GRAD_ADJ */
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_DATA, 0xffffffff, 0x2544c382),
+-	/* VGT_TF_RING_SIZE_UMD -> VGT_TF_RING_SIZE */
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_DATA, 0xffffffff, 0x2262c24e),
+-	/* VGT_HS_OFFCHIP_PARAM_UMD -> VGT_HS_OFFCHIP_PARAM */
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_DATA, 0xffffffff, 0x226cc24f),
+-	/* VGT_TF_MEMORY_BASE_UMD -> VGT_TF_MEMORY_BASE */
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_DATA, 0xffffffff, 0x226ec250),
+-	/* VGT_TF_MEMORY_BASE_HI_UMD -> VGT_TF_MEMORY_BASE_HI */
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_DATA, 0xffffffff, 0x2278c261),
+-	/* VGT_ESGS_RING_SIZE_UMD -> VGT_ESGS_RING_SIZE */
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_DATA, 0xffffffff, 0x2232c240),
+-	/* VGT_GSVS_RING_SIZE_UMD -> VGT_GSVS_RING_SIZE */
+-	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_CAM_DATA, 0xffffffff, 0x2233c241),
+-};
+-
+ static const struct soc15_reg_golden golden_settings_gc_10_1[] =
+ {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmCB_HW_CONTROL_4, 0xffffffff, 0x00400014),
+@@ -3809,9 +3790,6 @@ static void gfx_v10_0_init_golden_registers(struct amdgpu_device *adev)
+ 						(const u32)ARRAY_SIZE(golden_settings_gc_10_3_5));
+ 		break;
+ 	case IP_VERSION(10, 1, 3):
+-		soc15_program_register_sequence(adev,
+-						golden_settings_gc_10_0,
+-						(const u32)ARRAY_SIZE(golden_settings_gc_10_0));
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_10_0_cyan_skillfish,
+ 						(const u32)ARRAY_SIZE(golden_settings_gc_10_0_cyan_skillfish));
+-- 
+2.25.1
 
