@@ -2,134 +2,76 @@ Return-Path: <SRS0=oZ58=PJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55F86C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 06:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2FFFC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 06:58:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E04760FC0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 06:58:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E04760FC0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7558560FC1
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 06:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7558560FC1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 849126E408;
-	Thu, 21 Oct 2021 06:58:23 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7DA6E408
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 06:58:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EyzJjEXlCMIunGyfIkji33VCoABpQyP7ZHQT+GU/LwEBV6GQCCQzYO7vI8Bu/QsWjC06zOHYJct9HndReFuqNaJCD/20/qBCQB1I7t01KwkCCIF0RR1jEj89OAx5MXIFiUfm4eaerPAOOaWCm3vBkaP7qnMGBHSK49/GjYUz1PTR7MzfH5+SVMxyHXqY+tVbte/EbuD+edFeB1ZI5IN/3Hq9Lqmx1xCL3ZDAox3gahDVgMGuheyVqSkjA5M876vDmerW2+flhEeYK8c2XEM/gpX37GkUeJDMDF90xFCcUuIcn+3jwE+alqFQ6F/Y+JWgD5/cq5s+hxckXTaRrAH36g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XlYJoy+tQRnElTbkzluf5TBEyzT0f0pPsfKAJKWMYqI=;
- b=en4bYLb2F1y4SzZjqkFZCFanY9uXmDCH4VJyjje9oOiHSNj6xpSzkMAhWk/BLRJhoRh9eoBiDnHlxLhNP1Rb1UDkcc+pW9K6pkf0EZYhAjO2WOxFaTlNDPYsznFB3VEgBp6LvXyg0g6L6XwlcD2wxMTzsTl//sJ+KbBZ+79g3SePLE3LPiaXPmhGHr55srSyHgDKv70CoKqvItZ+Q9Q4YVWUxtxVNW/iutB+Cfw5e4Fx35kK6pAoQGg88EHgzNpyHOwaKxEoDVmHN+4wfcdU1ZzFmoQqfWcLpyYTwydp7tgxYFHAmlbWXvzusYgrBt884kr+9CuZV5Aj3BUDDHx98A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XlYJoy+tQRnElTbkzluf5TBEyzT0f0pPsfKAJKWMYqI=;
- b=teI+7w6urxkIEivaJxNQkUv/ldoDcBNmT7tHri5VLq3Ke+RNveA0rbo6BfCsgvMk5HLmejvQny+T+n7ozv4Tuj8Y4HMqjCP7oPHTzWG2TOsaBRZKh3U25/8VOts6RdV9pBriwGsBydmNSxBNlc0HmiITinfXggJxUPCmzaoWX4A=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MWHPR12MB1488.namprd12.prod.outlook.com
- (2603:10b6:301:f::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Thu, 21 Oct
- 2021 06:58:18 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::55c7:6fc9:b2b1:1e6a]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::55c7:6fc9:b2b1:1e6a%10]) with mapi id 15.20.4608.019; Thu, 21 Oct
- 2021 06:58:17 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 142D36EB71;
+	Thu, 21 Oct 2021 06:58:54 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E5B96EB71
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 06:58:53 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id e12so888268wra.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Oct 2021 23:58:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=7XduekcdClmtkiikJL4HX8zoTWCf1aBu2TH0oYRVHb8=;
+ b=CAQSWS4Bc6j2YM+phtklLUVdVTFjYBmQp0zKqdO6R0iXmaZWVc0NjnV/MmhgtJ0/j0
+ XkNXdGN+cE++tnu2aGs69iC/8IppN4ZAYFXUa9r0lnPeQLQW+qimKDdFkOONWa4DMhaI
+ FHb1HSQoeYKsSGCeKVdko1Z37ReA/w1GBxAntBiIOqB4A16cZ1FEO3WiO1Vr2Md+YXhc
+ yTRB1icDYjjHAKYJamyBnlCRjYIbRpLkwdCPgB2q/SgIGVDeAAac34W16ZoIcLwv6Vn8
+ kJRfGTFVrr4SMFGg0aXXWl07oxkqhcQLQLz5+kyiF9fBas/bwKzkGDzL+1kJ0lc6aD9Z
+ iOug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=7XduekcdClmtkiikJL4HX8zoTWCf1aBu2TH0oYRVHb8=;
+ b=2umBI69/aEsRo1n4deaLiPD7ZlIDicUZIpKt5T5Awep/ROyLB0v7y+6cAf5F9Ngpuo
+ w4QpvbxZdQiNzWbkQVgvDh0l9KHcU6pRV9tzGHuSxbi53fMA25qJHKxMM0XUDZ3krNXo
+ 51W+wmQdESj8m6QDKVku8ae3+Fx/Y4IORmWBqsoS/r5cNOcZiKgZP5Cso0SUJxSMFfNJ
+ oUQ+yAY4fLneqYa8o948Xaq14dZ6fkk0g0tRS/Nan9Pdc8GqtnAR0pXieydsipnl7gmp
+ doJ21zAyz1SbBjo+RIVSrJ65p302ToYKr6WPKAiD6wRmeJX6DvJS+KuCO0OSNoFuuYR8
+ c93A==
+X-Gm-Message-State: AOAM531x377UAdOgVGT5cN+kdFHk6T9BO0uFk5yAJVhxT1gypl9pdUXV
+ aQyB4DXTEp+iJpgnjfb4WCrZ/xwQCGU=
+X-Google-Smtp-Source: ABdhPJyrBncH3+GGpp6zU5/ncpoWJN5sjoIokz7m0BuPzLW2EZpLbVbz7u0+xe7aYICVJaWaKIpbQQ==
+X-Received: by 2002:adf:d1e3:: with SMTP id g3mr5188536wrd.63.1634799532034;
+ Wed, 20 Oct 2021 23:58:52 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:46a4:dec3:9292:691a?
+ ([2a02:908:1252:fb60:46a4:dec3:9292:691a])
+ by smtp.gmail.com with ESMTPSA id a127sm7048755wme.40.2021.10.20.23.58.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Oct 2021 23:58:51 -0700 (PDT)
 Subject: Re: [PATCH 1/1] drm/amdgpu: fix BO leak after successful move test
-To: zhang <botton_zhang@163.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com
+To: "Das, Nirmoy" <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Christian.Koenig@amd.com, Alexander.Deucher@amd.com,
+ zhang <botton_zhang@163.com>
 References: <20211012121018.81693-1-nirmoy.das@amd.com>
  <20211013150902.6646-1-nirmoy.das@amd.com>
  <7f990838-a3e3-333e-3237-09f4595ee452@gmail.com>
  <b246a463-0774-b4f4-8d28-86c71e791f49@gmail.com>
- <4141c2c0-fa61-d5ad-7302-4718d68d33c7@163.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <d76531d3-b89c-0030-3d39-023dced5f815@amd.com>
-Date: Thu, 21 Oct 2021 08:58:12 +0200
+ <df7e2391-8169-7d2e-ebb5-87a97a999430@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <2445310c-fdaf-d0c1-cc80-e9437a254be0@gmail.com>
+Date: Thu, 21 Oct 2021 08:58:51 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <4141c2c0-fa61-d5ad-7302-4718d68d33c7@163.com>
+MIME-Version: 1.0
+In-Reply-To: <df7e2391-8169-7d2e-ebb5-87a97a999430@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: AS9PR06CA0308.eurprd06.prod.outlook.com
- (2603:10a6:20b:45b::28) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
-MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:46a4:dec3:9292:691a]
- (2a02:908:1252:fb60:46a4:dec3:9292:691a) by
- AS9PR06CA0308.eurprd06.prod.outlook.com (2603:10a6:20b:45b::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
- Transport; Thu, 21 Oct 2021 06:58:16 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 10c46957-069c-49ef-ffbe-08d9946028fb
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1488:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB14885AF3C84CA0443A1A174083BF9@MWHPR12MB1488.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KrYcTgwgd8zNFEQbcDTWbufjPIKr/Qga5Hecqxl/Hfp3HI8u/S6Zpu7T+Gb25LLsECrzlbl7PY9YCjJpNuaAklwfgE+yqhjN2N4cHxnRkamIsSDKZBxIEz/JoQjhkKa27ycFNyutxIh1+SoQsGndYydEKNhCIaEjjas0f8Dv7bgFwWZaXMVgOiHJ1mBB4yTJ171ExL5GkH93LiV4bD4tU+QSAHQQpjauZlwoLixsK7Gthj4wwB2cVyRKo8IJ17lAqD567T+83T8g9eoElMEpJpR48pZA1j0ZNYAylT9U62YcyXneKX9sQ2kzc+CieskbLBrMCNC5bXWnR1KCQ/EUcZfztmKyVI4iMYQU4oBTJddJJg0ODAi2ULrTcBLmWqkonCwusjUpZfcvYul6N89aOPC4/2FmC9cUkQo7xBzjUfAgtsuaP8uEdishLYSJEsTGFjajFb+I2oS+cgfbOjBGxn4GmViQ6lFd7qJZN/M6eINrbfeyPfEhaMfPVFZ3ChSlYPPaSYxB/LxFgkaedmlSppbUahfhAujzUdcM2kZSw+DyqLjKzrgplXLDA9bdyzRffylMJfo+hkWVA6yFrTXkBgbQBVM/CvX/hb9SIp6QZ4cKr5F4uC7SHPJipAOg4QvpHkd+cuPmm5OuMFF1ONyx4OglJsc++qKjnP/nVEIuJbR3YqvYzXhddx+hGjw4DtAstNLNGa5JCzmmajOd/LzBBqLfb+BrXb4dgGeCEU/oHbD4x6vp3bdGwfJvlCkzqT3C
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(186003)(6666004)(508600001)(66476007)(5660300002)(8676002)(8936002)(316002)(53546011)(6486002)(86362001)(38100700002)(31686004)(110136005)(2616005)(2906002)(66946007)(4326008)(31696002)(66556008)(83380400001)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWpZVDFZd0tWZGFkWTZTWldvZDN3L0VUVXFPMmZ6ZVdDSmlqbVZDWHhsY3hG?=
- =?utf-8?B?OGkrak13NHdib1BsSkc0MnprN0pGRmZaVGhzNHhpT2MwZElacUNId0NyY0Ny?=
- =?utf-8?B?bFNIdkZWdnZPQ0g0N0FEa05JSTRnckQreko4bXR6V0xsZjN0Q29VVnF2NEJI?=
- =?utf-8?B?QU1hWU8waU5Eamx5cEFPeUQrRWpDQVBhVUI1bDVFRGhhVnU5QTY1aFVjTUkv?=
- =?utf-8?B?Zld2eEdFVEpxdWdtVXJ5ZU5hQXgxM0dWV3dKUFN1aklUSGhyREhlSklISGFy?=
- =?utf-8?B?NG1FcFArTGV6M3hERVkxZEFGNmVGazZwREQxNWhXYTlmRk40RUk3NkI2bUVl?=
- =?utf-8?B?aDY1bUNqZGovNkkva2FBYmhOR29ZRENRYk9oOU9GRUppNzN3NVo1Y0FpbnpZ?=
- =?utf-8?B?Mm14YWtQR0QvR3NJNENDVDFTMmZLSU5aaCtSWEU4SjQyOEF2WXV3YkJwV3Zn?=
- =?utf-8?B?ZzJGRE9uazBwa0o2bm1TOFBFWkMxNjRZRlNmRTliWThiTXhoWE1oNVIreU1X?=
- =?utf-8?B?TjVQM1FWR2NaNDVpaCs4T3pSOUR4V0xjZkJPSE1SSERLQStYSzlsRWpVSUto?=
- =?utf-8?B?SERnZWRKeXZnU2FVQWZSeHpNVmFtU1JEN2haUFBJOE0xVkpyTGtkMktCaEdm?=
- =?utf-8?B?UFFSQnlaa3JkVnkxbDRKOVByMVB2enNxMkI0WHJEa0VrdFNVblNlMEFPMFM4?=
- =?utf-8?B?Vnd4QVE4Ym1pVlJBbUdVZXpKYmcwSzVRSzRDcGdkeG9JbnRNNUw2VkxJVjJ5?=
- =?utf-8?B?YjlPVmF4VnB3SWJ0ak95d2JidnlYOEVkQ0xvSTlST0hsUnlJRzRORE9JTGRW?=
- =?utf-8?B?eDlEL1NiSVpFd1ZvalU5dW5CRHRVSzdacUdoaXpOWlI2K1g0VHY2UlM1clI3?=
- =?utf-8?B?OW4zWWpNakJ0ZTZjcjVyc0RrZ3MvaStHZjVQZTJsMkdXVDJNM1RFZFBPNlNm?=
- =?utf-8?B?QmdDUzJ1Ni81aEtuY1ZXQVhxR0lTd3JHQ3E4Z0pvaFd2YkJUUjcyWUxpSTM3?=
- =?utf-8?B?RE5CdkZjSE5MVGlrVUNxd3pVYnE3WGdodnBncTh6RXI3NDRxa1llN2RRZlNt?=
- =?utf-8?B?VkN6MkFvWVlmdmdTaTRvSHZVbFdUa0M3dk9sYTlGVVI2QmtRZWhQRFhUcjQ4?=
- =?utf-8?B?ZXhRcVV2dUpKZFpUYkVzdnRvUGVJQ05FMFZDdDhZMnRvcEJGWTlZdEw0WldM?=
- =?utf-8?B?dGIxRmFCaDJQNnAzckFKYnBPT1NLV2FxSkRRazlsNGtOWjhRbFJaOE14c2hh?=
- =?utf-8?B?Q0p0YlZQMGFsWFNsTW5hS2JjK3RpL0pwK3VQV05vRC85KzdTYUVydGF5UG9v?=
- =?utf-8?B?aGdmY0RpeXpwTVA4RWtxWVFHMmlrV0lMTXNHQXh0K29WcW9ISHhFSUNmLzIy?=
- =?utf-8?B?UUd6cUsrV1EvbURZSUJzMnM0cjZjdjJzNDBSMmxOSnA2MHdFOVhkRThGSUwv?=
- =?utf-8?B?Ny93RVFHa0tVMEdCNUZhYko1WDY4S0ZoWG9qMWxkWi9zSVUrRGs5dS9WNUN0?=
- =?utf-8?B?aEtnaXFGR2x1V01MTjE5M0hoaVFqSVltVGNYVlBYekpmYXo4V09YRlZSMFJ6?=
- =?utf-8?B?OHZmS2l0YWp4bzRRVnFCM3MzQVprTmFzN1NtaEtFQ2wxR1ZYa1N3SzV5ZVFs?=
- =?utf-8?B?ZVV5Si95UkxiUGcwZDN1L3FNOGo5bU5uV2NoWXJEaEFnencyR0pUWi85ME45?=
- =?utf-8?B?eEszekVRRG05ajNJQncvS3YrVm1weVBDajM0V0VnMnBSWG5TS0RiT1ArVFl5?=
- =?utf-8?B?eDJ5WUc5RkYybXMvbzQ5TmQzaDViaCtxdHBzN2EyMHVKQ2w0alJqT1BrTWRM?=
- =?utf-8?B?UnMyaWh3MHNyYkU5R2hRdkJrQnBuL3BNemtVMnhkNDRnNk5DYUR3WlMrOVVi?=
- =?utf-8?Q?Cu9b4BoaylxFU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10c46957-069c-49ef-ffbe-08d9946028fb
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 06:58:17.6759 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ckoenig@amd.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1488
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,9 +86,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.10.21 um 04:07 schrieb zhang:
+
+
+Am 20.10.21 um 14:55 schrieb Das, Nirmoy:
 >
-> On 2021/10/20 19:51, Christian König wrote:
+> On 10/20/2021 1:51 PM, Christian König wrote:
 >> Am 20.10.21 um 13:50 schrieb Christian König:
 >>>
 >>>
@@ -221,19 +165,24 @@ Am 21.10.21 um 04:07 schrieb zhang:
 >>
 >> We now have my amdgpu_stress tool to test memory bandwidth and mesa 
 >> has an option for that for a long time as well.
->>
->> Christian.
->>
->   I found a  testsuit about "bo eviction Test"  for amdgpu . in 
-> libdrm  tests.
 >
-> But I couldn't found  amdgpu_stress tool to test memory bandwid anywhere
+>
+> Shall I then remove amdgpu_test.c ?
 
-That was merged just yesterday. See upstream libdrm.
+Please double check if the amdgpu_stress utility gives you the same 
+functionality, if yes we should probably remove this test here.
 
+Thanks,
 Christian.
 
 >
+>
+> Nirmoy
+>
+>
+>>
+>> Christian.
+>>
 >>>
 >>> Christian.
 >>>
@@ -246,5 +195,5 @@ Christian.
 >>>>         amdgpu_bo_unpin(vram_obj);
 >>>>   out_unres:
 >>>
->
+>>
 
