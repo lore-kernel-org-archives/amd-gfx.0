@@ -2,126 +2,48 @@ Return-Path: <SRS0=oZ58=PJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C7B0C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 09:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45B24C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 09:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3B39603E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 09:44:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D3B39603E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id D943F60F59
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 09:57:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D943F60F59
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50B976E3E3;
-	Thu, 21 Oct 2021 09:44:55 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B46BC6E3E3
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 09:44:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j6l/Gv9XSdwssOugl5ET9qAMeyOkci9Q1JPzT8gQsUfMDNqQE9U8NHtCBdHzlHgu9ASHblJGzlpTvkUwy6yUq3npYH7BJYYqVgY9L5LhlL3AIdZjEU02P2IKCVriv9ZAdhZ246S/5kAnzjX9x4qx7oB6/bRl2PAXspvp/UCm8tRQGXaoHOFWxerev17XJYD4W8oFSoIcb7C1T4tv+24glAnzCJWor9pT8CD5H/ZC/JdkyTM3kb2icHi5zaVrENnVIO/Fkcv+n9bJNyhrTQ5EpKOdcaEO4k6hrjTj0cLPX3htUffmBmd2U9UiYwTnU8IJRUepL7jI2vgcieNp4Aq32Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZUjcAQmb0PwwbYL3nJ8g0sgdow8QAD23BfWtpVgO9gg=;
- b=exhEl5ynPXuHjJ0+lozO0J4QpNjsqpisz0C0FVwTm7fzttSALeZXnGjhE9jXJPXwQ9yN8H4i2Hpdyn/B7N0DEambpy7E43dIscKAK7eB5XvWfxDG0IidXutXS1FRA65WXO0VpZGk/JCHZOcj1XXxY/lWDVWQ/FwaFgPB78MXF8sq5qBLo8m1w4KSPPGzWXy8MqQpT7dbWr4fmt8qMGOYWzRGuGWz/qtSWJC9eexT7xwPzwYJdfyD/jCeOIMrondiFz6k4C5lRU+y/S+TVvVBFX58019MNTqdZFKvySK0/2vfVLnl39XVFD3KvT/yjldvawzxrXV3lTINiNMBWrdEUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZUjcAQmb0PwwbYL3nJ8g0sgdow8QAD23BfWtpVgO9gg=;
- b=SsikXUwRuuD7Nn8J+nTBg21CtejLkWsTfHhOr0Y6bZE1PGh/SuCI8wq053+GDjby75QDcNYWlhh09SjPWHKNaJ9dXlPHzF/NuLGHyzuu6s1B/VzoaJ+nb9HkIdZoyiEqJ3nh8fAv/BJpwnbuOj5WSRIqZYd/rgYsgQovzn5hDU0=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB4617.namprd12.prod.outlook.com (2603:10b6:5:35::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Thu, 21 Oct
- 2021 09:44:52 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4608.018; Thu, 21 Oct 2021
- 09:44:52 +0000
-Message-ID: <e6651a1c-50d2-af66-c985-4b500dcd12f8@amd.com>
-Date: Thu, 21 Oct 2021 15:14:39 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Subject: Re: [PATCH] drm/amdgpu: limit VCN instance number to 1 for
- NAVY_FLOUNDER
-Content-Language: en-US
-To: Guchun Chen <guchun.chen@amd.com>, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, xinhui.pan@amd.com, alexander.deucher@amd.com,
- leo.liu@amd.com
-References: <20211021071512.20034-1-guchun.chen@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20211021071512.20034-1-guchun.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0003.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:95::14) To DM6PR12MB3930.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 965A56E405;
+	Thu, 21 Oct 2021 09:57:07 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10ECB6E3F0;
+ Thu, 21 Oct 2021 09:57:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="209095954"
+X-IronPort-AV: E=Sophos;i="5.87,169,1631602800"; d="scan'208";a="209095954"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2021 02:57:04 -0700
+X-IronPort-AV: E=Sophos;i="5.87,169,1631602800"; d="scan'208";a="495057379"
+Received: from ssuryana-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.45.34])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2021 02:57:01 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Khaled Almahallawy <khaled.almahallawy@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>
+Subject: Re: [Intel-gfx] [RFC PATCH 1/4] drm/dp: Rename DPCD 248h according to
+ DP 2.0 specs
+In-Reply-To: <20211021050713.836498-2-khaled.almahallawy@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211021050713.836498-1-khaled.almahallawy@intel.com>
+ <20211021050713.836498-2-khaled.almahallawy@intel.com>
+Date: Thu, 21 Oct 2021 12:56:58 +0300
+Message-ID: <875ytqog45.fsf@intel.com>
 MIME-Version: 1.0
-Received: from [172.31.158.229] (165.204.158.249) by
- PN3PR01CA0003.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:95::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.18 via Frontend Transport; Thu, 21 Oct 2021 09:44:49 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 45e49abb-f2ed-42bb-a39c-08d994776e0c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4617:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB46177FEC06E81BCA7F7BB5EE97BF9@DM6PR12MB4617.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CG3STrPrWT7Y7kRDwyFqs74md7yLmWarOvWPtfQ4w9GCQUnZatk1wgRJGshhwJO8kUIIhEJ/27uP+OeLEH5J4R+jUAG+9eQLRoiY2/afED+Xzx7UuVIBJhztHX4TzsN0XRdzMUuhTBBG+d++1JEnQArJJdO0bux9BltXEOsDSM8BuVviOgeSKbe5X/u1GHhmsMW9bRYDdLoV3gIbq5luDzmNnb/Nsoh0FZEr/fPkyhkA+kvp5gh3X1NoJAgZFte8Y6nZ7yYfnOs8mZuwGC75Zsgz/2oV61TbBWWocRSbSGGReQjF1jIpe4v3E/1D1xnIlbrt7BSr7Dp4NKFqlpBKMRui3gCyatWVYQ4znf6cSrpKoPq2d+403MCdhzh2Sqcl+RMiDWgm1wk66AzYcKc/yCj91djNals04KnTmbK8GrbsozOuFSMYsi0zS6Zbo/2T0DIzj4BJBe2PfdH0gg5zAEqDywelSd9kUiO1uAbsZl+1IVYBPE+fU6wOOzObYy52vvQYFqrAxECadY7prkHN73kN3pLTMCHr9PMrYzFjs/BM6omusiAtE8sWFaNNvhb45yI3zTO9N3t7Kz+mpC5YFrYRD1me48Ym8TROYXQvcF8wmht9QQbrqyoxC1+fROPrPU9O4/rrgIWwvOADhecPIgywo7mfG54zirtINNm1kQ8dHZd3X4sifFoc5dQmQiQSAGLjK3hLyAlqU4tmOFMqKiOR969YY9fhXB2CIDDZNlI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6666004)(31696002)(2616005)(38100700002)(66476007)(83380400001)(66556008)(8676002)(5660300002)(186003)(53546011)(36756003)(8936002)(26005)(6636002)(66946007)(2906002)(6486002)(16576012)(31686004)(956004)(508600001)(966005)(316002)(86362001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkJ0N1krWUc0dWxyTGtKdHhFa3Y0QU9CcmtMV2hoMnlDTUZ1OWRvTUlTSk05?=
- =?utf-8?B?bTNIZ0RiZzBHZ3JJdUVDN296WFp5Nm9iL0R3M2NVZXdPOE12UUNlRGlHMlBq?=
- =?utf-8?B?NE5DUExtV0tPSlozVVhQT3J0ZlZZYWxjejlyc3J3eTBBS1RhYXZKV2s3eDUw?=
- =?utf-8?B?WEplYm4xb0U0eUptbkJ0aldRcmZYQ2taM2Z6R3h2eWozZVZFN2lmT3hjSzR6?=
- =?utf-8?B?NzFOSmtrVm1VMzZBcTZzL3BwQ280NlB1UXpSbGJTVFJpWC9sajNwTWNnMUVE?=
- =?utf-8?B?cVlYTHFTOHlaNHJlSDBDdHFlK2ZycVpSclZ2dGhZaWs3ZWwrN2h3OVZwUEw2?=
- =?utf-8?B?cHNvQkprU2REMDYrUWZldFArQmNLb3lMbVJvaDNLRHJOcVJ6b0RhSzlZc3Jv?=
- =?utf-8?B?dnY5Z0gydGc0MDlPc09NMXd6dkY5YldYcHl6OEJoQ1FuZHYzTWpGb1YwRVll?=
- =?utf-8?B?dVByKytKN0pxVVpIR0xmU3l2Z3dkZDRVRDlVS1h3REhkeFRUU3ZhdGwyOGxU?=
- =?utf-8?B?aUd6cnI2dFBtcVdRZ2oxTWtWWkRvMTJ6YU9ya1kxMzRQNDNFd09IaFhhdm16?=
- =?utf-8?B?cjhKY281MTRSL05QUW1wdStFSnpRSkkyS3VsYWgrRndHWTVqM2tmejQ2cm1n?=
- =?utf-8?B?YWxZbGJRSFE4alNheHA5cXd2ckZ6RnRXUE9xSjNIT1kyYXJlN0tQdjlpVmFa?=
- =?utf-8?B?U2NRK0pVeFBYeFAvL1Q1Z1FMUG92dUNEYkJ2WDdYRFkxdmpucjI0aEpoajNG?=
- =?utf-8?B?VWJ4Z3BvS2ZaZk85Rm5SQW05RzREaVNYcnFOdGE1b2RpNDl3dXZtTDNneDJy?=
- =?utf-8?B?R01iNCszdWtvdm1KN0pUaFl0bzd5ZTh0SW9MTytoU2d5cGY4S2ZBZ05kTlFY?=
- =?utf-8?B?S0VXNzQ5Y0Nhc2xBZjRDSG10bi9FYVRCOU1rY2xsbDkrMXMxNlR4YmYxY3Fk?=
- =?utf-8?B?aUV6a0pzWFc2ZjZPdzMwZ25CaEc5dEpSVFVycWxDUElyZ21YcElRNjY0KzdL?=
- =?utf-8?B?WTVlU3pDaDJpYmV1cFFhcjdOYVdGNjY2S0lqZmpEK25ibU5JbzArY3NoLzNR?=
- =?utf-8?B?SVViblR4NlMxM2xsTHZCNDczeWpIbXhQTmUvK05BSDBFVnFJZS84Ym5xbUJw?=
- =?utf-8?B?YWtwZmxKVi9KaC9KYStCbE1ETEFGb1JDU1lvc21pbC85RWJZU0cvTVBXOXNH?=
- =?utf-8?B?cUE2L05PcGsyaU9MNjJ3SUJGR2p6VzVFblNkM0RtbkhLNUN4WHZObStkTzdH?=
- =?utf-8?B?RFgvMWFoWFl1VjhzUGhrZFZFQUFOUSs0UnU5Z0FWUXV4LzI3c3krNUQyUHVk?=
- =?utf-8?B?OFgySzM2QmhYMlprU2VpbzRHanhhd2s5TU9DdUVZeDNlcm1GalRROHEvcTJN?=
- =?utf-8?B?NTIzMGVZMlVDaUh0RityMSsrQ0dLNHBnbkYwT0VwTlM3UklTMExVekVuOHg3?=
- =?utf-8?B?M1dtWVd3SDUzTy9yMDJCNTFyS0MyT3FSWG12Z2RscE1wWENBNm1ldi9qZWhq?=
- =?utf-8?B?ZWg0eUFXWk54d3pYaTA1VElmT2cwZ2xodnNmUzFGZ1ZOamFvVHAveXRsdEhu?=
- =?utf-8?B?L1ZRZndTYVRNRDVuM2lKcUxzdXdrZU9HVTdPbUJTQ0piNnBsZlA0Z3pESzNH?=
- =?utf-8?B?dVN6endITlV3L2RpWGxXQmd4V3J2QW1JdlpMUXNjbll3Ukh0V1c1bm9jRTBK?=
- =?utf-8?B?TmJ4MXNTY1FXRjBvc3pZU3hzUGVxR2hicURiRENDWTN4SlBFWDV4VzJsYThy?=
- =?utf-8?Q?jHt1rJZaQ9gfiBDFDQkZwSU4SJhVzg4AB9cdnp5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45e49abb-f2ed-42bb-a39c-08d994776e0c
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 09:44:52.2154 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: llazar@amd.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4617
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,47 +58,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, 20 Oct 2021, Khaled Almahallawy <khaled.almahallawy@intel.com> wrot=
+e:
+> DPCD 248h name was changed from =E2=80=9CPHY_TEST_PATTERN=E2=80=9D in DP =
+1.4 to =E2=80=9CLINK_QUAL_PATTERN_SELECT=E2=80=9D in DP 2.0.
 
+Please use ASCII double quotes ". Please reflow the commit message to
+limit line lenghts to about 72 characters.
 
-On 10/21/2021 12:45 PM, Guchun Chen wrote:
-> VCN instance 1 is power gated permanently by SMU.
-> 
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1743
-> 
-> Fixes: f6b6d7d6bc2d("drm/amdgpu/vcn: remove manual instance setting")
-
-Nice find. Looking at the fix, the logic is already broken by
-5e26e52adb46("drm/amdgpu/vcn3.0: convert to IP version checking")
-
-Any ASIC other than Sienna which has same VCN IP version (3.0.0) may be 
-broken. Any more extra checks?
-
-Thanks,
-Lijo
-
-> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> Also, DPCD 248h [6:0] is the same as DPCDs 10Bh/10Ch/10Dh/10Eh [6:0]. So =
+removed the repeated definition of PHY patterns.
+>
+> Reference: =E2=80=9CDPCD 248h/10Bh/10Ch/10Dh/10Eh Name/Description Consis=
+tency=E2=80=9D
+> https://groups.vesa.org/wg/AllMem/documentComment/2738
+>
+> Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> index dbfd92984655..4848922667f2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -103,6 +103,15 @@ static int vcn_v3_0_early_init(void *handle)
->   			adev->vcn.num_enc_rings = 0;
->   		else
->   			adev->vcn.num_enc_rings = 2;
+>  drivers/gpu/drm/drm_dp_helper.c |  6 +++---
+>  include/drm/drm_dp_helper.h     | 13 +++----------
+>  2 files changed, 6 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_hel=
+per.c
+> index ada0a1ff262d..c9c928c08026 100644
+> --- a/drivers/gpu/drm/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/drm_dp_helper.c
+> @@ -2489,19 +2489,19 @@ int drm_dp_get_phy_test_pattern(struct drm_dp_aux=
+ *aux,
+>  	if (lanes & DP_ENHANCED_FRAME_CAP)
+>  		data->enhanced_frame_cap =3D true;
+>=20=20
+> -	err =3D drm_dp_dpcd_readb(aux, DP_PHY_TEST_PATTERN, &data->phy_pattern);
+> +	err =3D drm_dp_dpcd_readb(aux, DP_LINK_QUAL_PATTERN_SELECT, &data->phy_=
+pattern);
+>  	if (err < 0)
+>  		return err;
+>=20=20
+>  	switch (data->phy_pattern) {
+> -	case DP_PHY_TEST_PATTERN_80BIT_CUSTOM:
+> +	case DP_LINK_QUAL_PATTERN_80BIT_CUSTOM:
+>  		err =3D drm_dp_dpcd_read(aux, DP_TEST_80BIT_CUSTOM_PATTERN_7_0,
+>  				       &data->custom80, sizeof(data->custom80));
+>  		if (err < 0)
+>  			return err;
+>=20=20
+>  		break;
+> -	case DP_PHY_TEST_PATTERN_CP2520:
+> +	case DP_LINK_QUAL_PATTERN_CP2520_PAT_1:
+>  		err =3D drm_dp_dpcd_read(aux, DP_TEST_HBR2_SCRAMBLER_RESET,
+>  				       &data->hbr2_reset,
+>  				       sizeof(data->hbr2_reset));
+> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+> index afdf7f4183f9..ef915bb75bb4 100644
+> --- a/include/drm/drm_dp_helper.h
+> +++ b/include/drm/drm_dp_helper.h
+> @@ -862,16 +862,9 @@ struct drm_panel;
+>  # define DP_TEST_CRC_SUPPORTED		    (1 << 5)
+>  # define DP_TEST_COUNT_MASK		    0xf
+>=20=20
+> -#define DP_PHY_TEST_PATTERN                 0x248
+> -# define DP_PHY_TEST_PATTERN_SEL_MASK       0x7
+> -# define DP_PHY_TEST_PATTERN_NONE           0x0
+> -# define DP_PHY_TEST_PATTERN_D10_2          0x1
+> -# define DP_PHY_TEST_PATTERN_ERROR_COUNT    0x2
+> -# define DP_PHY_TEST_PATTERN_PRBS7          0x3
+> -# define DP_PHY_TEST_PATTERN_80BIT_CUSTOM   0x4
+> -# define DP_PHY_TEST_PATTERN_CP2520         0x5
+> -
+> -#define DP_PHY_SQUARE_PATTERN				0x249
+> +#define DP_LINK_QUAL_PATTERN_SELECT         0x248
+
+Please add a comment here referencing where the values are. There are
+examples in the file.
+
 > +
-> +		/*
-> +		 * Fix ME.
-> +		 * VCN instance number is limited to 1 for below ASIC due to
-> +		 * VCN instnace 1 is permanently power gated.
-> +		 */
-> +		if ((adev->ip_versions[UVD_HWIP][0] == IP_VERSION(3, 0, 0)) &&
-> +			(adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 2)))
-> +			adev->vcn.num_vcn_inst = 1;
->   	}
->   
->   	vcn_v3_0_set_dec_ring_funcs(adev);
-> 
+> +#define DP_PHY_SQUARE_PATTERN               0x249
+>=20=20
+>  #define DP_TEST_HBR2_SCRAMBLER_RESET        0x24A
+>  #define DP_TEST_80BIT_CUSTOM_PATTERN_7_0    0x250
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
