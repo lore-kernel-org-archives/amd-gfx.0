@@ -2,45 +2,43 @@ Return-Path: <SRS0=oZ58=PJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1357BC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 07:55:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB0A8C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 07:55:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3C39611CB
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 07:55:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D3C39611CB
+	by mail.kernel.org (Postfix) with ESMTPS id 81853611CB
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 07:55:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 81853611CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CA986EC22;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C61DC6EC26;
 	Thu, 21 Oct 2021 07:55:29 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83FC26EB1E;
- Thu, 21 Oct 2021 05:07:31 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="289788020"
-X-IronPort-AV: E=Sophos;i="5.87,168,1631602800"; d="scan'208";a="289788020"
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DCF86E409;
+ Thu, 21 Oct 2021 05:07:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="229215250"
+X-IronPort-AV: E=Sophos;i="5.87,168,1631602800"; d="scan'208";a="229215250"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2021 22:07:09 -0700
-X-IronPort-AV: E=Sophos;i="5.87,168,1631602800"; d="scan'208";a="484048452"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2021 22:07:05 -0700
+X-IronPort-AV: E=Sophos;i="5.87,168,1631602800"; d="scan'208";a="484048420"
 Received: from gmherteg-mobl2.amr.corp.intel.com (HELO
  kialmah1-mobl1.amr.corp.intel.com) ([10.251.20.183])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2021 22:07:08 -0700
+ 20 Oct 2021 22:07:05 -0700
 From: Khaled Almahallawy <khaled.almahallawy@intel.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
-Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>
-Subject: [RFC PATCH 4/4] drm/msm/dp: Use DPCD 248h DP 2.0 new names/definitions
-Date: Wed, 20 Oct 2021 22:07:13 -0700
-Message-Id: <20211021050713.836498-5-khaled.almahallawy@intel.com>
+Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>
+Subject: [RFC PATCH 0/4] drm/dp: Use DP2.0 DPCD 248h updated register/field
+ names for DP PHY CTS
+Date: Wed, 20 Oct 2021 22:07:09 -0700
+Message-Id: <20211021050713.836498-1-khaled.almahallawy@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211021050713.836498-1-khaled.almahallawy@intel.com>
-References: <20211021050713.836498-1-khaled.almahallawy@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 21 Oct 2021 07:55:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -57,142 +55,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use DP 2.0 DPCD 248h new name (LINK_QUAL_PATTERN_SELECT) and rename selected phy test patterns to LINK_QUAL_PATTERN_*
-
-Note: TPS4 LT pattern is CP2520 Pattern 3 (refer to DP2.0 spaces Table 3-11, DPCD 00248h
-LINK_QUAL_PATTERN_SELECT, and DP PHY 1.4 CTS - Appendix A - Compliance EYE Pattern(CP2520; Normative))
-That is why the change from DP_PHY_TEST_PATTERN_SEL_MASK to DP_LINK_QUAL_PATTERN_CP2520_PAT_3
-No functional changes
-
-Cc: Chandan Uddaraju <chandanu@codeaurora.org>
-Cc: Kuogee Hsieh <khsieh@codeaurora.org>
-Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
----
- drivers/gpu/drm/msm/dp/dp_catalog.c | 12 ++++++------
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 12 ++++++------
- drivers/gpu/drm/msm/dp/dp_link.c    | 16 ++++++++--------
- 3 files changed, 20 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index cc2bb8295329..2076439ac2a2 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -690,11 +690,11 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
+This series updates DPCD 248h register name and PHY test patterns names to follow DP 2.0 Specs.
+Also updates the DP PHY CTS codes of the affected drivers (i915, amd, msm)
+No functional changes expected.
  
- 	DRM_DEBUG_DP("pattern: %#x\n", pattern);
- 	switch (pattern) {
--	case DP_PHY_TEST_PATTERN_D10_2:
-+	case DP_LINK_QUAL_PATTERN_D10_2:
- 		dp_write_link(catalog, REG_DP_STATE_CTRL,
- 				DP_STATE_CTRL_LINK_TRAINING_PATTERN1);
- 		break;
--	case DP_PHY_TEST_PATTERN_ERROR_COUNT:
-+	case DP_LINK_QUAL_PATTERN_ERROR_RATE:
- 		value &= ~(1 << 16);
- 		dp_write_link(catalog, REG_DP_HBR2_COMPLIANCE_SCRAMBLER_RESET,
- 					value);
-@@ -706,11 +706,11 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
- 		dp_write_link(catalog, REG_DP_STATE_CTRL,
- 					DP_STATE_CTRL_LINK_SYMBOL_ERR_MEASURE);
- 		break;
--	case DP_PHY_TEST_PATTERN_PRBS7:
-+	case DP_LINK_QUAL_PATTERN_PRBS7:
- 		dp_write_link(catalog, REG_DP_STATE_CTRL,
- 				DP_STATE_CTRL_LINK_PRBS7);
- 		break;
--	case DP_PHY_TEST_PATTERN_80BIT_CUSTOM:
-+	case DP_LINK_QUAL_PATTERN_80BIT_CUSTOM:
- 		dp_write_link(catalog, REG_DP_STATE_CTRL,
- 				DP_STATE_CTRL_LINK_TEST_CUSTOM_PATTERN);
- 		/* 00111110000011111000001111100000 */
-@@ -723,7 +723,7 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
- 		dp_write_link(catalog, REG_DP_TEST_80BIT_CUSTOM_PATTERN_REG2,
- 				0x0000F83E);
- 		break;
--	case DP_PHY_TEST_PATTERN_CP2520:
-+	case DP_LINK_QUAL_PATTERN_CP2520_PAT_1:
- 		value = dp_read_link(catalog, REG_DP_MAINLINK_CTRL);
- 		value &= ~DP_MAINLINK_CTRL_SW_BYPASS_SCRAMBLER;
- 		dp_write_link(catalog, REG_DP_MAINLINK_CTRL, value);
-@@ -742,7 +742,7 @@ void dp_catalog_ctrl_send_phy_pattern(struct dp_catalog *dp_catalog,
- 		value |= DP_MAINLINK_CTRL_ENABLE;
- 		dp_write_link(catalog, REG_DP_MAINLINK_CTRL, value);
- 		break;
--	case DP_PHY_TEST_PATTERN_SEL_MASK:
-+	case DP_LINK_QUAL_PATTERN_CP2520_PAT_3:
- 		dp_write_link(catalog, REG_DP_MAINLINK_CTRL,
- 				DP_MAINLINK_CTRL_ENABLE);
- 		dp_write_link(catalog, REG_DP_STATE_CTRL,
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 62e75dc8afc6..a97f9dd03a8c 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1553,25 +1553,25 @@ static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
- 	switch (pattern_sent) {
- 	case MR_LINK_TRAINING1:
- 		success = (pattern_requested ==
--				DP_PHY_TEST_PATTERN_D10_2);
-+				DP_LINK_QUAL_PATTERN_D10_2);
- 		break;
- 	case MR_LINK_SYMBOL_ERM:
- 		success = ((pattern_requested ==
--			DP_PHY_TEST_PATTERN_ERROR_COUNT) ||
-+			DP_LINK_QUAL_PATTERN_ERROR_RATE) ||
- 				(pattern_requested ==
--				DP_PHY_TEST_PATTERN_CP2520));
-+				DP_LINK_QUAL_PATTERN_CP2520_PAT_1));
- 		break;
- 	case MR_LINK_PRBS7:
- 		success = (pattern_requested ==
--				DP_PHY_TEST_PATTERN_PRBS7);
-+				DP_LINK_QUAL_PATTERN_PRBS7);
- 		break;
- 	case MR_LINK_CUSTOM80:
- 		success = (pattern_requested ==
--				DP_PHY_TEST_PATTERN_80BIT_CUSTOM);
-+				DP_LINK_QUAL_PATTERN_80BIT_CUSTOM);
- 		break;
- 	case MR_LINK_TRAINING4:
- 		success = (pattern_requested ==
--				DP_PHY_TEST_PATTERN_SEL_MASK);
-+				DP_LINK_QUAL_PATTERN_CP2520_PAT_3);
- 		break;
- 	default:
- 		success = false;
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index a5bdfc5029de..d5b56ab3c09d 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -574,7 +574,7 @@ static int dp_link_parse_phy_test_params(struct dp_link_private *link)
- 	u8 data;
- 	ssize_t rlen;
- 
--	rlen = drm_dp_dpcd_readb(link->aux, DP_PHY_TEST_PATTERN,
-+	rlen = drm_dp_dpcd_readb(link->aux, DP_LINK_QUAL_PATTERN_SELECT,
- 					&data);
- 	if (rlen < 0) {
- 		DRM_ERROR("failed to read phy link pattern. rlen=%zd\n", rlen);
-@@ -586,13 +586,13 @@ static int dp_link_parse_phy_test_params(struct dp_link_private *link)
- 	DRM_DEBUG_DP("phy_test_pattern_sel = 0x%x\n", data);
- 
- 	switch (data) {
--	case DP_PHY_TEST_PATTERN_SEL_MASK:
--	case DP_PHY_TEST_PATTERN_NONE:
--	case DP_PHY_TEST_PATTERN_D10_2:
--	case DP_PHY_TEST_PATTERN_ERROR_COUNT:
--	case DP_PHY_TEST_PATTERN_PRBS7:
--	case DP_PHY_TEST_PATTERN_80BIT_CUSTOM:
--	case DP_PHY_TEST_PATTERN_CP2520:
-+	case DP_LINK_QUAL_PATTERN_DISABLE:
-+	case DP_LINK_QUAL_PATTERN_D10_2:
-+	case DP_LINK_QUAL_PATTERN_ERROR_RATE:
-+	case DP_LINK_QUAL_PATTERN_PRBS7:
-+	case DP_LINK_QUAL_PATTERN_80BIT_CUSTOM:
-+	case DP_LINK_QUAL_PATTERN_CP2520_PAT_1:
-+	case DP_LINK_QUAL_PATTERN_CP2520_PAT_3
- 		return 0;
- 	default:
- 		return -EINVAL;
+Reference: “DPCD 248h/10Bh/10Ch/10Dh/10Eh Name/Description Consistency”
+https://groups.vesa.org/wg/AllMem/documentComment/2738
+
+Khaled Almahallawy (4):
+  drm/dp: Rename DPCD 248h according to DP 2.0 specs
+  drm/i915/dp: Use DP 2.0 LINK_QUAL_PATTERN_* Phy test pattern
+    definitions
+  drm/amd/dc: Use DPCD 248h DP 2.0 new name
+  drm/msm/dp: Use DPCD 248h DP 2.0 new names/definitions
+
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c |  2 +-
+ drivers/gpu/drm/drm_dp_helper.c                  |  6 +++---
+ drivers/gpu/drm/i915/display/intel_dp.c          | 12 ++++++------
+ drivers/gpu/drm/msm/dp/dp_catalog.c              | 12 ++++++------
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                 | 12 ++++++------
+ drivers/gpu/drm/msm/dp/dp_link.c                 | 16 ++++++++--------
+ include/drm/drm_dp_helper.h                      | 13 +++----------
+ 7 files changed, 33 insertions(+), 40 deletions(-)
+
 -- 
 2.25.1
 
