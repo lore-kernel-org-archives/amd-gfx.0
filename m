@@ -2,48 +2,48 @@ Return-Path: <SRS0=oZ58=PJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61CEDC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 17:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16C64C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 17:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 224D461A4F
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 17:26:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 224D461A4F
+	by mail.kernel.org (Postfix) with ESMTPS id C8EB261A4F
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Oct 2021 17:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C8EB261A4F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59D7C6ECDF;
-	Thu, 21 Oct 2021 17:26:43 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7286ECDF
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 17:26:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 594A06ECE5;
+	Thu, 21 Oct 2021 17:26:45 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2CD86ECE5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Oct 2021 17:26:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XiZFGeUjBLWZoiHf6mwWSNCV8Rj7iqvGeiho77bOLi94FzlYX0Ch9IumVGJAu/ftgCSKWrKYxdQVk8Tw2g4mpFMeTzuAUeCb3AOgfUH3OUeIsS0qfl0Fd6ed9K9c4ams5JlUbFpjQ/YF9988Ln+2YUFtO4w9fSBbhLGoje0NFzgx6qQ5/PZHn3NlsnPiZCT5OCvBwUDTsiSY7AQkH5kfdopUakvHyi+A29bNSPvkE0nCesrzy08krNjl5OCgEXB1B2/370xW2LOUXTqRUPcUMuI6IHRWwPVsAouokWwRgQHmY6RKD0qpkEVaIN66rwBKRtx0LiHUseG6YHdy1vZ1Sw==
+ b=j/apUE+iDvVSVO/WXqtarPisXu9dPCYYWl1XnuiKUT1pOKa5dcT2R9LtcnRY7d1OAhaNC1RLw/gHK+o1ilxBfXlPnpMDiwT9Syf7kKjfFCjx5efx1BWAzjahsnyZiMHZYCx8Ef1GFagZkB3NgBYm9IamzO83NjbLY5K9e1I2lOj34TaBsyWmIQ1vPPXE3RlLUtDP3YODpjF9YbYyxE1EW5ObtbSsfSnButh6cnDSAI/maygab6ntxbPLQQAtL6k1pR9tGvWpQI4O0sGcXimN15v0vp7OfV7WmVS5YW8NPEMiXGavKMxj8HRt+U+9xOMvFWhxf0InKj3VRAlwIsd1RA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dM7g39eTIErzT4kDB6e/s9Y3x497ZD2VfS4vVCcvanM=;
- b=ZzUUcavCFUi5OxCwE/AbOlaWjtWHs7cwLNiQiVcQJGkBlyZGEX8Tw2J20qJrb/Wo1ZhyTa9Ragflb8FSuuGLpFpUZ4LhHMoW/MeMzmphqGQNF0h74km5sQakAYgdUsLjlDjkHZ7PE4hlOcOVms2d6msiBs3KJ9ckiAiWBH8ujg8aNn9cSn0zFXJkqXKOQ/6PSQlCHAcZHp9exuipSjtj6JMZ971ZLSPOnT2bNFVrd3azCDc9PBSltty5f2g0SzRDifQc+3loLawPO7iHgDFGBBcUpZEDgNoX0c1LI6hKri0kXz9w6Lhocs3e/vwZMHUOButp05thAMxeOWYnCuKWCw==
+ bh=XTb76/AnyBeORcMvg5TW95w1f8ZCb3ZRGONDpaI0kZI=;
+ b=cvfaqWmWFz0BaGYpdA0vwC9SS0Gvhup1Ow3DvA1dS43WMiKMapiPF94ufGCbWOluhyhGwWltenE68PKkyl5An5cTppZhBNggj9VRHRLeXE21gkijurUl3JlLafeb94ZGQyHil8ZaVAzvxGjub469R8AcBd+nA6b3HTrzHzErnFYt8cwdG2gXcoKWWGpp8+CqDXNl75w0XWIrIbNC5Z5RgOMUgbBJDyDRqYb1Vu8jI5TL2Mt8TQc/tjWL1EytHqxDuxag/Z+49597FdmkdUjy+9d4HjgMJBwLyr6+j2o+Ijm8S6PQ1/pYkBl6UuUYe2Ymj2oqe69zY51PUCsAMtDJkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dM7g39eTIErzT4kDB6e/s9Y3x497ZD2VfS4vVCcvanM=;
- b=2nQ4Eu5iSC4lC26PqGa4cNcbH0AWvn0IPg4BeURyrdXbV/QXlU+Bwj4f78pvcyC8DfgpFfvT6EQw5v7xi/SIhFYb9AEzjEeo7Nq7nz4vAO3YD++Hicnl9sGGWlx2Z8Mdi58yHfcaGTrX70N/o/h3esDd1X3x7VkGhWAn0u5I86c=
-Received: from DM5PR21CA0047.namprd21.prod.outlook.com (2603:10b6:3:ed::33) by
- SN6PR12MB4701.namprd12.prod.outlook.com (2603:10b6:805:e6::20) with
+ bh=XTb76/AnyBeORcMvg5TW95w1f8ZCb3ZRGONDpaI0kZI=;
+ b=vafkceJXK49fFgjZS27iy3HTv2tSX6BoDJHwBP0M4a8eZ5z/PvyyuhbhDV1nHe23UX/eIFdr+wT3lVxOW9y8DvxpT7ANcZPQqs+a2tfpQuIyvBMBdR6bmgRxfQziBOvPoYavqMC6eH3LK/TycejY3gxA4UMQ5Q5B60V8CkF6Jyw=
+Received: from DM3PR11CA0005.namprd11.prod.outlook.com (2603:10b6:0:54::15) by
+ DM5PR12MB1564.namprd12.prod.outlook.com (2603:10b6:4:f::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.18; Thu, 21 Oct 2021 17:26:39 +0000
-Received: from DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ed:cafe::4b) by DM5PR21CA0047.outlook.office365.com
- (2603:10b6:3:ed::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.1 via Frontend
- Transport; Thu, 21 Oct 2021 17:26:39 +0000
+ 15.20.4608.18; Thu, 21 Oct 2021 17:26:41 +0000
+Received: from DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:54:cafe::65) by DM3PR11CA0005.outlook.office365.com
+ (2603:10b6:0:54::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16 via Frontend
+ Transport; Thu, 21 Oct 2021 17:26:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -52,21 +52,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT061.mail.protection.outlook.com (10.13.173.138) with Microsoft SMTP
+ DM6NAM11FT026.mail.protection.outlook.com (10.13.172.161) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4628.16 via Frontend Transport; Thu, 21 Oct 2021 17:26:39 +0000
+ 15.20.4628.16 via Frontend Transport; Thu, 21 Oct 2021 17:26:41 +0000
 Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Thu, 21 Oct
- 2021 12:26:38 -0500
+ 2021 12:26:40 -0500
 From: Kent Russell <kent.russell@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Kent Russell <kent.russell@amd.com>, Luben Tuikov <luben.tuikov@amd.com>, 
- Mukul Joshi <Mukul.Joshi@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: Add kernel parameter support for ignoring bad
- page threshold
-Date: Thu, 21 Oct 2021 13:26:27 -0400
-Message-ID: <20211021172628.1294703-2-kent.russell@amd.com>
+CC: Kent Russell <kent.russell@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: Make EEPROM messages dev_ instead of DRM_
+Date: Thu, 21 Oct 2021 13:26:28 -0400
+Message-ID: <20211021172628.1294703-3-kent.russell@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211021172628.1294703-1-kent.russell@amd.com>
 References: <20211021172628.1294703-1-kent.russell@amd.com>
@@ -78,28 +76,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 76986952-eecc-42df-0037-08d994b7f126
-X-MS-TrafficTypeDiagnostic: SN6PR12MB4701:
-X-Microsoft-Antispam-PRVS: <SN6PR12MB4701855F7F038C0698AADF0385BF9@SN6PR12MB4701.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: e77fd236-ede9-4d7c-627b-08d994b7f258
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1564:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1564899972425360A32C6A0B85BF9@DM5PR12MB1564.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kq+7udAoE6075qIDiu4fktKVDh+xhvKZXD4kgybEvgM5YhOsNTsobn3xHERicqaXFLyfaNKpJzT4E81hGbGe1DCvUtHGrexR/iC9mxO8yfHSwPyBn5XY72S7ZysPICM9h4m0Sp8b/eVCmht0q472NOYrwDyBFR9+TeQwesOM4t927z+VJlz8KVpeyk4i+qTlLcAyDGH6mBdvtKJqKXDI0KDbq8JhZP+/pkYAQ8ppdHUhJS3M8oNVY/yvAsxFA8g77iCGwO6O4s6HueAugJNkbXc/RoGHRYGNiVCQV7mMabt0X8OyytevlNFiDgEV3zRApc/pvDIPNFZ6GqerfFPUITSDnBZObgo97Pb78w7PVUagzf6tvGKPYuzEYKQlTKE6pOL5LtWDiSQnYGeqYg92vE5nP3ZtsJLPhtc2Jwg4RUG3Q+W4wIF7PL2NU2zIIrl9+/8GNWMifxil5uB5oB2qxFyvbx3s76iMdTHqdRyvTQ0Ok4J+yOuG7fM8LdGve/B2YSb56zw1cRdB82H649KqjE7kQU27wmQTrQanx0u4wdp6UmVXpJ5KpuyF8ECmM92GymMuDjplaMt5uHirJZbtm/MoGwg4WdKb7+Klgu05N65Pp3xMcf156eo8kQN2fI3/AFZbCIMRNtA+fcPVHXeYFMvh4wSRJBlZh3zYeH0unfgfi98g6Dh4Cqg9ieQcX32nmKhyWBcBc8ExxFsKhdZN6Wu49t5vElE0XPJ6BVkIlc0=
+X-Microsoft-Antispam-Message-Info: qAykoMva8U/eZdd4DUPFCDbmO4OZUq4K1omSaJXdbg6VfJqxXJev0NwzfCavHnTu8F5RgQRRa3pdlMfIFignZZG6hQcY93GjQLGf0wHcU9cy5DBcteEiMbv69bpzKwsd2utryTRR7gq00LoAvu5+BK/jwbmsaryYu/9RyTdFO96Qjp1rUNZPZGExrQyVDRnMwmqkVGtpTROtKJzs3f8QdMRyjxRkO+KzrOtyxbMBuB4QbZ2CmmjQKkPtNGcLV0HPxs1zZwi19VN97FhI6x89GTCud19LVR2P8VuiUxiIg82Qc+D3SRXg0GAqhi8FjRj9qFn6H/qfvePZmbsBsDmCCCgPdYLefajIpXSaP5RNBKgHSDhLF8lPqjNQSFCBm9G/90eF8raOgKjjZqpBJM0vyAfCFFlteGPZJjbiHSODk6IfTAZ3OtFSap+7pS11ccSmqStxVJgvTfLEPwQGgw+TFRcOaFxEdcxBtFj+QXJNB7VTTSWhG4Cjjv6DZpsddxTBmiWlJoGlQrjukmJtoHqTOQ13/NDmYXm5XJVv8awpr87IYCL0btRAJ5iNZyKhw+RemS//vwDFl/PW2VEVtB8xjEcc3yvEa1ZpDdch1d50O5J03C42yQJwOJeD1YR4kypk8hOg3aRKlnXyASd4mhc342Gw+2Lic7nWcDtDLqH4P7iJgL9hETHFFGSE3K9oUGlXxaLF7LRbBvg26wFco0YO/9DLf3nb1uXAvJK1343bkWc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(81166007)(36860700001)(508600001)(6666004)(54906003)(36756003)(2906002)(2616005)(1076003)(356005)(426003)(44832011)(316002)(186003)(5660300002)(4326008)(83380400001)(26005)(86362001)(47076005)(336012)(16526019)(82310400003)(6916009)(8676002)(70206006)(70586007)(7696005)(8936002)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(6916009)(2906002)(36860700001)(26005)(82310400003)(356005)(16526019)(186003)(7696005)(5660300002)(2616005)(86362001)(4326008)(47076005)(83380400001)(8936002)(36756003)(316002)(81166007)(336012)(15650500001)(508600001)(70586007)(70206006)(6666004)(44832011)(426003)(1076003)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 17:26:39.4501 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76986952-eecc-42df-0037-08d994b7f126
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 17:26:41.4591 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e77fd236-ede9-4d7c-627b-08d994b7f258
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4701
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1564
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,74 +112,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a GPU hits the bad_page_threshold, it will not be initialized by
-the amdgpu driver. This means that the table cannot be cleared, nor can
-information gathering be performed (getting serial number, BDF, etc).
+Since the EEPROM is specific to the device for each of these messages,
+use the dev_* macro instead of DRM_* to make it easier to identify the
+GPU that correlates to the EEPROM messages.
 
-If the bad_page_threshold kernel parameter is set to -2,
-continue to initialize the GPU, while printing a warning to dmesg that
-this action has been done
-
-Cc: Luben Tuikov <luben.tuikov@amd.com>
-Cc: Mukul Joshi <Mukul.Joshi@amd.com>
 Signed-off-by: Kent Russell <kent.russell@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h            |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 12 ++++++++----
- 3 files changed, 10 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 40 +++++++++----------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index d58e37fd01f4..b85b67a88a3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -205,6 +205,7 @@ extern struct amdgpu_mgpu_info mgpu_info;
- extern int amdgpu_ras_enable;
- extern uint amdgpu_ras_mask;
- extern int amdgpu_bad_page_threshold;
-+extern bool amdgpu_ignore_bad_page_threshold;
- extern struct amdgpu_watchdog_timer amdgpu_watchdog_timer;
- extern int amdgpu_async_gfx_ring;
- extern int amdgpu_mcbp;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 96bd63aeeddd..eee3cf874e7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -877,7 +877,7 @@ module_param_named(reset_method, amdgpu_reset_method, int, 0444);
-  * result in the GPU entering bad status when the number of total
-  * faulty pages by ECC exceeds the threshold value.
-  */
--MODULE_PARM_DESC(bad_page_threshold, "Bad page threshold(-1 = auto(default value), 0 = disable bad page retirement)");
-+MODULE_PARM_DESC(bad_page_threshold, "Bad page threshold(-1 = auto(default value), 0 = disable bad page retirement, -2 = ignore bad page threshold)");
- module_param_named(bad_page_threshold, amdgpu_bad_page_threshold, int, 0444);
- 
- MODULE_PARM_DESC(num_kcq, "number of kernel compute queue user want to setup (8 if set to greater than 8 or less than 0, only affect gfx 8+)");
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 8309eea09df3..0428a1d3d22a 100644
+index 0428a1d3d22a..3792a69b876f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -1105,11 +1105,15 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
- 			res = amdgpu_ras_eeprom_correct_header_tag(control,
- 								   RAS_TABLE_HDR_VAL);
- 		} else {
--			*exceed_err_limit = true;
--			dev_err(adev->dev,
--				"RAS records:%d exceed threshold:%d, "
--				"GPU will not be initialized. Replace this GPU or increase the threshold",
-+			dev_err(adev->dev, "RAS records:%d exceed threshold:%d",
- 				control->ras_num_recs, ras->bad_page_cnt_threshold);
-+			if (amdgpu_bad_page_threshold == -2) {
-+				dev_warn(adev->dev, "GPU will be initialized due to bad_page_threshold = -2.");
-+				res = 0;
-+			} else {
-+				*exceed_err_limit = true;
-+				dev_err(adev->dev, "GPU will not be initialized. Replace this GPU or increase the threshold.");
-+			}
+@@ -201,9 +201,9 @@ static int __write_table_header(struct amdgpu_ras_eeprom_control *control)
+ 	up_read(&adev->reset_sem);
+ 
+ 	if (res < 0) {
+-		DRM_ERROR("Failed to write EEPROM table header:%d", res);
++		dev_err(adev->dev, "Failed to write EEPROM table header:%d", res);
+ 	} else if (res < RAS_TABLE_HEADER_SIZE) {
+-		DRM_ERROR("Short write:%d out of %d\n",
++		dev_err(adev->dev, "Short write:%d out of %d\n",
+ 			  res, RAS_TABLE_HEADER_SIZE);
+ 		res = -EIO;
+ 	} else {
+@@ -395,12 +395,12 @@ static int __amdgpu_ras_eeprom_write(struct amdgpu_ras_eeprom_control *control,
+ 				  buf, buf_size);
+ 	up_read(&adev->reset_sem);
+ 	if (res < 0) {
+-		DRM_ERROR("Writing %d EEPROM table records error:%d",
++		dev_err(adev->dev, "Writing %d EEPROM table records error:%d",
+ 			  num, res);
+ 	} else if (res < buf_size) {
+ 		/* Short write, return error.
+ 		 */
+-		DRM_ERROR("Wrote %d records out of %d",
++		dev_err(adev->dev, "Wrote %d records out of %d",
+ 			  res / RAS_TABLE_RECORD_SIZE, num);
+ 		res = -EIO;
+ 	} else {
+@@ -541,7 +541,7 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eeprom_control *control)
+ 	buf_size = control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
+ 	buf = kcalloc(control->ras_num_recs, RAS_TABLE_RECORD_SIZE, GFP_KERNEL);
+ 	if (!buf) {
+-		DRM_ERROR("allocating memory for table of size %d bytes failed\n",
++		dev_err(adev->dev, "allocating memory for table of size %d bytes failed\n",
+ 			  control->tbl_hdr.tbl_size);
+ 		res = -ENOMEM;
+ 		goto Out;
+@@ -554,11 +554,11 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eeprom_control *control)
+ 				 buf, buf_size);
+ 	up_read(&adev->reset_sem);
+ 	if (res < 0) {
+-		DRM_ERROR("EEPROM failed reading records:%d\n",
++		dev_err(adev->dev, "EEPROM failed reading records:%d\n",
+ 			  res);
+ 		goto Out;
+ 	} else if (res < buf_size) {
+-		DRM_ERROR("EEPROM read %d out of %d bytes\n",
++		dev_err(adev->dev, "EEPROM read %d out of %d bytes\n",
+ 			  res, buf_size);
+ 		res = -EIO;
+ 		goto Out;
+@@ -604,10 +604,10 @@ int amdgpu_ras_eeprom_append(struct amdgpu_ras_eeprom_control *control,
+ 		return 0;
+ 
+ 	if (num == 0) {
+-		DRM_ERROR("will not append 0 records\n");
++		dev_err(adev->dev, "will not append 0 records\n");
+ 		return -EINVAL;
+ 	} else if (num > control->ras_max_record_count) {
+-		DRM_ERROR("cannot append %d records than the size of table %d\n",
++		dev_err(adev->dev, "cannot append %d records than the size of table %d\n",
+ 			  num, control->ras_max_record_count);
+ 		return -EINVAL;
+ 	}
+@@ -650,12 +650,12 @@ static int __amdgpu_ras_eeprom_read(struct amdgpu_ras_eeprom_control *control,
+ 				 buf, buf_size);
+ 	up_read(&adev->reset_sem);
+ 	if (res < 0) {
+-		DRM_ERROR("Reading %d EEPROM table records error:%d",
++		dev_err(adev->dev, "Reading %d EEPROM table records error:%d",
+ 			  num, res);
+ 	} else if (res < buf_size) {
+ 		/* Short read, return error.
+ 		 */
+-		DRM_ERROR("Read %d records out of %d",
++		dev_err(adev->dev, "Read %d records out of %d",
+ 			  res / RAS_TABLE_RECORD_SIZE, num);
+ 		res = -EIO;
+ 	} else {
+@@ -689,10 +689,10 @@ int amdgpu_ras_eeprom_read(struct amdgpu_ras_eeprom_control *control,
+ 		return 0;
+ 
+ 	if (num == 0) {
+-		DRM_ERROR("will not read 0 records\n");
++		dev_err(adev->dev, "will not read 0 records\n");
+ 		return -EINVAL;
+ 	} else if (num > control->ras_num_recs) {
+-		DRM_ERROR("too many records to read:%d available:%d\n",
++		dev_err(adev->dev, "too many records to read:%d available:%d\n",
+ 			  num, control->ras_num_recs);
+ 		return -EINVAL;
+ 	}
+@@ -1005,7 +1005,7 @@ static int __verify_ras_table_checksum(struct amdgpu_ras_eeprom_control *control
+ 		control->ras_num_recs * RAS_TABLE_RECORD_SIZE;
+ 	buf = kzalloc(buf_size, GFP_KERNEL);
+ 	if (!buf) {
+-		DRM_ERROR("Out of memory checking RAS table checksum.\n");
++		dev_err(adev->dev, "Out of memory checking RAS table checksum.\n");
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -1014,7 +1014,7 @@ static int __verify_ras_table_checksum(struct amdgpu_ras_eeprom_control *control
+ 				 control->ras_header_offset,
+ 				 buf, buf_size);
+ 	if (res < buf_size) {
+-		DRM_ERROR("Partial read for checksum, res:%d\n", res);
++		dev_err(adev->dev, "Partial read for checksum, res:%d\n", res);
+ 		/* On partial reads, return -EIO.
+ 		 */
+ 		if (res >= 0)
+@@ -1061,7 +1061,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+ 				 control->i2c_address + control->ras_header_offset,
+ 				 buf, RAS_TABLE_HEADER_SIZE);
+ 	if (res < RAS_TABLE_HEADER_SIZE) {
+-		DRM_ERROR("Failed to read EEPROM table header, res:%d", res);
++		dev_err(adev->dev, "Failed to read EEPROM table header, res:%d", res);
+ 		return res >= 0 ? -EIO : res;
+ 	}
+ 
+@@ -1071,11 +1071,11 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+ 	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
+ 
+ 	if (hdr->header == RAS_TABLE_HDR_VAL) {
+-		DRM_DEBUG_DRIVER("Found existing EEPROM table with %d records",
++		dev_dbg(adev->dev, "Found existing EEPROM table with %d records",
+ 				 control->ras_num_recs);
+ 		res = __verify_ras_table_checksum(control);
+ 		if (res)
+-			DRM_ERROR("RAS table incorrect checksum or error:%d\n",
++			dev_err(adev->dev, "RAS table incorrect checksum or error:%d\n",
+ 				  res);
+ 
+ 		/* Warn if we are at 90% of the threshold or above
+@@ -1088,7 +1088,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+ 		   amdgpu_bad_page_threshold != 0) {
+ 		res = __verify_ras_table_checksum(control);
+ 		if (res)
+-			DRM_ERROR("RAS Table incorrect checksum or error:%d\n",
++			dev_err(adev->dev, "RAS Table incorrect checksum or error:%d\n",
+ 				  res);
+ 		if (ras->bad_page_cnt_threshold > control->ras_num_recs) {
+ 			/* This means that, the threshold was increased since
+@@ -1116,7 +1116,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+ 			}
  		}
  	} else {
- 		DRM_INFO("Creating a new EEPROM table");
+-		DRM_INFO("Creating a new EEPROM table");
++		dev_info(adev->dev, "Creating a new EEPROM table");
+ 
+ 		res = amdgpu_ras_eeprom_reset_table(control);
+ 	}
 -- 
 2.25.1
 
