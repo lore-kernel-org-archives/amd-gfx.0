@@ -2,38 +2,38 @@ Return-Path: <SRS0=y7aQ=PK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BEC2C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 09:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0DA0C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 09:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65CA561073
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 09:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 65CA561073
+	by mail.kernel.org (Postfix) with ESMTPS id 77DE260FD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Oct 2021 09:32:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 77DE260FD8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14D0C6E926;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1E36E927;
 	Fri, 22 Oct 2021 09:32:50 +0000 (UTC)
 Received: from NAM04-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam08on2080.outbound.protection.outlook.com [40.107.100.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D88289FA0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8FD389FA0
  for <amd-gfx@lists.freedesktop.org>; Fri, 22 Oct 2021 09:32:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UfOUMkcWKz+dpIme67bEbydmsZ81uVWNoGbasl0qVzCWAS10Nc5A1rT/x2NBSJaw/MplPtC8bhKldOa+ZREHl7vp5/1D6I0MEvhh1kCkc7tiKjwur+N2TEJ/ezK3Tm1rVBHoZdOZRNxVeagq6fBTnMDvtPKWOCYFdI39rfgoQrrDspn29lx2YSUEky1e4ARakWJFnKLU1SB7DTsGUpiHtgUbv6DBLHhfk0tRSQrQXlC8ffI2/4hk/XFi5UP3y+ZJJJxP7WgVBfqExoOqv4mA94dpQw9g7PjCDCbqQ0AS2E5bX42HJxn6yMW9CT6NEuAYPGh/XudOlhiltTHzIbfB3A==
+ b=jLdzteKjRdw0+p74/opXKR21O/OKiPgG9lAW9oL9S6pwDHqfY/wS/Y2QV45H/00+ns16VKDU4PisIV5Z72Zp1b7GqfrPN64Sz4ES/dneCbv6Whni+KX6bvvlwWvtqyZB8d3WoC179OAxRMu8ySYH0vCIMsztDRnbpepQpTSXPvH+2QpJ36tcAzlPELJUkevF9ggTw6HLyW2NtHmAC5mrizx56jGhIvoahOdgI+haO2MqYQp1wer9/5aIgXvfE649/aVuUQVxOJEj4qhwrbcaagSxXzNpwt5K9HaugwgUEVrEuOImHVNM0OvkPs+BpWuD85fnqUOpO4wiFF9uBZpFSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z9CTri0pSDIB16Rgq8N/FqN6u8WJ4pmuqvPCiYthKLU=;
- b=g8u751jLjq5VuQ6cLKX0w9kNWlL/cWsbyO+P/j1YMyugw8VvKvLGYEVIvprni7YUvhhzO6DieRA6FhCastdozN1B7HhVhGBgCaR+vfOxoyWI6D8ugnPozSUayJPSG+ADJy/e129VpUTCMLFpaSVg+I2y7iTvo86vfNLD5KaZfFkMJ5M9rAHDTfcY3kVPUTZFxUKBnQ1Livm8Yjoow+uRxEpQNbM7Ol64b9zrJTs5hT56/4ZFZdkwkO4zJPUnBXCA/notRgnApUYIc32jDBSKOkege/F76Zr1d2T8FvICLTlM+ay3JYerRfILmcbejtXUSwdeF/ZXqayeTgtnREfVsA==
+ bh=5d/yn1ux2DwsRj3yc18LLqOKh2IzOpoOBtAZYAOUC/4=;
+ b=BbmLQ6IiCyW+HFyz2dGd+buMTz0dRmUu6hl6Tru0L6/HOfXwL4r9NoUHgVTRYCoqAmelmkA/vSw1/VO12m8mAeoRLdql5h0xBXsfjGQXXOdJSrtRP54WwyoBnbqCjYy1eZkHVghIvTRu7a5X/uwF8uE2eNJJfInupaB0ooVqGSkxP4XQSSG6AfkdpPQCQxj55G8XrYxEhyLmgE/UItrZIo0OS3w8exzPksTAQs0HKn0GvSbwZmbEelAQ0xk5m0mHeM4Tpd/h7sCEgMQxk92S7+eUIbY49DlKWCPwYyJQ7G3kx/2q6WmvvX/jN92Dal/hl/prhrPZCNU8hYYwPhJrpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z9CTri0pSDIB16Rgq8N/FqN6u8WJ4pmuqvPCiYthKLU=;
- b=uSo0fotZ+67HKGOnFUqr8nbq4oJy7IMtBo+lDfcSTA6rwhINJSh/z+z1sObUmHR5TLAP1Sl34ADFaETP4Tw6L76CrBf98HEL/wysXGyRoZOrW6sIoRKCXteCouGpb6iKMlB/I5t5rU1a7GdNugg6EulYg0JLUeu5GAeroFuhfw8=
+ bh=5d/yn1ux2DwsRj3yc18LLqOKh2IzOpoOBtAZYAOUC/4=;
+ b=4MbsOh7ec21jyx6nuaKAqSwkgB7c3ObLOIyYcH/Cd90Kd40ns1EE8FgAEUfXk8g+tqWUCA6p42JnCi/WbqumfgjEcnHsvVC3TF0nGG12oakfc3ON5715PpR5mihpfjLLWSKh2e6V7lMNCaPaEbtLMN6muEERhBwJ7r81FdTKV1c=
 Received: from DS7PR06CA0042.namprd06.prod.outlook.com (2603:10b6:8:54::23) by
  BY5PR12MB4051.namprd12.prod.outlook.com (2603:10b6:a03:20c::7) with
  Microsoft
@@ -43,7 +43,7 @@ Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
  (2603:10b6:8:54:cafe::22) by DS7PR06CA0042.outlook.office365.com
  (2603:10b6:8:54::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
- Transport; Fri, 22 Oct 2021 09:32:45 +0000
+ Transport; Fri, 22 Oct 2021 09:32:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,19 +54,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4628.16 via Frontend Transport; Fri, 22 Oct 2021 09:32:45 +0000
+ 15.20.4628.16 via Frontend Transport; Fri, 22 Oct 2021 09:32:46 +0000
 Received: from brihaspati.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 22 Oct
- 2021 04:32:43 -0500
+ 2021 04:32:44 -0500
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Christian.Koenig@amd.com>, <andrey.grodzovsky@amd.com>,
  <lijo.lazar@amd.com>, Nirmoy Das <nirmoy.das@amd.com>
-Subject: [PATCH v2 2/3] drm/amdgpu: do not pass ttm_resource_manager to
- vram_mgr
-Date: Fri, 22 Oct 2021 11:32:30 +0200
-Message-ID: <20211022093231.7787-2-nirmoy.das@amd.com>
+Subject: [PATCH v3 3/3] drm/amdgpu: recover gart table at resume
+Date: Fri, 22 Oct 2021 11:32:31 +0200
+Message-ID: <20211022093231.7787-3-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211022093231.7787-1-nirmoy.das@amd.com>
 References: <20211022093231.7787-1-nirmoy.das@amd.com>
@@ -78,21 +77,21 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 72e0d252-17c4-4ff1-a6ed-08d9953ee772
+X-MS-Office365-Filtering-Correlation-Id: d604fffe-90e9-4e8a-0c07-08d9953ee820
 X-MS-TrafficTypeDiagnostic: BY5PR12MB4051:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4051B14D9FE9E0797C3513688B809@BY5PR12MB4051.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <BY5PR12MB40510031E538F92A7D142FAA8B809@BY5PR12MB4051.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LddzfOJfl09oeubHJiv5R5el1/zzNFRe1BAhjvezTlRyToQjPLMPDlOIMJCUJ4rqLAJu3YqshybXhAQ+b2+Qlns+gkG5+hXU6km+T0uIIEQOZbcUp2CYFJPhx2veEJxieFNxNTn9vsTLS+uRM0wnVJk/kFc29LUFI7Q5f8uwDziGBO9Cl95KQWYq1DJl7kAZsKxouBxjyW40Jyz0dDxYZjcIo8HpBA5Cc1eFWyG+XE609Znss0MOiUlha6Yb20NmbrmrbXowr/Bv9z2R8nj4ibdk2HvI7CHBndCtbhzLGBp3yvFgGRpTqHej2naltoRA9+smk0uC/3NIfoupCkLGPHYyM2a1aXVCLzV/k/HmMMUpzCdOgdrPRsbqi7CYka7eU3yBVQU7qDNKkB476uv5Y/o/9FlfhyiuucCoz9ALxIR4fQD9DifJ5wKXzIovcvHaSZXiaVVHE4QRlCleURWbWOP3eYf7tEXNF2q02RYyViwQqapGC4V8n4NkBbnzYVkgG22Mht+cY0g0s9SW/kXypTtKlKB5ZaZW1THHkMwLEyXQXUHXdGSXruVWlzZNZg9IbrL2eipekjG+0YE3GTdRC5bGFNX+fj1sAuywNu03rTeVTTF5bZPx3LYAzE64LEwd1D3BtSIsnikPBSN2vL2olCNcLoc4D7knrHIc/yuRGCBwLAomKj91a6GocGPIBtTOxj3UGdJWv3M9DWjY5dPqpOJWQvwLABh2fTvb9z0BZPo=
+X-Microsoft-Antispam-Message-Info: 6d8IjMuPVJ5tQzXHSl8bXsFCnmGLSuimELszpVLmR8wv0pcj8oXGZhq1cCLe5k0fYx0vWhmI2T/1GUNdnYSwrceJnGawQjEtmqxMyvmEXTzQ8W13Pud1nMKwgkLOKa9nUw2QawXQIpIAbOt32gZ50Ea8w04vTIJw4Mj3KF1xVWjVnJm/JhXDjoKSADEkDT3UyVnprVsBNctdEC3WweJFNx+iWnDULKyrjQevCL2NMgMwzcZAx1a7y8F5tw1zQCAZoA6MfKeXkVh159lAUFfDmhWtJySHEvn/hkACYGPtyB1SO2FMte6XGA+j5f4EZDw+WPfVoQM+/9mEa4LwdPIxfKNynpxJIHkK/YOEwLH92ma0Zb+p2cno0jLVY+axSG6RJf/kHLUysc8d4ANFvY+9kuK/kpiNEkj/oZCD6si0A563Qi2+f6pr/PWVvmjOnuydtnJWNe5I+hPNyClSHXueVNP6kP+WgMDKTD34mgkH1Sghto/peM3SR17inx+gxSCHQctIv3DgVzXf6PMcVnuk8wX66UDNugSANV0PUbAY7vEmsy6FVD8VcZxm4opYt3vqxIuGmLMz7VkA6TsqyK9qCRjO3pH0FgWdQ/Zi02Wj/8d5UM16Xb2ZamQWYh0fdtjlWxJC++Ideq4I5abutOCmCGN/R8lWdqr/CDce/8Q+zTyeQizdybNziA+X78hFbczXpwdfyltGTjF0gq3pdBQ3EcL2LL6Ybc78ZXrvduuM05I=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(356005)(2906002)(8936002)(30864003)(7696005)(186003)(70586007)(6916009)(83380400001)(426003)(54906003)(81166007)(316002)(70206006)(5660300002)(36860700001)(36756003)(86362001)(82310400003)(336012)(44832011)(508600001)(1076003)(4326008)(16526019)(26005)(8676002)(6666004)(47076005)(2616005)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(356005)(2906002)(8936002)(7696005)(186003)(70586007)(6916009)(83380400001)(426003)(54906003)(81166007)(316002)(70206006)(5660300002)(36860700001)(36756003)(86362001)(82310400003)(336012)(44832011)(508600001)(1076003)(4326008)(16526019)(26005)(8676002)(6666004)(47076005)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2021 09:32:45.2198 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72e0d252-17c4-4ff1-a6ed-08d9953ee772
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2021 09:32:46.3551 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d604fffe-90e9-4e8a-0c07-08d9953ee820
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
@@ -114,304 +113,274 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Do not allow exported amdgpu_vram_mgr_*() to accept
-any ttm_resource_manager pointer. Also there is no need
-to force other module to call a ttm function just to
-eventually call vram_mgr functions.
+Get rid off pin/unpin of gart BO at resume/suspend and
+instead pin only once and try to recover gart content
+at resume time. This is much more stable in case there
+is OOM situation at 2nd call to amdgpu_device_evict_resources()
+while evicting GART table.
 
-v2: pass adev's vram_mgr instead of adev
+v3: remove gart recovery from other places
+v2: pin gart at amdgpu_gart_table_vram_alloc()
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c   |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c       |  5 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c      | 10 ++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c      |  6 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h      |  8 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c     |  5 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 40 ++++++++------------
- 7 files changed, 31 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   | 80 ++--------------------
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  3 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      |  3 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  3 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  3 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  3 +-
+ 7 files changed, 12 insertions(+), 94 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 7077f21f0021..df818e145d9a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -531,9 +531,8 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *kgd, int dma_buf_fd,
- uint64_t amdgpu_amdkfd_get_vram_usage(struct kgd_dev *kgd)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
--	struct ttm_resource_manager *vram_man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 2b53d86aebac..f0c70e9d37fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3935,16 +3935,11 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 	if (!adev->in_s0ix)
+ 		amdgpu_amdkfd_suspend(adev, adev->in_runpm);
 
--	return amdgpu_vram_mgr_usage(vram_man);
-+	return amdgpu_vram_mgr_usage(&adev->mman.vram_mgr);
- }
+-	/* First evict vram memory */
+ 	amdgpu_device_evict_resources(adev);
 
- uint64_t amdgpu_amdkfd_get_hive_id(struct kgd_dev *kgd)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 76fe5b71e35d..7e745164a624 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -298,7 +298,6 @@ static void amdgpu_cs_get_threshold_for_moves(struct amdgpu_device *adev,
- {
- 	s64 time_us, increment_us;
- 	u64 free_vram, total_vram, used_vram;
--	struct ttm_resource_manager *vram_man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
- 	/* Allow a maximum of 200 accumulated ms. This is basically per-IB
- 	 * throttling.
- 	 *
-@@ -315,7 +314,7 @@ static void amdgpu_cs_get_threshold_for_moves(struct amdgpu_device *adev,
- 	}
+ 	amdgpu_fence_driver_hw_fini(adev);
 
- 	total_vram = adev->gmc.real_vram_size - atomic64_read(&adev->vram_pin_size);
--	used_vram = amdgpu_vram_mgr_usage(vram_man);
-+	used_vram = amdgpu_vram_mgr_usage(&adev->mman.vram_mgr);
- 	free_vram = used_vram >= total_vram ? 0 : total_vram - used_vram;
-
- 	spin_lock(&adev->mm_stats.lock);
-@@ -362,7 +361,7 @@ static void amdgpu_cs_get_threshold_for_moves(struct amdgpu_device *adev,
- 	if (!amdgpu_gmc_vram_full_visible(&adev->gmc)) {
- 		u64 total_vis_vram = adev->gmc.visible_vram_size;
- 		u64 used_vis_vram =
--		  amdgpu_vram_mgr_vis_usage(vram_man);
-+		  amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
-
- 		if (used_vis_vram < total_vis_vram) {
- 			u64 free_vis_vram = total_vis_vram - used_vis_vram;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 603ce32db5c5..b426e03ad630 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -672,10 +672,10 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		ui64 = atomic64_read(&adev->num_vram_cpu_page_faults);
- 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
- 	case AMDGPU_INFO_VRAM_USAGE:
--		ui64 = amdgpu_vram_mgr_usage(ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM));
-+		ui64 = amdgpu_vram_mgr_usage(&adev->mman.vram_mgr);
- 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
- 	case AMDGPU_INFO_VIS_VRAM_USAGE:
--		ui64 = amdgpu_vram_mgr_vis_usage(ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM));
-+		ui64 = amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
- 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
- 	case AMDGPU_INFO_GTT_USAGE:
- 		ui64 = amdgpu_gtt_mgr_usage(&adev->mman.gtt_mgr);
-@@ -709,8 +709,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 	}
- 	case AMDGPU_INFO_MEMORY: {
- 		struct drm_amdgpu_memory_info mem;
--		struct ttm_resource_manager *vram_man =
--			ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
- 		struct ttm_resource_manager *gtt_man =
- 			ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
- 		memset(&mem, 0, sizeof(mem));
-@@ -719,7 +717,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			atomic64_read(&adev->vram_pin_size) -
- 			AMDGPU_VM_RESERVED_VRAM;
- 		mem.vram.heap_usage =
--			amdgpu_vram_mgr_usage(vram_man);
-+			amdgpu_vram_mgr_usage(&adev->mman.vram_mgr);
- 		mem.vram.max_allocation = mem.vram.usable_heap_size * 3 / 4;
-
- 		mem.cpu_accessible_vram.total_heap_size =
-@@ -729,7 +727,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			    atomic64_read(&adev->visible_pin_size),
- 			    mem.vram.usable_heap_size);
- 		mem.cpu_accessible_vram.heap_usage =
--			amdgpu_vram_mgr_vis_usage(vram_man);
-+			amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
- 		mem.cpu_accessible_vram.max_allocation =
- 			mem.cpu_accessible_vram.usable_heap_size * 3 / 4;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 08133de21fdd..4114e0d35e82 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1804,8 +1804,7 @@ static int amdgpu_ras_badpages_read(struct amdgpu_device *adev,
- 			.size = AMDGPU_GPU_PAGE_SIZE,
- 			.flags = AMDGPU_RAS_RETIRE_PAGE_RESERVED,
- 		};
--		status = amdgpu_vram_mgr_query_page_status(
--				ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM),
-+		status = amdgpu_vram_mgr_query_page_status(&adev->mman.vram_mgr,
- 				data->bps[i].retired_page);
- 		if (status == -EBUSY)
- 			(*bps)[i].flags = AMDGPU_RAS_RETIRE_PAGE_PENDING;
-@@ -1906,8 +1905,7 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
- 			goto out;
- 		}
-
--		amdgpu_vram_mgr_reserve_range(
--			ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM),
-+		amdgpu_vram_mgr_reserve_range(&adev->mman.vram_mgr,
- 			bps[i].retired_page << AMDGPU_GPU_PAGE_SHIFT,
- 			AMDGPU_GPU_PAGE_SIZE);
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index af1c4e414979..ee8ab7846905 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -129,11 +129,11 @@ int amdgpu_vram_mgr_alloc_sgt(struct amdgpu_device *adev,
- void amdgpu_vram_mgr_free_sgt(struct device *dev,
- 			      enum dma_data_direction dir,
- 			      struct sg_table *sgt);
--uint64_t amdgpu_vram_mgr_usage(struct ttm_resource_manager *man);
--uint64_t amdgpu_vram_mgr_vis_usage(struct ttm_resource_manager *man);
--int amdgpu_vram_mgr_reserve_range(struct ttm_resource_manager *man,
-+uint64_t amdgpu_vram_mgr_usage(struct amdgpu_vram_mgr *mgr);
-+uint64_t amdgpu_vram_mgr_vis_usage(struct amdgpu_vram_mgr *mgr);
-+int amdgpu_vram_mgr_reserve_range(struct amdgpu_vram_mgr *mgr,
- 				  uint64_t start, uint64_t size);
--int amdgpu_vram_mgr_query_page_status(struct ttm_resource_manager *man,
-+int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
- 				      uint64_t start);
-
- int amdgpu_ttm_init(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 99c149397aae..a3c7a19047e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -548,7 +548,6 @@ static void amdgpu_virt_populate_vf2pf_ucode_info(struct amdgpu_device *adev)
- static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
- {
- 	struct amd_sriov_msg_vf2pf_info *vf2pf_info;
--	struct ttm_resource_manager *vram_man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
-
- 	vf2pf_info = (struct amd_sriov_msg_vf2pf_info *) adev->virt.fw_reserve.p_vf2pf;
-
-@@ -571,8 +570,8 @@ static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
- 	vf2pf_info->driver_cert = 0;
- 	vf2pf_info->os_info.all = 0;
-
--	vf2pf_info->fb_usage = amdgpu_vram_mgr_usage(vram_man) >> 20;
--	vf2pf_info->fb_vis_usage = amdgpu_vram_mgr_vis_usage(vram_man) >> 20;
-+	vf2pf_info->fb_usage = amdgpu_vram_mgr_usage(&adev->mman.vram_mgr) >> 20;
-+	vf2pf_info->fb_vis_usage = amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr) >> 20;
- 	vf2pf_info->fb_size = adev->gmc.real_vram_size >> 20;
- 	vf2pf_info->fb_vis_size = adev->gmc.visible_vram_size >> 20;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 7b2b0980ec41..7a2b487db57c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -96,10 +96,9 @@ static ssize_t amdgpu_mem_info_vram_used_show(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	struct ttm_resource_manager *man;
-
--	man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
--	return sysfs_emit(buf, "%llu\n", amdgpu_vram_mgr_usage(man));
-+	return sysfs_emit(buf, "%llu\n",
-+			  amdgpu_vram_mgr_usage(&adev->mman.vram_mgr));
- }
-
- /**
-@@ -116,10 +115,9 @@ static ssize_t amdgpu_mem_info_vis_vram_used_show(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	struct ttm_resource_manager *man;
-
--	man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
--	return sysfs_emit(buf, "%llu\n", amdgpu_vram_mgr_vis_usage(man));
-+	return sysfs_emit(buf, "%llu\n",
-+			  amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr));
- }
-
- /**
-@@ -263,16 +261,15 @@ static void amdgpu_vram_mgr_do_reserve(struct ttm_resource_manager *man)
- /**
-  * amdgpu_vram_mgr_reserve_range - Reserve a range from VRAM
-  *
-- * @man: TTM memory type manager
-+ * @mgr: amdgpu_vram_mgr pointer
-  * @start: start address of the range in VRAM
-  * @size: size of the range
-  *
-- * Reserve memory from start addess with the specified size in VRAM
-+ * Reserve memory from start address with the specified size in VRAM
-  */
--int amdgpu_vram_mgr_reserve_range(struct ttm_resource_manager *man,
-+int amdgpu_vram_mgr_reserve_range(struct amdgpu_vram_mgr *mgr,
- 				  uint64_t start, uint64_t size)
- {
--	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
- 	struct amdgpu_vram_reservation *rsv;
-
- 	rsv = kzalloc(sizeof(*rsv), GFP_KERNEL);
-@@ -285,7 +282,7 @@ int amdgpu_vram_mgr_reserve_range(struct ttm_resource_manager *man,
-
- 	spin_lock(&mgr->lock);
- 	list_add_tail(&mgr->reservations_pending, &rsv->node);
--	amdgpu_vram_mgr_do_reserve(man);
-+	amdgpu_vram_mgr_do_reserve(&mgr->manager);
- 	spin_unlock(&mgr->lock);
+ 	amdgpu_device_ip_suspend_phase2(adev);
+-	/* This second call to evict device resources is to evict
+-	 * the gart page table using the CPU.
+-	 */
+-	amdgpu_device_evict_resources(adev);
 
  	return 0;
-@@ -294,7 +291,7 @@ int amdgpu_vram_mgr_reserve_range(struct ttm_resource_manager *man,
- /**
-  * amdgpu_vram_mgr_query_page_status - query the reservation status
-  *
-- * @man: TTM memory type manager
-+ * @mgr: amdgpu_vram_mgr pointer
-  * @start: start address of a page in VRAM
-  *
-  * Returns:
-@@ -302,10 +299,9 @@ int amdgpu_vram_mgr_reserve_range(struct ttm_resource_manager *man,
-  *	0: the page has been reserved
-  *	-ENOENT: the input page is not a reservation
-  */
--int amdgpu_vram_mgr_query_page_status(struct ttm_resource_manager *man,
-+int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
- 				      uint64_t start)
- {
--	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
- 	struct amdgpu_vram_reservation *rsv;
- 	int ret;
+ }
+@@ -4286,8 +4281,6 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+ 		goto error;
 
-@@ -632,28 +628,24 @@ void amdgpu_vram_mgr_free_sgt(struct device *dev,
- /**
-  * amdgpu_vram_mgr_usage - how many bytes are used in this domain
-  *
-- * @man: TTM memory type manager
-+ * @mgr: amdgpu_vram_mgr pointer
-  *
-  * Returns how many bytes are used in this domain.
-  */
--uint64_t amdgpu_vram_mgr_usage(struct ttm_resource_manager *man)
-+uint64_t amdgpu_vram_mgr_usage(struct amdgpu_vram_mgr *mgr)
- {
--	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
+ 	amdgpu_virt_init_data_exchange(adev);
+-	/* we need recover gart prior to run SMC/CP/SDMA resume */
+-	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+
+ 	r = amdgpu_device_fw_loading(adev);
+ 	if (r)
+@@ -4604,10 +4597,6 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 					amdgpu_inc_vram_lost(tmp_adev);
+ 				}
+
+-				r = amdgpu_gtt_mgr_recover(&tmp_adev->mman.gtt_mgr);
+-				if (r)
+-					goto out;
 -
- 	return atomic64_read(&mgr->usage);
+ 				r = amdgpu_device_fw_loading(tmp_adev);
+ 				if (r)
+ 					return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index d3e4203f6217..679eec122bb5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -116,78 +116,16 @@ int amdgpu_gart_table_vram_alloc(struct amdgpu_device *adev)
+ {
+ 	int r;
+
+-	if (adev->gart.bo == NULL) {
+-		struct amdgpu_bo_param bp;
+-
+-		memset(&bp, 0, sizeof(bp));
+-		bp.size = adev->gart.table_size;
+-		bp.byte_align = PAGE_SIZE;
+-		bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
+-		bp.flags = AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
+-			AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+-		bp.type = ttm_bo_type_kernel;
+-		bp.resv = NULL;
+-		bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+-
+-		r = amdgpu_bo_create(adev, &bp, &adev->gart.bo);
+-		if (r) {
+-			return r;
+-		}
+-	}
+-	return 0;
+-}
+-
+-/**
+- * amdgpu_gart_table_vram_pin - pin gart page table in vram
+- *
+- * @adev: amdgpu_device pointer
+- *
+- * Pin the GART page table in vram so it will not be moved
+- * by the memory manager (pcie r4xx, r5xx+).  These asics require the
+- * gart table to be in video memory.
+- * Returns 0 for success, error for failure.
+- */
+-int amdgpu_gart_table_vram_pin(struct amdgpu_device *adev)
+-{
+-	int r;
++	if (adev->gart.bo != NULL)
++		return 0;
+
+-	r = amdgpu_bo_reserve(adev->gart.bo, false);
+-	if (unlikely(r != 0))
+-		return r;
+-	r = amdgpu_bo_pin(adev->gart.bo, AMDGPU_GEM_DOMAIN_VRAM);
++	r = amdgpu_bo_create_kernel(adev,  adev->gart.table_size, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_VRAM, &adev->gart.bo,
++				    NULL, (void *)&adev->gart.ptr);
+ 	if (r) {
+-		amdgpu_bo_unreserve(adev->gart.bo);
+ 		return r;
+ 	}
+-	r = amdgpu_bo_kmap(adev->gart.bo, &adev->gart.ptr);
+-	if (r)
+-		amdgpu_bo_unpin(adev->gart.bo);
+-	amdgpu_bo_unreserve(adev->gart.bo);
+-	return r;
+-}
+-
+-/**
+- * amdgpu_gart_table_vram_unpin - unpin gart page table in vram
+- *
+- * @adev: amdgpu_device pointer
+- *
+- * Unpin the GART page table in vram (pcie r4xx, r5xx+).
+- * These asics require the gart table to be in video memory.
+- */
+-void amdgpu_gart_table_vram_unpin(struct amdgpu_device *adev)
+-{
+-	int r;
+-
+-	if (adev->gart.bo == NULL) {
+-		return;
+-	}
+-	r = amdgpu_bo_reserve(adev->gart.bo, true);
+-	if (likely(r == 0)) {
+-		amdgpu_bo_kunmap(adev->gart.bo);
+-		amdgpu_bo_unpin(adev->gart.bo);
+-		amdgpu_bo_unreserve(adev->gart.bo);
+-		adev->gart.ptr = NULL;
+-	}
++	return 0;
  }
 
  /**
-  * amdgpu_vram_mgr_vis_usage - how many bytes are used in the visible part
-  *
-- * @man: TTM memory type manager
-+ * @mgr: amdgpu_vram_mgr pointer
-  *
-  * Returns how many bytes are used in the visible part of VRAM
+@@ -201,11 +139,7 @@ void amdgpu_gart_table_vram_unpin(struct amdgpu_device *adev)
   */
--uint64_t amdgpu_vram_mgr_vis_usage(struct ttm_resource_manager *man)
-+uint64_t amdgpu_vram_mgr_vis_usage(struct amdgpu_vram_mgr *mgr)
+ void amdgpu_gart_table_vram_free(struct amdgpu_device *adev)
  {
--	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
--
- 	return atomic64_read(&mgr->vis_usage);
+-	if (adev->gart.bo == NULL) {
+-		return;
+-	}
+-	amdgpu_bo_unref(&adev->gart.bo);
+-	adev->gart.ptr = NULL;
++	 amdgpu_bo_free_kernel(&adev->gart.bo, NULL, (void *)&adev->gart.ptr);
  }
 
-@@ -675,8 +667,8 @@ static void amdgpu_vram_mgr_debug(struct ttm_resource_manager *man,
- 	spin_unlock(&mgr->lock);
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 3ec5ff5a6dbe..2440278a3b4b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -992,7 +992,7 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
+ 		return -EINVAL;
+ 	}
 
- 	drm_printf(printer, "man size:%llu pages, ram usage:%lluMB, vis usage:%lluMB\n",
--		   man->size, amdgpu_vram_mgr_usage(man) >> 20,
--		   amdgpu_vram_mgr_vis_usage(man) >> 20);
-+		   man->size, amdgpu_vram_mgr_usage(mgr) >> 20,
-+		   amdgpu_vram_mgr_vis_usage(mgr) >> 20);
+-	r = amdgpu_gart_table_vram_pin(adev);
++	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+ 	if (r)
+ 		return r;
+
+@@ -1062,7 +1062,6 @@ static void gmc_v10_0_gart_disable(struct amdgpu_device *adev)
+ {
+ 	adev->gfxhub.funcs->gart_disable(adev);
+ 	adev->mmhub.funcs->gart_disable(adev);
+-	amdgpu_gart_table_vram_unpin(adev);
  }
 
- static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
+ static int gmc_v10_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 0e81e03e9b49..3a8c9d4ee06a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -476,7 +476,7 @@ static int gmc_v6_0_gart_enable(struct amdgpu_device *adev)
+ 		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
+ 		return -EINVAL;
+ 	}
+-	r = amdgpu_gart_table_vram_pin(adev);
++	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+ 	if (r)
+ 		return r;
+
+@@ -608,7 +608,6 @@ static void gmc_v6_0_gart_disable(struct amdgpu_device *adev)
+ 	WREG32(mmVM_L2_CNTL3,
+ 	       VM_L2_CNTL3__L2_CACHE_BIGK_ASSOCIATIVITY_MASK |
+ 	       (0UL << VM_L2_CNTL3__L2_CACHE_BIGK_FRAGMENT_SIZE__SHIFT));
+-	amdgpu_gart_table_vram_unpin(adev);
+ }
+
+ static void gmc_v6_0_vm_decode_fault(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 0a50fdaced7e..ab8adbff9e2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -620,7 +620,7 @@ static int gmc_v7_0_gart_enable(struct amdgpu_device *adev)
+ 		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
+ 		return -EINVAL;
+ 	}
+-	r = amdgpu_gart_table_vram_pin(adev);
++	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+ 	if (r)
+ 		return r;
+
+@@ -758,7 +758,6 @@ static void gmc_v7_0_gart_disable(struct amdgpu_device *adev)
+ 	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
+ 	WREG32(mmVM_L2_CNTL, tmp);
+ 	WREG32(mmVM_L2_CNTL2, 0);
+-	amdgpu_gart_table_vram_unpin(adev);
+ }
+
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 492ebed2915b..cd3a4bd8fed9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -837,7 +837,7 @@ static int gmc_v8_0_gart_enable(struct amdgpu_device *adev)
+ 		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
+ 		return -EINVAL;
+ 	}
+-	r = amdgpu_gart_table_vram_pin(adev);
++	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+ 	if (r)
+ 		return r;
+
+@@ -992,7 +992,6 @@ static void gmc_v8_0_gart_disable(struct amdgpu_device *adev)
+ 	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
+ 	WREG32(mmVM_L2_CNTL, tmp);
+ 	WREG32(mmVM_L2_CNTL2, 0);
+-	amdgpu_gart_table_vram_unpin(adev);
+ }
+
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index cb82404df534..8732da11ad98 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1714,7 +1714,7 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
+ 		return -EINVAL;
+ 	}
+
+-	r = amdgpu_gart_table_vram_pin(adev);
++	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+ 	if (r)
+ 		return r;
+
+@@ -1793,7 +1793,6 @@ static void gmc_v9_0_gart_disable(struct amdgpu_device *adev)
+ {
+ 	adev->gfxhub.funcs->gart_disable(adev);
+ 	adev->mmhub.funcs->gart_disable(adev);
+-	amdgpu_gart_table_vram_unpin(adev);
+ }
+
+ static int gmc_v9_0_hw_fini(void *handle)
 --
 2.32.0
 
