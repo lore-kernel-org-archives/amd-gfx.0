@@ -2,51 +2,101 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19809C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C25DC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D522660C4B
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:02:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D522660C4B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4DB7F60EB1
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:02:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4DB7F60EB1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35704898BF;
-	Mon, 25 Oct 2021 16:02:23 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 51EAD89F89
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 16:02:00 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A30891FB;
- Mon, 25 Oct 2021 09:01:58 -0700 (PDT)
-Received: from [10.57.27.231] (unknown [10.57.27.231])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F7E53F5A1;
- Mon, 25 Oct 2021 09:01:56 -0700 (PDT)
-Subject: Re: I got an IOMMU IO page fault. What to do now?
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Paul Menzel <pmenzel@molgen.mpg.de>, =?UTF-8?B?SsO2cmcgUsO2ZGVs?=
- <joro@8bytes.org>, Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Cc: x86@kernel.org, Xinhui Pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- iommu@lists.linux-foundation.org, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Alex Deucher <alexander.deucher@amd.com>,
- it+linux-iommu@molgen.mpg.de, Thomas Gleixner <tglx@linutronix.de>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <7a5123b0-6370-59dc-f0c2-8be5b370d9ba@molgen.mpg.de>
- <0cfccc44-6cc6-98f5-ecd6-2f376839ec18@gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <bc7142a1-82d3-43bf-dee2-25f9297e7182@arm.com>
-Date: Mon, 25 Oct 2021 17:01:51 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BEB89A4B;
+	Mon, 25 Oct 2021 16:02:37 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB6689A4B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 16:02:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eXxPlCyUWt7yfmVPshaTk9dzp0Mju95A7vgnuW0quciTfdbg0Qyh07fvKfQ9Mey2lqvlkz/rlRmZ6NLLyRyDDCVUTUeW+9u0jpsmOVUQGwruBP+ULwcn5FIi1GhsnaYoLMRqBkdsQl4pB8f9raWY/xPvKKAgbNpnI3yKtYmjh5bzRUOJE6bjiK7U8xeKKXgyqHr2SclXoVA3oBYQwv0cTnW5d8+s1yCKDXZzl08LSij2dN64AK6cGPX7LS8V2d2JtShQKsGEX2D+BUUBusncyecaF1/ALCoTy/eZRKQs+v+VEJ07q7gtrILxtVRubX4TXHEvDYxI7u2OJTEknJJH7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+47ynF3Ds9ZF6G+UBguXqqlTDgYTKSU5U95wWAmGiGM=;
+ b=Mi1UEqawl9t5ME+fmftVt+rcoaeQC7syAjSTtmiCaBvZolN4BUEc+GaXP8zCKjaxsvwe2rVqp02bFA3m5ym72THrn9ro4Oq4HQ6fI3rpVzIlQUy89u+5t9UKGmYmgr30gyg/sPECFzZGBirIY1m9mmK0+rDawOOUATlwmXhn+6/TbbRt4JMyoDFjAGfMVOX6ye2ZwfmL8hdASH6oB3ipTAlsqb22vrlxP/Zrg0Qq1p1hcu6SB81MK8yGlPAK6RVCb5mfhA04YZoJ/xew9Hdi8d+riACWZAEhktagsAftafFKXI4xOZfMi5Vt855LqPUaUzvB8886z0534+3hPkKpzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+47ynF3Ds9ZF6G+UBguXqqlTDgYTKSU5U95wWAmGiGM=;
+ b=MaK9NgExZDbxfReK2qj0OBTnOpBYj7jKNyc/FcMtgO6OKiMMJ9pRvz+WRopli3v5XdZ7cNo2tOL1CyZvYL5/UUY83ovEpQPdnJb9WvvcYhydrC1OP42XVp+jPFCTyeH9skdTWKZSwzn1zCEa3BWrYuFvIBH9B1ttpcnYEp/7BDM=
+Received: from BN1PR10CA0028.namprd10.prod.outlook.com (2603:10b6:408:e0::33)
+ by CH0PR12MB5124.namprd12.prod.outlook.com (2603:10b6:610:bf::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
+ 2021 16:02:34 +0000
+Received: from BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e0:cafe::36) by BN1PR10CA0028.outlook.office365.com
+ (2603:10b6:408:e0::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
+ Transport; Mon, 25 Oct 2021 16:02:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT023.mail.protection.outlook.com (10.13.177.103) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4628.16 via Frontend Transport; Mon, 25 Oct 2021 16:02:34 +0000
+Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 25 Oct
+ 2021 11:02:33 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Luben Tuikov <luben.tuikov@amd.com>, Kent Russell <kent.russell@amd.com>, 
+ Alex Deucher <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Restore information reporting in RAS
+Date: Mon, 25 Oct 2021 12:02:20 -0400
+Message-ID: <20211025160220.51401-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.33.1.558.g2bd2f258f4
 MIME-Version: 1.0
-In-Reply-To: <0cfccc44-6cc6-98f5-ecd6-2f376839ec18@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 25 Oct 2021 16:02:22 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 129212de-bb64-4739-b3b3-08d997d0dbb6
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5124:
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5124FCA1AAD16F74C6D7302D99839@CH0PR12MB5124.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:765;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: F1iYAm/P2YxGN+xypaRQh29hdBQVHr7hoPS/3Js9QUfDsqkmeRBPbmS68Gae8iecv7ADDKqQuEEWVWKRVnZJjTIzK3a9Bse3mAntDnpQYHwyMbqxUmea8KYpwU6pPYGwMUWxKn6PsUFnR4SBgtWrcbP7G7LZl8yQZaaUwD4wnXkcFfqfAOfPqTTrGW2ETzF17iaTNNMNB/GMe9lO43nAFfAxUuHc+9QZnZOTiif5CnigvIuWCk6yXSwxguh9dlb58VcKqXDNAGCJR9ThAXc1hD4siPPMS5jVTRjZS9y9LSV7z3AQmABwC3GQWpEM3GCM7fsvkHe1IPR5xVJTsjsyM5BUzhGEZhIYoCzZU6CamgfFHoab05pMcRFcGw8onmvw1VJ2e1ecqp5na5Xmfl6295O1k9OtwYdCfEgmb8WYYJe/8wjdcPpbAQjcL0maJIHmRwz7a/M0xrE67enEGBe+YV4ZqalXpO6ZqxgmE3vdtL0R8hWWkNO0UkNfHCsChF5ONYH5glDh1FwvfenAwAKDsRgBr3KzoBa/Ar6S1+G69jHeea4dgwaCiwb7geR5xCUc7GMEqfvzmlI0IafNWVAQ1TqdRvARoZTvJe48ZxOEoGRGlV0aTur4H1je0wttnuABGy+GGotjmixfIWCKEmGpUv7NwjpW2HZDsRfUG9MGu0gZTXZYbkRdo4EKK0Y3cL5QwpjM6eX1Lfd22nj54kBifBZkzbzWGO2IuwSxN4rovKk=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(6666004)(26005)(81166007)(54906003)(356005)(82310400003)(83380400001)(86362001)(7696005)(6916009)(36756003)(44832011)(316002)(186003)(2906002)(16526019)(5660300002)(8676002)(2616005)(336012)(4326008)(1076003)(508600001)(70206006)(8936002)(36860700001)(70586007)(47076005)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 16:02:34.4131 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 129212de-bb64-4739-b3b3-08d997d0dbb6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5124
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,112 +111,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-10-25 12:23, Christian König wrote:
-> Hi Paul,
-> 
-> not sure how the IOMMU gives out addresses, but the printed ones look 
-> suspicious to me. Something like we are using an invalid address like -1 
-> or similar.
+A recent patch took away the reporting of number of RAS records and
+the threshold due to the way it was edited/spliced on top of the code.
+This patch restores this reporting.
 
-FWIW those look like believable DMA addresses to me, assuming that the 
-DMA mapping APIs are being backed iommu_dma_ops and the device has a 
-40-bit DMA mask, since the IOVA allocator works top-down.
+Cc: Kent Russell <kent.russell@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Fixes: 07df2fb092d09e ("drm/amdgpu: Add kernel parameter support for ignoring bad page threshold")
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Likely causes are either a race where the dma_unmap_*() call happens 
-before the hardware has really stopped accessing the relevant addresses, 
-or the device's DMA mask has been set larger than it should be, and thus 
-the upper bits have been truncated in the round-trip through the hardware.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index ae64ca02ccc4f8..05117eda105b55 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -1112,7 +1112,10 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control,
+ 				res = 0;
+ 			} else {
+ 				*exceed_err_limit = true;
+-				dev_err(adev->dev, "GPU will not be initialized. Replace this GPU or increase the threshold.");
++				dev_err(adev->dev,
++					"RAS records:%d exceed threshold:%d, "
++					"GPU will not be initialized. Replace this GPU or increase the threshold",
++					control->ras_num_recs, ras->bad_page_cnt_threshold);
+ 			}
+ 		}
+ 	} else {
 
-Given the addresses involved, my suspicions would initially lean towards 
-the latter case - the faults are in the very topmost pages which imply 
-they're the first things mapped in that range. The other contributing 
-factor being the trick that the IOVA allocator plays for PCI devices, 
-where it tries to prefer 32-bit addresses. Thus you're only likely to 
-see this happen once you already have ~3.5-4GB of live DMA-mapped memory 
-to exhaust the 32-bit IOVA space (minus some reserved areas) and start 
-allocating from the full DMA mask. You should be able to check that with 
-a 5.13 or newer kernel by booting with "iommu.forcedac=1" and seeing if 
-it breaks immediately (unfortunately with an older kernel you'd have to 
-manually hack iommu_dma_alloc_iova() to the same effect).
+base-commit: b60bccb408c831c685b2a257eff575bcda2cbe9d
+-- 
+2.33.1.558.g2bd2f258f4
 
-Robin.
-
-> Can you try that on an up to date kernel as well? E.g. ideally bleeding 
-> edge amd-staging-drm-next from Alex repository.
-> 
-> Regards,
-> Christian.
-> 
-> Am 25.10.21 um 12:25 schrieb Paul Menzel:
->> Dear Linux folks,
->>
->>
->> On a Dell OptiPlex 5055, Linux 5.10.24 logged the IOMMU messages 
->> below. (GPU hang in amdgpu issue #1762 [1] might be related.)
->>
->>     $ lspci -nn -s 05:00.0
->>     05:00.0 VGA compatible controller [0300]: Advanced Micro Devices, 
->> Inc. [AMD/ATI] Oland [Radeon HD 8570 / R7 240/340 OEM] [1002:6611] 
->> (rev 87)
->>     $ dmesg
->>     […]
->>     [6318399.745242] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xfffffff0c0 flags=0x0020]
->>     [6318399.757283] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xfffffff7c0 flags=0x0020]
->>     [6318399.769154] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xffffffe0c0 flags=0x0020]
->>     [6318399.780913] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xfffffffec0 flags=0x0020]
->>     [6318399.792734] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xffffffe5c0 flags=0x0020]
->>     [6318399.804309] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xffffffd0c0 flags=0x0020]
->>     [6318399.816091] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xffffffecc0 flags=0x0020]
->>     [6318399.827407] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xffffffd3c0 flags=0x0020]
->>     [6318399.838708] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xffffffc0c0 flags=0x0020]
->>     [6318399.850029] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
->> [IO_PAGE_FAULT domain=0x000c address=0xffffffdac0 flags=0x0020]
->>     [6318399.861311] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffc1c0 flags=0x0020]
->>     [6318399.872044] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffc8c0 flags=0x0020]
->>     [6318399.882797] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffb0c0 flags=0x0020]
->>     [6318399.893655] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffcfc0 flags=0x0020]
->>     [6318399.904445] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffb6c0 flags=0x0020]
->>     [6318399.915222] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffa0c0 flags=0x0020]
->>     [6318399.925931] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffbdc0 flags=0x0020]
->>     [6318399.936691] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffa4c0 flags=0x0020]
->>     [6318399.947479] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffff90c0 flags=0x0020]
->>     [6318399.958270] AMD-Vi: Event logged [IO_PAGE_FAULT 
->> device=05:00.0 domain=0x000c address=0xffffffabc0 flags=0x0020]
->>
->> As this is not reproducible, how would debugging go? (The system was 
->> rebooted in the meantime.) What options should be enabled, that next 
->> time the required information is logged, or what commands should I 
->> execute when the system is still in that state, so the bug (driver, 
->> userspace, …) can be pinpointed and fixed?
->>
->>
->> Kind regards,
->>
->> Paul
->>
->>
->> [1]: https://gitlab.freedesktop.org/drm/amd/-/issues/1762
->>      "Oland [Radeon HD 8570 / R7 240/340 OEM]: GPU hang"
-> 
-> _______________________________________________
-> iommu mailing list
-> iommu@lists.linux-foundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/iommu
