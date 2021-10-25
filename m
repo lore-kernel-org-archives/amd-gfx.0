@@ -2,73 +2,138 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDED0C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56ECFC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B119F60FE8
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B119F60FE8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 24BF560E0B
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 13:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 24BF560E0B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29F1C89FC0;
-	Mon, 25 Oct 2021 13:58:44 +0000 (UTC)
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [IPv6:2607:f8b0:4864:20::736])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F3FD89C52;
- Mon, 25 Oct 2021 13:58:43 +0000 (UTC)
-Received: by mail-qk1-x736.google.com with SMTP id 77so11788761qkh.6;
- Mon, 25 Oct 2021 06:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:reply-to:subject
- :content-language:from:to:references:in-reply-to
- :content-transfer-encoding;
- bh=XAsYVtDkbLBLnmS42ewkQs9qrufhT6ANs66bBgPb9xY=;
- b=Q5EZlPvpljrpgXxtTu8sNkVy6cBDBS/7MZDdJc6jD+XLN1i9xwzfwDMQQcZfabkF07
- 06W25iis3bpq0/b2Ef/B7hD15yTrHd83fIaJlGvcytJfs+EaSv8OKjxE5cSlvlz9PjZg
- +BcmfZkgf+i7S7AI2vkytX28clBnXiUabqhDVpNujfJS6YWJ34EuwzbbgwjL2FW2c60s
- yajxKGXATTvFlO/U4AuwpPXKMUMMHUb4fzxoQSuAF0b9QC3fRAp6tGNiiY8DC5qoPOg/
- zLgDZNRZBJbPWum5N5nq4V0m7XgVOs4eEcjPCoqLDiDJgadvyuuoiczM72H+EaYvovfr
- RfHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
- :subject:content-language:from:to:references:in-reply-to
- :content-transfer-encoding;
- bh=XAsYVtDkbLBLnmS42ewkQs9qrufhT6ANs66bBgPb9xY=;
- b=0kZVnNL/hmQ1Bb9D5i24ZPK5EAHpunYg0iPN081ekhSgMcmpRYLk00qLGbxthiEzPU
- YYXxggQpLQntDe1Dsk5NoB3OllSS1vsQ32noAGhU43tF3/UEQj3/5PGwqQv/0VR/Q7KQ
- 4jYxHPBw3SeMUuiPVtig3+0fKGY+EDg5CfySayvnKGmZ+JlzKmbIWz8tpN7JCHcchL6a
- HDKu8NuRCo8eISeqF3eivsQcSWQLRiUIVbzsgTQwjbdu++/4F1Dvr6LeCu9P7zkeUGlq
- mEfNdXh9abgdxyhmN9goDpO9i0tS2DmM32BNl1UbZQUwqJqlSWzE2G9c5/nRtl27efIG
- i9rg==
-X-Gm-Message-State: AOAM533e0KcbpexNhnJqVedt7z1m/Uz3ptAPKO5aGRXhU89NyDhBWseT
- N9s37R+Q3luEEjAQkSrr8IxNd7IjPWQ=
-X-Google-Smtp-Source: ABdhPJywjtvb87bHx5lj6xIYG2rrfOWusXaqjyKqgnmLV2ERmrkapnYz0+kyc+K9rh7wCNhavenArQ==
-X-Received: by 2002:a05:620a:639:: with SMTP id
- 25mr13292828qkv.324.1635170322052; 
- Mon, 25 Oct 2021 06:58:42 -0700 (PDT)
-Received: from mua.localhost ([2600:1700:e380:2c20::49])
- by smtp.gmail.com with ESMTPSA id i13sm8405311qtp.87.2021.10.25.06.58.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Oct 2021 06:58:41 -0700 (PDT)
-Message-ID: <77945f63-5613-a386-6d0e-8162f0c5483a@gmail.com>
-Date: Mon, 25 Oct 2021 09:58:40 -0400
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7390989FC8;
+	Mon, 25 Oct 2021 13:58:50 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2049.outbound.protection.outlook.com [40.107.102.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C46789FC8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 13:58:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M8j23qUawrIo4aBQvffB54pqVVq4Cz0XVXd0YKZdBDQzzkxtqVrJiAsVAat/fLxAQ8yEFWMfkzgpcuNpGo/hoLLeOi4MVFDfcdqLnUPG5PYaLsp0HzqVGk0HASZ4FHYFvLKLXOX7w9aTbTye2g5MlSVypNtVYn9kLI7WjTPEBb9VDPhC+1Y6EWdjnQKAdHfACf2+ngPjtM9b0vVoHLq9LcXEZLEWQj7RSeHfgMfZMGCMksXhGtdEIkDNlfGLsHNZx2f4D/puwMS6AlSGDTH/2hz60A+TZtwZhCwXh3gt4kByLy3gTrxzANnsCvauGB+8KZNiiwUc0kWEh1FMAWGGug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4oGr+CLsXKj6/hg5KJAtAY9ugnSdaVBjtfWFdeWlpcU=;
+ b=BZGmJ53PfQ6CEsLoNs3+AEDnCm3u+wSQHEjMB1pz2TRkCDzAkZnA5zF6hvYUiAByMmvwIhmJKKjpcFvwbL3jVy3R/CPXr+Y3EZUo6WH1lxYp3Ai05rb4+xRSi6fj3pIWKR+KZHawHdSAfUn/g0p3CryjgI5bEZQXlrGf1tDddVB/OKCgogfRH3j9U9PtJmUilvm/fjLDJL9iDRE+b3vlo+ONNHrS9nr2Y6XdJiJlwanY7EbGwdYQbRZuI64RDunQFiLy6IkDCGWf387HQtug9nNW4oZKSwsGFWwrPt2LHiQtHpdLQoXVaaqRbcIsOFAZtU37Vhk97Vt5XF4qcIV42Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4oGr+CLsXKj6/hg5KJAtAY9ugnSdaVBjtfWFdeWlpcU=;
+ b=P8d2dYXBC/x4koPwMHukA7e4INEj39y6scu6ypFs/z4zUUVoLZ5vu0X51bjnSdcQeGwU1mAMMTB7iOjDZki2tAbyz20FUCdxWofJl3z0qsvtu5LAapU3uKDZ3XR8t8b212rC2qL/zO46h/cJSgd0SdhEAmlvKthqfw7r6GIhLXE=
+Authentication-Results: molgen.mpg.de; dkim=none (message not signed)
+ header.d=none;molgen.mpg.de; dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CO6PR12MB5396.namprd12.prod.outlook.com (2603:10b6:303:139::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
+ 2021 13:58:46 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::d82f:e8c3:96ac:5465%9]) with mapi id 15.20.4628.020; Mon, 25 Oct 2021
+ 13:58:46 +0000
+Message-ID: <93093738-86a1-056e-08fc-803aecee27f1@amd.com>
+Date: Mon, 25 Oct 2021 09:58:38 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.2.0
-Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
- + kernel 5.14.13
+ Thunderbird/91.2.0
+Subject: Re: [PATCH 32/33] drm/amd/display: fix link training regression for 1
+ or 2 lane
 Content-Language: en-US
-From: PGNet Dev <pgnet.dev@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
- <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
-In-Reply-To: <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: Paul Menzel <pmenzel@molgen.mpg.de>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Aurabindo.Pillai@amd.com,
+ qingqing.zhuo@amd.com, mikita.lipski@amd.com, roman.li@amd.com,
+ Anson.Jacob@amd.com, wayne.lin@amd.com, stylon.wang@amd.com,
+ solomon.chiu@amd.com, pavle.kotarac@amd.com, agustin.gutierrez@amd.com,
+ Wenjing Liu <wenjing.liu@amd.com>, Eric Yang <eric.yang2@amd.com>
+References: <20211024133141.239861-1-Rodrigo.Siqueira@amd.com>
+ <20211024133141.239861-33-Rodrigo.Siqueira@amd.com>
+ <16010bef-7bf4-1da4-9f76-7b23d4296d5b@molgen.mpg.de>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <16010bef-7bf4-1da4-9f76-7b23d4296d5b@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN9PR03CA0055.namprd03.prod.outlook.com
+ (2603:10b6:408:fb::30) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+Received: from [10.254.35.183] (165.204.84.11) by
+ BN9PR03CA0055.namprd03.prod.outlook.com (2603:10b6:408:fb::30) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4628.18 via Frontend Transport; Mon, 25 Oct 2021 13:58:41 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ed0182e5-fd06-452d-3166-08d997bf8ff6
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5396:
+X-Microsoft-Antispam-PRVS: <CO6PR12MB539683BA99BAA3928CC394878C839@CO6PR12MB5396.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: H313/l3NlMGzbickLihkM48wJaWvloIz6d7jZOowql6CJfEMRwAUBBFi1hmrmJbKXqZG/oxCV9TEBpdAOUHmMiprZlwet3QQNPUW7TE8kjLynrFBavwUrCD0IPiWA+3C4DYq6fPjFeFtVRtHd7ZlvYIGL3YaSzMbXjNPIhWfVQnAN57QddXjFONvkD5+8JUwXC9htIA3m6T2JZaZkjAGRVp0HIT9X9qa5/SFPV3lp7To291cdSlhXBzJ44lWp0AxevslyXFXfuuP6gFswU9iWWXzg7BdR0wMPWP6JjatqOYNSyFITd9nG7g/ZQlwqcDG8lGSoxvc/4phPChn1/0P/MhMh9OeEzCtEF1sOskQxcN1SBvxegQRvKdLOKw8YaBh1pWTG/WYhoshcGuiAzMqsKw6Ci5kj8mM4UWOaGELMXsBguJpVIaa4Mmloqc7/1sN9IOWhdrO97PkG4rmT1CyyYv51Q2IDp+/AlQJ2eJKyFaeqjNyA+zWQzGWdfBHcTG25825Ob+7dLOQ1PtYMvtz9yrv33apL+16Glso/eYfLD1/Z65JEU9FRalMc0AzdIXrZuJuddRYomfBcCz+f0gsbuQ80NNOnn0sPl+mYtghVF5xs7bc/oV0BcXOXWGCmjoSDRFYKRRAhhtBpNbWMzH5BdnlhcL7Ab6ic/CdUt8s0yfL2xQmKW/GeZJMEXu0PzVi4HnI6MS4+xQ3sKue9Eq9pXpi+kUG02w5LvpfpeJE1ik=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66556008)(31686004)(38100700002)(54906003)(26005)(508600001)(5660300002)(110136005)(31696002)(2906002)(4326008)(6486002)(4001150100001)(186003)(16576012)(44832011)(8936002)(8676002)(36756003)(66476007)(83380400001)(53546011)(66946007)(956004)(86362001)(6666004)(2616005)(316002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTdRRUo5bVdBb3VMWWxiR3ZWRjBjVkJHQkxNMEs1SkJuK3NnVGI1R0Y0ek1u?=
+ =?utf-8?B?TVZwT25Rdnc5MytaTWFBZ2VuNjkxNWtsY29LZWRFVEdTZzhRZUw2YW1CUnlz?=
+ =?utf-8?B?T2JBRnRqSzNtb3JrU2swL01Kdi9DMUZ2MEdvb0grK3VkNXYvWHNYT1ZYM2ZG?=
+ =?utf-8?B?dVZMM211eGwvcWhxOFN6RzBWNXE5eGxiMkNPVG91eEh0VGRERTI5ZW5vSTJr?=
+ =?utf-8?B?cERoaXdrSHRGYkYyOFpYL0VpK25WMThLOE9SRFUvWVQ5Vk8rblFwRjRia1hK?=
+ =?utf-8?B?TXJ0cERiYlRvdG9SMEQ0Z01QYU5WT2tPRVhSNEJxdExidlNaUG42Sld2Y2F2?=
+ =?utf-8?B?b3JxallCWmtCVzhQY1hZNFAvWXF3MFp2elFhWWd1LzltdEdadGhIZUdZWnpa?=
+ =?utf-8?B?U1JLUGdCM2xSVExSZjFKSHQ0dGNJdmtJY0dIbGRyeHVYZEFlbUswc01zZFZX?=
+ =?utf-8?B?VTBUVk50OVdrOEkwK3RoTTg5U0FFOHVqeFhJeG5jSld2WHN1RUJhZVRUdkIv?=
+ =?utf-8?B?S05oRXdDWE0veFdpcnVjbW0vWFNsWGZaOFZ2RkV2VTEvbTJPZHB0WjhIbjhp?=
+ =?utf-8?B?aEJiUGQzWld2ZWpmbFdVdDVhTitLQVNDVTFlWGx2TzdvT1Qzd3Rsay9QYlIz?=
+ =?utf-8?B?K29IS3gvcU9VR0FjSmpIN0JJY3Mvc0toR2JKYVRCTnMyaWNNOXRRWDh6L3Nn?=
+ =?utf-8?B?dlhNQituVW9tSkkrYW5LbGZFVnUxRTFPNm5FQU56M2dIRlREM21xUUVVTFJP?=
+ =?utf-8?B?elNvMG5Idk8yUWxsTFA0TzdCQ3FjZVQ0d25ycm5sNXp3OWRTeWxRSnNxVVFn?=
+ =?utf-8?B?T0xjWVNmZjcxbFo0WldKQjZRMDlDREo3eGZDQmxOTUVKM1FSOGJ1UjNxU0JC?=
+ =?utf-8?B?Sk5nZG9LemVGeFNYMWw0Wldoc2Y4dUc0Q1VJREJqYmpYcnZRa1A2c01aM1NU?=
+ =?utf-8?B?WHhIVE9WL1hiNGRzdU9DU293SmhNS1Q1ZUR6dzZTdHllVUJUMUVBbWNJU0l6?=
+ =?utf-8?B?bEkrOUNQWDZncXZ2ZG10amJuMUp0ZExrMDhrNnZZNlkyM0Z3dkxybUsvUm95?=
+ =?utf-8?B?L21EOUJ3NDNleWlnYzUzNG5Ob2pVdkRrQ3JQWGp5cUQ4cTNYS1B3LzdDK0Fr?=
+ =?utf-8?B?dE52T2k1SjdGeFBWQ245MTd5TndFbEVLZ0Z2WDNrRFhtanZqUE9EczdxQSta?=
+ =?utf-8?B?V2I1d1Zla0FtVFQyeWxlbzN6d0hPZm5HSnBVZWV1VUdkQ2EybWFMWjRQSFFy?=
+ =?utf-8?B?M0RRdmVlTE8vRk12TTNhdi9adkI4TW1oMUpSVzQ1MmRGZzFYYnVTVzFPZkgr?=
+ =?utf-8?B?aE8zNVYrcCtuRGYyckVpV3VwMEZPL2xtRzR6MEd3YmZKd0lYYVhJSWdmQi9Q?=
+ =?utf-8?B?SVFSczAxcWVxdVZiRE9lKzFwa1VFTHQ4VlBKQ1JneFJTcnlYdGEwMmJqTUhR?=
+ =?utf-8?B?SFN0V2IzbmgwVk9najQwNFFQNVVLbDk4TENhRUVBU0pKQTRQYzF6NUUxRDgz?=
+ =?utf-8?B?NnNodTF1eUVqaVd6MFAzcDJqVmFmM0ZKQU4xNFpZTVJPWml4b2NWMU5UMVd2?=
+ =?utf-8?B?bWlkY0Z6SlNBVW93cXRPN2NIaFcwWFpybFBxN1dGMGNyUXBidlZJTmxtOFFG?=
+ =?utf-8?B?VkZmYXJkUWRjTXBNU2hqUWZvVlFGWjV1bkptTjg2OEVJMzVBWWMzb3BYUm1t?=
+ =?utf-8?B?ZmtoNXdLdStEU1pHaDF6d3hkWnNjMHZwMWpLdHVsQytUOEJqbHRrbEZXbGhz?=
+ =?utf-8?B?Q2VFYUxWa3FVNFdZTmFIWGRzQ0NSVE8wOXFhWGhTam5PQ2FDQkJ4NzA0OFZ6?=
+ =?utf-8?B?VDFvQWwvM1Z1UnFjNUh0dmI3Tld1WGwweW02UzZOc0VYVUhhc0pxSlp3TFo1?=
+ =?utf-8?B?L2c1aXRCaGs1ZDBhRWlwbVFDa2FaUVVZd0lDWlJRQklINllKejdkWEdjSVAz?=
+ =?utf-8?B?WVdCVjVQaFB2VWZhZitnUS9vWmpLY2tuV2c3S1hrVHp4OTJKTmx6U0grWWpF?=
+ =?utf-8?B?b3c0MmtvNkluazJjWDhMbGRCWXBwNlJQODVGUnh0SEFQMlhsU244WTUxaFRR?=
+ =?utf-8?B?TkRmdi91bzVSWE84OXJBVnNkdnh1RXN3WWhTUVUrV2djVzhYWHRsQnV6amVN?=
+ =?utf-8?B?Q1ErZzBCWU1UZjdzeDJBbURzNWo3cGF4SUNQQ2dib1B4L21LeUJBOGJlRVVx?=
+ =?utf-8?Q?RQq8cAZt8AyUn7gBmJGET40=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed0182e5-fd06-452d-3166-08d997bf8ff6
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 13:58:46.4219 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OPytMt6kmNOo3MB/ONy0dbudL206qsBPmXlHH0coqq645bwr7ZZ7xT+gUZ01ASxRCQhScwG89Vcu7nJeLGfzyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5396
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,99 +145,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: PGNet Dev <pgnet.dev@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-adding a trace,
 
-...
-[    5.201715] [drm] amdgpu kernel modesetting enabled.
-[    5.201902] amdgpu: Virtual CRAT table created for CPU
-[    5.201909] amdgpu: Topology: Add CPU node
-[    5.201968] checking generic (e1000000 1d5000) vs hw (c0000000 10000000)
-[    5.201969] checking generic (e1000000 1d5000) vs hw (d0000000 200000)
-[    5.201970] checking generic (e1000000 1d5000) vs hw (fc500000 80000)
-[    5.201988] amdgpu 0000:30:00.0: enabling device (0000 -> 0003)
-[    5.202020] [drm] initializing kernel modesetting (RENOIR 0x1002:0x1638 0x1002:0x1636 0xC9).
-[    5.202024] amdgpu 0000:30:00.0: amdgpu: Trusted Memory Zone (TMZ) feature enabled
-[    5.202033] [drm] register mmio base: 0xFC500000
-[    5.202033] [drm] register mmio size: 524288
-[    5.202035] [drm] PCIE atomic ops is not supported
-[    5.203075] [drm] add ip block number 0 <soc15_common>
-[    5.203076] [drm] add ip block number 1 <gmc_v9_0>
-[    5.203077] [drm] add ip block number 2 <vega10_ih>
-[    5.203078] [drm] add ip block number 3 <psp>
-[    5.203078] [drm] add ip block number 4 <smu>
-[    5.203079] [drm] add ip block number 5 <gfx_v9_0>
-[    5.203079] [drm] add ip block number 6 <sdma_v4_0>
-[    5.203080] [drm] add ip block number 7 <dm>
-[    5.203081] [drm] add ip block number 8 <vcn_v2_0>
-[    5.203081] [drm] add ip block number 9 <jpeg_v2_0>
-[    5.208784] [drm] BIOS signature incorrect 0 0
-[    5.208789] amdgpu 0000:30:00.0: BAR 6: can't assign [??? 0x00000000 flags 0x20000000] (bogus alignment)
-[    5.214038] [drm] BIOS signature incorrect 0 0
-[    5.214042] amdgpu 0000:30:00.0: amdgpu: Unable to locate a BIOS ROM
-[    5.214044] amdgpu 0000:30:00.0: amdgpu: Fatal error during GPU init
-[    5.214045] amdgpu 0000:30:00.0: amdgpu: amdgpu: finishing device.
-[    5.214048] ------------[ cut here ]------------
-[    5.214049] WARNING: CPU: 5 PID: 539 at kernel/workqueue.c:3044 __flush_work.isra.0+0x1ef/0x200
-[    5.214054] Modules linked in: fjes(-) amdgpu(+) raid1 ast drm_vram_helper drm_ttm_helper iommu_v2 ttm gpu_sched drm_kms_helper igb crct10dif_pclmul crc32_pclmul crc32c_intel ghash_clmulni_intel cec dca i2c_algo_bit sp5100_tco ccp drm uas usb_storage wmi video sunrpc tcp_bbr nct6775 hwmon_vid k10temp
-[    5.214065] CPU: 5 PID: 539 Comm: systemd-udevd Not tainted 5.14.13-200.fc34.x86_64 #1
-[    5.214067] Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./X470D4U, BIOS P4.20 04/14/2021
-[    5.214068] RIP: 0010:__flush_work.isra.0+0x1ef/0x200
-[    5.214070] Code: 8b 4d 00 48 8b 55 08 83 e1 08 48 0f ba 6d 00 03 80 c9 f0 e9 37 ff ff ff 0f 0b 48 83 c4 48 44 89 e0 5b 5d 41 5c 41 5d 41 5e c3 <0f> 0b 45 31 e4 e9 46 ff ff ff 0f 1f 80 00 00 00 00 0f 1f 44 00 00
-[    5.214071] RSP: 0018:ffff9d5f00f0fa80 EFLAGS: 00010246
-[    5.214073] RAX: 0000000000000011 RBX: 0000000000000000 RCX: 0000000000000027
-[    5.214074] RDX: 0000000000000001 RSI: 0000000000000001 RDI: ffff88bc91e25ab8
-[    5.214074] RBP: ffff88bc91e25ab8 R08: 0000000000000000 R09: ffff9d5f00f0f898
-[    5.214075] R10: ffff9d5f00f0f890 R11: ffff88c39e1fcfe8 R12: 0000000000000001
-[    5.214075] R13: ffff88bc92622800 R14: ffff88bc91e20000 R15: ffff9d5f00f0fde0
-[    5.214076] FS:  00007f231d7deb40(0000) GS:ffff88c37df40000(0000) knlGS:0000000000000000
-[    5.214077] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    5.214078] CR2: 00007fa1bbfa5ff0 CR3: 0000000104b94000 CR4: 0000000000750ea0
-[    5.214078] PKRU: 55555554
-[    5.214079] Call Trace:
-[    5.214082]  ? dev_printk_emit+0x3e/0x40
-[    5.214085]  __cancel_work_timer+0xea/0x170
-[    5.214086]  ? del_timer_sync+0x57/0x80
-[    5.214089]  ttm_bo_lock_delayed_workqueue+0x11/0x20 [ttm]
-[    5.214093]  amdgpu_device_fini_hw+0x33/0x2c5 [amdgpu]
-[    5.214225]  amdgpu_driver_load_kms.cold+0x72/0x94 [amdgpu]
-[    5.214338]  amdgpu_pci_probe+0x110/0x1a0 [amdgpu]
-[    5.214420]  local_pci_probe+0x42/0x80
-[    5.214423]  ? __cond_resched+0x16/0x40
-[    5.214426]  pci_device_probe+0xd9/0x190
-[    5.214427]  really_probe+0x1f5/0x3f0
-[    5.214429]  __driver_probe_device+0xfe/0x180
-[    5.214430]  driver_probe_device+0x1e/0x90
-[    5.214431]  __driver_attach+0xc0/0x1c0
-[    5.214433]  ? __device_attach_driver+0xe0/0xe0
-[    5.214434]  ? __device_attach_driver+0xe0/0xe0
-[    5.214434]  bus_for_each_dev+0x64/0x90
-[    5.214436]  bus_add_driver+0x12b/0x1e0
-[    5.214438]  driver_register+0x8f/0xe0
-[    5.214439]  ? 0xffffffffc0d62000
-[    5.214440]  do_one_initcall+0x44/0x1d0
-[    5.214443]  ? kmem_cache_alloc_trace+0x15c/0x280
-[    5.214445]  do_init_module+0x5c/0x270
-[    5.214448]  __do_sys_init_module+0x11d/0x180
-[    5.214450]  do_syscall_64+0x3b/0x90
-[    5.214452]  ? handle_mm_fault+0xcf/0x2a0
-[    5.214454]  ? do_user_addr_fault+0x1d5/0x680
-[    5.214457]  ? syscall_exit_to_user_mode+0x18/0x40
-[    5.214458]  ? exc_page_fault+0x72/0x150
-[    5.214459]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[    5.214461] RIP: 0033:0x7f231e42a0fe
-[    5.214463] Code: 48 8b 0d 7d 1d 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 4a 1d 0c 00 f7 d8 64 89 01 48
-[    5.214463] RSP: 002b:00007ffd8d40e9e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000af
-[    5.214465] RAX: ffffffffffffffda RBX: 000055f6d5e2b7f0 RCX: 00007f231e42a0fe
-[    5.214465] RDX: 00007f231e57d32c RSI: 0000000000d4ebde RDI: 00007f231bc53010
-[    5.214466] RBP: 00007f231bc53010 R08: 000055f6d5e0e050 R09: 0000000000d4ebf0
-[    5.214466] R10: 000055f38ab3874e R11: 0000000000000246 R12: 00007f231e57d32c
-[    5.214467] R13: 000055f6d5e0f840 R14: 0000000000000007 R15: 000055f6d5deff30
-[    5.214468] ---[ end trace ce1b3e6fbbcac425 ]---
-[    5.214481] x86/PAT: systemd-udevd:539 freeing invalid memtype [mem 0x00000000-0xffffffffffffffff]
-[    5.214539] amdgpu: probe of 0000:30:00.0 failed with error -22
-[
-...
+
+On 2021-10-25 07:25, Paul Menzel wrote:
+> Dear Wenjing, dear Rodrigo,
+> 
+> 
+> On 24.10.21 15:31, Rodrigo Siqueira wrote:
+>> From: Wenjing Liu <wenjing.liu@amd.com>
+>>
+>> [why]
+>> We have a regression that cause maximize lane settings to use
+>> uninitialized data from unused lanes.
+> 
+> Which commit caused the regression? Please amend the commit message.
+> 
+>> This will cause link training to fail for 1 or 2 lanes because the lane
+>> adjust is populated incorrectly sometimes.
+> 
+> On what card did you test this, and how can it be reproduced?
+> 
+> Please describe the fix/implemantation in the commit message.
+> 
+>> Reviewed-by: Eric Yang <eric.yang2@amd.com>
+>> Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+>> Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+>> ---
+>>   .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 35 +++++++++++++++++--
+>>   1 file changed, 32 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>> index 653279ab96f4..f6ba7c734f54 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>> @@ -108,6 +108,9 @@ static struct dc_link_settings get_common_supported_link_settings(
+>>           struct dc_link_settings link_setting_b);
+>>   static void maximize_lane_settings(const struct link_training_settings *lt_settings,
+>>           struct dc_lane_settings lane_settings[LANE_COUNT_DP_MAX]);
+>> +static void override_lane_settings(const struct link_training_settings *lt_settings,
+>> +        struct dc_lane_settings lane_settings[LANE_COUNT_DP_MAX]);
+>> +
+>>   static uint32_t get_cr_training_aux_rd_interval(struct dc_link *link,
+>>           const struct dc_link_settings *link_settings)
+>>   {
+>> @@ -734,15 +737,13 @@ void dp_decide_lane_settings(
+>>           }
+>>   #endif
+>>       }
+>> -
+>> -    /* we find the maximum of the requested settings across all lanes*/
+>> -    /* and set this maximum for all lanes*/
+>>       dp_hw_to_dpcd_lane_settings(lt_settings, hw_lane_settings, dpcd_lane_settings);
+>>         if (lt_settings->disallow_per_lane_settings) {
+>>           /* we find the maximum of the requested settings across all lanes*/
+>>           /* and set this maximum for all lanes*/
+>>           maximize_lane_settings(lt_settings, hw_lane_settings);
+>> +        override_lane_settings(lt_settings, hw_lane_settings);
+>>             if (lt_settings->always_match_dpcd_with_hw_lane_settings)
+>>               dp_hw_to_dpcd_lane_settings(lt_settings, hw_lane_settings, dpcd_lane_settings);
+>> @@ -833,6 +834,34 @@ static void maximize_lane_settings(const struct link_training_settings *lt_setti
+>>       }
+>>   }
+>>   +static void override_lane_settings(const struct link_training_settings *lt_settings,
+>> +        struct dc_lane_settings lane_settings[LANE_COUNT_DP_MAX])
+>> +{
+>> +    uint32_t lane;
+>> +
+>> +    if (lt_settings->voltage_swing == NULL &&
+>> +            lt_settings->pre_emphasis == NULL &&
+>> +#if defined(CONFIG_DRM_AMD_DC_DP2_0)
+>> +            lt_settings->ffe_preset == NULL &&
+>> +#endif
+>> +            lt_settings->post_cursor2 == NULL)
+>> +
+>> +        return;
+>> +
+>> +    for (lane = 1; lane < LANE_COUNT_DP_MAX; lane++) {
+>> +        if (lt_settings->voltage_swing)
+>> +            lane_settings[lane].VOLTAGE_SWING = *lt_settings->voltage_swing;
+>> +        if (lt_settings->pre_emphasis)
+>> +            lane_settings[lane].PRE_EMPHASIS = *lt_settings->pre_emphasis;
+>> +        if (lt_settings->post_cursor2)
+>> +            lane_settings[lane].POST_CURSOR2 = *lt_settings->post_cursor2;
+>> +#if defined(CONFIG_DRM_AMD_DC_DP2_0)
+>> +        if (lt_settings->ffe_preset)
+>> +            lane_settings[lane].FFE_PRESET = *lt_settings->ffe_preset;
+>> +#endif
+> 
+> Normally these checks should be done in C and not the preprocessor. `if CONFIG(DRM_AMD_DC_DP2_0)` or similar should work.
+> 
+
+Interesting. I've never seen this before. Do you have an example or link to a doc? A cursory search doesn't yield any results but I might not be searching for the right thing.
+
+Harry
+
+>> +    }
+>> +}
+>> +
+>>   enum dc_status dp_get_lane_status_and_lane_adjust(
+>>       struct dc_link *link,
+>>       const struct link_training_settings *link_training_setting,
+>>
+> 
+> 
+> Kind regards,
+> 
+> Paul
+
