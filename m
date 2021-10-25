@@ -2,123 +2,76 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA3AFC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B37EC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C86B60F46
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:28:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C86B60F46
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0DB5D60EB9
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0DB5D60EB9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 386D989F03;
-	Mon, 25 Oct 2021 16:28:02 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA55089F03
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 16:28:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IGrfMUym7t31Sc9xrzhCC5QPFi5bCDHJ+inEBS+7ODcacgGxFHUC1F5EzkwgUCHKUqD6Ljm9XJbTIeE0+Jsr5yBldb9fJ7vLMuK+tnZoKEbvZeOgVOUJ65I1naWP3ZXXSxbvmBncZl8FgugzVE+bnV+q4O520jwdIANvRVO/34AvCFHlSugrzBSwZPPEOoBYZMy/5qUDJFKsp1tyx1Ne+/MerN3SzkVfcdSKP/jn02ma+fAzxpIasPv5JjYDyvF+JMzJ60j2oA4lHZe4N6LAk0Kv18Y5E+xJAUIDr527+daKugeKemD8mppTWDF2FJQDiTih85gJ4SWx5EHygR/gGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O2F2a+b+1C9E2g4Tl45droY4Jo3IeIYG7c4CTUrEKQE=;
- b=anGlOQ09rpE7Gcr88IXwnQ9dZ9aJwvzTYO+xZI++fGdhHp95Uh9N6iweKbROFDzFNjyZDGFEH4F+z+oFZNODX2794MfALPQWDXg+FYVymT6K6AlvmXVkIjhpAeC+wr2DbHFDG6+4/+SoPcJgx+rDa6z23F/ZgBObUHdl5PZlQQdtUqWWuo8BRKmxGU0kDBsX6LFoU0lbKeWkU356tYpC1mshdTjRfsEXwgLucBgtIiaZtHmy97MHv/614O//ixZm2yXG9p7tooiquLVjxp5Vj5P+fG7FW7KYSmCl92AIcUQNqP/IBvbosg56EEFsV+sMCfygd1i21aGLZcG1Lk9ABQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O2F2a+b+1C9E2g4Tl45droY4Jo3IeIYG7c4CTUrEKQE=;
- b=m0/douJrUz+8v9PHZ7DsxudmKBRhFUhw5VIeLCsLPZ8mjwmBdfYqmZHxc5Xkki6PDlpdUi6sqonAhriwkaSHdjcNn4aq7lVqb1Ad34bSsPe6SPGRQFIdgOwqn7EjPpZ4cgWZDslN77YQezKBj9eY/WB7+FhHSZ/vadfZXnUfsbQ=
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB3020.namprd12.prod.outlook.com (2603:10b6:5:11f::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.20; Mon, 25 Oct
- 2021 16:27:58 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4628.020; Mon, 25 Oct 2021
- 16:27:58 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Russell, Kent"
- <Kent.Russell@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Restore information reporting in RAS
-Thread-Topic: [PATCH] drm/amdgpu: Restore information reporting in RAS
-Thread-Index: AQHXybm+VTFaZdK4CECV7Va2HooeQKvj5o0W
-Date: Mon, 25 Oct 2021 16:27:58 +0000
-Message-ID: <DM6PR12MB3930151B398A178428C27D5D97839@DM6PR12MB3930.namprd12.prod.outlook.com>
-References: <20211025160220.51401-1-luben.tuikov@amd.com>
-In-Reply-To: <20211025160220.51401-1-luben.tuikov@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-10-25T16:26:12.2633033Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0c585abf-9655-4208-2c44-08d997d46846
-x-ms-traffictypediagnostic: DM6PR12MB3020:
-x-microsoft-antispam-prvs: <DM6PR12MB30204A249AD818797931831297839@DM6PR12MB3020.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1468;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: sKb+wxj5pbFB1lBDM9RxBxRi+KS6sq7mHqnJVrUllPn59RKF+HsdkqXda5q/up915vQsqQ3zvfx1HPZaTn/rxkUCoPZzVDmnPWuQbsPBqY91ChNiTfux4I0MZcOqktdMa8z4IiF+DxU1K7GXgEjOxZfAPBCZDkkQNlHeCzpn4pYgcA6PqKGaR/pjy4ct5i+n4Oe0gv3UEx6mTrACy4NJ5A1DBpB2Auh2xO0VTfP4Y4EHQYsEzI2fjSkMZHOLHB6xnjrePMjWLdTtNmPE1N/QITMKJ9c5VvBlKiyo6vSbe6x5cJWj1sBXzyIBzS82aqiwCWLv6Z5gfB1NNrfDs9ntJxvTS5HIJs3SqpG1cejaSCZ5LhGRiFIPkhcDQ2sFLFS9W3dmpfCU5ui9zmaEVS5pDVVhGZGMapwaL+T8OmNanDhMr9yS3/x7lkLfZ6DvPlq1QcJc3m7hkphHdNCMi4xQleDgC0m257CmuvZLs09CgU/P6S24ia8dQUKI0MA487oahboPLfvvFnvY53AP1iGiNZYsVidNz17smKRoSRgR/vb1JhrI9b2HXL8w3l0kPI44j4m64qHZgWfayNF7BtWN018BCXAkjs2pYbOAvrQbOOtGRlR/f14JhBhtRyr7iifV+ngob66lfeDFEZ9Rjo4Nw2sNEExmY2o4/fO7FP9qX+KS4rW2qpAtD6Cs8ScunDj5HVBlj7VNsD82Ro+Qullvqg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(52536014)(55016002)(26005)(53546011)(6506007)(66446008)(71200400001)(4326008)(186003)(2906002)(91956017)(5660300002)(9686003)(66946007)(64756008)(8676002)(54906003)(8936002)(38070700005)(122000001)(83380400001)(86362001)(33656002)(110136005)(508600001)(38100700002)(316002)(76116006)(7696005)(66556008)(66476007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gG2YPzqfc4mJ/HhHsxnsVAdtf7gE7WZOiBHWBetTvNi/h1xtMphQg7bH+rBn?=
- =?us-ascii?Q?KiruPw7z7lbIj/I9NrpdZua7TXhsVDNaQISWZAdEgiDZm02jOwdleL0I9Ckz?=
- =?us-ascii?Q?c/J+cgY2GE1TeoEhhSdSWJGng8EkBhY0vo7qlHSOCTHq1uU4DxwNq5g5zCJ5?=
- =?us-ascii?Q?z7HdgLcFuNChmVjiZdoBzF5Rqp0EConE1mnw1y5pNBafGclhQzhZb41Z9/eo?=
- =?us-ascii?Q?FZsZWpUfqp5ZoCy7WqpBZeERblsRYchlHCnDGxO1aL5aUuEIB7yLpB+uqz+8?=
- =?us-ascii?Q?pxEDDsp2xG5Y2lohuKdAvCaS6wmTjyrmr4M789Svf+JkmTiEzwD5zUHGQBlD?=
- =?us-ascii?Q?jmhCw0Vt5kzzgsSKJJMfThEfcPOkrpU/DzK7wi7BAJfCbyRsGOYf5qsoDuXS?=
- =?us-ascii?Q?WUFHim6y+VFVIj86Fy3nGyIUsjap76k0UQ7+wp9n4C7hPY1qErO4RmrX6Hj5?=
- =?us-ascii?Q?ZVmcSphz3YBGAEiRkj/EhJQNRAVf3hUdg6De+7IfxZH1db4yeZccsHN1UuKA?=
- =?us-ascii?Q?RcAduJU8NX5Iur7eFMRsXvKtyjKlqb2gFLLbSIp2/+xtl1gwGAaAL1s96mYu?=
- =?us-ascii?Q?XZoUXgokTY4sxseTJtZ31WsVOwo55f/wyy9mgQIkizgr+p2+E/J5RhTE6KoX?=
- =?us-ascii?Q?1145zRlWDc/fISzgjcuz61sW9K8hIaBOur18sELVNWe0BDeiUFXznJPVkx2N?=
- =?us-ascii?Q?LTWGpsOFFCEHpKvpU+RKoWM3lJBdcYHvPWV0Hi7IMB1PItsRpclMUGdrTXVN?=
- =?us-ascii?Q?9NFc83Tb/KqZVDCWMHi+mfzofcXMCpk9e8Ym+At90unNxPVAKZPCfvZHLOO3?=
- =?us-ascii?Q?iAHnFYOfAlM5rkdCjjQSifxus7acvE3WK2BdZKFg9QggWqJYo/vDOmCXwiZ8?=
- =?us-ascii?Q?k1NhomT3xHG2Hwhd5jRFClwWp5dXdSx4q9qEFksRESrBUMqcNEQ07C+lNXdN?=
- =?us-ascii?Q?c6hVfejvt4hevOrTxJ20aQjEAA661E7IaGrhTHKU2LNhjkjXZlAnMiyFmepX?=
- =?us-ascii?Q?htmfgAp8ENILCTfwKiABklYSJruJJe8eqdhrANCRxluLZE12jfjS41C9L871?=
- =?us-ascii?Q?LuFNZ2Eb4fTlXStkEYTXbDY7g8ODNUv+m4+Zq4mbJE27XyOSr0wXI4zVLFpI?=
- =?us-ascii?Q?0FLfDXn+nVx3Qj+JigjfYi9eyD5DwM9Jk7iIy/wTVM/yYzixLbiiwbOE6pDy?=
- =?us-ascii?Q?DONsAdtcnSzFvJqy0fA6NVMPcCzBfRN2zphUJrrMz4ZfBGNcsuj0bSuj0BtP?=
- =?us-ascii?Q?Iqj2xHC2wCxrOJwJpA6Faek84udQPrsrPx5WGqgu+XnsVMxNXDZYmSJAOHir?=
- =?us-ascii?Q?RyfGapUK0a1agl0BL8bqq4BXumrHaM7di5hM1oUHQwQL+KhUzepzyM1F57Oz?=
- =?us-ascii?Q?GWXKIKq5/KaQeb0FupacbRA0Cap3jU3IJD5osGooxJRG9UqBoodQV44wOnVy?=
- =?us-ascii?Q?txyt3Bia8wGQ1ra8ijw/gGXh4bFRfBlm3PcHQzEEEXSsvlal0Q4Pl53fW9x/?=
- =?us-ascii?Q?R5KzSSu0n6wxkCiIxcFZa3yfCtVbrdtjKq6nTUli/fRMh5NbMMo88L50Seh7?=
- =?us-ascii?Q?wfqa666X/B7szCSSR1c8hCpfS8enOlBjqSw9wUXb?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3930151B398A178428C27D5D97839DM6PR12MB3930namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 176586E17B;
+	Mon, 25 Oct 2021 16:32:10 +0000 (UTC)
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [IPv6:2607:f8b0:4864:20::836])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0786E176;
+ Mon, 25 Oct 2021 16:32:08 +0000 (UTC)
+Received: by mail-qt1-x836.google.com with SMTP id w2so10857403qtn.0;
+ Mon, 25 Oct 2021 09:32:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:reply-to:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=fi1viPO37RPErOrjd4ieHuV2yNGlzJz/MD0WbPsjcIc=;
+ b=QaQjDIdMjyvVbf/paR9TGvExd3uD5ue8IknJlpKdKN45iyJFhUPS963b7WaLoSaw8F
+ A0ax4Hq2Nh5MufrUcfsz1ljFpMRpYIkfFNonRp07whhTSOBaMVSIGLBEziRJ9+ytraIi
+ 8a2VGxZi4tS4S6QmX2QSQQ+TVv6wHbeFAOzMDSDe0ZU5+HbR4cUJPg3M3ZhoyK0V2Aeo
+ y1wo2fHNKTyYT6IfK7vvuOF8hYyMcrgb17qyY8aobqsFQU0nJPp/EirtOROOx1k5CCnE
+ uw3NXYdyJ6dJNJYq3mfQb3InMqUs2S9yPXNW123P++T6M5nIW/4OVccs5gQeIRXk0ZB0
+ OW0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+ :subject:content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=fi1viPO37RPErOrjd4ieHuV2yNGlzJz/MD0WbPsjcIc=;
+ b=MR0Q19dWzKSnvsMxRweN1If+YIHAnG0zmzUxflAs9gm4B4stajnkus3swZ4Utl0ZRh
+ bU6fdjfslVgbRAAKGbrj2O/vG9AqRtAkj2n7qUF/JDvNeuYmSQw3zCslvh8sOVBaOrDy
+ C09pdbElfxdPDS9UGFzdvTJWS3KhM3ugKgNCnBRtRDT8hYcRTQLVfdf3uDOjfLrQ5n64
+ bSiztJiEfHhtDbq2+cOHMw7uwbW5faWHqPq4WEPescMBF37pa6ZANKeNAwqhBIGrjFNS
+ ne9pNry+8OFEAZ46jWkAL4CXJFRsYJbNWhzfAoh3q8nXW6sCrK2StTxdIOz8GvfXX5gy
+ g64w==
+X-Gm-Message-State: AOAM530MWU17GQpAJalCj/55sZrENybnbCdDQz1hKJSKI1O8Bl3iW2qJ
+ eW6k2ZYBI1FpaYZRnY/W4XZwAA16F9E=
+X-Google-Smtp-Source: ABdhPJzmY7kigh+TO79Y4+BgzAj4KHDcoDcEL9f+niTe0h2absz4jVCFmubie/bO52LQVVUWu65jgw==
+X-Received: by 2002:a05:622a:1889:: with SMTP id
+ v9mr19147126qtc.48.1635179527108; 
+ Mon, 25 Oct 2021 09:32:07 -0700 (PDT)
+Received: from mua.localhost ([2600:1700:e380:2c20::49])
+ by smtp.gmail.com with ESMTPSA id f21sm9741090qtk.51.2021.10.25.09.32.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Oct 2021 09:32:06 -0700 (PDT)
+Message-ID: <b412bb59-8f60-6b4a-9bc4-e606c6b9f66a@gmail.com>
+Date: Mon, 25 Oct 2021 12:32:05 -0400
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c585abf-9655-4208-2c44-08d997d46846
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Oct 2021 16:27:58.6117 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +1Rjh4NbbtjZLIoTaknyL861uy9yH0cwwYUQ/Z/EuuHAw489S0t5+oNFLalF9vbw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3020
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.2.0
+Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
+ + kernel 5.14.13
+Content-Language: en-US
+To: lijo.lazar@amd.com, alexdeucher@gmail.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
+ <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
+ <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
+ <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
+From: PGNet Dev <pgnet.dev@gmail.com>
+In-Reply-To: <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,176 +83,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3930151B398A178428C27D5D97839DM6PR12MB3930namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+hi
 
-[Public]
+>> The driver is not able to find the vbios image which is required for
+>> the driver to properly enumerate the hardware.  I would guess it's a
+>> platform issue.  Is there a newer sbios image available for your
+>> platform?
+...
+>> I would start with an sbios update is possible.
 
-Does the message need a mention about the newly added option to ignore thre=
-shold?
+not that i'm aware.
 
-Thanks,
-Lijo
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Luben Tu=
-ikov <luben.tuikov@amd.com>
-Sent: Monday, October 25, 2021 9:32:20 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Russell, Kent <Kent.Russell@amd.c=
-om>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Restore information reporting in RAS
+this board is an ASRockRack X470D4U server board
 
-A recent patch took away the reporting of number of RAS records and
-the threshold due to the way it was edited/spliced on top of the code.
-This patch restores this reporting.
+	https://www.asrockrack.com/general/productdetail.asp?Model=X470D4U#Specifications
 
-Cc: Kent Russell <kent.russell@amd.com>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>
-Fixes: 07df2fb092d09e ("drm/amdgpu: Add kernel parameter support for ignori=
-ng bad page threshold")
-Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+latest BIOS
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_ras_eeprom.c
-index ae64ca02ccc4f8..05117eda105b55 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -1112,7 +1112,10 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_=
-control *control,
-                                 res =3D 0;
-                         } else {
-                                 *exceed_err_limit =3D true;
--                               dev_err(adev->dev, "GPU will not be initial=
-ized. Replace this GPU or increase the threshold.");
-+                               dev_err(adev->dev,
-+                                       "RAS records:%d exceed threshold:%d=
-, "
-+                                       "GPU will not be initialized. Repla=
-ce this GPU or increase the threshold",
-+                                       control->ras_num_recs, ras->bad_pag=
-e_cnt_threshold);
-                         }
-                 }
-         } else {
+	https://www.asrockrack.com/general/productdetail.asp?Model=X470D4U#Download
 
-base-commit: b60bccb408c831c685b2a257eff575bcda2cbe9d
---
-2.33.1.558.g2bd2f258f4
+is,
+
+	4.20	8/12/2021	BIOS
+
+which is installed,
+
+	dmidecode | grep "BIOS Information" -A5
+	BIOS Information
+         	Vendor: American Megatrends International, LLC.
+         	Version: P4.20
+         	Release Date: 04/14/2021
+         	Address: 0xF0000
+         	Runtime Size: 64 kB
+
+>> check if there are any options in the
+>> sbios regarding the behavior of the integrated graphics when an
+>> external GPU is present.  I suspect the one of the following is the
+>> problem:
+>> 1. The sbios should disable the integrated graphics when a dGPU is
+>> present, but due to a bug in the sbios or a particular sbios settings
+>> it has failed to.
+>> 2. The sbios should be providing a vbios image for the integrated
+>> graphics, but due to a bug in the sbios or a particular sbios settings
+>> it has failed to.
+>> 3. The platform uses some alternative method to provide access to the
+>> vbios image for the integrated graphics that Linux does not yet
+>> handle.
+
+Checking on the specific options for Dual/Concurrent GPU support is ... challenging ... so far.
+I haven't found a clear statement/doc on how it's intended to behave, what options are available, or details on the individual options.
+
+Per a chat late last week with ASRockRack, my understanding is that dual CPU support is *supposed* to work.
+
+atm, I'm not clear on how specifically test/answer for any of your suspected issues :-/
+Reading online to see what to check, etc.
+
+> To add to the list - check if ACPI support is broken or skipped.
+
+It doesn't appear to me to be; here's dmesg output,
+
+dmesg | grep -i acpi
+	...
+	[    0.000000] BIOS-e820: [mem 0x000000000a200000-0x000000000a20efff] ACPI NVS
+	[    0.000000] BIOS-e820: [mem 0x00000000bae2e000-0x00000000bae70fff] ACPI data
+	[    0.000000] BIOS-e820: [mem 0x00000000bae71000-0x00000000bd0defff] ACPI NVS
+	[    0.000000] reserve setup_data: [mem 0x000000000a200000-0x000000000a20efff] ACPI NVS
+	[    0.000000] reserve setup_data: [mem 0x00000000bae2e000-0x00000000bae70fff] ACPI data
+	[    0.000000] reserve setup_data: [mem 0x00000000bae71000-0x00000000bd0defff] ACPI NVS
+	[    0.000000] efi: ACPI=0xbd0c8000 ACPI 2.0=0xbd0c8014 SMBIOS=0xbdd6d000 SMBIOS 3.0=0xbdd6c000 MEMATTR=0xb5ee6698 ESRT=0xb5804518 MOKvar=0xb568b000 RNG=0xbdd9eb18
+	[    0.004625] ACPI: Early table checksum verification disabled
+	[    0.004627] ACPI: RSDP 0x00000000BD0C8014 000024 (v02 ALASKA)
+	[    0.004630] ACPI: XSDT 0x00000000BD0C7728 0000E4 (v01 ALASKA A M I    01072009 AMI  01000013)
+	[    0.004634] ACPI: FACP 0x00000000BAE60000 000114 (v06 ALASKA A M I    01072009 AMI  00010013)
+	[    0.004637] ACPI: DSDT 0x00000000BAE59000 006308 (v02 ALASKA A M I    01072009 INTL 20120913)
+	[    0.004639] ACPI: FACS 0x00000000BC0C2000 000040
+	[    0.004640] ACPI: IVRS 0x00000000BAE70000 0000D0 (v02 AMD    AmdTable 00000001 AMD  00000001)
+	[    0.004642] ACPI: SPMI 0x00000000BAE6F000 000041 (v05 ALASKA A M I    00000000 AMI. 00000000)
+	[    0.004644] ACPI: SPMI 0x00000000BAE6E000 000041 (v05 ALASKA A M I    00000000 AMI. 00000000)
+	[    0.004645] ACPI: SSDT 0x00000000BAE66000 007229 (v02 AMD    MYRTLE   00000002 MSFT 04000000)
+	[    0.004647] ACPI: SSDT 0x00000000BAE62000 003BD7 (v01 AMD    AMD AOD  00000001 INTL 20120913)
+	[    0.004648] ACPI: SSDT 0x00000000BAE61000 0000C8 (v02 ALASKA CPUSSDT  01072009 AMI  01072009)
+	[    0.004650] ACPI: FIDT 0x00000000BAE58000 00009C (v01 ALASKA A M I    01072009 AMI  00010013)
+	[    0.004651] ACPI: MCFG 0x00000000BAE57000 00003C (v01 ALASKA A M I    01072009 MSFT 00010013)
+	[    0.004653] ACPI: AAFT 0x00000000BAE56000 000068 (v01 ALASKA OEMAAFT  01072009 MSFT 00000097)
+	[    0.004654] ACPI: HPET 0x00000000BAE55000 000038 (v01 ALASKA A M I    01072009 AMI  00000005)
+	[    0.004656] ACPI: SPCR 0x00000000BAE54000 000050 (v02 A M I  APTIO V  01072009 AMI. 00050011)
+	[    0.004657] ACPI: SSDT 0x00000000BAE51000 002B44 (v02 AMD    AmdTable 00000001 AMD  00000001)
+	[    0.004659] ACPI: CRAT 0x00000000BAE50000 000B68 (v01 AMD    AmdTable 00000001 AMD  00000001)
+	[    0.004660] ACPI: CDIT 0x00000000BAE4F000 000029 (v01 AMD    AmdTable 00000001 AMD  00000001)
+	[    0.004662] ACPI: SSDT 0x00000000BAE4E000 000D53 (v01 AMD    MYRTLEG2 00000001 INTL 20120913)
+	[    0.004663] ACPI: SSDT 0x00000000BAE4D000 00022A (v01 AMD    MYRTLEGP 00000001 INTL 20120913)
+	[    0.004665] ACPI: SSDT 0x00000000BAE49000 00381A (v01 AMD    MYRTLE   00000001 INTL 20120913)
+	[    0.004666] ACPI: SSDT 0x00000000BAE48000 0000BF (v01 AMD    AmdTable 00001000 INTL 20120913)
+	[    0.004668] ACPI: WSMT 0x00000000BAE47000 000028 (v01 ALASKA A M I    01072009 AMI  00010013)
+	[    0.004669] ACPI: APIC 0x00000000BAE46000 00015E (v03 ALASKA A M I    01072009 AMI  00010013)
+	[    0.004671] ACPI: SSDT 0x00000000BAE45000 00051B (v01 AMD    MYRTLERN 00000001 INTL 20120913)
+	[    0.004672] ACPI: SSDT 0x00000000BAE43000 0010AF (v01 AMD    MYRTLE   00000001 INTL 20120913)
+	[    0.004674] ACPI: FPDT 0x00000000BAE42000 000044 (v01 ALASKA A M I    01072009 AMI  01000013)
+	[    0.004675] ACPI: Reserving FACP table memory at [mem 0xbae60000-0xbae60113]
+	[    0.004676] ACPI: Reserving DSDT table memory at [mem 0xbae59000-0xbae5f307]
+	[    0.004676] ACPI: Reserving FACS table memory at [mem 0xbc0c2000-0xbc0c203f]
+	[    0.004677] ACPI: Reserving IVRS table memory at [mem 0xbae70000-0xbae700cf]
+	[    0.004677] ACPI: Reserving SPMI table memory at [mem 0xbae6f000-0xbae6f040]
+	[    0.004678] ACPI: Reserving SPMI table memory at [mem 0xbae6e000-0xbae6e040]
+	[    0.004679] ACPI: Reserving SSDT table memory at [mem 0xbae66000-0xbae6d228]
+	[    0.004679] ACPI: Reserving SSDT table memory at [mem 0xbae62000-0xbae65bd6]
+	[    0.004680] ACPI: Reserving SSDT table memory at [mem 0xbae61000-0xbae610c7]
+	[    0.004680] ACPI: Reserving FIDT table memory at [mem 0xbae58000-0xbae5809b]
+	[    0.004681] ACPI: Reserving MCFG table memory at [mem 0xbae57000-0xbae5703b]
+	[    0.004681] ACPI: Reserving AAFT table memory at [mem 0xbae56000-0xbae56067]
+	[    0.004682] ACPI: Reserving HPET table memory at [mem 0xbae55000-0xbae55037]
+	[    0.004682] ACPI: Reserving SPCR table memory at [mem 0xbae54000-0xbae5404f]
+	[    0.004683] ACPI: Reserving SSDT table memory at [mem 0xbae51000-0xbae53b43]
+	[    0.004683] ACPI: Reserving CRAT table memory at [mem 0xbae50000-0xbae50b67]
+	[    0.004684] ACPI: Reserving CDIT table memory at [mem 0xbae4f000-0xbae4f028]
+	[    0.004684] ACPI: Reserving SSDT table memory at [mem 0xbae4e000-0xbae4ed52]
+	[    0.004685] ACPI: Reserving SSDT table memory at [mem 0xbae4d000-0xbae4d229]
+	[    0.004686] ACPI: Reserving SSDT table memory at [mem 0xbae49000-0xbae4c819]
+	[    0.004686] ACPI: Reserving SSDT table memory at [mem 0xbae48000-0xbae480be]
+	[    0.004687] ACPI: Reserving WSMT table memory at [mem 0xbae47000-0xbae47027]
+	[    0.004687] ACPI: Reserving APIC table memory at [mem 0xbae46000-0xbae4615d]
+	[    0.004688] ACPI: Reserving SSDT table memory at [mem 0xbae45000-0xbae4551a]
+	[    0.004688] ACPI: Reserving SSDT table memory at [mem 0xbae43000-0xbae440ae]
+	[    0.004689] ACPI: Reserving FPDT table memory at [mem 0xbae42000-0xbae42043]
+	[    0.070746] ACPI: PM-Timer IO Port: 0x808
+	[    0.070752] ACPI: LAPIC_NMI (acpi_id[0xff] high edge lint[0x1])
+	[    0.070770] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+	[    0.070771] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 low level)
+	[    0.070773] ACPI: Using ACPI (MADT) for SMP configuration information
+	[    0.070774] ACPI: HPET id: 0x10228201 base: 0xfed00000
+	[    0.070778] ACPI: SPCR: console: uart,io,0x3f8,115200
+	[    0.296452] ACPI: Core revision 20210604
+	[    0.418616] ACPI: PM: Registering ACPI NVS region [mem 0x0a200000-0x0a20efff] (61440 bytes)
+	[    0.418619] ACPI: PM: Registering ACPI NVS region [mem 0xbae71000-0xbd0defff] (36102144 bytes)
+	[    0.419845] ACPI: bus type PCI registered
+	[    0.419847] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+	[    0.505757] ACPI: Added _OSI(Module Device)
+	[    0.505757] ACPI: Added _OSI(Processor Device)
+	[    0.505757] ACPI: Added _OSI(3.0 _SCP Extensions)
+	[    0.505757] ACPI: Added _OSI(Processor Aggregator Device)
+	[    0.505757] ACPI: Added _OSI(Linux-Dell-Video)
+	[    0.505757] ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
+	[    0.505757] ACPI: Added _OSI(Linux-HPI-Hybrid-Graphics)
+	[    0.505757] ACPI: Added _OSI(Linux)
+	[    0.511109] ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.GPP0.VGA], AE_ALREADY_EXISTS (20210604/dswload2-326)
+	[    0.511115] ACPI Error: AE_ALREADY_EXISTS, During name lookup/catalog (20210604/psobject-220)
+	[    0.511117] ACPI: Skipping parse of AML opcode: OpcodeName unavailable (0x5B82)
+	[    0.511119] ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.GPP0.HDAU], AE_ALREADY_EXISTS (20210604/dswload2-326)
+	[    0.511121] ACPI Error: AE_ALREADY_EXISTS, During name lookup/catalog (20210604/psobject-220)
+	[    0.511123] ACPI: Skipping parse of AML opcode: OpcodeName unavailable (0x5B82)
+	[    0.511321] ACPI: 11 ACPI AML tables successfully acquired and loaded
+	[    0.515248] ACPI: Interpreter enabled
+	[    0.515257] ACPI: PM: (supports S0 S4 S5)
+	[    0.515258] ACPI: Using IOAPIC for interrupt routing
+	[    0.515427] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+	[    0.515619] ACPI: Enabled 4 GPEs in block 00 to 1F
+	[    0.520321] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+	[    0.520325] acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI EDR HPX-Type3]
+	[    0.520401] acpi PNP0A08:00: _OSC: platform does not support [SHPCHotplug LTR DPC]
+	[    0.520471] acpi PNP0A08:00: _OSC: OS now controls [PCIeHotplug PME AER PCIeCapability]
+	[    0.520479] acpi PNP0A08:00: [Firmware Info]: MMCONFIG for domain 0000 [bus 00-7f] only partially covers this bridge
+	[    0.530700] ACPI: PCI: Interrupt link LNKA configured for IRQ 0
+	[    0.530727] ACPI: PCI: Interrupt link LNKB configured for IRQ 0
+	[    0.530750] ACPI: PCI: Interrupt link LNKC configured for IRQ 0
+	[    0.530779] ACPI: PCI: Interrupt link LNKD configured for IRQ 0
+	[    0.530805] ACPI: PCI: Interrupt link LNKE configured for IRQ 0
+	[    0.530826] ACPI: PCI: Interrupt link LNKF configured for IRQ 0
+	[    0.530847] ACPI: PCI: Interrupt link LNKG configured for IRQ 0
+	[    0.530868] ACPI: PCI: Interrupt link LNKH configured for IRQ 0
+	[    0.531910] ACPI: bus type USB registered
+	[    0.531910] PCI: Using ACPI for IRQ routing
+	[    0.543389] pnp: PnP ACPI init
+	[    0.544422] pnp: PnP ACPI: found 7 devices
+	[    0.549677] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+	[    0.597052] ACPI: button: Power Button [PWRB]
+	[    0.597085] ACPI: button: Power Button [PWRF]
+	[    0.597121] ACPI: \_PR_.C000: Found 3 idle states
+	[    0.597212] ACPI: \_PR_.C002: Found 3 idle states
+	[    0.597676] ACPI: \_PR_.C004: Found 3 idle states
+	[    0.597735] ACPI: \_PR_.C006: Found 3 idle states
+	[    0.597787] ACPI: \_PR_.C008: Found 3 idle states
+	[    0.597841] ACPI: \_PR_.C00A: Found 3 idle states
+	[    0.597891] ACPI: \_PR_.C001: Found 3 idle states
+	[    0.597936] ACPI: \_PR_.C003: Found 3 idle states
+	[    0.598059] ACPI: \_PR_.C005: Found 3 idle states
+	[    0.598201] ACPI: \_PR_.C007: Found 3 idle states
+	[    0.598327] ACPI: \_PR_.C009: Found 3 idle states
+	[    0.598411] ACPI: \_PR_.C00B: Found 3 idle states
+	...
 
 
---_000_DM6PR12MB3930151B398A178428C27D5D97839DM6PR12MB3930namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-Does the message need a mention about the newly added option to ignore thre=
-shold?</div>
-<div id=3D"ms-outlook-mobile-signature">
-<div><br>
-</div>
-Thanks,<br>
-Lijo</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Luben Tuikov &lt;luben.tuikov=
-@amd.com&gt;<br>
-<b>Sent:</b> Monday, October 25, 2021 9:32:20 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Russell, Kent &lt;Ke=
-nt.Russell@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt=
-;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Restore information reporting in RAS</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">A recent patch took away the reporting of number o=
-f RAS records and<br>
-the threshold due to the way it was edited/spliced on top of the code.<br>
-This patch restores this reporting.<br>
-<br>
-Cc: Kent Russell &lt;kent.russell@amd.com&gt;<br>
-Cc: Alex Deucher &lt;Alexander.Deucher@amd.com&gt;<br>
-Fixes: 07df2fb092d09e (&quot;drm/amdgpu: Add kernel parameter support for i=
-gnoring bad page threshold&quot;)<br>
-Signed-off-by: Luben Tuikov &lt;luben.tuikov@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 5 ++++-<br>
-&nbsp;1 file changed, 4 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-index ae64ca02ccc4f8..05117eda105b55 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-@@ -1112,7 +1112,10 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_=
-control *control,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } els=
-e {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *exceed_err_limit =3D true;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;GPU will not be=
- initialized. Replace this GPU or increase the threshold.&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; &quot;RAS records:%d exceed threshold:%d, &quot;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; &quot;GPU will not be initialized. Replace this GPU or increase the th=
-reshold&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; control-&gt;ras_num_recs, ras-&gt;bad_page_cnt_threshold);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-<br>
-base-commit: b60bccb408c831c685b2a257eff575bcda2cbe9d<br>
--- <br>
-2.33.1.558.g2bd2f258f4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB3930151B398A178428C27D5D97839DM6PR12MB3930namp_--
