@@ -2,76 +2,141 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B37EC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:32:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D140C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:43:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DB5D60EB9
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:32:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0DB5D60EB9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 47DE260555
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 16:43:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 47DE260555
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 176586E17B;
-	Mon, 25 Oct 2021 16:32:10 +0000 (UTC)
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0786E176;
- Mon, 25 Oct 2021 16:32:08 +0000 (UTC)
-Received: by mail-qt1-x836.google.com with SMTP id w2so10857403qtn.0;
- Mon, 25 Oct 2021 09:32:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:reply-to:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=fi1viPO37RPErOrjd4ieHuV2yNGlzJz/MD0WbPsjcIc=;
- b=QaQjDIdMjyvVbf/paR9TGvExd3uD5ue8IknJlpKdKN45iyJFhUPS963b7WaLoSaw8F
- A0ax4Hq2Nh5MufrUcfsz1ljFpMRpYIkfFNonRp07whhTSOBaMVSIGLBEziRJ9+ytraIi
- 8a2VGxZi4tS4S6QmX2QSQQ+TVv6wHbeFAOzMDSDe0ZU5+HbR4cUJPg3M3ZhoyK0V2Aeo
- y1wo2fHNKTyYT6IfK7vvuOF8hYyMcrgb17qyY8aobqsFQU0nJPp/EirtOROOx1k5CCnE
- uw3NXYdyJ6dJNJYq3mfQb3InMqUs2S9yPXNW123P++T6M5nIW/4OVccs5gQeIRXk0ZB0
- OW0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
- :subject:content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=fi1viPO37RPErOrjd4ieHuV2yNGlzJz/MD0WbPsjcIc=;
- b=MR0Q19dWzKSnvsMxRweN1If+YIHAnG0zmzUxflAs9gm4B4stajnkus3swZ4Utl0ZRh
- bU6fdjfslVgbRAAKGbrj2O/vG9AqRtAkj2n7qUF/JDvNeuYmSQw3zCslvh8sOVBaOrDy
- C09pdbElfxdPDS9UGFzdvTJWS3KhM3ugKgNCnBRtRDT8hYcRTQLVfdf3uDOjfLrQ5n64
- bSiztJiEfHhtDbq2+cOHMw7uwbW5faWHqPq4WEPescMBF37pa6ZANKeNAwqhBIGrjFNS
- ne9pNry+8OFEAZ46jWkAL4CXJFRsYJbNWhzfAoh3q8nXW6sCrK2StTxdIOz8GvfXX5gy
- g64w==
-X-Gm-Message-State: AOAM530MWU17GQpAJalCj/55sZrENybnbCdDQz1hKJSKI1O8Bl3iW2qJ
- eW6k2ZYBI1FpaYZRnY/W4XZwAA16F9E=
-X-Google-Smtp-Source: ABdhPJzmY7kigh+TO79Y4+BgzAj4KHDcoDcEL9f+niTe0h2absz4jVCFmubie/bO52LQVVUWu65jgw==
-X-Received: by 2002:a05:622a:1889:: with SMTP id
- v9mr19147126qtc.48.1635179527108; 
- Mon, 25 Oct 2021 09:32:07 -0700 (PDT)
-Received: from mua.localhost ([2600:1700:e380:2c20::49])
- by smtp.gmail.com with ESMTPSA id f21sm9741090qtk.51.2021.10.25.09.32.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Oct 2021 09:32:06 -0700 (PDT)
-Message-ID: <b412bb59-8f60-6b4a-9bc4-e606c6b9f66a@gmail.com>
-Date: Mon, 25 Oct 2021 12:32:05 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.2.0
-Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
- + kernel 5.14.13
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6AF06E17D;
+	Mon, 25 Oct 2021 16:43:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 494986E17E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 16:43:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IaWEQ/uKgx3crsxlfy9K8YOfi1JSMNiqfXL++Y0uuStdDMUbNs2zWCXaO78/s5OHGyoILkPa8DXwplA2ptwapC6682U6lgNv+d1zDCvgK/m2Gg8eOeKOwiGXP1cFJtgBjDIo+Psm7J7uY2inkzLkQ70kml/K4uJX+NsPDTxylt/fAJVZxzD0fJ89uV5rb9jPVavCbFSci1Yq1SCu78rsTXXiXqBKsVtRO/nn6zzMNJP4/P7XA4L5iTjLl1ypmFkPmzWxeI+o/IQg478Kt7uq80NuQHrsLLK53/bo1GaMRMGtqjVWE0QPRIvk8MgVZwpXAzEyOR/i0SnjEQT5967Vhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z5rDtUZqimZVyV0toZguW7txROBrh1ytXNVEfl8RWMw=;
+ b=PgLKcUYEpZ3ullBjkhr6o5PGJ11DzoOQUPlWhm9YBT8ygE359XPKBjLTZJMhC2GEyuX5wQlqZXLim7oH1IXF8eUXhZq2haXtRakgT5v5gcMIQyM35unNhxNNPptOBal6tmJM/tjiYBatHeB6kbn2Nq8UbxlXLjN9p8AU84vvfEfuE76bNIFhaPZBWofVh3WS5ADn9ljXl22gmShX0HRodB3aLI2T3E0h6PjUTmrtJ+nFWiyHdXrEJyG8hEYKANLaY9mFd2VDp2tp1XkjKSgTLhkYIHB61r5hgsdOLvDAJbzYQR/EPwfFwyLw2FjDGN9dNJO1PNSULaC1uMcFLqfwTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z5rDtUZqimZVyV0toZguW7txROBrh1ytXNVEfl8RWMw=;
+ b=Aiq5qz9xH4nP+GIyctwCuyLUtAk0LwdcVY1VfriiMQwdiQbbQqsS0gauEzYyTZwrX/YapbYmcXP9PPcJ2bZmu27oqmF+ZkdXHUc6zGavMYa2wE1DFN81f3FeFo7CRHH56Vtq4butSyJDJoRbL4zrwdefHSce0sgQpKHKaDtHFdI=
+Authentication-Results: linutronix.de; dkim=none (message not signed)
+ header.d=none;linutronix.de; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MWHPR12MB1408.namprd12.prod.outlook.com
+ (2603:10b6:300:12::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
+ 2021 16:43:09 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::55c7:6fc9:b2b1:1e6a]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::55c7:6fc9:b2b1:1e6a%10]) with mapi id 15.20.4628.018; Mon, 25 Oct
+ 2021 16:43:09 +0000
+Subject: Re: I got an IOMMU IO page fault. What to do now?
+To: Robin Murphy <robin.murphy@arm.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Paul Menzel <pmenzel@molgen.mpg.de>, =?UTF-8?B?SsO2cmcgUsO2ZGVs?=
+ <joro@8bytes.org>, Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Cc: x86@kernel.org, Xinhui Pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ iommu@lists.linux-foundation.org, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Alex Deucher <alexander.deucher@amd.com>,
+ it+linux-iommu@molgen.mpg.de, Thomas Gleixner <tglx@linutronix.de>
+References: <7a5123b0-6370-59dc-f0c2-8be5b370d9ba@molgen.mpg.de>
+ <0cfccc44-6cc6-98f5-ecd6-2f376839ec18@gmail.com>
+ <bc7142a1-82d3-43bf-dee2-25f9297e7182@arm.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <2e315f82-1bbb-5570-8ece-a3aec42f45f0@amd.com>
+Date: Mon, 25 Oct 2021 18:42:59 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <bc7142a1-82d3-43bf-dee2-25f9297e7182@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-To: lijo.lazar@amd.com, alexdeucher@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
- <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
- <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
- <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
-From: PGNet Dev <pgnet.dev@gmail.com>
-In-Reply-To: <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR1001CA0023.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:2::36) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
+MIME-Version: 1.0
+Received: from [IPv6:2a02:908:1252:fb60:8129:53e5:4c:630b]
+ (2a02:908:1252:fb60:8129:53e5:4c:630b) by
+ AM5PR1001CA0023.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:206:2::36) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
+ Transport; Mon, 25 Oct 2021 16:43:05 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0ba565e1-673e-4965-ee2f-08d997d6868c
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1408:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB14087A2D46BAAFF1938A283483839@MWHPR12MB1408.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kTUniRrYheWCcLArxhMd6549KKtCvoLGasxVvGUW3PPiWcO8R4gh8L4BSpw+KS46oIbRuuntZbkG6KS/V0e+Wk+Vx4Oe5cuPImlMGnn5v4Cp/uotCO/nwI4TSvRp4YV5n4S/zKmXEsOMjoKBuV42/BeC7gYRrQ0/D/cRTPtstO7oLWJkNY01+aLFA906auh7twbJlDdlYDFKTQAoIjaFE23FbhnWCSH3f90NVx3tizElVUjPrBucH4piMdbmd40wAJ2t95MQVunoyFVeEbRIj87Kf4fjQGNqnfrZ8OBzOdM8lCaTqKwb3Z6t0ek+dmJ+FxHMCWiK6a2tKGEro1z3w3FCUnyOTg6+vYqVcgzrZab1f2TFoCpcImJr278hPQ/rwgMohWwtrkPE82ZWmnBQbsqF+RVa8wBjKJ+r0knzrJ3nBsgZRN/utwh6j6dn3rPIAY/PWA19RnXbrRPHr2GdLezeFV715gYnLhBgF7T0/w+RnrEQ8Lgf9UtD2BBxd9BcoHTpiu3LoLI62JrEGY5M/rodp/QeNl6aLk8uiT6uPhesojsIkDipV3WhoAQrcO1eR0I8Tkh9c5SrMlP3vNTTKoadVZ34+S1mfO7ZtV6TqL9VxUMD9g+qn+jFHXwrPVf0Rmh34BbpuSmGuusAoxYnRP5ai4SAK5sAwIAZUtQ8hhu9gd00Mvykw9dKZqAj8QPrD1wqYvTu9lK890z9M/ol3pifUCLoXQRXax5WGKO99RWgXkITqrlMxKLrUoYhVNqy3eJlCqN/YM7ujCHltoR6RNZDyOpQwwBnIixsreP69Sn8u+DsqlNviqzYxFYCsYpV++9We8IyLLtoV/o1IWLzFQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(966005)(6666004)(508600001)(54906003)(4001150100001)(7416002)(83380400001)(2616005)(110136005)(86362001)(316002)(31686004)(31696002)(186003)(45080400002)(38100700002)(66556008)(8936002)(66946007)(66476007)(6486002)(8676002)(4326008)(2906002)(53546011)(36756003)(6636002)(5660300002)(66574015)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1c3YmxMWG5oQUk1OXFtcjRITU1hV3JQakY1YkZLOXJ4aDV0ajExKzRiV1or?=
+ =?utf-8?B?NGtRaC9BOXA3ZjBySDV2MklVMTdZQk4za3lrbzMvOENJS3BpVzhlbW5uVFVj?=
+ =?utf-8?B?bGNjVmlKVm9hMmVRZjBsZ3JXa1N3M3pWOU45SjMwc1Q2OEUzVUFydWZMTzVt?=
+ =?utf-8?B?cjVUOFJBZGVXNE54Titrb1ZpVXh6aDl1T1FxZ00zZW1BUnMraXdzRDRJMzFy?=
+ =?utf-8?B?eWp3UWdrQzMrTzYyZ1UrWkdyLzNkOVpSbmxXN3kxVmdiQTVtTDZYMi9LWmNi?=
+ =?utf-8?B?UHVCRDhIUUpFbDFmSjN0ZkZSNk1pVEo5NGpRUlpNak5QS3lEYkxRbnNHYVEv?=
+ =?utf-8?B?czNuUFpsSU1SMEc4SHdXT1RQUFVRdUlQWFdiRXBUZStJNWlObmVaNUVXZXU0?=
+ =?utf-8?B?WGIrUjNSNU9vSllOMEo3M0R6UHpWdjF0YU1MeWdmSTVMQkxaeHdZUUpLbWhj?=
+ =?utf-8?B?OEtvY3NDSVhZTk1NenF3SWl2bFc1S0tOZEZpRmZ5T2I4T0dwUXp5SzREY3Fj?=
+ =?utf-8?B?d2t1YytZWE9GYytYRWRjYWJFZnNyZjNPdHZ3MUZ0bllqUUNGUlRobnJYRGJ3?=
+ =?utf-8?B?bFdFYno1c0hFUC8wMFBrQ0ZUcHArdm9uNW1PLzVieUVTeFNGeWFkbk8wYlpV?=
+ =?utf-8?B?Ui9RK0QyVWtBSFkvem1sTTVvNFhXQS9rWWpMVGNmQ0lhYVNpUzhId1NIckhy?=
+ =?utf-8?B?U2grYUk3andNSVFabXlvd1RLWFF5NXc2ZkxWRFdoSXFaVW5CMllkRHUweFhP?=
+ =?utf-8?B?M29JV0hSTkF0OW5DUnBXN2xBU2J6ZXVtTjRwQ2dEckMxaU50QmpPME5wektU?=
+ =?utf-8?B?ckdNQjVzQ3hJL0F2VmpSdDRwV011RWQ1T0R2L1lDMXpRMkk1d0ZKOEg3czZC?=
+ =?utf-8?B?d1NZTnk4dzRBbDFSd0IybkF6cXo5aXFVeE1CenArTzIxYklJVGh5cGJpT2tq?=
+ =?utf-8?B?c2ZtdlR0YnpPbjJtSWRvZlhmZ3B5YUNSdk1BVkRZTFMrV0J1VlE0OWlibC9H?=
+ =?utf-8?B?cVg3QWlnWVZSTWV3MnRyRkp1K0hJRkpDVlN4Q1RsWkVZK3pRd3VuVmpOQkpY?=
+ =?utf-8?B?Y3UvUU9MQXRwQTgxLzdVaU1hU2ZuUFRHYmxkaSs1U00wdjNxYVNXWmFjVmUw?=
+ =?utf-8?B?b051OEp6VmRmL1RWaG12Rk01MDVWYWNYOUhrc2diVFhOeFRGMy9VSE9sL2Vq?=
+ =?utf-8?B?Skd6KzduZ0xOaTI3VDdUM2VxMzNiRFJpTGJCK25YWEUxMFFza2o0Mm5uRlFJ?=
+ =?utf-8?B?bStQUFczRml0SHBSeGIxQWJoM0VPTExLdGRjdTg5eWtuTmorcDVkYzBZSWpx?=
+ =?utf-8?B?cWYxZURRcnJ6MkUxWUVsR3dGenhHRGt5MVZEVEt6NDhBNk1JUzlmc2lXMDRP?=
+ =?utf-8?B?RVVud09KUUJGTUI0ZjdYUEZGek5HL1JURTV5dS9pdktSQllPZURWVDNxd3ZP?=
+ =?utf-8?B?VWlEcHpnbU5SQnNwOXlIZHhBemJ1SVJKR2hCT3FYMXF6SGlxd0ZCOXBTTjF5?=
+ =?utf-8?B?SHd1N2xyRVlkYy9CblBqdzliWXFWSFZFUGtXc0t2OXdxUWg3MzlsU3l4aTh5?=
+ =?utf-8?B?MXBubHg4WjBHdjdtK2gybEkvYmxLbW02RlFOVGNGeE1pOERWZXJ0MTQ1ZC9F?=
+ =?utf-8?B?Z1ZhZEZLTDRQa1RoOUpJUkN5eXZqM2hneStCMmRDaVcxbFd6R0lsRVMyckpx?=
+ =?utf-8?B?WjhyNWZ4TWFKZlZzMDRjWFhrMTJKQXIybEtpb1U1bFlYcTFQMWR5dVNXbFBr?=
+ =?utf-8?B?bzh3NFRvM0xacGpxNkJPd1ViczdlWnFhZjNVNkpkWnhDbC84Vm5NdWwxWGtH?=
+ =?utf-8?B?aS8rN3g5TDhBbUU2T0EvT3VvdHJScmFYZnFJMDNzVGJqNldsQ1Z0cVFENlJW?=
+ =?utf-8?B?S2tuUFdRbEJCSG1oUFJqZDRiNE1JTHRQWGZOdFgycUdTUm15WHBUa2Z3Kzdl?=
+ =?utf-8?B?VkcvYmw4OU9iVjhnNnFQbnlHdkFsMmp0OEU0bVBlNGlIT1NxcnIzN2N0SU5t?=
+ =?utf-8?B?VThTT1NNUVlLam42VzM5TnM4WlBMYTJzSWlFVGRsWi9QVlNOKzFrWHNnM1gz?=
+ =?utf-8?B?NVByN292MUVaMll1MDZMR3NBeTZlRWpHUGlad3pMbUFGUUV1ci80cUI4Q0RL?=
+ =?utf-8?B?VGFjQnhlUXdtYVpmeDhoU1VFLzUzQXRLRSsvd1BVRFJyc1NVOFpFamFhSytK?=
+ =?utf-8?Q?ZTQIpbUAwjrBxnu8RDcrTLk=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ba565e1-673e-4965-ee2f-08d997d6868c
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 16:43:08.8962 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +WaXeVW1XylOVAuQoYVwsGE36lyt6ehG2ARLyKRiBVw+dY7gRGzDwmJsHszK+nG4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1408
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,197 +148,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hi
+Hi Robin,
 
->> The driver is not able to find the vbios image which is required for
->> the driver to properly enumerate the hardware.  I would guess it's a
->> platform issue.  Is there a newer sbios image available for your
->> platform?
-...
->> I would start with an sbios update is possible.
+Am 25.10.21 um 18:01 schrieb Robin Murphy:
+> On 2021-10-25 12:23, Christian König wrote:
+>> Hi Paul,
+>>
+>> not sure how the IOMMU gives out addresses, but the printed ones look 
+>> suspicious to me. Something like we are using an invalid address like 
+>> -1 or similar.
+>
+> FWIW those look like believable DMA addresses to me, assuming that the 
+> DMA mapping APIs are being backed iommu_dma_ops and the device has a 
+> 40-bit DMA mask, since the IOVA allocator works top-down.
 
-not that i'm aware.
+Thanks for that information. In that case the addresses look valid to me.
 
-this board is an ASRockRack X470D4U server board
+> Likely causes are either a race where the dma_unmap_*() call happens 
+> before the hardware has really stopped accessing the relevant 
+> addresses, or the device's DMA mask has been set larger than it should 
+> be, and thus the upper bits have been truncated in the round-trip 
+> through the hardware.
 
-	https://www.asrockrack.com/general/productdetail.asp?Model=X470D4U#Specifications
+That actually looks correct to me. The device indeed has a 40-bit DMA mask.
 
-latest BIOS
+There is a third possibility which is actually quite likely and that are 
+stale reads in the pipeline.
 
-	https://www.asrockrack.com/general/productdetail.asp?Model=X470D4U#Download
+See for some use cases the device can queue reads into an internal 
+pipeline, but when it later finds that the read isn't needed doesn't 
+flush the pipeline.
 
-is,
+The next operation pushes more read requests into the pipeline and 
+eventually the stale read requests are executed as well.
 
-	4.20	8/12/2021	BIOS
+Without IOMMU the result of those reads are simply discarded, so no harm 
+done. But with IOMMU enabled it is perfectly possible that the stale 
+read is now accessing unmapped memory -> BAM.
 
-which is installed,
+That's one of the reasons why we almost always have GPUs in passthrough 
+mode on x86 and for example don't use system memory for GPU page tables 
+on APUs.
 
-	dmidecode | grep "BIOS Information" -A5
-	BIOS Information
-         	Vendor: American Megatrends International, LLC.
-         	Version: P4.20
-         	Release Date: 04/14/2021
-         	Address: 0xF0000
-         	Runtime Size: 64 kB
+Regards,
+Christian.
 
->> check if there are any options in the
->> sbios regarding the behavior of the integrated graphics when an
->> external GPU is present.  I suspect the one of the following is the
->> problem:
->> 1. The sbios should disable the integrated graphics when a dGPU is
->> present, but due to a bug in the sbios or a particular sbios settings
->> it has failed to.
->> 2. The sbios should be providing a vbios image for the integrated
->> graphics, but due to a bug in the sbios or a particular sbios settings
->> it has failed to.
->> 3. The platform uses some alternative method to provide access to the
->> vbios image for the integrated graphics that Linux does not yet
->> handle.
-
-Checking on the specific options for Dual/Concurrent GPU support is ... challenging ... so far.
-I haven't found a clear statement/doc on how it's intended to behave, what options are available, or details on the individual options.
-
-Per a chat late last week with ASRockRack, my understanding is that dual CPU support is *supposed* to work.
-
-atm, I'm not clear on how specifically test/answer for any of your suspected issues :-/
-Reading online to see what to check, etc.
-
-> To add to the list - check if ACPI support is broken or skipped.
-
-It doesn't appear to me to be; here's dmesg output,
-
-dmesg | grep -i acpi
-	...
-	[    0.000000] BIOS-e820: [mem 0x000000000a200000-0x000000000a20efff] ACPI NVS
-	[    0.000000] BIOS-e820: [mem 0x00000000bae2e000-0x00000000bae70fff] ACPI data
-	[    0.000000] BIOS-e820: [mem 0x00000000bae71000-0x00000000bd0defff] ACPI NVS
-	[    0.000000] reserve setup_data: [mem 0x000000000a200000-0x000000000a20efff] ACPI NVS
-	[    0.000000] reserve setup_data: [mem 0x00000000bae2e000-0x00000000bae70fff] ACPI data
-	[    0.000000] reserve setup_data: [mem 0x00000000bae71000-0x00000000bd0defff] ACPI NVS
-	[    0.000000] efi: ACPI=0xbd0c8000 ACPI 2.0=0xbd0c8014 SMBIOS=0xbdd6d000 SMBIOS 3.0=0xbdd6c000 MEMATTR=0xb5ee6698 ESRT=0xb5804518 MOKvar=0xb568b000 RNG=0xbdd9eb18
-	[    0.004625] ACPI: Early table checksum verification disabled
-	[    0.004627] ACPI: RSDP 0x00000000BD0C8014 000024 (v02 ALASKA)
-	[    0.004630] ACPI: XSDT 0x00000000BD0C7728 0000E4 (v01 ALASKA A M I    01072009 AMI  01000013)
-	[    0.004634] ACPI: FACP 0x00000000BAE60000 000114 (v06 ALASKA A M I    01072009 AMI  00010013)
-	[    0.004637] ACPI: DSDT 0x00000000BAE59000 006308 (v02 ALASKA A M I    01072009 INTL 20120913)
-	[    0.004639] ACPI: FACS 0x00000000BC0C2000 000040
-	[    0.004640] ACPI: IVRS 0x00000000BAE70000 0000D0 (v02 AMD    AmdTable 00000001 AMD  00000001)
-	[    0.004642] ACPI: SPMI 0x00000000BAE6F000 000041 (v05 ALASKA A M I    00000000 AMI. 00000000)
-	[    0.004644] ACPI: SPMI 0x00000000BAE6E000 000041 (v05 ALASKA A M I    00000000 AMI. 00000000)
-	[    0.004645] ACPI: SSDT 0x00000000BAE66000 007229 (v02 AMD    MYRTLE   00000002 MSFT 04000000)
-	[    0.004647] ACPI: SSDT 0x00000000BAE62000 003BD7 (v01 AMD    AMD AOD  00000001 INTL 20120913)
-	[    0.004648] ACPI: SSDT 0x00000000BAE61000 0000C8 (v02 ALASKA CPUSSDT  01072009 AMI  01072009)
-	[    0.004650] ACPI: FIDT 0x00000000BAE58000 00009C (v01 ALASKA A M I    01072009 AMI  00010013)
-	[    0.004651] ACPI: MCFG 0x00000000BAE57000 00003C (v01 ALASKA A M I    01072009 MSFT 00010013)
-	[    0.004653] ACPI: AAFT 0x00000000BAE56000 000068 (v01 ALASKA OEMAAFT  01072009 MSFT 00000097)
-	[    0.004654] ACPI: HPET 0x00000000BAE55000 000038 (v01 ALASKA A M I    01072009 AMI  00000005)
-	[    0.004656] ACPI: SPCR 0x00000000BAE54000 000050 (v02 A M I  APTIO V  01072009 AMI. 00050011)
-	[    0.004657] ACPI: SSDT 0x00000000BAE51000 002B44 (v02 AMD    AmdTable 00000001 AMD  00000001)
-	[    0.004659] ACPI: CRAT 0x00000000BAE50000 000B68 (v01 AMD    AmdTable 00000001 AMD  00000001)
-	[    0.004660] ACPI: CDIT 0x00000000BAE4F000 000029 (v01 AMD    AmdTable 00000001 AMD  00000001)
-	[    0.004662] ACPI: SSDT 0x00000000BAE4E000 000D53 (v01 AMD    MYRTLEG2 00000001 INTL 20120913)
-	[    0.004663] ACPI: SSDT 0x00000000BAE4D000 00022A (v01 AMD    MYRTLEGP 00000001 INTL 20120913)
-	[    0.004665] ACPI: SSDT 0x00000000BAE49000 00381A (v01 AMD    MYRTLE   00000001 INTL 20120913)
-	[    0.004666] ACPI: SSDT 0x00000000BAE48000 0000BF (v01 AMD    AmdTable 00001000 INTL 20120913)
-	[    0.004668] ACPI: WSMT 0x00000000BAE47000 000028 (v01 ALASKA A M I    01072009 AMI  00010013)
-	[    0.004669] ACPI: APIC 0x00000000BAE46000 00015E (v03 ALASKA A M I    01072009 AMI  00010013)
-	[    0.004671] ACPI: SSDT 0x00000000BAE45000 00051B (v01 AMD    MYRTLERN 00000001 INTL 20120913)
-	[    0.004672] ACPI: SSDT 0x00000000BAE43000 0010AF (v01 AMD    MYRTLE   00000001 INTL 20120913)
-	[    0.004674] ACPI: FPDT 0x00000000BAE42000 000044 (v01 ALASKA A M I    01072009 AMI  01000013)
-	[    0.004675] ACPI: Reserving FACP table memory at [mem 0xbae60000-0xbae60113]
-	[    0.004676] ACPI: Reserving DSDT table memory at [mem 0xbae59000-0xbae5f307]
-	[    0.004676] ACPI: Reserving FACS table memory at [mem 0xbc0c2000-0xbc0c203f]
-	[    0.004677] ACPI: Reserving IVRS table memory at [mem 0xbae70000-0xbae700cf]
-	[    0.004677] ACPI: Reserving SPMI table memory at [mem 0xbae6f000-0xbae6f040]
-	[    0.004678] ACPI: Reserving SPMI table memory at [mem 0xbae6e000-0xbae6e040]
-	[    0.004679] ACPI: Reserving SSDT table memory at [mem 0xbae66000-0xbae6d228]
-	[    0.004679] ACPI: Reserving SSDT table memory at [mem 0xbae62000-0xbae65bd6]
-	[    0.004680] ACPI: Reserving SSDT table memory at [mem 0xbae61000-0xbae610c7]
-	[    0.004680] ACPI: Reserving FIDT table memory at [mem 0xbae58000-0xbae5809b]
-	[    0.004681] ACPI: Reserving MCFG table memory at [mem 0xbae57000-0xbae5703b]
-	[    0.004681] ACPI: Reserving AAFT table memory at [mem 0xbae56000-0xbae56067]
-	[    0.004682] ACPI: Reserving HPET table memory at [mem 0xbae55000-0xbae55037]
-	[    0.004682] ACPI: Reserving SPCR table memory at [mem 0xbae54000-0xbae5404f]
-	[    0.004683] ACPI: Reserving SSDT table memory at [mem 0xbae51000-0xbae53b43]
-	[    0.004683] ACPI: Reserving CRAT table memory at [mem 0xbae50000-0xbae50b67]
-	[    0.004684] ACPI: Reserving CDIT table memory at [mem 0xbae4f000-0xbae4f028]
-	[    0.004684] ACPI: Reserving SSDT table memory at [mem 0xbae4e000-0xbae4ed52]
-	[    0.004685] ACPI: Reserving SSDT table memory at [mem 0xbae4d000-0xbae4d229]
-	[    0.004686] ACPI: Reserving SSDT table memory at [mem 0xbae49000-0xbae4c819]
-	[    0.004686] ACPI: Reserving SSDT table memory at [mem 0xbae48000-0xbae480be]
-	[    0.004687] ACPI: Reserving WSMT table memory at [mem 0xbae47000-0xbae47027]
-	[    0.004687] ACPI: Reserving APIC table memory at [mem 0xbae46000-0xbae4615d]
-	[    0.004688] ACPI: Reserving SSDT table memory at [mem 0xbae45000-0xbae4551a]
-	[    0.004688] ACPI: Reserving SSDT table memory at [mem 0xbae43000-0xbae440ae]
-	[    0.004689] ACPI: Reserving FPDT table memory at [mem 0xbae42000-0xbae42043]
-	[    0.070746] ACPI: PM-Timer IO Port: 0x808
-	[    0.070752] ACPI: LAPIC_NMI (acpi_id[0xff] high edge lint[0x1])
-	[    0.070770] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
-	[    0.070771] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 low level)
-	[    0.070773] ACPI: Using ACPI (MADT) for SMP configuration information
-	[    0.070774] ACPI: HPET id: 0x10228201 base: 0xfed00000
-	[    0.070778] ACPI: SPCR: console: uart,io,0x3f8,115200
-	[    0.296452] ACPI: Core revision 20210604
-	[    0.418616] ACPI: PM: Registering ACPI NVS region [mem 0x0a200000-0x0a20efff] (61440 bytes)
-	[    0.418619] ACPI: PM: Registering ACPI NVS region [mem 0xbae71000-0xbd0defff] (36102144 bytes)
-	[    0.419845] ACPI: bus type PCI registered
-	[    0.419847] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
-	[    0.505757] ACPI: Added _OSI(Module Device)
-	[    0.505757] ACPI: Added _OSI(Processor Device)
-	[    0.505757] ACPI: Added _OSI(3.0 _SCP Extensions)
-	[    0.505757] ACPI: Added _OSI(Processor Aggregator Device)
-	[    0.505757] ACPI: Added _OSI(Linux-Dell-Video)
-	[    0.505757] ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
-	[    0.505757] ACPI: Added _OSI(Linux-HPI-Hybrid-Graphics)
-	[    0.505757] ACPI: Added _OSI(Linux)
-	[    0.511109] ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.GPP0.VGA], AE_ALREADY_EXISTS (20210604/dswload2-326)
-	[    0.511115] ACPI Error: AE_ALREADY_EXISTS, During name lookup/catalog (20210604/psobject-220)
-	[    0.511117] ACPI: Skipping parse of AML opcode: OpcodeName unavailable (0x5B82)
-	[    0.511119] ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.GPP0.HDAU], AE_ALREADY_EXISTS (20210604/dswload2-326)
-	[    0.511121] ACPI Error: AE_ALREADY_EXISTS, During name lookup/catalog (20210604/psobject-220)
-	[    0.511123] ACPI: Skipping parse of AML opcode: OpcodeName unavailable (0x5B82)
-	[    0.511321] ACPI: 11 ACPI AML tables successfully acquired and loaded
-	[    0.515248] ACPI: Interpreter enabled
-	[    0.515257] ACPI: PM: (supports S0 S4 S5)
-	[    0.515258] ACPI: Using IOAPIC for interrupt routing
-	[    0.515427] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
-	[    0.515619] ACPI: Enabled 4 GPEs in block 00 to 1F
-	[    0.520321] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
-	[    0.520325] acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI EDR HPX-Type3]
-	[    0.520401] acpi PNP0A08:00: _OSC: platform does not support [SHPCHotplug LTR DPC]
-	[    0.520471] acpi PNP0A08:00: _OSC: OS now controls [PCIeHotplug PME AER PCIeCapability]
-	[    0.520479] acpi PNP0A08:00: [Firmware Info]: MMCONFIG for domain 0000 [bus 00-7f] only partially covers this bridge
-	[    0.530700] ACPI: PCI: Interrupt link LNKA configured for IRQ 0
-	[    0.530727] ACPI: PCI: Interrupt link LNKB configured for IRQ 0
-	[    0.530750] ACPI: PCI: Interrupt link LNKC configured for IRQ 0
-	[    0.530779] ACPI: PCI: Interrupt link LNKD configured for IRQ 0
-	[    0.530805] ACPI: PCI: Interrupt link LNKE configured for IRQ 0
-	[    0.530826] ACPI: PCI: Interrupt link LNKF configured for IRQ 0
-	[    0.530847] ACPI: PCI: Interrupt link LNKG configured for IRQ 0
-	[    0.530868] ACPI: PCI: Interrupt link LNKH configured for IRQ 0
-	[    0.531910] ACPI: bus type USB registered
-	[    0.531910] PCI: Using ACPI for IRQ routing
-	[    0.543389] pnp: PnP ACPI init
-	[    0.544422] pnp: PnP ACPI: found 7 devices
-	[    0.549677] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
-	[    0.597052] ACPI: button: Power Button [PWRB]
-	[    0.597085] ACPI: button: Power Button [PWRF]
-	[    0.597121] ACPI: \_PR_.C000: Found 3 idle states
-	[    0.597212] ACPI: \_PR_.C002: Found 3 idle states
-	[    0.597676] ACPI: \_PR_.C004: Found 3 idle states
-	[    0.597735] ACPI: \_PR_.C006: Found 3 idle states
-	[    0.597787] ACPI: \_PR_.C008: Found 3 idle states
-	[    0.597841] ACPI: \_PR_.C00A: Found 3 idle states
-	[    0.597891] ACPI: \_PR_.C001: Found 3 idle states
-	[    0.597936] ACPI: \_PR_.C003: Found 3 idle states
-	[    0.598059] ACPI: \_PR_.C005: Found 3 idle states
-	[    0.598201] ACPI: \_PR_.C007: Found 3 idle states
-	[    0.598327] ACPI: \_PR_.C009: Found 3 idle states
-	[    0.598411] ACPI: \_PR_.C00B: Found 3 idle states
-	...
-
+>
+> Given the addresses involved, my suspicions would initially lean 
+> towards the latter case - the faults are in the very topmost pages 
+> which imply they're the first things mapped in that range. The other 
+> contributing factor being the trick that the IOVA allocator plays for 
+> PCI devices, where it tries to prefer 32-bit addresses. Thus you're 
+> only likely to see this happen once you already have ~3.5-4GB of live 
+> DMA-mapped memory to exhaust the 32-bit IOVA space (minus some 
+> reserved areas) and start allocating from the full DMA mask. You 
+> should be able to check that with a 5.13 or newer kernel by booting 
+> with "iommu.forcedac=1" and seeing if it breaks immediately 
+> (unfortunately with an older kernel you'd have to manually hack 
+> iommu_dma_alloc_iova() to the same effect).
+>
+> Robin.
+>
+>> Can you try that on an up to date kernel as well? E.g. ideally 
+>> bleeding edge amd-staging-drm-next from Alex repository.
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 25.10.21 um 12:25 schrieb Paul Menzel:
+>>> Dear Linux folks,
+>>>
+>>>
+>>> On a Dell OptiPlex 5055, Linux 5.10.24 logged the IOMMU messages 
+>>> below. (GPU hang in amdgpu issue #1762 [1] might be related.)
+>>>
+>>>     $ lspci -nn -s 05:00.0
+>>>     05:00.0 VGA compatible controller [0300]: Advanced Micro 
+>>> Devices, Inc. [AMD/ATI] Oland [Radeon HD 8570 / R7 240/340 OEM] 
+>>> [1002:6611] (rev 87)
+>>>     $ dmesg
+>>>     […]
+>>>     [6318399.745242] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xfffffff0c0 flags=0x0020]
+>>>     [6318399.757283] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xfffffff7c0 flags=0x0020]
+>>>     [6318399.769154] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xffffffe0c0 flags=0x0020]
+>>>     [6318399.780913] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xfffffffec0 flags=0x0020]
+>>>     [6318399.792734] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xffffffe5c0 flags=0x0020]
+>>>     [6318399.804309] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xffffffd0c0 flags=0x0020]
+>>>     [6318399.816091] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xffffffecc0 flags=0x0020]
+>>>     [6318399.827407] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xffffffd3c0 flags=0x0020]
+>>>     [6318399.838708] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xffffffc0c0 flags=0x0020]
+>>>     [6318399.850029] amdgpu 0000:05:00.0: AMD-Vi: Event logged 
+>>> [IO_PAGE_FAULT domain=0x000c address=0xffffffdac0 flags=0x0020]
+>>>     [6318399.861311] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffc1c0 flags=0x0020]
+>>>     [6318399.872044] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffc8c0 flags=0x0020]
+>>>     [6318399.882797] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffb0c0 flags=0x0020]
+>>>     [6318399.893655] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffcfc0 flags=0x0020]
+>>>     [6318399.904445] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffb6c0 flags=0x0020]
+>>>     [6318399.915222] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffa0c0 flags=0x0020]
+>>>     [6318399.925931] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffbdc0 flags=0x0020]
+>>>     [6318399.936691] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffa4c0 flags=0x0020]
+>>>     [6318399.947479] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffff90c0 flags=0x0020]
+>>>     [6318399.958270] AMD-Vi: Event logged [IO_PAGE_FAULT 
+>>> device=05:00.0 domain=0x000c address=0xffffffabc0 flags=0x0020]
+>>>
+>>> As this is not reproducible, how would debugging go? (The system was 
+>>> rebooted in the meantime.) What options should be enabled, that next 
+>>> time the required information is logged, or what commands should I 
+>>> execute when the system is still in that state, so the bug (driver, 
+>>> userspace, …) can be pinpointed and fixed?
+>>>
+>>>
+>>> Kind regards,
+>>>
+>>> Paul
+>>>
+>>>
+>>> [1]: 
+>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1762&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C13ead10a4a584537d87208d997d0c693%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637707745295391463%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=jn1HS%2FhtmfLOQBD%2FI9w4ZXpspc4X7ik6G8N1W5AlqXg%3D&amp;reserved=0
+>>>      "Oland [Radeon HD 8570 / R7 240/340 OEM]: GPU hang"
+>>
+>> _______________________________________________
+>> iommu mailing list
+>> iommu@lists.linux-foundation.org
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.linuxfoundation.org%2Fmailman%2Flistinfo%2Fiommu&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C13ead10a4a584537d87208d997d0c693%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637707745295391463%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=WNsslcCFP2UJX%2FtuPmsFWv%2BpW1i02q3K7pIlIdaQcfE%3D&amp;reserved=0 
+>>
 
