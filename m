@@ -2,125 +2,134 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61AABC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 02:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39BA8C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 02:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1635260F22
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 02:37:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1635260F22
+	by mail.kernel.org (Postfix) with ESMTPS id E380960F4F
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 02:56:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E380960F4F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B65389D46;
-	Mon, 25 Oct 2021 02:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35F0989D56;
+	Mon, 25 Oct 2021 02:56:27 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26CA089D46
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 02:37:14 +0000 (UTC)
+ (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C386389D56
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 02:56:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l9l0E89bezTpB8JiDYaEyBBUjmn9qWDd6Vpcm5tVAEeyxTGS0UkNz3QztVuoTHC5746/RqBtSSs08DM/4OLB3YKo3mgz7RFqCzzS3W7xJtW/b8EmK7z9+MoRGX/Bz7UCfAVgGMcQAXa3KOn7VBFQSYPdB0vzmVBBbqOa6VBbBIV1cTH8hfyYn7LIKSVD3ypq9k0UFr3g0KB4TulJfiAugNXPcjEYSs2xb0tnKX5YUJYz9AU9emJgnufzWv52bqCOLs0t0xdoEhcxLRrUqWQk5ATbgjewP0w4apyqhYy5/MJ8zsTvEv7M6zOm5xV6QEM/Fv8YD0dB+b+AnRPr5vdcDQ==
+ b=kLfH6vd0qCICRb7FJDRNzAChOBFScttFgyYI3OXU0y9qhX+vKPGOES8XvefsFr6x+xb9vc+4PW735I9JP+JPTTq/oxN+Vil1COsipV1jPTDQSHEpCDiNiWwmnkDt7gYH0Fufttz3PBBKq8ScXCaBETknn1aFetpF3zmzT7RI9fWYTXF7dGFBD1QEAaD0bih9M4YEyDMePvg2bfqsBEU+IQZjRxHGegaCoOwjwhuZDl7VAtO5RZAf2Xxvc8NYsMWXbU+699uk5/QP7+aevwBXevx/ncJ5Uqi+AlgyG5GzqzQo+UTV2VH2qoe3/g4Stbj1LRMngNmQOIptqxBWgjFz7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4uiBeqYZZX+aUJUmNWLx/8OERK6e6fKCsavVGZMh6g4=;
- b=A08LRnaF/MdkfQheHgTYgNjEYvII0OrDEMk/QhV0sPJoxUOSMA48L8KDioP3t+OsD/0+FtZe1Oom50UEPv+qgjukHLNlzzn0S4apwaT1Q//2FhfbRv4Jy5tquQ1fchhapvrNa7hE5grC5lNPGuvlL1kFoyT+htjdEl7Vu72rxOr7udI67JsfFPQ7ktBH4tQfd+lrRgzsXS1c6aS/JYYDq2ul5NcU3jK2acLDx5Ayb5Quub2sYCPGXgvaSgYtv/iJEJDuagDiAd3rphzalDZ7Oxe3fcJ9h7/l1SmO2VLnHW/F5G8f+XZWiJRhk32eX4fJiMdB9eitymgtFECBkeDTpg==
+ bh=+X4T0wk5Cdi6PRD5rGEgW8WaYhUPQGEgoYvkvVE7igs=;
+ b=KQJ4bHSnjUVyhX+gPJrLwYVn0sxiR+QkTgJZgOrtBafF5Lnee49OegRBBPHYi9eHcigh3mKuQS1r2V8gOMT3BV+4kN5fTVCZ8iXSuicMFRLrOee2QygZBv0T1I661TCO2A1wAR9AxGSYiF2rnbaS+P/O1uVNhg7nPx0uy03PCil/KsvyU406LsHDafUje7aVTv1+PahDAVJOG0cgrEgoeYFxRebUGzdWfcf+3MSPutxm3lUT8Tz3R/NPns24JL0sM3AnBRH0ofPUiNvbp4DriqeY7HQdqPgWHq8E9ocu7jiIyDwOerVDVpRON2P8HUlGW/O1XHCwaxctyxPEJ40Q/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4uiBeqYZZX+aUJUmNWLx/8OERK6e6fKCsavVGZMh6g4=;
- b=tSCfcyJbtg8PE4vK4P++eTqsStMhNducnJsiu1RMAhAoykM+zZlgOA6fcJJ6ijdbTSirYJVfrcMkcDqcZDcVTtvtqntja8xsViKUWwBsv3LuOdsO3JKgnX7BpLT3iZ+yC0fIbtyoZbXMYaNFGwvmfNnU69yubCvEvJb9qhN5ckc=
-Received: from MWHPR1201MB2542.namprd12.prod.outlook.com
- (2603:10b6:300:e8::20) by MWHPR12MB1373.namprd12.prod.outlook.com
- (2603:10b6:300:14::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
- 2021 02:37:12 +0000
-Received: from MWHPR1201MB2542.namprd12.prod.outlook.com
- ([fe80::b841:5638:564b:30d7]) by MWHPR1201MB2542.namprd12.prod.outlook.com
- ([fe80::b841:5638:564b:30d7%11]) with mapi id 15.20.4628.020; Mon, 25 Oct
- 2021 02:37:12 +0000
-From: "Clements, John" <John.Clements@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Update TA version output in driver
-Thread-Topic: [PATCH] drm/amdgpu: Update TA version output in driver
-Thread-Index: AQHXyUhrX6QJhbVnlUaKBjZvD4bEWavi/7ow
-Date: Mon, 25 Oct 2021 02:37:11 +0000
-Message-ID: <MWHPR1201MB2542BA0E9BC3AEF4ABA5E4D5FB839@MWHPR1201MB2542.namprd12.prod.outlook.com>
-References: <20211025023112.22059-1-candice.li@amd.com>
-In-Reply-To: <20211025023112.22059-1-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-10-25T02:37:08Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=62f53fdd-37b1-472d-a7a9-173199b8f234;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=+X4T0wk5Cdi6PRD5rGEgW8WaYhUPQGEgoYvkvVE7igs=;
+ b=WIoMAmGWcb2h9Mf4wNf3o5ho5SiSlSrI0VSpu4M5QqDPCSZoBMev0ElVUBaavfD9d4C+OaBLNDAv7ZKAe2D0jvv6kOO+D4eCxU8WKCmhgV1/t/0FQFWYsbGTOCFvzwGW4kDOUM7qZFAk09LMbR5+ek0oblBCD9OFq8ZkzWrAA5Y=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 419ac761-1232-472f-4101-08d99760594f
-x-ms-traffictypediagnostic: MWHPR12MB1373:
-x-microsoft-antispam-prvs: <MWHPR12MB1373C30AECAFBC2478757A37FB839@MWHPR12MB1373.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:227;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7UWuzpwNNNaiTin+ifTR3QozvRangwEeLiZ4zMobEfOa6wl/pIc+6a24SvvMSp876Shdp2OWscEGq4OSC0PWDyHOo4zlnBH1GfxTE64wxIDC4hbPaSpirouUUxZFYQbq6mFL170YB6+8sUNBfadUnp4mG4rUqm+RVLVcTfo3zWmxtThZaSxRa9FUo64eXWGpg9O7CUOkYZi7WxcHV9SPKbamvIPr8QuOULrgSlEUJPPndbAcHjs9jB98aPpUOSzmQvKphRfHpr66S6i/+IUJXkOWJ1heMZ1JaioroznX0wQd92lDnzh0YgdDz478Ttg0CmRcrv1OrGRu0YK4H9SFoX5MVrr9RZGeyNlNB1HETaCcpbokj5QhRHTeJSg9SXbf5bLLDBr4Pri80HKvIiFicqiMTKFXP6QwAOQTcqHg8fDFsLk9bgrqCog/ikXyLTq83lpXbhrVzHqgt+Dbnj9ybJN7yOlIoLZDGd5fD7kogHdQQiUidEEF5z9/ZQkgVB4iW5iLlki/FxXdNz9T8+RdRVEAOJd5evVoroBTx8/cbrHz11pbMkHPLbqTLHCsLrpGGPPvITGdU47oDvFnJtES/bHktnEHaa0MRnfhjQGNGSy7ln+fEhggvsgQNRDyBHoKkyKLrE6n5brV10j7W4lJtf7WuNuANRUuxXLKNwWaJA+mua6QFedtdpi2XFCLYlcIbE3xUjWD1f5dQlpUjfTbgQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB2542.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(15650500001)(8936002)(5660300002)(33656002)(9686003)(55016002)(66556008)(38070700005)(53546011)(110136005)(8676002)(71200400001)(2906002)(66946007)(6506007)(83380400001)(52536014)(316002)(508600001)(76116006)(7696005)(86362001)(26005)(186003)(30864003)(38100700002)(64756008)(66446008)(122000001)(66476007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DP8pIZ9aqxeG8bf5IsWDfoZlaxZ/W2QFvAExuq9+2wMaNbggC6UDl4Tt2kzs?=
- =?us-ascii?Q?UvrNS226KvvH0Vn7Fj6JLrHG6XuvB/phYs4PYqkAWf10rM8e+lfWUEf9/k/+?=
- =?us-ascii?Q?ZWwgt2HIhq4PC+L+WwKs/qGHMed3WmCmY+kNRHthIKBpjbmaOa26dJK3w/V3?=
- =?us-ascii?Q?tQWmYb794gf6TYDhLPDNGeCZlrdejCS8LkpAnVvuK3IDnyYf4BMcKUP0mjzM?=
- =?us-ascii?Q?dzL3S4X6o98R8aUyx8arh24Wf7U8dvgecpEy14pVwRzXAAI4PPY5zakIQeLZ?=
- =?us-ascii?Q?otsJ8S1YoF8oAMXck8s/6YM1R+6UcBTn1jy8HYwP7x1ghG5rTh8ioBkvukVz?=
- =?us-ascii?Q?xfjqhaFH/FOFyXWq5OUJvdaiZjBmtwAgy0wEBOq9+8vRVXD2oujuGHXuZmfv?=
- =?us-ascii?Q?KC1l3TjVNuaDS1s/ZFyT2uUnBZ0Hw0O5K1BJbd4wqOzPE5BRMpFqlj8mYiGx?=
- =?us-ascii?Q?J9xnbixSHTrF02sW9AZib32rGGK7gKp/poZvikYFvqLCC8cmL1xQsqtNjeve?=
- =?us-ascii?Q?lDNCpC6Isbl0f3OeaKjDQN1SdGca37GzKCZDtlaNJ4ZQrhrG5BT2PT7tQWad?=
- =?us-ascii?Q?ycNvs4rzxfxuNfg5WagtY4QwFnNJYkVZJH4ElAD53VEXF0FSh+vDZ1wOpclG?=
- =?us-ascii?Q?oigV+HT9SJ7LWCQWDF0T2IipBoInMmQXn0NjobKDzH5vQUoYtzgAHNGqjjy8?=
- =?us-ascii?Q?gjfTCAQWw8XS6ywE2pxfXEOYotCvOOYZ/eKyURukMod/30ITf31WVwEorBBn?=
- =?us-ascii?Q?fE/i6Mq1wTNNmTbL7RDt+cIn/fIUVSy1FW1PO+mTzlVCAkHmxu3KQ71yGLBj?=
- =?us-ascii?Q?z+RusRF6wTkppquZoLv7sY/qZQ+FW7tYfONCEMys4d2cQ4nd4vk4luQmSrwO?=
- =?us-ascii?Q?DWX5n/vxaY6xXFstc7EK8vqAhY+xtBlLCv08DxStn/c0wn9wbf4jWfRFHihs?=
- =?us-ascii?Q?UImlA2gmWNB9E9m8Z5O3tLPC4IoN8EkU+zWigqv7cwYafX0jPm6y4e3DbmYF?=
- =?us-ascii?Q?K64gbJ7Y+OKNby5VYS6U9cIA6NTchk3alAZODd1XmZ/5kC+/YZ8wo2NVKZas?=
- =?us-ascii?Q?hxVPfFIoXDNwEmn98msUQFCyHHZ2ZrgtHy6C9ZxMeFdipn0Wb4GHrA4M6vm/?=
- =?us-ascii?Q?pMxCErjEp6XA72SLkIPEmxcNsgnjQ8HtFBvU8p+RE/0zSaqC3j9YeTJnP2hL?=
- =?us-ascii?Q?4xug8o8SjqmZK0JgqueyFNDJQOyH/Dwpic8I1BwmjAEKqPW/a3j64bFBiTv2?=
- =?us-ascii?Q?GXr42fv/XqSVVGfpgvY0WIn9Tx0mwV7jP6mFhNXx4hkXKCktDMWb/oUEuRUM?=
- =?us-ascii?Q?pGi73rZ4S+3nbvyBJnREStwwiAeQZ63iy6ixXSQsnMEwwVT60HIjioVfZIfd?=
- =?us-ascii?Q?+HgNAuXUAdcnAdS8mVw3ABdpyv+SSHIHvHOxSo6PJF8r6/IRPAQimhS1A/Kz?=
- =?us-ascii?Q?GxE9Xa6bfOcJiln0s61FvisondmZqK2h3S7f9u9UX/AJSL2qw6KKg6Pvk7Yp?=
- =?us-ascii?Q?+ZnrG7QAqUsFcaN81B/3rwpBXTqjWhIIvzcl7aDNX+2KJc/XmYnPgMiiWdtG?=
- =?us-ascii?Q?yFXs9nfhSf0KSx+AnlzsLKRbmDE9gPZUmL6KFGbWtmT4eux2s9MUa59it2lz?=
- =?us-ascii?Q?fAAtSrDyqnomCB7xB8wybKE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM4PR12MB5232.namprd12.prod.outlook.com (2603:10b6:5:39c::16)
+ by DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
+ 2021 02:56:24 +0000
+Received: from DM4PR12MB5232.namprd12.prod.outlook.com
+ ([fe80::b488:8fd1:23c8:ed8f]) by DM4PR12MB5232.namprd12.prod.outlook.com
+ ([fe80::b488:8fd1:23c8:ed8f%6]) with mapi id 15.20.4628.020; Mon, 25 Oct 2021
+ 02:56:24 +0000
+Subject: Re: [PATCH] drm/amd/amdgpu: fix potential bad job hw_fence underflow
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, jingwen.chen2@amd.com,
+ amd-gfx@lists.freedesktop.org
+Cc: monk.liu@amd.com, horace.chen@amd.com, christian.koenig@amd.com
+References: <20211022033354.1318362-1-Jingwen.Chen2@amd.com>
+ <f8a0000f-453c-82c0-f197-9030640cd52f@amd.com>
+ <a96a2691-4e8b-8eb3-1566-f15301043adb@amd.com>
+From: JingWen Chen <jingwech@amd.com>
+Message-ID: <f2b72ae4-93ca-61c5-68cb-19b7fca4c063@amd.com>
+Date: Mon, 25 Oct 2021 10:56:16 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <a96a2691-4e8b-8eb3-1566-f15301043adb@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: HK0PR01CA0049.apcprd01.prod.exchangelabs.com
+ (2603:1096:203:a6::13) To DM4PR12MB5232.namprd12.prod.outlook.com
+ (2603:10b6:5:39c::16)
 MIME-Version: 1.0
+Received: from [10.65.96.204] (165.204.134.244) by
+ HK0PR01CA0049.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
+ Transport; Mon, 25 Oct 2021 02:56:22 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: af52a678-dc0c-4863-a445-08d99763082a
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5136:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB51360EDD45D6C50BEEBDBB45B7839@DM4PR12MB5136.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iqOxOa2z0K1BuUp7StYOFW0A0qPWh1NI5jgRPPyJqb7nTh6eCmqOQF45xIb+SrLUSX8BY744PpSR/RFra4CkkfLytChL7yW5loo8omJwlEkjUVAEDJyDjyKoEKXnSA4+CTQYyLNB64KQhIqGcqg7ymmXECZzmCuNlOdS0GUNFPjh4J0t2Wr743n48p5npqkSTgmODGqmm8KaJQt24CKfhStFh81nhYqwrp8F+TFIDz/uT+EDSf581u/Z4MtyyBoI1Qu1B76i4sYiuyZjgu97efoLxhkcxlW7ND7SBJr5f6VBEp0/6fV8C6kccMPXifCip0JXjCO7aBLH3EQ1v3H+IkOK50ibdL893oJM1Y70rlgPlCBERUeTtAjJu0kqMOWhtBUqVGdcXttwgAYtHwQdrwBWyasU/XUgGDXgxvjrAGaCUBEfRZNvyOc2cLJdViI+7runBOodRStX6sStYBO5zK+r/U8H6R6FoZsGXoi46Matw38QEYNDQ6bxNjQyyyB80Cr7dDmny8b+jFZJTPNco1DhNvKMVh+oE0N1Wj+6cx8/tQqwwc1dsYJmePGP7NA7wYopd3mH0tEPgOMK2OWmxgFw9VGsDjGVxudElA5Q/sHa8IP7gEIM1HjmeTOoIWeNrS/Z1Bbd54135LQmZP62htm4wfP+D7gdinQkbKbdqZhxu7nOvVhO13r2afF+jC/m
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5232.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(31696002)(31686004)(6666004)(38100700002)(36756003)(4326008)(8936002)(316002)(8676002)(2906002)(66476007)(66556008)(66946007)(6486002)(53546011)(26005)(186003)(2616005)(5660300002)(16576012)(4001150100001)(956004)(508600001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnpTN2Q0OWE1MXNnT3paZGpReWlaQ3cwVXgrVWljR3diK1B1YUUrMkg2RTBz?=
+ =?utf-8?B?SjhBbzZZZHBFUzFTSmxNUnFDMTMrZ3IrQ3JibFhLRndGbEtrVnRZVlNENzkr?=
+ =?utf-8?B?cW9wVnF0d2xRaFY2bFZWZngrdFI0VEo5ZUgwUDZJZ2l1RjdSSyt4L1VSV2ZV?=
+ =?utf-8?B?NHJhc04vcnB6ZDE1Y3ZxSnprcHRFK1pFU1UyWkQ1c1ZoVnAyWHdjOEFvNUpC?=
+ =?utf-8?B?R0dwZmpoZk9QZStmNm9ma016YTlDTDRNT1lIV1M0ZE9VV0EzQ3RSVk11MVhI?=
+ =?utf-8?B?eVhmY0JsYnh2QWs5NE44VUpGOHJlQ1RuVFZodzg3WUFXK2l5TnA0N0duOThi?=
+ =?utf-8?B?QS83QWJjU1JQbUdHd3BLb2VkRDkrNXhYaGNNMzNuTlJhUU14NTlRMlF0bmZq?=
+ =?utf-8?B?eDllc2FzN0hxWG5WdEJ5SVJvNkRhcXpuMFpiVExYd0JyR0JZSFlzRjQzaFBB?=
+ =?utf-8?B?cnNLL3BvUHZic0FSUkN1R3BNNElTZDd5RFFORUpWZmZjL2QwM0JaSXNDSFlX?=
+ =?utf-8?B?WnUxOUt3RHZyaEFiRnZOTTlNdWxsdjlEMmIzUHY0UDNHNUJGWHh5alpXVFBa?=
+ =?utf-8?B?aXk0Rk04cm83bTBQaDVxMVY3OXJucUtPaGQ0YkYwWUVJKzNlamUxYktLbzEv?=
+ =?utf-8?B?Q0s4SGRPS3V6a3VMTEErS3dMaVhSdXFVdXZ6Y0wvUHZReW9PRjRoNXloNDBv?=
+ =?utf-8?B?MW9naWxLVEVVLzFvZW9Xc3FNV1ZuS01jcEQvd0JiWGxCSFEvV29FMkNvck9n?=
+ =?utf-8?B?b1ROZUtCY05rQzVOQjltb01LZUxqbTNSbW1aMFpTRTAxRGdrbXVwU0w4bUUv?=
+ =?utf-8?B?NnhDR0VpZUNiaWNWNE5ZN0ZOOUtnelV4S2h5NFRUZEM4WjFDQlU5VDgvZERW?=
+ =?utf-8?B?WkdsaG9RZ3NIWWxJbFU5VFF0YVhrZEZOSE04N0krUnlHNzhwNnpnV2JubFR2?=
+ =?utf-8?B?MzRqYkYyVk4vc01DZUNZYlpOKytSUlNTK3M3QjRweWE2cnVOeGZBSVJPQVpE?=
+ =?utf-8?B?OUJtNlpvTlIwTjBmL3dNZkZ3Ti9MUkRabmJPSmpWODhqemtLK251aUFPWFdU?=
+ =?utf-8?B?NmFrbTUzMSs2TkxiQ1lkMGF6dnNHUCtMa2d5K3lyOGV3YkFjUGlWYk8yUFp0?=
+ =?utf-8?B?aHZYTzIrNGtoWk5nTHB5OEd6WG9xYTFJeUlyaDZJdmowemcyVEcvMVBFYlM2?=
+ =?utf-8?B?amZ1Q3BqdDk2eWs0V0J1VE9ZekFPdnJ1dlhtK040WE93aW52MDBUYk1DOHFW?=
+ =?utf-8?B?NFVqNm9rdFJNeXBKbGFSUmgveE1KNUFxSWJCUVJTcUNFZmNFSEFmbWZNWjJ0?=
+ =?utf-8?B?VG1ITHFHckliektnYVNEOVZ1TDliSUdPRG1xWWswK09BdE1WZFN0K1JXUVQ5?=
+ =?utf-8?B?UzlRMXRMOFd4cCtqQ2RZWmhVZEdjN2hnYTNmMXBlcDJjdlQ2QzM2cy9QekdS?=
+ =?utf-8?B?OFRBYThXQm5NekFLYkptK2ZsaU1wR1RLZHNnMlYyakxTS05UcnUraFFLd2wz?=
+ =?utf-8?B?UmJvaENIU0xMUEliRlYxTTFvQ3AvMXcxOTVwVUdyLzNnc0dkYmMwbExEcFBo?=
+ =?utf-8?B?aWl3VmROSWlTKy9PK05IbFc0VnFscWpFd0pGRjd5a3RHbGIyV0sxMXZ5d29O?=
+ =?utf-8?B?NnBoVkxKRllaR2RVMjFBYU1xYis5bkdha3NzOFpaOVZlcDdvTVNqRkNRV1hZ?=
+ =?utf-8?B?ckxaaHR0VXFJVURyM0FsVnlVQ2wyZmtOQmxJWUt6a3J5ZEVhWkt1bmR1SitO?=
+ =?utf-8?B?VUVsUCtsNEZTazRhTXZydGtONlk0TytJdVNMd29CSkg2Qm5ac1I2RmZjZjlV?=
+ =?utf-8?B?VjBiL3BWZkx1S3JKeEhTaUJVVTBOeFdwWkZFZzRFeTFhMytHUzR3OUVLUGV1?=
+ =?utf-8?B?WmQ1MjdNUE1BQ1FtZzU1ekJsQUJibk8vQkhaMGVvREdjUDlVOWNMWWU0Y0tW?=
+ =?utf-8?B?ZTVud241T0tuTGJFcGdzL1RiWkp3NGh3aVMrQUYxVWxHcVlINW80WXFHaXpJ?=
+ =?utf-8?B?dndsM3NWV0pUTVQ4UDRQZ3JWTFNRYnk2VXYreWdiWC93L2cwR09PRUtzMk5F?=
+ =?utf-8?B?TjlxVEtZNnVORUd4cGlSVlBQSlR6QXZkNjh6RTFtWXlraWxoWmZiR0hOaDNv?=
+ =?utf-8?B?MEJHYUZPMWIvS05TSFE1RFRpZDEya2tvalovN3k3WVIzakRIeThLMkw0eGdN?=
+ =?utf-8?Q?KsjuS/YdtiAxsCYMHxM9BQg=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af52a678-dc0c-4863-a445-08d99763082a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5232.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB2542.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 419ac761-1232-472f-4101-08d99760594f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Oct 2021 02:37:11.8577 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 65c5ZVxmZDxk8nKmmszP6IDBKLEsg+yrV1K3RAh9xTvG0amPH7fv46II/TAdFY7iCYfxlRVBf7mM7r7AMiwoqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1373
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 02:56:24.5190 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /RLPlEQPd90nGG3V6C/7wPXI5FAnU8Uhmp49YsS46yEw2GZ47GbdJwBtWEHTb4kBD3RXBF0D/vLS/1E+Ekwz6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5136
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,298 +141,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: jingwen.chen2@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
 
-Reviewed-by: John Clements <john.clements@amd.com>
-
------Original Message-----
-From: Li, Candice <Candice.Li@amd.com>=20
-Sent: Monday, October 25, 2021 10:31 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Clements, John <John.Clements@amd.com>; Li, Candice <Candice.Li@amd.com=
+On 2021/10/23 上午4:41, Andrey Grodzovsky wrote:
 >
-Subject: [PATCH] drm/amdgpu: Update TA version output in driver
+> What do you mean by underflow in this case ? You mean use after free because of extra dma_fence_put() ?
+yes
+>
+> On 2021-10-22 4:14 a.m., JingWen Chen wrote:
+>> ping
+>>
+>> On 2021/10/22 AM11:33, Jingwen Chen wrote:
+>>> [Why]
+>>> In advance tdr mode, the real bad job will be resubmitted twice, while
+>>> in drm_sched_resubmit_jobs_ext, there's a dma_fence_put, so the bad job
+>>> is put one more time than other jobs.
+>>>
+>>> [How]
+>>> Adding dma_fence_get before resbumit job in
+>>> amdgpu_device_recheck_guilty_jobs and put the fence for normal jobs
+>>>
+>>> Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+>>>   1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index 41ce86244144..975f069f6fe8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -4841,6 +4841,9 @@ static void amdgpu_device_recheck_guilty_jobs(
+>>>             /* clear job's guilty and depend the folowing step to decide the real one */
+>>>           drm_sched_reset_karma(s_job);
+>>> +        /* for the real bad job, it will be resubmitted twice, adding a dma_fence_get
+>>> +         * to make sure fence is balanced */
+>
+>
+> But that put in drm_sched_resubmit_jobs_ext is for the previous parent fence.
+> fence = sched->ops->run_job(s_job); returns a new HW fence and the put drops the refcount on the old one.
+>
+> Andrey
+>
+>
+Hi Andrey,
 
-TA version should only be displayed in firmware version column.
+If I remember correctly, after we embedded the hw_fence into amdgpu_job, there will be not fence replacement in amdgpu_job_run.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   | 12 ++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 14 +++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c |  4 ++--  drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_virt.c  |  4 ++--
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.c    |  6 +++---
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c    |  8 ++++----
- drivers/gpu/drm/amd/amdgpu/psp_v12_0.c    |  4 ++--
- 7 files changed, 26 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_kms.c
-index d2955ea4a62bf4..dfe667ea8b058e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -340,32 +340,32 @@ static int amdgpu_firmware_info(struct drm_amdgpu_inf=
-o_firmware *fw_info,
- 	case AMDGPU_INFO_FW_TA:
- 		switch (query_fw->index) {
- 		case TA_FW_TYPE_PSP_XGMI:
--			fw_info->ver =3D adev->psp.ta_fw_version;
-+			fw_info->ver =3D adev->psp.xgmi_context.context.bin_desc.fw_version;
- 			fw_info->feature =3D adev->psp.xgmi_context.context
- 						   .bin_desc.feature_version;
- 			break;
- 		case TA_FW_TYPE_PSP_RAS:
--			fw_info->ver =3D adev->psp.ta_fw_version;
-+			fw_info->ver =3D adev->psp.ras_context.context.bin_desc.fw_version;
- 			fw_info->feature =3D adev->psp.ras_context.context
- 						   .bin_desc.feature_version;
- 			break;
- 		case TA_FW_TYPE_PSP_HDCP:
--			fw_info->ver =3D adev->psp.ta_fw_version;
-+			fw_info->ver =3D adev->psp.hdcp_context.context.bin_desc.fw_version;
- 			fw_info->feature =3D adev->psp.hdcp_context.context
- 						   .bin_desc.feature_version;
- 			break;
- 		case TA_FW_TYPE_PSP_DTM:
--			fw_info->ver =3D adev->psp.ta_fw_version;
-+			fw_info->ver =3D adev->psp.dtm_context.context.bin_desc.fw_version;
- 			fw_info->feature =3D adev->psp.dtm_context.context
- 						   .bin_desc.feature_version;
- 			break;
- 		case TA_FW_TYPE_PSP_RAP:
--			fw_info->ver =3D adev->psp.ta_fw_version;
-+			fw_info->ver =3D adev->psp.rap_context.context.bin_desc.fw_version;
- 			fw_info->feature =3D adev->psp.rap_context.context
- 						   .bin_desc.feature_version;
- 			break;
- 		case TA_FW_TYPE_PSP_SECUREDISPLAY:
--			fw_info->ver =3D adev->psp.ta_fw_version;
-+			fw_info->ver =3D=20
-+adev->psp.securedisplay_context.context.bin_desc.fw_version;
- 			fw_info->feature =3D
- 				adev->psp.securedisplay_context.context.bin_desc
- 					.feature_version;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index fd04e83031d642..c641f84649d6bd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1115,7 +1115,7 @@ int psp_xgmi_get_node_id(struct psp_context *psp, uin=
-t64_t *node_id)  static bool psp_xgmi_peer_link_info_supported(struct psp_c=
-ontext *psp)  {
- 	return psp->adev->ip_versions[MP0_HWIP][0] =3D=3D IP_VERSION(13, 0, 2) &&
--		psp->xgmi_context.context.bin_desc.feature_version >=3D 0x2000000b;
-+		psp->xgmi_context.context.bin_desc.fw_version >=3D 0x2000000b;
- }
-=20
- /*
-@@ -3108,32 +3108,32 @@ static int parse_ta_bin_descriptor(struct psp_conte=
-xt *psp,
- 		psp->asd_context.bin_desc.start_addr        =3D ucode_start_addr;
- 		break;
- 	case TA_FW_TYPE_PSP_XGMI:
--		psp->xgmi_context.context.bin_desc.feature_version  =3D le32_to_cpu(desc=
-->fw_version);
-+		psp->xgmi_context.context.bin_desc.fw_version       =3D le32_to_cpu(desc=
-->fw_version);
- 		psp->xgmi_context.context.bin_desc.size_bytes       =3D le32_to_cpu(desc=
-->size_bytes);
- 		psp->xgmi_context.context.bin_desc.start_addr       =3D ucode_start_addr=
-;
- 		break;
- 	case TA_FW_TYPE_PSP_RAS:
--		psp->ras_context.context.bin_desc.feature_version   =3D le32_to_cpu(desc=
-->fw_version);
-+		psp->ras_context.context.bin_desc.fw_version        =3D le32_to_cpu(desc=
-->fw_version);
- 		psp->ras_context.context.bin_desc.size_bytes        =3D le32_to_cpu(desc=
-->size_bytes);
- 		psp->ras_context.context.bin_desc.start_addr        =3D ucode_start_addr=
-;
- 		break;
- 	case TA_FW_TYPE_PSP_HDCP:
--		psp->hdcp_context.context.bin_desc.feature_version  =3D le32_to_cpu(desc=
-->fw_version);
-+		psp->hdcp_context.context.bin_desc.fw_version       =3D le32_to_cpu(desc=
-->fw_version);
- 		psp->hdcp_context.context.bin_desc.size_bytes       =3D le32_to_cpu(desc=
-->size_bytes);
- 		psp->hdcp_context.context.bin_desc.start_addr       =3D ucode_start_addr=
-;
- 		break;
- 	case TA_FW_TYPE_PSP_DTM:
--		psp->dtm_context.context.bin_desc.feature_version  =3D le32_to_cpu(desc-=
->fw_version);
-+		psp->dtm_context.context.bin_desc.fw_version       =3D le32_to_cpu(desc-=
->fw_version);
- 		psp->dtm_context.context.bin_desc.size_bytes       =3D le32_to_cpu(desc-=
->size_bytes);
- 		psp->dtm_context.context.bin_desc.start_addr       =3D ucode_start_addr;
- 		break;
- 	case TA_FW_TYPE_PSP_RAP:
--		psp->rap_context.context.bin_desc.feature_version  =3D le32_to_cpu(desc-=
->fw_version);
-+		psp->rap_context.context.bin_desc.fw_version       =3D le32_to_cpu(desc-=
->fw_version);
- 		psp->rap_context.context.bin_desc.size_bytes       =3D le32_to_cpu(desc-=
->size_bytes);
- 		psp->rap_context.context.bin_desc.start_addr       =3D ucode_start_addr;
- 		break;
- 	case TA_FW_TYPE_PSP_SECUREDISPLAY:
--		psp->securedisplay_context.context.bin_desc.feature_version =3D
-+		psp->securedisplay_context.context.bin_desc.fw_version =3D
- 			le32_to_cpu(desc->fw_version);
- 		psp->securedisplay_context.context.bin_desc.size_bytes =3D
- 			le32_to_cpu(desc->size_bytes);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ucode.c
-index 920c4f6ac9146f..ca335050261891 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -527,8 +527,8 @@ FW_VERSION_ATTR(mec_fw_version, 0444, gfx.mec_fw_versio=
-n);  FW_VERSION_ATTR(mec2_fw_version, 0444, gfx.mec2_fw_version);  FW_VERSI=
-ON_ATTR(sos_fw_version, 0444, psp.sos.fw_version);  FW_VERSION_ATTR(asd_fw_=
-version, 0444, psp.asd_context.bin_desc.fw_version);
--FW_VERSION_ATTR(ta_ras_fw_version, 0444, psp.ras_context.context.bin_desc.=
-feature_version);
--FW_VERSION_ATTR(ta_xgmi_fw_version, 0444, psp.xgmi_context.context.bin_des=
-c.feature_version);
-+FW_VERSION_ATTR(ta_ras_fw_version, 0444,=20
-+psp.ras_context.context.bin_desc.fw_version);
-+FW_VERSION_ATTR(ta_xgmi_fw_version, 0444,=20
-+psp.xgmi_context.context.bin_desc.fw_version);
- FW_VERSION_ATTR(smc_fw_version, 0444, pm.fw_version);  FW_VERSION_ATTR(sdm=
-a_fw_version, 0444, sdma.instance[0].fw_version);  FW_VERSION_ATTR(sdma2_fw=
-_version, 0444, sdma.instance[1].fw_version); diff --git a/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 88c4177b708ac8..8899c219defab8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -535,9 +535,9 @@ static void amdgpu_virt_populate_vf2pf_ucode_info(struc=
-t amdgpu_device *adev)
- 	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_ASD,
- 			    adev->psp.asd_context.bin_desc.fw_version);
- 	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_TA_RAS,
--			    adev->psp.ras_context.context.bin_desc.feature_version);
-+			    adev->psp.ras_context.context.bin_desc.fw_version);
- 	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_TA_XGMI,
--			    adev->psp.xgmi_context.context.bin_desc.feature_version);
-+			    adev->psp.xgmi_context.context.bin_desc.fw_version);
- 	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SMC,      adev->pm.fw_=
-version);
- 	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SDMA,     adev->sdma.i=
-nstance[0].fw_version);
- 	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SDMA2,    adev->sdma.i=
-nstance[1].fw_version);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v10_0.c
-index 59644015dfc3ee..ed2293686f0de3 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-@@ -84,7 +84,7 @@ static int psp_v10_0_init_microcode(struct psp_context *p=
-sp)
-=20
- 		ta_hdr =3D (const struct ta_firmware_header_v1_0 *)
- 				 adev->psp.ta_fw->data;
--		adev->psp.hdcp_context.context.bin_desc.feature_version =3D
-+		adev->psp.hdcp_context.context.bin_desc.fw_version =3D
- 			le32_to_cpu(ta_hdr->hdcp.fw_version);
- 		adev->psp.hdcp_context.context.bin_desc.size_bytes =3D
- 			le32_to_cpu(ta_hdr->hdcp.size_bytes);
-@@ -92,7 +92,7 @@ static int psp_v10_0_init_microcode(struct psp_context *p=
-sp)
- 			(uint8_t *)ta_hdr +
- 			le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
-=20
--		adev->psp.dtm_context.context.bin_desc.feature_version =3D
-+		adev->psp.dtm_context.context.bin_desc.fw_version =3D
- 			le32_to_cpu(ta_hdr->dtm.fw_version);
- 		adev->psp.dtm_context.context.bin_desc.size_bytes =3D
- 			le32_to_cpu(ta_hdr->dtm.size_bytes);
-@@ -100,7 +100,7 @@ static int psp_v10_0_init_microcode(struct psp_context =
-*psp)
- 			(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
- 			le32_to_cpu(ta_hdr->dtm.offset_bytes);
-=20
--		adev->psp.securedisplay_context.context.bin_desc.feature_version =3D
-+		adev->psp.securedisplay_context.context.bin_desc.fw_version =3D
- 			le32_to_cpu(ta_hdr->securedisplay.fw_version);
- 		adev->psp.securedisplay_context.context.bin_desc.size_bytes =3D
- 			le32_to_cpu(ta_hdr->securedisplay.size_bytes);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v11_0.c
-index 21a325ea49cb30..2176ef85f137e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -151,7 +151,7 @@ static int psp_v11_0_init_microcode(struct psp_context =
-*psp)
- 				goto out2;
-=20
- 			ta_hdr =3D (const struct ta_firmware_header_v1_0 *)adev->psp.ta_fw->dat=
-a;
--			adev->psp.xgmi_context.context.bin_desc.feature_version =3D
-+			adev->psp.xgmi_context.context.bin_desc.fw_version =3D
- 				le32_to_cpu(ta_hdr->xgmi.fw_version);
- 			adev->psp.xgmi_context.context.bin_desc.size_bytes =3D
- 				le32_to_cpu(ta_hdr->xgmi.size_bytes);
-@@ -159,7 +159,7 @@ static int psp_v11_0_init_microcode(struct psp_context =
-*psp)
- 				(uint8_t *)ta_hdr +
- 				le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
- 			adev->psp.ta_fw_version =3D le32_to_cpu(ta_hdr->header.ucode_version);
--			adev->psp.ras_context.context.bin_desc.feature_version =3D
-+			adev->psp.ras_context.context.bin_desc.fw_version =3D
- 				le32_to_cpu(ta_hdr->ras.fw_version);
- 			adev->psp.ras_context.context.bin_desc.size_bytes =3D
- 				le32_to_cpu(ta_hdr->ras.size_bytes);
-@@ -192,7 +192,7 @@ static int psp_v11_0_init_microcode(struct psp_context =
-*psp)
- 				goto out2;
-=20
- 			ta_hdr =3D (const struct ta_firmware_header_v1_0 *)adev->psp.ta_fw->dat=
-a;
--			adev->psp.hdcp_context.context.bin_desc.feature_version =3D
-+			adev->psp.hdcp_context.context.bin_desc.fw_version =3D
- 				le32_to_cpu(ta_hdr->hdcp.fw_version);
- 			adev->psp.hdcp_context.context.bin_desc.size_bytes =3D
- 				le32_to_cpu(ta_hdr->hdcp.size_bytes);
-@@ -203,7 +203,7 @@ static int psp_v11_0_init_microcode(struct psp_context =
-*psp)
-=20
- 			adev->psp.ta_fw_version =3D le32_to_cpu(ta_hdr->header.ucode_version);
-=20
--			adev->psp.dtm_context.context.bin_desc.feature_version =3D
-+			adev->psp.dtm_context.context.bin_desc.fw_version =3D
- 				le32_to_cpu(ta_hdr->dtm.fw_version);
- 			adev->psp.dtm_context.context.bin_desc.size_bytes =3D
- 				le32_to_cpu(ta_hdr->dtm.size_bytes);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v12_0.c
-index 281bc4d7f0a1aa..a2588200ea5809 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-@@ -84,7 +84,7 @@ static int psp_v12_0_init_microcode(struct psp_context *p=
-sp)
-=20
- 		ta_hdr =3D (const struct ta_firmware_header_v1_0 *)
- 				 adev->psp.ta_fw->data;
--		adev->psp.hdcp_context.context.bin_desc.feature_version =3D
-+		adev->psp.hdcp_context.context.bin_desc.fw_version =3D
- 			le32_to_cpu(ta_hdr->hdcp.fw_version);
- 		adev->psp.hdcp_context.context.bin_desc.size_bytes =3D
- 			le32_to_cpu(ta_hdr->hdcp.size_bytes);
-@@ -94,7 +94,7 @@ static int psp_v12_0_init_microcode(struct psp_context *p=
-sp)
-=20
- 		adev->psp.ta_fw_version =3D le32_to_cpu(ta_hdr->header.ucode_version);
-=20
--		adev->psp.dtm_context.context.bin_desc.feature_version =3D
-+		adev->psp.dtm_context.context.bin_desc.fw_version =3D
- 			le32_to_cpu(ta_hdr->dtm.fw_version);
- 		adev->psp.dtm_context.context.bin_desc.size_bytes =3D
- 			le32_to_cpu(ta_hdr->dtm.size_bytes);
---
-2.17.1
+>>> +        dma_fence_get(s_job->s_fence->parent);
+>>>           drm_sched_resubmit_jobs_ext(&ring->sched, 1);
+>>>             ret = dma_fence_wait_timeout(s_job->s_fence->parent, false, ring->sched.timeout);
+>>> @@ -4876,6 +4879,7 @@ static void amdgpu_device_recheck_guilty_jobs(
+>>>             /* got the hw fence, signal finished fence */
+>>>           atomic_dec(ring->sched.score);
+>>> +        dma_fence_put(s_job->s_fence->parent);
+>>>           dma_fence_get(&s_job->s_fence->finished);
+>>>           dma_fence_signal(&s_job->s_fence->finished);
+>>>           dma_fence_put(&s_job->s_fence->finished);
