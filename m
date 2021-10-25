@@ -2,79 +2,88 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FA4DC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 19:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB160C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 22:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F682604DA
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 19:56:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1F682604DA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7865461039
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 22:30:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7865461039
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B51E6E239;
-	Mon, 25 Oct 2021 19:56:45 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D4846E158;
- Mon, 25 Oct 2021 19:56:44 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id z14so13713776wrg.6;
- Mon, 25 Oct 2021 12:56:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=fu2Mi7DnL8iLdASq34yxD9huFIf/iOlmr0sSlsR66IU=;
- b=GAJTY0HPMn8Kr8cDoOwhpu9JfuXpQFdYx0A9rmngpzCPox61Ar/0leXT5XRf7HnX6q
- h99DgTH+KRtq2OcNRcGGGSkIgEYguRFC89Kt0/ynj+/4UHinDZ7aGkcK8QWooCJydeLl
- k1pw2DWwOxYMFQ9l+Gwe3uJKQJzrbRw72bynxmcfD0dJY/J/y1QMN7b/GcEwJ8+ESliD
- yGvxjQ+CbaIOww/7jAo4dPUoSPwXSFbIVADNqUlRQY85CBFfVDDfh416cg7N2L7QyPb+
- OSs//A34U5lVk+UUy/OzB2oaK8JEXMqq4d6RtkE+7hclARb0Lov2MSSsPVQebiyyZ4UC
- scpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=fu2Mi7DnL8iLdASq34yxD9huFIf/iOlmr0sSlsR66IU=;
- b=UAHMpxbCvecyYfZeNqLgoB+eH5EoDyaswzCTaf14esPFzrVZ80PWZjKNUJVUF7AIZT
- yUW0s1xlQulXt/DDmoKhuKDy8IOF0Gues6sn4egeS+MR/JzyVWiBCiG040wQP7QvncVI
- 48CeeMomFWwl6A+e1kPtKEGaehUHcBNkowCoyDexuO6a8Ie9B8TPLjfhUxV0OuO85B7g
- 0wPioTGnCVZH+5f2QARbTR4E1NywYGBdK6vfRmp5GHwYZskwpENOvMaXrfnQNdh59mBa
- NUtsQZQjZdpyOrx+yv719jZWa3hHyNNOFjGmjSO8v25q2epoNCHmxZY0duGVha/qId4i
- 8mVg==
-X-Gm-Message-State: AOAM533gqI3IYSV5V9x6B6D07Nt6CP96O9ZESsfTuhsWE6fWe8SCxgtQ
- xmEZ3heu0aqYp7BOK3Cm9b822oPk97c=
-X-Google-Smtp-Source: ABdhPJxjxq77QEp4YNR/yYYTjC2QRtJGwU1yCezH4VnWc0aRvzGhRQSTXByE4mxGSTPGX7Wmy1E1PQ==
-X-Received: by 2002:a5d:588a:: with SMTP id n10mr14865518wrf.285.1635191803186; 
- Mon, 25 Oct 2021 12:56:43 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:5fb1:8fbc:4a43:8b8b?
- ([2a02:908:1252:fb60:5fb1:8fbc:4a43:8b8b])
- by smtp.gmail.com with ESMTPSA id d16sm9469520wrq.66.2021.10.25.12.56.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Oct 2021 12:56:42 -0700 (PDT)
-Subject: Re: Lockdep spalt on killing a processes
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, chris@chris-wilson.co.uk,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>
-References: <73c163b4-1917-1cde-b75f-831ac66f6ea0@amd.com>
- <2090e8e6-4b0a-4b75-a776-64dde1ecdfd5@amd.com>
- <152adb05-e863-525a-f586-ecccb39a4724@gmail.com>
- <5e67d2d2-f5ce-2669-6ad9-7e40c74ce853@amd.com>
- <696ac3f9-4b45-b8a5-5300-79093d2cd1a5@amd.com>
- <2639d027-b6c8-ee09-5e9a-564308949c53@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <cbeac930-84c3-7a62-0b3d-4cef3074139d@gmail.com>
-Date: Mon, 25 Oct 2021 21:56:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 493A86E22B;
+	Mon, 25 Oct 2021 22:30:57 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24E936E226
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 22:30:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1635201055;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4J1AonQCB7/aY+/rh+NKkrPlHas0envKCkSFtgpA41M=;
+ b=R1/p/qTypLz9pmhDjvjlVmm0hUzynjaMAy1vQ5QhBWAtysUifugE7DsIXyTJdo4B1T6JB1
+ JNZ0oU4fPkEhflQORyY9JIsGOIy1l0g8EBdNCj5JxTVsvFjxC42CIsIWZ6s66Fj9cQnBtP
+ qqQ7S6V17b995ToVusjM8kOIwuAgWY0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-192-psKK8TUhMy-NSXFyXAzTjQ-1; Mon, 25 Oct 2021 18:30:53 -0400
+X-MC-Unique: psKK8TUhMy-NSXFyXAzTjQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 08B3D8018AC;
+ Mon, 25 Oct 2021 22:30:47 +0000 (UTC)
+Received: from emerald.lyude.net (unknown [10.22.9.162])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B1BD917CDB;
+ Mon, 25 Oct 2021 22:30:42 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	amdgfx@lists.freedesktop.org
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, "Leo (Hanghong) Ma" <hanghong.ma@amd.com>,
+ Jude Shih <shenshih@amd.com>, Colin Ian King <colin.king@canonical.com>,
+ Zhan Liu <zhan.liu@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Bing Guo <bing.guo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Anshuman Gupta <anshuman.gupta@intel.com>,
+ Nikola Cornij <nikola.cornij@amd.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
+ He Ying <heying24@huawei.com>, Sean Paul <seanpaul@chromium.org>,
+ Karol Herbst <kherbst@redhat.com>,
+ amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
+ linux-kernel@vger.kernel.org (open list),
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM DRIVERS (excluding
+ Poulsbo, Moorestow...), 
+ nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
+ GPUS)
+Subject: [PATCH v5 2/4] drm: Update MST First Link Slot Information Based on
+ Encoding Format
+Date: Mon, 25 Oct 2021 18:30:26 -0400
+Message-Id: <20211025223029.300891-3-lyude@redhat.com>
+In-Reply-To: <20211025223029.300891-1-lyude@redhat.com>
+References: <20211025223029.300891-1-lyude@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <2639d027-b6c8-ee09-5e9a-564308949c53@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,222 +98,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In general I'm all there to get this fixed, but there is one major 
-problem: Drivers don't expect the lock to be dropped.
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-What we could do is to change all drivers so they call always call the 
-dma_fence_signal functions and drop the _locked variants. This way we 
-could move calling the callback out of the spinlock.
+8b/10b encoding format requires to reserve the first slot for
+recording metadata. Real data transmission starts from the second slot,
+with a total of available 63 slots available.
 
-But that requires audit of all drivers, so quite a lot of work to do.
+In 128b/132b encoding format, metadata is transmitted separately
+in LLCP packet before MTP. Real data transmission starts from
+the first slot, with a total of 64 slots available.
 
-Regards,
-Christian.
+v2:
+* Move total/start slots to mst_state, and copy it to mst_mgr in
+atomic_check
 
-Am 25.10.21 um 21:10 schrieb Andrey Grodzovsky:
-> Adding back Daniel (somehow he got off the addresses list) and Chris 
-> who worked a lot in this area.
->
-> On 2021-10-21 2:34 a.m., Christian König wrote:
->>
->>
->> Am 20.10.21 um 21:32 schrieb Andrey Grodzovsky:
->>> On 2021-10-04 4:14 a.m., Christian König wrote:
->>>
->>>> The problem is a bit different.
->>>>
->>>> The callback is on the dependent fence, while we need to signal the 
->>>> scheduler fence.
->>>>
->>>> Daniel is right that this needs an irq_work struct to handle this 
->>>> properly.
->>>>
->>>> Christian.
->>>
->>>
->>> So we had some discussions with Christian regarding irq_work and 
->>> agreed I should look into doing it but stepping back for a sec -
->>>
->>> Why we insist on calling the dma_fence_cb  with fence->lock locked ? 
->>> Is it because of dma_fence_add_callback ?
->>> Because we first test for DMA_FENCE_FLAG_SIGNALED_BIT and only after 
->>> that lock the fence->lock ? If so, can't we
->>> move DMA_FENCE_FLAG_SIGNALED_BIT  check inside the locked section ? 
->>> Because if in theory
->>> we could call the cb with unlocked fence->lock (i.e. this kind of 
->>> iteration 
->>> https://elixir.bootlin.com/linux/v5.15-rc6/source/drivers/gpu/drm/ttm/ttm_resource.c#L117)
->>> we wouldn't have the lockdep splat. And in general, is it really
->>> the correct approach to call a third party code from a call back 
->>> with locked spinlock ? We don't know what the cb does inside
->>> and I don't see any explicit restrictions in documentation of 
->>> dma_fence_func_t what can and cannot be done there.
->>
->> Yeah, that's exactly what I meant with using the irq_work directly in 
->> the fence code.
->
->
-> My idea is not to use irq work at all but instead to implement 
-> unlocked dma_fence cb execution using iteration
-> which drops the spinlock each time next cb is executed and acquiring 
-> it again after (until cb_list is empy).
->
->
->>
->>
->> The problem is dma_fence_signal_locked() which is used by quite a 
->> number of drivers to signal the fence while holding the lock.
->
->
-> For this I think we should not reuse dma_fence_signal_locked inside 
-> dma_fence_signal and instead implement it using the
-> unlocked iteration I mentioned above. I looked a bit in the code and 
-> the history and I see that until some time ago
-> (this commit by Chris 0fc89b6802ba1fcc561b0c906e0cefd384e3b2e5), 
-> indeed dma_fence_signal was doing it's own, locked iteration
-> and wasn't reusing dma_fence_signal_locked. This way whoever relies on 
-> the dma_fence_signal_locked won't be impacted
-> an who is not (like us in 
-> drm_sched_fence_scheduled/drm_sched_fence_finished) should also not be 
-> impacted by more narrow
-> scope of the lock. I also looked at dma_fence_default_wait and how it 
-> locks the fence->lock and check if fence is signaled
-> before wait start and I don't see a problem there either.
->
-> I attached quick draft of this proposal to clarify.
->
-> Andrey
->
->
->>
->> Otherwise we could indeed simplify the fence handling a lot.
->>
->> Christian.
->>
->>>
->>> Andrey
->>>
->>>
->>>>
->>>> Am 01.10.21 um 17:10 schrieb Andrey Grodzovsky:
->>>>> From what I see here you supposed to have actual deadlock and not 
->>>>> only warning, sched_fence->finished is  first signaled from within
->>>>> hw fence done callback (drm_sched_job_done_cb) but then again from 
->>>>> within it's own callback (drm_sched_entity_kill_jobs_cb) and so
->>>>> looks like same fence  object is recursively signaled twice. This 
->>>>> leads to attempt to lock fence->lock second time while it's already
->>>>> locked. I don't see a need to call drm_sched_fence_finished from 
->>>>> within drm_sched_entity_kill_jobs_cb as this callback already 
->>>>> registered
->>>>> on sched_fence->finished fence (entity->last_scheduled == 
->>>>> s_fence->finished) and hence the signaling already took place.
->>>>>
->>>>> Andrey
->>>>>
->>>>> On 2021-10-01 6:50 a.m., Christian König wrote:
->>>>>> Hey, Andrey.
->>>>>>
->>>>>> while investigating some memory management problems I've got the 
->>>>>> logdep splat below.
->>>>>>
->>>>>> Looks like something is wrong with 
->>>>>> drm_sched_entity_kill_jobs_cb(), can you investigate?
->>>>>>
->>>>>> Thanks,
->>>>>> Christian.
->>>>>>
->>>>>> [11176.741052] ============================================
->>>>>> [11176.741056] WARNING: possible recursive locking detected
->>>>>> [11176.741060] 5.15.0-rc1-00031-g9d546d600800 #171 Not tainted
->>>>>> [11176.741066] --------------------------------------------
->>>>>> [11176.741070] swapper/12/0 is trying to acquire lock:
->>>>>> [11176.741074] ffff9c337ed175a8 (&fence->lock){-.-.}-{3:3}, at: 
->>>>>> dma_fence_signal+0x28/0x80
->>>>>> [11176.741088]
->>>>>>                but task is already holding lock:
->>>>>> [11176.741092] ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, at: 
->>>>>> dma_fence_signal+0x28/0x80
->>>>>> [11176.741100]
->>>>>>                other info that might help us debug this:
->>>>>> [11176.741104]  Possible unsafe locking scenario:
->>>>>>
->>>>>> [11176.741108]        CPU0
->>>>>> [11176.741110]        ----
->>>>>> [11176.741113]   lock(&fence->lock);
->>>>>> [11176.741118]   lock(&fence->lock);
->>>>>> [11176.741122]
->>>>>>                 *** DEADLOCK ***
->>>>>>
->>>>>> [11176.741125]  May be due to missing lock nesting notation
->>>>>>
->>>>>> [11176.741128] 2 locks held by swapper/12/0:
->>>>>> [11176.741133]  #0: ffff9c339c30f768 
->>>>>> (&ring->fence_drv.lock){-.-.}-{3:3}, at: dma_fence_signal+0x28/0x80
->>>>>> [11176.741142]  #1: ffff9c337ed172a8 (&fence->lock){-.-.}-{3:3}, 
->>>>>> at: dma_fence_signal+0x28/0x80
->>>>>> [11176.741151]
->>>>>>                stack backtrace:
->>>>>> [11176.741155] CPU: 12 PID: 0 Comm: swapper/12 Not tainted 
->>>>>> 5.15.0-rc1-00031-g9d546d600800 #171
->>>>>> [11176.741160] Hardware name: System manufacturer System Product 
->>>>>> Name/PRIME X399-A, BIOS 0808 10/12/2018
->>>>>> [11176.741165] Call Trace:
->>>>>> [11176.741169]  <IRQ>
->>>>>> [11176.741173]  dump_stack_lvl+0x5b/0x74
->>>>>> [11176.741181]  dump_stack+0x10/0x12
->>>>>> [11176.741186]  __lock_acquire.cold+0x208/0x2df
->>>>>> [11176.741197]  lock_acquire+0xc6/0x2d0
->>>>>> [11176.741204]  ? dma_fence_signal+0x28/0x80
->>>>>> [11176.741212]  _raw_spin_lock_irqsave+0x4d/0x70
->>>>>> [11176.741219]  ? dma_fence_signal+0x28/0x80
->>>>>> [11176.741225]  dma_fence_signal+0x28/0x80
->>>>>> [11176.741230]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
->>>>>> [11176.741240]  drm_sched_entity_kill_jobs_cb+0x1c/0x50 [gpu_sched]
->>>>>> [11176.741248] dma_fence_signal_timestamp_locked+0xac/0x1a0
->>>>>> [11176.741254]  dma_fence_signal+0x3b/0x80
->>>>>> [11176.741260]  drm_sched_fence_finished+0x12/0x20 [gpu_sched]
->>>>>> [11176.741268]  drm_sched_job_done.isra.0+0x7f/0x1a0 [gpu_sched]
->>>>>> [11176.741277]  drm_sched_job_done_cb+0x12/0x20 [gpu_sched]
->>>>>> [11176.741284] dma_fence_signal_timestamp_locked+0xac/0x1a0
->>>>>> [11176.741290]  dma_fence_signal+0x3b/0x80
->>>>>> [11176.741296]  amdgpu_fence_process+0xd1/0x140 [amdgpu]
->>>>>> [11176.741504]  sdma_v4_0_process_trap_irq+0x8c/0xb0 [amdgpu]
->>>>>> [11176.741731]  amdgpu_irq_dispatch+0xce/0x250 [amdgpu]
->>>>>> [11176.741954]  amdgpu_ih_process+0x81/0x100 [amdgpu]
->>>>>> [11176.742174]  amdgpu_irq_handler+0x26/0xa0 [amdgpu]
->>>>>> [11176.742393]  __handle_irq_event_percpu+0x4f/0x2c0
->>>>>> [11176.742402]  handle_irq_event_percpu+0x33/0x80
->>>>>> [11176.742408]  handle_irq_event+0x39/0x60
->>>>>> [11176.742414]  handle_edge_irq+0x93/0x1d0
->>>>>> [11176.742419]  __common_interrupt+0x50/0xe0
->>>>>> [11176.742426]  common_interrupt+0x80/0x90
->>>>>> [11176.742431]  </IRQ>
->>>>>> [11176.742436]  asm_common_interrupt+0x1e/0x40
->>>>>> [11176.742442] RIP: 0010:cpuidle_enter_state+0xff/0x470
->>>>>> [11176.742449] Code: 0f a3 05 04 54 24 01 0f 82 70 02 00 00 31 ff 
->>>>>> e8 37 5d 6f ff 80 7d d7 00 0f 85 e9 01 00 00 e8 58 a2 7f ff fb 66 
->>>>>> 0f 1f 44 00 00 <45> 85 ff 0f 88 01 01 00 00 49 63 c7 4c 2b 75 c8 
->>>>>> 48 8d 14 40 48 8d
->>>>>> [11176.742455] RSP: 0018:ffffb6970021fe48 EFLAGS: 00000202
->>>>>> [11176.742461] RAX: 000000000059be25 RBX: 0000000000000002 RCX: 
->>>>>> 0000000000000000
->>>>>> [11176.742465] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 
->>>>>> ffffffff9efeed78
->>>>>> [11176.742470] RBP: ffffb6970021fe80 R08: 0000000000000001 R09: 
->>>>>> 0000000000000001
->>>>>> [11176.742473] R10: 0000000000000001 R11: 0000000000000001 R12: 
->>>>>> ffff9c3350b0e800
->>>>>> [11176.742477] R13: ffffffffa00e9680 R14: 00000a2a49ada060 R15: 
->>>>>> 0000000000000002
->>>>>> [11176.742483]  ? cpuidle_enter_state+0xf8/0x470
->>>>>> [11176.742489]  ? cpuidle_enter_state+0xf8/0x470
->>>>>> [11176.742495]  cpuidle_enter+0x2e/0x40
->>>>>> [11176.742500]  call_cpuidle+0x23/0x40
->>>>>> [11176.742506]  do_idle+0x201/0x280
->>>>>> [11176.742512]  cpu_startup_entry+0x20/0x30
->>>>>> [11176.742517]  start_secondary+0x11f/0x160
->>>>>> [11176.742523]  secondary_startup_64_no_verify+0xb0/0xbb
->>>>>>
->>>>
->>
+v3:
+* Only keep the slot info on the mst_state
+* add a start_slot parameter to the payload function, to facilitate non
+  atomic drivers (this is a temporary workaround and should be removed when
+  we are moving out the non atomic driver helpers)
+
+v4:
+*fixed typo and formatting
+
+v5: (no functional changes)
+* Fixed formatting in drm_dp_mst_update_slots()
+* Reference mst_state instead of mst_state->mgr for debugging info
+
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+[v5 nitpicks]
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
+ drivers/gpu/drm/drm_dp_mst_topology.c         | 36 ++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  4 +--
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 +-
+ drivers/gpu/drm/radeon/radeon_dp_mst.c        |  4 +--
+ include/drm/drm_dp_mst_helper.h               |  5 ++-
+ 6 files changed, 42 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index ff0f91c93ba4..6169488e2011 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -251,7 +251,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	}
+ 
+ 	/* It's OK for this to fail */
+-	drm_dp_update_payload_part1(mst_mgr);
++	drm_dp_update_payload_part1(mst_mgr, 1);
+ 
+ 	/* mst_mgr->->payloads are VC payload notify MST branch using DPCD or
+ 	 * AUX message. The sequence is slot 1-63 allocated sequence for each
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 04ed34a7f71c..571da0c2f39f 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -3355,6 +3355,10 @@ static int drm_dp_destroy_payload_step2(struct drm_dp_mst_topology_mgr *mgr,
+ /**
+  * drm_dp_update_payload_part1() - Execute payload update part 1
+  * @mgr: manager to use.
++ * @start_slot: this is the cur slot
++ *
++ * NOTE: start_slot is a temporary workaround for non-atomic drivers,
++ * this will be removed when non-atomic mst helpers are moved out of the helper
+  *
+  * This iterates over all proposed virtual channels, and tries to
+  * allocate space in the link for them. For 0->slots transitions,
+@@ -3365,12 +3369,12 @@ static int drm_dp_destroy_payload_step2(struct drm_dp_mst_topology_mgr *mgr,
+  * after calling this the driver should generate ACT and payload
+  * packets.
+  */
+-int drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr *mgr)
++int drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr *mgr, int start_slot)
+ {
+ 	struct drm_dp_payload req_payload;
+ 	struct drm_dp_mst_port *port;
+ 	int i, j;
+-	int cur_slots = 1;
++	int cur_slots = start_slot;
+ 	bool skip;
+ 
+ 	mutex_lock(&mgr->payload_lock);
+@@ -4505,6 +4509,27 @@ int drm_dp_atomic_release_vcpi_slots(struct drm_atomic_state *state,
+ }
+ EXPORT_SYMBOL(drm_dp_atomic_release_vcpi_slots);
+ 
++/**
++ * drm_dp_mst_update_slots() - updates the slot info depending on the DP ecoding format
++ * @mst_state: mst_state to update
++ * @link_encoding_cap: the ecoding format on the link
++ */
++void drm_dp_mst_update_slots(struct drm_dp_mst_topology_state *mst_state, uint8_t link_encoding_cap)
++{
++	if (link_encoding_cap == DP_CAP_ANSI_128B132B) {
++		mst_state->total_avail_slots = 64;
++		mst_state->start_slot = 0;
++	} else {
++		mst_state->total_avail_slots = 63;
++		mst_state->start_slot = 1;
++	}
++
++	DRM_DEBUG_KMS("%s encoding format on mst_state 0x%p\n",
++		      (link_encoding_cap == DP_CAP_ANSI_128B132B) ? "128b/132b":"8b/10b",
++		      mst_state);
++}
++EXPORT_SYMBOL(drm_dp_mst_update_slots);
++
+ /**
+  * drm_dp_mst_allocate_vcpi() - Allocate a virtual channel
+  * @mgr: manager for this port
+@@ -5224,7 +5249,7 @@ drm_dp_mst_atomic_check_vcpi_alloc_limit(struct drm_dp_mst_topology_mgr *mgr,
+ 					 struct drm_dp_mst_topology_state *mst_state)
+ {
+ 	struct drm_dp_vcpi_allocation *vcpi;
+-	int avail_slots = 63, payload_count = 0;
++	int avail_slots = mst_state->total_avail_slots, payload_count = 0;
+ 
+ 	list_for_each_entry(vcpi, &mst_state->vcpis, next) {
+ 		/* Releasing VCPI is always OK-even if the port is gone */
+@@ -5253,7 +5278,7 @@ drm_dp_mst_atomic_check_vcpi_alloc_limit(struct drm_dp_mst_topology_mgr *mgr,
+ 		}
+ 	}
+ 	drm_dbg_atomic(mgr->dev, "[MST MGR:%p] mst state %p VCPI avail=%d used=%d\n",
+-		       mgr, mst_state, avail_slots, 63 - avail_slots);
++		       mgr, mst_state, avail_slots, mst_state->total_avail_slots - avail_slots);
+ 
+ 	return 0;
+ }
+@@ -5530,6 +5555,9 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (mst_state == NULL)
+ 		return -ENOMEM;
+ 
++	mst_state->total_avail_slots = 63;
++	mst_state->start_slot = 1;
++
+ 	mst_state->mgr = mgr;
+ 	INIT_LIST_HEAD(&mst_state->vcpis);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 16620172abf7..6007a79c3938 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -376,7 +376,7 @@ static void intel_mst_disable_dp(struct intel_atomic_state *state,
+ 
+ 	drm_dp_mst_reset_vcpi_slots(&intel_dp->mst_mgr, connector->port);
+ 
+-	ret = drm_dp_update_payload_part1(&intel_dp->mst_mgr);
++	ret = drm_dp_update_payload_part1(&intel_dp->mst_mgr, 1);
+ 	if (ret) {
+ 		drm_dbg_kms(&i915->drm, "failed to update payload %d\n", ret);
+ 	}
+@@ -516,7 +516,7 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
+ 
+ 	intel_dp->active_mst_links++;
+ 
+-	ret = drm_dp_update_payload_part1(&intel_dp->mst_mgr);
++	ret = drm_dp_update_payload_part1(&intel_dp->mst_mgr, 1);
+ 
+ 	/*
+ 	 * Before Gen 12 this is not done as part of
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index d7b9f7f8c9e3..8e28403ea9b1 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1414,7 +1414,7 @@ nv50_mstm_prepare(struct nv50_mstm *mstm)
+ 	int ret;
+ 
+ 	NV_ATOMIC(drm, "%s: mstm prepare\n", mstm->outp->base.base.name);
+-	ret = drm_dp_update_payload_part1(&mstm->mgr);
++	ret = drm_dp_update_payload_part1(&mstm->mgr, 1);
+ 
+ 	drm_for_each_encoder(encoder, mstm->outp->base.base.dev) {
+ 		if (encoder->encoder_type == DRM_MODE_ENCODER_DPMST) {
+diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+index ec867fa880a4..751c2c075e09 100644
+--- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
++++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+@@ -423,7 +423,7 @@ radeon_mst_encoder_dpms(struct drm_encoder *encoder, int mode)
+ 		drm_dp_mst_allocate_vcpi(&radeon_connector->mst_port->mst_mgr,
+ 					 radeon_connector->port,
+ 					 mst_enc->pbn, slots);
+-		drm_dp_update_payload_part1(&radeon_connector->mst_port->mst_mgr);
++		drm_dp_update_payload_part1(&radeon_connector->mst_port->mst_mgr, 1);
+ 
+ 		radeon_dp_mst_set_be_cntl(primary, mst_enc,
+ 					  radeon_connector->mst_port->hpd.hpd, true);
+@@ -452,7 +452,7 @@ radeon_mst_encoder_dpms(struct drm_encoder *encoder, int mode)
+ 			return;
+ 
+ 		drm_dp_mst_reset_vcpi_slots(&radeon_connector->mst_port->mst_mgr, mst_enc->port);
+-		drm_dp_update_payload_part1(&radeon_connector->mst_port->mst_mgr);
++		drm_dp_update_payload_part1(&radeon_connector->mst_port->mst_mgr, 1);
+ 
+ 		drm_dp_check_act_status(&radeon_connector->mst_port->mst_mgr);
+ 		/* and this can also fail */
+diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+index ddb9231d0309..78044ac5b59b 100644
+--- a/include/drm/drm_dp_mst_helper.h
++++ b/include/drm/drm_dp_mst_helper.h
+@@ -554,6 +554,8 @@ struct drm_dp_mst_topology_state {
+ 	struct drm_private_state base;
+ 	struct list_head vcpis;
+ 	struct drm_dp_mst_topology_mgr *mgr;
++	u8 total_avail_slots;
++	u8 start_slot;
+ };
+ 
+ #define to_dp_mst_topology_mgr(x) container_of(x, struct drm_dp_mst_topology_mgr, base)
+@@ -806,6 +808,7 @@ int drm_dp_mst_get_vcpi_slots(struct drm_dp_mst_topology_mgr *mgr, struct drm_dp
+ 
+ void drm_dp_mst_reset_vcpi_slots(struct drm_dp_mst_topology_mgr *mgr, struct drm_dp_mst_port *port);
+ 
++void drm_dp_mst_update_slots(struct drm_dp_mst_topology_state *mst_state, uint8_t link_encoding_cap);
+ 
+ void drm_dp_mst_deallocate_vcpi(struct drm_dp_mst_topology_mgr *mgr,
+ 				struct drm_dp_mst_port *port);
+@@ -815,7 +818,7 @@ int drm_dp_find_vcpi_slots(struct drm_dp_mst_topology_mgr *mgr,
+ 			   int pbn);
+ 
+ 
+-int drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr *mgr);
++int drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr *mgr, int start_slot);
+ 
+ 
+ int drm_dp_update_payload_part2(struct drm_dp_mst_topology_mgr *mgr);
+-- 
+2.31.1
 
