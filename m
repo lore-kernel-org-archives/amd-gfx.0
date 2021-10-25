@@ -2,65 +2,139 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60C85C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 14:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8B3DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 14:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 251C060F9B
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 14:15:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 251C060F9B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6DC876023B
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 14:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6DC876023B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A25E089CAF;
-	Mon, 25 Oct 2021 14:15:55 +0000 (UTC)
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E2C889CAF
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 14:15:53 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id y207so15711171oia.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 07:15:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=PLTXm2S2POkvD5tyEiqE0nGXpIC5w7Vwb7IsWqWfVk8=;
- b=Q4JUFJW7EsZRTkt6V0iSB/X81368nZMj4xVFJR6M96QHLufh/vE2N5wR3Ub/5ugWo/
- 7CnLwITo9lWrYaKDeGAnno2sNSkF8MCyJn88QgU1oZdnXoVgK2WnxeVC0SI4h38HGQVX
- oMea/Cnhwf/IwR2Qx+0FPqtUWDhRqTKzV4bUpKUaVIx8esskR5J2rw0metK5cU4aV7A2
- Z+A9zPXXLuj2XJWgCflS1shx8FgPvg7jDbJLRIL+Avo6tkKS6aVkxe+TT7l34ftgY7cf
- zoqje3IrH+8pjiAsP3FgcNpcYmt8Qek2QyrKDxD6bSCNfytNbZ4LeJXiTiBX7kH5tXRe
- jb5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=PLTXm2S2POkvD5tyEiqE0nGXpIC5w7Vwb7IsWqWfVk8=;
- b=Gc9gtSUN42xYx/79o/0kzjQROEHuQN/q+Nf5C1/NiQjlZNagkN4W9P5nonYBuz2glP
- I1qINEk2OcBE9n48X1OMJcMZoUL18o2/LFKzKSNp0qvLJht7i7UFM5HC3Z0Qjte4kcn0
- O/CPEILEg987/eO/nAB/i/oO1LrGsp04wj+HcKWkGbHA3rO0RUIWbynKBUZDJL7XhI/t
- C4Fzne9Jdg322Dc/NponUiQj4ya8V41av2DsSpokfwgr6Zj2GFeveiSJ3XTsmB8PZaIG
- IYdIhlN1weOZkj8/GegfKoNt2fpBHLOgR/xcGyvS6fwfQqZBcIzrMbOthxxYvvdeKszp
- VP1w==
-X-Gm-Message-State: AOAM531Q2MZwKmDuceMmnnZs7lIBXH2CU0I90eIVNvs78NO/LjeVA+lL
- X2uy0HSdXljpXXMewtIrCbheOWSW9xlfUnOrZtBbSA+4ctG7Bw==
-X-Google-Smtp-Source: ABdhPJzJszoloYN2r/5EqBLPy+Po113x4touyd2Cm2C2ekAg+OpS04KxGU8aRluPVgZr8ZVKIECb57qmLDGdhycXFBU=
-X-Received: by 2002:a05:6808:1527:: with SMTP id
- u39mr12142130oiw.123.1635171352806; 
- Mon, 25 Oct 2021 07:15:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F04A58990D;
+	Mon, 25 Oct 2021 14:42:32 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36E1B8990D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 14:42:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MTzMAALKy+2IFpvOPjuFYkGL+tly02/oTisfwioHfKkMnuiEKCwpBNM/fIF7oYxu70/frZhTWXOknq0OldA2Mh+HOnz/sAKRkhN0zGGI9z9mfjFsfOiMzplFx0P4FdwR/baRbIAqdVr+aM9SjobcAUpBioaLR1RDpi4uQE5DQfbye2LPgwy5H0cvgtROdwZ+cefodmjjzJm08LM/p0LxwRvXd7Lk7xkRaw/+Y/mSfJEHaOo6VVGLrHRNUDLxZzDHxKfK935+YcoRvQF1diMt6jvRgqUZT+FNhdUu7CziEtvIVV8BGaooj3ynrr+3rRDBmGbPtQrO2QcwMMivihTEyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WgR5PbHUFBQmC+80NtTQRE3wRtMWLr6qkbd1/Oo2ZtE=;
+ b=SGtGdX176jZF4/ff9nGKQiZ2eSTmA0ooFDXq521hE0MinEB4fsHICAFmiJdty6FM3iCqpIVlbrr0s3Q3yxBgIjstGv3rLVJ8vZbXNA54WaOez4J2QaRXY9kG8xTkvdw98JZ6pmsQx+N8RNAYJjD48RxKnanoABsmmU2icUZ6RqJxOSj/508ecUF8fC7K+lUJbWNXDnAPb7uv5SstV/AH3lFoDf6pzh/+v8dCO5LfwAa5C957D6KfigQrY+bOx/LQG0yJ7TJxLWY5Kh2P8kqJJ+nULoimMzx6aeF8i06DXiVZbKFW7IQy9xHzKstwc7BuMa8uPt9AaS8Gxh39hV8/NA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WgR5PbHUFBQmC+80NtTQRE3wRtMWLr6qkbd1/Oo2ZtE=;
+ b=XuRJbnURUZ7/ZdmDm1ysyuSCCE8Klbm18Yg7S6i3uXKOTH5oiC256+H0il+7Bknk7L8P1cKmXFu0qO86R9x9IJVrExWR8r9mV+cASZPqODhAHn3Qfi6ro9kk0dms2nfKNHgfUdCskaDXmWXHb4GaC6joS/sNWesNT+TuOg2GVMA=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24)
+ by DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4628.15; Mon, 25 Oct 2021 14:42:29 +0000
+Received: from DM4PR12MB5182.namprd12.prod.outlook.com
+ ([fe80::3c90:18ad:1198:48c3]) by DM4PR12MB5182.namprd12.prod.outlook.com
+ ([fe80::3c90:18ad:1198:48c3%9]) with mapi id 15.20.4628.020; Mon, 25 Oct 2021
+ 14:42:29 +0000
+Message-ID: <90804a63-686a-7f84-ba20-db06a101fbec@amd.com>
+Date: Mon, 25 Oct 2021 10:42:15 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH 32/33] drm/amd/display: fix link training regression for 1
+ or 2 lane
+Content-Language: en-US
+To: Harry Wentland <harry.wentland@amd.com>,
+ Paul Menzel <pmenzel@molgen.mpg.de>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Aurabindo.Pillai@amd.com,
+ qingqing.zhuo@amd.com, mikita.lipski@amd.com, roman.li@amd.com,
+ Anson.Jacob@amd.com, wayne.lin@amd.com, stylon.wang@amd.com,
+ solomon.chiu@amd.com, pavle.kotarac@amd.com, agustin.gutierrez@amd.com,
+ Wenjing Liu <wenjing.liu@amd.com>, Eric Yang <eric.yang2@amd.com>
+References: <20211024133141.239861-1-Rodrigo.Siqueira@amd.com>
+ <20211024133141.239861-33-Rodrigo.Siqueira@amd.com>
+ <16010bef-7bf4-1da4-9f76-7b23d4296d5b@molgen.mpg.de>
+ <93093738-86a1-056e-08fc-803aecee27f1@amd.com>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+In-Reply-To: <93093738-86a1-056e-08fc-803aecee27f1@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0246.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a7::17) To DM4PR12MB5182.namprd12.prod.outlook.com
+ (2603:10b6:5:395::24)
 MIME-Version: 1.0
-References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
- <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
-In-Reply-To: <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 25 Oct 2021 10:15:41 -0400
-Message-ID: <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
-Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
- + kernel 5.14.13
-To: PGNet Dev <pgnet.dev@gmail.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from [172.31.16.161] (165.204.54.211) by
+ LO4P123CA0246.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:1a7::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4628.16 via Frontend Transport; Mon, 25 Oct 2021 14:42:24 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: efbead88-0f6a-45a2-c804-08d997c5ab28
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5399:
+X-Microsoft-Antispam-PRVS: <DM8PR12MB53999684689FDE0B565A5898EC839@DM8PR12MB5399.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 5nA4ZexdNSfppAubbA9xwrhG5z5wl8mig+pmre9nzxoiCVSsgaVyoWgARJNZ5/irKl93/AMj4gVVWHGwaJ6ml46WXq071fnv6pYFOMYntH1FMQIiNOYRJjWMM0fpzPdCb61eHSB3Cfb1GP3qN3fR67K0ZCERIKfCEFeRZcu93gu6+fU49q2O4foVr3hB9ghbjJc/NWFftZWDEnejwxRi8LUMyAUqR0oWLinRlHNMhc/ia1BTIOZKceD2xvVIYD7ZS/MsrWbMJkcdEGadvYHCSc69926ms+fr7FYoGgjI+EWlEhFbSOigfjioOkHRp5EDwjPPYpaDtFZXrNu0RcEJvIVm5YV5bw4TMMrdBs8oXdNdhsPUAKHXtG4nHq5cr5MywG6CAQOgxPwSXTyejXBPLwHNJjf3eVvVr4s6Ee+6x3eFD7eUYcBU76I/Z0VjoU8tDlKzPSlTzrEb+sYgS7TfITfDSmpNYPEXdRJb3uVtozNnakZpc3HVSIIqvUQqOM1rdqw67qzmA1ySVoTFQWTVismRVZ8Kx8Og+LLTSev92+Q7+hq3wQ60EdvkKN6MMi8c7aNc03YEPxBOjoScMvWjtwrPJ09UCpa1f00uAKo5cKcWPI7GdUSOKeW3wULlC8VjOivTFfGMxXvhNRXlg6veyMmXkKCwf9pUJvoCNUojFbdy20QPwDPUVlacc0YkW/Ox6zR5ZGT7NUUwUaayhe7+yMZGdL2MVP5fNGYPI3SUOYk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5182.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(31696002)(38100700002)(26005)(36756003)(4001150100001)(2616005)(2906002)(508600001)(8676002)(66556008)(86362001)(8936002)(5660300002)(53546011)(66946007)(31686004)(54906003)(83380400001)(6666004)(956004)(110136005)(4326008)(16576012)(66476007)(316002)(6486002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGVxMTJhNlkxZ1VJWUVvRjRyMzkrZTYwSGlwY3FyZml2VW8yejc5c0VGeUwx?=
+ =?utf-8?B?UHJQVDFBaCt0Vng3R0JmMDEwSGljN2poRmorZUdoTmYrV2lUZmJuV2xqZ1dz?=
+ =?utf-8?B?Q1k5eWxvVEY4VGc2ZVVYSE1ETnVpZ0txbzlBWWR6RjdoN0FQTDFCb1Mvem9Y?=
+ =?utf-8?B?Q0gyK25ST0pmQTJJczBTNFdUdkJoOU9ieWhkL0ZlelhWVE9OdkpuS2FQaEFX?=
+ =?utf-8?B?RnF0VzU0M2VOQ0dmV2NrYWpQU05pKzNpZ3I0NndzWXRuUWtwNy9ORGd1Y0RP?=
+ =?utf-8?B?dFZxSTc5cm9TM0ZiWjljaDgvbUtmSEt5NDJTRFlnbitTRktOeTJ5N3Y1NFpE?=
+ =?utf-8?B?RjR3eWxIL1BiRXJwTi9XanVMRWM4MXBYSkFUTEZFbEk2QUk1QkVGeExKVDNN?=
+ =?utf-8?B?WVY1RWdBdU85aFdKYkJMY3c0VG8yeWcyWVpMWEEvN0JOODUyYVk4K0swRXJD?=
+ =?utf-8?B?bmZyak1IRGlyam0vQXF5UkZmNU52M2JqUGo2dUxHa3ZyUmpFK3dnVGFpL2J4?=
+ =?utf-8?B?VXNzalF6SGxyQVdad0ZPRDNNKyt4WHRzajJsL3pzcDNrZmRZeGsyS1ZkWENh?=
+ =?utf-8?B?WGJ4K3Nud2RHd096Nmg3cGxhUWZ3V1NTNmpYakdqdHZNdVZvZFJKU1VyQXFy?=
+ =?utf-8?B?L0oreWdORVd0SE5lSzJkRnRDSS9OVXZoWDJKYlRPOHNGcjZKSjlsenNJa0o2?=
+ =?utf-8?B?WlFQRm9qeksxTVZERm55SnVPS2FRSFBkbUFhQzZ1NE9KS0h0WHNHRXpoT0NG?=
+ =?utf-8?B?Mm9ZK1dJbVVwanlTVmE4MHU1bVNydXN4M0szNFRVSjBrZWNTWERmVUQxd2Nh?=
+ =?utf-8?B?NW9YZ2RVM1JscmdsZlczb3ZHd3FwRkY5TnJCdVAxTCs5YTJUWlI2R0JDaGUw?=
+ =?utf-8?B?WllHTGNWbFRkdHdmcE1KZmdENkJXUldSQ0VhSHY5dHhhMXFVWHpBV3BVSFlp?=
+ =?utf-8?B?N3dvYzVWV2Z2MXJ5K1BkTEpSS0FkYzM2NXZ6QXN1Q0RsNjVGdkU0bmZxTmhs?=
+ =?utf-8?B?MmtTSmZpSzdiRFFsbTQwVzRENy9ISWN4TzBBQWFFWHdkbEZPSnl3M3hhT1RD?=
+ =?utf-8?B?RVhsQnl6cGw2MjhySHpOL242ekdydW5Hb2s3elFtSmxvMmFoa2c3Zy9OcURX?=
+ =?utf-8?B?RmpLMDUreXNMOHdOSU5YcUZwS04zbDNqWHZyZ3BaMExmanFPTEcxc2l1VnZZ?=
+ =?utf-8?B?MTZUM0QxQ09XVzBKNHBJVitjazh2UWg0VVFOU3JnYWtEZ3F4SGJ5RUdLcDE1?=
+ =?utf-8?B?dndlVXdBS2J5bVgxQWFqUXlURU1OMUpVdkI3Y2lBdDNhc04xTVBoN1VZdEU5?=
+ =?utf-8?B?Sm02M2YvT2Rvb3JlSEZNRUFJUFE3eFd5TDhsRzlpd1ZzTnNNYmo0YXFuS09z?=
+ =?utf-8?B?KzJ5dWo4QjZYYVZacFBVM2NhZk81L1R3TjJaenQxZ0VwM0FpTlBBREJxeTR0?=
+ =?utf-8?B?U1dZMk9GT1pqUjVuaFFXUkg1a1ZWOERpbHhYbTE5MjJDQnlTQkhVd2Rnb3FT?=
+ =?utf-8?B?dk5IeXNaTmlwU0tuNkd4Tm9ieEw0eUtISFQxdlJSdmxoV0x1RTZWNzJVZTNn?=
+ =?utf-8?B?NlhIalJYNDlSQlZScjVHd2FnK285YlpVKzIzUDM3dVdQaGtCdDd6bkkzTGFT?=
+ =?utf-8?B?L282RlV1bmdLQUx2UW9yTXhvWXFIRDhDa1FpRVRHNFA2U1V2QWxyTWhzWDVy?=
+ =?utf-8?B?aGFOMUtuay9YWldXSkRoOUx4dzJnZVZ6b011MjFPaWRjR2dCTStHOFRxRjRN?=
+ =?utf-8?B?bFdKdlp5Z1l3b0liaE9SNHFIYVRHMVdYKzl0Y25KWmk0d29vcUswMThjK1dm?=
+ =?utf-8?B?Rllsa0YrVjlyV0xVKzhuQjRkUWE4RXpqc0hQQ1JRVXRLODNMeXFCZDAyeXI4?=
+ =?utf-8?B?QXNCTjNEem44ODZxQnZ0SGhJT0VLWldldmtSMEpBMG1heXM1akpjZXptMXhq?=
+ =?utf-8?B?a2ppYXJkelVxYnRJYWZydlNmTnVMeSt2ZUJjQXhZRk44cFJQOFNzVmRUYVVO?=
+ =?utf-8?B?L2V2WW5rNWl3MS9TZWxzaUhvR05vQ1VCRGxsZ0VsdUJaYnVIRE1DZTRuRkY1?=
+ =?utf-8?B?MmlqTmVuZVlzVGlKdUVLV1RlQ1JtTWJuYXlJTEtRUnMrSlhMUXUrMnBkSjZn?=
+ =?utf-8?B?SmVqR3hWUTJkZzdHKzJMYXg5d04xSlNKQlNlVS9vd1B1WHBFMjhiVnBkQ0Jy?=
+ =?utf-8?Q?al+WHwY2HZCU/9Lz7eWsXLA=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: efbead88-0f6a-45a2-c804-08d997c5ab28
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5182.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 14:42:28.9247 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3q0ue3gQzcfoDjkaKIUuNG7KcYkHcWoxdtE87pLgZKZmy2VRwe+mfxcuRQHtiVWK5SccJ5weBPzEYDffd6EvAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5399
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,156 +149,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 25, 2021 at 9:48 AM PGNet Dev <pgnet.dev@gmail.com> wrote:
->
-> ( cc'ing this here, OP -> dri-devel@ )
->
-> i've a dual gpu system
->
->         inxi -GS
->                 System:    Host: ws05 Kernel: 5.14.13-200.fc34.x86_64 x86=
-_64 bits: 64 Console: tty pts/0
->                            Distro: Fedora release 34 (Thirty Four)
-> (1)             Graphics:  Device-1: NVIDIA GK208B [GeForce GT 710] drive=
-r: nvidia v: 470.74
-> (2)                        Device-2: Advanced Micro Devices [AMD/ATI] Cez=
-anne driver: N/A
->                            Display: server: X.org 1.20.11 driver: loaded:=
- nvidia unloaded: fbdev,modesetting,vesa
->                            Message: Advanced graphics data unavailable fo=
-r root.
->
-> running on
->
->         cpu:    Ryzen 5 5600G
->         mobo:   ASRockRack X470D4U
->         bios:   vP4.20, 04/14/2021
->         kernel: 5.14.13-200.fc34.x86_64 x86_64
->
-> where,
->
->         the nvidia is a PCIe card
->         the amdgpu is the Ryzen-integrated gpu
->
-> the nvidia PCI is currently my primary
-> it's screen-attached, and boots/functions correctly
->
->         lsmod | grep nvidia
->                 nvidia_drm             69632  0
->                 nvidia_modeset       1200128  1 nvidia_drm
->                 nvidia              35332096  1 nvidia_modeset
->                 drm_kms_helper        303104  2 amdgpu,nvidia_drm
->                 drm                   630784  8 gpu_sched,drm_kms_helper,=
-nvidia,amdgpu,drm_ttm_helper,nvidia_drm,ttm
->
->         dmesg | grep -i nvidia
->                 [    5.755494] nvidia: loading out-of-tree module taints =
-kernel.
->                 [    5.755503] nvidia: module license 'NVIDIA' taints ker=
-nel.
->                 [    5.759769] nvidia: module verification failed: signat=
-ure and/or required key missing - tainting kernel
->                 [    5.774894] nvidia-nvlink: Nvlink Core is being initia=
-lized, major device number 234
->                 [    5.775299] nvidia 0000:10:00.0: vgaarb: changed VGA d=
-ecodes: olddecodes=3Dio+mem,decodes=3Dnone:owns=3Dio+mem
->                 [    5.975449] NVRM: loading NVIDIA UNIX x86_64 Kernel Mo=
-dule  470.74  Mon Sep 13 23:09:15 UTC 2021
->                 [    6.013181] nvidia-modeset: Loading NVIDIA Kernel Mode=
- Setting Driver for UNIX platforms  470.74  Mon Sep 13 22:59:50 UTC 2021
->                 [    6.016444] [drm] [nvidia-drm] [GPU ID 0x00001000] Loa=
-ding driver
->                 [    6.227295] caller _nv000723rm+0x1ad/0x200 [nvidia] ma=
-pping multiple BARs
->                 [    6.954906] [drm] Initialized nvidia-drm 0.0.0 2016020=
-2 for 0000:10:00.0 on minor 0
->                 [   16.820758] input: HDA NVidia HDMI/DP,pcm=3D3 as /devi=
-ces/pci0000:00/0000:00:01.1/0000:10:00.1/sound/card0/input13
->                 [   16.820776] input: HDA NVidia HDMI/DP,pcm=3D7 as /devi=
-ces/pci0000:00/0000:00:01.1/0000:10:00.1/sound/card0/input14
->                 [   16.820808] input: HDA NVidia HDMI/DP,pcm=3D8 as /devi=
-ces/pci0000:00/0000:00:01.1/0000:10:00.1/sound/card0/input15
->                 [   16.820826] input: HDA NVidia HDMI/DP,pcm=3D9 as /devi=
-ces/pci0000:00/0000:00:01.1/0000:10:00.1/sound/card0/input16
->                 [   16.820841] input: HDA NVidia HDMI/DP,pcm=3D10 as /dev=
-ices/pci0000:00/0000:00:01.1/0000:10:00.1/sound/card0/input17
->
-> the amdgpu is not (currently/yet) in use; no attached screen
->
-> in BIOS, currently,
->
->         'PCI Express' (nvidia gpu) is selected as primary
->         'HybridGraphics' is enabled
->         'OnBoard VGA' is enabled
->
->
-> on boot, mods are loaded
->
->         lsmod | grep gpu
->                 amdgpu               7802880  0
->                 drm_ttm_helper         16384  1 amdgpu
->                 ttm                    81920  2 amdgpu,drm_ttm_helper
->                 iommu_v2               24576  1 amdgpu
->                 gpu_sched              45056  1 amdgpu
->                 drm_kms_helper        303104  2 amdgpu,nvidia_drm
->                 drm                   630784  8 gpu_sched,drm_kms_helper,=
-nvidia,amdgpu,drm_ttm_helper,nvidia_drm,ttm
->                 i2c_algo_bit           16384  2 igb,amdgpu
->
-> but i see a 'fatal error' and 'failed' probe,
->
->         dmesg | grep -i amdgpu
->                 [    5.161923] [drm] amdgpu kernel modesetting enabled.
->                 [    5.162097] amdgpu: Virtual CRAT table created for CPU
->                 [    5.162104] amdgpu: Topology: Add CPU node
->                 [    5.162197] amdgpu 0000:30:00.0: enabling device (0000=
- -> 0003)
->                 [    5.162232] amdgpu 0000:30:00.0: amdgpu: Trusted Memor=
-y Zone (TMZ) feature enabled
->                 [    5.169105] amdgpu 0000:30:00.0: BAR 6: can't assign [=
-??? 0x00000000 flags 0x20000000] (bogus alignment)
->                 [    5.174413] amdgpu 0000:30:00.0: amdgpu: Unable to loc=
-ate a BIOS ROM
->                 [    5.174415] amdgpu 0000:30:00.0: amdgpu: Fatal error d=
-uring GPU init
->                 [    5.174416] amdgpu 0000:30:00.0: amdgpu: amdgpu: finis=
-hing device.
->                 [    5.174425] Modules linked in: amdgpu(+) uas usb_stora=
-ge fjes(-) raid1 drm_ttm_helper ttm iommu_v2 gpu_sched drm_kms_helper crct1=
-0dif_pclmul crc32_pclmul igb crc32c_intel cec ghash_clmulni_intel drm sp510=
-0_tco dca ccp i2c_algo_bit wmi video sunrpc tcp_bbr nct6775 hwmon_vid k10te=
-mp
->                 [    5.174463]  amdgpu_device_fini_hw+0x33/0x2c5 [amdgpu]
->                 [    5.174594]  amdgpu_driver_load_kms.cold+0x72/0x94 [am=
-dgpu]
->                 [    5.174706]  amdgpu_pci_probe+0x110/0x1a0 [amdgpu]
->                 [    5.174907] amdgpu: probe of 0000:30:00.0 failed with =
-error -22
->
->
-> are specific configs from
->
->         https://www.kernel.org/doc/html/latest/gpu/amdgpu.html
->
-> required to avoid/workaround the init error?  or known bug?
+On 2021-10-25 9:58 a.m., Harry Wentland wrote:
+> 
+> 
+> On 2021-10-25 07:25, Paul Menzel wrote:
+>> Dear Wenjing, dear Rodrigo,
+>>
+>>
+>> On 24.10.21 15:31, Rodrigo Siqueira wrote:
+>>> From: Wenjing Liu <wenjing.liu@amd.com>
+>>>
+>>> [why]
+>>> We have a regression that cause maximize lane settings to use
+>>> uninitialized data from unused lanes.
+>>
+>> Which commit caused the regression? Please amend the commit message.
+>>
+>>> This will cause link training to fail for 1 or 2 lanes because the lane
+>>> adjust is populated incorrectly sometimes.
+>>
+>> On what card did you test this, and how can it be reproduced?
+>>
+>> Please describe the fix/implemantation in the commit message.
+>>
+>>> Reviewed-by: Eric Yang <eric.yang2@amd.com>
+>>> Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+>>> Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+>>> ---
+>>>    .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 35 +++++++++++++++++--
+>>>    1 file changed, 32 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>>> index 653279ab96f4..f6ba7c734f54 100644
+>>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+>>> @@ -108,6 +108,9 @@ static struct dc_link_settings get_common_supported_link_settings(
+>>>            struct dc_link_settings link_setting_b);
+>>>    static void maximize_lane_settings(const struct link_training_settings *lt_settings,
+>>>            struct dc_lane_settings lane_settings[LANE_COUNT_DP_MAX]);
+>>> +static void override_lane_settings(const struct link_training_settings *lt_settings,
+>>> +        struct dc_lane_settings lane_settings[LANE_COUNT_DP_MAX]);
+>>> +
+>>>    static uint32_t get_cr_training_aux_rd_interval(struct dc_link *link,
+>>>            const struct dc_link_settings *link_settings)
+>>>    {
+>>> @@ -734,15 +737,13 @@ void dp_decide_lane_settings(
+>>>            }
+>>>    #endif
+>>>        }
+>>> -
+>>> -    /* we find the maximum of the requested settings across all lanes*/
+>>> -    /* and set this maximum for all lanes*/
+>>>        dp_hw_to_dpcd_lane_settings(lt_settings, hw_lane_settings, dpcd_lane_settings);
+>>>          if (lt_settings->disallow_per_lane_settings) {
+>>>            /* we find the maximum of the requested settings across all lanes*/
+>>>            /* and set this maximum for all lanes*/
+>>>            maximize_lane_settings(lt_settings, hw_lane_settings);
+>>> +        override_lane_settings(lt_settings, hw_lane_settings);
+>>>              if (lt_settings->always_match_dpcd_with_hw_lane_settings)
+>>>                dp_hw_to_dpcd_lane_settings(lt_settings, hw_lane_settings, dpcd_lane_settings);
+>>> @@ -833,6 +834,34 @@ static void maximize_lane_settings(const struct link_training_settings *lt_setti
+>>>        }
+>>>    }
+>>>    +static void override_lane_settings(const struct link_training_settings *lt_settings,
+>>> +        struct dc_lane_settings lane_settings[LANE_COUNT_DP_MAX])
+>>> +{
+>>> +    uint32_t lane;
+>>> +
+>>> +    if (lt_settings->voltage_swing == NULL &&
+>>> +            lt_settings->pre_emphasis == NULL &&
+>>> +#if defined(CONFIG_DRM_AMD_DC_DP2_0)
+>>> +            lt_settings->ffe_preset == NULL &&
+>>> +#endif
+>>> +            lt_settings->post_cursor2 == NULL)
+>>> +
+>>> +        return;
+>>> +
+>>> +    for (lane = 1; lane < LANE_COUNT_DP_MAX; lane++) {
+>>> +        if (lt_settings->voltage_swing)
+>>> +            lane_settings[lane].VOLTAGE_SWING = *lt_settings->voltage_swing;
+>>> +        if (lt_settings->pre_emphasis)
+>>> +            lane_settings[lane].PRE_EMPHASIS = *lt_settings->pre_emphasis;
+>>> +        if (lt_settings->post_cursor2)
+>>> +            lane_settings[lane].POST_CURSOR2 = *lt_settings->post_cursor2;
+>>> +#if defined(CONFIG_DRM_AMD_DC_DP2_0)
+>>> +        if (lt_settings->ffe_preset)
+>>> +            lane_settings[lane].FFE_PRESET = *lt_settings->ffe_preset;
+>>> +#endif
+>>
+>> Normally these checks should be done in C and not the preprocessor. `if CONFIG(DRM_AMD_DC_DP2_0)` or similar should work.
+>>
+> 
+> Interesting. I've never seen this before. Do you have an example or link to a doc? A cursory search doesn't yield any results but I might not be searching for the right thing.
+> 
+> Harry
 
-The driver is not able to find the vbios image which is required for
-the driver to properly enumerate the hardware.  I would guess it's a
-platform issue.  Is there a newer sbios image available for your
-platform?  You might try that or check if there are any options in the
-sbios regarding the behavior of the integrated graphics when an
-external GPU is present.  I suspect the one of the following is the
-problem:
-1. The sbios should disable the integrated graphics when a dGPU is
-present, but due to a bug in the sbios or a particular sbios settings
-it has failed to.
-2. The sbios should be providing a vbios image for the integrated
-graphics, but due to a bug in the sbios or a particular sbios settings
-it has failed to.
-3. The platform uses some alternative method to provide access to the
-vbios image for the integrated graphics that Linux does not yet
-handle.
+I'm curious about this too. The compiler with optimizations should 
+remove the constant check, but technically the C standard only permits 
+it - it doesn't guarantee that it happens.
 
-I would start with an sbios update is possible.
+However, this patch should actually be changed to drop these 
+CONFIG_DRM_AMD_DC_DP2_0 guards - this isn't a Kconfig option nor will 
+there be one specifically for DP2. This should be folded under the DCN 
+support.
 
-Alex
+Regards,
+Nicholas Kazlauskas
+
+> 
+>>> +    }
+>>> +}
+>>> +
+>>>    enum dc_status dp_get_lane_status_and_lane_adjust(
+>>>        struct dc_link *link,
+>>>        const struct link_training_settings *link_training_setting,
+>>>
+>>
+>>
+>> Kind regards,
+>>
+>> Paul
+> 
+
