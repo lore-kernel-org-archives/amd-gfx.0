@@ -2,76 +2,101 @@ Return-Path: <SRS0=aCMl=PN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E734C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 17:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7340EC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 17:56:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2454861002
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 17:48:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2454861002
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 33DA560FE8
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Oct 2021 17:56:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 33DA560FE8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 997176E193;
-	Mon, 25 Oct 2021 17:48:32 +0000 (UTC)
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [IPv6:2607:f8b0:4864:20::82d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4FF6E193;
- Mon, 25 Oct 2021 17:48:32 +0000 (UTC)
-Received: by mail-qt1-x82d.google.com with SMTP id t2so11012530qtn.12;
- Mon, 25 Oct 2021 10:48:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:reply-to:subject
- :content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=BtGwZQqLyeVwRyLLA+/DNrTsbJxo3+8snfh+L6EC62U=;
- b=LAU7hD3JnpAvimCobygD9XG+nRmWpHXniwx8U+diKkNeqHlabzmWd0wZhjdlM3070C
- S+bTamCCvvTMDD2rLpF9ZA/0nCuoziMrdN6C+D0ZCzWcXG9WN3ccbdC3F6zINpa1i5zH
- RflF/oO+fMkySTXCv/4LPUEO9NtKNUk4oAK4dopmLC0f2NOyKcNeV3D0cbU+v16+3dzJ
- UlzzVjdnwzZutzzu8hdSzJ3LLDhoLz8ElzNOkp5cIiYJFqv6nnEePb4tH5swJNq73LV5
- Oc0vzfrHCxYppB37EFmKUbndcoTlV8WX+UUqT1fPektPcZIlD9kSmwVw0szCzuajBHyC
- BqYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
- :subject:content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=BtGwZQqLyeVwRyLLA+/DNrTsbJxo3+8snfh+L6EC62U=;
- b=SaXK3WhmKm6KhMn6YqTJG3e3N3g7WGDiwO7rDw0Gbf4WtJ013y7GTzIIW+b91P74ov
- PGLthKDyj/5fnOy4jNvwF/zQngp3//l2vuLIjucDFvo3mzlyp6ZDGwi8rM8IinD+DDf1
- vvq+knNyeAKWwlvO2dI1iskzTOLqDdONrvO5OG4+6p32aujBmdkhBxQu17CZSmD7E8qr
- fILaayh4+slTjvgELaH04tKP44JuGGfOc0cM0ML7v7bDUmurvKvI6ZUClslIvbTsJ/BL
- ngvJNtFPW+rBr//sAYxLamHQiZ0tYFvUWU8mKzVQ1Dc6rp/GCQ1ulcflQr4ZndxB6+LL
- 90tg==
-X-Gm-Message-State: AOAM5307Hf4Y+igvJpxF7JLwwoLVB1N7KIV/QpH+rBBVstpafWM3MQDK
- We8u1+bNDZYc8w3UayEOUSU=
-X-Google-Smtp-Source: ABdhPJwh/n1YYJlQQKIVB13OFFINIC3PNTATpXpZHYja3ycyvORcSOD0T6e184TZreDJliFoYGwJRA==
-X-Received: by 2002:ac8:610b:: with SMTP id a11mr18965953qtm.182.1635184111176; 
- Mon, 25 Oct 2021 10:48:31 -0700 (PDT)
-Received: from mua.localhost ([2600:1700:e380:2c20::49])
- by smtp.gmail.com with ESMTPSA id v21sm512169qtk.46.2021.10.25.10.48.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Oct 2021 10:48:30 -0700 (PDT)
-Message-ID: <f43cbd18-a0ef-a029-4f3d-28c9f9d27ad1@gmail.com>
-Date: Mon, 25 Oct 2021 13:48:29 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF8126E19B;
+	Mon, 25 Oct 2021 17:56:07 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EABE6E19B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Oct 2021 17:56:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JnL5yzL4SHg11ZzSrcBPx4rxw7jpnt7xwvRuuEI4jPBElIDGMI50Cokb8o1MWYxysUqeajZrcYTerykri4iWhTNlD8MPx1vVFyk3eMm3vvgJaSQGI6uvB9pgxzoq1oacgwQpbIgINBwLX7rJ8thH0rYE9Hot7KNlHO1f7x8D/+Y7LHpHCttzMB+OtdGBMViXLwWmyzdTV4XLdGtWoWeIs9KaaAVnz+CRYrROqjzbGxElXNtUBe8M9+M3UF2ma/HVnqTehd3mQWvY1CZV+HqYQo63m+zncMkp7KngJNnJvIdrBh07st3PeLciyKVa7TUxjmgW9CounXlUni2CDKx88Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IAw29t6j6F4E7ovVlBQHXf1jd5jrn0k0+6oL60PGorU=;
+ b=dYV3dYAqwAunwnK+f6aUXHhACrz9J0CUf95QKoHTpFmrZAps4t90U/POmhOQtNxgvVUZIXXxgr8aQENgHzVATpeF5P08MeOxKQJGu2yNmKz7shjBj65xUlK9rgG8+8SjYStM+p0ixPPvB1nj+AjPJrIe4OTt9sra+VKgXnZPBET3TlclteX0l118wXUND1d8+XCleIn12qw4mLeQHXaCVA9a3aUu3+e0Bdao1myJivzNZEAP2MN/gnDXC3704XGTtervORW8XKKP6MithD8ds8JXGZDWF2thIa43nT1XIw87HdqwhtIsGonMSe2lYCsAVBDzoxEUcdWTwNEH2cZ0kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IAw29t6j6F4E7ovVlBQHXf1jd5jrn0k0+6oL60PGorU=;
+ b=mywmFUhlo5lH10Lh8TzncG//QTtt0OhahLl5Ray12sClEFVZUVCV30kAjN3btU2yrjuo5zmw5nBl5nO/Bhg2BjxLm3JHAjFA3J43h7wLtYJVOjsF5lleUNoqTiO0SdbyMuPtXAwJ57n70H0JftFjU7egQd6ucwwrRGUn6rBC1rE=
+Received: from MW4PR03CA0036.namprd03.prod.outlook.com (2603:10b6:303:8e::11)
+ by CH2PR12MB4279.namprd12.prod.outlook.com (2603:10b6:610:af::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.15; Mon, 25 Oct
+ 2021 17:56:02 +0000
+Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8e:cafe::4c) by MW4PR03CA0036.outlook.office365.com
+ (2603:10b6:303:8e::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
+ Transport; Mon, 25 Oct 2021 17:56:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4628.16 via Frontend Transport; Mon, 25 Oct 2021 17:56:02 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 25 Oct
+ 2021 12:56:00 -0500
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.15 via Frontend
+ Transport; Mon, 25 Oct 2021 12:55:59 -0500
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Aurabindo.Pillai@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 0/5] Fix USBC lightup on DCN31B
+Date: Mon, 25 Oct 2021 13:55:52 -0400
+Message-ID: <20211025175557.148601-1-nicholas.kazlauskas@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.2.0
-Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
- + kernel 5.14.13
-Content-Language: en-US
-From: PGNet Dev <pgnet.dev@gmail.com>
-To: lijo.lazar@amd.com, alexdeucher@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
- <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
- <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
- <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
- <b412bb59-8f60-6b4a-9bc4-e606c6b9f66a@gmail.com>
-In-Reply-To: <b412bb59-8f60-6b4a-9bc4-e606c6b9f66a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2abfbaad-7a78-4a5e-bfb8-08d997e0b567
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4279:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4279E2D6F3A3F5F79987DE2FEC839@CH2PR12MB4279.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GwqNUk1q9/rb0JxJwKhhkYUHhyjXUPMwvgEbdDvYapPMQKuvM8bbwS8OVmIUFw8WeKxWf+P+Q18HeQeCyQ4dSnEBYG5bXhYBMjNgAFkLGJ6K4LKMYxwWPe6CFGhNuklDAMcWQvcsV+wCTnABSzRwQfR6uzn1azqRs6GBdoQfufgSjyWfGnUeoDUnFTkueI6r/gSTLd11/H1v0Vkvk9XYG4076aqGoNAFtgA+iyJsf89p8H8qdMwY3ser65sC1E5ABkHVH+pQT1U5l5YhbLV5c4J/OCxOAh3AbF4KpJDTweO0JPEhGZUaRe/fbmn7CzZa1A8Xu24at0lCcK9Olq2xW6VDELDRNuDi/1Kfk5wdb0oN+BCbKCrr5y4BazQq0jMvuNvV8cBvAXD74yDnL51vdMfrND1dplBL2mJ2XCnli2QZMUELjzmIDmzZszMTtOOpAPniZIJIVbMgxTaFs9cegxBOkzzInGHEL35dNgxbkd6E0XbYryc2mz2dXENn7/tjsGsJ7k5IC6aTALLIXL08G1R7OyZAXeIC8z0u/5P+W3BeQcLF9PPPZCwW+jWRTXBy5i/Yq3fCzTCjPo8xN5pegKWThkFjDyx1IT1HptjWpZLUtZDj2beGxAan/Xz1ThNW73w3GA9s6XFoGkX5goMK0cSFYwjHqsoVPk9Tle64JXNfN1UTjrcSq/JYglybxJrqHIaCOdrEaF7mYHDhY7woCWDCwWtZLNohW/e98w3gdEw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(86362001)(426003)(26005)(36860700001)(186003)(8936002)(83380400001)(5660300002)(44832011)(82310400003)(2616005)(81166007)(316002)(336012)(2906002)(356005)(70206006)(6666004)(36756003)(8676002)(70586007)(6916009)(1076003)(47076005)(4326008)(508600001)(54906003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 17:56:02.0030 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2abfbaad-7a78-4a5e-bfb8-08d997e0b567
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,15 +108,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> sbios settings
+This patchset is a mini-promotion to fix USBC lightup
+on DCN31B for both SST and MST displays.
 
-any of these raise a suspicion?
+There are five issues at play here:
+1. Invalid clock table causing mode validation to fail
+2. HDCP downgrade to v2 causes deadlock
+3. MST payload allocation not being propagated
+4. PHY mux selection not being properly indicated to DMCUB
+5. Hang occuring during HPD on PHYF/G.
 
-screenshot from the ASRockRack X470D4U's BIOS setup:
+Jude Shih (2):
+  drm/amd/display: Fix USB4 hot plug crash issue
+  drm/amd/display: Enable dpia in dmub only for DCN31 B0
 
-   https://imgur.com/a/rdhGQNy
+Meenakshikumar Somasundaram (1):
+  drm/amd/display: MST support for DPIA
+
+Michael Strauss (1):
+  drm/amd/display: Fallback to clocks which meet requested voltage on
+    DCN31
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Fix deadlock when falling back to v2 from v3
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 35 +++++++++---
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  | 13 +++--
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 54 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 28 ++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  6 +++
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  1 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 23 ++++++++
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c |  1 +
+ .../drm/amd/display/modules/hdcp/hdcp_psp.c   |  6 +--
+ 9 files changed, 153 insertions(+), 14 deletions(-)
+
+-- 
+2.25.1
 
