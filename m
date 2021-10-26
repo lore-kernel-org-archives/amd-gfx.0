@@ -2,132 +2,136 @@ Return-Path: <SRS0=fVrT=PO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA8B7C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 00:10:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C41FC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 00:57:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A95960E8C
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 00:10:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5A95960E8C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id A34F860C4A
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 00:57:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A34F860C4A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6B086E17E;
-	Tue, 26 Oct 2021 00:10:22 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2088.outbound.protection.outlook.com [40.107.96.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CFF36E171
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 00:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 046716E195;
+	Tue, 26 Oct 2021 00:57:15 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2055.outbound.protection.outlook.com [40.107.95.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9816A6E195;
+ Tue, 26 Oct 2021 00:57:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cvdcuawpgYREKvXQKOsOYAHY7F0SDq+qWw8HO9Rln6z5jfgFAL1bfTM5QWVWn2moih31dcnLlWQGfIgymgTt6Fv+uYNb6xSuL/zohsZGOru54rkQo4+iA3J5migeMBtNzlf9wepxCw22d9Pv+jHBWQOsZGwBgRaB3aC3ffAemaZt8yRum+u+dbBPSeE8MMVPnJ8nVUQacMIaG+qjEuQlgWRrJiO1yc4ft3PW/uzUH/LyIWqEFagFOBUVSfMXikntGB7MxDlTwb5OyBu0t3QCDtRP+dp01pH0JnG9vPQEiCy9rZMTFboEsPolNeZOMxrXSg5VuGdBMyPna/1bBlmLLA==
+ b=Eu0NMrII1gUYA22lbuk6C1KrC2pTUTqaUsLuz5Vzv92PFVOPxvuBiYgyWDLCTWsI8tGHgFssVScY47Nf0MWiyXyc5WisbrvDwVVUxJnW0+8RKflWkB/1SwDq2GzcTgfMWbPk5B/YAoHPtVk9zNxYyf+8CEbAgpuK5LMr1JKifRdt1FNvH9Gqp1f2iJuzajBRMJYIUfD7Ls8d1UqwLgyJzhZqNa/TBnHfLs8JDkfkiWyYS+9BKaMNjWtIR3y8IFw3CXta+88YAEvYsMd9q4k9b6z0b4LwKN6eoGYtextO1RDHMRQHbF/mcuvGrtO2uGozxxEORcHnUtL2FZXqTY5ZVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=42aY1nBcvIoCAKvZ9WTr2zn2DVG9jYB6TJpLx9LpEzU=;
- b=UNwkwrvU9oz17fF9Uf+Mnyc/YLS8KvTqOcY11ragOhihdd05g34CrQnhEyMXpcrl7rKHU28GwXEe+AjHj3j0A/t6Fbd/hy4rQnezWuJCj37COWeHxaziUpC5NF1SylhlR33Uo/RPG1niiPOxbZqy7NR5XVNH6FMopCC8Qbka3jxv/EPzNQUVrE+ZUrmy2on0JybbGjv/TQ4rg3Ln6AZ7l9dkc9BFur3PJCy/FMWmXS0RfbzZXGoVIgEBPrNrUL153QG4/JhgwjnJObJA2gxVvRfocw6o99amQef/bdUD0tkEO/3WNSCFbVtlvdubZntphVZn+xRSG0Inf4wOkzA61A==
+ bh=TYzq9i5jN3hDuz31Be1/qKrcqfMjuVMbBQ14xEEiLyc=;
+ b=BC/yuMoGq49hvGzThogsp7iny+w9KyEYv/LMsXLD3d5N9ACShz/GnUB+OaNBbzO4ysI2nCAXH+BmHzspiB3smWxvV3SNB0Y4LjYejEawaG/eNqGw4W0LGIkrw6mz6q4skQzwiVbO0UuyJWg5cjxQ7By7ZBt9r7PuhSbqxJvoWrf33zSoRrmDwRO5ku56QcjIStwgVv60E+S12fDpoR8gqY0XAw8yuB+F1yoLs2Hly91Hzqz//NxzD2R7DzEjv1EcRiFQHXdpoz2M/RMHN5vH6d1Ng790pDXSYQoHHd0xdauQEE++QEh+RvEU5YzEOS1HqAzy1Flww0bZSBy1ZS4GNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=42aY1nBcvIoCAKvZ9WTr2zn2DVG9jYB6TJpLx9LpEzU=;
- b=hI56vBxQ5g7W6r2mkr6uhpaPd+CM/7aSKf5n/RN5Y+Ox6YrPsB8UVU0NEgO2ripGt0S9HfKIjSDfVdFSnMFvv9C7x7h+WCycpn1CRNx07vd7oR5z/b716LJqh8x+m6rZv3ZCDuiSL/F1aU8GrXnoB/HViRdlWEkm8P2v2VxCRRg=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM5PR1201MB2491.namprd12.prod.outlook.com (2603:10b6:3:eb::23)
- by DM6PR12MB4356.namprd12.prod.outlook.com (2603:10b6:5:2aa::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=TYzq9i5jN3hDuz31Be1/qKrcqfMjuVMbBQ14xEEiLyc=;
+ b=DK/mF5j8JpykbcIYmo3CMVrRqB5lkaO9j+cZPscn041CiJnRJhLLiTyu9iI3hsqTp+G5EoBPccYKSqgTyBTbWQEGZDZ2dqXgnAjaZsJQRYxI8vKp+h7T9CKIjchxoEZkAGAoHAWT4IV+12tElzvIb1Xpo3WDljs5Rnf+oOhJJJC8JWjVFJIoHj5yhH2KmU5xlUcD4bJoALriv82yceeNy4MwbvH+AYaUqvjHritA/1SGWysLq1FVcHiFvKLIexYoF1xW58yiQIPsTu5BNngQ1wHD9jzCSOBjlu35G2bCL8LIiOcrW1t5lG/pSFjbkVTH7hzwV6i7Q9Sn3XkeFwbLEw==
+Authentication-Results: nvidia.com; dkim=none (message not signed)
+ header.d=none;nvidia.com; dmarc=none action=none header.from=nvidia.com;
+Received: from MN2PR12MB4344.namprd12.prod.outlook.com (2603:10b6:208:26e::11)
+ by BL0PR12MB2338.namprd12.prod.outlook.com (2603:10b6:207:4c::28)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Tue, 26 Oct
- 2021 00:10:19 +0000
-Received: from DM5PR1201MB2491.namprd12.prod.outlook.com
- ([fe80::d153:3aa6:4677:e29]) by DM5PR1201MB2491.namprd12.prod.outlook.com
- ([fe80::d153:3aa6:4677:e29%7]) with mapi id 15.20.4628.020; Tue, 26 Oct 2021
- 00:10:18 +0000
-Subject: Re: [PATCH v2 2/2] drm/amdkfd: Remove cu mask from struct
- queue_properties(v2)
-To: Lang Yu <lang.yu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>
-References: <20211025095822.207721-1-lang.yu@amd.com>
- <20211025095822.207721-2-lang.yu@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <15b5bab3-ea50-a118-00c9-fe598ef7b73e@amd.com>
-Date: Mon, 25 Oct 2021 20:10:16 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20211025095822.207721-2-lang.yu@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+ 2021 00:57:10 +0000
+Received: from MN2PR12MB4344.namprd12.prod.outlook.com
+ ([fe80::c440:91f3:b2d4:9e9f]) by MN2PR12MB4344.namprd12.prod.outlook.com
+ ([fe80::c440:91f3:b2d4:9e9f%7]) with mapi id 15.20.4628.020; Tue, 26 Oct 2021
+ 00:57:10 +0000
+Message-ID: <f92e2dfe-f033-9b09-e83c-203052b491e1@nvidia.com>
+Date: Mon, 25 Oct 2021 17:57:06 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.0
+Subject: Re: [PATCH] mm/migrate.c: Remove MIGRATE_PFN_LOCKED
 Content-Language: en-US
-X-ClientProxiedBy: YQBPR01CA0001.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::9)
- To DM5PR1201MB2491.namprd12.prod.outlook.com
- (2603:10b6:3:eb::23)
+To: Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org
+Cc: kvm-ppc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ Felix.Kuehling@amd.com, alexander.deucher@amd.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ jglisse@redhat.com, jhubbard@nvidia.com, ziy@nvidia.com, hch@lst.de,
+ bskeggs@redhat.com
+References: <20211025041608.289017-1-apopple@nvidia.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+In-Reply-To: <20211025041608.289017-1-apopple@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BYAPR05CA0105.namprd05.prod.outlook.com
+ (2603:10b6:a03:e0::46) To MN2PR12MB4344.namprd12.prod.outlook.com
+ (2603:10b6:208:26e::11)
 MIME-Version: 1.0
-Received: from [192.168.2.100] (142.118.126.231) by
- YQBPR01CA0001.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::9) with Microsoft
+Received: from [IPV6:2601:646:8e80:c510::b850] (2601:646:8e80:c510::b850) by
+ BYAPR05CA0105.namprd05.prod.outlook.com (2603:10b6:a03:e0::46) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.16 via Frontend Transport; Tue, 26 Oct 2021 00:10:18 +0000
+ 15.20.4649.12 via Frontend Transport; Tue, 26 Oct 2021 00:57:08 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4c32c3d1-3d78-44bb-300e-08d99814fe80
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4356:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB43560FD27F6C8E94E7D9FEA892849@DM6PR12MB4356.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: 31f356d6-27e4-48a2-d961-08d9981b8a27
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2338:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB23386FF92B70E8CDEBFB2AD5C2849@BL0PR12MB2338.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1VYqNZfr++4lMy5Q2pAo9/OOeefMrnYZxKSzJiRHSmPpBQLYeUjzZd56b1nBK/HGdhbU5YR2iLv7FEhyvFjtcLmwJiaQ7dhYUqdh9mpDiirly+g3rAH6wCdpfoFwmJ0LqnMjxOOGLntPntcnXivH/+BSw/9sFOPgnaUe7u9T3uXPj2wzHqZrjCie+NHKenDrVvFDbsWufLrWpY/ZidG/xGL33eSd6ohqVNjO9DrLmx8gD7V6bso0Vz9JJl/5y8mYoOZDFmpjwQV3Dhrf4mgnvazjwW7VNYHDRId9NL/tsOdSLz0TizHwalah3vs3xRosA32FYCKCbV7P7FY/UuxKckxSLZJi6cFKbN7PWyQvniYwEwXiDCyY8xKHjFIwXk4b0mfZO1hR1hA5ZDKUuQjPhh4Jb2Q25/p1BKMXxUh0+bjeNsGXK8aFe++qvtwxmLVIJxGv5EN0cdOfpAnuvXsU/gEaA53B4SjVKASfpt2/umfUyOrs8uB+KbaINEzKtMsseoCocdsu+73IceXCspHgpMF5h/dzy+kGqB4SrJPZk7H9GpxDwx6XCXFaBkwFsBeKgsNJ3bUHKq/SQ1pA/9pomPiQaKL9yd+tDCIbugna2qa9f2nYrOipWRj1conrdaHBbd86rqXIRUA3bfDMdY4eJpaVz+M2j1+2blACrl28S0c61R6T9HyaMZ3gLI8nmN0pnfdnasykxNsL8g1WhGx0ii2ZBwsjdwfFwsHpvzBxkXtEzuadKUFkVnfAA+ps4vpo
+X-Microsoft-Antispam-Message-Info: Yse1a2hpKEVn/oXBz8pKEyGVeAmOJpGL8YHAIjHt/zEpy3AKMbw75W663OnPCkbFKNlm/NH4DdurtzNb8W5HUBgHgAjRDMJXfISH5gGHct14reEjRJIutArSV0qVc/YkebkTULj3p64BxVrsN+gVCH44G9argw0WB4Ryy6hSpgNwC6G8D+fm5eoFYCH4BnEAo6+LK8tCGte4aMF6+e5sYSlwV+kA9EpUV3OLST6EWUoL8ozK8XRpNGfTUo2M2EB8ODVDI1lFO9oO/mh1dRN1I15hOMU7hAL4P7qBgpGZK19K7W1AQb0ZIvh8o4oldc+7USEEE34vGoxTafdbjWuOyR5fhpcziCYLxusHUfIi/C7mYFDCbOtbuJKEsnXrW7igFxi3kP8JI7QICM+tI53VSWQ4l2EXStS5Wd2GOEbvbn/5M7/8yospW7gOXTNyZ2zPBR40nFP853Nx7JDBLcUy5rpu3resRKL+A0S9lEVvYcKjbP+YLfGTJYY+5Azx41j2QfOvXRPaU2CacO4I2Xm2YjCUALFNj3DLOFv8fXLHfUTy7BeqV5v3IqY2dZ44UX6S7dQ9D0G8WLqnjeOIybF33X3wLsDDrs26zM/iHA4/xojx2SfoNlbO/FK7Th5O+d0qdEynxPc7GKtCn29BtQfYfsUrobgsRP1Xo+Mdqf0iTiwZMgZ4Yitgyno3592zFnYU/EhFE24hzm+aDfL4PAW/9MzF/vHEOuz5BnUGgE3G8sA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR1201MB2491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(186003)(26005)(38100700002)(2906002)(16576012)(54906003)(316002)(5660300002)(36756003)(66476007)(956004)(66946007)(4001150100001)(66556008)(44832011)(86362001)(30864003)(6486002)(508600001)(8936002)(2616005)(4326008)(8676002)(31686004)(83380400001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4344.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6486002)(66476007)(8936002)(83380400001)(2616005)(8676002)(31696002)(66556008)(66946007)(5660300002)(7416002)(2906002)(31686004)(508600001)(4326008)(38100700002)(53546011)(186003)(86362001)(30864003)(316002)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE1iNCsrdHBGUU9rYjF4NjViYUFFaXVLMWwyZk82WHJadDBseUpLWURtWEI0?=
- =?utf-8?B?aVFEeU51NFEwTU9KYWZua210Nm5PSS9PVXBwZUhLUzN5RUs0clM5UjlEOUlW?=
- =?utf-8?B?a2lvWGdIR1NnbnRWTTJwVEVKZ3FrUm80a3lPTWxnd3JsMkY2VU5TS3NNbGsw?=
- =?utf-8?B?QzU1K0dONU9acWpEZUlycmJUWW9sRys2ODBvU3ZSVTNJQW9HbGNxdzh3L0tP?=
- =?utf-8?B?ZkNYa0l1cCtlWEhqcjlkMVVEUlA2aFpHd0g4M09seUY2WFYwMGxtbFlmV0dY?=
- =?utf-8?B?ZUdPdDZlWHNrTmN4dGwvb1JzcmpSdzh2QzR4UUdqNGtWcUpKRWZmMFc2V3c2?=
- =?utf-8?B?SnAvalZnSi9vVDZtcU1taUVsQ3BpN0E5dTFoNFkrTFFZdURTYkthZk55bCtS?=
- =?utf-8?B?dUpJQUdDNUxQRjB0YkhFSnkxdzRYQzY5MlphSEJHYkdDN2pFUmxMTUFCT2w0?=
- =?utf-8?B?b2N6eHZSK3orOUtRSHgwL0ZrQWpMdXRXRktKVlVaTHVSalMxT0FUdmtZSDJD?=
- =?utf-8?B?NDB6TGJTbDJqTmhZSWI0N1U3U0RVc2I0Zmh1ZndKbG5sSVl5dG1VUGdNKytj?=
- =?utf-8?B?eThoNCtBR0JyaUpnQlF0YW93YkRSUEMrZE1DQmE1MHRYUzVERUQ4SVFQL0ti?=
- =?utf-8?B?cjZvdmtmZzFNUTZGYy9MNzFxL1ppWkY0ZGhkQnhvMFRTemFCd1ZzWURVbHg5?=
- =?utf-8?B?dmdRWjRrUExnNDVLM0NZS1ZuTzVYc3BjNG84WTdPcUdJWmpWWTV4ZGU1ZFhk?=
- =?utf-8?B?a2ZpRm10R3lmQ2M0RGM5M0pDdVlFMGxTcVQ1bmpMQW9xUjRRbHd5MndkODNC?=
- =?utf-8?B?TXd2b3RqVlhUaXR0UDdycnRiVko3NGV6S0pmRXl0NHFyUzNxM0hFdVJpRWxD?=
- =?utf-8?B?MEJ6eUJIODZBRVVKUDVlRm0weUJtd29ZLzJlQXFkSTFnTVo2WHBwM3BieWRi?=
- =?utf-8?B?blBlNDJDS1dzbUhTc2tCVThpTnpBK3RPWHZPTWE3NExzT215UW5VUE5Zdm10?=
- =?utf-8?B?TXJNblVRTXYwVDRIMzE2TEVTS2ZlWVV5ay9hMExqVklzV2x0S2pOWkJiMGxt?=
- =?utf-8?B?UFBCZFVwVVVUUGR2YVVsUTZlYXhtd3RvZTU5b0hzNmpBeVJCNE5HMjEzNEZq?=
- =?utf-8?B?QUw4Nll4UDhBWXc3NmtLMHhEOEo3Uk9MWjM1R0NVMnl5V3JhaUVmWTJ5SFdt?=
- =?utf-8?B?aXVUMFprTEhiOG9IcDdzYjFyb3J3WkRIU1cyRjJPTmxWQ3E1M0IrSVQzRlZ5?=
- =?utf-8?B?eDRiNDZQNVJVQlNjWXRhK1R3L1FqQndDUGpVdVhyUGV3VXJ5UGZiTFpiNHFj?=
- =?utf-8?B?RkxhR3lEZjJTWHU2K0F0R0Fsdy9oSE5yaTdPYTZiaUNjMmxQQ0lYZGNlMkIr?=
- =?utf-8?B?N2tQdVAyUXU4bHZ1RSt3Vko1Vkg1ZXlJeTR0MjR3ZDdwUFRlNkJ3b0UzSDNa?=
- =?utf-8?B?U2NmTEN1K2tOT0lmN243NjhWRVcrd1o5Y1JQMzIxSkYvWjFqdXZONFZmM01s?=
- =?utf-8?B?TkNyaHIzbk1HR2psZDhza1drQ2l3RWxoT2o4ODAvTk9YSUZ0dVpoSElnYVhI?=
- =?utf-8?B?c0k4WnFRRm1xMTI0VUhMb084S3RiQldQTllaOGhUdXhYOUYrOWtIWWNXL1Fp?=
- =?utf-8?B?MHlSYm8zRkFSZWVyWFJrYzlrUzBhUXQ3WnltU0t4N3NxemJvSXN1TE1idTNU?=
- =?utf-8?B?bmcrWmYzaGk2RnV5TStkZXdKUWR2VEJ3emdWMGJTVE0yaE01RWgvYVBYOFp1?=
- =?utf-8?B?TWhnL05XNFBDVUNFSTN4bmxlRnY0eEhPajYwWEJOQ2ZZMEwxZFpkSGVQNlhT?=
- =?utf-8?B?NUtCaTdTL1owaHhtUElYNDhuRlJDOERYWW8rOGhKc3NYeW93THhKTWtUTVNn?=
- =?utf-8?B?TDlyTXl0Y2tJU1VTTWppY3JlOTBaWHIxbjJMN3BGWmpzRytNZHREY0RJTWt3?=
- =?utf-8?B?ekVGMEczbVRia2UvNStlSGVtSEZuL3F5V2xySWlDdDQ2RC9QRWZmNkRmM0Fs?=
- =?utf-8?B?Y2sxamtDZ0FkMCsvZXVrYWp4bFhSeHE0bWI2RUxCNVpkQkxPU2Vmb1NSLzcv?=
- =?utf-8?B?ZzkrSmIzQ0plTXBMRWpySUJzay9WK3FVcnJicVVaMk96WVdOVXoyaXBQdlox?=
- =?utf-8?B?SjRWTnB5c0p6b1NWd3pNa0VWQUZhMmxEZUdteXg0K2VQVGRDVjFBR3prRmpw?=
- =?utf-8?Q?IqjnVVS4yjJFDECzBTWfkzw=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c32c3d1-3d78-44bb-300e-08d99814fe80
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB2491.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzBCUXhNeFk4K2trRnhRZHdKbHI0SUQwV2RRalRHcVpKWDAwWXd5Ylh6OG9Y?=
+ =?utf-8?B?bEFLS0lyc2pKWHN0ZFBEbU1BZzI1R0NzazBNTVVMYkhTL1ZYblpaUElaUEsy?=
+ =?utf-8?B?bnVuR3p0UmJuK25EcHZJSVQ5R2ZWWnVMcjVhdTFVaW5tNWRNT3FOcFArWVdP?=
+ =?utf-8?B?WXNTRExXY1NYREcydDM3djMrTkx5bHNabnNmZUtxNHhma0pwelBwQ2NyTCs1?=
+ =?utf-8?B?aURYNEN1eXpyOFZlTzFhdDJXRWNVRUg4UXlDdzFMc1F1VHBxaWtTa0grUThD?=
+ =?utf-8?B?ME5UOUZnOXhhQUhFS2V1QytKMVZIWFZrQjZQTTFOM2JuTWpKVEh6MTJQT1Y1?=
+ =?utf-8?B?bTVSMWtYSy9aUi9icTE1ejRwOXZKbm11MThzKzErZlNGS3RVanVJZnNyOVVw?=
+ =?utf-8?B?Zk5GejNTb2V1TmM0NENjbzkrWkZtWUhHNXZwdEp3QjhTdjdGc25ETFBVT3hK?=
+ =?utf-8?B?ZUZwaDVwS2NLbEhpekdXYzRqZnlSNE1KTTM3OHEzWmlhRkxzOC9lUE8yUVFM?=
+ =?utf-8?B?aHZMNmVJV25HYVdwbHJsUW45Y3hrNTZiNGxSNWJERzBqeFdHTy9iWGNua2ZD?=
+ =?utf-8?B?cGxVRXE3ZjN3UVpWbGJrMWtmaFlTc2JOd1htdlR1WE94T0dmSmQ3bXdTSnNI?=
+ =?utf-8?B?eDJJSDExZjlWSXQyNkJBblVxbWxROE50azZtVTBZRE9QY1VLcXFQYWdNSVd3?=
+ =?utf-8?B?S0dHbStocW9MZ2Y5YXFldFFSa09ROHNUazhMZ1J3bEtvNXJtSjl5bFhINSs4?=
+ =?utf-8?B?TE8xOW1wdmZ5KzZ3UFlmZDd3eUkxc01wMmJPeVpDODQyQkhielhJZ0NwbVVY?=
+ =?utf-8?B?M1VZazVMbXMvVDBtZXRCMzNmT1JTZ1g3SVZ3V3BoUnBCYWZ3VmFTVU0vc0JI?=
+ =?utf-8?B?ZWlpRyt5SEozSEhvM29JdkNUUlUzNHRDMkN4MGs4U0RsaG0wNVZ0ZFU5U3B4?=
+ =?utf-8?B?VUtabnZuVUR6MVhFeCtISmpvbkl1eGdrc0pkNXM5KzJtSGtrZll3QURUbnFE?=
+ =?utf-8?B?TExJc0dIRHZmeE5uK0RJZGxVL2lVU0RVRXBXRXpKK0Z1dWlHRmhpMGNQOXEv?=
+ =?utf-8?B?dDd1c1FHaTVBMEU1UlMwOVV2cUoxQWthZk11SzczT0t2ZGphbGtTSWM2eDA2?=
+ =?utf-8?B?Ky9leTk3M05VUGc2WVVXNklUMXkzZGF0cC9CVDk5aklya01sNGZCdkdldnA1?=
+ =?utf-8?B?SUMvVy9HbE1ocXpSazQyS1N4K0ZRUktNN3hnSGlZTDlzNkYyd3JSNDl6ZjVM?=
+ =?utf-8?B?VlNYM1JZK0thb3ZncEpQa2hTRzVVNUcyc3BsT2ozbW9Xd01Oc2Y5QmFJZE1Q?=
+ =?utf-8?B?ZHhaUlRNeHFpNGpZdVhtRDNSeVdRck9ZbnlmUUlxUDVRbEpNcUpGVVZJTEtB?=
+ =?utf-8?B?TWt4NlRhUWpHeEtZMjJiSlZJejFVbEkzNHlRKzFreXA2TmtNditaUFVsYVh4?=
+ =?utf-8?B?emN2dXM0MVArSjV5eXJCNXFWajJ6RUFJa1M0OVIzZ0hueXpMMGZsQUZmdzd2?=
+ =?utf-8?B?NmxLd2gzZm5GZHE4dDQ2NE9SaUJra0JSL3BFY3I3NU5tckRXMWZFWEM2bHRu?=
+ =?utf-8?B?eFJZS2IvUzhPVFRNb1dGdTdXd29JVHVJaVBpRldKN093RTZCL2lMN0UrOVB0?=
+ =?utf-8?B?RFZQYUVWaDVlMEtGdVVyZUZkcEhPVXRSbVlPdVdaU2Y3czBWd0R4MGJJVEds?=
+ =?utf-8?B?MDhhdDN6OGpNcEVEeDdwbytHb2NDUkNUQnY0NE5RSTdHUXJlSU12NWdFd3Vo?=
+ =?utf-8?B?aW9zK2pyZUcxb0NEZ1dDTjJvNHBnYzhIdENEak9uOCtSUnFkMlhYLy9xR1Fl?=
+ =?utf-8?B?aHBTRnhZWjJGQldFcFc2Z2JJRmxxMEJSc2k5Y1dSbXFRSXZsdG1YQU1MZExw?=
+ =?utf-8?B?MGlaeFBkK2NYZE1EdmNvSHBsRnRyazRXVVZmcm9RS2FmR0t1U1dCVkkrYlE3?=
+ =?utf-8?B?aHN3MlE2MmFqK1p5TklKQnJGNktLc2Z4QWwyR2JzWk1GVHJNZmVMVkV3QS95?=
+ =?utf-8?B?VGZaTzBlOFJwZUdSZzN5VnlZRjRxcjE3RElvOHFyakdZNWFyeGVWU2lGeG04?=
+ =?utf-8?B?TmFIbzY3dkFKb1RvVVhoc2JibkV3TUZ4WkxpbEdoM25NYUFOeGI5RjFLSWRO?=
+ =?utf-8?B?NzZjQU1HWjFST29EU05WVlRYUmJ0cmpQbmd3OUdzeWtwQ2thbEZpOU1IMFMz?=
+ =?utf-8?Q?p7/epvmql3ekHPIRtMsj7mIXa+JXxfBUc7vbo7Wg8vu2?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31f356d6-27e4-48a2-d961-08d9981b8a27
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4344.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 00:10:18.8186 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 00:57:10.0993 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c2g0PV6bFwERTYo9G7f2/yTt9sA827jOpTH65tUFTm9dp+TWWzmhz6XbnN6AtapprVvTVmdTQK+Cm0idoXzgWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4356
+X-MS-Exchange-CrossTenant-UserPrincipalName: /elEt7RWTyK3pOpN4hp/yWJ8YdhTzm1n3NHN/lzDrxlQRcCOMJJtRXvrlu/qzQEzDMvrAqVAYzGRay/eBhT8eg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,363 +146,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-10-25 um 5:58 a.m. schrieb Lang Yu:
-> Actually, cu_mask has been copied to mqd memory and
-> does't have to persist in queue_properties. Remove it
-> from queue_properties.
->
-> And use struct mqd_update_info to store such properties,
-> then pass it to update queue operation.
->
-> v2:
-> * Rename pqm_update_queue to pqm_update_queue_properties.
-> * Rename struct queue_update_info to struct mqd_update_info.
-> * Rename pqm_set_cu_mask to pqm_update_mqd.
->
-> Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> Signed-off-by: Lang Yu <lang.yu@amd.com>
 
-The series is
+On 10/24/21 21:16, Alistair Popple wrote:
+> MIGRATE_PFN_LOCKED is used to indicate to migrate_vma_prepare() that a
+> source page was already locked during migrate_vma_collect(). If it
+> wasn't then the a second attempt is made to lock the page. However if
+> the first attempt failed it's unlikely a second attempt will succeed,
+> and the retry adds complexity. So clean this up by removing the retry
+> and MIGRATE_PFN_LOCKED flag.
+>
+> Destination pages are also meant to have the MIGRATE_PFN_LOCKED flag
+> set, but nothing actually checks that.
+>
+> Signed-off-by: Alistair Popple <apopple@nvidia.com>
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
+You can add:
+Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
 
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 31 ++++++++++---------
->  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  1 -
->  .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  9 +++---
->  .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  9 +++---
->  .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  9 +++---
->  .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  9 +++---
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         | 23 +++++++++-----
->  .../amd/amdkfd/kfd_process_queue_manager.c    | 20 +++---------
->  8 files changed, 57 insertions(+), 54 deletions(-)
+>   Documentation/vm/hmm.rst                 |   2 +-
+>   arch/powerpc/kvm/book3s_hv_uvmem.c       |   4 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |   2 -
+>   drivers/gpu/drm/nouveau/nouveau_dmem.c   |   4 +-
+>   include/linux/migrate.h                  |   1 -
+>   lib/test_hmm.c                           |   5 +-
+>   mm/migrate.c                             | 145 +++++------------------
+>   7 files changed, 35 insertions(+), 128 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 9317a2e238d0..24ebd61395d8 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -405,7 +405,7 @@ static int kfd_ioctl_update_queue(struct file *filp, struct kfd_process *p,
->  
->  	mutex_lock(&p->mutex);
->  
-> -	retval = pqm_update_queue(&p->pqm, args->queue_id, &properties);
-> +	retval = pqm_update_queue_properties(&p->pqm, args->queue_id, &properties);
->  
->  	mutex_unlock(&p->mutex);
->  
-> @@ -418,7 +418,7 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
->  	int retval;
->  	const int max_num_cus = 1024;
->  	struct kfd_ioctl_set_cu_mask_args *args = data;
-> -	struct queue_properties properties;
-> +	struct mqd_update_info minfo = {0};
->  	uint32_t __user *cu_mask_ptr = (uint32_t __user *)args->cu_mask_ptr;
->  	size_t cu_mask_size = sizeof(uint32_t) * (args->num_cu_mask / 32);
->  
-> @@ -428,8 +428,8 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
->  		return -EINVAL;
->  	}
->  
-> -	properties.cu_mask_count = args->num_cu_mask;
-> -	if (properties.cu_mask_count == 0) {
-> +	minfo.cu_mask.count = args->num_cu_mask;
-> +	if (minfo.cu_mask.count == 0) {
->  		pr_debug("CU mask cannot be 0");
->  		return -EINVAL;
->  	}
-> @@ -438,32 +438,33 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
->  	 * limit of max_num_cus bits.  We can then just drop any CU mask bits
->  	 * past max_num_cus bits and just use the first max_num_cus bits.
->  	 */
-> -	if (properties.cu_mask_count > max_num_cus) {
-> +	if (minfo.cu_mask.count > max_num_cus) {
->  		pr_debug("CU mask cannot be greater than 1024 bits");
-> -		properties.cu_mask_count = max_num_cus;
-> +		minfo.cu_mask.count = max_num_cus;
->  		cu_mask_size = sizeof(uint32_t) * (max_num_cus/32);
->  	}
->  
-> -	properties.cu_mask = kzalloc(cu_mask_size, GFP_KERNEL);
-> -	if (!properties.cu_mask)
-> +	minfo.cu_mask.ptr = kzalloc(cu_mask_size, GFP_KERNEL);
-> +	if (!minfo.cu_mask.ptr)
->  		return -ENOMEM;
->  
-> -	retval = copy_from_user(properties.cu_mask, cu_mask_ptr, cu_mask_size);
-> +	retval = copy_from_user(minfo.cu_mask.ptr, cu_mask_ptr, cu_mask_size);
->  	if (retval) {
->  		pr_debug("Could not copy CU mask from userspace");
-> -		kfree(properties.cu_mask);
-> -		return -EFAULT;
-> +		retval = -EFAULT;
-> +		goto out;
->  	}
->  
-> +	minfo.update_flag = UPDATE_FLAG_CU_MASK;
-> +
->  	mutex_lock(&p->mutex);
->  
-> -	retval = pqm_set_cu_mask(&p->pqm, args->queue_id, &properties);
-> +	retval = pqm_update_mqd(&p->pqm, args->queue_id, &minfo);
->  
->  	mutex_unlock(&p->mutex);
->  
-> -	if (retval)
-> -		kfree(properties.cu_mask);
+> diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
+> index a14c2938e7af..f2a59ed82ed3 100644
+> --- a/Documentation/vm/hmm.rst
+> +++ b/Documentation/vm/hmm.rst
+> @@ -360,7 +360,7 @@ between device driver specific code and shared common code:
+>      system memory page, locks the page with ``lock_page()``, and fills in the
+>      ``dst`` array entry with::
+>   
+> -     dst[i] = migrate_pfn(page_to_pfn(dpage)) | MIGRATE_PFN_LOCKED;
+> +     dst[i] = migrate_pfn(page_to_pfn(dpage));
+>   
+>      Now that the driver knows that this page is being migrated, it can
+>      invalidate device private MMU mappings and copy device private memory
+> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> index a7061ee3b157..28c436df9935 100644
+> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
+> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> @@ -560,7 +560,7 @@ static int __kvmppc_svm_page_out(struct vm_area_struct *vma,
+>   				  gpa, 0, page_shift);
+>   
+>   	if (ret == U_SUCCESS)
+> -		*mig.dst = migrate_pfn(pfn) | MIGRATE_PFN_LOCKED;
+> +		*mig.dst = migrate_pfn(pfn);
+>   	else {
+>   		unlock_page(dpage);
+>   		__free_page(dpage);
+> @@ -774,7 +774,7 @@ static int kvmppc_svm_page_in(struct vm_area_struct *vma,
+>   		}
+>   	}
+>   
+> -	*mig.dst = migrate_pfn(page_to_pfn(dpage)) | MIGRATE_PFN_LOCKED;
+> +	*mig.dst = migrate_pfn(page_to_pfn(dpage));
+>   	migrate_vma_pages(&mig);
+>   out_finalize:
+>   	migrate_vma_finalize(&mig);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index 4a16e3c257b9..41d9417f182b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -300,7 +300,6 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+>   			migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
+>   			svm_migrate_get_vram_page(prange, migrate->dst[i]);
+>   			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
+> -			migrate->dst[i] |= MIGRATE_PFN_LOCKED;
+>   			src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
+>   					      DMA_TO_DEVICE);
+>   			r = dma_mapping_error(dev, src[i]);
+> @@ -580,7 +579,6 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+>   			      dst[i] >> PAGE_SHIFT, page_to_pfn(dpage));
+>   
+>   		migrate->dst[i] = migrate_pfn(page_to_pfn(dpage));
+> -		migrate->dst[i] |= MIGRATE_PFN_LOCKED;
+>   		j++;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+> index 92987daa5e17..3828aafd3ac4 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+> @@ -166,7 +166,7 @@ static vm_fault_t nouveau_dmem_fault_copy_one(struct nouveau_drm *drm,
+>   		goto error_dma_unmap;
+>   	mutex_unlock(&svmm->mutex);
+>   
+> -	args->dst[0] = migrate_pfn(page_to_pfn(dpage)) | MIGRATE_PFN_LOCKED;
+> +	args->dst[0] = migrate_pfn(page_to_pfn(dpage));
+>   	return 0;
+>   
+>   error_dma_unmap:
+> @@ -602,7 +602,7 @@ static unsigned long nouveau_dmem_migrate_copy_one(struct nouveau_drm *drm,
+>   		((paddr >> PAGE_SHIFT) << NVIF_VMM_PFNMAP_V0_ADDR_SHIFT);
+>   	if (src & MIGRATE_PFN_WRITE)
+>   		*pfn |= NVIF_VMM_PFNMAP_V0_W;
+> -	return migrate_pfn(page_to_pfn(dpage)) | MIGRATE_PFN_LOCKED;
+> +	return migrate_pfn(page_to_pfn(dpage));
+>   
+>   out_dma_unmap:
+>   	dma_unmap_page(dev, *dma_addr, PAGE_SIZE, DMA_BIDIRECTIONAL);
+> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+> index c8077e936691..479b861ae490 100644
+> --- a/include/linux/migrate.h
+> +++ b/include/linux/migrate.h
+> @@ -119,7 +119,6 @@ static inline int migrate_misplaced_page(struct page *page,
+>    */
+>   #define MIGRATE_PFN_VALID	(1UL << 0)
+>   #define MIGRATE_PFN_MIGRATE	(1UL << 1)
+> -#define MIGRATE_PFN_LOCKED	(1UL << 2)
+>   #define MIGRATE_PFN_WRITE	(1UL << 3)
+>   #define MIGRATE_PFN_SHIFT	6
+>   
+> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+> index c259842f6d44..e2ce8f9b7605 100644
+> --- a/lib/test_hmm.c
+> +++ b/lib/test_hmm.c
+> @@ -613,8 +613,7 @@ static void dmirror_migrate_alloc_and_copy(struct migrate_vma *args,
+>   		 */
+>   		rpage->zone_device_data = dmirror;
+>   
+> -		*dst = migrate_pfn(page_to_pfn(dpage)) |
+> -			    MIGRATE_PFN_LOCKED;
+> +		*dst = migrate_pfn(page_to_pfn(dpage));
+>   		if ((*src & MIGRATE_PFN_WRITE) ||
+>   		    (!spage && args->vma->vm_flags & VM_WRITE))
+>   			*dst |= MIGRATE_PFN_WRITE;
+> @@ -1137,7 +1136,7 @@ static vm_fault_t dmirror_devmem_fault_alloc_and_copy(struct migrate_vma *args,
+>   		lock_page(dpage);
+>   		xa_erase(&dmirror->pt, addr >> PAGE_SHIFT);
+>   		copy_highpage(dpage, spage);
+> -		*dst = migrate_pfn(page_to_pfn(dpage)) | MIGRATE_PFN_LOCKED;
+> +		*dst = migrate_pfn(page_to_pfn(dpage));
+>   		if (*src & MIGRATE_PFN_WRITE)
+>   			*dst |= MIGRATE_PFN_WRITE;
+>   	}
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index a6a7743ee98f..915e969811d0 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -2369,7 +2369,6 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
+>   		 * can't be dropped from it).
+>   		 */
+>   		get_page(page);
+> -		migrate->cpages++;
+
+Why not move the get_page() into the "if (trylock_page())" instead
+of calling put_page() in the else case.
+
+>   
+>   		/*
+>   		 * Optimize for the common case where page is only mapped once
+> @@ -2379,7 +2378,7 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
+>   		if (trylock_page(page)) {
+>   			pte_t swp_pte;
+>   
+> -			mpfn |= MIGRATE_PFN_LOCKED;
+> +			migrate->cpages++;
+>   			ptep_get_and_clear(mm, addr, ptep);
+
+I was looking at try_to_migrate_one() and looking at the differences with
+the code here to insert the migration PTE and noticed that instead of
+ptet_get_and_clear() it has:
+	pteval = ptep_clear_flush(vma, address, pvmw.pte);
+
+	/* Move the dirty bit to the page. Now the pte is gone. */
+	if (pte_dirty(pteval))
+		set_page_dirty(page);
+	update_hiwater_rss(mm);
+
+I know that is pre-existing, probably a separate patch if it is an issue.
+
+>   
+>   			/* Setup special migration page table entry */
+> @@ -2413,6 +2412,9 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
+>   
+>   			if (pte_present(pte))
+>   				unmapped++;
+> +		} else {
+> +			put_page(page);
+> +			mpfn = 0;
+>   		}
+>   
+>   next:
+> @@ -2517,15 +2519,17 @@ static bool migrate_vma_check_page(struct page *page)
+>   }
+>   
+>   /*
+> - * migrate_vma_prepare() - lock pages and isolate them from the lru
+> + * migrate_vma_unmap() - replace page mapping with special migration pte entry
+>    * @migrate: migrate struct containing all migration information
+>    *
+> - * This locks pages that have been collected by migrate_vma_collect(). Once each
+> - * page is locked it is isolated from the lru (for non-device pages). Finally,
+> - * the ref taken by migrate_vma_collect() is dropped, as locked pages cannot be
+> - * migrated by concurrent kernel threads.
+> + * Isolate pages from the LRU and replace mappings (CPU page table pte) with a
+> + * special migration pte entry and check if it has been pinned. Pinned pages are
+> + * restored because we cannot migrate them.
+> + *
+> + * This is the last step before we call the device driver callback to allocate
+> + * destination memory and copy contents of original page over to new page.
+>    */
+> -static void migrate_vma_prepare(struct migrate_vma *migrate)
+> +static void migrate_vma_unmap(struct migrate_vma *migrate)
+>   {
+>   	const unsigned long npages = migrate->npages;
+>   	const unsigned long start = migrate->start;
+> @@ -2534,32 +2538,12 @@ static void migrate_vma_prepare(struct migrate_vma *migrate)
+>   
+>   	lru_add_drain();
+>   
+> -	for (i = 0; (i < npages) && migrate->cpages; i++) {
+> +	for (i = 0; i < npages; i++) {
+>   		struct page *page = migrate_pfn_to_page(migrate->src[i]);
+> -		bool remap = true;
+>   
+>   		if (!page)
+>   			continue;
+>   
+> -		if (!(migrate->src[i] & MIGRATE_PFN_LOCKED)) {
+> -			/*
+> -			 * Because we are migrating several pages there can be
+> -			 * a deadlock between 2 concurrent migration where each
+> -			 * are waiting on each other page lock.
+> -			 *
+> -			 * Make migrate_vma() a best effort thing and backoff
+> -			 * for any page we can not lock right away.
+> -			 */
+> -			if (!trylock_page(page)) {
+> -				migrate->src[i] = 0;
+> -				migrate->cpages--;
+> -				put_page(page);
+> -				continue;
+> -			}
+> -			remap = false;
+> -			migrate->src[i] |= MIGRATE_PFN_LOCKED;
+> -		}
 > -
-> +out:
-> +	kfree(minfo.cu_mask.ptr);
->  	return retval;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-> index a2b77d1df854..64b4ac339904 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-> @@ -136,7 +136,6 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_dev *dev,
->  	prop.write_ptr = (uint32_t *) kq->wptr_gpu_addr;
->  	prop.eop_ring_buffer_address = kq->eop_gpu_addr;
->  	prop.eop_ring_buffer_size = PAGE_SIZE;
-> -	prop.cu_mask = NULL;
->  
->  	if (init_queue(&kq->queue, &prop) != 0)
->  		goto err_init_queue;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> index 00bcaa11ff57..8128f4d312f1 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> @@ -42,16 +42,17 @@ static inline struct cik_sdma_rlc_registers *get_sdma_mqd(void *mqd)
->  }
->  
->  static void update_cu_mask(struct mqd_manager *mm, void *mqd,
-> -			struct queue_properties *q)
-> +			struct mqd_update_info *minfo)
->  {
->  	struct cik_mqd *m;
->  	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
->  
-> -	if (q->cu_mask_count == 0)
-> +	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> +	    !minfo->cu_mask.ptr)
->  		return;
->  
->  	mqd_symmetrically_map_cu_mask(mm,
-> -		q->cu_mask, q->cu_mask_count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
->  
->  	m = get_mqd(mqd);
->  	m->compute_static_thread_mgmt_se0 = se_mask[0];
-> @@ -215,7 +216,7 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
->  	if (q->format == KFD_QUEUE_FORMAT_AQL)
->  		m->cp_hqd_pq_control |= NO_UPDATE_RPTR;
->  
-> -	update_cu_mask(mm, mqd, q);
-> +	update_cu_mask(mm, mqd, minfo);
->  	set_priority(m, q);
->  
->  	q->is_active = QUEUE_IS_ACTIVE(*q);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> index 7f1101780135..270160fc401b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> @@ -42,16 +42,17 @@ static inline struct v10_sdma_mqd *get_sdma_mqd(void *mqd)
->  }
->  
->  static void update_cu_mask(struct mqd_manager *mm, void *mqd,
-> -			   struct queue_properties *q)
-> +			struct mqd_update_info *minfo)
->  {
->  	struct v10_compute_mqd *m;
->  	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
->  
-> -	if (q->cu_mask_count == 0)
-> +	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> +	    !minfo->cu_mask.ptr)
->  		return;
->  
->  	mqd_symmetrically_map_cu_mask(mm,
-> -		q->cu_mask, q->cu_mask_count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
->  
->  	m = get_mqd(mqd);
->  	m->compute_static_thread_mgmt_se0 = se_mask[0];
-> @@ -219,7 +220,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
->  	if (mm->dev->cwsr_enabled)
->  		m->cp_hqd_ctx_save_control = 0;
->  
-> -	update_cu_mask(mm, mqd, q);
-> +	update_cu_mask(mm, mqd, minfo);
->  	set_priority(m, q);
->  
->  	q->is_active = QUEUE_IS_ACTIVE(*q);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index 152f29b28a79..4e5932f54b5a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -43,16 +43,17 @@ static inline struct v9_sdma_mqd *get_sdma_mqd(void *mqd)
->  }
->  
->  static void update_cu_mask(struct mqd_manager *mm, void *mqd,
-> -			struct queue_properties *q)
-> +			struct mqd_update_info *minfo)
->  {
->  	struct v9_mqd *m;
->  	uint32_t se_mask[KFD_MAX_NUM_SE] = {0};
->  
-> -	if (q->cu_mask_count == 0)
-> +	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> +	    !minfo->cu_mask.ptr)
->  		return;
->  
->  	mqd_symmetrically_map_cu_mask(mm,
-> -		q->cu_mask, q->cu_mask_count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
->  
->  	m = get_mqd(mqd);
->  	m->compute_static_thread_mgmt_se0 = se_mask[0];
-> @@ -270,7 +271,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
->  	if (mm->dev->cwsr_enabled && q->ctx_save_restore_area_address)
->  		m->cp_hqd_ctx_save_control = 0;
->  
-> -	update_cu_mask(mm, mqd, q);
-> +	update_cu_mask(mm, mqd, minfo);
->  	set_priority(m, q);
->  
->  	q->is_active = QUEUE_IS_ACTIVE(*q);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> index 4a8f3a06e6df..cd9220eb8a7a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> @@ -45,16 +45,17 @@ static inline struct vi_sdma_mqd *get_sdma_mqd(void *mqd)
->  }
->  
->  static void update_cu_mask(struct mqd_manager *mm, void *mqd,
-> -			struct queue_properties *q)
-> +			struct mqd_update_info *minfo)
->  {
->  	struct vi_mqd *m;
->  	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
->  
-> -	if (q->cu_mask_count == 0)
-> +	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> +	    !minfo->cu_mask.ptr)
->  		return;
->  
->  	mqd_symmetrically_map_cu_mask(mm,
-> -		q->cu_mask, q->cu_mask_count, se_mask);
-> +		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
->  
->  	m = get_mqd(mqd);
->  	m->compute_static_thread_mgmt_se0 = se_mask[0];
-> @@ -230,7 +231,7 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
->  			atc_bit << CP_HQD_CTX_SAVE_CONTROL__ATC__SHIFT |
->  			mtype << CP_HQD_CTX_SAVE_CONTROL__MTYPE__SHIFT;
->  
-> -	update_cu_mask(mm, mqd, q);
-> +	update_cu_mask(mm, mqd, minfo);
->  	set_priority(m, q);
->  
->  	q->is_active = QUEUE_IS_ACTIVE(*q);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index d758a57b17e2..4104b167e721 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -472,9 +472,6 @@ struct queue_properties {
->  	uint32_t ctl_stack_size;
->  	uint64_t tba_addr;
->  	uint64_t tma_addr;
-> -	/* Relevant for CU */
-> -	uint32_t cu_mask_count; /* Must be a multiple of 32 */
-> -	uint32_t *cu_mask;
->  };
->  
->  #define QUEUE_IS_ACTIVE(q) ((q).queue_size > 0 &&	\
-> @@ -482,7 +479,19 @@ struct queue_properties {
->  			    (q).queue_percent > 0 &&	\
->  			    !(q).is_evicted)
->  
-> -struct mqd_update_info;
-> +enum mqd_update_flag {
-> +	UPDATE_FLAG_CU_MASK = 0,
-> +};
-> +
-> +struct mqd_update_info {
-> +	union {
-> +		struct {
-> +			uint32_t count; /* Must be a multiple of 32 */
-> +			uint32_t *ptr;
-> +		} cu_mask;
-> +	};
-> +	enum mqd_update_flag update_flag;
-> +};
->  
->  /**
->   * struct queue
-> @@ -1036,10 +1045,10 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->  			    unsigned int *qid,
->  			    uint32_t *p_doorbell_offset_in_process);
->  int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid);
-> -int pqm_update_queue(struct process_queue_manager *pqm, unsigned int qid,
-> -			struct queue_properties *p);
-> -int pqm_set_cu_mask(struct process_queue_manager *pqm, unsigned int qid,
-> +int pqm_update_queue_properties(struct process_queue_manager *pqm, unsigned int qid,
->  			struct queue_properties *p);
-> +int pqm_update_mqd(struct process_queue_manager *pqm, unsigned int qid,
-> +			struct mqd_update_info *minfo);
->  int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
->  			void *gws);
->  struct kernel_queue *pqm_get_kernel_queue(struct process_queue_manager *pqm,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index 37529592457d..3627e7ac161b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -394,8 +394,6 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
->  			pdd->qpd.num_gws = 0;
->  		}
->  
-> -		kfree(pqn->q->properties.cu_mask);
-> -		pqn->q->properties.cu_mask = NULL;
->  		uninit_queue(pqn->q);
->  	}
->  
-> @@ -411,8 +409,8 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
->  	return retval;
->  }
->  
-> -int pqm_update_queue(struct process_queue_manager *pqm, unsigned int qid,
-> -			struct queue_properties *p)
-> +int pqm_update_queue_properties(struct process_queue_manager *pqm,
-> +				unsigned int qid, struct queue_properties *p)
->  {
->  	int retval;
->  	struct process_queue_node *pqn;
-> @@ -436,8 +434,8 @@ int pqm_update_queue(struct process_queue_manager *pqm, unsigned int qid,
->  	return 0;
->  }
->  
-> -int pqm_set_cu_mask(struct process_queue_manager *pqm, unsigned int qid,
-> -			struct queue_properties *p)
-> +int pqm_update_mqd(struct process_queue_manager *pqm,
-> +				unsigned int qid, struct mqd_update_info *minfo)
->  {
->  	int retval;
->  	struct process_queue_node *pqn;
-> @@ -448,16 +446,8 @@ int pqm_set_cu_mask(struct process_queue_manager *pqm, unsigned int qid,
->  		return -EFAULT;
->  	}
->  
-> -	/* Free the old CU mask memory if it is already allocated, then
-> -	 * allocate memory for the new CU mask.
-> -	 */
-> -	kfree(pqn->q->properties.cu_mask);
+>   		/* ZONE_DEVICE pages are not on LRU */
+>   		if (!is_zone_device_page(page)) {
+>   			if (!PageLRU(page) && allow_drain) {
+> @@ -2569,16 +2553,9 @@ static void migrate_vma_prepare(struct migrate_vma *migrate)
+>   			}
+>   
+>   			if (isolate_lru_page(page)) {
+> -				if (remap) {
+> -					migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+> -					migrate->cpages--;
+> -					restore++;
+> -				} else {
+> -					migrate->src[i] = 0;
+> -					unlock_page(page);
+> -					migrate->cpages--;
+> -					put_page(page);
+> -				}
+> +				migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+> +				migrate->cpages--;
+> +				restore++;
+>   				continue;
+>   			}
+>   
+> @@ -2586,80 +2563,20 @@ static void migrate_vma_prepare(struct migrate_vma *migrate)
+>   			put_page(page);
+>   		}
+>   
+> -		if (!migrate_vma_check_page(page)) {
+> -			if (remap) {
+> -				migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+> -				migrate->cpages--;
+> -				restore++;
 > -
-> -	pqn->q->properties.cu_mask_count = p->cu_mask_count;
-> -	pqn->q->properties.cu_mask = p->cu_mask;
+> -				if (!is_zone_device_page(page)) {
+> -					get_page(page);
+> -					putback_lru_page(page);
+> -				}
+> -			} else {
+> -				migrate->src[i] = 0;
+> -				unlock_page(page);
+> -				migrate->cpages--;
+> +		if (page_mapped(page))
+> +			try_to_migrate(page, 0);
+>   
+> -				if (!is_zone_device_page(page))
+> -					putback_lru_page(page);
+> -				else
+> -					put_page(page);
+> +		if (page_mapped(page) || !migrate_vma_check_page(page)) {
+> +			if (!is_zone_device_page(page)) {
+> +				get_page(page);
+> +				putback_lru_page(page);
+>   			}
+> -		}
+> -	}
 > -
->  	retval = pqn->q->device->dqm->ops.update_queue(pqn->q->device->dqm,
-> -							pqn->q, NULL);
-> +							pqn->q, minfo);
->  	if (retval != 0)
->  		return retval;
->  
+> -	for (i = 0, addr = start; i < npages && restore; i++, addr += PAGE_SIZE) {
+> -		struct page *page = migrate_pfn_to_page(migrate->src[i]);
+> -
+> -		if (!page || (migrate->src[i] & MIGRATE_PFN_MIGRATE))
+> -			continue;
+>   
+> -		remove_migration_pte(page, migrate->vma, addr, page);
+> -
+> -		migrate->src[i] = 0;
+> -		unlock_page(page);
+> -		put_page(page);
+> -		restore--;
+> -	}
+> -}
+> -
+> -/*
+> - * migrate_vma_unmap() - replace page mapping with special migration pte entry
+> - * @migrate: migrate struct containing all migration information
+> - *
+> - * Replace page mapping (CPU page table pte) with a special migration pte entry
+> - * and check again if it has been pinned. Pinned pages are restored because we
+> - * cannot migrate them.
+> - *
+> - * This is the last step before we call the device driver callback to allocate
+> - * destination memory and copy contents of original page over to new page.
+> - */
+> -static void migrate_vma_unmap(struct migrate_vma *migrate)
+> -{
+> -	const unsigned long npages = migrate->npages;
+> -	const unsigned long start = migrate->start;
+> -	unsigned long addr, i, restore = 0;
+> -
+> -	for (i = 0; i < npages; i++) {
+> -		struct page *page = migrate_pfn_to_page(migrate->src[i]);
+> -
+> -		if (!page || !(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+> +			migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+> +			migrate->cpages--;
+> +			restore++;
+>   			continue;
+> -
+> -		if (page_mapped(page)) {
+> -			try_to_migrate(page, 0);
+> -			if (page_mapped(page))
+> -				goto restore;
+>   		}
+> -
+> -		if (migrate_vma_check_page(page))
+> -			continue;
+> -
+> -restore:
+> -		migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+> -		migrate->cpages--;
+> -		restore++;
+>   	}
+>   
+>   	for (addr = start, i = 0; i < npages && restore; addr += PAGE_SIZE, i++) {
+> @@ -2672,12 +2589,8 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
+>   
+>   		migrate->src[i] = 0;
+>   		unlock_page(page);
+> +		put_page(page);
+>   		restore--;
+> -
+> -		if (is_zone_device_page(page))
+> -			put_page(page);
+> -		else
+> -			putback_lru_page(page);
+>   	}
+>   }
+>   
+> @@ -2700,8 +2613,8 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
+>    * it for all those entries (ie with MIGRATE_PFN_VALID and MIGRATE_PFN_MIGRATE
+>    * flag set).  Once these are allocated and copied, the caller must update each
+>    * corresponding entry in the dst array with the pfn value of the destination
+> - * page and with the MIGRATE_PFN_VALID and MIGRATE_PFN_LOCKED flags set
+> - * (destination pages must have their struct pages locked, via lock_page()).
+> + * page and with MIGRATE_PFN_VALID. Destination pages must be locked via
+> + * lock_page().
+>    *
+>    * Note that the caller does not have to migrate all the pages that are marked
+>    * with MIGRATE_PFN_MIGRATE flag in src array unless this is a migration from
+> @@ -2770,8 +2683,6 @@ int migrate_vma_setup(struct migrate_vma *args)
+>   
+>   	migrate_vma_collect(args);
+>   
+> -	if (args->cpages)
+> -		migrate_vma_prepare(args);
+>   	if (args->cpages)
+>   		migrate_vma_unmap(args);
+>   
