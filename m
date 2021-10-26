@@ -2,134 +2,132 @@ Return-Path: <SRS0=fVrT=PO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E91AAC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89AAFC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:23:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C8CA60F6F
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:11:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C8CA60F6F
+	by mail.kernel.org (Postfix) with ESMTPS id 1DD7A60F6F
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:23:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1DD7A60F6F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 061546E499;
-	Tue, 26 Oct 2021 21:11:14 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13E0C6E499
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 21:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9991F8999E;
+	Tue, 26 Oct 2021 21:23:44 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B119E8999E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 21:23:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J1fxCdxrX/UjaObLW/1mFXYVULOvPMGrG6YilsIyn9qlJwnfSAo68DaH33XUO8O/HIhRw0EN9Gx8RATXHbYOId6761i/KM+kiHIL470RLq7kfdYNtkko6xgbEgbLThPqUSptsYTEJ/noXPXkJEnhE/DGlaWvqq/8k+kM/8c0ewYW70+cZi1O2izdpjqpKFZh/UBXn9SfsphIBHHmtpavt5J5HtsMZXZ9c+SfSTweuvQ5RiIDGfQILWlK1GnWKCMsi5pEwiIejHtOIEYrC3fXNpDwQA4ru6EpVMCzq7veAB9m52HM61Jbw8bBuyL0o3P5bkDpdxCaIjB8gGJCL0DwHQ==
+ b=lAR6SQwhOG5urpUVhjIqB5bJPPu6hxVrWU6/GZqsTzhUntA2KBpSKk4eU3CoEN83NdjnEPK2pk79IKkIrWZsPa0GbKabeUR6XKtjwR7r+CCv3yLbbjHFSD8AJ3HmLh4spl0uhu7qhYUhV0KcZpH0hm0/7BJZXl1+puzJgH94J7c9Ns2kr34VRP8X+aJ+fbLzPY2fSRLxFidLS9Mjlb3dG4UWvsm+bND4GeXO3NIu3ugPlvKj2dYvTWaCWWNmkoK3s9WZh/I5c8MRYXrGavO+2K+FkWM29jbJa7YhlNT6oj6pLhph/fixVwUtce2tTrIpbeQZx3caeR/LJjlPEYjqJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zF8hv0R6fbOpQU6+uyeXkXzm4L/n/giHucZmxjQmBc8=;
- b=bvP8mSQhmgHuw/i9pW6FiBt9jpu4dTPC0Pft9oLd1OG2k0EiQFzZTUEyiJajXB61KtZGTHJrzDRJ6Il4PjMUB8Onf9cH2pXh3go3kKL9WyYBHWi1eCX9FfBxj+RTH08tsYvopq9idY7hdtfLbZAqhN5Q0GkPmXT342TWjKa0eblX4TuB16SiIZMVKQ2E89qRh6T6IHa6xEPNo17TAZR+2i/biQwlw7lpFGEKf3qBODukCfK9+t62mlAWZTsd0ZO59mz6lAV46fc4W8tMnFnENYLy/ZnvzXcBZhL9op1ZjIfwT/DtVH1CVhhQS9TygCjIuXdQVe7JsItzUkeHYRR9TA==
+ bh=2NDxcu3zt1hFmSoqQ7/VTKOrkkMD+4fX0pleZHmXRFM=;
+ b=HMF36HFRbVeVbKmTptzN1bjY95JWw6gk1DUBAOh+MdBVJw9s/GCojEemJmeC4hzzwuCcv0Pk3DflVozyuO43lAdKZ94ai89hrlvDJRaqqjNgeTn6/QfyefaaGtNaqjOU+be21zMhOG0lWSSFqelD19ltvYOFJ7Dx6yYuJen+ySRq+T2cj1Mo6uCZASJfKgnoWZcU4+rld6latupCOLcfXPw/uCZi6s2rtA6GnWYvptDB/lfEBSYMyDpH++Ssws5V7lenFblBDIFPzjkpCLmosbIDflL4528lhJbS63+RBEVpyiQNzMcnndhD5YEvZF+6Gd7Dt/5Gx8klYwGvehdtSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zF8hv0R6fbOpQU6+uyeXkXzm4L/n/giHucZmxjQmBc8=;
- b=BkoZdbX8z7nZrfFNi+fb1BNRslPG8j42QFemYqk7BYn3p/FNugM5ilI/uFueuU3jV0rIOgKLkc4JBzEYw2W8+skPqgHNll2z1vhSIpsYNak3TGt82PhkYASDsNb/YMDQeEKxP1llhUouMozpTioFbjLVcoOzTykfnhCPD0PAyBQ=
+ bh=2NDxcu3zt1hFmSoqQ7/VTKOrkkMD+4fX0pleZHmXRFM=;
+ b=1ox7d5P/CRL4JUXf+i7oJpVT/6JPTaMd46tlBM3tj2bH6pk0iFhLPYXjsQUyJPqCdoiewdzJXPwMHbcskR8NgnlE/4Cgert8RJosEue29aCkoSug5tuJua+PH+YGuC8UzSlgyV7aumXSnSDO/OE010btsfyuhuhwx6bfoK3Rdwo=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from DM5PR1201MB2491.namprd12.prod.outlook.com (2603:10b6:3:eb::23)
- by DM6PR12MB2810.namprd12.prod.outlook.com (2603:10b6:5:41::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Tue, 26 Oct
- 2021 21:11:10 +0000
+ by DM5PR12MB1436.namprd12.prod.outlook.com (2603:10b6:3:78::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4628.18; Tue, 26 Oct 2021 21:23:38 +0000
 Received: from DM5PR1201MB2491.namprd12.prod.outlook.com
  ([fe80::d153:3aa6:4677:e29]) by DM5PR1201MB2491.namprd12.prod.outlook.com
  ([fe80::d153:3aa6:4677:e29%7]) with mapi id 15.20.4628.020; Tue, 26 Oct 2021
- 21:11:09 +0000
-Subject: Re: [PATCH 02/13] drm/amdkfd: replace kgd_dev in static gfx v7 funcs
-To: "Sider, Graham" <Graham.Sider@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+ 21:23:38 +0000
+Subject: Re: [PATCH 10/13] drm/amdkfd: replace kgd_dev in get amdgpu_amdkfd
+ funcs
+To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: mukul.joshi@amd.com
 References: <20211019211334.1552825-1-Graham.Sider@amd.com>
- <20211019211334.1552825-2-Graham.Sider@amd.com>
- <03de6841-ab7c-dfee-824a-09499e986608@amd.com>
- <DM6PR12MB30675828D42D464E099AD4368A849@DM6PR12MB3067.namprd12.prod.outlook.com>
+ <20211019211334.1552825-10-Graham.Sider@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <116c2065-0781-a647-007b-176309370117@amd.com>
-Date: Tue, 26 Oct 2021 17:11:07 -0400
+Message-ID: <ec346f3b-9c3f-a7bd-de9b-35b56070ff01@amd.com>
+Date: Tue, 26 Oct 2021 17:23:36 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <DM6PR12MB30675828D42D464E099AD4368A849@DM6PR12MB3067.namprd12.prod.outlook.com>
+In-Reply-To: <20211019211334.1552825-10-Graham.Sider@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YQBPR01CA0072.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::44) To DM5PR1201MB2491.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBPR0101CA0136.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::9) To DM5PR1201MB2491.namprd12.prod.outlook.com
  (2603:10b6:3:eb::23)
 MIME-Version: 1.0
 Received: from [192.168.2.100] (142.118.126.231) by
- YQBPR01CA0072.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:2::44) with Microsoft
+ YQBPR0101CA0136.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:e::9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4649.14 via Frontend Transport; Tue, 26 Oct 2021 21:11:09 +0000
+ 15.20.4649.14 via Frontend Transport; Tue, 26 Oct 2021 21:23:38 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f79870a7-f569-45f2-5fc2-08d998c521f9
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2810:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB281097A8F9727F9A5727417992849@DM6PR12MB2810.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Office365-Filtering-Correlation-Id: 5ee4efdf-395d-4451-f925-08d998c6e068
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1436:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1436988B07A7E0474C8CF64C92849@DM5PR12MB1436.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: D7VdhIBbu9ZeYYMAfV0pZS8cOhYM4w7Zu9Wm6qBaY6gGUqTWYbl6/SPrRylKQed9J+J7AdOJgAyUXfOWt2pA/8rkqMc403rk7lgXAzvJaNlhKwdQjJjXQmHAN59qphA2eA9mRvmriO7iluFZO1B7ZhLf8MUCeXMN5kX9/UnE7APdpCcu9wJPePisMMyMQ31FWU7Zninnpb1akV+9qWPGufT4htaujQ/6scs9fw6xN+gJuND3DKNILw1Iwr6FuncGPNuUmxHmHx7HYas4EdIGCrQ8K9wC4wFTd78xn/wTLatZQZWYpwiK7jBCqwTPcicxok7NNyg0IyaYmvWRjfLq02pIINhsZeltXFDfPSScju+0lircST0nJOjH8x8lEpu/P7AnO2lcyktbJ5xWtsa3XaCBU0E6APGekonQyXVydrysdm33weR2Cm1lzWfhq4M2qF39xbcX6B9kzXn2wf042MzzymMgfgPloFsrVKe0QdqQsgNhJ9gjXtuuWFYnsyAmqVrdVLvFyiWuYXII4FN1cN++UvUlq3GM5jj6IcJVvbqh4dcQD/JeSBybNtQIGJZHk4xVhBzx9VxMnJtH7CJTO/wlZqXy0SVwKKgy/0VR95rT3ODE78q/4OIpvmxLPwiA+ikKZKmQuF/H93wPnr392YFF7WftNrzap35fH5OrYH4bZlNSopCJe5SYEOcs+VuLUBReyTPg7Z7kYTe60GrZk0hQXS2vSW2ydHxQU/Sneq1O4KFpwRbOyEB0SLn2xpXM
+X-Microsoft-Antispam-Message-Info: Gvds9QOpgzyyGnXBnbAV62lnZ5C7iWHqEQbqMjz2jEMNdEtU9ZFLfC1N06LGqs5OdW4EpV7QHqgaKPQ4C+YUTgOh5oPCyYSjCgr/aLcWsbbCYRdUDIQ2HKKUEHEA8yOaB84YGStaE0ZX4hGi5DmTS76a/tgnjczEA34XA09CH78IIt+af/LmaQq4K9fOIc6GJPIf5+nZ3Adu5IyHDms4Ws7TZFaEbTDu0zqdjC1gjJJSrP/CgSIkl+QHXqZhErqv1SexgAP7K1AebJ6Vjv+fTAWJOXO5q5kmEUXSVMGtsUO5OqmzlK1XZeDETfNwL9IZPMQRUTcl9cTG4btIjLDgj7lGpGwO5ZH6tYxbOG8vPkT92jKDiFLSBOPZxu+v8DnXMm27j/JoZy4VbeuL/LbbzdIlaEEZo+yVEj+43IZw2YwvTLbE75yNRWNhz91fbQXzWJnHnWBxcD4I51vgVaoWJbKvUsXvxzAdLngHAd++ke/KL+RIMfGJHMtvrBjDamBQ+zbIqCVbbBdXMV6xCNQSfp7rNukZsRiEus5eb+SYM86LhDs8Kdza0Xz9yRbQN2ylMhapvrA8GDWkpowjWRS1Ib9ATzaHOnmCATf9/C7ZFOZku5RqtNj1Gas1S9YrPBCirs9lduTrBoLBxW9ftgmwbhV8Fa6Uxed757RQRV13c1aA2pidxuabuCDnGfGDG/fqLhbhZMS5JMQQebxCXhvHf09n1dDzuDZdCYArVl0KynJa+sdk22nqPXCgKIdqwQTC
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR1201MB2491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31686004)(31696002)(4001150100001)(86362001)(8676002)(26005)(508600001)(110136005)(66946007)(2906002)(956004)(186003)(36756003)(16576012)(316002)(5660300002)(44832011)(53546011)(4326008)(66556008)(83380400001)(66476007)(2616005)(38100700002)(6486002)(8936002)(45980500001)(43740500002);
+ SFS:(4636009)(366004)(8936002)(38100700002)(66946007)(2906002)(316002)(66476007)(44832011)(8676002)(5660300002)(508600001)(4001150100001)(66556008)(4326008)(31686004)(36756003)(16576012)(83380400001)(86362001)(186003)(30864003)(26005)(31696002)(2616005)(956004)(6486002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1ZOQlRQK1h4RmlWenBCMmNBeitaQnFIV1BvZyt4T3k2S3Z2MkpzYm5WMEVU?=
- =?utf-8?B?dkxmZzlDNVVvQ0NTQTdvalNWS3hOQW5leS8ybXRyc2cxS0VEdm9uc1hVTmRq?=
- =?utf-8?B?Z3M5MW5ESjFSZ3FlZ1NVbFowSlViZFRZSUF4TndlTHhWdWVNZHBFaFMzUXl3?=
- =?utf-8?B?VTJBRE1aU2MwTzlKbnYrekY2UHlFNE4vSDBYNnlFUnRnZkJ5elJZYWJnY2dv?=
- =?utf-8?B?TmwzUHlleDM4dU9hTWtxRThMMGlteTBCUldQcjkyRjZuRFFWWHo5Y2VkWFRm?=
- =?utf-8?B?cG83ZkZFaVZVa1JFTWQ5T3hHRTBTdDJxZkpCQlVqc25VdkVVbmJMelk2Q0RE?=
- =?utf-8?B?SWlzUDhxK0Y4ZkxRWU83aWtsR2o2ZTBwUnJkT1crb1NpbWhzT1VZeVdMRHcr?=
- =?utf-8?B?WFhLZzgyOW9zNHVaK3RvVElSYnVkSmd2VlpnMllxODJOZ1BhdFhRYmJDaU44?=
- =?utf-8?B?R2JqRkkyZGcwSWdVNi94MGtFQm45Y0kxd1dQN2NVSklDYy9WOW1ncExVN243?=
- =?utf-8?B?MTR1RmlWclFlajIwV1JOc1hTVGdtYVJsUEtaaHBvWnhzeWNpU1g1c3lCU1JI?=
- =?utf-8?B?TjE1RHlzWmN3RE9tZHdjcENadXlydGRWNWxBSHVwMHRzTXBPa3QvZ3Q0aHhJ?=
- =?utf-8?B?WHhiTnhiUEZHa0QrZUducG51ZEJmZW5ObXQxeEhXbVh6WlBDS1NPZE5XYlRz?=
- =?utf-8?B?NW8wR0YrUVJXelBvNzhsa1dtRks3eG03YjZsMFl3QUt2S2VBdFUrS2cvcXd5?=
- =?utf-8?B?VDZSWStINmlHL2VCZXY3NVRwOUhITXJnRldNa0Z4K2Rya2d0S3A3Mlo3QUFx?=
- =?utf-8?B?cGtTYmsreDg1MDJwQUszOUhuU2hWNHdzVkNEZE1NSDRpSmMyVTZiNEJyL1NB?=
- =?utf-8?B?aTRuRkhaRXFGQzQvMXhhYk1sY3I4WXM1YkF0M1hLZktid2VzdVd4UndwSDl3?=
- =?utf-8?B?TjF5WlkwTkptTWJWVG8xN2tsdG9Xb0JrL09DdGVSbGo4MC9FZzRJcVFINHR5?=
- =?utf-8?B?WXRmQ3A0eEE1Sm5sbkNKaldqVFV4U2RQNlpJdW5jRjYvd2lqR3ppS0dyek53?=
- =?utf-8?B?Wkhva1RFdGlzQnVURUpRaXdWV3I4dDdOWC96bVhQbE9mNHhxMUFNYmVQUEV6?=
- =?utf-8?B?cEt2V292dkdzTitETG5TaVZIVGlyY3lydVNFUDkwS2xjbzFnWkt6N0dMRWJk?=
- =?utf-8?B?NjBTL2NPdEo1WDJFODZpWGhmNEppK2NCd0M2MU8vbzdacXdhS2hqdVdldTl0?=
- =?utf-8?B?aUEwY2huZ0ZzNnNKS0VVZURHOFdqelg5NXB3NS9odTFMdUV6ZXZ0ZzUxdUxB?=
- =?utf-8?B?TzhOMkNJTjVhd1hFS3ZwN1phS2ZKTXpGaC9QOE9QTUZwWDZEVm1ZaEdLVVpz?=
- =?utf-8?B?U2hlQnMxa2hGWnV1UjhEcHFieG5NcnQ1a1FnMlZhVXUrYnlOVjFONnc1N0dk?=
- =?utf-8?B?WHI1ZHA2VmF4RzdhOUdGOXVYaER3UVd3VTM1OEFaM3VDV01uK3R3LzVFUjVL?=
- =?utf-8?B?ODdaNDB2bGt2NGsrQUJ0WGdoMFBuMXZLQmhzTFhQR1pHSW5EanFaTHpKYlB4?=
- =?utf-8?B?TTdoM3RGVlExZWxVdHVobmt5VWlmOTRtMTJ6NEtEZlA3VWxRd2hpa01ObUgv?=
- =?utf-8?B?VGlEOUdZUGJjUDBseURVdFFmMzQvamdvOFVyamg3ejFxTEd0U3R5TmtTWmFK?=
- =?utf-8?B?VTJ6bWJLSW9RY1RqZHhGbVVYSXlnNjA3bHo2MW5NRWRaQVhWYmNHZUY2ZmlJ?=
- =?utf-8?B?UFg2QTViay9YQzZjZ0VobGw0a0t1U3J0ckNGS1UrMkpER1hxS0RvMzYxYkRu?=
- =?utf-8?B?TzV2QmFJdFdsR2NkbW9lY1FaTzcwejc2cExycVdDUlBrRnBRa2J1cU8zc1g0?=
- =?utf-8?B?VC9CamxhWW40aCtmMFM5aUFrcGRSUUN5YWNIczVVVlNOUW8vNmZ6ekJySVJ6?=
- =?utf-8?B?bFVNOC9qbHNiaWdxU2RTZDJuY2kvYWJwVXg2Y3NLZm1SRjVHRXhTaE1vOU0y?=
- =?utf-8?B?ajFMbW90RWFpUVcyaURiMHc2UXhKS0k3b2dLQjdhVGhEMHBVUlJrNDUvbjJq?=
- =?utf-8?B?WlNjMS9yM291KzR6TEJpVkxkVlNkb2xMUFlnU3VKY0phcFlFbFptK09EQ3o4?=
- =?utf-8?B?Q2ZmbEFaVGVXdkpFNkg2TmZJSXBtMDBGNEQxbHo1djgwKytxcERsK0w4eGZO?=
- =?utf-8?Q?TAwsrPdLnl4slPsjyV17DlU=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUZMbGcyQld4RGhueFhpNEVML0xrN2JLRkJ5V2xvQlJOVTYzNGgydVA4Q0Vr?=
+ =?utf-8?B?cSt5Zk5LeVl6UmNiWXlmWUdMcUQxUHUvU3RJYmNLMmpucnFvVzlQQ3AxNTJr?=
+ =?utf-8?B?Sk5tQU8vQWpjTFFTdUM2bk9jTVcyWUFFT2cvNEZvTU9rWkNxckZRQ3NxQUdG?=
+ =?utf-8?B?a0FtckpvbjV0cXF3ZVZWZ3hwQVBabGsxQnFwS2QwT2JIK2V6YW9heDdyNUhK?=
+ =?utf-8?B?SDdQSytDQkVjOHhrT29XR3dCZGV6cXZISW04aXE1MGkxWEFUdHR3MWNmcDdD?=
+ =?utf-8?B?eU9hNmhMY0lLNW1KZE5jNnNRL2cwU1FiVWw2bWNQK1ludWJBOEszVVE1N01O?=
+ =?utf-8?B?U1RDa2RHY25HOXRsNzZFNENKdzR2NUovSjd3V3J6RitIR1RPT1lmS3NOSzdq?=
+ =?utf-8?B?eHFsTXNFTVNOWmluelpuUlNoWmJJZjFEbkRINTJMOUdIbEJZb1BtQzdqbVJJ?=
+ =?utf-8?B?Zmxua3pGaVVHWjdJVU1nUFgvV1VGNy94QzdaVWowTzhYbDZ0cUJVY3dMaUhL?=
+ =?utf-8?B?Z3RwUlA0My9jck1PK1o2OTNLVnNLSEx5NlNzUjZmdUQ2U25FREhPdGhZMUVN?=
+ =?utf-8?B?a2E2aFVUTzZEelJlK084dUJqTWNlUWNsM1NLL0hacEVEUDhmdzlaZmF5YTA1?=
+ =?utf-8?B?Z1Bkc2J2cWJXR3oxR0VLNGJUcVRRRU1rcTViTDdIVkF6MWlSVXB3TFlPZE50?=
+ =?utf-8?B?WDdlWmhzczBKYU12eE05Wkl6ZEIwUXBHcDdEbTZXQktRbkljWENhRUtoRkl3?=
+ =?utf-8?B?WDhadzE5VTcybG5GNWFadVdmK0xWRkpPemxjRmhsWUY0RUM3c1NRa0RJNFB5?=
+ =?utf-8?B?SEpSYTZYSUZud0FyUlo0UzkyMmxaeXN6T2ZLRC9UelVySGo5dDViWWdMMUZF?=
+ =?utf-8?B?b0dwL296ZXAwRmNobDdxak5HT0orZWRJbnh0SnV1R0pKN09razZJYjB3UkRV?=
+ =?utf-8?B?dy9yeG02UHhyd0luTXR5aG9zbXBqVXN6b1V2dWdrZHM0SStKeDlQdXByb3N0?=
+ =?utf-8?B?SW5KS00xa1JUVWNpME9idUxIbXprNGtweFFZU1o3RFdkaU13NjJsb2ZVMEVn?=
+ =?utf-8?B?R0luMEdPQ1Q3Z0tJQ3k1MmhhbGYrNU0zcHpsY08xSkdRd0V5N1NjemdhYVln?=
+ =?utf-8?B?R2ZTL3haVTg3YThRRXNoSExKYWt0VitzcU5ua1MyVTlSTlFHMWErbmhvMnlT?=
+ =?utf-8?B?OE1RSVcxY3FLOHVwYWEwNVAvT3g5Zlc3SlZZR3NpVjRaVXVMVEJ3NmVRNWUr?=
+ =?utf-8?B?QjV6cmhKRUF4dlV6U2JNbDF2WnByaXpmUHJVS014VTN5b2RaTGZpSlN1TVZY?=
+ =?utf-8?B?YStCWStxdHUvbG94WjZ1UDJnb2Z2MzVOOEFnQXZlVmVUSTVCR29LM3pKRkpN?=
+ =?utf-8?B?dmZzMW5EZUxGOWVJYmNLbDNubWJEdDV2RWR2eXd6VU5iUnJ0YUpidnVOeFVJ?=
+ =?utf-8?B?WStaM2RXdWdsODRmYnovN3F6TUNTYy9nV3dna1l4TzlEbzdvS3Vzc1Vla1JI?=
+ =?utf-8?B?SG1WcmQrd0VNU0FIQXpEYnpVZmdnNVVEWmZYSGJqUmw5b3ppUS9FanNEbGtK?=
+ =?utf-8?B?VFFXM0tTNzRYM280K1JmU01rdDNMTEttSk1UR1R5Y3hTb0h3UjRkNEdzNnUr?=
+ =?utf-8?B?WFdjMWJRVlZ1SjZrZGE2eWswWWlFdlVYTVRoYldtd0pFd2lzK1ZycGxLTHcr?=
+ =?utf-8?B?NFQxaGp5dnd5cWhQcExBdm93WVFEWGtCRDlUK00wTzhBSFRKNElENXpzOHQ1?=
+ =?utf-8?B?b1U3MTFWNjdkSlNBeDNkWGs2N1czTzJXUE9KOURKeHdvMWd3c1MwZFY3dDgx?=
+ =?utf-8?B?VTJlYnhveERSUktwMTRpaUorUWhRZ0YyQlRFUlREeVR3ZDFIQW5YVG1uRklV?=
+ =?utf-8?B?andhVzJrOXpNUG1MV1g3b2JpbW5LNjBzY2pXSzI4R1dLUUlmK1p3OFp2OG0v?=
+ =?utf-8?B?QVoxZ3lCUXlFVVFrdDRRdzFTT3ZqK3AyV3JRRVJ2WGVxRlBsdkRrNDRNTFRy?=
+ =?utf-8?B?Yko1VkhrVXI0Qm40ay9TSnlGdkk1K2lOTGhnOSt3aVY5UlovdG1uanB5Qmxj?=
+ =?utf-8?B?WC9MbGVoazNidVpScW4ydi9PblRSUkVVbmhyOGoyVUJ3ZE5WYWN3b09Pb1hY?=
+ =?utf-8?B?S2FqVHZkeCszUGZJOVJXZFU2NXJxSFcraHQremhFOGU0ckdDRWh4cnRVRG1J?=
+ =?utf-8?Q?88rRTr/2SYFGqNy55LjXe8o=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f79870a7-f569-45f2-5fc2-08d998c521f9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ee4efdf-395d-4451-f925-08d998c6e068
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB2491.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 21:11:09.8255 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 21:23:38.7217 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dZ3TG6edDiIywVBOmPzfNs2aUdedGoLbjOcSSaoiBX+uwE7luewey7lZvS1D/tURkf8OIZa6eHZxwSX+UrFHiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2810
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1mCaZ2SHxzeApgO47KwXuTqfrwCvo5hVtYBvFfL4i9FJOhhKPHcyExCRirDO8eebBRINiYew8nn6Al0iwFWlCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1436
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,243 +142,606 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-10-26 um 4:31 p.m. schrieb Sider, Graham:
-> [AMD Official Use Only]
+Am 2021-10-19 um 5:13 p.m. schrieb Graham Sider:
+> Modified definitions:
 >
->> -----Original Message-----
->> From: Kuehling, Felix <Felix.Kuehling@amd.com>
->> Sent: Tuesday, October 26, 2021 4:07 PM
->> To: Sider, Graham <Graham.Sider@amd.com>; amd-
->> gfx@lists.freedesktop.org
->> Cc: Joshi, Mukul <Mukul.Joshi@amd.com>
->> Subject: Re: [PATCH 02/13] drm/amdkfd: replace kgd_dev in static gfx v7
->> funcs
->>
->> Am 2021-10-19 um 5:13 p.m. schrieb Graham Sider:
->>> Static funcs in amdgpu_amdkfd_gfx_v7.c now using amdgpu_device.
->> Doesn't this cause pointer type mismatch errors when assigning the function
->> pointers in gfx_v7_kfd2kgd? Those only get updated in patch 7.
->>
->> Regards,
->>   Felix
->>
-> The function definitions changed in patches 2 through 6 are only used internally
-> within these files and aren't assigned to any of the gfx_v*_kfd2kgd entries. Patches
-> 7 through 11 deal with the kfd2kgd functions that would cause a mismatch if done
-> file-by-file.
+> - amdgpu_amdkfd_get_fw_version
+> - amdgpu_amdkfd_get_local_mem_info
+> - amdgpu_amdkfd_get_gpu_clock_counter
+> - amdgpu_amdkfd_get_max_engine_clock_in_mhz
+> - amdgpu_amdkfd_get_cu_info
+> - amdgpu_amdkfd_get_dmabuf_info
+> - amdgpu_amdkfd_get_vram_usage
+> - amdgpu_amdkfd_get_hive_id
+> - amdgpu_amdkfd_get_unique_id
+> - amdgpu_amdkfd_get_mmio_remap_phys_addr
+> - amdgpu_amdkfd_get_num_gws
+> - amdgpu_amdkfd_get_asic_rev_id
+> - amdgpu_amdkfd_get_noretry
+> - amdgpu_amdkfd_get_xgmi_hops_count
+> - amdgpu_amdkfd_get_xgmi_bandwidth_mbytes
+> - amdgpu_amdkfd_get_pcie_bandwidth_mbytes
+>
+> Also replaces kfd_device_by_kgd with kfd_device_by_adev, now
+> searching via adev rather than kgd.
 
-I see. I saw you're changing e.g. kgd_hqd_load, but you're not changing
-its signature here, so no problem.
+Some of these functions are so trivial, they could probably be replaced
+with direct accesses to the respective fields in adev from KFD:
+
+  * amdgpu_amdkfd_get_hive_id
+  * amdgpu_amdkfd_get_unique_id
+  * amdgpu_amdkfd_get_mmio_remap_phys_addr
+  * amdgpu_amdkfd_get_num_gws
+  * amdgpu_amdkfd_get_asic_rev_id
+  * amdgpu_amdkfd_get_noretry
+
+I'd do that with a separate follow-up patch, though.
+
+Regards,
+  Felix
 
 
 >
-> Best,
-> Graham
+> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    | 73 +++++++------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    | 38 +++++-----
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 16 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c         | 16 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 14 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
+>  .../amd/amdkfd/kfd_process_queue_manager.c    |  2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     | 18 ++---
+>  9 files changed, 82 insertions(+), 99 deletions(-)
 >
->>> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
->>> ---
->>>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c | 51
->>> +++++++++----------
->>>  1 file changed, 23 insertions(+), 28 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
->>> index b91d27e39bad..d00ba8d65a6d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
->>> @@ -87,38 +87,33 @@ static inline struct amdgpu_device
->> *get_amdgpu_device(struct kgd_dev *kgd)
->>>  	return (struct amdgpu_device *)kgd;
->>>  }
->>>
->>> -static void lock_srbm(struct kgd_dev *kgd, uint32_t mec, uint32_t
->>> pipe,
->>> +static void lock_srbm(struct amdgpu_device *adev, uint32_t mec,
->>> +uint32_t pipe,
->>>  			uint32_t queue, uint32_t vmid)
->>>  {
->>> -	struct amdgpu_device *adev = get_amdgpu_device(kgd);
->>>  	uint32_t value = PIPEID(pipe) | MEID(mec) | VMID(vmid) |
->>> QUEUEID(queue);
->>>
->>>  	mutex_lock(&adev->srbm_mutex);
->>>  	WREG32(mmSRBM_GFX_CNTL, value);
->>>  }
->>>
->>> -static void unlock_srbm(struct kgd_dev *kgd)
->>> +static void unlock_srbm(struct amdgpu_device *adev)
->>>  {
->>> -	struct amdgpu_device *adev = get_amdgpu_device(kgd);
->>> -
->>>  	WREG32(mmSRBM_GFX_CNTL, 0);
->>>  	mutex_unlock(&adev->srbm_mutex);
->>>  }
->>>
->>> -static void acquire_queue(struct kgd_dev *kgd, uint32_t pipe_id,
->>> +static void acquire_queue(struct amdgpu_device *adev, uint32_t
->>> +pipe_id,
->>>  				uint32_t queue_id)
->>>  {
->>> -	struct amdgpu_device *adev = get_amdgpu_device(kgd);
->>> -
->>>  	uint32_t mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
->>>  	uint32_t pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
->>>
->>> -	lock_srbm(kgd, mec, pipe, queue_id, 0);
->>> +	lock_srbm(adev, mec, pipe, queue_id, 0);
->>>  }
->>>
->>> -static void release_queue(struct kgd_dev *kgd)
->>> +static void release_queue(struct amdgpu_device *adev)
->>>  {
->>> -	unlock_srbm(kgd);
->>> +	unlock_srbm(adev);
->>>  }
->>>
->>>  static void kgd_program_sh_mem_settings(struct kgd_dev *kgd, uint32_t
->>> vmid, @@ -129,14 +124,14 @@ static void
->>> kgd_program_sh_mem_settings(struct kgd_dev *kgd, uint32_t vmid,  {
->>>  	struct amdgpu_device *adev = get_amdgpu_device(kgd);
->>>
->>> -	lock_srbm(kgd, 0, 0, 0, vmid);
->>> +	lock_srbm(adev, 0, 0, 0, vmid);
->>>
->>>  	WREG32(mmSH_MEM_CONFIG, sh_mem_config);
->>>  	WREG32(mmSH_MEM_APE1_BASE, sh_mem_ape1_base);
->>>  	WREG32(mmSH_MEM_APE1_LIMIT, sh_mem_ape1_limit);
->>>  	WREG32(mmSH_MEM_BASES, sh_mem_bases);
->>>
->>> -	unlock_srbm(kgd);
->>> +	unlock_srbm(adev);
->>>  }
->>>
->>>  static int kgd_set_pasid_vmid_mapping(struct kgd_dev *kgd, u32 pasid,
->>> @@ -174,12 +169,12 @@ static int kgd_init_interrupts(struct kgd_dev
->> *kgd, uint32_t pipe_id)
->>>  	mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
->>>  	pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
->>>
->>> -	lock_srbm(kgd, mec, pipe, 0, 0);
->>> +	lock_srbm(adev, mec, pipe, 0, 0);
->>>
->>>  	WREG32(mmCPC_INT_CNTL,
->> CP_INT_CNTL_RING0__TIME_STAMP_INT_ENABLE_MASK |
->> 	CP_INT_CNTL_RING0__OPCODE_ERROR_INT_ENABLE_MASK);
->>> -	unlock_srbm(kgd);
->>> +	unlock_srbm(adev);
->>>
->>>  	return 0;
->>>  }
->>> @@ -220,7 +215,7 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void
->>> *mqd, uint32_t pipe_id,
->>>
->>>  	m = get_mqd(mqd);
->>>
->>> -	acquire_queue(kgd, pipe_id, queue_id);
->>> +	acquire_queue(adev, pipe_id, queue_id);
->>>
->>>  	/* HQD registers extend from CP_MQD_BASE_ADDR to
->> CP_MQD_CONTROL. */
->>>  	mqd_hqd = &m->cp_mqd_base_addr_lo;
->>> @@ -239,16 +234,16 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void
->> *mqd, uint32_t pipe_id,
->>>  	 * release srbm_mutex to avoid circular dependency between
->>>  	 * srbm_mutex->mm_sem->reservation_ww_class_mutex-
->>> srbm_mutex.
->>>  	 */
->>> -	release_queue(kgd);
->>> +	release_queue(adev);
->>>  	valid_wptr = read_user_wptr(mm, wptr, wptr_val);
->>> -	acquire_queue(kgd, pipe_id, queue_id);
->>> +	acquire_queue(adev, pipe_id, queue_id);
->>>  	if (valid_wptr)
->>>  		WREG32(mmCP_HQD_PQ_WPTR, (wptr_val << wptr_shift) &
->> wptr_mask);
->>>  	data = REG_SET_FIELD(m->cp_hqd_active, CP_HQD_ACTIVE, ACTIVE,
->> 1);
->>>  	WREG32(mmCP_HQD_ACTIVE, data);
->>>
->>> -	release_queue(kgd);
->>> +	release_queue(adev);
->>>
->>>  	return 0;
->>>  }
->>> @@ -271,7 +266,7 @@ static int kgd_hqd_dump(struct kgd_dev *kgd,
->>>  	if (*dump == NULL)
->>>  		return -ENOMEM;
->>>
->>> -	acquire_queue(kgd, pipe_id, queue_id);
->>> +	acquire_queue(adev, pipe_id, queue_id);
->>>
->>>  	DUMP_REG(mmCOMPUTE_STATIC_THREAD_MGMT_SE0);
->>>  	DUMP_REG(mmCOMPUTE_STATIC_THREAD_MGMT_SE1);
->>> @@ -281,7 +276,7 @@ static int kgd_hqd_dump(struct kgd_dev *kgd,
->>>  	for (reg = mmCP_MQD_BASE_ADDR; reg <= mmCP_MQD_CONTROL;
->> reg++)
->>>  		DUMP_REG(reg);
->>>
->>> -	release_queue(kgd);
->>> +	release_queue(adev);
->>>
->>>  	WARN_ON_ONCE(i != HQD_N_REGS);
->>>  	*n_regs = i;
->>> @@ -380,7 +375,7 @@ static bool kgd_hqd_is_occupied(struct kgd_dev
->> *kgd, uint64_t queue_address,
->>>  	bool retval = false;
->>>  	uint32_t low, high;
->>>
->>> -	acquire_queue(kgd, pipe_id, queue_id);
->>> +	acquire_queue(adev, pipe_id, queue_id);
->>>  	act = RREG32(mmCP_HQD_ACTIVE);
->>>  	if (act) {
->>>  		low = lower_32_bits(queue_address >> 8); @@ -390,7 +385,7
->> @@ static
->>> bool kgd_hqd_is_occupied(struct kgd_dev *kgd, uint64_t queue_address,
->>>  				high == RREG32(mmCP_HQD_PQ_BASE_HI))
->>>  			retval = true;
->>>  	}
->>> -	release_queue(kgd);
->>> +	release_queue(adev);
->>>  	return retval;
->>>  }
->>>
->>> @@ -426,7 +421,7 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd,
->> void *mqd,
->>>  	if (amdgpu_in_reset(adev))
->>>  		return -EIO;
->>>
->>> -	acquire_queue(kgd, pipe_id, queue_id);
->>> +	acquire_queue(adev, pipe_id, queue_id);
->>>  	WREG32(mmCP_HQD_PQ_DOORBELL_CONTROL, 0);
->>>
->>>  	switch (reset_type) {
->>> @@ -504,13 +499,13 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd,
->> void *mqd,
->>>  			break;
->>>  		if (time_after(jiffies, end_jiffies)) {
->>>  			pr_err("cp queue preemption time out\n");
->>> -			release_queue(kgd);
->>> +			release_queue(adev);
->>>  			return -ETIME;
->>>  		}
->>>  		usleep_range(500, 1000);
->>>  	}
->>>
->>> -	release_queue(kgd);
->>> +	release_queue(adev);
->>>  	return 0;
->>>  }
->>>
->>> @@ -651,9 +646,9 @@ static void set_scratch_backing_va(struct kgd_dev
->>> *kgd,  {
->>>  	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
->>>
->>> -	lock_srbm(kgd, 0, 0, 0, vmid);
->>> +	lock_srbm(adev, 0, 0, 0, vmid);
->>>  	WREG32(mmSH_HIDDEN_PRIVATE_BASE_VMID, va);
->>> -	unlock_srbm(kgd);
->>> +	unlock_srbm(adev);
->>>  }
->>>
->>>  static void set_vm_context_page_table_base(struct kgd_dev *kgd,
->>> uint32_t vmid,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index 69fc8f0d9c45..79a2e37baa59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -358,11 +358,9 @@ void amdgpu_amdkfd_free_gws(struct amdgpu_device *adev, void *mem_obj)
+>  	amdgpu_bo_unref(&bo);
+>  }
+>  
+> -uint32_t amdgpu_amdkfd_get_fw_version(struct kgd_dev *kgd,
+> +uint32_t amdgpu_amdkfd_get_fw_version(struct amdgpu_device *adev,
+>  				      enum kgd_engine_type type)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	switch (type) {
+>  	case KGD_ENGINE_PFP:
+>  		return adev->gfx.pfp_fw_version;
+> @@ -395,11 +393,9 @@ uint32_t amdgpu_amdkfd_get_fw_version(struct kgd_dev *kgd,
+>  	return 0;
+>  }
+>  
+> -void amdgpu_amdkfd_get_local_mem_info(struct kgd_dev *kgd,
+> +void amdgpu_amdkfd_get_local_mem_info(struct amdgpu_device *adev,
+>  				      struct kfd_local_mem_info *mem_info)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	memset(mem_info, 0, sizeof(*mem_info));
+>  
+>  	mem_info->local_mem_size_public = adev->gmc.visible_vram_size;
+> @@ -424,19 +420,15 @@ void amdgpu_amdkfd_get_local_mem_info(struct kgd_dev *kgd,
+>  		mem_info->mem_clk_max = 100;
+>  }
+>  
+> -uint64_t amdgpu_amdkfd_get_gpu_clock_counter(struct kgd_dev *kgd)
+> +uint64_t amdgpu_amdkfd_get_gpu_clock_counter(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	if (adev->gfx.funcs->get_gpu_clock_counter)
+>  		return adev->gfx.funcs->get_gpu_clock_counter(adev);
+>  	return 0;
+>  }
+>  
+> -uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct kgd_dev *kgd)
+> +uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	/* the sclk is in quantas of 10kHz */
+>  	if (amdgpu_sriov_vf(adev))
+>  		return adev->clock.default_sclk / 100;
+> @@ -446,9 +438,8 @@ uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct kgd_dev *kgd)
+>  		return 100;
+>  }
+>  
+> -void amdgpu_amdkfd_get_cu_info(struct kgd_dev *kgd, struct kfd_cu_info *cu_info)
+> +void amdgpu_amdkfd_get_cu_info(struct amdgpu_device *adev, struct kfd_cu_info *cu_info)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+>  	struct amdgpu_cu_info acu_info = adev->gfx.cu_info;
+>  
+>  	memset(cu_info, 0, sizeof(*cu_info));
+> @@ -469,13 +460,12 @@ void amdgpu_amdkfd_get_cu_info(struct kgd_dev *kgd, struct kfd_cu_info *cu_info)
+>  	cu_info->lds_size = acu_info.lds_size;
+>  }
+>  
+> -int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *kgd, int dma_buf_fd,
+> -				  struct kgd_dev **dma_buf_kgd,
+> +int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+> +				  struct amdgpu_device **dmabuf_adev,
+>  				  uint64_t *bo_size, void *metadata_buffer,
+>  				  size_t buffer_size, uint32_t *metadata_size,
+>  				  uint32_t *flags)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+>  	struct dma_buf *dma_buf;
+>  	struct drm_gem_object *obj;
+>  	struct amdgpu_bo *bo;
+> @@ -503,8 +493,8 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *kgd, int dma_buf_fd,
+>  		goto out_put;
+>  
+>  	r = 0;
+> -	if (dma_buf_kgd)
+> -		*dma_buf_kgd = (struct kgd_dev *)adev;
+> +	if (dmabuf_adev)
+> +		*dmabuf_adev = adev;
+>  	if (bo_size)
+>  		*bo_size = amdgpu_bo_size(bo);
+>  	if (metadata_buffer)
+> @@ -524,32 +514,28 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *kgd, int dma_buf_fd,
+>  	return r;
+>  }
+>  
+> -uint64_t amdgpu_amdkfd_get_vram_usage(struct kgd_dev *kgd)
+> +uint64_t amdgpu_amdkfd_get_vram_usage(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+>  	struct ttm_resource_manager *vram_man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
+>  
+>  	return amdgpu_vram_mgr_usage(vram_man);
+>  }
+>  
+> -uint64_t amdgpu_amdkfd_get_hive_id(struct kgd_dev *kgd)
+> +uint64_t amdgpu_amdkfd_get_hive_id(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	return adev->gmc.xgmi.hive_id;
+>  }
+>  
+> -uint64_t amdgpu_amdkfd_get_unique_id(struct kgd_dev *kgd)
+> +uint64_t amdgpu_amdkfd_get_unique_id(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	return adev->unique_id;
+>  }
+>  
+> -uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev *src)
+> +uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct amdgpu_device *dst,
+> +					  struct amdgpu_device *src)
+>  {
+> -	struct amdgpu_device *peer_adev = (struct amdgpu_device *)src;
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)dst;
+> +	struct amdgpu_device *peer_adev = src;
+> +	struct amdgpu_device *adev = dst;
+>  	int ret = amdgpu_xgmi_get_hops_count(adev, peer_adev);
+>  
+>  	if (ret < 0) {
+> @@ -561,16 +547,18 @@ uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev *s
+>  	return  (uint8_t)ret;
+>  }
+>  
+> -int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst, struct kgd_dev *src, bool is_min)
+> +int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct amdgpu_device *dst,
+> +					    struct amdgpu_device *src,
+> +					    bool is_min)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)dst, *peer_adev;
+> +	struct amdgpu_device *adev = dst, *peer_adev;
+>  	int num_links;
+>  
+>  	if (adev->asic_type != CHIP_ALDEBARAN)
+>  		return 0;
+>  
+>  	if (src)
+> -		peer_adev = (struct amdgpu_device *)src;
+> +		peer_adev = src;
+>  
+>  	/* num links returns 0 for indirect peers since indirect route is unknown. */
+>  	num_links = is_min ? 1 : amdgpu_xgmi_get_num_links(adev, peer_adev);
+> @@ -585,9 +573,8 @@ int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst, struct kgd_dev
+>  	return (num_links * 16 * 25000)/BITS_PER_BYTE;
+>  }
+>  
+> -int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct kgd_dev *dev, bool is_min)
+> +int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct amdgpu_device *adev, bool is_min)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)dev;
+>  	int num_lanes_shift = (is_min ? ffs(adev->pm.pcie_mlw_mask) :
+>  							fls(adev->pm.pcie_mlw_mask)) - 1;
+>  	int gen_speed_shift = (is_min ? ffs(adev->pm.pcie_gen_mask &
+> @@ -643,31 +630,23 @@ int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct kgd_dev *dev, bool is_min)
+>  	return (num_lanes_factor * gen_speed_mbits_factor)/BITS_PER_BYTE;
+>  }
+>  
+> -uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct kgd_dev *kgd)
+> +uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	return adev->rmmio_remap.bus_addr;
+>  }
+>  
+> -uint32_t amdgpu_amdkfd_get_num_gws(struct kgd_dev *kgd)
+> +uint32_t amdgpu_amdkfd_get_num_gws(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	return adev->gds.gws_size;
+>  }
+>  
+> -uint32_t amdgpu_amdkfd_get_asic_rev_id(struct kgd_dev *kgd)
+> +uint32_t amdgpu_amdkfd_get_asic_rev_id(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	return adev->rev_id;
+>  }
+>  
+> -int amdgpu_amdkfd_get_noretry(struct kgd_dev *kgd)
+> +int amdgpu_amdkfd_get_noretry(struct amdgpu_device *adev)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+> -
+>  	return adev->gmc.noretry;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> index 8d5c18953723..7e3697a7a5cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> @@ -209,29 +209,33 @@ int amdgpu_amdkfd_alloc_gws(struct amdgpu_device *adev, size_t size,
+>  void amdgpu_amdkfd_free_gws(struct amdgpu_device *adev, void *mem_obj);
+>  int amdgpu_amdkfd_add_gws_to_process(void *info, void *gws, struct kgd_mem **mem);
+>  int amdgpu_amdkfd_remove_gws_from_process(void *info, void *mem);
+> -uint32_t amdgpu_amdkfd_get_fw_version(struct kgd_dev *kgd,
+> +uint32_t amdgpu_amdkfd_get_fw_version(struct amdgpu_device *adev,
+>  				      enum kgd_engine_type type);
+> -void amdgpu_amdkfd_get_local_mem_info(struct kgd_dev *kgd,
+> +void amdgpu_amdkfd_get_local_mem_info(struct amdgpu_device *adev,
+>  				      struct kfd_local_mem_info *mem_info);
+> -uint64_t amdgpu_amdkfd_get_gpu_clock_counter(struct kgd_dev *kgd);
+> +uint64_t amdgpu_amdkfd_get_gpu_clock_counter(struct amdgpu_device *adev);
+>  
+> -uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct kgd_dev *kgd);
+> -void amdgpu_amdkfd_get_cu_info(struct kgd_dev *kgd, struct kfd_cu_info *cu_info);
+> -int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *kgd, int dma_buf_fd,
+> -				  struct kgd_dev **dmabuf_kgd,
+> +uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct amdgpu_device *adev);
+> +void amdgpu_amdkfd_get_cu_info(struct amdgpu_device *adev,
+> +			       struct kfd_cu_info *cu_info);
+> +int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+> +				  struct amdgpu_device **dmabuf_adev,
+>  				  uint64_t *bo_size, void *metadata_buffer,
+>  				  size_t buffer_size, uint32_t *metadata_size,
+>  				  uint32_t *flags);
+> -uint64_t amdgpu_amdkfd_get_vram_usage(struct kgd_dev *kgd);
+> -uint64_t amdgpu_amdkfd_get_hive_id(struct kgd_dev *kgd);
+> -uint64_t amdgpu_amdkfd_get_unique_id(struct kgd_dev *kgd);
+> -uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct kgd_dev *kgd);
+> -uint32_t amdgpu_amdkfd_get_num_gws(struct kgd_dev *kgd);
+> -uint32_t amdgpu_amdkfd_get_asic_rev_id(struct kgd_dev *kgd);
+> -int amdgpu_amdkfd_get_noretry(struct kgd_dev *kgd);
+> -uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev *src);
+> -int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct kgd_dev *dst, struct kgd_dev *src, bool is_min);
+> -int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct kgd_dev *dev, bool is_min);
+> +uint64_t amdgpu_amdkfd_get_vram_usage(struct amdgpu_device *adev);
+> +uint64_t amdgpu_amdkfd_get_hive_id(struct amdgpu_device *adev);
+> +uint64_t amdgpu_amdkfd_get_unique_id(struct amdgpu_device *adev);
+> +uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct amdgpu_device *adev);
+> +uint32_t amdgpu_amdkfd_get_num_gws(struct amdgpu_device *adev);
+> +uint32_t amdgpu_amdkfd_get_asic_rev_id(struct amdgpu_device *adev);
+> +int amdgpu_amdkfd_get_noretry(struct amdgpu_device *adev);
+> +uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct amdgpu_device *dst,
+> +					  struct amdgpu_device *src);
+> +int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct amdgpu_device *dst,
+> +					    struct amdgpu_device *src,
+> +					    bool is_min);
+> +int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct amdgpu_device *adev, bool is_min);
+>  
+>  /* Read user wptr from a specified user address space with page fault
+>   * disabled. The memory must be pinned and mapped to the hardware when
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 7c4f14410a74..47acfef1aebd 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -850,7 +850,7 @@ static int kfd_ioctl_get_clock_counters(struct file *filep,
+>  	dev = kfd_device_by_id(args->gpu_id);
+>  	if (dev)
+>  		/* Reading GPU clock counter from KGD */
+> -		args->gpu_clock_counter = amdgpu_amdkfd_get_gpu_clock_counter(dev->kgd);
+> +		args->gpu_clock_counter = amdgpu_amdkfd_get_gpu_clock_counter(dev->adev);
+>  	else
+>  		/* Node without GPU resource */
+>  		args->gpu_clock_counter = 0;
+> @@ -1237,7 +1237,7 @@ bool kfd_dev_is_large_bar(struct kfd_dev *dev)
+>  	if (dev->use_iommu_v2)
+>  		return false;
+>  
+> -	amdgpu_amdkfd_get_local_mem_info(dev->kgd, &mem_info);
+> +	amdgpu_amdkfd_get_local_mem_info(dev->adev, &mem_info);
+>  	if (mem_info.local_mem_size_private == 0 &&
+>  			mem_info.local_mem_size_public > 0)
+>  		return true;
+> @@ -1306,7 +1306,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+>  			err = -EINVAL;
+>  			goto err_unlock;
+>  		}
+> -		offset = amdgpu_amdkfd_get_mmio_remap_phys_addr(dev->kgd);
+> +		offset = amdgpu_amdkfd_get_mmio_remap_phys_addr(dev->adev);
+>  		if (!offset) {
+>  			err = -ENOMEM;
+>  			goto err_unlock;
+> @@ -1664,7 +1664,7 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+>  {
+>  	struct kfd_ioctl_get_dmabuf_info_args *args = data;
+>  	struct kfd_dev *dev = NULL;
+> -	struct kgd_dev *dma_buf_kgd;
+> +	struct amdgpu_device *dmabuf_adev;
+>  	void *metadata_buffer = NULL;
+>  	uint32_t flags;
+>  	unsigned int i;
+> @@ -1684,15 +1684,15 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+>  	}
+>  
+>  	/* Get dmabuf info from KGD */
+> -	r = amdgpu_amdkfd_get_dmabuf_info(dev->kgd, args->dmabuf_fd,
+> -					  &dma_buf_kgd, &args->size,
+> +	r = amdgpu_amdkfd_get_dmabuf_info(dev->adev, args->dmabuf_fd,
+> +					  &dmabuf_adev, &args->size,
+>  					  metadata_buffer, args->metadata_size,
+>  					  &args->metadata_size, &flags);
+>  	if (r)
+>  		goto exit;
+>  
+>  	/* Reverse-lookup gpu_id from kgd pointer */
+> -	dev = kfd_device_by_kgd(dma_buf_kgd);
+> +	dev = kfd_device_by_adev(dmabuf_adev);
+>  	if (!dev) {
+>  		r = -EINVAL;
+>  		goto exit;
+> @@ -2050,7 +2050,7 @@ static int kfd_mmio_mmap(struct kfd_dev *dev, struct kfd_process *process,
+>  	if (vma->vm_end - vma->vm_start != PAGE_SIZE)
+>  		return -EINVAL;
+>  
+> -	address = amdgpu_amdkfd_get_mmio_remap_phys_addr(dev->kgd);
+> +	address = amdgpu_amdkfd_get_mmio_remap_phys_addr(dev->adev);
+>  
+>  	vma->vm_flags |= VM_IO | VM_DONTCOPY | VM_DONTEXPAND | VM_NORESERVE |
+>  				VM_DONTDUMP | VM_PFNMAP;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index cfedfb1e8596..7143550becb0 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1993,16 +1993,16 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
+>  		if (adev->asic_type == CHIP_ALDEBARAN) {
+>  			sub_type_hdr->minimum_bandwidth_mbs =
+>  					amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(
+> -							kdev->kgd, NULL, true);
+> +							kdev->adev, NULL, true);
+>  			sub_type_hdr->maximum_bandwidth_mbs =
+>  					sub_type_hdr->minimum_bandwidth_mbs;
+>  		}
+>  	} else {
+>  		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_PCIEXPRESS;
+>  		sub_type_hdr->minimum_bandwidth_mbs =
+> -				amdgpu_amdkfd_get_pcie_bandwidth_mbytes(kdev->kgd, true);
+> +				amdgpu_amdkfd_get_pcie_bandwidth_mbytes(kdev->adev, true);
+>  		sub_type_hdr->maximum_bandwidth_mbs =
+> -				amdgpu_amdkfd_get_pcie_bandwidth_mbytes(kdev->kgd, false);
+> +				amdgpu_amdkfd_get_pcie_bandwidth_mbytes(kdev->adev, false);
+>  	}
+>  
+>  	sub_type_hdr->proximity_domain_from = proximity_domain;
+> @@ -2044,11 +2044,11 @@ static int kfd_fill_gpu_xgmi_link_to_gpu(int *avail_size,
+>  	sub_type_hdr->proximity_domain_from = proximity_domain_from;
+>  	sub_type_hdr->proximity_domain_to = proximity_domain_to;
+>  	sub_type_hdr->num_hops_xgmi =
+> -		amdgpu_amdkfd_get_xgmi_hops_count(kdev->kgd, peer_kdev->kgd);
+> +		amdgpu_amdkfd_get_xgmi_hops_count(kdev->adev, peer_kdev->adev);
+>  	sub_type_hdr->maximum_bandwidth_mbs =
+> -		amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->kgd, peer_kdev->kgd, false);
+> +		amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->adev, peer_kdev->adev, false);
+>  	sub_type_hdr->minimum_bandwidth_mbs = sub_type_hdr->maximum_bandwidth_mbs ?
+> -		amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->kgd, NULL, true) : 0;
+> +		amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(kdev->adev, NULL, true) : 0;
+>  
+>  	return 0;
+>  }
+> @@ -2114,7 +2114,7 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+>  	cu->flags |= CRAT_CU_FLAGS_GPU_PRESENT;
+>  	cu->proximity_domain = proximity_domain;
+>  
+> -	amdgpu_amdkfd_get_cu_info(kdev->kgd, &cu_info);
+> +	amdgpu_amdkfd_get_cu_info(kdev->adev, &cu_info);
+>  	cu->num_simd_per_cu = cu_info.simd_per_cu;
+>  	cu->num_simd_cores = cu_info.simd_per_cu * cu_info.cu_active_number;
+>  	cu->max_waves_simd = cu_info.max_waves_per_simd;
+> @@ -2145,7 +2145,7 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+>  	 * report the total FB size (public+private) as a single
+>  	 * private heap.
+>  	 */
+> -	amdgpu_amdkfd_get_local_mem_info(kdev->kgd, &local_mem_info);
+> +	amdgpu_amdkfd_get_local_mem_info(kdev->adev, &local_mem_info);
+>  	sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+>  			sub_type_hdr->length);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index a90ec8de213b..00c726123207 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -894,7 +894,7 @@ static int kfd_gws_init(struct kfd_dev *kfd)
+>  		|| (kfd->device_info->asic_family == CHIP_ALDEBARAN
+>  			&& kfd->mec2_fw_version >= 0x28))
+>  		ret = amdgpu_amdkfd_alloc_gws(kfd->adev,
+> -				amdgpu_amdkfd_get_num_gws(kfd->kgd), &kfd->gws);
+> +				amdgpu_amdkfd_get_num_gws(kfd->adev), &kfd->gws);
+>  
+>  	return ret;
+>  }
+> @@ -911,11 +911,11 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>  	unsigned int size, map_process_packet_size;
+>  
+>  	kfd->ddev = ddev;
+> -	kfd->mec_fw_version = amdgpu_amdkfd_get_fw_version(kfd->kgd,
+> +	kfd->mec_fw_version = amdgpu_amdkfd_get_fw_version(kfd->adev,
+>  			KGD_ENGINE_MEC1);
+> -	kfd->mec2_fw_version = amdgpu_amdkfd_get_fw_version(kfd->kgd,
+> +	kfd->mec2_fw_version = amdgpu_amdkfd_get_fw_version(kfd->adev,
+>  			KGD_ENGINE_MEC2);
+> -	kfd->sdma_fw_version = amdgpu_amdkfd_get_fw_version(kfd->kgd,
+> +	kfd->sdma_fw_version = amdgpu_amdkfd_get_fw_version(kfd->adev,
+>  			KGD_ENGINE_SDMA1);
+>  	kfd->shared_resources = *gpu_resources;
+>  
+> @@ -996,9 +996,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>  		goto kfd_doorbell_error;
+>  	}
+>  
+> -	kfd->hive_id = amdgpu_amdkfd_get_hive_id(kfd->kgd);
+> +	kfd->hive_id = amdgpu_amdkfd_get_hive_id(kfd->adev);
+>  
+> -	kfd->noretry = amdgpu_amdkfd_get_noretry(kfd->kgd);
+> +	kfd->noretry = amdgpu_amdkfd_get_noretry(kfd->adev);
+>  
+>  	if (kfd_interrupt_init(kfd)) {
+>  		dev_err(kfd_device, "Error initializing interrupts\n");
+> @@ -1016,7 +1016,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>  	 */
+>  	if (kfd_gws_init(kfd)) {
+>  		dev_err(kfd_device, "Could not allocate %d gws\n",
+> -			amdgpu_amdkfd_get_num_gws(kfd->kgd));
+> +			amdgpu_amdkfd_get_num_gws(kfd->adev));
+>  		goto gws_error;
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+> index c021519af810..7b4118915bf6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+> @@ -100,7 +100,7 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
+>  	struct kfd_cu_info cu_info;
+>  	uint32_t cu_per_sh[KFD_MAX_NUM_SE][KFD_MAX_NUM_SH_PER_SE] = {0};
+>  	int i, se, sh, cu;
+> -	amdgpu_amdkfd_get_cu_info(mm->dev->kgd, &cu_info);
+> +	amdgpu_amdkfd_get_cu_info(mm->dev->adev, &cu_info);
+>  
+>  	if (cu_mask_count > cu_info.cu_active_number)
+>  		cu_mask_count = cu_info.cu_active_number;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index c8bd062fb954..499db2099775 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -969,7 +969,7 @@ struct kfd_topology_device *kfd_topology_device_by_proximity_domain(
+>  struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id);
+>  struct kfd_dev *kfd_device_by_id(uint32_t gpu_id);
+>  struct kfd_dev *kfd_device_by_pci_dev(const struct pci_dev *pdev);
+> -struct kfd_dev *kfd_device_by_kgd(const struct kgd_dev *kgd);
+> +struct kfd_dev *kfd_device_by_adev(const struct amdgpu_device *adev);
+>  int kfd_topology_enum_kfd_devices(uint8_t idx, struct kfd_dev **kdev);
+>  int kfd_numa_node_to_apic_id(int numa_node_id);
+>  void kfd_double_confirm_iommu_support(struct kfd_dev *gpu);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 243dd1efcdbf..d8462bd3b4a6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -118,7 +118,7 @@ int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
+>  		return ret;
+>  
+>  	pqn->q->gws = mem;
+> -	pdd->qpd.num_gws = gws ? amdgpu_amdkfd_get_num_gws(dev->kgd) : 0;
+> +	pdd->qpd.num_gws = gws ? amdgpu_amdkfd_get_num_gws(dev->adev) : 0;
+>  
+>  	return pqn->q->device->dqm->ops.update_queue(pqn->q->device->dqm,
+>  							pqn->q);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index dd593ad0614a..31610b4a3e2e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -113,7 +113,7 @@ struct kfd_dev *kfd_device_by_pci_dev(const struct pci_dev *pdev)
+>  	return device;
+>  }
+>  
+> -struct kfd_dev *kfd_device_by_kgd(const struct kgd_dev *kgd)
+> +struct kfd_dev *kfd_device_by_adev(const struct amdgpu_device *adev)
+>  {
+>  	struct kfd_topology_device *top_dev;
+>  	struct kfd_dev *device = NULL;
+> @@ -121,7 +121,7 @@ struct kfd_dev *kfd_device_by_kgd(const struct kgd_dev *kgd)
+>  	down_read(&topology_lock);
+>  
+>  	list_for_each_entry(top_dev, &topology_device_list, list)
+> -		if (top_dev->gpu && top_dev->gpu->kgd == kgd) {
+> +		if (top_dev->gpu && top_dev->gpu->adev == adev) {
+>  			device = top_dev->gpu;
+>  			break;
+>  		}
+> @@ -531,7 +531,7 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
+>  		sysfs_show_32bit_prop(buffer, offs, "sdma_fw_version",
+>  				      dev->gpu->sdma_fw_version);
+>  		sysfs_show_64bit_prop(buffer, offs, "unique_id",
+> -				      amdgpu_amdkfd_get_unique_id(dev->gpu->kgd));
+> +				      amdgpu_amdkfd_get_unique_id(dev->gpu->adev));
+>  
+>  	}
+>  
+> @@ -1106,7 +1106,7 @@ static uint32_t kfd_generate_gpu_id(struct kfd_dev *gpu)
+>  	if (!gpu)
+>  		return 0;
+>  
+> -	amdgpu_amdkfd_get_local_mem_info(gpu->kgd, &local_mem_info);
+> +	amdgpu_amdkfd_get_local_mem_info(gpu->adev, &local_mem_info);
+>  
+>  	local_mem_size = local_mem_info.local_mem_size_private +
+>  			local_mem_info.local_mem_size_public;
+> @@ -1189,7 +1189,7 @@ static void kfd_fill_mem_clk_max_info(struct kfd_topology_device *dev)
+>  	 * for APUs - If CRAT from ACPI reports more than one bank, then
+>  	 *	all the banks will report the same mem_clk_max information
+>  	 */
+> -	amdgpu_amdkfd_get_local_mem_info(dev->gpu->kgd, &local_mem_info);
+> +	amdgpu_amdkfd_get_local_mem_info(dev->gpu->adev, &local_mem_info);
+>  
+>  	list_for_each_entry(mem, &dev->mem_props, list)
+>  		mem->mem_clk_max = local_mem_info.mem_clk_max;
+> @@ -1372,7 +1372,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>  	 * needed for the topology
+>  	 */
+>  
+> -	amdgpu_amdkfd_get_cu_info(dev->gpu->kgd, &cu_info);
+> +	amdgpu_amdkfd_get_cu_info(dev->gpu->adev, &cu_info);
+>  
+>  	strncpy(dev->node_props.name, gpu->device_info->asic_name,
+>  			KFD_TOPOLOGY_PUBLIC_NAME_SIZE);
+> @@ -1384,13 +1384,13 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>  	dev->node_props.vendor_id = gpu->pdev->vendor;
+>  	dev->node_props.device_id = gpu->pdev->device;
+>  	dev->node_props.capability |=
+> -		((amdgpu_amdkfd_get_asic_rev_id(dev->gpu->kgd) <<
+> +		((amdgpu_amdkfd_get_asic_rev_id(dev->gpu->adev) <<
+>  			HSA_CAP_ASIC_REVISION_SHIFT) &
+>  			HSA_CAP_ASIC_REVISION_MASK);
+>  	dev->node_props.location_id = pci_dev_id(gpu->pdev);
+>  	dev->node_props.domain = pci_domain_nr(gpu->pdev->bus);
+>  	dev->node_props.max_engine_clk_fcompute =
+> -		amdgpu_amdkfd_get_max_engine_clock_in_mhz(dev->gpu->kgd);
+> +		amdgpu_amdkfd_get_max_engine_clock_in_mhz(dev->gpu->adev);
+>  	dev->node_props.max_engine_clk_ccompute =
+>  		cpufreq_quick_get_max(0) / 1000;
+>  	dev->node_props.drm_render_minor =
+> @@ -1404,7 +1404,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>  				gpu->device_info->num_sdma_queues_per_engine;
+>  	dev->node_props.num_gws = (dev->gpu->gws &&
+>  		dev->gpu->dqm->sched_policy != KFD_SCHED_POLICY_NO_HWS) ?
+> -		amdgpu_amdkfd_get_num_gws(dev->gpu->kgd) : 0;
+> +		amdgpu_amdkfd_get_num_gws(dev->gpu->adev) : 0;
+>  	dev->node_props.num_cp_queues = get_cp_queues_num(dev->gpu->dqm);
+>  
+>  	kfd_fill_mem_clk_max_info(dev);
