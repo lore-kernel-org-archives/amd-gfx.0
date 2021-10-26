@@ -2,64 +2,77 @@ Return-Path: <SRS0=fVrT=PO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D68BC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 16:27:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A03A8C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 17:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E664760527
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 16:27:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E664760527
+	by mail.kernel.org (Postfix) with ESMTPS id 5C5F860E08
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 17:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5C5F860E08
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD6AF8997E;
-	Tue, 26 Oct 2021 16:27:47 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6E58899B3
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 16:27:45 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- s18-20020a0568301e1200b0054e77a16651so20543397otr.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 09:27:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2327897BB;
+	Tue, 26 Oct 2021 17:02:09 +0000 (UTC)
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1FD897BB;
+ Tue, 26 Oct 2021 17:02:09 +0000 (UTC)
+Received: by mail-qv1-xf2b.google.com with SMTP id u25so1736361qve.2;
+ Tue, 26 Oct 2021 10:02:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=NsF+h/7LxPB4+/xRa7hc4Qws/CfKjuNn5IBAV9p2/JY=;
- b=Ham5Zi+gx3JARrAX59QC2huY0L+nCSgpw1/21NOglM5sD2FjeItZWuUZrxOeB0NzUE
- ig7hxCfxo5sRUSlRf1iPlg3bTisyInZxeup0wXZ/oU01/QvZRi7pxd6U7BolXAxq2RG/
- VqkxzJHAiRnLZhFDxjj/JFmyldDbOXfQ9QvI5JElkS/TJFAhjZps4o1TBUq6onq70Xoq
- vuXz6+rGcmF+jMydVqVsf8zSrKELm6wMFt1uvSMXp4l2t2K4dYlUmIzWRefFij+xxFN3
- H/E1JTfhVF9P0byRi+pA4T/Up5dnj3BYzVVOeaZ+KRPIJA0QDrR22XRYX6Raxdna9roH
- 3XeA==
+ h=message-id:date:mime-version:user-agent:reply-to:subject
+ :content-language:from:to:cc:references:in-reply-to
+ :content-transfer-encoding;
+ bh=+kCusidYY/Kigw4ftDQLBs+PlH4mB+1cM/24vXCJmVk=;
+ b=HgNNWuFRknYuO3AUAAwDk6ba5soZsYpdzAfnknEgBYT7GnMzW3Ul4K8Mzyl0BI9zn/
+ GAF5+PecSml95WfMro/+jipaT5Riv5UybcmIKmIYebn4vRFaSZ3lhHg8hgfk4MzojRff
+ ScbIeagh4z1dG/PHAWTbxQwSwRcj7rBLWGY2ArnrMlrEA1CjDgYLVq2rtz1S2PnyB7U3
+ hj4o/78n4FdbdN4rMYItAC1j5OS6So4l0ZyzV1D2HtYAk2fnzjqoxXqZnfBI9w6XrbEm
+ a75mlZCjv/lZbPpenq5oAmoeTXmwUZn4nmDaHZNfKZmjDxIczlqy61YrJvn02EyJiNQh
+ UjKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=NsF+h/7LxPB4+/xRa7hc4Qws/CfKjuNn5IBAV9p2/JY=;
- b=mzjdJI3/3A4FvzDWhHKtJJC84Osvk49v2dm8pQxEMDE7oGTp3msAMAbYF33NQ7Uq8c
- fiuJ/ic8ujhereGqhBpxs1LGd7CalT6OhsR4Y9iur51oxh6GdO7Q8unkAr0Y6u+QUpE8
- TEU4e6M7xGnQatoKnU1hjrBIprU0E17Gg+kuNx2LVXgCMOM5uqtmy1mi7Brw32W32+gf
- 1g2Kj6yiKXNQVeBFntGzYKyG/2MmWsTSOgFNIKJNQYHKByWZC+3DNeg+v/D6KnUCtnMa
- qBDveepMUzR5ZA2U7NFE1xS+APacRWyqOPZuFKQizSFfG/o672C/XSVcX4eTI8PDLvbe
- Wxyg==
-X-Gm-Message-State: AOAM531kJtZsFYX9S3d8v9RBtiVsw2akHsFUc6V/QKISlaIqq24gHzvU
- QvbVDWq/elHskfMQ2CHGi68X+Hlz2gxV5YP5w6Q=
-X-Google-Smtp-Source: ABdhPJzs3IrSpjb13sc8d7s2LUANcX+lvaOpra0/CRlBkD2Ctf2u/tPZhyjDN4mmHp0Yeh/cm3SHRrDKFY5bz7++DBg=
-X-Received: by 2002:a9d:1b4f:: with SMTP id l73mr20634207otl.200.1635265665099; 
- Tue, 26 Oct 2021 09:27:45 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+ :subject:content-language:from:to:cc:references:in-reply-to
+ :content-transfer-encoding;
+ bh=+kCusidYY/Kigw4ftDQLBs+PlH4mB+1cM/24vXCJmVk=;
+ b=vsaJ+1NJfIyZtAqYVem2iS84Bx6SgOQsQ9245P183mztQGmD4zJNmWLqU75///7KIx
+ nFRL1jTDH7CKdzN4Z4hHx77SoFhbV5u9TokjNFph16UBHalIbLIJy2wcS6fOG6gEJllP
+ Iu0+5blVeSi53H+gpqZ0Z1RrUJ/qWRD9mpzjSqEtK6pPwa1vLFHDLlztiDgg9TuoltkF
+ GkWfCiFiUK3JXDvIRtH+mtEs/8/3OHWNb8kIt0cSGDsIAKlxNcUDix4uI1lyW4uHM2tS
+ 1bhhxtz+55GADQ2vpL5rDBKg539ZPt2E/hyt2OgDXvERQyo1hvPe0p8JvkWTK4U65FXB
+ jOjg==
+X-Gm-Message-State: AOAM531FGzZXNFz0A968Fq+Rnz4zHlxtk+84pMIsCDgMpufB8muGiGEA
+ oNPpShRFtBBeXengBPtsBao=
+X-Google-Smtp-Source: ABdhPJxSTvjNkJzA3GJy6o/CpUbyQVyIRfFOmceg6iZeOlIDk6Rg/WZzMozHLwVumS+OhI+UJzpfJg==
+X-Received: by 2002:ad4:5dc4:: with SMTP id m4mr24475541qvh.29.1635267728425; 
+ Tue, 26 Oct 2021 10:02:08 -0700 (PDT)
+Received: from mua.localhost ([2600:1700:e380:2c20::49])
+ by smtp.gmail.com with ESMTPSA id y9sm830659qko.74.2021.10.26.10.02.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Oct 2021 10:02:07 -0700 (PDT)
+Message-ID: <9002fec0-f219-6804-9031-4e5cdfcbb5e1@gmail.com>
+Date: Tue, 26 Oct 2021 13:02:06 -0400
 MIME-Version: 1.0
-References: <20211026153612.474820-1-alexander.deucher@amd.com>
-In-Reply-To: <20211026153612.474820-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Oct 2021 12:27:34 -0400
-Message-ID: <CADnq5_Ngq=0t9sZep-5j9gdOuPU0Ae5ashffp-66HHqC4Ers6Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix warning in pr_debug
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Philip Yang <Philip.Yang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.2.0
+Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
+ + kernel 5.14.13
+Content-Language: en-US
+From: PGNet Dev <pgnet.dev@gmail.com>
+To: lijo.lazar@amd.com, alexdeucher@gmail.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
+ <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
+ <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
+ <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
+ <b412bb59-8f60-6b4a-9bc4-e606c6b9f66a@gmail.com>
+ <f43cbd18-a0ef-a029-4f3d-28c9f9d27ad1@gmail.com>
+In-Reply-To: <f43cbd18-a0ef-a029-4f3d-28c9f9d27ad1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,73 +84,16 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 26, 2021 at 11:36 AM Alex Deucher <alexander.deucher@amd.com> w=
-rote:
->
-> In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:52:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c: In function =E2=80=98amdgpu_ttm_=
-tt_get_user_pages=E2=80=99:
-> drivers/gpu/drm/amd/amdgpu/amdgpu.h:35:21: warning: format =E2=80=98%llx=
-=E2=80=99 expects argument of type =E2=80=98long long unsigned int=E2=80=99=
-, but argument 4 has type =E2=80=98long unsigned int=E2=80=99 [-Wformat=3D]
->    35 | #define pr_fmt(fmt) "amdgpu: " fmt
->       |                     ^~~~~~~~~~
-> ./include/linux/dynamic_debug.h:134:15: note: in expansion of macro =E2=
-=80=98pr_fmt=E2=80=99
->   134 |   func(&id, ##__VA_ARGS__);  \
->       |               ^~~~~~~~~~~
-> ./include/linux/dynamic_debug.h:152:2: note: in expansion of macro =E2=80=
-=98__dynamic_func_call=E2=80=99
->   152 |  __dynamic_func_call(__UNIQUE_ID(ddebug), fmt, func, ##__VA_ARGS_=
-_)
->       |  ^~~~~~~~~~~~~~~~~~~
-> ./include/linux/dynamic_debug.h:162:2: note: in expansion of macro =E2=80=
-=98_dynamic_func_call=E2=80=99
->   162 |  _dynamic_func_call(fmt, __dynamic_pr_debug,  \
->       |  ^~~~~~~~~~~~~~~~~~
-> ./include/linux/printk.h:424:2: note: in expansion of macro =E2=80=98dyna=
-mic_pr_debug=E2=80=99
->   424 |  dynamic_pr_debug(fmt, ##__VA_ARGS__)
->       |  ^~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:697:3: note: in expansion of macr=
-o =E2=80=98pr_debug=E2=80=99
->   697 |   pr_debug("failed %d to get user pages 0x%llx\n", r, start);
->       |   ^~~~~~~~
->
-> Fixes: 702dde19d4b0e7 ("drm/amdkfd: restore userptr ignore bad address er=
-ror")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Philip Yang <Philip.Yang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index ae6694f2c73d..881a91a6ab13 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -694,7 +694,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo=
-, struct page **pages)
->                                        ttm->num_pages, &gtt->range, reado=
-nly,
->                                        false, NULL);
->         if (r)
-> -               pr_debug("failed %d to get user pages 0x%llx\n", r, start=
-);
-> +               pr_debug("failed %d to get user pages 0x%lux\n", r, start=
-);
+>> sbios settings
 
-Actually this should be 0x%lx.  Will fix that up locally.
+given suggestion this may be a BIOS issue, I've posted this issue as a question @,
 
-Alex
+   https://forum.asrock.com/forum_posts.asp?TID=19749&title=x470d4u-p4-20-ryzen5600g-fatal-error-gpu-boot
 
->
->  out_putmm:
->         mmput(mm);
-> --
-> 2.31.1
->
+and pinged ASRockRack tech support via their online tech supp form.
+
+If anyone _here_ knows an appropriate contact @ ASRockRack to link into this discussion, that'd be useful/appreciated!
