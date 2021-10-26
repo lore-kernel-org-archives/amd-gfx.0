@@ -2,76 +2,131 @@ Return-Path: <SRS0=fVrT=PO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 445E5C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:27:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7FFCC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:30:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E0D8760E09
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:27:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E0D8760E09
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 69FD860EB4
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 21:30:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 69FD860EB4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94B2E6E49A;
-	Tue, 26 Oct 2021 21:27:03 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F2016E49A
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 21:27:02 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id w193so577213oie.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 14:27:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=u/1hDc033FG3BAmaQbdD4zNi6ctopppsfEDWtgkXBKE=;
- b=m8LgunvgNweIdtyDXyO8GEwr041hMu9QtEUZIebA3vRgX/z9C3aKD9z3l3rwCnPqbf
- YFSMJk3lGAWL+bKMGTOKv9VhK3zqHk/rDDyXAUqx7g+ZgKjuJc0fmr98y5pFNEIkVIIR
- XxUdIQMAftGHcbZlhpehJiunYLhZj7R/KnwpJy7US1EQzpiOO9DhxRdwsqTweiCPAXhm
- IbSaauiuFbUKeScjDoaNH5B0dH14LOCvrPye6RU+TWzH08J2VpP2HB1GI+IYWfZLtxhO
- jQ8Fa7LFVYXr4/7OsFYIkiNPrM4F8FYS3Bf70hcrIok3g04RiXfNSwcfBgl/6r8O6kQ3
- z74w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=u/1hDc033FG3BAmaQbdD4zNi6ctopppsfEDWtgkXBKE=;
- b=p1kNoZUBZFuQ3HzAyVqIVQHqlZ2OlhfcDAfTdYydmmvkPIiT7IOQCjoFXfukBc2b/x
- S2rGopdL0f3aYkn3k3okJdmVjaWOGPfjtn4Im+G0LmbV5ZumlNg7jxlLjJ0K4miwxMOj
- bwhTdLZ+BEdbzYtEYcTCUd092MLuiVzZbSp97TKoIk0j0kCRQCouJi6jI2ayExd9ZLtM
- v6GbGs9ms8TNumApwlmLD4psSxtq6SVf+cujdNeJxpvhnA/1k58xoW/OlHIu3Sut2Ivu
- pDiO7ATlnADZ8Ne+/cLfAaYwyxYkWD+usb3ALsUeeg71ui1d45qDoQoqk1CBNzdLpSnd
- 3X5g==
-X-Gm-Message-State: AOAM532qQflVSUoS1UHCKMST0wmPxCkIyC86O+yaDpjUAFIRz/YAJyfh
- kqlYMr6BcLwD81/WT78tonlwZS65i2u452YjTjMIRve/Q3Y=
-X-Google-Smtp-Source: ABdhPJxDwheMV9UW47KGLiSoj5mvXbYnPTvQs8sq0OEV0LX4P0kyo0aUmJMdQvELyFFsE21f2bcIEnAQaXe3XGesor4=
-X-Received: by 2002:aca:3f87:: with SMTP id m129mr932853oia.5.1635283621168;
- Tue, 26 Oct 2021 14:27:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B0816E49C;
+	Tue, 26 Oct 2021 21:30:54 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5790C6E49C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 21:30:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H+g+HsOmZMZWyfxE332gCLD4g/AKkXA0Fq1kmy+2bFe0Nz8nASVN3KGn0l/3ToCpu3DtMRyH+qpNO4uOCPtrkVMXfIPjrGzn+uhsjx/Fv8e/kd9tRhGb54BUbf2JeHPhFinj/ym+JpEqrf+7M4C8Cim2Lmho/AaA1zKQ90OmUwGfHMFcoUn8pRFBg4OKo6IcvrZvGxb02gQR1JLDkiXz1e4+98ZRpNO7WV3Gpr27+kalYh3DhPdWkzJFlpzPhPFJu2hKND1OIih2X5mcki29aDSxxDXSh6kzA05gSinTpkYewE/Yj6yENYTyb5Ic5RAbq6yRZ5uVGp5N5al8cZ+2BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B9hsVoRMz0eDUdMsAuoWTlxV3qZwiagfMoiFEAT5u9g=;
+ b=T1Zgt9/rmB9PcUhsPbBGJbCoL6RZ3Agw4ssX5Gd7uwJzTPepK/hmeFHuIN8mZSq5VW0NcSc1T/BcmJSzPfQ4uhphMHvMNCfHiaUm2o4jQn2wKpgPcTL117tE2+fFeQSnp2cEvT+gwUOP0S/pVqLqSz3DzVhXpOqVY6d1GG/20nsmZ3vDIher2hJ1b8n2gSI6gpz0wV3UfXo0a+sLV7xkPD8VJ/wBZ9NaXSqRdDeQPx53556aKEB061hU2C6oKFkKLbWkdH6a6oOjX0TzzyoRATU27Xb0FW4UC991XKB2A5uY2a8ondQefl2VDSLrk4ZxwjvI69r/T60D+clH4rgCrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B9hsVoRMz0eDUdMsAuoWTlxV3qZwiagfMoiFEAT5u9g=;
+ b=pLQeTeY8b4sz36yYMul4RjxI2sXMZj+o0eIMCzS0vNt/3ATulTr/MJU2JKFHSlU/rgrrm5B2OU5capxptpJ59i7Pwb2ZV7j5WkFx/5S6vpSBY2dcWfov1E7OPvtO+vKwMpOc385BLiWRNECDMcMaFwI5gyHnqSA1uqp/mzqVTbQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM5PR1201MB2491.namprd12.prod.outlook.com (2603:10b6:3:eb::23)
+ by DM5PR12MB1338.namprd12.prod.outlook.com (2603:10b6:3:71::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Tue, 26 Oct
+ 2021 21:30:51 +0000
+Received: from DM5PR1201MB2491.namprd12.prod.outlook.com
+ ([fe80::d153:3aa6:4677:e29]) by DM5PR1201MB2491.namprd12.prod.outlook.com
+ ([fe80::d153:3aa6:4677:e29%7]) with mapi id 15.20.4628.020; Tue, 26 Oct 2021
+ 21:30:51 +0000
+Subject: Re: [PATCH 01/13] drm/amdkfd: add amdgpu_device entry to kfd_dev
+To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: mukul.joshi@amd.com
+References: <20211019211334.1552825-1-Graham.Sider@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <33533a0e-8d00-cc7d-abc5-a941bc228943@amd.com>
+Date: Tue, 26 Oct 2021 17:30:48 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20211019211334.1552825-1-Graham.Sider@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: YQBPR0101CA0157.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::30) To DM5PR1201MB2491.namprd12.prod.outlook.com
+ (2603:10b6:3:eb::23)
 MIME-Version: 1.0
-References: <20211013031042.53540-1-luben.tuikov@amd.com>
- <858da53c-7937-3ebf-360d-f20f30f825d9@amd.com>
- <e3d94e8a-ea9b-85cc-8e85-2ee2e6725f2f@amd.com>
- <DM6PR12MB39307EA02DE72479774D8FF297B79@DM6PR12MB3930.namprd12.prod.outlook.com>
- <DM6PR12MB26196111DA43A1EE11266558E4B99@DM6PR12MB2619.namprd12.prod.outlook.com>
- <BL1PR12MB51443E4EA64480401839E135F7BC9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <091c6805-a72c-a286-f7fb-9d5d5da344d3@amd.com>
- <DM6PR12MB3324CDCA68D04483A57C150985BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
- <DM6PR12MB3324C490C0CF191F6F34602C85BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
- <831e76f9-4fad-da9f-7baf-1e0dc92a378a@amd.com>
- <DM6PR12MB3324ECC96ADE558E587AAFF085BD9@DM6PR12MB3324.namprd12.prod.outlook.com>
- <a0939873-8599-c47c-15ec-cfb5018edf57@amd.com>
-In-Reply-To: <a0939873-8599-c47c-15ec-cfb5018edf57@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Oct 2021 17:26:50 -0400
-Message-ID: <CADnq5_O2o9e3FaRhdU17jbSwSjNt-czdQBnFY-5MSOBNR-gXPg@mail.gmail.com>
-Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
-To: Luben Tuikov <luben.tuikov@amd.com>
-Cc: "Russell, Kent" <Kent.Russell@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from [192.168.2.100] (142.118.126.231) by
+ YQBPR0101CA0157.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:e::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.20 via Frontend
+ Transport; Tue, 26 Oct 2021 21:30:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c3a70487-5046-46bb-b10a-08d998c7e226
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1338:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1338E54A1CC5E760FD322FC792849@DM5PR12MB1338.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7XV6fTOcOM2I3kcDFeI+7n/7RsnqfM9zrJ+tngoCO7Zpu6ZUQKeMzyNsokE/uhdF3yoxeX82xOY5/mvYboFOXHJH8Jm09eIdU0sRRtnj9Ma6QKlZgtunDdMtObSl9QihKFt0H5rdseMTAOaoOsLjVhTOb10qxVqzFsOi8z6xni/SAJ0EJjK2DxTKJJe0fMgEhOI3zpCYE0Ih00LGyjFdqqVwcBv7eE/Cl+z8prYiaHCDUEBx3EIL48HhSk0Skeuckt3ol1J8+KgfgY9+znRb6/Vc6eMnSm1RmX9+HrMfe9vgyO08eaJ3ClBA14Yqy2bEYfvx6nlHXh0mPf/rzty2Lj03I9OwEU23p8+zgmGk5oEnYc7BMeq1yg+m/TksLw3W37FviZicEwEcDIwxmucEKsVr6N8fzr8qfi7Nqe2122ooZGdGKPAKbyD5AtcRUMjF/TFmVS0FoWtNpxU7MnD8CsQ8B32D+DD2iqKuQDerd97+x7dcHWpdCKpDDZq63/uQvOFkkc6W20/lA+wmuWZQQvpwtNzFW/6BSMk1lqt2DyOKjM31qbQX78Fym5fKdNJJ+6mgM1BITZq8YwiYfrACFYwtHiPeAzlzbM+dQjQu/MOXRX0KAKjt7yBHvO5R2Cf1czrkD/R4b+PZE2O5tBN+gT8UmkG5v4uOhAk8wpEDiX4N2ATOYMwFOnk49WE5QHxX6Y+IbMwRkxtkAXGjsHOvQIG4HENjl3alTtV5rrdbU/3cXsRe7QfGkJ7RmqCusZWp
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB2491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(26005)(16576012)(31686004)(956004)(4326008)(8936002)(2906002)(2616005)(508600001)(38100700002)(8676002)(36756003)(66476007)(4001150100001)(6486002)(31696002)(66556008)(5660300002)(44832011)(86362001)(316002)(66946007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0RLN2RLS0ViaVdxS3RmWTVyZWl4dktHY3lMR1F0a3B4TlFyeGZDM2tyRmNV?=
+ =?utf-8?B?dmduUUI2WEVHYVJ2VUV3T0tTMGNDNGx3a1QyLzBtc09SVUdPbFJXbUlZUDg0?=
+ =?utf-8?B?ZkVSTmpmVlh4ZnRIOTRFOXA4MUIrSlFLaCtIdjFsbCtsV0FXMklyNjRscE9R?=
+ =?utf-8?B?NDJPanFlSzBoeEJnL0E3SWNUdVFFQjJBQ0QrYStBSExUUkJKUWpKaGZpY3ZO?=
+ =?utf-8?B?bFJNWTF1TjlsanhjeXY0U056V3lIREg3eGN3aWFvM3V2SjZOZitZOEJOLzY3?=
+ =?utf-8?B?SGM3Z1dmZzFmNkdoZmhNazZSUlAxSHYrWkR1VUxQTW9UaDR5OWhKREpibFVP?=
+ =?utf-8?B?ZlpKa1hQS0IzU2hXMGdSOEkxTjRETnlzem1vak5CYi9VbzVuVW5uMTRJbXNw?=
+ =?utf-8?B?aTZyTDhydVB3L1VJbjcxWnZEU1ZiZk00eFlQK1MxaFBMLzJsMUd5UVZQZ0tz?=
+ =?utf-8?B?dmlnSDBJM0tHYmxKNzBQSWZtckUxS21JT0dTa2MxRlFDdHgxajVFajIxb0N0?=
+ =?utf-8?B?RU5FWVNKaFpXU1NQcGVza1Y0NzZzVXRhR0hVOXMxR3I1ZUY2RWVLNnRzWENy?=
+ =?utf-8?B?VnU4U216M1Z0VER4QXdqMCtlay80VWIwSE1MZ29BMkJIWVVoc0pMZWpiRnRX?=
+ =?utf-8?B?b1lPcDlZNWRPaWdETzRibHFna1NOcDFFbUZUS3NldzAyZXlldjdnQzFzTVdr?=
+ =?utf-8?B?QURSSVM5QlBYVU9qMFdSTUJpL09adWwxNjM0L01WaEZKRFZndlhacmF3d3p5?=
+ =?utf-8?B?L3NhMlJZY1A2aW5DWVFWQWZlQmhacWVJTWxCSFlEbXVGaFdYd2E2Z0Z2QkdV?=
+ =?utf-8?B?emRqZHlLV2ZLVThIVE5BUlYrKzF0cEhTSFd1WU1ZV09JaXJvZEJxbU54aW9T?=
+ =?utf-8?B?NWhlNkt4cEQ0aWszQ0tsN1QxMUUySG5zeVFQdFJXWk5XKzVsUkxvWVlxbzlm?=
+ =?utf-8?B?b0MvOW1zRWRZNkZRdVlxcGdRbzVJbndkMkZSczlseStoazZrSG9yZjlrVC9h?=
+ =?utf-8?B?TWFYVjBFazc0dTkrSzlvYmNlM3NBQWhyc0N0MG02eFJ6YTZjTDRSdmh0Vlhy?=
+ =?utf-8?B?Y0R3RUI0Qlk3d3VleWZ4ZjhsbGZRMlBBZXE3T3RzTzFLaTc5OHJnZDg1dk9h?=
+ =?utf-8?B?aFlRZm0rM0hnVVVOcVJqYnVNWjJoZzU3OXN5dVVicGUzSHFzWVM0TnQzTmMw?=
+ =?utf-8?B?THlGYy8wUDJIM1JuYXZCZURILzZlY2hIb1pBQUdWR01YN2JxLzQ4WkNVUlFY?=
+ =?utf-8?B?Zkt5M1VQb0RVRm1NNXlCR3BzZ0IyNWVxRk45MGNaa3NIcTFFVCtDTFBObCtz?=
+ =?utf-8?B?WjFxeVlhMlNGSUg0bTA0SmJtZXE2dWgza25MSEduOWx1b0NMWGMwQlJSTlpm?=
+ =?utf-8?B?cVgvQnFMdUdWQ1MrSXZSdm82Yjl2b0JYcTFSaUhjdkZNeWJTOUZNODluQWZ6?=
+ =?utf-8?B?NDFVZnVFRHJOTFJGY0RxY3BkeEttbUZDZEpxb2RyT3NubHpmTkJ0S1pwMFJX?=
+ =?utf-8?B?OEk3UXVEenhaK1ZnSHVzZS9QRFFKenFBaGVwQW11cy9GR0pzZE5GZ3hBQ01N?=
+ =?utf-8?B?eHI3azZvMFo1SlRZYWNNUUtGTzRVTWJkZ05yQ1VDWURQOVk1cTFGK2FtVEti?=
+ =?utf-8?B?SFhKZVNPMkFXYmhYQ05Fa0F0M0RVQjVCR0hpOWdiazVuOGlocDBMWnVaTDBB?=
+ =?utf-8?B?bzJ5ZlRsZDZPN2QrczNUVmdhV0oyZVdGaUdhS2tNSUVKWS8rdlloZzRXanJQ?=
+ =?utf-8?B?dkJjZ3k2Z0UwM0JJeWFNK3U4cHFtdXROOEthMEVFbkxscmZROUpSNGVydzFM?=
+ =?utf-8?B?ZTIyTnZQQ2puUVhtUzdOaEE4eUdRaEhQQVphRzdWelBGTTU1L1NjcG1ySDF1?=
+ =?utf-8?B?M2ZWb0VsMVZyYkRWb0pOc1YvWlUzaTcyaTRETmFnR2JhcG93QTV2aHBFZld4?=
+ =?utf-8?B?elhxQkdMbDFlOVNwUW1sWG9RK3Y4WkxWWDgyZGsvTzRndmhWR0ZBd1FkZFdC?=
+ =?utf-8?B?akwyaHFBd1dpRTRPOHFEUVZCeE5WQVl4N1ZBMkFZWTJLN2ZocjBnSmVlQ0lj?=
+ =?utf-8?B?OFE0bEM5Z2dQajAvdjltSGxhV3lXWG9YNkRsSUZWYVlVczJrdEwvSVNQUlFk?=
+ =?utf-8?B?cjErTkZlMzZCYlFmSW1qdisvUkhlRmxTeEJJK1BaK1RCSWhIK3MvNHZqZy9D?=
+ =?utf-8?Q?1K28qEZwsarY4X98an92HzY=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3a70487-5046-46bb-b10a-08d998c7e226
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB2491.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 21:30:51.1415 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZW10eLshCgqUwae/WS7fhK8ukF+LKFuxrCl0BuxDXXsExJNIGnwyRgzNLvfiBjKv7/hk1OZY6CQeoRCZ3RUq7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,325 +141,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 19, 2021 at 9:54 AM Luben Tuikov <luben.tuikov@amd.com> wrote:
+Am 2021-10-19 um 5:13 p.m. schrieb Graham Sider:
+> Patch series to remove kgd_dev struct and replace all instances with
+> amdgpu_device objects.
 >
-> It again fails with the same message!
-> But this time it is different!
-> Here's why:
+> amdgpu_device needs to be declared in kgd_kfd_interface.h to be visible
+> to kfd2kgd_calls.
 >
-> openat(AT_FDCWD, "/sys/class/drm/card0/device/pp_dpm_fclk", O_RDONLY) =3D=
- 3
-> read(3, "0: 571Mhz \n1: 1274Mhz *\n2: 1221M"..., 8191) =3D 36
-> read(3, "", 8191)                       =3D 0
-> close(3)                                =3D 0
-> write(2, "python3: /home/ltuikov/proj/amd/"..., 220python3: /home/ltuikov=
-/proj/amd/rocm_smi_lib/src/rocm_smi.cc:913: rsmi_status_t get_frequencies(a=
-md::smi::DevInfoTypes, uint32_t, rsmi_frequencies_t*, uint32_t*): Assertion=
- `f->frequency[i-1] <=3D f->frequency[i]' failed.
-> ) =3D 220
-> mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) =
-=3D 0x7f531f9bc000
-> rt_sigprocmask(SIG_UNBLOCK, [ABRT], NULL, 8) =3D 0
-> rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) =3D 0
-> getpid()                                =3D 37861
-> gettid()                                =3D 37861
-> tgkill(37861, 37861, SIGABRT)           =3D 0
-> rt_sigprocmask(SIG_SETMASK, [], NULL, 8) =3D 0
-> --- SIGABRT {si_signo=3DSIGABRT, si_code=3DSI_TKILL, si_pid=3D37861, si_u=
-id=3D1000} ---
-> +++ killed by SIGABRT (core dumped) +++
-> Aborted (core dumped)
-> $cat /sys/class/drm/card0/device/pp_dpm_fclk
-> 0: 571Mhz
-> 1: 1274Mhz *
-> 2: 1221Mhz
-> $_
->
-> Why is the mid frequency larger than the last?
-> Why does get_frequencies() insists that they be ordered when they're not?=
- (Does the tool need fixing or the kernel?)
->
-> The current patchset doesn't report 0, and doesn't report any current if =
-0 would've been reported as current. But anything else is reported as it wo=
-uld've been reported before the patch. And I tested it with vanilla amd-sta=
-ging-drm-next--same thing.
->
+> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 
-Seems to crash both ways.  I'd rather either:
-1. Remove the * when the clock is outside of the min and max ranges
-or
-2. Clamp the clock to the max or min if it's above or below.
+Nice cleanup. I responded with a suggestion for a possible follow-up to
+patch 10. The series is
 
-And then fix the tools accordingly.  Those seem like the choices of
-least surprise considering the interface is supposed to show the
-current and available DPM levels.
-
-Alex
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
-> Regards,
-> Luben
->
->
-> On 2021-10-19 09:25, Russell, Kent wrote:
->
-> [AMD Official Use Only]
->
->
->
-> It was the rocm-smi -c flag. Maybe some work was done to make it more rob=
-ust, that would be nice. But the -c flag is supposed to show the current fr=
-equency for each clock type. -g would do the same, but just for SCLK.
->
->
->
-> Kent
->
->
->
-> From: Tuikov, Luben <Luben.Tuikov@amd.com>
-> Sent: Tuesday, October 19, 2021 12:27 AM
-> To: Russell, Kent <Kent.Russell@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@am=
-d.com>; amd-gfx@lists.freedesktop.org
-> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-> Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
->
->
->
-> Kent,
->
-> What is the command which fails?
-> I can try to duplicate it here.
->
-> So far, things I've tried, I cannot make rocm-smi fail. Command arguments=
-?
->
-> Regards,
-> Luben
->
-> On 2021-10-18 21:06, Russell, Kent wrote:
->
-> [AMD Official Use Only]
->
->
->
-> The * is required for the rocm-smi=E2=80=99s functionality for showing wh=
-at the current clocks are. We had a bug before where the * was removed, the=
-n the SMI died fantastically. Work could be done to try to handle that type=
- of situation, but the SMI has a =E2=80=9Cshow current clocks=E2=80=9D and =
-uses the * to determine which one is active
->
->
->
-> Kent
->
->
->
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Russel=
-l, Kent
-> Sent: Monday, October 18, 2021 9:05 PM
-> To: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@am=
-d.com>; amd-gfx@lists.freedesktop.org
-> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-> Subject: RE: [PATCH 0/5] 0 MHz is not a valid current frequency
->
->
->
-> [AMD Official Use Only]
->
->
->
-> +Harish, rocm-smi falls under his purview now.
->
->
->
-> Kent
->
->
->
-> From: Tuikov, Luben <Luben.Tuikov@amd.com>
-> Sent: Monday, October 18, 2021 4:30 PM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan=
-@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org;=
- Russell, Kent <Kent.Russell@amd.com>
-> Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
->
->
->
-> I think Kent is already seen these patches as he did comment on 1/5 patch=
-.
->
-> The v3 version of the patch, posted last week, removes the asterisk to re=
-port the lowest frequency as the current frequency, when the current freque=
-ncy is 0, i.e. when the block is in low power state. Does the tool rely on =
-the asterisk? If this information is necessary could it not use amdgpu_pm_i=
-nfo?
->
-> Regards,
-> Luben
->
-> On 2021-10-18 16:19, Deucher, Alexander wrote:
->
-> [Public]
->
->
->
-> We the current behavior (0 for clock) already crashes the tool, so I don'=
-t think we can really make things worse.
->
->
->
-> Alex
->
->
->
-> ________________________________
->
-> From: Quan, Evan <Evan.Quan@amd.com>
-> Sent: Thursday, October 14, 2021 10:25 PM
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Tuikov, Luben <Luben.Tuikov@amd.com=
->; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Russell, =
-Kent <Kent.Russell@amd.com>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH 0/5] 0 MHz is not a valid current frequency
->
->
->
-> [AMD Official Use Only]
->
->
->
-> +Kent who maintains the Rocm tool
->
->
->
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lazar,=
- Lijo
-> Sent: Thursday, October 14, 2021 1:07 AM
-> To: Tuikov, Luben <Luben.Tuikov@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
->
->
->
-> [AMD Official Use Only]
->
->
->
-> [AMD Official Use Only]
->
->
->
-> >Or maybe just a list without default hint, i.e. no asterisk?
->
->
->
-> I think this is also fine meaning we are having trouble in determining th=
-e current frequency or DPM level. Evan/Alex? Don't know if this will crash =
-the tools.
->
->
->
-> Thanks,
-> Lijo
->
-> ________________________________
->
-> From: Tuikov, Luben <Luben.Tuikov@amd.com>
-> Sent: Wednesday, October 13, 2021 9:52:09 PM
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
-gfx@lists.freedesktop.org>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH 0/5] 0 MHz is not a valid current frequency
->
->
->
-> On 2021-10-13 00:14, Lazar, Lijo wrote:
-> >
-> > On 10/13/2021 8:40 AM, Luben Tuikov wrote:
-> >> Some ASIC support low-power functionality for the whole ASIC or just
-> >> an IP block. When in such low-power mode, some sysfs interfaces would
-> >> report a frequency of 0, e.g.,
-> >>
-> >> $cat /sys/class/drm/card0/device/pp_dpm_sclk
-> >> 0: 500Mhz
-> >> 1: 0Mhz *
-> >> 2: 2200Mhz
-> >> $_
-> >>
-> >> An operating frequency of 0 MHz doesn't make sense, and this interface
-> >> is designed to report only operating clock frequencies, i.e. non-zero,
-> >> and possibly the current one.
-> >>
-> >> When in this low-power state, round to the smallest
-> >> operating frequency, for this interface, as follows,
-> >>
-> > Would rather avoid this -
-> >
-> > 1) It is manipulating FW reported value. If at all there is an uncaught
-> > issue in FW reporting of frequency values, that is masked here.
-> > 2) Otherwise, if 0MHz is described as GFX power gated case, this
-> > provides a convenient interface to check if GFX is power gated.
-> >
-> > If seeing a '0' is not pleasing, consider changing to something like
-> >        "NA" - not available (frequency cannot be fetched at the moment)=
-.
->
-> There's a ROCm tool which literally asserts if the values are not ordered=
- in increasing order. Now since 0 < 550, but 0 is listed as the second entr=
-y, the tool simply asserts and crashes.
->
-> It is not clear what you'd rather see here:
->
-> $cat /sys/class/drm/card0/device/pp_dpm_sclk
-> 0: 550Mhz
-> 1: N/A *
-> 2: 2200MHz
-> $_
->
-> Is this what you want to see? (That'll crash other tools which expect %uM=
-hz.)
->
-> Or maybe just a list without default hint, i.e. no asterisk?
->
-> $cat /sys/class/drm/card0/device/pp_dpm_sclk
-> 0: 550Mhz
-> 1: 2200MHz
-> $_
->
-> What should the output be?
->
-> We want to avoid showing 0, but still show numbers.
->
-> Regards,
-> Luben
->
-> >
-> > Thanks,
-> > Lijo
-> >
-> >> $cat /sys/class/drm/card0/device/pp_dpm_sclk
-> >> 0: 500Mhz *
-> >> 1: 2200Mhz
-> >> $_
-> >>
-> >> Luben Tuikov (5):
-> >>    drm/amd/pm: Slight function rename
-> >>    drm/amd/pm: Rename cur_value to curr_value
-> >>    drm/amd/pm: Rename freq_values --> freq_value
-> >>    dpm/amd/pm: Sienna: 0 MHz is not a current clock frequency
-> >>    dpm/amd/pm: Navi10: 0 MHz is not a current clock frequency
-> >>
-> >>   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 60 +++++++++------
-> >>   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 73 ++++++++++++-----=
---
-> >>   2 files changed, 86 insertions(+), 47 deletions(-)
-> >>
->
->
->
->
->
->
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c         | 1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h           | 1 +
+>  drivers/gpu/drm/amd/include/kgd_kfd_interface.h | 1 +
+>  3 files changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 0fffaf859c59..81ca00d7b3da 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -825,6 +825,7 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd, bool vf)
+>  		return NULL;
+>  
+>  	kfd->kgd = kgd;
+> +	kfd->adev = adev;
+>  	kfd->device_info = device_info;
+>  	kfd->pdev = pdev;
+>  	kfd->init_complete = false;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 6d8f9bb2d905..c8bd062fb954 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -229,6 +229,7 @@ struct kfd_vmid_info {
+>  
+>  struct kfd_dev {
+>  	struct kgd_dev *kgd;
+> +	struct amdgpu_device *adev;
+>  
+>  	const struct kfd_device_info *device_info;
+>  	struct pci_dev *pdev;
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index c84bd7b2cf59..ba444cbf9206 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -33,6 +33,7 @@
+>  #include <linux/dma-fence.h>
+>  
+>  struct pci_dev;
+> +struct amdgpu_device;
+>  
+>  #define KGD_MAX_QUEUES 128
+>  
