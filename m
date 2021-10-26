@@ -2,62 +2,62 @@ Return-Path: <SRS0=fVrT=PO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42A54C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8537C433EF
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 19:36:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0BBDE60E8F
+	by mail.kernel.org (Postfix) with ESMTPS id 81C4260E8F
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 19:36:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0BBDE60E8F
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 81C4260E8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 844FD6E864;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE8856E867;
 	Tue, 26 Oct 2021 19:36:02 +0000 (UTC)
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78D4E6E860
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 19:27:01 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id x192so959097lff.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 12:27:01 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E4D6E85F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 19:25:41 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id e2so557722ljg.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Oct 2021 12:25:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tb8F7ypwNh/ccIQWIcT0YthA9rXh1673rz3hH/DXVqs=;
- b=YfqoGxifi+mBR+7/Mz10ODvp8GfD6ugGv0Eu6C3bn8ocaQdbvpEgozjw2/8hQLQIR7
- co1WBDdovhDNtbMl1sd2lyKH7nuUbJlOEUoqbeDJbOyNYabbW4Les4ws0UG7PTpQKV6Q
- t+o0LuGq8WsipY7G+uOttXQ3OJwml3wgrGzKQ=
+ :cc; bh=Q1sNTRmvhkEvI5FmK7nviifWrglvInEpclo8SE5hIzU=;
+ b=XTEoYlhIxpLauW3yVyQo5zD2pd/8FrRgQrzGIBZ73zwRopYZHnyTvFcIxF4HOoEziX
+ 5O+546mkHYXs4TvIrvDl923VXdEP3R7JoH5Eb/+w59Dhia016p7DmkZB8SuArIb6y3Lz
+ CMI6CBn3F7gw3ny9iBVtzyj6O2WRN2ZFKAz4w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=tb8F7ypwNh/ccIQWIcT0YthA9rXh1673rz3hH/DXVqs=;
- b=VOqyVnXh9+9S8SmAFTYWyPvtAYo63C8qGU/xbMtAzfvvbSTYqnSEjB3ePHbLkarFDf
- FXN/DkO5yEX+BOt5osmeIV3GlPq+rRImBSQQy8vfbzAP0qOy1hqk8Gq6vx2w/HIad0mc
- cUGEHK4Vis/4+KZZ7y1Lj1mv8iX2uSh7rbTxrjEfpFZDc9G1030GDGkAT4QuLIXNbEND
- itCVwspMJmLm3uYd5qCf9cotYyEJq9Exq5D8Rzlip5VlcyJJLWmvkmFFMFVksDZwYxvW
- ovXCTHtjiefdyO+iL7q1geYI0OS3/UAfeDaPS2tpmqdqoZiEefo8joasxairjCIIl1e/
- Ssyg==
-X-Gm-Message-State: AOAM531y2+cU3ucXc8uQuxpPWIcjr8kEmPZ4nAv6+iNw0LZVe3wje10B
- UPthx3Qt7N03deVsF5eqioohqoSha003Y8BydVk2PQ==
-X-Google-Smtp-Source: ABdhPJwyP+Yu/V1vJZk5sAZ/p9xSqZa+cHLXITs+ykY7LjYVT4XwYM5c42m56pBV0PTTH1vmEdd4NVJ3t0dS1sXNHDc=
-X-Received: by 2002:a05:6512:12c9:: with SMTP id
- p9mr25472977lfg.236.1635276419590; 
- Tue, 26 Oct 2021 12:26:59 -0700 (PDT)
+ bh=Q1sNTRmvhkEvI5FmK7nviifWrglvInEpclo8SE5hIzU=;
+ b=z4pbkZbi7dl4ovOgHl99PrvFyfBbVNC8z+d5sZWBwE4BJ9o/dFxnpFtt+wbCBpH0nq
+ YdFQYGLGX79BMgW6WqMM9xL+OB4fLdR2Trx88KhjMx17kdJnTzelXnq9eNUGDiTyvkBK
+ QfKdScgrZSn56Fp/AcPB2OJNGvTXAwzX0Rd1xHjwLlxPNtSZNVDUBMKzqegpm5F76KOO
+ ddEF41e55GAffrPwAZxOApvhYLeXuQ6rPjIl8HwXKBw6Cx3T93cphAJ/ay94y8aXuIAq
+ R+1J/D2Ferp6y0f/DD4ZT+K9AVp5ko3vHi5xT7sdIx/tnJqCPf0uq2WTHMyT7ZHpnXVz
+ BY0g==
+X-Gm-Message-State: AOAM532m/j0GqlKgkUyF/ye6w6QRagFivfViV8EuZdF7RQk4EZBKzOKA
+ fUxA/qSMHUeHtFdHbGeA/IUmNXJ/WWIKrCGmhDJm5A==
+X-Google-Smtp-Source: ABdhPJxgYi3vwo8/SxRb0tGKPJyV3KuMYcas/eYkHLrPxEizrjdvqbUCJ8W3LjSPCDB/SKaif2yYSmM2dggSUjb/6hc=
+X-Received: by 2002:a05:651c:507:: with SMTP id
+ o7mr26677802ljp.356.1635276340088; 
+ Tue, 26 Oct 2021 12:25:40 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210929194012.3433306-1-markyacoub@chromium.org>
  <20211013181228.1578201-1-markyacoub@chromium.org>
- <cb482b45-d98c-1860-6cf2-313b831e6066@molgen.mpg.de>
- <CAJUqKUoLYogBbUKoVVDMQErdx3tFEpLBtKDfgYtHSPOVDnEs0Q@mail.gmail.com>
-In-Reply-To: <CAJUqKUoLYogBbUKoVVDMQErdx3tFEpLBtKDfgYtHSPOVDnEs0Q@mail.gmail.com>
+ <20211026012628.GG2515@art_vandelay>
+In-Reply-To: <20211026012628.GG2515@art_vandelay>
 From: Mark Yacoub <markyacoub@chromium.org>
-Date: Tue, 26 Oct 2021 15:26:48 -0400
-Message-ID: <CAJUqKUoT3vid8ZmJw4tp8WqYFH31hYhn7Ad+dQDMLMj-bFt+YA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm: Add Gamma and Degamma LUT sizes props to
- drm_crtc to validate.
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Cc: seanpaul@chromium.org, harry.wentland@amd.com, 
- Mark Yacoub <markyacoub@google.com>, 
+Date: Tue, 26 Oct 2021 15:25:29 -0400
+Message-ID: <CAJUqKUp5yQC=VhbM2tJZiF_2aUKqZNK-ZQf14ZqLzzqjJCuZ2A@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm: Add Gamma and Degamma LUT sizes
+ props to drm_crtc to validate.
+To: Sean Paul <sean@poorly.run>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, seanpaul@chromium.org, 
+ harry.wentland@amd.com, Mark Yacoub <markyacoub@google.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
@@ -66,9 +66,7 @@ Cc: seanpaul@chromium.org, harry.wentland@amd.com,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, 
  Matthias Brugger <matthias.bgg@gmail.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 26 Oct 2021 19:36:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,302 +83,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-new patch: https://patchwork.freedesktop.org/series/96314/
-
-On Tue, Oct 26, 2021 at 3:24 PM Mark Yacoub <markyacoub@chromium.org> wrote:
+On Mon, Oct 25, 2021 at 9:26 PM Sean Paul <sean@poorly.run> wrote:
 >
-> On Tue, Oct 26, 2021 at 8:02 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+> On Wed, Oct 13, 2021 at 02:12:20PM -0400, Mark Yacoub wrote:
+> > From: Mark Yacoub <markyacoub@google.com>
 > >
-> > Dear Mark,
+> > [Why]
+> > 1. drm_atomic_helper_check doesn't check for the LUT sizes of either Gamma
+> > or Degamma props in the new CRTC state, allowing any invalid size to
+> > be passed on.
+> > 2. Each driver has its own LUT size, which could also be different for
+> > legacy users.
 > >
+> > [How]
+> > 1. Create |degamma_lut_size| and |gamma_lut_size| to save the LUT sizes
+> > assigned by the driver when it's initializing its color and CTM
+> > management.
+> > 2. Create drm_atomic_helper_check_crtc which is called by
+> > drm_atomic_helper_check to check the LUT sizes saved in drm_crtc that
+> > they match the sizes in the new CRTC state.
+> > 3. Rename older lut checks that test for the color channels to indicate
+> > it's a channel check. It's not included in drm_atomic_helper_check_crtc
+> > as it's hardware specific and is to be called by the driver.
+> > 4. As the LUT size check now happens in drm_atomic_helper_check, remove
+> > the lut check in intel_color.c
+>
+> I'd probably split the rename out from the crtc check since they're only
+> tangentially related.
+done.
+>
 > >
-> > Thank you for your patch.
+> > Fixes: igt@kms_color@pipe-A-invalid-gamma-lut-sizes on MTK
+> > Tested on Zork(amdgpu) and Jacuzzi(mediatek), volteer(TGL)
 > >
-> > On 13.10.21 20:12, Mark Yacoub wrote:
-> > > From: Mark Yacoub <markyacoub@google.com>
-> > >
-> > > [Why]
-> > > 1. drm_atomic_helper_check doesn't check for the LUT sizes of either Gamma
-> > > or Degamma props in the new CRTC state, allowing any invalid size to
-> > > be passed on.
-> > > 2. Each driver has its own LUT size, which could also be different for
-> > > legacy users.
+> > v1:
+> > 1. Fix typos
+> > 2. Remove the LUT size check from intel driver
+> > 3. Rename old LUT check to indicate it's a channel change
 > >
-> > How can the problem be reproduced?
-> It was caught using igt@kms_color@pipe-A-invalid-gamma-lut-sizes.
-> it validates that drivers will only LUTs of their expected size not
-> any random (smaller or larger) number.
+> > Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+> > ---
+> >  drivers/gpu/drm/drm_atomic_helper.c        | 60 ++++++++++++++++++++++
+> >  drivers/gpu/drm/drm_color_mgmt.c           | 14 ++---
+> >  drivers/gpu/drm/i915/display/intel_color.c | 14 ++---
+> >  include/drm/drm_atomic_helper.h            |  1 +
+> >  include/drm/drm_color_mgmt.h               |  7 +--
+> >  include/drm/drm_crtc.h                     | 11 ++++
+> >  6 files changed, 89 insertions(+), 18 deletions(-)
 > >
-> > > [How]
-> > > 1. Create |degamma_lut_size| and |gamma_lut_size| to save the LUT sizes
-> > > assigned by the driver when it's initializing its color and CTM
-> > > management.
-> > > 2. Create drm_atomic_helper_check_crtc which is called by
-> > > drm_atomic_helper_check to check the LUT sizes saved in drm_crtc that
-> > > they match the sizes in the new CRTC state.
-> > > 3. Rename older lut checks that test for the color channels to indicate
-> > > it's a channel check. It's not included in drm_atomic_helper_check_crtc
-> > > as it's hardware specific and is to be called by the driver.
-> > > 4. As the LUT size check now happens in drm_atomic_helper_check, remove
-> > > the lut check in intel_color.c
-> > >
-> > > Fixes: igt@kms_color@pipe-A-invalid-gamma-lut-sizes on MTK
+> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> > index bc3487964fb5e..5feb2ad0209c3 100644
+> > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > @@ -929,6 +929,62 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
+> >  }
+> >  EXPORT_SYMBOL(drm_atomic_helper_check_planes);
 > >
-> > If I am not mistaken, the Fixes tag is used for commits I believe. Maybe
-> > use Resolves or something similar?
-> fixed!
+> > +/**
+> > + * drm_atomic_helper_check_crtcs - validate state object for CRTC changes
+> > + * @state: the driver state object
+> > + *
+> > + * Check the CRTC state object such as the Gamma/Degamma LUT sizes if the new
+> > + * state holds them.
+> > + *
+> > + * RETURNS:
+> > + * Zero for success or -errno
+> > + */
+> > +int drm_atomic_helper_check_crtcs(struct drm_atomic_state *state)
+> > +{
+> > +     struct drm_crtc *crtc;
+> > +     struct drm_crtc_state *new_crtc_state;
+> > +     int i;
+> > +
+> > +     for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
+> > +             if (new_crtc_state->color_mgmt_changed &&
+> > +                 new_crtc_state->gamma_lut) {
+> > +                     uint64_t supported_lut_size = crtc->gamma_lut_size;
+> > +                     uint32_t supported_legacy_lut_size = crtc->gamma_size;
+> > +                     uint32_t new_state_lut_size =
+> > +                             drm_color_lut_size(new_crtc_state->gamma_lut);
+> > +
+> > +                     if (new_state_lut_size != supported_lut_size &&
+> > +                         new_state_lut_size != supported_legacy_lut_size) {
+> > +                             drm_dbg_state(
+> > +                                     state->dev,
+> > +                                     "Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
+> > +                                     supported_lut_size,
+> > +                                     supported_legacy_lut_size,
+> > +                                     new_state_lut_size);
+> > +                             return -EINVAL;
+> > +                     }
+> > +             }
+> > +
+> > +             if (new_crtc_state->color_mgmt_changed &&
+> > +                 new_crtc_state->degamma_lut) {
+> > +                     uint32_t new_state_lut_size =
+> > +                             drm_color_lut_size(new_crtc_state->degamma_lut);
+> > +                     uint64_t supported_lut_size = crtc->degamma_lut_size;
+> > +
+> > +                     if (new_state_lut_size != supported_lut_size) {
+> > +                             drm_dbg_state(
+> > +                                     state->dev,
+> > +                                     "Invalid Degamma LUT size. Should be %u but got %u.\n",
+> > +                                     supported_lut_size, new_state_lut_size);
+> > +                             return -EINVAL;
+> > +                     }
+> > +             }
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +EXPORT_SYMBOL(drm_atomic_helper_check_crtcs);
+> > +
+> >  /**
+> >   * drm_atomic_helper_check - validate state object
+> >   * @dev: DRM device
+> > @@ -974,6 +1030,10 @@ int drm_atomic_helper_check(struct drm_device *dev,
+> >       if (ret)
+> >               return ret;
 > >
-> > > Tested on Zork(amdgpu) and Jacuzzi(mediatek), volteer(TGL)
+> > +     ret = drm_atomic_helper_check_crtcs(state);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> >       if (state->legacy_cursor_update)
+> >               state->async_update = !drm_atomic_helper_async_check(dev, state);
 > >
-> > Please add a space before the (.
-my apologies i missed this. I'll update it if another version is
-needed or if the committer can do it for me when they apply it.
+> > diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+> > index bb14f488c8f6c..e5b820ce823bf 100644
+> > --- a/drivers/gpu/drm/drm_color_mgmt.c
+> > +++ b/drivers/gpu/drm/drm_color_mgmt.c
+> > @@ -166,6 +166,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+> >       struct drm_mode_config *config = &dev->mode_config;
 > >
-> > How did you test this?
-> smoke test on both MTK and TGL devices along with running
-> igt@kms_color on both devices.
+> >       if (degamma_lut_size) {
+> > +             crtc->degamma_lut_size = degamma_lut_size;
+> >               drm_object_attach_property(&crtc->base,
+> >                                          config->degamma_lut_property, 0);
+> >               drm_object_attach_property(&crtc->base,
+> > @@ -178,6 +179,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+> >                                          config->ctm_property, 0);
 > >
-> > > v1:
-> > > 1. Fix typos
-> > > 2. Remove the LUT size check from intel driver
-> > > 3. Rename old LUT check to indicate it's a channel change
-> > >
-> > > Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-> > > ---
-> > >   drivers/gpu/drm/drm_atomic_helper.c        | 60 ++++++++++++++++++++++
-> > >   drivers/gpu/drm/drm_color_mgmt.c           | 14 ++---
-> > >   drivers/gpu/drm/i915/display/intel_color.c | 14 ++---
-> > >   include/drm/drm_atomic_helper.h            |  1 +
-> > >   include/drm/drm_color_mgmt.h               |  7 +--
-> > >   include/drm/drm_crtc.h                     | 11 ++++
-> > >   6 files changed, 89 insertions(+), 18 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> > > index bc3487964fb5e..5feb2ad0209c3 100644
-> > > --- a/drivers/gpu/drm/drm_atomic_helper.c
-> > > +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> > > @@ -929,6 +929,62 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
-> > >   }
-> > >   EXPORT_SYMBOL(drm_atomic_helper_check_planes);
-> > >
-> > > +/**
-> > > + * drm_atomic_helper_check_crtcs - validate state object for CRTC changes
-> > > + * @state: the driver state object
-> > > + *
-> > > + * Check the CRTC state object such as the Gamma/Degamma LUT sizes if the new
-> > > + * state holds them.
-> > > + *
-> > > + * RETURNS:
-> > > + * Zero for success or -errno
-> > > + */
-> > > +int drm_atomic_helper_check_crtcs(struct drm_atomic_state *state)
-> > > +{
-> > > +     struct drm_crtc *crtc;
-> > > +     struct drm_crtc_state *new_crtc_state;
-> > > +     int i;
-> > > +
-> > > +     for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
-> > > +             if (new_crtc_state->color_mgmt_changed &&
-> > > +                 new_crtc_state->gamma_lut) {
-> > > +                     uint64_t supported_lut_size = crtc->gamma_lut_size;
-> > > +                     uint32_t supported_legacy_lut_size = crtc->gamma_size;
-> > > +                     uint32_t new_state_lut_size =
-> > > +                             drm_color_lut_size(new_crtc_state->gamma_lut);
-> > > +
-> > > +                     if (new_state_lut_size != supported_lut_size &&
-> > > +                         new_state_lut_size != supported_legacy_lut_size) {
-> > > +                             drm_dbg_state(
-> > > +                                     state->dev,
-> > > +                                     "Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
-> > > +                                     supported_lut_size,
-> > > +                                     supported_legacy_lut_size,
-> > > +                                     new_state_lut_size);
-> > > +                             return -EINVAL;
-> > > +                     }
-> > > +             }
-> > > +
-> > > +             if (new_crtc_state->color_mgmt_changed &&
-> > > +                 new_crtc_state->degamma_lut) {
-> > > +                     uint32_t new_state_lut_size =
-> > > +                             drm_color_lut_size(new_crtc_state->degamma_lut);
-> > > +                     uint64_t supported_lut_size = crtc->degamma_lut_size;
-> > > +
-> > > +                     if (new_state_lut_size != supported_lut_size) {
-> > > +                             drm_dbg_state(
-> > > +                                     state->dev,
-> > > +                                     "Invalid Degamma LUT size. Should be %u but got %u.\n",
-> > > +                                     supported_lut_size, new_state_lut_size);
-> > > +                             return -EINVAL;
-> > > +                     }
-> > > +             }
-> > > +     }
-> > > +
-> > > +     return 0;
-> > > +}
-> > > +EXPORT_SYMBOL(drm_atomic_helper_check_crtcs);
-> > > +
-> > >   /**
-> > >    * drm_atomic_helper_check - validate state object
-> > >    * @dev: DRM device
-> > > @@ -974,6 +1030,10 @@ int drm_atomic_helper_check(struct drm_device *dev,
-> > >       if (ret)
-> > >               return ret;
-> > >
-> > > +     ret = drm_atomic_helper_check_crtcs(state);
-> > > +     if (ret)
-> > > +             return ret;
-> > > +
-> > >       if (state->legacy_cursor_update)
-> > >               state->async_update = !drm_atomic_helper_async_check(dev, state);
-> > >
-> > > diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-> > > index bb14f488c8f6c..e5b820ce823bf 100644
-> > > --- a/drivers/gpu/drm/drm_color_mgmt.c
-> > > +++ b/drivers/gpu/drm/drm_color_mgmt.c
-> > > @@ -166,6 +166,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
-> > >       struct drm_mode_config *config = &dev->mode_config;
-> > >
-> > >       if (degamma_lut_size) {
-> > > +             crtc->degamma_lut_size = degamma_lut_size;
-> > >               drm_object_attach_property(&crtc->base,
-> > >                                          config->degamma_lut_property, 0);
-> > >               drm_object_attach_property(&crtc->base,
-> > > @@ -178,6 +179,7 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
-> > >                                          config->ctm_property, 0);
-> > >
-> > >       if (gamma_lut_size) {
-> > > +             crtc->gamma_lut_size = gamma_lut_size;
-> > >               drm_object_attach_property(&crtc->base,
-> > >                                          config->gamma_lut_property, 0);
-> > >               drm_object_attach_property(&crtc->base,
-> > > @@ -585,17 +587,17 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
-> > >   EXPORT_SYMBOL(drm_plane_create_color_properties);
-> > >
-> > >   /**
-> > > - * drm_color_lut_check - check validity of lookup table
-> > > + * drm_color_lut_channels_check - check validity of the channels in the lookup table
-> > >    * @lut: property blob containing LUT to check
-> > >    * @tests: bitmask of tests to run
-> > >    *
-> > > - * Helper to check whether a userspace-provided lookup table is valid and
-> > > - * satisfies hardware requirements.  Drivers pass a bitmask indicating which of
-> > > - * the tests in &drm_color_lut_tests should be performed.
-> > > + * Helper to check whether each color channel of userspace-provided lookup table is valid and
-> > > + * satisfies hardware requirements. Drivers pass a bitmask indicating which of in
-> > > + * &drm_color_lut_channels_tests should be performed.
-> > >    *
-> > >    * Returns 0 on success, -EINVAL on failure.
-> > >    */
-> > > -int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests)
-> > > +int drm_color_lut_channels_check(const struct drm_property_blob *lut, u32 tests)
-> > >   {
-> > >       const struct drm_color_lut *entry;
-> > >       int i;
-> > > @@ -625,4 +627,4 @@ int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests)
-> > >
-> > >       return 0;
-> > >   }
-> > > -EXPORT_SYMBOL(drm_color_lut_check);
-> > > +EXPORT_SYMBOL(drm_color_lut_channels_check);
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-> > > index dab892d2251ba..a308fe52746ac 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_color.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> > > @@ -1285,7 +1285,7 @@ static int check_luts(const struct intel_crtc_state *crtc_state)
-> > >       const struct drm_property_blob *gamma_lut = crtc_state->hw.gamma_lut;
-> > >       const struct drm_property_blob *degamma_lut = crtc_state->hw.degamma_lut;
-> > >       int gamma_length, degamma_length;
-> > > -     u32 gamma_tests, degamma_tests;
-> > > +     u32 gamma_channels_tests, degamma_channels_tests;
-> > >
-> > >       /* Always allow legacy gamma LUT with no further checking. */
-> > >       if (crtc_state_is_legacy_gamma(crtc_state))
-> > > @@ -1300,15 +1300,11 @@ static int check_luts(const struct intel_crtc_state *crtc_state)
-> > >
-> > >       degamma_length = INTEL_INFO(dev_priv)->color.degamma_lut_size;
-> > >       gamma_length = INTEL_INFO(dev_priv)->color.gamma_lut_size;
-> > > -     degamma_tests = INTEL_INFO(dev_priv)->color.degamma_lut_tests;
-> > > -     gamma_tests = INTEL_INFO(dev_priv)->color.gamma_lut_tests;
-> > > +     degamma_channels_tests = INTEL_INFO(dev_priv)->color.degamma_lut_tests;
-> > > +     gamma_channels_tests = INTEL_INFO(dev_priv)->color.gamma_lut_tests;
-> > >
-> > > -     if (check_lut_size(degamma_lut, degamma_length) ||
-> > > -         check_lut_size(gamma_lut, gamma_length))
-> > > -             return -EINVAL;
-> > > -
-> > > -     if (drm_color_lut_check(degamma_lut, degamma_tests) ||
-> > > -         drm_color_lut_check(gamma_lut, gamma_tests))
-> > > +     if (drm_color_lut_channels_check(degamma_lut, degamma_channels_tests) ||
-> > > +         drm_color_lut_channels_check(gamma_lut, gamma_channels_tests))
-> > >               return -EINVAL;
-> > >
-> > >       return 0;
-> > > diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-> > > index 4045e2507e11c..a22d32a7a8719 100644
-> > > --- a/include/drm/drm_atomic_helper.h
-> > > +++ b/include/drm/drm_atomic_helper.h
-> > > @@ -38,6 +38,7 @@ struct drm_atomic_state;
-> > >   struct drm_private_obj;
-> > >   struct drm_private_state;
-> > >
-> > > +int drm_atomic_helper_check_crtcs(struct drm_atomic_state *state);
-> > >   int drm_atomic_helper_check_modeset(struct drm_device *dev,
-> > >                               struct drm_atomic_state *state);
-> > >   int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
-> > > diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-> > > index 81c298488b0c8..cb1bf361ad3e3 100644
-> > > --- a/include/drm/drm_color_mgmt.h
-> > > +++ b/include/drm/drm_color_mgmt.h
-> > > @@ -94,12 +94,12 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
-> > >                                     enum drm_color_range default_range);
-> > >
-> > >   /**
-> > > - * enum drm_color_lut_tests - hw-specific LUT tests to perform
-> > > + * enum drm_color_lut_channels_tests - hw-specific LUT tests to perform
-> > >    *
-> > >    * The drm_color_lut_check() function takes a bitmask of the values here to
-> > >    * determine which tests to apply to a userspace-provided LUT.
-> > >    */
-> > > -enum drm_color_lut_tests {
-> > > +enum drm_color_lut_channels_tests {
-> > >       /**
-> > >        * @DRM_COLOR_LUT_EQUAL_CHANNELS:
-> > >        *
-> > > @@ -119,5 +119,6 @@ enum drm_color_lut_tests {
-> > >       DRM_COLOR_LUT_NON_DECREASING = BIT(1),
-> > >   };
-> > >
-> > > -int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests);
-> > > +int drm_color_lut_channels_check(const struct drm_property_blob *lut,
-> > > +                              u32 tests);
-> > >   #endif
-> > > diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> > > index 2deb15d7e1610..cabd3ef1a6e32 100644
-> > > --- a/include/drm/drm_crtc.h
-> > > +++ b/include/drm/drm_crtc.h
-> > > @@ -1072,6 +1072,17 @@ struct drm_crtc {
-> > >       /** @funcs: CRTC control functions */
-> > >       const struct drm_crtc_funcs *funcs;
-> > >
-> > > +     /**
-> > > +      * @degamma_lut_size: Size of degamma LUT.
-> > > +      */
-> > > +     uint32_t degamma_lut_size;
-> > > +
-> > > +     /**
-> > > +      * @gamma_lut_size: Size of Gamma LUT. Not used by legacy userspace such as
-> > > +      * X, which doesn't support large lut sizes.
-> > > +      */
-> > > +     uint32_t gamma_lut_size;
-> > > +
-> > >       /**
-> > >        * @gamma_size: Size of legacy gamma ramp reported to userspace. Set up
-> > >        * by calling drm_mode_crtc_set_gamma_size().
-> > >
+> >       if (gamma_lut_size) {
+> > +             crtc->gamma_lut_size = gamma_lut_size;
+> >               drm_object_attach_property(&crtc->base,
+> >                                          config->gamma_lut_property, 0);
+> >               drm_object_attach_property(&crtc->base,
+> > @@ -585,17 +587,17 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
+> >  EXPORT_SYMBOL(drm_plane_create_color_properties);
 > >
-> > Acked-by: Paul Menzel <pmenzel@molgen.mpg.de>
+> >  /**
+> > - * drm_color_lut_check - check validity of lookup table
+> > + * drm_color_lut_channels_check - check validity of the channels in the lookup table
+> >   * @lut: property blob containing LUT to check
+> >   * @tests: bitmask of tests to run
+> >   *
+> > - * Helper to check whether a userspace-provided lookup table is valid and
+> > - * satisfies hardware requirements.  Drivers pass a bitmask indicating which of
+> > - * the tests in &drm_color_lut_tests should be performed.
+> > + * Helper to check whether each color channel of userspace-provided lookup table is valid and
+> > + * satisfies hardware requirements. Drivers pass a bitmask indicating which of in
+> > + * &drm_color_lut_channels_tests should be performed.
+> >   *
+> >   * Returns 0 on success, -EINVAL on failure.
+> >   */
+> > -int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests)
+> > +int drm_color_lut_channels_check(const struct drm_property_blob *lut, u32 tests)
+> >  {
+> >       const struct drm_color_lut *entry;
+> >       int i;
+> > @@ -625,4 +627,4 @@ int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests)
 > >
+> >       return 0;
+> >  }
+> > -EXPORT_SYMBOL(drm_color_lut_check);
+> > +EXPORT_SYMBOL(drm_color_lut_channels_check);
+> > diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+> > index dab892d2251ba..a308fe52746ac 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_color.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_color.c
+> > @@ -1285,7 +1285,7 @@ static int check_luts(const struct intel_crtc_state *crtc_state)
+> >       const struct drm_property_blob *gamma_lut = crtc_state->hw.gamma_lut;
+> >       const struct drm_property_blob *degamma_lut = crtc_state->hw.degamma_lut;
+> >       int gamma_length, degamma_length;
+> > -     u32 gamma_tests, degamma_tests;
+> > +     u32 gamma_channels_tests, degamma_channels_tests;
 > >
-> > Kind regards,
+> >       /* Always allow legacy gamma LUT with no further checking. */
+> >       if (crtc_state_is_legacy_gamma(crtc_state))
+> > @@ -1300,15 +1300,11 @@ static int check_luts(const struct intel_crtc_state *crtc_state)
 > >
-> > Paul
+> >       degamma_length = INTEL_INFO(dev_priv)->color.degamma_lut_size;
+> >       gamma_length = INTEL_INFO(dev_priv)->color.gamma_lut_size;
+> > -     degamma_tests = INTEL_INFO(dev_priv)->color.degamma_lut_tests;
+> > -     gamma_tests = INTEL_INFO(dev_priv)->color.gamma_lut_tests;
+> > +     degamma_channels_tests = INTEL_INFO(dev_priv)->color.degamma_lut_tests;
+> > +     gamma_channels_tests = INTEL_INFO(dev_priv)->color.gamma_lut_tests;
+> >
+> > -     if (check_lut_size(degamma_lut, degamma_length) ||
+> > -         check_lut_size(gamma_lut, gamma_length))
+> > -             return -EINVAL;
+>
+> Can you remove check_lut_size() now?
+>
+replace by drm_ check_lut_size
+still gotta keep it cause you reach this both using set prop, not
+necessarily through an atomic commit only.
+> > -
+> > -     if (drm_color_lut_check(degamma_lut, degamma_tests) ||
+> > -         drm_color_lut_check(gamma_lut, gamma_tests))
+> > +     if (drm_color_lut_channels_check(degamma_lut, degamma_channels_tests) ||
+> > +         drm_color_lut_channels_check(gamma_lut, gamma_channels_tests))
+> >               return -EINVAL;
+> >
+> >       return 0;
+> > diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
+> > index 4045e2507e11c..a22d32a7a8719 100644
+> > --- a/include/drm/drm_atomic_helper.h
+> > +++ b/include/drm/drm_atomic_helper.h
+> > @@ -38,6 +38,7 @@ struct drm_atomic_state;
+> >  struct drm_private_obj;
+> >  struct drm_private_state;
+> >
+> > +int drm_atomic_helper_check_crtcs(struct drm_atomic_state *state);
+> >  int drm_atomic_helper_check_modeset(struct drm_device *dev,
+> >                               struct drm_atomic_state *state);
+> >  int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+> > diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+> > index 81c298488b0c8..cb1bf361ad3e3 100644
+> > --- a/include/drm/drm_color_mgmt.h
+> > +++ b/include/drm/drm_color_mgmt.h
+> > @@ -94,12 +94,12 @@ int drm_plane_create_color_properties(struct drm_plane *plane,
+> >                                     enum drm_color_range default_range);
+> >
+> >  /**
+> > - * enum drm_color_lut_tests - hw-specific LUT tests to perform
+> > + * enum drm_color_lut_channels_tests - hw-specific LUT tests to perform
+> >   *
+> >   * The drm_color_lut_check() function takes a bitmask of the values here to
+> >   * determine which tests to apply to a userspace-provided LUT.
+> >   */
+> > -enum drm_color_lut_tests {
+> > +enum drm_color_lut_channels_tests {
+> >       /**
+> >        * @DRM_COLOR_LUT_EQUAL_CHANNELS:
+> >        *
+> > @@ -119,5 +119,6 @@ enum drm_color_lut_tests {
+> >       DRM_COLOR_LUT_NON_DECREASING = BIT(1),
+> >  };
+> >
+> > -int drm_color_lut_check(const struct drm_property_blob *lut, u32 tests);
+> > +int drm_color_lut_channels_check(const struct drm_property_blob *lut,
+> > +                              u32 tests);
+> >  #endif
+> > diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> > index 2deb15d7e1610..cabd3ef1a6e32 100644
+> > --- a/include/drm/drm_crtc.h
+> > +++ b/include/drm/drm_crtc.h
+> > @@ -1072,6 +1072,17 @@ struct drm_crtc {
+> >       /** @funcs: CRTC control functions */
+> >       const struct drm_crtc_funcs *funcs;
+> >
+> > +     /**
+> > +      * @degamma_lut_size: Size of degamma LUT.
+> > +      */
+> > +     uint32_t degamma_lut_size;
+> > +
+> > +     /**
+> > +      * @gamma_lut_size: Size of Gamma LUT. Not used by legacy userspace such as
+> > +      * X, which doesn't support large lut sizes.
+> > +      */
+> > +     uint32_t gamma_lut_size;
+> > +
+> >       /**
+> >        * @gamma_size: Size of legacy gamma ramp reported to userspace. Set up
+> >        * by calling drm_mode_crtc_set_gamma_size().
+> > --
+> > 2.33.0.882.g93a45727a2-goog
+> >
+>
+> --
+> Sean Paul, Software Engineer, Google / Chromium OS
