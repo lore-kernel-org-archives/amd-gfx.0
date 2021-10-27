@@ -2,83 +2,69 @@ Return-Path: <SRS0=hGuQ=PP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40A9BC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2009FC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:45:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0618460720
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:35:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0618460720
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D0F3660F21
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 14:45:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D0F3660F21
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A2C86E5C0;
-	Wed, 27 Oct 2021 14:35:04 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9B716E5BF;
- Wed, 27 Oct 2021 14:35:02 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id m22so4640575wrb.0;
- Wed, 27 Oct 2021 07:35:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ADE36E8AF;
+	Wed, 27 Oct 2021 14:45:46 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846B96E8AE;
+ Wed, 27 Oct 2021 14:39:48 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id y207so3683411oia.11;
+ Wed, 27 Oct 2021 07:39:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=+E1SJLSdArAsZtkp/v7OuzkWQxv+Z0nONOEXraLGZhk=;
- b=Rwb+cbwEpL56R7PI3JueevN0x1Iyrk8N4y9L6mXlGE7SOhpfr41jUvGYsqe4BEd7IZ
- R2HbO5oL+GaBgVTLJEGp7QFnurF7TmqfZs1mCyPr66KxQCRwPKxYUHWqOb2A6W6vmjFL
- X0218J/olPCUJ7u6SQ6LA9XJaZcZSD6RHpDx+gd3HKYh1rFr3+uK4xy3Ob/T+lVNkHmX
- eQfxdwjDZ4MjydMfWD64+g7F/UoqFXmOg2R+I+ntCWzTMnY2GoIjAMbW9hI33fhADf7j
- W4+QSDjxk7y94f41QJwohgScI1ZxDY2ygtOYrFy5iv0QvZX4pvzSrxKilVZf/fbh0uDo
- 7n/w==
+ h=sender:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=ZOVIW59kKpmA3YI6MyWfAQdWikp/1S+bV4WvwADltGI=;
+ b=l3VHqW+goh9EHaX+7Vr/K8TAijIkOX8IUNP6+2QSVp9LQtv1as36aPVcm/F4HjQzC/
+ LC+2Ruoy4oEUhC2ITk9J+MX8teOSjapO+KJH1NSabDmTTKPqFkhVfb5J9jPDCw8L0JER
+ 79INMm8w6WMacJjG0aK90648YYdIkXCdMjAZFObUvrhgMAqBEdGQgCg3J+DrbhlgTmaA
+ YF6Vj4xML4fl0gBvveJ/6H7ETblC4ehdkPErvU967yh4nq/c08JPTZSTI/2+wXlppTdK
+ enPzilSXE/M99mVYnlq1mWrEAsV3rIE2hKTbMk9uwfaQh9nrSquS8VmfIhkqu7p769qZ
+ RPwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=+E1SJLSdArAsZtkp/v7OuzkWQxv+Z0nONOEXraLGZhk=;
- b=GllLvBeCruTHwufojMA5sghN1zbfmkQZrwZ0rpo3OUI/G+pgLJok68m80N81LkxVhT
- BTwW1vdayOjbW+Qa2NLAOhya5zhPtK2D8dqjiWxdHO5/LBs8YabY0S71fRdsetrEP0A6
- 5bjum9iLDgCx06xml3pwISDjD8UegbdU7xMMqDYdaILHPn7tWIbjJBXqPD+xPiFHUyGx
- ZuaK88kDB+jmPxRavaDzPSFXllTPtZYcmBFe8lBhqjnhf/7fshcSQ4hEs+O7DhePb0QN
- YBFvUuIti/N72FXQ/RzoBYYLCdmA8zMyOfhN98ZmetvHtgZ8fFnKOlvJsLnVYb6RkHMH
- mI4Q==
-X-Gm-Message-State: AOAM533XClbm6XZuL2R9HGue6LxON7eYVW4MPVPbT6Dg6Qk69Hj7kzrQ
- +dpE7U/nS9a9zA0l3pOEGaM=
-X-Google-Smtp-Source: ABdhPJyaxZ70+HbZx9sb+hVFjSw9chccyuTGkGofNDWPphmJZLndfIjPAGMUu0Xoe+l0LoUvO1HT2w==
-X-Received: by 2002:adf:b604:: with SMTP id f4mr41266121wre.111.1635345301155; 
- Wed, 27 Oct 2021 07:35:01 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:1ffc:9265:7616:2569?
- ([2a02:908:1252:fb60:1ffc:9265:7616:2569])
- by smtp.gmail.com with ESMTPSA id t6sm35124wrw.78.2021.10.27.07.35.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Oct 2021 07:35:00 -0700 (PDT)
-Subject: Re: Lockdep spalt on killing a processes
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, chris@chris-wilson.co.uk,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>
-References: <73c163b4-1917-1cde-b75f-831ac66f6ea0@amd.com>
- <2090e8e6-4b0a-4b75-a776-64dde1ecdfd5@amd.com>
- <152adb05-e863-525a-f586-ecccb39a4724@gmail.com>
- <5e67d2d2-f5ce-2669-6ad9-7e40c74ce853@amd.com>
- <696ac3f9-4b45-b8a5-5300-79093d2cd1a5@amd.com>
- <2639d027-b6c8-ee09-5e9a-564308949c53@amd.com>
- <cbeac930-84c3-7a62-0b3d-4cef3074139d@gmail.com>
- <da1ed5da-59ad-d12a-906c-c84b7462d8c4@amd.com>
- <bb70e916-e71b-9968-78d9-d7de8fef9e91@amd.com>
- <5c70c6a9-8867-506a-1e7b-32f85589a070@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <c5fc1be1-eaec-a57c-79ee-9a63123ed9a2@gmail.com>
-Date: Wed, 27 Oct 2021 16:34:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :mime-version:content-disposition;
+ bh=ZOVIW59kKpmA3YI6MyWfAQdWikp/1S+bV4WvwADltGI=;
+ b=ryRNkTkNSyu9iBi9i8RgY8vybkGd+DcpOg7+TBFlbuXuaPMhgdeK34sbNMcbHNQ57j
+ DTHPvV36HdZZEKGLSjuxpVP7Sqsp/kpEoZGSJFGMRe2/o4D2f5QJTxLwIL03Z6y3s+5S
+ h2ovHhu5nxSu+2z+fCI3QE+GeILCQ20k5licSQpAK/Sc+DBVHSdxWuEgIFX9hVatf+Oa
+ EUpf0F4wEL6RYElX7Atg/AvzZto4MXHp50JBalUGey8hzHk7bdccMJNPLbV5B6NiRJvi
+ kzMqT5K7NbrE6s//9AURXZDzU/uH687b4zDja2vkawSbo9EVL9nZJ8eediOEunUHIVug
+ nNIg==
+X-Gm-Message-State: AOAM5328C2FGyRtWjSS1s6cp/VcGHGuEvsVjgIOYffi1t0z/o3jahjTR
+ X3VG3xuI3OcRPThmjwPZRHw3beshbxY=
+X-Google-Smtp-Source: ABdhPJyHthbhSHJfSRNPj/xZEqesLzv1SFbQ3NKuegTuxoKp/W3Nsj1ndnpoWIrBM4Ob9PJzOL+XWQ==
+X-Received: by 2002:a05:6808:490:: with SMTP id
+ z16mr4119312oid.54.1635345587781; 
+ Wed, 27 Oct 2021 07:39:47 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ y123sm41791oie.0.2021.10.27.07.39.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Oct 2021 07:39:47 -0700 (PDT)
+Date: Wed, 27 Oct 2021 07:39:45 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Thelford Williams <tdwilliamsiv@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix out of bounds write
+Message-ID: <20211027143945.GA1947580@roeck-us.net>
 MIME-Version: 1.0
-In-Reply-To: <5c70c6a9-8867-506a-1e7b-32f85589a070@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Wed, 27 Oct 2021 14:45:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,28 +79,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.10.21 um 16:27 schrieb Andrey Grodzovsky:
-> [SNIP]
->>
->>> Let me please know if I am still missing some point of yours.
->>
->> Well, I mean we need to be able to handle this for all drivers.
->
->
-> For sure, but as i said above in my opinion we need to change only for 
-> those drivers that don't use the _locked version.
+On Wed, Oct 13, 2021 at 04:04:13PM -0400, Thelford Williams wrote:
+> Size can be any value and is user controlled resulting in overwriting the
+> 40 byte array wr_buf with an arbitrary length of data from buf.
+> 
+> Signed-off-by: Thelford Williams <tdwilliamsiv@gmail.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-And that absolutely won't work.
+The fix works, but unless I am missing something it is incomplete.
+parse_write_buffer_into_params() is called several times, and the
+size parameter is always wrong. This patch only fixes one of several
+instances of the problem.
 
-See the dma_fence is a contract between drivers, so you need the same 
-calling convention between all drivers.
+Guenter
 
-Either we always call the callback with the lock held or we always call 
-it without the lock, but sometimes like that and sometimes otherwise 
-won't work.
-
-Christian.
-
->
-> Andrey
-
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 814f67d86a3c..9b3ad56607bb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -264,7 +264,7 @@ static ssize_t dp_link_settings_write(struct file *f, const char __user *buf,
+>  	if (!wr_buf)
+>  		return -ENOSPC;
+>  
+> -	if (parse_write_buffer_into_params(wr_buf, size,
+> +	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+>  					   (long *)param, buf,
+>  					   max_param_num,
+>  					   &param_nums)) {
+> -- 
+> 2.33.0
