@@ -2,45 +2,102 @@ Return-Path: <SRS0=hGuQ=PP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34126C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 22:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDD47C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 22:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB668610C7
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 22:19:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB668610C7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id B570A60231
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 22:39:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B570A60231
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 795F489BA1;
-	Wed, 27 Oct 2021 22:19:38 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5712B89BA1
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 22:19:37 +0000 (UTC)
-Received: from [192.168.0.2] (ip5f5aef7e.dynamic.kabel-deutschland.de
- [95.90.239.126])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id EABBD61E64760;
- Thu, 28 Oct 2021 00:19:34 +0200 (CEST)
-Message-ID: <a0801433-fd70-f15d-3f63-7ca18fbf2244@molgen.mpg.de>
-Date: Thu, 28 Oct 2021 00:19:33 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 360256E44C;
+	Wed, 27 Oct 2021 22:39:36 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76C1E6E44C;
+ Wed, 27 Oct 2021 22:39:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QzTNcuYZdvTn/rF0FM9PoVTXzECk5te0GnIJaYX5GAyoRcj8+tWRn5dwiMA1b+4e6cKSorXo4gOpz6zyHZIvSRee4UR3PI+LL3xm+XmYHx9K6oJAVf+tajYU6yTNmhBJ0LLASNjb2os2xzB2n7solimrm36JIN/cWV3sXKrq2zn5KJoeHjiPHP4jihcfMp0evu+paSm+WQb0/m2HJT0ZChi2HLc4+fspNEg3bj+j3pOHXct+qr81FHTObugi+fc1EM1QacZxybypgsl6rulGrXWv0X3A2+5U9ajn2MrwKuEcBgmJmSybobArkpcQ/1F06WQyc6EgEmrkaR4ugq8V/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X8g91vHOX44bOaHZDnx/oNB4P8+xQd7SeU9lhRd/6JY=;
+ b=PkJ6vr1PY9rH5Mi97t8aWvEQvDfzX9rBjrjZ70g/vSX5dFlc69MXpEFyQyHHmRCIWvhr+1g5rmhDydqHReV0iB+qHshHOb/oyJUPlSgHrBhEhWBN68sIkTl1GQ3GGZhx09o2nQvF2hsbHfTt/cjTCtbz0YIU3LvZ0ofHjgrGYrTUs84eq33jnpeIHdMrm7+5i2kn13VOqjjrxm9nPSSUQumfYlA/kqUcw04cFbAEHUGdURdIPKVzzXsCpeC+S+tKjt736rmH4CNkEqv1zX6CLy5V7x8LTMPzc47sD9iZmWPa++3b1sBouG42bHsrm6L1fKwEA/Hjc3KMdNCNoBQzqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X8g91vHOX44bOaHZDnx/oNB4P8+xQd7SeU9lhRd/6JY=;
+ b=v8iKaqcKl5Sy1uKBWBiWEfUhyU57986l5CkLlye34LOWdYgL4QAx5QbUkwC7+XRXmAbBqX7GalyU9FQ2baGF5XnDmVMiRC6ehLqNceVnUY+Eu9erZw5PhUukM9dmMqCRmvXxolO7mPkhfOIbARFH5YJqhz7lgSLoeXDImX08g98=
+Received: from DM6PR06CA0089.namprd06.prod.outlook.com (2603:10b6:5:336::22)
+ by DM6PR12MB4959.namprd12.prod.outlook.com (2603:10b6:5:208::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Wed, 27 Oct
+ 2021 22:39:33 +0000
+Received: from DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::86) by DM6PR06CA0089.outlook.office365.com
+ (2603:10b6:5:336::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14 via Frontend
+ Transport; Wed, 27 Oct 2021 22:39:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT014.mail.protection.outlook.com (10.13.173.132) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4649.14 via Frontend Transport; Wed, 27 Oct 2021 22:39:33 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Wed, 27 Oct
+ 2021 17:39:29 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Lyude Paul <lyude@redhat.com>,
+ Dave Airlie <airlied@gmail.com>
+Subject: [PATCH] drm/amdgpu/display: fix build when CONFIG_DRM_AMD_DC_DCN is
+ not set
+Date: Wed, 27 Oct 2021 18:39:14 -0400
+Message-ID: <20211027223914.1776061-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.1
-Subject: Re: [PATCH] drm/amdgpu/gmc6: fix DMA mask
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- it+linux-iommu@molgen.mpg.de, Alex Deucher <alexdeucher@gmail.com>
-References: <20211027182212.1484689-1-alexander.deucher@amd.com>
- <CADnq5_PzD5h0UmhQko7YE86a1xhm2LnPFhDgwgEhBe7iKNov0A@mail.gmail.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <CADnq5_PzD5h0UmhQko7YE86a1xhm2LnPFhDgwgEhBe7iKNov0A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 10debed3-9b67-4ef7-4f58-08d9999aa59a
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4959:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4959C2A3B2F7BE1F97FA3E2BF7859@DM6PR12MB4959.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gDllAc+sQULe2EnPUFcUZxBUzV+hGyINxLUjFboO9YNrw1DlItZPceLqmwmE7Bd28+dpvjEYBxc7ppBOVbauub3h4i6RcCLpLzEpi26NmiqmR6uns+9KZ/TfW43VDjC+pMGqXLlmTnVfg3ZG2Kua3dRHoDswrUThiiCwvSnYEQFZlP/TIwqbdpuuzXooeQ9q3zQrwGRIFFlTNojNxvI9f3Q0MXYKETT4cF2jUkGl+eDbqSXfL7C4iJcnPA6QuQBSd8QwyeVvOVYDmqqMO6iItTvuH6R0D9bzGk94lYSYhEqF/euWYcUtM/KPzvcgUWUew3SRbyuPQiNe13/pkW1hRUJvx4UKP/WHE8ZX6AB27Das2EtonN0/fWF2VtqmNL5lh1WA0vHeWlETQ2MANFO4UIxP7i/r3AFIl+nsp7aBYcGuTDtbxnWKWIcdxpEA8I2o937NTzhzGsgVRxIyflPAqFz1Es+6eL1DdaOyLShSfkOXzFdgBX4BZCnAvcd6UGxGU2Yxha2U+pZWwdSFXsW31t53EPwYCfFNtwSsGZHS6bBhd6vVGx1CnL+wO9hUw5xEtW9POEDcumGy2zkD3wcxx0mk64kZTm754MTG8RaoA4IxonV4hgslezL4h9zog/E/uHzz/oyu5xADy4ITw9R7biZT46xmeM3kkZtXi2Tjkdx+qusdfnzLDEqAcZcjCyJuJmTIGrJSDd5iujgkCvkt0KHulUh/9kXNh/GI5fIIBcU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(70586007)(70206006)(54906003)(36860700001)(336012)(110136005)(186003)(83380400001)(2616005)(47076005)(8936002)(26005)(16526019)(1076003)(36756003)(6666004)(2906002)(81166007)(426003)(356005)(508600001)(86362001)(5660300002)(82310400003)(4326008)(316002)(7696005)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2021 22:39:33.1003 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10debed3-9b67-4ef7-4f58-08d9999aa59a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4959
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,31 +112,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Alex,
+Need to guard some things with CONFIG_DRM_AMD_DC_DCN.
 
+Fixes: 41724ea273cdda ("drm/amd/display: Add DP 2.0 MST DM Support")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Dave Airlie <airlied@gmail.com>
+---
 
-On 27.10.21 20:23, Alex Deucher wrote:
-> On Wed, Oct 27, 2021 at 2:22 PM Alex Deucher <alexander.deucher@amd.com> wrote:
->>
->> The DMA mask on SI parts is 40 bits not 44.  Looks like a copy
->> paste typo.
->>
-> 
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1762
-> 
-> Fixed locally.
+Lyude, can you apply this to topic/amdgpu-dp2.0-mst? or Dave, if it's
+already pulled can you apply this to drm-next?
 
-As I have no way to reproduce this, as the ring gfx timeout error is 
-logged ten seconds after the IO_PAGE_FAULT, is very likely to be related?
+Thanks!
 
-Hopefully I am going to be able to test this on Friday. Does AMD’s QA 
-team have the cards to test the `iommu.forcedac=1` case? Is that test 
-case going to be added to the “test protocol”?
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 4 +++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-Lastly, should a Fixes tag be added, so it’s picked up for the stable 
-series?
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a02ca525610c..3f36dbb2c663 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10723,9 +10723,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	struct dm_crtc_state *dm_old_crtc_state;
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	struct dsc_mst_fairness_vars vars[MAX_PIPES];
+-#endif
+ 	struct drm_dp_mst_topology_state *mst_state;
+ 	struct drm_dp_mst_topology_mgr *mgr;
++#endif
+ 
+ 	trace_amdgpu_dm_atomic_check_begin(state);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 719cbec4c45e..c200e07d2fb2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -219,7 +219,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	struct drm_dp_mst_topology_mgr *mst_mgr;
+ 	struct drm_dp_mst_port *mst_port;
+ 	bool ret;
+-	u8 link_encoding_cap;
++	u8 link_encoding_cap = DP_8b_10b_ENCODING;
+ 
+ 	aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
+ 	/* Accessing the connector state is required for vcpi_slots allocation
+@@ -239,7 +239,9 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 
+ 	mst_port = aconnector->port;
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	link_encoding_cap = dc_link_dp_mst_decide_link_encoding_format(aconnector->dc_link);
++#endif
+ 
+ 	if (enable) {
+ 
+-- 
+2.31.1
 
-
-Kind regards,
-
-Paul
