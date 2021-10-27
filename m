@@ -2,55 +2,56 @@ Return-Path: <SRS0=hGuQ=PP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 494E2C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BB20C4167E
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14C26610A0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 14C26610A0
+	by mail.kernel.org (Postfix) with ESMTPS id 12626610A0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 12626610A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E1F89101;
-	Wed, 27 Oct 2021 04:37:22 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B74546E520;
- Wed, 27 Oct 2021 04:37:18 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id j10so1641837ilu.2;
- Tue, 26 Oct 2021 21:37:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA361892C1;
+	Wed, 27 Oct 2021 04:37:24 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1D548911D;
+ Wed, 27 Oct 2021 04:37:22 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id d63so2112589iof.4;
+ Tue, 26 Oct 2021 21:37:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=o+whlX412ns7Y6ku6OCfF8ilTGQnTI3FHyyW4SpYgR0=;
- b=AxPoMl2gtzmhRnBl9k5THYtOV3nvDL4/dLq23yhgBKycu8ETCiI+/H9/ALQnsfSXaR
- rDiMaCRJR7i4aH2eKlgdOv5mRbkHoXps2XLeZdNwSo8B9Al5A3gFP5KfRKNmlf8n/RJ7
- /TChanG/0PZJv4XScjk4Ed+G72VcHTOwOO+57IQDIWUYX3NjoEkQW7rWIL3cqBBzTGFH
- d8+T40KsCinqKkQKpGYlADqXubBsph+wxdWZpjlRUIlxHU1EkAnjcm9pSH9IxSJNI9it
- BM7YXRqG3a03xvJZAPhUpp8eki0UM3iDZaN50GLgiUMcdlhHEntkaTEojACs2G7ZN6wa
- UkpQ==
+ bh=KTjPwmyEBDA02pYjzS52Ng2KLEEXB6xVb20R+Q4xkso=;
+ b=oEgwprXWHlgD+HK8HYagY0h+ZLXfFM042go+IjfKy+XWxWgaVtKJHZCUD/vCVb5i/s
+ qLbm0A7vZLuPlH2lVgYG7W4Oa8kCBQewYb8jTuhbGz9PqfeB4W2ty0BQXOg6sBGjuSZE
+ 8zzzcx1FYupfJn7qNJnm18QluydqENoSfjq3gQ21tqn2ExdbsJojZrCpxqEsVXCXSKkq
+ 0fev0HUHDHRwXgfeO2B4H/9JwYhL/u925NwbPv2Chjswz8Gh6QT9y39MaUAKWaISc1Zs
+ Cv8NevjmO5uQlIkgD99cG42HjKvfyEET+zkfzoSul7ym9YFooZ3hMgjYWM4PiEQ5IRVX
+ 8Uvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=o+whlX412ns7Y6ku6OCfF8ilTGQnTI3FHyyW4SpYgR0=;
- b=FL1R3XZ1dDBTqQ0T8BB2NYdGOKC65j/bHslR0I+PnzbHiZN/SN81nVlOV4KCt5GP9R
- OsNFa9NlrX5beaarBmGR77KK0Z0EPhK2KzXakR/ZmyFek+U9w53eQHa2FuIleuV1awiv
- thKZBdtNPgJ+yusuTYq7zSKzQKTlD6X3EzJ6vXQfK6gbMDGQ+z16sz8JxdIP8lRkfqwr
- Dn2tfKla7bp52GC5dxsygkxSmFO3zy98WTqNdH0ZpD6BcVvRRP/tMF3hBj1sxxGJeEzk
- rhrq7C0wyCUsv8/gtjFZxBbenZxEZub527Di8IiAs9l5RN4qSOWeGGPmWIZ1WfZ/TNOV
- 4Maw==
-X-Gm-Message-State: AOAM532fvgKnUX3TvYX6Ro1c69c8Rt+Eq+c0smcAeH9aB1hvo0GbO1Dp
- 2vELe/Vw68Rby3viD83dt2Q=
-X-Google-Smtp-Source: ABdhPJy7rC/9+8A/ODpxwktWX/Zo3dG1FP7VMw+H/WEGlKBV2sTrmacm45zUy0uBWydHCHtXJJ8Pgw==
-X-Received: by 2002:a92:cd8d:: with SMTP id r13mr12255334ilb.5.1635309438010; 
- Tue, 26 Oct 2021 21:37:18 -0700 (PDT)
+ bh=KTjPwmyEBDA02pYjzS52Ng2KLEEXB6xVb20R+Q4xkso=;
+ b=vt+/D4/hHUvPs2qlFSyhr+54J6hSd2RjNY652+W4s4BMjK9w9docPFB9B79K0n8Rle
+ KepdwE91Rd9qQjq+e5y0jATeB33VBSOhz+5SmUG53fpSrPW2EBVosC8g12hVvDwvC+Qv
+ DvYy7FvCZ0izFJzDM7cDpBxJ+D2VgOpWY1UeJP/tsXFAqW2Kyqg6dZsqu+Iej1eNlfCq
+ qgl5YI/wuYO0B7Qqu5pRxWP1waN+EQxV50TTpnXugl7gclg5xRmTWiY5/dYdHHMfSlMI
+ u+v6b2bmt4xPWg3iGKjZVnrH+zEzmxyNya9NrYtez/jYhmd2oNLF/CeEJWxg298Sz8TC
+ ck9w==
+X-Gm-Message-State: AOAM533ty4NqYgfuEDTRa31FubFRSfggIcyvf+t7n5CjH1TexCjU23TT
+ WMcHkVgsp7iRKolHNwpNzug=
+X-Google-Smtp-Source: ABdhPJyA9UJpZHU3+9vlpcCwM3603b2gx+HQKti7AVP908D+jG4YTlduIdgVV7qe09OFCOTviYg44g==
+X-Received: by 2002:a05:6602:2d14:: with SMTP id
+ c20mr17390975iow.95.1635309441933; 
+ Tue, 26 Oct 2021 21:37:21 -0700 (PDT)
 Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id a15sm2030404ilj.81.2021.10.26.21.37.16
+ by smtp.googlemail.com with ESMTPSA id a15sm2030404ilj.81.2021.10.26.21.37.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Oct 2021 21:37:16 -0700 (PDT)
+ Tue, 26 Oct 2021 21:37:21 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, linux@rasmusvillemoes.dk,
@@ -58,10 +59,10 @@ To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 01/10] dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES macro
- and callbacks
-Date: Tue, 26 Oct 2021 22:36:36 -0600
-Message-Id: <20211027043645.153133-2-jim.cromie@gmail.com>
+Subject: [PATCH v9 05/10] i915/gvt: use dyndbg.CATEGORIES for existing
+ pr_debugs
+Date: Tue, 26 Oct 2021 22:36:40 -0600
+Message-Id: <20211027043645.153133-6-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211027043645.153133-1-jim.cromie@gmail.com>
 References: <20211027043645.153133-1-jim.cromie@gmail.com>
@@ -81,25 +82,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DEFINE_DYNAMIC_DEBUG_CATEGORIES(fsname, var, bitmap_desc, @bit_descs)
-allows users to create a drm.debug style (bitmap) sysfs interface,
-mapping each bit to a pr_debug "category".
-
-Unlike drm, dyndbg has no coding of "category", but it can select a
-set of pr_debugs with a substr match on their formats.  Since many
-pr_debug users have systematized format prefixes, dyndbg can
-en/disable those existing groupings as sets/categories.
-
-Those categories can (already) be manipulated like so:
-
-    echo "format $category +p" >control
-
-This macro merely maps the categories to bits of a sysfs interface, by
-wiring the callbacks to it.
+The gvt component of this driver has ~120 pr_debugs, in 9 categories
+quite similar to those in DRM.  Following the interface model of
+drm.debug, add a parameter to map bits to these categorizations.
 
 DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
-	"i915/gvt bitmap desc",
-	/* map each bit to a format match string */
+	"dyndbg bitmap desc",
 	[0] = { "gvt:cmd:" },
 	[1] = { "gvt:core:" },
 	[2] = { "gvt:dpy:" },
@@ -110,308 +98,98 @@ DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
 	[7] = { "gvt:render:" },
 	[8] = { "gvt:sched:" });
 
- - int param_set_dyndbg()
- - int param_get_dyndbg()
- - struct kernel_param_ops param_ops_dyndbg
-
-Following the model of kernel/params.c STANDARD_PARAM_DEFS, these are
-non-static and exported.
-
-get/set use an augmented kernel_param; the arg refs a new struct
-dyndbg_bitmap_param containing:
-
-A- the map of "categories", an array of struct dyndbg_bitdescs,
-   indexed by bitpos, defining the match against pr_debug formats.
-
-B- a pointer to the user module's ulong holding the bits/state.
-   By sharing state, we coordinate with code that still uses it
-   directly.  This allows drm-debug api to be converted incrementally,
-   while still using __drm_debug & drm_debug_enabled() in other parts.
-
-param_set_dyndbg() compares new vs old bits, and only updates prdbgs
-on changes.  This maximally preserves the underlying state, which may
-have been customized via later `echo $cmd >control`.  So if a user
-really wants to know that all prdbgs are set precisely, they must
-pre-clear then set.
-
-dynamic_debug.h:
-
-Add DEFINE_DYNAMIC_DEBUG_CATEGORIES() described above, and a stub
-throwing a BUILD_BUG (RFC) when used without DYNAMIC_DEBUG support.
-
-Add structs dyndbg_bitdesc, dyndbg_bitmap_param to support the main
-macro, and several helper macros wrapping the given categories with
-^prefix and ' ' suffix.  This way the callback can be more broadly
-used, by using the right helper macro.
-
-Also externs the struct kernel_param param_ops_dyndbg symbol, as is
-done in moduleparams.h for all the STANDARD params.
-
-USAGE NOTES:
-
-Using dyndbg to query on "format $str" requires that $str must be
-present in the compiled-in format string.  Searching on "%s" does not
-define a useful set of callsites.
-
-Using DEFINE_DYNAMIC_DEBUG_CATEGORIES wo support gets a BUILD_BUG.
-ISTM there is already action at a declarative distance, nobody needs
-mystery as to why the /sysfs thingy didn't appear.
-
-Dyndbg is agnostic wrt the categorization scheme used, in order to
-play well with any prefix convention already in use in the codebase.
-In fact, "prefix" is not strictly accurate without ^ anchor.
-
-Ad-hoc categories and sub-categories are implicitly allowed, author
-discipline and review is expected.
-
-Hierarchical classes/categories are natural:
-
-"^drm:<CAT>:"		is used in a later commit
-"^drm:<CAT>:<SUB>:"	is a natural extension.
-"^drm:atomic:fail:"	has been proposed, sounds directly useful
-
-RFC: in a real sense we abandon enum strictures here, and lose some
-compiler help, on spelling errs for example.  Obviously "drm:" != "DRM:".
-
-Some properties of a hierarchical category deserve explication:
-
-Trailing spaces matter !
-
-With 1..3-space ("drm: ", "drm:atomic: ", "drm:atomic:fail: "), the
-":" doesn't terminate the search-space, the trailing space does.  So a
-"drm:" search spec will match all DRM categories & subcategories, and
-will not be useful in an interface where all categories are already
-controlled together.  That said, "drm:atomic:" & "drm:atomic: " are
-different, and both are useful in cases.
-
-Ad-Hoc categories & sub-categories:
-
-Ad-hoc categories are those format-prefixes already in use; both
-amdgpu and i915 have numerous (120,~1800) pr_debugs, most of these use
-a system, a small set (9,13) of prefixes, to categorize the output.
-Dyndbg already works on these, this patch just allows adding a new
-bitmap knob to control them.
-
-Ad-hoc sub-categories are slightly trickier.
-  since drm_dbg_atomic("fail: ...") is a macro:
-    pr_debug("drm:atomic:" " " format,...) // cpp-paste in a trailing space
-
-We get "drm:atomic: fail:", with that undesirable embedded space;
-obviously not ideal wrt clear and simple prefixes.
-
-a possible fix: drm_dbg_atomic_("fail: ..."); // trailing _ for ad-hoc subcat
-
-Summarizing:
-
- - "drm:kms: " & "drm:kms:" are different
- - "drm:kms"		also different - includes drm:kms2:
- - "drm:kms:\t"		also different - could be troublesome
- - "drm:kms:*"		doesn't work, no wildcard on format atm.
-
-Order matters in DEFINE_DYNAMIC_DEBUG_CATEGORIES(... @bit_descs)
-
-Since bits are/will-stay applied 0-N, the later bits can countermand
-the earlier ones, but it is tricky - consider;
-
-    DD_CATs(... "drm:atomic:", "drm:atomic:fail:" ) // misleading
-
-The 1st search-term is misleading, because it includes (modifies)
-subcategories, but then 2nd overrides it.  So don't do that.
+If CONFIG_DYNAMIC_DEBUG_CORE=y, then gvt/Makefile adds
+-DDYNAMIC_DEBUG_MODULE to cflags, which CONFIG_DYNAMIC_DEBUG=n
+(CORE-only) builds need.  This is redone more comprehensively soon.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
 v5:
-. rename to DEFINE_DYNAMIC_DEBUG_CATEGORIES from DEFINE_DYNDBG_BITMAP
-. in set_dyndbg, replace hardcoded "i915" w kp->mod->name
-. static inline the stubs
-. const *str in structs, const array. - Emil
-. dyndbg: add do-nothing DEFINE_DYNAMIC_DEBUG_CATEGORIES if !DD_CORE
-. call MOD_PARM_DESC(name, "$desc") for users
-. simplify callback, remove bit-change detection
-. config errs reported by <lkp@intel.com>
-
-v6:
-. return rc, bitmap->, snprintf, ws - Andy Shevchenko
-. s/chgct/matches/ - old varname is misleading
-. move code off file bottom to a "better" place
-. change ##fsname to ##var for less generic varname (ie: not "debug")
-. add KP_MOD_NAME workaround for !CONFIG_MODULES
-. move forward decl down to where its needed
+. static decl of vector of bit->class descriptors - Emil.V
+. relocate gvt-makefile chunk from elsewhere
 
 v7:
-. use kp->arg, dont need kp->data or previous patch-1 - jbaron
-. use client's ulong for bits, share state
-. throw BUILD_BUG if DEFINE_DYNAMIC_DEBUG_CATEGORIES used wo support
+. move ccflags addition up to i915/Makefile from i915/gvt
 
 v8:
-. drop help field from dyndbg_bitdesc
-. move ^ constraint from callback to helper macro: _DD_cat_
-. add other helper macros
+. relocate DDD_CAT decl code into intel_gvt.c - Tvrtko
+  cflags back to i915/Makefile
+. add -DDYNAMIC_DEBUG_MODULE to support DYNAMIC_DEBUG_CORE-only builds
 
-v10:
-. drop all helper macros, [N] = { "foo" } is clear.
+heres unchanged? footprint:
+
+bash-5.1# for m in i915 amdgpu nouveau; do modprobe $m; done
+dyndbg:   1 debug prints in module drm
+dyndbg:   2 debug prints in module ttm
+dyndbg:   8 debug prints in module video
+dyndbg: 167 debug prints in module i915
+dyndbg: 2339 debug prints in module amdgpu
+[drm] amdgpu kernel modesetting enabled.
+amdgpu: CRAT table disabled by module option
+amdgpu: Virtual CRAT table created for CPU
+amdgpu: Topology: Add CPU node
+dyndbg:   3 debug prints in module wmi
+dyndbg:   3 debug prints in module nouveau
 ---
- include/linux/dynamic_debug.h | 52 ++++++++++++++++++++++++
- lib/dynamic_debug.c           | 76 +++++++++++++++++++++++++++++++++++
- 2 files changed, 128 insertions(+)
+ drivers/gpu/drm/i915/Makefile    |  2 ++
+ drivers/gpu/drm/i915/intel_gvt.c | 34 ++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index dce631e678dd..a9787544aef0 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -181,6 +181,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 				   KERN_DEBUG, prefix_str, prefix_type,	\
- 				   rowsize, groupsize, buf, len, ascii)
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 335ba9f43d8f..a313e8a539f6 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -301,6 +301,8 @@ i915-y += intel_gvt.o
+ include $(src)/gvt/Makefile
+ endif
  
-+struct kernel_param;
-+int param_set_dyndbg(const char *instr, const struct kernel_param *kp);
-+int param_get_dyndbg(char *buffer, const struct kernel_param *kp);
++ccflags-$(CONFIG_DYNAMIC_DEBUG_CORE) += -DDYNAMIC_DEBUG_MODULE
 +
- #else /* !CONFIG_DYNAMIC_DEBUG_CORE */
+ obj-$(CONFIG_DRM_I915) += i915.o
+ obj-$(CONFIG_DRM_I915_GVT_KVMGT) += gvt/kvmgt.o
  
- #include <linux/string.h>
-@@ -227,6 +231,54 @@ static inline int dynamic_debug_exec_queries(const char *query, const char *modn
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/intel_gvt.c b/drivers/gpu/drm/i915/intel_gvt.c
+index 4e70c1a9ef2e..e53b41fa15e0 100644
+--- a/drivers/gpu/drm/i915/intel_gvt.c
++++ b/drivers/gpu/drm/i915/intel_gvt.c
+@@ -162,3 +162,37 @@ void intel_gvt_resume(struct drm_i915_private *dev_priv)
+ 	if (intel_gvt_active(dev_priv))
+ 		intel_gvt_pm_resume(dev_priv->gvt);
  }
- 
-+struct kernel_param;
-+static inline int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
-+{ return 0; }
-+static inline int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
-+{ return 0; }
 +
- #endif /* !CONFIG_DYNAMIC_DEBUG_CORE */
- 
-+struct dyndbg_bitdesc {
-+	const char *match;	/* search format for this substr */
-+};
++#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
 +
-+struct dyndbg_bitmap_param {
-+	unsigned long *bits;		/* ref to shared state */
-+	struct dyndbg_bitdesc map[];	/* indexed by bitpos */
-+};
++unsigned long __gvt_debug;
++EXPORT_SYMBOL(__gvt_debug);
 +
-+#if defined(CONFIG_DYNAMIC_DEBUG) || \
-+	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
-+/**
-+ * DEFINE_DYNAMIC_DEBUG_CATEGORIES() - bitmap control of categorized pr_debugs
-+ * @fsname: parameter basename under /sys
-+ * @_var:    C-identifier holding bitmap
-+ * @desc:  string summarizing the controls provided
-+ * @...:    list of struct dyndbg_bitdesc initializations
-+ *
-+ * Intended for modules with a systematic use of "categorized"
-+ * pr_debug's (a set of prefixes in the format strings), this allows
-+ * modules calling pr_debugs to control them in groups according to
-+ * those prefixes, and map them to bits 0-N of a sysfs control point.
-+ */
-+#define DEFINE_DYNAMIC_DEBUG_CATEGORIES(fsname, _var, desc, ...)	\
-+	MODULE_PARM_DESC(fsname, desc);					\
-+	static struct dyndbg_bitmap_param ddcats_##_var =		\
-+	{ .bits = &(_var), .map = { __VA_ARGS__, { .match = NULL }}};	\
-+	module_param_cb(fsname, &param_ops_dyndbg, &ddcats_##_var, 0644)
++#define help_(_N, _cat)	"\t  Bit-" #_N ":\t" _cat "\n"
 +
-+extern const struct kernel_param_ops param_ops_dyndbg;
++#define I915_GVT_CATEGORIES(name) \
++	" Enable debug output via /sys/module/i915/parameters/" #name	\
++	", where each bit enables a debug category.\n"			\
++	help_(0, "gvt:cmd:")						\
++	help_(1, "gvt:core:")						\
++	help_(2, "gvt:dpy:")						\
++	help_(3, "gvt:el:")						\
++	help_(4, "gvt:irq:")						\
++	help_(5, "gvt:mm:")						\
++	help_(6, "gvt:mmio:")						\
++	help_(7, "gvt:render:")						\
++	help_(8, "gvt:sched:")
 +
-+#else /* no dyndbg configured, throw error on macro use */
++DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
++				I915_GVT_CATEGORIES(debug_gvt),
++				[0] = { "gvt:cmd:" },
++				[1] = { "gvt:core:" },
++				[2] = { "gvt:dpy:" },
++				[3] = { "gvt:el:" },
++				[4] = { "gvt:irq:" },
++				[5] = { "gvt:mm:" },
++				[6] = { "gvt:mmio:" },
++				[7] = { "gvt:render:" },
++				[8] = { "gvt:sched:" });
 +
-+#if (defined(CONFIG_DYNAMIC_DEBUG_CORE) && !defined(DYNAMIC_DEBUG_MODULE))
-+#define DEFINE_DYNAMIC_DEBUG_CATEGORIES(fsname, var, bitmap_desc, ...)	\
-+	BUILD_BUG_ON_MSG(1, "you need -DDYNAMIC_DEBUG_MODULE in compile")
-+#else
-+#define DEFINE_DYNAMIC_DEBUG_CATEGORIES(fsname, var, bitmap_desc, ...)	\
-+	BUILD_BUG_ON_MSG(1, "CONFIG_DYNAMIC_DEBUG needed to use this macro: " #var)
 +#endif
-+#endif
-+
- #endif
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index cb5abb42c16a..54a6a872106d 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -577,6 +577,82 @@ int dynamic_debug_exec_queries(const char *query, const char *modname)
- }
- EXPORT_SYMBOL_GPL(dynamic_debug_exec_queries);
- 
-+#ifdef CONFIG_MODULES
-+#define KP_MOD_NAME kp->mod->name
-+#else
-+#define KP_MOD_NAME NULL /* wildcard */
-+#endif
-+#define FMT_QUERY_SIZE 128 /* typically need <40 */
-+/**
-+ * param_set_dyndbg - bits => categories >control setter
-+ * @instr: string echo>d to sysfs
-+ * @kp:    kp->arg has state: bits, map
-+ *
-+ * Enable/disable prdbgs by their "category", as specified in
-+ * DEFINE_DYNAMIC_DEBUG_CATEGORIES arguments.
-+ *
-+ * Returns: 0 or <0 if error.
-+ */
-+int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
-+{
-+	unsigned long inbits;
-+	int rc, i, matches = 0, totct = 0;
-+	char query[FMT_QUERY_SIZE];
-+	const struct dyndbg_bitmap_param *p = kp->arg;
-+	const struct dyndbg_bitdesc *map = p->map;
-+
-+	if (!map) {
-+		pr_err("set_dyndbg: no bits=>queries map\n");
-+		return -EINVAL;
-+	}
-+	rc = kstrtoul(instr, 0, &inbits);
-+	if (rc) {
-+		pr_err("set_dyndbg: expecting unsigned int\n");
-+		return rc;
-+	}
-+	vpr_info("set_dyndbg: new 0x%lx old 0x%lx\n", inbits, *p->bits);
-+
-+	for (i = 0; map->match && i < BITS_PER_LONG; map++, i++) {
-+		if (test_bit(i, &inbits) == test_bit(i, p->bits))
-+			continue;
-+		snprintf(query, FMT_QUERY_SIZE, "format '%s' %cp", map->match,
-+			 test_bit(i, &inbits) ? '+' : '-');
-+
-+		matches = ddebug_exec_queries(query, KP_MOD_NAME);
-+
-+		v2pr_info("bit-%d: %d matches on format <%s>\n", i,
-+			  matches, map->match);
-+		totct += matches;
-+	}
-+	*p->bits = inbits;
-+	vpr_info("total matches: %d\n", totct);
-+	return 0;
-+}
-+EXPORT_SYMBOL(param_set_dyndbg);
-+
-+/**
-+ * param_get_dyndbg - bitmap reader
-+ * @buffer: receives string rep of bitmap
-+ * @kp:    kp->arg has state: bits, map
-+ *
-+ * Reads last written bits, underlying prdbg state may have changed since.
-+ * Returns: #chars written
-+ */
-+int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
-+{
-+	const struct dyndbg_bitmap_param *p = kp->arg;
-+	unsigned long val = *p->bits;
-+
-+	return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", val);
-+}
-+EXPORT_SYMBOL(param_get_dyndbg);
-+
-+const struct kernel_param_ops param_ops_dyndbg = {
-+	.set = param_set_dyndbg,
-+	.get = param_get_dyndbg,
-+};
-+EXPORT_SYMBOL(param_ops_dyndbg);
-+
- #define PREFIX_SIZE 64
- 
- static int remaining(int wrote)
 -- 
 2.31.1
 
