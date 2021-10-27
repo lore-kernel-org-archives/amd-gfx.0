@@ -2,77 +2,100 @@ Return-Path: <SRS0=hGuQ=PP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24FE7C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 17:28:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D4EEC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 18:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D605B6109D
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 17:28:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D605B6109D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E46D36023D
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 18:22:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E46D36023D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D9B66E5D4;
-	Wed, 27 Oct 2021 17:28:45 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 120616E5D4
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 17:28:45 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- o26-20020a4abe9a000000b002b74bffdef0so1162201oop.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 10:28:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wrZxhnpBVF+cF2MH+4hpGESknGnknZIvvFiYbEODzhk=;
- b=BPKmV1ZB5ebCw1S2IavTQsPuOPDm4WBZVvPMl8xkIMlg/OWb74QDL9Gl9wChwhEQ2r
- 2wVgumPw/XQfIRncXfDOoiB+yINE59H6kZ5TaLp12p/OPl9kmtSY+dQIk7nygvKH8JeJ
- mla8QoY1HSDBbYn8sQwcErupLJi14EX3UUAgIljetwlliKtGtX06hd/YJA7DLK/azxmx
- nbYmsf85H72Tf5W7QEfa+X8/kFnTUys831ZX6RG3trxvc1AVSDI44kFGoFpZ0ROjxVeR
- oIc6oNGbuKNdTPdSv4oNqwlT9CEaLJ+q7hbETGhChOYkhhmfLQPx26MsaM31djQWr2pK
- RYIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wrZxhnpBVF+cF2MH+4hpGESknGnknZIvvFiYbEODzhk=;
- b=t0rJD34ArzBcprA4xYJJLLNE6nfDVNtPA+4eqwRJjJ8royOz2JHw/c9fiHTfAZsk8M
- UbVCY3RXWSnrnoaXptSN3IatEQa2gYNwcucxFA37Mpf6hr0GDV85NcvK31ERzMkKBbds
- tSETdc4KW2IX9CGmKUek5qVcqEe0QbxEZcSMmv14EB7v/xB1ye91lROoaxpdhZxMHklA
- 8/Taa4RXA5Tx+PuElK9aUeSj6f71q1GMvxfpsedVo5Zy4jzieHSx6t0Gzjl0FfMsSO6T
- ykS5H7g06pWYBX83cR6t9yYM2UHASlxRmUadBz6qR1SqUGbTbHoZwf234wIcoSmkTBLC
- K2vA==
-X-Gm-Message-State: AOAM530RUu4YBklqg52Tf8DCwjAdHvlzT10BpsRvF9BitWo7Q/r6tH+z
- dJa2ESh8J+I5hiWwJSyCYJZNCFwwLFTd8TqCPT8=
-X-Google-Smtp-Source: ABdhPJym6erSPEWJi1GKR1ra3PnGgufMkBKXgAkuizRFvk+0fbhMwySLArEFu+scGYoFci8xM0rNFjPMYcpXO2GU4k8=
-X-Received: by 2002:a4a:8508:: with SMTP id k8mr5473333ooh.23.1635355724247;
- Wed, 27 Oct 2021 10:28:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 810ED89A0F;
+	Wed, 27 Oct 2021 18:22:32 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D154589DA8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Oct 2021 18:22:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JXAk5gdF5BL6IduiXqHPqfc8R659ydw0Zn9HCc+Bl6/iibemQUjKY8lb+FS6vhRPfg975/ozGn1tM1pWjUHDhcWoqAr0MoKB3lw7FZE2vGeUtQNc4E+s1t9P5Hpw5HooCl6DxR6eHdksSNMom/aPEKJLQ+8y8Ra5kOpzI1BZYWxA07NcYeCWeFHchh4kxV4grfzZVcBEsDZMC29VSfqSFtar3lH8jQWFHnV8X55QMaGO+PM/es3r1nTDD69b0VcLy+/GZCG96+YtCWOoJZMoMCHtuJWhK80tf90mIr3jVtY7kWqsLcjR4Ik8IlA2dnB2lPAUOBKr34KG+Jf68bVY9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=90PJHwR/hvT+HUflb/BybkzjNTU8J34KWX0Otrk9ZD0=;
+ b=VIpCBcM3aUEWO1d3Gb4egrFIZ1vP/HFIwkxAc3tRG9Lg8x/L605obHv6c/+orDFR5A5v926caB/p51AVd/mm2S2vy0uGgxKYlMakYDlnA5caKhOMKgsAjJkEyWTk9ipXJj8Ndg0HcRf6YktUKzEexPdFxKh4/7y9dErALBqNfuwJ6eMc2ywLSL+rxcWWXB8JU5wZwv2k0niOyeKvKM1DWBDofwP5FJ0RAK+4682jkbPeBSdJeeGozeSX1wS9Q2AzWO+MqP6CTyoFIVy0YJz6PZ3+ELr+U5Dfixx7JZnTgPNE1R81ThCsIg3zGmc08iXoNvD/uvG+fqq9tzwUPmLIuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=90PJHwR/hvT+HUflb/BybkzjNTU8J34KWX0Otrk9ZD0=;
+ b=TdKad9l1EcPCQW7vQuwNe7ON//tmakDyyryn6pTKfWl7JBeWPzcpg/zcvOSroleDh7CjKiXLYwJbxiPioJllmRSzV2M9pJXfo0WztGIeuc3iEENksaMyw6c5MAQ+zOvNzwqydFBX/ofVN6+zJAAhzrGuMu8CJB3JFa5H2Z6TXfs=
+Received: from MWHPR17CA0061.namprd17.prod.outlook.com (2603:10b6:300:93::23)
+ by BL1PR12MB5125.namprd12.prod.outlook.com (2603:10b6:208:309::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Wed, 27 Oct
+ 2021 18:22:29 +0000
+Received: from CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:93:cafe::54) by MWHPR17CA0061.outlook.office365.com
+ (2603:10b6:300:93::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.13 via Frontend
+ Transport; Wed, 27 Oct 2021 18:22:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT005.mail.protection.outlook.com (10.13.174.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4649.14 via Frontend Transport; Wed, 27 Oct 2021 18:22:28 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Wed, 27 Oct
+ 2021 13:22:27 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/gmc6: fix DMA mask
+Date: Wed, 27 Oct 2021 14:22:12 -0400
+Message-ID: <20211027182212.1484689-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <7a5123b0-6370-59dc-f0c2-8be5b370d9ba@molgen.mpg.de>
- <0cfccc44-6cc6-98f5-ecd6-2f376839ec18@gmail.com>
- <bc7142a1-82d3-43bf-dee2-25f9297e7182@arm.com>
- <3c2de089-8f80-3644-7735-7df1c6151d70@molgen.mpg.de>
- <82fccb9d-43e8-4485-0ddb-7ff260f3ed32@arm.com>
- <CADnq5_NiigOVnahNWrro+ur2aejcHLTLJMH5ndUyg3cO8E+NRw@mail.gmail.com>
-In-Reply-To: <CADnq5_NiigOVnahNWrro+ur2aejcHLTLJMH5ndUyg3cO8E+NRw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 27 Oct 2021 13:28:32 -0400
-Message-ID: <CADnq5_O6KfZKJBDTPn6jJrFg12bRssHAvx1u9m39xiGvu=_dhw@mail.gmail.com>
-Subject: Re: I got an IOMMU IO page fault. What to do now?
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, X86 ML <x86@kernel.org>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Alex Deucher <alexander.deucher@amd.com>,
- it+linux-iommu@molgen.mpg.de, Thomas Gleixner <tglx@linutronix.de>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>, 
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Content-Type: multipart/mixed; boundary="000000000000074a4b05cf58ed5e"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 77b57bd4-3319-4c02-0e13-08d99976bbe0
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5125:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5125FC5566C55B17BD114E5EF7859@BL1PR12MB5125.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:989;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WTLW0BxrE8r3C+l4awNv4WO3a85f9MMFJYg6SoeZgROdSoCYVh/fDkvtiToNLhPOv7kLzw3qpxFHhQpHyODBbT9EEOP/6su2l1G1QnSOXJxCEzbc5OHJoeG/57g1VrA/wEzyNrCVFIXxFLkProfZ/eKOIzaemFmScGOHLIKhO3+1lN4DXu8arY6yMruGjjEPNjZUBO3rn7BbDPLd2zBa/YO06R82ExHNzfukwHm7YV+AmPX7EvwtEy/tdpZuEsueKfcJL1afz3aKbyf8wn1FT5Kyfro6f0d36DdAd9C+da6OWONNtYA8S7jS42AK+nXTkW7t7zAAfWcYibnWT0Hsmdi6So41Gy+AQYQCzD8ShuUk4H8Q7YhapvSYs18tNDvgytVevHxSrj//SV4cvSPuL/qB7B2oIRaySx2lAcbUcqFTIn6hIucRMGh1N7hqUT4QUPEPiCSiDNB0yQ8/DbsTNEufCeLnxP3AnrxlpzGnLr6ErRowfD9vQKE7h6BK49O8/dDYMOHFqJSEyhfoB993us3347Rv2bIOcNLpluPCm0VeztefQIvLH15q4TfPIugpRFXRPNQXNIFIzJ6brZ9xx01Kpi/KwIDIXdPcjRg8mGq96/+PQr4XY8W8cjDVXpTGdmKlJRcfk8/iX3HVTEA8jVAoM80zxNKyNzU5D+ulxPPE6pNbUmBUBqBXxMZGqQYVslDi2ypnb7HK5ExjVb08Ab9w9BhOBxNBugDNka8g5tc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(336012)(426003)(2616005)(7696005)(1076003)(36756003)(47076005)(4744005)(8676002)(8936002)(508600001)(6916009)(2906002)(82310400003)(86362001)(316002)(81166007)(4326008)(186003)(70206006)(70586007)(5660300002)(26005)(16526019)(36860700001)(356005)(83380400001)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2021 18:22:28.5320 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77b57bd4-3319-4c02-0e13-08d99976bbe0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5125
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,112 +110,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000074a4b05cf58ed5e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The DMA mask on SI parts is 40 bits not 44.  Looks like a copy
+paste typo.
 
-On Wed, Oct 27, 2021 at 1:24 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Oct 27, 2021 at 1:20 PM Robin Murphy <robin.murphy@arm.com> wrote=
-:
-> >
-> > On 27/10/2021 5:45 pm, Paul Menzel wrote:
-> > > Dear Robin,
-> > >
-> > >
-> > > On 25.10.21 18:01, Robin Murphy wrote:
-> > >> On 2021-10-25 12:23, Christian K=C3=B6nig wrote:
-> > >
-> > >>> not sure how the IOMMU gives out addresses, but the printed ones lo=
-ok
-> > >>> suspicious to me. Something like we are using an invalid address li=
-ke
-> > >>> -1 or similar.
-> > >>
-> > >> FWIW those look like believable DMA addresses to me, assuming that t=
-he
-> > >> DMA mapping APIs are being backed iommu_dma_ops and the device has a
-> > >> 40-bit DMA mask, since the IOVA allocator works top-down.
-> > >>
-> > >> Likely causes are either a race where the dma_unmap_*() call happens
-> > >> before the hardware has really stopped accessing the relevant
-> > >> addresses, or the device's DMA mask has been set larger than it shou=
-ld
-> > >> be, and thus the upper bits have been truncated in the round-trip
-> > >> through the hardware.
-> > >>
-> > >> Given the addresses involved, my suspicions would initially lean
-> > >> towards the latter case - the faults are in the very topmost pages
-> > >> which imply they're the first things mapped in that range. The other
-> > >> contributing factor being the trick that the IOVA allocator plays fo=
-r
-> > >> PCI devices, where it tries to prefer 32-bit addresses. Thus you're
-> > >> only likely to see this happen once you already have ~3.5-4GB of liv=
-e
-> > >> DMA-mapped memory to exhaust the 32-bit IOVA space (minus some
-> > >> reserved areas) and start allocating from the full DMA mask. You
-> > >> should be able to check that with a 5.13 or newer kernel by booting
-> > >> with "iommu.forcedac=3D1" and seeing if it breaks immediately
-> > >> (unfortunately with an older kernel you'd have to manually hack
-> > >> iommu_dma_alloc_iova() to the same effect).
-> > >
-> > > I booted Linux 5.15-rc7 with `iommu.forcedac=3D1` and the system boot=
-ed,
-> > > and I could log in remotely over SSH. Please find the Linux kernel
-> > > messages attached. (The system logs say lightdm failed to start, but =
-it
-> > > might be some other issue due to a change in the operating system.)
-> >
-> > OK, that looks like it's made the GPU blow up straight away, which is
-> > what I was hoping for (and also appears to reveal another bug where it'=
-s
-> > not handling probe failure very well - possibly trying to remove a
-> > non-existent audio device?). Lightdm presumably fails to start because
-> > it doesn't find any display devices, since amdgpu failed to probe.
-> >
-> > If you can boot the same kernel without "iommu.forcedac" and get a
-> > successful probe and working display, that will imply that it is
-> > managing to work OK with 32-bit DMA addresses, at which point I'd have
-> > to leave it to Christian and Alex to figure out exactly where DMA
-> > addresses are getting mangled. The only thing that stands out to me is
-> > the reference to "gfx_v6_0", which makes me wonder whether it's related
-> > to gmc_v6_0_sw_init() where a 44-bit DMA mask gets set. If so, that
-> > would suggest that either this particular model of GPU is more limited
-> > than expected, or that SoC only has 40 bits of address wired up between
-> > the PCI host bridge and the IOMMU.
->
-> That device only has a 40 bit DMA mask.  It looks like the code is wrong =
-there.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The attached patch should fix it.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 0e81e03e9b49..a9354cb2d639 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -841,7 +841,7 @@ static int gmc_v6_0_sw_init(void *handle)
+ 
+ 	adev->gmc.mc_mask = 0xffffffffffULL;
+ 
+-	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
++	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(40));
+ 	if (r) {
+ 		dev_warn(adev->dev, "No suitable DMA available.\n");
+ 		return r;
+-- 
+2.31.1
 
-Alex
-
---000000000000074a4b05cf58ed5e
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-drm-amdgpu-gmc6-fix-DMA-mask.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-gmc6-fix-DMA-mask.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_kv9ske4n0>
-X-Attachment-Id: f_kv9ske4n0
-
-RnJvbSAzOTczNWY3NjEyMzRmYTQ4MGQzOTNiMTQ3N2RkOWQ0MDA2NzgzZjM0IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IFdlZCwgMjcgT2N0IDIwMjEgMTM6MjY6MTkgLTA0MDAKU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kZ3B1L2dtYzY6IGZpeCBETUEgbWFzawoKVGhlIERNQSBtYXNrIG9uIFNJIHBhcnRz
-IGlzIDQwIGJpdHMgbm90IDQ0LiAgTG9va3MgbGlrZSBhIGNvcHkKcGFzdGUgdHlwby4KClNpZ25l
-ZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jIHwgMiArLQogMSBmaWxlIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dtY192Nl8wLmMKaW5kZXggMGU4MWUwM2U5YjQ5Li5hOTM1NGNiMmQ2MzkgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYwpAQCAtODQxLDcgKzg0MSw3IEBAIHN0YXRpYyBpbnQg
-Z21jX3Y2XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCiAKIAlhZGV2LT5nbWMubWNfbWFzayA9IDB4
-ZmZmZmZmZmZmZlVMTDsKIAotCXIgPSBkbWFfc2V0X21hc2tfYW5kX2NvaGVyZW50KGFkZXYtPmRl
-diwgRE1BX0JJVF9NQVNLKDQ0KSk7CisJciA9IGRtYV9zZXRfbWFza19hbmRfY29oZXJlbnQoYWRl
-di0+ZGV2LCBETUFfQklUX01BU0soNDApKTsKIAlpZiAocikgewogCQlkZXZfd2FybihhZGV2LT5k
-ZXYsICJObyBzdWl0YWJsZSBETUEgYXZhaWxhYmxlLlxuIik7CiAJCXJldHVybiByOwotLSAKMi4z
-MS4xCgo=
---000000000000074a4b05cf58ed5e--
