@@ -1,142 +1,70 @@
-Return-Path: <SRS0=fVrT=PO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=hGuQ=PP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 769B3C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:25:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74E17C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 35373610A0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Oct 2021 22:25:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 35373610A0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3B3A560F70
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Oct 2021 04:37:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B3A560F70
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7406E868;
-	Tue, 26 Oct 2021 22:25:28 +0000 (UTC)
-X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
- Tue, 26 Oct 2021 22:25:26 UTC
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0ED16E4C5;
- Tue, 26 Oct 2021 22:25:26 +0000 (UTC)
-Received: from epcas1p4.samsung.com (unknown [182.195.41.48])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20211026221812epoutp0114cf88ba4448b457f12ee53bdb5ca6d0~xtJUSxmwq0846108461epoutp01c;
- Tue, 26 Oct 2021 22:18:12 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20211026221812epoutp0114cf88ba4448b457f12ee53bdb5ca6d0~xtJUSxmwq0846108461epoutp01c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1635286692;
- bh=YpSE6qnCQzEz7yZwtDVd9ekJ3kJ9xV2pwDRmKtQvlR4=;
- h=Subject:To:From:Date:In-Reply-To:References:From;
- b=DhIdexF5Qxadf1IqNPjtsOWb7/Y7QHnx89wa6eXwXBxVo03KJYHIrz9TdfHU1tPgt
- cIJD05A2SydOmY1DfZHkZHz1esctGkA93syd/Jas2NozFPWIEC37TzwwBOHzi+lhF1
- CyRPLKtjymnGDIigHPXwnNcusSFmmt483XcYM4Ls=
-Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
- epcas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20211026221811epcas1p1a5cfec876e41534f9d27ea252974a422~xtJUBusaL0988809888epcas1p1L;
- Tue, 26 Oct 2021 22:18:11 +0000 (GMT)
-Received: from epsmges1p3.samsung.com (unknown [182.195.38.235]) by
- epsnrtp4.localdomain (Postfix) with ESMTP id 4Hf5ms65Wpz4x9Pv; Tue, 26 Oct
- 2021 22:18:05 +0000 (GMT)
-Received: from epcas1p4.samsung.com ( [182.195.41.48]) by
- epsmges1p3.samsung.com (Symantec Messaging Gateway) with SMTP id
- E2.DB.09592.D9E78716; Wed, 27 Oct 2021 07:18:05 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas1p3.samsung.com (KnoxPortal) with ESMTPA id
- 20211026221804epcas1p398bd502c4f4a0479d79e700e1368d645~xtJNr7oq32900529005epcas1p3Y;
- Tue, 26 Oct 2021 22:18:04 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20211026221804epsmtrp20a474ddc52a5261c65af9e99586b041b~xtJNqjiSR0527705277epsmtrp2L;
- Tue, 26 Oct 2021 22:18:04 +0000 (GMT)
-X-AuditID: b6c32a37-2a5ff70000002578-dd-61787e9d1960
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 89.D3.29871.C9E78716; Wed, 27 Oct 2021 07:18:04 +0900 (KST)
-Received: from [10.113.221.211] (unknown [10.113.221.211]) by
- epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20211026221804epsmtip1a2d7b68c6a675cea8adda7e9be2ead61~xtJNSXFDn2682326823epsmtip1i;
- Tue, 26 Oct 2021 22:18:04 +0000 (GMT)
-Subject: Re: [PATCH v2 06/13] drm/exynos: replace drm_detect_hdmi_monitor()
- with drm_display_info.is_hdmi
-To: Claudio Suarez <cssk@net-c.es>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Daniel
- Vetter <daniel@ffwll.ch>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt
- <emma@anholt.net>, Maxime Ripard <mripard@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>, Sean
- Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>, Sandy Huang
- <hjc@rock-chips.com>, heiko@sntech.de, Neil Armstrong
- <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>, Ben Skeggs
- <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
-From: Inki Dae <inki.dae@samsung.com>
-Message-ID: <ee6b3bac-4762-fd8f-c12a-c0a7ea7b56e9@samsung.com>
-Date: Wed, 27 Oct 2021 07:28:45 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 231716E523;
+	Wed, 27 Oct 2021 04:37:19 +0000 (UTC)
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36C026E511;
+ Wed, 27 Oct 2021 04:37:17 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id v65so2107228ioe.5;
+ Tue, 26 Oct 2021 21:37:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Mf6lETji8wRbFfL3yOTy5bMwinsDXPmqL9mcZuNkVB0=;
+ b=BAw66o90BBGtTaY9aOpx0FDTJCot/dtAjS8AB4Vc1ATEb4iIO9NEdygjth5D1xUI92
+ 6CiqOEQVLpuMEkJWkyJCkhoyZQuWTx8rqMe1eBdgoqPvlE7dSPDBMZYkWfD1sA545jZ5
+ KxGT9g2gRPD9Z+SL4NfQBptYf9nE5lB5maa8/KvRWqF7kCuFHsWpk/OChccaxlbnIceO
+ 8vcSleh0ymPOARma7mfqhFE1zJuxWyxWkOWuIBOpMYrF4jJAygtPspTmb85LEznVlQzj
+ pVAi12MLEdiq5jH+Y3OV+Xn9+Nh5busSXLIqu6FWA+p7Fo2XZW0ZJ7ogLINS2mZy6l8r
+ tMXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Mf6lETji8wRbFfL3yOTy5bMwinsDXPmqL9mcZuNkVB0=;
+ b=6SVWU2X2wnQwf3MHAwxsxLKq99Tic8uRGy3A1w+3HvpAiTB/skoUKC34A4M29rTVKK
+ rbVtgB1aCPKXAGJwzmjP4MRMRew66d1Xfm+2+DjVAukFp3wy1y3tlbi6JQYahczJ0pK3
+ mM9zjqwsflNF0oM6ak4wZSJj2XjPX3Y6gUcoX5sDQDu6nq/qtICPShxwJ2VU2HX2eTvH
+ CwYR7OwwHs8VbE+eD8ZUV6R8S7Ep3AmYKPJIUmso7WzIWSKAdmdU69VnFbeV37BK34HP
+ NVBns7JHU3VPKN0zKg+Pe3nG8lxtPcl45xXCdsr5zq5EYvM5ZzVg3Zgg5L3r8jMUZk0D
+ TEkA==
+X-Gm-Message-State: AOAM530RNF4YmKYAU/c+UQdorgx7tiiMo6w+jzULRzjp7+wrv/f/lv6+
+ o9pc99QE21SJO+IZsfJGooA=
+X-Google-Smtp-Source: ABdhPJwpsfgxu5gQsE7OVueH37qwBxt0RRxcxdgdCZco5RbEcYJ4iPjbrkvKCX5QN5o5gWvh0uGI/A==
+X-Received: by 2002:a05:6638:25ce:: with SMTP id
+ u14mr509799jat.28.1635309436239; 
+ Tue, 26 Oct 2021 21:37:16 -0700 (PDT)
+Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
+ by smtp.googlemail.com with ESMTPSA id a15sm2030404ilj.81.2021.10.26.21.37.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Oct 2021 21:37:15 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, linux@rasmusvillemoes.dk,
+ daniel.vetter@ffwll.ch, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v9 00/10] use DYNAMIC_DEBUG to implement DRM.debug & DRM.trace
+Date: Tue, 26 Oct 2021 22:36:35 -0600
+Message-Id: <20211027043645.153133-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <20211016184226.3862-7-cssk@net-c.es>
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA01TaVBTVxTufUneS7DRlKXcoRUhlDpgwYT1asGtFF9bW6l2uoAdfIU3wJDN
- JLQKYwehIogFIkgg7LJZoGyCStjBilhorVRwWAZlGQc6QEXZxoINPGz5933nfOee75w7h8sy
- 7iAsuCEyNa2UURIhbsS+1m4ncsj6/iQlmiyzQz/+1omh1MF6DiqsOEOgieJYgKaGDVS79AKg
- F9c0LPTn3AyOspoeYijzcbchNvIXB2VdPI0ykq5iqLinAqArz9IJ1JiHoThNAYE0zd0Einum
- w1FMXBEHtSX4oYWEBA766fIcjh7nLbLQrO4RCzXregk0lHwToCV9NhstrBjql9p+x1DJVQ2+
- bxt59t4yTkbN3MLJmQdnCbJypJRDNs7nssk63RBBZsSmc8j8hgmMrC6Jw8nB3gacvD7/kENm
- d35KDsd3YGTVaBFGduj7CXKm6T7uY+Ib6hFMU4G00oqWBcgDQ2RBnsKPjvq/5+/qJhI7iHch
- d6GVjJLSnkKvQz4O3iESw8qEVt9SkjBDyIdSqYQ793go5WFq2ipYrlJ7CmlFoEThqnBUUVJV
- mCzIUUard4tFIidXg/B4aHB9fzehSOGfzCgbJCKBdtN5wONCgQucaS4Aq9hYcAPA1mrReWBk
- wLMAPslYZDFkHsDExU7iZUWkZpBgEo0A3m6pZDNkBsD2Ze3aWyaCUHimZ3ZNZSo4x4NRFTGs
- 1QQusIWaK8P4KuYL9sDIwg72KmYb4l35NdgqNhN8BZc79RxG8xrsTB9b0/AETnAx8cKahiUw
- h/1jOet4G4yuzVjzCgXzPHi9ZggwXr1gTV8mi8EmcLKjZn0GC/h0uhFnCqIB1KT9ijEkFsCh
- 0T42o3KGzYXJhgTX0MIOVuh3MmFrWPc8CzCdN8PpuQucVQkU8GFsjDEjEcJbfzxY9wDh3QIN
- zmASjpfVr6/rZwDjb+fhScBKt2FQ3YbhdBuG0/3vIhewS8DrtEIlDaJVYoXzfx8eIJdWg7WL
- sne/AVKn/nZsAxgXtAHIZQlN+T3Z31HG/EDqVDitlPsrwyS0qg24GlavYVmYBcgNJylT+4td
- dolc3JycXZDYTSw05z+1PEEZC4IoNR1K0wpa+bIO4/IsIjHJgLdvqvKtkPzE4eZj8dbvf5kz
- UCN/O6/+6MIRo+2dmJ7zZEv5m35tuZuSa9Vq89Nkq80n3+iPKHmXVFUlfuG24vDn7M0BlViC
- tst0JSL5IJV3+PLox7vr3tUOWO7H0ix2eET8Y/tZmeXkeHTW/Szfz6W+DaWzd17pc48sKfCI
- vHuOP+4wvlfYf3xyaV9TDPdQK9u5vEVRb190aW/3vuWKEwfSL2Zq26NDqkPe6bLZX1m81f9e
- lSjph9qRafZAsGzLL+U7Ppj48PByjnW6zRdbtamPjn3dPDVPd2wv8n4jn3WTa5bSbbei6z3o
- NZaWZ3IHBA23LJa6SF9NkSorayI4VVVRS6eEbFUwJbZnKVXUvwc1qyXaBAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUxTZxiG957T89G6zkNBeQUysyLZdBtapvFN5nCE6E6y/UCjcXOLtdGT
- QqSl60Gl4kfBQdq6gdVNpHwJFZAyxlexIkpNa4ZlVBdwhBUUrDhnwKAEsV2mrhSX8O9+7vu6
- /j00LikhYugMdTanVSsypaRIcNEtffvD8qM5ijVVeR+hH256MHRmpItAtc15FHpUbwDo8Wjo
- LAm+AujVRTOObj+bIlFF9xiGyh96Q51/gkAVp46gspPtGKofaAbowkwpha5WY8hoPk8hs9NL
- IeOMhUSFxjoCuYq+Rs+LigjUUPOMRA+rAziattzDkdMySKE7p68DFLxcKUDPX4b8oOsWhmzt
- ZvLT5WxB/wuSzZ/6lWSnhgootsXfSLBXZ88J2E7LHYotM5QSrPXKI4xtsxlJdmTwCsk6ZscI
- ttKzhR090YOxrffrMLbnso9ip7r/INMid4o27OUyMw5w2tXJu0XpXT4vpflRnFP28wilByWL
- TEBIQ2Yt1JtHKBMQ0RKmC8C/88eACdChAUJ7Bz0fI6Hbzc8jjwEMNDvxOTeS2QfzBqbDbhRz
- QgjPuq34PNUEYI/VJ5ijSCYBmi+MknNZzCRDfW1PuBeE+j6rHZvLS5ivYP6NjtdMBPSUjocZ
- IZMEA8XfhxmceRf+W9mPz+do6Buvet0vh8c7yvCTIMKyQLcsUCwLFMsC5RwQ2MAyTsOrlCpe
- ppGpuYOJvELF71crE/dkqdpA+HdWrbwEHLYniS6A0cAFII1Lo8QDlQcVEvFehe4Qp82Sa/dn
- crwLxNICabT4d5NHLmGUimxuH8dpOO3/K0YLY/RY9yzeH9GbJLvd6Z8R7ey/5dZZ7/rL5dO+
- jGDuxzdPp9bXv7P+/vZJZ8K2ztq4Pseu6jhV07eUXSIvSmhnPosyBNbQQ3GdvU9Seye2LI1V
- jha7vtCtO7P4l8D5+IH1Zx+88YHtmxx+46AsOSvlk2HM42gojW8pVC5Ne5qyYVOFSf3+KSBb
- 9934IeZa9LFJed1PrmvKt3QRb9JdwtxgjVPoTd0omRQP/+NpuFdeoMtpGi7O1fR5Dif6uCXS
- xibKo3HyLfZUo8GJTBNJjPFzdYZ9R4rWG9t2Pe944+YVhUb/Vv1uwvFezZcH0lodf2qH0/9a
- 1DFjiLmxGmG/tQ5lZ96VCvh0hWwVruUV/wEmvDQhqgMAAA==
-X-CMS-MailID: 20211026221804epcas1p398bd502c4f4a0479d79e700e1368d645
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: SVC_REQ_APPROVE
-CMS-TYPE: 101P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20211016193513epcas1p4e354183520df0aa4c381b19eb2863262
-References: <20211016184226.3862-1-cssk@net-c.es>
- <CGME20211016193513epcas1p4e354183520df0aa4c381b19eb2863262@epcas1p4.samsung.com>
- <20211016184226.3862-7-cssk@net-c.es>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,47 +79,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+This patchset has 3 separate but related parts:
 
-21. 10. 17. 오전 3:42에 Claudio Suarez 이(가) 쓴 글:
-> Once EDID is parsed, the monitor HDMI support information is available
-> through drm_display_info.is_hdmi. Retriving the same information with
-> drm_detect_hdmi_monitor() is less efficient. Change to
-> drm_display_info.is_hdmi
-> 
-> Signed-off-by: Claudio Suarez <cssk@net-c.es>
-> ---
->  drivers/gpu/drm/exynos/exynos_hdmi.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(
-> 
-> diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
-> index 7655142a4651..a563d6386abe 100644
-> --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
-> +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
-> @@ -893,12 +893,14 @@ static int hdmi_get_modes(struct drm_connector *connector)
->  	if (!edid)
->  		return -ENODEV;
->  
-> -	hdata->dvi_mode = !drm_detect_hdmi_monitor(edid);
-> +	/* This updates connector->display_info */
-> +	drm_connector_update_edid_property(connector, edid);
-> +
-> +	hdata->dvi_mode = !connector->display_info.is_hdmi;
+1. DEFINE_DYNAMIC_DEBUG_CATEGORIES [patch 1/10]
 
-Thanks for correcting this. Yeah, we should use drm_display_info.is_hdmi parsed from EDID.
-https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/gpu/drm/drm_edid.c?h=v5.14.14#n4725
+   Declares DRM.debug style bitmap, bits control pr_debugs by matching formats
+   Adds callback to translate bits to $cmd > dynamic_debug/control
+   This could obsolete EXPORT(dynamic_debug_exec_queries) not included.
 
-Signed-off-by: Inki Dae <inki.dae@samsung.com>
+   anticipated_usage:
+   DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug, __drm_debug,
+				" bits control drm.debug categories ",
+				[0] = { DRM_DBG_CAT_CORE },
+				[1] = { DRM_DBG_CAT_DRIVER },
+				[2] = { DRM_DBG_CAT_KMS },
+				[3] = { DRM_DBG_CAT_PRIME }, ...);
 
-Thanks,
-Inki Dae
+2. use (1) to reimplement drm.debug [patches 3-7]::
 
->  	DRM_DEV_DEBUG_KMS(hdata->dev, "%s : width[%d] x height[%d]\n",
->  			  (hdata->dvi_mode ? "dvi monitor" : "hdmi monitor"),
->  			  edid->width_cm, edid->height_cm);
->  
-> -	drm_connector_update_edid_property(connector, edid);
->  	cec_notifier_set_phys_addr_from_edid(hdata->notifier, edid);
->  
->  	ret = drm_add_edid_modes(connector, edid);
-> 
+   1st in amdgpu & i915 to control existing pr_debugs by their formats
+   then in drm-print, for all drm.debug API users
+   avoids drm_debug_enabled(), gives NOOP savings & new flexibility.
+   changes drm.debug categories from enum to format-prefix-string
+   alters log format to include the format-prefix-string
+   Daniel Vetter liked this at -v3
+   https://lore.kernel.org/lkml/YPbPvm%2FxcBlTK1wq@phenom.ffwll.local/
+   Im sure Ive missed stuff.
+   
+3. separately, Sean Paul proposed drm.trace to mirror drm.debug to tracefs
+   https://patchwork.freedesktop.org/series/78133/ ::
+
+   He argues::
+     tracefs is fast/lightweight compared to syslog
+     independent selection means tailored traffic for both
+
+ISTM he's correct. So it follows that its also good for dyndbg, where
+its then available for all pr_debug users (if CONFIG_TRACING).
+
+So basically, I borg'd his::
+   [patch 14/14] drm/print: Add tracefs support to the drm logging helpers
+   
+Then I added a T flag, so anyone can enable it::
+
+   # turn on all drm's pr_debug --> tracefs
+   echo module drm +T > /proc/dynamic_debug/control
+
+It appears to just work: (RFC)
+
+The instance name is purposely crappy, to force a revisit later, maybe
+"pr_debugs" (plural).  Per-module subdirs kinda fits the tracefs
+pattern, but ./dyndbg-tracefs/$module/$file/$function/$line seems a
+little like overkill.  RFC.
+
+[root@gandalf dyndbg-tracefs]# pwd
+/sys/kernel/tracing/instances/dyndbg-tracefs
+[root@gandalf dyndbg-tracefs]# echo 1 > /sys/module/drm/parameters/trace
+[root@gandalf dyndbg-tracefs]# head -n16 trace | sed -e 's/^#//'
+ tracer: nop
+
+ entries-in-buffer/entries-written: 405/405   #P:24
+
+                                _-----=> irqs-off
+                               / _----=> need-resched
+                              | / _---=> hardirq/softirq
+                              || / _--=> preempt-depth
+                              ||| / _-=> migrate-disable
+                              |||| /     delay
+           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+              | |         |   |||||     |         |
+           <...>-2254    [000] .....  7040.894352: __dynamic_pr_debug: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
+           <...>-2207    [015] .....  7040.894654: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
+           <...>-2207    [015] .....  7040.995403: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
+           <...>-2207    [015] .....  7040.995413: __dynamic_pr_debug: drm:core: OBJ ID: 121 (2)
+
+This is the pr-debug doing most of that logging: (from dynamic_debug/control)
+
+  drivers/gpu/drm/drm_ioctl.c:866 [drm]drm_ioctl =T "drm:core: comm=\042%s\042 pid=%d, dev=0x%lx, auth=%d, %s\012"
+
+Turning on decoration flags changes the trace:
+
+  echo module drm format drm:core: +mflt > /proc/dynamic_debug/control 
+
+           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+              | |         |   |||||     |         |
+           <...>-2254    [003] ..... 15980.936660: __dynamic_pr_debug: [2254] drm:drm_ioctl:866: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
+           <...>-2207    [015] ..... 15980.936966: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
+           <...>-2207    [015] ..... 15981.037727: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
+           <...>-2207    [015] ..... 15981.037739: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (2)
+           <...>-2207    [015] ..... 15981.037742: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (1)
+
+The FUNCTION could stand tweaking (to match the callsite in the
+control file, cited above), or perhaps replaced by the 'mfl'
+decorations; the 't' flag is redundant for trace. Meh.
+
+SELFTEST
+
+A previous version of this patchset added test_dynamic_debug.ko, but
+it relied upon code I ripped out when I made tracefs available by
+default (without modules registering 1st).  So it fails 10/29 tests,
+which counted +T sites executed, via side effect.
+
+TODO: userspace selftest
+
+  # to set expected tracing activity
+  echo module test_dynamic_debug function do_debugging +T > control
+
+  # run do_debugging function (todo: add sysfs knob) 
+  echo 2 > /sys/module/test-dynamic-debug/parameters/do_debugging
+
+If thats wrapped in the right trace_on, trace_pipe, etc incantations,
+the +T enabled pr_debugs in do_debugging() can be counted, compared
+against expectations, and passed or failed.
+
+v8 is here:
+https://patchwork.freedesktop.org/series/93914/
+https://lore.kernel.org/lkml/20210915163957.2949166-1-jim.cromie@gmail.com/
+
+The major change since v8 is that +T now works for all users, if
+CONFIG_TRACING=y, otherwise it complains/errors.
+
+
+Jim Cromie (10):
+  dyndbg: add DEFINE_DYNAMIC_DEBUG_CATEGORIES macro and callbacks
+  drm: fix doc grammar
+  amdgpu: use dyndbg.CATEGORIES to control existing pr_dbgs
+  i915/gvt: trim spaces from pr_debug "gvt: core:" prefixes
+  i915/gvt: use dyndbg.CATEGORIES for existing pr_debugs
+  drm_print: add choice to use dynamic debug in drm-debug
+  drm_print: instrument drm_debug_enabled
+  dyndbg: add print-to-tracefs, selftest with it - RFC
+  dyndbg: create DEFINE_DYNAMIC_DEBUG_TRACE_CATEGORIES
+  drm: use DEFINE_DYNAMIC_DEBUG_TRACE_CATEGORIES bitmap to tracefs
+
+ .../admin-guide/dynamic-debug-howto.rst       |   7 +-
+ MAINTAINERS                                   |   1 +
+ drivers/gpu/drm/Kconfig                       |  26 ++
+ drivers/gpu/drm/Makefile                      |   3 +
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |  44 +++-
+ drivers/gpu/drm/drm_print.c                   |  72 ++++--
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
+ drivers/gpu/drm/i915/intel_gvt.c              |  34 +++
+ include/drm/drm_drv.h                         |   2 +-
+ include/drm/drm_print.h                       | 184 ++++++++++++---
+ include/linux/dynamic_debug.h                 |  72 +++++-
+ lib/Kconfig.debug                             |  11 +
+ lib/Makefile                                  |   1 +
+ lib/dynamic_debug.c                           | 203 ++++++++++++++--
+ lib/test_dynamic_debug.c                      | 222 ++++++++++++++++++
+ 17 files changed, 815 insertions(+), 89 deletions(-)
+ create mode 100644 lib/test_dynamic_debug.c
+
+-- 
+2.31.1
+
