@@ -2,46 +2,67 @@ Return-Path: <SRS0=JMr/=PQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83527C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 10:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30796C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:26:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3132F6044F
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 10:07:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3132F6044F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id EB1F360FC4
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:26:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB1F360FC4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A52FD6E0A0;
-	Thu, 28 Oct 2021 10:07:02 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5125C6E0A0
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Oct 2021 10:07:01 +0000 (UTC)
-Received: from [192.168.0.2] (ip5f5aef59.dynamic.kabel-deutschland.de
- [95.90.239.89])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id C121261EA191D;
- Thu, 28 Oct 2021 12:06:59 +0200 (CEST)
-Message-ID: <731d8a14-5630-23f0-2953-6aeb94e56991@molgen.mpg.de>
-Date: Thu, 28 Oct 2021 12:06:59 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2316E961;
+	Thu, 28 Oct 2021 13:26:34 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEF66E961;
+ Thu, 28 Oct 2021 13:26:34 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id i5so2525323wrb.2;
+ Thu, 28 Oct 2021 06:26:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c0/V9MX2CWjAIfztk9lQHqRb20K2jfbph5MPtHNbg44=;
+ b=N9N/hZD3xSeVnPH2DcmlMtwEWHqwTpBikGSV08ByPigtIdm44uCd2jvGMcG86b0+f0
+ Xso2S2du7yltn6YeQXwN+ya17RVgf9inhol9CBFVzgBOp700iSQmzsoL+stwpFEF+eKc
+ 3Dtdlm5ZVDSkKzvdmMsu4m7V4W0oBqse6uKSAjLwJzWvqJTmi5ARB1UZspNefbv9Z2GW
+ zYt65uUjvpHTGoq3ioji6aOjLR1rxBbi4xuWN/OYZkVhlwYPdPRmr5390eaNWFkkj+7G
+ JEcJpDjHVldeyPKsyZLX905vkoifjWsE8cWiyZoTwvYqOsZOa+DoqRhLkTXH/tEz68re
+ t7kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c0/V9MX2CWjAIfztk9lQHqRb20K2jfbph5MPtHNbg44=;
+ b=Gv3Af/5Xv3XrtdMrxhg3i3TIXzGnYlXphz3eYNHxRpanyYyWPh76RpP7EcY9oEV3Xh
+ ZRTGvFn1/1g5Pw55rep4FmUbVzv12MKDyKF8z3CNi3y5lB7Z7IhcoAWHW1LTgGx6U3cJ
+ qMjxgwSlBpuYUEgwn1akzY+qKrpH1obc7zzYkHX0eEbx2V6bX3WnKxWK4JyoD0LOYeUW
+ 2G21ANJamvHnsHfaXQjE5/iJ89oWcJqazZDtlGiN7TlSJnnqcv0IOaZoO9gBGs3ZOU3F
+ DelIAFs/iTCyU0DqD0GnW2pfw4VW9ABueqPbXkUjZZLZEwg/mr1cgsTXMk2o/WTevNHZ
+ oFyQ==
+X-Gm-Message-State: AOAM530pcra51FSeLSzIoiPHk9TGhBpJdFACbDjXAM2GYACZyCDNbCDx
+ kYPKPKYKuE/M+Jzu+YkrokEEkv7t/kI=
+X-Google-Smtp-Source: ABdhPJyN2MGWslATcLlPRDx7wTnmw/AQjSygmNv/6mJVmC/aO4jjiZa8ruoWViZgoH2yfuxRLZ4Unw==
+X-Received: by 2002:a5d:6e8d:: with SMTP id k13mr5734588wrz.295.1635427592655; 
+ Thu, 28 Oct 2021 06:26:32 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ l11sm2935695wrt.49.2021.10.28.06.26.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Oct 2021 06:26:32 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ etnaviv@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/6] dma-buf: move dma_resv_prune_unlocked into dma_resv.c
+Date: Thu, 28 Oct 2021 15:26:25 +0200
+Message-Id: <20211028132630.2330-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.1
-Subject: Re: [PATCH] drm/amdgpu/gmc6: fix DMA mask
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- it+linux-iommu@molgen.mpg.de, Alex Deucher <alexdeucher@gmail.com>
-References: <20211027182212.1484689-1-alexander.deucher@amd.com>
- <CADnq5_PzD5h0UmhQko7YE86a1xhm2LnPFhDgwgEhBe7iKNov0A@mail.gmail.com>
- <a0801433-fd70-f15d-3f63-7ca18fbf2244@molgen.mpg.de>
- <b1b2b722-d21e-421a-e8b1-5452d404533d@molgen.mpg.de>
-In-Reply-To: <b1b2b722-d21e-421a-e8b1-5452d404533d@molgen.mpg.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,49 +78,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Alex,
+The i915 driver implements a prune function which is called when it is very
+likely that the fences inside the dma_resv object can be removed because they
+are all signaled.
 
+Move that function into the dma-resv.c code since the behavior of pruning
+fences is something internal to the object.
 
-On 28.10.21 10:32, Paul Menzel wrote:
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/dma-buf/dma-resv.c                   | 18 ++++++++++++++++++
+ drivers/gpu/drm/i915/Makefile                |  1 -
+ drivers/gpu/drm/i915/dma_resv_utils.c        | 17 -----------------
+ drivers/gpu/drm/i915/dma_resv_utils.h        | 13 -------------
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c |  3 +--
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c     |  3 +--
+ include/linux/dma-resv.h                     |  1 +
+ 7 files changed, 21 insertions(+), 35 deletions(-)
+ delete mode 100644 drivers/gpu/drm/i915/dma_resv_utils.c
+ delete mode 100644 drivers/gpu/drm/i915/dma_resv_utils.h
 
-> On 28.10.21 00:19, Paul Menzel wrote:
-> 
->> On 27.10.21 20:23, Alex Deucher wrote:
->>> On Wed, Oct 27, 2021 at 2:22 PM Alex Deucher wrote:
->>>>
->>>> The DMA mask on SI parts is 40 bits not 44.  Looks like a copy
->>>> paste typo.
->>>
->>> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1762
->>>
->>> Fixed locally.
->>
->> As I have no way to reproduce this, as the ring gfx timeout error is 
->> logged ten seconds after the IO_PAGE_FAULT, is very likely to be related?
->>
->> Hopefully I am going to be able to test this on Friday. Does AMD’s QA 
->> team have the cards to test the `iommu.forcedac=1` case? Is that test 
->> case going to be added to the “test protocol”?
->>
->> Lastly, should a Fixes tag be added, so it’s picked up for the stable 
->> series?
-> 
-> Does the value of 44 need to be changed to 40 also five lines below?
-> 
-> -       adev->need_swiotlb = drm_need_swiotlb(44);
-> +       adev->need_swiotlb = drm_need_swiotlb(40);
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index ff3c0558b3b8..64d4f95778c4 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -324,6 +324,24 @@ void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence)
+ }
+ EXPORT_SYMBOL(dma_resv_add_excl_fence);
+ 
++/**
++ * dma_resv_prune_unlocked - try to remove signaled fences
++ * @obj: The dma_resv object to prune
++ *
++ * Try to lock the object, test if it is signaled and if yes then remove all the
++ * signaled fences.
++ */
++void dma_resv_prune_unlocked(struct dma_resv *obj)
++{
++	if (!dma_resv_trylock(obj))
++		return;
++
++	if (dma_resv_test_signaled(obj, true))
++		dma_resv_add_excl_fence(obj, NULL);
++	dma_resv_unlock(obj);
++}
++EXPORT_SYMBOL(dma_resv_prune_unlocked);
++
+ /**
+  * dma_resv_iter_restart_unlocked - restart the unlocked iterator
+  * @cursor: The dma_resv_iter object to restart
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 660bb03de6fc..5c1af130cb6d 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -60,7 +60,6 @@ i915-y += i915_drv.o \
+ 
+ # core library code
+ i915-y += \
+-	dma_resv_utils.o \
+ 	i915_memcpy.o \
+ 	i915_mm.o \
+ 	i915_sw_fence.o \
+diff --git a/drivers/gpu/drm/i915/dma_resv_utils.c b/drivers/gpu/drm/i915/dma_resv_utils.c
+deleted file mode 100644
+index 7df91b7e4ca8..000000000000
+--- a/drivers/gpu/drm/i915/dma_resv_utils.c
++++ /dev/null
+@@ -1,17 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-/*
+- * Copyright © 2020 Intel Corporation
+- */
+-
+-#include <linux/dma-resv.h>
+-
+-#include "dma_resv_utils.h"
+-
+-void dma_resv_prune(struct dma_resv *resv)
+-{
+-	if (dma_resv_trylock(resv)) {
+-		if (dma_resv_test_signaled(resv, true))
+-			dma_resv_add_excl_fence(resv, NULL);
+-		dma_resv_unlock(resv);
+-	}
+-}
+diff --git a/drivers/gpu/drm/i915/dma_resv_utils.h b/drivers/gpu/drm/i915/dma_resv_utils.h
+deleted file mode 100644
+index b9d8fb5f8367..000000000000
+--- a/drivers/gpu/drm/i915/dma_resv_utils.h
++++ /dev/null
+@@ -1,13 +0,0 @@
+-/* SPDX-License-Identifier: MIT */
+-/*
+- * Copyright © 2020 Intel Corporation
+- */
+-
+-#ifndef DMA_RESV_UTILS_H
+-#define DMA_RESV_UTILS_H
+-
+-struct dma_resv;
+-
+-void dma_resv_prune(struct dma_resv *resv);
+-
+-#endif /* DMA_RESV_UTILS_H */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+index 5ab136ffdeb2..48029bbda682 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+@@ -15,7 +15,6 @@
+ 
+ #include "gt/intel_gt_requests.h"
+ 
+-#include "dma_resv_utils.h"
+ #include "i915_trace.h"
+ 
+ static bool swap_available(void)
+@@ -229,7 +228,7 @@ i915_gem_shrink(struct i915_gem_ww_ctx *ww,
+ 					i915_gem_object_unlock(obj);
+ 			}
+ 
+-			dma_resv_prune(obj->base.resv);
++			dma_resv_prune_unlocked(obj->base.resv);
+ 
+ 			scanned += obj->base.size >> PAGE_SHIFT;
+ skip:
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+index 569658c7859c..1915d203a72d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+@@ -10,7 +10,6 @@
+ 
+ #include "gt/intel_engine.h"
+ 
+-#include "dma_resv_utils.h"
+ #include "i915_gem_ioctls.h"
+ #include "i915_gem_object.h"
+ 
+@@ -53,7 +52,7 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
+ 	 * signaled.
+ 	 */
+ 	if (timeout > 0)
+-		dma_resv_prune(resv);
++		dma_resv_prune_unlocked(resv);
+ 
+ 	return timeout;
+ }
+diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+index eebf04325b34..e0558429a5ee 100644
+--- a/include/linux/dma-resv.h
++++ b/include/linux/dma-resv.h
+@@ -458,6 +458,7 @@ void dma_resv_fini(struct dma_resv *obj);
+ int dma_resv_reserve_shared(struct dma_resv *obj, unsigned int num_fences);
+ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence);
+ void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence);
++void dma_resv_prune_unlocked(struct dma_resv *obj);
+ int dma_resv_get_fences(struct dma_resv *obj, struct dma_fence **pfence_excl,
+ 			unsigned *pshared_count, struct dma_fence ***pshared);
+ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src);
+-- 
+2.25.1
 
-I booted the Dell OptiPlex 5055 with this patch (both hunks) on top of 
-commit 1fc596a56b (Merge tag 'trace-v5.15-rc6' of 
-git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-trace) with 
-`iommu.forcedac=1`, and did not get any errors.
-
-Tested-by: Paul Menzel <pmenzel@molgen.mpg.de> (AMD OptiPlex 5055, 
-Radeon HD 8570 / R7 240/340 OEM, 1002:6611 with `iommu.forcedac=1`)
-
-Maybe in the commit message summary extend: Fix DMA mask from 44 to 40.
-
-
-Kind regards,
-
-Paul
