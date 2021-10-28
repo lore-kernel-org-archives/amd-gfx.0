@@ -2,66 +2,66 @@ Return-Path: <SRS0=JMr/=PQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B0A6C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:26:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB348C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E8F860F9B
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E8F860F9B
+	by mail.kernel.org (Postfix) with ESMTPS id 9BABF60F9B
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Oct 2021 13:26:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9BABF60F9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C156A6E97B;
-	Thu, 28 Oct 2021 13:26:37 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC8876E97B;
- Thu, 28 Oct 2021 13:26:35 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- j128-20020a1c2386000000b003301a98dd62so1013610wmj.5; 
- Thu, 28 Oct 2021 06:26:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B11A6E984;
+	Thu, 28 Oct 2021 13:26:40 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3406E981;
+ Thu, 28 Oct 2021 13:26:39 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ a20-20020a1c7f14000000b003231d13ee3cso9374071wmd.3; 
+ Thu, 28 Oct 2021 06:26:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=+ZOGlam3ZY615eG+CpWfufQSgg3eEwqr3uZmKnHNPog=;
- b=kL4LO01axEADDFgKoypKI5W3+0I51DQJlfaqAybcnrgDt7QcmKegUIZCTfzOrrgOnd
- WCLywig0D6KfHtiKzJBpknJctlOCbyW35Nrm3Csy5y9v0efZYhAPPc06nWaZyMMhxfWL
- B7xBEvGtltHfS947NahYNpNJoe1tu/bheIOzESB9djQht1XOYwb+IiEiFpIm7GhDKPwH
- hn5sMtvQjIUChX3cT6Fb1Uoe1G3KtDnrt0/tIKsZkpgfllbKQa28pZB6o5kXUh2FU84n
- 3R8xdd4aRZE57lgKL8wkgKDmJPz3eDGi0NUhJq94Po1F3tURR3HXfzWuCx4p/vTlJZpn
- bgQQ==
+ bh=egdx3Ywv2yu3nUP1jLQlD5jYdd3fqDZiwOa9q8R+o2s=;
+ b=aBAcGSAr9R1pFZVRu12YsAne8HtbedhP5B06ewdompnZQhByafZ2d1TS2FhMhrLDcI
+ Xzix+FUdCnaZHli5XiOxJNDB1GHEysLC1/7tPKk40hEVCL+B50nu0M5j00AjRUAOeeWJ
+ x4AQyn/SYuxks0V+yxbjkmtAoJI3zeF80qprDcTdLjOWJ0hGy1qKl6cHfR6D8HeZxWV0
+ h1L0UpqPWY3u9ZeMuwFZDmG+cjlnWJXfIibGH/i8YARbC9Sv40BgtNzN2BVrNRVi3eDJ
+ 8cpXNMG64KJ9qr5wcIzC+Nwdy3mgBchGONRgZfs9rYZ1j2GuPX7TAz+X6G1jmj6DDOrh
+ ktTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=+ZOGlam3ZY615eG+CpWfufQSgg3eEwqr3uZmKnHNPog=;
- b=Nr1m5yPJdjjcE2No9JYGlNGzkh2QalczjellYlN9z4JNN00/x3PwGKALdv3qxmHCW1
- tJ1LNua8FFWOtcYYv+sRb20TcTSuV16Sqsuap/u9cb6Vsb61Q3DBjDBYDCLfQdFFhFuG
- k27ZN+87ytLHLQyJDXxLhUePm+YL3jC7Bq9H9gQQ+0/6QkrTzeUtKYrKP8viAT5Svkeu
- 0T5FP4wJ6+ieWiESXOSlp+FDXyO4jZgKFCMwLn6W3Npm4eEySf1IsjxvvpbC5x4YH1Qs
- pjtr/i/rXH5Si/LrJzdr7yTP9vKhyH1wBaelVJL5bT0xht2fyVWKoOzWA+1TuuUU6NKE
- ahwQ==
-X-Gm-Message-State: AOAM530MmixL93yWCp4ARhIl0iYhzd8e89Z/ExCpszHSf0NNZS7S36GT
- TRdki4ymetkf2cSo77T3jQyB4XPdrM4=
-X-Google-Smtp-Source: ABdhPJwhMpsL5tAuu5HCCIQ8uQ0zuJwI57WPFv2ZZVxa4Y++aF7AwdEm+jlfxuSci85VLFZEpY5Inw==
-X-Received: by 2002:a05:600c:4293:: with SMTP id
- v19mr4468381wmc.187.1635427594441; 
- Thu, 28 Oct 2021 06:26:34 -0700 (PDT)
+ bh=egdx3Ywv2yu3nUP1jLQlD5jYdd3fqDZiwOa9q8R+o2s=;
+ b=bPEa2S3yMT3j3J618NUQP0YC2IFp21Yz0twqGdSZdltQWYFO2uvIcw3c32HkAlrrBR
+ +sKy5SPpznMNN3nQZrsLewD9772e+aFf92g5yBCiWBWHEBmkWpJ3JME18WdEFA8NkdPq
+ s5ZPOqmvKzgBT9r91PuV8MIrBY4Wn20Nzd3S7pDDonXXXcpZ+J+zyKTSd/xlYC64jfFQ
+ totDVgNLbmE96vl5opfB35sRfPgnQiUPPDfb/TUSRXiSsMzeQWH1CS0tOhJwX+jDXZkP
+ 3xHCYx3BjWaNXOdETRikdYweFmIxDvLObZk6pzN5WBwZ6ThHBn1qRNr/CHU48EdN5DtZ
+ 8tPw==
+X-Gm-Message-State: AOAM5335bQvXJTlppyBaNBAuXuiPfwhKDGJ5uaNMi6/V6wh8TVnGLff3
+ wXQiBPyGKt6Lwixj+2yW3RiFn1lpuG8=
+X-Google-Smtp-Source: ABdhPJzSb2AGqZ2hHQoqdIbV2oph49YUFYUmPMj8+frHGtYAnsyRaMDsJ0wp80qNzpOY2XZ0GZcqXw==
+X-Received: by 2002:a7b:c351:: with SMTP id l17mr4649970wmj.120.1635427597621; 
+ Thu, 28 Oct 2021 06:26:37 -0700 (PDT)
 Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
  by smtp.gmail.com with ESMTPSA id
- l11sm2935695wrt.49.2021.10.28.06.26.33
+ l11sm2935695wrt.49.2021.10.28.06.26.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Oct 2021 06:26:34 -0700 (PDT)
+ Thu, 28 Oct 2021 06:26:37 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
  etnaviv@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/6] drm/etnaviv: stop getting the excl fence separately here
-Date: Thu, 28 Oct 2021 15:26:27 +0200
-Message-Id: <20211028132630.2330-3-christian.koenig@amd.com>
+Subject: [PATCH 6/6] drm/radeon: use dma_resv_wait_timeout() instead of
+ manually waiting
+Date: Thu, 28 Oct 2021 15:26:30 +0200
+Message-Id: <20211028132630.2330-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211028132630.2330-1-christian.koenig@amd.com>
 References: <20211028132630.2330-1-christian.koenig@amd.com>
@@ -82,26 +82,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just grab all fences in one go.
+Don't touch the exclusive fence manually here, but rather use the
+general dma_resv function. We did that for better hw reset handling but
+this doesn't necessary work correctly.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_uvd.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-index 8dc93863bf96..b5e8ce86dbe7 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-@@ -189,7 +189,7 @@ static int submit_fence_sync(struct etnaviv_gem_submit *submit)
- 			continue;
+diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
+index 2ea86919d953..377f9cdb5b53 100644
+--- a/drivers/gpu/drm/radeon/radeon_uvd.c
++++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+@@ -469,7 +469,6 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
+ {
+ 	int32_t *msg, msg_type, handle;
+ 	unsigned img_size = 0;
+-	struct dma_fence *f;
+ 	void *ptr;
  
- 		if (bo->flags & ETNA_SUBMIT_BO_WRITE) {
--			ret = dma_resv_get_fences(robj, &bo->excl,
-+			ret = dma_resv_get_fences(robj, NULL,
- 						  &bo->nr_shared,
- 						  &bo->shared);
- 			if (ret)
+ 	int i, r;
+@@ -479,13 +478,11 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
+ 		return -EINVAL;
+ 	}
+ 
+-	f = dma_resv_excl_fence(bo->tbo.base.resv);
+-	if (f) {
+-		r = radeon_fence_wait((struct radeon_fence *)f, false);
+-		if (r) {
+-			DRM_ERROR("Failed waiting for UVD message (%d)!\n", r);
+-			return r;
+-		}
++	r = dma_resv_wait_timeout(bo->tbo.base.resv, false, false,
++				  MAX_SCHEDULE_TIMEOUT);
++	if (r <= 0) {
++		DRM_ERROR("Failed waiting for UVD message (%d)!\n", r);
++		return r ? r : -ETIME;
+ 	}
+ 
+ 	r = radeon_bo_kmap(bo, &ptr);
 -- 
 2.25.1
 
