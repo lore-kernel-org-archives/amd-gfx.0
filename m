@@ -2,102 +2,76 @@ Return-Path: <SRS0=vl2N=PR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39647C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 21:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75815C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 22:13:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E80A360FED
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 21:17:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E80A360FED
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2E0E06101E
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 22:13:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2E0E06101E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C8A88130;
-	Fri, 29 Oct 2021 21:17:23 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2051.outbound.protection.outlook.com [40.107.212.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF51F6EA85
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 21:17:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OYK70hPQabhwTI6Yu5CsHPOb3PuMYzHsXjKmwrXbumxFXbJDMcWYIVpR1f7cpf8jcwHc1W/IzQKCAK8LLKXp+x6w94wqKorAAl/fJTh9jY2w3GItMnxnTSzXFeJfGGnxTkIMao9azcB+aCqlsC3KiulTqFeI1+AIuzHKI2O2NKvnWSa8lNiAwxVeMoL42Kd9X217DxFRaoMyewAF85QneX3U9wNlgP8+/kJ82IZ+TxMJCic/ui3q3afoNUf8tbnf8WTf/FDAlFV0wFY8SliTVcqs0WPl6l0eNqUVqU7YgN9MkqvOxj1k/IkVAOKYkQljWK3ql2f2ziW7WS8ZswIoHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VRn5LTjAUfEghgPZxxFqOmhv/bd82XMEXk8tSWXWSp8=;
- b=N5dILVZloOFzCY+94QCptumcJLtV/cxa4dRIMHWsDWo/7pYOukpLPjCyqJTrHz90srmddl8mFIAifeOIzYz7Rk43zz596KX9ISVJ2n2v/AIiS1TOFkjAObJF3F+08bqqtwcdqRWjo/rZxTc7pUz3FiyVPNxJTQDRn180lA1S1viP5TSkggBYTcYBc1YkN6+5mbK1YIU31Jd3PeZdFdD1LpBTKmDByLBzpBqEdF602IhjkIAP6RcjXkNS1T2udzzV9+vXhBfJfCbVRwQvrjIM6cWLBKzuYSfAPeCVTtp2zScvY8S5F3lfrMiXQ4Ss32GLVoKJcBwBa1wPkqNDoEzM8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VRn5LTjAUfEghgPZxxFqOmhv/bd82XMEXk8tSWXWSp8=;
- b=XkxuxHqXG1ay+bB4gW2xmirKhp2qs/zeOXDrpzDbt6iV+eXs2nfs6jtoSz05XyvcwXnyaC9hiTADS+4kCP/Dew7ClWa/aJui6NRWSSxywRmDe3/f8lwo4Td9Xq/SpCcMwigRuxNtnbGc2phjchwJQ4Nw2EiNmXq1FzfDKit6hI8=
-Received: from MWHPR14CA0028.namprd14.prod.outlook.com (2603:10b6:300:12b::14)
- by CO6PR12MB5474.namprd12.prod.outlook.com (2603:10b6:303:139::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Fri, 29 Oct
- 2021 21:17:18 +0000
-Received: from CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:12b:cafe::33) by MWHPR14CA0028.outlook.office365.com
- (2603:10b6:300:12b::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14 via Frontend
- Transport; Fri, 29 Oct 2021 21:17:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT017.mail.protection.outlook.com (10.13.175.108) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4649.14 via Frontend Transport; Fri, 29 Oct 2021 21:17:18 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 29 Oct
- 2021 16:17:16 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/pm: Don't show pp_power_profile_mode for YC and
- later APUs
-Date: Fri, 29 Oct 2021 16:17:17 -0500
-Message-ID: <20211029211717.28519-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA5F6EA85;
+	Fri, 29 Oct 2021 22:13:28 +0000 (UTC)
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [IPv6:2607:f8b0:4864:20::f2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDF86EA85
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 22:13:27 +0000 (UTC)
+Received: by mail-qv1-xf2d.google.com with SMTP id u25so7311030qve.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 15:13:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:reply-to:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Ye/5foewYFYKizVA/YvRBJvDytPWQlTbJ88P4epIF3g=;
+ b=jzeBoVsQvPazlsnPafnr4ewPbKV2RTUsA4+/iBQNKXarQ4org4MGzXR0qQaYdEqmRg
+ CSOVXzyWNxMzZ0T2hs41tTKJgG3T2z/nh6WJd27PNLv6RtnVdMnE8UrKIHuAObAUWTJG
+ j+aQV7+jfodqDt/qQ8WStsAD811jcKqGNQkWBKjmrkHOucLv55z+obcjT8KwWQ88g59X
+ SXGmuBvyJ57q5DYMpRO7djFJ57SMEaRX1w7BGQ2tVhD7eNVbyRG79Z96QxnZtZXHdJHf
+ h6bvO7k6mqtOP3uVB8xUbPRJBibMYXpTQ4AHZ0t3yhJGGQ8GLf+mv2VFZQaTn3lhUYDz
+ FFPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+ :subject:content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Ye/5foewYFYKizVA/YvRBJvDytPWQlTbJ88P4epIF3g=;
+ b=7ej5yZdCMyM3RMcxi1Z3TC/iqxkG+5tCcp9gUZcarUdJnJInwxz0BbWyJyKwF61yfU
+ OizycP1bptTLsoruQjYFz1hmgdSLTjPeioh4xNfT2o6FrZvjFY6Z661RquBx1fEv5RNe
+ TJ99ZvXOmZ4Z/FXBaAN7VHtClvqMSKkyswxN4/mmwukE76NK27i12stskehcMzuKRCV5
+ AnGTTMJxxP3nLXilDEjq0vWNv3Ai1FLalWnHLg7J0PEqy8UguojECdTUCqIjgBdAc0yE
+ FSSbb0RI4p7eT5Bk75TXmTrKOw4kFyePRNKm+mMX+H+PY84YmYThQrz0e8pUe66kQ5fX
+ i2pw==
+X-Gm-Message-State: AOAM530QhgiyeecVYyF77SphN0YhHIioO/9KCMm3ofArr5vi9qtu4ieG
+ JT17vFeE6VAkKQOqgGnUd6Q=
+X-Google-Smtp-Source: ABdhPJzaJP7HeNh3VAyDqlUlk4ZQbJpD/BIE9Yg2BQ9plKZeqMMeQb7B4hZMEXOffCJ3HiNwy7rcRQ==
+X-Received: by 2002:a05:6214:29c4:: with SMTP id
+ gh4mr13441140qvb.22.1635545606531; 
+ Fri, 29 Oct 2021 15:13:26 -0700 (PDT)
+Received: from mua.localhost ([2600:1700:e380:2c20::41])
+ by smtp.gmail.com with ESMTPSA id h11sm5127022qkp.46.2021.10.29.15.13.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Oct 2021 15:13:26 -0700 (PDT)
+Message-ID: <9e964b4c-6a99-6605-63ae-f42537fd01db@gmail.com>
+Date: Fri, 29 Oct 2021 18:13:25 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ecd05a50-29be-401d-2776-08d99b217d1a
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5474:
-X-Microsoft-Antispam-PRVS: <CO6PR12MB547488106BF07CF888D85B3DE2879@CO6PR12MB5474.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EKRckte5eS4bPb3bItHattFzNzKvNOLg71PQVCPfEV9BVtauoZFki9xy8VxoNdCDq6E2GiCEFultkzDMZEV+k6EhrG7GQDsEAOaALBfnhjDQqCkzHsFfZrMUlWnwEqd2FN1f9ov0DDA0ddjTT5Lu5aigVMWaIj/RBFOy+PSCAL+OO73CsJ07hEsgpTzF+vKEUSpeDO5W/qYOLocqawqEOZuuoKz71lQyko8L2SulXS55fmpckgmNTP0/NNF4Sz6zrBi9f8sRwCa8dmof3UgNMppXoBsdLwZV2NVLxK2RqeKezdlqI8tMnwTrpCtvjakTdCoextdc5wUUZ2nL6FLqMncGmVF+OgLyBFxLfuAUmfeZl6zIh/5M1+YIjKkv0P09PoqGJB005YqBQUSzlqCqMT8BaNyncxAwsHaS6aPo0pYgTn2OxoPFsu+wZVphWDjanhUZGWt/uBnsQsZMkpWOOKkPMTXtTiGj9X6deWeuW5Ms1NY+Tja233Ot4p63kyUnrZGg4IVhZXhH2rQwp5pv/9yKNpJu0g6Tv/1YTxDlhGoe2id3MWm5zpoyy7UKejHOiCbWBMSNq405MGDr66n/48pFfAHuI9RvIef4qVhLfi6wR3g7Ev2NZt88M2GWZ+Md6ZG0N8rGdn2Cn6fgU3DHzGcb6RR4P5nZlIRa06p9YFbtQ4+ZLGgIeSEd4mP3UXxwFwgJ/RWkDnKG1NbjtGl5RjYm+ynn0KfoGhXMATHifvQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(82310400003)(426003)(54906003)(4326008)(5660300002)(83380400001)(316002)(2906002)(356005)(508600001)(36860700001)(8936002)(2616005)(86362001)(7696005)(36756003)(16526019)(6916009)(26005)(1076003)(81166007)(336012)(186003)(70586007)(47076005)(44832011)(70206006)(8676002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2021 21:17:18.3128 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecd05a50-29be-401d-2776-08d99b217d1a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5474
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.2.0
+Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
+ + kernel 5.14.13
+Content-Language: en-US
+To: lijo.lazar@amd.com, alexdeucher@gmail.com
+Cc: amd-gfx@lists.freedesktop.org
+References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
+ <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
+ <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
+ <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
+From: PGNet Dev <pgnet.dev@gmail.com>
+In-Reply-To: <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,36 +83,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This command corresponding to this attribute was deprecated in the PMFW
-for YC so don't show a non-functional attribute.
+>> I would start with an sbios update is possible.
 
-Since future APUs may be brought up using IP version checking also
-disable it for future APU's.  If any do support the command then they
-can be treated as exceptions.
+I swapped out the ASRockRack X470D4U mobo for a new, next-gen X570D4U.
 
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 3 +++
- 1 file changed, 3 insertions(+)
+Keeping the same 2X16GB UDIMMs, and trying 2 different Ryzen 5600G CPUs, I now see the following ...
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 49fe4155c374..c7326f0ec517 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2094,6 +2094,9 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
- 	} else if (DEVICE_ATTR_IS(pp_dpm_dclk)) {
- 		if (!(asic_type == CHIP_VANGOGH || asic_type == CHIP_SIENNA_CICHLID))
- 			*states = ATTR_STATE_UNSUPPORTED;
-+	} else if (DEVICE_ATTR_IS(pp_power_profile_mode)) {
-+		if ((adev->flags & AMD_IS_APU) && asic_type >= CHIP_YELLOW_CARP)
-+			*states = ATTR_STATE_UNSUPPORTED;
- 	}
- 
- 	switch (asic_type) {
--- 
-2.25.1
+With an NVIDIA PCIe card as primary adapter, it posts & functions, as before; no issues or problems.
 
+Selecting the on-die AMDGPU, via the board's HDMI connector, now also posts & boots; No more OOPS.
+
+
+Booting, now on
+
+	uname -rm
+		5.14.14-200.fc34.x86_64 x86_64
+
+dmesg @ boot is:
+
+	dmesg | grep -i amdgpu
+		[    1.623977] [drm] amdgpu kernel modesetting enabled.
+		[    1.627731] amdgpu: Virtual CRAT table created for CPU
+		[    1.627738] amdgpu: Topology: Add CPU node
+		[    1.627782] fb0: switching to amdgpudrmfb from EFI VGA
+		[    1.627910] amdgpu 0000:30:00.0: vgaarb: deactivate vga console
+		[    1.627972] amdgpu 0000:30:00.0: amdgpu: Trusted Memory Zone (TMZ) feature enabled
+		[    1.634655] amdgpu 0000:30:00.0: amdgpu: Fetched VBIOS from ROM BAR
+		[    1.634656] amdgpu: ATOM BIOS: 113-CEZANNE-018
+		[    1.635463] amdgpu 0000:30:00.0: amdgpu: VRAM: 512M 0x000000F400000000 - 0x000000F41FFFFFFF (512M used)
+		[    1.635465] amdgpu 0000:30:00.0: amdgpu: GART: 1024M 0x0000000000000000 - 0x000000003FFFFFFF
+		[    1.635466] amdgpu 0000:30:00.0: amdgpu: AGP: 267419648M 0x000000F800000000 - 0x0000FFFFFFFFFFFF
+		[    1.635504] [drm] amdgpu: 512M of VRAM memory ready
+		[    1.635505] [drm] amdgpu: 3072M of GTT memory ready.
+		[    1.639127] amdgpu 0000:30:00.0: amdgpu: PSP runtime database doesn't exist
+		[    1.667936] amdgpu 0000:30:00.0: amdgpu: Will use PSP to load VCN firmware
+		[    2.469604] amdgpu 0000:30:00.0: amdgpu: RAS: optional ras ta ucode is not available
+		[    2.477996] amdgpu 0000:30:00.0: amdgpu: RAP: optional rap ta ucode is not available
+		[    2.477999] amdgpu 0000:30:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
+		[    2.478948] amdgpu 0000:30:00.0: amdgpu: SMU is initialized successfully!
+		[    2.530805] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
+		[    2.758719] amdgpu: HMM registered 512MB device memory
+		[    2.758741] amdgpu: SRAT table not found
+		[    2.758741] amdgpu: Virtual CRAT table created for GPU
+		[    2.758942] amdgpu: Topology: Add dGPU node [0x1638:0x1002]
+		[    2.758944] kfd kfd: amdgpu: added device 1002:1638
+		[    2.758958] amdgpu 0000:30:00.0: amdgpu: SE 1, SH per SE 2, CU per SH 18, active_cu_number 27
+		[    2.949242] fbcon: amdgpu (fb0) is primary device
+		[    3.052240] amdgpu 0000:30:00.0: [drm] fb0: amdgpu frame buffer device
+		[    3.061026] amdgpu 0000:30:00.0: amdgpu: ring gfx uses VM inv eng 0 on hub 0
+		[    3.061030] amdgpu 0000:30:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+		[    3.061031] amdgpu 0000:30:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+		[    3.061032] amdgpu 0000:30:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+		[    3.061032] amdgpu 0000:30:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+		[    3.061033] amdgpu 0000:30:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+		[    3.061034] amdgpu 0000:30:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+		[    3.061034] amdgpu 0000:30:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+		[    3.061035] amdgpu 0000:30:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+		[    3.061036] amdgpu 0000:30:00.0: amdgpu: ring kiq_2.1.0 uses VM inv eng 11 on hub 0
+		[    3.061037] amdgpu 0000:30:00.0: amdgpu: ring sdma0 uses VM inv eng 0 on hub 1
+		[    3.061038] amdgpu 0000:30:00.0: amdgpu: ring vcn_dec uses VM inv eng 1 on hub 1
+		[    3.061039] amdgpu 0000:30:00.0: amdgpu: ring vcn_enc0 uses VM inv eng 4 on hub 1
+		[    3.061039] amdgpu 0000:30:00.0: amdgpu: ring vcn_enc1 uses VM inv eng 5 on hub 1
+		[    3.061040] amdgpu 0000:30:00.0: amdgpu: ring jpeg_dec uses VM inv eng 6 on hub 1
+		[    3.209226] [drm] Initialized amdgpu 3.42.0 20150101 for 0000:30:00.0 on minor 0
+		[   13.749477] snd_hda_intel 0000:30:00.1: bound 0000:30:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
+
+However, now, the output color registration is wrong.
+
+After grub selection, boot shell background is pink/magenta everywhere.  Screenshot here:  https://imgur.com/q2JJ4n6
+
+If I continue from shell to launch a desktop environment (XFCE or KDE), it reaches runlevel 5 with no problems or errors -- EXCEPT the color registration is still wrong.
+
+Switching back to the NVIdia cures the issue - back to normal black background @ runlevel 3 shell, and correct colors @ rl5
+
+The mv from X470D4U -> X570D4U apparently 'fixed' the problem with NO video output from the on-die GPU. BIOS, or other board issues, I'm not clear.
+
+Is this color issue *still* likely a BIOS issue? or the amdgpu driver?
