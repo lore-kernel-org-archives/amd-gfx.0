@@ -2,77 +2,128 @@ Return-Path: <SRS0=vl2N=PR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D600C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 22:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7D57C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 23:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3831A60F4B
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 22:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3831A60F4B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A37E660F92
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Oct 2021 23:11:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A37E660F92
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACB6F6EA8B;
-	Fri, 29 Oct 2021 22:34:08 +0000 (UTC)
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [IPv6:2607:f8b0:4864:20::833])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A82D6EA8B
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 22:34:08 +0000 (UTC)
-Received: by mail-qt1-x833.google.com with SMTP id h16so6117859qtk.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 15:34:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:reply-to:subject
- :content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=phUrIiWh4uIW31L0d3AdeQjbIXdcNaMUt/LLHJ0Wu9Y=;
- b=pB2cXtMUcwqzOU2uuHGyWsdS0Wmo8faeCnL0cCrJA2by+UdVONrkfVzV94+2dlh2Gv
- zhFBSCNViqRDrMzh2LydC+j/BIRtwFJ17KkjysaiorzdlUmJ52drAYkCHRJi3Xrt2VF9
- VdPznIOtX6k1apDvph7wcpdeJ/xfz8yg9vQ93kFvO1Wso26bCGw9pTpfYpa6xndvs7Wy
- kBIhVHSDeEgerCrgwpj44UxRs8wsTokTT+0A61/kwKkWxRTfz/O4eS3qwVtXA7XFe/TF
- eChpen8xNVMUHV5VsBUA8vFxJDhqSob96MuNC8pqc/2pV02Vziw1Z/EwvmWDZu6ECAwv
- qvUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
- :subject:content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=phUrIiWh4uIW31L0d3AdeQjbIXdcNaMUt/LLHJ0Wu9Y=;
- b=swOLWXFbknBw8Psxx+uF0Viq9/bAWRrbiaL/zgf/wCcvqOWxrYYnjNiqLynPAP87Ll
- PeTNSoaV9/pAQwfPxf5mhXMa+XIQfcthDFtOqwlKpNWdV3bxyg6be538tkM/Tixws6az
- B9FfoCMREoVleOgLsA/xOMLHyWw9tCLzSMMNJ/4uvISYMaH0xqtnflCp8AAVQFy34RRM
- ULsKfq27MAELu9AiWHW/R8AAOA7xeSTIhJCryaYmtQw+uCWTOWhqpg2YmlIPVmQx8ddh
- TUBuW4eXd5APngJ38yIzRMdT7rze/qwUa4UxpVohIvZa25NoedoNQlNPFDAKmWDaUN3b
- h1Fw==
-X-Gm-Message-State: AOAM533lwXXfguzYP+f7sX6+xanr6gmDW88yyIDPvsKclGa3e2ivQHTC
- qZCPe2BVxw8mNLXYBr+Y5Ho=
-X-Google-Smtp-Source: ABdhPJyfplRRwp/MLJ1mu6YA7NOarUzmUCOv5Osb1XJU+cmd9Gqb1l951kS01kaLI2dJqsYifFilyA==
-X-Received: by 2002:a05:622a:451:: with SMTP id
- o17mr15106731qtx.385.1635546847093; 
- Fri, 29 Oct 2021 15:34:07 -0700 (PDT)
-Received: from mua.localhost ([2600:1700:e380:2c20::41])
- by smtp.gmail.com with ESMTPSA id y14sm5203499qtw.68.2021.10.29.15.34.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Oct 2021 15:34:06 -0700 (PDT)
-Message-ID: <8684c741-4604-440e-870b-5ee81bfc110c@gmail.com>
-Date: Fri, 29 Oct 2021 18:34:05 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.2.0
-Subject: Re: amdgpu "Fatal error during GPU init"; Ryzen 5600G integrated GPU
- + kernel 5.14.13
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE586EA98;
+	Fri, 29 Oct 2021 23:11:35 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2085.outbound.protection.outlook.com [40.107.102.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 324BA6EA90
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Oct 2021 23:11:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O7knHwzNw//TpwfOgn5/S6eT69Vk7GwTkGx/ESStlBCnQ873ygr1cF8m0AG+A8NJ4o39mH3mEh19bOmQB0PbyZQYhbedV9J1oV8ZKwAsTGzEEmDyJa166FlKQESUy1zg7JfMgrJ8IZa5FtLl3weJ78eJCzkV3uQnwN0iePnFhlWIcM0J14UwkwD3odTPd/FTUmWRP5MGTQjz2Wh5mpw0JXassEnz6yqphDhgsKMWxpBdv+JLvKVpvVPLLO1g7rcpOuf7HDGLZ8dHEGlmWm/GovxyFRqf1Ere4T+YUggS0C8s5msxmTkes4xlAVDcpzjIgbjid0bNbzkJSJSQK5Hesg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OW0NHUOxFZAzfRUpYAd1loiEyKWZP4RYFEqL/qwH2vI=;
+ b=ADHIzakyWOWLFhUIPm3aCWJfmXtmYlq6/5JBGLiUerS2BKEB0O5YgonTBlMcNa5TUVUY3u39V7t0QX30GUuQW7mz3dZVmMr2JrU509RxBxILQaacN378Lq7e/c4xS4m3t20YBdxHJ+eiVVCQm9xSb79Hsj81yRp2F1qYBktMiopKm6KjK9rWojqXKNjgqflyKXZxR+FQoNyfXRUj5yoH1axN1RxX7uYbMl4sGoJcoiTBzYPjn2jSZufNF9naKJQbdYOirIGbuvcPjOvgl2PxhkoONCUqrIeStdIIblVTNUD7GJXP/PFg0IxgTsuOG6j/UrcRk4HAr8OI/r0X6wH58w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OW0NHUOxFZAzfRUpYAd1loiEyKWZP4RYFEqL/qwH2vI=;
+ b=zFHcsPj372O1Z3l5sFxeC8Ek+yjG/A+0nsMVg+GwmVoDuJVEddp17wRqaT7gWbsWb6b/sGw685UarnN1H9V6X/uQnWwEuxYtK4OjKcU/mCbUMOL9gbSNa9Oy4ET9UPDuQUErFNv4YR8CE5CNEOz1FH6n02vPWttATxogpY9tLKM=
+Received: from BN6PR1201MB0084.namprd12.prod.outlook.com
+ (2603:10b6:405:57::22) by BN8PR12MB3604.namprd12.prod.outlook.com
+ (2603:10b6:408:45::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Fri, 29 Oct
+ 2021 23:11:31 +0000
+Received: from BN6PR1201MB0084.namprd12.prod.outlook.com
+ ([fe80::dc6f:56bf:4457:147e]) by BN6PR1201MB0084.namprd12.prod.outlook.com
+ ([fe80::dc6f:56bf:4457:147e%11]) with mapi id 15.20.4649.015; Fri, 29 Oct
+ 2021 23:11:31 +0000
+From: "Li, Roman" <Roman.Li@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "Limonciello, Mario"
+ <Mario.Limonciello@amd.com>
+CC: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amd/display: Look at firmware version to determine
+ using dmub on dcn21
+Thread-Topic: [PATCH v2] drm/amd/display: Look at firmware version to
+ determine using dmub on dcn21
+Thread-Index: AQHXzQQotmbcaVT6f0SSAO6E95hlDKvqbq8AgAAK3aA=
+Date: Fri, 29 Oct 2021 23:11:30 +0000
+Message-ID: <BN6PR1201MB0084BB61B03DF72CA37E323589879@BN6PR1201MB0084.namprd12.prod.outlook.com>
+References: <20211029203238.4486-1-mario.limonciello@amd.com>
+ <CADnq5_PYO6ikVUV4Qy=b70MRQFspd6nmQ5jJ6mFXi0pvHu+1xQ@mail.gmail.com>
+In-Reply-To: <CADnq5_PYO6ikVUV4Qy=b70MRQFspd6nmQ5jJ6mFXi0pvHu+1xQ@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: PGNet Dev <pgnet.dev@gmail.com>
-To: lijo.lazar@amd.com, alexdeucher@gmail.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
- <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
- <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
- <27b8936d-ba79-cc13-7768-692565bedc2f@amd.com>
- <9e964b4c-6a99-6605-63ae-f42537fd01db@gmail.com>
-In-Reply-To: <9e964b4c-6a99-6605-63ae-f42537fd01db@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=cc3897f3-093e-4998-8ad8-2523318ca706;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-10-29T21:13:50Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 27acbfa6-bd39-4a06-ee21-08d99b31718d
+x-ms-traffictypediagnostic: BN8PR12MB3604:
+x-microsoft-antispam-prvs: <BN8PR12MB3604F305D53B8AABF2230BEF89879@BN8PR12MB3604.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1443;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: BMnJaoWMcZN0S/7bba+0BNemY1+tBdIjFwux3OTEKV5vMdLxOf/RMi+AZTAR8QTzsYcBxa6b4q36+L+6Iu178HCh13wsZWfyTrpj4mbJ4BSGC6UKvHfvpw2H2wWenfSFxsvQwWQYSG9VzNLENjVO1MzqaHcUDjbAzdJZ9YipcAPXCjfpsc5jFau/Zq9o5+zKPFVNOSLNr1gVvozUcWlwNWGqlF6gV16LCgvdyinksiOuheU39xxayx2y6/iI3EwZ89+PhoR1uC3b0QwLK1qMTcDt3CZuzbgTWuvtJoIXT/oME9kOdKVcRcYxA7+o4/wdN+ztvbuov465tKGvW0RV/zXIkJ2rwW5cu33++Mo5rq/XkIgCpIl2SMgYsBjWQcGSpAu7zUvfbl4dHmnpNbpgZv3MMrqd+8Tkc32qoF4ZYMU6e2rU3Sg4NIbxlE8rK4ussBlg9xtK60cmqNtZg82O2gL3ymAZ9J1IA4ykwdyt/cJlbI+I8Gh3LXmsex1lddYA008BzvWGrO0I9eEN3tT7Hmrm5OIKhpdfSTbp3e0vrq3xBImWrax5MdXjTyFCPtnPW1eTjvDN+avFqwrAbzcw/TYFUur0bNXy4Ts1vSSe6v1q4NIPjeAyiZ1+sbz6J9kNvm+qpcr/41SYX7/CFwSJFmAiLQZKDLa9G68tynz+IuIIw6rnypb8mz66gFAeC2N0I+AdncJQMqVz4Kc43d2+13agQXXH/VSsHkqa0FR8gN+jZMSXWIlFYNjF/D5/S4ExXikWbyOAzYnCNWHLSgavioHeiAazWlWdfSJtRUSFJJc=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR1201MB0084.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(38070700005)(316002)(110136005)(2906002)(71200400001)(66946007)(66446008)(64756008)(966005)(76116006)(55016002)(6636002)(9686003)(508600001)(26005)(33656002)(6506007)(53546011)(86362001)(66556008)(66476007)(52536014)(7696005)(5660300002)(122000001)(8676002)(45080400002)(38100700002)(8936002)(83380400001)(4326008)(186003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yC3Fh8ad154QbRYAdQzTFv/EMHldXrCj763NIoKUffJbbuRC+xL9QPZflSWk?=
+ =?us-ascii?Q?xGeYuH7ZAYm9vHA5P7ViIv5Wk0g3F5kHi7iRB/rmaWs0pvjfxe8nBvq5IR53?=
+ =?us-ascii?Q?xzIv5GDpbGxm8Glwx1Fmxz4FBJI+2g+C2DzCGMjul+AVcTBppCiB96IK/081?=
+ =?us-ascii?Q?AM8sO6Ug2nqCAyF36rufpxwivnp/vxGTXw4JeWrGbrIH24009M4EWLfxRz8U?=
+ =?us-ascii?Q?1KMuB1zYZcCDUvCWCSjUnVSxZlH1aBeJz67jqQFH7gmn+cYZQ/fjZi4LCibx?=
+ =?us-ascii?Q?RWgOiN0FEzGehO22uxiyu8tyw6IXZhQKXH3+HR9DNkLJu1JUjTNSI//QthW0?=
+ =?us-ascii?Q?zqOJKABwoLg3iZMPIxd01MAQ+Dyd7AzbdGbJ0Mgbd7QMJovtiRw1pKSJQz1S?=
+ =?us-ascii?Q?JMV0WBjrS7E7UYDQE8n3BPT20gxDEJGK2UuSPLfHdnpZa7RCZp6wOmXuzdqu?=
+ =?us-ascii?Q?jJ9xpCOzLZgHatEo4BEPG0Jfjb5B9xfeRir2Kaf+NPy+uMdSFNQ8xvTe/vwV?=
+ =?us-ascii?Q?ter/qXd977ACovDKJdzU0IfsKlLK3sWZxNOaQtfmHFHGQUU3NWDIEut5I9A6?=
+ =?us-ascii?Q?sL2wOk+jwSCvXA6v9IPZ4466ekZDQP5fe65CwsuebxZ3sNYdU11yz4WGX/rZ?=
+ =?us-ascii?Q?icJwaAXX1QDhxPqWBMykIWvhhwcUttMnUJjFktZRJZN0FDoW9PjDRviRhdVw?=
+ =?us-ascii?Q?t9BhJX5SNrnYKZ+6baNr/6o0qUO0zaaiIkPs51GIpGpUPVP3pAxxYDneDpNt?=
+ =?us-ascii?Q?CgM26hu6YN5ggoCqtssyJ2nm1ZImw6c4C9ufMKUbfUd7ElCY+rjZiv8owI9B?=
+ =?us-ascii?Q?mI8QWCheCelpw/5CkRBgJpA4J9G/Tn5FkS841b11+56o3F5wW+ligJwgzAQX?=
+ =?us-ascii?Q?Rmi4brmxU1ORiGB0IqYn3Jd2221AYZZ8YptjiNiNkqXZRXyz5c6zIs7tDRvv?=
+ =?us-ascii?Q?ugKs7PxKjJBRHXezaOvhGG+b/XIGLc3pgJJTJfhLPj3q9kPwYyzrMOMS8p31?=
+ =?us-ascii?Q?LYtWs3HPE4oSawDZIhxWKuazUF0f6oe5Rj5fhCTRsHHknyLG3YxZJs62SStX?=
+ =?us-ascii?Q?J36D1SAwuGkR2RnPGUYHRv8rHbdZEsluuq3ulXdPxghU6lNgwXM+bW9urBa6?=
+ =?us-ascii?Q?o3deqSy3CT1UkAHN5zYOUPuYiXrc5gpzeQgSzidF6Yj7on9nVdd86yKZ8OXn?=
+ =?us-ascii?Q?183Z3XYmRsU0oTDf9ebvJwaipA3WoMfSgkWqR4EzffKaVdzn9TCc5q/hy8Zb?=
+ =?us-ascii?Q?c86S0gLio4MR7HzYLi0fdxrptcJargyQftIbt28/dxNVHsdZoqe6POJ0Gtms?=
+ =?us-ascii?Q?PLpSeWtNalPvqirmhOLBz6sniNaQHGylpdexVcO1T7HX9qSk+swS2/BFwaII?=
+ =?us-ascii?Q?zT5a5AfnWUjsphrPIXzRn5zH4N63fI9KOZEHfGi8Uge6mQH+w+oGbE1aPyrH?=
+ =?us-ascii?Q?BPxwpW+eo0uCo6m+5fCd5TEW7mcqnfokPGN0zGOmvfHz8xCfuQaCTYYpQy02?=
+ =?us-ascii?Q?ZzxtT0QpBwPoz4JHh0a69Ygf9YmRnMAbzkON5rp7Oav3/Y0KeHWpnQirLeFW?=
+ =?us-ascii?Q?+Fqtr2u8ARHb71zlGw8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR1201MB0084.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27acbfa6-bd39-4a06-ee21-08d99b31718d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2021 23:11:30.9096 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pMOagA1Xt9oWAvAI/0JTPefo3U9cMAGCi/E8xj8ER7oauEqbghb8n5Ht3W5+yC/W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3604
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,157 +135,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-in case it's useful
+[Public]
 
-	grep -i amd /var/log/Xorg.0.log | grep -v Modeline
-		[   324.709] (II) Applying OutputClass "AMDgpu" to /dev/dri/card0
-		[   324.709]    loading driver: amdgpu
-		[   324.818] (==) Matched amdgpu as autoconfigured driver 0
-		[   324.818] (II) LoadModule: "amdgpu"
-		[   324.825] (II) Loading /usr/lib64/xorg/modules/drivers/amdgpu_drv.so
-		[   324.877] (II) Module amdgpu: vendor="X.Org Foundation"
-		[   324.992] (II) AMDGPU: Driver for AMD Radeon:
-		        All GPUs supported by the amdgpu kernel driver
-		[   325.108] (II) Loading sub module "ramdac"
-		[   325.108] (II) LoadModule: "ramdac"
-		[   325.108] (II) Module "ramdac" already built-in
-		[   325.110] (II) AMDGPU(0): Creating default Display subsection in Screen section
-		[   325.110] (==) AMDGPU(0): Depth 24, (--) framebuffer bpp 32
-		[   325.110] (II) AMDGPU(0): Pixel depth = 24 bits stored in 4 bytes (32 bpp pixmaps)
-		[   325.110] (==) AMDGPU(0): Default visual is TrueColor
-		[   325.110] (==) AMDGPU(0): RGB weight 888
-		[   325.110] (II) AMDGPU(0): Using 8 bits per RGB (8 bit DAC)
-		[   325.110] (--) AMDGPU(0): Chipset: "Unknown AMD Radeon GPU" (ChipID = 0x1638)
-		[   327.957] (II) AMDGPU(0): glamor X acceleration enabled on AMD RENOIR (DRM 3.42.0, 5.14.14-200.fc34.x86_64, LLVM 12.0.1)
-		[   327.957] (II) AMDGPU(0): glamor detected, initialising EGL layer.
-		[   327.957] (==) AMDGPU(0): TearFree property default: auto
-		[   327.957] (==) AMDGPU(0): VariableRefresh: disabled
-		[   327.957] (II) AMDGPU(0): KMS Pageflipping: enabled
-		[   327.957] (II) AMDGPU(0): Output HDMI-A-0 has no monitor section
-		[   327.958] (II) AMDGPU(0): Output HDMI-A-1 has no monitor section
-		[   327.958] (II) AMDGPU(0): Output DisplayPort-0 has no monitor section
-		[   327.963] (II) AMDGPU(0): EDID for output HDMI-A-0
-		[   327.963] (II) AMDGPU(0): EDID for output HDMI-A-1
-		[   327.963] (II) AMDGPU(0): Manufacturer: VSC  Model: cc32  Serial#: 16843025
-		[   327.963] (II) AMDGPU(0): Year: 2018  Week: 47
-		[   327.963] (II) AMDGPU(0): EDID Version: 1.3
-		[   327.963] (II) AMDGPU(0): Digital Display Input
-		[   327.963] (II) AMDGPU(0): Max Image Size [cm]: horiz.: 60  vert.: 34
-		[   327.963] (II) AMDGPU(0): Gamma: 2.20
-		[   327.963] (II) AMDGPU(0): DPMS capabilities: Off
-		[   327.963] (II) AMDGPU(0): Supported color encodings: RGB 4:4:4 YCrCb 4:4:4
-		[   327.963] (II) AMDGPU(0): Default color space is primary color space
-		[   327.963] (II) AMDGPU(0): First detailed timing is preferred mode
-		[   327.963] (II) AMDGPU(0): redX: 0.661 redY: 0.332   greenX: 0.304 greenY: 0.613
-		[   327.963] (II) AMDGPU(0): blueX: 0.149 blueY: 0.060   whiteX: 0.313 whiteY: 0.329
-		[   327.963] (II) AMDGPU(0): Supported established timings:
-		[   327.963] (II) AMDGPU(0): 720x400@70Hz
-		[   327.963] (II) AMDGPU(0): 640x480@60Hz
-		[   327.963] (II) AMDGPU(0): 640x480@67Hz
-		[   327.963] (II) AMDGPU(0): 640x480@72Hz
-		[   327.963] (II) AMDGPU(0): 640x480@75Hz
-		[   327.963] (II) AMDGPU(0): 800x600@56Hz
-		[   327.963] (II) AMDGPU(0): 800x600@60Hz
-		[   327.963] (II) AMDGPU(0): 800x600@72Hz
-		[   327.963] (II) AMDGPU(0): 800x600@75Hz
-		[   327.964] (II) AMDGPU(0): 832x624@75Hz
-		[   327.964] (II) AMDGPU(0): 1024x768@60Hz
-		[   327.964] (II) AMDGPU(0): 1024x768@70Hz
-		[   327.964] (II) AMDGPU(0): 1024x768@75Hz
-		[   327.964] (II) AMDGPU(0): 1280x1024@75Hz
-		[   327.964] (II) AMDGPU(0): 1152x864@75Hz
-		[   327.964] (II) AMDGPU(0): Manufacturer's mask: 0
-		[   327.964] (II) AMDGPU(0): Supported standard timings:
-		[   327.964] (II) AMDGPU(0): #0: hsize: 2048  vsize 1152  refresh: 60  vid: 49377
-		[   327.964] (II) AMDGPU(0): #1: hsize: 1920  vsize 1200  refresh: 60  vid: 209
-		[   327.964] (II) AMDGPU(0): #2: hsize: 1920  vsize 1080  refresh: 60  vid: 49361
-		[   327.964] (II) AMDGPU(0): #3: hsize: 1680  vsize 1050  refresh: 60  vid: 179
-		[   327.964] (II) AMDGPU(0): #4: hsize: 1600  vsize 900  refresh: 60  vid: 49321
-		[   327.964] (II) AMDGPU(0): #5: hsize: 1280  vsize 1024  refresh: 60  vid: 32897
-		[   327.964] (II) AMDGPU(0): #6: hsize: 1280  vsize 800  refresh: 60  vid: 129
-		[   327.964] (II) AMDGPU(0): #7: hsize: 1280  vsize 720  refresh: 60  vid: 49281
-		[   327.964] (II) AMDGPU(0): Supported detailed timing:
-		[   327.964] (II) AMDGPU(0): clock: 241.5 MHz   Image Size:  597 x 336 mm
-		[   327.964] (II) AMDGPU(0): h_active: 2560  h_sync: 2608  h_sync_end 2640 h_blank_end 2720 h_border: 0
-		[   327.964] (II) AMDGPU(0): v_active: 1440  v_sync: 1443  v_sync_end 1448 v_blanking: 1481 v_border: 0
-		[   327.964] (II) AMDGPU(0): Serial No: UP2184700251
-		[   327.964] (II) AMDGPU(0): Ranges: V min: 24 V max: 120 Hz, H min: 15 H max: 130 kHz, PixClock max 305 MHz
-		[   327.964] (II) AMDGPU(0): Monitor name: VP2771
-		[   327.964] (II) AMDGPU(0): Supported detailed timing:
-		[   327.964] (II) AMDGPU(0): clock: 148.5 MHz   Image Size:  597 x 336 mm
-		[   327.964] (II) AMDGPU(0): h_active: 1920  h_sync: 2008  h_sync_end 2052 h_blank_end 2200 h_border: 0
-		[   327.964] (II) AMDGPU(0): v_active: 1080  v_sync: 1084  v_sync_end 1089 v_blanking: 1125 v_border: 0
-		[   327.964] (II) AMDGPU(0): Supported detailed timing:
-		[   327.964] (II) AMDGPU(0): clock: 74.2 MHz   Image Size:  597 x 336 mm
-		[   327.964] (II) AMDGPU(0): h_active: 1920  h_sync: 2008  h_sync_end 2052 h_blank_end 2200 h_border: 0
-		[   327.964] (II) AMDGPU(0): v_active: 540  v_sync: 542  v_sync_end 547 v_blanking: 562 v_border: 0
-		[   327.964] (II) AMDGPU(0): Supported detailed timing:
-		[   327.964] (II) AMDGPU(0): clock: 74.2 MHz   Image Size:  597 x 336 mm
-		[   327.964] (II) AMDGPU(0): h_active: 1280  h_sync: 1390  h_sync_end 1430 h_blank_end 1650 h_border: 0
-		[   327.964] (II) AMDGPU(0): v_active: 720  v_sync: 725  v_sync_end 730 v_blanking: 750 v_border: 0
-		[   327.964] (II) AMDGPU(0): Supported detailed timing:
-		[   327.964] (II) AMDGPU(0): clock: 127.8 MHz   Image Size:  597 x 336 mm
-		[   327.964] (II) AMDGPU(0): h_active: 1280  h_sync: 1328  h_sync_end 1360 h_blank_end 1440 h_border: 0
-		[   327.964] (II) AMDGPU(0): v_active: 1440  v_sync: 1443  v_sync_end 1453 v_blanking: 1481 v_border: 0
-		[   327.964] (II) AMDGPU(0): Number of EDID sections to follow: 1
-		[   327.964] (II) AMDGPU(0): EDID (in hex):
-		[   327.964] (II) AMDGPU(0):    00ffffffffffff005a6332cc11010101
-		[   327.964] (II) AMDGPU(0):    2f1c0103803c22782e4c55a9554d9d26
-		[   327.964] (II) AMDGPU(0):    0f5054bfef80e1c0d100d1c0b300a9c0
-		[   327.964] (II) AMDGPU(0):    8180810081c0565e00a0a0a029503020
-		[   327.964] (II) AMDGPU(0):    350055502100001a000000ff00555032
-		[   327.964] (II) AMDGPU(0):    3138343730303235310a000000fd0018
-		[   327.964] (II) AMDGPU(0):    780f821e000a202020202020000000fc
-		[   327.964] (II) AMDGPU(0):    005650323737310a2020202020200190
-		[   327.964] (II) AMDGPU(0):    020334f15b5f1005040302070609080f
-		[   327.964] (II) AMDGPU(0):    0e1f2021221413121116151a191e1d01
-		[   327.964] (II) AMDGPU(0):    23097f07830100006b030c001300003c
-		[   327.964] (II) AMDGPU(0):    20002001023a801871382d40582c4500
-		[   327.964] (II) AMDGPU(0):    55502100001e011d8018711c1620582c
-		[   327.964] (II) AMDGPU(0):    250055502100009e011d007251d01e20
-		[   327.964] (II) AMDGPU(0):    6e28550055502100001ee73100a050a0
-		[   327.964] (II) AMDGPU(0):    295030203a0055502100001a000000b7
-		[   327.964] (--) AMDGPU(0): HDMI max TMDS frequency 300000KHz
-		[   327.964] (II) AMDGPU(0): Printing probed modes for output HDMI-A-1
-		[   327.964] (II) AMDGPU(0): EDID for output DisplayPort-0
-		[   327.964] (II) AMDGPU(0): Output HDMI-A-0 disconnected
-		[   327.964] (II) AMDGPU(0): Output HDMI-A-1 connected
-		[   327.964] (II) AMDGPU(0): Output DisplayPort-0 disconnected
-		[   327.964] (II) AMDGPU(0): Using exact sizes for initial modes
-		[   327.964] (II) AMDGPU(0): Output HDMI-A-1 using initial mode 2560x1440 +0+0
-		[   327.964] (II) AMDGPU(0): mem size init: gart size :bf6ca000 vram size: s:1d906000 visible:1d906000
-		[   327.964] (==) AMDGPU(0): DPI set to (96, 96)
-		[   327.964] (==) AMDGPU(0): Using gamma correction (1.0, 1.0, 1.0)
-		[   327.964] (II) Loading sub module "ramdac"
-		[   327.964] (II) LoadModule: "ramdac"
-		[   327.964] (II) Module "ramdac" already built-in
-		[   328.774] (II) AMDGPU(0): [DRI2] Setup complete
-		[   328.774] (II) AMDGPU(0): [DRI2]   DRI driver: radeonsi
-		[   328.774] (II) AMDGPU(0): [DRI2]   VDPAU driver: radeonsi
-		[   329.625] (II) AMDGPU(0): Front buffer pitch: 10240 bytes
-		[   329.642] (II) AMDGPU(0): SYNC extension fences enabled
-		[   329.642] (II) AMDGPU(0): Present extension enabled
-		[   329.642] (==) AMDGPU(0): DRI3 enabled
-		[   329.642] (==) AMDGPU(0): Backing store enabled
-		[   329.642] (II) AMDGPU(0): Direct rendering enabled
-		[   329.944] (II) AMDGPU(0): Use GLAMOR acceleration.
-		[   329.944] (II) AMDGPU(0): Acceleration enabled
-		[   329.944] (==) AMDGPU(0): DPMS enabled
-		[   329.944] (==) AMDGPU(0): Silken mouse enabled
-		[   329.965] (II) AMDGPU(0): Set up textured video (glamor)
-		[   330.109] (II) AMDGPU(0): Setting screen physical size to 677 x 381
-		[   337.993] (II) AMDGPU(0): EDID vendor "VSC", prod id 52274
-		[   337.993] (II) AMDGPU(0): Using EDID range info for horizontal sync
-		[   337.993] (II) AMDGPU(0): Using EDID range info for vertical refresh
-		[   337.993] (--) AMDGPU(0): HDMI max TMDS frequency 300000KHz
-		[   337.994] (II) AMDGPU(0): EDID vendor "VSC", prod id 52274
-		[   337.994] (II) AMDGPU(0): Using hsync ranges from config file
-		[   337.994] (II) AMDGPU(0): Using vrefresh ranges from config file
-		[   337.995] (--) AMDGPU(0): HDMI max TMDS frequency 300000KHz
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Friday, October 29, 2021 4:34 PM
+> To: Limonciello, Mario <Mario.Limonciello@amd.com>
+> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Li, Roman
+> <Roman.Li@amd.com>
+> Subject: Re: [PATCH v2] drm/amd/display: Look at firmware version to
+> determine using dmub on dcn21
+>
+> On Fri, Oct 29, 2021 at 4:33 PM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+> >
+> > commit b1c61212d8dc ("drm/amd/display: Fully switch to dmub for all
+> > dcn21
+> > asics") switched over to using dmub on Renoir to fix Gitlab 1735, but
+> > this implied a new dependency on newer firmware which might not be met
+> > on older kernel versions.
+> >
+> > Since sw_init runs before hw_init, there is an opportunity to
+> > determine whether or not the firmware version is new to adjust the beha=
+vior.
+> >
+> > Cc: Roman.Li@amd.com
+> > BugLink:
+> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit=
+l
+> > ab.freedesktop.org%2Fdrm%2Famd%2F-
+> %2Fissues%2F1772&amp;data=3D04%7C01%7C
+> >
+> Roman.Li%40amd.com%7C4e27c983112e4ffdd36008d99b1b860a%7C3dd8961f
+> e4884e
+> >
+> 608e11a82d994e183d%7C0%7C0%7C637711364793611804%7CUnknown%7CT
+> WFpbGZsb3
+> >
+> d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3
+> D%7
+> >
+> C1000&amp;sdata=3DcFwunb4aAJbFkCe6lIFMY4oWfbkCVWAGshe8lB0rg0U%3D&
+> amp;res
+> > erved=3D0
+> > BugLink:
+> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit=
+l
+> > ab.freedesktop.org%2Fdrm%2Famd%2F-
+> %2Fissues%2F1735&amp;data=3D04%7C01%7C
+> >
+> Roman.Li%40amd.com%7C4e27c983112e4ffdd36008d99b1b860a%7C3dd8961f
+> e4884e
+> >
+> 608e11a82d994e183d%7C0%7C0%7C637711364793611804%7CUnknown%7CT
+> WFpbGZsb3
+> >
+> d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3
+> D%7
+> >
+> C1000&amp;sdata=3D%2F9sfVD5PN2tsl0bXkctPzkrHpJKQoZDex8xCDt1bVPg%3D&
+> amp;r
+> > eserved=3D0
+> > Fixes: b1c61212d8dc ("drm/amd/display: Fully switch to dmub for all
+> > dcn21 asics")
+> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> > ---
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 6dd6262f2769..e7ff8ad4c5a7 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -1410,7 +1410,10 @@ static int amdgpu_dm_init(struct amdgpu_device
+> *adev)
+> >                 switch (adev->ip_versions[DCE_HWIP][0]) {
+> >                 case IP_VERSION(2, 1, 0):
+> >                         init_data.flags.gpu_vm_support =3D true;
+> > +                       if
+> > + (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
+> >                                 init_data.flags.disable_dmcu =3D true;
+> > +                       else
+> > +                               init_data.flags.disable_dmcu =3D
+> > + adev->dm.dmcub_fw_version > 0x01000000;
 
-	rpm -q --whatprovides  /usr/lib64/xorg/modules/drivers/amdgpu_drv.so
-		xorg-x11-drv-amdgpu-21.0.0-1.fc34.x86_64
+Since this is the only fw version that needs dmcu, it's safer to use equal =
+condition here.
+
+> >                         break;
+> >                 case IP_VERSION(1, 0, 0):
+> >                 case IP_VERSION(1, 0, 1):
+> > --
+> > 2.25.1
+> >
