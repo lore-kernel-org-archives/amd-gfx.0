@@ -2,127 +2,73 @@ Return-Path: <SRS0=zsti=PS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5421EC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Oct 2021 15:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E057C433F5
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Oct 2021 15:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0406A60F56
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Oct 2021 15:05:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0406A60F56
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5260060F23
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Oct 2021 15:24:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5260060F23
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C666E02B;
-	Sat, 30 Oct 2021 15:05:48 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 752076E02B
- for <amd-gfx@lists.freedesktop.org>; Sat, 30 Oct 2021 15:05:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PJ/oAFEy37rugVSu0PyRVjyGOCnlu0nJ4NtslqaYb6tcvnYzNECQhep58ABvgLGkDv3rAQunfT7hD/4v9n4WHIRuvkt4rvl0X9IWzYNMrtsL5TkZ7ly6LbEAQKZWZgGSAv62sBkGOuPKyV+aVvsdmaRR3CB+qyVjml0jsONTkxa7RWJPHZiA+WUQ70txr4204vLpBIzIQpadIcmpFYpzpJKlLEM7AN2w8Qkn4IJm6TrT4Pil9ar0Dt5oPUdk3gMPPp5nk3RG0tZ0/0g5E+cxj6ZYPl5ezVlEsO7z0QhN4O1FotaMNphmajUgecF8w2m1jEOdgxaDLT7FTUxFzzUJSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3TAMjIzNu/NPitfQDc/IWgt5e87bh7aTB5xH362QbQM=;
- b=h4v7fTjeCIOgPHrqoXrFokypaSyPXO36lCoOexGJajQwcRujgWPScG+uB6bOYyXlm1atCWJ1qcUI1t+mrkVUWszJHw3WBHncmnxHANzvGS3ozf0rxa9BrRVkMLnXFowQvqWo2M3AnmGXlrXlb3hHDVgk50S2OzyLWO2iCG3V43pGSiK1iLv1oxJ/PUdQnB+TDoMksycSj6SQ3tp1xTIhT7u+1Pvp4HqEoaRW6q/QAWGcVXeO1eaxoq+x8ZYdzNo3Y6uzsJazX+eI6un2XPADxCt/ek9yI1swMYXwbtHAQd36X3yg9Tk25eu+tWQjNWOp8viQTNDfnOEEqgmLSuo3CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3TAMjIzNu/NPitfQDc/IWgt5e87bh7aTB5xH362QbQM=;
- b=OLOJjgvxK80rVEM2331JxoMECivBLYxYlXF7iSE4/eIZBEaXIi5Ylx6YTuXONA7h8i/EKiELCiaQAdPUGSCmDvXRDjbMsRQA0l1CCuFUIz+2U16nFUfDm55PmqO6pJlUicevXDZ73IeKcGKQAYWrMOVbx5fTViV5KX+F3w4Ecmw=
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB4513.namprd12.prod.outlook.com (2603:10b6:5:2ad::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.13; Sat, 30 Oct
- 2021 15:05:46 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4649.017; Sat, 30 Oct 2021
- 15:05:46 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-CC: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/pm: Don't show pp_power_profile_mode for YC
- and later APUs
-Thread-Topic: [PATCH] drm/amdgpu/pm: Don't show pp_power_profile_mode for YC
- and later APUs
-Thread-Index: AQHXzQpiIf9c19Z+W0GxY0VJfXQSjKvq55aygAC2rgCAAAaGeA==
-Date: Sat, 30 Oct 2021 15:05:46 +0000
-Message-ID: <DM6PR12MB3930BB63A500C4E548B697FD97889@DM6PR12MB3930.namprd12.prod.outlook.com>
-References: <20211029211717.28519-1-mario.limonciello@amd.com>
- <DM6PR12MB39307B878DCE0423ADFBBFF397889@DM6PR12MB3930.namprd12.prod.outlook.com>
- <CADnq5_PDhA61gJYTPg3Dn=zy0hrt2ZJJN4TYm5WJRQfACrjDbg@mail.gmail.com>
-In-Reply-To: <CADnq5_PDhA61gJYTPg3Dn=zy0hrt2ZJJN4TYm5WJRQfACrjDbg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-10-30T15:04:38.7904935Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 38912402-56e5-4701-dc94-08d99bb6c04e
-x-ms-traffictypediagnostic: DM6PR12MB4513:
-x-microsoft-antispam-prvs: <DM6PR12MB451307F70DD155F1474795E997889@DM6PR12MB4513.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: NAoWU9wn3mgr4mc1gojh5FDXgB7iTRYh5E4b391jewok0BH6GS+lEo4kfXeIB/1WEy4iIh3j/TtPcRdDIdTnc6qqMd8zjtH5a4Jop4MC9NYqwNEfsZm7K2Gt9leW7d+bIZltnsmCngTuuINtuDgOrktmAZLmVR3YgtGIlqYzzbWju+oHrnFRFyLiz9/eb5hia3p7p7pIOIEf8GRQdOsRNDcrsNDEqYXa8UH1wmO+4XyywFR3kB/kgln9+/u5hDDiwBhKUUeNzV91mLQ6WPRH6FwJundYmdaSE2HxKenwfwreSM6Rh31KSTO344eqVpk62ngu2g5qguPDtL0/OAmzul6M43/NOIdzp1LkGiaTQ3PEqXE6BRTG56CaSsdZITymudnJmBw0P7NKr2qs0XAJZizMwFjiu5MavFlbwjblQQjUbdbKIAOBYjHI96JOcQH7ME5gxfWj0WkR/HTjL+8SGJGVvyAr7k2ln7Meo5bmFtajQDuT3SQeJouiGyf4wK/WfbamhvVXGFl/6tVRSzGUbHX+hmTysyg+9NFWLdFPK253vzGedwHnGZ/q/4bda+SSaId3pr/QBd0DlM4g7tc+vfysnQGxh6AsAm47xv6p89m0kr4qe6TgKI+9oEQnqwkqH/gZtStszs18dFiNlKxtuRuzSmCNjOEMf9xj9KND2v2pEwSMV+7TsqZhbHjqELLTPsDoyg9lihGbNPHXckQpmA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38070700005)(71200400001)(66946007)(2906002)(7696005)(316002)(6916009)(86362001)(558084003)(4326008)(9686003)(55016002)(8936002)(91956017)(6506007)(54906003)(76116006)(26005)(66556008)(508600001)(5660300002)(38100700002)(64756008)(33656002)(52536014)(122000001)(66446008)(186003)(8676002)(66476007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LtXM7Nibb/XCuxgFKmZ1utd7xY/P7Eb2mhoBFuWiH/94dXczE9+kSO0gQgtp?=
- =?us-ascii?Q?ekiDL05SETWqcHu8YhXRffrYeFv0HM1bFFhPdw5to9YRNjpjL0ZeH2jWYOgR?=
- =?us-ascii?Q?efmf+nU4aOabPmFQz/i2eyy8ONSHkSmlxPEC1TLE3OHkiGU6utG8ChgwuzBe?=
- =?us-ascii?Q?cPWDtXsnFf6pQzKGJNKlJRJUvYlUoO/Gg3/y/unJIwIAzHQJjWycG0XMrAGA?=
- =?us-ascii?Q?BpKE8Fu0zAUi1s3UYwY4YileyjJcKPfLCS0rf+kkoWli96olpMGMDHmC+Vv2?=
- =?us-ascii?Q?2TzL6QZhriWV8mUwL29sVsX7FWoK3bYoZvcV/qCYlFV6nFf6anS6kemaPTZd?=
- =?us-ascii?Q?RVq2vkbJ4EeCHBqluwa5ZTpRliJM8a5sRVCpbohhASzcsY7dNrB/O/MbujMP?=
- =?us-ascii?Q?muuLBp0ob1S3V3evfb43oVkMZybxJorLl+0BknBqBY6ACyXIf2hKYU/Xd1+S?=
- =?us-ascii?Q?RDpGfpTk/I/gNR6kXJe+qztORdSHRYhUl8+/sBfliT4rR50xctlFFGBhOHSk?=
- =?us-ascii?Q?mQEIo6wBSLZhSNEKe5aTokZ7yHHB8mO+AEoqC/Fo8vSrpeUFV8Fh/mXy9koD?=
- =?us-ascii?Q?V+aWOy2tXqXTGNQ3UF42QgNnVnmPybGASl75UNaxcUY4DYp3hBazjD2+qGob?=
- =?us-ascii?Q?lJpiZ3rZy1aFvSGEaascLYBxpAUR67rgW+zM693GpoT2UASy2iqES3IgrKLl?=
- =?us-ascii?Q?oG2wHHWtIOG05C4Qj5x6Su4P8XzHzwBmmU5feCcc98WRBB1R+GpCZyDkYVnw?=
- =?us-ascii?Q?vowdtObA63ofHUxthTq4FE7E+8VDmDYUA6mtrF+/y7ceeffS2kVYJAbzoIp/?=
- =?us-ascii?Q?gI/L4O9Y56r0u78R0WCjIPh2TZwLHwa5EIYH3u7TvsKcNXpomX0fO4m2UkbO?=
- =?us-ascii?Q?iDHVIity/LmnJyj0AgKPyr2ZaY+HPnLCvHyzFF+4KFztCCSbdujwzShmSE2u?=
- =?us-ascii?Q?ESRHkqG7OqcOaBYazk9vCy/m6rj0rtZTCcZQAHGuXv3JgSRVB7sPWJEKJLxp?=
- =?us-ascii?Q?zUdu1YYYq0vM5gWiOD6Zwj4XS5GZ1V4S6vqS1jrXmdh+247v0Ye26uJDQjaM?=
- =?us-ascii?Q?oCe1EYfWaNA1pe7Rpfki1XbnAH3yRtYnTh8XVfE6nBjDcltUz5ceWGF229vZ?=
- =?us-ascii?Q?j/XPsz3N2c5TDKn7N/Cyxh0TfcOzwpfzoCAdzm3esZKqHEGD8GSW2IwBHnUW?=
- =?us-ascii?Q?VdAq6dAnCSdhOtHVgLGVRNGwjxy/7WwBR4+TikZhZl4ZB3NimUZUeriRWjC+?=
- =?us-ascii?Q?x+w2STfNueTNWm7bw43io9sGT4gadsrKleFXKL9IMcC5ocEC6xp7uvUTYuDq?=
- =?us-ascii?Q?yxsn7lybUtsuEgQR8EwQRhKno+rcWeGqo1wfn7faRkvOz8/VSuuk/oSvK5y5?=
- =?us-ascii?Q?eh7K2s+49aWZg6VVmOmLavGCmOYF9jiM5LVyYZ+cyViEIueJ1loT5xAzj+a3?=
- =?us-ascii?Q?qqknGo1t/OQxejyZ6PNf2m6s7PNBPkqYlxK5/EDVmrihcWBuDeNZlcRpqtpF?=
- =?us-ascii?Q?OscHnDCsPbgG6jitzyJjAkC4uJKw0OfuI2Hk9d1mXMcXykPaq3wjjYHNUO6R?=
- =?us-ascii?Q?MS4wN/a4MnVEaXc58UUtRQMOkSZ0/6VSDSguqYyD?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3930BB63A500C4E548B697FD97889DM6PR12MB3930namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A939E6E03A;
+	Sat, 30 Oct 2021 15:24:41 +0000 (UTC)
+Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
+ [IPv6:2607:f8b0:4864:20::82b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9FB6E03A;
+ Sat, 30 Oct 2021 15:24:40 +0000 (UTC)
+Received: by mail-qt1-x82b.google.com with SMTP id r2so10671675qtw.12;
+ Sat, 30 Oct 2021 08:24:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:reply-to:subject
+ :content-language:references:from:to:in-reply-to
+ :content-transfer-encoding;
+ bh=wspgBO+zbFXV33fMwZ+53MIBfOpz1gnwIjOZWmfjN1I=;
+ b=JSwjdqaB6dPcw4NAQj2aRhnXCQB0CIiB2S16Ghww/doBW/VmNu0nPyiyYWfmqQpROk
+ NjlLvblqe+nUv4Rv8nDb9HUlR7L9XmKXxpr1Y1cmrGiKFM9HDTlRa8VWq077haDmYNgm
+ yTRHOVZu+R7jVPEhXVb0Lw+Qq+pp1ajV8FHB3J4cFfow7jklIS7iFUy1TlV3Jp0W5CaW
+ jUnQi9uYXKpAMZ2+U6QUrKsh77GVEeQjKednu+Cr/1no4Dg/UDB3a9ezrFFWibmNQC9j
+ vIiAxhi0CTnaHn5eWFFdhlR3nLMHwSz7+EpU5IekTPep7fhDRLv3JUlrvmbPxDKkWCsY
+ u+Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+ :subject:content-language:references:from:to:in-reply-to
+ :content-transfer-encoding;
+ bh=wspgBO+zbFXV33fMwZ+53MIBfOpz1gnwIjOZWmfjN1I=;
+ b=Y8Y/yKGkRedSfaMo+zUQsZZ/2JDZFKBe2SVxnSSLvKkEZgbYcj8YaW96wJYeHPE9Kw
+ qGciw2klnTO+bD+6tvTbUz/DyfhC0FjnRvrxfy71eNFZiqsmp18NfBe0Z/ejZvGyuAd/
+ D3UXU6CI1LjmPGpF8Bk3+pszKGULzMRw/ygYV+D5jI34qy2HP4rMkb6fAbZYRBM+cmIj
+ PoTxJXLgbSkV4U/EX7R3snsdRs7VkpnDStfy9hC7c1J5kz/ukWJfJZLCk2y+OUS538D4
+ 9PsKIyNR9fzOxmyF3V55pvTACbC+0pOuy1yEJ3LyknuiV9ojsQ4mvB5NLQHdknFD4RNV
+ t3EA==
+X-Gm-Message-State: AOAM531pn11Y/ab/bjfTsIohEYqiJPrpKZMsyGGnTdTdGzfDKJjoA1bF
+ ROMgoZ8dVTDE6aj3v/J7SquqS6vXC8c=
+X-Google-Smtp-Source: ABdhPJy1TCtp5XUVBopU3TdGuSuWciWQdIOyzMez2OY6TTpzRmpsm6N+BDblhBGKJbJynzW8lPTPjg==
+X-Received: by 2002:ac8:5c84:: with SMTP id r4mr6683980qta.11.1635607479150;
+ Sat, 30 Oct 2021 08:24:39 -0700 (PDT)
+Received: from mua.localhost ([2600:1700:e380:2c20::49])
+ by smtp.gmail.com with ESMTPSA id f7sm6284913qkp.107.2021.10.30.08.24.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 30 Oct 2021 08:24:38 -0700 (PDT)
+Message-ID: <c08a4b33-ac3a-ef52-57d3-f55a4c2843c7@gmail.com>
+Date: Sat, 30 Oct 2021 11:24:37 -0400
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38912402-56e5-4701-dc94-08d99bb6c04e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2021 15:05:46.1962 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: A9NGdajg3Qs5WIbKaoq6YzRfC9hUQeeizfV+s2MWvtrCgguidn5oUG0clVQ09mMr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4513
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.2.0
+Subject: amdgpu on Ryzen 5600G -- 'purple' background [WAS: Re: amdgpu "Fatal
+ error during GPU init"; Ryzen 5600G integrated GPU + kernel 5.14.13}
+Content-Language: en-US
+References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
+ <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
+ <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
+From: PGNet Dev <pgnet.dev@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,48 +80,231 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3930BB63A500C4E548B697FD97889DM6PR12MB3930namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Now I'm just guessing.
 
-[Public]
+TBH, I've no idea what's causing this reproducible 'purple' background with `amdgpu` on Ryzen 5XXXG.
 
-For swsmu, we could add a helper macro like smu_is_supported(x) that checks=
- if ppt func is not NULL.
+All I can definitively say is that it's real, reproducible, seen elsewhere in the wild for radeon/amd
+Possibly related to driver defaulting to HDMI YCbCr color, rather than RGB.
 
-Thanks,
-Lijo
+I'll add more info as requested when someone with better knowledge of what's needed chimes in.
 
---_000_DM6PR12MB3930BB63A500C4E548B697FD97889DM6PR12MB3930namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+For now, here's the last bits of info I've found.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-For swsmu, we could add a helper macro like smu_is_supported(x) that checks=
- if ppt func is not NULL.</div>
-<div id=3D"ms-outlook-mobile-signature">
-<div><br>
-</div>
-Thanks,<br>
-Lijo</div>
-</div>
-</body>
-</html>
+This issue
 
---_000_DM6PR12MB3930BB63A500C4E548B697FD97889DM6PR12MB3930namp_--
+	https://community.amd.com/t5/drivers-software/purple-ish-desktop-screen-after-clean-installing-the-newest-19-5/td-p/99933/page/15
+
+suggests in 2019, Microsoft fixed driver for this purple-hue issue on Ryzen
+
+	https://support.microsoft.com/en-ca/help/4505903/windows-10-update-kb4505903
+
+Seems like this had to do with the driver selecting YCbCr for HDMI rather than RGB ...
+
+Here,
+
+	Setting the amdgpu HDMI Pixel Format on Linux
+	 https://www.wezm.net/v2/posts/2020/linux-amdgpu-pixel-format/
+
+mentions
+
+	"...
+	I looked for a way to change the pixel format output from the HDMI port of my RX560 graphics card. Turns out this is super easy on Windows, but the amdgpu driver on Linux does not support changing it.
+	..."
+
+and refers to an EDID hack/fix
+
+	https://www.wezm.net/v2/posts/2020/linux-amdgpu-pixel-format/#the-fix
+
+More digging led to
+
+	AMDGPU fails to properly parse EDID information from display, causing weird resolution setting issues
+	 https://gitlab.freedesktop.org/drm/amd/-/issues/1589
+
+with a familiar 'purple' display,
+
+	https://gitlab.freedesktop.org/drm/amd/uploads/2e2b485aed26d77a9066ca9ea516d49d/image.png
+
+and points to an amd issue "Created 3 years ago",
+
+	no color format choice in amdgpu
+	 https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_852860
+
+and finally, a patch
+
+	[PATCH] drm/amdgpu/dc: Pixel encoding DRM property and module parameter
+	 https://www.spinics.net/lists/amd-gfx/msg53281.html
+
+which suggests adding
+
+	pixel_encoding=rgb
+
+
+checking
+
+	hwinfo --gfxcard | egrep "Model|SysFS ID"
+		SysFS ID: /devices/pci0000:00/0000:00:08.1/0000:30:00.0
+		Model: "ATI VGA compatible controller"
+		SysFS ID: /devices/pci0000:00/0000:00:01.1/0000:10:00.0
+		Model: "nVidia GP108 [GeForce GT 1030]"
+
+
+	ls -ald /sys/class/drm/card* | grep 30:
+		lrwxrwxrwx 1 root root 0 Oct 30 09:56 /sys/class/drm/card0 -> ../../devices/pci0000:00/0000:00:08.1/0000:30:00.0/drm/card0/
+		lrwxrwxrwx 1 root root 0 Oct 30 09:56 /sys/class/drm/card0-DP-1 -> ../../devices/pci0000:00/0000:00:08.1/0000:30:00.0/drm/card0/card0-DP-1/
+		lrwxrwxrwx 1 root root 0 Oct 30 09:56 /sys/class/drm/card0-HDMI-A-1 -> ../../devices/pci0000:00/0000:00:08.1/0000:30:00.0/drm/card0/card0-HDMI-A-1/
+		lrwxrwxrwx 1 root root 0 Oct 30 09:56 /sys/class/drm/card0-HDMI-A-2 -> ../../devices/pci0000:00/0000:00:08.1/0000:30:00.0/drm/card0/card0-HDMI-A-2/
+
+( why are there *2* HDMI for card0, when only 1 phy output? )
+
+next, added to kernel cmdline
+
+	video=HDMI-A-1:2560x1440@60:pixel_encoding=rgb video=HDMI-A-2:2560x1440@60:pixel_encoding=rgb
+
+and, for good measure,
+
+	cat /etc/modprobe.d/amdgpu.conf
+		
+
+re-gen'd initrd, and rebooted.
+
+STILL getting the purple screen :-/
+
+dmesg, after boot completion,
+
+	dmesg | grep encod
+	...
+	[    1.650090] amdgpu: unknown parameter 'pixel_encoding' ignored
+	...
+
+Paying close(r) attention, screen output after grub-select starts out with black-as-usual background, but switches to purple immediately after:
+
+	dmesg
+
+		...
+>>		[    1.268709] systemd[1]: Starting dracut initqueue hook...
+		...
+
+
+where,
+
+	dmesg | egrep -i "atpx|vga|drm|amdgpu|initqueue"
+		[    0.329804] ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.GPP0.VGA], AE_ALREADY_EXISTS (20210604/dswload2-326)
+		[    0.351328] pci 0000:10:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
+		[    0.351328] pci 0000:30:00.0: vgaarb: setting as boot VGA device
+		[    0.351328] pci 0000:30:00.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+		[    0.351328] pci 0000:10:00.0: vgaarb: bridge control possible
+		[    0.351328] pci 0000:30:00.0: vgaarb: bridge control possible
+		[    0.351328] vgaarb: loaded
+		[    0.410851] fb0: EFI VGA frame buffer device
+		[    1.264753] ACPI: video: Video Device [VGA] (multi-head: yes  rom: no  post: no)
+		[    1.265256] ACPI: video: Video Device [VGA1] (multi-head: yes  rom: no  post: no)
+		[    1.268709] systemd[1]: Starting dracut initqueue hook...
+		[    1.650090] amdgpu: unknown parameter 'pixel_encoding' ignored
+		[    1.650094] amdgpu: unknown parameter 'modeset' ignored
+		[    1.650416] [drm] amdgpu kernel modesetting enabled.
+		[    1.650432] vga_switcheroo: detected switching method \_SB_.PCI0.GP17.VGA_.ATPX handle
+		[    1.650720] ATPX version 1, functions 0x00000001
+		[    1.650751] ATPX Hybrid Graphics
+		[    1.656232] amdgpu: Virtual CRAT table created for CPU
+		[    1.656240] amdgpu: Topology: Add CPU node
+		[    1.656299] fb0: switching to amdgpudrmfb from EFI VGA
+		[    1.656413] amdgpu 0000:30:00.0: vgaarb: deactivate vga console
+		[    1.656503] [drm] initializing kernel modesetting (RENOIR 0x1002:0x1638 0x1002:0x1636 0xC9).
+		[    1.656516] amdgpu 0000:30:00.0: amdgpu: Trusted Memory Zone (TMZ) feature enabled
+		[    1.656548] [drm] register mmio base: 0xFCB00000
+		[    1.656548] [drm] register mmio size: 524288
+		[    1.656550] [drm] PCIE atomic ops is not supported
+		[    1.657578] [drm] add ip block number 0 <soc15_common>
+		[    1.657579] [drm] add ip block number 1 <gmc_v9_0>
+		[    1.657581] [drm] add ip block number 2 <vega10_ih>
+		[    1.657581] [drm] add ip block number 3 <psp>
+		[    1.657582] [drm] add ip block number 4 <smu>
+		[    1.657583] [drm] add ip block number 5 <gfx_v9_0>
+		[    1.657584] [drm] add ip block number 6 <sdma_v4_0>
+		[    1.657585] [drm] add ip block number 7 <dm>
+		[    1.657586] [drm] add ip block number 8 <vcn_v2_0>
+		[    1.657587] [drm] add ip block number 9 <jpeg_v2_0>
+		[    1.663332] [drm] BIOS signature incorrect 0 0
+		[    1.663360] amdgpu 0000:30:00.0: amdgpu: Fetched VBIOS from ROM BAR
+		[    1.663363] amdgpu: ATOM BIOS: 113-CEZANNE-018
+		[    1.664115] [drm] VCN decode is enabled in VM mode
+		[    1.664117] [drm] VCN encode is enabled in VM mode
+		[    1.664118] [drm] JPEG decode is enabled in VM mode
+		[    1.664147] [drm] vm size is 262144 GB, 4 levels, block size is 9-bit, fragment size is 9-bit
+		[    1.664153] amdgpu 0000:30:00.0: amdgpu: VRAM: 512M 0x000000F400000000 - 0x000000F41FFFFFFF (512M used)
+		[    1.664155] amdgpu 0000:30:00.0: amdgpu: GART: 1024M 0x0000000000000000 - 0x000000003FFFFFFF
+		[    1.664156] amdgpu 0000:30:00.0: amdgpu: AGP: 267419648M 0x000000F800000000 - 0x0000FFFFFFFFFFFF
+		[    1.664161] [drm] Detected VRAM RAM=512M, BAR=512M
+		[    1.664162] [drm] RAM width 128bits DDR4
+		[    1.664200] [drm] amdgpu: 512M of VRAM memory ready
+		[    1.664201] [drm] amdgpu: 3072M of GTT memory ready.
+		[    1.664206] [drm] GART: num cpu pages 262144, num gpu pages 262144
+		[    1.664285] [drm] PCIE GART of 1024M enabled.
+		[    1.664286] [drm] PTB located at 0x000000F400900000
+		[    1.668403] amdgpu 0000:30:00.0: amdgpu: PSP runtime database doesn't exist
+		[    1.684148] [drm] Loading DMUB firmware via PSP: version=0x01010019
+		[    1.699355] [drm] Found VCN firmware Version ENC: 1.14 DEC: 5 VEP: 0 Revision: 20
+		[    1.699368] amdgpu 0000:30:00.0: amdgpu: Will use PSP to load VCN firmware
+		[    2.119364] nvidia 0000:10:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
+		[    2.371596] [drm] [nvidia-drm] [GPU ID 0x00001000] Loading driver
+		[    2.425174] [drm] reserve 0x400000 from 0xf41f800000 for PSP TMR
+		[    2.506778] amdgpu 0000:30:00.0: amdgpu: RAS: optional ras ta ucode is not available
+		[    2.515189] amdgpu 0000:30:00.0: amdgpu: RAP: optional rap ta ucode is not available
+		[    2.515191] amdgpu 0000:30:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
+		[    2.515540] amdgpu 0000:30:00.0: amdgpu: SMU is initialized successfully!
+		[    2.516855] [drm] kiq ring mec 2 pipe 1 q 0
+		[    2.517561] [drm] Display Core initialized with v3.2.141!
+		[    2.517981] [drm] DMUB hardware initialized: version=0x01010019
+		[    2.577117] [drm] VCN decode and encode initialized successfully(under DPG Mode).
+		[    2.577132] [drm] JPEG decode initialized successfully.
+		[    2.578072] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
+		[    2.707339] amdgpu: HMM registered 512MB device memory
+		[    2.707361] amdgpu: SRAT table not found
+		[    2.707361] amdgpu: Virtual CRAT table created for GPU
+		[    2.708098] amdgpu: Topology: Add dGPU node [0x1638:0x1002]
+		[    2.708103] kfd kfd: amdgpu: added device 1002:1638
+		[    2.708170] amdgpu 0000:30:00.0: amdgpu: SE 1, SH per SE 2, CU per SH 18, active_cu_number 27
+		[    2.709057] [drm] fb mappable at 0x90CD2000
+		[    2.709059] [drm] vram apper at 0x90000000
+		[    2.709059] [drm] size 14745600
+		[    2.709059] [drm] fb depth is 24
+		[    2.709060] [drm]    pitch is 10240
+		[    2.896150] fbcon: amdgpu (fb0) is primary device
+		[    3.000331] amdgpu 0000:30:00.0: [drm] fb0: amdgpu frame buffer device
+		[    3.009001] amdgpu 0000:30:00.0: amdgpu: ring gfx uses VM inv eng 0 on hub 0
+		[    3.009004] amdgpu 0000:30:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+		[    3.009006] amdgpu 0000:30:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+		[    3.009006] amdgpu 0000:30:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+		[    3.009007] amdgpu 0000:30:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+		[    3.009008] amdgpu 0000:30:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+		[    3.009009] amdgpu 0000:30:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+		[    3.009010] amdgpu 0000:30:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+		[    3.009010] amdgpu 0000:30:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+		[    3.009011] amdgpu 0000:30:00.0: amdgpu: ring kiq_2.1.0 uses VM inv eng 11 on hub 0
+		[    3.009012] amdgpu 0000:30:00.0: amdgpu: ring sdma0 uses VM inv eng 0 on hub 1
+		[    3.009013] amdgpu 0000:30:00.0: amdgpu: ring vcn_dec uses VM inv eng 1 on hub 1
+		[    3.009014] amdgpu 0000:30:00.0: amdgpu: ring vcn_enc0 uses VM inv eng 4 on hub 1
+		[    3.009015] amdgpu 0000:30:00.0: amdgpu: ring vcn_enc1 uses VM inv eng 5 on hub 1
+		[    3.009016] amdgpu 0000:30:00.0: amdgpu: ring jpeg_dec uses VM inv eng 6 on hub 1
+		[    3.155840] [drm] Initialized nvidia-drm 0.0.0 20160202 for 0000:10:00.0 on minor 1
+		[    3.156216] [drm] Initialized amdgpu 3.42.0 20150101 for 0000:30:00.0 on minor 0
+		[    4.598742] systemd[1]: Finished dracut initqueue hook.
+		[    5.043799] systemd[1]: dracut-initqueue.service: Deactivated successfully.
+		[    5.043873] systemd[1]: Stopped dracut initqueue hook.
+		[   10.007951] systemd[1]: Starting Load Kernel Module drm...
+		[   10.170619] systemd[1]: modprobe@drm.service: Deactivated successfully.
+		[   10.170718] systemd[1]: Finished Load Kernel Module drm.
+		[   13.750415] snd_hda_intel 0000:10:00.1: Handle vga_switcheroo audio client
+		[   13.750632] snd_hda_intel 0000:30:00.1: Handle vga_switcheroo audio client
+		[   13.879276] snd_hda_intel 0000:30:00.1: bound 0000:30:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
+
+
+Is that kernel/modconfig config incorrect?
+Not relevant to the problem?
+Something else(where) needed?
+
