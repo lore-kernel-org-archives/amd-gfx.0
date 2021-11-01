@@ -2,129 +2,128 @@ Return-Path: <SRS0=Z8rF=PU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EFC4C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 15:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63474C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 15:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9C436124A
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 15:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C9C436124A
+	by mail.kernel.org (Postfix) with ESMTPS id 22A9860E90
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Nov 2021 15:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 22A9860E90
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 638C56E884;
-	Mon,  1 Nov 2021 15:00:46 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FD826E881
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 15:00:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14B56E8B9;
+	Mon,  1 Nov 2021 15:11:17 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180B36E8B9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Nov 2021 15:11:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CmWYwWEBzIZJtRMJLBGTHKp53a/PR+X/qvqqr2yeHSZ0ESjPQ0qULGpaLHw3AYKrDwLP56951Zxzi/qIwQCV0cD45OoKotIQMJgZVoupMOTIZax0Jf0BSb+/rPABxmvi70RwuzWdZmd2wFcq4dxGfAnD0PzOWoo2TFrmxkj7rqhYk9WpxUZWz7fVNwnxo6+JYx3yJlC1SC1m1Mj76+Nftgg0089zOcODgWe6GZbMRSdQgGLchCqgVlyTfRXit2gE2ICXcHEyyqNYjeXE1MEE0/nTilSzUuYui6L4gRhFEwN25tihwszbYs5E5xkq/qNqhNy5NDH9AlPyH1RsgYBqyg==
+ b=gYt3e6KupVFC2KUhfwf8IxORB990m+OENV5f8zO6e9k65iACYOUzgajX2xJkDjgTcf1x5IwfWrAbQKiih1M8bS8/J7G0x6fPHcnBrI/mp+0N1pcZQZ1iis8jqqe/6KLaYNGEPqP7s6o/SsLUq9NCeiu7NzGmZ1HlEahvi7rt4w7j9z8hqmcjDeiy7zREaNj233oOp648EXSzYXZTv1uV8LChqq3xKth5Znhafiif8kLj7BIVnMgNiBuW8BmaymTosthI/XtG8eS1zTnxmWITAWiVWT0JLFuA0mxTcy3A8y3j4dovC9quHuHFHSjhMgY5wCvdJmcSXTaXkhYDOESUEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gt5WybNRVsgp0NPkxqEF9TTF9yRWfkbqxpRK3xt41+M=;
- b=Cx7/7Qt7OguR0SCf2EAfCn9ks4of6igSkMHR1ZK5e/FrtsjWU/NlDRS9/8wayx4WciTDOC5QZUVniG6ZnKx2fVa9PDWXzk7TdQw0DoNtnsHOrhD/9b18MY11zDu/AQSj+i2Qv3p/Jj/6xWT19yTlE/NTEwgbW9lzDXkQ3OL4BzBycrf3ZHJkc+1xhHH2X31EK04fNZauAoeELYOEovAhadopmERVcWgUotSr046w/+8zOtqn84ySeL+rmcMfnsX6do/qHaz9TJt7huImRkvatKKlWijvE51Pg9iK+pjaLKHnEICsHr8QeDJEV8vFnRnxbUjKeid3ZN4WcYkyS+lamQ==
+ bh=iUxv/2uJqXnjl4YsMy69N/t57OyCEVJdusMXo8Mlfsw=;
+ b=kswLSYOG/0pOytVYWaPZu4Zk4Ypn3ostIlj6GLWYK0dZaxb1+vJCamrSr1uokvQ64NzJvQ1oSJ6PnCqkp7EphfvIlirWopWsxONyH/MrmYkphrbOsXqR+ELNrXb/mW7RNKWXr3mZL3Nn5ypzCAoD1qnLxq+oit+pUSc93BlfsUrjmsyvrkKPuLV0ejdG2AIMqB3GMEoVnr4Fd/VBJka+LrmEjsuP7Mm4UYgIxvEM6kiOZcpqco9zjp7++5/G+J127E3qn49Zq0NEoKpXJhG8UfCSH1p/msQKSkGAsnbjL19M/C3jD3N99gbGQjJGlCWX4iHOkawYtP8hhajDWn1srw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gt5WybNRVsgp0NPkxqEF9TTF9yRWfkbqxpRK3xt41+M=;
- b=VX0OM81HaPOC5hVZlYG8JUQJn76ljebCtnikxi1CZnjhcGQmXJb6MlOFNvKtV30xD+SaLruRWqxbW1Zk6XFGYe7wXt8bG0qnYyvwHIf4LxVPMGDpmVRQhe7fgRbpTFyNh47WGOvvH5ffl2GjqawsK4e7xaDmRVpWbEmzgh/8+sA=
-Received: from BN9PR12MB5145.namprd12.prod.outlook.com (2603:10b6:408:136::20)
- by BN9PR12MB5066.namprd12.prod.outlook.com (2603:10b6:408:133::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Mon, 1 Nov
- 2021 15:00:43 +0000
-Received: from BN9PR12MB5145.namprd12.prod.outlook.com
- ([fe80::95a:91ab:e851:36aa]) by BN9PR12MB5145.namprd12.prod.outlook.com
- ([fe80::95a:91ab:e851:36aa%7]) with mapi id 15.20.4649.018; Mon, 1 Nov 2021
- 15:00:42 +0000
-From: "Wang, Chao-kai (Stylon)" <Stylon.Wang@amd.com>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel@daenzer.net>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/display: Fix error handling on waiting for
- completion
-Thread-Topic: [PATCH] drm/amd/display: Fix error handling on waiting for
- completion
-Thread-Index: AQHXylnIMPhvZ4IkM0uuRCA4/ZrKQ6vlbdcAgAlex0I=
-Date: Mon, 1 Nov 2021 15:00:42 +0000
-Message-ID: <BN9PR12MB5145DB44B7D71979F8277C0BFF8A9@BN9PR12MB5145.namprd12.prod.outlook.com>
-References: <20211026110740.152936-1-stylon.wang@amd.com>
- <0087f1c6-733e-4c31-63c5-c39da51138c1@daenzer.net>
-In-Reply-To: <0087f1c6-733e-4c31-63c5-c39da51138c1@daenzer.net>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-01T15:00:42.832Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 1b300223-4998-47ce-799c-5dc172b2a979
-authentication-results: daenzer.net; dkim=none (message not signed)
- header.d=none;daenzer.net; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2f8e4ba8-1d5c-440b-8a07-08d99d486058
-x-ms-traffictypediagnostic: BN9PR12MB5066:
-x-microsoft-antispam-prvs: <BN9PR12MB5066BDA68A7E69CF67482B03FF8A9@BN9PR12MB5066.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 850/M+9FoK4I3ATTN74TZFj4PD6/DbLYhMjcCOp5juHyw/MQR2ZSE9uZl91VfapQC2uHBUSE/2aHyQuzKjk2Kbr05QNdXRtILOEsQyMlmgpiZamaQ90I8KQCrya32cNLLTeEyY54JC+cIeKlm5sDirJqlQheZuBbTai6890ty16Pn7gWu40AeJvzzbFrRDtZ3s+c4IzJd8O2jRGduHBdTzIgUZAfDMGc982yF0IKWcw2VdVhqLtEdutcW5oTKoc2xH5ajrYeMxexECV+4W7yZg8wV6T/COxfrj87nNhy405SB3vNPeyS1k4RVeldhwK174R2Hof8Vv99wjXEW7sl0P7Q9E+8MIJMPpzLZT9A3x1xspBavBMpwUH9m+31se4ndSCLSEeV+WpE4e7BWMmHStR849giEdzbH9A69LtCuDGppVHrcQp1HcXgysDAyq9dW+WFwTMMicTjLR74pM3nwLRB3AVwvZV9tc/HCXflNSv5HwJ6S8fnwFDLYDqzrphsms88SIkYB8qVsFVArNbHVGDOcmueD4hmEMaq7kgj6lw0WeTvNayGYqnCBzCOXnhtA3AFL+gCr6aPawt4JDFXX6ymYm2B2ayVjjYxf+qGnUalgRHFVkRF17ar8YtgCnjMJFFnDRWRSwVoBQqNh3lcRTuDQuwW1eWVlPWLVjQAjhjKH6TsmyY+kcjmJQ1Wa9zIV6uhlzWHrZ2mZdV/mU8fNyjH6pFQSncdffX9u5BpuEIXwdHaModivZnhC24kl6RGPw4tCtPweV5DycsmHsQndlOXxAUmQRBFXz/99Emt5bsUbJzYTVx2oTJCFZ7PX3nceIU2x9rDYLWvF0v9y3b3pg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5145.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(26005)(38100700002)(2906002)(4001150100001)(7696005)(38070700005)(4326008)(55016002)(53546011)(6506007)(5660300002)(966005)(54906003)(508600001)(122000001)(83380400001)(66476007)(166002)(9686003)(71200400001)(86362001)(316002)(19627405001)(186003)(66946007)(110136005)(45080400002)(8936002)(33656002)(8676002)(52536014)(64756008)(66556008)(66446008)(76116006)(91956017)(66574015);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Pk6y3vAmdp1EbskDqyJioKAeCnD2fetSWiIp58Ubc+PdFU+R98ZwigvCFL?=
- =?iso-8859-1?Q?HNMuSf0TkWStJJO3Db/ZOkKD+uLROlwV3oxztTZcp7ZhgDvQLBu9fObhby?=
- =?iso-8859-1?Q?OZ0LGAlj3b2lxow5NefI7oZHNSkXdvDE1WQHpGVXjZTqdePlsK61QSLmYR?=
- =?iso-8859-1?Q?gCKitjcGJS+DB3PYNrbjglNE30T4JTgk7Bh6voXTWa0VdCWVdrDge+5yo8?=
- =?iso-8859-1?Q?03oNwa42JQKbA12w/751YVeBPRJ/f7HId+7o2beEWOvy46uv3VjOLMjknL?=
- =?iso-8859-1?Q?W75/fUmublwLnyDSAEjZEuhJnAYpHJgjeqSyPDZnrhLSOksHUxH09cxLLG?=
- =?iso-8859-1?Q?7rH4M9F/Aw+IuWog32CImGzMKKtgmNPcRKxHWZdf00tjxX4ft59B6zsn+V?=
- =?iso-8859-1?Q?unFWLEt8grrpaBsNnXGZNcLVHFpRalXKpqCAnNgowvRBNLEdLtzphxJQ5Q?=
- =?iso-8859-1?Q?vKqa9PSw4ox+zrTZzEwxQj1ukBQJXACtw7Bky/LvTEypYhBF5xvoegxS3r?=
- =?iso-8859-1?Q?IFesDyN6hxGKzTO7VT7si6HIBc0Fc9W1PNF3LfVAj8B+BXAGNC8DYlRXSf?=
- =?iso-8859-1?Q?Gt1GPNz+kDyhbHMrwJwYOXjOWnJXGWL5xACmXO6GpCBwfalm371Xk8kCCM?=
- =?iso-8859-1?Q?jbqQYZskSVWNmy1389vLAWSknh/+WGvl2z6UPxhzhW4Eli8LU9jmkwcEYi?=
- =?iso-8859-1?Q?HvBq46NU1OGd0c231SkQKzbVHM5gjXSjYVBab+yuNWh4bACoaNSvH2Kizu?=
- =?iso-8859-1?Q?2PeqlKeNUfHp/vozHgPN5mFj39siCdsaTOyoRRf7S8PRmSN7xSZ/pLQpkC?=
- =?iso-8859-1?Q?wFm4AAIUwSEGSMws73XjbDnSkKx+rP+No5OyX0NEnqnhR5zKeH+mcQFaQq?=
- =?iso-8859-1?Q?x5xgzxzGyE6A0lQPf2/Di++DWEWlphKUwHKbqGNXoWKHsDlJ1OJFtgRycg?=
- =?iso-8859-1?Q?H7Gijtkhxapyi0DnP9Ws+0RR3DHh+hqP7NheUs6E0AuQduSfFZQ5+MoGvc?=
- =?iso-8859-1?Q?xPE7/nIYRHRB37VW7jGWEWz3HkuKnCND4ANjivJBGC7a8jFvepLSx3c3qe?=
- =?iso-8859-1?Q?ETo3Qde/WwReauGXSxAhf/WbUsaPuBOH2Nz/i6igONU6T/1uyDsSNbICnN?=
- =?iso-8859-1?Q?CWPnJXMTzA8QbbWg7kRAscqAPDSnt1FYGFSRU7WLIY3PnDc8NhS+NUir8w?=
- =?iso-8859-1?Q?cQl67anrppTSIwI+2fCdLv9hdlBwg39S/hDyjxCStGfVE/lu33QDDtI5Y4?=
- =?iso-8859-1?Q?qU3yMOX1C0UdttR7AqL2DDst//anOKcuyU6xumJUrgvPrzj2i/2DI9n7/c?=
- =?iso-8859-1?Q?oV6CRZN4frBHqz87zrZ0dRHNOo/ebh+X1AIMenJPzN3rFZrp3cbfk0doia?=
- =?iso-8859-1?Q?ayXyIF0YSTQ5Qk+uP+FEElW7QhNPKE2b92CQqQ9yZJIxPl6NpbK30K5Kfs?=
- =?iso-8859-1?Q?df6MWCMDsAaphpHQb9M9OvXwCgZR4g6T12mJcC9kYUAn/kni2eOgMnem8E?=
- =?iso-8859-1?Q?YoYLIYhiUGLVd1LO0DHX//XTdEalvAnqrcoP9xQxJvhS09LhTt+JZC5QeZ?=
- =?iso-8859-1?Q?C422m0s4qTZ7J8uZ8Mwh4HAlZjQNwkWF/TP/zKZNnnAamqpUtCAPZ2rXHB?=
- =?iso-8859-1?Q?27SZLTUiupI2qTYIIVw0kaB4Pf4RSP571qxj8lC+zW3ONbrOesRIh4uvME?=
- =?iso-8859-1?Q?h9p1jbK4NJ1mVmYumrM=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB5145DB44B7D71979F8277C0BFF8A9BN9PR12MB5145namp_"
+ bh=iUxv/2uJqXnjl4YsMy69N/t57OyCEVJdusMXo8Mlfsw=;
+ b=MSK/iJWl7Tij8tix7Pm+O9JWylSb2Prw3oRmG3Ng6MLDPrT8YhGH/eY61cZVJjF1qonbzFRcyB6zt4SeFP4ZOcWnaHpPGggTDVX/xizl08MU2fYOSOgeE4sqEzkeymxTRQSr9MSoljiMFg1H8IsZ1KV16jD9paLrq2DaC9aAb8E=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB5247.namprd12.prod.outlook.com (2603:10b6:5:39b::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Mon, 1 Nov
+ 2021 15:11:15 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::5425:6607:8b21:1bab]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::5425:6607:8b21:1bab%6]) with mapi id 15.20.4649.019; Mon, 1 Nov 2021
+ 15:11:15 +0000
+Subject: Re: [PATCH 1/3] drm/amdkfd: Fix SVM_ATTR_PREFERRED_LOC
+To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211101125513.999187-1-Felix.Kuehling@amd.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <02ae4372-e250-504e-d7dd-5206596e9be5@amd.com>
+Date: Mon, 1 Nov 2021 11:11:08 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20211101125513.999187-1-Felix.Kuehling@amd.com>
+Content-Type: text/html; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0327.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18c::8) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
+Received: from [172.27.226.38] (165.204.55.251) by
+ LO4P123CA0327.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:18c::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.14 via Frontend Transport; Mon, 1 Nov 2021 15:11:13 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bfec1caa-9730-418e-a8a1-08d99d49d8f7
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5247:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5247D76CA5A2EF2059353163E68A9@DM4PR12MB5247.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: F8J9IUFsO3zEm0mvvFZaHR9pUC92jDFZpuCskvya375qgymOuSmqrKkocMhVFK9qMcDm4Gn6kmxUsg3bnfS1iudazJAKCF6lWEOUqQfhiC/6LcUnGEWRXO1dWa2Ibx9mlIcCFYVzMsLZ5ilopqkyddHjDADd+MNigb2tDmu230ContdsslrFYfXWbH+YxARgHmFWNehIL5v5YM1y1BoRk+IPevPWk0Y9DYVK+Q0X/6RpyE5pz3hbyMtCSrOhLH/+aa4xtbLFPDhNf8i57E3pzDDfKn0zGuAAoUfjqzMs2n6g+lC3+mqKfkF4VX7qK2Emz5QAh2K2kWm5y2CYekPAN6xIPJ6mkoqm+VNwOQ8PKgFgX3ba/B3CicNI2JxTL50d6es85oNbA6nHk5YZDw4u8ONRieMpWLvTNsDBID893paReV9+rYbd8W0h0QT1zHfYiAaw85tWmL1iznrQvAUWAgIKT12wJUV5+eaWPtY303b7XHtNDXRjPJHkbMsGcjWkd8UJkG+j8ARQctW2AjHIk0gvF3VgNeR44uLC7V6TEPdHQF6Pt95c6DDHEoZNzUNNcj5pcimt7OxvQlxZ5coDo7EDXTuHK3lpyxcbHXW5ZSiFJVxopLJ3C7GeEQgysO6mCya5aue8/PHUcLPa/hXAYb+5f3VE94dLkpbGIBZWcfjrLF8WEDvrzxT0Kx3xRY2pdfDkuj8wsr2kv2MVY/BXJI1nmcCSOnyH+2dRQnmExyI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(508600001)(66556008)(6666004)(66946007)(66476007)(8936002)(4326008)(6486002)(31696002)(2616005)(956004)(16576012)(316002)(83380400001)(8676002)(186003)(26005)(31686004)(5660300002)(38100700002)(2906002)(36756003)(53546011)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnNoZHFyelIrTWtzSmN2VFE3NXJhZkZ4dURkemc4Wkl5Y3JPVEx1TDZMSXQr?=
+ =?utf-8?B?QTgvN2EwRk52MFg3Z3k1T1c2NUJ2Y09adkY1OXdXUVg2UTBFWGh6Q3JZbUli?=
+ =?utf-8?B?UXhJYXJuRmtDMGpMUTk2cHMzVjU3U0RJQmtqNXRHZVFFU0M4TEU4NUVndWRl?=
+ =?utf-8?B?MDUvT3hObDVoM1h0ZjZGTzY2eUowQ0ZXSjR5aktPQ2hnYzluYjUwdnp2WXBO?=
+ =?utf-8?B?V3UzaGcwdnQwNWg1d01zWmZQWDYvZ2FvbkRLaFE3UDA0b095N2tFbjlWa1BQ?=
+ =?utf-8?B?bjNWM3lmaUlUSlQ4R1pjUW02MG8rN1FoRE9iNlBQa1hLcW9PcEJkUnZpZTli?=
+ =?utf-8?B?N2pSdGpwLzk3anBFQVBqL2toeVN6eGhRRkdjbVJVMFdqVHIrWE5MNmQ1WVRo?=
+ =?utf-8?B?VFN0czNOTFAvSitKY2N6NTU5NTBnMk1tcGNkdlo0MzFFcC8xRHNDdFBvZWp0?=
+ =?utf-8?B?YWYzVDRJTGdoT2NkVlVMY2pmYUdkcUVsZXR1L3VkRmhtYkdvaXAzZDhjNkFV?=
+ =?utf-8?B?RVFmY2lLcGk4cFcwbFE5d2l3SlZpWXVLc0k4bmNpSEoxTWYxZXFoNyswZXd5?=
+ =?utf-8?B?dXJ4dzlyNk9aLzQ1aENqVzV4VC93em15UGlrL3B4SVFtRFNIcEpIUytGVHky?=
+ =?utf-8?B?bTUreXBnd0ZBQStEMkdabWNhdko2eFZSNVNyWlVrNHZDMkpQSU9BNHRzc2hH?=
+ =?utf-8?B?QTgrOHFsa2g1MU1tb0QxYmFVNlhha0M0eHpjL2l5R2RpanNvYWdRZGNVVU90?=
+ =?utf-8?B?dXN2bnhGVG9uMzdXV1lvNGpkY1pEYTFxdWNZSkkzTUR6ZWhGS0pPbzJWaHI3?=
+ =?utf-8?B?Rk15TlFqQVVXVGR6TCtYc3AyYUZGS0RyZDJpenpVT20rL3hidFBqZDlNbnAr?=
+ =?utf-8?B?ZG8wZUFpalJFSHdZVFFGVFdZZks1NmMrTkFaZ2haVlAwYmJSVXNkWjNrem42?=
+ =?utf-8?B?MExUMHQ2cGplTjREWDB4VUdXeXVGazVIWDZIckxmQ1BTWnFJSnB3QjJBQWha?=
+ =?utf-8?B?RHhHamZsMTVRMDd6N0dhdE9ObEsyMWd0K21WTTZLaU1IOXBVM1F4c2JmNEw3?=
+ =?utf-8?B?dk5vbll3a3RkakhiY2J2Vlg2OEVhZlRwaHY0UFlsUzVnbk5QUW1GMTdBOVRD?=
+ =?utf-8?B?LytQU2NHV0RETWxSNDJJM0xQaHlDMlpJTjhwR2NscUZRcE9UVjNCSDE0eFEw?=
+ =?utf-8?B?MWZjdWpLbWpwOGFPNFNsK3NoSDV5SFErdTA1UDBjaFZqL2R6NlVQWXd1cGZ0?=
+ =?utf-8?B?SEpsd0tNMFQ5Z3NBZDVETDBNSFRjaERmQTZBOUtsdTdDN3QyT2FsVXBDL2Jp?=
+ =?utf-8?B?YTJ2QW5JU3VaYVhXYUwrTGZUUUpaSDd5N3M1ejQxcW80RVpWTUg1WEJYME9s?=
+ =?utf-8?B?cnJtSGUreE55MDV5UkRvQjJwYVRyUEY5N0lOb3pnRHZkMHRDTE85R0JVcjNx?=
+ =?utf-8?B?eWtCb2xsUmZpZTVlOXpvOS82c01ob05hekhYc3QwQ2k4aXhrQ3REUDRTY3gw?=
+ =?utf-8?B?b0kzYXNWdFlrcW9DR2R4MFE2QVY3VDZpUmFva2JjWEZhd2c4K2hOdzExWVlw?=
+ =?utf-8?B?cy91eXJHR3k0Q2JqMzliVWkvMitKTWR0TmlpaGtYRHZRQnBrTEF1MkQ2Y1Vl?=
+ =?utf-8?B?Si9sL2xHOEEyL29JbDREcUJ2QWtIUEFtT1I4cnpLak0vUUx4T25hcE9zdXlp?=
+ =?utf-8?B?SEh0R0lpSDF3V0NFM3FGR0p2THdHUi9HemIyYWgwWkpWWEVSUXd4RWxaU3Q5?=
+ =?utf-8?B?cVhsbVVvZk1LcmNMRU9RNDlvVEZSTmIwVmJkSVRuelJlNDVHWWF3UXU0dTYr?=
+ =?utf-8?B?YkJmS2ZaSTV1VlNQQjg0VHhEbnBwdjNUdndwZDhhdjVncS9GV3JoR05BQllV?=
+ =?utf-8?B?dnVNd01tUVNlNjB0TkFTeDZBZnVML1dqMTBqaXFEaHRNaWwrTXZTdkVISkxB?=
+ =?utf-8?B?WU1PdTR5bTFwUjQ3YzlKUEN2N1JwK0xwSUdhU1dUelloL0JuK1pNYXlSWFFU?=
+ =?utf-8?B?Tkw4bldjWmtDWDYrZEdTZEpjTEozYVhVczQvazBJWGdvNW11b1ZMUnNRaE1m?=
+ =?utf-8?B?anNacWY1MHRhNFdZbDQ4QVFkVWFwYkFuM0Y5NmlIWE11M1BSdTRuWjd3YUw4?=
+ =?utf-8?Q?fX/M=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfec1caa-9730-418e-a8a1-08d99d49d8f7
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5145.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f8e4ba8-1d5c-440b-8a07-08d99d486058
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2021 15:00:42.7076 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: R5YUg77koXpNamJ87CSVTEnX1YRPTfjkqXGL3XNNtgvT1EDS2eRiIyN+V9h4C1P/95wIU+KOa4EW7UfAPXUcyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5066
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 15:11:15.4708 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ufZnW5Lp44AgQ8q1wrSvngCGpRt5C14WUOmGF6yL0QfHTLRukEjhXN/Oo0/bcUvv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5247
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,342 +135,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>,
- "contact@emersion.fr" <contact@emersion.fr>
+Cc: philip.yang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB5145DB44B7D71979F8277C0BFF8A9BN9PR12MB5145namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-11-01 8:55 a.m., Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20211101125513.999187-1-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">The preferred location should be used as the migration destination
+whenever it is accessible by the faulting GPU. System memory is always
+accessible. Peer memory is accessible if it's in the same XGMI hive.</pre>
+    </blockquote>
+    <p>This patch series is</p>
+    <p>Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a><br>
+    </p>
+    <blockquote type="cite" cite="mid:20211101125513.999187-1-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">
 
-[AMD Official Use Only]
+Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-Hi Michel,
-
-The problem with -ERESTARTSYS is the same half-baked atomic state with modi=
-fications we made in the interrupted atomic check, is reused in the next re=
-try and fails the atomic check. What we expect in the next retry is with th=
-e original atomic state. I am going to dig deeper and see if at DRM side we=
- can go back to use to the original atomic state in the retry.
-
-
-Regards
-
-Stylon Wang
-
-MTS Software Development Eng.  |  AMD
-Display Solution Team
-
-O +(886) 2-3789-3667 ext. 23667  C +(886) 921-897-142
-
----------------------------------------------------------------------------=
--------------------------------------------------------
-
-6F, 3, YuanCyu St (NanKang Software Park) Taipei, Taiwan
-
-Facebook<https://www.facebook.com/AMD> |  Twitter<https://twitter.com/AMD> =
-|  amd.com<http://www.amd.com/>
-
-
-
-________________________________
-From: Michel D=E4nzer <michel@daenzer.net>
-Sent: October 26, 2021 11:51 PM
-To: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; amd-gfx@lists.freedeskto=
-p.org <amd-gfx@lists.freedesktop.org>
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Siqueira, Rodrigo <Rodrigo.Si=
-queira@amd.com>; contact@emersion.fr <contact@emersion.fr>; Kazlauskas, Nic=
-holas <Nicholas.Kazlauskas@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Fix error handling on waiting for com=
-pletion
-
-On 2021-10-26 13:07, Stylon Wang wrote:
-> [Why]
-> In GNOME Settings->Display the switching from mirror mode to single displ=
-ay
-> occasionally causes wait_for_completion_interruptible_timeout() to return
-> -ERESTARTSYS and fails atomic check.
->
-> [How]
-> Replace the call with wait_for_completion_timeout() since the waiting for
-> hw_done and flip_done completion doesn't need to worry about interruption
-> from signal.
->
-> Signed-off-by: Stylon Wang <stylon.wang@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 4cd64529b180..b8f4ff323de1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -9844,10 +9844,10 @@ static int do_aquire_global_lock(struct drm_devic=
-e *dev,
->                 * Make sure all pending HW programming completed and
->                 * page flips done
->                 */
-> -             ret =3D wait_for_completion_interruptible_timeout(&commit->=
-hw_done, 10*HZ);
-> +             ret =3D wait_for_completion_timeout(&commit->hw_done, 10*HZ=
-);
->
->                if (ret > 0)
-> -                     ret =3D wait_for_completion_interruptible_timeout(
-> +                     ret =3D wait_for_completion_timeout(
->                                        &commit->flip_done, 10*HZ);
->
->                if (ret =3D=3D 0)
->
-
-The *_interruptible_* variant is needed so that the display manager process=
- can be killed while it's waiting here, which could take up to 10 seconds (=
-per the timeout).
-
-What's the problem with -ERESTARTSYS? Either the ioctl should be restarted =
-automatically, or if it bounces back to user space, that needs to be able t=
-o retry the ioctl while it returns -1 and errno =3D=3D EINTR. drmIoctl hand=
-les this transparently.
-
-
---
-Earthling Michel D=E4nzer            |                  https://nam11.safel=
-inks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fredhat.com%2F&amp;data=3D0=
-4%7C01%7Cstylon.wang%40amd.com%7C251ee7aba8574015713a08d998986a5f%7C3dd8961=
-fe4884e608e11a82d994e183d%7C0%7C0%7C637708602663589383%7CUnknown%7CTWFpbGZs=
-b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C10=
-00&amp;sdata=3DLcSFyj%2FJ9VYbNfxJQRjpiRAcurbzTbD5yUVysxzpmXs%3D&amp;reserve=
-d=3D0
-Libre software enthusiast          |         Mesa and Xwayland developer
-
---_000_BN9PR12MB5145DB44B7D71979F8277C0BFF8A9BN9PR12MB5145namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-Hi Michel,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-The problem with -ERESTARTSYS is the same half-baked atomic state with modi=
-fications we made in the interrupted atomic check, is reused in the next re=
-try and fails the atomic check. What we expect in the next retry is with th=
-e original atomic state. I am going
- to dig deeper and see if at DRM side we can go back to use to the original=
- atomic state in the retry.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-Regards</div>
-<div id=3D"Signature">
-<div>
-<div></div>
-<div></div>
-<div></div>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0px; margin-bottom:0px; margin-top:0; margin-bottom:=
-0"></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><u><b>Stylon Wang</b></u></span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black">MTS Software Development Eng.&nbsp;&nbsp;|<b>&nbsp;&nbsp;AMD</b><=
-br>
-Display Solution Team</span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><b style=3D"color:rgb(32,31,30); font-family:Calibri,sans-serif; =
-font-size:14.6667px; background-color:rgb(255,255,255)"><span style=3D"marg=
-in:0px; font-size:9pt; font-family:Arial,sans-serif; color:black">O</span><=
-/b><span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; =
-color:black; background-color:rgb(255,255,255)">&nbsp;+(886)
- 2-3789-3667 ext. 23667&nbsp;&nbsp;<b>C</b>&nbsp;+(886) 921-897-142</span><=
-br>
-</span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<b><span style=3D"margin:0px; font-size:9pt; color:rgb(242,101,34); letter-=
-spacing:-1.4pt">-----------------------------------------------------------=
------------------------------------------------------------------------</sp=
-an></b><b><span style=3D"margin:0px; font-size:9pt; color:rgb(242,101,34)">=
-</span></b></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><span tabindex=3D"0" style=3D"margin:0px; padding:1px 0px; border=
--width:0px 0px 1px; border-bottom-style:dashed">6F, 3, YuanCyu St (NanKang =
-Software Park) Taipei, Taiwan</span></span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><a href=3D"https://www.facebook.com/AMD" target=3D"_blank" rel=3D=
-"noopener noreferrer" style=3D"margin:0px"><span style=3D"margin:0px">Faceb=
-ook</span></a>&nbsp;|&nbsp;&nbsp;<a href=3D"https://twitter.com/AMD" target=
-=3D"_blank" rel=3D"noopener noreferrer" style=3D"margin:0px"><span style=3D=
-"margin:0px">Twitter</span></a>&nbsp;|&nbsp;&nbsp;<a href=3D"http://www.amd=
-.com/" target=3D"_blank" rel=3D"noopener noreferrer" style=3D"margin:0px"><=
-span style=3D"margin:0px">amd.com</span></a></span><span style=3D"margin:0p=
-x; font-size:10pt; font-family:Arial,sans-serif; color:black">&nbsp;</span>=
-</p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-&nbsp;</p>
-<p style=3D"margin-top:0px; margin-bottom:0px; margin-top:0; margin-bottom:=
-0"></p>
-</div>
-</div>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Michel D=E4nzer &lt;m=
-ichel@daenzer.net&gt;<br>
-<b>Sent:</b> October 26, 2021 11:51 PM<br>
-<b>To:</b> Wang, Chao-kai (Stylon) &lt;Stylon.Wang@amd.com&gt;; amd-gfx@lis=
-ts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Siqueira, Rodrig=
-o &lt;Rodrigo.Siqueira@amd.com&gt;; contact@emersion.fr &lt;contact@emersio=
-n.fr&gt;; Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: Fix error handling on waiting =
-for completion</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2021-10-26 13:07, Stylon Wang wrote:<br>
-&gt; [Why]<br>
-&gt; In GNOME Settings-&gt;Display the switching from mirror mode to single=
- display<br>
-&gt; occasionally causes wait_for_completion_interruptible_timeout() to ret=
-urn<br>
-&gt; -ERESTARTSYS and fails atomic check.<br>
-&gt; <br>
-&gt; [How]<br>
-&gt; Replace the call with wait_for_completion_timeout() since the waiting =
-for<br>
-&gt; hw_done and flip_done completion doesn't need to worry about interrupt=
-ion<br>
-&gt; from signal.<br>
-&gt; <br>
-&gt; Signed-off-by: Stylon Wang &lt;stylon.wang@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--<br>
-&gt;&nbsp; 1 file changed, 2 insertions(+), 2 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; index 4cd64529b180..b8f4ff323de1 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; @@ -9844,10 +9844,10 @@ static int do_aquire_global_lock(struct drm_de=
-vice *dev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; * Make sure all pending HW programming completed =
-and<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; * page flips done<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ret =3D wait_for_completion_interruptible_timeout(&amp;commit-&gt;hw_do=
-ne, 10*HZ);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ret =3D wait_for_completion_timeout(&amp;commit-&gt;hw_done, 10*HZ);<br=
->
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (ret &gt; 0)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D wait_for_comple=
-tion_interruptible_timeout(<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D wait_for_comple=
-tion_timeout(<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; &amp;commit-&gt;flip_done, 10*HZ);<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (ret =3D=3D 0)<br>
-&gt; <br>
-<br>
-The *_interruptible_* variant is needed so that the display manager process=
- can be killed while it's waiting here, which could take up to 10 seconds (=
-per the timeout).<br>
-<br>
-What's the problem with -ERESTARTSYS? Either the ioctl should be restarted =
-automatically, or if it bounces back to user space, that needs to be able t=
-o retry the ioctl while it returns -1 and errno =3D=3D EINTR. drmIoctl hand=
-les this transparently.<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"https://nam11.safe=
-links.protection.outlook.com/?url=3Dhttps%3A%2F%2Fredhat.com%2F&amp;amp;dat=
-a=3D04%7C01%7Cstylon.wang%40amd.com%7C251ee7aba8574015713a08d998986a5f%7C3d=
-d8961fe4884e608e11a82d994e183d%7C0%7C0%7C637708602663589383%7CUnknown%7CTWF=
-pbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D=
-%7C1000&amp;amp;sdata=3DLcSFyj%2FJ9VYbNfxJQRjpiRAcurbzTbD5yUVysxzpmXs%3D&am=
-p;amp;reserved=3D0">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fredhat.=
-com%2F&amp;amp;data=3D04%7C01%7Cstylon.wang%40amd.com%7C251ee7aba8574015713=
-a08d998986a5f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6377086026635893=
-83%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h=
-aWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DLcSFyj%2FJ9VYbNfxJQRjpiRAcurbzTbD=
-5yUVysxzpmXs%3D&amp;amp;reserved=3D0</a><br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mesa and Xwayland de=
-veloper<br>
-</div>
-</span></font></div>
-</div>
-</body>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 9a46ba190ea7..8d37ee755b34 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2250,7 +2250,7 @@ svm_range_from_addr(struct svm_range_list *svms, unsigned long addr,
+  * migration if actual loc is not best location, then update GPU page table
+  * mapping to the best location.
+  *
+- * If vm fault gpu is range preferred loc, the best_loc is preferred loc.
++ * If the preferred loc is accessible by faulting GPU, use preferred loc.
+  * If vm fault gpu idx is on range ACCESSIBLE bitmap, best_loc is vm fault gpu
+  * If vm fault gpu idx is on range ACCESSIBLE_IN_PLACE bitmap, then
+  *    if range actual loc is cpu, best_loc is cpu
+@@ -2267,7 +2267,7 @@ svm_range_best_restore_location(struct svm_range *prange,
+ 				struct amdgpu_device *adev,
+ 				int32_t *gpuidx)
+ {
+-	struct amdgpu_device *bo_adev;
++	struct amdgpu_device *bo_adev, *preferred_adev;
+ 	struct kfd_process *p;
+ 	uint32_t gpuid;
+ 	int r;
+@@ -2280,8 +2280,16 @@ svm_range_best_restore_location(struct svm_range *prange,
+ 		return -1;
+ 	}
+ 
+-	if (prange-&gt;preferred_loc == gpuid)
++	if (prange-&gt;preferred_loc == gpuid ||
++	    prange-&gt;preferred_loc == KFD_IOCTL_SVM_LOCATION_SYSMEM) {
+ 		return prange-&gt;preferred_loc;
++	} else if (prange-&gt;preferred_loc != KFD_IOCTL_SVM_LOCATION_UNDEFINED) {
++		preferred_adev = svm_range_get_adev_by_id(prange,
++							prange-&gt;preferred_loc);
++		if (amdgpu_xgmi_same_hive(adev, preferred_adev))
++			return prange-&gt;preferred_loc;
++		/* fall through */
++	}
+ 
+ 	if (test_bit(*gpuidx, prange-&gt;bitmap_access))
+ 		return gpuid;
+</pre>
+    </blockquote>
+  </body>
 </html>
-
---_000_BN9PR12MB5145DB44B7D71979F8277C0BFF8A9BN9PR12MB5145namp_--
