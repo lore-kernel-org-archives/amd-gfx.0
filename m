@@ -2,84 +2,131 @@ Return-Path: <SRS0=itHt=PV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5AA2C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 15:10:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE751C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 15:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 86E6560EE9
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 15:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 86E6560EE9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id B96EA60F90
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 15:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B96EA60F90
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 467DA72BE7;
-	Tue,  2 Nov 2021 15:10:49 +0000 (UTC)
-X-Greylist: delayed 359 seconds by postgrey-1.36 at gabe;
- Tue, 02 Nov 2021 15:05:52 UTC
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3EA86FFC7
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Nov 2021 15:05:52 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id EA46B580749;
- Tue,  2 Nov 2021 10:59:52 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 02 Nov 2021 10:59:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-type:content-transfer-encoding; s=fm1; bh=
- 0rItuH1D1Um19LY8C97JBMbr4ytaW/WENRWdGOHvCn0=; b=RJBy6ktp/D8Go4xE
- xTDLGvqvcRrnCSOCDdeFHDK5tP1knfteICl8k7+PVLWVC+bp5vV4ON+N4xI5cx7z
- sBakpWe0Jk2c2QVG5J0sSk29yueFwEuQKckH6JnMPE1zlQEd9vUX0hLjkjRYple1
- AI8ZZrXUqOcOBLdGtLVEHpiATgkl9TVfGaXY0wczqBMdnEO1ZyG61hfevsXDV9xf
- CbB0cNggISWuZM0ohpUFCqj1FCEt7xJuGWc4oW3Dp4ILHuvBMXBI6wsKz/fLgzY9
- HxynAgxa3R1MqIw6LEdSIu1b5L5TrE6LkmtdeobbmGJShuYF1IHJduqPJsZj2HIZ
- bJQSeA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=0rItuH1D1Um19LY8C97JBMbr4ytaW/WENRWdGOHvC
- n0=; b=VDIISEiAZetymQV0OYVCVgeJqh1q1yMNBmMNt6W1YmRncuXv3Yv6WBXLk
- o47iGGMv0639GonWfMr3EMRcPWOp2Zju8IhQoKg50N7lQ78fdeu0ejjSAZ4G80En
- CvQCBjF7RniWaCOYe08owFWr+XSK2wwcL2QyCtjR5jLJyqoDFrEe/t+4X/1hdrFt
- CuabTUwVD6U1lmlgBgjUiqOIXFeQjKHvuIzObqasahJulsQfEiun3HPMLraxopG9
- T+YJq2QQF5FfFF9p/4brfEiiEDBq94v0nbVegoKzqa3mMQaazj9hLlp0uNCKEWli
- YLWGgNSZUOEneC6JaFOAf/+/9yfHA==
-X-ME-Sender: <xms:Z1KBYda53Um-xQMCPll9-fUs3-jWyVbtteywWWeErohtnmxCHo-yNw>
- <xme:Z1KBYUaAnNW2BELEhw9ufe7R_qw33RALFQdkZsh3Cp0B5J-7CvC1j4amiWUN6Dhmn
- qAPeIV02yh2Sl2zits>
-X-ME-Received: <xmr:Z1KBYf_ZyXo4m3OjIeHbFMsUQ8CpjugFonZ4OzKIyiG8cxJnI-_UPsN9ChImoC40r7aAKTC61PuqwCDER02O0X-yks4IqdJaDNApNbhi>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrtddtgdeghecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvffufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepjeeugfegkeffgfeuvedtvddufffhjeffjeejvddvudduteehhfefhfefgeei
- keeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:Z1KBYbpXxP-_3AkV_vncwHU8hQKTeOh8ImGX5OVMtY5aUpPXZt7CrQ>
- <xmx:Z1KBYYo6JrW3yDl6DHgNjSy2howJSIBBXnLCjM9zAV3l5RigV6_6Hg>
- <xmx:Z1KBYRSF_Z2ARBakAhzXiZvYSVEVecIGeX1ir2IFn8JOWimAi3Pwtg>
- <xmx:aFKBYV7DKzYa2YO0wBpn7BsnkKue3UZvbiphle3I94sO1ucCjdFiCA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 2 Nov 2021 10:59:50 -0400 (EDT)
-From: Maxime Ripard <maxime@cerno.tech>
-To: Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
-Subject: [PATCH 01/13] drm/connector: Add define for HDMI 1.4 Maximum Pixel
- Rate
-Date: Tue,  2 Nov 2021 15:59:32 +0100
-Message-Id: <20211102145944.259181-2-maxime@cerno.tech>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211102145944.259181-1-maxime@cerno.tech>
-References: <20211102145944.259181-1-maxime@cerno.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C32F6E99D;
+	Tue,  2 Nov 2021 15:54:13 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 213BD6E04E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Nov 2021 15:54:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ah118lFnf4NUF+1owvjg2XkvVMDZSwbm9vvw9Kd557MPmAp14fX+9J/ltcVYA+EU7mOQSPNtL9mbFamt95OqvhW9GhxnW84t/3aCXqRCI8USIF7sxSQBe1OYdWxKfYk3yRY8u0Q9OVSejN6NcOLUXVu20/UgkIqWK7poKHPRLdIN90QlprgAqwvmoJl03pIsbF7y1C409zETSIKtRiJTvQkBGkN5L88ElOcP7UrMT/ktkoF5BtatXyKMshg7IKnViXEnZDwHM+F2WvhAKE6gRn5zPBrDi5k8aJeR3rB4+p1kLXKa08erut+NjhhhjAn3oOD2EFGhnTbcx4oPdAt0+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q+FY+KjMC6NOaFwcF+peDqmlEmrbIjzPQRvseVttzp8=;
+ b=laPo6Wy5mms4yT4FMxg928TTMz2p2clnIJUfrJ0HeD9ILB6cKMvOoo9sFhl8Qj83rYOvYeSQ/HMsmmPMUQxefgoGHD7EJ+XhZ1fLoCgyChkPTqZsS+rkl0UNjw7pCOrUiH7fPseFYsPBGjUIlJ3aZhn5rQn4ofbLTmyJx5Rwv9ZCec5PlfGUiQk/XaYrUjSBgw1zkOq1F8rh6VxBsRCSC7C1BLfxsbjmACbJgyd6I19ssj2D+xUCKry+XVAjVgwYtfm5AZnbg3ApkvJYiExRLj/WeFD0WsAHkVJrZCuPHRXP/aSiQu3GWYaTYL1LLg0ZkV4XOomTryYWOtwiXMFyXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q+FY+KjMC6NOaFwcF+peDqmlEmrbIjzPQRvseVttzp8=;
+ b=lqMILunysUMu34Y7EmyJAezYWhK0T7yWaTN25KV3yurnvvZeMgOEyzvLft4eAmTxh1SBndp5x8Vq92imfb+4U74TbaA2Yjqj4k5QbzXwfChtwszb7nhIeTJ63S+NF917yDZTmo6o+or2Dio70bW/3aPIQrkSeMfgK9q4clVtuHk=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4423.namprd12.prod.outlook.com (2603:10b6:208:24f::18)
+ by BL0PR12MB4866.namprd12.prod.outlook.com (2603:10b6:208:1cf::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Tue, 2 Nov
+ 2021 15:54:08 +0000
+Received: from MN2PR12MB4423.namprd12.prod.outlook.com
+ ([fe80::d105:f008:718e:9b2a]) by MN2PR12MB4423.namprd12.prod.outlook.com
+ ([fe80::d105:f008:718e:9b2a%5]) with mapi id 15.20.4649.020; Tue, 2 Nov 2021
+ 15:54:08 +0000
+Message-ID: <38f47a35-4212-dc20-20ed-ef60659bcda5@amd.com>
+Date: Tue, 2 Nov 2021 10:54:05 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Subject: Re: [PATCH] drm/amdkfd: avoid recursive lock in migrations back to RAM
+Content-Language: en-US
+To: philip yang <yangp@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211102024040.11666-1-alex.sierra@amd.com>
+ <86db53c1-538a-c479-fffd-88888141c2e6@amd.com>
+From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
+In-Reply-To: <86db53c1-538a-c479-fffd-88888141c2e6@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0156.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::11) To MN2PR12MB4423.namprd12.prod.outlook.com
+ (2603:10b6:208:24f::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 02 Nov 2021 15:10:48 +0000
+Received: from [172.31.131.13] (165.204.78.25) by
+ BL1PR13CA0156.namprd13.prod.outlook.com (2603:10b6:208:2bd::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.4 via Frontend
+ Transport; Tue, 2 Nov 2021 15:54:07 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d024ef92-21d3-48bf-d62f-08d99e190100
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4866:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4866CFEC75D61FED7C31AC8FFD8B9@BL0PR12MB4866.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RH6AQv3ViP2oV7tUstNMbmguANEWG3GY/j8HiD/uAfjGAoziYE5ZsNhmnwhLJPdtoanVRBVhTNe0WEVqyzWiU4byVIr6k5pstWp/K3cCLjfIQ8RKzO3yAaFg5B47+l1Bm1udX3bGXh+OhZ2CJRbwcxi48xu3F0xW1WbsDIDegTclw5PcBk65AHWZDmzdC/mKxTFMSo0BrXBg4b1gqHOtg528c7RcyBs4nVXD/IyjEbkvx5TFNkY0MlIfpZbOkCauI8o44ajOeiX2GAmTkPLtusgPS8FfCoBmkn32k/3IOI9ex9QhGas0/vvs0SvRs8M12nk0GVgJk10aCU2Vl2kr+GsXjtzGYMArxOmbUoGTtxAGwVyeVlMjbBpLkAOsh6CShO/dIx/TDq97WfeKrJY9me3MEz1vpX8OvppzKy7UUXRg9lvt5PKJ3RGwawHOBfCrsq8qlZUsJQyHQD//wqxrufqEDPIVLMvDL/9iNuarYpy97It7fjxbqAmxBDDdMiIFJNp790Gj0CwOmSGdy4DEcY9CvupmAZP3t6EGv/D1ucCq6XOyvDpun8ipbpQDmeEg8VYaV74A+3Kn/bYU6uDf+JpHgqyV6KnPmTFOfXZQwAY6fXHhhQpY1s/4ZAMMVbeRvxVhy5KynBLNWRJAhC0o1+Q9pGfQN9r3PeFeSf/9EW1ycxSdM0bpebpiqVVyJIEqP/H1Bex7SeD8n/SHBfvN1EWSeZBFwh58Zy1C9mRoWEcp8LcI0DKOQIchcpd3I4ZY
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4423.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(26005)(36756003)(8936002)(8676002)(53546011)(508600001)(38100700002)(6486002)(31696002)(86362001)(186003)(2906002)(316002)(66476007)(16576012)(956004)(66556008)(2616005)(5660300002)(31686004)(83380400001)(66946007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cW05enNJYWR2WTdEZEVzU0hwb3YxeWxFRy9CZTJUbWRjdHpUL3IyODBvYk9G?=
+ =?utf-8?B?c2dLWWxIWi9VRVlNUTBjUGVMeElVMXl0T2dmYnFWVjN2VGFKR3VvdXdLSzI3?=
+ =?utf-8?B?RmQrTFBFa1hmMjFIRm9wNHFDNFVRMHhKN0NTNUpkM1VsTjNmTkVNVVJMTW1k?=
+ =?utf-8?B?WndZbU0xRy96SUFGMWtUVUwvZTZoVzBxU2V5dHovUTRwWUJaaHpqS2wzQllv?=
+ =?utf-8?B?T0Zzb0pUT1E1UnRhcE16T21EVVVKbENjRDdnYXpRcEtvUmU4VGdwR3pLWWZJ?=
+ =?utf-8?B?RGN2UTN6N3ltb0hoMVRHTzdQZkFZRGtWbU52cnpuRjVKdUpycjVPNlVkRXFZ?=
+ =?utf-8?B?UjNGcjVtR0ZuUHNoYndGSWNIalJ4RTNabGlDV1pGSFRkekpvMHBVUk4wZlAz?=
+ =?utf-8?B?aDRnRmtyWHdIME9kT2IxUGdxMWo5YzVHMmI5cnFyQjM5ZHM0V29Fa3lJN1VZ?=
+ =?utf-8?B?cHFDbTdvKy9GS29mVkhycmZRZXluNTMweFU5SzBLMTdWUkJUOGpINWlheUQx?=
+ =?utf-8?B?bWNoWUxmdTJ0Y2VVVkZUVnYya1J3c2tYTDhoUnF0TE9acVNveStxRllKUUpV?=
+ =?utf-8?B?WllEWXVDcTBickwyL0k0dU1RY05BN3gxMUF0eTRqdlpRNlkyU2MxOUZpdUlq?=
+ =?utf-8?B?SmFEaHNiNEhIU1BZVFJQYlArNUxvVWdQVjAxQjF5ME1yTEttNzFLSzVXYjlW?=
+ =?utf-8?B?Q0pOOGh3WXBsZUZPREVCa1VrMzNBTWNjaXArbGVISkdiNnhkQ21teVk3Yk1M?=
+ =?utf-8?B?YlVtRktGa3M3c09ZUWQrQXpSbjhScENUMysrbkNyYWowTmIva0d6Zi96MjUr?=
+ =?utf-8?B?Zjd6YkJCV2c2VW5LS3NyUGY1azZHL1p5Vi9UN3Noa0Q3aW5xZHU2clpxZXl2?=
+ =?utf-8?B?dlJEVURKclFzbzhudmJTRXVndmVDdGorZWMvNTY4M3l3NWlhN00ySjFXdFA0?=
+ =?utf-8?B?eTFHajV4c1N6L3FpOHVka1lsdk1wWUNkTzRTUThQM0FMcDg3RGFGKzRsWEtL?=
+ =?utf-8?B?MmJVOU9IdkJKcnl2SFhmbEE0aWhIWTFYcUl1OFBueWtSSnJVbXA5a0tYUFhW?=
+ =?utf-8?B?b1RSK0FaUlQyUWtBSWUybHNrYzR1RjlDMGV6VHU5ZVNmaVVyYmxNYjI1MWl1?=
+ =?utf-8?B?Y1B5MFBQR20rNWQ3ZGFDV3J3aUhjVDdwQllqbE9XNkxzK2pheWM5S3ZiOXBj?=
+ =?utf-8?B?UFpOOUNnVUpwdXB3M2U2bytWMVZXN2VpcUo2cXVQNkxyaWN4YTE0WjF4dmhy?=
+ =?utf-8?B?cVYrMnJBMTkzNTNTdEdmelFjeXQ0bWVUMElkR1IyOC8xbnlMclBXU0piMlIr?=
+ =?utf-8?B?MjB5b0NINzkxbCtta1BtazZTaUZrYkd4WFAyaTVqVXdGM1RxVng3ZE5tT0I4?=
+ =?utf-8?B?VWlyQ09abGFUTlBBa1ZBWUFLU1ZCc21TQVZLSzl4S0RBcEVQcFlYRngrSGQx?=
+ =?utf-8?B?Qk54QTRsUXE5c040OGdDem1nRmFPVTltZzZZaEdBVlM4VGpld1ZFZVBZbHdu?=
+ =?utf-8?B?bnZyQmdLRWRIS01MUVFrRzFCT3R2ZFc0REdPWDR1YzhYODM5M0RFOENQTWJV?=
+ =?utf-8?B?ZWFnL0JYOHI5dUtRRVNTakpqd3BrYkFjaEx1Y2c5VEMrQU1ZOG5sVzhyd09t?=
+ =?utf-8?B?Vm9NckE0U0hiVFRMYmZ4aHNlTzFGY21XOEFxeGtDc0xjQSs3Y3dkOTdydEg5?=
+ =?utf-8?B?Uk9yY1NxeWFaM3ZVSFI3eG1RYVZLdUh2TjEyVk9laENGY3NZaVlxeGtEbFNl?=
+ =?utf-8?B?eWducTlCTFdYOUdvSWpOc0gyenYrMS9VcU1nV1hCQmV4eWVBMGgvSTY2ajJD?=
+ =?utf-8?B?WUUxQmFSaUMzRGJzckMrRlpmNDVSYitSTnhqTFErWEk4QUpIc0pqK3Z1bDNM?=
+ =?utf-8?B?d3ZZZlZyU3dJcDRBU3NoTkR4UnVLbE9pcks5K0xacllOTTZVZlhiaXRLcHB2?=
+ =?utf-8?B?U2dLZGFQa0doUlQvbWZhdGJTdkhjUFhDZmg5anVKNG92WE1HS3pXeHZGbmxo?=
+ =?utf-8?B?bzczNG5ZVlhnNWcvNDB1QzlPMFE1ZFVpRUF1YkR6Wk0vQnRJQTZGNEVCYTNr?=
+ =?utf-8?B?V1c4cTJBck5RNWprc2hRUHNLdS9XNWd3NGNzdXNJYUNYSm50L2RwOGx4cjJp?=
+ =?utf-8?B?d01kT0NVYlllOFNtaHFEU1BBNkdGOWZPcWJ4MXA0enduY1RNOE8wRkVhMXVO?=
+ =?utf-8?Q?YlQILWc1F/Ki+6JB7oVNGjk=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d024ef92-21d3-48bf-d62f-08d99e190100
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4423.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2021 15:54:07.9421 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MQr5OIMQQDmfdB0REltLpdwKTu3WyKuDQYX/DMocurezxlUfGJ+wSPwytBjwqezhSx2M7zNpEDHR+VxB/+KZqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4866
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,239 +138,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Phil Elwell <phil@raspberrypi.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Tim Gover <tim.gover@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jonas Karlman <jonas@kwiboo.se>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, Dom Cobley <dom@raspberrypi.com>, "Pan, 
- Xinhui" <Xinhui.Pan@amd.com>, Robert Foss <robert.foss@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A lot of drivers open-code the HDMI 1.4 maximum pixel rate in their
-driver to test whether the resolutions are supported or if the
-scrambling needs to be enabled.
 
-Let's create a common define for everyone to use it.
+On 11/2/2021 10:04 AM, philip yang wrote:
+>
+>
+> On 2021-11-01 10:40 p.m., Alex Sierra wrote:
+>> [Why]:
+>> When we call hmm_range_fault to map memory after a migration, we don't
+>> expect memory to be migrated again as a result of hmm_range_fault. The
+>> driver ensures that all memory is in GPU-accessible locations so that
+>> no migration should be needed. However, there is one corner case where
+>> hmm_range_fault can unexpectedly cause a migration from DEVICE_PRIVATE
+>> back to system memory due to a write-fault when a system memory page in
+>> the same range was mapped read-only (e.g. COW). Ranges with individual
+>> pages in different locations are usually the result of failed page
+>> migrations (e.g. page lock contention). The unexpected migration back
+>> to system memory causes a deadlock from recursive locking in our
+>> driver.
+>>
+>> [How]:
+>> Creating a task reference new member under svm_range_list_init struct.
+>> Setting this with "current" reference, right before the hmm_range_fault
+>> is called. This member is checked against "current" reference at
+>> svm_migrate_to_ram callback function. If equal, the migration will be
+>> ignored.
+>>
+>> Signed-off-by: Alex Sierra<alex.sierra@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 4 ++++
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 1 +
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 2 ++
+>>   3 files changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index bff40e8bca67..eb19f44ec86d 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -936,6 +936,10 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
+>>   		pr_debug("failed find process at fault address 0x%lx\n", addr);
+>>   		return VM_FAULT_SIGBUS;
+>>   	}
+>> +	if (READ_ONCE(p->svms.faulting_task) == current) {
+>> +		pr_debug("skipping ram migration\n");
+>
+> need release refcount to avoid process leaking
+>
+> kfd_unref_process(p);
+>
+Good catch. Thanks Phillip.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Andrzej Hajda <a.hajda@samsung.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Emma Anholt <emma@anholt.net>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Kevin Hilman <khilman@baylibre.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: linux-amlogic@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-tegra@vger.kernel.org
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Neil Armstrong <narmstrong@baylibre.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: Robert Foss <robert.foss@linaro.org>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Signed-off-by: Maxime Ripard <maxime@cerno.tech>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c  | 4 ++--
- drivers/gpu/drm/drm_edid.c                 | 2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c  | 2 +-
- drivers/gpu/drm/meson/meson_dw_hdmi.c      | 4 ++--
- drivers/gpu/drm/radeon/radeon_encoders.c   | 2 +-
- drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c | 2 +-
- drivers/gpu/drm/tegra/sor.c                | 8 ++++----
- drivers/gpu/drm/vc4/vc4_hdmi.c             | 4 ++--
- include/drm/drm_connector.h                | 2 ++
- 9 files changed, 16 insertions(+), 14 deletions(-)
+Alex Sierra
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 62ae63565d3a..3a58db357be0 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -46,7 +46,7 @@
- /* DW-HDMI Controller >= 0x200a are at least compliant with SCDC version 1 */
- #define SCDC_MIN_SOURCE_VERSION	0x1
- 
--#define HDMI14_MAX_TMDSCLK	340000000
-+#define HDMI14_MAX_TMDSCLK	(DRM_HDMI_14_MAX_TMDS_CLK_KHZ * 1000)
- 
- enum hdmi_datamap {
- 	RGB444_8B = 0x01,
-@@ -1264,7 +1264,7 @@ static bool dw_hdmi_support_scdc(struct dw_hdmi *hdmi,
- 	 * for low rates is not supported either
- 	 */
- 	if (!display->hdmi.scdc.scrambling.low_rates &&
--	    display->max_tmds_clock <= 340000)
-+	    display->max_tmds_clock <= DRM_HDMI_14_MAX_TMDS_CLK_KHZ)
- 		return false;
- 
- 	return true;
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 7aa2a56a71c8..ec8fb2d098ae 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -4966,7 +4966,7 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
- 		u32 max_tmds_clock = hf_vsdb[5] * 5000;
- 		struct drm_scdc *scdc = &hdmi->scdc;
- 
--		if (max_tmds_clock > 340000) {
-+		if (max_tmds_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
- 			display->max_tmds_clock = max_tmds_clock;
- 			DRM_DEBUG_KMS("HF-VSDB: max TMDS clock %d kHz\n",
- 				display->max_tmds_clock);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index d2e61f6c6e08..0666203d52b7 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2226,7 +2226,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
- 		if (scdc->scrambling.low_rates)
- 			pipe_config->hdmi_scrambling = true;
- 
--		if (pipe_config->port_clock > 340000) {
-+		if (pipe_config->port_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
- 			pipe_config->hdmi_scrambling = true;
- 			pipe_config->hdmi_high_tmds_clock_ratio = true;
- 		}
-diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-index 0afbd1e70bfc..8078667aea0e 100644
---- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-@@ -434,7 +434,7 @@ static int dw_hdmi_phy_init(struct dw_hdmi *hdmi, void *data,
- 		readl_relaxed(priv->io_base + _REG(VPU_HDMI_SETTING));
- 
- 	DRM_DEBUG_DRIVER("\"%s\" div%d\n", mode->name,
--			 mode->clock > 340000 ? 40 : 10);
-+			 mode->clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ ? 40 : 10);
- 
- 	/* Enable clocks */
- 	regmap_update_bits(priv->hhi, HHI_HDMI_CLK_CNTL, 0xffff, 0x100);
-@@ -457,7 +457,7 @@ static int dw_hdmi_phy_init(struct dw_hdmi *hdmi, void *data,
- 	dw_hdmi->data->top_write(dw_hdmi, HDMITX_TOP_BIST_CNTL, BIT(12));
- 
- 	/* TMDS pattern setup */
--	if (mode->clock > 340000 &&
-+	if (mode->clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ &&
- 	    dw_hdmi->output_bus_fmt == MEDIA_BUS_FMT_YUV8_1X24) {
- 		dw_hdmi->data->top_write(dw_hdmi, HDMITX_TOP_TMDS_CLK_PTTN_01,
- 				  0);
-diff --git a/drivers/gpu/drm/radeon/radeon_encoders.c b/drivers/gpu/drm/radeon/radeon_encoders.c
-index 46549d5179ee..ddd8100e699f 100644
---- a/drivers/gpu/drm/radeon/radeon_encoders.c
-+++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-@@ -384,7 +384,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
- 		if (radeon_connector->use_digital) {
- 			/* HDMI 1.3 supports up to 340 Mhz over single link */
- 			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
--				if (pixel_clock > 340000)
-+				if (pixel_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ)
- 					return true;
- 				else
- 					return false;
-diff --git a/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c b/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c
-index d25ecd4f4b67..bc213232a875 100644
---- a/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi_tx3g4c28phy.c
-@@ -102,7 +102,7 @@ static bool sti_hdmi_tx3g4c28phy_start(struct sti_hdmi *hdmi)
- 	tmdsck = ckpxpll;
- 	pllctrl |= 40 << PLL_CFG_NDIV_SHIFT;
- 
--	if (tmdsck > 340000000) {
-+	if (tmdsck > (DRM_HDMI_14_MAX_TMDS_CLK_KHZ * 1000)) {
- 		DRM_ERROR("output TMDS clock (%d) out of range\n", tmdsck);
- 		goto err;
- 	}
-diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-index 0ea320c1092b..99a2d627bfeb 100644
---- a/drivers/gpu/drm/tegra/sor.c
-+++ b/drivers/gpu/drm/tegra/sor.c
-@@ -1814,7 +1814,7 @@ tegra_sor_encoder_atomic_check(struct drm_encoder *encoder,
- 	 * For HBR2 modes, the SOR brick needs to use the x20 multiplier, so
- 	 * the pixel clock must be corrected accordingly.
- 	 */
--	if (pclk >= 340000000) {
-+	if (pclk >= (DRM_HDMI_14_MAX_TMDS_CLK_KHZ * 1000)) {
- 		state->link_speed = 20;
- 		state->pclk = pclk / 2;
- 	} else {
-@@ -2196,7 +2196,7 @@ static void tegra_sor_hdmi_scdc_start(struct tegra_sor *sor)
- 
- 	mode = &sor->output.encoder.crtc->state->adjusted_mode;
- 
--	if (mode->clock >= 340000 && scdc->supported) {
-+	if (mode->clock >= DRM_HDMI_14_MAX_TMDS_CLK_KHZ && scdc->supported) {
- 		schedule_delayed_work(&sor->scdc, msecs_to_jiffies(5000));
- 		tegra_sor_hdmi_scdc_enable(sor);
- 		sor->scdc_enabled = true;
-@@ -2340,7 +2340,7 @@ static void tegra_sor_hdmi_enable(struct drm_encoder *encoder)
- 	value &= ~SOR_CLK_CNTRL_DP_LINK_SPEED_MASK;
- 	value &= ~SOR_CLK_CNTRL_DP_CLK_SEL_MASK;
- 
--	if (mode->clock < 340000) {
-+	if (mode->clock < DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
- 		DRM_DEBUG_KMS("setting 2.7 GHz link speed\n");
- 		value |= SOR_CLK_CNTRL_DP_LINK_SPEED_G2_70;
- 	} else {
-@@ -2423,7 +2423,7 @@ static void tegra_sor_hdmi_enable(struct drm_encoder *encoder)
- 	/* adjust clock rate for HDMI 2.0 modes */
- 	rate = clk_get_rate(sor->clk_parent);
- 
--	if (mode->clock >= 340000)
-+	if (mode->clock >= DRM_HDMI_14_MAX_TMDS_CLK_KHZ)
- 		rate /= 2;
- 
- 	DRM_DEBUG_KMS("setting clock to %lu Hz, mode: %lu Hz\n", rate, pclk);
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index fab9b93e1b84..fc7247cc1022 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -97,11 +97,11 @@
- #define HSM_MIN_CLOCK_FREQ	120000000
- #define CEC_CLOCK_FREQ 40000
- 
--#define HDMI_14_MAX_TMDS_CLK   (340 * 1000 * 1000)
-+#define HDMI_14_MAX_TMDS_CLK	(DRM_HDMI_14_MAX_TMDS_CLK_KHZ * 1000)
- 
- static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode)
- {
--	return (mode->clock * 1000) > HDMI_14_MAX_TMDS_CLK;
-+	return mode->clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ;
- }
- 
- static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index b501d0badaea..030636635af1 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -260,6 +260,8 @@ struct drm_hdmi_info {
- 	struct drm_hdmi_dsc_cap dsc_cap;
- };
- 
-+#define DRM_HDMI_14_MAX_TMDS_CLK_KHZ	(340 * 1000)
-+
- /**
-  * enum drm_link_status - connector's link_status property value
-  *
--- 
-2.32.0
-
+> Regards,
+>
+> Philip
+>
+>> +		return 0;
+>> +	}
+>>   	addr >>= PAGE_SHIFT;
+>>   	pr_debug("CPU page fault svms 0x%p address 0x%lx\n", &p->svms, addr);
+>>   
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index f88666bdf57c..7b41a58b1ade 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -858,6 +858,7 @@ struct svm_range_list {
+>>   	atomic_t			evicted_ranges;
+>>   	struct delayed_work		restore_work;
+>>   	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
+>> +	struct task_struct 		*faulting_task;
+>>   };
+>>   
+>>   /* Process data */
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> index 939c863315ba..4031c2a67af4 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> @@ -1492,9 +1492,11 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+>>   
+>>   		next = min(vma->vm_end, end);
+>>   		npages = (next - addr) >> PAGE_SHIFT;
+>> +		WRITE_ONCE(p->svms.faulting_task, current);
+>>   		r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
+>>   					       addr, npages, &hmm_range,
+>>   					       readonly, true, owner);
+>> +		WRITE_ONCE(p->svms.faulting_task, NULL);
+>>   		if (r) {
+>>   			pr_debug("failed %d to get svm range pages\n", r);
+>>   			goto unreserve_out;
