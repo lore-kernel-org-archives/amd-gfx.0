@@ -2,48 +2,68 @@ Return-Path: <SRS0=itHt=PV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64A3EC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 13:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE1C8C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 13:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DD8D6108F
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 13:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2DD8D6108F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
+	by mail.kernel.org (Postfix) with ESMTPS id ACEBB610A8
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 13:24:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ACEBB610A8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1BAD6FD0E;
-	Tue,  2 Nov 2021 13:00:33 +0000 (UTC)
-Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD59890E9;
- Tue,  2 Nov 2021 13:00:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1635858027; bh=KZE5be4kZ78AY9HnD875H39rS7AY7Po+gyBhLbeR+7Q=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=gLPzDJ2Zt52jpaCdwkiNzcp7JRczDHs6DAzPfjQOmpW7xHavFW/ZqF+2X4AT7w0y/
- 1DCTS+5mmrc0FzHCKnk5vXz3F0cG7Zy1lx+yJ9+2mFtL99bsA2gi8LCN18hRzZEeT6
- vz6lFJECZyw3qmw9Cna4dfiDWsZBWaTEOcmvpuf0=
-Received: by b-1.in.mailobj.net [192.168.90.11] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Tue,  2 Nov 2021 14:00:27 +0100 (CET)
-X-EA-Auth: kyKYQi70H6EL66+AI7uvNmj5oUg5Z6PG/JpYJTFXfoSMem1EG/HqbLnQ7tSwzwE8WKzJ1Hb3lnp7YzkeWlRV97PALCV7FQLV
-Date: Tue, 2 Nov 2021 14:00:24 +0100
-From: Claudio Suarez <cssk@net-c.es>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 13/13] drm/i915: replace drm_detect_hdmi_monitor()
- with drm_display_info.is_hdmi
-Message-ID: <YYE2aLJeUSx1lk/J@gineta.localdomain>
-References: <20211016184226.3862-1-cssk@net-c.es>
- <20211016184226.3862-14-cssk@net-c.es> <YW8QYsmkm3ZrBAx3@intel.com>
- <YW9L6d7e+RO29VJu@gineta.localdomain> <YXFwB7rN4bvR0Z+m@intel.com>
- <YXKRnUHWuboQKBF1@zorro.micasa> <YXKoMEF/gU98cL9n@intel.com>
- <YXKtIUDk+f2Bnn++@intel.com> <YXXbgWNHts9CMJXD@gineta.localdomain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B5036FF6E;
+	Tue,  2 Nov 2021 13:24:20 +0000 (UTC)
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [IPv6:2607:f8b0:4864:20::732])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2DC6FF6E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Nov 2021 13:24:19 +0000 (UTC)
+Received: by mail-qk1-x732.google.com with SMTP id bi29so19559569qkb.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Nov 2021 06:24:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:reply-to:content-language
+ :from:to:subject:content-transfer-encoding;
+ bh=Vs+RW+QmTfr6AAClFz81xOLAzPMRULeQRqQGsGTra2U=;
+ b=Rvg6I6vPxbqFVgijqe2IYAZazDTyuEg0RZiXH6fAtXatmvJqtw4zT/kxqKdTFFc7GX
+ 1asW5JKegxmfmY4aknHiUV6dQA3Nt4X1fzEGEpd++Ddkeqy8qIJC9pRRm1PQGTR7V/g/
+ aeWcT9/ygMK6hqGh4mFldemmpydboNgCGb8wYMMo0AhgSBNHpOX2806gbQLOrXppkMBw
+ TiidmUfaoycFbVCNljl1Ec7oTpQHRkgK0Q8PKI8ShWOxx1abkYsrldcD71G8LJk+1Zxc
+ oi7lqXXjFIMIMpu40VU9FhDJp0boMmHD8TDH5I4mZYWbVetv+86qfeuFUhwli30copIL
+ z6zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+ :content-language:from:to:subject:content-transfer-encoding;
+ bh=Vs+RW+QmTfr6AAClFz81xOLAzPMRULeQRqQGsGTra2U=;
+ b=7f4u6NBwUY6OBwHiTj9ihSTPudrL7IkMhYKtIRoUGp4FMw9h5qDL1hW5mNA9ISmugs
+ t2NAhlIsy9az15bjJIWi2AziCUcwwvjD4WQebjoQCaMr8Mc5D1Ak/VGyHY9mHyM2nXb/
+ UIZZukbVGyXyyccBVSozHh9qIuGXW6GeMNBRdMOxy5ZsrcXMj3sa3MnxortEIABUeAeE
+ as243uhZ7SJzQmuQm7R9rMO+O7tFcEe6po4f8QDBDKFTnjVSoA62krRpANCN9wLBxb4t
+ jMPohcC2PsRT0jomY3Nlx+VFSA9+9flqnGe88hhff9Cx2AD9Y0v7nKNbXJsSYYZKg+yU
+ a+Dw==
+X-Gm-Message-State: AOAM531sxs+jvnkUx09rowkRHG91Az9dVaWI4p0Ry0pszt+rTFBev1SA
+ w3Ki4GroQd+nxWAQvchU0+bKlApCYL4=
+X-Google-Smtp-Source: ABdhPJxpIFgUF9Eq2N5uzi7SbJSkgJEESuUmO2HhWjSKn4+T1PumlW9223il3iz5VM6ONgM7V/RGAw==
+X-Received: by 2002:a37:2e87:: with SMTP id
+ u129mr29109496qkh.208.1635859458198; 
+ Tue, 02 Nov 2021 06:24:18 -0700 (PDT)
+Received: from mua.localhost ([2600:1700:e380:2c20::49])
+ by smtp.gmail.com with ESMTPSA id r13sm10084205qkp.134.2021.11.02.06.24.17
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Nov 2021 06:24:17 -0700 (PDT)
+Message-ID: <446fda20-a635-3b00-4886-661fff4ab0f2@gmail.com>
+Date: Tue, 2 Nov 2021 09:24:15 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YXXbgWNHts9CMJXD@gineta.localdomain>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.2.0
+Content-Language: en-US
+From: PGNet Dev <pgnet.dev@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: amdgpu support for Ryzen 5XXXG, with integrated graphics: is it?
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,84 +75,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heiko@sntech.de, Emma Anholt <emma@anholt.net>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>,
- amd-gfx@lists.freedesktop.org, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Ben Skeggs <bskeggs@redhat.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Jingoo Han <jingoohan1@gmail.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Sandy Huang <hjc@rock-chips.com>,
- Robert Foss <robert.foss@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- freedreno@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Reply-To: pgnet.dev@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit a92d083d08b0 created the new flag is_hdmi in drm_display_info
-which is set when sink compliant with CEA-861 (EDID) will be treated
-as an HDMI sink.
+i'm running an AMD Ryzen 5600G -- with integrated graphics -- on linux (Fedora34) kernel 5.14.14.
 
-From that day, this value can be used in some cases instead of
-calling drm_detect_hdmi_monitor() and a second parse is avoided
-because drm_detect_hdmi_monitor() parses. A TODO task was
-registered in Documentation/gpu/todo.rst to perform that task in
-the future.
+its color output is wrong.
 
-The flag drm_display_info.is_hdmi is set in the function
-drm_add_display_info(), which is called from
-drm_connector_update_edid_property(). Since commit 5186421cbfe2,
-drm_get_edid() calls drm_connector_update_edid_property() when
-reading the edid data from an i2c adapter. Therefore, in these
-cases drm_display_info.is_hdmi is updated to its correct
-value when returning from drm_get_edid().
+i've reported it to AMD support; their response is that it's ONLY supported on "RHEL & Ubuntu"; they suggest I switch to Ubuntu :-/
 
-Replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-in the cases when drm_detect_hdmi_monitor() is called after a
-read from an i2c adapter using drm_get_edid() in the i915 driver.
+i've reported it here, on list; so far no response -- either from *@amd.com, or in general.
 
-Signed-off-by: Claudio Suarez <cssk@net-c.es>
----
- drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index b04685bb6439..008e5b0ba408 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2355,7 +2355,7 @@ intel_hdmi_set_edid(struct drm_connector *connector)
- 	to_intel_connector(connector)->detect_edid = edid;
- 	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
- 		intel_hdmi->has_audio = drm_detect_monitor_audio(edid);
--		intel_hdmi->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
-+		intel_hdmi->has_hdmi_sink = connector->display_info.is_hdmi;
- 
- 		connected = true;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 6cb27599ea03..b4065e4df644 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2060,8 +2060,9 @@ intel_sdvo_tmds_sink_detect(struct drm_connector *connector)
- 		if (edid->input & DRM_EDID_INPUT_DIGITAL) {
- 			status = connector_status_connected;
- 			if (intel_sdvo_connector->is_hdmi) {
--				intel_sdvo->has_hdmi_monitor = drm_detect_hdmi_monitor(edid);
- 				intel_sdvo->has_hdmi_audio = drm_detect_monitor_audio(edid);
-+				intel_sdvo->has_hdmi_monitor =
-+							    connector->display_info.is_hdmi;
- 			}
- 		} else
- 			status = connector_status_disconnected;
--- 
-2.33.0
-
-
+before wasting more of anyone else's bandwidth on this --
+-- *ARE* the Ryzen 5XXX-G intended to be supported, and known to be functional for general linux/amdgpu usage?
 
