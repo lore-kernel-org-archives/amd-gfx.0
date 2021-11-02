@@ -2,61 +2,48 @@ Return-Path: <SRS0=itHt=PV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C87BC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 13:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82911C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 14:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D06060524
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 13:59:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D06060524
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4C7B060524
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 14:01:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C7B060524
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=net-c.es
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F2072D01;
-	Tue,  2 Nov 2021 13:59:52 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E458F72D01
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Nov 2021 13:59:51 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id bm39so19641978oib.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Nov 2021 06:59:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hGRDipcFHpRhtZGVoh6OOrkjsV95eyyGSGuxwG3Rp5Y=;
- b=ciGXj188hPsOfnK9fXZGh/HNUtHnEOlj2lEUeu6v/1c3yOtIgg9vex5YLfzNYb5HiC
- fGoyCWtPRNxNPqvJN+kpCI/z5JO9UWdFbE1Xdwafh4gzxhibrKgc3t933SX19jOxnoh0
- KJI/hyJB6rmU2AWvqDGSXmVPWYYknQvxnI/IgtzWSlbcbNOKs7b3/j+ZjxkTDJl0gf/W
- pU39MizWW1yv7VU5PbPawwRZAck773tMGz1PFYSAWNvOaL3peem1T0GjrL1EZcKCSZTN
- 5DjIeSCGqdnIqMYOVI8jLKoGCt6X7seVk9RhB0D5vCNdnGpgp9r42Bi+5JXTacX17EOp
- yPYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hGRDipcFHpRhtZGVoh6OOrkjsV95eyyGSGuxwG3Rp5Y=;
- b=6RqXcjlYj7gSgjEPinx4v87V1p7hgtpA6W8DAEiFXPqbUGJ5s3cuhPEFpXA4bRHMwv
- 7uU70vI3oFuKXEYsOEMW1PNUdBDppOfwou6t8vKvZgdGH/br4sTe3dMvhATWrOS3rdWa
- HN5ND74weaSQRzBSvm3llJMOhO+NFhwKbsxjyq/N06BrlCJBk5r17ijbamr1v+m9xPAw
- gnEn78pVlsgP9u37sItx7GYcLV5IKjmyax+lnLH46iZA4z/dvh17ZAwWnWvXBwXyHVy8
- JXTwHj1V2KZYHhnBezd6CqUqj9Dx//VoGRUiMiMIDI9L4gzNTt5JMmGAZ1vC/t0sJdqT
- 4yVw==
-X-Gm-Message-State: AOAM5315aC09FRLTRCpCMoTieo51wksDO7obs08jfjW8FOymtLBzrtJJ
- 6dUPHvSKqP218U9Ni84MQlUqpy2wli80dvPJ7b8=
-X-Google-Smtp-Source: ABdhPJxfotmHb7elO1d19hwcTj946RaW0cuU3vqZWbpyiM2v8Tmqx1R6eixDmY4HRdC04mx3TfYrH6uCuVYtWouzNnU=
-X-Received: by 2002:aca:e08a:: with SMTP id x132mr5125944oig.120.1635861591247; 
- Tue, 02 Nov 2021 06:59:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F4472D2A;
+	Tue,  2 Nov 2021 14:01:13 +0000 (UTC)
+Received: from msg-2.mailo.com (msg-2.mailo.com [213.182.54.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B27DD72D13;
+ Tue,  2 Nov 2021 14:01:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
+ t=1635856506; bh=86oBTMpnXN2rssnmOQ7LA61tTu8gU4eFEfOZP78RisE=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To;
+ b=arAXsp3pJle1r6nOqeqtDf2GduQBJSJKdxquDfPAglkotW2p8bd9ev6Y1hBR3zQtg
+ IuyMT4zYDmmlvKXOVjKcAlGccOqgCOyTr7jvZCiwWUwgT/UAfqSpkdsL+5jWMX7OiY
+ 9iniW7IyoDqfGYNxRqVLIjAV6dqoTLdd5QORxuSQ=
+Received: by b-1.in.mailobj.net [192.168.90.11] with ESMTP
+ via ip-206.mailobj.net [213.182.55.206]
+ Tue,  2 Nov 2021 13:34:38 +0100 (CET)
+X-EA-Auth: FKr0z78nEI7fK18kQiJqc8cm6AQzx1MLFVMzYMgk3A7ptvyPhNNicmEOsJfefFwiU43Mj4ZkxeU8iS9dGsGDy7tpZekUHCqR
+Date: Tue, 2 Nov 2021 13:34:35 +0100
+From: Claudio Suarez <cssk@net-c.es>
+To: Inki Dae <inki.dae@samsung.com>
+Subject: Re: [PATCH v2 06/13] drm/exynos: replace drm_detect_hdmi_monitor()
+ with drm_display_info.is_hdmi
+Message-ID: <YYEwWwZY/D7ylVuN@gineta.localdomain>
+References: <20211016184226.3862-1-cssk@net-c.es>
+ <CGME20211016193513epcas1p4e354183520df0aa4c381b19eb2863262@epcas1p4.samsung.com>
+ <20211016184226.3862-7-cssk@net-c.es>
+ <ee6b3bac-4762-fd8f-c12a-c0a7ea7b56e9@samsung.com>
 MIME-Version: 1.0
-References: <446fda20-a635-3b00-4886-661fff4ab0f2@gmail.com>
- <CADnq5_Nr_c7J-WrZfsOEAHQwerM7vgU=dC0JrO+B7wTh40Z_Wg@mail.gmail.com>
- <d8e3eea3-5a92-8a0a-d15d-a1c2f5024ad2@gmail.com>
-In-Reply-To: <d8e3eea3-5a92-8a0a-d15d-a1c2f5024ad2@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Nov 2021 09:59:40 -0400
-Message-ID: <CADnq5_N-9ibXP5_6gLNZEiOF9kqM55KMpfX05k7AAULN8DiAXg@mail.gmail.com>
-Subject: Re: amdgpu support for Ryzen 5XXXG, with integrated graphics: is it?
-To: PGNet Dev <pgnet.dev@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ee6b3bac-4762-fd8f-c12a-c0a7ea7b56e9@samsung.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +55,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: heiko@sntech.de, Emma Anholt <emma@anholt.net>,
+ Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>,
+ amd-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ linux-tegra@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Jingoo Han <jingoohan1@gmail.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ Sandy Huang <hjc@rock-chips.com>, Robert Foss <robert.foss@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 2, 2021 at 9:48 AM PGNet Dev <pgnet.dev@gmail.com> wrote:
->
-> > Yes, your device is supported.
->
-> gr8, thx!
->
-> > If the issue is related to the whether
-> > or not you can override the ycbcr vs rgb setting for your monitor,
->
-> i'm not clear if its a monitor issue, &/or or a (on-die) 'vid card' issue.
->
+On Wed, Oct 27, 2021 at 07:28:45AM +0900, Inki Dae wrote:
+> Hi,
+> 
+> 21. 10. 17. 오전 3:42에 Claudio Suarez 이(가) 쓴 글:
+> > Once EDID is parsed, the monitor HDMI support information is available
+> > through drm_display_info.is_hdmi. Retriving the same information with
+> > drm_detect_hdmi_monitor() is less efficient. Change to
+> > drm_display_info.is_hdmi
+> > 
+> > Signed-off-by: Claudio Suarez <cssk@net-c.es>
+> > ---
+> >  drivers/gpu/drm/exynos/exynos_hdmi.c | 6 ++++--
+> >  1 file changed, 4 insertions(+), 2 deletions(
+> > 
+> > diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+> > index 7655142a4651..a563d6386abe 100644
+> > --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
+> > +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+> > @@ -893,12 +893,14 @@ static int hdmi_get_modes(struct drm_connector *connector)
+> >  	if (!edid)
+> >  		return -ENODEV;
+> >  
+> > -	hdata->dvi_mode = !drm_detect_hdmi_monitor(edid);
+> > +	/* This updates connector->display_info */
+> > +	drm_connector_update_edid_property(connector, edid);
+> > +
+> > +	hdata->dvi_mode = !connector->display_info.is_hdmi;
+> 
+> Thanks for correcting this. Yeah, we should use drm_display_info.is_hdmi parsed from EDID.
+> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/gpu/drm/drm_edid.c?h=v5.14.14#n4725
+> 
+> Signed-off-by: Inki Dae <inki.dae@samsung.com>
 
-Well, if it's the ycbcr vs rgb issue, it's a disagreement between what
-the monitor wants and what the driver tells the hardware to send.
 
-> that said, most of the rumblings i've found so far _do_ refer to the ycbcr 'vs' rgb setting.
->
-> > you've found the relevant threads about that.  To upstream a solution,
-> > we need to get consensus across drivers on how to handle that and that
-> > has been a challenge.
->
-> 'upstream' here meaning ... AMD.com or Kernel.org?
+Thank you, Inki.
 
-Upstream into the kernel.
+Best regards
+Claudio Suarez
 
->
-> what, if any, additional info from my setup is helpful?
 
-You can try the patches on the relevant bugs.
-
->
-> > I believe there are some experimental patches
-> > on one of the tickets you posted if you want to try them out.
->
-> missed them.  looking again ...
->
-> if there's anything specific you've in mind, pls feel free to 'point'
-
-It's been a while, but I think these are the relevant links:
-https://gitlab.freedesktop.org/drm/amd/-/issues/476
-https://www.spinics.net/lists/amd-gfx/msg53281.html
-https://lkml.org/lkml/2021/6/18/294
-
-Alex
