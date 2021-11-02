@@ -2,74 +2,66 @@ Return-Path: <SRS0=itHt=PV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AECB7C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 09:37:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1FCEC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 09:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75CD36044F
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 09:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 75CD36044F
+	by mail.kernel.org (Postfix) with ESMTPS id 65ACB60EB4
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Nov 2021 09:38:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 65ACB60EB4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0915872D4C;
-	Tue,  2 Nov 2021 09:37:40 +0000 (UTC)
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
- [IPv6:2607:f8b0:4864:20::82a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E72D72D4C;
- Tue,  2 Nov 2021 09:37:39 +0000 (UTC)
-Received: by mail-qt1-x82a.google.com with SMTP id o12so7529594qtv.4;
- Tue, 02 Nov 2021 02:37:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C69D72D78;
+	Tue,  2 Nov 2021 09:38:50 +0000 (UTC)
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAFF76FA9F;
+ Tue,  2 Nov 2021 07:01:40 +0000 (UTC)
+Received: by mail-pl1-x633.google.com with SMTP id s24so14579372plp.0;
+ Tue, 02 Nov 2021 00:01:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:reply-to:subject
- :content-language:from:to:references:in-reply-to
+ h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=U01pN62IGxw0wEpHz7rt+oSLBB7OIWJHCo+M1XzRL6w=;
- b=VBZaVCIldmEEkz48+ooyclOD1v/J5MfydE0imu0dPjkGygs9LKzzAcQFyk3Z2FfUo1
- 3x0AWt+EiFAKZt/Z2lZfIL4FScRwyiosy9cO+pjCQgzeyRMOFr5/re2vNMqOZiGPjb0w
- tymARzDm7vcfMzf66gdiKtomuDo9sAsV68n134C0/AqqqGZLHdZi/Cd7Vxu/LhIL2Nn8
- SQw6tCucSfAO/0tNKIIGZ7QTKMTmOAb9uOCHivv4vwb4HjCLsY2PLirvFNn/ZdK5HwF0
- OsqxSRkKhojPuU3Ab7zCDz8gihGC93ltLJ9NkqGYUnbeZtmPP1RXk7YFEVA8sDMPLwDH
- OwpA==
+ bh=hQoPRk8ivYGfoPLY0uKKJcZTeIJDjKgCSjb0TdRpEts=;
+ b=a4PkgHNAFD9tiKky1CA8bCU1tMMcEmSlOfw1LLmJ9Y+H7Y4klCH+G7ttV9k3ZzVWJS
+ bwoigSRjS5hUNDnzflSNJDflJVufDavIQsH8P9sf+2RWlFZbqrsllWXKfuSFQzc0pc1O
+ WvwJ9KDnPRGd+54acxO3tB6H3hfLJiZenHy21sAwc+FJMTGTlSEoBRrgkoxPpEKuGAsp
+ +SHbwEWleQ2R2fVOo8+jSoBKzTLyKKNFiRqH+/kQ/bIDf284bEWZEm5R88zcGncsGvl3
+ Z5xFpwZIhTBeulSnyZfQrFAaQ4YhiJduwUcMvWr+fnGob8+PGB56jYgxl26XNXXAcMx9
+ N81w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
- :subject:content-language:from:to:references:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=U01pN62IGxw0wEpHz7rt+oSLBB7OIWJHCo+M1XzRL6w=;
- b=msQaDoLvJC/Z3euEzGzKWSfEAZr/sJphTz+47at67fjU36yOZ/dGlHzGeTOJ5mrjp7
- 5ER34136qH72/7HSBBNYkZRf/j24ibMKjBSEM/Fl6lqrKrg6h+lst/105IkprJsBeaHo
- ELNcQBOH6e97NFksFtVmN/7OPQ/SopSU1a5o5VDvAH83BzV/OjY0iTrLBqh6DtWrJ4Qn
- mNf2PHJRhAQTavShJQhMANcsXEx5iQHq5hMIKGPzbB+Tv6ubAf9URWv34/bJU8+wWEnw
- YOkxD+hsnjZLdQWwKwmq+RluiWZ1rYn0Mb3UFnlPzNeJGqzn6K91BAEYiknCiSNAlFfR
- sV+A==
-X-Gm-Message-State: AOAM532hlGLJ2z1NObflD56JawFN504D8kb9e8ac791LDHCT4izOaZ5o
- uA1ll8Rr1OxXEhlm16nhCpnjrp2PEKQ=
-X-Google-Smtp-Source: ABdhPJxWSprHXCHYj6XNl0eEfQLli8nXmJXT0KpDQazoSAjnuCaeM3VhAEghSHMZcZlQmRxx7y8bFw==
-X-Received: by 2002:ac8:7d13:: with SMTP id g19mr37678225qtb.178.1635845858242; 
- Tue, 02 Nov 2021 02:37:38 -0700 (PDT)
-Received: from mua.localhost ([2600:1700:e380:2c20::49])
- by smtp.gmail.com with ESMTPSA id n15sm5269212qkp.102.2021.11.02.02.37.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Nov 2021 02:37:37 -0700 (PDT)
-Message-ID: <0feee174-1ecf-0ab4-407f-67bdaac8b2e6@gmail.com>
-Date: Tue, 2 Nov 2021 05:37:36 -0400
+ bh=hQoPRk8ivYGfoPLY0uKKJcZTeIJDjKgCSjb0TdRpEts=;
+ b=SXg/jFOnjKzEAbw/XKD4EW1VKLvgfjDcm/ib/Rg3R6Z9asGBO/upbllxqQAJ3JJpD2
+ fQmdgA7sNdznd6x8NrWRWHbe2lw4un80r+TP7tpA+nFDUM0u6EdQKeqUlMGejugA17d8
+ O0P8uL4B3wK78LZomYzxP1y3zZLPpx2lI/3lqCdL3cHA+R1xjMxtREKfK1YVcVIo+bri
+ yyF0rtnvEzIoy1gEC/ZzGA8GnnHlCKp7cnJm45laa7BG0KzE67yyD79JylwJgzD3yHLx
+ KPUWGXMiYey1glypK/KlLYdpqE8zo42ubo4mcwl4/fiES+6NVYrC4xwBok85/pehemQ4
+ Vj1w==
+X-Gm-Message-State: AOAM5314dBtnDxw69954103qEM7EOKZXT1uoWZK0ItnSmBbfzD+EATJO
+ OwlCf9XLfxIQGq/w3ocdaPk=
+X-Google-Smtp-Source: ABdhPJwvd0T2hHcaD6+31RvPGMRiHpfwws6wPxEkTzrkBiAS+wxzFXvQR1utMLd7HTCdyJE0DGypBg==
+X-Received: by 2002:a17:90a:4dcc:: with SMTP id
+ r12mr4464805pjl.13.1635836500426; 
+ Tue, 02 Nov 2021 00:01:40 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id e9sm13458381pfv.132.2021.11.02.00.01.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Nov 2021 00:01:40 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: ye.guojin@zte.com.cn
+To: harry.wentland@amd.com
+Subject: [PATCH] drm/amd/display: remove unnecessary conditional operators
+Date: Tue,  2 Nov 2021 07:01:25 +0000
+Message-Id: <20211102070125.4445-1-ye.guojin@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.2.0
-Subject: Re: amdgpu on Ryzen 5600G -- 'purple' background [WAS: Re: amdgpu
- "Fatal error during GPU init"; Ryzen 5600G integrated GPU + kernel 5.14.13}
-Content-Language: en-US
-From: PGNet Dev <pgnet.dev@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <b4adea1b-9a21-75d2-7ee7-25d4f28ef6f8@gmail.com>
- <2303555f-42cd-180c-7a67-1d104bceea7d@gmail.com>
- <CADnq5_PsKDreYH0aNNzfR_TbfMMsfVK=-hCCB0ThZ0PzcLPCpw@mail.gmail.com>
- <c08a4b33-ac3a-ef52-57d3-f55a4c2843c7@gmail.com>
-In-Reply-To: <c08a4b33-ac3a-ef52-57d3-f55a4c2843c7@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 02 Nov 2021 09:38:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,23 +73,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: pgnet.dev@gmail.com
+Cc: Aric.Cyr@amd.com, airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, meenakshikumar.somasundaram@amd.com,
+ lee.jones@linaro.org, shenshih@amd.com, jiapeng.chong@linux.alibaba.com,
+ Zeal Robot <zealci@zte.com.cn>, Rodrigo.Siqueira@amd.com, syed.hassan@amd.com,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, aurabindo.pillai@amd.com,
+ george.shen@amd.com, Anson.Jacob@amd.com, nikola.cornij@amd.com,
+ ye.guojin@zte.com.cn, contact@emersion.fr, qingqing.zhuo@amd.com,
+ Xinhui.Pan@amd.com, Roman.Li@amd.com, christian.koenig@amd.com,
+ daniel@ffwll.ch, Wayne.Lin@amd.com, alexander.deucher@amd.com,
+ nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/30/21 11:24, PGNet Dev wrote:
-> Is that kernel/modconfig config incorrect?
-> Not relevant to the problem?
-> Something else(where) needed?
+From: Ye Guojin <ye.guojin@zte.com.cn>
 
-fwiw,
+Since the variables named is_end_of_payload and hpd_status are already
+bool type, the ?: conditional operator is unnecessary any more.
 
-AMD Global Customer Care's response to question about this 'purple' issue:
+Clean them up here.
 
-"...
-Please be informed that Ryzen 5600G APU is supported only on Windows 10, 11, RHEL and Ubuntu OS. Also, this might vary depending on the manufacturer in your case AsRock.
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Ye Guojin <ye.guojin@zte.com.cn>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
+ drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
-https://www.amd.com/en/products/apu/amd-ryzen-5-5600g
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 43e983e42c0f..752a79724ce1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -784,8 +784,7 @@ static void dm_dmub_outbox1_low_irq(void *interrupt_params)
+ 					plink = adev->dm.dc->links[notify.link_index];
+ 					if (plink) {
+ 						plink->hpd_status =
+-							notify.hpd_status ==
+-							DP_HPD_PLUG ? true : false;
++							notify.hpd_status == DP_HPD_PLUG;
+ 					}
+ 				}
+ 				queue_work(adev->dm.delayed_hpd_wq, &dmub_hpd_wrk->handle_hpd_work);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+index 60539b1f2a80..24dc662ec3e4 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+@@ -626,7 +626,7 @@ bool dal_ddc_submit_aux_command(struct ddc_service *ddc,
+ 	do {
+ 		struct aux_payload current_payload;
+ 		bool is_end_of_payload = (retrieved + DEFAULT_AUX_MAX_DATA_SIZE) >=
+-				payload->length ? true : false;
++				payload->length;
+ 		uint32_t payload_length = is_end_of_payload ?
+ 				payload->length - retrieved : DEFAULT_AUX_MAX_DATA_SIZE;
+ 
+-- 
+2.25.1
 
-I suggest you try installing Ubuntu 20.04.3 and update to latest version and check the status.
-"
