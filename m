@@ -1,125 +1,61 @@
 Return-Path: <SRS0=5wqy=PW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9868BC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 14:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1920C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 15:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4750560F39
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 14:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4750560F39
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id A08446103B
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 15:04:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A08446103B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7FF9735D7;
-	Wed,  3 Nov 2021 14:46:59 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 884816FA3E
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 14:34:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V4gYHijmYGuGBtzN+cArWsbDfZ7G8vg1ULZeXMthF6ak0hynN8itIf6tRTBU3EG02kjfU94nxSoI6kc06JyxItGxeqCwKth/WpVIMONGz6qqFtgxm2RSIrLQSwVeWK+0LFVXvFqmt4ba3BD4OAQqEAa5wFdJ2W69/upaSEDmedQhV4lobON6KZEykYoMT1GyYu6VDlGkL9GqqtxmEmqcZIdxrg/sUurP3BNa7kWXTKPPjGjCyRik3NemCno+qhCI6eKcyOelts0vMhxfDYZHIh1KB6nd1V8tV0C48gWFBhmQnzTpXIKh09ydgbZ8ejwi3xbuJDhSnCuiatlUbIo1AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q6fvnKfaDE9THvnyzYIXHmT4mp4Qz2Qx05igaxYiaZ0=;
- b=QoZRRt8/S/dNI5hrbpiF0PxXruADpzVlhNX9IuFQ3TS6YY591Y6WHQ18vFtKpaynD27hevr0y89xxlsmBO8WE/6DtbBMu2NMyKYnxl4y06gom1h1FFtz1Pq5yU+EikcU4OGON8MxatdphOZb1EqyRseOXjRtzls/gy2fTbyt5glABWGke77uvvNBub2EzLS6CGEwiaDUdxo+Se1mLacYnsMNCLk8s6XvYe3tsrXoWpJKpTDtv1QD4um+POPAVSF3v5170zn9/FKVqf2u3e++fm5qWnk5eSGqRQpKyDKsNHKMPy92UcAXpZyHCjYmeU4sHp+m35EeMSOlWPklXDOngA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q6fvnKfaDE9THvnyzYIXHmT4mp4Qz2Qx05igaxYiaZ0=;
- b=CbLV60tC3U4Zx+8lOkwtzFaGWwOBt1FyOfuSWrODHHss6fIEaCMO/0P4u0jFFgS6Z6/XAOZ70eawNEPdLyGislbv9fl7kfhAduuq6GWGfmYt83m5/YPqCMyjGPn6UtiypovtFHaZqCEli1OmbpfTtDgmaxdgoAUK2zf5+Xt2QPo=
-Received: from BN6PR12MB1874.namprd12.prod.outlook.com (2603:10b6:404:fd::23)
- by BN8PR12MB3428.namprd12.prod.outlook.com (2603:10b6:408:47::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Wed, 3 Nov
- 2021 14:34:49 +0000
-Received: from BN6PR12MB1874.namprd12.prod.outlook.com
- ([fe80::8180:5d1:c5d5:386]) by BN6PR12MB1874.namprd12.prod.outlook.com
- ([fe80::8180:5d1:c5d5:386%4]) with mapi id 15.20.4649.020; Wed, 3 Nov 2021
- 14:34:49 +0000
-From: "Zhu, James" <James.Zhu@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove duplicated kfd_resume_iommu
-Thread-Topic: [PATCH] drm/amdgpu: remove duplicated kfd_resume_iommu
-Thread-Index: AQHX0FLq1mjk3dSU/kyz2nGgKKLCNqvxDNwAgADRXy4=
-Date: Wed, 3 Nov 2021 14:34:48 +0000
-Message-ID: <BN6PR12MB1874ED9C570180113DB71F42E48C9@BN6PR12MB1874.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43A3873630;
+	Wed,  3 Nov 2021 15:04:18 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70E94735CF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 14:50:19 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id u2so4008231oiu.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Nov 2021 07:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dG103FWqBjJE+AKb9ct9y7rmYntuGUGRAENufirbsnQ=;
+ b=Euc8iPuUsHYE1wN1T1OkJ1wC/d+cVEd58nLwOFnvDkWdD1ehUApDC4QYUyXe2Aeqn3
+ HvsObauatVTHHHhag7uJm87PWkFtRdYFYcdUNcFITBhFh8A0coh/IbEK1cGpO3gbU/Pi
+ ZEmBlIAFBsLIzVV3tYB2rKBgmOIXhxaGXwP67NUp8M4tU2s63xgHLbqx5SMnN79u2dDL
+ dAAJjz+0TEyqt5irLTNnSf2NSbdMJux/jj5VAXVUPyBgBtklZlea9sItFFbqH2TMoHyU
+ SjZKLUSfCb+Bl437RQ7ZIgLA/g6OLIWel5NDe2COxr5kA/dG36enabJUtaHOxNOe8Hcb
+ /Vdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dG103FWqBjJE+AKb9ct9y7rmYntuGUGRAENufirbsnQ=;
+ b=FHLH7mno+AJFRzgipwZDOG9O9TMgk0lkuN99SUymWvledw5nrYFiaDNQCpIlXHu2ia
+ vYak3wkBEF7CGHa8uStmZ5Cb3QtHqyh9iY4xnjWld+9jXQbNrvyG6gbjkM5/Z5Q0YfAU
+ ysQTU2gU6uNG0JGbq+TJ0h8+aVOTc2c2A9I2MZ1TKKgYv6Gj8CtnoHcZnArdkH1cu2rv
+ ERxg5U6RQP50jOd3Zkr5xvGLHdQxkvactJgPJ7XsbCQopGCUufhxZ3wlEXFvn8kWnWlD
+ qxGZIL7OoBmtPaLPAugzhvAwkruQhIPjLJhLZH+L9Hr7DXjWYBFfQkvTvALKBYCdnR8N
+ iNAQ==
+X-Gm-Message-State: AOAM533FD1ewpn9N9hHxbRUL8E/uwCk73Tzn0xY93tObQx9Uht6TRkVZ
+ p8xEJXCeKZ10ZV5C90pq6MG/o1psFg57CvUYdtI=
+X-Google-Smtp-Source: ABdhPJySLrFPIXOdTO1rs15o3THrrR7WOEENZhH/ME8tIFZpbjGoviWluL1rbWMSrWZs2I9hI+BRoPU1yq7+iFgKZE8=
+X-Received: by 2002:aca:3f87:: with SMTP id m129mr10976881oia.5.1635951018019; 
+ Wed, 03 Nov 2021 07:50:18 -0700 (PDT)
+MIME-Version: 1.0
 References: <20211103013350.6015-1-James.Zhu@amd.com>
  <CADnq5_OurPZjmq2SbRZzw4MWRO2uFT7H=+F75czmwgG0MgGAiQ@mail.gmail.com>
-In-Reply-To: <CADnq5_OurPZjmq2SbRZzw4MWRO2uFT7H=+F75czmwgG0MgGAiQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-03T14:34:47.493Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 299920ef-d9d9-1575-0647-edd76c6fbb6f
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 87fe7552-08b5-427d-9475-08d99ed71702
-x-ms-traffictypediagnostic: BN8PR12MB3428:
-x-microsoft-antispam-prvs: <BN8PR12MB342864409A4533C6D12D4DD2E48C9@BN8PR12MB3428.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: B6g1Wx7rdoUUVmXUGAZTzsSSKml3Ety/OmJKVpvVQIHOo5fuEiNEu7pZCGF7zl196QoqyptahuNzyKUut6Mjsniw8cywUGDcYACCysAdl/aCPWss0jPqdHk3dVFx5kNG+ZhvWC210g8OBHQy3vZItWrJUvvZG35AtuRrAal/OikaJ1KmFf2wjLxjMIKkJW+8HbD4CvQ5nb2U55wGMlYWEXHahyQ7zxNrhM0T8pb1o9Y//5HoOSO/I9LyBm8L3rQl/aaISrUu7wDtaYxHpg9sBa3QNLdydVPJe5TR7aI/ASEF+xv78TI6frg3UiN/8H5zIWPy/cQrKQk41dUZmEVzG+6GgO3O+iNoDotu4PGG9UDeR97V1A/xsI48+n8P+XsPFr8V0SeqsiASp3TZ+pqVDI4Vqm6qyCpB1LKMlV1J90f1bE2OV1A6T5++6+5bJ17sYsHoReXdJixCJuk/PG2JzX23leOfOPlX2BKCn/i/YazT8DxnxMaJ15hejOLhn9fLhg/PZkfhTzHb/tjAViZLMd49zxoGJio5WdTIh+9E+3QmAz93siA1fAGBq0FSaIkqCla79kS2cLxvdWkBNQ+bo/jfk58gxEVjNpOzZCRAz1waiOKCitZ9cLU/okDSB/YI9qodDelUpi+Gx5dM5h9g+E5Y/IRJY1zvHTndH3XXY9Vd8sywa2AVkxd7zEHiMO38gbctKkJYNpX3gQ3/5zOGIMrNEn8FsDN1OzRMwLYV2astRoyB8JoDcYk4cOdmEyGtf+5ybFLFLk+qTf7/g3ZcOJ3lt8ZExtjW8Cn0qJXiuj8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR12MB1874.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(55016002)(966005)(38100700002)(8936002)(186003)(33656002)(26005)(6916009)(316002)(52536014)(54906003)(9686003)(38070700005)(19627405001)(508600001)(45080400002)(4326008)(6506007)(71200400001)(7696005)(166002)(83380400001)(66946007)(86362001)(122000001)(2906002)(5660300002)(66556008)(66476007)(91956017)(53546011)(76116006)(66446008)(8676002)(64756008)(99936003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sG1dx80kR9Ox/cEXbv6iaxjG/sV8PQC4X7SfkDe0PJtSUmnhv0/LNlpk8Kq4?=
- =?us-ascii?Q?Q1x3Y7Lwqwqc7DngkusDGEld+YXeoSD7xO6WLfndqr3Gt29PYABpuZmzaCJc?=
- =?us-ascii?Q?Bqls5NPyNxWRd4J1xBfWSw8GxskTWBFB87W++cQWxX7uRf9wwtGdat4TVe4z?=
- =?us-ascii?Q?wCWSIyCSob6+RLLsQj936Qb0fbvlzrbKTsYTtF1tOBzairtLOGyFIXNJyr9C?=
- =?us-ascii?Q?8J+clQR76UP1C5AEqbbBqPKiJjarg2WOTBqihtia6kzk49Z/YccEyzTbJEgD?=
- =?us-ascii?Q?algaUUpFMYuBIYOBJAXa8BkClRsoNfLCUR24HunV4HACsls1P3J7wAog/cze?=
- =?us-ascii?Q?AB/z7mE3q9YLH638wy0ktD01qYRo3MUmNRGEhgHx0I6i1n/FnMI4oGTerTIo?=
- =?us-ascii?Q?9uS+a89K9T712AoUP1AU+3KPvQJOzF8wIyfYHfAOYo2EcaeAj3SGts0oCFaT?=
- =?us-ascii?Q?LuU5RutGScZL9xs7qG5Exfac2LrUIV7CTuV3yEhCbgzVQp5y09pFp+hRc/Kb?=
- =?us-ascii?Q?H9lp920RvHdy4A4dESDSBO4OR9Ro5J197hMAon17nsYOC5EX/5ZqkdLvyS8C?=
- =?us-ascii?Q?19j4n4coa97vjPMigEugjnaU4nkkNPXVdxnQXVbX9ZoTVS9XqHvmsOqnewf0?=
- =?us-ascii?Q?GAg2hKTufE1bYCt6zELO6rJQdTILHeyYFAA4gZcFJC9xmkKHaFBtSoYxFGD8?=
- =?us-ascii?Q?tmPvsefT/k2BTNh6KHxX67beEWpax0HY16kjxUWAqL3MSbciW6wTznPGWRr5?=
- =?us-ascii?Q?h/I4kjVejuzi1lvnEX0Vpk02zlcDkdBjtYF+ZGNMHFq9VkGqlx59CNS9Wja2?=
- =?us-ascii?Q?iM7sZFfvOQb34W94jk6hkW4ABjyWQJvOvfe4dOzKUr74RT8//itzxpXR0MA8?=
- =?us-ascii?Q?zkv1HCj6ATNUnMQCbIKsJ2RCo+mEmq90VdLFXWOwlnYYtoqzPrZHrksizhUM?=
- =?us-ascii?Q?4SjPJBp4suy/50qO1didudWumgd0QBZs2a/rB2VOLnIbtGhbwWTEnyZ8JZRX?=
- =?us-ascii?Q?l+mBYx+mirsLKThSiGk1MnzabQMtuDSmrFrnRgVwzcal0T4JKfW5izFDgj4G?=
- =?us-ascii?Q?vXoD3AmjsZXMi++P//JeX95+3Jq8JBxM087KmYl9n8IIdnXdRw4nwofjvHHp?=
- =?us-ascii?Q?VQHL5XsOCKvtXLV6lddJWqhOxQjDCnfJYEFoxVwd/KnlFhgQNhX7V8kNxvT4?=
- =?us-ascii?Q?yrlf6QKnlSUQVIRigueIopjEy0SN2iix/7rYIVe4bBCc5IyDENQH4S51sY/e?=
- =?us-ascii?Q?di9auIh6z65o187HH4Xtjg+IlDG8zczgBDZshOTwASeXvmZTO5eCj15ZF4oV?=
- =?us-ascii?Q?gwwiOivq/bEYCXuFqwMAiHsww2uOgS0YK1XMoZn1VeIx9IrqZCF+n1u1osPx?=
- =?us-ascii?Q?1oX6GX7uks+96BDfQqQqK5i+Sc4zTj776gIJIltZDZrF6w8upC4Q1u0qvw1m?=
- =?us-ascii?Q?pUvOcL2oXtFnrDFkAxpKephBT2RSIzoN0pJu2qppCs66L2rosrnxazXxnKgu?=
- =?us-ascii?Q?gfsHBGZQEL7LZQjbJtQCAVNH764EwQDOp0uX5pMYBnM3kZxonYunvNpYNA?=
- =?us-ascii?Q?=3D=3D?=
-Content-Type: multipart/related;
- boundary="_004_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_";
- type="multipart/alternative"
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1874.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87fe7552-08b5-427d-9475-08d99ed71702
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2021 14:34:48.4475 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fYIZzioIkXQFIc/8q3p7f3fuVG17GZjrHgpL9F867Lpp7HPwii4GToDDlpNBUdNg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3428
-X-Mailman-Approved-At: Wed, 03 Nov 2021 14:46:58 +0000
+ <BN6PR12MB1874ED9C570180113DB71F42E48C9@BN6PR12MB1874.namprd12.prod.outlook.com>
+In-Reply-To: <BN6PR12MB1874ED9C570180113DB71F42E48C9@BN6PR12MB1874.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 3 Nov 2021 10:50:06 -0400
+Message-ID: <CADnq5_MScsyQWiiDsFLwObyrT1ViGL5dFP8K5+3U7TuNHo_cYQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove duplicated kfd_resume_iommu
+To: "Zhu, James" <James.Zhu@amd.com>
+Content-Type: multipart/related; boundary="0000000000004cda3705cfe38733"
+X-Mailman-Approved-At: Wed, 03 Nov 2021 15:04:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,26 +74,163 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_004_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_"
+--0000000000004cda3705cfe38733
+Content-Type: multipart/alternative; boundary="0000000000004cda3505cfe38732"
 
---_000_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_
-Content-Type: text/plain; charset="us-ascii"
+--0000000000004cda3505cfe38732
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only]
+On Wed, Nov 3, 2021 at 10:34 AM Zhu, James <James.Zhu@amd.com> wrote:
 
-Hi Alex,
+> [AMD Official Use Only]
+>
+> Hi Alex,
+>
+> Finally figured out the root cause for this broken,
+>
+> Linux 5.14.15  + afd1818 can fix the issue.
+>
+>
+I'll do that for stable.
 
-Finally figured out the root cause for this broken,
+
+> Linux 5.15rc7 re-apply "init iommu after amdkfd device init" and "move io=
+mmu_resume before ip init/resume" which overwrote afd1818 caused the issue =
+again.
+>
+> 714d9e4 drm/amdgpu: init iommu after amdkfd device init
+>
+> f02abeb drm/amdgpu: move iommu_resume before ip init/resume
+>
+> afd1818 drm/amdkfd: fix boot failure when iommu is disabled in Picasso.
+>
+> 286826d drm/amdgpu: init iommu after amdkfd device init
+>
+> 9cec53c drm/amdgpu: move iommu_resume before ip init/resume
+>
+>
+>
+> So, do we just discard this patch, and revert 714d9e4 and  f02abeb?
+>
+
+I'll do that for 5.15+
+
+Thanks for sorting this out.
+
+Alex
 
 
-Linux 5.14.15  + afd1818 can fix the issue.
+>
+> Thanks & Best Regards!
+>
+>
+> James Zhu
+> ------------------------------
+> *From:* Alex Deucher <alexdeucher@gmail.com>
+> *Sent:* Tuesday, November 2, 2021 10:01 PM
+> *To:* Zhu, James <James.Zhu@amd.com>
+> *Cc:* amd-gfx list <amd-gfx@lists.freedesktop.org>; Deucher, Alexander <
+> Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; James
+> Zhu <jzhums@gmail.com>; Ken Moffat <zarniwhoop@ntlworld.com>
+> *Subject:* Re: [PATCH] drm/amdgpu: remove duplicated kfd_resume_iommu
+>
+> On Tue, Nov 2, 2021 at 9:34 PM James Zhu <James.Zhu@amd.com> wrote:
+> >
+> > Remove duplicated kfd_resume_iommu which already runs
+> > in mdgpu_amdkfd_device_init.
+> >
+> > Signed-off-by: James Zhu <James.Zhu@amd.com>
+>
+> Once you get confirmation, please add:
+> Bug:
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbugzi=
+lla.kernel.org%2Fshow_bug.cgi%3Fid%3D214859&amp;data=3D04%7C01%7CJames.Zhu%=
+40amd.com%7C8662c25150e94d9d664708d99e6deb2b%7C3dd8961fe4884e608e11a82d994e=
+183d%7C0%7C0%7C637715017208277821%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwM=
+DAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3Da6WyuN=
+GhOU5OT3J8GQtXSQ3O5r942D2p%2BbruFUncT0E%3D&amp;reserved=3D0
+> Bug:
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitla=
+b.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1770&amp;data=3D04%7C01%7CJame=
+s.Zhu%40amd.com%7C8662c25150e94d9d664708d99e6deb2b%7C3dd8961fe4884e608e11a8=
+2d994e183d%7C0%7C0%7C637715017208287813%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4=
+wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D=
+E1MFXdprEaldLux2AoXNEeDWL5E85WFv8CrfZODTa%2F4%3D&amp;reserved=3D0
+>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ----
+> >  1 file changed, 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index e56bc925afcf..f77823ce7ae8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -2398,10 +2398,6 @@ static int amdgpu_device_ip_init(struct
+> amdgpu_device *adev)
+> >         if (!adev->gmc.xgmi.pending_reset)
+> >                 amdgpu_amdkfd_device_init(adev);
+> >
+> > -       r =3D amdgpu_amdkfd_resume_iommu(adev);
+> > -       if (r)
+> > -               goto init_failed;
+> > -
+> >         amdgpu_fru_get_product_info(adev);
+> >
+> >  init_failed:
+> > --
+> > 2.25.1
+> >
+>
 
-Linux 5.15rc7 re-apply "init iommu after amdkfd device init" and "move iomm=
-u_resume before ip init/resume" which overwrote afd1818 caused the issue ag=
-ain.
+--0000000000004cda3505cfe38732
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Nov 3, 2021 at 10:34 AM Zhu, =
+James &lt;<a href=3D"mailto:James.Zhu@amd.com">James.Zhu@amd.com</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+
+
+
+
+<div dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:rgb(0,0,255);margin:5pt"=
+ align=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
+;color:rgb(0,0,0)">
+Hi Alex,</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
+;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
+;color:rgb(0,0,0)">
+Finally figured=C2=A0out the root cause for this broken,</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
+;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
+;color:rgb(0,0,0)">
+<pre>Linux 5.14.15 =C2=A0+ afd1818 can fix the issue.</pre></div></div></di=
+v></blockquote><div><br></div><div>I&#39;ll do that for stable.<br></div><d=
+iv>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=
+=3D"ltr"><div><div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;=
+font-size:12pt;color:rgb(0,0,0)"><pre>Linux 5.15rc7 re-apply &quot;init iom=
+mu after amdkfd device init&quot; and &quot;move iommu_resume before ip ini=
+t/resume&quot; which overwrote afd1818 caused the issue again.
 
 714d9e4 drm/amdgpu: init iommu after amdkfd device init
 
@@ -167,179 +240,74 @@ afd1818 drm/amdkfd: fix boot failure when iommu is disabled in Picasso.
 
 286826d drm/amdgpu: init iommu after amdkfd device init
 
-9cec53c drm/amdgpu: move iommu_resume before ip init/resume
-
-[cid:56660919-2db3-4617-93fe-73404cd29433]
-
-
-So, do we just discard this patch, and revert 714d9e4 and  f02abeb?
-
-
-Thanks & Best Regards!
-
-
-James Zhu
-
-________________________________
-From: Alex Deucher <alexdeucher@gmail.com>
-Sent: Tuesday, November 2, 2021 10:01 PM
-To: Zhu, James <James.Zhu@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; James Zhu <jzhu=
-ms@gmail.com>; Ken Moffat <zarniwhoop@ntlworld.com>
-Subject: Re: [PATCH] drm/amdgpu: remove duplicated kfd_resume_iommu
-
-On Tue, Nov 2, 2021 at 9:34 PM James Zhu <James.Zhu@amd.com> wrote:
->
-> Remove duplicated kfd_resume_iommu which already runs
-> in mdgpu_amdkfd_device_init.
->
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-
-Once you get confirmation, please add:
-Bug: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbu=
-gzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D214859&amp;data=3D04%7C01%7CJames.Z=
-hu%40amd.com%7C8662c25150e94d9d664708d99e6deb2b%7C3dd8961fe4884e608e11a82d9=
-94e183d%7C0%7C0%7C637715017208277821%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLj=
-AwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3Da6W=
-yuNGhOU5OT3J8GQtXSQ3O5r942D2p%2BbruFUncT0E%3D&amp;reserved=3D0
-Bug: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgi=
-tlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1770&amp;data=3D04%7C01%7CJ=
-ames.Zhu%40amd.com%7C8662c25150e94d9d664708d99e6deb2b%7C3dd8961fe4884e608e1=
-1a82d994e183d%7C0%7C0%7C637715017208287813%7CUnknown%7CTWFpbGZsb3d8eyJWIjoi=
-MC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
-=3DE1MFXdprEaldLux2AoXNEeDWL5E85WFv8CrfZODTa%2F4%3D&amp;reserved=3D0
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ----
->  1 file changed, 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index e56bc925afcf..f77823ce7ae8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2398,10 +2398,6 @@ static int amdgpu_device_ip_init(struct amdgpu_dev=
-ice *adev)
->         if (!adev->gmc.xgmi.pending_reset)
->                 amdgpu_amdkfd_device_init(adev);
->
-> -       r =3D amdgpu_amdkfd_resume_iommu(adev);
-> -       if (r)
-> -               goto init_failed;
-> -
->         amdgpu_fru_get_product_info(adev);
->
->  init_failed:
-> --
-> 2.25.1
->
-
---_000_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Alex,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Finally figured&nbsp;out the root cause for this broken,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<pre class=3D"bz_comment_text">Linux 5.14.15 &nbsp;+ afd1818 can fix the is=
-sue.=0A=
-=0A=
-Linux 5.15rc7 re-apply &quot;init iommu after amdkfd device init&quot; and =
-&quot;move iommu_resume before ip init/resume&quot; which overwrote afd1818=
- caused the issue again.=0A=
-=0A=
-714d9e4 drm/amdgpu: init iommu after amdkfd device init=0A=
-=0A=
-f02abeb drm/amdgpu: move iommu_resume before ip init/resume=0A=
-=0A=
-afd1818 drm/amdkfd: fix boot failure when iommu is disabled in Picasso.=0A=
-=0A=
-286826d drm/amdgpu: init iommu after amdkfd device init=0A=
-=0A=
 9cec53c drm/amdgpu: move iommu_resume before ip init/resume</pre>
-<img style=3D"max-width: 100%;" size=3D"381936" contenttype=3D"image/png" d=
-ata-outlook-trace=3D"F:1|T:1" src=3D"cid:56660919-2db3-4617-93fe-73404cd294=
-33"><br>
+<img style=3D"max-width: 100%;" size=3D"381936" src=3D"cid:17ce6464fcfcb971=
+f161"><br>
 </div>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
+;color:rgb(0,0,0)">
 <br>
 </div>
-<div id=3D"Signature">
+<div id=3D"gmail-m_-4699608028220022773Signature">
 <div>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">So, do we just discard th=
-is patch, and revert 714d9e4 and&nbsp; f02abeb?<br>
+<div id=3D"gmail-m_-4699608028220022773divtagdefaultwrapper" dir=3D"ltr" st=
+yle=3D"font-size:12pt;color:rgb(0,0,0);font-family:Calibri,Arial,Helvetica,=
+sans-serif">
+<p style=3D"margin-top:0px;margin-bottom:0px">So, do we just discard this p=
+atch, and revert 714d9e4 and=C2=A0 f02abeb?<br></p></div></div></div></div>=
+</div></div></blockquote><div><br></div><div>I&#39;ll do that for 5.15+</di=
+v><div><br></div><div>Thanks for sorting this out.<br></div><div><br></div>=
+<div>Alex<br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex"><div dir=3D"ltr"><div><div><div id=3D"gmail-m_-46996080282200227=
+73Signature"><div><div id=3D"gmail-m_-4699608028220022773divtagdefaultwrapp=
+er" dir=3D"ltr" style=3D"font-size:12pt;color:rgb(0,0,0);font-family:Calibr=
+i,Arial,Helvetica,sans-serif"><p style=3D"margin-top:0px;margin-bottom:0px"=
+>
 </p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+<p style=3D"margin-top:0px;margin-bottom:0px"><br>
 </p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">Thanks &amp; Best Regards=
-!</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+<p style=3D"margin-top:0px;margin-bottom:0px">Thanks &amp; Best Regards!</p=
+>
+<p style=3D"margin-top:0px;margin-bottom:0px"><br>
 </p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">James Zhu<br>
+<p style=3D"margin-top:0px;margin-bottom:0px">James Zhu<br>
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher@gmail.com&gt;<br>
+<div id=3D"gmail-m_-4699608028220022773appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"gmail-m_-4699608028220022773divRplyFwdMsg" dir=3D"ltr"><font sty=
+le=3D"font-size:11pt" face=3D"Calibri, sans-serif" color=3D"#000000"><b>Fro=
+m:</b> Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com" target=3D"=
+_blank">alexdeucher@gmail.com</a>&gt;<br>
 <b>Sent:</b> Tuesday, November 2, 2021 10:01 PM<br>
-<b>To:</b> Zhu, James &lt;James.Zhu@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Deucher, Ale=
-xander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Yifan &lt;Yifan1.Zhang@amd=
-.com&gt;; James Zhu &lt;jzhums@gmail.com&gt;; Ken Moffat &lt;zarniwhoop@ntl=
-world.com&gt;<br>
+<b>To:</b> Zhu, James &lt;<a href=3D"mailto:James.Zhu@amd.com" target=3D"_b=
+lank">James.Zhu@amd.com</a>&gt;<br>
+<b>Cc:</b> amd-gfx list &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org=
+" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>&gt;; Deucher, Alexand=
+er &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank">Alexa=
+nder.Deucher@amd.com</a>&gt;; Zhang, Yifan &lt;<a href=3D"mailto:Yifan1.Zha=
+ng@amd.com" target=3D"_blank">Yifan1.Zhang@amd.com</a>&gt;; James Zhu &lt;<=
+a href=3D"mailto:jzhums@gmail.com" target=3D"_blank">jzhums@gmail.com</a>&g=
+t;; Ken Moffat &lt;<a href=3D"mailto:zarniwhoop@ntlworld.com" target=3D"_bl=
+ank">zarniwhoop@ntlworld.com</a>&gt;<br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: remove duplicated kfd_resume_iommu<=
 /font>
-<div>&nbsp;</div>
+<div>=C2=A0</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Tue, Nov 2, 2021 at 9:34 PM James Zhu &lt;James=
-.Zhu@amd.com&gt; wrote:<br>
+<div><font size=3D"2"><span style=3D"font-size:11pt">
+<div>On Tue, Nov 2, 2021 at 9:34 PM James Zhu &lt;<a href=3D"mailto:James.Z=
+hu@amd.com" target=3D"_blank">James.Zhu@amd.com</a>&gt; wrote:<br>
 &gt;<br>
 &gt; Remove duplicated kfd_resume_iommu which already runs<br>
 &gt; in mdgpu_amdkfd_device_init.<br>
 &gt;<br>
-&gt; Signed-off-by: James Zhu &lt;James.Zhu@amd.com&gt;<br>
+&gt; Signed-off-by: James Zhu &lt;<a href=3D"mailto:James.Zhu@amd.com" targ=
+et=3D"_blank">James.Zhu@amd.com</a>&gt;<br>
 <br>
 Once you get confirmation, please add:<br>
 Bug: <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
@@ -348,7 +316,7 @@ Bug: <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
 884e608e11a82d994e183d%7C0%7C0%7C637715017208277821%7CUnknown%7CTWFpbGZsb3d=
 8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&=
 amp;amp;sdata=3Da6WyuNGhOU5OT3J8GQtXSQ3O5r942D2p%2BbruFUncT0E%3D&amp;amp;re=
-served=3D0">
+served=3D0" target=3D"_blank">
 https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbugzill=
 a.kernel.org%2Fshow_bug.cgi%3Fid%3D214859&amp;amp;data=3D04%7C01%7CJames.Zh=
 u%40amd.com%7C8662c25150e94d9d664708d99e6deb2b%7C3dd8961fe4884e608e11a82d99=
@@ -362,7 +330,7 @@ a=3D04%7C01%7CJames.Zhu%40amd.com%7C8662c25150e94d9d664708d99e6deb2b%7C3dd8=
 961fe4884e608e11a82d994e183d%7C0%7C0%7C637715017208287813%7CUnknown%7CTWFpb=
 GZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7=
 C1000&amp;amp;sdata=3DE1MFXdprEaldLux2AoXNEeDWL5E85WFv8CrfZODTa%2F4%3D&amp;=
-amp;reserved=3D0">
+amp;reserved=3D0" target=3D"_blank">
 https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitlab.=
 freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1770&amp;amp;data=3D04%7C01%7CJa=
 mes.Zhu%40amd.com%7C8662c25150e94d9d664708d99e6deb2b%7C3dd8961fe4884e608e11=
@@ -371,12 +339,13 @@ C4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sd=
 ata=3DE1MFXdprEaldLux2AoXNEeDWL5E85WFv8CrfZODTa%2F4%3D&amp;amp;reserved=3D0=
 </a><br>
 <br>
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Acked-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" tar=
+get=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
 <br>
 <br>
 &gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ----<br>
-&gt;&nbsp; 1 file changed, 4 deletions(-)<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ----<br>
+&gt;=C2=A0 1 file changed, 4 deletions(-)<br>
 &gt;<br>
 &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
 drm/amd/amdgpu/amdgpu_device.c<br>
@@ -385,40 +354,39 @@ drm/amd/amdgpu/amdgpu_device.c<br>
 &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
 &gt; @@ -2398,10 +2398,6 @@ static int amdgpu_device_ip_init(struct amdgpu_=
 device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;gmc.xgmi=
+&gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!adev-&gt;gmc.xgmi=
 .pending_reset)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_device_init(adev);<br>
+&gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_amdkfd_device_init(adev);<br>
 &gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_amdkfd_resume_iommu=
+&gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D amdgpu_amdkfd_resume_iommu=
 (adev);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; goto init_failed;<br>
+&gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (r)<br>
+&gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 goto init_failed;<br>
 &gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_fru_get_product=
+&gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_fru_get_product=
 _info(adev);<br>
 &gt;<br>
-&gt;&nbsp; init_failed:<br>
+&gt;=C2=A0 init_failed:<br>
 &gt; --<br>
 &gt; 2.25.1<br>
 &gt;<br>
 </div>
 </span></font></div>
 </div>
-</body>
-</html>
+</div>
 
---_000_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_--
+</blockquote></div></div>
 
---_004_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_
+--0000000000004cda3505cfe38732--
+
+--0000000000004cda3705cfe38733
 Content-Type: image/png; name="image.png"
-Content-Description: image.png
-Content-Disposition: inline; filename="image.png"; size=381936;
-	creation-date="Wed, 03 Nov 2021 14:33:07 GMT";
-	modification-date="Wed, 03 Nov 2021 14:33:37 GMT"
-Content-ID: <56660919-2db3-4617-93fe-73404cd29433>
+Content-Disposition: inline; filename="image.png"
 Content-Transfer-Encoding: base64
+Content-ID: <17ce6464fcfcb971f161>
+X-Attachment-Id: 17ce6464fcfcb971f161
 
 iVBORw0KGgoAAAANSUhEUgAABcsAAAFRCAYAAACrJvXgAAAgAElEQVR4nOyddVxWyduHx+5auztA
 xRZbVMpEwcIuFF27u7trXV27FUUFxABFxUBQULBokG4ppbneP57zPKCCuu+6q/vbc/mZDz4n5syZ
@@ -7121,5 +7089,4 @@ rycEMs0jiNEdBKJfEi9WBWs4PbkL7/xky8LN21k6Q5eOv+mzvhigntKrW5ncrw0d7YPZkJZEhNtw
 L299ZkDYpgy2hJvw9d/lWPJHGbG+jCTjrxAffsAXWltauc/75OxbwhjHmUQuW0b8vPHoDeiNpvsq
 zkuPuHX6IOtjYoiLW8uquEBMlXqh77+Riy2+78fwmzyDWd7hrFoTx8JxSnz2pTKRRU31suVrgbBL
 4UD6VrZs2cym5BO8SOb5X3DE8JyA1y8OAAAAAElFTkSuQmCC
-
---_004_BN6PR12MB1874ED9C570180113DB71F42E48C9BN6PR12MB1874namp_--
+--0000000000004cda3705cfe38733--
