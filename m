@@ -2,77 +2,45 @@ Return-Path: <SRS0=5wqy=PW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9C9EC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54A34C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:56:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74A83610A8
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:42:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 74A83610A8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1F59160295
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 12:56:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1F59160295
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BDE7348E;
-	Wed,  3 Nov 2021 12:42:49 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43E8A8828E
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 12:28:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1635942511;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lDu7V2UPes5WjN4f5IhHpRndmxXdgV1k4QHUorLyZaY=;
- b=Q31US0TDp7NJ+SVm3GcvQbNyDLxlkjjDI1jk1Kvf24K+Tm9P0/3dyfy/AysAAu/nWyy/bh
- P1t6Q6FpQwVQlWJOtfQgJ5+ULAJ4GmtyS7Qlq2d5EGhAZCbmhKhFWKf/RNj7yXomy2UN3/
- k1zVWinFFy9YtmH1Ub2yp26eOOGXZdo=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-381-jr3vCDpcPZG4utCWFmC1WA-1; Wed, 03 Nov 2021 08:28:28 -0400
-X-MC-Unique: jr3vCDpcPZG4utCWFmC1WA-1
-Received: by mail-wm1-f72.google.com with SMTP id
- v10-20020a1cf70a000000b00318203a6bd1so1008790wmh.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Nov 2021 05:28:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lDu7V2UPes5WjN4f5IhHpRndmxXdgV1k4QHUorLyZaY=;
- b=ipMddGMqPu7hzDBoIlJdwb3YqQ4r4d+lOW+x586hJ4ZIUsD3y+buLa1ru3NDP4w8Iw
- ctG4HIcECcnFGx/cw2h/XzLT1L94TUGfO5wXy0pzAgLE04nsTM/p5g2dmy82uXntfG3x
- RiMTgrfixX05c7guTHBicM+lWjZZe7e6KlZgqsYc+gAjciXE5cQ4ryp19Zit2Yk3U5sr
- BtFOgPC2cblAEfXhOljdpbABg6A+/OobeqMn0I6nBJ6pdtuYqKh/lBhIIpfy/9DC9xtB
- i2iyVa4GyoF/1rWXf9ZjDQDUYsP8AS/iWhLvmFSDlglu9k2vXuNbrNMT88c171gwbfZO
- B32w==
-X-Gm-Message-State: AOAM531Fxdz9+O5bnvVAla3e1+YpyZq+fLtY7oUEq2H0b0MfpuPPeTZJ
- SAZ2MpGONIllCv/kasFaONkOYly9qFzUkQq2VbyvenhXljlxcY2UFT2TMN6sme2dE+p5VJ11XCT
- syrzID1WaJUhomGyB8Hek3zHTYA==
-X-Received: by 2002:adf:a78a:: with SMTP id j10mr56180969wrc.231.1635942507379; 
- Wed, 03 Nov 2021 05:28:27 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxoKFRYs4+FwUh+L5HYY422zuSq9cxsugE+p23YKU/J7QO0nbcMQx6cOjsOctL5eIXzrrPWjA==
-X-Received: by 2002:adf:a78a:: with SMTP id j10mr56180921wrc.231.1635942507148; 
- Wed, 03 Nov 2021 05:28:27 -0700 (PDT)
-Received: from minerva.home ([92.176.231.106])
- by smtp.gmail.com with ESMTPSA id w7sm1868400wru.51.2021.11.03.05.28.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Nov 2021 05:28:26 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: linux-kernel@vger.kernel.org
-Subject: [RESEND PATCH 0/5] Cleanups for the nomodeset kernel command line
- parameter logic
-Date: Wed,  3 Nov 2021 13:28:04 +0100
-Message-Id: <20211103122809.1040754-1-javierm@redhat.com>
-X-Mailer: git-send-email 2.33.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F5936E0FB;
+	Wed,  3 Nov 2021 12:56:56 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1FEA6E0FB;
+ Wed,  3 Nov 2021 12:56:55 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10156"; a="231335964"
+X-IronPort-AV: E=Sophos;i="5.87,205,1631602800"; d="scan'208";a="231335964"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2021 05:56:46 -0700
+X-IronPort-AV: E=Sophos;i="5.87,205,1631602800"; d="scan'208";a="501045631"
+Received: from bmagdala-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.251.215.42])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2021 05:56:38 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Javier Martinez Canillas <javierm@redhat.com>, linux-kernel@vger.kernel.org
+Subject: Re: [RESEND PATCH 2/5] drm: Move nomodeset kernel parameter handler
+ to the DRM subsystem
+In-Reply-To: <20211103122809.1040754-3-javierm@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211103122809.1040754-1-javierm@redhat.com>
+ <20211103122809.1040754-3-javierm@redhat.com>
+Date: Wed, 03 Nov 2021 14:56:36 +0200
+Message-ID: <87tugtbdob.fsf@intel.com>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 03 Nov 2021 12:42:48 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,10 +62,9 @@ Cc: linux-fbdev@vger.kernel.org, David Airlie <airlied@linux.ie>,
  Peter Robinson <pbrobinson@gmail.com>, Neal Gompa <ngompa13@gmail.com>,
  Dave Airlie <airlied@redhat.com>, Chia-I Wu <olvaffe@gmail.com>,
  Ben Skeggs <bskeggs@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
+ Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, nouveau@lists.freedesktop.org,
  virtualization@lists.linux-foundation.org,
  Pekka Paalanen <pekka.paalanen@collabora.com>,
@@ -105,81 +72,356 @@ Cc: linux-fbdev@vger.kernel.org, David Airlie <airlied@linux.ie>,
  Xinhui" <Xinhui.Pan@amd.com>, spice-devel@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
  Zack Rusin <zackr@vmware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[ resend with all relevant people as Cc now, sorry to others for the spam ]
+On Wed, 03 Nov 2021, Javier Martinez Canillas <javierm@redhat.com> wrote:
+> The "nomodeset" kernel cmdline parameter is handled by the vgacon driver
+> but the exported vgacon_text_force() symbol is only used by DRM drivers.
+>
+> It makes much more sense for the parameter logic to be in the subsystem
+> of the drivers that are making use of it. Let's move that to DRM.
+>
+> Suggested-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+> ---
+>
+>  drivers/gpu/drm/Makefile                |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 +--
+>  drivers/gpu/drm/ast/ast_drv.c           |  1 -
+>  drivers/gpu/drm/drm_nomodeset.c         | 26 +++++++++++++++++++++++++
+>  drivers/gpu/drm/i915/i915_module.c      |  2 --
+>  drivers/gpu/drm/mgag200/mgag200_drv.c   |  1 -
+>  drivers/gpu/drm/nouveau/nouveau_drm.c   |  1 -
+>  drivers/gpu/drm/qxl/qxl_drv.c           |  1 -
+>  drivers/gpu/drm/radeon/radeon_drv.c     |  1 -
+>  drivers/gpu/drm/tiny/bochs.c            |  1 -
+>  drivers/gpu/drm/tiny/cirrus.c           |  1 -
+>  drivers/gpu/drm/vboxvideo/vbox_drv.c    |  1 -
+>  drivers/gpu/drm/virtio/virtgpu_drv.c    |  1 -
+>  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     |  1 -
+>  drivers/video/console/vgacon.c          | 21 --------------------
+>  include/drm/drm_mode_config.h           |  6 ++++++
+>  include/linux/console.h                 |  6 ------
+>  17 files changed, 35 insertions(+), 41 deletions(-)
+>  create mode 100644 drivers/gpu/drm/drm_nomodeset.c
+>
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index 1c41156deb5f..0e2d60ea93ca 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -33,6 +33,8 @@ drm-$(CONFIG_DRM_PRIVACY_SCREEN) +=3D drm_privacy_scree=
+n.o drm_privacy_screen_x86.
+>=20=20
+>  obj-$(CONFIG_DRM_DP_AUX_BUS) +=3D drm_dp_aux_bus.o
+>=20=20
+> +obj-y +=3D drm_nomodeset.o
 
-There is a lot of historical baggage on this parameter. It's defined in
-the vgacon driver as a "nomodeset" parameter, but it's handler function is
-called text_mode() that sets a variable named vgacon_text_mode_force whose
-value is queried with a function named vgacon_text_force().
+This is a subtle functional change. With this, you'll always have
+__setup("nomodeset", text_mode) builtin and the parameter available. And
+using nomodeset will print out the pr_warn() splat from text_mode(). But
+removing nomodeset will have no impact if CONFIG_VGA_CONSOLE=3Dn as that
+leads to vgacon_text_force() always returning false.
 
-All this implies that it's about forcing text mode for VGA, yet it is not
-used in neither vgacon nor other console driver. The only users for these
-are DRM drivers, that check for the vgacon_text_force() return value to
-determine whether the driver could be loaded or not.
+To not make functional changes, this should be:
 
-That makes it quite confusing to read the code, because the variables and
-function names don't reflect what they actually do and also are not in the
-same subsystem as the drivers that make use of them.
+obj-$(CONFIG_VGA_CONSOLE) +=3D drm_nomodeset.o
 
-This patch-set attempts to cleanup the code by moving the nomodseset param
-to the DRM subsystem and do some renaming to make their intention clearer.
+Now, going with the cleanup in this series, maybe we should make the
+functional change, and break the connection to CONFIG_VGA_CONSOLE
+altogether, also in the header?
 
-There is also another aspect that could be improved, and is the fact that
-drivers are checking for the nomodeset being set as an indication if have
-to be loaded.
+(Maybe we'll also need a proxy drm kconfig option to only have
+drm_modeset.o builtin when CONFIG_DRM !=3D n.)
 
-But there may be other reasons why this could be the case, so it is better
-to encapsulate the logic in a separate function to make clear what's about.
+> +
+>  drm_cma_helper-y :=3D drm_gem_cma_helper.o
+>  obj-$(CONFIG_DRM_GEM_CMA_HELPER) +=3D drm_cma_helper.o
+>=20=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index c718fb5f3f8a..2680a2aaa877 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -31,7 +31,6 @@
+>  #include "amdgpu_drv.h"
+>=20=20
+>  #include <drm/drm_pciids.h>
+> -#include <linux/console.h>
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/vga_switcheroo.h>
+> @@ -2515,7 +2514,7 @@ static int __init amdgpu_init(void)
+>  	int r;
+>=20=20
+>  	if (vgacon_text_force()) {
+> -		DRM_ERROR("VGACON disables amdgpu kernel modesetting.\n");
+> +		DRM_ERROR("amdgpu kernel modesetting disabled.\n");
+>  		return -EINVAL;
+>  	}
+>=20=20
+> diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
+> index 86d5cd7b6318..048be607b182 100644
+> --- a/drivers/gpu/drm/ast/ast_drv.c
+> +++ b/drivers/gpu/drm/ast/ast_drv.c
+> @@ -26,7 +26,6 @@
+>   * Authors: Dave Airlie <airlied@redhat.com>
+>   */
+>=20=20
+> -#include <linux/console.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+>=20=20
+> diff --git a/drivers/gpu/drm/drm_nomodeset.c b/drivers/gpu/drm/drm_nomode=
+set.c
+> new file mode 100644
+> index 000000000000..1ac9a8d5a8fe
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_nomodeset.c
+> @@ -0,0 +1,26 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/module.h>
+> +#include <linux/types.h>
+> +
+> +static bool vgacon_text_mode_force;
+> +
+> +bool vgacon_text_force(void)
+> +{
+> +	return vgacon_text_mode_force;
+> +}
+> +EXPORT_SYMBOL(vgacon_text_force);
+> +
+> +static int __init text_mode(char *str)
+> +{
+> +	vgacon_text_mode_force =3D true;
+> +
+> +	pr_warn("You have booted with nomodeset. This means your GPU drivers ar=
+e DISABLED\n");
+> +	pr_warn("Any video related functionality will be severely degraded, and=
+ you may not even be able to suspend the system properly\n");
+> +	pr_warn("Unless you actually understand what nomodeset does, you should=
+ reboot without enabling it\n");
+> +
+> +	return 1;
+> +}
+> +
+> +/* force text mode - used by kernel modesetting */
+> +__setup("nomodeset", text_mode);
+> diff --git a/drivers/gpu/drm/i915/i915_module.c b/drivers/gpu/drm/i915/i9=
+15_module.c
+> index c7507266aa83..14a59226519d 100644
+> --- a/drivers/gpu/drm/i915/i915_module.c
+> +++ b/drivers/gpu/drm/i915/i915_module.c
+> @@ -4,8 +4,6 @@
+>   * Copyright =C2=A9 2021 Intel Corporation
+>   */
+>=20=20
+> -#include <linux/console.h>
+> -
+>  #include "gem/i915_gem_context.h"
+>  #include "gem/i915_gem_object.h"
+>  #include "i915_active.h"
+> diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag=
+200/mgag200_drv.c
+> index 6b9243713b3c..685e766db6a4 100644
+> --- a/drivers/gpu/drm/mgag200/mgag200_drv.c
+> +++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+> @@ -6,7 +6,6 @@
+>   *          Dave Airlie
+>   */
+>=20=20
+> -#include <linux/console.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+>  #include <linux/vmalloc.h>
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> index 1f828c9f691c..029997f50d1a 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -22,7 +22,6 @@
+>   * Authors: Ben Skeggs
+>   */
+>=20=20
+> -#include <linux/console.h>
+>  #include <linux/delay.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+> diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+> index fc47b0deb021..3cd6bd9f059d 100644
+> --- a/drivers/gpu/drm/qxl/qxl_drv.c
+> +++ b/drivers/gpu/drm/qxl/qxl_drv.c
+> @@ -29,7 +29,6 @@
+>=20=20
+>  #include "qxl_drv.h"
+>=20=20
+> -#include <linux/console.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+>  #include <linux/vgaarb.h>
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon=
+/radeon_drv.c
+> index b74cebca1f89..9b606c1b11ec 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -31,7 +31,6 @@
+>=20=20
+>=20=20
+>  #include <linux/compat.h>
+> -#include <linux/console.h>
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/vga_switcheroo.h>
+> diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+> index 2ce3bd903b70..04333f78be55 100644
+> --- a/drivers/gpu/drm/tiny/bochs.c
+> +++ b/drivers/gpu/drm/tiny/bochs.c
+> @@ -1,6 +1,5 @@
+>  // SPDX-License-Identifier: GPL-2.0-or-later
+>=20=20
+> -#include <linux/console.h>
+>  #include <linux/pci.h>
+>=20=20
+>  #include <drm/drm_aperture.h>
+> diff --git a/drivers/gpu/drm/tiny/cirrus.c b/drivers/gpu/drm/tiny/cirrus.c
+> index 4611ec408506..8bd674f0d682 100644
+> --- a/drivers/gpu/drm/tiny/cirrus.c
+> +++ b/drivers/gpu/drm/tiny/cirrus.c
+> @@ -16,7 +16,6 @@
+>   * Copyright 1999-2001 Jeff Garzik <jgarzik@pobox.com>
+>   */
+>=20=20
+> -#include <linux/console.h>
+>  #include <linux/dma-buf-map.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+> diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxv=
+ideo/vbox_drv.c
+> index a6c81af37345..e6d983121d0b 100644
+> --- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
+> +++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
+> @@ -7,7 +7,6 @@
+>   *          Michael Thayer <michael.thayer@oracle.com,
+>   *          Hans de Goede <hdegoede@redhat.com>
+>   */
+> -#include <linux/console.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+>  #include <linux/vt_kern.h>
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virti=
+o/virtgpu_drv.c
+> index 749db18dcfa2..cd4c170236f1 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -27,7 +27,6 @@
+>   */
+>=20=20
+>  #include <linux/module.h>
+> -#include <linux/console.h>
+>  #include <linux/pci.h>
+>  #include <linux/poll.h>
+>  #include <linux/wait.h>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_drv.c
+> index ab9a1750e1df..fcc4b5a7f639 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> @@ -25,7 +25,6 @@
+>   *
+>   ***********************************************************************=
+***/
+>=20=20
+> -#include <linux/console.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+> diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgaco=
+n.c
+> index ef9c57ce0906..d4320b147956 100644
+> --- a/drivers/video/console/vgacon.c
+> +++ b/drivers/video/console/vgacon.c
+> @@ -97,30 +97,9 @@ static int 		vga_video_font_height;
+>  static int 		vga_scan_lines		__read_mostly;
+>  static unsigned int 	vga_rolled_over; /* last vc_origin offset before wr=
+ap */
+>=20=20
+> -static bool vgacon_text_mode_force;
+>  static bool vga_hardscroll_enabled;
+>  static bool vga_hardscroll_user_enable =3D true;
+>=20=20
+> -bool vgacon_text_force(void)
+> -{
+> -	return vgacon_text_mode_force;
+> -}
+> -EXPORT_SYMBOL(vgacon_text_force);
+> -
+> -static int __init text_mode(char *str)
+> -{
+> -	vgacon_text_mode_force =3D true;
+> -
+> -	pr_warn("You have booted with nomodeset. This means your GPU drivers ar=
+e DISABLED\n");
+> -	pr_warn("Any video related functionality will be severely degraded, and=
+ you may not even be able to suspend the system properly\n");
+> -	pr_warn("Unless you actually understand what nomodeset does, you should=
+ reboot without enabling it\n");
+> -
+> -	return 1;
+> -}
+> -
+> -/* force text mode - used by kernel modesetting */
+> -__setup("nomodeset", text_mode);
+> -
+>  static int __init no_scroll(char *str)
+>  {
+>  	/*
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index 48b7de80daf5..e1d2042a7b77 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -969,4 +969,10 @@ static inline int drm_mode_config_init(struct drm_de=
+vice *dev)
+>  void drm_mode_config_reset(struct drm_device *dev);
+>  void drm_mode_config_cleanup(struct drm_device *dev);
+>=20=20
+> +#ifdef CONFIG_VGA_CONSOLE
+> +extern bool vgacon_text_force(void);
+> +#else
+> +static inline bool vgacon_text_force(void) { return false; }
+> +#endif
+> +
 
-Patch #1 is just a trivial fix for a comment that isn't referring to the
-correct kernel parameter.
+As said, maybe the CONFIG_VGA_CONSOLE ifdef should be dropped.
 
-Patch #2 moves the nomodeset logic to the DRM subsystem.
-
-Patch #3 renames the vgacon_text_force() function and accompaning logic as
-drm_modeset_disabled(), which is what this function is really about.
-
-Patch #4 adds a drm_drv_enabled() function that could be used by drivers
-to check if could be enabled.
-
-Patch #5 uses the drm_drv_enabled() function to check this instead of just
-checking if nomodeset has been set.
+Also, this seems like a completely arbitrary choice of header to place
+this.
 
 
-Javier Martinez Canillas (5):
-  drm/i915: Fix comment about modeset parameters
-  drm: Move nomodeset kernel parameter handler to the DRM subsystem
-  drm: Rename vgacon_text_force() function to drm_modeset_disabled()
-  drm: Add a drm_drv_enabled() helper function
-  drm: Use drm_drv_enabled() instead of drm_modeset_disabled()
+BR,
+Jani.
 
- drivers/gpu/drm/Makefile                |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 ++---
- drivers/gpu/drm/ast/ast_drv.c           |  3 +--
- drivers/gpu/drm/drm_drv.c               | 21 ++++++++++++++++++++
- drivers/gpu/drm/drm_nomodeset.c         | 26 +++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_module.c      | 10 +++++-----
- drivers/gpu/drm/mgag200/mgag200_drv.c   |  3 +--
- drivers/gpu/drm/nouveau/nouveau_drm.c   |  3 +--
- drivers/gpu/drm/qxl/qxl_drv.c           |  3 +--
- drivers/gpu/drm/radeon/radeon_drv.c     |  3 +--
- drivers/gpu/drm/tiny/bochs.c            |  3 +--
- drivers/gpu/drm/tiny/cirrus.c           |  3 +--
- drivers/gpu/drm/vboxvideo/vbox_drv.c    |  5 +----
- drivers/gpu/drm/virtio/virtgpu_drv.c    |  3 +--
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     |  3 +--
- drivers/video/console/vgacon.c          | 21 --------------------
- include/drm/drm_drv.h                   |  1 +
- include/drm/drm_mode_config.h           |  6 ++++++
- include/linux/console.h                 |  6 ------
- 19 files changed, 73 insertions(+), 57 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_nomodeset.c
 
--- 
-2.33.1
+>  #endif
+> diff --git a/include/linux/console.h b/include/linux/console.h
+> index 20874db50bc8..d4dd8384898b 100644
+> --- a/include/linux/console.h
+> +++ b/include/linux/console.h
+> @@ -217,12 +217,6 @@ extern atomic_t ignore_console_lock_warning;
+>  #define VESA_HSYNC_SUSPEND      2
+>  #define VESA_POWERDOWN          3
+>=20=20
+> -#ifdef CONFIG_VGA_CONSOLE
+> -extern bool vgacon_text_force(void);
+> -#else
+> -static inline bool vgacon_text_force(void) { return false; }
+> -#endif
+> -
+>  extern void console_init(void);
+>=20=20
+>  /* For deferred console takeover */
 
+--=20
+Jani Nikula, Intel Open Source Graphics Center
