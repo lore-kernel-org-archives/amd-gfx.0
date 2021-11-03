@@ -2,92 +2,60 @@ Return-Path: <SRS0=5wqy=PW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25671C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 17:45:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B8D1C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 17:46:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC15B60EE9
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 17:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC15B60EE9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=akamai.com
+	by mail.kernel.org (Postfix) with ESMTPS id 255396112E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 17:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 255396112E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA5973D13;
-	Wed,  3 Nov 2021 17:45:42 +0000 (UTC)
-X-Greylist: delayed 1951 seconds by postgrey-1.36 at gabe;
- Wed, 03 Nov 2021 16:30:50 UTC
-Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
- [IPv6:2620:100:9001:583::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59AE773950;
- Wed,  3 Nov 2021 16:30:50 +0000 (UTC)
-Received: from pps.filterd (m0122332.ppops.net [127.0.0.1])
- by mx0a-00190b01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A3EFwAM004710;
- Wed, 3 Nov 2021 15:58:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
- h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=jan2016.eng;
- bh=K5MB/afSy0GjtB5qyrUWeIQGAcQDhFtW4eDszHTa6tY=;
- b=fQu/eDLXkxof7l6jV9tpylDxn6MmJ1jx9fH6syLPFjfsnnBJTNEUzulHhB0ZHGjmtvWp
- NyGAWtR2AFR46DYveuJUohDKb1gTE4j3EmZNHWS1dAUtlcz9Xyc/Qv3sP50Ghda7dUJO
- ErdNEYLj758LBwpLNR1lUlg3ccoRtqb7h7y6Khd3MTNu4xHtHqIBEt4+Ga9TaLJAR+Le
- UFrhsAVgb95meWrCfkXBj0x/xQ6n/32ZOZnT1bh2DjMLpIPAnvQjpLHnCQ9xQ/Cy0CML
- YTwJgilx+TnnyHmzWXcVYbW8yGCiiavU+ZVqcbGqfGI9zdrsedEi2W0IFGBzbgPZXgLz 1g== 
-Received: from prod-mail-ppoint8
- (a72-247-45-34.deploy.static.akamaitechnologies.com [72.247.45.34] (may be
- forged))
- by mx0a-00190b01.pphosted.com (PPS) with ESMTPS id 3c3dchdntc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Nov 2021 15:58:12 +0000
-Received: from pps.filterd (prod-mail-ppoint8.akamai.com [127.0.0.1])
- by prod-mail-ppoint8.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
- 1A3FoKtI012361; Wed, 3 Nov 2021 11:58:11 -0400
-Received: from prod-mail-relay18.dfw02.corp.akamai.com ([172.27.165.172])
- by prod-mail-ppoint8.akamai.com with ESMTP id 3c39aux7e9-1;
- Wed, 03 Nov 2021 11:58:11 -0400
-Received: from [0.0.0.0] (unknown [172.27.119.138])
- by prod-mail-relay18.dfw02.corp.akamai.com (Postfix) with ESMTP id 7D857168;
- Wed,  3 Nov 2021 15:58:10 +0000 (GMT)
-Subject: Re: [PATCH v9 10/10] drm: use DEFINE_DYNAMIC_DEBUG_TRACE_CATEGORIES
- bitmap to tracefs
-To: Jim Cromie <jim.cromie@gmail.com>, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, linux@rasmusvillemoes.dk,
- daniel.vetter@ffwll.ch, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20211027043645.153133-1-jim.cromie@gmail.com>
- <20211027043645.153133-11-jim.cromie@gmail.com>
-From: Jason Baron <jbaron@akamai.com>
-Message-ID: <3a55ab9c-8109-8025-21e3-e3635bd891b2@akamai.com>
-Date: Wed, 3 Nov 2021 11:58:10 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C6E73D1D;
+	Wed,  3 Nov 2021 17:46:35 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD6B073D1D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 17:46:34 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ q33-20020a056830442100b0055abeab1e9aso4579609otv.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Nov 2021 10:46:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=cGHSDHSam/Ag8tmZti9XFFBurtO9eS/udFvGqHQpIBs=;
+ b=o7ADPkD7V76rlmm+NnRgy4kQlEL3KAGSwtFESHFvQbvLFlqwa94lM6nPR8qoibfEs+
+ 2bt4ct9JEEnm/Cm1l/a5eieVNWV/lQBF/+nI3X38XKG+xorizEYKpAwv+e67qhpt3d0u
+ o6I+yM0SYSH5p5GfrpeIYielIa8E0sXmT7AhBZF1DQuHB0elSJO2Cm9NzE9/Uk5AkL4x
+ eK6ayeJHK2JmxxndDQQsCNaoTP9uVYZAMyk/g5DMU6QFdrpsaYirUb/gVE6KEwqxphA9
+ 7v2ykfBvvq4z7rM2u3Cr79M5sYjsRTjQHicK2ozgf1g/HNpLsJjjNWK1ENhKgmAvGR2n
+ n8hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=cGHSDHSam/Ag8tmZti9XFFBurtO9eS/udFvGqHQpIBs=;
+ b=ON3hqEyJglCN7q70X6Si/xrZwPwprfx/kMqJgjbNwYNdEvw37t8cYRStiHK4JYbBGr
+ ZMoGzUhLF/DK6jEb0iripuSUqIzEbUZUCx9tFFFtF7Z0uoTKQ3l9iwWI+VbtPSzrc5O8
+ KMrkUUW1KNXApK+RV8kCwq7uhc8SeotvWoS9am+h7UAG+MOriglhQPzfjGkcw+X8dQT2
+ ONFSxq4bY5w6HE+Jk8ZCuRnUtfyWaYxG1GZumU5MBFZ8CPg9oNE8wxDS/fvlC7g8S0xh
+ eWbu+YbrX5mHbCVj8lXmAFJPs5QrFpfxY2dZY7nGRUwo/x4Oo2doIJsIlCsY2mzlJywh
+ mKNQ==
+X-Gm-Message-State: AOAM5332wUMTBQAKT4wZsKCs5QAqIcBKNOjsWeqo9D8JwCnX/i+VgMTA
+ nN16D0Fu2DukdfbjGZLAnSazURYIc9ZhSOs5CUvMB4o7
+X-Google-Smtp-Source: ABdhPJyfM27ahRWYFl2R3xdxc9mB8XXkAIiLyR68vdnFZzOJR2pQMCYlkuJgU2ggk1JDcJ+omen5lSAszE/1GPwD45U=
+X-Received: by 2002:a9d:2d87:: with SMTP id g7mr4799278otb.299.1635961594126; 
+ Wed, 03 Nov 2021 10:46:34 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20211027043645.153133-11-jim.cromie@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425, 18.0.790
- definitions=2021-11-03_05:2021-11-03,
- 2021-11-03 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- phishscore=0
- mlxlogscore=999 bulkscore=0 adultscore=0 spamscore=0 suspectscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2111030090
-X-Proofpoint-GUID: LdcoH8ebA5GhSST3D52LB7GgMum2xmNl
-X-Proofpoint-ORIG-GUID: LdcoH8ebA5GhSST3D52LB7GgMum2xmNl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-03_05,2021-11-03_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- spamscore=0
- lowpriorityscore=0 mlxlogscore=999 adultscore=0 clxscore=1011
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2110150000 definitions=main-2111030090
-X-Mailman-Approved-At: Wed, 03 Nov 2021 17:45:41 +0000
+References: <20211103150427.18518-1-shaoyun.liu@amd.com>
+In-Reply-To: <20211103150427.18518-1-shaoyun.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 3 Nov 2021 13:46:23 -0400
+Message-ID: <CADnq5_NtesY5Wqcd3RyNH3wMDAZcXZN1buvD2oTQLmyBr98ucA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdkfd: Don't sent command to HWS on kfd reset
+To: shaoyunl <shaoyun.liu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,68 +67,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 10/27/21 12:36 AM, Jim Cromie wrote:
-> Use new macro to create a sysfs control bitmap knob to control
-> print-to-trace in: /sys/module/drm/parameters/trace
-> 
-> todo: reconsider this api, ie a single macro expecting both debug &
-> trace terms (2 each), followed by a single description and the
-> bitmap-spec::
-> 
-> Good: declares bitmap once for both interfaces
-> 
-> Bad: arg-type/count handling (expecting 4 args) is ugly,
->      especially preceding the bitmap-init var-args.
-> 
-
-Hi Jim,
-
-I agree having the bitmap declared twice seems redundant. But I like having fewer args and not necessarily combining the trace/log variants of
-DEBUG_CATEGORIES. hmmm...what if the DEFINE_DYNAMIC_DEBUG_CATEGORIES() took a pointer to the array of struct dyndbg_bitdesc map[] directly as the
-final argument instead of the __VA_ARGS__? Then, we could just declare the map once?
-
-Thanks,
-
--Jason
-
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+On Wed, Nov 3, 2021 at 11:05 AM shaoyunl <shaoyun.liu@amd.com> wrote:
+>
+> When kfd need to be reset, sent command to HWS might cause hang and get unnecessary timeout.
+> This change try not to touch HW in pre_reset and keep queues to be in the evicted state
+> when the reset is done, so they are not put back on the runlist. These queues will be destroied
+> on process termination.
+>
+> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
 > ---
->  drivers/gpu/drm/drm_print.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-> index ce662d0f339b..7b49fbc5e21d 100644
-> --- a/drivers/gpu/drm/drm_print.c
-> +++ b/drivers/gpu/drm/drm_print.c
-> @@ -73,6 +73,25 @@ DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug, __drm_debug,
->  				[7] = { DRM_DBG_CAT_LEASE },
->  				[8] = { DRM_DBG_CAT_DP },
->  				[9] = { DRM_DBG_CAT_DRMRES });
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c               | 6 +++++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 2 ++
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c              | 6 +++++-
+>  4 files changed, 13 insertions(+), 3 deletions(-)
+>  mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>  mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>  mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>  mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_process.c
+
+Please fix the mode change.
+
+Alex
+
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> old mode 100644
+> new mode 100755
+> index c8aade17efef..536ef766d09e
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -1100,6 +1100,8 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
+>         if (!kfd->init_complete)
+>                 return 0;
+>
+> +       kfd->is_resetting = true;
 > +
-> +#ifdef CONFIG_TRACING
-> +unsigned long __drm_trace;
-> +EXPORT_SYMBOL(__drm_trace);
-> +DEFINE_DYNAMIC_DEBUG_TRACE_CATEGORIES(trace, __drm_trace,
-> +				      DRM_DEBUG_DESC,
-> +				      [0] = { DRM_DBG_CAT_CORE },
-> +				      [1] = { DRM_DBG_CAT_DRIVER },
-> +				      [2] = { DRM_DBG_CAT_KMS },
-> +				      [3] = { DRM_DBG_CAT_PRIME },
-> +				      [4] = { DRM_DBG_CAT_ATOMIC },
-> +				      [5] = { DRM_DBG_CAT_VBL },
-> +				      [6] = { DRM_DBG_CAT_STATE },
-> +				      [7] = { DRM_DBG_CAT_LEASE },
-> +				      [8] = { DRM_DBG_CAT_DP },
-> +				      [9] = { DRM_DBG_CAT_DRMRES });
+>         kfd_smi_event_update_gpu_reset(kfd, false);
+>
+>         kfd->dqm->ops.pre_reset(kfd->dqm);
+> @@ -1132,6 +1134,8 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
+>
+>         kfd_smi_event_update_gpu_reset(kfd, true);
+>
+> +       kfd->is_resetting = false;
 > +
-> +struct trace_array *trace_arr;
-> +#endif
->  #endif
->  
->  void __drm_puts_coredump(struct drm_printer *p, const char *str)
-> 
+>         return 0;
+>  }
+>
+> @@ -1168,7 +1172,7 @@ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
+>                 return ret;
+>
+>         /* for runtime resume, skip unlocking kfd */
+> -       if (!run_pm) {
+> +       if (!run_pm && !kfd->is_resetting) {
+>                 count = atomic_dec_return(&kfd_locked);
+>                 WARN_ONCE(count < 0, "KFD suspend / resume ref. error");
+>                 if (count == 0)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> old mode 100644
+> new mode 100755
+> index e9601d4dfb77..0a60317509c8
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -1430,7 +1430,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
+>
+>         if (!dqm->sched_running)
+>                 return 0;
+> -       if (dqm->is_hws_hang)
+> +       if (dqm->is_hws_hang || dqm->is_resetting)
+>                 return -EIO;
+>         if (!dqm->active_runlist)
+>                 return retval;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> old mode 100644
+> new mode 100755
+> index bfe7bacccb73..e4bcc2a09ca8
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -275,6 +275,8 @@ struct kfd_dev {
+>         struct device_queue_manager *dqm;
+>
+>         bool init_complete;
+> +       bool is_resetting;
+> +
+>         /*
+>          * Interrupts of interest to KFD are copied
+>          * from the HW ring into a SW ring.
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> old mode 100644
+> new mode 100755
+> index f8a8fdb95832..f29b3932e3dc
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1715,7 +1715,11 @@ int kfd_process_evict_queues(struct kfd_process *p)
+>
+>                 r = pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dqm,
+>                                                             &pdd->qpd);
+> -               if (r) {
+> +               /* evict return -EIO if HWS is hang or asic is resetting, in this case
+> +                * we would like to set all the queues to be in evicted state to prevent
+> +                * them been add back since they actually not be saved right now.
+> +                */
+> +               if (r && r != -EIO) {
+>                         pr_err("Failed to evict process queues\n");
+>                         goto fail;
+>                 }
+> --
+> 2.17.1
+>
