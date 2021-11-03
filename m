@@ -2,126 +2,68 @@ Return-Path: <SRS0=5wqy=PW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5A8DC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 02:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A850C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 02:50:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 936FE60EB4
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 02:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 936FE60EB4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3829960F39
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Nov 2021 02:50:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3829960F39
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=ntlworld.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05AB36E241;
-	Wed,  3 Nov 2021 02:32:51 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F36D36E241
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 02:32:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=no9Zyq1I99lWMpGA4wu4xya/VdLewu+ge83PrtsfroRILHtHVt3Djawtd6tsZN7nsNZ587uvfP3qqIXinjEOsRJpTcAVYwht7u0ADLlVOklfP/Qqs3flmRUt81K7Q2QTi9hofJO6ZjXeCVKe7+FcY5uBq68BTPw/fXDZUxv/XL5LMeoa/h1i8tBlu0hcUrCyEMz/xhLYaCs+AQzfyYFQcZKu5wAAnZaZgIsaEd2ZYXg55lnu9U9ZygFBtKJUFqSq+0oC27ELCgbWr9zxpPDx6embXBf6Rf+1IRkT5HS+tZk0I3qLF3cYVUFhWC8MR93XKlAIsaAM0Elwl7o1+vORuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I/AYPtbLpo1rWBDobLmM7lRgTf+LJI3z6Jx4jY4PL68=;
- b=kONcWF5YL4moQ9Vr03YyGzH3qncq85n3RtEJkpjhEGktesE/EH8OQ0NELcrTIHid9qytrcvbq2Z5bJVPH8cwilJ9KFttoZ4d4YrKwQfN3Q4WME3iCoaGsZNzXaCueQet4dDnMV5vsi9rDhJFxgxAoiihagoB3Q9pBJHIKEor7Q1CdbQzj6CWwzYRPUKsJaxR/rwyJiPLiM9/yKupQ2ksiTrpLK6YrXLxcxQ9TcXdaq9b5o2UGaYN3pZ2+cL1AGWVulomaqiMU1XijabfV8bMw+uXH+F/gOJoV0/eWUzNYqTnsRl9bmyqcOdTBVyDtYa2f5QOrUnDkNOxIzl+igq46w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I/AYPtbLpo1rWBDobLmM7lRgTf+LJI3z6Jx4jY4PL68=;
- b=3h4GnJ73OEGY1FbogQifgKeknSyaye8tPEDlZE9tnsLOVx0qaI3GM2Duuc/Aaj152PeAU4/mtk0Rkt1e+zr7UB9+axs1gXXrH6r4gR8Af1MmLLDxyG1YpTerjQpKOh5wxQzTavD6IBC29jlyDYUMirOSyrsrO4Q2JXa1oDCnoxI=
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com (2603:10b6:208:30b::18)
- by BL1PR12MB5271.namprd12.prod.outlook.com (2603:10b6:208:315::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Wed, 3 Nov
- 2021 02:32:47 +0000
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::214d:f77:ca81:51b0]) by BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::214d:f77:ca81:51b0%7]) with mapi id 15.20.4649.020; Wed, 3 Nov 2021
- 02:32:47 +0000
-From: "Liu, Aaron" <Aaron.Liu@amd.com>
-To: "Huang, Ray" <Ray.Huang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: update RLC_PG_DELAY_3 Value to 200us for
- yellow carp
-Thread-Topic: [PATCH] drm/amdgpu: update RLC_PG_DELAY_3 Value to 200us for
- yellow carp
-Thread-Index: AQHXz8bi//vnLrnz3E+HuKYTDQIOoKvv9cQAgAEfnsA=
-Date: Wed, 3 Nov 2021 02:32:47 +0000
-Message-ID: <BL1PR12MB5237B16BE137E1F036BEEF22F08C9@BL1PR12MB5237.namprd12.prod.outlook.com>
-References: <20211102085118.1465543-1-aaron.liu@amd.com>
- <YYECgG+FxkFioTxm@hr-amd>
-In-Reply-To: <YYECgG+FxkFioTxm@hr-amd>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-03T02:32:42Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=bd2d502f-7a18-4343-a811-d8aa7b64d470;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1a1c1ba8-8e76-4c19-e6eb-08d99e723938
-x-ms-traffictypediagnostic: BL1PR12MB5271:
-x-microsoft-antispam-prvs: <BL1PR12MB5271D7122DD87965313BEFFFF08C9@BL1PR12MB5271.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: rRhyCJ1cTyHZ9k+sUZtN1iacVa467pGla4pUAQ3Db1chaAICpBaLhRZIDM2QcpFRx4qBFR4FrN/Gj9U/xrtjioPtPmUT60VoumQYWGDdMNOeiOd50dDf7B6BR7EcnMA6YNE6nvtGpvYh5NyH4NB4LIdTaZNt4vHJ2uN8j8bearnVdhQlh4duI6Cl2urxZwkOAn9Ntqdnb2sVlE0gD7MoXyUYtrn66LGNdjuDH42DVH7RqztJYrd5GssdTL6zrCgrxVz3FF4/ciL9N1zAHrG1TB2AdeQ2FFf1tz/rUxSA2wzql4st4rh0xwcpA5qASj5gJYVZFAL5+OqseymgOMwCJp0cbVTuRmGCTKb1YZYZ3ppbXYRtqDatwBVPH11Tab28NCfc4IfY27Nc6RKUUCjs7fLeE337cRcqGBBqqtCK0zhCEMh9gRKq3MbOGyzljQYU64qNaO0bEyRByLNpTp3+Z/TBgX74pZ/qucS3gKBMCBYHs+gRgPIQM+aYVHcO1nUNs9LPrBYTyd5GXinIJwK3ECEuOx5m9gvD1NFbx05kaOtdE9/Gu0PDWxX1tSk8xhXZ1U2WtqxlUq1UHSf4UqldqlJ9lWoGV4r3mtO8OoiZ32a7F3TdqdlREFvX/9xM/s49Q7Ju5R6ZGxk8tVQHyrCwvvGwMbJQVwXqfo6CbIinjuK1nX7oktqMunPrvaCgJevzh0JdRM0jEVw+ji+FATe4Iw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5237.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(15650500001)(71200400001)(7696005)(6636002)(122000001)(2906002)(186003)(52536014)(38070700005)(26005)(8936002)(8676002)(38100700002)(86362001)(55016002)(76116006)(66446008)(5660300002)(53546011)(6506007)(54906003)(6862004)(9686003)(4326008)(66556008)(66476007)(66946007)(64756008)(508600001)(33656002)(83380400001)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?R+/Sm2/iD66MZIM5x0vBHKQkPyvkNeUk5GHLRAhZiiV+3ChVwlq3jdhLOvWy?=
- =?us-ascii?Q?gQIIomWIreXcDr2c9mYYOizQNbCdk2DjXuOKNsBFtfDJTJzP7tc21gd7w++m?=
- =?us-ascii?Q?ROIDvvXiGeU0eUB8YdMTf1P4cMAc3mwGGDSMaxQxS1J3jvY3Nhz8ko7PZGJX?=
- =?us-ascii?Q?OIGVmovynrLvpfLkXjdaI8c7N1lHYpuBXv7dbn2x6iiDz1qzVDEAT5tbvcfa?=
- =?us-ascii?Q?InkNHd85LPDvuSU2WSChCQulpJkTR6PaDUh9ifu15y/X5bbIHsbVDqlipuPA?=
- =?us-ascii?Q?0puxBBM1NB5COnl7UVigJsLDkvxWY63GZ/gjJDaOu+3wnT2Ojq9X5lqwwyCH?=
- =?us-ascii?Q?OZQ97zH2yQ1yqMCpGP/Ug4cDoU5QeaScHLKBT0RRC/uRLzIbTUiTekhbcTeV?=
- =?us-ascii?Q?qbi1EBtFzHA7kUQJ8QE4hGjnR5UfsJb9ra+1CnPYiUtrINklv9WGPvBhQYYd?=
- =?us-ascii?Q?aqGYH3E37G2mZXjeTmLUM7Utqv9X4FUkmoMMkaRbZknYQGTu1XzCP127skAh?=
- =?us-ascii?Q?rcqktFrQPCGIXRrHt1ap6NsiiRMy/iFPHfxnBeqzk5P20NIUqvJ0OQy3SWGN?=
- =?us-ascii?Q?L/UZvn7oxoy6jCrqo8Z29j2epDwkbm5JAahw2uZ3JccEru2xNLuw5OxGQm+R?=
- =?us-ascii?Q?nlXTroVqGPRQnKb8Y3Lk9Ua9bUQljryJdn0kv1nkEj69RjRNnr4WUsS052CZ?=
- =?us-ascii?Q?Xywcb1vBSfdanVnLXVYL0RgAEulODgT3V34CBNCDrzeFkqT3OPvUfNtgSjCQ?=
- =?us-ascii?Q?dN0J4Uttcof6Pg4q/eoLTmQDYEqZ7qfdej7OhbBqn9MCjm/dGRQwf6/ILlFH?=
- =?us-ascii?Q?vTvxi52PX0737zbI9EyKl5eD2yljipxJLxODk4Zmllua1L0ouwovbNV1a3i4?=
- =?us-ascii?Q?RF5qxvBXmq+LBZ5tlSJ7l0yAyzcNtjD0h02+BS0KCNJMDFgrrvQockW/HOQ1?=
- =?us-ascii?Q?lJi07+UwCLsRknmq2NioowVIJ7wzKQPxwabt61MASztE1+QohJ1cC0jr+IMT?=
- =?us-ascii?Q?4GI/KXR5zSN3J/XzSP8bh1F69a/BupToURtqmApElCcqnhifVCKVUP5P55A2?=
- =?us-ascii?Q?jd4Jfzz2kk499XMT74o3p0CUbCiIT7gOnjhr68xO6Z6U9ynOpXp2y0dCCFP6?=
- =?us-ascii?Q?Aey4q55BcUo/GnhH4KJ7Sml4U9rtQ0JMTZ6MQj7NVSo50r7A2N+Jhs+bHshj?=
- =?us-ascii?Q?iMjHxmR1Zpa/WRCc0GcmTeI/hTwrxM6y+Caq7M39yP2mZ5WiaTOY+HuRtGko?=
- =?us-ascii?Q?yHkvUkrCVNfDlf8N5rHfj4+n2DjJjCmKEgonWiRxqfhGN88zqH9GHWWVZhpC?=
- =?us-ascii?Q?iltc6DMXIvtyCbxoS4nkBlGPZD+YKVoFdW34eHII2v/jF+/5M2iNRffybQrb?=
- =?us-ascii?Q?MSlqIhjWIv0f0M34LIpa5P/M+F7txROagFI9sk556Qkac64ceP42/h/TRA1P?=
- =?us-ascii?Q?eOvtsHt8Pn4N+WYSTqHYvMAbROCCw0YEdjOC4/kKFi3X2KNZzBUznPcp4/Hp?=
- =?us-ascii?Q?SEyCmphWNf0b+owHVwFiGBadsq2OE5O6nnbpOByJ9ki/YiqdeVvZTR2ZFK2e?=
- =?us-ascii?Q?B6QDm6X6+Olao7VHQaQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F4E873AA8;
+	Wed,  3 Nov 2021 02:50:46 +0000 (UTC)
+Received: from smtpq1.tb.ukmail.iss.as9143.net
+ (smtpq1.tb.ukmail.iss.as9143.net [212.54.57.96])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81A5D73AA6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Nov 2021 02:50:45 +0000 (UTC)
+Received: from [212.54.57.107] (helo=csmtp3.tb.ukmail.iss.as9143.net)
+ by smtpq1.tb.ukmail.iss.as9143.net with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
+ (envelope-from <zarniwhoop@ntlworld.com>) id 1mi6MN-0005LR-My
+ for amd-gfx@lists.freedesktop.org; Wed, 03 Nov 2021 03:50:43 +0100
+Received: from llamedos.mydomain ([81.97.236.130]) by cmsmtp with ESMTPA
+ id i6MNmyPNj9Za5i6MNmNQdU; Wed, 03 Nov 2021 03:50:43 +0100
+X-Originating-IP: [81.97.236.130]
+X-Authenticated-Sender: zarniwhoop@ntlworld.com
+X-Spam: 0
+X-Authority: v=2.4 cv=NtrCzuRJ c=1 sm=1 tr=0 ts=6181f903 cx=a_exe
+ a=OGiDJHazYrvzwCbh7ZIPzQ==:117 a=OGiDJHazYrvzwCbh7ZIPzQ==:17
+ a=IkcTkHD0fZMA:10 a=vIxV3rELxO4A:10 a=zd2uoN0lAAAA:8 a=VwQbUJbxAAAA:8
+ a=e5mUnYsNAAAA:8 a=NLZqzBF-AAAA:8 a=OWmU1wAo9Q2lxlFl-7QA:9 a=QEXdDO2ut3YA:10
+ a=AjGcO6oz07-iQ99wixmX:22 a=Vxmtnl_E_bksehYqCbjh:22 a=wW_WBVUImv98JQXhvVPZ:22
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ntlworld.com;
+ s=meg.feb2017; t=1635907843;
+ bh=PqgC+6FBsZn40ZR/UMH2Th0n0BC1JFcPeVhcSDXr7HE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=FQ4Ktc9B1uLQ1KhX9w/zKlve7PzDxmWbFJAfIyD7oyLBIEJBljfVsBvoUmoh9RWME
+ XWlmRlFp/d+6bzxMwSPf10u/iZAGdg5GdblU94AEqjuuLkTVvk969Kn2/WQZmR2L/z
+ CjTokCONyZTF/2wBaX5ubjoekzbkXIqeV0pH7NXHUf9E/1jHSACAfwK6aA1A7VB/4H
+ eqaPyLOYsbouz+lVRJtzuu8aJrfFV01nES/qsdxZWF9dUUkiRro0haGtBzLEC8AQdM
+ Zw0DgtPUC5bNMR4JavFIzLSCPsDAK6BoxfM4EZiUpHXLlimQ7BRZ0jIeAruxtdw1Ca
+ fLPCkB3kZUo/Q==
+Received: by llamedos.mydomain (Postfix, from userid 1000)
+ id 99F3160C5A; Wed,  3 Nov 2021 02:50:42 +0000 (GMT)
+Date: Wed, 3 Nov 2021 02:50:42 +0000
+From: Ken Moffat <zarniwhoop@ntlworld.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove duplicated kfd_resume_iommu
+Message-ID: <YYH5An5dFpPAmSDv@llamedos.localdomain>
+References: <20211103013350.6015-1-James.Zhu@amd.com>
+ <CADnq5_OurPZjmq2SbRZzw4MWRO2uFT7H=+F75czmwgG0MgGAiQ@mail.gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5237.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a1c1ba8-8e76-4c19-e6eb-08d99e723938
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2021 02:32:47.0557 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YOfcXFV+/QeU44C1EwRcAMp94ey6mZ/V8+dlmieqjNVNOz3mwb/jLfoF392r/vAM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5271
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+X-Clacks-Overhead: GNU Terry Pratchett
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_OurPZjmq2SbRZzw4MWRO2uFT7H=+F75czmwgG0MgGAiQ@mail.gmail.com>
+User-Agent: Mutt/2.1.3 (2021-09-10)
+X-CMAE-Envelope: MS4xfIgjptwq50QfC63zrUulSn/p3EsjOipRCyH8xTuqRuRNHYt/4rvYPcuhXqpt5C/dQcUjYnhY/VUNWr5RVE+FZB0bSnaTesMl36Beo+MOgm+Jz82CONhh
+ g4KzAE32vPzD0MXOqrni3pu9L7vi13Gh6Kv0qzs9+UgKubl6OWjgKm9FlFKp6BC7hmDLVFO++KIjL/9lkiGpCYLWIrvXd8C2OPbkPvU/yihIxpFCKKumxF7C
+ osVsURG/ulWf0k/wVj/CY/I/jeB6/XpkIffLfHvSFa3czkC02zTDOtqZT9K8lengkuYaUP6oMWKZ40eleIODmXTKo1YIiyIr2DfQ/LgzYOlzloqfQMX6r//L
+ ybibXVhc+LmROpWTJDZYw42/DySlkQ==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,62 +75,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, James Zhu <jzhums@gmail.com>,
+ James Zhu <James.Zhu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
-
-Ray,
-
-That ROCR issue is caused by CGCG(NOT CGPG).
-With this patch applied, the rocr issue still exists.
-
---
-Best Regards
-Aaron Liu
-
-> -----Original Message-----
-> From: Huang, Ray <Ray.Huang@amd.com>
-> Sent: Tuesday, November 2, 2021 5:19 PM
-> To: Liu, Aaron <Aaron.Liu@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: update RLC_PG_DELAY_3 Value to 200us
-> for yellow carp
->=20
-> On Tue, Nov 02, 2021 at 04:51:18PM +0800, Liu, Aaron wrote:
-> > For yellow carp, the desired CGPG hysteresis value is 0x4E20.
+On Tue, Nov 02, 2021 at 10:01:46PM -0400, Alex Deucher wrote:
+> On Tue, Nov 2, 2021 at 9:34 PM James Zhu <James.Zhu@amd.com>
+> wrote:
 > >
-> > Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+> > Remove duplicated kfd_resume_iommu which already runs in
+> > mdgpu_amdkfd_device_init.
+> >
+> > Signed-off-by: James Zhu <James.Zhu@amd.com>
+> 
+> Once you get confirmation, please add: Bug:
+> https://bugzilla.kernel.org/show_bug.cgi?id=214859 Bug:
+> https://gitlab.freedesktop.org/drm/amd/-/issues/1770
+> 
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> 
+I see those were both for 5.14.15, on my 5.14 kernels I have not
+moved beyond 5.14.12 so I've dodged the bullet on those.  And on my
+2500u which I think is a Raven, 5.15.0-rc7 was ok.
+
+On the picasso, this applies to 5.15.0 with an offset of 34 lines
+(no fuzz) and solves the problem.  Thanks.
+
+If it is any use,
+
+Tested-By: Ken Moffat <zarniwhoop@ntlworld.com>
+
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 5 +----
-> >  1 file changed, 1 insertion(+), 4 deletions(-)
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ----
+> >  1 file changed, 4 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > index 90a834dc4008..b53b36f5ae92 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > @@ -8316,11 +8316,8 @@ static void gfx_v10_cntl_power_gating(struct
-> amdgpu_device *adev, bool enable)
-> >  	if (enable && (adev->pg_flags & AMD_PG_SUPPORT_GFX_PG)) {
-> >  		switch (adev->ip_versions[GC_HWIP][0]) {
-> >  		case IP_VERSION(10, 3, 1):
-> > -			data =3D 0x4E20 &
-> RLC_PG_DELAY_3__CGCG_ACTIVE_BEFORE_CGPG_MASK_Vangogh;
-> > -			WREG32_SOC15(GC, 0, mmRLC_PG_DELAY_3, data);
-> > -			break;
-> >  		case IP_VERSION(10, 3, 3):
-> > -			data =3D 0x1388 &
-> RLC_PG_DELAY_3__CGCG_ACTIVE_BEFORE_CGPG_MASK_Vangogh;
-> > +			data =3D 0x4E20 &
-> RLC_PG_DELAY_3__CGCG_ACTIVE_BEFORE_CGPG_MASK_Vangogh;
->=20
-> Acked-by: Huang Rui <ray.huang@amd.com>
->=20
-> Is this patch able to fix the cgpg issue in ROCr test?
->=20
-> Thanks,
-> Ray
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index e56bc925afcf..f77823ce7ae8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -2398,10 +2398,6 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+> >         if (!adev->gmc.xgmi.pending_reset)
+> >                 amdgpu_amdkfd_device_init(adev);
+> >
+> > -       r = amdgpu_amdkfd_resume_iommu(adev);
+> > -       if (r)
+> > -               goto init_failed;
+> > -
+> >         amdgpu_fru_get_product_info(adev);
+> >
+> >  init_failed:
+> > --
+> > 2.25.1
+> >
+
+-- 
+Vetinari smiled. "Can you keep a secret, Mister Lipwig?"
+"Oh, yes, sir. I've kept lots."
+"Capital. And the point is, so can I. You do not need to know.”
