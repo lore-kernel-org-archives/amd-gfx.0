@@ -2,99 +2,81 @@ Return-Path: <SRS0=uIzi=PX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C1CDC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 09:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34875C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 09:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 630C06112D
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 09:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 630C06112D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id E6A0B61168
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 09:08:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E6A0B61168
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 015BA6EE07;
-	Thu,  4 Nov 2021 09:01:04 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97D796EDFA
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 09:01:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JF5dfadKf1f32htahR7vkshqL0MpJO4OCz+UEWTC4Qh0vE52i2xWXCvMCVbymzTOXYzA4ry3RdEhIg47s2YYdjzWGka/+KQLdOkXjtx9Upe8s/qHrdCZLzX3xy4HYkoSjtbZAufQz7v59LtsKs5x6pfWR0LC9B+KoSAdc1y9V6jBt42vx37lwJA8lim7DmQ1wXsLH62PhE4jDvuW+5gpnGligzKtutBQ6RmlSZWQdGIIwU4aLgYNtCUJoflxbGz9vbM6rcrAdAmsoqeMSRhEXsxHf2PKSS9QC8Ebm8ybeYd0EjTjDIFZ4MsnBkp7TEYCeZTpWOTmGpL1KCLawA1ZSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+74+s9zKJK2ijJDTObFhF0AJJEQmFmuLKuI0a0+wI88=;
- b=SNonSH1/tL/2MvihXW/Sgzd73ms/86PdWlCDwYt/ENgOqk6+FJHVzVeHhNMFQols/X2/56cpJkTnKl1DVPELwmcDlkPOh6jwcOKYSYWQrAfKGBxpDrGJ/IbWRZ5Q3G81r7ZUEBdt8k+XA80/oY7yjtlKKGV+XPD3kaNCQsmibHWMcwOrSgwR8jy1QFkQPpPLnnwW4Ms80Nufu4IZtT5KG4vPT6zeDB0xo34kSq6BGrEJ7jevhZ+niflUll24N/sKypW+3mexLdL2smNxHXscTSx8U3RWkoeRYc04+KzpciAcbMcx726VZ6cyR1Ls8fh4uBsZzWprqcDjGD8Mpb6x4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+74+s9zKJK2ijJDTObFhF0AJJEQmFmuLKuI0a0+wI88=;
- b=g2Okhg34LJLi9N1WI+gPkqzbu4QIt8oxQWv5gkev5NHauTq8YIJU9esiLwezz2BBSfxxWJIIv8XWvIvFEXYUhZf+53/hKwsc0zwWoNAbYnpo9ZyfAUEdZeS9yXl4rBblNciyHZyA/UJdJy7VatVOreMGZs/xuqWfzLHcG+HUZcQ=
-Received: from BN8PR04CA0015.namprd04.prod.outlook.com (2603:10b6:408:70::28)
- by BN6PR1201MB2497.namprd12.prod.outlook.com (2603:10b6:404:b3::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Thu, 4 Nov
- 2021 09:01:00 +0000
-Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:70:cafe::f3) by BN8PR04CA0015.outlook.office365.com
- (2603:10b6:408:70::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
- Transport; Thu, 4 Nov 2021 09:01:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4669.10 via Frontend Transport; Thu, 4 Nov 2021 09:01:00 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Thu, 4 Nov
- 2021 04:00:58 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <john.clements@amd.com>, <stanley.yang@amd.com>
-Subject: [PATCH] drm/amdgpu: correct xgmi ras error count reset
-Date: Thu, 4 Nov 2021 17:00:49 +0800
-Message-ID: <20211104090049.27118-1-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9590B6ED15;
+	Thu,  4 Nov 2021 09:08:57 +0000 (UTC)
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43F396EC49;
+ Thu,  4 Nov 2021 08:48:46 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 2D585580876;
+ Thu,  4 Nov 2021 04:48:44 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Thu, 04 Nov 2021 04:48:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=trsPLTuX5eN1+6357zkP5w+4wv/
+ ep/5Bf7nUaNCCfvk=; b=N6qNGXwP4tfhBg/RWUGBNA1sWDjOx7qLK/hiogyEOQv
+ Jj1b+xa3+cboDAo7kVwCYkf3pyYcnPo+VEeZJRtjLBNiqQ+TGV53dj5uqoYgTbOO
+ o1x17aLxL2gPcbxCkkf+ffuY+3GXKZwDiJK9NSzcnHhJdmrDCBD4cxq9DO6pVdZM
+ EAg76+zQ4ysijBUxJNowIojZ7HmrxIpedGACWqdBXfiieZSZK6Sbyk6EnHhcNjDK
+ I149cd67WwCrX6OCnf4oYORCa2lJGOueYeQB5o6/it1nXWTi0s/7lHJYZbaOnQEl
+ fyhIYUE+PMxiBkdVpv2YihTmCKgwkwD5x1SJv1mSDLA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=trsPLT
+ uX5eN1+6357zkP5w+4wv/ep/5Bf7nUaNCCfvk=; b=ECmjANenJrnyee/dKXXG1k
+ rFFMtu6U9KJ/jnEqf+3TIoPRUyvBrP9QAMyWxLtAaWCUjI0zMlmYMSxox9TJMv9z
+ 3IpcFsVxQ2DfHxXNTfZRufbmgEL9vV6zGu8aYTGD0/yjG6VeGv0H/cjmACoLEs//
+ cOMRM8mGs3g7n1i+xHK9IgEH/yqOpSW+EFvRcUThlyVqDEWKVk5QeS0ms5eg+uT4
+ VN+LNwIh0tbZlWXSCSDKMi7V6Gn45Rd8K22xSsTQIgqr7cJkkKsLHFWkNd1b2+DT
+ DXWG3SaWQQBdV1Q6tfEzFBswqUbJ/W64O4hEftRAOp1bcqzp7V1a7wqTMfQC6uXA
+ ==
+X-ME-Sender: <xms:ap6DYWBNnUrK0DttOvLMBq6bVTj8lRIKO_7wsMAY-7ScoyjxTM8yFA>
+ <xme:ap6DYQhO9PQCfa22jTUW4ydwUHTmJ6Lj2jDgrVhRkrfLjEvBt2quEiuMKwgaZYkLk
+ UP5lFKWfgjxGEKbfwQ>
+X-ME-Received: <xmr:ap6DYZnB4KDcIbQ2m_dgDt7el6TPmeluFpYpIeXHGvy-Yf4Il-XuXbPRzv-F3R6SpXG-TfUQZ3GGPm-Fe85sc6_0nrXa7Fcs22S5xe-Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrtdefgdduvddtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepuddvudfhkeekhefgffetffelgffftdehffduffegveetffehueeivddvjedv
+ gfevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:ap6DYUxQkdnWKHij88goigB1gNaPih8O-SV_9Clra1AVcSQczOBqWA>
+ <xmx:ap6DYbQ8V1so-0Gf2rnVuCVkRspOHmiNxWrQSd2sWQUNc6b1qSBxuA>
+ <xmx:ap6DYfYshdOufsOktbkss3UCz9o-gJ4qY_5vKX972e28nu6r4Ghnbw>
+ <xmx:bJ6DYfK0uiuzUY798_6Z0VnOIXii53fYN6IzaJwXXo3GHZ5xhlOr-Q>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 4 Nov 2021 04:48:42 -0400 (EDT)
+Date: Thu, 4 Nov 2021 09:48:41 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 01/13] drm/connector: Add define for HDMI 1.4 Maximum
+ Pixel Rate
+Message-ID: <20211104084841.mjnennxgelacleaj@gilmour>
+References: <20211102145944.259181-1-maxime@cerno.tech>
+ <20211102145944.259181-2-maxime@cerno.tech>
+ <YYJsM6/hZ43b1tm9@intel.com> <YYLPXJoC7TZcwejb@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fea4b77d-d47d-4835-13a4-08d99f719f70
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB2497:
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB2497ED211B4ABAF5DE985F34B08D9@BN6PR1201MB2497.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E7btM0wFPe4/I5VKAUBuFQyYtOqgEITt+SiwlZGrFPp4jMVxmMLoCnUN1ufwI3qmax+S1ZpibLgBuTLRhK+8Ag3xgYFCZyjrQ5UjY251PxWDgWc8RE5vedlQEhseiNyBGsr+qlq+6+z/k4J46ko3Tfyrh+cg+bIRxOEwxUbCDRG4btDNuktxHOQEn0CyxSPUk5sv/k4PA3AopLEx4rcidq19c8OSgBqSh7TOOHKBXGDf7Er/FAM/XLFNHjHmKp/QZHhxhlV/vXeaCmQTrix/GMcJWsj4YKWC/fLfagvS9gDxW/BZZ8e5TvGv7fXf+5u/iccMUfsKiNi+M4e+LYyLq74vnd1hb6tLCFHz7J4m1j90y2P33UoljyG2gGPbxGxrIjc1Lr15mf2dQjqa2TU7jXAGQejKtXwpdH6Y0epBbwwWApPNNA6BXD1XNcdfoF1PcG0je7du2girTOkD3CygzUQIOYgkpJtt7LHXPklDWaezft+kxZ8CD0Eh8esIVMCTjvG0bSVOlbkIRCO9E+diyJFWiNdmPf0Ag7zehBsUGbCMP7GywsR40pIQOfJgdF0UdoXY46qLRMVNvllbD/zTBXyFVHjn9GHEiitDw+gUNTK1gENQzQtkKONTvYRn332w24hMY8LS1zoYt+Tl0JK92UeOcaFK7c4IbO7jmhFJmFDl4o9s28R/Xho5igfO634iSHfKNDsTokwPaI8PdZ552AnU8gHSbOBHvTxry0G4byc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(186003)(356005)(336012)(16526019)(82310400003)(7696005)(8676002)(2906002)(6636002)(5660300002)(81166007)(70586007)(2616005)(47076005)(110136005)(8936002)(426003)(316002)(508600001)(4326008)(36860700001)(70206006)(26005)(36756003)(86362001)(1076003)(6666004)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 09:01:00.4219 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fea4b77d-d47d-4835-13a4-08d99f719f70
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB2497
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pxndx3anvyrc7z43"
+Content-Disposition: inline
+In-Reply-To: <YYLPXJoC7TZcwejb@intel.com>
+X-Mailman-Approved-At: Thu, 04 Nov 2021 09:08:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,33 +88,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: Tim Gover <tim.gover@raspberrypi.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Emma Anholt <emma@anholt.net>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Dom Cobley <dom@raspberrypi.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Robert Foss <robert.foss@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The error count reset for xgmi3x16 pcs is missed.
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--pxndx3anvyrc7z43
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 978ac927ac11..0fad2bf854ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -806,9 +806,9 @@ static void amdgpu_xgmi_reset_ras_error_count(struct amdgpu_device *adev)
- 		for (i = 0; i < ARRAY_SIZE(xgmi23_pcs_err_status_reg_aldebaran); i++)
- 			pcs_clear_status(adev,
- 					 xgmi23_pcs_err_status_reg_aldebaran[i]);
--		for (i = 0; i < ARRAY_SIZE(xgmi23_pcs_err_status_reg_aldebaran); i++)
-+		for (i = 0; i < ARRAY_SIZE(xgmi3x16_pcs_err_status_reg_aldebaran); i++)
- 			pcs_clear_status(adev,
--					 xgmi23_pcs_err_status_reg_aldebaran[i]);
-+					 xgmi3x16_pcs_err_status_reg_aldebaran[i]);
- 		for (i = 0; i < ARRAY_SIZE(walf_pcs_err_status_reg_aldebaran); i++)
- 			pcs_clear_status(adev,
- 					 walf_pcs_err_status_reg_aldebaran[i]);
--- 
-2.17.1
+Hi Ville,
 
+On Wed, Nov 03, 2021 at 08:05:16PM +0200, Ville Syrj=E4l=E4 wrote:
+> On Wed, Nov 03, 2021 at 01:02:11PM +0200, Ville Syrj=E4l=E4 wrote:
+> > On Tue, Nov 02, 2021 at 03:59:32PM +0100, Maxime Ripard wrote:
+> > > --- a/drivers/gpu/drm/drm_edid.c
+> > > +++ b/drivers/gpu/drm/drm_edid.c
+> > > @@ -4966,7 +4966,7 @@ static void drm_parse_hdmi_forum_vsdb(struct dr=
+m_connector *connector,
+> > >  		u32 max_tmds_clock =3D hf_vsdb[5] * 5000;
+> > >  		struct drm_scdc *scdc =3D &hdmi->scdc;
+> > > =20
+> > > -		if (max_tmds_clock > 340000) {
+> > > +		if (max_tmds_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
+> > >  			display->max_tmds_clock =3D max_tmds_clock;
+> > >  			DRM_DEBUG_KMS("HF-VSDB: max TMDS clock %d kHz\n",
+> > >  				display->max_tmds_clock);
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/=
+drm/i915/display/intel_hdmi.c
+> > > index d2e61f6c6e08..0666203d52b7 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> > > @@ -2226,7 +2226,7 @@ int intel_hdmi_compute_config(struct intel_enco=
+der *encoder,
+> > >  		if (scdc->scrambling.low_rates)
+> > >  			pipe_config->hdmi_scrambling =3D true;
+> > > =20
+> > > -		if (pipe_config->port_clock > 340000) {
+> > > +		if (pipe_config->port_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
+> > >  			pipe_config->hdmi_scrambling =3D true;
+> > >  			pipe_config->hdmi_high_tmds_clock_ratio =3D true;
+> > >  		}
+> >=20
+> > All of that is HDMI 2.0 stuff. So this just makes it all super
+> > confusing IMO. Nak.
+>=20
+> So reading throgh HDMI 1.4 again it does specify 340 MHz as some kind
+> of upper limit for the physical cable. But nowhere else is that number
+> really mentioned AFAICS. HDMI 2.0 does talk quite a bit about the 340
+> Mcsc limit in various places.
+>=20
+> I wonder what people would think of a couple of helpers like:
+> - drm_hdmi_{can,must}_use_scrambling()
+> - drm_hdmi_is_high_tmds_clock_ratio()
+> or something along those lines? At least with those the code would
+> read decently and I wouldn't have to wonder what this HDMI 1.4 TMDS
+> clock limit really is.
+
+Patch 2 introduces something along those lines.
+
+It doesn't cover everything though, we're using this define in vc4 to
+limit the available modes in mode_valid on HDMI controllers not
+4k-capable
+
+We could probably do better on the name, but I still believe a define
+like this would be valuable.
+
+Maxime
+
+--pxndx3anvyrc7z43
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYYOeaAAKCRDj7w1vZxhR
+xW31AP9ZrW1GZ894aQ+2PZr6HfCImm0k5/+iLzGrkzoNuAj3BwD/fm55lGcssQw+
+lhcuuMOafgTMwGbj7Dw+tHaTcMYN7w4=
+=8Jzs
+-----END PGP SIGNATURE-----
+
+--pxndx3anvyrc7z43--
