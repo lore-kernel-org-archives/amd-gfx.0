@@ -2,64 +2,75 @@ Return-Path: <SRS0=uIzi=PX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7748FC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 18:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29B2AC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 18:01:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E950611EE
+	by mail.kernel.org (Postfix) with ESMTPS id E90AE611C0
 	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 18:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3E950611EE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E90AE611C0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE95F6FA75;
-	Thu,  4 Nov 2021 18:01:53 +0000 (UTC)
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [IPv6:2607:f8b0:4864:20::82f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4427F6F8FD
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 16:50:58 +0000 (UTC)
-Received: by mail-qt1-x82f.google.com with SMTP id d21so4673714qtw.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Nov 2021 09:50:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=n6LDFw29hZsoKOLns/SZzto6jZDnxgAkgjGJO4dyrRY=;
- b=KDXVa/C3Mif4tYN39v3Qyyb2P2N91bdiro51TFqk/tzHL1JwG+yjARCgb9wH76RcBN
- 9Acq9BsmrWBzpwxBvHGLOJrN2U2wQgrc3/SnFXJ+Ba12dGSGeM0bffUlYfu4wcfWr9c1
- vFixPsm7mXDGYFx4/IZGXfPzLM439+wu/Kbfg=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2777204A;
+	Thu,  4 Nov 2021 18:01:54 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0EE46F8A4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 16:07:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1636042044;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=n/ejIrVb3rZrH44A2zViksmvIEiiBszGsTbTQyQjoKs=;
+ b=LvLQR+aYFOapD3BSkUOTIVBOgr4SPjKGChG1F1zUzMQlEWGKPB3B9dfwHbHQj53BlWYaAK
+ BJpwFamaQHKL7Cc0cybw73fj/uRjjTwKdm6TtxONcVAnmnLFyYQUwvCW9vk0i6Kgf9DCF5
+ KX/dw6F+sOXg9yVBrB4IPfo/zh4lYDg=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-513-T2JJjjZAPz-_5fOb8kJS7w-1; Thu, 04 Nov 2021 12:07:22 -0400
+X-MC-Unique: T2JJjjZAPz-_5fOb8kJS7w-1
+Received: by mail-wr1-f71.google.com with SMTP id
+ d13-20020adf9b8d000000b00160a94c235aso1178328wrc.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Nov 2021 09:07:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=n6LDFw29hZsoKOLns/SZzto6jZDnxgAkgjGJO4dyrRY=;
- b=qgA6Em9xZJTeXaBYdCNR7VaPFo+xjsEVBlRYNA5L2zQ60jfoOZT8JlPfi+U/prawPM
- toPiywKjY0hQgypZPQx0RDLQNf3q1znwCAxQa55eu/GSHbxMaa6UTMYhXqwQO7QXkuLv
- gh0XXf9BvXNeNX2T2x40LFjL/VUqHvCFickDHxFWH8jmFt8Txp3L9PDvT2f89lh0EMTB
- wU4Cs2dSsNdeAh8jcXXxKBZy33v+/5V9X1gX97BklFgoV9pkArsl2RMm0O13/ITehyVi
- LeskNuEi+BIne9Wl5HeKDsgU6hTgl4a27x+xSYTqqHbBGs5TwPASBUS+MNzwqtiW3FXF
- k13Q==
-X-Gm-Message-State: AOAM533p++B53Uep4g0P/PCPt+AvxkMrF957CXX9YRsIg4GpMt/ldewk
- Ubq43p2XkigdS7Rxpa89Notjeg==
-X-Google-Smtp-Source: ABdhPJyYmqLWTC+r4y2X+PQP7SZsT12s912X50jcuVOAyhYkqzPP6T59ggFcd6/EpmPxsl7h8W1sNg==
-X-Received: by 2002:a05:622a:612:: with SMTP id
- z18mr30987718qta.411.1636044657405; 
- Thu, 04 Nov 2021 09:50:57 -0700 (PDT)
-Received: from markyacoub.nyc.corp.google.com
- ([2620:0:1003:314:1118:14fe:72e3:f013])
- by smtp.gmail.com with ESMTPSA id q20sm3976621qkl.53.2021.11.04.09.50.56
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=n/ejIrVb3rZrH44A2zViksmvIEiiBszGsTbTQyQjoKs=;
+ b=bcNKyCVWK4CrqgPdFbKVS5cPO0h/gNR/CudTulH0MlK/RlyOdBB5m0jc+RENFk9GDf
+ La6ItbDHKgsO5WaRtGzNB1XSh+/KBhzY/xGHP8Bs333hpp6cViOVs1sE/wQSFXFQPZzj
+ 5TLTa0HvADXcFk4vzhFj3lyojrjeXeJ9OxeZBMGACjONo8WS8u7A0E/p6cq2Z9DTRQEx
+ Byh9QZftp4h73jCwxADQP8Wkdi/K6fpcQ3Lbwpdxi5xewK6O4Q1hY/RCgw5NhjgB/LaC
+ CiBbi5mdcKKkL0w1dQ8+YMQvj1nA2/SOzc7GPhI/PCAkF62gH81FfJkYMY+CsvTW1fEN
+ X7gQ==
+X-Gm-Message-State: AOAM532iioCn8Mp5kWs6rwpi8Q68ltRa9sHJaafFdysrSy+95G0W+MB7
+ JyMQPJ7/K7rTGltTz8ptolKiGd33cH1LNoCBW12gNAHu5bgxIwadcLeGifCjZ1sj8x2ij8h9CG8
+ fVGCrbfu0fJX/HjEOA3YLkgkiCA==
+X-Received: by 2002:a7b:ca44:: with SMTP id m4mr23689909wml.100.1636042041579; 
+ Thu, 04 Nov 2021 09:07:21 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwxQs3q9Q2yGgJQmZ5zypW+OBIyfR4YAS74a/Zv3Ucv5aomcisjC91zz+w+lhZHPPKLJjXLiw==
+X-Received: by 2002:a7b:ca44:: with SMTP id m4mr23689832wml.100.1636042041250; 
+ Thu, 04 Nov 2021 09:07:21 -0700 (PDT)
+Received: from minerva.home ([92.176.231.106])
+ by smtp.gmail.com with ESMTPSA id l18sm5877863wrt.81.2021.11.04.09.07.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Nov 2021 09:50:57 -0700 (PDT)
-From: Mark Yacoub <markyacoub@chromium.org>
-To: 
-Subject: [PATCH v4 3/3] amd/amdgpu_dm: Verify Gamma and Degamma LUT sizes
- using DRM Core check
-Date: Thu,  4 Nov 2021 12:50:44 -0400
-Message-Id: <20211104165046.4115042-3-markyacoub@chromium.org>
-X-Mailer: git-send-email 2.34.0.rc0.344.g81b53c2807-goog
-In-Reply-To: <20211104165046.4115042-1-markyacoub@chromium.org>
-References: <20211104165046.4115042-1-markyacoub@chromium.org>
+ Thu, 04 Nov 2021 09:07:20 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] Cleanups for the nomodeset kernel command line
+ parameter logic
+Date: Thu,  4 Nov 2021 17:07:05 +0100
+Message-Id: <20211104160707.1407052-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 04 Nov 2021 18:01:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,132 +84,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pmenzel@molgen.mpg.de, Leo Li <sunpeng.li@amd.com>,
- Mark Yacoub <markyacoub@chromium.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
+Cc: linux-fbdev@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Peter Robinson <pbrobinson@gmail.com>, nouveau@lists.freedesktop.org,
+ Dave Airlie <airlied@redhat.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ virtualization@lists.linux-foundation.org,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, spice-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ intel-gfx@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Mark Yacoub <markyacoub@google.com>
+ Zack Rusin <zackr@vmware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mark Yacoub <markyacoub@google.com>
+There is a lot of historical baggage on this parameter. It is defined in
+the vgacon driver as nomodeset, but its set function is called text_mode()
+and the value queried with a function named vgacon_text_force().
 
-[Why]
-drm_atomic_helper_check_crtc now verifies both legacy and non-legacy LUT
-sizes. There is no need to check it within amdgpu_dm_atomic_check.
+All this implies that it's about forcing text mode for VGA, yet it is not
+used in neither vgacon nor other console driver. The only users for these
+are DRM drivers, that check for the vgacon_text_force() return value to
+determine whether the driver should be loaded or not.
 
-[How]
-Remove the local call to verify LUT sizes and use DRM Core function
-instead.
+That makes it quite confusing to read the code, because the variables and
+function names don't reflect what they actually do and also are not in the
+same subsystem as the drivers that make use of them.
 
-Tested on ChromeOS Zork.
+This patch-set attempts to cleanup the code by moving the nomodseset param
+to the DRM subsystem and do some renaming to make their intention clearer.
 
-v1:
-Remove amdgpu_dm_verify_lut_sizes everywhere.
+There is also another aspect that could be improved, and is the fact that
+drivers are checking for the nomodeset being set as an indication if have
+to be loaded.
 
-Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-Reviewed-by: Sean Paul <seanpaul@chromium.org>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 -
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 35 -------------------
- 3 files changed, 4 insertions(+), 40 deletions(-)
+But there may be other reasons why this could be the case, so it is better
+to encapsulate the logic in a separate function to make clear what's about.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f74663b6b046e..47f8de1cfc3a5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10244,6 +10244,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 		}
- 	}
- #endif
-+	ret = drm_atomic_helper_check_crtcs(state);
-+	if (ret)
-+		return ret;
-+
- 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
- 		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
- 
-@@ -10253,10 +10257,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			dm_old_crtc_state->dsc_force_changed == false)
- 			continue;
- 
--		ret = amdgpu_dm_verify_lut_sizes(new_crtc_state);
--		if (ret)
--			goto fail;
--
- 		if (!new_crtc_state->enable)
- 			continue;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index fcb9c4a629c32..22730e5542092 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -617,7 +617,6 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
- #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
- 
- void amdgpu_dm_init_color_mod(void);
--int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
- int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
- int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct dc_plane_state *dc_plane_state);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index a022e5bb30a5c..319f8a8a89835 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -284,37 +284,6 @@ static int __set_input_tf(struct dc_transfer_func *func,
- 	return res ? 0 : -ENOMEM;
- }
- 
--/**
-- * Verifies that the Degamma and Gamma LUTs attached to the |crtc_state| are of
-- * the expected size.
-- * Returns 0 on success.
-- */
--int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
--{
--	const struct drm_color_lut *lut = NULL;
--	uint32_t size = 0;
--
--	lut = __extract_blob_lut(crtc_state->degamma_lut, &size);
--	if (lut && size != MAX_COLOR_LUT_ENTRIES) {
--		DRM_DEBUG_DRIVER(
--			"Invalid Degamma LUT size. Should be %u but got %u.\n",
--			MAX_COLOR_LUT_ENTRIES, size);
--		return -EINVAL;
--	}
--
--	lut = __extract_blob_lut(crtc_state->gamma_lut, &size);
--	if (lut && size != MAX_COLOR_LUT_ENTRIES &&
--	    size != MAX_COLOR_LEGACY_LUT_ENTRIES) {
--		DRM_DEBUG_DRIVER(
--			"Invalid Gamma LUT size. Should be %u (or %u for legacy) but got %u.\n",
--			MAX_COLOR_LUT_ENTRIES, MAX_COLOR_LEGACY_LUT_ENTRIES,
--			size);
--		return -EINVAL;
--	}
--
--	return 0;
--}
--
- /**
-  * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
-  * @crtc: amdgpu_dm crtc state
-@@ -348,10 +317,6 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 	bool is_legacy;
- 	int r;
- 
--	r = amdgpu_dm_verify_lut_sizes(&crtc->base);
--	if (r)
--		return r;
--
- 	degamma_lut = __extract_blob_lut(crtc->base.degamma_lut, &degamma_size);
- 	regamma_lut = __extract_blob_lut(crtc->base.gamma_lut, &regamma_size);
- 
+This is a v2 of the patches, that address the issues pointed out by Thomas
+Zimmermann and Jani Nikula in v1:
+
+https://lore.kernel.org/lkml/5b4e4534-4786-d231-e331-78fdb5d8496a@redhat.com/T/
+
+Patch #1 adds a drm_drv_enabled() function that could be used by drivers to
+check if these could be enabled, instead of just using vgacon_text_force().
+
+Patch #2 moves the nomodeset logic to the DRM subsystem and renames the
+functions and variables to better explain what these actually do.
+
+Changes in v2:
+- Squash patch to add drm_drv_enabled() and make drivers use it.
+- Make the drivers changes before moving nomodeset logic to DRM.
+- Make drm_drv_enabled() return an errno and -ENODEV if nomodeset.
+- Remove debug and error messages in drivers.
+- Conditionally build drm_nomodeset.o if CONFIG_VGA_CONSOLE is set.
+- Squash patches to move nomodeset logic to DRM and do the renaming.
+- Name the function drm_check_modeset() and make it return -ENODEV.
+
+Javier Martinez Canillas (2):
+  drm: Add a drm_drv_enabled() to check if drivers should be enabled
+  drm: Move nomodeset kernel parameter to the DRM subsystem
+
+ drivers/gpu/drm/Makefile                |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  8 +++-----
+ drivers/gpu/drm/ast/ast_drv.c           |  8 +++++---
+ drivers/gpu/drm/drm_drv.c               | 21 ++++++++++++++++++++
+ drivers/gpu/drm/drm_nomodeset.c         | 26 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_module.c      |  8 +++++---
+ drivers/gpu/drm/mgag200/mgag200_drv.c   |  8 +++++---
+ drivers/gpu/drm/nouveau/nouveau_drm.c   |  6 ++++--
+ drivers/gpu/drm/qxl/qxl_drv.c           |  8 +++++---
+ drivers/gpu/drm/radeon/radeon_drv.c     |  7 ++++---
+ drivers/gpu/drm/tiny/bochs.c            |  8 +++++---
+ drivers/gpu/drm/tiny/cirrus.c           |  9 ++++++---
+ drivers/gpu/drm/vboxvideo/vbox_drv.c    | 10 +++++-----
+ drivers/gpu/drm/virtio/virtgpu_drv.c    |  6 +++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     |  6 +++---
+ drivers/video/console/vgacon.c          | 21 --------------------
+ include/drm/drm_drv.h                   |  1 +
+ include/drm/drm_mode_config.h           |  6 ++++++
+ include/linux/console.h                 |  6 ------
+ 19 files changed, 109 insertions(+), 66 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_nomodeset.c
+
 -- 
-2.34.0.rc0.344.g81b53c2807-goog
+2.33.1
 
