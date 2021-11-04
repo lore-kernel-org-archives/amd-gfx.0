@@ -2,104 +2,132 @@ Return-Path: <SRS0=uIzi=PX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB8D0C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 02:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 850F5C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 03:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81498611C7
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 02:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 81498611C7
+	by mail.kernel.org (Postfix) with ESMTPS id 4329A60EDF
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 03:15:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4329A60EDF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 304D47B3F8;
-	Thu,  4 Nov 2021 02:55:39 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A99F7B3FD
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 02:55:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 842447B4AE;
+	Thu,  4 Nov 2021 03:15:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC5C7B4AC
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 03:15:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YTmalodyLDBreQI9jJ/g7GbWgu0mbhFwPHeY+psKhiKZRIQ1+bFW6qDWTj/DoJB2bdI7TY1NCS3ZH88D1SA4WqkXAdfS7ACseApps5tu8gj+ReSR+PkfFUIZj+H4BUIQuz7+YxH3TBFvOdvuAKQ2bmDsCdeqimVzm3HKQ7tTttHGnjOtgdUxdnf+b/+3paR0LtGaROXSM33cIESIeaYdlZHO0s69oRIgtKFk1Scz+sFank0dj1oP8J9qj/KLD1CH/q5P7xBQyomaeFB5aZHEtYTfMAlrK6Nij08WhcmbXEt7N0rAHW2r2cwQUvg1CM5r9g0jtGRm63+BCcQoWu5hIQ==
+ b=iliY1pBlYuSV1l1lNKPUTfQzZIfiu53VwXbjXooJbCc25Ex/f3iP3+opsfDpvuRBi9UCEEgY2Yj4DIIFvJHajA1b1vHpNSb4dvA/rba9YE586U12AA+XJdDmNfXyEXKOot7CE1eY9zHuJbVYQXXyUdE6cT22qXxbtmgwgt4aZXWWNZSQSdXVIiFdyIJdbM8uLHNWzBvp8yMm9+xGuuIFdBy7kcfgQMtdm7kdKjiQMINWgU9seZJGCdMGCWkcoda/+h8DkaFYQKZ+7Uu8kBpjwdWDDbVFheqTsHaPpGpcaM0RfOPwNPfn/Rxq8lxOdLfD7vJ52EzLcthI+KYvLd4wfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YfYP/oweakt04W8InIzJxw6B+MbnqJqPSE9htlGDuz0=;
- b=cq0c6cjSi1wOnc59CYNmnoAxjB3wZJ9q9KH+Cx507l5PefHvoUkQTyWbSJZZTYTgSFk6miR0RJOgKS0oxPet7klpNWDvHbQZyS8moUyXR9aqhqvUJx0jCy8kTK0TrKsZtKa7zuI2IbvHV/zxJ/u7pScgeJPKemkwcdo3eSdYVlyZSFLXPcDr2ZrFm8g64fkzlLHyF/AJISyYm2+9nuVMmXt9qtebY5/wtfwAULXKHF1aHzQcPPGGb1rS5UvxjMF2ibo4S8juL2FfVzUA2fU8agPMlhbHqlMYScUQQ3cdCVtWKbcLPPCQrLWNjxQsFGoPE/VGiNkZuWlBn27TPsztFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=j4tfr1KMYZqbqsDk74sOrQj1875q0Q9L2OzwqEtjwN4=;
+ b=cMfNBCeB400WA8o63FSmnaVsiH/0L8OXrmrHzc9glErQg6LHVmkoWivX0g48VwNWnsZUKLkzD90KsWkvXIjH+arZW8NE7tX19n8re4QW6rR7fZ81E6cT6LlxWST8gO13ICCBf5LvFVgrbEorN1+fLCM3Xmiy5eT0uIsJ4VlhgC/3FgPPaScBuTYXQF+VpJqWkJNAcrNFX/pNNL8HI6HPyrI4krYGn24aC8jdqX2U4spAboUMw/qEhOwBeZdv3vBlmeuiYQPcJ2eDSbnUd59Kof3C06QdjM+YDfdsw713rbZ6EgUoFTVcOF5hECLi/asaSDB9VsGzEsUKrbVwJUG4Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YfYP/oweakt04W8InIzJxw6B+MbnqJqPSE9htlGDuz0=;
- b=PEOxuEQxsM7eXFVtukHJ3KeeWgVwqp9F02kOraEDKT+ZJsXezPGOQLJE9Dcj0wFQki2cNpKmN0Z2Dp3GpNT9PjQivnSVUsrpVBi63X8p+JEUyYJoNuIG7fLwd/NAA3q041fTCA9DAx8uKaf3luwVdtevPpUjQbOqqWRI41in6eE=
-Received: from BN9PR03CA0535.namprd03.prod.outlook.com (2603:10b6:408:131::30)
- by PH0PR12MB5465.namprd12.prod.outlook.com (2603:10b6:510:ec::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.17; Thu, 4 Nov
- 2021 02:55:34 +0000
-Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:131:cafe::2e) by BN9PR03CA0535.outlook.office365.com
- (2603:10b6:408:131::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15 via Frontend
- Transport; Thu, 4 Nov 2021 02:55:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4669.10 via Frontend Transport; Thu, 4 Nov 2021 02:55:33 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Wed, 3 Nov
- 2021 21:55:28 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Wed, 3 Nov
- 2021 19:55:27 -0700
-Received: from yubiwang-dev-linux.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.15
- via Frontend Transport; Wed, 3 Nov 2021 21:55:24 -0500
-From: YuBiao Wang <YuBiao.Wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/amdgpu: Avoid writing GMC registers under sriov in
- gmc9
-Date: Thu, 4 Nov 2021 10:55:06 +0800
-Message-ID: <20211104025506.533625-1-YuBiao.Wang@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=j4tfr1KMYZqbqsDk74sOrQj1875q0Q9L2OzwqEtjwN4=;
+ b=vQ2mMr92QcHNedaLO5NVg4xBVLpCo/qm7oKEm3wffP33gZWdULjIacaQds57EER8ConFdmViH7ovD01+0/8DIj+DdnCh7a7GZ5JaHmu1taLqqwGFesBPTxrQaFUR7KGXNW/woAwEbO4JkqGUyG7vK2sx4m2/vt1hg/eJLO6F4s0=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR1201MB2491.namprd12.prod.outlook.com (2603:10b6:3:eb::23)
+ by DM5PR12MB1243.namprd12.prod.outlook.com (2603:10b6:3:74::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18; Thu, 4 Nov
+ 2021 03:15:54 +0000
+Received: from DM5PR1201MB2491.namprd12.prod.outlook.com
+ ([fe80::d153:3aa6:4677:e29]) by DM5PR1201MB2491.namprd12.prod.outlook.com
+ ([fe80::d153:3aa6:4677:e29%7]) with mapi id 15.20.4669.011; Thu, 4 Nov 2021
+ 03:15:54 +0000
+Subject: Re: [PATCH] drm/amd/amdkfd: Don't sent command to HWS on kfd reset
+To: shaoyunl <shaoyun.liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211103150427.18518-1-shaoyun.liu@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+Message-ID: <aa25c7fc-65e1-39cf-6934-cb617e239c7d@amd.com>
+Date: Wed, 3 Nov 2021 23:15:46 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20211103150427.18518-1-shaoyun.liu@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+Content-Language: en-US
+X-ClientProxiedBy: PR1PR01CA0035.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102::48) To DM5PR1201MB2491.namprd12.prod.outlook.com
+ (2603:10b6:3:eb::23)
+MIME-Version: 1.0
+Received: from [172.27.226.80] (165.204.55.251) by
+ PR1PR01CA0035.eurprd01.prod.exchangelabs.com (2603:10a6:102::48) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.19 via Frontend
+ Transport; Thu, 4 Nov 2021 03:15:53 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 120f371a-0153-4013-f546-08d99f3e9229
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5465:
-X-Microsoft-Antispam-PRVS: <PH0PR12MB5465A81CB78773700E8E1D94E58D9@PH0PR12MB5465.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:469;
+X-MS-Office365-Filtering-Correlation-Id: 1450e594-d47a-4c09-7d7a-08d99f416998
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1243:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1243EC381C135F01352CCB1E928D9@DM5PR12MB1243.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dhe8LYcJ+8Q/WG4zkLwGmHLFIAcoEvs4wD+4U/ZB2FQET4kJzuHvTPW4Sj3427cvvxPD0EifcioOS94i47fKoKsvYvwPaRO91FdqBMhpigH6fPQn3GaEHsM66hRTvp9EwDLxidz9X0phVQIeR7kXpYn/noAZgURBVs3/YJ55vuEmma1jpK7PIy/hJuIjKo2N5HN8kTGf66hHbW3/T4fujDHEQb2/hWLyiKX2oZt+67DEsigJgBsGKhBTMijukTJBkpffj+rES+uvyIhP1hHN76he9KcVKC89M2B56K5UNaY2wIclvNDMTFz7zQwACTyCGXuu5QHNscN5gD5UfI2lA5es5SdjMaRliPW2ARUZhGU9SpPv/7qoGu4SR1lHv5q6wkGAeCEVdmCCJtMoZNlhy31rdyMfw1ySMoqbHh3CdO1NEbtS8fWAYW68NZFoXXrz0l8x2N86x6csq6X/rFfhaV/UNYWzUxdyaRmanE1Loh26fsK9BRKDrtLSjcmoWLe25NSE0NOZZBaS4M6H8qGqNdBD2RGd2WDYV0UWzsS5tbl3hhKwFWLXCzUM3A6ys9lms9fVJnVSLDxGyaehAfrWSWFfaYNm1Khe+9gHKqM4g8++ggUhwULSb78tJAvgqfS827GSdKUS2/F6HqtNl4MvKQd8GexERbhVt6kiK9yCbe9+5gAoS1r8C2Zru97s3LK3attqhPgwBHxg8LELsEx23KbPa19ebNPUyRmWqgWRIKs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(426003)(82310400003)(83380400001)(186003)(81166007)(26005)(1076003)(47076005)(36860700001)(86362001)(4326008)(8676002)(70206006)(316002)(356005)(508600001)(5660300002)(2616005)(6666004)(36756003)(8936002)(7696005)(336012)(70586007)(2906002)(54906003)(6916009)(36900700001);
+X-Microsoft-Antispam-Message-Info: ZZWzoMHXJs8xFmvDXamigX3YWxLPNSQXIjNPzmqTFDq3ylF+tVwze4osKMNslcdrlwE4o01XELWFF5i9z/4kQtLcp/xsrYgOE+V6lNAoUgF1ecO4WlZQ3bWDQXbvHM9uSUp+w1vSfmvyhHA3SpWZyE7mgBJbdeVMnyZagKQdLYyVTaS8pEkat1vIb/JcdzoKNAX8eh28HURKdSr31CUJCEsGV3Bs98PndkULEMFXVq85Bgo2awjMk46KOMH6wIlpB5aFbJEus+XLf+q4QvOtSFSHPukba5JtGgO27fRTdPmMMZXis8MBRElBQS5VN2itw3B7nrFEDMs9psDvPoe+dDd/fAFn47Wv8Gp0v5own8JGXnc6sJtYyw0lk0DCFtQMJ2vJtEUJAU3/zJAQv4iup8p+4ZvvtxI2AnjruXvtkTzQJrTSpGUtCCGt1G8tc5SQBYUTy5NDRmTLtlyF3Y8kVIHISPz7Um7m6OeiYDSNYTRHfLVS7fpzk7OAqqfDRw133+SkzLWOxe7HsxI4ZEf2/GS49IikbAefOxr4jV6d+4XBwpF3quPlvKikkKguCbYUXnjF1famuUiImVtP/ikIbyfmCyQYicewL2LV6PG+m2qyvxMm71hHuQKz/ikXOQY0LNR7PLzpO1pVdq0reVktXqQvq72nanAtUBfAGHH4Qu3vPOFN4BDacpfv3xma4bDPznqjMTaJS1V276eljoFZPw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB2491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(36916002)(8676002)(16576012)(316002)(26005)(186003)(8936002)(86362001)(66556008)(83380400001)(38100700002)(956004)(66476007)(2906002)(44832011)(31696002)(2616005)(508600001)(31686004)(5660300002)(66946007)(53546011)(6486002)(36756003)(6666004)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGpvdytIOHNFczVQRDlPN0g5OUlXckpPOGExQWNoeXFSM0VMY3BOeUdUSVNz?=
+ =?utf-8?B?RWg1K2ZjOHo3Vkd5TDNaNUQ4OFpRci96eHpVVVc4L0V5Y2dCc0owYjNkYjRT?=
+ =?utf-8?B?K21nbDZQUjdRZlE1T0V2dnovYVptbDkvb0hoTVFhQzJYbW12Q2JqbFVYdDBs?=
+ =?utf-8?B?MjZUYjNlVndTVWdLZGZ4Q0M4ejM3RHZIb1A4dWZ2cHlscGZ2b1U4RThNVng2?=
+ =?utf-8?B?b3NyektjS0MyUnQ1c2N3QUJOZFRLb2xMQnpZS1JxSG01a3dzOWx3VWJRK1pr?=
+ =?utf-8?B?d0cvZG1pR3NEU1lXa1VOWDlnWmk2SG10dzYzWmpHa3k5dWlvdStKU1pwN1FE?=
+ =?utf-8?B?NTBxOTZjVWozOFZBeFcvQUpFSVFCMXZCQTYvWC9VMGN4bkdrcjY5TmhXd3ZO?=
+ =?utf-8?B?aGdvWUx1M0tqSmhHMlhyTUdVM0Rza3dsS1A4ZHlDTFdSZFk4cXo4OHdRc2ww?=
+ =?utf-8?B?am40djJWZ3FEWmlaMjZhNUZ0d0Q4OTZXbW1EbGRkeDQ4LzZvTmFkNkl6d28r?=
+ =?utf-8?B?Vk5tUmdLNHJuY1FPaHp5d0ttd0p4cFFqb0pkbTd6b3Zzb3dxUXMxemhBdTh3?=
+ =?utf-8?B?cUwzaGh6K3Vrc3ZyN2xuUjh4eS93TzEwVm91Tk1EWDBWZ1ViZjVMSEZOY0h3?=
+ =?utf-8?B?VFpCWm85Y0dGdUxYTjE1eW5LMU9OZi9LekpRMGIybktoaXBWbXJCbXVmYzc0?=
+ =?utf-8?B?ZEcwQkpWU2s0NFU4ZE9SMGdCOTJLVWV6alJWUXF0WUJDeUpDa3hseS9mOEdw?=
+ =?utf-8?B?YXFRQ0d3UTFtUWxQeGIyQ25KTXBVZHl3QmwxQlllbngrYVo2SERWVTNlQ1VU?=
+ =?utf-8?B?MVRxRXFXOGxlWVlxdFl1SUhmV3lNQ3JvRDlZM0ZNaTlMWUp4NkNERjZsZXJF?=
+ =?utf-8?B?U0Z4ZEtXQ3NiZUgrNUJva05vWDJndkY2MjdtQnpBZGQvNW1ZV21wT0tHZStL?=
+ =?utf-8?B?SlU5RU1aV0hIM1YrbVNRTmpPTk1ENURMdm5ZU0Z3dW1EOUFTd3NQNUcyUFFq?=
+ =?utf-8?B?cWdtdDlnOUlmeDN5OVhXVW9TZy9WQS9GejlGamREQ05YTmFMY09rZWUxUjdT?=
+ =?utf-8?B?N2xkWUQ2WXRJQVQrY3dJUFEzLzRtYXZwUk5uMHZzWFJMNUdFLzVjY2s0U1lr?=
+ =?utf-8?B?ZEN6OXR4Mkh6bHBJdDZQT1N2cGpWWHdsM3VkR0VNL0lIY3EybVhRVlZQME4y?=
+ =?utf-8?B?a3hjOGhBb3dQeUNOeUpudGJybk9VN0xVazNORmZac21WRmp6OVJyRkZhamJQ?=
+ =?utf-8?B?U2tSWXJacmI5MUFMY0JJWnZ4R2lnTUxIeTljWUlIYng1bC9PS2dlRGpMd1Nk?=
+ =?utf-8?B?NVg1YnRTaDlsdEdnVGJXdkNmelVtcTMyeER4Vk1HQXh5aGhhck9lSEVtVi9T?=
+ =?utf-8?B?K2Z1L1p2dHNoNGtIeDNxRThLczhYVHBZamR5SGRiU1ZUMDU4bUhIbGtTaDdE?=
+ =?utf-8?B?dmV2Q3g4alUzanE1bHVQRzFvT1Y3b1E1UGFTSHZWOTNZOVhaK1ZINk4xNTFs?=
+ =?utf-8?B?b0hleXZlNHgvenJvWDdOSmNMMENKSHRGWEFQTXlqb3FNMkpTOWZ4R0pIdE1H?=
+ =?utf-8?B?dHh6Tm1mSklQUzlia2gwRG03NzZOV0hCbjZTc3IreTM0cXhCTEVnTFhSNDBt?=
+ =?utf-8?B?SzRQTXJKdUNTblpCM08rVjhDNm5FYlc1Sm5hVGNCN3JPbkdYeDE5VzVnWHJX?=
+ =?utf-8?B?dVl6cDVTN21IOHRmOUh0UFR3Q1QycTVpeTVKYVBiYTZyTFNVTmVZOGtMYnFM?=
+ =?utf-8?B?VmozRUF5MTk5bWtjNFZtNVVndDlIWm1rZEU1TS9vYWd4WWhmWGJaMHgzMUVP?=
+ =?utf-8?B?Nm9JZlZ3dzI2TERncmFmUVBDNHZqWmhUR3dKZDZObTV1ZVJYRmxBajNUbnpZ?=
+ =?utf-8?B?TUcyN2ZMUzdsNFB2ajdrMkVENGdZVFEzeDhnUzRlc0luaTFrVHpNUGpCcFZE?=
+ =?utf-8?B?aklhaElvQ0p0cm13V2x3enFtZFVGbEVodFc4MWtpNVpDYlpnWDgra0hUYmFE?=
+ =?utf-8?B?RXV3cnh5RVZ5RjVzN2RGaEcwVjNRQjF4YVN6RUhmTitQN3lGLzNDVTFnSzVl?=
+ =?utf-8?B?ZDZlVHBvS09KbXd3djYyWUYwS0JwbGtEU2VveVNJTngzR3o4NVd4d1JodEpK?=
+ =?utf-8?B?a1ZZTVFsRzJ1OFNsOHVOQnJ4eCtLWGFXWlAwcVVFRVlsbUd1a3ZZS0FEcE4r?=
+ =?utf-8?Q?kpjtdoWPYonS/PUwEHxtXBA=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 02:55:33.8208 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 120f371a-0153-4013-f546-08d99f3e9229
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1450e594-d47a-4c09-7d7a-08d99f416998
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB2491.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 03:15:54.4806 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5465
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vOGntyHlNaATRN7l1NyamtbIE7wxaSt/ECyy/UXakM74bT4PnI8UvtROOR5T5p7wG/0MAlLvPouDcCVcz2Y/BA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1243
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,66 +139,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: YuBiao Wang <YuBiao.Wang@amd.com>,
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, horace.chen@amd.com,
- Kevin Wang <Kevin1.Wang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>,
- Jingwen Chen <Jingwen.Chen2@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk
- Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-For Vega10, disabling gart of gfxhub and mmhub could mess up KIQ and PSP
-under sriov mode, and lead to DMAR on host side.
 
-[How]
-Skip writing GMC registers under sriov.
+On 2021-11-03 11:04 a.m., shaoyunl wrote:
+> When kfd need to be reset, sent command to HWS might cause hang and get unnecessary timeout.
+> This change try not to touch HW in pre_reset and keep queues to be in the evicted state
+> when the reset is done, so they are not put back on the runlist. These queues will be destroied
+> on process termination.
+>
+> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c               | 6 +++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 2 ++
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c              | 6 +++++-
+>   4 files changed, 13 insertions(+), 3 deletions(-)
+>   mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>   mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>   mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>   mode change 100644 => 100755 drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> old mode 100644
+> new mode 100755
+> index c8aade17efef..536ef766d09e
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -1100,6 +1100,8 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
+>   	if (!kfd->init_complete)
+>   		return 0;
+>   
+> +	kfd->is_resetting = true;
+> +
+>   	kfd_smi_event_update_gpu_reset(kfd, false);
+>   
+>   	kfd->dqm->ops.pre_reset(kfd->dqm);
+> @@ -1132,6 +1134,8 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
+>   
+>   	kfd_smi_event_update_gpu_reset(kfd, true);
+>   
+> +	kfd->is_resetting = false;
+> +
+>   	return 0;
+>   }
+>   
+> @@ -1168,7 +1172,7 @@ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
+>   		return ret;
+>   
+>   	/* for runtime resume, skip unlocking kfd */
+> -	if (!run_pm) {
+> +	if (!run_pm && !kfd->is_resetting) {
 
-Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 26 +++++++++++++-----------
- 1 file changed, 14 insertions(+), 12 deletions(-)
+This is not needed. post_reset calls kfd_resume, not kgd2kfd_resume. It 
+should never get here.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-index bda1542ef1dd..f9a7349eb601 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -348,18 +348,20 @@ static void gfxhub_v1_0_gart_disable(struct amdgpu_device *adev)
- 		WREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT0_CNTL,
- 				    i * hub->ctx_distance, 0);
- 
--	/* Setup TLB control */
--	tmp = RREG32_SOC15(GC, 0, mmMC_VM_MX_L1_TLB_CNTL);
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 0);
--	tmp = REG_SET_FIELD(tmp,
--				MC_VM_MX_L1_TLB_CNTL,
--				ENABLE_ADVANCED_DRIVER_MODEL,
--				0);
--	WREG32_SOC15_RLC(GC, 0, mmMC_VM_MX_L1_TLB_CNTL, tmp);
--
--	/* Setup L2 cache */
--	WREG32_FIELD15(GC, 0, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
--	WREG32_SOC15(GC, 0, mmVM_L2_CNTL3, 0);
-+	if (!amdgpu_sriov_vf(adev)) {
-+		/* Setup TLB control */
-+		tmp = RREG32_SOC15(GC, 0, mmMC_VM_MX_L1_TLB_CNTL);
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 0);
-+		tmp = REG_SET_FIELD(tmp,
-+					MC_VM_MX_L1_TLB_CNTL,
-+					ENABLE_ADVANCED_DRIVER_MODEL,
-+					0);
-+		WREG32_SOC15_RLC(GC, 0, mmMC_VM_MX_L1_TLB_CNTL, tmp);
-+
-+		/* Setup L2 cache */
-+		WREG32_FIELD15(GC, 0, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
-+		WREG32_SOC15(GC, 0, mmVM_L2_CNTL3, 0);
-+	}
- }
- 
- /**
--- 
-2.25.1
+Regards,
+   Felix
 
+
+>   		count = atomic_dec_return(&kfd_locked);
+>   		WARN_ONCE(count < 0, "KFD suspend / resume ref. error");
+>   		if (count == 0)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> old mode 100644
+> new mode 100755
+> index e9601d4dfb77..0a60317509c8
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -1430,7 +1430,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
+>   
+>   	if (!dqm->sched_running)
+>   		return 0;
+> -	if (dqm->is_hws_hang)
+> +	if (dqm->is_hws_hang || dqm->is_resetting)
+>   		return -EIO;
+>   	if (!dqm->active_runlist)
+>   		return retval;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> old mode 100644
+> new mode 100755
+> index bfe7bacccb73..e4bcc2a09ca8
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -275,6 +275,8 @@ struct kfd_dev {
+>   	struct device_queue_manager *dqm;
+>   
+>   	bool init_complete;
+> +	bool is_resetting;
+> +
+>   	/*
+>   	 * Interrupts of interest to KFD are copied
+>   	 * from the HW ring into a SW ring.
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> old mode 100644
+> new mode 100755
+> index f8a8fdb95832..f29b3932e3dc
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1715,7 +1715,11 @@ int kfd_process_evict_queues(struct kfd_process *p)
+>   
+>   		r = pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dqm,
+>   							    &pdd->qpd);
+> -		if (r) {
+> +		/* evict return -EIO if HWS is hang or asic is resetting, in this case
+> +		 * we would like to set all the queues to be in evicted state to prevent
+> +		 * them been add back since they actually not be saved right now.
+> +		 */
+> +		if (r && r != -EIO) {
+>   			pr_err("Failed to evict process queues\n");
+>   			goto fail;
+>   		}
