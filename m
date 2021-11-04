@@ -2,49 +2,99 @@ Return-Path: <SRS0=uIzi=PX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B57EC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 15:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E082C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:09:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 06684610FD
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 15:41:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 06684610FD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1C0BF6113B
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:09:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1C0BF6113B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86B256EDFA;
-	Thu,  4 Nov 2021 15:41:24 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A56FB6EDFA;
- Thu,  4 Nov 2021 15:41:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10157"; a="295175449"
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="295175449"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 08:41:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="450250513"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga006.jf.intel.com with SMTP; 04 Nov 2021 08:41:14 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 04 Nov 2021 17:41:13 +0200
-Date: Thu, 4 Nov 2021 17:41:13 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Subject: Re: [PATCH 01/13] drm/connector: Add define for HDMI 1.4 Maximum
- Pixel Rate
-Message-ID: <YYP/GWqbcvVFIrAj@intel.com>
-References: <20211102145944.259181-1-maxime@cerno.tech>
- <20211102145944.259181-2-maxime@cerno.tech>
- <YYJsM6/hZ43b1tm9@intel.com> <YYLPXJoC7TZcwejb@intel.com>
- <20211104084841.mjnennxgelacleaj@gilmour>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94B446F9AF;
+	Thu,  4 Nov 2021 16:09:21 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1038E6F9AF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 16:09:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MgT5l4aWVJISMb4AUUXgXXHelvt0DTbZ1vKYidPP+IMOAoTb+kTmZ5U8n7Q4W+Bq6yaqC0pUyUDHa2BJMvVPLSz6+uRbO4O4VEyj9+Onl6AX7FWNuVBpngr0/hHwTX0lFUhKvS85HVe1sP/E3HzhErybqfwOBnknLv4V9OaU4/B+C3rrtBWUT/rEfcCCG0Sl/7nvrfklqKRel30uJ8qRAnUooNuduTnG6zTcJpPzwouKaDErNCLtmCa3XyAqcwbH/nV5ChMh6uZgCq7/IHfpvS5WeW/VOVXpVGfzo/NSV7ah3VbWrXBik5xQ4E2pMH72rAhzbBnsuMtm/dW0b7gqJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0MQXvHgvH+SDblaFkZ4K9LPhv8WXTCm1VRpz4gWK4+U=;
+ b=L1JhLVIcwQFveZnGk1HenEF1rLexe7BSGWdLkUaoGAGcBlP/nM2adcJcMXfjBCAuYxd4FXqZdHOrNgbx59dQRV2qf1NkEkp8MEFycCbaimNFe2K57LA//H/HpiNpGxwfBhtxEoyOpOwUFwJ11O+q3CSjfZejv6N+npAjf0Wpqy4xQIoDoTbF9wGkSdBmaogdSWbyd4w6jhR/V8hCX7IJr3l4F6HINfzP5z8+t+nSZdxhvuorLEW3mu1KEE5tNNSOzBSBW3tpUi0KgWjGAPSmJNeEzOhZz8DB3NaUwGgXWmV+tsUTXoPEtQvn/22fVknCFq58rk9r1aiRZWzI5I0ukA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0MQXvHgvH+SDblaFkZ4K9LPhv8WXTCm1VRpz4gWK4+U=;
+ b=T4LYtRjMTKU0XVrxY4en/jPIXZ1o/O7eJ8xOzWwocPdn3hjBWrVdH/Qdp9S952S/hC9FC5RTyfwSy/74QXjI/9xEyLl5RIzU10smzmyvbSrAwluSHEAP9BzKfHXwtwF9twrs88zohF66S4jNze+cv90uiS0ltuplqqkrvt+Wqyo=
+Received: from MW4PR04CA0370.namprd04.prod.outlook.com (2603:10b6:303:81::15)
+ by MN2PR12MB3311.namprd12.prod.outlook.com (2603:10b6:208:100::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Thu, 4 Nov
+ 2021 16:09:12 +0000
+Received: from CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::3) by MW4PR04CA0370.outlook.office365.com
+ (2603:10b6:303:81::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15 via Frontend
+ Transport; Thu, 4 Nov 2021 16:09:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT029.mail.protection.outlook.com (10.13.174.214) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4669.10 via Frontend Transport; Thu, 4 Nov 2021 16:09:11 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Thu, 4 Nov
+ 2021 11:09:06 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Correct DPMS disable IP version check
+Date: Thu, 4 Nov 2021 11:08:56 -0500
+Message-ID: <20211104160856.26220-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211104084841.mjnennxgelacleaj@gilmour>
-X-Patchwork-Hint: comment
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d26ba835-2e04-4a7d-11e0-08d99fad7062
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3311:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB331186C9018D9849A8920CCDE28D9@MN2PR12MB3311.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2xAFkb1OMQgKv70qEdeYpkmuAvazNUcJ26pZH5MousrmYoaS+8rSXof5yoAnGd7Ss3JsNxjw+VLpo8A9tnh3z13tGHe4x7/Z5+MaVQyIn3rj6HizFpHvDI3c0xkTcecYCi1jBUOvqylEXCi2NXO1OvalDb4tkltC5pFFcsO1GfGtQBH1rnAXFrSi0oNm7PXfUKAUSxQMpbjv/BQXvl+9X0RE2C2qWZETsNvzbos4n3A7HXcngOGDFTU/bi8YTl6Du63uaM6xwaQakBHtTbykN/T3A68fKB0XpqF1rlj4PiO/JF9fmpnmeToAWSTmKipJ+IH+SsmugF5nnN2lJGIPpl8rhdZokjxRiyJxqcM4Oie17A0d8+KeYvzUQlCDqmL5BnJVFQDGPGRNMKXeoQIWVmlGqy0L/iQ7IUl5juEi4fUqu2DtQ+F1WPibQ67dRx9KGEBXIeXE5LoiPXm4tuMvRyaHL89YIpBs3HfWloCoIpKXIPXhK4YKov+ELxRlji6Jb+kuoo7Ot1I7tG4bjiE8t0836q23CMkV6g7NKL1DC50mJXDIEPD0RwLXtLQfVXm4fnx7PO042HckFInaxWkgFWYuE19AbGyKcsNBeB8fJTZzFl3u1Y3WE3olR7Y1dXvMUSTN/UZLw8b+BrcpbSeq3XcQQfcw3UsmZVdNF+gXAPzo5gDLCO0tlxmPxVJQ5bFw2KqnFVn73BpxzSIHe13A/XjL0jBOA3vK4k9lTA+3+vU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(316002)(1076003)(6666004)(7696005)(83380400001)(70586007)(186003)(8676002)(8936002)(356005)(81166007)(6916009)(508600001)(70206006)(16526019)(426003)(36860700001)(4326008)(26005)(36756003)(44832011)(2616005)(82310400003)(86362001)(336012)(5660300002)(47076005)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 16:09:11.1660 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d26ba835-2e04-4a7d-11e0-08d99fad7062
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3311
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,86 +106,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tim Gover <tim.gover@raspberrypi.com>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>, amd-gfx@lists.freedesktop.org,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Emma Anholt <emma@anholt.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jonas Karlman <jonas@kwiboo.se>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Dom Cobley <dom@raspberrypi.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Robert Foss <robert.foss@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 04, 2021 at 09:48:41AM +0100, Maxime Ripard wrote:
-> Hi Ville,
-> 
-> On Wed, Nov 03, 2021 at 08:05:16PM +0200, Ville Syrjälä wrote:
-> > On Wed, Nov 03, 2021 at 01:02:11PM +0200, Ville Syrjälä wrote:
-> > > On Tue, Nov 02, 2021 at 03:59:32PM +0100, Maxime Ripard wrote:
-> > > > --- a/drivers/gpu/drm/drm_edid.c
-> > > > +++ b/drivers/gpu/drm/drm_edid.c
-> > > > @@ -4966,7 +4966,7 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
-> > > >  		u32 max_tmds_clock = hf_vsdb[5] * 5000;
-> > > >  		struct drm_scdc *scdc = &hdmi->scdc;
-> > > >  
-> > > > -		if (max_tmds_clock > 340000) {
-> > > > +		if (max_tmds_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
-> > > >  			display->max_tmds_clock = max_tmds_clock;
-> > > >  			DRM_DEBUG_KMS("HF-VSDB: max TMDS clock %d kHz\n",
-> > > >  				display->max_tmds_clock);
-> > > > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > > > index d2e61f6c6e08..0666203d52b7 100644
-> > > > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > > > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > > > @@ -2226,7 +2226,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
-> > > >  		if (scdc->scrambling.low_rates)
-> > > >  			pipe_config->hdmi_scrambling = true;
-> > > >  
-> > > > -		if (pipe_config->port_clock > 340000) {
-> > > > +		if (pipe_config->port_clock > DRM_HDMI_14_MAX_TMDS_CLK_KHZ) {
-> > > >  			pipe_config->hdmi_scrambling = true;
-> > > >  			pipe_config->hdmi_high_tmds_clock_ratio = true;
-> > > >  		}
-> > > 
-> > > All of that is HDMI 2.0 stuff. So this just makes it all super
-> > > confusing IMO. Nak.
-> > 
-> > So reading throgh HDMI 1.4 again it does specify 340 MHz as some kind
-> > of upper limit for the physical cable. But nowhere else is that number
-> > really mentioned AFAICS. HDMI 2.0 does talk quite a bit about the 340
-> > Mcsc limit in various places.
-> > 
-> > I wonder what people would think of a couple of helpers like:
-> > - drm_hdmi_{can,must}_use_scrambling()
-> > - drm_hdmi_is_high_tmds_clock_ratio()
-> > or something along those lines? At least with those the code would
-> > read decently and I wouldn't have to wonder what this HDMI 1.4 TMDS
-> > clock limit really is.
-> 
-> Patch 2 introduces something along those lines.
-> 
-> It doesn't cover everything though, we're using this define in vc4 to
-> limit the available modes in mode_valid on HDMI controllers not
-> 4k-capable
+Previously there was a check based on chip # for chips that aligned to
+>=CHIP_NAVI10 to have RLC stopped as part of DPMS check.  This was because
+of gfxclk being controlled by RLC in the newer designs.
 
-I wouldn't want to use this kind of define for those kinds of checks
-anyway. If the hardware has specific limits in what kind of clocks it
-can generate (or what it was validated for) IMO you should spell
-those out explicitly instead of assuming they happen to match
-some standard defined max value.
+As part of IP version checking though, this got changed to match IP
+version for SMU.  Because Renoir designs also include smu11 that meant
+that even GFX9 started to stop RLC earlier.
 
+Adjust to match GFX IP version instead of SMU IP version to restore the
+previous behavior.
+
+Fixes: a8967967f6a5 ("drm/amdgpu/amdgpu_smu: convert to IP version checking").
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 821ae6e78703..01168b8955bf 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1468,7 +1468,7 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 			dev_err(adev->dev, "Failed to disable smu features.\n");
+ 	}
+ 
+-	if (adev->ip_versions[MP1_HWIP][0] >= IP_VERSION(11, 0, 0) &&
++	if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 0, 0) &&
+ 	    adev->gfx.rlc.funcs->stop)
+ 		adev->gfx.rlc.funcs->stop(adev);
+ 
 -- 
-Ville Syrjälä
-Intel
+2.25.1
+
