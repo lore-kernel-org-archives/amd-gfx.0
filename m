@@ -2,129 +2,73 @@ Return-Path: <SRS0=uIzi=PX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CF31C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 07:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27ECFC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 07:57:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1F98611AE
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 07:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1F98611AE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id CD7B66109F
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 07:57:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CD7B66109F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4CB6EA86;
-	Thu,  4 Nov 2021 07:49:26 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E51636EA86
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 07:49:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eJvM3tTOxho+WS35dfKqFT1TwatQ09GCKUb30dra59qkhRnYiKp/xwLhbDPCOZHdJ+MqJsmgdhslAxPsi6A+rhZbqKmZ7imxzSF4PWcO3J/wanhf+WvXe9Bpmay8HNNny8aAKjuwndMeKQlc3OFzr0kg53jJxv7msIn2uhHRYB2QFWjFgWH3OC/M29+CaLCtkctqv7N+6Eb39UssicOfISrcabc/gHuSruY0YilZubrv/BB3wiqBnftU5dyqFiGxPlgzTlEiJJoljWq/oqOM3lWfZRkal3ZqXNELyHJfS0uapTOI3stJF5GkoCNGuIBHIpGmB/YbI4iUsjLa0uAqAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ETuZMd5bZnrWiEJhsRvL308LeauWXUObxUNYNf7tsM0=;
- b=FmnNfOprGndYK6eTvZUwcwOb7Q7Hj+8rfY3f7HdQmbr0VH6izg56VwlcznCBy3W7cGimFV8UNdNLGj/Ea774wofLBXFIXSfeEEJz8dIXNFeng6bUlu8MUOfRj5ra7A4pZkQm0TAr9qc12U3LJeo94+2K/9LZEYWGTGrA/xlenmulX6hinmgC+64bmXj80kumwtE6ymhtUwNtWTpaW3xTMu1WobaShP42mg/IEroPp6ghXPr22Qbhhu6VZTDxaEXDSvY2K5tpA4TjbzPpGfFhet9ZRowhuGCV0plbCeouLiSKv2+inOrQroSMn8q7vybkJxdtCDicFSzAgJPO/EplGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ETuZMd5bZnrWiEJhsRvL308LeauWXUObxUNYNf7tsM0=;
- b=LqWohNFtjHGvgZEPPu961QF6vs3YqW7/9FmVQ7SGKOc4a5u74Kh0ZwLtPHzozYcLuQ2goje4dutpFzGVtt67o7/5Y0TlH9KM7DV/Gi4VcEUl1U8qdI0QL184WPboV0d4PLnvcevDbTw6+nYXtfnsb66NFG1cpK8Y4V9dXJtqG2g=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MW2PR12MB2427.namprd12.prod.outlook.com
- (2603:10b6:907:a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18; Thu, 4 Nov
- 2021 07:49:23 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::2d02:26e7:a2d0:3769]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::2d02:26e7:a2d0:3769%5]) with mapi id 15.20.4649.020; Thu, 4 Nov 2021
- 07:49:23 +0000
-Subject: Re: [PATCH] drm/amd/amdgpu: Avoid writing GMC registers under sriov
- in gmc9
-To: YuBiao Wang <YuBiao.Wang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211104025506.533625-1-YuBiao.Wang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <50daadfb-cb9a-b4a1-3729-0dd241778e1c@amd.com>
-Date: Thu, 4 Nov 2021 08:49:09 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B0BB6EB63;
+	Thu,  4 Nov 2021 07:57:12 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A341A6EB63
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 07:57:10 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 77-20020a1c0450000000b0033123de3425so6572714wme.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Nov 2021 00:57:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=s1vAhMKLyWIvdu4ol0HVD6NkFPpTfJuGgOfO4cR9dAI=;
+ b=YBOtOYb3S9UYiMjdlKNY30td7WFfVqyqC6uZJ5gr+FlHMsjz4gmpcwT8dtB2kC85e/
+ 5FRdew5QbzExSKUL2+M2JZZGPHHSci9ObnE5nwt6/n9g/D3LL8txysOO9bMNVnmy1tAx
+ 7i9fiKfuvmy4U3bstU/xUpA21QjhfjWafQSTCkMeOX22jeRzzjAAYYk40XYXAh0hbH17
+ BQVAefoS7Abbiu3joLwtNG6MfjBiyps9YUBQjiGohGl9GIzNy/BiGXtq9rVS4tP3vUe2
+ q4cmIfgW7yDq6/b1Uzm0Nf49slJJKgJpMGmdALK58HTV6HcfbAKJNfEgSgv3aATE2XNU
+ gFMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=s1vAhMKLyWIvdu4ol0HVD6NkFPpTfJuGgOfO4cR9dAI=;
+ b=KmxYUcp3bLscdmV06QMCq4ku6sWG7jjtJBbQIh0lSYNDas+8DztZnOFJDVe93tJl5+
+ 4JSEVwERiof8pvQAxLYZIRGxdKk9wIF80VY4shqxlAJbinird1pAsHbcKPymQGhzxZum
+ K2T8veyxN7XvxxhqUdQAnt09vWqefNiEkWQbuFOv1y0a3S47kupB2vsZOFONon8Q03WW
+ CiuABIqJafj6Q3t8QJtKsIRCD/JKss4/AXXKJWB9ZljSWToXchxThfndgRU2LHakBNmZ
+ b70QUBYRtkpbjThrv57ihx/uD3nn5odsjhCo+UlXyVwGjBLG3/D+2e19r4oZZSBcU7QQ
+ xu8Q==
+X-Gm-Message-State: AOAM530YhsG3gGfOz+k+Gkod+JINOQav+xJaRcuB2UKjzWamuHfApg6f
+ QbklDxpccetkHCkRj/kXH3s=
+X-Google-Smtp-Source: ABdhPJzJKeBkbIdNc/1tfbkJvkdrHwtIEOmij0TulYWfKJa3T1hML9sFBhJKHYg8KsMHDJQ/BtlO6A==
+X-Received: by 2002:a05:600c:35c8:: with SMTP id
+ r8mr8703926wmq.8.1636012629102; 
+ Thu, 04 Nov 2021 00:57:09 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id x21sm7617469wmc.14.2021.11.04.00.57.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Nov 2021 00:57:08 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu/powerplay: fix sysfs_emit/sysfs_emit_at
+ handling
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211104005852.2454705-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <c0ce50c3-01ae-b727-873c-16fbb8de7c41@gmail.com>
+Date: Thu, 4 Nov 2021 08:57:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <20211104025506.533625-1-YuBiao.Wang@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR05CA0148.eurprd05.prod.outlook.com
- (2603:10a6:207:3::26) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-Received: from [192.168.178.21] (91.14.161.181) by
- AM3PR05CA0148.eurprd05.prod.outlook.com (2603:10a6:207:3::26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.11 via Frontend Transport; Thu, 4 Nov 2021 07:49:17 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 181ca2a0-1ae5-49c2-4156-08d99f679e14
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2427:
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24271D9A2FF372E130DD6143838D9@MW2PR12MB2427.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: K3P7b2yVl59zHSKPx/J4UKFejFGtGKu1/JD/Few2/ZCr3fA4XPE1CwVJwGGg6nTdqqRhY1dmdduXJb+xNRl/7+wURi/gT7QPAaVDZ0oAjZVQAGB9YkUTucgIfUTscykPQO41fhKEMKwjcS6isL0j3dM9sPDa4AZjz9eHGUP0fGz+ioU1xt4bRRMai2RSif9ZuSJEr5hj22VED5q7NNqRg2Bm3lAxEj7/zv5pMDqwXwQWQ9O20rUyi6+kN6bvFa5XBf3vjao6W9I+7qY6SBBtly2dvDzyI4XBA3z0TeoHng7HZS4y3gaykrPB7QZs84izLvFb4qNJuzaAq5PE2NKBodMZlRIIr2ExJIVzkugNNfqvnRZx38h5vjvEuBAJmCKLtyOV1Y2G3F6o/YnUjNW9Ou584YaTAt6QIt+ZOQV/uQAvyjGatpw3Ndtpjv1SDAdIIGI3eHBnVb/z/ohU1PkM2xodgUpJQNSqhSnMosNb5zXKzCe0SkjvcUQydq67NSsxYBHoRo56mmVt17sRikPrFOs19OMXVi0q5BmvDv2NGGNTYje1RVNVYsPl9x+CMI94O19ifQxeTfJos8oP0+kiSscwaboblfRAka3oZsSbrgxzfZC5PyPkYnZ67D2XCyKldSThnxEm8sRgAfnim1vjZJQtTHUi69UJ8W/l+orK+MN2Z90lfh+vwGozoKJnYqIWGMF+TO6fuwKH4GQq8LGpvkZY5cu/dbwCiYyNDmlqLMLrS7B15JPjlsF2bkikQAHf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(83380400001)(16576012)(54906003)(86362001)(31696002)(2906002)(6486002)(26005)(31686004)(38100700002)(186003)(2616005)(8676002)(5660300002)(956004)(8936002)(36756003)(66556008)(66476007)(4326008)(66946007)(6666004)(508600001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3JUSFp2UkpKMWpMdFd1RTVMaXJudUt1TmZIUlEyR0RjL0dQZWRRZS83Q0NI?=
- =?utf-8?B?Y3FiS2YrN2E4MGFCazNXNzNzL0UxQnl6a1hVTEs1L25xYzN0cFRqQ0ZDajNS?=
- =?utf-8?B?aWdrdGlhelRETjV3VFYwSEZyZFhQQTN3b2lKeGtHdVlLdnJBRGc1QUZ2QWg4?=
- =?utf-8?B?SEdEMmZHdHZrR0kyMElnYnBZVGRpM2JBdldSNnpqUFFrYlhRczhFU3d4MVlX?=
- =?utf-8?B?NVNaZXdNTVBITnFOdDF0czRBaENzNTlIdzl2MTNTZys1b0lBR0hIOC84aDlJ?=
- =?utf-8?B?Nmp6N0F5NlF6MzExNGJYK1A1bmQzcWdpZVJ6SW9lcHlLMDBUVTZDblZVcFRu?=
- =?utf-8?B?Q3VvYmFqK1JlaHZCeVVFeDFnS1VUZktQVm1Rd1N1cm1zUUxXcVo5dURtU2Ft?=
- =?utf-8?B?NnU2TjZpOUdZdmxvRk1WZW95eStxVnFpcllQeFFnTm9LVHV1azV2QWlxZTRV?=
- =?utf-8?B?WGxuNGVhRG9MMnExclVNeENXeEZEQ2hsYzQ4TGozNnFLSG01Q3RENHJHRjVQ?=
- =?utf-8?B?aDFrL2d1Yjk4b3IvSzIyZzgxVVdpUFc4QUlJZUg1QnFTOHMzZm9VK2RxbnF4?=
- =?utf-8?B?T1ptenlxS0xYN0tWK2JQeHlmYU84NG92TGt5SkhpUDF0WlZRME5RenN4Vkhw?=
- =?utf-8?B?N2t0SExaODllQ2pjRWo4bnpFL3I3ZmtPWWp6dkVxY2ZqeGJFOE12N3RnWDVO?=
- =?utf-8?B?NzRtam1zQnN5cXYxRDZ0bllVdXoxL1VYQURjSFF1d0gzRXZ2ZGdtZ0JSSmdv?=
- =?utf-8?B?SThJTjF1UlZOeGhBZEZ3R0RFOUlkYmZ1RzVyRkFucUVBcHZvTFNIL1NFNm1w?=
- =?utf-8?B?MHRvblZjZytFTFB2TWhRNjE0WFI1QStTVTNzN3RIUHpRTWFFUS9VdHZWMzlB?=
- =?utf-8?B?VDdrVzR3dVFRMkdDVHNGRnQ5LzZWT2Q2dENyclBGOWZLTlVUUTMyZFRSZmFF?=
- =?utf-8?B?OEJYYXRKVW9hdGFQQWZRK0FFckdiVjN6bEZqVlpjSk5kOHVkY3BwcEZwL1RI?=
- =?utf-8?B?WG4zQmZWWk9YVW1nU2RmMGFFSEdQSnpmaDFBNFB6ZFd0WFNuSk1KVTEzS1lh?=
- =?utf-8?B?NVZ2eWdqUm5JL1ZKcDBqa1pMYW01UzYvVHdEd3NaaEw1MGtRRGJwcEZNSkhZ?=
- =?utf-8?B?RjlWZDZiWU5EeC80cnBVaVBBb0czWDUvbysvVEtCbkRiSVJPcHY4ZEpKd1l3?=
- =?utf-8?B?SndJK0owT2xldUFNakR5SUlJS0p3RVo5bW5Ua25uWGVtKzNMeHBEcHJOdkp2?=
- =?utf-8?B?MGQ5MFFXWTg0eGd6SXc1L1pmc2lpVG5EK1kzNFJ6d2RKSTJrbkxBYk9VK3hi?=
- =?utf-8?B?N1JLQkMrU2YyZTZ0RjkxUFkwS1ozU2YxZmRMamVrc2FOSU54U1NOUGovUFFG?=
- =?utf-8?B?ZGRGL2dUWit6VDB3QkhURnBBVElnZ09mdlV6RzZvaVAvZ210WEkwNE5rZElK?=
- =?utf-8?B?K1Zzd0lyK3c1YlFIbDNrbXM2NURsS2Fjckc0a2t2REZSVC9HTC9KeERoQVFO?=
- =?utf-8?B?MjkzWXZGd3RCU05yRkpLVFB2eEJGVExoUmh5YXI0eFZ6WEQyUG55ZG5jaGZm?=
- =?utf-8?B?YzNUZzV0SXZzVmNkNEtITHFvcHBvTHVIODk3RXkrdzRxOVJaSk9sT3duVjhR?=
- =?utf-8?B?MkdzTjVrdzFwS01KYVM2S3doL1B0RDZOYWtZQzJLZzhNTVVQdGJmYU5JWWY3?=
- =?utf-8?B?MU83Sm5wTFJnc0twVDUrU0tQV0dhMmoyVjVMejE5QXB4YkMrRVpyTmpWenB0?=
- =?utf-8?B?QWRCWEZlMXErckwwSlhyMlhlV0VTcGNDSmYxWnIwbEdhbDZIdVgvWjE5THFB?=
- =?utf-8?B?dXB5a0pLdEsvSGxRai80QU9TTjhkcWs2R1E2bFpEQjFXZy9RUkwzQ05wYTNZ?=
- =?utf-8?B?Y1hCSVpaSUdsZk1tcG9GOTVVVUp0b1NVU0R3ajBDblZDUUViMWNoNTlJRi9P?=
- =?utf-8?B?M1Y0TEVsTUtkd3JSVVlKZWlXZ01nRjVpWi9BNVBiSEJnVGQ3amphY1F2QnBz?=
- =?utf-8?B?NTkyQ01iV1duR2h2dU5adHlDQ1lxQmFqSTU3eUd5RlJIRVVsSUpMTTl4ZE5w?=
- =?utf-8?B?U0FvT2gzOUxVZzgyWkNPWCtSNloyZkw0Vkx4bHFGaTJ0NDZQY0N5ODU5U3ZR?=
- =?utf-8?Q?rEvA=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 181ca2a0-1ae5-49c2-4156-08d99f679e14
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 07:49:23.4840 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Boah/WbEls26PiN22if8wSLFkAIh/XnA4j3N8FkNPIotS00OvUscbythg/FSL039
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2427
+In-Reply-To: <20211104005852.2454705-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,77 +80,315 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- horace.chen@amd.com, Kevin Wang <Kevin1.Wang@amd.com>,
- Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- Jingwen Chen <Jingwen.Chen2@amd.com>, Monk Liu <Monk.Liu@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Lang Yu <lang.yu@amd.com>, Darren Powell <darren.powell@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+As discussed previous I don't think this is the right approach.
 
+The distinction between sysfs_emit() and sysfs_emit_at() is exactly to 
+avoid that kind of stuff.
 
-Am 04.11.21 um 03:55 schrieb YuBiao Wang:
-> [Why]
-> For Vega10, disabling gart of gfxhub and mmhub could mess up KIQ and PSP
-> under sriov mode, and lead to DMAR on host side.
->
-> [How]
-> Skip writing GMC registers under sriov.
->
-> Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 26 +++++++++++++-----------
->   1 file changed, 14 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> index bda1542ef1dd..f9a7349eb601 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> @@ -348,18 +348,20 @@ static void gfxhub_v1_0_gart_disable(struct amdgpu_device *adev)
->   		WREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT0_CNTL,
->   				    i * hub->ctx_distance, 0);
->   
-> -	/* Setup TLB control */
-> -	tmp = RREG32_SOC15(GC, 0, mmMC_VM_MX_L1_TLB_CNTL);
-> -	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 0);
-> -	tmp = REG_SET_FIELD(tmp,
-> -				MC_VM_MX_L1_TLB_CNTL,
-> -				ENABLE_ADVANCED_DRIVER_MODEL,
-> -				0);
-> -	WREG32_SOC15_RLC(GC, 0, mmMC_VM_MX_L1_TLB_CNTL, tmp);
-> -
-> -	/* Setup L2 cache */
-> -	WREG32_FIELD15(GC, 0, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
-> -	WREG32_SOC15(GC, 0, mmVM_L2_CNTL3, 0);
-> +	if (!amdgpu_sriov_vf(adev)) {
+Instead we should probably add the size parameter to the functions in 
+question and so fix the calling convention.
 
-Maybe make that an "if (amdgpu_sriov_vf(adev)) return", but in general 
-feel free to add an Acked-by: Christian König <christian.koenig@amd.com> 
-to the patch.
-
-Additional to that the patch should probably be send to the public 
-mailing list instead.
+Or even better move the sysfs print out of the powerplay backend.
 
 Regards,
 Christian.
 
-> +		/* Setup TLB control */
-> +		tmp = RREG32_SOC15(GC, 0, mmMC_VM_MX_L1_TLB_CNTL);
-> +		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 0);
-> +		tmp = REG_SET_FIELD(tmp,
-> +					MC_VM_MX_L1_TLB_CNTL,
-> +					ENABLE_ADVANCED_DRIVER_MODEL,
-> +					0);
-> +		WREG32_SOC15_RLC(GC, 0, mmMC_VM_MX_L1_TLB_CNTL, tmp);
-> +
-> +		/* Setup L2 cache */
-> +		WREG32_FIELD15(GC, 0, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
-> +		WREG32_SOC15(GC, 0, mmVM_L2_CNTL3, 0);
-> +	}
->   }
+Am 04.11.21 um 01:58 schrieb Alex Deucher:
+> sysfs_emit and sysfs_emit_at requrie a page boundary
+> aligned buf address. Make them happy!
+>
+> v2: fix sysfs_emit -> sysfs_emit_at missed conversions
+>
+> Cc: Lang Yu <lang.yu@amd.com>
+> Cc: Darren Powell <darren.powell@amd.com>
+> Fixes: 6db0c87a0a8e ("amdgpu/pm: Replace hwmgr smu usage of sprintf with sysfs_emit")
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1774
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   |  8 ++++++--
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    | 10 +++++++---
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    |  2 ++
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h    | 13 +++++++++++++
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  | 12 +++++++++---
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c  |  4 ++++
+>   .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  | 14 ++++++++++----
+>   7 files changed, 51 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> index 1de3ae77e03e..258c573acc97 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> @@ -1024,6 +1024,8 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   	uint32_t min_freq, max_freq = 0;
+>   	uint32_t ret = 0;
 >   
->   /**
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	switch (type) {
+>   	case PP_SCLK:
+>   		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetGfxclkFrequency, &now);
+> @@ -1065,7 +1067,7 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   			if (ret)
+>   				return ret;
+>   
+> -			size = sysfs_emit(buf, "%s:\n", "OD_SCLK");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+>   			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+>   			(data->gfx_actual_soft_min_freq > 0) ? data->gfx_actual_soft_min_freq : min_freq);
+>   			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+> @@ -1081,7 +1083,7 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   			if (ret)
+>   				return ret;
+>   
+> -			size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+>   			size += sysfs_emit_at(buf, size, "SCLK: %7uMHz %10uMHz\n",
+>   				min_freq, max_freq);
+>   		}
+> @@ -1456,6 +1458,8 @@ static int smu10_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
+>   	if (!buf)
+>   		return -EINVAL;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	size += sysfs_emit_at(buf, size, "%s %16s %s %s %s %s\n",title[0],
+>   			title[1], title[2], title[3], title[4], title[5]);
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> index e7803ce8f67a..aceebf584225 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -4914,6 +4914,8 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   	int size = 0;
+>   	uint32_t i, now, clock, pcie_speed;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	switch (type) {
+>   	case PP_SCLK:
+>   		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetSclkFrequency, &clock);
+> @@ -4963,7 +4965,7 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   		break;
+>   	case OD_SCLK:
+>   		if (hwmgr->od_enabled) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_SCLK");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+>   			for (i = 0; i < odn_sclk_table->num_of_pl; i++)
+>   				size += sysfs_emit_at(buf, size, "%d: %10uMHz %10umV\n",
+>   					i, odn_sclk_table->entries[i].clock/100,
+> @@ -4972,7 +4974,7 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   		break;
+>   	case OD_MCLK:
+>   		if (hwmgr->od_enabled) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_MCLK");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_MCLK");
+>   			for (i = 0; i < odn_mclk_table->num_of_pl; i++)
+>   				size += sysfs_emit_at(buf, size, "%d: %10uMHz %10umV\n",
+>   					i, odn_mclk_table->entries[i].clock/100,
+> @@ -4981,7 +4983,7 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   		break;
+>   	case OD_RANGE:
+>   		if (hwmgr->od_enabled) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+>   			size += sysfs_emit_at(buf, size, "SCLK: %7uMHz %10uMHz\n",
+>   				data->golden_dpm_table.sclk_table.dpm_levels[0].value/100,
+>   				hwmgr->platform_descriptor.overdriveLimit.engineClock/100);
+> @@ -5518,6 +5520,8 @@ static int smu7_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
+>   	if (!buf)
+>   		return -EINVAL;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	size += sysfs_emit_at(buf, size, "%s %16s %16s %16s %16s %16s %16s %16s\n",
+>   			title[0], title[1], title[2], title[3],
+>   			title[4], title[5], title[6], title[7]);
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> index b94a77e4e714..8e28a8eecefc 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> @@ -1550,6 +1550,8 @@ static int smu8_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   	uint32_t i, now;
+>   	int size = 0;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	switch (type) {
+>   	case PP_SCLK:
+>   		now = PHM_GET_FIELD(cgs_read_ind_register(hwmgr->device,
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h
+> index ad33983a8064..2a75da1e9f03 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h
+> @@ -109,6 +109,19 @@ int phm_irq_process(struct amdgpu_device *adev,
+>   			   struct amdgpu_irq_src *source,
+>   			   struct amdgpu_iv_entry *entry);
+>   
+> +/*
+> + * Helper function to make sysfs_emit_at() happy. Align buf to
+> + * the current page boundary and record the offset.
+> + */
+> +static inline void phm_get_sysfs_buf(char **buf, int *offset)
+> +{
+> +	if (!*buf || !offset)
+> +		return;
+> +
+> +	*offset = offset_in_page(*buf);
+> +	*buf -= *offset;
+> +}
+> +
+>   int smu9_register_irq_handlers(struct pp_hwmgr *hwmgr);
+>   
+>   void *smu_atom_get_data_table(void *dev, uint32_t table, uint16_t *size,
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> index c152a61ddd2c..c981fc2882f0 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> @@ -4548,6 +4548,8 @@ static int vega10_get_ppfeature_status(struct pp_hwmgr *hwmgr, char *buf)
+>   	int ret = 0;
+>   	int size = 0;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	ret = vega10_get_enabled_smc_features(hwmgr, &features_enabled);
+>   	PP_ASSERT_WITH_CODE(!ret,
+>   			"[EnableAllSmuFeatures] Failed to get enabled smc features!",
+> @@ -4637,6 +4639,8 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   
+>   	int i, now, size = 0, count = 0;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	switch (type) {
+>   	case PP_SCLK:
+>   		if (data->registry_data.sclk_dpm_key_disabled)
+> @@ -4717,7 +4721,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   
+>   	case OD_SCLK:
+>   		if (hwmgr->od_enabled) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_SCLK");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+>   			podn_vdd_dep = &data->odn_dpm_table.vdd_dep_on_sclk;
+>   			for (i = 0; i < podn_vdd_dep->count; i++)
+>   				size += sysfs_emit_at(buf, size, "%d: %10uMhz %10umV\n",
+> @@ -4727,7 +4731,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   		break;
+>   	case OD_MCLK:
+>   		if (hwmgr->od_enabled) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_MCLK");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_MCLK");
+>   			podn_vdd_dep = &data->odn_dpm_table.vdd_dep_on_mclk;
+>   			for (i = 0; i < podn_vdd_dep->count; i++)
+>   				size += sysfs_emit_at(buf, size, "%d: %10uMhz %10umV\n",
+> @@ -4737,7 +4741,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   		break;
+>   	case OD_RANGE:
+>   		if (hwmgr->od_enabled) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+>   			size += sysfs_emit_at(buf, size, "SCLK: %7uMHz %10uMHz\n",
+>   				data->golden_dpm_table.gfx_table.dpm_levels[0].value/100,
+>   				hwmgr->platform_descriptor.overdriveLimit.engineClock/100);
+> @@ -5112,6 +5116,8 @@ static int vega10_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
+>   	if (!buf)
+>   		return -EINVAL;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	size += sysfs_emit_at(buf, size, "%s %16s %s %s %s %s\n",title[0],
+>   			title[1], title[2], title[3], title[4], title[5]);
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+> index 8558718e15a8..f7e783e1c888 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+> @@ -2141,6 +2141,8 @@ static int vega12_get_ppfeature_status(struct pp_hwmgr *hwmgr, char *buf)
+>   	int ret = 0;
+>   	int size = 0;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	ret = vega12_get_enabled_smc_features(hwmgr, &features_enabled);
+>   	PP_ASSERT_WITH_CODE(!ret,
+>   		"[EnableAllSmuFeatures] Failed to get enabled smc features!",
+> @@ -2244,6 +2246,8 @@ static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   	int i, now, size = 0;
+>   	struct pp_clock_levels_with_latency clocks;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	switch (type) {
+>   	case PP_SCLK:
+>   		PP_ASSERT_WITH_CODE(
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> index 0cf39c1244b1..03e63be4ee27 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> @@ -3238,6 +3238,8 @@ static int vega20_get_ppfeature_status(struct pp_hwmgr *hwmgr, char *buf)
+>   	int ret = 0;
+>   	int size = 0;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	ret = vega20_get_enabled_smc_features(hwmgr, &features_enabled);
+>   	PP_ASSERT_WITH_CODE(!ret,
+>   			"[EnableAllSmuFeatures] Failed to get enabled smc features!",
+> @@ -3364,6 +3366,8 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   	int ret = 0;
+>   	uint32_t gen_speed, lane_width, current_gen_speed, current_lane_width;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	switch (type) {
+>   	case PP_SCLK:
+>   		ret = vega20_get_current_clk_freq(hwmgr, PPCLK_GFXCLK, &now);
+> @@ -3479,7 +3483,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   	case OD_SCLK:
+>   		if (od8_settings[OD8_SETTING_GFXCLK_FMIN].feature_id &&
+>   		    od8_settings[OD8_SETTING_GFXCLK_FMAX].feature_id) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_SCLK");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+>   			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
+>   				od_table->GfxclkFmin);
+>   			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+> @@ -3489,7 +3493,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   
+>   	case OD_MCLK:
+>   		if (od8_settings[OD8_SETTING_UCLK_FMAX].feature_id) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_MCLK");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_MCLK");
+>   			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
+>   				od_table->UclkFmax);
+>   		}
+> @@ -3503,7 +3507,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
+>   		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
+>   		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id) {
+> -			size = sysfs_emit(buf, "%s:\n", "OD_VDDC_CURVE");
+> +			size += sysfs_emit_at(buf, size, "%s:\n", "OD_VDDC_CURVE");
+>   			size += sysfs_emit_at(buf, size, "0: %10uMhz %10dmV\n",
+>   				od_table->GfxclkFreq1,
+>   				od_table->GfxclkVolt1 / VOLTAGE_SCALE);
+> @@ -3518,7 +3522,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+>   		break;
+>   
+>   	case OD_RANGE:
+> -		size = sysfs_emit(buf, "%s:\n", "OD_RANGE");
+> +		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+>   
+>   		if (od8_settings[OD8_SETTING_GFXCLK_FMIN].feature_id &&
+>   		    od8_settings[OD8_SETTING_GFXCLK_FMAX].feature_id) {
+> @@ -4003,6 +4007,8 @@ static int vega20_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
+>   	if (!buf)
+>   		return -EINVAL;
+>   
+> +	phm_get_sysfs_buf(&buf, &size);
+> +
+>   	size += sysfs_emit_at(buf, size, "%16s %s %s %s %s %s %s %s %s %s %s\n",
+>   			title[0], title[1], title[2], title[3], title[4], title[5],
+>   			title[6], title[7], title[8], title[9], title[10]);
 
