@@ -2,98 +2,49 @@ Return-Path: <SRS0=uIzi=PX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C24FEC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:53:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB3ECC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 17:53:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D01661183
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:53:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D01661183
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B6101611C3
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 17:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B6101611C3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2643E72E08;
-	Thu,  4 Nov 2021 16:53:47 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5131672E08
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 16:53:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gaDbr/Ttl/VI8PqnAu6Z45iIqho7U2O4iKbHSupFOVosBrU65aj2HFE8K+SmoZ+tbPBLHfq+aWOS1c/KZ3HPql51uJ3SCYRECc8CkgRczJjcaHIUyLQhq3h/+TS61ch5IHCXcRz+fyCurYt6mBH+B3/ju1RKNjuJwlmBNPG1sE2NfMZya8ETXb40okjavjawaFcNXSrqlpkOurtsydA9zNgPnZhB4OrK93jf5QvjobYNjnrnpn/MrlkbRDtXq+3zUtHlMKQx9oyfWSDSJiZPAuRIQ7nR2p8jtsKGVjogao4L/kao7ywCDWVikqoQhhwKgatO5NUETEC7nHZoWdLJJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eZuPin92Uv8Q9RK1XTh/oCFowsh4QB5d8LT71Or/nU4=;
- b=HKbIhECeMcX+YtTArPBC28K7LDmA/vIkB/vG+Xfhnl3KGcDCVRnhGznkSu8JOjZvqyqXu9IMe6+TyRbrCP8xJEMOrK1AK5tBzM/wJ3JebL0I/XKZr6cWh0xzixlu6n5FbLctHudDIOWZMvwCmfXlDCC5xF04puAgXR6Od+AiwSuTgl0CCYVp1xlbhIrvm714KhpwZiKRQv8GqnK6+USuVFKaV9qKmYuB/cOELZVAndp8PaR/RpldxdSIFuL9nqIs/oiTCUP7oxYh+caHON0wbzH7xec3WkNjwcSn5tYCBNGLaijmg7Ay7Nm4646Uj7Ln9rUXKI1OC0om/2gBmbGcvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eZuPin92Uv8Q9RK1XTh/oCFowsh4QB5d8LT71Or/nU4=;
- b=Kg9ack6PxKc8TLlh0pwobeCd8cMj0wWwvxhWprih/XhlyZCeHTtGL2bzVW9iED0BswTwFYTYC+XMnX17XJEWwPUYVBpNFVqVZqc8PiMLS3BaEYtEdn7SABhyRTb+vXBdupKmXO/6bu57HMt4ov07ubagMWJc2lCQBeceDT8QSls=
-Received: from DS7PR03CA0254.namprd03.prod.outlook.com (2603:10b6:5:3b3::19)
- by CH2PR12MB3960.namprd12.prod.outlook.com (2603:10b6:610:24::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Thu, 4 Nov
- 2021 16:53:44 +0000
-Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b3:cafe::dc) by DS7PR03CA0254.outlook.office365.com
- (2603:10b6:5:3b3::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
- Transport; Thu, 4 Nov 2021 16:53:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4669.10 via Frontend Transport; Thu, 4 Nov 2021 16:53:43 +0000
-Received: from shaoyunl-dev1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Thu, 4 Nov
- 2021 11:53:42 -0500
-From: shaoyunl <shaoyun.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/amdkfd: Don't sent command to HWS on kfd reset
-Date: Thu, 4 Nov 2021 12:53:31 -0400
-Message-ID: <20211104165331.26614-1-shaoyun.liu@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB9C073708;
+	Thu,  4 Nov 2021 17:53:54 +0000 (UTC)
+X-Greylist: delayed 964 seconds by postgrey-1.36 at gabe;
+ Thu, 04 Nov 2021 17:53:53 UTC
+Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
+ [91.221.196.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 842F973774
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 17:53:53 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx2.smtp.larsendata.com (Halon) with ESMTPS
+ id f930fe11-3d95-11ec-ac3c-0050568cd888;
+ Thu, 04 Nov 2021 17:38:08 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 0354C194B43;
+ Thu,  4 Nov 2021 18:37:40 +0100 (CET)
+Date: Thu, 4 Nov 2021 18:37:38 +0100
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Subject: Re: [PATCH v2 1/2] drm: Add a drm_drv_enabled() to check if drivers
+ should be enabled
+Message-ID: <YYQaYsCr+piMlRpS@ravnborg.org>
+References: <20211104160707.1407052-1-javierm@redhat.com>
+ <20211104160707.1407052-2-javierm@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6400542c-95a6-4063-de27-08d99fb3a932
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3960:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB396035D4CD1F38D5427350E6F48D9@CH2PR12MB3960.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2hWOsPvATCJr/8JOo52fzm28Sa9yhB8ziZ0IBBz3QPfWG28qTO5pJcdeK61E03zdQVjhtEn+6V8wYM4izRXf6ZSHyOj63a8YPhTyppDOLNWApAX2Y1+oynjwjYJiArcrwyi4i7mdFnf4JcAW27V5NIeA6ogZ/DPZo6m/uYk/h+BEFbch/Xm8KV+BFXFt0fIWtm7C3d8K60Gt3Ys3mQ4mSxU9PybXVcI6J82uYRqtLF13wOLe6A03wMkU9esBOQrhjvZtMFHgKcgLhJeIP+naclQZvyFSXs8GvMeXIMGTydSWvszU5HkCy/4DXJQcXt/iwN8iv0h9aPIrsqxNT38ccw7AlCwbJjM5cEUT9EfnCCgvVMJjm7KTRtkxXk26jPo8yKhqzGOKDGQ90n/qvGeHtkUJbQbCbWI0HXjuNoFDqkbTYaZiDNuFiCyjHsTv83X9XpqFGGUAjbRTbFNYg/uTlXjyshNvJu4pNJ9iIcAojLXQ0kgaGafCz3eF6xL9C3E92mvEh0hgt5OUGupr4Ht4tK1IWwoTBfpvPsjrwdk/OiJru95Fv2da2+TYpjvKyvp4GXF2qzfJmktpaUWhNu6G+1DxDVVv8J30wTNMEzMjcUoEhnj+u0rpBbQ9IcR1P0f5xDuGX6r2hjVTIKoz3jgdJGeSBQOgHfyqtZgfyxLCs/HLdlcvqADeqwXUFEpV2am9P34wH2V7klgvneW3Xu2kiXzD8FfXKg4iREoPdbdqUF10HFEmp3YuP+oDpaBJ0iG5
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(81166007)(5660300002)(6666004)(7696005)(16526019)(8936002)(36756003)(356005)(186003)(82310400003)(47076005)(508600001)(2616005)(70206006)(36860700001)(70586007)(336012)(426003)(316002)(83380400001)(8676002)(26005)(1076003)(86362001)(4326008)(6916009)(2906002)(43062005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 16:53:43.5381 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6400542c-95a6-4063-de27-08d99fb3a932
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3960
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211104160707.1407052-2-javierm@redhat.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,51 +56,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: shaoyunl <shaoyun.liu@amd.com>
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, amd-gfx@lists.freedesktop.org,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
+ Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org,
+ Peter Robinson <pbrobinson@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
+ Hans de Goede <hdegoede@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ virtualization@lists.linux-foundation.org,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ spice-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When kfd need to be reset, sent command to HWS might cause hang and get unnecessary timeout.
-This change try not to touch HW in pre_reset and keep queues to be in the evicted state
-when the reset is done, so they are not put back on the runlist. These queues will be destroied
-on process termination.
+Hi Javier,
 
-Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c              | 6 +++++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+On Thu, Nov 04, 2021 at 05:07:06PM +0100, Javier Martinez Canillas wrote:
+> Some DRM drivers check the vgacon_text_force() function return value as an
+> indication on whether they should be allowed to be enabled or not.
+> 
+> This function returns true if the nomodeset kernel command line parameter
+> was set. But there may be other conditions besides this to determine if a
+> driver should be enabled.
+> 
+> Let's add a drm_drv_enabled() helper function to encapsulate that logic so
+> can be later extended if needed, without having to modify all the drivers.
+> 
+> Also, while being there do some cleanup. The vgacon_text_force() function
+> is guarded by CONFIG_VGA_CONSOLE and there's no need for callers to do it.
+> 
+> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+> ---
+> 
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 8214a0b1ab7f..3fb567d62881 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -975,6 +975,26 @@ int drm_dev_set_unique(struct drm_device *dev, const char *name)
+>  }
+>  EXPORT_SYMBOL(drm_dev_set_unique);
+>  
+> +/**
+> + * drm_drv_enabled - Checks if a DRM driver can be enabled
+> + * @driver: DRM driver to check
+> + *
+> + * Checks whether a DRM driver can be enabled or not. This may be the case
+> + * if the "nomodeset" kernel command line parameter is used.
+> + *
+> + * Return: 0 on success or a negative error code on failure.
+> + */
+> +int drm_drv_enabled(const struct drm_driver *driver)
+> +{
+> +	if (vgacon_text_force()) {
+> +		DRM_INFO("%s driver is disabled\n", driver->name);
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e9601d4dfb77..0a60317509c8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1430,7 +1430,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 
- 	if (!dqm->sched_running)
- 		return 0;
--	if (dqm->is_hws_hang)
-+	if (dqm->is_hws_hang || dqm->is_resetting)
- 		return -EIO;
- 	if (!dqm->active_runlist)
- 		return retval;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index f8a8fdb95832..f29b3932e3dc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1715,7 +1715,11 @@ int kfd_process_evict_queues(struct kfd_process *p)
- 
- 		r = pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dqm,
- 							    &pdd->qpd);
--		if (r) {
-+		/* evict return -EIO if HWS is hang or asic is resetting, in this case
-+		 * we would like to set all the queues to be in evicted state to prevent
-+		 * them been add back since they actually not be saved right now.
-+		 */
-+		if (r && r != -EIO) {
- 			pr_err("Failed to evict process queues\n");
- 			goto fail;
- 		}
--- 
-2.17.1
+DRM_INFO is deprecated, please do not use it in new code.
+Also other users had an error message and not just info - is info
+enough?
 
+
+> +		return -ENODEV;
+> +	}
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_drv_enabled);
+> +
+>  /*
+>   * DRM Core
+>   * The DRM core module initializes all global DRM objects and makes them
+> diff --git a/drivers/gpu/drm/i915/i915_module.c b/drivers/gpu/drm/i915/i915_module.c
+> index ab2295dd4500..45cb3e540eff 100644
+> --- a/drivers/gpu/drm/i915/i915_module.c
+> +++ b/drivers/gpu/drm/i915/i915_module.c
+> @@ -18,9 +18,12 @@
+>  #include "i915_selftest.h"
+>  #include "i915_vma.h"
+>  
+> +static const struct drm_driver driver;
+Hmmm...
+
+> +
+>  static int i915_check_nomodeset(void)
+>  {
+>  	bool use_kms = true;
+> +	int ret;
+>  
+>  	/*
+>  	 * Enable KMS by default, unless explicitly overriden by
+> @@ -31,7 +34,8 @@ static int i915_check_nomodeset(void)
+>  	if (i915_modparams.modeset == 0)
+>  		use_kms = false;
+>  
+> -	if (vgacon_text_force() && i915_modparams.modeset == -1)
+> +	ret = drm_drv_enabled(&driver);
+
+You pass the local driver variable here - which looks wrong as this is
+not the same as the driver variable declared in another file.
+
+Maybe move the check to new function you can add to init_funcs,
+and locate the new function in i915_drv - so it has access to driver?
+
+
+	Sam
