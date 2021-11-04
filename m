@@ -2,44 +2,60 @@ Return-Path: <SRS0=uIzi=PX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 941A7C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB928C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:35:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B6E061212
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:24:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5B6E061212
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 98FB661213
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Nov 2021 16:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 98FB661213
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2FA6FACE;
-	Thu,  4 Nov 2021 16:24:14 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 404C66FA8A;
- Thu,  4 Nov 2021 16:24:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10157"; a="317940202"
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="317940202"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 09:24:12 -0700
-X-IronPort-AV: E=Sophos;i="5.87,209,1631602800"; d="scan'208";a="501602671"
-Received: from mihaelac-mobl.ger.corp.intel.com (HELO localhost)
- ([10.249.32.21])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 09:24:03 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Javier Martinez Canillas <javierm@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] drm: Add a drm_drv_enabled() to check if drivers
- should be enabled
-In-Reply-To: <20211104160707.1407052-2-javierm@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211104160707.1407052-1-javierm@redhat.com>
- <20211104160707.1407052-2-javierm@redhat.com>
-Date: Thu, 04 Nov 2021 18:24:01 +0200
-Message-ID: <87zgqjanz2.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3993873219;
+	Thu,  4 Nov 2021 16:35:32 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFABD73219
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Nov 2021 16:35:30 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id x70so10153214oix.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Nov 2021 09:35:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=An++C1SSs9BVk4b5PeMs3Ss0SCY1JWsjf5YfOb13ZgI=;
+ b=jtQ1FxSLBDwH961XYn8GbdcIo7+OnQoTWca2R+bzMzjHpCqoT1IBniD/M1n7NaChaS
+ tFH1iJkwgXJCUch61yFVpsZseMiaTOBZuvQoLSO1ETqtJLPAV/dXJjL5jSzgJXP9WSP6
+ JXXkrf7DJmmPulb/ROM1VIw08FQ61ORpMIRbZulA4HBouEesiC6BFDHBCE1IiVC/beEQ
+ 7v7s+EXiXqJ2C3Ao48abM4vz/lx35jr4AYa2ODjD8f8KGfKu1g4ssp8smUYv7814/l0W
+ oXSfm8QhjVnKCN4mGA5Ij3xjEJzNrbUfptH8zh5Kt1j4FSzUQBlmWL73kLNHbqoWS/8M
+ /GJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=An++C1SSs9BVk4b5PeMs3Ss0SCY1JWsjf5YfOb13ZgI=;
+ b=yR7mSua0dWLHSsVLQqB1PxyR5ODOZpk+enOz9DscoEvX+2T4CHoLfWZrtzr4p4953F
+ 4YgKCSdWZSk+QGW2IzTH5xiEyAsDGR9q1MTcdNa8f98WL5pcifq12cFPfPUWUH4yoMFR
+ A2Jjusg08SmEUcARGZxSVB3KRHzidyXBwBvu+/KgAgjnzXEJml9sv6Eapd96aZd4inxL
+ GwDdCU45dIoiG9N7u85DKuQr33/XNuZONdz3QRaxUx060zNvHBvvXV+6Ntq5jaJkCxpU
+ vMWZFfBq9/yfgorU/YS950MdwwNgLNrPkHVf1Ov2e8nfazH60yMX6gW22ILzEiOr/aQ+
+ fi3A==
+X-Gm-Message-State: AOAM5321w1Z/zGOk0lfJuKxp/JGFtIhvjp6fb3NnpwEWgkCTN6pY+jTr
+ ucqHngT299CWCUwq2RYRFFB9J3+tXkXm+Qjqwr+UlziJ
+X-Google-Smtp-Source: ABdhPJz9BI2rHWogwEWDa3AQ13tgp5bW94vP1gZK2J8LlVu16+W6dvwLZy/edeV2VyaXcElGiMEQHrXGTaMm3HdhDA0=
+X-Received: by 2002:aca:e08a:: with SMTP id
+ x132mr16944703oig.120.1636043729981; 
+ Thu, 04 Nov 2021 09:35:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20211104160856.26220-1-mario.limonciello@amd.com>
+In-Reply-To: <20211104160856.26220-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 4 Nov 2021 12:35:19 -0400
+Message-ID: <CADnq5_Pv6T4_9KqTcxBDdQhVmeEzgrvzS=GfsC+oUv=uON7wWw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Correct DPMS disable IP version check
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,345 +67,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Peter Robinson <pbrobinson@gmail.com>, nouveau@lists.freedesktop.org,
- Dave Airlie <airlied@redhat.com>, Chia-I Wu <olvaffe@gmail.com>,
- Ben Skeggs <bskeggs@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- virtualization@lists.linux-foundation.org,
- Pekka Paalanen <pekka.paalanen@collabora.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, spice-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- intel-gfx@lists.freedesktop.org,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 04 Nov 2021, Javier Martinez Canillas <javierm@redhat.com> wrote:
-> Some DRM drivers check the vgacon_text_force() function return value as an
-> indication on whether they should be allowed to be enabled or not.
+On Thu, Nov 4, 2021 at 12:09 PM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> This function returns true if the nomodeset kernel command line parameter
-> was set. But there may be other conditions besides this to determine if a
-> driver should be enabled.
+> Previously there was a check based on chip # for chips that aligned to
+> >=CHIP_NAVI10 to have RLC stopped as part of DPMS check.  This was because
+> of gfxclk being controlled by RLC in the newer designs.
 >
-> Let's add a drm_drv_enabled() helper function to encapsulate that logic so
-> can be later extended if needed, without having to modify all the drivers.
+> As part of IP version checking though, this got changed to match IP
+> version for SMU.  Because Renoir designs also include smu11 that meant
+> that even GFX9 started to stop RLC earlier.
 >
-> Also, while being there do some cleanup. The vgacon_text_force() function
-> is guarded by CONFIG_VGA_CONSOLE and there's no need for callers to do it.
+> Adjust to match GFX IP version instead of SMU IP version to restore the
+> previous behavior.
 >
-> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+> Fixes: a8967967f6a5 ("drm/amdgpu/amdgpu_smu: convert to IP version checking").
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+
+Good catch.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Changes in v2:
-> - Squash patch to add drm_drv_enabled() and make drivers use it.
-> - Make the drivers changes before moving nomodeset logic to DRM.
-> - Make drm_drv_enabled() return an errno and -ENODEV if nomodeset.
-> - Remove debug and error messages in drivers.
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 821ae6e78703..01168b8955bf 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1468,7 +1468,7 @@ static int smu_disable_dpms(struct smu_context *smu)
+>                         dev_err(adev->dev, "Failed to disable smu features.\n");
+>         }
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  7 +++----
->  drivers/gpu/drm/ast/ast_drv.c           |  7 +++++--
->  drivers/gpu/drm/drm_drv.c               | 20 ++++++++++++++++++++
->  drivers/gpu/drm/i915/i915_module.c      |  6 +++++-
->  drivers/gpu/drm/mgag200/mgag200_drv.c   |  7 +++++--
->  drivers/gpu/drm/nouveau/nouveau_drm.c   |  5 ++++-
->  drivers/gpu/drm/qxl/qxl_drv.c           |  7 +++++--
->  drivers/gpu/drm/radeon/radeon_drv.c     |  6 ++++--
->  drivers/gpu/drm/tiny/bochs.c            |  7 +++++--
->  drivers/gpu/drm/tiny/cirrus.c           |  8 ++++++--
->  drivers/gpu/drm/vboxvideo/vbox_drv.c    |  9 +++++----
->  drivers/gpu/drm/virtio/virtgpu_drv.c    |  5 +++--
->  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     |  5 +++--
->  include/drm/drm_drv.h                   |  1 +
->  14 files changed, 74 insertions(+), 26 deletions(-)
+> -       if (adev->ip_versions[MP1_HWIP][0] >= IP_VERSION(11, 0, 0) &&
+> +       if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 0, 0) &&
+>             adev->gfx.rlc.funcs->stop)
+>                 adev->gfx.rlc.funcs->stop(adev);
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index c718fb5f3f8a..7fde40d06181 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2514,10 +2514,9 @@ static int __init amdgpu_init(void)
->  {
->  	int r;
->  
-> -	if (vgacon_text_force()) {
-> -		DRM_ERROR("VGACON disables amdgpu kernel modesetting.\n");
-> -		return -EINVAL;
-> -	}
-> +	r = drm_drv_enabled(&amdgpu_kms_driver)
-> +	if (r)
-> +		return r;
->  
->  	r = amdgpu_sync_init();
->  	if (r)
-> diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
-> index 86d5cd7b6318..802063279b86 100644
-> --- a/drivers/gpu/drm/ast/ast_drv.c
-> +++ b/drivers/gpu/drm/ast/ast_drv.c
-> @@ -233,8 +233,11 @@ static struct pci_driver ast_pci_driver = {
->  
->  static int __init ast_init(void)
->  {
-> -	if (vgacon_text_force() && ast_modeset == -1)
-> -		return -EINVAL;
-> +	int ret;
-> +
-> +	ret = drm_drv_enabled(&ast_driver);
-> +	if (ret && ast_modeset == -1)
-> +		return ret;
->  
->  	if (ast_modeset == 0)
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 8214a0b1ab7f..3fb567d62881 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -975,6 +975,26 @@ int drm_dev_set_unique(struct drm_device *dev, const char *name)
->  }
->  EXPORT_SYMBOL(drm_dev_set_unique);
->  
-> +/**
-> + * drm_drv_enabled - Checks if a DRM driver can be enabled
-> + * @driver: DRM driver to check
-> + *
-> + * Checks whether a DRM driver can be enabled or not. This may be the case
-> + * if the "nomodeset" kernel command line parameter is used.
-> + *
-> + * Return: 0 on success or a negative error code on failure.
-> + */
-> +int drm_drv_enabled(const struct drm_driver *driver)
-> +{
-> +	if (vgacon_text_force()) {
-> +		DRM_INFO("%s driver is disabled\n", driver->name);
-> +		return -ENODEV;
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_drv_enabled);
-> +
->  /*
->   * DRM Core
->   * The DRM core module initializes all global DRM objects and makes them
-> diff --git a/drivers/gpu/drm/i915/i915_module.c b/drivers/gpu/drm/i915/i915_module.c
-> index ab2295dd4500..45cb3e540eff 100644
-> --- a/drivers/gpu/drm/i915/i915_module.c
-> +++ b/drivers/gpu/drm/i915/i915_module.c
-> @@ -18,9 +18,12 @@
->  #include "i915_selftest.h"
->  #include "i915_vma.h"
->  
-> +static const struct drm_driver driver;
-> +
-
-No, this makes absolutely no sense, and will also oops on nomodeset.
-
-BR,
-Jani.
-
-
->  static int i915_check_nomodeset(void)
->  {
->  	bool use_kms = true;
-> +	int ret;
->  
->  	/*
->  	 * Enable KMS by default, unless explicitly overriden by
-> @@ -31,7 +34,8 @@ static int i915_check_nomodeset(void)
->  	if (i915_modparams.modeset == 0)
->  		use_kms = false;
->  
-> -	if (vgacon_text_force() && i915_modparams.modeset == -1)
-> +	ret = drm_drv_enabled(&driver);
-> +	if (ret && i915_modparams.modeset == -1)
->  		use_kms = false;
->  
->  	if (!use_kms) {
-> diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-> index 6b9243713b3c..2a581094ba2b 100644
-> --- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-> +++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-> @@ -378,8 +378,11 @@ static struct pci_driver mgag200_pci_driver = {
->  
->  static int __init mgag200_init(void)
->  {
-> -	if (vgacon_text_force() && mgag200_modeset == -1)
-> -		return -EINVAL;
-> +	int ret;
-> +
-> +	ret = drm_drv_enabled(&mgag200_driver);
-> +	if (ret && mgag200_modeset == -1)
-> +		return ret;
->  
->  	if (mgag200_modeset == 0)
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> index 1f828c9f691c..8844d3602d87 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -1316,13 +1316,16 @@ nouveau_platform_device_create(const struct nvkm_device_tegra_func *func,
->  static int __init
->  nouveau_drm_init(void)
->  {
-> +	int ret;
-> +
->  	driver_pci = driver_stub;
->  	driver_platform = driver_stub;
->  
->  	nouveau_display_options();
->  
->  	if (nouveau_modeset == -1) {
-> -		if (vgacon_text_force())
-> +		ret = drm_drv_enabled(&driver_stub);
-> +		if (ret)
->  			nouveau_modeset = 0;
->  	}
->  
-> diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-> index fc47b0deb021..3ac2ef2bf545 100644
-> --- a/drivers/gpu/drm/qxl/qxl_drv.c
-> +++ b/drivers/gpu/drm/qxl/qxl_drv.c
-> @@ -295,8 +295,11 @@ static struct drm_driver qxl_driver = {
->  
->  static int __init qxl_init(void)
->  {
-> -	if (vgacon_text_force() && qxl_modeset == -1)
-> -		return -EINVAL;
-> +	int ret;
-> +
-> +	ret = drm_drv_enabled(&qxl_driver);
-> +	if (ret && qxl_modeset == -1)
-> +		return ret;
->  
->  	if (qxl_modeset == 0)
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index b74cebca1f89..56d688c04346 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -637,8 +637,10 @@ static struct pci_driver radeon_kms_pci_driver = {
->  
->  static int __init radeon_module_init(void)
->  {
-> -	if (vgacon_text_force() && radeon_modeset == -1) {
-> -		DRM_INFO("VGACON disable radeon kernel modesetting.\n");
-> +	int ret;
-> +
-> +	ret = drm_drv_enabled(&kms_driver)
-> +	if (ret && radeon_modeset == -1) {
->  		radeon_modeset = 0;
->  	}
->  
-> diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-> index 2ce3bd903b70..ee6b1ff9128b 100644
-> --- a/drivers/gpu/drm/tiny/bochs.c
-> +++ b/drivers/gpu/drm/tiny/bochs.c
-> @@ -719,8 +719,11 @@ static struct pci_driver bochs_pci_driver = {
->  
->  static int __init bochs_init(void)
->  {
-> -	if (vgacon_text_force() && bochs_modeset == -1)
-> -		return -EINVAL;
-> +	int ret;
-> +
-> +	ret = drm_drv_enabled(&bochs_driver);
-> +	if (ret && bochs_modeset == -1)
-> +		return ret;
->  
->  	if (bochs_modeset == 0)
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/tiny/cirrus.c b/drivers/gpu/drm/tiny/cirrus.c
-> index 4611ec408506..4706c5bc3067 100644
-> --- a/drivers/gpu/drm/tiny/cirrus.c
-> +++ b/drivers/gpu/drm/tiny/cirrus.c
-> @@ -636,8 +636,12 @@ static struct pci_driver cirrus_pci_driver = {
->  
->  static int __init cirrus_init(void)
->  {
-> -	if (vgacon_text_force())
-> -		return -EINVAL;
-> +	int ret;
-> +
-> +	ret = drm_drv_enabled(&cirrus_driver);
-> +	if (ret)
-> +		return ret;
-> +
->  	return pci_register_driver(&cirrus_pci_driver);
->  }
->  
-> diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-> index a6c81af37345..e4377c37cf33 100644
-> --- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-> +++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-> @@ -193,10 +193,11 @@ static const struct drm_driver driver = {
->  
->  static int __init vbox_init(void)
->  {
-> -#ifdef CONFIG_VGA_CONSOLE
-> -	if (vgacon_text_force() && vbox_modeset == -1)
-> -		return -EINVAL;
-> -#endif
-> +	int ret;
-> +
-> +	ret = drm_drv_enabled(&driver);
-> +	if (ret && vbox_modeset == -1)
-> +		return ret;
->  
->  	if (vbox_modeset == 0)
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> index 749db18dcfa2..28200dfba2d1 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> @@ -104,8 +104,9 @@ static int virtio_gpu_probe(struct virtio_device *vdev)
->  	struct drm_device *dev;
->  	int ret;
->  
-> -	if (vgacon_text_force() && virtio_gpu_modeset == -1)
-> -		return -EINVAL;
-> +	ret = drm_drv_enabled(&driver);
-> +	if (ret && virtio_gpu_modeset == -1)
-> +		return ret;
->  
->  	if (virtio_gpu_modeset == 0)
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> index ab9a1750e1df..05e9949293d5 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> @@ -1651,8 +1651,9 @@ static int __init vmwgfx_init(void)
->  {
->  	int ret;
->  
-> -	if (vgacon_text_force())
-> -		return -EINVAL;
-> +	ret = drm_drv_enabled(&driver);
-> +	if (ret)
-> +		return ret;
->  
->  	ret = pci_register_driver(&vmw_pci_driver);
->  	if (ret)
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index 0cd95953cdf5..77abfc7e078b 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -598,5 +598,6 @@ static inline bool drm_drv_uses_atomic_modeset(struct drm_device *dev)
->  
->  int drm_dev_set_unique(struct drm_device *dev, const char *name);
->  
-> +int drm_drv_enabled(const struct drm_driver *driver);
->  
->  #endif
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> --
+> 2.25.1
+>
