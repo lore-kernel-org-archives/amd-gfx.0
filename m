@@ -2,65 +2,64 @@ Return-Path: <SRS0=ZtFC=PY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 086D4C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0785AC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3FC461252
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C3FC461252
+	by mail.kernel.org (Postfix) with ESMTPS id C618E60720
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C618E60720
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 260AB6E517;
-	Fri,  5 Nov 2021 19:27:13 +0000 (UTC)
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 156CF6E49F;
- Fri,  5 Nov 2021 19:27:11 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id w15so10528681ill.2;
- Fri, 05 Nov 2021 12:27:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F656E9B6;
+	Fri,  5 Nov 2021 19:27:15 +0000 (UTC)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB646E512;
+ Fri,  5 Nov 2021 19:27:13 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id y17so10507106ilb.9;
+ Fri, 05 Nov 2021 12:27:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=W/eb6uDj0ZcPussZNWTyXvX7+BhhrBBdZ4eRtPk3Njs=;
- b=fIfqGP52iMjTWJ3rJiWHeZApL+OE+qNoX8r4HqPqhUJsBNZBk06CuQTKr8jLitRKC2
- 89ldORPkk/VwhqpGKMIfFgwCsdnzOvDotuAbe1BEGzzhHF70zd0TnPQAjlakfTLpTazp
- +dlPwKK779zSg/PwgWsvuvoAGlTy9d0JLStrfkVARlKT+p9Hcc3/mMoq3nxpG3CI/1mc
- nhfd1S715+l8rmbG+V/8phkn4T52/qFF/rRFZe3W+ePU25y4miS/Ver+6oDKXjr/WhEH
- IdkiUkDHsic4l4UByJMEZn7GcFFPMHPYRPzcVap7vxJv4R6jiRbkSS6GSvLje3ZwYG7y
- oWXQ==
+ bh=MVDfl7PAAJaLkVdQfsH1Ap16lLUYnqL6SHocbYPYy0A=;
+ b=P4PDgIXDy4286cKlFS7SyepKpnasqA+6XUlqAZCAF0SjzORn1WkDLSj5vjE2mYXiMD
+ QBIR3SJ3jdaqExl5Szgz/QLnVOWFDJBbkaJcWhpvrBLxzVtUGVBEUAZNK/cXCbEgV+QG
+ Ndh8kPSGsqABfa06S74o1TVZlKeKJSXzaBxN9d6yaQCY3urSCMLahQx8SPysuZ1yhzWJ
+ 0vqD4nSwmcg/stsADf6rYjaSNp6EXmzREztg+Oey9rfv+phFKei+Kq12ISafniL1F5AJ
+ WV8nD2raghQRNg4KAB3fQUpbf3iLOJ8IDoLR3UV+xp57H0B1ygxBRA3S4tvGrz89y5ln
+ hnMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=W/eb6uDj0ZcPussZNWTyXvX7+BhhrBBdZ4eRtPk3Njs=;
- b=mGm1Rh6wCOMV/sRnq6865F3eW5/Lk1hW3+r9V9t4aN5aWFiPFh5B/Md/NW+7rjeJ8u
- T/pj0OvYzfVyKKDsKFMyw+j8PBjk7OHDeHedtr4xytKS+DnJIS3U0IOsnlTAV7+Mp9yJ
- 1Fyupz3dz4MjfduSCGfma+BVoq4ibMgijcGRP6teriSjlNBoXVho6NMSg6omtQNtE7qY
- c5bHdDpqyzfjxs3pDrBITTST7j/5x7i7itunASIWrPnDMx6m0l1KDE85tk9uHGvMooXn
- AxTZkvJDj79KyoMX/AR20Ff/MeWu165r7sufbhjfAywfdjpQZ6uRr3+B6iYewhKONudj
- ZCCQ==
-X-Gm-Message-State: AOAM530e9VBzOO9vm0c4c3WiKIVXK0m7tOHLhEAOLAp8vOeUwC6/SGtF
- FqXGgXgH/lsdJPrc6j0MQMg=
-X-Google-Smtp-Source: ABdhPJxel0Z7f8bD3NjrFD/j0wBPFyQfk151niEjAkFKLKmn/Dr7fv6lOMFJehAzWUYQyTtDdhcaEQ==
-X-Received: by 2002:a92:c74a:: with SMTP id y10mr34886664ilp.122.1636140430381; 
- Fri, 05 Nov 2021 12:27:10 -0700 (PDT)
+ bh=MVDfl7PAAJaLkVdQfsH1Ap16lLUYnqL6SHocbYPYy0A=;
+ b=xpq+zt/7xP7QtUyz7E105qwKUGQJEubvaIRh1rJKWireCpufyqtkC8eAXCYXhFK6Ee
+ e+4zQGzDbbOyO/CRMAHTrO7Kfs/82MUIcxMTQkB/JLFgaH1ilnmt5bDK/VWUVo/g2izs
+ MFZKJN8Jmgnv51YS4Tu8aXjhwDNHeKCKoeqwA60vwSEsnlandgc64Ue9EAHHfOlsES2B
+ LNYtOA0II0NVZ1fquiLbWAGn3oNV0dnzZSLndAoqTlOlAvOzP4IwiZgk3enxylvb5oHB
+ Cu6yufWgtoMoB2twlQPioTTCn4ZNYPnaiTHbK4dJt1MeCL68OZ1LId2Bq8Gwh8Y+Cuyd
+ 6mqg==
+X-Gm-Message-State: AOAM530DXihI05bkw78mCWkj3kl2e3re9EL1CGoHSAaAtSmHfzDcovhf
+ ouYzrb/vzt71Uammyb1txVc=
+X-Google-Smtp-Source: ABdhPJzWzpfFzFHWF95QeBDCRQ8M85chSNcMt3J4DRG1b6IWkDCApYyvwyTz23CkAfnwQWda+6b29g==
+X-Received: by 2002:a92:db02:: with SMTP id b2mr9798908iln.95.1636140432365;
+ Fri, 05 Nov 2021 12:27:12 -0700 (PDT)
 Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.09
+ by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Nov 2021 12:27:10 -0700 (PDT)
+ Fri, 05 Nov 2021 12:27:12 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
  daniel.vetter@ffwll.ch, seanpaul@chromium.org, lyude@redhat.com,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v10 03/10] amdgpu: use dyndbg.BITGRPS to control existing
- pr_debugs
-Date: Fri,  5 Nov 2021 13:26:30 -0600
-Message-Id: <20211105192637.2370737-4-jim.cromie@gmail.com>
+Subject: [PATCH v10 05/10] i915/gvt: use dyndbg.BITGRPS for existing pr_debugs
+Date: Fri,  5 Nov 2021 13:26:32 -0600
+Message-Id: <20211105192637.2370737-6-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211105192637.2370737-1-jim.cromie@gmail.com>
 References: <20211105192637.2370737-1-jim.cromie@gmail.com>
@@ -81,96 +80,94 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-logger_types.h defines many DC_LOG_*() categorized debug wrappers.
-Most of these already use DRM debug API, so are controllable using
-drm.debug, but others use a bare pr_debug("$prefix: .."), with 1 of 13
-different class-prefixes matching [:uppercase:]
+The gvt component of this driver has ~120 pr_debugs with formats using
+one of 9 fixed string prefixes, which are quite similar to those
+enumerated in DRM debug categories.  Following the interface model of
+drm.debug, add a parameter to map bits to these format prefixes.
 
-Use DEFINE_DYNAMIC_DEBUG_BITGRPS to create a sysfs location which maps
-from bits to these 13 sets of categorized pr_debugs to en/disable.
+static struct dyndbg_bitdesc i915_bitmap[] = {
+	[0] = { "gvt:cmd:" },
+	[1] = { "gvt:core:" },
+	[2] = { "gvt:dpy:" },
+	[3] = { "gvt:el:" },
+	[4] = { "gvt:irq:" },
+	[5] = { "gvt:mm:" },
+	[6] = { "gvt:mmio:" },
+	[7] = { "gvt:render:" },
+	[8] = { "gvt:sched:" }
+};
+DEFINE_DYNAMIC_DEBUG_BITGRPS(debug_gvt, __gvt_debug,
+	"dyndbg bitmap desc",
 
-Makefile adds -DDYNAMIC_DEBUG_MODULE for CONFIG_DYNAMIC_DEBUG_CORE,
-otherwise BUILD_BUG_ON triggers (obvious errors on subtle misuse is
-better than mysterious ones).
+If CONFIG_DYNAMIC_DEBUG_CORE=y, then gvt/Makefile adds
+-DDYNAMIC_DEBUG_MODULE to cflags, which CONFIG_DYNAMIC_DEBUG=n
+(CORE-only) builds need.  This is redone more comprehensively soon.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +
- .../gpu/drm/amd/display/dc/core/dc_debug.c    | 47 ++++++++++++++++++-
- 2 files changed, 48 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/Makefile    |  2 ++
+ drivers/gpu/drm/i915/intel_gvt.c | 38 ++++++++++++++++++++++++++++++++
+ 2 files changed, 40 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 653726588956..077342ca803f 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -38,6 +38,8 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
- 	-I$(FULL_AMD_DISPLAY_PATH)/amdgpu_dm \
- 	-I$(FULL_AMD_PATH)/amdkfd
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 660bb03de6fc..0fa5f53312a8 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -317,6 +317,8 @@ i915-y += intel_gvt.o
+ include $(src)/gvt/Makefile
+ endif
  
-+ccflags-$(CONFIG_DYNAMIC_DEBUG_CORE) += -DYNAMIC_DEBUG_MODULE
++ccflags-$(CONFIG_DYNAMIC_DEBUG_CORE) += -DDYNAMIC_DEBUG_MODULE
 +
- amdgpu-y := amdgpu_drv.o
+ obj-$(CONFIG_DRM_I915) += i915.o
+ obj-$(CONFIG_DRM_I915_GVT_KVMGT) += gvt/kvmgt.o
  
- # add KMS driver
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-index 21be2a684393..e49a755c6a69 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-@@ -36,8 +36,53 @@
- 
- #include "resource.h"
- 
--#define DC_LOGGER_INIT(logger)
+diff --git a/drivers/gpu/drm/i915/intel_gvt.c b/drivers/gpu/drm/i915/intel_gvt.c
+index 4e70c1a9ef2e..efaac5777873 100644
+--- a/drivers/gpu/drm/i915/intel_gvt.c
++++ b/drivers/gpu/drm/i915/intel_gvt.c
+@@ -162,3 +162,41 @@ void intel_gvt_resume(struct drm_i915_private *dev_priv)
+ 	if (intel_gvt_active(dev_priv))
+ 		intel_gvt_pm_resume(dev_priv->gvt);
+ }
++
 +#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-+#include <linux/dynamic_debug.h>
 +
-+unsigned long __debug_dc;
-+EXPORT_SYMBOL(__debug_dc);
++unsigned long __gvt_debug;
++EXPORT_SYMBOL(__gvt_debug);
 +
-+#define help_(_N, _cat)	"\t  Bit-" #_N "\t" _cat "\n"
-+
-+#define DC_DYNDBG_BITMAP_DESC(name)					\
-+	"Control pr_debugs via /sys/module/amdgpu/parameters/" #name	\
-+	", where each bit controls a debug category.\n"			\
-+	help_(0, "[SURFACE]:")						\
-+	help_(1, "[CURSOR]:")						\
-+	help_(2, "[PFLIP]:")						\
-+	help_(3, "[VBLANK]:")						\
-+	help_(4, "[HW_LINK_TRAINING]:")					\
-+	help_(5, "[HW_AUDIO]:")						\
-+	help_(6, "[SCALER]:")						\
-+	help_(7, "[BIOS]:")						\
-+	help_(8, "[BANDWIDTH_CALCS]:")					\
-+	help_(9, "[DML]:")						\
-+	help_(10, "[IF_TRACE]:")					\
-+	help_(11, "[GAMMA]:")						\
-+	help_(12, "[SMU_MSG]:")
-+
-+static struct dyndbg_bitdesc amdgpu_bitmap[] = {
-+	[0] = { "[CURSOR]:" },
-+	[1] = { "[PFLIP]:" },
-+	[2] = { "[VBLANK]:" },
-+	[3] = { "[HW_LINK_TRAINING]:" },
-+	[4] = { "[HW_AUDIO]:" },
-+	[5] = { "[SCALER]:" },
-+	[6] = { "[BIOS]:" },
-+	[7] = { "[BANDWIDTH_CALCS]:" },
-+	[8] = { "[DML]:" },
-+	[9] = { "[IF_TRACE]:" },
-+	[10] = { "[GAMMA]:" },
-+	[11] = { "[SMU_MSG]:" }
++static struct dyndbg_bitdesc i915_dyndbg_bitmap[] = {
++	[0] = { "gvt:cmd:" },
++	[1] = { "gvt:core:" },
++	[2] = { "gvt:dpy:" },
++	[3] = { "gvt:el:" },
++	[4] = { "gvt:irq:" },
++	[5] = { "gvt:mm:" },
++	[6] = { "gvt:mmio:" },
++	[7] = { "gvt:render:" },
++	[8] = { "gvt:sched:" }
 +};
 +
-+DEFINE_DYNAMIC_DEBUG_LOG_GROUPS(debug_dc, __debug_dc,
-+				DC_DYNDBG_BITMAP_DESC(debug_dc),
-+				amdgpu_bitmap);
++#define help_(_N, _cat)	"\t  Bit-" #_N ":\t" _cat "\n"
++
++#define I915_GVT_CATEGORIES(name) \
++	" Enable debug output via /sys/module/i915/parameters/" #name	\
++	", where each bit enables a debug category.\n"			\
++	help_(0, "gvt:cmd:")						\
++	help_(1, "gvt:core:")						\
++	help_(2, "gvt:dpy:")						\
++	help_(3, "gvt:el:")						\
++	help_(4, "gvt:irq:")						\
++	help_(5, "gvt:mm:")						\
++	help_(6, "gvt:mmio:")						\
++	help_(7, "gvt:render:")						\
++	help_(8, "gvt:sched:")
++
++DEFINE_DYNAMIC_DEBUG_BITGRPS(debug_gvt, __gvt_debug,
++			     I915_GVT_CATEGORIES(debug_gvt),
++			     i915_dyndbg_bitmap);
 +
 +#endif
- 
-+#define DC_LOGGER_INIT(logger)
- 
- #define SURFACE_TRACE(...) do {\
- 		if (dc->debug.surface_trace) \
 -- 
 2.31.1
 
