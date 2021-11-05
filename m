@@ -2,65 +2,65 @@ Return-Path: <SRS0=ZtFC=PY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56B2DC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4248C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 244A760724
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 244A760724
+	by mail.kernel.org (Postfix) with ESMTPS id 923E061056
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 923E061056
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C9CE6EC20;
-	Fri,  5 Nov 2021 19:27:19 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24F3B6E4E6;
- Fri,  5 Nov 2021 19:27:15 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id s14so10501572ilv.10;
- Fri, 05 Nov 2021 12:27:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66FFB6ECC6;
+	Fri,  5 Nov 2021 19:27:23 +0000 (UTC)
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD756EA93;
+ Fri,  5 Nov 2021 19:27:18 +0000 (UTC)
+Received: by mail-il1-x132.google.com with SMTP id k1so10497441ilo.7;
+ Fri, 05 Nov 2021 12:27:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=J66KFihbece2lAcU0d7M95Qa/rbqjUiPkgLP3JGipo0=;
- b=Zs7izjPdlXFjhHgcGVV/4D0TKcfPMJ6/bIu99IfZYafZ6L9xSfvMl0llVYUYvQoKvN
- C+b5ytYureEUj/xGBFGDOLEC1nlkqp2EtUZqNh6SIqcEnIVKIEoxFDyLLPkAzsasJ1Ze
- mW3mY2+YIs/6+Ad3/vtfXeaJf5dHuXPg9eRkgrGJsYq8qcYLPEPir1ozQ1EcyGPLDQsk
- s/I+LRdEGwhoijCzPIajrPNdy+Jp1VhZxnKRjU9V/YFzrpvvY1+as+3J/Hp40iR3fY2w
- xZumcT1EHtV6ANVvmoU1u4cgM5WTAxrE3VRMqTnHNWluDY0sE/hnimP2UECkG3p5wmhY
- pj9A==
+ bh=Y1F8YnApdCMN4x/uS6JtL9yGPFccvC24U5Ww5vjLcGU=;
+ b=DkG7uJ6OaX2DsHm86idVlHA+6uBaScXAJmTT91sAaBG3WyyH0uhEBS33rwVzsUUjDk
+ TcTZ3AylVveNtNPXtGF5Kp+SXsAtVwTN4KATZNh1Kue/injyw+aoMQxzBac2yqdVZeoR
+ py+zZVDWaY4lMTNYZefx+hy6U3G+9Ia/bsKC9+74FbOVzaGzmcPF0GCkF9hVJoCvROWA
+ fpMra9tJib0lVIEGLOraRVM8kGfJ44XjzCNS5ELw6ADSfvgTO9pIAhTVr1cc63hGJks2
+ pYN7/PdIFsKRPyrgmh7+KxWAOM+3/o04nRENZwVpfMcQTcY8U/Sd2G/ui9ykdx83tfoM
+ FxCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=J66KFihbece2lAcU0d7M95Qa/rbqjUiPkgLP3JGipo0=;
- b=eAZInv5CDY2lmM/Rersurc8xxB2BNHE1Z4pT0i37vG96FpEJkCDJsojNc2QHE5dwR7
- d02m1G8U+ksM41nrObexpWVd+/vMmryDnUu2TtDjkOtiPgifex57NG7VYtiFZX2iQ8ta
- eTJrHYG9TWQDw2B4b0yXed+bFW+ntyiTCmI9ni9Z2yWDdk96IuyF1yk39ZB/hkzCmigv
- e6alMElLvcDEQskBgWv1baeqCqhdehzOIUn6qKetdcJUcXQVUHQAQ/p4sOv90UeG5ZKE
- 7Z0ZCiS/ROtWUS8Vy89Mw0uU1qDRdlRXp2AvwLw4LrspRrjsXCg7Wq6c+LxmmD0W1mE6
- 0KVw==
-X-Gm-Message-State: AOAM531l1YU1nV9t73+fBhCeSQEgDjgYB0wb1UIsp/SqUNou9/13sjXj
- 08Y7HkI+dPVXSgNzEDOs83Q=
-X-Google-Smtp-Source: ABdhPJyEoWTSNVWY0q0qCy3OT4r68a3316psnOwgktU9XkgujPXDsJangaWjRIBrZ1zLNG8cEC0Hdg==
-X-Received: by 2002:a05:6e02:158c:: with SMTP id
- m12mr42153254ilu.64.1636140434310; 
- Fri, 05 Nov 2021 12:27:14 -0700 (PDT)
+ bh=Y1F8YnApdCMN4x/uS6JtL9yGPFccvC24U5Ww5vjLcGU=;
+ b=gQ7b/c/DRvAIKy3ao9XkYIKybIAOK8LSLTe6N85Td+7Ovygk6l4dEvjM89L4tFYt9Q
+ o9Fv8442cg3jNE08VLcNcfca7nDUDznO/husGv3B706LzwG6OBrGV0iALY82ecZceEPA
+ QqicvryxD3KlBSIfIGSizuzHIWIm3JcFSTEvDZzcbSfUX6U62ZGe/mpCEQxozAgx+Fsl
+ OkhNWXOsDYPZq7sR3WgPqYzNY2J1yCX45QukZ0Sy57KAjwzvfxTVceJdy3b+4ZvMHaWm
+ XvUIHHrrp6jJs4r1Cz5NWoln7Apfsa3iV5ljJh2CXI9VZTnM3rabhaqcxUkgdWcBloKn
+ 7dWA==
+X-Gm-Message-State: AOAM530orWS8H/1O9W0kFVLuawyNGXNTrT4JLKTTAvcM04E4wkbKmOPz
+ Ewt5tJRBfGABDenFB1gErzw=
+X-Google-Smtp-Source: ABdhPJwc1YYIiJUwXhkmE4+/dKMPB/Ld0YLvVJTZYjIQ3O/vjBPn1F3y3i+altRP74cPhbiUEkTNTw==
+X-Received: by 2002:a05:6e02:148c:: with SMTP id
+ n12mr16457301ilk.131.1636140436435; 
+ Fri, 05 Nov 2021 12:27:16 -0700 (PDT)
 Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.13
+ by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Nov 2021 12:27:14 -0700 (PDT)
+ Fri, 05 Nov 2021 12:27:16 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
  daniel.vetter@ffwll.ch, seanpaul@chromium.org, lyude@redhat.com,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v10 07/10] drm_print: instrument drm_debug_enabled
-Date: Fri,  5 Nov 2021 13:26:34 -0600
-Message-Id: <20211105192637.2370737-8-jim.cromie@gmail.com>
+Subject: [PATCH v10 09/10] dyndbg: create DEFINE_DYNAMIC_DEBUG_LOG|TRACE_GROUPS
+Date: Fri,  5 Nov 2021 13:26:36 -0600
+Message-Id: <20211105192637.2370737-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211105192637.2370737-1-jim.cromie@gmail.com>
 References: <20211105192637.2370737-1-jim.cromie@gmail.com>
@@ -81,84 +81,126 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Duplicate drm_debug_enabled() code into both "basic" and "dyndbg"
-ifdef branches.  Then add a pr_debug("todo: ...") into the "dyndbg"
-branch.
+With the recent addition of pr_debug to tracefs via +T flag, we now
+want to add drm.trace; like its model: drm.debug, it maps bits to
+pr_debug categories, but this one enables/disables writing to tracefs
+(iff CONFIG_TRACING).
 
-Then convert the "dyndbg" branch's code to a macro, so that the
-pr_debug() get its callsite info from the invoking function, instead
-of from drm_debug_enabled() itself.
+Do this by:
 
-This gives us unique callsite info for the 8 remaining users of
-drm_debug_enabled(), and lets us enable them individually to see how
-much logging traffic they generate.  The oft-visited callsites can
-then be reviewed for runtime cost and possible optimizations.
+1. add flags to dyndbg_bitmap_param, holds "p" or "T" to work for either.
 
-Heres what we get:
+   add DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS to init .flags
+   DEFINE_DYNAMIC_DEBUG_BITGRPS gets "p" for compat.
+   use it from...
 
-bash-5.1# modprobe drm
-dyndbg: 384 debug prints in module drm
-bash-5.1# grep todo: /proc/dynamic_debug/control
-drivers/gpu/drm/drm_edid.c:1843 [drm]connector_bad_edid =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_print.c:309 [drm]___drm_dbg =p "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_print.c:286 [drm]__drm_dev_dbg =p "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_vblank.c:1491 [drm]drm_vblank_restore =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_vblank.c:787 [drm]drm_crtc_vblank_helper_get_vblank_timestamp_internal =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_vblank.c:410 [drm]drm_crtc_accurate_vblank_count =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_atomic_uapi.c:1457 [drm]drm_mode_atomic_ioctl =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_edid_load.c:178 [drm]edid_load =_ "todo: maybe avoid via dyndbg\012"
+2. DEFINE_DYNAMIC_DEBUG_LOG_GROUPS as (1) with "p" flags - print to syslog
+   DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS as (1) with "T" flags - trace to tracefs
+   add kdoc to these
 
-At quick glance, edid won't qualify, drm_print might, drm_vblank is
-strongest chance, maybe atomic-ioctl too.
+NOTES
+
+The flags args (1) is a string, not just a 'p' or 'T'.  This allows
+use of decorator flags ("mflt") too, in case the module author wants
+to insure those decorations are in the trace & log.
+
+The LOG|TRACE (2) macros don't use any decorator flags, (and therefore
+don't toggle them), allowing users to control those themselves.
+
+Decorator flags are shared for both LOG and TRACE consumers,
+coordination between users is expected.  ATM, theres no declarative
+way to preset decorator flags, but DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS
+can be used to explicitly toggle them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/drm/drm_print.h | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ include/linux/dynamic_debug.h | 44 ++++++++++++++++++++++++++---------
+ lib/dynamic_debug.c           |  4 ++--
+ 2 files changed, 35 insertions(+), 13 deletions(-)
 
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 392cff7cb95c..a902bd4d8c55 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -381,6 +381,11 @@ enum drm_debug_category {
- #define DRM_DBG_CAT_DP		DRM_UT_DP
- #define DRM_DBG_CAT_DRMRES	DRM_UT_DRMRES
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 792bcff0297e..918ac1a92358 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -255,30 +255,52 @@ struct dyndbg_bitdesc {
  
-+static inline bool drm_debug_enabled(enum drm_debug_category category)
-+{
-+	return unlikely(__drm_debug & category);
-+}
+ struct dyndbg_bitmap_param {
+ 	unsigned long *bits;		/* ref to shared state */
++	const char *flags;
+ 	unsigned int maplen;
+ 	struct dyndbg_bitdesc *map;	/* indexed by bitpos */
+ };
+ 
+ #if defined(CONFIG_DYNAMIC_DEBUG) || \
+ 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
 +
- #else /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
- 
- /* join prefix + format in cpp so dyndbg can see it */
-@@ -414,12 +419,13 @@ enum drm_debug_category {
- #define DRM_DBG_CAT_DP		"drm:dp: "
- #define DRM_DBG_CAT_DRMRES	"drm:res: "
- 
--#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
-+#define drm_debug_enabled(category)			\
-+	({						\
-+	pr_debug("todo: maybe avoid via dyndbg\n");	\
-+	unlikely(__drm_debug & (category));		\
-+	})
- 
--static inline bool drm_debug_enabled(enum drm_debug_category category)
--{
--	return unlikely(__drm_debug & category);
--}
-+#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
- 
- /*
-  * struct device based logging
-@@ -582,7 +588,6 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- #define drm_dbg_drmres(drm, fmt, ...)					\
- 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_DBG_CAT_DRMRES, fmt, ##__VA_ARGS__)
- 
--
- /*
-  * printk based logging
++#define DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, _flags, desc, data) \
++	MODULE_PARM_DESC(fsname, desc);					\
++	static struct dyndbg_bitmap_param ddcats_##_var =		\
++	{ .bits = &(_var), .flags = (_flags),				\
++	  .map = data, .maplen = ARRAY_SIZE(data) };			\
++	module_param_cb(fsname, &param_ops_dyndbg, &ddcats_##_var, 0644)
++
++#define DEFINE_DYNAMIC_DEBUG_BITGRPS(fsname, _var, desc, data) \
++	DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, "p", desc, data)
++
+ /**
+- * DEFINE_DYNAMIC_DEBUG_BITGRPS() - bitmap control of pr_debugs, by format match
++ * DEFINE_DYNAMIC_DEBUG_LOG_GROUPS() - bitmap control of grouped pr_debugs --> syslog
++ *
+  * @fsname: parameter basename under /sys
+  * @_var:   C-identifier holding bitmap
+  * @desc:   string summarizing the controls provided
+  * @bitmap: C array of struct dyndbg_bitdescs
   *
+- * Intended for modules with a systematic use of pr_debug prefixes in
+- * the format strings, this allows modules calling pr_debugs to
+- * control them in groups by matching against their formats, and map
+- * them to bits 0-N of a sysfs control point.
++ * Intended for modules having pr_debugs with prefixed/categorized
++ * formats; this lets you group them by substring match, map groups to
++ * bits, and enable per group to write to syslog, via @fsname.
+  */
+-#define DEFINE_DYNAMIC_DEBUG_BITGRPS(fsname, _var, desc, data)	\
+-	MODULE_PARM_DESC(fsname, desc);					\
+-	static struct dyndbg_bitmap_param ddcats_##_var =		\
+-	{ .bits = &(_var), .map = data,					\
+-	  .maplen = ARRAY_SIZE(data) };				\
+-	module_param_cb(fsname, &param_ops_dyndbg, &ddcats_##_var, 0644)
++#define DEFINE_DYNAMIC_DEBUG_LOG_GROUPS(fsname, _var, desc, data)	\
++	DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, "p", desc, data)
++
++/**
++ * DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS() - bitmap control of pr_debugs --> tracefs
++ * @fsname: parameter basename under /sys
++ * @_var:   C-identifier holding bitmap
++ * @desc:   string summarizing the controls provided
++ * @bitmap: C array of struct dyndbg_bitdescs
++ *
++ * Intended for modules having pr_debugs with prefixed/categorized
++ * formats; this lets you group them by substring match, map groups to
++ * bits, and enable per group to write to tracebuf, via @fsname.
++ */
++#define DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS(fsname, _var, desc, data)	\
++	DEFINE_DYNAMIC_DEBUG_BITGRPS_FLAGS(fsname, _var, "T", desc, data)
+ 
+ extern const struct kernel_param_ops param_ops_dyndbg;
+ 
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index d6e9c833f5d4..f55861dd76b2 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -629,8 +629,8 @@ int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
+ 	for (i = 0; i < p->maplen && i < BITS_PER_LONG; map++, i++) {
+ 		if (test_bit(i, &inbits) == test_bit(i, p->bits))
+ 			continue;
+-		snprintf(query, FMT_QUERY_SIZE, "format '%s' %cp", map->match,
+-			 test_bit(i, &inbits) ? '+' : '-');
++		snprintf(query, FMT_QUERY_SIZE, "format '%s' %c%s", map->match,
++			 test_bit(i, &inbits) ? '+' : '-', p->flags);
+ 
+ 		matches = ddebug_exec_queries(query, KP_MOD_NAME);
+ 
 -- 
 2.31.1
 
