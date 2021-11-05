@@ -2,99 +2,68 @@ Return-Path: <SRS0=ZtFC=PY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D4C4C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67282C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DD2A61053
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0DD2A61053
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 26B9761053
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:26:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26B9761053
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AF626E1BE;
-	Fri,  5 Nov 2021 19:26:00 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2051.outbound.protection.outlook.com [40.107.102.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6707989BCD
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Nov 2021 19:25:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L+DAW/8aGxHWFi6P5+Xb+pwJ6HEYAIo9uJvDoVD5DUIGpmGtWSaQo9/OMzKrkiLGhxEo78BED8es739l0llXqfD12vPUe5YICX1Q9pqJudSUOZti1aitZsCQmuUE+o0S6qTpjkz7SSokoCX5zQvdSArkKUTAWkItjb6Cz6GLPcjcA3EnAiJRocVw0C73K+Qywh3zkczT9Fqur3O3ya4GUAmiFtO5/0JEENgqcGByreGTB6/JlyT4UhAT8YlxiHXOqxsnK/KjSOt7aZ0r/R9TsLe0qdLf96KmAE+9oAc6crWOLjzA4jej98GTjshDkVbPbKh8X6X/np2vLF/9XXX81A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MxDtLitjgNAbhfoYdag99hTnFaPeLhiAYJErw/FuDnA=;
- b=IwFDF7+uVOCBr0OKLFFWcVvoLNr7IJY/qJIVZTZucvr6ZS9gK/EruaBqoPmyMIS1FM9Lw23vXlxt0xOOfrp9Ljjy2Krk0lZm+k9gmbOQ9nZcJWg2ZAr2ilo4JgJdz3v4fO89cNWXOlLIZLg25PkYtEDB/yJebDrA3iI3g8nuor1NpG7wdzZrTOQj2y5DjFEJuLwI8biLGQbFVCP//HK72KI/ysyPHyWbEbzr3XWLF/hLfxmaBzNSJzbEVHAkVS2AuYBnjrmQoirpKbvFDosGk9qP+dVRaNie6sYDRYMY+eO1xq/J6u6peUeHFH1AeR8Rn+1YtTHmRDXRZrdQE84HBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MxDtLitjgNAbhfoYdag99hTnFaPeLhiAYJErw/FuDnA=;
- b=jKGWh587qZUrzEIkr2bvO40TB2KK1jIZYNH0l+dzffZCxsX/VUJbWdwBmBlD4gstzHayXQXXjSEIcDdshd0xJV2StF+7udXcCNZzXo4A3E/3wT2QHQgRBCsra4l1MbXoaqd7S03R5SQTVzIKcbSL5JSLnEan1wphYM/lcj4ZH0c=
-Received: from CO2PR18CA0061.namprd18.prod.outlook.com (2603:10b6:104:2::29)
- by BN9PR12MB5211.namprd12.prod.outlook.com (2603:10b6:408:11c::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Fri, 5 Nov
- 2021 19:25:56 +0000
-Received: from CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:2:cafe::68) by CO2PR18CA0061.outlook.office365.com
- (2603:10b6:104:2::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10 via Frontend
- Transport; Fri, 5 Nov 2021 19:25:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT041.mail.protection.outlook.com (10.13.174.217) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4669.10 via Frontend Transport; Fri, 5 Nov 2021 19:25:53 +0000
-Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 5 Nov
- 2021 14:25:52 -0500
-From: Alex Sierra <alex.sierra@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: lower the VAs base offset to 8KB
-Date: Fri, 5 Nov 2021 14:25:40 -0500
-Message-ID: <20211105192540.16241-1-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1DD26E430;
+	Fri,  5 Nov 2021 19:26:53 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1610F6E12B;
+ Fri,  5 Nov 2021 19:26:52 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id d70so10955053iof.7;
+ Fri, 05 Nov 2021 12:26:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qRP0k6J60c+VRwgJP2pgOOfkoTqAwQ9aAbOh9TWNhbk=;
+ b=KR6zp2+8oFmAu3cr0wq4MJ/cHADZX4KGo1aKqYbpjcyliQWXOf7HRHwwq+7lFNnzh1
+ jh1P1KFFeoQ7NgAb8nhsV/q1cTjiLjkq6g4fP4HaXi8ZR9FelHeYOzXQGPLPpcsEI49X
+ 8GqFqdahIX7tn4KItYhNUdx58omiOi5iH4X35gOLIoGiM1tlj/ffYaaYHYkuVem9In36
+ IcUPcVj4mllHsZQbj8IE0UFEfsEhNngRqg1Y7s/1rRYNFwp4CJAbpTOQpsxcP2Xkx2yf
+ fU+xPjP408mBfFKRaKR9HEyhukNjG+vlCnY/NHJfLrNUKgP3IRKeVrHJNBXeWU6xRwoH
+ cccg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qRP0k6J60c+VRwgJP2pgOOfkoTqAwQ9aAbOh9TWNhbk=;
+ b=PAZUux8kuGJRzQvqiuJrEEGfpnQ2gzO73X6+neAnJJUaoEZ8ah+JkaQD0Hajvxnygi
+ awNuyLeb0JaCEZACExO18J4cq6A/NuVPgCYPml6Nm1AFbzjXgKaA9o0bjAEgmPI9w9EH
+ AV4/m1fBDcIquhkTjHb3lG2dKbZsQaJ12WYO3ic0bJF/8w3kcQRarX0xYxIK5wTK4Ljy
+ 8nmUsb1+1EeoM9ibr6aG9ssI72/3zta9lAXIYZAj3HCE5jso2f/dAa62aZVWdcu+SAb2
+ 1w0PweRVDIM3cEFBGuN2zB+A/wbiF2Pxga2i0Zho+rmZTxHEgh1V5s26TRG7TkryG9lm
+ 6gfg==
+X-Gm-Message-State: AOAM533DEBNFsP/tm4HbNy8GSEPc+EJ+Igl/7RCxT87LZXGHEaBjnrqS
+ 5IwJVOjMM59PQLnHDQlapy/pERoWBNt+RQ==
+X-Google-Smtp-Source: ABdhPJzGjY79lwbH9Wx5dRR19O6yLjk08RQIKZHczVQG6f+Nm3kjDuEs34bbOyHLH/VhcPf2yLM56w==
+X-Received: by 2002:a05:6638:2045:: with SMTP id
+ t5mr10875675jaj.127.1636140411193; 
+ Fri, 05 Nov 2021 12:26:51 -0700 (PDT)
+Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
+ by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.26.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Nov 2021 12:26:50 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
+ daniel.vetter@ffwll.ch, seanpaul@chromium.org, lyude@redhat.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: [PATCH v10 00/10] use DYNAMIC_DEBUG to implement DRM.debug & DRM.trace
+Date: Fri,  5 Nov 2021 13:26:27 -0600
+Message-Id: <20211105192637.2370737-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f43c54ff-b9e1-40f2-b06a-08d9a0921588
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5211:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB521102DB8AF8E09A5F7D8ADDFD8E9@BN9PR12MB5211.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rHUbDVyIGt5YSJwwaYj6qCQIyid6aGysIAF+2Hlus4vzMRsmG68mpPWSabI5vBSJbDRqLfMd4xGtkDyyHq+fKR2s7K6/4t5u4AnLtqXu2GveIDuCHJHeocwGK59mUsQhmEH9Q7WiQQIfrWWctkvdpXzd4iZFYP33D+fWG/fvu9ovNznVTZiyMKqQNrkInL6gQbqo5xumbe5d4mNIhXdrOrbD1VfkkM19PZrIsWL/rASkQa5rizVb75/CzOOueEyiI9NLgQaOPFnYRB/HSwVBhIBvlaDxkI06wAMvhYc6U+00UFLleklfdLBJ29lqZfbLfsyW00+SiImo9fyzgcIuw0lm2/b+QsKLfOVhjCiRWV8JAnTaGaUhixJX3lIkuIy5ZhU9fkSACCoYLE38pQFbXadSnFK2RlGv5EvJDO5dmWcD+0C8Xbj5mIAx+3sNVhMbUz3jZdEAG5p24y3Zzf76TfOFiymRT/O9B4I0fV8VcPzBL47NYkaTTh0jr0V4l/8i6y0aNzE7sTpl8zTGnqvqpIxw2MvBL+G91QcHh0qWSvqwlTM2Ikm1L/TIGhzyjdYuwKnSIB81CZ6hEeTW778ljewdS+pBQph2rUxiHW+GzAZxXjANWpAKIORCmVE9lR8+QiCmuAxipGdntmvlWu+tF5XjmITrCIjDFOAGVw7RrPWnk+ErOdwLhXmxxasir65eHq6cCornMT9C2Qey/JcVCWXoM5b5KvkQDU/uJA1s7Vg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(81166007)(508600001)(16526019)(186003)(82310400003)(36756003)(26005)(5660300002)(83380400001)(8936002)(70586007)(356005)(36860700001)(7696005)(8676002)(47076005)(316002)(6916009)(86362001)(4326008)(1076003)(426003)(70206006)(2616005)(336012)(2906002)(44832011)(6666004)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 19:25:53.4935 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f43c54ff-b9e1-40f2-b06a-08d9a0921588
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5211
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,39 +75,182 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>
+Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The low 16MB of virtual address space are currently reserved for kernel
-mode allocations mapped into user virtual address space. This causes
-conflicts with HMM/SVM mappings at low virtual addresses. We tried to
-move those kernel mode allocations to the upper half of the 64-bit
-virtual address space for GFX9, which is naturally reserved for kernel
-use. However, TBA (trap handler code) has problems to access addresses
-in the high virtual space. We have decided to set this to 8KB of the
-lower address space as a temporary fix, while investigate TBA address
-problem. It is very unlikely for user space to map memory at this low
-region.
+Hi Jason, Greg, DRM-everyone,
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This patchset has 3 separate but related parts:
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index 2e86692def19..d1388896f9c1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -308,7 +308,7 @@
-  * 16MB are reserved for kernel use (CWSR trap handler and kernel IB
-  * for now).
-  */
--#define SVM_USER_BASE 0x1000000ull
-+#define SVM_USER_BASE (u64)(KFD_CWSR_TBA_TMA_SIZE + 2*PAGE_SIZE)
- #define SVM_CWSR_BASE (SVM_USER_BASE - KFD_CWSR_TBA_TMA_SIZE)
- #define SVM_IB_BASE   (SVM_CWSR_BASE - PAGE_SIZE)
- 
+1. DEFINE_DYNAMIC_DEBUG_BITGRPS [patch 1/10]
+
+   Declares DRM.debug style bitmap, bits control pr_debugs by matching formats
+   Adds callback to translate bits to $cmd > dynamic_debug/control
+   This could obsolete EXPORT(dynamic_debug_exec_queries) not included.
+
+   /* anticipated_usage */
+   static struct dyndbg_desc drm_categories_map[] = {
+   	  [0] = { DRM_DBG_CAT_CORE },
+	  [1] = { DRM_DBG_CAT_DRIVER },
+	  [2] = { DRM_DBG_CAT_KMS },
+	  [3] = { DRM_DBG_CAT_PRIME }, ... };
+
+   DEFINE_DYNAMIC_DEBUG_BITGRPS(debug, __drm_debug,
+				" bits control drm.debug categories ",
+				drm_categories_map);
+
+   Please consider this patch for -next:
+   - new interface, new code, no users to break
+   - allows DRM folks to consider in earnest.
+   - api bikeshedding to do ?
+     struct dyndbg_desc isnt that great a name, others too probably.
+
+2. use (1) to reimplement drm.debug [patches 3-7]:
+
+   1st in amdgpu & i915 to control existing pr_debugs by their formats
+   then in drm-print, for all drm.debug API users
+   POC for (1)
+   avoids drm_debug_enabled(), gives NOOP savings & new flexibility.
+   changes drm.debug categories from enum to format-prefix-string
+   alters in-log format to include the format-prefix-string
+   Daniel Vetter liked this at -v3
+   https://lore.kernel.org/lkml/YPbPvm%2FxcBlTK1wq@phenom.ffwll.local/
+   Im sure Ive missed stuff.
+   
+3. separately, Sean Paul proposed drm.trace to mirror drm.debug to tracefs
+   https://patchwork.freedesktop.org/series/78133/
+
+He argues:
+   tracefs is fast/lightweight compared to syslog
+   independent selection (of drm categories) to tracefs
+       gives tailored traffic w.o flooding syslog
+
+ISTM he's correct.  So it follows that write-to-tracefs is also a good
+feature for dyndbg, where its then available for all pr_debug users,
+on a per-site basis, via echo +T >control.  (iff CONFIG_TRACING).
+
+So basically, I borg'd his:
+   [patch 14/14] drm/print: Add tracefs support to the drm logging helpers
+   
+Then I added a T flag, so it can be toggled from shell:
+
+   # turn on all drm's pr_debug --> tracefs
+   echo module drm +T > /proc/dynamic_debug/control
+
+It appears to just work: (RFC)
+
+The instance name is a placeholder, per-module subdirs kinda fits the
+tracefs pattern, full mod/file-basename/function/line feels like
+overkill, mod/basename-func.line would flatten it nicely. RFC.
+
+[root@gandalf dyndbg-tracefs]# pwd
+/sys/kernel/tracing/instances/dyndbg-tracefs
+[root@gandalf dyndbg-tracefs]# echo 1 > /sys/module/drm/parameters/trace
+[root@gandalf dyndbg-tracefs]# head -n16 trace | sed -e 's/^#//'
+ tracer: nop
+
+ entries-in-buffer/entries-written: 405/405   #P:24
+
+                                _-----=> irqs-off
+                               / _----=> need-resched
+                              | / _---=> hardirq/softirq
+                              || / _--=> preempt-depth
+                              ||| / _-=> migrate-disable
+                              |||| /     delay
+           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+              | |         |   |||||     |         |
+           <...>-2254    [000] .....  7040.894352: __dynamic_pr_debug: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
+           <...>-2207    [015] .....  7040.894654: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
+           <...>-2207    [015] .....  7040.995403: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
+           <...>-2207    [015] .....  7040.995413: __dynamic_pr_debug: drm:core: OBJ ID: 121 (2)
+
+This is the pr-debug doing most of that logging: (from dynamic_debug/control)
+
+  drivers/gpu/drm/drm_ioctl.c:866 [drm]drm_ioctl =T "drm:core: comm=\042%s\042 pid=%d, dev=0x%lx, auth=%d, %s\012"
+
+Turning on decoration flags changes the trace:
+
+  echo module drm format drm:core: +mflt > /proc/dynamic_debug/control 
+
+           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+              | |         |   |||||     |         |
+           <...>-2254    [003] ..... 15980.936660: __dynamic_pr_debug: [2254] drm:drm_ioctl:866: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
+           <...>-2207    [015] ..... 15980.936966: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
+           <...>-2207    [015] ..... 15981.037727: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
+           <...>-2207    [015] ..... 15981.037739: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (2)
+           <...>-2207    [015] ..... 15981.037742: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (1)
+
+The FUNCTION could stand tweaking (to match the callsite in the
+control file, cited above), or perhaps replaced by the 'mfl'
+decorations; the 't' flag is redundant for trace. Meh.
+
+SELFTEST
+
+A previous version of this patchset added test_dynamic_debug.ko, but
+it relied upon code I ripped out when I made tracefs available by
+default (without modules registering 1st).  So it fails 10/29 tests,
+which counted +T sites executed, via side effect.
+
+TODO: userspace selftest
+
+  # to set expected tracing activity
+  echo module test_dynamic_debug function do_debugging +T > control
+
+  # run do_debugging function (todo: add sysfs knob) 
+  echo 2 > /sys/module/test-dynamic-debug/parameters/run_me
+
+If thats wrapped in the right trace_on, trace_pipe, etc incantations,
+the +T enabled pr_debugs in do_debugging() can be counted, compared
+against expectations, and passed or failed.
+
+change since v9:
+. patch confict against drm-misc resolved
+. s/CATEGORIES/BITGRPS/ in 1/10 - keep name generic: bitmap + groups
+. CATEGORIES is drm term, use it there only
+. fix api friction wrt drm.trace knob
+  2 separate macros: DEFINE_DYNAMIC_DEBUG_{LOG,TRACE}_GROUPS - JBaron
+
+v9: https://patchwork.freedesktop.org/series/96327/
+v8: https://patchwork.freedesktop.org/series/93914/
+    https://lore.kernel.org/lkml/20210915163957.2949166-1-jim.cromie@gmail.com/
+
+The major change since v8 is that +T now works for all users, if
+CONFIG_TRACING=y, otherwise it complains/errors.
+
+
+Jim Cromie (10):
+  dyndbg: add DEFINE_DYNAMIC_DEBUG_BITGRPS macro and callbacks
+  drm: fix doc grammar
+  amdgpu: use dyndbg.BITGRPS to control existing pr_debugs
+  i915/gvt: trim spaces from pr_debug "gvt: core:" prefixes
+  i915/gvt: use dyndbg.BITGRPS for existing pr_debugs
+  drm_print: add choice to use dynamic debug in drm-debug
+  drm_print: instrument drm_debug_enabled
+  dyndbg: add print-to-tracefs, selftest with it - RFC
+  dyndbg: create DEFINE_DYNAMIC_DEBUG_LOG|TRACE_GROUPS
+  drm: use DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS in 3 places
+
+ .../admin-guide/dynamic-debug-howto.rst       |   7 +-
+ MAINTAINERS                                   |   1 +
+ drivers/gpu/drm/Kconfig                       |  26 ++
+ drivers/gpu/drm/Makefile                      |   2 +
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |  55 ++++-
+ drivers/gpu/drm/drm_print.c                   |  62 +++--
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
+ drivers/gpu/drm/i915/intel_gvt.c              |  47 ++++
+ include/drm/drm_drv.h                         |   2 +-
+ include/drm/drm_print.h                       | 182 +++++++++++---
+ include/linux/dynamic_debug.h                 |  88 ++++++-
+ lib/Kconfig.debug                             |  11 +
+ lib/Makefile                                  |   1 +
+ lib/dynamic_debug.c                           | 203 ++++++++++++++--
+ lib/test_dynamic_debug.c                      | 222 ++++++++++++++++++
+ 17 files changed, 843 insertions(+), 88 deletions(-)
+ create mode 100644 lib/test_dynamic_debug.c
+
 -- 
-2.32.0
+2.31.1
 
