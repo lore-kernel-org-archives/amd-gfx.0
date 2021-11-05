@@ -2,70 +2,99 @@ Return-Path: <SRS0=ZtFC=PY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55065C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01A57C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:58:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 267856103B
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:27:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 267856103B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B09CA61157
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Nov 2021 19:58:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B09CA61157
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED3D6ECC9;
-	Fri,  5 Nov 2021 19:27:25 +0000 (UTC)
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EBBA6E9C1;
- Fri,  5 Nov 2021 19:27:18 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id k1so10497387ilo.7;
- Fri, 05 Nov 2021 12:27:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=n/0tQR5BpJZ9bVE3G8Pw4uEtnqzagR6FF9UWRqR5LUA=;
- b=VFh7kk6rmkbyBEaBBE8EAeYMnYmch+fKseAL9IpypFQ0g7vJ6X2R6+TsGIL+ZLL2rB
- oDySfAbuSAlgQORllpYedIJ6l37vkN+AEmLoE3dGzf/tNkKaqvoy5NWOHPAOyigRJ+07
- v288eAKjslVMlmjFkT1HxTrOjDv3ZG2lDYHlqVNvdJiYGPpCtskCzybJzhsC+sFQkDGx
- u2icpEXHG6rwkpKEUNBNogPevSrrSSHe0Vjz8GQmDdicUoQERl8IoJQ3zfDWbuYvd44u
- /cBf/GdO7FI9bIjpDWQW/9HPismFLL3/oco9vQJ4hjrJciwPFDbjIV8dn2xFzcWCL3Vx
- OsiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=n/0tQR5BpJZ9bVE3G8Pw4uEtnqzagR6FF9UWRqR5LUA=;
- b=TVNzDGc6rUulIfKULgCLP7iEJRs7GZqCFlDn7ASaZ7RDLjFMrmpa9V40M6fbIUOV5U
- Kbr0NAGzVyPvYdi2Nt8zdkaTCCYDR9f/ycYqiigYaLEzDep2R1k8QxjZ3iJYhSjoFwRJ
- 2zTSxdVO1rfVu1nzylLry+ihyqdY/evXAS7zTmIYL9OTtOi46TEKNWzhwLCC1crSKFCQ
- /YeFIT/fhVGOwJtxkVncsmGRwCeGqC/V65CcfSPLG60r+KUTCXNr8LhRWKHpKsB0BfT0
- JCO7oBR4Toopm6rEmTXFEDZn0iB/fUAxGu4CuA0+SfPfgbIxr0TV7ryCKEQt680UZl/Q
- d7+g==
-X-Gm-Message-State: AOAM533FkjjYy7ktRW1iY61JoGC8sFDC/0WgnJ3SkhbNC5RdO6xW6MJ0
- lSYLrW3gBtyyEJgDSwklY4o=
-X-Google-Smtp-Source: ABdhPJwfGK0MglT2j9BEO5vKoWuD6Zb53HZZCdpEtkHiP7PO8O7I1G/vJUnT9RgtUfIqDcRUqNhTIQ==
-X-Received: by 2002:a05:6e02:1aa2:: with SMTP id
- l2mr30625213ilv.114.1636140435346; 
- Fri, 05 Nov 2021 12:27:15 -0700 (PDT)
-Received: from samwise.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id l18sm4338617iob.17.2021.11.05.12.27.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Nov 2021 12:27:14 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, sean@poorly.run,
- daniel.vetter@ffwll.ch, seanpaul@chromium.org, lyude@redhat.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with it - RFC
-Date: Fri,  5 Nov 2021 13:26:35 -0600
-Message-Id: <20211105192637.2370737-9-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211105192637.2370737-1-jim.cromie@gmail.com>
-References: <20211105192637.2370737-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA456E42A;
+	Fri,  5 Nov 2021 19:58:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5644C6E42A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Nov 2021 19:58:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Re22+VnTLvQo1h9YyBxQ20BMhfx6fu6xGaGzwZ1qFR0vUsWmthe1y0wJbFVP0BcJeXRIG6hsaQ2hLPXswXEJat4pHg02vKf5TWJ6iQgh3pAiMoobLFZq5lXSQL0s3xyrR1hOsbbrmhOp7p1UK4tA+ngp3WlJZUgJZPGRFLTpOlGt9TTQS+UT2mJ8zngHtxBgURg7Yp2yZHChSSznwNbOKYVuKz05tVxv/wYoeiJtnFLENBGMGCft1UxpQyUc6DES30Maxjcxe+6RyS3FvpfAl1V/rgvCAyiU/4kRQsF9hTDnoQ1ToARdGL/T5DRmXdPuYA5iVXB3UZqwi6q/XGXwGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gz9x0Goz52XXKADAF8ZngQOL+83nMZxdTFSi5cMT1uU=;
+ b=LIMzBsJw0uAxz1HHhe0fhJB4imMrlaO9/zWX01BAhH2+PJUKcS+EaPSmOA3T1egFrVMu8+SyCE+yznkNfSplEnBTcTjr95XRBCGWg3DpcA1fa6glCl4bKOodZMuwPd4G9DpqNNBHuDZ6bOvWYTxP3O1rCAqOKNlUWQmptovs1eb3oLNyOvl0+LZ7rRUwZVbOtsHjAi2MIo+8yZ/6ZLTaYdsCoDyxmu9MKrs+MJaISCyC2Iui6MeGSfXUQJ0I7bgt6ILMBoF0jwqfoe0tAF4TOnvsKlXik5Esvq5FUZYfeETttkw2gbzESBuF9FBP9IuxSZS7AE/QtN5QBfsKGtztbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gz9x0Goz52XXKADAF8ZngQOL+83nMZxdTFSi5cMT1uU=;
+ b=flBiLDxetXk1jnUd3WKk68sQvITWYfiheM1GUh8eKLqxiyuBXmMJs6h3etIsru/AaYBystZ5DOVa+meiK493Bj6sRoQVGAecCwnlvek5V8dzBGXgwlFMaMNmUXiMQTt9sFJcjDFHgs4EImCq3ZQPDp3h8zOAJmlu3+8mxpY9O3Q=
+Received: from DM5PR06CA0084.namprd06.prod.outlook.com (2603:10b6:3:4::22) by
+ BN6PR1201MB0258.namprd12.prod.outlook.com (2603:10b6:405:57::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Fri, 5 Nov
+ 2021 19:58:48 +0000
+Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:4:cafe::a9) by DM5PR06CA0084.outlook.office365.com
+ (2603:10b6:3:4::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10 via Frontend
+ Transport; Fri, 5 Nov 2021 19:58:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4669.10 via Frontend Transport; Fri, 5 Nov 2021 19:58:47 +0000
+Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Fri, 5 Nov
+ 2021 14:58:46 -0500
+From: Graham Sider <Graham.Sider@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdkfd: convert to IP-based version checking
+Date: Fri, 5 Nov 2021 15:58:04 -0400
+Message-ID: <20211105195805.2275921-1-Graham.Sider@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a76e6dac-7c5c-45e7-5766-08d9a096ae3e
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0258:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB0258B01EDAAB20DB217C0B7E8A8E9@BN6PR1201MB0258.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:345;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2PcLXRnpswDPbP3Cwq0XoZKWM1/2f1gZxmeCFUTYWxAJNQwR9y36RcoOM8Vj5TNeEUIgbxQA8CGjMaB44/GhHfWU/s0tsjSALhh33FLPjt7/ARAFbyo8xL2wAfnyiDAQ65lzL0B/MT4mMzM9hWOEhLi1nlMhFdDd3Wl7FHbZrmiLYfmsGuC1daBbaD0tPfkIIyAPM1zR7MJSq+Kw68Lb0abBa4pilnTvga/rSr6s5ruOPBy0XFpq5OWUxRi2Fv/SUWxCTSVs8aMSj+fCOi8219kpZ5hf8zbb8Rw/NvS/5aCftpqvfbx+IyQy1nMDa/ph/1fnu4OQl/q933nnRzQcLSGPrBNYCBclJOR1viC1GjlpKBvyL1czUPkDWqNpPIOKu5Z1C4jsMsYCbGXsNnSGf4Bemfld+4dFRWCj/W9Zsc2/5svZZIyW8tz9WCARN7W/5X7jIe94UmtFg0c/QBUdZ2rssXs0OoDhAk+5JS8LAByej7gkuwrm3yASd5ajgjkJj6SBojdWtrIEH0vpcE4a035ja+vFYnp/lPKewH1oIOD9yvJWfFWrs2kdyXXq801aHEhsL40s9ynoZIebCKndX/4MNSczOIBjw2ApyYac+vEVIfhxbHtQeutYKgkjSEaqaOd8EIffY6kcVOCq6zVljONa0M8yACfiVhRyC60kpZrKTPJVR/dngQdQ31Q5kSxD+kxa2/FwY/b1rz/XNG5GVbTg+P27uZXZ0r1R+6jNqiE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(508600001)(4326008)(5660300002)(2906002)(26005)(54906003)(316002)(86362001)(6666004)(36860700001)(6916009)(47076005)(83380400001)(7696005)(336012)(82310400003)(8676002)(70586007)(426003)(30864003)(81166007)(356005)(2616005)(8936002)(1076003)(186003)(70206006)(36756003)(16526019)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 19:58:47.7626 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a76e6dac-7c5c-45e7-5766-08d9a096ae3e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,746 +106,425 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>
+Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com,
+ Graham Sider <Graham.Sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sean Paul proposed, in:
-https://patchwork.freedesktop.org/series/78133/
-drm/trace: Mirror DRM debug logs to tracefs
+Patches to change KFD to use IP versions rather than asic_type.
+Converting IP version checking in main switch statements.
 
-His patchset's objective is to be able to independently steer some of
-the drm.debug stream to an alternate tracing destination, by splitting
-drm_debug_enabled() into syslog & trace flavors, and enabling them
-separately.  2 advantages were identified:
-
-1- syslog is heavyweight, tracefs is much lighter
-2- separate selection of enabled categories means less traffic
-
-Dynamic-Debug can do 2nd exceedingly well:
-
-A- all work is behind jump-label's NOOP, zero off cost.
-B- exact site selectivity, precisely the useful traffic.
-   can tailor enabled set interactively, at shell.
-
-Since the tracefs interface is effective for drm (the threads suggest
-so), adding that interface to dynamic-debug has real potential for
-everyone including drm.
-
-if CONFIG_TRACING:
-
-Grab Sean's trace_init/cleanup code, use it to provide tracefs
-available by default to all pr_debugs.  This will likely need some
-further per-module treatment; perhaps something reflecting hierarchy
-of module,file,function,line, maybe with a tuned flattening.
-
-endif CONFIG_TRACING
-
-Add a new +T flag to enable tracing, independent of +p, and add and
-use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
-the flag checks.  Existing code treats T like other flags.
-
-Add ddebug_validate_flags() as last step in ddebug_parse_flags().  Its
-only job is to fail on +T for non-CONFIG_TRACING builds.  It only sees
-the new flags, and cannot validate specific state transitions.  This
-is fine, since we have no need for that; such a test would have to be
-done in ddebug_change(), which actually updates the callsites.
-
-ddebug_change() adjusts the static-key-enable/disable condition to use
-_DPRINTK_ENABLED / abstraction macros.
-
-dynamic_emit_prefix() now gates on _DPRINTK_ENABLED too, as an
-optimization but mostly to allow decluttering of its users.
-
-__dynamic_pr_debug() etal get minor changes:
-
- - call dynamic_emit_prefix() 1st, _enabled() optimizes.
- - if (T) call trace_array_printk
- - if (!p) go around original printk code.
-   done to minimize diff,
-   goto-ectomy + reindent later/separately
- - share vaf across p|T
-
-WRT <net|ib>_dev, I skipped all the <T,!!dev> specific dev_emit_prefix
-additions for now.  tracefs is a fast customer with different needs,
-its not clear that pretty device-ID-ish strings is useful tracefs
-content (on ingest), or that couldn't be done more efficiently while
-analysing or postprocesing the tracefs buffer.
-
-SELFTEST: test_dynamic_debug.ko:
-
-Uses the tracer facility to implement a kernel module selftest.
-
-TODO:
-
-Earlier core code had (tracerfn)() indirection, allowing a plugin
-side-effector we could test the results of.
-
-ATM all the tests which count +T'd callsite executions (and which
-expect >0) are failing.
-
-Now it needs a rethink to test from userspace, rather than the current
-test-once at module-load.  It needs a parameters/testme button.
-
-So remainder of this is a bit stale ....
-
-- A custom tracer counts the number of calls (of T-enabled pr_debugs),
-- do_debugging(x) calls a set of categorized pr_debugs x times
-
-- test registers the tracer on the module
-  then iteratively:
-  manipulates dyndbg states via query-cmds, mostly format ^prefix
-  runs do_debugging()
-  counts enabled callsite executions
-  reports mismatches
-
-- modprobe test_dynamic_debug use_bad_tracer=1
-  attaches a bad/recursive tracer
-  Bad Things (did) Happen.
-  has thrown me interesting panics.
-  cannot replicate atm.
-
-RFC: (DONE)
-
-The "tracer" interface probably needs work and a new name.  It is only
-1/2 way towards a real tracefs interface; and the code I lifted from
-Sean Paul in the next patch could be implemented in dynamic_debug.c
-instead, and made available for all pr_debug users.
-
-This would also eliminate need for dynamic_debug_(un)register_tracer(),
-since dyndbg could just provide it when TRACING is on.
-
-NOTES:
-
-$> modprobe test_dynamic_debug dyndbg=+p
-
-   it fails 3/29 tests. havent looked at why.
-
-$> modprobe test_dynamic_debug use_bad_tracer=1
-
-Earlier in dev, bad_tracer() exploded in recursion, I havent been able
-to replicate that lately.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst       |   7 +-
- MAINTAINERS                                   |   1 +
- include/linux/dynamic_debug.h                 |  12 +-
- lib/Kconfig.debug                             |  11 +
- lib/Makefile                                  |   1 +
- lib/dynamic_debug.c                           | 127 ++++++++--
- lib/test_dynamic_debug.c                      | 222 ++++++++++++++++++
- 7 files changed, 355 insertions(+), 26 deletions(-)
- create mode 100644 lib/test_dynamic_debug.c
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c         | 124 +++++++++---------
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  56 ++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  52 ++++----
+ .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  56 ++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  54 ++++----
+ 5 files changed, 189 insertions(+), 153 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index b119b8277b3e..48d32782bb11 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -227,7 +227,8 @@ of the characters::
- 
- The flags are::
- 
--  p    enables the pr_debug() callsite.
-+  p    enables the pr_debug() callsite to syslog
-+  T    enables the pr_debug() callsite to tracefs
-   f    Include the function name in the printed message
-   l    Include line number in the printed message
-   m    Include module name in the printed message
-@@ -240,8 +241,8 @@ have meaning, other flags ignored.
- For display, the flags are preceded by ``=``
- (mnemonic: what the flags are currently equal to).
- 
--Note the regexp ``^[-+=][flmpt_]+$`` matches a flags specification.
--To clear all flags at once, use ``=_`` or ``-flmpt``.
-+Note the regexp ``^[-+=][flmptT_]+$`` matches a flags specification.
-+To clear all flags at once, use ``=_`` or ``-flmptT``.
- 
- 
- Debug messages during Boot Process
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2c9070aeba2a..ead3332db862 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6615,6 +6615,7 @@ M:	Jason Baron <jbaron@akamai.com>
- S:	Maintained
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
-+F:	lib/test_dynamic_debug.c
- 
- DYNAMIC INTERRUPT MODERATION
- M:	Tal Gilboa <talgi@nvidia.com>
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index a9430168b072..792bcff0297e 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -28,15 +28,25 @@ struct _ddebug {
- 	 */
- #define _DPRINTK_FLAGS_NONE	0
- #define _DPRINTK_FLAGS_PRINT	(1<<0) /* printk() a message using the format */
-+#define _DPRINTK_FLAGS_TRACE	(1<<5) /* trace_printk() the message */
-+#define _DPRINTK_ENABLED	(_DPRINTK_FLAGS_PRINT | _DPRINTK_FLAGS_TRACE)
-+
-+/* internal, need type protection for external use */
-+#define __dyndbg_site_is_enabled(desc) (!!(desc->flags & _DPRINTK_ENABLED))
-+#define __dyndbg_site_is_logging(desc) (!!(desc->flags & _DPRINTK_FLAGS_PRINT))
-+#define __dyndbg_site_is_tracing(desc) (!!(desc->flags & _DPRINTK_FLAGS_TRACE))
-+
- #define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
- #define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
- #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
- #define _DPRINTK_FLAGS_INCL_TID		(1<<4)
- 
--#define _DPRINTK_FLAGS_INCL_ANY		\
-+#define _DPRINTK_FLAGS_INCL_ANY						\
- 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
- 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
- 
-+#define __dyndbg_site_is_decorated(desc) (!!(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
-+
- #if defined DEBUG
- #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
- #else
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 6fdbf9613aec..cf48a242b3a2 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2480,6 +2480,17 @@ config TEST_STATIC_KEYS
- 
- 	  If unsure, say N.
- 
-+config TEST_DYNAMIC_DEBUG
-+	tristate "Test DYNAMIC_DEBUG"
-+	depends on m
-+	depends on DYNAMIC_DEBUG
-+	help
-+	  This module registers a tracer callback to count enabled
-+	  pr_debugs in a 'do_debugging' function, then alters their
-+	  enablements, calls the function, and compares counts.
-+
-+	  If unsure, say N.
-+
- config TEST_KMOD
- 	tristate "kmod stress tester"
- 	depends on m
-diff --git a/lib/Makefile b/lib/Makefile
-index 364c23f15578..5dd4cb7c02c6 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -82,6 +82,7 @@ obj-$(CONFIG_TEST_SORT) += test_sort.o
- obj-$(CONFIG_TEST_USER_COPY) += test_user_copy.o
- obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_keys.o
- obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_key_base.o
-+obj-$(CONFIG_TEST_DYNAMIC_DEBUG) += test_dynamic_debug.o
- obj-$(CONFIG_TEST_PRINTF) += test_printf.o
- obj-$(CONFIG_TEST_SCANF) += test_scanf.o
- obj-$(CONFIG_TEST_BITMAP) += test_bitmap.o
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 71ffa19ae9a5..d6e9c833f5d4 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -36,6 +36,7 @@
- #include <linux/sched.h>
- #include <linux/device.h>
- #include <linux/netdevice.h>
-+#include <linux/trace.h>
- 
- #include <rdma/ib_verbs.h>
- 
-@@ -72,6 +73,7 @@ static LIST_HEAD(ddebug_tables);
- static int verbose;
- module_param(verbose, int, 0644);
- 
-+
- /* Return the path relative to source root */
- static inline const char *trim_prefix(const char *path)
- {
-@@ -85,6 +87,7 @@ static inline const char *trim_prefix(const char *path)
- 
- static struct { unsigned flag:8; char opt_char; } opt_array[] = {
- 	{ _DPRINTK_FLAGS_PRINT, 'p' },
-+	{ _DPRINTK_FLAGS_TRACE, 'T' },
- 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
- 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
- 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
-@@ -205,11 +208,12 @@ static int ddebug_change(const struct ddebug_query *query,
- 			newflags = (dp->flags & modifiers->mask) | modifiers->flags;
- 			if (newflags == dp->flags)
- 				continue;
-+
- #ifdef CONFIG_JUMP_LABEL
--			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
--				if (!(modifiers->flags & _DPRINTK_FLAGS_PRINT))
-+			if (__dyndbg_site_is_enabled(dp)) {
-+				if (!__dyndbg_site_is_enabled(modifiers))
- 					static_branch_disable(&dp->key.dd_key_true);
--			} else if (modifiers->flags & _DPRINTK_FLAGS_PRINT)
-+			} else if (__dyndbg_site_is_enabled(modifiers))
- 				static_branch_enable(&dp->key.dd_key_true);
- #endif
- 			dp->flags = newflags;
-@@ -427,6 +431,16 @@ static int ddebug_parse_query(char *words[], int nwords,
- 	return 0;
- }
- 
-+static int ddebug_validate_flags(struct flag_settings *modifiers)
-+{
-+#if !defined(CONFIG_TRACING)
-+	if (__dyndbg_site_is_tracing(modifiers)) {
-+		WARN_ONCE(1, "cannot enable T, CONFIG_TRACE=n\n");
-+		return -EINVAL;
-+	}
-+#endif
-+	return 0;
-+}
- /*
-  * Parse `str' as a flags specification, format [-+=][p]+.
-  * Sets up *maskp and *flagsp to be used when changing the
-@@ -479,7 +493,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 1dc6cb7446e0..500bc7e40309 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1377,67 +1377,71 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
+ 		pcache_info = vegam_cache_info;
+ 		num_of_cache_types = ARRAY_SIZE(vegam_cache_info);
+ 		break;
+-	case CHIP_VEGA10:
+-		pcache_info = vega10_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(vega10_cache_info);
+-		break;
+-	case CHIP_VEGA12:
+-		pcache_info = vega12_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(vega12_cache_info);
+-		break;
+-	case CHIP_VEGA20:
+-	case CHIP_ARCTURUS:
+-		pcache_info = vega20_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(vega20_cache_info);
+-		break;
+-	case CHIP_ALDEBARAN:
+-		pcache_info = aldebaran_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(aldebaran_cache_info);
+-		break;
+-	case CHIP_RAVEN:
+-		pcache_info = raven_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(raven_cache_info);
+-		break;
+-	case CHIP_RENOIR:
+-		pcache_info = renoir_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(renoir_cache_info);
+-		break;
+-	case CHIP_NAVI10:
+-	case CHIP_NAVI12:
+-	case CHIP_CYAN_SKILLFISH:
+-		pcache_info = navi10_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(navi10_cache_info);
+-		break;
+-	case CHIP_NAVI14:
+-		pcache_info = navi14_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(navi14_cache_info);
+-		break;
+-	case CHIP_SIENNA_CICHLID:
+-		pcache_info = sienna_cichlid_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(sienna_cichlid_cache_info);
+-		break;
+-	case CHIP_NAVY_FLOUNDER:
+-		pcache_info = navy_flounder_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(navy_flounder_cache_info);
+-		break;
+-	case CHIP_DIMGREY_CAVEFISH:
+-		pcache_info = dimgrey_cavefish_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(dimgrey_cavefish_cache_info);
+-		break;
+-	case CHIP_VANGOGH:
+-		pcache_info = vangogh_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(vangogh_cache_info);
+-		break;
+-	case CHIP_BEIGE_GOBY:
+-		pcache_info = beige_goby_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(beige_goby_cache_info);
+-		break;
+-	case CHIP_YELLOW_CARP:
+-		pcache_info = yellow_carp_cache_info;
+-		num_of_cache_types = ARRAY_SIZE(yellow_carp_cache_info);
+-		break;
+ 	default:
+-		return -EINVAL;
++		switch(kdev->adev->ip_versions[GC_HWIP][0]) {
++		case IP_VERSION(9, 0, 1):
++			pcache_info = vega10_cache_info;
++			num_of_cache_types = ARRAY_SIZE(vega10_cache_info);
++			break;
++		case IP_VERSION(9, 2, 1):
++			pcache_info = vega12_cache_info;
++			num_of_cache_types = ARRAY_SIZE(vega12_cache_info);
++			break;
++		case IP_VERSION(9, 4, 0):
++		case IP_VERSION(9, 4, 1):
++			pcache_info = vega20_cache_info;
++			num_of_cache_types = ARRAY_SIZE(vega20_cache_info);
++			break;
++		case IP_VERSION(9, 4, 2):
++			pcache_info = aldebaran_cache_info;
++			num_of_cache_types = ARRAY_SIZE(aldebaran_cache_info);
++			break;
++		case IP_VERSION(9, 1, 0):
++		case IP_VERSION(9, 2, 2):
++			pcache_info = raven_cache_info;
++			num_of_cache_types = ARRAY_SIZE(raven_cache_info);
++			break;
++		case IP_VERSION(9, 3, 0):
++			pcache_info = renoir_cache_info;
++			num_of_cache_types = ARRAY_SIZE(renoir_cache_info);
++			break;
++		case IP_VERSION(10, 1, 10):
++		case IP_VERSION(10, 1, 2):
++		case IP_VERSION(10, 1, 3):
++			pcache_info = navi10_cache_info;
++			num_of_cache_types = ARRAY_SIZE(navi10_cache_info);
++			break;
++		case IP_VERSION(10, 1, 1):
++			pcache_info = navi14_cache_info;
++			num_of_cache_types = ARRAY_SIZE(navi14_cache_info);
++			break;
++		case IP_VERSION(10, 3, 0):
++			pcache_info = sienna_cichlid_cache_info;
++			num_of_cache_types = ARRAY_SIZE(sienna_cichlid_cache_info);
++			break;
++		case IP_VERSION(10, 3, 2):
++			pcache_info = navy_flounder_cache_info;
++			num_of_cache_types = ARRAY_SIZE(navy_flounder_cache_info);
++			break;
++		case IP_VERSION(10, 3, 4):
++			pcache_info = dimgrey_cavefish_cache_info;
++			num_of_cache_types = ARRAY_SIZE(dimgrey_cavefish_cache_info);
++			break;
++		case IP_VERSION(10, 3, 1):
++			pcache_info = vangogh_cache_info;
++			num_of_cache_types = ARRAY_SIZE(vangogh_cache_info);
++			break;
++		case IP_VERSION(10, 3, 5):
++			pcache_info = beige_goby_cache_info;
++			num_of_cache_types = ARRAY_SIZE(beige_goby_cache_info);
++			break;
++		case IP_VERSION(10, 3, 3):
++			pcache_info = yellow_carp_cache_info;
++			num_of_cache_types = ARRAY_SIZE(yellow_carp_cache_info);
++			break;
++		default:
++			return -EINVAL;
++		}
  	}
- 	vpr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
  
--	return 0;
-+	return ddebug_validate_flags(modifiers);
- }
+ 	*size_filled = 0;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 0a60317509c8..8a39494fa093 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1947,31 +1947,39 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
+ 		device_queue_manager_init_vi_tonga(&dqm->asic_ops);
+ 		break;
  
- static int ddebug_exec_query(char *query_string, const char *modname)
-@@ -694,11 +708,24 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
- 
- static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
- {
--	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
-+	if (unlikely(__dyndbg_site_is_enabled(desc) &&
-+		     __dyndbg_site_is_decorated(desc)))
- 		return __dynamic_emit_prefix(desc, buf);
- 	return buf;
- }
- 
-+static struct trace_array *trace_arr;
-+
-+#if !defined(CONFIG_TRACING)
-+/* private stub for 4 users below */
-+static inline int __printf(3, 0)
-+	trace_array_printk(struct trace_array *tr, unsigned long ip,
-+			   const char *fmt, ...)
-+{
-+	return 0;
-+}
-+#endif
-+
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
- {
- 	va_list args;
-@@ -713,7 +740,13 @@ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 
--	printk(KERN_DEBUG "%s%pV", dynamic_emit_prefix(descriptor, buf), &vaf);
-+	dynamic_emit_prefix(descriptor, buf);
-+
-+	if (__dyndbg_site_is_tracing(descriptor))
-+		trace_array_printk(trace_arr, _THIS_IP_, "%s%pV", buf, &vaf);
-+
-+	if (__dyndbg_site_is_logging(descriptor))
-+		printk(KERN_DEBUG "%s%pV", buf, &vaf);
- 
- 	va_end(args);
- }
-@@ -724,6 +757,7 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
- {
- 	struct va_format vaf;
- 	va_list args;
-+	char buf[PREFIX_SIZE] = "";
- 
- 	BUG_ON(!descriptor);
- 	BUG_ON(!fmt);
-@@ -733,17 +767,21 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 
-+	dynamic_emit_prefix(descriptor, buf);
-+
-+	if (__dyndbg_site_is_tracing(descriptor))
-+		trace_array_printk(trace_arr, _THIS_IP_, "%s%pV", buf, &vaf);
-+
-+	if (!__dyndbg_site_is_logging(descriptor))
-+		goto out;
-+
- 	if (!dev) {
- 		printk(KERN_DEBUG "(NULL device *): %pV", &vaf);
- 	} else {
--		char buf[PREFIX_SIZE] = "";
--
- 		dev_printk_emit(LOGLEVEL_DEBUG, dev, "%s%s %s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
--				dev_driver_string(dev), dev_name(dev),
--				&vaf);
-+				buf, dev_driver_string(dev), dev_name(dev), &vaf);
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
+-	case CHIP_RAVEN:
+-	case CHIP_RENOIR:
+-	case CHIP_ARCTURUS:
+-	case CHIP_ALDEBARAN:
+-		device_queue_manager_init_v9(&dqm->asic_ops);
+-		break;
+-	case CHIP_NAVI10:
+-	case CHIP_NAVI12:
+-	case CHIP_NAVI14:
+-	case CHIP_SIENNA_CICHLID:
+-	case CHIP_NAVY_FLOUNDER:
+-	case CHIP_VANGOGH:
+-	case CHIP_DIMGREY_CAVEFISH:
+-	case CHIP_BEIGE_GOBY:
+-	case CHIP_YELLOW_CARP:
+-	case CHIP_CYAN_SKILLFISH:
+-		device_queue_manager_init_v10_navi10(&dqm->asic_ops);
+-		break;
+ 	default:
+-		WARN(1, "Unexpected ASIC family %u",
+-		     dev->device_info->asic_family);
+-		goto out_free;
++		switch (dev->adev->ip_versions[GC_HWIP][0]) {
++		case IP_VERSION(9, 0, 1):
++		case IP_VERSION(9, 2, 1):
++		case IP_VERSION(9, 4, 0):
++		case IP_VERSION(9, 1, 0):
++		case IP_VERSION(9, 2, 2):
++		case IP_VERSION(9, 3, 0):
++		case IP_VERSION(9, 4, 1):
++		case IP_VERSION(9, 4, 2):
++			device_queue_manager_init_v9(&dqm->asic_ops);
++			break;
++		case IP_VERSION(10, 1, 10):
++		case IP_VERSION(10, 1, 2):
++		case IP_VERSION(10, 1, 1):
++		case IP_VERSION(10, 3, 0):
++		case IP_VERSION(10, 3, 2):
++		case IP_VERSION(10, 3, 1):
++		case IP_VERSION(10, 3, 4):
++		case IP_VERSION(10, 3, 5):
++		case IP_VERSION(10, 3, 3):
++		case IP_VERSION(10, 1, 3):
++			device_queue_manager_init_v10_navi10(&dqm->asic_ops);
++			break;
++		default:
++			if (dev->adev->ip_versions[GC_HWIP][0])
++				WARN(1, "Unexpected GC HWIP version %06x",
++				     dev->adev->ip_versions[GC_HWIP][0]);
++			else
++				WARN(1, "Unexpected ASIC family %u",
++				     dev->device_info->asic_family);
++			goto out_free;
++		}
  	}
--
-+out:
- 	va_end(args);
- }
- EXPORT_SYMBOL(__dynamic_dev_dbg);
-@@ -755,6 +793,7 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- {
- 	struct va_format vaf;
- 	va_list args;
-+	char buf[PREFIX_SIZE] = "";
  
- 	BUG_ON(!descriptor);
- 	BUG_ON(!fmt);
-@@ -764,12 +803,17 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
+ 	if (init_mqd_managers(dqm))
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+index 2e86692def19..6c56e43e2f7b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+@@ -406,29 +406,37 @@ int kfd_init_apertures(struct kfd_process *process)
+ 			case CHIP_VEGAM:
+ 				kfd_init_apertures_vi(pdd, id);
+ 				break;
+-			case CHIP_VEGA10:
+-			case CHIP_VEGA12:
+-			case CHIP_VEGA20:
+-			case CHIP_RAVEN:
+-			case CHIP_RENOIR:
+-			case CHIP_ARCTURUS:
+-			case CHIP_ALDEBARAN:
+-			case CHIP_NAVI10:
+-			case CHIP_NAVI12:
+-			case CHIP_NAVI14:
+-			case CHIP_SIENNA_CICHLID:
+-			case CHIP_NAVY_FLOUNDER:
+-			case CHIP_VANGOGH:
+-			case CHIP_DIMGREY_CAVEFISH:
+-			case CHIP_BEIGE_GOBY:
+-			case CHIP_YELLOW_CARP:
+-			case CHIP_CYAN_SKILLFISH:
+-				kfd_init_apertures_v9(pdd, id);
+-				break;
+ 			default:
+-				WARN(1, "Unexpected ASIC family %u",
+-				     dev->device_info->asic_family);
+-				return -EINVAL;
++				switch (dev->adev->ip_versions[GC_HWIP][0]) {
++				case IP_VERSION(9, 0, 1):
++				case IP_VERSION(9, 2, 1):
++				case IP_VERSION(9, 4, 0):
++				case IP_VERSION(9, 1, 0):
++				case IP_VERSION(9, 2, 2):
++				case IP_VERSION(9, 3, 0):
++				case IP_VERSION(9, 4, 1):
++				case IP_VERSION(9, 4, 2):
++				case IP_VERSION(10, 1, 10):
++				case IP_VERSION(10, 1, 2):
++				case IP_VERSION(10, 1, 1):
++				case IP_VERSION(10, 3, 0):
++				case IP_VERSION(10, 3, 2):
++				case IP_VERSION(10, 3, 1):
++				case IP_VERSION(10, 3, 4):
++				case IP_VERSION(10, 3, 5):
++				case IP_VERSION(10, 3, 3):
++				case IP_VERSION(10, 1, 3):
++					kfd_init_apertures_v9(pdd, id);
++					break;
++				default:
++					if (dev->adev->ip_versions[GC_HWIP][0])
++						WARN(1, "Unexpected GC HWIP version %06x",
++						     dev->adev->ip_versions[GC_HWIP][0]);
++					else
++						WARN(1, "Unexpected ASIC family %u",
++						     dev->device_info->asic_family);
++					return -EINVAL;
++				}
+ 			}
  
--	if (dev && dev->dev.parent) {
--		char buf[PREFIX_SIZE] = "";
-+	dynamic_emit_prefix(descriptor, buf);
-+
-+	if (__dyndbg_site_is_tracing(descriptor))
-+		trace_array_printk(trace_arr, _THIS_IP_, "%s%pV", buf, &vaf);
- 
-+	if (!__dyndbg_site_is_logging(descriptor))
-+		goto out;
-+
-+	if (dev && dev->dev.parent) {
- 		dev_printk_emit(LOGLEVEL_DEBUG, dev->dev.parent,
--				"%s%s %s %s%s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
-+				"%s%s %s %s%s: %pV", buf,
- 				dev_driver_string(dev->dev.parent),
- 				dev_name(dev->dev.parent),
- 				netdev_name(dev), netdev_reg_state(dev),
-@@ -780,7 +824,7 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- 	} else {
- 		printk(KERN_DEBUG "(NULL net_device): %pV", &vaf);
+ 			if (!dev->use_iommu_v2) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+index e547f1f8c49f..0bee4b965e1f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+@@ -236,31 +236,39 @@ int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm)
+ 	case CHIP_VEGAM:
+ 		pm->pmf = &kfd_vi_pm_funcs;
+ 		break;
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
+-	case CHIP_RAVEN:
+-	case CHIP_RENOIR:
+-	case CHIP_ARCTURUS:
+-	case CHIP_NAVI10:
+-	case CHIP_NAVI12:
+-	case CHIP_NAVI14:
+-	case CHIP_SIENNA_CICHLID:
+-	case CHIP_NAVY_FLOUNDER:
+-	case CHIP_VANGOGH:
+-	case CHIP_DIMGREY_CAVEFISH:
+-	case CHIP_BEIGE_GOBY:
+-	case CHIP_YELLOW_CARP:
+-	case CHIP_CYAN_SKILLFISH:
+-		pm->pmf = &kfd_v9_pm_funcs;
+-		break;
+-	case CHIP_ALDEBARAN:
+-		pm->pmf = &kfd_aldebaran_pm_funcs;
+-		break;
+ 	default:
+-		WARN(1, "Unexpected ASIC family %u",
+-		     dqm->dev->device_info->asic_family);
+-		return -EINVAL;
++		switch (dqm->dev->adev->ip_versions[GC_HWIP][0]) {
++		case IP_VERSION(9, 0, 1):
++		case IP_VERSION(9, 2, 1):
++		case IP_VERSION(9, 4, 0):
++		case IP_VERSION(9, 1, 0):
++		case IP_VERSION(9, 2, 2):
++		case IP_VERSION(9, 3, 0):
++		case IP_VERSION(9, 4, 1):
++		case IP_VERSION(10, 1, 10):
++		case IP_VERSION(10, 1, 2):
++		case IP_VERSION(10, 1, 1):
++		case IP_VERSION(10, 3, 0):
++		case IP_VERSION(10, 3, 2):
++		case IP_VERSION(10, 3, 1):
++		case IP_VERSION(10, 3, 4):
++		case IP_VERSION(10, 3, 5):
++		case IP_VERSION(10, 3, 3):
++		case IP_VERSION(10, 1, 3):
++			pm->pmf = &kfd_v9_pm_funcs;
++			break;
++		case IP_VERSION(9, 4, 2):
++			pm->pmf = &kfd_aldebaran_pm_funcs;
++			break;
++		default:
++			if (dqm->dev->adev->ip_versions[GC_HWIP][0])
++				WARN(1, "Unexpected GC HWIP version %06x",
++				     dqm->dev->adev->ip_versions[GC_HWIP][0]);
++			else
++				WARN(1, "Unexpected ASIC family %u",
++				     dqm->dev->device_info->asic_family);
++			return -EINVAL;
++		}
  	}
--
-+out:
- 	va_end(args);
- }
- EXPORT_SYMBOL(__dynamic_netdev_dbg);
-@@ -794,18 +838,24 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- {
- 	struct va_format vaf;
- 	va_list args;
-+	char buf[PREFIX_SIZE] = "";
  
- 	va_start(args, fmt);
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 
--	if (ibdev && ibdev->dev.parent) {
--		char buf[PREFIX_SIZE] = "";
-+	dynamic_emit_prefix(descriptor, buf);
-+
-+	if (__dyndbg_site_is_tracing(descriptor))
-+		trace_array_printk(trace_arr, _THIS_IP_, "%s%pV", buf, &vaf);
-+
-+	if (!__dyndbg_site_is_logging(descriptor))
-+		goto out;
- 
-+	if (ibdev && ibdev->dev.parent) {
- 		dev_printk_emit(LOGLEVEL_DEBUG, ibdev->dev.parent,
--				"%s%s %s %s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
-+				"%s%s %s %s: %pV", buf,
- 				dev_driver_string(ibdev->dev.parent),
- 				dev_name(ibdev->dev.parent),
- 				dev_name(&ibdev->dev),
-@@ -815,7 +865,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 	} else {
- 		printk(KERN_DEBUG "(NULL ib_device): %pV", &vaf);
+ 	pm->dqm = dqm;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index ae7c9944dc4a..5353f43c67f3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1425,30 +1425,38 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 			HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
+ 			HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+ 		break;
+-	case CHIP_VEGA10:
+-	case CHIP_VEGA12:
+-	case CHIP_VEGA20:
+-	case CHIP_RAVEN:
+-	case CHIP_RENOIR:
+-	case CHIP_ARCTURUS:
+-	case CHIP_ALDEBARAN:
+-	case CHIP_NAVI10:
+-	case CHIP_NAVI12:
+-	case CHIP_NAVI14:
+-	case CHIP_SIENNA_CICHLID:
+-	case CHIP_NAVY_FLOUNDER:
+-	case CHIP_VANGOGH:
+-	case CHIP_DIMGREY_CAVEFISH:
+-	case CHIP_BEIGE_GOBY:
+-	case CHIP_YELLOW_CARP:
+-	case CHIP_CYAN_SKILLFISH:
+-		dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
+-			HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
+-			HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+-		break;
+ 	default:
+-		WARN(1, "Unexpected ASIC family %u",
+-		     dev->gpu->device_info->asic_family);
++		switch (dev->gpu->adev->ip_versions[GC_HWIP][0]) {
++		case IP_VERSION(9, 0, 1):
++		case IP_VERSION(9, 2, 1):
++		case IP_VERSION(9, 4, 0):
++		case IP_VERSION(9, 1, 0):
++		case IP_VERSION(9, 2, 2):
++		case IP_VERSION(9, 3, 0):
++		case IP_VERSION(9, 4, 1):
++		case IP_VERSION(9, 4, 2):
++		case IP_VERSION(10, 1, 10):
++		case IP_VERSION(10, 1, 2):
++		case IP_VERSION(10, 1, 1):
++		case IP_VERSION(10, 3, 0):
++		case IP_VERSION(10, 3, 2):
++		case IP_VERSION(10, 3, 1):
++		case IP_VERSION(10, 3, 4):
++		case IP_VERSION(10, 3, 5):
++		case IP_VERSION(10, 3, 3):
++		case IP_VERSION(10, 1, 3):
++			dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
++				HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
++				HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
++			break;
++		default:
++			if (dev->gpu->adev->ip_versions[GC_HWIP][0])
++				WARN(1, "Unexpected GC HWIP version %06x",
++				     dev->gpu->adev->ip_versions[GC_HWIP][0]);
++			else
++				WARN(1, "Unexpected ASIC family %u",
++				     dev->gpu->device_info->asic_family);
++		}
  	}
--
-+out:
- 	va_end(args);
- }
- EXPORT_SYMBOL(__dynamic_ibdev_dbg);
-@@ -1130,6 +1180,35 @@ static void ddebug_remove_all_tables(void)
- 	mutex_unlock(&ddebug_lock);
- }
  
-+#if defined(CONFIG_TRACING)
-+
-+static void ddebug_trace_cleanup(void)
-+{
-+	if (trace_arr) {
-+		trace_array_put(trace_arr);
-+		trace_array_destroy(trace_arr);
-+		trace_arr = NULL;
-+	}
-+}
-+
-+static void ddebug_trace_init(void)
-+{
-+	int ret;
-+
-+	trace_arr = trace_array_get_by_name("dyndbg-tracefs");
-+	if (!trace_arr)
-+		return;
-+
-+	ret = trace_array_init_printk(trace_arr);
-+	if (ret)
-+		ddebug_trace_cleanup();
-+}
-+
-+#else
-+static inline void ddebug_trace_init(void) {}
-+static inline void ddebug_trace_cleanup(void) {}
-+#endif
-+
- static __initdata int ddebug_init_success;
- 
- static int __init dynamic_debug_init_control(void)
-@@ -1172,6 +1251,9 @@ static int __init dynamic_debug_init(void)
- 		ddebug_init_success = 1;
- 		return 0;
- 	}
-+
-+	ddebug_trace_init();
-+
- 	iter = __start___dyndbg;
- 	modname = iter->modname;
- 	iter_start = iter;
-@@ -1223,6 +1305,7 @@ static int __init dynamic_debug_init(void)
- 
- out_err:
- 	ddebug_remove_all_tables();
-+	ddebug_trace_cleanup();
- 	return 0;
- }
- /* Allow early initialization for boot messages via boot param */
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-new file mode 100644
-index 000000000000..dd41a09fd9c8
---- /dev/null
-+++ b/lib/test_dynamic_debug.c
-@@ -0,0 +1,222 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Kernel module for testing dynamic_debug
-+ *
-+ * Authors:
-+ *      Jim Cromie	<jim.cromie@gmail.com>
-+ */
-+
-+/*
-+ * test-setup: use trace_print attachment interface as a test harness,
-+ * define a custom trace_printer which counts invocations, and a
-+ * pr_debug event generator function which calls a set of categorized
-+ * pr_debugs.
-+ * test-run: manipulate the pr_debug's enablement, run the event
-+ * generator, and check for the expected side effects.
-+ */
-+
-+#define pr_fmt(fmt) "test_dd: " fmt
-+
-+#include <linux/module.h>
-+
-+static int hit_ct;
-+static int test_ct;
-+static int errors;
-+
-+static int __verbose;
-+module_param_named(verbose, __verbose, int, 0444);
-+MODULE_PARM_DESC(verbose, "enable print from trace (output verify)");
-+
-+static int __bad_tracer;
-+module_param_named(use_bad_tracer, __bad_tracer, int, 0444);
-+MODULE_PARM_DESC(use_bad_tracer,
-+		 "use broken tracer, recursing with pr_debug\n"
-+		 "\tonly works at modprobe time\n");
-+
-+static void (*my_tracer)(const char *lbl, struct va_format *vaf);
-+
-+static void good_tracer(const char *lbl, struct va_format *vaf)
-+{
-+	hit_ct++;
-+
-+	if (__verbose)
-+		pr_notice("%s%pV", lbl, vaf);
-+}
-+
-+static void bad_tracer(const char *lbl, struct va_format *vaf)
-+{
-+	hit_ct++;
-+	if (__verbose)
-+		pr_notice("%s%pV", lbl, vaf);
-+
-+	pr_debug("%s.%pV", lbl, vaf);
-+}
-+
-+static void pick_tracer(void)
-+{
-+	if (__bad_tracer) {
-+		pr_notice("using bad tracer - fails hit count tests\n");
-+		my_tracer = bad_tracer;
-+	} else
-+		my_tracer = good_tracer;
-+}
-+
-+static int expect_count(int want, const char *story)
-+{
-+	test_ct++;
-+	if (want != hit_ct) {
-+		pr_err("nok %d: want %d, got %d: %s\n", test_ct, want, hit_ct, story);
-+		errors++;
-+		hit_ct = 0;
-+		return 1;
-+	}
-+	pr_info("ok %d: hits %d, on <%s>\n", test_ct, want, story);
-+	hit_ct = 0;
-+	return 0;
-+}
-+
-+/* call pr_debug (4 * reps) + 2 times, for tracer side-effects */
-+static void do_debugging(int reps)
-+{
-+	int i;
-+
-+	pr_debug("Entry:\n");
-+	pr_info("%s %d time(s)\n", __func__, reps);
-+	for (i = 0; i < reps; i++) {
-+		pr_debug("hi: %d\n", i);
-+		pr_debug("mid: %d\n", i);
-+		pr_debug("low: %d\n", i);
-+		pr_debug("low:lower: %d subcategory test\n", i);
-+	}
-+	pr_debug("Exit:\n");
-+}
-+
-+static void expect_matches(int want, int got, const char *story)
-+{
-+	/* todo: got <0 are errors, bubbled up. no test for that */
-+	test_ct++;
-+	if (got != want) {
-+		pr_warn("nok %d: want %d matches, got %d on <%s>\n", test_ct, want, got, story);
-+		errors++;
-+	} else
-+		pr_info("ok %d: %d matches on <%s>\n", test_ct, want, story);
-+}
-+
-+static int report(char *who)
-+{
-+	if (errors)
-+		pr_err("%s failed %d of %d tests\n", who, errors, test_ct);
-+	else
-+		pr_info("%s passed %d tests\n", who, test_ct);
-+	return errors;
-+}
-+
-+struct exec_test {
-+	int matches;
-+	int loops;
-+	int hits;
-+	const char *mod;
-+	const char *qry;
-+};
-+
-+static void do_exec_test(struct exec_test *tst)
-+{
-+	int match_count;
-+
-+	match_count = dynamic_debug_exec_queries(tst->qry, tst->mod);
-+	expect_matches(tst->matches, match_count, tst->qry);
-+	do_debugging(tst->loops);
-+	expect_count(tst->hits, tst->qry);
-+}
-+
-+/* these tests rely on register stuff having been done ?? */
-+struct exec_test exec_tests[] = {
-+	/*
-+	 * use original single string query style once, to test it.
-+	 * standard use is with separate module param, like:
-+	 * dynamic_debug_exec_queries("func do_debugging +_", "test_dynamic_debug");
-+	 */
-+	{ 6, 1, 0, NULL, "module test_dynamic_debug func do_debugging -T" },
-+
-+	/* no modification probe */
-+	{ 6, 3, 0, KBUILD_MODNAME, "func do_debugging +_" },
-+
-+	/* enable all prdbgs in DUT */
-+	{ 6, 4, 18, KBUILD_MODNAME, "func do_debugging +T" },
-+
-+	/* disable hi call */
-+	{ 1, 4, 14, KBUILD_MODNAME, "format '^hi:' -T" },
-+
-+	/* disable mid call */
-+	{ 1, 4, 10, KBUILD_MODNAME, "format '^mid:' -T" },
-+
-+	/* repeat same disable */
-+	{ 1, 4, 10, KBUILD_MODNAME, "format '^mid:' -T" },
-+
-+	/* repeat same disable, diff run ct */
-+	{ 1, 5, 12, KBUILD_MODNAME, "format '^mid:' -T" },
-+
-+	/* include subclass */
-+	{ 2, 4, 2, KBUILD_MODNAME, "format '^low:' -T" },
-+
-+	/* re-disable, exclude subclass */
-+	{ 1, 4, 2, KBUILD_MODNAME, "format '^low: ' -T" },
-+
-+	/* enable, exclude subclass */
-+	{ 1, 4, 6, KBUILD_MODNAME, "format '^low: ' +T" },
-+
-+	/* enable the subclass */
-+	{ 1, 4, 10, KBUILD_MODNAME, "format '^low:lower:' +T" },
-+
-+	/* enable the subclass */
-+	{ 1, 6, 14, KBUILD_MODNAME, "format '^low:lower:' +T" },
-+};
-+
-+static int __init test_dynamic_debug_init(void)
-+{
-+	int i;
-+
-+	pick_tracer();
-+
-+	pr_debug("Entry:\n");
-+	do_debugging(1);
-+	expect_count(0, "nothing on");
-+
-+	//dynamic_debug_register_tracer(THIS_MODULE, my_tracer);
-+	/* 2nd time gets a complaint */
-+	//dynamic_debug_register_tracer(THIS_MODULE, my_tracer);
-+
-+	for (i = 0; i < ARRAY_SIZE(exec_tests); i++)
-+		do_exec_test(&exec_tests[i]);
-+
-+	//dynamic_debug_unregister_tracer(THIS_MODULE, my_tracer);
-+
-+	/* this gets missing tracer warnings, cuz +T is still on */
-+	do_debugging(1);
-+	expect_count(0, "unregistered, but +T still on");
-+
-+	/* reuse test 0 to turn off T */
-+	do_exec_test(&exec_tests[0]);
-+
-+	/* this draws warning about failed deregistration */
-+	//dynamic_debug_unregister_tracer(THIS_MODULE, my_tracer);
-+
-+	do_debugging(1);
-+	expect_count(0, "all off");
-+
-+	report("init");
-+	pr_debug("Exit:\n");
-+	return 0;
-+}
-+
-+static void __exit test_dynamic_debug_exit(void)
-+{
-+	report("exit");
-+	pr_debug("Exit:");
-+}
-+
-+module_init(test_dynamic_debug_init);
-+module_exit(test_dynamic_debug_exit);
-+
-+MODULE_AUTHOR("Jim Cromie <jim.cromie@gmail.com>");
-+MODULE_LICENSE("GPL");
+ 	/*
 -- 
-2.31.1
+2.25.1
 
