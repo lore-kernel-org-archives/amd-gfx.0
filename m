@@ -2,99 +2,128 @@ Return-Path: <SRS0=eROb=P3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16468C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 15:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57E66C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 16:30:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D787860F5A
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 15:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D787860F5A
+	by mail.kernel.org (Postfix) with ESMTPS id 1744961361
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Nov 2021 16:30:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1744961361
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 827816E167;
-	Mon,  8 Nov 2021 15:32:58 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF3396E103
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Nov 2021 15:32:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8922D6E1B7;
+	Mon,  8 Nov 2021 16:30:50 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2084.outbound.protection.outlook.com [40.107.236.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB9A6E16D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Nov 2021 16:30:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i+sq/Wp+X+9I9AEHhhqXas0HMBbyEBpEFUThXOrHzA80qti4mxEI/HupHTVWkFkP+eBxXUSImUVlF5XIJ4jKjMjOMJQrnEvnaoI7SqCCXBEm/qjPO+huxfbQYgCPa0UqiQrMGF/BQygBPGC0Hhyxd/096fyFIdUfBvhFjjG7Nn+/ZDJkldF5dnkjsqYdi5XaF84R8BkKn2BMtGgNUskf0NUMD3X6jnQyb6d0KSA+wIdy6+6Cbw9wXeyI7PjWMSpwogetSmkW6ZvzMEXGYSKpCjZM5mqnJzXBNq/2txRNHtT1CoCqdX5dEmZiI+TDShZgyEg10mUCGV8X4xnNfoh4Dg==
+ b=e3N81sYxolmc4SZxzwYLzibWLnzkwFD6jcjjrKQozUBBpsGP6LJire0CJHmMJ5h0uh43Sg0LCaLkSKPP8uRLr66BtNYoRwcW9oCcXd82AYLzuMAzpnO7XikHJBZxIT2sryQWstoAbFPrDWlYV6QA0T+qajEQYvXSKw9NQLxqEXP3RU9eZCu9pYMWQZrG6IqmLiQdSQcO4F7sdJSkJeK3qH1zjnYpb3Nfga01yMgYgheBTPbLnWY1iNHAJj5tOdMvR3BZjmSGLmTpEVcaK0SoilwZr/5pHbGNhZTMdEH87Fxea5gwkiM0FlCid79SYzMYewMeLVSZTW/35HLxbeb/1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TjEQE4kIjddDR7PYUTg8sYul33ila6hEkbYwAq3kFvw=;
- b=DKUgeNk7AOROTU+CRaCHq40btIb1r4uXXZXogAZv/IViUB+XWfUEMmPUiYgJqcY6uYGIEzJlG5RnTy4KVHBPNtCnsTVbLzB1Dk4qYUVCgXgdHdqC8OEsOeDv9Jd7Dny0111Cpm0XfMzjKUVxz2PhJPAsuD/+nkeN7wcGVuIAlhBQxQPQ04LeHwtHweId+T50G0lDiFm1t138D39BanAw2879QhpENRLJyOguDZm123YAtKw0vj0oZYAIWs/zniBfDGs8lJfoFPxlnl9XCK5+1VkpCD6f3tTJ/NNm1JltxU4XwbNP/a4UZ34DgJKdV4sdEFcdp+bI2NsBwq8flZyODw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=zBjmdsKBRWk76erF9Sn5nkRCPOjcYx2O8jsu7hkrR5c=;
+ b=Kl4oWEUx0NQobJ38YD6YteiFyRBwJNpUE7qz1eRgYicPD4TWcblHk2mMQN93Ye4sbSdJFsoFwQ4b9qQmnKMLHjJmgjtB7lQSRD0tBS0CUuYV1sZgY0kCtvnmnGFp2gfJwTWo/nN1jPsvrAXiIoBURrADDnHgHdLu+J46vK8x8X1ULxekz6/ZCkucMZcJN5D6IuD9PbQ5XOiNmuadddNxkBp4aIsaLhJxmfdgNk6wGkGlDIwJxJctaC5CR0PsEaQbW8w3Xopad21kDwbfo3bYKgZ494Kb+7xH9EzZsMqWXLcIX/eoFLfT4sTEDCgcJdTHkpWbGgmdXC9fbZl5innFlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TjEQE4kIjddDR7PYUTg8sYul33ila6hEkbYwAq3kFvw=;
- b=41CGKmR2dMPg0AbF1dgjgp07GgZyzdZ9n2Xo5chPlBUqoNyI3lI4aDNNVgyzhwqfXfVjetKciJXcCSh+XNJ95mxXm9XVmJu12/8BIguoNaDdStManoFyJenaY1OmXBb3EGYt85jsQ/plJzum7gwYOGHT9crLPSkYNYKMO6Rw2ro=
-Received: from BN6PR21CA0022.namprd21.prod.outlook.com (2603:10b6:404:8e::32)
- by BYAPR12MB2710.namprd12.prod.outlook.com (2603:10b6:a03:68::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=zBjmdsKBRWk76erF9Sn5nkRCPOjcYx2O8jsu7hkrR5c=;
+ b=JdsY98vK989YNCH/H0EUCqmMiC+prrxpb2bYXmurTSm3aC5dsTWXCg1i1Ks4kDWjknBhUD+Nzer3/LS/Vcz2VX2WIUIUQgE75ljMW5NttfY/jYdq893Fdk9Ogxhv7bIZYqx/kizClL1HJlrjJjmsXE8AAG0HY5HLTVLq5ynTvMs=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB5278.namprd12.prod.outlook.com (2603:10b6:5:39e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Mon, 8 Nov
- 2021 15:32:54 +0000
-Received: from BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:8e:cafe::f7) by BN6PR21CA0022.outlook.office365.com
- (2603:10b6:404:8e::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.1 via Frontend
- Transport; Mon, 8 Nov 2021 15:32:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT022.mail.protection.outlook.com (10.13.176.112) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4669.10 via Frontend Transport; Mon, 8 Nov 2021 15:32:54 +0000
-Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Mon, 8 Nov 2021
- 09:32:53 -0600
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix the freeing of compute pasids
-Date: Mon, 8 Nov 2021 10:32:44 -0500
-Message-ID: <20211108153244.1974943-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2021 16:30:47 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf%4]) with mapi id 15.20.4669.015; Mon, 8 Nov 2021
+ 16:30:47 +0000
+Subject: Re: [PATCH 1/1] drm/amdkfd: Fix retry fault drain race conditions
+To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211108141549.1573995-1-Felix.Kuehling@amd.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <c4694c50-027f-d619-6088-b5d4780c817a@amd.com>
+Date: Mon, 8 Nov 2021 11:30:40 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20211108141549.1573995-1-Felix.Kuehling@amd.com>
+Content-Type: text/html; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P265CA0007.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::23) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+Received: from [172.27.226.38] (165.204.55.251) by
+ LO4P265CA0007.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ad::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4669.11 via Frontend Transport; Mon, 8 Nov 2021 16:30:45 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1b76b5ee-b187-4d18-c47f-08d9a2cd0879
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2710:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB2710C4A974FEAC40067334B985919@BYAPR12MB2710.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1443;
+X-MS-Office365-Filtering-Correlation-Id: 6ace60da-56dc-4f52-0745-08d9a2d51e26
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5278:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5278FAD84619207C773EA60FE6919@DM4PR12MB5278.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IVVa1THIBqX4+3QTZMHWSDKfZK50w+tDOat6qWDjtLUFQEXqX5Ulr7SjiLW6wzDWVNebdEmGx2eLt85Ww6A194rt8mprc0EE1SOp9CE94YQ3XhqY8C4E6vLfwzsNb1rQry3Fi6Kei23e+PcEopE/q3sF12rC2hdWwVT71X04cG1+X6Q7O/GPkL4vMZdUc/E9uel61raE9Ks+nN+3nHPp5KLzlcx7m7DeyY71w14MTLW2JC5gHuNiwjxrIRsquUxed6jWZwkBFsZmKscJzH01qWq16fOOeMFpVh3A9ogCJlpWuLtSWYtmItQosPNUN7nEo6s+G8MCMFqt16HQ4EmL7zndXzaV/rkRui2ngFxW4xgjPZs5G0tQE5lDdn3Qk40OY3DTRYyIsTX1iyFawGLLK5WFfayU9WZ5zaHZMgD/TfxynBGyOwvuhAZRzHKZzstJ3LbaqwOW1RMAGWfCkx5hLlBBwuEu4sV4cEqYHgi0RyGQsL+7HepMtLIzmL2kkKuGoVQuwzfHBhtvjGCQTZV9YkDcsdOE41XGTZhtGJiAv/Ol9t1JV9zV7Du6LV47VtNOT4wAtOCeXR0odI1j4uLU/8TQ/SQL0SKJc6lnfW+zxxCiqehBKdfVJvpohW87FId7oiESdKigKUs6DI2g/TFZyEPJTFEmhPyk/8FSn9bE11hwzVNaBmuR/A6OovgpT9XMkO4slMjLkVrU0d1oI5s8kb/xru5rLl4fzDeFPAt3EZY=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(8936002)(81166007)(70206006)(7696005)(316002)(1076003)(6916009)(47076005)(6666004)(356005)(83380400001)(8676002)(336012)(70586007)(426003)(36860700001)(2906002)(36756003)(508600001)(2616005)(4326008)(26005)(5660300002)(44832011)(86362001)(186003)(16526019)(82310400003)(36900700001);
+X-Microsoft-Antispam-Message-Info: 1lOBmK9l06yZ5l9xlfDa3xNnK28ti5f4DapW9pnTZRUbp/GuhSfXktuoITL7OfSvUOZFLReA7zW5sp2d4mspUY/neg00cdbm+TX4RvZP+dnLvCQCz3gdlD2ku//lQYYFIxVvMGPIBvnfGdIReyxRztoW5yqQJhV3TvzeykP0RIcyrlXps7/OUTDbRcb94wkJ6iz5s21vlqQB7ooBMJJV2tHORfikLg6X1gFo3YRm2e6vgyfGT1bLdn1xhsmaSzkYDjjimXodciv/BkhutexwPbLLb3okXZPft5bIb2QELioT24t1WMddC1AoO1/BkY2q20TM9Grf+ZuH/aQReZb81+6d2tSHZK4pswNjrQ1P5yQ2QgIz2Rvl6f8e9CxPxaktD7rw21J1zo7OFw22Homf3xJvTe/e7ku+PLJmP/qVTka594E65+4C48kn2kKujucAr/0bXBGGqvxVYddYsUxUdVnM7zct9oo+tzBGVdaV0+Any0eII80cdwzQPGVkx6chnzUOCroXxyNfqhC+MMLWDZUeZq7CXzCvycY0AJXhDcgWVdebgd6MmZmXDhYyNrBCIEWtwIgndceWg9TJs51ch4ARJLEY6q2aDr5WUWc/5/9tB01g+arw7cC/btRJObkzToN7v882lvuSe6RTfQ7tgzJq7kh5LaZui4emp6HStCw3CcU4nNQEZLtQg8CSO6nl9hBxfuXicVQM60mu7btcaemaJKRbgH3u7BtPhkHtYVI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(26005)(8936002)(8676002)(31686004)(4326008)(6486002)(186003)(6666004)(2616005)(956004)(2906002)(38100700002)(53546011)(508600001)(36756003)(54906003)(66946007)(5660300002)(16576012)(31696002)(316002)(66476007)(83380400001)(66556008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFExTGV4anBxQzR0RHZHblRrY0VGaFN4TXh4dHZxK3BMMHZQY1JLSVFBOTRZ?=
+ =?utf-8?B?L0NIcWVJeUVHTVYyVW5mcWY2eGpTMnJuU3g0dmEzSDRBb3lhaTlKL21PalZH?=
+ =?utf-8?B?a05BazkvOU80dDkxcWNBdUMxQmhkbGwyRm4rbHpEb3U1R3pNYW9GODczR0xS?=
+ =?utf-8?B?S1pzZU53WW41Kzg1ck1UWVQzcEhpWVVDSnBIc1V1SkFnNlZOclR5QSt4VHpF?=
+ =?utf-8?B?YnRnMmRUV2VzRjhDL3ZrbHpjZ1c1VEM1NkRTdldnQTJJcnI1SUVDeDVkQldv?=
+ =?utf-8?B?V2IwT053d0N2ZDR1OTNxSjlmMXA2TmMwMnlURnJmNUc4MkR2dWRLQklNcTZB?=
+ =?utf-8?B?NzU2U21sSFRJZzJ0ZHJ1VVNSK3lWdFp6MjVydTZhQnk4d2svdUw3QTVJaWtq?=
+ =?utf-8?B?djNkUHEreXZ3U2srSmhSMXJjclAvUUtjWURlVjBZbDB2WlYwaFdhZEZOcXIr?=
+ =?utf-8?B?U0xRMzhZOGdNN0ZQT3ZmRU93RURFdTlOWlR4ZkJCc3dQaXlsaUpEbG82MWxr?=
+ =?utf-8?B?T01semJUNWx1ZVZsVnBOdGxmNGxRa1gyOS9EUDVHbmV1K0FpdnNKQ0JHRzZU?=
+ =?utf-8?B?Z2RjYmJvVUxyRFo4UDZXdHFpUHRUWlVrZGJNbXEyaWZ4V2lUWXRvb0dSQ1Bz?=
+ =?utf-8?B?UGs1YnVRRmRNWjI0RFZpdlNTN1RwZld3ZklxTmRPVU5WRVdVeExJNERzVzEr?=
+ =?utf-8?B?Q0VyVGZTeXg0dmdQNGIzZmpybnZmMU1oUmxuZnFPZnFWdVA1ZUVxNTg5V0xT?=
+ =?utf-8?B?bGZmbThESTRsYU8zdml1eW5vYU80d0l3OUhTSmlMYWF4SWEwbTRRd2UrZm5t?=
+ =?utf-8?B?R2NobVRKNk04M1lUaEFCMFJjWk9IbXZzUVBSbUt6Tm1GWmNZMFJrZnlkTkJ3?=
+ =?utf-8?B?ZlpDb1FWU2NSWk1zd003MklJRk1TZ2w3YW9wbWVXa3phT0pvSXBoeXdyaWZX?=
+ =?utf-8?B?OEVUbit0MzZtSEdKL2ZQQWpHaXJ3bDJaMGF4Um5nYTRRVEszaXVrbUowdlZq?=
+ =?utf-8?B?VG15a0FIVnRrb2MxVGpCQ0syTXBQMlBjZXBzTTZTRGxUaGVrOVp5cEROdll1?=
+ =?utf-8?B?K3RHNWVqNTVQbmIvRHdXSkRUaGlTd21sc2V5YzlYZEsvTnh4NGZTRkNmbWVS?=
+ =?utf-8?B?czBiM2lIdGdLM05lZTVacTJXMk11K0xYRGp4THVnaWpTb1V4SG04NlY0aW5Q?=
+ =?utf-8?B?dFlrV1FXZ0U0L3ZuUkpGOElhdXBTeGNDL2I5YSs0dnNVbjVFVkhpMTk2bW9D?=
+ =?utf-8?B?cHNCZGp0M25VYVV1ZnFMM2lSWHRzK3NZajZXNUs4SmZ3VWxzcGpkNjAwejY3?=
+ =?utf-8?B?VWgra2k2R2xQRDZOVms5L0k2QXVRZUo0WGZsSmN6ZWM1a1NETS8zOURMQnhr?=
+ =?utf-8?B?R3ErdzJoeXRJN210WWZsRlVSaC9KTUt4a3BEWFF0ZHVQWG1vYW45L2JyNFdR?=
+ =?utf-8?B?dnFoUUgzU0lzM2g3eXpaMmlrOHRkcnZMNE9ma3Y3NVdmY09nTmFMUlRjTzBI?=
+ =?utf-8?B?RU4yRmVPT0xlZXJvNUxqRlZDR0RHaFJFNWxSU2dBalRMY1pieWhkSnRCOW1G?=
+ =?utf-8?B?WEV3SmIzcUJwMEdPWG9qZlAwZUs0eGxaMHNLR0dnWWZHb1pQWVF6MFZQKyth?=
+ =?utf-8?B?N2svVXJGNlh5QktKdjVWNmVqN0dhRGQrL2tTQ0VDUnR2dnpCcnNXaWFma3FY?=
+ =?utf-8?B?Q3l2RzdLaGs3d1BOeWFUbVBtN3prSUhrM0pOaXRtWWZnY3g4TFRDZmcxcEhQ?=
+ =?utf-8?B?RVI4WndFUkNYY2VPU3IyTnBBNEtHaHBVWmxoaERDbUdzUnlxQlp0VStEaFR6?=
+ =?utf-8?B?SFhUbXZpWE5QR01ONkVMaTdZR0YrS0psaVpSS1RTQW5FcHA1OTFoVGc5MWJh?=
+ =?utf-8?B?SHhkbDl3SVhWNEpwL1E3ZlNXWjJMZWEzUVV0aU44RkdqRWlqK2hNa3gvcDJu?=
+ =?utf-8?B?d2VKeVE1WWkxS2poVHEydHZCNVIzd3hlY0ZiSEJqcmc5MGpJR0xOMHlRbHhH?=
+ =?utf-8?B?SVdOS2xXRk5VZTByL1NrVzB5REltK0lVTy9hZ0xxenlNcWJQd3FTN3pzTHpv?=
+ =?utf-8?B?Y09jV1lZdFNKNW15MUZUalY3ZnNVbUQ2R0lOdU16RzR2azNzeE1wRlZZME1I?=
+ =?utf-8?Q?vJD4=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2021 15:32:54.3369 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b76b5ee-b187-4d18-c47f-08d9a2cd0879
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ace60da-56dc-4f52-0745-08d9a2d51e26
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2021 16:30:46.9896 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2710
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xujHw58b6FKALFToPNqd4sszJPyMY+rVsiyG1ql0ANdzJZw2npKxD7xhcFgka4KK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5278
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,143 +135,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent Russell <kent.russell@amd.com>
+Cc: Alex Sierra <Alex.Sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch removes the race condition where KFD and KMS both try to free
-the pasid, depending on when the render node is closed.
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-11-08 9:15 a.m., Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20211108141549.1573995-1-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">The check for whether to drain retry faults must be under the mmap write
+lock to serialize with munmap notifier callbacks.
 
-KMS should not be freeing compute PASIDs during KMS' postclose.
-Compute PASIDs are cleaned up during KFD cleanup in kfd_pasid.c , and
-ida_free is not robust enough to gracefully handle double-frees.
+We were also missing checks on child ranges. To fix that, simplify the
+logic by using a flag rather than checking on each prange. That also
+allows draining less freqeuntly when many ranges are unmapped at once.
 
-Moreover, once we set the context to compute (is_compute_context=true),
-that won't change during the lifespan of the process. Due to that, we
-can guarantee that the pasid will be cleaned up during KFD cleanup.
-
-Signed-off-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
+Tested-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+Tested-by: Alex Sierra <a class="moz-txt-link-rfc2396E" href="mailto:Alex.Sierra@amd.com">&lt;Alex.Sierra@amd.com&gt;</a></pre>
+    </blockquote>
+    Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a><br>
+    <blockquote type="cite" cite="mid:20211108141549.1573995-1-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 --
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 21 -------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 14 -------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  5 +----
- 6 files changed, 2 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 24 +++++++++++++++++++-----
+ 2 files changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 5f658823a637..9be2c0463ebc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -269,8 +269,6 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
- 					struct file *filp, u32 pasid,
- 					void **process_info,
- 					struct dma_fence **ef);
--void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
--					void *drm_priv);
- uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv);
- int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		struct amdgpu_device *adev, uint64_t va, uint64_t size,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 94fccf0b47ad..3bdebcee2380 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1352,27 +1352,6 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 2a5b4d86bf40..78ae96fc8a6a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -766,6 +766,7 @@ struct svm_range_list {
+ 	struct list_head		deferred_range_list;
+ 	spinlock_t			deferred_list_lock;
+ 	atomic_t			evicted_ranges;
++	bool				drain_pagefaults;
+ 	struct delayed_work		restore_work;
+ 	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
+ 	struct task_struct 		*faulting_task;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 065fa2a74c78..77239b06b236 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1991,20 +1991,28 @@ static void svm_range_deferred_list_work(struct work_struct *work)
+ 		pr_debug(&quot;prange 0x%p [0x%lx 0x%lx] op %d\n&quot;, prange,
+ 			 prange-&gt;start, prange-&gt;last, prange-&gt;work_item.op);
  
--void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
--					    void *drm_priv)
--{
--	struct amdgpu_vm *avm;
+-		/* Make sure no stale retry fault coming after range is freed */
+-		if (prange-&gt;work_item.op == SVM_OP_UNMAP_RANGE)
+-			svm_range_drain_retry_fault(prange-&gt;svms);
 -
--	if (WARN_ON(!adev || !drm_priv))
--		return;
--
--	avm = drm_priv_to_vm(drm_priv);
--
--	pr_debug("Releasing process vm %p\n", avm);
--
--	/* The original pasid of amdgpu vm has already been
--	 * released during making a amdgpu vm to a compute vm
--	 * The current pasid is managed by kfd and will be
--	 * released on kfd process destroy. Set amdgpu pasid
--	 * to 0 to avoid duplicate release.
--	 */
--	amdgpu_vm_release_compute(adev, avm);
--}
--
- uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv)
+ 		mm = prange-&gt;work_item.mm;
++retry:
+ 		mmap_write_lock(mm);
+ 		mutex_lock(&amp;svms-&gt;lock);
+ 
+-		/* Remove from deferred_list must be inside mmap write lock,
++		/* Checking for the need to drain retry faults must be in
++		 * mmap write lock to serialize with munmap notifiers.
++		 *
++		 * Remove from deferred_list must be inside mmap write lock,
+ 		 * otherwise, svm_range_list_lock_and_flush_work may hold mmap
+ 		 * write lock, and continue because deferred_list is empty, then
+ 		 * deferred_list handle is blocked by mmap write lock.
+ 		 */
+ 		spin_lock(&amp;svms-&gt;deferred_list_lock);
++		if (unlikely(svms-&gt;drain_pagefaults)) {
++			svms-&gt;drain_pagefaults = false;
++			spin_unlock(&amp;svms-&gt;deferred_list_lock);
++			mutex_unlock(&amp;svms-&gt;lock);
++			mmap_write_unlock(mm);
++			svm_range_drain_retry_fault(svms);
++			goto retry;
++		}
+ 		list_del_init(&amp;prange-&gt;deferred_list);
+ 		spin_unlock(&amp;svms-&gt;deferred_list_lock);
+ 
+@@ -2037,6 +2045,12 @@ svm_range_add_list_work(struct svm_range_list *svms, struct svm_range *prange,
+ 			struct mm_struct *mm, enum svm_work_list_ops op)
  {
- 	struct amdgpu_vm *avm = drm_priv_to_vm(drm_priv);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 651c7abfde03..9849aaf736d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1280,7 +1280,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
- 	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
- 	amdgpu_vm_fini(adev, &fpriv->vm);
- 
--	if (pasid)
-+	if (pasid && !(fpriv->vm.is_compute_context))
- 		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
- 	amdgpu_bo_unref(&pd);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 0e7dc23f78e7..049b3f6d9cb3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3125,20 +3125,6 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	return r;
- }
- 
--/**
-- * amdgpu_vm_release_compute - release a compute vm
-- * @adev: amdgpu_device pointer
-- * @vm: a vm turned into compute vm by calling amdgpu_vm_make_compute
-- *
-- * This is a correspondant of amdgpu_vm_make_compute. It decouples compute
-- * pasid from vm. Compute should stop use of vm after this call.
-- */
--void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
--{
--	amdgpu_vm_set_pasid(adev, vm, 0);
--	vm->is_compute_context = false;
--}
--
- /**
-  * amdgpu_vm_fini - tear down a vm instance
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 85fcfb8c5efd..6740362215fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -380,7 +380,6 @@ int amdgpu_vm_set_pasid(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout);
- int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
--void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_get_pd_bo(struct amdgpu_vm *vm,
- 			 struct list_head *validated,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index f29b3932e3dc..7c9c3295748a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1001,11 +1001,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 		kfd_process_device_destroy_cwsr_dgpu(pdd);
- 		kfd_process_device_destroy_ib_mem(pdd);
- 
--		if (pdd->drm_file) {
--			amdgpu_amdkfd_gpuvm_release_process_vm(
--					pdd->dev->adev, pdd->drm_priv);
-+		if (pdd->drm_file)
- 			fput(pdd->drm_file);
--		}
- 
- 		if (pdd->qpd.cwsr_kaddr && !pdd->qpd.cwsr_base)
- 			free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
--- 
-2.25.1
-
+ 	spin_lock(&amp;svms-&gt;deferred_list_lock);
++	/* Make sure pending page faults are drained in the deferred worker
++	 * before the range is freed to avoid straggler interrupts on
++	 * unmapped memory causing &quot;phantom faults&quot;.
++	 */
++	if (op == SVM_OP_UNMAP_RANGE)
++		svms-&gt;drain_pagefaults = true;
+ 	/* if prange is on the deferred list */
+ 	if (!list_empty(&amp;prange-&gt;deferred_list)) {
+ 		pr_debug(&quot;update exist prange 0x%p work op %d\n&quot;, prange, op);
+</pre>
+    </blockquote>
+  </body>
+</html>
