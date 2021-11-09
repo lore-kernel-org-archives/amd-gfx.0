@@ -2,138 +2,68 @@ Return-Path: <SRS0=P/1w=P4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70F88C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 13:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DCE3C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 16:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 36BEA610A3
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 13:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 36BEA610A3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 446B76058D
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 16:12:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 446B76058D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2B766E511;
-	Tue,  9 Nov 2021 13:59:23 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6242B6E511;
- Tue,  9 Nov 2021 13:59:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FFszfeat8uK59pKSkFJZVNFSHjWMBNE0KuAbMkfJf4J7IxUP82zxO38YnoM2DSb8IVyhd8zglqTsPVTgBQCoUw4uKt9Lj+WSfhvg9Xo+0TUqraERbKjdgRNuA/exMOHVRpMyTbDBVGcyXwlWFmNvE4HHUuQdW1ZW/dknaUtX3x+gKg3lgLGFI1utc3WnYbdOZSrdAUM64MiuzegQQQ3tj28P8Bjn8YepXX2dHB7yL6fHbq4pPx0qGYP3+WyVMh8zcV87OsGp/w0OS5S6CBo3HiPKiCNWmOZkbCF15kAZz+7XiwR2RBY2acNUepYDp8dVLrCXWJa359U7KxPkcrSI8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ri2CaKGe7niWypQJIoO8VHMhWhtLrC9Hy8voiUrIgw4=;
- b=SBrbSVWZKiYt1dQmlrFkNit+wAR540AfDMrf/D+/iCHsOP8LEnmaJn31dUsPRT/6MpuqxMSEynV5sPF30+EKcQmWZPU4EfGTflo4ky8ofCP8xHE/WaK4EMMuq+zGGmRSMw8HogsmqZQjUyutxDjwOUjZFCzFyhrwvZ6rTqvJeLO1EQUqBYSj5/2q8o5vgWACxk7SzziRMZT4KfY0ckSoktFsZQKkZX9n5ia+nh3ikG9mSbEN41cQK0SytGDp5LDzxvWoy+3+5B+NM0ZojuwgoO6YztdAvhxyE3Ltkn8qguVavYSovek2srLAV2+yD8FjXzYd0xIw0zAuFW5yrm1Qgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ri2CaKGe7niWypQJIoO8VHMhWhtLrC9Hy8voiUrIgw4=;
- b=Aw5i8B9MdEK7mTjlMk5MnOkYrCJJXO8NUo9iK+Koaqo9UEMjoQ98Rv2N2YICuzPyJQg8e2ufyArUc2BKuNspvcmigmXMJe9GcC0ocvA1w7Y2UIjRxdBSmMPElHma4psQS7nsL2NJqdHprVeFAkinf+DwEAmFqQ7HNQv7K0Zy79Q=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MWHPR12MB1344.namprd12.prod.outlook.com
- (2603:10b6:300:9::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Tue, 9 Nov
- 2021 13:59:20 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::2d02:26e7:a2d0:3769]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::2d02:26e7:a2d0:3769%5]) with mapi id 15.20.4669.016; Tue, 9 Nov 2021
- 13:59:20 +0000
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTog5Zue5aSNOiDlm57lpI06IFtQQVRDSF0gZHJtL3R0?=
- =?UTF-8?Q?m=3a_Put_BO_in_its_memory_manager=27s_lru_list?=
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20211109111954.41968-1-xinhui.pan@amd.com>
- <da46c607-1a3c-7ea9-92ef-78a2b60d38c9@amd.com>
- <DM4PR12MB51653AB0F1A0B89A41782B1087929@DM4PR12MB5165.namprd12.prod.outlook.com>
- <76d78ff7-efe4-4796-ec18-a668757f2e04@amd.com>
- <DM4PR12MB51657C53FAA6C096884118AD87929@DM4PR12MB5165.namprd12.prod.outlook.com>
- <DM4PR12MB51658A8C75586BCC2B0BDA6487929@DM4PR12MB5165.namprd12.prod.outlook.com>
- <5b2e8116-7bff-604c-5b9a-e37e29d66dd0@amd.com>
- <DM4PR12MB51658C237B36EE47DDC68F9D87929@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <282e5be4-07c7-c1e7-049b-6af1eb7a2fd3@amd.com>
-Date: Tue, 9 Nov 2021 14:59:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <DM4PR12MB51658C237B36EE47DDC68F9D87929@DM4PR12MB5165.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: AM6P192CA0041.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:82::18) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12FCD89D5B;
+	Tue,  9 Nov 2021 16:12:07 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC5C489D44;
+ Tue,  9 Nov 2021 16:12:04 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id 133so16323360wme.0;
+ Tue, 09 Nov 2021 08:12:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=KYMC5u7/Ae62YrmoU00vw7hWLz92vSlo4JocNf0Htnk=;
+ b=nBPUFUIkEZfaMn+igdxTihp13PWx4+RNd4h+Zukt1ZOJB1v8NvEfEXpM9VWB1BHdMc
+ 39Gra9xnwedrsx7ZatEaSmZqBhG0d+X3u05dWXaGsovf3xyr2lHytbDeCMUX5OLVDxdt
+ BC5tB1T9lzHfSx7co8EG+RR3eDB3uAIoMlfP+pFVDaxeDgTgzQYRRrjjSkdmNuPm1TLh
+ 2o9Pzrg90Ht3HOXMeEncA0ouJDatgi5OjXLscI/RiUxYfGmndPBroYCOLzLHZLTW6VGD
+ wqrBTdP27rYPkmOdW4l5qrzvQoTDLUb5Fcjtv9lX9t/7HpYLBt57wAV55U0sAxhM0CrY
+ seaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=KYMC5u7/Ae62YrmoU00vw7hWLz92vSlo4JocNf0Htnk=;
+ b=Jcbx7xeu2ictka5aiOL8LxRA3pVwlTzRp2KbDqgpEMH6fKrS0/kLEuyGj/ohuKQlo5
+ GVh6bxd6tSpnXeflipOn04P2M0C29xs56iDxqkw7rB6+w0gam8TGk8JR3Ly6QRWq28wp
+ 7uwm48khtwqs6nk57sR/LqNrY/0puG51kNjyCTZlhhsSLCPhv+2KOqPDFCY1AGk0MYkn
+ MYIc2s9dyNbKUBw1scrddP5cIBT/AbZevQLJDrPVX8/dlDU8sAKXZk5Rn+5tAPQumi6A
+ ZKvUPa9vXpN+TWCxf0J+CSTQyAI2x1BDv07ff20kcCTDs4pzGr4XWWOiqyY2OTOxZ+7T
+ Yd5Q==
+X-Gm-Message-State: AOAM531sMGoyoBxWTfLyFgeJcFm99NDR7XavGmrsPOYrppVPwm9/Nq+Q
+ pB9LTtvx7ToEdupXXEfWWIvX2df7A3/heIuNtrU=
+X-Google-Smtp-Source: ABdhPJw/Y/P6D270bcQtXGRElScfCFycpWcHhf5icFlUTilz5c5V5YdGuxruBoWhXTDchI0XC26rk+u/CCuBTtpTgOY=
+X-Received: by 2002:a05:600c:1d01:: with SMTP id
+ l1mr8629429wms.44.1636474323365; 
+ Tue, 09 Nov 2021 08:12:03 -0800 (PST)
 MIME-Version: 1.0
-Received: from [192.168.178.21] (79.194.4.163) by
- AM6P192CA0041.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:82::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.15 via Frontend Transport; Tue, 9 Nov 2021 13:59:18 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3558ba17-0368-4630-2d16-08d9a389203e
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1344:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB13449FFCD02F9AFC9259927783929@MWHPR12MB1344.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Tlg63OXG+MsomAKk7sTNv8dArHbS84Ps8RaaYt5Ybmnf+XN6mTqmgtWHFVxP/Z/I5D7QY7B0tdgkDI67nBmSCYo+0KqnHxl+2+2P61PjjfjFzl9QrJbZ6wob3pclLwpdg2BVoPeQIBkgcFPT8ri7Kroz/8ZVWEJcJkuhFRM9Nr/EFtQbqx66wLONsyyXQlBZGgNJOzYFzlF2Ol3Wzt2W9SHxyS8iIPLAPIBbENicJ6tTUjZSM5ZRcVccU1DANHs6pSijCzL+kleWOwnE4e79hsvlP1Vn0X7nCxE+NAC/oixqNvUKJ+xf/SKwRBcnpdB15OVIV5h8GmQdWATJ23Uk3f3E1unK49OaoWlKqHHaFMjHkrQCsWsjHB+4VF9T+C/Q5wkhTZxvCCkOaEtEQsmHc+d8wnqVzwNOludgd68iJ8kNmOgMgmthZ+GHqjM8sosG4C5WQc5gp47WXsU6VEDCJI798QhgEm+eB5xmMGOegjyWMgQ5G1W5oztmlMjSl0Z7470YpN5wwn03p33phPv4VdJQ3svwMY+2H739VQSAI92u8Q3sgwqXP7wkrpdii9pSspW4LsfA4hHKnr4/9BZHyVtxSL+XRi5AxFz1Y3W36JBGjfGU3sOlLPMaVTcHvs4oAjfjN89BHBl3a9+9rVECgBumO1xyUL1nrJQ/TvRcqwBhWQ+YN5NLtKf41lyBWuJfa1Yi+vPs0WHaSsdjZIaWzfwDQGVX9cC/yuDF9y2GkFgR82nvBzqGiXhTuI4o4urX
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(31686004)(26005)(66574015)(110136005)(5660300002)(450100002)(6486002)(2906002)(16576012)(186003)(6666004)(508600001)(86362001)(2616005)(224303003)(83380400001)(31696002)(66556008)(956004)(66476007)(36756003)(4326008)(66946007)(8936002)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmRmZ0JyWUN4RUppN0M4MDUzc29oUXRRbkZFUDVyRU1CVVNmOUxvK0ZBRUE5?=
- =?utf-8?B?SlhqenhHZjRCaEJEWFh2T2lJeC9EeittdjZYeXJXU3VFUzVwZ3pSeUtaRmJY?=
- =?utf-8?B?ajJzSzZidGhJRUxUYTkwODM1cGk3TmorQlR1dUVjSitTeEtqeDhhUnBKeFFV?=
- =?utf-8?B?MlJhT1pkQ2JJTC9qU3haOGpYQ3hkQ1JzbDFaZWN3SVhIQUlyRkN2L2dEN3dZ?=
- =?utf-8?B?S25yNG80Z01lN0t1VXR1Y2dLQ09mNmtSdFM4OW5lZkd0N1p3ZzNDVEVCQUZp?=
- =?utf-8?B?cFRETzBxbmx4a2dITTREYnJnTDlxNnpmSlFPRE9Qa3ZnRUZxOUtxSmlBbVlP?=
- =?utf-8?B?U3ZFRFhWcC9aQ2d2WDNybzNhd3R3V1lxV1pGV0IwN1VTdkZHOTZIbWRJT3c5?=
- =?utf-8?B?V2RqdEhuY09vMHRHbTZsYlRGYnhoK0lTSnNaVE01VWRQU0dHbTBnZGlOMmY2?=
- =?utf-8?B?VmlQaFUwUnAybzVXenFHRm5JMnJQVFFBSWxkNWlEa1JxTitiak0vY1IydmFj?=
- =?utf-8?B?emd0ZERSeUtKOG5GNUJJNTg4Q2g3alpOOXpvbE8vTFN2K3JzZlVzSFRmL3pl?=
- =?utf-8?B?bGRSYlBMMzFmWFowRE9obDVwR2cyWUFPL01DL3g0SG50a2pnTGRVNk1vNXFZ?=
- =?utf-8?B?VXNDQ3JJTC9MK0hQRnhrUWpwckFZV0hncHFMTzlIdVZERklaaHQ5akR4MHZJ?=
- =?utf-8?B?WFM1SlRyQzlEay9UM3YwUUUwc3JJSGRna0RxUXlnSWR0MGZyRHVScGJYM2lR?=
- =?utf-8?B?K2dxdWRGMTdnbi9GWlNWQmdoODY2emRIby80bTV6K3llbnBJWVBRVVRHdTlD?=
- =?utf-8?B?TkFRMi9heWJ1YjB5Z3E3YXNxVjBSSmZ4YUg5enZ4My91bmRpMDZRYWYxWm1u?=
- =?utf-8?B?N1V1SHp1MWlvR2F6RlZMUlNGYVFUSzdqZTJJNUxjS216czhmZDUzbk5BbU5J?=
- =?utf-8?B?WFVnaVgvcmRKMjE2R3A1cTZYK0FNeFRkSWRzRjVrak1BSmRqZlkvMzdCOWJt?=
- =?utf-8?B?OEFYblY2cVA1aWZqZXgyVnNpYnQ1RU44TWlMcjdRSGRTcWVlM2NBcU5QMlNB?=
- =?utf-8?B?RE9sbmltcjVCRzlhNFQrZnFocm5YanZnc21KUFliUFVXZTZzT2tka1E2bVd5?=
- =?utf-8?B?eldBaVhmYVR0RCtJN3kreExVUkxTVVJQV0trenQyUmRJTkVVdGlWMCtTTEhl?=
- =?utf-8?B?NitLKzAzTWlYanBDRDVmOExybm4wVHFsR2tDWitxNHpGOUdZT1BzN3h0V2NV?=
- =?utf-8?B?bVB2Wld4V0RSZ21jclRQLy96SjQ1aksrOE5LZk15b01XVm1hRVJNWVRHclFY?=
- =?utf-8?B?OHV4ZmtJemFGRE1teHk1TXM5M2lubWdmWnFzbkJVbVIyb3paQUh4NzJJYktr?=
- =?utf-8?B?R3Y1OW9rZkxnOFJ0cUs4TXFWeElpSHZQYTNmNVhFc3NuT0xXekwzOGpGSTBl?=
- =?utf-8?B?cGEyeEROV0JpSWhsRVhGaXZXS2hwc0lUaENIbFNmbHM5LzBCeWptVUFSRWcy?=
- =?utf-8?B?a2hJUzRwL25taEJnYTdWU05PMmx0OHRMTDhhQ1ZzUVprL3hGSDFOU2NqY1E4?=
- =?utf-8?B?bitFSzhUZVMvQVBpYVc4d041TGJCT1hIajlnYjhGWlNQaVV4MXZ5cHFMZE1u?=
- =?utf-8?B?RDBXaW5PVVBqdm5IaVlXSjFWbXpNRDV6RFJUWWU2RmlKMmQwVUJZRVhNa1Ni?=
- =?utf-8?B?bVdDSHhtcjZSOEhmNXdQK2lGSk5FampnUnF5WVBmMVJHZlJSM201MGVxL1lC?=
- =?utf-8?B?aGJ2Nzhnd2tSVXZzV1JxUWVRS1pVWWE3VEFEY1ZMMU5qMmFjRTd3VE1VK0hO?=
- =?utf-8?B?cS8zeXFtRkd0MmE1aWM2S2JWc0hYS1RBQ0puTW81T3F5THVQTktWbDFSem90?=
- =?utf-8?B?K3JpNS9mMTdmbW1XekJVcEpUVUhubjBsWTFYdnp2SW9SeGVhVGg2SVVhZjNs?=
- =?utf-8?B?ZDFGd1Y2RFVIWFl5ZFZiM2RVeE0vQ1pWdE5VUElYUXZYY1NHRmlmVkhaSWpo?=
- =?utf-8?B?aVhnMzZ5Rm5VN0xpWHFiMU5yNU5NMjBkRWtkUUY5QVNnMXFEK21ZWUZvWG4v?=
- =?utf-8?B?Rk83SDB0WTJMdTROajB6dDV5UHM2NW9zTFY5bFBoMkVRS0daR3NCY1BaWVVo?=
- =?utf-8?Q?wpqI=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3558ba17-0368-4630-2d16-08d9a389203e
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2021 13:59:19.8637 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 375t3/8jf2rk2gZaBkGZkTGONRRVHp8KRCAvcujWokfFBUJT4DET7uDJNU9g9xgE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1344
+References: <1630406139-19621-1-git-send-email-Monk.Liu@amd.com>
+ <1630406139-19621-2-git-send-email-Monk.Liu@amd.com>
+ <YS4nlkpjeitiwFy1@phenom.ffwll.local>
+ <YS4oMrFTj0+wmMbY@phenom.ffwll.local>
+ <BL1PR12MB5269292A3E9E6014043C280E84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <CAF6AEGsELL5WmxJKqyfF69OnVaK6+SnAREvjtFSHBZrm3Gdp7g@mail.gmail.com>
+ <YYo6U6D2dxQ7Y6Gn@phenom.ffwll.local>
+In-Reply-To: <YYo6U6D2dxQ7Y6Gn@phenom.ffwll.local>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 9 Nov 2021 08:17:01 -0800
+Message-ID: <CAF6AEGvGQP-6eNevDyS9sXg+6qOKMrG7h5rwhKO=v8L5mQOiUA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
+To: Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,151 +75,283 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
+ Monk" <Monk.Liu@amd.com>, "Chen, Jingwen" <Jingwen.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In general the correct idea, but the wrong place to check that.
+On Tue, Nov 9, 2021 at 1:07 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Mon, Nov 08, 2021 at 03:39:17PM -0800, Rob Clark wrote:
+> > I stumbled across this thread when I ran into the same issue, while
+> > working out how to move drm/msm to use scheduler's retire +
+> > timeout/recovery (and get rid of our own mirror list of in-flight
+> > jobs).  We already have hw error detection enabled, and it can signal
+> > quite fast, so assuming the first job on the list is the guilty job
+> > just won't work.
+> >
+> > But I was considering a slightly different approach to fixing this,
+> > instead just handling it all in drm_sched_main() and getting rid of
+> > the complicated kthread parking gymnastics.  Ie. something along the
+> > lines of:
+>
+> So handling timeouts in the main sched thread wont work as soon as you
+> have multiple engines and reset that impacts across engines:
+>
+> - Nothing is simplified since you still need to stop the other scheduler
+>   threads.
+>
+> - You get deadlocks if 2 schedulers time out at the same time, and both
+>   want to stop the other one.
+>
+> Hence workqueue. Now the rule for the wq is that you can only have one pe=
+r
+> reset domain, so
+> - single engine you just take the one drm/sched provides
+> - if reset affects all your engines in the chip, then you allocate on in
+>   the drm_device and pass that to all
+> - if you have a complex of gpus all interconnected (e.g. xgmi hive for
+>   amd), then it's one wq for the entire hive
+>
+> _All_ reset related things must be run on that workqueue or things breaks=
+,
+> which means if you get hw fault that also needs to be run there. I guess
+> we should either patch drm/sched to check you call that function from the
+> right workqueue, or just handle it internally.
 
-Calling amdgpu_ttm_bo_eviction_valuable() is only optional, but that 
-check must be mandatory for correct operation.
+Hmm, ok.. I guess it would be useful to better document the reasoning
+for the current design, that would have steered me more towards the
+approach taken in this patch.
 
-This needs to be inside ttm_bo_evict_swapout_allowable().
+BR,
+-R
 
-Christian.
-
-Am 09.11.21 um 14:41 schrieb Pan, Xinhui:
-> [AMD Official Use Only]
+> -Daniel
 >
-> yes, a double check is needed.
-> how about change below.
+> >
+> > ---------------------
+> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > b/drivers/gpu/drm/scheduler/sched_main.c
+> > index 67382621b429..4d6ce775c316 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > @@ -764,6 +764,45 @@ static bool drm_sched_blocked(struct
+> > drm_gpu_scheduler *sched)
+> >         return false;
+> >  }
+> >
+> > +static bool handle_timeout(struct drm_gpu_scheduler *sched)
+> > +{
+> > +       struct drm_sched_job *bad;
+> > +
+> > +       if (!sched->has_timeout)
+> > +               return false;
+> > +
+> > +       sched->has_timeout =3D false;
+> > +
+> > +       spin_lock(&sched->job_list_lock);
+> > +       bad =3D list_first_entry_or_null(&sched->pending_list,
+> > +                                      struct drm_sched_job, list);
+> > +
+> > +       if (!bad) {
+> > +               spin_unlock(&sched->job_list_lock);
+> > +               return false;
+> > +       }
+> > +
+> > +       spin_unlock(&sched->job_list_lock);
+> > +
+> > +       if (sched->timeout_wq =3D=3D system_wq) {
+> > +               /*
+> > +                * If driver has no specific requirements about seriali=
+zing
+> > +                * reset wrt. other engines, just call timedout_job() d=
+irectly
+> > +                */
+> > +               sched->ops->timedout_job(job);
+> > +       } else {
+> > +               /*
+> > +                * Otherwise queue it on timeout_wq and wait for it to =
+complete
+> > +                */
+> > +               ... more typing needed here ...
+> > +       }
+> > +
+> > +       if (sched->free_guilty) {
+> > +               sched->ops->free_job(job);
+> > +               sched->free_guilty =3D false;
+> > +       }
+> > +}
+> > +
+> >  /**
+> >   * drm_sched_main - main scheduler thread
+> >   *
+> > @@ -787,6 +826,7 @@ static int drm_sched_main(void *param)
+> >
+> >                 wait_event_interruptible(sched->wake_up_worker,
+> >                                          (cleanup_job =3D
+> > drm_sched_get_cleanup_job(sched)) ||
+> > +                                        handle_timeout(sched) ||
+> >                                          (!drm_sched_blocked(sched) &&
+> >                                           (entity =3D
+> > drm_sched_select_entity(sched))) ||
+> >                                          kthread_should_stop());
+> > ---------------------
+> >
+> > drm_sched_fault() and the sw timeout handler would just set
+> > sched->has_timeout and kick sched->wake_up_worker.
+> >
+> > And since we handle the timeout case after
+> > drm_sched_get_cleanup_job(), we know that all of the successfully
+> > completed jobs have already been popped off the list, and won't be
+> > unfairly maligned.
+> >
+> > BR,
+> > -R
+> >
+> > On Tue, Aug 31, 2021 at 6:29 PM Liu, Monk <Monk.Liu@amd.com> wrote:
+> > >
+> > > [AMD Official Use Only]
+> > >
+> > > Okay, I will reprepare this patch
+> > >
+> > > Thanks
+> > >
+> > > ------------------------------------------
+> > > Monk Liu | Cloud-GPU Core team
+> > > ------------------------------------------
+> > >
+> > > -----Original Message-----
+> > > From: Daniel Vetter <daniel@ffwll.ch>
+> > > Sent: Tuesday, August 31, 2021 9:02 PM
+> > > To: Liu, Monk <Monk.Liu@amd.com>
+> > > Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; C=
+hen, Jingwen <Jingwen.Chen@amd.com>
+> > > Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and schedul=
+er
+> > >
+> > > On Tue, Aug 31, 2021 at 02:59:02PM +0200, Daniel Vetter wrote:
+> > > > Can we please have some actual commit message here, with detailed
+> > > > explanation of the race/bug/whatever, how you fix it and why this i=
+s
+> > > > the best option?
+> > > >
+> > > > On Tue, Aug 31, 2021 at 06:35:39PM +0800, Monk Liu wrote:
+> > > > > tested-by: jingwen chen <jingwen.chen@amd.com>
+> > > > > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+> > > > > Signed-off-by: jingwen chen <jingwen.chen@amd.com>
+> > > > > ---
+> > > > >  drivers/gpu/drm/scheduler/sched_main.c | 24
+> > > > > ++++--------------------
+> > > > >  1 file changed, 4 insertions(+), 20 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > index ecf8140..894fdb24 100644
+> > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > @@ -319,19 +319,17 @@ static void drm_sched_job_timedout(struct w=
+ork_struct *work)
+> > > > >     sched =3D container_of(work, struct drm_gpu_scheduler,
+> > > > > work_tdr.work);
+> > > > >
+> > > > >     /* Protects against concurrent deletion in
+> > > > > drm_sched_get_cleanup_job */
+> > > > > +   if (!__kthread_should_park(sched->thread))
+> > > >
+> > > > This is a __ function, i.e. considered internal, and it's lockless
+> > > > atomic, i.e. unordered. And you're not explaining why this works.
+> > > >
+> > > > Iow it's probably buggy, and an just unconditionally parking the
+> > > > kthread is probably the right thing to do. If it's not the right th=
+ing
+> > > > to do, there's a bug here for sure.
+> > >
+> > > Also why don't we reuse the function drivers already have to stop a s=
+cheduler thread? We seem to have two kthread_park now, that's probably one =
+too much.
+> > > -Daniel
+> > >
+> > > > > +           kthread_park(sched->thread);
+> > > > > +
+> > > > >     spin_lock(&sched->job_list_lock);
+> > > > >     job =3D list_first_entry_or_null(&sched->pending_list,
+> > > > >                                    struct drm_sched_job, list);
+> > > > >
+> > > > >     if (job) {
+> > > > > -           /*
+> > > > > -            * Remove the bad job so it cannot be freed by concur=
+rent
+> > > > > -            * drm_sched_cleanup_jobs. It will be reinserted back=
+ after sched->thread
+> > > > > -            * is parked at which point it's safe.
+> > > > > -            */
+> > > > > -           list_del_init(&job->list);
+> > > > >             spin_unlock(&sched->job_list_lock);
+> > > > >
+> > > > > +           /* vendor's timeout_job should call drm_sched_start()=
+ */
+> > > > >             status =3D job->sched->ops->timedout_job(job);
+> > > > >
+> > > > >             /*
+> > > > > @@ -393,20 +391,6 @@ void drm_sched_stop(struct drm_gpu_scheduler=
+ *sched, struct drm_sched_job *bad)
+> > > > >     kthread_park(sched->thread);
+> > > > >
+> > > > >     /*
+> > > > > -    * Reinsert back the bad job here - now it's safe as
+> > > > > -    * drm_sched_get_cleanup_job cannot race against us and relea=
+se the
+> > > > > -    * bad job at this point - we parked (waited for) any in prog=
+ress
+> > > > > -    * (earlier) cleanups and drm_sched_get_cleanup_job will not =
+be called
+> > > > > -    * now until the scheduler thread is unparked.
+> > > > > -    */
+> > > > > -   if (bad && bad->sched =3D=3D sched)
+> > > > > -           /*
+> > > > > -            * Add at the head of the queue to reflect it was the=
+ earliest
+> > > > > -            * job extracted.
+> > > > > -            */
+> > > > > -           list_add(&bad->list, &sched->pending_list);
+> > > > > -
+> > > > > -   /*
+> > > > >      * Iterate the job list from later to  earlier one and either=
+ deactive
+> > > > >      * their HW callbacks or remove them from pending list if the=
+y already
+> > > > >      * signaled.
+> > > > > --
+> > > > > 2.7.4
+> > > > >
+> > > >
+> > > > --
+> > > > Daniel Vetter
+> > > > Software Engineer, Intel Corporation
+> > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2F=
+blog.
+> > > > ffwll.ch%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C298815bea18f4=
+fbf76
+> > > > b308d96c7f7a8b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6376601=
+170
+> > > > 51194614%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMz=
+IiL
+> > > > CJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DQzgCU7%2BPdA0aWL5%=
+2BJLg
+> > > > KeKbGaMMGqeGI9KE0P0LXlN4%3D&amp;reserved=3D0
+> > >
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fbl=
+og.ffwll.ch%2F&amp;data=3D04%7C01%7CMonk.Liu%40amd.com%7C298815bea18f4fbf76=
+b308d96c7f7a8b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637660117051194=
+614%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
+haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DQzgCU7%2BPdA0aWL5%2BJLgKeKbGaMMGqeGI=
+9KE0P0LXlN4%3D&amp;reserved=3D0
 >
-> As long as we detect such mismatch, it indicates another eviction is on going. return false here is reasonable.
->
-> @@ -1335,6 +1336,8 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
->          struct dma_fence *f;
->          int i;
->
-> +       if (bo->resource->mem_type != place->mem_type)
-> +               return false;
->          /* Swapout? */
->          if (bo->resource->mem_type == TTM_PL_SYSTEM)
->                  return true;
->
-> ________________________________________
-> 发件人: Koenig, Christian <Christian.Koenig@amd.com>
-> 发送时间: 2021年11月9日 21:18
-> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
-> 抄送: dri-devel@lists.freedesktop.org
-> 主题: Re: 回复: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
->
-> Exactly that's the reason why we should have the double check in TTM
-> I've mentioned in the other mail.
->
-> Christian.
->
-> Am 09.11.21 um 14:16 schrieb Pan, Xinhui:
->> [AMD Official Use Only]
->>
->> Actually this patch does not totally fix the mismatch of lru list with mem_type as mem_type is changed in ->move() and lru list is changed after that.
->>
->> During this small period, another eviction could still happed and evict this mismatched BO from sMam(say, its lru list is on vram domain) to sMem.
->> ________________________________________
->> 发件人: Pan, Xinhui <Xinhui.Pan@amd.com>
->> 发送时间: 2021年11月9日 21:05
->> 收件人: Koenig, Christian; amd-gfx@lists.freedesktop.org
->> 抄送: dri-devel@lists.freedesktop.org
->> 主题: 回复: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
->>
->> Yes, a stable tag is needed. vulkan guys say 5.14 hit this issue too.
->>
->> I think that amdgpu_bo_move() does support copy from sysMem to sysMem correctly.
->> maybe something below is needed.
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index c83ef42ca702..aa63ae7ddf1e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -485,7 +485,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
->>           }
->>           if (old_mem->mem_type == TTM_PL_SYSTEM &&
->>               (new_mem->mem_type == TTM_PL_TT ||
->> -            new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
->> +            new_mem->mem_type == AMDGPU_PL_PREEMPT ||
->> +            new_mem->mem_type == TTM_PL_SYSTEM)) {
->>                   ttm_bo_move_null(bo, new_mem);
->>                   goto out;
->>           }
->>
->> otherwise, amdgpu_move_blit() is called to do the system memory copy which use a wrong address.
->>    206         /* Map only what can't be accessed directly */
->>    207         if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
->>    208                 *addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
->>    209                         mm_cur->start;
->>    210                 return 0;
->>    211         }
->>
->> line 208, *addr is zero. So when amdgpu_copy_buffer submit job with such addr, page fault happens.
->>
->>
->> ________________________________________
->> 发件人: Koenig, Christian <Christian.Koenig@amd.com>
->> 发送时间: 2021年11月9日 20:35
->> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
->> 抄送: dri-devel@lists.freedesktop.org
->> 主题: Re: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
->>
->> Mhm, I'm not sure what the rational behind that is.
->>
->> Not moving the BO would make things less efficient, but should never
->> cause a crash.
->>
->> Maybe we should add a CC: stable tag and push it to -fixes instead?
->>
->> Christian.
->>
->> Am 09.11.21 um 13:28 schrieb Pan, Xinhui:
->>> [AMD Official Use Only]
->>>
->>> I hit vulkan cts test hang with navi23.
->>>
->>> dmesg says gmc page fault with address 0x0, 0x1000, 0x2000....
->>> And some debug log also says amdgu copy one BO from system Domain to system Domain which is really weird.
->>> ________________________________________
->>> 发件人: Koenig, Christian <Christian.Koenig@amd.com>
->>> 发送时间: 2021年11月9日 20:20
->>> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
->>> 抄送: dri-devel@lists.freedesktop.org
->>> 主题: Re: [PATCH] drm/ttm: Put BO in its memory manager's lru list
->>>
->>> Am 09.11.21 um 12:19 schrieb xinhui pan:
->>>> After we move BO to a new memory region, we should put it to
->>>> the new memory manager's lru list regardless we unlock the resv or not.
->>>>
->>>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
->>> Interesting find, did you trigger that somehow or did you just stumbled
->>> over it by reading the code?
->>>
->>> Patch is Reviewed-by: Christian König <christian.koenig@amd.com>, I will
->>> pick that up for drm-misc-next.
->>>
->>> Thanks,
->>> Christian.
->>>
->>>> ---
->>>>      drivers/gpu/drm/ttm/ttm_bo.c | 2 ++
->>>>      1 file changed, 2 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
->>>> index f1367107925b..e307004f0b28 100644
->>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->>>> @@ -701,6 +701,8 @@ int ttm_mem_evict_first(struct ttm_device *bdev,
->>>>          ret = ttm_bo_evict(bo, ctx);
->>>>          if (locked)
->>>>                  ttm_bo_unreserve(bo);
->>>> +     else
->>>> +             ttm_bo_move_to_lru_tail_unlocked(bo);
->>>>
->>>>          ttm_bo_put(bo);
->>>>          return ret;
-
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
