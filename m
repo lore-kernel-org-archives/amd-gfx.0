@@ -2,130 +2,99 @@ Return-Path: <SRS0=P/1w=P4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96D69C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 04:51:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 797CDC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 04:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DFC1611BF
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 04:51:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2DFC1611BF
+	by mail.kernel.org (Postfix) with ESMTPS id 401576115A
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Nov 2021 04:55:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 401576115A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA66D89C37;
-	Tue,  9 Nov 2021 04:51:12 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2078.outbound.protection.outlook.com [40.107.96.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01E8889C37
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Nov 2021 04:51:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD2F6E42C;
+	Tue,  9 Nov 2021 04:55:18 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2056.outbound.protection.outlook.com [40.107.243.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 608FA6E42C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Nov 2021 04:55:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VnnWMdQ64gsnKZxJ+8LWFQZr7XO6ZAozWB3fxxGNRSkUuPsnfSfbcFlTlaNQo0xHIQUPWzOHOQx3rm9lHCHjo+ti+e5PoL4QowkMpPqngGHU1SDtPsT1XvzhNrN3198i3mMMMXLBcmgr3/CCmPoxPyA06aeiGGlKSbCQhaw48NJ0tLbib3rdJVPwPTlqZGuHj3AS3O+PMaYJl1vo4R+z/NVBCG7M5JkCN2WB2e9V3TYbaPhnis8gfwoH549SeS+TidH/SBJ5i2yd8ewT5s3KhMC9+T/IFSC1gqVY6igHoLI2Ge/sHnstn0FHvRnddZbHjLohIrfiLK7cmY6EpH9Wkw==
+ b=lYEQmvAE4IoC50XgCbTR1jDg+El8ywQb5Lg1EzZSyaR9QMYRbEg3Yg1HVFY6TeGn+2EHvFgvxSp/qqUyb7p5J1rOohedPS+yTFOjzyIlzBvHPjm+0EozA0MJSJWrgWQejCBK5d5AiagzcnfI3LSdVm12d35xyiO7PIK7HrrWHpgI07HPg3aoAVcg/+TVwa6wYJbWjFIhMeo7KDA1ZJNK305Vy8KyuOamlN0im4CaqzkkcFWOTdAePWBFs3GlWuGtCbkkF3wG2ZE9F9lh8uph4lSg/fQK2yXncqGwcZTDj9yTtI/cwnGioy0bBftznXnOpkFdbo+VgwexQ7GhrCTYzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cXNGZuauMwy5hlh7Aa3emrnbnBlBXNyCFa+0wt8yCGI=;
- b=gkkko1hws5ZA1djKN+50uLfVqzGbvR6TG524OITiGrLMuoBL5zd39nxP0EnSd6h50cbgAExgck5H9Ihng1YEn421Hd1mIj50zdzz2L/eXWhkQuLLiMdNv1xipdRBpoLednGehNX5fgHT2d9IiwC+bPrdetlZtCRVHzQqZZDk97e0vYM7qxPv6FtsxePFyDB0WjZ+B5wuYimpd3bLs/D+Bg0IvO2S15EzsxBOtcdUfdBWs2t8ncPVrte/NH1bKxVoLPmHV128WpiLX3oVAwp79vajzKTwOZ02unooATBSzjnHH0M4WnfOtrEuBdvPcuMxWYyk1JwbEZfmUdtsOP2jZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=C7nAsXmhdK8qbQ3ddSkA2qFVHv3CkmRJvmP7NJwZkV0=;
+ b=PlUJ8jZ/fMB7tm3hEPQ7Mxg3/C7OWEJ2RxuPSI7sjA8MHYP5mMR3RCIo6q1+D5I9wCiNpbY8+54jzElikECtes5z80QsFDkKr0PP+LNtKzPg95HKuVUEMqBigzGQHKiZriYbuZpsuD4mvTsqtIgYf+lhHZ7sN8YzKnVsTApHMipKHkjgQBqCpaWb8ONbL/49HJsvXsgJcW3tNQoa8aZirQswgJwQAXASgVfpIMn1oJqN5I//z3gTwwmPs5KuJNEOdkLUg3FoTd9HBArcs4TLuPWvYPC5E2iswmZ/NVZFd3SwJhZADGPmp5jzwTYIYgx9xdspIrtH9tB69ptTaGlDoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cXNGZuauMwy5hlh7Aa3emrnbnBlBXNyCFa+0wt8yCGI=;
- b=SBswB+3fs9aW2kyrUg4kLTdtKJDrSnLOlgC1JfXrWdFdbH7sRP7wx+Ye9+5GjEksXgKIQBidMpwcArKhnaMyBmSg8b2NZCmos2ZWDMG8E0GhfPs1cRk6dIWmfHGEpJYIsUns/GRPzlLSGG5vuEBv5KEe8LF7aKx2/Wy4u9qgLho=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5113.namprd12.prod.outlook.com (2603:10b6:408:136::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Tue, 9 Nov
- 2021 04:51:09 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5174:fe56:1dec:1342]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5174:fe56:1dec:1342%9]) with mapi id 15.20.4669.015; Tue, 9 Nov 2021
- 04:51:09 +0000
-Subject: Re: [PATCH] drm/amdgpu: Pin MMIO/DOORBELL BO's in GTT domain
-To: amd-gfx@lists.freedesktop.org, "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>
-References: <20211109013744.30464-1-Ramesh.Errabolu@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <6fafa247-cc05-dcd9-4f52-6757f20a6941@amd.com>
-Date: Mon, 8 Nov 2021 23:51:07 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20211109013744.30464-1-Ramesh.Errabolu@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0017.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::30) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=C7nAsXmhdK8qbQ3ddSkA2qFVHv3CkmRJvmP7NJwZkV0=;
+ b=hUchSh7r/yrVfKt9y85aKq7alEqW8Jl4Bai1dmHVlM+UW7LPMqzTiic3ikqqGaGD8JjRHYQz0NufcYdQDPw757Ou5u5u97u3QVAEvpr/DQwWCKF4yMByg4nrO6H8wBlp6gVIKpjI2EkB0ckh/Rk2zaJ5akzPA8o8STCPDEL9+ho=
+Received: from MW4PR04CA0088.namprd04.prod.outlook.com (2603:10b6:303:6b::33)
+ by DM8PR12MB5415.namprd12.prod.outlook.com (2603:10b6:8:25::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4690.15; Tue, 9 Nov 2021 04:55:14 +0000
+Received: from CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6b:cafe::9f) by MW4PR04CA0088.outlook.office365.com
+ (2603:10b6:303:6b::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
+ Transport; Tue, 9 Nov 2021 04:55:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT041.mail.protection.outlook.com (10.13.174.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4669.10 via Frontend Transport; Tue, 9 Nov 2021 04:55:14 +0000
+Received: from amd-WhiteHaven.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Mon, 8 Nov 2021
+ 22:55:10 -0600
+From: Shirish S <shirish.s@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: reject both non-zero src_x and src_y only
+ for DCN1x
+Date: Tue, 9 Nov 2021 10:24:54 +0530
+Message-ID: <20211109045454.45550-1-shirish.s@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Received: from [192.168.2.100] (142.118.126.231) by
- YTOPR0101CA0017.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.16 via Frontend
- Transport; Tue, 9 Nov 2021 04:51:09 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3212d83c-9c5d-4506-ba38-08d9a33c8bfc
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5113:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5113B03A64CDCA5FFABF2E2592929@BN9PR12MB5113.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: 56722a46-eabd-4520-5930-08d9a33d1e0b
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5415:
+X-Microsoft-Antispam-PRVS: <DM8PR12MB54157957B85E99D43853C59EF2929@DM8PR12MB5415.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:989;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sEEFQqTknnw9vGu6HGVjN1is/1jEv3W6pQnxYlUjXS0SnYGAEZQJkHd58Ae6cLvbr/moQjJnLA6gseA/5TpOJdapp464mu2Z8QOWwNzCgl6bEwPNvfQsZ8Oi6UFNPVLqGeGqGgEusxYX4WW92D6XrNjZY+3f2dBnFCnuRLxaqlFiGOBn5KMhemSCeEUEMVZnJjedMT0I15thrWp8CjLmAy7N3jjlNgLu22zop9vX4yCPOXJj9C54sUN51YNxWCtYw5B5Ya0EBmRox/feB9XDMRB0X/tQeBKKcigozAuCl0pwIDuCFcujtZSgyv2Y9liVjw67sn0pwbbGyr9DeMTqpa/GJjE3VHyVo30ayr6ugG4JrTlU7/oRnmd0lZVxXcwKKofKTFqEja9bMbiAYbRfMwBlWdgmPw+ySspsW2gc5kJDQ2M1wi24FRLVONg1Hpcwzzuir+D09EzpPUzTZ1TwPaKl51f585V6JeEs1dycl875DBeaBnsuwdOfGMytUwUcaXDDJTLwjynxlFsgBsHJS5932Q85aOp6EkKVjAUF7Cwy2uRoLI2EVPGq/Fzt5CH3wyqGgsLmn/nTbSVSBzAEaWSxU7MENC5K/B0By58iWi/kZov0znj2c9hy8DQiWMzfCBIL/i3tnE5FMcBSlqrWN3eSuPdPinA7T7A3IA+Mj5NyfaOtuk2mCyZIEGiNp50HcsMwfo4FeZQNXNlA/SzXYKbpBAe5NgESLOpbcRpPeeY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(86362001)(26005)(508600001)(66556008)(8936002)(66476007)(83380400001)(6862004)(31686004)(44832011)(66946007)(36756003)(186003)(8676002)(2906002)(5660300002)(37006003)(316002)(16576012)(6486002)(2616005)(6636002)(38100700002)(956004)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: erokNui1E8vN212Iwa5dE7mb5qvx4/1s/yUKFFqSg+t9ck5Kus8d7IL4JB4NpUJtm0kM0qDAoO5ViHEEgcAjV5JIptRsEhgojMdQvoxZGKIbNAmIn7S7alWPk1UWtbgT5fvbwCw3DOM0qQsY28bawK7pSV2lnGp2G0M4ZzrDK35TnHp1Nmk8oP9H5gIAiN9LVp9nIIVd26kuxNQi+/sQDwSQQcC6CEa3Db2m7o4ZbwrfXlYYlXJGs2AEgF6LARzY9QeuuWe+Zl9LhLmXHzebiyYCnqDPU4Mv3ZxzEoB2TN0JdlUxMKjgJEjWZQonsZiM2L91zpjhd+hDyUvnv0aXVR92VmtftHLm9p4HYK5MJlwCtWFBRgTZZJ/IzL9wF05P2eIxzKwobQr6SnQ/kKO7sv2Hu9cVVwtnWQYQtZXu3TgPXMvI6Hvjy97dR33Kx/xF//qYu2Uuk2VRNsTlREV+kDU5IOyytem3aaXTo5SELwAe8EiCY45JGHvWyfJoDPWfuD+RjO2GsQhVH5vhpEixm2Lbix8E0ImKGZNu6A8HjjdrmXvja2KnT+vyYGGK0Ic1ytmGzBA12R5o9g+i5kBQWv5oFFlplbhdW3Zr+rfp6KgP7Z2KjrbXrI3qDZllyGL2VkwuWO04XUSMygQnjTLOztrH5YYSEioKD8yti5vBhRvP8adNr1HJcPFstAjQ/3mA60AOd35+z9OaIdg+Slg0EXHpvSOIdPn2zeckqkgiCRZg3IqQg0bbBg8IoCiA1FdliYEeBp6Oc9Qk/8BmMxbbJQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(356005)(26005)(6666004)(5660300002)(54906003)(8936002)(6636002)(316002)(110136005)(186003)(16526019)(8676002)(81166007)(336012)(70586007)(70206006)(36860700001)(36756003)(83380400001)(7696005)(82310400003)(47076005)(4326008)(2616005)(2906002)(86362001)(426003)(1076003)(508600001)(32563001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnkxM3VlSFBVUzJzODVEVVNtdUN4dVF5QlZxbXZiajVSOWNqVlBZZnNVOEJ1?=
- =?utf-8?B?QlRwZ2NtU1hGbGJNTmZWY2pmd1VGVXhpM0JEY0JvQjN6WGVhbEVYU3QyWTZ0?=
- =?utf-8?B?M0E3QXczeUpITDQyeFNubklZNVJPYmRiejhkSk5yN3h4OEJ4WStDQzl4RVVM?=
- =?utf-8?B?WWlIR2x0SjBBemhQdmdwaUxuVTdrTTY3K0lmMFdDOEd3Ly9UeEVPcFUyOVBh?=
- =?utf-8?B?cEd0ZWlIdS93K1RiOW4yWS9QMlBVNDJNTkgxVTl1Z2V1a3hVaWhMVFAzRTk3?=
- =?utf-8?B?WUk5djRnT0Z4Y2t5NEk1UVhpQzVtOTVpYlhSTWNvZXhiOWJiSStSOGdOb2t2?=
- =?utf-8?B?MTdHRi9uR1k2cmREN2R0UjMzUUo2TG5oa0JjOTE2amlNem9GWFdEd2luaEp3?=
- =?utf-8?B?ei9BTHNkWDVTaDZKbk5vUjBUWGZWeWdRSjIreldmQVFacWJ1K25NZnJ4NWZT?=
- =?utf-8?B?N21zMUVIL1NLKzdONjZYTFBvOHV0NWI1VEJQVmNPU25aajEzQkVxUTNvc3lw?=
- =?utf-8?B?ZTIwK1kraGZpbkxZMGE0T2VOcERVZnpCZStrYVRyVEZFcmRSb08vVjNWb3Iy?=
- =?utf-8?B?ZjBtRVlVMG5ac3hQRW0xNWxSeG9QaU9IMlZMZTZyWW1ZY1pZMjhldDR5UUNh?=
- =?utf-8?B?SW13d1FMSVhvU1NoVmk5eVdUMFVkbUdJWkhlK0M5SmkvbzBpN1hIMENlWits?=
- =?utf-8?B?aWJhL2NSWURDQlNJNDlnRlFLeXJCc29rUzlDcStvZVdwUDdLZnZzU1FCeDk2?=
- =?utf-8?B?SnpmOE1UTmJUZHNlSUhLVHNxY0svcVRweTlaeWMydlltdXY0YXpqUDl4Tkpt?=
- =?utf-8?B?aVVSTDFzOSs5L0pSSnlEZllYZEVpQkpLZS9kaUI1WmRMc0lQYklZam4zVmxP?=
- =?utf-8?B?VjlwbnFKb0g0U2F0OEExRXA3cklxQysrNGhnRG50anNkYUJEQnZjSUNWc0FY?=
- =?utf-8?B?YjAvbEFjUzhzTFo2TE9SZHVteVVNcGpyeTltWjdRL2g3WW1FMmZKaFdRYXhG?=
- =?utf-8?B?U3hYZmVCU0xwSnNaQi96cGZPNDMrRWxDbVFLN3FQcEtiY05NNkp1SHJ0ZUFn?=
- =?utf-8?B?VjU3ZlBPbUxsMnA5eDlNNVM1TEEvMUhMd0c1b1Q2aTUvNmxmM2xOaytlV2lh?=
- =?utf-8?B?eEpCb1czOVhZTTYrUjBjMnFRK3ZMTTgzOW9naEIvbFJHRnFYVnVGZForS2VR?=
- =?utf-8?B?R3g3anBIUXZqaTZvTXN1Q05NZEdMZCtxVnhZeUI5WWlFZ01Tck1acUhqYjV1?=
- =?utf-8?B?ZVYzUVdBbHNtQXZuZHBKTWJwMFRJV1UrWjF6c1BsWmpLemZuZlNEQTRhVFhm?=
- =?utf-8?B?Rnk4eWg3b1VpdmRsTEJJdlpDTjcvOFJ5UWJMM2Z4Q1dLMXNnRkxWYk5YakpB?=
- =?utf-8?B?cm9heUU3WTQrVkVteCtqTWFKVHF2QXlLOHoxL3VOKzROQjZHZnVpb0h2b01O?=
- =?utf-8?B?a2JwTlgyNDIvQ09EUEZFWk1Wc2xVQThObmpYVnZzQS9uZWlER2p1Y1F6ZWV0?=
- =?utf-8?B?eDhrencxMVhMeHNiUzZCNTJ4NmY2VVpVdDZCOVhBYVEwQm9TTldYUWZGSTRD?=
- =?utf-8?B?bkVSUCs3TlF1d2JVbmRWaWFmWGVMbTB5eXNCKzFONnVocllmR1oxZUZuY3cy?=
- =?utf-8?B?Y0tjTW1mcjd6RHE1amFGOGt6dm9lMmYwTFN5a0h4dXk1TzU3K3N0L3BydjBC?=
- =?utf-8?B?bDhwbDA2endaeFA1M2EvRGNmd3VIM01RUjhJa1JoR3lZVUQvQ2cyZzhPaHBk?=
- =?utf-8?B?N0doc2JqR2FsTUJPM1FtaEEyUkdLdmFhRndkTkJ5RmVqSHpGTHMxUDBRaHQ5?=
- =?utf-8?B?ZFZkN3Urc1RENUswOTV3TkY0NHVTQ1cxR1pFc2hudUVYU3I5NmJZN3BTcVFE?=
- =?utf-8?B?VmxGMlNOY2pVV3BsL1RwSzM2S2xlVmpDeFJKd0ZoeFFmaDVpaFBVS3Q4eGRT?=
- =?utf-8?B?R2krbXBqcTdSS25zZ2hGcmRLQUVUVm1tWVVLNUlQVzZpbWtzY2VqYkxQQzl6?=
- =?utf-8?B?Z0RYa0NtYjVGWVZZaU82Y3FxSkszd1ZqanRnbkY1T3UzTW04UW9DNmVQQ3JO?=
- =?utf-8?B?Z3pTdk1qV1E2UkVVTjBOZUxXSFpKTVV0N0pwL0VZcWhSSCsxYlFCVEx1ZnlM?=
- =?utf-8?B?OTgyL3NCWml0UHlXQ1U3b1haMHJMZzEySjA4YWdzeGZDMzlCcUVwQ0Z4ajZS?=
- =?utf-8?Q?gDm5YUbmiLl8rSqPNHExigk=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3212d83c-9c5d-4506-ba38-08d9a33c8bfc
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2021 04:51:09.3617 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2021 04:55:14.0279 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56722a46-eabd-4520-5930-08d9a33d1e0b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dfkPFDiyYi5pWhh9KbA6RS/RdaDsL6TBiFjqt4hf0QFvlw8ebxhuNkdSwmGjmF6l94ZjRBnHDBqE1X2Y+2Hsng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5113
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5415
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,167 +106,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, Shirish S <shirish.s@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-11-08 um 8:37 p.m. schrieb Ramesh Errabolu:
-> MMIO/DOORBELL BOs encode control data and should be pinned in GTT
-> domain before enabling PCIe connected peer devices in accessing it
+[Why]
+Video plane gets rejected for non-zero src_y and src_x on DCN2.x.
 
-The PCIe connected peer device access isn't an issue on the upstream
-branch (yet). But in general, it is a good idea to pin these SG BOs.
-There is no good reason to have them on the TTM LRU list. And they do
-reference fixed physical addresses.
+[How]
+Limit the rejection till DCN1.x and verified MPO, by dragging video
+playback beyond display's left (0, 0) co-ordinates.
 
-See one more comment inline.
+Fixes: d89f6048bdcb ("drm/amd/display: Reject non-zero src_y and src_x for video planes")
+Signed-off-by: Shirish S <shirish.s@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 ++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7a54ccb794f9..00b3ef41b752 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4581,7 +4581,8 @@ static void get_min_max_dc_plane_scaling(struct drm_device *dev,
+ }
+ 
+ 
+-static int fill_dc_scaling_info(const struct drm_plane_state *state,
++static int fill_dc_scaling_info(struct amdgpu_device *adev,
++				const struct drm_plane_state *state,
+ 				struct dc_scaling_info *scaling_info)
+ {
+ 	int scale_w, scale_h, min_downscale, max_upscale;
+@@ -4595,7 +4596,8 @@ static int fill_dc_scaling_info(const struct drm_plane_state *state,
+ 	/*
+ 	 * For reasons we don't (yet) fully understand a non-zero
+ 	 * src_y coordinate into an NV12 buffer can cause a
+-	 * system hang. To avoid hangs (and maybe be overly cautious)
++	 * system hang on DCN1x.
++	 * To avoid hangs (and maybe be overly cautious)
+ 	 * let's reject both non-zero src_x and src_y.
+ 	 *
+ 	 * We currently know of only one use-case to reproduce a
+@@ -4603,10 +4605,10 @@ static int fill_dc_scaling_info(const struct drm_plane_state *state,
+ 	 * is to gesture the YouTube Android app into full screen
+ 	 * on ChromeOS.
+ 	 */
+-	if (state->fb &&
+-	    state->fb->format->format == DRM_FORMAT_NV12 &&
+-	    (scaling_info->src_rect.x != 0 ||
+-	     scaling_info->src_rect.y != 0))
++	if (((adev->ip_versions[DCE_HWIP][0] == IP_VERSION(1, 0, 0)) ||
++	    (adev->ip_versions[DCE_HWIP][0] == IP_VERSION(1, 0, 1))) &&
++	    (state->fb && state->fb->format->format == DRM_FORMAT_NV12 &&
++	    (scaling_info->src_rect.x != 0 || scaling_info->src_rect.y != 0)))
+ 		return -EINVAL;
+ 
+ 	scaling_info->src_rect.width = state->src_w >> 16;
+@@ -5512,7 +5514,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+ 	int ret;
+ 	bool force_disable_dcc = false;
+ 
+-	ret = fill_dc_scaling_info(plane_state, &scaling_info);
++	ret = fill_dc_scaling_info(adev, plane_state, &scaling_info);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -7575,7 +7577,7 @@ static int dm_plane_atomic_check(struct drm_plane *plane,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = fill_dc_scaling_info(new_plane_state, &scaling_info);
++	ret = fill_dc_scaling_info(adev, new_plane_state, &scaling_info);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -9023,7 +9025,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
+ 		}
+ 
+-		fill_dc_scaling_info(new_plane_state,
++		fill_dc_scaling_info(dm->adev, new_plane_state,
+ 				     &bundle->scaling_infos[planes_count]);
+ 
+ 		bundle->surface_updates[planes_count].scaling_info =
+-- 
+2.17.1
 
->
-> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    | 25 +++++++++
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 55 +++++++++++++++++++
->  2 files changed, 80 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 4c1d6536a7a5..d9a1cfd7876f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -300,6 +300,31 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
->  				      uint64_t va, void *drm_priv,
->  				      struct kgd_mem **mem, uint64_t *size,
->  				      uint64_t *mmap_offset);
-> +
-> +/**
-> + * amdgpu_amdkfd_gpuvm_pin_bo() - Pins a BO using following criteria
-> + * @bo: Handle of buffer object being pinned
-> + * @domain: Domain into which BO should be pinned
-> + *
-> + *   - USERPTR BOs are UNPINNABLE and will return error
-> + *   - All other BO types (GTT, VRAM, MMIO and DOORBELL) will have their
-> + *     PIN count incremented. It is valid to PIN a BO multiple times
-> + *
-> + * Return: ZERO if successful in pinning, Non-Zero in case of error.
-> + * Will return -EINVAL if input BO parameter is a USERPTR type.
-> + */
-> +int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain);
-> +
-> +/**
-> + * amdgpu_amdkfd_gpuvm_unpin_bo() - Unpins BO using following criteria
-> + * @bo: Handle of buffer object being unpinned
-> + *
-> + *   - Is a illegal request for USERPTR BOs and is ignored
-> + *   - All other BO types (GTT, VRAM, MMIO and DOORBELL) will have their
-> + *     PIN count decremented. Calls to UNPIN must balance calls to PIN
-> + */
-> +void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo);
-> +
-
-These declarations aren't needed here. The functions should be static
-because they are only used in the same source file.
-
-
->  int amdgpu_amdkfd_get_tile_config(struct amdgpu_device *adev,
->  				struct tile_config *config);
->  void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 4fa814358552..f4ffc41873dd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1299,6 +1299,36 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
->  	return ret;
->  }
->  
-> +int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
-
-static
-
-
-> +{
-> +	int ret = 0;
-> +
-> +	ret = amdgpu_bo_reserve(bo, false);
-> +	if (unlikely(ret))
-> +		return ret;
-> +
-> +	ret = amdgpu_bo_pin_restricted(bo, domain, 0, 0);
-> +	if (ret)
-> +		pr_err("Error in Pinning BO to domain: %d\n", domain);
-> +
-> +	amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
-> +	amdgpu_bo_unreserve(bo);
-> +
-> +	return ret;
-> +}
-> +
-> +void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
-
-static
-
-
-> +{
-> +	int ret = 0;
-> +
-> +	ret = amdgpu_bo_reserve(bo, false);
-> +	if (unlikely(ret))
-> +		return;
-> +
-> +	amdgpu_bo_unpin(bo);
-> +	amdgpu_bo_unreserve(bo);
-> +}
-> +
->  int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
->  					   struct file *filp, u32 pasid,
->  					   void **process_info,
-> @@ -1525,6 +1555,23 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->  	if (offset)
->  		*offset = amdgpu_bo_mmap_offset(bo);
->  
-> +	if (flags & (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
-> +			KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
-> +		ret = amdgpu_amdkfd_bo_validate(bo, AMDGPU_GEM_DOMAIN_GTT, false);
-> +		if (ret) {
-> +			pr_err("Validating MMIO/DOORBELL BO during ALLOC FAILED\n");
-> +			goto err_node_allow;
-
-Actually, I think this is wrong. You need a new label before
-drm_vma_node_revoke to make sure the entry in the node permission
-structure is not leaked.
-
-
-> +		}
-> +
-> +		ret = amdgpu_amdkfd_gpuvm_pin_bo(bo, AMDGPU_GEM_DOMAIN_GTT);
-> +		if (ret) {
-> +			pr_err("Pinning MMIO/DOORBELL BO during ALLOC FAILED\n");
-> +			goto err_node_allow;
-
-Same as above.
-
-Regards,
-  Felix
-
-
-> +		}
-> +		bo->allowed_domains = AMDGPU_GEM_DOMAIN_GTT;
-> +		bo->preferred_domains = AMDGPU_GEM_DOMAIN_GTT;
-> +	}
-> +
->  	return 0;
->  
->  allocate_init_user_pages_failed:
-> @@ -1561,6 +1608,14 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
->  	bool is_imported = false;
->  
->  	mutex_lock(&mem->lock);
-> +
-> +	/* Unpin MMIO/DOORBELL BO's that were pinnned during allocation */
-> +	if (mem->alloc_flags &
-> +	    (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
-> +	     KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
-> +		amdgpu_amdkfd_gpuvm_unpin_bo(mem->bo);
-> +	}
-> +
->  	mapped_to_gpu_memory = mem->mapped_to_gpu_memory;
->  	is_imported = mem->is_imported;
->  	mutex_unlock(&mem->lock);
