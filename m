@@ -2,74 +2,68 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73036C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40024C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:15:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2BAB261107
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:09:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2BAB261107
+	by mail.kernel.org (Postfix) with ESMTPS id 0483761168
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 10:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0483761168
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53C566ED12;
-	Wed, 10 Nov 2021 10:09:55 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBF9C6ED08;
- Wed, 10 Nov 2021 10:09:53 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id r8so3008392wra.7;
- Wed, 10 Nov 2021 02:09:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FF416EDEB;
+	Wed, 10 Nov 2021 10:15:44 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 369856EDEB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 10:15:43 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ b2-20020a1c8002000000b0032fb900951eso4163773wmd.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 02:15:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=e4PoOedOinvy2PkhbLq0Cqv2vY0i3Bisk4wmUKFRYYc=;
- b=piWiabf1s5irBRKEYmIO9iPUr/qaf+k/D11vyq2lps8e81MY7BlSkZssc6S9ZTfy3I
- vHuEkjHL9xnLVxp0SK/Wck9NlkCzMPA+g0rYyUFoklSmqnDDOKD41LslJ1fGkzRq7uWV
- aBn6sTpGy83shXdcgj+Hy0QzgRjrQ0kT5/SBFJx2ZeXUwi7ixTL+4GGbdWbLz7jYbLvd
- 9nv9Gh3PmXuq0yBse15MUnAbM/R47vZdb8DcDhZdhnle4Rb2ycgykzmWbtZlR1G0vZqr
- SiQYMto2/oGjYrxyngp0pJiXhritKhwFATvCjFgMkwooHj4mUfbQ7lpk9cLczzYfSY4k
- 1yjA==
+ bh=7ADp5lLP8bLLKXwbn+K3zSZJ8ydw84Nw/EnGAMnbJB4=;
+ b=i3CP8/3gFbPxp3GKHtIGK/eq+XHI+j5VQcttkOGS/YB0kqZQjTwdgp6qbg/JjRzjyR
+ phZe9nM2+jx6kmKicyrITNXuXMnr/pJZHEb6QvCN04EZFu+Y1u9il2v0oAEo66iIOu3u
+ FL4PcnPdvz+/F+fFM+sQwdyiI6+/OIhgE7/nfnIqyScEnJ0jr2uXvWD6XZoCeU6MS6RP
+ o7U2aPFg568L2oJQnLIY5AF6hbZtJ3sRGZsW1PHxfaRJBB155aTmn9w4sR6C7SYaoNrB
+ Kz01oMWjOSVUO3B99lSbRWStrnS8jSj9SEn+noFzNsoxcmg9lIIhcT7zKSA8zBALTWzd
+ TEHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=e4PoOedOinvy2PkhbLq0Cqv2vY0i3Bisk4wmUKFRYYc=;
- b=xWwrR06iHOuhzZR04/0RSqNNklsRBuJOc6FPVUQ2PDgdPAXH03nhFYTRvPumWWYW3b
- f3w//lIu992AT0g3hzRPk95sraqzcFlJHQOKQhHilZbIukAIRZKUSPWN/h5enjYEKsA7
- OlV1+3Ssv7iTIKv6B/vIdhfic2BI6oW1lHN4ml5dYCWFWh5X8V5oPAfMNiTQpTijDs6n
- wJ5bwoEDLpX3CNZAQCx19uhPCx3Wwfht0leLhoGnbPTSH6yBeTk6GgZXUwLhl8tg6fyz
- PyhDprzlbmLRbGQUin2cvCmpe6zvNLGEU+iiQ3+QkSXDFdJ8PCcd6dakm3uxVZdyjkV8
- wa9w==
-X-Gm-Message-State: AOAM530K/v/VwjdgzVeuuhuvn3C0EZDZazyTbTM3HTBhdGY20fZoBATY
- lJnnzZP+wSBXZaUdWMk2h/o=
-X-Google-Smtp-Source: ABdhPJzsPzmFaZcIK1ceok6y5eFZkR7cCMDt6RFVriEg3TCs2CcqVt6dnmrkpRfRVwuGtVQavs9djA==
-X-Received: by 2002:adf:e54a:: with SMTP id z10mr18529439wrm.328.1636538992273; 
- Wed, 10 Nov 2021 02:09:52 -0800 (PST)
+ bh=7ADp5lLP8bLLKXwbn+K3zSZJ8ydw84Nw/EnGAMnbJB4=;
+ b=wAjCwE6YHXa/hLyc/90rV6R6iIDM+4YDiRQ0G9xHIKZ1uE6u4SREaSrZtm9o955LjP
+ rNAHrTOAi2b49u+0mCiY2FV0GehYL9fkDy78M7Qc3uXdUYo0Jv+TvHGMHrs1b2ifin78
+ X7Zrw0HDQSLeDNOnfjzGf5Aop5PFLMiu69XlwZNNrHll/rUaK6d9rmnr50x3mCcCTvmI
+ AsljXKwKI1lNov+iLCwz5FvI0meWRWafVgwAcUFE8DFkTeWB1V8b+7rwfvtbjpU9PQDb
+ on0I4f6aFFft1lLKdFsUKiQ/GTd2/vGpyJrwCccVoktgEGFXqnmv27DvFeT7p5BREKfb
+ dOlg==
+X-Gm-Message-State: AOAM530XTYHvgEa75G9cJE0n5BYbbPMA6clsB1dGNSVEerZj5xv1/sCO
+ wTZqP+yE0YhPCr32xtlYGm7WcEUQDwI=
+X-Google-Smtp-Source: ABdhPJwSMbkgBBmqH6s95uQNyeEbBMbJArCLn37gUxM/ICNNN3HpD8jIsRR9xQpElvTBrwtai07nWw==
+X-Received: by 2002:a1c:4d8:: with SMTP id 207mr14957024wme.2.1636539341777;
+ Wed, 10 Nov 2021 02:15:41 -0800 (PST)
 Received: from ?IPv6:2a02:908:1252:fb60:fa11:45ae:fadf:6269?
  ([2a02:908:1252:fb60:fa11:45ae:fadf:6269])
- by smtp.gmail.com with ESMTPSA id u2sm24267263wrs.17.2021.11.10.02.09.51
+ by smtp.gmail.com with ESMTPSA id l26sm5285606wms.15.2021.11.10.02.15.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Nov 2021 02:09:51 -0800 (PST)
-Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
-To: Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>
-References: <1630406139-19621-1-git-send-email-Monk.Liu@amd.com>
- <1630406139-19621-2-git-send-email-Monk.Liu@amd.com>
- <YS4nlkpjeitiwFy1@phenom.ffwll.local> <YS4oMrFTj0+wmMbY@phenom.ffwll.local>
- <BL1PR12MB5269292A3E9E6014043C280E84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
- <CAF6AEGsELL5WmxJKqyfF69OnVaK6+SnAREvjtFSHBZrm3Gdp7g@mail.gmail.com>
- <YYo6U6D2dxQ7Y6Gn@phenom.ffwll.local>
- <CAF6AEGvGQP-6eNevDyS9sXg+6qOKMrG7h5rwhKO=v8L5mQOiUA@mail.gmail.com>
- <YYuVyRlAATYO4ptP@phenom.ffwll.local>
+ Wed, 10 Nov 2021 02:15:41 -0800 (PST)
+Subject: Re: [PATCH 1/5] drm/amdgpu: handle IH ring1 overflow
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211109230432.3947-1-Philip.Yang@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ec8352f1-e473-683b-ecc6-9969c50c4bac@gmail.com>
-Date: Wed, 10 Nov 2021 11:09:50 +0100
+Message-ID: <1862b795-3401-b89f-089b-4b544957d150@gmail.com>
+Date: Wed, 10 Nov 2021 11:15:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <YYuVyRlAATYO4ptP@phenom.ffwll.local>
+In-Reply-To: <20211109230432.3947-1-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
@@ -84,271 +78,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Monk" <Monk.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Chen,
- Jingwen" <Jingwen.Chen@amd.com>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.11.21 um 10:50 schrieb Daniel Vetter:
-> On Tue, Nov 09, 2021 at 08:17:01AM -0800, Rob Clark wrote:
->> On Tue, Nov 9, 2021 at 1:07 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->>> On Mon, Nov 08, 2021 at 03:39:17PM -0800, Rob Clark wrote:
->>>> I stumbled across this thread when I ran into the same issue, while
->>>> working out how to move drm/msm to use scheduler's retire +
->>>> timeout/recovery (and get rid of our own mirror list of in-flight
->>>> jobs).  We already have hw error detection enabled, and it can signal
->>>> quite fast, so assuming the first job on the list is the guilty job
->>>> just won't work.
->>>>
->>>> But I was considering a slightly different approach to fixing this,
->>>> instead just handling it all in drm_sched_main() and getting rid of
->>>> the complicated kthread parking gymnastics.  Ie. something along the
->>>> lines of:
->>> So handling timeouts in the main sched thread wont work as soon as you
->>> have multiple engines and reset that impacts across engines:
->>>
->>> - Nothing is simplified since you still need to stop the other scheduler
->>>    threads.
->>>
->>> - You get deadlocks if 2 schedulers time out at the same time, and both
->>>    want to stop the other one.
->>>
->>> Hence workqueue. Now the rule for the wq is that you can only have one per
->>> reset domain, so
->>> - single engine you just take the one drm/sched provides
->>> - if reset affects all your engines in the chip, then you allocate on in
->>>    the drm_device and pass that to all
->>> - if you have a complex of gpus all interconnected (e.g. xgmi hive for
->>>    amd), then it's one wq for the entire hive
->>>
->>> _All_ reset related things must be run on that workqueue or things breaks,
->>> which means if you get hw fault that also needs to be run there. I guess
->>> we should either patch drm/sched to check you call that function from the
->>> right workqueue, or just handle it internally.
->> Hmm, ok.. I guess it would be useful to better document the reasoning
->> for the current design, that would have steered me more towards the
->> approach taken in this patch.
-> Maybe this was because you worked on an old kernel? Boris did update the
-> kerneldoc as part of making gpu reset work for panfrost, which has this
-> multi-engine reset problem. If that's not yet clear then we need to
-> improve the docs further.
+Am 10.11.21 um 00:04 schrieb Philip Yang:
+> IH ring1 is used to process GPU retry fault, overflow is enabled to
+> drain retry fault before unmapping the range, wptr may pass rptr,
+> amdgpu_ih_process should check rptr equals to the latest wptr to exit,
+> otherwise it will continue to recover outdatad retry fault after drain
+> retry fault is done, and generate false GPU vm fault because range is
+> unmapped from cpu.
 >
-> AMD's problem is even worse, because their reset domain is the entire xgmi
-> hive, so multiple pci devices.
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> index f3d62e196901..d1ef61811169 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> @@ -223,7 +223,7 @@ int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
+>    */
+>   int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>   {
+> -	unsigned int count = AMDGPU_IH_MAX_NUM_IVS;
+> +	unsigned int count;
+>   	u32 wptr;
+>   
+>   	if (!ih->enabled || adev->shutdown)
+> @@ -232,6 +232,8 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>   	wptr = amdgpu_ih_get_wptr(adev, ih);
+>   
+>   restart_ih:
+> +	count = AMDGPU_IH_MAX_NUM_IVS;
+> +
 
-I'm pushing for quite a while that we get something like an 
-amdgpu_reset_domain structure or similar for this, but we unfortunately 
-don't have that yet.
+This looks like a bugfix to me and should probably be in a separate 
+patch with CC: stable.
 
-Maybe it should be a good idea to have something like a drm_sched_domain 
-or similar with all the necessary information for the inter scheduler 
-handling.
+>   	DRM_DEBUG("%s: rptr %d, wptr %d\n", __func__, ih->rptr, wptr);
+>   
+>   	/* Order reading of wptr vs. reading of IH ring data */
+> @@ -240,6 +242,9 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>   	while (ih->rptr != wptr && --count) {
+>   		amdgpu_irq_dispatch(adev, ih);
+>   		ih->rptr &= ih->ptr_mask;
+> +
+> +		if (ih == &adev->irq.ih1)
+> +			wptr = amdgpu_ih_get_wptr(adev, ih);
 
-E.g. a workqueue for reset etc...
+Well that handling does not really make much sense.
+
+The AMDGPU_IH_MAX_NUM_IVS define controls how many IVs we can process 
+before checking the wptr again.
+
+We could of course parameterize that so that we check the wptr after 
+each IV on IH1, but please not hard coded like this.
 
 Regards,
 Christian.
 
->
-> Also there might more issues in drm/sched ofc, e.g. I've looked a bit at
-> ordering/barriers and I'm pretty sure a lot are still missing. Or at least
-> we should have comments in the code explaining why it all works.
-> -Daniel
->
->> BR,
->> -R
->>
->>> -Daniel
->>>
->>>> ---------------------
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>> index 67382621b429..4d6ce775c316 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>> @@ -764,6 +764,45 @@ static bool drm_sched_blocked(struct
->>>> drm_gpu_scheduler *sched)
->>>>          return false;
->>>>   }
->>>>
->>>> +static bool handle_timeout(struct drm_gpu_scheduler *sched)
->>>> +{
->>>> +       struct drm_sched_job *bad;
->>>> +
->>>> +       if (!sched->has_timeout)
->>>> +               return false;
->>>> +
->>>> +       sched->has_timeout = false;
->>>> +
->>>> +       spin_lock(&sched->job_list_lock);
->>>> +       bad = list_first_entry_or_null(&sched->pending_list,
->>>> +                                      struct drm_sched_job, list);
->>>> +
->>>> +       if (!bad) {
->>>> +               spin_unlock(&sched->job_list_lock);
->>>> +               return false;
->>>> +       }
->>>> +
->>>> +       spin_unlock(&sched->job_list_lock);
->>>> +
->>>> +       if (sched->timeout_wq == system_wq) {
->>>> +               /*
->>>> +                * If driver has no specific requirements about serializing
->>>> +                * reset wrt. other engines, just call timedout_job() directly
->>>> +                */
->>>> +               sched->ops->timedout_job(job);
->>>> +       } else {
->>>> +               /*
->>>> +                * Otherwise queue it on timeout_wq and wait for it to complete
->>>> +                */
->>>> +               ... more typing needed here ...
->>>> +       }
->>>> +
->>>> +       if (sched->free_guilty) {
->>>> +               sched->ops->free_job(job);
->>>> +               sched->free_guilty = false;
->>>> +       }
->>>> +}
->>>> +
->>>>   /**
->>>>    * drm_sched_main - main scheduler thread
->>>>    *
->>>> @@ -787,6 +826,7 @@ static int drm_sched_main(void *param)
->>>>
->>>>                  wait_event_interruptible(sched->wake_up_worker,
->>>>                                           (cleanup_job =
->>>> drm_sched_get_cleanup_job(sched)) ||
->>>> +                                        handle_timeout(sched) ||
->>>>                                           (!drm_sched_blocked(sched) &&
->>>>                                            (entity =
->>>> drm_sched_select_entity(sched))) ||
->>>>                                           kthread_should_stop());
->>>> ---------------------
->>>>
->>>> drm_sched_fault() and the sw timeout handler would just set
->>>> sched->has_timeout and kick sched->wake_up_worker.
->>>>
->>>> And since we handle the timeout case after
->>>> drm_sched_get_cleanup_job(), we know that all of the successfully
->>>> completed jobs have already been popped off the list, and won't be
->>>> unfairly maligned.
->>>>
->>>> BR,
->>>> -R
->>>>
->>>> On Tue, Aug 31, 2021 at 6:29 PM Liu, Monk <Monk.Liu@amd.com> wrote:
->>>>> [AMD Official Use Only]
->>>>>
->>>>> Okay, I will reprepare this patch
->>>>>
->>>>> Thanks
->>>>>
->>>>> ------------------------------------------
->>>>> Monk Liu | Cloud-GPU Core team
->>>>> ------------------------------------------
->>>>>
->>>>> -----Original Message-----
->>>>> From: Daniel Vetter <daniel@ffwll.ch>
->>>>> Sent: Tuesday, August 31, 2021 9:02 PM
->>>>> To: Liu, Monk <Monk.Liu@amd.com>
->>>>> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; Chen, Jingwen <Jingwen.Chen@amd.com>
->>>>> Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
->>>>>
->>>>> On Tue, Aug 31, 2021 at 02:59:02PM +0200, Daniel Vetter wrote:
->>>>>> Can we please have some actual commit message here, with detailed
->>>>>> explanation of the race/bug/whatever, how you fix it and why this is
->>>>>> the best option?
->>>>>>
->>>>>> On Tue, Aug 31, 2021 at 06:35:39PM +0800, Monk Liu wrote:
->>>>>>> tested-by: jingwen chen <jingwen.chen@amd.com>
->>>>>>> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
->>>>>>> Signed-off-by: jingwen chen <jingwen.chen@amd.com>
->>>>>>> ---
->>>>>>>   drivers/gpu/drm/scheduler/sched_main.c | 24
->>>>>>> ++++--------------------
->>>>>>>   1 file changed, 4 insertions(+), 20 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>> index ecf8140..894fdb24 100644
->>>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>> @@ -319,19 +319,17 @@ static void drm_sched_job_timedout(struct work_struct *work)
->>>>>>>      sched = container_of(work, struct drm_gpu_scheduler,
->>>>>>> work_tdr.work);
->>>>>>>
->>>>>>>      /* Protects against concurrent deletion in
->>>>>>> drm_sched_get_cleanup_job */
->>>>>>> +   if (!__kthread_should_park(sched->thread))
->>>>>> This is a __ function, i.e. considered internal, and it's lockless
->>>>>> atomic, i.e. unordered. And you're not explaining why this works.
->>>>>>
->>>>>> Iow it's probably buggy, and an just unconditionally parking the
->>>>>> kthread is probably the right thing to do. If it's not the right thing
->>>>>> to do, there's a bug here for sure.
->>>>> Also why don't we reuse the function drivers already have to stop a scheduler thread? We seem to have two kthread_park now, that's probably one too much.
->>>>> -Daniel
->>>>>
->>>>>>> +           kthread_park(sched->thread);
->>>>>>> +
->>>>>>>      spin_lock(&sched->job_list_lock);
->>>>>>>      job = list_first_entry_or_null(&sched->pending_list,
->>>>>>>                                     struct drm_sched_job, list);
->>>>>>>
->>>>>>>      if (job) {
->>>>>>> -           /*
->>>>>>> -            * Remove the bad job so it cannot be freed by concurrent
->>>>>>> -            * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
->>>>>>> -            * is parked at which point it's safe.
->>>>>>> -            */
->>>>>>> -           list_del_init(&job->list);
->>>>>>>              spin_unlock(&sched->job_list_lock);
->>>>>>>
->>>>>>> +           /* vendor's timeout_job should call drm_sched_start() */
->>>>>>>              status = job->sched->ops->timedout_job(job);
->>>>>>>
->>>>>>>              /*
->>>>>>> @@ -393,20 +391,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
->>>>>>>      kthread_park(sched->thread);
->>>>>>>
->>>>>>>      /*
->>>>>>> -    * Reinsert back the bad job here - now it's safe as
->>>>>>> -    * drm_sched_get_cleanup_job cannot race against us and release the
->>>>>>> -    * bad job at this point - we parked (waited for) any in progress
->>>>>>> -    * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
->>>>>>> -    * now until the scheduler thread is unparked.
->>>>>>> -    */
->>>>>>> -   if (bad && bad->sched == sched)
->>>>>>> -           /*
->>>>>>> -            * Add at the head of the queue to reflect it was the earliest
->>>>>>> -            * job extracted.
->>>>>>> -            */
->>>>>>> -           list_add(&bad->list, &sched->pending_list);
->>>>>>> -
->>>>>>> -   /*
->>>>>>>       * Iterate the job list from later to  earlier one and either deactive
->>>>>>>       * their HW callbacks or remove them from pending list if they already
->>>>>>>       * signaled.
->>>>>>> --
->>>>>>> 2.7.4
->>>>>>>
->>>>>> --
->>>>>> Daniel Vetter
->>>>>> Software Engineer, Intel Corporation
->>>>>> https://nam11.safelinks.protection.outlook.com/?url=http%3A%2F%2Fblog.
->>>>>> ffwll.ch%2F&amp;data=04%7C01%7CMonk.Liu%40amd.com%7C298815bea18f4fbf76
->>>>>> b308d96c7f7a8b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6376601170
->>>>>> 51194614%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiL
->>>>>> CJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QzgCU7%2BPdA0aWL5%2BJLg
->>>>>> KeKbGaMMGqeGI9KE0P0LXlN4%3D&amp;reserved=0
->>>>> --
->>>>> Daniel Vetter
->>>>> Software Engineer, Intel Corporation
->>>>> https://nam11.safelinks.protection.outlook.com/?url=http%3A%2F%2Fblog.ffwll.ch%2F&amp;data=04%7C01%7CMonk.Liu%40amd.com%7C298815bea18f4fbf76b308d96c7f7a8b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637660117051194614%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QzgCU7%2BPdA0aWL5%2BJLgKeKbGaMMGqeGI9KE0P0LXlN4%3D&amp;reserved=0
->>> --
->>> Daniel Vetter
->>> Software Engineer, Intel Corporation
->>> http://blog.ffwll.ch
+>   	}
+>   
+>   	amdgpu_ih_set_rptr(adev, ih);
 
