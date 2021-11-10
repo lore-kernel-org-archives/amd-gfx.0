@@ -2,64 +2,54 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D491FC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ED5BC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:08:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FF9260FD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:08:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FF9260FD8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8F81661152
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:08:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8F81661152
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B05776E9F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2103C6E9F5;
 	Wed, 10 Nov 2021 16:08:48 +0000 (UTC)
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 052496FC5E;
- Wed, 10 Nov 2021 05:53:11 +0000 (UTC)
-Received: by mail-pg1-x535.google.com with SMTP id p8so1243654pgh.11;
- Tue, 09 Nov 2021 21:53:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LyGojFN74Psdib99ofgTmmS3ryfTtC+JFhiog+TgrPk=;
- b=ThngYRDkGQt/7B2VOWG8P+A2jlEI7zl51h39SDQsT6VW+yMcRYnbiL497063uSki7E
- IcMFmXS1IyaMi2Pf0Twv0tjqsSkBoBz1eVnb41hgNTWJCpwSDR9hDeijlQMXC2PHqTb1
- vLtnCJecNBC7EWKLjBhvTo1Z8QQAhSOLHUTvZF73cQllzW2eSF6LG8qXPVv1nyqb1wOj
- XtjR8KzbTO5KaK2deiYnSVbmvvhs2TsTAdV9vlIzRolvHUqbhY6+3FrNjBhzTUghg0Te
- 90nQp+Cqkwb4URA+nh1N6Gl2YdKOO/z84iiZ0QhNRVif6cBA5MkrGPxtYuUcqvgF5eht
- aDug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LyGojFN74Psdib99ofgTmmS3ryfTtC+JFhiog+TgrPk=;
- b=r/tc7RFssEqc5dcYhb+a28O++NbYlmlUi0dHNMs8uv9ajz6BueNZTEgrXzPbfIfSay
- V3yav3Zcv9cuC/BSLRIYlhnA4hNwvb8UsTbKQSm3yd77GJl8XPwAws2WQ2z+QGtN1Tgy
- cexH/0mrLYzShCoM4vdHePYVgmRe0NRtW8kY+wIfl8V7L4YwyG3FLuVnR6oKeeuHxQkO
- /Czqb8zCuzKrzb45zw78DCPx46DBCFzl+Jo6W9bqHRHRB9QhsZUbDeCrmjN5zlb5vdz/
- ERQdqN4tb4+XpRDwyIeeTQkIq29Lehzfz53EoBAbZTl+USk8N3OhpVvxQAr4yAHDizDR
- l52A==
-X-Gm-Message-State: AOAM5313idAjsx2D2rRHoULyl24xtsCfFYgGi3GsCjpB3qHXc/pCj4sV
- uQIu2htG8u6BucWQkB8V8Xw=
-X-Google-Smtp-Source: ABdhPJzzQYRnfFYf2r5U3knJCyJSBudSz80FotI/m9UuQMmpjvonKh1lzwKN3av2iyVBA0LUNF06Zw==
-X-Received: by 2002:a63:f644:: with SMTP id u4mr10295033pgj.300.1636523590625; 
- Tue, 09 Nov 2021 21:53:10 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id e15sm20604742pfc.134.2021.11.09.21.53.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Nov 2021 21:53:10 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: ran.jianping@zte.com.cn
-To: evan.quan@amd.com
-Subject: [PATCH] drm/amdgpu: remove unneeded variable
-Date: Wed, 10 Nov 2021 05:53:03 +0000
-Message-Id: <20211110055303.136782-1-ran.jianping@zte.com.cn>
+X-Greylist: delayed 435 seconds by postgrey-1.36 at gabe;
+ Wed, 10 Nov 2021 09:50:22 UTC
+Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C59EB6F882;
+ Wed, 10 Nov 2021 09:50:22 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.141.244])
+ by APP-03 (Coremail) with SMTP id rQCowABXNu0llIthwD2hBg--.55254S2;
+ Wed, 10 Nov 2021 17:43:02 +0800 (CST)
+From: Xu Wang <vulab@iscas.ac.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch
+Subject: [PATCH] drm/radeon: correct indentation
+Date: Wed, 10 Nov 2021 09:42:42 +0000
+Message-Id: <20211110094242.67668-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowABXNu0llIthwD2hBg--.55254S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFy7GrWxArWDGw47Gw48WFg_yoW3WrgE9F
+ 10vasruas8K3Z2vFnruF1rAr9FyF4F9Fs3Gw18KryfKry7ZFyxZa9avF17Xr45XF4DGFnx
+ Aw48try3ArZxujkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb2kYjsxI4VWkKwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc2xSY4AK67AK6r4fMxAIw28I
+ cxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2
+ IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI
+ 42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42
+ IY6xAIw20EY4v20xvaj40_Wr1j6rW3Jr1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
+ z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5yxRPUUUUU==
+X-Originating-IP: [124.16.141.244]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggBA10TfvQVEgAAsP
 X-Mailman-Approved-At: Wed, 10 Nov 2021 16:08:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,51 +62,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrey.grodzovsky@amd.com, lijo.lazar@amd.com, Jack.Gui@amd.com,
- airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- luben.tuikov@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- alexander.deucher@amd.com, ran jianping <ran.jianping@zte.com.cn>,
- kenneth.feng@amd.com, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: ran jianping <ran.jianping@zte.com.cn>
+Correct indentation in radeon_driver_load_kms.
 
-Fix the following coccicheck review:
-./drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c:1174:14-18
-:Unneeded variable
-
-Remove unneeded variable used to store return value.
-
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: ran jianping <ran.jianping@zte.com.cn>
+Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_kms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index a4108025fe29..b0bb389185d5 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -1171,7 +1171,7 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
- 				   enum smu_clk_type clk_type, uint32_t mask)
- {
- 	struct amdgpu_device *adev = smu->adev;
--	int ret = 0, size = 0;
-+	int ret = 0;
- 	uint32_t soft_min_level = 0, soft_max_level = 0, min_freq = 0, max_freq = 0;
+diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
+index 482fb0ae6cb5..7afe28408085 100644
+--- a/drivers/gpu/drm/radeon/radeon_kms.c
++++ b/drivers/gpu/drm/radeon/radeon_kms.c
+@@ -168,7 +168,7 @@ int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
+ 	if (!r) {
+ 		acpi_status = radeon_acpi_init(rdev);
+ 		if (acpi_status)
+-		dev_dbg(dev->dev, "Error during ACPI methods call\n");
++			dev_dbg(dev->dev, "Error during ACPI methods call\n");
+ 	}
  
- 	soft_min_level = mask ? (ffs(mask) - 1) : 0;
-@@ -1216,7 +1216,7 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
- 	if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
- 		amdgpu_gfx_off_ctrl(adev, true);
- 
--	return size;
-+	return 0;
- }
- 
- static int sienna_cichlid_populate_umd_state_clk(struct smu_context *smu)
+ 	if (radeon_is_px(dev)) {
 -- 
 2.25.1
 
