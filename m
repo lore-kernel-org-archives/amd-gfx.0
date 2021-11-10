@@ -2,128 +2,133 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AD32C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:14:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E838CC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E055961027
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:14:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E055961027
+	by mail.kernel.org (Postfix) with ESMTPS id A1F1C611C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:39:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A1F1C611C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C506E040;
-	Wed, 10 Nov 2021 09:14:25 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0B7A6E040
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 09:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42F8D6E466;
+	Wed, 10 Nov 2021 09:39:45 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 318BC6E466
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 09:39:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wag3I+Uq3E0PihuZObf8RPQZxDFr2SF1gQbm9pIKmQ9RJ4IqOpgOUMZKWQ53helJU1qBkX2fEyHgF2n+IHsguAvhby30yGoJ0nZ+8xrhesYm41kY6aeoO9Wsgfn7pdfDAhlswcWJsNSvd7zDP2k3JLCQV8E2VaUHUAufluXNqu3non1h/eGlGTIdBmVOyHTVd3Cl1lhIefXAHR2lAFSXwI9ejIjGZL971ss3JgbowDS07n3HWd7LUEpdmJxo1l+7i9JbPgKnoTUAt5XLSwaDPAehs6xBa5A+x4Sjbb1Aic9ZNQ/ygKUcVNtLs51AyeYVrJHer0nhxK+d+MhL0G6BfA==
+ b=dIVzF+tK1m/8QmnucF541xMjGOFGxPnJXW07qqeZXKybLyR44cAOP2JIUDsI1ft1gc6Bt2CstNis6j09O5wctHAc7CQRwdrax9MA73vUBG47bqcqi8O6PizlDQhaQtHyMJ4kipXQc5zstZlX1y7WQRFKM7v7y80H25f7KVDQ9oMGrZN8fIvhPCTc+uwTazF9R6xUzN3vdfFOgNxyM2y4/BmdFF/0t4VdJ2OvNFwHVxZWmY8IZvnKknR6gQo+wqQkjdD/boav8yAEKxq4+MROPjY1NdoBL2iyEp0hfQMwNh5krgPAYkR5ldRiwofnxLfRCy+HNUSCCdLg+DX/COkBOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sS/qBo3uCZpOOZWDdAT40o39/4hzIovNcRxU2zdDtHU=;
- b=Ff5eTgqUXhMTMq3bGLPQYtOxIKfJFWAMpBR7bKE2f5UpwtkHtBORb3i/jc/YIHt/9ysWoOR/qf8+cUxf0lDBpWOaqW/E3vsf8QXEc9c2qbXhP8xyjtigPE00PxeQNltwmvvM0UpnBJG3I5cVsmqik9Sf0QhqgpATLoSgNkqg8XBZP481lO3Vk8yeo1beufIsGpye5oDMB4TbHExIoeEOpI/elUn5s8BRUjHtZnEkBp3/wzJFKEdT0JZc0sxTo6OAYw9J7tLlW4pg0Kr3lTtbsXZ9w5OEkukUgn5+YCGLTVpa+CiXqnu21ZNYTH1+oO6eIGekLxUjMdoMjmML59sA0g==
+ bh=752QA41StEbave5HeUOByfzCJanbYCfIpRUTIz8zfdk=;
+ b=LdJRg5LCwM7o9QcjRYR9jIxutM2/m2NB1UdEkhsgt26u0eZSU8Y9nDBROJ6gvZLLBS9qvord8R1WV2BTLCu3ahy27BxgnEmkI4rki6X9j/5ZOALdrgYH34fm7FTnxCG8WVLtEPAahRiyPfMRLOgTI9EP5AA1jbiqAROJsanYEsELzBoQaIzq2qpBlKrwAGYhsQuuQWS57MBsBdglD3G11ioGIUA/21ppmfvB2uqG/AyDhvG4w9cYZrFGO3YG/Zneffw6R4g8wXx/z8edHMUg+cyaJ7oUtPzrLhG4YZPD/JvEfZ6xv0DhbNJpiukq9v34djyAFBW8RYlCwb1E0sozWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sS/qBo3uCZpOOZWDdAT40o39/4hzIovNcRxU2zdDtHU=;
- b=PbYMgF2QpSshDnqN5ucLVHVRRI7ZzIpFUMmuPx5+0m523X8Lbly6BUFnp+3JYnfL8QfWWW7OLFLpCimPugOGVoixQK6SCLeVXxObwcEfSz58R/eUWW7QW+sb0Z0rnPS4LkPWj4FtXFX3kyktEh8Yc+z1eufsVH2+R/sM4YD51lc=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+ bh=752QA41StEbave5HeUOByfzCJanbYCfIpRUTIz8zfdk=;
+ b=yGrkskXNllxJZayFOIGrDopiC27y6i29E4o+79np7TSUm1ipNyvTvpu8kdWpryXtuYzEkD7EA0PK/5aHqJpgFRdzmFEmQ9gDQM1QokcSEf3WfHvWi+dHVOEjPlyjwaex8AxL5bbSH+1s8nh4zeCdukfzhPjzb7aYXzgqB3NZVOc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB3737.namprd12.prod.outlook.com (2603:10b6:5:1c5::32) with
+ by DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Wed, 10 Nov
- 2021 09:14:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15; Wed, 10 Nov
+ 2021 09:39:41 +0000
 Received: from DM6PR12MB3930.namprd12.prod.outlook.com
  ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
  ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4669.016; Wed, 10 Nov 2021
- 09:14:22 +0000
-Message-ID: <48473282-292c-508a-1a4e-42359c421f01@amd.com>
-Date: Wed, 10 Nov 2021 14:44:09 +0530
+ 09:39:41 +0000
+Message-ID: <9f9f5f93-902a-8c66-adba-f1ed9e2659e4@amd.com>
+Date: Wed, 10 Nov 2021 15:09:26 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [PATCH v2 1/1] drm/amdgpu: Fix MMIO HDP flush on SRIOV
+Subject: Re: [PATCH] drm/amd/pm: avoid duplicate powergate/ungate setting
 Content-Language: en-US
-To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211110023052.1872623-1-Felix.Kuehling@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20211108044723.54716-1-evan.quan@amd.com>
+ <80a7b1d5-f57c-ef32-bd90-9e31554127e2@amd.com>
+ <DM6PR12MB26198F33A0A6BC4C760ACD7AE4929@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <87848118-a230-1941-f97d-384158dc95d6@amd.com>
+ <DM6PR12MB261902AEC570A67EE98FE516E4929@DM6PR12MB2619.namprd12.prod.outlook.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20211110023052.1872623-1-Felix.Kuehling@amd.com>
+In-Reply-To: <DM6PR12MB261902AEC570A67EE98FE516E4929@DM6PR12MB2619.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0021.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::26) To DM6PR12MB3930.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN1PR01CA0115.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::31)
+ To DM6PR12MB3930.namprd12.prod.outlook.com
  (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
 Received: from [10.252.81.250] (165.204.159.242) by
- PN2PR01CA0021.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:25::26) with Microsoft
+ PN1PR01CA0115.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::31) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.16 via Frontend Transport; Wed, 10 Nov 2021 09:14:19 +0000
+ 15.20.4690.16 via Frontend Transport; Wed, 10 Nov 2021 09:39:38 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 75ed4bd6-6ddb-42d3-5cad-08d9a42a7ba4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3737:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3737D01FC2453DD3154FF3C797939@DM6PR12MB3737.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Office365-Filtering-Correlation-Id: 961a5cc8-e4ff-4f38-e99c-08d9a42e04fc
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2602AF7558B13C019E7D8AD497939@DM6PR12MB2602.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tXp1O+7Jf0YifZOl/nKrWtDTFJ1HVvL8+n2MkqvaciiiTPOzC1dsW55PkJhQFZi2lzPSwG7Q0eQaZ476lexWaWtv3MsNm0P+gj8f/hpz7vLuwu/uOyiON8VDRvTGEY8J3eflSekkSgrvSfOTDyfU0RuQ08s/vYfpCjENLzszhzvzkkERw0jsUSpOed0Ss8gmxa9lSHXCaTyPjg8qfZtlef9d/X/rOh5+TebYqZDaTNaMamQdzGa/W7Vq8SzcyfVMmcsNSUftFcSu7BGHhGZZgdqWdgNMtOKXJggiEl2XnePTbx2H8EAiOKeWErqi9A9XdXcmJUa3s1DKZ1PKp00PxH/+/nYDqzCEML1A6Rd3vPC4llVHijgbtrYGTjeZo3BALGFZ99a3u3DY2OvG9iZ7AoaGCA2QqIQBjTq6QUL1kKrbUZZmKcZKq7gvN73ZQM3odTIqkN35a/+8r33r7rHy1uQVChGOwSeZcbQQFGLUzs28WhFxaj9BbfDqYPdCRsCfI2LrNo2Cu3WtXupZDA6MjpN4XDS0Z9X7z7Wl2QIyUaBFX/bQbHeN+LH6vqkjPMV2TgyijZUCp9zpBQRxm1BTMBPyOaJTquIicMNw/xEC0RWT7yfggnYRXYBzsLQLOQJl+nXxhQ4sI9bUoWuVczLwQWN5IIsqCiBIZr6GPXMoMwffxJ+MpyaVVAI0EJPN1HsUqbvxNCzeB+WK2N0kyEXPUI4NSEq340DYsSS0xuHLahc=
+X-Microsoft-Antispam-Message-Info: lWJ2xwGBmP1+tqQTjXXA3YiGdAPir4gLjeGapnCZFP/mBY737bBjzfvOq+vutpE8/Mlne3TthXqIJpVhxCbTrwCGXz5KGXkND5jB4QN36LcOrvaEbX3k8v5blxATc/vaJ+uiS0jKAlbOwm2aaGMpmVm2GpwF7oq3mRDbV48sTjEPdBXjwuf8aXFhFaH+uO15UjDiObPkYrip2aXQb5IOedg8i+HmTjt+qCopF1EAUEDPdt86tnzkpEbWcM71XvLDcGRhHDuHlaFwopW2s7WfoBmaQGzO0V+z5J3z7m68gt5HIvD1dpG+PTeB3tWZu1hEXBUkLelOE5WC9Att9QVE1JKxPwjKpctafJPNfHXH/ZrcKsqNOVlt7d9VJaSKrh2vbZXsRYLewlFszgyKmldkoqnQAbMI0jHI154pk6hMWwJrO1xXxMKF8lBhMSTSmJyvYisgNK2vox2J2e+7XxP5oTyo59+ZlB2K6lIyBxE8rbhVCCw6/SkRhn4exph7Nb7O3pqjLi7XmcY5a+Pxl4mvBsoJ9+cyIsHg6ENBlIfRgpcpEhVRHstkLyh94lT6xRwMKn0acI+a67hy7GQqRX5IG1MVpzH80NPND0eVZ3whqBlQeHn31vGM40Tq0bFvrH7WtPl5J+JdsoWQZfZX/AqczYuU/OwIVydWXHhhMXH6hfreVk/pYWXhPF/bnRpC5V6RVHRxQof9RFdVj3SGjhWG6PUyckqK6VJspdM2qNPW+cQGxAvqW/Q99TbVnKeAnN4LF7l+Z/Z237kuRRxpbexI4g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8936002)(66556008)(31686004)(316002)(36756003)(2906002)(66946007)(38100700002)(31696002)(66476007)(6666004)(8676002)(83380400001)(16576012)(4326008)(2616005)(956004)(508600001)(26005)(186003)(86362001)(5660300002)(53546011)(6486002)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(6666004)(16576012)(83380400001)(66556008)(38100700002)(2906002)(66476007)(316002)(956004)(86362001)(2616005)(66946007)(5660300002)(31696002)(186003)(8676002)(26005)(53546011)(508600001)(36756003)(54906003)(8936002)(31686004)(6486002)(4326008)(110136005)(43740500002)(45980500001)(309714004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnVSR1pUb3hFajdXcjRrSGdxUlpkTmpnRHBGank4aG0yWCsvR0N1T25KaDVn?=
- =?utf-8?B?aXJLVjNSdll4UUlBN3ZOQ1pYVGJkTmpiVEI0T3hEcEw5VFNLVUVPOE1saFNa?=
- =?utf-8?B?Mkp5aHFJU2E4ZWhJdGNuNHdCZ0UwbEtqU0xaSzU3bHdYYnZST3AzcnJOQ05u?=
- =?utf-8?B?bWtENkpGMS9sQU5oQW1wVnJyWWtvS0t6SWIzNGdKRnV0U29FL2FzQzRVK1RZ?=
- =?utf-8?B?dGx5U3BCRWR1ZUgyeW1FQ2l4dm9QL1ptczJkRzZLNmZJQVZUOGxpRldjRjV2?=
- =?utf-8?B?eG9JcUgvWEdMc1ovd2F1MkU3cEYwVkM1WG9pQjRpY3VqU2c1UGFTUktKeGVE?=
- =?utf-8?B?alBRalMwak9jV0xodVNvdGwxaVJyQlpYNXJPY1dlUlorYnRPWmplbXFpMmFV?=
- =?utf-8?B?bTFRaUZuMWtsQTd6bW1wQVJHSXRxU09LVmRKL2kzNWYwZENiemQzSXZVc3dP?=
- =?utf-8?B?L24zS1R1dWpudFRzdmFJdWs0bG02TDFLMnVKZ202WXZBWHdKc2wwbXY5bCsz?=
- =?utf-8?B?Vi8yUngvVzFTOFMwcEg2TzRodVJGWjFWcnZvSHUyUEk4SDdtVVhoREttLzc2?=
- =?utf-8?B?V2Q5VitSZVhET0FqUE9xcVNJaTBuaFFGR21VNHZTWkc1U3NHc2s2VzhHYkxF?=
- =?utf-8?B?NXBNbHVsSS9ybS8ra21IUDd0K3V2aDJuVzNuNHFYcGdBZ0dRVzVzejlWamM3?=
- =?utf-8?B?U2VYREMwZjBURi9udFpUT21Xcy9PVkJUcWFLZkNCTkp0aG9yTjQrYW5zdUpI?=
- =?utf-8?B?bTcxV1dPR2FZSnNrSmdIc1I4K04xNlJRQ2Eva2MveEMydTlKQkkvZUpzaUJr?=
- =?utf-8?B?YlRkODlzMGRRTi8xQ0ZhVVduZXd5OGt2OFZjbHlVa3Z6U05ZN0t2b0czVVJj?=
- =?utf-8?B?VW8rbWlVbm40dzFKbktWQ1A0S1dad2o2d2k5bDNBVjVIZmRscHFtbGtkRTBL?=
- =?utf-8?B?UmFUNUZwMnhsQVVUaUxPM042VVk5c3hJR29pdmRhWWp2a1ZPMFI3MWsxWmkr?=
- =?utf-8?B?dG5WdGx1ZmJjQTNKN1N2SFQ3cHZCWEVUaHFvdXlSRHR5WnpPdkh5M1FJbnUr?=
- =?utf-8?B?U2xHQkxseTlTaVh5cFAyWHdlZlNkY0tyWXFxQzN6NEhkZEZoK3I0NlF3NzVq?=
- =?utf-8?B?L0xiNU9iN0Z2eWxrYWp5R1p1bWVQYjhFYjhuL29oYXE1K3lMTjBxRkk2OGZW?=
- =?utf-8?B?TVZWTG55ZHg3UjJOQ3dDQ1NTVU1ockE5MFBMeTZIemF5U0I2ZWdTd1NWTk5I?=
- =?utf-8?B?TmFYUWFvSWVTRDQ0UDVlTUlreFhYTitxaWZzUUJ1WGpVSW1la3B1NllPWkEw?=
- =?utf-8?B?WEhEVTY0ZTIvTE40VlVteVZSTFZCaTNaa1hVMzlLMUkreFo4UnhzU2lKUFJp?=
- =?utf-8?B?U09tanZrbzZVdmwwUE9NNWlXaTBtWnd1OEFuSHJVMHlRZ2RpZWxXL3M1V0gw?=
- =?utf-8?B?U0FDWTh0c21DL3U0UVpLVVlDZlBnWEdzdWhwZXRUUzZkK0QzVzBvZWkvMEpx?=
- =?utf-8?B?blRkQ3VvazF4bDRyZUowbm8wNmdpeUtWOExKclowVkswaHBiTHpFcXZ4NVRX?=
- =?utf-8?B?bk1IdDlSYVZ1UUxxaWt2QVdoYXJkV0VGQUVpSk11S3I0WjR1SFZwRkF0cStu?=
- =?utf-8?B?QUpNSmhYNGQ4UG9sdEloUldEU1kzaHBMQWpFcnY1V29hblN2SEkxSnFXNmxh?=
- =?utf-8?B?d08wc21ySUNOUVpmYkpEYVNlbmZDM1oxeStjd216ZUJtZ1lJLzcxWWhKL0FT?=
- =?utf-8?B?ZmNINk94SVNqYkR0WVoxSlo4TGVKOWJ5M3FyTmZ3LzBuTmNHTm5TVDhlVnY4?=
- =?utf-8?B?c0NqdVFOYXFOaUs5Vy9EUzhFOWtqam1NSlhmK3h1TytOSGtrVzJoeTFyOHl5?=
- =?utf-8?B?ZzJmY1R0UDVsdXp5QW96RnBGUG02eEgrdWFvWjJveW8rU2RFcXdEUEg3YWFE?=
- =?utf-8?B?bFZNdGl2WmVLMndvTmtGaVl1dFUwelh6ZlBKVjBXVkNwRFJIRVR0NVZGTzRZ?=
- =?utf-8?B?OGVIckwzSnVxZ0MxT3M3K005R1RJaGRDTnNZazdKWC9pbkd3b2ZtRytzYkpn?=
- =?utf-8?B?WkVVbkpPM3RtOTB4bER0YXRMc3NnZ0MxVEdtSGh5aXRJa3pTWmczS1FFRXhh?=
- =?utf-8?Q?GtCM=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a016N2RUMlhTYTVlK1NrYWxrQ1I1VUk2NkZXV0FoY00xM2dORHNwOWgvQ3Yr?=
+ =?utf-8?B?RGRpajJSYjNxVkxXR2g4TDZ5VlVWclVZSWUvc2taajByQk1mcE9ZejdtOWlV?=
+ =?utf-8?B?aytoNjZqWnNJK1dQSkZSS2V2a1F5M2Jpd0Eyb1BIamhBeEgyL1cyaTlmWklQ?=
+ =?utf-8?B?cU9heFNmYlVCcEtQcUtZQ010a3NvWHNIeXJmUUxjMFcwLzhhZE9kd3JibTh4?=
+ =?utf-8?B?T2pMMy8ybGE0ZnltdWJaQm1NRk1JY2VrRGRvWWI1Y1BDZmpKZlZHT3gzVnI4?=
+ =?utf-8?B?MFJaNEltZlJkL1c2cEZqWVhHVDRYMkp4MzU5SUtUT1p6dGo3Q2p6MmllS1kw?=
+ =?utf-8?B?TjJ4RDFkM0I3RDJIRUxockRpd3M2OXlhS0dCcnRtN3Vqdk5Qc2NJckZiQ2g3?=
+ =?utf-8?B?d1QwWm12NkxMeWdMbW4rUFc1UzJCcWdlRzNaY0ZtRHo4WG1JalZSRjVpVzVw?=
+ =?utf-8?B?ZVJXSThUWm5FNllGMHVaVjg1L1h1QTJZME9pQnNFakxMTWlRQ3c4SVZtUXpQ?=
+ =?utf-8?B?T0NSaVdqYzRyZGdpNkdxSFZUZlY0NW9aUU10Qk84bTdsN2F3TVFDN0wrZGpC?=
+ =?utf-8?B?a0tmTnlveHBKajVETlMxaFloMm9Kb1VWWTFQVFpKMHpPdElJenpJQ0ZCcHFT?=
+ =?utf-8?B?NlRDV2tRb0llaWxaWXBsNTFURjdQY3NISmtIcXIvSWZiV2g3bXNuZG5KWkRN?=
+ =?utf-8?B?SEl3d3ZDTnFKR3J4Uy9Da0VERVhoUHIzaHZNVmo0RHZPV2RrVXY2ZkozY0x5?=
+ =?utf-8?B?R1JheG9ubGVrVWxrZXN1dVZJaWpPUjZPRk9ROS90alVKR0gxdGNiNVVVTjBM?=
+ =?utf-8?B?cENGdjVvNlI2N3FpTlRReVhybFl2YzliN1JiYjRvMDNjYUlwK0ZsVTJSRnZp?=
+ =?utf-8?B?L0pndDVKdEpEb1FiWW5NaVVRT0I3bkxBdW94cXFZc2w4OVRzRGs5MklxZ0x6?=
+ =?utf-8?B?QVQrYk0xWkV6N0dRYXVhb09rbi9PcktDZU4zSm9DMkpYVHYwYVgwM3Btd1po?=
+ =?utf-8?B?dEM5T2E4RUd3M1QzZDhOMktiaHhiTCtlT3JOSDkvcTljTlNQcURBMnozR0N6?=
+ =?utf-8?B?dTMwd2xXbFQ5eHVQMCtDc09PalNrZzdzbWh0SS9xb0NOc0VkRDB5eWlZMnpJ?=
+ =?utf-8?B?cUN6dzhCcXRvQjlzUmJ3dDBrSmFvd0Rwb2xhUVFEcVZYcFNsYjlIaFUwTjZw?=
+ =?utf-8?B?QmpWN0VtM25UVC93MXhIVkdyVURrMlRDTFRYMTFPeHNCRzVUOXdkVklFcGtH?=
+ =?utf-8?B?OWxzRHREdmRpbk1BYXJ1RGZ3SVRkL1BpK2orejJrM0lIejFEMEpRQTV2T044?=
+ =?utf-8?B?YlBiK0JBeGJlekVnWHRYSS80ZDNxdU5uZnlsN3ZGMzVjUU5Kek5ESmpVeFIy?=
+ =?utf-8?B?dnA3by84Q2lXUHc0ekpFbndHMEc5a05WbmphWlJad0lZL3dvOHp3TVY1dGJJ?=
+ =?utf-8?B?d1FTUUZGOXhkZkp6Z1NXcE5xMUlIcEN1T0lZTStOZlZuTmFvTmpIZ2R3ejZ6?=
+ =?utf-8?B?dXFtMzJ2c29GRm1XL1hIK2hRRnU2bXhtdk91TnhxVVJuazZ5UG9CejRWRHgz?=
+ =?utf-8?B?SW5QbGVzRW9pUHM1TDUvYkpMTlFONzFmWE1ySnp3RktlRmZabE1tMkRJYzFL?=
+ =?utf-8?B?TjRZN0tXTU4yQlZ0d3FENkR4UldRT2NxdzhnMGFKWHprbnh6ZHJ4OUlsTzc5?=
+ =?utf-8?B?ZXNkQWtLK2xER2dwWitseXJwQzN0MDhsRjNHeTYraHNnK0dxazVBSlJLSXBN?=
+ =?utf-8?B?ZERod1lqazFYajVUWGlyTTB1ZFNGMHdOOWhPeWh4WlhrN1FyMWlCMUM2MWNU?=
+ =?utf-8?B?dnlhY1NIVDlvZFpZanJ6TitDc3hWOFk4VWZ1NWlrTnlWcG1NZFBDN3V0MFdx?=
+ =?utf-8?B?WkZqTVdDNW4rWFFMRi9XdThlLzhoTm5odkRnMTc1V0NVOExsS29mZW5seExw?=
+ =?utf-8?B?aTFuTjlWU05kSksyUG1Ucjg0UW9jdFd1aElwcHZkRCtjeWN3UGgzUGN6cHV3?=
+ =?utf-8?B?WjQzV2lpTGxLQVpFQ1FrZFlVejhpQTdXNlJuVVNURS9iUFR4SEVrblFucHNr?=
+ =?utf-8?B?V0xpUmQ0Wkc5SjlKSHg1endZZ1ZIeG1RQkMvblpONU5BM3hLbEh0OEgvY2NR?=
+ =?utf-8?Q?rPa0=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75ed4bd6-6ddb-42d3-5cad-08d9a42a7ba4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 961a5cc8-e4ff-4f38-e99c-08d9a42e04fc
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 09:14:22.2994 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 09:39:41.2298 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uoLZUIXH1AsmriZ/nNFtu6ZV5kdGjW8sWKZgFQcre6A1nlx01e3O/5D7VtMXiEOj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3737
+X-MS-Exchange-CrossTenant-UserPrincipalName: VLhD3TnCiszOzRtkz/G0u+5DcHqCQ/Ox1aDi2zg1D9eWDva+5bllqA5kOdo2+44e
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2602
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,160 +140,266 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: bokun.zhang@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Borislav Petkov <bp@suse.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 11/10/2021 8:00 AM, Felix Kuehling wrote:
-> Disable HDP register remapping on SRIOV and set rmmio_remap.reg_offset
-> to the fixed address of the VF register for hdp_v*_flush_hdp.
+On 11/9/2021 2:15 PM, Quan, Evan wrote:
+> [AMD Official Use Only]
 > 
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c | 4 ++++
->   drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c | 4 ++++
->   drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c | 4 +++-
->   drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c | 4 ++++
->   drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 4 +++-
->   drivers/gpu/drm/amd/amdgpu/nv.c        | 8 +++++---
->   drivers/gpu/drm/amd/amdgpu/soc15.c     | 8 +++++---
->   7 files changed, 28 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> index 4ecd2b5808ce..ee7cab37dfd5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> @@ -359,6 +359,10 @@ static void nbio_v2_3_init_registers(struct amdgpu_device *adev)
->   
->   	if (def != data)
->   		WREG32_PCIE(smnPCIE_CONFIG_CNTL, data);
-> +
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> +			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
-
-Wouldn't it be better to do this assignment inside 
-remap_hdp_registers()? Return with a comment saying no remap is done for 
-VFs. That looks easier to manage per IP version.
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Tuesday, November 9, 2021 12:15 PM
+>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Borislav Petkov
+>> <bp@suse.de>
+>> Subject: Re: [PATCH] drm/amd/pm: avoid duplicate powergate/ungate
+>> setting
+>>
+>>
+>>
+>> On 11/9/2021 9:10 AM, Quan, Evan wrote:
+>>> [AMD Official Use Only]
+>>>
+>>>
+>>>
+>>>> -----Original Message-----
+>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>> Sent: Monday, November 8, 2021 7:16 PM
+>>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Borislav Petkov
+>>>> <bp@suse.de>
+>>>> Subject: Re: [PATCH] drm/amd/pm: avoid duplicate powergate/ungate
+>>>> setting
+>>>>
+>>>>
+>>>>
+>>>> On 11/8/2021 10:17 AM, Evan Quan wrote:
+>>>>> Just bail out if the target IP block is already in the desired
+>>>>> powergate/ungate state. This can avoid some duplicate settings which
+>>>>> sometime may cause unexpected issues.
+>>>>>
+>>>>> Change-Id: I66346c69f121df0f5ee20182451313ae4fda2d04
+>>>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
+>>>>> Tested-by: Borislav Petkov <bp@suse.de>
+>>>>> ---
+>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h              |  7 +++++++
+>>>>>     drivers/gpu/drm/amd/include/amd_shared.h         |  3 ++-
+>>>>>     drivers/gpu/drm/amd/pm/amdgpu_dpm.c              | 13 ++++++++++++-
+>>>>>     drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c |  3 +++
+>>>>>     drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c        |  3 +++
+>>>>>     drivers/gpu/drm/amd/pm/powerplay/si_dpm.c        |  3 +++
+>>>>>     drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c        |  3 +++
+>>>>>     7 files changed, 33 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> index b85b67a88a3d..19fa21ad8a44 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> @@ -767,9 +767,16 @@ enum amd_hw_ip_block_type {
+>>>>>     #define HW_ID_MAX		300
+>>>>>     #define IP_VERSION(mj, mn, rv) (((mj) << 16) | ((mn) << 8) |
+>>>>> (rv))
+>>>>>
+>>>>> +enum amd_ip_powergate_state {
+>>>>> +	POWERGATE_STATE_INITIAL,
+>>>>> +	POWERGATE_STATE_GATE,
+>>>>> +	POWERGATE_STATE_UNGATE,
+>>>>> +};
+>>>>> +
+>>>>
+>>>> To reflect the current state, they could be named like
+>>>> POWERGATE_STATE_UNKNOWN/ON/OFF.
+>>> [Quan, Evan] This may be more confusing. POWERGATE_STATE_ON means
+>> "gfx on" or "gate on which means gfx off"?
+>>
+>> What I meant is -
+>> 	PG_STATE_ON - Power gated
+>> 	PG_STATE_OFF - Not power gated
+> [Quan, Evan] Yeah, but I mean other user may be confusing about these. Since when we take about the PG state, we usually use "Gate" or "Ungate". How about POWER_STATE_ON - Power on/ungate
+> POWER_STATE_OFF - Power off/gate ?
+> 
+Yes, that looks fine.
 
 Thanks,
 Lijo
 
->   }
->   
->   #define NAVI10_PCIE__LC_L0S_INACTIVITY_DEFAULT		0x00000000 // off by default, no gains over L1
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> index 0d2d629e2d6a..4bbacf1be25a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> @@ -276,6 +276,10 @@ static void nbio_v6_1_init_registers(struct amdgpu_device *adev)
->   
->   	if (def != data)
->   		WREG32_PCIE(smnPCIE_CI_CNTL, data);
-> +
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> +			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->   }
->   
->   static void nbio_v6_1_program_ltr(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-> index 3c00666a13e1..37a4039fdfc5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-> @@ -273,7 +273,9 @@ const struct nbio_hdp_flush_reg nbio_v7_0_hdp_flush_reg = {
->   
->   static void nbio_v7_0_init_registers(struct amdgpu_device *adev)
->   {
-> -
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->rmmio_remap.reg_offset =
-> +			SOC15_REG_OFFSET(NBIO, 0, mmHDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->   }
->   
->   const struct amdgpu_nbio_funcs nbio_v7_0_funcs = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> index 8f2a315e7c73..3444332ea110 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> @@ -371,6 +371,10 @@ static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
->   		if (def != data)
->   			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL), data);
->   	}
-> +
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> +			regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->   }
->   
->   const struct amdgpu_nbio_funcs nbio_v7_2_funcs = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> index b8bd03d16dba..e96516d3fd45 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> @@ -362,7 +362,9 @@ const struct nbio_hdp_flush_reg nbio_v7_4_hdp_flush_reg_ald = {
->   
->   static void nbio_v7_4_init_registers(struct amdgpu_device *adev)
->   {
-> -
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> +			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->   }
->   
->   static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index febc903adf58..7088528079c6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -730,8 +730,10 @@ static int nv_common_early_init(void *handle)
->   #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> -	adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
-> -	adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-> +	if (!amdgpu_sriov_vf(adev)) {
-> +		adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
-> +		adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-> +	}
->   	adev->smc_rreg = NULL;
->   	adev->smc_wreg = NULL;
->   	adev->pcie_rreg = &nv_pcie_rreg;
-> @@ -1031,7 +1033,7 @@ static int nv_common_hw_init(void *handle)
->   	 * for the purpose of expose those registers
->   	 * to process space
->   	 */
-> -	if (adev->nbio.funcs->remap_hdp_registers)
-> +	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
->   		adev->nbio.funcs->remap_hdp_registers(adev);
->   	/* enable the doorbell aperture */
->   	nv_enable_doorbell_aperture(adev, true);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 0c316a2d42ed..de9b55383e9f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -971,8 +971,10 @@ static int soc15_common_early_init(void *handle)
->   #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> -	adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
-> -	adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-> +	if (!amdgpu_sriov_vf(adev)) {
-> +		adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
-> +		adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-> +	}
->   	adev->smc_rreg = NULL;
->   	adev->smc_wreg = NULL;
->   	adev->pcie_rreg = &soc15_pcie_rreg;
-> @@ -1285,7 +1287,7 @@ static int soc15_common_hw_init(void *handle)
->   	 * for the purpose of expose those registers
->   	 * to process space
->   	 */
-> -	if (adev->nbio.funcs->remap_hdp_registers)
-> +	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
->   		adev->nbio.funcs->remap_hdp_registers(adev);
->   
->   	/* enable the doorbell aperture */
-> 
+> BR
+> Evan
+>> Thanks,
+>> Lijo
+>>
+>>>>
+>>>>
+>>>>>     struct amd_powerplay {
+>>>>>     	void *pp_handle;
+>>>>>     	const struct amd_pm_funcs *pp_funcs;
+>>>>> +	atomic_t pg_state[AMD_IP_BLOCK_TYPE_NUM];
+>>>>
+>>>> Maybe add another field in amdgpu_ip_block_status? Downside is it
+>>>> won't reflect the PG state achieved through paths other than PMFW
+>>>> control and ipblock needs to be queried through
+>>>> amdgpu_device_ip_get_ip_block()
+>>> [Quan, Evan] Yes, we will need to track pg state other than PMFW control
+>> then.
+>>> That will need extra effort and seems unnecessary considering there is no
+>> such use case(need to know the PG state out of PMFW control).
+>>>
+>>> BR
+>>> Evan
+>>>>
+>>>> Thanks,
+>>>> Lijo
+>>>>
+>>>>>     };
+>>>>>
+>>>>>     /* polaris10 kickers */
+>>>>> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h
+>>>> b/drivers/gpu/drm/amd/include/amd_shared.h
+>>>>> index f1a46d16f7ea..4b9e68a79f06 100644
+>>>>> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+>>>>> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+>>>>> @@ -98,7 +98,8 @@ enum amd_ip_block_type {
+>>>>>     	AMD_IP_BLOCK_TYPE_ACP,
+>>>>>     	AMD_IP_BLOCK_TYPE_VCN,
+>>>>>     	AMD_IP_BLOCK_TYPE_MES,
+>>>>> -	AMD_IP_BLOCK_TYPE_JPEG
+>>>>> +	AMD_IP_BLOCK_TYPE_JPEG,
+>>>>> +	AMD_IP_BLOCK_TYPE_NUM,
+>>>>>     };
+>>>>>
+>>>>>     enum amd_clockgating_state {
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>>>> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>>>>> index 03581d5b1836..a6b337b6f4a9 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>>>>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>>>>> @@ -927,6 +927,14 @@ int
+>>>> amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+>>>> uint32_t block
+>>>>>     {
+>>>>>     	int ret = 0;
+>>>>>     	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+>>>>> +	enum amd_ip_powergate_state pg_state =
+>>>>> +		gate ? POWERGATE_STATE_GATE :
+>>>> POWERGATE_STATE_UNGATE;
+>>>>> +
+>>>>> +	if (atomic_read(&adev->powerplay.pg_state[block_type]) ==
+>>>> pg_state) {
+>>>>> +		dev_dbg(adev->dev, "IP block%d already in the target %s
+>>>> state!",
+>>>>> +				block_type, gate ? "gate" : "ungate");
+>>>>> +		return 0;
+>>>>> +	}
+>>>>>
+>>>>>     	switch (block_type) {
+>>>>>     	case AMD_IP_BLOCK_TYPE_UVD:
+>>>>> @@ -976,9 +984,12 @@ int
+>>>> amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+>>>> uint32_t block
+>>>>>     		}
+>>>>>     		break;
+>>>>>     	default:
+>>>>> -		break;
+>>>>> +		return -EINVAL;
+>>>>>     	}
+>>>>>
+>>>>> +	if (!ret)
+>>>>> +		atomic_set(&adev->powerplay.pg_state[block_type],
+>>>> pg_state);
+>>>>> +
+>>>>>     	return ret;
+>>>>>     }
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+>>>> b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+>>>>> index bba7479f6265..8d8a7cf615eb 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+>>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+>>>>> @@ -38,6 +38,7 @@ static const struct amd_pm_funcs pp_dpm_funcs;
+>>>>>     static int amd_powerplay_create(struct amdgpu_device *adev)
+>>>>>     {
+>>>>>     	struct pp_hwmgr *hwmgr;
+>>>>> +	int i;
+>>>>>
+>>>>>     	if (adev == NULL)
+>>>>>     		return -EINVAL;
+>>>>> @@ -57,6 +58,8 @@ static int amd_powerplay_create(struct
+>>>> amdgpu_device *adev)
+>>>>>     	hwmgr->display_config = &adev->pm.pm_display_cfg;
+>>>>>     	adev->powerplay.pp_handle = hwmgr;
+>>>>>     	adev->powerplay.pp_funcs = &pp_dpm_funcs;
+>>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
+>>>>> +		atomic_set(&adev->powerplay.pg_state[i],
+>>>> POWERGATE_STATE_INITIAL);
+>>>>>     	return 0;
+>>>>>     }
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>>> b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>>>> index bcae42cef374..f84f56552fd0 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>>>> @@ -2965,9 +2965,12 @@ static int kv_dpm_get_temp(void *handle)
+>>>>>     static int kv_dpm_early_init(void *handle)
+>>>>>     {
+>>>>>     	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>> +	int i;
+>>>>>
+>>>>>     	adev->powerplay.pp_funcs = &kv_dpm_funcs;
+>>>>>     	adev->powerplay.pp_handle = adev;
+>>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
+>>>>> +		atomic_set(&adev->powerplay.pg_state[i],
+>>>> POWERGATE_STATE_INITIAL);
+>>>>>     	kv_dpm_set_irq_funcs(adev);
+>>>>>
+>>>>>     	return 0;
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>>> b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>>>> index 81f82aa05ec2..f1eb22c9bb59 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>>>> @@ -7916,9 +7916,12 @@ static int si_dpm_early_init(void *handle)
+>>>>>     {
+>>>>>
+>>>>>     	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>> +	int i;
+>>>>>
+>>>>>     	adev->powerplay.pp_funcs = &si_dpm_funcs;
+>>>>>     	adev->powerplay.pp_handle = adev;
+>>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
+>>>>> +		atomic_set(&adev->powerplay.pg_state[i],
+>>>> POWERGATE_STATE_INITIAL);
+>>>>>     	si_dpm_set_irq_funcs(adev);
+>>>>>     	return 0;
+>>>>>     }
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>> index 01168b8955bf..fdc25bae8237 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>> @@ -627,6 +627,7 @@ static int smu_early_init(void *handle)
+>>>>>     {
+>>>>>     	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>>     	struct smu_context *smu = &adev->smu;
+>>>>> +	int i;
+>>>>>
+>>>>>     	smu->adev = adev;
+>>>>>     	smu->pm_enabled = !!amdgpu_dpm;
+>>>>> @@ -639,6 +640,8 @@ static int smu_early_init(void *handle)
+>>>>>
+>>>>>     	adev->powerplay.pp_handle = smu;
+>>>>>     	adev->powerplay.pp_funcs = &swsmu_pm_funcs;
+>>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
+>>>>> +		atomic_set(&adev->powerplay.pg_state[i],
+>>>> POWERGATE_STATE_INITIAL);
+>>>>>
+>>>>>     	return smu_set_funcs(adev);
+>>>>>     }
+>>>>>
