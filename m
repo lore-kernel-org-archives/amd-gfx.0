@@ -2,123 +2,131 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B2EAC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:11:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42D59C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:21:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 245C160FD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:11:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 245C160FD8
+	by mail.kernel.org (Postfix) with ESMTPS id E058961248
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:21:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E058961248
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63EA86EA35;
-	Wed, 10 Nov 2021 16:11:33 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2067.outbound.protection.outlook.com [40.107.96.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 098266EA35
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 16:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 533566EB49;
+	Wed, 10 Nov 2021 16:21:47 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2067.outbound.protection.outlook.com [40.107.95.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05EA76EB51
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 16:21:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Sk0LdpAplhn44T+1TyKX9F+n1FUyu9TN7msGAdqOzT1eObGChvC4wdztZXnKPX2ZkMBtZCN37lQIa0jkQVt4ULp5nl5kBFby5dRFWN01WaZHq4PRjU4GGlW34GhB5KzLkaxCrKowK4bwzEtXxgGbH3HlaZ7BaSyW8uzHZ42ZVwBOLUrzHnqjNsg9rhZY+YNnOVXh1lR+fnj0AyR1E7tL6QSiD/29aDRzN9ivuaXYMUnfDUAel3peSZjmzfll1G+mu4c7UM6nne1L12OutaSHzts5coGkkfDi7zd/Ll8H2Ypc3SLvFDpFG7pYdOLGRFvNZLi0JgkF4rue1jRq5b4Tsw==
+ b=eK0S13mdnQ8uPN8o+mJRrxsBZu9Z6bfW0Hv+hXjHc88/4xBuv566wIXC5ozjyhyWjub8iKMUxRXxe0gm82EkLRzL0VHn1FoZ3E8yfPjd1amQAagFhGJ9Fa0o4vVssIuvSJt8vwG/ZSXgdPiW6MnCrYU92V9USdBA1z5nWbIALukNWnp6VEfCpzdtdZ8ZTkXwoSXtiXLvgeUgtQgd6UBx/e8PumwQSPf3ht1HpvqJdE3nSki4HZ15guNW3bNxRSvu//k10jSLZUYd5ZSj79uHMMbAR0oq4CmMJ8kBzKragwSugubzzqH1Dvjx/LVEUThDLPrEUYKyzUnXKlUbvye8cQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sBXgrMW3x84x0Tzms6uqsh+pbshfbmP7oP5WHRipmvU=;
- b=NYZO9IYipEm9AAgn2KAlk9pv8rPk///QR2+c2CapvzyNW0qVGPYsnvfKgfQEFzw2nDOhKNWZd3SexgAE5yVT3NUBo+yHZQQfwArQCZYt5OPjT4C7iIhWAcQ7wTaoqGifnVjxQ3MAGVg3P52OjXGLhWPBvFzoQTFkQko5G3KPIvn2vnTR5wu1KnbVkM3SpDglUzK9xA/5lQ00Zca16PgAyn10DYDytDdvJei8sTNqovm30vzqnXgf8yzE/ppn7r8RLcNWigFLCuDniMip5/3CztWJ1FfxKoSFziHWyqV0J9RGUn4+C537chePzhm677vhc/O6I8lgxoYKjErVdA7BlQ==
+ bh=mcNAGIxip7/9+s/dsmiwG8Av6OEF+TnF+jFwIVyLbvE=;
+ b=ViE+BVmbb2UfwbF+iJ3rvPUyZT8Ct8BGrp8qD0XzSASGONO28sGBZzhTRYCFiQB+70V8udtmgM0zlhfzZFiuvdrWcTatEXrdwLzfDMKLf0tvSUAG/x54awofNl+qpOD6NJt4oB7ZDeSuk5/7FUkUFoo/GpBTQdkyvMkCNaHN/AEIaPUkXGWnqMnP4WxtcDah2eiK9yl4CS037qCv7gizStfDnzv2hg2o44zszII6oCacqvTScCAvy/fL5kpoIIC3uznkwcBrYGZJQWgf2rSvtNXEFgzkMAoEyXcQB54Wm0Ylw+EXqmSFXaYL4aX01n5IziRk4di7Tm4P53ai3Wc7qA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sBXgrMW3x84x0Tzms6uqsh+pbshfbmP7oP5WHRipmvU=;
- b=aJC0Wv0J4NdexvOlKD6nGNJEFBRpNAOMujITr4UEHeNtpEvWQreg8dojZh7wuPqy9QnHk2dOPTn4gp0wzU/FzmB0Ex1+HYJxaXQHNtDFED9ltOGmEe6+c7wJScOopm0Iv/x0Hx6/FTfHYLggCU0pUHDU2Os2ZLRJ0FvkfWJtR8w=
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB4041.namprd12.prod.outlook.com (2603:10b6:5:210::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Wed, 10 Nov
- 2021 16:11:29 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4669.016; Wed, 10 Nov 2021
- 16:11:29 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2 1/1] drm/amdgpu: Fix MMIO HDP flush on SRIOV
-Thread-Topic: [PATCH v2 1/1] drm/amdgpu: Fix MMIO HDP flush on SRIOV
-Thread-Index: AQHX1dsRYJXg7f3ZtEKPUGJTgg52+Kv8euyAgABwqQCAAAKkqw==
-Date: Wed, 10 Nov 2021 16:11:29 +0000
-Message-ID: <DM6PR12MB39307C2E18445AA344F9930F97939@DM6PR12MB3930.namprd12.prod.outlook.com>
-References: <20211110023052.1872623-1-Felix.Kuehling@amd.com>
- <48473282-292c-508a-1a4e-42359c421f01@amd.com>
- <dd7f5e89-338b-c331-829e-5fba0594a0cb@amd.com>
-In-Reply-To: <dd7f5e89-338b-c331-829e-5fba0594a0cb@amd.com>
-Accept-Language: en-US
+ bh=mcNAGIxip7/9+s/dsmiwG8Av6OEF+TnF+jFwIVyLbvE=;
+ b=Ea1rn86KncunKxjtKq7nCV35iTwrvj41KpVew2iGFJypDfYKISDoNdMqM8alZGOd3mm35CN+FOwTkzDlE5Cszl9O4LL6DpbPQ7Jf3JoGx3Ax66coivA9fmjJ+h1YVptQ4QuDAao/05zU4VAxiKLMR5B15m2BZhi6bWkCl30oPic=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ by BL1PR12MB5208.namprd12.prod.outlook.com (2603:10b6:208:311::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Wed, 10 Nov
+ 2021 16:21:41 +0000
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::b077:a0b3:ec59:19f3]) by BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::b077:a0b3:ec59:19f3%3]) with mapi id 15.20.4669.016; Wed, 10 Nov 2021
+ 16:21:41 +0000
+Subject: Re: [PATCH v2 3/3] drm/amdkfd: convert misc checks to IP version
+ checking
+To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211109224251.3484398-1-Graham.Sider@amd.com>
+ <20211109224251.3484398-3-Graham.Sider@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <c253d597-aa8f-dfed-8a54-2986eeb4c205@amd.com>
+Date: Wed, 10 Nov 2021 11:21:39 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20211109224251.3484398-3-Graham.Sider@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-11-10T16:07:19.6772085Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 781d5785-125f-4b8e-7e2c-08d9a464c160
-x-ms-traffictypediagnostic: DM6PR12MB4041:
-x-microsoft-antispam-prvs: <DM6PR12MB4041B488F2E471F660BD6B7B97939@DM6PR12MB4041.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: W+q/DNk2TuLDOPaL4atgdklzL11b1NXqCJuD5vhdTFqwibXSPHHEu2Jgq/Zt3mHG5ocAwcXxs72cc9MWAUWuDA2Nf+pBZ6Zt+WUiRx/1UO5U6zpD42T6Lm+bxnARfgCERAK+M68+wA7b7K99v7o3OBVu5AD4UqcGdoyzLsBpZq7uZxDy8SAC0BwGnEIjZAaARp/t3l6PXFL2cREWGosI/ui2f6eIiHEKaEXEVrXM2eJ0IAJW3MOOIYPiW9saZwq7deK+xhapxmmhn7KpYjfqQsGmqcMA7jQokxAsDJAPcjhqJx6oylJd5oI9jnQGGvOSQFVtHhWB3aUsNDCIyqpCiZ19tI/TdPk37AUIZO5ckODYsSpeNo2rkFWbv+8yXAWfzlwMSHgHoP8ixM/Dbo2JVsCu4txOo0IzGgJSDj8wdj101B5BnPGVO7nNSHbRFGHRAoz0zsxpH+c7f+jkBsaiNZkci+BcoAflkPc5zjGs+rhPPfAHxFJ3w5WQzFuwTXcobg7CXQqNNy9GU4AO3rXM9iSstlffkeKVqP38PIeq2XrVkzoL9BeURPgoA+2RItbF7rXhrTo6quTSItiu4d7RFXOmahau8kSBwmFhue6+rvLI4OB9mOOClD/N59lFqeQyQdgUdNSVjOxl/6pYt4rguAZYtW4nQOkEes+FPP1/eTN2vsDQfjicRhHcx0jzYfYUIFYC7RibIo8xDtMtDl6sSQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(4001150100001)(55016002)(38070700005)(2906002)(7696005)(53546011)(8936002)(5660300002)(52536014)(9686003)(4326008)(33656002)(508600001)(110136005)(316002)(186003)(26005)(86362001)(38100700002)(66476007)(83380400001)(64756008)(122000001)(66946007)(66556008)(91956017)(66446008)(76116006)(6506007)(8676002)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+sXdf8UNupjceI0Wgv3szTK5qWeMM6T0xwT+NccxWru9/SWau9V90M6MKMTc?=
- =?us-ascii?Q?+hs3wXeJgp4Na3t4H3tZrcUGuwDcZA/KrcF6CHIMUAn/aY4bKF1jxppXpWOS?=
- =?us-ascii?Q?Tb2tgllhkA2dOucZNU8txd++yVYfsBlNHi87O2aD9RadTwyju1tafV58cono?=
- =?us-ascii?Q?3txkakkx9eJCJEL+ytBCemHVf7LgNrE1+pfSozfofdF5aNWYVuvfUi4n2Oak?=
- =?us-ascii?Q?W62HCYCJYsQeP3ZLpiKgV20uJywA4Y6UmlxtRht6s5hG6se1OV49KVzHPu6+?=
- =?us-ascii?Q?lsJihcrly77Zjs5kVGEbJ3xwjFokVVNtSHz9LqLJcjmkanoX+xs8wwjO1L/u?=
- =?us-ascii?Q?sc2iPFjYHcNonZSiI6bp0dNYC+215aSmMbQOAIEpZlGRnDIv9IU++iiz4LTL?=
- =?us-ascii?Q?SKlnSa6HInjGZa50P6ILhZOUbsVECXtb3y+gXGC4uOdX1CDNxPKvqN9OOKvU?=
- =?us-ascii?Q?HUIGUi5Cp4LyTvCWEiRtbZspch08zhOEzPCUneMSjvee+1KFi/BIOD4qxTdJ?=
- =?us-ascii?Q?h/BORNg6DeqJNrkLFPZOMnxTmPIVtJGjpTB9Zr1VVCLR28oC85RNlCqiVmBq?=
- =?us-ascii?Q?xP2xMeR2a0deLjzjPh5R5UPU0d/BWBGfY/lNCXNBKXFB0Yzueb4R4cJX/mDD?=
- =?us-ascii?Q?3jpuZke2ywO85OxQfkRKHfWUzsF8BzfRdSVm37gX2bYKYVz9lTprRA93aFbz?=
- =?us-ascii?Q?n6ZuSEhWmvSewTD/WeFa5+tSxLx/3/VUjK0GnYuoIJOlgS8hnwztU5dsLgOL?=
- =?us-ascii?Q?J4d2Dc2YBkDZtCnxRUpY4H2bQ3/c/zgKnYaAlR0rIkvxjuacUWDSB7JwH3sO?=
- =?us-ascii?Q?MiiPHQ4Slpuugvdr8mEhDQIun5VdCEcgatj4chxIwpNbnTdqEV1V8tVjS3OX?=
- =?us-ascii?Q?m0XroLNaKtwPYj/S/ER6EzThaUs5k+pB5t/aIpRshKS4ClYDWrW5UwecsJAk?=
- =?us-ascii?Q?IrDTsj+aFllwri6kzc//mA4c4o6cTcwVyCxRUWYUOszoMKhZlkZwFMeDa/EN?=
- =?us-ascii?Q?9uodDZFRhkgj/ijaF5aQDI7aY4bfblVBCg+aR1vxahq824mpeI2Gfq5zSmI7?=
- =?us-ascii?Q?ZiRSENrUCy8NWWZBN4b9xBHMlcfPwcoBvPJhdUOMszDjeqZaV9xb1AvL1lCj?=
- =?us-ascii?Q?hU0NBBZnGgdBGPy7qBiMz7uq9kgPj3/dZqZhA83NGdb15VBn/gD9Xkxi10tK?=
- =?us-ascii?Q?JygxBbkP4FxSS75vXvxDZrk3EC0E2PAUG79FmX/6bOwQ9/yexNrulb8Ikr+Q?=
- =?us-ascii?Q?pH0kJkNi7mxdVvBX26cMO9eD1QHNRO1Ue4IxqctiK7Nsof/xmGX3CjKABH50?=
- =?us-ascii?Q?nVJ/gPrxerk+f5QMPgajsFxT3e6u4fnnb6CGQFSqIvm4xhD4fq4R54UB1B7D?=
- =?us-ascii?Q?JpQnZXLXTmzr/GyEKni/3RYQaLz4uVUJh+3hgRjjVzXV34B2bqWkvtfSnaR/?=
- =?us-ascii?Q?jbcmsxQx/lyrGcwfNi4wRa6PHHDYcB1j7Q9/sg8rhf921QPURi3K2x0DbW5L?=
- =?us-ascii?Q?khXrquB171Vq+/olcw8/4Hh48Q9pVvrTDi1tGXQB2p12RlwLnk+D8V4FnOjk?=
- =?us-ascii?Q?BpzoqROIPfYekrR7/AJKafLhjnQoOpXLica5ruyY?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB39307C2E18445AA344F9930F97939DM6PR12MB3930namp_"
+X-ClientProxiedBy: YT1PR01CA0080.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::19) To BL1PR12MB5112.namprd12.prod.outlook.com
+ (2603:10b6:208:316::16)
 MIME-Version: 1.0
+Received: from [192.168.2.100] (142.118.126.231) by
+ YT1PR01CA0080.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4690.15 via Frontend Transport; Wed, 10 Nov 2021 16:21:41 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cf2d2d9a-99e8-419f-baba-08d9a4662dcb
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5208:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB52084CD53B7FED35FADDD45892939@BL1PR12MB5208.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MW0FjSJNSiLDtUO1InH14Tiu7j8p0jbFP15HjUEywICxtWtqTZdKL4dyBSlAJKmug6yv4EEF+6VgNczJQKc5H5zW2Of56v3QqiE7e7GE2SPcv8GuS9ge5pzjXnuPLfS0Ab/9BKzfAia8/sKhWeUzR1ir6H/zVO6vqCndWiaDfiU5P8Ic/TKFDyEqb/I86enY502EGqKC90dGloDBgzid4FWNKE0mDYm2Gqtw2neubj21nVvjtmGbH+lYWu36Ri+uT4HeVknd4jGAgR72ysVddgOI3ENxSBWxOP1eiiq8eyzhipuZnEDmE1oAUSdJjZJb2zWfLef0HehICgNhSv5Kt1zuTqFdaqAqYJHNaE/IWXIFoXHWAq8R7ILyLI9kfP/8wVDiVohca2g7aXKNEDuh681UKYfBEWsZiWs/DdYVzIqF9V9a/37k41O0OOw7SzY5mHoH9rLVkPTSeS9R6hEUW0eaAsaS2sJXKh3i2AGzDf0PD2e9tk/wEDlCkgyxAu//yM5cJID+PDFlZQDnvXGEATeC8hhQOWf6sAJCXBTcIL7SJ6dSV+iW2dJpaBAn6n5tOsbP53StpMPgqHa9NriyLxzLISzK3kadwaEMb1ACd8A/vkPAFelE9QWA/hQ0EbV6ZFIme7i1KpO31xff4oAkE5pvm2cer+fj4hGDk6Evg6F3jtbaqJi+mlIeVFWFZWQqcpVz72AdsI7mV/qXaDQ0dLcnyK1bbsUU3ourW1Po+h8kT48I+JOPPjZG6r6bysEw
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(16576012)(30864003)(8676002)(44832011)(4326008)(8936002)(2906002)(316002)(31686004)(186003)(83380400001)(36756003)(508600001)(31696002)(66556008)(86362001)(956004)(5660300002)(66476007)(38100700002)(66946007)(6486002)(2616005)(26005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFRIQkdaZ21hcEdjSlZKQ1N6UGVxUXNiQ2xOSnJKYmppRFZDYklHS2crSFBn?=
+ =?utf-8?B?QUM5UlpuaG5tVlBaMDlvaFY4ckNmMmFOM3Z3RVEySGVaMGo5bnNTb29BdnRu?=
+ =?utf-8?B?ek5EMnVBM1Y0Mnc1cnRERm9hcExydWtLeXk5enZoUDc2Z0p4TkVrejlkeWJV?=
+ =?utf-8?B?Ui81NWpCQWhXNm1vVjVxYWhGMHorMG9mRFJHcXdRRVN5LzVNZTZuY09ZTmNk?=
+ =?utf-8?B?cjZmZTFQcEdqS2U1c3hIdW44TndJWXk2RFpkdUxQc3JmV0tCTG50eWozTVln?=
+ =?utf-8?B?ekRpOFgrNUFqaDZyMnJoVzlVc0lsWE9yYmlWaFJzR1ViaFRuMXl6UHFGTFVp?=
+ =?utf-8?B?ZEtQcTBkUXhzTE81eTV0b3kxbUpBMytvaUlMc1BuOVA2elJjRjNPVHM0dGlE?=
+ =?utf-8?B?YVQ3RVZPTDlTclVUaWtHNGZyeXRJUTRHK0hGbEdLejF3eTdSRjIxVmMyZVFW?=
+ =?utf-8?B?NlM4V0FLWjg3TWM2Q0lLL1BDeHZEOVNSdEVxckc5bVV5Q1JCbGN2MVJQZzVI?=
+ =?utf-8?B?MGUyZnVhaHFRNHU0eDY2WnY2NkJFZ0tQQkxwK2Z6UktWT3dRSkVzRmU3SStw?=
+ =?utf-8?B?aDVySnBNMWt0RENMdENFeERLVFJ2bGFNMzVjblF6MDdZeUNYUGRsaDN1M0dp?=
+ =?utf-8?B?SjlMbjRNZFdmRllZcUw2NGxmZEE3NUc4K3E0aHdpeUV4ajg5VllCS0xxZHBF?=
+ =?utf-8?B?MkI5aFB4ZHFXMWF0dEJtVDBmZE9tdHIva1ZIS1dIQWhsWG5raXUvYnkxdDd1?=
+ =?utf-8?B?a0tzN0UrdHVaeHh1Z0lxQk1VNzJwOW41cm1ZZVQxVHpXbkZ3aGNhVGhVcFZn?=
+ =?utf-8?B?T2JFOXREa2JvM3ljVlA2b3JvMWYyeVNjeXVhNGhqTVVWZ0U4MStITndZcDFi?=
+ =?utf-8?B?RHZEUUsrQ0txRTFLVGpPWTRFYnVJRVd3Y3ErVGF6c1VuMVhPYUhyclkxRGVO?=
+ =?utf-8?B?YzB5ZUorZ29pYjRocFh1MXRSVFVHQnNzV0VEUEhJTDBLdXlYOW5qQUwydUtM?=
+ =?utf-8?B?TDQraWtaUXlhdnZZempQc002dFFDOFZNMkp1U0RScTBkNThzaU5ITDBRblVm?=
+ =?utf-8?B?SDh4anA5WXluenVDakJoVXRZdVdiS25zSUdDdGE1cjR3WVhpYmZkTXFGWFhW?=
+ =?utf-8?B?NlZML1RZSEd3TmZlY0lpRTh3cWlSTS9YbkNXYUxvT1BISWRyUHNSR3NwSG9s?=
+ =?utf-8?B?eFZxQzhxZTZ4V21uNjU1ZENBQitmU2I1c2xQRHBGK1k0NDYwVjJLOWdvYVA3?=
+ =?utf-8?B?OHBpMXJjOWxiVURPYWNJaUo3eGtVQjAwVFBpTGY3dHo1MmQrMTFzbmp5Vi84?=
+ =?utf-8?B?YmxlZmtvQ21adzNjWHBmMlNHQzFLcWNabHlrMjU4eDJxNVhCbGZwWWlSaDRw?=
+ =?utf-8?B?TkYzNmU1bHI1bTU1VWRzczJocytNT2d3bzRnZkRYak94MEJVOTQ0UVUwK0RW?=
+ =?utf-8?B?WEllbHRFZHNlaGlUR2Fub0s3dXIyNUZsdGIxeU9YNzNaRm1nT015R1VlMldF?=
+ =?utf-8?B?SllUNTRaeUVXV1JSZ1VNT3BNNzdId3Uxd0VDME1hWUdYWXVBTVcxQytqM1lk?=
+ =?utf-8?B?VU1KaXovT0wwZmh5T1BuYXpiVDRTaGlkbVFVTUJtZmk4ZjhJNFRuS1c4eVZD?=
+ =?utf-8?B?bUlkVW84WW1MVmRqL2lJVjhjamR1WS9wTVBqWGNjV0ZuNG1VNGpxVC84TG1k?=
+ =?utf-8?B?ZlBDWDhnQkVMditGV1VpMkVvWnM1M2ZCMWM1KzJSdDZzZ3VtcEVtekVXZGNK?=
+ =?utf-8?B?TFd0Y3lxRWhXQlQ5MXBsUzRreDFPRzZRSWRWWWdlSXNOUHgyN2IwRFhBL3dD?=
+ =?utf-8?B?MXk1dHVUOUZNc0lRSE14YUE1MUxFWjdReVluNXJWNWlFMkxtb3VNR2UzbXRs?=
+ =?utf-8?B?NFRXN3ZzMm9TQUtWQzFHeG03cGdXWTlLUXlnem5HSHpiZ3Bqc3o1QTc2WHJq?=
+ =?utf-8?B?ckJKaTV2OWtiQ2RQdUFUbjRoUkN2Tm05WTFxajc3UWIxNDF5R0dxMVZlMXhC?=
+ =?utf-8?B?ek16dDZIVksyQ1BkLzZ1M2ltUUlOZ3VuNGlJV241MExFN1FpQmRUUG1RMHdz?=
+ =?utf-8?B?eVpHaEhpZ3BUa3V0VjU1aEg3TDhKb2Y2VVpkeUdwdExicGxtdWRDUndkREs1?=
+ =?utf-8?B?TG1KR1FjVVA4eHBMNnQ5VUtVQUkwMGswbm5nWXE5aU5pYncwOVJUME1TbXdU?=
+ =?utf-8?Q?b1kVbjwr89q79TC3eW5rLjU=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf2d2d9a-99e8-419f-baba-08d9a4662dcb
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 781d5785-125f-4b8e-7e2c-08d9a464c160
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2021 16:11:29.5998 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: t72zkcrRPsBDYzUDLPYrhSv35MLVBOUbQ6J7TZFl8WcD70GkjYHnkmHZDz4mcdzD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4041
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 16:21:41.5982 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9N54xj3+PyhQbXqZU97xrYHahbDBuwf9EL8/yp81jPsj8NAp+LHyn7u48rc6+Zudc658YdORo+niL+j8YoXaEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,496 +138,266 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Bokun" <Bokun.Zhang@amd.com>
+Cc: Harish.Kasiviswanathan@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB39307C2E18445AA344F9930F97939DM6PR12MB3930namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
->(... && !amdgpu_sriov_vf(adev))
-
-This kind of closes the door for all versions. My thought was - having it i=
-n the same function provides a logical grouping for how it's handled for di=
-fferent cases - VF vs non-VF - for a particular IP version.
-
-Thanks,
-Lijo
-________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Wednesday, November 10, 2021 9:27:22 PM
-To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
-Cc: Zhang, Bokun <Bokun.Zhang@amd.com>
-Subject: Re: [PATCH v2 1/1] drm/amdgpu: Fix MMIO HDP flush on SRIOV
-
-Am 2021-11-10 um 4:14 a.m. schrieb Lazar, Lijo:
+Am 2021-11-09 um 5:42 p.m. schrieb Graham Sider:
+> Switch to IP version checking instead of asic_type on various KFD
+> version checks.
 >
+> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 27 ++++++++++---------
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c |  3 +--
+>  .../amd/amdkfd/kfd_device_queue_manager_v9.c  |  2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  6 +++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  7 +++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  6 ++---
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  4 +--
+>  10 files changed, 31 insertions(+), 30 deletions(-)
 >
-> On 11/10/2021 8:00 AM, Felix Kuehling wrote:
->> Disable HDP register remapping on SRIOV and set rmmio_remap.reg_offset
->> to the fixed address of the VF register for hdp_v*_flush_hdp.
->>
->> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c | 4 ++++
->>   drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c | 4 ++++
->>   drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c | 4 +++-
->>   drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c | 4 ++++
->>   drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 4 +++-
->>   drivers/gpu/drm/amd/amdgpu/nv.c        | 8 +++++---
->>   drivers/gpu/drm/amd/amdgpu/soc15.c     | 8 +++++---
->>   7 files changed, 28 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->> b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->> index 4ecd2b5808ce..ee7cab37dfd5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->> @@ -359,6 +359,10 @@ static void nbio_v2_3_init_registers(struct
->> amdgpu_device *adev)
->>         if (def !=3D data)
->>           WREG32_PCIE(smnPCIE_CONFIG_CNTL, data);
->> +
->> +    if (amdgpu_sriov_vf(adev))
->> +        adev->rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,
->> +            mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->
-> Wouldn't it be better to do this assignment inside
-> remap_hdp_registers()? Return with a comment saying no remap is done
-> for VFs. That looks easier to manage per IP version.
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 2466a73b8c7d..f70117b00b14 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -1603,7 +1603,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
+>  	}
+>  	mutex_unlock(&p->mutex);
+>  
+> -	if (dev->device_info->asic_family == CHIP_ALDEBARAN) {
+> +	if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2)) {
+>  		err = amdgpu_amdkfd_gpuvm_sync_memory(dev->adev,
+>  				(struct kgd_mem *) mem, true);
+>  		if (err) {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index 19dd472e9b06..b6d887edac85 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1992,7 +1992,7 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
+>  		sub_type_hdr->flags |= CRAT_IOLINK_FLAGS_BI_DIRECTIONAL;
+>  		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
+>  		sub_type_hdr->num_hops_xgmi = 1;
+> -		if (kdev->adev->asic_type == CHIP_ALDEBARAN) {
+> +		if (KFD_GC_VERSION(kdev) == IP_VERSION(9, 4, 2)) {
+>  			sub_type_hdr->minimum_bandwidth_mbs =
+>  					amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(
+>  							kdev->adev, NULL, true);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index ee813bd57c92..594dd28a391f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -848,23 +848,23 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+>  static void kfd_cwsr_init(struct kfd_dev *kfd)
+>  {
+>  	if (cwsr_enable && kfd->device_info->supports_cwsr) {
+> -		if (kfd->device_info->asic_family < CHIP_VEGA10) {
+> +		if (KFD_GC_VERSION(kfd) < IP_VERSION(9, 0, 1)) {
+>  			BUILD_BUG_ON(sizeof(cwsr_trap_gfx8_hex) > PAGE_SIZE);
+>  			kfd->cwsr_isa = cwsr_trap_gfx8_hex;
+>  			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx8_hex);
+> -		} else if (kfd->device_info->asic_family == CHIP_ARCTURUS) {
+> +		} else if (KFD_GC_VERSION(kfd) == IP_VERSION(9, 4, 1)) {
+>  			BUILD_BUG_ON(sizeof(cwsr_trap_arcturus_hex) > PAGE_SIZE);
+>  			kfd->cwsr_isa = cwsr_trap_arcturus_hex;
+>  			kfd->cwsr_isa_size = sizeof(cwsr_trap_arcturus_hex);
+> -		} else if (kfd->device_info->asic_family == CHIP_ALDEBARAN) {
+> +		} else if (KFD_GC_VERSION(kfd) == IP_VERSION(9, 4, 2)) {
+>  			BUILD_BUG_ON(sizeof(cwsr_trap_aldebaran_hex) > PAGE_SIZE);
+>  			kfd->cwsr_isa = cwsr_trap_aldebaran_hex;
+>  			kfd->cwsr_isa_size = sizeof(cwsr_trap_aldebaran_hex);
+> -		} else if (kfd->device_info->asic_family < CHIP_NAVI10) {
+> +		} else if (KFD_GC_VERSION(kfd) < IP_VERSION(10, 1, 1)) {
+>  			BUILD_BUG_ON(sizeof(cwsr_trap_gfx9_hex) > PAGE_SIZE);
+>  			kfd->cwsr_isa = cwsr_trap_gfx9_hex;
+>  			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx9_hex);
+> -		} else if (kfd->device_info->asic_family < CHIP_SIENNA_CICHLID) {
+> +		} else if (KFD_GC_VERSION(kfd) < IP_VERSION(10, 3, 0)) {
+>  			BUILD_BUG_ON(sizeof(cwsr_trap_nv1x_hex) > PAGE_SIZE);
+>  			kfd->cwsr_isa = cwsr_trap_nv1x_hex;
+>  			kfd->cwsr_isa_size = sizeof(cwsr_trap_nv1x_hex);
+> @@ -886,14 +886,16 @@ static int kfd_gws_init(struct kfd_dev *kfd)
+>  		return 0;
+>  
+>  	if (hws_gws_support
+> -		|| (kfd->device_info->asic_family == CHIP_VEGA10
+> +		|| (KFD_GC_VERSION(kfd) == IP_VERSION(9, 0, 1)
+>  			&& kfd->mec2_fw_version >= 0x81b3)
+> -		|| (kfd->device_info->asic_family >= CHIP_VEGA12
+> -			&& kfd->device_info->asic_family <= CHIP_RAVEN
+> +		|| ((KFD_GC_VERSION(kfd) == IP_VERSION(9, 2, 1)
+> +			|| KFD_GC_VERSION(kfd) == IP_VERSION(9, 4, 0)
+> +			|| KFD_GC_VERSION(kfd) == IP_VERSION(9, 1, 0)
+> +			|| KFD_GC_VERSION(kfd) == IP_VERSION(9, 2, 2))
 
-I was considering that. I felt it was clearer not to have that hidden
-side effect in remap_hdp_registers and to have the explicit condition
-(... &&  !amdgpu_sriov_vf(adev)) around the remap_hdp_registers call in
-soc15/nv_common_hw_init.
+I think this could be simplified to KFD_GC_VERSION(kfd) <= IP_VERSION(9,
+4, 0) if it weren't for Renoir. I wonder if the exclusion of RENOIR was
+an oversight in the old code due to the weird ordering of the CHIP_...
+enums. Let me start an internal email thread to confirm.
+
+
+>  			&& kfd->mec2_fw_version >= 0x1b3)
+> -		|| (kfd->device_info->asic_family == CHIP_ARCTURUS
+> +		|| (KFD_GC_VERSION(kfd) == IP_VERSION(9, 4, 1)
+>  			&& kfd->mec2_fw_version >= 0x30)
+> -		|| (kfd->device_info->asic_family == CHIP_ALDEBARAN
+> +		|| (KFD_GC_VERSION(kfd) == IP_VERSION(9, 4, 2)
+>  			&& kfd->mec2_fw_version >= 0x28))
+>  		ret = amdgpu_amdkfd_alloc_gws(kfd->adev,
+>  				kfd->adev->gds.gws_size, &kfd->gws);
+> @@ -962,10 +964,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>  	 * calculate max size of runlist packet.
+>  	 * There can be only 2 packets at once
+>  	 */
+> -	map_process_packet_size =
+> -			kfd->device_info->asic_family == CHIP_ALDEBARAN ?
+> +	map_process_packet_size = KFD_GC_VERSION(kfd) == IP_VERSION(9, 4, 2) ?
+>  				sizeof(struct pm4_mes_map_process_aldebaran) :
+> -					sizeof(struct pm4_mes_map_process);
+> +				sizeof(struct pm4_mes_map_process);
+>  	size += (KFD_MAX_NUM_OF_PROCESSES * map_process_packet_size +
+>  		max_num_of_queues_per_device * sizeof(struct pm4_mes_map_queues)
+>  		+ sizeof(struct pm4_mes_runlist)) * 2;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 93d41e0b9b41..c894cbe58a36 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -250,8 +250,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
+>  
+>  	program_sh_mem_settings(dqm, qpd);
+>  
+> -	if (dqm->dev->device_info->asic_family >= CHIP_VEGA10 &&
+> -	    dqm->dev->cwsr_enabled)
+> +	if (KFD_IS_SOC15(dqm->dev) && dqm->dev->cwsr_enabled)
+>  		program_trap_handler_settings(dqm, qpd);
+>  
+>  	/* qpd->page_table_base is set earlier when register_process()
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
+> index b5c3d13643f1..f20434d9980e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
+> @@ -62,7 +62,7 @@ static int update_qpd_v9(struct device_queue_manager *dqm,
+>  				SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
+>  					SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
+>  
+> -		if (dqm->dev->device_info->asic_family == CHIP_ALDEBARAN) {
+> +		if (KFD_GC_VERSION(dqm->dev) == IP_VERSION(9, 4, 2)) {
+>  			/* Aldebaran can safely support different XNACK modes
+>  			 * per process
+>  			 */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> index 3eea4edee355..afe72dd11325 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> @@ -935,8 +935,10 @@ void kfd_signal_iommu_event(struct kfd_dev *dev, u32 pasid,
+>  	/* Workaround on Raven to not kill the process when memory is freed
+>  	 * before IOMMU is able to finish processing all the excessive PPRs
+>  	 */
+> -	if (dev->device_info->asic_family != CHIP_RAVEN &&
+> -	    dev->device_info->asic_family != CHIP_RENOIR) {
+> +
+> +	if (KFD_GC_VERSION(dev) != IP_VERSION(9, 1, 0) &&
+> +	    KFD_GC_VERSION(dev) != IP_VERSION(9, 2, 2) &&
+> +	    KFD_GC_VERSION(dev) != IP_VERSION(9, 3, 0)) {
+>  		mutex_lock(&p->event_mutex);
+>  
+>  		/* Lookup events by type and signal them */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index aeade32ec298..d59b73f69260 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -940,7 +940,7 @@ int svm_migrate_init(struct amdgpu_device *adev)
+>  	void *r;
+>  
+>  	/* Page migration works on Vega10 or newer */
+> -	if (kfddev->device_info->asic_family < CHIP_VEGA10)
+> +	if (!KFD_IS_SOC15(kfddev))
+>  		return -EINVAL;
+>  
+>  	pgmap = &kfddev->pgmap;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index fafc7b187fad..74c9323f32fc 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1317,14 +1317,13 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
+>  		 * support the SVM APIs and don't need to be considered
+>  		 * for the XNACK mode selection.
+>  		 */
+> -		if (dev->device_info->asic_family < CHIP_VEGA10)
+> +		if (!KFD_IS_SOC15(dev))
+>  			continue;
+>  		/* Aldebaran can always support XNACK because it can support
+>  		 * per-process XNACK mode selection. But let the dev->noretry
+>  		 * setting still influence the default XNACK mode.
+>  		 */
+> -		if (supported &&
+> -		    dev->device_info->asic_family == CHIP_ALDEBARAN)
+> +		if (supported && KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2))
+>  			continue;
+>  
+>  		/* GFXv10 and later GPUs do not support shader preemption
+> @@ -1332,7 +1331,7 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
+>  		 * management and memory-manager-related preemptions or
+>  		 * even deadlocks.
+>  		 */
+> -		if (dev->device_info->asic_family >= CHIP_NAVI10)
+> +		if (KFD_GC_VERSION(dev) > IP_VERSION(10, 1, 1))
+
+This should be >=
 
 Regards,
-  Felix
+  Felix
 
 
->
-> Thanks,
-> Lijo
->
->>   }
->>     #define NAVI10_PCIE__LC_L0S_INACTIVITY_DEFAULT        0x00000000
->> // off by default, no gains over L1
->> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->> b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->> index 0d2d629e2d6a..4bbacf1be25a 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->> @@ -276,6 +276,10 @@ static void nbio_v6_1_init_registers(struct
->> amdgpu_device *adev)
->>         if (def !=3D data)
->>           WREG32_PCIE(smnPCIE_CI_CNTL, data);
->> +
->> +    if (amdgpu_sriov_vf(adev))
->> +        adev->rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,
->> +            mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->>   }
->>     static void nbio_v6_1_program_ltr(struct amdgpu_device *adev)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->> b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->> index 3c00666a13e1..37a4039fdfc5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->> @@ -273,7 +273,9 @@ const struct nbio_hdp_flush_reg
->> nbio_v7_0_hdp_flush_reg =3D {
->>     static void nbio_v7_0_init_registers(struct amdgpu_device *adev)
->>   {
->> -
->> +    if (amdgpu_sriov_vf(adev))
->> +        adev->rmmio_remap.reg_offset =3D
->> +            SOC15_REG_OFFSET(NBIO, 0,
->> mmHDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->>   }
->>     const struct amdgpu_nbio_funcs nbio_v7_0_funcs =3D {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
->> b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
->> index 8f2a315e7c73..3444332ea110 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
->> @@ -371,6 +371,10 @@ static void nbio_v7_2_init_registers(struct
->> amdgpu_device *adev)
->>           if (def !=3D data)
->>               WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0,
->> regPCIE_CONFIG_CNTL), data);
->>       }
->> +
->> +    if (amdgpu_sriov_vf(adev))
->> +        adev->rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,
->> +            regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->>   }
->>     const struct amdgpu_nbio_funcs nbio_v7_2_funcs =3D {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->> b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->> index b8bd03d16dba..e96516d3fd45 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->> @@ -362,7 +362,9 @@ const struct nbio_hdp_flush_reg
->> nbio_v7_4_hdp_flush_reg_ald =3D {
->>     static void nbio_v7_4_init_registers(struct amdgpu_device *adev)
->>   {
->> -
->> +    if (amdgpu_sriov_vf(adev))
->> +        adev->rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,
->> +            mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->>   }
->>     static void
->> nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
->> *adev)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
->> b/drivers/gpu/drm/amd/amdgpu/nv.c
->> index febc903adf58..7088528079c6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
->> @@ -730,8 +730,10 @@ static int nv_common_early_init(void *handle)
->>   #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
->>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->>   -    adev->rmmio_remap.reg_offset =3D MMIO_REG_HOLE_OFFSET;
->> -    adev->rmmio_remap.bus_addr =3D adev->rmmio_base +
->> MMIO_REG_HOLE_OFFSET;
->> +    if (!amdgpu_sriov_vf(adev)) {
->> +        adev->rmmio_remap.reg_offset =3D MMIO_REG_HOLE_OFFSET;
->> +        adev->rmmio_remap.bus_addr =3D adev->rmmio_base +
->> MMIO_REG_HOLE_OFFSET;
->> +    }
->>       adev->smc_rreg =3D NULL;
->>       adev->smc_wreg =3D NULL;
->>       adev->pcie_rreg =3D &nv_pcie_rreg;
->> @@ -1031,7 +1033,7 @@ static int nv_common_hw_init(void *handle)
->>        * for the purpose of expose those registers
->>        * to process space
->>        */
->> -    if (adev->nbio.funcs->remap_hdp_registers)
->> +    if (adev->nbio.funcs->remap_hdp_registers &&
->> !amdgpu_sriov_vf(adev))
->>           adev->nbio.funcs->remap_hdp_registers(adev);
->>       /* enable the doorbell aperture */
->>       nv_enable_doorbell_aperture(adev, true);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
->> b/drivers/gpu/drm/amd/amdgpu/soc15.c
->> index 0c316a2d42ed..de9b55383e9f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
->> @@ -971,8 +971,10 @@ static int soc15_common_early_init(void *handle)
->>   #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
->>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->>   -    adev->rmmio_remap.reg_offset =3D MMIO_REG_HOLE_OFFSET;
->> -    adev->rmmio_remap.bus_addr =3D adev->rmmio_base +
->> MMIO_REG_HOLE_OFFSET;
->> +    if (!amdgpu_sriov_vf(adev)) {
->> +        adev->rmmio_remap.reg_offset =3D MMIO_REG_HOLE_OFFSET;
->> +        adev->rmmio_remap.bus_addr =3D adev->rmmio_base +
->> MMIO_REG_HOLE_OFFSET;
->> +    }
->>       adev->smc_rreg =3D NULL;
->>       adev->smc_wreg =3D NULL;
->>       adev->pcie_rreg =3D &soc15_pcie_rreg;
->> @@ -1285,7 +1287,7 @@ static int soc15_common_hw_init(void *handle)
->>        * for the purpose of expose those registers
->>        * to process space
->>        */
->> -    if (adev->nbio.funcs->remap_hdp_registers)
->> +    if (adev->nbio.funcs->remap_hdp_registers &&
->> !amdgpu_sriov_vf(adev))
->>           adev->nbio.funcs->remap_hdp_registers(adev);
->>         /* enable the doorbell aperture */
->>
-
---_000_DM6PR12MB39307C2E18445AA344F9930F97939DM6PR12MB3930namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-&gt;<span style=3D"font-family: -apple-system, HelveticaNeue; font-size: 14=
-.6667px; display: inline !important;">(... &amp;&amp; !amdgpu_sriov_vf(adev=
-))</span></div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-<span style=3D"font-family: -apple-system, HelveticaNeue; font-size: 14.666=
-7px; display: inline !important;"><br>
-</span></div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-<span style=3D"font-family: -apple-system, HelveticaNeue; font-size: 14.666=
-7px; display: inline !important;">This kind of closes the door for all vers=
-ions. My thought was - having it in the same function provides a logical gr=
-ouping for how it's handled for different
- cases - VF vs non-VF - for a particular IP version.</span></div>
-<div id=3D"ms-outlook-mobile-signature">
-<div><br>
-</div>
-Thanks,<br>
-Lijo</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, November 10, 2021 9:27:22 PM<br>
-<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Zhang, Bokun &lt;Bokun.Zhang@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH v2 1/1] drm/amdgpu: Fix MMIO HDP flush on SRIOV<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Am 2021-11-10 um 4:14 a.m. schrieb Lazar, Lijo:<br=
->
-&gt;<br>
-&gt;<br>
-&gt; On 11/10/2021 8:00 AM, Felix Kuehling wrote:<br>
-&gt;&gt; Disable HDP register remapping on SRIOV and set rmmio_remap.reg_of=
-fset<br>
-&gt;&gt; to the fixed address of the VF register for hdp_v*_flush_hdp.<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Felix Kuehling &lt;Felix.Kuehling@amd.com&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c | 4 ++++<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c | 4 ++++<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c | 4 +++-<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c | 4 ++++<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 4 +++-<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; | 8 +++++---<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp; =
-| 8 +++++---<br>
-&gt;&gt; &nbsp; 7 files changed, 28 insertions(+), 8 deletions(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c<br>
-&gt;&gt; index 4ecd2b5808ce..ee7cab37dfd5 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c<br>
-&gt;&gt; @@ -359,6 +359,10 @@ static void nbio_v2_3_init_registers(struct<b=
-r>
-&gt;&gt; amdgpu_device *adev)<br>
-&gt;&gt; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (def !=3D data)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_PCIE=
-(smnPCIE_CONFIG_CNTL, data);<br>
-&gt;&gt; +<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.r=
-eg_offset =3D SOC15_REG_OFFSET(NBIO, 0,<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) &lt;&lt; 2;<br>
-&gt;<br>
-&gt; Wouldn't it be better to do this assignment inside<br>
-&gt; remap_hdp_registers()? Return with a comment saying no remap is done<b=
-r>
-&gt; for VFs. That looks easier to manage per IP version.<br>
-<br>
-I was considering that. I felt it was clearer not to have that hidden<br>
-side effect in remap_hdp_registers and to have the explicit condition<br>
-(... &amp;&amp;&nbsp; !amdgpu_sriov_vf(adev)) around the remap_hdp_register=
-s call in<br>
-soc15/nv_common_hw_init.<br>
-<br>
-Regards,<br>
-&nbsp; Felix<br>
-<br>
-<br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt; Lijo<br>
-&gt;<br>
-&gt;&gt; &nbsp; }<br>
-&gt;&gt; &nbsp; &nbsp; #define NAVI10_PCIE__LC_L0S_INACTIVITY_DEFAULT&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000000<br>
-&gt;&gt; // off by default, no gains over L1<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-&gt;&gt; index 0d2d629e2d6a..4bbacf1be25a 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-&gt;&gt; @@ -276,6 +276,10 @@ static void nbio_v6_1_init_registers(struct<b=
-r>
-&gt;&gt; amdgpu_device *adev)<br>
-&gt;&gt; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (def !=3D data)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_PCIE=
-(smnPCIE_CI_CNTL, data);<br>
-&gt;&gt; +<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.r=
-eg_offset =3D SOC15_REG_OFFSET(NBIO, 0,<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) &lt;&lt; 2;<br>
-&gt;&gt; &nbsp; }<br>
-&gt;&gt; &nbsp; &nbsp; static void nbio_v6_1_program_ltr(struct amdgpu_devi=
-ce *adev)<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-&gt;&gt; index 3c00666a13e1..37a4039fdfc5 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-&gt;&gt; @@ -273,7 +273,9 @@ const struct nbio_hdp_flush_reg<br>
-&gt;&gt; nbio_v7_0_hdp_flush_reg =3D {<br>
-&gt;&gt; &nbsp; &nbsp; static void nbio_v7_0_init_registers(struct amdgpu_d=
-evice *adev)<br>
-&gt;&gt; &nbsp; {<br>
-&gt;&gt; -<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.r=
-eg_offset =3D<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; SOC15_REG_OFFSET(NBIO, 0,<br>
-&gt;&gt; mmHDP_MEM_COHERENCY_FLUSH_CNTL) &lt;&lt; 2;<br>
-&gt;&gt; &nbsp; }<br>
-&gt;&gt; &nbsp; &nbsp; const struct amdgpu_nbio_funcs nbio_v7_0_funcs =3D {=
-<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c<br>
-&gt;&gt; index 8f2a315e7c73..3444332ea110 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c<br>
-&gt;&gt; @@ -371,6 +371,10 @@ static void nbio_v7_2_init_registers(struct<b=
-r>
-&gt;&gt; amdgpu_device *adev)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (def !=
-=3D data)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0,<br>
-&gt;&gt; regPCIE_CONFIG_CNTL), data);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; +<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.r=
-eg_offset =3D SOC15_REG_OFFSET(NBIO, 0,<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) &lt;&lt; 2;<br>
-&gt;&gt; &nbsp; }<br>
-&gt;&gt; &nbsp; &nbsp; const struct amdgpu_nbio_funcs nbio_v7_2_funcs =3D {=
-<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-&gt;&gt; index b8bd03d16dba..e96516d3fd45 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-&gt;&gt; @@ -362,7 +362,9 @@ const struct nbio_hdp_flush_reg<br>
-&gt;&gt; nbio_v7_4_hdp_flush_reg_ald =3D {<br>
-&gt;&gt; &nbsp; &nbsp; static void nbio_v7_4_init_registers(struct amdgpu_d=
-evice *adev)<br>
-&gt;&gt; &nbsp; {<br>
-&gt;&gt; -<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.r=
-eg_offset =3D SOC15_REG_OFFSET(NBIO, 0,<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) &lt;&lt; 2;<br>
-&gt;&gt; &nbsp; }<br>
-&gt;&gt; &nbsp; &nbsp; static void<br>
-&gt;&gt; nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_devi=
-ce<br>
-&gt;&gt; *adev)<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-&gt;&gt; index febc903adf58..7088528079c6 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-&gt;&gt; @@ -730,8 +730,10 @@ static int nv_common_early_init(void *handle)=
-<br>
-&gt;&gt; &nbsp; #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (str=
-uct amdgpu_device *)handle;<br>
-&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.reg_offset =3D MMI=
-O_REG_HOLE_OFFSET;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.bus_addr =3D adev-&gt;rmm=
-io_base +<br>
-&gt;&gt; MMIO_REG_HOLE_OFFSET;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.r=
-eg_offset =3D MMIO_REG_HOLE_OFFSET;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.b=
-us_addr =3D adev-&gt;rmmio_base +<br>
-&gt;&gt; MMIO_REG_HOLE_OFFSET;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;smc_rreg =3D NULL;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;smc_wreg =3D NULL;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pcie_rreg =3D &amp;nv_pcie=
-_rreg;<br>
-&gt;&gt; @@ -1031,7 +1033,7 @@ static int nv_common_hw_init(void *handle)<b=
-r>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for the purpose of expose t=
-hose registers<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to process space<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs-&gt;remap_hdp_register=
-s)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs-&gt;remap_hdp_register=
-s &amp;&amp;<br>
-&gt;&gt; !amdgpu_sriov_vf(adev))<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nb=
-io.funcs-&gt;remap_hdp_registers(adev);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable the doorbell aperture */<=
-br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nv_enable_doorbell_aperture(adev, t=
-rue);<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt;&gt; index 0c316a2d42ed..de9b55383e9f 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt;&gt; @@ -971,8 +971,10 @@ static int soc15_common_early_init(void *hand=
-le)<br>
-&gt;&gt; &nbsp; #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (str=
-uct amdgpu_device *)handle;<br>
-&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.reg_offset =3D MMI=
-O_REG_HOLE_OFFSET;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.bus_addr =3D adev-&gt;rmm=
-io_base +<br>
-&gt;&gt; MMIO_REG_HOLE_OFFSET;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.r=
-eg_offset =3D MMIO_REG_HOLE_OFFSET;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio_remap.b=
-us_addr =3D adev-&gt;rmmio_base +<br>
-&gt;&gt; MMIO_REG_HOLE_OFFSET;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;smc_rreg =3D NULL;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;smc_wreg =3D NULL;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pcie_rreg =3D &amp;soc15_p=
-cie_rreg;<br>
-&gt;&gt; @@ -1285,7 +1287,7 @@ static int soc15_common_hw_init(void *handle=
-)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for the purpose of expose t=
-hose registers<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to process space<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs-&gt;remap_hdp_register=
-s)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs-&gt;remap_hdp_register=
-s &amp;&amp;<br>
-&gt;&gt; !amdgpu_sriov_vf(adev))<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nb=
-io.funcs-&gt;remap_hdp_registers(adev);<br>
-&gt;&gt; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable the doorbell apert=
-ure */<br>
-&gt;&gt;<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB39307C2E18445AA344F9930F97939DM6PR12MB3930namp_--
+>  			return false;
+>  
+>  		if (dev->noretry)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 77239b06b236..88360f23eb61 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1051,8 +1051,8 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange,
+>  	if (domain == SVM_RANGE_VRAM_DOMAIN)
+>  		bo_adev = amdgpu_ttm_adev(prange->svm_bo->bo->tbo.bdev);
+>  
+> -	switch (adev->asic_type) {
+> -	case CHIP_ARCTURUS:
+> +	switch (KFD_GC_VERSION(adev->kfd.dev)) {
+> +	case IP_VERSION(9, 4, 1):
+>  		if (domain == SVM_RANGE_VRAM_DOMAIN) {
+>  			if (bo_adev == adev) {
+>  				mapping_flags |= coherent ?
+> @@ -1068,7 +1068,7 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange,
+>  				AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
+>  		}
+>  		break;
+> -	case CHIP_ALDEBARAN:
+> +	case IP_VERSION(9, 4, 2):
+>  		if (domain == SVM_RANGE_VRAM_DOMAIN) {
+>  			if (bo_adev == adev) {
+>  				mapping_flags |= coherent ?
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index a4c0c929444a..641e250dc95f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1239,7 +1239,7 @@ static void kfd_set_iolink_non_coherent(struct kfd_topology_device *to_dev,
+>  		 */
+>  		if (inbound_link->iolink_type == CRAT_IOLINK_TYPE_PCIEXPRESS ||
+>  		    (inbound_link->iolink_type == CRAT_IOLINK_TYPE_XGMI &&
+> -		    to_dev->gpu->device_info->asic_family == CHIP_VEGA20)) {
+> +		    KFD_GC_VERSION(to_dev->gpu) == IP_VERSION(9, 4, 0))) {
+>  			outbound_link->flags |= CRAT_IOLINK_FLAGS_NON_COHERENT;
+>  			inbound_link->flags |= CRAT_IOLINK_FLAGS_NON_COHERENT;
+>  		}
+> @@ -1463,7 +1463,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>  		((dev->gpu->adev->ras_enabled & BIT(AMDGPU_RAS_BLOCK__UMC)) != 0) ?
+>  		HSA_CAP_MEM_EDCSUPPORTED : 0;
+>  
+> -	if (dev->gpu->adev->asic_type != CHIP_VEGA10)
+> +	if (KFD_GC_VERSION(dev->gpu) != IP_VERSION(9, 0, 1))
+>  		dev->node_props.capability |= (dev->gpu->adev->ras_enabled != 0) ?
+>  			HSA_CAP_RASEVENTNOTIFY : 0;
+>  
