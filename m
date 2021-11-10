@@ -2,139 +2,127 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AB14C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:46:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3291BC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 17:31:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 601FF61241
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 16:46:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 601FF61241
+	by mail.kernel.org (Postfix) with ESMTPS id ECF5B60F70
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 17:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ECF5B60F70
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D3986EB6E;
-	Wed, 10 Nov 2021 16:46:42 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EADF86EB6E
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 16:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 668896EA37;
+	Wed, 10 Nov 2021 17:31:18 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B816EA37
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 17:31:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j5AxBpQx6RjsHXrRJwhHfKh+IuOPpBPzfaN3vHQ9VnHy0hzkmNyEtd1xq+b8PtsJmcgpKrSXBr4zedFEn7BsUmIKk/rbmyLH+HYw0wMDOfLeMqFPdnM5WHvxoqQDCNMX3u09ss/MlwblyA//ik7pXTponZ4bJQis/Q/6zHTxYDDxeVNjLzrRerWxCVs0czFnNmJ2FR67fwGFyq5sLWPSCLEMJD2dR5bxhe3O6VEkHvOl8ZHTgBRtHSRmgIAZQrJPhsggNWQMEjI0rpKOSZsbLcWN9LXR/FRRitHtvrxXbYIz7GH1noXg8r5NP5LdAakdpIImY4j16JnFjgrcjobINw==
+ b=Z2iwj++ilMV4MfHjqaMNiW2QytteJszZfrcX1Juj098+mhOgLSZQegYiStro1ErHoGeiWIWqOMSXkTp4p0rAb2mEDpcOg6oNAcA+ijUttz1roXjt+mTVAvjBc5rGQfBXvGQj8nrNwg38rYN4wHysdB3dV+J34v6GRS/EHuNIbjZ/NLaOc0OEwNYMDZDP81+a8R7X4jBPym6SlW3CC+hOzYAatOZ9fGWYWTFJnR3/lQn92YmSIMr81uaucZuZdUr945FSL+IGr/E9Wfr+jMiu4sjYLzwzCPlbSkwoMAv81Yg69t7qCz6h4AgjIjIpXX/Ip2JJYGBkVI1Qb7xV/TgD6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vf9f2nOiQBRPMpFwvxPHBQ8RxWyybzXK+cK6nHKVqjg=;
- b=hjIrGjBdjesmmFumG/YfOwhsLv6rGSbvn41ZKKbCK+nNrC0+qqYB1AFpyd+gWksXEOpUlH0+DbxezsrkMhJdzPC/Ue8TtyyFMXL3/QYhrQetXJ69JThplGjLoUMi8emH46sNm33eQnFIvrd7/lgu2jRH0v5Wvp3KOZHIw+l63H1Z0nOiCK916EWEgvmp/ruqnnTxmxEkfDLTb8X84GbR2YLPIbGrBmnhut3Ga+EejLKMiAkTEEAMRTqrNs1b+t3pIQv1ZfMV2zWmlY7P+lPRlorAUrHzohL7w7ev0LK4uKoaUIdQj1pUC3NwStcEb+XASvZC+/S7gouqvGu1zVeflA==
+ bh=bbvpkbu0VYt8wyvtqkXJ1ioowzZoPERSSEEj8OxdDc4=;
+ b=iMMw+Bt3w0H/mK1ZK7mEWW0zhVOS+lKcg9/8nFs9XtH2q1ffGNsLolW6zj2NxNQOYCUcZmVzCHoOGBlguZoXob4y7pmIkLu3AqBBhHncNO6DoVyJGCvMgSglnoq/+INUdDtbMyv72Ur+nIsmtNGjIJ7ekn/ldc9S8xFopmBL2g4zX28okTac/v20dUUv5sPa2EZDZXR8yaYncPcQdJm9Gt7SGlmBRn7ZlZknStDJ4l4I5koWXrjLZWQUe2+DSKmhPX5SDtBd9BGqm4u8DZMrsaPrzCgYX8qUWP9NkjrBIwiGjUyS4nwIHbTPXC6ub2mshBD0UVyZH1U5tQea8xI1QA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vf9f2nOiQBRPMpFwvxPHBQ8RxWyybzXK+cK6nHKVqjg=;
- b=mmpmURQnUVPEBUV7Pw7oVBnB3HM8EX7lRpK7zCNRJG1KyzztaipHnwO8CPWd6zLD2fXfE0ZeqJbl+xSi/W7YzlN48Y9TjB/Ef1HCFeLrdXA/A7I/cvAWm1KpMKP33Jb32EsCuIzhF47DnaE17/meoeLwcv12TiweBhsyOBXgELc=
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
- by DM6PR12MB4316.namprd12.prod.outlook.com (2603:10b6:5:21a::18) with
+ bh=bbvpkbu0VYt8wyvtqkXJ1ioowzZoPERSSEEj8OxdDc4=;
+ b=KA/f4oNGePLsWoob8WVNnRmL9iJcF1mxMA5T1JtKVbQ+zPWBpHB5MWAhA5N5A11LD+f8GgbgeKdnYkGbw79YfCk3hppHHhY6zCPTyu6IYMgyQ2CPayMFv/rgKx8waYo5Jy7EjDO7qK0zBSHfw1ULM8zEkX/eFAu4mVAowOQyvW0=
+Received: from SA0PR12MB4510.namprd12.prod.outlook.com (2603:10b6:806:94::8)
+ by SN6PR12MB2687.namprd12.prod.outlook.com (2603:10b6:805:73::26) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Wed, 10 Nov
- 2021 16:46:38 +0000
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::95ab:4ece:7f8e:6e6f]) by DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::95ab:4ece:7f8e:6e6f%2]) with mapi id 15.20.4649.020; Wed, 10 Nov 2021
- 16:46:38 +0000
-From: "Sider, Graham" <Graham.Sider@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2 3/3] drm/amdkfd: convert misc checks to IP version
- checking
-Thread-Topic: [PATCH v2 3/3] drm/amdkfd: convert misc checks to IP version
- checking
-Thread-Index: AQHX1bs8Fem/L/4KiU2zT63VRe7utqv88p2AgAAFMGA=
-Date: Wed, 10 Nov 2021 16:46:38 +0000
-Message-ID: <DM6PR12MB30674FE72278A2191D8C39778A939@DM6PR12MB3067.namprd12.prod.outlook.com>
-References: <20211109224251.3484398-1-Graham.Sider@amd.com>
- <20211109224251.3484398-3-Graham.Sider@amd.com>
- <c253d597-aa8f-dfed-8a54-2986eeb4c205@amd.com>
-In-Reply-To: <c253d597-aa8f-dfed-8a54-2986eeb4c205@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.15; Wed, 10 Nov
+ 2021 17:31:15 +0000
+Received: from SA0PR12MB4510.namprd12.prod.outlook.com
+ ([fe80::7cbc:2454:74b9:f4ea]) by SA0PR12MB4510.namprd12.prod.outlook.com
+ ([fe80::7cbc:2454:74b9:f4ea%7]) with mapi id 15.20.4669.016; Wed, 10 Nov 2021
+ 17:31:15 +0000
+From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [RFC 2/2] drm/amd/pm: Add support for reacting to platform
+ profile notification
+Thread-Topic: [RFC 2/2] drm/amd/pm: Add support for reacting to platform
+ profile notification
+Thread-Index: AQHX1fuIO9/BQCsWxkeg1QIbxGmYD6v83zWAgAAOR4CAABX6sA==
+Date: Wed, 10 Nov 2021 17:31:15 +0000
+Message-ID: <SA0PR12MB4510F4D9040A7EDA54FC73A8E2939@SA0PR12MB4510.namprd12.prod.outlook.com>
+References: <20211110062343.10041-1-mario.limonciello@amd.com>
+ <20211110062343.10041-3-mario.limonciello@amd.com>
+ <CADnq5_MGbOh_Xbg6y4hH6qrSok_YKMj0c4Ma6ZKAE835cm2-hw@mail.gmail.com>
+ <DM6PR12MB39300185FB03556E914290C297939@DM6PR12MB3930.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB39300185FB03556E914290C297939@DM6PR12MB3930.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-10T16:46:34Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=f39e0570-6690-43a5-8044-e74948c82612;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-11-10T17:29:49Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2c12e09c-ca96-4182-28d1-08d9a469aa45
-x-ms-traffictypediagnostic: DM6PR12MB4316:
-x-microsoft-antispam-prvs: <DM6PR12MB4316C5FA3ACE2912B84A62278A939@DM6PR12MB4316.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-office365-filtering-correlation-id: 61b37896-8d81-44db-43b2-08d9a46fe5e8
+x-ms-traffictypediagnostic: SN6PR12MB2687:
+x-microsoft-antispam-prvs: <SN6PR12MB26874C2CA3E974EB60DADA2BE2939@SN6PR12MB2687.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: w+iG6mmWJjoqlVkhMKxsJUE0XEeLlbulFmXeKf6+zUQwMQpnt8VwMrxQybQKAXSe1RLdXEuUcsVSCVbgG8MLr0U4x7n1Ui4UkwEdEUZrYnMYGuR7z/ZGBnTuDhNvd+01M8RrAfRVY0cY09SJtnC/2X3YBgzfvAmqjlhpnnuRHBPvEDJba1JXsRw8PMJzXsWVRMzprEXJ0BagZ+OsYcnmn7H5TWAI67c6aKBLWxSRgrvBVK2lCDM4HvBEtIbYetSyrSF/QQSXeWGDRLJTOuG+pgqm7QB1oLw9KXpGSWzKzm5Fabt/UrbLomW8HNAoQ+9qcRzpLYgXBkfBRO6JjqTyLUCVImOYUm0NGR851UNHWiH/kgZd2XTnyWHm1jdW0t+EcYU/bhdq2We6wcsOyJuoLRpqmcseFS8j8bzVIrKYYhPig0poW0y+fQaLR12jQfL/Ah7tmMmyk85MD1a8gm5CF/t0LqR3tK/LiPH1oX8oVN+6ruzKVZvNk7SERr9wHxSCzZpibJ6x4cWNMujdVhJDTdObGHsG2welk7Y9nZfJaqkzeyOKHAnx41P3ScbHd2g41y+MhYtNO8+WQ2qvFZ3/OEtOk0NgU0tLkpPtcIN+w1x4miZwaaK2w9R5KqPyXZFto1wmv04JTfV45SHIpFJcLDGzxWlcMedNp4cudMr0WZbQ/au1tXj2LBqyu/gjv3CMlfr80HTwAXl9snUly9szvw==
+x-microsoft-antispam-message-info: uYaQz8csobpE+zzycuRZRZ6dAx6LY3eCj8dcg5y/h3IMxpO0AY8hyXxiO29hXN1ovt83mGWExJVR6RopXnerytWIXRs13LCD3lfnyKTvukB+erB4h0Dll7GwH1M09dZqdPzgr7isg2En9hcJEy7prNdG3udkOyznFB2B8mNjeKjnyrHfHPVL9d6duW1sfAErptrZsPXaMd6WhMy3UgezGi0qmkcT/ghqL2Y/7Nm+L/htpXQtW+s3fkum3uMUTInj7ZsdmDLtad+DVMaZ/p811yemSuwcosFED4MBBele63KbDlu+msbuEObYQ9svbgklLjaRVa68tBHjbK7knyjom1f7tF0vv8O2f79zIRSVmWUUt630AftDH/fsQ95GzvuTjkFukRpcNxBB0sGr//Z3+FgwSsHz4gzw0Lm2eUuuer7aO1AddKzj17FoFti0/dj/BrhOk8VriugzJNmOetiXS1gFcp4bd8pUy4WkUVH11lkTYBGxpt2iXKV+Ak3JOqXsD23dviUj+gJwl+9NVRx4vtAebv5VluBoT85/xirQhcvICl92iF+n46M5XwqKLZDDu0A6961hraZtCnTqwZaQhRnL0Y9M4Oi+J56Q+u1THlRCxXLxcFfj3aJvwLrqs8lroapN2K968bcDyM7SQbxzaWuoEXu5aFfRbJ4ip8rSay1EcXtv1zCt6CSfCf8F/Xgmbb5u4wtztpxa1rXfkwwC6Q==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8676002)(55016002)(2906002)(83380400001)(38100700002)(33656002)(6506007)(66476007)(508600001)(8936002)(5660300002)(7696005)(66556008)(4326008)(30864003)(186003)(76116006)(66946007)(66446008)(64756008)(52536014)(316002)(71200400001)(110136005)(38070700005)(86362001)(122000001)(9686003);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4510.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(83380400001)(2906002)(15650500001)(4326008)(66556008)(508600001)(6506007)(53546011)(5660300002)(26005)(66946007)(52536014)(64756008)(110136005)(316002)(76116006)(186003)(66476007)(7696005)(71200400001)(8676002)(86362001)(33656002)(8936002)(9686003)(38070700005)(55016002)(122000001)(38100700002)(66446008);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MXhuVGRFa1RSTGQ1UkxsMUFMUU01bmFiQVBZM0dLYW4vK0J2RFp1VytML2h4?=
- =?utf-8?B?UmNpYVdnazY2V0N3TzFQSEJPbnBEUFpGTDBNN3JHanZtZk5SZnIvUUZSbFpU?=
- =?utf-8?B?VkpDTk9qdTBCU3kwa1YvVG9qZFE1Y3pxTzVveGZNaFlLU2FpdzZOZFM3T29u?=
- =?utf-8?B?REpoQzQ4clF6ZjRoTHoreW96VjBEc3RxSUVzNTJwSXNIU3ZLM0t2YzVnUGZq?=
- =?utf-8?B?aW10RGsyVS85MXFkZU9hWGpNZ0tkcjBSM1RmSTRFWUJBckxvOC9Zem5rYnpL?=
- =?utf-8?B?YkRiSm9ORVorNitYTXV2dndPUVhwbFdlTlQ5dlBlUWdFNVZwdE9hZ01zQkhE?=
- =?utf-8?B?RlJhMUtVaFZJbWdKV1NmMWdwZk5XSWNLZnlOeXV3TzlibjgvcU1qRVZsUmlD?=
- =?utf-8?B?djV6VXc2blRWa3d4c1RleU1PekwxYWRUSGVySHRFVUNTZ0tnWnBHQXlpNVY4?=
- =?utf-8?B?OUNTY0dvdnBmOEpqRlpwRmZqcEp4bExVNldDSmtXb094VkpCd2l5QktuMFlt?=
- =?utf-8?B?b21Td3MwQlBHcVhSWGlGV3VYZHEvbmFFb3pWWjY1MnR1WWlWR01rVzRxRHB4?=
- =?utf-8?B?NUdkd3JNdUJiRitsdVJROU4vK21iaTZncmUvRFhJeUFCYlJjTjl6MmNnSk9X?=
- =?utf-8?B?RVVkOTZDWm1oc1F3Y0htQlc3cjdRV29pTkJobSs0Tk1PQlBsclFJWlFkVzVr?=
- =?utf-8?B?VjBocUNpcVpYMnJRWkVnRm5tc09VaDl2bHBFbVRaZEpuNGk0YVFlb3VFd09r?=
- =?utf-8?B?eGF5L2tNTUFWUnBQcUdzTDZQY1lJVE40T0JtNStrZ3hnTUphbkxQeVpUSVdi?=
- =?utf-8?B?akRCdjdJWVlZc2MrYUFQZUJFUnFUcHhZeEsxS3Z2YnFTTkVmMG4zSDdJK1E5?=
- =?utf-8?B?SlQxZzRodGpTL3lCa3dMUXFsMEVOeFhBcFNWQU4wa1JHenByMGZSWi9meTBS?=
- =?utf-8?B?QUsrL0hPaUFMbjZCMmRNUzRla2JmcUFxdHRMT0xibCtQN2F3TTlPUElRVVdR?=
- =?utf-8?B?QnpPd3FkazkxMm9ha2RtQllCVm0wazRVUVBnTURlZUZNdGNWUXd2Wis4azhE?=
- =?utf-8?B?eHVrMzRyd1R5c09Qakc1KzRwTlQxTGtERlY2RVVROXBIMWlxY2RMeElLTGR3?=
- =?utf-8?B?WEUxNzc5dERUTFY0alpCQ0FMSlRIeFM5WG40RTgwbk1ZQUJmQnQrRzZGRFVa?=
- =?utf-8?B?dkNPbkwrL0thTTZndGVNNEVZQVJ1SWVJemR0Vk9xUTBXa3FGdzhxdElVNVFq?=
- =?utf-8?B?R2NobURGQ3dFUGljb1ZRajYybXlTbU40dUp3dFFrYnVqeGF4WnRDKy91a2tI?=
- =?utf-8?B?VWhremtqcW1WcG5zQy9keWZXQkJsMW4wdjliK0NlNlNia29maGlSNjdxa1Vk?=
- =?utf-8?B?RS81QktVYmtLYmE4S1JSZStBM1pEbTVNdFFSTTBhV1ZodjZVeW45em9uQ2lE?=
- =?utf-8?B?d0hQQVdsVWFMZmZPZks4akhBc3RQTVI4VFJCRFEzaS9kRmxJREJKS20rQUVo?=
- =?utf-8?B?ME5hUWlWQVF2UktqQ2tmZTRuMnU1WVo1cWJBeXJqM2VtaGk4dDVJaU4wN2R4?=
- =?utf-8?B?aFdBcnlCZGFRN1FhTFpzMWJwYTB1OU80cU9MK3JOTnE3RFBmTVhVYVlvQzBM?=
- =?utf-8?B?Y21MaFViNFM1ZGF2REdFSmNGMm05dE9DUnpzT1pMck9vek9Pa0J5R2h0ckhU?=
- =?utf-8?B?QVEzWHk1N3hxRjJCVldLMUR6eEZpN2dEdXA5MjlFRlorUlpsWVE2alFNVE9t?=
- =?utf-8?B?OVZ5MGpBZWE4MmxMS1VlMTR4RHJLcXdDTDh2TjdhUmJCTDBtTWNQME5RSTVC?=
- =?utf-8?B?MHNyT0ZkTDZrL1NERHBmREltcnAzYzBJd1JJQkhDbXdmN3JRa0lPOTFNSktV?=
- =?utf-8?B?cmpBQU9RWjdZdWRXeHlVaVVFbUlWTGgxZ1hTZFNzVU1mQlZ1TXBSQTBzK1kr?=
- =?utf-8?B?ZWRqb0VweWdBblMwTFFOYVJrN3NjWmtVd2wyYyt5SWZyL0ZheVZjb2RVOTRs?=
- =?utf-8?B?VHhqVlpaankzbCttSDdRN3ErYlpZcUEza3FPSDRiL080MVROcG4xem1kRHY5?=
- =?utf-8?B?Z3VWSnJtUjRubXhiTkVRcElKL0RZWnpTY0xwUzlLSnBXeWtLSHkwZ3R2elJu?=
- =?utf-8?B?cTlnSERHNXdtQTZ0MVdTNS9jbWphTjJ6bDE2OGZ6V2dSQmxwQWovQWh6Zy8x?=
- =?utf-8?B?MUlXVXM4TFBoazFZa00yVXd2VWtWcGZ1ZllmamxNNnd6d2gxUXZqZTRHTCth?=
- =?utf-8?Q?MyFRkNKvUDM0G33SBbWhq1gp5FcvYqyLyjsDPHKMZ0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?W2Xr4bqi/TPBllL7a3J1EF1txy008eNchj7GJoJUq4JKRdnvR1P0w4edjahh?=
+ =?us-ascii?Q?iJr5jR4oXdsDhEZtmqYWoP/jkzuYqsukgbCW5HzIaygixXNLL73zEWkO0eGq?=
+ =?us-ascii?Q?tFn8eUJDXIQ3VXi6O++HPllLzI5MVmmlFph6ySrqqUJnaMaI4akJ3bYYtzhv?=
+ =?us-ascii?Q?GGatktQUbgPsppCgQN6TEG2XhsAUOGglUnLIflorZ+NQniR17hsWOKTzyMHE?=
+ =?us-ascii?Q?8Eo16FzqG1y9CLyEQi6QJhNg2Z7n2VVKAmgxsYK1LsxPJZkTwlIZ+G52Akbo?=
+ =?us-ascii?Q?iIveFXkUplU9NCBStoKOTRf9nAiEWC0Ul8ufLlwNDUOA3j8Ce4/BMAEjhiMT?=
+ =?us-ascii?Q?1Ov1WqJi2OXvTGqQko1alSqvNNTuuKny3bdsV8dXrZ1A/ju34wbFU77MxIHo?=
+ =?us-ascii?Q?8RNwZyXd7svUUGYDfxnixKY3FLvQKUSMEkTRhFX4NbFVRDzdSD8/dlfsi9pR?=
+ =?us-ascii?Q?i34aFRPXl/Yr9wJ8hBI2O1XcFs2S87KcRI81O6Ut4e4ok1uVjKPVsFEl/NO3?=
+ =?us-ascii?Q?FCAKItUTfNtdhds72puimDzCq5VHyzJzDsyk0Rr37ysqNsqzbyGIFCTSQ+cC?=
+ =?us-ascii?Q?ToFEk+VRyvEs/GxAybXmV5AA3DUZAzgXwh05UANNOeAIJgoLw5NXWyImZ6C/?=
+ =?us-ascii?Q?76u/NQLvnQhIH/sO9PHmxPmnxhgx00Ry2Gh58oJ7c4SoqKTF8qXlXazP2fgp?=
+ =?us-ascii?Q?UpHWckeYLvNSDXaLHefcOjKCBgOrcWpkC2bb1Nek6rSnXy0W+Z3cymgKJSmC?=
+ =?us-ascii?Q?Gfv0HNLRJTrA6VjwljkiyNsiwavMv+SyWltFCzwZWu/OU2Wpa1rzsPMMpfJb?=
+ =?us-ascii?Q?NLcGdzltIoDE6Qx+i4KPjkPVQGoQswr50FOGXW0WRPrcsPPP99PiZIzPk1+v?=
+ =?us-ascii?Q?IRgFhscl3fh5MEXFYZ0K6UAC/pCmme9KnfptBzLuCtoRJgsK5uW5iYJiloUl?=
+ =?us-ascii?Q?L+MVC3ZIN/Hyy6cJHjcyeqMAQ3uSQ3GEK4qKvnwmtTzlQLVIXKzBdbJXEvCb?=
+ =?us-ascii?Q?ts9Pys5mQJAgLQ7N5vUBf0BERzZcIVoXelXNBnu0Mgw6Xa27F98eEfWjuJcf?=
+ =?us-ascii?Q?Gyd0RCFHlXKfctQcHPUkmF4X445pK2mTEB9cfONNqaDzUIkLDzvRyjfDDklm?=
+ =?us-ascii?Q?kBmmLIqztvc85IFnpQxr3YRB4ptVb7dWH1S0DFt0tS5BNtDbYWiP0CbVmuDX?=
+ =?us-ascii?Q?robXr86vx1MyXLVqSk0LnLin7RHMAccGT6r+wyGElZJP+T0TF9oCRJ2JKlGO?=
+ =?us-ascii?Q?FjwnK1Esy3MhGkP48vFJMEdTHXutBYCGL/iiy6L7TOfAR05PqogFEFheiM3B?=
+ =?us-ascii?Q?zNYT7O0Xts7joKodLQRuWRZINRxNCkHvroa9jHvAMJhaxTdNMd1NYLdT2pK3?=
+ =?us-ascii?Q?/gZC1FL9TE2Za9+QaT8EczN9ZEab9V6tsmjkXXcujcXKp18GhAFCzbfClrR/?=
+ =?us-ascii?Q?NWsOTpcSs2r1t+F5/lkITKHDD7JQ7+zb5CrVXdmrXGZUoxB/cUoBGEYD300G?=
+ =?us-ascii?Q?lBmBqNnwlkQ/P838PeBrl5/4JjIZJt/68r42gKFJIvAlZyHrrjWULsjGJ1GG?=
+ =?us-ascii?Q?0mLmMxom1cwF4efjNediiVEIob/CsWUZZa7khJ1eQz2850YB/tzThyx6+qoo?=
+ =?us-ascii?Q?1fxHOgpWKsIxqa60fVvwV7c=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SA0PR12MB4510F4D9040A7EDA54FC73A8E2939SA0PR12MB4510namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c12e09c-ca96-4182-28d1-08d9a469aa45
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2021 16:46:38.3766 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4510.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61b37896-8d81-44db-43b2-08d9a46fe5e8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2021 17:31:15.4259 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +ezDV8cO3873ESnOpH2ODgohv9P/xPag6x63K2hmNB9vddcDmcRGsfHCYFWZQjmyXbYU38jz1GyNMCJ6LLxO3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4316
+X-MS-Exchange-CrossTenant-userprincipalname: UyMFM2EU5FZ8MT2LrazbZsAgOyywMlZ7eJkO+9B9bWsNhh4o+SQNjthReI/ckJcA/8fMCxBCUztpZhJsron1SA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2687
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,241 +134,841 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KPiBBbSAyMDIxLTExLTA5IHVtIDU6NDIgcC5tLiBz
-Y2hyaWViIEdyYWhhbSBTaWRlcjoNCj4gPiBTd2l0Y2ggdG8gSVAgdmVyc2lvbiBjaGVja2luZyBp
-bnN0ZWFkIG9mIGFzaWNfdHlwZSBvbiB2YXJpb3VzIEtGRA0KPiA+IHZlcnNpb24gY2hlY2tzLg0K
-PiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogR3JhaGFtIFNpZGVyIDxHcmFoYW0uU2lkZXJAYW1kLmNv
-bT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYu
-YyAgICAgIHwgIDIgKy0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQu
-YyAgICAgICAgIHwgIDIgKy0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rl
-dmljZS5jICAgICAgIHwgMjcgKysrKysrKysrKy0tLS0tLS0tLQ0KPiA+ICAuLi4vZHJtL2FtZC9h
-bWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMgfCAgMyArLS0NCj4gPiAuLi4vYW1kL2Ft
-ZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXJfdjkuYyAgfCAgMiArLQ0KPiA+ICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZXZlbnRzLmMgICAgICAgfCAgNiArKystLQ0KPiA+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0ZS5jICAgICAgfCAgMiArLQ0KPiA+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jICAgICAgfCAgNyArKyst
-LQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMgICAgICAgICAgfCAg
-NiArKy0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYyAg
-ICAgfCAgNCArLS0NCj4gPiAgMTAgZmlsZXMgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMzAg
-ZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX2NoYXJkZXYuYw0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2NoYXJkZXYuYw0KPiA+IGluZGV4IDI0NjZhNzNiOGM3ZC4uZjcwMTE3YjAwYjE0IDEwMDY0NA0K
-PiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMNCj4gPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQo+ID4gQEAgLTE2
-MDMsNyArMTYwMyw3IEBAIHN0YXRpYyBpbnQNCj4ga2ZkX2lvY3RsX3VubWFwX21lbW9yeV9mcm9t
-X2dwdShzdHJ1Y3QgZmlsZSAqZmlsZXAsDQo+ID4gIAl9DQo+ID4gIAltdXRleF91bmxvY2soJnAt
-Pm11dGV4KTsNCj4gPg0KPiA+IC0JaWYgKGRldi0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5ID09
-IENISVBfQUxERUJBUkFOKSB7DQo+ID4gKwlpZiAoS0ZEX0dDX1ZFUlNJT04oZGV2KSA9PSBJUF9W
-RVJTSU9OKDksIDQsIDIpKSB7DQo+ID4gIAkJZXJyID0gYW1kZ3B1X2FtZGtmZF9ncHV2bV9zeW5j
-X21lbW9yeShkZXYtPmFkZXYsDQo+ID4gIAkJCQkoc3RydWN0IGtnZF9tZW0gKikgbWVtLCB0cnVl
-KTsNCj4gPiAgCQlpZiAoZXJyKSB7DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL2tmZF9jcmF0LmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9jcmF0LmMNCj4gPiBpbmRleCAxOWRkNDcyZTliMDYuLmI2ZDg4N2VkYWM4NSAxMDA2NDQNCj4g
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jDQo+ID4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuYw0KPiA+IEBAIC0xOTkyLDcgKzE5
-OTIsNyBAQCBzdGF0aWMgaW50IGtmZF9maWxsX2dwdV9kaXJlY3RfaW9fbGlua190b19jcHUoaW50
-DQo+ICphdmFpbF9zaXplLA0KPiA+ICAJCXN1Yl90eXBlX2hkci0+ZmxhZ3MgfD0NCj4gQ1JBVF9J
-T0xJTktfRkxBR1NfQklfRElSRUNUSU9OQUw7DQo+ID4gIAkJc3ViX3R5cGVfaGRyLT5pb19pbnRl
-cmZhY2VfdHlwZSA9DQo+IENSQVRfSU9MSU5LX1RZUEVfWEdNSTsNCj4gPiAgCQlzdWJfdHlwZV9o
-ZHItPm51bV9ob3BzX3hnbWkgPSAxOw0KPiA+IC0JCWlmIChrZGV2LT5hZGV2LT5hc2ljX3R5cGUg
-PT0gQ0hJUF9BTERFQkFSQU4pIHsNCj4gPiArCQlpZiAoS0ZEX0dDX1ZFUlNJT04oa2RldikgPT0g
-SVBfVkVSU0lPTig5LCA0LCAyKSkgew0KPiA+ICAJCQlzdWJfdHlwZV9oZHItPm1pbmltdW1fYmFu
-ZHdpZHRoX21icyA9DQo+ID4NCj4gCWFtZGdwdV9hbWRrZmRfZ2V0X3hnbWlfYmFuZHdpZHRoX21i
-eXRlcygNCj4gPiAgCQkJCQkJCWtkZXYtPmFkZXYsIE5VTEwsDQo+IHRydWUpOw0KPiA+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMNCj4gPiBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYw0KPiA+IGluZGV4IGVlODEzYmQ1
-N2M5Mi4uNTk0ZGQyOGEzOTFmIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9kZXZpY2UuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9kZXZpY2UuYw0KPiA+IEBAIC04NDgsMjMgKzg0OCwyMyBAQCBzdHJ1Y3Qga2ZkX2RldiAq
-a2dkMmtmZF9wcm9iZShzdHJ1Y3QNCj4gPiBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIHZmKSAg
-c3RhdGljIHZvaWQga2ZkX2N3c3JfaW5pdChzdHJ1Y3QNCj4gPiBrZmRfZGV2ICprZmQpICB7DQo+
-ID4gIAlpZiAoY3dzcl9lbmFibGUgJiYga2ZkLT5kZXZpY2VfaW5mby0+c3VwcG9ydHNfY3dzcikg
-ew0KPiA+IC0JCWlmIChrZmQtPmRldmljZV9pbmZvLT5hc2ljX2ZhbWlseSA8IENISVBfVkVHQTEw
-KSB7DQo+ID4gKwkJaWYgKEtGRF9HQ19WRVJTSU9OKGtmZCkgPCBJUF9WRVJTSU9OKDksIDAsIDEp
-KSB7DQo+ID4gIAkJCUJVSUxEX0JVR19PTihzaXplb2YoY3dzcl90cmFwX2dmeDhfaGV4KSA+DQo+
-IFBBR0VfU0laRSk7DQo+ID4gIAkJCWtmZC0+Y3dzcl9pc2EgPSBjd3NyX3RyYXBfZ2Z4OF9oZXg7
-DQo+ID4gIAkJCWtmZC0+Y3dzcl9pc2Ffc2l6ZSA9IHNpemVvZihjd3NyX3RyYXBfZ2Z4OF9oZXgp
-Ow0KPiA+IC0JCX0gZWxzZSBpZiAoa2ZkLT5kZXZpY2VfaW5mby0+YXNpY19mYW1pbHkgPT0gQ0hJ
-UF9BUkNUVVJVUykNCj4gew0KPiA+ICsJCX0gZWxzZSBpZiAoS0ZEX0dDX1ZFUlNJT04oa2ZkKSA9
-PSBJUF9WRVJTSU9OKDksIDQsIDEpKSB7DQo+ID4gIAkJCUJVSUxEX0JVR19PTihzaXplb2YoY3dz
-cl90cmFwX2FyY3R1cnVzX2hleCkgPg0KPiBQQUdFX1NJWkUpOw0KPiA+ICAJCQlrZmQtPmN3c3Jf
-aXNhID0gY3dzcl90cmFwX2FyY3R1cnVzX2hleDsNCj4gPiAgCQkJa2ZkLT5jd3NyX2lzYV9zaXpl
-ID0NCj4gc2l6ZW9mKGN3c3JfdHJhcF9hcmN0dXJ1c19oZXgpOw0KPiA+IC0JCX0gZWxzZSBpZiAo
-a2ZkLT5kZXZpY2VfaW5mby0+YXNpY19mYW1pbHkgPT0NCj4gQ0hJUF9BTERFQkFSQU4pIHsNCj4g
-PiArCQl9IGVsc2UgaWYgKEtGRF9HQ19WRVJTSU9OKGtmZCkgPT0gSVBfVkVSU0lPTig5LCA0LCAy
-KSkgew0KPiA+ICAJCQlCVUlMRF9CVUdfT04oc2l6ZW9mKGN3c3JfdHJhcF9hbGRlYmFyYW5faGV4
-KSA+DQo+IFBBR0VfU0laRSk7DQo+ID4gIAkJCWtmZC0+Y3dzcl9pc2EgPSBjd3NyX3RyYXBfYWxk
-ZWJhcmFuX2hleDsNCj4gPiAgCQkJa2ZkLT5jd3NyX2lzYV9zaXplID0NCj4gc2l6ZW9mKGN3c3Jf
-dHJhcF9hbGRlYmFyYW5faGV4KTsNCj4gPiAtCQl9IGVsc2UgaWYgKGtmZC0+ZGV2aWNlX2luZm8t
-PmFzaWNfZmFtaWx5IDwgQ0hJUF9OQVZJMTApIHsNCj4gPiArCQl9IGVsc2UgaWYgKEtGRF9HQ19W
-RVJTSU9OKGtmZCkgPCBJUF9WRVJTSU9OKDEwLCAxLCAxKSkgew0KPiA+ICAJCQlCVUlMRF9CVUdf
-T04oc2l6ZW9mKGN3c3JfdHJhcF9nZng5X2hleCkgPg0KPiBQQUdFX1NJWkUpOw0KPiA+ICAJCQlr
-ZmQtPmN3c3JfaXNhID0gY3dzcl90cmFwX2dmeDlfaGV4Ow0KPiA+ICAJCQlrZmQtPmN3c3JfaXNh
-X3NpemUgPSBzaXplb2YoY3dzcl90cmFwX2dmeDlfaGV4KTsNCj4gPiAtCQl9IGVsc2UgaWYgKGtm
-ZC0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5IDwNCj4gQ0hJUF9TSUVOTkFfQ0lDSExJRCkgew0K
-PiA+ICsJCX0gZWxzZSBpZiAoS0ZEX0dDX1ZFUlNJT04oa2ZkKSA8IElQX1ZFUlNJT04oMTAsIDMs
-IDApKSB7DQo+ID4gIAkJCUJVSUxEX0JVR19PTihzaXplb2YoY3dzcl90cmFwX252MXhfaGV4KSA+
-DQo+IFBBR0VfU0laRSk7DQo+ID4gIAkJCWtmZC0+Y3dzcl9pc2EgPSBjd3NyX3RyYXBfbnYxeF9o
-ZXg7DQo+ID4gIAkJCWtmZC0+Y3dzcl9pc2Ffc2l6ZSA9IHNpemVvZihjd3NyX3RyYXBfbnYxeF9o
-ZXgpOw0KPiBAQCAtODg2LDE0DQo+ID4gKzg4NiwxNiBAQCBzdGF0aWMgaW50IGtmZF9nd3NfaW5p
-dChzdHJ1Y3Qga2ZkX2RldiAqa2ZkKQ0KPiA+ICAJCXJldHVybiAwOw0KPiA+DQo+ID4gIAlpZiAo
-aHdzX2d3c19zdXBwb3J0DQo+ID4gLQkJfHwgKGtmZC0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5
-ID09IENISVBfVkVHQTEwDQo+ID4gKwkJfHwgKEtGRF9HQ19WRVJTSU9OKGtmZCkgPT0gSVBfVkVS
-U0lPTig5LCAwLCAxKQ0KPiA+ICAJCQkmJiBrZmQtPm1lYzJfZndfdmVyc2lvbiA+PSAweDgxYjMp
-DQo+ID4gLQkJfHwgKGtmZC0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5ID49IENISVBfVkVHQTEy
-DQo+ID4gLQkJCSYmIGtmZC0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5IDw9IENISVBfUkFWRU4N
-Cj4gPiArCQl8fCAoKEtGRF9HQ19WRVJTSU9OKGtmZCkgPT0gSVBfVkVSU0lPTig5LCAyLCAxKQ0K
-PiA+ICsJCQl8fCBLRkRfR0NfVkVSU0lPTihrZmQpID09IElQX1ZFUlNJT04oOSwgNCwgMCkNCj4g
-PiArCQkJfHwgS0ZEX0dDX1ZFUlNJT04oa2ZkKSA9PSBJUF9WRVJTSU9OKDksIDEsIDApDQo+ID4g
-KwkJCXx8IEtGRF9HQ19WRVJTSU9OKGtmZCkgPT0gSVBfVkVSU0lPTig5LCAyLCAyKSkNCj4gDQo+
-IEkgdGhpbmsgdGhpcyBjb3VsZCBiZSBzaW1wbGlmaWVkIHRvIEtGRF9HQ19WRVJTSU9OKGtmZCkg
-PD0gSVBfVkVSU0lPTig5LCA0LA0KPiAwKSBpZiBpdCB3ZXJlbid0IGZvciBSZW5vaXIuIEkgd29u
-ZGVyIGlmIHRoZSBleGNsdXNpb24gb2YgUkVOT0lSIHdhcyBhbg0KPiBvdmVyc2lnaHQgaW4gdGhl
-IG9sZCBjb2RlIGR1ZSB0byB0aGUgd2VpcmQgb3JkZXJpbmcgb2YgdGhlIENISVBfLi4uDQo+IGVu
-dW1zLiBMZXQgbWUgc3RhcnQgYW4gaW50ZXJuYWwgZW1haWwgdGhyZWFkIHRvIGNvbmZpcm0uDQo+
-IA0KPiANCg0KVGhhdCB3b3VsZCBtYWtlIHNlbnNlLCBJIGFncmVlIHRoaXMgcGFydCBjYXVnaHQg
-bWUgYXMgYSBsaXR0bGUgc3RyYW5nZS0tc291bmRzIGdvb2QuDQoNCj4gPiAgCQkJJiYga2ZkLT5t
-ZWMyX2Z3X3ZlcnNpb24gPj0gMHgxYjMpDQo+ID4gLQkJfHwgKGtmZC0+ZGV2aWNlX2luZm8tPmFz
-aWNfZmFtaWx5ID09IENISVBfQVJDVFVSVVMNCj4gPiArCQl8fCAoS0ZEX0dDX1ZFUlNJT04oa2Zk
-KSA9PSBJUF9WRVJTSU9OKDksIDQsIDEpDQo+ID4gIAkJCSYmIGtmZC0+bWVjMl9md192ZXJzaW9u
-ID49IDB4MzApDQo+ID4gLQkJfHwgKGtmZC0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5ID09IENI
-SVBfQUxERUJBUkFODQo+ID4gKwkJfHwgKEtGRF9HQ19WRVJTSU9OKGtmZCkgPT0gSVBfVkVSU0lP
-Tig5LCA0LCAyKQ0KPiA+ICAJCQkmJiBrZmQtPm1lYzJfZndfdmVyc2lvbiA+PSAweDI4KSkNCj4g
-PiAgCQlyZXQgPSBhbWRncHVfYW1ka2ZkX2FsbG9jX2d3cyhrZmQtPmFkZXYsDQo+ID4gIAkJCQlr
-ZmQtPmFkZXYtPmdkcy5nd3Nfc2l6ZSwgJmtmZC0+Z3dzKTsgQEAgLQ0KPiA5NjIsMTAgKzk2NCw5
-IEBAIGJvb2wNCj4gPiBrZ2Qya2ZkX2RldmljZV9pbml0KHN0cnVjdCBrZmRfZGV2ICprZmQsDQo+
-ID4gIAkgKiBjYWxjdWxhdGUgbWF4IHNpemUgb2YgcnVubGlzdCBwYWNrZXQuDQo+ID4gIAkgKiBU
-aGVyZSBjYW4gYmUgb25seSAyIHBhY2tldHMgYXQgb25jZQ0KPiA+ICAJICovDQo+ID4gLQltYXBf
-cHJvY2Vzc19wYWNrZXRfc2l6ZSA9DQo+ID4gLQkJCWtmZC0+ZGV2aWNlX2luZm8tPmFzaWNfZmFt
-aWx5ID09IENISVBfQUxERUJBUkFODQo+ID8NCj4gPiArCW1hcF9wcm9jZXNzX3BhY2tldF9zaXpl
-ID0gS0ZEX0dDX1ZFUlNJT04oa2ZkKSA9PQ0KPiBJUF9WRVJTSU9OKDksIDQsIDIpID8NCj4gPiAg
-CQkJCXNpemVvZihzdHJ1Y3QNCj4gcG00X21lc19tYXBfcHJvY2Vzc19hbGRlYmFyYW4pIDoNCj4g
-PiAtCQkJCQlzaXplb2Yoc3RydWN0DQo+IHBtNF9tZXNfbWFwX3Byb2Nlc3MpOw0KPiA+ICsJCQkJ
-c2l6ZW9mKHN0cnVjdCBwbTRfbWVzX21hcF9wcm9jZXNzKTsNCj4gPiAgCXNpemUgKz0gKEtGRF9N
-QVhfTlVNX09GX1BST0NFU1NFUyAqDQo+IG1hcF9wcm9jZXNzX3BhY2tldF9zaXplICsNCj4gPiAg
-CQltYXhfbnVtX29mX3F1ZXVlc19wZXJfZGV2aWNlICogc2l6ZW9mKHN0cnVjdA0KPiBwbTRfbWVz
-X21hcF9xdWV1ZXMpDQo+ID4gIAkJKyBzaXplb2Yoc3RydWN0IHBtNF9tZXNfcnVubGlzdCkpICog
-MjsgZGlmZiAtLWdpdA0KPiA+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rldmlj
-ZV9xdWV1ZV9tYW5hZ2VyLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9k
-ZXZpY2VfcXVldWVfbWFuYWdlci5jDQo+ID4gaW5kZXggOTNkNDFlMGI5YjQxLi5jODk0Y2JlNThh
-MzYgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rldmlj
-ZV9xdWV1ZV9tYW5hZ2VyLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
-ZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYw0KPiA+IEBAIC0yNTAsOCArMjUwLDcgQEAgc3RhdGlj
-IGludCBhbGxvY2F0ZV92bWlkKHN0cnVjdA0KPiA+IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0s
-DQo+ID4NCj4gPiAgCXByb2dyYW1fc2hfbWVtX3NldHRpbmdzKGRxbSwgcXBkKTsNCj4gPg0KPiA+
-IC0JaWYgKGRxbS0+ZGV2LT5kZXZpY2VfaW5mby0+YXNpY19mYW1pbHkgPj0gQ0hJUF9WRUdBMTAg
-JiYNCj4gPiAtCSAgICBkcW0tPmRldi0+Y3dzcl9lbmFibGVkKQ0KPiA+ICsJaWYgKEtGRF9JU19T
-T0MxNShkcW0tPmRldikgJiYgZHFtLT5kZXYtPmN3c3JfZW5hYmxlZCkNCj4gPiAgCQlwcm9ncmFt
-X3RyYXBfaGFuZGxlcl9zZXR0aW5ncyhkcW0sIHFwZCk7DQo+ID4NCj4gPiAgCS8qIHFwZC0+cGFn
-ZV90YWJsZV9iYXNlIGlzIHNldCBlYXJsaWVyIHdoZW4gcmVnaXN0ZXJfcHJvY2VzcygpIGRpZmYN
-Cj4gPiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVf
-bWFuYWdlcl92OS5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNl
-X3F1ZXVlX21hbmFnZXJfdjkuYw0KPiA+IGluZGV4IGI1YzNkMTM2NDNmMS4uZjIwNDM0ZDk5ODBl
-IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Vf
-cXVldWVfbWFuYWdlcl92OS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-a2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyX3Y5LmMNCj4gPiBAQCAtNjIsNyArNjIsNyBAQCBzdGF0
-aWMgaW50IHVwZGF0ZV9xcGRfdjkoc3RydWN0DQo+IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0s
-DQo+ID4gIAkJCQlTSF9NRU1fQUxJR05NRU5UX01PREVfVU5BTElHTkVEDQo+IDw8DQo+ID4NCj4g
-CVNIX01FTV9DT05GSUdfX0FMSUdOTUVOVF9NT0RFX19TSElGVDsNCj4gPg0KPiA+IC0JCWlmIChk
-cW0tPmRldi0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5ID09DQo+IENISVBfQUxERUJBUkFOKSB7
-DQo+ID4gKwkJaWYgKEtGRF9HQ19WRVJTSU9OKGRxbS0+ZGV2KSA9PSBJUF9WRVJTSU9OKDksIDQs
-IDIpKSB7DQo+ID4gIAkJCS8qIEFsZGViYXJhbiBjYW4gc2FmZWx5IHN1cHBvcnQgZGlmZmVyZW50
-IFhOQUNLDQo+IG1vZGVzDQo+ID4gIAkJCSAqIHBlciBwcm9jZXNzDQo+ID4gIAkJCSAqLw0KPiA+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZXZlbnRzLmMNCj4g
-PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYw0KPiA+IGluZGV4IDNl
-ZWE0ZWRlZTM1NS4uYWZlNzJkZDExMzI1IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9ldmVudHMuYw0KPiA+IEBAIC05MzUsOCArOTM1LDEwIEBAIHZvaWQga2ZkX3Np
-Z25hbF9pb21tdV9ldmVudChzdHJ1Y3Qga2ZkX2Rldg0KPiAqZGV2LCB1MzIgcGFzaWQsDQo+ID4g
-IAkvKiBXb3JrYXJvdW5kIG9uIFJhdmVuIHRvIG5vdCBraWxsIHRoZSBwcm9jZXNzIHdoZW4gbWVt
-b3J5IGlzDQo+IGZyZWVkDQo+ID4gIAkgKiBiZWZvcmUgSU9NTVUgaXMgYWJsZSB0byBmaW5pc2gg
-cHJvY2Vzc2luZyBhbGwgdGhlIGV4Y2Vzc2l2ZSBQUFJzDQo+ID4gIAkgKi8NCj4gPiAtCWlmIChk
-ZXYtPmRldmljZV9pbmZvLT5hc2ljX2ZhbWlseSAhPSBDSElQX1JBVkVOICYmDQo+ID4gLQkgICAg
-ZGV2LT5kZXZpY2VfaW5mby0+YXNpY19mYW1pbHkgIT0gQ0hJUF9SRU5PSVIpIHsNCj4gPiArDQo+
-ID4gKwlpZiAoS0ZEX0dDX1ZFUlNJT04oZGV2KSAhPSBJUF9WRVJTSU9OKDksIDEsIDApICYmDQo+
-ID4gKwkgICAgS0ZEX0dDX1ZFUlNJT04oZGV2KSAhPSBJUF9WRVJTSU9OKDksIDIsIDIpICYmDQo+
-ID4gKwkgICAgS0ZEX0dDX1ZFUlNJT04oZGV2KSAhPSBJUF9WRVJTSU9OKDksIDMsIDApKSB7DQo+
-ID4gIAkJbXV0ZXhfbG9jaygmcC0+ZXZlbnRfbXV0ZXgpOw0KPiA+DQo+ID4gIAkJLyogTG9va3Vw
-IGV2ZW50cyBieSB0eXBlIGFuZCBzaWduYWwgdGhlbSAqLyBkaWZmIC0tZ2l0DQo+ID4gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0ZS5jDQo+ID4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0ZS5jDQo+ID4gaW5kZXggYWVhZGUzMmVjMjk4Li5kNTli
-NzNmNjkyNjAgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X21pZ3JhdGUuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdy
-YXRlLmMNCj4gPiBAQCAtOTQwLDcgKzk0MCw3IEBAIGludCBzdm1fbWlncmF0ZV9pbml0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiA+ICAJdm9pZCAqcjsNCj4gPg0KPiA+ICAJLyogUGFn
-ZSBtaWdyYXRpb24gd29ya3Mgb24gVmVnYTEwIG9yIG5ld2VyICovDQo+ID4gLQlpZiAoa2ZkZGV2
-LT5kZXZpY2VfaW5mby0+YXNpY19mYW1pbHkgPCBDSElQX1ZFR0ExMCkNCj4gPiArCWlmICghS0ZE
-X0lTX1NPQzE1KGtmZGRldikpDQo+ID4gIAkJcmV0dXJuIC1FSU5WQUw7DQo+ID4NCj4gPiAgCXBn
-bWFwID0gJmtmZGRldi0+cGdtYXA7DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9wcm9jZXNzLmMNCj4gPiBpbmRleCBmYWZjN2IxODdmYWQuLjc0YzkzMjNmMzJmYyAxMDA2
-NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jDQo+
-ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYw0KPiA+IEBA
-IC0xMzE3LDE0ICsxMzE3LDEzIEBAIGJvb2wga2ZkX3Byb2Nlc3NfeG5hY2tfbW9kZShzdHJ1Y3QN
-Cj4ga2ZkX3Byb2Nlc3MgKnAsIGJvb2wgc3VwcG9ydGVkKQ0KPiA+ICAJCSAqIHN1cHBvcnQgdGhl
-IFNWTSBBUElzIGFuZCBkb24ndCBuZWVkIHRvIGJlIGNvbnNpZGVyZWQNCj4gPiAgCQkgKiBmb3Ig
-dGhlIFhOQUNLIG1vZGUgc2VsZWN0aW9uLg0KPiA+ICAJCSAqLw0KPiA+IC0JCWlmIChkZXYtPmRl
-dmljZV9pbmZvLT5hc2ljX2ZhbWlseSA8IENISVBfVkVHQTEwKQ0KPiA+ICsJCWlmICghS0ZEX0lT
-X1NPQzE1KGRldikpDQo+ID4gIAkJCWNvbnRpbnVlOw0KPiA+ICAJCS8qIEFsZGViYXJhbiBjYW4g
-YWx3YXlzIHN1cHBvcnQgWE5BQ0sgYmVjYXVzZSBpdCBjYW4NCj4gc3VwcG9ydA0KPiA+ICAJCSAq
-IHBlci1wcm9jZXNzIFhOQUNLIG1vZGUgc2VsZWN0aW9uLiBCdXQgbGV0IHRoZSBkZXYtDQo+ID5u
-b3JldHJ5DQo+ID4gIAkJICogc2V0dGluZyBzdGlsbCBpbmZsdWVuY2UgdGhlIGRlZmF1bHQgWE5B
-Q0sgbW9kZS4NCj4gPiAgCQkgKi8NCj4gPiAtCQlpZiAoc3VwcG9ydGVkICYmDQo+ID4gLQkJICAg
-IGRldi0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5ID09IENISVBfQUxERUJBUkFOKQ0KPiA+ICsJ
-CWlmIChzdXBwb3J0ZWQgJiYgS0ZEX0dDX1ZFUlNJT04oZGV2KSA9PSBJUF9WRVJTSU9OKDksDQo+
-IDQsIDIpKQ0KPiA+ICAJCQljb250aW51ZTsNCj4gPg0KPiA+ICAJCS8qIEdGWHYxMCBhbmQgbGF0
-ZXIgR1BVcyBkbyBub3Qgc3VwcG9ydCBzaGFkZXIgcHJlZW1wdGlvbg0KPiBAQA0KPiA+IC0xMzMy
-LDcgKzEzMzEsNyBAQCBib29sIGtmZF9wcm9jZXNzX3huYWNrX21vZGUoc3RydWN0IGtmZF9wcm9j
-ZXNzICpwLA0KPiBib29sIHN1cHBvcnRlZCkNCj4gPiAgCQkgKiBtYW5hZ2VtZW50IGFuZCBtZW1v
-cnktbWFuYWdlci1yZWxhdGVkIHByZWVtcHRpb25zDQo+IG9yDQo+ID4gIAkJICogZXZlbiBkZWFk
-bG9ja3MuDQo+ID4gIAkJICovDQo+ID4gLQkJaWYgKGRldi0+ZGV2aWNlX2luZm8tPmFzaWNfZmFt
-aWx5ID49IENISVBfTkFWSTEwKQ0KPiA+ICsJCWlmIChLRkRfR0NfVkVSU0lPTihkZXYpID4gSVBf
-VkVSU0lPTigxMCwgMSwgMSkpDQo+IA0KPiBUaGlzIHNob3VsZCBiZSA+PQ0KPiANCj4gUmVnYXJk
-cywNCj4gwqAgRmVsaXgNCj4gDQo+IA0KDQpHb29kIGNhdGNoLCB0aGFua3MhDQoNCkJlc3QsDQpH
-cmFoYW0NCg0KPiA+ICAJCQlyZXR1cm4gZmFsc2U7DQo+ID4NCj4gPiAgCQlpZiAoZGV2LT5ub3Jl
-dHJ5KQ0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3Zt
-LmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uYw0KPiA+IGluZGV4
-IDc3MjM5YjA2YjIzNi4uODgzNjBmMjNlYjYxIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9zdm0uYw0KPiA+IEBAIC0xMDUxLDggKzEwNTEsOCBAQCBzdm1fcmFuZ2VfZ2V0
-X3B0ZV9mbGFncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldiwgc3RydWN0IHN2bV9yYW5n
-ZSAqcHJhbmdlLA0KPiA+ICAJaWYgKGRvbWFpbiA9PSBTVk1fUkFOR0VfVlJBTV9ET01BSU4pDQo+
-ID4gIAkJYm9fYWRldiA9IGFtZGdwdV90dG1fYWRldihwcmFuZ2UtPnN2bV9iby0+Ym8tDQo+ID50
-Ym8uYmRldik7DQo+ID4NCj4gPiAtCXN3aXRjaCAoYWRldi0+YXNpY190eXBlKSB7DQo+ID4gLQlj
-YXNlIENISVBfQVJDVFVSVVM6DQo+ID4gKwlzd2l0Y2ggKEtGRF9HQ19WRVJTSU9OKGFkZXYtPmtm
-ZC5kZXYpKSB7DQo+ID4gKwljYXNlIElQX1ZFUlNJT04oOSwgNCwgMSk6DQo+ID4gIAkJaWYgKGRv
-bWFpbiA9PSBTVk1fUkFOR0VfVlJBTV9ET01BSU4pIHsNCj4gPiAgCQkJaWYgKGJvX2FkZXYgPT0g
-YWRldikgew0KPiA+ICAJCQkJbWFwcGluZ19mbGFncyB8PSBjb2hlcmVudCA/DQo+ID4gQEAgLTEw
-NjgsNyArMTA2OCw3IEBAIHN2bV9yYW5nZV9nZXRfcHRlX2ZsYWdzKHN0cnVjdCBhbWRncHVfZGV2
-aWNlDQo+ICphZGV2LCBzdHJ1Y3Qgc3ZtX3JhbmdlICpwcmFuZ2UsDQo+ID4gIAkJCQlBTURHUFVf
-Vk1fTVRZUEVfVUMgOg0KPiBBTURHUFVfVk1fTVRZUEVfTkM7DQo+ID4gIAkJfQ0KPiA+ICAJCWJy
-ZWFrOw0KPiA+IC0JY2FzZSBDSElQX0FMREVCQVJBTjoNCj4gPiArCWNhc2UgSVBfVkVSU0lPTig5
-LCA0LCAyKToNCj4gPiAgCQlpZiAoZG9tYWluID09IFNWTV9SQU5HRV9WUkFNX0RPTUFJTikgew0K
-PiA+ICAJCQlpZiAoYm9fYWRldiA9PSBhZGV2KSB7DQo+ID4gIAkJCQltYXBwaW5nX2ZsYWdzIHw9
-IGNvaGVyZW50ID8NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-a2ZkX3RvcG9sb2d5LmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3Bv
-bG9neS5jDQo+ID4gaW5kZXggYTRjMGM5Mjk0NDRhLi42NDFlMjUwZGM5NWYgMTAwNjQ0DQo+ID4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMNCj4gPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYw0KPiA+IEBAIC0xMjM5
-LDcgKzEyMzksNyBAQCBzdGF0aWMgdm9pZCBrZmRfc2V0X2lvbGlua19ub25fY29oZXJlbnQoc3Ry
-dWN0DQo+IGtmZF90b3BvbG9neV9kZXZpY2UgKnRvX2RldiwNCj4gPiAgCQkgKi8NCj4gPiAgCQlp
-ZiAoaW5ib3VuZF9saW5rLT5pb2xpbmtfdHlwZSA9PQ0KPiBDUkFUX0lPTElOS19UWVBFX1BDSUVY
-UFJFU1MgfHwNCj4gPiAgCQkgICAgKGluYm91bmRfbGluay0+aW9saW5rX3R5cGUgPT0gQ1JBVF9J
-T0xJTktfVFlQRV9YR01JDQo+ICYmDQo+ID4gLQkJICAgIHRvX2Rldi0+Z3B1LT5kZXZpY2VfaW5m
-by0+YXNpY19mYW1pbHkgPT0NCj4gQ0hJUF9WRUdBMjApKSB7DQo+ID4gKwkJICAgIEtGRF9HQ19W
-RVJTSU9OKHRvX2Rldi0+Z3B1KSA9PSBJUF9WRVJTSU9OKDksIDQsIDApKSkNCj4gew0KPiA+ICAJ
-CQlvdXRib3VuZF9saW5rLT5mbGFncyB8PQ0KPiBDUkFUX0lPTElOS19GTEFHU19OT05fQ09IRVJF
-TlQ7DQo+ID4gIAkJCWluYm91bmRfbGluay0+ZmxhZ3MgfD0NCj4gQ1JBVF9JT0xJTktfRkxBR1Nf
-Tk9OX0NPSEVSRU5UOw0KPiA+ICAJCX0NCj4gPiBAQCAtMTQ2Myw3ICsxNDYzLDcgQEAgaW50IGtm
-ZF90b3BvbG9neV9hZGRfZGV2aWNlKHN0cnVjdCBrZmRfZGV2DQo+ICpncHUpDQo+ID4gIAkJKChk
-ZXYtPmdwdS0+YWRldi0+cmFzX2VuYWJsZWQgJg0KPiBCSVQoQU1ER1BVX1JBU19CTE9DS19fVU1D
-KSkgIT0gMCkgPw0KPiA+ICAJCUhTQV9DQVBfTUVNX0VEQ1NVUFBPUlRFRCA6IDA7DQo+ID4NCj4g
-PiAtCWlmIChkZXYtPmdwdS0+YWRldi0+YXNpY190eXBlICE9IENISVBfVkVHQTEwKQ0KPiA+ICsJ
-aWYgKEtGRF9HQ19WRVJTSU9OKGRldi0+Z3B1KSAhPSBJUF9WRVJTSU9OKDksIDAsIDEpKQ0KPiA+
-ICAJCWRldi0+bm9kZV9wcm9wcy5jYXBhYmlsaXR5IHw9IChkZXYtPmdwdS0+YWRldi0NCj4gPnJh
-c19lbmFibGVkICE9IDApID8NCj4gPiAgCQkJSFNBX0NBUF9SQVNFVkVOVE5PVElGWSA6IDA7DQo+
-ID4NCg==
+--_000_SA0PR12MB4510F4D9040A7EDA54FC73A8E2939SA0PR12MB4510namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+> I don't think we want to force the performance level.  This interface
+forces various fixed clock configurations for debugging and profiling.
+Ah got it.
+
+>I think what we'd want to select here is the power profile (see
+amdgpu_set_pp_power_profile_mode()).  For this interface you can
+select various profiles (BOOTUP_DEFAULT, 3D_FULL_SCREEN, POWER_SAVING,
+VIDEO, VR, COMPUTE, etc.).  These still use dynamic power management,
+but they adjust the heuristics used by the GPU to select power states
+so the GPU performance ramps up/down more or less aggressively.
+
+Which profile mapping you think make sense?
+My guess would be:
+"BOOTUP_DEFAULT" for balanced
+"POWER_SAVING" for low-power
+"3D_FULL_SCREEN" for performance
+
+Since recently we removed that interface for YC, and some earlier APUs don'=
+t do as much with it.
+So I wonder if this is only really valuable to do this callback for !APU.
+
+> I feel it's better to leave to platform vendors. For ex: for APU cases th=
+ey may have implementations in which their BIOSes talk to PMFW and this mig=
+ht be driving something else here.
+
+Even if changing the heuristic for workload as Alex suggested?
+
+> Also, not sure how to handle a case like, say a laptop with Intel CPU and=
+ AMD dgpu.
+
+I was actually thinking this approach where there are platform profile call=
+backs is best because of that specifically.
+It would allow an Intel CPU system to have a platform profile driver implem=
+ented by the OEM, but then still notify amdgpu dGPU to tune for power savin=
+g or performance workload.
+
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Wednesday, November 10, 2021 10:05
+To: Alex Deucher <alexdeucher@gmail.com>; Limonciello, Mario <Mario.Limonci=
+ello@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Subject: Re: [RFC 2/2] drm/amd/pm: Add support for reacting to platform pro=
+file notification
+
+
+[Public]
+
+I feel it's better to leave to platform vendors. For ex: for APU cases they=
+ may have implementations in which their BIOSes talk to PMFW and this might=
+ be driving something else here.
+
+Also, not sure how to handle a case like, say a laptop with Intel CPU and A=
+MD dgpu.
+
+Thanks,
+Lijo
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Alex Deucher <alexdeucher@gmail.com<m=
+ailto:alexdeucher@gmail.com>>
+Sent: Wednesday, 10 November 2021, 8:44 pm
+To: Limonciello, Mario
+Cc: amd-gfx list
+Subject: Re: [RFC 2/2] drm/amd/pm: Add support for reacting to platform pro=
+file notification
+
+On Wed, Nov 10, 2021 at 1:24 AM Mario Limonciello
+<mario.limonciello@amd.com<mailto:mario.limonciello@amd.com>> wrote:
+>
+> Various drivers provide platform profile support to let users set a hint
+> in their GUI whether they want to run in a high performance, low battery
+> life or balanced configuration.
+>
+> Drivers that provide this typically work with the firmware on their syste=
+m
+> to configure hardware.  In the case of AMDGPU however, the notification
+> path doesn't come through firmware and can instead be provided directly
+> to the driver from a notification chain.
+>
+> Use the information of the newly selected profile to tweak
+> `dpm_force_performance_level` to that profile IFF the user hasn't manuall=
+y
+> selected `manual` or any other `profile_*` options.
+
+I don't think we want to force the performance level.  This interface
+forces various fixed clock configurations for debugging and profiling.
+I think what we'd want to select here is the power profile (see
+amdgpu_set_pp_power_profile_mode()).  For this interface you can
+select various profiles (BOOTUP_DEFAULT, 3D_FULL_SCREEN, POWER_SAVING,
+VIDEO, VR, COMPUTE, etc.).  These still use dynamic power management,
+but they adjust the heuristics used by the GPU to select power states
+so the GPU performance ramps up/down more or less aggressively.
+
+Alex
+
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com<mailto:mario.=
+limonciello@amd.com>>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h |   3 +
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c  | 105 +++++++++++++++++++++++-----
+>  2 files changed, 90 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index b85b67a88a3d..27b0be23b6ac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1097,6 +1097,9 @@ struct amdgpu_device {
+>
+>         struct amdgpu_reset_control     *reset_cntl;
+>         uint32_t                        ip_versions[HW_ID_MAX][HWIP_MAX_I=
+NSTANCE];
+> +
+> +       /* platform profile notifications */
+> +       struct notifier_block           platform_profile_notifier;
+>  };
+>
+>  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
+amdgpu_pm.c
+> index 41472ed99253..33fc52b90d4c 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -32,6 +32,7 @@
+>  #include <linux/hwmon.h>
+>  #include <linux/hwmon-sysfs.h>
+>  #include <linux/nospec.h>
+> +#include <linux/platform_profile.h>
+>  #include <linux/pm_runtime.h>
+>  #include <asm/processor.h>
+>  #include "hwmgr.h"
+> @@ -200,6 +201,33 @@ static ssize_t amdgpu_set_power_dpm_state(struct dev=
+ice *dev,
+>         return count;
+>  }
+>
+> +static int amdgpu_get_forced_level(struct device *dev, enum amd_dpm_forc=
+ed_level *level)
+> +{
+> +       struct drm_device *ddev =3D dev_get_drvdata(dev);
+> +       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+> +       int ret;
+> +
+> +       if (amdgpu_in_reset(adev))
+> +               return -EPERM;
+> +       if (adev->in_suspend && !adev->in_runpm)
+> +               return -EPERM;
+> +
+> +       ret =3D pm_runtime_get_sync(ddev->dev);
+> +       if (ret < 0) {
+> +               pm_runtime_put_autosuspend(ddev->dev);
+> +               return ret;
+> +       }
+> +
+> +       if (adev->powerplay.pp_funcs->get_performance_level)
+> +               *level =3D amdgpu_dpm_get_performance_level(adev);
+> +       else
+> +               *level =3D adev->pm.dpm.forced_level;
+> +
+> +       pm_runtime_mark_last_busy(ddev->dev);
+> +       pm_runtime_put_autosuspend(ddev->dev);
+> +
+> +       return 0;
+> +}
+>
+>  /**
+>   * DOC: power_dpm_force_performance_level
+> @@ -264,29 +292,13 @@ static ssize_t amdgpu_get_power_dpm_force_performan=
+ce_level(struct device *dev,
+>                                                             struct device=
+_attribute *attr,
+>                                                             char *buf)
+>  {
+> -       struct drm_device *ddev =3D dev_get_drvdata(dev);
+> -       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+>         enum amd_dpm_forced_level level =3D 0xff;
+>         int ret;
+>
+> -       if (amdgpu_in_reset(adev))
+> -               return -EPERM;
+> -       if (adev->in_suspend && !adev->in_runpm)
+> -               return -EPERM;
+> +       ret =3D amdgpu_get_forced_level(dev, &level);
+>
+> -       ret =3D pm_runtime_get_sync(ddev->dev);
+> -       if (ret < 0) {
+> -               pm_runtime_put_autosuspend(ddev->dev);
+> +       if (ret < 0)
+>                 return ret;
+> -       }
+> -
+> -       if (adev->powerplay.pp_funcs->get_performance_level)
+> -               level =3D amdgpu_dpm_get_performance_level(adev);
+> -       else
+> -               level =3D adev->pm.dpm.forced_level;
+> -
+> -       pm_runtime_mark_last_busy(ddev->dev);
+> -       pm_runtime_put_autosuspend(ddev->dev);
+>
+>         return sysfs_emit(buf, "%s\n",
+>                           (level =3D=3D AMD_DPM_FORCED_LEVEL_AUTO) ? "aut=
+o" :
+> @@ -405,6 +417,59 @@ static ssize_t amdgpu_set_power_dpm_force_performanc=
+e_level(struct device *dev,
+>         return count;
+>  }
+>
+> +static void amdgpu_update_profile(struct device *dev, enum platform_prof=
+ile_option *profile)
+> +{
+> +       enum amd_dpm_forced_level level;
+> +       const char *str;
+> +       int ret;
+> +
+> +       ret =3D amdgpu_get_forced_level(dev, &level);
+> +       if (ret < 0)
+> +               return;
+> +
+> +       /* only update profile if we're in fixed modes right now that nee=
+d updating */
+> +       switch (level) {
+> +       case AMD_DPM_FORCED_LEVEL_LOW:
+> +               if (*profile < PLATFORM_PROFILE_BALANCED)
+> +                       return;
+> +               break;
+> +       case AMD_DPM_FORCED_LEVEL_HIGH:
+> +               if (*profile > PLATFORM_PROFILE_BALANCED)
+> +                       return;
+> +               break;
+> +       case AMD_DPM_FORCED_LEVEL_AUTO:
+> +               if (*profile =3D=3D PLATFORM_PROFILE_BALANCED)
+> +                       return;
+> +               break;
+> +       default:
+> +               dev_dbg(dev, "refusing to update amdgpu profile from %d\n=
+", level);
+> +               return;
+> +       }
+> +       if (*profile > PLATFORM_PROFILE_BALANCED)
+> +               str =3D "high";
+> +       else if (*profile < PLATFORM_PROFILE_BALANCED)
+> +               str =3D "low";
+> +       else
+> +               str =3D "auto";
+> +
+> +       dev_dbg(dev, "updating platform profile to %s\n", str);
+> +       amdgpu_set_power_dpm_force_performance_level(dev, NULL, str, 0);
+> +}
+> +
+> +static int amdgpu_platform_profile_notifier_call(struct notifier_block *=
+nb,
+> +                                                 unsigned long action, v=
+oid *data)
+> +{
+> +       if (action =3D=3D PLATFORM_PROFILE_CHANGED) {
+> +               enum platform_profile_option *profile =3D data;
+> +               struct amdgpu_device *adev;
+> +
+> +               adev =3D container_of(nb, struct amdgpu_device, platform_=
+profile_notifier);
+> +               amdgpu_update_profile(adev->dev, profile);
+> +       }
+> +
+> +       return NOTIFY_OK;
+> +}
+> +
+>  static ssize_t amdgpu_get_pp_num_states(struct device *dev,
+>                 struct device_attribute *attr,
+>                 char *buf)
+> @@ -3506,6 +3571,9 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev=
+)
+>         if (ret)
+>                 return ret;
+>
+> +       adev->platform_profile_notifier.notifier_call =3D amdgpu_platform=
+_profile_notifier_call;
+> +       platform_profile_register_notifier(&adev->platform_profile_notifi=
+er);
+> +
+>         adev->pm.sysfs_initialized =3D true;
+>
+>         return 0;
+> @@ -3519,6 +3587,7 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *ade=
+v)
+>         if (adev->pm.int_hwmon_dev)
+>                 hwmon_device_unregister(adev->pm.int_hwmon_dev);
+>
+> +       platform_profile_unregister_notifier(&adev->platform_profile_noti=
+fier);
+>         amdgpu_device_attr_remove_groups(adev, &adev->pm.pm_attr_list);
+>  }
+>
+> --
+> 2.25.1
+>
+
+
+--_000_SA0PR12MB4510F4D9040A7EDA54FC73A8E2939SA0PR12MB4510namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheaderc10f11a2, li.msipheaderc10f11a2, div.msipheaderc10f11a2
+	{mso-style-name:msipheaderc10f11a2;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
+pan><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><spa=
+n style=3D"color:black">&gt; I don't think we want to force the performance=
+ level.&nbsp; This interface<br>
+forces various fixed clock configurations for debugging and profiling.</spa=
+n><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">Ah got it.</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">&gt;I think what we'd want to select here is the power profile (see<br>
+amdgpu_set_pp_power_profile_mode()).&nbsp; For this interface you can<br>
+select various profiles (BOOTUP_DEFAULT, 3D_FULL_SCREEN, POWER_SAVING,<br>
+VIDEO, VR, COMPUTE, etc.).&nbsp; These still use dynamic power management,<=
+br>
+but they adjust the heuristics used by the GPU to select power states<br>
+so the GPU performance ramps up/down more or less aggressively.</span><o:p>=
+</o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">Which profile mapping you think make sense?</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">My guess would be:</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">&#8220;BOOTUP_DEFAULT&#8221; for balanced</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">&#8220;POWER_SAVING&#8221; for low-power</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">&#8220;3D_FULL_SCREEN&#8221; for performance</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">Since recently we removed that interface for YC, and some earlier APUs d=
+on&#8217;t do as much with it.</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">So I wonder if this is only really valuable to do this callback for !APU=
+.&nbsp;
+</span><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">&gt;</span><span style=3D"color:#212121"> I feel it's better to leave to=
+ platform vendors. For ex: for APU cases they may have implementations in w=
+hich their BIOSes talk to PMFW and this might
+ be driving something else here.<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">Even if changing the heuristic for workload as Alex suggested?</span><o:=
+p></o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k">&gt;</span><span style=3D"color:#212121"> Also, not sure how to handle a=
+ case like, say a laptop with Intel CPU and AMD dgpu.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I was actually thinking this approach where there ar=
+e platform profile callbacks is best because of that specifically.<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">It would allow an Intel CPU system to have a platfor=
+m profile driver implemented by the OEM, but then still notify amdgpu dGPU =
+to tune for power saving or performance workload.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<br>
+<b>Sent:</b> Wednesday, November 10, 2021 10:05<br>
+<b>To:</b> Alex Deucher &lt;alexdeucher@gmail.com&gt;; Limonciello, Mario &=
+lt;Mario.Limonciello@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Re: [RFC 2/2] drm/amd/pm: Add support for reacting to platf=
+orm profile notification<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
+121">I feel it's better to leave to platform vendors. For ex: for APU cases=
+ they may have implementations in which their BIOSes talk to PMFW and this =
+might be driving something else here.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
+121"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
+121">Also, not sure how to handle a case like, say a laptop with Intel CPU =
+and AMD dgpu.<o:p></o:p></span></p>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<p class=3D"MsoNormal">Thanks,<br>
+Lijo<o:p></o:p></p>
+</div>
+<div id=3D"id-f61421a9-d54c-4f81-aa61-517d64763a14">
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:13.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><strong><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif">From:</span></strong> amd-gfx &lt;<a href=3D"mailto:amd-gfx-=
+bounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt=
+; on behalf of Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">al=
+exdeucher@gmail.com</a>&gt;<br>
+<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Sent:</s=
+pan></strong> Wednesday, 10 November 2021, 8:44 pm<br>
+<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">To:</spa=
+n></strong> Limonciello, Mario<br>
+<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Cc:</spa=
+n></strong> amd-gfx list<br>
+<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Subject:=
+</span></strong> Re: [RFC 2/2] drm/amd/pm: Add support for reacting to plat=
+form profile notification<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">On Wed, Nov 10, 2021 at 1:24 AM Mario Limonciello<br=
+>
+&lt;<a href=3D"mailto:mario.limonciello@amd.com">mario.limonciello@amd.com<=
+/a>&gt; wrote:<br>
+&gt;<br>
+&gt; Various drivers provide platform profile support to let users set a hi=
+nt<br>
+&gt; in their GUI whether they want to run in a high performance, low batte=
+ry<br>
+&gt; life or balanced configuration.<br>
+&gt;<br>
+&gt; Drivers that provide this typically work with the firmware on their sy=
+stem<br>
+&gt; to configure hardware.&nbsp; In the case of AMDGPU however, the notifi=
+cation<br>
+&gt; path doesn't come through firmware and can instead be provided directl=
+y<br>
+&gt; to the driver from a notification chain.<br>
+&gt;<br>
+&gt; Use the information of the newly selected profile to tweak<br>
+&gt; `dpm_force_performance_level` to that profile IFF the user hasn't manu=
+ally<br>
+&gt; selected `manual` or any other `profile_*` options.<br>
+<br>
+I don't think we want to force the performance level.&nbsp; This interface<=
+br>
+forces various fixed clock configurations for debugging and profiling.<br>
+I think what we'd want to select here is the power profile (see<br>
+amdgpu_set_pp_power_profile_mode()).&nbsp; For this interface you can<br>
+select various profiles (BOOTUP_DEFAULT, 3D_FULL_SCREEN, POWER_SAVING,<br>
+VIDEO, VR, COMPUTE, etc.).&nbsp; These still use dynamic power management,<=
+br>
+but they adjust the heuristics used by the GPU to select power states<br>
+so the GPU performance ramps up/down more or less aggressively.<br>
+<br>
+Alex<br>
+<br>
+&gt;<br>
+&gt; Signed-off-by: Mario Limonciello &lt;<a href=3D"mailto:mario.limonciel=
+lo@amd.com">mario.limonciello@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h |&nbsp;&nbsp; 3 +<br>
+&gt;&nbsp; drivers/gpu/drm/amd/pm/amdgpu_pm.c&nbsp; | 105 +++++++++++++++++=
+++++++-----<br>
+&gt;&nbsp; 2 files changed, 90 insertions(+), 18 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu.h<br>
+&gt; index b85b67a88a3d..27b0be23b6ac 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt; @@ -1097,6 +1097,9 @@ struct amdgpu_device {<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_reset_co=
+ntrol&nbsp;&nbsp;&nbsp;&nbsp; *reset_cntl;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ip_versions[HW_ID_MAX][HW=
+IP_MAX_INSTANCE];<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* platform profile notification=
+s */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct notifier_block&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; platform_profile_notifier=
+;<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; static inline struct amdgpu_device *drm_to_adev(struct drm_devic=
+e *ddev)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/=
+pm/amdgpu_pm.c<br>
+&gt; index 41472ed99253..33fc52b90d4c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; @@ -32,6 +32,7 @@<br>
+&gt;&nbsp; #include &lt;linux/hwmon.h&gt;<br>
+&gt;&nbsp; #include &lt;linux/hwmon-sysfs.h&gt;<br>
+&gt;&nbsp; #include &lt;linux/nospec.h&gt;<br>
+&gt; +#include &lt;linux/platform_profile.h&gt;<br>
+&gt;&nbsp; #include &lt;linux/pm_runtime.h&gt;<br>
+&gt;&nbsp; #include &lt;asm/processor.h&gt;<br>
+&gt;&nbsp; #include &quot;hwmgr.h&quot;<br>
+&gt; @@ -200,6 +201,33 @@ static ssize_t amdgpu_set_power_dpm_state(struct =
+device *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; +static int amdgpu_get_forced_level(struct device *dev, enum amd_dpm_f=
+orced_level *level)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *ddev =3D dev_=
+get_drvdata(dev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D d=
+rm_to_adev(ddev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_in_reset(adev))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return -EPERM;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_suspend &amp;&am=
+p; !adev-&gt;in_runpm)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return -EPERM;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D pm_runtime_get_sync(ddev=
+-&gt;dev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret &lt; 0) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pm_runtime_put_autosuspend(ddev-&gt;dev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return ret;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_funcs-=
+&gt;get_performance_level)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; *level =3D amdgpu_dpm_get_performance_level(adev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; *level =3D adev-&gt;pm.dpm.forced_level;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_mark_last_busy(ddev-&=
+gt;dev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_put_autosuspend(ddev-=
+&gt;dev);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; +}<br>
+&gt;<br>
+&gt;&nbsp; /**<br>
+&gt;&nbsp;&nbsp; * DOC: power_dpm_force_performance_level<br>
+&gt; @@ -264,29 +292,13 @@ static ssize_t amdgpu_get_power_dpm_force_perfor=
+mance_level(struct device *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dev=
+ice_attribute *attr,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf)=
+<br>
+&gt;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *ddev =3D dev_=
+get_drvdata(dev);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D d=
+rm_to_adev(ddev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_dpm_forced_le=
+vel level =3D 0xff;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_in_reset(adev))<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return -EPERM;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_suspend &amp;&am=
+p; !adev-&gt;in_runpm)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return -EPERM;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_get_forced_level(=
+dev, &amp;level);<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D pm_runtime_get_sync(ddev=
+-&gt;dev);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret &lt; 0) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pm_runtime_put_autosuspend(ddev-&gt;dev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret &lt; 0)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_funcs-=
+&gt;get_performance_level)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; level =3D amdgpu_dpm_get_performance_level(adev);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; level =3D adev-&gt;pm.dpm.forced_level;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_mark_last_busy(ddev-&=
+gt;dev);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_runtime_put_autosuspend(ddev-=
+&gt;dev);<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sysfs_emit(buf,=
+ &quot;%s\n&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (level =3D=3D AMD_DPM_FORCED_LEVEL_AUTO) ? &quot;auto&quot; :<br=
+>
+&gt; @@ -405,6 +417,59 @@ static ssize_t amdgpu_set_power_dpm_force_perform=
+ance_level(struct device *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; +static void amdgpu_update_profile(struct device *dev, enum platform_p=
+rofile_option *profile)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_dpm_forced_level level;=
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *str;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_get_forced_level(=
+dev, &amp;level);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret &lt; 0)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only update profile if we're =
+in fixed modes right now that need updating */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (level) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_LOW:<b=
+r>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (*profile &lt; PLATFORM_PROFILE_BALANCED)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; break;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_HIGH:<=
+br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (*profile &gt; PLATFORM_PROFILE_BALANCED)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; break;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_AUTO:<=
+br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (*profile =3D=3D PLATFORM_PROFILE_BALANCED)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; break;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; dev_dbg(dev, &quot;refusing to update amdgpu profile from %=
+d\n&quot;, level);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*profile &gt; PLATFORM_PROFI=
+LE_BALANCED)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; str =3D &quot;high&quot;;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (*profile &lt; PLATFORM_=
+PROFILE_BALANCED)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; str =3D &quot;low&quot;;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; str =3D &quot;auto&quot;;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_dbg(dev, &quot;updating plat=
+form profile to %s\n&quot;, str);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_set_power_dpm_force_perfo=
+rmance_level(dev, NULL, str, 0);<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static int amdgpu_platform_profile_notifier_call(struct notifier_bloc=
+k *nb,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsig=
+ned long action, void *data)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (action =3D=3D PLATFORM_PROFI=
+LE_CHANGED) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; enum platform_profile_option *profile =3D data;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_device *adev;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; adev =3D container_of(nb, struct amdgpu_device, platform_pr=
+ofile_notifier);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; amdgpu_update_profile(adev-&gt;dev, profile);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NOTIFY_OK;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;&nbsp; static ssize_t amdgpu_get_pp_num_states(struct device *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; char *buf)<br>
+&gt; @@ -3506,6 +3571,9 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *a=
+dev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;platform_profile_notifi=
+er.notifier_call =3D amdgpu_platform_profile_notifier_call;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; platform_profile_register_notifi=
+er(&amp;adev-&gt;platform_profile_notifier);<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.sysfs_init=
+ialized =3D true;<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; @@ -3519,6 +3587,7 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *=
+adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.int_hw=
+mon_dev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; hwmon_device_unregister(adev-&gt;pm.int_hwmon_dev=
+);<br>
+&gt;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; platform_profile_unregister_noti=
+fier(&amp;adev-&gt;platform_profile_notifier);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_attr_rem=
+ove_groups(adev, &amp;adev-&gt;pm.pm_attr_list);<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; --<br>
+&gt; 2.25.1<br>
+&gt;<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_SA0PR12MB4510F4D9040A7EDA54FC73A8E2939SA0PR12MB4510namp_--
