@@ -2,133 +2,71 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E838CC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E89B2C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:50:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A1F1C611C9
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:39:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A1F1C611C9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 75991610A3
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 09:50:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 75991610A3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F8D6E466;
-	Wed, 10 Nov 2021 09:39:45 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 318BC6E466
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 09:39:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dIVzF+tK1m/8QmnucF541xMjGOFGxPnJXW07qqeZXKybLyR44cAOP2JIUDsI1ft1gc6Bt2CstNis6j09O5wctHAc7CQRwdrax9MA73vUBG47bqcqi8O6PizlDQhaQtHyMJ4kipXQc5zstZlX1y7WQRFKM7v7y80H25f7KVDQ9oMGrZN8fIvhPCTc+uwTazF9R6xUzN3vdfFOgNxyM2y4/BmdFF/0t4VdJ2OvNFwHVxZWmY8IZvnKknR6gQo+wqQkjdD/boav8yAEKxq4+MROPjY1NdoBL2iyEp0hfQMwNh5krgPAYkR5ldRiwofnxLfRCy+HNUSCCdLg+DX/COkBOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=752QA41StEbave5HeUOByfzCJanbYCfIpRUTIz8zfdk=;
- b=LdJRg5LCwM7o9QcjRYR9jIxutM2/m2NB1UdEkhsgt26u0eZSU8Y9nDBROJ6gvZLLBS9qvord8R1WV2BTLCu3ahy27BxgnEmkI4rki6X9j/5ZOALdrgYH34fm7FTnxCG8WVLtEPAahRiyPfMRLOgTI9EP5AA1jbiqAROJsanYEsELzBoQaIzq2qpBlKrwAGYhsQuuQWS57MBsBdglD3G11ioGIUA/21ppmfvB2uqG/AyDhvG4w9cYZrFGO3YG/Zneffw6R4g8wXx/z8edHMUg+cyaJ7oUtPzrLhG4YZPD/JvEfZ6xv0DhbNJpiukq9v34djyAFBW8RYlCwb1E0sozWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=752QA41StEbave5HeUOByfzCJanbYCfIpRUTIz8zfdk=;
- b=yGrkskXNllxJZayFOIGrDopiC27y6i29E4o+79np7TSUm1ipNyvTvpu8kdWpryXtuYzEkD7EA0PK/5aHqJpgFRdzmFEmQ9gDQM1QokcSEf3WfHvWi+dHVOEjPlyjwaex8AxL5bbSH+1s8nh4zeCdukfzhPjzb7aYXzgqB3NZVOc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15; Wed, 10 Nov
- 2021 09:39:41 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4669.016; Wed, 10 Nov 2021
- 09:39:41 +0000
-Message-ID: <9f9f5f93-902a-8c66-adba-f1ed9e2659e4@amd.com>
-Date: Wed, 10 Nov 2021 15:09:26 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH] drm/amd/pm: avoid duplicate powergate/ungate setting
-Content-Language: en-US
-To: "Quan, Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20211108044723.54716-1-evan.quan@amd.com>
- <80a7b1d5-f57c-ef32-bd90-9e31554127e2@amd.com>
- <DM6PR12MB26198F33A0A6BC4C760ACD7AE4929@DM6PR12MB2619.namprd12.prod.outlook.com>
- <87848118-a230-1941-f97d-384158dc95d6@amd.com>
- <DM6PR12MB261902AEC570A67EE98FE516E4929@DM6PR12MB2619.namprd12.prod.outlook.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DM6PR12MB261902AEC570A67EE98FE516E4929@DM6PR12MB2619.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN1PR01CA0115.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::31)
- To DM6PR12MB3930.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 817EA6F87D;
+	Wed, 10 Nov 2021 09:50:07 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C789B6F874
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 09:50:05 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id x15so8274342edv.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 01:50:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=8rg6ZeFC3SW4uxwmWB7yIySwVJ14BSILyyGpXKCuMwQ=;
+ b=i79hRrBsnXuphPJtcBKPgUxlByTppf0NDFZbZkhRmqBNLpNkK1Z8Eg4Jm4idZdDCjp
+ pzFDwVSDqoOiILhTHHM37kFtSz9be0K1kL5xPMzm4KgjvvvdR+oIXD9yFG9ijSrDBCVK
+ HgXtnxQCdmASUNzBA0ggAqZKoPGt1g7PVDnbc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=8rg6ZeFC3SW4uxwmWB7yIySwVJ14BSILyyGpXKCuMwQ=;
+ b=pXnKa3/YP+yGi0CQ942eQ38qSFY38j5xsyaee5m3dPxOIz1/RzyhmxzVmgdEYWvsHD
+ xeVuVcOnYpU1LBpPggabUPbFEJRkXTZLjK/TDYWd7pYuLGH0K3n5oR3Mputsl23YF+hs
+ hBMKgvhAebbrXp7Uorq5ph/LFX0l6Emb7TWts8Pzck7v4TDu7U7oXA5Riu3DzBpA7Z1e
+ KsqukPPYLVj+3VMylM44wynTbf7cusXKA0wL7J/wQH4gWzUxoVCS07LDjTlWJQDJaWvw
+ ZkZX8R7jcA5GJ23AjMzNgbLGXOFG2u22iJROwUfglxMkD/BDWNkpeAXLksA5FYrMfSTg
+ Rvbg==
+X-Gm-Message-State: AOAM531jbgZGgJhNtl0DgadYjzi4qQdGqCgBNR0o9m16+gVwF4EDU378
+ k9B0gpZnyH/4zzmCy3DE5fP6Og==
+X-Google-Smtp-Source: ABdhPJwrfLyogjEPO0YYpO3uLWvO5JPYG7nGVxHTDgUfEkT8pa47WSD2AU1jgP3EkBuuqKaW7t3+ew==
+X-Received: by 2002:a05:6402:1254:: with SMTP id
+ l20mr19575268edw.55.1636537804246; 
+ Wed, 10 Nov 2021 01:50:04 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id dp16sm6076129ejc.34.2021.11.10.01.50.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Nov 2021 01:50:03 -0800 (PST)
+Date: Wed, 10 Nov 2021 10:50:01 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
+Message-ID: <YYuVyRlAATYO4ptP@phenom.ffwll.local>
+References: <1630406139-19621-1-git-send-email-Monk.Liu@amd.com>
+ <1630406139-19621-2-git-send-email-Monk.Liu@amd.com>
+ <YS4nlkpjeitiwFy1@phenom.ffwll.local>
+ <YS4oMrFTj0+wmMbY@phenom.ffwll.local>
+ <BL1PR12MB5269292A3E9E6014043C280E84CD9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <CAF6AEGsELL5WmxJKqyfF69OnVaK6+SnAREvjtFSHBZrm3Gdp7g@mail.gmail.com>
+ <YYo6U6D2dxQ7Y6Gn@phenom.ffwll.local>
+ <CAF6AEGvGQP-6eNevDyS9sXg+6qOKMrG7h5rwhKO=v8L5mQOiUA@mail.gmail.com>
 MIME-Version: 1.0
-Received: from [10.252.81.250] (165.204.159.242) by
- PN1PR01CA0115.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::31) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.16 via Frontend Transport; Wed, 10 Nov 2021 09:39:38 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 961a5cc8-e4ff-4f38-e99c-08d9a42e04fc
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2602AF7558B13C019E7D8AD497939@DM6PR12MB2602.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lWJ2xwGBmP1+tqQTjXXA3YiGdAPir4gLjeGapnCZFP/mBY737bBjzfvOq+vutpE8/Mlne3TthXqIJpVhxCbTrwCGXz5KGXkND5jB4QN36LcOrvaEbX3k8v5blxATc/vaJ+uiS0jKAlbOwm2aaGMpmVm2GpwF7oq3mRDbV48sTjEPdBXjwuf8aXFhFaH+uO15UjDiObPkYrip2aXQb5IOedg8i+HmTjt+qCopF1EAUEDPdt86tnzkpEbWcM71XvLDcGRhHDuHlaFwopW2s7WfoBmaQGzO0V+z5J3z7m68gt5HIvD1dpG+PTeB3tWZu1hEXBUkLelOE5WC9Att9QVE1JKxPwjKpctafJPNfHXH/ZrcKsqNOVlt7d9VJaSKrh2vbZXsRYLewlFszgyKmldkoqnQAbMI0jHI154pk6hMWwJrO1xXxMKF8lBhMSTSmJyvYisgNK2vox2J2e+7XxP5oTyo59+ZlB2K6lIyBxE8rbhVCCw6/SkRhn4exph7Nb7O3pqjLi7XmcY5a+Pxl4mvBsoJ9+cyIsHg6ENBlIfRgpcpEhVRHstkLyh94lT6xRwMKn0acI+a67hy7GQqRX5IG1MVpzH80NPND0eVZ3whqBlQeHn31vGM40Tq0bFvrH7WtPl5J+JdsoWQZfZX/AqczYuU/OwIVydWXHhhMXH6hfreVk/pYWXhPF/bnRpC5V6RVHRxQof9RFdVj3SGjhWG6PUyckqK6VJspdM2qNPW+cQGxAvqW/Q99TbVnKeAnN4LF7l+Z/Z237kuRRxpbexI4g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6666004)(16576012)(83380400001)(66556008)(38100700002)(2906002)(66476007)(316002)(956004)(86362001)(2616005)(66946007)(5660300002)(31696002)(186003)(8676002)(26005)(53546011)(508600001)(36756003)(54906003)(8936002)(31686004)(6486002)(4326008)(110136005)(43740500002)(45980500001)(309714004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a016N2RUMlhTYTVlK1NrYWxrQ1I1VUk2NkZXV0FoY00xM2dORHNwOWgvQ3Yr?=
- =?utf-8?B?RGRpajJSYjNxVkxXR2g4TDZ5VlVWclVZSWUvc2taajByQk1mcE9ZejdtOWlV?=
- =?utf-8?B?aytoNjZqWnNJK1dQSkZSS2V2a1F5M2Jpd0Eyb1BIamhBeEgyL1cyaTlmWklQ?=
- =?utf-8?B?cU9heFNmYlVCcEtQcUtZQ010a3NvWHNIeXJmUUxjMFcwLzhhZE9kd3JibTh4?=
- =?utf-8?B?T2pMMy8ybGE0ZnltdWJaQm1NRk1JY2VrRGRvWWI1Y1BDZmpKZlZHT3gzVnI4?=
- =?utf-8?B?MFJaNEltZlJkL1c2cEZqWVhHVDRYMkp4MzU5SUtUT1p6dGo3Q2p6MmllS1kw?=
- =?utf-8?B?TjJ4RDFkM0I3RDJIRUxockRpd3M2OXlhS0dCcnRtN3Vqdk5Qc2NJckZiQ2g3?=
- =?utf-8?B?d1QwWm12NkxMeWdMbW4rUFc1UzJCcWdlRzNaY0ZtRHo4WG1JalZSRjVpVzVw?=
- =?utf-8?B?ZVJXSThUWm5FNllGMHVaVjg1L1h1QTJZME9pQnNFakxMTWlRQ3c4SVZtUXpQ?=
- =?utf-8?B?T0NSaVdqYzRyZGdpNkdxSFZUZlY0NW9aUU10Qk84bTdsN2F3TVFDN0wrZGpC?=
- =?utf-8?B?a0tmTnlveHBKajVETlMxaFloMm9Kb1VWWTFQVFpKMHpPdElJenpJQ0ZCcHFT?=
- =?utf-8?B?NlRDV2tRb0llaWxaWXBsNTFURjdQY3NISmtIcXIvSWZiV2g3bXNuZG5KWkRN?=
- =?utf-8?B?SEl3d3ZDTnFKR3J4Uy9Da0VERVhoUHIzaHZNVmo0RHZPV2RrVXY2ZkozY0x5?=
- =?utf-8?B?R1JheG9ubGVrVWxrZXN1dVZJaWpPUjZPRk9ROS90alVKR0gxdGNiNVVVTjBM?=
- =?utf-8?B?cENGdjVvNlI2N3FpTlRReVhybFl2YzliN1JiYjRvMDNjYUlwK0ZsVTJSRnZp?=
- =?utf-8?B?L0pndDVKdEpEb1FiWW5NaVVRT0I3bkxBdW94cXFZc2w4OVRzRGs5MklxZ0x6?=
- =?utf-8?B?QVQrYk0xWkV6N0dRYXVhb09rbi9PcktDZU4zSm9DMkpYVHYwYVgwM3Btd1po?=
- =?utf-8?B?dEM5T2E4RUd3M1QzZDhOMktiaHhiTCtlT3JOSDkvcTljTlNQcURBMnozR0N6?=
- =?utf-8?B?dTMwd2xXbFQ5eHVQMCtDc09PalNrZzdzbWh0SS9xb0NOc0VkRDB5eWlZMnpJ?=
- =?utf-8?B?cUN6dzhCcXRvQjlzUmJ3dDBrSmFvd0Rwb2xhUVFEcVZYcFNsYjlIaFUwTjZw?=
- =?utf-8?B?QmpWN0VtM25UVC93MXhIVkdyVURrMlRDTFRYMTFPeHNCRzVUOXdkVklFcGtH?=
- =?utf-8?B?OWxzRHREdmRpbk1BYXJ1RGZ3SVRkL1BpK2orejJrM0lIejFEMEpRQTV2T044?=
- =?utf-8?B?YlBiK0JBeGJlekVnWHRYSS80ZDNxdU5uZnlsN3ZGMzVjUU5Kek5ESmpVeFIy?=
- =?utf-8?B?dnA3by84Q2lXUHc0ekpFbndHMEc5a05WbmphWlJad0lZL3dvOHp3TVY1dGJJ?=
- =?utf-8?B?d1FTUUZGOXhkZkp6Z1NXcE5xMUlIcEN1T0lZTStOZlZuTmFvTmpIZ2R3ejZ6?=
- =?utf-8?B?dXFtMzJ2c29GRm1XL1hIK2hRRnU2bXhtdk91TnhxVVJuazZ5UG9CejRWRHgz?=
- =?utf-8?B?SW5QbGVzRW9pUHM1TDUvYkpMTlFONzFmWE1ySnp3RktlRmZabE1tMkRJYzFL?=
- =?utf-8?B?TjRZN0tXTU4yQlZ0d3FENkR4UldRT2NxdzhnMGFKWHprbnh6ZHJ4OUlsTzc5?=
- =?utf-8?B?ZXNkQWtLK2xER2dwWitseXJwQzN0MDhsRjNHeTYraHNnK0dxazVBSlJLSXBN?=
- =?utf-8?B?ZERod1lqazFYajVUWGlyTTB1ZFNGMHdOOWhPeWh4WlhrN1FyMWlCMUM2MWNU?=
- =?utf-8?B?dnlhY1NIVDlvZFpZanJ6TitDc3hWOFk4VWZ1NWlrTnlWcG1NZFBDN3V0MFdx?=
- =?utf-8?B?WkZqTVdDNW4rWFFMRi9XdThlLzhoTm5odkRnMTc1V0NVOExsS29mZW5seExw?=
- =?utf-8?B?aTFuTjlWU05kSksyUG1Ucjg0UW9jdFd1aElwcHZkRCtjeWN3UGgzUGN6cHV3?=
- =?utf-8?B?WjQzV2lpTGxLQVpFQ1FrZFlVejhpQTdXNlJuVVNURS9iUFR4SEVrblFucHNr?=
- =?utf-8?B?V0xpUmQ0Wkc5SjlKSHg1endZZ1ZIeG1RQkMvblpONU5BM3hLbEh0OEgvY2NR?=
- =?utf-8?Q?rPa0=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 961a5cc8-e4ff-4f38-e99c-08d9a42e04fc
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 09:39:41.2298 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VLhD3TnCiszOzRtkz/G0u+5DcHqCQ/Ox1aDi2zg1D9eWDva+5bllqA5kOdo2+44e
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2602
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGvGQP-6eNevDyS9sXg+6qOKMrG7h5rwhKO=v8L5mQOiUA@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,266 +78,272 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Borislav Petkov <bp@suse.de>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
+ Monk" <Monk.Liu@amd.com>, Daniel Vetter <daniel@ffwll.ch>, "Chen,
+ Jingwen" <Jingwen.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 11/9/2021 2:15 PM, Quan, Evan wrote:
-> [AMD Official Use Only]
+On Tue, Nov 09, 2021 at 08:17:01AM -0800, Rob Clark wrote:
+> On Tue, Nov 9, 2021 at 1:07 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> > On Mon, Nov 08, 2021 at 03:39:17PM -0800, Rob Clark wrote:
+> > > I stumbled across this thread when I ran into the same issue, while
+> > > working out how to move drm/msm to use scheduler's retire +
+> > > timeout/recovery (and get rid of our own mirror list of in-flight
+> > > jobs).  We already have hw error detection enabled, and it can signal
+> > > quite fast, so assuming the first job on the list is the guilty job
+> > > just won't work.
+> > >
+> > > But I was considering a slightly different approach to fixing this,
+> > > instead just handling it all in drm_sched_main() and getting rid of
+> > > the complicated kthread parking gymnastics.  Ie. something along the
+> > > lines of:
+> >
+> > So handling timeouts in the main sched thread wont work as soon as you
+> > have multiple engines and reset that impacts across engines:
+> >
+> > - Nothing is simplified since you still need to stop the other scheduler
+> >   threads.
+> >
+> > - You get deadlocks if 2 schedulers time out at the same time, and both
+> >   want to stop the other one.
+> >
+> > Hence workqueue. Now the rule for the wq is that you can only have one per
+> > reset domain, so
+> > - single engine you just take the one drm/sched provides
+> > - if reset affects all your engines in the chip, then you allocate on in
+> >   the drm_device and pass that to all
+> > - if you have a complex of gpus all interconnected (e.g. xgmi hive for
+> >   amd), then it's one wq for the entire hive
+> >
+> > _All_ reset related things must be run on that workqueue or things breaks,
+> > which means if you get hw fault that also needs to be run there. I guess
+> > we should either patch drm/sched to check you call that function from the
+> > right workqueue, or just handle it internally.
 > 
-> 
-> 
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Tuesday, November 9, 2021 12:15 PM
->> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Borislav Petkov
->> <bp@suse.de>
->> Subject: Re: [PATCH] drm/amd/pm: avoid duplicate powergate/ungate
->> setting
->>
->>
->>
->> On 11/9/2021 9:10 AM, Quan, Evan wrote:
->>> [AMD Official Use Only]
->>>
->>>
->>>
->>>> -----Original Message-----
->>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>> Sent: Monday, November 8, 2021 7:16 PM
->>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
->>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Borislav Petkov
->>>> <bp@suse.de>
->>>> Subject: Re: [PATCH] drm/amd/pm: avoid duplicate powergate/ungate
->>>> setting
->>>>
->>>>
->>>>
->>>> On 11/8/2021 10:17 AM, Evan Quan wrote:
->>>>> Just bail out if the target IP block is already in the desired
->>>>> powergate/ungate state. This can avoid some duplicate settings which
->>>>> sometime may cause unexpected issues.
->>>>>
->>>>> Change-Id: I66346c69f121df0f5ee20182451313ae4fda2d04
->>>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
->>>>> Tested-by: Borislav Petkov <bp@suse.de>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h              |  7 +++++++
->>>>>     drivers/gpu/drm/amd/include/amd_shared.h         |  3 ++-
->>>>>     drivers/gpu/drm/amd/pm/amdgpu_dpm.c              | 13 ++++++++++++-
->>>>>     drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c |  3 +++
->>>>>     drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c        |  3 +++
->>>>>     drivers/gpu/drm/amd/pm/powerplay/si_dpm.c        |  3 +++
->>>>>     drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c        |  3 +++
->>>>>     7 files changed, 33 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>> index b85b67a88a3d..19fa21ad8a44 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>> @@ -767,9 +767,16 @@ enum amd_hw_ip_block_type {
->>>>>     #define HW_ID_MAX		300
->>>>>     #define IP_VERSION(mj, mn, rv) (((mj) << 16) | ((mn) << 8) |
->>>>> (rv))
->>>>>
->>>>> +enum amd_ip_powergate_state {
->>>>> +	POWERGATE_STATE_INITIAL,
->>>>> +	POWERGATE_STATE_GATE,
->>>>> +	POWERGATE_STATE_UNGATE,
->>>>> +};
->>>>> +
->>>>
->>>> To reflect the current state, they could be named like
->>>> POWERGATE_STATE_UNKNOWN/ON/OFF.
->>> [Quan, Evan] This may be more confusing. POWERGATE_STATE_ON means
->> "gfx on" or "gate on which means gfx off"?
->>
->> What I meant is -
->> 	PG_STATE_ON - Power gated
->> 	PG_STATE_OFF - Not power gated
-> [Quan, Evan] Yeah, but I mean other user may be confusing about these. Since when we take about the PG state, we usually use "Gate" or "Ungate". How about POWER_STATE_ON - Power on/ungate
-> POWER_STATE_OFF - Power off/gate ?
-> 
-Yes, that looks fine.
+> Hmm, ok.. I guess it would be useful to better document the reasoning
+> for the current design, that would have steered me more towards the
+> approach taken in this patch.
 
-Thanks,
-Lijo
+Maybe this was because you worked on an old kernel? Boris did update the
+kerneldoc as part of making gpu reset work for panfrost, which has this
+multi-engine reset problem. If that's not yet clear then we need to
+improve the docs further.
 
-> BR
-> Evan
->> Thanks,
->> Lijo
->>
->>>>
->>>>
->>>>>     struct amd_powerplay {
->>>>>     	void *pp_handle;
->>>>>     	const struct amd_pm_funcs *pp_funcs;
->>>>> +	atomic_t pg_state[AMD_IP_BLOCK_TYPE_NUM];
->>>>
->>>> Maybe add another field in amdgpu_ip_block_status? Downside is it
->>>> won't reflect the PG state achieved through paths other than PMFW
->>>> control and ipblock needs to be queried through
->>>> amdgpu_device_ip_get_ip_block()
->>> [Quan, Evan] Yes, we will need to track pg state other than PMFW control
->> then.
->>> That will need extra effort and seems unnecessary considering there is no
->> such use case(need to know the PG state out of PMFW control).
->>>
->>> BR
->>> Evan
->>>>
->>>> Thanks,
->>>> Lijo
->>>>
->>>>>     };
->>>>>
->>>>>     /* polaris10 kickers */
->>>>> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h
->>>> b/drivers/gpu/drm/amd/include/amd_shared.h
->>>>> index f1a46d16f7ea..4b9e68a79f06 100644
->>>>> --- a/drivers/gpu/drm/amd/include/amd_shared.h
->>>>> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
->>>>> @@ -98,7 +98,8 @@ enum amd_ip_block_type {
->>>>>     	AMD_IP_BLOCK_TYPE_ACP,
->>>>>     	AMD_IP_BLOCK_TYPE_VCN,
->>>>>     	AMD_IP_BLOCK_TYPE_MES,
->>>>> -	AMD_IP_BLOCK_TYPE_JPEG
->>>>> +	AMD_IP_BLOCK_TYPE_JPEG,
->>>>> +	AMD_IP_BLOCK_TYPE_NUM,
->>>>>     };
->>>>>
->>>>>     enum amd_clockgating_state {
->>>>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>>> index 03581d5b1836..a6b337b6f4a9 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>>> @@ -927,6 +927,14 @@ int
->>>> amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
->>>> uint32_t block
->>>>>     {
->>>>>     	int ret = 0;
->>>>>     	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
->>>>> +	enum amd_ip_powergate_state pg_state =
->>>>> +		gate ? POWERGATE_STATE_GATE :
->>>> POWERGATE_STATE_UNGATE;
->>>>> +
->>>>> +	if (atomic_read(&adev->powerplay.pg_state[block_type]) ==
->>>> pg_state) {
->>>>> +		dev_dbg(adev->dev, "IP block%d already in the target %s
->>>> state!",
->>>>> +				block_type, gate ? "gate" : "ungate");
->>>>> +		return 0;
->>>>> +	}
->>>>>
->>>>>     	switch (block_type) {
->>>>>     	case AMD_IP_BLOCK_TYPE_UVD:
->>>>> @@ -976,9 +984,12 @@ int
->>>> amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
->>>> uint32_t block
->>>>>     		}
->>>>>     		break;
->>>>>     	default:
->>>>> -		break;
->>>>> +		return -EINVAL;
->>>>>     	}
->>>>>
->>>>> +	if (!ret)
->>>>> +		atomic_set(&adev->powerplay.pg_state[block_type],
->>>> pg_state);
->>>>> +
->>>>>     	return ret;
->>>>>     }
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
->>>> b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
->>>>> index bba7479f6265..8d8a7cf615eb 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
->>>>> @@ -38,6 +38,7 @@ static const struct amd_pm_funcs pp_dpm_funcs;
->>>>>     static int amd_powerplay_create(struct amdgpu_device *adev)
->>>>>     {
->>>>>     	struct pp_hwmgr *hwmgr;
->>>>> +	int i;
->>>>>
->>>>>     	if (adev == NULL)
->>>>>     		return -EINVAL;
->>>>> @@ -57,6 +58,8 @@ static int amd_powerplay_create(struct
->>>> amdgpu_device *adev)
->>>>>     	hwmgr->display_config = &adev->pm.pm_display_cfg;
->>>>>     	adev->powerplay.pp_handle = hwmgr;
->>>>>     	adev->powerplay.pp_funcs = &pp_dpm_funcs;
->>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
->>>>> +		atomic_set(&adev->powerplay.pg_state[i],
->>>> POWERGATE_STATE_INITIAL);
->>>>>     	return 0;
->>>>>     }
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
->>>> b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
->>>>> index bcae42cef374..f84f56552fd0 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
->>>>> @@ -2965,9 +2965,12 @@ static int kv_dpm_get_temp(void *handle)
->>>>>     static int kv_dpm_early_init(void *handle)
->>>>>     {
->>>>>     	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>>> +	int i;
->>>>>
->>>>>     	adev->powerplay.pp_funcs = &kv_dpm_funcs;
->>>>>     	adev->powerplay.pp_handle = adev;
->>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
->>>>> +		atomic_set(&adev->powerplay.pg_state[i],
->>>> POWERGATE_STATE_INITIAL);
->>>>>     	kv_dpm_set_irq_funcs(adev);
->>>>>
->>>>>     	return 0;
->>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
->>>> b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
->>>>> index 81f82aa05ec2..f1eb22c9bb59 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
->>>>> @@ -7916,9 +7916,12 @@ static int si_dpm_early_init(void *handle)
->>>>>     {
->>>>>
->>>>>     	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>>> +	int i;
->>>>>
->>>>>     	adev->powerplay.pp_funcs = &si_dpm_funcs;
->>>>>     	adev->powerplay.pp_handle = adev;
->>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
->>>>> +		atomic_set(&adev->powerplay.pg_state[i],
->>>> POWERGATE_STATE_INITIAL);
->>>>>     	si_dpm_set_irq_funcs(adev);
->>>>>     	return 0;
->>>>>     }
->>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> index 01168b8955bf..fdc25bae8237 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> @@ -627,6 +627,7 @@ static int smu_early_init(void *handle)
->>>>>     {
->>>>>     	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>>>     	struct smu_context *smu = &adev->smu;
->>>>> +	int i;
->>>>>
->>>>>     	smu->adev = adev;
->>>>>     	smu->pm_enabled = !!amdgpu_dpm;
->>>>> @@ -639,6 +640,8 @@ static int smu_early_init(void *handle)
->>>>>
->>>>>     	adev->powerplay.pp_handle = smu;
->>>>>     	adev->powerplay.pp_funcs = &swsmu_pm_funcs;
->>>>> +	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
->>>>> +		atomic_set(&adev->powerplay.pg_state[i],
->>>> POWERGATE_STATE_INITIAL);
->>>>>
->>>>>     	return smu_set_funcs(adev);
->>>>>     }
->>>>>
+AMD's problem is even worse, because their reset domain is the entire xgmi
+hive, so multiple pci devices.
+
+Also there might more issues in drm/sched ofc, e.g. I've looked a bit at
+ordering/barriers and I'm pretty sure a lot are still missing. Or at least
+we should have comments in the code explaining why it all works.
+-Daniel
+
+> 
+> BR,
+> -R
+> 
+> > -Daniel
+> >
+> > >
+> > > ---------------------
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > index 67382621b429..4d6ce775c316 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > @@ -764,6 +764,45 @@ static bool drm_sched_blocked(struct
+> > > drm_gpu_scheduler *sched)
+> > >         return false;
+> > >  }
+> > >
+> > > +static bool handle_timeout(struct drm_gpu_scheduler *sched)
+> > > +{
+> > > +       struct drm_sched_job *bad;
+> > > +
+> > > +       if (!sched->has_timeout)
+> > > +               return false;
+> > > +
+> > > +       sched->has_timeout = false;
+> > > +
+> > > +       spin_lock(&sched->job_list_lock);
+> > > +       bad = list_first_entry_or_null(&sched->pending_list,
+> > > +                                      struct drm_sched_job, list);
+> > > +
+> > > +       if (!bad) {
+> > > +               spin_unlock(&sched->job_list_lock);
+> > > +               return false;
+> > > +       }
+> > > +
+> > > +       spin_unlock(&sched->job_list_lock);
+> > > +
+> > > +       if (sched->timeout_wq == system_wq) {
+> > > +               /*
+> > > +                * If driver has no specific requirements about serializing
+> > > +                * reset wrt. other engines, just call timedout_job() directly
+> > > +                */
+> > > +               sched->ops->timedout_job(job);
+> > > +       } else {
+> > > +               /*
+> > > +                * Otherwise queue it on timeout_wq and wait for it to complete
+> > > +                */
+> > > +               ... more typing needed here ...
+> > > +       }
+> > > +
+> > > +       if (sched->free_guilty) {
+> > > +               sched->ops->free_job(job);
+> > > +               sched->free_guilty = false;
+> > > +       }
+> > > +}
+> > > +
+> > >  /**
+> > >   * drm_sched_main - main scheduler thread
+> > >   *
+> > > @@ -787,6 +826,7 @@ static int drm_sched_main(void *param)
+> > >
+> > >                 wait_event_interruptible(sched->wake_up_worker,
+> > >                                          (cleanup_job =
+> > > drm_sched_get_cleanup_job(sched)) ||
+> > > +                                        handle_timeout(sched) ||
+> > >                                          (!drm_sched_blocked(sched) &&
+> > >                                           (entity =
+> > > drm_sched_select_entity(sched))) ||
+> > >                                          kthread_should_stop());
+> > > ---------------------
+> > >
+> > > drm_sched_fault() and the sw timeout handler would just set
+> > > sched->has_timeout and kick sched->wake_up_worker.
+> > >
+> > > And since we handle the timeout case after
+> > > drm_sched_get_cleanup_job(), we know that all of the successfully
+> > > completed jobs have already been popped off the list, and won't be
+> > > unfairly maligned.
+> > >
+> > > BR,
+> > > -R
+> > >
+> > > On Tue, Aug 31, 2021 at 6:29 PM Liu, Monk <Monk.Liu@amd.com> wrote:
+> > > >
+> > > > [AMD Official Use Only]
+> > > >
+> > > > Okay, I will reprepare this patch
+> > > >
+> > > > Thanks
+> > > >
+> > > > ------------------------------------------
+> > > > Monk Liu | Cloud-GPU Core team
+> > > > ------------------------------------------
+> > > >
+> > > > -----Original Message-----
+> > > > From: Daniel Vetter <daniel@ffwll.ch>
+> > > > Sent: Tuesday, August 31, 2021 9:02 PM
+> > > > To: Liu, Monk <Monk.Liu@amd.com>
+> > > > Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; Chen, Jingwen <Jingwen.Chen@amd.com>
+> > > > Subject: Re: [PATCH 2/2] drm/sched: serialize job_timeout and scheduler
+> > > >
+> > > > On Tue, Aug 31, 2021 at 02:59:02PM +0200, Daniel Vetter wrote:
+> > > > > Can we please have some actual commit message here, with detailed
+> > > > > explanation of the race/bug/whatever, how you fix it and why this is
+> > > > > the best option?
+> > > > >
+> > > > > On Tue, Aug 31, 2021 at 06:35:39PM +0800, Monk Liu wrote:
+> > > > > > tested-by: jingwen chen <jingwen.chen@amd.com>
+> > > > > > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+> > > > > > Signed-off-by: jingwen chen <jingwen.chen@amd.com>
+> > > > > > ---
+> > > > > >  drivers/gpu/drm/scheduler/sched_main.c | 24
+> > > > > > ++++--------------------
+> > > > > >  1 file changed, 4 insertions(+), 20 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > index ecf8140..894fdb24 100644
+> > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > @@ -319,19 +319,17 @@ static void drm_sched_job_timedout(struct work_struct *work)
+> > > > > >     sched = container_of(work, struct drm_gpu_scheduler,
+> > > > > > work_tdr.work);
+> > > > > >
+> > > > > >     /* Protects against concurrent deletion in
+> > > > > > drm_sched_get_cleanup_job */
+> > > > > > +   if (!__kthread_should_park(sched->thread))
+> > > > >
+> > > > > This is a __ function, i.e. considered internal, and it's lockless
+> > > > > atomic, i.e. unordered. And you're not explaining why this works.
+> > > > >
+> > > > > Iow it's probably buggy, and an just unconditionally parking the
+> > > > > kthread is probably the right thing to do. If it's not the right thing
+> > > > > to do, there's a bug here for sure.
+> > > >
+> > > > Also why don't we reuse the function drivers already have to stop a scheduler thread? We seem to have two kthread_park now, that's probably one too much.
+> > > > -Daniel
+> > > >
+> > > > > > +           kthread_park(sched->thread);
+> > > > > > +
+> > > > > >     spin_lock(&sched->job_list_lock);
+> > > > > >     job = list_first_entry_or_null(&sched->pending_list,
+> > > > > >                                    struct drm_sched_job, list);
+> > > > > >
+> > > > > >     if (job) {
+> > > > > > -           /*
+> > > > > > -            * Remove the bad job so it cannot be freed by concurrent
+> > > > > > -            * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
+> > > > > > -            * is parked at which point it's safe.
+> > > > > > -            */
+> > > > > > -           list_del_init(&job->list);
+> > > > > >             spin_unlock(&sched->job_list_lock);
+> > > > > >
+> > > > > > +           /* vendor's timeout_job should call drm_sched_start() */
+> > > > > >             status = job->sched->ops->timedout_job(job);
+> > > > > >
+> > > > > >             /*
+> > > > > > @@ -393,20 +391,6 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+> > > > > >     kthread_park(sched->thread);
+> > > > > >
+> > > > > >     /*
+> > > > > > -    * Reinsert back the bad job here - now it's safe as
+> > > > > > -    * drm_sched_get_cleanup_job cannot race against us and release the
+> > > > > > -    * bad job at this point - we parked (waited for) any in progress
+> > > > > > -    * (earlier) cleanups and drm_sched_get_cleanup_job will not be called
+> > > > > > -    * now until the scheduler thread is unparked.
+> > > > > > -    */
+> > > > > > -   if (bad && bad->sched == sched)
+> > > > > > -           /*
+> > > > > > -            * Add at the head of the queue to reflect it was the earliest
+> > > > > > -            * job extracted.
+> > > > > > -            */
+> > > > > > -           list_add(&bad->list, &sched->pending_list);
+> > > > > > -
+> > > > > > -   /*
+> > > > > >      * Iterate the job list from later to  earlier one and either deactive
+> > > > > >      * their HW callbacks or remove them from pending list if they already
+> > > > > >      * signaled.
+> > > > > > --
+> > > > > > 2.7.4
+> > > > > >
+> > > > >
+> > > > > --
+> > > > > Daniel Vetter
+> > > > > Software Engineer, Intel Corporation
+> > > > > https://nam11.safelinks.protection.outlook.com/?url=http%3A%2F%2Fblog.
+> > > > > ffwll.ch%2F&amp;data=04%7C01%7CMonk.Liu%40amd.com%7C298815bea18f4fbf76
+> > > > > b308d96c7f7a8b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6376601170
+> > > > > 51194614%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiL
+> > > > > CJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QzgCU7%2BPdA0aWL5%2BJLg
+> > > > > KeKbGaMMGqeGI9KE0P0LXlN4%3D&amp;reserved=0
+> > > >
+> > > > --
+> > > > Daniel Vetter
+> > > > Software Engineer, Intel Corporation
+> > > > https://nam11.safelinks.protection.outlook.com/?url=http%3A%2F%2Fblog.ffwll.ch%2F&amp;data=04%7C01%7CMonk.Liu%40amd.com%7C298815bea18f4fbf76b308d96c7f7a8b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637660117051194614%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QzgCU7%2BPdA0aWL5%2BJLgKeKbGaMMGqeGI9KE0P0LXlN4%3D&amp;reserved=0
+> >
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
