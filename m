@@ -2,128 +2,130 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEC25C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 13:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37122C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 14:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F4BA60F58
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 13:53:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7F4BA60F58
+	by mail.kernel.org (Postfix) with ESMTPS id EBA63610FC
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 14:00:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EBA63610FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 036836E509;
-	Wed, 10 Nov 2021 13:53:02 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A192E6E509
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 13:53:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79F646E165;
+	Wed, 10 Nov 2021 14:00:07 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3446B6E165
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 14:00:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RdUqPQmKyjSwdNvWZoHXBxmw28LtHiz/uFXBQ/B/do+Pd/lihj3EajB/GN0/d4qMndTWXxI+ZVBCZQC4GIw9GE7rkwyXdGW0G2bJ2wE5FMTsVH7kJRgGZ31qMFb3uHqPz2giIGdKf2T3LmPo7LgTD6vaO+i3b9KCMxQrl0bRxU8mMc45U70tRkT4hrpNDqzq0F0PcrdEtGIjvYbBVv03+CL0MOP9yJ2LzW/EfelUbiwbgdDBnpVB8sz5NhCRWyajiK6864LfxaQ4HlY6/ys75z8d95FJiKYpClrTsSXoowhl6ehE+RsvEbhxYWgSJVP5Bm0/5WhWvNkeRYWF60X2oA==
+ b=J5Nwgdca0EQ3oStFyLqcW2C6WCPX2S/mYcvOkm2z1vr29z35pMaFGoW6NCE6rnvklQ4XpeXg5RazNxICkyocBxxJrR/LyidDZ2Xz+nYT3w8Ca+kc1joGA2A7v1ulJZ1DcmrkpDL1u4/saNKwKLv4TvbSPFLc+ZWqnmMrCzqYO40hyLy/NlIxE8hNAGVENSzuwkeXg7A6QPll9EG2hrCCZ8Q+6dyjsX8bT3Tsg9CVHN3a0B14kMpzpoynqk7e+FHoW3RoF9MFqxJExpM5uGprDmdpxp6qcVkvHxoznETBHF9cRtmXbgjZaZ3srD9GS3N+Oem1jvm3gaBVWrHrVtbgJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FKF6FQnB1OLWeyF90XJ9vTMWFYp/kgCl7DEFMbCPi2I=;
- b=iqgmLBwrbcJ0dga/nAGu/LdG2xTM9uYD8+Mzo2OTqeshTlq+XVaOq7E5S5bBAXkBWd+6xGsF/5T66CXSs+0s0Lx7SPlMetNV8lxnbbxE+8bkJehye0xhyQ92az+KROeCtAw3wF+uiGZTRtLS+waIxICii96CCFO4qNOR1CsJj4DFkM3eV4uugabdnJ1fCvIrBXNUCd4Er+ZGXxJf2EbwZT4zFrEVeZA8bnMdxq0aQ2/X6bVsadegDrEzHJTX5JyKe94JhDCdwNqnRZIYx8QF4scYpGA9i/JKV9mXm9fw0dSNcSz46ve3vSWvsZL9RbVcvXndYu6P0/2Q0hVnVCBeEA==
+ bh=ghQoN17/XMh4twZy+8sSMm6/ZxSzLEzI6/CSbQmQ5Fo=;
+ b=DZSTnwyJFHiX66Ajz69tIrLKHHvhBpNI1JxtpJoPRfCPQlN+x3cA58HvMAo78xATH4UWpBaouENJVQL3lDdJb++3RbxgIzWdf9QQD92sbEVlvFysFQ4XsYHvx9Vhf7VPbs/PsqVydl4sgYwG0GSrzoo7VfmLQ/7se9Iv8iAv2hG5IJOV/jUhApLR2VHtMS9WCAUIuH+bznump/zFgVjXj0hnIqjqOuY8KafVTN885P/kca588gqes85o5DQKCZw0cgDxPG3uXBj5cElKfNpYE73V55mbYE+tyld9lQaou2Qe1ohsY23s2q1LYoxRn0G/2m5kVC655rUCKL9J1E6uvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FKF6FQnB1OLWeyF90XJ9vTMWFYp/kgCl7DEFMbCPi2I=;
- b=SxofzbO3IuWoj8IH9+OjM4p71H4530jtTdrJKHF8UI/2/1m44FLvBZhSl8U7i2b3pm1DJ8kvmGlYYvVowp6P/cIsVSdre/uB+YUOukrmbiNhVi8rarQCi552eZKE+Liini/uzG2b8xHeciNp2Ai+fBWoQNm3WxRTtwgu+/Dun5I=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5240.namprd12.prod.outlook.com (2603:10b6:208:319::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Wed, 10 Nov
- 2021 13:52:58 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830%8]) with mapi id 15.20.4669.015; Wed, 10 Nov 2021
- 13:52:58 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Sider, Graham" <Graham.Sider@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2 3/3] drm/amdkfd: convert misc checks to IP version
- checking
-Thread-Topic: [PATCH v2 3/3] drm/amdkfd: convert misc checks to IP version
- checking
-Thread-Index: AQHX1btCGXsLHUZ/uk+0YXqtpTuk2Kv8yKvq
-Date: Wed, 10 Nov 2021 13:52:58 +0000
-Message-ID: <BL1PR12MB51446D984B9B76B9C5CC1455F7939@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20211109224251.3484398-1-Graham.Sider@amd.com>
- <20211109224251.3484398-3-Graham.Sider@amd.com>
-In-Reply-To: <20211109224251.3484398-3-Graham.Sider@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-10T13:52:57.648Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 74bf5b87-0eb6-8c74-aba1-ff622db27886
-authentication-results: dkim=none (message not signed)
+ bh=ghQoN17/XMh4twZy+8sSMm6/ZxSzLEzI6/CSbQmQ5Fo=;
+ b=fY9guUWD42ATjJIqe2rFwp9A95zMKs3rUdBulOZCuldaAtLvIYzHQlN6nNmMy9E4DzEveO/WqEMLUfzqg6XwMn1cYPWalITh7e1LMDKztAiKGsv2kUGFHYLB3SPhVTZVdjUbI1X1UjfLmJMscU/0fXIEYAINn1O+F9s+8l28kQk=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b01382c2-a5e3-42d4-bc23-08d9a451677b
-x-ms-traffictypediagnostic: BL1PR12MB5240:
-x-microsoft-antispam-prvs: <BL1PR12MB52406655F7F9E6E0D7F64E2CF7939@BL1PR12MB5240.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: eq09iYYQqIBrdrkBJn73V/zHNkT4/lQFtw1YI+jjDR+lkbS5+GgyTqMProGI9m7MHCxc5F5UnQa+rcHgb6p3xPtQbsjKM28DX3Mkqsd8MrxLYsbxal+BjFI3KGKF+VCy0dkPVrpZ8cppoZrq2zd+78vlCPIUE73WulY6ftlRWVJmZ3g2q+n4jUPr4zDGDPSHt/xofCR1ZDcgtse6Tb3vaLSHPke0jyCGvPUlXpn8ENhOz8v7kN22JH875SQtjJaJWxb+dHPP41q0VC1LBrIBied0EVryO+bRnSi51CZa4MsNaDVcRAG5jMjXnWgOVX2Yx7PROJNNXOlgjOK/uUa1AvI99i7OvSy1PBctJkUtYMSb+sRkN75vQxSjlsr87fkNQD75Y5QOE3AkE+2lYkHivQQi05bxkIHPE3N65BZALzUyZuS6bgHmjepqfAuNYXIDdAZrkFuT9YHpHSMwNBf1QDIkx0o97i7osXQgvXmJsWQA22qq42bq8pQGcMyRwe2b1y9/n5SjWZ/sgzIZBC9Tiy0ZwANo7Xp4B+d22mMKbkKNSH9nSzMGo8RUykWhXzz1CrDmEbvAPy3sTuQJ5drGBIB7gtr8qgClKxe01CTMCDk21YWpT6XQ31EsTlYpQQXWCm/1TX9E0J2AGW/X9w3p6BCA4MQCpMzk2Tt78/6U9pDX0alF2u/ltB/nsvp0o0NBETeAEfH9nNjDb4CoKuE1jg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(64756008)(186003)(30864003)(4326008)(66476007)(9686003)(83380400001)(7696005)(26005)(8676002)(8936002)(508600001)(2906002)(66556008)(66446008)(55016002)(53546011)(6506007)(76116006)(66946007)(110136005)(71200400001)(86362001)(5660300002)(316002)(33656002)(19627405001)(38070700005)(52536014)(122000001)(54906003)(38100700002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5WHOunv5GCUfn3GpnhklHmEtE7y4Kf7rXBErNuG8GGthBt0wIClw3FSPITC8?=
- =?us-ascii?Q?P0lLzq8bejXMhLrtyh8FNuyujvKb9yxaGduzxm787EgofazF1JSyBwQn31R1?=
- =?us-ascii?Q?qHdXZiEbWyhy5wtRKTASS4aN1/uOBwdb+WjCgN5fLwEPxwlJYC8b6vq7Mo+4?=
- =?us-ascii?Q?2EqfBDe75xeCQxmm5SLEUdyRuMoHhfAW8p6R+fRosoGLsRIgrpcxBY6GGqCN?=
- =?us-ascii?Q?fjiM3c8AFrs4ZdcFgYUmlbafL59YwaDUSfRiryLladhdjYjj6jMHg5fhWyo3?=
- =?us-ascii?Q?l4tVfNgn+sna5i0WUtjyIsXHcxYtQZjpPB+k3tPfg02JSqYldjIYwFlujq9u?=
- =?us-ascii?Q?MUyAI0JtM1SPMT16b+GrRbtyoEdjwriOWrcYs6pZ0cmQzS3zC22rly1+tvcD?=
- =?us-ascii?Q?BqsipRgmXtoH6aSlIpdUipFbl/5SSgD9agNKqRHTXlrAbYDGfOToHFo1eTso?=
- =?us-ascii?Q?KXemPl3xE88d4IAyjjsq9fbO7hhsM+7/x3OXWw8KFEC+pKDiBFB7wejfpxsN?=
- =?us-ascii?Q?f7oWtXYHi8m5GU/RAw7fKWh03LsmK28NW9YBga/vHrfKKj1y1FEHcyGtruzb?=
- =?us-ascii?Q?FkkIJAnVE+IIN+WdSwg1n63i225gbAPU0BXwIAs/zEPSnnLTRhuqqACTW2KY?=
- =?us-ascii?Q?QxGrMP5m+3hMiKR/4CgCiZaXel0X4sRucDAgTecg3czrJE17Gaf+qG5JXiZd?=
- =?us-ascii?Q?XdFsB6C95ZpYAn5EvBkMXXicOODMLs7nvaj0jC+KWfQcyM3KQjiF+awEWnz2?=
- =?us-ascii?Q?DCg3G1gwE/jbBJGAFBZi0MjYZw6dQ/HbLj//t3Q+J0WDVmcrdqY1wH/SKYnY?=
- =?us-ascii?Q?XM1CCSaGSFrdMSoINYqsA64gKsWfFLmWg9HWXuU6SvtQRwGrRtYde32JqMN0?=
- =?us-ascii?Q?8rKVgLjuUyJp2oG2QqygynEQnsy7jDoJ48oKvrn2XSqVYFTnfeZ5Pjdv64cW?=
- =?us-ascii?Q?YNtqCFEYUH8kpMZTB3XYrqTnmNw9uSSgIj6WYpQfhX9Phn9JPjy7wzxCNc2k?=
- =?us-ascii?Q?4Rycl4f7IWBlalosszO4ZV6dYBk4NJo/7tiAateqO9y2MbzR0Ui71S4BB3mM?=
- =?us-ascii?Q?OeYbHuudHrKfHEzX6prAFw6bYSIuPT40+MN2afe487zM0ZUJctGODZbCzsTt?=
- =?us-ascii?Q?Ijn7gdKatLiokx1Hon87BorF7mK5Drf9DTLp8+HVYdEsYpy38ovpPtFQ1i3q?=
- =?us-ascii?Q?70M3YPhorU94/6wIdlJnpLyO02GCqW652zeS+s1lYtZQWrgJIgw02W1lHSoZ?=
- =?us-ascii?Q?j+mqSmA/WbEnsRHYjPjTEOT8Epa4G0cHtLPVHaIC1/REeyZS5z0M9YPJGIPW?=
- =?us-ascii?Q?RkK0bF8EwiBOX+xj8Gxo6KjeLnRQKNOjwG8ZCNxKPmiN2JfU0u4AJd9fYYou?=
- =?us-ascii?Q?GugPmBqVMFjQGoyFP58rJFVYLSNoYrJoQYAB6b3DlWh5q/hhhEpTplp6N8nU?=
- =?us-ascii?Q?fgNHtNkW6kUwPiX0FIFPBISQC2t3gAw9iuqnm1nDOrLFClq491Y2qvPUPE56?=
- =?us-ascii?Q?Fq3JVxOgTTMeb/5nKfkQ3TvqJd72XfNgWn1h/r6ofrdEl8WhZmhKJbXd/Z01?=
- =?us-ascii?Q?d8AwxSxVQsEw1BcuUxnsvFGsruU1wRRqZwBtzjm0SpaP1NIikvGVO0yKLXwC?=
- =?us-ascii?Q?MBUSNKGuc9X7p4UgVXVjnoY=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51446D984B9B76B9C5CC1455F7939BL1PR12MB5144namp_"
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Wed, 10 Nov
+ 2021 14:00:04 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf%4]) with mapi id 15.20.4669.015; Wed, 10 Nov 2021
+ 14:00:04 +0000
+Subject: Re: [PATCH 1/5] drm/amdgpu: handle IH ring1 overflow
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211109230432.3947-1-Philip.Yang@amd.com>
+ <1862b795-3401-b89f-089b-4b544957d150@gmail.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <c5855126-de94-f2b4-c912-f386b6b47142@amd.com>
+Date: Wed, 10 Nov 2021 08:59:57 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <1862b795-3401-b89f-089b-4b544957d150@gmail.com>
+Content-Type: text/html; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LNXP265CA0006.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:5e::18) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
+Received: from [172.27.226.38] (165.204.55.251) by
+ LNXP265CA0006.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:5e::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4669.16 via Frontend Transport; Wed, 10 Nov 2021 14:00:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 726aba68-c330-49cb-7d78-08d9a4526510
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5328:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5328210B5D1A5777B6625265E6939@DM4PR12MB5328.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yR+q1QaD5FrkWgFgbaqWtDAq5YtB/ZNgxillWDovj/foOzV1FVCMhWePfdpmeMVSyWy0VudHWT7434vxRYicP3YTszFuBURpl3XmqPT8iSAxCLtzzjgSVtEbz8k+s9gIsnNEWhqe2f8YuaccVBV6OvvBgMDU17G9EPiQZkns0Goegx6/XNOfCjzaSXOemcLoqJVc0tNNkyCwNWsDzt9UCpYUnjlS62GuAFzGs9RHa2Mcn33MAd7aY8tSd0ygBIcl36HQfscOySxTtr8aTPClLpD3i7YymjlfMiNq8PIIFLaJJabzu/PvwAVuOt8S/1t5gh2LsqzXh+6O+I2UuaJDwt+/uudcJpYHUcQ5FWDsYlVXfaiPUr8wohgtd4t2NDYC3Wu6I0voQrSI2lcsu3Vh+4poNIhSJK8fJ1wLIXleRQjZKGzbM90e7p1K3KFchJqr6kNX+5V0WmRnMMCfGv6bB62E/mAx4oj8cSpUIsSt0nIWb6wf6VWkc54H/6E1Mjj4JqQ7q9pbX9Vs5jLyllPAWCu/j5Ql2iEY5gVarDmD0WMeDaQfQJhu44DjisgLA9R8Fe1q8V78sa19NR/+iSWFKIguGymcWuSteUQbgoledDv6A0NzaAqHDQX88bYjTL5WGWmI2SZ0NhAM+6vehQGa9AdSpM+pRB/g8MKtUC464K+W0SqXdCJ62/gfusJRee1X48Hav23MAA9CYDEBbu76tlFzCtjHfF2LbYvKyVSYUzQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6486002)(26005)(66946007)(66556008)(66574015)(8676002)(31686004)(38100700002)(66476007)(83380400001)(36756003)(53546011)(5660300002)(8936002)(4001150100001)(6666004)(2906002)(186003)(956004)(31696002)(2616005)(4326008)(110136005)(16576012)(316002)(508600001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0RscXZoalpyMVFyMm5jcjJZZE9vVWhvN2tTeXNnOU8zN3Y4MXlUVUxOQmp0?=
+ =?utf-8?B?cXpneWVQMEVjVmdxU3F3ejZKWjNiNXNoVk5CYW9Ld0JSVG4zTW1aSFAydDAz?=
+ =?utf-8?B?V0JtNWpJdTh6RHZqNlpWRGFGOUpPNXBXRXdzMHM3SjRrbHhHRnQrOEJYbzFI?=
+ =?utf-8?B?U3kvNkhDNUV0Z2EzSWVDNEgreXphT3UyM21mdEx1RHR4UUZsTFlyTlh0eVF0?=
+ =?utf-8?B?Ykw0TGFwQUw5Vm12T2RTdGd5SG5rS09PQ1c3N3hic0hOeFlyYlZucHA2NU1a?=
+ =?utf-8?B?UUt0TE9wMFZZbE52TEF6cFBBQlZvd3U0d0FKS2VQN1B0OWFJTnJKWGRRN2RK?=
+ =?utf-8?B?RzA0MTBlMEZXTzFzeG41UXdWVnJwL29PMFp6aWNBVVpETGhIMmRRNXMzVEFa?=
+ =?utf-8?B?LzJxUXVsRGxlYUZjalhIYlZOaXpia3l4S3BiaW9ZeS9UK0pROHViM2d2a1Yy?=
+ =?utf-8?B?bnRscjJITnFDYzNOZWE5WGVnTVZPWjRrVUxqUHFIbjdRRjEwWW0wWE5MbHJx?=
+ =?utf-8?B?TW1CSktCOXVjdUFmZE04TDE4aW5PN0g3WFFKd05ZVnV6UkYwUDZJcW9LTnpw?=
+ =?utf-8?B?eUE2Z3hiWlgrNDZydThrenRWQWJkQUs2a2RSU0xOeHdoQVBKZmhUTHpqQ2lN?=
+ =?utf-8?B?UnpyOWV3dm1DV2FvQ1MzdTRBb2VFV0lrZ2tPc2h4VjFSR0hUUTk2Y0xweUc0?=
+ =?utf-8?B?NW9tSklTTmpGQ29QbDc2RGNqazhPV2d0eVVlUzFVVGlOb0c0YytsYVZlN2Qy?=
+ =?utf-8?B?aXZCdCtFTTd2ZUJ5QTJDRzlzQTZwVjF3YjZsdUNiUmd3YU5FMjhDZXloZDFl?=
+ =?utf-8?B?aUlsOTYrMlNqN01mQmtFWmhTWVd3bGk0S3MybzNpQ2lBWkNkeVVQSVNHV3VS?=
+ =?utf-8?B?UWpmalE1TFAvOE5qK1FwY2huWGJUREF1SVdidUE5N2JVcWpVR3RWa2pLU0RI?=
+ =?utf-8?B?RXVFL0FqMnlSR3QyN082MVVsVXA2czFwWVZoZHk3bVROcmRTWW5LVzFlWGRS?=
+ =?utf-8?B?Um82clZiV1RBRHZpY0JodFIvZUFzVSt0MDl6VFJOMlY5Vjhqa0xCYy9MNFlX?=
+ =?utf-8?B?TXpYY0kzYldKQzU5VEdBVlJ0dVltTEZpZmRHRWVUTWhOQmNHTzJHV2tNTUpm?=
+ =?utf-8?B?NmtoWG1qa0FZUzVJSHVMazZDZFlHSUFSNEdnNFZUYVhUNmVlZHdwM0dacjRZ?=
+ =?utf-8?B?THFYaXVFckRpQ2UzZ1A1anp4UWZWc2h4cEIrMWlwMmlEL3JEWWNBUUtOWS92?=
+ =?utf-8?B?TndLcmlkaFVQb0xYRk16OWpEQWdIWFl2Y3FRVEN4cVd4WmdBNHg0cWhRTytY?=
+ =?utf-8?B?bXVaYk5RQmI2WTJ1c3VPcXBiVlY4VGtzMVJORzk1SXp3QnFIRDM2VXJHNHBx?=
+ =?utf-8?B?SjhBMFJtd29jR0dwNjBmQWtwWTBJMUxYNUpML1lWUkMxeTdWUXgrM2xEWUZk?=
+ =?utf-8?B?Z3V5cVV6ZVZMTXlUQVN6dGpSV2lDQjhDMU84eE5UWEYyZ3BuMVFyRldwN21u?=
+ =?utf-8?B?b2c5U05Sa0phdGF1M2g5bGIwaFVvNUJxQnpaMzl1d0c4NjNOMXFIM1NrSFg0?=
+ =?utf-8?B?SEhpUWNWck16SktseE1FZlQwSmcwaW1WNHZuZzh5QzdIMzg2cUgzYW9SN1lE?=
+ =?utf-8?B?cVY4bkd3SVl6cmJPWU9xV004NUlFNlVNUEdRSCs5TXhsamxScXNpb0xMS2I3?=
+ =?utf-8?B?SE1ZMGhYUDFoczlHeDRPa3JVUFpGendoMFJDK1RwbWluOWFWK2w5WUV1RWpS?=
+ =?utf-8?B?YlZWcG05d1Y2UFVJaGFKRnkrRUU1Vzd1VWZGcjIzTHVHNWl5NjJmQ2pZdDFQ?=
+ =?utf-8?B?WFJTUUd2aG0yRG02ZXJFWjE1ZC9YQk81NDE4WmRzWm5hY3pxZ0hzckplaHFR?=
+ =?utf-8?B?cUNLaVlOai9QUmEyK0wzL0RCYUdZNG1sSEE2dHdNUmlOSk5iaWJjNU1RODNl?=
+ =?utf-8?B?R3ZIOXVmdnUxTnZuU0R3MUFwZTJzeE02d3JOcE5HR1d1S2tFeGljcm1aN3Nt?=
+ =?utf-8?B?VVAvbE1GUmJ0Q0JTeCt3YWJ0TFY1YThiSmtoTkZuNlJLbUpzbitTTC9DSGFN?=
+ =?utf-8?B?TVQrY2pJTWFVajJXc0liQ1RzMEN1M2FTYVRrbkpBRkxlOXRFSktxWTgzYnZs?=
+ =?utf-8?Q?n3po=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 726aba68-c330-49cb-7d78-08d9a4526510
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b01382c2-a5e3-42d4-bc23-08d9a451677b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2021 13:52:58.3710 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oMKvLW/v5l9anww/hM8UrcC0dHpVUsjC8C7UiustLeZd8NkznDp7pnKiIJSafSlKE70F/3rnVAPXojNvzI4q5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5240
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 14:00:04.1310 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qnvRAeE++d9kqykAVumLyQ4QF7v64fdf6rAxK9UfVXm9vlqdsAV3fBjePRU0wrmv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,885 +137,275 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Kasiviswanathan,
- Harish" <Harish.Kasiviswanathan@amd.com>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51446D984B9B76B9C5CC1455F7939BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only]
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Graham S=
-ider <Graham.Sider@amd.com>
-Sent: Tuesday, November 9, 2021 5:42 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish <Hari=
-sh.Kasiviswanathan@amd.com>; Sider, Graham <Graham.Sider@amd.com>
-Subject: [PATCH v2 3/3] drm/amdkfd: convert misc checks to IP version check=
-ing
-
-Switch to IP version checking instead of asic_type on various KFD
-version checks.
-
-Signed-off-by: Graham Sider <Graham.Sider@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 27 ++++++++++---------
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  3 +--
- .../amd/amdkfd/kfd_device_queue_manager_v9.c  |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  6 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  7 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  6 ++---
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  4 +--
- 10 files changed, 31 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c
-index 2466a73b8c7d..f70117b00b14 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1603,7 +1603,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct fil=
-e *filep,
-         }
-         mutex_unlock(&p->mutex);
-
--       if (dev->device_info->asic_family =3D=3D CHIP_ALDEBARAN) {
-+       if (KFD_GC_VERSION(dev) =3D=3D IP_VERSION(9, 4, 2)) {
-                 err =3D amdgpu_amdkfd_gpuvm_sync_memory(dev->adev,
-                                 (struct kgd_mem *) mem, true);
-                 if (err) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
-dkfd/kfd_crat.c
-index 19dd472e9b06..b6d887edac85 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1992,7 +1992,7 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *av=
-ail_size,
-                 sub_type_hdr->flags |=3D CRAT_IOLINK_FLAGS_BI_DIRECTIONAL;
-                 sub_type_hdr->io_interface_type =3D CRAT_IOLINK_TYPE_XGMI;
-                 sub_type_hdr->num_hops_xgmi =3D 1;
--               if (kdev->adev->asic_type =3D=3D CHIP_ALDEBARAN) {
-+               if (KFD_GC_VERSION(kdev) =3D=3D IP_VERSION(9, 4, 2)) {
-                         sub_type_hdr->minimum_bandwidth_mbs =3D
-                                         amdgpu_amdkfd_get_xgmi_bandwidth_m=
-bytes(
-                                                         kdev->adev, NULL, =
-true);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c
-index ee813bd57c92..594dd28a391f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -848,23 +848,23 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *a=
-dev, bool vf)
- static void kfd_cwsr_init(struct kfd_dev *kfd)
- {
-         if (cwsr_enable && kfd->device_info->supports_cwsr) {
--               if (kfd->device_info->asic_family < CHIP_VEGA10) {
-+               if (KFD_GC_VERSION(kfd) < IP_VERSION(9, 0, 1)) {
-                         BUILD_BUG_ON(sizeof(cwsr_trap_gfx8_hex) > PAGE_SIZ=
-E);
-                         kfd->cwsr_isa =3D cwsr_trap_gfx8_hex;
-                         kfd->cwsr_isa_size =3D sizeof(cwsr_trap_gfx8_hex);
--               } else if (kfd->device_info->asic_family =3D=3D CHIP_ARCTUR=
-US) {
-+               } else if (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 1)) =
-{
-                         BUILD_BUG_ON(sizeof(cwsr_trap_arcturus_hex) > PAGE=
-_SIZE);
-                         kfd->cwsr_isa =3D cwsr_trap_arcturus_hex;
-                         kfd->cwsr_isa_size =3D sizeof(cwsr_trap_arcturus_h=
-ex);
--               } else if (kfd->device_info->asic_family =3D=3D CHIP_ALDEBA=
-RAN) {
-+               } else if (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 2)) =
-{
-                         BUILD_BUG_ON(sizeof(cwsr_trap_aldebaran_hex) > PAG=
-E_SIZE);
-                         kfd->cwsr_isa =3D cwsr_trap_aldebaran_hex;
-                         kfd->cwsr_isa_size =3D sizeof(cwsr_trap_aldebaran_=
-hex);
--               } else if (kfd->device_info->asic_family < CHIP_NAVI10) {
-+               } else if (KFD_GC_VERSION(kfd) < IP_VERSION(10, 1, 1)) {
-                         BUILD_BUG_ON(sizeof(cwsr_trap_gfx9_hex) > PAGE_SIZ=
-E);
-                         kfd->cwsr_isa =3D cwsr_trap_gfx9_hex;
-                         kfd->cwsr_isa_size =3D sizeof(cwsr_trap_gfx9_hex);
--               } else if (kfd->device_info->asic_family < CHIP_SIENNA_CICH=
-LID) {
-+               } else if (KFD_GC_VERSION(kfd) < IP_VERSION(10, 3, 0)) {
-                         BUILD_BUG_ON(sizeof(cwsr_trap_nv1x_hex) > PAGE_SIZ=
-E);
-                         kfd->cwsr_isa =3D cwsr_trap_nv1x_hex;
-                         kfd->cwsr_isa_size =3D sizeof(cwsr_trap_nv1x_hex);
-@@ -886,14 +886,16 @@ static int kfd_gws_init(struct kfd_dev *kfd)
-                 return 0;
-
-         if (hws_gws_support
--               || (kfd->device_info->asic_family =3D=3D CHIP_VEGA10
-+               || (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 0, 1)
-                         && kfd->mec2_fw_version >=3D 0x81b3)
--               || (kfd->device_info->asic_family >=3D CHIP_VEGA12
--                       && kfd->device_info->asic_family <=3D CHIP_RAVEN
-+               || ((KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 2, 1)
-+                       || KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 0)
-+                       || KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 1, 0)
-+                       || KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 2, 2))
-                         && kfd->mec2_fw_version >=3D 0x1b3)
--               || (kfd->device_info->asic_family =3D=3D CHIP_ARCTURUS
-+               || (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 1)
-                         && kfd->mec2_fw_version >=3D 0x30)
--               || (kfd->device_info->asic_family =3D=3D CHIP_ALDEBARAN
-+               || (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 2)
-                         && kfd->mec2_fw_version >=3D 0x28))
-                 ret =3D amdgpu_amdkfd_alloc_gws(kfd->adev,
-                                 kfd->adev->gds.gws_size, &kfd->gws);
-@@ -962,10 +964,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
-          * calculate max size of runlist packet.
-          * There can be only 2 packets at once
-          */
--       map_process_packet_size =3D
--                       kfd->device_info->asic_family =3D=3D CHIP_ALDEBARAN=
- ?
-+       map_process_packet_size =3D KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9=
-, 4, 2) ?
-                                 sizeof(struct pm4_mes_map_process_aldebara=
-n) :
--                                       sizeof(struct pm4_mes_map_process);
-+                               sizeof(struct pm4_mes_map_process);
-         size +=3D (KFD_MAX_NUM_OF_PROCESSES * map_process_packet_size +
-                 max_num_of_queues_per_device * sizeof(struct pm4_mes_map_q=
-ueues)
-                 + sizeof(struct pm4_mes_runlist)) * 2;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
-s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 93d41e0b9b41..c894cbe58a36 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -250,8 +250,7 @@ static int allocate_vmid(struct device_queue_manager *d=
-qm,
-
-         program_sh_mem_settings(dqm, qpd);
-
--       if (dqm->dev->device_info->asic_family >=3D CHIP_VEGA10 &&
--           dqm->dev->cwsr_enabled)
-+       if (KFD_IS_SOC15(dqm->dev) && dqm->dev->cwsr_enabled)
-                 program_trap_handler_settings(dqm, qpd);
-
-         /* qpd->page_table_base is set earlier when register_process()
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/dri=
-vers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-index b5c3d13643f1..f20434d9980e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-@@ -62,7 +62,7 @@ static int update_qpd_v9(struct device_queue_manager *dqm=
-,
-                                 SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-                                         SH_MEM_CONFIG__ALIGNMENT_MODE__SHI=
-FT;
-
--               if (dqm->dev->device_info->asic_family =3D=3D CHIP_ALDEBARA=
-N) {
-+               if (KFD_GC_VERSION(dqm->dev) =3D=3D IP_VERSION(9, 4, 2)) {
-                         /* Aldebaran can safely support different XNACK mo=
-des
-                          * per process
-                          */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_events.c
-index 3eea4edee355..afe72dd11325 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -935,8 +935,10 @@ void kfd_signal_iommu_event(struct kfd_dev *dev, u32 p=
-asid,
-         /* Workaround on Raven to not kill the process when memory is free=
-d
-          * before IOMMU is able to finish processing all the excessive PPR=
-s
-          */
--       if (dev->device_info->asic_family !=3D CHIP_RAVEN &&
--           dev->device_info->asic_family !=3D CHIP_RENOIR) {
-+
-+       if (KFD_GC_VERSION(dev) !=3D IP_VERSION(9, 1, 0) &&
-+           KFD_GC_VERSION(dev) !=3D IP_VERSION(9, 2, 2) &&
-+           KFD_GC_VERSION(dev) !=3D IP_VERSION(9, 3, 0)) {
-                 mutex_lock(&p->event_mutex);
-
-                 /* Lookup events by type and signal them */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_migrate.c
-index aeade32ec298..d59b73f69260 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -940,7 +940,7 @@ int svm_migrate_init(struct amdgpu_device *adev)
-         void *r;
-
-         /* Page migration works on Vega10 or newer */
--       if (kfddev->device_info->asic_family < CHIP_VEGA10)
-+       if (!KFD_IS_SOC15(kfddev))
-                 return -EINVAL;
-
-         pgmap =3D &kfddev->pgmap;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_process.c
-index fafc7b187fad..74c9323f32fc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1317,14 +1317,13 @@ bool kfd_process_xnack_mode(struct kfd_process *p, =
-bool supported)
-                  * support the SVM APIs and don't need to be considered
-                  * for the XNACK mode selection.
-                  */
--               if (dev->device_info->asic_family < CHIP_VEGA10)
-+               if (!KFD_IS_SOC15(dev))
-                         continue;
-                 /* Aldebaran can always support XNACK because it can suppo=
-rt
-                  * per-process XNACK mode selection. But let the dev->nore=
-try
-                  * setting still influence the default XNACK mode.
-                  */
--               if (supported &&
--                   dev->device_info->asic_family =3D=3D CHIP_ALDEBARAN)
-+               if (supported && KFD_GC_VERSION(dev) =3D=3D IP_VERSION(9, 4=
-, 2))
-                         continue;
-
-                 /* GFXv10 and later GPUs do not support shader preemption
-@@ -1332,7 +1331,7 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bo=
-ol supported)
-                  * management and memory-manager-related preemptions or
-                  * even deadlocks.
-                  */
--               if (dev->device_info->asic_family >=3D CHIP_NAVI10)
-+               if (KFD_GC_VERSION(dev) > IP_VERSION(10, 1, 1))
-                         return false;
-
-                 if (dev->noretry)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
-kfd/kfd_svm.c
-index 77239b06b236..88360f23eb61 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1051,8 +1051,8 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, s=
-truct svm_range *prange,
-         if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN)
-                 bo_adev =3D amdgpu_ttm_adev(prange->svm_bo->bo->tbo.bdev);
-
--       switch (adev->asic_type) {
--       case CHIP_ARCTURUS:
-+       switch (KFD_GC_VERSION(adev->kfd.dev)) {
-+       case IP_VERSION(9, 4, 1):
-                 if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN) {
-                         if (bo_adev =3D=3D adev) {
-                                 mapping_flags |=3D coherent ?
-@@ -1068,7 +1068,7 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, s=
-truct svm_range *prange,
-                                 AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
-                 }
-                 break;
--       case CHIP_ALDEBARAN:
-+       case IP_VERSION(9, 4, 2):
-                 if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN) {
-                         if (bo_adev =3D=3D adev) {
-                                 mapping_flags |=3D coherent ?
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_topology.c
-index a4c0c929444a..641e250dc95f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1239,7 +1239,7 @@ static void kfd_set_iolink_non_coherent(struct kfd_to=
-pology_device *to_dev,
-                  */
-                 if (inbound_link->iolink_type =3D=3D CRAT_IOLINK_TYPE_PCIE=
-XPRESS ||
-                     (inbound_link->iolink_type =3D=3D CRAT_IOLINK_TYPE_XGM=
-I &&
--                   to_dev->gpu->device_info->asic_family =3D=3D CHIP_VEGA2=
-0)) {
-+                   KFD_GC_VERSION(to_dev->gpu) =3D=3D IP_VERSION(9, 4, 0))=
-) {
-                         outbound_link->flags |=3D CRAT_IOLINK_FLAGS_NON_CO=
-HERENT;
-                         inbound_link->flags |=3D CRAT_IOLINK_FLAGS_NON_COH=
-ERENT;
-                 }
-@@ -1463,7 +1463,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
-                 ((dev->gpu->adev->ras_enabled & BIT(AMDGPU_RAS_BLOCK__UMC)=
-) !=3D 0) ?
-                 HSA_CAP_MEM_EDCSUPPORTED : 0;
-
--       if (dev->gpu->adev->asic_type !=3D CHIP_VEGA10)
-+       if (KFD_GC_VERSION(dev->gpu) !=3D IP_VERSION(9, 0, 1))
-                 dev->node_props.capability |=3D (dev->gpu->adev->ras_enabl=
-ed !=3D 0) ?
-                         HSA_CAP_RASEVENTNOTIFY : 0;
-
---
-2.25.1
-
-
---_000_BL1PR12MB51446D984B9B76B9C5CC1455F7939BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Graham Sider &lt;Graham.Sider=
-@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, November 9, 2021 5:42 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Kasiviswanathan,=
- Harish &lt;Harish.Kasiviswanathan@amd.com&gt;; Sider, Graham &lt;Graham.Si=
-der@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2 3/3] drm/amdkfd: convert misc checks to IP versio=
-n checking</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Switch to IP version checking instead of asic_type=
- on various KFD<br>
-version checks.<br>
-<br>
-Signed-off-by: Graham Sider &lt;Graham.Sider@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; |&nbsp; 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_crat.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; |&nbsp; 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; | 27 ++++++++++---------<br>
-&nbsp;.../drm/amd/amdkfd/kfd_device_queue_manager.c |&nbsp; 3 +--<br>
-&nbsp;.../amd/amdkfd/kfd_device_queue_manager_v9.c&nbsp; |&nbsp; 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_events.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; |&nbsp; 6 +++--<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_migrate.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; |&nbsp; 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; |&nbsp; 7 +++--<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_svm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; |&nbsp; 6 ++---<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_topology.c&nbsp;&nbsp;&nbsp;&nbsp; |&n=
-bsp; 4 +--<br>
-&nbsp;10 files changed, 31 insertions(+), 30 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c<br>
-index 2466a73b8c7d..f70117b00b14 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-@@ -1603,7 +1603,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct fil=
-e *filep,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;p-&gt;mu=
-tex);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev-&gt;device_info-&gt;asic_fami=
-ly =3D=3D CHIP_ALDEBARAN) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_GC_VERSION(dev) =3D=3D IP_VER=
-SION(9, 4, 2)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; err =3D amdgpu_amdkfd_gpuvm_sync_memory(dev-&gt;adev,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (struct kgd_mem *) mem, true);<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (err) {<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
-dkfd/kfd_crat.c<br>
-index 19dd472e9b06..b6d887edac85 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c<br>
-@@ -1992,7 +1992,7 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *av=
-ail_size,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; sub_type_hdr-&gt;flags |=3D CRAT_IOLINK_FLAGS_BI_DIRE=
-CTIONAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; sub_type_hdr-&gt;io_interface_type =3D CRAT_IOLINK_TY=
-PE_XGMI;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; sub_type_hdr-&gt;num_hops_xgmi =3D 1;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (kdev-&gt;adev-&gt;asic_type =3D=3D CHIP_ALDEBARAN) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (KFD_GC_VERSION(kdev) =3D=3D IP_VERSION(9, 4, 2)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sub_t=
-ype_hdr-&gt;minimum_bandwidth_mbs =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kdev-&gt;adev, NULL, true);<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c<br>
-index ee813bd57c92..594dd28a391f 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
-@@ -848,23 +848,23 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *a=
-dev, bool vf)<br>
-&nbsp;static void kfd_cwsr_init(struct kfd_dev *kfd)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (cwsr_enable &amp;&amp;=
- kfd-&gt;device_info-&gt;supports_cwsr) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (kfd-&gt;device_info-&gt;asic_family &lt; CHIP_VEGA10) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (KFD_GC_VERSION(kfd) &lt; IP_VERSION(9, 0, 1)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUILD=
-_BUG_ON(sizeof(cwsr_trap_gfx8_hex) &gt; PAGE_SIZE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa =3D cwsr_trap_gfx8_hex;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa_size =3D sizeof(cwsr_trap_gfx8_hex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (kfd-&gt;device_info-&gt;asic_family =3D=3D CHIP_ARCTU=
-RUS) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 1)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUILD=
-_BUG_ON(sizeof(cwsr_trap_arcturus_hex) &gt; PAGE_SIZE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa =3D cwsr_trap_arcturus_hex;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa_size =3D sizeof(cwsr_trap_arcturus_hex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (kfd-&gt;device_info-&gt;asic_family =3D=3D CHIP_ALDEB=
-ARAN) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 2)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUILD=
-_BUG_ON(sizeof(cwsr_trap_aldebaran_hex) &gt; PAGE_SIZE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa =3D cwsr_trap_aldebaran_hex;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa_size =3D sizeof(cwsr_trap_aldebaran_hex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (kfd-&gt;device_info-&gt;asic_family &lt; CHIP_NAVI10)=
- {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (KFD_GC_VERSION(kfd) &lt; IP_VERSION(10, 1, 1)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUILD=
-_BUG_ON(sizeof(cwsr_trap_gfx9_hex) &gt; PAGE_SIZE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa =3D cwsr_trap_gfx9_hex;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa_size =3D sizeof(cwsr_trap_gfx9_hex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (kfd-&gt;device_info-&gt;asic_family &lt; CHIP_SIENNA_=
-CICHLID) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (KFD_GC_VERSION(kfd) &lt; IP_VERSION(10, 3, 0)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUILD=
-_BUG_ON(sizeof(cwsr_trap_nv1x_hex) &gt; PAGE_SIZE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa =3D cwsr_trap_nv1x_hex;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&=
-gt;cwsr_isa_size =3D sizeof(cwsr_trap_nv1x_hex);<br>
-@@ -886,14 +886,16 @@ static int kfd_gws_init(struct kfd_dev *kfd)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hws_gws_support<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || (kfd-&gt;device_info-&gt;asic_family =3D=3D CHIP_VEGA10<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 0, 1)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-&amp; kfd-&gt;mec2_fw_version &gt;=3D 0x81b3)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || (kfd-&gt;device_info-&gt;asic_family &gt;=3D CHIP_VEGA12<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp; kfd-&=
-gt;device_info-&gt;asic_family &lt;=3D CHIP_RAVEN<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || ((KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 2, 1)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || KFD_GC_VERSIO=
-N(kfd) =3D=3D IP_VERSION(9, 4, 0)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || KFD_GC_VERSIO=
-N(kfd) =3D=3D IP_VERSION(9, 1, 0)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || KFD_GC_VERSIO=
-N(kfd) =3D=3D IP_VERSION(9, 2, 2))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-&amp; kfd-&gt;mec2_fw_version &gt;=3D 0x1b3)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || (kfd-&gt;device_info-&gt;asic_family =3D=3D CHIP_ARCTURUS<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 1)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-&amp; kfd-&gt;mec2_fw_version &gt;=3D 0x30)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || (kfd-&gt;device_info-&gt;asic_family =3D=3D CHIP_ALDEBARAN<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; || (KFD_GC_VERSION(kfd) =3D=3D IP_VERSION(9, 4, 2)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-&amp; kfd-&gt;mec2_fw_version &gt;=3D 0x28))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_amdkfd_alloc_gws(kfd-&gt;adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;adev-&gt;gds.gws_size, &=
-amp;kfd-&gt;gws);<br>
-@@ -962,10 +964,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * calculate max size=
- of runlist packet.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * There can be only =
-2 packets at once<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; map_process_packet_size =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;device_i=
-nfo-&gt;asic_family =3D=3D CHIP_ALDEBARAN ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; map_process_packet_size =3D KFD_GC_VE=
-RSION(kfd) =3D=3D IP_VERSION(9, 4, 2) ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(struct pm4_mes_map_proces=
-s_aldebaran) :<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; sizeof(struct pm4_mes_map_process);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(struct pm4_mes_map_process);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size +=3D (KFD_MAX_NUM_OF_=
-PROCESSES * map_process_packet_size +<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; max_num_of_queues_per_device * sizeof(struct pm4_mes_=
-map_queues)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; + sizeof(struct pm4_mes_runlist)) * 2;<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
-s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-index 93d41e0b9b41..c894cbe58a36 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-@@ -250,8 +250,7 @@ static int allocate_vmid(struct device_queue_manager *d=
-qm,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; program_sh_mem_settings(dq=
-m, qpd);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dqm-&gt;dev-&gt;device_info-&gt;a=
-sic_family &gt;=3D CHIP_VEGA10 &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm-&gt;dev-&=
-gt;cwsr_enabled)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_IS_SOC15(dqm-&gt;dev) &amp;&a=
-mp; dqm-&gt;dev-&gt;cwsr_enabled)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; program_trap_handler_settings(dqm, qpd);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* qpd-&gt;page_table_base=
- is set earlier when register_process()<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/dri=
-vers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c<br>
-index b5c3d13643f1..f20434d9980e 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c<br>
-@@ -62,7 +62,7 @@ static int update_qpd_v9(struct device_queue_manager *dqm=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SH_MEM_ALIGNMENT_MODE_UNALIGNED =
-&lt;&lt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (dqm-&gt;dev-&gt;device_info-&gt;asic_family =3D=3D CHIP_ALDE=
-BARAN) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (KFD_GC_VERSION(dqm-&gt;dev) =3D=3D IP_VERSION(9, 4, 2)) {<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Al=
-debaran can safely support different XNACK modes<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- * per process<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- */<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_events.c<br>
-index 3eea4edee355..afe72dd11325 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-@@ -935,8 +935,10 @@ void kfd_signal_iommu_event(struct kfd_dev *dev, u32 p=
-asid,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Workaround on Raven to =
-not kill the process when memory is freed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * before IOMMU is ab=
-le to finish processing all the excessive PPRs<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev-&gt;device_info-&gt;asic_fami=
-ly !=3D CHIP_RAVEN &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev-&gt;devic=
-e_info-&gt;asic_family !=3D CHIP_RENOIR) {<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_GC_VERSION(dev) !=3D IP_VERSI=
-ON(9, 1, 0) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_GC_VERSIO=
-N(dev) !=3D IP_VERSION(9, 2, 2) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_GC_VERSIO=
-N(dev) !=3D IP_VERSION(9, 3, 0)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;p-&gt;event_mutex);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Lookup events by type and signal them */<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_migrate.c<br>
-index aeade32ec298..d59b73f69260 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c<br>
-@@ -940,7 +940,7 @@ int svm_migrate_init(struct amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *r;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Page migration works on=
- Vega10 or newer */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (kfddev-&gt;device_info-&gt;asic_f=
-amily &lt; CHIP_VEGA10)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!KFD_IS_SOC15(kfddev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pgmap =3D &amp;kfddev-&gt;=
-pgmap;<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_process.c<br>
-index fafc7b187fad..74c9323f32fc 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-@@ -1317,14 +1317,13 @@ bool kfd_process_xnack_mode(struct kfd_process *p, =
-bool supported)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * support the SVM APIs and don't need to be con=
-sidered<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * for the XNACK mode selection.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (dev-&gt;device_info-&gt;asic_family &lt; CHIP_VEGA10)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!KFD_IS_SOC15(dev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
-nue;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Aldebaran can always support XNACK because it can =
-support<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * per-process XNACK mode selection. But let the=
- dev-&gt;noretry<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * setting still influence the default XNACK mod=
-e.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (supported &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev-&gt;device_info-&gt;asic_family =3D=
-=3D CHIP_ALDEBARAN)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (supported &amp;&amp; KFD_GC_VERSION(dev) =3D=3D IP_VERSION(9=
-, 4, 2))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
-nue;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* GFXv10 and later GPUs do not support shader preemp=
-tion<br>
-@@ -1332,7 +1331,7 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bo=
-ol supported)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * management and memory-manager-related preempt=
-ions or<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * even deadlocks.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (dev-&gt;device_info-&gt;asic_family &gt;=3D CHIP_NAVI10)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (KFD_GC_VERSION(dev) &gt; IP_VERSION(10, 1, 1))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n false;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (dev-&gt;noretry)<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
-kfd/kfd_svm.c<br>
-index 77239b06b236..88360f23eb61 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<br>
-@@ -1051,8 +1051,8 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, s=
-truct svm_range *prange,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (domain =3D=3D SVM_RANG=
-E_VRAM_DOMAIN)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; bo_adev =3D amdgpu_ttm_adev(prange-&gt;svm_bo-&gt;bo-=
-&gt;tbo.bdev);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (KFD_GC_VERSION(adev-&gt;kfd.d=
-ev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 1):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (b=
-o_adev =3D=3D adev) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D coherent ?<br=
->
-@@ -1068,7 +1068,7 @@ svm_range_get_pte_flags(struct amdgpu_device *adev, s=
-truct svm_range *prange,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_VM_MTYPE_UC : AMDGPU_VM_M=
-TYPE_NC;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ALDEBARAN:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 2):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (b=
-o_adev =3D=3D adev) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D coherent ?<br=
->
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_topology.c<br>
-index a4c0c929444a..641e250dc95f 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-@@ -1239,7 +1239,7 @@ static void kfd_set_iolink_non_coherent(struct kfd_to=
-pology_device *to_dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (inbound_link-&gt;iolink_type =3D=3D CRAT_IOLINK_T=
-YPE_PCIEXPRESS ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (inbound_link-&gt;iolink_type=
- =3D=3D CRAT_IOLINK_TYPE_XGMI &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to_dev-&gt;gpu-&gt;device_info-&gt;asic_=
-family =3D=3D CHIP_VEGA20)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_GC_VERSION(to_dev-&gt;gpu) =3D=3D IP=
-_VERSION(9, 4, 0))) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; outbo=
-und_link-&gt;flags |=3D CRAT_IOLINK_FLAGS_NON_COHERENT;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; inbou=
-nd_link-&gt;flags |=3D CRAT_IOLINK_FLAGS_NON_COHERENT;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -1463,7 +1463,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((dev-&gt;gpu-&gt;adev-&gt;ras_enabled &amp; BIT(AMDG=
-PU_RAS_BLOCK__UMC)) !=3D 0) ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; HSA_CAP_MEM_EDCSUPPORTED : 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev-&gt;gpu-&gt;adev-&gt;asic_typ=
-e !=3D CHIP_VEGA10)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_GC_VERSION(dev-&gt;gpu) !=3D =
-IP_VERSION(9, 0, 1))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dev-&gt;node_props.capability |=3D (dev-&gt;gpu-&gt;a=
-dev-&gt;ras_enabled !=3D 0) ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HSA_C=
-AP_RASEVENTNOTIFY : 0;<br>
-&nbsp;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-11-10 5:15 a.m., Christian
+      König wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:1862b795-3401-b89f-089b-4b544957d150@gmail.com">Am
+      10.11.21 um 00:04 schrieb Philip Yang:
+      <br>
+      <blockquote type="cite">IH ring1 is used to process GPU retry
+        fault, overflow is enabled to
+        <br>
+        drain retry fault before unmapping the range, wptr may pass
+        rptr,
+        <br>
+        amdgpu_ih_process should check rptr equals to the latest wptr to
+        exit,
+        <br>
+        otherwise it will continue to recover outdatad retry fault after
+        drain
+        <br>
+        retry fault is done, and generate false GPU vm fault because
+        range is
+        <br>
+        unmapped from cpu.
+        <br>
+        <br>
+        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 7 ++++++-
+        <br>
+        &nbsp; 1 file changed, 6 insertions(+), 1 deletion(-)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+        <br>
+        index f3d62e196901..d1ef61811169 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+        <br>
+        @@ -223,7 +223,7 @@ int
+        amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
+        <br>
+        &nbsp;&nbsp; */
+        <br>
+        &nbsp; int amdgpu_ih_process(struct amdgpu_device *adev, struct
+        amdgpu_ih_ring *ih)
+        <br>
+        &nbsp; {
+        <br>
+        -&nbsp;&nbsp;&nbsp; unsigned int count = AMDGPU_IH_MAX_NUM_IVS;
+        <br>
+        +&nbsp;&nbsp;&nbsp; unsigned int count;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 wptr;
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ih-&gt;enabled || adev-&gt;shutdown)
+        <br>
+        @@ -232,6 +232,8 @@ int amdgpu_ih_process(struct amdgpu_device
+        *adev, struct amdgpu_ih_ring *ih)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr = amdgpu_ih_get_wptr(adev, ih);
+        <br>
+        &nbsp; &nbsp; restart_ih:
+        <br>
+        +&nbsp;&nbsp;&nbsp; count = AMDGPU_IH_MAX_NUM_IVS;
+        <br>
+        +
+        <br>
+      </blockquote>
+      <br>
+      This looks like a bugfix to me and should probably be in a
+      separate patch with CC: stable.
+      <br>
+    </blockquote>
+    ok, will add separate patch for this fix. I think this bug shows up
+    now for ring1 because retry fault is burst and flooding even after
+    filter.<br>
+    <blockquote type="cite" cite="mid:1862b795-3401-b89f-089b-4b544957d150@gmail.com">
+      <br>
+      <blockquote type="cite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;%s: rptr %d, wptr %d\n&quot;,
+        __func__, ih-&gt;rptr, wptr);
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Order reading of wptr vs. reading of IH ring data */
+        <br>
+        @@ -240,6 +242,9 @@ int amdgpu_ih_process(struct amdgpu_device
+        *adev, struct amdgpu_ih_ring *ih)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (ih-&gt;rptr != wptr &amp;&amp; --count) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_irq_dispatch(adev, ih);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih-&gt;rptr &amp;= ih-&gt;ptr_mask;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih == &amp;adev-&gt;irq.ih1)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr = amdgpu_ih_get_wptr(adev, ih);
+        <br>
+      </blockquote>
+      <br>
+      Well that handling does not really make much sense.
+      <br>
+      <br>
+      The AMDGPU_IH_MAX_NUM_IVS define controls how many IVs we can
+      process before checking the wptr again.
+      <br>
+      <br>
+    </blockquote>
+    <p>It is hard to understand, this debug log can explain more
+      details, with this debug message patch</p>
+    <p>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+      b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c<br>
+      index ed6f8d24280b..8859f2bb11b1 100644<br>
+      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c<br>
+      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c<br>
+      @@ -234,10 +235,12 @@ int amdgpu_ih_process(struct amdgpu_device
+      *adev, struct amdgpu_ih_ring *ih)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return IRQ_NONE;<br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr = amdgpu_ih_get_wptr(adev, ih);<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih == &amp;adev-&gt;irq.ih1)<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;entering rptr 0x%x, wptr 0x%x\n&quot;,
+      ih-&gt;rptr, wptr);<br>
+      <br>
+      &nbsp;restart_ih:<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih == &amp;adev-&gt;irq.ih1)<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;starting rptr 0x%x, wptr 0x%x\n&quot;,
+      ih-&gt;rptr, wptr);<br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Order reading of wptr vs. reading of IH ring data */<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rmb();<br>
+      @@ -245,8 +248,12 @@ int amdgpu_ih_process(struct amdgpu_device
+      *adev, struct amdgpu_ih_ring *ih)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (ih-&gt;rptr != wptr &amp;&amp; --count) {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_irq_dispatch(adev, ih);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih-&gt;rptr &amp;= ih-&gt;ptr_mask;<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih == &amp;adev-&gt;irq.ih1) {<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;rptr 0x%x, old wptr 0x%x, new
+      wptr 0x%x\n&quot;,<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih-&gt;rptr, wptr,<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ih_get_wptr(adev, ih));<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ih_set_rptr(adev, ih);<br>
+      @@ -257,6 +264,8 @@ int amdgpu_ih_process(struct amdgpu_device
+      *adev, struct amdgpu_ih_ring *ih)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (wptr != ih-&gt;rptr)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto restart_ih;<br>
+      <br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih == &amp;adev-&gt;irq.ih1)<br>
+      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;exiting rptr 0x%x, wptr 0x%x\n&quot;,
+      ih-&gt;rptr, wptr);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return IRQ_HANDLED;<br>
+      &nbsp;}<br>
+      <br>
+    </p>
+    <p>This is log, timing 48.807028, ring1 drain is done, rptr == wptr,
+      ring1 is empty, but the loop continues, to handle outdated retry
+      fault.<br>
+    </p>
+    <p>[&nbsp;&nbsp; 48.802231] amdgpu_ih_process:243: amdgpu: starting rptr
+      0x520, wptr 0xd20<br>
+      [&nbsp;&nbsp; 48.802235] amdgpu_ih_process:254: amdgpu: rptr 0x540, old wptr
+      0xd20, new wptr 0xd20<br>
+      [&nbsp;&nbsp; 48.802256] amdgpu_ih_process:254: amdgpu: rptr 0x560, old wptr
+      0xd20, new wptr 0xd20<br>
+      [&nbsp;&nbsp; 48.802260] amdgpu_ih_process:254: amdgpu: rptr 0x580, old wptr
+      0xd20, new wptr 0xd20<br>
+      [&nbsp;&nbsp; 48.802281] amdgpu_ih_process:254: amdgpu: rptr 0x5a0, old wptr
+      0xd20, new wptr 0xd20<br>
+      [&nbsp;&nbsp; 48.802314] amdgpu_ih_process:254: amdgpu: rptr 0x5c0, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802335] amdgpu_ih_process:254: amdgpu: rptr 0x5e0, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802356] amdgpu_ih_process:254: amdgpu: rptr 0x600, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802376] amdgpu_ih_process:254: amdgpu: rptr 0x620, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802396] amdgpu_ih_process:254: amdgpu: rptr 0x640, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802401] amdgpu_ih_process:254: amdgpu: rptr 0x660, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802421] amdgpu_ih_process:254: amdgpu: rptr 0x680, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802442] amdgpu_ih_process:254: amdgpu: rptr 0x6a0, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802463] amdgpu_ih_process:254: amdgpu: rptr 0x6c0, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802483] amdgpu_ih_process:254: amdgpu: rptr 0x6e0, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802503] amdgpu_ih_process:254: amdgpu: rptr 0x700, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802523] amdgpu_ih_process:254: amdgpu: rptr 0x720, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802544] amdgpu_ih_process:254: amdgpu: rptr 0x740, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802565] amdgpu_ih_process:254: amdgpu: rptr 0x760, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.802569] amdgpu_ih_process:254: amdgpu: rptr 0x780, old wptr
+      0xd20, new wptr 0xce0<br>
+      [&nbsp;&nbsp; 48.804392] amdgpu_ih_process:254: amdgpu: rptr 0x7a0, old wptr
+      0xd20, new wptr 0xf00<br>
+      [&nbsp;&nbsp; 48.806122] amdgpu_ih_process:254: amdgpu: rptr 0x7c0, old wptr
+      0xd20, new wptr 0x840<br>
+      [&nbsp;&nbsp; 48.806155] amdgpu_ih_process:254: amdgpu: rptr 0x7e0, old wptr
+      0xd20, new wptr 0x840<br>
+      [&nbsp;&nbsp; 48.806965] amdgpu_ih_process:254: amdgpu: rptr 0x800, old wptr
+      0xd20, new wptr 0x840<br>
+      [&nbsp;&nbsp; 48.806995] amdgpu_ih_process:254: amdgpu: rptr 0x820, old wptr
+      0xd20, new wptr 0x840<br>
+      [&nbsp;&nbsp; 48.807028] amdgpu_ih_process:254: amdgpu: rptr 0x840, old wptr
+      0xd20, new wptr 0x840<br>
+      [&nbsp;&nbsp; 48.807063] amdgpu_ih_process:254: amdgpu: rptr 0x860, old wptr
+      0xd20, new wptr 0x840<br>
+      [&nbsp;&nbsp; 48.808421] amdgpu_ih_process:254: amdgpu: rptr 0x880, old wptr
+      0xd20, new wptr 0x840<br>
+    </p>
+    <p>Cause this gpu vm fault dump because address is unmapped from
+      cpu.<br>
+    </p>
+    <p>[&nbsp;&nbsp; 48.807071] svm_range_restore_pages:2617: amdgpu: restoring
+      svms 0x00000000733bf007 fault address 0x7f8a6991f</p>
+    <p>[&nbsp;&nbsp; 48.807170] svm_range_restore_pages:2631: amdgpu: failed to
+      find prange svms 0x00000000733bf007 address [0x7f8a6991f]<br>
+      [&nbsp;&nbsp; 48.807179] svm_range_get_range_boundaries:2348: amdgpu: VMA
+      does not exist in address [0x7f8a6991f]<br>
+      [&nbsp;&nbsp; 48.807185] svm_range_restore_pages:2635: amdgpu: failed to
+      create unregistered range svms 0x00000000733bf007 address
+      [0x7f8a6991f]</p>
+    <p>[&nbsp;&nbsp; 48.807929] amdgpu 0000:25:00.0: amdgpu: [mmhub0] retry page
+      fault (src_id:0 ring:0 vmid:8 pasid:32770, for process kfdtest pid
+      3969 thread kfdtest pid 3969)<br>
+      [&nbsp;&nbsp; 48.808219] amdgpu 0000:25:00.0: amdgpu:&nbsp;&nbsp; in page starting at
+      address 0x00007f8a6991f000 from IH client 0x12 (VMC)<br>
+      [&nbsp;&nbsp; 48.808230] amdgpu 0000:25:00.0: amdgpu:
+      VM_L2_PROTECTION_FAULT_STATUS:0x00800031<br>
+      <br>
+    </p>
+    <blockquote type="cite" cite="mid:1862b795-3401-b89f-089b-4b544957d150@gmail.com">We could
+      of course parameterize that so that we check the wptr after each
+      IV on IH1, but please not hard coded like this.
+      <br>
+      <br>
+      Regards,
+      <br>
+      Christian.
+      <br>
+      <br>
+      <blockquote type="cite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ih_set_rptr(adev, ih);
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+  </body>
 </html>
-
---_000_BL1PR12MB51446D984B9B76B9C5CC1455F7939BL1PR12MB5144namp_--
