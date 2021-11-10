@@ -2,48 +2,48 @@ Return-Path: <SRS0=Yti/=P5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 642DBC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 06:23:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69C7AC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 06:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D12F61159
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 06:23:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D12F61159
+	by mail.kernel.org (Postfix) with ESMTPS id 2778961159
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Nov 2021 06:23:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2778961159
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F69F6E03A;
-	Wed, 10 Nov 2021 06:23:51 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2044.outbound.protection.outlook.com [40.107.101.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4ED6E03A
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 06:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F301B6E0A0;
+	Wed, 10 Nov 2021 06:23:53 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2087.outbound.protection.outlook.com [40.107.243.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07F826E041
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 06:23:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FPPEoA6RSgLEv0UsKehadsFH7HYkPrO5RcwzKtUHL4JYOHtC59IXYB8haR6v1r0tvn5lbdayCl4InHJCOqWZDAHpZDW1NH/rbKvIS17IcHzR4QOKCHSBowYANJagLECPkf+SOfhg0y75K8DNo3+AZqq1lDPCELYu5etPeMyY8GyXfTvAqVGXc0xHFJmThQpMQ3HlTkn3tj2muv7m4UWJypnsSSyPnGbwmIa8pUr+8ytQ4mV70wN9DDXpodVhjI+ZYPT4nB6mYMMHemwxfCJpTWdWDIMoZ419TOS2hZ/G9z7P+5ws++++mmoLTjSA/DpyhFe64b23bq9d66Bpaeo75Q==
+ b=kvFzrNiGqFwDWIrcP8Qg0JQ1BBM302+I0de8x92umoMQTa7NnQpu4Ti8XA55ZJpbEXgtqrSW23pjLpEoV/mim3nbfyJawyaumC12TKBnaWc7v/EwlgoHror6W8MaJTFEDNpbKK9dTDZRP37HUhe/3tLFB+2wr6QqcrlNhv7tPfS9p3SFeQmPII1OAlZ6WkMgmhJ9GfSAdtdgJS4Pr3uVgagOHrTeyt0SpF6PEg+fsVf+WUkjMoUeHy9z7zKM71jEva5efnJU019R7NEMWGZpdNN7jnsKIUoVpQ0R7GyZ7PS4Mcqmp/1XjDvXd8HszSFQup0Kc1UkhbOxxaDUI/WHXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pjy96Mwsti8bY4+cSXf8eWAUgggDaGDBDFz4E77QUrw=;
- b=ivtCGgm2BlWTvOlarGbg5M4RgIfTpLRqYQKJE7Ej+er0eGupIHGuOBzE2cU6tRBtl6MzocyCMC9mN3zgX62lhbYXhU3IjdfnxZd20dyQ/4Ceg36GlSTEu/nm+kEMymrmqQGxiKuBozUKWS+c8IBeFVWYavQC/BBI8eCzwM6cDGEE7j8VAvGMRFuBdwkgN4FBU1a0Q8FFAX4DkUGFgOhvkx+EOHfE/ZrGbndKptjZz2eUCIgQIa4zBH4LCHru8zaOizcKpMNsc/Idl2jWqAm3Kvmvs+0oPo4tMltsFD+uG1Pj7OWEaKZH34dYqzQTB5ng+U/+3PggUa6qYjeA8Dj4fA==
+ bh=UaylJbKoozRbuWvQbsiiHA/afWa/t5Unndcr4e7bn08=;
+ b=L5eA06Xygj2797hsu2OT8GlVzGE5XL7FDfNgUg6KUS42YlnuOfJEMxYr/3N9i0zpWHQuiuwjJ890JFZKXvjS1ZGJcc/HjkUQDmPY49TjQxmk8wdPUHuI2ozTZhpMXtqZGtoi/fQ2046m9hd9wj6VRq4csaX/JgJyJUm33+fj6knTzpjdFPrr2jesl2kUG6KwA9WFTdg6vhsEj1LRF/WKDRWUeYNTQZWuYiiw1MOTMg93IV+It6pTTeTqNPs7gQDDQvKLdjM1rVAbslADpOSNvIimsf9uDUDgpC4XYHIbKtJO7dBb71NBG/L8Nj7HDzYjWsBBleph9TjWynnxCshoMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pjy96Mwsti8bY4+cSXf8eWAUgggDaGDBDFz4E77QUrw=;
- b=DwJg434febzrY+wm5BeRmKLwdJ1KtS+LaFT7vbbx09Qf2WyrTrwUrcdttOrcZBhCOIJ+gs94AK6A5qJXsqOsWY0YsiweTopdvcLhTlWW+jb1AllwcV5rPaPw9qePLAZ4xhpXNxYB/8uVd0Ra2cpjMuLHXlZ5/0oaqGdzaRJhI9o=
-Received: from BN9P222CA0024.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::29)
- by CY4PR1201MB0182.namprd12.prod.outlook.com (2603:10b6:910:18::8)
+ bh=UaylJbKoozRbuWvQbsiiHA/afWa/t5Unndcr4e7bn08=;
+ b=i0QQEU3j/7AYUv+au4VwxghzoEdxnrDpSAiqusSIO1NXQO9aunNT9GdPsAoLygQhWbrRysdJ3b51Yt8eEqboZxHwaV+8MHHYos80qVKyzNBWvujfn4FgIEI9lw8aOZyq50y+f18zK2yXAcm/Dz/QAtoFAEpRTmGV0p0JPPQHKYw=
+Received: from BN9P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::17)
+ by BYAPR12MB2885.namprd12.prod.outlook.com (2603:10b6:a03:13d::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Wed, 10 Nov
- 2021 06:23:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.15; Wed, 10 Nov
+ 2021 06:23:49 +0000
 Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10c:cafe::6f) by BN9P222CA0024.outlook.office365.com
- (2603:10b6:408:10c::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.16 via Frontend
- Transport; Wed, 10 Nov 2021 06:23:48 +0000
+ (2603:10b6:408:10c:cafe::c8) by BN9P222CA0012.outlook.office365.com
+ (2603:10b6:408:10c::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13 via Frontend
+ Transport; Wed, 10 Nov 2021 06:23:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -54,17 +54,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4690.15 via Frontend Transport; Wed, 10 Nov 2021 06:23:48 +0000
+ 15.20.4690.15 via Frontend Transport; Wed, 10 Nov 2021 06:23:49 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 10 Nov
- 2021 00:23:47 -0600
+ 2021 00:23:48 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [RFC 0/2] Let amdgpu react to platform profile changes
-Date: Wed, 10 Nov 2021 00:23:41 -0600
-Message-ID: <20211110062343.10041-1-mario.limonciello@amd.com>
+Subject: [RFC 1/2] ACPI: platform_profile: Add support for notification chains
+Date: Wed, 10 Nov 2021 00:23:42 -0600
+Message-ID: <20211110062343.10041-2-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211110062343.10041-1-mario.limonciello@amd.com>
+References: <20211110062343.10041-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,28 +75,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: df15a3c4-496e-46b1-917d-08d9a412a80c
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0182:
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB018204EF6B5B28515DDA54C8E2939@CY4PR1201MB0182.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: 8d26ff69-bd28-4858-27f8-08d9a412a85e
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2885:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2885B44710E1B0E91FDE0C53E2939@BYAPR12MB2885.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: t9vWns8LCAe7E5SbOISihVgAUfHI2PUKeOGv3DcS6p9gRrQq71nWAPceagROrS9afqKNTyPrOFgAx5YI/Qs6EwVl3kDGuVNxjdTqcG/2N1VlyxXNWEyg1sVi2LB42X++DpLXSQhfGUIMPLxwPCtQ57hDOItqXt1eT0F7oBUTq6zpxhyAxiflZ6ChIRaafyQOewUwhvHdvj/pLrZ9tTmfd/oLFS1tS1uI+1Vavs5I4fYDt/PCuUzMoNAdDXy6lbNYo94oBZLtuG5XT8HzbxbfwLwFvzP487Sl9pDpWD7q9bF/tbgw9q0L7cojbME/LRhq9SVaInAF4KGYjtoUXJtVI4UrV+Xal58SakfaIrAmmpyz/q3PdYqFzFOBzTV3PkpNra22KRW5oT4fW+TD4+EtzrTyhCvnRu1rWvb2cEHuV6dwXedB52Ja4mfwviqJ3CTZks8RX8cTCc7gdJLIo69EDedx87LlTCbiRu3OCYUm5EFUwnUE6wpr5CJMkNv47xpwHWPK8xmp8pKAERiKcbGA+X+P5C1g0vMPDUZhcCK6tEnIE0K+3AMno4URFSveKIivoBxLDbZg5KIeYfFwXpzqpzzdUuInnxAU9K2hYZBm3l9K3QKIjpTELuE29Ij5mbL9eU8vPEXZlJM3ih4oh/RS23aGTeVHpx0PyBGejloQDm2dm7oLdm6FHAeIbTKBe/ECMN4XPfnOcC4Lt0sh8YXfchfx5ZRpE1BTbU3NkzU1DHk=
+X-Microsoft-Antispam-Message-Info: PbzagE2Dzzavypgh7Ww9o6tR5Z/O1P6ybJRnww7VkfeVap6YTcEXZJ6UpFStPRvHKxv2r9KO3VJyQgx9I0JlDnfzBWD1AzzRmj4Ggj3VIwzV7aYQ4o78dvl+8kmD8Y63ccf6RbcimRoCStO1n3HOzpEvklQAQAMktP7FxKHjac7OnSZeKGjj+dNvNTQWOff0MkRBwca5BxXVUGt4EAasCbJTQSnIL4VsayKw02hQnMcRiEb0OCjrUSUJv6pvI88F7s0wNtRblgV5pZNgfPRQhUxR4duUCJtribRzST2hFaZ7V7+7sohCrhU8iQD02LUj6WnVu/unzxRu2vgkDrG07UIVKkjfoIKGTJWd99CHdrrBYmAh1TJkU4gBgxfYbDd9fZqrDwpDKwvbdWRyY3+IqVJW5DcPC4L6sqb57AAI9Jzs5S4espwpvy8oPys8XpwdJ1yFZqMW5k6rlwsSekZBWlvF0/Z8tGlZNPEK21kzptrORH+JexGT7cZJv7KWVCb2XgwTl5brp4nSJtoy2sA4YWQwsMkUypkllkxmN25JLSatyMMQbz9WRUPAKOE9nJ7XELaicAHHOGGm4YnN/8v/EkV+U1SG2n+xuxd8cBkcZL1I2wOnyxRf1FyU6ORSNHRW3WGI+HsuMvx/1MHZnTF4x41DpzJnXF5CDIA9LZdagKU2uq64nyUShTPY9+TlScph7COjfE8FSXIzjM2cTwAt8NUTXsJlrjJmbbiskIvwmJM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(8936002)(5660300002)(26005)(6916009)(83380400001)(8676002)(4326008)(316002)(47076005)(6666004)(86362001)(82310400003)(2616005)(16526019)(508600001)(7696005)(36860700001)(2906002)(44832011)(36756003)(81166007)(426003)(356005)(1076003)(4744005)(70206006)(336012)(70586007)(186003)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(82310400003)(15650500001)(7696005)(356005)(6916009)(316002)(26005)(81166007)(16526019)(86362001)(1076003)(6666004)(8936002)(186003)(8676002)(508600001)(5660300002)(36756003)(83380400001)(44832011)(36860700001)(2906002)(2616005)(336012)(426003)(47076005)(4326008)(70586007)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 06:23:48.4968 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df15a3c4-496e-46b1-917d-08d9a412a80c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 06:23:49.0305 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d26ff69-bd28-4858-27f8-08d9a412a85e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0182
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2885
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,28 +112,150 @@ Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Many OEM platform provide a platform profile knob that can be used to make
-firmware tunings to the system to allow operating in a higher or lower
-performance mode trading off power consumption.
+Allow other drivers to initialize relative to current active
+profile and react to platform profile changes.
 
-Software like power-profiles-daemon to expose this knob to the UI.
+Drivers wishing to utilize this should register for notification
+at module load and unregister when unloading.
 
-As we know the user's intent to go into power saving or performance mode
-from this, we can also let amdgpu react to the change.
+Notifications will come in the from a notifier call.
 
-This patch series is sent as RFC right now only to amd-gfx, and if it's
-a good enough idea will re-send as PATCH to linux-acpi + amd-gfx.
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/acpi/platform_profile.c  | 52 +++++++++++++++++++++++++++-----
+ include/linux/platform_profile.h | 10 ++++++
+ 2 files changed, 55 insertions(+), 7 deletions(-)
 
-Mario Limonciello (2):
-  ACPI: platform_profile: Add support for notification chains
-  drm/amd/pm: Add support for reacting to platform profile notification
-
- drivers/acpi/platform_profile.c     |  52 ++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu.h |   3 +
- drivers/gpu/drm/amd/pm/amdgpu_pm.c  | 105 +++++++++++++++++++++++-----
- include/linux/platform_profile.h    |  10 +++
- 4 files changed, 145 insertions(+), 25 deletions(-)
-
+diff --git a/drivers/acpi/platform_profile.c b/drivers/acpi/platform_profile.c
+index d418462ab791..ca5d962020a2 100644
+--- a/drivers/acpi/platform_profile.c
++++ b/drivers/acpi/platform_profile.c
+@@ -21,6 +21,24 @@ static const char * const profile_names[] = {
+ 	[PLATFORM_PROFILE_PERFORMANCE] = "performance",
+ };
+ static_assert(ARRAY_SIZE(profile_names) == PLATFORM_PROFILE_LAST);
++static BLOCKING_NOTIFIER_HEAD(platform_profile_chain_head);
++
++int platform_profile_register_notifier(struct notifier_block *nb)
++{
++	return blocking_notifier_chain_register(&platform_profile_chain_head, nb);
++}
++EXPORT_SYMBOL_GPL(platform_profile_register_notifier);
++
++int platform_profile_unregister_notifier(struct notifier_block *nb)
++{
++	return blocking_notifier_chain_unregister(&platform_profile_chain_head, nb);
++}
++EXPORT_SYMBOL_GPL(platform_profile_unregister_notifier);
++
++static void platform_profile_call_notifier(unsigned long action, void *data)
++{
++	blocking_notifier_call_chain(&platform_profile_chain_head, action, data);
++}
+ 
+ static ssize_t platform_profile_choices_show(struct device *dev,
+ 					struct device_attribute *attr,
+@@ -49,11 +67,8 @@ static ssize_t platform_profile_choices_show(struct device *dev,
+ 	return len;
+ }
+ 
+-static ssize_t platform_profile_show(struct device *dev,
+-					struct device_attribute *attr,
+-					char *buf)
++int platform_profile_get(enum platform_profile_option *profile)
+ {
+-	enum platform_profile_option profile = PLATFORM_PROFILE_BALANCED;
+ 	int err;
+ 
+ 	err = mutex_lock_interruptible(&profile_lock);
+@@ -65,15 +80,28 @@ static ssize_t platform_profile_show(struct device *dev,
+ 		return -ENODEV;
+ 	}
+ 
+-	err = cur_profile->profile_get(cur_profile, &profile);
++	err = cur_profile->profile_get(cur_profile, profile);
+ 	mutex_unlock(&profile_lock);
+ 	if (err)
+ 		return err;
+ 
+ 	/* Check that profile is valid index */
+-	if (WARN_ON((profile < 0) || (profile >= ARRAY_SIZE(profile_names))))
++	if (WARN_ON((*profile < 0) || (*profile >= ARRAY_SIZE(profile_names))))
+ 		return -EIO;
+ 
++	return 0;
++}
++EXPORT_SYMBOL_GPL(platform_profile_get);
++
++static ssize_t platform_profile_show(struct device *dev,
++					struct device_attribute *attr,
++					char *buf)
++{
++	enum platform_profile_option profile = PLATFORM_PROFILE_BALANCED;
++	int ret = platform_profile_get(&profile);
++
++	if (ret)
++		return ret;
+ 	return sysfs_emit(buf, "%s\n", profile_names[profile]);
+ }
+ 
+@@ -106,8 +134,10 @@ static ssize_t platform_profile_store(struct device *dev,
+ 	}
+ 
+ 	err = cur_profile->profile_set(cur_profile, i);
+-	if (!err)
++	if (!err) {
+ 		sysfs_notify(acpi_kobj, NULL, "platform_profile");
++		platform_profile_call_notifier(PLATFORM_PROFILE_CHANGED, &i);
++	}
+ 
+ 	mutex_unlock(&profile_lock);
+ 	if (err)
+@@ -130,9 +160,17 @@ static const struct attribute_group platform_profile_group = {
+ 
+ void platform_profile_notify(void)
+ {
++	enum platform_profile_option profile;
++	int ret;
++
+ 	if (!cur_profile)
+ 		return;
+ 	sysfs_notify(acpi_kobj, NULL, "platform_profile");
++	ret = platform_profile_get(&profile);
++	if (ret)
++		return;
++	platform_profile_call_notifier(PLATFORM_PROFILE_CHANGED, &profile);
++
+ }
+ EXPORT_SYMBOL_GPL(platform_profile_notify);
+ 
+diff --git a/include/linux/platform_profile.h b/include/linux/platform_profile.h
+index a6329003aee7..dca9d47e18eb 100644
+--- a/include/linux/platform_profile.h
++++ b/include/linux/platform_profile.h
+@@ -11,6 +11,8 @@
+ 
+ #include <linux/bitops.h>
+ 
++struct notifier_block;
++
+ /*
+  * If more options are added please update profile_names array in
+  * platform_profile.c and sysfs-platform_profile documentation.
+@@ -37,5 +39,13 @@ struct platform_profile_handler {
+ int platform_profile_register(struct platform_profile_handler *pprof);
+ int platform_profile_remove(void);
+ void platform_profile_notify(void);
++int platform_profile_get(enum platform_profile_option *profile);
++
++int platform_profile_register_notifier(struct notifier_block *nb);
++int platform_profile_unregister_notifier(struct notifier_block *nb);
++
++enum platform_profile_notifier_actions {
++	PLATFORM_PROFILE_CHANGED,
++};
+ 
+ #endif  /*_PLATFORM_PROFILE_H_*/
 -- 
 2.25.1
 
