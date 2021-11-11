@@ -2,99 +2,135 @@ Return-Path: <SRS0=G5aM=P6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01325C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 04:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 904D0C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 04:53:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A791160FC1
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 04:11:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A791160FC1
+	by mail.kernel.org (Postfix) with ESMTPS id 3AEA861152
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 04:53:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3AEA861152
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 248B26E949;
-	Thu, 11 Nov 2021 04:11:48 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38CE66E949
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 04:11:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 867ED6E8F1;
+	Thu, 11 Nov 2021 04:53:53 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DADB6E8F1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 04:53:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cYL6N4Zu8zbV9ftQQo1grcHkmji2kFzUHtvVK/4OO2+kvltzVlsdaMQ9JRoE9ZtwsDa7+8UwgN5qZASt8rxlc/nPod1NobPmsnSAeXBvl90dc3eBHh7hJCSUnGxhUisweMhW4n24YikfL3NPLRjNwOHPA03sC/ci9uHRO2lvQo4xIq1bEFXppYHlf/NhpLaf8mA0vgp/GDaOZvzSDqKTOd72oNDS9zL2+aR2TMqEdbIcTBAXqYoLlhlsOV8XL1dQF41Okbso/PC8S8ZmdPW2CONvLcXjqtgOgDrLnylzUR1vRa70oRcfGcjS+DOVP8XlJU2ACS3FZ6mwetWvSvBd8Q==
+ b=ofFIWEr/Y29cBHTF3qhpzyQgInyCrKu3fwnx4uXJDSmEVnt+8Vmy48QyraEeuijGcPuaYrPwiaUn6ytenELyV2GQCyEZKOQAf1nR9ATaOJHb4oLG0vbNSa+bjyVX1lHDZJlOwvQ1zx3Xarea3XrNnYP8MI5yfxPkw8nReGBL02P06WuXALsW9A+sdp7TXU9rg4H0zvSpabp65jOXycn91jV9yHR3ALTT+LIBbrnLM7mEL8AVgsBOP6BwUh85xh3S7tAmyvWhy55qBRUE9FmtVqY/uPfdeUHusOCz07aGmsdcd6VavBF53w0QptJzh1wYc7cCnr6eDuspjUDvJ99D6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QP6v93F76g08YRuKkBbxw6Bqbl99gzukC3cM8xvN1Xc=;
- b=lxiD2trkjX57tVOZ/0FtrWtv+m6kRNwvJ5Z503hQBxvVIiB6gZnjtJ6KY6UrSJB9DWke+wIWK6kSFuO8nGFd/yG8uKuFBHs3CSScbg0NL5pAT0J1Ty+sAUKIryteh/8aku3P3OJzGUgbQvzJ64n/f7g6Y/wrDb2EnTaPfejnLclv8JkVSPuu4OBdqltYfZxSjkfC+FRAlqRClx3xwQZKniD/mm1E0QnHy46kjCsCK/Hn5v42cIw1VpdaeX03WdZfs6PZzL+UgBwkpw9ocy+dYUM1GHiimRicOzzkjgOUDqW93j+yzFBDyK9lXUK0gOjq1C9YfKcRju7bXuirb7cR5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=7FoOtoItxUUr1xDKLB+yQOPGAoTKW7mW7473khrwxEI=;
+ b=AfTs/oU41KeK5GKnXMePIdE3t55GGNzxAy4eC3rR02q7OxiWnU+13eGeLr56s3EMXlQb4FjEM3At+cBoMZS9W/VP58GeuZQuR0/D8sTdeaTGRFKpcaJ3IbY4FXAALlHSIHmuIlMtoFJ7LN2iTBOd+PzJR4zguHjFym0ny8c+Q61SBf6ot3RnTfU762ONsCH3Z9f+9EBQucpoLM+WUUJhIkRritL4JdkxW8ok3hI/v3wQftnM9UKkplZhPGYIRJqukyRA0w3b/TBEcLa6ghTZB+raWGuW9tFKevKy1UqLSJNz32pgHFTA+ZAN4BRgYR3L4HKCj+7IqHn3NVEi1KNypA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QP6v93F76g08YRuKkBbxw6Bqbl99gzukC3cM8xvN1Xc=;
- b=RZb27iA0ALi5pcLbcZVQOcAol7iMpslTn8lZQ+TJk+NPSQ8KkoaA/QduiSl4b/lkW46WTV8iYjegiR0I2l4rlXleAdPDfFHNw0O+uo1/2EB638NHtQaiCKP7nAo98sB10mfrdL2TdHXiX6/OMoWUY7J7rgEbYdG6H3U852+3CdA=
-Received: from DM5PR06CA0046.namprd06.prod.outlook.com (2603:10b6:3:5d::32) by
- CH2PR12MB3846.namprd12.prod.outlook.com (2603:10b6:610:24::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.11; Thu, 11 Nov 2021 04:11:44 +0000
-Received: from DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:5d:cafe::1b) by DM5PR06CA0046.outlook.office365.com
- (2603:10b6:3:5d::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16 via Frontend
- Transport; Thu, 11 Nov 2021 04:11:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT062.mail.protection.outlook.com (10.13.173.40) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4690.15 via Frontend Transport; Thu, 11 Nov 2021 04:11:43 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Wed, 10 Nov 2021 22:11:41 -0600
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <xinhui.pan@amd.com>
-Subject: [PATCH] drm/amdgpu: add error print when failing to add IP block(v2)
-Date: Thu, 11 Nov 2021 12:11:28 +0800
-Message-ID: <20211111041128.8043-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
+ bh=7FoOtoItxUUr1xDKLB+yQOPGAoTKW7mW7473khrwxEI=;
+ b=Fs81ljUaPOcgZXcxACo+zmBE8pUN5nBqnQOAzlbLXFZNPleJ0Z4SUr/JSL6kI57RcYHnpKnDHR+wY0sy7mxVsxAzySYrQTXtL0Zq6S4xCh2nfwLZI0fvE7LMFZhwNSOUr4oGkI4s3oTy40M93vy+8Oq/0iFu81RYPQYKgE/8PaI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
+ by DM6PR12MB4402.namprd12.prod.outlook.com (2603:10b6:5:2a5::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Thu, 11 Nov
+ 2021 04:53:50 +0000
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4669.016; Thu, 11 Nov 2021
+ 04:53:50 +0000
+Message-ID: <aaecbe8a-8669-fd36-11cf-db6a1a314ea9@amd.com>
+Date: Thu, 11 Nov 2021 10:23:35 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [RFC 2/2] drm/amd/pm: Add support for reacting to platform
+ profile notification
+Content-Language: en-US
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20211110062343.10041-1-mario.limonciello@amd.com>
+ <20211110062343.10041-3-mario.limonciello@amd.com>
+ <CADnq5_MGbOh_Xbg6y4hH6qrSok_YKMj0c4Ma6ZKAE835cm2-hw@mail.gmail.com>
+ <DM6PR12MB39300185FB03556E914290C297939@DM6PR12MB3930.namprd12.prod.outlook.com>
+ <SA0PR12MB4510F4D9040A7EDA54FC73A8E2939@SA0PR12MB4510.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <SA0PR12MB4510F4D9040A7EDA54FC73A8E2939@SA0PR12MB4510.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BM1PR0101CA0046.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:1a::32) To DM6PR12MB3930.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+Received: from [10.252.81.250] (165.204.159.242) by
+ BM1PR0101CA0046.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:1a::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15 via Frontend
+ Transport; Thu, 11 Nov 2021 04:53:47 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d8f307d3-1050-43f3-7ea4-08d9a4c95eef
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3846:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB384691211FB5CE1272150B78F1949@CH2PR12MB3846.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
+X-MS-Office365-Filtering-Correlation-Id: 5f4a3aa8-1a3d-40bf-6a64-08d9a4cf4066
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4402:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4402331CB0E675ED4D96E86B97949@DM6PR12MB4402.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vDlkwXuMalqOEHXLZGJN4AgijRQDfgue5wUllajqvGgJYqGi6yIiSRyiz/2ilzgf5/FV8CxZKGOOo76Lq3NfY87nY/JonFs+hZJG0Cl9d+6lYm5tXqmvEQZEFcX5FN97mSQXrEnuF+GYSqxFZC/nGAvhrGu8moRqW6je3tyc7rGC6WAdf7kHDIeaSgHbFQh2I981l1Hl3CvPYELKZRrOXX45OuvM0dug/IhfnfL7cIeJsy927EAofv+TkNnGhiuhZkLjjnnHMEDFeV7BvzGgJoUmdf7HknQBFWYUwroFCITt6zj9KuV2OXfNe1hMPEr8PxLWENsbzIc9rBL7SkaDLoZhxY3SFGroMD7z9FCAcEvkLyBYg45Xp2KjOV/nBOaljm6n3OQGwa5QyerqgI7q7Q/L03e5M2hK0TJL5xWU39fH50QT5+0svXvi3zoBZ5Q5QvowRaPluzKozz1idrJcPXM4H54IKIs2o3RIeJhq6LtWuqxphI4o0mHnLLE8ZoxtFXVemJwZQ5GXLhTxH2qEN+UuAUbc2Qjsk8/AyTxg8wYMzJtat2avcgnaVJAKs3hyVRH1T0dtXUqR5zuv++pM48l3NGZ7IHgAQMLT4yqbf2OfL9ocgx3C4GjW2koXEaNz5mnLNT8XTIX0vdcgSTp/VHR9h/MReiP/885qjJh0oVet/XrboZUkMbW4FhGA8H057h+9PYY3jq9rrZhOk1FTtjMnEsw6ZtDz9iwTrtxyUo/LlCg90FRnBKXnsZucTUTJ
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(2616005)(6666004)(8936002)(356005)(508600001)(5660300002)(70586007)(8676002)(6636002)(4326008)(336012)(110136005)(47076005)(70206006)(316002)(26005)(2906002)(44832011)(83380400001)(186003)(81166007)(36756003)(1076003)(86362001)(82310400003)(16526019)(36860700001)(7696005)(426003)(36900700001)(2101003);
+X-Microsoft-Antispam-Message-Info: hjiY3TCl4W2WIMhhSiyPt0jvTdH2vCaDyTk1glAFfHCDR7ne04qC9+JTTe/d+W1mA+r6St21ZMTpqVhVznhhsRnYyir0vntBcf/lMjgn/nKjG33Bn2aRiB9l6LLgV3OBpp3O79q04ph7NxJqdA2yp7YpmOhzdZE6MqO2qUPpcriGCUBoLZSBwKn/uahJ9nVzaAGUU2JO+hK0GGzFKNKzjpXA2UFhgCkdloFI5Qr+Mn3fXK6e9U/zJk8eVP5FYylLa5ZvtsaFK3i2kMjd9bY0VKwNWV6re8t7pkRJBJJEoJIhNZyhshIYq3wWoXlHPhZYEOUIHS4vdAVbdPlpqfqvMllwA5ImZrbMsg/cDpzYm9Lw02M4Z2DVBUkEuuwaUE/SduydkL4gsEEjQTq9+F9UnZ7we0C8pBPfnmXPxeFbcq6sOPQUmYB2XYRjcGaVGCHyUyEuox1VU/dgBU1DyuBjucRi8rpu3uIc/JPQsvKCKPybHcIkJgLmRKg6ADc+W0HX6Ziom+GwkGxaQdEJotS7m21x0+1tn8KzlIVSeHdO+D89zFiGohE9F2eLpVbMl4kNd7rZ+7OtOzyPUamyA6XzAHW8IFPdC75OAyFQJXU/qvCtDMe7B5aBX4G6vS4k1L1HiiesipGbzjCiNj2teyHCdv+Jb3DrG8j5gREco/Q2poYeE2tEtnvQPajobdWGeG14qbTAxt5BmzMBQ2MRM9NzGC5M/5LGnhEefQQM4vEb8fk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66476007)(31686004)(508600001)(30864003)(956004)(53546011)(31696002)(2906002)(316002)(66946007)(110136005)(186003)(2616005)(83380400001)(86362001)(8676002)(5660300002)(8936002)(38100700002)(6666004)(16576012)(66556008)(26005)(4326008)(6486002)(36756003)(15650500001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akNHY0lvL2FxVkx3ZlZxUmN1L1RXWXNZVXNhT3pEMEo4Nm9NNUZPMHo2Zzh1?=
+ =?utf-8?B?QlNZV1ZQYXZBQ0p3emNtNDRZbG93L0dFemEyWHhzNXJ4SnE3YWRrdWp4c0Rz?=
+ =?utf-8?B?L0NHdEd0NStFQ1JuZDhNQjBVcHppeTdNbTZNQ1JWamJ3Z2FRUGhhd0F2OTZt?=
+ =?utf-8?B?c2JqSi9taDMrSFdvLzRsRmZjTGdDSEVJRTMyRFV6ZnRaUWtpNitBMGZoek4r?=
+ =?utf-8?B?WnhxSmErZ3FyaTF6bHo0UWVNQ2E0Y25KeEZQZmgzaEljQmJhemdwUi9jMm5L?=
+ =?utf-8?B?bWZHNmJNUDFaQUNHWkovQ2xNNmgyTEZEb3NvL21rRW9SM0JCM05wTyt6a2JY?=
+ =?utf-8?B?emFXYzV4WTllZmh0ZVhUWGpuQndHd2hyQWRoaXQrZWlmdm4yNG5rMVE0OTZS?=
+ =?utf-8?B?S2d3NENQdldGSklQQ3NLcUhOcmoxUXVhVjRaODhjdU0yMjJnVmZSNEJpV05D?=
+ =?utf-8?B?dC9YQi9qMXNZWERNSWpLbURJcTlZSGFLMmVhWXIwTnJuUVBjZVd0UlRpZ21H?=
+ =?utf-8?B?akZYK2JOV0hSVExlZEUwOUtFSUZySWhSZGZOditTeUpVcUU5ODNYaDZsYWZY?=
+ =?utf-8?B?NThwYjlLNlBRdFVNUFd2a2Y0ODNTTC8zUVBuUzNJNFFkaklRRk5JRmpNNURJ?=
+ =?utf-8?B?dzc4QTRZWk9IaTRyWG8wVVpPV3VWOE5jbDU4WS9qRkxKVE9tSjJZM04yb3A4?=
+ =?utf-8?B?VDFIQzFDaWVvbTlsSFJKR0ZRSXBNWjhsWktJNERmMFpVQ1IrS0U2cDdrOVlN?=
+ =?utf-8?B?N0N2VHM5MU1oZmNYZ2lLTXBPVjl5c2N0TjVCdlBkMjMrQjVPNGszRUNnMUpC?=
+ =?utf-8?B?cU1oQkVBWjdaUFRDRzBJREVNNW1tOSt5eFhDM0Ura25yV3AvSUkvQ1VHVk1E?=
+ =?utf-8?B?dGxLT1UwcCsxcG1BMFU2L1BaK0x4VG1DYnlSMmVxSWcyMHBOMGZ2VUpBa28v?=
+ =?utf-8?B?alNPMTVIRngwRUMzaHYzbWhWRWt2ck11Q1BTK3hrTXdmMVBqL3pwSEdGMnB0?=
+ =?utf-8?B?YUwzdUFSR2hqMFBDYnRoRXZGVlFxaFBONldyZjlMMERMQ01aOElKQmI5cHpF?=
+ =?utf-8?B?RXhLZDlFcWROMUxrenZ4N01ac2hUS1FHY3d0ckxkUldMWENwakdyOWtDSEVw?=
+ =?utf-8?B?ejg0dW1uTFlNaEhBS1kxcHhqeGRwK1JmbklobWxjMFlUZi9Bc0ZqQXhqRCtV?=
+ =?utf-8?B?c3FuTjRRbEw1YVgxc28yS2x5b2hBT3hSOUJFRGVWY1dZR09VMlBsUmVjZm1U?=
+ =?utf-8?B?ODhsbytXcnJaZXFWcW1QdEhDT2RlakRoSlUyTnFXY2ZHazZhODd2aVg3aUIx?=
+ =?utf-8?B?RnVWQ29KRWxOcSs2VGZPMlIrdU1TdUN2OXpZeW5TM3d3VVF5bElaWTlvODly?=
+ =?utf-8?B?Njczc0VtZTVycm1WRDFrQjBkS2xGOG9aK0EvUDVWUjZZZ0hsYXUzVmY2dlFm?=
+ =?utf-8?B?UHF2NGFWWlBRU3p1VDhVSE50M0pjc21IL0NGWWFmWTgxc0RtSHJKOVRId24z?=
+ =?utf-8?B?eVY5YnhCV2M4MmF5anB3dmd2WksxVWFsY0JFT2NtVEtuYnJ2VEhrUXhZU0Ey?=
+ =?utf-8?B?SDdxZHFvQVRpV0pWZG56K3lIU3Q3cHkrekRvajlSVnM1Ym80bDd3ejhIQ2JF?=
+ =?utf-8?B?MG5SWFJPQ3RzMi9tVUxvOExOd2svMWswWWtOM2prZndMZmJCMzBiRTBGUGdh?=
+ =?utf-8?B?cDdyTGx6TWlUYmM4elo1Zm9yWVpLK0swN0dDd0NFVndnWWVGUnYwWURWdzNB?=
+ =?utf-8?B?S1ZveU8vNE1xUm5HUjFYZGdKZkNZUjJRMVJqR2VIdExDc1JjZ00vdW5EbXVQ?=
+ =?utf-8?B?OGxjcUprNURFK3lrMWRpTmVBdGNVaFR2Nk5BRE9XNVluQStFd01Xd2pmNUox?=
+ =?utf-8?B?OWM1aGlPWVI4YU1yenBHd0pHTDVPcXhIU3o3UXpLM2NCeUxEY0J3blBWampF?=
+ =?utf-8?B?ZEFxck4vT2c1d0drZkpmbkhZTEtqVk5SSGoxRy9ES2RXTXZQYVBRcThWWGtG?=
+ =?utf-8?B?VkN0akh6OGYyUFEwTHpjVUNBWXg4NFpnQVUxd1g5elp3QkVnSTVoWVB5bmV6?=
+ =?utf-8?B?L2lLaVFMZnNLQ09ZcHBwKzBnOWJ5bmZPNEFjRDRnT1VDVjZhb0NzbEZuWkF5?=
+ =?utf-8?Q?Z5Uc=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2021 04:11:43.6612 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8f307d3-1050-43f3-7ea4-08d9a4c95eef
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f4a3aa8-1a3d-40bf-6a64-08d9a4cf4066
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2021 04:53:49.9032 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3846
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F2tX1Ve7o8KmqcXgV5ZmqtzJ4sYvV0EBKMTSWNA3HFsGDB9bv+yPTBb5hd7Tt5Uu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4402
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,159 +142,338 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Driver initialization is driven by IP version from IP
-discovery table. So add error print when failing to add
-ip block during driver initialization, this will be more
-friendly to user to know which IP version is not correct.
 
-[   40.467361] [drm] host supports REQ_INIT_DATA handshake
-[   40.474076] [drm] add ip block number 0 <nv_common>
-[   40.474090] [drm] add ip block number 1 <gmc_v10_0>
-[   40.474101] [drm] add ip block number 2 <psp>
-[   40.474103] [drm] add ip block number 3 <navi10_ih>
-[   40.474114] [drm] add ip block number 4 <smu>
-[   40.474119] [drm] add ip block number 5 <amdgpu_vkms>
-[   40.474134] [drm] add ip block number 6 <gfx_v10_0>
-[   40.474143] [drm] add ip block number 7 <sdma_v5_2>
-[   40.474147] amdgpu 0000:00:08.0: amdgpu: Fatal error during GPU init
-[   40.474545] amdgpu 0000:00:08.0: amdgpu: amdgpu: finishing device.
 
-v2: use dev_err to multi-GPU system
+On 11/10/2021 11:01 PM, Limonciello, Mario wrote:
+> [Public]
+> 
+>> I don't think we want to force the performance level.  This interface
+> forces various fixed clock configurations for debugging and profiling.
+> 
+> Ah got it.
+> 
+>>I think what we'd want to select here is the power profile (see
+> amdgpu_set_pp_power_profile_mode()).  For this interface you can
+> select various profiles (BOOTUP_DEFAULT, 3D_FULL_SCREEN, POWER_SAVING,
+> VIDEO, VR, COMPUTE, etc.).  These still use dynamic power management,
+> but they adjust the heuristics used by the GPU to select power states
+> so the GPU performance ramps up/down more or less aggressively.
+> 
+> Which profile mapping you think make sense?
+> 
+> My guess would be:
+> 
+> “BOOTUP_DEFAULT” for balanced
+> 
+> “POWER_SAVING” for low-power
+> 
+> “3D_FULL_SCREEN” for performance
+> 
+> Since recently we removed that interface for YC, and some earlier APUs 
+> don’t do as much with it.
+> 
+> So I wonder if this is only really valuable to do this callback for !APU.
+> 
+>>I feel it's better to leave to platform vendors. For ex: for APU cases 
+> they may have implementations in which their BIOSes talk to PMFW and 
+> this might be driving something else here.
+> 
+> Even if changing the heuristic for workload as Alex suggested?
+> 
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
+Yes. I think this is meant to be BIOS driven for APU platforms and AMD 
+APU + AMD dGPU with smartshift.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index ff70bc233489..4e3669407518 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -587,6 +587,9 @@ static int amdgpu_discovery_set_common_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
- 		break;
- 	default:
-+		dev_err(adev->dev,
-+			"Failed to add common ip block(GC_HWIP:0x%x)\n",
-+			adev->ip_versions[GC_HWIP][0]);
- 		return -EINVAL;
- 	}
- 	return 0;
-@@ -619,6 +622,9 @@ static int amdgpu_discovery_set_gmc_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
- 		break;
- 	default:
-+		dev_err(adev->dev,
-+			"Failed to add gmc ip block(GC_HWIP:0x%x)\n",
-+			adev->ip_versions[GC_HWIP][0]);
- 		return -EINVAL;
- 	}
- 	return 0;
-@@ -648,6 +654,9 @@ static int amdgpu_discovery_set_ih_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
- 		break;
- 	default:
-+		dev_err(adev->dev,
-+			"Failed to add ih ip block(OSSSYS_HWIP:0x%x)\n",
-+			adev->ip_versions[OSSSYS_HWIP][0]);
- 		return -EINVAL;
- 	}
- 	return 0;
-@@ -688,6 +697,9 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
- 		break;
- 	default:
-+		dev_err(adev->dev,
-+			"Failed to add psp ip block(MP0_HWIP:0x%x)\n",
-+			adev->ip_versions[MP0_HWIP][0]);
- 		return -EINVAL;
- 	}
- 	return 0;
-@@ -726,6 +738,9 @@ static int amdgpu_discovery_set_smu_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &smu_v13_0_ip_block);
- 		break;
- 	default:
-+		dev_err(adev->dev,
-+			"Failed to add smu ip block(MP1_HWIP:0x%x)\n",
-+			adev->ip_versions[MP1_HWIP][0]);
- 		return -EINVAL;
- 	}
- 	return 0;
-@@ -753,6 +768,9 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
- 			amdgpu_device_ip_block_add(adev, &dm_ip_block);
- 			break;
- 		default:
-+			dev_err(adev->dev,
-+				"Failed to add dm ip block(DCE_HWIP:0x%x)\n",
-+				adev->ip_versions[DCE_HWIP][0]);
- 			return -EINVAL;
- 		}
- 	} else if (adev->ip_versions[DCI_HWIP][0]) {
-@@ -763,6 +781,9 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
- 			amdgpu_device_ip_block_add(adev, &dm_ip_block);
- 			break;
- 		default:
-+			dev_err(adev->dev,
-+				"Failed to add dm ip block(DCI_HWIP:0x%x)\n",
-+				adev->ip_versions[DCI_HWIP][0]);
- 			return -EINVAL;
- 		}
- #endif
-@@ -796,6 +817,9 @@ static int amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
- 		break;
- 	default:
-+		dev_err(adev->dev,
-+			"Failed to add gfx ip block(GC_HWIP:0x%x)\n",
-+			adev->ip_versions[GC_HWIP][0]);
- 		return -EINVAL;
- 	}
- 	return 0;
-@@ -829,6 +853,9 @@ static int amdgpu_discovery_set_sdma_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
- 		break;
- 	default:
-+		dev_err(adev->dev,
-+			"Failed to add sdma ip block(SDMA0_HWIP:0x%x)\n",
-+			adev->ip_versions[SDMA0_HWIP][0]);
- 		return -EINVAL;
- 	}
- 	return 0;
-@@ -845,6 +872,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
- 				amdgpu_device_ip_block_add(adev, &uvd_v7_0_ip_block);
- 			break;
- 		default:
-+			dev_err(adev->dev,
-+				"Failed to add uvd v7 ip block(UVD_HWIP:0x%x)\n",
-+				adev->ip_versions[UVD_HWIP][0]);
- 			return -EINVAL;
- 		}
- 		switch (adev->ip_versions[VCE_HWIP][0]) {
-@@ -855,6 +885,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
- 				amdgpu_device_ip_block_add(adev, &vce_v4_0_ip_block);
- 			break;
- 		default:
-+			dev_err(adev->dev,
-+				"Failed to add VCE v4 ip block(VCE_HWIP:0x%x)\n",
-+				adev->ip_versions[VCE_HWIP][0]);
- 			return -EINVAL;
- 		}
- 	} else {
-@@ -893,6 +926,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
- 			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
- 			break;
- 		default:
-+			dev_err(adev->dev,
-+				"Failed to add vcn/jpeg ip block(UVD_HWIP:0x%x)\n",
-+				adev->ip_versions[UVD_HWIP][0]);
- 			return -EINVAL;
- 		}
- 	}
--- 
-2.17.1
+>>Also, not sure how to handle a case like, say a laptop with Intel CPU 
+> and AMD dgpu.
+> 
+> I was actually thinking this approach where there are platform profile 
+> callbacks is best because of that specifically.
+> 
+> It would allow an Intel CPU system to have a platform profile driver 
+> implemented by the OEM, but then still notify amdgpu dGPU to tune for 
+> power saving or performance workload.
+> 
 
+After seeing that this is coming under ACPI, I thought the intention is 
+to have this driven by firmware primarily. The purpose of platform 
+driver itself could be to optimize for those power profiles and while 
+doing that it should have considered all the components in the whole 
+platform (assuming platform driver testing covers the behavior of these 
+modes on a particular platform).
+
+I am not sure if it's appropriate for another driver to plug-in to this 
+automatically and tinker an 'expected-to-be-well-tuned' setting by the 
+platform driver. The modes selected by another driver may or may not 
+match with the conditions assumed by platform driver - for ex: some 
+profile could mean fans running quieter with EC control and then the 
+profile chosen by another driver could disturb that intended setting.
+
+Thanks,
+Lijo
+
+> *From:* Lazar, Lijo <Lijo.Lazar@amd.com>
+> *Sent:* Wednesday, November 10, 2021 10:05
+> *To:* Alex Deucher <alexdeucher@gmail.com>; Limonciello, Mario 
+> <Mario.Limonciello@amd.com>
+> *Cc:* amd-gfx list <amd-gfx@lists.freedesktop.org>
+> *Subject:* Re: [RFC 2/2] drm/amd/pm: Add support for reacting to 
+> platform profile notification
+> 
+> [Public]
+> 
+> I feel it's better to leave to platform vendors. For ex: for APU cases 
+> they may have implementations in which their BIOSes talk to PMFW and 
+> this might be driving something else here.
+> 
+> Also, not sure how to handle a case like, say a laptop with Intel CPU 
+> and AMD dgpu.
+> 
+> Thanks,
+> Lijo
+> 
+> ------------------------------------------------------------------------
+> 
+> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org 
+> <mailto:amd-gfx-bounces@lists.freedesktop.org>> on behalf of Alex 
+> Deucher <alexdeucher@gmail.com <mailto:alexdeucher@gmail.com>>
+> *Sent:* Wednesday, 10 November 2021, 8:44 pm
+> *To:* Limonciello, Mario
+> *Cc:* amd-gfx list
+> *Subject:* Re: [RFC 2/2] drm/amd/pm: Add support for reacting to 
+> platform profile notification
+> 
+> On Wed, Nov 10, 2021 at 1:24 AM Mario Limonciello
+> <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>> wrote:
+>  >
+>  > Various drivers provide platform profile support to let users set a hint
+>  > in their GUI whether they want to run in a high performance, low battery
+>  > life or balanced configuration.
+>  >
+>  > Drivers that provide this typically work with the firmware on their 
+> system
+>  > to configure hardware.  In the case of AMDGPU however, the notification
+>  > path doesn't come through firmware and can instead be provided directly
+>  > to the driver from a notification chain.
+>  >
+>  > Use the information of the newly selected profile to tweak
+>  > `dpm_force_performance_level` to that profile IFF the user hasn't 
+> manually
+>  > selected `manual` or any other `profile_*` options.
+> 
+> I don't think we want to force the performance level.  This interface
+> forces various fixed clock configurations for debugging and profiling.
+> I think what we'd want to select here is the power profile (see
+> amdgpu_set_pp_power_profile_mode()).  For this interface you can
+> select various profiles (BOOTUP_DEFAULT, 3D_FULL_SCREEN, POWER_SAVING,
+> VIDEO, VR, COMPUTE, etc.).  These still use dynamic power management,
+> but they adjust the heuristics used by the GPU to select power states
+> so the GPU performance ramps up/down more or less aggressively.
+> 
+> Alex
+> 
+>  >
+>  > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com 
+> <mailto:mario.limonciello@amd.com>>
+>  > ---
+>  >  drivers/gpu/drm/amd/amdgpu/amdgpu.h |   3 +
+>  >  drivers/gpu/drm/amd/pm/amdgpu_pm.c  | 105 +++++++++++++++++++++++-----
+>  >  2 files changed, 90 insertions(+), 18 deletions(-)
+>  >
+>  > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>  > index b85b67a88a3d..27b0be23b6ac 100644
+>  > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>  > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>  > @@ -1097,6 +1097,9 @@ struct amdgpu_device {
+>  >
+>  >         struct amdgpu_reset_control     *reset_cntl;
+>  >         uint32_t                        
+> ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
+>  > +
+>  > +       /* platform profile notifications */
+>  > +       struct notifier_block           platform_profile_notifier;
+>  >  };
+>  >
+>  >  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+>  > diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c 
+> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>  > index 41472ed99253..33fc52b90d4c 100644
+>  > --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>  > +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>  > @@ -32,6 +32,7 @@
+>  >  #include <linux/hwmon.h>
+>  >  #include <linux/hwmon-sysfs.h>
+>  >  #include <linux/nospec.h>
+>  > +#include <linux/platform_profile.h>
+>  >  #include <linux/pm_runtime.h>
+>  >  #include <asm/processor.h>
+>  >  #include "hwmgr.h"
+>  > @@ -200,6 +201,33 @@ static ssize_t amdgpu_set_power_dpm_state(struct 
+> device *dev,
+>  >         return count;
+>  >  }
+>  >
+>  > +static int amdgpu_get_forced_level(struct device *dev, enum 
+> amd_dpm_forced_level *level)
+>  > +{
+>  > +       struct drm_device *ddev = dev_get_drvdata(dev);
+>  > +       struct amdgpu_device *adev = drm_to_adev(ddev);
+>  > +       int ret;
+>  > +
+>  > +       if (amdgpu_in_reset(adev))
+>  > +               return -EPERM;
+>  > +       if (adev->in_suspend && !adev->in_runpm)
+>  > +               return -EPERM;
+>  > +
+>  > +       ret = pm_runtime_get_sync(ddev->dev);
+>  > +       if (ret < 0) {
+>  > +               pm_runtime_put_autosuspend(ddev->dev);
+>  > +               return ret;
+>  > +       }
+>  > +
+>  > +       if (adev->powerplay.pp_funcs->get_performance_level)
+>  > +               *level = amdgpu_dpm_get_performance_level(adev);
+>  > +       else
+>  > +               *level = adev->pm.dpm.forced_level;
+>  > +
+>  > +       pm_runtime_mark_last_busy(ddev->dev);
+>  > +       pm_runtime_put_autosuspend(ddev->dev);
+>  > +
+>  > +       return 0;
+>  > +}
+>  >
+>  >  /**
+>  >   * DOC: power_dpm_force_performance_level
+>  > @@ -264,29 +292,13 @@ static ssize_t 
+> amdgpu_get_power_dpm_force_performance_level(struct device *dev,
+>  >                                                             struct 
+> device_attribute *attr,
+>  >                                                             char *buf)
+>  >  {
+>  > -       struct drm_device *ddev = dev_get_drvdata(dev);
+>  > -       struct amdgpu_device *adev = drm_to_adev(ddev);
+>  >         enum amd_dpm_forced_level level = 0xff;
+>  >         int ret;
+>  >
+>  > -       if (amdgpu_in_reset(adev))
+>  > -               return -EPERM;
+>  > -       if (adev->in_suspend && !adev->in_runpm)
+>  > -               return -EPERM;
+>  > +       ret = amdgpu_get_forced_level(dev, &level);
+>  >
+>  > -       ret = pm_runtime_get_sync(ddev->dev);
+>  > -       if (ret < 0) {
+>  > -               pm_runtime_put_autosuspend(ddev->dev);
+>  > +       if (ret < 0)
+>  >                 return ret;
+>  > -       }
+>  > -
+>  > -       if (adev->powerplay.pp_funcs->get_performance_level)
+>  > -               level = amdgpu_dpm_get_performance_level(adev);
+>  > -       else
+>  > -               level = adev->pm.dpm.forced_level;
+>  > -
+>  > -       pm_runtime_mark_last_busy(ddev->dev);
+>  > -       pm_runtime_put_autosuspend(ddev->dev);
+>  >
+>  >         return sysfs_emit(buf, "%s\n",
+>  >                           (level == AMD_DPM_FORCED_LEVEL_AUTO) ? "auto" :
+>  > @@ -405,6 +417,59 @@ static ssize_t 
+> amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+>  >         return count;
+>  >  }
+>  >
+>  > +static void amdgpu_update_profile(struct device *dev, enum 
+> platform_profile_option *profile)
+>  > +{
+>  > +       enum amd_dpm_forced_level level;
+>  > +       const char *str;
+>  > +       int ret;
+>  > +
+>  > +       ret = amdgpu_get_forced_level(dev, &level);
+>  > +       if (ret < 0)
+>  > +               return;
+>  > +
+>  > +       /* only update profile if we're in fixed modes right now that 
+> need updating */
+>  > +       switch (level) {
+>  > +       case AMD_DPM_FORCED_LEVEL_LOW:
+>  > +               if (*profile < PLATFORM_PROFILE_BALANCED)
+>  > +                       return;
+>  > +               break;
+>  > +       case AMD_DPM_FORCED_LEVEL_HIGH:
+>  > +               if (*profile > PLATFORM_PROFILE_BALANCED)
+>  > +                       return;
+>  > +               break;
+>  > +       case AMD_DPM_FORCED_LEVEL_AUTO:
+>  > +               if (*profile == PLATFORM_PROFILE_BALANCED)
+>  > +                       return;
+>  > +               break;
+>  > +       default:
+>  > +               dev_dbg(dev, "refusing to update amdgpu profile from 
+> %d\n", level);
+>  > +               return;
+>  > +       }
+>  > +       if (*profile > PLATFORM_PROFILE_BALANCED)
+>  > +               str = "high";
+>  > +       else if (*profile < PLATFORM_PROFILE_BALANCED)
+>  > +               str = "low";
+>  > +       else
+>  > +               str = "auto";
+>  > +
+>  > +       dev_dbg(dev, "updating platform profile to %s\n", str);
+>  > +       amdgpu_set_power_dpm_force_performance_level(dev, NULL, str, 0);
+>  > +}
+>  > +
+>  > +static int amdgpu_platform_profile_notifier_call(struct 
+> notifier_block *nb,
+>  > +                                                 unsigned long 
+> action, void *data)
+>  > +{
+>  > +       if (action == PLATFORM_PROFILE_CHANGED) {
+>  > +               enum platform_profile_option *profile = data;
+>  > +               struct amdgpu_device *adev;
+>  > +
+>  > +               adev = container_of(nb, struct amdgpu_device, 
+> platform_profile_notifier);
+>  > +               amdgpu_update_profile(adev->dev, profile);
+>  > +       }
+>  > +
+>  > +       return NOTIFY_OK;
+>  > +}
+>  > +
+>  >  static ssize_t amdgpu_get_pp_num_states(struct device *dev,
+>  >                 struct device_attribute *attr,
+>  >                 char *buf)
+>  > @@ -3506,6 +3571,9 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device 
+> *adev)
+>  >         if (ret)
+>  >                 return ret;
+>  >
+>  > +       adev->platform_profile_notifier.notifier_call = 
+> amdgpu_platform_profile_notifier_call;
+>  > +       
+> platform_profile_register_notifier(&adev->platform_profile_notifier);
+>  > +
+>  >         adev->pm.sysfs_initialized = true;
+>  >
+>  >         return 0;
+>  > @@ -3519,6 +3587,7 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device 
+> *adev)
+>  >         if (adev->pm.int_hwmon_dev)
+>  >                 hwmon_device_unregister(adev->pm.int_hwmon_dev);
+>  >
+>  > +       
+> platform_profile_unregister_notifier(&adev->platform_profile_notifier);
+>  >         amdgpu_device_attr_remove_groups(adev, &adev->pm.pm_attr_list);
+>  >  }
+>  >
+>  > --
+>  > 2.25.1
+>  >
+> 
