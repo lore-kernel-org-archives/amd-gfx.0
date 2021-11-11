@@ -2,129 +2,137 @@ Return-Path: <SRS0=G5aM=P6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42B04C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 13:43:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A9F0C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 13:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EDA8660C40
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 13:43:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EDA8660C40
+	by mail.kernel.org (Postfix) with ESMTPS id 3B67161058
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 13:57:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B67161058
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 866D46E8EB;
-	Thu, 11 Nov 2021 13:43:46 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65B636E8EB
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 13:43:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B91656E02C;
+	Thu, 11 Nov 2021 13:57:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A90C6E02C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 13:57:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UK1ewnEiMu4jgNoUlNHIsWStCchLg5cdjXDR1/XsQWEEeeskY45wACNL4lGVzjtdkUaB+visb7ZlJ2T5dS0Z85cvAv0V2CASaLuffUnpf1/6RbaU5osRqJmTR6p1M496NwTk9LGMsl9ybuQwvnpSIjsc3Xc8lLaXTEePg6tuMBvfN5EPoTe6UtD218OIIiCBQFZGZ2dOM2951r4wOS8btZUi/7imCkkhcP2D9ygssHu2N1DPpqpmjd7SSljtBUR21SEY6KpKFk1P3Y3ql7F342vFPhKXvGXVUXOcX3TIy9AuWSCusAHhbictUX3hupa4VdMM6KPg+dpCGMK5YFoYIQ==
+ b=Z5Qiztt3u6dwnlj6BHW4tbTIbHEyT1+db+gxWd0t0Z9l21+uRRpl9Z3e4wdvlKJWCIa1k3DZSkBGV0zDKT2vCblAV2NeKYxpCD5Br5F+ColAuyQKk3KjPwDCkrkVWoxEZ9CHTm/IalUDwR8BGgBtxQgi3cgvBjWc4S9zETBnsa0rllSlo6iyuqmWY9iTnmIe0aIKNZdPY7EdEu3q8oO0IFA5mJPHyy58Zw6yRtmJAzkeJ8vWenzi//04QyqoKhpA73+krwIj0QxYtFZznuIL9Ae2WmD5CWKjiSdZqgJNBUwWs1ezjpXtRFB+ME/GTpG5nk0K9I1+UxPKHfOXuTnasg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y/TNhIbEnWchLaLmEOFZDMT5P8MT7f4XA4TjTKSiVKY=;
- b=QFH65pJOuvQ/F/DcnK8JNB4A4SE64QNIeGc7alpIgN0I+QuU4kr6g61U+uSlDFJCpSyAwoPrZvnCm2FB8rhrg2h0aV28VBtXiB9AABgeSxxlQzUecSvxN0JIbmVhAfJJ28UF7B5Sk0lBIkte6j+MNhvsCfAgL2mWL1Aoi0aDQvnnx5Ml4DyW77JTs8vvBBgeCv8C4ilnKgtauY2mYctGsQEfqOqRdqi2AyXgkqGPsX8B3GGeyJGsGJTVxCGmpEgEDsD+EvZMtKCNqJkoad9f7YhxrX8v4C6y2fHvXwRGeuvw9WJhHnvgmP7pYyn+hxOUprrXY3OoJ3N1BP40dqdCGg==
+ bh=McUbR18fkjOHEVmbponxvzKpRde0lZ6dVS2HGoe/Dkk=;
+ b=QFnCt+Irvv3iWeJNvcYdMkZ1rF97jA47D/fbWkYtUuu10ozSs8f3GIeit2kZc4zGfiEjy+b4clU/dJi5fNgJa4Z9pqascTwYABXtQTD8uSILmkqtQV8LcxD3RSGYbT70E5xhYxzx5T/9QJXr4DYAeT6uS0AqqFtKwUFISVjsoElJntRTx7EaDH/myruDzh8nv8v1wQsQH094wG2GykXBeUu+aHdQxl2GHmwhjpYKVIJqBWTv+jg4VQMwD2yUj369pGHZ1cL+LrR4xXo0blBsW+3kubdkhTstRygddor7l2c58bKkfh14sFxW1A/FupT0LO1Gqqj3Ph4aD4AHlKRd3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y/TNhIbEnWchLaLmEOFZDMT5P8MT7f4XA4TjTKSiVKY=;
- b=z9YfaY3pAO9Ro0NgbXEjhfTWKZSB8jx67aq95I/RClh6JGEKW8FVgZXc0mVSj28cV7nkV3rvHmBO1g+VsEqsxYylRwtGwKrgVVHQ4ZC/PAWhqMJ83MMxomvM+fLJ+l9alN7AeHx1EnaRR5ABXC27dYKJRFVLZ/cdfY3f/GjecCc=
+ bh=McUbR18fkjOHEVmbponxvzKpRde0lZ6dVS2HGoe/Dkk=;
+ b=jT7vTbFSlKqIQtLj7oLUsij+Q0hoI7ej0+neO5tVq2bE5Ro3OVUvsxUjtLpFOsjq05aUwF9gbWP410xIflz45xQiUeazyoOFN4tY1PKTRYlPvb+NjumAGm+NX3itChqmPYs+XoNky87W/LJCvQXcgfpV2029/eQE+V9VlNWkAwc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
  by BL1PR12MB5096.namprd12.prod.outlook.com (2603:10b6:208:316::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Thu, 11 Nov
- 2021 13:43:43 +0000
+ 2021 13:57:11 +0000
 Received: from BL1PR12MB5112.namprd12.prod.outlook.com
  ([fe80::b077:a0b3:ec59:19f3]) by BL1PR12MB5112.namprd12.prod.outlook.com
  ([fe80::b077:a0b3:ec59:19f3%3]) with mapi id 15.20.4669.016; Thu, 11 Nov 2021
- 13:43:43 +0000
-Subject: Re: [PATCH 1/2] drm/amdgpu: Update BO memory accounting to rely on
- allocation flag
-To: amd-gfx@lists.freedesktop.org, "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>
-References: <20211109061304.13110-1-Ramesh.Errabolu@amd.com>
+ 13:57:11 +0000
+Subject: Re: [PATCH 1/5] drm/amdgpu: handle IH ring1 overflow
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ philip yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20211109230432.3947-1-Philip.Yang@amd.com>
+ <1862b795-3401-b89f-089b-4b544957d150@gmail.com>
+ <c5855126-de94-f2b4-c912-f386b6b47142@amd.com>
+ <9e4e654f-8996-fc9a-0ec6-211a7c0ddf42@gmail.com>
+ <5e646384-ce7a-9a80-f97c-ae9592e39bbc@amd.com>
+ <6e566851-0372-b33b-011b-197d8321b875@gmail.com>
+ <865585bf-84ac-ea2b-7e1d-a13aca7e4caf@amd.com>
+ <f2005799-7371-9cfd-d3bb-7a531914175e@gmail.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <b743f99a-6486-aff2-2664-fa1eff4f7fdc@amd.com>
-Date: Thu, 11 Nov 2021 08:43:41 -0500
+Message-ID: <8b830540-1360-be79-ee4c-1c7fa75e8d56@amd.com>
+Date: Thu, 11 Nov 2021 08:57:09 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <20211109061304.13110-1-Ramesh.Errabolu@amd.com>
+In-Reply-To: <f2005799-7371-9cfd-d3bb-7a531914175e@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::32) To BL1PR12MB5112.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT3PR01CA0066.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::17) To BL1PR12MB5112.namprd12.prod.outlook.com
  (2603:10b6:208:316::16)
 MIME-Version: 1.0
 Received: from [192.168.2.100] (142.118.126.231) by
- YTXPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::32) with Microsoft
+ YT3PR01CA0066.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.10 via Frontend Transport; Thu, 11 Nov 2021 13:43:42 +0000
+ 15.20.4669.11 via Frontend Transport; Thu, 11 Nov 2021 13:57:10 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e77082da-b128-46a1-4689-08d9a51946b8
+X-MS-Office365-Filtering-Correlation-Id: 5fe031ef-82f8-4bbe-9a21-08d9a51b2842
 X-MS-TrafficTypeDiagnostic: BL1PR12MB5096:
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5096C9E1EE38B4DACFC6BD4392949@BL1PR12MB5096.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5096D7B5804F46F25E916A1592949@BL1PR12MB5096.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fn5zLRWot5gP0bI/F12QnlKLS5dtvnnr3vrmYmCW74r3JGruRjnqoep9kyVKIrt7M9BWuKE7BudCWpzJJbCQnV+FX+iHzsaZYncxei7x7PNzRihf8rw0mBwyTk+lPCMmrZLGcbcDvH/5cCEZoDSRgx5xEHufQgUk+vRU/fsec9LH8q0nMz/ecRfWkhDPkRmREkcZ6ccAAoLHy+2gvgqvVCBEJPDnE52ppkd2xLSdU10l87+Ffd52cndh0RaF9Xp6iYKMxt6Aq/6MXcP2z79LSl9OS1WcYhn3GbaNK9VtaZwC6d3Iz7jmVoYoi+f8M8SHnppLH5sJFQBQTcSATE3zWxuwBgq9sH1MiJ0vSvBxKd6bxl0NWidkqkvb5DIaOHE1GMSUBHNJFvjCR67EUzfmQRiFFxl0BEmHD7qydyxGrH6HR/oXr7Oi8rIWOU+kAyzSywntweGVlTUNOcNspzmvpQmrvCHl5AcgsIobmheSeVehu3kwKbmSCO7ux2wwEuPatHkkdVdBdf89zngQR5n4xDQA3g8Tghn1ge1DDwdSfX0vQNEBgiwkWDtgDM4KOz5FwCJ0eNGgdr3dYmd1qbiu3oR6pZCAD4pAEUEVn8NwZVO9EaAob/I3hVyEranSv7m8QPzlchDWIBF7zmt6mxQgn8Z0GI8XJJWXdLCOGf3CC16Xi3G52DNLG8G4D3Qbmx98SpX5xY58zjMmHzm+I/5Tt7dF9K0hDf14UhXLZ2HBn7A2tGfRtg1ETUnxcjN/krYd9HPxArMe632tO9WF+Aj3+A==
+X-Microsoft-Antispam-Message-Info: llr+b18CGGX1Fr54hyIS1GmYrNRiKXXOjWtmNys3PN6+/YBoql77UNc08H4wicP8Z6j3ROL4RKY27T+uiNbAmH977c4i7Ge7GhSX3ELbz0UKcakpfRlZH3GGwXFuBJABIomCMZGppHYCWOUw4veBnsMsFhqIFeCesPsxwQ/fX2ZB+BLtnWx9gk35J282j9MkLLEbMfiHO1x1LJntrX+1TNOxL6ujtqnd6x67GMOXv0z0cYrlVRBNzFHMw0ScOlxh2woVqgcevZDzDERQcEEk0vzy+cmdfRUbmiPnuEQcZW3O/3IkiREKs8ESHWvuEPkT+URsEPos9PSohXby0mAXIKA2+PF+o38PBkpuT/lI3mqhlnvZYMf7XC9ikI+vRp2//M3Gkfsd5bOQHFl4c9yndjuFsEwSTCrcDAo70NzLkRJysSCmpwxdYvwkv3df0XSwhdidwn5rdhGeBNRfTJg/dBmfKnpagqnYpNEfaQzP/UeG+AcM2uDNqe0j/VARDvRs901jA/DJJT9AcW8aFEHHkciXHEbXbz/IETiO5DfH5GKO96DQJtSDdOKWjjDhuZ5lknJDm0ZmJcmnXDffimsklYU1zwG7tn2MPEYK4X9r78LT6vsY8Y+4TdSAj7Oc5uSckVt/wZ+USYSoeLgK5B2RSxsn+Euc2g1D6kUulnlmj3f+4Me2PLr0v3oowkMkJB9m2HAYkeSP7qRqRgoiNq1lziUgn/x8ljGE5qTX22YkaeKoNRgQMcBJXq2kwfrTDZ4B
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(26005)(186003)(508600001)(83380400001)(5660300002)(8676002)(316002)(38100700002)(2906002)(956004)(16576012)(15650500001)(8936002)(2616005)(44832011)(37006003)(66946007)(66556008)(36756003)(66476007)(31686004)(6862004)(6636002)(6486002)(86362001)(43740500002)(45980500001)(309714004);
+ SFS:(4636009)(366004)(31696002)(53546011)(26005)(186003)(508600001)(66574015)(83380400001)(110136005)(4001150100001)(5660300002)(8676002)(316002)(38100700002)(2906002)(956004)(16576012)(8936002)(2616005)(44832011)(66946007)(66556008)(36756003)(66476007)(31686004)(6486002)(86362001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXgrV2RtSVpQb0l5Tkp1Sy8wTFZoUkpuZzM4c3JMekpRMjQ3QURkTWhqV0kx?=
- =?utf-8?B?YzYrM3BJb0xyM1NHY2NjaHR4QXZwMVJTMGZaeklqRDJRYysyUlRHQ1NubGdD?=
- =?utf-8?B?NmpFWi8vZHppdk1Fci9uUVFiTyswTEJBUHhSYWdwOGxVU1d0TUp6NnpwTkVN?=
- =?utf-8?B?N2Vzbi9haW5sSG5iK2RJdGQ2NkhXNFUwN1B3WHdzZ2hrM2UxdjQwWkpFYW9t?=
- =?utf-8?B?ajBhcllIRnAxRFdkK2lNOFF1QndvM3kzYWI3NVZ4TGtLaGxQSkdkcWFTdEVR?=
- =?utf-8?B?RWt1b3ZvaGFsQWpGWnM0UUdIdzVFQis4SHo5Ymh2VTFtVG0yN05rZUNxTUhn?=
- =?utf-8?B?R25KcFlhVkJLSFJnR25aNFFoTk41SUxNTmdabDU1NHdjb3VzcXNTaHFIQjdU?=
- =?utf-8?B?RUxvRlhCSlJUb2hVdDNXdXFhQ2RBcndsSVBZQnZzcjdrMlpGWHJiOGxDdVZs?=
- =?utf-8?B?ek9TV2VBR0FuREtYVzQ0TE90dk9TUnpmT2F1MHFDQVBqS1U5YlNFMDBKVDdn?=
- =?utf-8?B?dit1RVVSRG9qbEVlVlFWdFZlcFVlZkx6RGN0T25VRzM1WEJsTzlRd0NqVnJq?=
- =?utf-8?B?ZXhHU2hXNDNaNjJJelVGUmxIMDFIODVuNWZ0c2RIRWdWU2w3QmpEQlNOSkhC?=
- =?utf-8?B?RXI5NFRrOC9WemNQYStvRXJTZklvSi8wc3VMcVlWK3ZpRVUrTmUwSS9odThD?=
- =?utf-8?B?UnVhc2laakNtNUs4emtXcVdia21pS3FjUEZ5bCt3cXhYeFNDcWdKQTdYNjkx?=
- =?utf-8?B?TVUvclJuaks3T3BxcSt1aGlqQ0pjbGhmR2haNVFTQzNGdkNGNlRzT1Nia2x0?=
- =?utf-8?B?MjBFRlJyYTZzczUxYlE2bEMxMnc2dDlSc1dPdWZmM2JvZTdCblpHN1QyOXZi?=
- =?utf-8?B?Wi82QURabWxYQzBLSEI4NFN3Y2ErVXhsNmJmN0ZmWlVENW5ISDg4dHVjQ1BE?=
- =?utf-8?B?YlE2eG5NL0x4MFhMb1ZmVHRUYk9qK2tKR0FtMnV6OHJLM2FqNzBFeDVHUmFG?=
- =?utf-8?B?U3VnR003Q1NUbDRkL05XRDB1WlhQVWtFeHRtckwzVzR0OG43akVIWnpTV1cr?=
- =?utf-8?B?L1h3VWJkWlRIdVd4eDk0U3l3a0RMUldwZHZsVW5abVBzcW8rV0RlOEVlUXRm?=
- =?utf-8?B?KzhaMXJJeTRiZ0xZSFdaVXJjV1VHRWZEY283Y3cyOU9lcnoyMG83SzFNakl1?=
- =?utf-8?B?Qkx1Q1YwcnRvSTNTZ3FlQ2RneVRuQ3VaZ1FMUzRpdm5HeVBab1U5Y0prYUxE?=
- =?utf-8?B?ckN0MmU1c2JOdkN4UFlWUkZrNmhMdk03ZXQrdEtTeTV3UGlJT0Y1RGlrYnpZ?=
- =?utf-8?B?YnR6aE5lUm05UU9YL2N3OUx0V3N1V2xDcXdBb1lIendmTXF4ODB5Tk5WSHph?=
- =?utf-8?B?M01TQ2d4VnFLOUc2b2pRTDZCdkJxaEZ3aFlWWXVHWmk3RGxLVmVOWXBwK2JG?=
- =?utf-8?B?YzJ0d2xDTnNFak5VQmVTd0xTeHdUK296UytQdGY0djJYTjc2ekVodHd0V2cw?=
- =?utf-8?B?SVYwbFFYc0JDZ25ZTURMbGRNQVpBTThWMkFOcXZTUE55UGZoVis2KzdZcm9K?=
- =?utf-8?B?Kzk3bExBOFlLcXQ0N0xZRGVQL2N5ZCthVEVpb1BqcXE0OGRacUkyNXMzY0lj?=
- =?utf-8?B?ZEtDUCtneDlVaWlmTG5zZDBCMkIxbkpjNXJOelgwZHN5RDBzZ3YvdVlqMjgw?=
- =?utf-8?B?cmhBUVREOHZtMnE1K0NMTDJuRWh5bGNrT0tITjNFeWxBdXoyVTI2QVRidTFH?=
- =?utf-8?B?U05vRENSS2pLU20vNGlNMGtiNlZGMUhLMXJQc0lQWlMzZHlFeTFqR0hJQ0hJ?=
- =?utf-8?B?cGJFQVlBVGpGbS9pYVR4TTROaWxEaXpjQVcwcXFoenpiZXlkd3RFVkVFb2o2?=
- =?utf-8?B?R2FoNk12LzRpTjl0dGl4Qi9uWlZudVJYc2V1MldXT0REWlY0NUY1Qi9tRDF6?=
- =?utf-8?B?RnN3V0p3Z2NhcWlWNDZvcFZjOVh3NHVWajJXb1plL0NlclRXVFFna2lFVUcy?=
- =?utf-8?B?RG5kVll1cHVlUC9SZTVUTFhNT3I2RkltWmpMUnNWaGM3VE9wQVRFd25XUnNj?=
- =?utf-8?B?YmVOZkhyanVvK2pHRndncVhaa1RSbEEyMjBaWVNPMjQ4cnQ0RFBQVHNXVGgv?=
- =?utf-8?B?cXhiMlBkaXZWVVN1bnFTMVF1SSt5YnMrNEdKRkN4bGtETUtyOUFaRXpWUGtX?=
- =?utf-8?Q?S77EvxdFhA/9JkHkMeXRVtE=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZG4vcVdlcmNEZUFERG5uSjM0SjZMbDgweFgrSFBQVGxVMXNobjREd0dYRGk2?=
+ =?utf-8?B?a1NaZUFlcHFRSWg3N1lvV3FnQTdkaDhuc1ZVSjZlc0Zwa29pck5YMENvdmF0?=
+ =?utf-8?B?OFlwcmdnWFpMeUtMSXV5ZUkxZGVycHJ0U2VJMWpSSzBjaWwzUmRzaHZPQWxr?=
+ =?utf-8?B?amFQcWNYZFhiRG5GcTBmUkp6SHpkaGxlUGFvZlFkdm96UVdycVdyTlJhcFJi?=
+ =?utf-8?B?Vld6MmovZkREYkpEeGI0d3VtS3cyS2Y1b3IzREZGcmhiT1BpcHFnbmUzN3k5?=
+ =?utf-8?B?MWFFelRtU3VuVDRpWW9VaUJMMC9Ra3NsU1FMSXFWSTdqNVpTMVRMd3luVCtO?=
+ =?utf-8?B?Z202LzFhLzVyMnppNTZzdHA1RXk3L0tYUC80OGZwemJwUitYcENmWXVQS2NI?=
+ =?utf-8?B?U3Z0VzVBaEJKUllFQTV4dDN4a1NkMG55U1l2cmVpbzIyVENacVh1OWVPaEsy?=
+ =?utf-8?B?MkhBL2hzMWFMWnFhYW1YREhUY1Y5eFpzcFJjLzhudTBVdkhiSXNEaVZPNTgz?=
+ =?utf-8?B?aURFVDF4YU5BWW0wWU1yQ2p4UnNrZDRvUVFCeVRSRUlRc1NSTCtTSVloamhl?=
+ =?utf-8?B?NmxPc1hyMWN4dkpmOEUyUnErVml4VURNcitLYzJ5OG1kZEdRY01GbmZlQVhE?=
+ =?utf-8?B?Q2NBUkNLbnhHY1dmKzA2S0wrQjZheHh6QU1icGdqMVk5Qlc2ajhKdlZacDkz?=
+ =?utf-8?B?b1dnZGE3MGVXekVYRjFaaUJlWk9GTmsvS1d3MjZIMXg2N2h2VmVtRG9RZWIw?=
+ =?utf-8?B?Snp0eEJDTGE4SkJZT0lZbDRoSHZRMWNKSEsxZEV0R2k1enNMOW5IVnRjTUhC?=
+ =?utf-8?B?Y1Q0NHBqL2pCOW1IQmZuQk9RaXQ0OUF1UDJLc2E0cU5ZbHBJN2huU1hvUjJy?=
+ =?utf-8?B?ZFI5bG4rZ1BVSVlWNTd4eVpSTjY2NzE4eGJEcU90QStKNHlyd09DMXJTNFk3?=
+ =?utf-8?B?cXFiWElPMDZ6L0pDTHFIbUowUEJNTXZ1MUZVUnJoZ203V0I3M29FME44L3BB?=
+ =?utf-8?B?bmVjcE51L2YwVHZtZVdEV2dEN2k5dUtUUlJMVUFiRlRzaFRQQ0xmYUV6Nm1W?=
+ =?utf-8?B?eXo1VzNTeWw0US9OM0daVStpQitzU09aN1JHZmdBRWJDYk1rc1lvTjc0VVgy?=
+ =?utf-8?B?ZlBnODlCNzMzUFpZdDFENmZsdHVnUjc0Z1hLN2J2enFPR2lKSUxBSHQ5WVd1?=
+ =?utf-8?B?b3N2WDlKSEJlblVKZmlnWGROem8zaGpKb3VvV001RTczUmNESXB1QXIxZXBm?=
+ =?utf-8?B?ekpReFZhcVIveVowcEZuSzlIVEdnV2gxZ2FrUC9yZ2xETFlKM0RqZzBaZzha?=
+ =?utf-8?B?YmdhWTR5enVEWU9WWnZXYlRLalROQUFLZFVhZ1N0M1dwNEVjYTBIN0t0SUNE?=
+ =?utf-8?B?VnBIcXhLMTkwY2pPMXpBQ3duWjhSY3p3aStxMkZoTzBKY0h0VW5CQTBSVmdH?=
+ =?utf-8?B?YVVhQWxGa1dOV2JLVko0SUpqdDdJcDhxM1B5QnUxbVpTMmFWSjZ0MlpZbEhH?=
+ =?utf-8?B?aDRVa0JyUFpqTFRRQnJpK3NhYWNNSU10ZXBBMEhSTWtHdGxwUGh1VW5uNXg0?=
+ =?utf-8?B?eDdPTTBmQ2o4VjVzMFRqM3dTSmJGVndaL1pJYnNlSG9SaDRMRGo1QVdMelQ1?=
+ =?utf-8?B?cE5peVNOajlmMUZuWCtJY3UvNEkybUo5aC9JRTNHcW42WFMxSml4OVV0TWl5?=
+ =?utf-8?B?NWVrU3Vsd3VrRURMRFJ5TWtUa1plTjBNZEVGVjlXOWltWWhxVW1ONFdkNkxL?=
+ =?utf-8?B?bVBwSUJpb1dRcTN5TDVOTHJSTUZMWG5nSk1ueTdWdWRDVzBCWXI4akppTEF5?=
+ =?utf-8?B?V2V4Y0ljNWYwK1B0UzVLb1VyY0dZdTVGZlMraDV1OFhGVVJxVXVDb0lydzdX?=
+ =?utf-8?B?YkJQVmJLYWpYVk55N0I0Zi9LbUNWczVtNmtwcHgyYjZlbkduZnpxbGI4Uzhq?=
+ =?utf-8?B?RDVmS25uRFdmaXhOajA4TldaTnVRTFdrMjB2c2cvNDdFamxabmlJbzluZkdm?=
+ =?utf-8?B?R2xSM0VzN21JaENJL3c5MEFGKzgxZGZrNmt2MFZTZUkvWUtPdVFEL2JRbDZR?=
+ =?utf-8?B?UkNJV0JUWm9DVjUxc29GMWx1WWpZUERUQzZBdjQzUWVvUzNGZi9HL1BkLzFj?=
+ =?utf-8?B?SThwQ25qdnc1M2IrM2xCekQ2bExaVityV0xseTh6Sm52RVB1S2VTeDh5SzdO?=
+ =?utf-8?Q?q892tobbbpU9gfsK1rUOzbg=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e77082da-b128-46a1-4689-08d9a51946b8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fe031ef-82f8-4bbe-9a21-08d9a51b2842
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2021 13:43:43.0147 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2021 13:57:11.0228 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dl81HyZTGZXeYc6G2JdOo2ZCBK7BSlmC5jCa1gnbc5WUkYuqXfek1f1Hnct3J1sZ+465yxKjQAG2tTdJoaMzpA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: dqzNr9abvUlIyqCKOeDWiTxsAjkNfESPxntBE5gu/qtFwJjxm20+nAogh3uSy71fMon6SVCE9L/eDs5AXOB22w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5096
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,266 +148,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-11-09 um 1:13 a.m. schrieb Ramesh Errabolu:
-> Accounting system to track amount of available memory (system, TTM
-> and VRAM of a device) relies on BO's domain. The change is to rely
-> instead on allocation flag indicating BO type - VRAM, GTT, USERPTR,
-> MMIO or DOORBELL
+Am 2021-11-11 um 8:43 a.m. schrieb Christian König:
+> Am 11.11.21 um 13:13 schrieb Felix Kuehling:
+>> Am 2021-11-11 um 2:00 a.m. schrieb Christian König:
+>>> Am 11.11.21 um 00:36 schrieb Felix Kuehling:
+>>>> On 2021-11-10 9:31 a.m., Christian König wrote:
+>>>> [SNIP]
+>>>> Aren't we processing interrupts out-of-order in this case. We're
+>>>> processing newer ones before older ones. Is that the root of the
+>>>> problem because it confuses our interrupt draining function?
+>>> Good point.
+>>>
+>>>> Maybe we need to detect overflows in the interrupt draining function
+>>>> to make it wait longer in that case.
+>>> Ideally we should use something which is completely separate from all
+>>> those implementation details.
+>>>
+>>> Like for example using the timestamp or a separate indicator/counter
+>>> instead.
+>> Even a timestamp will be broken if the interrupt processing function
+>> handles interrupts out of order.
 >
-> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-
-The code changes look good. Comments about comments inline ...
-
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  16 +++
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 101 +++++++++++-------
->  2 files changed, 79 insertions(+), 38 deletions(-)
+> We can easily detect if the timestamp is going backwards and so filter
+> out stale entries.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 5f658823a637..8d31a742cd80 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -307,7 +307,23 @@ void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *adev);
->  void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
->  void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
->  				struct amdgpu_vm *vm);
-> +
-> +/**
-> + * @amdgpu_amdkfd_release_notify() - Invoked when GEM object reference count
-> + * reaches ZERO. Increases available memory by size of buffer including any
-> + * reserved for control structures
+>> I think we need a different amdgpu_ih_process function for IH ring 1 the
+>> way we set it up to handle overflows. Because IH is just overwriting
+>> older entries, and we can't read entire IH entries atomically, we have
+>> to use a watermark. If IH WPTR passes the watermark, we have to consider
+>> the ring overflowed and reset our RPTR. We have to set RPTR far enough
+>> "ahead" of the current WPTR to make sure WPTR is under the watermark.
+>> And the watermark needs to be low enough to ensure amdgpu_irq_dispatch
+>> can read out the next IH entry before the WPTR catches up with the RPTR.
+>>
+>> Since we don't read the WPTR on every iteration, and out page fault
+>> handling code can take quite a while to process one fault, the watermark
+>> needs to provide a lot of buffer. Maybe we also need to read the WPTR
+>> register more frequently if the last read was more than a jiffy ago.
+>
+> I think trying to solve that with the IH code or hardware is the
+> completely wrong approach.
+>
+> As I said before we need to something more robust and using the
+> timestamp sounds like the most logical approach to me.
+>
+> The only alternative I can see would be to have a hardware assisted
+> flag which tells you if you had an overflow or not like we have for IH
+> ring 0.
 
-"Increases available memory size ..." is an implementation detail that
-doesn't matter to the callers of this function. It should not be part of
-the interface definition. The interface description should be more
-general, maybe:
-
-* amdgpu_amdkfd_release_notify() - Notify KFD when GEM object is released
-*
-* Allows KFD to release its resources associated with the GEM object.
-* ...
-
-
-> + *
-> + * @note: This api must be invoked on BOs that have been allocated via
-> + * KFD interface amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu()
-> + */
->  void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo);
-> +
-> +/**
-> + * @amdgpu_amdkfd_reserve_system_mem - Decrease system memory that is
-> + * available by an amount specified by input parameter
-
-This is misleading. This function doesn't change availability of system
-memory in general because it doesn't allocate any memory. You'll need to
-be more specific:
-
-* amdgpu_amdkfd_reserve_system_mem() - Decrease system memory limit for KFD applications
+The *_ih_get_wptr functions already do some overflow handling. I think
+we'll need a function to read the overflow bit that amdgpu_ih_process
+can call separately, after reading IH entries.
 
 
-> + *
-> + * @size: Size of buffer in bytes
+>
+> E.g. something like the following:
+> 1. Copy the next N IV from the RPTR location.
+> 2. Get the current WPTR.
+> 3. If the overflow bit in the WPTR is set update the RPTR to something
+> like WPTR+window, clear the overflow bit and repeat at #1.
+> 4. Process the valid IVs.
 
-What buffer?
+OK. Current amdgpu_irq_dispatch reads directly from the IH ring. I think
+you're proposing to move reading of the ring into amdgpu_ih_process
+where we can discard the entries if an overflow is detected.
 
-
-> + */
->  void amdgpu_amdkfd_reserve_system_mem(uint64_t size);
->  #else
->  static inline
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 94fccf0b47ad..08675f89bfb2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -120,8 +120,22 @@ static size_t amdgpu_amdkfd_acc_size(uint64_t size)
->  		PAGE_ALIGN(size);
->  }
->  
-> +/**
-> + * @amdgpu_amdkfd_reserve_mem_limit() - Decrease available memory by size
-> + * of buffer including any reserved for control structures
-> + *
-> + * @adev: Device to which allocated BO belongs to
-> + * @size: Size of buffer, in bytes, encapsulated by B0. This should be
-> + * equivalent to amdgpu_bo_size(BO)
-> + * @alloc_flag: Flag used in allocating a BO as noted above
-> + *
-> + * @note: This api must be invoked on BOs that have been allocated via
-> + * KFD interface amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu()
-
-Who needs to call it? Your statement sounds like callers of
-amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu must call this function as well.
-This is very misleading because this function is already called from
-amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu.
+Then let amdgpu_irq_dispatch use a copy that's guaranteed to be consistent.
 
 
-> + *
-> + * Return: returns -ENOMEM in case of error, ZERO otherwise
-> + */
->  static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
-> -		uint64_t size, u32 domain, bool sg)
-> +		uint64_t size, u32 alloc_flag)
->  {
->  	uint64_t reserved_for_pt =
->  		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
-> @@ -131,20 +145,24 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
->  	acc_size = amdgpu_amdkfd_acc_size(size);
->  
->  	vram_needed = 0;
-> -	if (domain == AMDGPU_GEM_DOMAIN_GTT) {
-> -		/* TTM GTT memory */
-> +	if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
->  		system_mem_needed = acc_size + size;
->  		ttm_mem_needed = acc_size + size;
-> -	} else if (domain == AMDGPU_GEM_DOMAIN_CPU && !sg) {
-> -		/* Userptr */
-> +	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-> +		system_mem_needed = acc_size;
-> +		ttm_mem_needed = acc_size;
-> +		vram_needed = size;
-> +	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
->  		system_mem_needed = acc_size + size;
->  		ttm_mem_needed = acc_size;
-> -	} else {
-> -		/* VRAM and SG */
-> +	} else if (alloc_flag &
-> +		   (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
-> +		    KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
->  		system_mem_needed = acc_size;
->  		ttm_mem_needed = acc_size;
-> -		if (domain == AMDGPU_GEM_DOMAIN_VRAM)
-> -			vram_needed = size;
-> +	} else {
-> +		pr_err("%s: Invalid BO type %#x\n", __func__, alloc_flag);
-> +		return -ENOMEM;
->  	}
->  
->  	spin_lock(&kfd_mem_limit.mem_limit_lock);
-> @@ -160,64 +178,71 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
->  	    (adev->kfd.vram_used + vram_needed >
->  	     adev->gmc.real_vram_size - reserved_for_pt)) {
->  		ret = -ENOMEM;
-> -	} else {
-> -		kfd_mem_limit.system_mem_used += system_mem_needed;
-> -		kfd_mem_limit.ttm_mem_used += ttm_mem_needed;
-> -		adev->kfd.vram_used += vram_needed;
-> +		goto release;
->  	}
->  
-> +	/* Update memory accounting by decreasing available system
-> +	 * memory, TTM memory and GPU memory as computed above
-> +	 */
-> +	adev->kfd.vram_used += vram_needed;
-> +	kfd_mem_limit.system_mem_used += system_mem_needed;
-> +	kfd_mem_limit.ttm_mem_used += ttm_mem_needed;
-> +
-> +release:
->  	spin_unlock(&kfd_mem_limit.mem_limit_lock);
->  	return ret;
->  }
->  
->  static void unreserve_mem_limit(struct amdgpu_device *adev,
-> -		uint64_t size, u32 domain, bool sg)
-> +		uint64_t size, u32 alloc_flag)
->  {
->  	size_t acc_size;
->  
->  	acc_size = amdgpu_amdkfd_acc_size(size);
->  
->  	spin_lock(&kfd_mem_limit.mem_limit_lock);
-> -	if (domain == AMDGPU_GEM_DOMAIN_GTT) {
-> +
-> +	if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
->  		kfd_mem_limit.system_mem_used -= (acc_size + size);
->  		kfd_mem_limit.ttm_mem_used -= (acc_size + size);
-> -	} else if (domain == AMDGPU_GEM_DOMAIN_CPU && !sg) {
-> +	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-> +		kfd_mem_limit.system_mem_used -= acc_size;
-> +		kfd_mem_limit.ttm_mem_used -= acc_size;
-> +		adev->kfd.vram_used -= size;
-> +	} else if (alloc_flag & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
->  		kfd_mem_limit.system_mem_used -= (acc_size + size);
->  		kfd_mem_limit.ttm_mem_used -= acc_size;
-> -	} else {
-> +	} else if (alloc_flag &
-> +		   (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
-> +		    KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
->  		kfd_mem_limit.system_mem_used -= acc_size;
->  		kfd_mem_limit.ttm_mem_used -= acc_size;
-> -		if (domain == AMDGPU_GEM_DOMAIN_VRAM) {
-> -			adev->kfd.vram_used -= size;
-> -			WARN_ONCE(adev->kfd.vram_used < 0,
-> -				  "kfd VRAM memory accounting unbalanced");
-> -		}
-> +	} else {
-> +		pr_err("%s: Invalid BO type %#x\n", __func__, alloc_flag);
-> +		goto release;
->  	}
-> -	WARN_ONCE(kfd_mem_limit.system_mem_used < 0,
-> -		  "kfd system memory accounting unbalanced");
-> +
-> +	/* Alert user if memory accounting is not per expectation */
+>
+> The down side is that we are loosing a lot of IVs with that. That is
+> probably ok for the current approach, but most likely a bad idea if we
+> enable the CAM.
 
-This comment is obvious and unnecessary, and also not even correct.
-These WARN messages are not for the user because the user did not cause
-them and can do nothing to avoid them. These messages point out bugs
-elsewhere in the driver. So they are for engineers.
+Right. Once we use the CAM we cannot afford to lose faults. If we do, we
+need to clear the CAM.
 
 Regards,
   Felix
 
 
-> +	WARN_ONCE(adev->kfd.vram_used < 0,
-> +		  "KFD VRAM memory accounting unbalanced");
->  	WARN_ONCE(kfd_mem_limit.ttm_mem_used < 0,
-> -		  "kfd TTM memory accounting unbalanced");
-> +		  "KFD TTM memory accounting unbalanced");
-> +	WARN_ONCE(kfd_mem_limit.system_mem_used < 0,
-> +		  "KFD system memory accounting unbalanced");
->  
-> +release:
->  	spin_unlock(&kfd_mem_limit.mem_limit_lock);
->  }
->  
->  void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
->  {
->  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> -	u32 domain = bo->preferred_domains;
-> -	bool sg = (bo->preferred_domains == AMDGPU_GEM_DOMAIN_CPU);
-> -
-> -	if (bo->flags & AMDGPU_AMDKFD_CREATE_USERPTR_BO) {
-> -		domain = AMDGPU_GEM_DOMAIN_CPU;
-> -		sg = false;
-> -	}
-> -
-> -	unreserve_mem_limit(adev, amdgpu_bo_size(bo), domain, sg);
-> +	u32 alloc_flags = bo->kfd_bo->alloc_flags;
-> +	u64 size = amdgpu_bo_size(bo);
->  
-> -	kfree(bo->kfd_bo);
-> +	unreserve_mem_limit(adev, size, alloc_flags);
->  }
->  
-> -
->  /* amdgpu_amdkfd_remove_eviction_fence - Removes eviction fence from BO's
->   *  reservation object.
->   *
-> @@ -1452,7 +1477,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->  
->  	amdgpu_sync_create(&(*mem)->sync);
->  
-> -	ret = amdgpu_amdkfd_reserve_mem_limit(adev, size, alloc_domain, !!sg);
-> +	ret = amdgpu_amdkfd_reserve_mem_limit(adev, size, flags);
->  	if (ret) {
->  		pr_debug("Insufficient memory\n");
->  		goto err_reserve_limit;
-> @@ -1508,7 +1533,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->  	/* Don't unreserve system mem limit twice */
->  	goto err_reserve_limit;
->  err_bo_create:
-> -	unreserve_mem_limit(adev, size, alloc_domain, !!sg);
-> +	unreserve_mem_limit(adev, size, flags);
->  err_reserve_limit:
->  	mutex_destroy(&(*mem)->lock);
->  	kfree(*mem);
+>
+> Regards,
+> Christian.
+>
+>>
+>> Whenever an overflow (over the watermark) is detected, we can set a
+>> sticky overflow bit that our page fault handling code can use to clean
+>> up. E.g. once we start using the CAM filter, we'll have to invalidate
+>> all CAM entries when this happens (although I'd expect overflows to
+>> become impossible once we enable the CAM filter).
+>>
+>> Thanks,
+>>    Felix
+>>
+>
