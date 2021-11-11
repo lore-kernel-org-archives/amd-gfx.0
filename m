@@ -2,131 +2,70 @@ Return-Path: <SRS0=G5aM=P6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB458C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 21:55:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D42F1C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 22:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 677B36134F
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 21:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 677B36134F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9BB4060E73
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 22:02:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9BB4060E73
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81D8F6E0EF;
-	Thu, 11 Nov 2021 21:55:30 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02B236E0EF
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 21:55:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e0Yh85N9yYK2Bqc5dRE6nqo1Bz2ZWysgPg+omI5CP0bwhj6+AMyOUBl8iMp2QhGyeGI63oEwVKU31VGelcdEa7CVAMSz0r9FOgO7lu6gJxPt+7Yd6C5+p3iws4Erg5SEZsf7p9cZcGH7vj8MhyPk6xkAO04wDLdOL7q0+EMzgnZvOvTc+8pbDee2JTruJwl4N29jhFtdrNH0vWGjkGSdLC9yPBTDEAqpE4at2h675xSf2tSmfyDtaaQzvLrIx3JOpERi04dDfHm25NZTGr8NIjtB2E19avkp12ozir11cw1vQ0a4MY/1BDA/s9LjeM4tg/2LeitEzdzZ75XsXjrnlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VrK83Y6lvkTZJEuValkbPqo+XRcFepTc09uzVCEfk8Y=;
- b=B0UVIOhF1uSRywJRnI+d1ssbf8g/FhcA60NY2F9mkUKxdHNIAkwHcDgtj7++/U76WTalyBdUIzxf7yl09r8Bpw+9pVOblwu96ikAjLds6Vr2W5GNrik2u5L0mjgiFWmxTyfSLoJL6VJKhti4BRrQ0LaNVIlUvGnaQG0Ji63Uj7Ba1HWjj34SPGSSwsnIQRL2nerX1oHki6rSX+C7Vd8mMQazRAKH/o5Xt+dtplkOxbpqZAJkzRd/Gyg+w/9xh1Bb6voQHGL1adOAB62D0ki/mVLc+nCXc2I6Qja8SqaunR6hg8aq+z9ARA91ufD0xKrYuXLqEnVeeh+Pjn9GEXNyAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VrK83Y6lvkTZJEuValkbPqo+XRcFepTc09uzVCEfk8Y=;
- b=Y4Ekr0lWTw4Q1/ilvJps0KPv2EJg48poxYdHXKeBXB4Vv24GrAbYRbQt5uA0TFYGbdGsdpmej4feXuSWgBV5M3NJtIT9RrHRYJ6MC0XQAbr1/1c2oaewaBaYzvNMRQEUOHWe896smeRinC37sG0RZne9LLx8KUWLRm6yt0NGqd4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DM4PR12MB5374.namprd12.prod.outlook.com (2603:10b6:5:39a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15; Thu, 11 Nov
- 2021 21:55:26 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::dcf7:d6ee:654f:a2cf%4]) with mapi id 15.20.4669.015; Thu, 11 Nov 2021
- 21:55:26 +0000
-Subject: Re: [PATCH 2/5] drm/amdkfd: check child range to drain retry fault
-To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
- <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211109230432.3947-1-Philip.Yang@amd.com>
- <20211109230432.3947-2-Philip.Yang@amd.com>
- <d4bc4acf-ff14-5370-16bd-8cec6253c09c@amd.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <bf24561b-eef3-36b1-6f8f-08f27b4872b9@amd.com>
-Date: Thu, 11 Nov 2021 16:55:24 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <d4bc4acf-ff14-5370-16bd-8cec6253c09c@amd.com>
-Content-Type: text/html; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR02CA0028.namprd02.prod.outlook.com
- (2603:10b6:208:fc::41) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBE16E500;
+	Thu, 11 Nov 2021 22:02:15 +0000 (UTC)
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F05D6E3F4;
+ Thu, 11 Nov 2021 22:02:13 +0000 (UTC)
+Received: by mail-io1-xd33.google.com with SMTP id k21so8791222ioh.4;
+ Thu, 11 Nov 2021 14:02:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=W0un44DHPF22aIu/HzLHma+ZAGuW3yhyQnyzoD6Bo4g=;
+ b=LsPGof+zsUFAVyeeuWMR8rDTyfXXZteC5O6U+uTIqDG0dmpHnvGSBPuAE1Ep3ZGjoW
+ chAGE5CJEECetg8w7TPZ9khCi6BMRIm7GKcd1UyTczg6lyrFUh7T0faa2dorBtfoL/9/
+ DyZ9CJkdT6dhVy7VCoCY9/i48ts1cglC4+tmIzGcNFRSIFuBEPzszCz3oWOdQeA0Spf2
+ gI8eaCja1joJdIaJpOkex4VaUgHkEqYV97oNWr2xlwOR4afIFCcQfklfQy3q+JJNRP7f
+ YGLb7AlgVFuo8MkeYYAL1JkIQmrsokF73vh1bMsmN+VZns84uzuRAZHWeUxNZ13CzOhw
+ Ca1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=W0un44DHPF22aIu/HzLHma+ZAGuW3yhyQnyzoD6Bo4g=;
+ b=xJUPMJG4zofHSHq9qXFyFFYc2G3w1F/Zy0SFFY13HxnalLinVURkGu3f16KXsXaZra
+ 5Qsk7X6StH/wWVCZ86B4uffMcPoONuQZwQJ+gTipSdKSJRJ33q6q36wDzHI4kJOPy+mb
+ p61oZKOh3X21NBlo7zRmXakto/2nI111idHCYGNie/EEw14XNuRAOKWZWXUJZk6oPUMY
+ 8lEYQ29y3jPTy8S/7fBWwj7X2dlleCSHbqUfgaQeWG7hWE/h2qc83HnQkrDGibQf1mQq
+ p7f5Iwx3lA9sLRQHkJOUiGtB7m9nkGRLj+p0q/cxrQlcrSSI3O7f4BI9nVWW4iCDmFvw
+ ofgA==
+X-Gm-Message-State: AOAM531FRvFnT0tOJFQI2qVo/cSDuwv8EHhFI2yinNCUWoIRvKc7o5zN
+ 1pHB3CDgfUgu4+JUIiyI6VI=
+X-Google-Smtp-Source: ABdhPJzs6rZ8CI3ZcO3tiNDiGEXL5v28XlBw3PrkhFHmmi3ZAJA4is7Z6XBwGrA6mAdZC8h8pl/vGw==
+X-Received: by 2002:a05:6638:2402:: with SMTP id
+ z2mr1084436jat.122.1636668132873; 
+ Thu, 11 Nov 2021 14:02:12 -0800 (PST)
+Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
+ by smtp.googlemail.com with ESMTPSA id t5sm2612315ilp.8.2021.11.11.14.02.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Nov 2021 14:02:12 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org, robdclark@gmail.com,
+ sean@poorly.run, daniel.vetter@ffwll.ch, seanpaul@chromium.org,
+ lyude@redhat.com, linux-kernel@vger.kernel.org, rostedt@goodmis.org,
+ mathieu.desnoyers@efficios.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v10 00/10 RESEND] use DYNAMIC_DEBUG to implement DRM.debug &
+ DRM.trace
+Date: Thu, 11 Nov 2021 15:01:56 -0700
+Message-Id: <20211111220206.121610-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Received: from [172.27.226.38] (165.204.55.251) by
- MN2PR02CA0028.namprd02.prod.outlook.com (2603:10b6:208:fc::41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.15 via Frontend Transport; Thu, 11 Nov 2021 21:55:25 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0b97f529-eb48-4f7b-ce1d-08d9a55df7fd
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5374:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5374BA693E37C0E836052E4FE6949@DM4PR12MB5374.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: apy0YZniYZOChDZcYZWxIPnr6yarc5JDV2QvEAYjSstcY7I7xQTeLLSARKF0yBH6qlAmdTeKrGP4nBZI6XXTsBK0ZvjnsysNXGfNEhWroAjNPvbkiNI9SIzdimyz+5njpglC0s4bEs/R0a/j6DanJp8KAvEgoJ00tbTgKv74/RCfGeCo/qpndXNBGSeAJc1XljCiwFU7MlACvRE4jAZFQ9hxPN+9+9chm2/XS0dNwxfeqrzmDZ5UMFrU/EoZnHxAmOLaviwacJBR+CJALbCxV2P6KKxlLQ//xcLtb+vov8RuHe3V1igC3YR0Il2tnYU22Ww5/OZfGNrSKpnNRqh89Qx3gAJ0Uu0A6QVW2loM+wnbTzNFUNteLIW4Tufwq55V8WO1JGQBk+HH0nC51eAbDLlnx+KCe/UuV4GtGQ5PKvEcwJu8VQXtXQRK3+/UJAl3hJ+yfQcPdfvQrApFO4fV8U2ul2mBUeypUFiyM2hARF6dG0VxYsJJOosgxOeii75RG7ev2sMuR0kFocxVmEeI4OlbRBADGY07T7NI4McdIUAC6wPuZQTwcY64bnQ/6kGhk4nBuqusKxbYZ8crX+xwUiSIKWMqCOydCdqXWWmAk0A2SRrqIWunzeANCBfK/rt/JHiMJCjJgi5LLjXvpWiGDsOXZsAGOe6Sg5kxzJroZA8z8+HwvszICNhKDk05iWb7s121gugvhFHg+y2nl5HvltBEBh1YYlhuUp2dShU0dCk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(956004)(2616005)(66476007)(110136005)(186003)(66946007)(508600001)(53546011)(36756003)(66556008)(2906002)(31696002)(6486002)(5660300002)(83380400001)(8676002)(26005)(8936002)(316002)(16576012)(31686004)(38100700002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVhNSWF6bjVXUXd5VzczQTd3L2VOc3V0TlJvNmFxSnNSQzArSEFPRnc3SlpX?=
- =?utf-8?B?QWcrNWp2UUY0V2o4TktOWldEZWx3T3Z5WEtSWnM2cHBNNzBIRFhhTnQ3NzlM?=
- =?utf-8?B?R2pwc2xCQW90dUNSZTl1R0JTVGR4aUZ5UHJvdWVna2NWMkxSZnpkbGR2emJU?=
- =?utf-8?B?MW5TUFNOQnV2bFJMZVZzQUhlR2tFdEREeG12eEJqUFZqVE9JS1VsODBMQWZa?=
- =?utf-8?B?b1VWU3lvNGs0WDhlZ0tNeUJBcHRvR0szM09NSmU0R2xsQXJkMVpIYnJZeTNW?=
- =?utf-8?B?VngwRURvTUR4TEJtRVBBTTFuVGVucHlFRG1wMWxmcW9FTTA5SjRPWmRjbFRR?=
- =?utf-8?B?OHR6eXRZWjhDdTJvZUVSSWdNSWQxN2FKTENRSnBkYnl1MHBtNTFuRGRiNW0z?=
- =?utf-8?B?WVoxay96VzF4ZnRxYjhnbkV2VEMvMlUyWGw1WWlNSGJwbWxtb3EybTBjSFZn?=
- =?utf-8?B?L3ZZa29nc1JlWG9HbGlCaGhReitVR0FacmUyc3JCQ0Foc3pmT0RyaVBsaE1y?=
- =?utf-8?B?ZXYxRXEwa05qQTl0N3A2VG9SUkRrdkxUL3pRQXVxSkg5STRrbWhmK1U4ci9t?=
- =?utf-8?B?d0duS3IyYzRiNnY1QmlKbDc5ZzJ0c0dUNElPUlVCbjF2Qm9iSHREY20rQnlv?=
- =?utf-8?B?RDRFNHBlbUpCVm9UeXVJL3J6T1FlSVJwTjFEampQYytyblBsWitvK1R2aExN?=
- =?utf-8?B?VnBZd05TajUrazFBazJEak93cFF1dGMybjR0RndvSDJyWW1IV0NNY0xxT0Q1?=
- =?utf-8?B?dU9VRmNQU25zL0RiZ2JRVENEVytadmJHNnNQRjIrYVB3Mit4Wkp1Y014dSts?=
- =?utf-8?B?UWI4K3M2Vmp3ZUdVZ1haRmVxTmtzcDJhTExCcUxZM0lIK3haUEI4bW9zNzBE?=
- =?utf-8?B?SEFCd1hwSkZNUm1DSUdGRkNVc3JYRFpKRG40bFpjYU1Ta2RDOExvZGtzMHo4?=
- =?utf-8?B?MUlQVFdwTnYvY1QvbUlBL21xOWQvVnN6UVhIeXdPSkY1SE0zb2k4cVpPTlFs?=
- =?utf-8?B?Sy9jNEdzMUVPNEFjUXN6OERpUzNDb1d3ZUk3c3QzVCt2ZUh3N3NjbllKU0Zu?=
- =?utf-8?B?VElXVzBaUHJhMmFGQTZaRTY3L0FmMmx2eGZmN1hIaGdEYjY1QU9ZWTRuZnNI?=
- =?utf-8?B?SkQvVFlzMUY2Y1lWdjZHMlRFQytYY2JtMmgxbWhSbThJbjFEaEZiMldMRklr?=
- =?utf-8?B?VXRrSXBmS25NZTVEMU5uY3lWd2M3WUZ0SlNabWhOdE85VjZWRSt5QXdTenZk?=
- =?utf-8?B?bkdsd0JHSklORUFVR2hwQXRpL29mLzRCMlMxRmlBNHV5MDFBTWtSS2EzUDla?=
- =?utf-8?B?R0Q2dzJ1aHNERUtaTlhHc09RMGlDd1E4bTIvUXBYcWlkejdHSU1LdXNQVEVw?=
- =?utf-8?B?V3ZpM2pQYXZNaUY3MHI0R0NybDF4Mko2aUZsRWZPQVlja0pVVnZUcGxzL2RW?=
- =?utf-8?B?UzRnV3EzaVhsUzlEOCt0Q1ZCbEgyYWxIMjJPU0lDUjJpeUNpVGVRbElWSlF2?=
- =?utf-8?B?TUE4Rithb0tPSXpaNktQMG9QbHIzSDcwZjB0M25BM0FmTms4aTROejdwWVVl?=
- =?utf-8?B?TEtjTjRLQjRZYVJla0NLYzREV3UxQjR3UUlBTWtwYVR4RUhST0ZRS2tKVmJQ?=
- =?utf-8?B?VnhMTjArNCtycWFoNkJLTkttaEtiU1ZvQTF4UXhKS1dNMVlESzJaNXB5UzA4?=
- =?utf-8?B?dWQ5RmxnSWtiZ25ncmVqaTZMVEkzMis1d3FaWmk4bHE2TmNDMGVaUjF3c2M0?=
- =?utf-8?B?TkM4UEwrd1FacWdWbUdka3ZEQTZiSXY1ZEVWU2dkeXRyay9nTjhDN3p1S2d6?=
- =?utf-8?B?VHhnZWVOUFBJYzVIeUtJNThPRXNHRXhSVjAyZndlYTdSMGd5Y3pJaHBvVjla?=
- =?utf-8?B?Y091Mmp5THl0Y3J3cTZmcExoSER1K2ZKQmpEUWdZSnVyMW9vaVZWQmNYcU5h?=
- =?utf-8?B?cm5CTGxGZm5zVUczeTZOeDgxcjVxS1h0VzF3WVpGQmZKS1BjNFBEdDg4M0l3?=
- =?utf-8?B?Q0lGcmdZalFoeS84WHlTMTRNaDdjbUROc2ZjK1JoczdzRCtQeXpoWmpUY1Vn?=
- =?utf-8?B?aFdrajhhWWZtQ1J4TkwxN0VXRi9tM29aZlFXL0hvd0FLZkwxVWI5U1lRU1ly?=
- =?utf-8?Q?+keA=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b97f529-eb48-4f7b-ce1d-08d9a55df7fd
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2021 21:55:26.6298 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xllWH0GYhgPpQhaTAoBZjyKTOnSJCAmCC00JkcQAnqSQHoih4Mc3I/983LikuXjz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5374
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,118 +77,214 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: quic_saipraka@quicinc.com, arnd@arndb.de, jim.cromie@gmail.com,
+ catalin.marinas@arm.com, linux-arm-msm@vger.kernel.org, mingo@redhat.com,
+ quic_psodagud@quicinc.com, maz@kernel.org, will@kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2021-11-09 10:26 p.m., Felix
-      Kuehling wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:d4bc4acf-ff14-5370-16bd-8cec6253c09c@amd.com">
-      <br>
-      On 2021-11-09 6:04 p.m., Philip Yang wrote:
-      <br>
-      <blockquote type="cite">If unmapping partial range, the parent
-        prange list op is update
-        <br>
-        notifier, child range list op is unmap range, need check child
-        range to
-        <br>
-        set drain retry fault flag.
-        <br>
-        <br>
-        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-        <br>
-      </blockquote>
-      <br>
-      I think this could be simplified by simply setting
-      svms-&gt;drain_pagefaults in svm_range_unmap_from_cpu. The mmap
-      lock ensures that this is serialized with the deferred list worker
-      reading and clearing svms-&gt;drain_pagefaults. You can also use
-      READ_ONCE and WRITE_ONCE to be safe.
-      <br>
-    </blockquote>
-    <p>Good idea, change will be in v2 patch.</p>
-    <p>Thanks,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:d4bc4acf-ff14-5370-16bd-8cec6253c09c@amd.com">
-      <br>
-      Regards,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 ++++++++++++-
-        <br>
-        &nbsp; 1 file changed, 12 insertions(+), 1 deletion(-)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        index 77239b06b236..64f642935600 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        @@ -2049,8 +2049,19 @@ svm_range_add_list_work(struct
-        svm_range_list *svms, struct svm_range *prange,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * before the range is freed to avoid straggler interrupts
-        on
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * unmapped memory causing &quot;phantom faults&quot;.
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-        <br>
-        -&nbsp;&nbsp;&nbsp; if (op == SVM_OP_UNMAP_RANGE)
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (op == SVM_OP_UNMAP_RANGE) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;set range drain_pagefaults true\n&quot;);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms-&gt;drain_pagefaults = true;
-        <br>
-        +&nbsp;&nbsp;&nbsp; } else {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct svm_range *pchild;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(pchild, &amp;prange-&gt;child_list,
-        child_list)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pchild-&gt;work_item.op == SVM_OP_UNMAP_RANGE)
-        {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;set child drain_pagefaults true\n&quot;);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms-&gt;drain_pagefaults = true;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* if prange is on the deferred list */
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!list_empty(&amp;prange-&gt;deferred_list)) {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;update exist prange 0x%p work op %d\n&quot;,
-        prange, op);
-        <br>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
+Hi Jason, Greg, DRM-everyone, everyone,
+
+resend to add more people, after rebasing on master to pick up
+306589856399 drm/print: Add deprecation notes to DRM_...() functions
+
+This patchset has 3 separate but related parts:
+
+1. DEFINE_DYNAMIC_DEBUG_BITGRPS macro [patch 1/10]
+
+   Declares DRM.debug style bitmap, bits control pr_debugs by matching formats
+   Adds callback to translate bits to $cmd > dynamic_debug/control
+   This could obsolete EXPORT(dynamic_debug_exec_queries) not included.
+
+   /* anticipated_usage */
+   static struct dyndbg_desc drm_categories_map[] = {
+   	  [0] = { DRM_DBG_CAT_CORE },
+	  [1] = { DRM_DBG_CAT_DRIVER },
+	  [2] = { DRM_DBG_CAT_KMS },
+	  [3] = { DRM_DBG_CAT_PRIME }, ... };
+
+   DEFINE_DYNAMIC_DEBUG_BITGRPS(debug, __drm_debug,
+				" bits control drm.debug categories ",
+				drm_categories_map);
+
+   Please consider this patch for -next/now/current:
+   - new interface, new code, no users to break
+   - allows DRM folks to consider in earnest.
+   - api bikeshedding to do ?
+     struct dyndbg_desc isnt that great a name, others too probably.
+
+2. use (1) to reimplement drm.debug [patches 3-7]:
+
+   1st in amdgpu & i915 to control existing pr_debugs by their formats
+   POC for (1)
+   then in drm-print, for all drm.debug API users
+   has kernel-footprint impact:
+      amdgpu has ~3k pr_debugs.  (120kb callsite data)
+      i915.ko has ~2k  
+
+   avoids drm_debug_enabled(), gives NOOP savings & new flexibility.
+   changes drm.debug categories from enum to format-prefix-string
+   alters in-log format to include the format-prefix-string
+   Daniel Vetter liked this at -v3
+   https://lore.kernel.org/lkml/YPbPvm%2FxcBlTK1wq@phenom.ffwll.local/
+   Im sure Ive (still) missed stuff.
+
+
+3. separately, Sean Paul proposed: drm.trace to mirror drm.debug to tracefs
+   https://patchwork.freedesktop.org/series/78133/
+
+He argues:
+   tracefs is fast/lightweight compared to syslog
+   independent selection (of drm categories) to tracefs
+       gives tailored traffic w.o flooding syslog
+
+ISTM he's correct.  So it follows that write-to-tracefs is also a good
+feature for dyndbg, where its then available for all pr_debug users,
+including all of drm, on a per-site basis, via echo +T >control.  (iff
+CONFIG_TRACING).
+
+So basically, I borg'd his:
+   [patch 14/14] drm/print: Add tracefs support to the drm logging helpers
+
+Then I added a T flag, so it can be toggled from shell:
+
+   # turn on all drm's pr_debug --> tracefs
+   echo module drm +T > /proc/dynamic_debug/control
+
+It appears to just work: (RFC)
+
+The instance name is a placeholder, per-module subdirs kinda fits the
+tracefs pattern, but full mod/file-basename/function/line feels like
+overkill, mod/basename-func.line would flatten it nicely. RFC.
+
+
+[root@gandalf dyndbg-tracefs]# pwd
+/sys/kernel/tracing/instances/dyndbg-tracefs
+[root@gandalf dyndbg-tracefs]# echo 1 > /sys/module/drm/parameters/trace
+[root@gandalf dyndbg-tracefs]# head -n16 trace | sed -e 's/^#//'
+ tracer: nop
+
+ entries-in-buffer/entries-written: 405/405   #P:24
+
+                                _-----=> irqs-off
+                               / _----=> need-resched
+                              | / _---=> hardirq/softirq
+                              || / _--=> preempt-depth
+                              ||| / _-=> migrate-disable
+                              |||| /     delay
+           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+              | |         |   |||||     |         |
+           <...>-2254    [000] .....  7040.894352: __dynamic_pr_debug: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
+           <...>-2207    [015] .....  7040.894654: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
+           <...>-2207    [015] .....  7040.995403: __dynamic_pr_debug: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
+           <...>-2207    [015] .....  7040.995413: __dynamic_pr_debug: drm:core: OBJ ID: 121 (2)
+
+This is the pr-debug doing most of that logging: (from dynamic_debug/control)
+
+  drivers/gpu/drm/drm_ioctl.c:866 [drm]drm_ioctl =T "drm:core: comm=\042%s\042 pid=%d, dev=0x%lx, auth=%d, %s\012"
+
+Turning on decoration flags changes the trace:
+
+  echo module drm format drm:core: +mflt > /proc/dynamic_debug/control 
+
+           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+              | |         |   |||||     |         |
+           <...>-2254    [003] ..... 15980.936660: __dynamic_pr_debug: [2254] drm:drm_ioctl:866: drm:core: comm="gnome-shel:cs0" pid=2254, dev=0xe200, auth=1, AMDGPU_CS
+           <...>-2207    [015] ..... 15980.936966: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_ADDFB2
+           <...>-2207    [015] ..... 15981.037727: __dynamic_pr_debug: [2207] drm:drm_ioctl:866: drm:core: comm="gnome-shell" pid=2207, dev=0xe200, auth=1, DRM_IOCTL_MODE_RMFB
+           <...>-2207    [015] ..... 15981.037739: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (2)
+           <...>-2207    [015] ..... 15981.037742: __dynamic_pr_debug: [2207] drm:drm_mode_object_put:195: drm:core: OBJ ID: 124 (1)
+
+The FUNCTION could stand tweaking (to match the callsite in the
+control file, cited above), or perhaps replaced by the 'mfl'
+decorations; the 't' flag is redundant for trace. Meh.
+
+SELFTEST
+
+A previous version of this patchset added test_dynamic_debug.ko, but
+it relied upon code I ripped out when I made tracefs available by
+default (without modules having to register 1st).  So it fails 10/29
+tests, which counted +T sites executed, via side effect.
+
+TODO: userspace selftest
+
+  # to set expected tracing activity
+  echo module test_dynamic_debug function do_debugging +T > control
+
+  # run do_debugging function (todo: add sysfs knob) 
+  echo 2 > /sys/module/test-dynamic-debug/parameters/run_me
+
+If thats wrapped in the right trace_on, trace_pipe, etc incantations,
+the +T enabled pr_debugs in do_debugging() can be counted, compared
+against expectations, and passed or failed.
+
+change since v9:
+. patch confict against drm-misc resolved
+. s/CATEGORIES/BITGRPS/ in 1/10 - keep name generic: bitmap + groups
+. CATEGORIES is drm term, use it there only
+. fix api friction wrt drm.trace knob
+  2 separate macros: DEFINE_DYNAMIC_DEBUG_{LOG,TRACE}_GROUPS - JBaron
+
+v9: https://patchwork.freedesktop.org/series/96327/
+v8: https://patchwork.freedesktop.org/series/93914/
+    https://lore.kernel.org/lkml/20210915163957.2949166-1-jim.cromie@gmail.com/
+
+The major change since v8 is that +T now works for all users, if
+CONFIG_TRACING=y, otherwise it complains/errors.
+
+SUMMARY
+
+- drm as dyndbg user adds almost 9k callsites to kernel running this patchset
+  substantial footprint
+  substantial source of pr-debug-trace events (not all, but some useful)
+
+[jimc@gandalf wk-next]$ wc /proc/dynamic_debug/control 
+8927 71062 1099699 /proc/dynamic_debug/control
+[jimc@gandalf wk-next]$ uname -a
+Linux gandalf 5.15.0-rh2-12144-g5d5db04dfb0c #3 SMP PREEMPT Thu Nov 11 10:5
+
+- pr_debug as event provider
+  using exported trace_array_printk 
+  cheap with JUMP_LABEL
+  precise, ad-hoc or organized callsite enablement
+  callsite descriptor is in its interface, so are VARARGS
+  inspectable, extensible wo api churn,
+  iff trace_array_printk can do it.
+
+
+Jim Cromie (10):
+  dyndbg: add DEFINE_DYNAMIC_DEBUG_BITGRPS macro and callbacks
+  drm: fix doc grammar
+  amdgpu: use dyndbg.BITGRPS to control existing pr_debugs
+  i915/gvt: trim spaces from pr_debug "gvt: core:" prefixes
+  i915/gvt: use dyndbg.BITGRPS for existing pr_debugs
+  drm_print: add choice to use dynamic debug in drm-debug
+  drm_print: instrument drm_debug_enabled
+  dyndbg: add print-to-tracefs, selftest with it - RFC
+  dyndbg: create DEFINE_DYNAMIC_DEBUG_LOG|TRACE_GROUPS
+  drm: use DEFINE_DYNAMIC_DEBUG_TRACE_GROUPS in 3 places
+
+ .../admin-guide/dynamic-debug-howto.rst       |   7 +-
+ MAINTAINERS                                   |   1 +
+ drivers/gpu/drm/Kconfig                       |  26 ++
+ drivers/gpu/drm/Makefile                      |   2 +
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |  55 ++++-
+ drivers/gpu/drm/drm_print.c                   |  62 +++--
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ drivers/gpu/drm/i915/gvt/debug.h              |  18 +-
+ drivers/gpu/drm/i915/intel_gvt.c              |  47 ++++
+ include/drm/drm_drv.h                         |   2 +-
+ include/drm/drm_print.h                       | 182 +++++++++++---
+ include/linux/dynamic_debug.h                 |  88 ++++++-
+ lib/Kconfig.debug                             |  11 +
+ lib/Makefile                                  |   1 +
+ lib/dynamic_debug.c                           | 203 ++++++++++++++--
+ lib/test_dynamic_debug.c                      | 222 ++++++++++++++++++
+ 17 files changed, 843 insertions(+), 88 deletions(-)
+ create mode 100644 lib/test_dynamic_debug.c
+
+-- 
+2.31.1
+
