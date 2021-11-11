@@ -2,100 +2,128 @@ Return-Path: <SRS0=G5aM=P6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBF12C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 09:35:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4EF1C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 10:08:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8AE1861207
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 09:35:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8AE1861207
+	by mail.kernel.org (Postfix) with ESMTPS id 6DEC961107
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 10:08:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6DEC961107
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 391376E92E;
-	Thu, 11 Nov 2021 09:35:09 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2043.outbound.protection.outlook.com [40.107.243.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 946116E92E
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 09:35:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D58BF6EA4E;
+	Thu, 11 Nov 2021 10:08:18 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3ED6EA4E;
+ Thu, 11 Nov 2021 10:08:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZJXQVrAyrXiIRAbEvVl1lyPtYe5IPEfs+UdNvdESnyhRlWzpiIjWw1Kpml0Iv7oSUJgQlRufH1Ry7lnL+fx6h1/Bz5q+gq7p2nwxIbIZW6JKoUsQa+Fqrl732VhxLqB2JIRjEkpiWPnQGWDAXH9dGWItEBifJsReST0r+rneCa8CWwv1mBQZIQR0FDo9T6MgaZ9UFn5G81Z+5AuTkhyoO2rXE8+bVsI4xZd2gu5lm4blH2gn0UW5HNDXaMEXFLF1vUxZ5HaV2y69kSOagD743I00kLF/eh28PUlTsZ/arruuGr2Hk/ywCIR06bFF1m9RQYcHgYO5YDd45D8jD1scMw==
+ b=TZYIG9m8XV6sB1Qq+fRwnxOaLM4o3rSJC4LB9zvIlQplINgdRZADgy1OSakJOGPUBvNPr+mV8U8f5p/uVB/zEpLaHM2fV9BC+Z97wP9ZmsIymkRFG77PEZsG2bMdU2My8Pwo+o4J1nQiynmW4j45IbJSFYKizGDcOn9fmz/d0CW/6BjgKg/o7buNwdiw//F4DBT+Yab4zb8NG20UsXycGS5urAuIBkuBzYVvrqO+0LCvmTe+cHAm6L+iT8Ywk2sxrjW/3xf7l/98zgXwkGJtI9x6atVm3rye9CBsuiq1N82Ugqaq3wrHh3QACu7iTq8U3+t8aawSEjyydj4zeTXdTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w+cVoF2o5diPOAya2E7f39wydm52LTl+Xb06we+1i5s=;
- b=VjMxRK4t6Pdhr/xY4n/zlEen+Ew+YZmFAHo6VgIYvmpCe9xme4Kx50ubGv+sKoW1vW+xllpXwOJdjLdf3xEKha2oMXIl2WDjlqDfA8LjfLzL1OwujCugz7BVDHQyJObzjpme0AILdvz3cGAC3+BEBlPGB7dHpnkg1VTlg3HcRQMTBue6a8JBTD13jlZtXP5lEFWKAC6S8zb0Nr+NxDAq7ms7vWmY7W94MeKTyJ6sjM6MzxbQILEgumE51iELo9X/vvtrO+cUvQs9Gd7sFcoOd+A+TunKhsE1uc4XcX8idVHEo8CeWwvb6KDZOYZrEPIELafm/ijlezz4jk1OlPPPaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=yDakdmS8Ns2yx01X/GkqqaFrmu8HJQI6fZ0e8Bz1j2k=;
+ b=eiRERAWLlJV+fePoQTFGUV+uvEOEAI+0lI4fr4WFnQTFh+WxzpWuY+BZc/gEc/w1W603WKga+4CZrJbON1cwKc8BFe32anCA5rVSkALzvXbiVXy/MhVrI/3Uj2MHLXpcRFfSuP41D0IVwAIFSsBooCWrpMqTBqNNARYv0+J4Ovzm6m6W1XzC7ZikMYjMd2CRpA/5EVGlkjskWwHPmenFVe4+HyYKgOATEcpDsoMFUU9XA3j/qKqG6ssN6mC+tcWrutd1/YK97LS6ErGEnJENaDBJTZNIfWR442J5MIbE/+8iJbOhfWQIvQS4wklgoa5izflGuVuLaPpvjh1e4h6mlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w+cVoF2o5diPOAya2E7f39wydm52LTl+Xb06we+1i5s=;
- b=1eYnaa52FR4T20pe5OYSfiszlBjw5guVVSRhtZe6H1F2zMBbTzDtanCcJk5BRvil9EWS0OEc5T8AEaedyM2vIdB4rGKuaZOs5ypKoFpG0NcLDO7nwy96V6VO7tQrD6cmm7xv3EL37wTlLA06t3I/3jUQuc98VLUkMnuzLuasI/c=
-Received: from BN0PR04CA0044.namprd04.prod.outlook.com (2603:10b6:408:e8::19)
- by CH2PR12MB4245.namprd12.prod.outlook.com (2603:10b6:610:af::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.18; Thu, 11 Nov
- 2021 09:35:05 +0000
-Received: from BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e8:cafe::3) by BN0PR04CA0044.outlook.office365.com
- (2603:10b6:408:e8::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.17 via Frontend
- Transport; Thu, 11 Nov 2021 09:35:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT022.mail.protection.outlook.com (10.13.176.112) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4690.15 via Frontend Transport; Thu, 11 Nov 2021 09:35:04 +0000
-Received: from pyuan-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 11 Nov
- 2021 03:35:02 -0600
-From: Perry Yuan <Perry.Yuan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <Ray.Huang@amd.com>
-Subject: [PATCH v1] drm/amd/pm: add GFXCLK/SCLK clocks level print support for
- APUs
-Date: Thu, 11 Nov 2021 04:34:51 -0500
-Message-ID: <20211111093451.69243-1-Perry.Yuan@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=yDakdmS8Ns2yx01X/GkqqaFrmu8HJQI6fZ0e8Bz1j2k=;
+ b=lC2eGXWtLFonQKNN0t0cvVckXOsKzJD8snphRA9Xy1gxxeVeQ6w16jCKafOE9d6h6eMIH5gde00xfITcuF/DJYKfsu24buC1Rm6M7oqBKrBweSRGLGzR6L9RxL1iscUE/wFvzOlaAz9Sahnkn4KQc5dF27P1e1Ez+RhDibnba60=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MW3PR12MB4586.namprd12.prod.outlook.com
+ (2603:10b6:303:53::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Thu, 11 Nov
+ 2021 10:08:15 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::2d02:26e7:a2d0:3769]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::2d02:26e7:a2d0:3769%5]) with mapi id 15.20.4669.018; Thu, 11 Nov 2021
+ 10:08:15 +0000
+Subject: Re: [PATCH] drm/amd/display: clean up some inconsistent indenting
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, alexander.deucher@amd.com
+References: <1636624728-85197-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <7dc5f830-36af-4d8f-4e45-03d73141db9b@amd.com>
+Date: Thu, 11 Nov 2021 11:08:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <1636624728-85197-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: AM8P190CA0018.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:219::23) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+Received: from [192.168.178.21] (79.194.4.163) by
+ AM8P190CA0018.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4690.19 via Frontend Transport; Thu, 11 Nov 2021 10:08:11 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7d6a6db4-0e22-42ea-359f-08d9a4f68afa
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4245:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB42459A5FCF01F14DA2E849A69C949@CH2PR12MB4245.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:569;
+X-MS-Office365-Filtering-Correlation-Id: cc449c63-d1fe-4e8c-f5c4-08d9a4fb2ca9
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4586:
+X-Microsoft-Antispam-PRVS: <MW3PR12MB45865EC4F7EEABF97DED302983949@MW3PR12MB4586.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iUJxoTSRZwH4epFvactXLTtruXvPZHOrws94ifjVcqksqM18hHs12kfn83z2p7Mf6lIbiZxcOw4oHtez/jYx5q3fs/0wC8cjZ7fOIBs5ycV/CYCQEBPdodyZH6Ncdgm2MzEoh4yRY/sxtZY1JZtPs6cxa8H4pb3ojN4GWAGtlQs9pjLHb7LLli3rtXFiuET4kJMcXhaN9cSWB+c/YgPUVuE61YEVDnUNlkl+o3fpOcPRfGOm2S8kuJjQwj92OKojzVVJiso5x9f1XqTkApVIXr7ha2jkAA0AEmI53cRTtV8KeBz/699WXT1KEBviddvCz2ihxgDlHh4z0rz/SOLDGiK0TN8vZHgyF80JVeJ4eFuZUqS03C6Pb/TKtxOiDVTa7y092bXZs/CFgN3A1ldy5F4WNOyS3tSawr9GdeX2D+9k4r7b/H39NET9Ayu5YmUTFlnnj0LI2WBbngeEW0wckgLaqczDo1U0r3/Pt9L01UEmRF6UdH22dankRYIvY5jdO0punmV8kRpODiT9Eb1F9nJdSU/CvR9213T77BoVhNvqwvRixTWRCoo7fLbsVgcHNyF8sqaEIx6YOP3MzD/9e/Sox2dw6mSufKlmDZ9PEjhdWUvyEJZeOUJnaH2aAvOhUQFy2a4oX0OH550tsw7c8afO67iud8auMYZ0vBy0BBqXKONiCcWtz62U+SVM1/9m4PjCTDFI4/09YpE3E/vesUD+nkMK+mqVsNx3HS50+udElWHER0NAmdHDvN4iSjTu
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(4326008)(426003)(2616005)(82310400003)(47076005)(54906003)(336012)(110136005)(70586007)(356005)(6666004)(36756003)(2906002)(81166007)(86362001)(26005)(8676002)(8936002)(186003)(16526019)(966005)(5660300002)(508600001)(83380400001)(7696005)(316002)(6636002)(1076003)(70206006)(36860700001)(36900700001)(2101003);
+X-Microsoft-Antispam-Message-Info: DwfvZcO5YYIQCDWgOmZNI+pZ5b1XznE7qaeTa3+mf65TXE05j2kwSXVYBFIOylsji6rbRF1A7UmjbZP2czi9PgV6W/4rLcsj9Op1o9YtjWEhTfUH9PzXWvGIuvtBivWiejGVd1fawfawJOBITx7t5YK2QnV4j8yk+wtv770he/G7CNAi24HQynlmv3femVqqGr/4wYW5k8C28G9nxBBf3uxeoUr0h23lkZcjuLr3rpxUKiaW8LDgvfKFSi43pIhX6Yt16Xsh5HzeR8IJhbtQ9+zloXEMwTbUvKrnZ/INdmW7igYn95YOyjhgy5Yg5S/Jg6LZ2vKYaPeclkaz+FzuBRDmXAyVSIb7IW5eooiAhjUvHHe0IQQ/kiyOFWnJbhGszp1BKSpS34taTOtlcFgFa5vMkiFYTQ6ZUvzQWKEzPMg5ZoLIRvtoHyyR8eL+6hFosVD5mtbYW+Io/9v6JN7FcR3n5t5EaXM/e7y/dVIhU13r3rrpLrQRhVsqfkQvEugWGD7eICy6LyIqP5l5OCyJfLSwalacQNLy2pO7bk/1PW8bzmNPStHtZ1u7Oq40hPAvmFiXK5bDf8kSkORH+KG+vrpT+TnwaCoUdA1rJmPZ/ROPX5kGTxGf5wqQBKHEyAP/rKA/iLMLdLhtMymsEVunF9Dor48cgMluyfgb+KquZQ8TkHctamnVdVkc6CzOvlTsLlZEr1cdm/jThaL6/KjlIZlNzaMwTdh3csvCeebv0BzVhLk0TZEkZ/+glJdXAKCn
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(2906002)(6636002)(956004)(2616005)(8936002)(4326008)(66476007)(66556008)(66946007)(316002)(6666004)(508600001)(5660300002)(31686004)(8676002)(83380400001)(6486002)(16576012)(26005)(86362001)(36756003)(31696002)(38100700002)(186003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkozMytLYjFLT2J1RWlUMisxMjFjZ3JBOFpHYjRBOTREYVJPTmRwSjNSVjJN?=
+ =?utf-8?B?cExyWmI4ME9SSnNIZXZnL2p0UFFXWS9xRm5SaFMwTHc2eDA3MHVRQmUrTEtI?=
+ =?utf-8?B?b0tMbUlxUHo1Y1U3Ui9BNjBaQ1pOR0N3M3UwN1M4cnJKMkdqcy9ZN1dRRHFK?=
+ =?utf-8?B?T2NhYTRBbTFqOWU2dWt4bFM3M2p4ZkZtWFhUdDNRWWQ5NWE4UmpXdWhZaWVJ?=
+ =?utf-8?B?c2FRQTB2V1EzRGp1ZkVzMzJhdkVXaUFEUXB2UXdSKzdESE52Qll3Y2k2SUJa?=
+ =?utf-8?B?U25acUpnOENObmFBWmZ4NDY4TmZ6eFdsSmhhMVJNT250VDBTcFFPd1M3YUQ3?=
+ =?utf-8?B?WVRaWUF5OVNiQTE0L1dOSGYwSlh3R1c0MEsyWDlFc28yMHc5dEFSMW51ZDNH?=
+ =?utf-8?B?cWVOZ1VvSS81ekRMNXFZT3hGT3lYWUNRR0Z3WTIwSjd4QThjM2Q5Z2lIdnBO?=
+ =?utf-8?B?aEd4Nnc0dVdkUmlGUng4aTN4ajNNL0JxaFJsUURXS1dwbFBmZzlBNDc1Q0FL?=
+ =?utf-8?B?Vi94UGFpaGUyLzJ5NGlIbWVjc2tTR04rcGk5OG1tbkVDS3JOdG1GZ1Fmc2wx?=
+ =?utf-8?B?QUYvbGdUWWx1N3N2cW1DWkZERXJYYXZkUkVTT0t3d0VWWWw4cHd3YWcyVGow?=
+ =?utf-8?B?SmFzWmFUOEkrL2tyUW0wTjhPbUpVNnBUc3hUdVlUUWtER2EzdWFzS2l0by9h?=
+ =?utf-8?B?VXc4YlR1K2cyRm9mZHU5Q2IrZnR1bVVmUlRuYzlmaWZTVGk5QTFUWEdhODhV?=
+ =?utf-8?B?a29WOVlpMmJBK1d1dFBhUmVxMEpPR3pmbkhMeWJmK3lKVTc2QzdHK2xidVIw?=
+ =?utf-8?B?RFVuVzdhNzhtQ2dUdWt0UW1hOVJySWRMTVBtaGhoM2FTdkJ2VFVtVFJ6MTF6?=
+ =?utf-8?B?REx0dW9jYTMvNEQ5STZPWEk1UHFoV0doZGlUR1diOVVMS0VTZ3dOb2VtQjF1?=
+ =?utf-8?B?cWJaMmQ0TS9ySVJ0ejhYTWt2V2xHZ2Y2YTRWRnlNcm11bDhNUlk5dW56emM4?=
+ =?utf-8?B?N1cwRkpFRVNvcVJla3VnL3N3SGd2ajNkbEs2cDFCdWlYa3ljeXF0MlppK2VB?=
+ =?utf-8?B?NGxyek1WdExLMzZBMHAzc2JwWDJra0YrdVUyU1NvdFlXRWNZOWFIekpYcmFq?=
+ =?utf-8?B?ZWRtK0VwTDZVcU5EU3hqTmJGd1pnQUFSK3ptQlhjV2Y2K096Q3JWVXBCb3Rn?=
+ =?utf-8?B?aDJlUzV6NGFWY0dwYlhsY3IyRk8yaWFlQzBTVHZ6YnVBeHJReHNneGVhcklr?=
+ =?utf-8?B?OGNCVS9pQmRISUxqNUlQbG1veHZheEhVd01ERmg4d1k4Q3MvRWFQMDN6R2Nz?=
+ =?utf-8?B?MStMYlJKRGFJYkxRbVQxYTNVZzA4R1RxN0syWnk0WGU4bXFQNlM3cHZ1QnV4?=
+ =?utf-8?B?czdQRXEvMndSSnp4dlpGQWZsZk1kT1BZazAvU1EzajRpR3RIc0hUQzZjN1NL?=
+ =?utf-8?B?MXQyM3VaVG9PTHpLVlVoM1A2b0VRVk15VDM1MHRhcExXbUExanQweFhQeEtI?=
+ =?utf-8?B?UFlpS1cxWUs5M2s4bVRhREVpK09NYzlHMmxtTTNqcHovL3NMbkZGTVBHYVZv?=
+ =?utf-8?B?MHcyeXYyMlNTcHQ3bm5WWGlMWW85b1MrYjUwQTYxSkYzOVlKR0hUUEMxN1po?=
+ =?utf-8?B?TXArY2dSMi9HUXhrTEVIZHErajV5QUhyK0xCeXA5RUhwRDZtczFzSWZrc1ZE?=
+ =?utf-8?B?YmtZc0wzT1RSRU10VWF5eWdTMmtEak0rVzBsSXprR2hWQ01tc29YWXBxcDFo?=
+ =?utf-8?B?MHd5aWMxaWxSLzNWVTExY1hxUjgxMTZ5RmVJVSt0c1daQ0hva3U1QkwrQVph?=
+ =?utf-8?B?V1FsMFBNcUErNm1ZVExoUitUS1IzbW40SFlSSWx2cjMrZllBbHV6dzExbVhB?=
+ =?utf-8?B?WkRVbmVEU2pFcCtnRk9aZm5LVUptOGZRbkxTRmhpTkUzelNoREZDL09CTmNl?=
+ =?utf-8?B?ckJKblhXdTRsZHJiM2JRY1dOc3ZzWWw1akdFUktvV3B1ancwWGhQeGdSWGVX?=
+ =?utf-8?B?d2htUCt6ZlAzeGxaMFl2SHJsalppNHk5TWxJZVA5MVY5a2pEckx6SVVQNDBE?=
+ =?utf-8?B?TGhMTXBCQ3FOcFIvcjZ2MFNSbHJNQm5yNmo5YVN3bTJDUEFYTXJ6dWRpRWN3?=
+ =?utf-8?Q?C+zM=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2021 09:35:04.9459 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6a6db4-0e22-42ea-359f-08d9a4f68afa
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc449c63-d1fe-4e8c-f5c4-08d9a4fb2ca9
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2021 10:08:14.9885 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4245
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qMZzgwXDMV3mZWK0x/Q2n0WLs7RFcdXNWmJK64dgKc1hVbITyE5GEJFFUnwCS1aG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4586
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,200 +135,223 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinmei.Huang@amd.com, Perry Yuan <Perry.Yuan@amd.com>,
- Mario.Limonciello@amd.com
+Cc: airlied@linux.ie, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add support that allow the userspace tool like RGP to get the GFX clock
-value at runtime, the fix follow the old way to show the min/current/max
-clocks level for compatible consideration.
+Am 11.11.21 um 10:58 schrieb Jiapeng Chong:
+> Eliminate the follow smatch warning:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2245
+> dp_dsc_slice_bpg_offset_read() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2044
+> dp_dsc_pic_width_read() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2101
+> dp_dsc_pic_height_read() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:2173
+> dp_dsc_chunk_size_read() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1868
+> dp_dsc_bits_per_pixel_read() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1965
+> dp_dsc_bits_per_pixel_write() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1787
+> dp_dsc_slice_height_write() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1602
+> dp_dsc_slice_width_write() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1687
+> dp_dsc_slice_height_read() warn: inconsistent indenting.
+>
+> vers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1417
+> dp_dsc_clock_en_write() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1502
+> dp_dsc_slice_width_read() warn: inconsistent indenting.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1315
+> dp_dsc_clock_en_read() warn: inconsistent indenting.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 
-=== Test ===
-$ cat /sys/class/drm/card0/device/pp_dpm_sclk
-0: 200Mhz *
-1: 1100Mhz
-2: 1600Mhz
+Looks like the same code was copied over and over again, maybe make this 
+an even wider cleanup and add a helper function to find the pipe_ctx for 
+a specific dc_link.
 
-then run stress test on one APU system.
-$ cat /sys/class/drm/card0/device/pp_dpm_sclk
-0: 200Mhz
-1: 1040Mhz *
-2: 1600Mhz
+Regards,
+Christian.
 
-The current GFXCLK value is updated at runtime.
-
-BugLink: https://gitlab.freedesktop.org/mesa/mesa/-/issues/5260
-Reviewed-by: Huang Ray <Ray.Huang@amd.com>
-Signed-off-by: Perry Yuan <Perry.Yuan@amd.com>
----
- .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   | 22 +++++++++++++--
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 26 ++++++++++++++++++
- .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 27 +++++++++++++++++++
- .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h  |  1 +
- 4 files changed, 74 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-index 3d4c65bc29dc..6e8343907c32 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-@@ -308,6 +308,7 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
- {
- 	int ret = 0, size = 0;
- 	uint32_t cur_value = 0;
-+	int i;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
- 
-@@ -333,8 +334,6 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
- 		size += sysfs_emit_at(buf, size, "VDDC: %7umV  %10umV\n",
- 						CYAN_SKILLFISH_VDDC_MIN, CYAN_SKILLFISH_VDDC_MAX);
- 		break;
--	case SMU_GFXCLK:
--	case SMU_SCLK:
- 	case SMU_FCLK:
- 	case SMU_MCLK:
- 	case SMU_SOCCLK:
-@@ -345,6 +344,25 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
- 			return ret;
- 		size += sysfs_emit_at(buf, size, "0: %uMhz *\n", cur_value);
- 		break;
-+	case SMU_SCLK:
-+	case SMU_GFXCLK:
-+		ret = cyan_skillfish_get_current_clk_freq(smu, clk_type, &cur_value);
-+		if (ret)
-+			return ret;
-+		if (cur_value  == CYAN_SKILLFISH_SCLK_MAX)
-+			i = 2;
-+		else if (cur_value == CYAN_SKILLFISH_SCLK_MIN)
-+			i = 0;
-+		else
-+			i = 1;
-+		size += sysfs_emit_at(buf, size, "0: %uMhz %s\n", CYAN_SKILLFISH_SCLK_MIN,
-+				i == 0 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
-+				i == 1 ? cur_value : CYAN_SKILLFISH_SCLK_DEFAULT,
-+				i == 1 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", CYAN_SKILLFISH_SCLK_MAX,
-+				i == 2 ? "*" : "");
-+		break;
- 	default:
- 		dev_warn(smu->adev->dev, "Unsupported clock type\n");
- 		return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index f6ef0ce6e9e2..6852e4b45589 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -683,6 +683,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
- 	int i, size = 0, ret = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
- 	bool cur_value_match_level = false;
-+	uint32_t min, max;
- 
- 	memset(&metrics, 0, sizeof(metrics));
- 
-@@ -743,6 +744,13 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
- 		if (ret)
- 			return ret;
- 		break;
-+	case SMU_GFXCLK:
-+	case SMU_SCLK:
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetGfxclkFrequency, 0, &cur_value);
-+		if (ret) {
-+			return ret;
-+		}
-+		break;
- 	default:
- 		break;
- 	}
-@@ -768,6 +776,24 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
- 		if (!cur_value_match_level)
- 			size += sysfs_emit_at(buf, size, "   %uMhz *\n", cur_value);
- 		break;
-+	case SMU_GFXCLK:
-+	case SMU_SCLK:
-+		min = (smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq;
-+		max = (smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq;
-+		if (cur_value  == max)
-+			i = 2;
-+		else if (cur_value == min)
-+			i = 0;
-+		else
-+			i = 1;
-+		size += sysfs_emit_at(buf, size, "0: %uMhz %s\n", min,
-+				i == 0 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
-+				i == 1 ? cur_value : VANGOGH_UMD_PSTATE_STANDARD_GFXCLK,
-+				i == 1 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", max,
-+				i == 2 ? "*" : "");
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-index a403657151ba..cb5326d98f3e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-@@ -781,6 +781,11 @@ static int yellow_carp_get_current_clk_freq(struct smu_context *smu,
- 	case SMU_FCLK:
- 		return smu_cmn_send_smc_msg_with_param(smu,
- 				SMU_MSG_GetFclkFrequency, 0, value);
-+	case SMU_GFXCLK:
-+	case SMU_SCLK:
-+		return smu_cmn_send_smc_msg_with_param(smu,
-+				SMU_MSG_GetGfxclkFrequency, 0, value);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -1051,6 +1056,7 @@ static int yellow_carp_print_clk_levels(struct smu_context *smu,
- {
- 	int i, size = 0, ret = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
-+	uint32_t min, max;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
- 
-@@ -1089,6 +1095,27 @@ static int yellow_carp_print_clk_levels(struct smu_context *smu,
- 					cur_value == value ? "*" : "");
- 		}
- 		break;
-+	case SMU_GFXCLK:
-+	case SMU_SCLK:
-+		ret = yellow_carp_get_current_clk_freq(smu, clk_type, &cur_value);
-+		if (ret)
-+			goto print_clk_out;
-+		min = (smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq;
-+		max = (smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq;
-+		if (cur_value  == max)
-+			i = 2;
-+		else if (cur_value == min)
-+			i = 0;
-+		else
-+			i = 1;
-+		size += sysfs_emit_at(buf, size, "0: %uMhz %s\n", min,
-+				i == 0 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
-+				i == 1 ? cur_value : YELLOW_CARP_UMD_PSTATE_GFXCLK,
-+				i == 1 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", max,
-+				i == 2 ? "*" : "");
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
-index b3ad8352c68a..a9205a8ea3ad 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
-@@ -24,5 +24,6 @@
- #define __YELLOW_CARP_PPT_H__
- 
- extern void yellow_carp_set_ppt_funcs(struct smu_context *smu);
-+#define YELLOW_CARP_UMD_PSTATE_GFXCLK       1100
- 
- #endif
--- 
-2.25.1
+> ---
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 72 +++++++++++-----------
+>   1 file changed, 36 insertions(+), 36 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 9d43ecb..50ef248 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -1312,9 +1312,9 @@ static ssize_t dp_dsc_clock_en_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
+> @@ -1414,9 +1414,9 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx || !pipe_ctx->stream)
+> @@ -1499,9 +1499,9 @@ static ssize_t dp_dsc_slice_width_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
+> @@ -1599,9 +1599,9 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx || !pipe_ctx->stream)
+> @@ -1684,9 +1684,9 @@ static ssize_t dp_dsc_slice_height_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
+> @@ -1784,9 +1784,9 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx || !pipe_ctx->stream)
+> @@ -1865,9 +1865,9 @@ static ssize_t dp_dsc_bits_per_pixel_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
+> @@ -1962,9 +1962,9 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx || !pipe_ctx->stream)
+> @@ -2041,9 +2041,9 @@ static ssize_t dp_dsc_pic_width_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
+> @@ -2098,9 +2098,9 @@ static ssize_t dp_dsc_pic_height_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
+> @@ -2170,9 +2170,9 @@ static ssize_t dp_dsc_chunk_size_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
+> @@ -2242,9 +2242,9 @@ static ssize_t dp_dsc_slice_bpg_offset_read(struct file *f, char __user *buf,
+>   
+>   	for (i = 0; i < MAX_PIPES; i++) {
+>   		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+> -			if (pipe_ctx && pipe_ctx->stream &&
+> -			    pipe_ctx->stream->link == aconnector->dc_link)
+> -				break;
+> +		if (pipe_ctx && pipe_ctx->stream &&
+> +		    pipe_ctx->stream->link == aconnector->dc_link)
+> +			break;
+>   	}
+>   
+>   	if (!pipe_ctx)
 
