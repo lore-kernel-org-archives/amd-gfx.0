@@ -2,72 +2,68 @@ Return-Path: <SRS0=G5aM=P6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0C3FC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 07:00:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC1A8C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 07:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5ED5C611AD
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 07:00:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5ED5C611AD
+	by mail.kernel.org (Postfix) with ESMTPS id 8167E61177
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Nov 2021 07:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8167E61177
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C32F26E8CE;
-	Thu, 11 Nov 2021 07:00:54 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FE126E8D2
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 07:00:53 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- n33-20020a05600c502100b0032fb900951eso1195391wmr.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 23:00:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F086E0CC;
+	Thu, 11 Nov 2021 07:02:44 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09CE26E0CC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 07:02:43 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id d5so8144824wrc.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Nov 2021 23:02:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-transfer-encoding:content-language;
- bh=kbPX/mQW3o+GZvIS7mSvbgfUjUHSk4v1so6VaOqPhR4=;
- b=K8HZjHpOCHnSQUlXVWRh3z0wWEstZ+ouXyDcqOVEHXfNzw8/EQdBpLAATgKzrG+iG+
- SSaYOVFFvwepky8oxeYNQyzBCAd3eppHVz1faj5JGyV2uSWy58xAWmM//b/gxLdX0yDG
- tdUhcTqTik5vu26Veptb5iusbGLmaInI1PvZH0IBqyTsT/ncQIR3N2nNzNVBS4TGJmfZ
- 9GmmdM2yC7+6ZAzpjZ4LHUp/MlrggmeshHbaIQJo2JKNo9k+H0cf3m4csPT3+6gEn+wg
- 567YCZnmPpOy6IpuCyhIyz+h4S2dTOwqA30+yEvjRewD6lknPG8onhuzeptENVhmIMVW
- YkfA==
+ bh=bmtc/nFIcbPfWio/mRPFwvZp3QiA+bf5qF+mFpSSypc=;
+ b=eB26R/mG9WD6TrogFcubwLm99L7mkAjHNzKcV+PmLKqb4a/Vp2KOLyna9Kxx7nBDpM
+ YKDnb4gmVCJOA5yhtJYs7oeo3JdRVkxgxNn/OQPHfNdXfCW8Px8KZeFGCB667Zf1I1F2
+ oz3bponb52t4VhqpDU1VAQrg+ac0sh4BzwXW05lAZ/XiUruxcJdAwS99C+3HS1y+b86S
+ 8n8KRN8QkAHcsYjI3vk3+juPVMptzEII5Xhn+PQ7kAEKbyq9noZazQF0n1TtB+cE+xES
+ 0LsSQ03q5O9gveBuAq5yUpJsYpCp6mBti1i3bnlpr3lMmrmqWDFkrwOhNU440caderOm
+ tR/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=kbPX/mQW3o+GZvIS7mSvbgfUjUHSk4v1so6VaOqPhR4=;
- b=baPOs/Aeq2Orf1TMTc9HwzW3jS93nm+gGw+ZMPT8qzISGkjtF3dVWJ9irIKF45DNjA
- T6OodeIT/5KzjMMtZBHqXeHZqTgj44erI3zHj3zMRF3Lm3C/IQamfRGV+HRWhoXVYoMa
- CW5sZrZH8/1WlG4lPxXz6G5keSZCMKoVN113sVzZ3+pAg7481+38zwyy6q2kTfGe05yy
- wKZASaZhy5p+mNSgfRjkBgPW6VYqoQRiY/FS2i9/7ImQ6V02cr2sLKNjwhDNS+nkuBhM
- F6MBZTt0kxFZxbJgkTkz0PLD7yGTUJqQ78jXlP3axf9mWAUB97zEcbvab/Tfo3Y41cU8
- vIkA==
-X-Gm-Message-State: AOAM533WeIgKxiQU1KQ2f40cKCpcnP/3F93oFg1rN5jJPpe79gHtOzIH
- 5xKMxL7pNRynpXLnKS0rzQB8VZqiqwU=
-X-Google-Smtp-Source: ABdhPJw0rNNs8/RWD6DCtHGtlCzfhctJjkTZ7oOVSu+LFWV7zVvhEpqrEsqaFQLcY6mT0+YCcBkE1Q==
-X-Received: by 2002:a7b:cb54:: with SMTP id v20mr6031333wmj.36.1636614051777; 
- Wed, 10 Nov 2021 23:00:51 -0800 (PST)
+ bh=bmtc/nFIcbPfWio/mRPFwvZp3QiA+bf5qF+mFpSSypc=;
+ b=qOyHHDlZxBhXmnUGGven88QDcUsXmGX/b5pxedEGEBdae82xpKviAuK1iTFpJbuxci
+ ChxWhhCfKcnxPqyFUfeOK7sToaZ8xS9mltSLoBbsUEdKCVdTBZXl7I1yecxneNQV6XUI
+ 0U37xdfIRoelf/dr0fGNhCcuJH2jAvR9uE+ol3HkTYaSxEb9DaG7JLQRWaa/ox9tZomt
+ QLHHkT8WE+7VmybUR5kVHR4Nq6VeOCGKisQ5PmgkYxR9AnWBgBWFsA9jveYh6PiDmRnI
+ f1KuAfb8vB9zr3toy1oW5bpw/WwLPnrU0QhqlxvF68zMB34iKi4oRLbNfxr7jbXFkJv1
+ 04nw==
+X-Gm-Message-State: AOAM532iz45owJwBhzydHRywQHogiD6bGxEgu9ez+nA4rq1gD29IA064
+ xyTXECha1GXsLoQqP/ep1x4=
+X-Google-Smtp-Source: ABdhPJzCj3yE7E2CrTlf3ri6BLNxmaNK86HKlgJtGTBrIYx0Z6FjQskA3Bf+XZhOTjZVGLL1kG3mNg==
+X-Received: by 2002:a5d:61ca:: with SMTP id q10mr6245449wrv.102.1636614161351; 
+ Wed, 10 Nov 2021 23:02:41 -0800 (PST)
 Received: from [192.168.178.21] (p4fc204a3.dip0.t-ipconnect.de. [79.194.4.163])
- by smtp.gmail.com with ESMTPSA id m21sm1924529wrb.2.2021.11.10.23.00.50
+ by smtp.gmail.com with ESMTPSA id l5sm8099116wms.16.2021.11.10.23.02.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Nov 2021 23:00:51 -0800 (PST)
-Subject: Re: [PATCH 1/5] drm/amdgpu: handle IH ring1 overflow
-To: Felix Kuehling <felix.kuehling@amd.com>, philip yang <yangp@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211109230432.3947-1-Philip.Yang@amd.com>
- <1862b795-3401-b89f-089b-4b544957d150@gmail.com>
- <c5855126-de94-f2b4-c912-f386b6b47142@amd.com>
- <9e4e654f-8996-fc9a-0ec6-211a7c0ddf42@gmail.com>
- <5e646384-ce7a-9a80-f97c-ae9592e39bbc@amd.com>
+ Wed, 10 Nov 2021 23:02:40 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu: add error print when failing to add IP
+ block(v2)
+To: Guchun Chen <guchun.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, xinhui.pan@amd.com
+References: <20211111041128.8043-1-guchun.chen@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <6e566851-0372-b33b-011b-197d8321b875@gmail.com>
-Date: Thu, 11 Nov 2021 08:00:49 +0100
+Message-ID: <8749fa6f-b8ac-960c-cd9c-0baf063482fe@gmail.com>
+Date: Thu, 11 Nov 2021 08:02:36 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <5e646384-ce7a-9a80-f97c-ae9592e39bbc@amd.com>
+In-Reply-To: <20211111041128.8043-1-guchun.chen@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
@@ -85,187 +81,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.11.21 um 00:36 schrieb Felix Kuehling:
-> On 2021-11-10 9:31 a.m., Christian König wrote:
->> Am 10.11.21 um 14:59 schrieb philip yang:
->>>
->>> On 2021-11-10 5:15 a.m., Christian König wrote:
->>>
->>>> [SNIP]
->>>
->>> It is hard to understand, this debug log can explain more details, 
->>> with this debug message patch
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->>> index ed6f8d24280b..8859f2bb11b1 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->>> @@ -234,10 +235,12 @@ int amdgpu_ih_process(struct amdgpu_device 
->>> *adev, struct amdgpu_ih_ring *ih)
->>>                 return IRQ_NONE;
->>>
->>>         wptr = amdgpu_ih_get_wptr(adev, ih);
->>> +       if (ih == &adev->irq.ih1)
->>> +               pr_debug("entering rptr 0x%x, wptr 0x%x\n", 
->>> ih->rptr, wptr);
->>>
->>>  restart_ih:
->>> +       if (ih == &adev->irq.ih1)
->>> +               pr_debug("starting rptr 0x%x, wptr 0x%x\n", 
->>> ih->rptr, wptr);
->>>
->>>         /* Order reading of wptr vs. reading of IH ring data */
->>>         rmb();
->>> @@ -245,8 +248,12 @@ int amdgpu_ih_process(struct amdgpu_device 
->>> *adev, struct amdgpu_ih_ring *ih)
->>>         while (ih->rptr != wptr && --count) {
->>>                 amdgpu_irq_dispatch(adev, ih);
->>>                 ih->rptr &= ih->ptr_mask;
->>> +               if (ih == &adev->irq.ih1) {
->>> +                       pr_debug("rptr 0x%x, old wptr 0x%x, new wptr 
->>> 0x%x\n",
->>> +                               ih->rptr, wptr,
->>> +                               amdgpu_ih_get_wptr(adev, ih));
->>> +               }
->>>         }
->>>
->>>         amdgpu_ih_set_rptr(adev, ih);
->>> @@ -257,6 +264,8 @@ int amdgpu_ih_process(struct amdgpu_device 
->>> *adev, struct amdgpu_ih_ring *ih)
->>>         if (wptr != ih->rptr)
->>>                 goto restart_ih;
->>>
->>> +       if (ih == &adev->irq.ih1)
->>> +               pr_debug("exiting rptr 0x%x, wptr 0x%x\n", ih->rptr, 
->>> wptr);
->>>         return IRQ_HANDLED;
->>>  }
->>>
->>> This is log, timing 48.807028, ring1 drain is done, rptr == wptr, 
->>> ring1 is empty, but the loop continues, to handle outdated retry fault.
->>>
->>
->> As far as I can see that is perfectly correct and expected behavior.
->>
->> See the ring buffer overflowed and because of that the loop 
->> continues, but that is correct because an overflow means that the 
->> ring was filled with new entries.
->>
->> So we are processing new entries here, not stale ones.
+
+
+Am 11.11.21 um 05:11 schrieb Guchun Chen:
+> Driver initialization is driven by IP version from IP
+> discovery table. So add error print when failing to add
+> ip block during driver initialization, this will be more
+> friendly to user to know which IP version is not correct.
 >
-> Aren't we processing interrupts out-of-order in this case. We're 
-> processing newer ones before older ones. Is that the root of the 
-> problem because it confuses our interrupt draining function?
-
-Good point.
-
-> Maybe we need to detect overflows in the interrupt draining function 
-> to make it wait longer in that case.
-
-Ideally we should use something which is completely separate from all 
-those implementation details.
-
-Like for example using the timestamp or a separate indicator/counter 
-instead.
-
-Regards,
-Christian.
-
+> [   40.467361] [drm] host supports REQ_INIT_DATA handshake
+> [   40.474076] [drm] add ip block number 0 <nv_common>
+> [   40.474090] [drm] add ip block number 1 <gmc_v10_0>
+> [   40.474101] [drm] add ip block number 2 <psp>
+> [   40.474103] [drm] add ip block number 3 <navi10_ih>
+> [   40.474114] [drm] add ip block number 4 <smu>
+> [   40.474119] [drm] add ip block number 5 <amdgpu_vkms>
+> [   40.474134] [drm] add ip block number 6 <gfx_v10_0>
+> [   40.474143] [drm] add ip block number 7 <sdma_v5_2>
+> [   40.474147] amdgpu 0000:00:08.0: amdgpu: Fatal error during GPU init
+> [   40.474545] amdgpu 0000:00:08.0: amdgpu: amdgpu: finishing device.
 >
-> Regards,
->   Felix
+> v2: use dev_err to multi-GPU system
 >
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+Acked-by: Christian König <christian.koenig@amd.com>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 36 +++++++++++++++++++
+>   1 file changed, 36 insertions(+)
 >
->>
->> Regards,
->> Christian.
->>
->>> [   48.802231] amdgpu_ih_process:243: amdgpu: starting rptr 0x520, 
->>> wptr 0xd20
->>> [   48.802235] amdgpu_ih_process:254: amdgpu: rptr 0x540, old wptr 
->>> 0xd20, new wptr 0xd20
->>> [   48.802256] amdgpu_ih_process:254: amdgpu: rptr 0x560, old wptr 
->>> 0xd20, new wptr 0xd20
->>> [   48.802260] amdgpu_ih_process:254: amdgpu: rptr 0x580, old wptr 
->>> 0xd20, new wptr 0xd20
->>> [   48.802281] amdgpu_ih_process:254: amdgpu: rptr 0x5a0, old wptr 
->>> 0xd20, new wptr 0xd20
->>> [   48.802314] amdgpu_ih_process:254: amdgpu: rptr 0x5c0, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802335] amdgpu_ih_process:254: amdgpu: rptr 0x5e0, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802356] amdgpu_ih_process:254: amdgpu: rptr 0x600, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802376] amdgpu_ih_process:254: amdgpu: rptr 0x620, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802396] amdgpu_ih_process:254: amdgpu: rptr 0x640, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802401] amdgpu_ih_process:254: amdgpu: rptr 0x660, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802421] amdgpu_ih_process:254: amdgpu: rptr 0x680, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802442] amdgpu_ih_process:254: amdgpu: rptr 0x6a0, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802463] amdgpu_ih_process:254: amdgpu: rptr 0x6c0, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802483] amdgpu_ih_process:254: amdgpu: rptr 0x6e0, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802503] amdgpu_ih_process:254: amdgpu: rptr 0x700, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802523] amdgpu_ih_process:254: amdgpu: rptr 0x720, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802544] amdgpu_ih_process:254: amdgpu: rptr 0x740, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802565] amdgpu_ih_process:254: amdgpu: rptr 0x760, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.802569] amdgpu_ih_process:254: amdgpu: rptr 0x780, old wptr 
->>> 0xd20, new wptr 0xce0
->>> [   48.804392] amdgpu_ih_process:254: amdgpu: rptr 0x7a0, old wptr 
->>> 0xd20, new wptr 0xf00
->>> [   48.806122] amdgpu_ih_process:254: amdgpu: rptr 0x7c0, old wptr 
->>> 0xd20, new wptr 0x840
->>> [   48.806155] amdgpu_ih_process:254: amdgpu: rptr 0x7e0, old wptr 
->>> 0xd20, new wptr 0x840
->>> [   48.806965] amdgpu_ih_process:254: amdgpu: rptr 0x800, old wptr 
->>> 0xd20, new wptr 0x840
->>> [   48.806995] amdgpu_ih_process:254: amdgpu: rptr 0x820, old wptr 
->>> 0xd20, new wptr 0x840
->>> [   48.807028] amdgpu_ih_process:254: amdgpu: rptr 0x840, old wptr 
->>> 0xd20, new wptr 0x840
->>> [   48.807063] amdgpu_ih_process:254: amdgpu: rptr 0x860, old wptr 
->>> 0xd20, new wptr 0x840
->>> [   48.808421] amdgpu_ih_process:254: amdgpu: rptr 0x880, old wptr 
->>> 0xd20, new wptr 0x840
->>>
->>> Cause this gpu vm fault dump because address is unmapped from cpu.
->>>
->>> [   48.807071] svm_range_restore_pages:2617: amdgpu: restoring svms 
->>> 0x00000000733bf007 fault address 0x7f8a6991f
->>>
->>> [   48.807170] svm_range_restore_pages:2631: amdgpu: failed to find 
->>> prange svms 0x00000000733bf007 address [0x7f8a6991f]
->>> [   48.807179] svm_range_get_range_boundaries:2348: amdgpu: VMA does 
->>> not exist in address [0x7f8a6991f]
->>> [   48.807185] svm_range_restore_pages:2635: amdgpu: failed to 
->>> create unregistered range svms 0x00000000733bf007 address [0x7f8a6991f]
->>>
->>> [   48.807929] amdgpu 0000:25:00.0: amdgpu: [mmhub0] retry page 
->>> fault (src_id:0 ring:0 vmid:8 pasid:32770, for process kfdtest pid 
->>> 3969 thread kfdtest pid 3969)
->>> [   48.808219] amdgpu 0000:25:00.0: amdgpu:   in page starting at 
->>> address 0x00007f8a6991f000 from IH client 0x12 (VMC)
->>> [   48.808230] amdgpu 0000:25:00.0: amdgpu: 
->>> VM_L2_PROTECTION_FAULT_STATUS:0x00800031
->>>
->>>> We could of course parameterize that so that we check the wptr 
->>>> after each IV on IH1, but please not hard coded like this.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>       }
->>>>>         amdgpu_ih_set_rptr(adev, ih);
->>>>
->>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index ff70bc233489..4e3669407518 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -587,6 +587,9 @@ static int amdgpu_discovery_set_common_ip_blocks(struct amdgpu_device *adev)
+>   		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+>   		break;
+>   	default:
+> +		dev_err(adev->dev,
+> +			"Failed to add common ip block(GC_HWIP:0x%x)\n",
+> +			adev->ip_versions[GC_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+> @@ -619,6 +622,9 @@ static int amdgpu_discovery_set_gmc_ip_blocks(struct amdgpu_device *adev)
+>   		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+>   		break;
+>   	default:
+> +		dev_err(adev->dev,
+> +			"Failed to add gmc ip block(GC_HWIP:0x%x)\n",
+> +			adev->ip_versions[GC_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+> @@ -648,6 +654,9 @@ static int amdgpu_discovery_set_ih_ip_blocks(struct amdgpu_device *adev)
+>   		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+>   		break;
+>   	default:
+> +		dev_err(adev->dev,
+> +			"Failed to add ih ip block(OSSSYS_HWIP:0x%x)\n",
+> +			adev->ip_versions[OSSSYS_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+> @@ -688,6 +697,9 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
+>   		amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
+>   		break;
+>   	default:
+> +		dev_err(adev->dev,
+> +			"Failed to add psp ip block(MP0_HWIP:0x%x)\n",
+> +			adev->ip_versions[MP0_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+> @@ -726,6 +738,9 @@ static int amdgpu_discovery_set_smu_ip_blocks(struct amdgpu_device *adev)
+>   		amdgpu_device_ip_block_add(adev, &smu_v13_0_ip_block);
+>   		break;
+>   	default:
+> +		dev_err(adev->dev,
+> +			"Failed to add smu ip block(MP1_HWIP:0x%x)\n",
+> +			adev->ip_versions[MP1_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+> @@ -753,6 +768,9 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+>   			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+>   			break;
+>   		default:
+> +			dev_err(adev->dev,
+> +				"Failed to add dm ip block(DCE_HWIP:0x%x)\n",
+> +				adev->ip_versions[DCE_HWIP][0]);
+>   			return -EINVAL;
+>   		}
+>   	} else if (adev->ip_versions[DCI_HWIP][0]) {
+> @@ -763,6 +781,9 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+>   			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+>   			break;
+>   		default:
+> +			dev_err(adev->dev,
+> +				"Failed to add dm ip block(DCI_HWIP:0x%x)\n",
+> +				adev->ip_versions[DCI_HWIP][0]);
+>   			return -EINVAL;
+>   		}
+>   #endif
+> @@ -796,6 +817,9 @@ static int amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
+>   		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+>   		break;
+>   	default:
+> +		dev_err(adev->dev,
+> +			"Failed to add gfx ip block(GC_HWIP:0x%x)\n",
+> +			adev->ip_versions[GC_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+> @@ -829,6 +853,9 @@ static int amdgpu_discovery_set_sdma_ip_blocks(struct amdgpu_device *adev)
+>   		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+>   		break;
+>   	default:
+> +		dev_err(adev->dev,
+> +			"Failed to add sdma ip block(SDMA0_HWIP:0x%x)\n",
+> +			adev->ip_versions[SDMA0_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+> @@ -845,6 +872,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+>   				amdgpu_device_ip_block_add(adev, &uvd_v7_0_ip_block);
+>   			break;
+>   		default:
+> +			dev_err(adev->dev,
+> +				"Failed to add uvd v7 ip block(UVD_HWIP:0x%x)\n",
+> +				adev->ip_versions[UVD_HWIP][0]);
+>   			return -EINVAL;
+>   		}
+>   		switch (adev->ip_versions[VCE_HWIP][0]) {
+> @@ -855,6 +885,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+>   				amdgpu_device_ip_block_add(adev, &vce_v4_0_ip_block);
+>   			break;
+>   		default:
+> +			dev_err(adev->dev,
+> +				"Failed to add VCE v4 ip block(VCE_HWIP:0x%x)\n",
+> +				adev->ip_versions[VCE_HWIP][0]);
+>   			return -EINVAL;
+>   		}
+>   	} else {
+> @@ -893,6 +926,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+>   			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+>   			break;
+>   		default:
+> +			dev_err(adev->dev,
+> +				"Failed to add vcn/jpeg ip block(UVD_HWIP:0x%x)\n",
+> +				adev->ip_versions[UVD_HWIP][0]);
+>   			return -EINVAL;
+>   		}
+>   	}
 
