@@ -2,49 +2,59 @@ Return-Path: <SRS0=770C=P7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAF06C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CD29C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:29:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7423161054
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7423161054
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=axis.com
+	by mail.kernel.org (Postfix) with ESMTPS id CCA4560F39
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:29:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CCA4560F39
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D98A6EC6A;
-	Fri, 12 Nov 2021 14:21:44 +0000 (UTC)
-X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
- Fri, 12 Nov 2021 11:57:09 UTC
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDF26ED9F;
- Fri, 12 Nov 2021 11:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1636718229;
- x=1668254229; h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=pKNzvHA+abG5/SB0rgSIMnr0AelDwIA74K7UU91Gfho=;
- b=krDLYRCh9mmz1cbv5/Y+yut07sDSuXqpKS5KIxJE6CGhU53rGnB2wSUS
- S/HZxvMX232pvyeFYMcihhMfY54fSu5iAsy4lhkQPtB4IFs+6Uv1Iyibi
- yF6AQ3iF5UemhTCc7G9ccwlDig/T8rKjscuzPhTN6UeOqkkwnyOpzB86d
- MrClvjWTuvRARyhaDbLov8IFJ3DvKrWXJJ7igqnGAGtTRLVABqM7bv5yT
- litYiMmweysBpuXw/RJcV9w4HDwoMjJ/nyzVRjQHjxzJ78MuLSWl3Q5oA
- 3faKB9aTcZX+3d38xyAS/yTI1bZv0ZfNf2OfmNP27sn3KVIfuD+spD8zX Q==;
-Date: Fri, 12 Nov 2021 12:49:54 +0100
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-To: Jim Cromie <jim.cromie@gmail.com>
-Subject: Re: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with it
- - RFC
-Message-ID: <20211112114953.GA1381@axis.com>
-References: <20211111220206.121610-1-jim.cromie@gmail.com>
- <20211111220206.121610-9-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D0066E0C4;
+	Fri, 12 Nov 2021 14:29:10 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 532046E091;
+ Fri, 12 Nov 2021 14:29:08 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 3A83D20203D;
+ Fri, 12 Nov 2021 15:29:07 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id LPs3W9gohLJ6; Fri, 12 Nov 2021 15:29:07 +0100 (CET)
+Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id EEF60202034;
+ Fri, 12 Nov 2021 15:29:06 +0100 (CET)
+Received: from [127.0.0.1] by thor with esmtp (Exim 4.95)
+ (envelope-from <michel@daenzer.net>) id 1mlXY5-00082J-C6;
+ Fri, 12 Nov 2021 15:29:01 +0100
+Message-ID: <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
+Date: Fri, 12 Nov 2021 15:29:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20211111220206.121610-9-jim.cromie@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Fri, 12 Nov 2021 14:21:43 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-CA
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ "Yu, Lang" <Lang.Yu@amd.com>
+References: <579d0f44-bb85-11b2-d326-35a0b7c5d0de@amd.com>
+ <5c242319-ade3-5621-6429-f77b17c34de5@amd.com>
+ <YYV0W1CxT5torU7u@phenom.ffwll.local>
+ <64e70779-7c33-7849-aa29-aeaee4a89005@amd.com>
+ <YYk7SkflDx8ToqYG@phenom.ffwll.local>
+ <4ba7e3f8-7956-882a-6888-57e2448b907d@amd.com>
+ <YYvIfXy9bwPokiK9@phenom.ffwll.local>
+ <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: Questions about KMS flip
+In-Reply-To: <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,70 +66,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_saipraka@quicinc.com, catalin.marinas@arm.com,
- dri-devel@lists.freedesktop.org, will@kernel.org, maz@kernel.org,
- amd-gfx@lists.freedesktop.org, mingo@redhat.com, daniel.vetter@ffwll.ch,
- arnd@arndb.de, linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rostedt@goodmis.org, jbaron@akamai.com, seanpaul@chromium.org,
- intel-gvt-dev@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- sean@poorly.run, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:
-> Sean Paul proposed, in:
-> https://patchwork.freedesktop.org/series/78133/
-> drm/trace: Mirror DRM debug logs to tracefs
+On 2021-11-12 13:47, Christian König wrote:
 > 
-> His patchset's objective is to be able to independently steer some of
-> the drm.debug stream to an alternate tracing destination, by splitting
-> drm_debug_enabled() into syslog & trace flavors, and enabling them
-> separately.  2 advantages were identified:
+> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://bugzilla.kernel.org/show_bug.cgi?id=214621
 > 
-> 1- syslog is heavyweight, tracefs is much lighter
-> 2- separate selection of enabled categories means less traffic
+> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
 > 
-> Dynamic-Debug can do 2nd exceedingly well:
-> 
-> A- all work is behind jump-label's NOOP, zero off cost.
-> B- exact site selectivity, precisely the useful traffic.
->    can tailor enabled set interactively, at shell.
-> 
-> Since the tracefs interface is effective for drm (the threads suggest
-> so), adding that interface to dynamic-debug has real potential for
-> everyone including drm.
-> 
-> if CONFIG_TRACING:
-> 
-> Grab Sean's trace_init/cleanup code, use it to provide tracefs
-> available by default to all pr_debugs.  This will likely need some
-> further per-module treatment; perhaps something reflecting hierarchy
-> of module,file,function,line, maybe with a tuned flattening.
-> 
-> endif CONFIG_TRACING
-> 
-> Add a new +T flag to enable tracing, independent of +p, and add and
-> use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
-> the flag checks.  Existing code treats T like other flags.
+> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
 
-I posted a patchset a while ago to do something very similar, but that
-got stalled for some reason and I unfortunately didn't follow it up:
+DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in 
+dm_plane_helper_cleanup_fb.
 
- https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/
 
-A key difference between that patchset and this patch (besides that
-small fact that I used +x instead of +T) was that my patchset allowed
-the dyndbg trace to be emitted to the main buffer and did not force them
-to be in an instance-specific buffer.
+With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
 
-That feature is quite important at least for my use case since I often
-use dyndbg combined with function tracing, and the latter doesn't work
-on non-main instances according to Documentation/trace/ftrace.rst.
 
-For example, here's a random example of a bootargs from one of my recent
-debugging sessions:
-
- trace_event=printk:* ftrace_filter=_mmc*,mmc*,sd*,dw_mci*,mci*
- ftrace=function trace_buf_size=20M dyndbg="file drivers/mmc/* +x"
-
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
