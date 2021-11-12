@@ -2,37 +2,64 @@ Return-Path: <SRS0=770C=P7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85982C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 09:25:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9F8CC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 09:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1228361039
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 09:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1228361039
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9C97761039
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 09:25:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C97761039
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EAC16EC7E;
-	Fri, 12 Nov 2021 09:25:30 +0000 (UTC)
-Received: from out30-54.freemail.mail.aliyun.com
- (out30-54.freemail.mail.aliyun.com [115.124.30.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9E56EA5E
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Nov 2021 10:08:43 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
- TI=SMTPD_---0Uw0F3zS_1636625010; 
-Received: from
- j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0Uw0F3zS_1636625010) by smtp.aliyun-inc.com(127.0.0.1);
- Thu, 11 Nov 2021 18:03:36 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/display: Clean up some inconsistent indenting
-Date: Thu, 11 Nov 2021 18:03:25 +0800
-Message-Id: <1636625005-87952-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 1.8.3.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31F3D6EC92;
+	Fri, 12 Nov 2021 09:25:31 +0000 (UTC)
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAAE86E990;
+ Fri, 12 Nov 2021 06:17:00 +0000 (UTC)
+Received: by mail-pg1-x534.google.com with SMTP id h63so351543pgc.12;
+ Thu, 11 Nov 2021 22:17:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KTlvF4aJyyBVvpF5MzM91QUQSnsEWekyAttC+hNhxt0=;
+ b=EL5+LlxnlvReaYBhiejsr1zFND5Oab45kcPyAjDopD22f7pDXXPd087rMz6BKug2ao
+ 2h25n6bt0a24gD2a9B0kEbbIDfNp4gNSKx8//L6ONNyicFNpvHbIl5Pv+zgQjm7e+m1i
+ rE0OtT0ipEOW5s4IZsayNvkpb3aebdtbeHHWcr/iQcAL5Bu72OazuevJWGGzkWkDZtN3
+ 1HO/03I5/i/YKp1uu0l2asR+0bexVG4PIcCWc4zR3/Ga9ixF+Dp2Jmo7iZqQxBnM7O8P
+ jGkwx5Fi1Dqp4biuQnmBpJXmHh5tsA+SVGPyfIvjUfnr+su/VUfV3wVAib6VpN8bbKWW
+ sjeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KTlvF4aJyyBVvpF5MzM91QUQSnsEWekyAttC+hNhxt0=;
+ b=drV9aimd0Go9M7N6NWNtHL4ne3fQWbEdWqlC2KsVs3tiOu0ej7Rb4Cknt2NTbaxY9p
+ gqTLdfK5Sj5DvI/+ykE+nA3VDSKv+XFpdvYVnGxClj3oFWvGTuWOSlHuPL1J2yDj6O2Y
+ hMf7vPStNu6lkEZXC6syLfJOb46e2fdftXbK1k6jezaYOMZJACqvwKvA4FhUP5gIiVFT
+ wy4a+MaFfNVWnWBIuRQiHYG+U3xUtzx7rZHCmltrIz64VyShLqJ5T6AUcyOcm6+ijcul
+ nI2ISk8Cy6Enyc/yhLWYAl74aSBTYguHl6o6hVOn09MW1YtXoKLv+xgRHKn/puAN+8i2
+ yRLQ==
+X-Gm-Message-State: AOAM530bgyjw3HqGM5eRp5vwZw4ajLqo1oVpYdKTRmim1hY4Zhbq+lH+
+ VwX/jNuzXTeTVAF348Au4Iw=
+X-Google-Smtp-Source: ABdhPJxkOxAft+m9QreNLLuSoiEnM7+2OnxWlWqcVG4wSOaUHimcvgfO1FMGP0U4nwVSfUeIFaVOfw==
+X-Received: by 2002:a63:5009:: with SMTP id e9mr2651164pgb.346.1636697820324; 
+ Thu, 11 Nov 2021 22:17:00 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id mg12sm9939611pjb.10.2021.11.11.22.16.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Nov 2021 22:16:59 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: ye.guojin@zte.com.cn
+To: harry.wentland@amd.com
+Subject: [PATCH] drm/amd/display: fix cond_no_effect.cocci warnings
+Date: Fri, 12 Nov 2021 06:16:51 +0000
+Message-Id: <20211112061651.6509-1-ye.guojin@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Nov 2021 09:25:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -45,38 +72,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, christian.koenig@amd.com
+Cc: mario.kleiner.de@gmail.com, Dmytro.Laktyushkin@amd.com, sunpeng.li@amd.com,
+ linux-kernel@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, aric.cyr@amd.com,
+ amd-gfx@lists.freedesktop.org, nicholas.kazlauskas@amd.com, airlied@linux.ie,
+ Jerry.Zuo@amd.com, vladimir.stempen@amd.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, Ye Guojin <ye.guojin@zte.com.cn>,
+ Jun.Lei@amd.com, christian.koenig@amd.com, Jimmy.Kizito@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Eliminate the follow smatch warning:
+From: Ye Guojin <ye.guojin@zte.com.cn>
 
-drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_srv.c:622
-dmub_srv_cmd_execute() warn: inconsistent indenting.
+This was found by coccicheck:
+./drivers/gpu/drm/amd/display/dc/core/dc_resource.c, 2516, 7-9, WARNING
+possible condition with no effect (if == else)
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+hdmi_info.bits.YQ0_YQ1 is always YYC_QUANTIZATION_LIMITED_RANGE.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Ye Guojin <ye.guojin@zte.com.cn>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 56a0332..e9fadf1 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -618,8 +618,8 @@ enum dmub_status dmub_srv_cmd_execute(struct dmub_srv *dmub)
- 	 * read back stale, fully invalid or partially invalid data.
- 	 */
- 	dmub_rb_flush_pending(&dmub->inbox1_rb);
-+	dmub->hw_funcs.set_inbox1_wptr(dmub, dmub->inbox1_rb.wrpt);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index fabe1b83bd4f..564163a85d2c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2509,17 +2509,7 @@ static void set_avi_info_frame(
  
--		dmub->hw_funcs.set_inbox1_wptr(dmub, dmub->inbox1_rb.wrpt);
- 	return DMUB_STATUS_OK;
- }
+ 	/* TODO : We should handle YCC quantization */
+ 	/* but we do not have matrix calculation */
+-	if (stream->qy_bit == 1) {
+-		if (color_space == COLOR_SPACE_SRGB ||
+-			color_space == COLOR_SPACE_2020_RGB_FULLRANGE)
+-			hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
+-		else if (color_space == COLOR_SPACE_SRGB_LIMITED ||
+-					color_space == COLOR_SPACE_2020_RGB_LIMITEDRANGE)
+-			hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
+-		else
+-			hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
+-	} else
+-		hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
++	hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
  
+ 	///VIC
+ 	format = stream->timing.timing_3d_format;
 -- 
-1.8.3.1
+2.25.1
 
