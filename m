@@ -2,84 +2,61 @@ Return-Path: <SRS0=770C=P7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49A99C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5580EC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1056460EE2
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1056460EE2
+	by mail.kernel.org (Postfix) with ESMTPS id 173FF60F70
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 173FF60F70
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71BA16EACE;
-	Fri, 12 Nov 2021 15:03:42 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB896EAC6;
- Fri, 12 Nov 2021 15:03:41 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id b12so16057624wrh.4;
- Fri, 12 Nov 2021 07:03:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F9136E0AC;
+	Fri, 12 Nov 2021 15:34:01 +0000 (UTC)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF5E6E0AC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Nov 2021 15:34:00 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ d1-20020a4a3c01000000b002c2612c8e1eso3058025ooa.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Nov 2021 07:34:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=ICfZz6qpvCwy49JeWEKdT7liF7vXWYTFBWJG5poMPUM=;
- b=UCwg3+r8AsBltCAXSYCDB+fe3YMsuWdU6WrPc0tMscg2u5d4LY1ElyFG3y4VYqETi+
- wWzfb4hSF3E0hBHGqeSAzlRqMaiMEvC7wa724buL/cY05WuikvX4h0b1s7OJJVymv9+A
- 9narbMwXQnpYwMnIQ3EX+0/uz2bcWtG2uvvkGfRJcR4wCLiL3iCmrUsTUfjCELMVvmha
- 9rBZjPnxNOt7efsU6f0Nu24cq0AdDustR4/YlqRGuWdH2GGLmeGO26AGeS/aHK5rfhqJ
- ecV1B1sYSBp+9rfBPJthyK+4QzmptY4/XIKOj+o3P1I+bIQuQuYMta8SpXtGSs4j7b7i
- QALA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Rt2tN+9SIikNlZT+VDO4HRjGKckpMqPN3wsDli+VsJk=;
+ b=FX6UJTn48TQfDYQrft6I0TU47BgrSEu73U0cfIOA38Te8hIfUyjSQf+QZuBJGFUCOS
+ LGyl7G7nVxgSW+J/I3H8Y5AcRDzTYJd78Qu9FPeqcNyOusL0o2/7tAJwAgC+46yJWgc9
+ +aEN4i3d29DLmDIv53NUUiw8ipAh9L0PIHeMRWEMkCyVEbU3emmsw0sDATyIXuo0lYEf
+ XvayDXIVPOxxN3d/jVurnPuYbJeOz9oziXUB6rEj0BMGuhVSzFgV/RhPQfp++6weGyvU
+ CrL96y7KB2wA+MzdNi4VIWZdZ2iXrpfDvCV0oO1ztxs+j3xvg5vKis5ZBIY13Jl50jsU
+ DABQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=ICfZz6qpvCwy49JeWEKdT7liF7vXWYTFBWJG5poMPUM=;
- b=qanjlmqOBqeZkVfavurzWDBOfd3xZGVLvT8zuyawO/pMfSqafwQrsZpFgbQSh8QJIp
- 1FMJIWuP8NHVyg3yr+wVytaojE1Ovy9vpAABtoeQONMmbFMW5XZScqycf1mOfhZj7/XU
- bxOU9OwM1l+qIaZuHItwnBcQjoncwre5dJkeQhnnBLFsRdDjcFv0AOXwNeREGlsukXT0
- C9mNp5dJOFN4f7EXSa9JMawUX284xA125dQhAaxOdjDwJR07LtLzYs1O1+W54kUXtL2d
- 6JOg6Q5MnQ5oYnpaeUdIHTNy0Cs62UwIsR4S93ZPwIsjLRiO2WSQV2FBRcp5J5HcMjbi
- XQrg==
-X-Gm-Message-State: AOAM5333ScZ5+UMDC1EwK2aSkNjCNJKJZyspjD+3nAcsKqd2nX2F9HY7
- cuVXV03IcGu2bteUCsL+sVBB7dO7zz0=
-X-Google-Smtp-Source: ABdhPJxXXqGKmnhW/7OU68Se8POe3mC2FpVLTfdkde6NiEyNHW3JPvAM6MLl9B34/sDEeGkIQi/iwQ==
-X-Received: by 2002:a05:6000:1043:: with SMTP id
- c3mr18672681wrx.64.1636729419736; 
- Fri, 12 Nov 2021 07:03:39 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:6e65:9f86:85:5884?
- ([2a02:908:1252:fb60:6e65:9f86:85:5884])
- by smtp.gmail.com with ESMTPSA id r17sm6693147wmq.11.2021.11.12.07.03.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Nov 2021 07:03:39 -0800 (PST)
-Subject: Re: Questions about KMS flip
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
- "Yu, Lang" <Lang.Yu@amd.com>
-References: <579d0f44-bb85-11b2-d326-35a0b7c5d0de@amd.com>
- <5c242319-ade3-5621-6429-f77b17c34de5@amd.com>
- <YYV0W1CxT5torU7u@phenom.ffwll.local>
- <64e70779-7c33-7849-aa29-aeaee4a89005@amd.com>
- <YYk7SkflDx8ToqYG@phenom.ffwll.local>
- <4ba7e3f8-7956-882a-6888-57e2448b907d@amd.com>
- <YYvIfXy9bwPokiK9@phenom.ffwll.local>
- <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
- <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
- <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
-Date: Fri, 12 Nov 2021 16:03:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Rt2tN+9SIikNlZT+VDO4HRjGKckpMqPN3wsDli+VsJk=;
+ b=Cs6ZRo6wU3hrTSIsSN/2z8zhTJLNwDLfmVsv29txl7bewME+aq095mREH81baVPk+1
+ V9oPujkB6/Jkj4/af3RcKEs/aeGQJKu/5S+A6jXQl03mFEvEQW4PpD9TKJWHGadZ88L0
+ WqI0RGWJxhXwyTzLWt+jXBBI6lGcngDMqKcd4+ZZdtInmo6UhrvbRVDLc+wqDBJTm+n4
+ YWgPi0imXIiG03idBJdnfxhqe1iClMAYb86fSS1Oic4fOZAlbie4t+elUauVLnRGgQa+
+ EK/rPHbxJQW3jk0A6MZIOSGTjJzs64UZJgWw1Tui9+VCr5/zHUHwcu/YM95DnwI4ugz0
+ oumw==
+X-Gm-Message-State: AOAM530lKRfRGI5oj+VM6eN5JnvIhuIj3vbBcS8HXIdgPWcu2czCzFoC
+ mj8KXXfK1pswlcjsRK8fHEpM1k7RG2CB8hTZ3tY=
+X-Google-Smtp-Source: ABdhPJzZwlVZ+t2U2ZfGhrboARacd/payDjrqhql1iekUaC1CKWZEK0LzNZ3AaFusxLqw1qWZ9No6KB5lm0TrDxGUYQ=
+X-Received: by 2002:a4a:8701:: with SMTP id z1mr5148569ooh.68.1636731239382;
+ Fri, 12 Nov 2021 07:33:59 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <20211111093451.69243-1-Perry.Yuan@amd.com>
+In-Reply-To: <20211111093451.69243-1-Perry.Yuan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 12 Nov 2021 10:33:48 -0500
+Message-ID: <CADnq5_Pp-YC0fRo5apYMFQFa5iE-+G++DWkTA8_Qe5CWxbVSmQ@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/amd/pm: add GFXCLK/SCLK clocks level print support
+ for APUs
+To: Perry Yuan <Perry.Yuan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,36 +68,211 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, Xinmei.Huang@amd.com,
+ Huang Rui <Ray.Huang@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Nov 11, 2021 at 4:35 AM Perry Yuan <Perry.Yuan@amd.com> wrote:
+>
+> add support that allow the userspace tool like RGP to get the GFX clock
+> value at runtime, the fix follow the old way to show the min/current/max
+> clocks level for compatible consideration.
+>
+> === Test ===
+> $ cat /sys/class/drm/card0/device/pp_dpm_sclk
+> 0: 200Mhz *
+> 1: 1100Mhz
+> 2: 1600Mhz
+>
+> then run stress test on one APU system.
+> $ cat /sys/class/drm/card0/device/pp_dpm_sclk
+> 0: 200Mhz
+> 1: 1040Mhz *
+> 2: 1600Mhz
+>
+> The current GFXCLK value is updated at runtime.
+>
+> BugLink: https://gitlab.freedesktop.org/mesa/mesa/-/issues/5260
+> Reviewed-by: Huang Ray <Ray.Huang@amd.com>
+> Signed-off-by: Perry Yuan <Perry.Yuan@amd.com>
+
+Might be cleaner to split this into 3 patches, one for each asic.  Either way:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+Alex
 
 
-Am 12.11.21 um 15:30 schrieb Michel Dänzer:
-> On 2021-11-12 15:29, Michel Dänzer wrote:
->> On 2021-11-12 13:47, Christian König wrote:
->>> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://bugzilla.kernel.org/show_bug.cgi?id=214621
->>>
->>> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
->>>
->>> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
->> DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in
->> dm_plane_helper_cleanup_fb.
->>
->>
->> With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb
-> This should say amdgpu_display_unpin_work_func.
-
-Ah! So that is the classic (e.g. non atomic) path?
-
->> & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
-
-Nope, my educated guess is rather that we free up the BO before 
-amdgpu_display_unpin_work_func is called.
-
-E.g. not pin unbalance, but rather use after free.
-
-Regards,
-Christian.
+> ---
+>  .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   | 22 +++++++++++++--
+>  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 26 ++++++++++++++++++
+>  .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 27 +++++++++++++++++++
+>  .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h  |  1 +
+>  4 files changed, 74 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+> index 3d4c65bc29dc..6e8343907c32 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+> @@ -308,6 +308,7 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
+>  {
+>         int ret = 0, size = 0;
+>         uint32_t cur_value = 0;
+> +       int i;
+>
+>         smu_cmn_get_sysfs_buf(&buf, &size);
+>
+> @@ -333,8 +334,6 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
+>                 size += sysfs_emit_at(buf, size, "VDDC: %7umV  %10umV\n",
+>                                                 CYAN_SKILLFISH_VDDC_MIN, CYAN_SKILLFISH_VDDC_MAX);
+>                 break;
+> -       case SMU_GFXCLK:
+> -       case SMU_SCLK:
+>         case SMU_FCLK:
+>         case SMU_MCLK:
+>         case SMU_SOCCLK:
+> @@ -345,6 +344,25 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
+>                         return ret;
+>                 size += sysfs_emit_at(buf, size, "0: %uMhz *\n", cur_value);
+>                 break;
+> +       case SMU_SCLK:
+> +       case SMU_GFXCLK:
+> +               ret = cyan_skillfish_get_current_clk_freq(smu, clk_type, &cur_value);
+> +               if (ret)
+> +                       return ret;
+> +               if (cur_value  == CYAN_SKILLFISH_SCLK_MAX)
+> +                       i = 2;
+> +               else if (cur_value == CYAN_SKILLFISH_SCLK_MIN)
+> +                       i = 0;
+> +               else
+> +                       i = 1;
+> +               size += sysfs_emit_at(buf, size, "0: %uMhz %s\n", CYAN_SKILLFISH_SCLK_MIN,
+> +                               i == 0 ? "*" : "");
+> +               size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
+> +                               i == 1 ? cur_value : CYAN_SKILLFISH_SCLK_DEFAULT,
+> +                               i == 1 ? "*" : "");
+> +               size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", CYAN_SKILLFISH_SCLK_MAX,
+> +                               i == 2 ? "*" : "");
+> +               break;
+>         default:
+>                 dev_warn(smu->adev->dev, "Unsupported clock type\n");
+>                 return ret;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index f6ef0ce6e9e2..6852e4b45589 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -683,6 +683,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+>         int i, size = 0, ret = 0;
+>         uint32_t cur_value = 0, value = 0, count = 0;
+>         bool cur_value_match_level = false;
+> +       uint32_t min, max;
+>
+>         memset(&metrics, 0, sizeof(metrics));
+>
+> @@ -743,6 +744,13 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+>                 if (ret)
+>                         return ret;
+>                 break;
+> +       case SMU_GFXCLK:
+> +       case SMU_SCLK:
+> +               ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetGfxclkFrequency, 0, &cur_value);
+> +               if (ret) {
+> +                       return ret;
+> +               }
+> +               break;
+>         default:
+>                 break;
+>         }
+> @@ -768,6 +776,24 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+>                 if (!cur_value_match_level)
+>                         size += sysfs_emit_at(buf, size, "   %uMhz *\n", cur_value);
+>                 break;
+> +       case SMU_GFXCLK:
+> +       case SMU_SCLK:
+> +               min = (smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq;
+> +               max = (smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq;
+> +               if (cur_value  == max)
+> +                       i = 2;
+> +               else if (cur_value == min)
+> +                       i = 0;
+> +               else
+> +                       i = 1;
+> +               size += sysfs_emit_at(buf, size, "0: %uMhz %s\n", min,
+> +                               i == 0 ? "*" : "");
+> +               size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
+> +                               i == 1 ? cur_value : VANGOGH_UMD_PSTATE_STANDARD_GFXCLK,
+> +                               i == 1 ? "*" : "");
+> +               size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", max,
+> +                               i == 2 ? "*" : "");
+> +               break;
+>         default:
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> index a403657151ba..cb5326d98f3e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> @@ -781,6 +781,11 @@ static int yellow_carp_get_current_clk_freq(struct smu_context *smu,
+>         case SMU_FCLK:
+>                 return smu_cmn_send_smc_msg_with_param(smu,
+>                                 SMU_MSG_GetFclkFrequency, 0, value);
+> +       case SMU_GFXCLK:
+> +       case SMU_SCLK:
+> +               return smu_cmn_send_smc_msg_with_param(smu,
+> +                               SMU_MSG_GetGfxclkFrequency, 0, value);
+> +               break;
+>         default:
+>                 return -EINVAL;
+>         }
+> @@ -1051,6 +1056,7 @@ static int yellow_carp_print_clk_levels(struct smu_context *smu,
+>  {
+>         int i, size = 0, ret = 0;
+>         uint32_t cur_value = 0, value = 0, count = 0;
+> +       uint32_t min, max;
+>
+>         smu_cmn_get_sysfs_buf(&buf, &size);
+>
+> @@ -1089,6 +1095,27 @@ static int yellow_carp_print_clk_levels(struct smu_context *smu,
+>                                         cur_value == value ? "*" : "");
+>                 }
+>                 break;
+> +       case SMU_GFXCLK:
+> +       case SMU_SCLK:
+> +               ret = yellow_carp_get_current_clk_freq(smu, clk_type, &cur_value);
+> +               if (ret)
+> +                       goto print_clk_out;
+> +               min = (smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq;
+> +               max = (smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq;
+> +               if (cur_value  == max)
+> +                       i = 2;
+> +               else if (cur_value == min)
+> +                       i = 0;
+> +               else
+> +                       i = 1;
+> +               size += sysfs_emit_at(buf, size, "0: %uMhz %s\n", min,
+> +                               i == 0 ? "*" : "");
+> +               size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
+> +                               i == 1 ? cur_value : YELLOW_CARP_UMD_PSTATE_GFXCLK,
+> +                               i == 1 ? "*" : "");
+> +               size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", max,
+> +                               i == 2 ? "*" : "");
+> +               break;
+>         default:
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
+> index b3ad8352c68a..a9205a8ea3ad 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
+> @@ -24,5 +24,6 @@
+>  #define __YELLOW_CARP_PPT_H__
+>
+>  extern void yellow_carp_set_ppt_funcs(struct smu_context *smu);
+> +#define YELLOW_CARP_UMD_PSTATE_GFXCLK       1100
+>
+>  #endif
+> --
+> 2.25.1
+>
