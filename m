@@ -2,45 +2,61 @@ Return-Path: <SRS0=770C=P7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B407DC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49A99C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38B0660F45
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 14:31:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 38B0660F45
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id 1056460EE2
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Nov 2021 15:03:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1056460EE2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF03A6EB78;
-	Fri, 12 Nov 2021 14:31:00 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5E8F46EB78;
- Fri, 12 Nov 2021 14:30:59 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 8F82420203D;
- Fri, 12 Nov 2021 15:30:58 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id dEb34xO2otMD; Fri, 12 Nov 2021 15:30:58 +0100 (CET)
-Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 54C66202034;
- Fri, 12 Nov 2021 15:30:58 +0100 (CET)
-Received: from [127.0.0.1] by thor with esmtp (Exim 4.95)
- (envelope-from <michel@daenzer.net>) id 1mlXZy-00083a-1Y;
- Fri, 12 Nov 2021 15:30:58 +0100
-Message-ID: <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
-Date: Fri, 12 Nov 2021 15:30:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71BA16EACE;
+	Fri, 12 Nov 2021 15:03:42 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB896EAC6;
+ Fri, 12 Nov 2021 15:03:41 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id b12so16057624wrh.4;
+ Fri, 12 Nov 2021 07:03:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=ICfZz6qpvCwy49JeWEKdT7liF7vXWYTFBWJG5poMPUM=;
+ b=UCwg3+r8AsBltCAXSYCDB+fe3YMsuWdU6WrPc0tMscg2u5d4LY1ElyFG3y4VYqETi+
+ wWzfb4hSF3E0hBHGqeSAzlRqMaiMEvC7wa724buL/cY05WuikvX4h0b1s7OJJVymv9+A
+ 9narbMwXQnpYwMnIQ3EX+0/uz2bcWtG2uvvkGfRJcR4wCLiL3iCmrUsTUfjCELMVvmha
+ 9rBZjPnxNOt7efsU6f0Nu24cq0AdDustR4/YlqRGuWdH2GGLmeGO26AGeS/aHK5rfhqJ
+ ecV1B1sYSBp+9rfBPJthyK+4QzmptY4/XIKOj+o3P1I+bIQuQuYMta8SpXtGSs4j7b7i
+ QALA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=ICfZz6qpvCwy49JeWEKdT7liF7vXWYTFBWJG5poMPUM=;
+ b=qanjlmqOBqeZkVfavurzWDBOfd3xZGVLvT8zuyawO/pMfSqafwQrsZpFgbQSh8QJIp
+ 1FMJIWuP8NHVyg3yr+wVytaojE1Ovy9vpAABtoeQONMmbFMW5XZScqycf1mOfhZj7/XU
+ bxOU9OwM1l+qIaZuHItwnBcQjoncwre5dJkeQhnnBLFsRdDjcFv0AOXwNeREGlsukXT0
+ C9mNp5dJOFN4f7EXSa9JMawUX284xA125dQhAaxOdjDwJR07LtLzYs1O1+W54kUXtL2d
+ 6JOg6Q5MnQ5oYnpaeUdIHTNy0Cs62UwIsR4S93ZPwIsjLRiO2WSQV2FBRcp5J5HcMjbi
+ XQrg==
+X-Gm-Message-State: AOAM5333ScZ5+UMDC1EwK2aSkNjCNJKJZyspjD+3nAcsKqd2nX2F9HY7
+ cuVXV03IcGu2bteUCsL+sVBB7dO7zz0=
+X-Google-Smtp-Source: ABdhPJxXXqGKmnhW/7OU68Se8POe3mC2FpVLTfdkde6NiEyNHW3JPvAM6MLl9B34/sDEeGkIQi/iwQ==
+X-Received: by 2002:a05:6000:1043:: with SMTP id
+ c3mr18672681wrx.64.1636729419736; 
+ Fri, 12 Nov 2021 07:03:39 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:6e65:9f86:85:5884?
+ ([2a02:908:1252:fb60:6e65:9f86:85:5884])
+ by smtp.gmail.com with ESMTPSA id r17sm6693147wmq.11.2021.11.12.07.03.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Nov 2021 07:03:39 -0800 (PST)
 Subject: Re: Questions about KMS flip
-Content-Language: en-CA
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  Harry Wentland <harry.wentland@amd.com>,
  "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
  "Yu, Lang" <Lang.Yu@amd.com>
@@ -53,9 +69,17 @@ References: <579d0f44-bb85-11b2-d326-35a0b7c5d0de@amd.com>
  <YYvIfXy9bwPokiK9@phenom.ffwll.local>
  <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
  <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
-In-Reply-To: <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
-Content-Type: text/plain; charset=UTF-8
+ <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
+Date: Fri, 12 Nov 2021 16:03:37 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,34 +91,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-11-12 15:29, Michel Dänzer wrote:
-> On 2021-11-12 13:47, Christian König wrote:
+
+
+Am 12.11.21 um 15:30 schrieb Michel Dänzer:
+> On 2021-11-12 15:29, Michel Dänzer wrote:
+>> On 2021-11-12 13:47, Christian König wrote:
+>>> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://bugzilla.kernel.org/show_bug.cgi?id=214621
+>>>
+>>> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
+>>>
+>>> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
+>> DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in
+>> dm_plane_helper_cleanup_fb.
 >>
->> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://bugzilla.kernel.org/show_bug.cgi?id=214621
 >>
->> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
->>
->> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
-> 
-> DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in 
-> dm_plane_helper_cleanup_fb.
-> 
-> 
-> With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb
+>> With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb
+> This should say amdgpu_display_unpin_work_func.
 
-This should say amdgpu_display_unpin_work_func.
+Ah! So that is the classic (e.g. non atomic) path?
 
+>> & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
 
-> & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
-> 
-> 
+Nope, my educated guess is rather that we free up the BO before 
+amdgpu_display_unpin_work_func is called.
 
+E.g. not pin unbalance, but rather use after free.
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+Regards,
+Christian.
