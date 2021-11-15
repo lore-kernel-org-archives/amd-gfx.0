@@ -2,71 +2,70 @@ Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71F53C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 13:41:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F4C7C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 13:42:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 395DC60EB9
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 13:41:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 395DC60EB9
+	by mail.kernel.org (Postfix) with ESMTPS id 11CCC61B2A
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 13:42:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 11CCC61B2A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C34776E115;
-	Mon, 15 Nov 2021 13:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8CC16E4AF;
+	Mon, 15 Nov 2021 13:42:26 +0000 (UTC)
 Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
  [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DC3C6E115
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 13:41:03 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id z200so14003476wmc.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 05:41:03 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE20C6E4AF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 13:42:24 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id z200so14007463wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 05:42:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=6gwO8O34Ljsqh7QdS9srsE8XZ4WLdYhSlVcC8jy/0xY=;
- b=YXA5v25hIBp9QGd8Uo6wafVc1FWA6hJfkkeRyqUHLIfw7zm5UJGNDdjfd+uyKzQycx
- 6tcJ9leGE/7sEXX4yG3bQI5FDfSh5VzCpLF2wJQVuMnAX8qk8MzGt0Inq+VPVOPNnpl3
- 2jO/YqK5QY3/p64BPAQsKmOrjPnol+ICDKVWP2fkQ36HxFbCqXINx9nuCKwDQgqj2kPB
- stfSDQdWUF+kTnzWQbFqBxBZdU1Spgo3MWcFEz1bL+rxh2UzKk0YikYz8PV+sms4YDm2
- Tp17EenfAdWBfms6ZdQBLfAGCgOwLtNufKkkdm3msiS4Rj6WELod9vW5PYfLap5e99sp
- q8lw==
+ bh=fOv3sW9sd8vLrzahKXKSo4wT9Vpic2eRjBKIJO57vv0=;
+ b=V2MvYZ4zBazKA4A78HOaAHDP8IdvG3u472V7AfMwX927fXHR2KuoU3HkXBh76+aIPA
+ iJMh4eObhF7YlW6FDfBouDovfEuDBbwJwJXpsnDuWMW/BkYDWDJhMy6t93PwMROWVBCu
+ UExk3f9UxEtHqgZOBvCdjNA8hGbqvJcOWypD0gTmRVUalreFDL8VJLMxrzxAvoEIAYFR
+ LFLlqLEqH1YPsxUreNugWdxcBEfdmdZTRYmC5fUSu2xcn5rIxNZdvnl6oAej26zMHK9c
+ eACTNIfP2mV/i2daJQJ2P4eQa4eVEIfYsYIPhXtE17pmBv7FzEGUvTCQ4Nn+EB5ndei5
+ wXVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=6gwO8O34Ljsqh7QdS9srsE8XZ4WLdYhSlVcC8jy/0xY=;
- b=La5gHxT/yMDo9m4C9BtbkqPkR//HLCNDVp62vvCYX1YpxIuf2fUesDTIXgQlc/WOoi
- PHvYRu6YLmLvwQk/hOY8KaafLfNJhM4gMLQy6tC/1KE92PK88LsOxFeJ6P4lpBth/djU
- hxzswRbvEX7RgJ7X6MYEgApDMs5o4+Vx6l5X2tzualC78WCs01y626K2WLl2LRBbK97f
- cx3NaSCPMBIyNUO5JMZp61z2J8Bs5fAdG2sqTs5cNdi1WbSUi8Y1OD0gvkLmjJP/g/FF
- ij9/7CmdvQvP1gwUUWCTJZ4FRh7Mq6YoMczSdsiNPGPJXi4aUenqWaiHFgkffmwZle10
- kPaw==
-X-Gm-Message-State: AOAM531SAmutnvR8EkrMIz0cHqRTjX9iyXtLeoHl8h70W23qjLQyEOct
- HVnmXwyaImv3mke0O1T9yVUd93v1MxQ=
-X-Google-Smtp-Source: ABdhPJwnuDqFLQZwktxpwKAsc0xsWwOE7E/7jEosp0F0AJI8vkq0bESA6GgbpDP5xZL6ovRHwnap+A==
-X-Received: by 2002:a1c:f31a:: with SMTP id q26mr41413800wmq.148.1636983661977; 
- Mon, 15 Nov 2021 05:41:01 -0800 (PST)
+ bh=fOv3sW9sd8vLrzahKXKSo4wT9Vpic2eRjBKIJO57vv0=;
+ b=OlYuHJv+NTezN6S8/ydF2yZjj63V3JgX/c+7fYU7kilXkx71JExvJayfyZzA1MEetV
+ YvL72muiqcQQi5RI120b1VflAzPAJuga6jUYjzysdx129vcgQISfox9CrXCOdZxQ1y3k
+ /JynNZozkLDZ1XQ27rTKfaD2Yq7wtu7zmoCYkjEonI5LTiXzjxKuUlNz526I2FzI/c9C
+ iSwG2f0u7sOC9H+vpnEFgskDcryIlN31DVsUICTkzOw9186R6hcXIY6gVPQlyGuhkBEm
+ fiCg95BPvInHONkJDWnHcs2+YGQ0WiEKO14T/jHsu+pLJpDqktYk8ikEPaCvlK3qNDtr
+ FNow==
+X-Gm-Message-State: AOAM532Jb6ZEjt4z+LBoJNwoIAl6U8K5Ul6DxNooIJmAxXp0hHoNtOik
+ F1O/57uein3j0nWvQONgANU=
+X-Google-Smtp-Source: ABdhPJxBnLbWm+aDTXSBVOjkRUjEoM4g86GmeHVutV/mc0RPAKY/C2wYwRdcwyfvR9AInJfSdw5mqg==
+X-Received: by 2002:a1c:98ca:: with SMTP id
+ a193mr42947915wme.162.1636983743552; 
+ Mon, 15 Nov 2021 05:42:23 -0800 (PST)
 Received: from ?IPv6:2a02:908:1252:fb60:bf0c:d52c:6ba0:cfc6?
  ([2a02:908:1252:fb60:bf0c:d52c:6ba0:cfc6])
- by smtp.gmail.com with ESMTPSA id y12sm14263161wrn.73.2021.11.15.05.41.00
+ by smtp.gmail.com with ESMTPSA id g4sm13987185wro.12.2021.11.15.05.42.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Nov 2021 05:41:01 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: always reset the asic in suspend
-To: Alex Deucher <alexdeucher@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20211112161737.135848-1-alexander.deucher@amd.com>
- <CADnq5_OR7u2FuTbvuysZAHJ+gEso8NzKFaMN3U4fSTOqtft1XQ@mail.gmail.com>
+ Mon, 15 Nov 2021 05:42:23 -0800 (PST)
+Subject: Re: [PATCH 1/2] drm/amdgpu: IH process reset count when restart
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211113000509.21407-1-Philip.Yang@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <a1c4ef7e-9466-6ed3-a23e-28bc5db9d4c4@gmail.com>
-Date: Mon, 15 Nov 2021 14:41:00 +0100
+Message-ID: <ef304329-ccdf-8a74-fb2e-52e8deae33d4@gmail.com>
+Date: Mon, 15 Nov 2021 14:42:21 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_OR7u2FuTbvuysZAHJ+gEso8NzKFaMN3U4fSTOqtft1XQ@mail.gmail.com>
+In-Reply-To: <20211113000509.21407-1-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,51 +78,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I was just about to write up my concern as well.
+Am 13.11.21 um 01:05 schrieb Philip Yang:
+> Otherwise when IH process restart, count is zero, the loop will
+> not exit to wake_up_all after processing AMDGPU_IH_MAX_NUM_IVS
+> interrupts.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-IIRC we used to have that and it didn't really worked that well and we 
-switched to resetting the GPU on driver load instead if initializing it 
-doesn't work of hand.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
+Maybe even CC: stable?
+
+Regards,
 Christian.
 
-Am 12.11.21 um 17:19 schrieb Alex Deucher:
-> Actually, ignore this for now.  This will likely cause problems with S0ix.
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> Alex
->
-> On Fri, Nov 12, 2021 at 11:18 AM Alex Deucher <alexander.deucher@amd.com> wrote:
->> If the platform suspend happens to fail and the power rail
->> is not turned off, the GPU will be in an unknown state on
->> resume, so reset the asic so that it will be in a known
->> good state on resume even if the platform suspend failed.
->>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 1db76429a673..42af3d88e0ba 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -2165,8 +2165,9 @@ static int amdgpu_pmops_suspend(struct device *dev)
->>          adev->in_s3 = true;
->>          r = amdgpu_device_suspend(drm_dev, true);
->>          adev->in_s3 = false;
->> -
->> -       return r;
->> +       if (r)
->> +               return r;
->> +       return amdgpu_asic_reset(adev);
->>   }
->>
->>   static int amdgpu_pmops_resume(struct device *dev)
->> --
->> 2.31.1
->>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> index f3d62e196901..0c7963dfacad 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> @@ -223,7 +223,7 @@ int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
+>    */
+>   int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>   {
+> -	unsigned int count = AMDGPU_IH_MAX_NUM_IVS;
+> +	unsigned int count;
+>   	u32 wptr;
+>   
+>   	if (!ih->enabled || adev->shutdown)
+> @@ -232,6 +232,7 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>   	wptr = amdgpu_ih_get_wptr(adev, ih);
+>   
+>   restart_ih:
+> +	count  = AMDGPU_IH_MAX_NUM_IVS;
+>   	DRM_DEBUG("%s: rptr %d, wptr %d\n", __func__, ih->rptr, wptr);
+>   
+>   	/* Order reading of wptr vs. reading of IH ring data */
 
