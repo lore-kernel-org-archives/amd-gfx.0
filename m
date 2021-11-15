@@ -2,59 +2,72 @@ Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDD68C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 12:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71F53C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 13:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A8D961B53
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 12:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6A8D961B53
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id 395DC60EB9
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 13:41:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 395DC60EB9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E31E86EA89;
-	Mon, 15 Nov 2021 12:04:18 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 567A56EA7B;
- Mon, 15 Nov 2021 12:04:17 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 82FDD202024;
- Mon, 15 Nov 2021 13:04:16 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id egoHZeRvx0mx; Mon, 15 Nov 2021 13:04:16 +0100 (CET)
-Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 2C23F202020;
- Mon, 15 Nov 2021 13:04:16 +0100 (CET)
-Received: from [127.0.0.1] by thor with esmtp (Exim 4.95)
- (envelope-from <michel@daenzer.net>) id 1mmaid-000Tmm-Fq;
- Mon, 15 Nov 2021 13:04:15 +0100
-Message-ID: <e44a237c-0073-2eec-1a47-c5faf99f77b4@daenzer.net>
-Date: Mon, 15 Nov 2021 13:04:15 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34776E115;
+	Mon, 15 Nov 2021 13:41:03 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DC3C6E115
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 13:41:03 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id z200so14003476wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 05:41:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=6gwO8O34Ljsqh7QdS9srsE8XZ4WLdYhSlVcC8jy/0xY=;
+ b=YXA5v25hIBp9QGd8Uo6wafVc1FWA6hJfkkeRyqUHLIfw7zm5UJGNDdjfd+uyKzQycx
+ 6tcJ9leGE/7sEXX4yG3bQI5FDfSh5VzCpLF2wJQVuMnAX8qk8MzGt0Inq+VPVOPNnpl3
+ 2jO/YqK5QY3/p64BPAQsKmOrjPnol+ICDKVWP2fkQ36HxFbCqXINx9nuCKwDQgqj2kPB
+ stfSDQdWUF+kTnzWQbFqBxBZdU1Spgo3MWcFEz1bL+rxh2UzKk0YikYz8PV+sms4YDm2
+ Tp17EenfAdWBfms6ZdQBLfAGCgOwLtNufKkkdm3msiS4Rj6WELod9vW5PYfLap5e99sp
+ q8lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=6gwO8O34Ljsqh7QdS9srsE8XZ4WLdYhSlVcC8jy/0xY=;
+ b=La5gHxT/yMDo9m4C9BtbkqPkR//HLCNDVp62vvCYX1YpxIuf2fUesDTIXgQlc/WOoi
+ PHvYRu6YLmLvwQk/hOY8KaafLfNJhM4gMLQy6tC/1KE92PK88LsOxFeJ6P4lpBth/djU
+ hxzswRbvEX7RgJ7X6MYEgApDMs5o4+Vx6l5X2tzualC78WCs01y626K2WLl2LRBbK97f
+ cx3NaSCPMBIyNUO5JMZp61z2J8Bs5fAdG2sqTs5cNdi1WbSUi8Y1OD0gvkLmjJP/g/FF
+ ij9/7CmdvQvP1gwUUWCTJZ4FRh7Mq6YoMczSdsiNPGPJXi4aUenqWaiHFgkffmwZle10
+ kPaw==
+X-Gm-Message-State: AOAM531SAmutnvR8EkrMIz0cHqRTjX9iyXtLeoHl8h70W23qjLQyEOct
+ HVnmXwyaImv3mke0O1T9yVUd93v1MxQ=
+X-Google-Smtp-Source: ABdhPJwnuDqFLQZwktxpwKAsc0xsWwOE7E/7jEosp0F0AJI8vkq0bESA6GgbpDP5xZL6ovRHwnap+A==
+X-Received: by 2002:a1c:f31a:: with SMTP id q26mr41413800wmq.148.1636983661977; 
+ Mon, 15 Nov 2021 05:41:01 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:bf0c:d52c:6ba0:cfc6?
+ ([2a02:908:1252:fb60:bf0c:d52c:6ba0:cfc6])
+ by smtp.gmail.com with ESMTPSA id y12sm14263161wrn.73.2021.11.15.05.41.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Nov 2021 05:41:01 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu: always reset the asic in suspend
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20211112161737.135848-1-alexander.deucher@amd.com>
+ <CADnq5_OR7u2FuTbvuysZAHJ+gEso8NzKFaMN3U4fSTOqtft1XQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <a1c4ef7e-9466-6ed3-a23e-28bc5db9d4c4@gmail.com>
+Date: Mon, 15 Nov 2021 14:41:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Content-Language: en-CA
-To: Lang Yu <Lang.Yu@amd.com>
-References: <YYvIfXy9bwPokiK9@phenom.ffwll.local>
- <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
- <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
- <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
- <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
- <58097218-40dd-55fd-32d2-2a299d39230f@daenzer.net>
- <YZIA/dkvjuMsup24@lang-desktop>
- <cadb9503-b390-e254-ffba-5e2e11f100cc@daenzer.net>
- <YZIiqM6PKKL/ZMNy@lang-desktop>
- <f1b88742-b07e-5973-1e30-9674a5950bf3@daenzer.net>
- <YZJFHMEqm1oz7QJN@lang-desktop>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: Questions about KMS flip
-In-Reply-To: <YZJFHMEqm1oz7QJN@lang-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_OR7u2FuTbvuysZAHJ+gEso8NzKFaMN3U4fSTOqtft1XQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,113 +79,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian KKKnig <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Christian KKKnig <christian.koenig@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-11-15 12:31, Lang Yu wrote:
-> On Mon, Nov 15, 2021 at 10:49:39AM +0100, Michel DDDnzer wrote:
->> On 2021-11-15 10:04, Lang Yu wrote:
->>> On Mon, Nov 15, 2021 at 09:38:47AM +0100, Michel DDDnzer wrote:
->>>> On 2021-11-15 07:41, Lang Yu wrote:
->>>>> On Fri, Nov 12, 2021 at 05:10:27PM +0100, Michel DDDnzer wrote:
->>>>>> On 2021-11-12 16:03, Christian König wrote:
->>>>>>> Am 12.11.21 um 15:30 schrieb Michel Dänzer:
->>>>>>>> On 2021-11-12 15:29, Michel Dänzer wrote:
->>>>>>>>> On 2021-11-12 13:47, Christian König wrote:
->>>>>>>>>> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D214621&amp;data=04%7C01%7CLang.Yu%40amd.com%7Cee54c4d055d040ef9f8b08d9a81d3eb9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637725665833112900%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=7nwIYd1um420XHVpOzeIvz37%2FLQqHF%2F6aRKfzgxUTnM%3D&amp;reserved=0
->>>>>>>>>>
->>>>>>>>>> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
->>>>>>>>>>
->>>>>>>>>> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
->>>>>>>>> DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in
->>>>>>>>> dm_plane_helper_cleanup_fb.
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb
->>>>>>>> This should say amdgpu_display_unpin_work_func.
->>>>>>>
->>>>>>> Ah! So that is the classic (e.g. non atomic) path?
->>>>>>
->>>>>> Presumably.
->>>>>>
->>>>>>
->>>>>>>>> & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
->>>>>>>
->>>>>>> Nope, my educated guess is rather that we free up the BO before amdgpu_display_unpin_work_func is called.
->>>>>>>
->>>>>>> E.g. not pin unbalance, but rather use after free.
->>>>>>
->>>>>> amdgpu_display_crtc_page_flip_target calls amdgpu_bo_ref(work->old_abo), and amdgpu_display_unpin_work_func calls amdgpu_bo_unref(&work->old_abo) only after amdgpu_bo_unpin. So what you describe could only happen if there's an imbalance elsewhere such that amdgpu_bo_unref is called more often than amdgpu_bo_ref, or maybe if amdgpu_bo_reserve fails in amdgpu_display_unpin_work_func (in which case the "failed to reserve buffer after flip" error message should appear in dmesg).
->>>>>
->>>>>
->>>>> Actually, each call to amdgpu_display_crtc_page_flip_target() will
->>>>>
->>>>> 1, init a work(amdgpu_display_unpin_work_func) to unpin an old buffer
->>>>>    (crtc->primary->fb), the work will be queued in dce_vX_0_pageflip_irq().
->>>>>
->>>>> 2, pin a new buffer, assign it to crtc->primary->fb. But how to unpin it?
->>>>>    Next call.
->>>>>
->>>>> The problem is the pinned buffer of last call to 
->>>>> amdgpu_display_crtc_page_flip_target() is not unpinned.
->>>>
->>>> It's unpinned in dce_v*_0_crtc_disable.
->>>
->>> I just found crtc->primary->fb is NULL when came in dce_v*_0_crtc_disable().
->>> So it's not unpinned...
+I was just about to write up my concern as well.
+
+IIRC we used to have that and it didn't really worked that well and we 
+switched to resetting the GPU on driver load instead if initializing it 
+doesn't work of hand.
+
+Christian.
+
+Am 12.11.21 um 17:19 schrieb Alex Deucher:
+> Actually, ignore this for now.  This will likely cause problems with S0ix.
+>
+> Alex
+>
+> On Fri, Nov 12, 2021 at 11:18 AM Alex Deucher <alexander.deucher@amd.com> wrote:
+>> If the platform suspend happens to fail and the power rail
+>> is not turned off, the GPU will be in an unknown state on
+>> resume, so reset the asic so that it will be in a known
+>> good state on resume even if the platform suspend failed.
 >>
->> __drm_helper_disable_unused_functions sets crtc->primary->fb = NULL only after calling crtc_funcs->disable. Maybe this path can get hit for a CRTC which was already disabled, in which case crtc->primary->fb == NULL in dce_v*_0_crtc_disable is harmless.
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
 >>
->> Have you checked for the issue I described below? Should be pretty easy to catch.
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index 1db76429a673..42af3d88e0ba 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -2165,8 +2165,9 @@ static int amdgpu_pmops_suspend(struct device *dev)
+>>          adev->in_s3 = true;
+>>          r = amdgpu_device_suspend(drm_dev, true);
+>>          adev->in_s3 = false;
+>> -
+>> -       return r;
+>> +       if (r)
+>> +               return r;
+>> +       return amdgpu_asic_reset(adev);
+>>   }
 >>
+>>   static int amdgpu_pmops_resume(struct device *dev)
+>> --
+>> 2.31.1
 >>
->>>> I think I've found the problem though: dce_v*_0_crtc_do_set_base pin the BO from target_fb unconditionally, but unpin the BO from the fb parameter only if it's different from the former. So if they're the same, the BO's pin count is incremented by 1.
-> 
-> Form my observations, amdgpu_bo_unpin() in dce_v*_0_crtc_disable() is
-> never called.
 
-It would be expected to happen when the screen turns off, e.g. due to DPMS.
-
-
-> Though a single call to dce_v*_0_crtc_do_set_base() will 
-> only pin the BO, I found it will be unpinned in next call to 
-> dce_v*_0_crtc_do_set_base().
-
-Yeah, that's the normal case when the new BO is different from the old one.
-
-To catch the case I described, try something like
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-
-index 18a7b3bd633b..5726bd87a355 100644
-
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-
-@@ -1926,6 +1926,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
-
-                return r;
-
-
-
-        if (!atomic) {
-
-+               WARN_ON_ONCE(target_fb == fb);
-
-                r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
-
-                if (unlikely(r != 0)) {
-
-                        amdgpu_bo_unreserve(abo);
-
-
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
