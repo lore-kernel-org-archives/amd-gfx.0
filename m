@@ -2,49 +2,61 @@ Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3921C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 15:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F317C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 15:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D6BD61BFE
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 15:36:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8D6BD61BFE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 21C6B610CA
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 15:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 21C6B610CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2486E0A5;
-	Mon, 15 Nov 2021 15:36:49 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 669E66EDFE;
- Mon, 15 Nov 2021 14:22:16 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10168"; a="220657806"
-X-IronPort-AV: E=Sophos;i="5.87,236,1631602800"; d="scan'208";a="220657806"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2021 06:22:15 -0800
-X-IronPort-AV: E=Sophos;i="5.87,236,1631602800"; d="scan'208";a="566466218"
-Received: from smile.fi.intel.com ([10.237.72.184])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2021 06:22:10 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1mmcrx-0077Cm-Ex; Mon, 15 Nov 2021 16:22:01 +0200
-Date: Mon, 15 Nov 2021 16:22:01 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Subject: Re: [PATCH v1 1/3] string: Consolidate yesno() helpers under
- string.h hood
-Message-ID: <YZJtCZm7YoBBoqUz@smile.fi.intel.com>
-References: <20210215142137.64476-1-andriy.shevchenko@linux.intel.com>
- <20211005213423.dklsii4jx37pjvb4@ldmartin-desk2>
- <YZI/VB+RhScL1wAi@smile.fi.intel.com> <874k8d3ard.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 706056E083;
+	Mon, 15 Nov 2021 15:43:57 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E05B66E107;
+ Mon, 15 Nov 2021 15:43:56 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id q25so30075953oiw.0;
+ Mon, 15 Nov 2021 07:43:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=CF0FJoDWOcoxyaIsOvJ8EB0JBh4HH+xggneHi65Nur8=;
+ b=jgm2lSQvJGUhoiTZeMOcb0CVBcH9fDAcd3uLgIT3uxYhEdsUTrGs04sFn9a/PNQdiz
+ 1920PeXPR/7kBwDJRSbCQDEVwTx/MAB7IfH2/csYcNw48ATtLjVgpuU8lElBXOUFLUVS
+ gDlRJi1a0YJS4XfJRNhsHKpnGwTUi/AaGxm7T3tJfJvSVG72/0Z1r16HEKY05gnEhUP+
+ gyfPq1vm+R6qDV2iDopSP5Pqup9mqNOfrUXyeYYeX6TSukS443ZC4NhMaZXJ0AplepXK
+ 1tze14FWiemrJA2Nj6JiDX/E7qQaqI11oxirb6YiF5DeNTxap8C0D1RXjDGPMS1t/IE6
+ njww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=CF0FJoDWOcoxyaIsOvJ8EB0JBh4HH+xggneHi65Nur8=;
+ b=OGTJEOXKS3nE8K2mJJaClyWrrimu8nlBEFJ+bSwEWYBRGHvqnevZtDcOr0f4FS5wqs
+ sQR+j4lI4zOsWvO3PrNy2N0w1aaQG92JWx6vHfd6qSTuX/L76u8IrXZ8BeufICR1bsOo
+ +J/8MSWx2KNJGzgp5YHe9uCYEB7VRRNseOmvhzRO3TEQHzS4Kz+vUGWHYa7Bqo++y2SQ
+ CFRmmlSnwXMYq1+dYK7TXyr7mY73Q36qAtHnZQnBTM+HTwWNvzKVivEBFMDD1BX7PfcE
+ yzzt2heIkPR7FduBYHLmpHVzSZ8t42wuFrJJ8pcN1ABOoDy3KVi7+jz0eQi5im3AJnhT
+ x8LA==
+X-Gm-Message-State: AOAM532o4a0Z+yc+ahasOFWnEJJKQ6YqQlTQRzx75CFIKalZ3s9ybuDd
+ TNeIRCTCnz75ENzfTAhI3FdgJquO76Bc2bFT/GI=
+X-Google-Smtp-Source: ABdhPJy/qNFNuE1tDibvbioZ0nHH4qB6k0p2uckGZU36eqzCLSt7XAhj4qUFfTUi+4VTuYREyd1ff1/AEzs98s3hWB4=
+X-Received: by 2002:aca:3f87:: with SMTP id m129mr45850737oia.5.1636991036198; 
+ Mon, 15 Nov 2021 07:43:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <874k8d3ard.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-Mailman-Approved-At: Mon, 15 Nov 2021 15:36:48 +0000
+References: <20211114105657.b57pjojiv72iopg5@fastboi.localdomain>
+In-Reply-To: <20211114105657.b57pjojiv72iopg5@fastboi.localdomain>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Nov 2021 10:43:44 -0500
+Message-ID: <CADnq5_NF++xE6Jj32Wy2ZGALo4pOGt3yTCoj5HU37tKO3Ce=Fg@mail.gmail.com>
+Subject: Re: Backlight control broken on UM325 (OLED) on 5.15 (bisected)
+To: =?UTF-8?Q?Samuel_=C4=8Cavoj?= <samuel@cavoj.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,55 +68,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- amd-gfx@lists.freedesktop.org, Jakub Kicinski <kuba@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikita Lipski <mikita.lipski@amd.com>,
- Eryk Brol <eryk.brol@amd.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Daniel Vetter <daniel@ffwll.ch>, Raju Rangoju <rajur@chelsio.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Roman Li <Roman.Li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 15, 2021 at 01:43:02PM +0200, Jani Nikula wrote:
-> On Mon, 15 Nov 2021, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> > On Tue, Oct 05, 2021 at 02:34:23PM -0700, Lucas De Marchi wrote:
-> >> On Mon, Feb 15, 2021 at 04:21:35PM +0200, Andy Shevchenko wrote:
-> >> > We have already few similar implementation and a lot of code that can benefit
-> >> > of the yesno() helper.  Consolidate yesno() helpers under string.h hood.
-> >> 
-> >> I was taking a look on i915_utils.h to reduce it and move some of it
-> >> elsewhere to be shared with others.  I was starting with these helpers
-> >> and had [1] done, then Jani pointed me to this thread and also his
-> >> previous tentative. I thought the natural place for this would be
-> >> include/linux/string_helpers.h, but I will leave it up to you.
-> >
-> > Seems reasonable to use string_helpers (headers and/or C-file).
-> >
-> >> After reading the threads, I don't see real opposition to it.
-> >> Is there a tree you plan to take this through?
-> >
-> > I rest my series in favour of Jani's approach, so I suppose there is no go
-> > for _this_ series.
-> 
-> If you want to make it happen, please pick it up and drive it. I'm
-> thoroughly had enough of this.
+On Mon, Nov 15, 2021 at 2:35 AM Samuel =C4=8Cavoj <samuel@cavoj.net> wrote:
+>
+> Hello,
+>
+> the backlight control no longer works on my ASUS UM325 (Ryzen 5700U)
+> OLED laptop. I have bisected the breakage to commit 7fd13baeb7a3a48.
+>
+>     commit 7fd13baeb7a3a48cae12c36c52f06bf4e9e7d728 (HEAD, refs/bisect/ba=
+d)
+>     Author: Alex Deucher <alexander.deucher@amd.com>
+>     Date:   Thu Jul 8 16:31:10 2021 -0400
+>
+>         drm/amdgpu/display: add support for multiple backlights
+>
+>         On platforms that support multiple backlights, register
+>         each one separately.  This lets us manage them independently
+>         rather than registering a single backlight and applying the
+>         same settings to both.
+>
+>         v2: fix typo:
+>         Reported-by: kernel test robot <lkp@intel.com>
+>
+>         Reviewed-by: Roman Li <Roman.Li@amd.com>
+>         Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> I have encountered another user with the same issue on reddit[0].
+>
+> The node in /sys/class/backlight exists, writing to it just does
+> nothing. I would be glad to help debugging the issue. Thank you very
+> much.
 
-My point is still the same, so it's more to Lucas.
+That patch adds support for systems with multiple backlights.  Do you
+have multiple backlight devices now?  If so, does the other one work?
 
-I'm not going to drive this activity due to lack of time.
+Can you also try this patch?
 
-> >> [1] https://lore.kernel.org/lkml/20211005212634.3223113-1-lucas.demarchi@intel.com/T/#u
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 4811b0faafd9..67163c9d49e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -854,8 +854,8 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+                if (amdgpu_device_has_dc_support(adev)) {
+ #if defined(CONFIG_DRM_AMD_DC)
+                        struct amdgpu_display_manager *dm =3D &adev->dm;
+-                       if (dm->backlight_dev[0])
+-                               atif->bd =3D dm->backlight_dev[0];
++                       if (dm->backlight_dev[1])
++                               atif->bd =3D dm->backlight_dev[1];
+ #endif
+                } else {
+                        struct drm_encoder *tmp;
 
--- 
-With Best Regards,
-Andy Shevchenko
 
+Alex
 
+>
+> Regards,
+> Samuel =C4=8Cavoj
+>
+> [0]: https://www.reddit.com/r/AMDLaptops/comments/qst0fm/after_updating_t=
+o_linux_515_my_brightness/
