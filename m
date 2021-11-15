@@ -2,125 +2,129 @@ Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19F66C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 10:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79347C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 11:31:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E0CAF61BFA
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 10:24:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E0CAF61BFA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3E57B61C32
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 11:31:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3E57B61C32
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC8D6EC10;
-	Mon, 15 Nov 2021 10:24:54 +0000 (UTC)
-Received: from APC01-HK2-obe.outbound.protection.outlook.com
- (mail-eopbgr1300114.outbound.protection.outlook.com [40.107.130.114])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B512E89CE2;
- Mon, 15 Nov 2021 07:14:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5F56E8E7;
+	Mon, 15 Nov 2021 11:31:52 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0ACF6E8DC;
+ Mon, 15 Nov 2021 11:31:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UYnrQC3FO6T6JPCbRGILnUnzG/rObhx4XtJcO1dzyV/sruXd3lkIBytbCfnIcAZeV4q5YI6VMdCArCEx7nSrXPu/ikvKNFzBHhNzrvAG0gjriGl0nzjY8gJ1pFWRpJJyGjqEAp0UtF47p3f06Uwbego3A1SOilPO1s/JQJ1SVgumjWTknfiSXTDOlxKYQjgfTymmFuchmSqv4YH/TBGK7DHNywXbHtcZTkKbYb04O9nZ8+9SLDCt5SLITdsCMejRGErnQOidO+Lx7lP9aTvqOUXK7WXqTWIZnh7pj//j46WG/AYYFd3mRKIyxDL6gXygHUeqfIUL5CLat16VUDdYWA==
+ b=RFsOWUHxKiEd0vGSckJDOWv8gZQvqNzTHPohAgIAPZVB0dSYbsq3Wsc8jgsKVYVInu9bH+p0ZOKFspuzQKrGSUK6We27HI+XD1dPbipvCop5z7JkkI9QLZvsQLlT4V6FU1DSwAdKrDbdfWG7PYs2qjqSyh1UfSBRoumjpBix0gwLzN3T3s73zy3Wn0mluncvPXchkcjeLNI0k8+obVDvMocO+XOThFUcaTW9DjLDVo4VNl+nRPG3smVwjdT2N0mEqDris/+68jNZazzbDCAXeAbRwIJJN7pfboSB05BOjl9A3S9hN2eC02Sf6ZD8OfZR7Hnt2RAtKAa+tt+S7i/w2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sppHG05MMRXWD7VUCjy78PeGd1Qa0CRwQMNMtsCmvzs=;
- b=YikGppW2X+9aQC3wbHxpsSkgY5tHMaSEaB5EI8TyTlfIy3bzzc0PYbScLREaeP0Jxi8U5HhUyDvv1SzBAoCwUZmbbToTxa3vdIYGYg2i/wKy8aLJpbIbCZL02rx5KXZJUz/ke2EnbB462QeP5NDvFTtSUv7ffMBJldhvDQ0vQrKB5xxjAPsWju9uDBZZwbuTmf5TAX3GlWlFfHsPG/W9nIwdEyDskjP+gnU5593UhmyL+ORgdAO3w7RCG8YBReisJbgslU+SVQ68p2IVGWDZqKHRbFWtrYDObvoqUUVgTWnrPdf0NsjyFxioSrVOoO9HI9aQIpPlw9MP+34CHtt+iw==
+ bh=HF3a6syMbsOkqwXXrgi4J2IqGTmiYWjyIC0uLk0SYdU=;
+ b=bZhKUgc880AqoTNzTsJxDN5OnBwJNcq7qOU2KSRYsjwAKd8kWBbPCEZyN9Zxfn2TBawx14FWOauoksXtqbZz95kdnNHRQeW9SDmxb0Bo0kfL+hqHGs0V2201IEzAtJmuylyxEDqfrPFNn4WCc0WdREZD9S+CMmylYyiCyJ0C5sfGBqL+5DI72WNLZ9KD0DuytY2ZcQZ2tzOGO9WuJwEOWlAUXmrv9Ns984ZrLLwiKtYRocu3KseaDA+0puglhNpHaC1hgi5N4aS4oDuvnZfZghpKi+K/JAO3AzBBu5Osru/r2hnxa55AwKO5jVzHohMBaVROZNueqLuNpnqBjdJAjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sppHG05MMRXWD7VUCjy78PeGd1Qa0CRwQMNMtsCmvzs=;
- b=g7dPYpb2w7D03aTLztsGotDYiWJLJgFMEb40z7p0Yu2hLjuOnjwsHtUUk66VmEQ6hQVup+nt8G3TAfjpfXRk2wXyK3xFdnB/VqXWdgEHnuj1TtwLH7flj5dG3bz0lu2KaHlsiN0JYLfGN3SFQadzpqH13GgDEq8JG9p4syMHNeQ=
+ bh=HF3a6syMbsOkqwXXrgi4J2IqGTmiYWjyIC0uLk0SYdU=;
+ b=YLfC8MW9eziuXFgt6lEEfs1/P6xOP9j3awmyC3mrGs6xbLsqQiny4xiJmpyXo/jBGGNKsdnCi+5lrCC7u+e75uxEdq43AsKXv6vh/M+QMB6eUlsqFTswdfv1TvR3q4Yk8C6yWw+GI43RrPj9jgH0soITATKxr7NR0YwwzfNcgGg=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from PSAPR06MB4021.apcprd06.prod.outlook.com (2603:1096:301:37::11)
- by PS1PR0601MB3659.apcprd06.prod.outlook.com (2603:1096:300:85::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Mon, 15 Nov
- 2021 07:14:40 +0000
-Received: from PSAPR06MB4021.apcprd06.prod.outlook.com
- ([fe80::395a:f2d7:d67f:b385]) by PSAPR06MB4021.apcprd06.prod.outlook.com
- ([fe80::395a:f2d7:d67f:b385%5]) with mapi id 15.20.4690.027; Mon, 15 Nov 2021
- 07:14:40 +0000
-From: Bernard Zhao <bernard@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Evan Quan <evan.quan@amd.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Lee Jones <lee.jones@linaro.org>, Bernard Zhao <bernard@vivo.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/amdgpu: remove useless break after return
-Date: Sun, 14 Nov 2021 23:14:27 -0800
-Message-Id: <20211115071429.7314-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.33.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: HK2PR02CA0158.apcprd02.prod.outlook.com
- (2603:1096:201:1f::18) To PSAPR06MB4021.apcprd06.prod.outlook.com
- (2603:1096:301:37::11)
-MIME-Version: 1.0
-Received: from ubuntu.localdomain (203.90.234.87) by
- HK2PR02CA0158.apcprd02.prod.outlook.com (2603:1096:201:1f::18) with Microsoft
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.26 via Frontend Transport; Mon, 15 Nov 2021 07:14:39 +0000
+ 15.20.4690.26; Mon, 15 Nov 2021 11:31:49 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa%8]) with mapi id 15.20.4690.027; Mon, 15 Nov 2021
+ 11:31:48 +0000
+Date: Mon, 15 Nov 2021 19:31:40 +0800
+From: Lang Yu <Lang.Yu@amd.com>
+To: Michel DDDnzer <michel@daenzer.net>
+Subject: Re: Questions about KMS flip
+Message-ID: <YZJFHMEqm1oz7QJN@lang-desktop>
+References: <YYvIfXy9bwPokiK9@phenom.ffwll.local>
+ <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
+ <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
+ <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
+ <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
+ <58097218-40dd-55fd-32d2-2a299d39230f@daenzer.net>
+ <YZIA/dkvjuMsup24@lang-desktop>
+ <cadb9503-b390-e254-ffba-5e2e11f100cc@daenzer.net>
+ <YZIiqM6PKKL/ZMNy@lang-desktop>
+ <f1b88742-b07e-5973-1e30-9674a5950bf3@daenzer.net>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f1b88742-b07e-5973-1e30-9674a5950bf3@daenzer.net>
+X-ClientProxiedBy: HK2PR0401CA0020.apcprd04.prod.outlook.com
+ (2603:1096:202:2::30) To DM6PR12MB4250.namprd12.prod.outlook.com
+ (2603:10b6:5:21a::9)
+MIME-Version: 1.0
+Received: from lang-desktop (165.204.134.244) by
+ HK2PR0401CA0020.apcprd04.prod.outlook.com (2603:1096:202:2::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26 via Frontend
+ Transport; Mon, 15 Nov 2021 11:31:46 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 763b9c93-8665-46e4-756b-08d9a807970a
-X-MS-TrafficTypeDiagnostic: PS1PR0601MB3659:
-X-Microsoft-Antispam-PRVS: <PS1PR0601MB3659056ED4FFDBD3A09BF20ADF989@PS1PR0601MB3659.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:126;
+X-MS-Office365-Filtering-Correlation-Id: acda7e27-49c7-47b3-cef2-08d9a82b831b
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4266:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4266BBDDADC9628FDD18E53FFB989@DM6PR12MB4266.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uFJDfS1I4byUk/YBq6UpxXsdAilGmwUAl6lKwYYPiF10gA7C4c3ElUXwYommsGtDjAEsiHuogXyjJePjG4GQKeDSFedD8jKRW0S08NNSrnIRNYphIXGLmS/OeO2qtozZfezGXDIBg1dhH1MpuJ2VrnoegouMi2YCiW2KUGYcP/GEDqxppkeuDiQ5FN66cpTAeA3nFHflJ29lcPsjLErnBUEsQszTfzz4nwBD0eJ5D2D1x56lqD71DNslyfl/BtQNn3DsD73vUAc7z4+YJBQfPV9qp4/NwoYQdozz4qaa89PvqR3pTVcTUM0JsMlI+EoTT1l9Ylm00mpuZXPu9LlXm1ezWps+nK1GOHfDGyK8n1wyOOqaNb9gvNesr/EcgSqg/aEOcrWoI2rm4eXFcXedq8ZItcNuYpn4UhaRzBbdp6wFpnMqgI66aiPVdGPbKC69rmO12MjcxpJ2W0mFg8XRSqSmQDjWmiV5sg+wK1h5KzmDDeL62/260Un+7aj8TjQLbFysPnA/3fixxYm8GXYBlSQNlBX9UdMGGP53HJncndR3KC+hHLzfdk69kZYyKTp7dk4KgViBLkBG6ACuoyfzAZZQprJ2uB1vIA4X1S3B9BddDUn67JFbDQKpZ+7GasA1jSLixAlnhnURuQewhKpjlNuqS5/HyDVRIhzCfebvB1Rp8dKCcYLhnHGbX5RI27RJD9RxakPPfhBI7tpARYUFpBarEKthHo88x/D9Hu8gJ3s=
+X-Microsoft-Antispam-Message-Info: NA25DmafpGT2ENz0NeSMr6tZWfbMAkEPoLU26AFSqZfAhPDxhyzZVdmLXkZwidSDeeZY7BWdYKOv6D63nym40O1NzPx7mtaJjoQ7wRhBxJ/KeIqkf9IjMUmXhetYWKEhQg95Eg4hjjAkvQoOGU4G30zV0x4N4u6sStpcl/0FnL8V7PjXtawPOdOHTS/AAeen/PdhmVUmxPW4wZD9znX4Cz5f/v+XNebz7pu2cmW2riICPUBjZSwg3tHsZr8ufsSkBuHZ4wMrlREuvmDTFTRCpHnJ3qkkOqZELRQTjCVAKtSpWPBdq7uKMiKJkRzYfNmEzjkWvUBBl10tZk+lThDSyTJvi6Ew99jjT6rnHgZThlFGLaSAlKo+vktg9caiPEsnhMxcqcbLCyFiVe4q9kNmNNE9ve8LB/zZAag3dXwh1hn46UkHF0PqVlVFCed10dVBTgIJRzlmY81+vcqHjuWgVSPVhR63XsZIHEvb0mggM+s4RlB9g06hrh4x7bRL9bd7WV4eYqyBK6xqWcbEigfmD45oTLUgyDjA+3peIXkows3V+qFPnKyd1ZeM+f/Mh8K3ikVavuYsUz99eERrtWwn8qKpfnDf6lc560cqd5SN1u1pwAGMJcRWsJzYnvsCyJUDeRriqK/FIISdQIHzEhnJl1nPN9l5wWXTWiuEq5CcEih76dqfftJcvZjAToR34WB/K7aapx7yhUf3WdLAjaY0PhuIRHNHu9YXgQQTh6tPtoc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PSAPR06MB4021.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(186003)(86362001)(8676002)(6486002)(316002)(921005)(110136005)(8936002)(66556008)(66946007)(66476007)(38350700002)(2906002)(38100700002)(5660300002)(508600001)(4744005)(1076003)(6512007)(83380400001)(6506007)(2616005)(26005)(7416002)(956004)(52116002)(36756003)(6666004);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(45080400002)(8676002)(956004)(6666004)(83380400001)(966005)(66574015)(6916009)(9686003)(2906002)(66556008)(508600001)(33716001)(3480700007)(4326008)(66946007)(4001150100001)(6496006)(316002)(66476007)(86362001)(8936002)(55016002)(54906003)(5660300002)(53546011)(186003)(38100700002)(26005);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?TUZZZXiknWddON8xgWfAxzAPnxG4aX9ZLkCXVXdSI2d5Qr2WqoD1CppQYMdm?=
- =?us-ascii?Q?H2dMijxmGRZimYMqyfw+jgJ+HteQ6RmqgQa6vVtg+8pTQRZ7SzFkpeOnQPTn?=
- =?us-ascii?Q?MQvDW+C85DIkrNC1K/6dLmWZat2D3aNnQd0QEEVENUW4m5UNk7p4pEtsYDtL?=
- =?us-ascii?Q?qsbVceJPyEIIrf56MnAQVII+RGCPRr0lwSw1U63COHHyHTlOfWYGoQhnWCJ0?=
- =?us-ascii?Q?FwKrHfj0MeFFH/EJzruwkUyyk6V1I8WMbWkUdXZdv2O6f1b8a6f7Fjs5ZuIn?=
- =?us-ascii?Q?vLqzgvmJ0EF4SjvY/6uBtztnMg7b3Go4OoMLM4ewy9WlUfm5NkI8VyeqNiuk?=
- =?us-ascii?Q?YxtAp6JW2EkaYLexVNAksPWLLoDwC1Fg3kEQkzf9y0DDGaiStXr5synu4dJe?=
- =?us-ascii?Q?UKB+hB1b1ElcoWvFB4TYVpK+OQpwO3j5Y2DmSFQuRlGrYZNmBrEZFgE7eCgu?=
- =?us-ascii?Q?iwj9DsfyJeu+CikUYkaIY5rDmfSfzHDdA9PyNuxmbzrN7qIOGpqLRvd7N1gJ?=
- =?us-ascii?Q?VlICUPELorAsGgykfAKaAlg68xkb2K1SRVZHSMwsngzhhUqjMiz3K+zbaIPD?=
- =?us-ascii?Q?hPnS4ZcRqIajPu/EQu0YvJjQm7d1X9ts0KsYOhezEo4sAv0lLt9XU8jU3ry9?=
- =?us-ascii?Q?f7w7H4/COYzJ6efbaBT8GXUQtSSsr5PhNcum7Jki9fHiw08XUi6CPXAOoony?=
- =?us-ascii?Q?GOMFPhHozD4FlrDqVgxw2l2unuJwRroiZ+NfQ5FOkoBQ+BzMoM3C1XSYSHTz?=
- =?us-ascii?Q?AXf8+HR8UVou8dS4cP9vSzCELVzY96vTygtklePyq5oUTyP7ooXOwZLtTeTa?=
- =?us-ascii?Q?6++1blEvFtm7uJ5UHz4Tt0OtaFyPCDar9XGCPNtkR0gMeKJAF0febA3NiLYs?=
- =?us-ascii?Q?v0RBdqDZkJTQPDgm1hOpPBxNMYhYfCjJf2sJBiWwJbmZFgt1xnioTiIwmooH?=
- =?us-ascii?Q?LmbIlhlZmbbjj80+rcVTABCXL8nIugIVkWjTnkZiN+Eltnzv/pu2eVkUeWPr?=
- =?us-ascii?Q?S8ZUabWAE04gEV2UJHYo5L1ymbErfNptxZ7/ymJXWB6iPEeOTEuWlJE+0+UT?=
- =?us-ascii?Q?x8wYwmnGz5GTyvQwMQHk2x3odQx3dRjRj8fLI4QC94sYLDVABLrha5ovivhP?=
- =?us-ascii?Q?MF8pq+tZHg8vJT0JYgSg/3VrRSFEKzbp8QSaSbEn5ltrxgKsdIIuSeVV32DO?=
- =?us-ascii?Q?9dDIKoFhIDDk734RjfCcyebCcekV/i84SIAcmU5uBqxJSG97gP8umA//lNqp?=
- =?us-ascii?Q?O7frZvb6+E36FwlJ6cxiiyKZPCl9+u0n6F61MGUup/ea3eTPq0Ld6stzYmww?=
- =?us-ascii?Q?yzlE0s0NsS+MC/FgdQtl0mQkO3F7k7KZ35OY7EjdOXkX79Lml88NNJvDXkO6?=
- =?us-ascii?Q?WKSGBz8lPx+iJrL145WJa8+O9zDVPBOCKtUUJiodmlo3S/vfSVPWaLJTLirY?=
- =?us-ascii?Q?7CqlPEF5rdn3ZLB4EYGeid1cpktZqwm0kCSGXdGe97+5VhqkAv0IthxsqXr3?=
- =?us-ascii?Q?fXqgROCtVZR9JO+gjodK2GhAfcIxVZ7urDv+HoavNZHWECdRQ5n3x18oaiYh?=
- =?us-ascii?Q?l6oIgoS4PJjl8ZWvYlNYMijlopuChD/ODHuwjBZApz2GiYKrm8lxHpL6KQHL?=
- =?us-ascii?Q?MI/PLk+IRJx4F7SRbULhrSk=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 763b9c93-8665-46e4-756b-08d9a807970a
-X-MS-Exchange-CrossTenant-AuthSource: PSAPR06MB4021.apcprd06.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?5pU6i1WmkQee+T8objkJQgz7olOQusHIRIgw4+KNtXx0+sEJPrW8Sx/9W5?=
+ =?iso-8859-1?Q?A4Zk2Q6N6BjSeO9sWC2k1VzeUHZ1rR16asl8gfakfEjWFbQyJpKIp0xnAD?=
+ =?iso-8859-1?Q?C0b8dGQxtIPx1T9XKuw7CzHtKPnGs+QmAunaJmbpguNFmOuPpcP57Tjv80?=
+ =?iso-8859-1?Q?U57Za2T0AVaEurWt8Tu5nOCmGgRQHlYvBGDJhyBYIUDhHh/NUxcfuK1hQm?=
+ =?iso-8859-1?Q?+qo+kINMWo7/7JW3xq+49mtK1D9Z78/E/RBAB5ZfY9JAEiVtztsvslImV/?=
+ =?iso-8859-1?Q?spXMYVCVNgs2J6DbbudkaFxPqqiD1Y5IczW8LVArUzDzlp4jp5XpmcIqXQ?=
+ =?iso-8859-1?Q?ISt32R5BDsTf2lPTyror4GH2G62WIIIfpiTa1iCVp3jA6oLlUdM5d0UVcF?=
+ =?iso-8859-1?Q?RJYB2Gpehm22M72I3p5p/yBxhCjcOdhGdoQrRFy/FALmlxBYgDPhHd2BfL?=
+ =?iso-8859-1?Q?Wnbk+6FpAi3Uf8uCQts62UISCucoEvD6vhOVH3xCsBglaW9cn+imduK5uJ?=
+ =?iso-8859-1?Q?Sqo0wOHF+bfFwoEnEdGkHyuro0BOj3/tQdfhcmaI80dGoAI+S1zwv6UcoN?=
+ =?iso-8859-1?Q?bVQ8H8wSRzUPpO9N8aAldW6/6AWhUkqKtMTQ38oARfrWcOu+tr5Cgcy9In?=
+ =?iso-8859-1?Q?foKllnd0gspha6pRW3fBD9uJecg8n3dosBnFUbEBIJO3q3Qz2cD+dJLRDd?=
+ =?iso-8859-1?Q?ZXyIKd60gVXXC8IUabacLaq/ddCgTAHtz2OcYq3tW78fL3i1jRuB2C5vuB?=
+ =?iso-8859-1?Q?Ivv65dbC+coTM8WIJMAKAHY2heE4AtskJrGDxmWrQWvsVwcSERRebM63Z4?=
+ =?iso-8859-1?Q?j+nS40VbP1OXJmVVLTS2XHIJ2IOm84D8PgGeYYLcf39rlRNOCVkiDGc+3P?=
+ =?iso-8859-1?Q?PRUfiWJ9ra5NpR1QEomAwr61mG2koLaStTqQwTCgLr8hAjjafM+Sn3hi91?=
+ =?iso-8859-1?Q?uGciDE/rETWqP1M1NjHKmmjM+2ew28uejbucCRkVzm3wF54uKtJixFiH+K?=
+ =?iso-8859-1?Q?DBcJ+KK10ndxXSZeY3Chh4QI7XTLf9B3mNAw65kklS45Q/adh/gkvQjj7h?=
+ =?iso-8859-1?Q?YVrw2M83J0u1MxngQlRlyEfHHQwVfI1QSoSgh6U5/4CfyyQF9dogJh8z7j?=
+ =?iso-8859-1?Q?yZja0iZyKWPsuUzOCBlXX6k9Zr6hnJneDk5IqeMC5xUkD0biWfy/eQTT8c?=
+ =?iso-8859-1?Q?rB3+xR+H7AqyViErXjEmDZoQ7Q0jW1XiRpLY3e9EfRuHRZZddLSSfCUDsj?=
+ =?iso-8859-1?Q?UM7XaYgxVkkTy6rTY7a0+y6vO+pQOET51bGP6+ayDBJy77k8mvkn5X13G1?=
+ =?iso-8859-1?Q?/66ILhKxcfk+YkjkL18GRXlILYr+bLSJNP4Pg4duzI+9z2QdktHDaktImH?=
+ =?iso-8859-1?Q?uCMzB4yzOSJFlbUQCiMDN9zVByVcQ3nW3bjqwBqwUEyTVxNpFQTwyFayYg?=
+ =?iso-8859-1?Q?N3N5TD+2hbqJIyJjTtLEkOLsul0Ukg+A2VnTqsYDCsy2cJLqQm+QtpgPak?=
+ =?iso-8859-1?Q?zftxx0wvOn7hi8ldvEfhC0ULLCwQgPWYJYOc+yX7goiUl6a2dYbn45nLp5?=
+ =?iso-8859-1?Q?zFuXTiJ6mfEfGhEoPLBOLqKQS16lrQIHlIEIcuSEF3fb0y/AnHiw2SyELw?=
+ =?iso-8859-1?Q?F+SPYicXTlavs8aBgObY53JbLDUmBv+p0A0Rv9pCHKa48Deuh+FSvy1bZo?=
+ =?iso-8859-1?Q?Ht5yOPVGuCyGQ0FjgvI=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acda7e27-49c7-47b3-cef2-08d9a82b831b
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2021 07:14:40.3471 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2021 11:31:48.8076 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VaLlmCAUch2xEqxN0+0gR/iNPx8b8ddi40/J9EYimdl2VtAOXfUU+tIIGENqJXRYvdeqMBWOO9kucliWQWDyGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0601MB3659
-X-Mailman-Approved-At: Mon, 15 Nov 2021 10:24:52 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: m5ThqgUT1Z8JwST9xnnUJicqQ+ruLeLfkTCZb/6+tNV2/ulKqpf4lnmUpCPDi5Xc0tpUo+BbH9o6BgI8gR4fog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,43 +136,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Christian KKKnig <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Christian KKKnig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This change is to remove useless break after return.
+On Mon, Nov 15, 2021 at 10:49:39AM +0100, Michel DDDnzer wrote:
+> On 2021-11-15 10:04, Lang Yu wrote:
+> > On Mon, Nov 15, 2021 at 09:38:47AM +0100, Michel DDDnzer wrote:
+> >> On 2021-11-15 07:41, Lang Yu wrote:
+> >>> On Fri, Nov 12, 2021 at 05:10:27PM +0100, Michel DDDnzer wrote:
+> >>>> On 2021-11-12 16:03, Christian König wrote:
+> >>>>> Am 12.11.21 um 15:30 schrieb Michel Dänzer:
+> >>>>>> On 2021-11-12 15:29, Michel Dänzer wrote:
+> >>>>>>> On 2021-11-12 13:47, Christian König wrote:
+> >>>>>>>> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D214621&amp;data=04%7C01%7CLang.Yu%40amd.com%7Cee54c4d055d040ef9f8b08d9a81d3eb9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637725665833112900%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=7nwIYd1um420XHVpOzeIvz37%2FLQqHF%2F6aRKfzgxUTnM%3D&amp;reserved=0
+> >>>>>>>>
+> >>>>>>>> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
+> >>>>>>>>
+> >>>>>>>> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
+> >>>>>>> DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in
+> >>>>>>> dm_plane_helper_cleanup_fb.
+> >>>>>>>
+> >>>>>>>
+> >>>>>>> With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb
+> >>>>>> This should say amdgpu_display_unpin_work_func.
+> >>>>>
+> >>>>> Ah! So that is the classic (e.g. non atomic) path?
+> >>>>
+> >>>> Presumably.
+> >>>>
+> >>>>
+> >>>>>>> & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
+> >>>>>
+> >>>>> Nope, my educated guess is rather that we free up the BO before amdgpu_display_unpin_work_func is called.
+> >>>>>
+> >>>>> E.g. not pin unbalance, but rather use after free.
+> >>>>
+> >>>> amdgpu_display_crtc_page_flip_target calls amdgpu_bo_ref(work->old_abo), and amdgpu_display_unpin_work_func calls amdgpu_bo_unref(&work->old_abo) only after amdgpu_bo_unpin. So what you describe could only happen if there's an imbalance elsewhere such that amdgpu_bo_unref is called more often than amdgpu_bo_ref, or maybe if amdgpu_bo_reserve fails in amdgpu_display_unpin_work_func (in which case the "failed to reserve buffer after flip" error message should appear in dmesg).
+> >>>
+> >>>
+> >>> Actually, each call to amdgpu_display_crtc_page_flip_target() will
+> >>>
+> >>> 1, init a work(amdgpu_display_unpin_work_func) to unpin an old buffer
+> >>>    (crtc->primary->fb), the work will be queued in dce_vX_0_pageflip_irq().
+> >>>
+> >>> 2, pin a new buffer, assign it to crtc->primary->fb. But how to unpin it?
+> >>>    Next call.
+> >>>
+> >>> The problem is the pinned buffer of last call to 
+> >>> amdgpu_display_crtc_page_flip_target() is not unpinned.
+> >>
+> >> It's unpinned in dce_v*_0_crtc_disable.
+> > 
+> > I just found crtc->primary->fb is NULL when came in dce_v*_0_crtc_disable().
+> > So it's not unpinned...
+> 
+> __drm_helper_disable_unused_functions sets crtc->primary->fb = NULL only after calling crtc_funcs->disable. Maybe this path can get hit for a CRTC which was already disabled, in which case crtc->primary->fb == NULL in dce_v*_0_crtc_disable is harmless.
+> 
+> Have you checked for the issue I described below? Should be pretty easy to catch.
+> 
+> 
+> >> I think I've found the problem though: dce_v*_0_crtc_do_set_base pin the BO from target_fb unconditionally, but unpin the BO from the fb parameter only if it's different from the former. So if they're the same, the BO's pin count is incremented by 1.
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 4 ----
- 1 file changed, 4 deletions(-)
+Form my observations, amdgpu_bo_unpin() in dce_v*_0_crtc_disable() is
+never called. Though a single call to dce_v*_0_crtc_do_set_base() will 
+only pin the BO, I found it will be unpinned in next call to 
+dce_v*_0_crtc_do_set_base(). Anyway, these pin/unpin operations looks
+error-prone.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index b200b9e722d9..8318ee8339f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2092,22 +2092,18 @@ static int dce_v8_0_pick_dig_encoder(struct drm_encoder *encoder)
- 			return 1;
- 		else
- 			return 0;
--		break;
- 	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY1:
- 		if (dig->linkb)
- 			return 3;
- 		else
- 			return 2;
--		break;
- 	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY2:
- 		if (dig->linkb)
- 			return 5;
- 		else
- 			return 4;
--		break;
- 	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY3:
- 		return 6;
--		break;
- 	default:
- 		DRM_ERROR("invalid encoder_id: 0x%x\n", amdgpu_encoder->encoder_id);
- 		return 0;
--- 
-2.33.1
+Regards,
+Lang
 
+> 
+> -- 
+> Earthling Michel Dänzer            |                  https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fredhat.com%2F&amp;data=04%7C01%7CLang.Yu%40amd.com%7Cee54c4d055d040ef9f8b08d9a81d3eb9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637725665833112900%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=EppaFKsy78tecP6oIVVuBh3enb%2Fu8jurugqEwUxDCYk%3D&amp;reserved=0
+> Libre software enthusiast          |         Mesa and Xwayland developer
