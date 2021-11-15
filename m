@@ -2,79 +2,59 @@ Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA59CC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 11:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDD68C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 12:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5FEE63211
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 11:49:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B5FEE63211
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6A8D961B53
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 12:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6A8D961B53
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB3376E926;
-	Mon, 15 Nov 2021 11:49:06 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC546E926;
- Mon, 15 Nov 2021 11:49:05 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id t30so30060606wra.10;
- Mon, 15 Nov 2021 03:49:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=F9Fa9nV2d1oN0zSyfwagffKh9yytiJ7gGM/yAK7IOVY=;
- b=N1gksOf+HQ35CVcZoqzQzpTqmczAKWCVPasTjHCJXRNDvFq8CKqd2YnmfVFW0XrVs+
- 5bUfQFJtCH9HtvVP4newx5mWyPWyUWW40E9xuCz3iQ7dART24Nf8UP2aYIb1siaqxRJ7
- QqVz5aBrnFVo8j0C5BLfFjp8x13Qe5HYv4kzDgEJQrPiUGIn6Dusagj8ewPZZTyve13P
- FxKXrl1EqG/4CddeJLTSyQBZ4cz0O7XoMAPexILNpj2aiJ7X75Q3+UOOa1oPv2UT5DfJ
- aqrbCBXvLO5KCXCwwdg8Kca2GRqSKX2lmpINd+wb26mrPbTrDpCPXLjLcGQBRXyIv3Ug
- 8w5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=F9Fa9nV2d1oN0zSyfwagffKh9yytiJ7gGM/yAK7IOVY=;
- b=KEDZlP3l7zfJDLmxkCEwgeT6I+sSN23izZHn2NSY202sWJOry9V8fd8eOjff02qnZW
- yG57123FHvAwZErU1mlvww/ZWvwaE+DZIMLxvRKb2/FZ8iaSvzx17ERjwT7ppKI8TvsF
- KwTD4CQ3Dweh+woJt7oo3RWIs1CKTw84YRckLs/MTgOApxngQ9EChPZEU7KkmIAWMLij
- X+NF/oB0zcRwCD55k+mINWAlb8HoXEYi5Z/lqVnyfA9ZjcNPDfv+12knrMHSYv2R++FT
- sJ90LJnsQeeFyeaIu0wXBWn4carDE+ZC1c9Ljt/RjTMQwUFsjP2BhgV6JovQB7vwf3t2
- w8qA==
-X-Gm-Message-State: AOAM5306EAgRogoHj6qvJRqmeCM4zpK52P1p4VcCmsf6MpC9/St1Wj/Q
- j7rVDZVY1R4oR4/6HDG1bIw=
-X-Google-Smtp-Source: ABdhPJzugAmCckcr+WT+yOHGwg2UX+IBqinv3ZVNQqngdscuwZUtPNkDJ02Qr3ZLyHJofxNhZd4cMQ==
-X-Received: by 2002:adf:ce08:: with SMTP id p8mr23055236wrn.154.1636976944428; 
- Mon, 15 Nov 2021 03:49:04 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:bf0c:d52c:6ba0:cfc6?
- ([2a02:908:1252:fb60:bf0c:d52c:6ba0:cfc6])
- by smtp.gmail.com with ESMTPSA id d6sm14045603wrx.60.2021.11.15.03.49.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Nov 2021 03:49:04 -0800 (PST)
-Subject: Re: [PATCH] drm/amd/amdgpu: cleanup the code style a bit
-To: Bernard Zhao <bernard@vivo.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jingwen Chen <Jingwen.Chen2@amd.com>, Candice Li <candice.li@amd.com>,
- John Clements <john.clements@amd.com>, Monk liu <monk.liu@amd.com>,
- Peng Ju Zhou <PengJu.Zhou@amd.com>, Jiawei Gu <Jiawei.Gu@amd.com>,
- Bokun Zhang <bokun.zhang@amd.com>, Zhigang Luo <zhigang.luo@amd.com>,
- Lee Jones <lee.jones@linaro.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20211115070714.7007-1-bernard@vivo.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ebcf8b30-7311-9d77-07ab-1b92756c0ae0@gmail.com>
-Date: Mon, 15 Nov 2021 12:49:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E31E86EA89;
+	Mon, 15 Nov 2021 12:04:18 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 567A56EA7B;
+ Mon, 15 Nov 2021 12:04:17 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 82FDD202024;
+ Mon, 15 Nov 2021 13:04:16 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id egoHZeRvx0mx; Mon, 15 Nov 2021 13:04:16 +0100 (CET)
+Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id 2C23F202020;
+ Mon, 15 Nov 2021 13:04:16 +0100 (CET)
+Received: from [127.0.0.1] by thor with esmtp (Exim 4.95)
+ (envelope-from <michel@daenzer.net>) id 1mmaid-000Tmm-Fq;
+ Mon, 15 Nov 2021 13:04:15 +0100
+Message-ID: <e44a237c-0073-2eec-1a47-c5faf99f77b4@daenzer.net>
+Date: Mon, 15 Nov 2021 13:04:15 +0100
 MIME-Version: 1.0
-In-Reply-To: <20211115070714.7007-1-bernard@vivo.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-CA
+To: Lang Yu <Lang.Yu@amd.com>
+References: <YYvIfXy9bwPokiK9@phenom.ffwll.local>
+ <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
+ <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
+ <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
+ <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
+ <58097218-40dd-55fd-32d2-2a299d39230f@daenzer.net>
+ <YZIA/dkvjuMsup24@lang-desktop>
+ <cadb9503-b390-e254-ffba-5e2e11f100cc@daenzer.net>
+ <YZIiqM6PKKL/ZMNy@lang-desktop>
+ <f1b88742-b07e-5973-1e30-9674a5950bf3@daenzer.net>
+ <YZJFHMEqm1oz7QJN@lang-desktop>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: Questions about KMS flip
+In-Reply-To: <YZJFHMEqm1oz7QJN@lang-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,47 +66,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Christian KKKnig <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Christian KKKnig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.11.21 um 08:07 schrieb Bernard Zhao:
-> This change is to cleanup the code style a bit.
+On 2021-11-15 12:31, Lang Yu wrote:
+> On Mon, Nov 15, 2021 at 10:49:39AM +0100, Michel DDDnzer wrote:
+>> On 2021-11-15 10:04, Lang Yu wrote:
+>>> On Mon, Nov 15, 2021 at 09:38:47AM +0100, Michel DDDnzer wrote:
+>>>> On 2021-11-15 07:41, Lang Yu wrote:
+>>>>> On Fri, Nov 12, 2021 at 05:10:27PM +0100, Michel DDDnzer wrote:
+>>>>>> On 2021-11-12 16:03, Christian König wrote:
+>>>>>>> Am 12.11.21 um 15:30 schrieb Michel Dänzer:
+>>>>>>>> On 2021-11-12 15:29, Michel Dänzer wrote:
+>>>>>>>>> On 2021-11-12 13:47, Christian König wrote:
+>>>>>>>>>> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D214621&amp;data=04%7C01%7CLang.Yu%40amd.com%7Cee54c4d055d040ef9f8b08d9a81d3eb9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637725665833112900%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=7nwIYd1um420XHVpOzeIvz37%2FLQqHF%2F6aRKfzgxUTnM%3D&amp;reserved=0
+>>>>>>>>>>
+>>>>>>>>>> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
+>>>>>>>>>>
+>>>>>>>>>> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
+>>>>>>>>> DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in
+>>>>>>>>> dm_plane_helper_cleanup_fb.
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb
+>>>>>>>> This should say amdgpu_display_unpin_work_func.
+>>>>>>>
+>>>>>>> Ah! So that is the classic (e.g. non atomic) path?
+>>>>>>
+>>>>>> Presumably.
+>>>>>>
+>>>>>>
+>>>>>>>>> & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
+>>>>>>>
+>>>>>>> Nope, my educated guess is rather that we free up the BO before amdgpu_display_unpin_work_func is called.
+>>>>>>>
+>>>>>>> E.g. not pin unbalance, but rather use after free.
+>>>>>>
+>>>>>> amdgpu_display_crtc_page_flip_target calls amdgpu_bo_ref(work->old_abo), and amdgpu_display_unpin_work_func calls amdgpu_bo_unref(&work->old_abo) only after amdgpu_bo_unpin. So what you describe could only happen if there's an imbalance elsewhere such that amdgpu_bo_unref is called more often than amdgpu_bo_ref, or maybe if amdgpu_bo_reserve fails in amdgpu_display_unpin_work_func (in which case the "failed to reserve buffer after flip" error message should appear in dmesg).
+>>>>>
+>>>>>
+>>>>> Actually, each call to amdgpu_display_crtc_page_flip_target() will
+>>>>>
+>>>>> 1, init a work(amdgpu_display_unpin_work_func) to unpin an old buffer
+>>>>>    (crtc->primary->fb), the work will be queued in dce_vX_0_pageflip_irq().
+>>>>>
+>>>>> 2, pin a new buffer, assign it to crtc->primary->fb. But how to unpin it?
+>>>>>    Next call.
+>>>>>
+>>>>> The problem is the pinned buffer of last call to 
+>>>>> amdgpu_display_crtc_page_flip_target() is not unpinned.
+>>>>
+>>>> It's unpinned in dce_v*_0_crtc_disable.
+>>>
+>>> I just found crtc->primary->fb is NULL when came in dce_v*_0_crtc_disable().
+>>> So it's not unpinned...
+>>
+>> __drm_helper_disable_unused_functions sets crtc->primary->fb = NULL only after calling crtc_funcs->disable. Maybe this path can get hit for a CRTC which was already disabled, in which case crtc->primary->fb == NULL in dce_v*_0_crtc_disable is harmless.
+>>
+>> Have you checked for the issue I described below? Should be pretty easy to catch.
+>>
+>>
+>>>> I think I've found the problem though: dce_v*_0_crtc_do_set_base pin the BO from target_fb unconditionally, but unpin the BO from the fb parameter only if it's different from the former. So if they're the same, the BO's pin count is incremented by 1.
+> 
+> Form my observations, amdgpu_bo_unpin() in dce_v*_0_crtc_disable() is
+> never called.
 
-To be honest I think the old style looked better. It took me a moment to 
-validate this now.
+It would be expected to happen when the screen turns off, e.g. due to DPMS.
 
-What you could to instead is to have goto style error handling which 
-would make this a bit more cleaner I think.
 
-Christian.
+> Though a single call to dce_v*_0_crtc_do_set_base() will 
+> only pin the BO, I found it will be unpinned in next call to 
+> dce_v*_0_crtc_do_set_base().
 
->
-> Signed-off-by: Bernard Zhao <bernard@vivo.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index 04cf9b207e62..90070b41136a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -286,12 +286,14 @@ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
->   		return -ENOMEM;
->   
->   	bps = kmalloc_array(align_space, sizeof((*data)->bps), GFP_KERNEL);
-> +	if (!bps) {
-> +		kfree(*data);
-> +		return -ENOMEM;
-> +	}
->   	bps_bo = kmalloc_array(align_space, sizeof((*data)->bps_bo), GFP_KERNEL);
-> -
-> -	if (!bps || !bps_bo) {
-> -		kfree(bps);
-> -		kfree(bps_bo);
-> +	if (!bps_bo) {
->   		kfree(*data);
-> +		kfree(bps);
->   		return -ENOMEM;
->   	}
->   
+Yeah, that's the normal case when the new BO is different from the old one.
 
+To catch the case I described, try something like
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+
+index 18a7b3bd633b..5726bd87a355 100644
+
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+
+@@ -1926,6 +1926,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
+
+                return r;
+
+
+
+        if (!atomic) {
+
++               WARN_ON_ONCE(target_fb == fb);
+
+                r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
+
+                if (unlikely(r != 0)) {
+
+                        amdgpu_bo_unreserve(abo);
+
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
