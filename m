@@ -2,59 +2,60 @@ Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66870C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 09:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8313C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 10:24:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E98F61BA9
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 09:49:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E98F61BA9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id 4A52F61BFA
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 10:24:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4A52F61BFA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 033426E9DE;
-	Mon, 15 Nov 2021 09:49:42 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id E60C76E8A1;
- Mon, 15 Nov 2021 09:49:40 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 1F22C202022;
- Mon, 15 Nov 2021 10:49:40 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id jWPVwulGQ3re; Mon, 15 Nov 2021 10:49:39 +0100 (CET)
-Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id BC963202021;
- Mon, 15 Nov 2021 10:49:39 +0100 (CET)
-Received: from [127.0.0.1] by thor with esmtp (Exim 4.95)
- (envelope-from <michel@daenzer.net>) id 1mmYcN-000SmL-6r;
- Mon, 15 Nov 2021 10:49:39 +0100
-Message-ID: <f1b88742-b07e-5973-1e30-9674a5950bf3@daenzer.net>
-Date: Mon, 15 Nov 2021 10:49:39 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id D83226E9B4;
+	Mon, 15 Nov 2021 10:24:52 +0000 (UTC)
+X-Greylist: delayed 581 seconds by postgrey-1.36 at gabe;
+ Mon, 15 Nov 2021 07:41:19 UTC
+Received: from smtprelay.hostedemail.com (smtprelay0152.hostedemail.com
+ [216.40.44.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C64986E079
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 07:41:19 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+ [10.5.19.251])
+ by smtpgrave02.hostedemail.com (Postfix) with ESMTP id 9AC1F18015D96
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 07:31:38 +0000 (UTC)
+Received: from omf02.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
+ by smtprelay03.hostedemail.com (Postfix) with ESMTP id 50F488384376;
+ Mon, 15 Nov 2021 07:31:37 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf02.hostedemail.com (Postfix) with ESMTPA id 07A75B000181; 
+ Mon, 15 Nov 2021 07:31:33 +0000 (UTC)
+Message-ID: <cfcae256344c5b83398944d5609e76d983ccbc1b.camel@perches.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: remove useless break after return
+From: Joe Perches <joe@perches.com>
+To: Bernard Zhao <bernard@vivo.com>, Alex Deucher
+ <alexander.deucher@amd.com>,  Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, David
+ Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Evan Quan <evan.quan@amd.com>, Sakari
+ Ailus <sakari.ailus@linux.intel.com>, Lee Jones <lee.jones@linaro.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Sun, 14 Nov 2021 23:31:34 -0800
+In-Reply-To: <20211115071429.7314-1-bernard@vivo.com>
+References: <20211115071429.7314-1-bernard@vivo.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+User-Agent: Evolution 3.40.4-1 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Content-Language: en-CA
-To: Lang Yu <Lang.Yu@amd.com>
-References: <YYk7SkflDx8ToqYG@phenom.ffwll.local>
- <4ba7e3f8-7956-882a-6888-57e2448b907d@amd.com>
- <YYvIfXy9bwPokiK9@phenom.ffwll.local>
- <ab2fb071-12ab-da99-53c9-1411ca9acdaa@amd.com>
- <9a5b8470-d02d-71b4-4a89-6d6c32fdfa5d@daenzer.net>
- <88dfe9b4-e170-2d6b-604b-03af5d57152b@daenzer.net>
- <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
- <58097218-40dd-55fd-32d2-2a299d39230f@daenzer.net>
- <YZIA/dkvjuMsup24@lang-desktop>
- <cadb9503-b390-e254-ffba-5e2e11f100cc@daenzer.net>
- <YZIiqM6PKKL/ZMNy@lang-desktop>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: Questions about KMS flip
-In-Reply-To: <YZIiqM6PKKL/ZMNy@lang-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 07A75B000181
+X-Stat-Signature: rxw7ub9mqfb8pxrhxqznk9h8sctub7mm
+X-Rspamd-Server: rspamout02
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1/BMX1pM41Hx9u3dc67UGKg+oEXxIeNQNY=
+X-HE-Tag: 1636961493-426773
+X-Mailman-Approved-At: Mon, 15 Nov 2021 10:24:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,72 +67,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian KKKnig <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Christian KKKnig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-11-15 10:04, Lang Yu wrote:
-> On Mon, Nov 15, 2021 at 09:38:47AM +0100, Michel DDDnzer wrote:
->> On 2021-11-15 07:41, Lang Yu wrote:
->>> On Fri, Nov 12, 2021 at 05:10:27PM +0100, Michel DDDnzer wrote:
->>>> On 2021-11-12 16:03, Christian König wrote:
->>>>> Am 12.11.21 um 15:30 schrieb Michel Dänzer:
->>>>>> On 2021-11-12 15:29, Michel Dänzer wrote:
->>>>>>> On 2021-11-12 13:47, Christian König wrote:
->>>>>>>> Anyway this unfortunately turned out to be work for Harray and Nicholas. In detail it's about this bug report here: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D214621&amp;data=04%7C01%7CLang.Yu%40amd.com%7C766e41a1c30544442b6b08d9a81358b0%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637725623316543180%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=od%2BNksWOff%2FtsuAYZLX7lIJFQJMY2OScVqhLclPYWAQ%3D&amp;reserved=0
->>>>>>>>
->>>>>>>> Lang was able to reproduce the issue and narrow it down to the pin in amdgpu_display_crtc_page_flip_target().
->>>>>>>>
->>>>>>>> In other words we somehow have an unbalanced pinning of the scanout buffer in DC.
->>>>>>> DC doesn't use amdgpu_display_crtc_page_flip_target AFAICT. The corresponding pin with DC would be in dm_plane_helper_prepare_fb, paired with the unpin in
->>>>>>> dm_plane_helper_cleanup_fb.
->>>>>>>
->>>>>>>
->>>>>>> With non-DC, the pin in amdgpu_display_crtc_page_flip_target is paired with the unpin in dm_plane_helper_cleanup_fb
->>>>>> This should say amdgpu_display_unpin_work_func.
->>>>>
->>>>> Ah! So that is the classic (e.g. non atomic) path?
->>>>
->>>> Presumably.
->>>>
->>>>
->>>>>>> & dce_v*_crtc_disable. One thing I notice is that the pin is guarded by if (!adev->enable_virtual_display), but the unpins seem unconditional. So could this be about virtual display, and the problem is actually trying to unpin a BO that was never pinned?
->>>>>
->>>>> Nope, my educated guess is rather that we free up the BO before amdgpu_display_unpin_work_func is called.
->>>>>
->>>>> E.g. not pin unbalance, but rather use after free.
->>>>
->>>> amdgpu_display_crtc_page_flip_target calls amdgpu_bo_ref(work->old_abo), and amdgpu_display_unpin_work_func calls amdgpu_bo_unref(&work->old_abo) only after amdgpu_bo_unpin. So what you describe could only happen if there's an imbalance elsewhere such that amdgpu_bo_unref is called more often than amdgpu_bo_ref, or maybe if amdgpu_bo_reserve fails in amdgpu_display_unpin_work_func (in which case the "failed to reserve buffer after flip" error message should appear in dmesg).
->>>
->>>
->>> Actually, each call to amdgpu_display_crtc_page_flip_target() will
->>>
->>> 1, init a work(amdgpu_display_unpin_work_func) to unpin an old buffer
->>>    (crtc->primary->fb), the work will be queued in dce_vX_0_pageflip_irq().
->>>
->>> 2, pin a new buffer, assign it to crtc->primary->fb. But how to unpin it?
->>>    Next call.
->>>
->>> The problem is the pinned buffer of last call to 
->>> amdgpu_display_crtc_page_flip_target() is not unpinned.
->>
->> It's unpinned in dce_v*_0_crtc_disable.
-> 
-> I just found crtc->primary->fb is NULL when came in dce_v*_0_crtc_disable().
-> So it's not unpinned...
+On Sun, 2021-11-14 at 23:14 -0800, Bernard Zhao wrote:
+> This change is to remove useless break after return.
+[]
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+[]
+> @@ -2092,22 +2092,18 @@ static int dce_v8_0_pick_dig_encoder(struct drm_encoder *encoder)
+>  			return 1;
+>  		else
+>  			return 0;
+> -		break;
+>  	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY1:
+>  		if (dig->linkb)
+>  			return 3;
+>  		else
+>  			return 2;
+> -		break;
+>  	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY2:
+>  		if (dig->linkb)
+>  			return 5;
+>  		else
+>  			return 4;
+> -		break;
+>  	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY3:
+>  		return 6;
+> -		break;
+>  	default:
+>  		DRM_ERROR("invalid encoder_id: 0x%x\n", amdgpu_encoder->encoder_id);
+>  		return 0;
 
-__drm_helper_disable_unused_functions sets crtc->primary->fb = NULL only after calling crtc_funcs->disable. Maybe this path can get hit for a CRTC which was already disabled, in which case crtc->primary->fb == NULL in dce_v*_0_crtc_disable is harmless.
+Perhaps rewrite to make the sequential numbering more obvious.
+---
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
 
-Have you checked for the issue I described below? Should be pretty easy to catch.
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index b200b9e722d97..7307524b706b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -2088,26 +2088,13 @@ static int dce_v8_0_pick_dig_encoder(struct drm_encoder *encoder)
+ 
+ 	switch (amdgpu_encoder->encoder_id) {
+ 	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY:
+-		if (dig->linkb)
+-			return 1;
+-		else
+-			return 0;
+-		break;
++		return !dig->linkb ? 0 : 1;
+ 	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY1:
+-		if (dig->linkb)
+-			return 3;
+-		else
+-			return 2;
+-		break;
++		return !dig->linkb ? 2 : 3;
+ 	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY2:
+-		if (dig->linkb)
+-			return 5;
+-		else
+-			return 4;
+-		break;
++		return !dig->linkb ? 4 : 5;
+ 	case ENCODER_OBJECT_ID_INTERNAL_UNIPHY3:
+ 		return 6;
+-		break;
+ 	default:
+ 		DRM_ERROR("invalid encoder_id: 0x%x\n", amdgpu_encoder->encoder_id);
+ 		return 0;
 
 
->> I think I've found the problem though: dce_v*_0_crtc_do_set_base pin the BO from target_fb unconditionally, but unpin the BO from the fb parameter only if it's different from the former. So if they're the same, the BO's pin count is incremented by 1.
-
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
