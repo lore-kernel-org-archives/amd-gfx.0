@@ -2,45 +2,103 @@ Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D84FC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 19:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AECB6C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 19:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30A1E63699
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 19:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 30A1E63699
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7C32160184
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 19:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7C32160184
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2AE46E575;
-	Mon, 15 Nov 2021 19:00:50 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14F766E879
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Nov 2021 18:45:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B5005635DF;
- Mon, 15 Nov 2021 18:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1637001953;
- bh=PINb1g6LeQKCTzvTgnm0/JXa7AloU7ASkA1azLLp2EI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=unv/HJ+cY+kSFaNMqhi+J8XD7hHu57UUlwdt9DdeUR0bBgn2FVDIcWyGM0SKlk10S
- Y+z4gApEyLmC+vey1HKgxdlyZKT6aaPaPyEI2CNf1RUaSo8jEdvRm4bUCgsFI1vPKn
- JaY5S6JoAmNH0lnXvb3MecL1MCv0US5MGcwFy4mQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.15 350/917] drm/amd/display: Pass display_pipe_params_st as
- const in DML
-Date: Mon, 15 Nov 2021 17:57:25 +0100
-Message-Id: <20211115165440.617126769@linuxfoundation.org>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211115165428.722074685@linuxfoundation.org>
-References: <20211115165428.722074685@linuxfoundation.org>
-User-Agent: quilt/0.66
+	by gabe.freedesktop.org (Postfix) with ESMTP id 597E46E5B0;
+	Mon, 15 Nov 2021 19:30:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EAC76E58E;
+ Mon, 15 Nov 2021 19:30:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hVI4cFGmcrx7QuINwI5PIlWKaQI0dgos+pU6KzlSZb31USybd0ulVR8EE1KKTsPRoq/2xw1wiZ837WZFxknXDbhd4Ds6xVmm4+S7txi5UoiBXYMJ7jEoxRUtL89TuFdQLDqcF6uima6K7nZBpG3oR7+dgNocxUqr7Kz5Kr5a37S8AZ+hDTV1WOvdXvLEqmTuZ05WZZ5eeeoVu8xYuxbEiCVkLv2T/V7LIDgnTsWGoHlp1E1oM/3+TfRXBEsYtZ1Eis5lt2iKc502L3fvtst/UISB4kUM5tvJAS/727pDoW4OLGn/XQAgsE6eKFDvdY7a3pDftuKN9UCe7e9C/iJoVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RAIwB/1KGO+9lXaK0hrYcwqA5Wyvx7c8g3CP4CpwU0Q=;
+ b=KwibRGOK5NVza7okI0X1gN372ba7OqHLJgjWVFU3+lPJfNBIL/hNKk789WxiN1H+yxf1qKgvHsvNE08euUXqmtCYEVQAF/IyMCSjJmAz46p0OE/cHwgO6zF8Oh7LegYeUwl6GxnN9ZVlOzfknlnrUNCQGArw4dnZ1+1YLPEH3smXuuQbEH3yy0YL0EBt2TWg3YeaLvWim2MGNGNqXqZ8Mpv0r7tGlGha6EVRwT/ogUmBgsdu5io8S3dgzNm1euasxLgIvn/55K6PI34d4tX4T7M2JZeIs5UJeJbABInw/L1Idvir+n8IWxPE13wLsmR/g9ZVBUvnRJw+yZN1Nkr4PA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RAIwB/1KGO+9lXaK0hrYcwqA5Wyvx7c8g3CP4CpwU0Q=;
+ b=INuh7JpWoLriEYSLkFa/oj/fa4eDALoijWYC11FUDMYG0NNVVHGWxJVclq2l9ZRRNAy6I/F04aGlgi6XAJ8aeAuznBJDP32eB+GKLO6kdewBYW1fPzieJc+Is08WnqDlJrmuvc0kZ0leecQTstjci2YsPd9uy8UWzlLGbNFv/nk=
+Received: from CO2PR05CA0091.namprd05.prod.outlook.com (2603:10b6:104:1::17)
+ by DM4PR12MB5038.namprd12.prod.outlook.com (2603:10b6:5:389::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.15; Mon, 15 Nov
+ 2021 19:30:47 +0000
+Received: from CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:1:cafe::16) by CO2PR05CA0091.outlook.office365.com
+ (2603:10b6:104:1::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.16 via Frontend
+ Transport; Mon, 15 Nov 2021 19:30:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; linux-foundation.org; dkim=none (message not signed)
+ header.d=none;linux-foundation.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT026.mail.protection.outlook.com (10.13.175.67) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4690.15 via Frontend Transport; Mon, 15 Nov 2021 19:30:46 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 15 Nov
+ 2021 13:30:37 -0600
+From: Alex Sierra <alex.sierra@amd.com>
+To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
+ <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
+ <linux-xfs@vger.kernel.org>
+Subject: [PATCH v1 1/9] mm: add zone device coherent type memory support
+Date: Mon, 15 Nov 2021 13:30:18 -0600
+Message-ID: <20211115193026.27568-2-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211115193026.27568-1-alex.sierra@amd.com>
+References: <20211115193026.27568-1-alex.sierra@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 15 Nov 2021 19:00:49 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac55f789-519f-4c69-e20c-08d9a86e6c08
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5038:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5038190381F19F6107B4A803FD989@DM4PR12MB5038.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qNkXk/OsEwT03LBgMFIpAoHt6ZSbdgqA3qKP16di8jMnR+SzKSQ+mL/i+wBwLLWiVl83cj9SNBXQqQFTsBljhZKmtR+kGmJTlYNPu4hP20Mp4R8VsArelu+owhBJ3V1w0/UloMCKLOw6nsaQpV5a1B0kHwYHpynafD8FbcDcy00Id91S3y/Z+FJnN0GTAhZwlXyyPj8yk7VBZpWBLaaHyB/CNs0mcilxDkQbi6TWJKhVMqvEYqOlcsUu5y6hIx7+8ocBYWmMQ4ElzaEJpj2ZyQZU6+NTRKyDcRUXt284L5nzdgZZQcni45laDTNueGmKckshLjJkAt2E2WQsYnFBxi+kevlwx6jgIswpSoveKc1Ji6dHqQsriC/5xz6EekQZ48rYTeLysFFfBBADnYQaPlqdIO5tNNjzcPKZEUzTxrDrPmNEETw4/oW1zDYRaJ0/6XasO4s+qw9IUXjBocaxOsnW15b1uEBZlzJqnbiXAeQRJ87wq5/yhoGpWyK9taRMhuzuUsFYAIswbxOPkVrtiCa+EOgaDy7df+EYU1wnhwa4eaEAA4E3jOefALCkEs/GFpTOC/9U7ozmICh6iivQSaP0AELObM1omlSQMZF3WrMeH/mR+wJjrjly4KbekXFMwmXOAy3bVtTmvJD7uX46a8lwoMzYbVU3wgQ1AU1MwZqTm89kZY+IjztdwWJ/hnfpPrntQjpvCcjIm4vqccTMa1VheWVDJHwosfCOlidordc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(44832011)(336012)(36756003)(7416002)(110136005)(54906003)(8936002)(186003)(4326008)(16526019)(82310400003)(2906002)(316002)(6666004)(2616005)(508600001)(5660300002)(26005)(426003)(70206006)(86362001)(8676002)(81166007)(47076005)(1076003)(356005)(70586007)(83380400001)(7696005)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2021 19:30:46.0437 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac55f789-519f-4c69-e20c-08d9a86e6c08
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5038
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,725 +110,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Arnd Bergmann <arnd@kernel.org>,
- llvm@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- amd-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, stable@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Guenter Roeck <linux@roeck-us.net>
+Cc: willy@infradead.org, apopple@nvidia.com, dri-devel@lists.freedesktop.org,
+ jglisse@redhat.com, amd-gfx@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+Device memory that is cache coherent from device and CPU point of view.
+This is used on platforms that have an advanced system bus (like CAPI
+or CXL). Any page of a process can be migrated to such memory. However,
+no one should be allowed to pin such memory so that it can always be
+evicted.
 
-[ Upstream commit 22667e6ec6b2ce9ca706e9061660b059725d009c ]
-
-[Why]
-This neither needs to be on the stack nor passed by value
-to each function call. In fact, when building with clang
-it seems to break the Linux's default 1024 byte stack
-frame limit.
-
-[How]
-We can simply pass this as a const pointer.
-
-This patch fixes these Coverity IDs
-Addresses-Coverity-ID: 1424031: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1423970: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1423941: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1451742: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1451887: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1454146: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1454152: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1454413: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1466144: ("Big parameter passed by value")
-Addresses-Coverity-ID: 1487237: ("Big parameter passed by value")
-
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Fixes: 3fe617ccafd6 ("Enable '-Werror' by default for all kernel builds")
-Cc: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: Nathan Chancellor <nathan@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: llvm@lists.linux.dev
-Acked-by: Christian König <christian.koenig@amd.com>
-Build-tested-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- .../drm/amd/display/dc/dcn20/dcn20_resource.c |  2 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |  6 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20.h     |  4 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c   |  6 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20v2.h   |  4 +-
- .../dc/dml/dcn21/display_rq_dlg_calc_21.c     | 62 ++++++++--------
- .../dc/dml/dcn21/display_rq_dlg_calc_21.h     |  4 +-
- .../dc/dml/dcn30/display_rq_dlg_calc_30.c     | 72 +++++++++----------
- .../dc/dml/dcn30/display_rq_dlg_calc_30.h     |  4 +-
- .../dc/dml/dcn31/display_rq_dlg_calc_31.c     | 68 +++++++++---------
- .../dc/dml/dcn31/display_rq_dlg_calc_31.h     |  4 +-
- .../drm/amd/display/dc/dml/display_mode_lib.h |  4 +-
- 12 files changed, 120 insertions(+), 120 deletions(-)
+ include/linux/memremap.h |  8 ++++++++
+ include/linux/mm.h       |  9 +++++++++
+ mm/memcontrol.c          |  6 +++---
+ mm/memory-failure.c      |  6 +++++-
+ mm/memremap.c            |  5 ++++-
+ mm/migrate.c             | 21 +++++++++++++--------
+ 6 files changed, 42 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index f2f258e70f9da..34a126816133e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3152,7 +3152,7 @@ void dcn20_calculate_dlg_params(
- 
- 		context->bw_ctx.dml.funcs.rq_dlg_get_rq_reg(&context->bw_ctx.dml,
- 				&context->res_ctx.pipe_ctx[i].rq_regs,
--				pipes[pipe_idx].pipe);
-+				&pipes[pipe_idx].pipe);
- 		pipe_idx++;
- 	}
+diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+index c0e9d35889e8..ff4d398edf35 100644
+--- a/include/linux/memremap.h
++++ b/include/linux/memremap.h
+@@ -39,6 +39,13 @@ struct vmem_altmap {
+  * A more complete discussion of unaddressable memory may be found in
+  * include/linux/hmm.h and Documentation/vm/hmm.rst.
+  *
++ * MEMORY_DEVICE_COHERENT:
++ * Device memory that is cache coherent from device and CPU point of view. This
++ * is used on platforms that have an advanced system bus (like CAPI or CXL). A
++ * driver can hotplug the device memory using ZONE_DEVICE and with that memory
++ * type. Any page of a process can be migrated to such memory. However no one
++ * should be allowed to pin such memory so that it can always be evicted.
++ *
+  * MEMORY_DEVICE_FS_DAX:
+  * Host memory that has similar access semantics as System RAM i.e. DMA
+  * coherent and supports page pinning. In support of coordinating page
+@@ -59,6 +66,7 @@ struct vmem_altmap {
+ enum memory_type {
+ 	/* 0 is reserved to catch uninitialized type fields */
+ 	MEMORY_DEVICE_PRIVATE = 1,
++	MEMORY_DEVICE_COHERENT,
+ 	MEMORY_DEVICE_FS_DAX,
+ 	MEMORY_DEVICE_GENERIC,
+ 	MEMORY_DEVICE_PCI_P2PDMA,
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 73a52aba448f..d23b6ebd2177 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1162,6 +1162,7 @@ static inline bool page_is_devmap_managed(struct page *page)
+ 		return false;
+ 	switch (page->pgmap->type) {
+ 	case MEMORY_DEVICE_PRIVATE:
++	case MEMORY_DEVICE_COHERENT:
+ 	case MEMORY_DEVICE_FS_DAX:
+ 		return true;
+ 	default:
+@@ -1191,6 +1192,14 @@ static inline bool is_device_private_page(const struct page *page)
+ 		page->pgmap->type == MEMORY_DEVICE_PRIVATE;
  }
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-index 2091dd8c252da..8c168f348a27f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
-@@ -768,12 +768,12 @@ static void dml20_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
  
- void dml20_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
++static inline bool is_device_page(const struct page *page)
++{
++	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
++		is_zone_device_page(page) &&
++		(page->pgmap->type == MEMORY_DEVICE_PRIVATE ||
++		page->pgmap->type == MEMORY_DEVICE_COHERENT);
++}
++
+ static inline bool is_pci_p2pdma_page(const struct page *page)
  {
- 	display_rq_params_st rq_param = {0};
- 
- 	memset(rq_regs, 0, sizeof(*rq_regs));
--	dml20_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param.src);
-+	dml20_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param->src);
- 	extract_rq_regs(mode_lib, rq_regs, rq_param);
- 
- 	print__rq_regs_st(mode_lib, *rq_regs);
-@@ -1549,7 +1549,7 @@ static void dml20_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
- void dml20_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-index d0b90947f5409..8b23867e97c18 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-@@ -43,7 +43,7 @@ struct display_mode_lib;
- void dml20_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- 
- // Function: dml_rq_dlg_get_dlg_reg
-@@ -61,7 +61,7 @@ void dml20_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-index 1a0c14e465faa..26ececfd40cdc 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-@@ -768,12 +768,12 @@ static void dml20v2_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 
- void dml20v2_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = {0};
- 
- 	memset(rq_regs, 0, sizeof(*rq_regs));
--	dml20v2_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param.src);
-+	dml20v2_rq_dlg_get_rq_params(mode_lib, &rq_param, pipe_param->src);
- 	extract_rq_regs(mode_lib, rq_regs, rq_param);
- 
- 	print__rq_regs_st(mode_lib, *rq_regs);
-@@ -1550,7 +1550,7 @@ static void dml20v2_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
- void dml20v2_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-index 27cf8bed9376f..2b4e46ea1c3df 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-@@ -43,7 +43,7 @@ struct display_mode_lib;
- void dml20v2_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- 
- // Function: dml_rq_dlg_get_dlg_reg
-@@ -61,7 +61,7 @@ void dml20v2_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-index 287e31052b307..736978c4d40a1 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-@@ -694,7 +694,7 @@ static void get_surf_rq_param(
- 		display_data_rq_sizing_params_st *rq_sizing_param,
- 		display_data_rq_dlg_params_st *rq_dlg_param,
- 		display_data_rq_misc_params_st *rq_misc_param,
--		const display_pipe_params_st pipe_param,
-+		const display_pipe_params_st *pipe_param,
- 		bool is_chroma)
- {
- 	bool mode_422 = false;
-@@ -706,30 +706,30 @@ static void get_surf_rq_param(
- 
- 	// FIXME check if ppe apply for both luma and chroma in 422 case
- 	if (is_chroma) {
--		vp_width = pipe_param.src.viewport_width_c / ppe;
--		vp_height = pipe_param.src.viewport_height_c;
--		data_pitch = pipe_param.src.data_pitch_c;
--		meta_pitch = pipe_param.src.meta_pitch_c;
-+		vp_width = pipe_param->src.viewport_width_c / ppe;
-+		vp_height = pipe_param->src.viewport_height_c;
-+		data_pitch = pipe_param->src.data_pitch_c;
-+		meta_pitch = pipe_param->src.meta_pitch_c;
- 	} else {
--		vp_width = pipe_param.src.viewport_width / ppe;
--		vp_height = pipe_param.src.viewport_height;
--		data_pitch = pipe_param.src.data_pitch;
--		meta_pitch = pipe_param.src.meta_pitch;
-+		vp_width = pipe_param->src.viewport_width / ppe;
-+		vp_height = pipe_param->src.viewport_height;
-+		data_pitch = pipe_param->src.data_pitch;
-+		meta_pitch = pipe_param->src.meta_pitch;
+ 	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 6da5020a8656..e0275ebe1198 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5695,8 +5695,8 @@ static int mem_cgroup_move_account(struct page *page,
+  *   2(MC_TARGET_SWAP): if the swap entry corresponding to this pte is a
+  *     target for charge migration. if @target is not NULL, the entry is stored
+  *     in target->ent.
+- *   3(MC_TARGET_DEVICE): like MC_TARGET_PAGE  but page is MEMORY_DEVICE_PRIVATE
+- *     (so ZONE_DEVICE page and thus not on the lru).
++ *   3(MC_TARGET_DEVICE): like MC_TARGET_PAGE  but page is MEMORY_DEVICE_COHERENT
++ *     or MEMORY_DEVICE_PRIVATE (so ZONE_DEVICE page and thus not on the lru).
+  *     For now we such page is charge like a regular page would be as for all
+  *     intent and purposes it is just special memory taking the place of a
+  *     regular page.
+@@ -5730,7 +5730,7 @@ static enum mc_target_type get_mctgt_type(struct vm_area_struct *vma,
+ 		 */
+ 		if (page_memcg(page) == mc.from) {
+ 			ret = MC_TARGET_PAGE;
+-			if (is_device_private_page(page))
++			if (is_device_page(page))
+ 				ret = MC_TARGET_DEVICE;
+ 			if (target)
+ 				target->page = page;
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index 3e6449f2102a..51b55fc5172c 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1554,12 +1554,16 @@ static int memory_failure_dev_pagemap(unsigned long pfn, int flags,
+ 		goto unlock;
  	}
  
--	if (pipe_param.dest.odm_combine) {
-+	if (pipe_param->dest.odm_combine) {
- 		unsigned int access_dir;
- 		unsigned int full_src_vp_width;
- 		unsigned int hactive_half;
- 		unsigned int src_hactive_half;
--		access_dir = (pipe_param.src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
--		hactive_half  = pipe_param.dest.hactive / 2;
-+		access_dir = (pipe_param->src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
-+		hactive_half  = pipe_param->dest.hactive / 2;
- 		if (is_chroma) {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio_c * pipe_param.dest.full_recout_width;
--			src_hactive_half  = pipe_param.scale_ratio_depth.hscl_ratio_c * hactive_half;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio_c * pipe_param->dest.full_recout_width;
-+			src_hactive_half  = pipe_param->scale_ratio_depth.hscl_ratio_c * hactive_half;
+-	if (pgmap->type == MEMORY_DEVICE_PRIVATE) {
++	switch (pgmap->type) {
++	case MEMORY_DEVICE_PRIVATE:
++	case MEMORY_DEVICE_COHERENT:
+ 		/*
+ 		 * TODO: Handle HMM pages which may need coordination
+ 		 * with device-side memory.
+ 		 */
+ 		goto unlock;
++	default:
++		break;
+ 	}
+ 
+ 	/*
+diff --git a/mm/memremap.c b/mm/memremap.c
+index ed593bf87109..94d6a1e01d42 100644
+--- a/mm/memremap.c
++++ b/mm/memremap.c
+@@ -44,6 +44,7 @@ EXPORT_SYMBOL(devmap_managed_key);
+ static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
+ {
+ 	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
++	    pgmap->type == MEMORY_DEVICE_COHERENT ||
+ 	    pgmap->type == MEMORY_DEVICE_FS_DAX)
+ 		static_branch_dec(&devmap_managed_key);
+ }
+@@ -51,6 +52,7 @@ static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
+ static void devmap_managed_enable_get(struct dev_pagemap *pgmap)
+ {
+ 	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
++	    pgmap->type == MEMORY_DEVICE_COHERENT ||
+ 	    pgmap->type == MEMORY_DEVICE_FS_DAX)
+ 		static_branch_inc(&devmap_managed_key);
+ }
+@@ -328,6 +330,7 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
+ 
+ 	switch (pgmap->type) {
+ 	case MEMORY_DEVICE_PRIVATE:
++	case MEMORY_DEVICE_COHERENT:
+ 		if (!IS_ENABLED(CONFIG_DEVICE_PRIVATE)) {
+ 			WARN(1, "Device private memory not supported\n");
+ 			return ERR_PTR(-EINVAL);
+@@ -498,7 +501,7 @@ EXPORT_SYMBOL_GPL(get_dev_pagemap);
+ void free_devmap_managed_page(struct page *page)
+ {
+ 	/* notify page idle for dax */
+-	if (!is_device_private_page(page)) {
++	if (!is_device_page(page)) {
+ 		wake_up_var(&page->_refcount);
+ 		return;
+ 	}
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 1852d787e6ab..f74422a42192 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -362,7 +362,7 @@ static int expected_page_refs(struct address_space *mapping, struct page *page)
+ 	 * Device private pages have an extra refcount as they are
+ 	 * ZONE_DEVICE pages.
+ 	 */
+-	expected_count += is_device_private_page(page);
++	expected_count += is_device_page(page);
+ 	if (mapping)
+ 		expected_count += thp_nr_pages(page) + page_has_private(page);
+ 
+@@ -2503,7 +2503,7 @@ static bool migrate_vma_check_page(struct page *page)
+ 		 * FIXME proper solution is to rework migration_entry_wait() so
+ 		 * it does not need to take a reference on page.
+ 		 */
+-		return is_device_private_page(page);
++		return is_device_page(page);
+ 	}
+ 
+ 	/* For file back page */
+@@ -2791,7 +2791,7 @@ EXPORT_SYMBOL(migrate_vma_setup);
+  *     handle_pte_fault()
+  *       do_anonymous_page()
+  * to map in an anonymous zero page but the struct page will be a ZONE_DEVICE
+- * private page.
++ * private or coherent page.
+  */
+ static void migrate_vma_insert_page(struct migrate_vma *migrate,
+ 				    unsigned long addr,
+@@ -2867,10 +2867,15 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
+ 				swp_entry = make_readable_device_private_entry(
+ 							page_to_pfn(page));
+ 			entry = swp_entry_to_pte(swp_entry);
++		} else if (is_device_page(page)) {
++			entry = pte_mkold(mk_pte(page,
++						 READ_ONCE(vma->vm_page_prot)));
++			if (vma->vm_flags & VM_WRITE)
++				entry = pte_mkwrite(pte_mkdirty(entry));
  		} else {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio * pipe_param.dest.full_recout_width;
--			src_hactive_half  = pipe_param.scale_ratio_depth.hscl_ratio * hactive_half;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio * pipe_param->dest.full_recout_width;
-+			src_hactive_half  = pipe_param->scale_ratio_depth.hscl_ratio * hactive_half;
- 		}
+ 			/*
+-			 * For now we only support migrating to un-addressable
+-			 * device memory.
++			 * We support migrating to private and coherent types
++			 * for device zone memory.
+ 			 */
+ 			pr_warn_once("Unsupported ZONE_DEVICE page type.\n");
+ 			goto abort;
+@@ -2976,10 +2981,10 @@ void migrate_vma_pages(struct migrate_vma *migrate)
+ 		mapping = page_mapping(page);
  
- 		if (access_dir == 0) {
-@@ -754,7 +754,7 @@ static void get_surf_rq_param(
- 	rq_sizing_param->meta_chunk_bytes = 2048;
- 	rq_sizing_param->min_meta_chunk_bytes = 256;
- 
--	if (pipe_param.src.hostvm)
-+	if (pipe_param->src.hostvm)
- 		rq_sizing_param->mpte_group_bytes = 512;
- 	else
- 		rq_sizing_param->mpte_group_bytes = 2048;
-@@ -768,23 +768,23 @@ static void get_surf_rq_param(
- 			vp_height,
- 			data_pitch,
- 			meta_pitch,
--			pipe_param.src.source_format,
--			pipe_param.src.sw_mode,
--			pipe_param.src.macro_tile_size,
--			pipe_param.src.source_scan,
--			pipe_param.src.hostvm,
-+			pipe_param->src.source_format,
-+			pipe_param->src.sw_mode,
-+			pipe_param->src.macro_tile_size,
-+			pipe_param->src.source_scan,
-+			pipe_param->src.hostvm,
- 			is_chroma);
- }
- 
- static void dml_rq_dlg_get_rq_params(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_params_st *rq_param,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
- {
- 	// get param for luma surface
--	rq_param->yuv420 = pipe_param.src.source_format == dm_420_8
--			|| pipe_param.src.source_format == dm_420_10;
--	rq_param->yuv420_10bpc = pipe_param.src.source_format == dm_420_10;
-+	rq_param->yuv420 = pipe_param->src.source_format == dm_420_8
-+			|| pipe_param->src.source_format == dm_420_10;
-+	rq_param->yuv420_10bpc = pipe_param->src.source_format == dm_420_10;
- 
- 	get_surf_rq_param(
- 			mode_lib,
-@@ -794,7 +794,7 @@ static void dml_rq_dlg_get_rq_params(
- 			pipe_param,
- 			0);
- 
--	if (is_dual_plane((enum source_format_class) (pipe_param.src.source_format))) {
-+	if (is_dual_plane((enum source_format_class) (pipe_param->src.source_format))) {
- 		// get param for chroma surface
- 		get_surf_rq_param(
- 				mode_lib,
-@@ -806,14 +806,14 @@ static void dml_rq_dlg_get_rq_params(
- 	}
- 
- 	// calculate how to split the det buffer space between luma and chroma
--	handle_det_buf_split(mode_lib, rq_param, pipe_param.src);
-+	handle_det_buf_split(mode_lib, rq_param, pipe_param->src);
- 	print__rq_params_st(mode_lib, *rq_param);
- }
- 
- void dml21_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param)
-+		const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = {0};
- 
-@@ -1658,7 +1658,7 @@ void dml21_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-@@ -1696,7 +1696,7 @@ void dml21_rq_dlg_get_dlg_reg(
- 	// system parameter calculation done
- 
- 	dml_print("DML_DLG: Calculation for pipe[%d] start\n\n", pipe_idx);
--	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, e2e_pipe_param[pipe_idx].pipe);
-+	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, &e2e_pipe_param[pipe_idx].pipe);
- 	dml_rq_dlg_get_dlg_params(
- 			mode_lib,
- 			e2e_pipe_param,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
-index e8f7785e3fc63..af6ad0ca9cf8a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.h
-@@ -44,7 +44,7 @@ struct display_mode_lib;
- void dml21_rq_dlg_get_rq_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- // Function: dml_rq_dlg_get_dlg_reg
- //   Calculate and return DLG and TTU register struct given the system setting
-@@ -61,7 +61,7 @@ void dml21_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-index 0d934fae1c3a6..2120e0941a095 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-@@ -747,7 +747,7 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 	display_data_rq_sizing_params_st *rq_sizing_param,
- 	display_data_rq_dlg_params_st *rq_dlg_param,
- 	display_data_rq_misc_params_st *rq_misc_param,
--	const display_pipe_params_st pipe_param,
-+	const display_pipe_params_st *pipe_param,
- 	bool is_chroma,
- 	bool is_alpha)
- {
-@@ -761,32 +761,32 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 
- 	// FIXME check if ppe apply for both luma and chroma in 422 case
- 	if (is_chroma | is_alpha) {
--		vp_width = pipe_param.src.viewport_width_c / ppe;
--		vp_height = pipe_param.src.viewport_height_c;
--		data_pitch = pipe_param.src.data_pitch_c;
--		meta_pitch = pipe_param.src.meta_pitch_c;
--		surface_height = pipe_param.src.surface_height_y / 2.0;
-+		vp_width = pipe_param->src.viewport_width_c / ppe;
-+		vp_height = pipe_param->src.viewport_height_c;
-+		data_pitch = pipe_param->src.data_pitch_c;
-+		meta_pitch = pipe_param->src.meta_pitch_c;
-+		surface_height = pipe_param->src.surface_height_y / 2.0;
- 	} else {
--		vp_width = pipe_param.src.viewport_width / ppe;
--		vp_height = pipe_param.src.viewport_height;
--		data_pitch = pipe_param.src.data_pitch;
--		meta_pitch = pipe_param.src.meta_pitch;
--		surface_height = pipe_param.src.surface_height_y;
-+		vp_width = pipe_param->src.viewport_width / ppe;
-+		vp_height = pipe_param->src.viewport_height;
-+		data_pitch = pipe_param->src.data_pitch;
-+		meta_pitch = pipe_param->src.meta_pitch;
-+		surface_height = pipe_param->src.surface_height_y;
- 	}
- 
--	if (pipe_param.dest.odm_combine) {
-+	if (pipe_param->dest.odm_combine) {
- 		unsigned int access_dir = 0;
- 		unsigned int full_src_vp_width = 0;
- 		unsigned int hactive_odm = 0;
- 		unsigned int src_hactive_odm = 0;
--		access_dir = (pipe_param.src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
--		hactive_odm  = pipe_param.dest.hactive / ((unsigned int)pipe_param.dest.odm_combine*2);
-+		access_dir = (pipe_param->src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
-+		hactive_odm  = pipe_param->dest.hactive / ((unsigned int) pipe_param->dest.odm_combine*2);
- 		if (is_chroma) {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio_c * pipe_param.dest.full_recout_width;
--			src_hactive_odm  = pipe_param.scale_ratio_depth.hscl_ratio_c * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio_c * pipe_param->dest.full_recout_width;
-+			src_hactive_odm  = pipe_param->scale_ratio_depth.hscl_ratio_c * hactive_odm;
- 		} else {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio * pipe_param.dest.full_recout_width;
--			src_hactive_odm  = pipe_param.scale_ratio_depth.hscl_ratio * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio * pipe_param->dest.full_recout_width;
-+			src_hactive_odm  = pipe_param->scale_ratio_depth.hscl_ratio * hactive_odm;
- 		}
- 
- 		if (access_dir == 0) {
-@@ -815,7 +815,7 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 	rq_sizing_param->meta_chunk_bytes = 2048;
- 	rq_sizing_param->min_meta_chunk_bytes = 256;
- 
--	if (pipe_param.src.hostvm)
-+	if (pipe_param->src.hostvm)
- 		rq_sizing_param->mpte_group_bytes = 512;
- 	else
- 		rq_sizing_param->mpte_group_bytes = 2048;
-@@ -828,28 +828,28 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
- 		vp_height,
- 		data_pitch,
- 		meta_pitch,
--		pipe_param.src.source_format,
--		pipe_param.src.sw_mode,
--		pipe_param.src.macro_tile_size,
--		pipe_param.src.source_scan,
--		pipe_param.src.hostvm,
-+		pipe_param->src.source_format,
-+		pipe_param->src.sw_mode,
-+		pipe_param->src.macro_tile_size,
-+		pipe_param->src.source_scan,
-+		pipe_param->src.hostvm,
- 		is_chroma,
- 		surface_height);
- }
- 
- static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 	display_rq_params_st *rq_param,
--	const display_pipe_params_st pipe_param)
-+	const display_pipe_params_st *pipe_param)
- {
- 	// get param for luma surface
--	rq_param->yuv420 = pipe_param.src.source_format == dm_420_8
--	|| pipe_param.src.source_format == dm_420_10
--	|| pipe_param.src.source_format == dm_rgbe_alpha
--	|| pipe_param.src.source_format == dm_420_12;
-+	rq_param->yuv420 = pipe_param->src.source_format == dm_420_8
-+	|| pipe_param->src.source_format == dm_420_10
-+	|| pipe_param->src.source_format == dm_rgbe_alpha
-+	|| pipe_param->src.source_format == dm_420_12;
- 
--	rq_param->yuv420_10bpc = pipe_param.src.source_format == dm_420_10;
-+	rq_param->yuv420_10bpc = pipe_param->src.source_format == dm_420_10;
- 
--	rq_param->rgbe_alpha = (pipe_param.src.source_format == dm_rgbe_alpha)?1:0;
-+	rq_param->rgbe_alpha = (pipe_param->src.source_format == dm_rgbe_alpha)?1:0;
- 
- 	get_surf_rq_param(mode_lib,
- 		&(rq_param->sizing.rq_l),
-@@ -859,7 +859,7 @@ static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 		0,
- 		0);
- 
--	if (is_dual_plane((enum source_format_class)(pipe_param.src.source_format))) {
-+	if (is_dual_plane((enum source_format_class)(pipe_param->src.source_format))) {
- 		// get param for chroma surface
- 		get_surf_rq_param(mode_lib,
- 			&(rq_param->sizing.rq_c),
-@@ -871,13 +871,13 @@ static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib,
- 	}
- 
- 	// calculate how to split the det buffer space between luma and chroma
--	handle_det_buf_split(mode_lib, rq_param, pipe_param.src);
-+	handle_det_buf_split(mode_lib, rq_param, pipe_param->src);
- 	print__rq_params_st(mode_lib, *rq_param);
- }
- 
- void dml30_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 	display_rq_regs_st *rq_regs,
--	const display_pipe_params_st pipe_param)
-+	const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = { 0 };
- 
-@@ -1831,7 +1831,7 @@ static void dml_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
- void dml30_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 	display_dlg_regs_st *dlg_regs,
- 	display_ttu_regs_st *ttu_regs,
--	display_e2e_pipe_params_st *e2e_pipe_param,
-+	const display_e2e_pipe_params_st *e2e_pipe_param,
- 	const unsigned int num_pipes,
- 	const unsigned int pipe_idx,
- 	const bool cstate_en,
-@@ -1866,7 +1866,7 @@ void dml30_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
- 	// system parameter calculation done
- 
- 	dml_print("DML_DLG: Calculation for pipe[%d] start\n\n", pipe_idx);
--	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, e2e_pipe_param[pipe_idx].pipe);
-+	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, &e2e_pipe_param[pipe_idx].pipe);
- 	dml_rq_dlg_get_dlg_params(mode_lib,
- 		e2e_pipe_param,
- 		num_pipes,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-index c04965cceff35..625e41f8d5751 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-@@ -41,7 +41,7 @@ struct display_mode_lib;
- //            See also: <display_rq_regs_st>
- void dml30_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- // Function: dml_rq_dlg_get_dlg_reg
- //   Calculate and return DLG and TTU register struct given the system setting
-@@ -57,7 +57,7 @@ void dml30_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- void dml30_rq_dlg_get_dlg_reg(struct display_mode_lib             *mode_lib,
- 		display_dlg_regs_st          *dlg_regs,
- 		display_ttu_regs_st          *ttu_regs,
--		display_e2e_pipe_params_st   *e2e_pipe_param,
-+		const display_e2e_pipe_params_st   *e2e_pipe_param,
- 		const unsigned int            num_pipes,
- 		const unsigned int            pipe_idx,
- 		const bool                    cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-index c23905bc733ae..57bd4e3f8a823 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-@@ -738,7 +738,7 @@ static void get_surf_rq_param(
- 		display_data_rq_sizing_params_st *rq_sizing_param,
- 		display_data_rq_dlg_params_st *rq_dlg_param,
- 		display_data_rq_misc_params_st *rq_misc_param,
--		const display_pipe_params_st pipe_param,
-+		const display_pipe_params_st *pipe_param,
- 		bool is_chroma,
- 		bool is_alpha)
- {
-@@ -752,33 +752,33 @@ static void get_surf_rq_param(
- 
- 	// FIXME check if ppe apply for both luma and chroma in 422 case
- 	if (is_chroma | is_alpha) {
--		vp_width = pipe_param.src.viewport_width_c / ppe;
--		vp_height = pipe_param.src.viewport_height_c;
--		data_pitch = pipe_param.src.data_pitch_c;
--		meta_pitch = pipe_param.src.meta_pitch_c;
--		surface_height = pipe_param.src.surface_height_y / 2.0;
-+		vp_width = pipe_param->src.viewport_width_c / ppe;
-+		vp_height = pipe_param->src.viewport_height_c;
-+		data_pitch = pipe_param->src.data_pitch_c;
-+		meta_pitch = pipe_param->src.meta_pitch_c;
-+		surface_height = pipe_param->src.surface_height_y / 2.0;
- 	} else {
--		vp_width = pipe_param.src.viewport_width / ppe;
--		vp_height = pipe_param.src.viewport_height;
--		data_pitch = pipe_param.src.data_pitch;
--		meta_pitch = pipe_param.src.meta_pitch;
--		surface_height = pipe_param.src.surface_height_y;
-+		vp_width = pipe_param->src.viewport_width / ppe;
-+		vp_height = pipe_param->src.viewport_height;
-+		data_pitch = pipe_param->src.data_pitch;
-+		meta_pitch = pipe_param->src.meta_pitch;
-+		surface_height = pipe_param->src.surface_height_y;
- 	}
- 
--	if (pipe_param.dest.odm_combine) {
-+	if (pipe_param->dest.odm_combine) {
- 		unsigned int access_dir;
- 		unsigned int full_src_vp_width;
- 		unsigned int hactive_odm;
- 		unsigned int src_hactive_odm;
- 
--		access_dir = (pipe_param.src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
--		hactive_odm = pipe_param.dest.hactive / ((unsigned int) pipe_param.dest.odm_combine * 2);
-+		access_dir = (pipe_param->src.source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
-+		hactive_odm = pipe_param->dest.hactive / ((unsigned int) pipe_param->dest.odm_combine * 2);
- 		if (is_chroma) {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio_c * pipe_param.dest.full_recout_width;
--			src_hactive_odm = pipe_param.scale_ratio_depth.hscl_ratio_c * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio_c * pipe_param->dest.full_recout_width;
-+			src_hactive_odm = pipe_param->scale_ratio_depth.hscl_ratio_c * hactive_odm;
- 		} else {
--			full_src_vp_width = pipe_param.scale_ratio_depth.hscl_ratio * pipe_param.dest.full_recout_width;
--			src_hactive_odm = pipe_param.scale_ratio_depth.hscl_ratio * hactive_odm;
-+			full_src_vp_width = pipe_param->scale_ratio_depth.hscl_ratio * pipe_param->dest.full_recout_width;
-+			src_hactive_odm = pipe_param->scale_ratio_depth.hscl_ratio * hactive_odm;
- 		}
- 
- 		if (access_dir == 0) {
-@@ -808,7 +808,7 @@ static void get_surf_rq_param(
- 	rq_sizing_param->meta_chunk_bytes = 2048;
- 	rq_sizing_param->min_meta_chunk_bytes = 256;
- 
--	if (pipe_param.src.hostvm)
-+	if (pipe_param->src.hostvm)
- 		rq_sizing_param->mpte_group_bytes = 512;
- 	else
- 		rq_sizing_param->mpte_group_bytes = 2048;
-@@ -822,38 +822,38 @@ static void get_surf_rq_param(
- 			vp_height,
- 			data_pitch,
- 			meta_pitch,
--			pipe_param.src.source_format,
--			pipe_param.src.sw_mode,
--			pipe_param.src.macro_tile_size,
--			pipe_param.src.source_scan,
--			pipe_param.src.hostvm,
-+			pipe_param->src.source_format,
-+			pipe_param->src.sw_mode,
-+			pipe_param->src.macro_tile_size,
-+			pipe_param->src.source_scan,
-+			pipe_param->src.hostvm,
- 			is_chroma,
- 			surface_height);
- }
- 
--static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib, display_rq_params_st *rq_param, const display_pipe_params_st pipe_param)
-+static void dml_rq_dlg_get_rq_params(struct display_mode_lib *mode_lib, display_rq_params_st *rq_param, const display_pipe_params_st *pipe_param)
- {
- 	// get param for luma surface
--	rq_param->yuv420 = pipe_param.src.source_format == dm_420_8 || pipe_param.src.source_format == dm_420_10 || pipe_param.src.source_format == dm_rgbe_alpha
--			|| pipe_param.src.source_format == dm_420_12;
-+	rq_param->yuv420 = pipe_param->src.source_format == dm_420_8 || pipe_param->src.source_format == dm_420_10 || pipe_param->src.source_format == dm_rgbe_alpha
-+			|| pipe_param->src.source_format == dm_420_12;
- 
--	rq_param->yuv420_10bpc = pipe_param.src.source_format == dm_420_10;
-+	rq_param->yuv420_10bpc = pipe_param->src.source_format == dm_420_10;
- 
--	rq_param->rgbe_alpha = (pipe_param.src.source_format == dm_rgbe_alpha) ? 1 : 0;
-+	rq_param->rgbe_alpha = (pipe_param->src.source_format == dm_rgbe_alpha) ? 1 : 0;
- 
- 	get_surf_rq_param(mode_lib, &(rq_param->sizing.rq_l), &(rq_param->dlg.rq_l), &(rq_param->misc.rq_l), pipe_param, 0, 0);
- 
--	if (is_dual_plane((enum source_format_class) (pipe_param.src.source_format))) {
-+	if (is_dual_plane((enum source_format_class) (pipe_param->src.source_format))) {
- 		// get param for chroma surface
- 		get_surf_rq_param(mode_lib, &(rq_param->sizing.rq_c), &(rq_param->dlg.rq_c), &(rq_param->misc.rq_c), pipe_param, 1, rq_param->rgbe_alpha);
- 	}
- 
- 	// calculate how to split the det buffer space between luma and chroma
--	handle_det_buf_split(mode_lib, rq_param, pipe_param.src);
-+	handle_det_buf_split(mode_lib, rq_param, pipe_param->src);
- 	print__rq_params_st(mode_lib, *rq_param);
- }
- 
--void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib, display_rq_regs_st *rq_regs, const display_pipe_params_st pipe_param)
-+void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib, display_rq_regs_st *rq_regs, const display_pipe_params_st *pipe_param)
- {
- 	display_rq_params_st rq_param = {0};
- 
-@@ -1677,7 +1677,7 @@ void dml31_rq_dlg_get_dlg_reg(
- 		struct display_mode_lib *mode_lib,
- 		display_dlg_regs_st *dlg_regs,
- 		display_ttu_regs_st *ttu_regs,
--		display_e2e_pipe_params_st *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int num_pipes,
- 		const unsigned int pipe_idx,
- 		const bool cstate_en,
-@@ -1704,7 +1704,7 @@ void dml31_rq_dlg_get_dlg_reg(
- 	// system parameter calculation done
- 
- 	dml_print("DML_DLG: Calculation for pipe[%d] start\n\n", pipe_idx);
--	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, e2e_pipe_param[pipe_idx].pipe);
-+	dml_rq_dlg_get_rq_params(mode_lib, &rq_param, &e2e_pipe_param[pipe_idx].pipe);
- 	dml_rq_dlg_get_dlg_params(
- 			mode_lib,
- 			e2e_pipe_param,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
-index adf8518f761f9..8ee991351699d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.h
-@@ -41,7 +41,7 @@ struct display_mode_lib;
- //            See also: <display_rq_regs_st>
- void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 
- // Function: dml_rq_dlg_get_dlg_reg
- //   Calculate and return DLG and TTU register struct given the system setting
-@@ -57,7 +57,7 @@ void dml31_rq_dlg_get_rq_reg(struct display_mode_lib *mode_lib,
- void dml31_rq_dlg_get_dlg_reg(struct display_mode_lib             *mode_lib,
- 		display_dlg_regs_st          *dlg_regs,
- 		display_ttu_regs_st          *ttu_regs,
--		display_e2e_pipe_params_st   *e2e_pipe_param,
-+		const display_e2e_pipe_params_st *e2e_pipe_param,
- 		const unsigned int            num_pipes,
- 		const unsigned int            pipe_idx,
- 		const bool                    cstate_en,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
-index d42a0aeca6be2..72b1957022aa2 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
-@@ -49,7 +49,7 @@ struct dml_funcs {
- 			struct display_mode_lib *mode_lib,
- 			display_dlg_regs_st *dlg_regs,
- 			display_ttu_regs_st *ttu_regs,
--			display_e2e_pipe_params_st *e2e_pipe_param,
-+			const display_e2e_pipe_params_st *e2e_pipe_param,
- 			const unsigned int num_pipes,
- 			const unsigned int pipe_idx,
- 			const bool cstate_en,
-@@ -60,7 +60,7 @@ struct dml_funcs {
- 	void (*rq_dlg_get_rq_reg)(
- 		struct display_mode_lib *mode_lib,
- 		display_rq_regs_st *rq_regs,
--		const display_pipe_params_st pipe_param);
-+		const display_pipe_params_st *pipe_param);
- 	void (*recalculate)(struct display_mode_lib *mode_lib);
- 	void (*validate)(struct display_mode_lib *mode_lib);
- };
+ 		if (is_zone_device_page(newpage)) {
+-			if (is_device_private_page(newpage)) {
++			if (is_device_page(newpage)) {
+ 				/*
+-				 * For now only support private anonymous when
+-				 * migrating to un-addressable device memory.
++				 * For now only support private and coherent
++				 * anonymous when migrating to device memory.
+ 				 */
+ 				if (mapping) {
+ 					migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
 -- 
-2.33.0
-
-
+2.32.0
 
