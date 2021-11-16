@@ -2,76 +2,99 @@ Return-Path: <SRS0=wnxc=QD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2B6FC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D764C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 10:30:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 796EA61B27
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:19:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 796EA61B27
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id CB60663219
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 10:30:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CB60663219
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D29A96EE9B;
-	Tue, 16 Nov 2021 09:19:45 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 526FB6EE98;
- Tue, 16 Nov 2021 09:19:44 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id a9so9975962wrr.8;
- Tue, 16 Nov 2021 01:19:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=ZZ5qtct0gReM0veqtvP3uHFmenhhHdLVzBUtdLlNxJU=;
- b=FPNECisJWg97qsX6YuqXQNB6Sue6Q8Q39s5qXnIUbI3Eja1cgj9hQ43mt0XcwT84RZ
- /XyY55pV1CR2TGsc7y4hn/dQBfKRLT65HHQC1Xz4ivHmhciGyubG+03hAhL1mQbnsiPz
- cfT438ohx21BUz+300sEHdxvuHf2mpZDXb1thNNXEWP/5nvL/pLLlOsTmeQDlIiFyYnJ
- WWdjSFnyQn5k2kbH9cVRijX98C1mYbS8Ezbdpwhf/mH7uE5/Yjm96SUeXtFDpaG07gTp
- qZpSwAWJaumC4IbF9oJiCg8BH5ldgeSDLWVPRixnAUnVcb8+S1FGwoFqN1raXLkQ0SQl
- q3fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=ZZ5qtct0gReM0veqtvP3uHFmenhhHdLVzBUtdLlNxJU=;
- b=M1RMBN3hIhH/wZIRgZjPtgCSNy8QpKeD1vQCfUVvznBfqj/tt3lnPQjEmVeTGcxdwG
- 5J7IF3BTb1ZcchAZ5WI0exITiitRo3t+/Iji/uJVTkq4Yl6APiQwh2yTnduytQ23Z0Rf
- kGhZh7JHlve+JyGLg+8hj6OZidsLJjzOv4fqLn8O0kjfkkRinXu3xpPMrEalgYyCqsu9
- 1URvEDpcFtLEx2YsLyrAqu5Y6S+eQLiZyYrngpxHhIbzW08pr4sv29TtjyQRl3rLABq/
- 0hY8RjmV3M6pXDcqVMJE0WolfSJk1wTIImO9SostGYLvsQtTTRvY6zZOVw6Qj6hw+6Ks
- VbDw==
-X-Gm-Message-State: AOAM532lQdWbVPjKdeRFucYbA+3v0vH5+ZiW/fUvXm2wB1xRiDLTbFjR
- V6QbuAK9Osc4yyUhzvMuPGw=
-X-Google-Smtp-Source: ABdhPJzsTNyvDWu3WC/2tAllTUTwz9jBCO6xvduzfNLLfGl+N3dtMqB+QzCsR0uBvvu5/P1TswIDKw==
-X-Received: by 2002:adf:f787:: with SMTP id q7mr7461935wrp.1.1637054382983;
- Tue, 16 Nov 2021 01:19:42 -0800 (PST)
-Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
- [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id i15sm2043189wmq.18.2021.11.16.01.19.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Nov 2021 01:19:42 -0800 (PST)
-Subject: Re: [PATCH] drm/amd/display: cleanup the code a bit
-To: Bernard Zhao <bernard@vivo.com>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20211116013438.26517-1-bernard@vivo.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <88328288-ef1f-ef8b-987f-43dc8dc69ee7@gmail.com>
-Date: Tue, 16 Nov 2021 10:19:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 383786EE52;
+	Tue, 16 Nov 2021 10:30:03 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3F726EE29
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 10:30:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=U6aaVhFVU+KZpy6zjhCqcebkQ3q18HP9bzFzH8y1xLMDFISn10Xj7jEwfyFPXFQLKccN5hn6rVenIEsmxK0DqdESRQM+ZldhFOoketyr2gQJaHMyu5sDbH5a0zPFQ647mHfIDqKW0MegqvhgUbg9C/dIuk+9Dc6Na6J/Nu5bzBAfd89bLeZyDYctk+4W/QrXUHQt1+a/vX7eGfnvmRIhLBE0tpJYbsyDxqpJ4GBMwhAP76LUk3MiaBDESKxCdgXKB+7HzG8zHCe3cFqcCOT1R2o5VL5Nym6AkFU+TOsdD2ID4ehYb2Gc8Gpk4iUuBSLz1HoYlEpxM4RQoSOYJ+K51w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aKbBoSh4K8S0Zl7ozDCVC8HQmjKzODd/zl7Q5BURJlI=;
+ b=FDYr9UiJWo4JUjJYAHb3zAA+GLa1CGGbnGSkDNAiZnmeH1pkMOxsSonoIvZ/pU24lCYi3rWkPzYeDu6elU8oTzyWJfu9jfoBFaZ0BDiSYWU7e20gFFKSyWemKsWLVf3pPT6OH93fT9hXTGcQQbBTI4z2XchMoUxNMPZfntz6nsFNZ14KAksaE0CQB9By3RdPKRHbdFFSJokoO5BXsERNeGg4T2fTXaJUd+J9Ycxmovrej0Q88QL7QUkA+EFdfTz8C3/SglqI/9OXzQUhUbBwFFY/35HToyE8fKQ8e2e5FHUzEuUELtMPrOsNerZGgA6oPoEW+avpTrf8Jrp38L/odQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aKbBoSh4K8S0Zl7ozDCVC8HQmjKzODd/zl7Q5BURJlI=;
+ b=Zd6awE5xUWUVYpmbt9hIVOfrrZuQM4uQQZiLJtqDZuCIz2if4wpa8hqvzFFhTtvXcFDseQSLZbHnBHEbA91UmDArW/9N1xjEU7+Zb7vrZpeMnUgk8hDb5swaW1uI1zOkNWdrK//YqCWgJOUGPs+wVjgk5gFuu1qbTZFqZwy/4g0=
+Received: from DM5PR06CA0084.namprd06.prod.outlook.com (2603:10b6:3:4::22) by
+ DM6PR12MB4186.namprd12.prod.outlook.com (2603:10b6:5:21b::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4690.26; Tue, 16 Nov 2021 10:29:58 +0000
+Received: from DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:4:cafe::ae) by DM5PR06CA0084.outlook.office365.com
+ (2603:10b6:3:4::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.17 via Frontend
+ Transport; Tue, 16 Nov 2021 10:29:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT051.mail.protection.outlook.com (10.13.172.243) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4690.15 via Frontend Transport; Tue, 16 Nov 2021 10:29:58 +0000
+Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 16 Nov
+ 2021 04:29:55 -0600
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
+ <john.clements@amd.com>, <stanley.yang@amd.com>, <equan@amd.com>,
+ <Lijo.Lazar@amd.com>, <KevinYang.Wang@amd.com>
+Subject: [PATCH] drm/amdgpu: support new mode-1 reset interface (v2)
+Date: Tue, 16 Nov 2021 18:28:55 +0800
+Message-ID: <20211116102855.3775-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20211116013438.26517-1-bernard@vivo.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a967026f-9f4d-4c8e-307d-08d9a8ec0a27
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4186:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB41862FDD4C3B587DBDCBC19DB0999@DM6PR12MB4186.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nbJ/4/EcQljlI09r/BFWExVPfYm3cjaCIJW/LGdGzg7T6ukughBzpijABxJIwPz0vMCmY6pBlfaYKWmCI5UgL4aqrEL7yo3QpTd7NQY93EkXsWKBzMRYYq0qOEJSxT4vXaojX3f1cRKsH7A6jwgkUlyy4U+wG7dDMA0LlkrnEKDgPQS3gnQyiU61sfrkm5Craf/MSpgFLfvaej1c3CB8cYi4Cf1ycjZ/LRI6BlXksEj6n4/pyNDCGYhWGRL5T11creeieIMQw5oc8Yo4lyDVzWLVVrTqoKtksWN/nxwTj038v3Q/pw3KcVdzRz+zsf7MRQU9XDb7koKd9Xtz6HWOTJYlFCgn8adAYofnA3bG0X3M53XE0uyrbnE2vK5Hq1rbvxY1A/LLBq/U4IXIbevltg4eaqjULB4ku/ZFFrjiIE3ibaK7JIO8MVLHP/KTN3HiXUFuvdGuJTJQ8/ddm1da+9wYpeZUzUABGbOiQ1IDq0l4q1azlz2ameNDnSjXafZRLUpHU0cpxYqbPP/CJQC/3K/XOwkHL7Xz3pKNgEfvSE4Pzp0uELCEFeyznhGMDQ3KeSGhspEFzY6mIdBKePzA5A6w0TG1R/Vd6aVNqybkMJsIk0yzd6HX55nCQu2QZK7SrQzz69qcnI495gVEPM2JmmeeNUeRx+KUwbmT5XtI4OAZS1gYMMeqjyYvPEu4trsLurORlFk4nJjzUzrr7ctTQ73ZvYxMJE2qpXQnY1cK8/Y=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(426003)(316002)(8676002)(2616005)(8936002)(83380400001)(508600001)(36756003)(26005)(70586007)(70206006)(1076003)(16526019)(356005)(86362001)(4326008)(186003)(7696005)(47076005)(6636002)(82310400003)(5660300002)(2906002)(36860700001)(336012)(110136005)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2021 10:29:58.4655 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a967026f-9f4d-4c8e-307d-08d9a8ec0a27
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4186
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,49 +106,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tao Zhou <tao.zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.11.21 um 02:34 schrieb Bernard Zhao:
-> In function dc_sink_destruct, kfree will check pointer, no need
-> to check again.
-> This change is to cleanup the code a bit.
->
-> Signed-off-by: Bernard Zhao <bernard@vivo.com>
+If gpu reset is triggered by ras fatal error, tell it to smu in mode-1
+reset message.
 
-This one and the other patch are Acked-by: Christian König 
-<christian.koenig@amd.com>
+v2: move mode-1 reset function to aldebaran_ppt.c since it's aldebaran
+specific currently.
 
-> ---
->   drivers/gpu/drm/amd/display/dc/core/dc_sink.c | 10 +---------
->   1 file changed, 1 insertion(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
-> index a249a0e5edd0..4b5e4d8e7735 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
-> @@ -33,14 +33,6 @@
->    * Private functions
->    ******************************************************************************/
->   
-> -static void dc_sink_destruct(struct dc_sink *sink)
-> -{
-> -	if (sink->dc_container_id) {
-> -		kfree(sink->dc_container_id);
-> -		sink->dc_container_id = NULL;
-> -	}
-> -}
-> -
->   static bool dc_sink_construct(struct dc_sink *sink, const struct dc_sink_init_data *init_params)
->   {
->   
-> @@ -75,7 +67,7 @@ void dc_sink_retain(struct dc_sink *sink)
->   static void dc_sink_free(struct kref *kref)
->   {
->   	struct dc_sink *sink = container_of(kref, struct dc_sink, refcount);
-> -	dc_sink_destruct(sink);
-> +	kfree(sink->dc_container_id);
->   	kfree(sink);
->   }
->   
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/pm/inc/smu_v13_0.h        |  3 +-
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 36 ++++++++++++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 21 -----------
+ 3 files changed, 37 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
+index e5d3b0d1a032..bbc608c990b0 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
+@@ -29,6 +29,8 @@
+ #define SMU13_DRIVER_IF_VERSION_YELLOW_CARP 0x04
+ #define SMU13_DRIVER_IF_VERSION_ALDE 0x07
+ 
++#define SMU13_MODE1_RESET_WAIT_TIME_IN_MS 500  //500ms
++
+ /* MP Apertures */
+ #define MP0_Public			0x03800000
+ #define MP0_SRAM			0x03900000
+@@ -216,7 +218,6 @@ int smu_v13_0_baco_set_state(struct smu_context *smu, enum smu_baco_state state)
+ int smu_v13_0_baco_enter(struct smu_context *smu);
+ int smu_v13_0_baco_exit(struct smu_context *smu);
+ 
+-int smu_v13_0_mode1_reset(struct smu_context *smu);
+ int smu_v13_0_mode2_reset(struct smu_context *smu);
+ 
+ int smu_v13_0_get_dpm_ultimate_freq(struct smu_context *smu, enum smu_clk_type clk_type,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 59a7d276541d..e50d4491aa96 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1765,6 +1765,40 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
+ 	return sizeof(struct gpu_metrics_v1_3);
+ }
+ 
++static int aldebaran_mode1_reset(struct smu_context *smu)
++{
++	u32 smu_version, fatal_err, param;
++	int ret = 0;
++	struct amdgpu_device *adev = smu->adev;
++	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
++
++	fatal_err = 0;
++	param = SMU_RESET_MODE_1;
++
++	/*
++	* PM FW support SMU_MSG_GfxDeviceDriverReset from 68.07
++	*/
++	smu_cmn_get_smc_version(smu, NULL, &smu_version);
++	if (smu_version < 0x00440700)
++		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_Mode1Reset, NULL);
++	else {
++		/* fatal error triggered by ras, PMFW supports the flag
++		   from 68.44.0 */
++		if ((smu_version >= 0x00442c00) && ras &&
++		    atomic_read(&ras->in_recovery))
++			fatal_err = 1;
++
++		param |= (fatal_err << 16);
++		ret = smu_cmn_send_smc_msg_with_param(smu,
++					SMU_MSG_GfxDeviceDriverReset, param, NULL);
++	}
++
++	if (!ret)
++		msleep(SMU13_MODE1_RESET_WAIT_TIME_IN_MS);
++
++	return ret;
++}
++
+ static int aldebaran_mode2_reset(struct smu_context *smu)
+ {
+ 	u32 smu_version;
+@@ -1925,7 +1959,7 @@ static const struct pptable_funcs aldebaran_ppt_funcs = {
+ 	.get_gpu_metrics = aldebaran_get_gpu_metrics,
+ 	.mode1_reset_is_support = aldebaran_is_mode1_reset_supported,
+ 	.mode2_reset_is_support = aldebaran_is_mode2_reset_supported,
+-	.mode1_reset = smu_v13_0_mode1_reset,
++	.mode1_reset = aldebaran_mode1_reset,
+ 	.set_mp1_state = aldebaran_set_mp1_state,
+ 	.mode2_reset = aldebaran_mode2_reset,
+ 	.wait_for_event = smu_v13_0_wait_for_event,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 35145db6eedf..4d96099a9bb1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -60,8 +60,6 @@ MODULE_FIRMWARE("amdgpu/aldebaran_smc.bin");
+ 
+ #define SMU13_VOLTAGE_SCALE 4
+ 
+-#define SMU13_MODE1_RESET_WAIT_TIME_IN_MS 500  //500ms
+-
+ #define LINK_WIDTH_MAX				6
+ #define LINK_SPEED_MAX				3
+ 
+@@ -1424,25 +1422,6 @@ int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu)
+ 	return ret;
+ }
+ 
+-int smu_v13_0_mode1_reset(struct smu_context *smu)
+-{
+-	u32 smu_version;
+-	int ret = 0;
+-	/*
+-	* PM FW support SMU_MSG_GfxDeviceDriverReset from 68.07
+-	*/
+-	smu_cmn_get_smc_version(smu, NULL, &smu_version);
+-	if (smu_version < 0x00440700)
+-		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_Mode1Reset, NULL);
+-	else
+-		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GfxDeviceDriverReset, SMU_RESET_MODE_1, NULL);
+-
+-	if (!ret)
+-		msleep(SMU13_MODE1_RESET_WAIT_TIME_IN_MS);
+-
+-	return ret;
+-}
+-
+ static int smu_v13_0_wait_for_reset_complete(struct smu_context *smu,
+ 					     uint64_t event_arg)
+ {
+-- 
+2.17.1
 
