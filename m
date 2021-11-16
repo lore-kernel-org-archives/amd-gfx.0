@@ -2,53 +2,73 @@ Return-Path: <SRS0=wnxc=QD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82414C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 13:33:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB714C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C83761B44
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 13:33:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C83761B44
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cavoj.net
+	by mail.kernel.org (Postfix) with ESMTPS id A0FBE63217
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A0FBE63217
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABC4C6ECA3;
-	Tue, 16 Nov 2021 13:33:29 +0000 (UTC)
-Received: from lithium.sammserver.com (lithium.sammserver.com
- [IPv6:2a01:4f8:c2c:b7df::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9FC0897F3;
- Tue, 16 Nov 2021 13:33:04 +0000 (UTC)
-Received: from mail.sammserver.com (sammserver.wg [10.32.40.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by lithium.sammserver.com (Postfix) with ESMTPS id AEBD13115D1B;
- Tue, 16 Nov 2021 14:33:00 +0100 (CET)
-Received: from fastboi.localdomain (fastboi.wg [10.32.40.5])
- by mail.sammserver.com (Postfix) with ESMTP id 3BF2E2534D;
- Tue, 16 Nov 2021 14:32:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cavoj.net; s=email;
- t=1637069580; bh=rsBoRUnLkAEXPVbzZQ/EmyVepqJ2ugaPXO0wds7juOs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pmqtAhN0PjzmJnp5Ads5EPwiG0Da0AWI9vRxkfs/9FYiwOjJ0cfLMr7sjnOxNX29y
- 0IFa/YtCuoowxkDtJc4CpvUosq3gThzCg4FFqlK1L0E1CWhczN4i16DSWn1VK62GgW
- uU9qp+WVFue/mJ4spMXpIRLzZKRBmqFX5vAPPWVQ=
-Received: by fastboi.localdomain (Postfix, from userid 1000)
- id 268DD1421378; Tue, 16 Nov 2021 14:32:59 +0100 (CET)
-Date: Tue, 16 Nov 2021 14:32:59 +0100
-From: Samuel =?utf-8?B?xIxhdm9q?= <samuel@cavoj.net>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: Backlight control broken on UM325 (OLED) on 5.15 (bisected)
-Message-ID: <20211116133259.svayrqaiivaubkjp@fastboi.localdomain>
-References: <20211114105657.b57pjojiv72iopg5@fastboi.localdomain>
- <CADnq5_NF++xE6Jj32Wy2ZGALo4pOGt3yTCoj5HU37tKO3Ce=Fg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C3AA6ECE9;
+	Tue, 16 Nov 2021 14:10:49 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAF7D6ECB9;
+ Tue, 16 Nov 2021 14:10:47 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id be32so42652946oib.11;
+ Tue, 16 Nov 2021 06:10:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=5HnVFJwWxg/ead1ggRoAcMkKVf7joaKRzX46q0j0YsM=;
+ b=Xv/csU2qOw/aioZ99vKZBzivV3PtgbiYJ8sW4xrGt8h7qQ3fK7UpGR0/FKWUlHoj7F
+ xgitvwDMRhKAE3bnJg+M/zBkSERNOWH7IcCFjrhPTnO9+iCPPfhBOauY4CATfNRElIfX
+ wVbfWcH4yODKiI9LmRtc5v7wtMVAZl95QlD7TBnusNepfkuOLTi+FwvZCm2dzXOFe8b3
+ TQGinioEjHT7KNs+QqsozcWvdtTnIR7LqQlm72kpD2S1uIi9c1Yz/pP5TUwn6nyLbHGh
+ Q9wAAkO4mpOvESn1o/M0dLdHScVEDIXw1krvS1Dz+hn+k745DYvdVfBVPWbH6jr1VkOT
+ kX/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=5HnVFJwWxg/ead1ggRoAcMkKVf7joaKRzX46q0j0YsM=;
+ b=Wy47MJdbzOlmaYU4+57lfxfolGRqrtdN6ze2+885VjT608i+cXnPuWLnUnwH6Tw9Ue
+ KyYOfMoxvYmQ/Uj0BbT77rrbYNA1klQP8EVFan/ZJ5sZ+suG+X5mIqFw9uOa+tuT9Ton
+ KqsYCCuBqRznAEgaGTOAwkJ7eoT9efhli3s5Dtk6YiCWIhh09sFw3ESl6rhlr9VNT2K7
+ flmNudnqtwpvrDZZeKaGKFZqOOnR/Sux1frOXE2wugFNC9dzb3H4U+hKWd+dyrR/ZsG9
+ iEd3LNCYzL1+CtOLg92u7vwXZQfV4ozYMO0pNrB8vsqkbD0AnLUoNJD0MsdN9WB7Il13
+ xVtQ==
+X-Gm-Message-State: AOAM5318t6Hnhu9bTRJjbRmawwep+e5Uj3c5NSW+I4v8X0B0jxQ5hFRy
+ /JNWx6laa5JzGKnbauT7IZuoPnMgTFb2HFEn7VU=
+X-Google-Smtp-Source: ABdhPJxAMFbgyc+VmrraCujRVBPJP8ul1wExNXToDQKBtrJGDTAPMG76wJ7uh5JRIJ7Tn5iq2mWCtehApChxVOfAGW0=
+X-Received: by 2002:a05:6808:300b:: with SMTP id
+ ay11mr5137841oib.120.1637071846981; 
+ Tue, 16 Nov 2021 06:10:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADnq5_NF++xE6Jj32Wy2ZGALo4pOGt3yTCoj5HU37tKO3Ce=Fg@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 16 Nov 2021 13:33:28 +0000
+References: <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
+ <58097218-40dd-55fd-32d2-2a299d39230f@daenzer.net>
+ <YZIA/dkvjuMsup24@lang-desktop>
+ <cadb9503-b390-e254-ffba-5e2e11f100cc@daenzer.net>
+ <YZIiqM6PKKL/ZMNy@lang-desktop>
+ <f1b88742-b07e-5973-1e30-9674a5950bf3@daenzer.net>
+ <YZJFHMEqm1oz7QJN@lang-desktop>
+ <e44a237c-0073-2eec-1a47-c5faf99f77b4@daenzer.net>
+ <YZMlGSA9iG3aVCUu@lang-desktop>
+ <391ee32e-f1b1-d92b-c9f3-17dbc0a9d690@gmail.com>
+ <YZNlE9bZSJmTvS6d@lang-desktop>
+ <52cc2823-35b3-0cb1-2119-82a3677e9b99@gmail.com>
+In-Reply-To: <52cc2823-35b3-0cb1-2119-82a3677e9b99@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 16 Nov 2021 09:10:35 -0500
+Message-ID: <CADnq5_Phwb-qDwtco+dm5n9Z2oveTpba=vxNLjD+geh9wRgFxg@mail.gmail.com>
+Subject: Re: Questions about KMS flip
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,55 +80,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Roman Li <Roman.Li@amd.com>,
+Cc: Michel DDDnzer <michel@daenzer.net>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>
+ Christian KKKnig <christian.koenig@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Lang Yu <Lang.Yu@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
-
-thank you for your response.
-
-On 15.11.2021 10:43, Alex Deucher wrote:
-> [...]
+On Tue, Nov 16, 2021 at 3:09 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> That patch adds support for systems with multiple backlights.  Do you
-> have multiple backlight devices now?  If so, does the other one work?
+> Am 16.11.21 um 09:00 schrieb Lang Yu:
+> > On Tue, Nov 16, 2021 at 08:14:08AM +0100, Christian KKKnig wrote:
+> >> Am 16.11.21 um 04:27 schrieb Lang Yu:
+> >>> On Mon, Nov 15, 2021 at 01:04:15PM +0100, Michel DDDnzer wrote:
+> >>>> [SNIP]
+> >>>>> Though a single call to dce_v*_0_crtc_do_set_base() will
+> >>>>> only pin the BO, I found it will be unpinned in next call to
+> >>>>> dce_v*_0_crtc_do_set_base().
+> >>>> Yeah, that's the normal case when the new BO is different from the o=
+ld one.
+> >>>>
+> >>>> To catch the case I described, try something like
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/dr=
+m/amd/amdgpu/dce_v11_0.c
+> >>>>
+> >>>> index 18a7b3bd633b..5726bd87a355 100644
+> >>>>
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> >>>>
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> >>>>
+> >>>> @@ -1926,6 +1926,7 @@ static int dce_v11_0_crtc_do_set_base(struct d=
+rm_crtc *crtc,
+> >>>>
+> >>>>                   return r;
+> >>>>
+> >>>>
+> >>>>
+> >>>>           if (!atomic) {
+> >>>>
+> >>>> +               WARN_ON_ONCE(target_fb =3D=3D fb);
+> >>>>
+> >>>>                   r =3D amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
+> >>>>
+> >>>>                   if (unlikely(r !=3D 0)) {
+> >>>>
+> >>>>                           amdgpu_bo_unreserve(abo);
+> >>>>
+> >>> I did some tests, the warning can be triggered.
+> >>>
+> >>> pin/unpin operations in *_crtc_do_set_base() and
+> >>> amdgpu_display_crtc_page_flip_target() are mixed.
+> >> Ok sounds like we narrowed down the root cause pretty well.
+> >>
+> >> Question is now how can we fix this? Just not pin the BO when target_f=
+b =3D=3D
+> >> fb?
+> > That worked. I did a few simple tests and didn't observe ttm_bo_release=
+ warnings
+> > any more.
+> >
+> > The pin/unpin logic,
+> >
+> > 1, fist crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->=
+fb(new),
+> > old_fb is NULL.
+> >
+> > 2, second crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary=
+->fb(new),
+> > unpins old fb.
+> >
+> > 3, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
+> >
+> > 4, third crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary-=
+>fb(new),
+> > unpins old fb (it is pinned in last call to amdgpu_display_crtc_page_fl=
+ip_target)
+> >
+> > 5, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
+> >
+> > .....
+> >
+> > x, reboot, amdgpu_display_suspend_helper() is called, the last pinned f=
+b was unpinned.
+> >
+> > And I didn't observe amdgpu_bo_unpin() in dce_v*_0_crtc_disable() is ca=
+lled.
+> >
+> > If the logic is wrong, please correct me.
+>
+> I can't fully judge because I'm not that deep with my head in the old
+> display code, but from a ten mile high view it sounds sane to me. Michel
+> what do you think?
+>
+> BTW: Nicholas are there any plans to get rid of all that stuff? It would
+> be a really nice cleanup of rather flaky code I think.
 
-No, there is still only one backlight device -- amdgpu_bl0.
-> 
-> Can you also try this patch?
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index 4811b0faafd9..67163c9d49e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -854,8 +854,8 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
->                 if (amdgpu_device_has_dc_support(adev)) {
->  #if defined(CONFIG_DRM_AMD_DC)
->                         struct amdgpu_display_manager *dm = &adev->dm;
-> -                       if (dm->backlight_dev[0])
-> -                               atif->bd = dm->backlight_dev[0];
-> +                       if (dm->backlight_dev[1])
-> +                               atif->bd = dm->backlight_dev[1];
->  #endif
->                 } else {
->                         struct drm_encoder *tmp;
-> 
+We just need to add analog support to the DC code.  Darren was looking into=
+ it.
 
-There is no difference in behaviour after applying the patch.
+Alex
 
-Samuel
 
-> 
-> Alex
-> 
+>
+> Thanks,
+> Christian.
+>
 > >
 > > Regards,
-> > Samuel Čavoj
+> > Lang
 > >
-> > [0]: https://www.reddit.com/r/AMDLaptops/comments/qst0fm/after_updating_to_linux_515_my_brightness/
+> >> Thanks,
+> >> Christian.
+> >>
+> >>> Regards,
+> >>> Lang
+> >>>
+>
