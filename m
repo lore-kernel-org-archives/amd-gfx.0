@@ -1,134 +1,125 @@
-Return-Path: <SRS0=ctnh=QC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=wnxc=QD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A04DDC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 21:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5388CC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 01:38:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 49C1A63227
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Nov 2021 21:42:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 49C1A63227
+	by mail.kernel.org (Postfix) with ESMTPS id 134A7615E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 01:38:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 134A7615E1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 457EA89D89;
-	Mon, 15 Nov 2021 21:42:54 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2066.outbound.protection.outlook.com [40.107.95.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D8A89D89;
- Mon, 15 Nov 2021 21:42:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD1CD6E5B6;
+	Tue, 16 Nov 2021 01:38:28 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2081.outbound.protection.outlook.com [40.107.102.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 630056E5B6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 01:38:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YmhHE/IShPdcbANwBga0B/tUi3sijK2sPg9/09hJO7c3tZpxqLaEr6YISHa35R36msvgqLh6o0pWsTqS6wZphRJyUPMHyHw1V4v/r8kX3t1Mz1epAmzNLWrYvyp6RwK2a5NOcA0H9HM1nCzRSEYQOsh+Wfso4bNyvC+Gl6+mMeI83sFE+yRxfvr1Jv3dVc7U80myf/wWfQa47lj6iMkUux0YfZzvdNkjMHOt2mKd9qR9VeCfDGObNIcdtd39RKp4hd5HKQT0j7uN0ElX5Iy/cSYbObMx8G94NuRv4G6LeSwP9hKVcaAvsRZOHs06apZRq0j98DvsT+7FgicIOBdECw==
+ b=oaCeFlRRa3CViRuuGXdY4iWNDLCbJ3rpw58gkr2+0AAKyRoFCBPe88bRcjcUWRbosYwDaGgPvoDqNsharxCf+xkKCE8GihK42zZkw8LA2RbKxqC91sIts5YzH+ea9WImStk9JVYeZxpQz4tH7OreGDS/uuR9YnpXSAJJgsVFVG2v92l+Cm42g/0BISMa+3v6H9+Om8ol1smfKKkt/VvJ9+h6fFBaOR/R0DYKcgPsXLdVVJC5nBAO3O6TlTC7WWkgHfQKZ4teg510gUMX98BjnWOkAmt6pE7Fu+d8qNKcX2F/4kBqb7BpAu/FaFCPZ7uGb0YvfhVBULzBqSHWxQ3JBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OQ1UgOFepbgBY1dYMX50rizilKasxHx86BVxnh+x1co=;
- b=HRydhuTXILI4X7rTcx8RJipNpw8jJ7AfJwNJwjFqIXY3cqXP4yieKP1TvTppC9srqJepi0MpRn6KfK4LhRAore1CWK0O9HaN/AgFTEW3sx+26dM17Du6IBajwMvdJpS/uAvTUzgU4a5MmBMqddGq+94ScMM1M4faFwM+nxT/neljBE8FgqfUTiwDGYovi1kA4B9c9TCJGKicIPPu/Qxx64t3cZI6zv47tt4FIRamNwlGW72zZtL/Wrb70XAEwD0Z1bYO5qTFbq0ya5IvO8zusTohRiV/ftmToOmfAdtuKknkSOsyLickvd1DmvhA6useNB+Ju0pDaNSHnPotwFxyLQ==
+ bh=fWDqua7fuPAYN7NYNBFh0vOLvl2N1zFCA1bv/r3Mr0A=;
+ b=NFPfJe4jzqHgHvoulrZN2sA7Wm0ldDyh8HY1uuZyeFSb6r257uTootmLAXoaS+ccovS20GRHGUJNHftY0R6i5koYiZ4cwU/FK9uRlceikor2opmIkUxXiG0R2SFYPr3jC3MEYcuzqwBW096lA6MLk/fC60ozYXGkor9fs33m95Zw6QB/hlrwbE7FvlLDO/tuyV9wIxYSwS+MXQf8+X12fTRXZHGnVokFisTN850wYmaiPl+lh6cVeYsnlevvUZEuPtXVSG9WeMc/MfmPLACVqBqXEwElgLTqwDJtzP5GY5nLCF48doPaa/zSwzEj49a4uQwKqMBFY44peF6bQfwlgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OQ1UgOFepbgBY1dYMX50rizilKasxHx86BVxnh+x1co=;
- b=4bZOGLgP/Uyd97Llgu5m0oaOmBs6m+a80+gu+qJ4yWLS4+NwhXVAVtjTa5Xgo984DusazCgnELOexHRjUBwm5/vG64+RiaBWh/Fy08YqVMDJjN+vRaPENcsDDgv9Br+KeI3bgpwgP6PXWTKnRbYEFKwZCihfJ4F9A78q+hgkiYg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by MN2PR12MB4255.namprd12.prod.outlook.com (2603:10b6:208:198::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Mon, 15 Nov
- 2021 21:42:51 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::6972:7084:df02:6dc3]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::6972:7084:df02:6dc3%9]) with mapi id 15.20.4690.027; Mon, 15 Nov 2021
- 21:42:51 +0000
-Message-ID: <2b40f5e4-25ed-06f0-b380-0ca083b4ffd6@amd.com>
-Date: Tue, 16 Nov 2021 03:22:37 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-From: Arunpravin <arunpravin.paneerselvam@amd.com>
-Subject: Re: [PATCH v2 2/8] drm: improve drm_buddy_alloc function
-To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20211025130033.1547667-1-Arunpravin.PaneerSelvam@amd.com>
- <20211025130033.1547667-8-Arunpravin.PaneerSelvam@amd.com>
- <781f4204-ec6b-7094-a96b-0f4c196ffaeb@intel.com>
- <868400cc-7a48-6420-5c58-cf976f91ab7d@amd.com>
-Content-Language: en-US
-In-Reply-To: <868400cc-7a48-6420-5c58-cf976f91ab7d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0053.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:98::14) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
-MIME-Version: 1.0
-Received: from [10.138.142.32] (165.204.156.251) by
- PN3PR01CA0053.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:98::14) with Microsoft
+ bh=fWDqua7fuPAYN7NYNBFh0vOLvl2N1zFCA1bv/r3Mr0A=;
+ b=DiYCnpW4kpfx2sXHJq9Op2OM+nWcrkIP9Wch5/AbEPPchaJ3JL6yveRgML9gSvXFaPRznqwANVhgMA/z3RZp4dh83kj3B8uqYtBriBNROl7K5nXD+t4ng6KfocLonjC/OFpOWaYKj7+0loKasBMpt4mfhyuOi7kzgkN7LBB/ayo=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR12MB1707.namprd12.prod.outlook.com (2603:10b6:3:108::21) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.15 via Frontend Transport; Mon, 15 Nov 2021 21:42:49 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ad3402c0-62eb-428b-b613-08d9a880df5e
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4255:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4255F8424CF4D11C1D78B270E4989@MN2PR12MB4255.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3P0UaVyWuQUIGWYlC9x5xNyCwblaeOqLFXdUb1nkUOapsudRUyjk5ZEbKTm46iQ6zgNbAa+W5QGD+W/xFyAzBI9BlwtcL57hnLvj7IATSgJtldz/rDyIHRwkGrYsskMYYTUhAxAhJkW9EAiuLeceyymqCheqTuxRyZFEOMHFHUH4MSZiSEPVa+9WbSMb2tzHI+tTJVyuZHAntIQLSt1zT0D5R9egJYqnFhEyyM8jNjP5sc5CUHDLYiPWbkpETJhkcdIfJiYVu2dT1rHbymAXtGPUSVrU3CXja6UDyYeli4poknkfVboSmovy1rOaA5THsWMbS4UDqiSkJ0ruYgne5BSH2CQpW8b8BbgjGHVGLsxc3pi+4MWMzz5O4uJAKPQvzM6YYT++StFsc2fWP+/bncWr8BZpKb86pjWUSYhIwabe+IpNO5GC0Y2wBveNLFymCFTrRwcSiNjeyVLz1dpY8myH7Y4ceY/qQ00tfX0NWHgcqQDrwZd03r0dTPRP5B58idSCNz6SG4DsYYT2t7PmRkzmm1vQJWxKOWCHZObWgupaEQ7WqX/CDpLy+Ty/R61m0N1AblpDt+P6P271SfcfrHj0gCG1UKw3S6k9DHyavJyIVB9pAQpekwRTET/DbJ+R2PxUKJUqvdu+T+hwonAcEZhVK82Tsle3qda3d+sA3ThJj1UPrp1Vo/GFowgKlGDr2ZSm3aciCpbRsrW/IwlXiMGYr9LSdyXOXFtFIIOzXPDWuctULMWLMJtlyOarAmz1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31686004)(8936002)(86362001)(16576012)(2616005)(5660300002)(956004)(8676002)(36756003)(2906002)(6666004)(316002)(38100700002)(26005)(186003)(6486002)(83380400001)(66946007)(508600001)(66556008)(31696002)(66476007)(43740500002)(45980500001);
+ 15.20.4690.27; Tue, 16 Nov 2021 01:38:25 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::15d0:4c36:2886:bbef]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::15d0:4c36:2886:bbef%3]) with mapi id 15.20.4690.027; Tue, 16 Nov 2021
+ 01:38:24 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/pm: Remove artificial freq level on Navi1x
+Thread-Topic: [PATCH] drm/amd/pm: Remove artificial freq level on Navi1x
+Thread-Index: AQHX2fRbigleggaEIkW+umaS88G9pKwFYULA
+Date: Tue, 16 Nov 2021 01:38:24 +0000
+Message-ID: <DM6PR12MB26190B66861BE6A7D746E168E4999@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20211115074216.16025-1-lijo.lazar@amd.com>
+In-Reply-To: <20211115074216.16025-1-lijo.lazar@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-16T01:38:22Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=cc3b2510-e46f-442b-8a48-023074efce63;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 012fab63-0051-451c-8d85-08d9a8a1c7e1
+x-ms-traffictypediagnostic: DM5PR12MB1707:
+x-microsoft-antispam-prvs: <DM5PR12MB17078327653D12FD20314FD3E4999@DM5PR12MB1707.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2582;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ciew6KQUKA74rtGnrAK8SKhJ+uElCgfu4ORlEn4ydWUX73UCUqH/pJVA6JTokB7ex4L75MG9Hw7FsmIyOGqS/70V+ORtwYa/IkXUTx5tJvUYdDQD8xER97MrbfRqZ3HPMnYH3y/JqIMuW3PLc4A/3jHs2TOKXxwL0/BbfNO4Y3gzeIFELIlj1tWOZ4hdQlfGonFRkQNK7xXrm630SU+lPK1lGtYI45PVNAEoDwAL+zQDN+r8iS0FV3jmoanbDDR+q2NWWxHZv7mUs7ZD+oaDS/5m7cOOgeBXlfUWEJ+qMzYE5OUMeV9WjSFQ1y/xQTXxDawGMUR3zRDz+ss6TNvGhP6NgwWyvv8oan+jFoBzb9VAAH6TnevWOTQHVv7mndpSsasT/Gfbp2sIF3FzN+51h3V7VNrzTATNyBE7I7TTuyCU1m/CpsPGs0JsFA1pB9uInp+Edm8FqXeftQZXtW2/DIOHESTswk3W7aLUE/Kfitf0xMT0h/fCfsHbrbPPkDL0UuWm64evlMuuQuZ1YtljTa3+klArMrqGBbWxms/lXlhO+cjnf5PxpmlMcxgAQHx2Co3Y0+j+n2IbLaAZB0YDWxWcdSAbvi1InZQqbgRC4MSNXpTquZKm18oSOy/HonuKxjtiT2G+ynKfbz7ZqRomW/u0qLtvylOZVcJv3pe00siHOBcDlmAC0ZCxqmE7+292hSMfrmaajG4+j6ORfX36BBHK4WFP1cmVsAqyoh/YCmM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6506007)(53546011)(122000001)(71200400001)(2906002)(86362001)(83380400001)(4326008)(316002)(38100700002)(7696005)(66946007)(66476007)(76116006)(64756008)(66446008)(26005)(66556008)(186003)(54906003)(110136005)(8936002)(5660300002)(8676002)(9686003)(33656002)(55016002)(38070700005)(52536014)(508600001)(32563001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VE5DczNTQTQ1QlhoRWpiNXRkWkVzdWx5UmJpVURxUGExREIwM1BwOXJHN0RX?=
- =?utf-8?B?QW9yQlIzQlhwUXdEL2Q4WmRJLytWejNEcVRTUUZjb01UNmJCSDdXYkRQRVBr?=
- =?utf-8?B?dGVSa1pHWDdiTFJXbzczMzdZNStKaTlwaXZyRGtDTHBFdW1sZXFyUUpIQ2cw?=
- =?utf-8?B?R213SGRrYkJhcHRJL0NWZm5iZGJGcFc2eE5hcnB3TXVmTWFhSXRLbi9IWTd2?=
- =?utf-8?B?bEVXZjcrUVBCNkZkVmNZR0VHU1hNVUVwYjFab0J3WU1KZVVGbVRubk9XK3pC?=
- =?utf-8?B?UW1Na3dvTy9HOGNvd0gwcE5PVkJpcmlDS1RwRkV3R0FNeTRCaUVwa0ZrYldy?=
- =?utf-8?B?TUd4a2puRit1c3BscTdwcEpPOGhwR2xCVWxWTEZnZTlwOGtna0tsYWxDRjhh?=
- =?utf-8?B?MGN0eFFpQkRac2xJamNvWlZpTkd6Q2lOZXJMd0dralZJbDl1T0dHcG4xUzRV?=
- =?utf-8?B?NUJFWWRuV01OTS96bjhFakJKZkxvNnZTeU9INy9MaHp3QVcwMHRURzFobTlQ?=
- =?utf-8?B?MytKY0NxZTNYUndJUy81QWtuK24wN252ZUVaWHBKZWlhRTJ4VkVLaGVYM1Rl?=
- =?utf-8?B?KzRDb05TeXJuUG55N3RVYU5OK0JuclBIWkd4T1ZkcmZaVnFvQjF1UmVxUW5Z?=
- =?utf-8?B?NVhIY1VqVGladktselNaTnZQWS9XZUpmcFJSdEJobUduT0VEQnY1VFpESzR1?=
- =?utf-8?B?eUtueW9ZM0RBMlc0MjBDZXdoYmZIdGhPbkY1aWg0eEx5bTRVdE9kVFdTamQ3?=
- =?utf-8?B?ZXVnWTVrSmcrdmxTOEFxTzhoWjdRSTBnaWpRT2gxY1JMMEpMQnplY1ltVHVu?=
- =?utf-8?B?Z3M2WUdSOU0rTjhyejR2MVZqT3pEUS8yaU9lOUlxQ2VCMkNldGQzcGhaL2oz?=
- =?utf-8?B?MEZ2SjdvbXVZVWlNRG9zWnlCSDRxM2FOUFJmVnFIa1MzclBuTlUxN1loR2dF?=
- =?utf-8?B?b1BWM01SbXFuNmVlNnkvR2tlK2dEc1NsY3MyZ2V3UFU5WEtVK1hndWRMQ0tK?=
- =?utf-8?B?Rlg3cnhDcy84VjkyWHJvWHVQRmMzeFQySWdPTFpKQ1ZNUHVwU2JNeDRNWnBV?=
- =?utf-8?B?REpkTHZmK1BnVnhrS2xiV0FRYTcyempqTlVZc2NEK050RVJPSWlyZDFzYkJm?=
- =?utf-8?B?aU5wMi9aVjBlZ25OVlkvNnpwQ1lRcWZ3L1hBOGdKU3FEa1YyengzbWs4NDFS?=
- =?utf-8?B?dWlSaUJ1aUU2alJIVDBUUWFqQk1xd3R5elFaSURWVm5JV2ZnK00rNklwajVu?=
- =?utf-8?B?NENrSnZEV0lkVEkvTkFPRkNRclNXMDlPTWgvOHRUekJUMUV2ckNRek5RY0k3?=
- =?utf-8?B?NlVsZmxCYldsaENJUjd6Q3N5dlYydWFNL3FSZFY1QlBIZjF6VFFDR20rTVBL?=
- =?utf-8?B?elVWbWRjRnRieXRUQlg4N3dmY25jVW1jdmRHUFhFRk4wQ09ZdWNRWTMvTjgy?=
- =?utf-8?B?K2l6aEY2NnpzV1BvdEdzR3BmSlQxU3A0KzdMdmZaYjM0NWtqUEpyZ3liUE5o?=
- =?utf-8?B?VVoxN0pTVDlOTEpKODZ4cWdEQjBob0xEU1BxVWVucnpRTUpmR3dhYVFrSWEr?=
- =?utf-8?B?SjRXcVgyZkNsWms1SXlqYUdha1dWdjJrRllkbWc4U0s0TzZ3ODlYdzRnNnQ0?=
- =?utf-8?B?YnVQSmhBUlBKOWpEdmJSZEROdWFaVDRTaVYxVjBOTGV4c3VDMVgraDh0Ui9V?=
- =?utf-8?B?Z0V6QlVtdXNpYTdvSkFLcG9zUFpGcVpkY3FmK1habGY2UTJRL1FxZDlQa1RC?=
- =?utf-8?B?UFYvWEw0S3JQV2N5YnA2bmtNQ055Uzl3cTNpZjZZOFk4OUZpSjdFeE9VVTA1?=
- =?utf-8?B?aUlqY3YrTWVmdSsxNU9oZ1FTMDBXSVBJZjVYVy8vSEJOZHNyelBnTmJkbzJh?=
- =?utf-8?B?YVhUNWJndlZUWFZTWFk2cFY1dHdMUTdtOXBhbkI5OGlaR2Nyb1hUQVMyY2R3?=
- =?utf-8?B?M25ad2N0Z2w2UHBEMklOakp3cmk1blhSOStOK2c5M1Q3czgvR1FDSFlRSHMy?=
- =?utf-8?B?dDV0LzlsOVdEWlpzT2dMNG05Zk1GMFRwblBGNzE3a0ZpMHZFSFpZbnBiT0pN?=
- =?utf-8?B?M2t6RGZaSzlaUkRLNER5MFdHNm5NRDhuZmtNdUhWSXBQTDRERXlMM0t0TENm?=
- =?utf-8?B?Mm01NjhUSkN5WTNmUmdMVUpCUmhRaTVRREJ4K1YzdHptaEhnVGZESVdZS0lS?=
- =?utf-8?Q?M0Wk7NWEWpG67j9xURFlj+Y=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kSFaVy0MV27rVDmDSaj/wIggthGugc2EUlrxqru5d7t38s2/b1MLr0dca4Pm?=
+ =?us-ascii?Q?ckAPArzL1UKppxyjLz9bux1Qq27OJr4xy78vd+5AcsOHb/FshNdypu2RzlGQ?=
+ =?us-ascii?Q?HclXC0iWkTPal8nwTqxJ4VPdtcF+3qyaKTZx7g7dwEoL3hHh9ipaCNFbpN5K?=
+ =?us-ascii?Q?7yNSO3YXAqu3z73hOKgSUSwZRHEjgyPpN2joJ8pactFJH07g1XBcmU+IdljH?=
+ =?us-ascii?Q?eJLogbcpF0LJpS8/xON9LNHAq0PsUwAkbGNAFsyrFsMTAGeByazVzAztpXJF?=
+ =?us-ascii?Q?JKHbG5uufC2KTmJygzeJVwpHIYgE07qBgOLe+tZhJdCIBP3Arj/ZRRCD+K45?=
+ =?us-ascii?Q?WvSc89M8ns0398sPiKjx9KMaa3S3RaTimME5RDgZjDS+2j6dDOSf0CJSGh+x?=
+ =?us-ascii?Q?tZo7Nu/T4tAk9Sw68B/O6QJQdQvtH1ekROGgI9zXG+p/JbWqWowSORf7VAqq?=
+ =?us-ascii?Q?cs/fbIiTIsjdG30TxSAJI/dvpVSyCoWVlY2zrTVavHzBG0V1iCjky2nnC14Z?=
+ =?us-ascii?Q?Jf1llYcspbAl3DAX8ZbqJiw4xq+c746ejwO7Mc6kkTSIsz5Ckb4jl6RXoW7Z?=
+ =?us-ascii?Q?ssOGp1P4b4SlIVu1i49s350iAgTYGoiQVKb1lsA6E4wHzBrzibfGw3Ypy715?=
+ =?us-ascii?Q?Zj5MOZDKYivUs32AaJq7CxeGD9Wka5Sl8Hc0b69krBuGsokhLmfsdtN6NDb1?=
+ =?us-ascii?Q?UeySvXS+lrjvq0soG0eHwtGNK5A3VDZ/r/qkjceY33KGXddpW+g7rD8ll/Fe?=
+ =?us-ascii?Q?9k3ynmuRC3q7r25MX3P97g5JB7CY+fqctOatrGWqY7Gq4DPL9C2G95pFq3/9?=
+ =?us-ascii?Q?BqdzcxiNAJxGfJtMNAihUdKQWRoLhjr506a2zs8Tl7Zgfk6cj7VqK4ElM/qv?=
+ =?us-ascii?Q?kosZDA6Wz5ZMsKL/IhikEqDCTP6J4P2Pua+veUeKQ70Ox66RwPSnyUgqYDVf?=
+ =?us-ascii?Q?HJ+0ReIRmu8ytyluoSdIjhNjlup3J2qVqIk4wMxAOHEV7Ow0yAUZVAAEUf1R?=
+ =?us-ascii?Q?BVwju/C/cJzZmaPuCPbNAOgQ54yfKF9NojuM5Lv0rOI5RBLbgEo+KpnM9fS2?=
+ =?us-ascii?Q?vNQxU5E0ZiQ3H8HCBoWV5aB6wUZwgnEGXo7y7iR//bytiCZIJxpVMb64g8sX?=
+ =?us-ascii?Q?rp2lBzJ9aoy6DvQz3OEQfEn/BndWfcQ2+qIeGhuY9YzT1YvDvUYfLJpLlmR4?=
+ =?us-ascii?Q?mH+1tOSFfp8SkcmD7ZHy/qLYJ/9tvF+/U3AlI9STS+uxnLanX5AzmKB1sjcL?=
+ =?us-ascii?Q?BGK0MStxUi7+y5ZNdYSur4iTsjkgtRp8NB3W8F48lDpaqarX1pjiwrmJpujH?=
+ =?us-ascii?Q?pqf8c3keyWlgfcnHMX27AGC0j+GgWn661X2mMsCr7swLQih6vVngFWOYft3j?=
+ =?us-ascii?Q?06AHq3uTHRUL/sdYzOMysZFUA2gfA7vDDtGJuzIVU8TEZpeyOCj0BEiFdG94?=
+ =?us-ascii?Q?N9pVJPDPlp6YU0YjHwpUHfMHlbQl1+sFze5LtaxhsvqCHf3PxOW8XjRmdpqi?=
+ =?us-ascii?Q?67vHk+z+J7ap+tc2UddTFfCmDT3q96jjitWOigD9jVUTZOpgMvR6rKpfVkAN?=
+ =?us-ascii?Q?jCr+HY7H9Zx/pWknCk8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad3402c0-62eb-428b-b613-08d9a880df5e
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2021 21:42:50.9688 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: osSlwijzH504Qwmiq7WAb773LUtdLHuL0BlLlm20b1GcSi3Vod+QWe/OZ3MxLuRg96MIXyyRqfYePQXTOtfCuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4255
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 012fab63-0051-451c-8d85-08d9a8a1c7e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2021 01:38:24.5015 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3/f+C2STJcRXBkCJt+zZID+8AIeg81jU3TlAwXvSHDoMOx1+ezBMreACRJgUh9mH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1707
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,142 +131,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wang,
+ Yang\(Kevin\)" <KevinYang.Wang@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
-I am preparing version3 of the buddy allocator,
-Please find the updated comments.
+[AMD Official Use Only]
 
-SNIP
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 
->>> -int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
->>> -			  struct list_head *blocks,
->>> -			  u64 start, u64 size)
->>> +static struct drm_buddy_block *
->>> +alloc_range(struct drm_buddy_mm *mm,
->>> +	    u64 start, u64 end,
->>> +	    unsigned int order)
->>>   {
->>>   	struct drm_buddy_block *block;
->>>   	struct drm_buddy_block *buddy;
->>> -	LIST_HEAD(allocated);
->>>   	LIST_HEAD(dfs);
->>> -	u64 end;
->>>   	int err;
->>>   	int i;
->>>   
->>
->>>   		if (!block)
->>>   			break;
->>>   
->>>   		list_del(&block->tmp_link);
->>>   
->>> +		if (drm_buddy_block_order(block) < order)
->>> +			continue;
->>> +
->>>   		block_start = drm_buddy_block_offset(block);
->>>   		block_end = block_start + drm_buddy_block_size(mm, block) - 1;
->>>   
->>>   		if (!overlaps(start, end, block_start, block_end))
->>>   			continue;
->>>   
->>> -		if (drm_buddy_block_is_allocated(block)) {
->>> -			err = -ENOSPC;
->>> -			goto err_free;
->>> -		}
->>> +		if (drm_buddy_block_is_allocated(block))
->>> +			continue;
->>>   
->>> -		if (contains(start, end, block_start, block_end)) {
->>> -			if (!drm_buddy_block_is_free(block)) {
->>> -				err = -ENOSPC;
->>> -				goto err_free;
->>> -			}
->>> +		if (contains(start, end, block_start, block_end)
->>> +				&& order == drm_buddy_block_order(block)) {
->>
->> Alignment looks off, also && should be on the line above.
-> 
-> [Arun] ok
->>
->>> +			/*
->>> +			 * Find the free block within the range.
->>> +			 */
->>> +			if (drm_buddy_block_is_free(block))
->>> +				return block;
->>
->> Would it make sense to keep searching here, rather than restarting the 
->> search from scratch every time? Would it work if we pass in the total 
->> size and min order?
-> [Arun] yes, I will rewrite this function
-
-I tried to rewrite the function, AFAIK, in case of end bias allocation,
-we have to restart the search on every new order computed value from the
-requested total size since we have to find a free node in the required
-order level traversing from left to right, here continuing the search
-for the subsequent order value would skip the free nodes present in the
-beginning of the tree.
-
-In case of actual range allocation, as handled at
-i915_buddy_alloc_range, we can continue the search from where the
-previous allocation happened since we allocate all the blocks
-progressively within the start and end address values.
-
-alloc_range() handles both the cases, having a penalty of restarting the
-search in case of actual range allocation. Please let me know if any
-suggestions?
-
->>> +int drm_buddy_alloc(struct drm_buddy_mm *mm,
->>> +		    u64 start, u64 end, u64 size,
->>> +		    u64 min_page_size,
->>> +		    struct list_head *blocks,
->>> +		    unsigned long flags)
->>
->> Do we need to validate the flags somewhere?
-> [Arun] I will move 'unsigned long flags' to enum type declaration
-I tried to move 'unsigned long flags' to enum type declaration, it
-creates an ambiguity in i915 driver as both DRM_BUDDY_ALLOC_TOPDOWN and
-DRM_BUDDY_ALLOC_RANGE are mutually non-exclusive. So I think its better
-to have 'unsigned long flags'.
-
-AFAIK, we don't need to validate the flags since we check flags using
-'flags & DRM_BUDDY_RANGE_ALLOCATION'
-
->>
->>> +		BUG_ON(order > mm->max_order);
->>> +		BUG_ON(order < min_order);
->>> +
->>> +		do {
->>> +			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
->>> +				/* Allocate traversing within the range */
->>> +				block = alloc_range(mm, start, end, order);
->>
->> Ok, so blocks might be in a random order, which is a slight concern for 
->> actual range allocations(not the bias thing). Can we somehow make 
->> alloc_range just do the old behaviour when end - start == size? Not the 
->> end of the world though if not.
-> [Arun] I will change the alloc_range() block allocations to bottom-up,
-> so both actual range allocation and end bias allocation blocks will
-> start from lowest address. And, since we are traversing the tree from
-> left to right, blocks will be in order.
-> 
-> And, alloc_range() handles actual range allocation demands the same way
-> as in the old i915_buddy_alloc_range() function except alloc_range()
-> make use of order value to find the blocks within the actual range
-> allocation.
-
-Correction - I will change alloc_range() block allocations to bottom-up,
-so actual range allocation blocks will start from lowest address (not
-the bias thing), and since we are traversing the tree from left to right
-progressively within the required range, blocks will be in order (not
-the bias thing)
-
-alloc_range() handles actual range allocation demands the same way as in
-the old i915_buddy_alloc_range() function except it restarts the search
-(since we are handling both end bias and actual range allocations in the
-same function) and make use of order value to find the blocks within
-start and end value.
-
-Regards,
-Arun
+> -----Original Message-----
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Monday, November 15, 2021 3:42 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking
+> <Hawking.Zhang@amd.com>; Wang, Yang(Kevin)
+> <KevinYang.Wang@amd.com>; Quan, Evan <Evan.Quan@amd.com>
+> Subject: [PATCH] drm/amd/pm: Remove artificial freq level on Navi1x
+>=20
+> Print Navi1x fine grained clocks in a consistent manner with other SOCs.
+> Don't show aritificial DPM level when the current clock equals min or max=
+.
+>=20
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 71161f6b78fe..60a557068ea4 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -1265,7 +1265,7 @@ static int navi10_print_clk_levels(struct
+> smu_context *smu,
+>  			enum smu_clk_type clk_type, char *buf)  {
+>  	uint16_t *curve_settings;
+> -	int i, size =3D 0, ret =3D 0;
+> +	int i, levels, size =3D 0, ret =3D 0;
+>  	uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
+>  	uint32_t freq_values[3] =3D {0};
+>  	uint32_t mark_index =3D 0;
+> @@ -1319,14 +1319,17 @@ static int navi10_print_clk_levels(struct
+> smu_context *smu,
+>  			freq_values[1] =3D cur_value;
+>  			mark_index =3D cur_value =3D=3D freq_values[0] ? 0 :
+>  				     cur_value =3D=3D freq_values[2] ? 2 : 1;
+> -			if (mark_index !=3D 1)
+> -				freq_values[1] =3D (freq_values[0] +
+> freq_values[2]) / 2;
+>=20
+> -			for (i =3D 0; i < 3; i++) {
+> +			levels =3D 3;
+> +			if (mark_index !=3D 1) {
+> +				levels =3D 2;
+> +				freq_values[1] =3D freq_values[2];
+> +			}
+> +
+> +			for (i =3D 0; i < levels; i++) {
+>  				size +=3D sysfs_emit_at(buf, size,
+> "%d: %uMhz %s\n", i, freq_values[i],
+>  						i =3D=3D mark_index ? "*" : "");
+>  			}
+> -
+>  		}
+>  		break;
+>  	case SMU_PCIE:
+> --
+> 2.17.1
