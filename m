@@ -2,49 +2,76 @@ Return-Path: <SRS0=wnxc=QD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 126BFC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:15:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2B6FC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 85B7C61ABF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 85B7C61ABF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
+	by mail.kernel.org (Postfix) with ESMTPS id 796EA61B27
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 796EA61B27
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AFA86EE04;
-	Tue, 16 Nov 2021 09:15:05 +0000 (UTC)
-X-Greylist: delayed 429 seconds by postgrey-1.36 at gabe;
- Tue, 16 Nov 2021 05:58:28 UTC
-Received: from qq.com (smtpbg456.qq.com [59.36.132.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960D06E8D0;
- Tue, 16 Nov 2021 05:58:28 +0000 (UTC)
-X-QQ-mid: bizesmtp42t1637041833t56n8jsa
-Received: from localhost.localdomain (unknown [124.126.19.250])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 16 Nov 2021 13:50:32 +0800 (CST)
-X-QQ-SSF: 01400000002000B0G000B00A0000000
-X-QQ-FEAT: 0VgNaGdhy9gMzxiMf1vmpjJbNpQ/R/ZOeZ0tS/XNDElwqgpr4Swqsek2YJaCD
- cziT7dWpG99gNhZes+Eql5RTGoAx2xSjd1Pw+aU9sSvzp0tiKfo1TQC9GmyO4+8kSKl68Yq
- TVMAPW/mA0Kb3dMLZXWaa23CFclqHcPBU5QgNKZBDKqWI/+IlJfm3aP0N4H371ykVGAFHgx
- XgUA1vQtlW9hnw+iVWNZGCygwzL4obN9r36Nmkfk3JSslx52Z3YiRG943brxIHHY+xvUqA6
- 8LSSWRMwlpLowvCePefZimT/O1Ivshy7bwlYLIILabMJrX/ljNh8AXi2ZIvg7LYCuMGq4OS
- dUS9TRGSjqzWRY3kXUJ20T5WdFyvGQJuyl7Fdu9gfrxxrH+xag=
-X-QQ-GoodBg: 2
-From: zhaoxiao <zhaoxiao@uniontech.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/radeon:WARNING opportunity for max()
-Date: Tue, 16 Nov 2021 13:50:31 +0800
-Message-Id: <20211116055031.31621-1-zhaoxiao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D29A96EE9B;
+	Tue, 16 Nov 2021 09:19:45 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 526FB6EE98;
+ Tue, 16 Nov 2021 09:19:44 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id a9so9975962wrr.8;
+ Tue, 16 Nov 2021 01:19:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=ZZ5qtct0gReM0veqtvP3uHFmenhhHdLVzBUtdLlNxJU=;
+ b=FPNECisJWg97qsX6YuqXQNB6Sue6Q8Q39s5qXnIUbI3Eja1cgj9hQ43mt0XcwT84RZ
+ /XyY55pV1CR2TGsc7y4hn/dQBfKRLT65HHQC1Xz4ivHmhciGyubG+03hAhL1mQbnsiPz
+ cfT438ohx21BUz+300sEHdxvuHf2mpZDXb1thNNXEWP/5nvL/pLLlOsTmeQDlIiFyYnJ
+ WWdjSFnyQn5k2kbH9cVRijX98C1mYbS8Ezbdpwhf/mH7uE5/Yjm96SUeXtFDpaG07gTp
+ qZpSwAWJaumC4IbF9oJiCg8BH5ldgeSDLWVPRixnAUnVcb8+S1FGwoFqN1raXLkQ0SQl
+ q3fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=ZZ5qtct0gReM0veqtvP3uHFmenhhHdLVzBUtdLlNxJU=;
+ b=M1RMBN3hIhH/wZIRgZjPtgCSNy8QpKeD1vQCfUVvznBfqj/tt3lnPQjEmVeTGcxdwG
+ 5J7IF3BTb1ZcchAZ5WI0exITiitRo3t+/Iji/uJVTkq4Yl6APiQwh2yTnduytQ23Z0Rf
+ kGhZh7JHlve+JyGLg+8hj6OZidsLJjzOv4fqLn8O0kjfkkRinXu3xpPMrEalgYyCqsu9
+ 1URvEDpcFtLEx2YsLyrAqu5Y6S+eQLiZyYrngpxHhIbzW08pr4sv29TtjyQRl3rLABq/
+ 0hY8RjmV3M6pXDcqVMJE0WolfSJk1wTIImO9SostGYLvsQtTTRvY6zZOVw6Qj6hw+6Ks
+ VbDw==
+X-Gm-Message-State: AOAM532lQdWbVPjKdeRFucYbA+3v0vH5+ZiW/fUvXm2wB1xRiDLTbFjR
+ V6QbuAK9Osc4yyUhzvMuPGw=
+X-Google-Smtp-Source: ABdhPJzsTNyvDWu3WC/2tAllTUTwz9jBCO6xvduzfNLLfGl+N3dtMqB+QzCsR0uBvvu5/P1TswIDKw==
+X-Received: by 2002:adf:f787:: with SMTP id q7mr7461935wrp.1.1637054382983;
+ Tue, 16 Nov 2021 01:19:42 -0800 (PST)
+Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
+ [87.176.183.123])
+ by smtp.gmail.com with ESMTPSA id i15sm2043189wmq.18.2021.11.16.01.19.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Nov 2021 01:19:42 -0800 (PST)
+Subject: Re: [PATCH] drm/amd/display: cleanup the code a bit
+To: Bernard Zhao <bernard@vivo.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20211116013438.26517-1-bernard@vivo.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <88328288-ef1f-ef8b-987f-43dc8dc69ee7@gmail.com>
+Date: Tue, 16 Nov 2021 10:19:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
+In-Reply-To: <20211116013438.26517-1-bernard@vivo.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
-X-QQ-Bgrelay: 1
-X-Mailman-Approved-At: Tue, 16 Nov 2021 09:15:04 +0000
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,52 +83,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhaoxiao <zhaoxiao@uniontech.com>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix following coccicheck warning:
-drivers/gpu/drm/radeon/r100.c:3450:26-27: WARNING opportunity for max()
-drivers/gpu/drm/radeon/r100.c:2812:23-24: WARNING opportunity for max()
+Am 16.11.21 um 02:34 schrieb Bernard Zhao:
+> In function dc_sink_destruct, kfree will check pointer, no need
+> to check again.
+> This change is to cleanup the code a bit.
+>
+> Signed-off-by: Bernard Zhao <bernard@vivo.com>
 
-Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
----
- drivers/gpu/drm/radeon/r100.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+This one and the other patch are Acked-by: Christian König 
+<christian.koenig@amd.com>
 
-diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
-index 2dd85ba1faa2..c65ee6f44af2 100644
---- a/drivers/gpu/drm/radeon/r100.c
-+++ b/drivers/gpu/drm/radeon/r100.c
-@@ -2809,10 +2809,7 @@ void r100_vram_init_sizes(struct radeon_device *rdev)
- 		if (rdev->mc.aper_size > config_aper_size)
- 			config_aper_size = rdev->mc.aper_size;
- 
--		if (config_aper_size > rdev->mc.real_vram_size)
--			rdev->mc.mc_vram_size = config_aper_size;
--		else
--			rdev->mc.mc_vram_size = rdev->mc.real_vram_size;
-+		rdev->mc.mc_vram_size = max(config_aper_size, rdev->mc.real_vram_size);
- 	}
- }
- 
-@@ -3447,10 +3444,7 @@ void r100_bandwidth_update(struct radeon_device *rdev)
- 	mc_latency_mclk.full += disp_latency_overhead.full + cur_latency_mclk.full;
- 	mc_latency_sclk.full += disp_latency_overhead.full + cur_latency_sclk.full;
- 
--	if (mc_latency_mclk.full > mc_latency_sclk.full)
--		disp_latency.full = mc_latency_mclk.full;
--	else
--		disp_latency.full = mc_latency_sclk.full;
-+	disp_latency.full = max(mc_latency_mclk.full, mc_latency_sclk.full);
- 
- 	/* setup Max GRPH_STOP_REQ default value */
- 	if (ASIC_IS_RV100(rdev))
--- 
-2.20.1
-
-
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc_sink.c | 10 +---------
+>   1 file changed, 1 insertion(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+> index a249a0e5edd0..4b5e4d8e7735 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_sink.c
+> @@ -33,14 +33,6 @@
+>    * Private functions
+>    ******************************************************************************/
+>   
+> -static void dc_sink_destruct(struct dc_sink *sink)
+> -{
+> -	if (sink->dc_container_id) {
+> -		kfree(sink->dc_container_id);
+> -		sink->dc_container_id = NULL;
+> -	}
+> -}
+> -
+>   static bool dc_sink_construct(struct dc_sink *sink, const struct dc_sink_init_data *init_params)
+>   {
+>   
+> @@ -75,7 +67,7 @@ void dc_sink_retain(struct dc_sink *sink)
+>   static void dc_sink_free(struct kref *kref)
+>   {
+>   	struct dc_sink *sink = container_of(kref, struct dc_sink, refcount);
+> -	dc_sink_destruct(sink);
+> +	kfree(sink->dc_container_id);
+>   	kfree(sink);
+>   }
+>   
 
