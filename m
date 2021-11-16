@@ -2,128 +2,48 @@ Return-Path: <SRS0=wnxc=QD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AFD4C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 126BFC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:15:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0664A61ABF
+	by mail.kernel.org (Postfix) with ESMTPS id 85B7C61ABF
 	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 09:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0664A61ABF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 85B7C61ABF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C0596EE01;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AFA86EE04;
 	Tue, 16 Nov 2021 09:15:05 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2111.outbound.protection.outlook.com [40.107.215.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F10F6E44F;
- Tue, 16 Nov 2021 01:48:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZljxmMRDUy2dTFA6mq2nW7nHe4y6nJBHwRyyvsn2Ryk8Ke8xDQxBPb8sYK6TVNaLOWZ6IHDo+lEVIo5xy6haAxzgi0WvpaoFs6hAyruI4q0udU+pv7p8uWmt2wVsfK5xQ2zHy90dei1PhsU4lWCau66GNfMIlA9eZdHAxW+JnDZk8wrI/zXksMghedRyitFyJcs4mdpaEC2YWWur06Cu4WOwDRl0V+cFohtKRlzA19YeefEkZakp8hevqlLLbaHAZnV/R6t1nHKX/1qXNX6ObPUB8O2OLpwrVtXPB8JAyNQW3XdwFe/KLqFDuqQ8jFpE31/nx0bqgf6kabtln4y0Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M6D/bvbNQ1BOUel3ue4cnvlTn/AaJvZleYcpPioWnQY=;
- b=HOMyHAKGqyx2qSCjy3xVsKzSem0uxbYKnKqtpjKfco1JQyqTN2zgNNp7pHa3mu1qte7ps0uZBKDnjDeuIpN5NxtgzMRsvoDA8Di2hZkhj0gpKUECQIXYDXy8hyZ+k1b/L4inA7H1fo9CeCi9wXhhSu5Dl9zjdOG9Im1POgSLK8ATVdQxspVeESIT/EIw9kmAMoOKakAdk4AeJChj6PCEArnLiH1tDas0uu8PMumzsqB9+/Ao73vXTrMgRR6xbxBGB+RWE9/7BWItLWZ54XowallIu8XmMTCDOmeNOjiDy2Xe7B5w1ZuaTKfpyqUCD8c8YtVZrjVsivlG6sjdy/kc4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M6D/bvbNQ1BOUel3ue4cnvlTn/AaJvZleYcpPioWnQY=;
- b=Jf2pnswv4jQzFi+gOyia7y//K+CHTcUZ6bn0np1vzBtl0AxzdIKicfSmEBMKar21td/cZ3RPTIlnwtsB+tMBOIxiD9/WdVlXy/jCw6PrkCkF36EMgCTln9LBR9EXOt6UvUUoGo17Cs8bB83JJh6ILgUn5x1e9RG36C7+cQmcHvQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from PSAPR06MB4021.apcprd06.prod.outlook.com (2603:1096:301:37::11)
- by PU1PR06MB2181.apcprd06.prod.outlook.com (2603:1096:803:3b::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Tue, 16 Nov
- 2021 01:48:05 +0000
-Received: from PSAPR06MB4021.apcprd06.prod.outlook.com
- ([fe80::395a:f2d7:d67f:b385]) by PSAPR06MB4021.apcprd06.prod.outlook.com
- ([fe80::395a:f2d7:d67f:b385%5]) with mapi id 15.20.4690.027; Tue, 16 Nov 2021
- 01:48:05 +0000
-From: Bernard Zhao <bernard@vivo.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Solomon Chiu <solomon.chiu@amd.com>,
- "Li, Roman" <Roman.Li@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Eric Bernstein <Eric.Bernstein@amd.com>, Bernard Zhao <bernard@vivo.com>,
- Atufa Khan <Atufa.Khan@amd.com>, Jimmy Kizito <Jimmy.Kizito@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: remove no need NULL check before kfree
-Date: Mon, 15 Nov 2021 17:47:50 -0800
-Message-Id: <20211116014752.26868-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.33.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: HK0PR03CA0108.apcprd03.prod.outlook.com
- (2603:1096:203:b0::24) To PSAPR06MB4021.apcprd06.prod.outlook.com
- (2603:1096:301:37::11)
+X-Greylist: delayed 429 seconds by postgrey-1.36 at gabe;
+ Tue, 16 Nov 2021 05:58:28 UTC
+Received: from qq.com (smtpbg456.qq.com [59.36.132.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 960D06E8D0;
+ Tue, 16 Nov 2021 05:58:28 +0000 (UTC)
+X-QQ-mid: bizesmtp42t1637041833t56n8jsa
+Received: from localhost.localdomain (unknown [124.126.19.250])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Tue, 16 Nov 2021 13:50:32 +0800 (CST)
+X-QQ-SSF: 01400000002000B0G000B00A0000000
+X-QQ-FEAT: 0VgNaGdhy9gMzxiMf1vmpjJbNpQ/R/ZOeZ0tS/XNDElwqgpr4Swqsek2YJaCD
+ cziT7dWpG99gNhZes+Eql5RTGoAx2xSjd1Pw+aU9sSvzp0tiKfo1TQC9GmyO4+8kSKl68Yq
+ TVMAPW/mA0Kb3dMLZXWaa23CFclqHcPBU5QgNKZBDKqWI/+IlJfm3aP0N4H371ykVGAFHgx
+ XgUA1vQtlW9hnw+iVWNZGCygwzL4obN9r36Nmkfk3JSslx52Z3YiRG943brxIHHY+xvUqA6
+ 8LSSWRMwlpLowvCePefZimT/O1Ivshy7bwlYLIILabMJrX/ljNh8AXi2ZIvg7LYCuMGq4OS
+ dUS9TRGSjqzWRY3kXUJ20T5WdFyvGQJuyl7Fdu9gfrxxrH+xag=
+X-QQ-GoodBg: 2
+From: zhaoxiao <zhaoxiao@uniontech.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/radeon:WARNING opportunity for max()
+Date: Tue, 16 Nov 2021 13:50:31 +0800
+Message-Id: <20211116055031.31621-1-zhaoxiao@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Received: from ubuntu.localdomain (203.90.234.87) by
- HK0PR03CA0108.apcprd03.prod.outlook.com (2603:1096:203:b0::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.19 via Frontend Transport; Tue, 16 Nov 2021 01:48:04 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e1feb11a-a4de-48e5-10f3-08d9a8a3223b
-X-MS-TrafficTypeDiagnostic: PU1PR06MB2181:
-X-Microsoft-Antispam-PRVS: <PU1PR06MB2181760289DB1588A142730CDF999@PU1PR06MB2181.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:751;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QR91AmmnwAkC9VWIyD0ALba3kQ1gtnHDhREXcPmnim5Xk4HmSUtHWvar6Sh/ro7/Z3QiUx2iSaYbZm6/DQh4OBFTCXEVrZQKV7C7odAlkTymqOaF+/VD0ZYe8TP44CmPexpOM2iwbZffE5UQTsYDbHx1pLa5JJyKmlP8ve73lmPHxbusC1E7VPHvoi/LH4uKdxx5LgM0NP69exlei5hedhwnaoanQkurow6mIhRJpwUzUug3Oe5z9lWjd7wIg5WI9/xVZ1/jClo3XEwabL2cj9lPH4J59VnUj3+dveSAfzjtTM8NTAWtv6F4CK18Y83pZRB0eDwgdMPj45DvKTcGaig2EqnYGFCx1AtvEItav94P84i5UCK1W8kB7u7iwNOBNax9h8QEdt2RwXOT5z7vgGcd7HdvxtHj4UyvEZAZqE3Ff/QHayW3WpkdvEsgZ3fQcBeeaR8Hv3h+Hz/km+WQuTDDCSEuuP7Faz24CkZWBVwM+SlPxMwMBigw96cQ4+w1eHuQutegpXc9PnQmBY8LtNryoe1TDnhY8rRFAE2gKi76m/WqLDSGYs8gaeKaQE6afn96Zg4Wv1nPOkEjHsYm0JZ+MjMUqiORwRDq+1+TCVM36u9WJGJhmtLvYM7YAMLUeCSZhgAttgv80vIN6MFPB1VZCK5mMDv/Jyv4ZQuhtvJJNo5ieUedcoLtgdTn3V4uGJHRQV5jJEngEePC+mhD8+03cdmT6OWcXEhDC0J0Bq4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PSAPR06MB4021.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(66556008)(66946007)(8936002)(6486002)(508600001)(7416002)(186003)(36756003)(316002)(110136005)(66476007)(1076003)(26005)(956004)(921005)(6666004)(6506007)(2616005)(52116002)(6512007)(86362001)(8676002)(38350700002)(83380400001)(38100700002)(5660300002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1CmVtjrSpRghPDV8JDYd2mOJ3XXdRZik5d65DpE5QHJa8UF2C0OKChF4aH07?=
- =?us-ascii?Q?A0G5m6I82cBrLXPsbpjhTLkvz9RZv3CNhstyVIzaTEXk/6PI6WziZccqvogB?=
- =?us-ascii?Q?/5NT8+zb86Xr2/gA6LM00zrsNLwh0PrS8reKy9TyKtXKmoPfwMNPlE8MFIhE?=
- =?us-ascii?Q?pmtMjp0ikQ1quBqTM7Gl2JwsCT0sgCgmK5X6znFaXlugqSn1OEMgOOzYoVkj?=
- =?us-ascii?Q?zWGENB5MHX+oM+KDfzR1tfidRes7k5DUgkT+PR7ZyN+2F2Xp6+FZf1cxO2wc?=
- =?us-ascii?Q?mlTODjJ3SF0d4oyZ94weip1OR+ra4m3/v/6PkbOAsLFHhmbiFWGEEpoZOW4i?=
- =?us-ascii?Q?y3FmKoE+rdID6MzFKy5aP9FK+ClV3DuQr1wTc6+w8SLHzRBb6G8ATqmpDYey?=
- =?us-ascii?Q?3f7Z8IZsXsAHQ5zDHck7WVCFwqZXZY2Kem4HMnx/f5b9EF3lQSG1V3rXx+Iz?=
- =?us-ascii?Q?wcRBxEm49InZic3poHTqBd7N+l0tqRiIz3en90vG03OodgxOqex50soLLOKo?=
- =?us-ascii?Q?xSMKORFKl8LU6CqiOKzbJnMGu+bgUlRBPpkF8BJDAqsjaqL+Cn7mij8UlP8J?=
- =?us-ascii?Q?9lgdEtpUsaZB/HMz9PBQgOMAfC7Sw1ir/XGpAPSFRe4dbrmwFJXuHk9Q5s15?=
- =?us-ascii?Q?d7WPqJJBpVwXFiGzYkDf9+W4mZM2rW6V+VY7mqWnnwuS6e4ai2g8s4+P26tf?=
- =?us-ascii?Q?fMWmLE13EbEgmVggT/wPi2/zahA3YkxBPSDEC4gvkTkMPrUyf2vZh8Lp4NzB?=
- =?us-ascii?Q?WhZiPxbv/ge/YF8+bZbUXXOzrtVJh685KPOwROMhgbheHb+fMJQB9SpQNzU6?=
- =?us-ascii?Q?HN+N+s5VBHCvQf/PexJjpqtnlUhdMmsqV/UDE0wHBhLt2Y2HK8ztLPS737Ay?=
- =?us-ascii?Q?aWb5PSQcg8FOWsa8OGSDUI/hivYmafhsZh+c/2fWzXhdQEdrcckpfsdWr4ch?=
- =?us-ascii?Q?VqIZAmAU3inJCTFjD3hrHlaFkdmts7fs1OCSKZY0qL6CZr+3TzE8OVuLIfBC?=
- =?us-ascii?Q?I6muN1Yuoj4MR0lMk0arB+XiGdtJYBeQNRUQ18vhqa+a1Z/LOfIm3xD3B2jE?=
- =?us-ascii?Q?wyycV3WDTcT4P+M9iUCF7YW3/PDmyXQa4JQ/NUTf/tYu79Eb7n1h9TDSHKvj?=
- =?us-ascii?Q?sa2OlkAxBavFXL1bGWl/RAkwAiNoNkR4jPRh87zNQwFgT4vWN/TvyI23pA0B?=
- =?us-ascii?Q?dhVyrOw5vrVI8NvUmBU/KKj5TbP9uKbJK1fpozavF5PJ+dXAjwfJnpoSYodN?=
- =?us-ascii?Q?iNOSiUvOOfy+KtlRty7OkZL91uQmpLjuwaGzhIRBHT4U9MOMIR/vljp9eQL/?=
- =?us-ascii?Q?emk5h3GMp2xphlyPuBXHlbOJrmSAVsePKVmaQbDoYL6QpUpED8DCdChz8i/G?=
- =?us-ascii?Q?6tEt2lPvDxM7a1sJH3L1F8BMuUD0lAjRZjuFrIHEAzrE6Sy+EDuQLwXf45qi?=
- =?us-ascii?Q?5jG3nD9/NrLfwTAmWwOoR+SHLjLLYZ6tQ/MfHFoDH2D0JkcTgYN3PWpJVXg4?=
- =?us-ascii?Q?CXqeKwE+YDnZLYxGhBiHMXL8GI9681hLfo/CdX7wx5Ktebj1TPeS3SlZxqNu?=
- =?us-ascii?Q?qyS03CQink7jG1f1Zo43AGi874SXWCL2QI3RulYurSdf+JUke6jCnw8pyUq/?=
- =?us-ascii?Q?BCk8DyWgH65ebLl7JRLj5wo=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1feb11a-a4de-48e5-10f3-08d9a8a3223b
-X-MS-Exchange-CrossTenant-AuthSource: PSAPR06MB4021.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2021 01:48:05.8391 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I+738thejscLQhfsIgrLs2aHITk1EURW4ReDcaW6LfW5eOwBVo3TXtwolKx1MiDKSXWEhRYMgygWt0YS1UsWYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PU1PR06MB2181
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Tue, 16 Nov 2021 09:15:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,52 +56,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: zhaoxiao <zhaoxiao@uniontech.com>, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This change is to cleanup the code a bit.
+Fix following coccicheck warning:
+drivers/gpu/drm/radeon/r100.c:3450:26-27: WARNING opportunity for max()
+drivers/gpu/drm/radeon/r100.c:2812:23-24: WARNING opportunity for max()
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
+Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
 ---
- .../drm/amd/display/dc/dcn10/dcn10_resource.c  | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/radeon/r100.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index f37551e00023..0090550d4aee 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -978,10 +978,8 @@ static void dcn10_resource_destruct(struct dcn10_resource_pool *pool)
- 		pool->base.mpc = NULL;
+diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
+index 2dd85ba1faa2..c65ee6f44af2 100644
+--- a/drivers/gpu/drm/radeon/r100.c
++++ b/drivers/gpu/drm/radeon/r100.c
+@@ -2809,10 +2809,7 @@ void r100_vram_init_sizes(struct radeon_device *rdev)
+ 		if (rdev->mc.aper_size > config_aper_size)
+ 			config_aper_size = rdev->mc.aper_size;
+ 
+-		if (config_aper_size > rdev->mc.real_vram_size)
+-			rdev->mc.mc_vram_size = config_aper_size;
+-		else
+-			rdev->mc.mc_vram_size = rdev->mc.real_vram_size;
++		rdev->mc.mc_vram_size = max(config_aper_size, rdev->mc.real_vram_size);
  	}
+ }
  
--	if (pool->base.hubbub != NULL) {
--		kfree(pool->base.hubbub);
--		pool->base.hubbub = NULL;
--	}
-+	kfree(pool->base.hubbub);
-+	pool->base.hubbub = NULL;
+@@ -3447,10 +3444,7 @@ void r100_bandwidth_update(struct radeon_device *rdev)
+ 	mc_latency_mclk.full += disp_latency_overhead.full + cur_latency_mclk.full;
+ 	mc_latency_sclk.full += disp_latency_overhead.full + cur_latency_sclk.full;
  
- 	for (i = 0; i < pool->base.pipe_count; i++) {
- 		if (pool->base.opps[i] != NULL)
-@@ -1011,14 +1009,10 @@ static void dcn10_resource_destruct(struct dcn10_resource_pool *pool)
- 	for (i = 0; i < pool->base.res_cap->num_ddc; i++) {
- 		if (pool->base.engines[i] != NULL)
- 			dce110_engine_destroy(&pool->base.engines[i]);
--		if (pool->base.hw_i2cs[i] != NULL) {
--			kfree(pool->base.hw_i2cs[i]);
--			pool->base.hw_i2cs[i] = NULL;
--		}
--		if (pool->base.sw_i2cs[i] != NULL) {
--			kfree(pool->base.sw_i2cs[i]);
--			pool->base.sw_i2cs[i] = NULL;
--		}
-+		kfree(pool->base.hw_i2cs[i]);
-+		pool->base.hw_i2cs[i] = NULL;
-+		kfree(pool->base.sw_i2cs[i]);
-+		pool->base.sw_i2cs[i] = NULL;
- 	}
+-	if (mc_latency_mclk.full > mc_latency_sclk.full)
+-		disp_latency.full = mc_latency_mclk.full;
+-	else
+-		disp_latency.full = mc_latency_sclk.full;
++	disp_latency.full = max(mc_latency_mclk.full, mc_latency_sclk.full);
  
- 	for (i = 0; i < pool->base.audio_count; i++) {
+ 	/* setup Max GRPH_STOP_REQ default value */
+ 	if (ASIC_IS_RV100(rdev))
 -- 
-2.33.1
+2.20.1
+
+
 
