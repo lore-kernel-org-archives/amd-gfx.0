@@ -2,53 +2,44 @@ Return-Path: <SRS0=wnxc=QD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB714C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C830C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:50:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0FBE63217
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A0FBE63217
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id CC481619E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 14:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CC481619E1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C3AA6ECE9;
-	Tue, 16 Nov 2021 14:10:49 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF7D6ECB9;
- Tue, 16 Nov 2021 14:10:47 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id be32so42652946oib.11;
- Tue, 16 Nov 2021 06:10:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=5HnVFJwWxg/ead1ggRoAcMkKVf7joaKRzX46q0j0YsM=;
- b=Xv/csU2qOw/aioZ99vKZBzivV3PtgbiYJ8sW4xrGt8h7qQ3fK7UpGR0/FKWUlHoj7F
- xgitvwDMRhKAE3bnJg+M/zBkSERNOWH7IcCFjrhPTnO9+iCPPfhBOauY4CATfNRElIfX
- wVbfWcH4yODKiI9LmRtc5v7wtMVAZl95QlD7TBnusNepfkuOLTi+FwvZCm2dzXOFe8b3
- TQGinioEjHT7KNs+QqsozcWvdtTnIR7LqQlm72kpD2S1uIi9c1Yz/pP5TUwn6nyLbHGh
- Q9wAAkO4mpOvESn1o/M0dLdHScVEDIXw1krvS1Dz+hn+k745DYvdVfBVPWbH6jr1VkOT
- kX/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=5HnVFJwWxg/ead1ggRoAcMkKVf7joaKRzX46q0j0YsM=;
- b=Wy47MJdbzOlmaYU4+57lfxfolGRqrtdN6ze2+885VjT608i+cXnPuWLnUnwH6Tw9Ue
- KyYOfMoxvYmQ/Uj0BbT77rrbYNA1klQP8EVFan/ZJ5sZ+suG+X5mIqFw9uOa+tuT9Ton
- KqsYCCuBqRznAEgaGTOAwkJ7eoT9efhli3s5Dtk6YiCWIhh09sFw3ESl6rhlr9VNT2K7
- flmNudnqtwpvrDZZeKaGKFZqOOnR/Sux1frOXE2wugFNC9dzb3H4U+hKWd+dyrR/ZsG9
- iEd3LNCYzL1+CtOLg92u7vwXZQfV4ozYMO0pNrB8vsqkbD0AnLUoNJD0MsdN9WB7Il13
- xVtQ==
-X-Gm-Message-State: AOAM5318t6Hnhu9bTRJjbRmawwep+e5Uj3c5NSW+I4v8X0B0jxQ5hFRy
- /JNWx6laa5JzGKnbauT7IZuoPnMgTFb2HFEn7VU=
-X-Google-Smtp-Source: ABdhPJxAMFbgyc+VmrraCujRVBPJP8ul1wExNXToDQKBtrJGDTAPMG76wJ7uh5JRIJ7Tn5iq2mWCtehApChxVOfAGW0=
-X-Received: by 2002:a05:6808:300b:: with SMTP id
- ay11mr5137841oib.120.1637071846981; 
- Tue, 16 Nov 2021 06:10:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7587F6EA6F;
+	Tue, 16 Nov 2021 14:50:36 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8695F6EA6F;
+ Tue, 16 Nov 2021 14:50:35 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 5E152202041;
+ Tue, 16 Nov 2021 15:50:34 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id MEPAWvOihQG7; Tue, 16 Nov 2021 15:50:33 +0100 (CET)
+Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id 558A220203F;
+ Tue, 16 Nov 2021 15:50:33 +0100 (CET)
+Received: from localhost ([127.0.0.1]) by thor with esmtp (Exim 4.95)
+ (envelope-from <michel@daenzer.net>) id 1mmzn6-000eC4-7Q;
+ Tue, 16 Nov 2021 15:50:32 +0100
+Message-ID: <b5dc0b2f-523b-eb27-3fba-9ee110f69ee3@daenzer.net>
+Date: Tue, 16 Nov 2021 15:50:31 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-CA
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 References: <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
  <58097218-40dd-55fd-32d2-2a299d39230f@daenzer.net>
  <YZIA/dkvjuMsup24@lang-desktop>
@@ -61,14 +52,12 @@ References: <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
  <391ee32e-f1b1-d92b-c9f3-17dbc0a9d690@gmail.com>
  <YZNlE9bZSJmTvS6d@lang-desktop>
  <52cc2823-35b3-0cb1-2119-82a3677e9b99@gmail.com>
-In-Reply-To: <52cc2823-35b3-0cb1-2119-82a3677e9b99@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Nov 2021 09:10:35 -0500
-Message-ID: <CADnq5_Phwb-qDwtco+dm5n9Z2oveTpba=vxNLjD+geh9wRgFxg@mail.gmail.com>
+ <CADnq5_Phwb-qDwtco+dm5n9Z2oveTpba=vxNLjD+geh9wRgFxg@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
 Subject: Re: Questions about KMS flip
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CADnq5_Phwb-qDwtco+dm5n9Z2oveTpba=vxNLjD+geh9wRgFxg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,123 +69,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michel DDDnzer <michel@daenzer.net>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, Lang Yu <Lang.Yu@amd.com>,
  Christian KKKnig <christian.koenig@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Lang Yu <Lang.Yu@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 16, 2021 at 3:09 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Am 16.11.21 um 09:00 schrieb Lang Yu:
-> > On Tue, Nov 16, 2021 at 08:14:08AM +0100, Christian KKKnig wrote:
-> >> Am 16.11.21 um 04:27 schrieb Lang Yu:
-> >>> On Mon, Nov 15, 2021 at 01:04:15PM +0100, Michel DDDnzer wrote:
-> >>>> [SNIP]
-> >>>>> Though a single call to dce_v*_0_crtc_do_set_base() will
-> >>>>> only pin the BO, I found it will be unpinned in next call to
-> >>>>> dce_v*_0_crtc_do_set_base().
-> >>>> Yeah, that's the normal case when the new BO is different from the o=
-ld one.
-> >>>>
-> >>>> To catch the case I described, try something like
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/dr=
-m/amd/amdgpu/dce_v11_0.c
-> >>>>
-> >>>> index 18a7b3bd633b..5726bd87a355 100644
-> >>>>
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> >>>>
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> >>>>
-> >>>> @@ -1926,6 +1926,7 @@ static int dce_v11_0_crtc_do_set_base(struct d=
-rm_crtc *crtc,
-> >>>>
-> >>>>                   return r;
-> >>>>
-> >>>>
-> >>>>
-> >>>>           if (!atomic) {
-> >>>>
-> >>>> +               WARN_ON_ONCE(target_fb =3D=3D fb);
-> >>>>
-> >>>>                   r =3D amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
-> >>>>
-> >>>>                   if (unlikely(r !=3D 0)) {
-> >>>>
-> >>>>                           amdgpu_bo_unreserve(abo);
-> >>>>
-> >>> I did some tests, the warning can be triggered.
-> >>>
-> >>> pin/unpin operations in *_crtc_do_set_base() and
-> >>> amdgpu_display_crtc_page_flip_target() are mixed.
-> >> Ok sounds like we narrowed down the root cause pretty well.
-> >>
-> >> Question is now how can we fix this? Just not pin the BO when target_f=
-b =3D=3D
-> >> fb?
-> > That worked. I did a few simple tests and didn't observe ttm_bo_release=
- warnings
-> > any more.
-> >
-> > The pin/unpin logic,
-> >
-> > 1, fist crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->=
-fb(new),
-> > old_fb is NULL.
-> >
-> > 2, second crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary=
-->fb(new),
-> > unpins old fb.
-> >
-> > 3, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
-> >
-> > 4, third crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary-=
->fb(new),
-> > unpins old fb (it is pinned in last call to amdgpu_display_crtc_page_fl=
-ip_target)
-> >
-> > 5, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
-> >
-> > .....
-> >
-> > x, reboot, amdgpu_display_suspend_helper() is called, the last pinned f=
-b was unpinned.
-> >
-> > And I didn't observe amdgpu_bo_unpin() in dce_v*_0_crtc_disable() is ca=
-lled.
-> >
-> > If the logic is wrong, please correct me.
->
-> I can't fully judge because I'm not that deep with my head in the old
-> display code, but from a ten mile high view it sounds sane to me. Michel
-> what do you think?
->
-> BTW: Nicholas are there any plans to get rid of all that stuff? It would
-> be a really nice cleanup of rather flaky code I think.
+On 2021-11-16 15:10, Alex Deucher wrote:
+> On Tue, Nov 16, 2021 at 3:09 AM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>
+>> Am 16.11.21 um 09:00 schrieb Lang Yu:
+>>> On Tue, Nov 16, 2021 at 08:14:08AM +0100, Christian KKKnig wrote:
+>>>> Am 16.11.21 um 04:27 schrieb Lang Yu:
+>>>>> On Mon, Nov 15, 2021 at 01:04:15PM +0100, Michel DDDnzer wrote:
+>>>>>> [SNIP]
+>>>>>>> Though a single call to dce_v*_0_crtc_do_set_base() will
+>>>>>>> only pin the BO, I found it will be unpinned in next call to
+>>>>>>> dce_v*_0_crtc_do_set_base().
+>>>>>> Yeah, that's the normal case when the new BO is different from the old one.
+>>>>>>
+>>>>>> To catch the case I described, try something like
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+>>>>>>
+>>>>>> index 18a7b3bd633b..5726bd87a355 100644
+>>>>>>
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+>>>>>>
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+>>>>>>
+>>>>>> @@ -1926,6 +1926,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
+>>>>>>
+>>>>>>                   return r;
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>>           if (!atomic) {
+>>>>>>
+>>>>>> +               WARN_ON_ONCE(target_fb == fb);
+>>>>>>
+>>>>>>                   r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
+>>>>>>
+>>>>>>                   if (unlikely(r != 0)) {
+>>>>>>
+>>>>>>                           amdgpu_bo_unreserve(abo);
+>>>>>>
+>>>>> I did some tests, the warning can be triggered.
+>>>>>
+>>>>> pin/unpin operations in *_crtc_do_set_base() and
+>>>>> amdgpu_display_crtc_page_flip_target() are mixed.
+>>>> Ok sounds like we narrowed down the root cause pretty well.
+>>>>
+>>>> Question is now how can we fix this? Just not pin the BO when target_fb ==
+>>>> fb?
+>>> That worked. I did a few simple tests and didn't observe ttm_bo_release warnings
+>>> any more.
+>>>
+>>> The pin/unpin logic,
+>>>
+>>> 1, fist crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->fb(new),
+>>> old_fb is NULL.
+>>>
+>>> 2, second crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->fb(new),
+>>> unpins old fb.
+>>>
+>>> 3, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
+>>>
+>>> 4, third crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->fb(new),
+>>> unpins old fb (it is pinned in last call to amdgpu_display_crtc_page_flip_target)
+>>>
+>>> 5, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
+>>>
+>>> .....
+>>>
+>>> x, reboot, amdgpu_display_suspend_helper() is called, the last pinned fb was unpinned.
+>>>
+>>> And I didn't observe amdgpu_bo_unpin() in dce_v*_0_crtc_disable() is called.
+>>>
+>>> If the logic is wrong, please correct me.
+>>
+>> I can't fully judge because I'm not that deep with my head in the old
+>> display code, but from a ten mile high view it sounds sane to me. Michel
+>> what do you think?
 
-We just need to add analog support to the DC code.  Darren was looking into=
- it.
-
-Alex
+Sounds good to me.
 
 
->
-> Thanks,
-> Christian.
->
-> >
-> > Regards,
-> > Lang
-> >
-> >> Thanks,
-> >> Christian.
-> >>
-> >>> Regards,
-> >>> Lang
-> >>>
->
+Would be nice to address the other issue identified in this thread as well:
+
+The pin in amdgpu_display_crtc_page_flip_target is guarded by if (!adev->enable_virtual_display), but the corresponding unpins in 
+amdgpu_display_unpin_work_func & dce_v*_0_crtc_disable aren't. This probably results in pin count underflows with virtual display.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
