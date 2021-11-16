@@ -2,81 +2,124 @@ Return-Path: <SRS0=wnxc=QD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 181F8C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 08:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 770D1C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 08:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CD66E63212
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 08:09:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CD66E63212
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3EA1C61B96
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Nov 2021 08:27:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3EA1C61B96
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44E2E6E915;
-	Tue, 16 Nov 2021 08:09:16 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F3026E213;
- Tue, 16 Nov 2021 08:09:14 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id p18so6732404wmq.5;
- Tue, 16 Nov 2021 00:09:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=aGBZk8gTfQGCLicjsCXmXtl4JymR9yPdWumY2S8vuHM=;
- b=DhKvVcIGRnxNR5rULkwrnXv0X6nbAaknmGfsDAL9UhrprDcbdtaPYQ2f2D4p2JJJa2
- N0CLnUsRydvGLZ8T0kWW84iUQuVrxIk9XBqdw+/2sGXiSV4wZyzcvw9TAywjxnU62RjE
- 9U3P3f2455lJc/F1Anx5OmFx0uTUJ64w8YyofTbJ4j6KVyCjvBNRoNdw3xYYj4S/LD/z
- b+IOGh3e7OWhoXWHXLfErf21BU8ElSj3K0jjZw3E9/xfN7hm99/Gl6+lEkwdhFIWeqOS
- dcflenUF2MZtH9Y17aIom/btFcqLA8+gfWIgz0BN/dfd9KIKWxtmD8b+vKAzU0MRcVSm
- sXZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=aGBZk8gTfQGCLicjsCXmXtl4JymR9yPdWumY2S8vuHM=;
- b=WrRFkcuL+Wmv8NdIbQ1s88pmNJG5BtY85mx17JP7qkPSY1iyhvtvdPVdB9QYaoua4/
- EgYyRRWx08DxAofyL5vHWzLQoHDBm98VU4hHp8p3EY8ojpb9jDKVkZwH7HUQ7E2rqUYH
- mxKbCjYym+YsrYtOGvnEATQYCYTDbvGzFpEG2cef6re6Dz9steun3ZpIysPxjoRDVmBb
- FBLqve9/2ymSM9OZFE29nWT5T1wo/yagNtdjbERXTqmwO8hiCfSCJsxcTTcl0Me37r6N
- UWpKlTjE1cwvA+wEsfiOZFeWDCSjyzZEhNPmahPZ5j10wHMwkkICPPLzYapQzIvrYBtU
- 7PPg==
-X-Gm-Message-State: AOAM532xoctpLHhBLg7qgEOCVcIFXpiQcqf6V/WT08rAf45RmBRKNcRk
- eGCo8n1Ht+3ghPv4WmRFEss=
-X-Google-Smtp-Source: ABdhPJx/a5DOIpzn+Z14aEoPOg77NS54BM2humiPMKXGjUG9tx6v65Pd/VdP8ObW6pkIRrVNpoTIMQ==
-X-Received: by 2002:a05:600c:4154:: with SMTP id
- h20mr65322935wmm.189.1637050152945; 
- Tue, 16 Nov 2021 00:09:12 -0800 (PST)
-Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
- [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id t8sm16666557wrv.30.2021.11.16.00.09.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Nov 2021 00:09:12 -0800 (PST)
-Subject: Re: Questions about KMS flip
-To: Lang Yu <Lang.Yu@amd.com>
-References: <735f8781-982b-a09f-32fe-fded0024a587@gmail.com>
- <58097218-40dd-55fd-32d2-2a299d39230f@daenzer.net>
- <YZIA/dkvjuMsup24@lang-desktop>
- <cadb9503-b390-e254-ffba-5e2e11f100cc@daenzer.net>
- <YZIiqM6PKKL/ZMNy@lang-desktop>
- <f1b88742-b07e-5973-1e30-9674a5950bf3@daenzer.net>
- <YZJFHMEqm1oz7QJN@lang-desktop>
- <e44a237c-0073-2eec-1a47-c5faf99f77b4@daenzer.net>
- <YZMlGSA9iG3aVCUu@lang-desktop>
- <391ee32e-f1b1-d92b-c9f3-17dbc0a9d690@gmail.com>
- <YZNlE9bZSJmTvS6d@lang-desktop>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <52cc2823-35b3-0cb1-2119-82a3677e9b99@gmail.com>
-Date: Tue, 16 Nov 2021 09:09:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <YZNlE9bZSJmTvS6d@lang-desktop>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEC086EE90;
+	Tue, 16 Nov 2021 08:27:00 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2051.outbound.protection.outlook.com [40.107.96.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0E206EE93
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Nov 2021 08:26:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gearhTjofWb5Nv1dTuu6xuOx9ALT6HAeHAi2qRVs96cSjFW/z+3E1NmlXKXvO6iHnLXn2TpSAjjOscZmUBpyQN9T608Jb0B2Py7BlHPYnHEBEqJNWVUUeXMr+tACcTHyTzSUgxx8pFe2ZPcL7sPa8OWKh72G0ZmtjTWuCtuAKfiDhRYxnr1YKKvGacBcFJdDtJqYQPtP6IdTXGULocDD3cmxLLEWnjoxBm5gdqo2vxsfiQfGNCxiXuHgVpm6gJbJ73vThFhNG+JNld5ccB/YBNRx7wRdT2UNSBqoO3ObGH+fzZi3jClfVjhq1XOhQiJxMW6Ndw1A0BTNjdwTjkLAEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lgBlwbdr7ZNncy5du9XZOsqtNHHo+OLISivzaQ2tnSc=;
+ b=C+l93t2xuYY/1nwR5Oz9TYV0rNjxjOyH3qHDm6BlbwoA1HMV+6p/c5rxgUEGpXHeaBCLa/wMlgWany1sLFwABI49hzRMkhz34qHX3l/t0Mvuc+i0y1d608CGhiQDM3o+YPN5kl9WK5zTVYMqvCQ1ZWXda4tNXBOx4Bgxo3E+kq2fxB1g/Nj0b56cUWr6K0+s+wTDbc0unHI0xapbbhwtHpjUGyVFKfyrEmClVuDJql6vOQ3wYXeobN8L93JwltGW6GaYn2b7Zi/oLex+MS/n4vl2IZvvL0FP21qzYtqKDBM1hoNEWFEJeHnXwtWOsYke50gBOISMHSBsQrQatEVBPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lgBlwbdr7ZNncy5du9XZOsqtNHHo+OLISivzaQ2tnSc=;
+ b=sZWxOQ0/ktwxo9rwI/YJwiTiMpkY9qM+oFS5I7NtE9SH4uE2luRhvpnbNpMPE/oMUvp2aef4fggQ9YrwZdH0c62aQ6QWIMSzNR6Ri8tBs4z2L1MAW8UnSh/tK+8AafufBfXedG9tDttWu1zKUZu0HDDUNjznn6SrWWZY2WqF6F0=
+Received: from DM6PR12MB4650.namprd12.prod.outlook.com (2603:10b6:5:1fd::27)
+ by DM6PR12MB4652.namprd12.prod.outlook.com (2603:10b6:5:1d6::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.20; Tue, 16 Nov
+ 2021 08:26:57 +0000
+Received: from DM6PR12MB4650.namprd12.prod.outlook.com
+ ([fe80::a530:22e9:332c:532d]) by DM6PR12MB4650.namprd12.prod.outlook.com
+ ([fe80::a530:22e9:332c:532d%7]) with mapi id 15.20.4690.027; Tue, 16 Nov 2021
+ 08:26:57 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Add recovery_lock to save bad pages function
+Thread-Topic: [PATCH] drm/amdgpu: Add recovery_lock to save bad pages function
+Thread-Index: AQHX2sBFoxDcc7xd5kSOptJMhBOdvKwF0Iyg
+Date: Tue, 16 Nov 2021 08:26:57 +0000
+Message-ID: <DM6PR12MB4650F622273174D5E09B0A9EB0999@DM6PR12MB4650.namprd12.prod.outlook.com>
+References: <20211116080146.3183-1-candice.li@amd.com>
+In-Reply-To: <20211116080146.3183-1-candice.li@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=f07cea61-a76c-44a7-a7a8-e09c5b58fcf9;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-16T08:21:59Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 89f2be37-965e-4cc8-664f-08d9a8dada74
+x-ms-traffictypediagnostic: DM6PR12MB4652:
+x-microsoft-antispam-prvs: <DM6PR12MB465273F1C1B34C06DA1EFC72B0999@DM6PR12MB4652.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1186;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: olLIdrcXjlr3qH0mVnjz3+PDiefIpi8BN17hfNfCGsD5ouIPpHTMPxRoDG3ytGhNxiahvM1ljBcNVnXmzeiok/59dkrNSg8v+VFfkY97Opn2WxeMCk8FQaUeMKOfVBO3mZUdnUp3/YEBSwd+77M1KIcMNrbRe/P69L8tnH2U1qGOPGCjof+pnTpRd1rYTd3JudwAsP9btPyeWW05sWIJV6BdG0J+4YCnt4uc6NiuY122ybfdSmZm3IkOHWEEgj6gPkabLCupcoov6stmHRw6GLdnr5Fc3YU3RFs8Va6JergYyJk7xUdGJzAJievSzL09F7ACSJlAouSaWCznqtC6Fe4LXeOEmdPOGYCWPhuX+T6Fysc4WIDydzxxlFiFLFCN4TMrERyNby1nvIRg3/ZJksechd81b/FoInf9SPsmscoMa8wyQVIGWr3rTu9otpovsm0ObsUJECHD8FyNXIbklq9UKcRthoOuNaiUwydA1Goex7Z0tNRL+DO/PRnu5XSg1JbnIisf8yxxDMdp9VrYslwepnwRPAIDZBrxQYYDUwsAnfhvxZ+b4HsnHlKDSIPLag6/CyKDqUCLh1rE3DkApaYCGu2oJH8ghm2lgw9Izkne1HKtaFX/HK+KvYhsDEwV7z29O01OuZzyDShcQvA57Sju5Cx5vTk0fXogCe6F00UHLRzbt/Te/30faLJOb2llnVZBMuDo5RnAqjbgWM1DNA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4650.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(83380400001)(2906002)(8676002)(64756008)(5660300002)(508600001)(8936002)(7696005)(71200400001)(66556008)(52536014)(4326008)(9686003)(38100700002)(38070700005)(76116006)(86362001)(122000001)(55016002)(110136005)(6506007)(66946007)(33656002)(316002)(186003)(53546011)(66476007)(66446008)(26005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JcVYcl8PxD9HExxfxzvtG4LcKjXjrcqRbefeMjqEckR7ClTH09Keg4FA0hpO?=
+ =?us-ascii?Q?tNyw3aWS54GVII145oushwy7yoNpwwtDbeh7LnQZmffG8KoHwWMwNKXQnF3K?=
+ =?us-ascii?Q?bPWl0/lQhApIeegO0iCZ1Rzg51SSWedWS6WDSN3Yw4BP5DZUB91/SkZ9q2Sr?=
+ =?us-ascii?Q?dT+kvWhKSszPeS9JAGaPb4BPnL4pwfCDPYO3A3q9PG8Ju5rp/KqhmkFqlJ+i?=
+ =?us-ascii?Q?sJuJ7BJKZbK9tQf8diBPDTaHd46UqFsQFEq5kAsQ6/qD8+kcA1ZIWhue0/nY?=
+ =?us-ascii?Q?/2Aw1ojLYMkcJfQB415A0kF2JRe9HWcNHiwKggh79lmuI03XxcSV9fpve6zH?=
+ =?us-ascii?Q?Tmo6pR41EBLeuEUZqomfvucE5/9vr4MTDpFFUSWjKC/5h85bXbwcmoUBlu+E?=
+ =?us-ascii?Q?bL0HalAKjfgMJHU3I0qU4VOQscpaleFvrpRaoTTdJAQ7NKwsFqQlrnxATwT9?=
+ =?us-ascii?Q?PwHuasBsqBwOHoo3BusgD//USRMeRQw7dKhXnu1LAoFRfji3UMRXiBZE7Zkr?=
+ =?us-ascii?Q?d2t+hNZ28vZtrKfGyNt6J8E5oDh/m2UaQIPJWHQ09sM1H8nVc7E7qlqq4vpz?=
+ =?us-ascii?Q?s3JeYVCjc6pnFXXOFzgQfErRan305b3rqc0Zr0Jqv0E6wv5O11fJjlMdvxmP?=
+ =?us-ascii?Q?BgzaerFwYAVKp/YMkEsj3ZfeozleUF57gFKcX/C0CwwGVhRmDwOHhbCQHGAq?=
+ =?us-ascii?Q?RnRDLVqJwErFJKi21CjAi/2+hb7DC9cl552b7IBAYRo/qpXyjvozhhcxqMk3?=
+ =?us-ascii?Q?1Mb49vun/bjlCzzg0dJkjMXbsbBCFTFd5QkfRGx6mna7QbF4TeKxHaxvMvMt?=
+ =?us-ascii?Q?xZDs3h27eWXnv/s6mRcccvUE12uJBuGFjA72V4fECP0M3cj1ZCX1m7xhovm+?=
+ =?us-ascii?Q?vSt2HV5BF2afoFI/GD4YAu0peZdKDKx3UGsUnmty5tCm0vs4Dl3IZvqWc5kI?=
+ =?us-ascii?Q?MxHZ5WuQpgpPJ3HnBKufoI2QXbqSvMqEg3rZA599LzXpeP8tLLdrQvsBsgx9?=
+ =?us-ascii?Q?LgjtJycm4V6F4g1Nz4yt6DGiCbLNxTUN0zBjrGSeCjBRxBa9NhbFGFgmrOXF?=
+ =?us-ascii?Q?61HE5DLUmqHkKkPqt9nkWcr81rRGxzT4635ISRqAoH0QXM0Y3d2PRGQ5l37z?=
+ =?us-ascii?Q?AmL9Hn1TNukVab2p6rcFn3ioGdkv11/0TIZv4/9s2kRi78R2JWiKh2xUPB2X?=
+ =?us-ascii?Q?8vaA7PuYQzdDwmuUmqDGD0896yJsZGB9opoTEIZ5DDIGr6kmBTusEvnYry0R?=
+ =?us-ascii?Q?EK9S3M2qCAa55QcWMcakoKxXTR3cN52g0EKSZ1IMGk1nZEIgHqhb+Xi/WWRF?=
+ =?us-ascii?Q?FGjZn6nAJhP9b/538HRi79YL1COPX8/MjzE+ulMPqlGS2yXJRuTZ/uqrrwdu?=
+ =?us-ascii?Q?num6DkYjsdp4iG0Z9DL6dlRGtGd6Omg2oxJ1YtUGv7nhIcZM8Vn2WQKfyKc7?=
+ =?us-ascii?Q?uurHk/JrozErarZwyW3ORVIZaV59zGqwTKJw2qq5fCXAuOk/FFWRMU+c9Thq?=
+ =?us-ascii?Q?HZaWbn4QMLAAW/jX1hcxXFyvc55NYWgT/4uJhNBuUEgbXabeU3pZ7/3BIm5o?=
+ =?us-ascii?Q?IYFhHTVB5Ks7dDdxKRc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4650.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89f2be37-965e-4cc8-664f-08d9a8dada74
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2021 08:26:57.0314 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: A9dF0Ni03FqGt0A+t6TAIBqdyhyu8y2AftDMLRSkCdAs3zCsbMJmBvvfMB0kKtrK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4652
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,102 +131,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- Michel DDDnzer <michel@daenzer.net>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Christian KKKnig <christian.koenig@amd.com>
+Cc: "Clements, John" <John.Clements@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.11.21 um 09:00 schrieb Lang Yu:
-> On Tue, Nov 16, 2021 at 08:14:08AM +0100, Christian KKKnig wrote:
->> Am 16.11.21 um 04:27 schrieb Lang Yu:
->>> On Mon, Nov 15, 2021 at 01:04:15PM +0100, Michel DDDnzer wrote:
->>>> [SNIP]
->>>>> Though a single call to dce_v*_0_crtc_do_set_base() will
->>>>> only pin the BO, I found it will be unpinned in next call to
->>>>> dce_v*_0_crtc_do_set_base().
->>>> Yeah, that's the normal case when the new BO is different from the old one.
->>>>
->>>> To catch the case I described, try something like
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
->>>>
->>>> index 18a7b3bd633b..5726bd87a355 100644
->>>>
->>>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
->>>>
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
->>>>
->>>> @@ -1926,6 +1926,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
->>>>
->>>>                   return r;
->>>>
->>>>
->>>>
->>>>           if (!atomic) {
->>>>
->>>> +               WARN_ON_ONCE(target_fb == fb);
->>>>
->>>>                   r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
->>>>
->>>>                   if (unlikely(r != 0)) {
->>>>
->>>>                           amdgpu_bo_unreserve(abo);
->>>>
->>> I did some tests, the warning can be triggered.
->>>
->>> pin/unpin operations in *_crtc_do_set_base() and
->>> amdgpu_display_crtc_page_flip_target() are mixed.
->> Ok sounds like we narrowed down the root cause pretty well.
->>
->> Question is now how can we fix this? Just not pin the BO when target_fb ==
->> fb?
-> That worked. I did a few simple tests and didn't observe ttm_bo_release warnings
-> any more.
->
-> The pin/unpin logic,
->
-> 1, fist crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->fb(new),
-> old_fb is NULL.
->
-> 2, second crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->fb(new),
-> unpins old fb.
->
-> 3, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
->
-> 4, third crtc_mode_set, dce_v*_0_crtc_do_set_base() pins crtc->primary->fb(new),
-> unpins old fb (it is pinned in last call to amdgpu_display_crtc_page_flip_target)
->
-> 5, amdgpu_display_crtc_page_flip_target() pin/unpin operations.
->
-> .....
->
-> x, reboot, amdgpu_display_suspend_helper() is called, the last pinned fb was unpinned.
->
-> And I didn't observe amdgpu_bo_unpin() in dce_v*_0_crtc_disable() is called.
->
-> If the logic is wrong, please correct me.
+[AMD Official Use Only]
 
-I can't fully judge because I'm not that deep with my head in the old 
-display code, but from a ten mile high view it sounds sane to me. Michel 
-what do you think?
-
-BTW: Nicholas are there any plans to get rid of all that stuff? It would 
-be a really nice cleanup of rather flaky code I think.
-
-Thanks,
-Christian.
-
+> -----Original Message-----
+> From: Li, Candice <Candice.Li@amd.com>
+> Sent: Tuesday, November 16, 2021 4:02 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Clements, John <John.Clements@amd.com>; Zhou1, Tao
+> <Tao.Zhou1@amd.com>; Li, Candice <Candice.Li@amd.com>
+> Subject: [PATCH] drm/amdgpu: Add recovery_lock to save bad pages function
 >
-> Regards,
-> Lang
+> Fix race condition failure during UMC UE injection.
 >
->> Thanks,
->> Christian.
->>
->>> Regards,
->>> Lang
->>>
+> Signed-off-by: Candice Li <candice.li@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 08133de21fdd63..711b5fb26d47d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -1931,10 +1931,12 @@ int amdgpu_ras_save_bad_pages(struct
+> amdgpu_device *adev)
+>       struct ras_err_handler_data *data;
+>       struct amdgpu_ras_eeprom_control *control;
+>       int save_count;
+> +     int ret =3D 0;
+>
+>       if (!con || !con->eh_data)
+>               return 0;
+>
+> +     mutex_lock(&con->recovery_lock);
+>       control =3D &con->eeprom_control;
+>       data =3D con->eh_data;
+>       save_count =3D data->count - control->ras_num_recs; @@ -1944,13
+
+[Tao] Since recovery_lock is dedicated to protecting eh_data, can we unlock=
+ it here?
+
+> +1946,16 @@ int amdgpu_ras_save_bad_pages(struct amdgpu_device *adev)
+>                                            &data->bps[control->ras_num_re=
+cs],
+>                                            save_count)) {
+>                       dev_err(adev->dev, "Failed to save EEPROM table
+> data!");
+> -                     return -EIO;
+> +                     ret =3D -EIO;
+> +                     goto out;
+>               }
+>
+>               dev_info(adev->dev, "Saved %d pages to EEPROM table.\n",
+> save_count);
+>       }
+>
+> -     return 0;
+> +out:
+> +     mutex_unlock(&con->recovery_lock);
+> +     return ret;
+>  }
+>
+>  /*
+> --
+> 2.17.1
 
