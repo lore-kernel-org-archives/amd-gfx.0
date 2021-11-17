@@ -2,127 +2,60 @@ Return-Path: <SRS0=qNnc=QE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4DADC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:26:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90C79C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 16:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D150613C8
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 15:26:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D150613C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4CFE661BFA
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 16:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4CFE661BFA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 082CA6E973;
-	Wed, 17 Nov 2021 15:26:38 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2045.outbound.protection.outlook.com [40.107.236.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 413206E237;
- Wed, 17 Nov 2021 15:26:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LLR8pCkj/+Fqr4mSzlGuV3M2ORNm0aFWGB77BLjcX7utle7bWv4kG+fNxrpw8CQtPA1xgcy+4VxYv9roGEf+jZvhcjQgZxSA3r5bnXuFk4p4jQsE1GC+Dsp04KsPXrDtK1Rwh4KP65ph68V7FlWuae3UKRoCAl0COh1UPmtz3VIWmpXeY8mqVph5n0e+fzopElkimWZoa8hQ1utKkQTXYIMhD+BQEFNAoVWdahiOBiedDKHHP9CsufgqVZ7OXLJO3Cc9Zirrk13lL4q8muULCm8ZYb34YxN1PjN1yM+qqoNB0Hmqk0/3m1rN+H1yvYZuZ4TeubTRPO1j/cLJH47zOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oiXL5g8E/dnU0NMNTMsahc4FjLFryVT9V52nlQoQlOY=;
- b=UXlt91G/d6BwQAHJK0dho7e/cpUplwpTysFLHF4h4WWyZQ8/kuHa3ocIJLXufADJ4uYMwYmjiokc8l5EtTKawPkb5v0jeT9jmrVypILm3nbF/9+Q6iUZinVYFciht+ZqabPP2WJUd6ePWhGF+rTF+CjPL8Pmvksdvtel3mL6hiLJLg78Js/AWYaYD/cWTUg9G3n3r9t5/ds0Xy7ubGcQ6J9tTkc1xkN5SmaUazMI+39hs2k/xjMsj4pZBufJNP9VMxrlEx5fcR747fJthL4gvGsjTxU0dX8nDm35OWLFRqTC12+bGd+YHEIQu5vutKduynlmEl4hHDZvsJpkobseuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oiXL5g8E/dnU0NMNTMsahc4FjLFryVT9V52nlQoQlOY=;
- b=C6k7YPfOgnDlM1vtOEysXVa+Eml/xBd1cIENdC2Y177m/iLc5mWy6zLQnj0OeTcxNJZDqIMBrdlCupPoY3ezfzWZIwu6zVARXuMFULC3cdHVc+/omTUlK/UMoSpXPxA41PTMbVQx+FwQbUznS+Xue8HzGCJwLD/odz+jUXKQbeg=
-Received: from BN6PR1201MB0084.namprd12.prod.outlook.com
- (2603:10b6:405:57::22) by BN6PR12MB1572.namprd12.prod.outlook.com
- (2603:10b6:405:3::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Wed, 17 Nov
- 2021 15:26:32 +0000
-Received: from BN6PR1201MB0084.namprd12.prod.outlook.com
- ([fe80::dc6f:56bf:4457:147e]) by BN6PR1201MB0084.namprd12.prod.outlook.com
- ([fe80::dc6f:56bf:4457:147e%11]) with mapi id 15.20.4713.021; Wed, 17 Nov
- 2021 15:26:32 +0000
-From: "Li, Roman" <Roman.Li@amd.com>
-To: =?iso-8859-2?Q?Samuel_=C8avoj?= <samuel@cavoj.net>, Alex Deucher
- <alexdeucher@gmail.com>
-Subject: RE: Backlight control broken on UM325 (OLED) on 5.15 (bisected)
-Thread-Topic: Backlight control broken on UM325 (OLED) on 5.15 (bisected)
-Thread-Index: AQHX2UaHHsZGf5KGEEOG36FZtNGT5qwEvJcAgAFtzYCAAbGs0A==
-Date: Wed, 17 Nov 2021 15:26:32 +0000
-Message-ID: <BN6PR1201MB00849879DB7D939C0B29AB43899A9@BN6PR1201MB0084.namprd12.prod.outlook.com>
-References: <20211114105657.b57pjojiv72iopg5@fastboi.localdomain>
- <CADnq5_NF++xE6Jj32Wy2ZGALo4pOGt3yTCoj5HU37tKO3Ce=Fg@mail.gmail.com>
- <20211116133259.svayrqaiivaubkjp@fastboi.localdomain>
-In-Reply-To: <20211116133259.svayrqaiivaubkjp@fastboi.localdomain>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=cc46b2f5-f39a-4f82-a211-32d576c94146;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-11-17T15:26:01Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1834f167-90f1-431c-f6b1-08d9a9dea286
-x-ms-traffictypediagnostic: BN6PR12MB1572:
-x-microsoft-antispam-prvs: <BN6PR12MB1572B1C86A2F5A8281DFDEB5899A9@BN6PR12MB1572.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5236;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YaHBeBx1cpLSrR5n4yCIxAT9nRXq+myqz74Y0PPvj0ElZ8nnjXK/lG4yHACpCEx5YalQjW2s09mzpW+Gs7+MJQo31ubV1gxUnwtE10LLbzqmG2Q8f5ueGERTsG1WtuukUaFXgQmeweHQV/QtDcrIrrTxa3i7JqD4IynCaReBhGj+dgVlQIteItSXjlUgkRc0K+v9Wn7+g6BDDCEpZADc0ozqV8aCsWEc54BzpyDVPwMeuAaXeKEuxASgK9intCsjMjpkMrlZNV4S7iY61TZT38iF+2KkY/G+iUZtWAzm3QPc33FW265w/gY09iWq6nvpavzjSXl8RlME+Q59quhtcm4uBWJQDXj6aZXHNb4ljgD5+t9yhnhFREUervjYZFLq8QX4TVrk0ikZJeCIvPW/IGuGenENjDnLH1spgIV+RG+gcqviqsypKHEbGIJtyDJTIvdxx02MFz/cefWFQ8rvowNwZ0gFuV7z9Ns1uPcqdlh1+UV4SQS6xuDvdLOq1zb/OIXmzCqfplxGACG+pLOFJrEbjFcFlzk4gZ/gF15zuZzSyvBDn0OmPPTCkwbzaucPD3h5rdirDPQxn7PLUoD+aQ9G4gK+k/RP2D+KowuEH3YjrUGOTu9oPTHRyDUkfz3I86Ykl6XcXDj9R52EOelUgNASTBdsRVhEk4qXNF15cpbKrpOG4/eJQpPA3/oodOpbb30dghoeO+Z5UCVxuFhv3AAk6otvS5cT9HoNxW37G8D8K5jh61f3ogp9pNs7EZGIziPxtaW0WFNmhWj2a+7Brftstr9OTcCkm+zXnr2qRUk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR1201MB0084.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(52536014)(122000001)(8676002)(6506007)(53546011)(64756008)(4326008)(8936002)(186003)(66476007)(76116006)(66946007)(66556008)(66446008)(54906003)(7696005)(9686003)(110136005)(33656002)(45080400002)(71200400001)(2906002)(55016002)(5660300002)(38070700005)(966005)(86362001)(508600001)(83380400001)(26005)(316002)(38100700002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-2?Q?ejibYSxA6G3gaTY0rHMRi9xhW0S03P61HvSLzO0/7VNZI61myI6kT2qoWk?=
- =?iso-8859-2?Q?QBJmZp2nVqmAYxhxY/J7X5xHCppCQ8Ey9OGIufBVT2vSdy/lety8oQS+Xk?=
- =?iso-8859-2?Q?owpOdhT6j587PMzd1cqlo5mySHyBY54YNhdeW4mNnKA0GEa+i9q6oioOLs?=
- =?iso-8859-2?Q?U2tHLR9GW52cece4mNd/MrjFl2C35lw5Nk9EzfigHJCoHkLFMC93EYSjSX?=
- =?iso-8859-2?Q?NIG2ZxHUtgEqg2bFeWfD4hNyml0CaHfMmUopHxhVkBIRLSTf8m3OAChghq?=
- =?iso-8859-2?Q?Q+tw/SJOP5R1y9OJAqWw44zsx5XgHDNBhzw1Hum8qUioUWG7H+WE864298?=
- =?iso-8859-2?Q?/QLolwe66+8eIdL9AunqBxYtMyjB643JaPTgt9qUO/umYgrbzS28M6eP6N?=
- =?iso-8859-2?Q?MF3hYIXK1c0B3xcoYFC/IAjxQY+d3+n43s5elIPdzDtY4oBV3fWLcNbP4p?=
- =?iso-8859-2?Q?9UWOmTjWhI3mixt7wRVg+C3anWXbcA4q+NoT8qmwe3X8W8B/rq9I6OzzK2?=
- =?iso-8859-2?Q?KWDRHJejRXUsvnJLvladPIrnlzuendR/G42lOc1TY62kYS+mMAhXo+yol3?=
- =?iso-8859-2?Q?BgiWDoC2A0JDvXki6LCdU8R68j9AlbaAhrA68iWnJUGiyQ7D9qUu/Yb1AH?=
- =?iso-8859-2?Q?o/nK3JIyEM1Qx/9jl6kmx4atF7GtKJpT8U+ORsO7POG7ZAzJpNdHOk3dRe?=
- =?iso-8859-2?Q?p6TNzYZJphjsju/6qQVoVyoLABCp5y3ky1Fgp3Oo+ZzD+xsqsIZFLkr1c1?=
- =?iso-8859-2?Q?qJ8i2m/kmvlnAsHgWyv+lCY64a4TiwNstePr8VzoF8hO14NE+16jWZWwHe?=
- =?iso-8859-2?Q?4RrKteD9ApnW8ByZd9WKEAL6La5kxljrTZ4iYS1QbS+a+ZaTB18yAG+9bb?=
- =?iso-8859-2?Q?Figupck9g/RaeyXEQPARN88zUMEHFniUNIR5x/M2KWLMuXfFh4X8TghK/b?=
- =?iso-8859-2?Q?5LGJBA5NFtSFOaGaVJ1ZRYLp+8e45bHPO9UAFBVJuvq2KRKVDj2bYl6p+O?=
- =?iso-8859-2?Q?T0mIlC0niSTepupFTTZO6RoxvuroB9LSQxfCgrEFIoHffej7NrGntgZRXU?=
- =?iso-8859-2?Q?aqZ4jsd6RuICXwbMVuUsTOY06H5Fp3EfiNPIdbt+OUKj15cqyPc0BcLCvQ?=
- =?iso-8859-2?Q?WLatfeEP98ly/ub1qw/FvUmPAqmKjH56Yf9VZHCrR4d++DTCV7shePIJei?=
- =?iso-8859-2?Q?2UGdFPjkJu4KGr8HJvZPIGkE0Q5jlzxwIwdWWITmqO7ViEHIVlaDSsnRVq?=
- =?iso-8859-2?Q?igCG4HQad9VxM6ScDbLOSfKeCIPcb+48Gtn5z8+wD95c4GvykqEyWWuKvY?=
- =?iso-8859-2?Q?PpyvaI4KkAm2aXpgW3vOjJ5H+uKmCmaK9zei+au/OmM48nXwSnMOxyawGh?=
- =?iso-8859-2?Q?zCo/fvSL75PV10lS0+MYjfFR7jL8fNhED2BX7xxtS76DzktRlKHjBStmRJ?=
- =?iso-8859-2?Q?f4WGtW4YNVnljl/QURRyG9xM8zY8HJ61hZauS65EjNAZS16Aupc0nxUCGS?=
- =?iso-8859-2?Q?quoLm5y0M6uG3BPwYdh1U55pC1UTRNzwGLhPqG0YsFBJdLAPMPh5xfkHka?=
- =?iso-8859-2?Q?LvyioY2TqFDLzFwLde1ZdCSHxer1c+DKgbct7wQDflfSil0qtMQv0GO/z7?=
- =?iso-8859-2?Q?ttakH3VqxDZVg=3D?=
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA6AA6E07B;
+	Wed, 17 Nov 2021 16:12:26 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 313316E255
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 16:12:25 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ w6-20020a9d77c6000000b0055e804fa524so5580614otl.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 08:12:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Gl1VECU8naG8kz2jZe9lNQv9CumTcBf9mVVPzbX6CUM=;
+ b=WbpOIFEZomiKcqFZCScEsDv/G8/usLfV9If95lS301U9q2Si3Zwu2fm4jAwezDNk3V
+ LyY0Qd1vvrZfgqnHMVQf6ThIbAY7S6qXOHMgtG8iktBvMMifsoEHOi889o02FOnfjJQl
+ BfFLoeuCs0q2BFA08A/gOeRIYyVoml54oRRmnI9au/1Bjj0K1Icu2KN8zxpRziGNJ/Kw
+ 3O4wGQqt3+QSBoYsdUVTw2quxkuJ060OXPE8IYKmrR18pcbtciUakybnI0H69Ic9zVbE
+ aXoAKumAoBvDgCmNz+CNIqcGWpHdHWpAnN/hbqImvjZxtGEe3p1OzosoJ3ycHfp+SvMU
+ Z7Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Gl1VECU8naG8kz2jZe9lNQv9CumTcBf9mVVPzbX6CUM=;
+ b=ucX1JwJ6elJaLyq/12CoRpIoTg/9mnQRItJs3KybBb0fT7MQqTYdQ/LFIrWw5mI5ys
+ Qp1t8A8WW0Xo6QehuqwHq2zYwYEmyMxbgHvYgtCdu77BCN52ghjR/3E1aJWu24nNiM78
+ 1Oqyjiovue7nAFs2JA09PVahDCXxxECwffITU2kpyWVe0j9mch0SxDm569bS/Ot2ICuB
+ +YUUXTLNpKC0Z7eIWTA9ix/567f9prEqjhHVtQXtDsUUSWTcJtXpPFoHvmOBiQO0/rgV
+ lhVo5VgaAeUbFHkEw2nNOlCnzgjhhC44P8imko67f1CwMt19Qaan6MSD9lrEcgBOH+fW
+ 3gnw==
+X-Gm-Message-State: AOAM531E/oB1JIUyKr/uMLHWiP92DdSjqGvH3b9xgtNRJVTb+g96+uuD
+ 9zOtKDhwtHtXgOquVF3YrpE7th5wtvLuw4iEuCs=
+X-Google-Smtp-Source: ABdhPJyyHPKr1bLaanbmIESkVWdTcNmxM/uGeqdzQ6wA9mx/oVWwkVMwXVjRxXYxqwR1hEX40NYGmDDLpZ/FWcChbwQ=
+X-Received: by 2002:a9d:67c1:: with SMTP id c1mr15115874otn.299.1637165544414; 
+ Wed, 17 Nov 2021 08:12:24 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR1201MB0084.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1834f167-90f1-431c-f6b1-08d9a9dea286
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2021 15:26:32.1944 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IroyfeLjiMxwtqKLdaoNq6DGl2FRc9UOuFp63hlN1lwU5TUTbInU4b2VgiW5AlbP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1572
+References: <1637162530-23015-1-git-send-email-Roman.Li@amd.com>
+In-Reply-To: <1637162530-23015-1-git-send-email-Roman.Li@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 Nov 2021 11:12:13 -0500
+Message-ID: <CADnq5_PFiLS_2Ci8gJh==3Um3v_VTeHKErYQYh5noboJPcfxPA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix OLED brightness control on eDP
+To: Roman Li <Roman.Li@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,96 +67,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Leo \(Sunpeng\) Li" <Sunpeng.Li@amd.com>,
+ =?UTF-8?Q?Samuel_=C4=8Cavoj?= <samuel@cavoj.net>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Wed, Nov 17, 2021 at 10:22 AM <Roman.Li@amd.com> wrote:
+>
+> From: Roman Li <Roman.Li@amd.com>
+>
+> [Why]
+> After commit ("drm/amd/display: add support for multiple backlights")
+> number of eDPs is defined while registering backlight device.
+> However the panel's extended caps get updated once before register call.
+> That leads to regression with extended caps like oled brightness control.
+>
+> [How]
+> Update connector ext caps after register_backlight_device
+>
+> Fixes: b1c61212d8dc ("drm/amd/display: add support for multiple backlights")
+> Link: https://www.reddit.com/r/AMDLaptops/comments/qst0fm/after_updating_to_linux_515_my_brightness/
 
-Hi Samuel,
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Can you please try: https://patchwork.freedesktop.org/patch/463485/ ?
-
-Thanks,
-Roman
-
-> -----Original Message-----
-> From: Samuel =C8avoj <samuel@cavoj.net>
-> Sent: Tuesday, November 16, 2021 8:33 AM
-> To: Alex Deucher <alexdeucher@gmail.com>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Li, Sun peng (Leo)
-> <Sunpeng.Li@amd.com>; Li, Roman <Roman.Li@amd.com>; Maling list - DRI
-> developers <dri-devel@lists.freedesktop.org>; LKML <linux-
-> kernel@vger.kernel.org>; amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: Backlight control broken on UM325 (OLED) on 5.15 (bisected)
 >
-> Hi Alex,
+> Signed-off-by: Roman Li <Roman.Li@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> thank you for your response.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 26fcc89..44c9994 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4243,7 +4243,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+>                 } else if (dc_link_detect(link, DETECT_REASON_BOOT)) {
+>                         amdgpu_dm_update_connector_after_detect(aconnector);
+>                         register_backlight_device(dm, link);
+> -
+> +                       if (dm->num_of_edps)
+> +                               update_connector_ext_caps(aconnector);
+>                         if (psr_feature_enabled)
+>                                 amdgpu_dm_set_psr_caps(link);
+>                 }
+> --
+> 2.7.4
 >
-> On 15.11.2021 10:43, Alex Deucher wrote:
-> > [...]
-> >
-> > That patch adds support for systems with multiple backlights.  Do you
-> > have multiple backlight devices now?  If so, does the other one work?
->
-> No, there is still only one backlight device -- amdgpu_bl0.
-> >
-> > Can you also try this patch?
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > index 4811b0faafd9..67163c9d49e6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > @@ -854,8 +854,8 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
-> >                 if (amdgpu_device_has_dc_support(adev)) {  #if
-> > defined(CONFIG_DRM_AMD_DC)
-> >                         struct amdgpu_display_manager *dm =3D &adev->dm=
-;
-> > -                       if (dm->backlight_dev[0])
-> > -                               atif->bd =3D dm->backlight_dev[0];
-> > +                       if (dm->backlight_dev[1])
-> > +                               atif->bd =3D dm->backlight_dev[1];
-> >  #endif
-> >                 } else {
-> >                         struct drm_encoder *tmp;
-> >
->
-> There is no difference in behaviour after applying the patch.
->
-> Samuel
->
-> >
-> > Alex
-> >
-> > >
-> > > Regards,
-> > > Samuel =C8avoj
-> > >
-> > > [0]:
-> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fw=
-w
-> > >
-> w.reddit.com%2Fr%2FAMDLaptops%2Fcomments%2Fqst0fm%2Fafter_updating
-> _t
-> > >
-> o_linux_515_my_brightness%2F&amp;data=3D04%7C01%7CRoman.Li%40amd.co
-> m%7
-> > >
-> Ce1c766a2f7014cdb664308d9a9059cc6%7C3dd8961fe4884e608e11a82d994e1
-> 83d
-> > >
-> %7C0%7C0%7C637726663861883494%7CUnknown%7CTWFpbGZsb3d8eyJWIjoi
-> MC4wLj
-> > >
-> AwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;s
-> dat
-> > >
-> a=3DhfsaEzng9%2FjAI2F%2BKg87Tv2Mu%2FfPurCQELr62%2B%2FVF%2BQ%3D&a
-> mp;res
-> > > erved=3D0
