@@ -2,132 +2,131 @@ Return-Path: <SRS0=qNnc=QE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 970EBC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 11:15:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10D3EC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 11:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 588B461544
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 11:15:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 588B461544
+	by mail.kernel.org (Postfix) with ESMTPS id B9AAD61B97
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 11:24:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B9AAD61B97
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA826E497;
-	Wed, 17 Nov 2021 11:15:00 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7776E497
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 11:14:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F42E6E3F2;
+	Wed, 17 Nov 2021 11:24:00 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF20D6E3F2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 11:23:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EYflGLbbH3m3iR+M2aGqllNwz9us0hwppYaYdY8BVRDmNdddxi3L8BqcuympxKppfcPafPZK8uxX/z+/FU3gAQXZT1Gj6iJZwG4lkGcfPO0qj8yNzcpd4W9HFpZ+H3/EtOPnfEPy1PnumYDJAC2bSmpgQ8OSCq1VTTXtsZDNbFkuLV8BhAZ5OD8fP4JCNNEWnaHfJlDu0jKsprYNd/CiaAEh2G9/zssr1SzHBi3YyUMJBmIUlnSC6RuQHUZuPyzcT7Vt8WiF4wnE87Wmwt2b64fl/Ia+QArbzTZEaHF+2ubwS9UmAekFidWtKZU2VtRHiYY9X5UuC41bTQ+0VA0qWw==
+ b=lDynRn9PythhRUb9MAzEJ7griiATtH4GAiojWw7nchFBXXpmUglnWrrqzD08Ogs9DF9GiKSeqYlw0gIHCp4agYN5ctACyKuH2yHXQhrXhZCuxQgi6QxWXVV3UskhB31hQg0MIdZoaiyenPz1vHOMRRtSWy6d99zQfOB7uczZ1NxHlOZ7/F/33gk0dihTVL8tz+ALlnvQ3K9Z4hjCavrN7Hd7KVIY17k97CovEBtdhod7py57wGdc12Yg0FgXNIwQEBVmt4qB5XrCtb7JX3yRnLoY9auARN9UnK+u2ULtvLGHX0Q/Rbv9t7lqYNdm8DdSpBRQkIV6WBBJ90aR/tV/5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pstvrWm3VySyabgxPToPgxeYm/iNMI4v9WCYuPiyn2o=;
- b=LGQbT6tm4cqMdyBZB5hi1CMeKgG3SvdeErMcZSkTt/4h2LOJnNVyG0lPT0gtxRTjTFJA6WREHSFnobMZBhjTgTzzz/Hm8eeJMnb32kKHGUYh1aX1lCEjd3Oa6KDMQcacqJNXu7g6i87hGkWR2qSrkwHetnfs5O7ztuCqJgu1G/dSEs9g/7MSDwEXq1bUr+jQa+yk/JnlpzfsQOJ8lfyVwGQRgTC0YdZ6we7mdlwLxtTb0wGbXSI5m3l/2xQTQlFvD8QBSzpQ8jtvWdFmDU0goV0yh9ZRts55FOptWe7CvZ7+OJd9vZHE0/UCOlGv61jzjEnQSmvN/QlS5xxLBCNjsw==
+ bh=lKN/Rzxh+DhOnsmv1X82/IdWP/oWMxdP9xilpNvgBrA=;
+ b=DqbBRbkCiZ3ICSt3VxposTS5mcYBE9JFuol1OnqdVVGFFQ9dKDxc03OJguUDxLx7qluvTtFxm3A2pXHUEL5t1xhwQ1v5r2Z3N+U8LGojGut6hl7Y1NjMT64SCUzkZ7j48eN85MtHYl6x7pbnS+Sd0fo+O8naT4YAfXfoWD+M3yX+2+luyi3nRFqZEQinOc7dSfjYmCubEo20qnJAbptq4FgcMIUYZgGdqbsT9bzq6X8EqCUAJH1fWnBFYowibOaxzxhMRYYjo4/DdVVvm2yawhlxW7OJxFO6FCd/N7ecmt6zEmu10tuSNxRPy4qVUfwULz5zFvtl3pyql7L0wiSN+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pstvrWm3VySyabgxPToPgxeYm/iNMI4v9WCYuPiyn2o=;
- b=fzQQOArRGbO7bAkYVYfDMsHQXnzRiEtGnl4TynyVilE/db0ufxEAYLinSjf/fodUQslhbCVrS9RAKhLM47nkd/f5U1W7kB8vXbmPaAG7cTGEfVUbSRG5lX1dug4jjy/9N1Hvp+vRrdkr/dRme1zJOBzWC7wEVkwUcQmdD9MIkc0=
+ bh=lKN/Rzxh+DhOnsmv1X82/IdWP/oWMxdP9xilpNvgBrA=;
+ b=hk+UOdmI9Kttw2ppAs+QMZ2wetrJJQ7nN2W4Avor7/DDSir41/5ai3044Fn2ay1uLCYqZsvcKv7Pbj2v4SFsL6SSxCzlGUr9W5zfrDMRSAAAzRd4JsxjKzyo/tscuJGvlZopMkTrQpTe1662/CZTuYVuxY8ZOsZ1LPJPUUprzHo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM5PR12MB1756.namprd12.prod.outlook.com (2603:10b6:3:108::10) with
+ by DM5PR12MB1337.namprd12.prod.outlook.com (2603:10b6:3:6e::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Wed, 17 Nov
- 2021 11:14:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.20; Wed, 17 Nov
+ 2021 11:23:57 +0000
 Received: from DM6PR12MB3930.namprd12.prod.outlook.com
  ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
  ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4690.027; Wed, 17 Nov 2021
- 11:14:56 +0000
-Message-ID: <8eab09ca-8294-a41b-d44b-fe6bbd84d727@amd.com>
-Date: Wed, 17 Nov 2021 16:44:41 +0530
+ 11:23:57 +0000
+Message-ID: <daa32ce8-5afd-a9db-fbd3-f9bb874622f3@amd.com>
+Date: Wed, 17 Nov 2021 16:53:43 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [PATCH Review 4/4] query umc error info from ecc_table
+Subject: Re: [PATCH Review 3/4] drm/amdgpu: add message smu to get ecc_table
 Content-Language: en-US
 To: "Stanley.Yang" <Stanley.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
  Hawking.Zhang@amd.com, John.Clements@amd.com, Evan.Quan@amd.com,
  KevinYang.Wang@amd.com
 References: <20211117101132.6568-1-Stanley.Yang@amd.com>
- <20211117101132.6568-4-Stanley.Yang@amd.com>
+ <20211117101132.6568-3-Stanley.Yang@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20211117101132.6568-4-Stanley.Yang@amd.com>
+In-Reply-To: <20211117101132.6568-3-Stanley.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN1PR0101CA0062.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c00:d::24) To DM6PR12MB3930.namprd12.prod.outlook.com
+X-ClientProxiedBy: BMXPR01CA0023.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:d::33) To DM6PR12MB3930.namprd12.prod.outlook.com
  (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
 Received: from [10.252.81.250] (165.204.159.242) by
- PN1PR0101CA0062.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00:d::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16 via Frontend
- Transport; Wed, 17 Nov 2021 11:14:52 +0000
+ BMXPR01CA0023.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:d::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4690.19 via Frontend Transport; Wed, 17 Nov 2021 11:23:53 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ecbfb2a9-d39f-4823-af0c-08d9a9bb7c8b
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1756:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1756B94F32F1D4ABA671CEDB979A9@DM5PR12MB1756.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: 9b43f9bb-2ecd-48a2-143f-08d9a9bcbe95
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1337:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB13376C59566D3247C66724AB979A9@DM5PR12MB1337.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z/Ta5PvZfLxV5QKvQFE84pR3t7IoEwHN/0jt1bnoZsNoEwPvPcE/R+B5aCOACArK+ErAErbhUbIEOlSTgnumreKGnZmM11bYcrnhbc3YasbcQAw/7XkU2NFOIDDK+aDM4lshULkSn8xgTdm32AFDG4SQKRVdQAeaXb5Yb5yeqFHzbSGxMdCrjKjpGS21PWtaiNWSNE+f8LAFAePPvLOc9IDUTrle1jurcZTnVh3UOW43bN/bZhvgAe9ynaeLOYWPkaCWwbrwzL551HyzBQTQY2fQKj+P7qmjFwsSXnRe7L12drHLgxSjdFq2hwf9daOteiVzwTazjQADY9qzaS2Sen3CPh3fm/TPKqHQw53TUUvEMSVN1F7vz5kTTe2pSWRcG5GNPZ12y+GOpzHLXe5gE0fyD/cXcdPDYjM3mrkqduCyfjrI9nmUqh7ad4jPgklwPjwIgLIyyYN4aKImMjEwnLsBOs5zu1fA7TruQfhoBwRpqLlEzOxaaYP8M2WiQcYeo6+GnuoMvnSvKMSEyjKeqE9pxq1HZisN/yNUO/VeKi1GaFJ85OkvVbjsi2lgQ9gvrMnnZ2KMa+jwGPcjOUjWEWM2iXhUIO4mhkNX2rTJjLcMJeo9pMssLFE6W8t9nv30r8vnzK5eoM6x2eys6FHRiwKxDZli65Hi9XY0nNN/PlXj7/ISH5dgD7JdO+zunBqlrWDvHPrMPLs0loac2klvdk85iwfFmHdtxhrYY3o2sD6IvdplV6uF4CA37fJFf/fV
+X-Microsoft-Antispam-Message-Info: k+1iuK0E8dhR7PRUzqdQ9DRy5RpmSJMKU0GsUbq5jOuo4I7uEoDW7jW3MaQhPpfNPqqc0qG2i7v3L6IEz91E3lGX5vbCJ5mXR0crL4EjveIVKuYsJrsAoUHuWAWT8M0+tiEUnHu3uIxk5f0j7gaW8u10vXO3AFK0e1DXeE1jm5QnzrhmdslX9JLOZPGSaummoo1SENu+UNYfcQqBYt18XDMkx/7q+MqhevyYaFRkrxmSU9oc+C3+Phr6Lo3MmUvHlUdxG4niQ4525Szge92RvoT4mhs1XREhlKi2l5/VUIN3tR8SPAIYFZDJnbofVf++uVyajC0CPSGcYltA6YWsnnwXsR7do1RTZEE8KxDFC9xJAHLJVKIIBvU4CMmOZAX99hlzEc9UgAprjIG3rzS0HspZDby2u63mLgSlTCwyEeFkMCxjSbhDPBG4M9WQPAxDIjv+ed+TmZ+a866ZvtT92jgPzowD8XA/EKcCqXZxBZqzzBj8fKjtYYoDXxpsTqTlAQv1HTyngTcEtNCaYWheAUkHyQQrHiNvUuCnV6Etx/jeTxQ0xSrPK39xvpI2+gTxuXBgc0/TE01+awIvSTF4CJJ0akthuper3KXAFY/+RHBZM6yHw2vfOyL+npBL6IMGAAERuWYaALBMlww5Qm8N2UvcjrheMEtKL/slgEMwiasS72Gu6xbDXoUviln5q/mUfWrDlsDnORLnQPqzB31+HP+2YmtoFrZVao+R81BpG7o=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(508600001)(16576012)(66946007)(66556008)(31696002)(53546011)(2906002)(186003)(8936002)(316002)(66476007)(26005)(6486002)(36756003)(2616005)(6666004)(8676002)(31686004)(6636002)(86362001)(83380400001)(38100700002)(956004)(5660300002)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(508600001)(86362001)(38100700002)(6636002)(16576012)(6486002)(8676002)(15650500001)(26005)(66556008)(53546011)(186003)(6666004)(31696002)(66476007)(316002)(66946007)(2616005)(5660300002)(36756003)(956004)(83380400001)(31686004)(2906002)(8936002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDJ5dEFhQ21vOEhOclhRUmlxaTI2em9OeTBESGxzY1d4UGg1OWFiZllSUTFX?=
- =?utf-8?B?R3EwMEZsOFcxZEdqR2FtVGhubnRpNW91SHZPajBjV2xJaWx2QlhLclQ3TzVk?=
- =?utf-8?B?YlRVaDNTSEFJY3kvQVg4c1FWVkY3bXlTcnZpYVlSYU1uTWxHVDlrUmhWYkFG?=
- =?utf-8?B?QnBFZk1ZdDMwcnNmdStJQUVDWlFrUEg5cHpZRk1DUnNQMUxHOVFUYmFGVDdP?=
- =?utf-8?B?UHpEdk51MEZrQm53K0lUdWpMZXhrcmI4ZlBjdkpkUmNtNGYvRkZJemdDd1Nj?=
- =?utf-8?B?RlhJVkphVno3cTdMdjR0UVJDSUNoeUhDeFZHcWZiTFY1Mm1IUXEzUFpxN0hR?=
- =?utf-8?B?eFpXd2cycXVKU1BQOE80OWhNcG14b2MzN20vbHA5c1FmMXVFck9FNGwxTkty?=
- =?utf-8?B?L0FxZklWcEp5bXJYNWdqN3I1dTVLUXN6eTRod0dQaFBYMElBUGZsdGZzSU1T?=
- =?utf-8?B?U010bkxENFZrMUdzblA5dWpiRFlhTFRqaFM0bEQ3SGpTTzRkWGt3Nm0vdEx1?=
- =?utf-8?B?Wm05WnZCdytVZHdLMnlTU3NDcFV2WFl3eHo0Z09sZUJpYlpyZTZkYUtJMFlL?=
- =?utf-8?B?SGFPTGx2T0JZNWNDZGJuV3RWVjdWcGJ0UlJHaUVrUGprS3hDUVQxb3VDdmlu?=
- =?utf-8?B?SlBUTWpyVWRYYlR3S2FkREV6cmt4ZjNxNzFsZ2lNdEp5bFFsOGZySUNyODNS?=
- =?utf-8?B?eFc0TFl1QlZUTkMwR0VyMkhIdmx5REdxanBGZ1lYZjY1K05jdFN5cmZib3Z0?=
- =?utf-8?B?T2Z0OGo4SWNESWJDM1lqVEs4NlVhZTNSbnJWOHYvcExQQWxBOUluRXhwYUcz?=
- =?utf-8?B?eENFTURhZitYdlU2VC9UQTdmQ0JUWnc0Ulg4KzhDd3JKTXpDdlBSUjl1U1NH?=
- =?utf-8?B?UXIwdnhQRWJjbEFMa2dHb3NhV0t5YmExVEhSRnloaUd0ZDM5aGRGU3dCVVAy?=
- =?utf-8?B?empraDdzci9Ud0xhL2syQjhGTHhERDU5WHJnVUZ2VGhqU1dLZ3l3VE5rWXRM?=
- =?utf-8?B?T3ZNZWYzcWVIUFI5RWVFRktGbGkzSUkxcVVUd1B4RDBWYTRyb1MwUWptaVFx?=
- =?utf-8?B?UEdPbFNWRFZoaWVPY2FqejlVSDBYZHBOdVlFR3o0ajR6T1dvTDB0OFlpRWwy?=
- =?utf-8?B?NXJiWGlkQ0F1cDJYTCtEanpodnNUVTlQN3RwWDBaWEFFRXhwNG1tVEpydi9v?=
- =?utf-8?B?NEFJd3B4MlhmZXlQQzNyVTZzZStBNllWWGQ2ZnJ6dGNEYllBS3dpZHp0V2Zk?=
- =?utf-8?B?ME1rYWt2enR4dWM5WTF3YTMrRFFTQUUvdDBPckdMell5SWFVVTNaNWZlZkhN?=
- =?utf-8?B?aEZhM1JSd2loQi9YMnFnb21ja0FUNWg4V203WlMzSXJDUmM2UXZIRmhaQnQ1?=
- =?utf-8?B?L0FyNEZuMGJUM0FIQzZ3VXpkckNNSDlvTXlSandIV0Mzc3pjZDNkaWRzNjlz?=
- =?utf-8?B?NDRuOGwxVU1TRGYxOC9IaTFxN1ZjK2wzTDh3L0dFbkk2c1VFNGxKeDQ4elJO?=
- =?utf-8?B?RXE3cjU1YlUxRkt2WG9DSzZWNVU2SFhwTjdKOWx4OUtxb3c1cUk3WllWa010?=
- =?utf-8?B?am9HSm5UYkFrRCtsdWRlOHlZcUlTWXY1UElJUHRQaUQzQVhxK3d1d2dPaEMw?=
- =?utf-8?B?MnorbEZSR0RvUGtlUEpWamFWOC9zcUxURldyL3A4Wmd5T25JVWFlaDVLaXFX?=
- =?utf-8?B?ZWdFWGR4YjRIQjh6WG5yYmFHTXhQdzhmWlR4dlU0ZW96YW4rajBaRW9OT2No?=
- =?utf-8?B?aTdvM3ByejR5dXkxNXNMOGhudXhwWWVtZVEzdWwxTWpsWHlnaGFPOGZ6Q3dH?=
- =?utf-8?B?QzNLNlAyQUxRakpIbit6VHRyK1dJaUZZMGY3UTNZNUp3dWo3cEkxQmlsZ29l?=
- =?utf-8?B?b3g1RldNZVE3c21xSE90WC9nZU13UnhkQWp3dEVtZllQRmx1MkxqWTQ1WTl0?=
- =?utf-8?B?UkFpWHI1K1VvVTZORXRaRFhSYUwzeFgzZmF6YjBsZnd2TkY0anpBQkFKOXBD?=
- =?utf-8?B?RldyblBQMWU4SzBHY2FiQWlFNkJOc1BiQU50cytnMEJac2hqM2RJZC9kWkRi?=
- =?utf-8?B?QmRxMnBnbms1TUFYUUlZVFlNaEdTQUdSVzJoSEhESVp5T3l0SDZaSXFJdGkr?=
- =?utf-8?Q?qWvg=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnVZREQ5ZkdoNjlLZzJlbU85bkNoUGRqMmpMK25zYllSWTF1ekVtcUg5Z0tl?=
+ =?utf-8?B?UllsbEo1REVRdkxpZEFqZ0NoVjQvTkwxRGk3ejJTYlZnS3llYWo0c1Zybkx3?=
+ =?utf-8?B?R2Eyc3ZwYWNVZW85NWRYNHlXTnlta3FJNUxveXRDOXI3UEE0Tk9TRjZKeFBQ?=
+ =?utf-8?B?NlhwOEFLMWxnVDg1emJLVWppMndPZXE2SDhnRm5qdkQyZlpsZmNEVHRGeTZz?=
+ =?utf-8?B?V3RDQmdxU1hjVHFSTXE5MEtaL2wrN1A4SlNyU2lTZEtlMG5vT3QwbmhWS2t0?=
+ =?utf-8?B?anV3OG03eVFOdlZGUUFYZCtSYTRIRjJTZW1BWk5HZjRuVmxHbkMvdldzeDJ0?=
+ =?utf-8?B?aUlGZFN0UzVNbTBqN3hvZFp1cTZSZTJxQ0sxa1FLbHlrUzVjSWRrL1BEU2Nw?=
+ =?utf-8?B?RkJCQUUwa0hXNmEyTUg0UGdKVGxqRU94N0xtWXFxWW1pVzBId245M0JCcXhC?=
+ =?utf-8?B?UlFFWkZFUU5iVy9Kd0htR3RYbEo5L2E0NzhCS2RQUGFpeXVrLzBaVllzb3dw?=
+ =?utf-8?B?Z004Q21HVnc2ek9FdWhnRkRpZGc2eE5Ib1NIYzE3bFBBVEhOdkpRZnpWZlBt?=
+ =?utf-8?B?Y1c3WlRJckRuQ0lxYTlwOHVoeko2NnVNQ05qUzBtWktHVlpReVMvODd6eFkx?=
+ =?utf-8?B?ZzJmUkt1bVZwK2kzUmJwL3NqZ2J1cjRLKzRuZnNSbE1YY29DTTNGa2J3SFJN?=
+ =?utf-8?B?NWYySmNQMHowYXYyT1U4WlkrRFovZHQwYzl3MmlJKzBaZFVMWEtUL1lrSThv?=
+ =?utf-8?B?ZjNPaEFRMkFJU0NVcjhDeFhlV29tYy95anNQMUd3Vm5FbUgwZzNYcmo3eG5B?=
+ =?utf-8?B?RUNsN21idUV6OG12WkYrZGlJMVdhTVN3WUNOVXYvZkYwUHE0YmEvZENTNGdP?=
+ =?utf-8?B?UUJCSUw5SWZLaW4yTGJycjlQQW91NFBYdmM2NmFkUm5Ya1ZiRDdFSkVvNzNF?=
+ =?utf-8?B?VlZiVVNjZjlTQjlKd1dWZytsM1VhcUVkdlIyamJtU2Z6SEwrcGo3R0I2U1FM?=
+ =?utf-8?B?akdCR256bHloQnFVQTQ0Q0NXSFlVS3dmV0NiUGs3aDdGNHFTWUYxdUM4MCto?=
+ =?utf-8?B?M0V3cmM0ZDNxa3NkemhmREJvSTNUZ1hFSTNKYS9YbGVNbDdUWVNkeE83Q2pI?=
+ =?utf-8?B?NDZVajdpZnlmeDRrVTdodEx2eU1aTURLMy9yc254N3pSM0FONEI2cEhDZmky?=
+ =?utf-8?B?VlJ0eEJWL1FyQUc1M2lrSXVtRkQ1UExjcEpUUUlWQ2FPR2ZyUW5SMHgzd0JO?=
+ =?utf-8?B?bkJvNXlFR3NjT0Y5ZHoraDAxWXdJci9DMVEyK0Z3WHlkZVpDMWhreVRad2tr?=
+ =?utf-8?B?ek5IelZEbEFIZVU2OEJtTmlRL2tWYUVSckxvTGhxVnUyM0lIc3JDZWQzTS80?=
+ =?utf-8?B?ZjF5R1E5bzhuQlZodTAwbTkzZnphb0x3TEhzK1RWSE5nZzdCVHdBNWhiSW1n?=
+ =?utf-8?B?QTRsbWNqVkVtMFhZWEF0S0JkZW13eTFyVlFsVHZKc0NaU3Jqd0szWFN0eDFY?=
+ =?utf-8?B?QzBZWnNsWW9sNlFsWUdFTE52ald2V2E5emVveVpiRm84WHo4amlDZ05BRVlY?=
+ =?utf-8?B?Qm9oN1dYSHVabkVVa2htU0U5VGtYaTBzbWs3OVhPU3l4bDgwWjlVclJUeVhi?=
+ =?utf-8?B?NVFqVUFpQkkveUdxVndFcU03alVPeVFka3E4bkRvcDNnbGhBeUcvVm1rV2VQ?=
+ =?utf-8?B?K3pmTm4wME9PdXYwbTN2QW1aQkFHd1hncGpacXVJZkF3OVZ2a0VtVjlpelBp?=
+ =?utf-8?B?TEN2RDlrR2FhWFp0Ym5xeDNNN3BIZklRWjM2U2RNOXEwTnRxbzJ5TGdyK3d3?=
+ =?utf-8?B?TXRBRUdCajlpT01HQ0FRMlB1ak9FOGxiYXE2eHdOTW0rZHhiWndTNkY0bVJv?=
+ =?utf-8?B?aERXL0lIZmx0RXB1NWprN0JuRkFXaFRONkx5MFdlNVZNeENnYjUxd1Yxanhw?=
+ =?utf-8?B?TFgvczh1Q3RqL0M3SnBtZ1hNaEt4d0tIZlZGM3RXMS85MHpVR3VzRGpLd0pN?=
+ =?utf-8?B?N1MwKzlwOHhZNXZ6QlZQRXh1THVSam5uYUplMkREYzZoV2tET1gwVWo4akVI?=
+ =?utf-8?B?eEg5SjZTbkdaMnFveURBOEFNMWdsZC9JN1ArSlZKc0VBUnc1YjRtdTlVOG02?=
+ =?utf-8?Q?Nezs=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecbfb2a9-d39f-4823-af0c-08d9a9bb7c8b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b43f9bb-2ecd-48a2-143f-08d9a9bcbe95
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 11:14:56.6981 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 11:23:56.9280 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /27j56Usih9OYI1da6helxvHyZGKvwj/iRW5WyuxqIXojID7VshSkWZTcRz16doa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1756
+X-MS-Exchange-CrossTenant-UserPrincipalName: BkZLdEDc+O73ja4ca/LnarS1IyPBO939bDWhITj7Tzfsy2Gs1ONi6tn895+ngNNU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1337
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,266 +144,198 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 11/17/2021 3:41 PM, Stanley.Yang wrote:
-> if smu support ECCTABLE, driver can message smu to get ecc_table
-> then query umc error info from ECCTABLE
-> apply pmfw version check to ensure backward compatibility
+> support ECC TABLE message, this table include unc ras error count
+> and error address
 > 
 > Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 42 ++++++++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  7 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       | 71 +++++++++++++------
->   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  1 +
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 12 ++++
->   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  4 ++
->   6 files changed, 107 insertions(+), 30 deletions(-)
+>   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  7 ++++
+>   .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 38 +++++++++++++++++++
+>   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  2 +
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 24 ++++++++++++
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  3 ++
+>   5 files changed, 74 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 90f0db3b4f65..6b0f2ba1e420 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -888,6 +888,38 @@ void amdgpu_ras_mca_query_error_status(struct amdgpu_device *adev,
->   	}
->   }
->   
-> +static void amdgpu_ras_get_ecc_info(struct amdgpu_device *adev, struct ras_err_data *err_data)
-> +{
-> +	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-> +
-> +	/*
-> +	 * choosing right query method according to
-> +	 * whether smu support query error information
-> +	 */
-> +	if ((ras->smu_version >= SUPPORT_ECCTABLE_SMU_VERSION) &&
-> +			!smu_get_ecc_info(&adev->smu, (void *)&(ras->umc_ecc))) {
-> +
-
-This version check should be in aldebaran_ppt implementation. In general 
-the callback will check the FW version that supports ECC table for the 
-corresponding ASIC. It may return ENOTSUPP or similar if the FW version 
-doesn't support ECC table and that may be checked here. Keeping 
-smu_version in ras context is not needed.
-
-> +		if (adev->umc.ras_funcs &&
-> +			adev->umc.ras_funcs->message_smu_query_ras_error_count)
-> +			adev->umc.ras_funcs->message_smu_query_ras_error_count(adev, err_data);
-> +
-> +		if (adev->umc.ras_funcs &&
-> +			adev->umc.ras_funcs->message_smu_query_ras_error_address)
-> +			adev->umc.ras_funcs->message_smu_query_ras_error_address(adev, err_data);
-> +	} else {
-> +		if (adev->umc.ras_funcs &&
-> +			adev->umc.ras_funcs->query_ras_error_count)
-> +			adev->umc.ras_funcs->query_ras_error_count(adev, err_data);
-> +
-> +		/* umc query_ras_error_address is also responsible for clearing
-> +		 * error status
-> +		 */
-> +		if (adev->umc.ras_funcs &&
-> +		    adev->umc.ras_funcs->query_ras_error_address)
-> +			adev->umc.ras_funcs->query_ras_error_address(adev, err_data);
-> +	}
-> +}
-> +
->   /* query/inject/cure begin */
->   int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
->   				  struct ras_query_if *info)
-> @@ -901,15 +933,7 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
->   
->   	switch (info->head.block) {
->   	case AMDGPU_RAS_BLOCK__UMC:
-> -		if (adev->umc.ras_funcs &&
-> -		    adev->umc.ras_funcs->query_ras_error_count)
-> -			adev->umc.ras_funcs->query_ras_error_count(adev, &err_data);
-> -		/* umc query_ras_error_address is also responsible for clearing
-> -		 * error status
-> -		 */
-> -		if (adev->umc.ras_funcs &&
-> -		    adev->umc.ras_funcs->query_ras_error_address)
-> -			adev->umc.ras_funcs->query_ras_error_address(adev, &err_data);
-> +		amdgpu_ras_get_ecc_info(adev, &err_data);
->   		break;
->   	case AMDGPU_RAS_BLOCK__SDMA:
->   		if (adev->sdma.funcs->query_ras_error_count) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> index bcbf3264d92f..3f0de0cc8403 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> @@ -322,6 +322,12 @@ struct ras_common_if {
->   
->   #define MAX_UMC_CHANNEL_NUM 32
->   
-> +/*
-> + * SMU support ECCTABLE since version 68.42.0,
-> + * use this to decide query umc error info method
-> + */
-> +#define SUPPORT_ECCTABLE_SMU_VERSION 0x00442a00
-> +
->   struct ecc_info_per_ch {
->   	uint16_t ce_count_lo_chip;
->   	uint16_t ce_count_hi_chip;
-> @@ -375,6 +381,7 @@ struct amdgpu_ras {
->   
->   	/* record umc error info queried from smu */
->   	struct umc_ecc_info umc_ecc;
-> +	uint32_t smu_version;
->   };
->   
->   struct ras_fs_data {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> index 0c7c56a91b25..2c3e97c9410b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> @@ -97,28 +97,57 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
->   	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
->   
->   	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
-> -	if (adev->umc.ras_funcs &&
-> -	    adev->umc.ras_funcs->query_ras_error_count)
-> -	    adev->umc.ras_funcs->query_ras_error_count(adev, ras_error_status);
->   
-> -	if (adev->umc.ras_funcs &&
-> -	    adev->umc.ras_funcs->query_ras_error_address &&
-> -	    adev->umc.max_ras_err_cnt_per_query) {
-> -		err_data->err_addr =
-> -			kcalloc(adev->umc.max_ras_err_cnt_per_query,
-> -				sizeof(struct eeprom_table_record), GFP_KERNEL);
-> -
-> -		/* still call query_ras_error_address to clear error status
-> -		 * even NOMEM error is encountered
-> -		 */
-> -		if(!err_data->err_addr)
-> -			dev_warn(adev->dev, "Failed to alloc memory for "
-> -					"umc error address record!\n");
-> -
-> -		/* umc query_ras_error_address is also responsible for clearing
-> -		 * error status
-> -		 */
-> -		adev->umc.ras_funcs->query_ras_error_address(adev, ras_error_status);
-> +	if ((con->smu_version >= SUPPORT_ECCTABLE_SMU_VERSION) &&
-> +			!smu_get_ecc_info(&adev->smu, (void *)&(con->umc_ecc))) {
-> +
-Same comment as above.
-
-> +		if (adev->umc.ras_funcs &&
-> +		    adev->umc.ras_funcs->message_smu_query_ras_error_count)
-> +		    adev->umc.ras_funcs->message_smu_query_ras_error_count(adev, ras_error_status);
-> +
-> +		if (adev->umc.ras_funcs &&
-> +		    adev->umc.ras_funcs->message_smu_query_ras_error_address &&
-> +		    adev->umc.max_ras_err_cnt_per_query) {
-> +			err_data->err_addr =
-> +				kcalloc(adev->umc.max_ras_err_cnt_per_query,
-> +					sizeof(struct eeprom_table_record), GFP_KERNEL);
-> +
-> +			/* still call query_ras_error_address to clear error status
-> +			 * even NOMEM error is encountered
-> +			 */
-> +			if(!err_data->err_addr)
-> +				dev_warn(adev->dev, "Failed to alloc memory for "
-> +						"umc error address record!\n");
-> +
-> +			/* umc query_ras_error_address is also responsible for clearing
-> +			 * error status
-> +			 */
-> +			adev->umc.ras_funcs->message_smu_query_ras_error_address(adev, ras_error_status);
-> +		}
-> +	} else {
-> +		if (adev->umc.ras_funcs &&
-> +		    adev->umc.ras_funcs->query_ras_error_count)
-> +		    adev->umc.ras_funcs->query_ras_error_count(adev, ras_error_status);
-> +
-> +		if (adev->umc.ras_funcs &&
-> +		    adev->umc.ras_funcs->query_ras_error_address &&
-> +		    adev->umc.max_ras_err_cnt_per_query) {
-> +			err_data->err_addr =
-> +				kcalloc(adev->umc.max_ras_err_cnt_per_query,
-> +					sizeof(struct eeprom_table_record), GFP_KERNEL);
-> +
-> +			/* still call query_ras_error_address to clear error status
-> +			 * even NOMEM error is encountered
-> +			 */
-> +			if(!err_data->err_addr)
-> +				dev_warn(adev->dev, "Failed to alloc memory for "
-> +						"umc error address record!\n");
-> +
-> +			/* umc query_ras_error_address is also responsible for clearing
-> +			 * error status
-> +			 */
-> +			adev->umc.ras_funcs->query_ras_error_address(adev, ras_error_status);
-> +		}
->   	}
->   
->   	/* only uncorrectable error needs gpu reset */
 > diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> index ea65de0160c3..7a06021a58f0 100644
+> index 3557f4e7fc30..ea65de0160c3 100644
 > --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
 > +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> @@ -1404,6 +1404,7 @@ int smu_set_light_sbr(struct smu_context *smu, bool enable);
+> @@ -324,6 +324,7 @@ enum smu_table_id
+>   	SMU_TABLE_OVERDRIVE,
+>   	SMU_TABLE_I2C_COMMANDS,
+>   	SMU_TABLE_PACE,
+> +	SMU_TABLE_ECCINFO,
+>   	SMU_TABLE_COUNT,
+>   };
 >   
->   int smu_wait_for_event(struct amdgpu_device *adev, enum smu_event_type event,
->   		       uint64_t event_arg);
-> +int smu_get_ecc_info(struct smu_context *smu, void *umc_ecc);
+> @@ -340,6 +341,7 @@ struct smu_table_context
+>   	void				*max_sustainable_clocks;
+>   	struct smu_bios_boot_up_values	boot_values;
+>   	void                            *driver_pptable;
+> +	void                            *ecc_table;
+>   	struct smu_table		tables[SMU_TABLE_COUNT];
+>   	/*
+>   	 * The driver table is just a staging buffer for
+> @@ -1261,6 +1263,11 @@ struct pptable_funcs {
+>   	 *										of SMUBUS table.
+>   	 */
+>   	int (*send_hbm_bad_pages_num)(struct smu_context *smu, uint32_t size);
+> +
+> +	/**
+> +	 * @get_ecc_table:  message SMU to get ECC INFO table.
+> +	 */
+> +	ssize_t (*get_ecc_info)(struct smu_context *smu, void *table);
+>   };
 >   
->   #endif
->   #endif
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index 01168b8955bf..6340c079f35e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -3072,6 +3072,18 @@ int smu_set_light_sbr(struct smu_context *smu, bool enable)
+>   typedef enum {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+> index f835d86cc2f5..5e4ba0e14a91 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+> @@ -190,6 +190,7 @@ static const struct cmn2asic_mapping aldebaran_table_map[SMU_TABLE_COUNT] = {
+>   	TAB_MAP(SMU_METRICS),
+>   	TAB_MAP(DRIVER_SMU_CONFIG),
+>   	TAB_MAP(I2C_COMMANDS),
+> +	TAB_MAP(ECCINFO),
+>   };
+>   
+>   static const uint8_t aldebaran_throttler_map[] = {
+> @@ -223,6 +224,9 @@ static int aldebaran_tables_init(struct smu_context *smu)
+>   	SMU_TABLE_INIT(tables, SMU_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest_t),
+>   		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+>   
+> +	SMU_TABLE_INIT(tables, SMU_TABLE_ECCINFO, sizeof(EccInfoTable_t),
+> +		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+> +
+>   	smu_table->metrics_table = kzalloc(sizeof(SmuMetrics_t), GFP_KERNEL);
+>   	if (!smu_table->metrics_table)
+>   		return -ENOMEM;
+> @@ -235,6 +239,10 @@ static int aldebaran_tables_init(struct smu_context *smu)
+>   		return -ENOMEM;
+>   	}
+>   
+> +	smu_table->ecc_table = kzalloc(tables[SMU_TABLE_ECCINFO].size, GFP_KERNEL);
+> +	if (!smu_table->ecc_table)
+> +		return -ENOMEM;
+> +
+>   	return 0;
+>   }
+>   
+> @@ -1765,6 +1773,35 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
+>   	return sizeof(struct gpu_metrics_v1_3);
+>   }
+>   
+> +static ssize_t aldebaran_get_ecc_info(struct smu_context *smu,
+> +					 void *table)
+> +{
+> +	struct smu_table_context *smu_table = &smu->smu_table;
+> +	EccInfoTable_t ecc_table;
+> +	struct ecc_info_per_ch *ecc_info_per_channel = NULL;
+> +	int i, ret = 0;
+> +	struct umc_ecc_info *eccinfo = (struct umc_ecc_info *)table;
+> +
+> +	ret = smu_cmn_get_ecc_info_table(smu,
+> +					&ecc_table);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < ALDEBARAN_UMC_CHANNEL_NUM; i++) {
+> +		ecc_info_per_channel = &(eccinfo->ecc[i]);
+> +		ecc_info_per_channel->ce_count_lo_chip =
+> +			ecc_table.EccInfo[i].ce_count_lo_chip;
+> +		ecc_info_per_channel->ce_count_hi_chip =
+> +			ecc_table.EccInfo[i].ce_count_hi_chip;
+> +		ecc_info_per_channel->mca_umc_status =
+> +			ecc_table.EccInfo[i].mca_umc_status;
+> +		ecc_info_per_channel->mca_umc_addr =
+> +			ecc_table.EccInfo[i].mca_umc_addr;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   static int aldebaran_mode1_reset(struct smu_context *smu)
+>   {
+>   	u32 smu_version, fatal_err, param;
+> @@ -1967,6 +2004,7 @@ static const struct pptable_funcs aldebaran_ppt_funcs = {
+>   	.i2c_init = aldebaran_i2c_control_init,
+>   	.i2c_fini = aldebaran_i2c_control_fini,
+>   	.send_hbm_bad_pages_num = aldebaran_smu_send_hbm_bad_page_num,
+> +	.get_ecc_info = aldebaran_get_ecc_info,
+>   };
+>   
+>   void aldebaran_set_ppt_funcs(struct smu_context *smu)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index 4d96099a9bb1..55421ea622fb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -428,8 +428,10 @@ int smu_v13_0_fini_smc_tables(struct smu_context *smu)
+>   	kfree(smu_table->hardcode_pptable);
+>   	smu_table->hardcode_pptable = NULL;
+>   
+> +	kfree(smu_table->ecc_table);
+>   	kfree(smu_table->metrics_table);
+>   	kfree(smu_table->watermarks_table);
+> +	smu_table->ecc_table = NULL;
+>   	smu_table->metrics_table = NULL;
+>   	smu_table->watermarks_table = NULL;
+>   	smu_table->metrics_time = 0;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index 843d2cbfc71d..e229c9b09d80 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -983,6 +983,30 @@ int smu_cmn_get_metrics_table(struct smu_context *smu,
 >   	return ret;
 >   }
 >   
-> +int smu_get_ecc_info(struct smu_context *smu, void *umc_ecc)
+> +int smu_cmn_get_ecc_info_table(struct smu_context *smu,
+> +				     void *ecc_table)
 > +{
-> +	int ret = -1;
+> +	struct smu_table_context *smu_table= &smu->smu_table;
+> +	uint32_t table_size =
+> +		smu_table->tables[SMU_TABLE_ECCINFO].size;
+> +	int ret = 0;
 > +
-> +	if (smu->ppt_funcs &&
-> +		smu->ppt_funcs->get_ecc_info)
-> +		ret = smu->ppt_funcs->get_ecc_info(smu, umc_ecc);
+> +	ret = smu_cmn_update_table(smu,
+> +			       SMU_TABLE_ECCINFO,
+> +			       0,
+> +			       smu_table->ecc_table,
+> +			       false);
+> +	if (ret) {
+> +		dev_info(smu->adev->dev, "Failed to export SMU ecc table!\n");
+> +		return ret;
+> +	}
 > +
+> +	if (ecc_table)
+> +		memcpy(ecc_table, smu_table->ecc_table, table_size);
 
-Shouldn't return -1 if ppt func is not present. If ppt func is not 
-present, that means this method is not supported for the SOC; return 
-ENOTSUPP.
-
-> +	return ret;
-> +
-> +}
-> +
-
-Probably the above function should be clubbed with patch 3 - smu support 
-for getting ras ecc info.
-
->   static int smu_get_prv_buffer_details(void *handle, void **addr, size_t *size)
->   {
->   	struct smu_context *smu = handle;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index 55421ea622fb..55ef10ca684a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -200,11 +200,15 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
->   	uint16_t smu_major;
->   	uint8_t smu_minor, smu_debug;
->   	int ret = 0;
-> +	struct amdgpu_ras *ras = amdgpu_ras_get_context(smu->adev);
->   
->   	ret = smu_cmn_get_smc_version(smu, &if_version, &smu_version);
->   	if (ret)
->   		return ret;
->   
-> +	/* record smu interface version, help umc query error method */
-> +	ras->smu_version = smu_version;
-> +
-
-This is not needed. ASIC specific functions can check the FW version for 
-ECC table support.
+This copy to another buffer is redundant. You may use ecc_table directly 
+in the callback, then this method itself looks unnecessary. Instead of 
+calling smu_cmn_get_ecc_info_table(), call smu_cmn_update_table() and 
+copy directly from ecc_table.
 
 Thanks,
 Lijo
 
->   	smu_major = (smu_version >> 16) & 0xffff;
->   	smu_minor = (smu_version >> 8) & 0xff;
->   	smu_debug = (smu_version >> 0) & 0xff;
+> +
+> +	return 0;
+> +}
+> +
+>   void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev)
+>   {
+>   	struct metrics_table_header *header = (struct metrics_table_header *)table;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> index beea03810bca..0adc5451373b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> @@ -105,6 +105,9 @@ int smu_cmn_get_metrics_table(struct smu_context *smu,
+>   			      void *metrics_table,
+>   			      bool bypass_cache);
+>   
+> +int smu_cmn_get_ecc_info_table(struct smu_context *smu,
+> +			      void *table);
+> +
+>   void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev);
+>   
+>   int smu_cmn_set_mp1_state(struct smu_context *smu,
 > 
