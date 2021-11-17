@@ -2,76 +2,76 @@ Return-Path: <SRS0=qNnc=QE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 566DFC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 10:11:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECC06C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 10:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 190E361002
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 10:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 190E361002
+	by mail.kernel.org (Postfix) with ESMTPS id B054361002
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Nov 2021 10:11:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B054361002
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 800BB6E430;
-	Wed, 17 Nov 2021 10:11:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4432E6E434;
+	Wed, 17 Nov 2021 10:11:53 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169676E425
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 10:11:49 +0000 (UTC)
+ (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB8FE6E434
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Nov 2021 10:11:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fAm5rw4yE1t1adnGxN+6Nr03exINdEvNlVZv1RoLZ9Qrqbf2WjnO5STVUteAZhnTPNw8EB/11LppO7vqNxdKZ+qTa+MDKz3dXpJT63HH38Z6yYTTDsc5SiJNrN4pj/BiPtGykRpFUy4guTXAdxHMoteSjNqtHaSeqNAEC3+o+hB5j5AcknfUEbDanhg1Umgk9ylankWdczuByxZyu7Hc19fwZJw/D/u7KxgSfSMalIO0dfZsuXhFJ+5DB5tysf7mxkcwRR9AWyDE5cDEdcXr4jKjR+5qYPhtq8ld3GBkBysuV8eJ1UNC6pdi/YA27SN8stQ8Ivri+vbZ245Rh67aoA==
+ b=gCN263Kz23sqqEfyevEHv2FqeUK144KE4mBzu1TFbAM2JAYfu3IXFGFjy1vgEfodvv2LJNnj0AHu4Ys8oMQx0KSHNJ6pEUV5BIrIN09s+LJWrl0Zwx8WxTigTsZ/Mot/hs5zzpwcj3wA5Q6uhYKZsg9tRDv+uaQ7OIHoT16P0+Agyn2ahCsfCLSqGv3wfH2ce4gYy3VjU2ILdy9OyCBkRQHbi+jP8NeKSgFmmCJ2ns3UpW98huidnH6K0z0fu1rR7uqDRmdzW9KuYDBdyM9VfaEyg4wDdKnO7PnvrFs53DpJd2/94+CYL/B9prX5ZOSLUvDYzd5cxEkAYPQxBxgJhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lpxkxnrRSHaAcX3FU+Pe9U30Mg+C7vQ1peETRVVRmdU=;
- b=H1FEQqssQ71vnFpzpsqPlBqCi4vXtsGGxKrrt2/6aIZOZPm4KechuK4eAjxNkW0N2P+hWAroiA1qYVkgKz3B5O/Jz3r9D3e0iyIc2YWFKOYoRXZrZWWpaSAlU0ZCIu0JDQjqAxDX4Idtu59xN8kASpG2NXrl8g0AOYpCP7APaRgOZ2gZnjT71b+JD5jIRbSupWhg8yqSkPVo9/P9G6oS5NN7xxnZ+rqjCOtfSBq418N1yn/UQdSn9usJTN153/l5LPA95888FKk8gjQJJN0j3ECKvCUP+W+R+4aMQTF4SeKoPfkGFbjiYUiiF32JMpkgTUUP8nz+kWTbQPxNT6GCTA==
+ bh=pPkwTsFBr6aPDbWIZtloMPKTDOW4mW0z5epAnZWuU80=;
+ b=iEFwIa5ApTTdLMZ1ZQPi1n3jCs3zm//xi1awCEdvlK9h10mQQRaxrFkZmJO1YI3ne6qrleABOJaqV71z7suT2SdjmL4LFnUQiVRwe885gFkszzC88v15MYFHWZRCYIRv8pTOyQb7U1h32wtqLrCIAnzRyfhCxZQjcb6pGfONKvF5MSA+IemApqeWpk6xCZC5ohJ7q+ekJjXCwh7ZkcLOaLSNEl2EySk3grQlA3qcQniLsaRIfaAm1dIdOGBfGKnCNte5UD3ltG1g+0i8E+VxTri60N4Jh8ryFBKblaI6cRIQCnPK8VmAGFjsh84kchIHN9c7uqbqfjspWEfv1OF9+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lpxkxnrRSHaAcX3FU+Pe9U30Mg+C7vQ1peETRVVRmdU=;
- b=RrUQy3n+d3OAxRJWe/HUSC01hUirPc9mbDXcnbYnsp0s6l++Kd6y6J32YCDLLi8okKJfQrPgc2w1wxF/BFlJZNrb2wgpsl4OGt09bGU/PbybJRy86ACgtpi/0KTkUuTyrF6wRQ80VSU0m1IuZAsz/HYSM8tClFq3szoBuVWYbNE=
-Received: from BN9PR03CA0032.namprd03.prod.outlook.com (2603:10b6:408:fb::7)
- by PH0PR12MB5435.namprd12.prod.outlook.com (2603:10b6:510:ed::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Wed, 17 Nov
- 2021 10:11:46 +0000
-Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fb:cafe::ca) by BN9PR03CA0032.outlook.office365.com
- (2603:10b6:408:fb::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27 via Frontend
- Transport; Wed, 17 Nov 2021 10:11:46 +0000
+ bh=pPkwTsFBr6aPDbWIZtloMPKTDOW4mW0z5epAnZWuU80=;
+ b=x/B2iGMX4lWq1b4X805UWTjxXGJbdI7PeoU2/A0AKL974Ct+vwS+ZvKWX+9WWwKx5cpmrT5RChsZEwygwFJVlZlH1e9/iSe2AN7R69MynFeCQmpsXDi8BE3iRwWrDHEDLPAfznP2QaARW828hgMtRNUvEUQ5fvseQewILP0+xIA=
+Received: from MW4PR03CA0167.namprd03.prod.outlook.com (2603:10b6:303:8d::22)
+ by CH2PR12MB4199.namprd12.prod.outlook.com (2603:10b6:610:a7::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.18; Wed, 17 Nov
+ 2021 10:11:49 +0000
+Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8d:cafe::ad) by MW4PR03CA0167.outlook.office365.com
+ (2603:10b6:303:8d::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19 via Frontend
+ Transport; Wed, 17 Nov 2021 10:11:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4690.15 via Frontend Transport; Wed, 17 Nov 2021 10:11:45 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4690.15 via Frontend Transport; Wed, 17 Nov 2021 10:11:49 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 17 Nov
- 2021 04:11:45 -0600
+ 2021 04:11:48 -0600
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 17 Nov
- 2021 04:11:45 -0600
+ 2021 04:11:48 -0600
 Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Wed, 17 Nov 2021 04:11:43 -0600
+ Transport; Wed, 17 Nov 2021 04:11:46 -0600
 From: Stanley.Yang <Stanley.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
  <John.Clements@amd.com>, <Evan.Quan@amd.com>, <Lijo.Lazar@amd.com>,
  <KevinYang.Wang@amd.com>
-Subject: [PATCH Review 3/4] drm/amdgpu: add message smu to get ecc_table
-Date: Wed, 17 Nov 2021 18:11:31 +0800
-Message-ID: <20211117101132.6568-3-Stanley.Yang@amd.com>
+Subject: [PATCH Review 4/4] query umc error info from ecc_table
+Date: Wed, 17 Nov 2021 18:11:32 +0800
+Message-ID: <20211117101132.6568-4-Stanley.Yang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20211117101132.6568-1-Stanley.Yang@amd.com>
 References: <20211117101132.6568-1-Stanley.Yang@amd.com>
@@ -79,28 +79,28 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e3e7dca3-ab90-497c-d538-08d9a9b2a944
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5435:
-X-Microsoft-Antispam-PRVS: <PH0PR12MB5435B3A5237CF257214486759A9A9@PH0PR12MB5435.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: aa749556-4acd-4791-11b1-08d9a9b2ab75
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4199:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4199DE6FA7CD0CC0A4391A1B9A9A9@CH2PR12MB4199.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:106;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: izI4ovlYKuJQhE+b4M52no0E00TcxBCC6pQCp+ull7JII0WanZM00qm7uud7048CfH8giIgK+YILgAmipSCSvM6Rn2P5u+s2cA3qfl4giMnxyH7r2HcdnPWizpsna4jM/4BEErQo4ktdxNfHNc544gQwLG5yaq1ENd4AXzYeKPY33+DFn794f5XmMn9ZIPH4X3HcBF8S2w95SprKpOyy2jFgq/QXMce+Mrl/UMgWvHjwGMTfawnfMlNoInNwnIK/WiskZg7xyJ7BB++RX1d7Z2qr0wEhvDVU2dObJEdTBOZG236iiQR9DxvvlP6HmUVg8rmLd9NMp0y6c/k92ZlPe50SoRtPr8YS3nvSgpb7KosJesSuaSnKVv1K5nWoCv2nnGLU5A+bTFnsMbZ7fBClTpPi9hqWvYkv/1mBOSfzamhc19ROwE3IZnNNyBpUgkle+2RgUS6PqeyomsvrL/UE9r5/Tai00vaecb0ufn43UONlXgL5MgiqVOZTd7uEPtCX4qGB3LCVwFWkJR3jP2ibP27ijzv6/12PZbTrSgLM76jxJI3Be9m1R/nD2tX37zQVxus1P1ecCw9fK3jMkEUkFdCtBF0+ux3VGWJ0jVaoRV8ekU70tajqAjYsnh045iM8oFWf17BI3KKmJ2uUwwDhS/RpPfaFhXBSx3/9wDw6kIhTeFpNvcghusTQH1HnXdAsUEmS5RXp/Pqmkvpu5toQ1/l+HSLxKou3v95YVZGULzI=
+X-Microsoft-Antispam-Message-Info: 5ikIAnUw4zrhkcapDmWeP9rJsLu8KpNM20RyOVFaxyLhc1nAHgcv34wJyzcYsI0XcTSnL2os92MnFaeLoWJHz1DWV12Q5c+Olk9YtYLP2DQBCpSfVciJ/Y2TRY+xBqF4K9WpXst0e7/EWL2cs2YYkxBYpRyacravV0eey+/vDeZFn6B8BUKsaT/gK3uW5u8+f1KDkrRgVbZihEIjoq83JG4eSEhor4sM7K97p9xTg5N234xeCEaUkeA1HzY2JHPEnAZn03Cbdvq0ioVgP68YmrRf+3sTR+VboogZDXoARGHMySRyWfWxesuXXk44Gq3Q66k85eK1w/rENR7opEXpCMmX/oh5c3CAX2vfJ8jDQwvd80rgNN9LY0y+YGT9TWjYOA95qBEfO5rCqsKSVfDDxvzvZXjFdHpj6/Agci0etTxGL987GCOvSaBX14O+3LZhn8kjmbkaN5gJHlmae1cxypKIF4CfFbVNb4l8eGbRyy6qVhgOW2OBme1fQmAT9FNnYAFEA1jOb+qon8IOaAI4ahFNEHXzRPNnEe1IGDtiHv1PFtW+0+esFvCL47trML1akxC2h1jTHZ4nv0nvZd4zB6QIXRDTcx1JQT2itENFfoAVQwEm/vu2g7kGXzceVGqAhJEuTLFCGWsKA5IfHM2rrwM+x/k0HdM10DlwpFszF03NFhWPMjVyUEYHgeRMH9jRHu46gl0dYa981bmTCv9QxaMUs8FaMKxbE26eTk1sSNM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(316002)(82310400003)(15650500001)(86362001)(47076005)(6666004)(1076003)(70206006)(426003)(36860700001)(26005)(2616005)(110136005)(508600001)(5660300002)(8936002)(81166007)(6636002)(70586007)(336012)(356005)(36756003)(83380400001)(8676002)(4326008)(2906002)(186003)(7696005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(2906002)(81166007)(6666004)(316002)(26005)(1076003)(6636002)(336012)(426003)(36860700001)(70586007)(8676002)(110136005)(8936002)(86362001)(2616005)(83380400001)(7696005)(70206006)(356005)(82310400003)(4326008)(5660300002)(47076005)(36756003)(508600001)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 10:11:45.8339 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3e7dca3-ab90-497c-d538-08d9a9b2a944
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 10:11:49.3865 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa749556-4acd-4791-11b1-08d9a9b2ab75
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5435
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4199
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,191 +116,243 @@ Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-support ECC TABLE message, this table include unc ras error count
-and error address
+if smu support ECCTABLE, driver can message smu to get ecc_table
+then query umc error info from ECCTABLE
+apply pmfw version check to ensure backward compatibility
 
 Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  7 ++++
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 38 +++++++++++++++++++
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  2 +
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 24 ++++++++++++
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  3 ++
- 5 files changed, 74 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 42 ++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  7 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       | 71 +++++++++++++------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 12 ++++
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  4 ++
+ 6 files changed, 107 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 3557f4e7fc30..ea65de0160c3 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -324,6 +324,7 @@ enum smu_table_id
- 	SMU_TABLE_OVERDRIVE,
- 	SMU_TABLE_I2C_COMMANDS,
- 	SMU_TABLE_PACE,
-+	SMU_TABLE_ECCINFO,
- 	SMU_TABLE_COUNT,
- };
- 
-@@ -340,6 +341,7 @@ struct smu_table_context
- 	void				*max_sustainable_clocks;
- 	struct smu_bios_boot_up_values	boot_values;
- 	void                            *driver_pptable;
-+	void                            *ecc_table;
- 	struct smu_table		tables[SMU_TABLE_COUNT];
- 	/*
- 	 * The driver table is just a staging buffer for
-@@ -1261,6 +1263,11 @@ struct pptable_funcs {
- 	 *										of SMUBUS table.
- 	 */
- 	int (*send_hbm_bad_pages_num)(struct smu_context *smu, uint32_t size);
-+
-+	/**
-+	 * @get_ecc_table:  message SMU to get ECC INFO table.
-+	 */
-+	ssize_t (*get_ecc_info)(struct smu_context *smu, void *table);
- };
- 
- typedef enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index f835d86cc2f5..5e4ba0e14a91 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -190,6 +190,7 @@ static const struct cmn2asic_mapping aldebaran_table_map[SMU_TABLE_COUNT] = {
- 	TAB_MAP(SMU_METRICS),
- 	TAB_MAP(DRIVER_SMU_CONFIG),
- 	TAB_MAP(I2C_COMMANDS),
-+	TAB_MAP(ECCINFO),
- };
- 
- static const uint8_t aldebaran_throttler_map[] = {
-@@ -223,6 +224,9 @@ static int aldebaran_tables_init(struct smu_context *smu)
- 	SMU_TABLE_INIT(tables, SMU_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest_t),
- 		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
- 
-+	SMU_TABLE_INIT(tables, SMU_TABLE_ECCINFO, sizeof(EccInfoTable_t),
-+		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-+
- 	smu_table->metrics_table = kzalloc(sizeof(SmuMetrics_t), GFP_KERNEL);
- 	if (!smu_table->metrics_table)
- 		return -ENOMEM;
-@@ -235,6 +239,10 @@ static int aldebaran_tables_init(struct smu_context *smu)
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 90f0db3b4f65..6b0f2ba1e420 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -888,6 +888,38 @@ void amdgpu_ras_mca_query_error_status(struct amdgpu_device *adev,
  	}
- 
-+	smu_table->ecc_table = kzalloc(tables[SMU_TABLE_ECCINFO].size, GFP_KERNEL);
-+	if (!smu_table->ecc_table)
-+		return -ENOMEM;
-+
- 	return 0;
  }
  
-@@ -1765,6 +1773,35 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
- 	return sizeof(struct gpu_metrics_v1_3);
- }
- 
-+static ssize_t aldebaran_get_ecc_info(struct smu_context *smu,
-+					 void *table)
++static void amdgpu_ras_get_ecc_info(struct amdgpu_device *adev, struct ras_err_data *err_data)
 +{
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	EccInfoTable_t ecc_table;
-+	struct ecc_info_per_ch *ecc_info_per_channel = NULL;
-+	int i, ret = 0;
-+	struct umc_ecc_info *eccinfo = (struct umc_ecc_info *)table;
++	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
 +
-+	ret = smu_cmn_get_ecc_info_table(smu,
-+					&ecc_table);
-+	if (ret)
-+		return ret;
++	/*
++	 * choosing right query method according to
++	 * whether smu support query error information
++	 */
++	if ((ras->smu_version >= SUPPORT_ECCTABLE_SMU_VERSION) &&
++			!smu_get_ecc_info(&adev->smu, (void *)&(ras->umc_ecc))) {
 +
-+	for (i = 0; i < ALDEBARAN_UMC_CHANNEL_NUM; i++) {
-+		ecc_info_per_channel = &(eccinfo->ecc[i]);
-+		ecc_info_per_channel->ce_count_lo_chip =
-+			ecc_table.EccInfo[i].ce_count_lo_chip;
-+		ecc_info_per_channel->ce_count_hi_chip =
-+			ecc_table.EccInfo[i].ce_count_hi_chip;
-+		ecc_info_per_channel->mca_umc_status =
-+			ecc_table.EccInfo[i].mca_umc_status;
-+		ecc_info_per_channel->mca_umc_addr =
-+			ecc_table.EccInfo[i].mca_umc_addr;
++		if (adev->umc.ras_funcs &&
++			adev->umc.ras_funcs->message_smu_query_ras_error_count)
++			adev->umc.ras_funcs->message_smu_query_ras_error_count(adev, err_data);
++
++		if (adev->umc.ras_funcs &&
++			adev->umc.ras_funcs->message_smu_query_ras_error_address)
++			adev->umc.ras_funcs->message_smu_query_ras_error_address(adev, err_data);
++	} else {
++		if (adev->umc.ras_funcs &&
++			adev->umc.ras_funcs->query_ras_error_count)
++			adev->umc.ras_funcs->query_ras_error_count(adev, err_data);
++
++		/* umc query_ras_error_address is also responsible for clearing
++		 * error status
++		 */
++		if (adev->umc.ras_funcs &&
++		    adev->umc.ras_funcs->query_ras_error_address)
++			adev->umc.ras_funcs->query_ras_error_address(adev, err_data);
 +	}
-+
-+	return ret;
 +}
 +
- static int aldebaran_mode1_reset(struct smu_context *smu)
- {
- 	u32 smu_version, fatal_err, param;
-@@ -1967,6 +2004,7 @@ static const struct pptable_funcs aldebaran_ppt_funcs = {
- 	.i2c_init = aldebaran_i2c_control_init,
- 	.i2c_fini = aldebaran_i2c_control_fini,
- 	.send_hbm_bad_pages_num = aldebaran_smu_send_hbm_bad_page_num,
-+	.get_ecc_info = aldebaran_get_ecc_info,
+ /* query/inject/cure begin */
+ int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
+ 				  struct ras_query_if *info)
+@@ -901,15 +933,7 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
+ 
+ 	switch (info->head.block) {
+ 	case AMDGPU_RAS_BLOCK__UMC:
+-		if (adev->umc.ras_funcs &&
+-		    adev->umc.ras_funcs->query_ras_error_count)
+-			adev->umc.ras_funcs->query_ras_error_count(adev, &err_data);
+-		/* umc query_ras_error_address is also responsible for clearing
+-		 * error status
+-		 */
+-		if (adev->umc.ras_funcs &&
+-		    adev->umc.ras_funcs->query_ras_error_address)
+-			adev->umc.ras_funcs->query_ras_error_address(adev, &err_data);
++		amdgpu_ras_get_ecc_info(adev, &err_data);
+ 		break;
+ 	case AMDGPU_RAS_BLOCK__SDMA:
+ 		if (adev->sdma.funcs->query_ras_error_count) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index bcbf3264d92f..3f0de0cc8403 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -322,6 +322,12 @@ struct ras_common_if {
+ 
+ #define MAX_UMC_CHANNEL_NUM 32
+ 
++/*
++ * SMU support ECCTABLE since version 68.42.0,
++ * use this to decide query umc error info method
++ */
++#define SUPPORT_ECCTABLE_SMU_VERSION 0x00442a00
++
+ struct ecc_info_per_ch {
+ 	uint16_t ce_count_lo_chip;
+ 	uint16_t ce_count_hi_chip;
+@@ -375,6 +381,7 @@ struct amdgpu_ras {
+ 
+ 	/* record umc error info queried from smu */
+ 	struct umc_ecc_info umc_ecc;
++	uint32_t smu_version;
  };
  
- void aldebaran_set_ppt_funcs(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 4d96099a9bb1..55421ea622fb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -428,8 +428,10 @@ int smu_v13_0_fini_smc_tables(struct smu_context *smu)
- 	kfree(smu_table->hardcode_pptable);
- 	smu_table->hardcode_pptable = NULL;
+ struct ras_fs_data {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 0c7c56a91b25..2c3e97c9410b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -97,28 +97,57 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
  
-+	kfree(smu_table->ecc_table);
- 	kfree(smu_table->metrics_table);
- 	kfree(smu_table->watermarks_table);
-+	smu_table->ecc_table = NULL;
- 	smu_table->metrics_table = NULL;
- 	smu_table->watermarks_table = NULL;
- 	smu_table->metrics_time = 0;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index 843d2cbfc71d..e229c9b09d80 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -983,6 +983,30 @@ int smu_cmn_get_metrics_table(struct smu_context *smu,
+ 	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
+-	if (adev->umc.ras_funcs &&
+-	    adev->umc.ras_funcs->query_ras_error_count)
+-	    adev->umc.ras_funcs->query_ras_error_count(adev, ras_error_status);
+ 
+-	if (adev->umc.ras_funcs &&
+-	    adev->umc.ras_funcs->query_ras_error_address &&
+-	    adev->umc.max_ras_err_cnt_per_query) {
+-		err_data->err_addr =
+-			kcalloc(adev->umc.max_ras_err_cnt_per_query,
+-				sizeof(struct eeprom_table_record), GFP_KERNEL);
+-
+-		/* still call query_ras_error_address to clear error status
+-		 * even NOMEM error is encountered
+-		 */
+-		if(!err_data->err_addr)
+-			dev_warn(adev->dev, "Failed to alloc memory for "
+-					"umc error address record!\n");
+-
+-		/* umc query_ras_error_address is also responsible for clearing
+-		 * error status
+-		 */
+-		adev->umc.ras_funcs->query_ras_error_address(adev, ras_error_status);
++	if ((con->smu_version >= SUPPORT_ECCTABLE_SMU_VERSION) &&
++			!smu_get_ecc_info(&adev->smu, (void *)&(con->umc_ecc))) {
++
++		if (adev->umc.ras_funcs &&
++		    adev->umc.ras_funcs->message_smu_query_ras_error_count)
++		    adev->umc.ras_funcs->message_smu_query_ras_error_count(adev, ras_error_status);
++
++		if (adev->umc.ras_funcs &&
++		    adev->umc.ras_funcs->message_smu_query_ras_error_address &&
++		    adev->umc.max_ras_err_cnt_per_query) {
++			err_data->err_addr =
++				kcalloc(adev->umc.max_ras_err_cnt_per_query,
++					sizeof(struct eeprom_table_record), GFP_KERNEL);
++
++			/* still call query_ras_error_address to clear error status
++			 * even NOMEM error is encountered
++			 */
++			if(!err_data->err_addr)
++				dev_warn(adev->dev, "Failed to alloc memory for "
++						"umc error address record!\n");
++
++			/* umc query_ras_error_address is also responsible for clearing
++			 * error status
++			 */
++			adev->umc.ras_funcs->message_smu_query_ras_error_address(adev, ras_error_status);
++		}
++	} else {
++		if (adev->umc.ras_funcs &&
++		    adev->umc.ras_funcs->query_ras_error_count)
++		    adev->umc.ras_funcs->query_ras_error_count(adev, ras_error_status);
++
++		if (adev->umc.ras_funcs &&
++		    adev->umc.ras_funcs->query_ras_error_address &&
++		    adev->umc.max_ras_err_cnt_per_query) {
++			err_data->err_addr =
++				kcalloc(adev->umc.max_ras_err_cnt_per_query,
++					sizeof(struct eeprom_table_record), GFP_KERNEL);
++
++			/* still call query_ras_error_address to clear error status
++			 * even NOMEM error is encountered
++			 */
++			if(!err_data->err_addr)
++				dev_warn(adev->dev, "Failed to alloc memory for "
++						"umc error address record!\n");
++
++			/* umc query_ras_error_address is also responsible for clearing
++			 * error status
++			 */
++			adev->umc.ras_funcs->query_ras_error_address(adev, ras_error_status);
++		}
+ 	}
+ 
+ 	/* only uncorrectable error needs gpu reset */
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index ea65de0160c3..7a06021a58f0 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -1404,6 +1404,7 @@ int smu_set_light_sbr(struct smu_context *smu, bool enable);
+ 
+ int smu_wait_for_event(struct amdgpu_device *adev, enum smu_event_type event,
+ 		       uint64_t event_arg);
++int smu_get_ecc_info(struct smu_context *smu, void *umc_ecc);
+ 
+ #endif
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 01168b8955bf..6340c079f35e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -3072,6 +3072,18 @@ int smu_set_light_sbr(struct smu_context *smu, bool enable)
  	return ret;
  }
  
-+int smu_cmn_get_ecc_info_table(struct smu_context *smu,
-+				     void *ecc_table)
++int smu_get_ecc_info(struct smu_context *smu, void *umc_ecc)
 +{
-+	struct smu_table_context *smu_table= &smu->smu_table;
-+	uint32_t table_size =
-+		smu_table->tables[SMU_TABLE_ECCINFO].size;
-+	int ret = 0;
++	int ret = -1;
 +
-+	ret = smu_cmn_update_table(smu,
-+			       SMU_TABLE_ECCINFO,
-+			       0,
-+			       smu_table->ecc_table,
-+			       false);
-+	if (ret) {
-+		dev_info(smu->adev->dev, "Failed to export SMU ecc table!\n");
-+		return ret;
-+	}
++	if (smu->ppt_funcs &&
++		smu->ppt_funcs->get_ecc_info)
++		ret = smu->ppt_funcs->get_ecc_info(smu, umc_ecc);
 +
-+	if (ecc_table)
-+		memcpy(ecc_table, smu_table->ecc_table, table_size);
++	return ret;
 +
-+	return 0;
 +}
 +
- void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev)
+ static int smu_get_prv_buffer_details(void *handle, void **addr, size_t *size)
  {
- 	struct metrics_table_header *header = (struct metrics_table_header *)table;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-index beea03810bca..0adc5451373b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-@@ -105,6 +105,9 @@ int smu_cmn_get_metrics_table(struct smu_context *smu,
- 			      void *metrics_table,
- 			      bool bypass_cache);
+ 	struct smu_context *smu = handle;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 55421ea622fb..55ef10ca684a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -200,11 +200,15 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
+ 	uint16_t smu_major;
+ 	uint8_t smu_minor, smu_debug;
+ 	int ret = 0;
++	struct amdgpu_ras *ras = amdgpu_ras_get_context(smu->adev);
  
-+int smu_cmn_get_ecc_info_table(struct smu_context *smu,
-+			      void *table);
+ 	ret = smu_cmn_get_smc_version(smu, &if_version, &smu_version);
+ 	if (ret)
+ 		return ret;
+ 
++	/* record smu interface version, help umc query error method */
++	ras->smu_version = smu_version;
 +
- void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev);
- 
- int smu_cmn_set_mp1_state(struct smu_context *smu,
+ 	smu_major = (smu_version >> 16) & 0xffff;
+ 	smu_minor = (smu_version >> 8) & 0xff;
+ 	smu_debug = (smu_version >> 0) & 0xff;
 -- 
 2.17.1
 
