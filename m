@@ -2,118 +2,133 @@ Return-Path: <SRS0=WI/b=QF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDA46C43217
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7E16C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:36:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC9AA6113D
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:29:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AC9AA6113D
+	by mail.kernel.org (Postfix) with ESMTPS id A188A6128C
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:36:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A188A6128C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 483526E9B1;
-	Thu, 18 Nov 2021 20:29:03 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC8796E9B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 20:28:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C9676E04E;
+	Thu, 18 Nov 2021 20:36:45 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00C826E04E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 20:36:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kKw7arrQDSXkNb9FrD0yev+FIbggyh+5MXM3ke/FlnbhfVk/CO5kVCXVVe/gU9MNJ6msmH6RgLOOpC39je7kIUkFQLw9ARt0+MriigJUt0GORh6Vqz5gdmj81n4OfLUaHndIDsHCtjZ+F//jqwlvgpbilCjen+kcMFTQs5ga0vpwZjxmzFUp5bx+A6Lo+bN3QNHL2t7I0W1INpHg8QwOgbYqfIR15N6qjgsQlTv1N31Ug40VjlqcR1Mv4vWmruDcuY/fso4cs6Rw5qFuD/+FWbHUwXErt7kvTldUKJI+k/Ok2lCwZwHE2+tsG3APPgkd4IL80DOsxSlvT72M+LCQag==
+ b=hXrlVFsYJa8o8pdAkMAZXSRjw1zqwFdeEwETWolZq5YW8XaYqk9s1qg30pHaMNmLzpo2kouCgolkxjkADLHcpTKFCF8OstD+zG0TYjheKuZwd1av6vLgZk10OKRAAG6XhSksGP7UgDm2GhX/lzWaFPtkBZ8+pDksF64AG6e2LRVQrbTbY+F11i4CvNjHB0XCruGP0wM2MPS6chGnyXTBa2gh2QRRi9bOp7Lyw5VuRdyN5xwP47XmVN/BAlvv89NDolngOExiHdX/eWbkd1bR6E6YhUS8/aoTw4sYm/Au8BaNL9kzrJXUr5E0QssckkxNhfdBMFA87TKSI4pme4HpWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NHKhQbOAr7Mm7h+PoDJFTwWLZ8WOF7rmrZsjJYFpFsc=;
- b=YY+PRWsWCgU2XmCbwkAXclxnp/srqGkoO62V6tAOvvw2SOn6CAa5IWnhwcvd0fGf84fyfEgIrOAlhQniPO4hNnZdJWOSa1QqPWQlroYeyFCSYOkRbRx1dr4GncxvjMZFqC2XVnAwu3Lmw1e1hRhVOJuD/7h4d0GhAMQORGJTWtUhoIcjXrd2I4IE1AQcZGCY71H4jJlhtbZQrgCY5gA9ebnV9pVgLutqo5qGytHypyFCfEsX+oNvn1878lfc4wlml8KgvNDSIQ1AnzFfFNvOY+KzfzuNSBSG6YyJqsFVIxypeRCrx/Y1XMz3sp+LmKtjB23x4Pg6SMMnHgewslxheQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=CennCL6/T/ZFIrZqewue92jZ35U9EGV9anhuO9BJuHA=;
+ b=FJK7PEiZQuQzUQvtUnDHyVczOE2Lhg16YkqXLwpQlfX2VKK6nBeZ32oCr/Df/Pmrn1W0DHZaqV1voG5WMKFFS1CNqFvxPelc9x9cYmjXqJk3tiBM4/S6APxUA0Lyeo0neECezFloOEeMBgJnvAc+V8vLaPtZCD91KAnGUEEw27eyaz1LaX2adRxTQnKejzWACrnUzvDr+XbLnYV7zhN7nCY4OjOV1nd+3iiwnUkrXz2NkTeJTCeGLb3fVGwYA6lTYQxCgp7ixgiWNjYiZNOryTcPJirh7902uSr9vItygOELVcl8lblo8Eq+7lx66ZPzutN5iC1QFxUyI/m0IAF01A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NHKhQbOAr7Mm7h+PoDJFTwWLZ8WOF7rmrZsjJYFpFsc=;
- b=rPxETzrKb9U4nxyEatf1AHRYpnXTHjHKNcBdovdowIUL96wxaNdUcVPvVBxqtYyfIMFGFt/Y5Qrdw4gAnBatwntYFsU+0r1MIHZTbjbx/T8TSQ+VjM+MMQP752e8h9igtt4pILIy1+hBrAGnWzYvF/O32jV5UOrTxyXckpXd1Ws=
-Received: from BN9PR03CA0446.namprd03.prod.outlook.com (2603:10b6:408:113::31)
- by MN2PR12MB4125.namprd12.prod.outlook.com (2603:10b6:208:1d9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21; Thu, 18 Nov
- 2021 20:28:57 +0000
-Received: from BN8NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:113:cafe::65) by BN9PR03CA0446.outlook.office365.com
- (2603:10b6:408:113::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21 via Frontend
- Transport; Thu, 18 Nov 2021 20:28:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT061.mail.protection.outlook.com (10.13.177.144) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Thu, 18 Nov 2021 20:28:56 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 18 Nov
- 2021 14:28:56 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 18 Nov
- 2021 14:28:55 -0600
-Received: from yuho-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Thu, 18 Nov 2021 14:28:54 -0600
-From: Kenny Ho <Kenny.Ho@amd.com>
-To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
- <kafai@fb.com>, Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
- John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>,
- Tejun Heo <tj@kernel.org>, Zefan Li <lizefan.x@bytedance.com>, "Johannes
- Weiner" <hannes@cmpxchg.org>, Peter Zijlstra <peterz@infradead.org>, "Ingo
- Molnar" <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, "Mark
- Rutland" <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@redhat.com>, "Namhyung
- Kim" <namhyung@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- <netdev@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <cgroups@vger.kernel.org>,
- <linux-perf-users@vger.kernel.org>, <y2kenny@gmail.com>, <Kenny.Ho@amd.com>,
+ bh=CennCL6/T/ZFIrZqewue92jZ35U9EGV9anhuO9BJuHA=;
+ b=31BmgAMqgsjQU0mIrzaT6IivOy8S20ZjLizN4YXWACOtRCuQiQ6m8RBUSp8Mvz+zXZWuQd4orHDcBqVjhns+kysgjoIw7nhelQWPH1731UgkNRcwXXuwM1NKXIGSYXtwCYHyCixjb6KZ+haMz41SaAK+4/9E2Zq23UHo2Y5uKtw=
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
+ by DM6PR12MB3532.namprd12.prod.outlook.com (2603:10b6:5:182::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Thu, 18 Nov
+ 2021 20:36:40 +0000
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::95ab:4ece:7f8e:6e6f]) by DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::95ab:4ece:7f8e:6e6f%2]) with mapi id 15.20.4690.027; Thu, 18 Nov 2021
+ 20:36:40 +0000
+From: "Sider, Graham" <Graham.Sider@amd.com>
+To: "Lin, Amber" <Amber.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH RFC 4/4] bpf, cgroup,
- perf: extend bpf-cgroup to support tracepoint attachment
-Date: Thu, 18 Nov 2021 15:28:40 -0500
-Message-ID: <20211118202840.1001787-5-Kenny.Ho@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211118202840.1001787-1-Kenny.Ho@amd.com>
-References: <20211118202840.1001787-1-Kenny.Ho@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6322ec77-87ca-4ded-f98a-08d9aad20be5
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4125:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4125F4173A1F7DB4511294AA839B9@MN2PR12MB4125.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6ckTjSvKwirqerWSm1wep54SJO7m5glFpWd/uMxNQjGRbZ6nlquZ/frxFP49UpGfRIAv7rDkoxmmKPqnxqJmE4nfu8IPh3q62/G3Er9N+gyNV8cnPfJxkwkMucMK4a5KbY544gEaLxQzLXUPatcaQfG8g9D/r6S/MYGPKSXFdI1M9Ub0TeoLmKj2nlNjLzvEO7EEVyTvHrP7rpo1NMHsQYWlI+GZ78p129KDhK18B791fWMbF1Ce7uLeOKsJIwFTEsNuCGVzXFpe3+Eq5iQoUU08k7YfWp48vlW9voDNGdEOOJneAGbBoqqiS6mjJYBLxQt10tY7SWnIufDQE2FRiXNJdgj1Mjj8q0Q1remwcKlmfyzh8CYMym833QY/0nAtiT7zuhmHUGN9hAdkQtvhfmwUE/LlGza7yhS4BAdCS24LNq/mYqY9FuwzWM3qPM6p5HeFiBnkHwmMicSzSWgh3XSXRwNNZ0+esbcpT0kajc6Q9yaMil1VLZ5nRmG/EZsIR5Y6BuTaaTzp1EwBhXSkzg0VslWC9YGSTqOE7i/7GUQ3r8lJBhTIt4nyQytddonPEjMRVsEcCkJwFQeyVqRnVu3KxME3Ga/kuDg3E5eSUK6DsymtC3/lvArzVu/J95B6QkdWNcXWT/qSPAKc8KwSlK+f5Zj6c2Rj6j5puSSUdEs2UgrCWiRLYKiXH75MMhad7nOwoaSLYENUv26QL/UUXXZPzYpoPHQdEsbuiJzt2vfr7irhJLfegsBqfVu9jw/A
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(921005)(186003)(36860700001)(2906002)(36756003)(7416002)(1076003)(508600001)(26005)(8936002)(8676002)(356005)(81166007)(83380400001)(86362001)(7696005)(47076005)(316002)(30864003)(336012)(2616005)(70586007)(426003)(82310400003)(70206006)(5660300002)(110136005)(6666004)(36900700001);
+Subject: RE: [PATCH] drm/amdkfd: Remove unused entries in table
+Thread-Topic: [PATCH] drm/amdkfd: Remove unused entries in table
+Thread-Index: AQHX3LmL/5QYpYuiPU2iGU7dLKau6KwJvZEw
+Date: Thu, 18 Nov 2021 20:36:40 +0000
+Message-ID: <DM6PR12MB306741A9F918CB65AC6170F38A9B9@DM6PR12MB3067.namprd12.prod.outlook.com>
+References: <20211118201839.22284-1-Amber.Lin@amd.com>
+In-Reply-To: <20211118201839.22284-1-Amber.Lin@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-18T20:36:38Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=52536af0-c411-4329-87e4-eaf7eabb797c;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-11-18T20:36:38Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 12fcbad2-caea-4850-811c-789f0a29b6ec
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e9802d37-bcf3-461a-aea9-08d9aad3201e
+x-ms-traffictypediagnostic: DM6PR12MB3532:
+x-microsoft-antispam-prvs: <DM6PR12MB353273F90948E219FB22B6C38A9B9@DM6PR12MB3532.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:586;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /Ergj9nobfmDYLrC6Wq0PghCibr/GUMvWHjWN6+wkiktuM88K9PMlydGM/b8Xku/CVZOllow/icCbPugWeNdMXrlnikqLPPVuRCeDK4P+R27dQ75GpSkBTXFS1yK08cB4SfIpLwilrQOBC4JUy7BECUohH1WavPntjfl9mOj3Vc2re0Ui/PufJ3yCg62IRSMwM5h44jsYaflyHbICcKSddqggqDKZZwkQHMedHJRE/EV4pJZhAUt/gbtz2YTh+GuXo/qb7epex7scYga7lM49MRacXGYOVrQ2FallPDww+NIFMnLBl+2vR+5jKEsJj2brz5d26W2Rt/vpwsoCV+NxAWVTeWMnVMjCEW26t5Oqqy33mZH0iOgd/0YFUSZY5FGP3bdA1gSURvQB3IVemXWS1NUwUjE0QXGSnImuc7IoLQ76IM48Xor1+MKoav04Tn56wTRsgDeuipCUa986/vmMTGYDJe8J/LF39zmSkjhOw6eLHMXfCfYAxsHfWLpKjah9PbmArfHSMlwiQy6AzNRQICIxiBgg9VGD1WUmRbSUyaHdCbRwgIAZST2yVaQt3cYcf38dz6Z/XOiYRElDVG1c8TMqT32XQj8sopWEmbpGPlSDkv7vel0qxTVl2PH3bSceX93OmXk3oKG4OX5iftYuYbULo+LwpdA1hFRBm0+KyLDQ7UjsstUyMVK1bKBEpTGV77v12vVk1g3L4t6U00/7g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(9686003)(8676002)(33656002)(26005)(6506007)(55016002)(122000001)(186003)(38100700002)(110136005)(2906002)(8936002)(5660300002)(83380400001)(86362001)(4326008)(316002)(76116006)(38070700005)(66446008)(66476007)(64756008)(66556008)(7696005)(71200400001)(66946007)(508600001)(52536014);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1dHOaSbzRawsPTg6ZyGwFG/+O4i7h2He62T8prmA6W6g3Be7LHx2XTs0YS4z?=
+ =?us-ascii?Q?L3zRWolT/A/cl2ui51atrZmaSXcleD4NUFZdxFd9LiMXUf7eCA0uys1FnNYw?=
+ =?us-ascii?Q?k2Vwe09GlpQDXrR9yfOW7je7Sp2Y7PrvI/QZQuXFyKh8vcuPkD4HKpUcQURz?=
+ =?us-ascii?Q?KwbD/nbVTYXqfFOc52aOHJ+6nQRILh/UfrgiMeF0CrITYBFWfvXqxfG5XTff?=
+ =?us-ascii?Q?s/B6fUnwbNBoeF4wb9YiKZ7tw8zNess+9XyT9MYns7t1FoDBerQJmDXkGmye?=
+ =?us-ascii?Q?Dx57WY9Hu8WpkZ3tLra39v47PWXTvQ3MXbySEQtUmRPeoxi5pGP+4xIQt0aZ?=
+ =?us-ascii?Q?EfMH3UwMiLW11lrggtjn4cT/LmzvXRd2hRhp6u/o60mupWrXJVsh9YMOXlav?=
+ =?us-ascii?Q?YBavlJNm3rTnyeyTfi5ylAwasqmV97lcPk34pGDCQQHLBFWKF6as+BwApLxJ?=
+ =?us-ascii?Q?NsGIUdXsoRldg8oULCLKHGBpjMmH/NvOljBovhBz/kpvncr6nmZ5PhR8F7Xc?=
+ =?us-ascii?Q?JPt5fIYQbVNcEC8cDUithclOqOGNBS4RD8e+O31lPxQZ2MXWmrB4RK1rtlPm?=
+ =?us-ascii?Q?ucjBAH2FF3xA7LYZJlzqfANLrcXZI9p6pWw1LMGMzTr/VndpkXG2TXShP6d1?=
+ =?us-ascii?Q?GwV3x45DkqmjSNpIlYx/qhVlqaKiSi2JSmZOzJ98HSMK4sNzg5ufMpuX9GZp?=
+ =?us-ascii?Q?HHXnmh97/xviXN1Pd2c01B9A4bAeKTNTPod6iUWGsedtnvmqnlanROjYl0yo?=
+ =?us-ascii?Q?EYWawhU3nndvuB50C5QKKGQiGgED7HPAmWzDBrdACtlAEKCavFOncQ6xcX4I?=
+ =?us-ascii?Q?YtuKHgKXgjgTPQYpm5jVEnpV8xwptRnDGAFyswss8rUsj66YsNoHYUwll+xQ?=
+ =?us-ascii?Q?jwkLqAeYWfGWr1JHVWznzGcHL55SF/W4V7PxsU1qPzDe9ixVsnvRHWiCUj7m?=
+ =?us-ascii?Q?SL4vb7Hx1KTDBGJMBZfkGsb9ZgB27QrzITaWmEFf8/VavMOTnN70BZb/ww3K?=
+ =?us-ascii?Q?3B+lBvOw30DAtQWblRJi2cOqwkvae8fSG+YEc3WvrTXUbgWAhI/uL1VCOqxv?=
+ =?us-ascii?Q?nN1xI8WEEfpzectvW6n8TmLtY85drY/j+OLjbIOMbAITfQFg/af8PxP4Fmym?=
+ =?us-ascii?Q?hhaFmGtIG5Dx3NY2HOGf1sbFJcO4ZTeSEG7eBUxI7DRvLmZSA9iDfwnMCnSY?=
+ =?us-ascii?Q?8zXdxVPmRgbVw4haJgApCv70kfY2U5AjLU4BrMkLSn/c758AKtxqCIcxCofe?=
+ =?us-ascii?Q?O5EWNVQS4ZrP86oD9Y4QZAEmTUt5FAPBpe7lLv6a4xd56pK6jQluJnmPXkb2?=
+ =?us-ascii?Q?LU3JrxIsdM1peMYlow7ILHznA2tm4/QK+lh3IbHWyVHZ4kY299QDbdphxKwu?=
+ =?us-ascii?Q?o3E8QYDxPgrsM3a4MfFme1QgOMdKTKBI4LQ8Ulgp+E5fHhtTlqlIXViU88qa?=
+ =?us-ascii?Q?pBhlVje2mA3Uw5ddHdPs+1q26FFP43DsQx+lyS+knBlTf9ebvyy4CXTQLqJh?=
+ =?us-ascii?Q?v6wQkFsltm2g52HwJ/85ZgAabiu4YIMmcGXF/mCnzxrIO2YQLG8ajqOuJ4G2?=
+ =?us-ascii?Q?mPhkl7ezLjlu/jigFmusJyyHWkOG6RKbYMwrV5SxC/wGdT8w22OXt/adM+AC?=
+ =?us-ascii?Q?yw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 20:28:56.8691 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6322ec77-87ca-4ded-f98a-08d9aad20be5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT061.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4125
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9802d37-bcf3-461a-aea9-08d9aad3201e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2021 20:36:40.2139 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GXZUUCa2/CDxOO5BSTzkNsMcSuJvD5yjGV+d5+AVrr5HGMm/XAnf+/qedG6BCnz+NdUoLMlYmef8MHT/zOf+QA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3532
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,435 +140,305 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Lin, Amber" <Amber.Lin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-bpf progs are attached to cgroups as usual with the idea of effective
-progs remain the same.  The perf event / tracepoint's fd is defined as
-attachment 'subtype'.  The 'subtype' is passed along during attachment
-via bpf_attr, reusing replace_bpf_fd field.
+[AMD Official Use Only]
 
-After the effective progs are calculated, perf_event is allocated using
-the 'subtype'/'fd' value for all cpus filtering on the perf cgroup that
-corresponds to the bpf-cgroup (with assumption of a unified hierarchy.)
-The effective bpf prog array is then attached to each newly allocated
-perf_event and subsequently enabled by activate_effective_progs.
+Reviewed-by: Graham Sider <Graham.Sider@amd.com>
 
-Change-Id: I07a4dcaa0a682bafa496f05411365100d6c84fff
-Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
----
- include/linux/bpf-cgroup.h | 15 ++++--
- include/linux/perf_event.h |  4 ++
- kernel/bpf/cgroup.c        | 96 +++++++++++++++++++++++++++++++-------
- kernel/cgroup/cgroup.c     |  9 ++--
- kernel/events/core.c       | 45 ++++++++++++++++++
- 5 files changed, 142 insertions(+), 27 deletions(-)
-
-diff --git a/include/linux/bpf-cgroup.h b/include/linux/bpf-cgroup.h
-index a5e4d9b19470..b6e22fd2aa6e 100644
---- a/include/linux/bpf-cgroup.h
-+++ b/include/linux/bpf-cgroup.h
-@@ -154,6 +154,11 @@ struct cgroup_bpf {
- 
- 	/* cgroup_bpf is released using a work queue */
- 	struct work_struct release_work;
-+
-+        /* list of perf events (per child cgroups) for tracepoint/kprobe/uprobe bpf attachment to cgroup */
-+        /* TODO: array of tp type with array of events for each cgroup
-+         * currently only one tp type supported at a time */
-+        struct list_head per_cg_events;
- };
- 
- int cgroup_bpf_inherit(struct cgroup *cgrp);
-@@ -161,21 +166,21 @@ void cgroup_bpf_offline(struct cgroup *cgrp);
- 
- int __cgroup_bpf_attach(struct cgroup *cgrp,
- 			struct bpf_prog *prog, struct bpf_prog *replace_prog,
--			struct bpf_cgroup_link *link,
-+			struct bpf_cgroup_link *link, int bpf_attach_subtype,
- 			enum bpf_attach_type type, u32 flags);
- int __cgroup_bpf_detach(struct cgroup *cgrp, struct bpf_prog *prog,
- 			struct bpf_cgroup_link *link,
--			enum bpf_attach_type type);
-+			enum bpf_attach_type type, int bpf_attach_subtype);
- int __cgroup_bpf_query(struct cgroup *cgrp, const union bpf_attr *attr,
- 		       union bpf_attr __user *uattr);
- 
- /* Wrapper for __cgroup_bpf_*() protected by cgroup_mutex */
- int cgroup_bpf_attach(struct cgroup *cgrp,
- 		      struct bpf_prog *prog, struct bpf_prog *replace_prog,
--		      struct bpf_cgroup_link *link, enum bpf_attach_type type,
--		      u32 flags);
-+		      struct bpf_cgroup_link *link, int bpf_attach_subtype,
-+		      enum bpf_attach_type type, u32 flags);
- int cgroup_bpf_detach(struct cgroup *cgrp, struct bpf_prog *prog,
--		      enum bpf_attach_type type);
-+		      enum bpf_attach_type type, int bpf_attach_subtype);
- int cgroup_bpf_query(struct cgroup *cgrp, const union bpf_attr *attr,
- 		     union bpf_attr __user *uattr);
- 
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 9c440db65c18..5a149d8865a1 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -776,6 +776,7 @@ struct perf_event {
- 
- #ifdef CONFIG_CGROUP_PERF
- 	struct perf_cgroup		*cgrp; /* cgroup event is attach to */
-+	struct list_head		bpf_cg_list;
- #endif
- 
- #ifdef CONFIG_SECURITY
-@@ -982,6 +983,9 @@ extern void perf_pmu_resched(struct pmu *pmu);
- extern int perf_event_refresh(struct perf_event *event, int refresh);
- extern void perf_event_update_userpage(struct perf_event *event);
- extern int perf_event_release_kernel(struct perf_event *event);
-+extern int perf_event_create_for_all_cpus(struct perf_event_attr *attr,
-+				struct cgroup *cgroup,
-+				struct list_head *entries);
- extern struct perf_event *
- perf_event_create_kernel_counter(struct perf_event_attr *attr,
- 				int cpu,
-diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-index 03145d45e3d5..0ecf465ddfb2 100644
---- a/kernel/bpf/cgroup.c
-+++ b/kernel/bpf/cgroup.c
-@@ -14,6 +14,8 @@
- #include <linux/string.h>
- #include <linux/bpf.h>
- #include <linux/bpf-cgroup.h>
-+#include <linux/perf_event.h>
-+#include <linux/trace_events.h>
- #include <net/sock.h>
- #include <net/bpf_sk_storage.h>
- 
-@@ -112,6 +114,8 @@ static void cgroup_bpf_release(struct work_struct *work)
- 	struct bpf_prog_array *old_array;
- 	struct list_head *storages = &cgrp->bpf.storages;
- 	struct bpf_cgroup_storage *storage, *stmp;
-+	struct list_head *events = &cgrp->bpf.per_cg_events;
-+	struct perf_event *event, *etmp;
- 
- 	unsigned int atype;
- 
-@@ -141,6 +145,10 @@ static void cgroup_bpf_release(struct work_struct *work)
- 		bpf_cgroup_storage_free(storage);
- 	}
- 
-+	list_for_each_entry_safe(event, etmp, events, bpf_cg_list) {
-+		perf_event_release_kernel(event);
-+	}
-+
- 	mutex_unlock(&cgroup_mutex);
- 
- 	for (p = cgroup_parent(cgrp); p; p = cgroup_parent(p))
-@@ -226,13 +234,16 @@ static bool hierarchy_allows_attach(struct cgroup *cgrp,
-  */
- static int compute_effective_progs(struct cgroup *cgrp,
- 				   enum cgroup_bpf_attach_type atype,
-+				   int bpf_attach_subtype,
- 				   struct bpf_prog_array **array)
- {
- 	struct bpf_prog_array_item *item;
- 	struct bpf_prog_array *progs;
- 	struct bpf_prog_list *pl;
- 	struct cgroup *p = cgrp;
--	int cnt = 0;
-+	struct perf_event *event, *etmp;
-+	struct perf_event_attr attr = {};
-+	int rc, cnt = 0;
- 
- 	/* count number of effective programs by walking parents */
- 	do {
-@@ -245,6 +256,21 @@ static int compute_effective_progs(struct cgroup *cgrp,
- 	if (!progs)
- 		return -ENOMEM;
- 
-+	if (atype == CGROUP_TRACEPOINT) {
-+		/* TODO: only create event for cgroup that can have process */
-+
-+		attr.config = bpf_attach_subtype;
-+		attr.type = PERF_TYPE_TRACEPOINT;
-+		attr.sample_type = PERF_SAMPLE_RAW;
-+		attr.sample_period = 1;
-+		attr.wakeup_events = 1;
-+
-+		rc = perf_event_create_for_all_cpus(&attr, cgrp,
-+				&cgrp->bpf.per_cg_events);
-+		if (rc)
-+			goto err;
-+	}
-+
- 	/* populate the array with effective progs */
- 	cnt = 0;
- 	p = cgrp;
-@@ -264,20 +290,41 @@ static int compute_effective_progs(struct cgroup *cgrp,
- 		}
- 	} while ((p = cgroup_parent(p)));
- 
-+	if (atype == CGROUP_TRACEPOINT) {
-+		list_for_each_entry_safe(event, etmp, &cgrp->bpf.per_cg_events, bpf_cg_list) {
-+			rc = perf_event_attach_bpf_prog_array(event, progs);
-+			if (rc)
-+				goto err_attach;
-+		}
-+	}
-+
- 	*array = progs;
- 	return 0;
-+err_attach:
-+	list_for_each_entry_safe(event, etmp, &cgrp->bpf.per_cg_events, bpf_cg_list)
-+		perf_event_release_kernel(event);
-+err:
-+	bpf_prog_array_free(progs);
-+	return rc;
- }
- 
- static void activate_effective_progs(struct cgroup *cgrp,
- 				     enum cgroup_bpf_attach_type atype,
- 				     struct bpf_prog_array *old_array)
- {
--	old_array = rcu_replace_pointer(cgrp->bpf.effective[atype], old_array,
--					lockdep_is_held(&cgroup_mutex));
--	/* free prog array after grace period, since __cgroup_bpf_run_*()
--	 * might be still walking the array
--	 */
--	bpf_prog_array_free(old_array);
-+	struct perf_event *event, *etmp;
-+
-+	if (atype == CGROUP_TRACEPOINT)
-+		list_for_each_entry_safe(event, etmp, &cgrp->bpf.per_cg_events, bpf_cg_list)
-+			perf_event_enable(event);
-+	else {
-+		old_array = rcu_replace_pointer(cgrp->bpf.effective[atype], old_array,
-+						lockdep_is_held(&cgroup_mutex));
-+		/* free prog array after grace period, since __cgroup_bpf_run_*()
-+		 * might be still walking the array
-+		 */
-+		bpf_prog_array_free(old_array);
-+	}
- }
- 
- /**
-@@ -306,9 +353,10 @@ int cgroup_bpf_inherit(struct cgroup *cgrp)
- 		INIT_LIST_HEAD(&cgrp->bpf.progs[i]);
- 
- 	INIT_LIST_HEAD(&cgrp->bpf.storages);
-+	INIT_LIST_HEAD(&cgrp->bpf.per_cg_events);
- 
- 	for (i = 0; i < NR; i++)
--		if (compute_effective_progs(cgrp, i, &arrays[i]))
-+		if (compute_effective_progs(cgrp, i, -1, &arrays[i]))
- 			goto cleanup;
- 
- 	for (i = 0; i < NR; i++)
-@@ -328,7 +376,8 @@ int cgroup_bpf_inherit(struct cgroup *cgrp)
- }
- 
- static int update_effective_progs(struct cgroup *cgrp,
--				  enum cgroup_bpf_attach_type atype)
-+				  enum cgroup_bpf_attach_type atype,
-+                                  int bpf_attach_subtype)
- {
- 	struct cgroup_subsys_state *css;
- 	int err;
-@@ -340,7 +389,8 @@ static int update_effective_progs(struct cgroup *cgrp,
- 		if (percpu_ref_is_zero(&desc->bpf.refcnt))
- 			continue;
- 
--		err = compute_effective_progs(desc, atype, &desc->bpf.inactive);
-+		err = compute_effective_progs(desc, atype, bpf_attach_subtype,
-+				&desc->bpf.inactive);
- 		if (err)
- 			goto cleanup;
- 	}
-@@ -424,6 +474,7 @@ static struct bpf_prog_list *find_attach_entry(struct list_head *progs,
-  * @prog: A program to attach
-  * @link: A link to attach
-  * @replace_prog: Previously attached program to replace if BPF_F_REPLACE is set
-+ * @bpf_attach_subtype: Type ID of perf tracing event for tracepoint/kprobe/uprobe
-  * @type: Type of attach operation
-  * @flags: Option flags
-  *
-@@ -432,7 +483,7 @@ static struct bpf_prog_list *find_attach_entry(struct list_head *progs,
-  */
- int __cgroup_bpf_attach(struct cgroup *cgrp,
- 			struct bpf_prog *prog, struct bpf_prog *replace_prog,
--			struct bpf_cgroup_link *link,
-+			struct bpf_cgroup_link *link, int bpf_attach_subtype,
- 			enum bpf_attach_type type, u32 flags)
- {
- 	u32 saved_flags = (flags & (BPF_F_ALLOW_OVERRIDE | BPF_F_ALLOW_MULTI));
-@@ -454,6 +505,14 @@ int __cgroup_bpf_attach(struct cgroup *cgrp,
- 	if (!!replace_prog != !!(flags & BPF_F_REPLACE))
- 		/* replace_prog implies BPF_F_REPLACE, and vice versa */
- 		return -EINVAL;
-+        if ((type == BPF_CGROUP_TRACEPOINT) &&
-+	    ((flags & BPF_F_REPLACE) || (bpf_attach_subtype < 0) || !(flags & BPF_F_ALLOW_MULTI)))
-+		/* replace fd is used to pass the subtype */
-+		/* subtype is required for BPF_CGROUP_TRACEPOINT */
-+		/* not allow multi BPF progs for the attach type for now */
-+                return -EINVAL;
-+
-+	/* TODO check bpf_attach_subtype is valid */
- 
- 	atype = to_cgroup_bpf_attach_type(type);
- 	if (atype < 0)
-@@ -499,7 +558,7 @@ int __cgroup_bpf_attach(struct cgroup *cgrp,
- 	bpf_cgroup_storages_assign(pl->storage, storage);
- 	cgrp->bpf.flags[atype] = saved_flags;
- 
--	err = update_effective_progs(cgrp, atype);
-+	err = update_effective_progs(cgrp, atype, bpf_attach_subtype);
- 	if (err)
- 		goto cleanup;
- 
-@@ -679,7 +738,8 @@ static struct bpf_prog_list *find_detach_entry(struct list_head *progs,
-  * Must be called with cgroup_mutex held.
-  */
- int __cgroup_bpf_detach(struct cgroup *cgrp, struct bpf_prog *prog,
--			struct bpf_cgroup_link *link, enum bpf_attach_type type)
-+			struct bpf_cgroup_link *link, enum bpf_attach_type type,
-+			int bpf_attach_subtype)
- {
- 	enum cgroup_bpf_attach_type atype;
- 	struct bpf_prog *old_prog;
-@@ -708,7 +768,7 @@ int __cgroup_bpf_detach(struct cgroup *cgrp, struct bpf_prog *prog,
- 	pl->prog = NULL;
- 	pl->link = NULL;
- 
--	err = update_effective_progs(cgrp, atype);
-+	err = update_effective_progs(cgrp, atype, bpf_attach_subtype);
- 	if (err)
- 		goto cleanup;
- 
-@@ -809,7 +869,7 @@ int cgroup_bpf_prog_attach(const union bpf_attr *attr,
- 		}
- 	}
- 
--	ret = cgroup_bpf_attach(cgrp, prog, replace_prog, NULL,
-+	ret = cgroup_bpf_attach(cgrp, prog, replace_prog, NULL, attr->replace_bpf_fd,
- 				attr->attach_type, attr->attach_flags);
- 
- 	if (replace_prog)
-@@ -832,7 +892,7 @@ int cgroup_bpf_prog_detach(const union bpf_attr *attr, enum bpf_prog_type ptype)
- 	if (IS_ERR(prog))
- 		prog = NULL;
- 
--	ret = cgroup_bpf_detach(cgrp, prog, attr->attach_type);
-+	ret = cgroup_bpf_detach(cgrp, prog, attr->attach_type, attr->replace_bpf_fd);
- 	if (prog)
- 		bpf_prog_put(prog);
- 
-@@ -861,7 +921,7 @@ static void bpf_cgroup_link_release(struct bpf_link *link)
- 	}
- 
- 	WARN_ON(__cgroup_bpf_detach(cg_link->cgroup, NULL, cg_link,
--				    cg_link->type));
-+				    cg_link->type, -1));
- 
- 	cg = cg_link->cgroup;
- 	cg_link->cgroup = NULL;
-@@ -961,7 +1021,7 @@ int cgroup_bpf_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
- 		goto out_put_cgroup;
- 	}
- 
--	err = cgroup_bpf_attach(cgrp, NULL, NULL, link,
-+	err = cgroup_bpf_attach(cgrp, NULL, NULL, link, -1,
- 				link->type, BPF_F_ALLOW_MULTI);
- 	if (err) {
- 		bpf_link_cleanup(&link_primer);
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index a645b212b69b..17a1269dc2f9 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -6626,25 +6626,26 @@ void cgroup_sk_free(struct sock_cgroup_data *skcd)
- #ifdef CONFIG_CGROUP_BPF
- int cgroup_bpf_attach(struct cgroup *cgrp,
- 		      struct bpf_prog *prog, struct bpf_prog *replace_prog,
--		      struct bpf_cgroup_link *link,
-+		      struct bpf_cgroup_link *link, int bpf_attach_subtype,
- 		      enum bpf_attach_type type,
- 		      u32 flags)
- {
- 	int ret;
- 
- 	mutex_lock(&cgroup_mutex);
--	ret = __cgroup_bpf_attach(cgrp, prog, replace_prog, link, type, flags);
-+	ret = __cgroup_bpf_attach(cgrp, prog, replace_prog, link,
-+                bpf_attach_subtype, type, flags);
- 	mutex_unlock(&cgroup_mutex);
- 	return ret;
- }
- 
- int cgroup_bpf_detach(struct cgroup *cgrp, struct bpf_prog *prog,
--		      enum bpf_attach_type type)
-+		      enum bpf_attach_type type, int bpf_attach_subtype)
- {
- 	int ret;
- 
- 	mutex_lock(&cgroup_mutex);
--	ret = __cgroup_bpf_detach(cgrp, prog, NULL, type);
-+	ret = __cgroup_bpf_detach(cgrp, prog, NULL, type, bpf_attach_subtype);
- 	mutex_unlock(&cgroup_mutex);
- 	return ret;
- }
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index d34e00749c9b..71056af4322b 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -12511,6 +12511,51 @@ perf_event_create_kernel_counter(struct perf_event_attr *attr, int cpu,
- }
- EXPORT_SYMBOL_GPL(perf_event_create_kernel_counter);
- 
-+int perf_event_create_for_all_cpus(struct perf_event_attr *attr,
-+				struct cgroup *cgroup,
-+				struct list_head *entries)
-+{
-+	struct perf_event **events;
-+        struct perf_cgroup *perf_cgrp;
-+	int cpu, i = 0;
-+
-+	events = kzalloc(sizeof(struct perf_event *) * num_possible_cpus(),
-+			GFP_KERNEL);
-+
-+	if (!events)
-+		return -ENOMEM;
-+
-+	for_each_possible_cpu(cpu) {
-+		/* allocate first, connect the cgroup later */
-+		events[i] = perf_event_create_kernel_counter(attr, cpu, NULL, NULL, NULL);
-+
-+		if (IS_ERR(events[i]))
-+			goto err;
-+
-+		i++;
-+	}
-+
-+	perf_cgrp = cgroup_tryget_perf_cgroup(cgroup);
-+	if (!perf_cgrp)
-+		goto err;
-+
-+	for (i--; i >= 0; i--) {
-+                events[i]->cgrp = perf_cgrp;
-+
-+                list_add(&events[i]->bpf_cg_list, entries);
-+	}
-+
-+	kfree(events);
-+	return 0;
-+
-+err:
-+	for (i--; i >= 0; i--)
-+		free_event(events[i]);
-+
-+	kfree(events);
-+	return -ENOMEM;
-+}
-+
- void perf_pmu_migrate_context(struct pmu *pmu, int src_cpu, int dst_cpu)
- {
- 	struct perf_event_context *src_ctx;
--- 
-2.25.1
-
+> Remove unused entries in kfd_device_info table: num_xgmi_sdma_engines
+> and num_sdma_queues_per_engine. They are calculated in
+> kfd_get_num_sdma_engines and kfd_get_num_xgmi_sdma_engines
+> instead.
+>=20
+> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 58 -------------------------
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |  2 -
+>  2 files changed, 60 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 3fea47e37c17..e1294fba0c26 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -68,8 +68,6 @@ static const struct kfd_device_info kaveri_device_info =
+=3D
+> {
+>         .supports_cwsr =3D false,
+>         .needs_iommu_device =3D true,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -87,8 +85,6 @@ static const struct kfd_device_info carrizo_device_info=
+ =3D
+> {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D true,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -105,8 +101,6 @@ static const struct kfd_device_info raven_device_info
+> =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D true,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 1,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };  #endif @@ -126,8 +120,6 @=
+@
+> static const struct kfd_device_info hawaii_device_info =3D {
+>         .supports_cwsr =3D false,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };  #endif @@ -145,8 +137,6 @=
+@
+> static const struct kfd_device_info tonga_device_info =3D {
+>         .supports_cwsr =3D false,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -163,8 +153,6 @@ static const struct kfd_device_info fiji_device_info =
+=3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -181,8 +169,6 @@ static const struct kfd_device_info fiji_vf_device_in=
+fo
+> =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -200,8 +186,6 @@ static const struct kfd_device_info
+> polaris10_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -218,8 +202,6 @@ static const struct kfd_device_info
+> polaris10_vf_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -236,8 +218,6 @@ static const struct kfd_device_info
+> polaris11_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -254,8 +234,6 @@ static const struct kfd_device_info
+> polaris12_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -272,8 +250,6 @@ static const struct kfd_device_info
+> vegam_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -290,8 +266,6 @@ static const struct kfd_device_info
+> vega10_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -308,8 +282,6 @@ static const struct kfd_device_info
+> vega10_vf_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -326,8 +298,6 @@ static const struct kfd_device_info
+> vega12_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -344,8 +314,6 @@ static const struct kfd_device_info
+> vega20_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -362,8 +330,6 @@ static const struct kfd_device_info
+> arcturus_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 6,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -380,8 +346,6 @@ static const struct kfd_device_info
+> aldebaran_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 3,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -398,8 +362,6 @@ static const struct kfd_device_info renoir_device_inf=
+o
+> =3D {
+>         .supports_cwsr =3D true,
+>         .needs_iommu_device =3D false,
+>         .needs_pci_atomics =3D false,
+> -       .num_sdma_engines =3D 1,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -417,8 +379,6 @@ static const struct kfd_device_info
+> navi10_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 145,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -436,8 +396,6 @@ static const struct kfd_device_info
+> navi12_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 145,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -455,8 +413,6 @@ static const struct kfd_device_info
+> navi14_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 145,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -474,8 +430,6 @@ static const struct kfd_device_info
+> sienna_cichlid_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 92,
+> -       .num_sdma_engines =3D 4,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -493,8 +447,6 @@ static const struct kfd_device_info
+> navy_flounder_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 92,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -512,8 +464,6 @@ static const struct kfd_device_info
+> vangogh_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 92,
+> -       .num_sdma_engines =3D 1,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -531,8 +481,6 @@ static const struct kfd_device_info
+> dimgrey_cavefish_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 92,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -550,8 +498,6 @@ static const struct kfd_device_info
+> beige_goby_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 92,
+> -       .num_sdma_engines =3D 1,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> @@ -569,8 +515,6 @@ static const struct kfd_device_info
+> yellow_carp_device_info =3D {
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+>         .no_atomic_fw_version =3D 92,
+> -       .num_sdma_engines =3D 1,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 2,  };
+>=20
+> @@ -587,8 +531,6 @@ static const struct kfd_device_info
+> cyan_skillfish_device_info =3D {
+>         .needs_iommu_device =3D false,
+>         .supports_cwsr =3D true,
+>         .needs_pci_atomics =3D true,
+> -       .num_sdma_engines =3D 2,
+> -       .num_xgmi_sdma_engines =3D 0,
+>         .num_sdma_queues_per_engine =3D 8,  };
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 1054fedd7b3c..836ec8860c1b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -208,8 +208,6 @@ struct kfd_device_info {
+>         bool needs_iommu_device;
+>         bool needs_pci_atomics;
+>         uint32_t no_atomic_fw_version;
+> -       unsigned int num_sdma_engines;
+> -       unsigned int num_xgmi_sdma_engines;
+>         unsigned int num_sdma_queues_per_engine;  };
+>=20
+> --
+> 2.17.1
