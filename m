@@ -2,129 +2,133 @@ Return-Path: <SRS0=WI/b=QF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8828CC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 15:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 493ACC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 15:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 467196112D
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 15:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 467196112D
+	by mail.kernel.org (Postfix) with ESMTPS id F3B766139F
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 15:07:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F3B766139F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78D3B6ECAF;
-	Thu, 18 Nov 2021 15:01:16 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2081.outbound.protection.outlook.com [40.107.100.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 618686ECAF
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 15:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B886ECE3;
+	Thu, 18 Nov 2021 15:07:26 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 185956ECE3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 15:07:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eU+2fhY9s42TS+SpBt2ouAcF1YNpzovOE5+G69LyjH0TQc66FuSi2oTMFVR6VkeC6ScyksVascLaZZahKthwzq8AIElFbHfbmlyOr80opBTV1c7KNDJxKEsX6lCrDtoa2VKNS9oWxDIQFPTFJfd8B3KEUr6g8vDjHFMZoVTXi6Ben8TAOHH14hGRLPcTAwOzn6ABHxgTty7WPZfwC5B5So1hAX/h8wbgUCGVui29Z/391TPg76fPvT4yG2k1r2COV+sYieN/AsOrNaBLnhMO3jhLBH0qrI2ceiQvDvguNc8/cTH/Adis9f72qZh1uQKTz2+ZvBfYMaW9apjNtmJSPw==
+ b=VnNnxnBD2qevilhneUaXT1WRash3+RS4OdiPx+jnj44qErrgzdD2B8lgXgT4QIrDwLGyVmxa8TyzxqcX3C/CM3taJ05/2r58jfoNBbEfCTt4JCzyJFK0TaaTpOcbJq7N77o72MEWCyHMx7pQ2YFC1b3kGOMa0JkjbtZrky56m2LMlNxP32V4OpTa8nO8E8LQtJePu5d459KLB5fAW7xrfxi++eROChOaSUAbhjxFBVn2ed2VXEevvNfqIZIyl43Cvc5ChdJWySnsD/IGIHOENFr+NPYDSxX1hoUMOcXy0h9zQeucq+NGYKxLKC+PdK14ApdEC42XTXaFsbBdwDnAaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+ggZhlSLs/hru57JpeXRYZD/yXma9ozKMISdP15EE+0=;
- b=gcNqr3oxHd/1UtT/5331MN4pL83pnonJu7eGjrB3b4Ccs1uMZ8p9Mddo4p2rSJFA/8tZ8mZq2qbA/NLDaJFQsz6THzEX2Lz4eyMyLmTc4oQyM9IMHNRxe/WV4SWOoALAncFvRWwmWDqAVRti8Kf8Qov1jrP4euTXwRooHRwQjWtySZz88wYAZuQCVOb79eLf6Ry3vMHYMZxFVnCUglGCBXFIfZIf71e9q+jj+R7LNFmchPGejMOjgTviTzcYs/G9hZWdAifVS+ak7vcpYsV8LOCpZVF4T3Ce9ZyqwVCvdQjbYAyNGF+qesncbLTnv3tMTIdIxKkNWDBVBku4HqqEUQ==
+ bh=pEuM2BkSgkK5ar0V2NFhnPvVGgR8D82evzRJfmZW1KA=;
+ b=bOBuydITWqgIvG61fkz3bK556FhCFjE/Oy5OA/lD63TF7e7BDrO+L8RT/5lS09Ev/mDjvkG2nGsCjYtfw+Nf90CegKG8e+AS3+SBuxpTXgiyap0KDBwINO1Ib2lKLZvDPJkRUjUs3m4h78WqfO8Yz/7ywnRFArnwpkKoqVjXKlv3Ut2qXkJ/djpPj7N84yGBLqEmlT8ShAT68lBlwSf5CZEmarSHlgpsXjB7wXcoYD4Hdczlcx8NHkypv+54p4PtmNwF0blNulCivIPV0j12f+MBtGbSdHIIH3wEmC1r+Tz5oWoN81qvGpO2TUiyCbEH69/YUnREs3PfN7tE2+u3fw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+ggZhlSLs/hru57JpeXRYZD/yXma9ozKMISdP15EE+0=;
- b=x+Kg/riXBOR4qzNisbhCEkW7pIwa5u+Qpv25r3cTixfEedqG179wK8FeC7hXuDmwCIyXKvTbreYNeYDLwhXTGv+0FibWlflX4CKfRqqachZxb5G1S6+xCFfviN1k3x7KHSzNfnZQV9z6b12LnDqFTYWpC24jL9VV2MJYQe0EfZU=
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB2601.namprd12.prod.outlook.com (2603:10b6:5:45::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Thu, 18 Nov
- 2021 15:01:13 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::591a:8986:aca2:c560%3]) with mapi id 15.20.4713.022; Thu, 18 Nov 2021
- 15:01:12 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: reset asic after system-wide suspend aborted
-Thread-Topic: [PATCH] drm/amdgpu: reset asic after system-wide suspend aborted
-Thread-Index: AQHX3Ep2ytL7W0AerEyKxjKe6BfViKwI7ECAgABWxQCAAA9eAIAAAPMAgAAAjwCAAADIAIAAAvYAgAAA3ACAAAe/eQ==
-Date: Thu, 18 Nov 2021 15:01:12 +0000
-Message-ID: <DM6PR12MB3930D33025C01706AE0F258F979B9@DM6PR12MB3930.namprd12.prod.outlook.com>
-References: <1637218976-30718-1-git-send-email-Prike.Liang@amd.com>
- <aaf39737-31da-4925-1aac-56478ad5296f@amd.com>
- <MN2PR12MB324647AA070CF7883BF70036FB9B9@MN2PR12MB3246.namprd12.prod.outlook.com>
- <CADnq5_M_FpTJ=PNdLy9k7EELK_Q+hbeuQdvZi0aURPiSD9Zn_g@mail.gmail.com>
- <97141867-cf4c-eebc-425e-ab2418c9e87d@amd.com>
- <ef7d1842-df51-88b2-75fe-146140681321@gmail.com>
- <b42e6ba2-a849-f8c3-d013-6c4d64ec3ac4@amd.com>
- <CADnq5_MGQ802Z-gdgfQXK_Eo2RXeE0qZ7AQUQLusez4Y3ysT5w@mail.gmail.com>
- <14cd6274-c967-ba7d-71d7-ccf332c30494@amd.com>
-In-Reply-To: <14cd6274-c967-ba7d-71d7-ccf332c30494@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-11-18T14:56:15.4205244Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
-authentication-results: dkim=none (message not signed)
+ bh=pEuM2BkSgkK5ar0V2NFhnPvVGgR8D82evzRJfmZW1KA=;
+ b=pdvtbLbT36vapV6Rkmzy7/joCCiCgR4jVHksUOy82ZaI3DQCGHqOK4dd8pMA4te8xdFg5q+LyIfJN8p0nEkAEqvM+JlI2l/E0xxIbpr0aX+gAjSVGFvJ4Gw3Y8+G1fxmNktBVGmfknwGzSoOK4fM2GxcXn7bQf1IQNPpqFl0iQU=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0d378424-914a-4921-91b5-08d9aaa44347
-x-ms-traffictypediagnostic: DM6PR12MB2601:
-x-microsoft-antispam-prvs: <DM6PR12MB2601E7C6D009668C9D161AD6979B9@DM6PR12MB2601.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yFDR53Qohcwhu8LYfu2eGumOQN2aOGemiWuhiHfZyk2e/GzHIi0I/D/3UcfDPGq93GZKvnMokDQESaTOwEOi+zN90j9EWnSBOv8ghvphXa0sIfkfwIa7DzjUvAXmBAXp/7e0ZBXhbNV0iNPQWPMOwZTEcnSbHezCjuEmxq4PEx/UHB3aNuVMXjJjNn4FVy2JF5I2Q0jk1gkAUXcSQB+ZjHVSj+L4gNaPvR6k4LHL/ijphAL/OVQEtAtnounnluD8IoVPavFyIZOc9uOlRyPj1aSLiuJgSVqjP1L904bB250gOcyZS+hv973MZX93+zGKFIstthD46jyvMv6x+/KI+RFiRQ2oG44RiyH1UZlDTpJpqQkm/yqZO8NG8gV3dJuLg1K9IYOMCWfYlgj4ldmJlqsgAa24FDlqG0G35JGh4tspn1AWINiGmDnAYW4oPHZ5snfbZcguvvVLwWZWTpfzd6fZsvXATKsHYO5VQ4s5Cz2RnnRQ44z9PN7zt6mA6PUGgfq3uMBNMwJHqY2mo4phzR9/Lopxq+SnRk5/ChqgjxQN5A0hp2DWWThcGpUpSFeT50Gum7P/GrtId8z3YMBsywhyKj9V+Te7g4WX9OPbNsFHwsPT3f10U+VgzTAbj5qohmn2+xsHX1vO9VzICMoxdLMwdcwKgsd91L9Y/zWXzH7179+B3/YI/OYGgtUTs5KE/ftw8nj4TDzgetaT2FUscw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66476007)(66556008)(64756008)(33656002)(6506007)(66446008)(8676002)(71200400001)(38100700002)(6916009)(186003)(54906003)(76116006)(83380400001)(316002)(8936002)(91956017)(66946007)(9686003)(7696005)(52536014)(55016002)(508600001)(2906002)(122000001)(38070700005)(5660300002)(86362001)(15650500001)(558084003)(4326008)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?7SCw3oCOu5kBuE+hRBATD1BvwVvZJT4OhC7lRd6hozqeCKxH35x9DwtdCs?=
- =?iso-8859-1?Q?4UI1OxQq21GiD/ZG25+8hThTdXiie31HDKzFhzLOC8Kent4LqhkA9xL547?=
- =?iso-8859-1?Q?5etD7t6e7l4k0a9vYhJJqkr/XMDRrhjh392diQFM8JQ/70776dw76m/XPd?=
- =?iso-8859-1?Q?9CgemyJEmXx/ifkzuNvk7j2wTM+/l9+TcgjEU38yd/wbpxM473sBg0l1Ly?=
- =?iso-8859-1?Q?rGyCZzlIfA+2tfiiZhz1QmJdBrSyEs7+7N/fFRlsua3ens5L5FE8hPShm6?=
- =?iso-8859-1?Q?BmHc15OfWhH1UlL8LLBdYhrPi3BzjoZj9nBrmsmzlwq8sh5Km+OeZXTSO2?=
- =?iso-8859-1?Q?ofzt9JoIIHWvwKZVGHj2bW2tDMz4eqwySqtgR1CLlB2/b8PDwWmYGsUOOl?=
- =?iso-8859-1?Q?FRYYEyPSD18FmeugJeWeU1EJqlG97e9gNkGCglLaYeSgYlTn7rPMOukfyr?=
- =?iso-8859-1?Q?AzrNP8ThjTdTc/IY+o+G89zVA6aTaIxVF9B8DJX2azaAhn1TDjAU3KA+7e?=
- =?iso-8859-1?Q?0qvFS9bYX7vqRhyZTC+yK+ubZmmAATo5HB59BxlSS4L78vfJAIg+4zRG3N?=
- =?iso-8859-1?Q?2U7ZYGWJcrel62a4Z1mDABuvNraton4qYRCymV+1odnyOHrYijK4LuY/2q?=
- =?iso-8859-1?Q?QIGjTvbD9LKIIKE+qT3uoXU9Sg+2CtQ4ZNgtsyM0df2klrlcxBPmnQN4Ho?=
- =?iso-8859-1?Q?rYWd7v6aqAmJ0LCEnlggCqDsEM0Hv4iTtmoRTLGzWxYFK2h3Kq+GuUnlYM?=
- =?iso-8859-1?Q?V1hGwVyn2drdNoKPGqZXn2xoZAtG2he01nkNFbvTPuuTzyq2W6lXAWdr77?=
- =?iso-8859-1?Q?TMpkC8a8QsYH+uw/ax2w/8PqLR8tSHLrTaQc7IlN3P1YqRMBBTPZLXXl3k?=
- =?iso-8859-1?Q?2g86zf83I/+Efew/hcow8TXj6ItV7tNALNHo71A5Jom2W/DiujsHhT5Rly?=
- =?iso-8859-1?Q?aGwc0x5L1Zqqu5Anpe0kzh00uJvdjMLHFeRJqwu5pV9tqcQ0der92ksYFe?=
- =?iso-8859-1?Q?Od0aExhXhRSsAVaXPIljbN1JQURvZvfPqcvhGx0/FlPALnjN3umcZRR9Y1?=
- =?iso-8859-1?Q?G4cKoXGlvhoFDdOBZxz5zp5Egg2cyrHHh1p80hrI8xtjWPFatnskSFvHq5?=
- =?iso-8859-1?Q?YeQi0JIGdlLiWStLJlhaGiIbEtWqPWnAMAu0+Mp4mS8CmZ6c94Yz5SGjxR?=
- =?iso-8859-1?Q?l++cpqWvpwteTMZbKSg2Zlf9vMR3fZ2NkdGGogXD5R2El8gfGALH4C8kYp?=
- =?iso-8859-1?Q?Qqc3PPuR+DXAHY34pDURki7PjY9JA+OVE8WURl2eC6dXfPSRMn3fwLSrHM?=
- =?iso-8859-1?Q?87fvXOInxB6L92c/hncMMfb+2kSc79ubabzPN0CrvRwQDrjeYsUo7eW0rz?=
- =?iso-8859-1?Q?hNtQtxdxoKtJIEAaxX1VeIxTrl2xwIfQJixbsgtCGgR7TX7vI4q2jhsWD2?=
- =?iso-8859-1?Q?DpkypSCAqfyyHb2s7qfgY2eiwNys/554/4Osk1s+R4ayid9Pp63hjS3KF7?=
- =?iso-8859-1?Q?yh1kccxi4ivfu++iqPGfhwa7TizAOFCUJ0FINCAYxZapofCOss1ETDljlx?=
- =?iso-8859-1?Q?ZJhuZTvBhGojYjVfUBnVriDH//d+Exx9IgjRDoXSwR1t4FOn7yIwCAI514?=
- =?iso-8859-1?Q?Pts/76mGwYdtg+UfgeWVAVEJG5TQqobvUY?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3930D33025C01706AE0F258F979B9DM6PR12MB3930namp_"
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5289.namprd12.prod.outlook.com (2603:10b6:408:102::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.20; Thu, 18 Nov
+ 2021 15:07:24 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.022; Thu, 18 Nov 2021
+ 15:07:24 +0000
+Subject: Re: [PATCH 2/3] drm/amdkfd: handle VMA remove race
+To: philip yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20211117034324.4663-1-Philip.Yang@amd.com>
+ <20211117034324.4663-2-Philip.Yang@amd.com>
+ <5e1927f0-2cbc-e639-57b1-f61274ec97f4@amd.com>
+ <5162a906-2f1d-bf1d-8313-62105e8f618e@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <f751ec08-d21b-819a-528d-65511095602d@amd.com>
+Date: Thu, 18 Nov 2021 10:07:22 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <5162a906-2f1d-bf1d-8313-62105e8f618e@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0140.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:83::8) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+Received: from [192.168.2.100] (142.127.191.123) by
+ YT3PR01CA0140.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:83::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.19 via Frontend Transport; Thu, 18 Nov 2021 15:07:23 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 33b88a32-7414-4b41-b56d-08d9aaa52050
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5289:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB528944BA861760FB600B5662929B9@BN9PR12MB5289.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RfmOsCklX75Ur34zDME1L47OrbSWOi1V8/H1ftn5U3blWKhNw0A+BXOir9qjEl4rZGfmZDX4apHsd8+nMq9wieVSw9wXg4CxC1M85nFxRHruZDiRgfCyswOAHMj7QeFjDjt/1aez5jkz8aqHHRqI6ZkBzWehTclDkGHiMWIyj2WdVDC8hkG7Kf8jpi5ky4nEYiKdj9SyNMeHVd2OnNBTUWxEq1ywjgYvhmM1VmjnfPCtM6Jb3st5DceCcRb2DN4zKsF/fwR9+ocPJjPJ5sV1PgTzqijP5K7SglncQT8Y3f8JBSVOTpfJxp+Lct1s6gTOionv3Pm273UDtDR4uIfemHESHW1dCTR/aJ7odVqWrZMoFvZUBkDAExVjRBjFd0pKApmL5ohh0zuAJCzyHswb4YWK7+wRtWjEv4edyZ14XBSFkJqEr7PNEoahk9dVmdLfGIb2Ndh3jtkusV8Szuk9sOSCAk+7+LvuPu7ny1kvBG4TCImwCrWd2IlKjL5DOOCz/XbCK/fx0lnEV3eR6IolwweJb1Y8L1Avh2Qu9lrbFp616SuyksbNsTrbPAufEyNmJkvWRuiJK58dy+cf6FPZwVWCRojMSfh+dVC0eyrNazMUUfJz9n1xMl5IZLqdIEFQN5mMJ0k7NmZgR1rN9WdXHq5ekm5EUXYCYXlfo00jr4xtRgD1TslMwejoscsbc9vH7XvBfRNJaJ/JjL3+cdVW4t2SbhsbqswpP8szBfIxqH5/Ttsnl45nVS9HRPn9kRPd
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(316002)(36756003)(110136005)(26005)(6486002)(508600001)(53546011)(31686004)(31696002)(8936002)(44832011)(2906002)(83380400001)(16576012)(66946007)(2616005)(956004)(66556008)(66476007)(4001150100001)(38100700002)(8676002)(86362001)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dW4rN2pzcGJPMXk2dVJOTUlzWCtXb2VyOHJQT2NVOEpEdlUvU090SVJXSjlG?=
+ =?utf-8?B?MzFybWFTZUpqNmk4ZjNsYkxQQnU5MDBBcEFVTHlqUndydjhzWFJ1WHFMVzdz?=
+ =?utf-8?B?YTRqNGRLZTFoc1FLdllNNjE2WDJrMXZpdDRydi9KdkxDR3FqTWhOT29EZ04z?=
+ =?utf-8?B?Q0M2Q3p3Q2UwVmdyS1hWNmpWMDl3dDNlZlRSYXFVQnNyUWhBT01Td3dORXZC?=
+ =?utf-8?B?WVJMT1MyVTUyMndVQkxDZmYzK012SDR6b1YvT1RIT3NhRUxvV2QxVmt6UEwv?=
+ =?utf-8?B?SG1KNW1FeU9SUG4vNnpBd1Fic1J2dEduMHNjSFlYU2pya0Z4VGl5RUVQY1Nm?=
+ =?utf-8?B?Z05TWkVpbVEvd1FTTHFvTmd2SkFvZU56TWFnMVhvT3BVTllCcUYrNEMyQTNm?=
+ =?utf-8?B?NVliNDFkNGJmV3QrWk1iUUdJM0QrYk9XOWlhZ0YxL094dXNMMnNKTzhMQ2ZV?=
+ =?utf-8?B?QjZoQll4Z2ZqTGhEUCtKWndDY3cxODdGUmVxWWlVUFpheDU5M2oyNjdMcUJV?=
+ =?utf-8?B?Wllock5TS3FYUU00T0tVZ29VVnZ1OE5hM3JldE9EVFFDaFJNUUhlN29DR1d4?=
+ =?utf-8?B?YTlrTS9Zb0ZjeStxYzNlR09lS2k0S3lXZmV2SlpWZTFValoySGR5UXhKSzhY?=
+ =?utf-8?B?L0NyNlU3Ui81KzQwUDMzNk5CaEVCdnltM1pUc0VNL1BtUG5HN1lhUXQ5T3Fk?=
+ =?utf-8?B?MVF3QjRTWDhucTFxVUM1UllkYkFBSFZRT3l5SmcwWW1jbmcrb3BMeGVES3Np?=
+ =?utf-8?B?bGY3WGpnbkdtL01DeDF3a0pCckNoSktJWlYyeWd3WXJIL29zOFhIbzVFUVRD?=
+ =?utf-8?B?WG5ZUXF3ek42NW1lNWhGcVV2ZUtsNm9USmFIcVZ6WFdGZjcrZFFvVjI0STBy?=
+ =?utf-8?B?NGRMWWk3ZE1kY0wzTVo4RExTblFvL3AzdFZyZjVVYUdTekU1Mi80aWxGN0gw?=
+ =?utf-8?B?RVdodFVlNG9OSGpTQ0lCbWMwVnFNQjlXRGtRQWVBNXptOHpkaEJMZytYRytR?=
+ =?utf-8?B?U3RWSUVMSnNkR0dNWTRnTVNJNnpGeE0wd3BKazg0eGhFcG9MWW9CQ1VNN3dF?=
+ =?utf-8?B?S1pIOGhRWE1zZnVNbzZDL20xOXlaOVk5Umt2Uk92bHF1VHg1bEN4WGFaSEtr?=
+ =?utf-8?B?RlovVE8zOUc0QWVVOVBoTmE0L25QWUpKRFk4dWxxVTFYY01kaHNoZ2lsOGRS?=
+ =?utf-8?B?U0p5MCtSM25WM3JyODh3UWFzdTZHTHRWS28wZDhNbG5mOTlUOWpjVDA1RER4?=
+ =?utf-8?B?RkhmLzNvNUpnS2paa0tlblJhbStwemlONi94QnlXRGZMYlZDYTFwaXBxbC8w?=
+ =?utf-8?B?VFUvbnM1QW93MGpsQmRjaFBkcEU0NlhjYVlsWlpYZWhYNTlDZSs0b01BWXBU?=
+ =?utf-8?B?OVpkUHVmQitZSHdrUGgvem1EbEN1TXNrOHFZNWloUEd5SnJ0Ui8wTVRveS9l?=
+ =?utf-8?B?WmxQMGpBcGFCMHdRQUpHRlhJYTcvTEhUbXpEL2FJaGtKU0E5c3Z0Ny9jYnZw?=
+ =?utf-8?B?SXd6UWE0SXkvNDhpcmRFWGVlVnJ2ZFJOQksvZXFCc1lPTnQzUEFMSGFuTm5z?=
+ =?utf-8?B?RGR5a256TzJ5ZTRmSDE4c2xpYVFWNXUva2IycXJjNEVnVm1OQUEwQU9PcXJ5?=
+ =?utf-8?B?QzZDUkFJelU2TThlU1FRd2J1S3RJQUtrV1RVSVY0eHdVYzFjcnVVbGd5bDd0?=
+ =?utf-8?B?R1FGRWV5RmVtN2IrNWx3WVpSVGNaUEdBM1VHK25XSTh6VGJtWVZTS05seHBi?=
+ =?utf-8?B?elNzZmRpR1FTeXlLODJzYXMzTVY1MFdNQXRzbk5NRkxvb09WdnM3L1FGWlVZ?=
+ =?utf-8?B?ZzlqSU40NXYxVkNmak1ibTRIb2VUd0RSMHJ6d0JRTTBDYll6djJPcmE0elJY?=
+ =?utf-8?B?ZzJMSzI4cXRGN3BjbkFYcGNBOUl1Q01HMGZmRjBYbWgxbXBJTEJYMU1SdGxx?=
+ =?utf-8?B?UGZ6SzVlT1NLSjJsck9SWUR6NVZzYVVWOEVFcGYvbXhtRmdiN0lZRy80Kzdi?=
+ =?utf-8?B?T05tQ0hnS29yS0x3ZXR0T2tBY2w1K0FFYkZLcDNDTWV6TXF1UGpKbmFzUzd6?=
+ =?utf-8?B?R2VyditNbXNDQkxyOHA2TndYODRQNWE0eTJlemR0ZVpWWWhpUFFaTFJKT2pR?=
+ =?utf-8?B?L2VNWXdTSVB0YU8xcDlJSldnb1ZycmYxdjMrdFFOQ3RPRkJTSGxrRUtsekdV?=
+ =?utf-8?Q?2aWQq0tXXuvLTOF9zQGmyT0=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33b88a32-7414-4b41-b56d-08d9aaa52050
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d378424-914a-4921-91b5-08d9aaa44347
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2021 15:01:12.9098 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f8IQ7IrSDvNr0lwzz6tmS1A8bHGujmUgom5mv2QB/x0V4lqzqc6I0nR7RRtJGoOk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2601
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 15:07:24.1427 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FBbGmXtZk2lA/FmUzX3oCOlF8OutN8G0zshELSZG1bipZ5rF/bjuMXgE3SIpHn/h8KsXkrWWNwtSs7bip2JzZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5289
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,55 +140,244 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, "Liang,
- Prike" <Prike.Liang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3930D33025C01706AE0F258F979B9DM6PR12MB3930namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Am 2021-11-18 um 10:00 a.m. schrieb philip yang:
+>
+>
+> On 2021-11-17 7:10 p.m., Felix Kuehling wrote:
+>> On 2021-11-16 10:43 p.m., Philip Yang wrote:
+>>> VMA may be removed before unmap notifier callback, restore pages take
+>>> mmap write lock to lookup VMA to avoid race,
+>>
+>> The old code looked up the VMA after taking the mmap lock (either
+>> read or write) and kept holding the lock afterwards. I think even
+>> with your new code it's possible that the VMA disappears before you
+>> take the lock the first time, so always taking the write lock only
+>> reduces the time window in which things can go wrong, but it doesn't
+>> remove the race.
+> Take mmap write lock will serialize with __do_munmap,
 
-[Public]
+__do_munmap runs with the mmap write lock. Taking the read lock should
+be sufficient to serialize with it.
 
-BTW, I'm not sure if 'reset always' on resume is a good idea  for GPUs in a=
- hive (assuming those systems also get suspended and get hiccups). At this =
-point the hive isn't reinitialized.
+Regards,
+  Felix
 
-Thanks,
-Lijo
 
---_000_DM6PR12MB3930D33025C01706AE0F258F979B9DM6PR12MB3930namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-BTW, I'm not sure if 'reset always' on resume&nbsp;<span style=3D"font-size=
-: 12pt;">is a good idea&nbsp; for GPUs in a hive (assuming those systems al=
-so get suspended and get hiccups). At this point the hive isn't reinitializ=
-ed.</span></div>
-<div id=3D"ms-outlook-mobile-signature">
-<div><br>
-</div>
-Thanks,<br>
-Lijo</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB3930D33025C01706AE0F258F979B9DM6PR12MB3930namp_--
+> to ensure vma remove and unmap callback are done, because unmap
+> callback set drain_retryfaults flag, so we can safely drain the
+> faults, and it is app bug if vma not found after taking mmap write lock.
+>>
+>> I still struggle to understand the race you're trying to fix. The
+>> only time the svm_restore_pages can see that the VMA is gone AND the
+>> prange is gone is after the deferred worker has removed the prange.
+>> But the fault draining in the deferred worker should prevent us from
+>> ever seeing stale faults in that situation. That means, if no prange
+>> is found and no VMA is found, it's definitely an application bug.
+>>
+>> The only possible race is in the case where the prange still exists
+>> but the VMA is gone (needed by svm_fault_allowed). We can treat that
+>> as a special case where we just return success because we know that
+>> we're handling a stale fault for a VMA that's in the middle of being
+>> unmapped. The fact that the prange still existed means that there
+>> once was a valid mapping at the address but the deferred worker just
+>> hasn't had a chance to clean it up yet.
+>>
+> Yes, that is only possible race.
+>> One more comment inline.
+>>
+>>
+>>>   and then create unregister
+>>> new range and check VMA access permission, then downgrade to take mmap
+>>> read lock to recover fault. Refactor code to avoid duplicate VMA
+>>> lookup.
+>>>
+>>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 65
+>>> ++++++++++------------------
+>>>   1 file changed, 24 insertions(+), 41 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> index c1f367934428..3eb0a9491755 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> @@ -2329,20 +2329,13 @@ svm_range_best_restore_location(struct
+>>> svm_range *prange,
+>>>   }
+>>>     static int
+>>> -svm_range_get_range_boundaries(struct kfd_process *p, int64_t addr,
+>>> -                   unsigned long *start, unsigned long *last,
+>>> -                   bool *is_heap_stack)
+>>> +svm_range_get_range_boundaries(struct kfd_process *p, struct
+>>> vm_area_struct *vma,
+>>> +                   int64_t addr, unsigned long *start,
+>>> +                   unsigned long *last, bool *is_heap_stack)
+>>>   {
+>>> -    struct vm_area_struct *vma;
+>>>       struct interval_tree_node *node;
+>>>       unsigned long start_limit, end_limit;
+>>>   -    vma = find_vma(p->mm, addr << PAGE_SHIFT);
+>>> -    if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
+>>> -        pr_debug("VMA does not exist in address [0x%llx]\n", addr);
+>>> -        return -EFAULT;
+>>> -    }
+>>> -
+>>>       *is_heap_stack = (vma->vm_start <= vma->vm_mm->brk &&
+>>>                 vma->vm_end >= vma->vm_mm->start_brk) ||
+>>>                (vma->vm_start <= vma->vm_mm->start_stack &&
+>>> @@ -2437,9 +2430,10 @@ svm_range_check_vm_userptr(struct kfd_process
+>>> *p, uint64_t start, uint64_t last,
+>>>     static struct
+>>>   svm_range *svm_range_create_unregistered_range(struct
+>>> amdgpu_device *adev,
+>>> -                        struct kfd_process *p,
+>>> -                        struct mm_struct *mm,
+>>> -                        int64_t addr)
+>>> +                           struct kfd_process *p,
+>>> +                           struct mm_struct *mm,
+>>> +                           struct vm_area_struct *vma,
+>>> +                           int64_t addr)
+>>>   {
+>>>       struct svm_range *prange = NULL;
+>>>       unsigned long start, last;
+>>> @@ -2449,7 +2443,7 @@ svm_range
+>>> *svm_range_create_unregistered_range(struct amdgpu_device *adev,
+>>>       uint64_t bo_l = 0;
+>>>       int r;
+>>>   -    if (svm_range_get_range_boundaries(p, addr, &start, &last,
+>>> +    if (svm_range_get_range_boundaries(p, vma, addr, &start, &last,
+>>>                          &is_heap_stack))
+>>>           return NULL;
+>>>   @@ -2552,20 +2546,13 @@ svm_range_count_fault(struct amdgpu_device
+>>> *adev, struct kfd_process *p,
+>>>   }
+>>>     static bool
+>>> -svm_fault_allowed(struct mm_struct *mm, uint64_t addr, bool
+>>> write_fault)
+>>> +svm_fault_allowed(struct vm_area_struct *vma, bool write_fault)
+>>>   {
+>>>       unsigned long requested = VM_READ;
+>>> -    struct vm_area_struct *vma;
+>>>         if (write_fault)
+>>>           requested |= VM_WRITE;
+>>>   -    vma = find_vma(mm, addr << PAGE_SHIFT);
+>>> -    if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
+>>> -        pr_debug("address 0x%llx VMA is removed\n", addr);
+>>> -        return true;
+>>> -    }
+>>> -
+>>>       pr_debug("requested 0x%lx, vma permission flags 0x%lx\n",
+>>> requested,
+>>>           vma->vm_flags);
+>>>       return (vma->vm_flags & requested) == requested;
+>>> @@ -2582,7 +2569,7 @@ svm_range_restore_pages(struct amdgpu_device
+>>> *adev, unsigned int pasid,
+>>>       uint64_t timestamp;
+>>>       int32_t best_loc;
+>>>       int32_t gpuidx = MAX_GPU_INSTANCE;
+>>> -    bool write_locked = false;
+>>> +    struct vm_area_struct *vma = NULL;
+>>>       int r = 0;
+>>>         if (!KFD_IS_SVM_API_SUPPORTED(adev->kfd.dev)) {
+>>> @@ -2606,26 +2593,22 @@ svm_range_restore_pages(struct amdgpu_device
+>>> *adev, unsigned int pasid,
+>>>         /* mm is available because kfd_process_notifier_release
+>>> drain fault */
+>>>       mm = p->mm;
+>>> +    mmap_write_lock(mm);
+>>
+>> Always taking the write lock is unnecessary. I think we can keep the
+>> old strategy of retrying with the write lock only when necessary. I
+>> think this should work correctly as long as you lookup the VMA every
+>> time after taking either the mmap read or write lock. The vma you
+>> looked up should be valid as long as you hold that lock.
+>>
+>> As I pointed out above, if svm_range_from_addr finds a prange but the
+>> VMA is missing, we can treat that as a special case and return
+>> success (just draining a stale fault on a VMA that's being unmapped).
+>
+> ok, I will change svm_fault_allowed to return success if VMA is
+> missing, it is simpler to handle this special race case, without
+> taking mmap write lock.
+>
+> Regards,
+>
+> Philip
+>
+>>
+>> Regards,
+>>   Felix
+>>
+>>
+>>> +
+>>> +    vma = find_vma(p->mm, addr << PAGE_SHIFT);
+>>> +    if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
+>>> +        pr_debug("VMA not found for address 0x%llx\n", addr);
+>>> +        mmap_write_downgrade(mm);
+>>> +        r = -EFAULT;
+>>> +        goto out_unlock_mm;
+>>> +    }
+>>>   -    mmap_read_lock(mm);
+>>> -retry_write_locked:
+>>>       mutex_lock(&svms->lock);
+>>>       prange = svm_range_from_addr(svms, addr, NULL);
+>>>       if (!prange) {
+>>>           pr_debug("failed to find prange svms 0x%p address
+>>> [0x%llx]\n",
+>>>                svms, addr);
+>>> -        if (!write_locked) {
+>>> -            /* Need the write lock to create new range with MMU
+>>> notifier.
+>>> -             * Also flush pending deferred work to make sure the
+>>> interval
+>>> -             * tree is up to date before we add a new range
+>>> -             */
+>>> -            mutex_unlock(&svms->lock);
+>>> -            mmap_read_unlock(mm);
+>>> -            mmap_write_lock(mm);
+>>> -            write_locked = true;
+>>> -            goto retry_write_locked;
+>>> -        }
+>>> -        prange = svm_range_create_unregistered_range(adev, p, mm,
+>>> addr);
+>>> +        prange = svm_range_create_unregistered_range(adev, p, mm,
+>>> vma, addr);
+>>>           if (!prange) {
+>>>               pr_debug("failed to create unregistered range svms
+>>> 0x%p address [0x%llx]\n",
+>>>                    svms, addr);
+>>> @@ -2634,8 +2617,8 @@ svm_range_restore_pages(struct amdgpu_device
+>>> *adev, unsigned int pasid,
+>>>               goto out_unlock_svms;
+>>>           }
+>>>       }
+>>> -    if (write_locked)
+>>> -        mmap_write_downgrade(mm);
+>>> +
+>>> +    mmap_write_downgrade(mm);
+>>>         mutex_lock(&prange->migrate_mutex);
+>>>   @@ -2652,7 +2635,7 @@ svm_range_restore_pages(struct amdgpu_device
+>>> *adev, unsigned int pasid,
+>>>           goto out_unlock_range;
+>>>       }
+>>>   -    if (!svm_fault_allowed(mm, addr, write_fault)) {
+>>> +    if (!svm_fault_allowed(vma, write_fault)) {
+>>>           pr_debug("fault addr 0x%llx no %s permission\n", addr,
+>>>               write_fault ? "write" : "read");
+>>>           r = -EPERM;
+>>> @@ -2704,10 +2687,10 @@ svm_range_restore_pages(struct amdgpu_device
+>>> *adev, unsigned int pasid,
+>>>       mutex_unlock(&prange->migrate_mutex);
+>>>   out_unlock_svms:
+>>>       mutex_unlock(&svms->lock);
+>>> +out_unlock_mm:
+>>>       mmap_read_unlock(mm);
+>>>         svm_range_count_fault(adev, p, gpuidx);
+>>> -
+>>>   out:
+>>>       kfd_unref_process(p);
+>>>   
