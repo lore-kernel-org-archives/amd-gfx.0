@@ -2,143 +2,132 @@ Return-Path: <SRS0=WI/b=QF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9181C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 14:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEE05C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 15:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7305560EE0
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 14:43:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7305560EE0
+	by mail.kernel.org (Postfix) with ESMTPS id BBB9861547
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 15:00:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BBB9861547
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20BE26E91F;
-	Thu, 18 Nov 2021 14:43:59 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3606E91F
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 14:43:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 642C36EC3B;
+	Thu, 18 Nov 2021 15:00:28 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2072.outbound.protection.outlook.com [40.107.212.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 299A36EC3B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 15:00:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZB4TrI9drHmRyELT5S3R3OWj+55mQ0q0l6Aw910crg+pJdrI2qQPx+bnJtWS83ctuzT7N90yeLXUc31RR90J2UUUqpa5urVx793Of5ZbIRNQOMOCGuLnUKAbU+kciL99Oy7mOOwoppYjtJ/DK/obE/FMf8fnEI3EDLyGstEmzxY+V8MAUr0FXqMZP288pGXBBYJGFNdwcv4S7stAgJs84IPzkRMV2rdrOoN4y1Y/LIMc1zww+aLEWivH6+YVTQ3JO17grMq7PDM9S/5zajCTOvF+pytQiqKZy8qvjex4UfJVrJyRhbAfew1brPRNQOgXTum5CYpdEshf0dxiiGEoaQ==
+ b=B69g13DfIGRZJa0i9+b5+57SnwJjFaX8Gn9dXUUkbXwHqv/YVO8ZZ4Aw5uSy9LrXUS2aC8tWukQIENYlvGmFWEhtgs+Hf+/hJRcDwbag8sKm7y71r5FVbF429SqYiegx+oQXuB9/PiqreA7GQPtHo17Fu8Nq0gy1qv/sfb5VlSb73hB+stZlewkc+A9vdd3q4GpmwAKVkbgyIpIcHSLeWGabzPJc1q/DH6A9ciZqB5Rq46vrD36VizVk7xkErlQVGj46BQjc4V3PpDFRbef8wFd5wZS1x87mRGq7awPhzlCauQRFQMzNmMKU7kbBeYYThYQ7pa6JglHPdKVcAEASHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LdiVepJPsZTx2hLXe20P9W9RyHQZQQLQeEch4WoGMPI=;
- b=jE0I1kE27NuV/J4sNhfJMh/KPMw1NIxpw6KJJWr/dFhuLD6JHg8aujpE+TX9W/qcb38UxEPL1IaorUCZALuUE1yRJniASfeUe9qVxhwZ8lEuluX1LaVH5+PHqFQ/tGl1df4Qq/ipgoGnM13tpdwwpQ50HL4otaJUVW7OKtFFh5hDhgDNrsP37RpvzhQ3o7wYWKkUiHZBYpsseZ+kUwTE9rU2yk83THbFZkW+MjAnv+6OHPhInB+bFwAlwSUnPSCVCEhnrc4L4NQQTwCBeeRUgGMPbDbjQfy6IPx03TVXzw5AtFIyrEEyEcYF9zAee7yMCRva9vhhmMCzV0GY72BEpw==
+ bh=G9ybq77vYufCvB+C6ZHiBDHTSZLQXqlV6jhdo/V5Rxw=;
+ b=Yz3oC2g/QJNYpkHi1z9srH0M9ycT5XW0f//Uk4sArVGN0py96zqdoUbQK616QdbQA8sdqFVo41p+ACEOxzaF5g39WhROBWDhDSzsKvedmc4KxVEQGSDiI1WMIDiRSdrLQwNsj4ipd3AVEhBOoKKtIxasR5WeULQcwiDhi12AYF/QvqTDXmuJ+A1tmFwKquCftfhXY0wwkTm7dqkZAtMvaa9fV/p6xFFnucY9EFpBWG22cbI0SY9OV0GWqxYy/UcYOBeX55Q2MP3yXSHohB+knFYC25aPmIH2lgGVOWT2TACaeQxgmmUzk9mNBVlR5GnSqK5MzoFUEo0EDXdL3rUYnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LdiVepJPsZTx2hLXe20P9W9RyHQZQQLQeEch4WoGMPI=;
- b=Ly8NmPxsZmGd0oencmHTu65C+8DHxpFwXKoIDH8Jk6hC6g5vllXGkaJKGlJ1KeROoeXwCmftzSkOOeYI/4UBBv+c+ti+Dzqv0TOVEdbY7rgcqDZLFKdoUF+wYRmfn58L5Vk3kgOVt9rnkR84eZx7dcs5Yd37q1zFhOrXeNGj+1A=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Thu, 18 Nov
- 2021 14:43:55 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::2919:f0f6:40a9:e1c0]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::2919:f0f6:40a9:e1c0%7]) with mapi id 15.20.4713.021; Thu, 18 Nov 2021
- 14:43:55 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Yang, Stanley"
- <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Clements, John" <John.Clements@amd.com>,
- "Quan, Evan" <Evan.Quan@amd.com>, "Wang, Yang(Kevin)"
- <KevinYang.Wang@amd.com>
-Subject: =?utf-8?B?UkU6IOWbnuWkjTogW1BBVENIIFJldmlldyAzLzRdIGRybS9hbWRncHU6IGFk?=
- =?utf-8?Q?d_message_smu_to_get_ecc=5Ftable_v2?=
-Thread-Topic: =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggUmV2aWV3IDMvNF0gZHJtL2FtZGdwdTogYWRkIG1l?=
- =?utf-8?Q?ssage_smu_to_get_ecc=5Ftable_v2?=
-Thread-Index: AQHX3F9rksb0lk/soEiBGzEjEyNcO6wJJ0aAgAARiwCAACL4AIAAAMBw
-Date: Thu, 18 Nov 2021 14:43:54 +0000
-Message-ID: <BN9PR12MB5257A4EAE566DDA34C22B5DEFC9B9@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20211118093344.4361-1-Stanley.Yang@amd.com>
- <20211118093344.4361-3-Stanley.Yang@amd.com>
- <491af5a4-e6d9-6210-6819-1817f04d7700@amd.com>
- <BL1PR12MB53349DB7D7FC5FF559F1906E9A9B9@BL1PR12MB5334.namprd12.prod.outlook.com>
- <d7e8d2ca-e167-7c1b-3f18-45208b8ab4d5@amd.com>
-In-Reply-To: <d7e8d2ca-e167-7c1b-3f18-45208b8ab4d5@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-18T14:43:52Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=42579af7-5540-40f1-93d3-451ef5c959dd;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: dkim=none (message not signed)
+ bh=G9ybq77vYufCvB+C6ZHiBDHTSZLQXqlV6jhdo/V5Rxw=;
+ b=f/2zD/ev13hP6W4HXhkL0YHpzVaaK9HBrh666K3jAdpsVivu5yVO4fNv7JZ9AbgHf8pGUS2MwXt12zoLX8d0yu1C5XsiEPYCu/bTBC2/fnpE4swnqE23SiEwB0d7pe3W4p+g+5lEGPv68KFNCViJzU0BsPbFSSVjjYCz5ie60ao=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 50af54bb-4c83-4175-a308-08d9aaa1d8aa
-x-ms-traffictypediagnostic: BN9PR12MB5129:
-x-microsoft-antispam-prvs: <BN9PR12MB512983CF56EC56F6E5A8D44CFC9B9@BN9PR12MB5129.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: z8cDADN6F3jkO071iipftHUD60yrKUPADsXjX5h6VA+xPqKzm6k5/9VUSk5LfH/2u9phhOKSkt7BqFXD6mA54Ge2+0J+uV5jorft1Vts1jX44TbeFhnrBIXPTXm8iTEaAdxyYSCLITbSjz/PTKzOh4CnjNXWkocojQn5v3RuvvW/+RtmumYh2iL+tlBgRWLtX/mD3nrazl4v5UHfVXg7dAdO7n5W/+F08H4/1KfNqHzIxuTnotroaRVYEBBUcv9j9Gt3Imtf5Esl0KAaudABRpsErvOKhh9wVdz2B5jLPtDc5sNWMdS0pknlNv2QfxnU3+zeCL9jMrfR8h3XwAg8fWwcZ8BBhaW9Jp9sWkf5215xU13Mrkw8sfJHiry8IKeUoEIE+IaMR5HG7koN0RpSLCV2LPTbJiy9hAbKn/0+Uqa1PpiP9Il/26uoACbBW0iFqJqP+/Js1seZTnd1t1a6OzjGUZV27YELEouLUr5Um9P+p2aVP+jlDUFm4ibwXItDmFo1fiOFlzn4Xt6Iya9XsSNOFO87FpJtivoswj7ibk8a7DKmroLFTxI7ng7Mic92K88wyKcfL7mYV5/jlEcw5QRc+Bz1evK5oihMlS/rLUCryZKpJ3RosoxRFCLIq6G/DCaVMJGQUoGQGf+dULwwLnX+gPDtmdKlisDfhDTCWtfoKmZYzUKijpJMYutI9USpXXdaL5gSVhz6tDJucHtaXxynXfySNgT4BfUnHoyavvg=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8936002)(52536014)(6506007)(508600001)(53546011)(110136005)(921005)(5660300002)(38100700002)(71200400001)(66946007)(66476007)(66446008)(66556008)(64756008)(38070700005)(76116006)(316002)(55016002)(7696005)(224303003)(15650500001)(2906002)(83380400001)(9686003)(186003)(6636002)(86362001)(122000001)(26005)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?K0xnOEljZW1ONU5Rc1JqVmFWalp1a3ltaXlaR3JWODBNcm1GeThONG56aVdU?=
- =?utf-8?B?K3NtTHRnTDYra2RYYjdCb1B4Q015NUtPeUUzTHd2dFltQUl5cGpUTkpzL01V?=
- =?utf-8?B?UmxxN3NGTDJuTWRqcUxnbmFhZEhIYzhGaEdmUllpa1Q0V0NYLzJSdktscDhQ?=
- =?utf-8?B?UTVaK3BTTk12Y1gwdHlFcnJOY0hpdmt3V2tZVi90NTU1ZHFKaEdpV1hGN2N4?=
- =?utf-8?B?MU5NT1VTYVJtUHR1THVKS3I1aER5WlNTZzg3dVF5S09USGpiNlltTzlMUk5v?=
- =?utf-8?B?T0VCejhVVCtmengwVHRSMDFXaFNIOUFkanVMRHZKL1JRenJRS093TGwwNkVS?=
- =?utf-8?B?b1Q4QjZvWnNVT0Q3bVl4MWNvV3gzc2prMlRiaWw4UDlOcDhXdVRnYlZQRGxI?=
- =?utf-8?B?a1dqU1NMTkcvNWcvNU9KRTdFWEhyZmV5VFVuMWt3TGNrRE5lLzAwVDJGVGxt?=
- =?utf-8?B?Q1VNLytWWngrZWI4UUhzMUhrTk14dWIrcmh2RHJQeTVoQXp2aHg1Q1A4b0Vw?=
- =?utf-8?B?WUI5MC9COXdSM0JZVjFZVXhmWnNFeUR5cGJOMWtNMEVjY3kxdUtyYkpKMGJl?=
- =?utf-8?B?Y3lENHp5YmJYK3h3KzZ3UTE2Qk5HSm1mclZKMVlveGRXd3R1dHZBU3I0dzIw?=
- =?utf-8?B?dGZaWERSQ2lpN1M2UDh1dTZodmZuTnl1Q3FrVFlKd052Rmc2R2l6SGhYa0Iw?=
- =?utf-8?B?bU5wR09oMmQ2RlZPOXNtZTlFb3htRGRqeDRxWlFSZWtEYU5Qb3kxVTRvRlV2?=
- =?utf-8?B?bkRZa3g3YlpVMEhvenlud0JKSnFZbGhJUC9yN2Y3dTVGcDE5S3hDQlZSMXNr?=
- =?utf-8?B?cVUvZGNJTUdrSXlVK1l4ZHllaWQ1dEVBaXpGOVgzNFh4OEFUeWVkdE5aUHZx?=
- =?utf-8?B?VjYwdWoraVJvcEhSekx5bGtCbHptRWRqN0hTN0d1aGRNVW5OSXdZQkF0dHBt?=
- =?utf-8?B?STVVcVQ3dW44K3cvcGdXMVJTcjV1M0dyeWE5eWpTNTlhQk54YUU2ZGE0RnZJ?=
- =?utf-8?B?WE1BN3hGME9ZK3ZaZHhFOUQ5YTVoSURhS3dDejBuMy9IYWFMdmRrVUpaU2Rk?=
- =?utf-8?B?WTZPZDRBOHR4WG9yalhmU2ZwcjgrcHl4Z0p5cGdKTGtwTXRrRXhGYkJ3UmZK?=
- =?utf-8?B?MmhCNVl4L09aVng2eXdpRFkxcm02SXZnUTZtTWlXOWhSOUdFUUJvSlBaQ1ky?=
- =?utf-8?B?MnJQclFac3Eyd2piQ0QyNHJTZk5hbk5uenpLd0dQc1RqN2NGT3oyM2xDL0Rz?=
- =?utf-8?B?akh6NElJYThScXlMaHVUWnNzWlVDNHFWR0swTC9aZzFUMFAwbGZ4cUhHcWRv?=
- =?utf-8?B?VUZiMktmUEFhVEp3WGdBYUtPVUE3VEpESjVVZWZRUDNMQmNsaVlDZUFobWU0?=
- =?utf-8?B?WTYwYWt0WEhKUkhXVDRNTVA1M1YrS1pUQUJoNVVDTXc1TC9UejRoZVVFQmE3?=
- =?utf-8?B?ekFXUE4zNU1OaVVSR25PYlhhNzV5ZDk5T0VERjNmZ2VrTGwzN24zYTEzOVUy?=
- =?utf-8?B?M1Fmdm1UQVpTRGNDcnBkdHNFYldkVHRNcWlna2t4VzFxblc5bWRkTm9YaHg0?=
- =?utf-8?B?TVA3ZlBJejN2Z1I1TDBNaDVicXo0clZ2RGFKRXNPZ29SNzIwU2V2M1VWYVMx?=
- =?utf-8?B?UXZOa2xDTmFzV1A2NWNYV3BkSk1tcjVUZnFBN25mNFhHWDJQempXMVRCZXRu?=
- =?utf-8?B?Y1M2WmZtOU5udWZYZGpSYUoydGZHQ1BhblZSZnVPdWp3SHgyRXJlQ2F0RVRm?=
- =?utf-8?B?Y2pWVktyQXp1djBKZ1BQT0pZU212YWMrbE9iTzk4K1owMW15Ymx0VjREbFpF?=
- =?utf-8?B?WHlLZzZJalRPOXdMcE1uei85T1B2dW41WVRlbXdPb2ZoOFY2bTZ5TGVYZ1Q5?=
- =?utf-8?B?TTl3RDVSZlUwVnVYZmVhaDFnZGpqZjZzUE4zZG1GQWIrdFBQZ21uTTg5ZWhi?=
- =?utf-8?B?Q2w0d25lQUk2QlZuSmY5ODMvYUtLSXVPWnBJZEs3SGdZb0NTYWw0OUlySmFD?=
- =?utf-8?B?dDZjUG82RC8rYjFQS1BJRmtXTkNwYXh4ODkxQWZKdWVCSEJySTE3STVUUlhx?=
- =?utf-8?B?d2pZMFhScjZFRTVXdGY4YWZiOHV5bXVoeit2UDkwU1VVT1FaeHJKbXh5dFZL?=
- =?utf-8?B?d0lEVllkREkxYXBCTUphOFhVdTluL1M1VjYxQnE5V21OQlBtVGJ6ZU9NTlBV?=
- =?utf-8?Q?qrTz6wDoITzMQOMqVIjoPGA=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB5278.namprd12.prod.outlook.com (2603:10b6:5:39e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.18; Thu, 18 Nov
+ 2021 15:00:23 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf%4]) with mapi id 15.20.4669.015; Thu, 18 Nov 2021
+ 15:00:23 +0000
+Subject: Re: [PATCH 2/3] drm/amdkfd: handle VMA remove race
+To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211117034324.4663-1-Philip.Yang@amd.com>
+ <20211117034324.4663-2-Philip.Yang@amd.com>
+ <5e1927f0-2cbc-e639-57b1-f61274ec97f4@amd.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <5162a906-2f1d-bf1d-8313-62105e8f618e@amd.com>
+Date: Thu, 18 Nov 2021 10:00:21 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <5e1927f0-2cbc-e639-57b1-f61274ec97f4@amd.com>
+Content-Type: text/html; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR19CA0067.namprd19.prod.outlook.com
+ (2603:10b6:208:19b::44) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
+Received: from [172.27.226.38] (165.204.55.251) by
+ MN2PR19CA0067.namprd19.prod.outlook.com (2603:10b6:208:19b::44) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21 via Frontend
+ Transport; Thu, 18 Nov 2021 15:00:22 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bd4ede1c-9753-4326-b6e7-08d9aaa42575
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5278:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5278D04B3877966A65D3934DE69B9@DM4PR12MB5278.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RzEDhEiyNeYMOAaWZAx++bJcxXlQKDRthXgVlOSnSm5U0O2EHiFiUhDDItlLNUjUe3/hsxGF0r7uGCQ/l46Lt+/guouSaMNjCaoscVNt2gclvQcs0YdL0AJ3Ll+/9ON8jW8OA3h9JbjoUiTZOeeWfQmTjoLhIrXXkcYM/Z3/to/R0g1jgMtGLASRdbMabiSC/MYqkEy7LLRbTQcBFcZxpuTJ6BYy0XbWiOu5Py5HhkKgncwhU6oKmE6o95EKZZsaVYMZWqKLc9qdWRkTZlUz9vhoizH0xdrLYf8zx0cKhUuIJlRHIscDQE1NiDIl30GFiSzuvphowHOFDw9wNnrKW0/Oe52XDdzEC5sosg8HO244YLBJUVONjuGIhLx8ddfGvcHUjGHXF/cgMW+3GKT7zWgEgzVFVleX3ZPZ85R4bvSfpA9ecKwGbkOUdKvLSqxN1LJummdFybel0QKt0Z0pGXCQ9RTOa+CfKZwciEGySH0GCHyKc2h6GnVQOplZ0BLB+8TzYc8CTiAb6MIlCP0bf3y6qOijGO8OismEu5a217+460+3ivhKF1XoauC4Y7kDedSWnm0k/2WevlnYtBDMMCViFLM1OV2mnM8kKZkW2fqZuGlmVZtb7xx3K50b4dghWm7K7mDDa/yhdDuVqbeXGbqVrvI3lugm5Ws4AhGjKscMDAcjHSxhaVcf1NN1BG9q+Nx474o6zo4SJUvAEAnJIxDEcTO++/3QA6GPzqVp9bI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66556008)(316002)(53546011)(26005)(186003)(16576012)(5660300002)(36756003)(31696002)(110136005)(956004)(4001150100001)(8676002)(2906002)(83380400001)(2616005)(38100700002)(66476007)(31686004)(6486002)(8936002)(508600001)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFBpUEl6NWZqVlErZDhXQ1dDaTlRTE5yM1Zqd0Jjb2loTldaREhDMDIxUm1D?=
+ =?utf-8?B?UzZjcng4d1lkNTMzaVQ0RkpJeEJDWHRYdGVnRU9KYjNJU2twVm9pRVQ3OTkv?=
+ =?utf-8?B?QU9Nanh6SHNmN3NKZzRGdk11WkU5eTc1Kzhndm1JSEtWQjE2dVdJR1JQdGxF?=
+ =?utf-8?B?ZXB1YzhiSzRIUzFzTWJIVFZ3UW91S2h5WDUvbUZlQ081SHJ6STF3aTlXOE9i?=
+ =?utf-8?B?Z1JmR293clhEYnRoUXM5cERYWWxGOERFeHorNnN3YSs0WjlOOFU3czNrS0ZL?=
+ =?utf-8?B?NENMUGJXdVRDWWxmMWNGYnBvN3E1SU9Cano1azhtM0RSb0dFZXBBTk50TG1Z?=
+ =?utf-8?B?d2NLZGdKbmJNamNHd1VMaExxZDJxVVdWZ1cvdlZxNmtxeHM5TDZ5TENUTjZ5?=
+ =?utf-8?B?M2xTVjFWRlJuWG1zUnNUaFo3NU4vSk5MYlZuYmQ3elZ2ZDJrZ2QxeU1oT3Iv?=
+ =?utf-8?B?SGxBa0RCY2dkUGM0ckxsWVAyRUxNaElEQmVMSk1pYm1GbHN0TWJPUzB6K2hj?=
+ =?utf-8?B?WkpxWklKd3FkT0V5QldpWTdUZ29FeTAwNmhzOUcyb0IyTG0rdVdiSlpKOVBa?=
+ =?utf-8?B?T3cvS0hhTVhnWU1ORmtESmlBRlNtUmpadUxWWXVuNE5FdUFyQ0trUklQaENB?=
+ =?utf-8?B?RXE0bHRoR2ZDWG5lV3FKdERVQmVTak9kY2dVVDZSSVBuSDJENmZNTXAwS0ly?=
+ =?utf-8?B?UnJvUTlYRSt3KzFOMzYxM2RkaDcxNjgzcnBVUW5KY1l5V25tNEIvaHkyMXhM?=
+ =?utf-8?B?NVNDREt6YnNOM3oxT1hqVGo3dUo4Y0ZrRXVvcGFQUWt6RVU5OGlUY09CTUVP?=
+ =?utf-8?B?amh3U0hHOU1LT3RwbWZqNmN4Y0F0ZUpGc05EMjgzbnp2Qi9FSU1nUldndUdR?=
+ =?utf-8?B?dWNWcS9HdWZCQ0Y0TDVJZ3Jzdm1GdlFxS2FtUEhzdHZKZ0N5YkJhVDRpUXBh?=
+ =?utf-8?B?Tm0xaktabmphSkJFWFBERzdlVExnZWoxMitSQkZjVGFIY1RpU3ErRXJqdkNs?=
+ =?utf-8?B?c3BOSENHNHUwRk1wdjVXamlWYjIybHFZTFlEV2Y2Y3JwcHRvSk9MVjZGZHZx?=
+ =?utf-8?B?bFovazMvR1l2Y0sxTktYWnh4aXdJcXByWFlYYkFHa3pkWm95TDMzdmNnMWFN?=
+ =?utf-8?B?blRXanY0TVpVZWtqNlYrUE5GenIvakRPcCt1MzJtQUNzbmRSTW1zbGxrZTR4?=
+ =?utf-8?B?eEliLzJ3SEc3clF2VEJETkZUSlpPdDY1YnpVSzJ3MjNkc294OHZ6UVVPd0dx?=
+ =?utf-8?B?UFkrZ0hpMXRJZEw4NEdHV0JzR09mVTd0N1MrZzI5RzlpSG9wRzR5YldMdkNY?=
+ =?utf-8?B?MVl1OVpFSlEycEhXUGlEU2ZVdXQ4QWpJMWdWekZ1L2FvSkxLMEd1TFczMFZE?=
+ =?utf-8?B?eXk4S3JsNGlwU3g4WmNEQ0tuWWJRdjI4RmFGUUlBRk5VM1lMRkpDNmF5R1pD?=
+ =?utf-8?B?Tnc3L3JHMkJJenFnZEY2UGNlOWpHUVV2c0ZWc250WHpHRklnZjdEVUlIRi9N?=
+ =?utf-8?B?VVBaRFBKajRHeHdpSWhNa1hKdWpsWWlVcFVSZTRXQXRwc2NKRFpmbnBHdSty?=
+ =?utf-8?B?N2JzSUY2N2Zydm90b3lxZFZ0K0JNMDJzaWo1WkxOaGNjZllTTnhwWmR3YkN0?=
+ =?utf-8?B?NXdnZ295U3V4MWM0TmZicUJhamRnaFBQUkZId1pxNTkzMjRqSWltY1RBdmNC?=
+ =?utf-8?B?akw0R3hkQTllajFSTFBzZXlIWldMYVBKSVFQaXRRM2NrMVpSMWN1Wm1IY2pB?=
+ =?utf-8?B?NmUyeTVDVnk2aVJYd0wrSkJCTDN3SUVSRzdocVV2VDduL2EwSGoxNnVjaHVD?=
+ =?utf-8?B?MVNGNUt3OEI0ZVQ4NndYZlNXQlYyc2RCcUNIRzBOazBVanZ0VVVJQTl0M3hk?=
+ =?utf-8?B?N0JMSG00NzhMWGNwSzg0dDlpMWFYRUUyMWY2amFsUHg4QUJhOCthb09aeU5F?=
+ =?utf-8?B?MTh0NjJUVjFxalZiSVk5ME5YYmJ6Nmp3Vjg0QUNMTVgya3FqTkFJYkEzUkdH?=
+ =?utf-8?B?U3grbWErbkRHK2Yxc0tGZTFIeGlVNFZ1aFhkVERGMWpiZ3VaMzFVMWc5Yk1z?=
+ =?utf-8?B?d0hweWRyVlBHYUszOFB3bTljSjAzajVXT2JTNStJZG1VVnVrQ3VJdlVVM0JQ?=
+ =?utf-8?Q?znXI=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd4ede1c-9753-4326-b6e7-08d9aaa42575
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50af54bb-4c83-4175-a308-08d9aaa1d8aa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2021 14:43:54.8386 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lYoqLlo5aKenPhAFfOgODG8FLOOr0yxU3hPafCgwkgQub0ac4JDkpD5SjVJis/Vpz3YqZDhMlGoiwuYTV7HHow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5129
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 15:00:23.0491 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oGa/YG+eTTNNCZ6j/bEtbdt82Y0wcYDDZhteuFuvqZH83FTslee3SChT26X+wLz0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5278
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,184 +142,415 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KU2VyaWVzIGxvb2tzIGdvb2QgdG8gbWUuDQoNClJl
-dmlld2VkLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+DQoNClJlZ2Fy
-ZHMsDQpIYXdraW5nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBMYXphciwg
-TGlqbyA8TGlqby5MYXphckBhbWQuY29tPiANClNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJlciAxOCwg
-MjAyMSAyMjo0MQ0KVG86IFlhbmcsIFN0YW5sZXkgPFN0YW5sZXkuWWFuZ0BhbWQuY29tPjsgYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5n
-QGFtZC5jb20+OyBDbGVtZW50cywgSm9obiA8Sm9obi5DbGVtZW50c0BhbWQuY29tPjsgUXVhbiwg
-RXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBXYW5nLCBZYW5nKEtldmluKSA8S2V2aW5ZYW5nLldh
-bmdAYW1kLmNvbT4NClN1YmplY3Q6IFJlOiDlm57lpI06IFtQQVRDSCBSZXZpZXcgMy80XSBkcm0v
-YW1kZ3B1OiBhZGQgbWVzc2FnZSBzbXUgdG8gZ2V0IGVjY190YWJsZSB2Mg0KDQoNCg0KT24gMTEv
-MTgvMjAyMSA2OjA1IFBNLCBZYW5nLCBTdGFubGV5IHdyb3RlOg0KPiBbQU1EIE9mZmljaWFsIFVz
-ZSBPbmx5XQ0KPiANCj4gDQo+IA0KPj4gLS0tLS3pgq7ku7bljp/ku7YtLS0tLQ0KPj4g5Y+R5Lu2
-5Lq6OiBMYXphciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPj4g5Y+R6YCB5pe26Ze0OiBU
-aHVyc2RheSwgTm92ZW1iZXIgMTgsIDIwMjEgNzozMyBQTQ0KPj4g5pS25Lu25Lq6OiBZYW5nLCBT
-dGFubGV5IDxTdGFubGV5LllhbmdAYW1kLmNvbT47IGFtZC0gDQo+PiBnZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnOyBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsgDQo+PiBD
-bGVtZW50cywgSm9obiA8Sm9obi5DbGVtZW50c0BhbWQuY29tPjsgUXVhbiwgRXZhbiANCj4+IDxF
-dmFuLlF1YW5AYW1kLmNvbT47IFdhbmcsIFlhbmcoS2V2aW4pIDxLZXZpbllhbmcuV2FuZ0BhbWQu
-Y29tPg0KPj4g5Li76aKYOiBSZTogW1BBVENIIFJldmlldyAzLzRdIGRybS9hbWRncHU6IGFkZCBt
-ZXNzYWdlIHNtdSB0byBnZXQgDQo+PiBlY2NfdGFibGUgdjINCj4+DQo+Pg0KPj4NCj4+IE9uIDEx
-LzE4LzIwMjEgMzowMyBQTSwgU3RhbmxleS5ZYW5nIHdyb3RlOg0KPj4+IHN1cHBvcnQgRUNDIFRB
-QkxFIG1lc3NhZ2UsIHRoaXMgdGFibGUgaW5jbHVkZSB1bWMgcmFzIGVycm9yIGNvdW50IA0KPj4+
-IGFuZCBlcnJvciBhZGRyZXNzDQo+Pj4NCj4+PiB2MjoNCj4+PiAgICAgICBhZGQgc211IHZlcnNp
-b24gY2hlY2sgdG8gcXVlcnkgd2hldGhlciBzdXBwb3J0IGVjY3RhYmxlDQo+Pj4gICAgICAgY2Fs
-bCBzbXVfY21uX3VwZGF0ZV90YWJsZSB0byBnZXQgZWNjdGFibGUgZGlyZWN0bHkNCj4+Pg0KPj4+
-IFNpZ25lZC1vZmYtYnk6IFN0YW5sZXkuWWFuZyA8U3RhbmxleS5ZYW5nQGFtZC5jb20+DQo+Pj4g
-LS0tDQo+Pj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1kZ3B1X3NtdS5oICAgICAg
-IHwgIDggKysrDQo+Pj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9hbWRncHVfc211
-LmMgICAgIHwgMTQgKysrKw0KPj4+ICAgIC4uLi9kcm0vYW1kL3BtL3N3c211L3NtdTEzL2FsZGVi
-YXJhbl9wcHQuYyAgICB8IDcwDQo+PiArKysrKysrKysrKysrKysrKysrDQo+Pj4gICAgLi4uL2dw
-dS9kcm0vYW1kL3BtL3N3c211L3NtdTEzL3NtdV92MTNfMC5jICAgIHwgIDIgKw0KPj4+ICAgIDQg
-ZmlsZXMgY2hhbmdlZCwgOTQgaW5zZXJ0aW9ucygrKQ0KPj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG0vaW5jL2FtZGdwdV9zbXUuaA0KPj4+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9pbmMvYW1kZ3B1X3NtdS5oDQo+Pj4gaW5kZXggMzU1N2Y0ZTdmYzMwLi43YTA2
-MDIxYTU4ZjAgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1k
-Z3B1X3NtdS5oDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1kZ3B1X3Nt
-dS5oDQo+Pj4gQEAgLTMyNCw2ICszMjQsNyBAQCBlbnVtIHNtdV90YWJsZV9pZA0KPj4+ICAgIAlT
-TVVfVEFCTEVfT1ZFUkRSSVZFLA0KPj4+ICAgIAlTTVVfVEFCTEVfSTJDX0NPTU1BTkRTLA0KPj4+
-ICAgIAlTTVVfVEFCTEVfUEFDRSwNCj4+PiArCVNNVV9UQUJMRV9FQ0NJTkZPLA0KPj4+ICAgIAlT
-TVVfVEFCTEVfQ09VTlQsDQo+Pj4gICAgfTsNCj4+Pg0KPj4+IEBAIC0zNDAsNiArMzQxLDcgQEAg
-c3RydWN0IHNtdV90YWJsZV9jb250ZXh0DQo+Pj4gICAgCXZvaWQJCQkJKm1heF9zdXN0YWluYWJs
-ZV9jbG9ja3M7DQo+Pj4gICAgCXN0cnVjdCBzbXVfYmlvc19ib290X3VwX3ZhbHVlcwlib290X3Zh
-bHVlczsNCj4+PiAgICAJdm9pZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAqZHJpdmVyX3Bw
-dGFibGU7DQo+Pj4gKwl2b2lkICAgICAgICAgICAgICAgICAgICAgICAgICAgICplY2NfdGFibGU7
-DQo+Pj4gICAgCXN0cnVjdCBzbXVfdGFibGUJCXRhYmxlc1tTTVVfVEFCTEVfQ09VTlRdOw0KPj4+
-ICAgIAkvKg0KPj4+ICAgIAkgKiBUaGUgZHJpdmVyIHRhYmxlIGlzIGp1c3QgYSBzdGFnaW5nIGJ1
-ZmZlciBmb3IgQEAgLTEyNjEsNg0KPj4+ICsxMjYzLDExIEBAIHN0cnVjdCBwcHRhYmxlX2Z1bmNz
-IHsNCj4+PiAgICAJICoNCj4+IAkJb2YgU01VQlVTIHRhYmxlLg0KPj4+ICAgIAkgKi8NCj4+PiAg
-ICAJaW50ICgqc2VuZF9oYm1fYmFkX3BhZ2VzX251bSkoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUs
-DQo+PiB1aW50MzJfdA0KPj4+IHNpemUpOw0KPj4+ICsNCj4+PiArCS8qKg0KPj4+ICsJICogQGdl
-dF9lY2NfdGFibGU6ICBtZXNzYWdlIFNNVSB0byBnZXQgRUNDIElORk8gdGFibGUuDQo+Pj4gKwkg
-Ki8NCj4+PiArCXNzaXplX3QgKCpnZXRfZWNjX2luZm8pKHN0cnVjdCBzbXVfY29udGV4dCAqc211
-LCB2b2lkICp0YWJsZSk7DQo+Pj4gICAgfTsNCj4+Pg0KPj4+ICAgIHR5cGVkZWYgZW51bSB7DQo+
-Pj4gQEAgLTEzOTcsNiArMTQwNCw3IEBAIGludCBzbXVfc2V0X2xpZ2h0X3NicihzdHJ1Y3Qgc211
-X2NvbnRleHQgKnNtdSwgDQo+Pj4gYm9vbCBlbmFibGUpOw0KPj4+DQo+Pj4gICAgaW50IHNtdV93
-YWl0X2Zvcl9ldmVudChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgZW51bQ0KPj4gc211X2V2
-ZW50X3R5cGUgZXZlbnQsDQo+Pj4gICAgCQkgICAgICAgdWludDY0X3QgZXZlbnRfYXJnKTsNCj4+
-PiAraW50IHNtdV9nZXRfZWNjX2luZm8oc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIHZvaWQgKnVt
-Y19lY2MpOw0KPj4+DQo+Pj4gICAgI2VuZGlmDQo+Pj4gICAgI2VuZGlmDQo+Pj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvYW1kZ3B1X3NtdS5jDQo+Pj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L2FtZGdwdV9zbXUuYw0KPj4+IGluZGV4IDAxMTY4Yjg5
-NTViZi4uZmQzYjZiNDYwYjEyIDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG0vc3dzbXUvYW1kZ3B1X3NtdS5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9z
-d3NtdS9hbWRncHVfc211LmMNCj4+PiBAQCAtMzA3Miw2ICszMDcyLDIwIEBAIGludCBzbXVfc2V0
-X2xpZ2h0X3NicihzdHJ1Y3Qgc211X2NvbnRleHQgDQo+Pj4gKnNtdSwNCj4+IGJvb2wgZW5hYmxl
-KQ0KPj4+ICAgIAlyZXR1cm4gcmV0Ow0KPj4+ICAgIH0NCj4+Pg0KPj4+ICtpbnQgc211X2dldF9l
-Y2NfaW5mbyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgdm9pZCAqdW1jX2VjYykgew0KPj4+ICsJ
-aW50IHJldCA9IC1FT1BOT1RTVVBQOw0KPj4+ICsNCj4+PiArCW11dGV4X2xvY2soJnNtdS0+bXV0
-ZXgpOw0KPj4+ICsJaWYgKHNtdS0+cHB0X2Z1bmNzICYmDQo+Pj4gKwkJc211LT5wcHRfZnVuY3Mt
-PmdldF9lY2NfaW5mbykNCj4+PiArCQlyZXQgPSBzbXUtPnBwdF9mdW5jcy0+Z2V0X2VjY19pbmZv
-KHNtdSwgdW1jX2VjYyk7DQo+Pj4gKwltdXRleF91bmxvY2soJnNtdS0+bXV0ZXgpOw0KPj4+ICsN
-Cj4+PiArCXJldHVybiByZXQ7DQo+Pj4gKw0KPj4+ICt9DQo+Pj4gKw0KPj4+ICAgIHN0YXRpYyBp
-bnQgc211X2dldF9wcnZfYnVmZmVyX2RldGFpbHModm9pZCAqaGFuZGxlLCB2b2lkICoqYWRkciwg
-DQo+Pj4gc2l6ZV90DQo+PiAqc2l6ZSkNCj4+PiAgICB7DQo+Pj4gICAgCXN0cnVjdCBzbXVfY29u
-dGV4dCAqc211ID0gaGFuZGxlOyBkaWZmIC0tZ2l0IA0KPj4+IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wbS9zd3NtdS9zbXUxMy9hbGRlYmFyYW5fcHB0LmMNCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG0vc3dzbXUvc211MTMvYWxkZWJhcmFuX3BwdC5jDQo+Pj4gaW5kZXggZjgzNWQ4NmNjMmY1
-Li40YzIxNjA5Y2NlYTUgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9z
-d3NtdS9zbXUxMy9hbGRlYmFyYW5fcHB0LmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdTEzL2FsZGViYXJhbl9wcHQuYw0KPj4+IEBAIC03OCw2ICs3OCwxMiBAQA0K
-Pj4+DQo+Pj4gICAgI2RlZmluZSBzbW5QQ0lFX0VTTV9DVFJMCQkJMHgxMTEwMDNEMA0KPj4+DQo+
-Pj4gKy8qDQo+Pj4gKyAqIFNNVSBzdXBwb3J0IEVDQ1RBQkxFIHNpbmNlIHZlcnNpb24gNjguNDIu
-MCwNCj4+PiArICogdXNlIHRoaXMgdG8gY2hlY2sgRUNDVEFMRSBmZWF0dXJlIHdoZXRoZXIgc3Vw
-cG9ydCAgKi8gI2RlZmluZSANCj4+PiArU1VQUE9SVF9FQ0NUQUJMRV9TTVVfVkVSU0lPTiAweDAw
-NDQyYTAwDQo+Pj4gKw0KPj4+ICAgIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc211X3RlbXBlcmF0dXJl
-X3JhbmdlIHNtdTEzX3RoZXJtYWxfcG9saWN5W10gPQ0KPj4+ICAgIHsNCj4+PiAgICAJey0yNzMx
-NTAsICA5OTAwMCwgOTkwMDAsIC0yNzMxNTAsIDk5MDAwLCA5OTAwMCwgLTI3MzE1MCwgOTkwMDAs
-IA0KPj4+IDk5MDAwfSwgQEAgLTE5MCw2ICsxOTYsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGNt
-bjJhc2ljX21hcHBpbmcNCj4+IGFsZGViYXJhbl90YWJsZV9tYXBbU01VX1RBQkxFX0NPVU5UXSA9
-IHsNCj4+PiAgICAJVEFCX01BUChTTVVfTUVUUklDUyksDQo+Pj4gICAgCVRBQl9NQVAoRFJJVkVS
-X1NNVV9DT05GSUcpLA0KPj4+ICAgIAlUQUJfTUFQKEkyQ19DT01NQU5EUyksDQo+Pj4gKwlUQUJf
-TUFQKEVDQ0lORk8pLA0KPj4+ICAgIH07DQo+Pj4NCj4+PiAgICBzdGF0aWMgY29uc3QgdWludDhf
-dCBhbGRlYmFyYW5fdGhyb3R0bGVyX21hcFtdID0geyBAQCAtMjIzLDYgDQo+Pj4gKzIzMCw5IEBA
-IHN0YXRpYyBpbnQgYWxkZWJhcmFuX3RhYmxlc19pbml0KHN0cnVjdCBzbXVfY29udGV4dCAqc211
-KQ0KPj4+ICAgIAlTTVVfVEFCTEVfSU5JVCh0YWJsZXMsIFNNVV9UQUJMRV9JMkNfQ09NTUFORFMs
-DQo+PiBzaXplb2YoU3dJMmNSZXF1ZXN0X3QpLA0KPj4+ICAgIAkJICAgICAgIFBBR0VfU0laRSwg
-QU1ER1BVX0dFTV9ET01BSU5fVlJBTSk7DQo+Pj4NCj4+PiArCVNNVV9UQUJMRV9JTklUKHRhYmxl
-cywgU01VX1RBQkxFX0VDQ0lORk8sDQo+PiBzaXplb2YoRWNjSW5mb1RhYmxlX3QpLA0KPj4+ICsJ
-CSAgICAgICBQQUdFX1NJWkUsIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pOw0KPj4+ICsNCj4+PiAg
-ICAJc211X3RhYmxlLT5tZXRyaWNzX3RhYmxlID0ga3phbGxvYyhzaXplb2YoU211TWV0cmljc190
-KSwNCj4+IEdGUF9LRVJORUwpOw0KPj4+ICAgIAlpZiAoIXNtdV90YWJsZS0+bWV0cmljc190YWJs
-ZSkNCj4+PiAgICAJCXJldHVybiAtRU5PTUVNOw0KPj4+IEBAIC0yMzUsNiArMjQ1LDEwIEBAIHN0
-YXRpYyBpbnQgYWxkZWJhcmFuX3RhYmxlc19pbml0KHN0cnVjdCANCj4+PiBzbXVfY29udGV4dA0K
-Pj4gKnNtdSkNCj4+PiAgICAJCXJldHVybiAtRU5PTUVNOw0KPj4+ICAgIAl9DQo+Pj4NCj4+PiAr
-CXNtdV90YWJsZS0+ZWNjX3RhYmxlID0ga3phbGxvYyh0YWJsZXNbU01VX1RBQkxFX0VDQ0lORk9d
-LnNpemUsDQo+PiBHRlBfS0VSTkVMKTsNCj4+PiArCWlmICghc211X3RhYmxlLT5lY2NfdGFibGUp
-DQo+Pj4gKwkJcmV0dXJuIC1FTk9NRU07DQo+Pj4gKw0KPj4+ICAgIAlyZXR1cm4gMDsNCj4+PiAg
-ICB9DQo+Pj4NCj4+PiBAQCAtMTc2NSw2ICsxNzc5LDYxIEBAIHN0YXRpYyBzc2l6ZV90IA0KPj4+
-IGFsZGViYXJhbl9nZXRfZ3B1X21ldHJpY3Moc3RydWN0DQo+PiBzbXVfY29udGV4dCAqc211LA0K
-Pj4+ICAgIAlyZXR1cm4gc2l6ZW9mKHN0cnVjdCBncHVfbWV0cmljc192MV8zKTsNCj4+PiAgICB9
-DQo+Pj4NCj4+PiArc3RhdGljIGludCBhbGRlYmFyYW5fY2hlY2tfZWNjX3RhYmxlX3N1cHBvcnQo
-c3RydWN0IHNtdV9jb250ZXh0IA0KPj4+ICsqc211KSB7DQo+Pj4gKwl1aW50MzJfdCBpZl92ZXJz
-aW9uID0gMHhmZiwgc211X3ZlcnNpb24gPSAweGZmOw0KPj4+ICsJaW50IHJldCA9IDA7DQo+Pj4g
-Kw0KPj4+ICsJcmV0ID0gc211X2Ntbl9nZXRfc21jX3ZlcnNpb24oc211LCAmaWZfdmVyc2lvbiwg
-JnNtdV92ZXJzaW9uKTsNCj4+PiArCWlmIChyZXQpDQo+Pj4gKwkJcmV0ID0gLUVPUE5PVFNVUFA7
-CS8vIHJldHVybiBub3Qgc3VwcG9ydCBpZiBmYWlsZWQgZ2V0DQoNCk5pdHBpY2sgLSBjb21tZW50
-IHN0eWxlDQoNCj4+IHNtdV92ZXJzaW9uDQo+Pj4gKw0KPj4+ICsJaWYgKHNtdV92ZXJzaW9uIDwg
-U1VQUE9SVF9FQ0NUQUJMRV9TTVVfVkVSU0lPTikNCj4+PiArCQlyZXQgPSAtRU9QTk9UU1VQUDsN
-Cj4+PiArDQo+Pj4gKwlyZXR1cm4gcmV0Ow0KPj4+ICt9DQo+Pj4gKw0KPj4+ICtzdGF0aWMgc3Np
-emVfdCBhbGRlYmFyYW5fZ2V0X2VjY19pbmZvKHN0cnVjdCBzbXVfY29udGV4dCAqc211LA0KPj4+
-ICsJCQkJCSB2b2lkICp0YWJsZSkNCj4+PiArew0KPj4+ICsJc3RydWN0IHNtdV90YWJsZV9jb250
-ZXh0ICpzbXVfdGFibGUgPSAmc211LT5zbXVfdGFibGU7DQo+Pj4gKwlFY2NJbmZvVGFibGVfdCAq
-ZWNjX3RhYmxlID0gTlVMTDsNCj4+PiArCXN0cnVjdCBlY2NfaW5mb19wZXJfY2ggKmVjY19pbmZv
-X3Blcl9jaGFubmVsID0gTlVMTDsNCj4+PiArCWludCBpLCByZXQgPSAwOw0KPj4+ICsJc3RydWN0
-IHVtY19lY2NfaW5mbyAqZWNjaW5mbyA9IChzdHJ1Y3QgdW1jX2VjY19pbmZvICopdGFibGU7DQo+
-Pj4gKw0KPj4NCj4+IE1pc3NlZCB0byBhc2sgbGFzdCB0aW1lLiBTaW5jZSB1bWNfZWNjX2luZm8g
-aXMgYSBjb21tb24gc3RydWN0LCBkbyANCj4+IHlvdSBhbHNvIHdhbnQgdG8gcGFzcyBiYWNrIHRo
-ZSBudW1iZXIgb2YgY2hhbm5lbHMgaGF2aW5nIGRhdGE/DQo+Pg0KPj4gTm93IHRoaXMgc3RydWN0
-IGNhbiBob2xkIG1heCBvZiAzMiBjaGFubmVsIGRhdGEuIExldCdzIHNheSBpZiB0aGUgDQo+PiBz
-YW1lIGludGVyZmFjZSBpcyBnb2luZyB0byBiZSB1c2VkIG9uIGFub3RoZXIgQVNJQyBYIGhhdmlu
-ZyBvbmx5IDE2IGNoYW5uZWxzLg0KPj4gVGhlbiB0aGUgY2FsbGJhY2sgZm9yIEFTSUMgWCBmaWxs
-cyBkYXRhIG9ubHkgZm9yIDE2IGNoYW5uZWxzLiBPciwgeW91IA0KPj4gZXhwZWN0IHRoYXQgdG8g
-YmUgdGFrZW4gY2FyZSBhdCB0aGUgY2FsbGVyIHNpZGU/DQo+IA0KPiBbWWFuZywgU3RhbmxleV0g
-OiBJZiBBU0lDIFggaGF2ZSBvbmx5IDE2IGNoYW5uZWxzLCB0aGUgY2FsbGJhY2sgb25seSBmaWxs
-IGRhdGEgZm9yIDE2IGNoYW5uZWxzLCBhbmQgY2FsbGVyIHNpZGUgYWxzbyBuZWVkIGNvbnNpZGVy
-IGl0cyBvd24gY2hhbm5lbCBudW1iZXIgdG8gaGFuZGxlIHdpdGggdW1jX2VjY19pbmZvLg0KPiAN
-Cg0KVGhhbmtzIGZvciB0aGUgZGV0YWlscy4gV2l0aCB0aGUgbml0cGljayBhYm92ZSBhbmQgRXZh
-bidzIGNvbW1lbnRzIG9uIHRoZSBwYXRjaCBzdWJqZWN0IGFkZHJlc3NlZCwgcGF0Y2hlcyAxIGFu
-ZCAzIGFyZQ0KDQpSZXZpZXdlZC1ieTogTGlqbyBMYXphciA8bGlqby5sYXphckBhbWQuY29tPg0K
-DQoyIGFuZCA0IGxvb2sgZ29vZCB0byBtZS4gSGF3a2luZyBvciBKb2huIHNob3VsZCBhIHRha2Ug
-bG9vayB0aG91Z2guDQoNClRoYW5rcywNCkxpam8NCg0KPj4NCj4+IFRoYW5rcywNCj4+IExpam8N
-Cj4+DQo+Pj4gKwlyZXQgPSBhbGRlYmFyYW5fY2hlY2tfZWNjX3RhYmxlX3N1cHBvcnQoc211KTsN
-Cj4+PiArCWlmIChyZXQpDQo+Pj4gKwkJcmV0dXJuIHJldDsNCj4+PiArDQo+Pj4gKwlyZXQgPSBz
-bXVfY21uX3VwZGF0ZV90YWJsZShzbXUsDQo+Pj4gKwkJCSAgICAgICBTTVVfVEFCTEVfRUNDSU5G
-TywNCj4+PiArCQkJICAgICAgIDAsDQo+Pj4gKwkJCSAgICAgICBzbXVfdGFibGUtPmVjY190YWJs
-ZSwNCj4+PiArCQkJICAgICAgIGZhbHNlKTsNCj4+PiArCWlmIChyZXQpIHsNCj4+PiArCQlkZXZf
-aW5mbyhzbXUtPmFkZXYtPmRldiwgIkZhaWxlZCB0byBleHBvcnQgU01VIGVjYw0KPj4gdGFibGUh
-XG4iKTsNCj4+PiArCQlyZXR1cm4gcmV0Ow0KPj4+ICsJfQ0KPj4+ICsNCj4+PiArCWVjY190YWJs
-ZSA9IChFY2NJbmZvVGFibGVfdCAqKXNtdV90YWJsZS0+ZWNjX3RhYmxlOw0KPj4+ICsNCj4+PiAr
-CWZvciAoaSA9IDA7IGkgPCBBTERFQkFSQU5fVU1DX0NIQU5ORUxfTlVNOyBpKyspIHsNCj4+PiAr
-CQllY2NfaW5mb19wZXJfY2hhbm5lbCA9ICYoZWNjaW5mby0+ZWNjW2ldKTsNCj4+PiArCQllY2Nf
-aW5mb19wZXJfY2hhbm5lbC0+Y2VfY291bnRfbG9fY2hpcCA9DQo+Pj4gKwkJCWVjY190YWJsZS0+
-RWNjSW5mb1tpXS5jZV9jb3VudF9sb19jaGlwOw0KPj4+ICsJCWVjY19pbmZvX3Blcl9jaGFubmVs
-LT5jZV9jb3VudF9oaV9jaGlwID0NCj4+PiArCQkJZWNjX3RhYmxlLT5FY2NJbmZvW2ldLmNlX2Nv
-dW50X2hpX2NoaXA7DQo+Pj4gKwkJZWNjX2luZm9fcGVyX2NoYW5uZWwtPm1jYV91bWNfc3RhdHVz
-ID0NCj4+PiArCQkJZWNjX3RhYmxlLT5FY2NJbmZvW2ldLm1jYV91bWNfc3RhdHVzOw0KPj4+ICsJ
-CWVjY19pbmZvX3Blcl9jaGFubmVsLT5tY2FfdW1jX2FkZHIgPQ0KPj4+ICsJCQllY2NfdGFibGUt
-PkVjY0luZm9baV0ubWNhX3VtY19hZGRyOw0KPj4+ICsJfQ0KPj4+ICsNCj4+PiArCXJldHVybiBy
-ZXQ7DQo+Pj4gK30NCj4+PiArDQo+Pj4gICAgc3RhdGljIGludCBhbGRlYmFyYW5fbW9kZTFfcmVz
-ZXQoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpDQo+Pj4gICAgew0KPj4+ICAgIAl1MzIgc211X3Zl
-cnNpb24sIGZhdGFsX2VyciwgcGFyYW07IEBAIC0xOTY3LDYgKzIwMzYsNyBAQCBzdGF0aWMgDQo+
-Pj4gY29uc3Qgc3RydWN0IHBwdGFibGVfZnVuY3MNCj4+IGFsZGViYXJhbl9wcHRfZnVuY3MgPSB7
-DQo+Pj4gICAgCS5pMmNfaW5pdCA9IGFsZGViYXJhbl9pMmNfY29udHJvbF9pbml0LA0KPj4+ICAg
-IAkuaTJjX2ZpbmkgPSBhbGRlYmFyYW5faTJjX2NvbnRyb2xfZmluaSwNCj4+PiAgICAJLnNlbmRf
-aGJtX2JhZF9wYWdlc19udW0gPQ0KPj4gYWxkZWJhcmFuX3NtdV9zZW5kX2hibV9iYWRfcGFnZV9u
-dW0sDQo+Pj4gKwkuZ2V0X2VjY19pbmZvID0gYWxkZWJhcmFuX2dldF9lY2NfaW5mbywNCj4+PiAg
-ICB9Ow0KPj4+DQo+Pj4gICAgdm9pZCBhbGRlYmFyYW5fc2V0X3BwdF9mdW5jcyhzdHJ1Y3Qgc211
-X2NvbnRleHQgKnNtdSkgZGlmZiAtLWdpdCANCj4+PiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0v
-c3dzbXUvc211MTMvc211X3YxM18wLmMNCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dz
-bXUvc211MTMvc211X3YxM18wLmMNCj4+PiBpbmRleCA0ZDk2MDk5YTliYjEuLjU1NDIxZWE2MjJm
-YiAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTEzL3Nt
-dV92MTNfMC5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMy9z
-bXVfdjEzXzAuYw0KPj4+IEBAIC00MjgsOCArNDI4LDEwIEBAIGludCBzbXVfdjEzXzBfZmluaV9z
-bWNfdGFibGVzKHN0cnVjdA0KPj4gc211X2NvbnRleHQgKnNtdSkNCj4+PiAgICAJa2ZyZWUoc211
-X3RhYmxlLT5oYXJkY29kZV9wcHRhYmxlKTsNCj4+PiAgICAJc211X3RhYmxlLT5oYXJkY29kZV9w
-cHRhYmxlID0gTlVMTDsNCj4+Pg0KPj4+ICsJa2ZyZWUoc211X3RhYmxlLT5lY2NfdGFibGUpOw0K
-Pj4+ICAgIAlrZnJlZShzbXVfdGFibGUtPm1ldHJpY3NfdGFibGUpOw0KPj4+ICAgIAlrZnJlZShz
-bXVfdGFibGUtPndhdGVybWFya3NfdGFibGUpOw0KPj4+ICsJc211X3RhYmxlLT5lY2NfdGFibGUg
-PSBOVUxMOw0KPj4+ICAgIAlzbXVfdGFibGUtPm1ldHJpY3NfdGFibGUgPSBOVUxMOw0KPj4+ICAg
-IAlzbXVfdGFibGUtPndhdGVybWFya3NfdGFibGUgPSBOVUxMOw0KPj4+ICAgIAlzbXVfdGFibGUt
-Pm1ldHJpY3NfdGltZSA9IDA7DQo+Pj4NCg==
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-11-17 7:10 p.m., Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:5e1927f0-2cbc-e639-57b1-f61274ec97f4@amd.com">On
+      2021-11-16 10:43 p.m., Philip Yang wrote:
+      <br>
+      <blockquote type="cite">VMA may be removed before unmap notifier
+        callback, restore pages take
+        <br>
+        mmap write lock to lookup VMA to avoid race,
+        <br>
+      </blockquote>
+      <br>
+      The old code looked up the VMA after taking the mmap lock (either
+      read or write) and kept holding the lock afterwards. I think even
+      with your new code it's possible that the VMA disappears before
+      you take the lock the first time, so always taking the write lock
+      only reduces the time window in which things can go wrong, but it
+      doesn't remove the race.
+      <br>
+    </blockquote>
+    Take mmap write lock will serialize with __do_munmap, to ensure vma
+    remove and unmap callback are done, because unmap callback set
+    drain_retryfaults flag, so we can safely drain the faults, and it is
+    app bug if vma not found after taking mmap write lock.<br>
+    <blockquote type="cite" cite="mid:5e1927f0-2cbc-e639-57b1-f61274ec97f4@amd.com">
+      <br>
+      I still struggle to understand the race you're trying to fix. The
+      only time the svm_restore_pages can see that the VMA is gone AND
+      the prange is gone is after the deferred worker has removed the
+      prange. But the fault draining in the deferred worker should
+      prevent us from ever seeing stale faults in that situation. That
+      means, if no prange is found and no VMA is found, it's definitely
+      an application bug.
+      <br>
+      <br>
+      The only possible race is in the case where the prange still
+      exists but the VMA is gone (needed by svm_fault_allowed). We can
+      treat that as a special case where we just return success because
+      we know that we're handling a stale fault for a VMA that's in the
+      middle of being unmapped. The fact that the prange still existed
+      means that there once was a valid mapping at the address but the
+      deferred worker just hasn't had a chance to clean it up yet.
+      <br>
+      <br>
+    </blockquote>
+    Yes, that is only possible race.<br>
+    <blockquote type="cite" cite="mid:5e1927f0-2cbc-e639-57b1-f61274ec97f4@amd.com">One more
+      comment inline.
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">&nbsp; and then create unregister
+        <br>
+        new range and check VMA access permission, then downgrade to
+        take mmap
+        <br>
+        read lock to recover fault. Refactor code to avoid duplicate VMA
+        lookup.
+        <br>
+        <br>
+        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 65
+        ++++++++++------------------
+        <br>
+        &nbsp; 1 file changed, 24 insertions(+), 41 deletions(-)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        index c1f367934428..3eb0a9491755 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        @@ -2329,20 +2329,13 @@ svm_range_best_restore_location(struct
+        svm_range *prange,
+        <br>
+        &nbsp; }
+        <br>
+        &nbsp; &nbsp; static int
+        <br>
+        -svm_range_get_range_boundaries(struct kfd_process *p, int64_t
+        addr,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long *start, unsigned long *last,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool *is_heap_stack)
+        <br>
+        +svm_range_get_range_boundaries(struct kfd_process *p, struct
+        vm_area_struct *vma,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int64_t addr, unsigned long *start,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long *last, bool *is_heap_stack)
+        <br>
+        &nbsp; {
+        <br>
+        -&nbsp;&nbsp;&nbsp; struct vm_area_struct *vma;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct interval_tree_node *node;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long start_limit, end_limit;
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp; vma = find_vma(p-&gt;mm, addr &lt;&lt; PAGE_SHIFT);
+        <br>
+        -&nbsp;&nbsp;&nbsp; if (!vma || (addr &lt;&lt; PAGE_SHIFT) &lt;
+        vma-&gt;vm_start) {
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;VMA does not exist in address [0x%llx]\n&quot;,
+        addr);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EFAULT;
+        <br>
+        -&nbsp;&nbsp;&nbsp; }
+        <br>
+        -
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *is_heap_stack = (vma-&gt;vm_start &lt;=
+        vma-&gt;vm_mm-&gt;brk &amp;&amp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_end &gt;=
+        vma-&gt;vm_mm-&gt;start_brk) ||
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (vma-&gt;vm_start &lt;=
+        vma-&gt;vm_mm-&gt;start_stack &amp;&amp;
+        <br>
+        @@ -2437,9 +2430,10 @@ svm_range_check_vm_userptr(struct
+        kfd_process *p, uint64_t start, uint64_t last,
+        <br>
+        &nbsp; &nbsp; static struct
+        <br>
+        &nbsp; svm_range *svm_range_create_unregistered_range(struct
+        amdgpu_device *adev,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *p,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mm_struct *mm,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int64_t addr)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *p,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mm_struct *mm,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vm_area_struct *vma,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int64_t addr)
+        <br>
+        &nbsp; {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct svm_range *prange = NULL;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long start, last;
+        <br>
+        @@ -2449,7 +2443,7 @@ svm_range
+        *svm_range_create_unregistered_range(struct amdgpu_device *adev,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t bo_l = 0;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp; if (svm_range_get_range_boundaries(p, addr, &amp;start,
+        &amp;last,
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (svm_range_get_range_boundaries(p, vma, addr,
+        &amp;start, &amp;last,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;is_heap_stack))
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;
+        <br>
+        &nbsp; @@ -2552,20 +2546,13 @@ svm_range_count_fault(struct
+        amdgpu_device *adev, struct kfd_process *p,
+        <br>
+        &nbsp; }
+        <br>
+        &nbsp; &nbsp; static bool
+        <br>
+        -svm_fault_allowed(struct mm_struct *mm, uint64_t addr, bool
+        write_fault)
+        <br>
+        +svm_fault_allowed(struct vm_area_struct *vma, bool write_fault)
+        <br>
+        &nbsp; {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long requested = VM_READ;
+        <br>
+        -&nbsp;&nbsp;&nbsp; struct vm_area_struct *vma;
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (write_fault)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; requested |= VM_WRITE;
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp; vma = find_vma(mm, addr &lt;&lt; PAGE_SHIFT);
+        <br>
+        -&nbsp;&nbsp;&nbsp; if (!vma || (addr &lt;&lt; PAGE_SHIFT) &lt;
+        vma-&gt;vm_start) {
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;address 0x%llx VMA is removed\n&quot;, addr);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;
+        <br>
+        -&nbsp;&nbsp;&nbsp; }
+        <br>
+        -
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;requested 0x%lx, vma permission flags 0x%lx\n&quot;,
+        requested,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_flags);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (vma-&gt;vm_flags &amp; requested) == requested;
+        <br>
+        @@ -2582,7 +2569,7 @@ svm_range_restore_pages(struct
+        amdgpu_device *adev, unsigned int pasid,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t timestamp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int32_t best_loc;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int32_t gpuidx = MAX_GPU_INSTANCE;
+        <br>
+        -&nbsp;&nbsp;&nbsp; bool write_locked = false;
+        <br>
+        +&nbsp;&nbsp;&nbsp; struct vm_area_struct *vma = NULL;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r = 0;
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!KFD_IS_SVM_API_SUPPORTED(adev-&gt;kfd.dev)) {
+        <br>
+        @@ -2606,26 +2593,22 @@ svm_range_restore_pages(struct
+        amdgpu_device *adev, unsigned int pasid,
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* mm is available because kfd_process_notifier_release
+        drain fault */
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mm = p-&gt;mm;
+        <br>
+        +&nbsp;&nbsp;&nbsp; mmap_write_lock(mm);
+        <br>
+      </blockquote>
+      <br>
+      Always taking the write lock is unnecessary. I think we can keep
+      the old strategy of retrying with the write lock only when
+      necessary. I think this should work correctly as long as you
+      lookup the VMA every time after taking either the mmap read or
+      write lock. The vma you looked up should be valid as long as you
+      hold that lock.
+      <br>
+      <br>
+      As I pointed out above, if svm_range_from_addr finds a prange but
+      the VMA is missing, we can treat that as a special case and return
+      success (just draining a stale fault on a VMA that's being
+      unmapped).
+      <br>
+    </blockquote>
+    <p>ok, I will change svm_fault_allowed to return success if VMA is
+      missing, it is simpler to handle this special race case, without
+      taking mmap write lock.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:5e1927f0-2cbc-e639-57b1-f61274ec97f4@amd.com">
+      <br>
+      Regards,
+      <br>
+      &nbsp; Felix
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">+
+        <br>
+        +&nbsp;&nbsp;&nbsp; vma = find_vma(p-&gt;mm, addr &lt;&lt; PAGE_SHIFT);
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (!vma || (addr &lt;&lt; PAGE_SHIFT) &lt;
+        vma-&gt;vm_start) {
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;VMA not found for address 0x%llx\n&quot;, addr);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_write_downgrade(mm);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EFAULT;
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock_mm;
+        <br>
+        +&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp; mmap_read_lock(mm);
+        <br>
+        -retry_write_locked:
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;svms-&gt;lock);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange = svm_range_from_addr(svms, addr, NULL);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!prange) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;failed to find prange svms 0x%p address
+        [0x%llx]\n&quot;,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms, addr);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!write_locked) {
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Need the write lock to create new range with MMU
+        notifier.
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Also flush pending deferred work to make sure
+        the interval
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * tree is up to date before we add a new range
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;svms-&gt;lock);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_read_unlock(mm);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_write_lock(mm);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; write_locked = true;
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto retry_write_locked;
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange = svm_range_create_unregistered_range(adev, p,
+        mm, addr);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange = svm_range_create_unregistered_range(adev, p,
+        mm, vma, addr);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!prange) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;failed to create unregistered range svms
+        0x%p address [0x%llx]\n&quot;,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms, addr);
+        <br>
+        @@ -2634,8 +2617,8 @@ svm_range_restore_pages(struct
+        amdgpu_device *adev, unsigned int pasid,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock_svms;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        -&nbsp;&nbsp;&nbsp; if (write_locked)
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_write_downgrade(mm);
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; mmap_write_downgrade(mm);
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;prange-&gt;migrate_mutex);
+        <br>
+        &nbsp; @@ -2652,7 +2635,7 @@ svm_range_restore_pages(struct
+        amdgpu_device *adev, unsigned int pasid,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock_range;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp; if (!svm_fault_allowed(mm, addr, write_fault)) {
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (!svm_fault_allowed(vma, write_fault)) {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;fault addr 0x%llx no %s permission\n&quot;, addr,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; write_fault ? &quot;write&quot; : &quot;read&quot;);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EPERM;
+        <br>
+        @@ -2704,10 +2687,10 @@ svm_range_restore_pages(struct
+        amdgpu_device *adev, unsigned int pasid,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;prange-&gt;migrate_mutex);
+        <br>
+        &nbsp; out_unlock_svms:
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;svms-&gt;lock);
+        <br>
+        +out_unlock_mm:
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_read_unlock(mm);
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_count_fault(adev, p, gpuidx);
+        <br>
+        -
+        <br>
+        &nbsp; out:
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(p);
+        <br>
+        &nbsp; </blockquote>
+    </blockquote>
+  </body>
+</html>
