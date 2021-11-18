@@ -2,47 +2,48 @@ Return-Path: <SRS0=WI/b=QF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40A7CC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 18:19:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7415EC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 18:19:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2C8661057
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 18:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F2C8661057
+	by mail.kernel.org (Postfix) with ESMTPS id 3B89D61057
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 18:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B89D61057
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A179E6EA42;
-	Thu, 18 Nov 2021 18:19:08 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87CF36EA57
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 18:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E26956EA34;
+	Thu, 18 Nov 2021 18:19:12 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 671426EA61
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 18:19:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MXcOFkVj3HtGCcR4XmDAT5PY31eGWPLWD96KMoGBUMfaGeNcU4cB4ZBmyv1JfWuwnrS4GbYJbHHTDoNFNPbddo3XLTqHa5OuYVdU/NIhF2NCLyI3aZtOJSjpIH3JWVBe/Hhz3vRNnWMF1ftK4ND2zL/cW+LuNj1v+aJfdMQn9GLmLhMnoyUn8fVmrAg6wPrTurDyQj7s1ezIlTke4A8/e5HAMIJLj5ZQSfYABPUD/+vY+7Pv0DDFI+cYXWuxOussw9OLYWtymvA2EfNWe7uVWrx/gTlxMxN0AF9P4qHFy0jC1nR8p8N9pCXmhFB4m/cegzLZf57ZTXpM0xzTEl4d+g==
+ b=RmjcCuQu4zgFkH/0cQGePfOFEQlcvwG+bWYab0Ljhsuopp9JULR5Y+UBHNYHD3524szA3mymQcU8LqOyHCEg6l98NbYeqd6Ck3rygIo2xpmkv1+l3p9+79isaUpBEKDJfm7Z+X4X/cSZyC7MPpMlGBR9JtqvlAPKtVmJdaA3g/LhyLTLJMZT1UjbnrRmXyiNEFnKLHAOI8Og7moz0fHQjgfBiIssEZrsNlWohI0hjdCknWMkxagTISGD7yRxxeuynaAsBv/6Ino5+uurqFm2Jjf/ZX3MLSZ5bEyN2xvOaVeF+uiaCndqVY071nswVR7uAhyw49XLkwynfiKbbsI/4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OXAqNs9Qf5vUgy8mcIHFbtab5maA+w849k9F3z89sZc=;
- b=l3J6ayWot1GAr2S380OnpSxVgPXn+HDe18gTO+rZWVV/4oAtgPzCUkagdKZmeORTDzMKOmW9ar+iVPhC+wWpg1b9LLltM30WS64gD/AszmAEZcqQxFCE1teuGZpgdB4gn4wW1rSR0zgOHsGrL6m/K2OJactAqNSNNIHPSk1yf8fYeNxZnEq025WpKB2ICDH4EqcURJ06ej7OvTvBhd2L7mf81D7yuxpINrRGyjOL2W39zUhm7g2SO+vrij6KvLdIVUDWwrRWrXB8Z5+jhE9x0O+mR7eIA7wCbunFClj0Z/Xguiw8RjbYUP8bCFoZJosUDcIZDPmmLJ5bvth6fIwtow==
+ bh=IZviafM32QOiQnO406MFk3jDOdql5ToLuijMxtJX8/A=;
+ b=ja7e0CX/eV+EEr3zn5fa4JSAKKPgCdqzlcMt5LF3Y/0tM9YMtG2IQBZ9k1dTWe7iQ6VOJo5TFUz+IFlKCN159saaUPOzOIRarlyVuzl82W6rVlexWpfUD9+ssZmDgPAP8Ns4cAfkFLIMkswhyXZPujN0c9MeQIC3/iKyu4tOu7/zrfv+UJuSucbiuB+dGkSzwa4CZuf/SVdTiX1Z69uE+8B71Nv4sP9GSMXqdi/8z0txT4qcWndMgcPXHwPwhSlhXPvefQbuwPP+h4mqbaovUM6OnxCrjX7Cjq1UmiSa4b/37ASyi6fmNUM/lwXgwe3VqZI96IiNZvZ7YKGZpjauzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OXAqNs9Qf5vUgy8mcIHFbtab5maA+w849k9F3z89sZc=;
- b=djk7OlKKafcjadIP5/Xn/HSqVdt0JgWPWhy5+i4NFM8NGiASHRcY6RONyhi8Cxl/17ySCpfIs/uMy0S71X21sPH6lckEDPyh3LkPiZPjU43wrFTqCPQHP3d/cSniddxWLwb/a47ObT29Zg1FFfRmCo5GrH/9aNoy18JATQ4F8Ls=
-Received: from DM5PR04CA0033.namprd04.prod.outlook.com (2603:10b6:3:12b::19)
- by DM5PR12MB1500.namprd12.prod.outlook.com (2603:10b6:4:11::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.27; Thu, 18 Nov 2021 18:19:05 +0000
-Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:12b:cafe::d5) by DM5PR04CA0033.outlook.office365.com
- (2603:10b6:3:12b::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21 via Frontend
- Transport; Thu, 18 Nov 2021 18:19:05 +0000
+ bh=IZviafM32QOiQnO406MFk3jDOdql5ToLuijMxtJX8/A=;
+ b=nk84xGJhymXah6mJvZEFB2TgzDB3JYadpFdj6pgFbzGOcdF2VriP8mWx89rzfZD+eqNQI/8o3fz3kqKmC+t0us/TbFnmNiKC3u7Ogi1cNYeelhY0QRcVnGatNNJbiQag+ElU8hLnkLJXEevWZU7C+XHzDMqCEkTzN5UnpDc6mwk=
+Received: from DM5PR13CA0024.namprd13.prod.outlook.com (2603:10b6:3:23::34) by
+ BN6PR1201MB0035.namprd12.prod.outlook.com (2603:10b6:405:4d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Thu, 18 Nov
+ 2021 18:19:08 +0000
+Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:23:cafe::25) by DM5PR13CA0024.outlook.office365.com
+ (2603:10b6:3:23::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.18 via Frontend
+ Transport; Thu, 18 Nov 2021 18:19:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +51,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
+ DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Thu, 18 Nov 2021 18:19:05 +0000
+ 15.20.4713.20 via Frontend Transport; Thu, 18 Nov 2021 18:19:08 +0000
 Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Thu, 18 Nov 2021 12:19:03 -0600
+ 15.1.2375.17; Thu, 18 Nov 2021 12:19:05 -0600
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [RFC 2/3] drm/amd/pm: Add STB support in sienna_cichlid
-Date: Thu, 18 Nov 2021 13:18:26 -0500
-Message-ID: <20211118181827.237115-3-andrey.grodzovsky@amd.com>
+Subject: [RFC 3/3] drm/amd/pm: Add debugfs info for STB
+Date: Thu, 18 Nov 2021 13:18:27 -0500
+Message-ID: <20211118181827.237115-4-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211118181827.237115-1-andrey.grodzovsky@amd.com>
 References: <20211118181827.237115-1-andrey.grodzovsky@amd.com>
@@ -73,28 +74,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8baa65a0-a0bd-4545-efbc-08d9aabfe7f6
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1500:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1500AE83E9E5BF7F2EE04D92EA9B9@DM5PR12MB1500.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 031d8d7d-61aa-4c3c-545a-08d9aabfe97f
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0035:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB0035D0F2E5D3BCE85F2B8C79EA9B9@BN6PR1201MB0035.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: e9kJSgoZedI5fB4nDuYVkIx+Dnh9M3WuvAnoubqKfAAVp/hu9uq9uO5kKmd4Se3aEEzfNHA/euMGwOqK2s5PKToKODq3jHMMtGVNKn4lg36EcSI6HGN0fF4UfSlBNUYZgHaUzxT0kiDEjp1fW8GVNYQdBfXpODhFRImybvq0SHvHikmit/BEt4BJ++WFurSX4lT/zPU9fC3kFXbxCL7rohNT74HXw4kf6s/7/RBlWgY9HsFTI0WSf04uzBu65GzjTpdIllEwfywDnKootn3YQfLAqcnoIql9MywCAj/25mbLa9OpMBhHxV9jr9keYBSEWSX3NwV0VUnvBZ/LaNBbqx+3zBCB9LQ9V7SKiKQvWZpIiskK9TghBqKy58m8VOzpNNOYQB5v5rhaB23rjUlKVtNPgNEyjXgYTvj55qFzQYxhVnvv70EGXuht345mkNApSjvSWFDxuQqkdOiWArTA13bIGOooBBGRLY9zBy2TMQlvE881SfHXSlApN7+7jrnFbdYs6X/tgHWaTJRolpR69uZV2ElzHGv0nDPvDR2/D60XoHHbqCxPUT+oIPCYCIfSe4voExC+tkp//t3UN0CexOMEUrJszQrbGNmUtW4Nj/yDqW2a8WJ+RteS95tbZMO8LukG9XOYfooUhJf8ibICIp0yucNRHGgD4F348hasJU9NO40eUIvatvzUX5WQ955M9nnB93UGsjBbUTb7ge0liB2XbtU2rLrZyBBfLgWXJaA=
+X-Microsoft-Antispam-Message-Info: NkEoCKLhJIEuTmbnNA/Cnv0VQgH3AgyEVPPz9HwRoVOLcL1v/fDZ+A96dpBxcSg6jMcnjKtJtZDsBPRftXsa2uozoosduOkpdSBmk0EXfHPPhAQxOLtbTVswN//I1NZYDBW48JHZk7HjVsQJH3HatW731CSi7YeVeNPjNDJInvpx8O22E8Zx8u7Gm/zcFGhxuB2+ABPLLCXn/YmN5FW3vaqqdDzJyEkuvY4nH/tmlNj7nTkyoeRTrnCaprqkNEQx6tiAT4tOwM8yWNlrrT7sCau+Scxt72adS6mveZaP+KYKy0OVgL5l1IsY1AYPV1H7LC1imFZ8ElpbCZ9QdVAOws1L4wjMBfUeMiOWd+4yzPROx+3n0EZTSZrE8QQ6nBITxfqdF7DXhtQKO9wRv8C+zWv77B0engvkt737euUHeHn6a4OSviQqLi4XH2IYKVSGVgRd+c9PmAEN1YQH5rOQZZDwszu9bxI1bwnFZK3rMwLiFmQ+P2FABK3rHlT6ZOXdjhleV9bzU2ayakgKUxonhsJobkecYZ8pDOxzObxqRfLOWoKgA6OTLGIx+yEYkt7Wo7zZU07wHle7jBtA74Dn7IbC2mFap1V67/bYwa+qNN5ev+p/pc+A5iygDO6wjbBDT0VO/w29s5fmpRe7MfUikJGB0tbWE2Cb7r1DCln32ScRULHW+UyuRZH6EaJqEAFHsu/IcAxrwFaLat+INkSc50ca9VETiiRKHlWRTT1oTMg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(356005)(70206006)(6916009)(316002)(2906002)(426003)(16526019)(1076003)(6666004)(44832011)(82310400003)(83380400001)(70586007)(5660300002)(86362001)(26005)(186003)(4326008)(508600001)(81166007)(19627235002)(36756003)(36860700001)(8936002)(47076005)(8676002)(54906003)(2616005)(7696005)(336012)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(26005)(86362001)(47076005)(316002)(5660300002)(1076003)(8676002)(6666004)(44832011)(336012)(2906002)(54906003)(426003)(7696005)(70206006)(8936002)(81166007)(186003)(508600001)(36756003)(16526019)(356005)(70586007)(4326008)(6916009)(36860700001)(82310400003)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 18:19:05.6031 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8baa65a0-a0bd-4545-efbc-08d9aabfe7f6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 18:19:08.1497 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 031d8d7d-61aa-4c3c-545a-08d9aabfe97f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1500
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0035
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,150 +113,135 @@ Cc: alexander.deucher@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add STB implementation for sienna_cichlid
+Add debugfs hook.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- .../amd/include/asic_reg/mp/mp_11_0_offset.h  |  7 +++
- .../amd/include/asic_reg/mp/mp_11_0_sh_mask.h | 12 ++++
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 55 +++++++++++++++++++
- 3 files changed, 74 insertions(+)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c        |  2 +
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 86 +++++++++++++++++++++++
+ 3 files changed, 89 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_offset.h
-index 6d0052ce6bed..da6d380c948b 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_offset.h
-@@ -354,5 +354,12 @@
- #define mmMP1_SMN_EXT_SCRATCH7                                                                         0x03c7
- #define mmMP1_SMN_EXT_SCRATCH7_BASE_IDX                                                                0
- 
-+/*
-+ * addressBlock: mp_SmuMp1Pub_MmuDec
-+ * base address: 0x0
-+ */
-+#define smnMP1_PMI_3_START                                                                              0x3030204
-+#define smnMP1_PMI_3_FIFO                                                                               0x3030208
-+#define smnMP1_PMI_3                                                                                    0x3030600
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 41472ed99253..49df4c20f09e 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3759,5 +3759,7 @@ void amdgpu_debugfs_pm_init(struct amdgpu_device *adev)
+ 					 adev,
+ 					 &amdgpu_debugfs_pm_prv_buffer_fops,
+ 					 adev->pm.smu_prv_buffer_size);
++
++	amdgpu_smu_stb_debug_fs_init(adev);
+ #endif
+ }
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index 4301403af761..f738f7dc20c9 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -1420,6 +1420,7 @@ int smu_wait_for_event(struct amdgpu_device *adev, enum smu_event_type event,
+ 		       uint64_t event_arg);
+ int smu_get_ecc_info(struct smu_context *smu, void *umc_ecc);
+ int smu_stb_collect_info(struct smu_context *smu, void *buff, uint32_t size);
++void amdgpu_smu_stb_debug_fs_init(struct amdgpu_device *adev);
  
  #endif
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_sh_mask.h
-index 136fb5de6a4c..a5ae2a801254 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_11_0_sh_mask.h
-@@ -959,5 +959,17 @@
- #define MP1_SMN_EXT_SCRATCH7__DATA__SHIFT                                                                     0x0
- #define MP1_SMN_EXT_SCRATCH7__DATA_MASK                                                                       0xFFFFFFFFL
- 
-+// MP1_PMI_3_START
-+#define MP1_PMI_3_START__ENABLE_MASK                       0x80000000L
-+// MP1_PMI_3_FIFO
-+#define MP1_PMI_3_FIFO__DEPTH_MASK                         0x00000fffL
-+
-+// MP1_PMI_3_START
-+#define MP1_PMI_3_START__ENABLE__SHIFT                     0x0000001f
-+// MP1_PMI_3_FIFO
-+#define MP1_PMI_3_FIFO__DEPTH__SHIFT                       0x00000000
-+
-+
-+
- 
  #endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index b0bb389185d5..9d7b4fade301 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -80,6 +80,9 @@
- 		(*member) = (smu->smu_table.driver_pptable + offsetof(PPTable_t, field));\
- } while(0)
- 
-+/* STB FIFO depth is in 64bit units */
-+#define SIENNA_CICHLID_STB_DEPTH_UNIT_BYTES 8
-+
- static int get_table_size(struct smu_context *smu)
- {
- 	if (smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 13))
-@@ -650,6 +653,8 @@ static int sienna_cichlid_allocate_dpm_context(struct smu_context *smu)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 97bafba4c5c9..f5e739d40b04 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -3193,3 +3193,89 @@ int smu_stb_collect_info(struct smu_context *smu, void *buf, uint32_t size)
+ 	 */
+ 	return smu->ppt_funcs->stb_collect_info(smu, buf, size);
  }
- 
-+static void sienna_cichlid_stb_init(struct smu_context *smu);
 +
- static int sienna_cichlid_init_smc_tables(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -662,6 +667,8 @@ static int sienna_cichlid_init_smc_tables(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+	sienna_cichlid_stb_init(smu);
++#if defined(CONFIG_DEBUG_FS)
 +
- 	return smu_v11_0_init_smc_tables(smu);
- }
- 
-@@ -3793,6 +3800,53 @@ static int sienna_cichlid_set_mp1_state(struct smu_context *smu,
- 	return ret;
- }
- 
-+static void sienna_cichlid_stb_init(struct smu_context *smu)
++static int smu_stb_debugfs_open(struct inode *inode, struct file *filp)
 +{
-+	struct amdgpu_device *adev = smu->adev;
-+	uint32_t reg;
++	struct amdgpu_device *adev = filp->f_inode->i_private;
++	struct smu_context *smu = &adev->smu;
++	unsigned char *buf;
++	int r;
 +
-+	reg = RREG32_PCIE(MP1_Public | smnMP1_PMI_3_START);
-+	smu->stb_context.enabled = REG_GET_FIELD(reg, MP1_PMI_3_START, ENABLE);
++	buf = kvmalloc_array(smu->stb_context.stb_buf_size, sizeof(*buf), GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
 +
-+	/* STB is disabled */
-+	if (!smu->stb_context.enabled)
-+		return;
++	r = smu_stb_collect_info(smu, buf, smu->stb_context.stb_buf_size);
++	if (r)
++		goto out;
 +
-+	spin_lock_init(&smu->stb_context.lock);
++	filp->private_data = buf;
 +
-+	/* STB buffer size in bytes as function of FIFO depth */
-+	reg = RREG32_PCIE(MP1_Public | smnMP1_PMI_3_FIFO);
-+	smu->stb_context.stb_buf_size = 1 << REG_GET_FIELD(reg, MP1_PMI_3_FIFO, DEPTH);
-+	smu->stb_context.stb_buf_size *=  SIENNA_CICHLID_STB_DEPTH_UNIT_BYTES;
++	return 0;
 +
-+	dev_info(smu->adev->dev, "STB initialized to %d entries",
-+		 smu->stb_context.stb_buf_size / SIENNA_CICHLID_STB_DEPTH_UNIT_BYTES);
-+
++out:
++	kvfree(buf);
++	return r;
 +}
 +
-+int sienna_cichlid_stb_get_data_direct(struct smu_context *smu,
-+				       void *buf,
-+				       uint32_t size)
++static ssize_t smu_stb_debugfs_read(struct file *filp, char __user *buf, size_t size,
++				loff_t *pos)
 +{
-+	uint32_t *p = buf;
-+	struct amdgpu_device *adev = smu->adev;
++	struct amdgpu_device *adev = filp->f_inode->i_private;
++	struct smu_context *smu = &adev->smu;
 +
-+	/* No need to disable interrupts for now as we don't lock it yet from ISR */
-+	spin_lock(&smu->stb_context.lock);
 +
-+	/*
-+	 * Read the STB FIFO in units of 32bit since this is the accessor window
-+	 * (register width) we have.
-+	 */
-+	buf = ((char *) buf) + size;
-+	while ((void *)p < buf)
-+		*p++ = cpu_to_le32(RREG32_PCIE(MP1_Public | smnMP1_PMI_3));
++	if (!filp->private_data)
++		return -EINVAL;
 +
-+	spin_unlock(&smu->stb_context.lock);
++	return simple_read_from_buffer(buf,
++				       size,
++				       pos, filp->private_data,
++				       smu->stb_context.stb_buf_size);
++}
++
++static int smu_stb_debugfs_release(struct inode *inode, struct file *filp)
++{
++	kvfree(filp->private_data);
++	filp->private_data = NULL;
 +
 +	return 0;
 +}
 +
- static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.get_allowed_feature_mask = sienna_cichlid_get_allowed_feature_mask,
- 	.set_default_dpm_table = sienna_cichlid_set_default_dpm_table,
-@@ -3882,6 +3936,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.interrupt_work = smu_v11_0_interrupt_work,
- 	.gpo_control = sienna_cichlid_gpo_control,
- 	.set_mp1_state = sienna_cichlid_set_mp1_state,
-+	.stb_collect_info = sienna_cichlid_stb_get_data_direct,
- };
- 
- void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
++/*
++ * We have to define not only read method but also
++ * open and release because .read takes up to PAGE_SIZE
++ * data each time so and so is invoked multiple times.
++ *  We allocate the STB buffer in .open and release it
++ *  in .release
++ */
++static const struct file_operations smu_stb_debugfs_fops = {
++	.owner = THIS_MODULE,
++	.open = smu_stb_debugfs_open,
++	.read = smu_stb_debugfs_read,
++	.release = smu_stb_debugfs_release,
++	.llseek = default_llseek,
++};
++
++#endif
++
++void amdgpu_smu_stb_debug_fs_init(struct amdgpu_device *adev)
++{
++#if defined(CONFIG_DEBUG_FS)
++
++	struct smu_context *smu = &adev->smu;
++
++	if (!smu->stb_context.stb_buf_size)
++		return;
++
++	debugfs_create_file_size("amdgpu_smu_stb_dump",
++			    S_IRUSR,
++			    adev_to_drm(adev)->primary->debugfs_root,
++			    adev,
++			    &smu_stb_debugfs_fops,
++			    smu->stb_context.stb_buf_size);
++#endif
++
++}
 -- 
 2.25.1
 
