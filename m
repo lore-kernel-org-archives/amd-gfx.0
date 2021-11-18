@@ -2,48 +2,48 @@ Return-Path: <SRS0=WI/b=QF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46F2AC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C8D5C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:28:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05DC6610C8
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 05DC6610C8
+	by mail.kernel.org (Postfix) with ESMTPS id DD25B6113D
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 20:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD25B6113D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63DCA6E853;
-	Thu, 18 Nov 2021 20:19:03 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2086.outbound.protection.outlook.com [40.107.102.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D21D6E853
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 20:19:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E7976E9A2;
+	Thu, 18 Nov 2021 20:28:56 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE6086E9A6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 20:28:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dp11avvn3aqCAhRAYyslwdOQyohxIAMyLAow2cBd9jPrNTDy9dxr5/7JHkI2W61egw27OHmJvSFXb9TL9R+7OiQjjoGx/2EgySEvt+EaZWAiN9zG3k7Px//dJadQfKqzI9Xkv1eBbULMSbO88dxJFIE8zZ1Ylt3/XCbV+pwk109GrV5zifweBJcK5VNhKK1ONQo7YP8Qi1pUMv9szpB4GdySGQR2HzKQzcngaiXkTF9aUn4jPLq276YPnqzQY4hbVWLHAzw01e7p0DeyavsH5paSaB/TkuhHWfN8F2bLcTPW/mYuZXwFsp5EIXqnJFxF6lB1e2GLqxUOmGcJLVh83w==
+ b=ZDPr/t08HLkE2+OZS7T4GI90llVYSftOdqUlL3i+NXMGyXvlfaiWjWyMAKqG7pSkk7TAZPDQXzx6UGnZjsQTiuPq5ghJsUFDsn3bgS7eLSKSwr33zKPMoHimnI2y323t7npZVkyemvYkgzUyl7zSse79JzVqHcC3g8JgarVKtIkHHOnliNszMZCGuIDmWLVrTgu4VOXZLrjZXoP3qOcRwUNzDDTRhPcY2iSZ/ZDZj26QO8XykEGzD+Zy6X/wnYQL2gwgAQNRxpLU5M7xx3PjtIrgmrgHP6sbi+75ZS1rxAz66Se5M5dnjiZ5x13EJFqzh0v+77atHaCNYAhY6abu4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=16ag9POaaZb61Y/niH1jFAl4xxZYs4s1/9sQmn4qe2Q=;
- b=N3XKkVYDJvvfndpy/hNPScaPyisQvCf5YWFC8tQvCKY60wC5MN+x38Oz4qcIy88Jl9sLQ5Zs6sXGQ+qLhiFHESc6/InHTF3LeJoQDeu3bcf+TAJ+ueuZZRlmqC3b3btDf0rab7Ezy8xA60zn2+aGA0Va/4azsEj5NcndsJyhlpYi8uk0msPuehOWR3PK9cujfmfo9BppPuo4ZsHKx5rdXpxbjwo/n0AKXSK0ttqEJkojjKyAkPvnkoR21Y7AFv6Sztc6AyLC2HLMRS0bmxosoF1fUOKhq8ilQcDLstPE4Dj52fVoCMbQqsxOnIum3ElENNF1+GOiI+z57khPWXqXeg==
+ bh=T73Z7+mHYZvKeeLZYHXHafx8/Qc7zeDlNYSdd4qtgbo=;
+ b=Yl2q7gAq3wbUdSIUdZZBhLOq478GvdEZyJfp0zx1eFlnq1koS+Txvlg4fyKnRb06mbSBAyhsTTzyHBXjocyCxU/1jGF4wGAzrRK6FfJa7LqO08xQKRTD2idTUPZtiexfoGIyD4mCIX4HPDMiWXts9yrhvze1m1qwWaWkGQYz340ODl+cnJCCDocpsRfCxHyHkEErLd4mhu9Xvc9HiB9auFTRKeRneeNNDJX9va10YRp504j8myjSVI2cdyDi6ggw8SSDJ9RJm8pdeKGLfTf/RilqzcGRMHikY+oZTfgQiC5mgFj8V8fHvJyKw5PPG3rpC+/bBnRSSLP66+nGpAvBZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=16ag9POaaZb61Y/niH1jFAl4xxZYs4s1/9sQmn4qe2Q=;
- b=HNAZrIDuleH27bpVh9GfmLaOJwiPlWdVrvfUA90rA1dsNlaGCJeRuli9KgYsvXlWIalAg625l0Yf0HsXXO6820dfDLdRZYiNh0EvhLjJoRQrObQwu2+aT/C5B45Jlergq/BnkiQVthiDdGSvYY9zVYgHjjxqT4NixJeEbsJ+GOg=
-Received: from MW4PR03CA0259.namprd03.prod.outlook.com (2603:10b6:303:b4::24)
- by BYAPR12MB2615.namprd12.prod.outlook.com (2603:10b6:a03:61::29)
+ bh=T73Z7+mHYZvKeeLZYHXHafx8/Qc7zeDlNYSdd4qtgbo=;
+ b=wxcAhmkVD9KITXfdrfqNJoaxKdmvkDxIo3OS3l8HuvtFtZAjzGw/9TSEqfMARb6VnPlttvf6EWlkaXu4UHwHgKvnKfewCsdoy65QdKce6TZUCdFLB8g9favxHatOhIdawqe+agtj/JlXRyjfrDIi6aX6ipVSYaLdksWBKbgERd0=
+Received: from MW4PR03CA0232.namprd03.prod.outlook.com (2603:10b6:303:b9::27)
+ by MWHPR12MB1838.namprd12.prod.outlook.com (2603:10b6:300:106::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Thu, 18 Nov
- 2021 20:18:59 +0000
-Received: from CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b4:cafe::b9) by MW4PR03CA0259.outlook.office365.com
- (2603:10b6:303:b4::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Thu, 18 Nov
+ 2021 20:28:51 +0000
+Received: from CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b9:cafe::8d) by MW4PR03CA0232.outlook.office365.com
+ (2603:10b6:303:b9::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19 via Frontend
- Transport; Thu, 18 Nov 2021 20:18:59 +0000
+ Transport; Thu, 18 Nov 2021 20:28:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,48 +51,70 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT024.mail.protection.outlook.com (10.13.174.162) with Microsoft SMTP
+ CO1NAM11FT066.mail.protection.outlook.com (10.13.175.18) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Thu, 18 Nov 2021 20:18:58 +0000
-Received: from alin.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.4713.20 via Frontend Transport; Thu, 18 Nov 2021 20:28:51 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 18 Nov
- 2021 14:18:57 -0600
-From: Amber Lin <Amber.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Remove unused entries in table
-Date: Thu, 18 Nov 2021 15:18:39 -0500
-Message-ID: <20211118201839.22284-1-Amber.Lin@amd.com>
-X-Mailer: git-send-email 2.17.1
+ 2021 14:28:50 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 18 Nov
+ 2021 14:28:50 -0600
+Received: from yuho-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
+ Transport; Thu, 18 Nov 2021 14:28:47 -0600
+From: Kenny Ho <Kenny.Ho@amd.com>
+To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
+ <kafai@fb.com>, Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
+ John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Zefan Li <lizefan.x@bytedance.com>, "Johannes
+ Weiner" <hannes@cmpxchg.org>, Peter Zijlstra <peterz@infradead.org>, "Ingo
+ Molnar" <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, "Mark
+ Rutland" <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@redhat.com>, "Namhyung
+ Kim" <namhyung@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ <netdev@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <cgroups@vger.kernel.org>,
+ <linux-perf-users@vger.kernel.org>, <y2kenny@gmail.com>, <Kenny.Ho@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH RFC 1/4] cgroup,
+ perf: Add ability to connect to perf cgroup from other cgroup
+ controller
+Date: Thu, 18 Nov 2021 15:28:37 -0500
+Message-ID: <20211118202840.1001787-2-Kenny.Ho@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211118202840.1001787-1-Kenny.Ho@amd.com>
+References: <20211118202840.1001787-1-Kenny.Ho@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 08cadc75-764f-40fa-6cd6-08d9aad0a72f
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2615:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB2615735B0B194CE0E26813EFE19B9@BYAPR12MB2615.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:586;
+X-MS-Office365-Filtering-Correlation-Id: bb775d17-7613-4d35-a35a-08d9aad208b6
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1838:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB18385944D1553925C8EC169A839B9@MWHPR12MB1838.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7B3fxcJctMW7rK0mv3PVEXmjIzfoa6MhKjgQTEEq8KGm290YHTs8WiYmobjRhvEzr0tjPOfXIqkn5AzZjfD4TnURXlJDt7AJm6Vo02//j2BN/xw8RyX2rPKGC+BTrvaZabG9C36kS6wJf4Fhlk2CpsYFTHmE4/OcnHIxHV2XStSKSWABXFXqZRPuSVQTyqaiuI2HKoUSYHWeG57SUIQTVGCJ1aHE2kCtk5H7b4zyqKpWq4B5kOP5aATAd362AW4pCzgbp4ISsk1Z5InTzqNJPqBf5p6LtlF63qzazODQgU43sh/ffGm83xvzg/wjBT8e5RucUMlNwlYZSktVq1Oq3JqqALZEvvAZDT+mEdlO9GEzy2dcbhj+7vhGXjNgznHrjaQjnHMQ0/CUTtRudnMbYAQN8LsRocgVnkYJcOta+8/GjAtGm5NZrLgc+f4A/eY8XMOYxNzE4/+L8VIc5QLPn0H4JqDDJb724UdcTF2tLK+EkR+YufQla6zgouyDv/5uADv79BSMJu9Uuqtym0WULDok73IuXnyh1OOXNG5tdiisd6Rq4ImdziiX2hbUu7DwYQ83ezz5txx921W07d4nuUPxKPM8YyE/apsSWNZbKipYMA6ijNb/3gVmHUWwMvLwEsMKcP5+2yTxVPBxpt6YWm6jKDMpTwCBLpCu4I1bYp38w1vZIFLKNq4H+IPxHNIB47eIRA3mOaCdGkA5WyJ1LKaAdvkDOK5pYOeto7Idi1w=
+X-Microsoft-Antispam-Message-Info: JK+oj26aoQC1ub443bHMQHXqzxAoSF2xwS4bFsJwuMTS7mnVFAaxEfGKX6UEyLnaSow3sK8/9cF25HEoQ8GgD1oxo5gBRcRXRABIGSJ8Yp2w5xqwMie4VNAq+/6OyDalEIlNvAO3AG60fknLGy7PFdHJnhSUZL1dZ4IwXDxiXI6T3XrYYkNWq+d55jDBDMyuGiBStfR2iKr4WiYnn8m9YLc9S/0FGebW016lgh45+QagXQz0x25wJU1b3x9spqJY9XtsmdbcT5iEbLzgeGD6MXE3MoH9+JJ2/9cXeqQh3+0tHEsdCY0z9kTEJ6i0KL4jZYWbHRZoSXses3yezEibROzZT8qj4ebO2/QZFkWLA5PFmZe27l4sJWT7z6bRKz23bHpV/YowdI4Q6PQQ5wEwqqdKHlMP+sSma86JuOe6dd6/INKYTWZRbwCBpYF9w/CLIyLV0tMVsZ5X7XIJwfJ0iLTe+YG89/rw6p+yCxnaB+TV0rVbwhExL3SsSuXxhP82Gk/Hb/iTaWMndKohuSyidbytYW+8JGHh0A7xUvjVZ9/FAungfvLH8iLvcKSUZWDUZ2cEiFEh86xyPrTt/Ssfld7QnI11of6TTIVxuI9JSdBoJilkaRc9FNZjUsKYWKwbTKaPrZe8ucyZHPEliLSUtjhRnhbgoWu023mkuTQMeG65HBh936jMYYPEDkKuCYQD54RpzrebBBVOgGe/xdK+XdkWwUvz49DvbgrNyDyuRBGbVSQRGIeBsebtjiENDsMO
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(2616005)(36756003)(47076005)(8676002)(8936002)(86362001)(70206006)(26005)(426003)(2906002)(6916009)(336012)(83380400001)(316002)(36860700001)(4326008)(7696005)(5660300002)(356005)(186003)(508600001)(82310400003)(1076003)(6666004)(16526019)(70586007)(81166007)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(82310400003)(336012)(186003)(47076005)(426003)(5660300002)(508600001)(70586007)(2616005)(70206006)(83380400001)(36756003)(8936002)(8676002)(7416002)(356005)(316002)(36860700001)(110136005)(81166007)(921005)(7696005)(1076003)(86362001)(26005)(2906002)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 20:18:58.2909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08cadc75-764f-40fa-6cd6-08d9aad0a72f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 20:28:51.4117 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb775d17-7613-4d35-a35a-08d9aad208b6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2615
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1838
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,298 +126,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amber Lin <Amber.Lin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove unused entries in kfd_device_info table: num_xgmi_sdma_engines
-and num_sdma_queues_per_engine. They are calculated in
-kfd_get_num_sdma_engines and kfd_get_num_xgmi_sdma_engines instead.
+This provides the ability to allocate cgroup specific perf_event by
+bpf-cgroup in later patch
 
-Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+Change-Id: I13aa7f3dfc2883ba3663c0b94744a6169504bbd8
+Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 58 -------------------------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |  2 -
- 2 files changed, 60 deletions(-)
+ include/linux/cgroup.h     |  2 ++
+ include/linux/perf_event.h |  2 ++
+ kernel/cgroup/cgroup.c     |  4 ++--
+ kernel/events/core.c       | 17 +++++++++++++++++
+ 4 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 3fea47e37c17..e1294fba0c26 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -68,8 +68,6 @@ static const struct kfd_device_info kaveri_device_info = {
- 	.supports_cwsr = false,
- 	.needs_iommu_device = true,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
+diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
+index 75c151413fda..1754e33cfe5e 100644
+--- a/include/linux/cgroup.h
++++ b/include/linux/cgroup.h
+@@ -97,6 +97,8 @@ extern struct css_set init_css_set;
+ 
+ bool css_has_online_children(struct cgroup_subsys_state *css);
+ struct cgroup_subsys_state *css_from_id(int id, struct cgroup_subsys *ss);
++struct cgroup_subsys_state *cgroup_tryget_css(struct cgroup *cgroup,
++					      struct cgroup_subsys *ss);
+ struct cgroup_subsys_state *cgroup_e_css(struct cgroup *cgroup,
+ 					 struct cgroup_subsys *ss);
+ struct cgroup_subsys_state *cgroup_get_e_css(struct cgroup *cgroup,
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index 0cbc5dfe1110..9c440db65c18 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -926,6 +926,8 @@ struct perf_cgroup {
+ 	struct perf_cgroup_info	__percpu *info;
  };
  
-@@ -87,8 +85,6 @@ static const struct kfd_device_info carrizo_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = true,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
++extern struct perf_cgroup *cgroup_tryget_perf_cgroup(struct cgroup *cgrp);
++
+ /*
+  * Must ensure cgroup is pinned (css_get) before calling
+  * this function. In other words, we cannot call this function
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index 570b0c97392a..a645b212b69b 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -495,8 +495,8 @@ static struct cgroup_subsys_state *cgroup_css(struct cgroup *cgrp,
+  * Find and get @cgrp's css associated with @ss.  If the css doesn't exist
+  * or is offline, %NULL is returned.
+  */
+-static struct cgroup_subsys_state *cgroup_tryget_css(struct cgroup *cgrp,
+-						     struct cgroup_subsys *ss)
++struct cgroup_subsys_state *cgroup_tryget_css(struct cgroup *cgrp,
++					      struct cgroup_subsys *ss)
+ {
+ 	struct cgroup_subsys_state *css;
  
-@@ -105,8 +101,6 @@ static const struct kfd_device_info raven_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = true,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 1,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- #endif
-@@ -126,8 +120,6 @@ static const struct kfd_device_info hawaii_device_info = {
- 	.supports_cwsr = false,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- #endif
-@@ -145,8 +137,6 @@ static const struct kfd_device_info tonga_device_info = {
- 	.supports_cwsr = false,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 20367196fa9a..d34e00749c9b 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -941,6 +941,18 @@ static int perf_cgroup_ensure_storage(struct perf_event *event,
+ 	return ret;
+ }
  
-@@ -163,8 +153,6 @@ static const struct kfd_device_info fiji_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
++struct perf_cgroup *cgroup_tryget_perf_cgroup(struct cgroup *cgrp)
++{
++	struct cgroup_subsys_state *css;
++
++	css = cgroup_tryget_css(cgrp, &perf_event_cgrp_subsys);
++
++	if (!css)
++		return NULL;
++
++	return container_of(css, struct perf_cgroup, css);
++}
++
+ static inline int perf_cgroup_connect(int fd, struct perf_event *event,
+ 				      struct perf_event_attr *attr,
+ 				      struct perf_event *group_leader)
+@@ -1080,6 +1092,11 @@ static inline void perf_cgroup_sched_in(struct task_struct *prev,
+ {
+ }
  
-@@ -181,8 +169,6 @@ static const struct kfd_device_info fiji_vf_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -200,8 +186,6 @@ static const struct kfd_device_info polaris10_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -218,8 +202,6 @@ static const struct kfd_device_info polaris10_vf_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -236,8 +218,6 @@ static const struct kfd_device_info polaris11_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -254,8 +234,6 @@ static const struct kfd_device_info polaris12_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -272,8 +250,6 @@ static const struct kfd_device_info vegam_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -290,8 +266,6 @@ static const struct kfd_device_info vega10_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -308,8 +282,6 @@ static const struct kfd_device_info vega10_vf_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -326,8 +298,6 @@ static const struct kfd_device_info vega12_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -344,8 +314,6 @@ static const struct kfd_device_info vega20_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -362,8 +330,6 @@ static const struct kfd_device_info arcturus_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 6,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -380,8 +346,6 @@ static const struct kfd_device_info aldebaran_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 3,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -398,8 +362,6 @@ static const struct kfd_device_info renoir_device_info = {
- 	.supports_cwsr = true,
- 	.needs_iommu_device = false,
- 	.needs_pci_atomics = false,
--	.num_sdma_engines = 1,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -417,8 +379,6 @@ static const struct kfd_device_info navi10_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 145,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -436,8 +396,6 @@ static const struct kfd_device_info navi12_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 145,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -455,8 +413,6 @@ static const struct kfd_device_info navi14_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 145,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -474,8 +430,6 @@ static const struct kfd_device_info sienna_cichlid_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 92,
--	.num_sdma_engines = 4,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -493,8 +447,6 @@ static const struct kfd_device_info navy_flounder_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 92,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -512,8 +464,6 @@ static const struct kfd_device_info vangogh_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 92,
--	.num_sdma_engines = 1,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -531,8 +481,6 @@ static const struct kfd_device_info dimgrey_cavefish_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 92,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -550,8 +498,6 @@ static const struct kfd_device_info beige_goby_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 92,
--	.num_sdma_engines = 1,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-@@ -569,8 +515,6 @@ static const struct kfd_device_info yellow_carp_device_info = {
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
- 	.no_atomic_fw_version = 92,
--	.num_sdma_engines = 1,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 2,
- };
- 
-@@ -587,8 +531,6 @@ static const struct kfd_device_info cyan_skillfish_device_info = {
- 	.needs_iommu_device = false,
- 	.supports_cwsr = true,
- 	.needs_pci_atomics = true,
--	.num_sdma_engines = 2,
--	.num_xgmi_sdma_engines = 0,
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 1054fedd7b3c..836ec8860c1b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -208,8 +208,6 @@ struct kfd_device_info {
- 	bool needs_iommu_device;
- 	bool needs_pci_atomics;
- 	uint32_t no_atomic_fw_version;
--	unsigned int num_sdma_engines;
--	unsigned int num_xgmi_sdma_engines;
- 	unsigned int num_sdma_queues_per_engine;
- };
- 
++struct perf_cgroup *cgroup_tryget_perf_cgroup(struct cgroup *cgrp)
++{
++	return NULL;
++}
++
+ static inline int perf_cgroup_connect(pid_t pid, struct perf_event *event,
+ 				      struct perf_event_attr *attr,
+ 				      struct perf_event *group_leader)
 -- 
-2.17.1
+2.25.1
 
