@@ -2,59 +2,59 @@ Return-Path: <SRS0=WI/b=QF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 669A9C4321E
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:26:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79317C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2980C61AA7
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:26:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2980C61AA7
+	by mail.kernel.org (Postfix) with ESMTPS id 47EC961175
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Nov 2021 22:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 47EC961175
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA196E2E1;
-	Thu, 18 Nov 2021 22:26:33 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE5A6E2E1
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 22:26:31 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- u18-20020a9d7212000000b00560cb1dc10bso13498656otj.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 14:26:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1197E6E84E;
+	Thu, 18 Nov 2021 22:28:49 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3466B6E84E;
+ Thu, 18 Nov 2021 22:28:47 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ h12-20020a056830034c00b0055c8458126fso13658998ote.0; 
+ Thu, 18 Nov 2021 14:28:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MKkfugnKYJgOQHvUiTzw95EHQzlc93ggqdj8W2VXZ9I=;
- b=XHk+f49laKPYyjv1WF/sprBXjiad8mBhePV3yinSZju1OxbG0KBJWlIH6TXWMYUiiS
- xDCM0aZlv+JxY7jXnHPQWMWX+WTRnvuVwnbZ9KlvxJWy8wKu3KLdi4lzEj1WP2h0K8At
- K3OHVH18CxhE56oIVHsnr9XP9WHMQWO649vWzzLo24u0bRbeReccix/LuheSSF/SISYM
- CTDgPNjA7eYSEgpjHnvGlIifefZbC1Mh0/dogsOfRCU1M7PJkK0pFh5pOA+ei6q4FG9w
- xn22NAgJcFCS1L5NVrphKN8csQV0Hq0IzrpHCymYbJdL1G/yWdQkz8eVXqk0uHQRrpc+
- 8NPw==
+ :cc; bh=iTIRoBMB8dTH55Lw8avCBAoOzO2H2LeNFnFB35W++GY=;
+ b=C5gpD143CDgtmN2qVZv2V1OwteZNHALmoAxcCNJZGv3NS1r78PBJtS/pK9WbcA5q9S
+ Rjfqu04wyUqbuB6L7yx7PMuWCASDhigrbeu8kGy2Rh1RJklEmVODoc2p3HAXNrvS/GJn
+ B/w0COX77qXhtcWSaLbG/eN1+F7Vc6y4su+BdmYKJLSB29IrfCdZSQwgo6e3WAcyAtmk
+ AISWmuf3fG8kndvz9eVangzRWtrA9N/acw/wnPOhezSImDc/gQCnM5cEgXTmBthrz5io
+ u4FtoUqbH0p/kLBvD/dCVun6VSnmZaNBwCEFt9nTHj6H+fFFb8hveFWzPWo7zswSe7TK
+ 3Nrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=MKkfugnKYJgOQHvUiTzw95EHQzlc93ggqdj8W2VXZ9I=;
- b=Kogd73s2oDQMa8EhL94Zapa7kQz6zn4j18y7Ymt+znovb5JXyRtbK6HHX3SLOCcCEq
- wx/32BsNpcZXaCJxEYj8bMsD74voXyZTnUPbPq6YCK5OhDg56UyhUhg2F7x+6fAs/a0v
- 6al7aJPExN62bKVPbZ+DWhx5CBc5FbzOV+Gb+7PMlNC250cyDrONQ1TklE3Y3mXs9Im5
- CdOiIQzmKUQFwiPfNionn8YZHtRMtqRkSKRI9NkmfxFRnrg07OxWUptSdBAR4C0w/krn
- OKGwmwc03rpbBpPTB+4mxiTUrnCa/vQGTQs1ecbNASztT8ivS9Qeq30MBYmlMyUDtKmi
- 0WIQ==
-X-Gm-Message-State: AOAM531KEjC9SFYXF6wyZuTcnWbUqddKrnKsS5pWHUnL868hUx0UmYRA
- Vk4WMWhRwlUZI4GWqffWVSPTxMx9T/iD2WMikWI=
-X-Google-Smtp-Source: ABdhPJwO7IHQXMwRlNgEH6UGpHknHvqvXs3iiRIxt8MpZU26ksTbAUz7PK3bi35MAh2iltz47RE8kwgzerrzE/Rrf5Y=
-X-Received: by 2002:a9d:67c1:: with SMTP id c1mr556871otn.299.1637274391200;
- Thu, 18 Nov 2021 14:26:31 -0800 (PST)
+ bh=iTIRoBMB8dTH55Lw8avCBAoOzO2H2LeNFnFB35W++GY=;
+ b=vV0EeoujekkK5FYMlrpYijc6bOoZ3bh2POaG0s3Ak+VS/PvPYtJ7yMWCVFLTx532nD
+ nsRNVLNkcGrD0c8I5ETklzZJM+k/XK46Jj2qr4nNm+YyKC6HbI3FhiElCOcLghw2E8iI
+ xL+4ao0Dgki47jZ0NhPpwu8eM6fDeXtgdCcfZUG3Kt8DQePAYc5fLbhCpri4gAkuyYAP
+ ScsPPmVThn4w9AOQvVKC/brYGy1VJxnEyEsILrE3xNtCpbcIW1/JdZ+3woq4B4eY1QRS
+ UP7Msm0hwcm5PFn81kPd/F44QSNK3jhOT/WkBgQxItoQ+mbPwZwt6dR4eAf7w0uGur5Z
+ IhGw==
+X-Gm-Message-State: AOAM532IpeFQCIBkxCmHknTOw6KXZ/amLBrvG8vZloBgxroHQS70SZNK
+ yHro9aJ9xVvpLefM7D3sG2YO3aWhT6WWR56FuYA=
+X-Google-Smtp-Source: ABdhPJzyznhO8pdRdplpF77M8F5//6rspO6NfKtmr5De3xuos3zWUtNbCBNN29BnYBWyOf9dB8vdrMP6DZ5X3cS3pGI=
+X-Received: by 2002:a9d:67c1:: with SMTP id c1mr567099otn.299.1637274526546;
+ Thu, 18 Nov 2021 14:28:46 -0800 (PST)
 MIME-Version: 1.0
-References: <CA+nuEB-4gWhk65vKx7hJdkXpk0mPxvuy_PkbA6a94nwZcseONg@mail.gmail.com>
-In-Reply-To: <CA+nuEB-4gWhk65vKx7hJdkXpk0mPxvuy_PkbA6a94nwZcseONg@mail.gmail.com>
+References: <1637233039-22503-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <1637233039-22503-1-git-send-email-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Nov 2021 17:26:20 -0500
-Message-ID: <CADnq5_PyQ1n9fJtmPaEduT5TJmc2Sr1aKhquqsX4xTuzH0BkMg@mail.gmail.com>
-Subject: Re: [radeon] connector_info_from_object_table
-To: Amol <suratiamol@gmail.com>
+Date: Thu, 18 Nov 2021 17:28:35 -0500
+Message-ID: <CADnq5_MK+O-6rMSojCGquCD8HooVfKMwyLez+RKsT38c_X=SMA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/pm: clean up some inconsistent indenting
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,36 +67,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 18, 2021 at 11:37 AM Amol <suratiamol@gmail.com> wrote:
->
-> Hello,
->
-> The function radeon_get_atom_connector_info_from_object_table,
-> at location [1], ends up parsing ATOM_COMMON_TABLE_HEADER
-> as ATOM_COMMON_RECORD_HEADER if
-> enc_obj->asObjects[k].usRecordOffset is zero. It is found to be zero
-> in the BIOS found at [2].
->
-> Thankfully, the loop that follows exits immediately since ucRecordSize
-> is 0 because
-> (ATOM_COMMON_TABLE_HEADER.usStructureSize & 0xff00) is zero.
-> But, with suitable values in the usStructureSize, the loop can be made to
-> run and parse garbage.
->
-> A similar loop exists when parsing the conn objects.
-
-Can you send a patch to make it more robust?
-
-Thanks,
+Applied.  Thanks!
 
 Alex
 
+On Thu, Nov 18, 2021 at 5:57 AM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
 >
-> -Amol
+> Eliminate the follow smatch warning:
 >
-> [1] https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/radeon/radeon_atombios.c#L652
-> [2] https://www.techpowerup.com/vgabios/211981/211981
+> drivers/gpu/drm/amd/amdgpu/../pm/powerplay/amd_powerplay.c:1554
+> pp_asic_reset_mode_2() warn: inconsistent indenting.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> ---
+>  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> index 8d796ed..20cb234 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> @@ -1551,7 +1551,7 @@ static int pp_set_ppfeature_status(void *handle, uint64_t ppfeature_masks)
+>  static int pp_asic_reset_mode_2(void *handle)
+>  {
+>         struct pp_hwmgr *hwmgr = handle;
+> -               int ret = 0;
+> +       int ret = 0;
+>
+>         if (!hwmgr || !hwmgr->pm_en)
+>                 return -EINVAL;
+> --
+> 1.8.3.1
+>
