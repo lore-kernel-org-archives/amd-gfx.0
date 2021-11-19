@@ -2,69 +2,100 @@ Return-Path: <SRS0=d+6m=QG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DE76C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 08:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0BDCC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 09:28:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 275A861AED
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 08:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 275A861AED
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 99E9761A79
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 09:28:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 99E9761A79
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F076F8C9;
-	Fri, 19 Nov 2021 08:54:43 +0000 (UTC)
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A43C6ED20
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 04:33:30 +0000 (UTC)
-Received: by mail-pf1-x42b.google.com with SMTP id b68so8253160pfg.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Nov 2021 20:33:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=wUYPD/dK7AbnmjRt7DrfQALSJEYOeqazWN+/nDCsZLE=;
- b=a2hOSHDbbGGI/Snv4mcOO+vrCftQw4roHy+cd6KGotO6J02ATNiF0hoYAbTTNMwb7W
- KkDkfLCikndxpSP0pUpRx8sf0vpEGC+dZC/Is0QucWsR9vQPLodQivhxlLw5Q/5/7ISm
- xltnpoduAlf2krlb4/olzkA1vuqSR8qWx5pOc/onmJsJDe/RAjMn4aXLgRvWB/YKwYDP
- VYQYSC8U9VQjSyx2GXiOSDQ271JOWJ6wp2G3s0ofgwvl8P5m22gY/Z6QpMmJs5x0VShW
- 14wSspIzOnYZIwwrkQ6Q0bFiCQb6qf+1FsIyHIhE7/RyCQelp6KRCpcFFIh466ScHX/a
- gNlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=wUYPD/dK7AbnmjRt7DrfQALSJEYOeqazWN+/nDCsZLE=;
- b=Wezn4P/OXiqq3Y3/lZaRTBmDB+y5P0CbHHniLPglYD4NTwV4hLZWih/m61sZt8NClJ
- Itv8r6wDQXBMEf6VsasWtWH2O9XrxXAw8srG0E41fp4hPVimfUMBkOyTwbIq6d5MdcaZ
- X1RiZ2EnX9RCZERBRnOnDdJC5YDM/vWqF1tEhc4i+jX58/kR4ZyAe0HiyCZYOl5afTwm
- jNJ3/e7nBHJFFGnJemzGX6O7pM6JqvT/zNwPDPnij6PbhP6EsN/DEuzuQ7sWNBJp8F/Z
- +sTan4G8PSXGpw5vtazpW1yGxKG+hZ1LQAdiKcXuyLdOgi0JVQUycXdXcEjXp1PQUXdf
- DfrA==
-X-Gm-Message-State: AOAM533W2C4S5cnLjg8uOKm6+N1YKkmMJymA8zYcJ3OclDTHl1pp1nzB
- Lv304AoYrtxqa6H8RtL0KoE=
-X-Google-Smtp-Source: ABdhPJwjdFNtrn4pAEY6hHtGXWt8HOw1WUzDFERb/z8hEPaVAxeBm6/u7oj4sAyn10TnHd2eutqWVw==
-X-Received: by 2002:a62:1e81:0:b0:4a3:7a97:d868 with SMTP id
- e123-20020a621e81000000b004a37a97d868mr4167067pfe.52.1637296410204; 
- Thu, 18 Nov 2021 20:33:30 -0800 (PST)
-Received: from ast-mbp.dhcp.thefacebook.com ([2620:10d:c090:400::5:4e33])
- by smtp.gmail.com with ESMTPSA id b4sm1193366pfl.60.2021.11.18.20.33.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Nov 2021 20:33:29 -0800 (PST)
-Date: Thu, 18 Nov 2021 20:33:26 -0800
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-To: Kenny Ho <Kenny.Ho@amd.com>
-Subject: Re: [PATCH RFC 4/4] bpf,cgroup,perf: extend bpf-cgroup to support
- tracepoint attachment
-Message-ID: <20211119043326.a4pmgitlkljpamgh@ast-mbp.dhcp.thefacebook.com>
-References: <20211118202840.1001787-1-Kenny.Ho@amd.com>
- <20211118202840.1001787-5-Kenny.Ho@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C75E6ED72;
+	Fri, 19 Nov 2021 09:28:13 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3AEE6ED72
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 09:28:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IzBWqCGOC07TVSycqQmYfx4WKMmUp2LQ1J019nLOd38O3eV+xBNK9b31Y/m6fMRMRREsrXFNpAuaA++rBLTc0Zm7fxQW2L8CpawgkKMPuZy+GgZWzScXPQc+3eyZsGhy5Cqx9bfrPMTjYIc+1yp/8kedrf+DRpRIqt8zCfjvnLCH1Kpv3G7QOKS89lSoNEWdE/noM65U58S1ifaVs86Lyc707to9uJwcb8I9ORifYTx9A0px0lbXRZJMtQZHnTDxoxS0hUioLBJUvycAP0eKky9ONRGrNBiKE4nA6VoWYglSUrwRVr6kI7HKxjD9QOtZJYiqkJP6F7bCYXU/icNyTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uXl/dZkCvHu+IFbaf8ArexnyqSgB/lZcNGOSiKkhcCU=;
+ b=burBnUTCjUl1Z8RZVS345SwNlhm+D325EaXkRs2xmHA1MRQZyiqKE9JgUL4ZgIPSqUujrL3lHfkK6W0RsBpubMIJ54Z8c2D/GzJ6VEWxpxZ1hbN8tEZw5Jo7vLEPdoCh4VQKnIL8FoLdfHNbDaBdW63M6rylxY49q/9mBPk+9dSg/X+32+eyvN4cnQ5ywlco8Bly//Q6x4f8hGClHOLpH6Eg2RapaPGA6fz9eJEm03cU+VHlw94lxXGxi2wzh75l1f3LfCDiB1frpxBIdbwaB+frRIU0LBbMc03ZfCbzBBhqH8B3Tb1MyZf1TLbwzDvMH0VN74x6f3Cmj+NFcHXZbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uXl/dZkCvHu+IFbaf8ArexnyqSgB/lZcNGOSiKkhcCU=;
+ b=Lp2QuotJwn9z+CeWmTpAj+HStnkuGYTEGewb6A/jkd0u2WwtgYmzk+YYlqWAUhig2pZmBZXCTSKmXdldyH2jSW2QSlbnLxXHREwMMjcvefmZX3OsYTx80TkwAi77PHMiVMUXhnUxUI6SWFPrfcNhnxn7teEeg/3zIdRUV1CVR1k=
+Received: from DM5PR17CA0052.namprd17.prod.outlook.com (2603:10b6:3:13f::14)
+ by BN8PR12MB3554.namprd12.prod.outlook.com (2603:10b6:408:65::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Fri, 19 Nov
+ 2021 09:28:10 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:13f:cafe::be) by DM5PR17CA0052.outlook.office365.com
+ (2603:10b6:3:13f::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21 via Frontend
+ Transport; Fri, 19 Nov 2021 09:28:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4713.20 via Frontend Transport; Fri, 19 Nov 2021 09:28:09 +0000
+Received: from pyuan-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 19 Nov
+ 2021 03:28:07 -0600
+From: Perry Yuan <Perry.Yuan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <Ray.Huang@amd.com>
+Subject: [PATCH v1] drm/amd/display: add connector type check for CRC source
+ set
+Date: Fri, 19 Nov 2021 04:27:55 -0500
+Message-ID: <20211119092755.2225156-1-Perry.Yuan@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211118202840.1001787-5-Kenny.Ho@amd.com>
-X-Mailman-Approved-At: Fri, 19 Nov 2021 08:54:42 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5d24428a-f3e3-4ab1-7160-08d9ab3ee6ea
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3554:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3554A658EA09E778352FC92F9C9C9@BN8PR12MB3554.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kfEodXwiqDz/96DGd8jINi9lc+c+hKxJzFAuNKJzMJIjNECwm/5Fq5IJYc++woLBM+Qj6FNuI01wY98Fe2d15F04ZI6oLyFJmBEoDX2NtdFauRaGEBIXoASQFtfnqcEcl0R11FQU70kUO6RAg+cGPK2is1jryS5rJwxAiQhnrJ8tapThtxkts8/TiM0SuIZDk5gkXDRwWO5VFDstnrIAWga9zVz1ROLBNuw8vN1/FCiKLSoRk721Pop6hYUGS/jvKfxa2IRKPvm6JuDWS+VTlPyTRKh33mE6UwzyAIvkULMlxu1nZS+bPPFaeGijjGq2yrsHyX1gK6+q6pnN49HFF+WKJToGWSfNgDd6uvS6KEZj4/3ZIRaAIN4byyPpN5VZqnTjIN6pN3HW7rU+u7cDo2vaNoZAdRYTXcmQuOyhVOj9+XEk4uXBfhrAoz0Ih/vn0kRtTBgXppuiN3HBsh/yiEDTMut4C3+g6KbMPUwvOdnQ4M+OR3QSVTuYLADFBh7SDAMTiS940e7XCAuvAOTFso3qLrqau1jf3BvT+bzs6+OhjlO20B+8WfVxh+uDbVmtfPDDXE26GL+d514oamIsambM+ABH3JHZHfyTSSdJf5nustCSv1paddgyO41adnI5vVSP1uou1WbxRFYfF4hv0u77tzB9YOmuT5GMoh++MMM8Ji1vQ6N26/uno+FDLQ9JR4Y7TZtYMLJjLzCTMp5jNTtnFWSYtj2VpTcv5SP0x8RrkAsRDyYEDDOsc+BDO9AV
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(186003)(70586007)(26005)(336012)(16526019)(70206006)(6636002)(7696005)(36860700001)(1076003)(54906003)(110136005)(86362001)(4326008)(36756003)(81166007)(426003)(508600001)(5660300002)(2906002)(356005)(47076005)(966005)(8936002)(83380400001)(8676002)(82310400003)(316002)(6666004)(2616005)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 09:28:09.9222 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d24428a-f3e3-4ab1-7160-08d9ab3ee6ea
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3554
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,71 +107,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, Song Liu <songliubraving@fb.com>,
- Peter Zijlstra <peterz@infradead.org>, Alexei Starovoitov <ast@kernel.org>,
- Zefan Li <lizefan.x@bytedance.com>, cgroups@vger.kernel.org,
- Jiri Olsa <jolsa@redhat.com>, Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- amd-gfx@lists.freedesktop.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, Yonghong Song <yhs@fb.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, KP Singh <kpsingh@kernel.org>,
- y2kenny@gmail.com, Steven Rostedt <rostedt@goodmis.org>,
- Namhyung Kim <namhyung@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
- bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Xinmei.Huang@amd.com,
+ Perry Yuan <Perry.Yuan@amd.com>, Mario.Limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 18, 2021 at 03:28:40PM -0500, Kenny Ho wrote:
-> @@ -245,6 +256,21 @@ static int compute_effective_progs(struct cgroup *cgrp,
->  	if (!progs)
->  		return -ENOMEM;
->  
-> +	if (atype == CGROUP_TRACEPOINT) {
-> +		/* TODO: only create event for cgroup that can have process */
-> +
-> +		attr.config = bpf_attach_subtype;
-> +		attr.type = PERF_TYPE_TRACEPOINT;
-> +		attr.sample_type = PERF_SAMPLE_RAW;
-> +		attr.sample_period = 1;
-> +		attr.wakeup_events = 1;
-> +
-> +		rc = perf_event_create_for_all_cpus(&attr, cgrp,
-> +				&cgrp->bpf.per_cg_events);
-> +		if (rc)
-> +			goto err;
-> +	}
-...
-> +int perf_event_create_for_all_cpus(struct perf_event_attr *attr,
-> +				struct cgroup *cgroup,
-> +				struct list_head *entries)
-> +{
-> +	struct perf_event **events;
-> +        struct perf_cgroup *perf_cgrp;
-> +	int cpu, i = 0;
-> +
-> +	events = kzalloc(sizeof(struct perf_event *) * num_possible_cpus(),
-> +			GFP_KERNEL);
-> +
-> +	if (!events)
-> +		return -ENOMEM;
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		/* allocate first, connect the cgroup later */
-> +		events[i] = perf_event_create_kernel_counter(attr, cpu, NULL, NULL, NULL);
+ [Why]
+ IGT bypass test will set crc source as DPRX,and display DM didn`t check
+ connection type, it run the test on the HDMI connector ,then the kernel
+ will be crashed because aux->transfer is set null for HDMI connection.
+ This patch will skip the invalid connection test and fix kernel crash issue.
 
-This is a very heavy hammer for this task.
-There is really no need for perf_event to be created.
-Did you consider using raw_tp approach instead?
-It doesn't need this heavy stuff.
-Also I suspect in follow up you'd be adding tracepoints to GPU code?
-Did you consider just leaving few __weak global functions in GPU code
-and let bpf progs attach to them as fentry?
-I suspect the true hierarchical nature of bpf-cgroup framework isn't necessary.
-The bpf program itself can filter for given cgroup.
-We have bpf_current_task_under_cgroup() and friends.
-I suggest to sprinkle __weak empty funcs in GPU and see what
-you can do with it with fentry and bpf_current_task_under_cgroup.
-There is also bpf_get_current_ancestor_cgroup_id().
+ [How]
+ Check the connector type while setting the pipe crc source as DPRX or
+ auto,if the type is not DP or eDP, the crtc crc source will not be set
+ and report error code to IGT test,IGT will show the this subtest as no
+ valid crtc/connector combinations found.
+
+116.779714] [IGT] amd_bypass: starting subtest 8bpc-bypass-mode
+[ 117.730996] BUG: kernel NULL pointer dereference, address: 0000000000000000
+[ 117.731001] #PF: supervisor instruction fetch in kernel mode
+[ 117.731003] #PF: error_code(0x0010) - not-present page
+[ 117.731004] PGD 0 P4D 0
+[ 117.731006] Oops: 0010 [#1] SMP NOPTI
+[ 117.731009] CPU: 11 PID: 2428 Comm: amd_bypass Tainted: G OE 5.11.0-34-generic #36~20.04.1-Ubuntu
+[ 117.731011] Hardware name: AMD CZN/, BIOS AB.FD 09/07/2021
+[ 117.731012] RIP: 0010:0x0
+[ 117.731015] Code: Unable to access opcode bytes at RIP 0xffffffffffffffd6.
+[ 117.731016] RSP: 0018:ffffa8d64225bab8 EFLAGS: 00010246
+[ 117.731017] RAX: 0000000000000000 RBX: 0000000000000020 RCX: ffffa8d64225bb5e
+[ 117.731018] RDX: ffff93151d921880 RSI: ffffa8d64225bac8 RDI: ffff931511a1a9d8
+[ 117.731022] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 117.731023] CR2: ffffffffffffffd6 CR3: 000000010d5a4000 CR4: 0000000000750ee0
+[ 117.731023] PKRU: 55555554
+[ 117.731024] Call Trace:
+[ 117.731027] drm_dp_dpcd_access+0x72/0x110 [drm_kms_helper]
+[ 117.731036] drm_dp_dpcd_read+0xb7/0xf0 [drm_kms_helper]
+[ 117.731040] drm_dp_start_crc+0x38/0xb0 [drm_kms_helper]
+[ 117.731047] amdgpu_dm_crtc_set_crc_source+0x1ae/0x3e0 [amdgpu]
+[ 117.731149] crtc_crc_open+0x174/0x220 [drm]
+[ 117.731162] full_proxy_open+0x168/0x1f0
+[ 117.731165] ? open_proxy_open+0x100/0x100
+
+BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1546
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Perry Yuan <Perry.Yuan@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index cce062adc439..8a441a22c46e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -314,6 +314,14 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+ 			ret = -EINVAL;
+ 			goto cleanup;
+ 		}
++
++		if ((aconn->base.connector_type != DRM_MODE_CONNECTOR_DisplayPort) &&
++				(aconn->base.connector_type != DRM_MODE_CONNECTOR_eDP)) {
++			DRM_DEBUG_DRIVER("No DP connector available for CRC source\n");
++			ret = -EINVAL;
++			goto cleanup;
++		}
++
+ 	}
+ 
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+-- 
+2.25.1
+
