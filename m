@@ -2,92 +2,61 @@ Return-Path: <SRS0=d+6m=QG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88FADC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 18:46:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C1FCC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 18:50:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C867610E9
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 18:46:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C867610E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=akamai.com
+	by mail.kernel.org (Postfix) with ESMTPS id CE07161AA7
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 18:50:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CE07161AA7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6706E159;
-	Fri, 19 Nov 2021 18:46:31 +0000 (UTC)
-Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
- [IPv6:2620:100:9001:583::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5568B6EE79;
- Fri, 19 Nov 2021 16:22:14 +0000 (UTC)
-Received: from pps.filterd (m0122333.ppops.net [127.0.0.1])
- by mx0a-00190b01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AJFLKHk028100;
- Fri, 19 Nov 2021 16:21:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=jan2016.eng;
- bh=9YhPnMhtNA7tLEuoFyc4djop0J+S5ShMmbv7d5TlvcM=;
- b=nK1JRSkfkdsISQO8Iz8scJYiOzhmRJBvsJk8VWg6mfGB0dnQ6iZyPbgSL2vux/qi60r1
- SvMzUQSyfsH1lDm1HIGiT37/5rHDHb8Trfsk6M9HjoTXExBTIykERnehYHKcix6zkc8v
- prIN+lbI6l6lJ5Wtmn1ekDbLB9aDem5b+l6lO3+b/7QsDfSNb2iShVYdl06RtPQbx0J6
- BIYOe7PJJP0GCbdRwu1Y19YNCA2u4oyqCcH9xYpbQ/CrStNbvRoG3z+69fuS8kiY+HnN
- H3IG3yGsia2CUtSzInp+C1NMpropJUsRIcqmK0Lz0GhahexiA7CSGIiYan8xNkyyBxk2 Gg== 
-Received: from prod-mail-ppoint4
- (a72-247-45-32.deploy.static.akamaitechnologies.com [72.247.45.32] (may be
- forged))
- by mx0a-00190b01.pphosted.com (PPS) with ESMTPS id 3cdrf3n5ty-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Nov 2021 16:21:39 +0000
-Received: from pps.filterd (prod-mail-ppoint4.akamai.com [127.0.0.1])
- by prod-mail-ppoint4.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
- 1AJGKA8J031865; Fri, 19 Nov 2021 11:21:38 -0500
-Received: from prod-mail-relay19.dfw02.corp.akamai.com ([172.27.165.173])
- by prod-mail-ppoint4.akamai.com with ESMTP id 3ccn28ku20-1;
- Fri, 19 Nov 2021 11:21:38 -0500
-Received: from [0.0.0.0] (prod-ssh-gw01.bos01.corp.akamai.com [172.27.119.138])
- by prod-mail-relay19.dfw02.corp.akamai.com (Postfix) with ESMTP id DFCF4605CD; 
- Fri, 19 Nov 2021 16:21:36 +0000 (GMT)
-Subject: Re: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with it
- - RFC
-To: Pekka Paalanen <ppaalanen@gmail.com>, seanpaul@chromium.org,
- sean@poorly.run
-References: <20211111220206.121610-1-jim.cromie@gmail.com>
- <20211111220206.121610-9-jim.cromie@gmail.com>
- <20211112114953.GA1381@axis.com>
- <f3914fa9-8b22-d54e-3f77-d998e74094b9@akamai.com>
- <20211116104631.195cbd0b@eldfell>
- <f87b7076-47e6-89b1-aaf9-b67aa6713e01@akamai.com>
- <20211118172401.0b4d722e@eldfell>
-From: Jason Baron <jbaron@akamai.com>
-Message-ID: <41ea83b2-a707-cb6f-521e-070bb12502de@akamai.com>
-Date: Fri, 19 Nov 2021 11:21:36 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA4A6E122;
+	Fri, 19 Nov 2021 18:50:16 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7576E122
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 18:50:15 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ b5-20020a9d60c5000000b0055c6349ff22so18113091otk.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 10:50:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yJyiS2oDkzbHZLyT390b4UbYa+W4Mp1K9EwcJFA52rM=;
+ b=g06nS2/eDz4Uhz1ZIL3YWsCLLp6zEVlQK/5NgEdRo+0D+kVLPcf3POfOM6ZHBx9IaT
+ Yiszgz81fZ+NnR3fpOT2bhSRS8C3+NYHtlPSxtgwbwr7QlWvcC/olSC/WSZDCnl17Qwt
+ 17OzgW7/wcZ63t9jBhfuKts5aYq03W1xJViyQfHla1So/bthz9EXXO16WNkV5cwIG34O
+ txHct5puVv2v6SEWOG6SG5y/IGhL9u2Q1JRg7040mNp6RS+haa98FGklwLDD9LCGNip2
+ mm2Y5tdOVaYViVqNPXB29j1eulTPwZPvCz2zFLKQ1dfjOMaHYkNPNuu35YsunW8FJCbg
+ G3ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yJyiS2oDkzbHZLyT390b4UbYa+W4Mp1K9EwcJFA52rM=;
+ b=Bjm3cjTetQqC2dE/4fXAYSxpgOHQ9VTnQbtG6QNHk6hii95nxDXn75Oz9G29Za4FQp
+ oLSirZA8qGgbv5XiQ9TCJDvktqbfvGr+Bb0m27peGXFUFurXpUFrpmUSnGB2DXJOUHgI
+ yIdqj57C3W6L0XDS/2zXYomTwvld/AeN+80wiHM9BJGa1C2XCpFV4OUjBr9P+JgLRIaz
+ 0Ednbeij4C3QL4WbwBV6Th9OIFsJ9l3hJkP4dT/FXgAN/dN0b+7+3VvGf8mCfoP5VWGh
+ 9h9opPMcJKVWU5Zj9lAVsrIy4RKn6xCE1i2qYdh9B0vIjBElxct4u6u3xISwU1SVRQMh
+ EcsQ==
+X-Gm-Message-State: AOAM531alw87mxWQ9ttRqSpCKQLKkiP8sRB2nsa7Uk/mcZ9NUbZwburC
+ 1hCF8TcOJR/krkqbrvRO7BfM9tsK1otRbs02qeOHNGBo
+X-Google-Smtp-Source: ABdhPJxwKlUSn809C+BArJ3dlxPP1yoJir2BXPLhsneySSj6+xp0GNomJeNIfeNfChvGprqYtw/MwlcWvtsSdWQupmc=
+X-Received: by 2002:a9d:6855:: with SMTP id c21mr6828558oto.357.1637347814427; 
+ Fri, 19 Nov 2021 10:50:14 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20211118172401.0b4d722e@eldfell>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425, 18.0.790
- definitions=2021-11-19_06:2021-11-17,
- 2021-11-19 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- mlxscore=0 mlxlogscore=999
- adultscore=0 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111190090
-X-Proofpoint-ORIG-GUID: wAvvlZeEqbaLEYHr7ZT1eS9bIMmWqfL8
-X-Proofpoint-GUID: wAvvlZeEqbaLEYHr7ZT1eS9bIMmWqfL8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-19_09,2021-11-17_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- adultscore=0 spamscore=0
- clxscore=1015 impostorscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 lowpriorityscore=0 mlxscore=0 mlxlogscore=999 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111190090
-X-Mailman-Approved-At: Fri, 19 Nov 2021 18:46:30 +0000
+References: <20211119162800.2111819-1-Graham.Sider@amd.com>
+ <20211119162800.2111819-4-Graham.Sider@amd.com>
+In-Reply-To: <20211119162800.2111819-4-Graham.Sider@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Nov 2021 13:50:03 -0500
+Message-ID: <CADnq5_MJbpc1QM+Lie_2SM=WoQ_PVsefmPToyGpiGPUVLYmqsw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amdkfd: remove hardcoded device_info structs
+To: Graham Sider <Graham.Sider@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,179 +68,589 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gvt-dev@lists.freedesktop.org, quic_saipraka@quicinc.com,
- arnd@arndb.de, gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- catalin.marinas@arm.com, linux-arm-msm@vger.kernel.org,
- Vincent Whitchurch <vincent.whitchurch@axis.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch, mingo@redhat.com,
- rostedt@goodmis.org, amd-gfx@lists.freedesktop.org, quic_psodagud@quicinc.com,
- maz@kernel.org, mathieu.desnoyers@efficios.com, will@kernel.org,
- intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Please use C comments (/* */) rather than C++ comments.  Same for the
+previous patches in the series.
 
+Alex
 
-On 11/18/21 10:24 AM, Pekka Paalanen wrote:
-> On Thu, 18 Nov 2021 09:29:27 -0500
-> Jason Baron <jbaron@akamai.com> wrote:
-> 
->> On 11/16/21 3:46 AM, Pekka Paalanen wrote:
->>> On Fri, 12 Nov 2021 10:08:41 -0500
->>> Jason Baron <jbaron@akamai.com> wrote:
->>>   
->>>> On 11/12/21 6:49 AM, Vincent Whitchurch wrote:  
->>>>> On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:    
->>>>>> Sean Paul proposed, in:
->>>>>> https://urldefense.com/v3/__https://patchwork.freedesktop.org/series/78133/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRA8Dki4A$ 
->>>>>> drm/trace: Mirror DRM debug logs to tracefs
->>>>>>
->>>>>> His patchset's objective is to be able to independently steer some of
->>>>>> the drm.debug stream to an alternate tracing destination, by splitting
->>>>>> drm_debug_enabled() into syslog & trace flavors, and enabling them
->>>>>> separately.  2 advantages were identified:
->>>>>>
->>>>>> 1- syslog is heavyweight, tracefs is much lighter
->>>>>> 2- separate selection of enabled categories means less traffic
->>>>>>
->>>>>> Dynamic-Debug can do 2nd exceedingly well:
->>>>>>
->>>>>> A- all work is behind jump-label's NOOP, zero off cost.
->>>>>> B- exact site selectivity, precisely the useful traffic.
->>>>>>    can tailor enabled set interactively, at shell.
->>>>>>
->>>>>> Since the tracefs interface is effective for drm (the threads suggest
->>>>>> so), adding that interface to dynamic-debug has real potential for
->>>>>> everyone including drm.
->>>>>>
->>>>>> if CONFIG_TRACING:
->>>>>>
->>>>>> Grab Sean's trace_init/cleanup code, use it to provide tracefs
->>>>>> available by default to all pr_debugs.  This will likely need some
->>>>>> further per-module treatment; perhaps something reflecting hierarchy
->>>>>> of module,file,function,line, maybe with a tuned flattening.
->>>>>>
->>>>>> endif CONFIG_TRACING
->>>>>>
->>>>>> Add a new +T flag to enable tracing, independent of +p, and add and
->>>>>> use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
->>>>>> the flag checks.  Existing code treats T like other flags.    
->>>>>
->>>>> I posted a patchset a while ago to do something very similar, but that
->>>>> got stalled for some reason and I unfortunately didn't follow it up:
->>>>>
->>>>>  https://urldefense.com/v3/__https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRGytKHPg$ 
->>>>>
->>>>> A key difference between that patchset and this patch (besides that
->>>>> small fact that I used +x instead of +T) was that my patchset allowed
->>>>> the dyndbg trace to be emitted to the main buffer and did not force them
->>>>> to be in an instance-specific buffer.    
->>>>
->>>> Yes, I agree I'd prefer that we print here to the 'main' buffer - it
->>>> seems to keep things simpler and easier to combine the output from
->>>> different sources as you mentioned.  
->>>
->>> Hi,
->>>
->>> I'm not quite sure I understand this discussion, but I would like to
->>> remind you all of what Sean's original work is about:
->>>
->>> Userspace configures DRM tracing into a flight recorder buffer (I guess
->>> this is what you refer to "instance-specific buffer").
->>>
->>> Userspace runs happily for months, and then hits a problem: a failure
->>> in the DRM sub-system most likely, e.g. an ioctl that should never
->>> fail, failed. Userspace handles that failure by dumping the flight
->>> recorder buffer into a file and saving or sending a bug report. The
->>> flight recorder contents give a log of all relevant DRM in-kernel
->>> actions leading to the unexpected failure to help developers debug it.
->>>
->>> I don't mind if one can additionally send the flight recorder stream to
->>> the main buffer, but I do want the separate flight recorder buffer to
->>> be an option so that a) unrelated things cannot flood the interesting
->>> bits out of it, and b) the scope of collected information is relevant.
->>>
->>> The very reason for this work is problems that are very difficult to
->>> reproduce in practice, either because the problem itself is triggered
->>> very rarely and randomly, or because the end users of the system have
->>> either no knowledge or no access to reconfigure debug logging and then
->>> reproduce the problem with good debug logs.
->>>
->>> Thank you very much for pushing this work forward!
->>>
->>>   
->>
->> So I think Vincent (earlier in the thread) was saying that he finds it
->> very helpful have dynamic debug output go to the 'main' trace buffer,
->> while you seem to be saying you'd prefer it just go to dynamic debug
->> specific trace buffer.
-> 
-> Seems like we have different use cases: traditional debugging, and
-> in-production flight recorder for problem reporting. I'm not surprised
-> if they need different treatment.
-> 
->> So we certainly can have dynamic output potentially go to both places -
->> although I think this would mean two tracepoints? But I really wonder
->> if we really need a separate tracing buffer for dynamic debug when
->> what goes to the 'main' buffer can be controlled and filtered to avoid
->> your concern around a 'flood'?
-> 
-> If the DRM tracing goes into the main buffer, then systems in
-> production cannot have any other sub-system traced in a similar
-> fashion. To me it would feel very arrogant to say that to make use of
-> DRM flight recording, you cannot trace much or anything else.
-> 
-> The very purpose of the flight recorder is run in production all the
-> time, not in a special debugging session.
-> 
-> There is also the question of access and contents of the trace buffer.
-> Ultimately, if automatic bug reports are enabled in a system, the
-> contents of the trace buffer would be sent as-is to some bug tracking
-> system. If there is a chance to put non-DRM stuff in the trace buffer,
-> that could be a security problem.
-> 
-> My use case is Weston. When Weston encounters an unexpected problem in
-> production, something should automatically capture the DRM flight
-> recorder contents and save it alongside the Weston log. Would be really
-> nice if Weston itself could do that, but I suspect it is going to need
-> root privileges so it needs some helper daemon.
-> 
-> Maybe Sean can reiterate their use case more?
-> 
-> 
-> Thanks,
-> pq
-> 
-
-Ok, so in this current thread the proposal was to create a "dyndbg-tracefs"
-buffer to put the dynamic debug output (including drm output from dynamic
-debug) into. And I was saying let's just put in the 'main' trace buffer
-(predicated on a dynamic debug specific tracepoint), since there seems
-to be a a use-case for that and it keeps things simpler.
-
-But I went back to Sean's original patch, and it creates a drm specific
-trace buffer "drm" (via trace_array_get_by_name("drm")). Here:
-https://patchwork.freedesktop.org/patch/445549/?series=78133&rev=5
-
-So I think that may be some of the confusion here? The current thread/
-proposal is not for a drm specific trace buffer...
-
-Having a subsystem specific trace buffer would allow subsystem specific
-trace log permissions depending on the sensitivity of the data. But
-doesn't drm output today go to the system log which is typically world
-readable today?
-
-So I could see us supporting subsystem specific trace buffer output
-via dynamic debug here. We could add new dev_debug() variants that
-allow say a trace buffer to be supplied. So in that way subsystems
-could 'opt-out' of having their data put into the global trace buffer.
-And perhaps some subsystems we would want to allow output to both
-buffers? The subsystem specific one and the global one?
-
-Thanks,
-
--Jason
-
-
-
-
+On Fri, Nov 19, 2021 at 11:28 AM Graham Sider <Graham.Sider@amd.com> wrote:
+>
+> With device_info initialization being handled in kfd_device_info_init,
+> these structs may be removed. Also add comments to help matching IP
+> versions to asic names.
+>
+> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 469 +-----------------------
+>  1 file changed, 17 insertions(+), 452 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 65e0eb5e2926..536cd227c9d3 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -53,458 +53,6 @@ extern const struct kfd2kgd_calls aldebaran_kfd2kgd;
+>  extern const struct kfd2kgd_calls gfx_v10_kfd2kgd;
+>  extern const struct kfd2kgd_calls gfx_v10_3_kfd2kgd;
+>
+> -#ifdef KFD_SUPPORT_IOMMU_V2
+> -static const struct kfd_device_info kaveri_device_info = {
+> -       .gfx_target_version = 70000,
+> -       .max_pasid_bits = 16,
+> -       /* max num of queues for KV.TODO should be a dynamic value */
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = false,
+> -       .needs_iommu_device = true,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info carrizo_device_info = {
+> -       .gfx_target_version = 80001,
+> -       .max_pasid_bits = 16,
+> -       /* max num of queues for CZ.TODO should be a dynamic value */
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = true,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info raven_device_info = {
+> -       .gfx_target_version = 90002,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = true,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -#endif
+> -
+> -#ifdef CONFIG_DRM_AMDGPU_CIK
+> -static const struct kfd_device_info hawaii_device_info = {
+> -       .gfx_target_version = 70001,
+> -       .max_pasid_bits = 16,
+> -       /* max num of queues for KV.TODO should be a dynamic value */
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = false,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -#endif
+> -
+> -static const struct kfd_device_info tonga_device_info = {
+> -       .gfx_target_version = 80002,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = false,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info fiji_device_info = {
+> -       .gfx_target_version = 80003,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info fiji_vf_device_info = {
+> -       .gfx_target_version = 80003,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -
+> -static const struct kfd_device_info polaris10_device_info = {
+> -       .gfx_target_version = 80003,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info polaris10_vf_device_info = {
+> -       .gfx_target_version = 80003,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info polaris11_device_info = {
+> -       .gfx_target_version = 80003,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info polaris12_device_info = {
+> -       .gfx_target_version = 80003,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vegam_device_info = {
+> -       .gfx_target_version = 80003,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 4,
+> -       .ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_cik,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega10_device_info = {
+> -       .gfx_target_version = 90000,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega10_vf_device_info = {
+> -       .gfx_target_version = 90000,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega12_device_info = {
+> -       .gfx_target_version = 90004,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega20_device_info = {
+> -       .gfx_target_version = 90006,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info arcturus_device_info = {
+> -       .gfx_target_version = 90008,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info aldebaran_device_info = {
+> -       .gfx_target_version = 90010,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info renoir_device_info = {
+> -       .gfx_target_version = 90012,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .supports_cwsr = true,
+> -       .needs_iommu_device = false,
+> -       .needs_pci_atomics = false,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info navi10_device_info = {
+> -       .gfx_target_version = 100100,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 145,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info navi12_device_info = {
+> -       .gfx_target_version = 100101,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 145,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info navi14_device_info = {
+> -       .gfx_target_version = 100102,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 145,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info sienna_cichlid_device_info = {
+> -       .gfx_target_version = 100300,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 92,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info navy_flounder_device_info = {
+> -       .gfx_target_version = 100301,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 92,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info vangogh_device_info = {
+> -       .gfx_target_version = 100303,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 92,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info dimgrey_cavefish_device_info = {
+> -       .gfx_target_version = 100302,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 92,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info beige_goby_device_info = {
+> -       .gfx_target_version = 100304,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 92,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info yellow_carp_device_info = {
+> -       .gfx_target_version = 100305,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .no_atomic_fw_version = 92,
+> -       .num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info cyan_skillfish_device_info = {
+> -       .gfx_target_version = 100103,
+> -       .max_pasid_bits = 16,
+> -       .max_no_of_hqd  = 24,
+> -       .doorbell_size  = 8,
+> -       .ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -       .event_interrupt_class = &event_interrupt_class_v9,
+> -       .num_of_watch_points = 4,
+> -       .mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -       .needs_iommu_device = false,
+> -       .supports_cwsr = true,
+> -       .needs_pci_atomics = true,
+> -       .num_sdma_queues_per_engine = 8,
+> -};
+> -
+>  static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+>                                 unsigned int chunk_size);
+>  static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+> @@ -632,11 +180,13 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+>                 break;
+>         default:
+>                 switch (gc_version) {
+> +               // Vega 10
+>                 case IP_VERSION(9, 0, 1):
+>                         gfx_target_version = 90000;
+>                         f2g = &gfx_v9_kfd2kgd;
+>                         break;
+>  #ifdef KFD_SUPPORT_IOMMU_V2
+> +               // Raven
+>                 case IP_VERSION(9, 1, 0):
+>                 case IP_VERSION(9, 2, 2):
+>                         gfx_target_version = 90002;
+> @@ -644,69 +194,84 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+>                                 f2g = &gfx_v9_kfd2kgd;
+>                         break;
+>  #endif
+> +               // Vega12
+>                 case IP_VERSION(9, 2, 1):
+>                         gfx_target_version = 90004;
+>                         if (!vf)
+>                                 f2g = &gfx_v9_kfd2kgd;
+>                         break;
+> +               // Renoir
+>                 case IP_VERSION(9, 3, 0):
+>                         gfx_target_version = 90012;
+>                         if (!vf)
+>                                 f2g = &gfx_v9_kfd2kgd;
+>                         break;
+> +               // Vega20
+>                 case IP_VERSION(9, 4, 0):
+>                         gfx_target_version = 90006;
+>                         if (!vf)
+>                                 f2g = &gfx_v9_kfd2kgd;
+>                         break;
+> +               // Arcturus
+>                 case IP_VERSION(9, 4, 1):
+>                         gfx_target_version = 90008;
+>                         f2g = &arcturus_kfd2kgd;
+>                         break;
+> +               // Aldebaran
+>                 case IP_VERSION(9, 4, 2):
+>                         gfx_target_version = 90010;
+>                         f2g = &aldebaran_kfd2kgd;
+>                         break;
+> +               // Navi10
+>                 case IP_VERSION(10, 1, 10):
+>                         gfx_target_version = 100100;
+>                         if (!vf)
+>                                 f2g = &gfx_v10_kfd2kgd;
+>                         break;
+> +               // Navi12
+>                 case IP_VERSION(10, 1, 2):
+>                         gfx_target_version = 100101;
+>                         f2g = &gfx_v10_kfd2kgd;
+>                         break;
+> +               // Navi14
+>                 case IP_VERSION(10, 1, 1):
+>                         gfx_target_version = 100102;
+>                         if (!vf)
+>                                 f2g = &gfx_v10_kfd2kgd;
+>                         break;
+> +               // Cyan Skillfish
+>                 case IP_VERSION(10, 1, 3):
+>                         gfx_target_version = 100103;
+>                         if (!vf)
+>                                 f2g = &gfx_v10_kfd2kgd;
+>                         break;
+> +               // Sienna Cichlid
+>                 case IP_VERSION(10, 3, 0):
+>                         gfx_target_version = 100300;
+>                         f2g = &gfx_v10_3_kfd2kgd;
+>                         break;
+> +               // Navy Flounder
+>                 case IP_VERSION(10, 3, 2):
+>                         gfx_target_version = 100301;
+>                         f2g = &gfx_v10_3_kfd2kgd;
+>                         break;
+> +               // Van Gogh
+>                 case IP_VERSION(10, 3, 1):
+>                         gfx_target_version = 100303;
+>                         if (!vf)
+>                                 f2g = &gfx_v10_3_kfd2kgd;
+>                         break;
+> +               // Dimgrey Cavefish
+>                 case IP_VERSION(10, 3, 4):
+>                         gfx_target_version = 100302;
+>                         f2g = &gfx_v10_3_kfd2kgd;
+>                         break;
+> +               // Beige Goby
+>                 case IP_VERSION(10, 3, 5):
+>                         gfx_target_version = 100304;
+>                         f2g = &gfx_v10_3_kfd2kgd;
+>                         break;
+> +               // Yellow Carp
+>                 case IP_VERSION(10, 3, 3):
+>                         gfx_target_version = 100305;
+>                         if (!vf)
+> --
+> 2.25.1
+>
