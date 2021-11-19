@@ -2,48 +2,48 @@ Return-Path: <SRS0=d+6m=QG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 346CAC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 19:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AEB2C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 19:44:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 025E261283
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 19:43:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 025E261283
+	by mail.kernel.org (Postfix) with ESMTPS id 3A36161159
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 19:44:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3A36161159
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEDC6E3FE;
-	Fri, 19 Nov 2021 19:43:57 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2061.outbound.protection.outlook.com [40.107.95.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B65A76E0D0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 19:43:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 429EC6E34B;
+	Fri, 19 Nov 2021 19:43:59 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FBE46E3F0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 19:43:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U8PFzSVXJUDThNkSbieZNabsKAighyrDwhusWbcPb47+iRw3bcMtINhwvlhFk8hObs4lKy0+6HrGodHFbiiKj3krM7L5yE3vFKQdkBinEWM9gAUAnNZZFG1IEExHkMiVJYOItjZ0Udss32i+whkF4UtY/nPej4masY2Tjybx7g0kzGcpvp6kgwOM6QOr9Sa5r04395LNuVAR2AtRJfapgnQexKgaSUgJXRyxfYmZ3UgEHH3DQhonb5kWw3FhsY3xiyCcdnAPQTE+4nYOnN3OziYs6eTPVMgBuG/w1PNqlKBj4Ogg1Loi8Mq1A5k4WT2IzsW5pMro4HqaMrnfp+KGMg==
+ b=CvWkxOrgqQng/iJpUGd/Loz/WsTedXUayr0CWEcNuKFep+tlQdmLuRfzN5YbPcEb8eaD8GzXJi5O2NFF9S8K+ZZrx877Ub2GDMziQp4cC1lxmja6LwDq/q4hgsf9Aw26lYZpW+oqY0k4UgzcEZql/Eb/F0GncBbyBzNk79OSeOj4aLs0JtC/eZo9OQG83xpVwIzZ0Qyi4TLEPWlk64JjusdmWiebhrk9HrcbDOTK8MlSmXs7wDtYH+gJvk/jCD+/KXVjwoXtxmVzJDglgF3sxCX2hBacHmB6XoSEAB0MQifMqzKIP9RAmjgeL8bs/lr83Zky80FlSUUs6F3jGfpOEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bzcuHoIkURhroPH3S+v5T4X29GBYqFMt7NVEwKSvLFg=;
- b=ULcLve9GDC5/QhryKeZGjvkRadF7RJ5DabvVM/s4XkqPftSRqX8kj8TdxIf/wxzY1a+v1cU7SyPuAIzQhlsoOcfkwDtKIyoL+H8mxhF80LUJ77X84bEuKQQd9Cskgz4t2pUrnS1jCADRyMyi/QzsniC/7LRABYlZCqEMtkxz739FNxTLLR7LqGi5I48vjVCY2dQpILjwW50e0wRmVkKfQq5qdD5Joc5ftt5nwyVEv5/+dXYq93Fmz1SqKnvdpgJ2DM5lUdJ7Pkb3cXDVXj4Sgk0xJVYPz4y9y7NsA5l3ozmlN7JQ9su9DCWv/M9g0xdv0P0VRRknn5NcPJ07/s+4tQ==
+ bh=mRGVnAJ+VJgINRo+ZQPxzppdcL2r9XnpbQ9cpw3NLPI=;
+ b=a9TqPNxBlVHu2us2azIC72y3GVvTi+YPEe9uPJT+Gk2q7kYwzWR0sU10oM7L0ti1l5WB+/h0qbIcG2iyxBM9LZ2xN45iI9HGFAHI3vNNkTM2dMsk5Up7c5Uxxb6thhlnqZ21XJscIKcDfcEtzTLL5Vuf4H9yM5BhEi9Xy3VpHDGyyx4NOuU7Z/ROoDzY6caF20oxi33mLgrG3g/+yObqLyB4msenB3Fhtk6G+0iaSgF4u4bjgWxwidJd3U+M5TMC17PCy6JroKlMWhL44tNuPdIEX560gX5YcoPr32Fio0/mKuWWLoyhACoKNDXalKXzvSYdhoATEBuUYX6nCsWCig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bzcuHoIkURhroPH3S+v5T4X29GBYqFMt7NVEwKSvLFg=;
- b=yvWstvL+C4dVdhAz/OhJnj5BOf3hRefi25w3onzLlVRsSJlRAq+fFbiPZjZEMrvRC+B4jVmy05DqTdwfKsdH+a2LnlET/yWn88+UoXprsZOx7zRhozyQKdEtoW3xqu6d2egZi00WCtOUjakZ1hLJOexn/5hhHSVPWdlwGmSe+7Q=
-Received: from CO2PR04CA0101.namprd04.prod.outlook.com (2603:10b6:104:6::27)
- by BYAPR12MB3271.namprd12.prod.outlook.com (2603:10b6:a03:138::20) with
+ bh=mRGVnAJ+VJgINRo+ZQPxzppdcL2r9XnpbQ9cpw3NLPI=;
+ b=MLNIeQ4rLAQEgJi0nyqimZ09LWxiKIodoAPX52/gdCM3rgoUaffaoLlMnop+i1FygU7XqcposNQnWQZlwXiStYoFMKJlklrhK1lxWEXyWVtAYwNJ8ASwrTwHhST80QrtmHNWlQKTWNFrrFWuyn5NPaIApoNTqD+rlbv0FZlQKnU=
+Received: from MW4PR03CA0271.namprd03.prod.outlook.com (2603:10b6:303:b5::6)
+ by MN2PR12MB2861.namprd12.prod.outlook.com (2603:10b6:208:af::28) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Fri, 19 Nov
- 2021 19:43:52 +0000
-Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:6:cafe::81) by CO2PR04CA0101.outlook.office365.com
- (2603:10b6:104:6::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21 via Frontend
- Transport; Fri, 19 Nov 2021 19:43:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Fri, 19 Nov
+ 2021 19:43:55 +0000
+Received: from CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::75) by MW4PR03CA0271.outlook.office365.com
+ (2603:10b6:303:b5::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.20 via Frontend
+ Transport; Fri, 19 Nov 2021 19:43:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,19 +51,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
+ CO1NAM11FT015.mail.protection.outlook.com (10.13.175.130) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Fri, 19 Nov 2021 19:43:52 +0000
+ 15.20.4713.20 via Frontend Transport; Fri, 19 Nov 2021 19:43:54 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 19 Nov
- 2021 13:43:51 -0600
+ 2021 13:43:52 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/16] drm/amd/display: Run full global validation in
- dc_commit_state
-Date: Fri, 19 Nov 2021 14:43:26 -0500
-Message-ID: <20211119194339.97573-4-qingqing.zhuo@amd.com>
+Subject: [PATCH 04/16] drm/amd/display: enable seamless boot for DCN301
+Date: Fri, 19 Nov 2021 14:43:27 -0500
+Message-ID: <20211119194339.97573-5-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211119194339.97573-1-qingqing.zhuo@amd.com>
 References: <20211119194339.97573-1-qingqing.zhuo@amd.com>
@@ -75,28 +74,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e0d130bf-32d8-4688-8776-08d9ab94ea87
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3271:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3271C1C47D81E093C225A46DFB9C9@BYAPR12MB3271.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:229;
+X-MS-Office365-Filtering-Correlation-Id: 47e1eaef-be86-4ec9-0957-08d9ab94eb9b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2861:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB28612475F4D102F4962E929FFB9C9@MN2PR12MB2861.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:561;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XgThoFkD5VLpt9ybGD8zS56c4QHdS66eolD4dGDa+yLf3Sk8Isa6IYnp6PSNc4zFbEwBkEYqizR3vs5c57QZHGczSiMbyzgHWkZ5t53thjuZZOFSU/v6gftE4Yf2xEnkkbklrE0pdafrPHGpS3JKuNAZToeXOCxdgjY1lDzkZkOXDMLEQW5Rj2cbSpK6sHdZgiBetxP1i+GkrmBDJuS0HiZq2tcywyN+7BAV1nBNcWyLygIeNbPTdBiQpfOWkpEiDgygIQslcm0r6aQmLavHH9NzL2gEYoaF4+7Y2+LPBrBmB4ki/KFUXgIlw+xN7kcDi2dF4uJowKvnmyWU+5G2ER4zeXCwAuVTflwyh3q6BS/VRCdeOfoa6+fc5gtrEdhdnQv5T1apQCunT6AIVZ6GWHGZMr+OOHweWKr2pUQBh2hywP+qY2eIFq6fzqLDNBsg1byaHRIUAjmKNzdayRlGQVo5DaDi0lYqupoCIHNilrq16ElCZuHtJHVC+5nsftBQOBb6/eGls5Ohx+VrHW6hUppBO4wBha+DCZff0YClSKkl8d/FIYwOxqSE9GB+qACvRm8luxKtoP9XQDo0Y64znpiWr+Iv90928WQ55FQ1Xn7at3J52CJUfg1h4bZCJPN5gCg1MfaJekW6U75wS9yoHbqf6V7Sq2Y3lSwGW3ED84NwCoips57/e7EaKq8bfiPtSoajb4f87dtyrmG7XNx43+M4xfvnY4Bh/YGc+gWza14=
+X-Microsoft-Antispam-Message-Info: Z8DhU3itA4EO6snZRBusFIEREGIogBwwm5YkjiQREdd+qzdV2etfuZgV8LJF+l23FeOGJXbZXgoWa/c39MT6Q2O1G5gzBxX5ZBjt9hAdo5eK2bH2r+W0E0JSHGEGzQEhK+lTS4XMEq7C2DkhUvlBpXoinR/SOU3x8VeZpOUoNfwuJD+MKlv7f9TjoujnGjwfvrytSMd/GROdjOVTt84Qw/AZaQk5+r7WxNf9bkc9g2sAobi3z6zGrn6NTbQBW7Lpf9S05RdPzKyZ/Hgr0l4DF2TntSrw+HhnnR3ZUq+E3qw/kg+9lKRwTjzF9mrC64ARkJcH+gPMBL8IFdlo0vNoWe7MGzNH+Mk67yRSngjMpD580mt0U/3/3aSSkKkkW/lfa03wqU35YSpSnJi+bzTvJrVxQXB2Aw+nj1/WZULV+aCPSUCd16OkUM+ZHd//Zra2DPARc6WDB9Q2N8/+NffYVq0ePPvwI6sfXHkut/8MRF1Y6HlHwATgNgaU9QtKUn63LBufdbVhxI9HNOVIiQkK8g5/Vn3R62KqxZCEmcc9ly4do7zv39cbvp4CtgtceHR/vKPq+QJpfbotHrh3vWoy9MWrp8YGp3eiZCxIFn13rr6H+aYUtxXWTlfl9z3n8jw7907s/jmpvpWoJdjGBdGuiCaE+LFkpHvl83iw4O2yckE1vCcM2PR+acxA57q1lEmJrcQW8UxuURnfPTiGL6ZLnns3IcJii36zFr9e+ZdEYWmG1W3M0qNfD5OKwJnNGs3Hks7oaDfDaqt6ftkH1cz3DWHx1aCbeGuK+wnBpjjBQfE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(70586007)(70206006)(2616005)(2906002)(86362001)(426003)(81166007)(16526019)(336012)(44832011)(186003)(26005)(356005)(82310400003)(8676002)(6666004)(5660300002)(4326008)(8936002)(36860700001)(47076005)(54906003)(36756003)(508600001)(316002)(83380400001)(6916009)(1076003)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(47076005)(8676002)(6916009)(2906002)(2616005)(508600001)(8936002)(426003)(336012)(36860700001)(36756003)(70586007)(70206006)(44832011)(86362001)(356005)(82310400003)(1076003)(54906003)(316002)(83380400001)(16526019)(186003)(5660300002)(6666004)(4326008)(26005)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 19:43:52.6326 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0d130bf-32d8-4688-8776-08d9ab94ea87
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 19:43:54.4362 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47e1eaef-be86-4ec9-0957-08d9ab94eb9b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3271
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2861
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,115 +107,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, solomon.chiu@amd.com, Sunpeng.Li@amd.com,
+Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
+ Zhan Liu <Zhan.Liu@amd.com>, solomon.chiu@amd.com, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  roman.li@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
  wayne.lin@amd.com, mikita.lipski@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Zhan Liu <Zhan.Liu@amd.com>
 
 [Why]
-Dynamic link encoder assignment expects that it can modify DC
-current_state and the links associated with the incoming state when
-performing full validation.
-
-This does not align with our actual synchronization constraints
-in DM's atomic_check.
+DCN301 is capable of running seamless boot
+if keep_stolen_vga_memory is not set.
 
 [How]
-Since link encoder assignment only happens as part of full validation
-we can just use fast validation as part of atomic_check instead.
+Add a helper to check whether an ASIC can support
+seamless boot and set it based on base driver flags.
 
-This satisfy's DC interface requirements and skips the DML calculations
-needed for pipe programming - hopefully speeding up things a little bit
-to offset the cost of double validation during stream modification.
-
-We already do this as part of dc_commit_updates_for_stream()
-with validate_bandwidth(), so extend this to dc_commit_state() as
-well.
-
-Fixes: 019f278036a2 ("drm/amd/display: Fix concurrent dynamic encoder assignment")
-
-Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Zhan Liu <Zhan.Liu@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +------------------
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 13 +++++++++++++
- 2 files changed, 14 insertions(+), 18 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 27 +++++++++++++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +++
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  1 -
+ .../amd/display/dc/dcn301/dcn301_resource.c   |  2 +-
+ 4 files changed, 31 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c88054f8c583..729ab647f691 100644
+index 729ab647f691..7b1b88dc98c3 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2304,14 +2304,6 @@ static enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
- 			goto fail;
- 	}
+@@ -1454,6 +1454,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
  
--
--	res = dc_validate_global_state(dc, context, false);
--
--	if (res != DC_OK) {
--		DRM_ERROR("%s:resource validation failed, dc_status:%d\n", __func__, res);
--		goto fail;
--	}
--
- 	res = dc_commit_state(dc, context);
+ 	init_data.flags.power_down_display_on_boot = true;
  
- fail:
-@@ -2580,15 +2572,6 @@ static int dm_resume(void *handle)
- 					= 0xffffffff;
- 			}
- 		}
--#if defined(CONFIG_DRM_AMD_DC_DCN)
--		/*
--		 * Resource allocation happens for link encoders for newer ASIC in
--		 * dc_validate_global_state, so we need to revalidate it.
--		 *
--		 * This shouldn't fail (it passed once before), so warn if it does.
--		 */
--		WARN_ON(dc_validate_global_state(dm->dc, dc_state, false) != DC_OK);
--#endif
- 
- 		WARN_ON(!dc_commit_state(dm->dc, dc_state));
- 
-@@ -11126,7 +11109,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			DRM_DEBUG_DRIVER("drm_dp_mst_atomic_check() failed\n");
- 			goto fail;
- 		}
--		status = dc_validate_global_state(dc, dm_state->context, false);
-+		status = dc_validate_global_state(dc, dm_state->context, true);
- 		if (status != DC_OK) {
- 			DRM_DEBUG_DRIVER("DC global validation failure: %s (%d)",
- 				       dc_status_to_str(status), status);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 39ad3854bfe4..dd4ea98749b7 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1827,6 +1827,19 @@ bool dc_commit_state(struct dc *dc, struct dc_state *context)
- 		dc_stream_log(dc, stream);
- 	}
- 
-+	/*
-+	 * Previous validation was perfomred with fast_validation = true and
-+	 * the full DML state required for hardware programming was skipped.
-+	 *
-+	 * Re-validate here to calculate these parameters / watermarks.
-+	 */
-+	result = dc_validate_global_state(dc, context, false);
-+	if (result != DC_OK) {
-+		DC_LOG_ERROR("DC commit global validation failure: %s (%d)",
-+			     dc_status_to_str(result), result);
-+		return result;
++	if (check_seamless_boot_capability(adev)) {
++		init_data.flags.power_down_display_on_boot = false;
++		init_data.flags.allow_seamless_boot_optimization = true;
++		DRM_INFO("Seamless boot condition check passed\n");
 +	}
 +
- 	result = dc_commit_state_no_check(dc, context);
+ 	INIT_LIST_HEAD(&adev->dm.da_list);
+ 	/* Display Core create. */
+ 	adev->dm.dc = dc_create(&init_data);
+@@ -11612,3 +11618,24 @@ int amdgpu_dm_process_dmub_aux_transfer_sync(bool is_cmd_aux, struct dc_context
+ 			ctx, DMUB_ASYNC_TO_SYNC_ACCESS_SUCCESS,
+ 			(uint32_t *)operation_result);
+ }
++
++/*
++ * Check whether seamless boot is supported.
++ *
++ * So far we only support seamless boot on CHIP_VANGOGH.
++ * If everything goes well, we may consider expanding
++ * seamless boot to other ASICs.
++ */
++bool check_seamless_boot_capability(struct amdgpu_device *adev)
++{
++	switch (adev->asic_type) {
++	case CHIP_VANGOGH:
++		if (!adev->mman.keep_stolen_vga_memory)
++			return true;
++		break;
++	default:
++		break;
++	}
++
++	return false;
++}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 37e61a88d49e..bb65f41d1a59 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -731,4 +731,7 @@ extern const struct drm_encoder_helper_funcs amdgpu_dm_encoder_helper_funcs;
+ int amdgpu_dm_process_dmub_aux_transfer_sync(bool is_cmd_aux,
+ 					struct dc_context *ctx, unsigned int link_index,
+ 					void *payload, void *operation_result);
++
++bool check_seamless_boot_capability(struct amdgpu_device *adev);
++
+ #endif /* __AMDGPU_DM_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index fabe1b83bd4f..d226ef799e50 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2078,7 +2078,6 @@ static void mark_seamless_boot_stream(
+ {
+ 	struct dc_bios *dcb = dc->ctx->dc_bios;
  
- 	return (result == DC_OK);
+-	/* TODO: Check Linux */
+ 	if (dc->config.allow_seamless_boot_optimization &&
+ 			!dcb->funcs->is_accelerated_mode(dcb)) {
+ 		if (dc_validate_seamless_boot_timing(dc, stream->sink, &stream->timing))
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+index e3596a5f68b1..7abc36a4ff76 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+@@ -686,7 +686,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_clock_gate = true,
+ 	.disable_pplib_clock_request = true,
+ 	.disable_pplib_wm_range = true,
+-	.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
++	.pipe_split_policy = MPC_SPLIT_AVOID,
+ 	.force_single_disp_pipe_split = false,
+ 	.disable_dcc = DCC_ENABLE,
+ 	.vsr_support = true,
 -- 
 2.25.1
 
