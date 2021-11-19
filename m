@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF86AC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 22:30:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AC90C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 22:30:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 648B56E210;
-	Fri, 19 Nov 2021 22:30:14 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2068.outbound.protection.outlook.com [40.107.220.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C3D96E219
+	by gabe.freedesktop.org (Postfix) with ESMTP id 719CA6E2E6;
+	Fri, 19 Nov 2021 22:30:17 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06F8D6E210
  for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 22:30:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mFcJjyzdq/3YgN490O5kGyP/SVHRypffpIBcpujkd2EKJ//Mmlv8g2aDM4wNp7yvzqhDi9qUSmAtPt9Z8Zee7kQOVH1sqZt7lupF/ZskHCvu/pzlHfHe5jkNygEfsdWCyeqHUJTrWR/fmyP8DscQ0u0M6TFgx1F9Lm55/nDEVEBA6vbNzwiUZnRQ5zX5TXNIxVoiE18uLDkd2bzh8C3NtcXNC2/RzM508QB331H1LTmaf8z21qwQQR+IIA39eEyZ7Xot0AW2nzxHqPxrNesrrufsJ4tXRSytgKtX5pvOVMIBiasFqmnKb/fS8PSM3I3pXNfsq+HWeKqrpGAZAq76SA==
+ b=Viou/oRQGvLPtwztQt5NcbSAyY95FkoElUaNBz0hBVYEKc1T66rpdoAmyFOBxtPd1b67ornj9Onn6D4HN1dGP2BiPmJB7DBugUBV0vlqkL/KhhlJ7VbBWwLVNLiGjM+ZzTtw1+HEbpyyvgw5IJ5+HNQKtomLuKPLF6LvJhZE5Jg4k+7/iZpq0zOEZXQd275OJ4FlwZhFZ5ZeKPXFA5dk+eikKTuXkYiecFXMRB8fd7xoH4vFX9EEPifSZiLB0OB2g4AbGGJXYNB8loCYJx3y1KPSNKgNq+ffT1GNwsPu9qAFTkQxIoTi3+DcyZQiBULuwguTZkvI23Qfc/dxMqsq0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QFder+MCcbhYSMsVHfOc2xQ+OEt9bpsOw9Q6LnBh0TE=;
- b=ByC44XNws0zNl9pZWJDioAPd2p/7+6rnLpc3tK0bjHu8TJbkscWr83ykn6Vw6l2lSIiEEWZ+kRrcA5STu7EvkF2zjyQCwADJzCdeAO+8y2+7wKNSXIevoAsWs+lznTucy05QTd0WTIfsTid5Xt21dqIxKtmL8N/MODRZr+bu6FCPLeoAW/ybXZ6rdfySMvsJQDiLK9tLdtm4/3TTw6S6oIBBeYRT+eI7I855WxwqIC4RRJstdyTWYCxL0t3y2Jvx8/IfOdoQpU+cSV7X1tqbGz9uZhBuWwmVOIkfcfLOwDMyphrcd0CuN6ZgIrZD4lk84W1f0XyVKnYyxRJIg3pTrg==
+ bh=aXefKx+VUMMV3LXti7a6Ke6tn1hSVkRPo4Q1FbkP4xg=;
+ b=LX9+NAwVEtz//dDlvi9wRL0gFmGky0a+7XZTRqvq9/LigVVkMMzfIMi4hzMB6U6qu85iJmKlZvL8JLFhI3NQrb2T4QokZlpgkFYQotOxJyzNG1zjNlHpa9ZOuYbhJaLORhUVrh5UnsCbQZMSLw2HFKLtXP42Q4pe9uz0Y3fni/Yg4RjE2h8rSlpMVru+W0kfBH7FplHgsT8sq4xU2V8W9M+z5zwFOlM3V4Nc/X1H0aZXHQI8MVoWRlw7d5YbcsDR8GIfWsIragmxHrINteNbIdeBafhRlOiRt0QFVNlUXJ/N9Kck8LKwPcIDRMETVeJHzHjlfgKdAY+6j7JanXahgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QFder+MCcbhYSMsVHfOc2xQ+OEt9bpsOw9Q6LnBh0TE=;
- b=CMChjjw1EcX4eUBeM9ppwtO6SdBlMIV258iAKGGNO0poqtd3fraR/r53F9dv/NNifcOAEErxkqBqJoubG8noldn6pqBsPMQO5RgwtHwxESxfL3VqNwbAS45aBrJ03p9s/7IzOuQ3IO2VKHC4H3EVVyJpSm3DcxNUCJanbiGIMT8=
-Received: from BN9PR03CA0766.namprd03.prod.outlook.com (2603:10b6:408:13a::21)
- by BY5PR12MB4965.namprd12.prod.outlook.com (2603:10b6:a03:1c4::16)
+ bh=aXefKx+VUMMV3LXti7a6Ke6tn1hSVkRPo4Q1FbkP4xg=;
+ b=oxmalUKzVjW2rw769vxOaX6uWmSrtquuz6T4j4LaB2Dt0RpR20t6SlFdo2diRPRx4NMaKMwkitV8QOZXHWkoe6+RoNL5UY9Puc5KJu756n6N6YrY/oZiliiMmeodKTo6qaYJOurMoQpkjJj48mGPtlM3h2CQx0TVNAuy9mJw+e0=
+Received: from BN9PR03CA0068.namprd03.prod.outlook.com (2603:10b6:408:fc::13)
+ by BYAPR12MB3318.namprd12.prod.outlook.com (2603:10b6:a03:df::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Fri, 19 Nov
- 2021 22:30:12 +0000
-Received: from BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::dc) by BN9PR03CA0766.outlook.office365.com
- (2603:10b6:408:13a::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
- Transport; Fri, 19 Nov 2021 22:30:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Fri, 19 Nov
+ 2021 22:30:07 +0000
+Received: from BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fc:cafe::6a) by BN9PR03CA0068.outlook.office365.com
+ (2603:10b6:408:fc::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24 via Frontend
+ Transport; Fri, 19 Nov 2021 22:30:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,21 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT020.mail.protection.outlook.com (10.13.176.223) with Microsoft SMTP
+ BN8NAM11FT024.mail.protection.outlook.com (10.13.177.38) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Fri, 19 Nov 2021 22:30:11 +0000
+ 15.20.4713.20 via Frontend Transport; Fri, 19 Nov 2021 22:30:06 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 19 Nov
- 2021 16:30:09 -0600
+ 2021 16:30:05 -0600
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 3/3] drm/amdkfd: simplify drain retry fault
-Date: Fri, 19 Nov 2021 17:29:41 -0500
-Message-ID: <20211119222941.18053-3-Philip.Yang@amd.com>
+Subject: [PATCH v2 1/3] drm/amdkfd: process exit and retry fault race
+Date: Fri, 19 Nov 2021 17:29:39 -0500
+Message-ID: <20211119222941.18053-1-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211119222941.18053-1-Philip.Yang@amd.com>
-References: <20211119222941.18053-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
@@ -67,28 +65,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e8cec824-0abb-4f09-4188-08d9abac2666
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4965:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4965BE1461D8129C8765C31AE69C9@BY5PR12MB4965.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Office365-Filtering-Correlation-Id: dc8b260c-f81e-46ac-6889-08d9abac2325
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3318:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB33182AFF6E93D5A12DAE633FE69C9@BYAPR12MB3318.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zwFabeC5PyiIZLl+Eu0ygMlAm4tIB59bj8W+q+w3X6w0AE2v4UFrJTjJXPsQnCuL/OzMS3QbgvmuSdr064sOgaDY15x+hfxImjDKqc8pUt7+teT10DEDDlf8k7Ozlkl6H9VXU3to/+qFPrrFTaOwofJKYdnRzjw13Ac8zAvQFC9u9IdSC/yfuAnHRQLq0ZsBTCp75wrH6lRvFhFwMC4LwH8UzTsJZLE1rn02PicOBoiL7YA/islwhj92t/mzkT6ItDwa4+NNrr+Okkv7UUy+LfFRZnufmBAa8MxWukAxxayLmRpcZ5kh+RBwBUQxZ8QsJQXShBclY7ad889/HhKwOYGAtXIs9RCY+Nbxsp4IJEIsKutm029Qsy2MgxZ0BG/FE3naZYqPKCvkXs5LPWq/pgTW5BTjaYJEv0vx2Ob4rhWdXMNuP/yR8PhxroWTsFVAq+sJQYxHaDZEHNiopbE/6P/cx0Zb1HPAU2avuqLw/O3BPsEm7e/XBiIQz3yhzW9Ay+vLL8UfDlDQrXHk7PRL6iKUhdDKQK5AVvHU9YUvnqPoYZHH3Nzhcm2DA/HvfBkYlE8gt/3QLP/+6eXkH+QdZzFEzZ70rIAdo5uocMkqZNy+Xac7woDrit3fO5ckWR7JiYvby3SZjHAUUQkGlyTX6eTy9mhKZhqE5j2jqDdzVWjrVf8GZ4gTctkSxDRChGD/HkombEkf2+mlACOmAqRawwni8Y1Waa6sVr5e+uGBho8=
+X-Microsoft-Antispam-Message-Info: AygZFe0B0lbjp2ql70Iv8S+wkSexWqOQSwXOZAnxA5VlgeGPHdqlkHkJK3hokUUvU/D4ebWL8I+TyuMcP13qc051iEXc/Op22GhfSGmGp9y+olfXEimOo7gSCCUrnBjxanyEhU7gbX1Fq6VHK+ann2ubZ6cIVsjSFrxJGOwWzt62635DqGkIsHU0UP2kqxCln33tQQct22sgv2qK2E20i6pRNXQZBSn+AWGK4Oe4T1d+Ibc0CWpMsxqRatRwHHin6F31184E1D26/5e6pwxjW/L0JfR1QpK4VqwiWyWZSA5Z82OF3DnCoj/5cd8qwVgbi7JL/x3zdTz2rnz+ttERJnwqDzvykSG3bTcF9S0RWyoVazJaHe2P5pqB+HEL5+I95gFYwpVDAZ/ACOyLnYtOFYRaQYz4rsbJlPYjmkikc1LXOb/eVD9rMJRUEiGRhIDCXDrtf67BbNya8ziPW4+lM1tcDytAsDb5BuaLWmXwUg4MtTTtGm4Oat9xYqK2DECphGac3afOX7UG3LHFbbPnmwVpLQNRNW5aQuwuP2DU3K5VKPfK/+EKa06QcvESC7Xv/EtCn3zkmHZjDt06+WhFf4B9Ogt7GKb+6jHoiUnlK2Na+k7wLtvsJg3yco2+qtJFRAxf1IlPFJeTTkotZsZ4efmPmiGZ99aL7aDrEHMZMsAOdQOjR+/fhphtrV4sy38o5XgIITTitvXAopeK04uNFY7IRXmHfPXV+JWgvaEP2c8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(26005)(8676002)(70206006)(70586007)(36860700001)(186003)(8936002)(7696005)(6666004)(356005)(16526019)(47076005)(83380400001)(82310400003)(1076003)(2616005)(5660300002)(4326008)(508600001)(426003)(2906002)(6916009)(336012)(81166007)(86362001)(54906003)(36756003)(316002)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(7696005)(82310400003)(1076003)(36756003)(2616005)(70206006)(70586007)(426003)(8676002)(16526019)(186003)(6666004)(47076005)(508600001)(336012)(54906003)(356005)(81166007)(86362001)(4326008)(5660300002)(83380400001)(316002)(36860700001)(6916009)(8936002)(26005)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 22:30:11.6156 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8cec824-0abb-4f09-4188-08d9abac2666
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 22:30:06.1574 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc8b260c-f81e-46ac-6889-08d9abac2325
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4965
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3318
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,125 +102,132 @@ Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-unmap range always increase atomic svms->drain_pagefaults to simplify
-both parent range and child range unmap, page fault handle ignores the
-retry fault if svms->drain_pagefaults is set to speed up interrupt
-handling. svm_range_drain_retry_fault restart draining if another
-range unmap from cpu.
+kfd_process_wq_release drain retry fault to ensure no retry fault comes
+after removing kfd process from the hash table, otherwise svm page fault
+handler will fail to recover the fault and dump GPU vm fault log.
+
+Refactor deferred list work to get_task_mm and take mmap write lock
+to handle all ranges, and avoid mm is gone while inserting mmu notifier.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 30 ++++++++++++++++++++-------
- 2 files changed, 23 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 61 ++++++++++++++++------------
+ 1 file changed, 35 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 836ec8860c1b..7ea528941951 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -767,7 +767,7 @@ struct svm_range_list {
- 	struct list_head		deferred_range_list;
- 	spinlock_t			deferred_list_lock;
- 	atomic_t			evicted_ranges;
--	bool				drain_pagefaults;
-+	atomic_t			drain_pagefaults;
- 	struct delayed_work		restore_work;
- 	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
- 	struct task_struct 		*faulting_task;
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 65daae9e4042..99f38ffbf43b 100644
+index 9e566ec54cf5..5fa540828ed0 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1957,10 +1957,16 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
- {
- 	struct kfd_process_device *pdd;
- 	struct kfd_process *p;
-+	int drain;
- 	uint32_t i;
+@@ -1979,43 +1979,42 @@ static void svm_range_deferred_list_work(struct work_struct *work)
+ 	struct svm_range_list *svms;
+ 	struct svm_range *prange;
+ 	struct mm_struct *mm;
++	struct kfd_process *p;
  
- 	p = container_of(svms, struct kfd_process, svms);
+ 	svms = container_of(work, struct svm_range_list, deferred_list_work);
+ 	pr_debug("enter svms 0x%p\n", svms);
  
-+restart:
-+	drain = atomic_read(&svms->drain_pagefaults);
-+	if (!drain)
++	p = container_of(svms, struct kfd_process, svms);
++	/* Avoid mm is gone when inserting mmu notifier */
++	mm = get_task_mm(p->lead_thread);
++	if (!mm) {
++		pr_debug("svms 0x%p process mm gone\n", svms);
 +		return;
++	}
++retry:
++	mmap_write_lock(mm);
 +
- 	for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
- 		pdd = p->pdds[i];
- 		if (!pdd)
-@@ -1972,6 +1978,8 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
- 						     &pdd->dev->adev->irq.ih1);
- 		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
++	/* Checking for the need to drain retry faults must be inside
++	 * mmap write lock to serialize with munmap notifiers.
++	 */
++	if (unlikely(READ_ONCE(svms->drain_pagefaults))) {
++		WRITE_ONCE(svms->drain_pagefaults, false);
++		mmap_write_unlock(mm);
++		svm_range_drain_retry_fault(svms);
++		goto retry;
++	}
++
+ 	spin_lock(&svms->deferred_list_lock);
+ 	while (!list_empty(&svms->deferred_range_list)) {
+ 		prange = list_first_entry(&svms->deferred_range_list,
+ 					  struct svm_range, deferred_list);
++		list_del_init(&prange->deferred_list);
+ 		spin_unlock(&svms->deferred_list_lock);
++
+ 		pr_debug("prange 0x%p [0x%lx 0x%lx] op %d\n", prange,
+ 			 prange->start, prange->last, prange->work_item.op);
+ 
+-		mm = prange->work_item.mm;
+-retry:
+-		mmap_write_lock(mm);
+ 		mutex_lock(&svms->lock);
+-
+-		/* Checking for the need to drain retry faults must be in
+-		 * mmap write lock to serialize with munmap notifiers.
+-		 *
+-		 * Remove from deferred_list must be inside mmap write lock,
+-		 * otherwise, svm_range_list_lock_and_flush_work may hold mmap
+-		 * write lock, and continue because deferred_list is empty, then
+-		 * deferred_list handle is blocked by mmap write lock.
+-		 */
+-		spin_lock(&svms->deferred_list_lock);
+-		if (unlikely(svms->drain_pagefaults)) {
+-			svms->drain_pagefaults = false;
+-			spin_unlock(&svms->deferred_list_lock);
+-			mutex_unlock(&svms->lock);
+-			mmap_write_unlock(mm);
+-			svm_range_drain_retry_fault(svms);
+-			goto retry;
+-		}
+-		list_del_init(&prange->deferred_list);
+-		spin_unlock(&svms->deferred_list_lock);
+-
+ 		mutex_lock(&prange->migrate_mutex);
+ 		while (!list_empty(&prange->child_list)) {
+ 			struct svm_range *pchild;
+@@ -2031,12 +2030,13 @@ static void svm_range_deferred_list_work(struct work_struct *work)
+ 
+ 		svm_range_handle_list_op(svms, prange);
+ 		mutex_unlock(&svms->lock);
+-		mmap_write_unlock(mm);
+ 
+ 		spin_lock(&svms->deferred_list_lock);
  	}
-+	if (atomic_cmpxchg(&svms->drain_pagefaults, drain, 0) != drain)
-+		goto restart;
+ 	spin_unlock(&svms->deferred_list_lock);
+ 
++	mmap_write_unlock(mm);
++	mmput(mm);
+ 	pr_debug("exit svms 0x%p\n", svms);
  }
  
- static void svm_range_deferred_list_work(struct work_struct *work)
-@@ -1997,8 +2005,7 @@ static void svm_range_deferred_list_work(struct work_struct *work)
- 	/* Checking for the need to drain retry faults must be inside
- 	 * mmap write lock to serialize with munmap notifiers.
- 	 */
--	if (unlikely(READ_ONCE(svms->drain_pagefaults))) {
--		WRITE_ONCE(svms->drain_pagefaults, false);
-+	if (unlikely(atomic_read(&svms->drain_pagefaults))) {
- 		mmap_write_unlock(mm);
- 		svm_range_drain_retry_fault(svms);
- 		goto retry;
-@@ -2045,12 +2052,6 @@ svm_range_add_list_work(struct svm_range_list *svms, struct svm_range *prange,
- 			struct mm_struct *mm, enum svm_work_list_ops op)
- {
- 	spin_lock(&svms->deferred_list_lock);
--	/* Make sure pending page faults are drained in the deferred worker
--	 * before the range is freed to avoid straggler interrupts on
--	 * unmapped memory causing "phantom faults".
--	 */
--	if (op == SVM_OP_UNMAP_RANGE)
--		svms->drain_pagefaults = true;
- 	/* if prange is on the deferred list */
- 	if (!list_empty(&prange->deferred_list)) {
- 		pr_debug("update exist prange 0x%p work op %d\n", prange, op);
-@@ -2129,6 +2130,12 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
- 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] [0x%lx 0x%lx]\n", svms,
- 		 prange, prange->start, prange->last, start, last);
- 
-+	/* Make sure pending page faults are drained in the deferred worker
-+	 * before the range is freed to avoid straggler interrupts on
-+	 * unmapped memory causing "phantom faults".
-+	 */
-+	atomic_inc(&svms->drain_pagefaults);
-+
- 	unmap_parent = start <= prange->start && last >= prange->last;
- 
- 	list_for_each_entry(pchild, &prange->child_list, child_list) {
-@@ -2594,6 +2601,11 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+@@ -2600,10 +2600,12 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
  
  	pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms, addr);
  
-+	if (atomic_read(&svms->drain_pagefaults)) {
-+		pr_debug("draining retry fault, drop fault 0x%llx\n", addr);
-+		goto out;
-+	}
++	/* p->lead_thread is available as kfd_process_wq_release flush the work
++	 * before releasing task ref.
++	 */
+ 	mm = get_task_mm(p->lead_thread);
+ 	if (!mm) {
+ 		pr_debug("svms 0x%p failed to get mm\n", svms);
+-		r = -ESRCH;
+ 		goto out;
+ 	}
+ 
+@@ -2730,6 +2732,13 @@ void svm_range_list_fini(struct kfd_process *p)
+ 	/* Ensure list work is finished before process is destroyed */
+ 	flush_work(&p->svms.deferred_list_work);
+ 
++	/*
++	 * Ensure no retry fault comes in afterwards, as page fault handler will
++	 * not find kfd process and take mm lock to recover fault.
++	 */
++	svm_range_drain_retry_fault(&p->svms);
 +
- 	/* p->lead_thread is available as kfd_process_wq_release flush the work
- 	 * before releasing task ref.
- 	 */
-@@ -2740,6 +2752,7 @@ void svm_range_list_fini(struct kfd_process *p)
- 	 * Ensure no retry fault comes in afterwards, as page fault handler will
- 	 * not find kfd process and take mm lock to recover fault.
- 	 */
-+	atomic_inc(&p->svms.drain_pagefaults);
- 	svm_range_drain_retry_fault(&p->svms);
- 
- 
-@@ -2763,6 +2776,7 @@ int svm_range_list_init(struct kfd_process *p)
- 	mutex_init(&svms->lock);
- 	INIT_LIST_HEAD(&svms->list);
- 	atomic_set(&svms->evicted_ranges, 0);
-+	atomic_set(&svms->drain_pagefaults, 0);
- 	INIT_DELAYED_WORK(&svms->restore_work, svm_range_restore_work);
- 	INIT_WORK(&svms->deferred_list_work, svm_range_deferred_list_work);
- 	INIT_LIST_HEAD(&svms->deferred_range_list);
++
+ 	list_for_each_entry_safe(prange, next, &p->svms.list, list) {
+ 		svm_range_unlink(prange);
+ 		svm_range_remove_notifier(prange);
 -- 
 2.17.1
 
