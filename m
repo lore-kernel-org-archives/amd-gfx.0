@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4784C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 21:30:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A3B0C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 21:31:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11E726E1CE;
-	Fri, 19 Nov 2021 21:30:26 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2074.outbound.protection.outlook.com [40.107.96.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B42456E1BC
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 21:30:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4E636E1BC;
+	Fri, 19 Nov 2021 21:31:00 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FEDE6E1BC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 21:30:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k+ycXcy/WLH3fdtep/8HKnfPibCm1AOsDWpsRSD5Q33REC28asmVs17gwxOIJaLW6eI1+wZMrB0oBzzp8FY/JFYviD+D/+epwJdGxVwZI+zWLJgwZp558knhalL48bPyPRrHKsZ5noEjSvjhweOLMQzbrAEzwYc6zt4blFTpWnww3aDc/jcAInBI81x4fI+uKh5NMFP0q4j3D+rWWpqBunKIXJLP3s9/QJ8k6eUbNL+UJff6FvlfOon0OcLzjaFGQo7VmUiT4/PYma+sgZ2S77N7zaBMvjLzwW/E5LjeBQ1lQEVw+aReKl8m7xI0Ak8dShejMdXLaqCIkUWjsJHImw==
+ b=kM73gI1RasouY758sLgOMW/FyfrCly2umvV0eaUkRzaBXJWkyeVdbqBDrSQBUi/9aE1SAPWmiU9QVHk1tflQ3W2NJlfZOqVptHqmA7nvXnrwGdzwrUKd5fi2jBt//5hy3SGBne0zF05IUeoLri4RAvPrbGZyzUpP6UR4oFVucFAwtaNW0D8PxSjfKu8MzCpvd40/bL2RFY66IpfQ4yrFCrZfbTKGAzztQX0vA3H+DmLZ5WtgUStuo8leeZvNfTxW5+gVgMiQvxXCip/DJy1+5IQetlib5jK9l7jKNJJxIQiiUDMkdG5rmTLMKobjlXhEYIGzDpXNsuh1wm3x2c0BVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3QqI5LaqF1Y5ARuk9QX7EBI/OmKc1aotnaNXWEK81dA=;
- b=Z/7gJrkv0Uf7qMNlUSHfNfaJvZT2Er83hFbC5dq55pP9Z0yypp+P9qND1Rh76r0k8yGiJqnlYASxeRjB5cKxJUAco6xl7396S2FfF8YWSkfBRE4wNW2fTaMhXH31xnQPKBwL6OXGLVjw9XUZLgi5DsMLys4tT0GZV/i0t9QJ6eDJwG1ib6YralyH9gxTs7lY4fBnGKniDjvTm035Kni9dcNZwvQa6vaGcTs3QOOrF65p7KecEVtrGbZxB/gCQaomVYC3/WEzruFI/sds08Tvc9TdEXrbhOEPBER7/QC9Z3790KAspWiVBLaavqYu5Cbp3is34Mk6hZcc/iGwCtdvKQ==
+ bh=qpgk6i2ovUlwf0me6BynUloCbmNs9cW2iCYuUTJ0vgI=;
+ b=cdrq4IwtkMauF7PE55XGl3LJsMb7GmVde1RplZdhxo1e5Cz7qJj6ObzcHv7zeRYBn8L1fe8LPPtnR0zzTfs5p48wrOd94RdCqawrsYro2eOteE6KyZ6+paINB/VAQGCuFi7Pr05qippIR90sz5De1YiohCInMAXvMHdC9isowEJcqr9eaqZLJPUJVghkZmpNyN2XbLDPRMO+jof4LFJRNMuhG/0OJAO4vgY87Qq3EFYmx8hdb/IkwrW5Fzl0Ox9110kGOx0iqeSkbOMTXuT73ibX9/Kwp8fdgFrMfSWHP8S3cxtDx5mgNoaZOIM0cotwShOZJ5ZAtncPOQbXWUEXJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3QqI5LaqF1Y5ARuk9QX7EBI/OmKc1aotnaNXWEK81dA=;
- b=YLDDddr5p/fIuwAIUlb1dtzmeXHyYi+S8HSaTxzga5NpeF/7J0EFjgN2vTrA1PGliliTdvC0MdN9g0LtsUD4wq8yuOE9tqN0TNaocS4U4zHBbg9gLsKCOkm006I47ljRtugkVjeXvR5Mp5xmcqVh3JM+TIP+QTJMouTVwgJm9pY=
+ bh=qpgk6i2ovUlwf0me6BynUloCbmNs9cW2iCYuUTJ0vgI=;
+ b=dAncpx+slEVjVIY5K3nK1UD6JZYPfzD65/3GUAVTIcZU5G7PqPAzf43ftASLAHIoss+u7XY1kgamFRljMDuw7Rp5n85MAbq8BfiMXiKEmfHpeu/NBSovA1f4LMSWqwjtS5RQhYL9c/i0Hwjzi0ReQRHqypUq1iWGbwNU2BKgusY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5145.namprd12.prod.outlook.com (2603:10b6:408:136::20)
+ by BN9PR12MB5065.namprd12.prod.outlook.com (2603:10b6:408:132::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Fri, 19 Nov
- 2021 21:30:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Fri, 19 Nov
+ 2021 21:30:57 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.022; Fri, 19 Nov 2021
- 21:30:22 +0000
-Subject: Re: [PATCH v2 3/4] drm/amdkfd: move to dynamic device_info creation
+ 21:30:57 +0000
+Subject: Re: [PATCH v2 4/4] drm/amdkfd: remove hardcoded device_info structs
 To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20211119195258.2173551-1-Graham.Sider@amd.com>
- <20211119195258.2173551-3-Graham.Sider@amd.com>
+ <20211119195258.2173551-4-Graham.Sider@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-Message-ID: <415de547-ff92-fe1e-2d8b-d505cffb2713@amd.com>
-Date: Fri, 19 Nov 2021 16:30:20 -0500
+Message-ID: <27bd8728-4519-54da-327f-a75a7cc6931c@amd.com>
+Date: Fri, 19 Nov 2021 16:30:55 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <20211119195258.2173551-3-Graham.Sider@amd.com>
+In-Reply-To: <20211119195258.2173551-4-Graham.Sider@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-ClientProxiedBy: BL0PR0102CA0044.prod.exchangelabs.com
- (2603:10b6:208:25::21) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL0PR0102CA0056.prod.exchangelabs.com
+ (2603:10b6:208:25::33) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 Received: from [172.27.226.80] (165.204.55.251) by
- BL0PR0102CA0044.prod.exchangelabs.com (2603:10b6:208:25::21) with Microsoft
+ BL0PR0102CA0056.prod.exchangelabs.com (2603:10b6:208:25::33) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4713.19 via Frontend Transport; Fri, 19 Nov 2021 21:30:22 +0000
+ 15.20.4713.19 via Frontend Transport; Fri, 19 Nov 2021 21:30:56 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c1742a6f-ff5c-40a0-73e6-08d9aba3caf5
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5145:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5145E46C36DFFFC519BA14AE929C9@BN9PR12MB5145.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:177;
+X-MS-Office365-Filtering-Correlation-Id: b882c835-c88e-4696-3136-08d9aba3df7d
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5065:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB50659424ADAF13CDBD279299929C9@BN9PR12MB5065.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NDZRrT6jMIUWLsKcuXrgo1Q4cC7tNBUcMaCA9q6qfkb/45O8gEnauhQE0p6nKABCxWgThUr79TXZENAOaQEIoZFxR0T2LY02biLRnQOgaawUtrrRHxPV0AnEHjSdwhvR0EUiNofiSIAaCKLv+Gyu+wsiclYmbk6zTjk3VPA28TtioctIvuhHvmTuTtlUmbM8p5DmGhXRs1p4UF8BgnCFjLhYPihergMkHYtP1YQxWTnu+emvUx5AmfVN5Ja1Xs+TBhmNK0fiCjvt7AbrY21xWUpx/HplPqfdl7ml+V3cpoBIdxb6UWHpDU0c/bd37hDQxCkOb2WZCAePCN6yzK3GvxAXkfxU/YmC1LlMFe79I2kAA5yuOj+J8BtjGj41A1qjSqrJIOZ+3ceFNNgMIznidDyWIZ5k4YPtPJFfhE6a2GE2th8qjL9eb08O1+K67m57mKUrn9s3wrE7CtHaX+EoGmA96PNaSXZmqgkOu4niA24lSuRPFybAgiOhZ+jbCHuVC5GOHoVtwqbw85NAWicMnbox/icD9Z56ByNfOlbctC9EgTa1IgcQNLq3YnqmQdSsEMEYdLRr9YXFLflwklFt4dm+Vx5gqEDdLVbr2LAeEvjlU+Avl8kAfwzKUpEPNK4oFbg5N8aVz8/xHxE9FdAzBuiJpmk8QJM69XyMX+5wXvPDUpAQcYRDzmm5jr96Fab8srwd+rzCQMm4ENCFpDQdCQ==
+X-Microsoft-Antispam-Message-Info: cKm4iBnwKcsGHMse0buqWCTHQAi3iW7zmErLEA28EuGSNNqN1SDHudzTD4bYkrlrafsZc1gSkI6lR4DtHu322jLxRShuZ9psRklbXJa3C9w26BeLvJboWEOZKxiyn5DsaC5CQeLKGjh4HJzALHSI/U4SEliEjleMPhLNo8uX/kSd8zwufjbgb5zYwaJXbASURCnS9iP/N7SPFqqNaTkDcdAtMUs0xx3rxSIsXQKUndNhi5mA2vuMuVonfVZMoJZU+A0RlF6LM08KMnWexAYJJNdTpGHR8mRO5ujmZ3weQOT9egE3I5q4j/bjVoI189ZBtKWOMw9CXsPVGd+dnYzZnBaGo7XtJgw1RetK20kDGRwuXTdvAFcbv121Uvyo/GxxrCXev3ZH5O0orufjZqhFBibO/q6dpiZYCPhFOGJx5/LpRi6q+be29MobCCtvO+tU7+GIwZ6o6zd626dZLmq7SXUssGLaLGtqp5zRflQvi+8TKWUF2A49tp3zZGu/vWoCOyP0YtfNnvuOi5NY/FvQtY6/vfEFRXrG8NfVI2XBXw/RYi+C7N57xPA2C0Otsnr57IO+/AEsdcnv2hySLgej5xOTtmGz/QK/F3u3XX5Y5SIXnuiOPXQm73EIzu/DU07ToIgA7oChSzN/lt/I0SwKusYExH4jUIli7oz8DAgchpzu6+LRUDQ+FXqlapTPGSv+28vyumVY3//znovaurVbyA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(26005)(6486002)(86362001)(508600001)(5660300002)(66556008)(66946007)(2616005)(66476007)(4326008)(36916002)(186003)(956004)(83380400001)(4001150100001)(31696002)(38100700002)(31686004)(16576012)(2906002)(53546011)(8936002)(8676002)(36756003)(316002)(44832011)(43740500002);
+ SFS:(4636009)(366004)(86362001)(6486002)(186003)(16576012)(4326008)(66946007)(508600001)(316002)(83380400001)(66476007)(66556008)(31696002)(956004)(5660300002)(8936002)(30864003)(8676002)(53546011)(31686004)(26005)(4001150100001)(2616005)(36916002)(44832011)(2906002)(38100700002)(36756003)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXh5RUY3RHQwVWxXYXUwbmtpODJUWGsrbllxU003TEh3V1dSZzl2VTFLNDFO?=
- =?utf-8?B?QlNOUEF3N09oYllPTUVDMys2MTJ1UnR3T0gvbXFDclljem5RanpOVTBReWZx?=
- =?utf-8?B?d1U5TDBWbWNJVkEwWTliQ0xaOWtvNDBDTEpxbklkRXpHUm5PUDd3bGhIVm84?=
- =?utf-8?B?Qm11NGJvTjFyUkUwVCtYRC9KUzNwSWdBbm9nTmhBbU80eURDc0lVRUhWNVgw?=
- =?utf-8?B?ZGhOWHprN2s0VmhGUE1SRThUUW1ibFVTeUZJaE05dVl5d3g4MGVDRkgxNlEz?=
- =?utf-8?B?elF6N3lpNndWNVZZV0dPVS9VUnF6QktLWXUyZUZuSjBEeEFmbjNDc2JnZ254?=
- =?utf-8?B?ZHVpNnhJaVNMTUxFcTJaSTFCNGMvd29LTHFTalRpNS9FbldqT2YxcmxNUEE3?=
- =?utf-8?B?REYrOHdaS1F3akdMdU9oaWthT0J1MGQ4OThHeENkbGdiZkUycFJRZThMQkdm?=
- =?utf-8?B?UjEra0Vndlo5ei8vaEVlMlNWMTJkR1JuRXUvbXNpZkg1dkdhQWNoUnJlVnpo?=
- =?utf-8?B?Ym83Z0dLZ1hsSThyRkFsUXVTYmJXTVpSS3RieExvbWpDMlNFK1B3R0pXZU9Z?=
- =?utf-8?B?eUxqRTlPeW00YzdVSmNITkhZTUJwVGhUU3JsRVZWdHMxYjhnb0VWcml1MGJx?=
- =?utf-8?B?bGJUalR0MTdhS1FpU3AwUDJMc2tLNnR2Rzd2SHpKaWlGQVo2bTZBY0tjbTMv?=
- =?utf-8?B?VG9uQkRyK1hjTVBzVFJ4a3BPQlNSSWVWUEYvSzEweFFRb3J2VzBwbis0SnVS?=
- =?utf-8?B?VUUzSUp0WTZpeC9CdzdGR21hRlVTcVZsV2w1RWlKLytKNnJQWW5sYThaS0xK?=
- =?utf-8?B?eDB4VEQzNUpRN3poNXZHOVRpZWFCWkM0Q0VhNHdud3dlNVd3d1hWcEVWYjB3?=
- =?utf-8?B?bnE4aEtTeTNZTGZzeG56ZXRwcEVYUC8vc1pDdmZwNklBUy9RYjc0dk1oclV2?=
- =?utf-8?B?SWNRRzlKUDlTZWhMUFVYY1NPQ2dYcVpZTGVlSTJtWUtMdDIzUXoveVRGSDJR?=
- =?utf-8?B?cXdwTjE3UjZVYWh5cHE5Tlc3c21XS0NuSFFvcHNFUkNvVCtmanhHTVEzeXlB?=
- =?utf-8?B?MFk5a2Y1ajlGU2V2bVZxeVo1bDcyeVpJRGVpaVpLUkx6UnRKYTNkSTJka2J2?=
- =?utf-8?B?T3FPRU1hQ08vM3FrWXdINzBSUUV4WTJweHdqMTIvWHNPWnpSTlBVRXIxTTZL?=
- =?utf-8?B?OGlncGpWQ1JkQ1FVaGNRSUxoeHpCQXRDRmI0aUVXMkM2Y2xDMWlsWDdjUUZp?=
- =?utf-8?B?b2xwUlNocVY4TEVHQ08zdjZkYjU4Yi95L2lLTHB0SWRvUDRNZmIwbmdzTjNY?=
- =?utf-8?B?VkpyemZuZFJ0bDdlQVo0T0tJaWRaaThLWFFza3pTc1lPejB2VEt3ZDhKM0hn?=
- =?utf-8?B?NzZnd0xyL01RTGNyLzBjYlhWczlHVU81TjhiajhtRDRTbTYwOW1NNExiOFVL?=
- =?utf-8?B?WjZoMGMzZWtUUWtDUStHUWtNK05FK0U0cGs5MWtuSFcrcGxWdDhQQmxGaFA0?=
- =?utf-8?B?V0V4SEtYWU5wYlFLL0RFVXM1UG1VK1JzN1JTZTJOU2JnUlJVM21DYW9tOFJl?=
- =?utf-8?B?Rk5xdGdFbGRweVE2WUg1eWdqWFhPTnlCdGo5OS9mai9UZVlzTlg0d054SjBt?=
- =?utf-8?B?YjNERWJBa2dCeWYzbEd6VUNoZGxhbm1nT1ZuS2tWbzRUU3ZSVG9ka0duL1dF?=
- =?utf-8?B?WlZtZkE0NEl1bU5EaWFUWWp5dFRhektHMjlSK2wxVlEwUkZKdWZNY3dab2VN?=
- =?utf-8?B?ZU9Hc3N0NFp2VW1OQXFScWNuTFF0dTVrMFZRaW15RWtUM293VmNBcUZkOUh3?=
- =?utf-8?B?QWlmYUhTVG9IWU5MbzNoNS83K3d2MDlEWHlRT3RyYVhFYmRYMkNXVS9uM1Ey?=
- =?utf-8?B?N1ZsZ1AvdzJKZWhDVEwxdk1nOUt6djZRT1FqZmU5MlR0ekU1b0FkeXNSY2J6?=
- =?utf-8?B?QlFBMkx5WVk3SG1zZXpJdnVDS1N4WVdCNjJmR0RqcXYrMVFwOVVNQXdvZjdY?=
- =?utf-8?B?dkZTZjRISmgvemFYRk84MGJ2aVU5VDNiRjkvQWdVOTFYazFDRmJQSmZ3Uzht?=
- =?utf-8?B?dUZJaUVNWkJsdk5KSC9SRkhieVUvMDdTUElLdnhYbkpscmxiQmxLWkMwb1Zw?=
- =?utf-8?B?eHAyT3l2OW5FWlUxUTk1bldMb08yUjhxVVBvQnhLQjFGVWFuRG1raWl3MXYx?=
- =?utf-8?Q?MQhLx4OP5uNJH02JFsaf7gk=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVQ3d2hxSFBySXkzcmk2VktTV2diU09IVktOUzFBNGhJQ1B6eDZ3TW1tenc2?=
+ =?utf-8?B?MEVJRjMxT241QnJROXE0ZUFqWVduMC9oNWY0Wm5UYjlWc0ZmdW1JcmFwU045?=
+ =?utf-8?B?TDRkODRwUm5VdEd6R1doanIxb1FBRTZ2SncyZkJGaGlLNjJ2aU5SWU10eDBX?=
+ =?utf-8?B?MkRQbjl1NGZZemhaVjlHUndNU0ZYS3JiajRUcGNSVDZsdC9vc08wdlVhUnJK?=
+ =?utf-8?B?d05SSEEzbzJtdGllMm5yeXBQZS9idWtMK0NhZkIyd01DTUZnSGkvVmJ4MDJR?=
+ =?utf-8?B?V21LNmFEazIwcE5vWm04UDJXRHU5N2s1QmR0R0dsRFk2QmFhUDAzSEtmYW8w?=
+ =?utf-8?B?K090aWk4clpXd3A5eWtvdWlEYk1qQ3ZKR2czWTltTmVMcHZWN0N1SjBOK1A3?=
+ =?utf-8?B?c2l4cDVNT0o1cEpPRUN5NTY0SmRxSGlmcEx0YVc1a2g5TU5hbGs3dTUwVFlC?=
+ =?utf-8?B?TWJDL0k2NnFheDR5VzcwYUpHaFpHMFJTRGVtdEY4R0FMTGpULytBSEpBak5U?=
+ =?utf-8?B?akxVcGpSYzVqWXcxVFB4OFJYRVN4ZGsrd0JRYXdtWFdTMm1SemxDK3dvVHVa?=
+ =?utf-8?B?YkFvbmR5Wmg2eU1vc3paSUR3aHNtbXBmMlBlZUd3TVdSd0hpd0RSSXBVa3cw?=
+ =?utf-8?B?WUFoWUVKNkpOUGFlRHQ3em9vc2lBOFBkMUxvYjFzWFlCemRqUDZ3M2xCdzBh?=
+ =?utf-8?B?M0xPUG5Xb2ZReVNWQVFSMUkxSkJKSmd2S0luOExEWEhyODdmK0dqUTFYMW9I?=
+ =?utf-8?B?RkJnMFlXbjkwbzBqQlFWckxmOC9uZS9QdlJvbGNHdTNsNE1nQ3pnM2RhcG1L?=
+ =?utf-8?B?R0tGVjRKK21lQVRRK3UyR0oxRHdyMzBndzQrdDArY1J1NmU4RWVpNVpDYit4?=
+ =?utf-8?B?cWxIR25WbkJBaTB6VFdRUEp0ZUl6MHlOY1haZlJ6ajJUTFFhZHpGaWc2Smk5?=
+ =?utf-8?B?aGxzM1QrM2tNT2NTUTh5SFIxKy9STkIydUNlY2NMeUUzRmNXTUMvMEpLbVBI?=
+ =?utf-8?B?TjBRc1gvai9DcVR6djVBV1grRC85ZUREL2NhVCt6RzN1UlZ0STR5TVQ1eWFi?=
+ =?utf-8?B?aTc0eHZqZkZUODVPdC8yZUplYXR4L1RRL0xEMFdCWm8xWmQvVEY3RGxKYjRK?=
+ =?utf-8?B?V3J2L3VXYndoYW9LYjRENjdBVW1LUjBINDB1VFZGZTFsRmtnaXNZdXhab2Zk?=
+ =?utf-8?B?bFAzc0ozMEJqd2t4U05tOGZUUVZhZTdWZ3g2T1RZN21XR201UzVDRXJyK1lJ?=
+ =?utf-8?B?ZEUzSjZDWVBPblgwZTRhUE5TWExuL2t5eXdwZGNjdncrOXZmbkJsVzN1L3ht?=
+ =?utf-8?B?R3plSDRmNjQzRXZJak1EMUtMQ0VHWThMRCs4a2ZtMVR1WnBRV1BsY2NaK29x?=
+ =?utf-8?B?QTdZYytWdWhvZGxFY3EraWx0ck5FVFdFQXpVV1FDdk4xVEx3UFZIUVV4ZnN4?=
+ =?utf-8?B?U09XV3FXS3luS1BDbkdXM25ZVDVkNFAzSCtkNmZTNDk4cGorV0lnYVYxK3JN?=
+ =?utf-8?B?bzR3NzF3QzJ3YldMRS95TDlMZEhFM2VzeFhKdGJRVHlpTVN2Y2tsZWNVNkYr?=
+ =?utf-8?B?NnBxWG5IMEZCZ0MyR0lUb2RGOEh2QjMyZGp5dHpkQm54ZmpKd0laK2xjR3Jh?=
+ =?utf-8?B?bFdldkxpTE9rUU50bjE1d0dZeFRFTjJyYXlYR3RDWVlUNVZPditwSE5DK1Ny?=
+ =?utf-8?B?a21GcDVQY01TaVpXZU9objhhMWpxT0hBY3VaeDV4U1MyQlBoUml2ZHpBRDFG?=
+ =?utf-8?B?N1dQcldJK3pWc0NxOXFxMEd4bUtYaGdvUGRNcTFoV3pUY2VMcWRrZzEvY05i?=
+ =?utf-8?B?RFk4Ly92RDlRNGc4cTZtemJFc21RRGdGWG1KN0JwWmxwMjcyRXJXWmVVNUVk?=
+ =?utf-8?B?VE1nbDFKUW0vdDl0TlZKMG8vUnZEdEpidFNjUXl0Z0FzcWNXU0R3emo0aGla?=
+ =?utf-8?B?VCtvMGpRVzJwUGtFT0tRL3NhVXNZTHA1WmVyWWFqL3ZNSU92QVFuRktOZkZv?=
+ =?utf-8?B?SmZBdTlIS3N6QlJxWGxHR1h6SFc3WWROZVQ1TzdzM1J5bjBxMUNzT2lZS0RV?=
+ =?utf-8?B?b0liWS9SSGt2cFdDdE5zWG50V0t5SUhacUhFZGtDUS9EUVlHeUJ1QmViT2Z2?=
+ =?utf-8?B?Y2N0b2NoMDNBWDBBUjQ1eExHNHM4WElCeGNwK3V0SUFlOURUREZEdmVEZGV2?=
+ =?utf-8?Q?cLRcxbHGVPshw60T91tQIn8=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1742a6f-ff5c-40a0-73e6-08d9aba3caf5
+X-MS-Exchange-CrossTenant-Network-Message-Id: b882c835-c88e-4696-3136-08d9aba3df7d
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 21:30:22.3778 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 21:30:56.9488 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aykQTkeCcFVG1doY6cF03Bzr623OHEemdD2p53Bupjkqv3XMMNtS8gR5VBYnXBW1MKqeV4MvEaejJQ6f5XeJQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5145
+X-MS-Exchange-CrossTenant-UserPrincipalName: as9fRl2JO8uSnns6kjFNn+wfVNAeCxr0uahIER/uMfQWC13pwqmfhDg2Jmqd+QcU6TFHprTjLPhl8E6QlQPKvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,337 +137,578 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2021-11-19 2:52 p.m., Graham Sider wrote:
-> Change unsupported asic condition to only probe f2g, move device_info
-> initialization post-switch and map to heap.
+> With device_info initialization being handled in kfd_device_info_init,
+> these structs may be removed. Also add comments to help matching IP
+> versions to asic names.
 >
 > Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 183 ++++++++++--------------
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |   2 +-
->   2 files changed, 79 insertions(+), 106 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 469 +-----------------------
+>   1 file changed, 17 insertions(+), 452 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 676cb9c3166c..7ddea653b3d9 100644
+> index 7ddea653b3d9..e36487a85c93 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -574,191 +574,151 @@ static void kfd_device_info_init(struct kfd_dev *kfd,
+> @@ -53,458 +53,6 @@ extern const struct kfd2kgd_calls aldebaran_kfd2kgd;
+>   extern const struct kfd2kgd_calls gfx_v10_kfd2kgd;
+>   extern const struct kfd2kgd_calls gfx_v10_3_kfd2kgd;
 >   
->   struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
->   {
-> -	struct kfd_dev *kfd;
-> -	const struct kfd_device_info *device_info;
-> -	const struct kfd2kgd_calls *f2g;
-> +	struct kfd_dev *kfd = NULL;
-> +	struct kfd_device_info *device_info = NULL;
-> +	const struct kfd2kgd_calls *f2g = NULL;
->   	struct pci_dev *pdev = adev->pdev;
-> +	uint32_t gfx_target_version = 0;
->   
->   	switch (adev->asic_type) {
->   #ifdef KFD_SUPPORT_IOMMU_V2
->   #ifdef CONFIG_DRM_AMDGPU_CIK
->   	case CHIP_KAVERI:
-> -		if (vf)
-> -			device_info = NULL;
-> -		else
-> -			device_info = &kaveri_device_info;
-> -		f2g = &gfx_v7_kfd2kgd;
-> +		gfx_target_version = 70000;
-> +		if (!vf)
-> +			f2g = &gfx_v7_kfd2kgd;
->   		break;
->   #endif
->   	case CHIP_CARRIZO:
-> -		if (vf)
-> -			device_info = NULL;
-> -		else
-> -			device_info = &carrizo_device_info;
-> -		f2g = &gfx_v8_kfd2kgd;
-> +		gfx_target_version = 80001;
-> +		if (!vf)
-> +			f2g = &gfx_v8_kfd2kgd;
->   		break;
->   #endif
->   #ifdef CONFIG_DRM_AMDGPU_CIK
->   	case CHIP_HAWAII:
-> -		if (vf)
-> -			device_info = NULL;
-> -		else
-> -			device_info = &hawaii_device_info;
-> -		f2g = &gfx_v7_kfd2kgd;
-> +		gfx_target_version = 70001;
-> +		if (!vf)
-> +			f2g = &gfx_v7_kfd2kgd;
->   		break;
->   #endif
->   	case CHIP_TONGA:
-> -		if (vf)
-> -			device_info = NULL;
-> -		else
-> -			device_info = &tonga_device_info;
-> -		f2g = &gfx_v8_kfd2kgd;
-> +		gfx_target_version = 80002;
-> +		if (!vf)
-> +			f2g = &gfx_v8_kfd2kgd;
->   		break;
->   	case CHIP_FIJI:
-> -		if (vf)
-> -			device_info = &fiji_vf_device_info;
-> -		else
-> -			device_info = &fiji_device_info;
-> +		gfx_target_version = 80003;
->   		f2g = &gfx_v8_kfd2kgd;
->   		break;
->   	case CHIP_POLARIS10:
-> -		if (vf)
-> -			device_info = &polaris10_vf_device_info;
-> -		else
-> -			device_info = &polaris10_device_info;
-> +		gfx_target_version = 80003;
->   		f2g = &gfx_v8_kfd2kgd;
->   		break;
->   	case CHIP_POLARIS11:
-> -		if (vf)
-> -			device_info = NULL;
-> -		else
-> -			device_info = &polaris11_device_info;
-> -		f2g = &gfx_v8_kfd2kgd;
-> +		gfx_target_version = 80003;
-> +		if (!vf)
-> +			f2g = &gfx_v8_kfd2kgd;
->   		break;
->   	case CHIP_POLARIS12:
-> -		if (vf)
-> -			device_info = NULL;
-> -		else
-> -			device_info = &polaris12_device_info;
-> -		f2g = &gfx_v8_kfd2kgd;
-> +		gfx_target_version = 80003;
-> +		if (!vf)
-> +			f2g = &gfx_v8_kfd2kgd;
->   		break;
->   	case CHIP_VEGAM:
-> -		if (vf)
-> -			device_info = NULL;
-> -		else
-> -			device_info = &vegam_device_info;
-> -		f2g = &gfx_v8_kfd2kgd;
-> +		gfx_target_version = 80003;
-> +		if (!vf)
-> +			f2g = &gfx_v8_kfd2kgd;
+> -#ifdef KFD_SUPPORT_IOMMU_V2
+> -static const struct kfd_device_info kaveri_device_info = {
+> -	.gfx_target_version = 70000,
+> -	.max_pasid_bits = 16,
+> -	/* max num of queues for KV.TODO should be a dynamic value */
+> -	.max_no_of_hqd	= 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = false,
+> -	.needs_iommu_device = true,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info carrizo_device_info = {
+> -	.gfx_target_version = 80001,
+> -	.max_pasid_bits = 16,
+> -	/* max num of queues for CZ.TODO should be a dynamic value */
+> -	.max_no_of_hqd	= 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = true,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info raven_device_info = {
+> -	.gfx_target_version = 90002,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = true,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -#endif
+> -
+> -#ifdef CONFIG_DRM_AMDGPU_CIK
+> -static const struct kfd_device_info hawaii_device_info = {
+> -	.gfx_target_version = 70001,
+> -	.max_pasid_bits = 16,
+> -	/* max num of queues for KV.TODO should be a dynamic value */
+> -	.max_no_of_hqd	= 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = false,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -#endif
+> -
+> -static const struct kfd_device_info tonga_device_info = {
+> -	.gfx_target_version = 80002,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = false,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info fiji_device_info = {
+> -	.gfx_target_version = 80003,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info fiji_vf_device_info = {
+> -	.gfx_target_version = 80003,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -
+> -static const struct kfd_device_info polaris10_device_info = {
+> -	.gfx_target_version = 80003,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info polaris10_vf_device_info = {
+> -	.gfx_target_version = 80003,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info polaris11_device_info = {
+> -	.gfx_target_version = 80003,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info polaris12_device_info = {
+> -	.gfx_target_version = 80003,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vegam_device_info = {
+> -	.gfx_target_version = 80003,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 4,
+> -	.ih_ring_entry_size = 4 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_cik,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega10_device_info = {
+> -	.gfx_target_version = 90000,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega10_vf_device_info = {
+> -	.gfx_target_version = 90000,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega12_device_info = {
+> -	.gfx_target_version = 90004,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info vega20_device_info = {
+> -	.gfx_target_version = 90006,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd	= 24,
+> -	.doorbell_size	= 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info arcturus_device_info = {
+> -	.gfx_target_version = 90008,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd	= 24,
+> -	.doorbell_size	= 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info aldebaran_device_info = {
+> -	.gfx_target_version = 90010,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd	= 24,
+> -	.doorbell_size	= 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info renoir_device_info = {
+> -	.gfx_target_version = 90012,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.supports_cwsr = true,
+> -	.needs_iommu_device = false,
+> -	.needs_pci_atomics = false,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info navi10_device_info = {
+> -	.gfx_target_version = 100100,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 145,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info navi12_device_info = {
+> -	.gfx_target_version = 100101,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 145,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info navi14_device_info = {
+> -	.gfx_target_version = 100102,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 145,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info sienna_cichlid_device_info = {
+> -	.gfx_target_version = 100300,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 92,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info navy_flounder_device_info = {
+> -	.gfx_target_version = 100301,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 92,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info vangogh_device_info = {
+> -	.gfx_target_version = 100303,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 92,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info dimgrey_cavefish_device_info = {
+> -	.gfx_target_version = 100302,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 92,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info beige_goby_device_info = {
+> -	.gfx_target_version = 100304,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 92,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+> -static const struct kfd_device_info yellow_carp_device_info = {
+> -	.gfx_target_version = 100305,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.no_atomic_fw_version = 92,
+> -	.num_sdma_queues_per_engine = 2,
+> -};
+> -
+> -static const struct kfd_device_info cyan_skillfish_device_info = {
+> -	.gfx_target_version = 100103,
+> -	.max_pasid_bits = 16,
+> -	.max_no_of_hqd  = 24,
+> -	.doorbell_size  = 8,
+> -	.ih_ring_entry_size = 8 * sizeof(uint32_t),
+> -	.event_interrupt_class = &event_interrupt_class_v9,
+> -	.num_of_watch_points = 4,
+> -	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+> -	.needs_iommu_device = false,
+> -	.supports_cwsr = true,
+> -	.needs_pci_atomics = true,
+> -	.num_sdma_queues_per_engine = 8,
+> -};
+> -
+>   static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+>   				unsigned int chunk_size);
+>   static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+> @@ -632,11 +180,13 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
 >   		break;
 >   	default:
 >   		switch (adev->ip_versions[GC_HWIP][0]) {
+> +		/* Vega 10 */
 >   		case IP_VERSION(9, 0, 1):
-> -			if (vf)
-> -				device_info = &vega10_vf_device_info;
-> -			else
-> -				device_info = &vega10_device_info;
-> +			gfx_target_version = 90000;
+>   			gfx_target_version = 90000;
 >   			f2g = &gfx_v9_kfd2kgd;
 >   			break;
 >   #ifdef KFD_SUPPORT_IOMMU_V2
+> +		/* Raven */
 >   		case IP_VERSION(9, 1, 0):
 >   		case IP_VERSION(9, 2, 2):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &raven_device_info;
-> -			f2g = &gfx_v9_kfd2kgd;
-> +			gfx_target_version = 90002;
-> +			if (!vf)
-> +				f2g = &gfx_v9_kfd2kgd;
+>   			gfx_target_version = 90002;
+> @@ -644,69 +194,84 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+>   				f2g = &gfx_v9_kfd2kgd;
 >   			break;
 >   #endif
+> +		/* Vega12 */
 >   		case IP_VERSION(9, 2, 1):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &vega12_device_info;
-> -			f2g = &gfx_v9_kfd2kgd;
-> +			gfx_target_version = 90004;
-> +			if (!vf)
-> +				f2g = &gfx_v9_kfd2kgd;
+>   			gfx_target_version = 90004;
+>   			if (!vf)
+>   				f2g = &gfx_v9_kfd2kgd;
 >   			break;
+> +		/* Renoir */
 >   		case IP_VERSION(9, 3, 0):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &renoir_device_info;
-> -			f2g = &gfx_v9_kfd2kgd;
-> +			gfx_target_version = 90012;
-> +			if (!vf)
-> +				f2g = &gfx_v9_kfd2kgd;
+>   			gfx_target_version = 90012;
+>   			if (!vf)
+>   				f2g = &gfx_v9_kfd2kgd;
 >   			break;
+> +		/* Vega20 */
 >   		case IP_VERSION(9, 4, 0):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &vega20_device_info;
-> -			f2g = &gfx_v9_kfd2kgd;
-> +			gfx_target_version = 90006;
-> +			if (!vf)
-> +				f2g = &gfx_v9_kfd2kgd;
+>   			gfx_target_version = 90006;
+>   			if (!vf)
+>   				f2g = &gfx_v9_kfd2kgd;
 >   			break;
+> +		/* Arcturus */
 >   		case IP_VERSION(9, 4, 1):
-> -			device_info = &arcturus_device_info;
-> +			gfx_target_version = 90008;
+>   			gfx_target_version = 90008;
 >   			f2g = &arcturus_kfd2kgd;
 >   			break;
+> +		/* Aldebaran */
 >   		case IP_VERSION(9, 4, 2):
-> -			device_info = &aldebaran_device_info;
-> +			gfx_target_version = 90010;
+>   			gfx_target_version = 90010;
 >   			f2g = &aldebaran_kfd2kgd;
 >   			break;
+> +		/* Navi10 */
 >   		case IP_VERSION(10, 1, 10):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &navi10_device_info;
-> -			f2g = &gfx_v10_kfd2kgd;
-> +			gfx_target_version = 100100;
-> +			if (!vf)
-> +				f2g = &gfx_v10_kfd2kgd;
+>   			gfx_target_version = 100100;
+>   			if (!vf)
+>   				f2g = &gfx_v10_kfd2kgd;
 >   			break;
+> +		/* Navi12 */
 >   		case IP_VERSION(10, 1, 2):
-> -			device_info = &navi12_device_info;
-> +			gfx_target_version = 100101;
+>   			gfx_target_version = 100101;
 >   			f2g = &gfx_v10_kfd2kgd;
 >   			break;
+> +		/* Navi14 */
 >   		case IP_VERSION(10, 1, 1):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &navi14_device_info;
-> -			f2g = &gfx_v10_kfd2kgd;
-> +			gfx_target_version = 100102;
-> +			if (!vf)
-> +				f2g = &gfx_v10_kfd2kgd;
+>   			gfx_target_version = 100102;
+>   			if (!vf)
+>   				f2g = &gfx_v10_kfd2kgd;
 >   			break;
+> +		/* Cyan Skillfish */
 >   		case IP_VERSION(10, 1, 3):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &cyan_skillfish_device_info;
-> -			f2g = &gfx_v10_kfd2kgd;
-> +			gfx_target_version = 100103;
-> +			if (!vf)
-> +				f2g = &gfx_v10_kfd2kgd;
+>   			gfx_target_version = 100103;
+>   			if (!vf)
+>   				f2g = &gfx_v10_kfd2kgd;
 >   			break;
+> +		/* Sienna Cichlid */
 >   		case IP_VERSION(10, 3, 0):
-> -			device_info = &sienna_cichlid_device_info;
-> +			gfx_target_version = 100300;
+>   			gfx_target_version = 100300;
 >   			f2g = &gfx_v10_3_kfd2kgd;
 >   			break;
+> +		/* Navy Flounder */
 >   		case IP_VERSION(10, 3, 2):
-> -			device_info = &navy_flounder_device_info;
-> +			gfx_target_version = 100301;
+>   			gfx_target_version = 100301;
 >   			f2g = &gfx_v10_3_kfd2kgd;
 >   			break;
+> +		/* Van Gogh */
 >   		case IP_VERSION(10, 3, 1):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &vangogh_device_info;
-> -			f2g = &gfx_v10_3_kfd2kgd;
-> +			gfx_target_version = 100303;
-> +			if (!vf)
-> +				f2g = &gfx_v10_3_kfd2kgd;
+>   			gfx_target_version = 100303;
+>   			if (!vf)
+>   				f2g = &gfx_v10_3_kfd2kgd;
 >   			break;
+> +		/* Dimgrey Cavefish */
 >   		case IP_VERSION(10, 3, 4):
-> -			device_info = &dimgrey_cavefish_device_info;
-> +			gfx_target_version = 100302;
+>   			gfx_target_version = 100302;
 >   			f2g = &gfx_v10_3_kfd2kgd;
 >   			break;
+> +		/* Beige Goby */
 >   		case IP_VERSION(10, 3, 5):
-> -			device_info = &beige_goby_device_info;
-> +			gfx_target_version = 100304;
+>   			gfx_target_version = 100304;
 >   			f2g = &gfx_v10_3_kfd2kgd;
 >   			break;
+> +		/* Yellow Carp */
 >   		case IP_VERSION(10, 3, 3):
-> -			if (vf)
-> -				device_info = NULL;
-> -			else
-> -				device_info = &yellow_carp_device_info;
-> -			f2g = &gfx_v10_3_kfd2kgd;
-> +			gfx_target_version = 100305;
-> +			if (!vf)
-> +				f2g = &gfx_v10_3_kfd2kgd;
->   			break;
->   		default:
-> -			return NULL;
-> +			break;
->   		}
->   		break;
->   	}
->   
-> -	if (!device_info || !f2g) {
-> +	if (!f2g) {
->   		if (adev->ip_versions[GC_HWIP][0])
->   			dev_err(kfd_device, "GC IP %06x %s not supported in kfd\n",
->   				adev->ip_versions[GC_HWIP][0], vf ? "VF" : "");
-> @@ -773,7 +733,14 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
->   		return NULL;
->   
->   	kfd->adev = adev;
-> +
-> +	device_info = kzalloc(sizeof(*device_info), GFP_KERNEL);
-
-Just thinking out loud, no need to change this: Maybe device_info 
-doesn't need to be dynamically allocated. It could just be a member of 
-struct kfd_dev. Except that it would result in a bunch of cosmetic 
-changes s/device_info->/device_info./g.
-
-
-> +	if (!device_info)
-> +		return NULL;
-> +
-> +	kfd_device_info_init(kfd, device_info, vf, gfx_target_version);
->   	kfd->device_info = device_info;
-> +
->   	kfd->pdev = pdev;
->   	kfd->init_complete = false;
->   	kfd->kfd2kgd = f2g;
-> @@ -1039,7 +1006,13 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
->   			amdgpu_amdkfd_free_gws(kfd->adev, kfd->gws);
->   	}
->   
-> -	kfree(kfd);
-> +	if (kfd->device_info)
-> +		kfree(kfd->device_info);
-
-NULL-checks are unnecessary before kfree.
-
-
-> +	kfd->device_info = NULL;
-
-This is unnecessary because you're about to free kfd anyway.
-
-
-> +
-> +	if (kfd)
-> +		kfree(kfd);
-
-Same as above.
-
-Regards,
-   Felix
-
-
-> +	kfd = NULL;
->   }
->   
->   int kgd2kfd_pre_reset(struct kfd_dev *kfd)
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 3e11febee7c6..1f11e8271f2e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -232,7 +232,7 @@ struct kfd_vmid_info {
->   struct kfd_dev {
->   	struct amdgpu_device *adev;
->   
-> -	const struct kfd_device_info *device_info;
-> +	struct kfd_device_info *device_info;
->   	struct pci_dev *pdev;
->   	struct drm_device *ddev;
->   
+>   			gfx_target_version = 100305;
+>   			if (!vf)
