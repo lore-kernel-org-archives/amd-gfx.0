@@ -4,31 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAADCC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 10:25:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 572CEC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 10:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 108C56E8ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E80E6E8EE;
 	Mon, 22 Nov 2021 10:25:51 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp01.smtpout.orange.fr
- [80.12.242.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E468D6E03E
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Nov 2021 17:41:35 +0000 (UTC)
-Received: from pop-os.home ([86.243.171.122]) by smtp.orange.fr with ESMTPA
- id oqqJmhaLWdmYboqqKmGBih; Sun, 21 Nov 2021 18:41:33 +0100
-X-ME-Helo: pop-os.home
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Sun, 21 Nov 2021 18:41:33 +0100
-X-ME-IP: 86.243.171.122
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch
-Subject: [PATCH 1/2] drm/amdkfd: Use bitmap_zalloc() when applicable
-Date: Sun, 21 Nov 2021 18:41:30 +0100
-Message-Id: <2343a4e6547a8436419308744ba8c433088922a5.1637516393.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.30.2
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A306E40F;
+ Fri, 19 Nov 2021 22:54:32 +0000 (UTC)
+Received: from rorschach.local.home (cpe-66-24-58-225.stny.res.rr.com
+ [66.24.58.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1318F61AE2;
+ Fri, 19 Nov 2021 22:54:29 +0000 (UTC)
+Date: Fri, 19 Nov 2021 17:54:28 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: jim.cromie@gmail.com
+Subject: Re: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with
+ it - RFC
+Message-ID: <20211119175428.2ab95873@rorschach.local.home>
+In-Reply-To: <CAJfuBxyvDtALAHM53RdnWT4ke6Cjrc3OWTAqNKe_n-o_LhtpYg@mail.gmail.com>
+References: <20211111220206.121610-1-jim.cromie@gmail.com>
+ <20211111220206.121610-9-jim.cromie@gmail.com>
+ <20211112114953.GA1381@axis.com>
+ <f3914fa9-8b22-d54e-3f77-d998e74094b9@akamai.com>
+ <20211116104631.195cbd0b@eldfell>
+ <f87b7076-47e6-89b1-aaf9-b67aa6713e01@akamai.com>
+ <20211118172401.0b4d722e@eldfell>
+ <41ea83b2-a707-cb6f-521e-070bb12502de@akamai.com>
+ <CAJfuBxyvDtALAHM53RdnWT4ke6Cjrc3OWTAqNKe_n-o_LhtpYg@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 22 Nov 2021 10:25:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -41,49 +50,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: quic_saipraka@quicinc.com, Jason Baron <jbaron@akamai.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Will Deacon <will@kernel.org>,
+ maz@kernel.org, Vincent Whitchurch <vincent.whitchurch@axis.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Ingo Molnar <mingo@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ intel-gvt-dev@lists.freedesktop.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, Sean Paul <sean@poorly.run>,
+ Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
+ quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-'doorbell_bitmap' is a bitmap. So use 'bitmap_zalloc()' to simplify code,
-improve the semantic and avoid some open-coded arithmetic in allocator
-arguments.
+On Fri, 19 Nov 2021 15:46:31 -0700
+jim.cromie@gmail.com wrote:
 
-Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
-consistency.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+> > So I could see us supporting subsystem specific trace buffer output
+> > via dynamic debug here. We could add new dev_debug() variants that
+> > allow say a trace buffer to be supplied. So in that way subsystems
+> > could 'opt-out' of having their data put into the global trace buffer.
+> > And perhaps some subsystems we would want to allow output to both
+> > buffers? The subsystem specific one and the global one?
+> >  
+> 
+>  * trace_array_printk - Print a message to a specific instance
+>  * @tr: The instance trace_array descriptor
+>  * @ip: The instruction pointer that this is called from.
+>  * @fmt: The format to print (printf format)
+>  *
+> 
+> what happens when @tr == NULL ?
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index f29b3932e3dc..172ee8763523 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1011,7 +1011,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 			free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
- 				get_order(KFD_CWSR_TBA_TMA_SIZE));
- 
--		kfree(pdd->qpd.doorbell_bitmap);
-+		bitmap_free(pdd->qpd.doorbell_bitmap);
- 		idr_destroy(&pdd->alloc_idr);
- 
- 		kfd_free_process_doorbells(pdd->dev, pdd->doorbell_index);
-@@ -1434,9 +1434,8 @@ static int init_doorbell_bitmap(struct qcm_process_device *qpd,
- 	if (!KFD_IS_SOC15(dev->device_info->asic_family))
- 		return 0;
- 
--	qpd->doorbell_bitmap =
--		kzalloc(DIV_ROUND_UP(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
--				     BITS_PER_BYTE), GFP_KERNEL);
-+	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS
-+					     GFP_KERNEL);
- 	if (!qpd->doorbell_bitmap)
- 		return -ENOMEM;
- 
--- 
-2.30.2
+It does nothing, but perhaps crash the kernel.
 
+> It could allow up-flow of events to the global instance
+
+Absolutely not!
+
+Then it's just a reimplementation of trace_printk(). Which I refuse to
+have.
+
+Nothing should just dump to the main instance. Once we allow that, then
+everyone will be dumping there and you will no longer be able to trace
+anything because it will be filled with noise.
+
+What is allowed is an event that acts like a trace_printk() but is an
+event, which you can turn off (have default off), and even pick which
+instance to go to.
+
+> 
+> > Thanks,
+> >
+> > -Jason
+> >
+> >  
+> 
+> So I wonder, is there any conceptual utility to this ?
+> 
+> echo 1 > instances/foo/filter_up  # enable event upflow (or query-time merging?)
+> 
+> Maybe enabling this causes other files (the ones missing from
+> instances/foo) to magically appear
+> so all those filtering capacities also appear.
+
+
+I've been busy doing other things so I haven't been keeping up with
+this thread (which I need to go back and read). Perhaps it was already
+stated, but I don't know why you want that.
+
+trace-cmd can read several instances (including the top level one) and
+interleave them nicely, if that is what you are looking for. So can
+KernelShark.
+
+-- Steve
