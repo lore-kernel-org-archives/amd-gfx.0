@@ -4,123 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12CDCC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 21:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1E6BC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 21:20:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 618C46E077;
-	Fri, 19 Nov 2021 21:11:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05E306E077
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 21:11:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05E276E029;
+	Fri, 19 Nov 2021 21:20:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 032546E029
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 21:20:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fhgX+a6dBjFdoAcLfBAkLscro2hgmanBMtFU+F1UmNOUVptiCjWLhVWwwZEFVKn990BV8q6mb8eJIIZdmUoFGRXd3DGm48P1HDUFIAXmK3/7e2RBrYk7nbTVtIujK1aEz9ZZKtE5J02qrY8sKNLMxN/Vh1LZ89v6wGgKbToINZ5X0hz2FBGKdTrFIn1pl3AIwrwXxAjAMFzzczkY2dJn+qQNyRq4ltMcfm0rCw7RomQVAetPCr6fcmeaoYryY/gZmGj+RHvgebUSPiQdXDcR8ETjLJ4JJxHRWytkwRkohZTekg9EuFabGCrps748Zn6XKMqHNEX52BS/GFp2w+p6zw==
+ b=lzsK+BujcRZ+Tjeaq+Ct7LM6/Qd9cpMJR40J8Js3jbpA9ObcEpCMtgk2heTJSin7hB5NNokz0rCGJLhEl4fOlct3gp0MLbbFrpOqi3FXqRhCDEQ0UoNY9HVx99NuCnqO3aUTGjgOl6F4BMt9xzGzI+ki3T34GKJqtFvm5VfSnIFkNyzApxcGJ+n/s8iVgtfdOL8Js6uVp3JYhabEA9Kcbe0u5ddkbyhn/WjbYICY3t4kmJRssR8iUrXM+01kRI3SzcK470mYdkXYPQpmx32rTEQaGcT+Nh8l/bkMdjfxIXuvVX5ZNna88dj0C1HPMQh19IbIfvBxAnHxqiw4xneQlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7SIgkZrElh4KQ9MKouJ750jFutGhq00XK3mqctfwe0w=;
- b=iNHNv4Il1wd4fKBvvqzU4W4O9qPFzQ1yZwKPkBxIExjJIzGKByGrj/UySLr1lWVd/DXWSGQCcbrwGHGHcuhmuodITb4lZi3y5FYamrsBM7dBW6UPLyq9do9b1c6p4Ux2B3rxknrkVnrgHE1b0Hc7cYuZ659CCsOTuBIsxUhvovHEdIIZnkBGuVwypg+C42bPIgQWxFk4yYEIrHnDZyCJcPi+c/FBfOaGM5DQnMhoQAWEzWP06HViOvqhHYSbnntoB3R4KYVEuaIzWlbjIj47d+rqW76Q/H1FFLnV8c/NnNo6B1YoAYb/zKcgMPL8ypm1qyvU7BLDQdeEu2Aysixazw==
+ bh=thl3sr/nWM0v8H7hdi35XKVxyX4k+d/WyYo35QhkAP8=;
+ b=inCON8csYq0kz7TKDVYPkDL1aRiWcHvigab3eO19MFvQG3/XON02Vl9HqP/yXe+pxaNE0BNZKPhbn6TzEDUDRR+e/1JqHouR5p1CX7JdxD94SITz5AiOFu4ZgzTQwCEn2OojoW00yw2ptDfCHn/+C9LyToD+p5eRyynxaCXN2FZH5nQwZsIOZVGYv3/PxyhLyV0vvbEJq+syMfnN4Dnep1hZGXSv3QLaU3isUs7jKNwoLGsGUw0ye3VY2ICdoSdXCAfVBZLXTNkHSlmzjNqKuOGlgUzni29Q/2nMvo8mQAygxZIe/62deAm/N0ZuM62fS6OIvKqdmEBAZEV11/5MZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7SIgkZrElh4KQ9MKouJ750jFutGhq00XK3mqctfwe0w=;
- b=ImCM+n2ykKLbwwHuZgSAg4NvthPMPv4blF4SVJsnCq69SgRpABuJ+W1XbmPhxaE+fiFeKQEKBzTZtZ0NQlZt35oIf4nUox5nqmzpG4p8YQTuANjsx9FuKl7gfPyRwFNgdXuhvX+UqQgk6QeSCPocNNwOnOJtc//AyyYO0N5zZto=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+ bh=thl3sr/nWM0v8H7hdi35XKVxyX4k+d/WyYo35QhkAP8=;
+ b=0jOBJ7J+MGrAShQOpk0AdnS3+EA1X2UPT3NKouGIpRWmY08Tt0Kz0oJ/0futo16dGvq+dY0UwruRLkehlER/19iU2Hm0NJRTZTHtlmCMCKR5vJj2mYXNLUGP9nhNweXt0sRu55Qj6UvJqM8s3lMnD1noSFLAFWpTDogmrQTUIfs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5036.namprd12.prod.outlook.com (2603:10b6:408:135::8)
+ by BN9PR12MB5381.namprd12.prod.outlook.com (2603:10b6:408:102::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Fri, 19 Nov
- 2021 21:11:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Fri, 19 Nov
+ 2021 21:19:58 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.022; Fri, 19 Nov 2021
- 21:11:21 +0000
-Subject: Re: [PATCH v2 1/4] drm/amdkfd: replace asic_name with amdgpu_asic_name
+ 21:19:58 +0000
+Subject: Re: [PATCH v2 2/4] drm/amdkfd: add kfd_device_info_init function
 To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20211119195258.2173551-1-Graham.Sider@amd.com>
+ <20211119195258.2173551-2-Graham.Sider@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-Message-ID: <4ce290e0-ffa1-f6c3-5d3a-be15df43a32f@amd.com>
-Date: Fri, 19 Nov 2021 16:11:19 -0500
+Message-ID: <7a682c56-817b-2658-b370-19875e3fe06e@amd.com>
+Date: Fri, 19 Nov 2021 16:19:57 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <20211119195258.2173551-1-Graham.Sider@amd.com>
+In-Reply-To: <20211119195258.2173551-2-Graham.Sider@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: MN2PR08CA0015.namprd08.prod.outlook.com
- (2603:10b6:208:239::20) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1PR13CA0098.namprd13.prod.outlook.com
+ (2603:10b6:208:2b9::13) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 Received: from [172.27.226.80] (165.204.55.251) by
- MN2PR08CA0015.namprd08.prod.outlook.com (2603:10b6:208:239::20) with
+ BL1PR13CA0098.namprd13.prod.outlook.com (2603:10b6:208:2b9::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19 via Frontend
- Transport; Fri, 19 Nov 2021 21:11:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.12 via Frontend
+ Transport; Fri, 19 Nov 2021 21:19:58 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0f658f51-1cf9-4db4-cbef-08d9aba12296
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5036:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5036E3F81C43B99FD86DC9A8929C9@BN9PR12MB5036.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: a717afd4-f7d7-406d-ef0b-08d9aba25704
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5381:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB53815C4550E8640388B4B0CA929C9@BN9PR12MB5381.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0XdDCZ0RHVBLmgnV/DI0XU6Cz4DXp00AHE6S1QTs/XIV6HDpJcTi7rqf3WUaAWcqhCL1zZNP9DiBKcYKVWg8XnG1tsIT8C93t6V1E4hYistoGbYtg8pkEwvP5wIQ85eASdN1gDYfPU2Y8sMArA7km8ZGm4tmisucobvSsGFAhvriVnJRNmjWfzCCN+LaJMCXeqt2uFmHeincTvu/jqU/SNjtCOnxG07nlj0YEa93qxuJvqxn2LFB4kHHgK9xBUGlGQAZLaDs6xJycQWjY9Q4xCa2PrUiLXDXtmMzEncLZfcxz2LFf69XHiLMn5yJpbCsh5HpdgmAOS6CO5ttAI6IGEbqA8iain9dvYj/bxsWi6lfsexMlTWSYO2s7EcWH/zD+tH/+qF/bTFOVIm7a04KjxbY/H1pdmGinUAob46esgkJaWeR2tymfFCzmrYuXCl8/HzlHZ2ArbTxgcglH8jAtCdS+N0XcUaF75YfjDRfie5UFS7YMNXK6y8y5F3IeFOuWdkladdivSLB84QhvX+RUcUCol809QxHPfl3523g7s8lDQeYlwhM/+B3Vk4ROvn7VBo4Jf5e6cIKw18dogkVuP3XSshnM4GTYGIVIBgYdEo6kFIKAtRlZRHj01D28KKrCWVQ8E98uMyzUhqs3uLlowcBaRTIXTcaJOPraZ+uo0TsoVGIRjFxH3W1EnMk/dhaFVxmTB3KgWEn2ghnF1X6rgsD6IGlO3kCoFY/kUvmu+g=
+X-Microsoft-Antispam-Message-Info: AbLCoNF9IZgVMCbBV8dfsLVQHiuHDcHuWRN27+TOuzZFC5VM5dpadhw3iQNOxDIl6uldTqAU3V0bWAj2QP0JVf/1HFFIxPi7AcmK1ZrGyimczu8sA27RYqk11keXHb26+XXMH86M3hjH5dH4xdvSLbMHUlAoCNhOq8Owh1KW6F1UbzYnRFlhbLxGixGcOtlAurlPC2Lu7TXDV0uQqM11LKhGxdXVVPaCLk51mgZzeATdCE/BMJ3b+SQoaCB/s+L6886CNuiOcyG5ny5xdYTEUoe1czXMKO2hCLVnUEvZevbHhlraS8L7EZ5donh3McAC0/FKoEr2YkSpwcVFq22BkM1gJfhY61aWIRWQD0S7uJw73KTIo0LCpYk7LgEBuEBaz2eTKuQMLXNCqbD61PkMNLMhMnmGsOKwtabNfuiOQ0Wdabg3iyR3vlYxwGlu+7Mn0UHnaUrNgKSLs82lEpnvMowqhParUW9B7Hk9CmqJUGYYniXe3u71+qSO/dho960P5QxAocZrAr27rcmt4G+LM7Xa16pC2UM+kgijFyI2gLn2NqalayEhUKtd37UkpqoOVMj19Nc5oEGcNbxpx2wt8q//XxOqujZUYiEiaFy8zJxEKA3+QuPCEEDV6DYa7AJE1kWdbPs3S5F4a5tBO6vttzsesrcyod3QaRyDuQjVXxeYd+OW6TyvYemNAeX0x1nwfMcDy+Duwi2cUnRPMoKg1EkawNrIyQEOfDBHwmxnHyGm+pbg8L3mfcDngNU0cIIu
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8676002)(86362001)(31696002)(36756003)(8936002)(36916002)(508600001)(38100700002)(316002)(31686004)(5660300002)(44832011)(66556008)(186003)(6486002)(53546011)(4001150100001)(956004)(66946007)(2906002)(4326008)(83380400001)(26005)(2616005)(16576012)(66476007)(45980500001)(43740500002);
+ SFS:(4636009)(366004)(31696002)(26005)(86362001)(8676002)(36916002)(53546011)(44832011)(83380400001)(36756003)(4001150100001)(2616005)(2906002)(5660300002)(956004)(66946007)(66476007)(66556008)(16576012)(316002)(186003)(31686004)(508600001)(4326008)(6486002)(38100700002)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXU5RnJWbHhGb3dLWnBHaGMybTdUV2p3S0VlOG8ySXpRVk54UW5ZaldJV1hH?=
- =?utf-8?B?RGJqeTZ1V25qdTZIRHZUTEdTMVd0QmhGR3ZuL2ZwQ3lkZ25rVm14YTh3d0NM?=
- =?utf-8?B?Z3Y1aTdZV3VCMmRGTFBBY2UvT1QvU2RLbHhIWjNVYXlMT2FHeHNaZW5XdEFQ?=
- =?utf-8?B?SHFIeUVjS0tKVW9xeVpVOFVmdHF0ZHVaNC94V1VTN2VVWXAxMkx2eFRMU3hz?=
- =?utf-8?B?TWZnTDNncG5vb01pS1JHZ0kxTmpwbUV1MUJjcWR0ZW5nSmlja09KYTdSL1R5?=
- =?utf-8?B?eGw3UTBQVlB4OW1RY0NKNVFxaDJMWFVPbG4rSVVuemoxc0NRUDRuMUhFUk5Q?=
- =?utf-8?B?ZnJLd0MwU3A0OGF5Rk1Eb29WL29uNC9Zc3k3cCtpY3NoM3BDcVQrMGJBMys0?=
- =?utf-8?B?VURDa1RXZzluRGpjVSs0TVY2YmRwWXZoOHplMldncklWRnl2VjNoRkZTbUVu?=
- =?utf-8?B?YWhhVWVRdERHb0FzQWtzOTZIK3B1cFViR0Z1WitSRzQxcVF3TUNQRklhMXNG?=
- =?utf-8?B?dFhWWkkvWktUcFJDSzJ5bmVqb3ZFNXREaTZqNkVrVVVIWEphMktrRDFtL09h?=
- =?utf-8?B?TWFIZktGdHo4T1dianBxNFFBZWNUSThRWG9tR0JsZkprTnpSc2U1UlJGQnA3?=
- =?utf-8?B?VlRBMG4rVGs5MGl2b2dnTC9qblp1UFRZeXpHcXpXRkxZTDdvMmJkOHh2TDdu?=
- =?utf-8?B?MXJNaXFmTWhQZ3k4QS9LSlp3WXdMcTBVeFQvRGJvYVg4eXh2K0hlWGlidjM1?=
- =?utf-8?B?Znk3V3diSHpTeXZsamlCVnJtS29YMDUxa2JoL0NyZ01kTnJkaS9FQVpjTUJL?=
- =?utf-8?B?eVZyM0JPZUxuVG9tZTJ6SjJJWEhHSkJuazFwMmFVWGFvbTE3ak9VTXB3UU1n?=
- =?utf-8?B?SktFcXAwallFRmZvb0JZOFVXSVNrVnB4ekE2eVkvTGZvdUpDMjRqSWhwR2NU?=
- =?utf-8?B?bnJUY294QTh6azBRRDRtMFdaTmlqSVJXS0ttL3YvQXR0UStsNENCSFprWUQw?=
- =?utf-8?B?VlN4eGdNMjZUSFY2UkdOMm5tWjluK1dhREYrNVFBSlMzMEs0aERzUUc3OGU5?=
- =?utf-8?B?M3JiMTZWVzVRN0MrTERra2wwZGdwelQ2NUI1bjgzVHB4R1pjWUdJRDBpVjhS?=
- =?utf-8?B?cjBCQXRiSHllbXYyYTNSSXhzVHBkVDdyUGtnSGpjRjZjQUVtUDZmaUtoanM5?=
- =?utf-8?B?bzM0cFp3aUM5d2lIVCtQUktYSlFvYnNxOHRyUVNKTWtIRTcxcnhUMTRTZmg5?=
- =?utf-8?B?U3hDRy9NUC93Tkhsd3NBcUxaOGVKYm1KUk5QUEFFdXdmZ0d5Nk5lMmpPMHdJ?=
- =?utf-8?B?OUxkekVqSC92em1NM3YyeVFMN0p5dHRIUjJtSWMxSjd2VjU2OVgrYVJBcTRu?=
- =?utf-8?B?a2hJeER3YWxsejNKdndsZzFjckZRbWgwRTFKVzgxeS9ZS0Q1eC9TczE2M0gw?=
- =?utf-8?B?V2hxandUcEJFZUVBVjRib05vTXMwU3k0VFBWM1FHUWJ4cVFFRzNGWElJdXho?=
- =?utf-8?B?MXlPS3NvTU1ENmlUa3ZHQzBuRFJUV05hVHFvcDNrTi9WaTRhTFNFQ2FzeTIx?=
- =?utf-8?B?d29mT1VNTVVkUW5PKzZjdHU3VXlneGwzZUNNK1ZpclV0UUVveWRON3Q2Q0tJ?=
- =?utf-8?B?N2ppWjViNkFCbUF4V243ZGIwNmdaeGhNRjFzVTNYeDJMdFBMR1dyY3BMZ3lk?=
- =?utf-8?B?N3ZWY2RuYU5oK0xvbDhUUUhMRVgzakhhMGZkR09vRUpjNTdJQmVvS0N0Rm9G?=
- =?utf-8?B?T0dTaDl4eEJyc1d5ZSsvU2l0Y3dJZ29tbnVlb2x3UGV0aDZ4WnJsbmhLbHlY?=
- =?utf-8?B?Z01naGdKMmg1bnBUeE5VeC9YZVNwVlBiRWFqMndOS1JlQXdDRkpDQ0J6anpW?=
- =?utf-8?B?RTJWOStDSXJMWTFuNDRGWmpHN2tDeTU5RDNnZklnUVRsMHNkc0pIazZnK1pr?=
- =?utf-8?B?TjRCSWY4V0NPSGNISllBaU5iMFBOaUFZSG5hVlhkTkpmTUM0Wm1OR3F0ek9X?=
- =?utf-8?B?M1hGcE9wbS84U01hWWF3UU4zSHptMzUyWWdJU05CN0dCSTFacVdNekJnN0Zk?=
- =?utf-8?B?ZzhIbm5iUnczU3JhUloybU53b0RzSlhDRFNqYzhvZVRjRGFqMUlsSmJQV21X?=
- =?utf-8?B?MXJnVVltRXBWT0xIU3A3NjRwajQwSTFNa3M3a3p4a2tFSFFCT1pXa3hXek00?=
- =?utf-8?Q?2E4Fisi5w0IJvoWMseRM6fI=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGRXbjdjLzhXQUZpcnNmd3BxQkV1d2NkWFBpckgvZVBPWXY0OXZ6OHlFZHRz?=
+ =?utf-8?B?OHUzbHYwemlGWFA3K2tyUlErNk1BbmdHTTBKOS9pYkQvUkxQdUlyd3RvbHRp?=
+ =?utf-8?B?TC9CUTBRdFNDKzZsV1VQVkN2dHJBMXppZFk5MUJlY2RyK0lxL3JzblRWS3oz?=
+ =?utf-8?B?eXZNQmlFYWpIcUErL08zNlorYUoxbUJGUmw5eEhEWGFVUjVad2pmVDNha0JT?=
+ =?utf-8?B?aHJHSVRCTTNpczdMNy8ya29NQm5GTE9WcmZTS2pRbk5uT0pyS1JqbE1CZENE?=
+ =?utf-8?B?MWZaYzJXclpta2M4Mlhsd1RaTU1iMDdiOGlxaXEyOGY0Q0haT1pleEhNa1o0?=
+ =?utf-8?B?MnpoSmE4VmpjSFZIT1JHWnQwK0ZMeXNvLzBPbDBycFFJVXhrYjAva1lrVHpZ?=
+ =?utf-8?B?blp1TWVERkhleDZ5Sy9YeGtBamNZOUx3eGF2UUxEbUFWbjNYV0hkekVmTUJE?=
+ =?utf-8?B?SkpHOGpvUjFOSUZrN0FFZE5JV3Z2Njc4RlNPNVd5dHV6LzZkQlg4dWs3bk4w?=
+ =?utf-8?B?aWhKdUNlTHE2TFkyMXd4ZzdNdkgzNXYxNWh4amZQZkpkZFN5Tk81dDV6VzZs?=
+ =?utf-8?B?dzBzZVJvQWtyR2JwaGgwejY1UjB4dkgvbER3dHNyUkYyQlpnK0h4ZUh4MnF3?=
+ =?utf-8?B?ZXM5cGd3MzNBdmpHQTZsZ3lZMUlDVzBTczFGZ2pjQnVjbEtWZjJnQXZpd3V5?=
+ =?utf-8?B?Ris1R3JmZDYyWWp6c2k4a28xUEIxRmxkRWZhWTZYYzB4eG00WXhwM01aaEc3?=
+ =?utf-8?B?dWxaZkV3bEI4aFdiVmdOTFl4U3h0NnJXMHcza1ZrZ3F0NXZEVi9KcDJHeVhL?=
+ =?utf-8?B?M0VPRXo0amJyZllTOSt0T2N6endrRHJMdnhNUlJZSXMyYXJGWHc3dDlRK3Rz?=
+ =?utf-8?B?UFFHSjhIdDI5aUtUREI4OHRBVnhUeXpSVTdvMWVWZ29WdEJYcDU3VTd4clZa?=
+ =?utf-8?B?OStMK1hoalhqdWlkVlFkbHo3bC8rMnVqQ2R3WmRxL2xzMll0OXFqZnNXUWVG?=
+ =?utf-8?B?V2c4OUtOdHpiQWNWUnRTZHJRYWN2QzBSekh2NWc0ejY0RWJtUS9aWU85Y3Iv?=
+ =?utf-8?B?VXd0dzdEKzgyUGFaRUprem5yaXhWMHFVUktTcXVIL3hmWmh5aVN4ZHRIeHJR?=
+ =?utf-8?B?VEZYQ05FdXkrenRZb0VxT2I5Z2daaVVwMEZDK3JiTXhOVVJOODZWTFlpKy9x?=
+ =?utf-8?B?c1RuREdHQi9xZ1RSd0dyMGkxUkhELzYzUHFjTit4V1pVQ3k4Qzg1ZXZqWGVz?=
+ =?utf-8?B?RUhhTFdiNWVjNjVCRElUTis0ZzYzZUJmd3I5S2ljS2VJR3Ixc2JnaVZsamFK?=
+ =?utf-8?B?cHpSNllsSXhmbGVNamd2MU9WT1R4UzFQZUNtVlVEUUhrZWo1c2lFZ3hMZWlR?=
+ =?utf-8?B?T3RjYW9JTVhxWXNPMXZob3JjVlFiYUNIQXdhektYSEdhT3FCNUwrREFNTFlX?=
+ =?utf-8?B?cXYrNkV2dExGeVowbitaUnk0U3J2MVlWSTZGeENXbHM0V1RFZUd1YksrejBt?=
+ =?utf-8?B?a3lFNTErL1FQQk1zMmlQb0Y0WDdMcEZUSGJ3T3pkYU9jSGw5SE9LZS9MbWpz?=
+ =?utf-8?B?cUNwMFRQNEkrT05vM1hZNEU0TDFzYWpTczhZdzdXN1BtcE95eXBaeGZJVzZj?=
+ =?utf-8?B?aER1V2VNcFkzSjluRWlVMUUrNE1GOHU1dmNIaUxNdmZKK09YVDljaDFpbHpV?=
+ =?utf-8?B?QjNZK1krZTRuT0tVRGlLT3UxOEhsVDFnM2t4YnkyeFFhcmt0WlBzWFF1TlBi?=
+ =?utf-8?B?bFljRHp4SVhPT0w3eTBtNjB1Skt6WEdrT3RBb0duSjhzNkMxSmRPUnNyK0xW?=
+ =?utf-8?B?b1dKaFJUQ1NMYTJ0YmcvaDJiQlBwYmExTnQ0cytDMStxL2V5VXFUQXR0YkZw?=
+ =?utf-8?B?eUIzdUtkdWZSM2wyKzdPdk1YYUJpM2pzYW1RZENGMy9wS25XM1JJTmI5MXQ3?=
+ =?utf-8?B?ZlBIeGdkWnRFZjBIZUZpOFZpYytmZ1hZdmZtZHdoMVdBWFpSaFNlRisrNFVu?=
+ =?utf-8?B?cW9Cb3BjV0ErVjQrdGNQVDdZS09xQWN5a1gwd0pjdHAxKytmOFN0Q3BDRjNL?=
+ =?utf-8?B?UXRkcHR1N2d6K2RWN2FEZ3JUdnl4b3NmTGliV1Vic2JIcVpJTm1yQnIrNlkx?=
+ =?utf-8?B?SmdUVTFXYWgyUEhlZk13K3RxY0xtTXYzZWZNcnVCOVZQSkEwblVRYlRzYWda?=
+ =?utf-8?Q?7+sjWDgde0omasZRd00q5Xw=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f658f51-1cf9-4db4-cbef-08d9aba12296
+X-MS-Exchange-CrossTenant-Network-Message-Id: a717afd4-f7d7-406d-ef0b-08d9aba25704
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 21:11:20.9297 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 21:19:58.5904 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cntKePZQXVn3NunHYbav7xe2GyX8h3XRQSju/2isOh68QbzYQHiXyN5oQ+pCLcIVCfVxpM8it26t7s0ZUk1EEQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5036
+X-MS-Exchange-CrossTenant-UserPrincipalName: BNzBb9F+FYaG8JoChdQraudr+PV9XETC/VWLI0zz/cWnAXXAgPHjBvJWy1hmuXMN6O3v82CVSA2pFJabDww4hQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5381
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,285 +138,110 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2021-11-19 2:52 p.m., Graham Sider wrote:
-> device_info->asic_name and amdgpu_asic_name[adev->asic_type] both
-> provide asic name strings, with the only difference being casing.
+> Initializes device_info structs given either asic_type (enum) if GFX
+> version is less than GFX9, or GC IP version if greater. Also takes in vf
+> and the target compiler gfx version.
+>
+> Inclusion/exclusion to certain conditions for certain GC IP versions may
+> be necessary on npi bringup on a case-by-case basis, but for the most
+> part should be minimal (e.g. adding one || asic_version == IP_VERSION(X ,X, X) case).
+>
+> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 61 +++++++++++++++++++++++++
+>   1 file changed, 61 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index e11fc4e20c32..676cb9c3166c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -511,6 +511,67 @@ static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+>   
+>   static int kfd_resume(struct kfd_dev *kfd);
+>   
+> +static void kfd_device_info_init(struct kfd_dev *kfd,
+> +				 struct kfd_device_info *device_info,
+> +				 bool vf, uint32_t gfx_target_version)
 
-That could still break compatibility since this name gets exposed to 
-user mode. You could convert the name in dev->node_props to lower case 
-to fix that.
+This will give you a compile warning about an unused static function. 
+Maybe squash this with the commit that actually starts using this function.
+
+
+> +{
+> +	uint32_t gc_version = KFD_GC_VERSION(kfd);
+> +	uint32_t asic_type = kfd->adev->asic_type;
+> +
+> +	device_info->max_pasid_bits = 16;
+> +	device_info->max_no_of_hqd = 24;
+> +	device_info->num_of_watch_points = 4;
+> +	device_info->mqd_size_aligned = MQD_SIZE_ALIGNED;
+> +	device_info->gfx_target_version = gfx_target_version;
+> +
+> +	if (KFD_IS_SOC15(kfd)) {
+> +		device_info->doorbell_size = 8;
+> +		device_info->ih_ring_entry_size = 8 * sizeof(uint32_t);
+> +		device_info->event_interrupt_class = &event_interrupt_class_v9;
+> +		device_info->supports_cwsr = true;
+> +
+> +		if ((gc_version >= IP_VERSION(9, 0, 1)  &&
+> +		     gc_version <= IP_VERSION(9, 3, 0)) ||
+> +		     gc_version == IP_VERSION(10, 3, 1) ||
+> +		     gc_version == IP_VERSION(10, 3, 3))
+> +			device_info->num_sdma_queues_per_engine = 2;
+> +		else
+> +			device_info->num_sdma_queues_per_engine = 8;
+
+I feel this should be based on the SDMA IP version, not the GC IP version.
+
+
+> +
+> +		/* Navi2x+, Navi1x+ */
+> +		if (gc_version >= IP_VERSION(10, 3, 0))
+
+There needs to be a maximum check here. This case should not 
+automatically apply to future ASICs e.g. GFX11.
+
+
+> +			device_info->no_atomic_fw_version = 145;
+> +		else if (gc_version >= IP_VERSION(10, 1, 1))
+> +			device_info->no_atomic_fw_version = 92;
+> +
+> +		/* Raven */
+> +		if (gc_version == IP_VERSION(9, 1, 0) ||
+> +		    gc_version == IP_VERSION(9, 2, 2))
+> +			device_info->needs_iommu_device = true;
+> +
+> +		/* Navi1x+ */
+> +		if (gc_version >= IP_VERSION(10, 1, 1))
+
+There needs to be a maximum check here. On future ASICs (maybe GFX11) I 
+would not expect atomics to be required.
 
 Regards,
    Felix
 
 
-> Propose to remove asic_name from device_info and replace sysfs entry
-> with amdgpu_asic_name[].
->
-> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c   | 29 -----------------------
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  1 -
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  2 +-
->   3 files changed, 1 insertion(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index e1294fba0c26..e11fc4e20c32 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -55,7 +55,6 @@ extern const struct kfd2kgd_calls gfx_v10_3_kfd2kgd;
->   
->   #ifdef KFD_SUPPORT_IOMMU_V2
->   static const struct kfd_device_info kaveri_device_info = {
-> -	.asic_name = "kaveri",
->   	.gfx_target_version = 70000,
->   	.max_pasid_bits = 16,
->   	/* max num of queues for KV.TODO should be a dynamic value */
-> @@ -72,7 +71,6 @@ static const struct kfd_device_info kaveri_device_info = {
->   };
->   
->   static const struct kfd_device_info carrizo_device_info = {
-> -	.asic_name = "carrizo",
->   	.gfx_target_version = 80001,
->   	.max_pasid_bits = 16,
->   	/* max num of queues for CZ.TODO should be a dynamic value */
-> @@ -89,7 +87,6 @@ static const struct kfd_device_info carrizo_device_info = {
->   };
->   
->   static const struct kfd_device_info raven_device_info = {
-> -	.asic_name = "raven",
->   	.gfx_target_version = 90002,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -107,7 +104,6 @@ static const struct kfd_device_info raven_device_info = {
->   
->   #ifdef CONFIG_DRM_AMDGPU_CIK
->   static const struct kfd_device_info hawaii_device_info = {
-> -	.asic_name = "hawaii",
->   	.gfx_target_version = 70001,
->   	.max_pasid_bits = 16,
->   	/* max num of queues for KV.TODO should be a dynamic value */
-> @@ -125,7 +121,6 @@ static const struct kfd_device_info hawaii_device_info = {
->   #endif
->   
->   static const struct kfd_device_info tonga_device_info = {
-> -	.asic_name = "tonga",
->   	.gfx_target_version = 80002,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -141,7 +136,6 @@ static const struct kfd_device_info tonga_device_info = {
->   };
->   
->   static const struct kfd_device_info fiji_device_info = {
-> -	.asic_name = "fiji",
->   	.gfx_target_version = 80003,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -157,7 +151,6 @@ static const struct kfd_device_info fiji_device_info = {
->   };
->   
->   static const struct kfd_device_info fiji_vf_device_info = {
-> -	.asic_name = "fiji",
->   	.gfx_target_version = 80003,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -174,7 +167,6 @@ static const struct kfd_device_info fiji_vf_device_info = {
->   
->   
->   static const struct kfd_device_info polaris10_device_info = {
-> -	.asic_name = "polaris10",
->   	.gfx_target_version = 80003,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -190,7 +182,6 @@ static const struct kfd_device_info polaris10_device_info = {
->   };
->   
->   static const struct kfd_device_info polaris10_vf_device_info = {
-> -	.asic_name = "polaris10",
->   	.gfx_target_version = 80003,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -206,7 +197,6 @@ static const struct kfd_device_info polaris10_vf_device_info = {
->   };
->   
->   static const struct kfd_device_info polaris11_device_info = {
-> -	.asic_name = "polaris11",
->   	.gfx_target_version = 80003,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -222,7 +212,6 @@ static const struct kfd_device_info polaris11_device_info = {
->   };
->   
->   static const struct kfd_device_info polaris12_device_info = {
-> -	.asic_name = "polaris12",
->   	.gfx_target_version = 80003,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -238,7 +227,6 @@ static const struct kfd_device_info polaris12_device_info = {
->   };
->   
->   static const struct kfd_device_info vegam_device_info = {
-> -	.asic_name = "vegam",
->   	.gfx_target_version = 80003,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -254,7 +242,6 @@ static const struct kfd_device_info vegam_device_info = {
->   };
->   
->   static const struct kfd_device_info vega10_device_info = {
-> -	.asic_name = "vega10",
->   	.gfx_target_version = 90000,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -270,7 +257,6 @@ static const struct kfd_device_info vega10_device_info = {
->   };
->   
->   static const struct kfd_device_info vega10_vf_device_info = {
-> -	.asic_name = "vega10",
->   	.gfx_target_version = 90000,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -286,7 +272,6 @@ static const struct kfd_device_info vega10_vf_device_info = {
->   };
->   
->   static const struct kfd_device_info vega12_device_info = {
-> -	.asic_name = "vega12",
->   	.gfx_target_version = 90004,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -302,7 +287,6 @@ static const struct kfd_device_info vega12_device_info = {
->   };
->   
->   static const struct kfd_device_info vega20_device_info = {
-> -	.asic_name = "vega20",
->   	.gfx_target_version = 90006,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd	= 24,
-> @@ -318,7 +302,6 @@ static const struct kfd_device_info vega20_device_info = {
->   };
->   
->   static const struct kfd_device_info arcturus_device_info = {
-> -	.asic_name = "arcturus",
->   	.gfx_target_version = 90008,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd	= 24,
-> @@ -334,7 +317,6 @@ static const struct kfd_device_info arcturus_device_info = {
->   };
->   
->   static const struct kfd_device_info aldebaran_device_info = {
-> -	.asic_name = "aldebaran",
->   	.gfx_target_version = 90010,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd	= 24,
-> @@ -350,7 +332,6 @@ static const struct kfd_device_info aldebaran_device_info = {
->   };
->   
->   static const struct kfd_device_info renoir_device_info = {
-> -	.asic_name = "renoir",
->   	.gfx_target_version = 90012,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -366,7 +347,6 @@ static const struct kfd_device_info renoir_device_info = {
->   };
->   
->   static const struct kfd_device_info navi10_device_info = {
-> -	.asic_name = "navi10",
->   	.gfx_target_version = 100100,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -383,7 +363,6 @@ static const struct kfd_device_info navi10_device_info = {
->   };
->   
->   static const struct kfd_device_info navi12_device_info = {
-> -	.asic_name = "navi12",
->   	.gfx_target_version = 100101,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -400,7 +379,6 @@ static const struct kfd_device_info navi12_device_info = {
->   };
->   
->   static const struct kfd_device_info navi14_device_info = {
-> -	.asic_name = "navi14",
->   	.gfx_target_version = 100102,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -417,7 +395,6 @@ static const struct kfd_device_info navi14_device_info = {
->   };
->   
->   static const struct kfd_device_info sienna_cichlid_device_info = {
-> -	.asic_name = "sienna_cichlid",
->   	.gfx_target_version = 100300,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -434,7 +411,6 @@ static const struct kfd_device_info sienna_cichlid_device_info = {
->   };
->   
->   static const struct kfd_device_info navy_flounder_device_info = {
-> -	.asic_name = "navy_flounder",
->   	.gfx_target_version = 100301,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -451,7 +427,6 @@ static const struct kfd_device_info navy_flounder_device_info = {
->   };
->   
->   static const struct kfd_device_info vangogh_device_info = {
-> -	.asic_name = "vangogh",
->   	.gfx_target_version = 100303,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -468,7 +443,6 @@ static const struct kfd_device_info vangogh_device_info = {
->   };
->   
->   static const struct kfd_device_info dimgrey_cavefish_device_info = {
-> -	.asic_name = "dimgrey_cavefish",
->   	.gfx_target_version = 100302,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -485,7 +459,6 @@ static const struct kfd_device_info dimgrey_cavefish_device_info = {
->   };
->   
->   static const struct kfd_device_info beige_goby_device_info = {
-> -	.asic_name = "beige_goby",
->   	.gfx_target_version = 100304,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -502,7 +475,6 @@ static const struct kfd_device_info beige_goby_device_info = {
->   };
->   
->   static const struct kfd_device_info yellow_carp_device_info = {
-> -	.asic_name = "yellow_carp",
->   	.gfx_target_version = 100305,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> @@ -519,7 +491,6 @@ static const struct kfd_device_info yellow_carp_device_info = {
->   };
->   
->   static const struct kfd_device_info cyan_skillfish_device_info = {
-> -	.asic_name = "cyan_skillfish",
->   	.gfx_target_version = 100103,
->   	.max_pasid_bits = 16,
->   	.max_no_of_hqd  = 24,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 1054fedd7b3c..3e11febee7c6 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -195,7 +195,6 @@ struct kfd_event_interrupt_class {
->   };
->   
->   struct kfd_device_info {
-> -	const char *asic_name;
->   	uint32_t gfx_target_version;
->   	const struct kfd_event_interrupt_class *event_interrupt_class;
->   	unsigned int max_pasid_bits;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 2d44b26b6657..d2bb35f1c58f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -1370,7 +1370,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
->   
->   	amdgpu_amdkfd_get_cu_info(dev->gpu->adev, &cu_info);
->   
-> -	strncpy(dev->node_props.name, gpu->device_info->asic_name,
-> +	strncpy(dev->node_props.name, amdgpu_asic_name[gpu->adev->asic_type],
->   			KFD_TOPOLOGY_PUBLIC_NAME_SIZE);
->   
->   	dev->node_props.simd_arrays_per_engine =
+> +			device_info->needs_pci_atomics = true;
+> +	} else {
+> +		device_info->doorbell_size = 4;
+> +		device_info->ih_ring_entry_size = 4 * sizeof(uint32_t);
+> +		device_info->event_interrupt_class = &event_interrupt_class_cik;
+> +		device_info->num_sdma_queues_per_engine = 2;
+> +
+> +		if (asic_type != CHIP_KAVERI &&
+> +		    asic_type != CHIP_HAWAII &&
+> +		    asic_type != CHIP_TONGA)
+> +			device_info->supports_cwsr = true;
+> +
+> +		if (asic_type == CHIP_KAVERI ||
+> +		    asic_type == CHIP_CARRIZO)
+> +			device_info->needs_iommu_device = true;
+> +
+> +		if (asic_type != CHIP_HAWAII && !vf)
+> +			device_info->needs_pci_atomics = true;
+> +	}
+> +}
+> +
+>   struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+>   {
+>   	struct kfd_dev *kfd;
