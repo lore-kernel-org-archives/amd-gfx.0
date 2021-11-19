@@ -4,59 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83A87C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 22:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E60C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Nov 2021 22:59:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 661626E5CF;
-	Fri, 19 Nov 2021 22:47:01 +0000 (UTC)
-Received: from mail-ua1-x92a.google.com (mail-ua1-x92a.google.com
- [IPv6:2607:f8b0:4864:20::92a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A514C6E311;
- Fri, 19 Nov 2021 22:46:59 +0000 (UTC)
-Received: by mail-ua1-x92a.google.com with SMTP id w23so24267890uao.5;
- Fri, 19 Nov 2021 14:46:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zFqARuc/+Lw2I8xXuND6mlPXskUS/aYJU6LEBPOEf5o=;
- b=oEPAJiVHkKnLUb2OIn7pnuCkNWLF2CXFsJpcC586yzL6zLjYrrilICjeZrWleJWLUA
- MUByli/RmDmWqxlSVqhDR1C6bIQ0kDaDMNLZDqRvCOMUuPzE+51dTc3LxWouNEGcGgc1
- D3eB6R/C73PHkIIxZrOk1ifLLIZfh5g9wTKHiS1Gx4GFuwrAy7AUNeO12seW0K7OCP6X
- wBsRQR2wN3yUSuw/0E2+rUjdxgnI0i7jVjmx3OHTGjVDW4mcqOaMDO9EnnoolD3awCvu
- fl/4nE0dYzj0SFkSkk6Yb1vEf42ZmYf02pxLyBJlXedQLEo+weyRWKRNMJ/oBAiRB/KC
- uBzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zFqARuc/+Lw2I8xXuND6mlPXskUS/aYJU6LEBPOEf5o=;
- b=0V0K0eevlf3ltf/NJprc7DOeCiu4gu4YbEYppK2wGmTOu6Z/85UtoToHrTJRw8mjfB
- RjEU9LVQnra7QBbwVSkbwKEekSW76ADUBDvSgvM6N7Ayq6YuzXOumjd70sPq7UzJzkIA
- WDlbaVbd2WpF5JHV0OedQ4b83/itmq6JsIegY4cKFJyeyki1xTnBHch8RZF3Nukoa4TB
- Zk9tlHwEWs6JGnwNA+gxqnx+CWB+hI92tOQX7FUDyYqShJTx6LpvK9yP2kWBR9eQKTZs
- DYjbzcrw5KAP7SohoYFuvVIso+vdorgE8V7AF7HhIaY7Dic35Ws1hlKd/zXk140N6fpj
- d9jw==
-X-Gm-Message-State: AOAM531Wll5IjGqwp7sG9zXrAMd0sot5u4yHt79lWvVyN+n/rHnFyGD4
- B+zXWZvHZodu1NUrUoArmNQQT+I8wkQw+xYqnOg=
-X-Google-Smtp-Source: ABdhPJzexc6BskoZ7bxCgeL3na7HhjycEVACnUbSLbHZVhqRta9op3uUnUg4gkVAlSInN0VBX8WCQTbjvDaXvz2/O/8=
-X-Received: by 2002:ab0:44e:: with SMTP id 72mr54616355uav.121.1637362018620; 
- Fri, 19 Nov 2021 14:46:58 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13FEB6E29D;
+	Fri, 19 Nov 2021 22:59:39 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F3716E544
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Nov 2021 22:59:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YA3OujG9X9d3J2MteNp3ngjLtkN/Rj8cHqvn9dAlasmkpRuP7GCOO2B1vl8/BlSCFBUwXwD8nS0/JMkAk1oWz683zLD/z+mb6OBq0+XPkJ0n+I87RuqMbrkWSArG4OyI6lg29gbRJzKH4NohRanEiEbhUQlbZPAe6XmjfG5eSjaMB1zWXa1aBxJcfFE+B+HAAUB/paqSMwzZcXHuvafXC//jnv9VtskF5JkzyGy+iX45TUCe3MlDBq9eBzHaoCxplhq5F7RmqaHT4t7VG++jYFhgA+v+eZx+e57LsBqMmPJr/8QQZvSoZPo2eM/uWTI/O3X/MxDReJuHOzlRs7uxOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+HSRQC8RpguS27ugyk0OhrwDiPwrM/3gkCN0ejZhYfM=;
+ b=FL1TU3b59vWxzYWbbZF2u+aKjjy8FMIa2JfYcc/W3IoSZcxUvZpg0SP832Vv8OvSvCn68JzIYmQ6oweVyTemjb2sZEqkm2AmtnF1FFTV+/KRkx0cYKSOwfQMbILyMgG9Zq3MIpuVUg7OTdh8z/HHZIyhTQsvQ7Za2wq9WCcm2CDy41Q4253TE0nZ32kdxDul097R9oWPlKQHZv45RsiCoiJ+l7FnZjqrLgTeVqeqaXZPKys3UbqyQyhxRhKyQnWajviAWufegMFc6Fi49+jGQae82pu8M7O8vozRLnZ5g8S10aY6aY5Q+NqLudxs0WeUt3IZIP9m2Yn8VMaede+oHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+HSRQC8RpguS27ugyk0OhrwDiPwrM/3gkCN0ejZhYfM=;
+ b=gTJv2VUttLGvZZpP4jAEzK2wQpQkID3Kr+q04Naj1vtg1yyeSMaKoq3HwW9YxDCnx6r5KEWYp1dMhsiOUD6qcaD8bexGapOyYicv/L1AI1DIZ6VwFylP4yfGsfSb0p7FYGPVvN3KZC0EW2j+noFHKQlRrRCdg4LorA6HEu6iuwI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5275.namprd12.prod.outlook.com (2603:10b6:408:100::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Fri, 19 Nov
+ 2021 22:59:34 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.022; Fri, 19 Nov 2021
+ 22:59:34 +0000
+Subject: Re: [PATCH v2] drm/amdkfd: handle IH ring1 overflow
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211119202233.13486-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+Message-ID: <2a610519-689f-c3d0-3675-59f7c64eaf4f@amd.com>
+Date: Fri, 19 Nov 2021 17:59:33 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20211119202233.13486-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: BL0PR0102CA0060.prod.exchangelabs.com
+ (2603:10b6:208:25::37) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20211111220206.121610-1-jim.cromie@gmail.com>
- <20211111220206.121610-9-jim.cromie@gmail.com>
- <20211112114953.GA1381@axis.com>
- <f3914fa9-8b22-d54e-3f77-d998e74094b9@akamai.com>
- <20211116104631.195cbd0b@eldfell>
- <f87b7076-47e6-89b1-aaf9-b67aa6713e01@akamai.com>
- <20211118172401.0b4d722e@eldfell>
- <41ea83b2-a707-cb6f-521e-070bb12502de@akamai.com>
-In-Reply-To: <41ea83b2-a707-cb6f-521e-070bb12502de@akamai.com>
-From: jim.cromie@gmail.com
-Date: Fri, 19 Nov 2021 15:46:31 -0700
-Message-ID: <CAJfuBxyvDtALAHM53RdnWT4ke6Cjrc3OWTAqNKe_n-o_LhtpYg@mail.gmail.com>
-Subject: Re: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with it
- - RFC
-To: Jason Baron <jbaron@akamai.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from [172.27.226.80] (165.204.55.251) by
+ BL0PR0102CA0060.prod.exchangelabs.com (2603:10b6:208:25::37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.22 via Frontend Transport; Fri, 19 Nov 2021 22:59:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d2765c43-1f06-4e75-6e8c-08d9abb04132
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5275:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB52755CC6BFB17F32A788D306929C9@BN9PR12MB5275.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZjWxDRvFsAAqwGGlaJk3BrTVU7uFu+CL3tGxL5/uatqCeqoc4XwZuFQQralehajoYy8Sw4jfE/VFWhGRpfcRw3yyuncyF0VBNll6/8IQKhC6f/SewsLPUfji+fjki6ujMrUur3DOo0E2j21t6rXqtL/udNRQ3mgD8F/mx6k5ARHb7Eg2xS08zRemVhQZ/mvFrUfKqmk1mOt2BR4tRPAkpg9jUhwK/zd3Nn0S7106QFqlWSrv9MNTknvypJgs6kBHJU03gOshjrwF7ls6v6dF5wZB0hoMOkzdybz5T8UXTzXq1ak5BzXcxTUCbVLprpac8LwmhEDQZ4W4ORQojTEhASz5vljnsveC6hJKg3AAnDjeLUi6AnPqGQ+0jD2nTdPHqnOjWOIY5KBQJ6vWFEx7Fb8XO2N7ydxrsxRgr6w4m8afpkngcOUeJ8UKXbtXfCZF/xn9E9KjbjzbkrcNqsnDGBaXPEwkCxkQ7oiHvaAXpytw9XHYZ862cGpgW5fUTH3XrqO4XU/oHeqdE8qZ+rzQ0t7epp4BbQrVuB5WAb6Et/Vye8LwnLaYYhQ4eCr1jwheO3pw/8ZexVvSVQceANNMs1NTE0ImBeSpcnt0dCshlG1BrUJ8VolBt7x+Axuax7F31KjFwMGXglhsY6+EDfmd6+0LWXKWAwVLqP1ValWyhyVrSlXLy22Vs5l3yi3bv2BPD1MDYO8/nP/SkSgqmuJEOA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6486002)(83380400001)(66476007)(86362001)(186003)(66946007)(2906002)(31696002)(4001150100001)(4326008)(44832011)(66556008)(36916002)(16576012)(8936002)(38100700002)(53546011)(316002)(31686004)(36756003)(5660300002)(508600001)(26005)(8676002)(956004)(2616005)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUJVYUlycEM5L0hjOE9BMWcvOFRQdzcwWFNvU3g5ODJDc0YxdXZPSno3dEJq?=
+ =?utf-8?B?K0R3Q1BKYWZtQnErcXE5aHhkWGsxclNDdDFDZkJ3UzhmUmJMZmxzVGhyWHpB?=
+ =?utf-8?B?NWNodVJIY0ZVSUM0Rys3N3JMUFpoM0J0Vlk5UTU0NnVZdGQ0V25yRGdRYmtU?=
+ =?utf-8?B?eVV0ZzZESnZmQi8wYmpFakUrTDNGT2cwTUsxSmwxYzFMdmRXL0VOVnZuR015?=
+ =?utf-8?B?RDduUlk2MUFjYzBqVjVsSDlGUXkxUmdTM3hFM0QyME83TmN5N2NSc0RTY09W?=
+ =?utf-8?B?S1FycSt1VEt4Y2VmMGlNZTYvdUxIY0l4aTJvR3krSEZ5TDl6NExWSk9FOExw?=
+ =?utf-8?B?SE1Jd2lpUEx0NFpBS3dCY1BVVFpHVHVacy96MmRGYWtHYVJCN1ZFa3Nrdmtl?=
+ =?utf-8?B?eitEeGNTUWE4U04yb0V4VDJiSXRxZVg3b0h1d0ptR3JPcVp5aVJwd3JmblRu?=
+ =?utf-8?B?UnA0V3A3TEpxaVBFYzY2ek9CYzFZb2ZSVWFxdFdZNE9ESE1ZSm1JYllHazRW?=
+ =?utf-8?B?N0Q1TVllb1ZBY1VVZ0Q4ejZmOWVTVzM0SElCcGdTQm5rMXJHTzIxTUpnOXh2?=
+ =?utf-8?B?UnJnUEtPaW9QL1loa20xVEoxS2V3VHRwTWdNNGRzOUdWNGZkWmVpUmhkYkN0?=
+ =?utf-8?B?L3RmckEzRXdpS09zeHo2SzFUWGNYYUtXV2N5VmJ2RHhJOVF2eVNCbkdyTGRh?=
+ =?utf-8?B?ZjZ4RlFlcm00TlNGTzlJbjIvT1cxWjhicmcrcCtUamNzcWMvUCt1b0wyRENK?=
+ =?utf-8?B?M3B4WFBEWE9ZNEc3MGlHbzQ2SThLSjd1SzcycUZ3R1dQTWMyUkhNUVFaejJw?=
+ =?utf-8?B?c3Jra2VMWjlicVUzaExmeVpkbGpwT0w2RWRDTnRpdkFjMFRwOGhac3lMZit0?=
+ =?utf-8?B?UVgrbm9mWWdoZyt0alNNRnBiWEhQbHlXbE8zM0pVUHJSazY5dENibGxoUGlI?=
+ =?utf-8?B?OVB5U3BKb0ptRUU0b1liaUgrSEFCZkd0MGI1SmVTdGtRMjA0OFZncnlXaTZq?=
+ =?utf-8?B?RFptRGpLSzA2UnJ6bktMNzk4QVdyM3BSSUhHREtBbFg4UlpPcStaKzJhVXk3?=
+ =?utf-8?B?b21oSWRaUFg0RnFuMEY5RU14V0JQMjhnZGp6U2pvZDhwQ040RHYwMi91Rzc0?=
+ =?utf-8?B?bDNFQy8yVDNScW12dnZKZ0NvdjZYY2p3YUlBeXluWTF6bkxaZWtXRzkrTDZq?=
+ =?utf-8?B?bis2cnk1Vm9lNHIvSDhxM0ljWERGdHpvTFNWdk1uempYTVg0bTdmeVFYUUVy?=
+ =?utf-8?B?S1hTajlESFJhRzMyWVJYOVJvQ2JlZ0J5ZnZqRGJSKzMyRndURm9vcUFnbDNv?=
+ =?utf-8?B?anlpTmtTb0hnVGYvcGZkWHpoVWNNZElLUDNCcDRuQmduTmVBeTlzcnJoTmpt?=
+ =?utf-8?B?aFdaWW9rY2djNWNsTWpvN2cveUN4YjRaMy9lbzJlWkNrZ2J4LzZDNmtjY2lV?=
+ =?utf-8?B?b1dTYjJ6TllyVUVpTkdqZzZUeFZWMlQzUnRGTEdGZlozMWhPSlhQVG0wRkR0?=
+ =?utf-8?B?ckQvbVNia1dPYzcwR0NUR2I3bk01N2xmT0xRQmxHNTB1dC9SSjZEY01GMWpp?=
+ =?utf-8?B?Z0ErM1c2WlVqYWNUdHkwR3lOdEllU1dPWTNmODJTclFBQlN2bTFFU3NMZ0w1?=
+ =?utf-8?B?eEQ3eGRpbWtDT2dMZk52Z3NPOTU1aThIM3k2ZHhXbzczUUhlYXk0NkNoemdm?=
+ =?utf-8?B?S3NYWk85amJsK25rZVBhdXJ5ZHVzYThlS0wvdXdueHJielUrTUVPUUJUMXFT?=
+ =?utf-8?B?ajI2cTNpLzlzZHN4REQ2OE1FcTVGVGkxWE5EU09RUy9OcTRieGxDUGZVUzBH?=
+ =?utf-8?B?ZUltdi9Fd3R6K05BQUVqQVFkbjlGa2pXTzZyTzdEZE5HUlA4U3lRMGFKc1gw?=
+ =?utf-8?B?TmovaHFvdVFnTFFEKzFNQVo1MmZuTTdERUYyQ3c4RC92WHZEblRqc3htRHht?=
+ =?utf-8?B?Y20wNHRseXZlODVUNmxDRkh1cCttVUdBTFJhT25wZEtGcmF5d3ZlTXRuMkk4?=
+ =?utf-8?B?MjhqMGhQUGRWcnFmZEQyYjcySmViNGQ5ODBiTm5UOHJvNGZ5WUNXRXlnSjVL?=
+ =?utf-8?B?bC9rSHdpQzBDK0twbE41a2VvYXBacFVLMitJRUw1VUdYUERzTDI0bmcrYkg4?=
+ =?utf-8?B?cU13TzdCZGpCYUIwaHJ4amY0R280VHhKVHZBcm5WT2ZZTTJ4eHE1Y0QwWnhO?=
+ =?utf-8?Q?55iymSqzXOQ3RLPGMngLOdI=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2765c43-1f06-4e75-6e8c-08d9abb04132
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 22:59:34.6959 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rMQ8XLBAGe0zwjd6GyCl4iGj8t6f/xUZ7up85dOt805X0peC5oRYlyywNqEZ2lEh/3V6rtsMLVZT62Zrbt4hdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5275
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,239 +131,246 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_saipraka@quicinc.com, Catalin Marinas <catalin.marinas@arm.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Will Deacon <will@kernel.org>,
- maz@kernel.org, Vincent Whitchurch <vincent.whitchurch@axis.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Ingo Molnar <mingo@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Steven Rostedt <rostedt@goodmis.org>, Pekka Paalanen <ppaalanen@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, intel-gvt-dev@lists.freedesktop.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, Sean Paul <sean@poorly.run>,
- Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
- quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
+Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 19, 2021 at 9:21 AM Jason Baron <jbaron@akamai.com> wrote:
+On 2021-11-19 3:22 p.m., Philip Yang wrote:
+> IH ring1 is used to process GPU retry fault, overflow is enabled to
+> drain retry fault because we want receive other interrupts while
+> handling retry fault to recover range. There is no overflow flag set
+> when wptr pass rptr. Use timestamp of rptr and wptr to handle overflow
+> and drain retry fault.
 >
+> Add helper function amdgpu_ih_decode_iv_ts to get 48bit timestamp from
+> IV entry. drain retry fault check timestamp of rptr is larger than
+> timestamp of (checkpoint_wptr - 32).
 >
+> Add function amdgpu_ih_process1 to process IH ring1 until timestamp of
+> rptr is larger then timestamp of (rptr + 32).
 >
-> On 11/18/21 10:24 AM, Pekka Paalanen wrote:
-> > On Thu, 18 Nov 2021 09:29:27 -0500
-> > Jason Baron <jbaron@akamai.com> wrote:
-> >
-> >> On 11/16/21 3:46 AM, Pekka Paalanen wrote:
-> >>> On Fri, 12 Nov 2021 10:08:41 -0500
-> >>> Jason Baron <jbaron@akamai.com> wrote:
-> >>>
-> >>>> On 11/12/21 6:49 AM, Vincent Whitchurch wrote:
-> >>>>> On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:
-> >>>>>> Sean Paul proposed, in:
-> >>>>>> https://urldefense.com/v3/__https://patchwork.freedesktop.org/series/78133/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRA8Dki4A$
-> >>>>>> drm/trace: Mirror DRM debug logs to tracefs
-> >>>>>>
-> >>>>>> His patchset's objective is to be able to independently steer some of
-> >>>>>> the drm.debug stream to an alternate tracing destination, by splitting
-> >>>>>> drm_debug_enabled() into syslog & trace flavors, and enabling them
-> >>>>>> separately.  2 advantages were identified:
-> >>>>>>
-> >>>>>> 1- syslog is heavyweight, tracefs is much lighter
-> >>>>>> 2- separate selection of enabled categories means less traffic
-> >>>>>>
-> >>>>>> Dynamic-Debug can do 2nd exceedingly well:
-> >>>>>>
-> >>>>>> A- all work is behind jump-label's NOOP, zero off cost.
-> >>>>>> B- exact site selectivity, precisely the useful traffic.
-> >>>>>>    can tailor enabled set interactively, at shell.
-> >>>>>>
-> >>>>>> Since the tracefs interface is effective for drm (the threads suggest
-> >>>>>> so), adding that interface to dynamic-debug has real potential for
-> >>>>>> everyone including drm.
-> >>>>>>
-> >>>>>> if CONFIG_TRACING:
-> >>>>>>
-> >>>>>> Grab Sean's trace_init/cleanup code, use it to provide tracefs
-> >>>>>> available by default to all pr_debugs.  This will likely need some
-> >>>>>> further per-module treatment; perhaps something reflecting hierarchy
-> >>>>>> of module,file,function,line, maybe with a tuned flattening.
-> >>>>>>
-> >>>>>> endif CONFIG_TRACING
-> >>>>>>
-> >>>>>> Add a new +T flag to enable tracing, independent of +p, and add and
-> >>>>>> use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
-> >>>>>> the flag checks.  Existing code treats T like other flags.
-> >>>>>
-> >>>>> I posted a patchset a while ago to do something very similar, but that
-> >>>>> got stalled for some reason and I unfortunately didn't follow it up:
-> >>>>>
-> >>>>>  https://urldefense.com/v3/__https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRGytKHPg$
-> >>>>>
-> >>>>> A key difference between that patchset and this patch (besides that
-> >>>>> small fact that I used +x instead of +T) was that my patchset allowed
-> >>>>> the dyndbg trace to be emitted to the main buffer and did not force them
-> >>>>> to be in an instance-specific buffer.
-> >>>>
-> >>>> Yes, I agree I'd prefer that we print here to the 'main' buffer - it
-> >>>> seems to keep things simpler and easier to combine the output from
-> >>>> different sources as you mentioned.
-> >>>
-> >>> Hi,
-> >>>
-> >>> I'm not quite sure I understand this discussion, but I would like to
-> >>> remind you all of what Sean's original work is about:
-> >>>
-> >>> Userspace configures DRM tracing into a flight recorder buffer (I guess
-> >>> this is what you refer to "instance-specific buffer").
-> >>>
-> >>> Userspace runs happily for months, and then hits a problem: a failure
-> >>> in the DRM sub-system most likely, e.g. an ioctl that should never
-> >>> fail, failed. Userspace handles that failure by dumping the flight
-> >>> recorder buffer into a file and saving or sending a bug report. The
-> >>> flight recorder contents give a log of all relevant DRM in-kernel
-> >>> actions leading to the unexpected failure to help developers debug it.
-> >>>
-> >>> I don't mind if one can additionally send the flight recorder stream to
-> >>> the main buffer, but I do want the separate flight recorder buffer to
-> >>> be an option so that a) unrelated things cannot flood the interesting
-> >>> bits out of it, and b) the scope of collected information is relevant.
-> >>>
-> >>> The very reason for this work is problems that are very difficult to
-> >>> reproduce in practice, either because the problem itself is triggered
-> >>> very rarely and randomly, or because the end users of the system have
-> >>> either no knowledge or no access to reconfigure debug logging and then
-> >>> reproduce the problem with good debug logs.
-> >>>
-> >>> Thank you very much for pushing this work forward!
-> >>>
-> >>>
-> >>
-> >> So I think Vincent (earlier in the thread) was saying that he finds it
-> >> very helpful have dynamic debug output go to the 'main' trace buffer,
-> >> while you seem to be saying you'd prefer it just go to dynamic debug
-> >> specific trace buffer.
-> >
-> > Seems like we have different use cases: traditional debugging, and
-> > in-production flight recorder for problem reporting. I'm not surprised
-> > if they need different treatment.
-> >
-> >> So we certainly can have dynamic output potentially go to both places -
-> >> although I think this would mean two tracepoints? But I really wonder
-> >> if we really need a separate tracing buffer for dynamic debug when
-> >> what goes to the 'main' buffer can be controlled and filtered to avoid
-> >> your concern around a 'flood'?
-> >
-> > If the DRM tracing goes into the main buffer, then systems in
-> > production cannot have any other sub-system traced in a similar
-> > fashion. To me it would feel very arrogant to say that to make use of
-> > DRM flight recording, you cannot trace much or anything else.
-> >
-> > The very purpose of the flight recorder is run in production all the
-> > time, not in a special debugging session.
-> >
-> > There is also the question of access and contents of the trace buffer.
-> > Ultimately, if automatic bug reports are enabled in a system, the
-> > contents of the trace buffer would be sent as-is to some bug tracking
-> > system. If there is a chance to put non-DRM stuff in the trace buffer,
-> > that could be a security problem.
-> >
-> > My use case is Weston. When Weston encounters an unexpected problem in
-> > production, something should automatically capture the DRM flight
-> > recorder contents and save it alongside the Weston log. Would be really
-> > nice if Weston itself could do that, but I suspect it is going to need
-> > root privileges so it needs some helper daemon.
-> >
-> > Maybe Sean can reiterate their use case more?
-> >
-> >
-> > Thanks,
-> > pq
-> >
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 98 +++++++++++++++++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  |  6 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |  2 +-
+>   4 files changed, 80 insertions(+), 28 deletions(-)
 >
-> Ok, so in this current thread the proposal was to create a "dyndbg-tracefs"
-> buffer to put the dynamic debug output (including drm output from dynamic
-> debug) into. And I was saying let's just put in the 'main' trace buffer
-> (predicated on a dynamic debug specific tracepoint), since there seems
-> to be a a use-case for that and it keeps things simpler.
->
-> But I went back to Sean's original patch, and it creates a drm specific
-> trace buffer "drm" (via trace_array_get_by_name("drm")). Here:
-> https://patchwork.freedesktop.org/patch/445549/?series=78133&rev=5
->
-> So I think that may be some of the confusion here? The current thread/
-> proposal is not for a drm specific trace buffer...
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> index f3d62e196901..ad12f9d5d86a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> @@ -165,51 +165,41 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+>   }
+>   
+>   /* Waiter helper that checks current rptr matches or passes checkpoint wptr */
+> -static bool amdgpu_ih_has_checkpoint_processed(struct amdgpu_device *adev,
+> +static bool amdgpu_ih_has_checkpoint_processed_ts(struct amdgpu_device *adev,
+>   					struct amdgpu_ih_ring *ih,
+> -					uint32_t checkpoint_wptr,
+> -					uint32_t *prev_rptr)
+> +					uint64_t checkpoint_ts)
+>   {
+> -	uint32_t cur_rptr = ih->rptr | (*prev_rptr & ~ih->ptr_mask);
+> -
+> -	/* rptr has wrapped. */
+> -	if (cur_rptr < *prev_rptr)
+> -		cur_rptr += ih->ptr_mask + 1;
+> -	*prev_rptr = cur_rptr;
+> -
+> -	/* check ring is empty to workaround missing wptr overflow flag */
+> -	return cur_rptr >= checkpoint_wptr ||
+> -	       (cur_rptr & ih->ptr_mask) == amdgpu_ih_get_wptr(adev, ih);
+> +	/* After wakeup, ih->rptr is the entry which is being processed, check
+> +	 * the timestamp of previous entry which is processed.
+> +	 */
+> +	return checkpoint_ts <= amdgpu_ih_decode_iv_ts(ih, ih->rptr - 32);
 
-while thats true, it was a KISS choice, not intrinsic.
-Now that a requirement has emerged, I can think about it.
+This assumes a IV size of 32 bytes, which is not true for all ASICs. On 
+GFXv8 and older GPUs it's on 16. OTOH, those chips don't have a ring1 
+and may not have a timestamp in the IV at all.
 
-I thought use of all the pr_debug()s as a tracefs event provider made sense,
-since the callsite descriptor is passed in, and could be passed in to
-the tracefs interface.
-
-Vincent's code has the macro magic to define that event, which IIUC
-is what  makes it controllable by ftrace, and therefore acceptable in
-principle to Steve.
-Would there be any reason to expand his set of 2 events into dev_dbg,
-pr_debug etc varieties ?
-(ie any value to separating dev, !dev ?, maybe so)
-
-Sean's code uses trace_array_printk primarily, which is EXPORTed,
-which is a virtue.
-
-Vincents code does
-+/*
-+ * This code is heavily based on __ftrace_trace_stack().
-+ *
-+ * Allow 4 levels of nesting: normal, softirq, irq, NMI.
-+ */
-
-to implement
-
-+static void dynamic_trace(const char *fmt, va_list args)
-
-Has this __ftrace_trace_stack() code been bundled into or hidden under
-a supported interface ?
-
-would it look anything like trace_array_printk() ?
-
-what problem is that code solving inside dynamic-debug.c ?
+And I think you need to be better at handling when the time stamps wrap. 
+Keep in mind that the number of valid bits may vary between ASICs.
 
 
-> Having a subsystem specific trace buffer would allow subsystem specific
-> trace log permissions depending on the sensitivity of the data. But
-> doesn't drm output today go to the system log which is typically world
-> readable today?
->
+>   }
+>   
+>   /**
+> - * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
+> + * amdgpu_ih_wait_on_checkpoint_process_ts - wait to process IVs up to checkpoint
+>    *
+>    * @adev: amdgpu_device pointer
+>    * @ih: ih ring to process
+>    *
+>    * Used to ensure ring has processed IVs up to the checkpoint write pointer.
+>    */
+> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
+> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
+>   					struct amdgpu_ih_ring *ih)
 
-> So I could see us supporting subsystem specific trace buffer output
-> via dynamic debug here. We could add new dev_debug() variants that
-> allow say a trace buffer to be supplied. So in that way subsystems
-> could 'opt-out' of having their data put into the global trace buffer.
-> And perhaps some subsystems we would want to allow output to both
-> buffers? The subsystem specific one and the global one?
->
+If this function is only meant to work on ring1 now, we should probably 
+ensure that by checking that ih is really ring1.
 
- * trace_array_printk - Print a message to a specific instance
- * @tr: The instance trace_array descriptor
- * @ip: The instruction pointer that this is called from.
- * @fmt: The format to print (printf format)
- *
+Do we need to keep the old solution for Vega20, which doesn't reroute 
+interrupts to ring1?
 
-what happens when @tr == NULL ?
-It could allow up-flow of events to the global instance
 
-> Thanks,
->
-> -Jason
->
->
+>   {
+> -	uint32_t checkpoint_wptr, rptr;
+> +	uint32_t checkpoint_wptr;
+> +	uint64_t checkpoint_ts;
+>   
+>   	if (!ih->enabled || adev->shutdown)
+>   		return -ENODEV;
+>   
+>   	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
+> -	/* Order wptr with rptr. */
+> +	/* Order wptr with ring data. */
+>   	rmb();
+> -	rptr = READ_ONCE(ih->rptr);
+> -
+> -	/* wptr has wrapped. */
+> -	if (rptr > checkpoint_wptr)
+> -		checkpoint_wptr += ih->ptr_mask + 1;
+> +	checkpoint_ts = amdgpu_ih_decode_iv_ts(ih, checkpoint_wptr - 32);
 
-So I wonder, is there any conceptual utility to this ?
+Same as above.
 
-echo 1 > instances/foo/filter_up  # enable event upflow (or query-time merging?)
 
-Maybe enabling this causes other files (the ones missing from
-instances/foo) to magically appear
-so all those filtering capacities also appear.
+>   
+>   	return wait_event_interruptible(ih->wait_process,
+> -				amdgpu_ih_has_checkpoint_processed(adev, ih,
+> -						checkpoint_wptr, &rptr));
+> +				amdgpu_ih_has_checkpoint_processed_ts(adev, ih,
+> +						checkpoint_ts));
+>   }
+>   
+>   /**
+> @@ -253,6 +243,56 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +/**
+> + * amdgpu_ih_process1 - interrupt handler work for IH ring1
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @ih: ih ring to process
+> + *
+> + * Interrupt handler of IH ring1, walk the IH ring1.
+> + * Returns irq process return code.
+> + */
+> +int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+> +{
+> +	uint64_t ts, ts_next;
+> +	unsigned int count;
+> +	u32 wptr;
+> +
+> +	if (!ih->enabled || adev->shutdown)
+> +		return IRQ_NONE;
+> +
+> +	wptr = amdgpu_ih_get_wptr(adev, ih);
+> +	if (ih->rptr == wptr)
+> +		return 0;
+> +
+> +restart_ih:
+> +	count = AMDGPU_IH_MAX_NUM_IVS;
+> +
+> +	ts = amdgpu_ih_decode_iv_ts(ih, ih->rptr);
+> +	ts_next = amdgpu_ih_decode_iv_ts(ih, ih->rptr + 32);
+
+Same as above.
+
+
+> +	while (ts < ts_next && --count) {
+> +		amdgpu_irq_dispatch(adev, ih);
+> +		ih->rptr &= ih->ptr_mask;
+> +		ts = ts_next;
+> +		ts_next = amdgpu_ih_decode_iv_ts(ih, ih->rptr + 32);
+> +	}
+> +	/*
+> +	 * Process the last timestamp updated entry or one more entry
+> +	 * if count = 0, ts is timestamp of the entry.
+> +	 */
+> +	amdgpu_irq_dispatch(adev, ih);
+> +	amdgpu_ih_set_rptr(adev, ih);
+> +	wake_up_all(&ih->wait_process);
+> +
+> +	wptr = amdgpu_ih_get_wptr(adev, ih);
+> +	/* Order reading of wptr vs. reading of IH ring data */
+> +	rmb();
+> +	if (ts < amdgpu_ih_decode_iv_ts(ih, wptr - 32))
+> +		goto restart_ih;
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+>   /**
+>    * amdgpu_ih_decode_iv_helper - decode an interrupt vector
+>    *
+> @@ -298,3 +338,13 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+>   	/* wptr/rptr are in bytes! */
+>   	ih->rptr += 32;
+>   }
+> +
+> +uint64_t amdgpu_ih_decode_iv_ts(struct amdgpu_ih_ring *ih, u32 rptr)
+
+This function needs to be in IP-version-specific code. Maybe add an 
+offset parameter, that way you can handle different IV sizes in 
+different ASIC generations.
+
+
+> +{
+> +	uint32_t index = (rptr & ih->ptr_mask) >> 2;
+> +	uint32_t dw1, dw2;
+> +
+> +	dw1 = ih->ring[index + 1];
+> +	dw2 = ih->ring[index + 2];
+> +	return dw1 | ((u64)(dw2 & 0xffff) << 32);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> index 0649b59830a5..15e8fe0e5e40 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> @@ -89,10 +89,12 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+>   void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+>   void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+>   			  unsigned int num_dw);
+> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
+> -					struct amdgpu_ih_ring *ih);
+> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
+> +					    struct amdgpu_ih_ring *ih);
+>   int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+> +int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+>   void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+>   				struct amdgpu_ih_ring *ih,
+>   				struct amdgpu_iv_entry *entry);
+> +uint64_t amdgpu_ih_decode_iv_ts(struct amdgpu_ih_ring *ih, u32 rptr);
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> index e9023687dc9a..891486cca94b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -224,7 +224,7 @@ static void amdgpu_irq_handle_ih1(struct work_struct *work)
+>   	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
+>   						  irq.ih1_work);
+>   
+> -	amdgpu_ih_process(adev, &adev->irq.ih1);
+> +	amdgpu_ih_process1(adev, &adev->irq.ih1);
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 88360f23eb61..9e566ec54cf5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1968,7 +1968,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
+>   
+>   		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
+>   
+> -		amdgpu_ih_wait_on_checkpoint_process(pdd->dev->adev,
+> +		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
+>   						     &pdd->dev->adev->irq.ih1);
+>   		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
+>   	}
