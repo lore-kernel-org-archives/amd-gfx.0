@@ -4,125 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E8E6C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 17:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEFA5C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 17:37:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C6A89DE5;
-	Mon, 22 Nov 2021 17:17:01 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D28689DC7;
- Mon, 22 Nov 2021 17:17:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5541C88EA7;
+	Mon, 22 Nov 2021 17:37:09 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D7588EA7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Nov 2021 17:37:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KSrJVCx2LWgEAgh/8H4zoC3oON2WR89hzSgj+RxvVwTXZ4vZ/eCvQbT5WWiski7HfnIv5ZsWzkQXJ7EfeTlvl3Oxy+zIX+z7O+W0dWLy34/lBWut1+OLuFD1Oft+AfVp9Qll4CMpQLe1t0p8HAcoamy/MovvpHBqL1waNGVGCeeAezpal+ouytrXC72kChAi5GgAIqsQR2+kZR14KJZ/dNI8IUvJSMWyFEs0Lp9sKYP4hKSgoGgbPIZujq5JAMHe5QahlWpAbwkKRH3s4pWapjNky2ymeTt87bq4oSX1q8cPJWeUEVsKW030+O0rUNUTznStwhBB+gB/0tKeTh7oeg==
+ b=HGGzLvBs4VJtCzKxaIIG6U7APN1Ia9xOIlZNkGM462+M6ypu60O1lfdeSiCQ4euN9Il84sUO2wKMstXAioLHqDVvJPxpOB4iaLx4vyBCiD9OAXS8hYWuvaRlrf3IdmR11HcYdon5zGkKO7HBNVKFO15Wfk9eAwQ0pxkFte2TfSLVcLxs05E+PYyjDkNMFgfWsXm564S/Di4r23qCFmnRHIGTPGdfX27wn29I9GKmTnKHhTkj+t5wI+gSfsjR3UrztoMaFmz5c00xDDq7iOVhJ34kAkpA/flfxUOvQxTsH7+8YCHZWSvUEgsGPMMSqy3iOAX8jcPpo5UlqmczCijKwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WRpMjV4deLfHhSglqxxr1VjBEnMn/YOOOP211cMlJ7o=;
- b=dlVJkgs7CoGzSw357Urj3S9n4CePaAnWUHjHqiXtP7QxKCnR/iyv8/kvXw2lfpPNbET2ah7rpUbfVC1FekAxSul0tTsfvHP6LHRRFNlbKp8M3wIlo+BZtegrc02rsSyX0WfbE30BfxE0ZfPDz9LlrNagSJ5t0I1gpJkgNkZ8swAHgxpb3jRI6kq7fVvcXb4Z548lFLkkr6xhL6gvUwvMDS9z8n/baNg6j0qVhq4Xc2Z8l3fZEEa27YVZp5yarw3S4WwQcdHKPgUG3GwSDkPIeJWDokbc7fH9bVCYzVj5QUsH51WurJXEOSX1D0ve3VU3PF80etsqC3mw1ZGMaWbcgQ==
+ bh=bW2kRldrl6Ef9SZ1dol2zxAqi2iItlsUollxoaGpzno=;
+ b=hP702mUDSmKqPijjQINmrMUMfUlTL4rz9yG0WV4BdDnWhZkvk0sO/ydDxI7ko5pFFynh2gYFujw0tZV+/+ITDMTYjiXuAiTJ52gMicYqivNpWNuA8s91WnPRbJxktLFbC1wWCUYMn1euQ6N0ZOOU/qqAl7T9VBb2osClcklc5Tj0rqR7mGZxCtqxr/+uKk2mEdu7vrkcYmEZplvgQhhEaLYRUfVl5z7rEclcWMNJDhz+JPNBLGQYgUHBuTNGtcbjJJsPBmtYfrywxDb4kc8AWYOf9HnSfWv+dqRvoOUXuAjUn9HvHVO8+cPosALzotkAXKVqgkAR3HwJ9h2/2I+fAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WRpMjV4deLfHhSglqxxr1VjBEnMn/YOOOP211cMlJ7o=;
- b=oNDus5sTCC7eMo8e9/wkwgeyL3JDw+WBm3sd6neq4wwELq819avzZHu8Yx5c5AiBYW/53W7DZV+i3ADcXH1QTkukug1wQfJ/MxyLTYp6KgvJiH0CCVog9oKYWd9ZGmmH+bNTClLhYHDhG7Q+7ablNiA3twcHwmbgP6Z+p4DLKOo=
+ bh=bW2kRldrl6Ef9SZ1dol2zxAqi2iItlsUollxoaGpzno=;
+ b=waCUtZFTgbdmyb0Hd+OCINTvAEtXbiD6f8O7EFpsyOaSPeWF81xmzXw6nf2njAbD0aVh63H9OJemmKzFau3Db1hXl4S3ZUsRU8u5SIf1CFd7aFwPJJ2rxFNO830hrNZqrk/+vnha5nD8fAJqtRR6NwrsnhBoVc8vW7EME3kf8kQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5193.namprd12.prod.outlook.com (2603:10b6:408:11a::16)
+ by BN9PR12MB5225.namprd12.prod.outlook.com (2603:10b6:408:11e::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Mon, 22 Nov
- 2021 17:16:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Mon, 22 Nov
+ 2021 17:37:05 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.025; Mon, 22 Nov 2021
- 17:16:58 +0000
-Subject: Re: [PATCH v1 1/9] mm: add zone device coherent type memory support
-To: Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org,
- linux-mm@kvack.org, rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, Alex Sierra <alex.sierra@amd.com>
-References: <20211115193026.27568-1-alex.sierra@amd.com>
- <1997502.P62F5Z1OZk@nvdebian> <637b19c0-5ec4-b96b-f6f6-c17313f03762@amd.com>
- <4157439.BacSOyMZPU@nvdebian>
+ 17:37:05 +0000
+Subject: Re: [PATCH v2 2/4] drm/amdkfd: add kfd_device_info_init function
+To: "Sider, Graham" <Graham.Sider@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20211119195258.2173551-1-Graham.Sider@amd.com>
+ <20211119195258.2173551-2-Graham.Sider@amd.com>
+ <7a682c56-817b-2658-b370-19875e3fe06e@amd.com>
+ <DM6PR12MB30673775BED4A5783F78129C8A9F9@DM6PR12MB3067.namprd12.prod.outlook.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <f45fb007-ccc4-4d09-b609-09faa81d3b81@amd.com>
-Date: Mon, 22 Nov 2021 12:16:55 -0500
+Message-ID: <46774a7b-8554-cc17-8242-b5d90b424dd2@amd.com>
+Date: Mon, 22 Nov 2021 12:37:03 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <4157439.BacSOyMZPU@nvdebian>
+In-Reply-To: <DM6PR12MB30673775BED4A5783F78129C8A9F9@DM6PR12MB3067.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0098.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::7) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT3PR01CA0089.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::20) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 Received: from [192.168.2.100] (142.127.191.123) by
- YT1PR01CA0098.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::7) with Microsoft
+ YT3PR01CA0089.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4713.21 via Frontend Transport; Mon, 22 Nov 2021 17:16:57 +0000
+ 15.20.4713.19 via Frontend Transport; Mon, 22 Nov 2021 17:37:05 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b255e453-f942-411a-c932-08d9addbe3a3
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5193:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB51939358B80A49B43BEEBA98929F9@BN9PR12MB5193.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 8cd666f3-9350-425b-b70f-08d9addeb356
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5225:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5225A8ACEAAFAE2D9DD30602929F9@BN9PR12MB5225.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ftyjYxevAZNg7PxqiutK0mFQhyxPDmeERrtSfk9hIom6M4jRArhSwsEB0hsF4lqUDu9vhGffHs4+lUNl2eFl7NwVicn9s7FTbE6wZzsDVvjKwpBecmfqC3QjVCxkB4CZskgQn/HzAHNLkQ1S+GDd/iOvGge+Ys6bi9jjiOxTiIfL8JI6WM0P6bCzc2o+1af1lA6k9SEXAjHhwjnoprbg+HZV6cq7plkjSzPyYD+XAB6SrfGP6lKTt1PEOtQFzeGl3C1Nai8WKthHQTsdM9z8eU1SNRDxNB6wpQJGxydPGYN2MxFkJFKOAEP1SN/oHTvmmd0rZMej/3uaKMxI3ot2tPUstvi05BFMR8OujLcLDoXsoLngDK5gD8qH5NcTOJ+JNAG7yYYcUOQsv4GC9KzV/DbDhjbBxnHnGyEvuLOrA6/x1TtdpTRO1wsLbb4hpTSy8gL/+i8IXX5ePKTqVl5FzN3ZOUkmWpUACZvpRROZBTL3GZba1xLSZXuIBrrK2485QA/YF45e6buYyI8NjaVEGycqy/oH3ZlK/8QGLEEkAUAkOwiVA3BdYarpXgBjFVWZbK9WPdCiMjBvDA4n20hCBwOwlZ7dfklxwtgFIBAvgmNXTCeB/gRCE8BpCiBXnQImpl//PlfiLv3KIpiI2HEcRhTtvV5iYf6SStrovzx2iwlv4B0WKvfxBZYJHydo8tnWR5AvWcVyBJNxSeLYMlODFignZbhS9LnXvY+gmdaVDmjC4TfGbzNoa/WmxWI2K5JeUlzMrayOXO9V0g7Ov1lpmb9o41jXAKMQjaw88+W7quNhtef/sj65vS1JfikGQiqB05eOxs2Eh3SOrXYQV6ve0Q==
+X-Microsoft-Antispam-Message-Info: QEjW5BN96oW4JdxZhM8/bxnAbtI4jwEtoNCV9d7ic604HfLgGjZle/qSc8Q+R4C0KpBsc1PDlNsLBX3CGNC5bth4m7N7nFb+8BYSgcZ6sqkoOTmkxYxkdwaRLdoJEqzIfzo0MTaJozIWvrkjMwuyMutG9U5u5X+UIw/0QjJVXeSu1LctJz8PX624PmvtHmSumIvJTUQ8+dZUytoxpLOGLKocFz3zkywt084gf0sy0StYkKfijWwqypjRQNPKYi0zqp1zzBfyCYlRpMlZ8EXRdbBcpeCJkapKBThkp1EPGOaI+TMa9qlzr7q+8bcBAEhCckp0LR69TahkgoQantja9eXIMCfz/hH/d8Sc6BjJOqBIoruqoCHr2RDgNu7tBcLNeYc9gZty3rz7SFUcichKhxdAA/Ff7OR+TVr32Umj5SwkrmQvFTm6HZMas+9YMBm3I9DhDZveYvge1CcMHG7kr2aPIGq1Y1HYtr+78Eq8m7sJEb161M9MzSXum9ga9JUGnFjK6l0Qjp6FQrleqszjf3XOwc62RlGyVITnzePsAk0qIP8B3QssMKW8MQ+ybxcYl1roBHfgzutwa95r2Uj8plHLqOyrqRtq0+N0hN2AON97TtpsmaubEHAgcPr6UTG8yr5/AEF9fxgM7pV+066UkMfoyKtV3VRDHFURiVLUGTnrNL3ZOQLPGVPFnnoCU7BcDxl4n+D9T5VZZq2SS3b/nGpZXLx9JjRTet3EqhPG4qq6b5/ViRkfxknG7+wQtqGe
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(66946007)(186003)(966005)(7416002)(508600001)(16576012)(31686004)(6486002)(66476007)(66556008)(36756003)(316002)(110136005)(8936002)(956004)(86362001)(2616005)(6636002)(2906002)(8676002)(26005)(4001150100001)(38100700002)(44832011)(5660300002)(4326008)(83380400001)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(44832011)(4001150100001)(8676002)(26005)(110136005)(16576012)(5660300002)(508600001)(86362001)(956004)(31696002)(83380400001)(2906002)(66946007)(38100700002)(8936002)(316002)(36756003)(186003)(4326008)(31686004)(2616005)(6486002)(53546011)(66476007)(66556008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MjBDckxDK01Sd1Y2aXVhRmZuVk1nTDY2ZHdmY1FDUi9ZeFhUK1pkZEJxaDd3?=
- =?utf-8?B?T1ZjQlNraG5QWEZSR3g0Q2M1SHpJd21jQkVYckw3TTRMTXJWOTlULy9COUMr?=
- =?utf-8?B?VXk1S0g3Vjg4Z0crSHNCKzRSc1Joa3ZJWisyaXJlM0ZhaDR4NHd1SUcyaUtE?=
- =?utf-8?B?QmE5aHUra3dYWjJmOWZSNnZMdU9ZZVVDOTM1SUh3TGFWTXVQdXhiUmZxQTVV?=
- =?utf-8?B?MU5TSUZSRGVwY1JmUTJxUXNHUUJDS2F5NEVOZGpmcDRYV2EycWgxMXNUU2NC?=
- =?utf-8?B?N1pjUEU0UFVISHdsNDA0c3lCUzAzU1hGdXdTS082clEvd3R3a2JZMmtTY3Zj?=
- =?utf-8?B?UVRnTDFrUGpray9OZExqeU51Y3hxZkFXa0NFNHJBQ2RmbTJlYzMxOERpY0x3?=
- =?utf-8?B?UUcyZ2ROeEM3NEFjcCs1aG5uVTM0dmtqb29tZFlNRktJb0lreEJQbUFvdlhN?=
- =?utf-8?B?cG8yaTFja1BMV29NMGFGNDB1YlBjUDdKT1Mwd21maWRDNmtBZ2VlTXNhTC9X?=
- =?utf-8?B?Nzk3cFdGV08xZTkrQ2lOZTFHbWFNQXdFSkc4TXZvbzNpOUJTVE9KTXZic2kw?=
- =?utf-8?B?SjNVSzU1c2c0dEs2dE5pUTg5N1UvZWFsTytoQzRVYlZQQi9BZ2Rqb0JTRmZW?=
- =?utf-8?B?cDZ5ZENVUHlGcE5vSEQ4MnB4SEFRSDFIVWR1SlMyVTl6eUx3S2hDNTErM1F1?=
- =?utf-8?B?bEhJaHRlSkFNY3FiM2pVakZHaVR3WTlhN2VpS01GL1M4eDhTMnRRZHVJSWUv?=
- =?utf-8?B?cktvMnVvTXRIdHA1REZtdlRXSk96ZkpWTFFVSFZZOFhXUlNZdjMwZ0NZUTFP?=
- =?utf-8?B?YVVyK0lReFhtV1VEdDZkQkdORnJJdjJXeG13Q05ZNVNLTGFVZ0p6ZWdvQ2JQ?=
- =?utf-8?B?T3d3bzF5dVVQelI2blk5N3RmSFduOGlWUVhpQUdpWWxVZ0xqdytkM0V6MzF6?=
- =?utf-8?B?RGhzYmpJQVdtSTVMR2FWYTVSOXNZLzh5Z2UzVWVzZWIvNkdwS2VxY0cwVDh6?=
- =?utf-8?B?V1NQTHZLNTJadG9iU2FqNHhtMEhhYkhSK29ncGx2aXpKaG1mNmdUYVJWczVi?=
- =?utf-8?B?VmlUcGtVeFdQbmZUanoyZkxSUGNvczhuMU5ibWc3KzNWQ3VTMWg5blNkN0ZJ?=
- =?utf-8?B?dnZmUitiZjhDSWNTaThMWmU3eEl1Mnp6YWx3R2M2bW5jKzI0ZDhFbUhzayti?=
- =?utf-8?B?d0dGWnJSUDV1bCtvVk5oZzl5NUlwMyt0SmdzTXhLVDR0OWxpNmR1T2FBWWt1?=
- =?utf-8?B?TnhzQXN6MXNobURDaWRMNmRzaElTNmJseFRPY0ZMZ0VrNnVzTHhodDM1ZVlt?=
- =?utf-8?B?VFBGRkU1T1ZSRGJHTWJpdjRUUDdra2NlVzNUQS9jUVdXNFBRSG1oRklUZ2I1?=
- =?utf-8?B?aHptcVBuK2ZXVUY1ZkY0V3ZwdXgwZ2VybzB1eTRhTlIxM2l5cjljdEQ3MHgr?=
- =?utf-8?B?UW5DRmRIZkkvSlhIclNWbjNkUUpjVEpDM2REUi9XaS8xUzNZbllVbUQ3RjhH?=
- =?utf-8?B?VkVFSHYxZ3R3L0dYV3d2Ulg4QjdBSmo0S0xQOWw2cXhOdkJkcTNpR09UaWlk?=
- =?utf-8?B?Y1RLZTU1aERYeUFBZXBManV6UGU1UVhwZXo5dXQzMmxoQjBrNGhWWC9qN3ph?=
- =?utf-8?B?b0hyQWNiVFlUeHVBM3Z5cjVWY05Xb1pmeHk3clRvQWNTRkFYNHhNRThXZHow?=
- =?utf-8?B?MWJYeVlUNXlWdDR2M0lsTm1pQWRrcDVhOG1VNUE3bnZDQ0h2clR6ZVZSczMz?=
- =?utf-8?B?dlEvek1Qc0ZrQy8yNXVBRGFuMUNCS1ZpNU14WlREN0lVUkpQYUcrbndYMGFF?=
- =?utf-8?B?TXphL3QzSzgyOGlFa3BlUTV5YlFXQzhFcmZSTVNNdmJtZTEva1k0Lzk0Rk5x?=
- =?utf-8?B?OGFCQU5NNWY2U0RveGtaU25XUnhOU3ZYWW5tTWRhSko4cW9tbHIxYkI1R1RO?=
- =?utf-8?B?aXp3RjQ3dEZBTUMvdFF0eFVCWjB2MmZPT3RlSjNrODQwdGdCQjhFcVVjT0J3?=
- =?utf-8?B?cWR3TDdFZG54d1IweEljN0dQenJpOFU1VW85SjE0T0NMdXJUanZqVHB6c1lr?=
- =?utf-8?B?ekhTSDBMejU5emo0dnBJditFblAwRUdsME1GVWYzT0xHOWVBTzZNNGhnOURv?=
- =?utf-8?B?TjlIUkl3R1BBZHhoVDR0ZVNkYzIyVzlsMDVSM3d3eDY4UFM5aXRUeEYvalh2?=
- =?utf-8?Q?gl2VTYJ9ulhgigXY2zc+d9U=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YS9vaEdZOWZQakpZdmE5OXFhUjZHWW9yeEU0VFdSa0MzbTQxbklZL2s5bGRS?=
+ =?utf-8?B?WjNWQmRJd3U0YWJHOGt5OE9zVDFrM1RDczhtZUFhTllVZXBnT0ZBdm56ZTVl?=
+ =?utf-8?B?WDZ0dlBJYlBydEtNOGVtZlRMZTRKNkJucFVpZGVYSEkvK1BLTGFGWHRHM0lz?=
+ =?utf-8?B?UEhGbURaVW16TU4rbTBPNGY5b29EaCtRQ0svQUlocklidlJNQ3JodkdWVTZO?=
+ =?utf-8?B?WEVBYUordzAzcmhzaUg3U05oaDhOV0FTL0Y0Vncxa2l5S0d2ZTVNKzU1elh5?=
+ =?utf-8?B?VVpXYnhVWXZKMlRURDZ5WUIxWTl2a2xqN1l5YjZNc2h4eGFyeUx5YVd0TTZq?=
+ =?utf-8?B?amk5eFVSaFNMTmlzUUpMTFRuclpaOVU4a3lhcWNmTXZSRHdqdkl5ZXlhcW1p?=
+ =?utf-8?B?dGkzbjdVbnRKNkozY24wN29zNW5TOFBDZWtKSmF3b2xHNjFRQllGbXV1U3hK?=
+ =?utf-8?B?cHlXTW5sZlUrcUk0SFNFSlU0NTUzRXY1RmxMQ0tjSEc4aFphb0hrVHlOVWpS?=
+ =?utf-8?B?VWFmNFRBbEN0Y3E1akxYcXB1bjdkS293VWFBT1lDb0lucjNkRHlJTDU2Snox?=
+ =?utf-8?B?QW92UktHaFd5bDh5dnVCak9jZzRzT0FCVm9rVXd6UHZRVm4vMmllckdrNFdO?=
+ =?utf-8?B?SWJjWERLV1dSTGp1R0c5M3hENVJMcnNTcjZKOVM1THNxZnhXeXJRS3phbVpr?=
+ =?utf-8?B?VnI5UnZneE5CU1lvSnY1c0RYb1Q0TTdvSVlxcUZRZWZzNGYzNjBFQWFZRnl6?=
+ =?utf-8?B?bGF1bFlZM2ZSWE13Um4zUzRobHQ4MVZxTGl6Yi82KzhkamlzYWRzVUJNT1Va?=
+ =?utf-8?B?ZllUQTlHNjJHU3VUYWVlN29NdzR0Y0xyLzJBb0E2aXV1NnlhTDlOUUFZaUs1?=
+ =?utf-8?B?dmo5YUZXOU5BMjFGT1hoYTdzQzVocStMRTJEOGJJOTVZTVd4emJ4K2JuY09O?=
+ =?utf-8?B?bmN1N1l3eE1SSm5GRi9XVDBSNjExTmRpMFhja2J0eko0Qm5iT1NUZ3hwTkxn?=
+ =?utf-8?B?N096WkY3ZmwwT1Y0MHRheHhEUWRldU5qM3NoUVZ2NTJLRTFITTlUT1B2cmZ6?=
+ =?utf-8?B?SVluWm9oaW0yUGNFVG5OMitZNU8vRk0rVEN2UzVWcGRoNy9ZZzM5dEZTOHZD?=
+ =?utf-8?B?UW9mSTAwdkJhWjAvSStaYzlNUi80eVJUeE41NExKMExNZ3crcnBMdXREUjFE?=
+ =?utf-8?B?b1pHOXFwRlpvZHRrRmZOTE5McDU4UzRiZ2p4b2lsUEozNU5ncnFNRndVdHVV?=
+ =?utf-8?B?aS9KL0ZSV0xOT2MxbVNFTUU1LytQMmM2SHhXVytqcWJDeWUvZDJwTlIzTkFa?=
+ =?utf-8?B?Zm8xQXJnSEF2d20wQm5NNEJiUlFjOGVldjVzcnhxUUNvNEE0cTREQjZybDJ0?=
+ =?utf-8?B?aDJmVE9NQU1XckNmVmd0M0RQK2R2a2o3T0hzYTlINTlsNGk5SFlreDcxVjYx?=
+ =?utf-8?B?cjlUbHBxdHUxQU5RUnRLTjlhWlNraWxVWUZQR3cwZ0sxNEVVWThJdnplSmNG?=
+ =?utf-8?B?OGVEWnhqZ24yVkJEWkFDV2pTZHIvb1dBRkZmQmdZM0RTcDhTNFpXUnJjblZn?=
+ =?utf-8?B?VWNkczcwWnFqT2xTMU1YNzdJNXJjVkFGbldGMGMzbmRKdHdqOXc5UyswOThy?=
+ =?utf-8?B?aDBCU0VSYzZHK2ZZdG1mSVFnU1p3WFltTnJTVXNxZis1QTFJOEpWUFVjVmN2?=
+ =?utf-8?B?NW55UkVqZk9Sa0Rmd0MwZE8rd2F2V0IzcUlkaGpRZElyRHVnL2ViUzBKY0w2?=
+ =?utf-8?B?eklPcHpPYnkwQU9RZHZiWmZzK1VjN1R1Tmw5Vlp0TVpFZ3FaNTl6ZGNlNDZs?=
+ =?utf-8?B?bitvMTAzZlpLVlhnYmRwUzA0ZWtDRGRyMXdyQnZ5ekl4UVpRQ2p0VnhoVkd4?=
+ =?utf-8?B?VlVRYlgzdzZYaVQzVCtQZ0N5ZjErcGNES3ZLUCsyM0pKVmV6VVVHdHFQL3RD?=
+ =?utf-8?B?UFVmWTJjVVhLa2JpZHltaWxnQVJiZkRLVVZvVk1NZ0RzeloxQVYxOW95d1Vr?=
+ =?utf-8?B?NkNQNE0xRVNPQ2RWQzRYR0RKM3ptTUR3cHh3QklNcGNWWmNHQTNJV3JMYWVt?=
+ =?utf-8?B?NFVHTytkSnBMaVdCNGdBSDZpM2ZTajZidDhLQ29xcjJzOTd6L3Z4TlY3WGJ4?=
+ =?utf-8?B?dXFlNzRzWUlidXV0MENJcUl6Q0FOK1F2bHJ4K3JWN1FsY3ducnl5d08xR3J0?=
+ =?utf-8?Q?jQLymJJaQKqkLaLPkmYHNUs=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b255e453-f942-411a-c932-08d9addbe3a3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cd666f3-9350-425b-b70f-08d9addeb356
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2021 17:16:57.9993 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2021 17:37:05.4114 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3/JkKpLvOsR4DqnBusLVIJ5ysRlQEul/dHbVxoYm5160m+jN0mwNeLQ3ye7NI70gDxLij5nKsDJY9poyn1diYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5193
+X-MS-Exchange-CrossTenant-UserPrincipalName: i8oY6GvlvAPLDoeeKqfQ2PZCacN1hHigWogGJz/ge3P2a40tnj2Zg3awDsZqZpKvh25DyhdSUT3+Bzvmo9bZiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5225
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,125 +134,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, willy@infradead.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-11-21 um 9:40 p.m. schrieb Alistair Popple:
->>>> diff --git a/mm/migrate.c b/mm/migrate.c
->>>> index 1852d787e6ab..f74422a42192 100644
->>>> --- a/mm/migrate.c
->>>> +++ b/mm/migrate.c
->>>> @@ -362,7 +362,7 @@ static int expected_page_refs(struct address_space *mapping, struct page *page)
->>>>  	 * Device private pages have an extra refcount as they are
->>>>  	 * ZONE_DEVICE pages.
->>>>  	 */
->>>> -	expected_count += is_device_private_page(page);
->>>> +	expected_count += is_device_page(page);
->>>>  	if (mapping)
->>>>  		expected_count += thp_nr_pages(page) + page_has_private(page);
->>>>  
->>>> @@ -2503,7 +2503,7 @@ static bool migrate_vma_check_page(struct page *page)
->>>>  		 * FIXME proper solution is to rework migration_entry_wait() so
->>>>  		 * it does not need to take a reference on page.
->>>>  		 */
->>> Note that I have posted a patch to fix this - see
->>> https://lore.kernel.org/all/20211118020754.954425-1-apopple@nvidia.com/ This
->>> looks ok for now assuming coherent pages can never be pinned.
->>>
->>> However that raises a question - what happens when something calls
->>> get_user_pages() on a pfn pointing to a coherent device page? I can't see
->>> anything in this series that prevents pinning of coherent device pages, so we
->>> can't just assume they aren't pinned.
->> I agree. I think we need to depend on your patch to go in first.
+Am 2021-11-22 um 10:25 a.m. schrieb Sider, Graham:
+> [AMD Official Use Only]
+>
+>> -----Original Message-----
+>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>> Sent: Friday, November 19, 2021 4:20 PM
+>> To: Sider, Graham <Graham.Sider@amd.com>; amd-
+>> gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Subject: Re: [PATCH v2 2/4] drm/amdkfd: add kfd_device_info_init function
 >>
->> I'm also wondering if we need to do something to prevent get_user_pages
->> from pinning device pages. And by "pin", I think migrate_vma_check_page
->> is not talking about FOLL_PIN, but any get_user_pages call. As far as I
->> can tell, there should be nothing fundamentally wrong with pinning
->> device pages for a short time. But I think we'll want to avoid
->> FOLL_LONGTERM because that would affect our memory manager's ability to
->> evict device memory.
-> Right, so long as my fix goes in I don't think there is anything wrong with
-> pinning device public pages. Agree that we should avoid FOLL_LONGTERM pins for
-> device memory though. I think the way to do that is update is_pinnable_page()
-> so we treat device pages the same as other unpinnable pages ie. long-term pins
-> will migrate the page.
+>> On 2021-11-19 2:52 p.m., Graham Sider wrote:
+>>> Initializes device_info structs given either asic_type (enum) if GFX
+>>> version is less than GFX9, or GC IP version if greater. Also takes in
+>>> vf and the target compiler gfx version.
+>>>
+>>> Inclusion/exclusion to certain conditions for certain GC IP versions
+>>> may be necessary on npi bringup on a case-by-case basis, but for the
+>>> most part should be minimal (e.g. adding one || asic_version ==
+>> IP_VERSION(X ,X, X) case).
+>>> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 61
+>> +++++++++++++++++++++++++
+>>>   1 file changed, 61 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> index e11fc4e20c32..676cb9c3166c 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> @@ -511,6 +511,67 @@ static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+>>>
+>>>   static int kfd_resume(struct kfd_dev *kfd);
+>>>
+>>> +static void kfd_device_info_init(struct kfd_dev *kfd,
+>>> +				 struct kfd_device_info *device_info,
+>>> +				 bool vf, uint32_t gfx_target_version)
+>> This will give you a compile warning about an unused static function.
+>> Maybe squash this with the commit that actually starts using this function.
+>>
+> Sounds good.
+>
+>>> +{
+>>> +	uint32_t gc_version = KFD_GC_VERSION(kfd);
+>>> +	uint32_t asic_type = kfd->adev->asic_type;
+>>> +
+>>> +	device_info->max_pasid_bits = 16;
+>>> +	device_info->max_no_of_hqd = 24;
+>>> +	device_info->num_of_watch_points = 4;
+>>> +	device_info->mqd_size_aligned = MQD_SIZE_ALIGNED;
+>>> +	device_info->gfx_target_version = gfx_target_version;
+>>> +
+>>> +	if (KFD_IS_SOC15(kfd)) {
+>>> +		device_info->doorbell_size = 8;
+>>> +		device_info->ih_ring_entry_size = 8 * sizeof(uint32_t);
+>>> +		device_info->event_interrupt_class =
+>> &event_interrupt_class_v9;
+>>> +		device_info->supports_cwsr = true;
+>>> +
+>>> +		if ((gc_version >= IP_VERSION(9, 0, 1)  &&
+>>> +		     gc_version <= IP_VERSION(9, 3, 0)) ||
+>>> +		     gc_version == IP_VERSION(10, 3, 1) ||
+>>> +		     gc_version == IP_VERSION(10, 3, 3))
+>>> +			device_info->num_sdma_queues_per_engine = 2;
+>>> +		else
+>>> +			device_info->num_sdma_queues_per_engine = 8;
+>> I feel this should be based on the SDMA IP version, not the GC IP version.
+>>
+> Can the SDMA queues/engine be determined by the SDMA IP versions? I would have thought those were instead done on a chip-by-chip basis. E.g. in amdgpu_discovery.c this is how the number of SDMA instances is defined.
+>
+>>> +
+>>> +		/* Navi2x+, Navi1x+ */
+>>> +		if (gc_version >= IP_VERSION(10, 3, 0))
+>> There needs to be a maximum check here. This case should not automatically
+>> apply to future ASICs e.g. GFX11.
+>>
+> Just a thought on this: assuming on future asics this field is going to continue to be populated, might it be better to just continue adding cases here as they arise? Adding a check for e.g. < GFX11, would require eventually bumping that check to < GFX12 alongside another check for >= GFX11. So at the end of the day, if a >= check is going to be needed anyway, is a maximum check necessary? Of course this wouldn't apply to below regarding the needs_pci_atomics bool, since as you mention on future asics it can be kept as defaulted to false.
 
-I'm trying to understand check_and_migrate_movable_pages in gup.c. It
-doesn't look like the right way to migrate device pages. We may have to
-do something different there as well. So instead of changing
-is_pinnable_page, it maybe better to explicitly check for is_device_page
-or is_device_coherent_page in check_and_migrate_movable_pages to migrate
-it correctly, or just fail outright.
+The reason we had a firmware version check here is, because on these
+ASICs older firmware depended on PCIe atomics, and at some version it
+stopped depending on them.
 
-Thanks,
+On future ASICs I would expect all firmware versions to work without
+PCIe atomics. So device_info->needs_pci_atomics would be set to "false"
+for newer ASICs by default and you would not need a firmware version
+check for them.
+
+If we do need more firmware version checks for future generations, the
+firmware versions will be different from current generations.  So you
+would need to add new if-cases for those anyway. Firmware version 145
+will be meaningless or plain wrong on GFX11 for instance.
+
+Regards,
   Felix
 
 
 >
->>> In the case of device-private pages this is enforced by the fact they never
->>> have present pte's, so any attempt to GUP them results in a fault. But if I'm
->>> understanding this series correctly that won't be the case for coherent device
->>> pages right?
->> Right.
+>>> +			device_info->no_atomic_fw_version = 145;
+>>> +		else if (gc_version >= IP_VERSION(10, 1, 1))
+>>> +			device_info->no_atomic_fw_version = 92;
+>>> +
+>>> +		/* Raven */
+>>> +		if (gc_version == IP_VERSION(9, 1, 0) ||
+>>> +		    gc_version == IP_VERSION(9, 2, 2))
+>>> +			device_info->needs_iommu_device = true;
+>>> +
+>>> +		/* Navi1x+ */
+>>> +		if (gc_version >= IP_VERSION(10, 1, 1))
+>> There needs to be a maximum check here. On future ASICs (maybe GFX11) I
+>> would not expect atomics to be required.
 >>
+> See above, agreed here.
+>
 >> Regards,
->>   Felix
+>>    Felix
 >>
->>
->>>> -		return is_device_private_page(page);
->>>> +		return is_device_page(page);
->>>>  	}
->>>>  
->>>>  	/* For file back page */
->>>> @@ -2791,7 +2791,7 @@ EXPORT_SYMBOL(migrate_vma_setup);
->>>>   *     handle_pte_fault()
->>>>   *       do_anonymous_page()
->>>>   * to map in an anonymous zero page but the struct page will be a ZONE_DEVICE
->>>> - * private page.
->>>> + * private or coherent page.
->>>>   */
->>>>  static void migrate_vma_insert_page(struct migrate_vma *migrate,
->>>>  				    unsigned long addr,
->>>> @@ -2867,10 +2867,15 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
->>>>  				swp_entry = make_readable_device_private_entry(
->>>>  							page_to_pfn(page));
->>>>  			entry = swp_entry_to_pte(swp_entry);
->>>> +		} else if (is_device_page(page)) {
->>> How about adding an explicit `is_device_coherent_page()` helper? It would make
->>> the test more explicit that this is expected to handle just coherent pages and
->>> I bet there will be future changes that need to differentiate between private
->>> and coherent pages anyway.
->>>
->>>> +			entry = pte_mkold(mk_pte(page,
->>>> +						 READ_ONCE(vma->vm_page_prot)));
->>>> +			if (vma->vm_flags & VM_WRITE)
->>>> +				entry = pte_mkwrite(pte_mkdirty(entry));
->>>>  		} else {
->>>>  			/*
->>>> -			 * For now we only support migrating to un-addressable
->>>> -			 * device memory.
->>>> +			 * We support migrating to private and coherent types
->>>> +			 * for device zone memory.
->>>>  			 */
->>>>  			pr_warn_once("Unsupported ZONE_DEVICE page type.\n");
->>>>  			goto abort;
->>>> @@ -2976,10 +2981,10 @@ void migrate_vma_pages(struct migrate_vma *migrate)
->>>>  		mapping = page_mapping(page);
->>>>  
->>>>  		if (is_zone_device_page(newpage)) {
->>>> -			if (is_device_private_page(newpage)) {
->>>> +			if (is_device_page(newpage)) {
->>>>  				/*
->>>> -				 * For now only support private anonymous when
->>>> -				 * migrating to un-addressable device memory.
->>>> +				 * For now only support private and coherent
->>>> +				 * anonymous when migrating to device memory.
->>>>  				 */
->>>>  				if (mapping) {
->>>>  					migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
->>>>
+> Best,
+> Graham
 >
->
+>>> +			device_info->needs_pci_atomics = true;
+>>> +	} else {
+>>> +		device_info->doorbell_size = 4;
+>>> +		device_info->ih_ring_entry_size = 4 * sizeof(uint32_t);
+>>> +		device_info->event_interrupt_class =
+>> &event_interrupt_class_cik;
+>>> +		device_info->num_sdma_queues_per_engine = 2;
+>>> +
+>>> +		if (asic_type != CHIP_KAVERI &&
+>>> +		    asic_type != CHIP_HAWAII &&
+>>> +		    asic_type != CHIP_TONGA)
+>>> +			device_info->supports_cwsr = true;
+>>> +
+>>> +		if (asic_type == CHIP_KAVERI ||
+>>> +		    asic_type == CHIP_CARRIZO)
+>>> +			device_info->needs_iommu_device = true;
+>>> +
+>>> +		if (asic_type != CHIP_HAWAII && !vf)
+>>> +			device_info->needs_pci_atomics = true;
+>>> +	}
+>>> +}
+>>> +
+>>>   struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+>>>   {
+>>>   	struct kfd_dev *kfd;
