@@ -4,121 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D09C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 16:26:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC201C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 16:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F33E189DA4;
-	Mon, 22 Nov 2021 16:26:02 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE21589DA4
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Nov 2021 16:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BAFA89354;
+	Mon, 22 Nov 2021 16:43:19 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2040.outbound.protection.outlook.com [40.107.95.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0022E89354
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Nov 2021 16:43:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fEN+F/jJYmnyH4ZnfU7AXsIEfi98ZFRYzixz4/R4QAQdqHrIXa6VgK6nWd+d6j33CRLzm2+ONCdK/5StpT+do8M237S2QgyveCtkhCnkw1ngii3qXr0oSPYWjb2j133uUGoIXtsd+rNW8Opzjskj8zhHjqYipnq29ahmPvi1nAb8eBn+Ng4H25xxPkUgU0ElMT7cyt4nF/zcoTwES1CZRjiInsNcr+U9HF6QSGU22Tziq8h6QsaIDjS2ZD5cv95RJzlUsSD+3gZQ7Koz5TLF8BumcRnOjrMuDMeDmCSmK8Dx5Pxur/U9yThjpK4fK1CpRLmn85LwRY+iPDbuM1BrrQ==
+ b=nkFQvq412WVeKbh8Iq1t3Mkoidvk/YgAInwpCnD/wpmQuK1duzWUsBoY7bUmJCmt9LvNAXByTKOrnqsSrxsFXWGdrY1O0DEqRgJTKFHnlU4ZBh3z+S3TloXfxgw6tIJ506JpG7GFJ9tRNcqrPFn6KrEljqdm7IYXudWqR02aTGgkJIqVscJ3no1hvs9EMBCFq1TtIJyAX9IEesk0MqvcYZ3KOEs5XN5T/kl9fdfLVLS5/mGW7CBeDf8pnj6wIspuMv1zlYhZBENRz7FXf0fOtL1lQUlPFrsCCgLCAbfdwOCWpriH4oXN3OIKhTvPExyzx0JuEDkLWSHixJEgzxHpSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YtBnj+m5zoztEPsco6N967F6dbe8czQdqRU9Oj1nreo=;
- b=BUw4Se7xAJxewRvYdX4NqlIXmBRqrMxm3Fwyba1FLWo2L59vg0X5AtMgB+Zojjauo2wr/1Gil7jbC0twlUQZU1U+qWotYgGqiNedFJTobldCyfi8+DRzmwKln8il6oFxu9EMGDsTEgbYuwyuio3SbjEr5sDM3jbHvqan79bNLDgNhVtnXQg/aLKmbMBGhGzu2u91ly3Stv/1PLvmrEcX39s0wNRrevu3Sc0YB6gNaFFM4Y/qp5IDrYjQ2yb/mqX0Xno80LUXsy08JjEiHbcX1wq1t84zzTaWLGAxGf1w9MrMZamNufaSv4+qb8VGAhW3VWBSK2PWdTLczTCcBqaDnQ==
+ bh=xm4MkD2JaY88OypN1VaCczmjk10kd5OQuWgOIYoEDdw=;
+ b=lFx2r5G1bREC981/LQYJMQ+daak3E/l3rLRmo6MSAUcE/SSDBvtBhhH5SyjTzrPs8pQdEYv4IV99WhuUSy5UKlCDzcaoBbHBO4WUbpceblF6tZHR5jRHCwoc+0q6QXeriG6HawgINdPaY+WAoug6NLDkCav2upJMbknT9m+GUM6HZpEBo5/8abfsq9FrmWT7TA6UfOhqhhbHZ6dZgHNKfge17ckHbljxGMtvj/eKoHu6nKTIqo/Set2/EycyVGtgxBZnVwcjvjB0Ki6d6FvF0xuRxuz/5gdkOJZAEXYySOrCIYFLK5TGZjd3itrh1jcN9lRDuNdtOfXyVfQmG9j0JQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YtBnj+m5zoztEPsco6N967F6dbe8czQdqRU9Oj1nreo=;
- b=GiZ27VjhnKmHWr86zOwvD2ppC+pC0CsHvifPY910xYTR3sw/NzczrAj8Af6zhiRROLiXXPYMr6Nirk7IVr2SwwD7Xi7RSblmhpG53CjMtYbfWE2MqGKMrF4Q2YAsb4PFloIqmzBruQCtGpHlPQ+H7C4czt+Ei+4qKVbCT7ls1LI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5083.namprd12.prod.outlook.com (2603:10b6:408:134::18)
+ bh=xm4MkD2JaY88OypN1VaCczmjk10kd5OQuWgOIYoEDdw=;
+ b=OTa0BNx+JtTqES/RNLggn6Q0/OUhOsh4rKPicY/LCQixDMxQNtMQi2Gj9BZJzyou1tU97fQ7Yh78f+EV2T3o9pA6T2oMYHMRLtRIYmUkOnPZnwycUUm8wrSvAJ7EERvG1ATplxZEO/Hr4ctby2cNgyJ9awPZQrXEQpf56lH5Jto=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5254.namprd12.prod.outlook.com (2603:10b6:208:31e::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Mon, 22 Nov
- 2021 16:26:00 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.025; Mon, 22 Nov 2021
- 16:26:00 +0000
-Subject: Re: [PATCH v3] drm/amdkfd: handle IH ring1 overflow
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211121025840.4839-1-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <d80d3203-1ebc-1334-3779-8a25175a969e@amd.com>
-Date: Mon, 22 Nov 2021 11:25:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20211121025840.4839-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+ 2021 16:43:16 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::6452:dc31:2a24:2830]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::6452:dc31:2a24:2830%8]) with mapi id 15.20.4713.025; Mon, 22 Nov 2021
+ 16:43:16 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Cui, Flora" <Flora.Cui@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
+Thread-Topic: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
+Thread-Index: AQHX34BAh0aHDNRctU6dzz0dOSZJKawPkIEAgAAvFFo=
+Date: Mon, 22 Nov 2021 16:43:15 +0000
+Message-ID: <BL1PR12MB51440B523B58CA96EA7BC0C0F79F9@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20211122090353.1399178-1-flora.cui@amd.com>
+ <DM5PR12MB2469709B28E24F1C8FCB573EF19F9@DM5PR12MB2469.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB2469709B28E24F1C8FCB573EF19F9@DM5PR12MB2469.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0047.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::16) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-Received: from [192.168.2.100] (142.127.191.123) by
- YT1PR01CA0047.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4713.20 via Frontend Transport; Mon, 22 Nov 2021 16:25:59 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 95b7e93b-fd4a-45ad-0537-08d9add4c4f4
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5083:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB50834C334F44C1399EB6D5DB929F9@BN9PR12MB5083.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JD+7cgJVTRpwt8PDr2GBpAqRT1hjJ3OYXPdsBp6/H1IjsXYpMKKJfVYM+85M+g9tlHUQJKfUEqIwd7XApdz94byJ2m0xJfyZK7Pkk8TpdJ0a5MZX9/G4XEi8FBj1q2uaqHnT6+Fxv4kVjvvEGc+a6zwQ8maiwkBgb7HKubDSfvR1os1Jmic3wP2QmQGMyyU1NL9Lv3lRv7mZdFlChYmCpB2FeHcJan49BMQzJr2yyXMCkNjIKJ2SH6Xtq6IYVLkwjKub9Hq0QAHMrV1WLZuxpmIiz6t98zszv3HfCbUooo9r3ZhRxWCeKYVjzU17zgwA3e/5ZOglF0Y3xFKP+Zva50BNF6j/boLXLRbghicisQRBeQssOAX8DAFkX3gXPEEgPtQ5NP6UqlaPT8Tge6MnKyhxB6wbs/zsUzQOPi3POscqgLHSxQ8UndFRr0+JU5wZasoGvW87+2TcqmNd9Ruu2QL/hUIM6OS0tLCBAC6uxGVCNkc++QoKS8J8te+ccmLzOzQ/Bzo+1he2e9N3pCMwF0fhTM8JA3ZCkJ3Q5QpSnZelgqj/Dz6q3cRkZX0WvxdKz30qFu+JSHBIgxx52paOp6gFCkT1x1jNFEt4As3x23OtbSz8v4UnmPZ3rNMOiwMsTAMj9KAXO0ZGQ5ytmfJQAr1SWJ7urpuRk9Uq/Uh5+dOgZXjAL2XoAKdH7Uiz9Q1QA3N//bjZyfW1beUbzDNffB8EJt/pY5VFdKExvj5DLS/+J9LNDCU5Ltlkr8saIau1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8676002)(36756003)(508600001)(6486002)(31696002)(2906002)(8936002)(66556008)(956004)(66946007)(30864003)(2616005)(83380400001)(38100700002)(66476007)(16576012)(316002)(4001150100001)(31686004)(26005)(4326008)(186003)(44832011)(5660300002)(86362001)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-11-22T16:43:15.383Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+suggested_attachment_session_id: cad34cd7-091c-30df-7fea-df180a95a0e8
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f2fc8096-bcb1-4b17-8444-08d9add72e97
+x-ms-traffictypediagnostic: BL1PR12MB5254:
+x-microsoft-antispam-prvs: <BL1PR12MB52547E7CED8446A77D4CD344F79F9@BL1PR12MB5254.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:538;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: gnCBDzYDi99bIEJ7EJon0kBSm1TcdsM14rzEGdzwa6MSRzap3JKPNicZ94HOKKsr2k6lTOEjSvZNkVn5YoNwC2uH9TYqJlfQzyrr65IeBHzgi5B3t0hyFhe+OtOTWl3Crcr0k2EILw4F1FbZo8Z6M2/qygqefDOvVBAUb0UPLSjl/WPIBDptDJzxEAD1lRy27T9QvjttjmlLQedPTVYOvk3nvwO7+NWniPHbcPbBHDLXUtTcM8+scslm0nbXRWF3jHx4aKLygfvjDcGveBy6n4ewxaRp8Wdf1+9nezYkAHj0btJ3O0X7872rnW6h12OzYepbiNhB2A54FQkxeGLucyxNjjoRMbmXLP9qb8U8Gdt+3y3/L7QvqGfQzRgbPH7w11/+esessucJHS07OxAVbIHHl099V4+yqtZrAxaHAElaj72KUOCKyA/dXeq3InkdY7OywfJEVTcTCwSSAlEjKhSe9+v3dS0TBmYX5ImNScnmHVS4fBf65VVt+HvMZVunZLBWdhY/LXRxxSbC+EuZP/QuNAduMejTb2D1tdexTnYjO5dCMNFsu3iZ0TNyuFId5sHkgoj+Y/hI4OLp6NdOVGw1+rA/WR/Rw8wNBDnPPJjO/VOzWEDTta99Fps7Bepo+HRnP5OePoSLA/xic4wOjSK+FZ5qPUE/WHem5KhRl9gUljlwDynSX4OCKmBCZhGQWHdvmZ9Y+M++St6bMYDKNA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66446008)(5660300002)(122000001)(38100700002)(66476007)(2906002)(316002)(66946007)(64756008)(9686003)(76116006)(66556008)(86362001)(6506007)(19627405001)(71200400001)(53546011)(110136005)(55016002)(52536014)(508600001)(26005)(8676002)(38070700005)(186003)(7696005)(8936002)(83380400001)(33656002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZEFpOEhlWVRERkRsYzlFYkd1MlEvZkoySkhTVXoxT2hERGl4QjhjaGJ4K1lL?=
- =?utf-8?B?K3AyT1lsT2xmSnFUeXNnWDJmRW1HTFBpUlZzUWloMWRUVVMrMDBNQWh2MmhC?=
- =?utf-8?B?Qk1kdm1DenVOTWlxNUU5ZXJ3U2JSd0RxcWVYV3VSRWxkdzJiL0dNVVBGN09P?=
- =?utf-8?B?WXNOQXAzSHNZK01JenZ3ckJiYk55Y1RhVlZJMlg2SUVpTHRhZytTSEJQdk9C?=
- =?utf-8?B?eW8xc3E2U0pwL0JpOUxjNi8zQzhweFZ1WUdjbjE1T3lrRVBtSldIZGJ0K0Vv?=
- =?utf-8?B?djZYSTBIbzJLVURXbzN0aFJWdzhrZnVDNkROMXExWDBBcVNmbHhEV1NKcUFW?=
- =?utf-8?B?eGxIMGNPVVV6bVVTcFYxVEZMTXBtbmRIMURET2l5VW9aTWxiN2JGZWdOQXhq?=
- =?utf-8?B?L0VDVnlJS29xdVBBbHVGSytjT0czSFA1ZTZtYXMyOTh4Y1hQc1o5OUErZm5k?=
- =?utf-8?B?U0NHaVEzM2pueUYyRWNab2VYVStIVnk1eGk2SzZrSWUxQWJKNlhUQ3ZvUTE2?=
- =?utf-8?B?aXEwaUV1RExBWHEreDFkSWpMazkxTFk4MCtrcTZnRGlsZkE2ekN1WFMyK25P?=
- =?utf-8?B?OTE3NHUwckUwb2xuNFNkSzBMWDhHN1RJeEZZU0hwWkc2czBMOXAzaXl4MXVI?=
- =?utf-8?B?WUJhS2VmWGhxdWxzbHYwY0g0WHN4K2JXOGxocS8rTGZCVFB4QkNMd0F2akE0?=
- =?utf-8?B?ZEV4bFhxaGVCSGV6Tlo0RndxNWpwQkVVUUl5OUhidlJFN2lNeGorYnh5ZlJO?=
- =?utf-8?B?bGl5YkYxMDdERDJFZGxjVm1ndGUycHM4eCtBazl5NWt2SHZpcWRuUEJGQXNr?=
- =?utf-8?B?bVYyS1RiTWUwck9zYjFaUWlCRWRWNHc4U0VzSU1zK1VvNWI5aCthVVd4dkVW?=
- =?utf-8?B?K3pudzJPMFc1Yk9acWZqQmptOU9COGtTVnQ5Z1dBdW1oS3d4a215R1hiOW56?=
- =?utf-8?B?bk5SOCtSV0lnaUNMczg3SUhNNlMxSUR2Q0dSd1ArSXExU1piblg4WjdtVlNy?=
- =?utf-8?B?VU1QRUtMQmw5ckhVb2NsR0VhT2g4ZGxiSkEzOUpCcEcyeTNEblVuanlrZjhD?=
- =?utf-8?B?NTlZRlhvL3BtcVRkRE5LaDhhM1Y5UE1ETFkxcE13TTdWbWxqZUxINWdySk5X?=
- =?utf-8?B?UHlQZHVnSkJ1clQ3UE16SDkvS0dBUVkzeWVVRS95ZDZrS3pZYlB6V21WYnVO?=
- =?utf-8?B?MC9BNWVNSE5hUUFsRUZKdndrRTBDbkZyZDlsc0dkVklndU0vUHFDazcxbllX?=
- =?utf-8?B?Z1F0ejJ0ZGFha05CNW5NR2pIYzRkUDFBSHVLYXY0aWZXWWE5U0hvc0ZodFlm?=
- =?utf-8?B?djBvelNWNGl4RUt1WlpmZXV5SmVYdUZNKy9vK2h1Y3NhWEJIc29GS1VVRTJU?=
- =?utf-8?B?ZWJXWDVtSUJHTnR1RG5zbWVCNFJZV3p1dk0vOHlYbVJnR3BjUUZzNTNuN0tn?=
- =?utf-8?B?a3NkcEZzVTNxWnN5Tjd6dHRIYkpWTHovOTBCSitTOXRhaEpJLzI1MDVCcnMy?=
- =?utf-8?B?MDI3Y2Rxcm1Dckh0aC9BUTFheGFva1p0bE5qZjhIZFZtRU5OcXlSWHVJbFB0?=
- =?utf-8?B?bjlVNU94cnBEVHBwWS9oYTVIcUpYNFZYckNVYWd4RHFwT2hzcWlNdy9UVGpM?=
- =?utf-8?B?bDhUTzZLOVJYWURSWjN0QkJJUDBxZnpCSXIxbGVTU0lSN0JJVDJyVER6Tk1M?=
- =?utf-8?B?MEwrZTNSYVMxenJiczB5azl3ZDJHNUk5NlhuaFhWeXpzZTA5SGpuUGlyTlp2?=
- =?utf-8?B?WmtNcE5VZ1pmR2FvMzFhTHhWZXJ0MUo2di9aVC9QajBlemkxY0wvczdyMWxm?=
- =?utf-8?B?V2hyMnI2RSt4d0pKMG5WNFRrV1o4bmdFWExJRlc0cmlDY3h2OXJtaTJKYmQ5?=
- =?utf-8?B?Sys5SlVKQk1LRnNicHYrbXloV3NHSTFYV2U0ajkxYWIyOGxSYlBGTHg2Umxy?=
- =?utf-8?B?d2dma1BJeWVvd3ZHU21OYWl1S3hPeEpMSnJrY0dNT3pQQ2QvNkRNRDdYYkdC?=
- =?utf-8?B?Nmt2TnJjNHpuMnZNNi8yaFkzTzRaeGdQQ1QyWUNZcFM5bGlaT1kzYklnbzNH?=
- =?utf-8?B?TytTUm9QN3FvVU5pcE5RbXMreTREb2Fyaitkb1g5akdBLzAwSVh5QlJvKzFi?=
- =?utf-8?B?c2FSUzdQVkcyUDc4UU1MVmdOTXA2RUI3dnVIMHFVWTgySUJEQnhDeWkxaytv?=
- =?utf-8?Q?vuMSPamU3jQICIKFqHE0c/g=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GdpfrAnnN2nBojvm+XXG3mGRYprSlw+hKiotzIuGQFLQltTY9bnTtUH2B+o4?=
+ =?us-ascii?Q?j6KJ2Phuhqi8/kAbZUHcLOmr+1GP707S9We/e5j3fVDPcQKz0epjJfjWE4yA?=
+ =?us-ascii?Q?KjEEF2hLUwH/ngvc1m/vNBHZI4jTEQdHyWGcq7rKvkyqw+JjHSSR16jZ67eV?=
+ =?us-ascii?Q?IMlPCayjGPcX4Ha5mXexASVi7uE1GYNv75zZi2fLOK+vgdtUy/VNV4zIzi9g?=
+ =?us-ascii?Q?7j3oq6GOBY6X0PJzmyZ8bha/zO0E15cDpEK2GhOyecvotqhQ4t/88n+K6HUv?=
+ =?us-ascii?Q?fFQ2qZdLbf0M7ag2WggpulT9920kyadKv/yhiKLpt6yA6g20e1gHGvMT8ZCu?=
+ =?us-ascii?Q?Uhc3dIHMSJMEleUN7GuO287eaqwDxg3WkxfO+6JHSroFzzZEThPopOBuNdlG?=
+ =?us-ascii?Q?zuPnxXeiUVUMABctm66IVxzMO3eCDRNAtu/OpIOroLOZ8kteWgI+N224sKLB?=
+ =?us-ascii?Q?BzF4MrULuCrcpxJobFzU48cqjwlsvhJFFZb3nndGXUi157fU/cGcsw59YXDd?=
+ =?us-ascii?Q?KzfQDXzCc00VBirnp7Ya9RcccXV3SWtP0/40S0yutgiMp/KRLfL7eeTzwzg6?=
+ =?us-ascii?Q?azu1P/BNZ45RoLOdMktyFsFMRZHZSwOEQhYVxbivc7O96N08tldecncC3kZz?=
+ =?us-ascii?Q?d/klgWrvyeBJi6ffNrOa9VMIl5cmwTFRg6mwrQzot41ZmYqLANlxabQQz98v?=
+ =?us-ascii?Q?Yjp9cR+lYWXPD9HUXst/fnmJFjeivy16FHlOO+ZIwosQsSOC8xHQv2ie2fhi?=
+ =?us-ascii?Q?5qSROmbzQ4p3PpGSyiUB/l/fX5uoPa7hoSGmhUl7fPHGad944ao2Fju5+36h?=
+ =?us-ascii?Q?HHVwB1fMLzbZse52NOYruE3NaxyzF4Big3B83Ldhctb5SOqNtPjAU7XDP7EX?=
+ =?us-ascii?Q?ps2XFPiyQlMYOdw9cdHb1Xo8Ed0MTuY7mvLaLvcLmNMwbtxRwSRxHSd0sWmx?=
+ =?us-ascii?Q?JGtrNAQY89UIEgLRuURVd4mqqjVGUWmZFfDyCwS/Tg6NKwpUcndhVl7bhAMU?=
+ =?us-ascii?Q?abQZ8WxHiB6A3ZFdogelty5nVVuh6Y+pbyHR6vbTpO5UKCuWKcmtiD9APswi?=
+ =?us-ascii?Q?7SITSlf4MzG1aTa2bjFOG9S32lEYMmLH/8HbCSmRXAroBZPa2VlO4yOebwmk?=
+ =?us-ascii?Q?y9y47m47LHFTS1/ikSGSmhv0hLQFVpEW95qrg/rVhc/SxpOyOH2RWiSEv2Qr?=
+ =?us-ascii?Q?Awk8HOtLHs5dBWKIvka0dLgeZHLhdS4f32KJZ3gUEO331owf78M5UkUhixPD?=
+ =?us-ascii?Q?23U9Y8H37t5ku7GQ3bH4Qipzy9sVieIMnYNp8tjukbHW4AZWwOvYzisjaW7p?=
+ =?us-ascii?Q?pYHBjbsXAf0H69n/6SwYLxwWJd+SsQk03UtUMAV9Z8RNVT0rp44KxB4+z3iW?=
+ =?us-ascii?Q?o7QEFzaLNiCruyBcYp3WBcYrJW0lt+Bwiv037MVraNMoLpA1WidxxttDb/A+?=
+ =?us-ascii?Q?PMBu1uB5Z1gp+l6/SAZP/BlnjgWQzFRU/5KwXR/xFdlZSbbhNGyFVn01FeTx?=
+ =?us-ascii?Q?tKLK/VE/BGXY3PM4hMVfR3VFxr23o1Gh1PxX3Iw05XyyNYYqZHm9pZUlDS37?=
+ =?us-ascii?Q?mCx20t3AFpQMDNiNWgUWDE5qbSayVmIMswtOUu3Mdg7xhXtj4OouE1p9uQjo?=
+ =?us-ascii?Q?XOzSOvZCAhPl7KwLdBQ01Hk=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51440B523B58CA96EA7BC0C0F79F9BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95b7e93b-fd4a-45ad-0537-08d9add4c4f4
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2021 16:26:00.1242 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yAXJr6yILJkYKXPQGQoRz3g/dY+rNQUVTv96mnavDMMlND91gMXPQkACJ+pjbKgokTNANCI+e+zCjX6BmB+giA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5083
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2fc8096-bcb1-4b17-8444-08d9add72e97
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2021 16:43:15.9527 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Lsi260ew16/NqID0/LUABb3kQdUgkHFbmNLMNjpgUkI8q4zT1yc2tUbNkqobPLk+nBSL6hjbTrF172MHG1b4ug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5254
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,352 +126,490 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-11-20 um 9:58 p.m. schrieb Philip Yang:
-> IH ring1 is used to process GPU retry fault, overflow is enabled to
-> drain retry fault because we want receive other interrupts while
-> handling retry fault to recover range. There is no overflow flag set
-> when wptr pass rptr. Use timestamp of rptr and wptr to handle overflow
-> and drain retry fault.
->
-> Add helper function amdgpu_ih_decode_iv_ts to get 48bit timestamp from
-> IV entry. drain retry fault check timestamp of rptr is larger than
-> timestamp of (checkpoint_wptr - 32).
->
-> Add function amdgpu_ih_process1 to process IH ring1 until timestamp of
-> rptr is larger then timestamp of (rptr + 32).
->
-> Enable navi asics 48bit time stamp in IV.
->
-> Helper amdgpu_ih_ts_after to compare time stamps with 48bit wrap around.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 109 +++++++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  |   9 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c |   2 +-
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c  |   2 +
->  drivers/gpu/drm/amd/amdgpu/vega10_ih.c  |   1 +
->  drivers/gpu/drm/amd/amdgpu/vega20_ih.c  |   1 +
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |   2 +-
->  7 files changed, 99 insertions(+), 27 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> index f3d62e196901..17f7f8173bfb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> @@ -164,52 +164,52 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
->  	}
->  }
->  
-> +/* return true if time stamp t2 is after t1 with 48bit wrap around */
-> +static inline bool amdgpu_ih_ts_after(uint64_t t1, uint64_t t2)
-> +{
-> +	return ((t1 < t2 && (t2 - t1) < (1ULL << 47)) ||
-> +		(t1 > t2 && (t1 - t2) > (1ULL << 47)));
+--_000_BL1PR12MB51440B523B58CA96EA7BC0C0F79F9BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-There is a more straight-forward way to do this:
+[Public]
 
-return ((int64_t)(t2 << 16) - (t1 << 16)) > 0;
+Can you explain how the current code is failing?  It's not immediately obvi=
+ous to me.  I'm not opposed to this change, it's just not clear to me where=
+ the current code fails.
 
+Alex
 
+________________________________
+From: Chen, Guchun <Guchun.Chen@amd.com>
+Sent: Monday, November 22, 2021 8:49 AM
+To: Cui, Flora <Flora.Cui@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
 
-> +}
-> +
->  /* Waiter helper that checks current rptr matches or passes checkpoint wptr */
-> -static bool amdgpu_ih_has_checkpoint_processed(struct amdgpu_device *adev,
-> +static bool amdgpu_ih_has_checkpoint_processed_ts(struct amdgpu_device *adev,
->  					struct amdgpu_ih_ring *ih,
-> -					uint32_t checkpoint_wptr,
-> -					uint32_t *prev_rptr)
-> +					uint64_t checkpoint_ts)
->  {
-> -	uint32_t cur_rptr = ih->rptr | (*prev_rptr & ~ih->ptr_mask);
-> +	uint64_t ts;
->  
-> -	/* rptr has wrapped. */
-> -	if (cur_rptr < *prev_rptr)
-> -		cur_rptr += ih->ptr_mask + 1;
-> -	*prev_rptr = cur_rptr;
-> -
-> -	/* check ring is empty to workaround missing wptr overflow flag */
-> -	return cur_rptr >= checkpoint_wptr ||
-> -	       (cur_rptr & ih->ptr_mask) == amdgpu_ih_get_wptr(adev, ih);
-> +	/* After wakeup, ih->rptr is the entry which is being processed, check
-> +	 * the timestamp of previous entry which is processed.
-> +	 */
-> +	ts = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr - 32);
+[Public]
 
-I still disagree with hard-coding -32 here and in a few other places
-that are not IP version specific code, or a helper called from
-IP-version specific code. You could abstract this away by adding an
-offset parameter to amdgpu_ih_decode_iv_ts. Then the IP-version specific
-code can multiply that with the actual IV size. In this case you'd use
-offset -1 and amdgpu_ih_decode_iv_ts_helper would multiply that with 32
-and add it to rptr.
+Series is:
+Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 
-
-> +	return checkpoint_ts == ts || amdgpu_ih_ts_after(checkpoint_ts, ts);
-
-This could be done with a single condition like this:
-
-    return !amdgpu_ih_ts_before(checkpoint_ts, ts);
-
-
->  }
->  
->  /**
-> - * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
-> + * amdgpu_ih_wait_on_checkpoint_process_ts - wait to process IVs up to checkpoint
->   *
->   * @adev: amdgpu_device pointer
->   * @ih: ih ring to process
->   *
->   * Used to ensure ring has processed IVs up to the checkpoint write pointer.
->   */
-> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
-> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
->  					struct amdgpu_ih_ring *ih)
->  {
-> -	uint32_t checkpoint_wptr, rptr;
-> +	uint32_t checkpoint_wptr;
-> +	uint64_t checkpoint_ts;
->  
->  	if (!ih->enabled || adev->shutdown)
->  		return -ENODEV;
->  
->  	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-> -	/* Order wptr with rptr. */
-> +	/* Order wptr with ring data. */
->  	rmb();
-> -	rptr = READ_ONCE(ih->rptr);
-> -
-> -	/* wptr has wrapped. */
-> -	if (rptr > checkpoint_wptr)
-> -		checkpoint_wptr += ih->ptr_mask + 1;
-> +	checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr - 32);
-
-Same as above.
-
-
->  
->  	return wait_event_interruptible(ih->wait_process,
-> -				amdgpu_ih_has_checkpoint_processed(adev, ih,
-> -						checkpoint_wptr, &rptr));
-> +				amdgpu_ih_has_checkpoint_processed_ts(adev, ih,
-> +						checkpoint_ts));
->  }
->  
->  /**
-> @@ -253,6 +253,59 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
->  	return IRQ_HANDLED;
->  }
->  
-> +/**
-> + * amdgpu_ih_process1 - interrupt handler work for IH ring1
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @ih: ih ring to process
-> + *
-> + * Interrupt handler of IH ring1, walk the IH ring1.
-> + * Returns irq process return code.
-> + */
-> +int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
-> +{
-> +	uint64_t ts, ts_next;
-> +	unsigned int count;
-> +	u32 wptr;
-> +
-> +	if (dev_WARN_ONCE(adev->dev, ih != &adev->irq.ih1, "not ring1"))
-> +		return 0;
-> +
-> +	if (!ih->enabled || adev->shutdown)
-> +		return IRQ_NONE;
-> +
-> +	wptr = amdgpu_ih_get_wptr(adev, ih);
-> +	if (ih->rptr == wptr)
-> +		return 0;
-> +
-> +restart_ih:
-> +	count = AMDGPU_IH_MAX_NUM_IVS;
-> +
-> +	ts = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr);
-> +	ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr + 32);
-
-Same as above.
-
-
-> +	while (amdgpu_ih_ts_after(ts, ts_next) && --count) {
-> +		amdgpu_irq_dispatch(adev, ih);
-> +		ih->rptr &= ih->ptr_mask;
-> +		ts = ts_next;
-> +		ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr + 32);
-
-Same as above.
-
-
-> +	}
-> +	/*
-> +	 * Process the last timestamp updated entry or one more entry
-> +	 * if count = 0, ts is timestamp of the entry.
-> +	 */
-> +	amdgpu_irq_dispatch(adev, ih);
-> +	amdgpu_ih_set_rptr(adev, ih);
-> +	wake_up_all(&ih->wait_process);
-> +
-> +	wptr = amdgpu_ih_get_wptr(adev, ih);
-> +	/* Order reading of wptr vs. reading of IH ring data */
-> +	rmb();
-> +	if (amdgpu_ih_ts_after(ts, amdgpu_ih_decode_iv_ts(adev, ih, wptr - 32)))
-
-Same as above.
-
-
-> +		goto restart_ih;
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
->  /**
->   * amdgpu_ih_decode_iv_helper - decode an interrupt vector
->   *
-> @@ -298,3 +351,13 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
->  	/* wptr/rptr are in bytes! */
->  	ih->rptr += 32;
->  }
-> +
-> +uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr)
-> +{
-> +	uint32_t index = (rptr & ih->ptr_mask) >> 2;
-> +	uint32_t dw1, dw2;
-> +
-> +	dw1 = ih->ring[index + 1];
-> +	dw2 = ih->ring[index + 2];
-> +	return dw1 | ((u64)(dw2 & 0xffff) << 32);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> index 0649b59830a5..edfa0a18a123 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> @@ -76,12 +76,15 @@ struct amdgpu_ih_funcs {
->  	u32 (*get_wptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  	void (*decode_iv)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
->  			  struct amdgpu_iv_entry *entry);
-> +	uint64_t (*decode_iv_ts)(struct amdgpu_ih_ring *ih, u32 rptr);
->  	void (*set_rptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  };
->  
->  #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
->  #define amdgpu_ih_decode_iv(adev, iv) \
->  	(adev)->irq.ih_funcs->decode_iv((adev), (ih), (iv))
-> +#define amdgpu_ih_decode_iv_ts(adev, ih, rptr) \
-> +	((adev)->irq.ih_funcs->decode_iv_ts((ih), (rptr)))
-
-Since you're not populating this for older ASICs, it would be good to
-have a NULL pointer check here and return 0 as a fallback and maybe
-print a WARN_ON_ONCE because checking a timestamp on an ASIC that
-doesn't provide it would result in unexpected behaviour:
-
-#define amdgpu_ih_decode_iv_ts(adev, ih, rptr) \
-	(WARN_ON_ONCE(!(adev)->irq.ih_funcs->decode_iv_ts) ? 0 : \
-		(adev)->irq.ih_funcs->decode_iv_ts((ih), (rptr)))
-
-
->  #define amdgpu_ih_set_rptr(adev, ih) (adev)->irq.ih_funcs->set_rptr((adev), (ih))
->  
->  int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
-> @@ -89,10 +92,12 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
->  void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
->  			  unsigned int num_dw);
-> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
-> -					struct amdgpu_ih_ring *ih);
-> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
-> +					    struct amdgpu_ih_ring *ih);
->  int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
-> +int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
->  				struct amdgpu_ih_ring *ih,
->  				struct amdgpu_iv_entry *entry);
-> +uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index e9023687dc9a..891486cca94b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -224,7 +224,7 @@ static void amdgpu_irq_handle_ih1(struct work_struct *work)
->  	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
->  						  irq.ih1_work);
->  
-> -	amdgpu_ih_process(adev, &adev->irq.ih1);
-> +	amdgpu_ih_process1(adev, &adev->irq.ih1);
->  }
->  
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index 1d8414c3fadb..1af1358f9650 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -160,6 +160,7 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
->  
->  	tmp = RREG32(ih_regs->ih_rb_cntl);
->  	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_ENABLE, (enable ? 1 : 0));
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_GPU_TS_ENABLE, 1);
-
-Maybe this should be in a separate patch.
++Alex to comment this series as well.
 
 Regards,
-  Felix
+Guchun
 
+-----Original Message-----
+From: Cui, Flora <Flora.Cui@amd.com>
+Sent: Monday, November 22, 2021 5:04 PM
+To: amd-gfx@lists.freedesktop.org; Chen, Guchun <Guchun.Chen@amd.com>
+Cc: Cui, Flora <Flora.Cui@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
 
->  	/* enable_intr field is only valid in ring0 */
->  	if (ih == &adev->irq.ih)
->  		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
-> @@ -724,6 +725,7 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs = {
->  static const struct amdgpu_ih_funcs navi10_ih_funcs = {
->  	.get_wptr = navi10_ih_get_wptr,
->  	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->  	.set_rptr = navi10_ih_set_rptr
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> index a9ca6988009e..3070466f54e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> @@ -640,6 +640,7 @@ const struct amd_ip_funcs vega10_ih_ip_funcs = {
->  static const struct amdgpu_ih_funcs vega10_ih_funcs = {
->  	.get_wptr = vega10_ih_get_wptr,
->  	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->  	.set_rptr = vega10_ih_set_rptr
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> index f51dfc38ac65..3b4eb8285943 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> @@ -688,6 +688,7 @@ const struct amd_ip_funcs vega20_ih_ip_funcs = {
->  static const struct amdgpu_ih_funcs vega20_ih_funcs = {
->  	.get_wptr = vega20_ih_get_wptr,
->  	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->  	.set_rptr = vega20_ih_set_rptr
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 10868d5b549f..663489ae56d7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1974,7 +1974,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
->  
->  		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
->  
-> -		amdgpu_ih_wait_on_checkpoint_process(pdd->dev->adev,
-> +		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
->  						     &pdd->dev->adev->irq.ih1);
->  		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
->  	}
+otherwise adev->mode_info.crtcs[] is NULL
+
+Signed-off-by: Flora Cui <flora.cui@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 38 ++++++++++++++++--------  dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h |  5 ++--
+ 2 files changed, 28 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vkms.c
+index ce982afeff91..6c62c45e3e3e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -16,6 +16,8 @@
+ #include "ivsrcid/ivsrcid_vislands30.h"
+ #include "amdgpu_vkms.h"
+ #include "amdgpu_display.h"
++#include "atom.h"
++#include "amdgpu_irq.h"
+
+ /**
+  * DOC: amdgpu_vkms
+@@ -41,14 +43,13 @@ static const u32 amdgpu_vkms_formats[] =3D {
+
+ static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *ti=
+mer)  {
+-       struct amdgpu_vkms_output *output =3D container_of(timer,
+-                                                        struct amdgpu_vkms=
+_output,
+-                                                        vblank_hrtimer);
+-       struct drm_crtc *crtc =3D &output->crtc;
++       struct amdgpu_crtc *amdgpu_crtc =3D container_of(timer, struct amdg=
+pu_crtc, vblank_timer);
++       struct drm_crtc *crtc =3D &amdgpu_crtc->base;
++       struct amdgpu_vkms_output *output =3D
++drm_crtc_to_amdgpu_vkms_output(crtc);
+         u64 ret_overrun;
+         bool ret;
+
+-       ret_overrun =3D hrtimer_forward_now(&output->vblank_hrtimer,
++       ret_overrun =3D hrtimer_forward_now(&amdgpu_crtc->vblank_timer,
+                                           output->period_ns);
+         WARN_ON(ret_overrun !=3D 1);
+
+@@ -65,22 +66,21 @@ static int amdgpu_vkms_enable_vblank(struct drm_crtc *c=
+rtc)
+         unsigned int pipe =3D drm_crtc_index(crtc);
+         struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+         struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output(=
+crtc);
++       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+
+         drm_calc_timestamping_constants(crtc, &crtc->mode);
+
+-       hrtimer_init(&out->vblank_hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_RE=
+L);
+-       out->vblank_hrtimer.function =3D &amdgpu_vkms_vblank_simulate;
+         out->period_ns =3D ktime_set(0, vblank->framedur_ns);
+-       hrtimer_start(&out->vblank_hrtimer, out->period_ns, HRTIMER_MODE_RE=
+L);
++       hrtimer_start(&amdgpu_crtc->vblank_timer, out->period_ns,
++HRTIMER_MODE_REL);
+
+         return 0;
+ }
+
+ static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)  {
+-       struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output(c=
+rtc);
++       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+
+-       hrtimer_cancel(&out->vblank_hrtimer);
++       hrtimer_cancel(&amdgpu_crtc->vblank_timer);
+ }
+
+ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc, @@ -92=
+,13 +92,14 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc =
+*crtc,
+         unsigned int pipe =3D crtc->index;
+         struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_outp=
+ut(crtc);
+         struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
++       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+
+         if (!READ_ONCE(vblank->enabled)) {
+                 *vblank_time =3D ktime_get();
+                 return true;
+         }
+
+-       *vblank_time =3D READ_ONCE(output->vblank_hrtimer.node.expires);
++       *vblank_time =3D READ_ONCE(amdgpu_crtc->vblank_timer.node.expires);
+
+         if (WARN_ON(*vblank_time =3D=3D vblank->time))
+                 return true;
+@@ -165,6 +166,8 @@ static const struct drm_crtc_helper_funcs amdgpu_vkms_c=
+rtc_helper_funcs =3D {  static int amdgpu_vkms_crtc_init(struct drm_device =
+*dev, struct drm_crtc *crtc,
+                           struct drm_plane *primary, struct drm_plane *cur=
+sor)  {
++       struct amdgpu_device *adev =3D drm_to_adev(dev);
++       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+         int ret;
+
+         ret =3D drm_crtc_init_with_planes(dev, crtc, primary, cursor, @@ -=
+176,6 +179,17 @@ static int amdgpu_vkms_crtc_init(struct drm_device *dev, s=
+truct drm_crtc *crtc,
+
+         drm_crtc_helper_add(crtc, &amdgpu_vkms_crtc_helper_funcs);
+
++       amdgpu_crtc->crtc_id =3D drm_crtc_index(crtc);
++       adev->mode_info.crtcs[drm_crtc_index(crtc)] =3D amdgpu_crtc;
++
++       amdgpu_crtc->pll_id =3D ATOM_PPLL_INVALID;
++       amdgpu_crtc->encoder =3D NULL;
++       amdgpu_crtc->connector =3D NULL;
++       amdgpu_crtc->vsync_timer_enabled =3D AMDGPU_IRQ_STATE_DISABLE;
++
++       hrtimer_init(&amdgpu_crtc->vblank_timer, CLOCK_MONOTONIC, HRTIMER_M=
+ODE_REL);
++       amdgpu_crtc->vblank_timer.function =3D &amdgpu_vkms_vblank_simulate=
+;
++
+         return ret;
+ }
+
+@@ -401,7 +415,7 @@ int amdgpu_vkms_output_init(struct drm_device *dev,  {
+         struct drm_connector *connector =3D &output->connector;
+         struct drm_encoder *encoder =3D &output->encoder;
+-       struct drm_crtc *crtc =3D &output->crtc;
++       struct drm_crtc *crtc =3D &output->crtc.base;
+         struct drm_plane *primary, *cursor =3D NULL;
+         int ret;
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vkms.h
+index 97f1b79c0724..4f8722ff37c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h
+@@ -10,15 +10,14 @@
+ #define YRES_MAX  16384
+
+ #define drm_crtc_to_amdgpu_vkms_output(target) \
+-       container_of(target, struct amdgpu_vkms_output, crtc)
++       container_of(target, struct amdgpu_vkms_output, crtc.base)
+
+ extern const struct amdgpu_ip_block_version amdgpu_vkms_ip_block;
+
+ struct amdgpu_vkms_output {
+-       struct drm_crtc crtc;
++       struct amdgpu_crtc crtc;
+         struct drm_encoder encoder;
+         struct drm_connector connector;
+-       struct hrtimer vblank_hrtimer;
+         ktime_t period_ns;
+         struct drm_pending_vblank_event *event;  };
+--
+2.25.1
+
+--_000_BL1PR12MB51440B523B58CA96EA7BC0C0F79F9BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Can you explain how the current code is failing?&nbsp; It's not immediately=
+ obvious to me.&nbsp; I'm not opposed to this change, it's just not clear t=
+o me where the current code fails.<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
+un.Chen@amd.com&gt;<br>
+<b>Sent:</b> Monday, November 22, 2021 8:49 AM<br>
+<b>To:</b> Cui, Flora &lt;Flora.Cui@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;; Deucher, Alexander &lt;Alexander=
+.Deucher@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings</font=
+>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[Public]<br>
+<br>
+Series is:<br>
+Reviewed-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
+<br>
++Alex to comment this series as well.<br>
+<br>
+Regards,<br>
+Guchun<br>
+<br>
+-----Original Message-----<br>
+From: Cui, Flora &lt;Flora.Cui@amd.com&gt; <br>
+Sent: Monday, November 22, 2021 5:04 PM<br>
+To: amd-gfx@lists.freedesktop.org; Chen, Guchun &lt;Guchun.Chen@amd.com&gt;=
+<br>
+Cc: Cui, Flora &lt;Flora.Cui@amd.com&gt;<br>
+Subject: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings<br>
+<br>
+otherwise adev-&gt;mode_info.crtcs[] is NULL<br>
+<br>
+Signed-off-by: Flora Cui &lt;flora.cui@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 38 ++++++++++++++++-------=
+-&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h |&nbsp; 5 ++--<br>
+&nbsp;2 files changed, 28 insertions(+), 15 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vkms.c<br>
+index ce982afeff91..6c62c45e3e3e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c<br>
+@@ -16,6 +16,8 @@<br>
+&nbsp;#include &quot;ivsrcid/ivsrcid_vislands30.h&quot;<br>
+&nbsp;#include &quot;amdgpu_vkms.h&quot;<br>
+&nbsp;#include &quot;amdgpu_display.h&quot;<br>
++#include &quot;atom.h&quot;<br>
++#include &quot;amdgpu_irq.h&quot;<br>
+&nbsp;<br>
+&nbsp;/**<br>
+&nbsp; * DOC: amdgpu_vkms<br>
+@@ -41,14 +43,13 @@ static const u32 amdgpu_vkms_formats[] =3D {<br>
+&nbsp;<br>
+&nbsp;static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtime=
+r *timer)&nbsp; {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vkms_output *output =3D=
+ container_of(timer,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vkms_output,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vblank_hrtimer);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc *crtc =3D &amp;output=
+-&gt;crtc;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu_crtc =3D c=
+ontainer_of(timer, struct amdgpu_crtc, vblank_timer);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc *crtc =3D &amp;amdgpu=
+_crtc-&gt;base;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vkms_output *output =3D=
+ <br>
++drm_crtc_to_amdgpu_vkms_output(crtc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 ret_overrun;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret_overrun =3D hrtimer_forward_now(&=
+amp;output-&gt;vblank_hrtimer,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret_overrun =3D hrtimer_forward_now(&=
+amp;amdgpu_crtc-&gt;vblank_timer,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; output-&gt;period_ns);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(ret_overrun !=3D 1=
+);<br>
+&nbsp;<br>
+@@ -65,22 +66,21 @@ static int amdgpu_vkms_enable_vblank(struct drm_crtc *c=
+rtc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int pipe =3D drm_=
+crtc_index(crtc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_vblank_crtc *vb=
+lank =3D &amp;dev-&gt;vblank[pipe];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vkms_output =
+*out =3D drm_crtc_to_amdgpu_vkms_output(crtc);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu_crtc =3D t=
+o_amdgpu_crtc(crtc);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_calc_timestamping_cons=
+tants(crtc, &amp;crtc-&gt;mode);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtimer_init(&amp;out-&gt;vblank_hrti=
+mer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out-&gt;vblank_hrtimer.function =3D &=
+amp;amdgpu_vkms_vblank_simulate;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out-&gt;period_ns =3D ktim=
+e_set(0, vblank-&gt;framedur_ns);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtimer_start(&amp;out-&gt;vblank_hrt=
+imer, out-&gt;period_ns, HRTIMER_MODE_REL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtimer_start(&amp;amdgpu_crtc-&gt;vb=
+lank_timer, out-&gt;period_ns, <br>
++HRTIMER_MODE_REL);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)&nbsp; {=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vkms_output *out =3D dr=
+m_crtc_to_amdgpu_vkms_output(crtc);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu_crtc =3D t=
+o_amdgpu_crtc(crtc);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtimer_cancel(&amp;out-&gt;vblank_hr=
+timer);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtimer_cancel(&amp;amdgpu_crtc-&gt;v=
+blank_timer);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc, @=
+@ -92,13 +92,14 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_=
+crtc *crtc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int pipe =3D crtc=
+-&gt;index;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vkms_output =
+*output =3D drm_crtc_to_amdgpu_vkms_output(crtc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_vblank_crtc *vb=
+lank =3D &amp;dev-&gt;vblank[pipe];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu_crtc =3D t=
+o_amdgpu_crtc(crtc);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!READ_ONCE(vblank-&gt;=
+enabled)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *vblank_time =3D ktime_get();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *vblank_time =3D READ_ONCE(output-&gt=
+;vblank_hrtimer.node.expires);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *vblank_time =3D READ_ONCE(amdgpu_crt=
+c-&gt;vblank_timer.node.expires);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ON(*vblank_time =
+=3D=3D vblank-&gt;time))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return true;<br>
+@@ -165,6 +166,8 @@ static const struct drm_crtc_helper_funcs amdgpu_vkms_c=
+rtc_helper_funcs =3D {&nbsp; static int amdgpu_vkms_crtc_init(struct drm_de=
+vice *dev, struct drm_crtc *crtc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; struct drm_plane *primary, struct drm_plane *cursor)&nbsp; {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D drm_to=
+_adev(dev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu_crtc =3D t=
+o_amdgpu_crtc(crtc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D drm_crtc_init_with=
+_planes(dev, crtc, primary, cursor, @@ -176,6 +179,17 @@ static int amdgpu_=
+vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_crtc_helper_add(crtc, =
+&amp;amdgpu_vkms_crtc_helper_funcs);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;crtc_id =3D drm_crtc_=
+index(crtc);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mode_info.crtcs[drm_crtc_ind=
+ex(crtc)] =3D amdgpu_crtc;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;pll_id =3D ATOM_PPLL_=
+INVALID;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;encoder =3D NULL;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;connector =3D NULL;<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;vsync_timer_enabled =
+=3D AMDGPU_IRQ_STATE_DISABLE;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtimer_init(&amp;amdgpu_crtc-&gt;vbl=
+ank_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;vblank_timer.function=
+ =3D &amp;amdgpu_vkms_vblank_simulate;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -401,7 +415,7 @@ int amdgpu_vkms_output_init(struct drm_device *dev,&nbs=
+p; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_connector *conn=
+ector =3D &amp;output-&gt;connector;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_encoder *encode=
+r =3D &amp;output-&gt;encoder;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc *crtc =3D &amp;output=
+-&gt;crtc;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc *crtc =3D &amp;output=
+-&gt;crtc.base;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_plane *primary,=
+ *cursor =3D NULL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vkms.h<br>
+index 97f1b79c0724..4f8722ff37c2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h<br>
+@@ -10,15 +10,14 @@<br>
+&nbsp;#define YRES_MAX&nbsp; 16384<br>
+&nbsp;<br>
+&nbsp;#define drm_crtc_to_amdgpu_vkms_output(target) \<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container_of(target, struct amdgpu_vk=
+ms_output, crtc)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; container_of(target, struct amdgpu_vk=
+ms_output, crtc.base)<br>
+&nbsp;<br>
+&nbsp;extern const struct amdgpu_ip_block_version amdgpu_vkms_ip_block;<br>
+&nbsp;<br>
+&nbsp;struct amdgpu_vkms_output {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc crtc;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc crtc;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_encoder encoder=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_connector conne=
+ctor;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct hrtimer vblank_hrtimer;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ktime_t period_ns;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_pending_vblank_=
+event *event;&nbsp; };<br>
+--<br>
+2.25.1<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB51440B523B58CA96EA7BC0C0F79F9BL1PR12MB5144namp_--
