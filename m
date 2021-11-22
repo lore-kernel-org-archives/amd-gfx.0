@@ -4,120 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAF61C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 15:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00F19C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 15:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7B189B49;
-	Mon, 22 Nov 2021 15:38:21 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37A0B89B49
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Nov 2021 15:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C5189CCB;
+	Mon, 22 Nov 2021 15:40:33 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25D7989CBE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Nov 2021 15:40:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZBzRoLIGzyYXVhQ5Ff11IC5/izAxCocYgrakUImgsPwDyMD4OEce8NpkcgZO1nlO015QRGyZTMJPSUvjtf5CkqJhzu14yIUCOVqL0lxWLoWPI7DGwjs+t5aEhl98wyQVEOxRqVof7KBf24ntri7fP8E4W7yBLwTk62eQx+eKE0zbLsuWV6BTAgn2ldkI3qfnt46hTYpK8qUFn9e+RSZugZo0RNlhJ5JQcmec19+dbvD+xRWzo3XnQ+s/l5bFxfhzlAWDFJbhpPxliueyo7yM2YcJL3tWdEteHs9GeYlB1ybRURQfg3RRaMmFznVkOkVjA6HfSKS/hTfMYL7fguhXbg==
+ b=iEz9cg2kNqzWzfW6M4EzwfQr/BN9Kq1pIn58JcHER6y9GKBjI1JkE8MC3mlQoMbZRnvKzTwgoddxZ9oq8m9TGGivrJUfVy5Fhs0NyrmjsD+GIrKAPIX2KyJZwT/ZsUbpjxMi5CU61yDVGNSmu5iK+ukwlGIsETxQ6M1AJkcrW/P8guSsbsYBQyQ/T6Vnh7rs+mpdCcLmfHPE1BOeRMpiVRD4cu7mXJp8smxuTDdWCMNb4AVK45DHdSLFzcj96wn27NKhlSIXqU2BViHP/facf1zm0J8ejFfsp59P+gMw6mf3aZWxDl8jCp77DC2bqZQyDaUFppPtb6mQHP+XXBLNXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G2nD49jwbgy4A61IRXUhYA/tRGQzynt+wXH0WmfrEvM=;
- b=JMnmEHSaEOf/+LKdglEOaoGNNcKemvMu0eXpE1bmabvmQRhwgwygbsldMaahzBIBKt/SQCpYAr86UI7nDzJsspmxJzhp3jTvRqLKnFvYAyWjwjTMnM/DBFrUM+jypQHOk1jtQRRYUCs48WzUBTyBPD5FtfT8mE3TvoWzKcIG/oFczH/YjvGOBN/iuEUJPhmVDxC7MLxsgH6nRm0Cz0rP6uzphfBhtNEv0qWnGldICu7t+bAL/q+zobkGot6MJB6zS7DXMdImARIjF71JDx3Y1wBFhem4CTCcqUC6Xno8KeJ19VEQQ1m8MQtyWxSHQKLWK28Mby+ZecfKRouHhNfMyQ==
+ bh=wY13oMrSX0Nplp7h6hUJYhUp9To6iVtq17iV3yG74vg=;
+ b=F5WSMtMGcADTo4qYHcu5TGTVNziV+D4yrqpK2Kagzc85Mc1HNu1+EqP2ZtxZd7slpNCBJ6fHtznknUKvkgOyq+NFv4DrgC3VY2w8eIGNVO1e25d6tvX93q5sN1HF6XuxZ6lmaaDp8hVl/vH7iDITXbrOBV8Y2rEDY1EeYWziEmE1xnFk9mg/UlBRzVLGdxRyUNOfbN20y8NT/9z0WOYUatOm5r4BURZMPYARh8I7Hfr8S8VdeXFU3vfVZN2QO3BQWeOVfk5h/vJhveSWmCKRLr2gO2cazO9X+Rb0IX0MPtz7D54E21PkQvTIRyiJe3ZkBjVCV9cVj+aIKIcr2iNgVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G2nD49jwbgy4A61IRXUhYA/tRGQzynt+wXH0WmfrEvM=;
- b=IKAQQpmWxPh+ixouudJDjLIpeueV9/2JVD0nbnkNqDi5knf3bfglzsF6Zqd/YtKfAvqsP/whgKbb7cwiTz+nVUNOnh6XSiaR5P6q7xBRlU2hMWPQ1C07dU9nHr1jGRICzgdk2LplHzDMbR4gIH1w23vL9BYvPuyIIKT24miujWE=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5364.namprd12.prod.outlook.com (2603:10b6:208:314::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Mon, 22 Nov
- 2021 15:38:17 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830%8]) with mapi id 15.20.4713.025; Mon, 22 Nov 2021
- 15:38:17 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhuo, Qingqing (Lillian)" <Qingqing.Zhuo@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 14/16] drm/amd/display: add else to avoid double destroy
- clk_mgr
-Thread-Topic: [PATCH 14/16] drm/amd/display: add else to avoid double destroy
- clk_mgr
-Thread-Index: AQHX3X3WDpho2wwhwEOWNCeptDwvPKwPsk7M
-Date: Mon, 22 Nov 2021 15:38:17 +0000
-Message-ID: <BL1PR12MB514434CD840471692E9894A2F79F9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20211119194339.97573-1-qingqing.zhuo@amd.com>
- <20211119194339.97573-15-qingqing.zhuo@amd.com>
-In-Reply-To: <20211119194339.97573-15-qingqing.zhuo@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-11-22T15:38:16.927Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 2d1b3040-12bd-4153-2753-1fee08dc0ff5
-authentication-results: dkim=none (message not signed)
+ bh=wY13oMrSX0Nplp7h6hUJYhUp9To6iVtq17iV3yG74vg=;
+ b=sXoSvsO4bXWTo4NLY8PTHUhbE8VCoYmujgt8jFK15TLSs6Sh3izTnKAfIA6tw3juj68gKm1AkX4Ub3D0GlqNi8xYGb/8k/HHIhGmaGGmrjkipPWbwf+zYtnwTb8Y25W+pxlcLdky8/guuA5NZ7u40b2nGC0dh/163ljhTWB6nvk=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f7aa31e9-62ba-4fa2-22b8-08d9adce1b11
-x-ms-traffictypediagnostic: BL1PR12MB5364:
-x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-x-microsoft-antispam-prvs: <BL1PR12MB5364754893883CA7C585CFF7F79F9@BL1PR12MB5364.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:398;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LYfugC1LU5TBscZ2qtDxY3LOuRU/x/0rbOJTLQ1h8qDsHtIf831Jey2qHQ67mvhcz1DLagAiopYq4iqSInZftZjjtMN73i4btn9PhaRWMZUvGwdwCTMlJlrJGNYwG2XIB27kPk1fdy37aD/c/CXoWhtEbd2W+gRgJjhekD5udGjuvg6SIAFZpUy7AWW7wTOP5bJ6cR0g49fphfRWy/vEN+3lkr3jNS5nRa1EFJlB+T035iOBJYyyXGKIdPI08cCao+8SYVd4e/6a153d606tgFEhBOB/ZUn0/kjPpYnGM1BRBW1EwTuzgMzXJK5Ow0BDd6DOKY5GhJYwbKVVt46akc4Rrev33q5P/zzqsF2T9zbcimdUEU1l1yvGttd3dt/PjCWkqjJxrWI3QHXpEj0uH3tOTsrIZCVsAXeoTShzV+40epE/e0b+nHGldR5Lm9BMtZU8QUrjz3TPwAyM/kTnd4j03YdD39H+5rkySnaRzw7yqDlbKFrwLJrqTKqZysC3ATsBMqpObAB1dtZpT9nq/itjY1EQi8G+VnUOExOH3RYM3gW9LAFUvFGFCdSU6BqxlBoOj4BtHV66hA1PPhcpjxqEsXKSDY/vvewD28Z9B5sxrK1LfdA22z8XNdTpppQgQOdm8Hv4RUtP4gImVtDdj4nCbPlIonL2PjArR+UXtXUzrwp4GvBfmlTozN4fBlL3jUrsxkZNSE+hcXLk4Y6LbA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(76116006)(66446008)(66556008)(64756008)(66476007)(508600001)(66946007)(33656002)(83380400001)(8936002)(86362001)(54906003)(8676002)(110136005)(186003)(38070700005)(26005)(6506007)(52536014)(53546011)(2906002)(7696005)(9686003)(55016002)(4326008)(5660300002)(19627405001)(38100700002)(122000001)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YQCm5CprmKktJoyFlBOICVZx8pmd9X63CyUW1ZJ1O3By+LUIrCZFDZKaAPsv?=
- =?us-ascii?Q?MHU5FCDXhgqKJJQPyZRHfS+cbWRVFieAYQ3udHBwmi/x8DQEHlUL6TgCQRI9?=
- =?us-ascii?Q?/QHyKyEb3viPBuMTiW23NfPid6/MzAtQDO6INXPV5TEjiU3FO34JjsxrsUn4?=
- =?us-ascii?Q?xhT8JLlajg5gdW/+pVfcl2Oh4dx5iWrZPt1f4Q9V80//pwSLVx4jLXIuFV+p?=
- =?us-ascii?Q?i8ftMkx9cG5ik0uiDSa9W6sCYETAweKS/Xy7Zj7N3Z3OFeCq9WOhm+m/3b4m?=
- =?us-ascii?Q?MUZhB75hcSJLMdo1HtSAVXDJkSUp5TBFqUcrQGnlI+87UwvPXw8NywsNbZaM?=
- =?us-ascii?Q?wWfVkfzPq5MKH0jVkyduDb6OyBBLznvkh2PxmxT7G8gc7Lm3VmBXeLw5CPKZ?=
- =?us-ascii?Q?rdgPqeE5v/BPYgsOhGNfms5oeUrKjQkK0yb1mepAZkIuYuF36jj2edOcsYcO?=
- =?us-ascii?Q?u4o68AaTBIKZ9718ytJZbkBqfOmi3d+K20kM0qO3hmlIuAF7+VHnmx0b8ggz?=
- =?us-ascii?Q?LfGaVHGMR0EtqJpPwb0HyP9h7GMCSLgPzN6xCiW350Zeoj1VYXT3H9boCNCu?=
- =?us-ascii?Q?ewLAyn4LepLTsXMwL1ZdxIOg0j3VKfi2+3PCrSZuLX1Oz1vtyG3ETpkX3bM+?=
- =?us-ascii?Q?BpUkd6vN7+nLseA6a0WScPmBF6fUZznOQCW+bp8MuEzdxOKG+L1qicXmZwas?=
- =?us-ascii?Q?i8Lnoe3KItBvlCX7IlP96afY4SmZ0tF+dL3XHPWA9NRbBo/pS9rzVX37h1b3?=
- =?us-ascii?Q?mKSkBrRgBIsi5wcWDdAP0xhSMwBtbQv0UN/tP725Jb8gWc1i2MkAg3HbjgTc?=
- =?us-ascii?Q?J0ORTpK7bHelmXEyPoSg4PV4o8VTHH0TCkectMBCBjfcjvavNuzr+PrxCpPu?=
- =?us-ascii?Q?Fv31i24D4JFKsGYiyPqwpWxAO8xuH/gXUgCh9rrcidFWn9ARofrm7cvBffav?=
- =?us-ascii?Q?H/5GSPa0RRdY26lW9kuvxbjPCVaRcEQ6JA+hR57QZhr3/FO1MH1gjpaJ8OvL?=
- =?us-ascii?Q?FXwoc8zwmdpjZgA0DYc6sBGlLoIv0HvyvCwFeiu69QYkOwXJnYp+PuCYNe13?=
- =?us-ascii?Q?agLYlP61WxlBXKnphalXnpD2E9HOVJArfCiucHoKnMyC8X+iQ3UbpBvmXto9?=
- =?us-ascii?Q?JNYb00xLyl+hlI4RaW2goanpIx90Nhv/KxOHe3PqOesJLorrv35zeSqadTSx?=
- =?us-ascii?Q?/jAi3dfcXEJAY52jGGN+4U5BpxLolroPqqSE/Ny4GxKl+2a50RdMhI/9FxX+?=
- =?us-ascii?Q?Q7ifrRZEZ9bXiE88H4B4nq700g/tCQZTduSOC8d4Cxo8iY4rhufJysWVCOb/?=
- =?us-ascii?Q?y4/kU+3gtboRAGLGeUIXzTM+RZS0lDsYmsxcdAPxcBDfW/InDMV5q2ieTuPL?=
- =?us-ascii?Q?9cxS+cGMMdEdVQokl/rlgmsUO7eQQhAzRtNcP5OzR/qAFc9VAjsiVXgOjvY7?=
- =?us-ascii?Q?hJbLOOh3XBFFSdDOCh/rcsCXB2Nym8rTQqK0L52hE4mlGcJ1LcZOYTYndDcg?=
- =?us-ascii?Q?/CgkFxZUN4g0oii1nPfvvxbmQMyE9k13U789H/eU7t8JOwAalPhMPSR+jyH8?=
- =?us-ascii?Q?TK958Y3/lomS4NFHfh/Bc0myUg2XSHfGLyyTh/DS/+MPYrVKBwPQ/ota9f8/?=
- =?us-ascii?Q?vg=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514434CD840471692E9894A2F79F9BL1PR12MB5144namp_"
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5308.namprd12.prod.outlook.com (2603:10b6:408:105::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21; Mon, 22 Nov
+ 2021 15:40:30 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.025; Mon, 22 Nov 2021
+ 15:40:30 +0000
+Subject: Re: [PATCH] drm/amd/amdgpu: move kfd post_reset out of reset_sriov
+ function
+To: shaoyunl <shaoyun.liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211118165737.27432-1-shaoyun.liu@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <9a6d5732-cdbc-1964-0b92-a7b64a7d529a@amd.com>
+Date: Mon, 22 Nov 2021 10:40:28 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20211118165737.27432-1-shaoyun.liu@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0070.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::18) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+Received: from [192.168.2.100] (142.127.191.123) by
+ YT3PR01CA0070.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.19 via Frontend Transport; Mon, 22 Nov 2021 15:40:30 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4a23f05e-8b1a-46cb-d86d-08d9adce6a19
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5308:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5308FA5EF1E7A1E1B4CFFDFF929F9@BN9PR12MB5308.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uwIp6Qw0obcM65GvPbIdnnt8KClNN/Lav9dxG1HkV7ynw38ux8HYsIjMmFB6Lw9P2x74bljhA5jw5+9OEYO2Z7WGaoNYdkXmB7pZg9igF3GOVmoz1lrzUns2PATvUoTU2hbRjzFD4kWTgKZOVTdoeLaPD1J8ZDaiMHSfx4SZwKBFJj6JDqGFWfocGu/+20hfJltHwA7FsLnI8tTfkYT0zUr8wZMObQY9tyl5ZtlKgQUVJ1+bIBwXOItI7bxlM7ty26RgDBgYUdjy86kD72aSz6K/H8wkA1MjPM979+YA1DswBkZY0TMrQCHdhnBSPeQMrohlLixZOUmfg6irZmLksM+sspwVT/KAq4Of2SUGNgrrVLAxMY9r5QkdOX1610hokdojVarzu5RgDGAW2sX2aBnOU0pUY9g8ddZvgxuHuTvXXYltjxXhehad+YjB78A38C5fdPPSXgyp6roHofQPK40nmqK54q0dRYP4xaU+kbZhux28pHsDfTmGvKXmjWhlRcBExVzgYZn+hC3rKH1C6aHg1ExCdPsQTUevccF08BeI9XlG3myKcAfKVHqGWnpL8yXp0crvF3b97fkFqZBKRNMyzZ+lI0V0MT8o0jf3FY96sJvm34+v4tiUO+hj0J0cFn9G4B2io3Ag70n8Ng3AlZSP8iluOLb0PL8TmRBa1OY1GzK/6vrKkhJFb+zg2tnQkspYt/KhwE5ahIs9mYI7Z3rax1tZcx8NY0Vt8qNCfS4PryUxu1XMUzCubqgcxMMw
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66556008)(16576012)(66476007)(83380400001)(5660300002)(4001150100001)(508600001)(66946007)(31696002)(38100700002)(186003)(8936002)(8676002)(956004)(6486002)(86362001)(36756003)(316002)(44832011)(2616005)(2906002)(26005)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWNaM3JrZHcwR0lKSllVYVRmeXZkWFZKYzBWeW5XQ0pZQWFHTEV1QTRnZGxO?=
+ =?utf-8?B?aS9FZVVMTUpvY0EybTMyait6dGRoSE5iUEM3Nm1GcldsWC9YVUVHK0k4bWEw?=
+ =?utf-8?B?OGphTkI5eFBrRktHUGpLUSsrNXRCVmd5S1BKN3l0dnltV2tlLy9HZGRDbEpl?=
+ =?utf-8?B?THpYNkpVaFpSbWI3V1luWG5TenhuMkxsd2grUWJ1SnhGb3dYSDNqa2hpUDcv?=
+ =?utf-8?B?c2NpYi9WbFVXcXc4b2VVaGNzQXF2czhwem0wbkwrWERjWHJnWk0vZ2N1bENl?=
+ =?utf-8?B?cjBDbjBuRGlidnkyYVpNVDZ2T29RdmRRb0Z3QTdTUDYwOW15empGSGU2OVNp?=
+ =?utf-8?B?RThHODk1RnlMeHVlaUFDWnlRVG5CVTZOM2JwYW1wcW0xSkwwOHUyN2hDYTJ4?=
+ =?utf-8?B?VGh2VzZQVTFxS2xmMHk2RWsyRndtTExEQ1RsZ0dwVG9OTHNsc0Q4dUxRRm9M?=
+ =?utf-8?B?U3dCdFhqb29ocExvTURvMnpIWmhZSlVQQXpsT2xIZzFUM1V0TW1YTVlKSlVh?=
+ =?utf-8?B?S3BlRUc4VjM0L1ZSK2hvNm9OR1VKaC9EVkg5WG1xeTc0Tk9Banh3a2VwTzg2?=
+ =?utf-8?B?NXBkZXVEbGFGMHVrTGtLS2lkWXhDY3lGeGxLcUtCS00wd1lkT25IRzhwd0tx?=
+ =?utf-8?B?UitUaWdCUmJYbnN3SnVzekpRbGptYksxaHlsV1RFcWJYOVM5dU5RQlpydUUv?=
+ =?utf-8?B?K3d0eStXMWtzRktuOUdEUTNrOWJXZGRqeU5oa2JFektyWUYySFM5eEx3RFpF?=
+ =?utf-8?B?ZGxxcS9CdHlRaU1iWGY0M0hKQTd6WHYyWTZoMDFLTjBKZnZXRUtUTWdPS2wv?=
+ =?utf-8?B?U0JTcEFMZG1OSnlzUWw5SlY4a0RjSy9tL3R3djl3R1k2NjlsRi9aN25sYzVw?=
+ =?utf-8?B?TktFVENmMzhGQWJOV0E4dWcrNGFVcDZWM1Rwemh0cEdNcGhvSDV0Z1lQa0M2?=
+ =?utf-8?B?VFlOZnRXSTRtYjJoWE1DM09MYlozWDJZdzBLVHE4aFBaeE53L2wrNVVhdWVM?=
+ =?utf-8?B?VEh3V3VRK3NVS1h1Q0tHRlQ1enMxdDJiSWtPYlFhTEdtNCtQNXYvNTBmMTF4?=
+ =?utf-8?B?cVpXQVQvWSsyLzUvTHRYWVIyc3EyQWJ0K2gxakY3UHVMMTV4R2tud1VOOUFw?=
+ =?utf-8?B?YmlKWnFBWXhnVlRTTHNmeWgzUi9ScHhsaTgyWFNQS3QyV29BRWRzYVpsRHpp?=
+ =?utf-8?B?MmNJSXMyYUg5UTB4VXM4QXFBa0RhUVNLTnRJWWVRM3M5cWdYVERnQVRFMGJ2?=
+ =?utf-8?B?MnJ3d1BMR3JML0JVbE5LQ0dBN2xocXg3Q2JSNjZET0JZNmhIcEJBTXRHSHZ5?=
+ =?utf-8?B?M3l6UWdYQUtKOVdRSE5ld0lXYWltZkhwOFAyMzZ0YlFtWklCUFZBWUxGbHlu?=
+ =?utf-8?B?WGVJcGZGaTNab0l2V2QrbUVEZ2p5ZVJtZW5KMHFCN0x4d1hMcXJlUG96dVp2?=
+ =?utf-8?B?SnFyend0UDkyOU9hdUFLRGc3TlU4dEoxSFRoNS9vVks5T2t3Tlp4dW8yS0g4?=
+ =?utf-8?B?Z3U3OUxucm5HS1VQMXFxTlVTeUpZUGM1QXMydTdjTU9YMFhUSTY0VFV4RGZ6?=
+ =?utf-8?B?d2dVdFc1VzN5Y1VEVXA2ODNFSm14c1lSQ2ZQMkNsVmtJOGdDTUpNaG1NL2Zt?=
+ =?utf-8?B?dk5JOGRjSTZWb09jQWpsWGoxUmVNb3k0VUlyeURjaXBSSC9jSE9JeXFsNHhM?=
+ =?utf-8?B?YTMxSXVydTExLzM4WXhZT2ZkWkNaaURPN1hrdG5TSU9LSVlOOEVzc2p6ak1S?=
+ =?utf-8?B?WnJMNlp1dm1VNm01TW55NDJ4enlJUWRlT1AyV0txRjlFVTJ3QkdLSkRtV3ZO?=
+ =?utf-8?B?VTR4V3lxRGx6T1prdmdNczJQYmlnU0drbUs1VFF0TlRSc1lvMjJJY3kyK2R1?=
+ =?utf-8?B?MnZSRGw4Rzlac1kwNXVuM05QUWNoWmVxcFByUVhBK2QyRm55RFE4S0YzNy9a?=
+ =?utf-8?B?SjlmaktBaWNSQzU4bCtsZjljd0Ywa09NMnZadVBQNFQzMmpKM3VsS3FrNTBY?=
+ =?utf-8?B?Smg4elZBWXZGOHhuWFNnM3dsK25EZ0dYV0d5NzBnR2lSY1NPbVVkVjFBZ3FO?=
+ =?utf-8?B?bGpuTmVSVHQ3TWZab2JUMCtrVHYrNFY1aEJiNThhM2x4cytxbWltRUNRTmZw?=
+ =?utf-8?B?SFhuSFBKVk9ocTZGYndBcXpJcXV5V2dWYWhMQU1aZXN2UHZoZ3AyejdUKzlF?=
+ =?utf-8?Q?5atiI3tRhERwF1QkCIKrO7A=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a23f05e-8b1a-46cb-d86d-08d9adce6a19
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7aa31e9-62ba-4fa2-22b8-08d9adce1b11
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2021 15:38:17.6819 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Z2Oxv2UhdbdI3UY0pgijOO90+zmK+eF+PH2HmWCaurxr9BiK5TW4TOyjZ+GqrftekOGCIjTRs6sD0Awq8q6sCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5364
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2021 15:40:30.6041 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6ho7Hj16HWeKH/z9/N4DllVgTdfCWGFpO13hHyj0rFELZA/2Z3ytGFTNJGNYDh8ACemNFW7rjDJIw41MrqqO1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5308
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,219 +131,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Cyr,
- Aric" <Aric.Cyr@amd.com>, "Jacob, Anson" <Anson.Jacob@amd.com>, "Li, Sun peng
- \(Leo\)" <Sunpeng.Li@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Lin,
- Wayne" <Wayne.Lin@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Chiu, Solomon" <Solomon.Chiu@amd.com>, "Pillai,
- Aurabindo" <Aurabindo.Pillai@amd.com>, "Leung, Martin" <Martin.Leung@amd.com>,
- "Lipski, Mikita" <Mikita.Lipski@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514434CD840471692E9894A2F79F9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Do you want to change the ASICREV_IS_BEIGE_GOBY_P() check to else if as wel=
-l?  maybe something like:
-
-if (ASICREV_IS_SIENNA_CICHLID_P(clk_mgr_base->ctx->asic_id.hw_internal_rev)=
- ||
-    ASICREV_IS_DIMGREY_CAVEFISH_P(clk_mgr_base->ctx->asic_id.hw_internal_re=
-v) ||
-     ASICREV_IS_BEIGE_GOBY_P(clk_mgr_base->ctx->asic_id.hw_internal_rev))
-         dcn3_clk_mgr_destroy(clk_mgr);
-
-Alex
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Qingqing=
- Zhuo <qingqing.zhuo@amd.com>
-Sent: Friday, November 19, 2021 2:43 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Cyr, Aric <Aric.Cyr@amd.=
-com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@=
-amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Zhuo, Qingqing (Lillian=
-) <Qingqing.Zhuo@amd.com>; Leung, Martin <Martin.Leung@amd.com>; Siqueira, =
-Rodrigo <Rodrigo.Siqueira@amd.com>; Li, Roman <Roman.Li@amd.com>; Jacob, An=
-son <Anson.Jacob@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li=
-n, Wayne <Wayne.Lin@amd.com>; Lipski, Mikita <Mikita.Lipski@amd.com>; Lakha=
-, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Gutierrez, Agustin <Agustin.Guti=
-errez@amd.com>; Kotarac, Pavle <Pavle.Kotarac@amd.com>
-Subject: [PATCH 14/16] drm/amd/display: add else to avoid double destroy cl=
-k_mgr
-
-From: Martin Leung <Martin.Leung@amd.com>
-
-[Why & How]
-when changing some code we accidentally
-changed else if-> if. reverting that.
-
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Martin Leung <Martin.Leung@amd.com>
----
- drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu=
-/drm/amd/display/dc/clk_mgr/clk_mgr.c
-index 26f96ee32472..9200c8ce02ba 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-@@ -308,8 +308,7 @@ void dc_destroy_clk_mgr(struct clk_mgr *clk_mgr_base)
-         case FAMILY_NV:
-                 if (ASICREV_IS_SIENNA_CICHLID_P(clk_mgr_base->ctx->asic_id=
-.hw_internal_rev)) {
-                         dcn3_clk_mgr_destroy(clk_mgr);
--               }
--               if (ASICREV_IS_DIMGREY_CAVEFISH_P(clk_mgr_base->ctx->asic_i=
-d.hw_internal_rev)) {
-+               } else if (ASICREV_IS_DIMGREY_CAVEFISH_P(clk_mgr_base->ctx-=
->asic_id.hw_internal_rev)) {
-                         dcn3_clk_mgr_destroy(clk_mgr);
-                 }
-                 if (ASICREV_IS_BEIGE_GOBY_P(clk_mgr_base->ctx->asic_id.hw_=
-internal_rev)) {
---
-2.25.1
-
-
---_000_BL1PR12MB514434CD840471692E9894A2F79F9BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+Am 2021-11-18 um 11:57 a.m. schrieb shaoyunl:
+> For sriov XGMI  configuration, the host driver will handle the hive reset,
+> so in guest side, the reset_sriov only be called once on one device. This will
+> make kfd post_reset unblanced with kfd pre_reset since kfd pre_reset already
+> been moved out of reset_sriov function. Move kfd post_reset out of reset_sriov
+> function to make them balance .
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Do you want to change the <font size=3D"2"><span style=3D"font-size:11pt">A=
-SICREV_IS_BEIGE_GOBY_P</span></font>() check to else if as well?&nbsp; mayb=
-e something like:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-if (ASICREV_IS_SIENNA_CICHLID_P(clk_mgr_base-&gt;ctx-&gt;asic_id.hw_interna=
-l_rev) ||</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-&nbsp;&nbsp;&nbsp;&nbsp;ASICREV_IS_DIMGREY_CAVEFISH_P(clk_mgr_base-&gt;ctx-=
-&gt;asic_id.hw_internal_rev) ||</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-&nbsp;&nbsp;&nbsp;&nbsp; ASICREV_IS_BEIGE_GOBY_P(clk_mgr_base-&gt;ctx-&gt;a=
-sic_id.hw_internal_rev))</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn3_clk_mgr_destroy(clk_m=
-gr);<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Qingqing Zhuo &lt;qingqing.zh=
-uo@amd.com&gt;<br>
-<b>Sent:</b> Friday, November 19, 2021 2:43 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Wang, Chao-kai (Stylon) &lt;Stylon.Wang@amd.com&gt;; Cyr, Aric &=
-lt;Aric.Cyr@amd.com&gt;; Chiu, Solomon &lt;Solomon.Chiu@amd.com&gt;; Li, Su=
-n peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland=
-@amd.com&gt;; Zhuo, Qingqing (Lillian) &lt;Qingqing.Zhuo@amd.com&gt;;
- Leung, Martin &lt;Martin.Leung@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.=
-Siqueira@amd.com&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;; Jacob, Anson &lt;=
-Anson.Jacob@amd.com&gt;; Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;=
-; Lin, Wayne &lt;Wayne.Lin@amd.com&gt;; Lipski, Mikita &lt;Mikita.Lipski@am=
-d.com&gt;;
- Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; Gutierrez, Agustin &=
-lt;Agustin.Gutierrez@amd.com&gt;; Kotarac, Pavle &lt;Pavle.Kotarac@amd.com&=
-gt;<br>
-<b>Subject:</b> [PATCH 14/16] drm/amd/display: add else to avoid double des=
-troy clk_mgr</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Martin Leung &lt;Martin.Leung@amd.com&gt;<br=
->
-<br>
-[Why &amp; How]<br>
-when changing some code we accidentally<br>
-changed else if-&gt; if. reverting that.<br>
-<br>
-Reviewed-by: Aric Cyr &lt;Aric.Cyr@amd.com&gt;<br>
-Acked-by: Qingqing Zhuo &lt;qingqing.zhuo@amd.com&gt;<br>
-Signed-off-by: Martin Leung &lt;Martin.Leung@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c | 3 +--<br>
-&nbsp;1 file changed, 1 insertion(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu=
-/drm/amd/display/dc/clk_mgr/clk_mgr.c<br>
-index 26f96ee32472..9200c8ce02ba 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c<br>
-@@ -308,8 +308,7 @@ void dc_destroy_clk_mgr(struct clk_mgr *clk_mgr_base)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case FAMILY_NV:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ASICREV_IS_SIENNA_CICHLID_P(clk_mgr_base-&gt;ctx-=
-&gt;asic_id.hw_internal_rev)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn3_=
-clk_mgr_destroy(clk_mgr);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ASICREV_IS_DIMGREY_CAVEFISH_P(clk_mgr_base-&gt;ctx-&gt;asic_=
-id.hw_internal_rev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (ASICREV_IS_DIMGREY_CAVEFISH_P(clk_mgr_base-&gt;ctx-&g=
-t;asic_id.hw_internal_rev)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn3_=
-clk_mgr_destroy(clk_mgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ASICREV_IS_BEIGE_GOBY_P(clk_mgr_base-&gt;ctx-&gt;=
-asic_id.hw_internal_rev)) {<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
 
---_000_BL1PR12MB514434CD840471692E9894A2F79F9BL1PR12MB5144namp_--
+Please change the headline prefix to "drm/amdgpu: ". The extra "/amd" is
+redundant. And I'd also add a tag
+
+Fixes: 9f4f2c1a3524 ("drm/amd/amdgpu: fix the kfd pre_reset sequence in
+sriov")
+
+Note that the commit hash is the one from the drm-next branch, which is
+what will get merged into master eventually. With those changes, the
+patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 10c8008d1da0..9a9d5493c676 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4308,7 +4308,6 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+>  
+>  	amdgpu_irq_gpu_reset_resume_helper(adev);
+>  	r = amdgpu_ib_ring_tests(adev);
+> -	amdgpu_amdkfd_post_reset(adev);
+>  
+>  error:
+>  	if (!r && adev->virt.gim_feature & AMDGIM_FEATURE_GIM_FLR_VRAMLOST) {
+> @@ -5081,7 +5080,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>  
+>  	tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
+>  	/* Actual ASIC resets if needed.*/
+> -	/* TODO Implement XGMI hive reset logic for SRIOV */
+> +	/* Host driver will handle XGMI hive reset for SRIOV */
+>  	if (amdgpu_sriov_vf(adev)) {
+>  		r = amdgpu_device_reset_sriov(adev, job ? false : true);
+>  		if (r)
+> @@ -5141,8 +5140,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>  
+>  skip_sched_resume:
+>  	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+> -		/* unlock kfd: SRIOV would do it separately */
+> -		if (!need_emergency_restart && !amdgpu_sriov_vf(tmp_adev))
+> +		/* unlock kfd */
+> +		if (!need_emergency_restart)
+>  	                amdgpu_amdkfd_post_reset(tmp_adev);
+>  
+>  		/* kfd_post_reset will do nothing if kfd device is not initialized,
