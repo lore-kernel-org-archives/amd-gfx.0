@@ -4,92 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96AE1C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 22:25:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A856C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Nov 2021 22:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7C789E57;
-	Mon, 22 Nov 2021 22:25:43 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2049.outbound.protection.outlook.com [40.107.95.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC9AB89E57
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Nov 2021 22:25:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nA1sb1gehddGV3VNkCjoC4vam7M2qw7EwAWfQicKBH3HONzcj3uLrZ0zKaaJev2W6tQ+NP78LmaliG5E26AN5eujnAm/TWtD3wUmcII+4Cdi9HC2R9QaOcTacsbFza7k3JBenYUYojbji1UOmyyJuOzeMw5tRFO9SXH+0xcJYTMKlBisaQhsUcRWS47XrToEzo3JRNG5BHDChGENfWxdANtL6TIJshdpoyTIaf6t9BKJ2zO3aKlAeahulE0TSNxXbj3IH/AOoHVoTQ3T3b8Km1yCd70DKBphi5nZuJHBIOWZxnwHv1iuzw1WVxHoWlrmsgPZy2D2Vf4dYItqe1awEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tLc6YnfGQBRlc2e52KpBr6SHfKnzuSgC6elTg2boke8=;
- b=ZVH8ASd27uy8hKyMTUyTKTxDyo06QxSAKmIZ2DCq/EqhUU2avvZMhIsY9Wyx/Dq++zt3+fDsY/MaICbSy0dPDscCArrkCqefHL5J1N6Vgisl9w4iqTUDqSF4xi0oKkiW+jVUMrLwC69NP5lgNxI88SmDX7VHRN092DVgivl3KCGd17J+b7o9zDTPPjQ6aCbScFY2YK25uY4tTcSp35QTIy39Uy5hnuKm3AEXOj+A6HA0RT/0rXZJSuhoBbj6uewA4E/c+Jyy34ZE1m39L1WLEfLHGRxILqBS9khAoaY52hXlOLEuHO3d59E4g+TtHbATAvdiZwp6mYq8gf1du27w3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tLc6YnfGQBRlc2e52KpBr6SHfKnzuSgC6elTg2boke8=;
- b=s0rp30d5aGQwOJJgxEZHoze6BVKA6OwUJKHfwLfwQdWRtB+/Rf6EkUCqUi2sImRO/UFhX+mfUclQs9iIBfZnIqNfjgBaNpOk0UQhNwK5f/qdASOwa55R4j35tsZBYgpFYgYdo8XOEfQoNUpMVSCh9982bO/5z6r9fAkbR3ox/ZA=
-Received: from BN9PR03CA0914.namprd03.prod.outlook.com (2603:10b6:408:107::19)
- by MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Mon, 22 Nov
- 2021 22:25:36 +0000
-Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:107:cafe::33) by BN9PR03CA0914.outlook.office365.com
- (2603:10b6:408:107::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19 via Frontend
- Transport; Mon, 22 Nov 2021 22:25:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Mon, 22 Nov 2021 22:25:35 +0000
-Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 22 Nov
- 2021 16:25:33 -0600
-From: Luben Tuikov <luben.tuikov@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amd/pm: Print the error on command submission
-Date: Mon, 22 Nov 2021 17:25:12 -0500
-Message-ID: <20211122222512.58886-3-luben.tuikov@amd.com>
-X-Mailer: git-send-email 2.34.0
-In-Reply-To: <20211122222512.58886-1-luben.tuikov@amd.com>
-References: <20211122222512.58886-1-luben.tuikov@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6D289AFF;
+	Mon, 22 Nov 2021 22:43:40 +0000 (UTC)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC2E389AD2;
+ Mon, 22 Nov 2021 22:43:38 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id y26so85699644lfa.11;
+ Mon, 22 Nov 2021 14:43:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SOGMy7fQppmIi2lh+bBNZKhDlmtVTvAMYZ6ML5vXHQk=;
+ b=Y/XQX8HoLTQ/AiZ0PyjthwW0sS+Bz5PYFZcLuPVi3KmxkRzAGZJAbvmSCaWKk3VXSO
+ H8pze+C3mbthtuPTOBbxee11vj2ndOwmrxG3vapPWK6NuXryfGtyRWKgLjDtvVIvMTvh
+ p7usOsqZiv95/HpUu7YRrHMInOJX7ddiWbjSnTPiZA7gn6WrFef4Ke/lLvjA7HNZLIIw
+ UsTO37nTaqoO8zOnap3eTMNd2h2hmwYONDJGBFupp4Q6lNTyNlMtcqwMqXRNVY/1m1Ad
+ RApj+/F6MvLKhFgZMQtErcu6g5E8eWZWCgUuZX5kKc5H8eJ7TfiZRRIgQ1NpNaVgmhcN
+ C05w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SOGMy7fQppmIi2lh+bBNZKhDlmtVTvAMYZ6ML5vXHQk=;
+ b=cMQraFJGX6S3P7roHo0y7Ufc2HTKxRenaupeDuewi1YYQg7i6zNJrhdKb+aeJFSE4i
+ DLDmiyTCwBXeRlD8ZPoTtMnCauTSfLY1gls6ioh20j9gbsZcZ4nVBHbz6QPE/Hrgq0vX
+ omOxPx77FkQivxwUlWu5pPMTszn5OQnaRzdFcZoXK0LdW8yfsVulrjaQLqv8qXaIDNO9
+ c0jOaUJZCSkVIcpLURPqqC9JpSgS6IYcyoAIyIb32IZ/0xUaS4tAKBpveQtAyP6Av+Zr
+ RFQxRXOc7qEtZyxv9+JcAZOiLWiBk3Vl/NIScaqpbb9/mdNc7lKf4U4rM0YM9FjlNLbm
+ 9Bbw==
+X-Gm-Message-State: AOAM532rSrI4asbI4feQmu2OOYJklAdMUWgtPSDLrS7d6igCYlrMqe9r
+ K2eRiSJ9wwAXBRGOaRnDO5woScxQHIuObxjGaOQ=
+X-Google-Smtp-Source: ABdhPJy5vsW1PcvFZiwn9kAx0mHvt3wDdudHp7YXdnTzsic6PsUQQbhUWWqAtAAWiuSlEfFJA7syF7mk1Arujhc6srw=
+X-Received: by 2002:a05:6512:3c85:: with SMTP id
+ h5mr482306lfv.544.1637621016935; 
+ Mon, 22 Nov 2021 14:43:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6be3e88b-7fe6-464e-8420-08d9ae07010e
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4409:
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4409ADE743F57807B128ED3F999F9@MW3PR12MB4409.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y9N4MG0y2CJK7acZ6mmk6G9t0wK66wF95kwFnbiX3LWgrOJFF6iNgIxy0/uekIYM+mJwLRtID6GgpFswgpobJw8t8EC6dlvs8cKEPN5OMIa3nGOJcQWZ8LwN2btno69Mfk0tt/y3x+i5EAsl46aeOUKJoGkcNuy/1aBl7N7VnPp0UGG7aFzBbQZ+FcwbuuBZG4QYae727r7AEiMPJmf3rkqVWzYbMFUIiOFKVWwGRTGwRvLL8CAnrCpaWknQZw564gCs+FdKWXMFUlb7gwTGRWU/njNUq/IJNyLtduhCHtBlMGqOk8Z9vt4z0M8nSNaxUxRDWEBc/NSuTy1CVjZ+CtAiwjuRnz8/z6KpWhYs7uCub9ODLkRYKNaP+uzcW7yfdcetyaWzhKiUpW6Ozh4KyB1VyPZphrUWbFIiJ9DjtvZmfs2FkaXDPQOHaADAyIqODYz/fapr4ZtHCY4DMSlBSpkqFwuWatPWPiW9s/yU0g6CrQGSWnRoPwk8r6NJcRQ5VSyzDMI6KWGQfTaQG7/paugX70uvhFbYXwHwxBsSAa35wv0EjzFrYSYLnZp/zWhTuVFkE+ulgR60q08Jc7YPS7yWsSIbMvFvbBdqhy0roqmFGCyZZqLCKHbH7fskxTzyFytVLEyBt8ej4Hs5YX2+2vmFOfc+42bmNpEMQ1lnOZDZNYu7mI44S7H0x+U2PJJ4Hwy+nK0/z/OR2wY+/vVAIOkVwPUN9gQEJtAQql17lDM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(54906003)(36756003)(47076005)(36860700001)(7696005)(8936002)(6916009)(1076003)(316002)(2616005)(86362001)(2906002)(44832011)(83380400001)(4326008)(16526019)(186003)(81166007)(336012)(5660300002)(426003)(70586007)(8676002)(6666004)(26005)(356005)(70206006)(508600001)(82310400003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2021 22:25:35.4908 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6be3e88b-7fe6-464e-8420-08d9ae07010e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4409
+References: <20211111220206.121610-1-jim.cromie@gmail.com>
+ <20211111220206.121610-9-jim.cromie@gmail.com>
+ <20211112114953.GA1381@axis.com>
+ <f3914fa9-8b22-d54e-3f77-d998e74094b9@akamai.com>
+ <20211116104631.195cbd0b@eldfell>
+ <f87b7076-47e6-89b1-aaf9-b67aa6713e01@akamai.com>
+ <20211118172401.0b4d722e@eldfell>
+ <41ea83b2-a707-cb6f-521e-070bb12502de@akamai.com>
+ <20211122110208.528e1d80@eldfell>
+In-Reply-To: <20211122110208.528e1d80@eldfell>
+From: jim.cromie@gmail.com
+Date: Mon, 22 Nov 2021 15:42:38 -0700
+Message-ID: <CAJfuBxyFzA++2JUxLY-6yLqmrETbmsWpTiyJH5w1qKiAkMriNw@mail.gmail.com>
+Subject: Re: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with it
+ - RFC
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,36 +70,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>
+Cc: quic_saipraka@quicinc.com, Catalin Marinas <catalin.marinas@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Will Deacon <will@kernel.org>,
+ maz@kernel.org, Vincent Whitchurch <vincent.whitchurch@axis.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Ingo Molnar <mingo@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Jason Baron <jbaron@akamai.com>,
+ Sean Paul <seanpaul@chromium.org>, intel-gvt-dev@lists.freedesktop.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, Sean Paul <sean@poorly.run>,
+ Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
+ quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Print the error on command submission immediately after submitting to
-the SMU. This is rate-limited. It helps to immediately know there was an
-error on command submission, rather than leave it up to clients to report
-the error, as sometimes they do not.
+On Mon, Nov 22, 2021 at 2:02 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+>
+> On Fri, 19 Nov 2021 11:21:36 -0500
+> Jason Baron <jbaron@akamai.com> wrote:
+>
+> > On 11/18/21 10:24 AM, Pekka Paalanen wrote:
+> > > On Thu, 18 Nov 2021 09:29:27 -0500
+> > > Jason Baron <jbaron@akamai.com> wrote:
+> > >
+> > >> On 11/16/21 3:46 AM, Pekka Paalanen wrote:
+> > >>> On Fri, 12 Nov 2021 10:08:41 -0500
+> > >>> Jason Baron <jbaron@akamai.com> wrote:
+> > >>>
+> > >>>> On 11/12/21 6:49 AM, Vincent Whitchurch wrote:
+> > >>>>> On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:
+> > >>>>>> Sean Paul proposed, in:
+> > >>>>>> https://urldefense.com/v3/__https://patchwork.freedesktop.org/series/78133/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRA8Dki4A$
+> > >>>>>> drm/trace: Mirror DRM debug logs to tracefs
+> > >>>>>>
+> > >>>>>> His patchset's objective is to be able to independently steer some of
+> > >>>>>> the drm.debug stream to an alternate tracing destination, by splitting
+> > >>>>>> drm_debug_enabled() into syslog & trace flavors, and enabling them
+> > >>>>>> separately.  2 advantages were identified:
+> > >>>>>>
+> > >>>>>> 1- syslog is heavyweight, tracefs is much lighter
+> > >>>>>> 2- separate selection of enabled categories means less traffic
+> > >>>>>>
+> > >>>>>> Dynamic-Debug can do 2nd exceedingly well:
+> > >>>>>>
+> > >>>>>> A- all work is behind jump-label's NOOP, zero off cost.
+> > >>>>>> B- exact site selectivity, precisely the useful traffic.
+> > >>>>>>    can tailor enabled set interactively, at shell.
+> > >>>>>>
+> > >>>>>> Since the tracefs interface is effective for drm (the threads suggest
+> > >>>>>> so), adding that interface to dynamic-debug has real potential for
+> > >>>>>> everyone including drm.
+> > >>>>>>
+> > >>>>>> if CONFIG_TRACING:
+> > >>>>>>
+> > >>>>>> Grab Sean's trace_init/cleanup code, use it to provide tracefs
+> > >>>>>> available by default to all pr_debugs.  This will likely need some
+> > >>>>>> further per-module treatment; perhaps something reflecting hierarchy
+> > >>>>>> of module,file,function,line, maybe with a tuned flattening.
+> > >>>>>>
+> > >>>>>> endif CONFIG_TRACING
+> > >>>>>>
+> > >>>>>> Add a new +T flag to enable tracing, independent of +p, and add and
+> > >>>>>> use 3 macros: dyndbg_site_is_enabled/logging/tracing(), to encapsulate
+> > >>>>>> the flag checks.  Existing code treats T like other flags.
+> > >>>>>
+> > >>>>> I posted a patchset a while ago to do something very similar, but that
+> > >>>>> got stalled for some reason and I unfortunately didn't follow it up:
+> > >>>>>
+> > >>>>>  https://urldefense.com/v3/__https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/__;!!GjvTz_vk!HcKnMRByYkIdyF1apqQjlN5aBIomzJR1an3YWXM6KXs0EftVMQdrewRGytKHPg$
+> > >>>>>
+> > >>>>> A key difference between that patchset and this patch (besides that
+> > >>>>> small fact that I used +x instead of +T) was that my patchset allowed
+> > >>>>> the dyndbg trace to be emitted to the main buffer and did not force them
+> > >>>>> to be in an instance-specific buffer.
+> > >>>>
+> > >>>> Yes, I agree I'd prefer that we print here to the 'main' buffer - it
+> > >>>> seems to keep things simpler and easier to combine the output from
+> > >>>> different sources as you mentioned.
+> > >>>
+> > >>> Hi,
+> > >>>
+> > >>> I'm not quite sure I understand this discussion, but I would like to
+> > >>> remind you all of what Sean's original work is about:
+> > >>>
+> > >>> Userspace configures DRM tracing into a flight recorder buffer (I guess
+> > >>> this is what you refer to "instance-specific buffer").
+> > >>>
+> > >>> Userspace runs happily for months, and then hits a problem: a failure
+> > >>> in the DRM sub-system most likely, e.g. an ioctl that should never
+> > >>> fail, failed. Userspace handles that failure by dumping the flight
+> > >>> recorder buffer into a file and saving or sending a bug report. The
+> > >>> flight recorder contents give a log of all relevant DRM in-kernel
+> > >>> actions leading to the unexpected failure to help developers debug it.
+> > >>>
+> > >>> I don't mind if one can additionally send the flight recorder stream to
+> > >>> the main buffer, but I do want the separate flight recorder buffer to
+> > >>> be an option so that a) unrelated things cannot flood the interesting
+> > >>> bits out of it, and b) the scope of collected information is relevant.
+> > >>>
+> > >>> The very reason for this work is problems that are very difficult to
+> > >>> reproduce in practice, either because the problem itself is triggered
+> > >>> very rarely and randomly, or because the end users of the system have
+> > >>> either no knowledge or no access to reconfigure debug logging and then
+> > >>> reproduce the problem with good debug logs.
+> > >>>
+> > >>> Thank you very much for pushing this work forward!
+> > >>>
+> > >>>
+> > >>
+> > >> So I think Vincent (earlier in the thread) was saying that he finds it
+> > >> very helpful have dynamic debug output go to the 'main' trace buffer,
+> > >> while you seem to be saying you'd prefer it just go to dynamic debug
+> > >> specific trace buffer.
+> > >
+> > > Seems like we have different use cases: traditional debugging, and
+> > > in-production flight recorder for problem reporting. I'm not surprised
+> > > if they need different treatment.
+> > >
+> > >> So we certainly can have dynamic output potentially go to both places -
+> > >> although I think this would mean two tracepoints? But I really wonder
+> > >> if we really need a separate tracing buffer for dynamic debug when
+> > >> what goes to the 'main' buffer can be controlled and filtered to avoid
+> > >> your concern around a 'flood'?
+> > >
+> > > If the DRM tracing goes into the main buffer, then systems in
+> > > production cannot have any other sub-system traced in a similar
+> > > fashion. To me it would feel very arrogant to say that to make use of
+> > > DRM flight recording, you cannot trace much or anything else.
+> > >
+> > > The very purpose of the flight recorder is run in production all the
+> > > time, not in a special debugging session.
+> > >
+> > > There is also the question of access and contents of the trace buffer.
+> > > Ultimately, if automatic bug reports are enabled in a system, the
+> > > contents of the trace buffer would be sent as-is to some bug tracking
+> > > system. If there is a chance to put non-DRM stuff in the trace buffer,
+> > > that could be a security problem.
+> > >
+> > > My use case is Weston. When Weston encounters an unexpected problem in
+> > > production, something should automatically capture the DRM flight
+> > > recorder contents and save it alongside the Weston log. Would be really
+> > > nice if Weston itself could do that, but I suspect it is going to need
+> > > root privileges so it needs some helper daemon.
+> > >
+> > > Maybe Sean can reiterate their use case more?
+> > >
+> > >
+> > > Thanks,
+> > > pq
+> > >
+> >
+> > Ok, so in this current thread the proposal was to create a "dyndbg-tracefs"
+> > buffer to put the dynamic debug output (including drm output from dynamic
+> > debug) into. And I was saying let's just put in the 'main' trace buffer
+> > (predicated on a dynamic debug specific tracepoint), since there seems
+> > to be a a use-case for that and it keeps things simpler.
+> >
+> > But I went back to Sean's original patch, and it creates a drm specific
+> > trace buffer "drm" (via trace_array_get_by_name("drm")). Here:
+> > https://patchwork.freedesktop.org/patch/445549/?series=78133&rev=5
+> >
+> > So I think that may be some of the confusion here? The current thread/
+> > proposal is not for a drm specific trace buffer...
+>
+> Hi Jason,
+>
+> I may very well have confused things, sorry about that. If this series
+> is not superseding the idea of the DRM flight recorder, then don't mind
+> me. It just sounded very similar and I also haven't seen new revisions
+> of the flight recorder in a long time.
 
-Cc: Alex Deucher <Alexander.Deucher@amd.com>
-Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
-Acked-by: Alex Deucher <Alexander.Deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+IMO this series has clarified the requirement for a flight-recorder mode,
+which seems to fit ideally in a separate instance.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index f9a42a07eeaebf..048ca16738638f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -352,7 +352,7 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
- 	__smu_cmn_send_msg(smu, (uint16_t) index, param);
- 	reg = __smu_cmn_poll_stat(smu);
- 	res = __smu_cmn_reg2errno(smu, reg);
--	if (res == -EREMOTEIO)
-+	if (res != 0)
- 		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
- 	if (read_arg)
- 		smu_cmn_read_arg(smu, read_arg);
--- 
-2.34.0
+> > Having a subsystem specific trace buffer would allow subsystem specific
+> > trace log permissions depending on the sensitivity of the data. But
+> > doesn't drm output today go to the system log which is typically world
+> > readable today?
+>
+> Yes, and that is exactly the problem. The DRM debug output is so high
+> traffic it would make the system log both unusable due to cruft and
+> slow down the whole machine. The debug output is only useful when
+> something went wrong, and at that point it is too late to enable
+> debugging. That's why a flight recorder with an over-written circular
+> in-memory buffer is needed.
 
+Seans patch reuses enum drm_debug_category to split the tracing
+stream into 10 sub-streams
+- how much traffic from each ?
+- are some sub-streams more valuable for post-mortem ?
+- any value from further refinement of categories ?
+- drop irrelevant callsites individually to reduce clutter, extend
+buffer time/space ?
