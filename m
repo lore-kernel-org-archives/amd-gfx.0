@@ -4,57 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EAA5C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 14:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3229C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 15:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F34076E1E6;
-	Tue, 23 Nov 2021 14:41:09 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3BB06E284
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 14:41:08 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- n104-20020a9d2071000000b005799790cf0bso13533746ota.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 06:41:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Ps5fqs+41W7vTg9K5HRwN+8eYoqvzN7+yEyYpZypROo=;
- b=dGSZPYDc/5qtPkSpnOYHj1e46M/B+g5feCa3hC4LD77UJZxzyUVpReqZHrX3lCLkgW
- SGcRLfSkOFlHDOEEL37t2OeHGpsyy1fHHjdeLD3Df9x+BzZGMDi4dXV0aQiqoEIgcHtm
- /Ss4uvZuVBACXBL2o7eTuJXMiZ7WQCf7Mf9cmxw9sJJgEVmHYJ+bmAfsVXvphivki5AD
- 7hs1TOmkd6Gh07/na7xOO4D6sJw8yo9u7sEPZimj/Uu9ivFNpvw2xUMT9QnGWtcIQ4up
- OkBA6Gr6MITD7WjfXYoT3T13qj4yf5HbJowzbPPXWjVrNY/mb+jhWfCPd5D3e2/acG7q
- whQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Ps5fqs+41W7vTg9K5HRwN+8eYoqvzN7+yEyYpZypROo=;
- b=TmeuI5EVkph2y1ZYFKYSOoNQfZ8nsfXpuMEHTliyEcYcyFEgjF+/yD6tMbfFtR8/yw
- yggVmkpFqQOf++q2ySzgD+uaG+5FAN1BVutdHJUOVR0hSu1ewYN1hbilNfn2D3xl9OQ0
- 22ZxpYtSnPOGp1uAvvUZeb1l1/WEqdkeqa2rGoVoBwPCeddJ0oKok2Sj4hXR179KJ0VO
- 7G2yUokWZg9i8v3EgTTc32pBfVShBVX8jmEwzfjQYJRcClHF21VZQ0exWdzh+uh/1+dj
- 4jHBKgk26XM/noT+FzU/NlL94GOaNutgIb6+25sxUGzzUBzfPbCY/C/tQ47w1ef5CFSQ
- d5ZA==
-X-Gm-Message-State: AOAM532tqIDp/JmYILcu+gy5KIPr0dJdaO1rjXe59IiEUU8ITVSYc5tg
- GGHTxbc/vDYrvhCxZ/NOKgmJVbrZmwx/QOwD4Ec=
-X-Google-Smtp-Source: ABdhPJxwG22hzFvSVtv862MOd8mr+SGM25GfGdRjaWFHHBBFZJg+T7zgQ8nf5CKuljYheQ6SXb3k6umWGXpkRXGpfQY=
-X-Received: by 2002:a9d:6855:: with SMTP id c21mr5017209oto.357.1637678467885; 
- Tue, 23 Nov 2021 06:41:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DCC76E209;
+	Tue, 23 Nov 2021 15:02:38 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2059.outbound.protection.outlook.com [40.107.94.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0BAD6E209
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 15:02:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J/GYyibgmIfaU5tpJIe9jDKSjhGeWCo+xhG1U9Wok+QhdI+lLJx6Pm/ilCwHjWQCqftiDK+5bufHZcFPILuT7CQg7l65W1RP/w9sXYneYnYIYnUypIcIpZmJfZVvforP10EPFLE0gUak2Lbycozh01a2lvLdm6Ad7NqbTrKiuBpC8kF9EJ5yhH41foq4BZLSPnXzZzjhvYPC5MLtbfx25p8AiPElT9KXJWiWWvN9p9BtykNvsU9KYo/d6SYcpGnFpoXkx9rtXJcPGHFS2M88VmoSm3QDPzKLUNJH50XjaNdA6g7oIKllM2XkFuZdmTUVn1DryaKP7m67oqJ10k0dMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TD+O8birZ7EcIVYPvBzxdRMP1wCzmJVEVsmFzvn7RdU=;
+ b=EJHlarefqkS9lluBpCvkUqMqSePDPgIybYLNa/lbV/ShWot74XY+bguXl1onb7IJUCsYFlEurgZfLTdT4RjMXPqpj14qutaNqeEUFBjzwg97lTPd7xvUeJDUNISttesc2p3E/z2zxtPmKM4hiHEyuRrEhhrAfEAIv3HZUwrO99KXhyuPXO9FdaR3w3xqX0GFIkzfWAVtn4RDzoQw06l7pThOGbWjlfWGL0BU7CLZZ0JYZAmvjl8Ma5L27iKgJD2awAADzXwS156b1CHCnJKJatkGjim6mT+UvzObPXZ53TPx4Ot0tEnNu3VN1+yAwZvkAlbCwBrfAntkOkHwfUmoMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TD+O8birZ7EcIVYPvBzxdRMP1wCzmJVEVsmFzvn7RdU=;
+ b=3FKHC5vypP2IvDUvCF+fWhldRCVBMbIgvOC3sMTvG7YOHuTLpvGSGyIfE0tRabfGZ8n5oZZvKb2vP1F35Pz58gkG1/q+3PZQLARg8BZAx49L6/VgilOCfkhx65Yt8aS6szUHPkJaLNurGYl6+KjmoUZ2DtfoaSoJBmHGiZ0Molc=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL0PR12MB5554.namprd12.prod.outlook.com (2603:10b6:208:1cd::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Tue, 23 Nov
+ 2021 15:02:35 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::6452:dc31:2a24:2830]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::6452:dc31:2a24:2830%8]) with mapi id 15.20.4713.025; Tue, 23 Nov 2021
+ 15:02:35 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Jian, Jane" <Jane.Jian@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Chen, Guchun" <Guchun.Chen@amd.com>, "Chen, 
+ JingWen" <JingWen.Chen2@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case to ip
+ init for SIENNA_CICHLID
+Thread-Topic: [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case to ip
+ init for SIENNA_CICHLID
+Thread-Index: AQHX4F4eqsL6/6OzcEGCfRNJJbAHJawRNUG1
+Date: Tue, 23 Nov 2021 15:02:34 +0000
+Message-ID: <BL1PR12MB514481ADF439A81349D03279F7609@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20211123113438.5200-1-Jane.Jian@amd.com>
+In-Reply-To: <20211123113438.5200-1-Jane.Jian@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-11-23T15:02:34.329Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+suggested_attachment_session_id: 0cc8f3bc-5241-7c91-bcf9-e0a4ad744bbf
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1e749b3e-460d-4022-062f-08d9ae924853
+x-ms-traffictypediagnostic: BL0PR12MB5554:
+x-microsoft-antispam-prvs: <BL0PR12MB5554C79AE7A9F988814A8006F7609@BL0PR12MB5554.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1122;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jvAZB1j6wszz9g/GE7+TxQALCLtpjT4mDYA77qFfUZfrbsdSwOJfh/sCannw+LDZGm6Kw01PTjZfaxGW9Gkce2lnODqxHtx5kcpbTWkUHHMuIXK8Y9eHbbxT++I5HkcJ+wc5Y3YLs034zkF7k7JIjlWwH3tG2f3zY+vo3xO/14bOnVpjPNQfhI02+r3+CrHWNwy4RXMK5z3mxGondyxP7HXr1+kCY2d/q1MJ3kppf6bSzQPJj2jPr8UyRxeJ/RCqQ33Yd9C4RuB+g1/rgC000uuc8Bmdk4MC923JDX/qAGavqyp/NkKU8eGlDEwiT+aV1V1kNWMHBhHW0qSeeUU0AuUgeEfgHR4jmdDMH+YWewW3WO86S0nFnBBChcPaAxjn3xjUxG3OS1ErRziILCLwQFAJrsbWfKVSIODfyPzsp4lcFzmWcbv+exeBdM7vvjXLi44ccHORzKIanUeS3xGrZiEdpP5nRd5TXHrkke2KEhyBkvgFcbnsm1lTfg/3+LLRmUfs+tBXbZp3/F4cdOa2GbY6f3FO6i4jMxzIWzBk7iI3J3hlIhCSDTkQbiXvJh22K2xpihNi0gI6EaqymZ4tecJN6b9gySStiNFYsykO58R1XGlfodV8VQyGDJZIMNp/2YXVW80aDoiAj3TngJ6nKwK9C03o4+AVkso1QTw2GMHZGDhfvjxye+7LLPKX9nCPu+Uxh0MTlPvvrruOPFut+A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6506007)(26005)(5660300002)(38070700005)(53546011)(110136005)(33656002)(186003)(83380400001)(8676002)(66446008)(6636002)(7696005)(38100700002)(2906002)(66556008)(64756008)(508600001)(55016003)(316002)(66476007)(19627405001)(66946007)(71200400001)(9686003)(76116006)(122000001)(52536014)(86362001)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?l+wLoRA3RbhqNxARZEzbwFPZ/d2gdckvPiZfjYm4G5aiV7K1av58MnoqRV+4?=
+ =?us-ascii?Q?+mA7gaTZFPGbRgdTzicZ6TynmGIAdYEwOJFdGKVgWSTOiyC4Zg1jVcvEKsLN?=
+ =?us-ascii?Q?sWQi0kjkcbSrmmBXrNL4daHTp+YvtZ7+kqRmFYxHZnyWJSzRyDcVweOw7Kzs?=
+ =?us-ascii?Q?djlykvK46JIiy8zwXeg0kd3PyYQjoA68VDcslaSll35cuZ75LNwpyqmYVJC4?=
+ =?us-ascii?Q?2x9cyS3Q0pVtdKhfHeWTHurVkXCb08lVZafPGE3L6/XchaEDjCvUV6vgC14O?=
+ =?us-ascii?Q?oPYccuJxEwO4lAgsJQXM45S3QrilEvOzonWOimYgrHiMLwlUro+b47plnV1W?=
+ =?us-ascii?Q?pdtF4lFmUEVN09Vp7JX2sL06dpRj5+6HKwELKHwSvfihxJNe92ZuozC2lZUx?=
+ =?us-ascii?Q?GA0U4mzn+oBeoup94SaOy29stC2pMeWaM8eqCLulvXFUXUYnwYb34zijQ1od?=
+ =?us-ascii?Q?BDa+hI1NzoO/w3D7gH7t81rByU6ID1SlqX26fINonDiHBi0Sj+xFXofqf6zU?=
+ =?us-ascii?Q?hNLT/gyXW7HwUh2xdJHOxuKov+j8pFP+87pXEWExFFwWIJYJd7gIlOJp42VJ?=
+ =?us-ascii?Q?ow0U3F53vLQu86uAL+DKhyKB9snVt+KdJjDGxif1nieoIXMojTPX8jevVyra?=
+ =?us-ascii?Q?pPPZGUIdDRoSEIliyP7vhHRdjA16nzuju1gu+CumKOoG4zwZh+oq5J2fxTbb?=
+ =?us-ascii?Q?O4dV1qNZ7gN7g3Jcw5Fgr+W2ZKdTTB5GyDbmHTG7rzpXHQSO4Cy3M4yRHpLG?=
+ =?us-ascii?Q?TPxY45/sL0vbQwBq3vAXLrfo8+4MGnVASG5yHaGiGC5aJVIm5acKeULUnrkr?=
+ =?us-ascii?Q?C2iIcAob/FL6y8IZRrXs4LjYEmbf97SnLvqeFOWGSYD+qQ16It3aybiSW8y/?=
+ =?us-ascii?Q?BVjpYYGdJ9Vllbs3K5cweSHdRcp3igXbwMoHaMWauhLEwQgCu9AzW+XuETqC?=
+ =?us-ascii?Q?u1NLlI+zagLUq/x0fr3zt8uOwHpKr+9TsjYjdoVN7anYL0STMlqNPgdzLJJK?=
+ =?us-ascii?Q?GxOOiuPyNOOO4/nNWb4rrRq1U8CTS6ti2fc+Ce8ID8ptzXTwTtI74/seN/ui?=
+ =?us-ascii?Q?ZhgEsXPYI+EBka9zYyEqiouCGnU4wMlpGJfxE1zZe1CRv89WQN5HWKOQfvmK?=
+ =?us-ascii?Q?/LmhfYkqxclGfBy3/b1xFEtb9STEFeHjiIMIxvJekEMFUSQL8AshJvE7o6Wg?=
+ =?us-ascii?Q?YNnyrk1/VkJNtSfWpeRgBE2CmstkmfGL0uGfCYSOat/YbBadxEdxhNvuNq6a?=
+ =?us-ascii?Q?vp+oJ78SSN9QGG38zwxhE41VzpEQNVjCRC+Zl5h4lMb6FRkfGGBJLpxyJIsv?=
+ =?us-ascii?Q?N2Ra2B7X/neqE+tFttjjEhRLFbHzE2GoCJD0XEvHOqpY8t/eryChcGryZtW8?=
+ =?us-ascii?Q?XTa8EBRJF0i9lLlnt0XDPaLrh7F6PxVDYymrUitP2jRHEMeB+Vhpgpbrb7QB?=
+ =?us-ascii?Q?RVDnRi7TKqPIouhkM/o3FNi7oWDIjBm+kdrrEdmMuyHLKJESyzbjI9LsDmXd?=
+ =?us-ascii?Q?0A+jCAddakVW9K56jyewz6YgpjPHiwRNQQPofSBXR+Dt4j8yctEC7sqZZz/P?=
+ =?us-ascii?Q?Sx0OW1t7KkpbNh3u85N+bhia8THddRUmKjowpy3bdQLwjV4p7aUlrivNME2R?=
+ =?us-ascii?Q?x4w1HzPUM1X5pdQiwA2mk5U=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB514481ADF439A81349D03279F7609BL1PR12MB5144namp_"
 MIME-Version: 1.0
-References: <20211122090353.1399178-1-flora.cui@amd.com>
- <DM5PR12MB2469709B28E24F1C8FCB573EF19F9@DM5PR12MB2469.namprd12.prod.outlook.com>
- <BL1PR12MB51440B523B58CA96EA7BC0C0F79F9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <DM4PR12MB5118A3B5FE4D3271F5793057FA609@DM4PR12MB5118.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB5118A3B5FE4D3271F5793057FA609@DM4PR12MB5118.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 Nov 2021 09:40:56 -0500
-Message-ID: <CADnq5_PrfOYKitfkFC0resAZS=SV=5UqtRtC8gke7sdbDF0r0A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
-To: "Cui, Flora" <Flora.Cui@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e749b3e-460d-4022-062f-08d9ae924853
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2021 15:02:34.9931 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ERDBp4bvdip+jFWtS4MsCyp9bC7A2VrJYBF3E9i4XblRO3XiVvyQkJ/GrVhC/rGfuOxYBFuVxkFo96YsgZmMQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5554
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,267 +128,231 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
- Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 22, 2021 at 8:59 PM Cui, Flora <Flora.Cui@amd.com> wrote:
->
-> [Public]
->
->
-> Modprobe -r amdgpu get oops in amdgpu_vkms_sw_fini()
->
->               for (i =3D 0; i < adev->mode_info.num_crtc; i++)
->
->                              if (adev->mode_info.crtcs[i])
->
->                                            hrtimer_cancel(&adev->mode_inf=
-o.crtcs[i]->vblank_timer);
->
-> adev->mode_info.crtcs[i]->vblank_timer is not initiated as vkms init its =
-own amdgpu_vkms_output-> vblank_hrtimer. This patch drop amdgpu_vkms_output=
--> vblank_hrtimer and try with adev->mode_info.crtcs[i]->vblank_timer to ke=
-ep align with amdgpu_dm & dce_vx_0.c
->
->
+--_000_BL1PR12MB514481ADF439A81349D03279F7609BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I think this might be better as two patches.  The simple fix for this
-problem would be:
+[Public]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index ce982afeff91..b620a6a3cb9f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -504,8 +504,7 @@ static int amdgpu_vkms_sw_fini(void *handle)
-        int i =3D 0;
-
-        for (i =3D 0; i < adev->mode_info.num_crtc; i++)
--               if (adev->mode_info.crtcs[i])
--                       hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_ti=
-mer);
-+               hrtimer_cancel(&adev->amdgpu_vkms_output[i].vblank_hrtimer)=
-;
-
-        kfree(adev->mode_info.bios_hardcoded_edid);
-        kfree(adev->amdgpu_vkms_output);
-
-Then apply your patch on top to share more code with the existing dce files=
-.
+Can we just add a check for the new IP version in that case?  This looks re=
+ally hacky.
 
 Alex
 
+________________________________
+From: Jane Jian <Jane.Jian@amd.com>
+Sent: Tuesday, November 23, 2021 6:34 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
+ Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>;=
+ Chen, JingWen <JingWen.Chen2@amd.com>
+Cc: Jian, Jane <Jane.Jian@amd.com>
+Subject: [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case to ip in=
+it for SIENNA_CICHLID
+
+[WHY]
+for sriov odd# vf will modify vcn0 engine ip revision(due to multimedia ban=
+dwidth feature),
+which will be mismatched with original vcn0 revision
+
+[HOW]
+skip ip revision match case and continue use asic type to check
+
+Signed-off-by: Jane Jian <Jane.Jian@amd.com>
+Change-Id: I1ace32acbf3a13c0baac958508da1324ec387a58
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 5 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 6 ++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c
+index 4e3669407518..0a91e53f520c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1334,7 +1334,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_dev=
+ice *adev)
+                         return r;
+         }
+
+-       r =3D amdgpu_discovery_set_mm_ip_blocks(adev);
++       if (adev->asic_type =3D=3D CHIP_SIENNA_CICHLID && amdgpu_sriov_vf(a=
+dev))
++               r =3D amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
++       else
++               r =3D amdgpu_discovery_set_mm_ip_blocks(adev);
+         if (r)
+                 return r;
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vcn.c
+index 4f7c70845785..87f56b61be53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -86,6 +86,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+         for (i =3D 0; i < adev->vcn.num_vcn_inst; i++)
+                 atomic_set(&adev->vcn.inst[i].dpg_enc_submission_cnt, 0);
+
++       if (adev->asic_type =3D=3D CHIP_SIENNA_CICHLID && amdgpu_sriov_vf(a=
+dev)) {
++               fw_name =3D FIRMWARE_SIENNA_CICHLID;
++               goto next;
++       }
+         switch (adev->ip_versions[UVD_HWIP][0]) {
+         case IP_VERSION(1, 0, 0):
+         case IP_VERSION(1, 0, 1):
+@@ -168,6 +172,8 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+                 return -EINVAL;
+         }
+
++next:
++
+         r =3D request_firmware(&adev->vcn.fw, fw_name, adev->dev);
+         if (r) {
+                 dev_err(adev->dev, "amdgpu_vcn: Can't load firmware \"%s\"=
+\n",
+--
+2.17.1
+
+
+--_000_BL1PR12MB514481ADF439A81349D03279F7609BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
->
->
-> From: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Sent: 2021=E5=B9=B411=E6=9C=8823=E6=97=A5 0:43
-> To: Chen, Guchun <Guchun.Chen@amd.com>; Cui, Flora <Flora.Cui@amd.com>; a=
-md-gfx@lists.freedesktop.org
-> Subject: Re: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
->
->
->
-> [Public]
->
->
->
-> Can you explain how the current code is failing?  It's not immediately ob=
-vious to me.  I'm not opposed to this change, it's just not clear to me whe=
-re the current code fails.
->
->
->
-> Alex
->
->
->
-> ________________________________
->
-> From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: Monday, November 22, 2021 8:49 AM
-> To: Cui, Flora <Flora.Cui@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
->
->
->
-> [Public]
->
-> Series is:
-> Reviewed-by: Guchun Chen <guchun.chen@amd.com>
->
-> +Alex to comment this series as well.
->
-> Regards,
-> Guchun
->
-> -----Original Message-----
-> From: Cui, Flora <Flora.Cui@amd.com>
-> Sent: Monday, November 22, 2021 5:04 PM
-> To: amd-gfx@lists.freedesktop.org; Chen, Guchun <Guchun.Chen@amd.com>
-> Cc: Cui, Flora <Flora.Cui@amd.com>
-> Subject: [PATCH 1/2] drm/amdgpu: fix vkms hrtimer settings
->
-> otherwise adev->mode_info.crtcs[] is NULL
->
-> Signed-off-by: Flora Cui <flora.cui@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 38 ++++++++++++++++--------  =
-drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h |  5 ++--
->  2 files changed, 28 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vkms.c
-> index ce982afeff91..6c62c45e3e3e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -16,6 +16,8 @@
->  #include "ivsrcid/ivsrcid_vislands30.h"
->  #include "amdgpu_vkms.h"
->  #include "amdgpu_display.h"
-> +#include "atom.h"
-> +#include "amdgpu_irq.h"
->
->  /**
->   * DOC: amdgpu_vkms
-> @@ -41,14 +43,13 @@ static const u32 amdgpu_vkms_formats[] =3D {
->
->  static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *=
-timer)  {
-> -       struct amdgpu_vkms_output *output =3D container_of(timer,
-> -                                                        struct amdgpu_vk=
-ms_output,
-> -                                                        vblank_hrtimer);
-> -       struct drm_crtc *crtc =3D &output->crtc;
-> +       struct amdgpu_crtc *amdgpu_crtc =3D container_of(timer, struct am=
-dgpu_crtc, vblank_timer);
-> +       struct drm_crtc *crtc =3D &amdgpu_crtc->base;
-> +       struct amdgpu_vkms_output *output =3D
-> +drm_crtc_to_amdgpu_vkms_output(crtc);
->          u64 ret_overrun;
->          bool ret;
->
-> -       ret_overrun =3D hrtimer_forward_now(&output->vblank_hrtimer,
-> +       ret_overrun =3D hrtimer_forward_now(&amdgpu_crtc->vblank_timer,
->                                            output->period_ns);
->          WARN_ON(ret_overrun !=3D 1);
->
-> @@ -65,22 +66,21 @@ static int amdgpu_vkms_enable_vblank(struct drm_crtc =
-*crtc)
->          unsigned int pipe =3D drm_crtc_index(crtc);
->          struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
->          struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_outpu=
-t(crtc);
-> +       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
->
->          drm_calc_timestamping_constants(crtc, &crtc->mode);
->
-> -       hrtimer_init(&out->vblank_hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_=
-REL);
-> -       out->vblank_hrtimer.function =3D &amdgpu_vkms_vblank_simulate;
->          out->period_ns =3D ktime_set(0, vblank->framedur_ns);
-> -       hrtimer_start(&out->vblank_hrtimer, out->period_ns, HRTIMER_MODE_=
-REL);
-> +       hrtimer_start(&amdgpu_crtc->vblank_timer, out->period_ns,
-> +HRTIMER_MODE_REL);
->
->          return 0;
->  }
->
->  static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)  {
-> -       struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output=
-(crtc);
-> +       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
->
-> -       hrtimer_cancel(&out->vblank_hrtimer);
-> +       hrtimer_cancel(&amdgpu_crtc->vblank_timer);
->  }
->
->  static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc, @@ -=
-92,13 +92,14 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crt=
-c *crtc,
->          unsigned int pipe =3D crtc->index;
->          struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_ou=
-tput(crtc);
->          struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
-> +       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
->
->          if (!READ_ONCE(vblank->enabled)) {
->                  *vblank_time =3D ktime_get();
->                  return true;
->          }
->
-> -       *vblank_time =3D READ_ONCE(output->vblank_hrtimer.node.expires);
-> +       *vblank_time =3D READ_ONCE(amdgpu_crtc->vblank_timer.node.expires=
-);
->
->          if (WARN_ON(*vblank_time =3D=3D vblank->time))
->                  return true;
-> @@ -165,6 +166,8 @@ static const struct drm_crtc_helper_funcs amdgpu_vkms=
-_crtc_helper_funcs =3D {  static int amdgpu_vkms_crtc_init(struct drm_devic=
-e *dev, struct drm_crtc *crtc,
->                            struct drm_plane *primary, struct drm_plane *c=
-ursor)  {
-> +       struct amdgpu_device *adev =3D drm_to_adev(dev);
-> +       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
->          int ret;
->
->          ret =3D drm_crtc_init_with_planes(dev, crtc, primary, cursor, @@=
- -176,6 +179,17 @@ static int amdgpu_vkms_crtc_init(struct drm_device *dev,=
- struct drm_crtc *crtc,
->
->          drm_crtc_helper_add(crtc, &amdgpu_vkms_crtc_helper_funcs);
->
-> +       amdgpu_crtc->crtc_id =3D drm_crtc_index(crtc);
-> +       adev->mode_info.crtcs[drm_crtc_index(crtc)] =3D amdgpu_crtc;
-> +
-> +       amdgpu_crtc->pll_id =3D ATOM_PPLL_INVALID;
-> +       amdgpu_crtc->encoder =3D NULL;
-> +       amdgpu_crtc->connector =3D NULL;
-> +       amdgpu_crtc->vsync_timer_enabled =3D AMDGPU_IRQ_STATE_DISABLE;
-> +
-> +       hrtimer_init(&amdgpu_crtc->vblank_timer, CLOCK_MONOTONIC, HRTIMER=
-_MODE_REL);
-> +       amdgpu_crtc->vblank_timer.function =3D &amdgpu_vkms_vblank_simula=
-te;
-> +
->          return ret;
->  }
->
-> @@ -401,7 +415,7 @@ int amdgpu_vkms_output_init(struct drm_device *dev,  =
-{
->          struct drm_connector *connector =3D &output->connector;
->          struct drm_encoder *encoder =3D &output->encoder;
-> -       struct drm_crtc *crtc =3D &output->crtc;
-> +       struct drm_crtc *crtc =3D &output->crtc.base;
->          struct drm_plane *primary, *cursor =3D NULL;
->          int ret;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vkms.h
-> index 97f1b79c0724..4f8722ff37c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.h
-> @@ -10,15 +10,14 @@
->  #define YRES_MAX  16384
->
->  #define drm_crtc_to_amdgpu_vkms_output(target) \
-> -       container_of(target, struct amdgpu_vkms_output, crtc)
-> +       container_of(target, struct amdgpu_vkms_output, crtc.base)
->
->  extern const struct amdgpu_ip_block_version amdgpu_vkms_ip_block;
->
->  struct amdgpu_vkms_output {
-> -       struct drm_crtc crtc;
-> +       struct amdgpu_crtc crtc;
->          struct drm_encoder encoder;
->          struct drm_connector connector;
-> -       struct hrtimer vblank_hrtimer;
->          ktime_t period_ns;
->          struct drm_pending_vblank_event *event;  };
-> --
-> 2.25.1
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Can we just add a check for the new IP version in that case?&nbsp; This loo=
+ks really hacky.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jane Jian &lt;Jane.Ji=
+an@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, November 23, 2021 6:34 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Chen, Guchun &lt=
+;Guchun.Chen@amd.com&gt;; Chen, JingWen &lt;JingWen.Chen2@amd.com&gt;<br>
+<b>Cc:</b> Jian, Jane &lt;Jane.Jian@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case t=
+o ip init for SIENNA_CICHLID</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[WHY]<br>
+for sriov odd# vf will modify vcn0 engine ip revision(due to multimedia ban=
+dwidth feature),<br>
+which will be mismatched with original vcn0 revision<br>
+<br>
+[HOW]<br>
+skip ip revision match case and continue use asic type to check<br>
+<br>
+Signed-off-by: Jane Jian &lt;Jane.Jian@amd.com&gt;<br>
+Change-Id: I1ace32acbf3a13c0baac958508da1324ec387a58<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 5 ++++-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; | 6 ++++++<br>
+&nbsp;2 files changed, 10 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c<br>
+index 4e3669407518..0a91e53f520c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
+@@ -1334,7 +1334,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_dev=
+ice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_discovery_set_mm_ip_bloc=
+ks(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=3D CHIP_SI=
+ENNA_CICHLID &amp;&amp; amdgpu_sriov_vf(adev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D amdgpu_device_ip_block_add(adev, &amp;vcn_v3_0_ip_block);<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D amdgpu_discovery_set_mm_ip_blocks(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vcn.c<br>
+index 4f7c70845785..87f56b61be53 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+@@ -86,6 +86,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
+&gt;vcn.num_vcn_inst; i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;adev-&gt;vcn.inst[i].dpg_enc_submissi=
+on_cnt, 0);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=3D CHIP_SI=
+ENNA_CICHLID &amp;&amp; amdgpu_sriov_vf(adev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; fw_name =3D FIRMWARE_SIENNA_CICHLID;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; goto next;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;ip_versio=
+ns[UVD_HWIP][0]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(1, 0, 0):<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(1, 0, 1):<=
+br>
+@@ -168,6 +172,8 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++next:<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D request_firmware(&am=
+p;adev-&gt;vcn.fw, fw_name, adev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;amdgpu_vcn: Can't load fi=
+rmware \&quot;%s\&quot;\n&quot;,<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB514481ADF439A81349D03279F7609BL1PR12MB5144namp_--
