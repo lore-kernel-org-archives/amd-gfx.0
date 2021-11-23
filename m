@@ -4,95 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E52C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 15:51:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6F43C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 16:04:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215696E1BE;
-	Tue, 23 Nov 2021 15:51:52 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 021196E446;
- Tue, 23 Nov 2021 07:10:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5004E6E44A;
+	Tue, 23 Nov 2021 16:04:14 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 060C3896FA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 16:04:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QxKE2TzYq0LrgO1pjN1hGDmkJZVJPlSKehKb1QUZ4Vxn3uloCmV5AQ7A/areXWZ05D2QE9ItV87qUt0xZUPe2H2MbnjRAI4TjQkip4liKWWD5PkEuk4cYLZkKVd4oAkuXeO+9Yt7b7GejUIySY82F5zxgTp7OW5DAsqYLGEUeYng+qRPpYLcJ42mDFp54uwG4hRwb+JW75twXT9ZxHmO8L0i7FFvU0v8uQPoyouevm62wz6UWkb4G+SooFHl+BcVFdO6h0pcV7WGhYoxrucOFfrHliyMSHT25WgsjPHl+qiC50N6JT9mVfAPk71xzeScLqRRd1LJ5mt6ZHVZ7ES/7g==
+ b=cV79jNacf0kzwx9ha9a7OzltRS1Bp9VnBLfMYZPcSqIyh7c9yAEvDxEzA7zMaEWO+/QmIaBlJZqzuAjHWm+K063MpLGwOYtkNavMSIE8cviJPA+q+aa88NqyFs0u87Pz/9pwLkdXHhcSGGI3/hrcQcxZsSFKthdYRH6s20S4MPHas3l6OTFdmR5Oii6a7Sq+n55X8MZ3FMbxuBOP3yMF7x5Q2C8qWIGRjZL4BnWkk8uHBxy0CwyUONJsmzD34DN2vJJPafV/WTYCVcWK1uWb4dO4OgpdlVBMHm/qCM8KwpSBLiph5dz4FIzV1kZ09BHhCb6AIvrNzZRddcdp7CnVcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g1EQ3lS4GUlnaqLKxXppjKUngcju3yxuA/lYgQo1uto=;
- b=URuuME57K65hSvVY67MhzWE7LhElv+06Q/ekThCr/lz23zIiLMLl6F/aIlNOwBmq/OEKmn9EJgk87yyk4PJfywi8LgBmQ11vQXKGUqGNZugIAgaVgWZo0bR3EwYiayE8qYQIbU7sOFEqe5yImJiAjouI8GMyOgDDrVDAsNdDAW8coZOM+ksHEkz+/YPrxuo3ao0p/tL7RZqsR5cC+XyfnRPWBbjf+u7VXrrx91NFmCu25U7lbiu0uuWy3+3INTPdzZjbTneTQIiUoQrzsbefN2RNpS3G2ctOSjdSLy+zerh1puncFAWw+kKnhUiW0Of066gvw7V9iOHQGSnhNM15Ng==
+ bh=USyP+JEtAQldzuOq5i56eMvl04moyVJe1oknlPscySU=;
+ b=lNTEjoxKwWbYgpRRFeGW4z94irhvSGMZFB5LuLtT535I7s5bouk265nYjCnf/xAbJVMUtGIZBEPIv/zSqW0VfMzJo6hMrHcaE/HoZmXYwF8BQEim6fYE1rlWD2zgH5qUYYfBfdpt9La4OoKhrUMgQRSrjVQk2aebkpulWTPXKiowPDod+EUQsdpL+1sPK/nuWcsIVsqbHYuIYuuEC1ELM8lfMjYNBI9SHMe9P0OsOubhqM8EnOeHMhZn762gFVld69GymzyCyOJsiDpHgw5VgVV46rDERg1v//dohihyzRuOjiMKZX8L6e+Zu+EAnKQpcrQPC7Oe99oU2D3aUQE6vQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.34) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=quarantine sp=quarantine pct=100)
- action=none header.from=nvidia.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g1EQ3lS4GUlnaqLKxXppjKUngcju3yxuA/lYgQo1uto=;
- b=kHKCpLwatp46YuT2tiQRr7W6VMzZhGOl01zVN857978o2wy03jh74vFIq4KukhZ7JOWvz2okU36dk8p18zcAi82Ldx9WP5+EiwsvC8x/1FuSXC7lIutg5Bt95Wpr+NlsTqHPy0v0MdivxdTyZFFiztDuuGCwUtnfSWLx3A5BvLREjsdTiYOfNHTzgwf4hrjNHpkMuIcLEQQLks8kr+dolTzIrzJn6cgMLqQ4y2LrHSxjl2YUuomVNDPYn6ARfGufc3+nMDytU7JuAOhxTz/LkfmEhmSCYnxfDtfqhSrCTKv6M3SWNolCWotuFCL6v14n+xx8DtyNf5ETK4i7/cbpaw==
-Received: from DM6PR04CA0008.namprd04.prod.outlook.com (2603:10b6:5:334::13)
- by MW3PR12MB4491.namprd12.prod.outlook.com (2603:10b6:303:5c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
- 2021 07:10:15 +0000
-Received: from DM6NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:334:cafe::b8) by DM6PR04CA0008.outlook.office365.com
- (2603:10b6:5:334::13) with Microsoft SMTP Server (version=TLS1_2,
+ bh=USyP+JEtAQldzuOq5i56eMvl04moyVJe1oknlPscySU=;
+ b=hriK1T/9lnhB3U7NFHdlBf9r80RBk1Bv1kSQTrqNQouJrQOsctzfyxaYzfF5dWRp8uMAamFGCi6HRBzP6PSERZJZSdsc7hLS1FH0ygD5K/N1GiMIKjpuj6J3mrKC6zBuROF25viBBaRj5ZMIjiygDDU0uRQbV5scq9EU8emf91Q=
+Received: from DM3PR14CA0148.namprd14.prod.outlook.com (2603:10b6:0:53::32) by
+ CH2PR12MB3862.namprd12.prod.outlook.com (2603:10b6:610:21::27) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.22; Tue, 23 Nov 2021 16:04:10 +0000
+Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:53:cafe::e4) by DM3PR14CA0148.outlook.office365.com
+ (2603:10b6:0:53::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19 via Frontend
- Transport; Tue, 23 Nov 2021 07:10:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.34; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.34) by
- DM6NAM11FT035.mail.protection.outlook.com (10.13.172.100) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4713.20 via Frontend Transport; Tue, 23 Nov 2021 07:10:14 +0000
-Received: from nvdebian.localnet (172.20.187.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 23 Nov
- 2021 07:10:07 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: <akpm@linux-foundation.org>, <linux-mm@kvack.org>, <rcampbell@nvidia.com>, 
- <linux-ext4@vger.kernel.org>, <linux-xfs@vger.kernel.org>, Alex Sierra
- <alex.sierra@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH v1 1/9] mm: add zone device coherent type memory support
-Date: Tue, 23 Nov 2021 18:10:05 +1100
-Message-ID: <3642425.Elj8dHrGez@nvdebian>
-In-Reply-To: <f45fb007-ccc4-4d09-b609-09faa81d3b81@amd.com>
-References: <20211115193026.27568-1-alex.sierra@amd.com>
- <4157439.BacSOyMZPU@nvdebian> <f45fb007-ccc4-4d09-b609-09faa81d3b81@amd.com>
+ Transport; Tue, 23 Nov 2021 16:04:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4713.20 via Frontend Transport; Tue, 23 Nov 2021 16:04:10 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 23 Nov
+ 2021 10:04:09 -0600
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/2] drm/amdgpu: enable Navi retry fault wptr overflow
+Date: Tue, 23 Nov 2021 11:03:52 -0500
+Message-ID: <20211123160352.21228-2-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20211123160352.21228-1-Philip.Yang@amd.com>
+References: <20211123160352.21228-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Originating-IP: [172.20.187.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d7b75513-7706-40d2-2c5a-08d9ae504bfb
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4491:
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4491EF45ECA03FBD3AF02265DF609@MW3PR12MB4491.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: e8b41a3e-71f3-490d-0c4e-08d9ae9ae2eb
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3862:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB38622B02A1FF6418131D9BD1E6609@CH2PR12MB3862.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: //JE034FD5qUB66AdQlzsHwOx1xdA5IZaKWwL2ANQQ6vxh/CEcCDSFIAhzOQZ9vRGjBKNjw2yegeC0fNdotyNrnL29jDKfk0GXnBCQhSNfHd6tTwtMGQV/30H4p5JDUKlM05cEdw21BnRafKjWURANy2M7PLz4Jkg4O9FmiugnmwIjpowmYab/SDEwuFOSv0w+ZHvykdhwF7K9AKD4TKWxPT95k+PysWxscI5qTdzUb3Qjh2lOscvLlqfa/4xHVpL69SsXzflchPtEGHN8dF5dWNPZUDI0zloCwrKDUzElsqwVeoIes39OrIYCjuf5d/LEUShBlqSZLg91El4/Ya4wwwZdciIS4PnA9zdxBslhzjoRkM6EVsx5x1lxutYcDvaSKLzidC8/ZfMlK7DtSMjhWL8A+lxaJ6wyTuAX5StZd3ls+c6Ky6zc+bSgs1MDRkU0Ch1bwgPT+6eYUboQ0N64NGWPSzJj4CTRFR3G6qwxIwI2dxG1BH+KqdYYILZxU1nEtpR3y+m4CH97AjCZUD2JomkZSWGbBBZ+8fDnr9IOE6lhYHuxw3P+iAhFc5EQXTBz6bBfuNQy359fNuyiudd2iISAWp4CZLbcJzuh0tbNyWjoU967rX6nTIGAnzykMfucz/IDou/A7G2LYkwoBfZ0r7UJN7hYYMQFOwo3wKSBExrYAPXK4ckw9SPChzD+wvs7GRHW86PLs25+7ddWsZvNR4Im1ApGI5PZpm4CEfNyc=
-X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(356005)(8936002)(86362001)(33716001)(508600001)(82310400004)(110136005)(8676002)(2906002)(9576002)(47076005)(5660300002)(336012)(426003)(4326008)(36860700001)(9686003)(26005)(7416002)(16526019)(70586007)(7636003)(83380400001)(70206006)(316002)(54906003)(186003)(39026012);
+X-Microsoft-Antispam-Message-Info: Y98P+fWCShHplsfWrGep9zPs9Be3yGg9RT1LQ6mUvh6N3W5Y4ZCF21qjyiKgGPFf7YaKce8G5yewBOxkkPrDb2bFWcmHBSe288pVVrd4ivpIlfSFwppeWHQCYuCn1p8V2NaMMqeIcFEUskuKI/z/Us8T4IQUwNjRrQajBR1rHdGi0uaar1Mo/dCGtUzNz0L5xmvyoWCy7iyvS8XfyLwax1LdcCCubj0mcJj1dnzDFMMU2i+naQ5xr5nixprnMGl0khbKFrJFUhLRIml1WmGuYn2KmFIvCPFBOux1WtIcr35hh5hRSf95KUYqA9mU3Hk+dtgcZvIaKx5uVjQEXFOZYmluenonvZKE0xHkSATjbK6PompolLR3hgFGzZTJ4jHkzajpnSPr48SKntBJwf7PERShSQoUlaR3gUQnTzSeldy5IU9TR8jSevY/dOAlGPq0ox6WcMSpL4y/1RL4z5LnR6pxrrpIRZDBQTjKJWnU+mNdvoUzTQd8YCnvhivyKNQXMzjxsDXPPWXTD/31Z2wrm4iqLSL7jjJlxr3HSlDMeaCzkW+MPPV7ZMhxuLt7qKYB/fRfghg7AV2uf85kMJvxieaJu1pHxd6eoIAn6M7FtFJTzc1SfBFDbkycS832t/rz0woIMZI5drJQjnVT86vK8+PbTf8luV8A6tznkTGk+GKKQ9yJuS4Mcy858JlvJ9THZpoC2+7OYTUs6RasDtQ5PubEv4og+IojVapUUkIRi/ibRF5Mt2R5rTw7sWRe6ioh0mjUd0Qbe8RfkFsGUsVYMw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(70586007)(70206006)(47076005)(356005)(4326008)(6916009)(26005)(6666004)(508600001)(86362001)(2616005)(81166007)(1076003)(7696005)(336012)(8936002)(5660300002)(36860700001)(54906003)(83380400001)(2906002)(36756003)(8676002)(426003)(316002)(82310400004)(186003)(16526019)(36900700001)(309714004);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 07:10:14.3885 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7b75513-7706-40d2-2c5a-08d9ae504bfb
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT035.eop-nam11.prod.protection.outlook.com
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 16:04:10.4037 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8b41a3e-71f3-490d-0c4e-08d9ae9ae2eb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4491
-X-Mailman-Approved-At: Tue, 23 Nov 2021 15:51:50 +0000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3862
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,107 +100,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, willy@infradead.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
+Cc: alex.sierra@amd.com, Philip Yang <Philip.Yang@amd.com>,
+ Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 23 November 2021 4:16:55 AM AEDT Felix Kuehling wrote:
+If xnack is on, VM retry fault interrupt send to IH ring1, and ring1
+will be full quickly. IH cannot receive other interrupts, this causes
+deadlock if migrating buffer using sdma and waiting for sdma done
+while handling retry fault.
 
-[...]
+Remove VMC from IH storm client, enable ring1 write pointer
+overflow, then IH will drop retry fault interrupts and be able to receive
+other interrupts while driver is handling retry fault.
 
-> > Right, so long as my fix goes in I don't think there is anything wrong with
-> > pinning device public pages. Agree that we should avoid FOLL_LONGTERM pins for
-> > device memory though. I think the way to do that is update is_pinnable_page()
-> > so we treat device pages the same as other unpinnable pages ie. long-term pins
-> > will migrate the page.
-> 
-> I'm trying to understand check_and_migrate_movable_pages in gup.c. It
-> doesn't look like the right way to migrate device pages. We may have to
-> do something different there as well. So instead of changing
-> is_pinnable_page, it maybe better to explicitly check for is_device_page
-> or is_device_coherent_page in check_and_migrate_movable_pages to migrate
-> it correctly, or just fail outright.
+IH ring1 write pointer doesn't writeback to memory by IH, and ring1
+write pointer recorded by self-irq is not updated, so always read
+the latest ring1 write pointer from register.
 
-Yes, I think you're right. I was thinking check_and_migrate_movable_pages()
-would work for coherent device pages. Now I see it won't because it assumes
-they are lru pages and it tries to isolate them which will never succeed
-because device pages aren't on a lru.
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 33 ++++++++++----------------
+ 1 file changed, 12 insertions(+), 21 deletions(-)
 
-I think migrating them is the right thing to do for FOLL_LONGTERM though.
-
- - Alistair
-
-> Thanks,
->   Felix
-> 
-> >
-> >>> In the case of device-private pages this is enforced by the fact they never
-> >>> have present pte's, so any attempt to GUP them results in a fault. But if I'm
-> >>> understanding this series correctly that won't be the case for coherent device
-> >>> pages right?
-> >> Right.
-> >>
-> >> Regards,
-> >>   Felix
-> >>
-> >>
-> >>>> -		return is_device_private_page(page);
-> >>>> +		return is_device_page(page);
-> >>>>  	}
-> >>>>  
-> >>>>  	/* For file back page */
-> >>>> @@ -2791,7 +2791,7 @@ EXPORT_SYMBOL(migrate_vma_setup);
-> >>>>   *     handle_pte_fault()
-> >>>>   *       do_anonymous_page()
-> >>>>   * to map in an anonymous zero page but the struct page will be a ZONE_DEVICE
-> >>>> - * private page.
-> >>>> + * private or coherent page.
-> >>>>   */
-> >>>>  static void migrate_vma_insert_page(struct migrate_vma *migrate,
-> >>>>  				    unsigned long addr,
-> >>>> @@ -2867,10 +2867,15 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
-> >>>>  				swp_entry = make_readable_device_private_entry(
-> >>>>  							page_to_pfn(page));
-> >>>>  			entry = swp_entry_to_pte(swp_entry);
-> >>>> +		} else if (is_device_page(page)) {
-> >>> How about adding an explicit `is_device_coherent_page()` helper? It would make
-> >>> the test more explicit that this is expected to handle just coherent pages and
-> >>> I bet there will be future changes that need to differentiate between private
-> >>> and coherent pages anyway.
-> >>>
-> >>>> +			entry = pte_mkold(mk_pte(page,
-> >>>> +						 READ_ONCE(vma->vm_page_prot)));
-> >>>> +			if (vma->vm_flags & VM_WRITE)
-> >>>> +				entry = pte_mkwrite(pte_mkdirty(entry));
-> >>>>  		} else {
-> >>>>  			/*
-> >>>> -			 * For now we only support migrating to un-addressable
-> >>>> -			 * device memory.
-> >>>> +			 * We support migrating to private and coherent types
-> >>>> +			 * for device zone memory.
-> >>>>  			 */
-> >>>>  			pr_warn_once("Unsupported ZONE_DEVICE page type.\n");
-> >>>>  			goto abort;
-> >>>> @@ -2976,10 +2981,10 @@ void migrate_vma_pages(struct migrate_vma *migrate)
-> >>>>  		mapping = page_mapping(page);
-> >>>>  
-> >>>>  		if (is_zone_device_page(newpage)) {
-> >>>> -			if (is_device_private_page(newpage)) {
-> >>>> +			if (is_device_page(newpage)) {
-> >>>>  				/*
-> >>>> -				 * For now only support private anonymous when
-> >>>> -				 * migrating to un-addressable device memory.
-> >>>> +				 * For now only support private and coherent
-> >>>> +				 * anonymous when migrating to device memory.
-> >>>>  				 */
-> >>>>  				if (mapping) {
-> >>>>  					migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
-> >>>>
-> >
-> >
-> 
-
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index dafad6030947..38241cf0e1f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -276,10 +276,8 @@ static int navi10_ih_enable_ring(struct amdgpu_device *adev,
+ 	tmp = navi10_ih_rb_cntl(ih, tmp);
+ 	if (ih == &adev->irq.ih)
+ 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RPTR_REARM, !!adev->irq.msi_enabled);
+-	if (ih == &adev->irq.ih1) {
+-		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_ENABLE, 0);
++	if (ih == &adev->irq.ih1)
+ 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_FULL_DRAIN_ENABLE, 1);
+-	}
+ 
+ 	if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
+ 		if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) {
+@@ -320,7 +318,6 @@ static int navi10_ih_irq_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ih_ring *ih[] = {&adev->irq.ih, &adev->irq.ih1, &adev->irq.ih2};
+ 	u32 ih_chicken;
+-	u32 tmp;
+ 	int ret;
+ 	int i;
+ 
+@@ -364,15 +361,6 @@ static int navi10_ih_irq_init(struct amdgpu_device *adev)
+ 	adev->nbio.funcs->ih_doorbell_range(adev, ih[0]->use_doorbell,
+ 					    ih[0]->doorbell_index);
+ 
+-	tmp = RREG32_SOC15(OSSSYS, 0, mmIH_STORM_CLIENT_LIST_CNTL);
+-	tmp = REG_SET_FIELD(tmp, IH_STORM_CLIENT_LIST_CNTL,
+-			    CLIENT18_IS_STORM_CLIENT, 1);
+-	WREG32_SOC15(OSSSYS, 0, mmIH_STORM_CLIENT_LIST_CNTL, tmp);
+-
+-	tmp = RREG32_SOC15(OSSSYS, 0, mmIH_INT_FLOOD_CNTL);
+-	tmp = REG_SET_FIELD(tmp, IH_INT_FLOOD_CNTL, FLOOD_CNTL_ENABLE, 1);
+-	WREG32_SOC15(OSSSYS, 0, mmIH_INT_FLOOD_CNTL, tmp);
+-
+ 	pci_set_master(adev->pdev);
+ 
+ 	/* enable interrupts */
+@@ -421,12 +409,19 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
+ 	u32 wptr, tmp;
+ 	struct amdgpu_ih_regs *ih_regs;
+ 
+-	wptr = le32_to_cpu(*ih->wptr_cpu);
+-	ih_regs = &ih->ih_regs;
++	if (ih == &adev->irq.ih) {
++		/* Only ring0 supports writeback. On other rings fall back
++		 * to register-based code with overflow checking below.
++		 */
++		wptr = le32_to_cpu(*ih->wptr_cpu);
+ 
+-	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+-		goto out;
++		if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
++			goto out;
++	}
+ 
++	ih_regs = &ih->ih_regs;
++
++	/* Double check that the overflow wasn't already cleared. */
+ 	wptr = RREG32_NO_KIQ(ih_regs->ih_rb_wptr);
+ 	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+ 		goto out;
+@@ -514,15 +509,11 @@ static int navi10_ih_self_irq(struct amdgpu_device *adev,
+ 			      struct amdgpu_irq_src *source,
+ 			      struct amdgpu_iv_entry *entry)
+ {
+-	uint32_t wptr = cpu_to_le32(entry->src_data[0]);
+-
+ 	switch (entry->ring_id) {
+ 	case 1:
+-		*adev->irq.ih1.wptr_cpu = wptr;
+ 		schedule_work(&adev->irq.ih1_work);
+ 		break;
+ 	case 2:
+-		*adev->irq.ih2.wptr_cpu = wptr;
+ 		schedule_work(&adev->irq.ih2_work);
+ 		break;
+ 	default: break;
+-- 
+2.17.1
 
