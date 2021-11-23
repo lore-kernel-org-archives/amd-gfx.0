@@ -4,122 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A3EAC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 16:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72AA4C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 19:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A00086E0EE;
-	Tue, 23 Nov 2021 16:58:44 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F36CD6E0EE
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 16:58:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA7AD8933E;
+	Tue, 23 Nov 2021 19:23:20 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2048.outbound.protection.outlook.com [40.107.212.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1748933E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 19:23:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j8HMVX8KQDttZoXw7H//ScVYo03swOsMPlvMWU98UQrdbmCLHTKzshbDw2VSepq/wg2CqyaNi3usnGxPTxV55f4LBIBJC3H8xr5tyi0vM/wtfh+MVjpbBBeATbQnL8oun0PxTQ9eLS6dXVP1EO51LgNXTa7pxaOthh85FNHxY4TPulMonYvJ9t1mhD6+xK7/mIsW61qfEwTOb3Okybu/xiz4Q65mP0h8adoBTKlcA5aFJOF2e234f7UUpXHf0ABbY5NAeKmCWE3Ru+ltDINWz0QJ7FgByzGgxA8cR9bczhhpBQBOf7B+G7vaqBXIPD1qNEr9ys8RE5fKSDfEJezxbw==
+ b=bBRC5UBvp/7aVNoDwFLQngehMGWb49f5dNE2LjP1bUYbAniuHGmi+fLXUcN12Q3OCf+v2vU0JdZ7h70QL78xxLEMhGUmubbhsBVPGl7j1bJH01d/9w0sJgCcfF2N9CqUPjrGmikoC/fM1WnIS5rhwjgTwB9MFMr3pJzmFgdK3383KTyssuwP4/ewyIaICwxczpd+L5W+aeFhsZElqBQtpGNjt0O4EhvyNsU1/R+B8ObAl1kn+6FSrLs2nwbZoDYZcsWzRsQVcJ7dnoyyErym96lr3HfAg5caf3l+IvkLtl3tyKy0RidhX8tHU7GMA1X8UbMhIbrzXHKnfpap3I5aVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fohSx7lbLBDmP+2zES7VOkzFDS0ZeQ5DQMCpZyIjnRU=;
- b=O9F3pUU8dM/HK19qsJjMXaaDq/1Mvg+wY9Au10jZImxZerryU0gPR7Tu9fzJJZ1D+PIXklYJ0WSUF5XciblVdj5Revzt0IrCJVDga+i898dRBge7tQFugHTZ2767k4Zi3Z0QBNR+ukHWMdsTxqPK1O1xNipsXKZsNLEFfxsysdYECrKVzLBtaMSvCP6sdvIfBgpuu1Lnrs7mtWNrRytBMz6AOJx4lOT7zCaBY/JNhNSywGWqUfPN3tV+3hn40ewnDBuyxFMmN557wc9BkcC+56USBKGFZ/SF8qj4VOCLou5NaLs89x67nrOS4kdHqsTG55C6ZI5hiVnNi/Tc0OubEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=COHc9qLQwMEhs+OPEGP4JhqFQNVHR2eH9iGsc6bX224=;
+ b=hTpoMd7vzY44qqHS60xE0WHuPxrwoqG6MG5WmmLDwvas4cwH6MrfyhuT6wm4pWFjMbY0npJCm74LLcVXF0A0oWEr0ZFZUZZIHcDXalMFM7H0hYhs8TiGaTL+fZ4rYFxuBvtXqr27czvnfs1AFTspJtHYDJevHNAXRjCPdlz7H4wimUpyNWEDdRMhZ/KVFeUBnVAe3gGl9bUJC5VeC82ut2Q8fSD2JOtDd1wqv1F3KvTYcx8+LNfN181z4ihJmUQTe3qMGw4ruANpo8CEe0I65Z4dadwxTbJJmLB68pEOIXvpSgdCg3nCs5BtDElDNA51Kc4RlIV+nKBoxSvd7h/tzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fohSx7lbLBDmP+2zES7VOkzFDS0ZeQ5DQMCpZyIjnRU=;
- b=Ut4U6Srqshwcmr/W7O4uTWfGnWfY1kHyUTgK49bWyDbzIbaDK5I18inwnIVlzXaBtgwlfQS3np80hIENfAEwkoHzvqs5EKa0VdfINF3FrFSLv+100ELtbQ73ohfFOqdTOCA4FFRkIgFet7sEYa321KzFEAGTxwpEYmEf9z+1UbY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5081.namprd12.prod.outlook.com (2603:10b6:408:132::22)
+ bh=COHc9qLQwMEhs+OPEGP4JhqFQNVHR2eH9iGsc6bX224=;
+ b=TkyLrAtKxprS3wARZ4jPa8Glt0wQgjARo+PbsYyMiGnqWWYZdZDstCIaGA8I5OvnPGQ/opZHModgjxU1cqntrgNXtpiWCywrBWMuzEatxnVbwfbX8jqIFRRxwDHeujE5pLCMUt+m0492UkriHdgO5FnoetSOszt3ZGpcMiqeTH0=
+Received: from MW4PR03CA0246.namprd03.prod.outlook.com (2603:10b6:303:b4::11)
+ by SA0PR12MB4431.namprd12.prod.outlook.com (2603:10b6:806:95::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
- 2021 16:58:41 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.025; Tue, 23 Nov 2021
- 16:58:41 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: enable Navi retry fault wptr overflow
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211123160352.21228-1-Philip.Yang@amd.com>
- <20211123160352.21228-2-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <5cae2d74-328b-1ee6-e0fa-7ede2a3f8a58@amd.com>
-Date: Tue, 23 Nov 2021 11:58:39 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20211123160352.21228-2-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: YT3PR01CA0008.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::12) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Tue, 23 Nov
+ 2021 19:23:17 +0000
+Received: from CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b4:cafe::7d) by MW4PR03CA0246.outlook.office365.com
+ (2603:10b6:303:b4::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
+ Transport; Tue, 23 Nov 2021 19:23:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT059.mail.protection.outlook.com (10.13.174.160) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4713.20 via Frontend Transport; Tue, 23 Nov 2021 19:23:17 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 23 Nov
+ 2021 13:23:16 -0600
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v5] drm/amdgpu: handle IH ring1 overflow
+Date: Tue, 23 Nov 2021 14:22:54 -0500
+Message-ID: <20211123192254.21681-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Received: from [192.168.2.100] (142.127.191.123) by
- YT3PR01CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:86::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4713.20 via Frontend Transport; Tue, 23 Nov 2021 16:58:40 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fc6d7a21-53e6-4f8f-08ea-08d9aea28023
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5081:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5081E9BB704D1DB54524817F92609@BN9PR12MB5081.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:209;
+X-MS-Office365-Filtering-Correlation-Id: 18001d1e-2100-4918-6d94-08d9aeb6b3cf
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4431:
+X-Microsoft-Antispam-PRVS: <SA0PR12MB443114F2CBA35305C2F17CF0E6609@SA0PR12MB4431.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TrFr5iOj6BuqneUKlMNoH39eSOVrFBFueyjzHU6ucjf8VBZcNYMJiWwNzO5CQeuJ6FQouBVBhpy2ngnBxaYYFDzA/+j4jmp+wwucJyyn0rlsZEtrALSw+LgFc94jMSQNGzQQlH5a8KTV5fWM71TJ+gABsTcVZsLtV5augOHzDivgHtQTY6nD8NdKDuXrXkIr79dPhgxReVCfYjXAJ4oABtTf5GT733r/Zgw7IRudK9mau2x6Q83H7ntxyXlMgji/o42ERWNRzdm9B5rdR2uqlGK/VZLNvFdZG93B7NCs/Fz0J3mMolaofEAPMCLqmB7NDn3xQbtdJmqFcQh1OmvRro60r4xcgXRkZdbjlmrlCi7GJBKjR4TcWMD20lN4Ljr2Q/qIoqFcEomoL7k4tIh6bjkThqyCUDk7HpfY0Pxr4ZEH4x+dH6Lp5EVym49svRdQjxJLJBqGhPywajIhMjXcDGZmFsS0CWbpN/9DJ1m/1GgnT0yEkTAxqnxZlfSOrn4Z8LFrMh6HYkMjEtfw4MWrHTRZ29lB+LuCQP+ibRylTpHg9UWTFp1Lkt9Sx8uUmgIuqRxtVzVcQcTi9TtQh7fopwJHOmRSwDC+77Z0X023kLgaibg0AXAzdr5cQ+Iv42xWeCKb5hacf+TrD83uc5AeGAsKFYmLHI4hfMdC4jUFBBKz3yQRcwY/PuLv7KEFpTYXuokj+cuk21OyCd6mMMXihhSJ8ohy2C0bvUw4x4EhkUuU6Ame20sGUf9sMOJee55Bru6lO9qCPVuvPtPu9FOWSA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(44832011)(4001150100001)(508600001)(26005)(86362001)(8676002)(16576012)(2616005)(956004)(31696002)(5660300002)(66476007)(66556008)(38100700002)(83380400001)(316002)(31686004)(36756003)(186003)(6486002)(2906002)(4326008)(8936002)(66946007)(43740500002)(45980500001)(309714004);
+X-Microsoft-Antispam-Message-Info: vygIbbnODtlx9cZSv2+YYsZOkiXgQoRiCcIonr8i5Aae5YOebwTMkrj3PM2yMabqypJTMxYGZq+Wygl3Y7gUr15Otlc6jAyiOzveA9ccSzaFmDOr52OS9pb7xuhaidRARhLAa5Jn/K9G3Rs9Q+OroYSbUXZWGjSWI7+CN48zxwnt7Qjutjdbcm2MHyF1i0TbOsjPoQYzNXmCcVwbk1AMWH2GSyCOFFePMottiMY80STUgTcjkgtp1D5WprWQJFPvWuiMtmvdh0vJiiZWH93QQHbzVhKxprJHnmfkMK5tT5StTERSIzKwNovCbxImMC5OoISlyMHBsNGGNDfPjfElMPGKnajaZiXDTlLsCFtyExR7Sz6YCcYFBH0w8XRZP3+pj2CVVgbrTYk4AvHAvkEC9JVJC3yvpTgGSzvdTssb/Vw0J6xCnCqD3J1TLaju6xXoDJthlyvAmaI7vNoVDf5UJRE87/R1CwQfM2YflU+QkdJUTZu/sJM77P7DJ0AWlmKKrWjf/rkB6xd1f0IXZZ2cxLznS+08PCFsLwJ5Ghx1Yc94RPOfAeQ9Sm7JMsv9zoYa0FMemGnZmrsl9tpkWpC3ZpNcmNQOQJBBLnA0pHpc546G+Ahri+0fJyjDxf2Y+gg64DzRzxAHtf6oIUF/PIGblLuxznEnOSHthQlsQT7itgNN7ZAngqbkv2ydeZ2zmJ8fNJ1G6Xf4W6YxaDMueyfgARfhBQTr+WK8RaibYqA06gk=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(36756003)(81166007)(86362001)(2616005)(426003)(82310400004)(36860700001)(336012)(70586007)(54906003)(8676002)(8936002)(6916009)(30864003)(508600001)(70206006)(2906002)(316002)(83380400001)(356005)(1076003)(4326008)(26005)(186003)(16526019)(47076005)(5660300002)(6666004)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHBTbUk0MXhEQ0VBYVlyaytsWTN1VVMzeWdNc055d0NlWEFUSS9PMlBkcmN1?=
- =?utf-8?B?NWM1MmZCVENubHlEYWg0STNlaW9KaWpMRVhxVlVhWnZ5Ulp4enMrTlpYRG9u?=
- =?utf-8?B?RW55bzZFS2FZMlBiNENSTk4wMDZTbmlSRkg5czBSY21NbVFIbmNOYit6R3p5?=
- =?utf-8?B?ZTBwMW5Wc2VnQmczLzdVYXVPaWp2N29HbEpIQjlsWncvL0xTREF5Y1ZVMHFm?=
- =?utf-8?B?S2hWcmU1cFV5ejdhSEVGUXRPZmhNY0dTSnZsK2pOaDJ1MHJkMkk5dkRxTjdZ?=
- =?utf-8?B?YmNvRGNRVVlOcEx4QXRNclRQRVRaeUxtWTRab0pRTkNsNlZ2Z3JScFFYOUZH?=
- =?utf-8?B?ZTVkcU52NFlhY25GUENKSDVFeU9vR0JmSTRtdmdlbG91VHdtSEJUN2xyUkpl?=
- =?utf-8?B?cTgxQ01FSjR3eExSN2Exc1dNbjB6dFA3QUNta2VxOGV3aERBNkRmR2kxZXhT?=
- =?utf-8?B?eTJxc3pTalVjMFdITWpuU0d5d3lmckZwWXgxeEFXU1F6NW1CNWV2NDRTemxw?=
- =?utf-8?B?UFM2MFdjZGhBUWo2SUo0QSs4dVpLWTBXZ3NkNnIzNU5KOFM0SmZxMDN6UW91?=
- =?utf-8?B?TWhxM3l3MEZtU3l3MTB6SEdGQkQ1TGUvay94MkJEVmZSYnoxNXIrL3N0YUla?=
- =?utf-8?B?QlZBdE0wOUZjSmwzWWtpTzd6OURQbzYzWDZmVW9taVZCUmVHVmMrcm14TVdK?=
- =?utf-8?B?Qk5zKzRnTmJNWlVoRi93ZDhtMDJHc0U5V0JUeHdWZ0FOQWxVcFFPaUNPbk1r?=
- =?utf-8?B?VnByMDhDbzI1U1N3MjFNWElKak5yMVd3SEcvTUN4b1BYU0RtN052TXZYcVp2?=
- =?utf-8?B?QzFZYUg1eDExV3ZWYzA0YllkTGZySWNVdEVYYXk1Tjhmc01WNmo1Z2VvSC9k?=
- =?utf-8?B?RE56WVNjRWYyZXdmUTk3UUs2RWV3a3NsZ2VxZEhib05udHZRWHA0TnJIKzZ4?=
- =?utf-8?B?Ym8wd0pCOHNCZEc2eHFkdnIzLzRNM1pnaHNJRFc2dkR0T2lPR1VGSzFlazJy?=
- =?utf-8?B?cVhkVEFELzdYTW9RdTJCbm44N3dIZ0dlS1FuelEwemxjUno4MkJOVjBSc2Rt?=
- =?utf-8?B?a2p4NDYrTlhuZ2dmK1hNS2Z6M0YwUnZzNWVXSWZEL0lHcEdISU81OHB6bDRv?=
- =?utf-8?B?Z0N5cnRPZlRscTN5d1FTbkVhcTdOc2MwZVU2dHJNVXFBcXFyWmNyU2x0azZn?=
- =?utf-8?B?MFNTeWVJQUNMa0hyaW1wQlNCMmw3MXJZUGpKU0g3VG5kcEJ3RzBBRkFzcGN6?=
- =?utf-8?B?YU9saTJYQW9Ka0V2OVMwNTlYYnUvUWZvdnZuMjJORi8vUFJ5ZWJTWWJJVkp1?=
- =?utf-8?B?UHNobFIwUk1WU21jNHNQSTkrZGRoQlVyVlJnK0Q5VEMzbWxqeVR2ZnIweVVr?=
- =?utf-8?B?SWJCdEZJbzV2SXMxOTJTdFd5VlJXWm1zblg2c095M09ndmFhanorTjhsZE9R?=
- =?utf-8?B?SXM0ZFVZNVQ1bmVvcEdvaWI2dW54M3lwY0ZiMit2blV5Q0tmQjVFUHdCclho?=
- =?utf-8?B?TS9WMHIvQWpINXBsOVQvRzhtTEhTbDAzYVZMcEVzU2FvdnArY0xqMkNnMTlV?=
- =?utf-8?B?RlQ5SUVmTmxqbmdxY0Z4SGlVbUoxeVBFL0RrQStkdUpqcE9iYmdvNVUrZkx3?=
- =?utf-8?B?bFdabDRKQldhRExmbUQzL3JHQXRkOVBJR2hySjIzVUNHcCsrZkFxTFE1UXVD?=
- =?utf-8?B?bGVaTzdrYXFvY0J3ajZIQTE0SWRIa01GVWlGeld4YTJxbGVPUGJ6WGtQNURr?=
- =?utf-8?B?QUZ6NFdHY0toQklpOXVOZFpyK2o3SGZ6N2Y2czBvekM4bDFyL0xoYzc4Um9R?=
- =?utf-8?B?VkdlSnluckhtdU02b2UwVVo2Znk2OXE2TlkyWlB6alIzWEVHRmx3YXNIQXF4?=
- =?utf-8?B?OEk2bXp0b1pzWlVZZHRBRlErTXN6RnNwYlg4TlU2SjRTMTliK2dNWm4ySnpM?=
- =?utf-8?B?ZVdsdzMzMWN6SU1NNGxKTHYvYU1Bb0U5Mjh4RjFsZVgybStiWlBZK0FXd3o5?=
- =?utf-8?B?S1IzS050SmxpbkNNWjRhQUZtd1EvUFVqMDE2bjNHaWxMSnU2NFFlR0hPUUJn?=
- =?utf-8?B?b1hDRk9GOEdrcVptNWlDaGVJZ2VKNU1Wbkp3b1YyU21OeHUxZlJQYld0Z3ZY?=
- =?utf-8?B?MVJETWZmdDVsaUJ2NDVYRUV0eisvaWNsdjJBZVo0ejhxZDYvRFRVMk5tdkJV?=
- =?utf-8?Q?RU6CyADV9ZDLOX75BCCXdVI=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc6d7a21-53e6-4f8f-08ea-08d9aea28023
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 16:58:40.8346 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 19:23:17.2073 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18001d1e-2100-4918-6d94-08d9aeb6b3cf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kfL+rKiMWgCN4qL3ULYjScDk2Jj2XspAdeTMXSxoISiBVneCqnfAlrYcDSKpUtKhF1Fe4sFdIqVqaN75wqNBLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5081
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4431
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,116 +98,297 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com
+Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-11-23 um 11:03 a.m. schrieb Philip Yang:
-> If xnack is on, VM retry fault interrupt send to IH ring1, and ring1
-> will be full quickly. IH cannot receive other interrupts, this causes
-> deadlock if migrating buffer using sdma and waiting for sdma done
-> while handling retry fault.
->
-> Remove VMC from IH storm client, enable ring1 write pointer
-> overflow, then IH will drop retry fault interrupts and be able to receive
-> other interrupts while driver is handling retry fault.
->
-> IH ring1 write pointer doesn't writeback to memory by IH, and ring1
-> write pointer recorded by self-irq is not updated, so always read
-> the latest ring1 write pointer from register.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+IH ring1 is used to process GPU retry fault, overflow is enabled to
+drain retry fault because we want receive other interrupts while
+handling retry fault to recover range. There is no overflow flag set
+when wptr pass rptr. Use timestamp of rptr and wptr to handle overflow
+and drain retry fault.
 
-Looks like the same thing you did in this commit for Vega:
+Add helper function amdgpu_ih_decode_iv_ts to get 48bit timestamp from
+IV entry. drain retry fault is done if processed_timestamp is
+equal to or larger than checkpoint timestamp.
 
-    b672cb1eee59 drm/amdgpu: enable retry fault wptr overflow
+Add function amdgpu_ih_process1 to process IH ring1 until timestamp of
+rptr is larger then timestamp of next entry.
 
-This series is
+Helper amdgpu_ih_ts_after to compare time stamps with 48bit wrap around.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 107 ++++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  |  13 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c |   2 +-
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c  |   1 +
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c  |   1 +
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c  |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |   2 +-
+ 7 files changed, 99 insertions(+), 28 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+index 0c7963dfacad..30b4e0e01444 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+@@ -164,52 +164,45 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+ 	}
+ }
+ 
++/* return true if time stamp t2 is after t1 with 48bit wrap around */
++static inline bool amdgpu_ih_ts_after(uint64_t t1, uint64_t t2)
++{
++	return ((int64_t)(t2 << 16) - (int64_t)(t1 << 16)) > 0LL;
++}
++
+ /* Waiter helper that checks current rptr matches or passes checkpoint wptr */
+-static bool amdgpu_ih_has_checkpoint_processed(struct amdgpu_device *adev,
++static bool amdgpu_ih_has_checkpoint_processed_ts(struct amdgpu_device *adev,
+ 					struct amdgpu_ih_ring *ih,
+-					uint32_t checkpoint_wptr,
+-					uint32_t *prev_rptr)
++					uint64_t checkpoint_ts)
+ {
+-	uint32_t cur_rptr = ih->rptr | (*prev_rptr & ~ih->ptr_mask);
+-
+-	/* rptr has wrapped. */
+-	if (cur_rptr < *prev_rptr)
+-		cur_rptr += ih->ptr_mask + 1;
+-	*prev_rptr = cur_rptr;
+-
+-	/* check ring is empty to workaround missing wptr overflow flag */
+-	return cur_rptr >= checkpoint_wptr ||
+-	       (cur_rptr & ih->ptr_mask) == amdgpu_ih_get_wptr(adev, ih);
++	return !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts);
+ }
+ 
+ /**
+- * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
++ * amdgpu_ih_wait_on_checkpoint_process_ts - wait to process IVs up to checkpoint
+  *
+  * @adev: amdgpu_device pointer
+  * @ih: ih ring to process
+  *
+  * Used to ensure ring has processed IVs up to the checkpoint write pointer.
+  */
+-int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
++int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
+ 					struct amdgpu_ih_ring *ih)
+ {
+-	uint32_t checkpoint_wptr, rptr;
++	uint32_t checkpoint_wptr;
++	uint64_t checkpoint_ts;
+ 
+ 	if (!ih->enabled || adev->shutdown)
+ 		return -ENODEV;
+ 
+ 	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
+-	/* Order wptr with rptr. */
++	/* Order wptr with ring data. */
+ 	rmb();
+-	rptr = READ_ONCE(ih->rptr);
+-
+-	/* wptr has wrapped. */
+-	if (rptr > checkpoint_wptr)
+-		checkpoint_wptr += ih->ptr_mask + 1;
++	checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
+ 
+ 	return wait_event_interruptible(ih->wait_process,
+-				amdgpu_ih_has_checkpoint_processed(adev, ih,
+-						checkpoint_wptr, &rptr));
++				amdgpu_ih_has_checkpoint_processed_ts(adev, ih,
++						checkpoint_ts));
+ }
+ 
+ /**
+@@ -254,6 +247,56 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+ 	return IRQ_HANDLED;
+ }
+ 
++/**
++ * amdgpu_ih_process1 - interrupt handler work for IH ring1
++ *
++ * @adev: amdgpu_device pointer
++ * @ih: ih ring to process
++ *
++ * Interrupt handler of IH ring1, walk the IH ring1.
++ * Returns irq process return code.
++ */
++int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
++{
++	uint64_t ts, ts_next;
++	unsigned int count;
++	u32 wptr;
++
++	if (!ih->enabled || adev->shutdown)
++		return IRQ_NONE;
++
++	wptr = amdgpu_ih_get_wptr(adev, ih);
++	if (ih->rptr == wptr)
++		return 0;
++
++restart_ih:
++	count = AMDGPU_IH_MAX_NUM_IVS;
++
++	ts = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 0);
++	ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 1);
++	while (amdgpu_ih_ts_after(ts, ts_next) && --count) {
++		amdgpu_irq_dispatch(adev, ih);
++		ih->rptr &= ih->ptr_mask;
++		ts = ts_next;
++		ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 1);
++	}
++	/*
++	 * Process the last timestamp updated entry or one more entry
++	 * if count = 0, ts is timestamp of the entry.
++	 */
++	amdgpu_irq_dispatch(adev, ih);
++	amdgpu_ih_set_rptr(adev, ih);
++	wake_up_all(&ih->wait_process);
++
++	wptr = amdgpu_ih_get_wptr(adev, ih);
++	/* Order reading of wptr vs. reading of IH ring data */
++	rmb();
++	if (amdgpu_ih_ts_after(ts, amdgpu_ih_decode_iv_ts(adev, ih, wptr, -1)))
++		goto restart_ih;
++
++	return IRQ_HANDLED;
++}
++
+ /**
+  * amdgpu_ih_decode_iv_helper - decode an interrupt vector
+  *
+@@ -298,4 +341,20 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+ 
+ 	/* wptr/rptr are in bytes! */
+ 	ih->rptr += 32;
++	ih->processed_timestamp = entry->timestamp;
++}
++
++uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
++				       signed offset)
++{
++	uint32_t iv_size = 32;
++	uint32_t dw1, dw2;
++	uint32_t index;
++
++	rptr += iv_size * offset;
++	index = (rptr & ih->ptr_mask) >> 2;
++
++	dw1 = le32_to_cpu(ih->ring[index + 1]);
++	dw2 = le32_to_cpu(ih->ring[index + 2]);
++	return dw1 | ((u64)(dw2 & 0xffff) << 32);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+index 0649b59830a5..d7e1ffeca38f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+@@ -68,6 +68,7 @@ struct amdgpu_ih_ring {
+ 
+ 	/* For waiting on IH processing at checkpoint. */
+ 	wait_queue_head_t wait_process;
++	uint64_t		processed_timestamp;
+ };
+ 
+ /* provided by the ih block */
+@@ -76,12 +77,17 @@ struct amdgpu_ih_funcs {
+ 	u32 (*get_wptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ 	void (*decode_iv)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+ 			  struct amdgpu_iv_entry *entry);
++	uint64_t (*decode_iv_ts)(struct amdgpu_ih_ring *ih, u32 rptr,
++				 signed offset);
+ 	void (*set_rptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ };
+ 
+ #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
+ #define amdgpu_ih_decode_iv(adev, iv) \
+ 	(adev)->irq.ih_funcs->decode_iv((adev), (ih), (iv))
++#define amdgpu_ih_decode_iv_ts(adev, ih, rptr, offset) \
++	(WARN_ON_ONCE(!(adev)->irq.ih_funcs->decode_iv_ts) ? 0 : \
++	(adev)->irq.ih_funcs->decode_iv_ts((ih), (rptr), (offset)))
+ #define amdgpu_ih_set_rptr(adev, ih) (adev)->irq.ih_funcs->set_rptr((adev), (ih))
+ 
+ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+@@ -89,10 +95,13 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+ 			  unsigned int num_dw);
+-int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
+-					struct amdgpu_ih_ring *ih);
++int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
++					    struct amdgpu_ih_ring *ih);
+ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
++int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+ 				struct amdgpu_ih_ring *ih,
+ 				struct amdgpu_iv_entry *entry);
++uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
++				       signed offset);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index e9023687dc9a..891486cca94b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -224,7 +224,7 @@ static void amdgpu_irq_handle_ih1(struct work_struct *work)
+ 	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
+ 						  irq.ih1_work);
+ 
+-	amdgpu_ih_process(adev, &adev->irq.ih1);
++	amdgpu_ih_process1(adev, &adev->irq.ih1);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index 38241cf0e1f1..8ce5b8ca1fd7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -716,6 +716,7 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs = {
+ static const struct amdgpu_ih_funcs navi10_ih_funcs = {
+ 	.get_wptr = navi10_ih_get_wptr,
+ 	.decode_iv = amdgpu_ih_decode_iv_helper,
++	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+ 	.set_rptr = navi10_ih_set_rptr
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index a9ca6988009e..3070466f54e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -640,6 +640,7 @@ const struct amd_ip_funcs vega10_ih_ip_funcs = {
+ static const struct amdgpu_ih_funcs vega10_ih_funcs = {
+ 	.get_wptr = vega10_ih_get_wptr,
+ 	.decode_iv = amdgpu_ih_decode_iv_helper,
++	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+ 	.set_rptr = vega10_ih_set_rptr
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index f51dfc38ac65..3b4eb8285943 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -688,6 +688,7 @@ const struct amd_ip_funcs vega20_ih_ip_funcs = {
+ static const struct amdgpu_ih_funcs vega20_ih_funcs = {
+ 	.get_wptr = vega20_ih_get_wptr,
+ 	.decode_iv = amdgpu_ih_decode_iv_helper,
++	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+ 	.set_rptr = vega20_ih_set_rptr
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 10868d5b549f..663489ae56d7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1974,7 +1974,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
+ 
+ 		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
+ 
+-		amdgpu_ih_wait_on_checkpoint_process(pdd->dev->adev,
++		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
+ 						     &pdd->dev->adev->irq.ih1);
+ 		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
+ 	}
+-- 
+2.17.1
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 33 ++++++++++----------------
->  1 file changed, 12 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index dafad6030947..38241cf0e1f1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -276,10 +276,8 @@ static int navi10_ih_enable_ring(struct amdgpu_device *adev,
->  	tmp = navi10_ih_rb_cntl(ih, tmp);
->  	if (ih == &adev->irq.ih)
->  		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RPTR_REARM, !!adev->irq.msi_enabled);
-> -	if (ih == &adev->irq.ih1) {
-> -		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_ENABLE, 0);
-> +	if (ih == &adev->irq.ih1)
->  		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_FULL_DRAIN_ENABLE, 1);
-> -	}
->  
->  	if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
->  		if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) {
-> @@ -320,7 +318,6 @@ static int navi10_ih_irq_init(struct amdgpu_device *adev)
->  {
->  	struct amdgpu_ih_ring *ih[] = {&adev->irq.ih, &adev->irq.ih1, &adev->irq.ih2};
->  	u32 ih_chicken;
-> -	u32 tmp;
->  	int ret;
->  	int i;
->  
-> @@ -364,15 +361,6 @@ static int navi10_ih_irq_init(struct amdgpu_device *adev)
->  	adev->nbio.funcs->ih_doorbell_range(adev, ih[0]->use_doorbell,
->  					    ih[0]->doorbell_index);
->  
-> -	tmp = RREG32_SOC15(OSSSYS, 0, mmIH_STORM_CLIENT_LIST_CNTL);
-> -	tmp = REG_SET_FIELD(tmp, IH_STORM_CLIENT_LIST_CNTL,
-> -			    CLIENT18_IS_STORM_CLIENT, 1);
-> -	WREG32_SOC15(OSSSYS, 0, mmIH_STORM_CLIENT_LIST_CNTL, tmp);
-> -
-> -	tmp = RREG32_SOC15(OSSSYS, 0, mmIH_INT_FLOOD_CNTL);
-> -	tmp = REG_SET_FIELD(tmp, IH_INT_FLOOD_CNTL, FLOOD_CNTL_ENABLE, 1);
-> -	WREG32_SOC15(OSSSYS, 0, mmIH_INT_FLOOD_CNTL, tmp);
-> -
->  	pci_set_master(adev->pdev);
->  
->  	/* enable interrupts */
-> @@ -421,12 +409,19 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
->  	u32 wptr, tmp;
->  	struct amdgpu_ih_regs *ih_regs;
->  
-> -	wptr = le32_to_cpu(*ih->wptr_cpu);
-> -	ih_regs = &ih->ih_regs;
-> +	if (ih == &adev->irq.ih) {
-> +		/* Only ring0 supports writeback. On other rings fall back
-> +		 * to register-based code with overflow checking below.
-> +		 */
-> +		wptr = le32_to_cpu(*ih->wptr_cpu);
->  
-> -	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-> -		goto out;
-> +		if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-> +			goto out;
-> +	}
->  
-> +	ih_regs = &ih->ih_regs;
-> +
-> +	/* Double check that the overflow wasn't already cleared. */
->  	wptr = RREG32_NO_KIQ(ih_regs->ih_rb_wptr);
->  	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
->  		goto out;
-> @@ -514,15 +509,11 @@ static int navi10_ih_self_irq(struct amdgpu_device *adev,
->  			      struct amdgpu_irq_src *source,
->  			      struct amdgpu_iv_entry *entry)
->  {
-> -	uint32_t wptr = cpu_to_le32(entry->src_data[0]);
-> -
->  	switch (entry->ring_id) {
->  	case 1:
-> -		*adev->irq.ih1.wptr_cpu = wptr;
->  		schedule_work(&adev->irq.ih1_work);
->  		break;
->  	case 2:
-> -		*adev->irq.ih2.wptr_cpu = wptr;
->  		schedule_work(&adev->irq.ih2_work);
->  		break;
->  	default: break;
