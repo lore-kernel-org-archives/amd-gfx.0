@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72AA4C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 19:23:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01834C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Nov 2021 20:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA7AD8933E;
-	Tue, 23 Nov 2021 19:23:20 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2048.outbound.protection.outlook.com [40.107.212.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1748933E
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 19:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E7E6E207;
+	Tue, 23 Nov 2021 20:01:35 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D5A16E207
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Nov 2021 20:01:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bBRC5UBvp/7aVNoDwFLQngehMGWb49f5dNE2LjP1bUYbAniuHGmi+fLXUcN12Q3OCf+v2vU0JdZ7h70QL78xxLEMhGUmubbhsBVPGl7j1bJH01d/9w0sJgCcfF2N9CqUPjrGmikoC/fM1WnIS5rhwjgTwB9MFMr3pJzmFgdK3383KTyssuwP4/ewyIaICwxczpd+L5W+aeFhsZElqBQtpGNjt0O4EhvyNsU1/R+B8ObAl1kn+6FSrLs2nwbZoDYZcsWzRsQVcJ7dnoyyErym96lr3HfAg5caf3l+IvkLtl3tyKy0RidhX8tHU7GMA1X8UbMhIbrzXHKnfpap3I5aVQ==
+ b=PXX5Lae6ziuaQUepVp0isLcqwmw8cw1/UNh2q8JvhaO6czKDps8puO6Uu6ALpNEfGXdyjFiP7GE/3ugWMpngl1MThRCOiiq0tD6f6v5Bp/2TjF3FkbQT0DzfxZssS2Z+G/pkFz1J5V3o1nrKFD6YJWqRQv7M7f3WuYT2WToDvqaMP0YPBatFbUkZhJaz1bkSkhTLcWqZ9/YD6GukIM60AFCSBwA8yR8usNoJG1Z9hE+TVPUe0VK30P7PAUMzzOXsIJ/dBessbRSfDhGDyPYdZAjzdBWq3hwMMFuqEL9bb7roJiUAxnzJIb2GvZjKmQVR3rEh6pchGgWadEa1VmvLkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=COHc9qLQwMEhs+OPEGP4JhqFQNVHR2eH9iGsc6bX224=;
- b=hTpoMd7vzY44qqHS60xE0WHuPxrwoqG6MG5WmmLDwvas4cwH6MrfyhuT6wm4pWFjMbY0npJCm74LLcVXF0A0oWEr0ZFZUZZIHcDXalMFM7H0hYhs8TiGaTL+fZ4rYFxuBvtXqr27czvnfs1AFTspJtHYDJevHNAXRjCPdlz7H4wimUpyNWEDdRMhZ/KVFeUBnVAe3gGl9bUJC5VeC82ut2Q8fSD2JOtDd1wqv1F3KvTYcx8+LNfN181z4ihJmUQTe3qMGw4ruANpo8CEe0I65Z4dadwxTbJJmLB68pEOIXvpSgdCg3nCs5BtDElDNA51Kc4RlIV+nKBoxSvd7h/tzQ==
+ bh=v1kCW8jHMfIkQYowLpelsCjedSa5xmqLqXVrr1mw15Y=;
+ b=XfO+qQS5JeYtUOkXtVIw32N180dT6DLNPtil68LKy+3YfryoNvLRgDiPzagwQ4orYShlx9MXnK4W8Z+c24z9pBVxpuXbNfhZqQd4IjaQkvO9zakaSrzMlylwb3tQUA8/DzlpEW4aQATklghIxJEGseWB4bbsvi/fg8W23pExbw9BYX2hncbRNIxCoZ7YPQd95XoqDCQeuc3vKv4B9Nb2ic2BvVDTTPvOzNuag3cLsHHRVB8zYuvzLN0RUuA5ewxsMVHBRSxWLy9BQ58DM5gPr5hWBmZtpdt0RIwhOWVOThii6TrU4p4CkHhERtd6B+6mcr4OQ6T3twfa+lYRHwF3fw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=COHc9qLQwMEhs+OPEGP4JhqFQNVHR2eH9iGsc6bX224=;
- b=TkyLrAtKxprS3wARZ4jPa8Glt0wQgjARo+PbsYyMiGnqWWYZdZDstCIaGA8I5OvnPGQ/opZHModgjxU1cqntrgNXtpiWCywrBWMuzEatxnVbwfbX8jqIFRRxwDHeujE5pLCMUt+m0492UkriHdgO5FnoetSOszt3ZGpcMiqeTH0=
-Received: from MW4PR03CA0246.namprd03.prod.outlook.com (2603:10b6:303:b4::11)
- by SA0PR12MB4431.namprd12.prod.outlook.com (2603:10b6:806:95::11)
+ bh=v1kCW8jHMfIkQYowLpelsCjedSa5xmqLqXVrr1mw15Y=;
+ b=En6lQX8fFPSjXxJyMEYeTh5ikiYssR3+/H/VujG0EPWKrrh+elVfGSrJplRwxXr1SxvalnK3neHbqiToiWfUbHXICdthv8p7QxNV5+cu+48NeWgv3XI9NZYK6onXERc+WGwUg1YeekdLnEJt3sqo2nEeWBv+jv/TkgevKyrgHH8=
+Received: from BN0PR07CA0011.namprd07.prod.outlook.com (2603:10b6:408:141::32)
+ by MW3PR12MB4411.namprd12.prod.outlook.com (2603:10b6:303:5e::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Tue, 23 Nov
- 2021 19:23:17 +0000
-Received: from CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b4:cafe::7d) by MW4PR03CA0246.outlook.office365.com
- (2603:10b6:303:b4::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
+ 2021 20:01:31 +0000
+Received: from BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:141:cafe::75) by BN0PR07CA0011.outlook.office365.com
+ (2603:10b6:408:141::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
- Transport; Tue, 23 Nov 2021 19:23:17 +0000
+ Transport; Tue, 23 Nov 2021 20:01:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT059.mail.protection.outlook.com (10.13.174.160) with Microsoft SMTP
+ BN8NAM11FT059.mail.protection.outlook.com (10.13.177.120) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Tue, 23 Nov 2021 19:23:17 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.4713.20 via Frontend Transport; Tue, 23 Nov 2021 20:01:30 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 23 Nov
- 2021 13:23:16 -0600
-From: Philip Yang <Philip.Yang@amd.com>
+ 2021 14:01:27 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v5] drm/amdgpu: handle IH ring1 overflow
-Date: Tue, 23 Nov 2021 14:22:54 -0500
-Message-ID: <20211123192254.21681-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
+Subject: [PATCH] drm/amdgpu/pm: fix powerplay OD interface
+Date: Tue, 23 Nov 2021 15:01:13 -0500
+Message-ID: <20211123200113.1979433-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18001d1e-2100-4918-6d94-08d9aeb6b3cf
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4431:
-X-Microsoft-Antispam-PRVS: <SA0PR12MB443114F2CBA35305C2F17CF0E6609@SA0PR12MB4431.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Office365-Filtering-Correlation-Id: 8c28cebc-3486-4a02-969a-08d9aebc0af3
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4411:
+X-Microsoft-Antispam-PRVS: <MW3PR12MB441140AA3F4332D2258F65C7F7609@MW3PR12MB4411.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:40;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vygIbbnODtlx9cZSv2+YYsZOkiXgQoRiCcIonr8i5Aae5YOebwTMkrj3PM2yMabqypJTMxYGZq+Wygl3Y7gUr15Otlc6jAyiOzveA9ccSzaFmDOr52OS9pb7xuhaidRARhLAa5Jn/K9G3Rs9Q+OroYSbUXZWGjSWI7+CN48zxwnt7Qjutjdbcm2MHyF1i0TbOsjPoQYzNXmCcVwbk1AMWH2GSyCOFFePMottiMY80STUgTcjkgtp1D5WprWQJFPvWuiMtmvdh0vJiiZWH93QQHbzVhKxprJHnmfkMK5tT5StTERSIzKwNovCbxImMC5OoISlyMHBsNGGNDfPjfElMPGKnajaZiXDTlLsCFtyExR7Sz6YCcYFBH0w8XRZP3+pj2CVVgbrTYk4AvHAvkEC9JVJC3yvpTgGSzvdTssb/Vw0J6xCnCqD3J1TLaju6xXoDJthlyvAmaI7vNoVDf5UJRE87/R1CwQfM2YflU+QkdJUTZu/sJM77P7DJ0AWlmKKrWjf/rkB6xd1f0IXZZ2cxLznS+08PCFsLwJ5Ghx1Yc94RPOfAeQ9Sm7JMsv9zoYa0FMemGnZmrsl9tpkWpC3ZpNcmNQOQJBBLnA0pHpc546G+Ahri+0fJyjDxf2Y+gg64DzRzxAHtf6oIUF/PIGblLuxznEnOSHthQlsQT7itgNN7ZAngqbkv2ydeZ2zmJ8fNJ1G6Xf4W6YxaDMueyfgARfhBQTr+WK8RaibYqA06gk=
+X-Microsoft-Antispam-Message-Info: 4PJ8jOx2m2+eQIAZQaXv7JzmUhFqHG5z+grRilNMZSW8fswp1w2qyC4VYzl7RCBTTHDbes762cNGyq8q6YOY/69L8iCQJf0cufIC57tHJj+3PezqvpYXmtDtg81DIBjYxAwnf6fYPKtDCtfiGjRhx4AX1r56qVjJARpu4rzzoD7s9LMnoM6gFoZB+g9yb7CXWs2oubH75JtGRypbKBT0Q+SVwduxSfVpi/tHMPWIa13mFRaHwSFCD58JLGHxp0V5y86eKMFi4kk8oJv1coDgSbqHVS23qCZf1O8S7y9EC0RLp1FDhP5PyRXb+yOwYwdnxZDCbytjqWF3CBdU+RiPHllqEbPi8oRWIgDJo+KGlGUS1XqkmGYhBo04EQ7RcY0c4ols4IMWyfwdIRtrQxuqR8OPQfHpWr2Nkr1ky6SHe7jp4u41duPx8XHCzWAO4C6rs1piIjRe+MNYnxwO1PqRH0JJ72Xc654bab6mjtQYGV4j8Xzstml5Fvnr7tJDSHuZa0JWZMlaxB7l2SFcVJNjrfrh00COomdCLKx1iUn09KyvpKshWd3GJFTPMMUcWAiBfbnnihgTeCa6uTesz/MKnUvzw6DpHdnpfRuDmJExrV5Lz9s0mWwfnsuSZX2d3rmofYAAV2aJivBRvE3mQIEvtUU3MOEzhqY9ZI6oMT0o09FsbAzeLLLnsnbtjIERgMgc+UvjduYvV55yBka1z7CytqIO4QWh6VNWVrp7xIoC+Us=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(36756003)(81166007)(86362001)(2616005)(426003)(82310400004)(36860700001)(336012)(70586007)(54906003)(8676002)(8936002)(6916009)(30864003)(508600001)(70206006)(2906002)(316002)(83380400001)(356005)(1076003)(4326008)(26005)(186003)(16526019)(47076005)(5660300002)(6666004)(7696005)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(8936002)(356005)(1076003)(81166007)(4326008)(316002)(86362001)(36860700001)(82310400004)(70206006)(6916009)(966005)(70586007)(336012)(5660300002)(83380400001)(36756003)(26005)(508600001)(16526019)(30864003)(7696005)(6666004)(2906002)(186003)(2616005)(47076005)(426003)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 19:23:17.2073 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18001d1e-2100-4918-6d94-08d9aeb6b3cf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 20:01:30.9996 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c28cebc-3486-4a02-969a-08d9aebc0af3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4431
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4411
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,297 +99,539 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-IH ring1 is used to process GPU retry fault, overflow is enabled to
-drain retry fault because we want receive other interrupts while
-handling retry fault to recover range. There is no overflow flag set
-when wptr pass rptr. Use timestamp of rptr and wptr to handle overflow
-and drain retry fault.
+The overclocking interface currently appends data to a
+string.  Revert back to using sprintf().
 
-Add helper function amdgpu_ih_decode_iv_ts to get 48bit timestamp from
-IV entry. drain retry fault is done if processed_timestamp is
-equal to or larger than checkpoint timestamp.
-
-Add function amdgpu_ih_process1 to process IH ring1 until timestamp of
-rptr is larger then timestamp of next entry.
-
-Helper amdgpu_ih_ts_after to compare time stamps with 48bit wrap around.
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1774
+Fixes: 6db0c87a0a8ee1 ("amdgpu/pm: Replace hwmgr smu usage of sprintf with sysfs_emit")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 107 ++++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  |  13 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c |   2 +-
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c  |   1 +
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c  |   1 +
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c  |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |   2 +-
- 7 files changed, 99 insertions(+), 28 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  | 20 +++----
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 24 ++++----
+ .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c   |  6 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 28 +++++----
+ .../drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c | 10 ++--
+ .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 58 +++++++++----------
+ 6 files changed, 67 insertions(+), 79 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-index 0c7963dfacad..30b4e0e01444 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-@@ -164,52 +164,45 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+index 258c573acc97..1f406f21b452 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+@@ -1024,8 +1024,6 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	uint32_t min_freq, max_freq = 0;
+ 	uint32_t ret = 0;
  
-+/* return true if time stamp t2 is after t1 with 48bit wrap around */
-+static inline bool amdgpu_ih_ts_after(uint64_t t1, uint64_t t2)
-+{
-+	return ((int64_t)(t2 << 16) - (int64_t)(t1 << 16)) > 0LL;
-+}
-+
- /* Waiter helper that checks current rptr matches or passes checkpoint wptr */
--static bool amdgpu_ih_has_checkpoint_processed(struct amdgpu_device *adev,
-+static bool amdgpu_ih_has_checkpoint_processed_ts(struct amdgpu_device *adev,
- 					struct amdgpu_ih_ring *ih,
--					uint32_t checkpoint_wptr,
--					uint32_t *prev_rptr)
-+					uint64_t checkpoint_ts)
- {
--	uint32_t cur_rptr = ih->rptr | (*prev_rptr & ~ih->ptr_mask);
+-	phm_get_sysfs_buf(&buf, &size);
 -
--	/* rptr has wrapped. */
--	if (cur_rptr < *prev_rptr)
--		cur_rptr += ih->ptr_mask + 1;
--	*prev_rptr = cur_rptr;
+ 	switch (type) {
+ 	case PP_SCLK:
+ 		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetGfxclkFrequency, &now);
+@@ -1038,13 +1036,13 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		else
+ 			i = 1;
+ 
+-		size += sysfs_emit_at(buf, size, "0: %uMhz %s\n",
++		size += sprintf(buf + size, "0: %uMhz %s\n",
+ 					data->gfx_min_freq_limit/100,
+ 					i == 0 ? "*" : "");
+-		size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
++		size += sprintf(buf + size, "1: %uMhz %s\n",
+ 					i == 1 ? now : SMU10_UMD_PSTATE_GFXCLK,
+ 					i == 1 ? "*" : "");
+-		size += sysfs_emit_at(buf, size, "2: %uMhz %s\n",
++		size += sprintf(buf + size, "2: %uMhz %s\n",
+ 					data->gfx_max_freq_limit/100,
+ 					i == 2 ? "*" : "");
+ 		break;
+@@ -1052,7 +1050,7 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetFclkFrequency, &now);
+ 
+ 		for (i = 0; i < mclk_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i,
+ 					mclk_table->entries[i].clk / 100,
+ 					((mclk_table->entries[i].clk / 100)
+@@ -1067,10 +1065,10 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 			if (ret)
+ 				return ret;
+ 
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+-			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
++			size += sprintf(buf + size, "%s:\n", "OD_SCLK");
++			size += sprintf(buf + size, "0: %10uMhz\n",
+ 			(data->gfx_actual_soft_min_freq > 0) ? data->gfx_actual_soft_min_freq : min_freq);
+-			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
++			size += sprintf(buf + size, "1: %10uMhz\n",
+ 			(data->gfx_actual_soft_max_freq > 0) ? data->gfx_actual_soft_max_freq : max_freq);
+ 		}
+ 		break;
+@@ -1083,8 +1081,8 @@ static int smu10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 			if (ret)
+ 				return ret;
+ 
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+-			size += sysfs_emit_at(buf, size, "SCLK: %7uMHz %10uMHz\n",
++			size += sprintf(buf + size, "%s:\n", "OD_RANGE");
++			size += sprintf(buf + size, "SCLK: %7uMHz %10uMHz\n",
+ 				min_freq, max_freq);
+ 		}
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index aceebf584225..611969bf4520 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -4914,8 +4914,6 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	int size = 0;
+ 	uint32_t i, now, clock, pcie_speed;
+ 
+-	phm_get_sysfs_buf(&buf, &size);
 -
--	/* check ring is empty to workaround missing wptr overflow flag */
--	return cur_rptr >= checkpoint_wptr ||
--	       (cur_rptr & ih->ptr_mask) == amdgpu_ih_get_wptr(adev, ih);
-+	return !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts);
- }
+ 	switch (type) {
+ 	case PP_SCLK:
+ 		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetSclkFrequency, &clock);
+@@ -4928,7 +4926,7 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		now = i;
  
- /**
-- * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
-+ * amdgpu_ih_wait_on_checkpoint_process_ts - wait to process IVs up to checkpoint
-  *
-  * @adev: amdgpu_device pointer
-  * @ih: ih ring to process
-  *
-  * Used to ensure ring has processed IVs up to the checkpoint write pointer.
-  */
--int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
-+int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
- 					struct amdgpu_ih_ring *ih)
- {
--	uint32_t checkpoint_wptr, rptr;
-+	uint32_t checkpoint_wptr;
-+	uint64_t checkpoint_ts;
+ 		for (i = 0; i < sclk_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i, sclk_table->dpm_levels[i].value / 100,
+ 					(i == now) ? "*" : "");
+ 		break;
+@@ -4943,7 +4941,7 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		now = i;
  
- 	if (!ih->enabled || adev->shutdown)
- 		return -ENODEV;
+ 		for (i = 0; i < mclk_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i, mclk_table->dpm_levels[i].value / 100,
+ 					(i == now) ? "*" : "");
+ 		break;
+@@ -4957,7 +4955,7 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		now = i;
  
- 	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
--	/* Order wptr with rptr. */
-+	/* Order wptr with ring data. */
- 	rmb();
--	rptr = READ_ONCE(ih->rptr);
+ 		for (i = 0; i < pcie_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %s %s\n", i,
++			size += sprintf(buf + size, "%d: %s %s\n", i,
+ 					(pcie_table->dpm_levels[i].value == 0) ? "2.5GT/s, x8" :
+ 					(pcie_table->dpm_levels[i].value == 1) ? "5.0GT/s, x16" :
+ 					(pcie_table->dpm_levels[i].value == 2) ? "8.0GT/s, x16" : "",
+@@ -4965,32 +4963,32 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		break;
+ 	case OD_SCLK:
+ 		if (hwmgr->od_enabled) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
++			size += sprintf(buf + size, "%s:\n", "OD_SCLK");
+ 			for (i = 0; i < odn_sclk_table->num_of_pl; i++)
+-				size += sysfs_emit_at(buf, size, "%d: %10uMHz %10umV\n",
++				size += sprintf(buf + size, "%d: %10uMHz %10umV\n",
+ 					i, odn_sclk_table->entries[i].clock/100,
+ 					odn_sclk_table->entries[i].vddc);
+ 		}
+ 		break;
+ 	case OD_MCLK:
+ 		if (hwmgr->od_enabled) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_MCLK");
++			size += sprintf(buf + size, "%s:\n", "OD_MCLK");
+ 			for (i = 0; i < odn_mclk_table->num_of_pl; i++)
+-				size += sysfs_emit_at(buf, size, "%d: %10uMHz %10umV\n",
++				size += sprintf(buf + size, "%d: %10uMHz %10umV\n",
+ 					i, odn_mclk_table->entries[i].clock/100,
+ 					odn_mclk_table->entries[i].vddc);
+ 		}
+ 		break;
+ 	case OD_RANGE:
+ 		if (hwmgr->od_enabled) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+-			size += sysfs_emit_at(buf, size, "SCLK: %7uMHz %10uMHz\n",
++			size += sprintf(buf + size, "%s:\n", "OD_RANGE");
++			size += sprintf(buf + size, "SCLK: %7uMHz %10uMHz\n",
+ 				data->golden_dpm_table.sclk_table.dpm_levels[0].value/100,
+ 				hwmgr->platform_descriptor.overdriveLimit.engineClock/100);
+-			size += sysfs_emit_at(buf, size, "MCLK: %7uMHz %10uMHz\n",
++			size += sprintf(buf + size, "MCLK: %7uMHz %10uMHz\n",
+ 				data->golden_dpm_table.mclk_table.dpm_levels[0].value/100,
+ 				hwmgr->platform_descriptor.overdriveLimit.memoryClock/100);
+-			size += sysfs_emit_at(buf, size, "VDDC: %7umV %11umV\n",
++			size += sprintf(buf + size, "VDDC: %7umV %11umV\n",
+ 				data->odn_dpm_table.min_vddc,
+ 				data->odn_dpm_table.max_vddc);
+ 		}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+index 8e28a8eecefc..03bf8f069222 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+@@ -1550,8 +1550,6 @@ static int smu8_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	uint32_t i, now;
+ 	int size = 0;
+ 
+-	phm_get_sysfs_buf(&buf, &size);
 -
--	/* wptr has wrapped. */
--	if (rptr > checkpoint_wptr)
--		checkpoint_wptr += ih->ptr_mask + 1;
-+	checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
+ 	switch (type) {
+ 	case PP_SCLK:
+ 		now = PHM_GET_FIELD(cgs_read_ind_register(hwmgr->device,
+@@ -1561,7 +1559,7 @@ static int smu8_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				CURR_SCLK_INDEX);
  
- 	return wait_event_interruptible(ih->wait_process,
--				amdgpu_ih_has_checkpoint_processed(adev, ih,
--						checkpoint_wptr, &rptr));
-+				amdgpu_ih_has_checkpoint_processed_ts(adev, ih,
-+						checkpoint_ts));
- }
+ 		for (i = 0; i < sclk_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i, sclk_table->entries[i].clk / 100,
+ 					(i == now) ? "*" : "");
+ 		break;
+@@ -1573,7 +1571,7 @@ static int smu8_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				CURR_MCLK_INDEX);
  
- /**
-@@ -254,6 +247,56 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
- 	return IRQ_HANDLED;
- }
+ 		for (i = SMU8_NUM_NBPMEMORYCLOCK; i > 0; i--)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					SMU8_NUM_NBPMEMORYCLOCK-i, data->sys_info.nbp_memory_clock[i-1] / 100,
+ 					(SMU8_NUM_NBPMEMORYCLOCK-i == now) ? "*" : "");
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index c981fc2882f0..e6336654c565 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -4639,8 +4639,6 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
  
-+/**
-+ * amdgpu_ih_process1 - interrupt handler work for IH ring1
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @ih: ih ring to process
-+ *
-+ * Interrupt handler of IH ring1, walk the IH ring1.
-+ * Returns irq process return code.
-+ */
-+int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
-+{
-+	uint64_t ts, ts_next;
-+	unsigned int count;
-+	u32 wptr;
-+
-+	if (!ih->enabled || adev->shutdown)
-+		return IRQ_NONE;
-+
-+	wptr = amdgpu_ih_get_wptr(adev, ih);
-+	if (ih->rptr == wptr)
-+		return 0;
-+
-+restart_ih:
-+	count = AMDGPU_IH_MAX_NUM_IVS;
-+
-+	ts = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 0);
-+	ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 1);
-+	while (amdgpu_ih_ts_after(ts, ts_next) && --count) {
-+		amdgpu_irq_dispatch(adev, ih);
-+		ih->rptr &= ih->ptr_mask;
-+		ts = ts_next;
-+		ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 1);
-+	}
-+	/*
-+	 * Process the last timestamp updated entry or one more entry
-+	 * if count = 0, ts is timestamp of the entry.
-+	 */
-+	amdgpu_irq_dispatch(adev, ih);
-+	amdgpu_ih_set_rptr(adev, ih);
-+	wake_up_all(&ih->wait_process);
-+
-+	wptr = amdgpu_ih_get_wptr(adev, ih);
-+	/* Order reading of wptr vs. reading of IH ring data */
-+	rmb();
-+	if (amdgpu_ih_ts_after(ts, amdgpu_ih_decode_iv_ts(adev, ih, wptr, -1)))
-+		goto restart_ih;
-+
-+	return IRQ_HANDLED;
-+}
-+
- /**
-  * amdgpu_ih_decode_iv_helper - decode an interrupt vector
-  *
-@@ -298,4 +341,20 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+ 	int i, now, size = 0, count = 0;
  
- 	/* wptr/rptr are in bytes! */
- 	ih->rptr += 32;
-+	ih->processed_timestamp = entry->timestamp;
-+}
-+
-+uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
-+				       signed offset)
-+{
-+	uint32_t iv_size = 32;
-+	uint32_t dw1, dw2;
-+	uint32_t index;
-+
-+	rptr += iv_size * offset;
-+	index = (rptr & ih->ptr_mask) >> 2;
-+
-+	dw1 = le32_to_cpu(ih->ring[index + 1]);
-+	dw2 = le32_to_cpu(ih->ring[index + 2]);
-+	return dw1 | ((u64)(dw2 & 0xffff) << 32);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-index 0649b59830a5..d7e1ffeca38f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-@@ -68,6 +68,7 @@ struct amdgpu_ih_ring {
+-	phm_get_sysfs_buf(&buf, &size);
+-
+ 	switch (type) {
+ 	case PP_SCLK:
+ 		if (data->registry_data.sclk_dpm_key_disabled)
+@@ -4654,7 +4652,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		else
+ 			count = sclk_table->count;
+ 		for (i = 0; i < count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i, sclk_table->dpm_levels[i].value / 100,
+ 					(i == now) ? "*" : "");
+ 		break;
+@@ -4665,7 +4663,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkIndex, &now);
  
- 	/* For waiting on IH processing at checkpoint. */
- 	wait_queue_head_t wait_process;
-+	uint64_t		processed_timestamp;
- };
+ 		for (i = 0; i < mclk_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i, mclk_table->dpm_levels[i].value / 100,
+ 					(i == now) ? "*" : "");
+ 		break;
+@@ -4676,7 +4674,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentSocclkIndex, &now);
  
- /* provided by the ih block */
-@@ -76,12 +77,17 @@ struct amdgpu_ih_funcs {
- 	u32 (*get_wptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
- 	void (*decode_iv)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
- 			  struct amdgpu_iv_entry *entry);
-+	uint64_t (*decode_iv_ts)(struct amdgpu_ih_ring *ih, u32 rptr,
-+				 signed offset);
- 	void (*set_rptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
- };
+ 		for (i = 0; i < soc_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i, soc_table->dpm_levels[i].value / 100,
+ 					(i == now) ? "*" : "");
+ 		break;
+@@ -4688,7 +4686,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				PPSMC_MSG_GetClockFreqMHz, CLK_DCEFCLK, &now);
  
- #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
- #define amdgpu_ih_decode_iv(adev, iv) \
- 	(adev)->irq.ih_funcs->decode_iv((adev), (ih), (iv))
-+#define amdgpu_ih_decode_iv_ts(adev, ih, rptr, offset) \
-+	(WARN_ON_ONCE(!(adev)->irq.ih_funcs->decode_iv_ts) ? 0 : \
-+	(adev)->irq.ih_funcs->decode_iv_ts((ih), (rptr), (offset)))
- #define amdgpu_ih_set_rptr(adev, ih) (adev)->irq.ih_funcs->set_rptr((adev), (ih))
+ 		for (i = 0; i < dcef_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 					i, dcef_table->dpm_levels[i].value / 100,
+ 					(dcef_table->dpm_levels[i].value / 100 == now) ?
+ 					"*" : "");
+@@ -4702,7 +4700,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 			gen_speed = pptable->PcieGenSpeed[i];
+ 			lane_width = pptable->PcieLaneCount[i];
  
- int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
-@@ -89,10 +95,13 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
- void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
- void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
- 			  unsigned int num_dw);
--int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
--					struct amdgpu_ih_ring *ih);
-+int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
-+					    struct amdgpu_ih_ring *ih);
- int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
-+int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
- void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
- 				struct amdgpu_ih_ring *ih,
- 				struct amdgpu_iv_entry *entry);
-+uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
-+				       signed offset);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index e9023687dc9a..891486cca94b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -224,7 +224,7 @@ static void amdgpu_irq_handle_ih1(struct work_struct *work)
- 	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
- 						  irq.ih1_work);
+-			size += sysfs_emit_at(buf, size, "%d: %s %s %s\n", i,
++			size += sprintf(buf + size, "%d: %s %s %s\n", i,
+ 					(gen_speed == 0) ? "2.5GT/s," :
+ 					(gen_speed == 1) ? "5.0GT/s," :
+ 					(gen_speed == 2) ? "8.0GT/s," :
+@@ -4721,34 +4719,34 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
  
--	amdgpu_ih_process(adev, &adev->irq.ih1);
-+	amdgpu_ih_process1(adev, &adev->irq.ih1);
- }
+ 	case OD_SCLK:
+ 		if (hwmgr->od_enabled) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
++			size += sprintf(buf + size, "%s:\n", "OD_SCLK");
+ 			podn_vdd_dep = &data->odn_dpm_table.vdd_dep_on_sclk;
+ 			for (i = 0; i < podn_vdd_dep->count; i++)
+-				size += sysfs_emit_at(buf, size, "%d: %10uMhz %10umV\n",
++				size += sprintf(buf + size, "%d: %10uMhz %10umV\n",
+ 					i, podn_vdd_dep->entries[i].clk / 100,
+ 						podn_vdd_dep->entries[i].vddc);
+ 		}
+ 		break;
+ 	case OD_MCLK:
+ 		if (hwmgr->od_enabled) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_MCLK");
++			size += sprintf(buf + size, "%s:\n", "OD_MCLK");
+ 			podn_vdd_dep = &data->odn_dpm_table.vdd_dep_on_mclk;
+ 			for (i = 0; i < podn_vdd_dep->count; i++)
+-				size += sysfs_emit_at(buf, size, "%d: %10uMhz %10umV\n",
++				size += sprintf(buf + size, "%d: %10uMhz %10umV\n",
+ 					i, podn_vdd_dep->entries[i].clk/100,
+ 						podn_vdd_dep->entries[i].vddc);
+ 		}
+ 		break;
+ 	case OD_RANGE:
+ 		if (hwmgr->od_enabled) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+-			size += sysfs_emit_at(buf, size, "SCLK: %7uMHz %10uMHz\n",
++			size += sprintf(buf + size, "%s:\n", "OD_RANGE");
++			size += sprintf(buf + size, "SCLK: %7uMHz %10uMHz\n",
+ 				data->golden_dpm_table.gfx_table.dpm_levels[0].value/100,
+ 				hwmgr->platform_descriptor.overdriveLimit.engineClock/100);
+-			size += sysfs_emit_at(buf, size, "MCLK: %7uMHz %10uMHz\n",
++			size += sprintf(buf + size, "MCLK: %7uMHz %10uMHz\n",
+ 				data->golden_dpm_table.mem_table.dpm_levels[0].value/100,
+ 				hwmgr->platform_descriptor.overdriveLimit.memoryClock/100);
+-			size += sysfs_emit_at(buf, size, "VDDC: %7umV %11umV\n",
++			size += sprintf(buf + size, "VDDC: %7umV %11umV\n",
+ 				data->odn_dpm_table.min_vddc,
+ 				data->odn_dpm_table.max_vddc);
+ 		}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+index f7e783e1c888..a2f4d6773d45 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+@@ -2246,8 +2246,6 @@ static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	int i, now, size = 0;
+ 	struct pp_clock_levels_with_latency clocks;
  
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 38241cf0e1f1..8ce5b8ca1fd7 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -716,6 +716,7 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs = {
- static const struct amdgpu_ih_funcs navi10_ih_funcs = {
- 	.get_wptr = navi10_ih_get_wptr,
- 	.decode_iv = amdgpu_ih_decode_iv_helper,
-+	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
- 	.set_rptr = navi10_ih_set_rptr
- };
+-	phm_get_sysfs_buf(&buf, &size);
+-
+ 	switch (type) {
+ 	case PP_SCLK:
+ 		PP_ASSERT_WITH_CODE(
+@@ -2260,7 +2258,7 @@ static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				"Attempt to get gfx clk levels Failed!",
+ 				return -1);
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz / 1000 == now / 100) ? "*" : "");
+ 		break;
+@@ -2276,7 +2274,7 @@ static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				"Attempt to get memory clk levels Failed!",
+ 				return -1);
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz / 1000 == now / 100) ? "*" : "");
+ 		break;
+@@ -2294,7 +2292,7 @@ static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				"Attempt to get soc clk levels Failed!",
+ 				return -1);
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz / 1000 == now) ? "*" : "");
+ 		break;
+@@ -2312,7 +2310,7 @@ static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				"Attempt to get dcef clk levels Failed!",
+ 				return -1);
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz / 1000 == now) ? "*" : "");
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+index 03e63be4ee27..85d55ab4e369 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+@@ -3366,8 +3366,6 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	int ret = 0;
+ 	uint32_t gen_speed, lane_width, current_gen_speed, current_lane_width;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-index a9ca6988009e..3070466f54e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-@@ -640,6 +640,7 @@ const struct amd_ip_funcs vega10_ih_ip_funcs = {
- static const struct amdgpu_ih_funcs vega10_ih_funcs = {
- 	.get_wptr = vega10_ih_get_wptr,
- 	.decode_iv = amdgpu_ih_decode_iv_helper,
-+	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
- 	.set_rptr = vega10_ih_set_rptr
- };
+-	phm_get_sysfs_buf(&buf, &size);
+-
+ 	switch (type) {
+ 	case PP_SCLK:
+ 		ret = vega20_get_current_clk_freq(hwmgr, PPCLK_GFXCLK, &now);
+@@ -3376,13 +3374,13 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				return ret);
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-index f51dfc38ac65..3b4eb8285943 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-@@ -688,6 +688,7 @@ const struct amd_ip_funcs vega20_ih_ip_funcs = {
- static const struct amdgpu_ih_funcs vega20_ih_funcs = {
- 	.get_wptr = vega20_ih_get_wptr,
- 	.decode_iv = amdgpu_ih_decode_iv_helper,
-+	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
- 	.set_rptr = vega20_ih_set_rptr
- };
+ 		if (vega20_get_sclks(hwmgr, &clocks)) {
+-			size += sysfs_emit_at(buf, size, "0: %uMhz * (DPM disabled)\n",
++			size += sprintf(buf + size, "0: %uMhz * (DPM disabled)\n",
+ 				now / 100);
+ 			break;
+ 		}
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 10868d5b549f..663489ae56d7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1974,7 +1974,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz == now * 10) ? "*" : "");
+ 		break;
+@@ -3394,13 +3392,13 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				return ret);
  
- 		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
+ 		if (vega20_get_memclocks(hwmgr, &clocks)) {
+-			size += sysfs_emit_at(buf, size, "0: %uMhz * (DPM disabled)\n",
++			size += sprintf(buf + size, "0: %uMhz * (DPM disabled)\n",
+ 				now / 100);
+ 			break;
+ 		}
  
--		amdgpu_ih_wait_on_checkpoint_process(pdd->dev->adev,
-+		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
- 						     &pdd->dev->adev->irq.ih1);
- 		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
- 	}
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz == now * 10) ? "*" : "");
+ 		break;
+@@ -3412,13 +3410,13 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				return ret);
+ 
+ 		if (vega20_get_socclocks(hwmgr, &clocks)) {
+-			size += sysfs_emit_at(buf, size, "0: %uMhz * (DPM disabled)\n",
++			size += sprintf(buf + size, "0: %uMhz * (DPM disabled)\n",
+ 				now / 100);
+ 			break;
+ 		}
+ 
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz == now * 10) ? "*" : "");
+ 		break;
+@@ -3430,7 +3428,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				return ret);
+ 
+ 		for (i = 0; i < fclk_dpm_table->count; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, fclk_dpm_table->dpm_levels[i].value,
+ 				fclk_dpm_table->dpm_levels[i].value == (now / 100) ? "*" : "");
+ 		break;
+@@ -3442,13 +3440,13 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 				return ret);
+ 
+ 		if (vega20_get_dcefclocks(hwmgr, &clocks)) {
+-			size += sysfs_emit_at(buf, size, "0: %uMhz * (DPM disabled)\n",
++			size += sprintf(buf + size, "0: %uMhz * (DPM disabled)\n",
+ 				now / 100);
+ 			break;
+ 		}
+ 
+ 		for (i = 0; i < clocks.num_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++			size += sprintf(buf + size, "%d: %uMhz %s\n",
+ 				i, clocks.data[i].clocks_in_khz / 1000,
+ 				(clocks.data[i].clocks_in_khz == now * 10) ? "*" : "");
+ 		break;
+@@ -3462,7 +3460,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 			gen_speed = pptable->PcieGenSpeed[i];
+ 			lane_width = pptable->PcieLaneCount[i];
+ 
+-			size += sysfs_emit_at(buf, size, "%d: %s %s %dMhz %s\n", i,
++			size += sprintf(buf + size, "%d: %s %s %dMhz %s\n", i,
+ 					(gen_speed == 0) ? "2.5GT/s," :
+ 					(gen_speed == 1) ? "5.0GT/s," :
+ 					(gen_speed == 2) ? "8.0GT/s," :
+@@ -3483,18 +3481,18 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	case OD_SCLK:
+ 		if (od8_settings[OD8_SETTING_GFXCLK_FMIN].feature_id &&
+ 		    od8_settings[OD8_SETTING_GFXCLK_FMAX].feature_id) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+-			size += sysfs_emit_at(buf, size, "0: %10uMhz\n",
++			size += sprintf(buf + size, "%s:\n", "OD_SCLK");
++			size += sprintf(buf + size, "0: %10uMhz\n",
+ 				od_table->GfxclkFmin);
+-			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
++			size += sprintf(buf + size, "1: %10uMhz\n",
+ 				od_table->GfxclkFmax);
+ 		}
+ 		break;
+ 
+ 	case OD_MCLK:
+ 		if (od8_settings[OD8_SETTING_UCLK_FMAX].feature_id) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_MCLK");
+-			size += sysfs_emit_at(buf, size, "1: %10uMhz\n",
++			size += sprintf(buf + size, "%s:\n", "OD_MCLK");
++			size += sprintf(buf + size, "1: %10uMhz\n",
+ 				od_table->UclkFmax);
+ 		}
+ 
+@@ -3507,14 +3505,14 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
+ 		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
+ 		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id) {
+-			size += sysfs_emit_at(buf, size, "%s:\n", "OD_VDDC_CURVE");
+-			size += sysfs_emit_at(buf, size, "0: %10uMhz %10dmV\n",
++			size += sprintf(buf + size, "%s:\n", "OD_VDDC_CURVE");
++			size += sprintf(buf + size, "0: %10uMhz %10dmV\n",
+ 				od_table->GfxclkFreq1,
+ 				od_table->GfxclkVolt1 / VOLTAGE_SCALE);
+-			size += sysfs_emit_at(buf, size, "1: %10uMhz %10dmV\n",
++			size += sprintf(buf + size, "1: %10uMhz %10dmV\n",
+ 				od_table->GfxclkFreq2,
+ 				od_table->GfxclkVolt2 / VOLTAGE_SCALE);
+-			size += sysfs_emit_at(buf, size, "2: %10uMhz %10dmV\n",
++			size += sprintf(buf + size, "2: %10uMhz %10dmV\n",
+ 				od_table->GfxclkFreq3,
+ 				od_table->GfxclkVolt3 / VOLTAGE_SCALE);
+ 		}
+@@ -3522,17 +3520,17 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		break;
+ 
+ 	case OD_RANGE:
+-		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
++		size += sprintf(buf + size, "%s:\n", "OD_RANGE");
+ 
+ 		if (od8_settings[OD8_SETTING_GFXCLK_FMIN].feature_id &&
+ 		    od8_settings[OD8_SETTING_GFXCLK_FMAX].feature_id) {
+-			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
++			size += sprintf(buf + size, "SCLK: %7uMhz %10uMhz\n",
+ 				od8_settings[OD8_SETTING_GFXCLK_FMIN].min_value,
+ 				od8_settings[OD8_SETTING_GFXCLK_FMAX].max_value);
+ 		}
+ 
+ 		if (od8_settings[OD8_SETTING_UCLK_FMAX].feature_id) {
+-			size += sysfs_emit_at(buf, size, "MCLK: %7uMhz %10uMhz\n",
++			size += sprintf(buf + size, "MCLK: %7uMhz %10uMhz\n",
+ 				od8_settings[OD8_SETTING_UCLK_FMAX].min_value,
+ 				od8_settings[OD8_SETTING_UCLK_FMAX].max_value);
+ 		}
+@@ -3543,22 +3541,22 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
+ 		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
+ 		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id) {
+-			size += sysfs_emit_at(buf, size, "VDDC_CURVE_SCLK[0]: %7uMhz %10uMhz\n",
++			size += sprintf(buf + size, "VDDC_CURVE_SCLK[0]: %7uMhz %10uMhz\n",
+ 				od8_settings[OD8_SETTING_GFXCLK_FREQ1].min_value,
+ 				od8_settings[OD8_SETTING_GFXCLK_FREQ1].max_value);
+-			size += sysfs_emit_at(buf, size, "VDDC_CURVE_VOLT[0]: %7dmV %11dmV\n",
++			size += sprintf(buf + size, "VDDC_CURVE_VOLT[0]: %7dmV %11dmV\n",
+ 				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].min_value,
+ 				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].max_value);
+-			size += sysfs_emit_at(buf, size, "VDDC_CURVE_SCLK[1]: %7uMhz %10uMhz\n",
++			size += sprintf(buf + size, "VDDC_CURVE_SCLK[1]: %7uMhz %10uMhz\n",
+ 				od8_settings[OD8_SETTING_GFXCLK_FREQ2].min_value,
+ 				od8_settings[OD8_SETTING_GFXCLK_FREQ2].max_value);
+-			size += sysfs_emit_at(buf, size, "VDDC_CURVE_VOLT[1]: %7dmV %11dmV\n",
++			size += sprintf(buf + size, "VDDC_CURVE_VOLT[1]: %7dmV %11dmV\n",
+ 				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].min_value,
+ 				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].max_value);
+-			size += sysfs_emit_at(buf, size, "VDDC_CURVE_SCLK[2]: %7uMhz %10uMhz\n",
++			size += sprintf(buf + size, "VDDC_CURVE_SCLK[2]: %7uMhz %10uMhz\n",
+ 				od8_settings[OD8_SETTING_GFXCLK_FREQ3].min_value,
+ 				od8_settings[OD8_SETTING_GFXCLK_FREQ3].max_value);
+-			size += sysfs_emit_at(buf, size, "VDDC_CURVE_VOLT[2]: %7dmV %11dmV\n",
++			size += sprintf(buf + size, "VDDC_CURVE_VOLT[2]: %7dmV %11dmV\n",
+ 				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].min_value,
+ 				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].max_value);
+ 		}
 -- 
-2.17.1
+2.31.1
 
