@@ -4,53 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C32DEC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 14:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8606C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 14:20:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F233B6E850;
-	Wed, 24 Nov 2021 14:12:49 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBE56E500
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 14:12:48 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id m6so5621434oim.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 06:12:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=K0TpYg38AlaVipZ1l9m5zTwDqsnVkJrrDMLbgASmEHI=;
- b=aH1eRDgfxuzThKVVNiC+YjE3jaehMTRqn4PxmDPp/Uff1F2bFn9gjBr/QcRXXn9kzM
- vLC9vSlrfBJCne4VoTm6C3C4Co9hR/GQnNWVHRV9nweSxDXrE1arbPfb9UB7LyvfY2Z7
- 8eksBuvAL6otk04COqntAjRx6/2SaNuMF8QZw/KNzSXG5Epqv5SbGaPxVrzp89ii8VkB
- gXAd+pnuQSyzO2LWmKvW0YLtOwdTIHcw3kQzvJFXineU7INyfqbGRCz4b2HZp16Heolg
- Xa/sjcCFbK+pBHTAHGXUwn1fvVoezNs8VM3KeMoljcjmlTvt6xSeOjzlJa2VTftdsyZf
- EcBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=K0TpYg38AlaVipZ1l9m5zTwDqsnVkJrrDMLbgASmEHI=;
- b=I+cU0oK0l47QDgE4HRj4gJqvVB1s5ZEjVtxxX1TfGipCwJycoywjcXgs/46weeaVVC
- wsLidw5D59gJ66AJ338nSr1TKHoCaohhJL/lTB+4HDqr9exzpMA/LncjHMXVnmXZTtfC
- NQ2pXz+Dsd5ZURFqhi4KbJkVGFcFkRocsRIeNOBijD5BTZxGN+T2Y95jJBkB+nuAENxt
- 30QYB2PDkdiA2qmWG4PD8uVnmGjEDnoZE67By8TMNkdLTS1GYpiIYq4Espfx7kAIBpdU
- GLQhIhPyvX9yWBa5uCRErHgzbX/hbqaeLD8LxFnIhX6kRLIaeDh8L1HNUcBYezRKr2zA
- B9ug==
-X-Gm-Message-State: AOAM530/ekvNxENvmU/m3zp+hJwIScOa4abADHDSB76Ij9I2bYOSPTAn
- JUz/qiM2ofnQbMlept9W2RYo/rK0Pj8NnjM9x+KujIL4
-X-Google-Smtp-Source: ABdhPJxYSnoYPgPfhmUHDdxvmy6B9+RHd8xm9VxTimYk9ZtyamX+1s/1L3Zbr6Eie4TOKheINF9el1oituxlBIyOcgk=
-X-Received: by 2002:a05:6808:300b:: with SMTP id
- ay11mr6370739oib.120.1637763167791; 
- Wed, 24 Nov 2021 06:12:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 457BB6E2B4;
+	Wed, 24 Nov 2021 14:20:57 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDAEB6E4C5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 14:20:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qpypfit9JNboYN43btUTR2eLDFJ6tV2eOXX0eifTiA0AbP8B0hlaT9kU9LAaPD7cEJYzaNd2VUPUt4gB9K4GF1xnM/cX6ECGdpI6xrV9ZBPoJvz1CJmbawVW7q4QnPQGQQRtUM/30HXAX+jNjdj9uUnnSisRkbWZK54bRfeQYBgQ2RVFDDbkuSALPPBzoRm9vUK1gLo5nrgNq1mo34KtbjRojsGmdHPfhukRq6WJVKlbs0bCXozOupBxHA5Auk3YSVQbDJ+9RtdTVrCIBVVhGcQMuVrozQNFeK/azyFJZhsW+yY5GehsRjdQrcSnanzRuW5vk6yKAQNCs+zj9hr6tA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=svKQ1JK6YZI7K3UvOZKoHzdHooTnJ8ZWZBYcJQVi8F0=;
+ b=m1sC6sH3aZXrvCJ+dVxhmKW5jhYsYvYfSJ7VX2omhExYBcx9WFiPZiVwEBpeLJ8faTF/mABiRNlYJo0/fXByrUDddtulwtRjr36V8VwGVTaHrmfmShA8QUSQXsvoCFQ/ssCWu/4Rzh5WiiaQz6q7gQVDlwphGSEJyLVpED6cVsYyxJq+pZ4GooyTj+VGOIAAnY+2FzmgkCbgUBfc60YZqiAHsm/9b1YgzSy3Fs3taIqAdj1sMjk3s8X8FYS85BrXZ6tYcjF5IuhYs5DDJRzubEp8cr63ibxmh0spmKMrbg5WcTW7FVf2FiQkQP0SsiiporLQxklnKOoXQYI/+LDJJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=svKQ1JK6YZI7K3UvOZKoHzdHooTnJ8ZWZBYcJQVi8F0=;
+ b=YLbGtz+iRiveg/jukaXOBPFHXbn6mR8E3KqPApzEGmyGOyIGKuwl61/q9KTanqvqDxTUYZZyQ1tIi1EXDccQtRPIAYVepaebbH5rPIYL8cJJP3y0C9VcEaL0B6cjHfVgWFy9GBpyDmYT8brD4mkn+YWZorcnwvayZ6YPztXcHAw=
+Received: from BN6PR14CA0015.namprd14.prod.outlook.com (2603:10b6:404:79::25)
+ by BYAPR12MB3414.namprd12.prod.outlook.com (2603:10b6:a03:aa::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Wed, 24 Nov
+ 2021 14:20:53 +0000
+Received: from BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:79:cafe::a8) by BN6PR14CA0015.outlook.office365.com
+ (2603:10b6:404:79::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
+ Transport; Wed, 24 Nov 2021 14:20:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT014.mail.protection.outlook.com (10.13.177.142) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4713.20 via Frontend Transport; Wed, 24 Nov 2021 14:20:52 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 24 Nov
+ 2021 08:20:50 -0600
+Received: from jane-X10DRi.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
+ Transport; Wed, 24 Nov 2021 08:20:48 -0600
+From: Jane Jian <Jane.Jian@amd.com>
+To: <Alexander.Deucher@amd.com>, <guchun.chen@amd.com>, <jingwen.chen2@amd.com>
+Subject: [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case to ip init
+ for SIENNA_CICHLID
+Date: Wed, 24 Nov 2021 22:20:36 +0800
+Message-ID: <20211124142036.22491-1-Jane.Jian@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20211124095415.11379-1-Jane.Jian@amd.com>
-In-Reply-To: <20211124095415.11379-1-Jane.Jian@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Nov 2021 09:12:36 -0500
-Message-ID: <CADnq5_M7E13CWGpGOCk0NFSufeVv-nFH1pWUBdNwft8og0DvNw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case to ip
- init for SIENNA_CICHLID
-To: Jane Jian <Jane.Jian@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2a2103bd-ee77-41a5-e9b1-08d9af559f51
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3414:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3414E77BEE3C5BB951FF0F28FF619@BYAPR12MB3414.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ws+aDlWP/jvRqXRpC3tAmacoTiUYr6W/Tg1p9rgur7D3HdweCq8uAKTKQGFUHO438JqF7yUGfYdG2vAIcUjVpmCmRJ61h3HENXcHLzAtEZoIoe6+Z3qBCXzBhzXBVRG5ugWDSdAan/kCjF/SjGudbzjD0j4SwSoaNNuAPpgcXcO1GOlGnR6UHOj8UaS+IQp02fsgoJ9ng8FsxrNjGX7tChJcgWCR0V8n2PdrqwZgb9JuU1UM2fCd5yx8phc+BvFKbhCg+4LOn7jd/82D8o+BNUHxfAIeJPe8g5szDAACfmBWy5TgA9eWtWoT+EktzbAH8xKY9PCDzBnxft+Wpw3spz/CfK67zY58BkjyKmhl8sf9ZZY3gWxQlWTIbOCLz3uwOTaoIH9Vxqdlt3UfbePm5DRkushnU8Fd/qs8t8Lsd1Pn2AOGW84uy7u6ZdbM/nGHsRjGoAdZvVTG1a8trHLD8B9bY4QxtcKva6ZBXySNLQr62EQkCjzGbdAcDH6xYff4b0U3acTv7wNZ7fcRSGjuiR//jRKqmvXRs5NZp6pVyJdXOEP74yLHuZ3aSWBX+YHDbkBkX9ZJdXHqp7tuI+ogWxfpnNwQ2+NGB94ZcCsCt3t3FFbYeL3xLUBJ2NfU20lZB5ro7IPyKmbWdK1ACyVN1thw1ZTIo8XVjOfmpm3hQq8fRM680y/3zDdALubsnuxwb8DjveInKER1Gm/DBU/yy3Y/N60kH89qVXLUqekUMnY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(86362001)(336012)(26005)(316002)(186003)(82310400004)(1076003)(426003)(36860700001)(81166007)(8676002)(356005)(6666004)(8936002)(83380400001)(70206006)(47076005)(54906003)(7696005)(70586007)(508600001)(5660300002)(2906002)(4326008)(36756003)(6636002)(110136005)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 14:20:52.9232 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a2103bd-ee77-41a5-e9b1-08d9af559f51
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3414
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +99,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Jingwen Chen <jingwen.chen2@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Chen,
- Guchun" <guchun.chen@amd.com>
+Cc: Jane.Jian@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 24, 2021 at 4:54 AM Jane Jian <Jane.Jian@amd.com> wrote:
->
-> [WHY]
-> for sriov odd# vf will modify vcn0 engine ip revision(due to multimedia bandwidth feature),
-> which will be mismatched with original vcn0 revision
->
-> [HOW]
-> add new version check for vcn0 disabled revision
->
-> Signed-off-by: Jane Jian <Jane.Jian@amd.com>
-> Change-Id: I1ace32acbf3a13c0baac958508da1324ec387a58
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 4 ++++
->  2 files changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 503995c7ff6c..1dabbcbc3970 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -925,6 +925,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
->                 case IP_VERSION(3, 0, 33):
->                         amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
->                         break;
-> +               case IP_VERSION(3, 0, 192):
+[WHY]
+for sriov odd# vf will modify vcn0 engine ip revision(due to multimedia bandwidth feature),
+which will be mismatched with original vcn0 revision
 
-You can probably just add this case to the above 3.0.33 case.
+[HOW]
+add new version check for vcn0 disabled revision(3, 0, 192), typically modified under
+sriov mode
 
-> +                       amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
-> +                       break;
->                 default:
->                         dev_err(adev->dev,
->                                 "Failed to add vcn/jpeg ip block(UVD_HWIP:0x%x)\n",
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 4f7c70845785..27125e5e3092 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -143,6 +143,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
->                     (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
->                         adev->vcn.indirect_sram = true;
->                 break;
-> +       case IP_VERSION(3, 0, 192):
-> +               if (amdgpu_sriov_vf(adev))
+Signed-off-by: Jane Jian <Jane.Jian@amd.com>
+Change-Id: I1ace32acbf3a13c0baac958508da1324ec387a58
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 1 +
+ 2 files changed, 2 insertions(+)
 
-I think you can skip the sr-iov check here.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 503995c7ff6c..3f9b7b0bab3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -923,6 +923,7 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+ 				amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
+ 			break;
+ 		case IP_VERSION(3, 0, 33):
++		case IP_VERSION(3, 0, 192):
+ 			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+ 			break;
+ 		default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 4f7c70845785..585961c2f5f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -135,6 +135,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 		break;
+ 	case IP_VERSION(3, 0, 0):
+ 	case IP_VERSION(3, 0, 64):
++	case IP_VERSION(3, 0, 192):
+ 		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 0))
+ 			fw_name = FIRMWARE_SIENNA_CICHLID;
+ 		else
+-- 
+2.17.1
 
-> +                       fw_name = FIRMWARE_SIENNA_CICHLID;
-> +               break;
->         case IP_VERSION(3, 0, 2):
->                 fw_name = FIRMWARE_VANGOGH;
->                 break;
-> --
-> 2.17.1
->
