@@ -4,126 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85CBEC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 22:52:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0769C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 22:58:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 925BA6E17A;
-	Wed, 24 Nov 2021 22:52:06 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4906E17A
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 22:52:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70FE76E218;
+	Wed, 24 Nov 2021 22:58:46 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFE456E210
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 22:58:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SrMdxZ9KnevR4i867yQCQ9EQSdIOEFK+kcIak5SHlb9IGN9vsnoOrN0djdOneNIc7Oxe6kKfWkzggMVjWsGkYKEddj5bABY31YVxRejJbtr5ueoChiEyXKTXiKGMt0gIc+8hk2KDvi7HA4y+JlyHGguqsSP8acCyVaK8dZx+FNZDt5Z+3ZiNsiowbjag+cbMnbOlcfQEgfraEn0fvqVpBWStNc6FrSExodcDYlNSPDeo2YjUA4ZaIHZhstDsR0YBi0In8C6MjQ80cNbi2ubs5t7oAviYj9eaKJSNA0fBMXiFLniEPfiIksajMePDeQzdH8HK8eIXgMyoNtrVioTw2Q==
+ b=kTCTQu5zRNq/2IweaJ7BPudKsQK02t2Kq2mKRXZGzsH9ph6+2fMOISMB8sIykr3+8qJASG43W450BV+06v/ROvzJ5up0BWRIol/DSEKhoeJSncNa7YZP/e00r7iF/8/1zoBdL4jkRv8/en6dP5RILAFzJefLq0hdzsZBL3ED2OamObhTlHgzdzPOp9FBoxWlXS8Csa+ydQxqWhr84vob0OSYCUyF1kt2sk4FT7gciJS3ghskG/W2JVzyuN+a1NvRSRG3FBvwUCS3OmAOEqUWJclurRd/mZv9gMVOlUw/G23gdHoycaP2zBXWVhhqpdGN8RFMhPP3w/FzoszKEdb8KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jmq/EN2XHB46LQUeDZUdlII7QEQj7fdYnS86g8x+TMo=;
- b=NO+spo+7k12ih1I6FSDp6FTQUNpJiS0s9dLx+EJoxHyjluKEcyAuhlkiybjWiPeujHpPD5dJGnbcniDBBe2FgJbqQtme5Z7pc1CZtwxAkYMJDTVP9umMKE/b4fFvrH/iG4gFPLCw+bF/QSMI1Wl9MZwKrEQVKDPIMEfADOtdPtWzZm1wcsH7Kk9bbsGOzprGObuc/V0WbvBjd2EHK8LaYqsm77v2qGx/m4ly3RCxshz5wBtjK6pm5vqSBfFM4OhO2IB/baYy5ehfMH0w2KsfKQXL7ESUetPJaPljno1Vnrejjy1epyfYln639WdbmLSf2roH+gUFJIq7LWHKVPV1Xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=x1gxmZcIrSVTNbcJxJvFu/R2vchXUcihVNb+mgVtJL0=;
+ b=ZaKWAUz2uD0wjTqVL/VRK+jAfV4ZTn5BA6v3c4i0eG5JNnjaXOCCwn1+yNuJIcVXst3j4k+MQMQQRECWY8AD/h+h/MdgFBZ9qxR+f0pAB8vlfU0dPmECtTyUneXYn0iHbQi4NNE3THc46JKOdXioXp5Bu5CWMVGjz/ULeBP/Xk7dK51jeyLpZkTqr3Nw7UbUZa6VWEH7i/a23fVt6RO3kVLjGq/XjeC1C5orkZsWBINjbUAJ60jIE6WLEF5NJ2sa2yph5X17UcXCVr8PG9MQmVVtZMpcU0Pg4XPhkPRbXDLWztgc3YZar9zcVNT6K0iIIcEcHmABIaQvRq+ZmeEfnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jmq/EN2XHB46LQUeDZUdlII7QEQj7fdYnS86g8x+TMo=;
- b=c05bGlnT1XKg21u4UB2CsnzakYf8cptkfyBP1cvubZQNs4XCjNk3HUgq8yFciWYRXVjoG3dGAD1k+lxNHFR0nq0dT3K07dfgHwc9ozEioQNLuMZYvwsqaYKLcv7QYkgiMDchUfEFWn3EfLBd7BJ4q35o6ufmm+odk7DEkIl2LuQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DM4PR12MB5071.namprd12.prod.outlook.com (2603:10b6:5:38a::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21; Wed, 24 Nov
- 2021 22:52:03 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::dcf7:d6ee:654f:a2cf%4]) with mapi id 15.20.4713.026; Wed, 24 Nov 2021
- 22:52:03 +0000
-Subject: Re: [PATCH v5] drm/amdgpu: handle IH ring1 overflow
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211123192254.21681-1-Philip.Yang@amd.com>
- <3d17fd21-751d-6f87-95b9-d120db7f4a0e@gmail.com>
- <5ec42928-995f-04c6-c7c8-3d2e33744457@amd.com>
- <bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <430de254-8f6b-3a8b-1796-3d664f1b3dbc@amd.com>
-Date: Wed, 24 Nov 2021 17:52:01 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com>
-Content-Type: text/html; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR03CA0029.namprd03.prod.outlook.com
- (2603:10b6:208:23a::34) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
-MIME-Version: 1.0
-Received: from [172.27.226.38] (165.204.55.251) by
- MN2PR03CA0029.namprd03.prod.outlook.com (2603:10b6:208:23a::34) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=x1gxmZcIrSVTNbcJxJvFu/R2vchXUcihVNb+mgVtJL0=;
+ b=1JzBQ2oWFX3v8i3j42+ng1ouQ2ho+WDjteH6LJhJ9KzW0QHj9L589l3GN/dW/WOWHWH0ZXpCgGquiZKnEd+pGhP/m52JFRRxdNVINvvYwpfGZ0jdEGrOFZ71LutWaq7HfJRM6KsFtDLEj9q9Vg/PuQzF0QauvhUoIFC81iC1Edo=
+Received: from BN6PR1101CA0015.namprd11.prod.outlook.com
+ (2603:10b6:405:4a::25) by BN8PR12MB3154.namprd12.prod.outlook.com
+ (2603:10b6:408:6d::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Wed, 24 Nov
+ 2021 22:58:41 +0000
+Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:4a:cafe::44) by BN6PR1101CA0015.outlook.office365.com
+ (2603:10b6:405:4a::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20 via Frontend
- Transport; Wed, 24 Nov 2021 22:52:02 +0000
+ Transport; Wed, 24 Nov 2021 22:58:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4734.22 via Frontend Transport; Wed, 24 Nov 2021 22:58:40 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 24 Nov
+ 2021 16:58:39 -0600
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v6] drm/amdgpu: handle IH ring1 overflow
+Date: Wed, 24 Nov 2021 17:58:27 -0500
+Message-ID: <20211124225827.26232-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18de3221-411f-408e-a200-08d9af9d0843
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5071:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB507110873C0E71B14A95CB70E6619@DM4PR12MB5071.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: d7e43ced-9880-435e-8f28-08d9af9df51f
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3154:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB31544A883A654448E62A15C6E6619@BN8PR12MB3154.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: c2I5CiWt7Nq1YNTV8psgv/uDSsrFBk0iSuxLOa1NNgEOGSG386gy3KZuf2C33mJHlbs8hokVCtng+Ppky4E4evcpcMJRTK/Ldw33J34eOGRM0WzCm3JsFYq0rORKm41LcSA8J9OuYTiTP3YOBnDSQ3+9U2JQXt9FE6//EyMeu6vEf+651uecBy8U2RmyWmDlgCUTLoJdAyRUkHJ7n3H6SpnaUIFhiDoiTV6oI53a42IVvM0A/X1a93ul9ktqxIAy+7YpF4CpyCCfLC7adIZwas0CWdeh9IH5YKOlJ6yD5viRciNVtgR8husnWpWQBGsnJmkINRMX1tTupf/ozJSn96drZUK+NPK9ZolPa8onO/GlWw+4EBPbCuuZ44X53qCs4X0zXzI6FqtGJQhXyAuT4CLwJYGPxKwlCo1q7ljW58/bwEPVNMCxSWQd48ETRTB2zkKw0oz+nX2Md1rVwamu529wMIX2LkHQpUNFMTEoUOff7rPz1Zq4suUGgKBGbZ2Y6mLTU7sp+/sVUNK9+Ly3dSfn/PqNo4VcodtfhIjP4dtsJjgqH8waE6/URgjNfBsmnDDhbFPNK/vxNvzA+SstXzYiBtMTdtoeUuXzv9CPdeOAMAYk5oKGb2ReV8ZtTSbFhWwhBT1yXUsctudm/amcvVQhhxcZWjUS0Qe3BYT5x7AlRqc0t2+pZatqzQuufUIXOg4WXCKIQfEL4ckf/IDtHMx2kadbTwN91qRyTNFomMY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(508600001)(66946007)(5660300002)(4326008)(2616005)(53546011)(83380400001)(956004)(8936002)(66556008)(66476007)(8676002)(26005)(186003)(4001150100001)(2906002)(38100700002)(110136005)(16576012)(316002)(31686004)(6486002)(31696002)(36756003)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: ZAu3qF0xfR+H23jsLfaCu6XcG0wB/74YJZ/EHAhcs5w51v3q1uvd41CqYC50gAYzXR///H40CWxBBw2cUWBooJ79IRn2Wex8tVfMfXX25Wsbgb6ITjF21srPQu0e/CeUzKdMfDdvPg+YMYUZl5jaBkGP6cgpn+o0oHBmPj1PO1TUeaRgXVKlqjzX9zai02t3rrU0qF/bZah/b6RETfzeG60rqAmGwY57G+yrs6DhA/3w3Kfg7NYk72ssN/J10/xpdON/eMaffpmd9bwwMjU7jI/cV0mCGBsy/9sP31+jR9lUoGLyr4QNHcftvLF9oKwKWdGfEAP/UNOdwDafXK7djRdStSUsDW88fi9keC6tdfi4Az6gd8MfZkywLE9JzMPbAiCzCw2D3GHa8LkAzjY1A0tQPoHApVXRlvVfBPts9KBoTdDghsxO4Z/hhRFtQlymp7UXfh9CPpFLNVWOW/FT5dbd+SgFLKccY4PAtxkJUkdJVSWdrHVKlj5Iwv69FF/gD+KgGY/a9cHBEEkgt0CZxIu9glenbu1JeuYSxk8eE0TNp5xEemS3whBuy+y99cpDuoYKG3mhIz9ljizO4oWiJvEO8udXJYsS0TJEE4kz+RARYDzs7XrcaBwP9ZRQcqw3zLV+mOXQH87j+z1SVgbVt6t062+43ONIn+gkeUmdu6WRzp7tsniNkPqvZbW0iA+6lpHIzKWXYhEmOHgZA5YjOWMLoQzL/BrNUxAkTqdOAsc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(26005)(70206006)(2616005)(81166007)(8936002)(47076005)(70586007)(6666004)(7696005)(356005)(36756003)(4326008)(186003)(508600001)(2906002)(83380400001)(5660300002)(8676002)(54906003)(82310400004)(6916009)(336012)(426003)(86362001)(36860700001)(316002)(16526019)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emwyU3JSSU94QWIyRTc0eWliODVSbVM2aUpZbEN1YmkxTVFZMnhvRTc0UHNk?=
- =?utf-8?B?aEV6NlpnOG4vcG1SajJYWW1CaEhyaDN4a0U3dWFBSDFlZUF2ZVFvSnZKenpH?=
- =?utf-8?B?TzY1ek9qeUVpWHIzdGRmOVdhL2EvMjQwWCtOUW9pTVJ5dFNldWdIMERkT3Qw?=
- =?utf-8?B?TzhOQXVyNXJ2di9pcTBYZXFRbFZjaWdWUkltWGs4U3E3UE5sQXcwMXZocitJ?=
- =?utf-8?B?UVVEYzZabTdGcWZFM1dRWEh2Q2thRk1tZHdjM3hDME05V3p6eWxBcFBNbUlq?=
- =?utf-8?B?VVBYKzBubmFZT1V0dS90SGJsNnNXOCtjeDdTMy9PcTlwM2JleVhObDhzRkQ0?=
- =?utf-8?B?NThCT1ZGTjNQSzBNNjBSSFZCK0lnTnhCTHBnL1EzRXcwajN4R3JWa1RJUGln?=
- =?utf-8?B?cUF5MElaVnc5bXlnYTdVNDNIcjQwVkxlZGNBYkc0Y3BXL3UvQXlaTnhQczRq?=
- =?utf-8?B?ZFo0MXNyQStza1lKSW1qeVJtWU41akZ2TDNFYnVaQWI0eHROWFpoYS8wV3Rx?=
- =?utf-8?B?eVJGME1HQWJBT0ZjaktOSkhaMnNTLzkzZ1crSGpYU1JKbXhwZ3pyVUVQaFpt?=
- =?utf-8?B?cWgwbFh5VkdkYVRaMjR4cXUxSHZYOXYzYktTNzd5U1YxOWV6UUR5TGhhdllu?=
- =?utf-8?B?Vk1uZ0pvVHI4U3E5K0hBZjFKNllOaWZHR21KbEIzZ1Fqa0xxSTZIOVhFV3J3?=
- =?utf-8?B?QU5qRFJYYmdiZWlZRWE0NjVIS3J3WnhPYk0vcFowZzcyVjRqb0ViZlFLdmhu?=
- =?utf-8?B?RzdJU1c0ZGlObWZhZ1lNdVUvaUQ3M0lsY1pjRktpM21IUVV1M3d4V3lkWkRt?=
- =?utf-8?B?dUlkRkY3bWIrREN6TER2SGdOY2MyWlRQd1g5SDZTc3p0ZktxcTlHNU1xVkxl?=
- =?utf-8?B?NnNodFdTRDBRWGE5SlVXNnRUWm9IYjhFWU5uc25jQnErRDJaYVh4cnE5Y0Jy?=
- =?utf-8?B?MFB4NldrZ1pjMWJ4Y2lqTzBLc25adkFYWGVJS0FNdEdBeEtaUUFibk1SNzFw?=
- =?utf-8?B?Mi9OckJwcHZHZTJEVFNvdENPNWdVYzVmc0gxTDZMV1RwL25YM29YTVdrdUhV?=
- =?utf-8?B?RndMTTJsOFpDa2RpdGExY09uTmllYWFZWEtMOE8xNGRoVHl4ejQ0Ty81bndj?=
- =?utf-8?B?M2hPaisvQ3lxRCtvS0RnZUh5TUJ4NFp6WmJzeC9uY3djZXRnZnZFTlp5T0FX?=
- =?utf-8?B?UVNDa3FEcDFPNXJWanFVcnVqWTBsSlhQY3BUdzNuMW0xV1VzWnd3c3YyN1pF?=
- =?utf-8?B?QzdxZnRyYjcvWWZ3VHNNb000cG00M09DWEdldWYzc3k1SmJSR1dWQjVZbTdk?=
- =?utf-8?B?VVNZalFpV1pJRnAwYXlMUUIzVmI5aUtpVWFGMCtsbk9hMzh6YTVlU1RHUVFZ?=
- =?utf-8?B?OERISEpBOG4rbUVjOFd1dTZkbnVzc1JpcmhQK3FXcHk5RkpOdWtSUklFRG8x?=
- =?utf-8?B?VDd3aFFEZnFrQjVhUlRSaEZIa1JUd0F5ZXR6RDlXVTdDVFMrMFNRSHloTHpP?=
- =?utf-8?B?dGVSVUlNWElHY0VYUG0rencwTVJGQmJkMXl6a1k4a0VKeWM0V0Z5MVhMM2ll?=
- =?utf-8?B?WFYxQnJmMndwK2VZa2djT09sNERaVlp5LzZhSDgyTGRFZXd3djgzcC9yQVlZ?=
- =?utf-8?B?LzQxeGZsaXdVcGgrbmpJRWgxTXlwcEtpb3JOd3JYdGFYdk9PZHBJMWp2Vy9v?=
- =?utf-8?B?Y043QlU2Sks5a3lvWmhLZWg2VXg4MW1iV3hEMWplVHpnK252ME1OTWJpS2l5?=
- =?utf-8?B?WTlWKzJaQzdRNHM4U3NZb3lWV3NpbXB2OWMvVUVuaExEdFZYaG9Ud2puOFhX?=
- =?utf-8?B?RTh5a0duMHNPM1VmMXd6ZG11MC9UbjNwb3dPRE5BNS9EaVlMaWFFaUN1dlRF?=
- =?utf-8?B?ckpiUXVXZFdHeTRnQllXQ3FWNjBoQzFUSFBJdHJ1TGM5cURTSS9LY3V4ZEhQ?=
- =?utf-8?B?dU9YUVlsKzA1L2V4SlJHRHp3aGFpSVowSkluRHN1U3BSWmZrUE1JUGt2Z1Z4?=
- =?utf-8?B?UXZpL3ZKVUFMTXdUSlRxNXh3RjFRSkY5YTdleHNwbmtLSnU5Zkozbmg5ekht?=
- =?utf-8?B?N2pyUm52aUZlcmxMeWVmL3h2WjJTR1c1ZFdyM1h6R2pMNXdvKzg2SUdrQ2E4?=
- =?utf-8?Q?k+dQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18de3221-411f-408e-a200-08d9af9d0843
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 22:52:03.5979 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 22:58:40.6409 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7e43ced-9880-435e-8f28-08d9af9df51f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eBzzgH3y7N8I1hgfZ68hQtiZdfkh08ztRrP65ZKLpFXUv6P8A3q30yy7nmauBgb1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5071
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3154
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,90 +98,258 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com
+Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2021-11-24 10:33 a.m., Christian
-      König wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com">
-      <br>
-      <br>
-      Am 24.11.21 um 16:23 schrieb philip yang:
-      <br>
-      <blockquote type="cite">[SNIP]
-        <br>
-        <blockquote type="cite">
-          <blockquote type="cite">&nbsp; +/**
-            <br>
-            + * amdgpu_ih_process1 - interrupt handler work for IH ring1
-            <br>
-            + *
-            <br>
-            + * @adev: amdgpu_device pointer
-            <br>
-            + * @ih: ih ring to process
-            <br>
-            + *
-            <br>
-            + * Interrupt handler of IH ring1, walk the IH ring1.
-            <br>
-            + * Returns irq process return code.
-            <br>
-            + */
-            <br>
-            +int amdgpu_ih_process1(struct amdgpu_device *adev, struct
-            amdgpu_ih_ring *ih)
-            <br>
-          </blockquote>
-          <br>
-          I don't think we need this new function any more.
-          <br>
-          <br>
-          The check if the timestamp goes backwards can now be done
-          inside the page fault handler.
-          <br>
-        </blockquote>
-        Do you mean to merge this into the original ring0 interrupt
-        handler? Then we need add parameter (ih-&gt;overflow_enabled)
-        and process two different cases in ring0 interrupt handler, I
-        think that is not good to maintain later so I want to separate
-        them.
-        <br>
-      </blockquote>
-      <br>
-      What I mean is you don't need any different handling any more if
-      we use the timestamp anyway.
-      <br>
-      <br>
-      Just keep the last processed timestamp in the page fault code and
-      ignore faults when it starts to go backwards.
-      <br>
-      <br>
-      If IVs should be dropped or processed as much as possible is
-      depending on quite a bunch of things and should probably not be
-      handled in the IH code in general.
-      <br>
-    </blockquote>
-    <p>Use ih-&gt;processed_timestamp updated in decode_iv, for both
-      checkpoint process and page fault handler to drop stale fault.</p>
-    <p>interrupt handler don't need change.</p>
-    <p>Thanks,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com">
-      <br>
-      Regards,
-      <br>
-      Christian.
-      <br>
-    </blockquote>
-  </body>
-</html>
+IH ring1 is used to process GPU retry fault, overflow is enabled to
+drain retry fault because we want receive other interrupts while
+handling retry fault to recover range. There is no overflow flag set
+when wptr pass rptr. Use timestamp of rptr and wptr to handle overflow
+and drain retry fault.
+
+Add amdgpu_ih_function interface decode_iv_ts for different chips to get
+timestamp from IV entry with different iv size and timestamp offset.
+amdgpu_ih_decode_iv_ts_helper is used for vega10, vega20, navi10.
+
+Drain retry fault is done if processed_timestamp is equal to or larger
+than checkpoint timestamp. Page fault handler skips retry fault entry if
+entry timestamp goes backward.
+
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 58 +++++++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h | 16 ++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |  5 +++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |  5 +++
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c   |  2 +-
+ 8 files changed, 56 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+index 0c7963dfacad..3e043acaab82 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+@@ -164,52 +164,32 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+ 	}
+ }
+ 
+-/* Waiter helper that checks current rptr matches or passes checkpoint wptr */
+-static bool amdgpu_ih_has_checkpoint_processed(struct amdgpu_device *adev,
+-					struct amdgpu_ih_ring *ih,
+-					uint32_t checkpoint_wptr,
+-					uint32_t *prev_rptr)
+-{
+-	uint32_t cur_rptr = ih->rptr | (*prev_rptr & ~ih->ptr_mask);
+-
+-	/* rptr has wrapped. */
+-	if (cur_rptr < *prev_rptr)
+-		cur_rptr += ih->ptr_mask + 1;
+-	*prev_rptr = cur_rptr;
+-
+-	/* check ring is empty to workaround missing wptr overflow flag */
+-	return cur_rptr >= checkpoint_wptr ||
+-	       (cur_rptr & ih->ptr_mask) == amdgpu_ih_get_wptr(adev, ih);
+-}
+-
+ /**
+- * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
++ * amdgpu_ih_wait_on_checkpoint_process_ts - wait to process IVs up to checkpoint
+  *
+  * @adev: amdgpu_device pointer
+  * @ih: ih ring to process
+  *
+  * Used to ensure ring has processed IVs up to the checkpoint write pointer.
+  */
+-int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
++int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
+ 					struct amdgpu_ih_ring *ih)
+ {
+-	uint32_t checkpoint_wptr, rptr;
++	uint32_t checkpoint_wptr;
++	uint64_t checkpoint_ts;
++	long timeout = HZ;
+ 
+ 	if (!ih->enabled || adev->shutdown)
+ 		return -ENODEV;
+ 
+ 	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
+-	/* Order wptr with rptr. */
++	/* Order wptr with ring data. */
+ 	rmb();
+-	rptr = READ_ONCE(ih->rptr);
+-
+-	/* wptr has wrapped. */
+-	if (rptr > checkpoint_wptr)
+-		checkpoint_wptr += ih->ptr_mask + 1;
++	checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
+ 
+-	return wait_event_interruptible(ih->wait_process,
+-				amdgpu_ih_has_checkpoint_processed(adev, ih,
+-						checkpoint_wptr, &rptr));
++	return wait_event_interruptible_timeout(ih->wait_process,
++		    !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts),
++		    timeout);
+ }
+ 
+ /**
+@@ -298,4 +278,22 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+ 
+ 	/* wptr/rptr are in bytes! */
+ 	ih->rptr += 32;
++	if (ih == &adev->irq.ih1 &&
++	    amdgpu_ih_ts_after(ih->processed_timestamp, entry->timestamp))
++		ih->processed_timestamp = entry->timestamp;
++}
++
++uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
++				       signed int offset)
++{
++	uint32_t iv_size = 32;
++	uint32_t dw1, dw2;
++	uint32_t index;
++
++	rptr += iv_size * offset;
++	index = (rptr & ih->ptr_mask) >> 2;
++
++	dw1 = le32_to_cpu(ih->ring[index + 1]);
++	dw2 = le32_to_cpu(ih->ring[index + 2]);
++	return dw1 | ((u64)(dw2 & 0xffff) << 32);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+index 0649b59830a5..dd1c2eded6b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+@@ -68,20 +68,30 @@ struct amdgpu_ih_ring {
+ 
+ 	/* For waiting on IH processing at checkpoint. */
+ 	wait_queue_head_t wait_process;
++	uint64_t		processed_timestamp;
+ };
+ 
++/* return true if time stamp t2 is after t1 with 48bit wrap around */
++#define amdgpu_ih_ts_after(t1, t2) \
++		(((int64_t)((t2) << 16) - (int64_t)((t1) << 16)) > 0LL)
++
+ /* provided by the ih block */
+ struct amdgpu_ih_funcs {
+ 	/* ring read/write ptr handling, called from interrupt context */
+ 	u32 (*get_wptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ 	void (*decode_iv)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+ 			  struct amdgpu_iv_entry *entry);
++	uint64_t (*decode_iv_ts)(struct amdgpu_ih_ring *ih, u32 rptr,
++				 signed int offset);
+ 	void (*set_rptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ };
+ 
+ #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
+ #define amdgpu_ih_decode_iv(adev, iv) \
+ 	(adev)->irq.ih_funcs->decode_iv((adev), (ih), (iv))
++#define amdgpu_ih_decode_iv_ts(adev, ih, rptr, offset) \
++	(WARN_ON_ONCE(!(adev)->irq.ih_funcs->decode_iv_ts) ? 0 : \
++	(adev)->irq.ih_funcs->decode_iv_ts((ih), (rptr), (offset)))
+ #define amdgpu_ih_set_rptr(adev, ih) (adev)->irq.ih_funcs->set_rptr((adev), (ih))
+ 
+ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+@@ -89,10 +99,12 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+ 			  unsigned int num_dw);
+-int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
+-					struct amdgpu_ih_ring *ih);
++int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
++					    struct amdgpu_ih_ring *ih);
+ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+ 				struct amdgpu_ih_ring *ih,
+ 				struct amdgpu_iv_entry *entry);
++uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
++				       signed int offset);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 3ec5ff5a6dbe..b129898db433 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -119,6 +119,11 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+ 			return 1;
+ 		}
+ 
++		/* Stale retry fault if timestamp goes backward */
++		if (entry->ih == &adev->irq.ih1 &&
++		    amdgpu_ih_ts_after(entry->timestamp, entry->ih->processed_timestamp))
++			return 1;
++
+ 		/* Try to handle the recoverable page faults by filling page
+ 		 * tables
+ 		 */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index cb82404df534..c0d9b254bbb5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -535,6 +535,11 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 			return 1;
+ 		}
+ 
++		/* Stale retry fault if timestamp goes backward */
++		if (entry->ih == &adev->irq.ih1 &&
++		    amdgpu_ih_ts_after(entry->timestamp, entry->ih->processed_timestamp))
++			return 1;
++
+ 		/* Try to handle the recoverable page faults by filling page
+ 		 * tables
+ 		 */
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index 38241cf0e1f1..8ce5b8ca1fd7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -716,6 +716,7 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs = {
+ static const struct amdgpu_ih_funcs navi10_ih_funcs = {
+ 	.get_wptr = navi10_ih_get_wptr,
+ 	.decode_iv = amdgpu_ih_decode_iv_helper,
++	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+ 	.set_rptr = navi10_ih_set_rptr
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index a9ca6988009e..3070466f54e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -640,6 +640,7 @@ const struct amd_ip_funcs vega10_ih_ip_funcs = {
+ static const struct amdgpu_ih_funcs vega10_ih_funcs = {
+ 	.get_wptr = vega10_ih_get_wptr,
+ 	.decode_iv = amdgpu_ih_decode_iv_helper,
++	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+ 	.set_rptr = vega10_ih_set_rptr
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index f51dfc38ac65..3b4eb8285943 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -688,6 +688,7 @@ const struct amd_ip_funcs vega20_ih_ip_funcs = {
+ static const struct amdgpu_ih_funcs vega20_ih_funcs = {
+ 	.get_wptr = vega20_ih_get_wptr,
+ 	.decode_iv = amdgpu_ih_decode_iv_helper,
++	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+ 	.set_rptr = vega20_ih_set_rptr
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 10868d5b549f..663489ae56d7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1974,7 +1974,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
+ 
+ 		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
+ 
+-		amdgpu_ih_wait_on_checkpoint_process(pdd->dev->adev,
++		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
+ 						     &pdd->dev->adev->irq.ih1);
+ 		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
+ 	}
+-- 
+2.17.1
+
