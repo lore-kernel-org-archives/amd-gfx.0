@@ -4,120 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA865C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 14:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C13C7C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 14:46:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8E26E1B4;
-	Wed, 24 Nov 2021 14:26:58 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E99436E1B4
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 14:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53EE76EA4A;
+	Wed, 24 Nov 2021 14:46:32 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E66C6EA4B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 14:46:31 +0000 (UTC)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1AOEDHP3026940; 
+ Wed, 24 Nov 2021 14:46:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=r2FlJ8OET1K7TGTcPmuznHcg5hEE1hT3I28qU1MFD3k=;
+ b=q580k0pv6WgU91kf8ft+oQXZUWD8yyAEHD7qmlwYy97Sgvx7lnHnBE93Aligv46npzG1
+ 1Dzc9oT3r+Xnm/PJVtF1EWySSAs2jIqnPkv0Lzwd9y5xefPdxA0QOEb0hmXtUEGH+9aS
+ n0kylZ0ncZNWQ3xq3eAkbRxskplOiRFTwN7XcjiZtfQIac0/QxLhnC62+1CwQOPU6u17
+ MBqxgGamf+ZZSrHIC/dixPJOd552ZF0zANNH+ZoWXxZ1w5z0v94wV2jUG4t0hRAyJjBA
+ ju+pOLU5Ck9ExMRxa+gW+K/lcXHLFgokBvOacCoRr8y8FO1CXg6mn+cvk99tyPoG1C6n Qw== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3chk001hy9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Nov 2021 14:46:27 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1AOEj7nH158809;
+ Wed, 24 Nov 2021 14:46:26 GMT
+Received: from nam12-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12lp2171.outbound.protection.outlook.com [104.47.55.171])
+ by userp3030.oracle.com with ESMTP id 3cep51qpem-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Nov 2021 14:46:26 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GOGD5ke+NgMdVeAmuJgQppxKsNZw2UbETKk8RpQCCImZBTn96jc/Fk2NxTvzaOt48uJ9usnj/qMbtGUL0/seqbjGhpW+whNu8pYBzU5jdODH6zy5ArpQQIxmD+uOH3vwcbiwzmU54QImfHieW9OMNWFoQYWl8aFUxr2LQ+3S4byY0NGW3aRfX+VQGThSYkiPSeiQF2gVbPz+rf26o1q81ucQO74/HO6k4v8IJhJIfYIry2QlWEGvs4HrqHWW/pYaHGCiPna+RuvYuz/zeG1sK7fcWLStAIUlGgCeXsUhLw3MrAJbPPA4mrE2LK7QsUGP7miIxB+YiHwMolhu+onuUg==
+ b=cqoCthi0kn3luBzbYq88poozGFgdc5YYHUc5cwABck3hVFU1FqPd4vk4EUq4zNQMh02BrqQQtpwXkQ4qaqliKnKcMlW1yGluCaXyY7CrX+68VkOywaY6r40XV2TAUR2eddBghzDc51VEBEBLdrT0EtKZm7C7zGoNtG9JcLRzBs+m6Si4oyE0lJD9NTiNi8PtPd1RDXE8sRwshkEmRshKOWAARKOiFN7W2RecwadIwiLW4a9GmxWSTr1D+v3uPb++cckX4WDj6Nec1N9GdI8WAgX454XFGfYqOuIq9rLS4MNbitWT3rlGAnuPWhLfMD/hzKETj/Wa/Ghjk1oeOhQ02g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4j3lXdJ8swOFruZANlrPDtE3AowlqniaiwpU8WEFrbI=;
- b=lo9r3WRJfQD7/9G3Skuqndo337l19+dsiAk9ipYm/i+tFqAvMVhrA11JhCMrGwl0qRm0sNpKDWXYzoUMoHx/cuzVqFQEC28Jl0z4YK07cZYk2v1BtkUBwGHaPPt5LJrDLa+KeyiVpOpJlhjP+DafKKs8TeAMZCW+RTZjTP0b6bZqIES32cUJzEjuCGb8GGgmFTGG65/+zORlN64oP1W1dqjTNuZMnggEA57tInDubfnfnMgaR3eTclDdS6mnsD2DC7Cus1ObL/IcIgd4ZH0KqpW37VkPQBxMEPTJCDryaYc17LpCBwmdN9INYO23nd6+MOMZlaYssUjSxjhXmvEpiA==
+ bh=r2FlJ8OET1K7TGTcPmuznHcg5hEE1hT3I28qU1MFD3k=;
+ b=VQHg9ZDfufptfFbWi8hcNclXZycKkU1cg+JwcVIVWXB/IElwADVGgH6Kv1erc0qMPOk34dzilOPdagTX549/dSIouU8ZxDtzzZK+wTY/Vue6VbB/NxIHKDbzLVaxgu6Hr1V7RBkInkFH3Ui7oLwgwHzl9MAvUiZ0LqTH6QdznuPfPaoKpTiuBELb6P+w7E+Toe2aiaLL3MW5UPItXl/GZOawISzYeV/bT/K8SFxS2GU7hWh1MN9S7HDGufMKL2Kzbt4lgA6jNIh891oQLWhC3Va3WdySmfXWOiOD4U4kmVh1v8CM7QlQGyxQmaETnFRtWKenLwg+pzAUjVgYrzkVrA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4j3lXdJ8swOFruZANlrPDtE3AowlqniaiwpU8WEFrbI=;
- b=H+fY8h59ypGx14CRJ2dEXzM4TtJJWbcA6ylBhjx+n1dfd4xiBwdrzhkcrj86pqHCD/8bReGkmvtOQnAv5qyB569YViGDGnZ9i/HLzQ7ouUzjdJgyIPFFPXZy5g98CTe2+1PolrA/rYNLWk/B7EHm6AzUI2doEHIT3EFogu0ZsL4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5061.namprd12.prod.outlook.com (2603:10b6:208:310::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Wed, 24 Nov
- 2021 14:26:55 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830%9]) with mapi id 15.20.4734.022; Wed, 24 Nov 2021
- 14:26:55 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Cui, Flora" <Flora.Cui@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: check atomic flag to differeniate with
- legacy path
-Thread-Topic: [PATCH 3/3] drm/amdgpu: check atomic flag to differeniate with
- legacy path
-Thread-Index: AQHX4N0MchiPDwNg0key0IBV7LjtvqwSvNgm
-Date: Wed, 24 Nov 2021 14:26:55 +0000
-Message-ID: <BL1PR12MB514456B0696209DF06C60768F7619@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20211124024302.1493100-1-flora.cui@amd.com>
- <20211124024302.1493100-3-flora.cui@amd.com>
-In-Reply-To: <20211124024302.1493100-3-flora.cui@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-11-24T14:26:54.526Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: c7b89958-b49f-aa20-c66a-e323a5d85e6e
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 68f391fa-c5fe-4f67-5dc0-08d9af567731
-x-ms-traffictypediagnostic: BL1PR12MB5061:
-x-microsoft-antispam-prvs: <BL1PR12MB50611651E36ECD3A5D5273F6F7619@BL1PR12MB5061.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:510;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CKwearYW82v9xDZVydvjPa5ko5T++oRI2TRYEFJHsH8j8Dkt3Af14EHYKwlQTbx5/QGTu2YPhDu/UBfBxFVeFgJ0qgkN2hUlspRfYYS5SHvEvRCiCL09dQK4wDgBjD4KGU3GOYVLvNPgi9+lDi4KLQwTHYXStFNdj0DQwOhOJ14Aj84OVrOQLSc85UoD/PF7awZM7bV8UdF8a/cM21bexGuLGGR+EKG5cDipKSXTqz1mK8fTbAo3Sl8hIS01Sissh6NQYPW8cWeoAY37KuzCcAzl1AmUYdyAHcxLKsZIj6EkmoiV3MKt3AAl9D1xZdaWKKmIDsG4+WLysHudgKTp7blTb+M+tZD0eE8kUjJ86T3cL8NEy4hjBHceGp5za+96MDPXD9gTuHKPVrPK5c3aVzvG5yiXOjMYlh0CjZm5mvlSH5d8gFPskE3x79yVajorVCldQ6Pjah4/LkdL+NTkQ0IOmR3jvcCUwdhWvBoO/c+G1nmMWZYR2FUUWF4ZvbvPa8Bvx/CkoYjd7/ImMsmU7QJjNYKU9oAFzQ6qjG3dqkkAc/WyreH9YjO4HbAfeKb/5q+Nr/IL8kcH6Guijg2k3EhlLfzipch0IQghxySUYTzEzDoRGV5LLFREv/ERav8CU8ylC6/FxGZ4pyswMSDWo9pwv6u1s2b0LJlP7+1CtqLDd3AtXehVmCmUd7v4DyBxpZ3A/d1kEem7s0+/WHGmZg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(53546011)(2906002)(86362001)(6506007)(186003)(38100700002)(122000001)(64756008)(66946007)(66556008)(55016003)(19627405001)(7696005)(8676002)(66446008)(38070700005)(316002)(66476007)(76116006)(9686003)(52536014)(110136005)(71200400001)(8936002)(4326008)(26005)(5660300002)(508600001)(33656002)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iXFcSbex7bGprWcwdxzdtejD5mhUvLW+O0x0bjxU5imH3ioxjmXTyXlOGfu1?=
- =?us-ascii?Q?jUJXU0lu82c7Tjg2unjzR9ifeDw+hDOz9Cgto3tvuZWg/038EVColbpi3haq?=
- =?us-ascii?Q?v1Iv+eJrDbYCN3iZvVKlzH/REvG/v00z81T1Fz37Lfx65rHZEDdqivYrHyLI?=
- =?us-ascii?Q?iXL3BrNIG9JMljlpwmmWysWXlpFvtb2J6wi5Cy+PpiSsiqFEO2CzqDoiHrtF?=
- =?us-ascii?Q?qg9b3Qr/T9N/3yoWTmJnE7vjDRvQt4qLh4cNRDStAhO+6N3WWqiPsOqtYd1f?=
- =?us-ascii?Q?AlgR41oWNzYiEpSxqkXJuNDszWK29l2hd/sT6FpLb/F8e2+IpYYexCewCwDR?=
- =?us-ascii?Q?dn7A8F3NBdxIORRNpy6Bj9CikemvC14B0A/3oRGY9iMT3wxCGSN6oQ7ctxpY?=
- =?us-ascii?Q?rvnStuX6q5Zg3+yC1Dw2AxRMiegJu9EX9kHUbZWfqOxvs9usw1iHjKiIewi8?=
- =?us-ascii?Q?EE3AraHYvHTpdyxU+RqHh3T3fCtHxrjk7Bil7iZBNFo7kulePMx3W2E34IBp?=
- =?us-ascii?Q?Hlss1FiHjr9/EbGFAaj/3mjNIETNfvve8Hj+PwYxwkmnVZH/D0/B/AnR4Wsk?=
- =?us-ascii?Q?0ItwgrkzjqNqKDtvPP3ENA26pLQoyPyMjXPm8JGNMe4d07/rjAq6+LhM84lY?=
- =?us-ascii?Q?FZIsD4KjBaQ+bjEVxLmbfwPMcdoJlR6+PHl4TiM6f2962AD7jPnbo4Th7eyT?=
- =?us-ascii?Q?jfWULgDPDhLkvNTmvyOYKmCdUs+LJSGlqI3Xq4YRaKUuo2AB+DukfALRPQ7C?=
- =?us-ascii?Q?idfqDGRTWnVXQVXJBfok+2K/hfNwTdy/Px5a5GqPciO9mIPwaPIAKiRQtkov?=
- =?us-ascii?Q?j+dXEmx0PlLwDjHD6lz/4MBAY3Ng8rUY4d1ZEhJJZR6arPfCdyhxMhxm2Uwe?=
- =?us-ascii?Q?9Aj99Lz4nVW9CHNmP4Zz0QvU5ljom+894hHPMb5WVT1ZYgj35FDcp7MhI1nC?=
- =?us-ascii?Q?ObpfgMgLmyv1lHrhdfqQpqLKDyQKJqPxtY+apmD7GiKRayEDUF8IxWfoHB50?=
- =?us-ascii?Q?VkcTjCX5xSRE+77VbO0lyp5Bo1h9HtwnkrXQ23AzTlxdq/wjFG/0cZ+FzBfG?=
- =?us-ascii?Q?s7NcUJ10bpqb/P8DVZYrK3/4KUPW+RvVyb7j+H1aqjCWjLpZpYT8rgAz4tho?=
- =?us-ascii?Q?kl+wrVTzIV7+000i66pfdo/6JEirvbWMKxTseurvmXDpGbbEhJAYz7mDo/nJ?=
- =?us-ascii?Q?+8mXwYYt0lteK1QzPD/VlprB3nRRf2ToiDzer89VyxAbTslsohf50quH/IDf?=
- =?us-ascii?Q?2MRwEPbafjJbaRIyODwejYB0EsHlf1vItgGV/VoL1DVx3G41T5oanJKperYR?=
- =?us-ascii?Q?cur7SVBD/7mGkWnCURCuUUSM7lRIeuyZEpY0+ucck4S1Q7R/n3fxz4bJ8NlR?=
- =?us-ascii?Q?pOj1OWr+fG9fcXYKBY42jjBxh4964tx6NVO6uemXmW5xWmAW2ZSdIFVAlQnr?=
- =?us-ascii?Q?WpZwa7fOnVCyG9cSeKe9dSNPk13ntfVTtJtsVAaaFlymbHfdCLT7NX1my/Jj?=
- =?us-ascii?Q?3ySSkwaIET/1p17oL9fKwzFODoiWcM/aiDu5bLn7RyMwOJP8bQCU2srYvjKv?=
- =?us-ascii?Q?JkQ1pfzpfVsI7AyOrqQdi97UDsjVdPXnTASy5uYG/yasll3JI8KVN1Iu5bHr?=
- =?us-ascii?Q?vt2WoY+4NnWQyJEZBTWwpCU=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514456B0696209DF06C60768F7619BL1PR12MB5144namp_"
+ bh=r2FlJ8OET1K7TGTcPmuznHcg5hEE1hT3I28qU1MFD3k=;
+ b=CbowO0yA/eOnAkZ9aO4Rhq/7ys/7TPYcaKlil49zU16Qt4NEkfAnuofQK5qCbxtksNBSRe5zKQR6ahW0q3eLACvfWPHDYI/LWNs4Bo4D3m53O8OImJktbEndwKNkekFcpUcSaiv4c8dt6G3jXOiDu4oMa7BTP8J2jPrbcu9mtoE=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by CO1PR10MB4484.namprd10.prod.outlook.com
+ (2603:10b6:303:90::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20; Wed, 24 Nov
+ 2021 14:46:10 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::7194:c377:36cc:d9f0]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::7194:c377:36cc:d9f0%6]) with mapi id 15.20.4734.022; Wed, 24 Nov 2021
+ 14:46:10 +0000
+Date: Wed, 24 Nov 2021 17:46:01 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: yang.lee@linux.alibaba.com
+Subject: [bug report] drm/amd/display: check top_pipe_to_program pointer
+Message-ID: <20211124144601.GA13237@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: FR2P281CA0011.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::21) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+Received: from kili (102.222.70.114) by FR2P281CA0011.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.10 via Frontend
+ Transport; Wed, 24 Nov 2021 14:46:08 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 87f5ca6c-1dbb-4d19-bc36-08d9af592790
+X-MS-TrafficTypeDiagnostic: CO1PR10MB4484:
+X-Microsoft-Antispam-PRVS: <CO1PR10MB448432F380CB41E1A01E0B4F8E619@CO1PR10MB4484.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tJErLt7hux+cIdKUQZmKc1Hpp8JxL4zX7kMpfz293Mx3mG9JYMynTuvsFSI9Hp3d4RNQ9+7fI9zZ84c4GzSKwRlRF20VuZfVeNgu393oohxukCI6+eHtTsPmjFTZ+qwQm3TC4O6B5RnYTIf/mVLgsdyjYJwnVD1v4pqQzysgM0i1Ad1LAdQwPc63/MIwGvDWjBOxuBW9zOVqaTJSnGeOQEGbf99nbiSlInjeVUmLdWC5sILF8owH3iuQvtUPOMtnhu2tKYoMMqAuKSMUx6X5Fjx/9os88MFzzKC4AseOaIJpH8KZj5KtwZ55b8/arqRFcl7Jan2TMWtp3f0IlWgmp55D/hSwjOy8S1yt/KPWapr9vrSMHlRsTnDUPUyJ7CYMykAVOB4IIg3jEqMHgTZs+zOWQUXkZ1xmm6gUispflZWT79Ct9MsRBmeTk1mtLh2VUqB8iGYjEh9D5gUi347Fs4Qeu1/ENNV0HM3gOLm/WjFIzLe0OuLpC2r75M5gCs7pEqrIGZp57X6eaYWhxZyeq0/b6YiSiG7mAt7RNRcgkVHg3ET5tHJybO5P9Bl/g7ijRPJgUNwQEtiX1Oyji6RTitTdWA7zoql+Dt4SDQt7mc4ajeorYCA6gB6j3lUEbIoK8lHTgmy9kAFjOOsGELFZeBYc6znCqv6qdoJr8gZQNc9Kep8hFJ4cxbs79YaY3LNZCeIicvWwMVkwr04Wben02A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(38350700002)(8676002)(316002)(956004)(38100700002)(52116002)(33656002)(4326008)(55016003)(66946007)(83380400001)(66476007)(6496006)(66556008)(5660300002)(186003)(508600001)(6916009)(8936002)(9576002)(44832011)(2906002)(9686003)(6666004)(30864003)(33716001)(26005)(86362001)(1076003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ujxkBW98SMl+m62SE+qRsfgvWz5CSQYiCClIUQgY+cAZghu7mSYynNuC2GrA?=
+ =?us-ascii?Q?vTgJt9hliYYOe364KUjwAPptIglN+SkcGhgtaKRTlQb7gl57UIEf0D64unaN?=
+ =?us-ascii?Q?nU3f7d5+LANxUL1Lliuob5YrLTWEfBssEZrAsIix6rYyMdH5f6spnYGhYTPu?=
+ =?us-ascii?Q?5nIRWcGjjbaRlvY6UQUqsTxnLH58QbbRU1dcJjyiXChg8riqIGcbjzx7Jupk?=
+ =?us-ascii?Q?Spy6sx/MCk5WJEoQikQowrPAa8GJDull0arqqwF9TFl89I1KG4wt2/va50+u?=
+ =?us-ascii?Q?1hWdNMML1yv7fHnXvCByr7grI0nSYFMDrQRsKdqKwvY9bFa8tHDJxMmUzfPX?=
+ =?us-ascii?Q?Bfpaf+dI5MQMBhimbW+fT6Wf/PMQFoR1TgLS/pbU9P2eEC2HZJvcxeSAVXuN?=
+ =?us-ascii?Q?Gv1n2aWOot6H6w5EJtB4DmdcOkRP/AbfZ0m1EAUY0qhTxT15RtbpL7M4QV7Z?=
+ =?us-ascii?Q?qyvv6lHlkaLdsziaoQM6It+Os2yWt8qCstMMtLeaL3+6vYzENCqbdkirfKeD?=
+ =?us-ascii?Q?CSSCi1CpWgHttdk0AbjK6auJJUCwzTEqKWm0KXEI0QmfrypxTy34uNdZND+N?=
+ =?us-ascii?Q?BAWZOXWFwpe2bgVKUHhUaMAeYUkwc7w7WXCDXHraVcKNpwLl+8CrIb7JPM61?=
+ =?us-ascii?Q?O2fFlwIT5RCuEEI83kp4bddCPp97pDsgS3Zww/r3a2Q9PDnKB08+UFwKlDth?=
+ =?us-ascii?Q?aGCezVVr4X/RIINktmbs+p8DQ3ldBjDiXz1sxI4cJFp3e/RI9xmxNkVkTM1l?=
+ =?us-ascii?Q?K5u2ze1bSHKgsPOcgZcmRsSr7jTEZx1gaEORGGpijeTy0BcHSFkX1IdJRpxd?=
+ =?us-ascii?Q?ChyG1J/os5SVSreFoVkJH0TdwzB3SLBmfF9kPyIDoOKtOgJ+MP3+Fs46Z/aC?=
+ =?us-ascii?Q?AobYaj9DEH+A+T0Ouun12mVPwg5N0bR7x2pKZiBoO2r7imqOjsLxd7LfSec+?=
+ =?us-ascii?Q?5Y6+num9GQyfOXDbgyiVFEz0viti5qHBwJKFTRKvyzBh08O/10hbxvH4BXUb?=
+ =?us-ascii?Q?ZfhFrx3udwGteQRBtxCK/ORakW6JZkkNL2HkBqKJcnq0kwwZfM2mN0iludY9?=
+ =?us-ascii?Q?kGZGGInFvqjJT/blH84ccC1TlaZhbzGZkPIG5e+TUCGViSXTFP3GoH5YQam8?=
+ =?us-ascii?Q?q8T288GL6QTWLMGqmMYbomChsxyFr1GuEwrVCZScbdJy1mMSIbr6uz5xd63Y?=
+ =?us-ascii?Q?JxHeDK5ZmrmNBYe/VuICprodCCsVRXiqGXhqJW8sJFHUNJhPlMJ4QH3p2ipw?=
+ =?us-ascii?Q?CWsQ9eAB2cS5pfexpTKtnaCy0Nosl2HWCWzg/DpaVuWznahLgwsr2wywcCPH?=
+ =?us-ascii?Q?nJXpfyvYyeb47W1AO3sM7KnV/o8tRXBG3fsTTYpJxHHpoqkD0eaQvogi9TJh?=
+ =?us-ascii?Q?c6i+dYQrAhQh2lxcKGz9rT+A+QNrpf0YhSbpjd6udQ6G9QOOedtNZlvwu8Jg?=
+ =?us-ascii?Q?Vt5cKHaC/KJKjVu6fuosMdyN9Ql+GwSv/YzuQT1vjH2BbBJhtXq/igQxA2aF?=
+ =?us-ascii?Q?FaZ1+OzSUl7Q/XROmbyZAoatDJUrFO2xK5dzJp1Xc52Cu2rX2k2+XRXXtZRF?=
+ =?us-ascii?Q?UzcGHQpOFUka1+fnqnUx3dCHcm5x8VDiiEgWVDKgauPXAFtuvbnk1IRsZINw?=
+ =?us-ascii?Q?7Dj+fjvKEyyTYvlqalCzmE8RPzubSctkogBPOp/zP+VodlUzXdYDVzwNSr8D?=
+ =?us-ascii?Q?jQlMqcQi0v6fCE5S5H4gpIDBTko=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87f5ca6c-1dbb-4d19-bc36-08d9af592790
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68f391fa-c5fe-4f67-5dc0-08d9af567731
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2021 14:26:55.0541 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eu7YbmuKbE5Uy1K1gJCZLTSrYJxyUg1D8G8DxjDcp6aHmnCA5MKC/20GQSVy77iIEts+TpdFFL3WVhUHC9qx0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5061
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 14:46:10.3380 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6wfZ6csPot+ooNnCRwALqQYBBljCK43tiuLoxIvLJNgDUmVTrFpySoALkddSL3WPpFveTi2IBVPX39EYFF3AhNEdi9gVw29khiyFPrO8C94=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4484
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10178
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ phishscore=0 malwarescore=0
+ mlxlogscore=999 bulkscore=0 mlxscore=0 suspectscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
+ definitions=main-2111240082
+X-Proofpoint-ORIG-GUID: SIhv8LyzUWSuTCz8uindOnSp40R8C6zJ
+X-Proofpoint-GUID: SIhv8LyzUWSuTCz8uindOnSp40R8C6zJ
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,172 +150,292 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <aleander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514456B0696209DF06C60768F7619BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hello Yang Li,
 
-[AMD Official Use Only]
+This is a semi-automatic email about new static checker warnings.
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Cui, Flora <Flora.Cui@amd.com>
-Sent: Tuesday, November 23, 2021 9:43 PM
-To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Cui, Flora <Flora.Cui@amd.com>; Alex Deucher <aleander.deucher@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: check atomic flag to differeniate with leg=
-acy path
+The patch a689e8d1f800: "drm/amd/display: check top_pipe_to_program 
+pointer" from Nov 15, 2021, leads to the following Smatch complaint:
 
-since vkms support atomic KMS interface
+    drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:3064 commit_planes_for_stream()
+    error: we previously assumed 'top_pipe_to_program' could be null (see line 2887)
 
-Signed-off-by: Flora Cui <flora.cui@amd.com>
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
-Acked-by: Alex Deucher <aleander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c
+  2822  static void commit_planes_for_stream(struct dc *dc,
+  2823                  struct dc_surface_update *srf_updates,
+  2824                  int surface_count,
+  2825                  struct dc_stream_state *stream,
+  2826                  struct dc_stream_update *stream_update,
+  2827                  enum surface_update_type update_type,
+  2828                  struct dc_state *context)
+  2829  {
+  2830          int i, j;
+  2831          struct pipe_ctx *top_pipe_to_program = NULL;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 7d4115d52523..8e9e50aa4a95 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3830,7 +3830,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev=
-)
-         /* disable all interrupts */
-         amdgpu_irq_disable_all(adev);
-         if (adev->mode_info.mode_config_initialized){
--               if (!amdgpu_device_has_dc_support(adev))
-+               if (!drm_drv_uses_atomic_modeset(adev_to_drm(adev)))
-                         drm_helper_force_disable_all(adev_to_drm(adev));
-                 else
-                         drm_atomic_helper_shutdown(adev_to_drm(adev));
-@@ -5124,7 +5124,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *a=
-dev,
-                         drm_sched_start(&ring->sched, !tmp_adev->asic_rese=
-t_res);
-                 }
+Set to NULL here
 
--               if (!amdgpu_device_has_dc_support(tmp_adev) && !job_signale=
-d) {
-+               if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && =
-!job_signaled) {
-                         drm_helper_resume_force_mode(adev_to_drm(tmp_adev)=
-);
-                 }
+  2832          bool should_lock_all_pipes = (update_type != UPDATE_TYPE_FAST);
+  2833  
+  2834  #if defined(CONFIG_DRM_AMD_DC_DCN)
+  2835          dc_z10_restore(dc);
+  2836  #endif
+  2837  
+  2838          if (get_seamless_boot_stream_count(context) > 0 && surface_count > 0) {
+  2839                  /* Optimize seamless boot flag keeps clocks and watermarks high until
+  2840                   * first flip. After first flip, optimization is required to lower
+  2841                   * bandwidth. Important to note that it is expected UEFI will
+  2842                   * only light up a single display on POST, therefore we only expect
+  2843                   * one stream with seamless boot flag set.
+  2844                   */
+  2845                  if (stream->apply_seamless_boot_optimization) {
+  2846                          stream->apply_seamless_boot_optimization = false;
+  2847  
+  2848                          if (get_seamless_boot_stream_count(context) == 0)
+  2849                                  dc->optimized_required = true;
+  2850                  }
+  2851          }
+  2852  
+  2853          if (update_type == UPDATE_TYPE_FULL) {
+  2854  #if defined(CONFIG_DRM_AMD_DC_DCN)
+  2855                  dc_allow_idle_optimizations(dc, false);
+  2856  
+  2857  #endif
+  2858                  if (get_seamless_boot_stream_count(context) == 0)
+  2859                          dc->hwss.prepare_bandwidth(dc, context);
+  2860  
+  2861                  context_clock_trace(dc, context);
+  2862          }
+  2863  
+  2864          for (j = 0; j < dc->res_pool->pipe_count; j++) {
+  2865                  struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
+  2866  
+  2867                  if (!pipe_ctx->top_pipe &&
+  2868                          !pipe_ctx->prev_odm_pipe &&
+  2869                          pipe_ctx->stream &&
+  2870                          pipe_ctx->stream == stream) {
+  2871                          top_pipe_to_program = pipe_ctx;
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Set to non-NULL here.
 
---
-2.25.1
+  2872                  }
+  2873          }
+  2874  
+  2875  #ifdef CONFIG_DRM_AMD_DC_DCN
+  2876          if (stream->test_pattern.type != DP_TEST_PATTERN_VIDEO_MODE) {
+  2877                  struct pipe_ctx *mpcc_pipe;
+  2878                  struct pipe_ctx *odm_pipe;
+  2879  
+  2880                  for (mpcc_pipe = top_pipe_to_program; mpcc_pipe; mpcc_pipe = mpcc_pipe->bottom_pipe)
+  2881                          for (odm_pipe = mpcc_pipe; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe)
+  2882                                  odm_pipe->ttu_regs.min_ttu_vblank = MAX_TTU;
+  2883          }
+  2884  #endif
+  2885  
+  2886		if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
+  2887			if (top_pipe_to_program &&
+                            ^^^^^^^^^^^^^^^^^^^
+The patch adds a new NULL check to make clang happy.
 
 
---_000_BL1PR12MB514456B0696209DF06C60768F7619BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+  2888				top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+  2889				if (should_use_dmub_lock(stream->link)) {
+  2890					union dmub_hw_lock_flags hw_locks = { 0 };
+  2891					struct dmub_hw_lock_inst_flags inst_flags = { 0 };
+  2892	
+  2893					hw_locks.bits.lock_dig = 1;
+  2894					inst_flags.dig_inst = top_pipe_to_program->stream_res.tg->inst;
+  2895	
+  2896					dmub_hw_lock_mgr_cmd(dc->ctx->dmub_srv,
+  2897								true,
+  2898								&hw_locks,
+  2899								&inst_flags);
+  2900				} else
+  2901					top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable(
+  2902							top_pipe_to_program->stream_res.tg);
+  2903			}
+  2904	
+  2905		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock)
+  2906			dc->hwss.interdependent_update_lock(dc, context, true);
+  2907		else
+  2908			/* Lock the top pipe while updating plane addrs, since freesync requires
+  2909			 *  plane addr update event triggers to be synchronized.
+  2910			 *  top_pipe_to_program is expected to never be NULL
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This comment says that "top_pipe_to_program" is expected to never be NULL
+but it's unclear if it means just for this else statement or for the
+whole function or what?
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Cui, Flora &lt;Flora.=
-Cui@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, November 23, 2021 9:43 PM<br>
-<b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org &lt;amd-gfx@lists.freedesktop.org&gt;; Deucher, Alexander &lt;Alexa=
-nder.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Cui, Flora &lt;Flora.Cui@amd.com&gt;; Alex Deucher &lt;aleander.=
-deucher@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 3/3] drm/amdgpu: check atomic flag to differeniate w=
-ith legacy path</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">since vkms support atomic KMS interface<br>
-<br>
-Signed-off-by: Flora Cui &lt;flora.cui@amd.com&gt;<br>
-Reviewed-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
-Acked-by: Alex Deucher &lt;aleander.deucher@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--<br>
-&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 7d4115d52523..8e9e50aa4a95 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -3830,7 +3830,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable all interrupts =
-*/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_irq_disable_all(ade=
-v);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;mode_info.mod=
-e_config_initialized){<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!amdgpu_device_has_dc_support(adev))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!drm_drv_uses_atomic_modeset(adev_to_drm(adev)))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_h=
-elper_force_disable_all(adev_to_drm(adev));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_a=
-tomic_helper_shutdown(adev_to_drm(adev));<br>
-@@ -5124,7 +5124,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *a=
-dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_s=
-ched_start(&amp;ring-&gt;sched, !tmp_adev-&gt;asic_reset_res);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!amdgpu_device_has_dc_support(tmp_adev) &amp;&amp; !job_sign=
-aled) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) &amp;&am=
-p; !job_signaled) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_h=
-elper_resume_force_mode(adev_to_drm(tmp_adev));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+  2911			 */
+  2912			dc->hwss.pipe_control_lock(dc, top_pipe_to_program, true);
+  2913	
+  2914		// Stream updates
+  2915		if (stream_update)
+  2916			commit_planes_do_stream_update(dc, stream, stream_update, update_type, context);
+  2917	
+  2918		if (surface_count == 0) {
+  2919			/*
+  2920			 * In case of turning off screen, no need to program front end a second time.
+  2921			 * just return after program blank.
+  2922			 */
+  2923			if (dc->hwss.apply_ctx_for_surface)
+  2924				dc->hwss.apply_ctx_for_surface(dc, stream, 0, context);
+  2925			if (dc->hwss.program_front_end_for_ctx)
+  2926				dc->hwss.program_front_end_for_ctx(dc, context);
+  2927	
+  2928			if (should_lock_all_pipes && dc->hwss.interdependent_update_lock)
+  2929				dc->hwss.interdependent_update_lock(dc, context, false);
+  2930			else
+  2931				dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
+  2932			dc->hwss.post_unlock_program_front_end(dc, context);
+  2933			return;
+  2934		}
+  2935	
+  2936		if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
+  2937			for (i = 0; i < surface_count; i++) {
+  2938				struct dc_plane_state *plane_state = srf_updates[i].surface;
+  2939				/*set logical flag for lock/unlock use*/
+  2940				for (j = 0; j < dc->res_pool->pipe_count; j++) {
+  2941					struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
+  2942					if (!pipe_ctx->plane_state)
+  2943						continue;
+  2944					if (should_update_pipe_for_plane(context, pipe_ctx, plane_state))
+  2945						continue;
+  2946					pipe_ctx->plane_state->triplebuffer_flips = false;
+  2947					if (update_type == UPDATE_TYPE_FAST &&
+  2948						dc->hwss.program_triplebuffer != NULL &&
+  2949						!pipe_ctx->plane_state->flip_immediate && dc->debug.enable_tri_buf) {
+  2950							/*triple buffer for VUpdate  only*/
+  2951							pipe_ctx->plane_state->triplebuffer_flips = true;
+  2952					}
+  2953				}
+  2954				if (update_type == UPDATE_TYPE_FULL) {
+  2955					/* force vsync flip when reconfiguring pipes to prevent underflow */
+  2956					plane_state->flip_immediate = false;
+  2957				}
+  2958			}
+  2959		}
+  2960	
+  2961		// Update Type FULL, Surface updates
+  2962		for (j = 0; j < dc->res_pool->pipe_count; j++) {
+  2963			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
+  2964	
+  2965			if (!pipe_ctx->top_pipe &&
+  2966				!pipe_ctx->prev_odm_pipe &&
+  2967				should_update_pipe_for_stream(context, pipe_ctx, stream)) {
+  2968				struct dc_stream_status *stream_status = NULL;
+  2969	
+  2970				if (!pipe_ctx->plane_state)
+  2971					continue;
+  2972	
+  2973				/* Full fe update*/
+  2974				if (update_type == UPDATE_TYPE_FAST)
+  2975					continue;
+  2976	
+  2977				ASSERT(!pipe_ctx->plane_state->triplebuffer_flips);
+  2978	
+  2979				if (dc->hwss.program_triplebuffer != NULL && dc->debug.enable_tri_buf) {
+  2980					/*turn off triple buffer for full update*/
+  2981					dc->hwss.program_triplebuffer(
+  2982						dc, pipe_ctx, pipe_ctx->plane_state->triplebuffer_flips);
+  2983				}
+  2984				stream_status =
+  2985					stream_get_status(context, pipe_ctx->stream);
+  2986	
+  2987				if (dc->hwss.apply_ctx_for_surface)
+  2988					dc->hwss.apply_ctx_for_surface(
+  2989						dc, pipe_ctx->stream, stream_status->plane_count, context);
+  2990			}
+  2991		}
+  2992		if (dc->hwss.program_front_end_for_ctx && update_type != UPDATE_TYPE_FAST) {
+  2993			dc->hwss.program_front_end_for_ctx(dc, context);
+  2994	#ifdef CONFIG_DRM_AMD_DC_DCN
+  2995			if (dc->debug.validate_dml_output) {
+  2996				for (i = 0; i < dc->res_pool->pipe_count; i++) {
+  2997					struct pipe_ctx cur_pipe = context->res_ctx.pipe_ctx[i];
+  2998					if (cur_pipe.stream == NULL)
+  2999						continue;
+  3000	
+  3001					cur_pipe.plane_res.hubp->funcs->validate_dml_output(
+  3002							cur_pipe.plane_res.hubp, dc->ctx,
+  3003							&context->res_ctx.pipe_ctx[i].rq_regs,
+  3004							&context->res_ctx.pipe_ctx[i].dlg_regs,
+  3005							&context->res_ctx.pipe_ctx[i].ttu_regs);
+  3006				}
+  3007			}
+  3008	#endif
+  3009		}
+  3010	
+  3011		// Update Type FAST, Surface updates
+  3012		if (update_type == UPDATE_TYPE_FAST) {
+  3013			if (dc->hwss.set_flip_control_gsl)
+  3014				for (i = 0; i < surface_count; i++) {
+  3015					struct dc_plane_state *plane_state = srf_updates[i].surface;
+  3016	
+  3017					for (j = 0; j < dc->res_pool->pipe_count; j++) {
+  3018						struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
+  3019	
+  3020						if (!should_update_pipe_for_stream(context, pipe_ctx, stream))
+  3021							continue;
+  3022	
+  3023						if (!should_update_pipe_for_plane(context, pipe_ctx, plane_state))
+  3024							continue;
+  3025	
+  3026						// GSL has to be used for flip immediate
+  3027						dc->hwss.set_flip_control_gsl(pipe_ctx,
+  3028								pipe_ctx->plane_state->flip_immediate);
+  3029					}
+  3030				}
+  3031	
+  3032			/* Perform requested Updates */
+  3033			for (i = 0; i < surface_count; i++) {
+  3034				struct dc_plane_state *plane_state = srf_updates[i].surface;
+  3035	
+  3036				for (j = 0; j < dc->res_pool->pipe_count; j++) {
+  3037					struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
+  3038	
+  3039					if (!should_update_pipe_for_stream(context, pipe_ctx, stream))
+  3040						continue;
+  3041	
+  3042					if (!should_update_pipe_for_plane(context, pipe_ctx, plane_state))
+  3043						continue;
+  3044	
+  3045					/*program triple buffer after lock based on flip type*/
+  3046					if (dc->hwss.program_triplebuffer != NULL && dc->debug.enable_tri_buf) {
+  3047						/*only enable triplebuffer for  fast_update*/
+  3048						dc->hwss.program_triplebuffer(
+  3049							dc, pipe_ctx, pipe_ctx->plane_state->triplebuffer_flips);
+  3050					}
+  3051					if (pipe_ctx->plane_state->update_flags.bits.addr_update)
+  3052						dc->hwss.update_plane_addr(dc, pipe_ctx);
+  3053				}
+  3054			}
+  3055	
+  3056		}
+  3057	
+  3058		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock)
+  3059			dc->hwss.interdependent_update_lock(dc, context, false);
+  3060		else
+  3061			dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
+  3062	
+  3063		if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This condition is exactly the same as the one where we added a NULL
+check at the start of the function.
 
---_000_BL1PR12MB514456B0696209DF06C60768F7619BL1PR12MB5144namp_--
+  3064			if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Unchecked dereference.
+
+Ideally someone would know if "top_pipe_to_program" can really be NULL
+or not.  Adding NULL checks will make the static checkers happy but it
+isn't necessarily the correct fix.
+
+  3065				top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
+  3066						top_pipe_to_program->stream_res.tg,
+
+regards,
+dan carpenter
