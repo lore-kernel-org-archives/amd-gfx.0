@@ -4,57 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B611FC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 14:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABBDBC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 14:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 172A86E479;
-	Wed, 24 Nov 2021 14:05:37 +0000 (UTC)
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5C206E147;
- Wed, 24 Nov 2021 03:04:38 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id de30so1406047qkb.0;
- Tue, 23 Nov 2021 19:04:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=g3UKjW7fmUe9JRzmjdiiBs6fkzP9ZvlZsvWeHL4ExR0=;
- b=BBddd5ZUGiBGsnJmx7bTL7Ov17NuqWLJ7XumhtNZtHWj90Eo9myNX757frsBUn49pi
- CG1hcOFC2xKZ9U1FSPDhqUajYJezCfSi7Zkbb7xEJStZYAD3J+QISUHdYkeP4G3z3Lh0
- imEtCAnQGzNbxrA1iy5netuKQ4/F47gwGLjI+uggEsMUR0IQ8EwSZQH9PGfPmdq0N/CU
- eYOihzo7MyaFhCtDCHw5dcBBBcUc3uI2A27iNFvyrBE34aV4v4HAIm1YBOPxcS/Pq6ge
- L1ncErC64CNx+oSGSuc/2RnvdWj06cCVMRvjvnq60LRWOKygWaxk4B/Fet4bLzdbtioI
- oqqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=g3UKjW7fmUe9JRzmjdiiBs6fkzP9ZvlZsvWeHL4ExR0=;
- b=dh5QfnPnKE0M0MSoS1odeSCq7rLMo7nMh/TK5HfMzMSQppp5L0tJTg53ZG+yYT20lm
- jwS3ehYFf6+oqgAj3smXU6nFqwv1O03WW+OXj4kflZ24a5Jfb/vW8QZHhcsm1uIQY9GK
- caBhV3KESZ64qmo+UjejDis5FeLC8FfNcXc1zbT+kBK0jI9jby4CqhcdSVZkYqNBluJ5
- pF21Vuv5zrBnnoFxiXRVWrjOOYJ42JCWrialFbaj3BSKfaZBSCSGY1IfdTrOUF/Rm8Eh
- 8j/NLwZhUlzotN+N0B15801paLY3pmzkontnFtfDf/FcTtHUfrvDeR2dKkPv8mY/euSy
- MUTQ==
-X-Gm-Message-State: AOAM532iBw/L06sLPbLKQhAgYY9O7lAHJQ4k0tW37q7W3CoMgBAvmd7P
- 9IDItiNvZ3bXo5dRRQHgYMQ=
-X-Google-Smtp-Source: ABdhPJzMa9PpQpZk9WGjY47S9dF0nk8A++HjGijauQYx1EqOq/o2FrQ5Ema1QEDpfwkZ7iqimV/fcw==
-X-Received: by 2002:a05:620a:288b:: with SMTP id
- j11mr2315125qkp.257.1637723077907; 
- Tue, 23 Nov 2021 19:04:37 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id i23sm6973927qkl.101.2021.11.23.19.04.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Nov 2021 19:04:37 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: lv.ruyi@zte.com.cn
-To: sunpeng.li@amd.com
-Subject: [PATCH] drm/amd/display: fix application of sizeof to pointer
-Date: Wed, 24 Nov 2021 03:04:26 +0000
-Message-Id: <20211124030426.34830-1-lv.ruyi@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5706E58B;
+	Wed, 24 Nov 2021 14:05:40 +0000 (UTC)
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94FDC6EA6C;
+ Wed, 24 Nov 2021 10:20:49 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
+ TI=SMTPD_---0Uy7Vfan_1637749242; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0Uy7Vfan_1637749242) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 24 Nov 2021 18:20:46 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Subject: [PATCH] drm/amd/display: Fix warning comparing pointer to 0
+Date: Wed, 24 Nov 2021 18:20:36 +0800
+Message-Id: <1637749236-27107-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
 X-Mailman-Approved-At: Wed, 24 Nov 2021 14:05:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,40 +39,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, lv.ruyi@zte.com.cn, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, wayne.lin@amd.com,
- alexander.deucher@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sunpeng.li@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lv Ruyi <lv.ruyi@zte.com.cn>
+Fix the following coccicheck warning:
 
-Both of split and merge are pointers, not arrays.
+./drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c:96:14-15: WARNING
+comparing pointer to 0.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c
-index ece34b0b8a46..91810aaee5a3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dml_wrapper.c
-@@ -1223,8 +1223,8 @@ static void dml_full_validate_bw_helper(struct dc *dc,
- 		*pipe_cnt = dml_populate_dml_pipes_from_context(dc, context, pipes, false);
- 		*vlevel = dml_get_voltage_level(&context->bw_ctx.dml, pipes, *pipe_cnt);
- 		if (*vlevel < context->bw_ctx.dml.soc.num_states) {
--			memset(split, 0, sizeof(split));
--			memset(merge, 0, sizeof(merge));
-+			memset(split, 0, MAX_PIPES * sizeof(*split));
-+			memset(merge, 0, MAX_PIPES * sizeof(*merge));
- 			*vlevel = dml_validate_apply_pipe_split_flags(dc, context, *vlevel, split, merge);
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+index 122ba29..ec636d0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+@@ -93,7 +93,7 @@ static void get_qp_set(qp_set qps, enum colour_mode cm, enum bits_per_comp bpc,
+ 		TABLE_CASE(420, 12, min);
+ 	}
  
+-	if (table == 0)
++	if (!table)
+ 		return;
+ 
+ 	index = (bpp - table[0].bpp) * 2;
 -- 
-2.25.1
+1.8.3.1
 
