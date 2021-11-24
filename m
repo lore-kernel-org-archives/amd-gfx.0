@@ -4,94 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6A2C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 09:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA0E7C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 10:33:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F3196E9DB;
-	Wed, 24 Nov 2021 09:54:25 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD0C6E9DB
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 09:54:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iOjZJa+CxMzRL5xzIy8zZ5ZO4i+Ye4woAyvgHW685ReAZtg94ud4659ij/gPe9l5Xh90OhXFQ4GhP0sj9p/O6RP3u7rGyI4ovMD8ir3iLgCfWZUzif5aRVE7LQES9q3WkE9LjbvN2HQNZP5gVi1QYI70r6MIpqZF5bGfDmu0m5v6KGKn5vVFmIKCthw4Qibp/Y6+sVX0luupNQp4lHWX+eHO9KJ6Cp9Us2WVXPuu9gSXe/DuJwrGL53515eK13+DaGYQYom8EL2n692S5yjgVQIycnh0Vi3wpINXwCBdjOJkfPX/Ajfx1ul3/tcYzELDcznRe22YFCcIRbn27eqLjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cdS4CuTVnz2tDNM4RHDnA/QfZevOkH9QpGN0S+4VOdE=;
- b=kLVi++o9P4sTEJsCLCyeNTeELyjvS7901PwE9Z1f9+ky2/ie0w8fvqIsjxzWE1+i/rxVZWQffcu15wCkBn1cTi+Xt9vxTs3IuoUFZvuGHtobOI1rik5X3+xixkxIEFdvqDzmMBod18g6N6Iij5xv+DXGrtNuSypUbwPwhvlO2KD7NaVRymdxd/qfhn6aHimFRJhCrS96aJz2cyLks79swwipcAhghWvJr7Nz//fuUr+WQuQmbUSyAgKpXggF30bri4/tgrJKhCf89pbhnf0FI2t8CkJ/7CUht1+UmQ2xqBCQCQJESHodU1XBov55LfmkxGyZjJuWXiPtONjC/jCYGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cdS4CuTVnz2tDNM4RHDnA/QfZevOkH9QpGN0S+4VOdE=;
- b=B+Kp9nYCgHNgLdExb91+dR7kKf0czolJkyYmTtdVNA7A5rI4ngBVKE1Yyc1lE2kq0VMDztbJTHjxi+VWkjktipGmxliQkpAco0do51EeHmsMT4UX0fGYGk2A9BbxXKtV8vc+xl9fRDMd6uP+UteYmva1g6jYWelVTr0WiOnzgXQ=
-Received: from MW4PR04CA0293.namprd04.prod.outlook.com (2603:10b6:303:89::28)
- by DM6PR12MB3210.namprd12.prod.outlook.com (2603:10b6:5:185::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Wed, 24 Nov
- 2021 09:54:22 +0000
-Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::63) by MW4PR04CA0293.outlook.office365.com
- (2603:10b6:303:89::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.25 via Frontend
- Transport; Wed, 24 Nov 2021 09:54:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4713.20 via Frontend Transport; Wed, 24 Nov 2021 09:54:21 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 24 Nov
- 2021 03:54:20 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 24 Nov
- 2021 01:54:20 -0800
-Received: from jane-X10DRi.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Wed, 24 Nov 2021 03:54:18 -0600
-From: Jane Jian <Jane.Jian@amd.com>
-To: <Alexander.Deucher@amd.com>, <guchun.chen@amd.com>, <jingwen.chen2@amd.com>
-Subject: [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case to ip init
- for SIENNA_CICHLID
-Date: Wed, 24 Nov 2021 17:54:15 +0800
-Message-ID: <20211124095415.11379-1-Jane.Jian@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 507846EA06;
+	Wed, 24 Nov 2021 10:33:50 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7414F6EA06;
+ Wed, 24 Nov 2021 10:33:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10177"; a="232747655"
+X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="232747655"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2021 02:33:46 -0800
+X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="650361509"
+Received: from ncaldwex-mobl1.ger.corp.intel.com (HELO [10.252.10.199])
+ ([10.252.10.199])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2021 02:33:40 -0800
+Message-ID: <8a27126c-6eb7-63db-882d-8c70fb2794ca@intel.com>
+Date: Wed, 24 Nov 2021 10:33:38 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f745548f-f69f-4aa9-d214-08d9af3063a4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3210:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3210B84C209AC5B4D0C26FDCFF619@DM6PR12MB3210.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zOYbDC617d29xDp2LMQaTOKxnvGtopFvJG6VyuiFs5OXAt1hgWP4QN1Yc1j+6laJBvIaKMgjpRhbGxGveVv8X/4Kz4P0rSx/WU6gKk+WtWXXmQ/Pri93n6NB/ZzdHb8WsfSfjlwGfL1XR6Yhib82u6Dewpb0bWZPVZb30P0wIoV7BMv7y6DOljxsxA0wL4NeYJ9S+zD53+yzjRqkX02zPAW6SRt6x1ZKaj8zfGfpLr+0mBYtxytV2leGLx/VRoRFPzJwiAujlFE+/rGoNvYcG9tmpJTRBNjBVcM2SdlOlx2YfYLQWarKZctrH8haYBP2wocjEergoCgf0p7bb0sqGieIk8SeNSH+EaSqZVvfxHGGod94SYq3APcEnbJsGTzmUWOmOdFfDGM9jr1K8OrBuYMO+2UMljGkDnav4rsMDeLgGk785wq+rwBG4TeC7NFszje5Xbk3eEA+jUdTNKBkoO4OKQU1awf0CXqw2flLXJFKCJHdBarrCLxXJop0pR37FfU+m2hJNp56U1PZPdMDlnHYdFi0LlDfLw8G1f3gEDtIxZrltl0d9LtD/88NA8HiUHcNpT80hZtmhdu0n6b6hclnXmMjD5XulvqXA1Ke5UXaFMzDEJEbsg9viTZ6B2D1Zuqj7ezntzsuGpHe9r/o34eMqncBfJ9tGUIkjDv29h+eo2wrQimbc+hoNiLqCaUsDfQiX1kWDib7mEa4uUhaqc1wf14U7/2Zg/eyuAKrYAw=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(70206006)(186003)(7696005)(70586007)(8936002)(81166007)(83380400001)(508600001)(356005)(86362001)(4326008)(1076003)(110136005)(336012)(26005)(2616005)(54906003)(426003)(47076005)(82310400004)(6636002)(5660300002)(316002)(2906002)(6666004)(36756003)(8676002)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 09:54:21.3103 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f745548f-f69f-4aa9-d214-08d9af3063a4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3210
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH v3 2/6] drm: improve drm_buddy_alloc function
+Content-Language: en-GB
+To: Arunpravin <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20211116201807.147486-1-Arunpravin.PaneerSelvam@amd.com>
+ <20211116201807.147486-2-Arunpravin.PaneerSelvam@amd.com>
+ <bb9bbfc8-be80-a9d9-961b-564055b6f083@intel.com>
+ <23bcceec-f626-eb8e-631d-d858c77f3d04@amd.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <23bcceec-f626-eb8e-631d-d858c77f3d04@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,53 +51,611 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jane.Jian@amd.com, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, tzimmermann@suse.de, jani.nikula@linux.intel.com,
+ christian.koenig@amd.com, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[WHY]
-for sriov odd# vf will modify vcn0 engine ip revision(due to multimedia bandwidth feature),
-which will be mismatched with original vcn0 revision
+On 23/11/2021 22:39, Arunpravin wrote:
+> 
+> 
+> On 18/11/21 12:09 am, Matthew Auld wrote:
+>> On 16/11/2021 20:18, Arunpravin wrote:
+>>> - Make drm_buddy_alloc a single function to handle
+>>>     range allocation and non-range allocation demands
+>>>
+>>> - Implemented a new function alloc_range() which allocates
+>>>     the requested power-of-two block comply with range limitations
+>>>
+>>> - Moved order computation and memory alignment logic from
+>>>     i915 driver to drm buddy
+>>>
+>>> v2:
+>>>     merged below changes to keep the build unbroken
+>>>      - drm_buddy_alloc_range() becomes obsolete and may be removed
+>>>      - enable ttm range allocation (fpfn / lpfn) support in i915 driver
+>>>      - apply enhanced drm_buddy_alloc() function to i915 driver
+>>>
+>>> v3(Matthew Auld):
+>>>     - Fix alignment issues and remove unnecessary list_empty check
+>>>     - add more validation checks for input arguments
+>>>     - make alloc_range() block allocations as bottom-up
+>>>     - optimize order computation logic
+>>>     - replace uint64_t with u64, which is preferred in the kernel
+>>>
+>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/drm_buddy.c                   | 259 ++++++++++--------
+>>>    drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |  69 ++---
+>>>    drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |   2 +
+>>>    include/drm/drm_buddy.h                       |  22 +-
+>>>    4 files changed, 203 insertions(+), 149 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>> index 39eb1d224bec..c9b18a29f8d1 100644
+>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>> @@ -274,63 +274,6 @@ void drm_buddy_free_list(struct drm_buddy_mm *mm, struct list_head *objects)
+>>>    }
+>>>    EXPORT_SYMBOL(drm_buddy_free_list);
+>>>    
+>>> -/**
+>>> - * drm_buddy_alloc - allocate power-of-two blocks
+>>> - *
+>>> - * @mm: DRM buddy manager to allocate from
+>>> - * @order: size of the allocation
+>>> - *
+>>> - * The order value here translates to:
+>>> - *
+>>> - * 0 = 2^0 * mm->chunk_size
+>>> - * 1 = 2^1 * mm->chunk_size
+>>> - * 2 = 2^2 * mm->chunk_size
+>>> - *
+>>> - * Returns:
+>>> - * allocated ptr to the &drm_buddy_block on success
+>>> - */
+>>> -struct drm_buddy_block *
+>>> -drm_buddy_alloc(struct drm_buddy_mm *mm, unsigned int order)
+>>> -{
+>>> -	struct drm_buddy_block *block = NULL;
+>>> -	unsigned int i;
+>>> -	int err;
+>>> -
+>>> -	for (i = order; i <= mm->max_order; ++i) {
+>>> -		block = list_first_entry_or_null(&mm->free_list[i],
+>>> -						 struct drm_buddy_block,
+>>> -						 link);
+>>> -		if (block)
+>>> -			break;
+>>> -	}
+>>> -
+>>> -	if (!block)
+>>> -		return ERR_PTR(-ENOSPC);
+>>> -
+>>> -	BUG_ON(!drm_buddy_block_is_free(block));
+>>> -
+>>> -	while (i != order) {
+>>> -		err = split_block(mm, block);
+>>> -		if (unlikely(err))
+>>> -			goto out_free;
+>>> -
+>>> -		/* Go low */
+>>> -		block = block->left;
+>>> -		i--;
+>>> -	}
+>>> -
+>>> -	mark_allocated(block);
+>>> -	mm->avail -= drm_buddy_block_size(mm, block);
+>>> -	kmemleak_update_trace(block);
+>>> -	return block;
+>>> -
+>>> -out_free:
+>>> -	if (i != order)
+>>> -		__drm_buddy_free(mm, block);
+>>> -	return ERR_PTR(err);
+>>> -}
+>>> -EXPORT_SYMBOL(drm_buddy_alloc);
+>>> -
+>>>    static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+>>>    {
+>>>    	return s1 <= e2 && e1 >= s2;
+>>> @@ -341,52 +284,22 @@ static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+>>>    	return s1 <= s2 && e1 >= e2;
+>>>    }
+>>>    
+>>> -/**
+>>> - * drm_buddy_alloc_range - allocate range
+>>> - *
+>>> - * @mm: DRM buddy manager to allocate from
+>>> - * @blocks: output list head to add allocated blocks
+>>> - * @start: start of the allowed range for this block
+>>> - * @size: size of the allocation
+>>> - *
+>>> - * Intended for pre-allocating portions of the address space, for example to
+>>> - * reserve a block for the initial framebuffer or similar, hence the expectation
+>>> - * here is that drm_buddy_alloc() is still the main vehicle for
+>>> - * allocations, so if that's not the case then the drm_mm range allocator is
+>>> - * probably a much better fit, and so you should probably go use that instead.
+>>> - *
+>>> - * Note that it's safe to chain together multiple alloc_ranges
+>>> - * with the same blocks list
+>>> - *
+>>> - * Returns:
+>>> - * 0 on success, error code on failure.
+>>> - */
+>>> -int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
+>>> -			  struct list_head *blocks,
+>>> -			  u64 start, u64 size)
+>>> +static struct drm_buddy_block *
+>>> +alloc_range(struct drm_buddy_mm *mm,
+>>> +	    u64 start, u64 end,
+>>> +	    unsigned int order)
+>>>    {
+>>>    	struct drm_buddy_block *block;
+>>>    	struct drm_buddy_block *buddy;
+>>> -	LIST_HEAD(allocated);
+>>>    	LIST_HEAD(dfs);
+>>> -	u64 end;
+>>>    	int err;
+>>>    	int i;
+>>>    
+>>> -	if (size < mm->chunk_size)
+>>> -		return -EINVAL;
+>>> -
+>>> -	if (!IS_ALIGNED(size | start, mm->chunk_size))
+>>> -		return -EINVAL;
+>>> -
+>>> -	if (range_overflows(start, size, mm->size))
+>>> -		return -EINVAL;
+>>> +	end = end - 1;
+>>>    
+>>>    	for (i = 0; i < mm->n_roots; ++i)
+>>>    		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>>>    
+>>> -	end = start + size - 1;
+>>> -
+>>>    	do {
+>>>    		u64 block_start;
+>>>    		u64 block_end;
+>>> @@ -399,26 +312,26 @@ int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
+>>>    
+>>>    		list_del(&block->tmp_link);
+>>>    
+>>> +		if (drm_buddy_block_order(block) < order)
+>>> +			continue;
+>>> +
+>>>    		block_start = drm_buddy_block_offset(block);
+>>>    		block_end = block_start + drm_buddy_block_size(mm, block) - 1;
+>>>    
+>>>    		if (!overlaps(start, end, block_start, block_end))
+>>>    			continue;
+>>>    
+>>> -		if (drm_buddy_block_is_allocated(block)) {
+>>> -			err = -ENOSPC;
+>>> -			goto err_free;
+>>> -		}
+>>> +		if (drm_buddy_block_is_allocated(block))
+>>> +			continue;
+>>>    
+>>> -		if (contains(start, end, block_start, block_end)) {
+>>> -			if (!drm_buddy_block_is_free(block)) {
+>>> -				err = -ENOSPC;
+>>> -				goto err_free;
+>>> -			}
+>>> +		if (contains(start, end, block_start, block_end) &&
+>>> +		    order == drm_buddy_block_order(block)) {
+>>> +			/*
+>>> +			 * Find the free block within the range.
+>>> +			 */
+>>> +			if (drm_buddy_block_is_free(block))
+>>> +				return block;
+>>
+>> AFAIK this is still randomly ordered when dealing with actual range
+>> allocation. Maybe I'm missing something, but it looks like we are just
+>> repeatedly picking the largest order that fits in the remaining number
+>> of pages, but it might be the case that the smallest block is for
+>> example at the start of the range, depending on the layout of the
+>> address space, which would then only get allocated last.
+>>
+>> I think I mentioned this before, but most of the block_trim() looks to
+>> already do what we want for this case, and could maybe be factored out,
+>> since that is also just another range allocation, except we start with
+>> one root node for our "dfs" search.
+>>
+>> Maybe something like:
+>>
+>> drm_buddy_trim(block, new_size...)
+>> {
+>>       ....
+>>       mark_free(block);
+>>       list_add(&block->tmp_link, &dfs);
+>>       err = __alloc_range(mm, &dfs, block->start, new_size, ...);
+>>       if (err)
+>>       ....
+>> }
+>>
+>> __drm_buddy_alloc_range(start, size, blocks)
+>> {
+>>       for_each_root()
+>>           list_add(&root->tmp_link, &dfs);
+>>
+>>       err = __alloc_range(mm, &dfs, start, size, ...);
+>>       if (err)
+>>       ....
+>> }
+>>
+>> drm_buddy_alloc(...)
+>> {
+>>       /* Actual range allocation */
+>>       if (start + size == end)
+>>               return __drm_buddy_alloc_range(...);
+>>      ....
+>> }
+>>
+>> And then have something different for the alloc_range_bias()?
+>>
+> Yes, we will have a common function __alloc_range() which does the range
+> allocation for block_trim() and __drm_buddy_alloc_range() (actual range
+> allocation).
+> 
+> And, I understood that we keep the alloc_range() implementation for end
+> bias allocations?
 
-[HOW]
-add new version check for vcn0 disabled revision
+Yeah, I think that makes sense.
 
-Signed-off-by: Jane Jian <Jane.Jian@amd.com>
-Change-Id: I1ace32acbf3a13c0baac958508da1324ec387a58
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 4 ++++
- 2 files changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 503995c7ff6c..1dabbcbc3970 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -925,6 +925,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
- 		case IP_VERSION(3, 0, 33):
- 			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
- 			break;
-+		case IP_VERSION(3, 0, 192):
-+			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
-+			break;
- 		default:
- 			dev_err(adev->dev,
- 				"Failed to add vcn/jpeg ip block(UVD_HWIP:0x%x)\n",
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 4f7c70845785..27125e5e3092 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -143,6 +143,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
- 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
- 			adev->vcn.indirect_sram = true;
- 		break;
-+	case IP_VERSION(3, 0, 192):
-+		if (amdgpu_sriov_vf(adev))
-+			fw_name = FIRMWARE_SIENNA_CICHLID;
-+		break;
- 	case IP_VERSION(3, 0, 2):
- 		fw_name = FIRMWARE_VANGOGH;
- 		break;
--- 
-2.17.1
-
+> 
+>>>    
+>>> -			mark_allocated(block);
+>>> -			mm->avail -= drm_buddy_block_size(mm, block);
+>>> -			list_add_tail(&block->link, &allocated);
+>>>    			continue;
+>>>    		}
+>>>    
+>>> @@ -432,8 +345,7 @@ int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
+>>>    		list_add(&block->left->tmp_link, &dfs);
+>>>    	} while (1);
+>>>    
+>>> -	list_splice_tail(&allocated, blocks);
+>>> -	return 0;
+>>> +	return ERR_PTR(-ENOSPC);
+>>>    
+>>>    err_undo:
+>>>    	/*
+>>> @@ -446,12 +358,145 @@ int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
+>>>    	    (drm_buddy_block_is_free(block) &&
+>>>    	     drm_buddy_block_is_free(buddy)))
+>>>    		__drm_buddy_free(mm, block);
+>>> +	return ERR_PTR(err);
+>>> +}
+>>> +
+>>> +static struct drm_buddy_block *
+>>> +alloc_from_freelist(struct drm_buddy_mm *mm,
+>>> +		    unsigned int order,
+>>> +		    unsigned long flags)
+>>> +{
+>>> +	struct drm_buddy_block *block = NULL;
+>>> +	unsigned int i;
+>>> +	int err;
+>>> +
+>>> +	for (i = order; i <= mm->max_order; ++i) {
+>>> +		block = list_first_entry_or_null(&mm->free_list[i],
+>>> +						 struct drm_buddy_block,
+>>> +						 link);
+>>> +		if (block)
+>>> +			break;
+>>> +	}
+>>> +
+>>> +	if (!block)
+>>> +		return ERR_PTR(-ENOSPC);
+>>> +
+>>> +	BUG_ON(!drm_buddy_block_is_free(block));
+>>> +
+>>> +	while (i != order) {
+>>> +		err = split_block(mm, block);
+>>> +		if (unlikely(err))
+>>> +			goto err_undo;
+>>> +
+>>> +		block = block->right;
+>>> +		i--;
+>>> +	}
+>>> +	return block;
+>>> +
+>>> +err_undo:
+>>> +	if (i != order)
+>>> +		__drm_buddy_free(mm, block);
+>>> +	return ERR_PTR(err);
+>>> +}
+>>> +
+>>> +/**
+>>> + * drm_buddy_alloc - allocate power-of-two blocks
+>>> + *
+>>> + * @mm: DRM buddy manager to allocate from
+>>> + * @start: start of the allowed range for this block
+>>> + * @end: end of the allowed range for this block
+>>> + * @size: size of the allocation
+>>> + * @min_page_size: alignment of the allocation
+>>> + * @blocks: output list head to add allocated blocks
+>>> + * @flags: DRM_BUDDY_*_ALLOCATION flags
+>>> + *
+>>> + * alloc_range() called on range limitations, which traverses
+>>> + * the tree and returns the desired block.
+>>> + *
+>>> + * alloc_from_freelist() called when *no* range restrictions
+>>> + * are enforced, which picks the block from the freelist.
+>>> + *
+>>> + * blocks are allocated in order, the order value here translates to:
+>>> + *
+>>> + * 0 = 2^0 * mm->chunk_size
+>>> + * 1 = 2^1 * mm->chunk_size
+>>> + * 2 = 2^2 * mm->chunk_size
+>>> + *
+>>> + * Returns:
+>>> + * 0 on success, error code on failure.
+>>> + */
+>>> +int drm_buddy_alloc(struct drm_buddy_mm *mm,
+>>> +		    u64 start, u64 end, u64 size,
+>>> +		    u64 min_page_size,
+>>> +		    struct list_head *blocks,
+>>> +		    unsigned long flags)
+>>> +{
+>>> +	struct drm_buddy_block *block = NULL;
+>>> +	unsigned int min_order, order;
+>>> +	unsigned long pages;
+>>> +	LIST_HEAD(allocated);
+>>> +	int err;
+>>> +
+>>> +	if (size < mm->chunk_size)
+>>> +		return -EINVAL;
+>>> +
+>>> +	if (min_page_size < mm->chunk_size)
+>>> +		return -EINVAL;
+>>> +
+>>> +	if (!is_power_of_2(min_page_size))
+>>> +		return -EINVAL;
+>>> +
+>>> +	if (!IS_ALIGNED(start | end | size, mm->chunk_size))
+>>> +		return -EINVAL;
+>>> +
+>>> +	if (check_range_overflow(start, end, size, mm->size))
+>>> +		return -EINVAL;
+>>> +
+>>> +	pages = size >> ilog2(mm->chunk_size);
+>>> +	order = fls(pages) - 1;
+>>> +	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+>>> +
+>>> +	do {
+>>> +		order = min(order, (unsigned int)fls(pages) - 1);
+>>> +		BUG_ON(order > mm->max_order);
+>>> +		BUG_ON(order < min_order);
+>>> +
+>>> +		do {
+>>> +			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
+>>> +				/* Allocate traversing within the range */
+>>> +				block = alloc_range(mm, start, end, order);
+>>> +			else
+>>> +				/* Allocate from freelist */
+>>> +				block = alloc_from_freelist(mm, order, flags);
+>>> +
+>>> +			if (!IS_ERR(block))
+>>> +				break;
+>>> +
+>>> +			if (order-- == min_order) {
+>>> +				err = -ENOSPC;
+>>> +				goto err_free;
+>>> +			}
+>>> +		} while (1);
+>>> +
+>>> +		mark_allocated(block);
+>>> +		mm->avail -= drm_buddy_block_size(mm, block);
+>>> +		kmemleak_update_trace(block);
+>>> +		list_add_tail(&block->link, &allocated);
+>>> +
+>>> +		pages -= BIT(order);
+>>> +
+>>> +		if (!pages)
+>>> +			break;
+>>> +	} while (1);
+>>> +
+>>> +	list_splice_tail(&allocated, blocks);
+>>> +	return 0;
+>>>    
+>>>    err_free:
+>>>    	drm_buddy_free_list(mm, &allocated);
+>>>    	return err;
+>>>    }
+>>> -EXPORT_SYMBOL(drm_buddy_alloc_range);
+>>> +EXPORT_SYMBOL(drm_buddy_alloc);
+>>>    
+>>>    /**
+>>>     * drm_buddy_block_print - print block information
+>>> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>>> index c4b70cb8c248..9e3d130c3f42 100644
+>>> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>>> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>>> @@ -36,13 +36,14 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>>    	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+>>>    	struct i915_ttm_buddy_resource *bman_res;
+>>>    	struct drm_buddy_mm *mm = &bman->mm;
+>>> -	unsigned long n_pages;
+>>> -	unsigned int min_order;
+>>> +	unsigned long n_pages, lpfn;
+>>>    	u64 min_page_size;
+>>>    	u64 size;
+>>>    	int err;
+>>>    
+>>> -	GEM_BUG_ON(place->fpfn || place->lpfn);
+>>> +	lpfn = place->lpfn;
+>>> +	if (!lpfn)
+>>> +		lpfn = man->size;
+>>>    
+>>>    	bman_res = kzalloc(sizeof(*bman_res), GFP_KERNEL);
+>>>    	if (!bman_res)
+>>> @@ -52,6 +53,9 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>>    	INIT_LIST_HEAD(&bman_res->blocks);
+>>>    	bman_res->mm = mm;
+>>>    
+>>> +	if (place->fpfn || lpfn != man->size)
+>>> +		bman_res->flags |= DRM_BUDDY_RANGE_ALLOCATION;
+>>> +
+>>>    	GEM_BUG_ON(!bman_res->base.num_pages);
+>>>    	size = bman_res->base.num_pages << PAGE_SHIFT;
+>>>    
+>>> @@ -60,10 +64,16 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>>    		min_page_size = bo->page_alignment << PAGE_SHIFT;
+>>>    
+>>>    	GEM_BUG_ON(min_page_size < mm->chunk_size);
+>>> -	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+>>> +
+>>>    	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>> +		unsigned long pages;
+>>> +
+>>>    		size = roundup_pow_of_two(size);
+>>> -		min_order = ilog2(size) - ilog2(mm->chunk_size);
+>>> +		min_page_size = size;
+>>> +
+>>> +		pages = size >> ilog2(mm->chunk_size);
+>>> +		if (pages > lpfn)
+>>> +			lpfn = pages;
+>>>    	}
+>>>    
+>>>    	if (size > mm->size) {
+>>> @@ -73,34 +83,16 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>>    
+>>>    	n_pages = size >> ilog2(mm->chunk_size);
+>>>    
+>>> -	do {
+>>> -		struct drm_buddy_block *block;
+>>> -		unsigned int order;
+>>> -
+>>> -		order = fls(n_pages) - 1;
+>>> -		GEM_BUG_ON(order > mm->max_order);
+>>> -		GEM_BUG_ON(order < min_order);
+>>> -
+>>> -		do {
+>>> -			mutex_lock(&bman->lock);
+>>> -			block = drm_buddy_alloc(mm, order);
+>>> -			mutex_unlock(&bman->lock);
+>>> -			if (!IS_ERR(block))
+>>> -				break;
+>>> -
+>>> -			if (order-- == min_order) {
+>>> -				err = -ENOSPC;
+>>> -				goto err_free_blocks;
+>>> -			}
+>>> -		} while (1);
+>>> -
+>>> -		n_pages -= BIT(order);
+>>> -
+>>> -		list_add_tail(&block->link, &bman_res->blocks);
+>>> -
+>>> -		if (!n_pages)
+>>> -			break;
+>>> -	} while (1);
+>>> +	mutex_lock(&bman->lock);
+>>> +	err = drm_buddy_alloc(mm, (u64)place->fpfn << PAGE_SHIFT,
+>>> +			(u64)place->lpfn << PAGE_SHIFT,
+>>> +			(u64)n_pages << PAGE_SHIFT,
+>>> +			 min_page_size,
+>>> +			 &bman_res->blocks,
+>>> +			 bman_res->flags);
+>>> +	mutex_unlock(&bman->lock);
+>>> +	if (unlikely(err))
+>>> +		goto err_free_blocks;
+>>>    
+>>>    	*res = &bman_res->base;
+>>>    	return 0;
+>>> @@ -266,10 +258,19 @@ int i915_ttm_buddy_man_reserve(struct ttm_resource_manager *man,
+>>>    {
+>>>    	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
+>>>    	struct drm_buddy_mm *mm = &bman->mm;
+>>> +	unsigned long flags = 0;
+>>> +	u64 min_size;
+>>>    	int ret;
+>>>    
+>>> +	min_size = size;
+>>> +	flags |= DRM_BUDDY_RANGE_ALLOCATION;
+>>> +
+>>>    	mutex_lock(&bman->lock);
+>>> -	ret = drm_buddy_alloc_range(mm, &bman->reserved, start, size);
+>>> +	ret = drm_buddy_alloc(mm, start,
+>>> +			start + size,
+>>> +			size, min_size,
+>>
+>> min_page_size = min_size = size. I don't think we want that here. Also
+>> the size here might not be power of two. I guess we need to use
+>> chunk_size here instead?
+> ok, we will use chunk_size here.
+>>
+>>> +			&bman->reserved,
+>>> +			flags);
+>>>    	mutex_unlock(&bman->lock);
+>>>    
+>>>    	return ret;
+>>> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+>>> index fa644b512c2e..5ba490875f66 100644
+>>> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+>>> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
+>>> @@ -20,6 +20,7 @@ struct drm_buddy_mm;
+>>>     *
+>>>     * @base: struct ttm_resource base class we extend
+>>>     * @blocks: the list of struct i915_buddy_block for this resource/allocation
+>>> + * @flags: DRM_BUDDY_*_ALLOCATION flags
+>>>     * @mm: the struct i915_buddy_mm for this resource
+>>>     *
+>>>     * Extends the struct ttm_resource to manage an address space allocation with
+>>> @@ -28,6 +29,7 @@ struct drm_buddy_mm;
+>>>    struct i915_ttm_buddy_resource {
+>>>    	struct ttm_resource base;
+>>>    	struct list_head blocks;
+>>> +	unsigned long flags;
+>>>    	struct drm_buddy_mm *mm;
+>>>    };
+>>>    
+>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+>>> index 5ce3fc702f80..2ec3cbc9d5d7 100644
+>>> --- a/include/drm/drm_buddy.h
+>>> +++ b/include/drm/drm_buddy.h
+>>> @@ -13,15 +13,22 @@
+>>>    
+>>>    #include <drm/drm_print.h>
+>>>    
+>>> -#define range_overflows(start, size, max) ({ \
+>>> +#define check_range_overflow(start, end, size, max) ({ \
+>>>    	typeof(start) start__ = (start); \
+>>> +	typeof(end) end__ = (end);\
+>>>    	typeof(size) size__ = (size); \
+>>>    	typeof(max) max__ = (max); \
+>>>    	(void)(&start__ == &size__); \
+>>>    	(void)(&start__ == &max__); \
+>>> -	start__ >= max__ || size__ > max__ - start__; \
+>>> +	(void)(&start__ == &end__); \
+>>> +	(void)(&end__ == &size__); \
+>>> +	(void)(&end__ == &max__); \
+>>> +	start__ >= max__ || end__ > max__ || \
+>>> +	size__ > end__ - start__; \
+>>>    })
+>>>    
+>>> +#define DRM_BUDDY_RANGE_ALLOCATION (1 << 0)
+>>> +
+>>>    struct drm_buddy_block {
+>>>    #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+>>>    #define DRM_BUDDY_HEADER_STATE  GENMASK_ULL(11, 10)
+>>> @@ -131,12 +138,11 @@ int drm_buddy_init(struct drm_buddy_mm *mm, u64 size, u64 chunk_size);
+>>>    
+>>>    void drm_buddy_fini(struct drm_buddy_mm *mm);
+>>>    
+>>> -struct drm_buddy_block *
+>>> -drm_buddy_alloc(struct drm_buddy_mm *mm, unsigned int order);
+>>> -
+>>> -int drm_buddy_alloc_range(struct drm_buddy_mm *mm,
+>>> -			  struct list_head *blocks,
+>>> -			  u64 start, u64 size);
+>>> +int drm_buddy_alloc(struct drm_buddy_mm *mm,
+>>> +		    u64 start, u64 end, u64 size,
+>>> +		    u64 min_page_size,
+>>> +		    struct list_head *blocks,
+>>> +		    unsigned long flags);
+>>>    
+>>>    void drm_buddy_free(struct drm_buddy_mm *mm, struct drm_buddy_block *block);
+>>>    
+>>>
