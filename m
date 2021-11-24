@@ -4,62 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD36C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 09:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6A2C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 09:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9196EA45;
-	Wed, 24 Nov 2021 09:37:13 +0000 (UTC)
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6BC96EA45
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 09:37:11 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id y196so1654382wmc.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 01:37:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=1K2j9URWA287OmhArZZPhuabmMYAYw7HGpQOysEGofk=;
- b=GIVyHw0MAwVmBAuYaNprugASoQQgdrrX/Iv5qI62qRIXEOUA6i8m89kUiGhzEB4V/M
- QnEP9n8W+g2ZloBfZX64A0rJNtOJICgtGsMhV/Dk8prim79bJkZEgmsVxQcxnPoJH2EN
- bcoOo431zrwxmoWgUYAKhni+REwpyKw0tz7vFvmLHCPcNNmXnLVdVk467L2WYR4N+MdN
- dRwgSzcZurMSx1gQpCl2lNERBwb8wO/tvX4a2nZAtqCmBQdRh6Il22eofCRb+m2Hs2f6
- wAbdRqNVJNT3PFSBeOIpj8E3XblOfXm+D6TEYqKZJhKfAcMfOOVmonREFJ6dZiPUgJmx
- 32ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=1K2j9URWA287OmhArZZPhuabmMYAYw7HGpQOysEGofk=;
- b=s2OzxRaoLghkaTpdInR/yIci8jKZV4CknTBN0anhzFr2rbDy7X6ZYFvuc0UNxTOKUi
- zuqPXL1KjfPwFkKlh6jIWhL6UtxXAkrPJfNF21S5a+ndj/1aau7bGAEvn+YDcsmiqrnQ
- zrJ7TPI6Rx3P7W7ODdLRfKw/b11oeMwKv6fFxCFz+oNP7qIpP78vG++kf/ILR2GuCgmJ
- 5R3nGSrcAFPMIMV144wAHOpcBYX3TevP8Hc+GT99xzk3ZAK69r69js0xP5kFAabiDjZD
- oIO0fSsaLqZUYchDiOesgQP6IHLQJsTm8fRs2g/THw6qSpFV0Caehl5IX61Hge04PkgG
- GOKA==
-X-Gm-Message-State: AOAM533pYH/4Ci8ICDbJLlLVBaoYZ4RFQ77Jn2TyAWDJNsSFZzzsYWaY
- jf/5tDwi7BbfL+1oDU9kpqmVJIZmqNc=
-X-Google-Smtp-Source: ABdhPJz/idB8hVlamuNAqVJKc7h5wkb5H2APoTui+m9kcysYLpBIEcggtn6za4guZQzIe4CKUfbiEQ==
-X-Received: by 2002:a1c:9d03:: with SMTP id g3mr12563199wme.143.1637746630150; 
- Wed, 24 Nov 2021 01:37:10 -0800 (PST)
-Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
- [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id bg34sm1850108wmb.47.2021.11.24.01.37.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Nov 2021 01:37:09 -0800 (PST)
-Subject: Re: [PATCH v5] drm/amdgpu: handle IH ring1 overflow
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211123192254.21681-1-Philip.Yang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <3d17fd21-751d-6f87-95b9-d120db7f4a0e@gmail.com>
-Date: Wed, 24 Nov 2021 10:37:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F3196E9DB;
+	Wed, 24 Nov 2021 09:54:25 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD0C6E9DB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 09:54:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iOjZJa+CxMzRL5xzIy8zZ5ZO4i+Ye4woAyvgHW685ReAZtg94ud4659ij/gPe9l5Xh90OhXFQ4GhP0sj9p/O6RP3u7rGyI4ovMD8ir3iLgCfWZUzif5aRVE7LQES9q3WkE9LjbvN2HQNZP5gVi1QYI70r6MIpqZF5bGfDmu0m5v6KGKn5vVFmIKCthw4Qibp/Y6+sVX0luupNQp4lHWX+eHO9KJ6Cp9Us2WVXPuu9gSXe/DuJwrGL53515eK13+DaGYQYom8EL2n692S5yjgVQIycnh0Vi3wpINXwCBdjOJkfPX/Ajfx1ul3/tcYzELDcznRe22YFCcIRbn27eqLjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cdS4CuTVnz2tDNM4RHDnA/QfZevOkH9QpGN0S+4VOdE=;
+ b=kLVi++o9P4sTEJsCLCyeNTeELyjvS7901PwE9Z1f9+ky2/ie0w8fvqIsjxzWE1+i/rxVZWQffcu15wCkBn1cTi+Xt9vxTs3IuoUFZvuGHtobOI1rik5X3+xixkxIEFdvqDzmMBod18g6N6Iij5xv+DXGrtNuSypUbwPwhvlO2KD7NaVRymdxd/qfhn6aHimFRJhCrS96aJz2cyLks79swwipcAhghWvJr7Nz//fuUr+WQuQmbUSyAgKpXggF30bri4/tgrJKhCf89pbhnf0FI2t8CkJ/7CUht1+UmQ2xqBCQCQJESHodU1XBov55LfmkxGyZjJuWXiPtONjC/jCYGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cdS4CuTVnz2tDNM4RHDnA/QfZevOkH9QpGN0S+4VOdE=;
+ b=B+Kp9nYCgHNgLdExb91+dR7kKf0czolJkyYmTtdVNA7A5rI4ngBVKE1Yyc1lE2kq0VMDztbJTHjxi+VWkjktipGmxliQkpAco0do51EeHmsMT4UX0fGYGk2A9BbxXKtV8vc+xl9fRDMd6uP+UteYmva1g6jYWelVTr0WiOnzgXQ=
+Received: from MW4PR04CA0293.namprd04.prod.outlook.com (2603:10b6:303:89::28)
+ by DM6PR12MB3210.namprd12.prod.outlook.com (2603:10b6:5:185::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Wed, 24 Nov
+ 2021 09:54:22 +0000
+Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:89:cafe::63) by MW4PR04CA0293.outlook.office365.com
+ (2603:10b6:303:89::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.25 via Frontend
+ Transport; Wed, 24 Nov 2021 09:54:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4713.20 via Frontend Transport; Wed, 24 Nov 2021 09:54:21 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 24 Nov
+ 2021 03:54:20 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 24 Nov
+ 2021 01:54:20 -0800
+Received: from jane-X10DRi.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
+ Transport; Wed, 24 Nov 2021 03:54:18 -0600
+From: Jane Jian <Jane.Jian@amd.com>
+To: <Alexander.Deucher@amd.com>, <guchun.chen@amd.com>, <jingwen.chen2@amd.com>
+Subject: [PATCH] drm/amdgpu/sriov/vcn: skip ip revision check case to ip init
+ for SIENNA_CICHLID
+Date: Wed, 24 Nov 2021 17:54:15 +0800
+Message-ID: <20211124095415.11379-1-Jane.Jian@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20211123192254.21681-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f745548f-f69f-4aa9-d214-08d9af3063a4
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3210:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3210B84C209AC5B4D0C26FDCFF619@DM6PR12MB3210.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zOYbDC617d29xDp2LMQaTOKxnvGtopFvJG6VyuiFs5OXAt1hgWP4QN1Yc1j+6laJBvIaKMgjpRhbGxGveVv8X/4Kz4P0rSx/WU6gKk+WtWXXmQ/Pri93n6NB/ZzdHb8WsfSfjlwGfL1XR6Yhib82u6Dewpb0bWZPVZb30P0wIoV7BMv7y6DOljxsxA0wL4NeYJ9S+zD53+yzjRqkX02zPAW6SRt6x1ZKaj8zfGfpLr+0mBYtxytV2leGLx/VRoRFPzJwiAujlFE+/rGoNvYcG9tmpJTRBNjBVcM2SdlOlx2YfYLQWarKZctrH8haYBP2wocjEergoCgf0p7bb0sqGieIk8SeNSH+EaSqZVvfxHGGod94SYq3APcEnbJsGTzmUWOmOdFfDGM9jr1K8OrBuYMO+2UMljGkDnav4rsMDeLgGk785wq+rwBG4TeC7NFszje5Xbk3eEA+jUdTNKBkoO4OKQU1awf0CXqw2flLXJFKCJHdBarrCLxXJop0pR37FfU+m2hJNp56U1PZPdMDlnHYdFi0LlDfLw8G1f3gEDtIxZrltl0d9LtD/88NA8HiUHcNpT80hZtmhdu0n6b6hclnXmMjD5XulvqXA1Ke5UXaFMzDEJEbsg9viTZ6B2D1Zuqj7ezntzsuGpHe9r/o34eMqncBfJ9tGUIkjDv29h+eo2wrQimbc+hoNiLqCaUsDfQiX1kWDib7mEa4uUhaqc1wf14U7/2Zg/eyuAKrYAw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(70206006)(186003)(7696005)(70586007)(8936002)(81166007)(83380400001)(508600001)(356005)(86362001)(4326008)(1076003)(110136005)(336012)(26005)(2616005)(54906003)(426003)(47076005)(82310400004)(6636002)(5660300002)(316002)(2906002)(6666004)(36756003)(8676002)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 09:54:21.3103 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f745548f-f69f-4aa9-d214-08d9af3063a4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3210
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,311 +103,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com
+Cc: Jane.Jian@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 23.11.21 um 20:22 schrieb Philip Yang:
-> IH ring1 is used to process GPU retry fault, overflow is enabled to
-> drain retry fault because we want receive other interrupts while
-> handling retry fault to recover range. There is no overflow flag set
-> when wptr pass rptr. Use timestamp of rptr and wptr to handle overflow
-> and drain retry fault.
->
-> Add helper function amdgpu_ih_decode_iv_ts to get 48bit timestamp from
-> IV entry. drain retry fault is done if processed_timestamp is
-> equal to or larger than checkpoint timestamp.
->
-> Add function amdgpu_ih_process1 to process IH ring1 until timestamp of
-> rptr is larger then timestamp of next entry.
->
-> Helper amdgpu_ih_ts_after to compare time stamps with 48bit wrap around.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 107 ++++++++++++++++++------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  |  13 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c |   2 +-
->   drivers/gpu/drm/amd/amdgpu/navi10_ih.c  |   1 +
->   drivers/gpu/drm/amd/amdgpu/vega10_ih.c  |   1 +
->   drivers/gpu/drm/amd/amdgpu/vega20_ih.c  |   1 +
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |   2 +-
->   7 files changed, 99 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> index 0c7963dfacad..30b4e0e01444 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> @@ -164,52 +164,45 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
->   	}
->   }
->   
-> +/* return true if time stamp t2 is after t1 with 48bit wrap around */
-> +static inline bool amdgpu_ih_ts_after(uint64_t t1, uint64_t t2)
-> +{
-> +	return ((int64_t)(t2 << 16) - (int64_t)(t1 << 16)) > 0LL;
-> +}
-> +
->   /* Waiter helper that checks current rptr matches or passes checkpoint wptr */
-> -static bool amdgpu_ih_has_checkpoint_processed(struct amdgpu_device *adev,
-> +static bool amdgpu_ih_has_checkpoint_processed_ts(struct amdgpu_device *adev,
->   					struct amdgpu_ih_ring *ih,
-> -					uint32_t checkpoint_wptr,
-> -					uint32_t *prev_rptr)
-> +					uint64_t checkpoint_ts)
->   {
-> -	uint32_t cur_rptr = ih->rptr | (*prev_rptr & ~ih->ptr_mask);
-> -
-> -	/* rptr has wrapped. */
-> -	if (cur_rptr < *prev_rptr)
-> -		cur_rptr += ih->ptr_mask + 1;
-> -	*prev_rptr = cur_rptr;
-> -
-> -	/* check ring is empty to workaround missing wptr overflow flag */
-> -	return cur_rptr >= checkpoint_wptr ||
-> -	       (cur_rptr & ih->ptr_mask) == amdgpu_ih_get_wptr(adev, ih);
-> +	return !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts);
+[WHY]
+for sriov odd# vf will modify vcn0 engine ip revision(due to multimedia bandwidth feature),
+which will be mismatched with original vcn0 revision
 
-I don't see much of a reason to keep this function, it only consists of 
-a call to amdgpu_ih_ts_after() and is used only once.
+[HOW]
+add new version check for vcn0 disabled revision
 
->   }
->   
->   /**
-> - * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
-> + * amdgpu_ih_wait_on_checkpoint_process_ts - wait to process IVs up to checkpoint
->    *
->    * @adev: amdgpu_device pointer
->    * @ih: ih ring to process
->    *
->    * Used to ensure ring has processed IVs up to the checkpoint write pointer.
->    */
-> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
-> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
->   					struct amdgpu_ih_ring *ih)
->   {
-> -	uint32_t checkpoint_wptr, rptr;
-> +	uint32_t checkpoint_wptr;
-> +	uint64_t checkpoint_ts;
->   
->   	if (!ih->enabled || adev->shutdown)
->   		return -ENODEV;
->   
->   	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-> -	/* Order wptr with rptr. */
-> +	/* Order wptr with ring data. */
->   	rmb();
-> -	rptr = READ_ONCE(ih->rptr);
-> -
-> -	/* wptr has wrapped. */
-> -	if (rptr > checkpoint_wptr)
-> -		checkpoint_wptr += ih->ptr_mask + 1;
-> +	checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
->   
->   	return wait_event_interruptible(ih->wait_process,
-> -				amdgpu_ih_has_checkpoint_processed(adev, ih,
-> -						checkpoint_wptr, &rptr));
-> +				amdgpu_ih_has_checkpoint_processed_ts(adev, ih,
-> +						checkpoint_ts));
->   }
->   
->   /**
-> @@ -254,6 +247,56 @@ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
->   	return IRQ_HANDLED;
->   }
->   
-> +/**
-> + * amdgpu_ih_process1 - interrupt handler work for IH ring1
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @ih: ih ring to process
-> + *
-> + * Interrupt handler of IH ring1, walk the IH ring1.
-> + * Returns irq process return code.
-> + */
-> +int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+Signed-off-by: Jane Jian <Jane.Jian@amd.com>
+Change-Id: I1ace32acbf3a13c0baac958508da1324ec387a58
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 4 ++++
+ 2 files changed, 7 insertions(+)
 
-I don't think we need this new function any more.
-
-The check if the timestamp goes backwards can now be done inside the 
-page fault handler.
-
-> +{
-> +	uint64_t ts, ts_next;
-> +	unsigned int count;
-> +	u32 wptr;
-> +
-> +	if (!ih->enabled || adev->shutdown)
-> +		return IRQ_NONE;
-> +
-> +	wptr = amdgpu_ih_get_wptr(adev, ih);
-> +	if (ih->rptr == wptr)
-> +		return 0;
-> +
-> +restart_ih:
-> +	count = AMDGPU_IH_MAX_NUM_IVS;
-> +
-> +	ts = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 0);
-> +	ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 1);
-> +	while (amdgpu_ih_ts_after(ts, ts_next) && --count) {
-> +		amdgpu_irq_dispatch(adev, ih);
-> +		ih->rptr &= ih->ptr_mask;
-> +		ts = ts_next;
-> +		ts_next = amdgpu_ih_decode_iv_ts(adev, ih, ih->rptr, 1);
-> +	}
-> +	/*
-> +	 * Process the last timestamp updated entry or one more entry
-> +	 * if count = 0, ts is timestamp of the entry.
-> +	 */
-> +	amdgpu_irq_dispatch(adev, ih);
-> +	amdgpu_ih_set_rptr(adev, ih);
-> +	wake_up_all(&ih->wait_process);
-> +
-> +	wptr = amdgpu_ih_get_wptr(adev, ih);
-> +	/* Order reading of wptr vs. reading of IH ring data */
-> +	rmb();
-> +	if (amdgpu_ih_ts_after(ts, amdgpu_ih_decode_iv_ts(adev, ih, wptr, -1)))
-> +		goto restart_ih;
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
->   /**
->    * amdgpu_ih_decode_iv_helper - decode an interrupt vector
->    *
-> @@ -298,4 +341,20 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
->   
->   	/* wptr/rptr are in bytes! */
->   	ih->rptr += 32;
-> +	ih->processed_timestamp = entry->timestamp;
-> +}
-> +
-> +uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
-> +				       signed offset)
-> +{
-> +	uint32_t iv_size = 32;
-> +	uint32_t dw1, dw2;
-> +	uint32_t index;
-> +
-> +	rptr += iv_size * offset;
-> +	index = (rptr & ih->ptr_mask) >> 2;
-> +
-> +	dw1 = le32_to_cpu(ih->ring[index + 1]);
-> +	dw2 = le32_to_cpu(ih->ring[index + 2]);
-> +	return dw1 | ((u64)(dw2 & 0xffff) << 32);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> index 0649b59830a5..d7e1ffeca38f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> @@ -68,6 +68,7 @@ struct amdgpu_ih_ring {
->   
->   	/* For waiting on IH processing at checkpoint. */
->   	wait_queue_head_t wait_process;
-> +	uint64_t		processed_timestamp;
->   };
->   
->   /* provided by the ih block */
-> @@ -76,12 +77,17 @@ struct amdgpu_ih_funcs {
->   	u32 (*get_wptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->   	void (*decode_iv)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
->   			  struct amdgpu_iv_entry *entry);
-> +	uint64_t (*decode_iv_ts)(struct amdgpu_ih_ring *ih, u32 rptr,
-> +				 signed offset);
->   	void (*set_rptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->   };
->   
->   #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
->   #define amdgpu_ih_decode_iv(adev, iv) \
->   	(adev)->irq.ih_funcs->decode_iv((adev), (ih), (iv))
-> +#define amdgpu_ih_decode_iv_ts(adev, ih, rptr, offset) \
-> +	(WARN_ON_ONCE(!(adev)->irq.ih_funcs->decode_iv_ts) ? 0 : \
-
-Please drop that WARN_ON_ONCE here.
-
-Regards,
-Christian.
-
-> +	(adev)->irq.ih_funcs->decode_iv_ts((ih), (rptr), (offset)))
->   #define amdgpu_ih_set_rptr(adev, ih) (adev)->irq.ih_funcs->set_rptr((adev), (ih))
->   
->   int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
-> @@ -89,10 +95,13 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
->   void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->   void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
->   			  unsigned int num_dw);
-> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
-> -					struct amdgpu_ih_ring *ih);
-> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
-> +					    struct amdgpu_ih_ring *ih);
->   int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
-> +int amdgpu_ih_process1(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->   void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
->   				struct amdgpu_ih_ring *ih,
->   				struct amdgpu_iv_entry *entry);
-> +uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
-> +				       signed offset);
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index e9023687dc9a..891486cca94b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -224,7 +224,7 @@ static void amdgpu_irq_handle_ih1(struct work_struct *work)
->   	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
->   						  irq.ih1_work);
->   
-> -	amdgpu_ih_process(adev, &adev->irq.ih1);
-> +	amdgpu_ih_process1(adev, &adev->irq.ih1);
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index 38241cf0e1f1..8ce5b8ca1fd7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -716,6 +716,7 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs = {
->   static const struct amdgpu_ih_funcs navi10_ih_funcs = {
->   	.get_wptr = navi10_ih_get_wptr,
->   	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->   	.set_rptr = navi10_ih_set_rptr
->   };
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> index a9ca6988009e..3070466f54e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> @@ -640,6 +640,7 @@ const struct amd_ip_funcs vega10_ih_ip_funcs = {
->   static const struct amdgpu_ih_funcs vega10_ih_funcs = {
->   	.get_wptr = vega10_ih_get_wptr,
->   	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->   	.set_rptr = vega10_ih_set_rptr
->   };
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> index f51dfc38ac65..3b4eb8285943 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> @@ -688,6 +688,7 @@ const struct amd_ip_funcs vega20_ih_ip_funcs = {
->   static const struct amdgpu_ih_funcs vega20_ih_funcs = {
->   	.get_wptr = vega20_ih_get_wptr,
->   	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->   	.set_rptr = vega20_ih_set_rptr
->   };
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 10868d5b549f..663489ae56d7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1974,7 +1974,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
->   
->   		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
->   
-> -		amdgpu_ih_wait_on_checkpoint_process(pdd->dev->adev,
-> +		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
->   						     &pdd->dev->adev->irq.ih1);
->   		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
->   	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 503995c7ff6c..1dabbcbc3970 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -925,6 +925,9 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+ 		case IP_VERSION(3, 0, 33):
+ 			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+ 			break;
++		case IP_VERSION(3, 0, 192):
++			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
++			break;
+ 		default:
+ 			dev_err(adev->dev,
+ 				"Failed to add vcn/jpeg ip block(UVD_HWIP:0x%x)\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 4f7c70845785..27125e5e3092 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -143,6 +143,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
++	case IP_VERSION(3, 0, 192):
++		if (amdgpu_sriov_vf(adev))
++			fw_name = FIRMWARE_SIENNA_CICHLID;
++		break;
+ 	case IP_VERSION(3, 0, 2):
+ 		fw_name = FIRMWARE_VANGOGH;
+ 		break;
+-- 
+2.17.1
 
