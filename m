@@ -4,123 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 336A4C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 21:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85CBEC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Nov 2021 22:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80CD46EADD;
-	Wed, 24 Nov 2021 21:40:38 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 067F96EADD
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 21:40:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 925BA6E17A;
+	Wed, 24 Nov 2021 22:52:06 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4906E17A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Nov 2021 22:52:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HCZt83zudFtAAxKgL6di0LKKbzFw4xio4lR3x+c4rypkPQqDin3qp3VBjVKFd1ceCgujgDP15TGiGUGUrdtglkrWGMIumwo2lSm5D+2uw0UC3KdbPUIvP8htPtc+jV2TimXBkp2PsjXbAhUriF8gFZ3Wy2c90OIk8+sAcPkm+741ojYuxslLoyg6bfv8umNOTAgsyIQ/zTyGNgp7gYXNWNRoafa6BgnXLlwIs6Jen+8wZrNcmj8e/rgP5bp9AOrN6I//UdYk0PjH+yDuruLQ058wv3iPRnbWROzyKta9i0vvGqdPD4gxGx/5OQ8SAPR9klMRpAAEGP0oJqlIRAfwMg==
+ b=SrMdxZ9KnevR4i867yQCQ9EQSdIOEFK+kcIak5SHlb9IGN9vsnoOrN0djdOneNIc7Oxe6kKfWkzggMVjWsGkYKEddj5bABY31YVxRejJbtr5ueoChiEyXKTXiKGMt0gIc+8hk2KDvi7HA4y+JlyHGguqsSP8acCyVaK8dZx+FNZDt5Z+3ZiNsiowbjag+cbMnbOlcfQEgfraEn0fvqVpBWStNc6FrSExodcDYlNSPDeo2YjUA4ZaIHZhstDsR0YBi0In8C6MjQ80cNbi2ubs5t7oAviYj9eaKJSNA0fBMXiFLniEPfiIksajMePDeQzdH8HK8eIXgMyoNtrVioTw2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Xs0RP8PND6jXCzdPtqewzdDczt0oUNMp+hlDFt03zY=;
- b=fqlU4S0JN6KuR9/eW7zM7JRztFtgcLf8fgfNkegz2wA5tCHwu8GMGchKvY5uQEl2I+WsLGXLD5kF95hZz5jE97RKBjqfDGVeeQE2W/1uV7VY5rjz5YbN8cPcjr+zImosBnTaQNTjqdh2u/urJ32HA9QlC65DIHJ/jpNcCNS2w77z2SbQl8XblBff0m3olRKeyjKy74BJK5UDJJyisBC9FkBHo1QJVlibxcKCznHkuv4K20SXC6oUbq+SnvDtZvhZRE+hM8XjtUqu7fPu4n5l8WGg/GB8dxAJ56QIHv0yuGb+7aE4YNjuoXz6mgXV+Pj7zpdYWaPMPCrFx7Jc2KEScA==
+ bh=jmq/EN2XHB46LQUeDZUdlII7QEQj7fdYnS86g8x+TMo=;
+ b=NO+spo+7k12ih1I6FSDp6FTQUNpJiS0s9dLx+EJoxHyjluKEcyAuhlkiybjWiPeujHpPD5dJGnbcniDBBe2FgJbqQtme5Z7pc1CZtwxAkYMJDTVP9umMKE/b4fFvrH/iG4gFPLCw+bF/QSMI1Wl9MZwKrEQVKDPIMEfADOtdPtWzZm1wcsH7Kk9bbsGOzprGObuc/V0WbvBjd2EHK8LaYqsm77v2qGx/m4ly3RCxshz5wBtjK6pm5vqSBfFM4OhO2IB/baYy5ehfMH0w2KsfKQXL7ESUetPJaPljno1Vnrejjy1epyfYln639WdbmLSf2roH+gUFJIq7LWHKVPV1Xg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Xs0RP8PND6jXCzdPtqewzdDczt0oUNMp+hlDFt03zY=;
- b=wLxSTlMtygUg3YxQxtCiox7iguRg6AVz0gZsJ5eE7wHQ0AV/yBZseQUWsxD7MLtgpVtq8zZRVyCvJt1U/pSEvMFh3Kb44qx9/R3V0aw26g713GghcuZqUIGwAhLNRBjJyHr4lKlRTw0+RAQguxR1vFJXqaBZV+kuYHQktsT/AWc=
+ bh=jmq/EN2XHB46LQUeDZUdlII7QEQj7fdYnS86g8x+TMo=;
+ b=c05bGlnT1XKg21u4UB2CsnzakYf8cptkfyBP1cvubZQNs4XCjNk3HUgq8yFciWYRXVjoG3dGAD1k+lxNHFR0nq0dT3K07dfgHwc9ozEioQNLuMZYvwsqaYKLcv7QYkgiMDchUfEFWn3EfLBd7BJ4q35o6ufmm+odk7DEkIl2LuQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24)
- by DM4PR12MB5229.namprd12.prod.outlook.com (2603:10b6:5:398::12) with
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB5071.namprd12.prod.outlook.com (2603:10b6:5:38a::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20; Wed, 24 Nov
- 2021 21:40:34 +0000
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::3c90:18ad:1198:48c3]) by DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::3c90:18ad:1198:48c3%9]) with mapi id 15.20.4713.025; Wed, 24 Nov 2021
- 21:40:34 +0000
-Message-ID: <8db7cc61-53df-b246-3e92-0edc77f47829@amd.com>
-Date: Wed, 24 Nov 2021 16:40:31 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v1] drm/amd/display: Add DP-HDMI PCON SST Support
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21; Wed, 24 Nov
+ 2021 22:52:03 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf%4]) with mapi id 15.20.4713.026; Wed, 24 Nov 2021
+ 22:52:03 +0000
+Subject: Re: [PATCH v5] drm/amdgpu: handle IH ring1 overflow
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211123192254.21681-1-Philip.Yang@amd.com>
+ <3d17fd21-751d-6f87-95b9-d120db7f4a0e@gmail.com>
+ <5ec42928-995f-04c6-c7c8-3d2e33744457@amd.com>
+ <bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <430de254-8f6b-3a8b-1796-3d664f1b3dbc@amd.com>
+Date: Wed, 24 Nov 2021 17:52:01 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com>
+Content-Type: text/html; charset=utf-8
 Content-Language: en-US
-To: Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
- harry.wentland@amd.com
-References: <20211124172837.41507-1-Jerry.Zuo@amd.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-In-Reply-To: <20211124172837.41507-1-Jerry.Zuo@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0443.namprd13.prod.outlook.com
- (2603:10b6:208:2c3::28) To DM4PR12MB5182.namprd12.prod.outlook.com
- (2603:10b6:5:395::24)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR03CA0029.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::34) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
-Received: from [172.31.16.161] (165.204.54.211) by
- BL1PR13CA0443.namprd13.prod.outlook.com (2603:10b6:208:2c3::28) with
+Received: from [172.27.226.38] (165.204.55.251) by
+ MN2PR03CA0029.namprd03.prod.outlook.com (2603:10b6:208:23a::34) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.13 via Frontend
- Transport; Wed, 24 Nov 2021 21:40:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20 via Frontend
+ Transport; Wed, 24 Nov 2021 22:52:02 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 69ad506e-9cf5-4f69-93fb-08d9af930bd9
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5229:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB52297E6FEBC6F58A4C945306EC619@DM4PR12MB5229.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:494;
+X-MS-Office365-Filtering-Correlation-Id: 18de3221-411f-408e-a200-08d9af9d0843
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5071:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB507110873C0E71B14A95CB70E6619@DM4PR12MB5071.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PqbbDUtzaDc2uP43Ep3Rfu1x3DRfmunZQeuJmihMIsN0CyC2JCDANXh1P27OORiN1ksMmdljHRvbcvKO2K+PQttDKq8xV8ITM5w9xSPqvCjHqwFHY7vFtSEBmmdGidjbW/UWN4H4P9MNruoQUetrAFXClpt3o59x+uJa+aZ3OHFLY2tI6JQWCfd7jIfvlFoaxEBKXbkyWhy551iHhAI3u3f49LmrBMNbui093I0DEzMUqDrzOs/jbeE+x7kFLs53/VJ4G8NCeNkniJxIjOtl6ydQZ3lnsMBKGeVYyWA60hZNwYJOhsizgwnJ/d0jzif5bsR15m3HeE90nX8PI2Dl81myUkFnFt/hhMvHdMH2XMCcnmrejg1vmymc2OBLP6JXDTP8od4a9sAH/Rp3VpApHPzenPa76mu3dDfDOU2V4oqZlttwb2Dibr4/4NKtUZ7TXlOjcnIuWK9J9SY9QSl8WPkY88pCVc0SR2xouLpUECwxg0+KnlzX+73NVEGTEfu0JvVRSDedWT6y/waLFzlcN2xxB15n6Q9CJ259h/TSl1ztxKD32yhp3qn2x4JEn8cRfV7n2BHTXv4Z8GlXJOP9mcs2U97jCGf2JQMSGumUQc5J9QmLGLW5gRjtWhBJEg6lIMXBtdTsJidce9epOERoFfqnQaDkI7vAFtYyRbdwcnbKhPrm5QkG4DM5bUzAEZoRNZFiLzlGfqU6JZ4LbIxtNaIfgULZ0rrNJrwyMYvF+B8=
+X-Microsoft-Antispam-Message-Info: c2I5CiWt7Nq1YNTV8psgv/uDSsrFBk0iSuxLOa1NNgEOGSG386gy3KZuf2C33mJHlbs8hokVCtng+Ppky4E4evcpcMJRTK/Ldw33J34eOGRM0WzCm3JsFYq0rORKm41LcSA8J9OuYTiTP3YOBnDSQ3+9U2JQXt9FE6//EyMeu6vEf+651uecBy8U2RmyWmDlgCUTLoJdAyRUkHJ7n3H6SpnaUIFhiDoiTV6oI53a42IVvM0A/X1a93ul9ktqxIAy+7YpF4CpyCCfLC7adIZwas0CWdeh9IH5YKOlJ6yD5viRciNVtgR8husnWpWQBGsnJmkINRMX1tTupf/ozJSn96drZUK+NPK9ZolPa8onO/GlWw+4EBPbCuuZ44X53qCs4X0zXzI6FqtGJQhXyAuT4CLwJYGPxKwlCo1q7ljW58/bwEPVNMCxSWQd48ETRTB2zkKw0oz+nX2Md1rVwamu529wMIX2LkHQpUNFMTEoUOff7rPz1Zq4suUGgKBGbZ2Y6mLTU7sp+/sVUNK9+Ly3dSfn/PqNo4VcodtfhIjP4dtsJjgqH8waE6/URgjNfBsmnDDhbFPNK/vxNvzA+SstXzYiBtMTdtoeUuXzv9CPdeOAMAYk5oKGb2ReV8ZtTSbFhWwhBT1yXUsctudm/amcvVQhhxcZWjUS0Qe3BYT5x7AlRqc0t2+pZatqzQuufUIXOg4WXCKIQfEL4ckf/IDtHMx2kadbTwN91qRyTNFomMY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5182.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38100700002)(36756003)(6636002)(26005)(5660300002)(31696002)(186003)(4326008)(508600001)(4001150100001)(956004)(86362001)(2906002)(16576012)(316002)(8936002)(66556008)(8676002)(66476007)(66946007)(83380400001)(31686004)(2616005)(53546011)(6486002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(508600001)(66946007)(5660300002)(4326008)(2616005)(53546011)(83380400001)(956004)(8936002)(66556008)(66476007)(8676002)(26005)(186003)(4001150100001)(2906002)(38100700002)(110136005)(16576012)(316002)(31686004)(6486002)(31696002)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REgxOU9kYUdhRGM4T0NYT0FvalAvKzU2OFVvaG5PR2t3UWphOHN1K2hFc1Bn?=
- =?utf-8?B?K0wxR0U5a2w2SWxzdVdsUjdSM0swUUF5ZWRqeWgyVUx3MkpMV2I2L04zaGVQ?=
- =?utf-8?B?bUU1ZU00N3dvdlRaK3ZlTi9KaFhGYlhoRDlnbHcwdEJ1ZWFTRkVOdEw5TGVN?=
- =?utf-8?B?Z3g2Y3prVlRFYkt1TURhWHZQYVRLZ1BsMVBtL0l5N3psN2hEOXREQSt0R2E5?=
- =?utf-8?B?UmpSZ0FLODNUR0dBaXhQWE5Ea01yVVQ1ZkdOY1NhNnFnYWZ3eVoxbUxKTmlo?=
- =?utf-8?B?THpYTFBwb1FGSEFUb1NDdUFCS0RCWERuZGt6ektKRFoxRWpmTVNxWEwySE5K?=
- =?utf-8?B?T09XWTZnblVZZTQ4ZWFKRGdxNER2bTAxRkJVWHczYkVGZUJzd3hheUZVaWZL?=
- =?utf-8?B?a1BBZTFxTkVZdWRTNStLWGF4UkZyNjYxcjBDUmpoZ1NGZUY4VzBkdkE5c3Rj?=
- =?utf-8?B?Y2FIa28vYmMwUUJCQnAwcUJUYnBQZXVGWWdIN2h3MTVXY2NPQlFOeXlpaTUx?=
- =?utf-8?B?dUk0Nkcva0RJVm04WW9oTUZGNDVDUzZpUFBLSkFMbWdQR3B2M0NjYndWMUtL?=
- =?utf-8?B?Q2o4RlIrbEdlc2JPSXg0WHB1d1QrNVRmRlNOUlNJKzZ6VGNzdEU1Wkl4TTNX?=
- =?utf-8?B?R2x2eHRjR0FjZDRPem43eENJdmExcWNwSlRsL05uUFBIejZpak14SEFlZ1FN?=
- =?utf-8?B?c3R6NEppTFQ2NjFZaVRSb2szNEhCWkU4ZXc4WFY3eERlUTA0a1JydUIzYzhv?=
- =?utf-8?B?Y01YWGdWRnRjY0p0eDBPQzJNeGxyVnV5OTArTDhUeERPSXRzUm5nSVpicTBk?=
- =?utf-8?B?U3V5U0p4VW9ST205M2dVTnNCZnptQU9aVjcwN2Z3N043WFJ5NlFUR3lLMkZQ?=
- =?utf-8?B?bDA1Nk1qd0hoTDRSMnl6MjZwWnFCZldvMXdlVld2alZhQ1RXYys4azJuRjlx?=
- =?utf-8?B?YWl3Sml0dnU4eWFueCt4ZXEwR1JRV3RxVEt2b2FmQzZWZk83M3JoTklEQnpx?=
- =?utf-8?B?ZkVaejUwT2xPT0ZlL0ZIblowczJQSGVib213VzBzNHlUZU55V0VUamM2M090?=
- =?utf-8?B?aDduMmRGb1QrVTl5YlM3WnFMTzZiMzJJQ3NHTTNGTjRyaEVsakRXdXlkZVgr?=
- =?utf-8?B?bUNqK0RKcGtSUmNLeHkzb0svZEtvcEZHdHNYWFZMc0RFQ2k5ZDRBVDNmd2N6?=
- =?utf-8?B?RGN5cTdidE1BTWVmVWQxZWp6ak5mSkltT0RVMWdKc3hsMnB1Q3FKTVNCTUt4?=
- =?utf-8?B?ZUVjTDJBYlB4VENuUlJhWkQ4R3MrMzBNTEhxNUREUHpUZGI3Q1hHUjRsRFND?=
- =?utf-8?B?ZlVhOUxpMnE5aTI5VkhNVitzT0FHdkxweUgyT3pRRi95WklpWlNHSDNmcDBQ?=
- =?utf-8?B?cXdhTi9MK1N5RisydllsWVdkd2lZaGUwU09SdjFlMU84RzVKVHV4UHpVNzZZ?=
- =?utf-8?B?Sk5ZQnZKNmRLRnRTeTVQSzdVTHR0NVVOekhRZEVYeWlJSmpJZi9Xbk9OTFJm?=
- =?utf-8?B?QXdJR2ttcDlBajQvTW9wS3l0dVNZeEVvSnNrdXkvNHYya3NReStaRG9ERWVV?=
- =?utf-8?B?UHI0WG9rWENIekNDbjJxVUllMnZNb2haK3BLYmtJc3UyL2QyajI3eUtYM3Qx?=
- =?utf-8?B?RndPei84YXh6QUVuMzNBSmJQMjBwQlZTUHdKeUl6UURTc00xOFQzdEkxeWJn?=
- =?utf-8?B?dkxxS0s4TGNmTzh1NG80U01ENUcyZzFiZ055STJXV0phQ28wUkZLMUZSRHVC?=
- =?utf-8?B?MXdheDlWd25wSFlqUmkzakNXY1pJWUR3dGZFdWVMaGdRTkQzMWNYbFh1Ri9l?=
- =?utf-8?B?UVhsc2NlUUZlTno1dUJwenhvYStyUTlXTThuem04dmJxT21GK2JneDNJajh2?=
- =?utf-8?B?U3V3ZVRPNmRIZmVkdXh6ZjJreG8xdDRENGVCQU16QXNrNHdNRHJ4OERVWnpa?=
- =?utf-8?B?TDJKUzdWdm03cTNZS2c4amlqalUyV256blh1a2QzSXZpaG43bzh1YTBvUjgv?=
- =?utf-8?B?QXlOMDJ4OE90aFNHVnFEQWZ2a3NUZ0hKNmxMeFo1T0RwdmZkaW81Unl3QTl5?=
- =?utf-8?B?WkZ2bktUaEp4WHI1WHlrOStzeUlNZGRReXQ4cjg3T2RlT0szU1ZzaW05c3Z4?=
- =?utf-8?B?WmthMVRxOHBXTzVLQ1FHZ01JMWpvRW9DK0h5ZUV0T1B5K3gxUnY5bUVhdExW?=
- =?utf-8?Q?3FPOKDVazeVFFqmiWI+weZE=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emwyU3JSSU94QWIyRTc0eWliODVSbVM2aUpZbEN1YmkxTVFZMnhvRTc0UHNk?=
+ =?utf-8?B?aEV6NlpnOG4vcG1SajJYWW1CaEhyaDN4a0U3dWFBSDFlZUF2ZVFvSnZKenpH?=
+ =?utf-8?B?TzY1ek9qeUVpWHIzdGRmOVdhL2EvMjQwWCtOUW9pTVJ5dFNldWdIMERkT3Qw?=
+ =?utf-8?B?TzhOQXVyNXJ2di9pcTBYZXFRbFZjaWdWUkltWGs4U3E3UE5sQXcwMXZocitJ?=
+ =?utf-8?B?UVVEYzZabTdGcWZFM1dRWEh2Q2thRk1tZHdjM3hDME05V3p6eWxBcFBNbUlq?=
+ =?utf-8?B?VVBYKzBubmFZT1V0dS90SGJsNnNXOCtjeDdTMy9PcTlwM2JleVhObDhzRkQ0?=
+ =?utf-8?B?NThCT1ZGTjNQSzBNNjBSSFZCK0lnTnhCTHBnL1EzRXcwajN4R3JWa1RJUGln?=
+ =?utf-8?B?cUF5MElaVnc5bXlnYTdVNDNIcjQwVkxlZGNBYkc0Y3BXL3UvQXlaTnhQczRq?=
+ =?utf-8?B?ZFo0MXNyQStza1lKSW1qeVJtWU41akZ2TDNFYnVaQWI0eHROWFpoYS8wV3Rx?=
+ =?utf-8?B?eVJGME1HQWJBT0ZjaktOSkhaMnNTLzkzZ1crSGpYU1JKbXhwZ3pyVUVQaFpt?=
+ =?utf-8?B?cWgwbFh5VkdkYVRaMjR4cXUxSHZYOXYzYktTNzd5U1YxOWV6UUR5TGhhdllu?=
+ =?utf-8?B?Vk1uZ0pvVHI4U3E5K0hBZjFKNllOaWZHR21KbEIzZ1Fqa0xxSTZIOVhFV3J3?=
+ =?utf-8?B?QU5qRFJYYmdiZWlZRWE0NjVIS3J3WnhPYk0vcFowZzcyVjRqb0ViZlFLdmhu?=
+ =?utf-8?B?RzdJU1c0ZGlObWZhZ1lNdVUvaUQ3M0lsY1pjRktpM21IUVV1M3d4V3lkWkRt?=
+ =?utf-8?B?dUlkRkY3bWIrREN6TER2SGdOY2MyWlRQd1g5SDZTc3p0ZktxcTlHNU1xVkxl?=
+ =?utf-8?B?NnNodFdTRDBRWGE5SlVXNnRUWm9IYjhFWU5uc25jQnErRDJaYVh4cnE5Y0Jy?=
+ =?utf-8?B?MFB4NldrZ1pjMWJ4Y2lqTzBLc25adkFYWGVJS0FNdEdBeEtaUUFibk1SNzFw?=
+ =?utf-8?B?Mi9OckJwcHZHZTJEVFNvdENPNWdVYzVmc0gxTDZMV1RwL25YM29YTVdrdUhV?=
+ =?utf-8?B?RndMTTJsOFpDa2RpdGExY09uTmllYWFZWEtMOE8xNGRoVHl4ejQ0Ty81bndj?=
+ =?utf-8?B?M2hPaisvQ3lxRCtvS0RnZUh5TUJ4NFp6WmJzeC9uY3djZXRnZnZFTlp5T0FX?=
+ =?utf-8?B?UVNDa3FEcDFPNXJWanFVcnVqWTBsSlhQY3BUdzNuMW0xV1VzWnd3c3YyN1pF?=
+ =?utf-8?B?QzdxZnRyYjcvWWZ3VHNNb000cG00M09DWEdldWYzc3k1SmJSR1dWQjVZbTdk?=
+ =?utf-8?B?VVNZalFpV1pJRnAwYXlMUUIzVmI5aUtpVWFGMCtsbk9hMzh6YTVlU1RHUVFZ?=
+ =?utf-8?B?OERISEpBOG4rbUVjOFd1dTZkbnVzc1JpcmhQK3FXcHk5RkpOdWtSUklFRG8x?=
+ =?utf-8?B?VDd3aFFEZnFrQjVhUlRSaEZIa1JUd0F5ZXR6RDlXVTdDVFMrMFNRSHloTHpP?=
+ =?utf-8?B?dGVSVUlNWElHY0VYUG0rencwTVJGQmJkMXl6a1k4a0VKeWM0V0Z5MVhMM2ll?=
+ =?utf-8?B?WFYxQnJmMndwK2VZa2djT09sNERaVlp5LzZhSDgyTGRFZXd3djgzcC9yQVlZ?=
+ =?utf-8?B?LzQxeGZsaXdVcGgrbmpJRWgxTXlwcEtpb3JOd3JYdGFYdk9PZHBJMWp2Vy9v?=
+ =?utf-8?B?Y043QlU2Sks5a3lvWmhLZWg2VXg4MW1iV3hEMWplVHpnK252ME1OTWJpS2l5?=
+ =?utf-8?B?WTlWKzJaQzdRNHM4U3NZb3lWV3NpbXB2OWMvVUVuaExEdFZYaG9Ud2puOFhX?=
+ =?utf-8?B?RTh5a0duMHNPM1VmMXd6ZG11MC9UbjNwb3dPRE5BNS9EaVlMaWFFaUN1dlRF?=
+ =?utf-8?B?ckpiUXVXZFdHeTRnQllXQ3FWNjBoQzFUSFBJdHJ1TGM5cURTSS9LY3V4ZEhQ?=
+ =?utf-8?B?dU9YUVlsKzA1L2V4SlJHRHp3aGFpSVowSkluRHN1U3BSWmZrUE1JUGt2Z1Z4?=
+ =?utf-8?B?UXZpL3ZKVUFMTXdUSlRxNXh3RjFRSkY5YTdleHNwbmtLSnU5Zkozbmg5ekht?=
+ =?utf-8?B?N2pyUm52aUZlcmxMeWVmL3h2WjJTR1c1ZFdyM1h6R2pMNXdvKzg2SUdrQ2E4?=
+ =?utf-8?Q?k+dQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69ad506e-9cf5-4f69-93fb-08d9af930bd9
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5182.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18de3221-411f-408e-a200-08d9af9d0843
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 21:40:34.6753 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 22:52:03.5979 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oa4V55e80LIO4DJeYAE4hsoyR/hgyG+pqIxeDLlj7ff1+brtrt3VsE5fW6wdSghlE/10MuvRIYE6RVrHAf/Yug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5229
+X-MS-Exchange-CrossTenant-UserPrincipalName: eBzzgH3y7N8I1hgfZ68hQtiZdfkh08ztRrP65ZKLpFXUv6P8A3q30yy7nmauBgb1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5071
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,122 +135,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: wayne.lin@amd.com
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-11-24 12:28 p.m., Fangzhi Zuo wrote:
-> 1. Parse DSC caps from PCON DPCD
-> 2. Determine policy if decoding DSC at PCON
-> 3. Enable/disable DSC at PCON
-> 
-> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-Regards,
-Nicholas Kazlauskas
-
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 +++++++++++++++----
->   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 13 +++++-
->   2 files changed, 44 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 9a1ac657faa2..9dbf6bf3f1c3 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6047,10 +6047,12 @@ static void update_dsc_caps(struct amdgpu_dm_connector *aconnector,
->   
->   	if (aconnector->dc_link && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
->   		sink->sink_signal == SIGNAL_TYPE_EDP)) {
-> -		dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
-> -				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
-> -				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw,
-> -				      dsc_caps);
-> +		if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE ||
-> +			sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-> +			dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
-> +				aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
-> +				aconnector->dc_link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw,
-> +				dsc_caps);
->   	}
->   }
->   
-> @@ -6120,6 +6122,8 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
->   	uint32_t link_bandwidth_kbps;
->   	uint32_t max_dsc_target_bpp_limit_override = 0;
->   	struct dc *dc = sink->ctx->dc;
-> +	uint32_t max_supported_bw_in_kbps, timing_bw_in_kbps;
-> +	uint32_t dsc_max_supported_bw_in_kbps;
->   
->   	link_bandwidth_kbps = dc_link_bandwidth_kbps(aconnector->dc_link,
->   							dc_link_get_link_cap(aconnector->dc_link));
-> @@ -6138,16 +6142,37 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
->   		apply_dsc_policy_for_edp(aconnector, sink, stream, dsc_caps, max_dsc_target_bpp_limit_override);
->   
->   	} else if (aconnector->dc_link && sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT) {
-> -
-> -		if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
-> +		if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE) {
-> +			if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
->   						dsc_caps,
->   						aconnector->dc_link->ctx->dc->debug.dsc_min_slice_height_override,
->   						max_dsc_target_bpp_limit_override,
->   						link_bandwidth_kbps,
->   						&stream->timing,
->   						&stream->timing.dsc_cfg)) {
-> -			stream->timing.flags.DSC = 1;
-> -			DRM_DEBUG_DRIVER("%s: [%s] DSC is selected from SST RX\n", __func__, drm_connector->name);
-> +				stream->timing.flags.DSC = 1;
-> +				DRM_DEBUG_DRIVER("%s: [%s] DSC is selected from SST RX\n",
-> +								 __func__, drm_connector->name);
-> +			}
-> +		} else if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER) {
-> +			timing_bw_in_kbps = dc_bandwidth_in_kbps_from_timing(&stream->timing);
-> +			max_supported_bw_in_kbps = link_bandwidth_kbps;
-> +			dsc_max_supported_bw_in_kbps = link_bandwidth_kbps;
-> +
-> +			if (timing_bw_in_kbps > max_supported_bw_in_kbps &&
-> +					max_supported_bw_in_kbps > 0 &&
-> +					dsc_max_supported_bw_in_kbps > 0)
-> +				if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
-> +						dsc_caps,
-> +						aconnector->dc_link->ctx->dc->debug.dsc_min_slice_height_override,
-> +						max_dsc_target_bpp_limit_override,
-> +						dsc_max_supported_bw_in_kbps,
-> +						&stream->timing,
-> +						&stream->timing.dsc_cfg)) {
-> +					stream->timing.flags.DSC = 1;
-> +					DRM_DEBUG_DRIVER("%s: [%s] DSC is selected from DP-HDMI PCON\n",
-> +									 __func__, drm_connector->name);
-> +				}
->   		}
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index e8e70840a622..2c73594da85f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -585,8 +585,17 @@ bool dm_helpers_dp_write_dsc_enable(
->   	}
->   
->   	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT || stream->signal == SIGNAL_TYPE_EDP) {
-> -		ret = dm_helpers_dp_write_dpcd(ctx, stream->link, DP_DSC_ENABLE, &enable_dsc, 1);
-> -		DC_LOG_DC("Send DSC %s to sst display\n", enable_dsc ? "enable" : "disable");
-> +#if defined(CONFIG_DRM_AMD_DC_DCN)
-> +		if (stream->sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE) {
-> +#endif
-> +			ret = dm_helpers_dp_write_dpcd(ctx, stream->link, DP_DSC_ENABLE, &enable_dsc, 1);
-> +			DC_LOG_DC("Send DSC %s to SST RX\n", enable_dsc ? "enable" : "disable");
-> +#if defined(CONFIG_DRM_AMD_DC_DCN)
-> +		} else if (stream->sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER) {
-> +			ret = dm_helpers_dp_write_dpcd(ctx, stream->link, DP_DSC_ENABLE, &enable_dsc, 1);
-> +			DC_LOG_DC("Send DSC %s to DP-HDMI PCON\n", enable_dsc ? "enable" : "disable");
-> +		}
-> +#endif
->   	}
->   
->   	return (ret > 0);
-> 
-
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-11-24 10:33 a.m., Christian
+      König wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com">
+      <br>
+      <br>
+      Am 24.11.21 um 16:23 schrieb philip yang:
+      <br>
+      <blockquote type="cite">[SNIP]
+        <br>
+        <blockquote type="cite">
+          <blockquote type="cite">&nbsp; +/**
+            <br>
+            + * amdgpu_ih_process1 - interrupt handler work for IH ring1
+            <br>
+            + *
+            <br>
+            + * @adev: amdgpu_device pointer
+            <br>
+            + * @ih: ih ring to process
+            <br>
+            + *
+            <br>
+            + * Interrupt handler of IH ring1, walk the IH ring1.
+            <br>
+            + * Returns irq process return code.
+            <br>
+            + */
+            <br>
+            +int amdgpu_ih_process1(struct amdgpu_device *adev, struct
+            amdgpu_ih_ring *ih)
+            <br>
+          </blockquote>
+          <br>
+          I don't think we need this new function any more.
+          <br>
+          <br>
+          The check if the timestamp goes backwards can now be done
+          inside the page fault handler.
+          <br>
+        </blockquote>
+        Do you mean to merge this into the original ring0 interrupt
+        handler? Then we need add parameter (ih-&gt;overflow_enabled)
+        and process two different cases in ring0 interrupt handler, I
+        think that is not good to maintain later so I want to separate
+        them.
+        <br>
+      </blockquote>
+      <br>
+      What I mean is you don't need any different handling any more if
+      we use the timestamp anyway.
+      <br>
+      <br>
+      Just keep the last processed timestamp in the page fault code and
+      ignore faults when it starts to go backwards.
+      <br>
+      <br>
+      If IVs should be dropped or processed as much as possible is
+      depending on quite a bunch of things and should probably not be
+      handled in the IH code in general.
+      <br>
+    </blockquote>
+    <p>Use ih-&gt;processed_timestamp updated in decode_iv, for both
+      checkpoint process and page fault handler to drop stale fault.</p>
+    <p>interrupt handler don't need change.</p>
+    <p>Thanks,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:bc4b8eb7-698f-a522-ef33-6d2232612167@amd.com">
+      <br>
+      Regards,
+      <br>
+      Christian.
+      <br>
+    </blockquote>
+  </body>
+</html>
