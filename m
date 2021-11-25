@@ -4,126 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27898C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Nov 2021 15:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7788C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Nov 2021 15:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDFE6E8B9;
-	Thu, 25 Nov 2021 15:22:45 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2051.outbound.protection.outlook.com [40.107.237.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9057D6E8B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 15:22:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3C736E954;
+	Thu, 25 Nov 2021 15:39:37 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64C516E954;
+ Thu, 25 Nov 2021 15:39:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F8ZtEATmykEGF+cECnk3auhnoBXhpwTCANcpcxy9W7dIapvdXU48ATsjPyyHlgzUCmLoPuEjy2ubPgNyPQmdCWg1XBXabGeQuvO9Qjt7KFyWSqT7sgSgT0PklnRa+mBguGVM9vtpcQKEPt9sOjcr/H1QsbWhBsM/luvXqes1Qw0eMyAnpAoGGH9czIxTYRStfkcIvu4DKpcCj1KISKyS4473JBssLblauEC/PgjqkewYuAdihP/ZLH8zQ6Kkk0V5OIMmT1dyVSaSA9puERSQjQrRZCPmLQjFaus3KeWr76CQ4CsogXsAznByWgYXItPwRQvjiiOsHfd2Ku9oq09d0A==
+ b=VWfhY8rq1eYyEojiw+LUlShxSYeCIH1/Om7xxYdGNMXn4AA3kmkpg63TA+g4AQNJCQOx5I4oZx+4glEge7qZObVviy7VoNSZLR684A8vm4INhqChtvtmUTwrz9yVK1SrXdIyrXSf+f1ZFR5ZOwAPn4i0MINnq+tyl+sGx/6HYHT/G1J4qZLGXQNWWlViFt/ECSRrKdpTGRF/qPxNoQwPXhT2SMKIW/O8gO2woHaQU+MMcn5BWmR2mw8M6uFclWGjU63XKifb0JPlmq4LBVFvY3nIQCZAIEummhCGNn9ig61x1jpaDO/2FtLsdpq9HoY4KBZT6vCgHGWC2JOvWuPEXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mvsNajOF2Ymic7+2DiYcDmFApgXq+dclO0qAXBjd5ms=;
- b=chc8FWUpLkVQcEfgz+Uku1n+K6k2wmwBo70obfMEElWYw2GO8hlo/x7T7+9r//nyoBMLKeP7HxhnYljifqD8UVLBAluTXtYCziflF4Bxnn1FRmiw1HwzrhH2aS7rVSszTIUbfY3d1LDov3NCcyl1KHhwgm8+EZOWkNzX/q6RGpELyPDYkThsId11UIGeiXufRdkhr6C7RcNOhakQHOp01jHecNIe5+qrrGoCbzW5B/PzCLlF3suqzIVXNzBr2/a3ITTcMUjvIuP7fcm+NKPoQKfNsFaZnVmiv0M9KjxxjNPcFmVdkbUYZszKSevIVSV86lYMKXepkA633jLyXbDwtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=gxP4RnWr0nUV+m7Ry8/qHnAZjW3mPvTijhXhqgc08Xg=;
+ b=lFyZtLAdhe4L28wAroAnEWuetbFqiZow3FDFihBlUcj8fibGjEEvxc95zSzFwvjhGqx1drAdLMBDDo1+5S9SRtD5QOWO057iZ1Of3Fd5+2yXbSbZr99IG3I4X+apdRgWV4ejK3auRzc6pmUl0Di890YZ3VvvfFV+VxZvrcji9HAmcL/RRIxL44UPNWpRCUKdKu56xDJZ2FgN3LY1b5CrrDk/GGIDI3UKBp7LV4BAeVJe2A+Af2sAZsReckaHunAlNkrKnzxUAjRzBjtHy1hVxXZcGoXt2sBoxhUlk0ykCjyvp7mw2jUfb8b348t9dCRGUaiTZjXsyzcwyTiqT1cLDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=emersion.fr smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mvsNajOF2Ymic7+2DiYcDmFApgXq+dclO0qAXBjd5ms=;
- b=hzvicKY3ZeyM5E8a+HBKj9oCCxs5xAKVfZpsL6tSw+JVQYtH21Ov5xkRYj5JzrCMcd+29pR2Pa+Z6cxUW2x9/+WRBp7BAFhaiErTmilH3OIbHZWGKZF6+/V8ot0iDpNN6t7e7RQuC6W7vN/CuwpuO7r6r2MQm3pDXDEeFlZbqO8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DM4PR12MB5054.namprd12.prod.outlook.com (2603:10b6:5:389::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.25; Thu, 25 Nov
- 2021 15:22:42 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::dcf7:d6ee:654f:a2cf%4]) with mapi id 15.20.4713.026; Thu, 25 Nov 2021
- 15:22:42 +0000
-Subject: Re: [PATCH v5] drm/amdgpu: handle IH ring1 overflow
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20211123192254.21681-1-Philip.Yang@amd.com>
- <3d17fd21-751d-6f87-95b9-d120db7f4a0e@gmail.com>
- <5ec42928-995f-04c6-c7c8-3d2e33744457@amd.com>
- <1d31f11a-9ba5-4973-5875-11ef6e1bcf89@amd.com>
- <a832f0bc-fcb1-4e13-3cf7-c598e96a665b@gmail.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <ba64f15e-16f7-014a-e10d-f81602b93294@amd.com>
-Date: Thu, 25 Nov 2021 10:22:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <a832f0bc-fcb1-4e13-3cf7-c598e96a665b@gmail.com>
-Content-Type: text/html; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL0PR02CA0113.namprd02.prod.outlook.com
- (2603:10b6:208:35::18) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+ bh=gxP4RnWr0nUV+m7Ry8/qHnAZjW3mPvTijhXhqgc08Xg=;
+ b=kQOv8EtVJzs5jy40+jJdVf7DoRftGymKuFhfEezAvZXuYfOBR6BTNWVt31tXj0tOjPj5UaihXuAlGW16hV89o5y6bVtx3rzfMddFDj9lRiKBf+PID7n0vwXT2OnqM12d62JQOMB28AS0MKVuirF8tUYmnas1WL0NdSljkgGF+xc=
+Received: from BN1PR13CA0007.namprd13.prod.outlook.com (2603:10b6:408:e2::12)
+ by MWHPR1201MB0015.namprd12.prod.outlook.com (2603:10b6:300:df::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Thu, 25 Nov
+ 2021 15:39:33 +0000
+Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e2:cafe::7b) by BN1PR13CA0007.outlook.office365.com
+ (2603:10b6:408:e2::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.13 via Frontend
+ Transport; Thu, 25 Nov 2021 15:39:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4734.22 via Frontend Transport; Thu, 25 Nov 2021 15:39:33 +0000
+Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 25 Nov
+ 2021 09:39:31 -0600
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Simon Ser <contact@emersion.fr>, =?UTF-8?q?Michel=20D=C3=A4nzer?=
+ <michel@daenzer.net>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>, Roman Gilg
+ <subdiff@gmail.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ "Harry Wentland" <Harry.Wentland@amd.com>, Mark Yacoub
+ <markyacoub@chromium.org>, Sean Paul <seanpaul@chromium.org>, Pekka Paalanen
+ <ppaalanen@gmail.com>
+Subject: [PATCH 0/6] Expand display core documentation
+Date: Thu, 25 Nov 2021 10:38:24 -0500
+Message-ID: <20211125153830.1352994-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Received: from [172.27.226.38] (165.204.55.251) by
- BL0PR02CA0113.namprd02.prod.outlook.com (2603:10b6:208:35::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.20 via Frontend Transport; Thu, 25 Nov 2021 15:22:42 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: df920650-0892-475f-857a-08d9b0276ce5
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5054:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB505490D768BC04FDF5221AB9E6629@DM4PR12MB5054.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 9ce683bb-992c-4eb5-0715-08d9b029c736
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0015:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB0015CAA7BDD5BCD38F11609D98629@MWHPR1201MB0015.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6bdx8fqjNBZ/ISIMCW0bxIeMvR7YPMmUe2yk9MQY57IHqekx76mizMURFuSzEHTXeHDRT4M0aSsFreRWWtlvpTFdSK1uDilMKa/nmyHK7iJ2+Hl4Ch6h4S2HjfKE7ljspIWoce8bQWXq7cVq5ngxEvrvedY/vNpxHYbMHWdPfbHh5G8c66PF2HqMzULK8cF6mcK2AUpwXoEfSQy3Uev27LS3Suj09TuiftzTlROkXFEP14Ocj8ffIOefZiw6dcfgH4IOzTPeUNW4ruwyemTl94A7ho3e3VDI7DrOPifYLn47YMp3NpdAOhNBIX1ayaGU4xkH+Fnxyyd9F/V3ZRq+08A4tsMI/mvrHrVppTz8aVPk4u6mBdk8aPTb3vOOzXnw60YApf2inbnFfAywiYZphuHOqCxFWrnML4NP+KlZjCBuNMRZsD3A8cmXjbsiBIu6tbEV4ZtwOLx/H0E5fPnKrj23sPPh9N6cmZyURZq7uki8guL3NfwEg3jvOFT/E9eyZq2BT248jZKrZf+ZogkQnfj3QJ4dN5nx6LdZIKey5LHx24uU0QQpP1CA6eHM64XYVXW7KbG3ltTkgscbvRAjXOAyx02OnwlwD4mH6FJR7Mn0ISVlswDKweWmFrGcPZf6YerTZqVnS8+jE6Ph72HeDo5QvsHyme11dtbolbIQO/iWIy8qDuACkfuxzbNklilnl/iE1Qu9bLIKmXMI9w2MGmky2LlfVJC09qIZ6K3hiX8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66476007)(31696002)(186003)(66946007)(26005)(31686004)(110136005)(36756003)(508600001)(66556008)(53546011)(66574015)(16576012)(316002)(2616005)(4326008)(956004)(6486002)(2906002)(4001150100001)(38100700002)(8936002)(8676002)(83380400001)(5660300002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: F0YFS3gd3JivMI4UKNAfxlEBOOdwh7YhAmlpse+wNrDi4OMFUm3DzbX/nyTLD4Az3FMXjAs2oi1ZCrx1qFiJTwfjflQ5zQTrrtSbYP4PUqwUNVI6ma8I3vAYmdCLIvOPqbtvv2ZsubbhkI/H+htxWSdZXO5WfGrexibCYKOARFyr5X3Y0ks8YERoZzal2bcPVByzT6V0bptygec8lfjh1ZzGAJS/le2W5Igt5QVVk2dFeSmIgQ/pHBf1dlt64EgnlS61P9fBDsFN4v2W/4NmE67UK5krewyyJQu1Pdi7pTgXAV69L9DqMAGiYfFjbeX3dckv3VMpRjmiAS0/4s6RbQEeNGB//hOZI+N0NkU1gKGcZkH3o4XRqlCma0slYvlarQ6+TaK46gtgwJEenT8e9NuSXboUpvKezuNnhSzDMv7rfZtkWF1TrivNiERMvn8LRmhJrYZCtGz0LfJKwN38aJ5qBqbl/+JvgWS420s8BFVAsvI4isrqBrA+idRtUO90t2gxHgnm7IU8LwaazTOETUjmMgNnlI+YXsXss0lkU9St2+4JWRoWX1VAOcsoul2zQ1NQdV99jdKPvDEbdH9WP94cO433+nZ8EY/2MYtmLp0VOzGTM4V7RmkY9dadCk146tIrfJGARgY2/PgrlRpPpsGeFZtQe3PryK/eSx2TAX0iDnFWdCC9RyjXGE2DDf7r8bXEDZBNh9Q2w1yRpjaEv+2hvOfs0d3mIrfynAUndZjn+ppjOrATuzaZFJ/nFk9a
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(508600001)(8936002)(36860700001)(426003)(7416002)(110136005)(81166007)(1076003)(82310400004)(86362001)(83380400001)(47076005)(16526019)(70586007)(921005)(336012)(54906003)(4326008)(6666004)(26005)(356005)(5660300002)(316002)(8676002)(2616005)(36756003)(70206006)(2906002)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M280ZGcrR094c0ZTNHFYMXdGMVZFQXhUNEhEMlh4VFJBbEpjZXNSWTg2VStF?=
- =?utf-8?B?Vm9NdnVKakswc1owRnQvc2hHQjk3Qk9tN3dwNzFsTjlHcjMvODZhL0JnZmp0?=
- =?utf-8?B?TDBOTy9pTXdZVEFUOFhNRnNoTENSQlRLRVQ4cmxwR2FwNlZLVmZGVm02RWYw?=
- =?utf-8?B?dDhXVlRYSFFFNW41UXc5NkhsNDZ2RmlsVVhTdkVLS3RObGJRZ1hzejNqdlhp?=
- =?utf-8?B?bjgwRERrMHJCbkNETWFad2pndGxmRFIwZXBnRHFvTjBhUXozbHJkM20wczRn?=
- =?utf-8?B?cVdqcncvYXEzemVXU0lIZk95VGNQRFNVQ253S2VqT0cva1dUeVdtbGZ1Mmh5?=
- =?utf-8?B?KzlSTGJZclFheVI3MytyN0JteWt3cGM2NFdJMkhoRG5xK0IyR3RCOGYyc2NJ?=
- =?utf-8?B?STZnWlJ6RnJJMnlUQ2VEM0wvaFBINmlqQ2JjL1FqL0hPa2V3VnB6KzNoajJu?=
- =?utf-8?B?OGpsejBoMXVUeU9rYXM1UnRnUU45MC9ReHNYcWFKN0NYbGJXRVp2VmhTYkJV?=
- =?utf-8?B?aFllbU45SENYM3drQnBIWDBySVVIbG9HVy9HNXhkOTZFQ3NDYU9janZ0aTYy?=
- =?utf-8?B?SENadjE0bzRwbGpqRmtWa3FkTm9DcWk2bnVaWnJ1M2hTQXYycWhkRloxRXF3?=
- =?utf-8?B?ejJmOWM1TWo0REhSc2g4VnIzVE01NW9VWTZvb3pRYjRjLzVlUXk5amoyVGZU?=
- =?utf-8?B?VUE3WHArd2p4TTRXVHFZUEI5L1JOVjNQRThjWGFoOGJYVFJkbCszcW9WZGcv?=
- =?utf-8?B?d2c1dTF1V3I0VHR5ZHYvM3VvWXRFRDVKQ1dTMHgwM1FzSXV5T3RZd3puNVNv?=
- =?utf-8?B?bE1uT1VnNEZlcktXNVkwRVYwRFVwMnBwZkNMM0RJOXhSUUNSZmNtbW1OWGxB?=
- =?utf-8?B?QlZLaG9hZUNmTUVuRS9pbzBMUWpkNzU2cTdaRFZ2NU9sVmU1dUhUNk5WY0sy?=
- =?utf-8?B?MnZCUTEvYUFsOUxMU1lNNDZQZU0yRDNoWEZZYk9lZjFPV3JROHZxZjZ4dTJy?=
- =?utf-8?B?YlpST1lma2tHRW5OWFFJQ1Rka0JKYkk4OUNPd1FmT0krYjYwWVB4bmJRUGNV?=
- =?utf-8?B?aFA0UCtRL2NwSVg4bkY1NXc0V3BHL2JORVFuZUdLTWlkZnNBVTRHbk1ZMDZG?=
- =?utf-8?B?VStsRkZCK1dFS0dHaDg1Z2ZsRVZWR2pXL0NLdkx1WDZFczM4U3ZYWmpGNC83?=
- =?utf-8?B?UGtjN1ZGOFN0WTg5MWFKbk16SDVKUHUrRUFOR0VxSFR2bmJWN3RNU3RTckFo?=
- =?utf-8?B?RVNLTW1Kc2VOOVNnK3lYQTVDRXlYcEdSczI5cXZQTlhBZ1k5UnhObWhmWnlv?=
- =?utf-8?B?NU9nbUlXdXhLcmtrdmdmNTA0dEhrOGVFZmtQSWZkQ3h5NEFhTE1TRlZXb0tR?=
- =?utf-8?B?WlV2T3IrdkJtOVhEa3BVa1pNYWlMZEZaSjlOQlpjVWV1YXdMRzN0NmJrWVBG?=
- =?utf-8?B?ZjlmY0YrK3V4VVd2K0hLNkhVb20rYzJONWwyUlcycnNlU2ZXUS8rbStidzdq?=
- =?utf-8?B?bnlyRTB5SWpWei9TV1ozYjkyaGN1RTliY2JsWEZ2bzZxb205Y1ZPaVZENmtZ?=
- =?utf-8?B?VDR4d2RnWk9RY1VtMUR3bDN0SENhRVNlbld5MGM5cjd2VlB3UDNoQWNmRC9E?=
- =?utf-8?B?YUFZVFQ5OC9PZ05DOXpJaEJnRUlRNGZqQXAzM1R1Z0xwN2o0WjZnWHNTOEtP?=
- =?utf-8?B?MW4wbVNWQ1BFUUg4ZW9QdVlXMkRQZHBnL1dNQndpVUJTUE9Da2ROUUwwK25k?=
- =?utf-8?B?MVJVcUozWS9kZW0xZ20zZW95L21ndjZteHNCeGNiVDFISTgvbFdWbHBuRis2?=
- =?utf-8?B?Wm1nQnlUR2kyTlZHcCtkd2NkSGxwSDZvYmlkbi84dWJONXFaelROb1VXT2xi?=
- =?utf-8?B?S3QrOGladjJjTGJjSW9BeGRjK2FPNC9jZ1ROM3k5VTdMN3JNMm1GSGQ5MGor?=
- =?utf-8?B?OEd5WFkrZmRuSDdrTEt0UVJMQXZVOGhHQStFd1lUODdQUUR4dkhBUmE4MEFJ?=
- =?utf-8?B?TEtueXBLcTgzc2V0bGFGSFRuaTNBY3RiU2QxQ0lFT2Vuck9Lb25XYWVkVUI5?=
- =?utf-8?B?RFJEZUNZUDF2VEhPU1JYNjdhMDI1Wm5wYXBWay9wMjhXMjBsTTEvemwrTnFR?=
- =?utf-8?Q?bQYU=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df920650-0892-475f-857a-08d9b0276ce5
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 15:22:42.8423 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 15:39:33.1546 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ce683bb-992c-4eb5-0715-08d9b029c736
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eocCsIzOikvg9LckGuaTBg1ZwQua8eSy8DVR2UPdx4ks7P9Et1uVHtNG0YVD6s75
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5054
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0015
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,105 +105,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: christian.koenig@amd.com
+Cc: linux-doc@vger.kernel.org, qingqing.zhuo@amd.com, roman.li@amd.com,
+ amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com, nicholas.choi@amd.com,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ bhawanpreet.lakha@amd.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2021-11-25 2:03 a.m., Christian
-      König wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:a832f0bc-fcb1-4e13-3cf7-c598e96a665b@gmail.com">Am
-      24.11.21 um 21:20 schrieb Felix Kuehling:
-      <br>
-      <blockquote type="cite">Am 2021-11-24 um 10:23 a.m. schrieb philip
-        yang:
-        <br>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">&nbsp;&nbsp; &nbsp; #define
-              amdgpu_ih_get_wptr(adev, ih)
-              <br>
-              (adev)-&gt;irq.ih_funcs-&gt;get_wptr((adev), (ih))
-              <br>
-              &nbsp;&nbsp; #define amdgpu_ih_decode_iv(adev, iv) \
-              <br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev)-&gt;irq.ih_funcs-&gt;decode_iv((adev), (ih),
-              (iv))
-              <br>
-              +#define amdgpu_ih_decode_iv_ts(adev, ih, rptr, offset) \
-              <br>
-              +&nbsp;&nbsp;&nbsp;
-              (WARN_ON_ONCE(!(adev)-&gt;irq.ih_funcs-&gt;decode_iv_ts) ?
-              0 : \
-              <br>
-            </blockquote>
-            Please drop that WARN_ON_ONCE here.
-            <br>
-            <br>
-          </blockquote>
-          Agree, will drop it.
-          <br>
-          <br>
-        </blockquote>
-        I suggested this. We're assuming that this function will never
-        be called
-        <br>
-        on hardware that doesn't support time stamps, and that all
-        hardware with
-        <br>
-        time stamps will implement the decode_iv_ts function. But it's
-        good to
-        <br>
-        get a log message if that assumption is ever broken, rather than
-        just
-        <br>
-        silently getting wrong results.
-        <br>
-      </blockquote>
-      <br>
-      Well exactly that's the point, you won't get wrong results but a
-      NULL pointer exception instead.
-      <br>
-      <br>
-      So we already have a backtrace in the logs.
-      <br>
-    </blockquote>
-    <p>The check will avoid NULL pointer access backtrace, so WARNING
-      backtrace is obvious, useful for future chips to implement
-      decode_iv_ts interface or use the helper function.</p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:a832f0bc-fcb1-4e13-3cf7-c598e96a665b@gmail.com">
-      <br>
-      Regards,
-      <br>
-      Christian.
-      <br>
-      <br>
-      <blockquote type="cite">
-        <br>
-        Regards,
-        <br>
-        &nbsp;&nbsp; Felix
-        <br>
-        <br>
-        <br>
-        <blockquote type="cite">Regards,
-          <br>
-          <br>
-          Philip
-          <br>
-          <br>
-        </blockquote>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
+Display Core (DC) is one of the components under amdgpu, and it has
+multiple features directly related to the KMS API. Unfortunately, we
+don't have enough documentation about DC in the upstream, which makes
+the life of some external contributors a little bit more challenging.
+For these reasons, this patchset reworks part of the DC documentation
+and introduces a new set of details on how the display core works on DCN
+IP. Another improvement that this documentation effort tries to bring is
+making explicit some of our hardware-specific details to guide
+user-space developers better.
+
+In my view, it is easier to review this series if you apply it in your
+local kernel and build the HTML version (make htmldocs). I'm suggesting
+this approach because I added a few SVG diagrams that will be easier to
+see in the HTML version. If you cannot build the documentation, try to
+open the SVG images while reviewing the content. In summary, in this
+series, you will find:
+
+1. Patch 1: Re-arrange of display core documentation. This is
+   preparation work for the other patches, but it is also a way to expand
+   this documentation.
+2. Patch 2 to 4: Document some common debug options related to display.
+3. Patch 5: This patch provides an overview of how our display core next
+   works and a brief explanation of each component.
+4. Patch 6: We use a lot of acronyms in our driver; for this reason, we
+   exposed a glossary with common terms used by display core.
+
+Please let us know what you think we can improve in this series and what
+kind of content you want to see for the next series.
+
+Thanks
+Siqueira
+
+Rodrigo Siqueira (6):
+  Documentation/gpu: Reorganize DC documentation
+  Documentation/gpu: Document amdgpu_dm_visual_confirm debugfs entry
+  Documentation/gpu: Document pipe split visual confirmation
+  Documentation/gpu: How to collect DTN log
+  Documentation/gpu: Add basic overview of DC pipeline
+  Documentation/gpu: Add DC glossary
+
+ Documentation/gpu/amdgpu-dc.rst               |   74 --
+ .../gpu/amdgpu-dc/amdgpu-dc-debug.rst         |   77 ++
+ Documentation/gpu/amdgpu-dc/amdgpu-dc.rst     |   29 +
+ .../gpu/amdgpu-dc/amdgpu-dcn-overview.rst     |  168 +++
+ Documentation/gpu/amdgpu-dc/amdgpu-dm.rst     |   42 +
+ .../gpu/amdgpu-dc/config_example.svg          |  414 ++++++
+ Documentation/gpu/amdgpu-dc/dc-glossary.rst   |  257 ++++
+ .../gpu/amdgpu-dc/dc_pipeline_overview.svg    | 1125 +++++++++++++++++
+ .../gpu/amdgpu-dc/global_sync_vblank.svg      |  485 +++++++
+ Documentation/gpu/drivers.rst                 |    2 +-
+ 10 files changed, 2598 insertions(+), 75 deletions(-)
+ delete mode 100644 Documentation/gpu/amdgpu-dc.rst
+ create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst
+ create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+ create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dcn-overview.rst
+ create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dm.rst
+ create mode 100644 Documentation/gpu/amdgpu-dc/config_example.svg
+ create mode 100644 Documentation/gpu/amdgpu-dc/dc-glossary.rst
+ create mode 100644 Documentation/gpu/amdgpu-dc/dc_pipeline_overview.svg
+ create mode 100644 Documentation/gpu/amdgpu-dc/global_sync_vblank.svg
+
+-- 
+2.25.1
+
