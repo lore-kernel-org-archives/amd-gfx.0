@@ -4,91 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586EFC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Nov 2021 21:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DE84C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Nov 2021 21:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD586E4D4;
-	Thu, 25 Nov 2021 21:22:58 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7B9C6E4D4
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 21:22:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 934526E860;
+	Thu, 25 Nov 2021 21:37:13 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D0FE6E820;
+ Thu, 25 Nov 2021 21:37:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QF4i78KZuc/J9qy5ZDbVwC1YbOXB/Of1nPALFwNSPO0kbNHaCHstBO8soQUaeyPHxoM+4sTmL+jUGg8q6dkbI0CLG3/yZ2QtSKuA+Z2V1hGjaGf/Ri7nj7JPjrk5v9hw8Gso5siJsr4+pNCZm5D0AzF5dMVJ9NZ9+M11qwQPjVUHM8wvO518CB2qTzxwtbQ7n7kfbSdowaGpvYxYrLWXmY3AdfI3Et94+Ak4di+5jlyZg4ABOJ9txc9EFxRST7/Mqo77owJRjcutv2c/xcyssBNfh8x69zHD5Der995oY/NKZv3DiKMiuRZLguJG9J9R4JZMZ6FfDmTgRh8+cc8b/Q==
+ b=ocSsFrPxzU37e7+gje9i4/tcEykoW188O2F+Uhk53NAMayUClFDYv7MKQwNGr2puBnJr40JalWqDNs6eFa9WloONDoNACFhbOPW3+Av6mCLIiDo9DaZ2hrfXed+ZmnOHQ9nZTKWHdmN+v8RDuBHciyvTpwLwUwNYHgyBWVXsOxDH96K4vD5VfhzMwYutI/9C61ZJEe4Oc0HHI+SuMhEmO/jHDNdWtukpPnJF2bAY7RmYDpwK6BWCo6FOXvChxp+peQiekLXXP/UG2XJB5jhZ6XX9o/+Fvi4JKsXhymG6ekt/UrKKW+0OfJc8En5ZiemLKFBTnv1yDXMmH4uZ6Fy7UA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NV+RRoM3wsv3LZFHhvanu1XRCNFdGwU/b0sXYswqqbU=;
- b=mLbsWH1JUHmxG5Cfr02IUd8u1W/14ROiWH0x21CrWpWNIhTFzAZve3X3ILCk0lGr3FHvHYll4CPh9KKccS5YLpb4XOMrVdbqynSjHsAxphAdO1oHyz+NRPHdjA9jeeOyhkumbCG45qEGFQLKLcNk7A1y4VvSlYpXUwkX9JtsutzdpflG5zQ+akUhKeWF8rLfB+iIDIXPDe9CIq/RdfyMkdyv2FTNahrWmdddtDrh+W8HWDY2o2ONpPZwsUoK9DRE5P/fLUFwqzR6tafdZzS9RtpOHLOJqc61+ZrGf6R+dpnskH5U6u6/E8GdKmdyWhnghSYcYTSXviHu16R0nAbkig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=wb+CAMCK7x04yN2s3N9Go+Ugx3iEY4/u/AIZBD3X3XQ=;
+ b=YuKokgTIuvAE9dnti/178T6JFkQq1v+1N3YdDG6OeeI+d3qFv/1TVbeaGETXXF3AWe51JFJ5wlROmHaP4LxAE0r4TRaPS9xIM/m3SfzjyYqiUNzARHoXh0DuK2HAd0XcrtY+w24+3B4rk0+cdd2ctbbb2dyvrR6CsY3KKQZrNez3z/ck3sh488qBZaGuivM8uhcqV7k6EtNz9QGYSxH91Q0yg21QsFCwsv4nYEq2bIv3jZHqyLN26R+wY2LIfeotNVGilYBfYAgAWvhAvqYZHGCTnZUHGCLD0wVf2aGt6f4NRIzIsG8qp6AvIR7cs3l9Iht9o7+bU84SOBUm4Fj8+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NV+RRoM3wsv3LZFHhvanu1XRCNFdGwU/b0sXYswqqbU=;
- b=BG8lsVfeqwRRN0mYHR/mP3UUeUQ4hKAH/rak9qNKWcVcrDpNmDlpGTJsUFS7JDlNv7B0PZHrsMNFNEohKzmmq8AnF5obJycqhOC3qJTl04G6JLxcn6O3H43Hrqs3mC5WjolcqUsRIAN5JZmK6FGj0GzOilUeCKVf4pAf8ZFvG58=
-Received: from DM5PR06CA0043.namprd06.prod.outlook.com (2603:10b6:3:5d::29) by
- DM6PR12MB2603.namprd12.prod.outlook.com (2603:10b6:5:49::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4713.22; Thu, 25 Nov 2021 21:22:52 +0000
-Received: from DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:5d:cafe::e5) by DM5PR06CA0043.outlook.office365.com
- (2603:10b6:3:5d::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
- Transport; Thu, 25 Nov 2021 21:22:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT053.mail.protection.outlook.com (10.13.173.74) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4734.22 via Frontend Transport; Thu, 25 Nov 2021 21:22:51 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 25 Nov
- 2021 15:22:50 -0600
-Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Thu, 25 Nov 2021 15:22:49 -0600
-From: Fangzhi Zuo <Jerry.Zuo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>,
- <nicholas.kazlauskas@amd.com>
-Subject: [PATCH v1] drm/amd/display: Add DP-HDMI PCON Support in DC
-Date: Thu, 25 Nov 2021 16:22:41 -0500
-Message-ID: <20211125212241.131221-1-Jerry.Zuo@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=wb+CAMCK7x04yN2s3N9Go+Ugx3iEY4/u/AIZBD3X3XQ=;
+ b=gsKllM1AAg6/Y9v8QUUouhr/nax+NV1tP4HU6ScmuSUm7tmNe/PSJMGwePktEyQtc4okfMfn6DLxtTq03C3VKSCoqTLNAjmwI5XQVNl7Iipm4YxzJFxU2eXmp4D7D+gEBNpHt3zj5hPR59QpRzL3oNK5AHuRznltqcq68fwUxL4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5338.namprd12.prod.outlook.com (2603:10b6:408:103::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Thu, 25 Nov
+ 2021 21:37:10 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.025; Thu, 25 Nov 2021
+ 21:37:10 +0000
+Subject: Re: [PATCH v2 2/2] drm/amdkfd: Slighly optimize
+ 'init_doorbell_bitmap()'
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch
+References: <cebaed4e892db804eece363e07a3ddd04af0f7be.1637700315.git.christophe.jaillet@wanadoo.fr>
+ <72ac7967f07e0794a8a06793407cf03f6a34e9fa.1637700315.git.christophe.jaillet@wanadoo.fr>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <549df417-2aee-55f4-78f4-d6dec478ffa7@amd.com>
+Date: Thu, 25 Nov 2021 16:37:08 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <72ac7967f07e0794a8a06793407cf03f6a34e9fa.1637700315.git.christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0002.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::10) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+Received: from [192.168.2.100] (142.127.191.123) by
+ YT3PR01CA0002.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:86::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4734.22 via Frontend Transport; Thu, 25 Nov 2021 21:37:09 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 39cdaf70-4a67-443f-fc2a-08d9b059bce4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2603:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB26035A3A60C8A6728DF92398E5629@DM6PR12MB2603.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-MS-Office365-Filtering-Correlation-Id: b84fb395-534c-4776-8b70-08d9b05bbc5f
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5338:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB533842604ABD2610EEF4742492629@BN9PR12MB5338.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i6A4wW9nSGC/e+9lQNXMrq8Z9LqLyWZ5xrzBVLIePd0YVRrRrJDiGAF0b0wDWtTDZ47ayQ0UuvTquiZLppYL06avdM578cBkJGycnK+hvfv9225jkwfDEu8u49fARJCR5bf9BJjkU7DJw9VTA26a3CKAkpTQgfPP7DBuGA67qC3kF5Ubu9+97Wf19CN0x5EZll9CWIBEeNLyEIFEo+SlHop3QjGRV87FIkG+/r8ztNn91OZvc8Mougm/cMv9IFAgr9np2qNErZoHAt12gaBGq8zkv1kGzdbB2n6Svt6g5PFZ/qu0Q03HqTxb/6byzIBW0xekkOmJq6WCKJyH/3rd5M4iJ4J/XlqwZLSz6haTar5AsiFiU8lI1YYeL4KD/KmAlZiKzZ++qRmQYqPoQ8EV6BwCvLlJlNITwhfF2RdTZhpH4TDU2Q8UANlqCAxUKqFSvUygO829cZez7C7HeBxxMMP2bQ145D2Pv8DnkC3UI/XHjG7tLF6U5H3NLyRLKwoWT0DMoTsARCd4lzHG2ulaGrc5FHTh+Mvv2s1x4fTj+5ABNnip7skpWFJu242bY0jdOmFluIrTaRhi13plq599DrA+DqDh4aPYNAl5cucO0f/FxDzaREllliU0fIGj4wER6Kg2dlM5667NvFnlG0PkmIXWzaEvpWjkLNa/MROrPuq0E+jmsuNRiQU1LE9iSwcPWbYRRyYbHR+kLYRltdscS7GbeApFWJTH9HQ+VEaIqGU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(81166007)(6666004)(54906003)(508600001)(336012)(2906002)(6636002)(36860700001)(70586007)(426003)(8936002)(7696005)(2616005)(186003)(70206006)(356005)(5660300002)(8676002)(30864003)(26005)(83380400001)(4326008)(47076005)(36756003)(1076003)(110136005)(86362001)(82310400004)(316002)(36900700001);
+X-Microsoft-Antispam-Message-Info: ljS+CkhQsFWoUsLQ/bRpvLAulVntwi54gxSMuHfzCfg8hb8td8r5lFnnvp6hzJAoctaVVbrexr3Xttg9y89mTXxbNRJ6eDs3uFQDj70HIEr/jAJgod728gaSxH733x2/DWsowga31IQPWcLxEOZwgOd+lUDAqrIFOwORGDno2oYZbhJkyQIYIZGbX6WMLRXhv2eUaoxhRHjaD+L8eGt1EjGu3JgLlsOb8LecBbRemySCC+NtBnq2sr3o7Gl9g4FesERTfjui/xl+yUzZIsfT7XppjCFs5VP0h+5yc1wTL4nkQwTjmKWDfBiGRTQZ81/O3+GDpMe5nIcKEElb86ruRyCy4bZIpd5Xkx3bSqhsG8XwoSfPDimEgLJjhDBuXWCc4AE/12Tktk1S0vAWCJ77fsyuqRiD5AmXw0It9FqHb65Fp/5qqSusj8l+ATCnmQVqhC8AmU8ObjmTmZKGUvEI8Rv8UL/mTzecJLNpKYizYQU5XdfoQhhO4e2Fr55A1mMXK7Ygq3MQu8VJLHVU3Tu6ukyU+7X5fOvm/HiI89G6TaHMxr3SHeOJnymTBbVDYh7KDMJqF96o83r3/knERxDgYoYxxW63lA8zuSY3O8EKCRoiM7XRcrDPPCEqiMVXdPaVgNIsOga6ymQ4XuYs9W0RJ7jWvDV59QOd1t4mO6ov7sXRBkkOGirn8lyyIC34IbcCSmiGGxoQShD+aQ7U1kt0aHXJbChWflc2ov8X58GjRWYLCcKuiNfBkaKik8AbiCSm
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66946007)(66476007)(66556008)(16576012)(2616005)(86362001)(186003)(4326008)(83380400001)(8936002)(6486002)(31696002)(26005)(508600001)(4001150100001)(31686004)(2906002)(8676002)(316002)(36756003)(44832011)(956004)(38100700002)(5660300002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1ZsRDEyVFNtZW1YUDBhNlhibjZnT3lHTTZ0Rm55WURrSjhOUUpzRGVOdXJk?=
+ =?utf-8?B?MVZRL1FtMmRYOEdlNTdOQUhBWksyM2tNUjMwczZNQTV0RExRM1JPVzRpQUQx?=
+ =?utf-8?B?OCswSFVhaDNLY09rb0w5QldzNzVMM01rU2RsV0ZhZVZodzlPc3FMeGFWRUF2?=
+ =?utf-8?B?ZXR2dUp1YkwwWDBGcXludDQzL2lUdEM0T0t3UTZuNU0yaC9XZXR4OEg2RTAz?=
+ =?utf-8?B?MUEwMG1Bd3lORHQxazRscEEzbWtPc24rTHo2Nk9ENzVMRTBCTDc4OVNHSGgy?=
+ =?utf-8?B?THRiMjYyUzJNeTJLWktFU1lmZE5GUkJxbjNEQnhOem54K0ZKRlg5OVRyTHlZ?=
+ =?utf-8?B?Ymw1R2hNTlJBTFI5VE5ERVZ4RzlZb3BNWGI3d1JTU0QyZURVenZ3U1JwOUM2?=
+ =?utf-8?B?dGpQNEdFSERKOFE5OTdobkRZWUpZakRpRXhvbFVzZExqaVlieHlhS1Rzc2FK?=
+ =?utf-8?B?aHhwbkIvN0o0TjNBR092Y1IyMVJpVE9OS0xJVCtwS1ZIK0szb3NBeUxKa1A3?=
+ =?utf-8?B?WTBNOHhsTk5UTXBBVklDMDhhZlk3VGJmUUx2WmhXNmllN1EyeHF1MjF4OWJT?=
+ =?utf-8?B?ZVJsTkdnaG5IdlIxdTRRWVdSUnlzY0VqUzhIR1lCSWJJU1FNbEE0Z1ZIV3F2?=
+ =?utf-8?B?UjRvS0NIS0lJbHc1clZVTlorTm5PanYzNEZoOC9tRVQxUUpSSThqeG1SWGFz?=
+ =?utf-8?B?S042emxQOG1KRjJCNXBVVGJTaEk5bEsxTFZoK0ZrbkE5YnJ0MUVKQStHZkVR?=
+ =?utf-8?B?a0l1bDJjVDc3eHpITlJEc3BmMGE5NWNuOUo5YmcxVVlZSnNLVXNab3JnZXJm?=
+ =?utf-8?B?d3I3U0Z1aUkzQkUvRVZkMlJhdHk4aWtYOW1UNEhUdU84VTVSaGpISXVqc3hU?=
+ =?utf-8?B?bS84RjVDdXVkTXphcjdYZDZMUXNhT1dhNWNkZnhydk1lQnEwRnc1bEpkNWRU?=
+ =?utf-8?B?SFM5cTA5NmZ2d2tUN0NIVzNoeng2YVlWQnVyZFFMLzEvMi9xWnBxYkQ3NENj?=
+ =?utf-8?B?OXN3Mm1vLzdqK0w5RE0ySTFYWDNyR2JFd2hNUVBBYXdKZ1RMcFJYS044dE1j?=
+ =?utf-8?B?T0FSSnZzRHdYL29DT09OR21jb3VuLzFNVnNvRkZVYVlHRmk1WGovUHZUZ2pZ?=
+ =?utf-8?B?YWZmVHpKKzlEekFuOHdBZGlJVTBrd25MeFZXMkI4MmZlOUllNnRuTm8zVzRK?=
+ =?utf-8?B?U1g2NXJlOVA3QUttK3E3SHBtSWNCbXFJRUFORjdFUy9KYXROK0pCSEpYR0hM?=
+ =?utf-8?B?UzJ5V2NSVnBObG5XTk55Njk2VEZYRzRKWS9TS3hJblpBNWh2enJiOFRvWFhB?=
+ =?utf-8?B?RUFHamFnbFpiMXNPNndGQmlabVdlcTk3K1c4cDlpRlV2dTZDbWJKbjdMdkF2?=
+ =?utf-8?B?Y3VYajRWZHZ0NmU1S3pOWXVMdng1cHB0SkFDUnZ3M0w3WStQMm9MUE56Q0dk?=
+ =?utf-8?B?RFBTc3hXRTAvL0c4T3hxaEJMeHQvTkRPbElFcnFjbEZjZVFVeUhVZmJlWmp5?=
+ =?utf-8?B?QjRsTU9saGdDN1VDSHc0ejU2a3g2Qlh6WW5lR0drWXBtYjdRb25YTUVlNzh3?=
+ =?utf-8?B?dWZlc2lMZUpjL1diMDUzck10RGs2eHJ5TFlDa2ViTnNuWVozUFNmWnBsbG9m?=
+ =?utf-8?B?b3IvR1N1S0xPWlZSd0dvU1NlSGs2MkhmRUlwNGVxelJWdXVOamJOcUlxeE9r?=
+ =?utf-8?B?YitmcVdMWVhyOXh5dGV3MTFSNjFhc2pxMVE1Qlhndm9kQncrbTh3ME1nMGFT?=
+ =?utf-8?B?eStXVHNaS3J0R3VNd3kvdGhFbm14QkY3L1ZUYWFycld2cHUwWk80NGlGeGtN?=
+ =?utf-8?B?UWJ5RXNOZkhLdEo1OStlTW1NdFdsTVZvbGRzWkNkRit3TGowQTRYdEdIck1N?=
+ =?utf-8?B?Zkx0MisyZHJ6K1g5TTJFbkpPZHpuRUV1R083UERVNXE1MGFLaGUwUFcrYnBK?=
+ =?utf-8?B?R2dTSDZhbDB4U3dHdDZ6OWRqTjJWc2FZY3NNb2NLZGdaUFRKNFB1VVNXSE9F?=
+ =?utf-8?B?emJERDFxSnVvTXlwNElkWjFhSDRSUHZqU2J0aGdaN1RpQjZLUExBTnlDMlo3?=
+ =?utf-8?B?Tm5sNEdvKzBoby9leGdWUzA1VExmZENpbjVJcGdyMHBTT004Z2NhTkVTTENs?=
+ =?utf-8?B?V2U4c2cybkhOVmQ0V1k2S0IrSTlIeWRwQ0dVamNkeHgxM0ZyZ3FyMHdJdEts?=
+ =?utf-8?Q?Qa/GyBHJj7ES19u6Bx2EJYA=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 21:22:51.6467 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39cdaf70-4a67-443f-fc2a-08d9b059bce4
+X-MS-Exchange-CrossTenant-Network-Message-Id: b84fb395-534c-4776-8b70-08d9b05bbc5f
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 21:37:10.4385 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2603
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /8oN8PF1usGnuggEfzbjnA080809AMyLMvbbQUtE0ZcCNnv02OTkeS1n32rYn6vEbSvPn9PP9Os3fKgXODSM/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,305 +134,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>, wayne.lin@amd.com
+Cc: kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 15 ++++
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 71 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  6 ++
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  | 31 ++++++++
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |  3 +
- drivers/gpu/drm/amd/display/dc/dc_link.h      |  1 +
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 +
- .../drm/amd/display/dc/dcn20/dcn20_resource.c |  2 +
- .../drm/amd/display/dc/dcn21/dcn21_resource.c |  2 +
- .../drm/amd/display/dc/dcn30/dcn30_resource.c |  2 +
- .../drm/amd/display/dc/dcn31/dcn31_resource.c |  1 +
- 11 files changed, 135 insertions(+)
+Am 2021-11-23 um 3:46 p.m. schrieb Christophe JAILLET:
+> The 'doorbell_bitmap' bitmap has just been allocated. So we can use the
+> non-atomic '__set_bit()' function to save a few cycles as no concurrent
+> access can happen.
+>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 3d08f8eba402..dad7a4fdc427 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2750,8 +2750,23 @@ static bool dp_active_dongle_validate_timing(
- 		return false;
- 	}
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+	if (dongle_caps->dp_hdmi_frl_max_link_bw_in_kbps > 0) { // DP to HDMI FRL converter
-+		struct dc_crtc_timing outputTiming = *timing;
-+
-+		if (timing->flags.DSC && !timing->dsc_cfg.is_frl)
-+			/* DP input has DSC, HDMI FRL output doesn't have DSC, remove DSC from output timing */
-+			outputTiming.flags.DSC = 0;
-+		if (dc_bandwidth_in_kbps_from_timing(&outputTiming) > dongle_caps->dp_hdmi_frl_max_link_bw_in_kbps)
-+			return false;
-+	} else { // DP to HDMI TMDS converter
-+		if (get_timing_pixel_clock_100hz(timing) > (dongle_caps->dp_hdmi_max_pixel_clk_in_khz * 10))
-+			return false;
-+	}
-+#else
- 	if (get_timing_pixel_clock_100hz(timing) > (dongle_caps->dp_hdmi_max_pixel_clk_in_khz * 10))
- 		return false;
-+#endif
- 
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 84f3545c3032..da1532356c07 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -4313,6 +4313,56 @@ static int translate_dpcd_max_bpc(enum dpcd_downstream_port_max_bpc bpc)
- 	return -1;
- }
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+uint32_t dc_link_bw_kbps_from_raw_frl_link_rate_data(uint8_t bw)
-+{
-+	switch (bw) {
-+	case 0b001:
-+		return 9000000;
-+	case 0b010:
-+		return 18000000;
-+	case 0b011:
-+		return 24000000;
-+	case 0b100:
-+		return 32000000;
-+	case 0b101:
-+		return 40000000;
-+	case 0b110:
-+		return 48000000;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * Return PCON's post FRL link training supported BW if its non-zero, otherwise return max_supported_frl_bw.
-+ */
-+static uint32_t intersect_frl_link_bw_support(
-+	const uint32_t max_supported_frl_bw_in_kbps,
-+	const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
-+{
-+	uint32_t supported_bw_in_kbps = max_supported_frl_bw_in_kbps;
-+
-+	// HDMI_ENCODED_LINK_BW bits are only valid if HDMI Link Configuration bit is 1 (FRL mode)
-+	if (hdmi_encoded_link_bw.bits.FRL_MODE) {
-+		if (hdmi_encoded_link_bw.bits.BW_48Gbps)
-+			supported_bw_in_kbps = 48000000;
-+		else if (hdmi_encoded_link_bw.bits.BW_40Gbps)
-+			supported_bw_in_kbps = 40000000;
-+		else if (hdmi_encoded_link_bw.bits.BW_32Gbps)
-+			supported_bw_in_kbps = 32000000;
-+		else if (hdmi_encoded_link_bw.bits.BW_24Gbps)
-+			supported_bw_in_kbps = 24000000;
-+		else if (hdmi_encoded_link_bw.bits.BW_18Gbps)
-+			supported_bw_in_kbps = 18000000;
-+		else if (hdmi_encoded_link_bw.bits.BW_9Gbps)
-+			supported_bw_in_kbps = 9000000;
-+	}
-+
-+	return supported_bw_in_kbps;
-+}
-+#endif
-+
- static void read_dp_device_vendor_id(struct dc_link *link)
- {
- 	struct dp_device_vendor_id dp_id;
-@@ -4424,6 +4474,27 @@ static void get_active_converter_info(
- 						translate_dpcd_max_bpc(
- 							hdmi_color_caps.bits.MAX_BITS_PER_COLOR_COMPONENT);
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+					if (link->dc->caps.hdmi_frl_pcon_support) {
-+						link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps =
-+								dc_link_bw_kbps_from_raw_frl_link_rate_data(
-+										hdmi_color_caps.bits.MAX_ENCODED_LINK_BW_SUPPORT);
-+
-+						union hdmi_encoded_link_bw hdmi_encoded_link_bw;
-+
-+						// Intersect reported max link bw support with the supported link rate post FRL link training
-+						if (core_link_read_dpcd(link, DP_PCON_HDMI_POST_FRL_STATUS,
-+								&hdmi_encoded_link_bw.raw, sizeof(hdmi_encoded_link_bw)) == DC_OK) {
-+							link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps = intersect_frl_link_bw_support(
-+									link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps,
-+									hdmi_encoded_link_bw);
-+						}
-+
-+						if (link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps > 0)
-+							link->dpcd_caps.dongle_caps.extendedCapValid = true;
-+					}
-+#endif
-+
- 					if (link->dpcd_caps.dongle_caps.dp_hdmi_max_pixel_clk_in_khz != 0)
- 						link->dpcd_caps.dongle_caps.extendedCapValid = true;
- 				}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index c14e7db3f69d..2d001de42117 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -187,6 +187,7 @@ struct dc_caps {
- 	struct dc_color_caps color;
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	bool dp_hpo;
-+	bool hdmi_frl_pcon_support;
- #endif
- 	bool edp_dsc_support;
- 	bool vbios_lttpr_aware;
-@@ -1294,6 +1295,11 @@ struct dc_sink_dsc_caps {
- 	// 'true' if these are virtual DPCD's DSC caps (immediately upstream of sink in MST topology),
- 	// 'false' if they are sink's DSC caps
- 	bool is_virtual_dpcd_dsc;
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+	// 'true' if MST topology supports DSC passthrough for sink
-+	// 'false' if MST topology does not support DSC passthrough
-+	bool is_dsc_passthrough_supported;
-+#endif
- 	struct dsc_dec_dpcd_caps dsc_dec_caps;
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-index e68e9a86a4d9..99d26fb31566 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-@@ -378,7 +378,14 @@ enum dpcd_downstream_port_detailed_type {
- union dwnstream_port_caps_byte2 {
- 	struct {
- 		uint8_t MAX_BITS_PER_COLOR_COMPONENT:2;
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+		uint8_t MAX_ENCODED_LINK_BW_SUPPORT:3;
-+		uint8_t SOURCE_CONTROL_MODE_SUPPORT:1;
-+		uint8_t CONCURRENT_LINK_BRING_UP_SEQ_SUPPORT:1;
-+		uint8_t RESERVED:1;
-+#else
- 		uint8_t RESERVED:6;
-+#endif
- 	} bits;
- 	uint8_t raw;
- };
-@@ -416,6 +423,30 @@ union dwnstream_port_caps_byte3_hdmi {
- 	uint8_t raw;
- };
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+union hdmi_sink_encoded_link_bw_support {
-+	struct {
-+		uint8_t HDMI_SINK_ENCODED_LINK_BW_SUPPORT:3;
-+		uint8_t RESERVED:5;
-+	} bits;
-+	uint8_t raw;
-+};
-+
-+union hdmi_encoded_link_bw {
-+	struct {
-+		uint8_t FRL_MODE:1; // Bit 0
-+		uint8_t BW_9Gbps:1;
-+		uint8_t BW_18Gbps:1;
-+		uint8_t BW_24Gbps:1;
-+		uint8_t BW_32Gbps:1;
-+		uint8_t BW_40Gbps:1;
-+		uint8_t BW_48Gbps:1;
-+		uint8_t RESERVED:1; // Bit 7
-+	} bits;
-+	uint8_t raw;
-+};
-+#endif
-+
- /*4-byte structure for detailed capabilities of a down-stream port
- (DP-to-TMDS converter).*/
- union dwnstream_portxcaps {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-index 52355fe6994c..eac34f591a3f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-@@ -741,6 +741,9 @@ struct dc_dsc_config {
- 	uint32_t version_minor; /* DSC minor version. Full version is formed as 1.version_minor. */
- 	bool ycbcr422_simple; /* Tell DSC engine to convert YCbCr 4:2:2 to 'YCbCr 4:2:2 simple'. */
- 	int32_t rc_buffer_size; /* DSC RC buffer block size in bytes */
-+#if defined(CONFIG_DRM_AMD_DC_DCN)
-+	bool is_frl; /* indicate if DSC is applied based on HDMI FRL sink's capability */
-+#endif
- 	bool is_dp; /* indicate if DSC is applied based on DP's capability */
- };
- struct dc_crtc_timing {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index d449e72a4e2a..d5887d976ef6 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -443,6 +443,7 @@ bool dc_link_is_fec_supported(const struct dc_link *link);
- bool dc_link_should_enable_fec(const struct dc_link *link);
- 
- #if defined(CONFIG_DRM_AMD_DC_DCN)
-+uint32_t dc_link_bw_kbps_from_raw_frl_link_rate_data(uint8_t bw);
- enum dp_link_encoding dc_link_dp_mst_decide_link_encoding_format(const struct dc_link *link);
- #endif
- #endif /* DC_LINK_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 388457ffc0a8..cb26ff8a54c5 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -430,6 +430,7 @@ struct dc_dongle_caps {
- 	uint32_t dp_hdmi_max_bpc;
- 	uint32_t dp_hdmi_max_pixel_clk_in_khz;
- #if defined(CONFIG_DRM_AMD_DC_DCN)
-+	uint32_t dp_hdmi_frl_max_link_bw_in_kbps;
- 	struct dc_dongle_dfp_cap_ext dfp_cap_ext;
- #endif
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 3883f918b3bb..40b122a708ef 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3796,6 +3796,8 @@ static bool dcn20_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.hdmi_frl_pcon_support = true;
-+
- 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV) {
- 		dc->debug = debug_defaults_drv;
- 	} else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index d452a0d1777e..da6031cef244 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -2028,6 +2028,8 @@ static bool dcn21_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.hdmi_frl_pcon_support = true;
-+
- 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
- 		dc->debug = debug_defaults_drv;
- 	else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index 79a66e0c4303..77331a45a749 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -2639,6 +2639,8 @@ static bool dcn30_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.hdmi_frl_pcon_support = true;
-+
- 	/* read VBIOS LTTPR caps */
- 	{
- 		if (ctx->dc_bios->funcs->get_lttpr_caps) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-index 6460fab496f6..673e080e1982 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-@@ -2193,6 +2193,7 @@ static bool dcn31_resource_construct(
- 	dc->caps.post_blend_color_processing = true;
- 	dc->caps.force_dp_tps4_for_cp2520 = true;
- 	dc->caps.dp_hpo = true;
-+	dc->caps.hdmi_frl_pcon_support = true;
- 	dc->caps.edp_dsc_support = true;
- 	dc->caps.extended_aux_timeout_support = true;
- 	dc->caps.dmcub_support = true;
--- 
-2.25.1
+Thank you! I applied the series to amd-staging-drm-next.
 
+Regards,
+  Felix
+
+
+> ---
+> bitmap_set() could certainly also be use, but range checking would be
+> tricky.
+>
+> v1 --> v2: No change
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 67bb1654becc..9158f9754a24 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1446,9 +1446,9 @@ static int init_doorbell_bitmap(struct qcm_process_device *qpd,
+>  
+>  	for (i = 0; i < KFD_MAX_NUM_OF_QUEUES_PER_PROCESS / 2; i++) {
+>  		if (i >= range_start && i <= range_end) {
+> -			set_bit(i, qpd->doorbell_bitmap);
+> -			set_bit(i + KFD_QUEUE_DOORBELL_MIRROR_OFFSET,
+> -				qpd->doorbell_bitmap);
+> +			__set_bit(i, qpd->doorbell_bitmap);
+> +			__set_bit(i + KFD_QUEUE_DOORBELL_MIRROR_OFFSET,
+> +				  qpd->doorbell_bitmap);
+>  		}
+>  	}
+>  
