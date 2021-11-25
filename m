@@ -4,122 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E79A5C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Nov 2021 20:42:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586EFC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Nov 2021 21:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67C666E509;
-	Thu, 25 Nov 2021 20:42:04 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2078.outbound.protection.outlook.com [40.107.102.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 295466E509
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 20:42:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD586E4D4;
+	Thu, 25 Nov 2021 21:22:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7B9C6E4D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Nov 2021 21:22:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lp7TzPDxtJMRazYCbCuPzzdIJACXlLivjEa2+GBQt5QudU49uFFDOHRsZvaQm5p1Mj1dQVqxBLDqHLW51gZFGJOAe9FBlkL/bxhpxGbk5ztRSYsxxpqFIe6FJO0yuh8DUNIMT5zMZJrgU3bjOWgdlqnhF+rVSLEOcK9ExDXDPCkOkwz4S2hGREnvqWCQICuFzBjGUrz3GM0onHIBAk1X0shwDCexpuH/ejgWh7b8LpG/tplTGR37c2x0/sSxmlzZCdVNylWj9GmU5KIny1HCdiO6uZew0c5MnORY5f1rGXqzcfjYV6jmDvEVkFpGJPe3MP0t7hrBqa7FOk0FUHJEJA==
+ b=QF4i78KZuc/J9qy5ZDbVwC1YbOXB/Of1nPALFwNSPO0kbNHaCHstBO8soQUaeyPHxoM+4sTmL+jUGg8q6dkbI0CLG3/yZ2QtSKuA+Z2V1hGjaGf/Ri7nj7JPjrk5v9hw8Gso5siJsr4+pNCZm5D0AzF5dMVJ9NZ9+M11qwQPjVUHM8wvO518CB2qTzxwtbQ7n7kfbSdowaGpvYxYrLWXmY3AdfI3Et94+Ak4di+5jlyZg4ABOJ9txc9EFxRST7/Mqo77owJRjcutv2c/xcyssBNfh8x69zHD5Der995oY/NKZv3DiKMiuRZLguJG9J9R4JZMZ6FfDmTgRh8+cc8b/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wQ8p7qvJ9qQB47e2RLLij8AUabMQERsG7e+Za5NUy3E=;
- b=leQt8IUJY5xY6HPZGLf7c3op2yYtzodV6mLzxviulEq4TUAnqojfAfnqFppXzd9RoBw3tStBYXNxESD3nBDtIJsNnUMicWvZRQD1uZ+sIVqdpmmptyTPTMlCnw5c3aFDLl0QOdDypRSb2VdyZ0v+Z7kIODxq7M4pppuqeGFDxv/qaaNnqbJiRjcIa5d92oNRYNrwmZBSUS0k0DH90+78LKvKzA/Yjs/gi+ZGkfuv/ahyqycQY+8nI8PyD4WUi+7el/eKSqnjd9EJQ+MVHPMyAevw8LxTXGtVgmZB2IrQz2c6DCVxze8oNyyT3GMMnvQaSgBk2cEmzgZ+TpHnzA3Quw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=NV+RRoM3wsv3LZFHhvanu1XRCNFdGwU/b0sXYswqqbU=;
+ b=mLbsWH1JUHmxG5Cfr02IUd8u1W/14ROiWH0x21CrWpWNIhTFzAZve3X3ILCk0lGr3FHvHYll4CPh9KKccS5YLpb4XOMrVdbqynSjHsAxphAdO1oHyz+NRPHdjA9jeeOyhkumbCG45qEGFQLKLcNk7A1y4VvSlYpXUwkX9JtsutzdpflG5zQ+akUhKeWF8rLfB+iIDIXPDe9CIq/RdfyMkdyv2FTNahrWmdddtDrh+W8HWDY2o2ONpPZwsUoK9DRE5P/fLUFwqzR6tafdZzS9RtpOHLOJqc61+ZrGf6R+dpnskH5U6u6/E8GdKmdyWhnghSYcYTSXviHu16R0nAbkig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wQ8p7qvJ9qQB47e2RLLij8AUabMQERsG7e+Za5NUy3E=;
- b=NWY27Re0XYRGs7P3GOCeN7bhTeKjLWoV2doAXv877XXqeZPjV54pj5FTVrYCbAfJzZUXxgETAeIMxfxIdBJrkfFuqk9s3+GD1KalX6oYGXlcTr4jy/5Z5tlzFODYxM0OYoqr0XCq/wwJjf5ICaQ0X5Kq/wgNjHCj55jEE1pXpHQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5132.namprd12.prod.outlook.com (2603:10b6:408:119::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Thu, 25 Nov
- 2021 20:42:00 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300%8]) with mapi id 15.20.4713.025; Thu, 25 Nov 2021
- 20:42:00 +0000
-Subject: Re: [PATCH v8] drm/amdgpu: handle IH ring1 overflow
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211125203003.18038-1-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <d5862808-c97e-a1c2-4429-7d0216425fdf@amd.com>
-Date: Thu, 25 Nov 2021 15:41:57 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20211125203003.18038-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0072.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::49) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=NV+RRoM3wsv3LZFHhvanu1XRCNFdGwU/b0sXYswqqbU=;
+ b=BG8lsVfeqwRRN0mYHR/mP3UUeUQ4hKAH/rak9qNKWcVcrDpNmDlpGTJsUFS7JDlNv7B0PZHrsMNFNEohKzmmq8AnF5obJycqhOC3qJTl04G6JLxcn6O3H43Hrqs3mC5WjolcqUsRIAN5JZmK6FGj0GzOilUeCKVf4pAf8ZFvG58=
+Received: from DM5PR06CA0043.namprd06.prod.outlook.com (2603:10b6:3:5d::29) by
+ DM6PR12MB2603.namprd12.prod.outlook.com (2603:10b6:5:49::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.22; Thu, 25 Nov 2021 21:22:52 +0000
+Received: from DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:5d:cafe::e5) by DM5PR06CA0043.outlook.office365.com
+ (2603:10b6:3:5d::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
+ Transport; Thu, 25 Nov 2021 21:22:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT053.mail.protection.outlook.com (10.13.173.74) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4734.22 via Frontend Transport; Thu, 25 Nov 2021 21:22:51 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 25 Nov
+ 2021 15:22:50 -0600
+Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
+ Transport; Thu, 25 Nov 2021 15:22:49 -0600
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>,
+ <nicholas.kazlauskas@amd.com>
+Subject: [PATCH v1] drm/amd/display: Add DP-HDMI PCON Support in DC
+Date: Thu, 25 Nov 2021 16:22:41 -0500
+Message-ID: <20211125212241.131221-1-Jerry.Zuo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Received: from [192.168.2.100] (142.127.191.123) by
- YTXPR0101CA0072.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::49) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22 via Frontend
- Transport; Thu, 25 Nov 2021 20:41:59 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f8b5c18c-158e-472d-69b6-08d9b0540752
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5132:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB51321DA27C1632D88D7D65CC92629@BN9PR12MB5132.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: 39cdaf70-4a67-443f-fc2a-08d9b059bce4
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2603:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB26035A3A60C8A6728DF92398E5629@DM6PR12MB2603.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dApsbylODC6oF1JOyq66ctFGhm+eXpjraqMxdWZSues1uQdp+qGL0mNkm6iQ1RSrfteKyg5OymvW5vevA34XRKx4IWaQ1U65JcaaxpxRKALUdaCIcUnTzK4Dswm0CajQrG9bZZG1WV32Zn4lVkG3YG7ukahJM+WKXZvreoFpxEddKKxu7GOMqHgkPhlbAvXNWBQrWhNCdS6GLb5YsDa2uBMkyZArsCDP0hCdz7GtOYgqKnUhpWpJrr7bP7lFZQP+34yrZOMYnAmR4mChWVx+zs81+odPP7tNleFRwGh/iWwWCL+OBV9J9Zrc8OtY66vsebTljvPnBrqzzzmUOLrgy5AMGpBhamaYXYW6jKeJ/7do8Zx2ryzTCG8U48YAPppPN6DU2zhCOBPB/rEel9nFlb9AzAPP7ezB8k7cU5PN1Rkk0K3HvFDRVqrsoFjlbgm9HKCEYY3/GUidJGPEjdw2o55EzAG6EnoYXfPNSJbSzbI98U0kMH9hCjFPRqBvShPWkRzCBNpzkOUnUxapnbEq0jkrXzEMcKP1twp8+C7fCM/82NmA3JZMjYQOJiED7bG6tpjaAwPMq5oywycBcYQQXcxVW9aapPf6XciZRV19HvlWoKQWEP1ktQ4NwMdkf/XWajE+qXlIJ6LDfRCgQsIYrn9l+a8cNvnRgEqdLLGUkB1Y/ZBnpR92ESGMZHnpYmlGRdY47ZdE7MQ1jHhM4awEowkQyhKJXTuF6Bh/xGCvsXz5X+UZ5xcoE7AMA83I+gRR
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(30864003)(66946007)(316002)(36756003)(4001150100001)(66476007)(66556008)(83380400001)(2616005)(4326008)(956004)(31696002)(16576012)(38100700002)(8676002)(508600001)(44832011)(5660300002)(8936002)(31686004)(26005)(186003)(86362001)(6486002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: i6A4wW9nSGC/e+9lQNXMrq8Z9LqLyWZ5xrzBVLIePd0YVRrRrJDiGAF0b0wDWtTDZ47ayQ0UuvTquiZLppYL06avdM578cBkJGycnK+hvfv9225jkwfDEu8u49fARJCR5bf9BJjkU7DJw9VTA26a3CKAkpTQgfPP7DBuGA67qC3kF5Ubu9+97Wf19CN0x5EZll9CWIBEeNLyEIFEo+SlHop3QjGRV87FIkG+/r8ztNn91OZvc8Mougm/cMv9IFAgr9np2qNErZoHAt12gaBGq8zkv1kGzdbB2n6Svt6g5PFZ/qu0Q03HqTxb/6byzIBW0xekkOmJq6WCKJyH/3rd5M4iJ4J/XlqwZLSz6haTar5AsiFiU8lI1YYeL4KD/KmAlZiKzZ++qRmQYqPoQ8EV6BwCvLlJlNITwhfF2RdTZhpH4TDU2Q8UANlqCAxUKqFSvUygO829cZez7C7HeBxxMMP2bQ145D2Pv8DnkC3UI/XHjG7tLF6U5H3NLyRLKwoWT0DMoTsARCd4lzHG2ulaGrc5FHTh+Mvv2s1x4fTj+5ABNnip7skpWFJu242bY0jdOmFluIrTaRhi13plq599DrA+DqDh4aPYNAl5cucO0f/FxDzaREllliU0fIGj4wER6Kg2dlM5667NvFnlG0PkmIXWzaEvpWjkLNa/MROrPuq0E+jmsuNRiQU1LE9iSwcPWbYRRyYbHR+kLYRltdscS7GbeApFWJTH9HQ+VEaIqGU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(81166007)(6666004)(54906003)(508600001)(336012)(2906002)(6636002)(36860700001)(70586007)(426003)(8936002)(7696005)(2616005)(186003)(70206006)(356005)(5660300002)(8676002)(30864003)(26005)(83380400001)(4326008)(47076005)(36756003)(1076003)(110136005)(86362001)(82310400004)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWxwWWtLczc5bTR3MkxyNzZSc1N4UjZGYnRFSDAyRGlZR1Q0dzRsR1hFVjRU?=
- =?utf-8?B?OEx1aTVKYis2cm9qWGtKM3N1YTlNZ0lCY2hjWDRscXhNMEdFbTE5Wlc1T21F?=
- =?utf-8?B?TDRCZnNrcGVrM0tpR2JhVlRNT1R0M1llUFJuSU13UmhvTUc1a0tXcUJZeVpo?=
- =?utf-8?B?Z1hxQWFQaGxFV2lYSXNHTHkvRFZmSVdpRlNvUyszOG5JenN6QXNJSXlya1R4?=
- =?utf-8?B?R09QNUdWU2hkelJCN0xseWJGZXlSeXN2cW9iZ05YVUFwK2p4SXE5UXRLMitT?=
- =?utf-8?B?NWNpK2NEMk1zZDhiNWQzTVlzNnpvTGVIQlVhWFcrS0l3dkx1NjZwV1ZubHNY?=
- =?utf-8?B?eGR6b2h2cVpzc0NIejErSDZWWkhERnRPaVVJYWxQNlBMczJRbkxiNmo0L2RF?=
- =?utf-8?B?cjdpaEs2S1hDaEYxa1ZoakFJSCtaMnpoQ2tCajR5Y3BHS25BMHIrVXR5MDhN?=
- =?utf-8?B?RTd6QS9PYkdaazA2bjNQWnRVQlJJSkRpTjFXYWsrWmlmdHpKUnZIYjArVllt?=
- =?utf-8?B?UXpGVHZ3eTBZWlF4cTdJNkY4TG01cHUwQlNDSjFkQ3RmczBzM0h4MVFqZGwr?=
- =?utf-8?B?V29UU2RST1J2eGQ5SjRlRmpldlMvSjBFOUV3c0NVRzJVMDVFS0VaYzhkRyth?=
- =?utf-8?B?L0d3M3lKTHNtUWpGUzkvUXo5VEpqbzVVeHc3ZlpWeUQ4NGpyUERaNCs3c2lM?=
- =?utf-8?B?dUZTbXBuVG5Ea0NoWk05QVY2SGpCb3RRQXM5UlpKc2RYcVVKMW1rcnE4WUJB?=
- =?utf-8?B?b1NjbzBNQWpqaW92V1U2ZmpwVitRUkI3cmdjNFBzcXdXbjhTeWhhMkIzbkxh?=
- =?utf-8?B?OXNaYVZBV0x4UEc5alpCZDF4aG50T0gvNUVzTDJCaTEvTXZGcmtQbEFoVTZW?=
- =?utf-8?B?dFZyT01Ga0VYK01xaG9JSmMwcDg0NTFTNEZhaytNQ0NNcW9xa2VYQTh4aGZz?=
- =?utf-8?B?TDdKVWdOTS9VQTVLQkRIN1BYZ3FybUVBVDlHUkkwREp6L3lOM2tTVEtvTHAw?=
- =?utf-8?B?bmpnamFKTDJ5aWx5RGpjZmt2UFpFV2U3UGZUcGNuVzh6bUFlREhMYmFvNDFR?=
- =?utf-8?B?M3ZvS1hFQ0xIcFovLzVPcGduV0c1VUxJUE5QdEgzSWZWejJ0OXZFNG5GUGZW?=
- =?utf-8?B?RkNzRXdJSXd3S2Y2Q0Z5ajFOUSt4QXo4dUltbGlXVHZ5ZE9Xc0hkNXVVTlpP?=
- =?utf-8?B?Umh5ZjdNSStISHVmb0VKWmtaOTBmNjY1UThCbnVvQlBqdEJmQ2tBSzcyeDA2?=
- =?utf-8?B?VlkzeDRnOFYzMmFyZVVaMk04OEVJNzdDMzZJbTRTNC96MVRKa2dwZENKZTVO?=
- =?utf-8?B?OUQvbzZhMzEyVGxCeFdjdTl5dDBEVm51WGdqalBFZ2J1dURCa0Y1Yy9ETXRE?=
- =?utf-8?B?U2NqRjJTQk9hV2JvTWYvMnNhUVcwenVQR2lOaEFXbmVhNG9HMVN0ckk1SDk3?=
- =?utf-8?B?N2dYQ05MTE9nUmNuUzhLUTFFdHhiT250RDZYMFdBdkFMT1BGbk1PalIzcllW?=
- =?utf-8?B?emptejhBckFhcWtJbGdtUERuR1htREZJOG5HeGJFVEpsQ3czaWZ4WXBhc29a?=
- =?utf-8?B?UWZidWdzdnIwalNFazZid1RCcUI0Kzh0aE92YmJ6MGNxMEZVdE5WZEVhd2Vz?=
- =?utf-8?B?ZUtldGlIMVRRQ2txcnpLREhITEljNnJzc1FEQ1p0QTBFMzAyQVA1Z0tIdVFV?=
- =?utf-8?B?YUVkL1FETDQ0SStrSWRHbEx1Wmxyd0lLTmR3M09DRW1vWmpuZjRVUjN1b3Fr?=
- =?utf-8?B?S1ZaNHBXbHVrMzk3NEJYY21aQ0dUQlNEVy9uZHZjcmpKcDRkS3RjT0NSR0Mr?=
- =?utf-8?B?dmR6RFpBOG1la0lLYjNYbVluS3ZQNHVpWkh4Rm00UUdFQVlTT2p0U3RPNkY5?=
- =?utf-8?B?akFVdklYaHcxeWlxZUNFYWVJcEVRYmRHUHFwK1dXcjlTV1o2Wit3SlVYb0JL?=
- =?utf-8?B?b0lOOHYwVmF2bGZPcHgyRWV6TUpvOGNsaFhMbkp5NTRYTm1vbCtYM3hSWFNy?=
- =?utf-8?B?cFNYSStaamVKYzM2blNBRjVIbUp2aGw0ek5RS1NvZFEveWZWY1haNjc3QXJj?=
- =?utf-8?B?WFFnb0pDbTU5dWtTVWVuVXBFQ0NXbk1HYWJqZld6MmZlV3dBTHhab1hSZXJy?=
- =?utf-8?B?dUI2QWZoemp5OEV3eis2ZHRobVM3OWczbDRYRVZKRm9DODFhTlZiaXFYSDla?=
- =?utf-8?Q?lfAzL03x0xOXF70BUBTvqY8=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8b5c18c-158e-472d-69b6-08d9b0540752
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 20:41:59.8996 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 21:22:51.6467 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39cdaf70-4a67-443f-fc2a-08d9b059bce4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +QE6vJ4odEJvk6Ze0WJ+SsVtjfBbF2NLkvMP1a8JukR2/H9unq78yMbPt/PhVSTejmeXdnDfsd/JGFDwr/zOgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5132
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,325 +100,305 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: christian.koenig@amd.com
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>, wayne.lin@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-11-25 um 3:30 p.m. schrieb Philip Yang:
-> IH ring1 is used to process GPU retry fault, overflow is enabled to
-> drain retry fault because we want receive other interrupts while
-> handling retry fault to recover range. There is no overflow flag set
-> when wptr pass rptr. Use timestamp of rptr and wptr to handle overflow
-> and drain retry fault.
->
-> If fault timestamp goes backward, the fault is filtered and should not
-> be processed. Drain fault is finished if processed_timestamp is equal to
-> or larger than checkpoint timestamp.
->
-> Add amdgpu_ih_function interface decode_iv_ts for different chips to get
-> timestamp from IV entry with different iv size and timestamp offset.
-> amdgpu_ih_decode_iv_ts_helper is used for vega10, vega20, navi10.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  8 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  3 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 55 +++++++++++--------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 16 ++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c |  3 ++
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c  |  1 +
->  drivers/gpu/drm/amd/amdgpu/vega10_ih.c  |  1 +
->  drivers/gpu/drm/amd/amdgpu/vega20_ih.c  |  1 +
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |  2 +-
->  11 files changed, 57 insertions(+), 37 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 45761d0328c7..403a968f3d2f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -350,6 +350,7 @@ static inline uint64_t amdgpu_gmc_fault_key(uint64_t addr, uint16_t pasid)
->   * amdgpu_gmc_filter_faults - filter VM faults
->   *
->   * @adev: amdgpu device structure
-> + * @ih: interrupt ring that the fault received from
->   * @addr: address of the VM fault
->   * @pasid: PASID of the process causing the fault
->   * @timestamp: timestamp of the fault
-> @@ -358,7 +359,8 @@ static inline uint64_t amdgpu_gmc_fault_key(uint64_t addr, uint16_t pasid)
->   * True if the fault was filtered and should not be processed further.
->   * False if the fault is a new one and needs to be handled.
->   */
-> -bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
-> +bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev,
-> +			      struct amdgpu_ih_ring *ih, uint64_t addr,
->  			      uint16_t pasid, uint64_t timestamp)
->  {
->  	struct amdgpu_gmc *gmc = &adev->gmc;
-> @@ -366,6 +368,10 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
->  	struct amdgpu_gmc_fault *fault;
->  	uint32_t hash;
->  
-> +	/* Stale retry fault if timestamp goes backward */
-> +	if (amdgpu_ih_ts_after(timestamp, ih->processed_timestamp))
-> +		return true;
-> +
->  	/* If we don't have space left in the ring buffer return immediately */
->  	stamp = max(timestamp, AMDGPU_GMC_FAULT_TIMEOUT + 1) -
->  		AMDGPU_GMC_FAULT_TIMEOUT;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index e55201134a01..8458cebc6d5b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -316,7 +316,8 @@ void amdgpu_gmc_gart_location(struct amdgpu_device *adev,
->  			      struct amdgpu_gmc *mc);
->  void amdgpu_gmc_agp_location(struct amdgpu_device *adev,
->  			     struct amdgpu_gmc *mc);
-> -bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
-> +bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev,
-> +			      struct amdgpu_ih_ring *ih, uint64_t addr,
->  			      uint16_t pasid, uint64_t timestamp);
->  void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
->  				     uint16_t pasid);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> index 0c7963dfacad..8050f7ba93ad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> @@ -164,52 +164,32 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
->  	}
->  }
->  
-> -/* Waiter helper that checks current rptr matches or passes checkpoint wptr */
-> -static bool amdgpu_ih_has_checkpoint_processed(struct amdgpu_device *adev,
-> -					struct amdgpu_ih_ring *ih,
-> -					uint32_t checkpoint_wptr,
-> -					uint32_t *prev_rptr)
-> -{
-> -	uint32_t cur_rptr = ih->rptr | (*prev_rptr & ~ih->ptr_mask);
-> -
-> -	/* rptr has wrapped. */
-> -	if (cur_rptr < *prev_rptr)
-> -		cur_rptr += ih->ptr_mask + 1;
-> -	*prev_rptr = cur_rptr;
-> -
-> -	/* check ring is empty to workaround missing wptr overflow flag */
-> -	return cur_rptr >= checkpoint_wptr ||
-> -	       (cur_rptr & ih->ptr_mask) == amdgpu_ih_get_wptr(adev, ih);
-> -}
-> -
->  /**
-> - * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
-> + * amdgpu_ih_wait_on_checkpoint_process_ts - wait to process IVs up to checkpoint
->   *
->   * @adev: amdgpu_device pointer
->   * @ih: ih ring to process
->   *
->   * Used to ensure ring has processed IVs up to the checkpoint write pointer.
->   */
-> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
-> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
->  					struct amdgpu_ih_ring *ih)
->  {
-> -	uint32_t checkpoint_wptr, rptr;
-> +	uint32_t checkpoint_wptr;
-> +	uint64_t checkpoint_ts;
-> +	long timeout = HZ;
->  
->  	if (!ih->enabled || adev->shutdown)
->  		return -ENODEV;
->  
->  	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-> -	/* Order wptr with rptr. */
-> +	/* Order wptr with ring data. */
->  	rmb();
-> -	rptr = READ_ONCE(ih->rptr);
-> -
-> -	/* wptr has wrapped. */
-> -	if (rptr > checkpoint_wptr)
-> -		checkpoint_wptr += ih->ptr_mask + 1;
-> +	checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
->  
-> -	return wait_event_interruptible(ih->wait_process,
-> -				amdgpu_ih_has_checkpoint_processed(adev, ih,
-> -						checkpoint_wptr, &rptr));
-> +	return wait_event_interruptible_timeout(ih->wait_process,
-> +		    !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts),
-> +		    timeout);
->  }
->  
->  /**
-> @@ -299,3 +279,18 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
->  	/* wptr/rptr are in bytes! */
->  	ih->rptr += 32;
->  }
-> +
-> +uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
-> +				       signed int offset)
-> +{
-> +	uint32_t iv_size = 32;
-> +	uint32_t ring_index;
-> +	uint32_t dw1, dw2;
-> +
-> +	rptr += iv_size * offset;
-> +	ring_index = (rptr & ih->ptr_mask) >> 2;
-> +
-> +	dw1 = le32_to_cpu(ih->ring[ring_index + 1]);
-> +	dw2 = le32_to_cpu(ih->ring[ring_index + 2]);
-> +	return dw1 | ((u64)(dw2 & 0xffff) << 32);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> index 0649b59830a5..dd1c2eded6b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> @@ -68,20 +68,30 @@ struct amdgpu_ih_ring {
->  
->  	/* For waiting on IH processing at checkpoint. */
->  	wait_queue_head_t wait_process;
-> +	uint64_t		processed_timestamp;
->  };
->  
-> +/* return true if time stamp t2 is after t1 with 48bit wrap around */
-> +#define amdgpu_ih_ts_after(t1, t2) \
-> +		(((int64_t)((t2) << 16) - (int64_t)((t1) << 16)) > 0LL)
-> +
->  /* provided by the ih block */
->  struct amdgpu_ih_funcs {
->  	/* ring read/write ptr handling, called from interrupt context */
->  	u32 (*get_wptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  	void (*decode_iv)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
->  			  struct amdgpu_iv_entry *entry);
-> +	uint64_t (*decode_iv_ts)(struct amdgpu_ih_ring *ih, u32 rptr,
-> +				 signed int offset);
->  	void (*set_rptr)(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  };
->  
->  #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
->  #define amdgpu_ih_decode_iv(adev, iv) \
->  	(adev)->irq.ih_funcs->decode_iv((adev), (ih), (iv))
-> +#define amdgpu_ih_decode_iv_ts(adev, ih, rptr, offset) \
-> +	(WARN_ON_ONCE(!(adev)->irq.ih_funcs->decode_iv_ts) ? 0 : \
-> +	(adev)->irq.ih_funcs->decode_iv_ts((ih), (rptr), (offset)))
->  #define amdgpu_ih_set_rptr(adev, ih) (adev)->irq.ih_funcs->set_rptr((adev), (ih))
->  
->  int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
-> @@ -89,10 +99,12 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
->  void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
->  			  unsigned int num_dw);
-> -int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
-> -					struct amdgpu_ih_ring *ih);
-> +int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
-> +					    struct amdgpu_ih_ring *ih);
->  int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
->  void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
->  				struct amdgpu_ih_ring *ih,
->  				struct amdgpu_iv_entry *entry);
-> +uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
-> +				       signed int offset);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index e9023687dc9a..571b11117992 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -521,6 +521,9 @@ void amdgpu_irq_dispatch(struct amdgpu_device *adev,
->  	/* Send it to amdkfd as well if it isn't already handled */
->  	if (!handled)
->  		amdgpu_amdkfd_interrupt(adev, entry.iv_entry);
-> +
-> +	if (amdgpu_ih_ts_after(ih->processed_timestamp, entry.timestamp))
-> +		ih->processed_timestamp = entry.timestamp;
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 15 ++++
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 71 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  6 ++
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  | 31 ++++++++
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |  3 +
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  1 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 +
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |  2 +
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c |  2 +
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |  2 +
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  1 +
+ 11 files changed, 135 insertions(+)
 
-OK. Dealing with processed timestamp rather than decoded timestamp fixes
-the race condition where drain would have returned before the last fault
-was processed. But we're still assuming that each interrupt has a unique
-timestamp. We haven't seen evidence of the contrary. But I'd like to add
-a check to be sure, in case that assumption becomes invalid on future
-hardware. Something like this (before updating ih->processed_timestamp):
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 3d08f8eba402..dad7a4fdc427 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -2750,8 +2750,23 @@ static bool dp_active_dongle_validate_timing(
+ 		return false;
+ 	}
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	if (dongle_caps->dp_hdmi_frl_max_link_bw_in_kbps > 0) { // DP to HDMI FRL converter
++		struct dc_crtc_timing outputTiming = *timing;
++
++		if (timing->flags.DSC && !timing->dsc_cfg.is_frl)
++			/* DP input has DSC, HDMI FRL output doesn't have DSC, remove DSC from output timing */
++			outputTiming.flags.DSC = 0;
++		if (dc_bandwidth_in_kbps_from_timing(&outputTiming) > dongle_caps->dp_hdmi_frl_max_link_bw_in_kbps)
++			return false;
++	} else { // DP to HDMI TMDS converter
++		if (get_timing_pixel_clock_100hz(timing) > (dongle_caps->dp_hdmi_max_pixel_clk_in_khz * 10))
++			return false;
++	}
++#else
+ 	if (get_timing_pixel_clock_100hz(timing) > (dongle_caps->dp_hdmi_max_pixel_clk_in_khz * 10))
+ 		return false;
++#endif
+ 
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 84f3545c3032..da1532356c07 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -4313,6 +4313,56 @@ static int translate_dpcd_max_bpc(enum dpcd_downstream_port_max_bpc bpc)
+ 	return -1;
+ }
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++uint32_t dc_link_bw_kbps_from_raw_frl_link_rate_data(uint8_t bw)
++{
++	switch (bw) {
++	case 0b001:
++		return 9000000;
++	case 0b010:
++		return 18000000;
++	case 0b011:
++		return 24000000;
++	case 0b100:
++		return 32000000;
++	case 0b101:
++		return 40000000;
++	case 0b110:
++		return 48000000;
++	}
++
++	return 0;
++}
++
++/**
++ * Return PCON's post FRL link training supported BW if its non-zero, otherwise return max_supported_frl_bw.
++ */
++static uint32_t intersect_frl_link_bw_support(
++	const uint32_t max_supported_frl_bw_in_kbps,
++	const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
++{
++	uint32_t supported_bw_in_kbps = max_supported_frl_bw_in_kbps;
++
++	// HDMI_ENCODED_LINK_BW bits are only valid if HDMI Link Configuration bit is 1 (FRL mode)
++	if (hdmi_encoded_link_bw.bits.FRL_MODE) {
++		if (hdmi_encoded_link_bw.bits.BW_48Gbps)
++			supported_bw_in_kbps = 48000000;
++		else if (hdmi_encoded_link_bw.bits.BW_40Gbps)
++			supported_bw_in_kbps = 40000000;
++		else if (hdmi_encoded_link_bw.bits.BW_32Gbps)
++			supported_bw_in_kbps = 32000000;
++		else if (hdmi_encoded_link_bw.bits.BW_24Gbps)
++			supported_bw_in_kbps = 24000000;
++		else if (hdmi_encoded_link_bw.bits.BW_18Gbps)
++			supported_bw_in_kbps = 18000000;
++		else if (hdmi_encoded_link_bw.bits.BW_9Gbps)
++			supported_bw_in_kbps = 9000000;
++	}
++
++	return supported_bw_in_kbps;
++}
++#endif
++
+ static void read_dp_device_vendor_id(struct dc_link *link)
+ {
+ 	struct dp_device_vendor_id dp_id;
+@@ -4424,6 +4474,27 @@ static void get_active_converter_info(
+ 						translate_dpcd_max_bpc(
+ 							hdmi_color_caps.bits.MAX_BITS_PER_COLOR_COMPONENT);
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++					if (link->dc->caps.hdmi_frl_pcon_support) {
++						link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps =
++								dc_link_bw_kbps_from_raw_frl_link_rate_data(
++										hdmi_color_caps.bits.MAX_ENCODED_LINK_BW_SUPPORT);
++
++						union hdmi_encoded_link_bw hdmi_encoded_link_bw;
++
++						// Intersect reported max link bw support with the supported link rate post FRL link training
++						if (core_link_read_dpcd(link, DP_PCON_HDMI_POST_FRL_STATUS,
++								&hdmi_encoded_link_bw.raw, sizeof(hdmi_encoded_link_bw)) == DC_OK) {
++							link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps = intersect_frl_link_bw_support(
++									link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps,
++									hdmi_encoded_link_bw);
++						}
++
++						if (link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps > 0)
++							link->dpcd_caps.dongle_caps.extendedCapValid = true;
++					}
++#endif
++
+ 					if (link->dpcd_caps.dongle_caps.dp_hdmi_max_pixel_clk_in_khz != 0)
+ 						link->dpcd_caps.dongle_caps.extendedCapValid = true;
+ 				}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index c14e7db3f69d..2d001de42117 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -187,6 +187,7 @@ struct dc_caps {
+ 	struct dc_color_caps color;
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	bool dp_hpo;
++	bool hdmi_frl_pcon_support;
+ #endif
+ 	bool edp_dsc_support;
+ 	bool vbios_lttpr_aware;
+@@ -1294,6 +1295,11 @@ struct dc_sink_dsc_caps {
+ 	// 'true' if these are virtual DPCD's DSC caps (immediately upstream of sink in MST topology),
+ 	// 'false' if they are sink's DSC caps
+ 	bool is_virtual_dpcd_dsc;
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	// 'true' if MST topology supports DSC passthrough for sink
++	// 'false' if MST topology does not support DSC passthrough
++	bool is_dsc_passthrough_supported;
++#endif
+ 	struct dsc_dec_dpcd_caps dsc_dec_caps;
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index e68e9a86a4d9..99d26fb31566 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -378,7 +378,14 @@ enum dpcd_downstream_port_detailed_type {
+ union dwnstream_port_caps_byte2 {
+ 	struct {
+ 		uint8_t MAX_BITS_PER_COLOR_COMPONENT:2;
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++		uint8_t MAX_ENCODED_LINK_BW_SUPPORT:3;
++		uint8_t SOURCE_CONTROL_MODE_SUPPORT:1;
++		uint8_t CONCURRENT_LINK_BRING_UP_SEQ_SUPPORT:1;
++		uint8_t RESERVED:1;
++#else
+ 		uint8_t RESERVED:6;
++#endif
+ 	} bits;
+ 	uint8_t raw;
+ };
+@@ -416,6 +423,30 @@ union dwnstream_port_caps_byte3_hdmi {
+ 	uint8_t raw;
+ };
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++union hdmi_sink_encoded_link_bw_support {
++	struct {
++		uint8_t HDMI_SINK_ENCODED_LINK_BW_SUPPORT:3;
++		uint8_t RESERVED:5;
++	} bits;
++	uint8_t raw;
++};
++
++union hdmi_encoded_link_bw {
++	struct {
++		uint8_t FRL_MODE:1; // Bit 0
++		uint8_t BW_9Gbps:1;
++		uint8_t BW_18Gbps:1;
++		uint8_t BW_24Gbps:1;
++		uint8_t BW_32Gbps:1;
++		uint8_t BW_40Gbps:1;
++		uint8_t BW_48Gbps:1;
++		uint8_t RESERVED:1; // Bit 7
++	} bits;
++	uint8_t raw;
++};
++#endif
++
+ /*4-byte structure for detailed capabilities of a down-stream port
+ (DP-to-TMDS converter).*/
+ union dwnstream_portxcaps {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index 52355fe6994c..eac34f591a3f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -741,6 +741,9 @@ struct dc_dsc_config {
+ 	uint32_t version_minor; /* DSC minor version. Full version is formed as 1.version_minor. */
+ 	bool ycbcr422_simple; /* Tell DSC engine to convert YCbCr 4:2:2 to 'YCbCr 4:2:2 simple'. */
+ 	int32_t rc_buffer_size; /* DSC RC buffer block size in bytes */
++#if defined(CONFIG_DRM_AMD_DC_DCN)
++	bool is_frl; /* indicate if DSC is applied based on HDMI FRL sink's capability */
++#endif
+ 	bool is_dp; /* indicate if DSC is applied based on DP's capability */
+ };
+ struct dc_crtc_timing {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index d449e72a4e2a..d5887d976ef6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -443,6 +443,7 @@ bool dc_link_is_fec_supported(const struct dc_link *link);
+ bool dc_link_should_enable_fec(const struct dc_link *link);
+ 
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
++uint32_t dc_link_bw_kbps_from_raw_frl_link_rate_data(uint8_t bw);
+ enum dp_link_encoding dc_link_dp_mst_decide_link_encoding_format(const struct dc_link *link);
+ #endif
+ #endif /* DC_LINK_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 388457ffc0a8..cb26ff8a54c5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -430,6 +430,7 @@ struct dc_dongle_caps {
+ 	uint32_t dp_hdmi_max_bpc;
+ 	uint32_t dp_hdmi_max_pixel_clk_in_khz;
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
++	uint32_t dp_hdmi_frl_max_link_bw_in_kbps;
+ 	struct dc_dongle_dfp_cap_ext dfp_cap_ext;
+ #endif
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 3883f918b3bb..40b122a708ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -3796,6 +3796,8 @@ static bool dcn20_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
+ 
++	dc->caps.hdmi_frl_pcon_support = true;
++
+ 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV) {
+ 		dc->debug = debug_defaults_drv;
+ 	} else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index d452a0d1777e..da6031cef244 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -2028,6 +2028,8 @@ static bool dcn21_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
+ 
++	dc->caps.hdmi_frl_pcon_support = true;
++
+ 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
+ 		dc->debug = debug_defaults_drv;
+ 	else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 79a66e0c4303..77331a45a749 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -2639,6 +2639,8 @@ static bool dcn30_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
+ 
++	dc->caps.hdmi_frl_pcon_support = true;
++
+ 	/* read VBIOS LTTPR caps */
+ 	{
+ 		if (ctx->dc_bios->funcs->get_lttpr_caps) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index 6460fab496f6..673e080e1982 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -2193,6 +2193,7 @@ static bool dcn31_resource_construct(
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	dc->caps.dp_hpo = true;
++	dc->caps.hdmi_frl_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+ 	dc->caps.extended_aux_timeout_support = true;
+ 	dc->caps.dmcub_support = true;
+-- 
+2.25.1
 
-    WARN_ONCE(ih->processed_timestamp == entry.timestamp, "IH timestamps
-are not unique");
-
-With that fixed, the patch is
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
->  }
->  
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 3ec5ff5a6dbe..d696c4754bea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -107,7 +107,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
->  
->  		/* Process it onyl if it's the first fault for this address */
->  		if (entry->ih != &adev->irq.ih_soft &&
-> -		    amdgpu_gmc_filter_faults(adev, addr, entry->pasid,
-> +		    amdgpu_gmc_filter_faults(adev, entry->ih, addr, entry->pasid,
->  					     entry->timestamp))
->  			return 1;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index cb82404df534..7490ce8295c1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -523,7 +523,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
->  
->  		/* Process it onyl if it's the first fault for this address */
->  		if (entry->ih != &adev->irq.ih_soft &&
-> -		    amdgpu_gmc_filter_faults(adev, addr, entry->pasid,
-> +		    amdgpu_gmc_filter_faults(adev, entry->ih, addr, entry->pasid,
->  					     entry->timestamp))
->  			return 1;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index 38241cf0e1f1..8ce5b8ca1fd7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -716,6 +716,7 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs = {
->  static const struct amdgpu_ih_funcs navi10_ih_funcs = {
->  	.get_wptr = navi10_ih_get_wptr,
->  	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->  	.set_rptr = navi10_ih_set_rptr
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> index a9ca6988009e..3070466f54e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> @@ -640,6 +640,7 @@ const struct amd_ip_funcs vega10_ih_ip_funcs = {
->  static const struct amdgpu_ih_funcs vega10_ih_funcs = {
->  	.get_wptr = vega10_ih_get_wptr,
->  	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->  	.set_rptr = vega10_ih_set_rptr
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> index f51dfc38ac65..3b4eb8285943 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> @@ -688,6 +688,7 @@ const struct amd_ip_funcs vega20_ih_ip_funcs = {
->  static const struct amdgpu_ih_funcs vega20_ih_funcs = {
->  	.get_wptr = vega20_ih_get_wptr,
->  	.decode_iv = amdgpu_ih_decode_iv_helper,
-> +	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
->  	.set_rptr = vega20_ih_set_rptr
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 10868d5b549f..663489ae56d7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1974,7 +1974,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
->  
->  		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
->  
-> -		amdgpu_ih_wait_on_checkpoint_process(pdd->dev->adev,
-> +		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
->  						     &pdd->dev->adev->irq.ih1);
->  		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
->  	}
