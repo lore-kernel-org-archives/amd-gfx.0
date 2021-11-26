@@ -4,96 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B13C4C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Nov 2021 09:48:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C55CC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Nov 2021 10:35:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE336E961;
-	Fri, 26 Nov 2021 09:48:36 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DAA66E95A
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Nov 2021 09:48:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MqmPucpC+/L0Czgf8cvn0PFdTwTZ28gWDe6IeNfgRZ+/PsGcSEoNjWP7iXPBiuzZFN1I/jn6T3g5pyt5HjtBnh0yPC+jL5exmia1PZDp7fE3HjC3Dnkj1l3qVtV2hGeINuS+5YCjdBpcH+ahBRiG+y7g7juvz6cQoA9fElJrh6fOvZ2H2K9KSrnxEWykLEs8sw/J3CJA9EmpyHvSqSyId7ct42ru4HSaTuBjOGEjQLQLxGPjhHNzYU5UBNXZvdJ8Qm6fFAEk3J92AqrVHCPd1DssHo+cpMFbm30A6M2hBRlVpDcHn9+WFkFMTs5msbxWkwIt0NYYKJ1wytXHmA7m9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qCt4G0TmYQtDvHQoTl4W06RQUV53jsqUmX4nU5FgBik=;
- b=VA8zjwbc7qsqulk7YounzxZbKASBTWseBzq/7z1oOjb+Lu7YtVIrSY+cgghtmJhXXGdK/eJn7+5LllKKAwsPODb8RiUHd6MRKZ2qlvM2BDDr3OZg4KZFcr2VEbc2vLYUVXYIvkKS6Ckixq99OSK5b5SQm3y/TyhMTuedL6TUhGLwkOegNcL2DQcTQn/Z5ypvk0AGdyqROZNlduDkzK8CTZilbF6+iWiSOgYBwL+xyY1S26cJT+5p7leH/JqR/WN30qq66QuFY1G2wV1h1V51AebjMlyp9CdLvZyMlxjguF6CM/ASdtxpah1XNE5TgeSfTOxJNYcKEhbQFHInXDPm+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qCt4G0TmYQtDvHQoTl4W06RQUV53jsqUmX4nU5FgBik=;
- b=fogXFNpCCDTJUdNWfIlf/F940n9hoPoyE/868fBz//8Vf9nPsI95u8+eUeqK0fczPQ2DeaAjDWauwu2s83SmkwZ6TMW57KCPwRjpXxbWjwz4cKTjynDJWctHeM+9mF97386GZKQMkBkwy75fjQiUI1Xih1OCuVWp3q5KdS4gtr8=
-Received: from BN9PR03CA0060.namprd03.prod.outlook.com (2603:10b6:408:fb::35)
- by MWHPR1201MB0174.namprd12.prod.outlook.com (2603:10b6:301:55::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Fri, 26 Nov
- 2021 09:48:31 +0000
-Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fb:cafe::95) by BN9PR03CA0060.outlook.office365.com
- (2603:10b6:408:fb::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20 via Frontend
- Transport; Fri, 26 Nov 2021 09:48:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4734.22 via Frontend Transport; Fri, 26 Nov 2021 09:48:30 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 26 Nov
- 2021 03:48:30 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 26 Nov
- 2021 01:48:29 -0800
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Fri, 26 Nov 2021 03:48:27 -0600
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
- <John.Clements@amd.com>, <tao.zhou1@amd.com>, <candice.li@amd.com>,
- <yipeng.chai@amd.com>
-Subject: [PATCH Review 1/1] drm/amdgpu: fix disable ras feature failed when
- unload drvier
-Date: Fri, 26 Nov 2021 17:48:26 +0800
-Message-ID: <20211126094826.13732-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37A6E6E9B6;
+	Fri, 26 Nov 2021 10:35:09 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E53C6E933;
+ Fri, 26 Nov 2021 10:35:07 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id 137so7721388wma.1;
+ Fri, 26 Nov 2021 02:35:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=yWMPT9gdUeJoBqjhtlnpMwe+xCg6/aY12TZNureZlQE=;
+ b=L48KoTYS5dIsStjP372ocwxx4k9uRC254TXTt1fOJQ5//81huyKei+Nj8mR151LGf+
+ R47EetCPNsMiITtcbHWZOvdKSF+S/G52/WuBpgGsCQjhFwJ9M1Sdwj3WGXDdy9VTaVtE
+ PTzKc8ODKvUoDRAY85zp5hglbHlyEREbCufIL2F2d8t/8cY2m2VbaFKMP/BRZtY+8YsM
+ Pco0tFDLXebwJ+TFow3kbHNTCIcmwfPzKExDc9EwuL0BJieyoKt968AfJcVypZ0M2K9J
+ ruUoqVEe5DwFeNtgPlQQcla35vQWaIEckkwA4GQr0KlP+UjAD+dDq42qnskioajlCUBq
+ Vonw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=yWMPT9gdUeJoBqjhtlnpMwe+xCg6/aY12TZNureZlQE=;
+ b=x54OuADmC5Dol3266ZCwPzlmJaE/gLZVDMgI/HMEfzAH30ilMuM7pI/UZYZwF+VAup
+ pjY3jGBIdz4S35vRXcUlaG0OadOVWWowY7ZXlV5S94ocAteaI8njvKsrIKtd/PZ0luuh
+ O6Jnddy/IxEDcgnbParmR9X4qB9RapCENW7DKzKUicK286Z2VyiVYBSwV5T3tErzXUbK
+ VDgpnx1g/qylXFrfwOKY+al0RQBTPH5Trvc0N57dz58kb+ATfy0mUfBhz+G5XlOyrRNS
+ 1pSoDqO5cR1moZ3v+xjrrQOp4ulk7anOcsD/RDT521opTGZJkDM2+66QEy8kFkf+oMQc
+ JN5Q==
+X-Gm-Message-State: AOAM5316uSvvhofyYR6p7dNURy68UqMwWlvrv47GgnA0+jYcVRqDBD9H
+ VAwLD6MQlh16UMc09bXsUu0=
+X-Google-Smtp-Source: ABdhPJwc/9KgeEHWhy3ewx0imoHrOYefqaEGmG78xusEOMnYDmxuHMddMUdx/gAnsSyZ3YzPxFxo+w==
+X-Received: by 2002:a05:600c:1d06:: with SMTP id
+ l6mr14084629wms.97.1637922905985; 
+ Fri, 26 Nov 2021 02:35:05 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:108:c3ea:37df:ad4c?
+ ([2a02:908:1252:fb60:108:c3ea:37df:ad4c])
+ by smtp.gmail.com with ESMTPSA id e7sm6986597wrg.31.2021.11.26.02.35.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Nov 2021 02:35:05 -0800 (PST)
+Subject: Re: [PATCH 1/6] Documentation/gpu: Reorganize DC documentation
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Simon Ser <contact@emersion.fr>, =?UTF-8?Q?Michel_D=c3=a4nzer?=
+ <michel@daenzer.net>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
+ Roman Gilg <subdiff@gmail.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Harry Wentland <Harry.Wentland@amd.com>,
+ Mark Yacoub <markyacoub@chromium.org>, Sean Paul <seanpaul@chromium.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>
+References: <20211125153830.1352994-1-Rodrigo.Siqueira@amd.com>
+ <20211125153830.1352994-2-Rodrigo.Siqueira@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <aa16c8ca-1126-0f6f-c201-362a2abc2341@gmail.com>
+Date: Fri, 26 Nov 2021 11:35:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fee828f4-91bd-42a5-7d87-08d9b0c1e760
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0174:
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB01742CD9E8662DD5BFB15DED9A639@MWHPR1201MB0174.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:901;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6Wy1CSRtvaSlQi2LpOhI7buYo3RFLWdwtv5PvGXJaInDZcBy0IGwUQtbyV3YOpvEgHsZmdG4ONPIRPxmhvZgmE7FDN70AKSuqwMN/mk6+8Vtq49bIGIEEV45AAC7jQm/Bw3U/MMVR6fqWBYtqkoEriUgY+JpKHo1umTSl0MXlA2xUHO3HO7NSu0CDBHi36v8oksmp8GMRFMI47bwPZzv8O3WVPmEgBGjHk+wNk/v4iYtO8pOXafqJ/GHTbjEVNr49abC7w65Gk+0uDhB7vIuwh2RyRIb/QZEDMCIbKmJ7UNyTfO0vpR81qRl4IVZx3VoJAysCasgb2RHd1aNvHRTF7l/5p+BmP1f3uBHh5EKP0K/FAikpwvwPQ9M9LDTaoRuxgBelL/c2gOnjq9LNbpYm8oB96ut+j/hyhuaE+5RFmhTH4DrWOKU3QW68TcT8BL3G3mMTo3BsJjxUNWwKmhM2634Uwfv5BamoHLqukMi6gf0jXXuKgow4CwV8VIdRliGbBLPIFnhEyrpf6oXv15CeSU7GNHJKCdH67SV1BnvUeKwxdKJi/IU9CTVrQFPwYh5ZsCfyQeJ7QPbMOjpLFfakcJ5htm/8B3wvCjLzoLFJTkdGSfYd7W7/4ChtRcv5FVOLIGf2SGBbbVgTg6xYcldjcn0+odchI+hl3XACFu6j63Y0bRX5UUOrUu/vSn8D1i+ZNoCqAYmr2eR9l4E/fZH3mcUCTEtqkAi5Rqju/dopXc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(8936002)(356005)(186003)(1076003)(36860700001)(508600001)(26005)(70206006)(86362001)(82310400004)(36756003)(2906002)(2616005)(336012)(70586007)(7696005)(83380400001)(6636002)(426003)(47076005)(8676002)(316002)(110136005)(4326008)(81166007)(5660300002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2021 09:48:30.6233 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fee828f4-91bd-42a5-7d87-08d9b0c1e760
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0174
+In-Reply-To: <20211125153830.1352994-2-Rodrigo.Siqueira@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,65 +81,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
+Cc: linux-doc@vger.kernel.org, qingqing.zhuo@amd.com, roman.li@amd.com,
+ amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com, nicholas.choi@amd.com,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ bhawanpreet.lakha@amd.com,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Function amdgpu_device_fini_hw is called before amdgpu_device_fini_sw,
-so ras ta will unload before send ras disable command, ras dsiable operation
-must before hw fini.
+Just a general comment. Could you name the new subdirectory "amdgpu" 
+instead?
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 4 ----
- 2 files changed, 3 insertions(+), 6 deletions(-)
+DC is just a component of the amdgpu driver and I think it would sooner 
+or later make sense to group together the amdgpu documentation in one 
+folder.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 73ec46140d68..d5e642e90010 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2838,8 +2838,6 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
- 	if (amdgpu_sriov_vf(adev) && adev->virt.ras_init_done)
- 		amdgpu_virt_release_ras_err_handler_data(adev);
- 
--	amdgpu_ras_pre_fini(adev);
--
- 	if (adev->gmc.xgmi.num_physical_nodes > 1)
- 		amdgpu_xgmi_remove_device(adev);
- 
-@@ -3959,6 +3957,9 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 
- 	amdgpu_fbdev_fini(adev);
- 
-+	/* disable ras feature must before hw fini */
-+	amdgpu_ras_pre_fini(adev);
-+
- 	amdgpu_device_ip_fini_early(adev);
- 
- 	amdgpu_irq_fini_hw(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 39dfd4d59881..65102d2a0a98 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2484,7 +2484,6 @@ void amdgpu_ras_late_fini(struct amdgpu_device *adev,
- 	amdgpu_ras_sysfs_remove(adev, ras_block);
- 	if (ih_info->cb)
- 		amdgpu_ras_interrupt_remove_handler(adev, ih_info);
--	amdgpu_ras_feature_enable(adev, ras_block, 0);
- }
- 
- /* do some init work after IP late init as dependence.
-@@ -2564,9 +2563,6 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 
- 	WARN(con->features, "Feature mask is not cleared");
- 
--	if (con->features)
--		amdgpu_ras_disable_all_features(adev, 1);
--
- 	cancel_delayed_work_sync(&con->ras_counte_delay_work);
- 
- 	amdgpu_ras_set_context(adev, NULL);
--- 
-2.17.1
+Regards,
+Christian.
+
+Am 25.11.21 um 16:38 schrieb Rodrigo Siqueira:
+> Display core documentation is not well organized, and it is hard to find
+> information due to the lack of sections. This commit reorganizes the
+> documentation layout, and it is preparation work for future changes.
+>
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>   Documentation/gpu/amdgpu-dc.rst               | 74 -------------------
+>   .../gpu/amdgpu-dc/amdgpu-dc-debug.rst         |  4 +
+>   Documentation/gpu/amdgpu-dc/amdgpu-dc.rst     | 29 ++++++++
+>   Documentation/gpu/amdgpu-dc/amdgpu-dm.rst     | 42 +++++++++++
+>   Documentation/gpu/drivers.rst                 |  2 +-
+>   5 files changed, 76 insertions(+), 75 deletions(-)
+>   delete mode 100644 Documentation/gpu/amdgpu-dc.rst
+>   create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst
+>   create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+>   create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dm.rst
+>
+> diff --git a/Documentation/gpu/amdgpu-dc.rst b/Documentation/gpu/amdgpu-dc.rst
+> deleted file mode 100644
+> index f7ff7e1309de..000000000000
+> --- a/Documentation/gpu/amdgpu-dc.rst
+> +++ /dev/null
+> @@ -1,74 +0,0 @@
+> -===================================
+> -drm/amd/display - Display Core (DC)
+> -===================================
+> -
+> -*placeholder - general description of supported platforms, what dc is, etc.*
+> -
+> -Because it is partially shared with other operating systems, the Display Core
+> -Driver is divided in two pieces.
+> -
+> -1. **Display Core (DC)** contains the OS-agnostic components. Things like
+> -   hardware programming and resource management are handled here.
+> -2. **Display Manager (DM)** contains the OS-dependent components. Hooks to the
+> -   amdgpu base driver and DRM are implemented here.
+> -
+> -It doesn't help that the entire package is frequently referred to as DC. But
+> -with the context in mind, it should be clear.
+> -
+> -When CONFIG_DRM_AMD_DC is enabled, DC will be initialized by default for
+> -supported ASICs. To force disable, set `amdgpu.dc=0` on kernel command line.
+> -Likewise, to force enable on unsupported ASICs, set `amdgpu.dc=1`.
+> -
+> -To determine if DC is loaded, search dmesg for the following entry:
+> -
+> -``Display Core initialized with <version number here>``
+> -
+> -AMDgpu Display Manager
+> -======================
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> -   :doc: overview
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> -   :internal:
+> -
+> -Lifecycle
+> ----------
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> -   :doc: DM Lifecycle
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> -   :functions: dm_hw_init dm_hw_fini
+> -
+> -Interrupts
+> -----------
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> -   :doc: overview
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> -   :internal:
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> -   :functions: register_hpd_handlers dm_crtc_high_irq dm_pflip_high_irq
+> -
+> -Atomic Implementation
+> ----------------------
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> -   :doc: atomic
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> -   :functions: amdgpu_dm_atomic_check amdgpu_dm_atomic_commit_tail
+> -
+> -Display Core
+> -============
+> -
+> -**WIP**
+> -
+> -FreeSync Video
+> ---------------
+> -
+> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> -   :doc: FreeSync Video
+> diff --git a/Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst b/Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst
+> new file mode 100644
+> index 000000000000..bbb8c3fc8eee
+> --- /dev/null
+> +++ b/Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst
+> @@ -0,0 +1,4 @@
+> +Display Core Debug tools
+> +========================
+> +
+> +TODO
+> diff --git a/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst b/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+> new file mode 100644
+> index 000000000000..3685b3b1ad64
+> --- /dev/null
+> +++ b/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+> @@ -0,0 +1,29 @@
+> +===================================
+> +drm/amd/display - Display Core (DC)
+> +===================================
+> +
+> +*placeholder - general description of supported platforms, what dc is, etc.*
+> +
+> +Because it is partially shared with other operating systems, the Display Core
+> +Driver is divided in two pieces.
+> +
+> +1. **Display Core (DC)** contains the OS-agnostic components. Things like
+> +   hardware programming and resource management are handled here.
+> +2. **Display Manager (DM)** contains the OS-dependent components. Hooks to the
+> +   amdgpu base driver and DRM are implemented here.
+> +
+> +It doesn't help that the entire package is frequently referred to as DC. But
+> +with the context in mind, it should be clear.
+> +
+> +When CONFIG_DRM_AMD_DC is enabled, DC will be initialized by default for
+> +supported ASICs. To force disable, set `amdgpu.dc=0` on kernel command line.
+> +Likewise, to force enable on unsupported ASICs, set `amdgpu.dc=1`.
+> +
+> +To determine if DC is loaded, search dmesg for the following entry:
+> +
+> +.. toctree::
+> +
+> +   amdgpu-dm.rst
+> +   amdgpu-dc-debug.rst
+> +
+> +``Display Core initialized with <version number here>``
+> diff --git a/Documentation/gpu/amdgpu-dc/amdgpu-dm.rst b/Documentation/gpu/amdgpu-dc/amdgpu-dm.rst
+> new file mode 100644
+> index 000000000000..7ce31f89d9a0
+> --- /dev/null
+> +++ b/Documentation/gpu/amdgpu-dc/amdgpu-dm.rst
+> @@ -0,0 +1,42 @@
+> +======================
+> +AMDgpu Display Manager
+> +======================
+> +
+> +.. contents:: Table of Contents
+> +    :depth: 3
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +   :doc: overview
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +   :internal:
+> +
+> +Lifecycle
+> +=========
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +   :doc: DM Lifecycle
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +   :functions: dm_hw_init dm_hw_fini
+> +
+> +Interrupts
+> +==========
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> +   :doc: overview
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> +   :internal:
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +   :functions: register_hpd_handlers dm_crtc_high_irq dm_pflip_high_irq
+> +
+> +Atomic Implementation
+> +=====================
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +   :doc: atomic
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +   :functions: amdgpu_dm_atomic_check amdgpu_dm_atomic_commit_tail
+> diff --git a/Documentation/gpu/drivers.rst b/Documentation/gpu/drivers.rst
+> index b4a0ed3ca961..dffe52d837cd 100644
+> --- a/Documentation/gpu/drivers.rst
+> +++ b/Documentation/gpu/drivers.rst
+> @@ -5,7 +5,7 @@ GPU Driver Documentation
+>   .. toctree::
+>   
+>      amdgpu
+> -   amdgpu-dc
+> +   amdgpu-dc/amdgpu-dc
+>      i915
+>      mcde
+>      meson
 
