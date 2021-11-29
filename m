@@ -4,26 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 378FEC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 20:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA76FC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 20:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84A536E06B;
-	Mon, 29 Nov 2021 20:09:10 +0000 (UTC)
-Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [IPv6:2a01:e0c:1:1599::14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AEAD6E13C
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Nov 2021 20:09:09 +0000 (UTC)
-Received: from localhost.localdomain (unknown [88.120.44.86])
- by smtp5-g21.free.fr (Postfix) with ESMTP id BC6475FF67;
- Mon, 29 Nov 2021 21:09:06 +0100 (CET)
-From: Yann Dirson <ydirson@free.fr>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drm/amdgpu: update fw_load_type module parameter doc to
- match code
-Date: Mon, 29 Nov 2021 21:08:57 +0100
-Message-Id: <20211129200857.3247-1-ydirson@free.fr>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7823B6E454;
+	Mon, 29 Nov 2021 20:48:44 +0000 (UTC)
+Received: from smtp2-g21.free.fr (smtp2-g21.free.fr [212.27.42.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF476E1E9;
+ Mon, 29 Nov 2021 20:48:42 +0000 (UTC)
+Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
+ by smtp2-g21.free.fr (Postfix) with ESMTP id E969F20039C;
+ Mon, 29 Nov 2021 21:48:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+ s=smtp-20201208; t=1638218920;
+ bh=Tb69XT4xufw0xlyq9ZOTCfYh/fb8Zm8VtIecKAGOiCc=;
+ h=Date:From:To:Cc:In-Reply-To:Subject:From;
+ b=oylv/lmdZ2nZGRl8k4nmq3VKiHjhuXXtz8ZFcoaXNdvB5IqRxtAXAPAvXNrp2dEUE
+ haUe0LA8UwGf8if2Uz0LX6dSrWl1/EdLmO7uPDokDM0/9uB7M8MlPEI/E9LzNG2QU8
+ wN9zcp+Qz6eYZnJr9yV7qb3Rt8qIUfGRv0A1sJhjgj7aOtVwaUqLGra2wzD7uuOI6Z
+ gz27Qh6pperg6PikCP7/fPxWfwiKBtrgAaA+HjA4OqCs5qx2fsGAlIrLoSUV86g+JM
+ ISi5D93R4ww5Q+ZQM8wzCMExN5/6PDUfLYBdHvABCOx8LDvUffgJm/ALPCXw5xkOWQ
+ vGVV+RZb+SCEg==
+Date: Mon, 29 Nov 2021 21:48:38 +0100 (CET)
+From: ydirson@free.fr
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Message-ID: <1254252919.1503545635.1638218918877.JavaMail.root@zimbra39-e7>
+In-Reply-To: <CADnq5_NVcHizoY_xRM4d09B2s9DzWwDhn=YrgJ-3COXNANzE3A@mail.gmail.com>
+Subject: Re: [PATCH 6/6] Documentation/gpu: Add DC glossary
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [88.120.44.86]
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -35,40 +48,358 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yann Dirson <ydirson@free.fr>
+Cc: Harry Wentland <Harry.Wentland@amd.com>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Mark Yacoub <markyacoub@chromium.org>,
+ Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, Roman Li <roman.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ nicholas choi <nicholas.choi@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Simon Ser <contact@emersion.fr>, Alex Deucher <alexdeucher@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Roman Gilg <subdiff@gmail.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_ucode_get_load_type() does not interpret this parameter as
-documented.  It is ignored for many ASIC types (which presumably
-only support one load_type), and when not ignored it is only used
-to force direct loading instead of PSP loading.  SMU loading is
-only available for ASICs for which the parameter is ignored.
+Hi Rodrigo,
 
-Signed-off-by: Yann Dirson <ydirson@free.fr>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+That will really be helpful!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index ecdec75fdf69..64881068b115 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -315,9 +315,12 @@ module_param_named(dpm, amdgpu_dpm, int, 0444);
- 
- /**
-  * DOC: fw_load_type (int)
-- * Set different firmware loading type for debugging (0 = direct, 1 = SMU, 2 = PSP). The default is -1 (auto).
-+ * Set different firmware loading type for debugging, if supported.
-+ * Set to 0 to force direct loading if supported by the ASIC.  Set
-+ * to -1 to select the default loading mode for the ASIC, as defined
-+ * by the driver.  The default is -1 (auto).
-  */
--MODULE_PARM_DESC(fw_load_type, "firmware loading type (0 = direct, 1 = SMU, 2 = PSP, -1 = auto)");
-+MODULE_PARM_DESC(fw_load_type, "firmware loading type (0 = force direct if supported, -1 = auto)");
- module_param_named(fw_load_type, amdgpu_fw_load_type, int, 0444);
- 
- /**
+I know drawing the line is a difficult problem (and can even make things
+harder when searching), but maybe it would make sense to keep generic
+acronyms not specific to amdgpu in a separate list.  I bet a number of
+them would be useful in the scope of other drm drivers (e.g. CRTC, DCC,
+MST), and some are not restricted to the drm subsystem at all (e.g. FEC,
+LUT), but still have value as not necessarily easy to look up.
+
+Maybe "DC glossary" should just be "Glossary", since quite some entries
+help to read adm/amdgpu/ too.  Which brings me to the result of my recent
+searches as suggested entries:
+
+ KIQ (Kernel Interface Queue), MQD (memory queue descriptor), HQD (hardware
+ queue descriptor), EOP (still no clue :)
+
+Maybe some more specific ones just to be spelled out in clear where they
+are used ?  KCQ (compute queue?), KGQ (gfx queue?)
+
+More suggestions inlined.
+
+Best regards,
 -- 
-2.31.1
+Yann
 
+> On Thu, Nov 25, 2021 at 10:40 AM Rodrigo Siqueira
+> <Rodrigo.Siqueira@amd.com> wrote:
+> >
+> > In the DC driver, we have multiple acronyms that are not obvious
+> > most of
+> > the time. This commit introduces a DC glossary in order to make it
+> > easier to navigate through our driver.
+> >
+> > Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> > ---
+> >  Documentation/gpu/amdgpu-dc/amdgpu-dc.rst   |   2 +-
+> >  Documentation/gpu/amdgpu-dc/dc-glossary.rst | 257
+> >  ++++++++++++++++++++
+> >  2 files changed, 258 insertions(+), 1 deletion(-)
+> >  create mode 100644 Documentation/gpu/amdgpu-dc/dc-glossary.rst
+> >
+> > diff --git a/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+> > b/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+> > index 2e45e83d9a2a..15405c43786a 100644
+> > --- a/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+> > +++ b/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
+> > @@ -26,4 +26,4 @@ table of content:
+> >     amdgpu-dcn-overview.rst
+> >     amdgpu-dm.rst
+> >     amdgpu-dc-debug.rst
+> > -
+> > +   dc-glossary.rst
+> > diff --git a/Documentation/gpu/amdgpu-dc/dc-glossary.rst
+> > b/Documentation/gpu/amdgpu-dc/dc-glossary.rst
+> > new file mode 100644
+> > index 000000000000..48698fc1799f
+> > --- /dev/null
+> > +++ b/Documentation/gpu/amdgpu-dc/dc-glossary.rst
+> > @@ -0,0 +1,257 @@
+> > +===========
+> > +DC Glossary
+> > +===========
+> > +
+> > +.. glossary::
+> > +
+> > +    ABM
+> > +      Adaptive Backlight Modulation
+> > +
+> > +    APU
+> > +      Accelerated Processing Unit
+> > +
+> > +    ASIC
+> > +      Application-Specific Integrated Circuit
+> > +
+> > +    ASSR
+> > +      Alternate Scrambler Seed Reset
+> > +
+> > +    AZ
+> > +      Azalia (HD audio DMA engine)
+> > +
+> > +    BPC
+> > +      Bits Per Colour/Component
+> > +
+> > +    BPP
+> > +      Bits Per Pixel
+> > +
+> > +    Clocks
+> > +      * PCLK: Pixel Clock
+> > +      * SYMCLK: Symbol Clock
+> > +      * SOCCLK: GPU Engine Clock
+> > +      * DISPCLK: Display Clock
+> > +      * DPPCLK: DPP Clock
+> > +      * DCFCLK: Display Controller Fabric Clock
+> > +      * REFCLK: Real Time Reference Clock
+> > +      * PPLL: Pixel PLL
+> > +      * FCLK: Fabric Clock
+> > +      * MCLK: Memory Clock
+> > +      * CPLIB: Content Protection Library
+> 
+> CPLIB is not a clock.  It should be split out as its own item.
+> 
+> > +
+> > +    CRC
+> > +      Cyclic Redundancy Check
+> > +
+> > +    CRTC
+> > +      Cathode Ray Tube Controller - commonly called "Controller" -
+> > Generates
+> > +      raw stream of pixels, clocked at pixel clock
+> > +
+> > +    CVT
+> > +      Coordinated Video Timings
+> > +
+> > +    DAL
+> > +      Display Abstraction layer
+
+I recall this as the old name for DC, maybe this should be mentioned ?
+
+> > +
+> > +    DC (Software)
+> > +      Display Core
+> > +
+> > +    DC (Hardware)
+> > +      Display Controller
+> > +
+> > +    DCC
+> > +      Delta Colour Compression
+> > +
+> > +    DCE
+> > +      Display Controller Engine
+> > +
+> > +    DCHUB
+> > +      Display Controller Hub
+> > +
+> > +    ARB
+> > +      Arbiter
+> > +
+> > +    VTG
+> > +      Vertical Timing Generator
+> > +
+> > +    DCN
+> > +      Display Core Next
+> > +
+> > +    DCCG
+> > +      Display Clock Generator block
+> > +
+> > +    DDC
+> > +      Display Data Channel
+> > +
+> > +    DFS
+> > +      Digital Frequency Synthesizer
+> > +
+> > +    DIO
+> > +      Display IO
+> > +
+> > +    DPP
+> > +      Display Pipes and Planes
+> > +
+> > +    DSC
+> > +      Display Stream Compression (Reduce the amount of bits to
+> > represent pixel
+> > +      count while at the same pixel clock)
+> > +
+> > +    dGPU
+> > +      discrete GPU
+> > +
+> > +    DMIF
+> > +      Display Memory Interface
+> > +
+> > +    DML
+> > +      Display Mode Library
+> > +
+> > +    DMCU
+> > +      Display Micro Controller Unit
+> > +
+> > +    DMCUB
+> > +      Display Micro-Controller Unit, version B
+> 
+> Make Micro Controller vs. Micro-Controller consistent for these.
+> 
+> > +
+> > +    DPCD
+> > +      DisplayPort Configuration Data
+> > +
+> > +    DPM(S)
+> > +      Display Power Management (Signaling)
+> > +
+> > +    DRR
+> > +      Dynamic Refresh Rate
+> > +
+> > +    DWB
+> > +      Display writeback
+> > +
+> > +    ECP
+> > +      Enhanced Content Protection
+> > +
+> > +    FB
+> > +      Frame Buffer
+> > +
+> > +    FBC
+> > +      Frame Buffer Compression
+> > +
+> > +    FEC
+> > +      Forward Error Correction
+> > +
+> > +    FRL
+> > +      Fixed Rate Link
+> > +
+> > +    GCO
+> > +      Graphical Controller Object
+> > +
+> > +    GMC
+> > +      Graphic Memory Controller
+> > +
+> > +    GSL
+> > +      Global Swap Lock
+> > +
+> > +    iGPU
+> > +      integrated GPU
+> > +
+> > +    IH
+> > +      Interrupt Handler
+> > +
+> > +    ISR
+> > +      Interrupt Service Request
+> > +
+> > +    ISV
+> > +      Independent Software Vendor
+> > +
+> > +    KMD
+> > +      Kernel Mode Driver
+> > +
+> > +    LB
+> > +      Line Buffer
+> > +
+> > +    LFC
+> > +      Low Framerate Compensation
+> > +
+> > +    LTTPR
+> > +      Link Training Tunable Phy Repeater
+> > +
+> > +    LUT
+> > +      Lookup Table
+> > +
+> > +    MALL
+> > +      Memory Access at Last Level
+> > +
+> > +    MC
+> > +      Memory Controller
+> > +
+> > +    MPC
+> > +      Multiple pipes and plane combine
+> > +
+> > +    MPO
+> > +      Multi Plane Overlay
+> > +
+> > +    MST
+> > +      Multi Stream Transport
+> > +
+> > +    NBP State
+> > +      Northbridge Power State
+> > +
+> > +    NBIO
+> > +      North Bridge Input/Output
+> > +
+> > +    ODM
+> > +      Output Data Mapping
+> > +
+> > +    OPM
+> > +      Output Protection Manager
+> > +
+> > +    OPP
+> > +      Output Plane Processor
+> > +
+> > +    OPTC
+> > +      Output Pipe Timing Combiner
+> > +
+> > +    OTG
+> > +      Output Timing Generator
+> > +
+> > +    PCON
+> > +      Power Controller
+> > +
+> > +    PGFSM
+> > +      Power Gate Finite State Machine
+> > +
+> > +    PPLib
+> > +      PowerPlay Library
+> 
+> Maybe say that powerplay is the power management component.
+> 
+> > +
+> > +    PSR
+> > +      Panel Self Refresh
+> > +
+> > +    SCL
+> > +      Scaler
+> > +
+> > +    SDP
+> > +      Scalable Data Port
+> > +
+> > +    SMU
+> > +      System Management Unit
+> > +
+> > +    SLS
+> > +      Single Large Surface
+> > +
+> > +    SST
+> > +      Single Stream Transport
+> > +
+> > +    TMDS
+> > +      Transition-Minimized Differential Signaling
+> > +
+> > +    TMZ
+> > +      Trusted Memory Zone
+> > +
+> > +    TTU
+> > +      Time to Underflow
+> > +
+> > +    VRR
+> > +      Variable Refresh Rate
+> > +
+> > +    UVD
+> > +      Unified Video Decoder
+> > +
+> > +    VCE
+> > +      Video Compression Engine
+> > +
+> > +    VCN
+> > +      Video Codec Next
+> > --
+> > 2.25.1
+> >
+> 
