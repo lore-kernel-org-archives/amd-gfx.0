@@ -4,37 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D88FCC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 12:06:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B3E5C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Nov 2021 14:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67EF66F99F;
-	Mon, 29 Nov 2021 12:06:19 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC926F99F;
- Mon, 29 Nov 2021 12:06:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10182"; a="236184025"
-X-IronPort-AV: E=Sophos;i="5.87,273,1631602800"; d="scan'208";a="236184025"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2021 04:06:16 -0800
-X-IronPort-AV: E=Sophos;i="5.87,273,1631602800"; d="scan'208";a="511659335"
-Received: from mkabdel-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.11.182])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2021 04:06:11 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Daniel Vetter <daniel@ffwll.ch>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH 1/6] Documentation/gpu: Reorganize DC documentation
-In-Reply-To: <YaEAVV3Ka2lG/iOh@phenom.ffwll.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20211125153830.1352994-1-Rodrigo.Siqueira@amd.com>
- <20211125153830.1352994-2-Rodrigo.Siqueira@amd.com>
- <YaEAVV3Ka2lG/iOh@phenom.ffwll.local>
-Date: Mon, 29 Nov 2021 14:06:02 +0200
-Message-ID: <87k0grjhed.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEA5F6EE5D;
+	Mon, 29 Nov 2021 14:05:37 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2043.outbound.protection.outlook.com [40.107.236.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48D316EE5D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Nov 2021 14:05:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IYARf/ay9oLEL5rVOjkgJ3UVij80fjlGVY34c4m8vRQxTw4PQp0094mwLRLFEUBefjKq+niESpACs8V5LtkVnTqtYreDWHiVkO3pkDEeSkqdXCOv3j6UZVDFu6B4nJxEWTn6dFsFpaRbSePHyCtN7u/UkV9ojNNpvHgU9d4BMj3sLQaVZDML6WVSAiy8Yc4UzKigz2a1Dn3NCkugfXSewidFSff+I4P5/tE46yrJSjqlV5DgZ4g140VMUIxpbNtsCPRviIJf/vq1YjwcuNZ2uPD4SIbLF1+ecYqFUqOtPavyB9c7a1ye4/CVA/VdRqtTaj6MItTbfES4IZLwvZOndA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xAisqI5IUwTp7kjz/tSfKINC5pXnSW10KQ1vjBxCURI=;
+ b=ZqdRpwHpL9ar0et6EyWNsCu0n3IISZ0usvbkSR1CP0zIUgVokBVsIFzWFlaCjHd4ewhRnZoPFufkMpG25vgwDDDqBd08naVI/uL+uNNyTS6nIylAoGmWcCvc1CKoorbwSD2g+X86w432RGK7NOwuMvr407PYTbKqELRiWxjbj96eWc8QutTez2IZZPDKTDDrqCBTCT6MH5DtnG4zCDlWN1gKy+M3nba3/ZB7O61QhGm5eN3kpTOwtAnoSlVJvqamACrXUqW19605iIiiPmweqjYUhR9+Z9mNqrDUHZebSMz0kEtwimN/Xq+F1ZYqS6O2z3QgUVS9C/v0lY6+kRsvsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xAisqI5IUwTp7kjz/tSfKINC5pXnSW10KQ1vjBxCURI=;
+ b=0xsVpSYj36NyLYmNrMmkACy47yPIoAJ1eD3d+gMDpwVnF62CcetwDW/IiyOCPRrOos5IzzjetZUK5RzG36mdpLjOxYIEb0kxgRpiJMfeiCJaUjfIgaDITRTzwv4etibKNFIsqKMOAE7wbxOvqdVj+f5Uu+cyF1Zpn+LwItugz2c=
+Received: from DS7PR03CA0154.namprd03.prod.outlook.com (2603:10b6:5:3b2::9) by
+ MW3PR12MB4411.namprd12.prod.outlook.com (2603:10b6:303:5e::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4734.23; Mon, 29 Nov 2021 14:05:34 +0000
+Received: from DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b2:cafe::dd) by DS7PR03CA0154.outlook.office365.com
+ (2603:10b6:5:3b2::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22 via Frontend
+ Transport; Mon, 29 Nov 2021 14:05:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT051.mail.protection.outlook.com (10.13.172.243) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4734.22 via Frontend Transport; Mon, 29 Nov 2021 14:05:34 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 29 Nov
+ 2021 08:05:32 -0600
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdkfd: set "r = 0" explicitly before goto
+Date: Mon, 29 Nov 2021 09:05:19 -0500
+Message-ID: <20211129140519.18202-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20211126184221.17598-1-Philip.Yang@amd.com>
+References: <20211126184221.17598-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7cd12a69-2252-4f44-f81b-08d9b3414fc5
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4411:
+X-Microsoft-Antispam-PRVS: <MW3PR12MB441166A59BC2D25BCF052F79E6669@MW3PR12MB4411.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: i2l5o4IEObgYsPHCkYp42Jk7BiLPDl//3mdH5uLnurjkVimpYgE9AFGxwigz/FU28FOtLp7vDNAat2NRpswLo5LCx75UjQamYkwV0Hne2WicsqcDrcX4pX3QFPHSbGKXN5vqxgzYuIyCCEWmKIP2u1Fj9Etiz1iPNd3QFjOs+eCJ2i15oZAJRR9+IjG20p3uC5JJwfe8ZrpEUFpp/YbGHaTMVfZEX0khbVFD6hqCnOKN3cjhpnESZ4hXozNRViHKmVGsTXenloMemrUODoLYsFM359L7dXCUgI94NMvbyOELy5f7IHI1tKXyyU/4OVXXdcPQx0L/WvjJvSvbrEPZHDneGwsbjcDdXL32sgVDZEe4JddY5wDOUiwLXrJKmB+iz8VbbYwPAy7kYnHyB+IvH0ikYNxssiOGCmleXgG7tkk8DUqLA5yTOFJm8erCtAc0iHXnsuZ+PfcDJZLfp9Wdb7RVmSPi5WTHIINCoIcUWVpbs614Sj8hcvcW7gx9qqHT18O+3tX7iED5PiNX7bTJ+fR5kXJv8uuLxqh7TBq08ArAMYcGjVnu9BmyFmzxS/ygrVpsVlYX1kKCPqXYDU68xEq9gfybfMvbyBpIVqkgTlPXzxKGOF9GFbK/eGkarg5Oc9Mptq5w0xP4UxsQIeKZR0R51vpbWA8gKobJtbxyQkS/5wLDyWhiTlglvIE5/p0v8PbFXFd3B+Q+2m9f/45EtpuktncIsNCZaNJYHQwm/ns=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(5660300002)(82310400004)(1076003)(83380400001)(86362001)(6916009)(36756003)(7696005)(26005)(426003)(54906003)(508600001)(4326008)(47076005)(2616005)(70586007)(36860700001)(356005)(316002)(6666004)(2906002)(81166007)(70206006)(186003)(8936002)(336012)(16526019)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2021 14:05:34.1296 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7cd12a69-2252-4f44-f81b-08d9b3414fc5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4411
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,141 +100,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, Mark Yacoub <markyacoub@chromium.org>,
- Michel =?utf-8?Q?D?= =?utf-8?Q?=C3=A4nzer?= <michel@daenzer.net>,
- roman.li@amd.com, amd-gfx@lists.freedesktop.org,
- Christian =?utf-8?Q?K?= =?utf-8?Q?=C3=B6nig?= <christian.koenig@amd.com>,
- Marek =?utf-8?B?T2w=?= =?utf-8?B?xaHDoWs=?= <marek.olsak@amd.com>,
- aurabindo.pillai@amd.com, nicholas.choi@amd.com,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Sean Paul <seanpaul@chromium.org>, qingqing.zhuo@amd.com,
- Roman Gilg <subdiff@gmail.com>, bhawanpreet.lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 26 Nov 2021, Daniel Vetter <daniel@ffwll.ch> wrote:
-> On Thu, Nov 25, 2021 at 10:38:25AM -0500, Rodrigo Siqueira wrote:
->> Display core documentation is not well organized, and it is hard to find
->> information due to the lack of sections. This commit reorganizes the
->> documentation layout, and it is preparation work for future changes.
->> 
->> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->> ---
->>  Documentation/gpu/amdgpu-dc.rst               | 74 -------------------
->>  .../gpu/amdgpu-dc/amdgpu-dc-debug.rst         |  4 +
->>  Documentation/gpu/amdgpu-dc/amdgpu-dc.rst     | 29 ++++++++
->>  Documentation/gpu/amdgpu-dc/amdgpu-dm.rst     | 42 +++++++++++
->>  Documentation/gpu/drivers.rst                 |  2 +-
->>  5 files changed, 76 insertions(+), 75 deletions(-)
->>  delete mode 100644 Documentation/gpu/amdgpu-dc.rst
->>  create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst
->>  create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
->>  create mode 100644 Documentation/gpu/amdgpu-dc/amdgpu-dm.rst
->> 
->> diff --git a/Documentation/gpu/amdgpu-dc.rst b/Documentation/gpu/amdgpu-dc.rst
->> deleted file mode 100644
->> index f7ff7e1309de..000000000000
->> --- a/Documentation/gpu/amdgpu-dc.rst
->> +++ /dev/null
->> @@ -1,74 +0,0 @@
->> -===================================
->> -drm/amd/display - Display Core (DC)
->> -===================================
->> -
->> -*placeholder - general description of supported platforms, what dc is, etc.*
->> -
->> -Because it is partially shared with other operating systems, the Display Core
->> -Driver is divided in two pieces.
->> -
->> -1. **Display Core (DC)** contains the OS-agnostic components. Things like
->> -   hardware programming and resource management are handled here.
->> -2. **Display Manager (DM)** contains the OS-dependent components. Hooks to the
->> -   amdgpu base driver and DRM are implemented here.
->> -
->> -It doesn't help that the entire package is frequently referred to as DC. But
->> -with the context in mind, it should be clear.
->> -
->> -When CONFIG_DRM_AMD_DC is enabled, DC will be initialized by default for
->> -supported ASICs. To force disable, set `amdgpu.dc=0` on kernel command line.
->> -Likewise, to force enable on unsupported ASICs, set `amdgpu.dc=1`.
->> -
->> -To determine if DC is loaded, search dmesg for the following entry:
->> -
->> -``Display Core initialized with <version number here>``
->> -
->> -AMDgpu Display Manager
->> -======================
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> -   :doc: overview
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->> -   :internal:
->> -
->> -Lifecycle
->> ----------
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> -   :doc: DM Lifecycle
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> -   :functions: dm_hw_init dm_hw_fini
->> -
->> -Interrupts
->> -----------
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
->> -   :doc: overview
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
->> -   :internal:
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> -   :functions: register_hpd_handlers dm_crtc_high_irq dm_pflip_high_irq
->> -
->> -Atomic Implementation
->> ----------------------
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> -   :doc: atomic
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> -   :functions: amdgpu_dm_atomic_check amdgpu_dm_atomic_commit_tail
->> -
->> -Display Core
->> -============
->> -
->> -**WIP**
->> -
->> -FreeSync Video
->> ---------------
->> -
->> -.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> -   :doc: FreeSync Video
->> diff --git a/Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst b/Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst
->> new file mode 100644
->> index 000000000000..bbb8c3fc8eee
->> --- /dev/null
->> +++ b/Documentation/gpu/amdgpu-dc/amdgpu-dc-debug.rst
->> @@ -0,0 +1,4 @@
->> +Display Core Debug tools
->> +========================
->> +
->> +TODO
->> diff --git a/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst b/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
->> new file mode 100644
->> index 000000000000..3685b3b1ad64
->> --- /dev/null
->> +++ b/Documentation/gpu/amdgpu-dc/amdgpu-dc.rst
->
-> While we bikeshed names, I think it'd would make sense to call this
-> overview.rst or intro.rst or similar, since it's meant to contain the
-> overall toctree for everything amdgpu related (maybe there will be more in
-> the future).
+To silence the following Smatch static checker warning:
 
-index.rst?
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_svm.c:2615
+svm_range_restore_pages()
+	warn: missing error code here? 'get_task_mm()' failed. 'r' = '0'
 
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Suggested-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 663489ae56d7..187e8ab66baa 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2603,6 +2603,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 
+ 	if (atomic_read(&svms->drain_pagefaults)) {
+ 		pr_debug("draining retry fault, drop fault 0x%llx\n", addr);
++		r = 0;
+ 		goto out;
+ 	}
+ 
+@@ -2612,6 +2613,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	mm = get_task_mm(p->lead_thread);
+ 	if (!mm) {
+ 		pr_debug("svms 0x%p failed to get mm\n", svms);
++		r = 0;
+ 		goto out;
+ 	}
+ 
+@@ -2649,6 +2651,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 
+ 	if (svm_range_skip_recover(prange)) {
+ 		amdgpu_gmc_filter_faults_remove(adev, addr, pasid);
++		r = 0;
+ 		goto out_unlock_range;
+ 	}
+ 
+@@ -2657,6 +2660,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	if (timestamp < AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING) {
+ 		pr_debug("svms 0x%p [0x%lx %lx] already restored\n",
+ 			 svms, prange->start, prange->last);
++		r = 0;
+ 		goto out_unlock_range;
+ 	}
+ 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.17.1
+
