@@ -4,79 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7330DC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 16:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3906C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 16:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD066E55C;
-	Tue, 30 Nov 2021 16:13:33 +0000 (UTC)
-X-Greylist: delayed 491 seconds by postgrey-1.36 at gabe;
- Tue, 30 Nov 2021 11:26:52 UTC
-Received: from mta-p5.oit.umn.edu (mta-p5.oit.umn.edu [134.84.196.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6016E92F
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 11:26:52 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mta-p5.oit.umn.edu (Postfix) with ESMTP id 4J3KgH5r1kz9w947
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 11:26:51 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p5.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p5.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id hby5dTNLYcvE for <amd-gfx@lists.freedesktop.org>;
- Tue, 30 Nov 2021 05:26:51 -0600 (CST)
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mta-p5.oit.umn.edu (Postfix) with ESMTPS id 4J3KgH3hMwz9w93x
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 05:26:51 -0600 (CST)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p5.oit.umn.edu 4J3KgH3hMwz9w93x
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p5.oit.umn.edu 4J3KgH3hMwz9w93x
-Received: by mail-pg1-f197.google.com with SMTP id
- j3-20020a634a43000000b00325af3ab5f0so522016pgl.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 03:26:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3QROn8xzZY5bJQeJKBLAiXubvRrrPIxieLpkOUMaXcE=;
- b=hW6nGoGSxckS70Hoizh/DTWhmgdqH+fBhKMxpz15VCdZhqHT2SAS9uhDQNkz4wPgAZ
- 12AgQnCi+Rs3Caq8v9un7bm6FUc1s124Id/h4afEKkF2EXjLDfx7D3dVTGUF2O+0gMTw
- 3BJvFJOIUoa0yty2Gkt7NbgFEjyuOG5BJo3ZRnTWbUIBskhX6i+yqa5B4cHa4naZuqQg
- 7tqTq/ztPRWVQLXBgLV4/CESiPlBiJoTfGTGWtHUKUGaVbvgOBNUVHxZv6MurZDEVhbZ
- hqolUaLtsd2AqHUwwyTw6vGIKwNAWVw3xRYcopOLx4W02PCKa6KqSte/xs3sqSYv5mXX
- N04A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3QROn8xzZY5bJQeJKBLAiXubvRrrPIxieLpkOUMaXcE=;
- b=AJXfUER28/94v5hOiwiFH5eP0rk8fpG7EGTak0TN8d5pOZ9ts0DBxEHYrqYKz1nQCL
- KxZVz+AVPBNnAaV27NyP5FVEgFAcP1NgZgTgMaUxawBGIW/Ikzfk/2g86GrYx/pNx8qJ
- qLVyLdJoGNDH20lJ/DhH78/Mn4mixnSy2QJwX/dMUdyOQwVdBzrYQte6NQBVE8pdBXE5
- WcoIPOJzl27vh2/6G5maODaofGSyn80m9/vbARiinJNXAckiv8cuB+P7r43tkn/HE6lK
- rS2FKVBN3xQG8oV+MgFG6LojLBeNvYYEpd/z5Pdeq3bBNimtAcffC0SbYkK93XyyUJA2
- vGXw==
-X-Gm-Message-State: AOAM533bnWThJoRBJlOYXV8EHEeH2swoU8dQQs7h81NUtZB5uMG7HGH3
- jeVwdbP4Hm9pNfGICz5ltfNG9trWOaS/gwaF+tHhq1KCH5enoNzpcZKNjrkB6UU/V71yxdzOBob
- N+94QgcKZuVul5fnL3g1nxffL6gFB8A==
-X-Received: by 2002:a17:90b:3b81:: with SMTP id
- pc1mr5255295pjb.67.1638271610810; 
- Tue, 30 Nov 2021 03:26:50 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxWVJhRBFY+Fevp9s2G6MveEJWhzbOra69RrHQmmZrjviSt5HqStUqYwpwcdh4+JRC0nsIh0A==
-X-Received: by 2002:a17:90b:3b81:: with SMTP id
- pc1mr5255269pjb.67.1638271610605; 
- Tue, 30 Nov 2021 03:26:50 -0800 (PST)
-Received: from zqy787-GE5S.lan ([36.7.42.137])
- by smtp.gmail.com with ESMTPSA id q2sm14594661pfj.62.2021.11.30.03.26.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Nov 2021 03:26:50 -0800 (PST)
-From: Zhou Qingyang <zhou1615@umn.edu>
-To: zhou1615@umn.edu
-Subject: [PATCH] drm/amdkfd: Fix a wild pointer dereference in svm_range_add()
-Date: Tue, 30 Nov 2021 19:26:44 +0800
-Message-Id: <20211130112644.116604-1-zhou1615@umn.edu>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 360B86E2C7;
+	Tue, 30 Nov 2021 16:51:25 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2040.outbound.protection.outlook.com [40.107.102.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C71AE6E088;
+ Tue, 30 Nov 2021 16:51:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cE23ts+3Le9qIVxQ23ys1EYivbQjBdPCtFsIJxj1qgbOgC7/pDCK+HWwpuXVCHzKLbVpXOCqvaXwV/KS4Wl2tDAPkYXCwlqs4IAJmWcFW5oELb3Yyobo0FrgxW6sO5rWgbqSbD2mXNxyTL4egO/JVPrcTe3BxMCdA7HJUAI6NaQ0PTlp5laMZVOChJHJWKJ6XtwzrVnFpkBDeg2wcLOyETsUYMJpv7/VnKTQLm76nXoYlpqb2kh4AV0XKQIbRSjk1XmkXBYhOKJpQW9KoayWi2TBlEKGgqdjxVNy2B2Uu1CU86psJ3p55aMVyBMnQIWGze6USK24zwiWn6+AWqHL5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x9A9S7h78IRslHqDkjrNzhSsvbyX0BbDYdvhe+8MPXA=;
+ b=Btl+IhqG7vJzHzcuvmofZ77Tfu53ZGmYEkhLYMkTdfQ+MZ6/FtLAvlA61LdsHyX2teqLXMl/KayUMWlUR7nL/3yYcLyITgwnFAE1V4VB9b+nWUWiqIXJKraAXBGTYHXPnXGynuwopphdK/9YWSd5eqO/f5xCkhKd/TRHiteADBhXhQEWsR4WKqGSNcWq3D7P8+MZxjY1maPHdta8B+nxrhXQxtsFLYj1ouIV1uHaA/w0FnKlbLDHtE1/NGPFKr2X0jJaHyv4MKYaLTMxlChIfVFHpOxJColu2+AcSVaFhXSF+YkUmyE+HTcdruACfLGERM7hsQ0DRuto9Jiv7pUtbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x9A9S7h78IRslHqDkjrNzhSsvbyX0BbDYdvhe+8MPXA=;
+ b=z+kWtXeCDbp6m10JH8p3s5UVxChscxtm4mUuAxosbvIn3hFWBsr4gHs0GZ0V3hVIGVsfpvzipGTydXKt+QKqgF4YSpZDNemRL3Pj4kwE0hBQgpgmGNAIIZu9PG7mycABJPIr1Dt8Mnas0dRbk0sfECQeoK9g8KwHGGuqekNy0ks=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB5391.namprd12.prod.outlook.com (2603:10b6:5:39a::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Tue, 30 Nov
+ 2021 16:51:21 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::dcf7:d6ee:654f:a2cf%5]) with mapi id 15.20.4734.024; Tue, 30 Nov 2021
+ 16:51:21 +0000
+Subject: Re: [PATCH] drm/amdkfd: Fix a wild pointer dereference in
+ svm_range_add()
+To: Zhou Qingyang <zhou1615@umn.edu>
+References: <20211130112644.116604-1-zhou1615@umn.edu>
+From: philip yang <yangp@amd.com>
+Message-ID: <b78771ca-2ca2-a369-b67f-dc479eb87d90@amd.com>
+Date: Tue, 30 Nov 2021 11:51:19 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20211130112644.116604-1-zhou1615@umn.edu>
+Content-Type: text/html; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BLAPR03CA0141.namprd03.prod.outlook.com
+ (2603:10b6:208:32e::26) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 30 Nov 2021 16:13:26 +0000
+Received: from [172.27.226.38] (165.204.55.251) by
+ BLAPR03CA0141.namprd03.prod.outlook.com (2603:10b6:208:32e::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23 via Frontend
+ Transport; Tue, 30 Nov 2021 16:51:20 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9c95ed22-22d5-4494-4a3e-08d9b421a330
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5391:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB539146E4D928FB2E22D0B6C6E6679@DM4PR12MB5391.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KX4DulP9sp4c/BMo4Gt7bRdNk72UiYzjC40zZo3CLz0wPwH3XWw3xnlMRduzD2ndc/Z0ctOSR2quPtp6YT5rpe39zHi2kxNcWkuHvYXbQiqRrsZX3GrRbV5rBGNdxb/6BAMNNj6yPu4pll/NZn+RKvLa+NZCM6MPeSHJG+RS+c4xa8ABUVNpfucKhDKDA2UX05AJ8K3WgcQlIKu3TipBnCwK4r+zO9qycWthL5IOsu4fzs/b03mnES5Bj8BHrPomGyVcQmvzoPM4ocJx6kjdwb0UfanlFzlorfPh8hKKujIi2cFYchC6Gu8AKDMfpfrzMxpKvIyLudtpdC04UBmGj/JKWgcUZ7UJHIx9gWAsIbv+QMT8r9L/E7o4qntw2MnG1MjKWfvDwFWPDGz+dByO6L5Fn+KkVC7VWdVSPZr4WOEkZlYbFc/k+ZSRNZ6t+s+WwnUvQLqzMKVAxZW5LGC61jggBJ6ikbtAZxMKvkRYTcTVcWV8h3rXdLcqx/jENO+2229UF0vkij65iMWHCc8RQaWmztIQm+mqbVU9UkbGkeb+CyRDPahhvjoduV0nYXypj66f4/qkpTCSkf41TEAe0+50rgBDoqIFxi6xfXjeRSgZNmgkp+kbnVbxxBbL5hlkcE1KThcMroyk3QhHkC7AKnwjb8ZPLPKG03LPvM0U8n5qWr+PB+n8vzlibPSX+Sbhj3Hx93Kqwa4jGP7MCMGde44tsHPx9ZlK4rt7bl7kF3c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(31686004)(6916009)(508600001)(8936002)(66946007)(5660300002)(54906003)(4001150100001)(31696002)(316002)(2906002)(8676002)(16576012)(36756003)(66556008)(6486002)(53546011)(4326008)(38100700002)(26005)(83380400001)(956004)(186003)(2616005)(66476007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nlh6d1NKL3NUeGkxaXhyRkNaRC80a3JaZ2pOSFNZMjRsQllGUks3UXNhU25M?=
+ =?utf-8?B?NlpmZXVnRmFMKzJORjAvMnBjRjJLa0daZnd1TWVocFdIMjhHLy9oOVVZUm1N?=
+ =?utf-8?B?N3JlaGJaeDd2L2FTaFhKbkhRV3dIUHlCVm9CNEFhL3Rlem12SjdRSFJxZWlF?=
+ =?utf-8?B?dFNXV29HY0ZDa2FLZFZWcFdvSm9UVmh3bkZWc0NtWUNqVTRFSkxNV3RiK3Jw?=
+ =?utf-8?B?RGxDNDJiWFhXaU5EZ3QzYThjc3RxWXVqRjFEUDhxR3pBalVQaldaWXpQemF5?=
+ =?utf-8?B?cGhoalBJVGVCOWRicjlLcTdlQVo1eCtTZkRFNGFJdStxbzNZOXJ0azJCb2Jw?=
+ =?utf-8?B?cVNUTHlkRW9lOUthaDdXK3hDdzg1alBVZkFDZEJuVlVTekwxeVowU0FBRUZx?=
+ =?utf-8?B?UDZMUDBmR0tuejNUdjF6bFU3VU5RMlJkQjBIeXRrd0hETjNEcTZ6WTFkbDZI?=
+ =?utf-8?B?b2RzOHgyZzU0TU53Rk9ybWVJVlJoSnp1U0hIU0pFWFF0SDBKTW8xcFc1WFo5?=
+ =?utf-8?B?QkJOd2VQZXR0QmRHUTM3VnphZ0FRT1BaWGNRb0FoOXEvRHR3ZllyZCtZS251?=
+ =?utf-8?B?YzVVWnRyWW9Yd0dXQ3JqZVJiSDI3My9SYlRGWkhjZitTY0NnSndsZDdMWStn?=
+ =?utf-8?B?Ty9WR00yZHZ2S2JrYXhLaUE1RTBQWkpXc0lsbVRhRUZPWHdGbTkxRkJvRkJH?=
+ =?utf-8?B?cU9wSXJqTEtHMmdpNzNiOWlNdWZrdGsyblpFSURCVDlzMHhCbEF6eGR1Mmha?=
+ =?utf-8?B?UjgwNVAwTC9DQXZzWDNPZE1zN2xiYU5kS2hFZDJzNWJGcE1meEQ0V29PdFI5?=
+ =?utf-8?B?N1dZQy9BdUg1YzkybkpuNUcwb2UzN2dQZm9ETkFtMEFWREp4cTVwM0ZOTFdB?=
+ =?utf-8?B?ZjZPcS9UM3huN0gyQzRpNVZLQTJhVkZjYU1wbDU5bUhFVzVVNW1Icm1iYjgx?=
+ =?utf-8?B?NUZQWTV3Z2oxZ1lRRXBtMGtCZW5aQUgvMU4vc3YwdjhuTkY0anZadWRsUjZQ?=
+ =?utf-8?B?TGg5K1lVTUV4aGdQam0wYkhRUWtnS0J3QUV6dVVkMnYyR3d0bk01aVlzM1NW?=
+ =?utf-8?B?TmFoOGw2dUpnUkJJV1ZxenRJeWNQWkcxOVVHSE9BN2ZCQWtLNlB2SFhVdCt4?=
+ =?utf-8?B?aitmclhxT3d6Vi85MEZmaDI1NGJCaEFUT3NLZUc1N2dxZjJQK0ludXNnWUt2?=
+ =?utf-8?B?VGJwSVhuSEpaNm5xSVBkZWFYcTNtVGFMWlB0RCtlT2FWRjNHazhlUGhXQ2RC?=
+ =?utf-8?B?aGhKdlVJOW5lTXlXek5hQytQWksvRjBJNyszREtQSy9wNTRwNVk5MTdkeENs?=
+ =?utf-8?B?Y1g2UVJ2VkMvU000WnhmdmRCNmt6ZStVZjJQSDBkejJvQlQwS0pNSGQyUnYy?=
+ =?utf-8?B?T1VCU1RCd21KTnVXQTg1ajlUdWZvSW1ZMUxqWEF4aDBLQmdSdkR4ejlGTUlB?=
+ =?utf-8?B?QVAvWDIzOVNwYXppZlIrMWFCcnQyRW00b2NVMmcxQWJNNG9vWnEyL2lFamVV?=
+ =?utf-8?B?TE9nSGlmL0xpeENrNzB2akk0eEZuRS9ndlNwUFh5T2UwakFyZ0dOS05zLzJk?=
+ =?utf-8?B?OFdHWUd2Nm51UGRsendmNCtxZ3VGMUFuSnFWNXN4UDJIMzh1Vk9kUmt5SUx4?=
+ =?utf-8?B?SlZpdnkxUWFkSlhjWmM5ZnVuYlZwdC94NTVGcTB6SDF2bVlpVXFFZkRyckVC?=
+ =?utf-8?B?RUdLVTN1YVlHNVhvLzU3TUVua05RUWE3THlocVBuNW5YYVQ3ODFHTE0yMVZ6?=
+ =?utf-8?B?Slo1UHVrQStCMGZuN0RZOEdMQWIxNjZOYkdMWmNPZnoyZlY3dEZQUjlnMkhh?=
+ =?utf-8?B?Qld6eGFnaE9ia01NQW1hU0QzTUY5S0E3b2gwdUdPaGlqemZaL1dwUkxQQmRQ?=
+ =?utf-8?B?WngvV3BGOWp4VjhQRzBaN3B5b3d6VFRKN1VXVE9BQmhDR3ZJQUxsSGZrUzZj?=
+ =?utf-8?B?RnRyem1UdFlUTk92Qyt6eGJOTnh0WjdKQVJNSnBoR3hneDcxR2FGTEd3ejJO?=
+ =?utf-8?B?ZGUvWWJIZ0VxaWlpR2hkVEtaTWFtd2NEM1diSmlNb2l3a0w2Z3RTelBzOUpa?=
+ =?utf-8?B?ejU0SWl3cEtGMEpiRjN2aEZLUnpVMnM2dmVmVVVwenZDTEJlUGhCektIYXhO?=
+ =?utf-8?Q?P5Dw=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c95ed22-22d5-4494-4a3e-08d9b421a330
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2021 16:51:21.6926 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rv/3DJjOBeWrtuwELQyN4Ekn3d2UfW9b3hB00Lym6WLgIcAd6B9EbvYw1SJe5jp8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5391
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,13 +136,23 @@ Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>,
  Xinhui" <Xinhui.Pan@amd.com>, kjlu@umn.edu, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In svm_range_add(), the return value of svm_range_new() is assigned
-to prange and &prange->insert_list is used in list_add(). There is a
-a dereference of &prange->insert_list in list_add(), which could lead
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-11-30 6:26 a.m., Zhou Qingyang
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20211130112644.116604-1-zhou1615@umn.edu">
+      <pre class="moz-quote-pre" wrap="">In svm_range_add(), the return value of svm_range_new() is assigned
+to prange and &amp;prange-&gt;insert_list is used in list_add(). There is a
+a dereference of &amp;prange-&gt;insert_list in list_add(), which could lead
 to a wild pointer dereference on failure of vm_range_new() if
 CONFIG_DEBUG_LIST is unset in .config file.
 
@@ -119,8 +172,12 @@ Builds with CONFIG_DRM_AMDGPU=m, CONFIG_HSA_AMD=y, and
 CONFIG_HSA_AMD_SVM=y show no new warnings, and our static analyzer no
 longer warns about this code.
 
-Fixes: 42de677f7999 ("drm/amdkfd: register svm range")
-Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
+Fixes: 42de677f7999 (&quot;drm/amdkfd: register svm range&quot;)
+Signed-off-by: Zhou Qingyang <a class="moz-txt-link-rfc2396E" href="mailto:zhou1615@umn.edu">&lt;zhou1615@umn.edu&gt;</a></pre>
+    </blockquote>
+    Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a><br>
+    <blockquote type="cite" cite="mid:20211130112644.116604-1-zhou1615@umn.edu">
+      <pre class="moz-quote-pre" wrap="">
 ---
  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 +++
  1 file changed, 3 insertions(+)
@@ -136,9 +193,10 @@ index 58b89b53ebe6..e40c2211901d 100644
 +		if (!prange)
 +			return -ENOMEM;
 +
- 		list_add(&prange->insert_list, insert_list);
- 		list_add(&prange->update_list, update_list);
+ 		list_add(&amp;prange-&gt;insert_list, insert_list);
+ 		list_add(&amp;prange-&gt;update_list, update_list);
  	}
--- 
-2.25.1
-
+</pre>
+    </blockquote>
+  </body>
+</html>
