@@ -4,40 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E873BC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 14:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5FBC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 14:57:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E79306EA13;
-	Tue, 30 Nov 2021 14:57:06 +0000 (UTC)
-X-Greylist: delayed 445 seconds by postgrey-1.36 at gabe;
- Tue, 30 Nov 2021 14:57:05 UTC
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B89E6EA04;
- Tue, 30 Nov 2021 14:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD326EA2F;
+	Tue, 30 Nov 2021 14:57:10 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBDD66EA0B;
+ Tue, 30 Nov 2021 14:57:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A7F42B81A1D;
- Tue, 30 Nov 2021 14:49:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF9D5C53FC1;
- Tue, 30 Nov 2021 14:49:34 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C3445B81A20;
+ Tue, 30 Nov 2021 14:50:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19525C53FD1;
+ Tue, 30 Nov 2021 14:50:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638283777;
- bh=OINmIwLjzfaWH3AJFIWj9OZPWSOxdgeyzNsMBEnduME=;
+ s=k20201202; t=1638283806;
+ bh=OIkdmRSsVUKR8QOVFJnATvdtYexQpe8SKvvWQq2QRgA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PY8uEYMM7bcQ+ElYvbRFCi3Clt+Pm4OiuY+KbNCJ9aAhblufj9BhyMghvT8XphuLm
- 0Qp3oYoR9gvkWGIXjIR6Ea3StJXIHDaB3hNqVWWCNvhAb5hZ7Erhkca+khtQhafAWM
- EplMTjW/VXmkMjaPz9pNliRSuvgEGaLG9DsdGTr2klHOvdbNs8xrDkF3iaF/1jnsa1
- S9NIvpzhyPcWlXzGC3Lzu3CaX664eW9f0c3VDDQbksvyTYUxoi8zFD+wiUn4PfZERW
- 9fhEZTcui4RkL3hj2F3INc/yxPd/43Zdcn/8BdpGd+d7EA0Or7zWi3Ti58wa+DoZDO
- N+WER+0l61AYg==
+ b=Zgomx9Z3j2I1edYU5xWFghu7Spxjnts02eZLf4Y8Z8yRll9P3opbXwYL3Ypqo0zTq
+ /vbDI6PnMHmrGy/+qgJT2rSRsMnUKaeY9/BBKmua4QsZaTZwCrBki1UbrbzoK4rFi7
+ /nTYSecrKQREORp9anyjwFmKVHp0nF5436X+9owYFn+c6VaFKdntxAer7Lig3/Ptu3
+ L6Q0l/H1jMCuZDSI9eEvRT7VjlcagFA4ieBp22UhWoC0YTe+J7FuHca0oJ7uXqG5KN
+ JJgdCEg8/dJgRNzFsQAHDdWlMZoxP3C3AVJuzvOFOQnJ1oh1+Dhd1CpOUjGNd99Cw9
+ p5MOnwsgUKiOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 55/68] drm/amdgpu: Fix MMIO HDP flush on SRIOV
-Date: Tue, 30 Nov 2021 09:46:51 -0500
-Message-Id: <20211130144707.944580-55-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 60/68] drm/amd/display: update bios scratch when
+ setting backlight
+Date: Tue, 30 Nov 2021 09:46:56 -0500
+Message-Id: <20211130144707.944580-60-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211130144707.944580-1-sashal@kernel.org>
 References: <20211130144707.944580-1-sashal@kernel.org>
@@ -56,168 +54,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, tao.zhou1@amd.com, dri-devel@lists.freedesktop.org,
- ray.huang@amd.com, Likun.Gao@amd.com, Sasha Levin <sashal@kernel.org>,
- James.Zhu@amd.com, aaron.liu@amd.com, amd-gfx@lists.freedesktop.org,
- ChengZhe.Liu@amd.com, veerabadhran.gopalakrishnan@amd.com,
- kenneth.feng@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
- Bokun Zhang <bokun.zhang@amd.com>, le.ma@amd.com, evan.quan@amd.com,
- john.clements@amd.com, Jack.Gui@amd.com,
- Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, candice.li@amd.com, leo.liu@amd.com,
- christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org, shenshih@amd.com,
+ Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, aurabindo.pillai@amd.com,
+ Harry Wentland <harry.wentland@amd.com>, andrey.grodzovsky@amd.com,
+ Anson.Jacob@amd.com, nikola.cornij@amd.com, contact@emersion.fr,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, Roman.Li@amd.com,
+ christian.koenig@amd.com, daniel@ffwll.ch, Wayne.Lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, tiantao6@hisilicon.com,
+ nicholas.kazlauskas@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Felix Kuehling <Felix.Kuehling@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit d3a21f7e353dc8d6939383578f3bd45b4ae3a946 ]
+[ Upstream commit 692cd92e66ee10597676530573a495dc1d3bec6a ]
 
-Disable HDP register remapping on SRIOV and set rmmio_remap.reg_offset
-to the fixed address of the VF register for hdp_v*_flush_hdp.
+Update the bios scratch register when updating the backlight
+level.  Some platforms apparently read this scratch register
+and do additional operations in their hotkey handlers.
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Tested-by: Bokun Zhang <bokun.zhang@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1518
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/nv.c        | 8 +++++---
- drivers/gpu/drm/amd/amdgpu/soc15.c     | 8 +++++---
- 7 files changed, 28 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c      | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h      |  2 ++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 ++++
+ 3 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-index b184b656b9b6b..a76b5e47e7cbe 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-@@ -328,6 +328,10 @@ static void nbio_v2_3_init_registers(struct amdgpu_device *adev)
- 
- 	if (def != data)
- 		WREG32_PCIE(smnPCIE_CONFIG_CNTL, data);
-+
-+	if (amdgpu_sriov_vf(adev))
-+		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-+			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 96b7bb13a2dd9..12a6b1c99c93e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -1569,6 +1569,18 @@ void amdgpu_atombios_scratch_regs_engine_hung(struct amdgpu_device *adev,
+ 	WREG32(adev->bios_scratch_reg_offset + 3, tmp);
  }
  
- #define NAVI10_PCIE__LC_L0S_INACTIVITY_DEFAULT		0x00000000 // off by default, no gains over L1
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-index 0d2d629e2d6a2..4bbacf1be25a4 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-@@ -276,6 +276,10 @@ static void nbio_v6_1_init_registers(struct amdgpu_device *adev)
- 
- 	if (def != data)
- 		WREG32_PCIE(smnPCIE_CI_CNTL, data);
++void amdgpu_atombios_scratch_regs_set_backlight_level(struct amdgpu_device *adev,
++						      u32 backlight_level)
++{
++	u32 tmp = RREG32(adev->bios_scratch_reg_offset + 2);
 +
-+	if (amdgpu_sriov_vf(adev))
-+		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-+			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
- }
- 
- static void nbio_v6_1_program_ltr(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-index 3c00666a13e16..37a4039fdfc53 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-@@ -273,7 +273,9 @@ const struct nbio_hdp_flush_reg nbio_v7_0_hdp_flush_reg = {
- 
- static void nbio_v7_0_init_registers(struct amdgpu_device *adev)
++	tmp &= ~ATOM_S2_CURRENT_BL_LEVEL_MASK;
++	tmp |= (backlight_level << ATOM_S2_CURRENT_BL_LEVEL_SHIFT) &
++		ATOM_S2_CURRENT_BL_LEVEL_MASK;
++
++	WREG32(adev->bios_scratch_reg_offset + 2, tmp);
++}
++
+ bool amdgpu_atombios_scratch_need_asic_init(struct amdgpu_device *adev)
  {
--
-+	if (amdgpu_sriov_vf(adev))
-+		adev->rmmio_remap.reg_offset =
-+			SOC15_REG_OFFSET(NBIO, 0, mmHDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
- }
+ 	u32 tmp = RREG32(adev->bios_scratch_reg_offset + 7);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+index 8cc0222dba191..27e74b1fc260a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+@@ -185,6 +185,8 @@ bool amdgpu_atombios_has_gpu_virtualization_table(struct amdgpu_device *adev);
+ void amdgpu_atombios_scratch_regs_lock(struct amdgpu_device *adev, bool lock);
+ void amdgpu_atombios_scratch_regs_engine_hung(struct amdgpu_device *adev,
+ 					      bool hung);
++void amdgpu_atombios_scratch_regs_set_backlight_level(struct amdgpu_device *adev,
++						      u32 backlight_level);
+ bool amdgpu_atombios_scratch_need_asic_init(struct amdgpu_device *adev);
  
- const struct amdgpu_nbio_funcs nbio_v7_0_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-index 8f2a315e7c73c..3444332ea1104 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-@@ -371,6 +371,10 @@ static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
- 		if (def != data)
- 			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL), data);
- 	}
-+
-+	if (amdgpu_sriov_vf(adev))
-+		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-+			regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
- }
+ void amdgpu_atombios_copy_swap(u8 *dst, u8 *src, u8 num_bytes, bool to_le);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 084491afe5405..ea36f0fa59a9e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -50,6 +50,7 @@
+ #include <drm/drm_hdcp.h>
+ #endif
+ #include "amdgpu_pm.h"
++#include "amdgpu_atombios.h"
  
- const struct amdgpu_nbio_funcs nbio_v7_2_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-index f50045cebd44c..9b3f64971a321 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -344,7 +344,9 @@ const struct nbio_hdp_flush_reg nbio_v7_4_hdp_flush_reg = {
+ #include "amd_shared.h"
+ #include "amdgpu_dm_irq.h"
+@@ -3528,6 +3529,9 @@ static int amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	caps = dm->backlight_caps[bl_idx];
  
- static void nbio_v7_4_init_registers(struct amdgpu_device *adev)
- {
--
-+	if (amdgpu_sriov_vf(adev))
-+		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-+			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
- }
+ 	dm->brightness[bl_idx] = user_brightness;
++	/* update scratch register */
++	if (bl_idx == 0)
++		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
+ 	brightness = convert_brightness_from_user(&caps, dm->brightness[bl_idx]);
+ 	link = (struct dc_link *)dm->backlight_link[bl_idx];
  
- static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 01efda4398e56..b739166b242a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -1034,8 +1034,10 @@ static int nv_common_early_init(void *handle)
- #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
--	adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-+	if (!amdgpu_sriov_vf(adev)) {
-+		adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
-+		adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-+	}
- 	adev->smc_rreg = NULL;
- 	adev->smc_wreg = NULL;
- 	adev->pcie_rreg = &nv_pcie_rreg;
-@@ -1333,7 +1335,7 @@ static int nv_common_hw_init(void *handle)
- 	 * for the purpose of expose those registers
- 	 * to process space
- 	 */
--	if (adev->nbio.funcs->remap_hdp_registers)
-+	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
- 		adev->nbio.funcs->remap_hdp_registers(adev);
- 	/* enable the doorbell aperture */
- 	nv_enable_doorbell_aperture(adev, true);
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 0fc97c364fd76..a3361cd68411a 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1136,8 +1136,10 @@ static int soc15_common_early_init(void *handle)
- #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
--	adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-+	if (!amdgpu_sriov_vf(adev)) {
-+		adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
-+		adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
-+	}
- 	adev->smc_rreg = NULL;
- 	adev->smc_wreg = NULL;
- 	adev->pcie_rreg = &soc15_pcie_rreg;
-@@ -1446,7 +1448,7 @@ static int soc15_common_hw_init(void *handle)
- 	 * for the purpose of expose those registers
- 	 * to process space
- 	 */
--	if (adev->nbio.funcs->remap_hdp_registers)
-+	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
- 		adev->nbio.funcs->remap_hdp_registers(adev);
- 
- 	/* enable the doorbell aperture */
 -- 
 2.33.0
 
