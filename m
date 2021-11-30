@@ -4,122 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82480C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 06:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EF62C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 07:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E140F6EAE2;
-	Tue, 30 Nov 2021 06:19:21 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2082.outbound.protection.outlook.com [40.107.93.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A9326EAE2
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 06:19:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF4F76EEAC;
+	Tue, 30 Nov 2021 07:43:29 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C3FB6EEB6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 07:43:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GJnRwJbBC6U3fsPLZXyNInRBAovutvgPNFq07xu8H2au2lXcWJ8Nd+5anME09+LqUoT2xDKwr7bidQ2k++iVSC23oV6//CNScLqbTH2dwT4BAXTM1CDsuYTPJ6xXghBSvHo7nyhZeFwLTLO4oV70Z7N1w8K0kjeSmzCp1NfYcJRkRM68Sxee8vOMQkPYE6WbPfR1ar5W+4KY5k+spl9AjorACsKDjr+AYFtOGuiuz4PwDggSLh+oDcFdVP1LHLXdAcbnKYXvhbxa4w9X5k+YREVlkzJshtKnfv5Gh5ldbFkxBppmoMwvkQp0HKUIyDXPdZzRasj8ks5Pg9fvTLiLaw==
+ b=Ymmr0KmsdmkF76SWADWUk8fgKAjYIZTFwJk6HsQFund6/9WSzDw4Sza9aMXyzIHJHnaFraB5Ik/p7TETWwbkS3uUaMhMH/tGOYQ44Df5R/tcd8BY1baoUNXIaZ4hbNwnp5HXWflOpBjabjRMy7ul0eUXl6bIKnsrepVd2vkizx5zk01ncNCtxvIy20ZkO2YdvBD/q3ssXL9N/9n3XbvIlm0MoAJekM8qQqT7vHwQbUtoNYPgr2xL9BKj+PBNSpmiEXmqB81ehSNqAfJ7Iiv8A0ibZjSoLWFNh8EycnmYeBBFDbNtWvrp9jXoAGAFChrxrIMs8q6v/Cu5td9xQVDPfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Rt1Srdw9ercu+A/o+J5KG7BaypdAAgXFz6zbljMvLw=;
- b=EHPaAnk1VJbmHY/skF3zry7nYTbL/QJWW8bdyuRnV/95x6mfB9mNH3jGYZKOWFfczAvbG11ByxDG/HuiNlYGK1+RZ+aINFFujnFQdu0dxiXFglYE6S3iK+BED98slUgRWDohX4+t9JgdXUtzf1Tyx5qeNzoBe/8pvAFH9tmCcnQatKMDzel2ByF0CUuvzOvNakYWEoIFlKSXZa50lSp6s0JhY5T8EBOWihmraYNT2KYtk94WDT8sDiV7vxzfFKJ7hjQVjeAXgl9AzG+kkkLvmnitehquSCD0sq54KLeJnAhIJ6Fr2wzTYdKHk2DE6S8ttzoA3/0iAA1hvb9hg0PoMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=jJqiPZq1k5nTIwM5gOEMvmdOR0RsMXYutpBCnnRmRK8=;
+ b=VTJaCSlkLK2goGifyVyDzk15l1tkGT9fb+tXrs4Z8ZFkP9QAruRjtV23BxUqaEYDWNtG0AqEWgo3vThkeqogimkXgCq5lNHHOjLY8aKmerNhKVK1f+ecDWe82rTLjyE+vvReaf5XQeKE3ugOR82EyVIvBC7WYPCONk4X35k9bT/qIJ3CQ+AiY36ZnOkzrWO7GW58GJIWHVS+DlcFMlvlnEozClpw6RxlrYNZ7U2qFUkncczqpdeVN1Mc/xn4GeavCh9XzzVZPh87aBjs07DkFDQwOIxk9xZuGei8nRcpuiHIehUQvcS1CjP/1wdB5wH2SjqR8Fd8NDgD7PgmPyJDvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Rt1Srdw9ercu+A/o+J5KG7BaypdAAgXFz6zbljMvLw=;
- b=lV4ZEidKBmRblhMA496Wf6XHDJjH2oyMkfTkmSWQemazeQRY6DfRo+Y9aozRaOKMUjC8crZp8+ga9PP+HN3iDDBJ+npOU81lPEYC/LwuJ6ld9jUFujBorZWwS6KYIDRSkfQkB1/uuAhy4uO7xxaOc2GA1LC2Crxewh8yGsxNFsk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BN9PR12MB5337.namprd12.prod.outlook.com (2603:10b6:408:102::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=jJqiPZq1k5nTIwM5gOEMvmdOR0RsMXYutpBCnnRmRK8=;
+ b=v+2g+o395/RgV81YjTG3XkWgjPvXj1xnHMXThAVREz6rxvfYb5+KKrdRy+fpiyEw+vjUgGotN0QisPmpJPq7KkbKsvRX35n+G4uEVL7sc6hgpqppuHqBXeOWXRHgrgeYuV1E84BrMwhi/dvpTVQI6Ux1RI271PeVMXxpW1MXdBI=
+Received: from BN8PR15CA0058.namprd15.prod.outlook.com (2603:10b6:408:80::35)
+ by DM6PR12MB2921.namprd12.prod.outlook.com (2603:10b6:5:182::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Tue, 30 Nov
- 2021 06:19:18 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9dfe:ccc6:102c:5300%9]) with mapi id 15.20.4734.024; Tue, 30 Nov 2021
- 06:19:18 +0000
-Subject: Re: [PATCH] drm/amdgpu: adjust the kfd reset sequence in reset sriov
- function
-To: amd-gfx@lists.freedesktop.org, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-References: <20211130024002.12492-1-shaoyun.liu@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <de193754-887b-50fd-3a4f-452796272854@amd.com>
-Date: Tue, 30 Nov 2021 01:19:15 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20211130024002.12492-1-shaoyun.liu@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: YT3PR01CA0008.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::12) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ 2021 07:43:24 +0000
+Received: from BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:80:cafe::ab) by BN8PR15CA0058.outlook.office365.com
+ (2603:10b6:408:80::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11 via Frontend
+ Transport; Tue, 30 Nov 2021 07:43:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT053.mail.protection.outlook.com (10.13.177.209) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4734.22 via Frontend Transport; Tue, 30 Nov 2021 07:43:23 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 30 Nov
+ 2021 01:43:20 -0600
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH V2 00/17] Unified entry point for other blocks to interact
+ with power
+Date: Tue, 30 Nov 2021 15:42:42 +0800
+Message-ID: <20211130074259.1271965-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Received: from [192.168.2.100] (142.127.191.123) by
- YT3PR01CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:86::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.22 via Frontend Transport; Tue, 30 Nov 2021 06:19:17 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 82905a9a-936c-40b8-039e-08d9b3c956bf
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5337:
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5337BE21AE0F9A86D1620E2A92679@BN9PR12MB5337.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: 1bdee83c-8b8b-4f0e-2d0e-08d9b3d516ad
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2921:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB292122B8F3DADF56F3CD4759E4679@DM6PR12MB2921.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y3AxlxKXu7zqIcyikYKO7sj+FXtG5CoxY9ZswXoyvhffV3MoHQGZfRac7wmRTbyYaVXA4IE+S/PJ7pavjAdhRn2UcqGd9Op6LxOsbRByZUncAJvQjnOC5pr7ANcn0cUSGLAZ/Ja45xUhqZp0bURmxYPFNJJwyjD2dMcRI2sk+sR/f1sfuH0ddhNYIrd4yZj+j0sclpwH75AnxriHorIePm7FJhAByHwShKTKIZgIMSsBMI0pSVXFEebz6VlbqxZshIWYB9XJ4Y7tgKRz4ISvvfnKdi9t8d+9uwyBjCi+i94tP63mqWDUVctYuEb50WdiCfTjhXo1Wlt7uBeNG45MARwCGzWe3W/Kp2peeLRrDliHM9fLDoNHLHz3xgc0XJgv6l8XyOYnoRokEIPDsfnb+SN55dIiix+crdtX6p7L13NzV5PuLRzxSULySR4576LWEdsm2ajHdCjsBe7VhetVuSd3jBHS1k672h0sg2HU/kEF7iZwWB18SaI2/tDL3lDRoXgbcfrR/SECjjbqRvQB3lqI42tCfW/LRYeV+62a41hDW6zu9uHAs4Q97ZHyML4HYSFtSy8QKu/xF1hvyEl4U2dC9HG1jikY9zxNR0oDdQg4iaIP7hFFiPzkFJJydM30c2xJaK1eTjLTosSEIBbAW5cNz0KaWgnv25mFXIxvF3Q/UWyk1I8sAIurII8SZa+26VeLgk2W5tGMx1Dql11j4da2ldhavt7Y5p95xGmUdH4ULtpayeq4bhXSmUX8/oUs
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66556008)(2906002)(8936002)(38100700002)(16576012)(8676002)(66476007)(66946007)(6862004)(26005)(83380400001)(4001150100001)(31696002)(508600001)(186003)(6636002)(2616005)(956004)(5660300002)(36756003)(37006003)(44832011)(86362001)(6486002)(31686004)(316002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: qHYRmvrvjH1bOWNWm5fDaBi0dzps15CnL1jPbQCG5amSrkKFySrvREUanDInOrKaFehnK6YNSIQvu9kr/GlC9c63Gxd9u36+XmcRBxcnkLeJ1z+SejEaJciv8ogd3q7qBkTplWdbOMLo+J8GGyXVqKo8QabPUfL7RLhdWb15oNUDDVT2W2WBQtxRQrBVo+R1mCBGxlky8ECYBgYJt573fnGnp0CpaKU+lVd/Pw7jL+ybFhmEjWWHOAOU3iMBy2dh4wGN/wEwU9P7bYw3KXyMVhFrQ9VMzpg/RGfpDeCxM5eGGpN5ROKqm7P3wBbZ+fFvf1zC3pw3tWLdtL8URkCCT6nummJ7PtV4m0P7crFM5v4f/0IcbZTCeerqJsZISOuOm+ntXvzw/tY1GWxg+SviE48CDssUPKb9rAW7cCrTJc5LvQCJGaCGJVwQkRjfA0D+TJ11mbGhcCFYSmQ3K5OvYoix+lNmopVsHZqPwEoeg4vxDUGEmnw9ROcyQeTN/cTPylvu4WII1zUni75XOs8AMYSFyOxeRoJUlBUa7kbeW89nt5u7M4x2CIcIp3XVSLHBIrD927SxysxKESFLJn0evgRex6rQq8vHl/X1y4VGL+vGytiPxb5bN2+o+kuv4T/WbPpBXxYSrXzFDLhaV6wRRqHnfBU7nCm6tkHGmk1d53uxgHvgpdoB44sEAAhSiCx6cAR1SUBGV7CwRUtrpL6Jd5aauCN9O/BaJu4+aI3GvPm8fiEkZMI7rzEVTMQ90ZCJ7MHZi+05MgsOHKU0SnwtHOhM/5xmXTYSs4Co8iX9FKQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(4326008)(2906002)(70206006)(7696005)(8936002)(426003)(1076003)(356005)(40460700001)(81166007)(83380400001)(36860700001)(2616005)(82310400004)(70586007)(316002)(26005)(6916009)(186003)(54906003)(6666004)(5660300002)(30864003)(47076005)(16526019)(86362001)(508600001)(8676002)(36756003)(336012)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVlPUzBlbVhqZk5ZQzQ2TW5lYkJrQUxPdTE0MnkyYnZWTUl4NmZPQlVLTS9z?=
- =?utf-8?B?d0V5MUxhRDhnTGNJdmM1RGNNTWhGOGhUczJTODRuV2FobVJSbC9qRkNnR1ow?=
- =?utf-8?B?NW1zQ2UrdHhjdlh0TG1UaUtZeUdmbSszUzdnemRlTVJNVEtjbytrcE1VRHMz?=
- =?utf-8?B?L29GNWU4c0F1Mk0wLytrNFNvR0ZLcG9ZOHVqTWx5R2VwOGR1b3dLTU5QeXFD?=
- =?utf-8?B?UGVURU56eXJuS2JnY1NMNlRFSldnUFdpS0MxNEsvaTRaMFBQRFJBU1hnYlpi?=
- =?utf-8?B?cFdQT2RRU1IzWUZIaUt0Mm1wdDl6bVNqaTgzdFRrdzh2amhBVGV1M2lHNVBB?=
- =?utf-8?B?aFowRVRDR0RjZFoxQUdMUFczc2FZVUc1WUgwL21MQTB0dmkvTDY1TDlEb3Ry?=
- =?utf-8?B?VHN2c1YxM2hKbzBDdGZzRUQ2Sng5SllPUXFOc0h2RHZPQ3ZtYVhMOStaRWlh?=
- =?utf-8?B?VVViWjlSd2E2U3BSQ2M3OGdVQmpYZFNDY1hXVWlaYzdnRm1ZQmFjNU9oVW1r?=
- =?utf-8?B?cHY0c1VmUkEvbzdDYmlJbUZnSzVKaTIvdFhneDVLVmRDM0dEcGhlZjM1SmVR?=
- =?utf-8?B?RHp3c2xxRlhZQ3BSZitDU01VT2Q2ZEw4MGxyeTQ3MEdobWg1dk9iczZLTk81?=
- =?utf-8?B?Z0hacW9JMUJYYlN3QzgzTXRNMlplWGdpQVJzLzRGbndmZWJuQzZsSjdyaU9I?=
- =?utf-8?B?RFJtY3RLOEZ1MjJ2WitaRHJwbTZvaElVNWJ0UUlPWCtkVi8vTlM5R2d5RTV0?=
- =?utf-8?B?Nm5YZjJhZ0RPNytUNVJPd0hOaUpLVUZtWVhHaGRqYjdEbkhZdzNxWkZ2OGhN?=
- =?utf-8?B?cGsvUGVLN1RMVHB2YzZCMzJuMXZqTEJDdDBua2tUZ1hLa0psZ29WdGRIbk91?=
- =?utf-8?B?bUpLU1JzWk1SZ3Y2L1JMQWRpRng3dHA4UjQzK1J6MDZjVldpUktmYkJoOXZr?=
- =?utf-8?B?UTBERFFxcXd6djU2Wm42bEtWTFFhOXJxWktxNEFwNzJMVjNLL0FXemZVRWRi?=
- =?utf-8?B?Nlc2NjdOMHZUNldRQlFRMW9iN1orakNEVWkxalpzd1RiY1RiNUFIbzJMTnpt?=
- =?utf-8?B?MVlDRFdkWU9TemowMldqRURTYmxMRGxmRGlIMWJaUXIxQ0duWHNEb3llOXda?=
- =?utf-8?B?Z3VCcmZYTDNwbXN3RXlOcDdOVThMVld2RlU5bGcxYVh1YWdFYXdLWWNZOXVZ?=
- =?utf-8?B?QlAvNjZoSkJ4RGlYRFJib0xPc1d4UmV2R2g0VHZIdUxRQVl4UDdIZy93R1lt?=
- =?utf-8?B?dU1ZS0lacFlXWGNqYWpmYytOTWM1NVErcStuZnBLL3hEckYxbkZRWjc4RWh5?=
- =?utf-8?B?aVpsSEJEaEtvSHJPYWFTQ1E3VnppUlBWMDRtVzRkMDZwRFdwaGRwL1lwdTRI?=
- =?utf-8?B?VmVWcDYrT2RjL1k5enhocGhsaWk0MVozM21ybFpFbWx1TERXKzZBZEVtd0pX?=
- =?utf-8?B?ZE9ZL0g3RlhnWDY3aGxyZ1ZqbUFrTkFPM1VocWFEb1NlaHNhQSsvZzRBTXoy?=
- =?utf-8?B?MS9HSFZNZTlGU0xaR0FwNEFrOVgrMXlpTmp4MHlTVkdUNUZaSHJERVhGUHZ2?=
- =?utf-8?B?ckRtYmxnRXVSaWZaRFAxQSttTjBVRy84Z2h2bGVuWVQ1U3NUejJvNWxwTWtK?=
- =?utf-8?B?Yi9GaVQxQVZTdGwrVW81QTFKTmZDVzdGZGhSQ29nQmNZbnZuTUx4Ymo1TXYv?=
- =?utf-8?B?VlZ4a1Z0OFhrQ2xpd0tsK2JUd0xtZXUvQjRhTXVocFlpMkpUVVdhbmRkL3VE?=
- =?utf-8?B?NE8zNElXYk1sVGxFUHJWVW5OR2pUbzJQOVErVnhaN0N4UnJiWDRLVmNrZ24x?=
- =?utf-8?B?VUtwZ3J2SGxwSzdxcVJ3YXN0ZEpWd09HaSttM2lxMWNKeHRBTnpNTFhHb1hy?=
- =?utf-8?B?MSs2ZW8rWkl6R2lQRTRtaTBnS0ZDNlNLRkloZ1JsK2JHTlVWZWpsbSt5MzVh?=
- =?utf-8?B?YTVXcHplb05RdStQTzVYK0xHS2JiZUJjQlpGdGtZenpSeFJHUWZ0U1lCcEFP?=
- =?utf-8?B?NGYxOG14ZkZUYWg4cUtCd2R3ZkQrVGo0NXp3Y05CcmFRU1BCWVYycytGcnVa?=
- =?utf-8?B?aXNaVjhCS3JpMkkyQm1qd1d4S2JwQzlxN0dKZVdFazlUYzROclRuZi9QZW5B?=
- =?utf-8?B?WW44aWVQSjgyK1R1MDJvZGlqQmM4ZW5UZGduZUNBLyszT05jNEtJeGwxaUV1?=
- =?utf-8?Q?BdUem5ccGm07n8PSdb5LofM=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82905a9a-936c-40b8-039e-08d9b3c956bf
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2021 06:19:17.9213 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2021 07:43:23.5112 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bdee83c-8b8b-4f0e-2d0e-08d9b3d516ad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 53cbDjyZ946dZxhRtfbrqgDhzUnWGSKM/hjGredKBa2YA6ic4KDi9g+JrlpCE8GBOnpmf/LLruc5Cz934GbW6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5337
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2921
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,76 +100,251 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexander.Deucher@amd.com, lijo.lazar@amd.com, Kenneth.Feng@amd.com,
+ christian.koenig@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2021-11-29 um 9:40 p.m. schrieb shaoyunl:
-> This change revert previous commit
-> 7079e7d5c6bf: drm/amd/amdgpu: fix the kfd pre_reset sequence in sriov
-> cd547b93c62a: drm/amdgpu: move kfd post_reset out of reset_sriov function
+There are several problems with current power implementations:
+1. Too many internal details are exposed to other blocks. Thus to interact with
+   power, they need to know which power framework is used(powerplay vs swsmu)
+   or even whether some API is implemented.
+2. A lot of cross callings exist which make it hard to get a whole picture of
+   the code hierarchy. And that makes any code change/increment error-prone.
+3. Many different types of lock are used. It is calculated there is totally
+   13 different locks are used within power. Some of them are even designed for
+   the same purpose.
 
-It looks like this is not a straight revert. It moves the
-amdgpu_amdkfd_pre_reset to an earlier place in
-amdgpu_device_reset_sriov, presumably to address the sequence issue that
-the first patch was originally meant to fix. The patch description
-should mention that.
+To ease the problems above, this patch series try to
+1. provide unified entry point for other blocks to interact with power.
+2. relocate some source code piece/headers to avoid cross callings.
+3. enforce a unified lock protection on those entry point APIs above.
+   That makes the future optimization for unnecessary power locks possible.
 
-With that fixed, the patch is
+Evan Quan (17):
+  drm/amd/pm: do not expose implementation details to other blocks out
+    of power
+  drm/amd/pm: do not expose power implementation details to amdgpu_pm.c
+  drm/amd/pm: do not expose power implementation details to display
+  drm/amd/pm: do not expose those APIs used internally only in
+    amdgpu_dpm.c
+  drm/amd/pm: do not expose those APIs used internally only in si_dpm.c
+  drm/amd/pm: do not expose the API used internally only in kv_dpm.c
+  drm/amd/pm: create a new holder for those APIs used only by legacy
+    ASICs(si/kv)
+  drm/amd/pm: move pp_force_state_enabled member to amdgpu_pm structure
+  drm/amd/pm: optimize the amdgpu_pm_compute_clocks() implementations
+  drm/amd/pm: move those code piece used by Stoney only to smu8_hwmgr.c
+  drm/amd/pm: correct the usage for amdgpu_dpm_dispatch_task()
+  drm/amd/pm: drop redundant or unused APIs and data structures
+  drm/amd/pm: do not expose the smu_context structure used internally in
+    power
+  drm/amd/pm: relocate the power related headers
+  drm/amd/pm: drop unnecessary gfxoff controls
+  drm/amd/pm: revise the performance level setting APIs
+  drm/amd/pm: unified lock protections in amdgpu_dpm.c
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c        |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |    7 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  421 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h  |   30 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   25 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |   18 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |    7 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |    5 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   |    2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    6 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  246 +-
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |   14 +
+ drivers/gpu/drm/amd/pm/Makefile               |   12 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 2435 ++++++++---------
+ drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  |   94 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  568 ++--
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  339 +--
+ .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |   32 +
+ drivers/gpu/drm/amd/pm/legacy-dpm/Makefile    |   32 +
+ .../pm/{powerplay => legacy-dpm}/cik_dpm.h    |    0
+ .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.c |   47 +-
+ .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.h |    0
+ .../amd/pm/{powerplay => legacy-dpm}/kv_smc.c |    0
+ .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 1510 ++++++++++
+ .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h    |   71 +
+ .../amd/pm/{powerplay => legacy-dpm}/ppsmc.h  |    0
+ .../pm/{powerplay => legacy-dpm}/r600_dpm.h   |    0
+ .../amd/pm/{powerplay => legacy-dpm}/si_dpm.c |  111 +-
+ .../amd/pm/{powerplay => legacy-dpm}/si_dpm.h |    7 +
+ .../amd/pm/{powerplay => legacy-dpm}/si_smc.c |    0
+ .../{powerplay => legacy-dpm}/sislands_smc.h  |    0
+ drivers/gpu/drm/amd/pm/powerplay/Makefile     |    4 -
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |   51 +-
+ .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c   |   10 +-
+ .../pm/{ => powerplay}/inc/amd_powerplay.h    |    0
+ .../drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h |    0
+ .../amd/pm/{ => powerplay}/inc/fiji_ppsmc.h   |    0
+ .../pm/{ => powerplay}/inc/hardwaremanager.h  |    0
+ .../drm/amd/pm/{ => powerplay}/inc/hwmgr.h    |    3 -
+ .../{ => powerplay}/inc/polaris10_pwrvirus.h  |    0
+ .../amd/pm/{ => powerplay}/inc/power_state.h  |    0
+ .../drm/amd/pm/{ => powerplay}/inc/pp_debug.h |    0
+ .../amd/pm/{ => powerplay}/inc/pp_endian.h    |    0
+ .../amd/pm/{ => powerplay}/inc/pp_thermal.h   |    0
+ .../amd/pm/{ => powerplay}/inc/ppinterrupt.h  |    0
+ .../drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h |    0
+ .../drm/amd/pm/{ => powerplay}/inc/smu10.h    |    0
+ .../pm/{ => powerplay}/inc/smu10_driver_if.h  |    0
+ .../pm/{ => powerplay}/inc/smu11_driver_if.h  |    0
+ .../gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h |    0
+ .../drm/amd/pm/{ => powerplay}/inc/smu71.h    |    0
+ .../pm/{ => powerplay}/inc/smu71_discrete.h   |    0
+ .../drm/amd/pm/{ => powerplay}/inc/smu72.h    |    0
+ .../pm/{ => powerplay}/inc/smu72_discrete.h   |    0
+ .../drm/amd/pm/{ => powerplay}/inc/smu73.h    |    0
+ .../pm/{ => powerplay}/inc/smu73_discrete.h   |    0
+ .../drm/amd/pm/{ => powerplay}/inc/smu74.h    |    0
+ .../pm/{ => powerplay}/inc/smu74_discrete.h   |    0
+ .../drm/amd/pm/{ => powerplay}/inc/smu75.h    |    0
+ .../pm/{ => powerplay}/inc/smu75_discrete.h   |    0
+ .../amd/pm/{ => powerplay}/inc/smu7_common.h  |    0
+ .../pm/{ => powerplay}/inc/smu7_discrete.h    |    0
+ .../amd/pm/{ => powerplay}/inc/smu7_fusion.h  |    0
+ .../amd/pm/{ => powerplay}/inc/smu7_ppsmc.h   |    0
+ .../gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h |    0
+ .../amd/pm/{ => powerplay}/inc/smu8_fusion.h  |    0
+ .../gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h |    0
+ .../pm/{ => powerplay}/inc/smu9_driver_if.h   |    0
+ .../{ => powerplay}/inc/smu_ucode_xfer_cz.h   |    0
+ .../{ => powerplay}/inc/smu_ucode_xfer_vi.h   |    0
+ .../drm/amd/pm/{ => powerplay}/inc/smumgr.h   |    0
+ .../amd/pm/{ => powerplay}/inc/tonga_ppsmc.h  |    0
+ .../amd/pm/{ => powerplay}/inc/vega10_ppsmc.h |    0
+ .../inc/vega12/smu9_driver_if.h               |    0
+ .../amd/pm/{ => powerplay}/inc/vega12_ppsmc.h |    0
+ .../amd/pm/{ => powerplay}/inc/vega20_ppsmc.h |    0
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   95 +-
+ .../amd/pm/{ => swsmu}/inc/aldebaran_ppsmc.h  |    0
+ .../drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h   |   20 +-
+ .../amd/pm/{ => swsmu}/inc/arcturus_ppsmc.h   |    0
+ .../inc/smu11_driver_if_arcturus.h            |    0
+ .../inc/smu11_driver_if_cyan_skillfish.h      |    0
+ .../{ => swsmu}/inc/smu11_driver_if_navi10.h  |    0
+ .../inc/smu11_driver_if_sienna_cichlid.h      |    0
+ .../{ => swsmu}/inc/smu11_driver_if_vangogh.h |    0
+ .../amd/pm/{ => swsmu}/inc/smu12_driver_if.h  |    0
+ .../inc/smu13_driver_if_aldebaran.h           |    0
+ .../inc/smu13_driver_if_yellow_carp.h         |    0
+ .../pm/{ => swsmu}/inc/smu_11_0_cdr_table.h   |    0
+ .../drm/amd/pm/{ => swsmu}/inc/smu_types.h    |    0
+ .../drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h    |    0
+ .../pm/{ => swsmu}/inc/smu_v11_0_7_ppsmc.h    |    0
+ .../pm/{ => swsmu}/inc/smu_v11_0_7_pptable.h  |    0
+ .../amd/pm/{ => swsmu}/inc/smu_v11_0_ppsmc.h  |    0
+ .../pm/{ => swsmu}/inc/smu_v11_0_pptable.h    |    0
+ .../amd/pm/{ => swsmu}/inc/smu_v11_5_pmfw.h   |    0
+ .../amd/pm/{ => swsmu}/inc/smu_v11_5_ppsmc.h  |    0
+ .../amd/pm/{ => swsmu}/inc/smu_v11_8_pmfw.h   |    0
+ .../amd/pm/{ => swsmu}/inc/smu_v11_8_ppsmc.h  |    0
+ .../drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h    |    0
+ .../amd/pm/{ => swsmu}/inc/smu_v12_0_ppsmc.h  |    0
+ .../drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h    |    0
+ .../amd/pm/{ => swsmu}/inc/smu_v13_0_1_pmfw.h |    0
+ .../pm/{ => swsmu}/inc/smu_v13_0_1_ppsmc.h    |    0
+ .../pm/{ => swsmu}/inc/smu_v13_0_pptable.h    |    0
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |   10 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |    9 +-
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |   34 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |   11 +-
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |   10 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |   15 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |    4 +
+ 114 files changed, 3657 insertions(+), 2671 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
+ create mode 100644 drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
+ create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/cik_dpm.h (100%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_dpm.c (99%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_dpm.h (100%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_smc.c (100%)
+ create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+ create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/r600_dpm.h (100%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.c (99%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.h (99%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_smc.c (100%)
+ rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/sislands_smc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/amd_powerplay.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/fiji_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/hardwaremanager.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/hwmgr.h (99%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/polaris10_pwrvirus.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/power_state.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_debug.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_endian.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_thermal.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/ppinterrupt.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu10.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu10_driver_if.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu11_driver_if.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71_discrete.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72_discrete.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73_discrete.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74_discrete.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75_discrete.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_common.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_discrete.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_fusion.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8_fusion.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9_driver_if.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu_ucode_xfer_cz.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu_ucode_xfer_vi.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smumgr.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/tonga_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega10_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega12/smu9_driver_if.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega12_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega20_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/aldebaran_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h (98%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/arcturus_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_arcturus.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_cyan_skillfish.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_navi10.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_sienna_cichlid.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_vangogh.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu12_driver_if.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu13_driver_if_aldebaran.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu13_driver_if_yellow_carp.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_11_0_cdr_table.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_types.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_7_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_7_pptable.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_pptable.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_5_pmfw.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_5_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_8_pmfw.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_8_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v12_0_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0_1_pmfw.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0_1_ppsmc.h (100%)
+ rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0_pptable.h (100%)
 
+-- 
+2.29.0
 
->
-> Some register access(GRBM_GFX_CNTL) only be allowed on full access
-> mode. Move kfd_pre_reset and  kfd_post_reset back inside reset_sriov
-> function.
->
-> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 1989f9e9379e..3c5afa45173c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4285,6 +4285,8 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
->  {
->  	int r;
->  
-> +	amdgpu_amdkfd_pre_reset(adev);
-> +
->  	if (from_hypervisor)
->  		r = amdgpu_virt_request_full_gpu(adev, true);
->  	else
-> @@ -4312,6 +4314,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
->  
->  	amdgpu_irq_gpu_reset_resume_helper(adev);
->  	r = amdgpu_ib_ring_tests(adev);
-> +	amdgpu_amdkfd_post_reset(adev);
->  
->  error:
->  	if (!r && adev->virt.gim_feature & AMDGIM_FEATURE_GIM_FLR_VRAMLOST) {
-> @@ -5026,7 +5029,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->  
->  		cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
->  
-> -		amdgpu_amdkfd_pre_reset(tmp_adev);
-> +		if (!amdgpu_sriov_vf(tmp_adev))
-> +			amdgpu_amdkfd_pre_reset(tmp_adev);
->  
->  		/*
->  		 * Mark these ASICs to be reseted as untracked first
-> @@ -5144,9 +5148,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->  
->  skip_sched_resume:
->  	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-> -		/* unlock kfd */
-> -		if (!need_emergency_restart)
-> -	                amdgpu_amdkfd_post_reset(tmp_adev);
-> +		/* unlock kfd: SRIOV would do it separately */
-> +		if (!need_emergency_restart && !amdgpu_sriov_vf(tmp_adev))
-> +			amdgpu_amdkfd_post_reset(tmp_adev);
->  
->  		/* kfd_post_reset will do nothing if kfd device is not initialized,
->  		 * need to bring up kfd here if it's not be initialized before
