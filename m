@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D158C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 16:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8278CC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Nov 2021 16:13:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8B426E0F6;
-	Tue, 30 Nov 2021 16:13:27 +0000 (UTC)
-Received: from mta-p6.oit.umn.edu (mta-p6.oit.umn.edu [134.84.196.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06DD389E2A
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 15:58:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3762E6E49C;
+	Tue, 30 Nov 2021 16:13:28 +0000 (UTC)
+Received: from mta-p7.oit.umn.edu (mta-p7.oit.umn.edu [134.84.196.207])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B92536E2DF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 14:49:06 +0000 (UTC)
 Received: from localhost (unknown [127.0.0.1])
- by mta-p6.oit.umn.edu (Postfix) with ESMTP id 4J3RhC4wB9z9w6Rp
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 15:58:03 +0000 (UTC)
+ by mta-p7.oit.umn.edu (Postfix) with ESMTP id 4J3Q8f32Lmz9vffL
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 14:49:06 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p6.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p6.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id YnksitLlnWoC for <amd-gfx@lists.freedesktop.org>;
- Tue, 30 Nov 2021 09:58:03 -0600 (CST)
+Received: from mta-p7.oit.umn.edu ([127.0.0.1])
+ by localhost (mta-p7.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id v6eg0XnPLpgE for <amd-gfx@lists.freedesktop.org>;
+ Tue, 30 Nov 2021 08:49:06 -0600 (CST)
 Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
  [209.85.216.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mta-p6.oit.umn.edu (Postfix) with ESMTPS id 4J3RhC2d7nz9w6Rk
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 09:58:03 -0600 (CST)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p6.oit.umn.edu 4J3RhC2d7nz9w6Rk
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p6.oit.umn.edu 4J3RhC2d7nz9w6Rk
+ by mta-p7.oit.umn.edu (Postfix) with ESMTPS id 4J3Q8f0zH6z9vffB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 08:49:06 -0600 (CST)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p7.oit.umn.edu 4J3Q8f0zH6z9vffB
+DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p7.oit.umn.edu 4J3Q8f0zH6z9vffB
 Received: by mail-pj1-f71.google.com with SMTP id
- mv1-20020a17090b198100b001a67d5901d2so11721476pjb.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 07:58:03 -0800 (PST)
+ h15-20020a17090a648f00b001a96c2c97abso6894957pjj.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 06:49:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=bTXkxPkhvwkgKe3CfQ7oKNFqLLxsibJM72YviuHICJY=;
- b=JXLhE+gLz8807ShPZSZBtudJocl+w6stUALlj11N7rM24NN8HXfOXGqMUBWF6f9IYK
- 4tmgYEOcRw/QvKTRyOwZfpfmnqzsmA/hrkVGyp6sbzvGR8IJz7Eae2Db2itgWd2hJh6k
- FT1Vps8hTXW4OuK7IkVnGNU0EFN25oMFBeZjJitk2c1IzzpIMqSUG5KjCLIMngKJB51T
- HcFCQRDcSgoh8/UcsiseRNjQjbruj0ErYBwux3J8lLI8E7l6flcIPzCSVOLUG4dkdZht
- E9+2I7o3/hGSbZgptPnE/cbwb19FsDWZBKItWc6DAfFm7RLgXAx61vNw3OOnvPFJ+uBV
- iYYQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SKUA5rulho7/zo1ULnuDGtU3hFtIpEJdfFzpP4bqLSk=;
+ b=GeK2kPOS68r652pwNSRxEaAW/b/2tt84HoSKWLnqyqPdVPl4ucwQ+mMlReYNSho7SF
+ +sha56JoOg34qC7EaQh4IyuQQZ4oaOtBdBjrxjJ+f8pithTUf3Zr/gb0ZdFOqnIUAoJU
+ RVYhqDa4M1u5Zkp/QQdNSReB7yO4zl01to//Z6JN4rwmCYKGEdP1uKGMEtPODj20OqLq
+ YgpO3ENCThW3nGWNthqOb91bDF5PjI/JfYtJcuqsIwHc6edcrwISgV4lZwZwJ6J/VoYt
+ D9aIjinT/QRXiDFiztTJLOPjnSt+gDhu2+6Kds5nC+/R6X55CMCBR3NOlh1pf3fm0/B4
+ qzog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=bTXkxPkhvwkgKe3CfQ7oKNFqLLxsibJM72YviuHICJY=;
- b=fCawDJ9NTzWnH+fnlFeTxcbtWY3lFTPn19PdrKxglg7QBdBMHsMcVqyw6Y54gz2vjo
- pku9Hx7205ngxI7IU7Dx7Jf3xKMCrAJf/sPACN2PUS6sa7x96K4kq7j/znvk2TdLvnDS
- V131t9rgWcV4KTkInUngUsKaEUhbPwxEAQRxY9finuPpshgXeXbqYPURHNrYTnzeyvev
- izsEBkors+juOugnuToNyIOaXqs8KogtCwh38ltF0xAd5IkUOyNU+KuxAHqc9ljkOcZF
- b+I7JYGQHjKk1twiqGB2kFICrslbKvtRn8xJTwx8I7H2wypyR2Qrpu9v0D/VU+0pzivN
- 5+pQ==
-X-Gm-Message-State: AOAM531m6VdOhzKPkZ8RhiFdj57/i4f2RWjE7ApdVg2i2vQEcHet7RKb
- 1su+8b2GN1sOjioQKUmSBZKemhAJ+o8LOs0AY6MbaO1bZqLn6MuvoXquI9r3iaLOUySpQ9PryC/
- V25XrD/h59+q51tCHZkIr5xVBubbuEg==
-X-Received: by 2002:a63:155d:: with SMTP id 29mr21860pgv.302.1638287882665;
- Tue, 30 Nov 2021 07:58:02 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyIaxwNEDzH7cmq7l7LiRaYXMObjxXyqF8evR41ZnOQZpK9G2rDCI1/FqCk8Jv+9cm2uvYXJw==
-X-Received: by 2002:a63:155d:: with SMTP id 29mr21828pgv.302.1638287882411;
- Tue, 30 Nov 2021 07:58:02 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SKUA5rulho7/zo1ULnuDGtU3hFtIpEJdfFzpP4bqLSk=;
+ b=WWPms7u2AQVioS3pcLrnHrdadVu3ENtA72l/NKhXGz0FdL440Ay2tM1Qp49p+XZxDA
+ AC77MEyln12BM0BKdAXjTFxu69wVc2zUOsKTOCnnCh0XziMRuqwy7PU4Sm7dmKwRBedB
+ rGstQTkUrg58rULDedN8NMtCAQE0rEeIi+7jfMnHA6gtdYFaBTvCwqKcbHpoQscy2NTU
+ IwHyeCoGpx+nrFOWAT5MyFVLt21yLtSTbO9bjQ22wvoscQjENjbL2HbJiO2q+y6429yV
+ vPPWOrOgXIZ0LCNboYoZZWO7quA2r6ax4UNNcLokS2CTz/ufGLcI13uZ1dMKH2RJfrgT
+ tJSA==
+X-Gm-Message-State: AOAM532ap9+jTlYf/Q9+M1TlUDPEU2Wtphd/QUqD3gIFtHma2abVTehm
+ dC20y+cD8Woir8q3XAYsdjhomeZnNi4c+VO+Xo+eDLiDNO9t+ci1uvVx/DQ6zQqgYenaYpVFQpv
+ MnOgr2lJQ/qGGn1E3N9vMd7bPxMCLww==
+X-Received: by 2002:a17:90b:4f86:: with SMTP id
+ qe6mr6665848pjb.198.1638283745304; 
+ Tue, 30 Nov 2021 06:49:05 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzg5tqfIsb7cPPfYTW5uP2EKJprEpWzmVo1SJk8rR74gWfThL7r7GfAmz1doU8srd5YKcoi1Q==
+X-Received: by 2002:a17:90b:4f86:: with SMTP id
+ qe6mr6665827pjb.198.1638283745110; 
+ Tue, 30 Nov 2021 06:49:05 -0800 (PST)
 Received: from zqy787-GE5S.lan ([36.7.42.137])
- by smtp.gmail.com with ESMTPSA id h13sm15230838pgg.16.2021.11.30.07.57.59
+ by smtp.gmail.com with ESMTPSA id s5sm14762936pgq.62.2021.11.30.06.49.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Nov 2021 07:58:02 -0800 (PST)
+ Tue, 30 Nov 2021 06:49:04 -0800 (PST)
 From: Zhou Qingyang <zhou1615@umn.edu>
 To: zhou1615@umn.edu
-Subject: [PATCH v3] drm/radeon/radeon_kms: Fix a NULL pointer dereference in
- radeon_driver_open_kms()
-Date: Tue, 30 Nov 2021 23:57:19 +0800
-Message-Id: <20211130155720.178214-1-zhou1615@umn.edu>
+Subject: [PATCH] drm/radeon/radeon_connectors: Fix a NULL pointer dereference
+ in radeon_fp_native_mode()
+Date: Tue, 30 Nov 2021 22:48:27 +0800
+Message-Id: <20211130144827.163717-1-zhou1615@umn.edu>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <f776cb6f-d599-a543-9177-dac7d08cf7d4@amd.com>
-References: <f776cb6f-d599-a543-9177-dac7d08cf7d4@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Nov 2021 16:13:26 +0000
@@ -90,18 +90,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  kjlu@umn.edu, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In radeon_driver_open_kms(), radeon_vm_bo_add() is assigned to
-vm->ib_bo_va and passes and used in radeon_vm_bo_set_addr(). In
-radeon_vm_bo_set_addr(), there is a dereference of vm->ib_bo_va,
-which could lead to a NULL pointer dereference on failure of
-radeon_vm_bo_add().
+In radeon_fp_native_mode(), the return value of drm_mode_duplicate() is
+assigned to mode and there is a dereference of it in
+radeon_fp_native_mode(), which could lead to a NULL pointer
+dereference on failure of drm_mode_duplicate().
 
-Fix this bug by adding a check of vm->ib_bo_va.
+Fix this bug by adding a check of mode.
 
 This bug was found by a static analyzer. The analysis employs
 differential checking to identify inconsistent security operations
@@ -116,94 +115,26 @@ the bug.
 Builds with CONFIG_DRM_RADEON=m show no new warnings,
 and our static analyzer no longer warns about this code.
 
-Fixes: cc9e67e3d700 ("drm/radeon: fix VM IB handling")
+Fixes: d2efdf6d6f42 ("drm/radeon/kms: add cvt mode if we only have lvds w/h and no edid (v4)")
 Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
 ---
-Changes in v3:
-  -  Fix the bug that good case will also be freed
-  -  Improve code style
+ drivers/gpu/drm/radeon/radeon_connectors.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Changes in v2:
-  -  Improve the error handling into goto style
-
- drivers/gpu/drm/radeon/radeon_kms.c | 35 ++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index 482fb0ae6cb5..439f4d1fdd65 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -648,6 +648,8 @@ void radeon_driver_lastclose_kms(struct drm_device *dev)
- int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- {
- 	struct radeon_device *rdev = dev->dev_private;
-+	struct radeon_fpriv *fpriv;
-+	struct radeon_vm *vm;
- 	int r;
- 
- 	file_priv->driver_priv = NULL;
-@@ -660,8 +662,6 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- 	/* new gpu have virtual address space support */
- 	if (rdev->family >= CHIP_CAYMAN) {
--		struct radeon_fpriv *fpriv;
--		struct radeon_vm *vm;
- 
- 		fpriv = kzalloc(sizeof(*fpriv), GFP_KERNEL);
- 		if (unlikely(!fpriv)) {
-@@ -672,35 +672,38 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 		if (rdev->accel_working) {
- 			vm = &fpriv->vm;
- 			r = radeon_vm_init(rdev, vm);
--			if (r) {
--				kfree(fpriv);
--				goto out_suspend;
--			}
-+			if (r)
-+				goto out_fpriv;
- 
- 			r = radeon_bo_reserve(rdev->ring_tmp_bo.bo, false);
--			if (r) {
--				radeon_vm_fini(rdev, vm);
--				kfree(fpriv);
--				goto out_suspend;
--			}
-+			if (r)
-+				goto out_vm_fini;
- 
- 			/* map the ib pool buffer read only into
- 			 * virtual address space */
- 			vm->ib_bo_va = radeon_vm_bo_add(rdev, vm,
- 							rdev->ring_tmp_bo.bo);
-+			if (!vm->ib_bo_va) {
-+				r = -ENOMEM;
-+				goto out_vm_fini;
-+			}
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 607ad5620bd9..49f187614f96 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -473,6 +473,9 @@ static struct drm_display_mode *radeon_fp_native_mode(struct drm_encoder *encode
+ 	    native_mode->vdisplay != 0 &&
+ 	    native_mode->clock != 0) {
+ 		mode = drm_mode_duplicate(dev, native_mode);
++		if (!mode)
++			return NULL;
 +
- 			r = radeon_vm_bo_set_addr(rdev, vm->ib_bo_va,
- 						  RADEON_VA_IB_OFFSET,
- 						  RADEON_VM_PAGE_READABLE |
- 						  RADEON_VM_PAGE_SNOOPED);
--			if (r) {
--				radeon_vm_fini(rdev, vm);
--				kfree(fpriv);
--				goto out_suspend;
--			}
-+			if (r)
-+				goto out_vm_fini;
- 		}
- 		file_priv->driver_priv = fpriv;
- 	}
+ 		mode->type = DRM_MODE_TYPE_PREFERRED | DRM_MODE_TYPE_DRIVER;
+ 		drm_mode_set_name(mode);
  
-+out_vm_fini:
-+	if (r)
-+		radeon_vm_fini(rdev, vm);
-+out_fpriv:
-+	if (r)
-+		kfree(fpriv);
- out_suspend:
- 	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
 -- 
 2.25.1
 
