@@ -4,129 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB9EC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 03:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31A1C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 04:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2A0A6E0DC;
-	Wed,  1 Dec 2021 03:50:41 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D01486E0DC
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 03:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23A546E123;
+	Wed,  1 Dec 2021 04:19:53 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2087.outbound.protection.outlook.com [40.107.101.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F25EC6E123
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 04:19:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D3y/OtmmhgNngZbwPr0WBPukoxejiCrXQtI4xTsKZJDoWLVI85pvFIVqUU2l9pApXMxgVYbURyImMCXxnO0Hcu0i8GoCvbEOjbr3Ce+fqb5wmPHiF/X7ULrxjEv6xTaVce2eF2cqfEEwdoc5WdaAQ8HiNa7R8lT6qLmN9cS4rsRrVAhhhPWesj3W8eSUpUa6IqmO2GcplTM1cGNuAVfW7iDEAA7zr0AbjSW7gDb6DBg22ZOBwZql2MFDrXvpcpvJjM8UqP2tOylw5bvpMgBpu1b09phjeK//hI2I0FsSEoA6Q2O2J2/H2S8PqwSJbEDUwBV8KmPMIUH+Al8Nw7DArw==
+ b=fsab9EDHfro7Hum3iJedavvkFhxgBJOJv9t/iASt1pb6wVgRaCggBEgIiKO/x8+a+5zx0rDWR9Q30C7OjdUaJ+0gAf3dtF2nC+JdI0JHMVGRbeixh2S7pQJRYRbiyQ8F8qvhS9UuDYSRD4qfHVoEVYZmiqMQ9CO/LymJxU97ZayuCwqYFLnUZkdBdpWxFZznTc+c7n+jl/WzY00ED6qWsZA4Dny+PtgeXlzy/8s3p4ewwuBe1L5EFopJvR0TbzpJQbl8GLP6QS6A+5g3btEUXPmwOhHV33BJET1yC+El5g/fsy/jUCY/jNUnA8ShxHwdsHGyNwM8weNcU5a5Kp8jvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hIWzPI3ONnIJxRBETK4xfoGJ0FO36V0cXGI2QN4fZtM=;
- b=anhSFJs5n8+0uWIMlJFTs84RWAEknEuebUB9Jd0Jedab+gg0V/C6w7ZWOoj+yPZdLtauVf87alj3wrDtkAz9gK/tuEdH8aDRR5Ylp/BliHvkp5wZMc8qHR4q90nrKVhIDNfaV7o9kyUSlV3oQ0w/x3f9mLV68YEn0TOuzhFPGV82jc3KTCSYr64sJnuXB4mRt8ayfUYcEXM5fNm4SXhsgdOCwdi/JJ53rHClYLCNMWZuG/tbnc6hQztFaijmKVNnMb1aHdan1QmcxYz/TJ96fFziHyIoCtoxndMcvkYDmTX3jvOA7T9j0OF7f/2x81Q77pylNONZpp/FgGWTX5HGmQ==
+ bh=OBO5KSsL5d+upj5p72bsK4g6PofaGKsvH5uZ3CmEvmQ=;
+ b=g4A/lMhCehXuPhds7gZ2de6MIU+CkTXYLephwP+i2t61SFKYz/JUyI3GPPiXtptOtYx78VINj50HuniHtrqJ/YuJCfwBJkD0xHrFlT4PdHeI+rfYTomSXtoHia8omC1S4NVOeVtigCYH9dIDpih9XNDkXI5336vLpQq48lu337Vv49faKTFNo+1Ji0ZyV+6s5LmcR4TG79Qxqozck7uhaORi/D2s+oySmrhzuFX20yiSVg3KK4YPQlIexq8s3J6F7T2hyNXRPZSjdhrmv7xI/wBN7HDSMCP5qsjRoP5voTAnivQbCj5ePAyArBHxUiTM972x8HyrtVRv3JQpCm4DLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hIWzPI3ONnIJxRBETK4xfoGJ0FO36V0cXGI2QN4fZtM=;
- b=subTa2xcMebkvZ4SUFBIYvi+n+3UeiN9FG/LQYX4uls07kiQJDASx8WO7VTBFHDbXeYG+BS3BRYvoGy8cxEcFUVZfvGsEDIZYO93ePLnpKk1Oe3MvMsfl6rsOQWCtGiFlIjZdV6PSgNJdZra3wAUYIPxEKjPGh9fyVQaCBl/RNQ=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB4220.namprd12.prod.outlook.com (2603:10b6:5:21d::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.23; Wed, 1 Dec 2021 03:50:38 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef%3]) with mapi id 15.20.4755.011; Wed, 1 Dec 2021
- 03:50:38 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH V2 11/17] drm/amd/pm: correct the usage for
- amdgpu_dpm_dispatch_task()
-Thread-Topic: [PATCH V2 11/17] drm/amd/pm: correct the usage for
- amdgpu_dpm_dispatch_task()
-Thread-Index: AQHX5b4DH+9mKlgyHkaC8bbst/FwbqwcFlsAgADoF1A=
-Date: Wed, 1 Dec 2021 03:50:38 +0000
-Message-ID: <DM6PR12MB2619D5D2F661DEC09E3A5016E4689@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20211130074259.1271965-1-evan.quan@amd.com>
- <20211130074259.1271965-12-evan.quan@amd.com>
- <7405f5fb-1d74-40e1-0d1e-3b5f38c3597c@amd.com>
-In-Reply-To: <7405f5fb-1d74-40e1-0d1e-3b5f38c3597c@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-01T03:50:35Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=b233a35e-f415-4da6-942f-f78ecfa26b3e;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: dkim=none (message not signed)
+ bh=OBO5KSsL5d+upj5p72bsK4g6PofaGKsvH5uZ3CmEvmQ=;
+ b=Ee31nBstT+5PBT/GtTbkAGzCwCZxOilT3GVhvG42+eO+HlFzVAWSoESO3RMjJxE0xPa4DgCrYqSIKx3Cgjb38peR/vR3krOjg102X1m/PhV5brB9dbLb5V9iBT+HqgYmhOBXP83GNCE906vWTH19IZ1xBjoUdVTeSXua38BqmMI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 96bd0b3b-b909-4df3-90e9-08d9b47dbd2e
-x-ms-traffictypediagnostic: DM6PR12MB4220:
-x-microsoft-antispam-prvs: <DM6PR12MB42205369E42083A8C4A27C9BE4689@DM6PR12MB4220.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pwrsAjzKioXuSB7MZTyhM64R43zFYGzhz+Bl064JUWMa/8/OHRSSM6EWPXQD2JT60yHsO+AnjsUk9s5/MWNepuapGDbTlNc8xAGjHDGoaUt5nDBICjFP0CN3mDB927A7NMO33DZAIOMaCttwasIDElGCv3ZrhMx5rEkUJLfn9HiFFB0zL4ufzuevcHaYuXCvL91NmZdQ1GpswDodxOBWNJI3atbMoUfjS+h9P3P42mIvxzBXyMSTQc2BY6gmLTcFgAsAsS7DppGTmu5TQnyPjVOiO4uXIzEuh92iQY/YMkwFr8pjk0c9aCJnsumVnF5Gbv3BwjOP+M8UXG+cqfaiNkyzDEGW316lDSQZKpH57vnwiHvXF8hDjXZWAF7GvTZSzCDxUFXrxzixBZ9Vt+oRWgSzYAK6qIQMfOByDTyeukd77/9LNayCMgviI/JQU8P/ZAQeGNMDN2TCquIg0RPDkjgcZBgcCJn3pVh8lfcVGgJDYMpUoUM+wJN45FIepZXXuuor/8WFOAdo9NtSL6IXPI4DjafDAYLdpqLJ+7eHL0cTHgfrZ2ZZbTAnbqPNW5lR10QJZsVHR422xg/KDznSAkOrzIVmN7tHrY8Qy52Kgxfxqnm3G5EmInwThZ5v7B/0IbzWZSAz1Zr3h6x4aeGmFRu5TOReqRxmfCbAZnA6QfrPRbEtE1k+iiBf4a9ife5zolZH0aWa+uyyZUAnpscruf7URHagXJheYy1ZQVWdUq0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(26005)(2906002)(38070700005)(186003)(508600001)(110136005)(316002)(66556008)(64756008)(66446008)(76116006)(66476007)(8676002)(66946007)(9686003)(8936002)(122000001)(54906003)(33656002)(38100700002)(55016003)(53546011)(6506007)(7696005)(86362001)(4326008)(5660300002)(71200400001)(83380400001)(52536014)(21314003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eDBKeUxXUEdvL2s4cFBqSFl5YkFvN3J4Q0xqZXc4VFFNUUUwZHYxYlFuOXIr?=
- =?utf-8?B?ZXBMdUtPNGxYTVZDcHE1blcyb0RyTTJTYWZIeVFLRnpEZFU0aFhFRDBCME9K?=
- =?utf-8?B?N1BSTjdUUTgyUzRBZzllOUZQMGNCUUF2ekxUMmIvdkhRaDhVdE1kTG1iNTJ4?=
- =?utf-8?B?ODI1d01ubUZUZk5Vc0hzN1ByYktHQUFtcENuZllaMWlhMk5IdjVBQ3hYV2VF?=
- =?utf-8?B?K1hmVi9BaTNIdmc3aHdvRVVGa1NrR3E1VFcxTXlkdnA0SlUxUWtERjhFVTh4?=
- =?utf-8?B?Ni9aL3FhdUdCZWIxYXhSejRyd0VQUE8vV0JmZnJ0SVd0OGFKbjhKcFN5NW13?=
- =?utf-8?B?VWdmQW00T21TUDJQZk4rVnBzejVuNGovT1A4cnMrSXlaQnMwNWxwaGlwVGdy?=
- =?utf-8?B?U0V0Nm1YQzNyb2htRHBJbFRPNXZmcHltWGFMM2hWdEtiUk56Q0FST0M1c0xC?=
- =?utf-8?B?dlFUR3hoZ29wREEwOERsVGVkRUpJVmZvTGQ5QzNERU5wUEJpaUVON1lYNEht?=
- =?utf-8?B?YUNLb0NoTjBIdkhyMlVIQUcvTVlDVFRHdlpoR1c0b2NOLzkyQzRPTjhLTmVX?=
- =?utf-8?B?VVNreGFxRWtrUXNOaUw3WkNVV1ppd25neEw1UWp2MlpsM2wyYk9ZY0lvNkIx?=
- =?utf-8?B?MW5CbUlLVVlsZUVmaGNYUmgrd3hPRC8yZU1rc2NqWmFuQ1E5K2gvVVg2L1Uw?=
- =?utf-8?B?RjdIbTNMK1VWNDhYaWlnU2FBR0h0VnZLUXRQdGtLWmFvSTlBa2dleWQ1VjFS?=
- =?utf-8?B?NnI0Ulk2MHQyYXhkTmQ4Qkh0Z0xabnRNZnUrbGZ0dW1rSEpqSlpQdnZCVUJR?=
- =?utf-8?B?dktETlpXNVBxc1BPOU45eTdBTUtSYXFOc0NYaWZKaXkyNXorc3VBaitBQVJs?=
- =?utf-8?B?Z3ZWQllVSHVrbWdmRjV2b2dWY0JNdzIrUitzVlZDeFozR1lBN05pL1BncStV?=
- =?utf-8?B?S1VFeHFlUDhVTEF2dWg5TG15Tko5R3dlS0VqUms0QXVCelg0Sk1kdDc4UnYx?=
- =?utf-8?B?S25iNFZ2TjUyYWRVOUI0Ny9wTDFzVHQ4dTJ4d08rRFl4cDI4WmJNTE1JTHpE?=
- =?utf-8?B?UXFHNmJrdm0vajVnYnhPd05JRFpSUk90Q1Uwc29kSnhEVkhyWXBUY1VKUzFl?=
- =?utf-8?B?dmM3dmI3enVYNUdCM3lKVnhLdTJDUDRQTzNJRUJidWpjcHBYSWg0MlJTUndw?=
- =?utf-8?B?b1RUSGRZL1BXL1MzNDVNR0tScE5lYWUycHc1R3E1ejFyMWpEeFQxWXBnNlZz?=
- =?utf-8?B?Wmt3NlZwSURkNlJSUUViOXlyMHR0K2c5dk16ZmwxL0hEL0UycmZFdDJIWmNO?=
- =?utf-8?B?bjlwWHBpdmI3MEM4NC9rQmEzVzZZcnQ5UXdGcCtidmNrTzFUdEZaV25ocXdN?=
- =?utf-8?B?bUpNYThINGhtMDhHSjF2NDhXalZlUkNwejB4WWlGaUp4Q3lYV0FTMXJONjVy?=
- =?utf-8?B?bm5ISDIza0o5VW9kYTAxM29yNzFxT3pRTTlUUXQ5MFZER1YwRzlEenJwdXVX?=
- =?utf-8?B?OWt1d1dMQ21uZ1kzRWx5VFBuWW4xU0wzWFdEVGZVZkVhOXRHRGVWSVpJQnhZ?=
- =?utf-8?B?Z2dMaXBnZTlzakw2NDZCU2M0dEQ4dGVpdnZQUVdPTy9LV2p0dWN0Rk83QjBQ?=
- =?utf-8?B?VmdpWjR4bS83a0VsZmJickpKbXFTQk4wNmJ6MWZiSENlNFB4M0h1S2R3Nys1?=
- =?utf-8?B?dVRWMlF1c2JJVUdlRk12L2ZuSmV3NkRjM1lrMFJTa3NQdWVLT1c0SVROaXBh?=
- =?utf-8?B?Y3RpbnhGRkNFQjdCc3hVRkFnSUk2TDQvTCtQRHdFZzIvNk0yenJtUWxxYWZs?=
- =?utf-8?B?TzNkci9hVEFuSThLVUhkMS9RNjJDVlQrb1JHT3ovTU1HdWtBV3p0b2FWR3Nq?=
- =?utf-8?B?TFloVHBjWVcrMUpPMGp4ZTJYL2VQRUZuMCtiUTAxL3pFektSbEFMa0NWQXdK?=
- =?utf-8?B?cEpUSzlNZFFidWRmQnliTkFJRGRzRk8vb3RFVkFubXNBcWxYZDhKTnlOZWYz?=
- =?utf-8?B?TCtoZ1dmZmNxVnhQMHJjNXd3aXVjSGM4MVRCdkJMNWxHNWJ2d2JWTFFYUklj?=
- =?utf-8?B?dE5BdVp3TjlkbnFvRzBwNlBDNjAvb1pOVXRHak9xT1JObmwrWVdGOXNTS2xV?=
- =?utf-8?Q?+bJo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
+ by DM6PR12MB2603.namprd12.prod.outlook.com (2603:10b6:5:49::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.24; Wed, 1 Dec
+ 2021 04:19:45 +0000
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4734.024; Wed, 1 Dec 2021
+ 04:19:45 +0000
+Message-ID: <ffe792f8-f43e-86b0-c9f2-2fda3f5fb73a@amd.com>
+Date: Wed, 1 Dec 2021 09:49:29 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH V2 07/17] drm/amd/pm: create a new holder for those APIs
+ used only by legacy ASICs(si/kv)
+Content-Language: en-US
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20211130074259.1271965-1-evan.quan@amd.com>
+ <20211130074259.1271965-8-evan.quan@amd.com>
+ <ec62e7b6-fe58-36a6-0350-e316be08bd64@amd.com>
+ <DM6PR12MB2619301E194B0222FE5AC881E4689@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <DM6PR12MB2619301E194B0222FE5AC881E4689@DM6PR12MB2619.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0015.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:95::19) To DM6PR12MB3930.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
+Received: from [10.252.81.250] (165.204.159.242) by
+ PN3PR01CA0015.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:95::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.11 via Frontend Transport; Wed, 1 Dec 2021 04:19:41 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 875287ba-af08-4e51-fd05-08d9b481cdc3
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2603:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB260336D7200BB2A39FEA86ED97689@DM6PR12MB2603.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:473;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9NhKmLUNCurdgNSK43PowDML2ZT6yh+bwQgAXEgKaGZ23NuR/dsusjv351k1t4J1exE8ZE+7fnlZTCoyC5YIem/bDBnNfnQB+RlmzkG1kNwmhgFUJQgAwf3/YB4rTr6A7m9bVXyleR7tdgFezeLFYCXTYcS5WJobgyio5Zkv+INUbNWjFGnbXNXZhNXCQe8IOUOtOBbdr21pLwcyPEnRLL/F7lZQYTPUTMTsW+TNmTnCqYnVPUE10iIY+B1JlAy8ZkFLMzFyXrpRpn0VIWhvV6CA7ISU8s+4F0zKXVaFwXIL8x2QGuoAQrNknZCpT4HOyVC5/Knvw+oQW8lJoezytYAN8m/KTRi0ESpEES6rZ0k8Raanx8zs2UwWq3KqUwZguR7eB/W1bxdgNrem+W328tDN3YM7/0sebMNH5/gbj7+DNoilqjyqgpDvnyUG3W1+fTm5kqPYrzUko/D895luPYYDaohXkG7OpkW1c8nCPhgT4YOwjq+ZnWOaRyaRatDDx/EoIHZi7c0Tl3sGoocaowbXt71m5GDvVMI1pTVROO5d0VnIzNOOCPKSUae5eEomKlCMTl2bqXaEcQfykeFL70u2deNVre0o/jJJaIqT2rfnUnyNb6CAgmfjwpDN6ZErRLznlCP9s1HAapS/5NztQlegaFkfoKJ795QZ9PVxdclgAR8YZK7kGZKqelqATI0vr48GL52bp44kIwKHMZXz1Wqw8dm8h2sg7iclyYql9vNf/FbeViS2heLsxljtKypw
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(53546011)(6486002)(66946007)(83380400001)(26005)(19627235002)(66556008)(36756003)(16576012)(54906003)(110136005)(2906002)(316002)(5660300002)(31686004)(6666004)(508600001)(30864003)(8676002)(956004)(4326008)(2616005)(38100700002)(86362001)(31696002)(66476007)(8936002)(45980500001)(43740500002)(579004)(559001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V1BoK0hVTnpRdm5hMW5xRFRMMEFoMEdCb1VQcU92VC9oRmdFUmVRN2lPWjVj?=
+ =?utf-8?B?UGVkMFo1MkdpZVJxNjRDRUppWWxNTW5GZVFPODRzMU1wcHVoeXZxZU82bUMy?=
+ =?utf-8?B?d0VZUGM2Z3d1cGNQa29vb0h2WDZXZVZ4V3NhdkZmbHVKZ3J4VVM5WHFkRjU4?=
+ =?utf-8?B?T3V6UzRxcGxpVnc0QW5NZzdZNjVlK0JjU2xSQk82T2RjSHB2UHlIcFVCVWRB?=
+ =?utf-8?B?OTFRVEdocGtjU1hucVpNdEZCSGdVRy9ZcitIZU9WN3ExYU1ZTjM0Qjc2WkRw?=
+ =?utf-8?B?ajVnRVFTQ2ZnYUJHQWFVR2xsSGxNUFFDYmFOMGFjRHk2bzVxVjk1VExUUUlS?=
+ =?utf-8?B?Q3JyOHNpdnkwemczUmxsSWVLcGkyZjNFWkQ1SVhGVmNFNXpjZHczZnU3Tit4?=
+ =?utf-8?B?eGtUYzZnUlZCdFVqaDlBQ09iL3ZZZWt0R1JOeGh0SUhPTHcyL0xmNHVQa3Zl?=
+ =?utf-8?B?VUc4dVJ2OFNwZ0ZvcWUzRXZlMGJyVnJINEN3MnYyZGYxd2c4SWFaTHhORzJx?=
+ =?utf-8?B?RXo1M0xzZFgwS1hLemV6d0w3V2VzWnkyTHgvYTRqQ3BYOHpPaVBFaVp4UnIy?=
+ =?utf-8?B?ZEtxU1I0bjJRWmhITWJnNjdkTEZrWm1ZYVdJSGQ2bWFMakduWk1HbTViQ0hN?=
+ =?utf-8?B?bm40M3p2ZTVKYi9heENndlJYTUkvWEVuQ2FmZDFoLy95dDN6a0tFZ09Pcms0?=
+ =?utf-8?B?Tnl6UmRqYWFlcUdrd1BtRlVUTThwdzh2Z1R4U1ZmdldWeDBNQ1lrWVlndzdy?=
+ =?utf-8?B?WjlSK0x0U2FQTmN2YzdRalRmN01qZEd5SS9xUHUxY2YrbU5IM1hGYmY4ZWlr?=
+ =?utf-8?B?a1RZbGJaZ1lQdG5nU0tjZlVUWGRFM0hZRXNtdC9Ybm5CbnF0R2hzazgyZUpW?=
+ =?utf-8?B?Q01hOWNOYit6R0pJbnZEQzExWDdZTkR1T2pTS3dnSkNSVjl0TjNjbnI3U3o3?=
+ =?utf-8?B?TVZ4NGZKdC9oOEVKNmI0UEt4Q2NpQnFWRVQ4eFBMQVVjZEJrVGx1UkkwcGV3?=
+ =?utf-8?B?RHMvbTh4WWNoZ2RjY2U5OExXOXY4b3IrQmFqZmhjTER5bzJZdjBoeHc3N3Rp?=
+ =?utf-8?B?M1hraHlJWnRJcHJOcGtKY3Q5TE5wNUVrSU02aVdIV3N6b1BWU2oxMjM3Wkp5?=
+ =?utf-8?B?eTJFWTlZUGZEbVdCTTZPM1c3NWhIYjE5UEQ0cWpPQWFvT0R2R3I2NEpRUjJy?=
+ =?utf-8?B?ZVpSZTFEc2NLTGNVdTg1bklpbzM5VHR1UEl1U2RZeUVJTkIwSDdCWWJBLy8r?=
+ =?utf-8?B?ckFIYWpYcFZQMlZ5ZklNMWE3eFNaQ2xwUmFIMno5aVg5cGN1bW1KbGlpWGFk?=
+ =?utf-8?B?bEQ5ZXVmNVYwM0kyTEVjeTZnVWV5MnI0YlMwdGJKalkwQnBiY3FldVYwendF?=
+ =?utf-8?B?R2VXYmhTNU95OUlndUtENGUxT0dQTTZtMktrcDh1dk5PeW9ETU5rbVBQaUxD?=
+ =?utf-8?B?TS8rRzlkeThJd1R6ajF4a09FYUE4UmpvbGpLRnZFQ0J2dWoraExsZERrUGpl?=
+ =?utf-8?B?WEd2bUhaV0o3cXVselhLbFJVTXZCb09iajZaMVVyZHU2eDRaUXpkUlZwdFhz?=
+ =?utf-8?B?VFZ6WjhlbVdCTmpadE13U0JBMWRpNzM3cFhxR2dCTTRDM1gxdVVYbkEyY0d6?=
+ =?utf-8?B?enBuRGJ2UTd0NGIyNU1yVnlyVjlvemw2N3A2WVhDenRIU2drTjdXMVdZdjU4?=
+ =?utf-8?B?Ky9Bc3d2SG0zZTRhVW45UWN6UTlZYzgwcWxZY3pTVUFzMWxhMkJiV0RFQjRJ?=
+ =?utf-8?B?eEhxNHRIdi9LZXZwRDNWQk1KNzNjVjVEUzdOd0ZsOERydm1PWmJnSkRtdXRI?=
+ =?utf-8?B?ZFVHM2hybjJObWNmdzFCdXB6cS9wM1FxTTJ3Ui85T2RUSDZlSTFrWEVEQWt1?=
+ =?utf-8?B?aGJKTEFyRGpKYnJ3cVcvcndha3o3VGQyNHk4aWluemdTRmxtNW5aNUN3WmFh?=
+ =?utf-8?B?ZlIzdDQwbUVuYkZYRmVuTEpRUXRpVEtQY3FFSldRL3YrZDh6K25yc21MY09Q?=
+ =?utf-8?B?a0F2aHRvREhwQUFaWVRSTWVPeUY4R0grWTZ3S2tyU1g2eWd2cjJKMUF6Znh3?=
+ =?utf-8?B?OWo4aXpJVVo0aHMxWnR1azZyN3dPN09sZ2RETmlSYkVtN2hHRzAwZ1p4d3Ja?=
+ =?utf-8?Q?sTXA=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 875287ba-af08-4e51-fd05-08d9b481cdc3
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96bd0b3b-b909-4df3-90e9-08d9b47dbd2e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2021 03:50:38.5654 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dF2ZqHxMYeh+TPAugw6BoFICWVejDG4tQF7baa+lGkTQ3caUWT+Qc3/R+9ASPKH/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4220
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 04:19:45.4675 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BAtZjXTUxq9aiF6T3odbX6+4VV1QXP9i5kzm0G+OSw4i8MtC5DJD57AEMBFiW7xw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,101 +140,4236 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Feng,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0t
-LS0NCj4gRnJvbTogTGF6YXIsIExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4NCj4gU2VudDogVHVl
-c2RheSwgTm92ZW1iZXIgMzAsIDIwMjEgOTo0OCBQTQ0KPiBUbzogUXVhbiwgRXZhbiA8RXZhbi5R
-dWFuQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hl
-ciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3Rp
-YW4NCj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IEZlbmcsIEtlbm5ldGggPEtlbm5ldGgu
-RmVuZ0BhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIFYyIDExLzE3XSBkcm0vYW1kL3Bt
-OiBjb3JyZWN0IHRoZSB1c2FnZSBmb3INCj4gYW1kZ3B1X2RwbV9kaXNwYXRjaF90YXNrKCkNCj4g
-DQo+IA0KPiANCj4gT24gMTEvMzAvMjAyMSAxOjEyIFBNLCBFdmFuIFF1YW4gd3JvdGU6DQo+ID4g
-V2Ugc2hvdWxkIGF2b2lkIGhhdmluZyBtdWx0aS1mdW5jdGlvbiBBUElzLiBJdCBzaG91bGQgYmUg
-dXAgdG8gdGhlDQo+ID4gY2FsbGVyIHRvIGRldGVybWluZSB3aGVuIG9yIHdoZXRoZXIgdG8gY2Fs
-bCBhbWRncHVfZHBtX2Rpc3BhdGNoX3Rhc2soKS4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEV2
-YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQo+ID4gQ2hhbmdlLUlkOiBJNzhlYzRlYjhjZWI2
-ZTUyNmE0NzM0MTEzZDIxM2QxNWE1ZmJhYThhNA0KPiA+IC0tLQ0KPiA+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9hbWRncHVfZHBtLmMgfCAxOCArKy0tLS0tLS0tLS0tLS0tLS0NCj4gPiAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMgIHwgMjYNCj4gKysrKysrKysrKysrKysr
-KysrKysrKysrLS0NCj4gPiAgIDIgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMTgg
-ZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-bS9hbWRncHVfZHBtLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X2RwbS5j
-DQo+ID4gaW5kZXggYzYyOTllNDA2ODQ4Li44ZjBhZTU4ZjQyOTIgMTAwNjQ0DQo+ID4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9hbWRncHVfZHBtLmMNCj4gPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3BtL2FtZGdwdV9kcG0uYw0KPiA+IEBAIC01NTgsOCArNTU4LDYgQEAgdm9pZCBh
-bWRncHVfZHBtX3NldF9wb3dlcl9zdGF0ZShzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldiwN
-Cj4gPiAgIAkJCQllbnVtIGFtZF9wbV9zdGF0ZV90eXBlIHN0YXRlKQ0KPiA+ICAgew0KPiA+ICAg
-CWFkZXYtPnBtLmRwbS51c2VyX3N0YXRlID0gc3RhdGU7DQo+ID4gLQ0KPiA+IC0JYW1kZ3B1X2Rw
-bV9kaXNwYXRjaF90YXNrKGFkZXYsDQo+IEFNRF9QUF9UQVNLX0VOQUJMRV9VU0VSX1NUQVRFLCAm
-c3RhdGUpOw0KPiA+ICAgfQ0KPiA+DQo+ID4gICBlbnVtIGFtZF9kcG1fZm9yY2VkX2xldmVsDQo+
-IGFtZGdwdV9kcG1fZ2V0X3BlcmZvcm1hbmNlX2xldmVsKHN0cnVjdA0KPiA+IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpIEBAIC03MjcsMTMgKzcyNSw3IEBAIGludA0KPiBhbWRncHVfZHBtX3NldF9zY2xr
-X29kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCB2YWx1ZSkNCj4gPiAgIAlp
-ZiAoIXBwX2Z1bmNzLT5zZXRfc2Nsa19vZCkNCj4gPiAgIAkJcmV0dXJuIC1FT1BOT1RTVVBQOw0K
-PiA+DQo+ID4gLQlwcF9mdW5jcy0+c2V0X3NjbGtfb2QoYWRldi0+cG93ZXJwbGF5LnBwX2hhbmRs
-ZSwgdmFsdWUpOw0KPiA+IC0NCj4gPiAtCWFtZGdwdV9kcG1fZGlzcGF0Y2hfdGFzayhhZGV2LA0K
-PiA+IC0JCQkJIEFNRF9QUF9UQVNLX1JFQURKVVNUX1BPV0VSX1NUQVRFLA0KPiA+IC0JCQkJIE5V
-TEwpOw0KPiA+IC0NCj4gPiAtCXJldHVybiAwOw0KPiA+ICsJcmV0dXJuIHBwX2Z1bmNzLT5zZXRf
-c2Nsa19vZChhZGV2LT5wb3dlcnBsYXkucHBfaGFuZGxlLCB2YWx1ZSk7DQo+ID4gICB9DQo+ID4N
-Cj4gPiAgIGludCBhbWRncHVfZHBtX2dldF9tY2xrX29kKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KSBAQCAtDQo+IDc1MywxMw0KPiA+ICs3NDUsNyBAQCBpbnQgYW1kZ3B1X2RwbV9zZXRfbWNs
-a19vZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gdWludDMyX3QgdmFsdWUpDQo+ID4g
-ICAJaWYgKCFwcF9mdW5jcy0+c2V0X21jbGtfb2QpDQo+ID4gICAJCXJldHVybiAtRU9QTk9UU1VQ
-UDsNCj4gPg0KPiA+IC0JcHBfZnVuY3MtPnNldF9tY2xrX29kKGFkZXYtPnBvd2VycGxheS5wcF9o
-YW5kbGUsIHZhbHVlKTsNCj4gPiAtDQo+ID4gLQlhbWRncHVfZHBtX2Rpc3BhdGNoX3Rhc2soYWRl
-diwNCj4gPiAtCQkJCSBBTURfUFBfVEFTS19SRUFESlVTVF9QT1dFUl9TVEFURSwNCj4gPiAtCQkJ
-CSBOVUxMKTsNCj4gPiAtDQo+ID4gLQlyZXR1cm4gMDsNCj4gPiArCXJldHVybiBwcF9mdW5jcy0+
-c2V0X21jbGtfb2QoYWRldi0+cG93ZXJwbGF5LnBwX2hhbmRsZSwgdmFsdWUpOw0KPiA+ICAgfQ0K
-PiA+DQo+ID4gICBpbnQgYW1kZ3B1X2RwbV9nZXRfcG93ZXJfcHJvZmlsZV9tb2RlKHN0cnVjdCBh
-bWRncHVfZGV2aWNlDQo+ICphZGV2LA0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3BtL2FtZGdwdV9wbS5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9w
-bS5jDQo+ID4gaW5kZXggZmEyZjRlMTFlOTRlLi44OWUxMTM0ZDY2MGYgMTAwNjQ0DQo+ID4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9hbWRncHVfcG0uYw0KPiA+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMNCj4gPiBAQCAtMTg3LDYgKzE4NywxMCBAQCBzdGF0
-aWMgc3NpemVfdA0KPiBhbWRncHVfc2V0X3Bvd2VyX2RwbV9zdGF0ZShzdHJ1Y3QNCj4gPiBkZXZp
-Y2UgKmRldiwNCj4gPg0KPiA+ICAgCWFtZGdwdV9kcG1fc2V0X3Bvd2VyX3N0YXRlKGFkZXYsIHN0
-YXRlKTsNCj4gPg0KPiA+ICsJYW1kZ3B1X2RwbV9kaXNwYXRjaF90YXNrKGFkZXYsDQo+ID4gKwkJ
-CQkgQU1EX1BQX1RBU0tfRU5BQkxFX1VTRVJfU1RBVEUsDQo+ID4gKwkJCQkgJnN0YXRlKTsNCj4g
-PiArDQo+IA0KPiBUaGlzIGlzIGp1c3QgdGhlIG9wcG9zaXRlIG9mIHdoYXQgaGFzIGJlZW4gZG9u
-ZSBzbyBmYXIuIFRoZSBpZGVhIGlzIHRvIGtlZXAgdGhlDQo+IGxvZ2ljIGluc2lkZSBkcG1fKiBj
-YWxscyBhbmQgbm90IHRvIGtlZXAgdGhlIGxvZ2ljIGluIGFtZGdwdV9wbS4gVGhpcyBkb2VzDQo+
-IHRoZSByZXZlcnNlLiBJIGd1ZXNzIHRoaXMgcGF0Y2ggY2FuIGJlIGRyb3BwZWQuDQpbUXVhbiwg
-RXZhbl0gVGhlIHNpdHVhdGlvbiBoZXJlIGlzIA0KMS4gaW4gc29tZSBjYXNlcyB0aGUgYW1kZ3B1
-X2RwbV9kaXNwYXRjaF90YXNrKCkgaXMgaW5jbHVkZWQvaW50ZWdyYXRlZC4gRS5nLiBhbWRncHVf
-ZHBtX3NldF9tY2xrX29kKCkgYW1kZ3B1X2RwbV9zZXRfc2Nsa19vZA0KMi4gaW4gb3RoZXIgY2Fz
-ZXMgdGhlIGFtZGdwdV9kcG1fZGlzcGF0Y2hfdGFzaygpIGlzIGNhbGxlZCBzZXBhcmF0ZWx5IC4g
-RS5nLiBieSBhbWRncHVfc2V0X3BwX2ZvcmNlX3N0YXRlKCkgYW5kIGFtZGdwdV9zZXRfcHBfb2Rf
-Y2xrX3ZvbHRhZ2UoKSBmcm9tIGFtZGdwdV9wbS5jIA0KVGhleSB3aWxsIG1ha2UgdGhlIHRoaW5n
-IHRoYXQgYWRkcyBhIHVuaWZpZWQgbG9jayBwcm90ZWN0aW9uIG9uIHRob3NlIGFtZGdwdV9kcG1f
-eHh4KCkgQVBJcyB0cmlja3kuIFRvIHJlc29sdmUgdGhhdCwgd2UgZWl0aGVyDQoxLiBzZXBhcmF0
-ZSB0aGUgYW1kZ3B1X2RwbV9kaXNwYXRjaF90YXNrKCkgZnJvbSB0aG9zZSBBUElzKGFtZGdwdV9k
-cG1fc2V0X21jbGtfb2QoKSBhbWRncHVfZHBtX3NldF9zY2xrX29kKCkpDQoyLiB0cnkgdG8gZ2V0
-IGFtZGdwdV9kcG1fZGlzcGF0Y2hfdGFzaygpIGluY2x1ZGVkIGFsc28gaW4gYW1kZ3B1X3NldF9w
-cF9mb3JjZV9zdGF0ZSgpIGFuZCBhbWRncHVfc2V0X3BwX29kX2Nsa192b2x0YWdlKCkNCkFmdGVy
-IHNvbWUgY29uc2lkZXJhdGlvbnMsIEkgYmVsaWV2ZSAxIGlzIHRoZSBtb3JlIHByb3BlciB3YXku
-IEFzIHRoZSBjdXJyZW50IGltcGxlbWVudGF0aW9uIG9mIGFtZGdwdV9kcG1fc2V0X21jbGtfb2Qo
-KSByZWFsbHkgY29tYmluZXMgdHdvIGxvZ2ljcyBzZXBhcmF0ZWx5IHRoaW5ncyB0b2dldGhlci4N
-ClRoZSBhbWRncHVfZHBtX2Rpc3BhdGNoX3Rhc2soKSBzaG91bGQgYmUgc3BsaXR0ZWQgb3V0Lg0K
-DQpCUg0KRXZhbg0KPiANCj4gVGhhbmtzLA0KPiBMaWpvDQo+IA0KPiA+ICAgCXBtX3J1bnRpbWVf
-bWFya19sYXN0X2J1c3koZGRldi0+ZGV2KTsNCj4gPiAgIAlwbV9ydW50aW1lX3B1dF9hdXRvc3Vz
-cGVuZChkZGV2LT5kZXYpOw0KPiA+DQo+ID4gQEAgLTEyNzgsNyArMTI4MiwxNiBAQCBzdGF0aWMg
-c3NpemVfdCBhbWRncHVfc2V0X3BwX3NjbGtfb2Qoc3RydWN0DQo+IGRldmljZSAqZGV2LA0KPiA+
-ICAgCQlyZXR1cm4gcmV0Ow0KPiA+ICAgCX0NCj4gPg0KPiA+IC0JYW1kZ3B1X2RwbV9zZXRfc2Ns
-a19vZChhZGV2LCAodWludDMyX3QpdmFsdWUpOw0KPiA+ICsJcmV0ID0gYW1kZ3B1X2RwbV9zZXRf
-c2Nsa19vZChhZGV2LCAodWludDMyX3QpdmFsdWUpOw0KPiA+ICsJaWYgKHJldCkgew0KPiA+ICsJ
-CXBtX3J1bnRpbWVfbWFya19sYXN0X2J1c3koZGRldi0+ZGV2KTsNCj4gPiArCQlwbV9ydW50aW1l
-X3B1dF9hdXRvc3VzcGVuZChkZGV2LT5kZXYpOw0KPiA+ICsJCXJldHVybiByZXQ7DQo+ID4gKwl9
-DQo+ID4gKw0KPiA+ICsJYW1kZ3B1X2RwbV9kaXNwYXRjaF90YXNrKGFkZXYsDQo+ID4gKwkJCQkg
-QU1EX1BQX1RBU0tfUkVBREpVU1RfUE9XRVJfU1RBVEUsDQo+ID4gKwkJCQkgTlVMTCk7DQo+ID4N
-Cj4gPiAgIAlwbV9ydW50aW1lX21hcmtfbGFzdF9idXN5KGRkZXYtPmRldik7DQo+ID4gICAJcG1f
-cnVudGltZV9wdXRfYXV0b3N1c3BlbmQoZGRldi0+ZGV2KTsNCj4gPiBAQCAtMTM0MCw3ICsxMzUz
-LDE2IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9zZXRfcHBfbWNsa19vZChzdHJ1Y3QNCj4gZGV2
-aWNlICpkZXYsDQo+ID4gICAJCXJldHVybiByZXQ7DQo+ID4gICAJfQ0KPiA+DQo+ID4gLQlhbWRn
-cHVfZHBtX3NldF9tY2xrX29kKGFkZXYsICh1aW50MzJfdCl2YWx1ZSk7DQo+ID4gKwlyZXQgPSBh
-bWRncHVfZHBtX3NldF9tY2xrX29kKGFkZXYsICh1aW50MzJfdCl2YWx1ZSk7DQo+ID4gKwlpZiAo
-cmV0KSB7DQo+ID4gKwkJcG1fcnVudGltZV9tYXJrX2xhc3RfYnVzeShkZGV2LT5kZXYpOw0KPiA+
-ICsJCXBtX3J1bnRpbWVfcHV0X2F1dG9zdXNwZW5kKGRkZXYtPmRldik7DQo+ID4gKwkJcmV0dXJu
-IHJldDsNCj4gPiArCX0NCj4gPiArDQo+ID4gKwlhbWRncHVfZHBtX2Rpc3BhdGNoX3Rhc2soYWRl
-diwNCj4gPiArCQkJCSBBTURfUFBfVEFTS19SRUFESlVTVF9QT1dFUl9TVEFURSwNCj4gPiArCQkJ
-CSBOVUxMKTsNCj4gPg0KPiA+ICAgCXBtX3J1bnRpbWVfbWFya19sYXN0X2J1c3koZGRldi0+ZGV2
-KTsNCj4gPiAgIAlwbV9ydW50aW1lX3B1dF9hdXRvc3VzcGVuZChkZGV2LT5kZXYpOw0KPiA+DQo=
+
+
+On 12/1/2021 8:43 AM, Quan, Evan wrote:
+> [AMD Official Use Only]
+> 
+> 
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Tuesday, November 30, 2021 9:21 PM
+>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+>> Subject: Re: [PATCH V2 07/17] drm/amd/pm: create a new holder for those
+>> APIs used only by legacy ASICs(si/kv)
+>>
+>>
+>>
+>> On 11/30/2021 1:12 PM, Evan Quan wrote:
+>>> Those APIs are used only by legacy ASICs(si/kv). They cannot be
+>>> shared by other ASICs. So, we create a new holder for them.
+>>>
+>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
+>>> Change-Id: I555dfa37e783a267b1d3b3a7db5c87fcc3f1556f
+>>> --
+>>> v1->v2:
+>>>     - move other APIs used by si/kv in amdgpu_atombios.c to the new
+>>>       holder also(Alex)
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  421 -----
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h  |   30 -
+>>>    .../gpu/drm/amd/include/kgd_pp_interface.h    |    1 +
+>>>    drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 1008 +-----------
+>>>    drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |   15 -
+>>>    drivers/gpu/drm/amd/pm/powerplay/Makefile     |    2 +-
+>>>    drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c     |    2 +
+>>>    drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c | 1453
+>> +++++++++++++++++
+>>>    drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h |   70 +
+>>>    drivers/gpu/drm/amd/pm/powerplay/si_dpm.c     |    2 +
+>>>    10 files changed, 1534 insertions(+), 1470 deletions(-)
+>>>    create mode 100644 drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
+>>>    create mode 100644 drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>>> index 12a6b1c99c93..f2e447212e62 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>>> @@ -1083,427 +1083,6 @@ int
+>> amdgpu_atombios_get_clock_dividers(struct amdgpu_device *adev,
+>>>    	return 0;
+>>>    }
+>>>
+>>> -int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device
+>> *adev,
+>>> -					    u32 clock,
+>>> -					    bool strobe_mode,
+>>> -					    struct atom_mpll_param
+>> *mpll_param)
+>>> -{
+>>> -	COMPUTE_MEMORY_CLOCK_PARAM_PARAMETERS_V2_1 args;
+>>> -	int index = GetIndexIntoMasterTable(COMMAND,
+>> ComputeMemoryClockParam);
+>>> -	u8 frev, crev;
+>>> -
+>>> -	memset(&args, 0, sizeof(args));
+>>> -	memset(mpll_param, 0, sizeof(struct atom_mpll_param));
+>>> -
+>>> -	if (!amdgpu_atom_parse_cmd_header(adev-
+>>> mode_info.atom_context, index, &frev, &crev))
+>>> -		return -EINVAL;
+>>> -
+>>> -	switch (frev) {
+>>> -	case 2:
+>>> -		switch (crev) {
+>>> -		case 1:
+>>> -			/* SI */
+>>> -			args.ulClock = cpu_to_le32(clock);	/* 10 khz */
+>>> -			args.ucInputFlag = 0;
+>>> -			if (strobe_mode)
+>>> -				args.ucInputFlag |=
+>> MPLL_INPUT_FLAG_STROBE_MODE_EN;
+>>> -
+>>> -			amdgpu_atom_execute_table(adev-
+>>> mode_info.atom_context, index, (uint32_t *)&args);
+>>> -
+>>> -			mpll_param->clkfrac =
+>> le16_to_cpu(args.ulFbDiv.usFbDivFrac);
+>>> -			mpll_param->clkf =
+>> le16_to_cpu(args.ulFbDiv.usFbDiv);
+>>> -			mpll_param->post_div = args.ucPostDiv;
+>>> -			mpll_param->dll_speed = args.ucDllSpeed;
+>>> -			mpll_param->bwcntl = args.ucBWCntl;
+>>> -			mpll_param->vco_mode =
+>>> -				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_VCO_MODE_MASK);
+>>> -			mpll_param->yclk_sel =
+>>> -				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_BYPASS_DQ_PLL) ? 1 : 0;
+>>> -			mpll_param->qdr =
+>>> -				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_QDR_ENABLE) ? 1 : 0;
+>>> -			mpll_param->half_rate =
+>>> -				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_AD_HALF_RATE) ? 1 : 0;
+>>> -			break;
+>>> -		default:
+>>> -			return -EINVAL;
+>>> -		}
+>>> -		break;
+>>> -	default:
+>>> -		return -EINVAL;
+>>> -	}
+>>> -	return 0;
+>>> -}
+>>> -
+>>> -void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device
+>> *adev,
+>>> -					     u32 eng_clock, u32 mem_clock)
+>>> -{
+>>> -	SET_ENGINE_CLOCK_PS_ALLOCATION args;
+>>> -	int index = GetIndexIntoMasterTable(COMMAND,
+>> DynamicMemorySettings);
+>>> -	u32 tmp;
+>>> -
+>>> -	memset(&args, 0, sizeof(args));
+>>> -
+>>> -	tmp = eng_clock & SET_CLOCK_FREQ_MASK;
+>>> -	tmp |= (COMPUTE_ENGINE_PLL_PARAM << 24);
+>>> -
+>>> -	args.ulTargetEngineClock = cpu_to_le32(tmp);
+>>> -	if (mem_clock)
+>>> -		args.sReserved.ulClock = cpu_to_le32(mem_clock &
+>> SET_CLOCK_FREQ_MASK);
+>>> -
+>>> -	amdgpu_atom_execute_table(adev->mode_info.atom_context,
+>> index, (uint32_t *)&args);
+>>> -}
+>>> -
+>>> -void amdgpu_atombios_get_default_voltages(struct amdgpu_device
+>> *adev,
+>>> -					  u16 *vddc, u16 *vddci, u16 *mvdd)
+>>> -{
+>>> -	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> -	int index = GetIndexIntoMasterTable(DATA, FirmwareInfo);
+>>> -	u8 frev, crev;
+>>> -	u16 data_offset;
+>>> -	union firmware_info *firmware_info;
+>>> -
+>>> -	*vddc = 0;
+>>> -	*vddci = 0;
+>>> -	*mvdd = 0;
+>>> -
+>>> -	if (amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> -				   &frev, &crev, &data_offset)) {
+>>> -		firmware_info =
+>>> -			(union firmware_info *)(mode_info->atom_context-
+>>> bios +
+>>> -						data_offset);
+>>> -		*vddc = le16_to_cpu(firmware_info-
+>>> info_14.usBootUpVDDCVoltage);
+>>> -		if ((frev == 2) && (crev >= 2)) {
+>>> -			*vddci = le16_to_cpu(firmware_info-
+>>> info_22.usBootUpVDDCIVoltage);
+>>> -			*mvdd = le16_to_cpu(firmware_info-
+>>> info_22.usBootUpMVDDCVoltage);
+>>> -		}
+>>> -	}
+>>> -}
+>>> -
+>>> -union set_voltage {
+>>> -	struct _SET_VOLTAGE_PS_ALLOCATION alloc;
+>>> -	struct _SET_VOLTAGE_PARAMETERS v1;
+>>> -	struct _SET_VOLTAGE_PARAMETERS_V2 v2;
+>>> -	struct _SET_VOLTAGE_PARAMETERS_V1_3 v3;
+>>> -};
+>>> -
+>>> -int amdgpu_atombios_get_max_vddc(struct amdgpu_device *adev, u8
+>> voltage_type,
+>>> -			     u16 voltage_id, u16 *voltage)
+>>> -{
+>>> -	union set_voltage args;
+>>> -	int index = GetIndexIntoMasterTable(COMMAND, SetVoltage);
+>>> -	u8 frev, crev;
+>>> -
+>>> -	if (!amdgpu_atom_parse_cmd_header(adev-
+>>> mode_info.atom_context, index, &frev, &crev))
+>>> -		return -EINVAL;
+>>> -
+>>> -	switch (crev) {
+>>> -	case 1:
+>>> -		return -EINVAL;
+>>> -	case 2:
+>>> -		args.v2.ucVoltageType =
+>> SET_VOLTAGE_GET_MAX_VOLTAGE;
+>>> -		args.v2.ucVoltageMode = 0;
+>>> -		args.v2.usVoltageLevel = 0;
+>>> -
+>>> -		amdgpu_atom_execute_table(adev-
+>>> mode_info.atom_context, index, (uint32_t *)&args);
+>>> -
+>>> -		*voltage = le16_to_cpu(args.v2.usVoltageLevel);
+>>> -		break;
+>>> -	case 3:
+>>> -		args.v3.ucVoltageType = voltage_type;
+>>> -		args.v3.ucVoltageMode = ATOM_GET_VOLTAGE_LEVEL;
+>>> -		args.v3.usVoltageLevel = cpu_to_le16(voltage_id);
+>>> -
+>>> -		amdgpu_atom_execute_table(adev-
+>>> mode_info.atom_context, index, (uint32_t *)&args);
+>>> -
+>>> -		*voltage = le16_to_cpu(args.v3.usVoltageLevel);
+>>> -		break;
+>>> -	default:
+>>> -		DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+>>> -		return -EINVAL;
+>>> -	}
+>>> -
+>>> -	return 0;
+>>> -}
+>>> -
+>>> -int amdgpu_atombios_get_leakage_vddc_based_on_leakage_idx(struct
+>> amdgpu_device *adev,
+>>> -						      u16 *voltage,
+>>> -						      u16 leakage_idx)
+>>> -{
+>>> -	return amdgpu_atombios_get_max_vddc(adev,
+>> VOLTAGE_TYPE_VDDC, leakage_idx, voltage);
+>>> -}
+>>> -
+>>> -union voltage_object_info {
+>>> -	struct _ATOM_VOLTAGE_OBJECT_INFO v1;
+>>> -	struct _ATOM_VOLTAGE_OBJECT_INFO_V2 v2;
+>>> -	struct _ATOM_VOLTAGE_OBJECT_INFO_V3_1 v3;
+>>> -};
+>>> -
+>>> -union voltage_object {
+>>> -	struct _ATOM_VOLTAGE_OBJECT v1;
+>>> -	struct _ATOM_VOLTAGE_OBJECT_V2 v2;
+>>> -	union _ATOM_VOLTAGE_OBJECT_V3 v3;
+>>> -};
+>>> -
+>>> -
+>>> -static ATOM_VOLTAGE_OBJECT_V3
+>> *amdgpu_atombios_lookup_voltage_object_v3(ATOM_VOLTAGE_OBJECT_I
+>> NFO_V3_1 *v3,
+>>> -									u8
+>> voltage_type, u8 voltage_mode)
+>>> -{
+>>> -	u32 size = le16_to_cpu(v3->sHeader.usStructureSize);
+>>> -	u32 offset = offsetof(ATOM_VOLTAGE_OBJECT_INFO_V3_1,
+>> asVoltageObj[0]);
+>>> -	u8 *start = (u8 *)v3;
+>>> -
+>>> -	while (offset < size) {
+>>> -		ATOM_VOLTAGE_OBJECT_V3 *vo =
+>> (ATOM_VOLTAGE_OBJECT_V3 *)(start + offset);
+>>> -		if ((vo->asGpioVoltageObj.sHeader.ucVoltageType ==
+>> voltage_type) &&
+>>> -		    (vo->asGpioVoltageObj.sHeader.ucVoltageMode ==
+>> voltage_mode))
+>>> -			return vo;
+>>> -		offset += le16_to_cpu(vo-
+>>> asGpioVoltageObj.sHeader.usSize);
+>>> -	}
+>>> -	return NULL;
+>>> -}
+>>> -
+>>> -int amdgpu_atombios_get_svi2_info(struct amdgpu_device *adev,
+>>> -			      u8 voltage_type,
+>>> -			      u8 *svd_gpio_id, u8 *svc_gpio_id)
+>>> -{
+>>> -	int index = GetIndexIntoMasterTable(DATA, VoltageObjectInfo);
+>>> -	u8 frev, crev;
+>>> -	u16 data_offset, size;
+>>> -	union voltage_object_info *voltage_info;
+>>> -	union voltage_object *voltage_object = NULL;
+>>> -
+>>> -	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> -				   &frev, &crev, &data_offset)) {
+>>> -		voltage_info = (union voltage_object_info *)
+>>> -			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> -
+>>> -		switch (frev) {
+>>> -		case 3:
+>>> -			switch (crev) {
+>>> -			case 1:
+>>> -				voltage_object = (union voltage_object *)
+>>> -
+>> 	amdgpu_atombios_lookup_voltage_object_v3(&voltage_info->v3,
+>>> -
+>> voltage_type,
+>>> -
+>> VOLTAGE_OBJ_SVID2);
+>>> -				if (voltage_object) {
+>>> -					*svd_gpio_id = voltage_object-
+>>> v3.asSVID2Obj.ucSVDGpioId;
+>>> -					*svc_gpio_id = voltage_object-
+>>> v3.asSVID2Obj.ucSVCGpioId;
+>>> -				} else {
+>>> -					return -EINVAL;
+>>> -				}
+>>> -				break;
+>>> -			default:
+>>> -				DRM_ERROR("unknown voltage object
+>> table\n");
+>>> -				return -EINVAL;
+>>> -			}
+>>> -			break;
+>>> -		default:
+>>> -			DRM_ERROR("unknown voltage object table\n");
+>>> -			return -EINVAL;
+>>> -		}
+>>> -
+>>> -	}
+>>> -	return 0;
+>>> -}
+>>> -
+>>> -bool
+>>> -amdgpu_atombios_is_voltage_gpio(struct amdgpu_device *adev,
+>>> -				u8 voltage_type, u8 voltage_mode)
+>>> -{
+>>> -	int index = GetIndexIntoMasterTable(DATA, VoltageObjectInfo);
+>>> -	u8 frev, crev;
+>>> -	u16 data_offset, size;
+>>> -	union voltage_object_info *voltage_info;
+>>> -
+>>> -	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> -				   &frev, &crev, &data_offset)) {
+>>> -		voltage_info = (union voltage_object_info *)
+>>> -			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> -
+>>> -		switch (frev) {
+>>> -		case 3:
+>>> -			switch (crev) {
+>>> -			case 1:
+>>> -				if
+>> (amdgpu_atombios_lookup_voltage_object_v3(&voltage_info->v3,
+>>> -
+>> voltage_type, voltage_mode))
+>>> -					return true;
+>>> -				break;
+>>> -			default:
+>>> -				DRM_ERROR("unknown voltage object
+>> table\n");
+>>> -				return false;
+>>> -			}
+>>> -			break;
+>>> -		default:
+>>> -			DRM_ERROR("unknown voltage object table\n");
+>>> -			return false;
+>>> -		}
+>>> -
+>>> -	}
+>>> -	return false;
+>>> -}
+>>> -
+>>> -int amdgpu_atombios_get_voltage_table(struct amdgpu_device *adev,
+>>> -				      u8 voltage_type, u8 voltage_mode,
+>>> -				      struct atom_voltage_table *voltage_table)
+>>> -{
+>>> -	int index = GetIndexIntoMasterTable(DATA, VoltageObjectInfo);
+>>> -	u8 frev, crev;
+>>> -	u16 data_offset, size;
+>>> -	int i;
+>>> -	union voltage_object_info *voltage_info;
+>>> -	union voltage_object *voltage_object = NULL;
+>>> -
+>>> -	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> -				   &frev, &crev, &data_offset)) {
+>>> -		voltage_info = (union voltage_object_info *)
+>>> -			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> -
+>>> -		switch (frev) {
+>>> -		case 3:
+>>> -			switch (crev) {
+>>> -			case 1:
+>>> -				voltage_object = (union voltage_object *)
+>>> -
+>> 	amdgpu_atombios_lookup_voltage_object_v3(&voltage_info->v3,
+>>> -
+>> voltage_type, voltage_mode);
+>>> -				if (voltage_object) {
+>>> -					ATOM_GPIO_VOLTAGE_OBJECT_V3
+>> *gpio =
+>>> -						&voltage_object-
+>>> v3.asGpioVoltageObj;
+>>> -					VOLTAGE_LUT_ENTRY_V2 *lut;
+>>> -					if (gpio->ucGpioEntryNum >
+>> MAX_VOLTAGE_ENTRIES)
+>>> -						return -EINVAL;
+>>> -					lut = &gpio->asVolGpioLut[0];
+>>> -					for (i = 0; i < gpio->ucGpioEntryNum;
+>> i++) {
+>>> -						voltage_table-
+>>> entries[i].value =
+>>> -							le16_to_cpu(lut-
+>>> usVoltageValue);
+>>> -						voltage_table-
+>>> entries[i].smio_low =
+>>> -							le32_to_cpu(lut-
+>>> ulVoltageId);
+>>> -						lut =
+>> (VOLTAGE_LUT_ENTRY_V2 *)
+>>> -							((u8 *)lut +
+>> sizeof(VOLTAGE_LUT_ENTRY_V2));
+>>> -					}
+>>> -					voltage_table->mask_low =
+>> le32_to_cpu(gpio->ulGpioMaskVal);
+>>> -					voltage_table->count = gpio-
+>>> ucGpioEntryNum;
+>>> -					voltage_table->phase_delay = gpio-
+>>> ucPhaseDelay;
+>>> -					return 0;
+>>> -				}
+>>> -				break;
+>>> -			default:
+>>> -				DRM_ERROR("unknown voltage object
+>> table\n");
+>>> -				return -EINVAL;
+>>> -			}
+>>> -			break;
+>>> -		default:
+>>> -			DRM_ERROR("unknown voltage object table\n");
+>>> -			return -EINVAL;
+>>> -		}
+>>> -	}
+>>> -	return -EINVAL;
+>>> -}
+>>> -
+>>> -union vram_info {
+>>> -	struct _ATOM_VRAM_INFO_V3 v1_3;
+>>> -	struct _ATOM_VRAM_INFO_V4 v1_4;
+>>> -	struct _ATOM_VRAM_INFO_HEADER_V2_1 v2_1;
+>>> -};
+>>> -
+>>> -#define MEM_ID_MASK           0xff000000
+>>> -#define MEM_ID_SHIFT          24
+>>> -#define CLOCK_RANGE_MASK      0x00ffffff
+>>> -#define CLOCK_RANGE_SHIFT     0
+>>> -#define LOW_NIBBLE_MASK       0xf
+>>> -#define DATA_EQU_PREV         0
+>>> -#define DATA_FROM_TABLE       4
+>>> -
+>>> -int amdgpu_atombios_init_mc_reg_table(struct amdgpu_device *adev,
+>>> -				      u8 module_index,
+>>> -				      struct atom_mc_reg_table *reg_table)
+>>> -{
+>>> -	int index = GetIndexIntoMasterTable(DATA, VRAM_Info);
+>>> -	u8 frev, crev, num_entries, t_mem_id, num_ranges = 0;
+>>> -	u32 i = 0, j;
+>>> -	u16 data_offset, size;
+>>> -	union vram_info *vram_info;
+>>> -
+>>> -	memset(reg_table, 0, sizeof(struct atom_mc_reg_table));
+>>> -
+>>> -	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> -				   &frev, &crev, &data_offset)) {
+>>> -		vram_info = (union vram_info *)
+>>> -			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> -		switch (frev) {
+>>> -		case 1:
+>>> -			DRM_ERROR("old table version %d, %d\n", frev,
+>> crev);
+>>> -			return -EINVAL;
+>>> -		case 2:
+>>> -			switch (crev) {
+>>> -			case 1:
+>>> -				if (module_index < vram_info-
+>>> v2_1.ucNumOfVRAMModule) {
+>>> -					ATOM_INIT_REG_BLOCK *reg_block
+>> =
+>>> -						(ATOM_INIT_REG_BLOCK *)
+>>> -						((u8 *)vram_info +
+>> le16_to_cpu(vram_info->v2_1.usMemClkPatchTblOffset));
+>>> -
+>> 	ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data =
+>>> -
+>> 	(ATOM_MEMORY_SETTING_DATA_BLOCK *)
+>>> -						((u8 *)reg_block + (2 *
+>> sizeof(u16)) +
+>>> -						 le16_to_cpu(reg_block-
+>>> usRegIndexTblSize));
+>>> -					ATOM_INIT_REG_INDEX_FORMAT
+>> *format = &reg_block->asRegIndexBuf[0];
+>>> -					num_entries =
+>> (u8)((le16_to_cpu(reg_block->usRegIndexTblSize)) /
+>>> -
+>> sizeof(ATOM_INIT_REG_INDEX_FORMAT)) - 1;
+>>> -					if (num_entries >
+>> VBIOS_MC_REGISTER_ARRAY_SIZE)
+>>> -						return -EINVAL;
+>>> -					while (i < num_entries) {
+>>> -						if (format-
+>>> ucPreRegDataLength & ACCESS_PLACEHOLDER)
+>>> -							break;
+>>> -						reg_table-
+>>> mc_reg_address[i].s1 =
+>>> -
+>> 	(u16)(le16_to_cpu(format->usRegIndex));
+>>> -						reg_table-
+>>> mc_reg_address[i].pre_reg_data =
+>>> -							(u8)(format-
+>>> ucPreRegDataLength);
+>>> -						i++;
+>>> -						format =
+>> (ATOM_INIT_REG_INDEX_FORMAT *)
+>>> -							((u8 *)format +
+>> sizeof(ATOM_INIT_REG_INDEX_FORMAT));
+>>> -					}
+>>> -					reg_table->last = i;
+>>> -					while ((le32_to_cpu(*(u32
+>> *)reg_data) != END_OF_REG_DATA_BLOCK) &&
+>>> -					       (num_ranges <
+>> VBIOS_MAX_AC_TIMING_ENTRIES)) {
+>>> -						t_mem_id =
+>> (u8)((le32_to_cpu(*(u32 *)reg_data) & MEM_ID_MASK)
+>>> -								>>
+>> MEM_ID_SHIFT);
+>>> -						if (module_index ==
+>> t_mem_id) {
+>>> -							reg_table-
+>>> mc_reg_table_entry[num_ranges].mclk_max =
+>>> -
+>> 	(u32)((le32_to_cpu(*(u32 *)reg_data) & CLOCK_RANGE_MASK)
+>>> -								      >>
+>> CLOCK_RANGE_SHIFT);
+>>> -							for (i = 0, j = 1; i <
+>> reg_table->last; i++) {
+>>> -								if ((reg_table-
+>>> mc_reg_address[i].pre_reg_data & LOW_NIBBLE_MASK) ==
+>> DATA_FROM_TABLE) {
+>>> -
+>> 	reg_table->mc_reg_table_entry[num_ranges].mc_data[i] =
+>>> -
+>> 	(u32)le32_to_cpu(*((u32 *)reg_data + j));
+>>> -									j++;
+>>> -								} else if
+>> ((reg_table->mc_reg_address[i].pre_reg_data & LOW_NIBBLE_MASK) ==
+>> DATA_EQU_PREV) {
+>>> -
+>> 	reg_table->mc_reg_table_entry[num_ranges].mc_data[i] =
+>>> -
+>> 	reg_table->mc_reg_table_entry[num_ranges].mc_data[i - 1];
+>>> -								}
+>>> -							}
+>>> -							num_ranges++;
+>>> -						}
+>>> -						reg_data =
+>> (ATOM_MEMORY_SETTING_DATA_BLOCK *)
+>>> -							((u8 *)reg_data +
+>> le16_to_cpu(reg_block->usRegDataBlkSize));
+>>> -					}
+>>> -					if (le32_to_cpu(*(u32 *)reg_data) !=
+>> END_OF_REG_DATA_BLOCK)
+>>> -						return -EINVAL;
+>>> -					reg_table->num_entries =
+>> num_ranges;
+>>> -				} else
+>>> -					return -EINVAL;
+>>> -				break;
+>>> -			default:
+>>> -				DRM_ERROR("Unknown table
+>> version %d, %d\n", frev, crev);
+>>> -				return -EINVAL;
+>>> -			}
+>>> -			break;
+>>> -		default:
+>>> -			DRM_ERROR("Unknown table version %d, %d\n",
+>> frev, crev);
+>>> -			return -EINVAL;
+>>> -		}
+>>> -		return 0;
+>>> -	}
+>>> -	return -EINVAL;
+>>> -}
+>>> -
+>>>    bool amdgpu_atombios_has_gpu_virtualization_table(struct
+>> amdgpu_device *adev)
+>>>    {
+>>>    	int index = GetIndexIntoMasterTable(DATA, GPUVirtualizationInfo);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+>>> index 27e74b1fc260..cb5649298dcb 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+>>> @@ -160,26 +160,6 @@ int amdgpu_atombios_get_clock_dividers(struct
+>> amdgpu_device *adev,
+>>>    				       bool strobe_mode,
+>>>    				       struct atom_clock_dividers *dividers);
+>>>
+>>> -int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device
+>> *adev,
+>>> -					    u32 clock,
+>>> -					    bool strobe_mode,
+>>> -					    struct atom_mpll_param
+>> *mpll_param);
+>>> -
+>>> -void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device
+>> *adev,
+>>> -					     u32 eng_clock, u32 mem_clock);
+>>> -
+>>> -bool
+>>> -amdgpu_atombios_is_voltage_gpio(struct amdgpu_device *adev,
+>>> -				u8 voltage_type, u8 voltage_mode);
+>>> -
+>>> -int amdgpu_atombios_get_voltage_table(struct amdgpu_device *adev,
+>>> -				      u8 voltage_type, u8 voltage_mode,
+>>> -				      struct atom_voltage_table
+>> *voltage_table);
+>>> -
+>>> -int amdgpu_atombios_init_mc_reg_table(struct amdgpu_device *adev,
+>>> -				      u8 module_index,
+>>> -				      struct atom_mc_reg_table *reg_table);
+>>> -
+>>>    bool amdgpu_atombios_has_gpu_virtualization_table(struct
+>> amdgpu_device *adev);
+>>>
+>>>    void amdgpu_atombios_scratch_regs_lock(struct amdgpu_device *adev,
+>> bool lock);
+>>> @@ -190,21 +170,11 @@ void
+>> amdgpu_atombios_scratch_regs_set_backlight_level(struct amdgpu_device
+>> *adev
+>>>    bool amdgpu_atombios_scratch_need_asic_init(struct amdgpu_device
+>> *adev);
+>>>
+>>>    void amdgpu_atombios_copy_swap(u8 *dst, u8 *src, u8 num_bytes, bool
+>> to_le);
+>>> -int amdgpu_atombios_get_max_vddc(struct amdgpu_device *adev, u8
+>> voltage_type,
+>>> -			     u16 voltage_id, u16 *voltage);
+>>> -int amdgpu_atombios_get_leakage_vddc_based_on_leakage_idx(struct
+>> amdgpu_device *adev,
+>>> -						      u16 *voltage,
+>>> -						      u16 leakage_idx);
+>>> -void amdgpu_atombios_get_default_voltages(struct amdgpu_device
+>> *adev,
+>>> -					  u16 *vddc, u16 *vddci, u16 *mvdd);
+>>>    int amdgpu_atombios_get_clock_dividers(struct amdgpu_device *adev,
+>>>    				       u8 clock_type,
+>>>    				       u32 clock,
+>>>    				       bool strobe_mode,
+>>>    				       struct atom_clock_dividers *dividers);
+>>> -int amdgpu_atombios_get_svi2_info(struct amdgpu_device *adev,
+>>> -			      u8 voltage_type,
+>>> -			      u8 *svd_gpio_id, u8 *svc_gpio_id);
+>>>
+>>>    int amdgpu_atombios_get_data_table(struct amdgpu_device *adev,
+>>>    				   uint32_t table,
+>>
+>>
+>> Whether used in legacy or new logic, atombios table parsing/execution
+>> should be kept as separate logic. These shouldn't be moved along with dpm.
+> [Quan, Evan] Are you suggesting another place holder for those atombios APIs? Like legacy_atombios.c?
+
+What I meant is no need to move them, keep it in the same file. We also 
+have atomfirmware, splitting this and adding another legacy_atombios is 
+not required.
+
+>>
+>>
+>>> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+>> b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+>>> index 2e295facd086..cdf724dcf832 100644
+>>> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+>>> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+>>> @@ -404,6 +404,7 @@ struct amd_pm_funcs {
+>>>    	int (*get_dpm_clock_table)(void *handle,
+>>>    				   struct dpm_clocks *clock_table);
+>>>    	int (*get_smu_prv_buf_details)(void *handle, void **addr, size_t
+>> *size);
+>>> +	int (*change_power_state)(void *handle);
+>>>    };
+>>>
+>>>    struct metrics_table_header {
+>>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>>> index ecaf0081bc31..c6801d10cde6 100644
+>>> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>>> @@ -34,113 +34,9 @@
+>>>
+>>>    #define WIDTH_4K 3840
+>>>
+>>> -#define amdgpu_dpm_pre_set_power_state(adev) \
+>>> -		((adev)->powerplay.pp_funcs-
+>>> pre_set_power_state((adev)->powerplay.pp_handle))
+>>> -
+>>> -#define amdgpu_dpm_post_set_power_state(adev) \
+>>> -		((adev)->powerplay.pp_funcs-
+>>> post_set_power_state((adev)->powerplay.pp_handle))
+>>> -
+>>> -#define amdgpu_dpm_display_configuration_changed(adev) \
+>>> -		((adev)->powerplay.pp_funcs-
+>>> display_configuration_changed((adev)->powerplay.pp_handle))
+>>> -
+>>> -#define amdgpu_dpm_print_power_state(adev, ps) \
+>>> -		((adev)->powerplay.pp_funcs->print_power_state((adev)-
+>>> powerplay.pp_handle, (ps)))
+>>> -
+>>> -#define amdgpu_dpm_vblank_too_short(adev) \
+>>> -		((adev)->powerplay.pp_funcs->vblank_too_short((adev)-
+>>> powerplay.pp_handle))
+>>> -
+>>>    #define amdgpu_dpm_enable_bapm(adev, e) \
+>>>    		((adev)->powerplay.pp_funcs->enable_bapm((adev)-
+>>> powerplay.pp_handle, (e)))
+>>>
+>>> -#define amdgpu_dpm_check_state_equal(adev, cps, rps, equal) \
+>>> -		((adev)->powerplay.pp_funcs->check_state_equal((adev)-
+>>> powerplay.pp_handle, (cps), (rps), (equal)))
+>>> -
+>>> -void amdgpu_dpm_print_class_info(u32 class, u32 class2)
+>>> -{
+>>> -	const char *s;
+>>> -
+>>> -	switch (class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) {
+>>> -	case ATOM_PPLIB_CLASSIFICATION_UI_NONE:
+>>> -	default:
+>>> -		s = "none";
+>>> -		break;
+>>> -	case ATOM_PPLIB_CLASSIFICATION_UI_BATTERY:
+>>> -		s = "battery";
+>>> -		break;
+>>> -	case ATOM_PPLIB_CLASSIFICATION_UI_BALANCED:
+>>> -		s = "balanced";
+>>> -		break;
+>>> -	case ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE:
+>>> -		s = "performance";
+>>> -		break;
+>>> -	}
+>>> -	printk("\tui class: %s\n", s);
+>>> -	printk("\tinternal class:");
+>>> -	if (((class & ~ATOM_PPLIB_CLASSIFICATION_UI_MASK) == 0) &&
+>>> -	    (class2 == 0))
+>>> -		pr_cont(" none");
+>>> -	else {
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_BOOT)
+>>> -			pr_cont(" boot");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_THERMAL)
+>>> -			pr_cont(" thermal");
+>>> -		if (class &
+>> ATOM_PPLIB_CLASSIFICATION_LIMITEDPOWERSOURCE)
+>>> -			pr_cont(" limited_pwr");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_REST)
+>>> -			pr_cont(" rest");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_FORCED)
+>>> -			pr_cont(" forced");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
+>>> -			pr_cont(" 3d_perf");
+>>> -		if (class &
+>> ATOM_PPLIB_CLASSIFICATION_OVERDRIVETEMPLATE)
+>>> -			pr_cont(" ovrdrv");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_UVDSTATE)
+>>> -			pr_cont(" uvd");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_3DLOW)
+>>> -			pr_cont(" 3d_low");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_ACPI)
+>>> -			pr_cont(" acpi");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_HD2STATE)
+>>> -			pr_cont(" uvd_hd2");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_HDSTATE)
+>>> -			pr_cont(" uvd_hd");
+>>> -		if (class & ATOM_PPLIB_CLASSIFICATION_SDSTATE)
+>>> -			pr_cont(" uvd_sd");
+>>> -		if (class2 &
+>> ATOM_PPLIB_CLASSIFICATION2_LIMITEDPOWERSOURCE_2)
+>>> -			pr_cont(" limited_pwr2");
+>>> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
+>>> -			pr_cont(" ulv");
+>>> -		if (class2 & ATOM_PPLIB_CLASSIFICATION2_MVC)
+>>> -			pr_cont(" uvd_mvc");
+>>> -	}
+>>> -	pr_cont("\n");
+>>> -}
+>>> -
+>>> -void amdgpu_dpm_print_cap_info(u32 caps)
+>>> -{
+>>> -	printk("\tcaps:");
+>>> -	if (caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY)
+>>> -		pr_cont(" single_disp");
+>>> -	if (caps & ATOM_PPLIB_SUPPORTS_VIDEO_PLAYBACK)
+>>> -		pr_cont(" video");
+>>> -	if (caps & ATOM_PPLIB_DISALLOW_ON_DC)
+>>> -		pr_cont(" no_dc");
+>>> -	pr_cont("\n");
+>>> -}
+>>> -
+>>> -void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
+>>> -				struct amdgpu_ps *rps)
+>>> -{
+>>> -	printk("\tstatus:");
+>>> -	if (rps == adev->pm.dpm.current_ps)
+>>> -		pr_cont(" c");
+>>> -	if (rps == adev->pm.dpm.requested_ps)
+>>> -		pr_cont(" r");
+>>> -	if (rps == adev->pm.dpm.boot_ps)
+>>> -		pr_cont(" b");
+>>> -	pr_cont("\n");
+>>> -}
+>>> -
+>>>    static void amdgpu_dpm_get_active_displays(struct amdgpu_device
+>> *adev)
+>>>    {
+>>>    	struct drm_device *ddev = adev_to_drm(adev);
+>>> @@ -161,7 +57,6 @@ static void amdgpu_dpm_get_active_displays(struct
+>> amdgpu_device *adev)
+>>>    	}
+>>>    }
+>>>
+>>> -
+>>>    u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev)
+>>>    {
+>>>    	struct drm_device *dev = adev_to_drm(adev);
+>>> @@ -209,679 +104,6 @@ static u32 amdgpu_dpm_get_vrefresh(struct
+>> amdgpu_device *adev)
+>>>    	return vrefresh;
+>>>    }
+>>>
+>>> -union power_info {
+>>> -	struct _ATOM_POWERPLAY_INFO info;
+>>> -	struct _ATOM_POWERPLAY_INFO_V2 info_2;
+>>> -	struct _ATOM_POWERPLAY_INFO_V3 info_3;
+>>> -	struct _ATOM_PPLIB_POWERPLAYTABLE pplib;
+>>> -	struct _ATOM_PPLIB_POWERPLAYTABLE2 pplib2;
+>>> -	struct _ATOM_PPLIB_POWERPLAYTABLE3 pplib3;
+>>> -	struct _ATOM_PPLIB_POWERPLAYTABLE4 pplib4;
+>>> -	struct _ATOM_PPLIB_POWERPLAYTABLE5 pplib5;
+>>> -};
+>>> -
+>>> -union fan_info {
+>>> -	struct _ATOM_PPLIB_FANTABLE fan;
+>>> -	struct _ATOM_PPLIB_FANTABLE2 fan2;
+>>> -	struct _ATOM_PPLIB_FANTABLE3 fan3;
+>>> -};
+>>> -
+>>> -static int amdgpu_parse_clk_voltage_dep_table(struct
+>> amdgpu_clock_voltage_dependency_table *amdgpu_table,
+>>> -
+>> ATOM_PPLIB_Clock_Voltage_Dependency_Table *atom_table)
+>>> -{
+>>> -	u32 size = atom_table->ucNumEntries *
+>>> -		sizeof(struct amdgpu_clock_voltage_dependency_entry);
+>>> -	int i;
+>>> -	ATOM_PPLIB_Clock_Voltage_Dependency_Record *entry;
+>>> -
+>>> -	amdgpu_table->entries = kzalloc(size, GFP_KERNEL);
+>>> -	if (!amdgpu_table->entries)
+>>> -		return -ENOMEM;
+>>> -
+>>> -	entry = &atom_table->entries[0];
+>>> -	for (i = 0; i < atom_table->ucNumEntries; i++) {
+>>> -		amdgpu_table->entries[i].clk = le16_to_cpu(entry-
+>>> usClockLow) |
+>>> -			(entry->ucClockHigh << 16);
+>>> -		amdgpu_table->entries[i].v = le16_to_cpu(entry-
+>>> usVoltage);
+>>> -		entry = (ATOM_PPLIB_Clock_Voltage_Dependency_Record
+>> *)
+>>> -			((u8 *)entry +
+>> sizeof(ATOM_PPLIB_Clock_Voltage_Dependency_Record));
+>>> -	}
+>>> -	amdgpu_table->count = atom_table->ucNumEntries;
+>>> -
+>>> -	return 0;
+>>> -}
+>>> -
+>>> -int amdgpu_get_platform_caps(struct amdgpu_device *adev)
+>>> -{
+>>> -	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> -	union power_info *power_info;
+>>> -	int index = GetIndexIntoMasterTable(DATA, PowerPlayInfo);
+>>> -	u16 data_offset;
+>>> -	u8 frev, crev;
+>>> -
+>>> -	if (!amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> -				   &frev, &crev, &data_offset))
+>>> -		return -EINVAL;
+>>> -	power_info = (union power_info *)(mode_info->atom_context-
+>>> bios + data_offset);
+>>> -
+>>> -	adev->pm.dpm.platform_caps = le32_to_cpu(power_info-
+>>> pplib.ulPlatformCaps);
+>>> -	adev->pm.dpm.backbias_response_time =
+>> le16_to_cpu(power_info->pplib.usBackbiasTime);
+>>> -	adev->pm.dpm.voltage_response_time = le16_to_cpu(power_info-
+>>> pplib.usVoltageTime);
+>>> -
+>>> -	return 0;
+>>> -}
+>>> -
+>>> -/* sizeof(ATOM_PPLIB_EXTENDEDHEADER) */
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V2 12
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V3 14
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V4 16
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V5 18
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V6 20
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V7 22
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V8 24
+>>> -#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V9 26
+>>> -
+>>> -int amdgpu_parse_extended_power_table(struct amdgpu_device *adev)
+>>> -{
+>>> -	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> -	union power_info *power_info;
+>>> -	union fan_info *fan_info;
+>>> -	ATOM_PPLIB_Clock_Voltage_Dependency_Table *dep_table;
+>>> -	int index = GetIndexIntoMasterTable(DATA, PowerPlayInfo);
+>>> -	u16 data_offset;
+>>> -	u8 frev, crev;
+>>> -	int ret, i;
+>>> -
+>>> -	if (!amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> -				   &frev, &crev, &data_offset))
+>>> -		return -EINVAL;
+>>> -	power_info = (union power_info *)(mode_info->atom_context-
+>>> bios + data_offset);
+>>> -
+>>> -	/* fan table */
+>>> -	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> -	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE3)) {
+>>> -		if (power_info->pplib3.usFanTableOffset) {
+>>> -			fan_info = (union fan_info *)(mode_info-
+>>> atom_context->bios + data_offset +
+>>> -						      le16_to_cpu(power_info-
+>>> pplib3.usFanTableOffset));
+>>> -			adev->pm.dpm.fan.t_hyst = fan_info->fan.ucTHyst;
+>>> -			adev->pm.dpm.fan.t_min = le16_to_cpu(fan_info-
+>>> fan.usTMin);
+>>> -			adev->pm.dpm.fan.t_med = le16_to_cpu(fan_info-
+>>> fan.usTMed);
+>>> -			adev->pm.dpm.fan.t_high = le16_to_cpu(fan_info-
+>>> fan.usTHigh);
+>>> -			adev->pm.dpm.fan.pwm_min =
+>> le16_to_cpu(fan_info->fan.usPWMMin);
+>>> -			adev->pm.dpm.fan.pwm_med =
+>> le16_to_cpu(fan_info->fan.usPWMMed);
+>>> -			adev->pm.dpm.fan.pwm_high =
+>> le16_to_cpu(fan_info->fan.usPWMHigh);
+>>> -			if (fan_info->fan.ucFanTableFormat >= 2)
+>>> -				adev->pm.dpm.fan.t_max =
+>> le16_to_cpu(fan_info->fan2.usTMax);
+>>> -			else
+>>> -				adev->pm.dpm.fan.t_max = 10900;
+>>> -			adev->pm.dpm.fan.cycle_delay = 100000;
+>>> -			if (fan_info->fan.ucFanTableFormat >= 3) {
+>>> -				adev->pm.dpm.fan.control_mode =
+>> fan_info->fan3.ucFanControlMode;
+>>> -				adev->pm.dpm.fan.default_max_fan_pwm
+>> =
+>>> -					le16_to_cpu(fan_info-
+>>> fan3.usFanPWMMax);
+>>> -				adev-
+>>> pm.dpm.fan.default_fan_output_sensitivity = 4836;
+>>> -				adev->pm.dpm.fan.fan_output_sensitivity =
+>>> -					le16_to_cpu(fan_info-
+>>> fan3.usFanOutputSensitivity);
+>>> -			}
+>>> -			adev->pm.dpm.fan.ucode_fan_control = true;
+>>> -		}
+>>> -	}
+>>> -
+>>> -	/* clock dependancy tables, shedding tables */
+>>> -	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> -	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE4)) {
+>>> -		if (power_info->pplib4.usVddcDependencyOnSCLKOffset) {
+>>> -			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(power_info-
+>>> pplib4.usVddcDependencyOnSCLKOffset));
+>>> -			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_sclk,
+>>> -								 dep_table);
+>>> -			if (ret) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return ret;
+>>> -			}
+>>> -		}
+>>> -		if (power_info->pplib4.usVddciDependencyOnMCLKOffset) {
+>>> -			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(power_info-
+>>> pplib4.usVddciDependencyOnMCLKOffset));
+>>> -			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.vddci_dependency_on_mclk,
+>>> -								 dep_table);
+>>> -			if (ret) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return ret;
+>>> -			}
+>>> -		}
+>>> -		if (power_info->pplib4.usVddcDependencyOnMCLKOffset) {
+>>> -			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(power_info-
+>>> pplib4.usVddcDependencyOnMCLKOffset));
+>>> -			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_mclk,
+>>> -								 dep_table);
+>>> -			if (ret) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return ret;
+>>> -			}
+>>> -		}
+>>> -		if (power_info->pplib4.usMvddDependencyOnMCLKOffset)
+>> {
+>>> -			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(power_info-
+>>> pplib4.usMvddDependencyOnMCLKOffset));
+>>> -			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.mvdd_dependency_on_mclk,
+>>> -								 dep_table);
+>>> -			if (ret) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return ret;
+>>> -			}
+>>> -		}
+>>> -		if (power_info->pplib4.usMaxClockVoltageOnDCOffset) {
+>>> -			ATOM_PPLIB_Clock_Voltage_Limit_Table *clk_v =
+>>> -				(ATOM_PPLIB_Clock_Voltage_Limit_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(power_info-
+>>> pplib4.usMaxClockVoltageOnDCOffset));
+>>> -			if (clk_v->ucNumEntries) {
+>>> -				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.sclk =
+>>> -					le16_to_cpu(clk_v-
+>>> entries[0].usSclkLow) |
+>>> -					(clk_v->entries[0].ucSclkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.mclk =
+>>> -					le16_to_cpu(clk_v-
+>>> entries[0].usMclkLow) |
+>>> -					(clk_v->entries[0].ucMclkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.vddc =
+>>> -					le16_to_cpu(clk_v-
+>>> entries[0].usVddc);
+>>> -				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.vddci =
+>>> -					le16_to_cpu(clk_v-
+>>> entries[0].usVddci);
+>>> -			}
+>>> -		}
+>>> -		if (power_info->pplib4.usVddcPhaseShedLimitsTableOffset)
+>> {
+>>> -			ATOM_PPLIB_PhaseSheddingLimits_Table *psl =
+>>> -				(ATOM_PPLIB_PhaseSheddingLimits_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(power_info-
+>>> pplib4.usVddcPhaseShedLimitsTableOffset));
+>>> -			ATOM_PPLIB_PhaseSheddingLimits_Record *entry;
+>>> -
+>>> -			adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries =
+>>> -				kcalloc(psl->ucNumEntries,
+>>> -					sizeof(struct
+>> amdgpu_phase_shedding_limits_entry),
+>>> -					GFP_KERNEL);
+>>> -			if (!adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -
+>>> -			entry = &psl->entries[0];
+>>> -			for (i = 0; i < psl->ucNumEntries; i++) {
+>>> -				adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries[i].sclk =
+>>> -					le16_to_cpu(entry->usSclkLow) |
+>> (entry->ucSclkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries[i].mclk =
+>>> -					le16_to_cpu(entry->usMclkLow) |
+>> (entry->ucMclkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries[i].voltage =
+>>> -					le16_to_cpu(entry->usVoltage);
+>>> -				entry =
+>> (ATOM_PPLIB_PhaseSheddingLimits_Record *)
+>>> -					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_PhaseSheddingLimits_Record));
+>>> -			}
+>>> -			adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.count =
+>>> -				psl->ucNumEntries;
+>>> -		}
+>>> -	}
+>>> -
+>>> -	/* cac data */
+>>> -	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> -	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE5)) {
+>>> -		adev->pm.dpm.tdp_limit = le32_to_cpu(power_info-
+>>> pplib5.ulTDPLimit);
+>>> -		adev->pm.dpm.near_tdp_limit = le32_to_cpu(power_info-
+>>> pplib5.ulNearTDPLimit);
+>>> -		adev->pm.dpm.near_tdp_limit_adjusted = adev-
+>>> pm.dpm.near_tdp_limit;
+>>> -		adev->pm.dpm.tdp_od_limit = le16_to_cpu(power_info-
+>>> pplib5.usTDPODLimit);
+>>> -		if (adev->pm.dpm.tdp_od_limit)
+>>> -			adev->pm.dpm.power_control = true;
+>>> -		else
+>>> -			adev->pm.dpm.power_control = false;
+>>> -		adev->pm.dpm.tdp_adjustment = 0;
+>>> -		adev->pm.dpm.sq_ramping_threshold =
+>> le32_to_cpu(power_info->pplib5.ulSQRampingThreshold);
+>>> -		adev->pm.dpm.cac_leakage = le32_to_cpu(power_info-
+>>> pplib5.ulCACLeakage);
+>>> -		adev->pm.dpm.load_line_slope = le16_to_cpu(power_info-
+>>> pplib5.usLoadLineSlope);
+>>> -		if (power_info->pplib5.usCACLeakageTableOffset) {
+>>> -			ATOM_PPLIB_CAC_Leakage_Table *cac_table =
+>>> -				(ATOM_PPLIB_CAC_Leakage_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(power_info-
+>>> pplib5.usCACLeakageTableOffset));
+>>> -			ATOM_PPLIB_CAC_Leakage_Record *entry;
+>>> -			u32 size = cac_table->ucNumEntries * sizeof(struct
+>> amdgpu_cac_leakage_table);
+>>> -			adev->pm.dpm.dyn_state.cac_leakage_table.entries
+>> = kzalloc(size, GFP_KERNEL);
+>>> -			if (!adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -			entry = &cac_table->entries[0];
+>>> -			for (i = 0; i < cac_table->ucNumEntries; i++) {
+>>> -				if (adev->pm.dpm.platform_caps &
+>> ATOM_PP_PLATFORM_CAP_EVV) {
+>>> -					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc1 =
+>>> -						le16_to_cpu(entry-
+>>> usVddc1);
+>>> -					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc2 =
+>>> -						le16_to_cpu(entry-
+>>> usVddc2);
+>>> -					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc3 =
+>>> -						le16_to_cpu(entry-
+>>> usVddc3);
+>>> -				} else {
+>>> -					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc =
+>>> -						le16_to_cpu(entry->usVddc);
+>>> -					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].leakage =
+>>> -						le32_to_cpu(entry-
+>>> ulLeakageValue);
+>>> -				}
+>>> -				entry = (ATOM_PPLIB_CAC_Leakage_Record
+>> *)
+>>> -					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_CAC_Leakage_Record));
+>>> -			}
+>>> -			adev->pm.dpm.dyn_state.cac_leakage_table.count
+>> = cac_table->ucNumEntries;
+>>> -		}
+>>> -	}
+>>> -
+>>> -	/* ext tables */
+>>> -	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> -	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE3)) {
+>>> -		ATOM_PPLIB_EXTENDEDHEADER *ext_hdr =
+>> (ATOM_PPLIB_EXTENDEDHEADER *)
+>>> -			(mode_info->atom_context->bios + data_offset +
+>>> -			 le16_to_cpu(power_info-
+>>> pplib3.usExtendendedHeaderOffset));
+>>> -		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V2) &&
+>>> -			ext_hdr->usVCETableOffset) {
+>>> -			VCEClockInfoArray *array = (VCEClockInfoArray *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usVCETableOffset) +
+>> 1);
+>>> -			ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table
+>> *limits =
+>>> -
+>> 	(ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usVCETableOffset) +
+>> 1 +
+>>> -				 1 + array->ucNumEntries *
+>> sizeof(VCEClockInfo));
+>>> -			ATOM_PPLIB_VCE_State_Table *states =
+>>> -				(ATOM_PPLIB_VCE_State_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usVCETableOffset) +
+>> 1 +
+>>> -				 1 + (array->ucNumEntries * sizeof
+>> (VCEClockInfo)) +
+>>> -				 1 + (limits->numEntries *
+>> sizeof(ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record)));
+>>> -			ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record
+>> *entry;
+>>> -			ATOM_PPLIB_VCE_State_Record *state_entry;
+>>> -			VCEClockInfo *vce_clk;
+>>> -			u32 size = limits->numEntries *
+>>> -				sizeof(struct
+>> amdgpu_vce_clock_voltage_dependency_entry);
+>>> -			adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries =
+>>> -				kzalloc(size, GFP_KERNEL);
+>>> -			if (!adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -			adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.count =
+>>> -				limits->numEntries;
+>>> -			entry = &limits->entries[0];
+>>> -			state_entry = &states->entries[0];
+>>> -			for (i = 0; i < limits->numEntries; i++) {
+>>> -				vce_clk = (VCEClockInfo *)
+>>> -					((u8 *)&array->entries[0] +
+>>> -					 (entry->ucVCEClockInfoIndex *
+>> sizeof(VCEClockInfo)));
+>>> -				adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries[i].evclk
+>> =
+>>> -					le16_to_cpu(vce_clk->usEVClkLow) |
+>> (vce_clk->ucEVClkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries[i].ecclk
+>> =
+>>> -					le16_to_cpu(vce_clk->usECClkLow) |
+>> (vce_clk->ucECClkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries[i].v =
+>>> -					le16_to_cpu(entry->usVoltage);
+>>> -				entry =
+>> (ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record *)
+>>> -					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record));
+>>> -			}
+>>> -			adev->pm.dpm.num_of_vce_states =
+>>> -					states->numEntries >
+>> AMD_MAX_VCE_LEVELS ?
+>>> -					AMD_MAX_VCE_LEVELS : states-
+>>> numEntries;
+>>> -			for (i = 0; i < adev->pm.dpm.num_of_vce_states; i++)
+>> {
+>>> -				vce_clk = (VCEClockInfo *)
+>>> -					((u8 *)&array->entries[0] +
+>>> -					 (state_entry->ucVCEClockInfoIndex
+>> * sizeof(VCEClockInfo)));
+>>> -				adev->pm.dpm.vce_states[i].evclk =
+>>> -					le16_to_cpu(vce_clk->usEVClkLow) |
+>> (vce_clk->ucEVClkHigh << 16);
+>>> -				adev->pm.dpm.vce_states[i].ecclk =
+>>> -					le16_to_cpu(vce_clk->usECClkLow) |
+>> (vce_clk->ucECClkHigh << 16);
+>>> -				adev->pm.dpm.vce_states[i].clk_idx =
+>>> -					state_entry->ucClockInfoIndex &
+>> 0x3f;
+>>> -				adev->pm.dpm.vce_states[i].pstate =
+>>> -					(state_entry->ucClockInfoIndex &
+>> 0xc0) >> 6;
+>>> -				state_entry =
+>> (ATOM_PPLIB_VCE_State_Record *)
+>>> -					((u8 *)state_entry +
+>> sizeof(ATOM_PPLIB_VCE_State_Record));
+>>> -			}
+>>> -		}
+>>> -		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V3) &&
+>>> -			ext_hdr->usUVDTableOffset) {
+>>> -			UVDClockInfoArray *array = (UVDClockInfoArray *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usUVDTableOffset) +
+>> 1);
+>>> -			ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table
+>> *limits =
+>>> -
+>> 	(ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usUVDTableOffset) +
+>> 1 +
+>>> -				 1 + (array->ucNumEntries * sizeof
+>> (UVDClockInfo)));
+>>> -			ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record
+>> *entry;
+>>> -			u32 size = limits->numEntries *
+>>> -				sizeof(struct
+>> amdgpu_uvd_clock_voltage_dependency_entry);
+>>> -			adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries =
+>>> -				kzalloc(size, GFP_KERNEL);
+>>> -			if (!adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -			adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.count =
+>>> -				limits->numEntries;
+>>> -			entry = &limits->entries[0];
+>>> -			for (i = 0; i < limits->numEntries; i++) {
+>>> -				UVDClockInfo *uvd_clk = (UVDClockInfo *)
+>>> -					((u8 *)&array->entries[0] +
+>>> -					 (entry->ucUVDClockInfoIndex *
+>> sizeof(UVDClockInfo)));
+>>> -				adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries[i].vclk =
+>>> -					le16_to_cpu(uvd_clk->usVClkLow) |
+>> (uvd_clk->ucVClkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries[i].dclk =
+>>> -					le16_to_cpu(uvd_clk->usDClkLow) |
+>> (uvd_clk->ucDClkHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries[i].v =
+>>> -					le16_to_cpu(entry->usVoltage);
+>>> -				entry =
+>> (ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record *)
+>>> -					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record));
+>>> -			}
+>>> -		}
+>>> -		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V4) &&
+>>> -			ext_hdr->usSAMUTableOffset) {
+>>> -			ATOM_PPLIB_SAMClk_Voltage_Limit_Table *limits =
+>>> -				(ATOM_PPLIB_SAMClk_Voltage_Limit_Table
+>> *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usSAMUTableOffset)
+>> + 1);
+>>> -			ATOM_PPLIB_SAMClk_Voltage_Limit_Record *entry;
+>>> -			u32 size = limits->numEntries *
+>>> -				sizeof(struct
+>> amdgpu_clock_voltage_dependency_entry);
+>>> -			adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries =
+>>> -				kzalloc(size, GFP_KERNEL);
+>>> -			if (!adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -			adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.count =
+>>> -				limits->numEntries;
+>>> -			entry = &limits->entries[0];
+>>> -			for (i = 0; i < limits->numEntries; i++) {
+>>> -				adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries[i].clk =
+>>> -					le16_to_cpu(entry->usSAMClockLow)
+>> | (entry->ucSAMClockHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries[i].v =
+>>> -					le16_to_cpu(entry->usVoltage);
+>>> -				entry =
+>> (ATOM_PPLIB_SAMClk_Voltage_Limit_Record *)
+>>> -					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_SAMClk_Voltage_Limit_Record));
+>>> -			}
+>>> -		}
+>>> -		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V5) &&
+>>> -		    ext_hdr->usPPMTableOffset) {
+>>> -			ATOM_PPLIB_PPM_Table *ppm =
+>> (ATOM_PPLIB_PPM_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usPPMTableOffset));
+>>> -			adev->pm.dpm.dyn_state.ppm_table =
+>>> -				kzalloc(sizeof(struct amdgpu_ppm_table),
+>> GFP_KERNEL);
+>>> -			if (!adev->pm.dpm.dyn_state.ppm_table) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -			adev->pm.dpm.dyn_state.ppm_table->ppm_design
+>> = ppm->ucPpmDesign;
+>>> -			adev->pm.dpm.dyn_state.ppm_table-
+>>> cpu_core_number =
+>>> -				le16_to_cpu(ppm->usCpuCoreNumber);
+>>> -			adev->pm.dpm.dyn_state.ppm_table-
+>>> platform_tdp =
+>>> -				le32_to_cpu(ppm->ulPlatformTDP);
+>>> -			adev->pm.dpm.dyn_state.ppm_table-
+>>> small_ac_platform_tdp =
+>>> -				le32_to_cpu(ppm->ulSmallACPlatformTDP);
+>>> -			adev->pm.dpm.dyn_state.ppm_table->platform_tdc
+>> =
+>>> -				le32_to_cpu(ppm->ulPlatformTDC);
+>>> -			adev->pm.dpm.dyn_state.ppm_table-
+>>> small_ac_platform_tdc =
+>>> -				le32_to_cpu(ppm->ulSmallACPlatformTDC);
+>>> -			adev->pm.dpm.dyn_state.ppm_table->apu_tdp =
+>>> -				le32_to_cpu(ppm->ulApuTDP);
+>>> -			adev->pm.dpm.dyn_state.ppm_table->dgpu_tdp =
+>>> -				le32_to_cpu(ppm->ulDGpuTDP);
+>>> -			adev->pm.dpm.dyn_state.ppm_table-
+>>> dgpu_ulv_power =
+>>> -				le32_to_cpu(ppm->ulDGpuUlvPower);
+>>> -			adev->pm.dpm.dyn_state.ppm_table->tj_max =
+>>> -				le32_to_cpu(ppm->ulTjmax);
+>>> -		}
+>>> -		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V6) &&
+>>> -			ext_hdr->usACPTableOffset) {
+>>> -			ATOM_PPLIB_ACPClk_Voltage_Limit_Table *limits =
+>>> -				(ATOM_PPLIB_ACPClk_Voltage_Limit_Table
+>> *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr->usACPTableOffset) +
+>> 1);
+>>> -			ATOM_PPLIB_ACPClk_Voltage_Limit_Record *entry;
+>>> -			u32 size = limits->numEntries *
+>>> -				sizeof(struct
+>> amdgpu_clock_voltage_dependency_entry);
+>>> -			adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries =
+>>> -				kzalloc(size, GFP_KERNEL);
+>>> -			if (!adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -			adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.count =
+>>> -				limits->numEntries;
+>>> -			entry = &limits->entries[0];
+>>> -			for (i = 0; i < limits->numEntries; i++) {
+>>> -				adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries[i].clk =
+>>> -					le16_to_cpu(entry->usACPClockLow)
+>> | (entry->ucACPClockHigh << 16);
+>>> -				adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries[i].v =
+>>> -					le16_to_cpu(entry->usVoltage);
+>>> -				entry =
+>> (ATOM_PPLIB_ACPClk_Voltage_Limit_Record *)
+>>> -					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_ACPClk_Voltage_Limit_Record));
+>>> -			}
+>>> -		}
+>>> -		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V7) &&
+>>> -			ext_hdr->usPowerTuneTableOffset) {
+>>> -			u8 rev = *(u8 *)(mode_info->atom_context->bios +
+>> data_offset +
+>>> -					 le16_to_cpu(ext_hdr-
+>>> usPowerTuneTableOffset));
+>>> -			ATOM_PowerTune_Table *pt;
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table =
+>>> -				kzalloc(sizeof(struct amdgpu_cac_tdp_table),
+>> GFP_KERNEL);
+>>> -			if (!adev->pm.dpm.dyn_state.cac_tdp_table) {
+>>> -
+>> 	amdgpu_free_extended_power_table(adev);
+>>> -				return -ENOMEM;
+>>> -			}
+>>> -			if (rev > 0) {
+>>> -				ATOM_PPLIB_POWERTUNE_Table_V1 *ppt =
+>> (ATOM_PPLIB_POWERTUNE_Table_V1 *)
+>>> -					(mode_info->atom_context->bios +
+>> data_offset +
+>>> -					 le16_to_cpu(ext_hdr-
+>>> usPowerTuneTableOffset));
+>>> -				adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> maximum_power_delivery_limit =
+>>> -					ppt->usMaximumPowerDeliveryLimit;
+>>> -				pt = &ppt->power_tune_table;
+>>> -			} else {
+>>> -				ATOM_PPLIB_POWERTUNE_Table *ppt =
+>> (ATOM_PPLIB_POWERTUNE_Table *)
+>>> -					(mode_info->atom_context->bios +
+>> data_offset +
+>>> -					 le16_to_cpu(ext_hdr-
+>>> usPowerTuneTableOffset));
+>>> -				adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> maximum_power_delivery_limit = 255;
+>>> -				pt = &ppt->power_tune_table;
+>>> -			}
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table->tdp =
+>> le16_to_cpu(pt->usTDP);
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> configurable_tdp =
+>>> -				le16_to_cpu(pt->usConfigurableTDP);
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table->tdc =
+>> le16_to_cpu(pt->usTDC);
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> battery_power_limit =
+>>> -				le16_to_cpu(pt->usBatteryPowerLimit);
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> small_power_limit =
+>>> -				le16_to_cpu(pt->usSmallPowerLimit);
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> low_cac_leakage =
+>>> -				le16_to_cpu(pt->usLowCACLeakage);
+>>> -			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> high_cac_leakage =
+>>> -				le16_to_cpu(pt->usHighCACLeakage);
+>>> -		}
+>>> -		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V8) &&
+>>> -				ext_hdr->usSclkVddgfxTableOffset) {
+>>> -			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> -				(mode_info->atom_context->bios +
+>> data_offset +
+>>> -				 le16_to_cpu(ext_hdr-
+>>> usSclkVddgfxTableOffset));
+>>> -			ret = amdgpu_parse_clk_voltage_dep_table(
+>>> -					&adev-
+>>> pm.dpm.dyn_state.vddgfx_dependency_on_sclk,
+>>> -					dep_table);
+>>> -			if (ret) {
+>>> -				kfree(adev-
+>>> pm.dpm.dyn_state.vddgfx_dependency_on_sclk.entries);
+>>> -				return ret;
+>>> -			}
+>>> -		}
+>>> -	}
+>>> -
+>>> -	return 0;
+>>> -}
+>>> -
+>>> -void amdgpu_free_extended_power_table(struct amdgpu_device *adev)
+>>> -{
+>>> -	struct amdgpu_dpm_dynamic_state *dyn_state = &adev-
+>>> pm.dpm.dyn_state;
+>>> -
+>>> -	kfree(dyn_state->vddc_dependency_on_sclk.entries);
+>>> -	kfree(dyn_state->vddci_dependency_on_mclk.entries);
+>>> -	kfree(dyn_state->vddc_dependency_on_mclk.entries);
+>>> -	kfree(dyn_state->mvdd_dependency_on_mclk.entries);
+>>> -	kfree(dyn_state->cac_leakage_table.entries);
+>>> -	kfree(dyn_state->phase_shedding_limits_table.entries);
+>>> -	kfree(dyn_state->ppm_table);
+>>> -	kfree(dyn_state->cac_tdp_table);
+>>> -	kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
+>>> -	kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
+>>> -	kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
+>>> -	kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
+>>> -	kfree(dyn_state->vddgfx_dependency_on_sclk.entries);
+>>> -}
+>>> -
+>>> -static const char *pp_lib_thermal_controller_names[] = {
+>>> -	"NONE",
+>>> -	"lm63",
+>>> -	"adm1032",
+>>> -	"adm1030",
+>>> -	"max6649",
+>>> -	"lm64",
+>>> -	"f75375",
+>>> -	"RV6xx",
+>>> -	"RV770",
+>>> -	"adt7473",
+>>> -	"NONE",
+>>> -	"External GPIO",
+>>> -	"Evergreen",
+>>> -	"emc2103",
+>>> -	"Sumo",
+>>> -	"Northern Islands",
+>>> -	"Southern Islands",
+>>> -	"lm96163",
+>>> -	"Sea Islands",
+>>> -	"Kaveri/Kabini",
+>>> -};
+>>> -
+>>> -void amdgpu_add_thermal_controller(struct amdgpu_device *adev)
+>>> -{
+>>> -	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> -	ATOM_PPLIB_POWERPLAYTABLE *power_table;
+>>> -	int index = GetIndexIntoMasterTable(DATA, PowerPlayInfo);
+>>> -	ATOM_PPLIB_THERMALCONTROLLER *controller;
+>>> -	struct amdgpu_i2c_bus_rec i2c_bus;
+>>> -	u16 data_offset;
+>>> -	u8 frev, crev;
+>>> -
+>>> -	if (!amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> -				   &frev, &crev, &data_offset))
+>>> -		return;
+>>> -	power_table = (ATOM_PPLIB_POWERPLAYTABLE *)
+>>> -		(mode_info->atom_context->bios + data_offset);
+>>> -	controller = &power_table->sThermalController;
+>>> -
+>>> -	/* add the i2c bus for thermal/fan chip */
+>>> -	if (controller->ucType > 0) {
+>>> -		if (controller->ucFanParameters &
+>> ATOM_PP_FANPARAMETERS_NOFAN)
+>>> -			adev->pm.no_fan = true;
+>>> -		adev->pm.fan_pulses_per_revolution =
+>>> -			controller->ucFanParameters &
+>> ATOM_PP_FANPARAMETERS_TACHOMETER_PULSES_PER_REVOLUTION_M
+>> ASK;
+>>> -		if (adev->pm.fan_pulses_per_revolution) {
+>>> -			adev->pm.fan_min_rpm = controller->ucFanMinRPM;
+>>> -			adev->pm.fan_max_rpm = controller-
+>>> ucFanMaxRPM;
+>>> -		}
+>>> -		if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_RV6xx) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_RV6XX;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_RV770) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_RV770;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_EVERGREEN) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EVERGREEN;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_SUMO) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_SUMO;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_NISLANDS) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type = THERMAL_TYPE_NI;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_SISLANDS) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type = THERMAL_TYPE_SI;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_CISLANDS) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type = THERMAL_TYPE_CI;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_KAVERI) {
+>>> -			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type = THERMAL_TYPE_KV;
+>>> -		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_EXTERNAL_GPIO) {
+>>> -			DRM_INFO("External GPIO thermal controller %s fan
+>> control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EXTERNAL_GPIO;
+>>> -		} else if (controller->ucType ==
+>>> -
+>> ATOM_PP_THERMALCONTROLLER_ADT7473_WITH_INTERNAL) {
+>>> -			DRM_INFO("ADT7473 with internal thermal
+>> controller %s fan control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_ADT7473_WITH_INTERNAL;
+>>> -		} else if (controller->ucType ==
+>>> -
+>> ATOM_PP_THERMALCONTROLLER_EMC2103_WITH_INTERNAL) {
+>>> -			DRM_INFO("EMC2103 with internal thermal
+>> controller %s fan control\n",
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EMC2103_WITH_INTERNAL;
+>>> -		} else if (controller->ucType <
+>> ARRAY_SIZE(pp_lib_thermal_controller_names)) {
+>>> -			DRM_INFO("Possible %s thermal controller at
+>> 0x%02x %s fan control\n",
+>>> -
+>> pp_lib_thermal_controller_names[controller->ucType],
+>>> -				 controller->ucI2cAddress >> 1,
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EXTERNAL;
+>>> -			i2c_bus = amdgpu_atombios_lookup_i2c_gpio(adev,
+>> controller->ucI2cLine);
+>>> -			adev->pm.i2c_bus = amdgpu_i2c_lookup(adev,
+>> &i2c_bus);
+>>> -			if (adev->pm.i2c_bus) {
+>>> -				struct i2c_board_info info = { };
+>>> -				const char *name =
+>> pp_lib_thermal_controller_names[controller->ucType];
+>>> -				info.addr = controller->ucI2cAddress >> 1;
+>>> -				strlcpy(info.type, name, sizeof(info.type));
+>>> -				i2c_new_client_device(&adev->pm.i2c_bus-
+>>> adapter, &info);
+>>> -			}
+>>> -		} else {
+>>> -			DRM_INFO("Unknown thermal controller type %d at
+>> 0x%02x %s fan control\n",
+>>> -				 controller->ucType,
+>>> -				 controller->ucI2cAddress >> 1,
+>>> -				 (controller->ucFanParameters &
+>>> -				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> -		}
+>>> -	}
+>>> -}
+>>> -
+>>> -struct amd_vce_state*
+>>> -amdgpu_get_vce_clock_state(void *handle, u32 idx)
+>>> -{
+>>> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>> -
+>>> -	if (idx < adev->pm.dpm.num_of_vce_states)
+>>> -		return &adev->pm.dpm.vce_states[idx];
+>>> -
+>>> -	return NULL;
+>>> -}
+>>> -
+>>>    int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low)
+>>>    {
+>>>    	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+>>> @@ -1243,211 +465,6 @@ void
+>> amdgpu_dpm_thermal_work_handler(struct work_struct *work)
+>>>    	amdgpu_pm_compute_clocks(adev);
+>>>    }
+>>>
+>>> -static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct
+>> amdgpu_device *adev,
+>>> -						     enum
+>> amd_pm_state_type dpm_state)
+>>> -{
+>>> -	int i;
+>>> -	struct amdgpu_ps *ps;
+>>> -	u32 ui_class;
+>>> -	bool single_display = (adev->pm.dpm.new_active_crtc_count < 2) ?
+>>> -		true : false;
+>>> -
+>>> -	/* check if the vblank period is too short to adjust the mclk */
+>>> -	if (single_display && adev->powerplay.pp_funcs->vblank_too_short)
+>> {
+>>> -		if (amdgpu_dpm_vblank_too_short(adev))
+>>> -			single_display = false;
+>>> -	}
+>>> -
+>>> -	/* certain older asics have a separare 3D performance state,
+>>> -	 * so try that first if the user selected performance
+>>> -	 */
+>>> -	if (dpm_state == POWER_STATE_TYPE_PERFORMANCE)
+>>> -		dpm_state = POWER_STATE_TYPE_INTERNAL_3DPERF;
+>>> -	/* balanced states don't exist at the moment */
+>>> -	if (dpm_state == POWER_STATE_TYPE_BALANCED)
+>>> -		dpm_state = POWER_STATE_TYPE_PERFORMANCE;
+>>> -
+>>> -restart_search:
+>>> -	/* Pick the best power state based on current conditions */
+>>> -	for (i = 0; i < adev->pm.dpm.num_ps; i++) {
+>>> -		ps = &adev->pm.dpm.ps[i];
+>>> -		ui_class = ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_UI_MASK;
+>>> -		switch (dpm_state) {
+>>> -		/* user states */
+>>> -		case POWER_STATE_TYPE_BATTERY:
+>>> -			if (ui_class ==
+>> ATOM_PPLIB_CLASSIFICATION_UI_BATTERY) {
+>>> -				if (ps->caps &
+>> ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
+>>> -					if (single_display)
+>>> -						return ps;
+>>> -				} else
+>>> -					return ps;
+>>> -			}
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_BALANCED:
+>>> -			if (ui_class ==
+>> ATOM_PPLIB_CLASSIFICATION_UI_BALANCED) {
+>>> -				if (ps->caps &
+>> ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
+>>> -					if (single_display)
+>>> -						return ps;
+>>> -				} else
+>>> -					return ps;
+>>> -			}
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_PERFORMANCE:
+>>> -			if (ui_class ==
+>> ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE) {
+>>> -				if (ps->caps &
+>> ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
+>>> -					if (single_display)
+>>> -						return ps;
+>>> -				} else
+>>> -					return ps;
+>>> -			}
+>>> -			break;
+>>> -		/* internal states */
+>>> -		case POWER_STATE_TYPE_INTERNAL_UVD:
+>>> -			if (adev->pm.dpm.uvd_ps)
+>>> -				return adev->pm.dpm.uvd_ps;
+>>> -			else
+>>> -				break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_UVD_SD:
+>>> -			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_SDSTATE)
+>>> -				return ps;
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_UVD_HD:
+>>> -			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_HDSTATE)
+>>> -				return ps;
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
+>>> -			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_HD2STATE)
+>>> -				return ps;
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
+>>> -			if (ps->class2 &
+>> ATOM_PPLIB_CLASSIFICATION2_MVC)
+>>> -				return ps;
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_BOOT:
+>>> -			return adev->pm.dpm.boot_ps;
+>>> -		case POWER_STATE_TYPE_INTERNAL_THERMAL:
+>>> -			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_THERMAL)
+>>> -				return ps;
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_ACPI:
+>>> -			if (ps->class & ATOM_PPLIB_CLASSIFICATION_ACPI)
+>>> -				return ps;
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_ULV:
+>>> -			if (ps->class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
+>>> -				return ps;
+>>> -			break;
+>>> -		case POWER_STATE_TYPE_INTERNAL_3DPERF:
+>>> -			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
+>>> -				return ps;
+>>> -			break;
+>>> -		default:
+>>> -			break;
+>>> -		}
+>>> -	}
+>>> -	/* use a fallback state if we didn't match */
+>>> -	switch (dpm_state) {
+>>> -	case POWER_STATE_TYPE_INTERNAL_UVD_SD:
+>>> -		dpm_state = POWER_STATE_TYPE_INTERNAL_UVD_HD;
+>>> -		goto restart_search;
+>>> -	case POWER_STATE_TYPE_INTERNAL_UVD_HD:
+>>> -	case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
+>>> -	case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
+>>> -		if (adev->pm.dpm.uvd_ps) {
+>>> -			return adev->pm.dpm.uvd_ps;
+>>> -		} else {
+>>> -			dpm_state = POWER_STATE_TYPE_PERFORMANCE;
+>>> -			goto restart_search;
+>>> -		}
+>>> -	case POWER_STATE_TYPE_INTERNAL_THERMAL:
+>>> -		dpm_state = POWER_STATE_TYPE_INTERNAL_ACPI;
+>>> -		goto restart_search;
+>>> -	case POWER_STATE_TYPE_INTERNAL_ACPI:
+>>> -		dpm_state = POWER_STATE_TYPE_BATTERY;
+>>> -		goto restart_search;
+>>> -	case POWER_STATE_TYPE_BATTERY:
+>>> -	case POWER_STATE_TYPE_BALANCED:
+>>> -	case POWER_STATE_TYPE_INTERNAL_3DPERF:
+>>> -		dpm_state = POWER_STATE_TYPE_PERFORMANCE;
+>>> -		goto restart_search;
+>>> -	default:
+>>> -		break;
+>>> -	}
+>>> -
+>>> -	return NULL;
+>>> -}
+>>> -
+>>> -static void amdgpu_dpm_change_power_state_locked(struct
+>> amdgpu_device *adev)
+>>> -{
+>>> -	struct amdgpu_ps *ps;
+>>> -	enum amd_pm_state_type dpm_state;
+>>> -	int ret;
+>>> -	bool equal = false;
+>>> -
+>>> -	/* if dpm init failed */
+>>> -	if (!adev->pm.dpm_enabled)
+>>> -		return;
+>>> -
+>>> -	if (adev->pm.dpm.user_state != adev->pm.dpm.state) {
+>>> -		/* add other state override checks here */
+>>> -		if ((!adev->pm.dpm.thermal_active) &&
+>>> -		    (!adev->pm.dpm.uvd_active))
+>>> -			adev->pm.dpm.state = adev->pm.dpm.user_state;
+>>> -	}
+>>> -	dpm_state = adev->pm.dpm.state;
+>>> -
+>>> -	ps = amdgpu_dpm_pick_power_state(adev, dpm_state);
+>>> -	if (ps)
+>>> -		adev->pm.dpm.requested_ps = ps;
+>>> -	else
+>>> -		return;
+>>> -
+>>> -	if (amdgpu_dpm == 1 && adev->powerplay.pp_funcs-
+>>> print_power_state) {
+>>> -		printk("switching from power state:\n");
+>>> -		amdgpu_dpm_print_power_state(adev, adev-
+>>> pm.dpm.current_ps);
+>>> -		printk("switching to power state:\n");
+>>> -		amdgpu_dpm_print_power_state(adev, adev-
+>>> pm.dpm.requested_ps);
+>>> -	}
+>>> -
+>>> -	/* update whether vce is active */
+>>> -	ps->vce_active = adev->pm.dpm.vce_active;
+>>> -	if (adev->powerplay.pp_funcs->display_configuration_changed)
+>>> -		amdgpu_dpm_display_configuration_changed(adev);
+>>> -
+>>> -	ret = amdgpu_dpm_pre_set_power_state(adev);
+>>> -	if (ret)
+>>> -		return;
+>>> -
+>>> -	if (adev->powerplay.pp_funcs->check_state_equal) {
+>>> -		if (0 != amdgpu_dpm_check_state_equal(adev, adev-
+>>> pm.dpm.current_ps, adev->pm.dpm.requested_ps, &equal))
+>>> -			equal = false;
+>>> -	}
+>>> -
+>>> -	if (equal)
+>>> -		return;
+>>> -
+>>> -	if (adev->powerplay.pp_funcs->set_power_state)
+>>> -		adev->powerplay.pp_funcs->set_power_state(adev-
+>>> powerplay.pp_handle);
+>>> -
+>>> -	amdgpu_dpm_post_set_power_state(adev);
+>>> -
+>>> -	adev->pm.dpm.current_active_crtcs = adev-
+>>> pm.dpm.new_active_crtcs;
+>>> -	adev->pm.dpm.current_active_crtc_count = adev-
+>>> pm.dpm.new_active_crtc_count;
+>>> -
+>>> -	if (adev->powerplay.pp_funcs->force_performance_level) {
+>>> -		if (adev->pm.dpm.thermal_active) {
+>>> -			enum amd_dpm_forced_level level = adev-
+>>> pm.dpm.forced_level;
+>>> -			/* force low perf level for thermal */
+>>> -			amdgpu_dpm_force_performance_level(adev,
+>> AMD_DPM_FORCED_LEVEL_LOW);
+>>> -			/* save the user's level */
+>>> -			adev->pm.dpm.forced_level = level;
+>>> -		} else {
+>>> -			/* otherwise, user selected level */
+>>> -			amdgpu_dpm_force_performance_level(adev,
+>> adev->pm.dpm.forced_level);
+>>> -		}
+>>> -	}
+>>> -}
+>>> -
+>>>    void amdgpu_pm_compute_clocks(struct amdgpu_device *adev)
+>>>    {
+>>
+>> Rename to amdgpu_dpm_compute_clocks?
+> [Quan, Evan] Sure, I can do that.
+>>
+>>>    	int i = 0;
+>>> @@ -1464,9 +481,12 @@ void amdgpu_pm_compute_clocks(struct
+>> amdgpu_device *adev)
+>>>    			amdgpu_fence_wait_empty(ring);
+>>>    	}
+>>>
+>>> -	if (adev->powerplay.pp_funcs->dispatch_tasks) {
+>>> +	if ((adev->family == AMDGPU_FAMILY_SI) ||
+>>> +	     (adev->family == AMDGPU_FAMILY_KV)) {
+>>> +		amdgpu_dpm_get_active_displays(adev);
+>>> +		adev->powerplay.pp_funcs->change_power_state(adev-
+>>> powerplay.pp_handle);
+>>
+>> It would be clearer if the newly added logic in this function is in
+>> another patch. This does more than what the patch subject says.
+> [Quan, Evan] Actually there are no new logic added. These are for "!adev->powerplay.pp_funcs->dispatch_tasks".
+> Considering there are actually only SI and KV which do not have ->dispatch_tasks() implemented.
+> So, I used "((adev->family == AMDGPU_FAMILY_SI) ||(adev->family == AMDGPU_FAMILY_KV))" here.
+> Maybe i should stick with "!adev->powerplay.pp_funcs->dispatch_tasks"?
+
+This change also adds a new callback change_power_state(). I interpreted 
+it as something different from what the patch subject says.
+
+>>
+>>> +	} else {
+>>>    		if (!amdgpu_device_has_dc_support(adev)) {
+>>> -			mutex_lock(&adev->pm.mutex);
+>>>    			amdgpu_dpm_get_active_displays(adev);
+>>>    			adev->pm.pm_display_cfg.num_display = adev-
+>>> pm.dpm.new_active_crtc_count;
+>>>    			adev->pm.pm_display_cfg.vrefresh =
+>> amdgpu_dpm_get_vrefresh(adev);
+>>> @@ -1480,14 +500,8 @@ void amdgpu_pm_compute_clocks(struct
+>> amdgpu_device *adev)
+>>>    				adev->powerplay.pp_funcs-
+>>> display_configuration_change(
+>>>    							adev-
+>>> powerplay.pp_handle,
+>>>    							&adev-
+>>> pm.pm_display_cfg);
+>>> -			mutex_unlock(&adev->pm.mutex);
+>>>    		}
+>>>    		amdgpu_dpm_dispatch_task(adev,
+>> AMD_PP_TASK_DISPLAY_CONFIG_CHANGE, NULL);
+>>> -	} else {
+>>> -		mutex_lock(&adev->pm.mutex);
+>>> -		amdgpu_dpm_get_active_displays(adev);
+>>> -		amdgpu_dpm_change_power_state_locked(adev);
+>>> -		mutex_unlock(&adev->pm.mutex);
+>>>    	}
+>>>    }
+>>>
+>>> @@ -1550,18 +564,6 @@ void amdgpu_dpm_enable_vce(struct
+>> amdgpu_device *adev, bool enable)
+>>>    	}
+>>>    }
+>>>
+>>> -void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
+>>> -{
+>>> -	int i;
+>>> -
+>>> -	if (adev->powerplay.pp_funcs->print_power_state == NULL)
+>>> -		return;
+>>> -
+>>> -	for (i = 0; i < adev->pm.dpm.num_ps; i++)
+>>> -		amdgpu_dpm_print_power_state(adev, &adev-
+>>> pm.dpm.ps[i]);
+>>> -
+>>> -}
+>>> -
+>>>    void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool
+>> enable)
+>>>    {
+>>>    	int ret = 0;
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>>> index 01120b302590..295d2902aef7 100644
+>>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>>> @@ -366,24 +366,10 @@ enum amdgpu_display_gap
+>>>        AMDGPU_PM_DISPLAY_GAP_IGNORE       = 3,
+>>>    };
+>>>
+>>> -void amdgpu_dpm_print_class_info(u32 class, u32 class2);
+>>> -void amdgpu_dpm_print_cap_info(u32 caps);
+>>> -void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
+>>> -				struct amdgpu_ps *rps);
+>>>    u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev);
+>>>    int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum
+>> amd_pp_sensors sensor,
+>>>    			   void *data, uint32_t *size);
+>>>
+>>> -int amdgpu_get_platform_caps(struct amdgpu_device *adev);
+>>> -
+>>> -int amdgpu_parse_extended_power_table(struct amdgpu_device *adev);
+>>> -void amdgpu_free_extended_power_table(struct amdgpu_device
+>> *adev);
+>>> -
+>>> -void amdgpu_add_thermal_controller(struct amdgpu_device *adev);
+>>> -
+>>> -struct amd_vce_state*
+>>> -amdgpu_get_vce_clock_state(void *handle, u32 idx);
+>>> -
+>>>    int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device
+>> *adev,
+>>>    				      uint32_t block_type, bool gate);
+>>>
+>>> @@ -438,7 +424,6 @@ void amdgpu_pm_compute_clocks(struct
+>> amdgpu_device *adev);
+>>>    void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool
+>> enable);
+>>>    void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool
+>> enable);
+>>>    void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool
+>> enable);
+>>> -void amdgpu_pm_print_power_states(struct amdgpu_device *adev);
+>>>    int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev,
+>> uint32_t *smu_version);
+>>>    int amdgpu_dpm_set_light_sbr(struct amdgpu_device *adev, bool
+>> enable);
+>>>    int amdgpu_dpm_send_hbm_bad_pages_num(struct amdgpu_device
+>> *adev, uint32_t size);
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>> b/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>>> index 0fb114adc79f..614d8b6a58ad 100644
+>>> --- a/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>>> @@ -28,7 +28,7 @@ AMD_POWERPLAY = $(addsuffix
+>> /Makefile,$(addprefix $(FULL_AMD_PATH)/pm/powerplay/
+>>>
+>>>    include $(AMD_POWERPLAY)
+>>>
+>>> -POWER_MGR-y = amd_powerplay.o
+>>> +POWER_MGR-y = amd_powerplay.o legacy_dpm.o
+>>>
+>>>    POWER_MGR-$(CONFIG_DRM_AMDGPU_CIK)+= kv_dpm.o kv_smc.o
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>> b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>> index 380a5336c74f..90f4c65659e2 100644
+>>> --- a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>> @@ -36,6 +36,7 @@
+>>>
+>>>    #include "gca/gfx_7_2_d.h"
+>>>    #include "gca/gfx_7_2_sh_mask.h"
+>>> +#include "legacy_dpm.h"
+>>>
+>>>    #define KV_MAX_DEEPSLEEP_DIVIDER_ID     5
+>>>    #define KV_MINIMUM_ENGINE_CLOCK         800
+>>> @@ -3389,6 +3390,7 @@ static const struct amd_pm_funcs kv_dpm_funcs
+>> = {
+>>>    	.get_vce_clock_state = amdgpu_get_vce_clock_state,
+>>>    	.check_state_equal = kv_check_state_equal,
+>>>    	.read_sensor = &kv_dpm_read_sensor,
+>>> +	.change_power_state = amdgpu_dpm_change_power_state_locked,
+>>>    };
+>>>
+>>>    static const struct amdgpu_irq_src_funcs kv_dpm_irq_funcs = {
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
+>> b/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
+>>
+>> This could get confused with all APIs that support legacy dpms. This
+>> file has only a subset of APIs to support legacy dpm. Needs a better
+>> name - powerplay_ctrl/powerplay_util ?
+> [Quan, Evan] The "legacy_dpm" refers for those logics used only by si/kv(si_dpm.c, kv_dpm.c).
+> Considering these logics are not used at default(radeon driver instead of amdgpu driver is used to support those legacy ASICs at default).
+> We might drop support for them from our amdgpu driver. So, I gather all those APIs and put them in a new holder.
+> Maybe you wrongly treat it as a new holder for powerplay APIs(used by VI/AI)?
+
+As it got moved under powerplay, I thought they were also used in AI/VI 
+powerplay. Otherwise, move si/kv along with this out of powerplay and 
+keep them separate.
+
+Thanks,
+Lijo
+
+> 
+> BR
+> Evan
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> new file mode 100644
+>>> index 000000000000..9427c1026e1d
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
+>>> @@ -0,0 +1,1453 @@
+>>> +/*
+>>> + * Copyright 2021 Advanced Micro Devices, Inc.
+>>> + *
+>>> + * Permission is hereby granted, free of charge, to any person obtaining a
+>>> + * copy of this software and associated documentation files (the
+>> "Software"),
+>>> + * to deal in the Software without restriction, including without limitation
+>>> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+>>> + * and/or sell copies of the Software, and to permit persons to whom the
+>>> + * Software is furnished to do so, subject to the following conditions:
+>>> + *
+>>> + * The above copyright notice and this permission notice shall be included
+>> in
+>>> + * all copies or substantial portions of the Software.
+>>> + *
+>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+>> KIND, EXPRESS OR
+>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+>> MERCHANTABILITY,
+>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN
+>> NO EVENT SHALL
+>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+>> DAMAGES OR
+>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+>> OTHERWISE,
+>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+>> THE USE OR
+>>> + * OTHER DEALINGS IN THE SOFTWARE.
+>>> + */
+>>> +
+>>> +#include "amdgpu.h"
+>>> +#include "amdgpu_atombios.h"
+>>> +#include "amdgpu_i2c.h"
+>>> +#include "atom.h"
+>>> +#include "amd_pcie.h"
+>>> +#include "legacy_dpm.h"
+>>> +
+>>> +#define amdgpu_dpm_pre_set_power_state(adev) \
+>>> +		((adev)->powerplay.pp_funcs-
+>>> pre_set_power_state((adev)->powerplay.pp_handle))
+>>> +
+>>> +#define amdgpu_dpm_post_set_power_state(adev) \
+>>> +		((adev)->powerplay.pp_funcs-
+>>> post_set_power_state((adev)->powerplay.pp_handle))
+>>> +
+>>> +#define amdgpu_dpm_display_configuration_changed(adev) \
+>>> +		((adev)->powerplay.pp_funcs-
+>>> display_configuration_changed((adev)->powerplay.pp_handle))
+>>> +
+>>> +#define amdgpu_dpm_print_power_state(adev, ps) \
+>>> +		((adev)->powerplay.pp_funcs->print_power_state((adev)-
+>>> powerplay.pp_handle, (ps)))
+>>> +
+>>> +#define amdgpu_dpm_vblank_too_short(adev) \
+>>> +		((adev)->powerplay.pp_funcs->vblank_too_short((adev)-
+>>> powerplay.pp_handle))
+>>> +
+>>> +#define amdgpu_dpm_check_state_equal(adev, cps, rps, equal) \
+>>> +		((adev)->powerplay.pp_funcs->check_state_equal((adev)-
+>>> powerplay.pp_handle, (cps), (rps), (equal)))
+>>> +
+>>> +int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device
+>> *adev,
+>>> +					    u32 clock,
+>>> +					    bool strobe_mode,
+>>> +					    struct atom_mpll_param
+>> *mpll_param)
+>>> +{
+>>> +	COMPUTE_MEMORY_CLOCK_PARAM_PARAMETERS_V2_1 args;
+>>> +	int index = GetIndexIntoMasterTable(COMMAND,
+>> ComputeMemoryClockParam);
+>>> +	u8 frev, crev;
+>>> +
+>>> +	memset(&args, 0, sizeof(args));
+>>> +	memset(mpll_param, 0, sizeof(struct atom_mpll_param));
+>>> +
+>>> +	if (!amdgpu_atom_parse_cmd_header(adev-
+>>> mode_info.atom_context, index, &frev, &crev))
+>>> +		return -EINVAL;
+>>> +
+>>> +	switch (frev) {
+>>> +	case 2:
+>>> +		switch (crev) {
+>>> +		case 1:
+>>> +			/* SI */
+>>> +			args.ulClock = cpu_to_le32(clock);	/* 10 khz */
+>>> +			args.ucInputFlag = 0;
+>>> +			if (strobe_mode)
+>>> +				args.ucInputFlag |=
+>> MPLL_INPUT_FLAG_STROBE_MODE_EN;
+>>> +
+>>> +			amdgpu_atom_execute_table(adev-
+>>> mode_info.atom_context, index, (uint32_t *)&args);
+>>> +
+>>> +			mpll_param->clkfrac =
+>> le16_to_cpu(args.ulFbDiv.usFbDivFrac);
+>>> +			mpll_param->clkf =
+>> le16_to_cpu(args.ulFbDiv.usFbDiv);
+>>> +			mpll_param->post_div = args.ucPostDiv;
+>>> +			mpll_param->dll_speed = args.ucDllSpeed;
+>>> +			mpll_param->bwcntl = args.ucBWCntl;
+>>> +			mpll_param->vco_mode =
+>>> +				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_VCO_MODE_MASK);
+>>> +			mpll_param->yclk_sel =
+>>> +				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_BYPASS_DQ_PLL) ? 1 : 0;
+>>> +			mpll_param->qdr =
+>>> +				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_QDR_ENABLE) ? 1 : 0;
+>>> +			mpll_param->half_rate =
+>>> +				(args.ucPllCntlFlag &
+>> MPLL_CNTL_FLAG_AD_HALF_RATE) ? 1 : 0;
+>>> +			break;
+>>> +		default:
+>>> +			return -EINVAL;
+>>> +		}
+>>> +		break;
+>>> +	default:
+>>> +		return -EINVAL;
+>>> +	}
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +void amdgpu_atombios_set_engine_dram_timings(struct
+>> amdgpu_device *adev,
+>>> +					     u32 eng_clock, u32 mem_clock)
+>>> +{
+>>> +	SET_ENGINE_CLOCK_PS_ALLOCATION args;
+>>> +	int index = GetIndexIntoMasterTable(COMMAND,
+>> DynamicMemorySettings);
+>>> +	u32 tmp;
+>>> +
+>>> +	memset(&args, 0, sizeof(args));
+>>> +
+>>> +	tmp = eng_clock & SET_CLOCK_FREQ_MASK;
+>>> +	tmp |= (COMPUTE_ENGINE_PLL_PARAM << 24);
+>>> +
+>>> +	args.ulTargetEngineClock = cpu_to_le32(tmp);
+>>> +	if (mem_clock)
+>>> +		args.sReserved.ulClock = cpu_to_le32(mem_clock &
+>> SET_CLOCK_FREQ_MASK);
+>>> +
+>>> +	amdgpu_atom_execute_table(adev->mode_info.atom_context,
+>> index, (uint32_t *)&args);
+>>> +}
+>>> +
+>>> +union firmware_info {
+>>> +	ATOM_FIRMWARE_INFO info;
+>>> +	ATOM_FIRMWARE_INFO_V1_2 info_12;
+>>> +	ATOM_FIRMWARE_INFO_V1_3 info_13;
+>>> +	ATOM_FIRMWARE_INFO_V1_4 info_14;
+>>> +	ATOM_FIRMWARE_INFO_V2_1 info_21;
+>>> +	ATOM_FIRMWARE_INFO_V2_2 info_22;
+>>> +};
+>>> +
+>>> +void amdgpu_atombios_get_default_voltages(struct amdgpu_device
+>> *adev,
+>>> +					  u16 *vddc, u16 *vddci, u16 *mvdd)
+>>> +{
+>>> +	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> +	int index = GetIndexIntoMasterTable(DATA, FirmwareInfo);
+>>> +	u8 frev, crev;
+>>> +	u16 data_offset;
+>>> +	union firmware_info *firmware_info;
+>>> +
+>>> +	*vddc = 0;
+>>> +	*vddci = 0;
+>>> +	*mvdd = 0;
+>>> +
+>>> +	if (amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> +				   &frev, &crev, &data_offset)) {
+>>> +		firmware_info =
+>>> +			(union firmware_info *)(mode_info->atom_context-
+>>> bios +
+>>> +						data_offset);
+>>> +		*vddc = le16_to_cpu(firmware_info-
+>>> info_14.usBootUpVDDCVoltage);
+>>> +		if ((frev == 2) && (crev >= 2)) {
+>>> +			*vddci = le16_to_cpu(firmware_info-
+>>> info_22.usBootUpVDDCIVoltage);
+>>> +			*mvdd = le16_to_cpu(firmware_info-
+>>> info_22.usBootUpMVDDCVoltage);
+>>> +		}
+>>> +	}
+>>> +}
+>>> +
+>>> +union set_voltage {
+>>> +	struct _SET_VOLTAGE_PS_ALLOCATION alloc;
+>>> +	struct _SET_VOLTAGE_PARAMETERS v1;
+>>> +	struct _SET_VOLTAGE_PARAMETERS_V2 v2;
+>>> +	struct _SET_VOLTAGE_PARAMETERS_V1_3 v3;
+>>> +};
+>>> +
+>>> +int amdgpu_atombios_get_max_vddc(struct amdgpu_device *adev, u8
+>> voltage_type,
+>>> +			     u16 voltage_id, u16 *voltage)
+>>> +{
+>>> +	union set_voltage args;
+>>> +	int index = GetIndexIntoMasterTable(COMMAND, SetVoltage);
+>>> +	u8 frev, crev;
+>>> +
+>>> +	if (!amdgpu_atom_parse_cmd_header(adev-
+>>> mode_info.atom_context, index, &frev, &crev))
+>>> +		return -EINVAL;
+>>> +
+>>> +	switch (crev) {
+>>> +	case 1:
+>>> +		return -EINVAL;
+>>> +	case 2:
+>>> +		args.v2.ucVoltageType =
+>> SET_VOLTAGE_GET_MAX_VOLTAGE;
+>>> +		args.v2.ucVoltageMode = 0;
+>>> +		args.v2.usVoltageLevel = 0;
+>>> +
+>>> +		amdgpu_atom_execute_table(adev-
+>>> mode_info.atom_context, index, (uint32_t *)&args);
+>>> +
+>>> +		*voltage = le16_to_cpu(args.v2.usVoltageLevel);
+>>> +		break;
+>>> +	case 3:
+>>> +		args.v3.ucVoltageType = voltage_type;
+>>> +		args.v3.ucVoltageMode = ATOM_GET_VOLTAGE_LEVEL;
+>>> +		args.v3.usVoltageLevel = cpu_to_le16(voltage_id);
+>>> +
+>>> +		amdgpu_atom_execute_table(adev-
+>>> mode_info.atom_context, index, (uint32_t *)&args);
+>>> +
+>>> +		*voltage = le16_to_cpu(args.v3.usVoltageLevel);
+>>> +		break;
+>>> +	default:
+>>> +		DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+>>> +		return -EINVAL;
+>>> +	}
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +int amdgpu_atombios_get_leakage_vddc_based_on_leakage_idx(struct
+>> amdgpu_device *adev,
+>>> +						      u16 *voltage,
+>>> +						      u16 leakage_idx)
+>>> +{
+>>> +	return amdgpu_atombios_get_max_vddc(adev,
+>> VOLTAGE_TYPE_VDDC, leakage_idx, voltage);
+>>> +}
+>>> +
+>>> +union voltage_object_info {
+>>> +	struct _ATOM_VOLTAGE_OBJECT_INFO v1;
+>>> +	struct _ATOM_VOLTAGE_OBJECT_INFO_V2 v2;
+>>> +	struct _ATOM_VOLTAGE_OBJECT_INFO_V3_1 v3;
+>>> +};
+>>> +
+>>> +union voltage_object {
+>>> +	struct _ATOM_VOLTAGE_OBJECT v1;
+>>> +	struct _ATOM_VOLTAGE_OBJECT_V2 v2;
+>>> +	union _ATOM_VOLTAGE_OBJECT_V3 v3;
+>>> +};
+>>> +
+>>> +static ATOM_VOLTAGE_OBJECT_V3
+>> *amdgpu_atombios_lookup_voltage_object_v3(ATOM_VOLTAGE_OBJECT_I
+>> NFO_V3_1 *v3,
+>>> +									u8
+>> voltage_type, u8 voltage_mode)
+>>> +{
+>>> +	u32 size = le16_to_cpu(v3->sHeader.usStructureSize);
+>>> +	u32 offset = offsetof(ATOM_VOLTAGE_OBJECT_INFO_V3_1,
+>> asVoltageObj[0]);
+>>> +	u8 *start = (u8 *)v3;
+>>> +
+>>> +	while (offset < size) {
+>>> +		ATOM_VOLTAGE_OBJECT_V3 *vo =
+>> (ATOM_VOLTAGE_OBJECT_V3 *)(start + offset);
+>>> +		if ((vo->asGpioVoltageObj.sHeader.ucVoltageType ==
+>> voltage_type) &&
+>>> +		    (vo->asGpioVoltageObj.sHeader.ucVoltageMode ==
+>> voltage_mode))
+>>> +			return vo;
+>>> +		offset += le16_to_cpu(vo-
+>>> asGpioVoltageObj.sHeader.usSize);
+>>> +	}
+>>> +	return NULL;
+>>> +}
+>>> +
+>>> +int amdgpu_atombios_get_svi2_info(struct amdgpu_device *adev,
+>>> +			      u8 voltage_type,
+>>> +			      u8 *svd_gpio_id, u8 *svc_gpio_id)
+>>> +{
+>>> +	int index = GetIndexIntoMasterTable(DATA, VoltageObjectInfo);
+>>> +	u8 frev, crev;
+>>> +	u16 data_offset, size;
+>>> +	union voltage_object_info *voltage_info;
+>>> +	union voltage_object *voltage_object = NULL;
+>>> +
+>>> +	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> +				   &frev, &crev, &data_offset)) {
+>>> +		voltage_info = (union voltage_object_info *)
+>>> +			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> +
+>>> +		switch (frev) {
+>>> +		case 3:
+>>> +			switch (crev) {
+>>> +			case 1:
+>>> +				voltage_object = (union voltage_object *)
+>>> +
+>> 	amdgpu_atombios_lookup_voltage_object_v3(&voltage_info->v3,
+>>> +
+>> voltage_type,
+>>> +
+>> VOLTAGE_OBJ_SVID2);
+>>> +				if (voltage_object) {
+>>> +					*svd_gpio_id = voltage_object-
+>>> v3.asSVID2Obj.ucSVDGpioId;
+>>> +					*svc_gpio_id = voltage_object-
+>>> v3.asSVID2Obj.ucSVCGpioId;
+>>> +				} else {
+>>> +					return -EINVAL;
+>>> +				}
+>>> +				break;
+>>> +			default:
+>>> +				DRM_ERROR("unknown voltage object
+>> table\n");
+>>> +				return -EINVAL;
+>>> +			}
+>>> +			break;
+>>> +		default:
+>>> +			DRM_ERROR("unknown voltage object table\n");
+>>> +			return -EINVAL;
+>>> +		}
+>>> +
+>>> +	}
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +bool
+>>> +amdgpu_atombios_is_voltage_gpio(struct amdgpu_device *adev,
+>>> +				u8 voltage_type, u8 voltage_mode)
+>>> +{
+>>> +	int index = GetIndexIntoMasterTable(DATA, VoltageObjectInfo);
+>>> +	u8 frev, crev;
+>>> +	u16 data_offset, size;
+>>> +	union voltage_object_info *voltage_info;
+>>> +
+>>> +	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> +				   &frev, &crev, &data_offset)) {
+>>> +		voltage_info = (union voltage_object_info *)
+>>> +			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> +
+>>> +		switch (frev) {
+>>> +		case 3:
+>>> +			switch (crev) {
+>>> +			case 1:
+>>> +				if
+>> (amdgpu_atombios_lookup_voltage_object_v3(&voltage_info->v3,
+>>> +
+>> voltage_type, voltage_mode))
+>>> +					return true;
+>>> +				break;
+>>> +			default:
+>>> +				DRM_ERROR("unknown voltage object
+>> table\n");
+>>> +				return false;
+>>> +			}
+>>> +			break;
+>>> +		default:
+>>> +			DRM_ERROR("unknown voltage object table\n");
+>>> +			return false;
+>>> +		}
+>>> +
+>>> +	}
+>>> +	return false;
+>>> +}
+>>> +
+>>> +int amdgpu_atombios_get_voltage_table(struct amdgpu_device *adev,
+>>> +				      u8 voltage_type, u8 voltage_mode,
+>>> +				      struct atom_voltage_table *voltage_table)
+>>> +{
+>>> +	int index = GetIndexIntoMasterTable(DATA, VoltageObjectInfo);
+>>> +	u8 frev, crev;
+>>> +	u16 data_offset, size;
+>>> +	int i;
+>>> +	union voltage_object_info *voltage_info;
+>>> +	union voltage_object *voltage_object = NULL;
+>>> +
+>>> +	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> +				   &frev, &crev, &data_offset)) {
+>>> +		voltage_info = (union voltage_object_info *)
+>>> +			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> +
+>>> +		switch (frev) {
+>>> +		case 3:
+>>> +			switch (crev) {
+>>> +			case 1:
+>>> +				voltage_object = (union voltage_object *)
+>>> +
+>> 	amdgpu_atombios_lookup_voltage_object_v3(&voltage_info->v3,
+>>> +
+>> voltage_type, voltage_mode);
+>>> +				if (voltage_object) {
+>>> +					ATOM_GPIO_VOLTAGE_OBJECT_V3
+>> *gpio =
+>>> +						&voltage_object-
+>>> v3.asGpioVoltageObj;
+>>> +					VOLTAGE_LUT_ENTRY_V2 *lut;
+>>> +					if (gpio->ucGpioEntryNum >
+>> MAX_VOLTAGE_ENTRIES)
+>>> +						return -EINVAL;
+>>> +					lut = &gpio->asVolGpioLut[0];
+>>> +					for (i = 0; i < gpio->ucGpioEntryNum;
+>> i++) {
+>>> +						voltage_table-
+>>> entries[i].value =
+>>> +							le16_to_cpu(lut-
+>>> usVoltageValue);
+>>> +						voltage_table-
+>>> entries[i].smio_low =
+>>> +							le32_to_cpu(lut-
+>>> ulVoltageId);
+>>> +						lut =
+>> (VOLTAGE_LUT_ENTRY_V2 *)
+>>> +							((u8 *)lut +
+>> sizeof(VOLTAGE_LUT_ENTRY_V2));
+>>> +					}
+>>> +					voltage_table->mask_low =
+>> le32_to_cpu(gpio->ulGpioMaskVal);
+>>> +					voltage_table->count = gpio-
+>>> ucGpioEntryNum;
+>>> +					voltage_table->phase_delay = gpio-
+>>> ucPhaseDelay;
+>>> +					return 0;
+>>> +				}
+>>> +				break;
+>>> +			default:
+>>> +				DRM_ERROR("unknown voltage object
+>> table\n");
+>>> +				return -EINVAL;
+>>> +			}
+>>> +			break;
+>>> +		default:
+>>> +			DRM_ERROR("unknown voltage object table\n");
+>>> +			return -EINVAL;
+>>> +		}
+>>> +	}
+>>> +	return -EINVAL;
+>>> +}
+>>> +
+>>> +union vram_info {
+>>> +	struct _ATOM_VRAM_INFO_V3 v1_3;
+>>> +	struct _ATOM_VRAM_INFO_V4 v1_4;
+>>> +	struct _ATOM_VRAM_INFO_HEADER_V2_1 v2_1;
+>>> +};
+>>> +
+>>> +#define MEM_ID_MASK           0xff000000
+>>> +#define MEM_ID_SHIFT          24
+>>> +#define CLOCK_RANGE_MASK      0x00ffffff
+>>> +#define CLOCK_RANGE_SHIFT     0
+>>> +#define LOW_NIBBLE_MASK       0xf
+>>> +#define DATA_EQU_PREV         0
+>>> +#define DATA_FROM_TABLE       4
+>>> +
+>>> +int amdgpu_atombios_init_mc_reg_table(struct amdgpu_device *adev,
+>>> +				      u8 module_index,
+>>> +				      struct atom_mc_reg_table *reg_table)
+>>> +{
+>>> +	int index = GetIndexIntoMasterTable(DATA, VRAM_Info);
+>>> +	u8 frev, crev, num_entries, t_mem_id, num_ranges = 0;
+>>> +	u32 i = 0, j;
+>>> +	u16 data_offset, size;
+>>> +	union vram_info *vram_info;
+>>> +
+>>> +	memset(reg_table, 0, sizeof(struct atom_mc_reg_table));
+>>> +
+>>> +	if (amdgpu_atom_parse_data_header(adev-
+>>> mode_info.atom_context, index, &size,
+>>> +				   &frev, &crev, &data_offset)) {
+>>> +		vram_info = (union vram_info *)
+>>> +			(adev->mode_info.atom_context->bios +
+>> data_offset);
+>>> +		switch (frev) {
+>>> +		case 1:
+>>> +			DRM_ERROR("old table version %d, %d\n", frev,
+>> crev);
+>>> +			return -EINVAL;
+>>> +		case 2:
+>>> +			switch (crev) {
+>>> +			case 1:
+>>> +				if (module_index < vram_info-
+>>> v2_1.ucNumOfVRAMModule) {
+>>> +					ATOM_INIT_REG_BLOCK *reg_block
+>> =
+>>> +						(ATOM_INIT_REG_BLOCK *)
+>>> +						((u8 *)vram_info +
+>> le16_to_cpu(vram_info->v2_1.usMemClkPatchTblOffset));
+>>> +
+>> 	ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data =
+>>> +
+>> 	(ATOM_MEMORY_SETTING_DATA_BLOCK *)
+>>> +						((u8 *)reg_block + (2 *
+>> sizeof(u16)) +
+>>> +						 le16_to_cpu(reg_block-
+>>> usRegIndexTblSize));
+>>> +					ATOM_INIT_REG_INDEX_FORMAT
+>> *format = &reg_block->asRegIndexBuf[0];
+>>> +					num_entries =
+>> (u8)((le16_to_cpu(reg_block->usRegIndexTblSize)) /
+>>> +
+>> sizeof(ATOM_INIT_REG_INDEX_FORMAT)) - 1;
+>>> +					if (num_entries >
+>> VBIOS_MC_REGISTER_ARRAY_SIZE)
+>>> +						return -EINVAL;
+>>> +					while (i < num_entries) {
+>>> +						if (format-
+>>> ucPreRegDataLength & ACCESS_PLACEHOLDER)
+>>> +							break;
+>>> +						reg_table-
+>>> mc_reg_address[i].s1 =
+>>> +
+>> 	(u16)(le16_to_cpu(format->usRegIndex));
+>>> +						reg_table-
+>>> mc_reg_address[i].pre_reg_data =
+>>> +							(u8)(format-
+>>> ucPreRegDataLength);
+>>> +						i++;
+>>> +						format =
+>> (ATOM_INIT_REG_INDEX_FORMAT *)
+>>> +							((u8 *)format +
+>> sizeof(ATOM_INIT_REG_INDEX_FORMAT));
+>>> +					}
+>>> +					reg_table->last = i;
+>>> +					while ((le32_to_cpu(*(u32
+>> *)reg_data) != END_OF_REG_DATA_BLOCK) &&
+>>> +					       (num_ranges <
+>> VBIOS_MAX_AC_TIMING_ENTRIES)) {
+>>> +						t_mem_id =
+>> (u8)((le32_to_cpu(*(u32 *)reg_data) & MEM_ID_MASK)
+>>> +								>>
+>> MEM_ID_SHIFT);
+>>> +						if (module_index ==
+>> t_mem_id) {
+>>> +							reg_table-
+>>> mc_reg_table_entry[num_ranges].mclk_max =
+>>> +
+>> 	(u32)((le32_to_cpu(*(u32 *)reg_data) & CLOCK_RANGE_MASK)
+>>> +								      >>
+>> CLOCK_RANGE_SHIFT);
+>>> +							for (i = 0, j = 1; i <
+>> reg_table->last; i++) {
+>>> +								if ((reg_table-
+>>> mc_reg_address[i].pre_reg_data & LOW_NIBBLE_MASK) ==
+>> DATA_FROM_TABLE) {
+>>> +
+>> 	reg_table->mc_reg_table_entry[num_ranges].mc_data[i] =
+>>> +
+>> 	(u32)le32_to_cpu(*((u32 *)reg_data + j));
+>>> +									j++;
+>>> +								} else if
+>> ((reg_table->mc_reg_address[i].pre_reg_data & LOW_NIBBLE_MASK) ==
+>> DATA_EQU_PREV) {
+>>> +
+>> 	reg_table->mc_reg_table_entry[num_ranges].mc_data[i] =
+>>> +
+>> 	reg_table->mc_reg_table_entry[num_ranges].mc_data[i - 1];
+>>> +								}
+>>> +							}
+>>> +							num_ranges++;
+>>> +						}
+>>> +						reg_data =
+>> (ATOM_MEMORY_SETTING_DATA_BLOCK *)
+>>> +							((u8 *)reg_data +
+>> le16_to_cpu(reg_block->usRegDataBlkSize));
+>>> +					}
+>>> +					if (le32_to_cpu(*(u32 *)reg_data) !=
+>> END_OF_REG_DATA_BLOCK)
+>>> +						return -EINVAL;
+>>> +					reg_table->num_entries =
+>> num_ranges;
+>>> +				} else
+>>> +					return -EINVAL;
+>>> +				break;
+>>> +			default:
+>>> +				DRM_ERROR("Unknown table
+>> version %d, %d\n", frev, crev);
+>>> +				return -EINVAL;
+>>> +			}
+>>> +			break;
+>>> +		default:
+>>> +			DRM_ERROR("Unknown table version %d, %d\n",
+>> frev, crev);
+>>> +			return -EINVAL;
+>>> +		}
+>>> +		return 0;
+>>> +	}
+>>> +	return -EINVAL;
+>>> +}
+>>> +
+>>> +void amdgpu_dpm_print_class_info(u32 class, u32 class2)
+>>> +{
+>>> +	const char *s;
+>>> +
+>>> +	switch (class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) {
+>>> +	case ATOM_PPLIB_CLASSIFICATION_UI_NONE:
+>>> +	default:
+>>> +		s = "none";
+>>> +		break;
+>>> +	case ATOM_PPLIB_CLASSIFICATION_UI_BATTERY:
+>>> +		s = "battery";
+>>> +		break;
+>>> +	case ATOM_PPLIB_CLASSIFICATION_UI_BALANCED:
+>>> +		s = "balanced";
+>>> +		break;
+>>> +	case ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE:
+>>> +		s = "performance";
+>>> +		break;
+>>> +	}
+>>> +	printk("\tui class: %s\n", s);
+>>> +	printk("\tinternal class:");
+>>> +	if (((class & ~ATOM_PPLIB_CLASSIFICATION_UI_MASK) == 0) &&
+>>> +	    (class2 == 0))
+>>> +		pr_cont(" none");
+>>> +	else {
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_BOOT)
+>>> +			pr_cont(" boot");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_THERMAL)
+>>> +			pr_cont(" thermal");
+>>> +		if (class &
+>> ATOM_PPLIB_CLASSIFICATION_LIMITEDPOWERSOURCE)
+>>> +			pr_cont(" limited_pwr");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_REST)
+>>> +			pr_cont(" rest");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_FORCED)
+>>> +			pr_cont(" forced");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
+>>> +			pr_cont(" 3d_perf");
+>>> +		if (class &
+>> ATOM_PPLIB_CLASSIFICATION_OVERDRIVETEMPLATE)
+>>> +			pr_cont(" ovrdrv");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_UVDSTATE)
+>>> +			pr_cont(" uvd");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_3DLOW)
+>>> +			pr_cont(" 3d_low");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_ACPI)
+>>> +			pr_cont(" acpi");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_HD2STATE)
+>>> +			pr_cont(" uvd_hd2");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_HDSTATE)
+>>> +			pr_cont(" uvd_hd");
+>>> +		if (class & ATOM_PPLIB_CLASSIFICATION_SDSTATE)
+>>> +			pr_cont(" uvd_sd");
+>>> +		if (class2 &
+>> ATOM_PPLIB_CLASSIFICATION2_LIMITEDPOWERSOURCE_2)
+>>> +			pr_cont(" limited_pwr2");
+>>> +		if (class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
+>>> +			pr_cont(" ulv");
+>>> +		if (class2 & ATOM_PPLIB_CLASSIFICATION2_MVC)
+>>> +			pr_cont(" uvd_mvc");
+>>> +	}
+>>> +	pr_cont("\n");
+>>> +}
+>>> +
+>>> +void amdgpu_dpm_print_cap_info(u32 caps)
+>>> +{
+>>> +	printk("\tcaps:");
+>>> +	if (caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY)
+>>> +		pr_cont(" single_disp");
+>>> +	if (caps & ATOM_PPLIB_SUPPORTS_VIDEO_PLAYBACK)
+>>> +		pr_cont(" video");
+>>> +	if (caps & ATOM_PPLIB_DISALLOW_ON_DC)
+>>> +		pr_cont(" no_dc");
+>>> +	pr_cont("\n");
+>>> +}
+>>> +
+>>> +void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
+>>> +				struct amdgpu_ps *rps)
+>>> +{
+>>> +	printk("\tstatus:");
+>>> +	if (rps == adev->pm.dpm.current_ps)
+>>> +		pr_cont(" c");
+>>> +	if (rps == adev->pm.dpm.requested_ps)
+>>> +		pr_cont(" r");
+>>> +	if (rps == adev->pm.dpm.boot_ps)
+>>> +		pr_cont(" b");
+>>> +	pr_cont("\n");
+>>> +}
+>>> +
+>>> +void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
+>>> +{
+>>> +	int i;
+>>> +
+>>> +	if (adev->powerplay.pp_funcs->print_power_state == NULL)
+>>> +		return;
+>>> +
+>>> +	for (i = 0; i < adev->pm.dpm.num_ps; i++)
+>>> +		amdgpu_dpm_print_power_state(adev, &adev-
+>>> pm.dpm.ps[i]);
+>>> +
+>>> +}
+>>> +
+>>> +union power_info {
+>>> +	struct _ATOM_POWERPLAY_INFO info;
+>>> +	struct _ATOM_POWERPLAY_INFO_V2 info_2;
+>>> +	struct _ATOM_POWERPLAY_INFO_V3 info_3;
+>>> +	struct _ATOM_PPLIB_POWERPLAYTABLE pplib;
+>>> +	struct _ATOM_PPLIB_POWERPLAYTABLE2 pplib2;
+>>> +	struct _ATOM_PPLIB_POWERPLAYTABLE3 pplib3;
+>>> +	struct _ATOM_PPLIB_POWERPLAYTABLE4 pplib4;
+>>> +	struct _ATOM_PPLIB_POWERPLAYTABLE5 pplib5;
+>>> +};
+>>> +
+>>> +int amdgpu_get_platform_caps(struct amdgpu_device *adev)
+>>> +{
+>>> +	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> +	union power_info *power_info;
+>>> +	int index = GetIndexIntoMasterTable(DATA, PowerPlayInfo);
+>>> +	u16 data_offset;
+>>> +	u8 frev, crev;
+>>> +
+>>> +	if (!amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> +				   &frev, &crev, &data_offset))
+>>> +		return -EINVAL;
+>>> +	power_info = (union power_info *)(mode_info->atom_context-
+>>> bios + data_offset);
+>>> +
+>>> +	adev->pm.dpm.platform_caps = le32_to_cpu(power_info-
+>>> pplib.ulPlatformCaps);
+>>> +	adev->pm.dpm.backbias_response_time =
+>> le16_to_cpu(power_info->pplib.usBackbiasTime);
+>>> +	adev->pm.dpm.voltage_response_time = le16_to_cpu(power_info-
+>>> pplib.usVoltageTime);
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +union fan_info {
+>>> +	struct _ATOM_PPLIB_FANTABLE fan;
+>>> +	struct _ATOM_PPLIB_FANTABLE2 fan2;
+>>> +	struct _ATOM_PPLIB_FANTABLE3 fan3;
+>>> +};
+>>> +
+>>> +static int amdgpu_parse_clk_voltage_dep_table(struct
+>> amdgpu_clock_voltage_dependency_table *amdgpu_table,
+>>> +
+>> ATOM_PPLIB_Clock_Voltage_Dependency_Table *atom_table)
+>>> +{
+>>> +	u32 size = atom_table->ucNumEntries *
+>>> +		sizeof(struct amdgpu_clock_voltage_dependency_entry);
+>>> +	int i;
+>>> +	ATOM_PPLIB_Clock_Voltage_Dependency_Record *entry;
+>>> +
+>>> +	amdgpu_table->entries = kzalloc(size, GFP_KERNEL);
+>>> +	if (!amdgpu_table->entries)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	entry = &atom_table->entries[0];
+>>> +	for (i = 0; i < atom_table->ucNumEntries; i++) {
+>>> +		amdgpu_table->entries[i].clk = le16_to_cpu(entry-
+>>> usClockLow) |
+>>> +			(entry->ucClockHigh << 16);
+>>> +		amdgpu_table->entries[i].v = le16_to_cpu(entry-
+>>> usVoltage);
+>>> +		entry = (ATOM_PPLIB_Clock_Voltage_Dependency_Record
+>> *)
+>>> +			((u8 *)entry +
+>> sizeof(ATOM_PPLIB_Clock_Voltage_Dependency_Record));
+>>> +	}
+>>> +	amdgpu_table->count = atom_table->ucNumEntries;
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +/* sizeof(ATOM_PPLIB_EXTENDEDHEADER) */
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V2 12
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V3 14
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V4 16
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V5 18
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V6 20
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V7 22
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V8 24
+>>> +#define SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V9 26
+>>> +
+>>> +int amdgpu_parse_extended_power_table(struct amdgpu_device *adev)
+>>> +{
+>>> +	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> +	union power_info *power_info;
+>>> +	union fan_info *fan_info;
+>>> +	ATOM_PPLIB_Clock_Voltage_Dependency_Table *dep_table;
+>>> +	int index = GetIndexIntoMasterTable(DATA, PowerPlayInfo);
+>>> +	u16 data_offset;
+>>> +	u8 frev, crev;
+>>> +	int ret, i;
+>>> +
+>>> +	if (!amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> +				   &frev, &crev, &data_offset))
+>>> +		return -EINVAL;
+>>> +	power_info = (union power_info *)(mode_info->atom_context-
+>>> bios + data_offset);
+>>> +
+>>> +	/* fan table */
+>>> +	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> +	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE3)) {
+>>> +		if (power_info->pplib3.usFanTableOffset) {
+>>> +			fan_info = (union fan_info *)(mode_info-
+>>> atom_context->bios + data_offset +
+>>> +						      le16_to_cpu(power_info-
+>>> pplib3.usFanTableOffset));
+>>> +			adev->pm.dpm.fan.t_hyst = fan_info->fan.ucTHyst;
+>>> +			adev->pm.dpm.fan.t_min = le16_to_cpu(fan_info-
+>>> fan.usTMin);
+>>> +			adev->pm.dpm.fan.t_med = le16_to_cpu(fan_info-
+>>> fan.usTMed);
+>>> +			adev->pm.dpm.fan.t_high = le16_to_cpu(fan_info-
+>>> fan.usTHigh);
+>>> +			adev->pm.dpm.fan.pwm_min =
+>> le16_to_cpu(fan_info->fan.usPWMMin);
+>>> +			adev->pm.dpm.fan.pwm_med =
+>> le16_to_cpu(fan_info->fan.usPWMMed);
+>>> +			adev->pm.dpm.fan.pwm_high =
+>> le16_to_cpu(fan_info->fan.usPWMHigh);
+>>> +			if (fan_info->fan.ucFanTableFormat >= 2)
+>>> +				adev->pm.dpm.fan.t_max =
+>> le16_to_cpu(fan_info->fan2.usTMax);
+>>> +			else
+>>> +				adev->pm.dpm.fan.t_max = 10900;
+>>> +			adev->pm.dpm.fan.cycle_delay = 100000;
+>>> +			if (fan_info->fan.ucFanTableFormat >= 3) {
+>>> +				adev->pm.dpm.fan.control_mode =
+>> fan_info->fan3.ucFanControlMode;
+>>> +				adev->pm.dpm.fan.default_max_fan_pwm
+>> =
+>>> +					le16_to_cpu(fan_info-
+>>> fan3.usFanPWMMax);
+>>> +				adev-
+>>> pm.dpm.fan.default_fan_output_sensitivity = 4836;
+>>> +				adev->pm.dpm.fan.fan_output_sensitivity =
+>>> +					le16_to_cpu(fan_info-
+>>> fan3.usFanOutputSensitivity);
+>>> +			}
+>>> +			adev->pm.dpm.fan.ucode_fan_control = true;
+>>> +		}
+>>> +	}
+>>> +
+>>> +	/* clock dependancy tables, shedding tables */
+>>> +	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> +	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE4)) {
+>>> +		if (power_info->pplib4.usVddcDependencyOnSCLKOffset) {
+>>> +			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(power_info-
+>>> pplib4.usVddcDependencyOnSCLKOffset));
+>>> +			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_sclk,
+>>> +								 dep_table);
+>>> +			if (ret) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return ret;
+>>> +			}
+>>> +		}
+>>> +		if (power_info->pplib4.usVddciDependencyOnMCLKOffset) {
+>>> +			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(power_info-
+>>> pplib4.usVddciDependencyOnMCLKOffset));
+>>> +			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.vddci_dependency_on_mclk,
+>>> +								 dep_table);
+>>> +			if (ret) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return ret;
+>>> +			}
+>>> +		}
+>>> +		if (power_info->pplib4.usVddcDependencyOnMCLKOffset) {
+>>> +			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(power_info-
+>>> pplib4.usVddcDependencyOnMCLKOffset));
+>>> +			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_mclk,
+>>> +								 dep_table);
+>>> +			if (ret) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return ret;
+>>> +			}
+>>> +		}
+>>> +		if (power_info->pplib4.usMvddDependencyOnMCLKOffset)
+>> {
+>>> +			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(power_info-
+>>> pplib4.usMvddDependencyOnMCLKOffset));
+>>> +			ret = amdgpu_parse_clk_voltage_dep_table(&adev-
+>>> pm.dpm.dyn_state.mvdd_dependency_on_mclk,
+>>> +								 dep_table);
+>>> +			if (ret) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return ret;
+>>> +			}
+>>> +		}
+>>> +		if (power_info->pplib4.usMaxClockVoltageOnDCOffset) {
+>>> +			ATOM_PPLIB_Clock_Voltage_Limit_Table *clk_v =
+>>> +				(ATOM_PPLIB_Clock_Voltage_Limit_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(power_info-
+>>> pplib4.usMaxClockVoltageOnDCOffset));
+>>> +			if (clk_v->ucNumEntries) {
+>>> +				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.sclk =
+>>> +					le16_to_cpu(clk_v-
+>>> entries[0].usSclkLow) |
+>>> +					(clk_v->entries[0].ucSclkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.mclk =
+>>> +					le16_to_cpu(clk_v-
+>>> entries[0].usMclkLow) |
+>>> +					(clk_v->entries[0].ucMclkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.vddc =
+>>> +					le16_to_cpu(clk_v-
+>>> entries[0].usVddc);
+>>> +				adev-
+>>> pm.dpm.dyn_state.max_clock_voltage_on_dc.vddci =
+>>> +					le16_to_cpu(clk_v-
+>>> entries[0].usVddci);
+>>> +			}
+>>> +		}
+>>> +		if (power_info->pplib4.usVddcPhaseShedLimitsTableOffset)
+>> {
+>>> +			ATOM_PPLIB_PhaseSheddingLimits_Table *psl =
+>>> +				(ATOM_PPLIB_PhaseSheddingLimits_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(power_info-
+>>> pplib4.usVddcPhaseShedLimitsTableOffset));
+>>> +			ATOM_PPLIB_PhaseSheddingLimits_Record *entry;
+>>> +
+>>> +			adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries =
+>>> +				kcalloc(psl->ucNumEntries,
+>>> +					sizeof(struct
+>> amdgpu_phase_shedding_limits_entry),
+>>> +					GFP_KERNEL);
+>>> +			if (!adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +
+>>> +			entry = &psl->entries[0];
+>>> +			for (i = 0; i < psl->ucNumEntries; i++) {
+>>> +				adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries[i].sclk =
+>>> +					le16_to_cpu(entry->usSclkLow) |
+>> (entry->ucSclkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries[i].mclk =
+>>> +					le16_to_cpu(entry->usMclkLow) |
+>> (entry->ucMclkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.entries[i].voltage =
+>>> +					le16_to_cpu(entry->usVoltage);
+>>> +				entry =
+>> (ATOM_PPLIB_PhaseSheddingLimits_Record *)
+>>> +					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_PhaseSheddingLimits_Record));
+>>> +			}
+>>> +			adev-
+>>> pm.dpm.dyn_state.phase_shedding_limits_table.count =
+>>> +				psl->ucNumEntries;
+>>> +		}
+>>> +	}
+>>> +
+>>> +	/* cac data */
+>>> +	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> +	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE5)) {
+>>> +		adev->pm.dpm.tdp_limit = le32_to_cpu(power_info-
+>>> pplib5.ulTDPLimit);
+>>> +		adev->pm.dpm.near_tdp_limit = le32_to_cpu(power_info-
+>>> pplib5.ulNearTDPLimit);
+>>> +		adev->pm.dpm.near_tdp_limit_adjusted = adev-
+>>> pm.dpm.near_tdp_limit;
+>>> +		adev->pm.dpm.tdp_od_limit = le16_to_cpu(power_info-
+>>> pplib5.usTDPODLimit);
+>>> +		if (adev->pm.dpm.tdp_od_limit)
+>>> +			adev->pm.dpm.power_control = true;
+>>> +		else
+>>> +			adev->pm.dpm.power_control = false;
+>>> +		adev->pm.dpm.tdp_adjustment = 0;
+>>> +		adev->pm.dpm.sq_ramping_threshold =
+>> le32_to_cpu(power_info->pplib5.ulSQRampingThreshold);
+>>> +		adev->pm.dpm.cac_leakage = le32_to_cpu(power_info-
+>>> pplib5.ulCACLeakage);
+>>> +		adev->pm.dpm.load_line_slope = le16_to_cpu(power_info-
+>>> pplib5.usLoadLineSlope);
+>>> +		if (power_info->pplib5.usCACLeakageTableOffset) {
+>>> +			ATOM_PPLIB_CAC_Leakage_Table *cac_table =
+>>> +				(ATOM_PPLIB_CAC_Leakage_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(power_info-
+>>> pplib5.usCACLeakageTableOffset));
+>>> +			ATOM_PPLIB_CAC_Leakage_Record *entry;
+>>> +			u32 size = cac_table->ucNumEntries * sizeof(struct
+>> amdgpu_cac_leakage_table);
+>>> +			adev->pm.dpm.dyn_state.cac_leakage_table.entries
+>> = kzalloc(size, GFP_KERNEL);
+>>> +			if (!adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +			entry = &cac_table->entries[0];
+>>> +			for (i = 0; i < cac_table->ucNumEntries; i++) {
+>>> +				if (adev->pm.dpm.platform_caps &
+>> ATOM_PP_PLATFORM_CAP_EVV) {
+>>> +					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc1 =
+>>> +						le16_to_cpu(entry-
+>>> usVddc1);
+>>> +					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc2 =
+>>> +						le16_to_cpu(entry-
+>>> usVddc2);
+>>> +					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc3 =
+>>> +						le16_to_cpu(entry-
+>>> usVddc3);
+>>> +				} else {
+>>> +					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].vddc =
+>>> +						le16_to_cpu(entry->usVddc);
+>>> +					adev-
+>>> pm.dpm.dyn_state.cac_leakage_table.entries[i].leakage =
+>>> +						le32_to_cpu(entry-
+>>> ulLeakageValue);
+>>> +				}
+>>> +				entry = (ATOM_PPLIB_CAC_Leakage_Record
+>> *)
+>>> +					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_CAC_Leakage_Record));
+>>> +			}
+>>> +			adev->pm.dpm.dyn_state.cac_leakage_table.count
+>> = cac_table->ucNumEntries;
+>>> +		}
+>>> +	}
+>>> +
+>>> +	/* ext tables */
+>>> +	if (le16_to_cpu(power_info->pplib.usTableSize) >=
+>>> +	    sizeof(struct _ATOM_PPLIB_POWERPLAYTABLE3)) {
+>>> +		ATOM_PPLIB_EXTENDEDHEADER *ext_hdr =
+>> (ATOM_PPLIB_EXTENDEDHEADER *)
+>>> +			(mode_info->atom_context->bios + data_offset +
+>>> +			 le16_to_cpu(power_info-
+>>> pplib3.usExtendendedHeaderOffset));
+>>> +		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V2) &&
+>>> +			ext_hdr->usVCETableOffset) {
+>>> +			VCEClockInfoArray *array = (VCEClockInfoArray *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usVCETableOffset) +
+>> 1);
+>>> +			ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table
+>> *limits =
+>>> +
+>> 	(ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usVCETableOffset) +
+>> 1 +
+>>> +				 1 + array->ucNumEntries *
+>> sizeof(VCEClockInfo));
+>>> +			ATOM_PPLIB_VCE_State_Table *states =
+>>> +				(ATOM_PPLIB_VCE_State_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usVCETableOffset) +
+>> 1 +
+>>> +				 1 + (array->ucNumEntries * sizeof
+>> (VCEClockInfo)) +
+>>> +				 1 + (limits->numEntries *
+>> sizeof(ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record)));
+>>> +			ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record
+>> *entry;
+>>> +			ATOM_PPLIB_VCE_State_Record *state_entry;
+>>> +			VCEClockInfo *vce_clk;
+>>> +			u32 size = limits->numEntries *
+>>> +				sizeof(struct
+>> amdgpu_vce_clock_voltage_dependency_entry);
+>>> +			adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries =
+>>> +				kzalloc(size, GFP_KERNEL);
+>>> +			if (!adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +			adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.count =
+>>> +				limits->numEntries;
+>>> +			entry = &limits->entries[0];
+>>> +			state_entry = &states->entries[0];
+>>> +			for (i = 0; i < limits->numEntries; i++) {
+>>> +				vce_clk = (VCEClockInfo *)
+>>> +					((u8 *)&array->entries[0] +
+>>> +					 (entry->ucVCEClockInfoIndex *
+>> sizeof(VCEClockInfo)));
+>>> +				adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries[i].evclk
+>> =
+>>> +					le16_to_cpu(vce_clk->usEVClkLow) |
+>> (vce_clk->ucEVClkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries[i].ecclk
+>> =
+>>> +					le16_to_cpu(vce_clk->usECClkLow) |
+>> (vce_clk->ucECClkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.vce_clock_voltage_dependency_table.entries[i].v =
+>>> +					le16_to_cpu(entry->usVoltage);
+>>> +				entry =
+>> (ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record *)
+>>> +					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record));
+>>> +			}
+>>> +			adev->pm.dpm.num_of_vce_states =
+>>> +					states->numEntries >
+>> AMD_MAX_VCE_LEVELS ?
+>>> +					AMD_MAX_VCE_LEVELS : states-
+>>> numEntries;
+>>> +			for (i = 0; i < adev->pm.dpm.num_of_vce_states; i++)
+>> {
+>>> +				vce_clk = (VCEClockInfo *)
+>>> +					((u8 *)&array->entries[0] +
+>>> +					 (state_entry->ucVCEClockInfoIndex
+>> * sizeof(VCEClockInfo)));
+>>> +				adev->pm.dpm.vce_states[i].evclk =
+>>> +					le16_to_cpu(vce_clk->usEVClkLow) |
+>> (vce_clk->ucEVClkHigh << 16);
+>>> +				adev->pm.dpm.vce_states[i].ecclk =
+>>> +					le16_to_cpu(vce_clk->usECClkLow) |
+>> (vce_clk->ucECClkHigh << 16);
+>>> +				adev->pm.dpm.vce_states[i].clk_idx =
+>>> +					state_entry->ucClockInfoIndex &
+>> 0x3f;
+>>> +				adev->pm.dpm.vce_states[i].pstate =
+>>> +					(state_entry->ucClockInfoIndex &
+>> 0xc0) >> 6;
+>>> +				state_entry =
+>> (ATOM_PPLIB_VCE_State_Record *)
+>>> +					((u8 *)state_entry +
+>> sizeof(ATOM_PPLIB_VCE_State_Record));
+>>> +			}
+>>> +		}
+>>> +		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V3) &&
+>>> +			ext_hdr->usUVDTableOffset) {
+>>> +			UVDClockInfoArray *array = (UVDClockInfoArray *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usUVDTableOffset) +
+>> 1);
+>>> +			ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table
+>> *limits =
+>>> +
+>> 	(ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usUVDTableOffset) +
+>> 1 +
+>>> +				 1 + (array->ucNumEntries * sizeof
+>> (UVDClockInfo)));
+>>> +			ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record
+>> *entry;
+>>> +			u32 size = limits->numEntries *
+>>> +				sizeof(struct
+>> amdgpu_uvd_clock_voltage_dependency_entry);
+>>> +			adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries =
+>>> +				kzalloc(size, GFP_KERNEL);
+>>> +			if (!adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +			adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.count =
+>>> +				limits->numEntries;
+>>> +			entry = &limits->entries[0];
+>>> +			for (i = 0; i < limits->numEntries; i++) {
+>>> +				UVDClockInfo *uvd_clk = (UVDClockInfo *)
+>>> +					((u8 *)&array->entries[0] +
+>>> +					 (entry->ucUVDClockInfoIndex *
+>> sizeof(UVDClockInfo)));
+>>> +				adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries[i].vclk =
+>>> +					le16_to_cpu(uvd_clk->usVClkLow) |
+>> (uvd_clk->ucVClkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries[i].dclk =
+>>> +					le16_to_cpu(uvd_clk->usDClkLow) |
+>> (uvd_clk->ucDClkHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.uvd_clock_voltage_dependency_table.entries[i].v =
+>>> +					le16_to_cpu(entry->usVoltage);
+>>> +				entry =
+>> (ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record *)
+>>> +					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record));
+>>> +			}
+>>> +		}
+>>> +		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V4) &&
+>>> +			ext_hdr->usSAMUTableOffset) {
+>>> +			ATOM_PPLIB_SAMClk_Voltage_Limit_Table *limits =
+>>> +				(ATOM_PPLIB_SAMClk_Voltage_Limit_Table
+>> *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usSAMUTableOffset)
+>> + 1);
+>>> +			ATOM_PPLIB_SAMClk_Voltage_Limit_Record *entry;
+>>> +			u32 size = limits->numEntries *
+>>> +				sizeof(struct
+>> amdgpu_clock_voltage_dependency_entry);
+>>> +			adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries =
+>>> +				kzalloc(size, GFP_KERNEL);
+>>> +			if (!adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +			adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.count =
+>>> +				limits->numEntries;
+>>> +			entry = &limits->entries[0];
+>>> +			for (i = 0; i < limits->numEntries; i++) {
+>>> +				adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries[i].clk =
+>>> +					le16_to_cpu(entry->usSAMClockLow)
+>> | (entry->ucSAMClockHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.samu_clock_voltage_dependency_table.entries[i].v =
+>>> +					le16_to_cpu(entry->usVoltage);
+>>> +				entry =
+>> (ATOM_PPLIB_SAMClk_Voltage_Limit_Record *)
+>>> +					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_SAMClk_Voltage_Limit_Record));
+>>> +			}
+>>> +		}
+>>> +		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V5) &&
+>>> +		    ext_hdr->usPPMTableOffset) {
+>>> +			ATOM_PPLIB_PPM_Table *ppm =
+>> (ATOM_PPLIB_PPM_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usPPMTableOffset));
+>>> +			adev->pm.dpm.dyn_state.ppm_table =
+>>> +				kzalloc(sizeof(struct amdgpu_ppm_table),
+>> GFP_KERNEL);
+>>> +			if (!adev->pm.dpm.dyn_state.ppm_table) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +			adev->pm.dpm.dyn_state.ppm_table->ppm_design
+>> = ppm->ucPpmDesign;
+>>> +			adev->pm.dpm.dyn_state.ppm_table-
+>>> cpu_core_number =
+>>> +				le16_to_cpu(ppm->usCpuCoreNumber);
+>>> +			adev->pm.dpm.dyn_state.ppm_table-
+>>> platform_tdp =
+>>> +				le32_to_cpu(ppm->ulPlatformTDP);
+>>> +			adev->pm.dpm.dyn_state.ppm_table-
+>>> small_ac_platform_tdp =
+>>> +				le32_to_cpu(ppm->ulSmallACPlatformTDP);
+>>> +			adev->pm.dpm.dyn_state.ppm_table->platform_tdc
+>> =
+>>> +				le32_to_cpu(ppm->ulPlatformTDC);
+>>> +			adev->pm.dpm.dyn_state.ppm_table-
+>>> small_ac_platform_tdc =
+>>> +				le32_to_cpu(ppm->ulSmallACPlatformTDC);
+>>> +			adev->pm.dpm.dyn_state.ppm_table->apu_tdp =
+>>> +				le32_to_cpu(ppm->ulApuTDP);
+>>> +			adev->pm.dpm.dyn_state.ppm_table->dgpu_tdp =
+>>> +				le32_to_cpu(ppm->ulDGpuTDP);
+>>> +			adev->pm.dpm.dyn_state.ppm_table-
+>>> dgpu_ulv_power =
+>>> +				le32_to_cpu(ppm->ulDGpuUlvPower);
+>>> +			adev->pm.dpm.dyn_state.ppm_table->tj_max =
+>>> +				le32_to_cpu(ppm->ulTjmax);
+>>> +		}
+>>> +		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V6) &&
+>>> +			ext_hdr->usACPTableOffset) {
+>>> +			ATOM_PPLIB_ACPClk_Voltage_Limit_Table *limits =
+>>> +				(ATOM_PPLIB_ACPClk_Voltage_Limit_Table
+>> *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr->usACPTableOffset) +
+>> 1);
+>>> +			ATOM_PPLIB_ACPClk_Voltage_Limit_Record *entry;
+>>> +			u32 size = limits->numEntries *
+>>> +				sizeof(struct
+>> amdgpu_clock_voltage_dependency_entry);
+>>> +			adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries =
+>>> +				kzalloc(size, GFP_KERNEL);
+>>> +			if (!adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +			adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.count =
+>>> +				limits->numEntries;
+>>> +			entry = &limits->entries[0];
+>>> +			for (i = 0; i < limits->numEntries; i++) {
+>>> +				adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries[i].clk =
+>>> +					le16_to_cpu(entry->usACPClockLow)
+>> | (entry->ucACPClockHigh << 16);
+>>> +				adev-
+>>> pm.dpm.dyn_state.acp_clock_voltage_dependency_table.entries[i].v =
+>>> +					le16_to_cpu(entry->usVoltage);
+>>> +				entry =
+>> (ATOM_PPLIB_ACPClk_Voltage_Limit_Record *)
+>>> +					((u8 *)entry +
+>> sizeof(ATOM_PPLIB_ACPClk_Voltage_Limit_Record));
+>>> +			}
+>>> +		}
+>>> +		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V7) &&
+>>> +			ext_hdr->usPowerTuneTableOffset) {
+>>> +			u8 rev = *(u8 *)(mode_info->atom_context->bios +
+>> data_offset +
+>>> +					 le16_to_cpu(ext_hdr-
+>>> usPowerTuneTableOffset));
+>>> +			ATOM_PowerTune_Table *pt;
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table =
+>>> +				kzalloc(sizeof(struct amdgpu_cac_tdp_table),
+>> GFP_KERNEL);
+>>> +			if (!adev->pm.dpm.dyn_state.cac_tdp_table) {
+>>> +
+>> 	amdgpu_free_extended_power_table(adev);
+>>> +				return -ENOMEM;
+>>> +			}
+>>> +			if (rev > 0) {
+>>> +				ATOM_PPLIB_POWERTUNE_Table_V1 *ppt =
+>> (ATOM_PPLIB_POWERTUNE_Table_V1 *)
+>>> +					(mode_info->atom_context->bios +
+>> data_offset +
+>>> +					 le16_to_cpu(ext_hdr-
+>>> usPowerTuneTableOffset));
+>>> +				adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> maximum_power_delivery_limit =
+>>> +					ppt->usMaximumPowerDeliveryLimit;
+>>> +				pt = &ppt->power_tune_table;
+>>> +			} else {
+>>> +				ATOM_PPLIB_POWERTUNE_Table *ppt =
+>> (ATOM_PPLIB_POWERTUNE_Table *)
+>>> +					(mode_info->atom_context->bios +
+>> data_offset +
+>>> +					 le16_to_cpu(ext_hdr-
+>>> usPowerTuneTableOffset));
+>>> +				adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> maximum_power_delivery_limit = 255;
+>>> +				pt = &ppt->power_tune_table;
+>>> +			}
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table->tdp =
+>> le16_to_cpu(pt->usTDP);
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> configurable_tdp =
+>>> +				le16_to_cpu(pt->usConfigurableTDP);
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table->tdc =
+>> le16_to_cpu(pt->usTDC);
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> battery_power_limit =
+>>> +				le16_to_cpu(pt->usBatteryPowerLimit);
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> small_power_limit =
+>>> +				le16_to_cpu(pt->usSmallPowerLimit);
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> low_cac_leakage =
+>>> +				le16_to_cpu(pt->usLowCACLeakage);
+>>> +			adev->pm.dpm.dyn_state.cac_tdp_table-
+>>> high_cac_leakage =
+>>> +				le16_to_cpu(pt->usHighCACLeakage);
+>>> +		}
+>>> +		if ((le16_to_cpu(ext_hdr->usSize) >=
+>> SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V8) &&
+>>> +				ext_hdr->usSclkVddgfxTableOffset) {
+>>> +			dep_table =
+>> (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+>>> +				(mode_info->atom_context->bios +
+>> data_offset +
+>>> +				 le16_to_cpu(ext_hdr-
+>>> usSclkVddgfxTableOffset));
+>>> +			ret = amdgpu_parse_clk_voltage_dep_table(
+>>> +					&adev-
+>>> pm.dpm.dyn_state.vddgfx_dependency_on_sclk,
+>>> +					dep_table);
+>>> +			if (ret) {
+>>> +				kfree(adev-
+>>> pm.dpm.dyn_state.vddgfx_dependency_on_sclk.entries);
+>>> +				return ret;
+>>> +			}
+>>> +		}
+>>> +	}
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +void amdgpu_free_extended_power_table(struct amdgpu_device *adev)
+>>> +{
+>>> +	struct amdgpu_dpm_dynamic_state *dyn_state = &adev-
+>>> pm.dpm.dyn_state;
+>>> +
+>>> +	kfree(dyn_state->vddc_dependency_on_sclk.entries);
+>>> +	kfree(dyn_state->vddci_dependency_on_mclk.entries);
+>>> +	kfree(dyn_state->vddc_dependency_on_mclk.entries);
+>>> +	kfree(dyn_state->mvdd_dependency_on_mclk.entries);
+>>> +	kfree(dyn_state->cac_leakage_table.entries);
+>>> +	kfree(dyn_state->phase_shedding_limits_table.entries);
+>>> +	kfree(dyn_state->ppm_table);
+>>> +	kfree(dyn_state->cac_tdp_table);
+>>> +	kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
+>>> +	kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
+>>> +	kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
+>>> +	kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
+>>> +	kfree(dyn_state->vddgfx_dependency_on_sclk.entries);
+>>> +}
+>>> +
+>>> +static const char *pp_lib_thermal_controller_names[] = {
+>>> +	"NONE",
+>>> +	"lm63",
+>>> +	"adm1032",
+>>> +	"adm1030",
+>>> +	"max6649",
+>>> +	"lm64",
+>>> +	"f75375",
+>>> +	"RV6xx",
+>>> +	"RV770",
+>>> +	"adt7473",
+>>> +	"NONE",
+>>> +	"External GPIO",
+>>> +	"Evergreen",
+>>> +	"emc2103",
+>>> +	"Sumo",
+>>> +	"Northern Islands",
+>>> +	"Southern Islands",
+>>> +	"lm96163",
+>>> +	"Sea Islands",
+>>> +	"Kaveri/Kabini",
+>>> +};
+>>> +
+>>> +void amdgpu_add_thermal_controller(struct amdgpu_device *adev)
+>>> +{
+>>> +	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+>>> +	ATOM_PPLIB_POWERPLAYTABLE *power_table;
+>>> +	int index = GetIndexIntoMasterTable(DATA, PowerPlayInfo);
+>>> +	ATOM_PPLIB_THERMALCONTROLLER *controller;
+>>> +	struct amdgpu_i2c_bus_rec i2c_bus;
+>>> +	u16 data_offset;
+>>> +	u8 frev, crev;
+>>> +
+>>> +	if (!amdgpu_atom_parse_data_header(mode_info->atom_context,
+>> index, NULL,
+>>> +				   &frev, &crev, &data_offset))
+>>> +		return;
+>>> +	power_table = (ATOM_PPLIB_POWERPLAYTABLE *)
+>>> +		(mode_info->atom_context->bios + data_offset);
+>>> +	controller = &power_table->sThermalController;
+>>> +
+>>> +	/* add the i2c bus for thermal/fan chip */
+>>> +	if (controller->ucType > 0) {
+>>> +		if (controller->ucFanParameters &
+>> ATOM_PP_FANPARAMETERS_NOFAN)
+>>> +			adev->pm.no_fan = true;
+>>> +		adev->pm.fan_pulses_per_revolution =
+>>> +			controller->ucFanParameters &
+>> ATOM_PP_FANPARAMETERS_TACHOMETER_PULSES_PER_REVOLUTION_M
+>> ASK;
+>>> +		if (adev->pm.fan_pulses_per_revolution) {
+>>> +			adev->pm.fan_min_rpm = controller->ucFanMinRPM;
+>>> +			adev->pm.fan_max_rpm = controller-
+>>> ucFanMaxRPM;
+>>> +		}
+>>> +		if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_RV6xx) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_RV6XX;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_RV770) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_RV770;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_EVERGREEN) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EVERGREEN;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_SUMO) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_SUMO;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_NISLANDS) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type = THERMAL_TYPE_NI;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_SISLANDS) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type = THERMAL_TYPE_SI;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_CISLANDS) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type = THERMAL_TYPE_CI;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_KAVERI) {
+>>> +			DRM_INFO("Internal thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type = THERMAL_TYPE_KV;
+>>> +		} else if (controller->ucType ==
+>> ATOM_PP_THERMALCONTROLLER_EXTERNAL_GPIO) {
+>>> +			DRM_INFO("External GPIO thermal controller %s fan
+>> control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EXTERNAL_GPIO;
+>>> +		} else if (controller->ucType ==
+>>> +
+>> ATOM_PP_THERMALCONTROLLER_ADT7473_WITH_INTERNAL) {
+>>> +			DRM_INFO("ADT7473 with internal thermal
+>> controller %s fan control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_ADT7473_WITH_INTERNAL;
+>>> +		} else if (controller->ucType ==
+>>> +
+>> ATOM_PP_THERMALCONTROLLER_EMC2103_WITH_INTERNAL) {
+>>> +			DRM_INFO("EMC2103 with internal thermal
+>> controller %s fan control\n",
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EMC2103_WITH_INTERNAL;
+>>> +		} else if (controller->ucType <
+>> ARRAY_SIZE(pp_lib_thermal_controller_names)) {
+>>> +			DRM_INFO("Possible %s thermal controller at
+>> 0x%02x %s fan control\n",
+>>> +
+>> pp_lib_thermal_controller_names[controller->ucType],
+>>> +				 controller->ucI2cAddress >> 1,
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +			adev->pm.int_thermal_type =
+>> THERMAL_TYPE_EXTERNAL;
+>>> +			i2c_bus = amdgpu_atombios_lookup_i2c_gpio(adev,
+>> controller->ucI2cLine);
+>>> +			adev->pm.i2c_bus = amdgpu_i2c_lookup(adev,
+>> &i2c_bus);
+>>> +			if (adev->pm.i2c_bus) {
+>>> +				struct i2c_board_info info = { };
+>>> +				const char *name =
+>> pp_lib_thermal_controller_names[controller->ucType];
+>>> +				info.addr = controller->ucI2cAddress >> 1;
+>>> +				strlcpy(info.type, name, sizeof(info.type));
+>>> +				i2c_new_client_device(&adev->pm.i2c_bus-
+>>> adapter, &info);
+>>> +			}
+>>> +		} else {
+>>> +			DRM_INFO("Unknown thermal controller type %d at
+>> 0x%02x %s fan control\n",
+>>> +				 controller->ucType,
+>>> +				 controller->ucI2cAddress >> 1,
+>>> +				 (controller->ucFanParameters &
+>>> +				  ATOM_PP_FANPARAMETERS_NOFAN) ?
+>> "without" : "with");
+>>> +		}
+>>> +	}
+>>> +}
+>>> +
+>>> +struct amd_vce_state* amdgpu_get_vce_clock_state(void *handle, u32
+>> idx)
+>>> +{
+>>> +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>> +
+>>> +	if (idx < adev->pm.dpm.num_of_vce_states)
+>>> +		return &adev->pm.dpm.vce_states[idx];
+>>> +
+>>> +	return NULL;
+>>> +}
+>>> +
+>>> +static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct
+>> amdgpu_device *adev,
+>>> +						     enum
+>> amd_pm_state_type dpm_state)
+>>> +{
+>>> +	int i;
+>>> +	struct amdgpu_ps *ps;
+>>> +	u32 ui_class;
+>>> +	bool single_display = (adev->pm.dpm.new_active_crtc_count < 2) ?
+>>> +		true : false;
+>>> +
+>>> +	/* check if the vblank period is too short to adjust the mclk */
+>>> +	if (single_display && adev->powerplay.pp_funcs->vblank_too_short)
+>> {
+>>> +		if (amdgpu_dpm_vblank_too_short(adev))
+>>> +			single_display = false;
+>>> +	}
+>>> +
+>>> +	/* certain older asics have a separare 3D performance state,
+>>> +	 * so try that first if the user selected performance
+>>> +	 */
+>>> +	if (dpm_state == POWER_STATE_TYPE_PERFORMANCE)
+>>> +		dpm_state = POWER_STATE_TYPE_INTERNAL_3DPERF;
+>>> +	/* balanced states don't exist at the moment */
+>>> +	if (dpm_state == POWER_STATE_TYPE_BALANCED)
+>>> +		dpm_state = POWER_STATE_TYPE_PERFORMANCE;
+>>> +
+>>> +restart_search:
+>>> +	/* Pick the best power state based on current conditions */
+>>> +	for (i = 0; i < adev->pm.dpm.num_ps; i++) {
+>>> +		ps = &adev->pm.dpm.ps[i];
+>>> +		ui_class = ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_UI_MASK;
+>>> +		switch (dpm_state) {
+>>> +		/* user states */
+>>> +		case POWER_STATE_TYPE_BATTERY:
+>>> +			if (ui_class ==
+>> ATOM_PPLIB_CLASSIFICATION_UI_BATTERY) {
+>>> +				if (ps->caps &
+>> ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
+>>> +					if (single_display)
+>>> +						return ps;
+>>> +				} else
+>>> +					return ps;
+>>> +			}
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_BALANCED:
+>>> +			if (ui_class ==
+>> ATOM_PPLIB_CLASSIFICATION_UI_BALANCED) {
+>>> +				if (ps->caps &
+>> ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
+>>> +					if (single_display)
+>>> +						return ps;
+>>> +				} else
+>>> +					return ps;
+>>> +			}
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_PERFORMANCE:
+>>> +			if (ui_class ==
+>> ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE) {
+>>> +				if (ps->caps &
+>> ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
+>>> +					if (single_display)
+>>> +						return ps;
+>>> +				} else
+>>> +					return ps;
+>>> +			}
+>>> +			break;
+>>> +		/* internal states */
+>>> +		case POWER_STATE_TYPE_INTERNAL_UVD:
+>>> +			if (adev->pm.dpm.uvd_ps)
+>>> +				return adev->pm.dpm.uvd_ps;
+>>> +			else
+>>> +				break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_UVD_SD:
+>>> +			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_SDSTATE)
+>>> +				return ps;
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_UVD_HD:
+>>> +			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_HDSTATE)
+>>> +				return ps;
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
+>>> +			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_HD2STATE)
+>>> +				return ps;
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
+>>> +			if (ps->class2 &
+>> ATOM_PPLIB_CLASSIFICATION2_MVC)
+>>> +				return ps;
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_BOOT:
+>>> +			return adev->pm.dpm.boot_ps;
+>>> +		case POWER_STATE_TYPE_INTERNAL_THERMAL:
+>>> +			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_THERMAL)
+>>> +				return ps;
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_ACPI:
+>>> +			if (ps->class & ATOM_PPLIB_CLASSIFICATION_ACPI)
+>>> +				return ps;
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_ULV:
+>>> +			if (ps->class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
+>>> +				return ps;
+>>> +			break;
+>>> +		case POWER_STATE_TYPE_INTERNAL_3DPERF:
+>>> +			if (ps->class &
+>> ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
+>>> +				return ps;
+>>> +			break;
+>>> +		default:
+>>> +			break;
+>>> +		}
+>>> +	}
+>>> +	/* use a fallback state if we didn't match */
+>>> +	switch (dpm_state) {
+>>> +	case POWER_STATE_TYPE_INTERNAL_UVD_SD:
+>>> +		dpm_state = POWER_STATE_TYPE_INTERNAL_UVD_HD;
+>>> +		goto restart_search;
+>>> +	case POWER_STATE_TYPE_INTERNAL_UVD_HD:
+>>> +	case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
+>>> +	case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
+>>> +		if (adev->pm.dpm.uvd_ps) {
+>>> +			return adev->pm.dpm.uvd_ps;
+>>> +		} else {
+>>> +			dpm_state = POWER_STATE_TYPE_PERFORMANCE;
+>>> +			goto restart_search;
+>>> +		}
+>>> +	case POWER_STATE_TYPE_INTERNAL_THERMAL:
+>>> +		dpm_state = POWER_STATE_TYPE_INTERNAL_ACPI;
+>>> +		goto restart_search;
+>>> +	case POWER_STATE_TYPE_INTERNAL_ACPI:
+>>> +		dpm_state = POWER_STATE_TYPE_BATTERY;
+>>> +		goto restart_search;
+>>> +	case POWER_STATE_TYPE_BATTERY:
+>>> +	case POWER_STATE_TYPE_BALANCED:
+>>> +	case POWER_STATE_TYPE_INTERNAL_3DPERF:
+>>> +		dpm_state = POWER_STATE_TYPE_PERFORMANCE;
+>>> +		goto restart_search;
+>>> +	default:
+>>> +		break;
+>>> +	}
+>>> +
+>>> +	return NULL;
+>>> +}
+>>> +
+>>> +int amdgpu_dpm_change_power_state_locked(void *handle)
+>>> +{
+>>> +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>> +	struct amdgpu_ps *ps;
+>>> +	enum amd_pm_state_type dpm_state;
+>>> +	int ret;
+>>> +	bool equal = false;
+>>> +
+>>> +	/* if dpm init failed */
+>>> +	if (!adev->pm.dpm_enabled)
+>>> +		return 0;
+>>> +
+>>> +	if (adev->pm.dpm.user_state != adev->pm.dpm.state) {
+>>> +		/* add other state override checks here */
+>>> +		if ((!adev->pm.dpm.thermal_active) &&
+>>> +		    (!adev->pm.dpm.uvd_active))
+>>> +			adev->pm.dpm.state = adev->pm.dpm.user_state;
+>>> +	}
+>>> +	dpm_state = adev->pm.dpm.state;
+>>> +
+>>> +	ps = amdgpu_dpm_pick_power_state(adev, dpm_state);
+>>> +	if (ps)
+>>> +		adev->pm.dpm.requested_ps = ps;
+>>> +	else
+>>> +		return -EINVAL;
+>>> +
+>>> +	if (amdgpu_dpm == 1 && adev->powerplay.pp_funcs-
+>>> print_power_state) {
+>>> +		printk("switching from power state:\n");
+>>> +		amdgpu_dpm_print_power_state(adev, adev-
+>>> pm.dpm.current_ps);
+>>> +		printk("switching to power state:\n");
+>>> +		amdgpu_dpm_print_power_state(adev, adev-
+>>> pm.dpm.requested_ps);
+>>> +	}
+>>> +
+>>> +	/* update whether vce is active */
+>>> +	ps->vce_active = adev->pm.dpm.vce_active;
+>>> +	if (adev->powerplay.pp_funcs->display_configuration_changed)
+>>> +		amdgpu_dpm_display_configuration_changed(adev);
+>>> +
+>>> +	ret = amdgpu_dpm_pre_set_power_state(adev);
+>>> +	if (ret)
+>>> +		return ret;
+>>> +
+>>> +	if (adev->powerplay.pp_funcs->check_state_equal) {
+>>> +		if (0 != amdgpu_dpm_check_state_equal(adev, adev-
+>>> pm.dpm.current_ps, adev->pm.dpm.requested_ps, &equal))
+>>> +			equal = false;
+>>> +	}
+>>> +
+>>> +	if (equal)
+>>> +		return 0;
+>>> +
+>>> +	if (adev->powerplay.pp_funcs->set_power_state)
+>>> +		adev->powerplay.pp_funcs->set_power_state(adev-
+>>> powerplay.pp_handle);
+>>> +
+>>> +	amdgpu_dpm_post_set_power_state(adev);
+>>> +
+>>> +	adev->pm.dpm.current_active_crtcs = adev-
+>>> pm.dpm.new_active_crtcs;
+>>> +	adev->pm.dpm.current_active_crtc_count = adev-
+>>> pm.dpm.new_active_crtc_count;
+>>> +
+>>> +	if (adev->powerplay.pp_funcs->force_performance_level) {
+>>> +		if (adev->pm.dpm.thermal_active) {
+>>> +			enum amd_dpm_forced_level level = adev-
+>>> pm.dpm.forced_level;
+>>> +			/* force low perf level for thermal */
+>>> +			amdgpu_dpm_force_performance_level(adev,
+>> AMD_DPM_FORCED_LEVEL_LOW);
+>>> +			/* save the user's level */
+>>> +			adev->pm.dpm.forced_level = level;
+>>> +		} else {
+>>> +			/* otherwise, user selected level */
+>>> +			amdgpu_dpm_force_performance_level(adev,
+>> adev->pm.dpm.forced_level);
+>>> +		}
+>>> +	}
+>>> +
+>>> +	return 0;
+>>> +}
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
+>> b/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
+>>> new file mode 100644
+>>> index 000000000000..4adc765c8824
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
+>>> @@ -0,0 +1,70 @@
+>>> +/*
+>>> + * Copyright 2021 Advanced Micro Devices, Inc.
+>>> + *
+>>> + * Permission is hereby granted, free of charge, to any person obtaining a
+>>> + * copy of this software and associated documentation files (the
+>> "Software"),
+>>> + * to deal in the Software without restriction, including without limitation
+>>> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+>>> + * and/or sell copies of the Software, and to permit persons to whom the
+>>> + * Software is furnished to do so, subject to the following conditions:
+>>> + *
+>>> + * The above copyright notice and this permission notice shall be included
+>> in
+>>> + * all copies or substantial portions of the Software.
+>>> + *
+>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+>> KIND, EXPRESS OR
+>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+>> MERCHANTABILITY,
+>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN
+>> NO EVENT SHALL
+>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+>> DAMAGES OR
+>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+>> OTHERWISE,
+>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+>> THE USE OR
+>>> + * OTHER DEALINGS IN THE SOFTWARE.
+>>> + *
+>>> + */
+>>> +#ifndef __LEGACY_DPM_H__
+>>> +#define __LEGACY_DPM_H__
+>>> +
+>>> +int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device
+>> *adev,
+>>> +					    u32 clock,
+>>> +					    bool strobe_mode,
+>>> +					    struct atom_mpll_param
+>> *mpll_param);
+>>> +
+>>> +void amdgpu_atombios_set_engine_dram_timings(struct
+>> amdgpu_device *adev,
+>>> +					     u32 eng_clock, u32 mem_clock);
+>>> +
+>>> +void amdgpu_atombios_get_default_voltages(struct amdgpu_device
+>> *adev,
+>>> +					  u16 *vddc, u16 *vddci, u16 *mvdd);
+>>> +
+>>> +int amdgpu_atombios_get_max_vddc(struct amdgpu_device *adev, u8
+>> voltage_type,
+>>> +			     u16 voltage_id, u16 *voltage);
+>>> +
+>>> +int amdgpu_atombios_get_leakage_vddc_based_on_leakage_idx(struct
+>> amdgpu_device *adev,
+>>> +						      u16 *voltage,
+>>> +						      u16 leakage_idx);
+>>> +
+>>> +int amdgpu_atombios_get_svi2_info(struct amdgpu_device *adev,
+>>> +			      u8 voltage_type,
+>>> +			      u8 *svd_gpio_id, u8 *svc_gpio_id);
+>>> +
+>>> +bool
+>>> +amdgpu_atombios_is_voltage_gpio(struct amdgpu_device *adev,
+>>> +				u8 voltage_type, u8 voltage_mode);
+>>> +int amdgpu_atombios_get_voltage_table(struct amdgpu_device *adev,
+>>> +				      u8 voltage_type, u8 voltage_mode,
+>>> +				      struct atom_voltage_table
+>> *voltage_table);
+>>> +
+>>> +int amdgpu_atombios_init_mc_reg_table(struct amdgpu_device *adev,
+>>> +				      u8 module_index,
+>>> +				      struct atom_mc_reg_table *reg_table);
+>>> +
+>>> +void amdgpu_dpm_print_class_info(u32 class, u32 class2);
+>>> +void amdgpu_dpm_print_cap_info(u32 caps);
+>>> +void amdgpu_dpm_print_ps_status(struct amdgpu_device *adev,
+>>> +				struct amdgpu_ps *rps);
+>>> +int amdgpu_get_platform_caps(struct amdgpu_device *adev);
+>>> +int amdgpu_parse_extended_power_table(struct amdgpu_device
+>> *adev);
+>>> +void amdgpu_free_extended_power_table(struct amdgpu_device
+>> *adev);
+>>> +void amdgpu_add_thermal_controller(struct amdgpu_device *adev);
+>>> +struct amd_vce_state* amdgpu_get_vce_clock_state(void *handle, u32
+>> idx);
+>>> +int amdgpu_dpm_change_power_state_locked(void *handle);
+>>> +void amdgpu_pm_print_power_states(struct amdgpu_device *adev);
+>>> +#endif
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>> b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>> index 4f84d8b893f1..a2881c90d187 100644
+>>> --- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>> @@ -37,6 +37,7 @@
+>>>    #include <linux/math64.h>
+>>>    #include <linux/seq_file.h>
+>>>    #include <linux/firmware.h>
+>>> +#include <legacy_dpm.h>
+>>>
+>>>    #define MC_CG_ARB_FREQ_F0           0x0a
+>>>    #define MC_CG_ARB_FREQ_F1           0x0b
+>>> @@ -8101,6 +8102,7 @@ static const struct amd_pm_funcs si_dpm_funcs
+>> = {
+>>>    	.check_state_equal = &si_check_state_equal,
+>>>    	.get_vce_clock_state = amdgpu_get_vce_clock_state,
+>>>    	.read_sensor = &si_dpm_read_sensor,
+>>> +	.change_power_state = amdgpu_dpm_change_power_state_locked,
+>>>    };
+>>>
+>>>    static const struct amdgpu_irq_src_funcs si_dpm_irq_funcs = {
+>>>
