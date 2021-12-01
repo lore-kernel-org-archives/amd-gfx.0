@@ -4,74 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39931C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 14:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F669C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 15:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C07436F9B3;
-	Wed,  1 Dec 2021 14:10:43 +0000 (UTC)
-Received: from mta-p7.oit.umn.edu (mta-p7.oit.umn.edu [134.84.196.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78DB36E5BF
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 12:49:00 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mta-p7.oit.umn.edu (Postfix) with ESMTP id 4J3zRb6bWVz9vYdM
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 12:48:59 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p7.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p7.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id L1V1jt6KKs5i for <amd-gfx@lists.freedesktop.org>;
- Wed,  1 Dec 2021 06:48:59 -0600 (CST)
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mta-p7.oit.umn.edu (Postfix) with ESMTPS id 4J3zRb2w6Pz9vYdF
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 06:48:59 -0600 (CST)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p7.oit.umn.edu 4J3zRb2w6Pz9vYdF
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p7.oit.umn.edu 4J3zRb2w6Pz9vYdF
-Received: by mail-yb1-f198.google.com with SMTP id
- t24-20020a252d18000000b005c225ae9e16so35732843ybt.15
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Dec 2021 04:48:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rjbyT9NQvKb0PdUVyrC25UNpdX/h6dETHfgi+DE81Ts=;
- b=WqZQONy8PbitUhLhnn+RUv/Fl0mrvzL8Y+DqTvxvY4CmDAkeZn9UTqgO788+5M22LV
- ++urKOeSB7DLLff5bSutYuFPfgi7c2So0aDjMBbbnO2rxR996QqxdvNF7UOnkw2x29dz
- Cc1rRmGnGbj/vafEdMu7OYA+Ayz0jE0Hbyv69qjCHfp2A9l7H4CcRP/9pFuns2qjXM6+
- 6CVeA2O2zJxxAPkjRhe07UEGR9LdjYcUS1elU/g5rEXVJlD35+Nv5iw/thBz9KAAgVN9
- yuofmGEhMxF1n/yRY6IPjgcrJJ8IRwzOwjpcZRAjVnlRA9rz+uBf+e2XodxAHk6qNrvT
- YI/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rjbyT9NQvKb0PdUVyrC25UNpdX/h6dETHfgi+DE81Ts=;
- b=xcWuQr3vs/qhi5ikGLp+8Fs0fJ1tFQfaYebbicci/or95nAsAWrgFY08N78RDh1Hsl
- a7mfeEEuzNZlztQsw6xniAcii2OR1tDrY4KyHj30nycSVHdLxKyJcie0Guq1OTOUgwMd
- 5sGPrJUty56OgGREg0oOvhZ/qi/FED6pRzBY9WR0Dl664bZQ7lZb/i1kIbUuHq3uZRnd
- hu18+uIKCO2tuKXnyBNNT65ipUks+Sp4ayltKRuVwzwnQW/8iH19datLlrIuBAEiWxhE
- Y6uuJiKm3VsJy1DwziuzNp40iEXaL3oOX1NVCCO5d3KCuBfTRy6DgGMQaWCoOn1zY7kD
- X0IQ==
-X-Gm-Message-State: AOAM530ziJJPeFvUnkmfPZK2LHewEzkfOn38pdMMSI2plPI4Rv2cF+a7
- JMpAUk4QrEctRiB0wnBbaiKh8Eh8b7mcLlY0i8squZY6O/zbkk7UCkRSHo7YA5L5qHRTIx2L6bD
- FUnxAtZA6ZXjHSbRZWG2LSoARG7o64DvnhXkPZU7JgtoSuQ==
-X-Received: by 2002:a25:a362:: with SMTP id d89mr7548709ybi.664.1638362938695; 
- Wed, 01 Dec 2021 04:48:58 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwYcaMDyPNC1ykvENp+7Nx+fv4wu+rvGS7Kqwoi55CqPKjwYiLRvHMQaRJ5yqbQ+g+kx60vDOk2RNzuVGOr0MA=
-X-Received: by 2002:a25:a362:: with SMTP id d89mr7548665ybi.664.1638362938382; 
- Wed, 01 Dec 2021 04:48:58 -0800 (PST)
-MIME-Version: 1.0
-References: <20211130155720.178214-1-zhou1615@umn.edu>
- <20211201032214.26889-1-zhou1615@umn.edu>
- <d7c890d8-9535-b349-0c28-b08e5074f714@amd.com>
-In-Reply-To: <d7c890d8-9535-b349-0c28-b08e5074f714@amd.com>
-From: Qingyang Zhou <zhou1615@umn.edu>
-Date: Wed, 1 Dec 2021 20:48:47 +0800
-Message-ID: <CA+Cm_xRjYWun_u7rod9X=c0-WExb798TLGJ6fMJMBqOMxAeuHw@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/radeon/radeon_kms: Fix a NULL pointer dereference
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7346EC3B;
+	Wed,  1 Dec 2021 15:15:58 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2072.outbound.protection.outlook.com [40.107.95.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48BE06EC39;
+ Wed,  1 Dec 2021 15:15:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=am0tENs+u77hx1Q4eWYNNLy1Q++VEai6SIqiYF5gBaOdheVmMSTgy/LHg3dhq2xbIhev9PzU3A6L8M3+YX/uSgWI5l1gS2vmhbqR0FHNJrb9m7IKCI/r6ljQOwlunuWM6AGbTuXqvl5yLJPTMk+JXWEhnRU9LDV86L5wFyxoX2YYNYrYyG9XB7QJPb4wk5uBug2GoM4ZY4hkghXKJmiSKnLaA8xKak2/x6Jjn8b5UjMr0PCnsNwFZYNCE+gVP3Ltcp1BiLeLmAhDan0htFZVmqViQEygdy0CxRUrXSlsTtUJ2snw7wX698QSgEr1u576TGEJnqyLVl85/hD3Yg7U0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k0wWtlQzS138PV6j6YitHVQSA++mDv6izkZub4nwTu0=;
+ b=VrzIt0gRYKTTSiQ+TxDlYo0buLBKrWgfsYeOR2F3+5VF+xlt8yxMrpYtxTUz58yaEu5haVH+0AGMCPo2Nvqczse/1FxhjQ0mVj7bVcCPxEB+CmcO/01KUzuq0Gk4QIYfhUcfwNefk4VcPdbn6QAHrDcq/P/dy7kEsEb2UBQh8ehQOz88eu+xP8/RFiKj5QccjxSRr6oy3qM3GmvboP1SK2O2Tcxl8AQ/ZI223XS1hpjsaaC1O/hZM49GGQGouTphkuRIxjP0J0kkG+dO+2pp4BYdp4iHcNPFvMVOys4NFDUMJflc21HRZVTnvDnL22IVv8ifH8uyqsj81LOYd+MiLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k0wWtlQzS138PV6j6YitHVQSA++mDv6izkZub4nwTu0=;
+ b=drq5BJsp2nZ8mkK7NfCAf3LvH98B1VFQ5wwTNcvFGDCNm8JD2t6GPTuS88CmAvILK5b2E/rRzQyLyxm9QbGtolu5i1edkDpKyLObh7Y2hhlGfREKLXnGldBm4fQsrMHtmqujhzU9IMYILoS3AdlEGgZ2Dyngt/66z8kWR97uFsw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MWHPR12MB1535.namprd12.prod.outlook.com
+ (2603:10b6:301:5::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Wed, 1 Dec
+ 2021 15:15:54 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::2d02:26e7:a2d0:3769]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::2d02:26e7:a2d0:3769%5]) with mapi id 15.20.4713.027; Wed, 1 Dec 2021
+ 15:15:54 +0000
+Subject: Re: [PATCH v5] drm/radeon/radeon_kms: Fix a NULL pointer dereference
  in radeon_driver_open_kms()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000f4b31205d21518b3"
-X-Mailman-Approved-At: Wed, 01 Dec 2021 14:10:42 +0000
+To: Zhou Qingyang <zhou1615@umn.edu>
+References: <e2685075-fbc5-6f36-907f-76b6f76a59ce@amd.com>
+ <20211201151310.177671-1-zhou1615@umn.edu>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <77fca7d2-b1d8-fe11-322a-3d32f40f6f65@amd.com>
+Date: Wed, 1 Dec 2021 16:15:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20211201151310.177671-1-zhou1615@umn.edu>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: AS9PR06CA0371.eurprd06.prod.outlook.com
+ (2603:10a6:20b:460::24) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
+MIME-Version: 1.0
+Received: from [IPv6:2a02:908:1252:fb60:c980:c3d0:3f34:db36]
+ (2a02:908:1252:fb60:c980:c3d0:3f34:db36) by
+ AS9PR06CA0371.eurprd06.prod.outlook.com (2603:10a6:20b:460::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11 via Frontend
+ Transport; Wed, 1 Dec 2021 15:15:52 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4e8ba661-f0f5-4c15-e752-08d9b4dd7810
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1535:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB15352AF03E3649A90FC0881E83689@MWHPR12MB1535.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 75yT4EgNvzxjka/knnO5SMjYGyMnHMWuVsANEgdNAlzuZbE/oXFn26Rn4VsNlHK0p2Wuvh8Xjs+ByH9HCaQPQRkELQa8gp8TQwMpUxySkH8d5TeD6E2o0cyQSBzV9hwYzTTskt8RzPh42K3vwh6DFYrdIsuLA1okeAGKpz9PU9GJ/QQoFDZif8BJiDhq3yYdTCtQLFKGRtwmTp76KSANsOA2MDee2NQ8XW9cNgpGquUsegMp2ZG0phEzmZ0Ug9FiLNerMOP+5cEGwYkUofypVZtvfy1hKcmarurg6WrAH2fclpha32OLJ9dw/LJeVUe+6mVAZc7LK1M2stRg0HL9q1uEXBk+hmvMgyUBjMmqrJPc3eqOUXGD02MeKbEwaLsNzSTQcq+UgvoC/RYX8v1ePBLZ/ziHfegQvq5aDqc3tYzmzUbls+phpiLoT34yBqirO47sex41paqT4XmA0CQVZjdGq7wXn66WjSx1ZIdIJr769UAsNv+cQl59jRzqxtSScd5rVVjqpWOXJi+vD+EyAcCCFaRwIdz0srPvcLkKK5xMgaGcBzN+RZ7DJ6/k4EM/sSwFtrhq54UbiXWTqbH5nG18R+7jr0MrusGfx4HR2udaFfvLfYPXIiD6dH/okMhGfC/+pQ2kDiD9adqEnFozSpWEOdLJ+FxCoFQFDtL1uDuxQ8+5FX3bPvOJpfmhIUeKfP1uAqHPM2MfZ35IWWHN0Yl0/7KTJmP6AwqIJ/HvBCQl1wq9Xkc/nnyayjUuxHTh
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(36756003)(31686004)(66946007)(83380400001)(66476007)(2906002)(6666004)(6486002)(6916009)(8936002)(38100700002)(5660300002)(66556008)(8676002)(66574015)(508600001)(186003)(2616005)(4326008)(54906003)(86362001)(316002)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGFNbmc4Nm9FcmJVNHE5anU5STVQaE5ORzhoNklFdFpmUWM4NUdkcXpMRVIv?=
+ =?utf-8?B?SGJFU2RWemhtKy9JdEZ1RWpCaHAzQ1JJcUNidzhGWVhudXlBZTBUeGV1ZGM0?=
+ =?utf-8?B?WGRuYXpVWXFHRnVDNUNQcW5TbzlmYzdMdkU3S0NuTUFjTVBaMzlLUUdKaFR4?=
+ =?utf-8?B?NVpFdisyYW9UQk1pdEdITFh1UnVZbjhGWUlIV3U0b1JPVHZSajRzNFVPNkxw?=
+ =?utf-8?B?bmgrc2ZWU0VqbFd1QVMvdkI5RXZnZ29Td2ZzblFoUDcrOERWcklhMEg1VkNn?=
+ =?utf-8?B?czJKZDJWRGJWTmxMaUlTRG40am1IOXVCTlJNK0tIOTE4UHoxb25RSnhEbW5V?=
+ =?utf-8?B?bWNZUzh4czB6ME1EeG4zNVBEUkhNejFzbWw1Wm94ekp6Vy9Fb2lwaUZGWkFT?=
+ =?utf-8?B?bHl1WmNvQmJsVHYzUytaNUFMWHYxMW9LMGNJMUFUSnJTakpiOVpaM3JCL1Nh?=
+ =?utf-8?B?VDhiUlBEL1FoYTdPWWVjWTcya2NRbU9pUkVKUDJTVU0vQmZVOFFmQ1NmRDFK?=
+ =?utf-8?B?ZGdJZVZOcHd0anRiWEZNY21jbzZ6WjRxOFVwVnZBZzZXVHl5TE5jZTNYMnVz?=
+ =?utf-8?B?TDlkVE5Iemxab3pxaVE5ZVg0Y2JjbHFydFZzSlMzOEc4SVM1S3A0MHpuci8z?=
+ =?utf-8?B?UzFSbDRkRE1yQ3pjeW9nSzg0d0FuaXgzNDEySTNqcGhhODM2WG5BbW8vWUNJ?=
+ =?utf-8?B?T1E4YU42RjVoMU1KT3k5YUlOYTZocWZrMU5Td0xXdWpJY2V3d3M5aXQydU9l?=
+ =?utf-8?B?RlFXUklkL1JNTUgyOFhSMkhILzgrRGM0TXBybUlUWVZpWENGWWhaeUhCMTA1?=
+ =?utf-8?B?M2QxT05xSUNYeUxjR05WbXYxTTJSajdPckZQRGh5dStXeTZyVkRkUVJ1bWZY?=
+ =?utf-8?B?U0ZGL0R0VW1qV0tHWEdoRkxaNUljTjJYdUhYWjdYbk9uK1o0azJneFJONlpp?=
+ =?utf-8?B?TzVlTnNTbjdMUzYyK0d5VndZc2s4bjRPMStIWGZiZHJXVjRPbDVvNnF0dUdZ?=
+ =?utf-8?B?eUNFZ3hqZG5vWHFMQ2wyRUVDS0dhdFN3WEk3Wmkza3pYeXV1QVBpV3R3a2N1?=
+ =?utf-8?B?UnNLRjdqWGRWUUhNVksyU1JiUS9RSmdhbkU0UXNhQStaazVBN1ovTkJPMzVP?=
+ =?utf-8?B?dGJIeUdVdFJsR2lLSGM0SmRCdnRqZFBHTlJWcFI4OFhmK3NoZFE5ck10bVUy?=
+ =?utf-8?B?MjBjOE02SEs0OW9XTlNwajNaYjFLQ1RidktPeEQzRStSeWhZSHU1dFR0ZkNR?=
+ =?utf-8?B?SHpBQ1AraXJtWlJTVGg3UFU4OGhjSEx5NEJOSE5GUUs3Tm9wekZLb211czYr?=
+ =?utf-8?B?UGRYTmUrMW4xQmlqY1dxNThGMGN4K3JGd2hYRVkxbk03Wkxodi91YTk5M0Zp?=
+ =?utf-8?B?cHJuT0w1NjN0dUhjb3A3ZU1FZzFKV0pjMnpxcXhmTUhTTWMxS1dlbWFXZmto?=
+ =?utf-8?B?YWxzYU9qWEVSMm5HQlFJdmJxam9CNTlTNldGanFsSExGaGp2NEZWekZhRTBx?=
+ =?utf-8?B?U3FWRWJ0TDNkaWl0WDRHWXZra3NHMGJKb1dyR2hmR1FmK3VkcjJFb0Q4RUI1?=
+ =?utf-8?B?cjVFWTcyak5MaXpqejM1ZzYrU3kyWExmYWUxZTZZS09qVHpqalI3VDlxZHp1?=
+ =?utf-8?B?K1dYeEZMS01QYlJYWk9NRGR3OWhEY3Y0dHNpalpUSjVmMklQQlpSYWFiUzJj?=
+ =?utf-8?B?RWl2eDJHbUxZN1lHK1VmdDFmam1xWUM1ZTZJaUYrOHY2eGFhMWZrYmlDR2ZS?=
+ =?utf-8?B?VTFQZmhsdEdsQklGZVlsMHNvcEd2WFExbWZCRmoyRzRkZ3ZLbzlUU1ZaNlhj?=
+ =?utf-8?B?cE4xVkovVkhaeENPOWYrOG9MeUJSSVRtMDBEL1NWdUU3dk9RSG1aYUN1bFJa?=
+ =?utf-8?B?Rmw2dXZ3QnkvanpBaHU1Q25YdHZWRHA0OS9xTWN1YXBIY1V2anZDNUFVUmJp?=
+ =?utf-8?B?dUY0bXBHT0lJSEQwWERVYkVYNkxqaCtZOUlodnRyVlFXOXB5MXJPOWxKb0RF?=
+ =?utf-8?B?TFZBRml2YjZPdml6WW5DWkVSVmd0cDFaWWxJdk9udG5xOVloUWM0RWVteFFG?=
+ =?utf-8?B?WUhGWWR2TEVJRERBb28vR3lWTEkzcHRZUGs2RlRUTTkvV01DQTM4L21sczJ1?=
+ =?utf-8?B?Rnh1dzRESElkTmhkOGhCWVM1NHZMWUNxQXd1UWh4S3lXbSt5amtOZHo2ejFi?=
+ =?utf-8?Q?P2Rn2x5bTYYNTEAXrMOgASk=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e8ba661-f0f5-4c15-e752-08d9b4dd7810
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 15:15:54.7120 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AOIo3GlkEUJybcfh8UyKzZDbNlqa+dPCy/iXW2sL0H5JZ0McYdEZkmOgUoJR0r2E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1535
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,818 +134,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Kangjie Lu <kjlu@umn.edu>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ kjlu@umn.edu, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000f4b31205d21518b3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Christian:
-
-The warning is from the kernel test robot, I quote it here. The key point
-is that vm may be used in radeon_vm_fini(rdev, vm) without initialization.
-Although it is not possible in practice, I still add initializations to
-silence the warning of llvm.
-
----------- Forwarded message ---------
-From: kernel test robot <lkp@intel.com>
-Date: Wed, Dec 1, 2021 at 4:32 AM
-Subject: drivers/gpu/drm/radeon/radeon_kms.c:672:7: warning: variable 'vm'
-is used uninitialized whenever 'if' condition is false
-To: Zhou Qingyang <zhou1615@umn.edu>
-Cc: <llvm@lists.linux.dev>, <kbuild-all@lists.01.org>, <
-linux-kernel@vger.kernel.org>, 0day robot <lkp@intel.com>
-
-
-tree:
-https://github.com/0day-ci/linux/commits/UPDATE-20211130-233655/Zhou-Qingya=
-ng/drm-radeon-radeon_kms-Fix-a-NULL-pointer-dereference-in-radeon_driver_op=
-en_kms/20211130-231509
-head:   123fb3d217e89c4388fdb08b63991bac7c324219
-commit: 123fb3d217e89c4388fdb08b63991bac7c324219 drm/radeon/radeon_kms: Fix
-a NULL pointer dereference in radeon_driver_open_kms()
-date:   5 hours ago
-config: mips-randconfig-r014-20211128 (
-https://download.01.org/0day-ci/archive/20211201/202112010420.xkXHciHS-lkp@=
-intel.com/config
-)
-compiler: clang version 14.0.0 (https://github.com/llvm/llvm-project
- 25eb7fa01d7ebbe67648ea03841cda55b4239ab2)
-reproduce (this is a W=3D1 build):
-        wget
-https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O
-~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install mips cross compiling tool for clang build
-        # apt-get install binutils-mips-linux-gnu
-        #
-https://github.com/0day-ci/linux/commit/123fb3d217e89c4388fdb08b63991bac7c3=
-24219
-        git remote add linux-review https://github.com/0day-ci/linux
-        git fetch --no-tags linux-review
-UPDATE-20211130-233655/Zhou-Qingyang/drm-radeon-radeon_kms-Fix-a-NULL-point=
-er-dereference-in-radeon_driver_open_kms/20211130-231509
-        git checkout 123fb3d217e89c4388fdb08b63991bac7c324219
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=3D$HOME/0day COMPILER=3Dclang make.cross W=3D=
-1
-O=3Dbuild_dir ARCH=3Dmips SHELL=3D/bin/bash drivers/gpu/drm/radeon/
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/radeon/radeon_kms.c:672:7: warning: variable 'vm' is
-used uninitialized whenever 'if' condition is false
-[-Wsometimes-uninitialized]
-                   if (rdev->accel_working) {
-                       ^~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/radeon/radeon_kms.c:705:23: note: uninitialized use
-occurs here
-           radeon_vm_fini(rdev, vm);
-                                ^~
-   drivers/gpu/drm/radeon/radeon_kms.c:672:3: note: remove the 'if' if its
-condition is always true
-                   if (rdev->accel_working) {
-                   ^~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/radeon/radeon_kms.c:664:6: warning: variable 'vm' is
-used uninitialized whenever 'if' condition is false
-[-Wsometimes-uninitialized]
-           if (rdev->family >=3D CHIP_CAYMAN) {
-               ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/radeon/radeon_kms.c:705:23: note: uninitialized use
-occurs here
-           radeon_vm_fini(rdev, vm);
-                                ^~
-   drivers/gpu/drm/radeon/radeon_kms.c:664:2: note: remove the 'if' if its
-condition is always true
-           if (rdev->family >=3D CHIP_CAYMAN) {
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/radeon/radeon_kms.c:653:22: note: initialize the
-variable 'vm' to silence this warning
-           struct radeon_vm *vm;
-                               ^
-                                =3D NULL
-   2 warnings generated.
-
-
-vim +672 drivers/gpu/drm/radeon/radeon_kms.c
-
-771fe6b912fca54 Jerome Glisse      2009-06-05  638
-f482a1419545ded Alex Deucher       2012-07-17  639  /**
-f482a1419545ded Alex Deucher       2012-07-17  640   *
-radeon_driver_open_kms - drm callback for open
-f482a1419545ded Alex Deucher       2012-07-17  641   *
-f482a1419545ded Alex Deucher       2012-07-17  642   * @dev: drm dev pointe=
-r
-f482a1419545ded Alex Deucher       2012-07-17  643   * @file_priv: drm file
-f482a1419545ded Alex Deucher       2012-07-17  644   *
-f482a1419545ded Alex Deucher       2012-07-17  645   * On device open, init
-vm on cayman+ (all asics).
-f482a1419545ded Alex Deucher       2012-07-17  646   * Returns 0 on
-success, error on failure.
-f482a1419545ded Alex Deucher       2012-07-17  647   */
-771fe6b912fca54 Jerome Glisse      2009-06-05  648  int
-radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
-771fe6b912fca54 Jerome Glisse      2009-06-05  649  {
-721604a15b934f0 Jerome Glisse      2012-01-05  650      struct
-radeon_device *rdev =3D dev->dev_private;
-10ebc0bc09344ab Dave Airlie        2012-09-17  651      int r;
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  652      struct radeon_fpriv
-*fpriv;
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  653      struct radeon_vm
-*vm;
-721604a15b934f0 Jerome Glisse      2012-01-05  654
-721604a15b934f0 Jerome Glisse      2012-01-05  655
-file_priv->driver_priv =3D NULL;
-721604a15b934f0 Jerome Glisse      2012-01-05  656
-10ebc0bc09344ab Dave Airlie        2012-09-17  657      r =3D
-pm_runtime_get_sync(dev->dev);
-9fb10671011143d Aditya Pakki       2020-06-13  658      if (r < 0) {
-9fb10671011143d Aditya Pakki       2020-06-13  659
-pm_runtime_put_autosuspend(dev->dev);
-10ebc0bc09344ab Dave Airlie        2012-09-17  660              return r;
-9fb10671011143d Aditya Pakki       2020-06-13  661      }
-10ebc0bc09344ab Dave Airlie        2012-09-17  662
-721604a15b934f0 Jerome Glisse      2012-01-05  663      /* new gpu have
-virtual address space support */
-721604a15b934f0 Jerome Glisse      2012-01-05  664      if (rdev->family >=
-=3D
-CHIP_CAYMAN) {
-721604a15b934f0 Jerome Glisse      2012-01-05  665
-721604a15b934f0 Jerome Glisse      2012-01-05  666              fpriv =3D
-kzalloc(sizeof(*fpriv), GFP_KERNEL);
-721604a15b934f0 Jerome Glisse      2012-01-05  667              if
-(unlikely(!fpriv)) {
-32c59dc14b72803 Alex Deucher       2016-08-31  668                      r =
-=3D
--ENOMEM;
-32c59dc14b72803 Alex Deucher       2016-08-31  669
-goto out_suspend;
-721604a15b934f0 Jerome Glisse      2012-01-05  670              }
-721604a15b934f0 Jerome Glisse      2012-01-05  671
-544143f9e01a60a Alex Deucher       2015-01-28 @672              if
-(rdev->accel_working) {
-cc9e67e3d7000c1 Christian K=C3=B6nig    2014-07-18  673                    =
-  vm
-=3D &fpriv->vm;
-cc9e67e3d7000c1 Christian K=C3=B6nig    2014-07-18  674                    =
-  r =3D
-radeon_vm_init(rdev, vm);
-74073c9dd299056 Quentin Casasnovas 2014-03-18  675                      if
-(r) {
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  676
-    goto out_fpriv;
-74073c9dd299056 Quentin Casasnovas 2014-03-18  677                      }
-d72d43cfc5847c1 Christian K=C3=B6nig    2012-10-09  678
-f1e3dc708aaadb9 Christian K=C3=B6nig    2014-02-20  679                    =
-  r =3D
-radeon_bo_reserve(rdev->ring_tmp_bo.bo, false);
-74073c9dd299056 Quentin Casasnovas 2014-03-18  680                      if
-(r) {
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  681
-    goto out_vm_fini;
-74073c9dd299056 Quentin Casasnovas 2014-03-18  682                      }
-f1e3dc708aaadb9 Christian K=C3=B6nig    2014-02-20  683
-d72d43cfc5847c1 Christian K=C3=B6nig    2012-10-09  684                    =
-  /*
-map the ib pool buffer read only into
-d72d43cfc5847c1 Christian K=C3=B6nig    2012-10-09  685                    =
-   *
-virtual address space */
-cc9e67e3d7000c1 Christian K=C3=B6nig    2014-07-18  686
-vm->ib_bo_va =3D radeon_vm_bo_add(rdev, vm,
-d72d43cfc5847c1 Christian K=C3=B6nig    2012-10-09  687
-                            rdev->ring_tmp_bo.bo);
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  688                      if
-(!vm->ib_bo_va) {
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  689
-    r =3D -ENOMEM;
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  690
-    goto out_vm_fini;
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  691                      }
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  692
-cc9e67e3d7000c1 Christian K=C3=B6nig    2014-07-18  693                    =
-  r =3D
-radeon_vm_bo_set_addr(rdev, vm->ib_bo_va,
-cc9e67e3d7000c1 Christian K=C3=B6nig    2014-07-18  694
-                      RADEON_VA_IB_OFFSET,
-d72d43cfc5847c1 Christian K=C3=B6nig    2012-10-09  695
-                      RADEON_VM_PAGE_READABLE |
-d72d43cfc5847c1 Christian K=C3=B6nig    2012-10-09  696
-                      RADEON_VM_PAGE_SNOOPED);
-721604a15b934f0 Jerome Glisse      2012-01-05  697                      if
-(r) {
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  698
-    goto out_vm_fini;
-721604a15b934f0 Jerome Glisse      2012-01-05  699                      }
-24f47acc78b0ab5 J=C3=A9r=C3=B4me Glisse      2014-05-07  700              }
-721604a15b934f0 Jerome Glisse      2012-01-05  701
-file_priv->driver_priv =3D fpriv;
-721604a15b934f0 Jerome Glisse      2012-01-05  702      }
-10ebc0bc09344ab Dave Airlie        2012-09-17  703
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  704  out_vm_fini:
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  705
-radeon_vm_fini(rdev, vm);
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  706  out_fpriv:
-123fb3d217e89c4 Zhou Qingyang      2021-11-30  707      kfree(fpriv);
-32c59dc14b72803 Alex Deucher       2016-08-31  708  out_suspend:
-10ebc0bc09344ab Dave Airlie        2012-09-17  709
-pm_runtime_mark_last_busy(dev->dev);
-10ebc0bc09344ab Dave Airlie        2012-09-17  710
-pm_runtime_put_autosuspend(dev->dev);
-32c59dc14b72803 Alex Deucher       2016-08-31  711      return r;
-771fe6b912fca54 Jerome Glisse      2009-06-05  712  }
-771fe6b912fca54 Jerome Glisse      2009-06-05  713
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
-
-On Wed, Dec 1, 2021 at 3:20 PM Christian K=C3=B6nig <christian.koenig@amd.c=
-om>
-wrote:
-
-> Am 01.12.21 um 04:22 schrieb Zhou Qingyang:
-> > In radeon_driver_open_kms(), radeon_vm_bo_add() is assigned to
-> > vm->ib_bo_va and passes and used in radeon_vm_bo_set_addr(). In
-> > radeon_vm_bo_set_addr(), there is a dereference of vm->ib_bo_va,
-> > which could lead to a NULL pointer dereference on failure of
-> > radeon_vm_bo_add().
-> >
-> > Fix this bug by adding a check of vm->ib_bo_va.
-> >
-> > This bug was found by a static analyzer. The analysis employs
-> > differential checking to identify inconsistent security operations
-> > (e.g., checks or kfrees) between two code paths and confirms that the
-> > inconsistent operations are not recovered in the current function or
-> > the callers, so they constitute bugs.
-> >
-> > Note that, as a bug found by static analysis, it can be a false
-> > positive or hard to trigger. Multiple researchers have cross-reviewed
-> > the bug.
-> >
-> > Builds with CONFIG_DRM_RADEON=3Dm show no new warnings,
-> > and our static analyzer no longer warns about this code.
-> >
-> > Fixes: cc9e67e3d700 ("drm/radeon: fix VM IB handling")
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
-> > ---
-> > Changes in v2:
-> >    -  Initialize the variables to silence warning
+Am 01.12.21 um 16:13 schrieb Zhou Qingyang:
+> In radeon_driver_open_kms(), radeon_vm_bo_add() is assigned to
+> vm->ib_bo_va and passes and used in radeon_vm_bo_set_addr(). In
+> radeon_vm_bo_set_addr(), there is a dereference of vm->ib_bo_va,
+> which could lead to a NULL pointer dereference on failure of
+> radeon_vm_bo_add().
 >
-> What warning do you get? Double checking the code that shouldn't be
-> necessary and is usually rather frowned upon.
+> Fix this bug by adding a check of vm->ib_bo_va.
 >
-> Thanks,
-> Christian.
+> This bug was found by a static analyzer. The analysis employs
+> differential checking to identify inconsistent security operations
+> (e.g., checks or kfrees) between two code paths and confirms that the
+> inconsistent operations are not recovered in the current function or
+> the callers, so they constitute bugs.
 >
-> >
-> > Changes in v3:
-> >    -  Fix the bug that good case will also be freed
-> >    -  Improve code style
-> >
-> > Changes in v2:
-> >    -  Improve the error handling into goto style
-> >
-> >   drivers/gpu/drm/radeon/radeon_kms.c | 37 ++++++++++++++++------------=
--
-> >   1 file changed, 20 insertions(+), 17 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_kms.c
-> b/drivers/gpu/drm/radeon/radeon_kms.c
-> > index 482fb0ae6cb5..9d0f840286a1 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_kms.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-> > @@ -648,7 +648,9 @@ void radeon_driver_lastclose_kms(struct drm_device
-> *dev)
-> >   int radeon_driver_open_kms(struct drm_device *dev, struct drm_file
-> *file_priv)
-> >   {
-> >       struct radeon_device *rdev =3D dev->dev_private;
-> > -     int r;
-> > +     struct radeon_fpriv *fpriv =3D NULL;
-> > +     struct radeon_vm *vm =3D NULL;
-> > +     int r =3D 0;
-> >
-> >       file_priv->driver_priv =3D NULL;
-> >
-> > @@ -660,8 +662,6 @@ int radeon_driver_open_kms(struct drm_device *dev,
-> struct drm_file *file_priv)
-> >
-> >       /* new gpu have virtual address space support */
-> >       if (rdev->family >=3D CHIP_CAYMAN) {
-> > -             struct radeon_fpriv *fpriv;
-> > -             struct radeon_vm *vm;
-> >
-> >               fpriv =3D kzalloc(sizeof(*fpriv), GFP_KERNEL);
-> >               if (unlikely(!fpriv)) {
-> > @@ -672,35 +672,38 @@ int radeon_driver_open_kms(struct drm_device *dev=
-,
-> struct drm_file *file_priv)
-> >               if (rdev->accel_working) {
-> >                       vm =3D &fpriv->vm;
-> >                       r =3D radeon_vm_init(rdev, vm);
-> > -                     if (r) {
-> > -                             kfree(fpriv);
-> > -                             goto out_suspend;
-> > -                     }
-> > +                     if (r)
-> > +                             goto out_fpriv;
-> >
-> >                       r =3D radeon_bo_reserve(rdev->ring_tmp_bo.bo,
-> false);
-> > -                     if (r) {
-> > -                             radeon_vm_fini(rdev, vm);
-> > -                             kfree(fpriv);
-> > -                             goto out_suspend;
-> > -                     }
-> > +                     if (r)
-> > +                             goto out_vm_fini;
-> >
-> >                       /* map the ib pool buffer read only into
-> >                        * virtual address space */
-> >                       vm->ib_bo_va =3D radeon_vm_bo_add(rdev, vm,
-> >                                                       rdev->
-> ring_tmp_bo.bo);
-> > +                     if (!vm->ib_bo_va) {
-> > +                             r =3D -ENOMEM;
-> > +                             goto out_vm_fini;
-> > +                     }
-> > +
-> >                       r =3D radeon_vm_bo_set_addr(rdev, vm->ib_bo_va,
-> >                                                 RADEON_VA_IB_OFFSET,
-> >                                                 RADEON_VM_PAGE_READABLE=
- |
-> >                                                 RADEON_VM_PAGE_SNOOPED)=
-;
-> > -                     if (r) {
-> > -                             radeon_vm_fini(rdev, vm);
-> > -                             kfree(fpriv);
-> > -                             goto out_suspend;
-> > -                     }
-> > +                     if (r)
-> > +                             goto out_vm_fini;
-> >               }
-> >               file_priv->driver_priv =3D fpriv;
-> >       }
-> >
-> > +out_vm_fini:
-> > +     if (r)
-> > +             radeon_vm_fini(rdev, vm);
-> > +out_fpriv:
-> > +     if (r)
-> > +             kfree(fpriv);
-> >   out_suspend:
-> >       pm_runtime_mark_last_busy(dev->dev);
-> >       pm_runtime_put_autosuspend(dev->dev);
+> Note that, as a bug found by static analysis, it can be a false
+> positive or hard to trigger. Multiple researchers have cross-reviewed
+> the bug.
 >
+> Builds with CONFIG_DRM_RADEON=m show no new warnings,
+> and our static analyzer no longer warns about this code.
 >
+> Fixes: cc9e67e3d700 ("drm/radeon: fix VM IB handling")
+> Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
+> ---
+> Changes in v5:
+>    -  Use conditions to avoid unnecessary initialization
+>
+> Changes in v4:
+>    -  Initialize the variables to silence warning
+>
+> Changes in v3:
+>    -  Fix the bug that good case will also be freed
+>    -  Improve code style
+>
+> Changes in v2:
+>    -  Improve the error handling into goto style
+>
+>   drivers/gpu/drm/radeon/radeon_kms.c | 36 ++++++++++++++++-------------
+>   1 file changed, 20 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
+> index 482fb0ae6cb5..66aee48fd09d 100644
+> --- a/drivers/gpu/drm/radeon/radeon_kms.c
+> +++ b/drivers/gpu/drm/radeon/radeon_kms.c
+> @@ -648,6 +648,8 @@ void radeon_driver_lastclose_kms(struct drm_device *dev)
+>   int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>   {
+>   	struct radeon_device *rdev = dev->dev_private;
+> +	struct radeon_fpriv *fpriv;
+> +	struct radeon_vm *vm;
+>   	int r;
+>   
+>   	file_priv->driver_priv = NULL;
+> @@ -660,8 +662,6 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>   
+>   	/* new gpu have virtual address space support */
+>   	if (rdev->family >= CHIP_CAYMAN) {
+> -		struct radeon_fpriv *fpriv;
+> -		struct radeon_vm *vm;
+>   
+>   		fpriv = kzalloc(sizeof(*fpriv), GFP_KERNEL);
+>   		if (unlikely(!fpriv)) {
+> @@ -672,35 +672,39 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>   		if (rdev->accel_working) {
+>   			vm = &fpriv->vm;
+>   			r = radeon_vm_init(rdev, vm);
+> -			if (r) {
+> -				kfree(fpriv);
+> -				goto out_suspend;
+> -			}
+> +			if (r)
+> +				goto out_fpriv;
+>   
+>   			r = radeon_bo_reserve(rdev->ring_tmp_bo.bo, false);
+> -			if (r) {
+> -				radeon_vm_fini(rdev, vm);
+> -				kfree(fpriv);
+> -				goto out_suspend;
+> -			}
+> +			if (r)
+> +				goto out_vm_fini;
+>   
+>   			/* map the ib pool buffer read only into
+>   			 * virtual address space */
+>   			vm->ib_bo_va = radeon_vm_bo_add(rdev, vm,
+>   							rdev->ring_tmp_bo.bo);
+> +			if (!vm->ib_bo_va) {
+> +				r = -ENOMEM;
+> +				goto out_vm_fini;
+> +			}
+> +
+>   			r = radeon_vm_bo_set_addr(rdev, vm->ib_bo_va,
+>   						  RADEON_VA_IB_OFFSET,
+>   						  RADEON_VM_PAGE_READABLE |
+>   						  RADEON_VM_PAGE_SNOOPED);
+> -			if (r) {
+> -				radeon_vm_fini(rdev, vm);
+> -				kfree(fpriv);
+> -				goto out_suspend;
+> -			}
+> +			if (r)
+> +				goto out_vm_fini;
+>   		}
+>   		file_priv->driver_priv = fpriv;
+>   	}
+>   
+> +	if (!r)
 
---000000000000f4b31205d21518b3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I think that test is unecessary now, maybe double check.
 
-<div dir=3D"ltr"><div dir=3D"ltr">Hi=C2=A0Christian:<div><br></div><div>The=
- warning is from the kernel test robot, I quote it here. The key point is t=
-hat vm may be used in radeon_vm_fini(rdev, vm) without initialization. Alth=
-ough it is not possible in practice, I still add initializations to silence=
-=C2=A0the warning of llvm.</div><div><br></div><div><div dir=3D"ltr" class=
-=3D"gmail_attr">---------- Forwarded message ---------<br>From:=C2=A0<stron=
-g class=3D"gmail_sendername" dir=3D"auto">kernel test robot</strong>=C2=A0<=
-span dir=3D"auto">&lt;<a href=3D"mailto:lkp@intel.com">lkp@intel.com</a>&gt=
-;</span><br>Date: Wed, Dec 1, 2021 at 4:32 AM<br>Subject: drivers/gpu/drm/r=
-adeon/radeon_kms.c:672:7: warning: variable &#39;vm&#39; is used uninitiali=
-zed whenever &#39;if&#39; condition is false<br>To: Zhou Qingyang &lt;<a hr=
-ef=3D"mailto:zhou1615@umn.edu">zhou1615@umn.edu</a>&gt;<br>Cc: &lt;<a href=
-=3D"mailto:llvm@lists.linux.dev">llvm@lists.linux.dev</a>&gt;, &lt;<a href=
-=3D"mailto:kbuild-all@lists.01.org">kbuild-all@lists.01.org</a>&gt;, &lt;<a=
- href=3D"mailto:linux-kernel@vger.kernel.org">linux-kernel@vger.kernel.org<=
-/a>&gt;, 0day robot &lt;<a href=3D"mailto:lkp@intel.com">lkp@intel.com</a>&=
-gt;<br></div><br><br>tree:=C2=A0 =C2=A0<a href=3D"https://github.com/0day-c=
-i/linux/commits/UPDATE-20211130-233655/Zhou-Qingyang/drm-radeon-radeon_kms-=
-Fix-a-NULL-pointer-dereference-in-radeon_driver_open_kms/20211130-231509" r=
-el=3D"noreferrer" target=3D"_blank">https://github.com/0day-ci/linux/commit=
-s/UPDATE-20211130-233655/Zhou-Qingyang/drm-radeon-radeon_kms-Fix-a-NULL-poi=
-nter-dereference-in-radeon_driver_open_kms/20211130-231509</a><br>head:=C2=
-=A0 =C2=A0123fb3d217e89c4388fdb08b63991bac7c324219<br>commit: 123fb3d217e89=
-c4388fdb08b63991bac7c324219 drm/radeon/radeon_kms: Fix a NULL pointer deref=
-erence in radeon_driver_open_kms()<br>date:=C2=A0 =C2=A05 hours ago<br>conf=
-ig: mips-randconfig-r014-20211128 (<a href=3D"https://download.01.org/0day-=
-ci/archive/20211201/202112010420.xkXHciHS-lkp@intel.com/config" rel=3D"nore=
-ferrer" target=3D"_blank">https://download.01.org/0day-ci/archive/20211201/=
-202112010420.xkXHciHS-lkp@intel.com/config</a>)<br>compiler: clang version =
-14.0.0 (<a href=3D"https://github.com/llvm/llvm-project" rel=3D"noreferrer"=
- target=3D"_blank">https://github.com/llvm/llvm-project</a>=C2=A025eb7fa01d=
-7ebbe67648ea03841cda55b4239ab2)<br>reproduce (this is a W=3D1 build):<br>=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 wget=C2=A0<a href=3D"https://raw.githubusercont=
-ent.com/intel/lkp-tests/master/sbin/make.cross" rel=3D"noreferrer" target=
-=3D"_blank">https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/m=
-ake.cross</a>=C2=A0-O ~/bin/make.cross<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 chmod=
- +x ~/bin/make.cross<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 # install mips cross co=
-mpiling tool for clang build<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 # apt-get insta=
-ll binutils-mips-linux-gnu<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 #=C2=A0<a href=3D=
-"https://github.com/0day-ci/linux/commit/123fb3d217e89c4388fdb08b63991bac7c=
-324219" rel=3D"noreferrer" target=3D"_blank">https://github.com/0day-ci/lin=
-ux/commit/123fb3d217e89c4388fdb08b63991bac7c324219</a><br>=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 git remote add linux-review=C2=A0<a href=3D"https://github.com/0=
-day-ci/linux" rel=3D"noreferrer" target=3D"_blank">https://github.com/0day-=
-ci/linux</a><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 git fetch --no-tags linux-revie=
-w UPDATE-20211130-233655/Zhou-Qingyang/drm-radeon-radeon_kms-Fix-a-NULL-poi=
-nter-dereference-in-radeon_driver_open_kms/20211130-231509<br>=C2=A0 =C2=A0=
- =C2=A0 =C2=A0 git checkout 123fb3d217e89c4388fdb08b63991bac7c324219<br>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 # save the config file to linux build tree<br>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 mkdir build_dir<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 COM=
-PILER_INSTALL_PATH=3D$HOME/0day COMPILER=3Dclang make.cross W=3D1 O=3Dbuild=
-_dir ARCH=3Dmips SHELL=3D/bin/bash drivers/gpu/drm/radeon/<br><br>If you fi=
-x the issue, kindly add following tag as appropriate<br>Reported-by: kernel=
- test robot &lt;<a href=3D"mailto:lkp@intel.com" target=3D"_blank">lkp@inte=
-l.com</a>&gt;<br><br>All warnings (new ones prefixed by &gt;&gt;):<br><br>&=
-gt;&gt; drivers/gpu/drm/radeon/radeon_kms.c:672:7: warning: variable &#39;v=
-m&#39; is used uninitialized whenever &#39;if&#39; condition is false [-Wso=
-metimes-uninitialized]<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0if (rdev-&gt;accel_working) {<br>=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~=
-~~~~~~<br>=C2=A0 =C2=A0drivers/gpu/drm/radeon/radeon_kms.c:705:23: note: un=
-initialized use occurs here<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rad=
-eon_vm_fini(rdev, vm);<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^~<br>=C2=A0=
- =C2=A0drivers/gpu/drm/radeon/radeon_kms.c:672:3: note: remove the &#39;if&=
-#39; if its condition is always true<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rdev-&gt;accel_working) {<br>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~=
-~~~~~~~~~~~~<br>=C2=A0 =C2=A0drivers/gpu/drm/radeon/radeon_kms.c:664:6: war=
-ning: variable &#39;vm&#39; is used uninitialized whenever &#39;if&#39; con=
-dition is false [-Wsometimes-uninitialized]<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0if (rdev-&gt;family &gt;=3D CHIP_CAYMAN) {<br>=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~~~~~~~~~~~~~~~<br>=C2=
-=A0 =C2=A0drivers/gpu/drm/radeon/radeon_kms.c:705:23: note: uninitialized u=
-se occurs here<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0radeon_vm_fini(r=
-dev, vm);<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^~<br>=C2=A0 =C2=A0driver=
-s/gpu/drm/radeon/radeon_kms.c:664:2: note: remove the &#39;if&#39; if its c=
-ondition is always true<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rde=
-v-&gt;family &gt;=3D CHIP_CAYMAN) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>=C2=A0 =C2=A0drivers/gpu/drm/rad=
-eon/radeon_kms.c:653:22: note: initialize the variable &#39;vm&#39; to sile=
-nce this warning<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct radeon_=
-vm *vm;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =3D NULL<br>=C2=A0 =C2=A02 warnings generated.<br><br><br=
->vim +672 drivers/gpu/drm/radeon/radeon_kms.c<br><br>771fe6b912fca54 Jerome=
- Glisse=C2=A0 =C2=A0 =C2=A0 2009-06-05=C2=A0 638=C2=A0<br>f482a1419545ded A=
-lex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=A02012-07-17=C2=A0 639=C2=A0 /**<br>f48=
-2a1419545ded Alex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=A02012-07-17=C2=A0 640=C2=
-=A0 =C2=A0* radeon_driver_open_kms - drm callback for open<br>f482a1419545d=
-ed Alex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=A02012-07-17=C2=A0 641=C2=A0 =C2=A0=
-*<br>f482a1419545ded Alex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=A02012-07-17=C2=
-=A0 642=C2=A0 =C2=A0* @dev: drm dev pointer<br>f482a1419545ded Alex Deucher=
-=C2=A0 =C2=A0 =C2=A0 =C2=A02012-07-17=C2=A0 643=C2=A0 =C2=A0* @file_priv: d=
-rm file<br>f482a1419545ded Alex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=A02012-07-1=
-7=C2=A0 644=C2=A0 =C2=A0*<br>f482a1419545ded Alex Deucher=C2=A0 =C2=A0 =C2=
-=A0 =C2=A02012-07-17=C2=A0 645=C2=A0 =C2=A0* On device open, init vm on cay=
-man+ (all asics).<br>f482a1419545ded Alex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=
-=A02012-07-17=C2=A0 646=C2=A0 =C2=A0* Returns 0 on success, error on failur=
-e.<br>f482a1419545ded Alex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=A02012-07-17=C2=
-=A0 647=C2=A0 =C2=A0*/<br>771fe6b912fca54 Jerome Glisse=C2=A0 =C2=A0 =C2=A0=
- 2009-06-05=C2=A0 648=C2=A0 int radeon_driver_open_kms(struct drm_device *d=
-ev, struct drm_file *file_priv)<br>771fe6b912fca54 Jerome Glisse=C2=A0 =C2=
-=A0 =C2=A0 2009-06-05=C2=A0 649=C2=A0 {<br>721604a15b934f0 Jerome Glisse=C2=
-=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 650=C2=A0 =C2=A0 =C2=A0 struct radeon_de=
-vice *rdev =3D dev-&gt;dev_private;<br>10ebc0bc09344ab Dave Airlie=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 2012-09-17=C2=A0 651=C2=A0 =C2=A0 =C2=A0 int r;<br>123=
-fb3d217e89c4 Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 652=C2=A0 =
-=C2=A0 =C2=A0 struct radeon_fpriv *fpriv;<br>123fb3d217e89c4 Zhou Qingyang=
-=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 653=C2=A0 =C2=A0 =C2=A0 struct radeon=
-_vm *vm;<br>721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=
-=A0 654=C2=A0<br>721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-=
-05=C2=A0 655=C2=A0 =C2=A0 =C2=A0 file_priv-&gt;driver_priv =3D NULL;<br>721=
-604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 656=C2=A0<b=
-r>10ebc0bc09344ab Dave Airlie=C2=A0 =C2=A0 =C2=A0 =C2=A0 2012-09-17=C2=A0 6=
-57=C2=A0 =C2=A0 =C2=A0 r =3D pm_runtime_get_sync(dev-&gt;dev);<br>9fb106710=
-11143d Aditya Pakki=C2=A0 =C2=A0 =C2=A0 =C2=A02020-06-13=C2=A0 658=C2=A0 =
-=C2=A0 =C2=A0 if (r &lt; 0) {<br>9fb10671011143d Aditya Pakki=C2=A0 =C2=A0 =
-=C2=A0 =C2=A02020-06-13=C2=A0 659=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 pm_runtime_put_autosuspend(dev-&gt;dev);<br>10ebc0bc09344ab Dave Air=
-lie=C2=A0 =C2=A0 =C2=A0 =C2=A0 2012-09-17=C2=A0 660=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 return r;<br>9fb10671011143d Aditya Pakki=C2=A0 =
-=C2=A0 =C2=A0 =C2=A02020-06-13=C2=A0 661=C2=A0 =C2=A0 =C2=A0 }<br>10ebc0bc0=
-9344ab Dave Airlie=C2=A0 =C2=A0 =C2=A0 =C2=A0 2012-09-17=C2=A0 662=C2=A0<br=
->721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 663=C2=
-=A0 =C2=A0 =C2=A0 /* new gpu have virtual address space support */<br>72160=
-4a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 664=C2=A0 =C2=
-=A0 =C2=A0 if (rdev-&gt;family &gt;=3D CHIP_CAYMAN) {<br>721604a15b934f0 Je=
-rome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 665=C2=A0<br>721604a15b934=
-f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 666=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fpriv =3D kzalloc(sizeof(*fpriv), GFP_KERNE=
-L);<br>721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 6=
-67=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (unlikely(!fpriv)) {<=
-br>32c59dc14b72803 Alex Deucher=C2=A0 =C2=A0 =C2=A0 =C2=A02016-08-31=C2=A0 =
-668=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 r =3D -ENOMEM;<br>32c59dc14b72803 Alex Deucher=C2=A0 =C2=A0 =C2=A0 =
-=C2=A02016-08-31=C2=A0 669=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto out_suspend;<br>721604a15b934f0 Jerome Gli=
-sse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 670=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 }<br>721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 20=
-12-01-05=C2=A0 671=C2=A0<br>544143f9e01a60a Alex Deucher=C2=A0 =C2=A0 =C2=
-=A0 =C2=A02015-01-28 @672=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i=
-f (rdev-&gt;accel_working) {<br>cc9e67e3d7000c1 Christian K=C3=B6nig=C2=A0 =
-=C2=A0 2014-07-18=C2=A0 673=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 vm =3D &amp;fpriv-&gt;vm;<br>cc9e67e3d7000c1 C=
-hristian K=C3=B6nig=C2=A0 =C2=A0 2014-07-18=C2=A0 674=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D radeon_vm_ini=
-t(rdev, vm);<br>74073c9dd299056 Quentin Casasnovas 2014-03-18=C2=A0 675=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i=
-f (r) {<br>123fb3d217e89c4 Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=
-=A0 676=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto out_fpriv;<br>74073c9dd299056 Q=
-uentin Casasnovas 2014-03-18=C2=A0 677=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>d72d43cfc5847c1 Christian K=
-=C3=B6nig=C2=A0 =C2=A0 2012-10-09=C2=A0 678=C2=A0<br>f1e3dc708aaadb9 Christ=
-ian K=C3=B6nig=C2=A0 =C2=A0 2014-02-20=C2=A0 679=C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D radeon_bo_reserve(r=
-dev-&gt;<a href=3D"http://ring_tmp_bo.bo/" rel=3D"noreferrer" target=3D"_bl=
-ank">ring_tmp_bo.bo</a>, false);<br>74073c9dd299056 Quentin Casasnovas 2014=
--03-18=C2=A0 680=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 if (r) {<br>123fb3d217e89c4 Zhou Qingyang=C2=A0 =C2=A0 =
-=C2=A0 2021-11-30=C2=A0 681=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto out_vm_fini;<=
-br>74073c9dd299056 Quentin Casasnovas 2014-03-18=C2=A0 682=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>f1e3dc708a=
-aadb9 Christian K=C3=B6nig=C2=A0 =C2=A0 2014-02-20=C2=A0 683=C2=A0<br>d72d4=
-3cfc5847c1 Christian K=C3=B6nig=C2=A0 =C2=A0 2012-10-09=C2=A0 684=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* map t=
-he ib pool buffer read only into<br>d72d43cfc5847c1 Christian K=C3=B6nig=C2=
-=A0 =C2=A0 2012-10-09=C2=A0 685=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* virtual address space */<br>cc9e=
-67e3d7000c1 Christian K=C3=B6nig=C2=A0 =C2=A0 2014-07-18=C2=A0 686=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 vm-&g=
-t;ib_bo_va =3D radeon_vm_bo_add(rdev, vm,<br>d72d43cfc5847c1 Christian K=C3=
-=B6nig=C2=A0 =C2=A0 2012-10-09=C2=A0 687=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 rdev-&gt;<a href=3D"http://ring_tmp_bo.bo/" rel=3D"noreferrer" targe=
-t=3D"_blank">ring_tmp_bo.bo</a>);<br>123fb3d217e89c4 Zhou Qingyang=C2=A0 =
-=C2=A0 =C2=A0 2021-11-30=C2=A0 688=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!vm-&gt;ib_bo_va) {<br>123fb3d217e8=
-9c4 Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 689=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 r =3D -ENOMEM;<br>123fb3d217e89c4 Zhou Qingyang=C2=A0 =C2=A0 =
-=C2=A0 2021-11-30=C2=A0 690=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto out_vm_fini;<=
-br>123fb3d217e89c4 Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 691=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 }<br>123fb3d217e89c4 Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0=
- 692=C2=A0<br>cc9e67e3d7000c1 Christian K=C3=B6nig=C2=A0 =C2=A0 2014-07-18=
-=C2=A0 693=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 r =3D radeon_vm_bo_set_addr(rdev, vm-&gt;ib_bo_va,<br>cc9e67e=
-3d7000c1 Christian K=C3=B6nig=C2=A0 =C2=A0 2014-07-18=C2=A0 694=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 RADEON_VA_IB_OFFSET,<br>d72d43cfc5847c1 Christian K=C3=B6nig=C2=
-=A0 =C2=A0 2012-10-09=C2=A0 695=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 RADEON_VM_PAGE_READABL=
-E |<br>d72d43cfc5847c1 Christian K=C3=B6nig=C2=A0 =C2=A0 2012-10-09=C2=A0 6=
-96=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 RADEON_VM_PAGE_SNOOPED);<br>721604a15b934f0 Jerome Gli=
-sse=C2=A0 =C2=A0 =C2=A0 2012-01-05=C2=A0 697=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (r) {<br>123fb3d217e89c4 Z=
-hou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 698=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 goto out_vm_fini;<br>721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =
-=C2=A0 2012-01-05=C2=A0 699=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>24f47acc78b0ab5 J=C3=A9r=C3=B4me Glisse=
-=C2=A0 =C2=A0 =C2=A0 2014-05-07=C2=A0 700=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 }<br>721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2012-=
-01-05=C2=A0 701=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file_priv-&=
-gt;driver_priv =3D fpriv;<br>721604a15b934f0 Jerome Glisse=C2=A0 =C2=A0 =C2=
-=A0 2012-01-05=C2=A0 702=C2=A0 =C2=A0 =C2=A0 }<br>10ebc0bc09344ab Dave Airl=
-ie=C2=A0 =C2=A0 =C2=A0 =C2=A0 2012-09-17=C2=A0 703=C2=A0<br>123fb3d217e89c4=
- Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 704=C2=A0 out_vm_fini:<=
-br>123fb3d217e89c4 Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 705=
-=C2=A0 =C2=A0 =C2=A0 radeon_vm_fini(rdev, vm);<br>123fb3d217e89c4 Zhou Qing=
-yang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 706=C2=A0 out_fpriv:<br>123fb3d21=
-7e89c4 Zhou Qingyang=C2=A0 =C2=A0 =C2=A0 2021-11-30=C2=A0 707=C2=A0 =C2=A0 =
-=C2=A0 kfree(fpriv);<br>32c59dc14b72803 Alex Deucher=C2=A0 =C2=A0 =C2=A0 =
-=C2=A02016-08-31=C2=A0 708=C2=A0 out_suspend:<br>10ebc0bc09344ab Dave Airli=
-e=C2=A0 =C2=A0 =C2=A0 =C2=A0 2012-09-17=C2=A0 709=C2=A0 =C2=A0 =C2=A0 pm_ru=
-ntime_mark_last_busy(dev-&gt;dev);<br>10ebc0bc09344ab Dave Airlie=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 2012-09-17=C2=A0 710=C2=A0 =C2=A0 =C2=A0 pm_runtime_put_a=
-utosuspend(dev-&gt;dev);<br>32c59dc14b72803 Alex Deucher=C2=A0 =C2=A0 =C2=
-=A0 =C2=A02016-08-31=C2=A0 711=C2=A0 =C2=A0 =C2=A0 return r;<br>771fe6b912f=
-ca54 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2009-06-05=C2=A0 712=C2=A0 }<br>771f=
-e6b912fca54 Jerome Glisse=C2=A0 =C2=A0 =C2=A0 2009-06-05=C2=A0 713=C2=A0<br=
-><br>---<br>0-DAY CI Kernel Test Service, Intel Corporation<br><a href=3D"h=
-ttps://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org" rel=3D"norefer=
-rer" target=3D"_blank">https://lists.01.org/hyperkitty/list/kbuild-all@list=
-s.01.org</a><br></div><div><br></div></div><div class=3D"gmail_quote"><div =
-dir=3D"ltr" class=3D"gmail_attr">On Wed, Dec 1, 2021 at 3:20 PM Christian K=
-=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.com" target=3D"_blank"=
->christian.koenig@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">Am 01.12.21 um 04:22 schrieb Zhou Qingyang:<br>
-&gt; In radeon_driver_open_kms(), radeon_vm_bo_add() is assigned to<br>
-&gt; vm-&gt;ib_bo_va and passes and used in radeon_vm_bo_set_addr(). In<br>
-&gt; radeon_vm_bo_set_addr(), there is a dereference of vm-&gt;ib_bo_va,<br=
->
-&gt; which could lead to a NULL pointer dereference on failure of<br>
-&gt; radeon_vm_bo_add().<br>
-&gt;<br>
-&gt; Fix this bug by adding a check of vm-&gt;ib_bo_va.<br>
-&gt;<br>
-&gt; This bug was found by a static analyzer. The analysis employs<br>
-&gt; differential checking to identify inconsistent security operations<br>
-&gt; (e.g., checks or kfrees) between two code paths and confirms that the<=
-br>
-&gt; inconsistent operations are not recovered in the current function or<b=
-r>
-&gt; the callers, so they constitute bugs.<br>
-&gt;<br>
-&gt; Note that, as a bug found by static analysis, it can be a false<br>
-&gt; positive or hard to trigger. Multiple researchers have cross-reviewed<=
-br>
-&gt; the bug.<br>
-&gt;<br>
-&gt; Builds with CONFIG_DRM_RADEON=3Dm show no new warnings,<br>
-&gt; and our static analyzer no longer warns about this code.<br>
-&gt;<br>
-&gt; Fixes: cc9e67e3d700 (&quot;drm/radeon: fix VM IB handling&quot;)<br>
-&gt; Reported-by: kernel test robot &lt;<a href=3D"mailto:lkp@intel.com" ta=
-rget=3D"_blank">lkp@intel.com</a>&gt;<br>
-&gt; Signed-off-by: Zhou Qingyang &lt;<a href=3D"mailto:zhou1615@umn.edu" t=
-arget=3D"_blank">zhou1615@umn.edu</a>&gt;<br>
-&gt; ---<br>
-&gt; Changes in v2:<br>
-&gt;=C2=A0 =C2=A0 -=C2=A0 Initialize the variables to silence warning<br>
-<br>
-What warning do you get? Double checking the code that shouldn&#39;t be <br=
->
-necessary and is usually rather frowned upon.<br>
-<br>
-Thanks,<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Changes in v3:<br>
-&gt;=C2=A0 =C2=A0 -=C2=A0 Fix the bug that good case will also be freed<br>
-&gt;=C2=A0 =C2=A0 -=C2=A0 Improve code style<br>
-&gt;<br>
-&gt; Changes in v2:<br>
-&gt;=C2=A0 =C2=A0 -=C2=A0 Improve the error handling into goto style<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/radeon/radeon_kms.c | 37 ++++++++++++++++-=
-------------<br>
-&gt;=C2=A0 =C2=A01 file changed, 20 insertions(+), 17 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/rad=
-eon/radeon_kms.c<br>
-&gt; index 482fb0ae6cb5..9d0f840286a1 100644<br>
-&gt; --- a/drivers/gpu/drm/radeon/radeon_kms.c<br>
-&gt; +++ b/drivers/gpu/drm/radeon/radeon_kms.c<br>
-&gt; @@ -648,7 +648,9 @@ void radeon_driver_lastclose_kms(struct drm_device=
- *dev)<br>
-&gt;=C2=A0 =C2=A0int radeon_driver_open_kms(struct drm_device *dev, struct =
-drm_file *file_priv)<br>
-&gt;=C2=A0 =C2=A0{<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct radeon_device *rdev =3D dev-&gt;dev_p=
-rivate;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0int r;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct radeon_fpriv *fpriv =3D NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct radeon_vm *vm =3D NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int r =3D 0;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0file_priv-&gt;driver_priv =3D NULL;<br>
-&gt;<br>
-&gt; @@ -660,8 +662,6 @@ int radeon_driver_open_kms(struct drm_device *dev,=
- struct drm_file *file_priv)<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* new gpu have virtual address space suppor=
-t */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (rdev-&gt;family &gt;=3D CHIP_CAYMAN) {<b=
-r>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct radeon_fpriv *=
-fpriv;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct radeon_vm *vm;=
-<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fpriv =3D kzallo=
-c(sizeof(*fpriv), GFP_KERNEL);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(!fp=
-riv)) {<br>
-&gt; @@ -672,35 +672,38 @@ int radeon_driver_open_kms(struct drm_device *de=
-v, struct drm_file *file_priv)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rdev-&gt;acc=
-el_working) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0vm =3D &amp;fpriv-&gt;vm;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0r =3D radeon_vm_init(rdev, vm);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (r) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(fpriv);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_suspend;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (r)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_fpriv;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0r =3D radeon_bo_reserve(rdev-&gt;<a href=3D"http://ring_tmp_bo=
-.bo" rel=3D"noreferrer" target=3D"_blank">ring_tmp_bo.bo</a>, false);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (r) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0radeon_vm_fini(rdev, vm);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(fpriv);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_suspend;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (r)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_vm_fini;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0/* map the ib pool buffer read only into<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 * virtual address space */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0vm-&gt;ib_bo_va =3D radeon_vm_bo_add(rdev, vm,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev-&gt;<a href=3D"htt=
-p://ring_tmp_bo.bo" rel=3D"noreferrer" target=3D"_blank">ring_tmp_bo.bo</a>=
-);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (!vm-&gt;ib_bo_va) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D -ENOMEM;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_vm_fini;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0}<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0r =3D radeon_vm_bo_set_addr(rdev, vm-&gt;ib_bo_va,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RADEON_VA_IB_OFFSET,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RADEON_VM_PAGE_READABLE |<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RADEON_VM_PAGE_SNOOPED);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (r) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0radeon_vm_fini(rdev, vm);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(fpriv);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_suspend;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (r)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_vm_fini;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0file_priv-&gt;dr=
-iver_priv =3D fpriv;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +out_vm_fini:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (r)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0radeon_vm_fini(rdev, =
-vm);<br>
-&gt; +out_fpriv:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (r)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(fpriv);<br>
-&gt;=C2=A0 =C2=A0out_suspend:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0pm_runtime_mark_last_busy(dev-&gt;dev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0pm_runtime_put_autosuspend(dev-&gt;dev);<br>
-<br>
-</blockquote></div>
-</div>
+Either way patch Reviewed-by: Christian König 
+<christian.koenig@amd.com>. Alex will probably pick it up now.
 
---000000000000f4b31205d21518b3--
+Thanks for the help,
+Christian.
+
+> +		goto out_suspend;
+> +
+> +out_vm_fini:
+> +	radeon_vm_fini(rdev, vm);
+> +out_fpriv:
+> +	kfree(fpriv);
+>   out_suspend:
+>   	pm_runtime_mark_last_busy(dev->dev);
+>   	pm_runtime_put_autosuspend(dev->dev);
 
