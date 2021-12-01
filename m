@@ -4,129 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAE3BC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 02:07:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14407C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 02:28:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD3C6E3FE;
-	Wed,  1 Dec 2021 02:07:39 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D1496E3FE
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 02:07:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA596E3EF;
+	Wed,  1 Dec 2021 02:28:22 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 214EA6E3EF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 02:28:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MEC1M0pxerRezVJN6VhWJXNA/cnb8QHVBJn190pcEgvqvdigxVtTNpRriNSj2mJKCmZsZfcSlNmCxqwmusNF+GcHB1hsKEWzErheZWhjrxAUg+EbAmBCYcp2YOaxVb4+5WlRNWuU3oYgGJ2jXf7VrLZxQSrZxRg8592hRVDwBygW0RmJsVI1VRtGhcmk2dFf+x+T17e1I6lEcDuWGfPGIhiym2CrImA23ktlM0xVOgxPymQ3HTSCeyKtIwMuv2VAtY0cfH3Sb//GmcHTZpZqaglncVZt4qwzteGdDzHk84nznPWtTENg7mzsBxfCz3RMfjHIs6Jr9LSeos5s6Fuawg==
+ b=CEI69MkELlLonb01iTl37a6WTJPBAWMm0p3F2mL+AuvvDbh6Np5kfKBTcBpX06sqZyJgobCqDvdZ3KdpUb960A8OU2IMM4r0N0xeyO/78w78cAy3gqsDwxV2j4d3YfthqyXCwVMW7G0YatAtJrV8XY898YOKv8mLg64iZdlf96zgWhmSTRWUnbRXeNmzUoJULP/FIioB2wYRxosvmR9SSI2eOgx3DXs48ELJ2M0afH/uwlSzmsVGWmoWrxVpqfEt1WL7SH5fCFv28FxEuRKkfMQOz3ROIL86v3sV2I4K210ODs7RDgdvjYg9gTwAmV1ydqiqpaTgcQPssqG0aBOpIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PfFjdDaOKSApuagDISopYT+WJDlAs5HimMYXP3AgZ28=;
- b=E+D9I92SGUBckpPgATqZCzLvD6pcrn3ew7chXxoA+xx8n16hsmFytkJ5ZWCKc1Pb1RZxFWsyB/PHnB56kOh3bWbFF296qvQGtPBKEUZjJXYGG2jyJOvjsHub88x9E5JHQ50E9LJNskMjnJwxnzaB09hIkFdCz4vNkypyB5bJi59KHz29H3B5jAEihjz2LBQkdJCE25ZHcecRhhfYYCwkB1hQxa8tI8Y8g53F5lIA75sv5y0q5vvQp/2BEd1pjB/7cZO/7zdqtxZS9VF6bhmaN+2u8kFGnJz0SgJGTw8JhoTXW59zFxGIaUeflOhoBGKJj+PxGqZnvryOkhkbX0AFGA==
+ bh=8rdrYbVMGXtw5K5IuF35Uj1y0RSSQ4b/kbQb0/27l/4=;
+ b=icVVZZVOvjOGRIEowZz7CAotYSk2kV4JMsCQTsevdf/UL7EV+5r/NXSATe59i6X89mfXIydK4hf37amDNieH179kxofJo/PAoBbin02WG9r3SNADCJRgmemoJM8MCCpUlvhO2lXNdOVju4+SwD6OT0yNzK0EGyf0tL0h/G/9PjXUyJrEekr55SIXOk10Q/Pth0L4sGm8H7t7iqvjWzwosP/k+eLP2D7sSUrofkgF7WoG58cTP/GffvWpfzeYDZGPA10nUtgUvKvJPv89Jjty5vN5RFggG7mCZDAB4ATwuqUix7U/k/RI+P+2wVhMjP64qa8z+LkJMc7Fl98E4HLxHw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PfFjdDaOKSApuagDISopYT+WJDlAs5HimMYXP3AgZ28=;
- b=acZR0Q4beBPkt3xquiryFe7B4+M7ZPyZk2XFG0mSNtbEPfW8KyaHGP22glDhiCi+8KIF4sxN826iKPx0LqBBUQeO2RWu54mfLdHYch+HZl+ZJ07lv0ZKmJaG3jyvJMsFzfjCh7z+FjPSnbDTUIhmCIwSZ9jqrXHS8dojIu+/nDs=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3179.namprd12.prod.outlook.com (2603:10b6:5:183::18) with
+ bh=8rdrYbVMGXtw5K5IuF35Uj1y0RSSQ4b/kbQb0/27l/4=;
+ b=JCV1K2cGNndDO5uKy7l/rvUrX1Nwg5yG/GLN51SozdEbutox85JXceAdpagknxX/ddpLfVBaqrZiNasJGTD/kRfVlOOV52Z/11tqYIzS/BjHknC3PyGiCraUOII6l2+FGDRWUxMla9mMIoqik+pd05/LwhD0nsIauzORsTiHtv8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ DM5PR12MB1434.namprd12.prod.outlook.com (2603:10b6:3:77::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.23; Wed, 1 Dec 2021 02:07:36 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef%3]) with mapi id 15.20.4755.011; Wed, 1 Dec 2021
- 02:07:36 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH V2 05/17] drm/amd/pm: do not expose those APIs used
- internally only in si_dpm.c
-Thread-Topic: [PATCH V2 05/17] drm/amd/pm: do not expose those APIs used
- internally only in si_dpm.c
-Thread-Index: AQHX5b37SFbqI1TFKk6FrE854To2oqwb/mAAgADmXuA=
-Date: Wed, 1 Dec 2021 02:07:36 +0000
-Message-ID: <DM6PR12MB26197BA32977DD3BB02079FCE4689@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20211130074259.1271965-1-evan.quan@amd.com>
- <20211130074259.1271965-6-evan.quan@amd.com>
- <a14026bf-192e-55d3-2fd0-e29466941e7f@amd.com>
-In-Reply-To: <a14026bf-192e-55d3-2fd0-e29466941e7f@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-01T02:07:34Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=d64c9020-c823-4630-9eac-1615e0129aa5;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 75803088-3e34-4602-7429-08d9b46f5845
-x-ms-traffictypediagnostic: DM6PR12MB3179:
-x-microsoft-antispam-prvs: <DM6PR12MB317977379DE3E0BA46F51BDDE4689@DM6PR12MB3179.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kKCntOfgf3Y9LrEP7w79nb9xjyeUeqRL5HytRT3DAu/lhAbEVQrfmkl4NVVO1i6RJNUJKhqNX9r9nT7s7w6IRCAa1iW17dU+6lcHobbpb2ww59+n839mr+/Cm7F5uhinJ8Qr0m+mkS443lg8tgGc7+CePL2xAot7r+RwVpbsXFJvzsn7i9VBkfya6a86SsPKRtldCQPAcp8tkhRjWZ8Vqjp4SKg6NKIx11AIv2Ouijwexz4b8QC9fQiOzO7Vg0zwW+j8Y6xrNPnwpgKOO3ESmLFGRCW0+6jEL6gCWb92e4JXE0H5FHs1kHQUKUq0jZ+hPOZX+tJenPyNIp+08Kt8xQjYFWw5jcTcX45y/GGXUKth2Nub4NsYHlGZLp8h0P1C3jmpU9q6g5aBE8Ufvf1WCYdf6oItoQDI2KaJbkw3UOTkywM/ZHo6YvL3qwQYuwCG4UVZ7lhj9BbXd+qlAw1MSDdEIdbtwELLm7JI28cWkLiB5smL0deC4iwKbAVJJTjR9nfQPtNkFxsHFP5kVhUFK9UgPYN8N4ek5kSiTQUM6oNwSFfTMc+wGkIRG9mOvbuNXIf9JsUAcVmgOARVr3IHf2NDptibUh4hLmEfBzqB0dD/IyWj1ANpfZrMuR9Z6ctvn6aggq2O9sUvN8YNaWEKLum4E6iw9tGnXEaA5q3djfzgvY1KxCxwCekkKmawlskLRFQDzCOFKd0OpZl+QVReoA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(9686003)(2906002)(38070700005)(52536014)(66946007)(64756008)(8676002)(186003)(66446008)(7696005)(54906003)(83380400001)(26005)(55016003)(4326008)(316002)(66476007)(66556008)(38100700002)(508600001)(6506007)(5660300002)(86362001)(53546011)(33656002)(71200400001)(76116006)(122000001)(8936002)(110136005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MHZHRk9LUFNYWjZGVmdvcVRBS0QvNmdMaDIzNHdVQnV6RStZR1JabEdtS2lu?=
- =?utf-8?B?TWFsWXVQbEkvSjhLc0RBU1lrc0R6eEs1TzdTVnBOTXQzeXNhU0tkNkRoYmxS?=
- =?utf-8?B?d1RjdjZlM3R5Q1ZDWjhTcHB5Q01BTXlyNElVc2FEbjl0eW00Y01mTTFLY0ph?=
- =?utf-8?B?MWExdWtwZkVheTk3aXpJSXhaU0VzYmNiUVkybkJ3RWpZN2wvdkhMbExoMDg0?=
- =?utf-8?B?K1lndmRJb3d2dEVPL3dPSUZCVVpOLzVOampHS3VKTFNIWlM4aC92UUZxTVpw?=
- =?utf-8?B?ZXUxSTViZWFYMFBtR2ltcjR4SHV0VFV3WUg3b0Z2L3JwMWxydE5GV2t2STRa?=
- =?utf-8?B?eTNOenFGSGVhNWVWVXdvRVJwZ2VBMWFibVJqNWM1bXpIcUdMMlNJTU5OQklW?=
- =?utf-8?B?RS9IQTdxM29zbWZJeGpkcGJscDFDcnltcmptMnNJT0h6bVg3Qm1IZVBxc3pu?=
- =?utf-8?B?cWdYNndzdHdTL0R4a0VQZEhSNGtjMVJyTTRHYTZjWWZCcGV0UVpYcHpQNTM0?=
- =?utf-8?B?M2s4T25LS25xcllxazZkY0pTeU9iT3BjQ3Q4cXlvYSs4cGpuemxQMEZlZGNY?=
- =?utf-8?B?NGtlc0thK3pjRWJuYXZ3dlczOTVJa29NQmhiTmFhTStlTXgraEc4VEozaUtQ?=
- =?utf-8?B?VVVtWnVCVmt0TjdDVWpjYUJHTDJMeU9oKzgyYUNQYmVXMklYeUh5ZVRaOWFx?=
- =?utf-8?B?a1hWZm1LZmt5blNhN2VWdERDSXJJTU9xTlVDayt5Rk9Da1RROEd6MTRLbnVF?=
- =?utf-8?B?QzdqYld5SnZVeUdKd3lMbUF0dWdaOWVkN3RIYUlSSW4xdDNhaFNRRmRlZmEw?=
- =?utf-8?B?Y3R3VVpFaTc3dEZYeitxemZ6emhUVUFERUFDQTdZQUdIYTR1L2tVQjcwMjlv?=
- =?utf-8?B?YjFDNmdCcHArVHJpTDg0N2J1N0ljejh4aHBoTzRzd0hRUXl4SnIxSG91d0VN?=
- =?utf-8?B?RWFPL0c1d0pIZitDNFNlRU1EZG9McEpIYi9odyszbjd1dGlXMURhMWQ0d0pD?=
- =?utf-8?B?OFBFMjB5ZVB5RFpVSTFLY1QzQzZPOWVYbHFzOXZoMmJYRTVibDRRVGpPSWZY?=
- =?utf-8?B?Z3JZTnZEZUZjYXlGTVF3Y01EVkh4NXFOTG1weHEzbU1maVQ3WHVYaEZRMnFY?=
- =?utf-8?B?L2VTNWNHbVVIeXJ1RVNUb2lKeHBOeWp0Y0lpRDBjbEpkQ3BVVzY1V25QaWU2?=
- =?utf-8?B?VzNQenlEZE9oYnVESGVHVVJweEIwZjYrSS94cFRHQzJPeWlkVHFGbjVIWFRv?=
- =?utf-8?B?dVdVREU5ZXJhTU9ZL0xYeWlmRlpXVHlTejFJbUxWMmVYZ1R6YmhXMld0TlNz?=
- =?utf-8?B?Zklmc0ZwUzVXWWVlNXlKU1JxZ2hPS0VmbEwrc0I1RGxYU1FiZUJINEQ5L0hh?=
- =?utf-8?B?RW92TTB0WmZkNngvQVlBUUdHbWswR1RHSjRQU01FdlJrYm04ZFV3Ujl6MnNn?=
- =?utf-8?B?S0gwUUkxNC95WHRmSzZWcmRXNmxRcm5aOElES29iTjZRaW50TEMrWGYwU3Rz?=
- =?utf-8?B?cEJqSG9RV054Zm9pdUg4azkra1FCOUVWemhQN0NNTDJRa293dFMzZUMxWXhh?=
- =?utf-8?B?ajRCSHBwSHpvaGNmSnB4U3lLQWQ1MW9vUVRzTlNxOXZxaCtIdTlMbWVOaE1S?=
- =?utf-8?B?Wnc1d2RCSytudnB3dGpXSUZMWHdLdHBZclp4NFErT2NIbFVoaUx3QjNFN0d2?=
- =?utf-8?B?clZUN09kQWNGSGpvYXhXdzVPaUIrU3VZS3gvazRFVG9BSG9kcUVYZUtIT1hZ?=
- =?utf-8?B?bGxQb1hRT1p5SjZLRFUrOWRHS1luak9IaklXVmJ4THFIR3FEM3N3SURqREpp?=
- =?utf-8?B?czE5M1BGN1ZkRlYwR1U4eW9oM1k1NGVZZ1krcFlQQkVOUkVJanFRZ1hRSksz?=
- =?utf-8?B?anl2UThpTS9hVmo3eFp1LzVMWjdlNWIvMmUxT1VtcitTQXU2cHpGOTdvKzBS?=
- =?utf-8?B?MENMRzl6YXBXT1hTZXFyNFNYYnBSbDVHbHhrMTBZb204Wm9taDFqQUFuQW1Z?=
- =?utf-8?B?MmxuMjBrK01uQ2hJTUlFM0ExZE1hZVh6eXJiQnp3WXE3a0t6cVhOdERQSTZQ?=
- =?utf-8?B?RTJHOE4xNlZ5SkZvV0F2UW0weHI5N05USVlHTGVrTjJMMzR1MmJSaVR0NWZC?=
- =?utf-8?Q?iy3I=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 15.20.4734.22; Wed, 1 Dec 2021 02:28:17 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa%8]) with mapi id 15.20.4734.024; Wed, 1 Dec 2021
+ 02:28:17 +0000
+Date: Wed, 1 Dec 2021 10:28:08 +0800
+From: Lang Yu <Lang.Yu@amd.com>
+To: Christian KKKnig <christian.koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: add SMU debug option support
+Message-ID: <YabduKz2tJssIi4Z@lang-desktop>
+References: <20211130051721.3192979-1-lang.yu@amd.com>
+ <b4cc4c24-e273-6e82-4baa-48505b38e27a@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b4cc4c24-e273-6e82-4baa-48505b38e27a@amd.com>
+X-ClientProxiedBy: SG2PR03CA0098.apcprd03.prod.outlook.com
+ (2603:1096:4:7c::26) To DM6PR12MB4250.namprd12.prod.outlook.com
+ (2603:10b6:5:21a::9)
 MIME-Version: 1.0
+Received: from lang-desktop (165.204.134.244) by
+ SG2PR03CA0098.apcprd03.prod.outlook.com (2603:1096:4:7c::26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.7 via Frontend Transport; Wed, 1 Dec 2021 02:28:14 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 475d762e-b7ea-4180-1571-08d9b4723bbf
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1434:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB14344789B6F4E64C63438791FB689@DM5PR12MB1434.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: B4JoxGFqs+3Q/0wB16h3ZkNnRVLXBlI1Qixm4XZptu6F00CLjfWATcuimPjcQwdJ4+0ONW8zfer036Be3bI197ms7JfzERzeDszEQsGhITX9VBrzveKUI1TCuf+LWJ+7wKLu1JZvUKBoAvQ8h98et4Wj+zHkNTpsOXDZEHe1/o6fuh9Gyl2sSIFaM9ju081yFkjhdv7SlcRPknwYSI0PR45vB/saeVPDuLgzYU5ecWli7vgcu4NCZthJWB4pQwjTVdBgz6pKesRpRaIagt6C/bj10dOXxx4/dvAUO91O1hOmRxpJ310rFW5jeELAIMxnAfk38di2CZcz6Ni+nZiRBhr9VpxlH9kYMFSrKS5907K738i8Z6V71nkeICQAQD65VfpJ1wZzmIguX8RJuHactisszORDJGIINI6Yj4vQmqLHl+BZCwuANHDUkrrAYkARfTEwaCtktxTCfh6URGYMSFslYo7XXDh8BeCiJH2hGoqAxKqfw8djmUBvfuRYdCVG5I07b6/iNhWWkZe6XQkHQeU4ZC3lZ73lEG2cYeMDuLVq6mgRpoDm/8en/l3LqxZZ7Ko8oPHI7nRlnm1fzn6jj+H/ZhVNnOfbIUuyHb5ChgvH4/Cg6QAWZQRp9NZuJ7LpzUtbfTAYNj3l07x69+Okow==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6496006)(186003)(2906002)(9686003)(4326008)(54906003)(8676002)(5660300002)(508600001)(83380400001)(6862004)(66946007)(66476007)(66556008)(33716001)(8936002)(86362001)(38100700002)(6666004)(956004)(316002)(6636002)(26005)(55016003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?KjOZrpOkF3e2kCDfKMZoeNzkx6DypZBs3Go22hTvs9/PdiIRrD6jrx44lNtX?=
+ =?us-ascii?Q?5Soby6TOS27jJUV/w6Z66h4tlJQlC7Qhb2Ul+Ixzt3vjSbO0wBTsufsyUSTo?=
+ =?us-ascii?Q?pY/TnwkXv6ckXQL5XSWXakH2NyKkD3sSRssbcwhRzHXaYEMZ3duW6pt6cRaN?=
+ =?us-ascii?Q?swJDXOs9z8Fv/MAqsorzJFvG0sGmWQBoUf0adFFdH9vD6OTxNX58RgOdG5Kv?=
+ =?us-ascii?Q?9TlyvetDTJ1cMTlUarcPHmJQNt4YEy6NF2hRbwCbhenUTWthL2Sjw4l8pLOC?=
+ =?us-ascii?Q?ATg18dKGXzoQZf+NADHwSCv0WZqbeuqZR47M1+L4Ni11K2QO5o1aXTX0P+N+?=
+ =?us-ascii?Q?LQsPgVXIBGXdVezo6HqEvU0grCcgtTm7yNA1YBG11i4PuQR8PEq0xn7SLi9K?=
+ =?us-ascii?Q?2WyZfdrfXl8xy5BZR6vIozjPhzSIGMU7K/u3HRIfyz1yMNI4DZETqnUbu2fR?=
+ =?us-ascii?Q?t4sLXJ3PfjPhHbXWFjkCA5Edikl3hF+sBCCdFE6yCPPge6YV1lQNku6o7ACV?=
+ =?us-ascii?Q?EKyjfxnq4bTSwqMzbGkYt8++zG/drAqr2Hv+9jHXrwviyLn0tTimtG9FVJn3?=
+ =?us-ascii?Q?jLq3puZdsFQDeds3qqxcNEtPp38K1lMtUZOwZNeGK+i2ldqVA4ajni05SXP4?=
+ =?us-ascii?Q?Wr3e25HniwE1kwgOfrKFTmrmxjI9twXScJnAkz9fiAnF7yHLQp8lCNQ8u+6T?=
+ =?us-ascii?Q?62uUrwJ4cTKj+UMkQFTdmUBov4ZMJ35gpFp298Ob6GtI8dj2d1wwTlvNZ98O?=
+ =?us-ascii?Q?b1ZKa9xzyPSyeUOD5vx+jImwANtbX++bVPMeYjRFoU7F4ppj2jYN9G/0zXJO?=
+ =?us-ascii?Q?lOPTqjIWOiHEjik4c/dm8gFHymfqWs4tfuA5CTr/fm+Yl/Sitb/8zlmX7tHC?=
+ =?us-ascii?Q?u96FONuVJiX9jNssM5XQSBgBUYpGMJtcM/G71DlowP0AugS/X6slkmaoA1cl?=
+ =?us-ascii?Q?CyQ1OMgFRXQt5nOtsb1/ZNX//4qY4Gty6HffyPHyAJy1pHU4sGov5wPWkz2F?=
+ =?us-ascii?Q?lwFNL1E/FHx248hJ7QGFmC9t4c5YciI9dLYNn7tMMsa8ShGJMqD4MkmTbu2X?=
+ =?us-ascii?Q?0qEghSkCWqCyJ1iQ6HhGwwRFXAiu5sBQwXOh2rpF2JKqbRNLvM4rDPiNqd12?=
+ =?us-ascii?Q?jB9AQRv/U0+jZeu/VYm2GBz5olLDdkDKkpSZ46whdm31Ky5XhpH/pXFzekSp?=
+ =?us-ascii?Q?Iu20N/W1IffxDnOtSv0H/oSGSDwd/WJBt8ynXY/GExNHbkiIRj2EpHzaTeL4?=
+ =?us-ascii?Q?YS2O/UHge92cARAGINv1nsMKBHnsj0EXGiGT0//+GdAV4lKAjfySr91cJhyL?=
+ =?us-ascii?Q?urK0IrY2Eju3+FA+9X0EHcyCLITuDi2xjA78FtWof+Xk/gddJBMeCDoJfPZd?=
+ =?us-ascii?Q?lVn+REQ+3PAOpVmgXEmpB/7vQ54mtz1E5/S9TuE1B17n56I3uWQnltWKdeN2?=
+ =?us-ascii?Q?5YpmObMN09KUpVR/KYDB15rfR2u0TzjbuVMDX8jHKMZfcrx7x4oyO6jDJq26?=
+ =?us-ascii?Q?/v9EnGdkeVEyO8t04z+GAtDeNxueV+1DWEFDaS3mQiaAnKUIJLCTaHqRqLvq?=
+ =?us-ascii?Q?q0jKrXV2yAVWsBzfTQ4ArVmO+L4XzLP5cC/Bw4gMfixm5Xr8z0olEOPmP7nt?=
+ =?us-ascii?Q?WNo5mY69xc3sutx3UGHN5sg=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 475d762e-b7ea-4180-1571-08d9b4723bbf
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75803088-3e34-4602-7429-08d9b46f5845
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2021 02:07:36.2843 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: o+ppEnhVqXVQj7eH6MqBgyvt2qLYv+WpwY3PjWh1aALkh2hY5SFjxDZTAeRz+p/5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3179
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 02:28:17.6423 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tLH+GuhtqsJph+Ld3Zj6fgsi/3sT+MzCQ74+J8271P/eAF/SsmXO7b9ksK7kLYULpsWoJdrpZb0JUiCmR9sxng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1434
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,156 +119,199 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0t
-LS0NCj4gRnJvbTogTGF6YXIsIExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4NCj4gU2VudDogVHVl
-c2RheSwgTm92ZW1iZXIgMzAsIDIwMjEgODoyMiBQTQ0KPiBUbzogUXVhbiwgRXZhbiA8RXZhbi5R
-dWFuQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hl
-ciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3Rp
-YW4NCj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IEZlbmcsIEtlbm5ldGggPEtlbm5ldGgu
-RmVuZ0BhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIFYyIDA1LzE3XSBkcm0vYW1kL3Bt
-OiBkbyBub3QgZXhwb3NlIHRob3NlIEFQSXMgdXNlZA0KPiBpbnRlcm5hbGx5IG9ubHkgaW4gc2lf
-ZHBtLmMNCj4gDQo+IA0KPiANCj4gT24gMTEvMzAvMjAyMSAxOjEyIFBNLCBFdmFuIFF1YW4gd3Jv
-dGU6DQo+ID4gTW92ZSB0aGVtIHRvIHNpX2RwbS5jIGluc3RlYWQuDQo+ID4NCj4gPiBTaWduZWQt
-b2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KPiA+IENoYW5nZS1JZDogSTI4
-ODIwNWNmZDdjNmJhMDljZmIyMjYyNmZmNzAzNjBkNjFmZjBjNjcNCj4gPiAtLQ0KPiA+IHYxLT52
-MjoNCj4gPiAgICAtIHJlbmFtZSB0aGUgQVBJIHdpdGggInNpXyIgcHJlZml4KEFsZXgpDQo+ID4g
-LS0tDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9kcG0uYyAgICAgICB8IDI1
-IC0tLS0tLS0tLS0tDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVfZHBt
-LmggICB8IDI1IC0tLS0tLS0tLS0tDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2Vy
-cGxheS9zaV9kcG0uYyB8IDU0DQo+ICsrKysrKysrKysrKysrKysrKystLS0tDQo+ID4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9zaV9kcG0uaCB8ICA3ICsrKw0KPiA+ICAgNCBm
-aWxlcyBjaGFuZ2VkLCA1MyBpbnNlcnRpb25zKCspLCA1OCBkZWxldGlvbnMoLSkNCj4gPg0KPiA+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9kcG0uYw0KPiA+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9hbWRncHVfZHBtLmMNCj4gPiBpbmRleCA1MmFjM2M4ODNh
-NmUuLmZiZmMwN2E4MzEyMiAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
-L2FtZGdwdV9kcG0uYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X2Rw
-bS5jDQo+ID4gQEAgLTg5NCwzMSArODk0LDYgQEAgdm9pZCBhbWRncHVfYWRkX3RoZXJtYWxfY29u
-dHJvbGxlcihzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldikNCj4gPiAgIAl9DQo+ID4gICB9
-DQo+ID4NCj4gPiAtZW51bSBhbWRncHVfcGNpZV9nZW4gYW1kZ3B1X2dldF9wY2llX2dlbl9zdXBw
-b3J0KHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+IC0JCQkJCQkgdTMyIHN5c19t
-YXNrLA0KPiA+IC0JCQkJCQkgZW51bSBhbWRncHVfcGNpZV9nZW4NCj4gYXNpY19nZW4sDQo+ID4g
-LQkJCQkJCSBlbnVtIGFtZGdwdV9wY2llX2dlbg0KPiBkZWZhdWx0X2dlbikNCj4gPiAtew0KPiA+
-IC0Jc3dpdGNoIChhc2ljX2dlbikgew0KPiA+IC0JY2FzZSBBTURHUFVfUENJRV9HRU4xOg0KPiA+
-IC0JCXJldHVybiBBTURHUFVfUENJRV9HRU4xOw0KPiA+IC0JY2FzZSBBTURHUFVfUENJRV9HRU4y
-Og0KPiA+IC0JCXJldHVybiBBTURHUFVfUENJRV9HRU4yOw0KPiA+IC0JY2FzZSBBTURHUFVfUENJ
-RV9HRU4zOg0KPiA+IC0JCXJldHVybiBBTURHUFVfUENJRV9HRU4zOw0KPiA+IC0JZGVmYXVsdDoN
-Cj4gPiAtCQlpZiAoKHN5c19tYXNrICYgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4z
-KQ0KPiAmJg0KPiA+IC0JCSAgICAoZGVmYXVsdF9nZW4gPT0gQU1ER1BVX1BDSUVfR0VOMykpDQo+
-ID4gLQkJCXJldHVybiBBTURHUFVfUENJRV9HRU4zOw0KPiA+IC0JCWVsc2UgaWYgKChzeXNfbWFz
-ayAmDQo+IENBSUxfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfR0VOMikgJiYNCj4gPiAtCQkJIChk
-ZWZhdWx0X2dlbiA9PSBBTURHUFVfUENJRV9HRU4yKSkNCj4gPiAtCQkJcmV0dXJuIEFNREdQVV9Q
-Q0lFX0dFTjI7DQo+ID4gLQkJZWxzZQ0KPiA+IC0JCQlyZXR1cm4gQU1ER1BVX1BDSUVfR0VOMTsN
-Cj4gPiAtCX0NCj4gPiAtCXJldHVybiBBTURHUFVfUENJRV9HRU4xOw0KPiA+IC19DQo+ID4gLQ0K
-PiA+ICAgc3RydWN0IGFtZF92Y2Vfc3RhdGUqDQo+ID4gICBhbWRncHVfZ2V0X3ZjZV9jbG9ja19z
-dGF0ZSh2b2lkICpoYW5kbGUsIHUzMiBpZHgpDQo+ID4gICB7DQo+ID4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG0vaW5jL2FtZGdwdV9kcG0uaA0KPiA+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9pbmMvYW1kZ3B1X2RwbS5oDQo+ID4gaW5kZXggNjY4MWI4NzhlNzVmLi5mNDNi
-OTZkZmU5ZDggMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1k
-Z3B1X2RwbS5oDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1kZ3B1X2Rw
-bS5oDQo+ID4gQEAgLTQ1LDE5ICs0NSw2IEBAIGVudW0gYW1kZ3B1X2ludF90aGVybWFsX3R5cGUg
-ew0KPiA+ICAgCVRIRVJNQUxfVFlQRV9LViwNCj4gPiAgIH07DQo+ID4NCj4gPiAtZW51bSBhbWRn
-cHVfZHBtX2F1dG9fdGhyb3R0bGVfc3JjIHsNCj4gPiAtCUFNREdQVV9EUE1fQVVUT19USFJPVFRM
-RV9TUkNfVEhFUk1BTCwNCj4gPiAtCUFNREdQVV9EUE1fQVVUT19USFJPVFRMRV9TUkNfRVhURVJO
-QUwNCj4gPiAtfTsNCj4gPiAtDQo+ID4gLWVudW0gYW1kZ3B1X2RwbV9ldmVudF9zcmMgew0KPiA+
-IC0JQU1ER1BVX0RQTV9FVkVOVF9TUkNfQU5BTE9HID0gMCwNCj4gPiAtCUFNREdQVV9EUE1fRVZF
-TlRfU1JDX0VYVEVSTkFMID0gMSwNCj4gPiAtCUFNREdQVV9EUE1fRVZFTlRfU1JDX0RJR0lUQUwg
-PSAyLA0KPiA+IC0JQU1ER1BVX0RQTV9FVkVOVF9TUkNfQU5BTE9HX09SX0VYVEVSTkFMID0gMywN
-Cj4gPiAtCUFNREdQVV9EUE1fRVZFTlRfU1JDX0RJR0lBTF9PUl9FWFRFUk5BTCA9IDQNCj4gPiAt
-fTsNCj4gPiAtDQo+ID4gICBzdHJ1Y3QgYW1kZ3B1X3BzIHsNCj4gPiAgIAl1MzIgY2FwczsgLyog
-dmJpb3MgZmxhZ3MgKi8NCj4gPiAgIAl1MzIgY2xhc3M7IC8qIHZiaW9zIGZsYWdzICovDQo+ID4g
-QEAgLTI1MiwxMyArMjM5LDYgQEAgc3RydWN0IGFtZGdwdV9kcG1fZmFuIHsNCj4gPiAgIAlib29s
-IHVjb2RlX2Zhbl9jb250cm9sOw0KPiA+ICAgfTsNCj4gPg0KPiA+IC1lbnVtIGFtZGdwdV9wY2ll
-X2dlbiB7DQo+ID4gLQlBTURHUFVfUENJRV9HRU4xID0gMCwNCj4gPiAtCUFNREdQVV9QQ0lFX0dF
-TjIgPSAxLA0KPiA+IC0JQU1ER1BVX1BDSUVfR0VOMyA9IDIsDQo+ID4gLQlBTURHUFVfUENJRV9H
-RU5fSU5WQUxJRCA9IDB4ZmZmZg0KPiA+IC19Ow0KPiA+IC0NCj4gPiAgICNkZWZpbmUgYW1kZ3B1
-X2RwbV9yZXNldF9wb3dlcl9wcm9maWxlX3N0YXRlKGFkZXYsIHJlcXVlc3QpIFwNCj4gPiAgIAkJ
-KChhZGV2KS0+cG93ZXJwbGF5LnBwX2Z1bmNzLQ0KPiA+cmVzZXRfcG93ZXJfcHJvZmlsZV9zdGF0
-ZShcDQo+ID4gICAJCQkoYWRldiktPnBvd2VycGxheS5wcF9oYW5kbGUsIHJlcXVlc3QpKSBAQCAt
-DQo+IDQwMywxMSArMzgzLDYgQEAgdm9pZA0KPiA+IGFtZGdwdV9mcmVlX2V4dGVuZGVkX3Bvd2Vy
-X3RhYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsNCj4gPg0KPiA+ICAgdm9pZCBhbWRn
-cHVfYWRkX3RoZXJtYWxfY29udHJvbGxlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+
-ID4NCj4gPiAtZW51bSBhbWRncHVfcGNpZV9nZW4gYW1kZ3B1X2dldF9wY2llX2dlbl9zdXBwb3J0
-KHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+IC0JCQkJCQkgdTMyIHN5c19tYXNr
-LA0KPiA+IC0JCQkJCQkgZW51bSBhbWRncHVfcGNpZV9nZW4NCj4gYXNpY19nZW4sDQo+ID4gLQkJ
-CQkJCSBlbnVtIGFtZGdwdV9wY2llX2dlbg0KPiBkZWZhdWx0X2dlbik7DQo+ID4gLQ0KPiA+ICAg
-c3RydWN0IGFtZF92Y2Vfc3RhdGUqDQo+ID4gICBhbWRncHVfZ2V0X3ZjZV9jbG9ja19zdGF0ZSh2
-b2lkICpoYW5kbGUsIHUzMiBpZHgpOw0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG0vcG93ZXJwbGF5L3NpX2RwbS5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3Bvd2VycGxheS9zaV9kcG0uYw0KPiA+IGluZGV4IDgxZjgyYWEwNWVjMi4uNGY4NGQ4Yjg5
-M2YxIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L3Np
-X2RwbS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvc2lfZHBt
-LmMNCj4gPiBAQCAtOTYsNiArOTYsMTkgQEAgdW5pb24gcHBsaWJfY2xvY2tfaW5mbyB7DQo+ID4g
-ICAJc3RydWN0IF9BVE9NX1BQTElCX1NJX0NMT0NLX0lORk8gc2k7DQo+ID4gICB9Ow0KPiA+DQo+
-ID4gK2VudW0gYW1kZ3B1X2RwbV9hdXRvX3Rocm90dGxlX3NyYyB7DQo+ID4gKwlBTURHUFVfRFBN
-X0FVVE9fVEhST1RUTEVfU1JDX1RIRVJNQUwsDQo+ID4gKwlBTURHUFVfRFBNX0FVVE9fVEhST1RU
-TEVfU1JDX0VYVEVSTkFMDQo+ID4gK307DQo+ID4gKw0KPiA+ICtlbnVtIGFtZGdwdV9kcG1fZXZl
-bnRfc3JjIHsNCj4gPiArCUFNREdQVV9EUE1fRVZFTlRfU1JDX0FOQUxPRyA9IDAsDQo+ID4gKwlB
-TURHUFVfRFBNX0VWRU5UX1NSQ19FWFRFUk5BTCA9IDEsDQo+ID4gKwlBTURHUFVfRFBNX0VWRU5U
-X1NSQ19ESUdJVEFMID0gMiwNCj4gPiArCUFNREdQVV9EUE1fRVZFTlRfU1JDX0FOQUxPR19PUl9F
-WFRFUk5BTCA9IDMsDQo+ID4gKwlBTURHUFVfRFBNX0VWRU5UX1NSQ19ESUdJQUxfT1JfRVhURVJO
-QUwgPSA0IH07DQo+ID4gKw0KPiANCj4gQmV0dGVyIHRvIHJlbmFtZSB0aGUgZW51bXMgYWxzbyBp
-bmNsdWRpbmcgYW1kZ3B1X3BjaWVfZ2VuIGlmIHRoZXkgYXJlDQo+IHVzZWQgb25seSB3aXRoaW4g
-c2lfZHBtLg0KW1F1YW4sIEV2YW5dIFN1cmUsIHdpbGwgZG8gdGhhdC4NCg0KVGhhbmtzDQpFdmFu
-DQo+IA0KPiBUaGFua3MsDQo+IExpam8NCj4gDQo+ID4gICBzdGF0aWMgY29uc3QgdTMyIHI2MDBf
-dXRjW1I2MDBfUE1fTlVNQkVSX09GX1RDXSA9DQo+ID4gICB7DQo+ID4gICAJUjYwMF9VVENfREZM
-VF8wMCwNCj4gPiBAQCAtNDkyNyw2ICs0OTQwLDMxIEBAIHN0YXRpYyBpbnQgc2lfcG9wdWxhdGVf
-c21jX2luaXRpYWxfc3RhdGUoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4gICAJ
-cmV0dXJuIDA7DQo+ID4gICB9DQo+ID4NCj4gPiArc3RhdGljIGVudW0gYW1kZ3B1X3BjaWVfZ2Vu
-IHNpX2dlbl9wY2llX2dlbl9zdXBwb3J0KHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LA0K
-PiA+ICsJCQkJCQkgICAgdTMyIHN5c19tYXNrLA0KPiA+ICsJCQkJCQkgICAgZW51bSBhbWRncHVf
-cGNpZV9nZW4NCj4gYXNpY19nZW4sDQo+ID4gKwkJCQkJCSAgICBlbnVtIGFtZGdwdV9wY2llX2dl
-bg0KPiBkZWZhdWx0X2dlbikgew0KPiA+ICsJc3dpdGNoIChhc2ljX2dlbikgew0KPiA+ICsJY2Fz
-ZSBBTURHUFVfUENJRV9HRU4xOg0KPiA+ICsJCXJldHVybiBBTURHUFVfUENJRV9HRU4xOw0KPiA+
-ICsJY2FzZSBBTURHUFVfUENJRV9HRU4yOg0KPiA+ICsJCXJldHVybiBBTURHUFVfUENJRV9HRU4y
-Ow0KPiA+ICsJY2FzZSBBTURHUFVfUENJRV9HRU4zOg0KPiA+ICsJCXJldHVybiBBTURHUFVfUENJ
-RV9HRU4zOw0KPiA+ICsJZGVmYXVsdDoNCj4gPiArCQlpZiAoKHN5c19tYXNrICYgQ0FJTF9QQ0lF
-X0xJTktfU1BFRURfU1VQUE9SVF9HRU4zKQ0KPiAmJg0KPiA+ICsJCSAgICAoZGVmYXVsdF9nZW4g
-PT0gQU1ER1BVX1BDSUVfR0VOMykpDQo+ID4gKwkJCXJldHVybiBBTURHUFVfUENJRV9HRU4zOw0K
-PiA+ICsJCWVsc2UgaWYgKChzeXNfbWFzayAmDQo+IENBSUxfUENJRV9MSU5LX1NQRUVEX1NVUFBP
-UlRfR0VOMikgJiYNCj4gPiArCQkJIChkZWZhdWx0X2dlbiA9PSBBTURHUFVfUENJRV9HRU4yKSkN
-Cj4gPiArCQkJcmV0dXJuIEFNREdQVV9QQ0lFX0dFTjI7DQo+ID4gKwkJZWxzZQ0KPiA+ICsJCQly
-ZXR1cm4gQU1ER1BVX1BDSUVfR0VOMTsNCj4gPiArCX0NCj4gPiArCXJldHVybiBBTURHUFVfUENJ
-RV9HRU4xOw0KPiA+ICt9DQo+ID4gKw0KPiA+ICAgc3RhdGljIGludCBzaV9wb3B1bGF0ZV9zbWNf
-YWNwaV9zdGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPiAgIAkJCQkgICAgICBT
-SVNMQU5EU19TTUNfU1RBVEVUQUJMRSAqdGFibGUpDQo+ID4gICB7DQo+ID4gQEAgLTQ5ODksMTAg
-KzUwMjcsMTAgQEAgc3RhdGljIGludCBzaV9wb3B1bGF0ZV9zbWNfYWNwaV9zdGF0ZShzdHJ1Y3QN
-Cj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPiAgIAkJCQkJCQkgICAgICAmdGFibGUtDQo+ID5B
-Q1BJU3RhdGUubGV2ZWwuc3RkX3ZkZGMpOw0KPiA+ICAgCQl9DQo+ID4gICAJCXRhYmxlLT5BQ1BJ
-U3RhdGUubGV2ZWwuZ2VuMlBDSUUgPQ0KPiA+IC0JCQkodTgpYW1kZ3B1X2dldF9wY2llX2dlbl9z
-dXBwb3J0KGFkZXYsDQo+ID4gLQkJCQkJCQlzaV9waS0+c3lzX3BjaWVfbWFzaywNCj4gPiAtCQkJ
-CQkJCXNpX3BpLT5ib290X3BjaWVfZ2VuLA0KPiA+IC0NCj4gCUFNREdQVV9QQ0lFX0dFTjEpOw0K
-PiA+ICsJCQkodTgpc2lfZ2VuX3BjaWVfZ2VuX3N1cHBvcnQoYWRldiwNCj4gPiArCQkJCQkJICAg
-IHNpX3BpLT5zeXNfcGNpZV9tYXNrLA0KPiA+ICsJCQkJCQkgICAgc2lfcGktPmJvb3RfcGNpZV9n
-ZW4sDQo+ID4gKwkJCQkJCSAgICBBTURHUFVfUENJRV9HRU4xKTsNCj4gPg0KPiA+ICAgCQlpZiAo
-c2lfcGktPnZkZGNfcGhhc2Vfc2hlZF9jb250cm9sKQ0KPiA+ICAgCQkJc2lfcG9wdWxhdGVfcGhh
-c2Vfc2hlZGRpbmdfdmFsdWUoYWRldiwNCj4gPiBAQCAtNzE0OCwxMCArNzE4NiwxMCBAQCBzdGF0
-aWMgdm9pZCBzaV9wYXJzZV9wcGxpYl9jbG9ja19pbmZvKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNl
-ICphZGV2LA0KPiA+ICAgCXBsLT52ZGRjID0gbGUxNl90b19jcHUoY2xvY2tfaW5mby0+c2kudXNW
-RERDKTsNCj4gPiAgIAlwbC0+dmRkY2kgPSBsZTE2X3RvX2NwdShjbG9ja19pbmZvLT5zaS51c1ZE
-RENJKTsNCj4gPiAgIAlwbC0+ZmxhZ3MgPSBsZTMyX3RvX2NwdShjbG9ja19pbmZvLT5zaS51bEZs
-YWdzKTsNCj4gPiAtCXBsLT5wY2llX2dlbiA9IGFtZGdwdV9nZXRfcGNpZV9nZW5fc3VwcG9ydChh
-ZGV2LA0KPiA+IC0JCQkJCQkgICBzaV9waS0+c3lzX3BjaWVfbWFzaywNCj4gPiAtCQkJCQkJICAg
-c2lfcGktPmJvb3RfcGNpZV9nZW4sDQo+ID4gLQkJCQkJCSAgIGNsb2NrX2luZm8tPnNpLnVjUENJ
-RUdlbik7DQo+ID4gKwlwbC0+cGNpZV9nZW4gPSBzaV9nZW5fcGNpZV9nZW5fc3VwcG9ydChhZGV2
-LA0KPiA+ICsJCQkJCSAgICAgICBzaV9waS0+c3lzX3BjaWVfbWFzaywNCj4gPiArCQkJCQkgICAg
-ICAgc2lfcGktPmJvb3RfcGNpZV9nZW4sDQo+ID4gKwkJCQkJICAgICAgIGNsb2NrX2luZm8tPnNp
-LnVjUENJRUdlbik7DQo+ID4NCj4gPiAgIAkvKiBwYXRjaCB1cCB2ZGRjIGlmIG5lY2Vzc2FyeSAq
-Lw0KPiA+ICAgCXJldCA9IHNpX2dldF9sZWFrYWdlX3ZvbHRhZ2VfZnJvbV9sZWFrYWdlX2luZGV4
-KGFkZXYsIHBsLT52ZGRjLA0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
-L3Bvd2VycGxheS9zaV9kcG0uaA0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBs
-YXkvc2lfZHBtLmgNCj4gPiBpbmRleCBiYzBiZTY4MThlMjEuLjhjMjY3NjgyZWVlZiAxMDA2NDQN
-Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9zaV9kcG0uaA0KPiA+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L3NpX2RwbS5oDQo+ID4gQEAg
-LTU5NSw2ICs1OTUsMTMgQEAgc3RydWN0IHJ2N3h4X3Bvd2VyX2luZm8gew0KPiA+ICAgCVJWNzcw
-X1NNQ19TVEFURVRBQkxFIHNtY19zdGF0ZXRhYmxlOw0KPiA+ICAgfTsNCj4gPg0KPiA+ICtlbnVt
-IGFtZGdwdV9wY2llX2dlbiB7DQo+ID4gKwlBTURHUFVfUENJRV9HRU4xID0gMCwNCj4gPiArCUFN
-REdQVV9QQ0lFX0dFTjIgPSAxLA0KPiA+ICsJQU1ER1BVX1BDSUVfR0VOMyA9IDIsDQo+ID4gKwlB
-TURHUFVfUENJRV9HRU5fSU5WQUxJRCA9IDB4ZmZmZg0KPiA+ICt9Ow0KPiA+ICsNCj4gPiAgIHN0
-cnVjdCBydjd4eF9wbCB7DQo+ID4gICAJdTMyIHNjbGs7DQo+ID4gICAJdTMyIG1jbGs7DQo+ID4N
-Cg==
+On 11/30/ , Christian KKKnig wrote:
+> Am 30.11.21 um 06:17 schrieb Lang Yu:
+> > To maintain system error state when SMU errors occurred,
+> > which will aid in debugging SMU firmware issues,
+> > add SMU debug option support.
+> > 
+> > It can be enabled or disabled via amdgpu_smu_debug
+> > debugfs file. When enabled, it makes SMU errors fatal.
+> > It is disabled by default.
+> > 
+> > == Command Guide ==
+> > 
+> > 1, enable SMU debug option
+> > 
+> >   # echo 1 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+> > 
+> > 2, disable SMU debug option
+> > 
+> >   # echo 0 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+> > 
+> > v2:
+> >   - Resend command when timeout.(Lijo)
+> >   - Use debugfs file instead of module parameter.
+> > 
+> > Signed-off-by: Lang Yu <lang.yu@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 32 +++++++++++++++++
+> >   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 39 +++++++++++++++++++--
+> >   2 files changed, 69 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > index 164d6a9e9fbb..f9412de86599 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > @@ -39,6 +39,8 @@
+> >   #if defined(CONFIG_DEBUG_FS)
+> > +extern int amdgpu_smu_debug;
+> > +
+> >   /**
+> >    * amdgpu_debugfs_process_reg_op - Handle MMIO register reads/writes
+> >    *
+> > @@ -1152,6 +1154,8 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+> >   	return result;
+> >   }
+> > +
+> > +
+> 
+> Unrelated change.
+Will remove it.
+
+> >   static const struct file_operations amdgpu_debugfs_regs2_fops = {
+> >   	.owner = THIS_MODULE,
+> >   	.unlocked_ioctl = amdgpu_debugfs_regs2_ioctl,
+> > @@ -1609,6 +1613,26 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+> >   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+> >   			amdgpu_debugfs_sclk_set, "%llu\n");
+> > +static int amdgpu_debugfs_smu_debug_get(void *data, u64 *val)
+> > +{
+> > +	*val = amdgpu_smu_debug;
+> > +	return 0;
+> > +}
+> > +
+> > +static int amdgpu_debugfs_smu_debug_set(void *data, u64 val)
+> > +{
+> > +	if (val != 0 && val != 1)
+> > +		return -EINVAL;
+> > +
+> > +	amdgpu_smu_debug = val;
+> > +	return 0;
+> > +}
+> > +
+> > +DEFINE_DEBUGFS_ATTRIBUTE(fops_smu_debug,
+> > +			 amdgpu_debugfs_smu_debug_get,
+> > +			 amdgpu_debugfs_smu_debug_set,
+> > +			 "%llu\n");
+> > +
+> 
+> That can be done much simpler. Take a look at the debugfs_create_bool()
+> function.
+Thanks for your advice. Will modify that.
+
+> >   int amdgpu_debugfs_init(struct amdgpu_device *adev)
+> >   {
+> >   	struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
+> > @@ -1632,6 +1656,14 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+> >   		return PTR_ERR(ent);
+> >   	}
+> > +	ent = debugfs_create_file("amdgpu_smu_debug", 0600, root, adev,
+> > +				  &fops_smu_debug);
+> > +	if (IS_ERR(ent)) {
+> > +		DRM_ERROR("unable to create amdgpu_smu_debug debugsfs file\n");
+> > +		return PTR_ERR(ent);
+> > +	}
+> > +
+> > +
+> >   	/* Register debugfs entries for amdgpu_ttm */
+> >   	amdgpu_ttm_debugfs_init(adev);
+> >   	amdgpu_debugfs_pm_init(adev);
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > index 048ca1673863..b3969d7933d3 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > @@ -55,6 +55,14 @@
+> >   #undef __SMU_DUMMY_MAP
+> >   #define __SMU_DUMMY_MAP(type)	#type
+> > +
+> > +/*
+> > + * Used to enable SMU debug option. When enabled, it makes SMU errors fatal.
+> > + * This will aid in debugging SMU firmware issues.
+> > + * (0 = disabled (default), 1 = enabled)
+> > + */
+> > +int amdgpu_smu_debug;
+> 
+> Probably better to put that into amdgpu_device or similar structure.
+Ok. Thanks for your advice.
+
+Regards,
+Lang
+
+> Regards,
+> Christian.
+> 
+> > +
+> >   static const char * const __smu_message_names[] = {
+> >   	SMU_MESSAGE_TYPES
+> >   };
+> > @@ -272,6 +280,11 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+> >   	__smu_cmn_send_msg(smu, msg_index, param);
+> >   	res = 0;
+> >   Out:
+> > +	if (unlikely(amdgpu_smu_debug == 1) && res) {
+> > +		mutex_unlock(&smu->message_lock);
+> > +		BUG();
+> > +	}
+> > +
+> >   	return res;
+> >   }
+> > @@ -288,9 +301,17 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+> >   int smu_cmn_wait_for_response(struct smu_context *smu)
+> >   {
+> >   	u32 reg;
+> > +	int res;
+> >   	reg = __smu_cmn_poll_stat(smu);
+> > -	return __smu_cmn_reg2errno(smu, reg);
+> > +	res = __smu_cmn_reg2errno(smu, reg);
+> > +
+> > +	if (unlikely(amdgpu_smu_debug == 1) && res) {
+> > +		mutex_unlock(&smu->message_lock);
+> > +		BUG();
+> > +	}
+> > +
+> > +	return res;
+> >   }
+> >   /**
+> > @@ -328,6 +349,7 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+> >   				    uint32_t param,
+> >   				    uint32_t *read_arg)
+> >   {
+> > +	int retry_count = 0;
+> >   	int res, index;
+> >   	u32 reg;
+> > @@ -349,15 +371,28 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+> >   		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
+> >   		goto Out;
+> >   	}
+> > +retry:
+> >   	__smu_cmn_send_msg(smu, (uint16_t) index, param);
+> >   	reg = __smu_cmn_poll_stat(smu);
+> >   	res = __smu_cmn_reg2errno(smu, reg);
+> > -	if (res != 0)
+> > +	if (res != 0) {
+> >   		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
+> > +		if ((res == -ETIME) && (retry_count++ < 1)) {
+> > +			usleep_range(500, 1000);
+> > +			dev_err(smu->adev->dev,
+> > +				"SMU: resend command: index:%d param:0x%08X message:%s",
+> > +				index, param, smu_get_message_name(smu, msg));
+> > +			goto retry;
+> > +		}
+> > +		goto Out;
+> > +	}
+> >   	if (read_arg)
+> >   		smu_cmn_read_arg(smu, read_arg);
+> >   Out:
+> >   	mutex_unlock(&smu->message_lock);
+> > +
+> > +	BUG_ON(unlikely(amdgpu_smu_debug == 1) && res);
+> > +
+> >   	return res;
+> >   }
+> 
