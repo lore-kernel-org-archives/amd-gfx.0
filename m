@@ -4,75 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B405C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F5E8C433EF
 	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 08:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 918B86F8C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF1176F8C7;
 	Wed,  1 Dec 2021 08:42:10 +0000 (UTC)
-Received: from mta-p8.oit.umn.edu (mta-p8.oit.umn.edu [134.84.196.208])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F356E448
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 03:23:37 +0000 (UTC)
+Received: from mta-p5.oit.umn.edu (mta-p5.oit.umn.edu [134.84.196.205])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 127A46E43F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 03:22:22 +0000 (UTC)
 Received: from localhost (unknown [127.0.0.1])
- by mta-p8.oit.umn.edu (Postfix) with ESMTP id 4J3kvF1J52z9vKMh
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 03:23:37 +0000 (UTC)
+ by mta-p5.oit.umn.edu (Postfix) with ESMTP id 4J3ksn4LF9z9vFJQ
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 03:22:21 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p8.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p8.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id j72Gw5GgqUcd for <amd-gfx@lists.freedesktop.org>;
- Tue, 30 Nov 2021 21:23:37 -0600 (CST)
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
+Received: from mta-p5.oit.umn.edu ([127.0.0.1])
+ by localhost (mta-p5.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id c_tB1x44WZ-F for <amd-gfx@lists.freedesktop.org>;
+ Tue, 30 Nov 2021 21:22:21 -0600 (CST)
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mta-p8.oit.umn.edu (Postfix) with ESMTPS id 4J3kvD62qTz9vKMl
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 21:23:36 -0600 (CST)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p8.oit.umn.edu 4J3kvD62qTz9vKMl
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p8.oit.umn.edu 4J3kvD62qTz9vKMl
-Received: by mail-pj1-f70.google.com with SMTP id
- ce19-20020a17090aff1300b001a6f72e2dbdso7831187pjb.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 19:23:36 -0800 (PST)
+ by mta-p5.oit.umn.edu (Postfix) with ESMTPS id 4J3ksn21rvz9vFJ6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 21:22:21 -0600 (CST)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p5.oit.umn.edu 4J3ksn21rvz9vFJ6
+DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p5.oit.umn.edu 4J3ksn21rvz9vFJ6
+Received: by mail-pj1-f69.google.com with SMTP id
+ x3-20020a17090a1f8300b001a285b9f2cbso7829182pja.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Nov 2021 19:22:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PcN89m0hNh8auiyKMnyR563+8hFhi5+/hyGQkE1jlAk=;
- b=Bk/yRbPP0oXG+bDwmG7kNY+y5Dbd5lFfpyT4lGWAETenIIuEDH35DX27RzZBA/bsU7
- uK5zr1Zm5oB/6t+bjqWAYyfzA5AEusq2Ge2aUcLEQlKYPAxV8noFh1N5h6rBioItyKMh
- pCaCv0fCpQM+j8UyphV1XFIAKBRsc4K1p5IQoqrBuqc8u5rtpfWui0vdgeE0apcRX+Lh
- DIRg+hzgwZyo4oFyzQ+jKytlkuIxLRpWl2XBgWRxzzEk+mTnM4xWOkkaK+6YlOhO8YtR
- bdtCX6GOl3LcduLKg39GBOm1uRxbafHpQ8MmYLjx5433rWLL1tt3ilQ90FF+cz/y/Qnc
- txFQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=fTVXQuQhsc1d7iMiD9SeDU8sw7AZGqQF1iZx+0GbJuQ=;
+ b=Mey8Hl7JhPtzcENOIjQlzQuHBwN14Xad2IfLzWd0Dz3xcaRSSWkau8hs6rEdYNBgao
+ glJpVX/Mdc6/YX3cB+zKq900J8gpZrm+PTsJUBWtJHYGpiyVvLGyiQyUb2GKj7skJa5v
+ 53CZBH3zHnv7F72fAFphpJUSLeYf8xlImMdP9zmmPLaamOhJkznGLgl0R8oER53I4eVp
+ q0d9eRTFTgDFjcutHYqx0Wdxf/hcJ2d8sCi1Am6pf+9ATUzlCRKdgmEMYCMPm85toYsN
+ GAk3SfJnGHci4VBwKqPhkGsOHevxyf2eHjVCSR+qPQdynNd27emPdWE8jH5AKiBlihdU
+ jayw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PcN89m0hNh8auiyKMnyR563+8hFhi5+/hyGQkE1jlAk=;
- b=s3wjI+tegAO/UawnXnBNRb6VC0J00RvSPiP+9SXcD+XC32H4R1p13t3uJHbRbRJrAN
- w155I+1UEwM3HjdDWaHyla1A3Pn8NC6OKI/3JO8PsGP8Ty9Kg3ZKcxYHzqDsNg0V77OR
- kl/Xo9jz/O9QhVM1Dd7G6zi4CGx4IHqsDwiBqtQUGPfSnMRgDEnmgUWayPJLUlUPH9oN
- e42PXUGN6AkFOG713c3BREPrpwxo3ESUVq+vS4yLOKJXanNTU3c28HCweT0aD2vHnRS+
- C2Y++70sBDya7PsKJgb+K7TmDChZvhoWod4WIlaoLJkM4r6TV3wbOfLhT04WyzOIuJqt
- dv4w==
-X-Gm-Message-State: AOAM532WirikfaEPXlo48Kgs3uV2Mk2odKGgUlBXqPa0x3y0PmzvWdZQ
- ppyhHarkMAy8jcSLDn8hzk+3Rr2tl/AUuup964PcbDgyshA6Qo9qYEaNiVXd+SpGwYJgGgU2Wqy
- dnb4AMbns8KRMpNGWk0+qhYNhp9Vrlg==
-X-Received: by 2002:a05:6a00:26f7:b0:494:72f3:e8a3 with SMTP id
- p55-20020a056a0026f700b0049472f3e8a3mr3362404pfw.37.1638329015942; 
- Tue, 30 Nov 2021 19:23:35 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx6LEQ1WK5rmgYHxSzQZ6XJ8+SXmljAje6xdJ/DZlh/Q5lYBueNR4OVAlZ2S1KJx990iXYBeA==
-X-Received: by 2002:a05:6a00:26f7:b0:494:72f3:e8a3 with SMTP id
- p55-20020a056a0026f700b0049472f3e8a3mr3362384pfw.37.1638329015726; 
- Tue, 30 Nov 2021 19:23:35 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=fTVXQuQhsc1d7iMiD9SeDU8sw7AZGqQF1iZx+0GbJuQ=;
+ b=tOJtZ2J9u9pO3wMFJ6kLZ23LIoq179ouoC+QTrLEJJeMquabJH/HponEFOKzWq/lrI
+ Jy6WnRjd3enI9RPfM4PjtvsztHrBg0urdbB/6EPw3Un8V3aQw70Zw0yTQeY6dprGoDxK
+ GI8PNpDfjjKjxo+JMexOjncKgb/9eT1kRDb1WXgGrVfJGVx6vTZbejyOJ3/GCwYY/82C
+ mfRZZjOAJLZBn5HJIhuR4KubB5FY208UBpNkYyOuUpa1R+S4lZwqZ6p2RbuEDabMfRS2
+ Ec6CcTwq154K9ckFZz2pdu6uvdK8UE9n0MekhATGodVUUNqhRJD5/YefnkMLd4MhyDhI
+ sT4w==
+X-Gm-Message-State: AOAM531iusEzv2NbRcIdqv2rAnhKZYQtNix4SkVix6pDJG8EPhovO8sI
+ z9pVr2iKa2+Ujfn19/6AxTsKQ7Lh8FM3Wux9QqhZsGH7xJFKAxaEkk6Sfukwk3eDxA00d580S9g
+ 8JtX6zF5elYx9BXi/QVIIIbfAbyn9rQ==
+X-Received: by 2002:a17:90a:e613:: with SMTP id
+ j19mr4115842pjy.182.1638328940437; 
+ Tue, 30 Nov 2021 19:22:20 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwOy3OLaq0lO89Vq1n1ggE83k1YfxOUFBWrgp7cpduV/6onKzj0Tsdgx1gaihpQEgkRiIJEsw==
+X-Received: by 2002:a17:90a:e613:: with SMTP id
+ j19mr4115810pjy.182.1638328940176; 
+ Tue, 30 Nov 2021 19:22:20 -0800 (PST)
 Received: from zqy787-GE5S.lan ([36.7.42.137])
- by smtp.gmail.com with ESMTPSA id 13sm21998388pfp.216.2021.11.30.19.23.33
+ by smtp.gmail.com with ESMTPSA id 12sm1126114pjn.16.2021.11.30.19.22.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Nov 2021 19:23:35 -0800 (PST)
+ Tue, 30 Nov 2021 19:22:19 -0800 (PST)
 From: Zhou Qingyang <zhou1615@umn.edu>
 To: zhou1615@umn.edu
 Subject: [PATCH v4] drm/radeon/radeon_kms: Fix a NULL pointer dereference in
  radeon_driver_open_kms()
-Date: Wed,  1 Dec 2021 11:23:30 +0800
-Message-Id: <20211201032330.27157-1-zhou1615@umn.edu>
+Date: Wed,  1 Dec 2021 11:22:14 +0800
+Message-Id: <20211201032214.26889-1-zhou1615@umn.edu>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211130155720.178214-1-zhou1615@umn.edu>
+References: <20211130155720.178214-1-zhou1615@umn.edu>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Dec 2021 08:42:09 +0000
@@ -120,7 +122,7 @@ Fixes: cc9e67e3d700 ("drm/radeon: fix VM IB handling")
 Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
 ---
-Changes in v4:
+Changes in v2:
   -  Initialize the variables to silence warning
 
 Changes in v3:
