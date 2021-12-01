@@ -4,66 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE20DC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 10:49:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5514C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 10:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AE796EB22;
-	Wed,  1 Dec 2021 10:49:04 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E26DE6EB22
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 10:49:03 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id s13so51269012wrb.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Dec 2021 02:49:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=lAvJICLiRTTvp7xwxKbwo9bd1CS/wNsNWLWwSSLODZE=;
- b=SWZb94LmgM5gfegtgJPgzya29FEvVEy+TVZ+VPOvi5Or0yJDjMkzozk2+VVDZBvU+v
- MOGaYXJwaHAp0kc7pFu8ZbMJUdmxQA+L+3BtwUWXyH7xuqQ0eAg78rWDtyhCTdHP+apk
- UrqrUhGDcDa+iBHzGeZXrGKjFyT93qIqvnupqN7N+K2HkrEqGPLrqsGI5wmVt6FTjc6C
- 66g5S9uG9jYmK9lETK9KkvoU36m0kAqQq+eyZoL1IvJprR+Yw0/X5gIFNEaGa8GhNeDE
- OU8rJn4YnRnxxDRVR+OmddocbSuew60BuaH2ybzYH5wDADFJXT9l3G5N2Kiavx94ruyl
- +N6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=lAvJICLiRTTvp7xwxKbwo9bd1CS/wNsNWLWwSSLODZE=;
- b=C90IcWmRJ9gIy4JTHmOVaaXQXkuYKJ4YK0EAKNT1/LbVNlnXGS7UmwLoO8Pl+gg+97
- rPkR1oJF0rU37mWhq0FIYUnzxky80Sl8MyMstaEvcqZfBypdefIWHB57rBqOVKTNuBed
- ZoR1yxocHQ9Tf52GjrHpn6Rn13QkJMvGb/UsQU7Cj0fnU9eqbxXguxBzKeO6NHDGzvr4
- kyRCGXQdof/UpO0IFppzNVAz0YiksQe2qGITs4/UQWXgnCazbP5ktO0YLwlXYFWFNXtH
- ZtCcJ1Syblcej8k9a8cpSFpC3ElNlKpg1MiZGv2aDkNRKQHEDQFnLkPR1610FCR4lcV9
- Xlxg==
-X-Gm-Message-State: AOAM531W7Usnga05L/La2lkTEgU04d+c2Rl2amgE+kMXW1fLEfFj/xsT
- BoSuMiIL6qFFTzVuc0+0rCA=
-X-Google-Smtp-Source: ABdhPJxcnmya0MG/0pCsMsEauRhhm2rRsi5B1WryvHM3ipiQQy8tIATVAJRFgZgnZ3FE5YqhSDZUWA==
-X-Received: by 2002:adf:a48e:: with SMTP id g14mr5706143wrb.474.1638355742352; 
- Wed, 01 Dec 2021 02:49:02 -0800 (PST)
-Received: from [192.168.178.21] (p57b0b77b.dip0.t-ipconnect.de.
- [87.176.183.123])
- by smtp.gmail.com with ESMTPSA id y6sm19372280wrh.18.2021.12.01.02.49.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Dec 2021 02:49:01 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: add support to SMU debug option
-To: "Yu, Lang" <Lang.Yu@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20211201092458.3348858-1-lang.yu@amd.com>
- <f7e0dfb0-cdb0-13f2-49e4-d13366a23e0f@amd.com>
- <DM6PR12MB4250974428DA6713B8BC4802FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <0ee705b0-d9fe-4339-9381-9fe058dfbd3f@gmail.com>
-Date: Wed, 1 Dec 2021 11:48:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id F31696ECA1;
+	Wed,  1 Dec 2021 10:53:38 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2056.outbound.protection.outlook.com [40.107.100.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55CB56EC23
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 10:53:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Tr4Q3oxciG6gAVNEX7o46pzFp3Sss/nI6qdI8Tk32IANW0fbW1rUaufpGh3chjwstSL7QB0D3oGCqtWuGAJpYI0drBSOSNfWeQ0+G22EAcy/RxyiIhz+7cSNpnG0vxyf/KWKChoFMYlsa/xIQahOZjZCLjw01BRZqKpFGTcsWpb5xRrwCqNbi2eKoFN7BbMAJlynLtAPE95+D4VH3tAhJvFkdRjKbNaOwPfCM2SCyeoqauqfxa9UeWEnvXept2Afm4DgO0Zp1isteX6Hgv87510AG+8nj0IKGIf5hTFEdNir8USeCDnPz9WSv1LaQ8fa9RDmaP8h1JYI9vp35Ia14Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3ZCAs6YRYqtzDuxM+lC3KDPQ83pEgjrvHHnNWIrG+l0=;
+ b=PpqF1KWW/hJcZq8HxX1vAUFxU6UIi2qwPxC5BgbONNtX7N8NDJWKGpB+dkNtlt9BbjHL8vbtprzU1eM6U4k0IADaySjVkiKUffgB49Fd4IDoJ6RxfPd0JngDgGQSw7Cofoj0DzDVMqJHJo0UPixzQ3E1EVGsK0skp/+s97FN726dDdAiB2lkxYOaBh3XK3xecB2/CiMo9cLTQ+WXx8QPEYVG3fUDumn1rHVGqxDmBtKbjR8DlxAA4j2HwjL+FG3rngr3F4Qs30gA4qEnGXeCA6Vkbu6+tpR5W983UZm75wsuXnj5ACqlueFTEhDKXjNK1QTMTelGJOm7/PpMjukm5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3ZCAs6YRYqtzDuxM+lC3KDPQ83pEgjrvHHnNWIrG+l0=;
+ b=uAiLNAnHBBtzqDZCTT3WWqOyohRoMa2kKuNN1QL+U72Dt5hLqKS6sY+/30agq0JAZSmESTl0Qpm8Uqb4yqq1aCQnnwxwCS3leZ6jXDJUVN4OGYyDSt+XefpGwPm4JuX9ATw3L9SeVsm8Und2zG/ubKDifgAZAi4gZpwEbIXjzEU=
+Received: from BN9PR03CA0220.namprd03.prod.outlook.com (2603:10b6:408:f8::15)
+ by BL1PR12MB5317.namprd12.prod.outlook.com (2603:10b6:208:31f::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.14; Wed, 1 Dec
+ 2021 10:53:35 +0000
+Received: from BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:f8:cafe::93) by BN9PR03CA0220.outlook.office365.com
+ (2603:10b6:408:f8::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22 via Frontend
+ Transport; Wed, 1 Dec 2021 10:53:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT035.mail.protection.outlook.com (10.13.177.116) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Wed, 1 Dec 2021 10:53:34 +0000
+Received: from thomas.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 1 Dec
+ 2021 04:53:32 -0600
+From: yipechai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH V2 01/11] drm/amdgpu: Unify ras block interface for each ras
+ block
+Date: Wed, 1 Dec 2021 18:52:40 +0800
+Message-ID: <20211201105250.298525-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <DM6PR12MB4250974428DA6713B8BC4802FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5d987a81-e565-47da-9b10-08d9b4b8d272
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5317:
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5317CA22A99FDFCED560D646FC689@BL1PR12MB5317.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LmgBg01nJHL/KOOi4LLDxE13Vo6yASWRAsFeV2ymE5BP6eLvlZwovJSALtVLmcPlGFpdsw751dfP//5UYLCeN22cJT0ggk2gKugH/MLAxtpbzSPsYc8+X51YvTVkwMSR0e6G1AWpsWEt/fKBUb1LrabA2Ae0GktoTqgUxGIl6eEVv3+Ckx2Rgd61G9wrYTyYm1Ntx6tbx+rH6vIoaiLHiZCKYAGCETmxoTVavah14vSGBR0wzq55a6PEHFsMNBalHpwIgcIHTGBQls1liGMXGUn8wmguJv/g6n8TA4ZsI4TeHvG3UVZpGl0nWKlyj4KgFU6qZp7loQGs867Tq9JBHPWr2f3RAyBskPhozVQ2ms09Ll32h/9kCq4xR4EyDLUQq+Ac2u0oCHDv5X9BMqovsezVMBDAfuKSHnZnFGYXCc19mtWsyqLr61vPj89ptyEKeb77oLLCujzlE82vlGyCwjpmEvBS7ywuHuusqBRy2fglPcD7dO+dPh5duaSJrEzReSuKHma45X7DlEsSn6A7E/UG1OO8cnSvdL0gDaDxfY7RB5RL/khca4h68qKQyBjOOdG/hUpvff7ycH2DaleixvtOZgkDvafq07pzEtVBDtut4M8KCqDLxLkzzNeuiqd7whbv8sXXYxv+zJ0ktCIVsaMOlvGDzqrF8JDtD83EmwW00UdUF9ZMCDC4raqM5Qn9dcke73PLn9dFhX8MSF7ihTF3NQqU7mLpgTc1eIuTaA8CyegnceswWNJp17VzYsdZdIwZ+dfOzjWxnQe+YwJBzZbAK2ujZ4fcsUBq2Wfr3NujauLKvpgh/L6nV7f6wQvw
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(8676002)(2906002)(81166007)(54906003)(82310400004)(86362001)(2616005)(1076003)(36756003)(316002)(7696005)(6916009)(356005)(47076005)(5660300002)(6666004)(36860700001)(16526019)(26005)(336012)(4326008)(83380400001)(70206006)(186003)(8936002)(70586007)(426003)(508600001)(40460700001)(43062005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 10:53:34.6875 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d987a81-e565-47da-9b10-08d9b4b8d272
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5317
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,165 +100,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
+Cc: Tao.Zhou1@amd.com, Hawking.Zhang@amd.com, yipechai <YiPeng.Chai@amd.com>,
+ yipechai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 01.12.21 um 11:44 schrieb Yu, Lang:
-> [AMD Official Use Only]
->
->
->
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Wednesday, December 1, 2021 5:30 PM
->> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
->> <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>
->> Subject: Re: [PATCH] drm/amdgpu: add support to SMU debug option
->>
->> Am 01.12.21 um 10:24 schrieb Lang Yu:
->>> To maintain system error state when SMU errors occurred, which will
->>> aid in debugging SMU firmware issues, add SMU debug option support.
->>>
->>> It can be enabled or disabled via amdgpu_smu_debug debugfs file. When
->>> enabled, it makes SMU errors fatal.
->>> It is disabled by default.
->>>
->>> == Command Guide ==
->>>
->>> 1, enable SMU debug option
->>>
->>>    # echo 1 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
->>>
->>> 2, disable SMU debug option
->>>
->>>    # echo 0 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
->>>
->>> v3:
->>>    - Use debugfs_create_bool().(Christian)
->>>    - Put variable into smu_context struct.
->>>    - Don't resend command when timeout.
->>>
->>> v2:
->>>    - Resend command when timeout.(Lijo)
->>>    - Use debugfs file instead of module parameter.
->>>
->>> Signed-off-by: Lang Yu <lang.yu@amd.com>
->> Well the debugfs part looks really nice and clean now, but one more comment
->> below.
->>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        | 3 +++
->>>    drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h            | 5 +++++
->>>    drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 2 ++
->>>    drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             | 8 +++++++-
->>>    4 files changed, 17 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> index 164d6a9e9fbb..86cd888c7822 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> @@ -1618,6 +1618,9 @@ int amdgpu_debugfs_init(struct amdgpu_device
->> *adev)
->>>    	if (!debugfs_initialized())
->>>    		return 0;
->>>
->>> +	debugfs_create_bool("amdgpu_smu_debug", 0600, root,
->>> +				  &adev->smu.smu_debug_mode);
->>> +
->>>    	ent = debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
->>>    				  &fops_ib_preempt);
->>>    	if (IS_ERR(ent)) {
->>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>> index f738f7dc20c9..50dbf5594a9d 100644
->>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>> @@ -569,6 +569,11 @@ struct smu_context
->>>    	struct smu_user_dpm_profile user_dpm_profile;
->>>
->>>    	struct stb_context stb_context;
->>> +	/*
->>> +	 * When enabled, it makes SMU errors fatal.
->>> +	 * (0 = disabled (default), 1 = enabled)
->>> +	 */
->>> +	bool smu_debug_mode;
->>>    };
->>>
->>>    struct i2c_adapter;
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> index 6e781cee8bb6..d3797a2d6451 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> @@ -1919,6 +1919,8 @@ static int aldebaran_mode2_reset(struct
->> smu_context *smu)
->>>    out:
->>>    	mutex_unlock(&smu->message_lock);
->>>
->>> +	BUG_ON(unlikely(smu->smu_debug_mode) && ret);
->>> +
->>>    	return ret;
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> index 048ca1673863..9be005eb4241 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> @@ -349,15 +349,21 @@ int smu_cmn_send_smc_msg_with_param(struct
->> smu_context *smu,
->>>    		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
->>>    		goto Out;
->>>    	}
->>> +
->>>    	__smu_cmn_send_msg(smu, (uint16_t) index, param);
->>>    	reg = __smu_cmn_poll_stat(smu);
->>>    	res = __smu_cmn_reg2errno(smu, reg);
->>> -	if (res != 0)
->>> +	if (res != 0) {
->>>    		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
->>> +		goto Out;
->>> +	}
->>>    	if (read_arg)
->>>    		smu_cmn_read_arg(smu, read_arg);
->>>    Out:
->>>    	mutex_unlock(&smu->message_lock);
->>> +
->>> +	BUG_ON(unlikely(smu->smu_debug_mode) && res);
->> BUG_ON() really crashes the kernel and is only allowed if we prevent further data
->> corruption with that.
->>
->> Most of the time WARN_ON() is more appropriate, but I can't fully judge here
->> since I don't know the SMU code well enough.
-> This is what SMU FW guys want. They want "user-visible (potentially fatal) errors", then a hang.
-> They want to keep system state since the error occurred.
+1. Define unified ops interface for each block.
+2. Add ras_block_match function pointer in ops interface for each ras block to identify itself.
+3. Define unified basic ras block data for each ras block.
+4. Create dedicated amdgpu device ras block link list to manage all of the ras blocks.
+5. Add amdgpu_ras_register_ras_block new function interface for each ras block to register itself to ras controlling block.
 
-Well that is rather problematic.
+Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 12 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    | 29 ++++++++++++++++++++++
+ 4 files changed, 45 insertions(+)
 
-First of all we need to really justify that, crashing the kernel is not 
-something easily done.
-
-Then this isn't really effective here. What happens is that you crash 
-the kernel thread of the currently executing process, but it is 
-perfectly possible that another thread still tries to send messages to 
-the SMU. You need to have the BUG_ON() before dropping the lock to make 
-sure that this really gets the driver stuck in the current state.
-
-Regards,
-Christian.
-
->
-> Regards,
-> Lang
->
->> Christian.
->>
->>> +
->>>    	return res;
->>>    }
->>>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index db1505455761..eddf230856e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1151,6 +1151,8 @@ struct amdgpu_device {
+ 	bool				barrier_has_auto_waitcnt;
+ 
+ 	struct amdgpu_reset_control     *reset_cntl;
++
++	struct list_head		ras_list;
+ };
+ 
+ static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 73ec46140d68..0980396ee709 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3578,6 +3578,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	INIT_LIST_HEAD(&adev->reset_list);
+ 
++	INIT_LIST_HEAD(&adev->ras_list);
++
+ 	INIT_DELAYED_WORK(&adev->delayed_init_work,
+ 			  amdgpu_device_delayed_init_work_handler);
+ 	INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 90f0db3b4f65..8713575c7cf1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2739,3 +2739,15 @@ static void amdgpu_register_bad_pages_mca_notifier(void)
+         }
+ }
+ #endif
++/* Rigister each ip ras block into amdgpu ras */
++int amdgpu_ras_register_ras_block(struct amdgpu_device *adev,
++		struct amdgpu_ras_block_object* ras_block_obj)
++{
++	if (!adev || !ras_block_obj)
++		return -EINVAL;
++
++	INIT_LIST_HEAD(&ras_block_obj->node);
++	list_add_tail(&ras_block_obj->node, &adev->ras_list);
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index cdd0010a5389..d6e5e3c862bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -469,6 +469,34 @@ struct ras_debug_if {
+ 	};
+ 	int op;
+ };
++
++struct amdgpu_ras_block_object {
++	/* block name */
++	char name[32];
++
++	enum amdgpu_ras_block block;
++
++	uint32_t sub_block_index;
++
++	/* ras block link */
++	struct list_head node;
++
++	const struct amdgpu_ras_block_ops *ops;
++};
++
++struct amdgpu_ras_block_ops {
++	int (*ras_block_match)(struct amdgpu_ras_block_object* block_obj, enum amdgpu_ras_block block, uint32_t sub_block_index);
++	int (*ras_late_init)(struct amdgpu_device *adev);
++	void (*ras_fini)(struct amdgpu_device *adev);
++	int (*ras_error_inject)(struct amdgpu_device *adev, void *inject_if);
++	void  (*query_ras_error_count)(struct amdgpu_device *adev,void *ras_error_status);
++	void (*query_ras_error_status)(struct amdgpu_device *adev);
++	bool  (*query_ras_poison_mode)(struct amdgpu_device *adev);
++	void (*query_ras_error_address)(struct amdgpu_device *adev, void *ras_error_status);
++	void (*reset_ras_error_count)(struct amdgpu_device *adev);
++	void (*reset_ras_error_status)(struct amdgpu_device *adev);
++};
++
+ /* work flow
+  * vbios
+  * 1: ras feature enable (enabled by default)
+@@ -652,4 +680,5 @@ const char *get_ras_block_str(struct ras_common_if *ras_block);
+ 
+ bool amdgpu_ras_is_poison_mode_supported(struct amdgpu_device *adev);
+ 
++int amdgpu_ras_register_ras_block(struct amdgpu_device *adev, struct amdgpu_ras_block_object* ras_block_obj);
+ #endif
+-- 
+2.25.1
 
