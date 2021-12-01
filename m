@@ -4,129 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71889C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 08:46:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6445DC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 09:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2FCA6F447;
-	Wed,  1 Dec 2021 08:46:35 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C22436F417
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 08:46:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DED356EE7C;
+	Wed,  1 Dec 2021 09:25:17 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2082.outbound.protection.outlook.com [40.107.244.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB9A16EE7C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Dec 2021 09:25:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=echphW9eoUDA6AosP9oPAhr/ESKAJ2XFwOinGZM6yuWXMdnzVeO1j/u8PHOX9KzYgqUaP/im0FeF84BWJinafJGB5RWqkzwF/gN9aRb0E+5+O6mEEv3slJA58lE+QWRcWR2cSX8anhiymW96H4XZ2c0V+DRjHP0nI4UUeEd9Eu6ZE7O+/PWza20fY1HaSuZCyXQrFqpvygbnpq2oHNbATrwVWiD+Pxe6qEdaMJAyPyoiE0iGipT3MaQlrpwMGkrymHmBfMfU649yyz5B1fVBhY0Wp+9RIq+Ds/YMyhI/XD7mquu/uBlS5HLR14JzFGXkGQdqPjm2BHfdUiTQ2dXKOA==
+ b=Blgf6jXET5U9sMN6NxIL33KSJK0tlR6ypN1W6LQXG6JjqTFbCLvjd/0F+UyQ8g6q7MMYfB3zu/oghErCBxnmvdsv0x7wfPQUgXk6B8VTFZVtYktH2SBa7MXkcfNV1vgfXXRcs1rrcJXcq1ON6rpzLX8o0gWvlftGXd2Iu1uuUcmjVDKYLVMCBiFIEksSpp3BvwMvzIq+TYQhr23jB1crFhYpKFT1sUB1hfqh48oo4INKNFTEKt32IeG738PwZHQlikHkjrYsRKJ78YMWFiPnCcm9H43WTqUQdwhIL+RvbXvW+k2Wqq5fQGE1HhdroH+r8YiNanhBTGFADCZ2PCoIiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cHmty1z/XeJrvV/JU6Siyk/1d2m4zeGGrjF9hm1OEc0=;
- b=TrMBn7HQnYnpQN6yAsFIzuj0q1x0h84LS2lN5VZDUqNFVqk6fzfjooK4yQrPL9zMIC+18xdStkL45CZr6Yh84rxxvYnOdLf4n2C6WGB43psD/OKBnaYieVcEo08CWxFd7lOOVUjP8pVPNY2gVDl+3ikCLUzbvK3TwQF3QLfUrlWw/PRIa3SxtTLnQ66uIVdMFDUGEpk/Jqpp/lBYLGA9ueYe9HNEU7r1SUuE0rXfEfBilG6Om+oSx2XiTFVvXgeK7+GVC00k1uErbQddxb7MyRjRFFWWXUVPn+F3nf+FgKvnJ4zigp4/2o9zmzbhlmBXK6V4DQk9rUFQeNu5wmVlXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Dci0W6YFPyJzgQ0E8oth6c6DxWXQQI5mUZqMUdfLoCY=;
+ b=AtAh5UujAmZZuKf+XXniiFJZ63tu1UgOZyVS7UH2zjwkhoMYwGmxYyd8bhJcRw3jpfmo2CI+iLgA8yiwY8R5ONaYmOcgBNwd/ublM9NcULNbnamaljzHxGUz3XITbN3vH5clexX7u6BX6in/ER7VY43jtGM6DoPDeZjlycLAJUQ7Eg+Gvd2Fg8envnpRUoQEDWun50G6HtcTQFELfAQXuCeJw4NafayUxujp2xMOIGq1lcHLKZjsUIXXSIQvfJ3BJOor7YqRng1ujMDxgqwcpEx62/uVDSHm3MvVuukAOcxYye3D2mtZelD+MIP8NdT26FWrFE3dwPdLXUWC1yBRWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cHmty1z/XeJrvV/JU6Siyk/1d2m4zeGGrjF9hm1OEc0=;
- b=HPXC0Ulz4gAljSYJrvep32q/WCY8t6hXPBrwAJ3++3hCq5+QNms4QFpeORnl+WuKdiu/nWDE//ibF+ocZiOsucD9PUR+kQgPrQcYhuZDhJh5wYiwSca1QnBogPIJnapK/L25isGk9KQyudWkjpkx1PJqGHHo8zjRtqC3kKP8ZM4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM5PR12MB1833.namprd12.prod.outlook.com (2603:10b6:3:111::11) with
+ bh=Dci0W6YFPyJzgQ0E8oth6c6DxWXQQI5mUZqMUdfLoCY=;
+ b=nArVg3aMW2PSjkkFob4M9rsmSQcUkDBPhoJjUrx3YpeJoPtkmsfhBlyHBYXBCzKO/kJWuBOylP8p/HqXgWGwGGah+DmnPupnCJgxeL0Iuv4nszXcPQA8RnJyBzUjVV6ZkX0MIiD2oseEwJuc+xgCLUYkZqKnmVhRQJaoDz/CrVU=
+Received: from DM6PR07CA0114.namprd07.prod.outlook.com (2603:10b6:5:330::29)
+ by CY4PR12MB1413.namprd12.prod.outlook.com (2603:10b6:903:39::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Wed, 1 Dec
- 2021 08:46:31 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4734.024; Wed, 1 Dec 2021
- 08:46:30 +0000
-Message-ID: <056d0882-1c15-fb4a-7d00-5ed66b8279fe@amd.com>
-Date: Wed, 1 Dec 2021 14:16:16 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.1
-Subject: Re: [PATCH] drm/amdgpu: add SMU debug option support
-Content-Language: en-US
-To: "Yu, Lang" <Lang.Yu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20211130051721.3192979-1-lang.yu@amd.com>
- <53f6a9da-9197-3cfd-3d9c-586dbad4584c@amd.com>
- <DM6PR12MB39306D37D616E811E56A1E6297689@DM6PR12MB3930.namprd12.prod.outlook.com>
- <DM6PR12MB4250B9CF078EF70E804BCA1FFB689@DM6PR12MB4250.namprd12.prod.outlook.com>
- <19b5cf3c-9ced-4abb-6d33-f5c4408a6e25@amd.com>
- <DM6PR12MB4250B223A492C9BB6B55C46AFB689@DM6PR12MB4250.namprd12.prod.outlook.com>
- <891c0f73-4f2d-4cb2-b969-c68491362509@amd.com>
- <DM6PR12MB42503B4460809152535EA2B0FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
- <DM6PR12MB425030F971505ED3218D3A30FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DM6PR12MB425030F971505ED3218D3A30FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BMXPR01CA0048.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:c::34) To DM6PR12MB3930.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::19)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Wed, 1 Dec
+ 2021 09:25:15 +0000
+Received: from DM6NAM11FT013.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:330:cafe::c7) by DM6PR07CA0114.outlook.office365.com
+ (2603:10b6:5:330::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11 via Frontend
+ Transport; Wed, 1 Dec 2021 09:25:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT013.mail.protection.outlook.com (10.13.173.142) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Wed, 1 Dec 2021 09:25:14 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 1 Dec
+ 2021 03:25:12 -0600
+From: Lang Yu <lang.yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: add support to SMU debug option
+Date: Wed, 1 Dec 2021 17:24:58 +0800
+Message-ID: <20211201092458.3348858-1-lang.yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Received: from [10.252.81.250] (165.204.159.242) by
- BMXPR01CA0048.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:c::34) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.24 via Frontend Transport; Wed, 1 Dec 2021 08:46:27 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5cce84e6-a0be-496b-3a09-08d9b4a711df
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1833:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB18339B4EB677C58842B5C8A697689@DM5PR12MB1833.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: f48d3568-dbad-4869-deb4-08d9b4ac7b75
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1413:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB14139D8DDDE828B3410824FEFB689@CY4PR12MB1413.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:374;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: F4RsYiPeCNJFEdYcV8FDeLG0tqlkG7XFRGDWpgFvt12cqpX7oMtgMb9g4rO8FE0zkV+ywvNNo+P/zsYlq6sv2g/X+VPY0ZveDeGg9ABvWrRa8qK1xvJi2SF02mKgiddIrGPLKKjRHQeWxdiKplVY2lr8kpy02RQ8/QXbrCsAJAEWAQG1QywmFMWOLCFVc+ixBtuvfMT0tixTIqaMu43twnsGiNhY8vBTOQCgsjwOsx8B0+YHQI4xcrTZUVau3sT4lbPxXDP3/LWAw5cgRPqKXmA2H1a1kLMiORpGEDLFu/5cX45LhiVBPygbZP66IVXLlvRumRXsH2MJyInkqvoTZa/nc83JPpGo3RpbM1jkLV8fQ9SvVSrgDvBAN2R7+E4HbIFbkBfoMUI6NG7mR2nuYDBoJi0CscKy4bfZnjh3Wfmpb/Xe2+/SSKh+Lg4QW2FhEct7PKphsM5aVyrBUpTfkpxmJ2zNe+hzJek2kttuWTWtJLKmHIC+OvL/Tx9mTlSJQ6bmDa0vfMrnFyS3WraDCX0NdEedJS9vMIo2QpGijkZvGmFejWeHPXRt+lsyjedLtXyR8Kk7xHnEQyGeRpXajL7nBkAxgOUp5b8jP9AyHXsrYEcNQ2RRnKlT0qgTenswW8KcIzJ7J38CG2MZi7OW1TRNj5jrObvql2PKtueVQPCC+1O52OrvsKf9WzbMl7rbfE9j+joD4eN6tZMqmXR9VPOeml/lGJbDruhzP9KSQxesGncz644g48cz9gr1dyzc
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(83380400001)(31686004)(4326008)(2906002)(6486002)(508600001)(36756003)(30864003)(6666004)(66476007)(66946007)(8676002)(8936002)(66556008)(316002)(86362001)(110136005)(54906003)(186003)(2616005)(16576012)(53546011)(5660300002)(26005)(38100700002)(956004)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: IeZmDH2Nm7bwm1mHZBhgpqyelPcxsHL5jnbFXzkV9G7tyM6BU4Go5D+qE95D4vTWQMdDtryAl4obZ+kDdHC2TbX7y2xK48ph1VKbPNJ/CYw36Mh1MjFBPnVktSzxjGYbobO2HrsV0zgaHvRYdIGomPnJXJcfPJ15HIC+Kyn5RmWFyXFNbXXBIwSoU7GrZEPpUkjE6V9ql1h+9VLbRndwFXcjZ7qGIIj/5DPtFVHlXjLNWnYRqv/41uCRmcmWDB+u8f3hz1rvLd36LrgRr6ShXn5tD/OIpUI87kV8RwJnPfhbt6LMrOzXihR4xQ3AlJo79wNwuO1ph/YCUQotTK39yzD7dDeSRtvhzt6mdZNTrpzuFoZF6hfExD/hkgB7Fc1aXCatgq/07GFRiOGbLAGnjrhTYGsLNwLGGGXv4Qiu5fTyob5z7K/q7M1d/PuU/NHPc9PPUukoVP/Jkxh9LAhuuOIiT/N/UlqEtTSa1Pkr+nwkdWMNHfCZ/56BDK0MpWcNStY1gLreU0reSswNgX1LBNo1HHrFnWMq3yIewa8+BS1RS9iz/6Cc+UkiApyKRLkgjqvYOa7FGld4vryRW8id4514KPsBpjLGLBDXdd0nBYe1AMqy3I+Xyqh70p/ZmqBxFNqcYJaHcFuzL+VaGk/FTs/f9fHCv3/csLinC+c6LhVIw/LdA7QYhlE3pFL4MuijwgGWizkLEUBjWA8Zqz7/nina8Mpd/mIXw3jKlK9eDPh1QvhNFmTKNcuXptRkM+ZCpxbE8xgkYO9IDVRbTw+OGDndy9diKaS6lCrk36jzA5k=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(186003)(54906003)(47076005)(2906002)(83380400001)(36860700001)(1076003)(16526019)(26005)(8676002)(4326008)(6916009)(7696005)(36756003)(2616005)(70206006)(336012)(82310400004)(40460700001)(8936002)(316002)(5660300002)(70586007)(508600001)(356005)(426003)(81166007)(6666004)(86362001)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUVuaGRuMFAzckpYZTZpbXIyd0lPZXB4MGN1VzJjVzFoY2VJaTlFNkdVMkNH?=
- =?utf-8?B?U3FibVBYWmRDMEJnYmwwYlQxbDgxSGE3OWl1R2lCSTMzSWdZY1M5bXF1Uys4?=
- =?utf-8?B?VDROd0lXS0Q4NkFRY0lZS1FjMm0vREo2dGVRWWZtQWtRNzUvU1FUUHNuR0FC?=
- =?utf-8?B?RUo3YjkwbFdXT0Z5S0c1alZxV3M3OUg3SHF6T0NJRXE3WldPQTRFdVdHR3Iw?=
- =?utf-8?B?UGtlM1NLUjE4QU9wVWdINndLb3lqVUZqZndiMFB6WkNiMlUydUh2SVBIVUZB?=
- =?utf-8?B?ejIwS2hPQ1hORUUwenlQd3ZvcHZBaWc4aUdNa0FpSEFjVENHdytQbXliSUhH?=
- =?utf-8?B?YUZVdkpMRlFUUGcyMElsQzVNbXoyMHNmOStJdDVlYW9BdWlsbGR3U3g1cTFx?=
- =?utf-8?B?UElaN2VlMnRaRGFsdzVRcEJuSzJsbHRQWmt0aXo2ckEzV1pKc3FHNmV2V1V5?=
- =?utf-8?B?aXpMSnVxa0hocmpFUDRFUDRPUkFZblR4Vng4WjYwMUxnb2ZzczcrcjZSLzlB?=
- =?utf-8?B?T1ZlQVVZSktGUG5SSExBRXNrckZiWHBOcXllNkpOTkZCck52TktDMEJIWmpW?=
- =?utf-8?B?RzdoeTErN0toTE9Oa3B3OHo4MDNQald6RlY5ZXJWWmEwZ2xPNk81RzFSaEJx?=
- =?utf-8?B?V0xBSFVxMFdKdlc2Q2V1ZittTytMeDRFRWcvWG9oUGtLYjF0d2czMGxmaTdU?=
- =?utf-8?B?SVdFRkY2VHE4RXArM25YNkpVREY4YVdjbW0yaW5YdFh6ZlFwSXpWOEJPUU96?=
- =?utf-8?B?ZWVtYzlGaE9CeDZlUFdGNEVibFh6QVB4Y3pPWDRLRkpxR3ZnUWJBNmU4VTZK?=
- =?utf-8?B?WGtVL2txTkdnVVFNcXc5ci8xS09RcklkZGhpVktoNnYvSlo2cGs2SFRheFU2?=
- =?utf-8?B?Ty9uazNEZGlBWXhaUll5blZXQzZTMWR3bmtnVTlqYVFrYVhwL0JpVkVXMFBm?=
- =?utf-8?B?WE9hVmhUbklyTklWY1NPNjBqd1NpL2VWMmZvYkU5ZVF4aEZRZHNyRXVGZ2pB?=
- =?utf-8?B?UzIrQTBwaHh5RGdKQlhXQzM2RXhZYzdua09sQVBVaC9UNmNrYjZVYUVvMmcz?=
- =?utf-8?B?ODhRaDFJM1QzNWlQVTB3SS92ME0zWVJvQzBGT0RlS3JCcGtMVDUwbVlDb2t2?=
- =?utf-8?B?ZGRvK2kvRVg0RFdDZkY1bjJlTmFvT2FzelVRVDdEVWpuMEU4T0svRXhQSGIz?=
- =?utf-8?B?SEdIOGJNMlFWcUpLUzdrRFFNL0dLdEdxcDI2YjNjMlArcXBJZ2hqTGRhZ2xm?=
- =?utf-8?B?SmxmQzdueDBNeENuTjlHVTl6SERSOWsvRVVtaVZZMjZxbE9TeStKVkJlSXpu?=
- =?utf-8?B?QWlXeXBhMGsvKzJkSGs4TmMreTZqa1RaSlozQTZ2Vi9BMEtRVFQxREdRWUIz?=
- =?utf-8?B?anlhOUdzS3JONmxFblk4SmVaSVJKemJsWkNZeDI0L0s5bC8wWDZVYVZxL2lh?=
- =?utf-8?B?akZNQjNCWXgrY3Y5SXR0dkgrK3p5bS83U0tzclM1K2ZvWkorcWlBMzNYNlJC?=
- =?utf-8?B?S0s0akJ4eTh0bG5tdXpGcjlZZnU0RkxhNERhSm5jb2I3dG45Q0xWME5RQ2k2?=
- =?utf-8?B?cnB4Z1ljcDBZZy9XY2pHSFgzVnQzdHR6ZkxHbEVtZkF3TyttQ3lsWTFPS1RU?=
- =?utf-8?B?Q1ZZQ3ZaYm9NM1hNaFVEWE9yd2I2d1JndkF1WFhCczMzditrM1pMSmpiV1Bh?=
- =?utf-8?B?UHF1VUxWaTdzdXdZdW13c2JXUEZidy8xYVhXd3E3bEJoNG5JdGw4Nk5qeWV1?=
- =?utf-8?B?anE5TERSTktJNS92dnpxZkc0WFBCN2h2R3I1Y2NEWkxwMDFuUzZOcVVIWk9r?=
- =?utf-8?B?WmxINWJ6VDlpZXlEZjVsb1VoSXhKL3FDVmhiVW9vS3E1a28rRUljbkc1TkI4?=
- =?utf-8?B?dXp3Z3d5YzZ1T0RrUllVa1NmRFI0QUpJdnozZVoyYnptVkQrQ2JnK3NTeXhI?=
- =?utf-8?B?UTZ0VEtDYlJFN1k4V3R4UkdFWUhIRXZVM1M1bGlTM0d6eHR0Y1ZjYW4vMnlm?=
- =?utf-8?B?c1djVDE3RSszS29xZUc3aTBoVTVsYnhTZThLNnVGUHlsdExUZUVJck1xMldr?=
- =?utf-8?B?ZTQxSy9VcEhORkYyMEw1VnFDclYzaENoVUtPNmRIREdFb3RTdFRSNHB5ZzIv?=
- =?utf-8?Q?95/U=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cce84e6-a0be-496b-3a09-08d9b4a711df
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 08:46:30.7612 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 09:25:14.7551 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f48d3568-dbad-4869-deb4-08d9b4ac7b75
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z+U+hJBglm7yZynmyP+FWMGsk/KHe/HNvSGdVDTbIT2kRIdLCnpBZOXYHzwCXeJt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1833
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT013.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1413
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,415 +99,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
- Ray" <Ray.Huang@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lang Yu <lang.yu@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+To maintain system error state when SMU errors occurred,
+which will aid in debugging SMU firmware issues, add SMU
+debug option support.
 
+It can be enabled or disabled via amdgpu_smu_debug
+debugfs file. When enabled, it makes SMU errors fatal.
+It is disabled by default.
 
-On 12/1/2021 1:48 PM, Yu, Lang wrote:
-> [AMD Official Use Only]
-> 
-> 
-> 
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yu, Lang
->> Sent: Wednesday, December 1, 2021 3:58 PM
->> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->> <Ray.Huang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
->> Subject: RE: [PATCH] drm/amdgpu: add SMU debug option support
->>
->> [AMD Official Use Only]
->>
->>
->>
->>> -----Original Message-----
->>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>> Sent: Wednesday, December 1, 2021 3:28 PM
->>> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>> <Ray.Huang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
->>> Subject: Re: [PATCH] drm/amdgpu: add SMU debug option support
->>>
->>>
->>>
->>> On 12/1/2021 12:37 PM, Yu, Lang wrote:
->>>> [AMD Official Use Only]
->>>>
->>>>
->>>>
->>>>> -----Original Message-----
->>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>> Sent: Wednesday, December 1, 2021 2:56 PM
->>>>> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>>>> <Ray.Huang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
->>>>> Subject: Re: [PATCH] drm/amdgpu: add SMU debug option support
->>>>>
->>>>>
->>>>>
->>>>> On 12/1/2021 11:57 AM, Yu, Lang wrote:
->>>>>> [AMD Official Use Only]
->>>>>>
->>>>>> Hi Lijo,
->>>>>>
->>>>>> Thanks for your comments.
->>>>>>
->>>>>>    From my understanding, that just increases the timeout threshold
->>>>>> and could hide some potential issues which should be exposed and solved.
->>>>>>
->>>>>> If current timeout threshold is not enough for some corner cases,
->>>>>> (1) Do we consider to increase the threshold to cover these cases?
->>>>>> (2) Or do we just expose them and request SMU FW to optimize them?
->>>>>>
->>>>>> I think it doesn't make much sense to increase the threshold in debug mode.
->>>>>> How do you think? Thanks!
->>>>>
->>>>> In normal cases, 2secs would be more than enough. If we hang
->>>>> immediately, then check the FW registers later, the response would
->>>>> have come. I thought we just need to note those cases and not to
->>>>> fail everytime. Just to mark as a red flag in the log to tell us
->>>>> that FW is unexpectedly busy processing something else when the message is
->> sent.
->>>>>
->>>>> There are some issues related to S0ix where we see the FW comes back
->>>>> with a response with an increased timeout under certain conditions.
->>>>
->>>> If these issues still exists, could we just blacklist the tests that
->>>> triggered them before solve them? Or we just increase the threshold
->>>> to cover
->>> all the cases?
->>>>
->>>
->>> Actually, the timeout is message specific - like i2c transfer from
->>> EEPROM could take longer time.
->>>
->>> I am not sure if we should have more than 2s as timeout. Whenever this
->>> kind of issue happens, FW team check registers (then it will have a
->>> proper value) and say they don't see anything abnormal :) Usually,
->>> those are just signs of crack and it eventually breaks.
->>>
->>> Option is just fail immediately (then again not sure useful it will be
->>> if the issue is this sort of thing) or wait to see how far it goes with
->>> an added timeout before it fails eventually.
->>
->> Are smu_cmn_wait_for_response()/smu_cmn_send_msg_without_waiting()
->> designed for long timeout cases? Is it fine that we don't fail here in the event of
->> timeout?
-> 
-> Or we can add a timeout parameter into smu_cmn_send_smc_msg_with_param()
-> to specify the timeout you want for specific message.
-> I think this may be another story. Thanks!
->
+== Command Guide ==
 
-Yes, that will be a different patch. For now, skip the extended timeout. 
-Every timeout will trigger a debug alarm and let it be that way for 
-debug mode. I think you can skip the retry also (originally I meant this 
-by that comment - retry again for response reg check).
+1, enable SMU debug option
 
-Thanks,
-Lijo
+ # echo 1 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
 
-> Thanks,
-> Lang
->>
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> Regards,
->>>> Lang
->>>>
->>>>>
->>>>> Thanks,
->>>>> Lijo
->>>>>
->>>>>>
->>>>>> Regards,
->>>>>> Lang
->>>>>>
->>>>>>> -----Original Message-----
->>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>>>> Sent: Wednesday, December 1, 2021 1:44 PM
->>>>>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Yu, Lang <Lang.Yu@amd.com>;
->>>>>>> amd- gfx@lists.freedesktop.org
->>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>>>>>> <Ray.Huang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>> Subject: RE: [PATCH] drm/amdgpu: add SMU debug option support
->>>>>>>
->>>>>>> Just realized that the patch I pasted won't work. Outer loop exit
->>>>>>> needs to be like this.
->>>>>>> 	(reg & MP1_C2PMSG_90__CONTENT_MASK) != 0 && extended_wait-- >=
->>>>>>> 0
->>>>>>>
->>>>>>> Anyway, that patch is only there to communicate what I really
->>>>>>> meant in the earlier comment.
->>>>>>>
->>>>>>> Thanks,
->>>>>>> Lijo
->>>>>>>
->>>>>>> -----Original Message-----
->>>>>>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->>>>>>> Lazar, Lijo
->>>>>>> Sent: Wednesday, December 1, 2021 10:44 AM
->>>>>>> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
->>>>>>> <Ray.Huang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>> Subject: Re: [PATCH] drm/amdgpu: add SMU debug option support
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> On 11/30/2021 10:47 AM, Lang Yu wrote:
->>>>>>>> To maintain system error state when SMU errors occurred, which
->>>>>>>> will aid in debugging SMU firmware issues, add SMU debug option
->> support.
->>>>>>>>
->>>>>>>> It can be enabled or disabled via amdgpu_smu_debug debugfs file.
->>>>>>>> When enabled, it makes SMU errors fatal.
->>>>>>>> It is disabled by default.
->>>>>>>>
->>>>>>>> == Command Guide ==
->>>>>>>>
->>>>>>>> 1, enable SMU debug option
->>>>>>>>
->>>>>>>>      # echo 1 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
->>>>>>>>
->>>>>>>> 2, disable SMU debug option
->>>>>>>>
->>>>>>>>      # echo 0 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
->>>>>>>>
->>>>>>>> v2:
->>>>>>>>      - Resend command when timeout.(Lijo)
->>>>>>>>      - Use debugfs file instead of module parameter.
->>>>>>>>
->>>>>>>> Signed-off-by: Lang Yu <lang.yu@amd.com>
->>>>>>>> ---
->>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 32
->>>>> +++++++++++++++++
->>>>>>>>      drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 39
->>>>> +++++++++++++++++++-
->>>>>>> -
->>>>>>>>      2 files changed, 69 insertions(+), 2 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>>>>> index 164d6a9e9fbb..f9412de86599 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>>>>> @@ -39,6 +39,8 @@
->>>>>>>>
->>>>>>>>      #if defined(CONFIG_DEBUG_FS)
->>>>>>>>
->>>>>>>> +extern int amdgpu_smu_debug;
->>>>>>>> +
->>>>>>>>      /**
->>>>>>>>       * amdgpu_debugfs_process_reg_op - Handle MMIO register
->>> reads/writes
->>>>>>>>       *
->>>>>>>> @@ -1152,6 +1154,8 @@ static ssize_t
->>>>>>>> amdgpu_debugfs_gfxoff_read(struct
->>>>>>> file *f, char __user *buf,
->>>>>>>>      	return result;
->>>>>>>>      }
->>>>>>>>
->>>>>>>> +
->>>>>>>> +
->>>>>>>>      static const struct file_operations amdgpu_debugfs_regs2_fops = {
->>>>>>>>      	.owner = THIS_MODULE,
->>>>>>>>      	.unlocked_ioctl = amdgpu_debugfs_regs2_ioctl, @@ -1609,6
->>>>>>>> +1613,26 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
->>>>>>>>      DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
->>>>>>>>      			amdgpu_debugfs_sclk_set, "%llu\n");
->>>>>>>>
->>>>>>>> +static int amdgpu_debugfs_smu_debug_get(void *data, u64 *val) {
->>>>>>>> +	*val = amdgpu_smu_debug;
->>>>>>>> +	return 0;
->>>>>>>> +}
->>>>>>>> +
->>>>>>>> +static int amdgpu_debugfs_smu_debug_set(void *data, u64 val) {
->>>>>>>> +	if (val != 0 && val != 1)
->>>>>>>> +		return -EINVAL;
->>>>>>>> +
->>>>>>>> +	amdgpu_smu_debug = val;
->>>>>>>> +	return 0;
->>>>>>>> +}
->>>>>>>> +
->>>>>>>> +DEFINE_DEBUGFS_ATTRIBUTE(fops_smu_debug,
->>>>>>>> +			 amdgpu_debugfs_smu_debug_get,
->>>>>>>> +			 amdgpu_debugfs_smu_debug_set,
->>>>>>>> +			 "%llu\n");
->>>>>>>> +
->>>>>>>>      int amdgpu_debugfs_init(struct amdgpu_device *adev)
->>>>>>>>      {
->>>>>>>>      	struct dentry *root =
->>>>>>>> adev_to_drm(adev)->primary->debugfs_root;
->>>>>>>> @@ -1632,6 +1656,14 @@ int amdgpu_debugfs_init(struct
->>>>>>>> amdgpu_device
->>>>>>> *adev)
->>>>>>>>      		return PTR_ERR(ent);
->>>>>>>>      	}
->>>>>>>>
->>>>>>>> +	ent = debugfs_create_file("amdgpu_smu_debug", 0600, root,
->> adev,
->>>>>>>> +				  &fops_smu_debug);
->>>>>>>> +	if (IS_ERR(ent)) {
->>>>>>>> +		DRM_ERROR("unable to create amdgpu_smu_debug
->> debugsfs
->>>>>>> file\n");
->>>>>>>> +		return PTR_ERR(ent);
->>>>>>>> +	}
->>>>>>>> +
->>>>>>>> +
->>>>>>>>      	/* Register debugfs entries for amdgpu_ttm */
->>>>>>>>      	amdgpu_ttm_debugfs_init(adev);
->>>>>>>>      	amdgpu_debugfs_pm_init(adev); diff --git
->>>>>>>> a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>>>>>>> index 048ca1673863..b3969d7933d3 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>>>>>>> @@ -55,6 +55,14 @@
->>>>>>>>
->>>>>>>>      #undef __SMU_DUMMY_MAP
->>>>>>>>      #define __SMU_DUMMY_MAP(type)	#type
->>>>>>>> +
->>>>>>>> +/*
->>>>>>>> + * Used to enable SMU debug option. When enabled, it makes SMU
->>>>>>>> +errors
->>>>>>> fatal.
->>>>>>>> + * This will aid in debugging SMU firmware issues.
->>>>>>>> + * (0 = disabled (default), 1 = enabled)  */ int
->>>>>>>> + amdgpu_smu_debug;
->>>>>>>> +
->>>>>>>>      static const char * const __smu_message_names[] = {
->>>>>>>>      	SMU_MESSAGE_TYPES
->>>>>>>>      };
->>>>>>>> @@ -272,6 +280,11 @@ int smu_cmn_send_msg_without_waiting(struct
->>>>>>> smu_context *smu,
->>>>>>>>      	__smu_cmn_send_msg(smu, msg_index, param);
->>>>>>>>      	res = 0;
->>>>>>>>      Out:
->>>>>>>> +	if (unlikely(amdgpu_smu_debug == 1) && res) {
->>>>>>>> +		mutex_unlock(&smu->message_lock);
->>>>>>>> +		BUG();
->>>>>>>> +	}
->>>>>>>> +
->>>>>>>>      	return res;
->>>>>>>>      }
->>>>>>>>
->>>>>>>> @@ -288,9 +301,17 @@ int smu_cmn_send_msg_without_waiting(struct
->>>>>>> smu_context *smu,
->>>>>>>>      int smu_cmn_wait_for_response(struct smu_context *smu)
->>>>>>>>      {
->>>>>>>>      	u32 reg;
->>>>>>>> +	int res;
->>>>>>>>
->>>>>>>>      	reg = __smu_cmn_poll_stat(smu);
->>>>>>>> -	return __smu_cmn_reg2errno(smu, reg);
->>>>>>>> +	res = __smu_cmn_reg2errno(smu, reg);
->>>>>>>> +
->>>>>>>> +	if (unlikely(amdgpu_smu_debug == 1) && res) {
->>>>>>>> +		mutex_unlock(&smu->message_lock);
->>>>>>>> +		BUG();
->>>>>>>> +	}
->>>>>>>> +
->>>>>>>> +	return res;
->>>>>>>>      }
->>>>>>>>
->>>>>>>>      /**
->>>>>>>> @@ -328,6 +349,7 @@ int smu_cmn_send_smc_msg_with_param(struct
->>>>>>> smu_context *smu,
->>>>>>>>      				    uint32_t param,
->>>>>>>>      				    uint32_t *read_arg)
->>>>>>>>      {
->>>>>>>> +	int retry_count = 0;
->>>>>>>>      	int res, index;
->>>>>>>>      	u32 reg;
->>>>>>>>
->>>>>>>> @@ -349,15 +371,28 @@ int
->>> smu_cmn_send_smc_msg_with_param(struct
->>>>>>> smu_context *smu,
->>>>>>>>      		__smu_cmn_reg_print_error(smu, reg, index, param,
->>> msg);
->>>>>>>>      		goto Out;
->>>>>>>>      	}
->>>>>>>> +retry:
->>>>>>>>      	__smu_cmn_send_msg(smu, (uint16_t) index, param);
->>>>>>>>      	reg = __smu_cmn_poll_stat(smu);
->>>>>>>>      	res = __smu_cmn_reg2errno(smu, reg);
->>>>>>>> -	if (res != 0)
->>>>>>>> +	if (res != 0) {
->>>>>>>>      		__smu_cmn_reg_print_error(smu, reg, index, param,
->>> msg);
->>>>>>>> +		if ((res == -ETIME) && (retry_count++ < 1)) {
->>>>>>>> +			usleep_range(500, 1000);
->>>>>>>> +			dev_err(smu->adev->dev,
->>>>>>>> +				"SMU: resend command: index:%d
->>>>>>> param:0x%08X message:%s",
->>>>>>>> +				index, param,
->> smu_get_message_name(smu,
->>>>>>> msg));
->>>>>>>> +			goto retry;
->>>>>>>> +		}
->>>>>>>> +		goto Out;
->>>>>>>> +	}
->>>>>>>
->>>>>>> Sorry, what I meant is to have an extended wait time in debug mode.
->>>>>>> Something like below, not a 'full retry' as in sending the message again.
->>>>>>>
->>>>>>>
->>>>>>> +#define MAX_DBG_WAIT_CNT 3
->>>>>>> +
->>>>>>>     /**
->>>>>>>      * __smu_cmn_poll_stat -- poll for a status from the SMU
->>>>>>>      * smu: a pointer to SMU context @@ -115,17 +117,24 @@ static
->>>>>>> void smu_cmn_read_arg(struct smu_context *smu,
->>>>>>>     static u32 __smu_cmn_poll_stat(struct smu_context *smu)
->>>>>>>     {
->>>>>>>            struct amdgpu_device *adev = smu->adev;
->>>>>>> -       int timeout = adev->usec_timeout * 20;
->>>>>>> +       int timeout;
->>>>>>>            u32 reg;
->>>>>>> +       int extended_wait = smu_debug_mode ? MAX_DBG_WAIT_CNT : 0;
->>>>>>>
->>>>>>> -       for ( ; timeout > 0; timeout--) {
->>>>>>> -               reg = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
->>>>>>> -               if ((reg & MP1_C2PMSG_90__CONTENT_MASK) != 0)
->>>>>>> -                       break;
->>>>>>> +       do {
->>>>>>> +               timeout = adev->usec_timeout * 20;
->>>>>>> +               for (; timeout > 0; timeout--) {
->>>>>>> +                       reg = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
->>>>>>> +                       if ((reg & MP1_C2PMSG_90__CONTENT_MASK) != 0)
->>>>>>> +                               break;
->>>>>>>
->>>>>>> -               udelay(1);
->>>>>>> -       }
->>>>>>> +                       udelay(1);
->>>>>>> +               }
->>>>>>> +       } while (extended_wait-- >= 0);
->>>>>>>
->>>>>>> +       if (extended_wait != MAX_DBG_WAIT_CNT && reg !=
->>> SMU_RESP_NONE)
->>>>>>> +               dev_err(adev->dev,
->>>>>>> +                       "SMU: Unexpected extended wait for
->>>>>>> + response");
->>>>>>>            return reg;
->>>>>>>     }
->>>>>>>
->>>>>>> Thanks,
->>>>>>> Lijo
->>>>>>>
->>>>>>>>      	if (read_arg)
->>>>>>>>      		smu_cmn_read_arg(smu, read_arg);
->>>>>>>>      Out:
->>>>>>>>      	mutex_unlock(&smu->message_lock);
->>>>>>>> +
->>>>>>>> +	BUG_ON(unlikely(amdgpu_smu_debug == 1) && res);
->>>>>>>> +
->>>>>>>>      	return res;
->>>>>>>>      }
->>>>>>>>
->>>>>>>>
+2, disable SMU debug option
+
+ # echo 0 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+
+v3:
+ - Use debugfs_create_bool().(Christian)
+ - Put variable into smu_context struct.
+ - Don't resend command when timeout.
+
+v2:
+ - Resend command when timeout.(Lijo)
+ - Use debugfs file instead of module parameter.
+
+Signed-off-by: Lang Yu <lang.yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        | 3 +++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h            | 5 +++++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             | 8 +++++++-
+ 4 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 164d6a9e9fbb..86cd888c7822 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1618,6 +1618,9 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 	if (!debugfs_initialized())
+ 		return 0;
+ 
++	debugfs_create_bool("amdgpu_smu_debug", 0600, root,
++				  &adev->smu.smu_debug_mode);
++
+ 	ent = debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
+ 				  &fops_ib_preempt);
+ 	if (IS_ERR(ent)) {
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index f738f7dc20c9..50dbf5594a9d 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -569,6 +569,11 @@ struct smu_context
+ 	struct smu_user_dpm_profile user_dpm_profile;
+ 
+ 	struct stb_context stb_context;
++	/*
++	 * When enabled, it makes SMU errors fatal.
++	 * (0 = disabled (default), 1 = enabled)
++	 */
++	bool smu_debug_mode;
+ };
+ 
+ struct i2c_adapter;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 6e781cee8bb6..d3797a2d6451 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1919,6 +1919,8 @@ static int aldebaran_mode2_reset(struct smu_context *smu)
+ out:
+ 	mutex_unlock(&smu->message_lock);
+ 
++	BUG_ON(unlikely(smu->smu_debug_mode) && ret);
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 048ca1673863..9be005eb4241 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -349,15 +349,21 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+ 		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
+ 		goto Out;
+ 	}
++
+ 	__smu_cmn_send_msg(smu, (uint16_t) index, param);
+ 	reg = __smu_cmn_poll_stat(smu);
+ 	res = __smu_cmn_reg2errno(smu, reg);
+-	if (res != 0)
++	if (res != 0) {
+ 		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
++		goto Out;
++	}
+ 	if (read_arg)
+ 		smu_cmn_read_arg(smu, read_arg);
+ Out:
+ 	mutex_unlock(&smu->message_lock);
++
++	BUG_ON(unlikely(smu->smu_debug_mode) && res);
++
+ 	return res;
+ }
+ 
+-- 
+2.25.1
+
