@@ -4,91 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAFE9C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Dec 2021 23:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBF48C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 00:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0EC6E453;
-	Wed,  1 Dec 2021 23:28:41 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3701A6E453;
- Wed,  1 Dec 2021 23:28:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c8xdIalxlek3aWjBqjajTXMEkdqD3Y16vvkZN35/ey0+OWwAH92emV88wj6OaY12YuFsifWeEfmskU/z5VxDpyKUG2SwXvW6Ox45aoSmrqjzhypnI+b9ZrZNY+b7hrNNSDXIhmjZFUVhBFTme3t5g+kvpdE6mhv1ZS4KlFu1a3RtmKUDe8FibKLBIKmOzmtyYE7gup4SHmJUbVtGg9ztqZQWT1HcwTjOYr40Hy9MGVaQ0oIdbN4nO5z8h4Xrs/xcnsd84gpauTJSbhY2FI36nGhX0ee2oNiq1qfrwH9b0ogRNqW8xXsIfp4vxvnZE+/gSvfu+0QtO4EKzClPujtyRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YVULz9QYbpek/tmEdk46jO5i7zeTQEFMHhweybrVbQc=;
- b=bwOE3d74OcqNtTuPk2+7Qu+D1snAkTOBP1VWJ7l4/jDjRQHwrMcJ4xX3iMQDVbSiyHHPF+TvDaqQjgZB8uYzUou6Kp5XhUzR2lSmcsKn20Lmr9gzZSLCZc3tcD675Kbrkj2rsccdYIkBRDejEcqLtl++gBTtjaY4D07/cgJddb3XYK5cH8bO8lxf8fgN1VZ6ZqX2CLcPBqn86O1tRBRZOq0Kol7LtcxlBpFpUFXMIxWCCqVZll08YGw56CggjY9IKi+oqz8eH8mKLdyjykG/jXTapjfTQXXrCDFSiEspMG3+7R2lCwHpzBxEhZZboEl/y231doInFHfZGxGO937i7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YVULz9QYbpek/tmEdk46jO5i7zeTQEFMHhweybrVbQc=;
- b=EEd6e2s9TDIiYbNr0Y9pSFIF1nV0v+p1nB0hXIPoKSViKqirhJRGVkNMvpWpDw2CGWLj+pzL7louuk/jBr9AT9zm+VxZvYjc1LSXYjIOci4fPrTKw8RUDbYTUH3snqBheAstHebEMNIQZkxVZu6lM+NUP9zY/cRdovmMRjuw7Ew=
-Received: from BN6PR17CA0023.namprd17.prod.outlook.com (2603:10b6:404:65::33)
- by BYAPR12MB3191.namprd12.prod.outlook.com (2603:10b6:a03:133::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Wed, 1 Dec
- 2021 23:28:35 +0000
-Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:65:cafe::2d) by BN6PR17CA0023.outlook.office365.com
- (2603:10b6:404:65::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.24 via Frontend
- Transport; Wed, 1 Dec 2021 23:28:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Wed, 1 Dec 2021 23:28:34 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 1 Dec
- 2021 17:28:32 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu, amdkfd drm-fixes-5.16
-Date: Wed, 1 Dec 2021 18:28:02 -0500
-Message-ID: <20211201232802.5801-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 095446E8C7;
+	Thu,  2 Dec 2021 00:57:01 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A5E86E8E3;
+ Thu,  2 Dec 2021 00:56:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="235327493"
+X-IronPort-AV: E=Sophos;i="5.87,280,1631602800"; d="scan'208";a="235327493"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 16:56:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,280,1631602800"; d="scan'208";a="512249292"
+Received: from lkp-server02.sh.intel.com (HELO 9e1e9f9b3bcb) ([10.239.97.151])
+ by fmsmga007.fm.intel.com with ESMTP; 01 Dec 2021 16:56:55 -0800
+Received: from kbuild by 9e1e9f9b3bcb with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1msaP9-000Faz-8m; Thu, 02 Dec 2021 00:56:55 +0000
+Date: Thu, 2 Dec 2021 08:56:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v4 1/6] drm: move the buddy allocator from i915 into
+ common drm
+Message-ID: <202112020812.Si0y9psY-lkp@intel.com>
+References: <20211201163938.133226-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 50f9b67a-fb41-4045-9bc6-08d9b5224b76
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3191:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB31918BF78CE88BBC3BF8E07EF7689@BYAPR12MB3191.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:506;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aRTw6gfSwBWspBePNzuzfQA82Zcj/TBTygl9+lLVLNu+omlESiV+JP3CqYxH0vpNFfd0ygEyVf6bQFUXGJ1nTqahADyESqhuFezQkA/WklGOl3moj5IIdbcGpl+MfqAn0Fmt6DCENYng71tQL/K13S12AjXSWcQvW+96MZnfa9NpquBQZ+0aAAr93K2OMpongRVcozJbxoQ0KZ73TJhsMczxhp9qldLkTUU5fSH+n/fvDJvGEiLnkrFI66Wu+OumjnVniu2RxLEEBDumcpQjuWwE5ZUukSXykdAXdvmQRewIdlrP7aP1DN1uosAis7WkBV3FO4KSKEz0RHkN2hPzAowOoRSvX/tFN9GAOAVzRB7w3ZsjgJFK7LQHFKSSy3nL0uQfRhtwfy+akCGyE1LOnISd4XEpQIyVAmGawzDsPfJDSvQWgoRw6CtLQPSNr9/dyr6166gmE//+t+jX7tzhheXlD2rbVVL7oURvhHA1GJhDe40PmShmqiPpZln8WexnsOsuT8PKC9HuOp4L9k9HTOPb7JcTIh3/pOoYdzIQuhMFZ1U39sx3dc44RsuySG0XRVHMJ/84iAIre+RdxYZNzQmBvWJKpLviqNt0auNZdjsrT6l3Drc1UnClULA75PAKQoECdQX/LQ/qAFRPp0sSNhgUYTGymVyU1RK35ww9Yg3Eyb9ElaSExaWmKYDlErg+6LcV4X659RdB3FlOjun/2NFINNeodONkg6NFOGRl7L8h8f+1sk6zp+nFE7y9E5QuLIaYINMQNeyIEoQeHT1Y/loPmldYMVgJwt3pXflSjhE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(82310400004)(356005)(26005)(16526019)(110136005)(81166007)(966005)(316002)(40460700001)(508600001)(36756003)(186003)(4001150100001)(70586007)(47076005)(7696005)(8936002)(5660300002)(6666004)(36860700001)(86362001)(70206006)(1076003)(4326008)(8676002)(336012)(2906002)(2616005)(426003)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 23:28:34.6871 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50f9b67a-fb41-4045-9bc6-08d9b5224b76
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3191
+In-Reply-To: <20211201163938.133226-1-Arunpravin.PaneerSelvam@amd.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,95 +50,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: kbuild-all@lists.01.org, Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
+ llvm@lists.linux.dev, matthew.auld@intel.com, tzimmermann@suse.de,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+Hi Arunpravin,
 
-Fixes for 5.16.
+Thank you for the patch! Yet something to improve:
 
-The following changes since commit d58071a8a76d779eedab38033ae4c821c30295a5:
+[auto build test ERROR on drm-intel/for-linux-next]
+[also build test ERROR on v5.16-rc3]
+[cannot apply to drm/drm-next drm-tip/drm-tip next-20211201]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-  Linux 5.16-rc3 (2021-11-28 14:09:19 -0800)
+url:    https://github.com/0day-ci/linux/commits/Arunpravin/drm-move-the-buddy-allocator-from-i915-into-common-drm/20211202-004327
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next
+config: x86_64-randconfig-a012-20211130 (https://download.01.org/0day-ci/archive/20211202/202112020812.Si0y9psY-lkp@intel.com/config)
+compiler: clang version 14.0.0 (https://github.com/llvm/llvm-project 4b553297ef3ee4dc2119d5429adf3072e90fac38)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/afbc900c0399e8c6220abd729932e877e81f37c8
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Arunpravin/drm-move-the-buddy-allocator-from-i915-into-common-drm/20211202-004327
+        git checkout afbc900c0399e8c6220abd729932e877e81f37c8
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/
 
-are available in the Git repository at:
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.16-2021-12-01
+All errors (new ones prefixed by >>):
 
-for you to fetch changes up to 3abfe30d803e62cc75dec254eefab3b04d69219b:
+   In file included from drivers/gpu/drm/i915/intel_memory_region.c:242:
+>> drivers/gpu/drm/i915/selftests/intel_memory_region.c:23:10: fatal error: 'i915_buddy.h' file not found
+   #include "i915_buddy.h"
+            ^~~~~~~~~~~~~~
+   1 error generated.
 
-  drm/amdkfd: process_info lock not needed for svm (2021-12-01 17:09:58 -0500)
 
-----------------------------------------------------------------
-amd-drm-fixes-5.16-2021-12-01:
+vim +23 drivers/gpu/drm/i915/selftests/intel_memory_region.c
 
-amdgpu:
-- IP discovery based enumeration fixes
-- vkms fixes
-- DSC fixes for DP MST
-- Audio fix for hotplug with tiled displays
-- Misc display fixes
-- DP tunneling fix
-- DP fix
-- Aldebaran fix
+232a6ebae419193 Matthew Auld     2019-10-08  14  
+340be48f2c5a3c0 Matthew Auld     2019-10-25  15  #include "gem/i915_gem_context.h"
+b908be543e44414 Matthew Auld     2019-10-25  16  #include "gem/i915_gem_lmem.h"
+232a6ebae419193 Matthew Auld     2019-10-08  17  #include "gem/i915_gem_region.h"
+340be48f2c5a3c0 Matthew Auld     2019-10-25  18  #include "gem/selftests/igt_gem_utils.h"
+232a6ebae419193 Matthew Auld     2019-10-08  19  #include "gem/selftests/mock_context.h"
+99919be74aa3753 Thomas Hellström 2021-06-17  20  #include "gt/intel_engine_pm.h"
+6804da20bb549e3 Chris Wilson     2019-10-27  21  #include "gt/intel_engine_user.h"
+b908be543e44414 Matthew Auld     2019-10-25  22  #include "gt/intel_gt.h"
+d53ec322dc7de32 Matthew Auld     2021-06-16 @23  #include "i915_buddy.h"
+99919be74aa3753 Thomas Hellström 2021-06-17  24  #include "gt/intel_migrate.h"
+ba12993c5228015 Matthew Auld     2020-01-29  25  #include "i915_memcpy.h"
+d53ec322dc7de32 Matthew Auld     2021-06-16  26  #include "i915_ttm_buddy_manager.h"
+01377a0d7e6648b Abdiel Janulgue  2019-10-25  27  #include "selftests/igt_flush_test.h"
+2f0b97ca0211863 Matthew Auld     2019-10-08  28  #include "selftests/i915_random.h"
+232a6ebae419193 Matthew Auld     2019-10-08  29  
 
-amdkfd:
-- Locking fix
-- Static checker fix
-- Fix double free
-
-----------------------------------------------------------------
-Flora Cui (2):
-      drm/amdgpu: cancel the correct hrtimer on exit
-      drm/amdgpu: check atomic flag to differeniate with legacy path
-
-Guchun Chen (1):
-      drm/amdgpu: fix the missed handling for SDMA2 and SDMA3
-
-Jane Jian (1):
-      drm/amdgpu/sriov/vcn: add new vcn ip revision check case for SIENNA_CICHLID
-
-Jimmy Kizito (1):
-      drm/amd/display: Add work around for tunneled MST.
-
-Lijo Lazar (1):
-      drm/amdgpu: Don't halt RLC on GFX suspend
-
-Mustapha Ghaddar (1):
-      drm/amd/display: Fix for the no Audio bug with Tiled Displays
-
-Nicholas Kazlauskas (1):
-      drm/amd/display: Allow DSC on supported MST branch devices
-
-Perry Yuan (1):
-      drm/amd/display: add connector type check for CRC source set
-
-Philip Yang (3):
-      drm/amdkfd: set "r = 0" explicitly before goto
-      drm/amdkfd: fix double free mem structure
-      drm/amdkfd: process_info lock not needed for svm
-
-Shen, George (1):
-      drm/amd/display: Clear DPCD lane settings after repeater training
-
-shaoyunl (1):
-      drm/amdgpu: adjust the kfd reset sequence in reset sriov function
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  8 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 16 +++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  7 ++++---
- drivers/gpu/drm/amd/amdgpu/nv.c                    |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               | 13 ++++--------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  8 ++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 20 ++++++++++++++----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c      | 16 +++++++++++++++
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  | 24 +++++++++++++---------
- drivers/gpu/drm/amd/display/dc/dc.h                |  3 ++-
- drivers/gpu/drm/amd/display/dc/dc_link.h           |  2 ++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  2 +-
- 16 files changed, 90 insertions(+), 40 deletions(-)
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
