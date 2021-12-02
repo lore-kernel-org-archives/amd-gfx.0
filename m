@@ -4,127 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 617F2C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 06:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB75CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 07:18:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02FE6EA4C;
-	Thu,  2 Dec 2021 06:57:58 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2050.outbound.protection.outlook.com [40.107.95.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E64B6EA4C
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Dec 2021 06:57:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E8BA6EA5F;
+	Thu,  2 Dec 2021 07:18:50 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2901C6EA5F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Dec 2021 07:18:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bilYucEq5OzRkY2v+x+e+QJXsS98gCMrEzJVdmnBOURgvyg+ONUy7FYhyVwPvAg4ii54NDjKGvja1GqDDHf4W8fsHh75yAolyhdPHmZ5kJxB5GU4tZ9O+HMW0mXGCixMcWsisudImhsyQ8kh/OmZ0F1BHFuAdp7bq0oFgarVcGCheAkKPXs0BZwhklfvJdQ5m2oaxCgdTa5MS18jY3fB5qeu63TylebG1En0EZBn5iR0izRYswbUFbuUk9MQuj1aEbIIMCeidV6A+51z316GYefT1b1Jo/1KYHgpXHxnlJRsHHJpCz0oReUJ3nQvxIA2ZUBlwuTSa73yd6hFEsty/Q==
+ b=MRdURpuREiyW5EAueERA82SZACe16L7NrV4WeanEvlE95jngylYBqHztJkCYX/9nZjA+vvcsaOjiCKQ0ccNVGxCqmqA6rI8li9Ar8XengiNsg4Z97nUQKrl+mNK3suoM2CfLPrGqnxCkjRcXBwNuTkkGwqPkn0NqFVzcVnjy9YUb0+duhNJv2LQUe7RaxqpGy1tjjsi2kZWfiODgx41azpOxIxzns5cAOcxB9JRsbH3d8+li7HmPqpZpCY58W+WtkXwxT8q+MHqgYGq2EbvNMFEWKblOo0GwFT3+WuKGYJZnF8IWOqIwKOb56fnm43PicI5PKoay+EY7X0UfwMpWYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p3aG73YmbUESuOuAFtMM/QICc4U07fUXU39XlFXV/ro=;
- b=YpKJFMdyQLfCH6GqcYC+o3OFjzC30KlhTwewK9aI+8Cd5mVeFWwNvAvTDEBSSHRx8TrYIx2RMJKov7n6+m2jo23FGzeSqphLafqGXGRjWVjrVBQsALPW3N+AaApl6yeKISz2+1ZOTZI/hTWJFknoCu/Hf1aAFfUgP5+7vZkVDHZvCWDm3ehUB6djRC6juEHHw0TMci5F13QXVoDl/JH4OEzhlu1sYP+K2gs0sSr9s1FeP4lh6iFU0RnQ6dbtjxcX08bf8jQ4i1xaWYXx8GHLhOGA4gacYRGAMMlDT74u4HNfGiaaMFdrkI7GRawoMaRH/B1fdAByo+Mla50TPdH6KQ==
+ bh=QYA7J9Sn2j7Gh+DTrSoN5NEx/NeEJGuDzV8Hsz6MhDw=;
+ b=Tnv5wMwGAGJKe1ThlP79mLFDOcYlDHWsfhVhSnyyJlYjy0TKBJMt8PosFtj75ityBC7mReIjbmPshqKgGZQanQV+TeoLdH7BMBOb5kZauER+lswlMqu1wNGNHFL/E/hedFIthTPIUSQEiuZPog2GYz0oF8etbFZNbvdO+5bbdV4A4+h6Ur66/KPaitCoIUmTtQPVcT2ThDAzKNfNIa4stDYhLQgsa/o78qBqRHO7bFKKTWzA7zgTVGeJoA4obz2Cs7e7Chz20M92OsuSS0hTggB+t7I7cCDWWQqX4q7hZfLhozqOwvmsTz+SCw5nbvJbH0bKTy0UEjtSjEbdL/yAwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p3aG73YmbUESuOuAFtMM/QICc4U07fUXU39XlFXV/ro=;
- b=Jdcp/Mmc3x22+S3P0pTjrOMepZ4zrXgF0NIDpPrbHrew+nT1mQcY0OouHH3GPEJTL1QDV1xDQry7Kjmk4On9vEASmAPaCK/g4szh6nzMJnZ5wJshNp6xiL+NW4voAZolhkvcjVjt3nnFBFZYzp+WwdQs0bBqHVpEqLx2CWDSyIU=
+ bh=QYA7J9Sn2j7Gh+DTrSoN5NEx/NeEJGuDzV8Hsz6MhDw=;
+ b=HKE6eXHpTvAAZecPahle9Gw1hKj04xjAKv9n9nQWJmjwzDUALaclQlXpRXWKNWJUJ2Gr0TJCooqYx2c6yHVQreygmWzKuYEeljBkqcWBKgxAcDBYXHPKKh4S+phoMCUsfxB+1TKLC84oMbbOiGGTIty0bWINuErdab2ACCy3kSs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB4299.namprd12.prod.outlook.com (2603:10b6:5:223::9) with
+ by DM6PR12MB4778.namprd12.prod.outlook.com (2603:10b6:5:167::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Thu, 2 Dec
- 2021 06:57:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Thu, 2 Dec
+ 2021 07:18:46 +0000
 Received: from DM6PR12MB3930.namprd12.prod.outlook.com
  ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
  ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4734.024; Thu, 2 Dec 2021
- 06:57:54 +0000
-Message-ID: <7537335b-8ba9-3bec-de70-aec695aca300@amd.com>
-Date: Thu, 2 Dec 2021 12:27:38 +0530
+ 07:18:46 +0000
+Message-ID: <7109fe67-e442-d719-f0ab-7c5f34165789@amd.com>
+Date: Thu, 2 Dec 2021 12:48:29 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [PATCH V3 01/17] drm/amd/pm: do not expose implementation details
- to other blocks out of power
+Subject: Re: [PATCH] drm/amdgpu: add support to SMU debug option
 Content-Language: en-US
-To: "Quan, Evan" <Evan.Quan@amd.com>,
+To: "Yu, Lang" <Lang.Yu@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20211202030930.1681278-1-evan.quan@amd.com>
- <20211202030930.1681278-2-evan.quan@amd.com>
- <7e4f1675-5047-2994-bb7a-0cf03631b5c6@amd.com>
- <DM6PR12MB261937B5DB4D92DAA516411FE4699@DM6PR12MB2619.namprd12.prod.outlook.com>
- <817c62ad-9cee-804b-3f8a-71fad5f14d6f@amd.com>
- <DM6PR12MB261926A8CA73150722AE77ECE4699@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20211201092458.3348858-1-lang.yu@amd.com>
+ <f7e0dfb0-cdb0-13f2-49e4-d13366a23e0f@amd.com>
+ <DM6PR12MB4250974428DA6713B8BC4802FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
+ <0ee705b0-d9fe-4339-9381-9fe058dfbd3f@gmail.com>
+ <DM6PR12MB42505899AFB96290F516C21BFB689@DM6PR12MB4250.namprd12.prod.outlook.com>
+ <e3bdf34e-b18c-695b-fc58-73426760935b@amd.com>
+ <DM6PR12MB4250CB4C8DE2869BB8BD55D1FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
+ <DM6PR12MB26190D2B5762902954429563E4699@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <DM6PR12MB42509EB2DFDA33A65D4B8C96FB699@DM6PR12MB4250.namprd12.prod.outlook.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DM6PR12MB261926A8CA73150722AE77ECE4699@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB42509EB2DFDA33A65D4B8C96FB699@DM6PR12MB4250.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN1PR01CA0112.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::28)
- To DM6PR12MB3930.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0179.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::34) To DM6PR12MB3930.namprd12.prod.outlook.com
  (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
 Received: from [10.252.81.250] (165.204.159.242) by
- PN1PR01CA0112.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c00::28) with Microsoft
+ PN2PR01CA0179.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:26::34) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.11 via Frontend Transport; Thu, 2 Dec 2021 06:57:50 +0000
+ 15.20.4755.11 via Frontend Transport; Thu, 2 Dec 2021 07:18:41 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bdadf37d-c413-475c-2860-08d9b5611050
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4299:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4299ECA4606F1FBCE2A794B897699@DM6PR12MB4299.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
+X-MS-Office365-Filtering-Correlation-Id: a392a896-9207-4d17-cb76-08d9b563fa4a
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4778:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB477863C02C54DF8794D30B8797699@DM6PR12MB4778.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z+M/o071LCO6wd3tEA7jDJ1WuU+6Yw98/C5NILZYEkmexizKbbfz+tpB1e+TA/AWAhfDd6GNSPr+tIsxse3mt7ovgRdfwj5cheICRDu7mZu/iZT8ZP0I3Q/8iLIOwBRcqEKbTWKfjrm6u33K/lenj+4hZr+qe2HKpkPyPeMUW+whnbOuJ20KseGUED4+qcKfL5SsXk8gnarqLjckOHKr+0RQumU0XInmL27Kpi9JLwRunTGU2A7IIHUCqT5rIUkPSlwc/dKSmTtgPBPXy32GuKHat5P4GOHOLs6OUaspT4cx2bGnqVE0oYmOWN4PTjA48F3r8ieuT7cYXebPFEShWts8ZintH6oLFYy9/nmfJ/pVI9iJttLeyNemfkSn+CQ0ocoYwbUqoLpq/AH23+D3AJfXrfQP6BcFj+GKfr+1fACUqjXaUFQuVZqa1QM6v792K6mwXzONEtGb7lQW+W3zwDi7N0EpzmonZrbryCMlA7MsSSDrRZm5ko1tj016Oq0k/YaKl9IBI0OWaPEbh9VCHHRcmpuZIS2G5HUZSdae/6kEAnciMM1elXFkJalvOfl9o7b1ARd6dPqSa4J1H3uJEMX2BR/8Hk4qnFgNER4kzXrYgR+/gpEhYO46UfoIwXoa7+kBwlMyZ+7W7VKhLB6wxBWL7ycljVZXx3Vb0Ey6y9o0kYbJpLh5y8vqccYqrq52j9YI6lf91xpdOQ9XNBgdn+boCv9mBtwI7AsdwY42UHmJ3YmTWW+KhaYI5c14X5EW
+X-Microsoft-Antispam-Message-Info: gRMk1TsIcutDmJrNDFOhPCEG00XiJuSNkF8JM/HZjplTrJPUHa9rdpfTiqKsQcvmDzNhxo1FMcHyOoFy2tCokmJEOc7j7jMk6IUYswMZCsrFoVrfoeuevEoWFHl9ZHlx2F1R8fHgmL9bs7HSMBGeGRj+YtNhmOweh7JSkBe/E793bPe/R+CRgREtvGjVtl19qJJIsrX7nT5wrzlOF1QmzdE4yfS99g2qi6Fv/jIhHwy3LyWKdbpZREkIKuyraceBo8BqpfZlWSaXZeFwGNe3z8IOAaVIi1k1gxSNS1ETG6w4AV1rdEZ4BFxw9UZLFqQXDE5dzjCYI6Qos6FAswO46PfEE0a6cKDtyUCbHjilHdkfje2j6mGCAkLBaPz+OLWa4vxkhpgmso4qtQm8kdsImgEAim7TFWfmRexhRGl/ryW9w3DRHfC6S0hzy9vHX3XZ1DllV3XqvLY2GUG2j0qTsd1UN5w+8XLD+buWHoAeVVcF+5LfljO16Np7162H8Jv64BToWcJOFXnj1peu3cSPdbQBkfuJ6iXbIuXZj0POD0cK1E/Y8HYyLogudO4GhECwoF03Hb/jTADGOmIVgN3N/8KKv62hlsMiy1j/bY9tceMUDXGKzOm74vivLdrxazlzy5yLXJOH2ZRLExBo3YUSfCvksD40MmQ4Wmkwjz0nVoOdSqRCPYe92ly/Y0UMB5yuyDAeErCRjSAxqVE3Tn8ib8MtnWgYjS9IvghIyXe9vhncBHqCz4mL0q291KbwujG5
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(31686004)(316002)(16576012)(38100700002)(86362001)(8936002)(54906003)(36756003)(26005)(6486002)(31696002)(2616005)(6666004)(110136005)(30864003)(83380400001)(956004)(4326008)(66556008)(19627235002)(66476007)(66946007)(508600001)(2906002)(8676002)(53546011)(186003)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(8936002)(16576012)(316002)(5660300002)(4326008)(53546011)(2906002)(36756003)(86362001)(38100700002)(66556008)(66946007)(54906003)(6666004)(83380400001)(31696002)(110136005)(31686004)(66476007)(956004)(26005)(2616005)(66574015)(186003)(6486002)(508600001)(8676002)(30864003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZXppZUJVa29uNS9xaDNYbWgyYk5LWXgraWJ3ZXc3bzVmZ2FvTmRkcHF3YU5n?=
- =?utf-8?B?SjJuZjVncEtSZ25PTktiOUZtZTc1UEFnLzVmK2VJdlFoZkZ4dHZiT3cwTWtB?=
- =?utf-8?B?MTM2SVUrYzlxK2Qyb09VTk5yV1NPQ050TmtTQ1RtemFmTFkvT2RSUnM4MlI5?=
- =?utf-8?B?VXZOUUdscXVXdjRmZzdjYllXaWRFeFhvUGlhSmFBbDYybE9MQXNBZ0Ntdnkz?=
- =?utf-8?B?aDZkc2lyLzhJYkFMNVFNV0dSVHhjVUE4M2NudnhpckpyckNCZVVQQzlaNzZv?=
- =?utf-8?B?MXpLaUJSWkhQZ1JrNGNZS2M3Z2hOWGRFem1aSGc5SzRobjFyWGZ2YlNtcFI3?=
- =?utf-8?B?UnhwYTJPNHQwaC9KZG9ycnNmdmhOK1NVL2pOVXVORkVZRVNXMWdaWmJhdEhj?=
- =?utf-8?B?Z3VaTnJkK2ZDeGViUHJsL1ZmNThmakVLRlJoVjNrNkxQZHpzditwNDFJMU50?=
- =?utf-8?B?bS8xWnZUenQ2S1VXQkNJNGJFTVM1eGgxS1o2R1AvbGVjWXQrQi9PSUNobWNo?=
- =?utf-8?B?K2lReVZZaE5tQWMzbGZ3T1dERE5uY3NwZk5WbU13OGNGeDZSTEpkM20rUDJL?=
- =?utf-8?B?MlhxVWNqaENqN1pCcC93bTdkdHZsa0xlOUJmR3pqenJJR21KQkE0RkppWHpn?=
- =?utf-8?B?QVRiekpnL3pVeE50cldSQ0hZdXFWei9SK2M5bzdpOWtHaGZWTFpobGlPU1Ru?=
- =?utf-8?B?RFhlMC90N254ZTBXamhVOW9raHB1UHMwendoYS82OUJ4end2bkNmd1I1NVNt?=
- =?utf-8?B?QlhmV0pobi9ocUxTdE9nK3lIT1l5WHhRK1ZRYlkxMzd0V3VmNXZGY3FJMU42?=
- =?utf-8?B?RExBSW91WkZnbHVjMU9KOFZUV1VTY3FSK2laVFNpR3hTR09QQi9rZVZvamJ5?=
- =?utf-8?B?OHZ3Mm9mdEsxbnl0dVlhclhURlhTNHI2SkV5UjZUTDNKY05jMUM1Wk9LVHJC?=
- =?utf-8?B?RzZNTzZTb3pKSElNN0d5TGFWZjd2bGxyZy9FRWRNUWU1N3lJOHdicjVOYk5u?=
- =?utf-8?B?MXQ5aVQwR3FocSsrbnlmVDJnZUg1SkxuZUNDSmxFR29GdkJocVV4cVBKOG9u?=
- =?utf-8?B?TU1IUkoyUTJuWkxHYVY2RlRkZEdGK3lFYS9hcHFHMUlWQlVaSGg3c0N2YWp3?=
- =?utf-8?B?SWVwZTJqRkIrcFhkWWhQV1NJZWxHREVoQWw4aXNyNXpsU0xrL2hGK0xrMkY2?=
- =?utf-8?B?ZlV6NVRZT1UyQ1BQL3lOZUZrYzFnVHg1RlpCYWhYZVYyTlJZNEU2L3N6VnZR?=
- =?utf-8?B?RFRObUF2aGM4akllaDFscVgyWUNQbG5TWTRocGFIS29rV0RveS9iY1oyRVM5?=
- =?utf-8?B?bnRxTGNCUGxHNzhlNlBWR3pQMEVpT0NsT1VZc0NwNU1NdEJZWjl4ZU9TSnky?=
- =?utf-8?B?clNCL1l0bkZJeC9ZSWtUb1c1QnJQRVRXWVI1Umx5TS9aT085VXB0bG1CSGJ3?=
- =?utf-8?B?OXZtY0ovVEltRm5pQUw4ZlhIL21tTzJqR2t1ZkZHK1RJWU5DRUEwK2kvRDg5?=
- =?utf-8?B?S2M2bFlZbXR0NmVVRVlrdFJ2N2Z1MDN2OGFKRFJIWEZHSlVQS3hIekpWZytE?=
- =?utf-8?B?bm9FV3lyb1dsZ0JBNGFRL0wxdlMwRW1IdHVOc1Qzbk92VXNxelcvdUR2OCsw?=
- =?utf-8?B?RW11MXR4ajFVeW1FT1E0dW0wVk1qTE5kMzNsZGhVQ2d3a2x5ZDJwdldUU3Jr?=
- =?utf-8?B?ODA3eFRWWWNCOWJVM3VSaDlGU1U5dTdzclc2aUFGb1ZMTzNWVTNGYWIrdUR2?=
- =?utf-8?B?YWdNdDJMWVVCZFdVZ1Y1TEdLMUF5M2tueFBCVmpuUDBnbUdPTXphT1l2YXlP?=
- =?utf-8?B?ZXN1QUd4T1Y3S0FOU2J3dnFKMThoVE04KzN5amhUemltWnFHSjhrYTJRV0lm?=
- =?utf-8?B?UmJTUHowTkRUZ2xTVWlnU0Y1ZnBTdWJVb0F2cTBwNXV0dzFNR2NQYTFHdFc0?=
- =?utf-8?B?V2ZzUkg1dWRyWHlSb2JoaGhxdU9neGRhd2NkbzB1T0R6ejhRemZ3ZlIxMlVv?=
- =?utf-8?B?aVlTajRUbDM2NHFPWGw4ejBISjJXS0lqSGkzOVJabG1mZjFFcW9XMGpPTXg0?=
- =?utf-8?B?ajNvaDhaZVZOay9KaDFodGtBcmFEc0pRVEEydFQwS1YyWDRGemlBbG5uY1My?=
- =?utf-8?Q?P3Lc=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UFlsR0hXNmhpYmZLV2p4MXR3QXdWYzJlcHFId1B3RzZSbG8xSzNXQXBKK0Nm?=
+ =?utf-8?B?RmZaLzlPM2VWS2hDN1FFQnJZbmJRV0xVRmNYMG9rTGVUanJNaTNFNVlQYUE5?=
+ =?utf-8?B?SHErc3diMkEyVmVDa09icEhvYkxhbHd2b3BNdGZ1NVo3N0FCUmtmNVFrNWJI?=
+ =?utf-8?B?b2ttbm84dnJvVW5tZkd6VmxoUTBxSEwya1E5Q3M4c1dTU0pnZ0xpbjc0NGc5?=
+ =?utf-8?B?K0R0c0YrUHdwUVFzamdWWldBS0F2ZEJZVDJsMTkzelA2ZmxzL1RaZmtkNVRy?=
+ =?utf-8?B?M1hBMUJkUjZLamI4dTdteTRNaTJocVpOTGNVekVVejhjNE5yNm5wWVBYckZZ?=
+ =?utf-8?B?aHEzaDJsRnJjWHpybGwvWERrVisxbmFWQ25TTmVRcHRLZUE5YWgycVRweGJW?=
+ =?utf-8?B?QzNUUzdDQkpNZllLVldFVHRnM3lVWDdZQW5VVXprdW9JMVhTQmszTVN5SGVs?=
+ =?utf-8?B?RGluNjZwZ1QyWUQ2ZFQ3Q0kwcWlEM1RJRzhrclE2TU1ueUE3dHZXTkYrZnFT?=
+ =?utf-8?B?eE5OU1dMc0VhR1RrYTRFZ3Vrc0MvYTdwYndBdlNNS1QrTWhNaldVS3lvVWlF?=
+ =?utf-8?B?enU4aW1FZWozenE4T3Z0ODNjUGMxR0RDQ3lpY3VxUzRhaUhmVEp3RmYvOXlW?=
+ =?utf-8?B?WmVOdjcya01XWkxaRXdqcmZQazlCRlJ2c2pnTkIrL2kvSUtkYkk5blREQ3Rs?=
+ =?utf-8?B?TTIrYVR3NENHTmZmcTROS3VWSnBkRXU0SGE4YjJBbzVuRy9YbDJlUDg2WjZR?=
+ =?utf-8?B?ZWlnejJJVHc3OWNaamQ1NXppcHZSQnU1Z2JCVUpwTms0aVJJZlY0VmVvUW1z?=
+ =?utf-8?B?T1d1S2EwaGVTM3FjYXdzMFZYVjB6bmlXMTVBaVFjdHR3M3BxdXZPUFByRG12?=
+ =?utf-8?B?bEJtcHpUM3ZwRHJFQUxEbzVib0FnNitEVlB1MUdHNlR5ZXp4TUk3WGM1MDNw?=
+ =?utf-8?B?ZmF2QWc4VXVWV1RKbXkwcVNVMEc3bTNTV3VveFBqakxuYk44Ym1QTDZGZW42?=
+ =?utf-8?B?YTlZZ3p4Y05SRTZ6WEFwUzFWRTRoM3RRYzdOSUdlQmNCZTJFODJuNjF0VFFO?=
+ =?utf-8?B?S1N5RDlRazJpS0F4SC8vdjdjWEprMXVBSEdNaTlPSzA5M2VHUkpWWllkMFhI?=
+ =?utf-8?B?SGc1VkxQck1mZVVIdklxb21VaWJMd0daN21icUFucVNaVVRVMTJ0dEJZYTdS?=
+ =?utf-8?B?SlgyREhmMndxTFhvR2hQVXc3cllGc0FhOWhLbmJjNndvS3pJODNaNTN6OENB?=
+ =?utf-8?B?SFRjeVRqNHAvSEpoOWlvYzAxeE44RWdxT0RrQ1lzRkszb2tpWnNiVXFka2w3?=
+ =?utf-8?B?clpoZzdrWUUxQk9DRUR1Sm52ZUNpSUlZWjZIWUxHMDRnQVZZYkdXc0xxdmFC?=
+ =?utf-8?B?MmJ1MjBuaHAwaS9RVnVwNVU5K0FONSt2RkcvSFZtKzRSS0phcGF4RkZzc21H?=
+ =?utf-8?B?c3BCMnJ3RkZaR0YvZnZPVWwvWFRzUXFzbFJEU056ZVZENmtVR3ZweEhyYlFn?=
+ =?utf-8?B?WXdxVlNmSHpKb2FHSW5SQ3doUm5vcDU1K2VTOWIzbXZCT0pnd2Z0UUthejhH?=
+ =?utf-8?B?elh5U21CZmNsYkxKQlNOWjBVTjFreDFaMHMrczZRMXU1bndPVnFpQy9IU3Vq?=
+ =?utf-8?B?REV1VnhYMmVuMVpJYVNMTVF5SnJSK3pLRjVUMEx3SUcrenJPblgxSkd6QWht?=
+ =?utf-8?B?QWZIN1dMNHhJcjU4VjhBaXUxam83cjVNbHB6THh2L2t3SlFtTUpVZS9GNEI0?=
+ =?utf-8?B?N1NzOGFkdHJaTnBTYnU2eU0zNnhJTHhXY3dPSmNUMWZlSzBlUG9rRTQ1cTdo?=
+ =?utf-8?B?NjZvT0g2TGN3M0ZRV1FzeDhWVlcvTTJHbjZhVjFzOFBTU1J6NC9uTlFobDRT?=
+ =?utf-8?B?QVFFMWtNR1ByNzVFajh5d2JLdDM3U3FPM2pjMWVnMzZxblFnNGU3VVZCVmdI?=
+ =?utf-8?B?TTFob1AzTklFdWdUa2R1a25OS0dOb3pYUzk4VjZRelNYVEJnNEVsOTZuQktU?=
+ =?utf-8?B?TjlWZU81OFRMclRrcWZaNzVZQUZqN1N3YTZWMjQ2dHZZN1FmdFc0QzFTcHAr?=
+ =?utf-8?B?Sm1DbmtlWkxCbTNlMFZSUG5WYmtBV3lRTUZjZmlwc05ESThkSCt6SkVpa2FX?=
+ =?utf-8?Q?5TH8=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdadf37d-c413-475c-2860-08d9b5611050
+X-MS-Exchange-CrossTenant-Network-Message-Id: a392a896-9207-4d17-cb76-08d9b563fa4a
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 06:57:54.6835 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 07:18:46.1067 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4mff+hiTDbTqwzf2fmQY0AUrUBSuYR0vwsbuz1cHAmyqh4/cRowSdn8D7ayMFYzi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4299
+X-MS-Exchange-CrossTenant-UserPrincipalName: YDwDsiZ/O1/APwufdzgZf74KvdHZMD6nw9oircGRfL2SDaPGvaOqqKDVvSH0Y+i9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4778
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,684 +140,290 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
+ Ray" <Ray.Huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 12/2/2021 11:48 AM, Quan, Evan wrote:
+On 12/2/2021 8:42 AM, Yu, Lang wrote:
 > [AMD Official Use Only]
 > 
 > 
 > 
 >> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Thursday, December 2, 2021 1:12 PM
->> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
->> Subject: Re: [PATCH V3 01/17] drm/amd/pm: do not expose implementation
->> details to other blocks out of power
+>> From: Quan, Evan <Evan.Quan@amd.com>
+>> Sent: Thursday, December 2, 2021 10:48 AM
+>> To: Yu, Lang <Lang.Yu@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; Christian König
+>> <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
+>> <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+>> Subject: RE: [PATCH] drm/amdgpu: add support to SMU debug option
+>>
+>> [AMD Official Use Only]
 >>
 >>
 >>
->> On 12/2/2021 10:22 AM, Quan, Evan wrote:
+>>> -----Original Message-----
+>>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yu,
+>>> Lang
+>>> Sent: Wednesday, December 1, 2021 7:37 PM
+>>> To: Koenig, Christian <Christian.Koenig@amd.com>; Christian König
+>>> <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org
+>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
+>>> <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+>>> Subject: RE: [PATCH] drm/amdgpu: add support to SMU debug option
+>>>
 >>> [AMD Official Use Only]
 >>>
 >>>
 >>>
 >>>> -----Original Message-----
->>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>> Sent: Thursday, December 2, 2021 12:13 PM
->>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
->>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
->> Christian
->>>> <Christian.Koenig@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
->>>> Subject: Re: [PATCH V3 01/17] drm/amd/pm: do not expose
->>>> implementation details to other blocks out of power
+>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>> Sent: Wednesday, December 1, 2021 7:29 PM
+>>>> To: Yu, Lang <Lang.Yu@amd.com>; Christian König
+>>>> <ckoenig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org
+>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
+>>>> <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+>>>> Subject: Re: [PATCH] drm/amdgpu: add support to SMU debug option
 >>>>
->>>>
->>>>
->>>> On 12/2/2021 8:39 AM, Evan Quan wrote:
->>>>> Those implementation details(whether swsmu supported, some
->> ppt_funcs
->>>>> supported, accessing internal statistics ...)should be kept
->>>>> internally. It's not a good practice and even error prone to expose
->>>> implementation details.
+>>>> Am 01.12.21 um 12:20 schrieb Yu, Lang:
+>>>>> [AMD Official Use Only]
 >>>>>
->>>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
->>>>> Change-Id: Ibca3462ceaa26a27a9145282b60c6ce5deca7752
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/aldebaran.c        |  2 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   | 25 +++---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  6 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 18 +---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  7 --
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  5 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |  5 +-
->>>>>     drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   |  2 +-
->>>>>     .../gpu/drm/amd/include/kgd_pp_interface.h    |  4 +
->>>>>     drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 90
->>>> +++++++++++++++++++
->>>>>     drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       | 25 +++++-
->>>>>     drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       | 11 +--
->>>>>     drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 26 +++---
->>>>>     13 files changed, 161 insertions(+), 65 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
->>>>> index bcfdb63b1d42..a545df4efce1 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
->>>>> @@ -260,7 +260,7 @@ static int aldebaran_mode2_restore_ip(struct
->>>> amdgpu_device *adev)
->>>>>     	adev->gfx.rlc.funcs->resume(adev);
->>>>>
->>>>>     	/* Wait for FW reset event complete */
->>>>> -	r = smu_wait_for_event(adev, SMU_EVENT_RESET_COMPLETE, 0);
->>>>> +	r = amdgpu_dpm_wait_for_event(adev,
->>>> SMU_EVENT_RESET_COMPLETE, 0);
+>>>>>> -----Original Message-----
+>>>>>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+>>>>>> Sent: Wednesday, December 1, 2021 6:49 PM
+>>>>>> To: Yu, Lang <Lang.Yu@amd.com>; Koenig, Christian
+>>>>>> <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
+>>>>>> <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+>>>>>> Subject: Re: [PATCH] drm/amdgpu: add support to SMU debug option
+>>>>>>
+>>>>>> Am 01.12.21 um 11:44 schrieb Yu, Lang:
+>>>>>>> [AMD Official Use Only]
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>> -----Original Message-----
+>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>>>> Sent: Wednesday, December 1, 2021 5:30 PM
+>>>>>>>> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
+>>>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
+>>>>>>>> <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+>>>>>>>> Subject: Re: [PATCH] drm/amdgpu: add support to SMU debug option
+>>>>>>>>
+>>>>>>>> Am 01.12.21 um 10:24 schrieb Lang Yu:
+>>>>>>>>> To maintain system error state when SMU errors occurred, which
+>>>>>>>>> will aid in debugging SMU firmware issues, add SMU debug option
+>>> support.
+>>>>>>>>>
+>>>>>>>>> It can be enabled or disabled via amdgpu_smu_debug debugfs file.
+>>>>>>>>> When enabled, it makes SMU errors fatal.
+>>>>>>>>> It is disabled by default.
+>>>>>>>>>
+>>>>>>>>> == Command Guide ==
+>>>>>>>>>
+>>>>>>>>> 1, enable SMU debug option
+>>>>>>>>>
+>>>>>>>>>      # echo 1 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+>>>>>>>>>
+>>>>>>>>> 2, disable SMU debug option
+>>>>>>>>>
+>>>>>>>>>      # echo 0 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+>>>>>>>>>
+>>>>>>>>> v3:
+>>>>>>>>>      - Use debugfs_create_bool().(Christian)
+>>>>>>>>>      - Put variable into smu_context struct.
+>>>>>>>>>      - Don't resend command when timeout.
+>>>>>>>>>
+>>>>>>>>> v2:
+>>>>>>>>>      - Resend command when timeout.(Lijo)
+>>>>>>>>>      - Use debugfs file instead of module parameter.
+>>>>>>>>>
+>>>>>>>>> Signed-off-by: Lang Yu <lang.yu@amd.com>
+>>>>>>>> Well the debugfs part looks really nice and clean now, but one
+>>>>>>>> more comment below.
+>>>>>>>>
+>>>>>>>>> ---
+>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        | 3 +++
+>>>>>>>>>      drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h            | 5 +++++
+>>>>>>>>>      drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 2 ++
+>>>>>>>>>      drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             | 8 +++++++-
+>>>>>>>>>      4 files changed, 17 insertions(+), 1 deletion(-)
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>>>> index 164d6a9e9fbb..86cd888c7822 100644
+>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>>>> @@ -1618,6 +1618,9 @@ int amdgpu_debugfs_init(struct
+>>>>>>>>> amdgpu_device
+>>>>>>>> *adev)
+>>>>>>>>>      	if (!debugfs_initialized())
+>>>>>>>>>      		return 0;
+>>>>>>>>>
+>>>>>>>>> +	debugfs_create_bool("amdgpu_smu_debug", 0600, root,
+>>>>>>>>> +				  &adev->smu.smu_debug_mode);
+>>>>>>>>> +
+>>>>>>>>>      	ent = debugfs_create_file("amdgpu_preempt_ib", 0600,
+>>> root,
+>>>> adev,
+>>>>>>>>>      				  &fops_ib_preempt);
+>>>>>>>>>      	if (IS_ERR(ent)) {
+>>>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>>>>>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>>>>>> index f738f7dc20c9..50dbf5594a9d 100644
+>>>>>>>>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>>>>>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>>>>>>>> @@ -569,6 +569,11 @@ struct smu_context
+>>>>>>>>>      	struct smu_user_dpm_profile user_dpm_profile;
+>>>>>>>>>
+>>>>>>>>>      	struct stb_context stb_context;
+>>>>>>>>> +	/*
+>>>>>>>>> +	 * When enabled, it makes SMU errors fatal.
+>>>>>>>>> +	 * (0 = disabled (default), 1 = enabled)
+>>>>>>>>> +	 */
+>>>>>>>>> +	bool smu_debug_mode;
+>>>>>>>>>      };
+>>>>>>>>>
+>>>>>>>>>      struct i2c_adapter;
+>>>>>>>>> diff --git
+>>> a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>>>> index 6e781cee8bb6..d3797a2d6451 100644
+>>>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>>>> @@ -1919,6 +1919,8 @@ static int aldebaran_mode2_reset(struct
+>>>>>>>> smu_context *smu)
+>>>>>>>>>      out:
+>>>>>>>>>      	mutex_unlock(&smu->message_lock);
+>>>>>>>>>
+>>>>>>>>> +	BUG_ON(unlikely(smu->smu_debug_mode) && ret);
+>>>>>>>>> +
+>>>>>>>>>      	return ret;
+>>>>>>>>>      }
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>>>> index 048ca1673863..9be005eb4241 100644
+>>>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>>>> @@ -349,15 +349,21 @@ int
+>>>> smu_cmn_send_smc_msg_with_param(struct
+>>>>>>>> smu_context *smu,
+>>>>>>>>>      		__smu_cmn_reg_print_error(smu, reg, index, param,
+>>>> msg);
+>>>>>>>>>      		goto Out;
+>>>>>>>>>      	}
+>>>>>>>>> +
+>>>>>>>>>      	__smu_cmn_send_msg(smu, (uint16_t) index, param);
+>>>>>>>>>      	reg = __smu_cmn_poll_stat(smu);
+>>>>>>>>>      	res = __smu_cmn_reg2errno(smu, reg);
+>>>>>>>>> -	if (res != 0)
+>>>>>>>>> +	if (res != 0) {
+>>>>>>>>>      		__smu_cmn_reg_print_error(smu, reg, index, param,
+>>>> msg);
+>>>>>>>>> +		goto Out;
+>>>>>>>>> +	}
+>>>>>>>>>      	if (read_arg)
+>>>>>>>>>      		smu_cmn_read_arg(smu, read_arg);
+>>>>>>>>>      Out:
+>>>>>>>>>      	mutex_unlock(&smu->message_lock);
+>>>>>>>>> +
+>>>>>>>>> +	BUG_ON(unlikely(smu->smu_debug_mode) && res);
+>>>>>>>> BUG_ON() really crashes the kernel and is only allowed if we
+>>>>>>>> prevent further data corruption with that.
+>>>>>>>>
+>>>>>>>> Most of the time WARN_ON() is more appropriate, but I can't
+>>>>>>>> fully judge here since I don't know the SMU code well enough.
+>>>>>>> This is what SMU FW guys want. They want "user-visible
+>>>>>>> (potentially
+>>>>>>> fatal)
+>>>>>> errors", then a hang.
+>>>>>>> They want to keep system state since the error occurred.
+>>>>>> Well that is rather problematic.
+>>>>>>
+>>>>>> First of all we need to really justify that, crashing the kernel
+>>>>>> is not something easily done.
+>>>>>>
+>>>>>> Then this isn't really effective here. What happens is that you
+>>>>>> crash the kernel thread of the currently executing process, but it
+>>>>>> is perfectly possible that another thread still tries to send
+>>>>>> messages to the SMU. You need to have the BUG_ON() before dropping
+>>>>>> the lock to make sure that this really gets the driver stuck in
+>>>>>> the current
+>>> state.
+>>>>> Thanks. I got it. I just thought it is a kenel panic.
+>>>>> Could we use a panic() here?
 >>>>
->>>> Hi Evan,
+>>>> Potentially, but that might reboot the system automatically which is
+>>>> probably not what you want either.
 >>>>
->>>> As mentioned in the earlier comments, I suggest you to leave these
->>>> newer APIs and take care of the rest of the APIs. These may be
->>>> covered as
->>>> amdgpu_smu* in another patch set. Till that time, it's not needed to
->>>> move them to amdgpu_dpm (as mentioned before, some of them are
->> are
->>>> not even remotely related to power management).
->>> [Quan, Evan] This patch series highly relies on such change. That is swsmu is
->> another framework as powerplay and all access should come through
->> amdgpu_dpm.c.
->>> More specifically, patch 13 and 17 directly relies on this.
->>> Further more, without the unified lock protection from patch 17, the
->> changes for dropping unneeded locks(which had been in my local branch) will
->> be impossible.
+>>>> How does the SMU firmware team gather the necessary information when
+>>> a
+>>>> problem occurs?
 >>>
->> Patch 13 is directly related to smu context. I don't see many smu context
->> related APIs added in amdgpu_dpm. I guess you could convert those APIs
->> directly to pass amdgpu_device instead of smu_context.
->>
->> Ex: smu_get_ecc_info(struct amdgpu_device *adev,
->>
->> As for the mutex change, we could still use pm.mutex in place of smu mutex,
->> right?
-> [Quan, Evan] I'm afraid such partial change(some swsmu APIs get called though amdgpu_dpm while others via smu_* directly) will cause some chaos.
-> That is some will have their lock protection(pm.mutex) in amdgpu_dpm.c while others in amdgpu_smu.c.
-> That also means some swsmu APIs in amdgpu_smu.c  need pm.mutex while others do not.
+>>> As far as I know, they usually use a HDT to collect information.
+>>> And they request a hang when error occurred in ticket.
+>>> "Suggested error responses include pop-up windows (by x86 driver, if
+>>> this is
+>>> possible) or simply hanging after logging the error. "
+>> [Quan, Evan] Maybe what they want is just a stable SMU state(like no more
+>> message issuing after failure).
+>> If that's true, I think you can just bail out on __smu_cmn_poll_stat() failure(in
+>> smu_cmn_send_smc_msg_with_param() and
+>> smu_cmn_send_msg_without_waiting()).
+>> That will prevent further message issuing to SMU.
 > 
-> I would prefer current way which converts all of them to be called through amdgpu_dpm.
-> If needed, we can convert them all back to smu_* directly later(with new patch set).
-> That will be simpler.
->>
->>> I'm fine with the idea that naming those APIs supported by swsmu only
->> with prefix amdgpu_smu*. But that has to be done after this patch series.
->>> And I would expect those APIs are located in amdgpu_dpm.c(instead of
->> amdgpu_smu.c) also.
->>
->> I don't think so. amdgpu_dpm and amdgpu_smu should be separate. I guess
->> we shouldn't plan to have additional APIs in amdgpu_dpm anymore and
->> move to component based APIs.
-> [Quan, Evan] Well, you could argue that. But as I said, image user wants to call some swsmu api from gfx_v9_0.c(some asics(ALDEBARAN/ARCTURUS) support swsmu while others not).
-> What will be used then?  Maybe checking for the asic type(knows which ASIC support swsmu) or swsmu support before calling. Then still we are leaking power implementation details.
+> But it's difficult to distinguish normal timeout cases(see aldebaran_mode2_reset()).
+> Sometimes it's reasonable to return a timeout. The user wants to use a longer timeout.
 > 
 
-Currently, I don't see a case like this. But as per the component 
-version arch we have, it is managed with a component version. Like, we 
-don't keep a common gfx_v9_0.c that has all the logic for all gfx9 
-ASICs. We also have specific versions also like gfx_9_4.c gfx_9_4_2.c 
-etc. The newer ones could call amdgpu_smu_* without any checks.
-
-The exception could be a common place like debugfs/sysfs calls, though 
-there also we could have nodes which are valid only amdgpu_smu. Those 
-need to be managed during the creation of such ones.
-
-> Hmm, if you do not think this("leave these newer APIs and take care of the rest of the APIs") as a fatal/critical issue.
-> Can I have your RB to get this patch series launched first and discuss the further action later?
-
-I think it's cleaner to do smu -> amdgpu_smu and avoid smu -> dpm -> 
-amdgpu_smu.
-
-> Since this patch series had been verified locally.
-> And the possible action based on the comment("leave these newer APIs and take care of the rest of the APIs") will involve a lot of rebase. That seems a risk.
-> 
-
-I haven't checked other ones in v3 series yet. In  general, would prefer 
-to take smu -> amdgpu_smu rather than having an intermediate state.
+Other than driver, other FWs also will interact with PMFW and this 
+itself may not take care of that. The ideal thing is to stop driver jobs 
+and further execution to preserve the fail state. BUG() may be the 
+easiest if the expectation is to use external hardware to check the fail 
+state.
 
 Thanks,
 Lijo
 
-> BR
-> Evan
+> Regards,
+> Lang
+> 
 >>
->> Thanks,
->> Lijo
->>
+>> BR
+>> Evan
 >>>
->>> BR
->>> Evan
+>>> Regards,
+>>> Lang
+>>>
 >>>>
->>>> Thanks,
->>>> Lijo
+>>>> When they connect external hardware a BUG_ON() while holding the SMU
+>>>> lock might work, but if they want to SSH into the system you should
+>>>> probably rather set a flag that the hardware shouldn't be touched any
+>>>> more by the driver and continue.
 >>>>
->>>>>     	if (r) {
->>>>>     		dev_err(adev->dev,
->>>>>     			"Failed to get response from firmware after reset\n");
->>>> diff --git
->>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>> index 164d6a9e9fbb..0d1f00b24aae 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>>>> @@ -1585,22 +1585,25 @@ static int amdgpu_debugfs_sclk_set(void
->>>>> *data,
->>>> u64 val)
->>>>>     		return ret;
->>>>>     	}
+>>>> Otherwise the box is most likely really unstable after this.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
 >>>>>
->>>>> -	if (is_support_sw_smu(adev)) {
->>>>> -		ret = smu_get_dpm_freq_range(&adev->smu, SMU_SCLK,
->>>> &min_freq, &max_freq);
->>>>> -		if (ret || val > max_freq || val < min_freq)
->>>>> -			return -EINVAL;
->>>>> -		ret = smu_set_soft_freq_range(&adev->smu, SMU_SCLK,
->>>> (uint32_t)val, (uint32_t)val);
->>>>> -	} else {
->>>>> -		return 0;
->>>>> +	ret = amdgpu_dpm_get_dpm_freq_range(adev, PP_SCLK,
->>>> &min_freq, &max_freq);
->>>>> +	if (ret == -EOPNOTSUPP) {
->>>>> +		ret = 0;
->>>>> +		goto out;
->>>>>     	}
->>>>> +	if (ret || val > max_freq || val < min_freq) {
->>>>> +		ret = -EINVAL;
->>>>> +		goto out;
->>>>> +	}
->>>>> +
->>>>> +	ret = amdgpu_dpm_set_soft_freq_range(adev, PP_SCLK,
->>>> (uint32_t)val, (uint32_t)val);
->>>>> +	if (ret)
->>>>> +		ret = -EINVAL;
+>>>>> Regards,
+>>>>> Lang
 >>>>>
->>>>> +out:
->>>>>     	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>>>>     	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>>>>
->>>>> -	if (ret)
->>>>> -		return -EINVAL;
->>>>> -
->>>>> -	return 0;
->>>>> +	return ret;
->>>>>     }
->>>>>
->>>>>     DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL, diff --git
->>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> index 1989f9e9379e..41cc1ffb5809 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> @@ -2617,7 +2617,7 @@ static int amdgpu_device_ip_late_init(struct
->>>> amdgpu_device *adev)
->>>>>     	if (adev->asic_type == CHIP_ARCTURUS &&
->>>>>     	    amdgpu_passthrough(adev) &&
->>>>>     	    adev->gmc.xgmi.num_physical_nodes > 1)
->>>>> -		smu_set_light_sbr(&adev->smu, true);
->>>>> +		amdgpu_dpm_set_light_sbr(adev, true);
->>>>>
->>>>>     	if (adev->gmc.xgmi.num_physical_nodes > 1) {
->>>>>     		mutex_lock(&mgpu_info.mutex);
->>>>> @@ -2857,7 +2857,7 @@ static int
->>>> amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
->>>>>     	int i, r;
->>>>>
->>>>>     	if (adev->in_s0ix)
->>>>> -		amdgpu_gfx_state_change_set(adev,
->>>> sGpuChangeState_D3Entry);
->>>>> +		amdgpu_dpm_gfx_state_change(adev,
->>>> sGpuChangeState_D3Entry);
->>>>>
->>>>>     	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
->>>>>     		if (!adev->ip_blocks[i].status.valid)
->>>>> @@ -3982,7 +3982,7 @@ int amdgpu_device_resume(struct drm_device
->>>> *dev, bool fbcon)
->>>>>     		return 0;
->>>>>
->>>>>     	if (adev->in_s0ix)
->>>>> -		amdgpu_gfx_state_change_set(adev,
->>>> sGpuChangeState_D0Entry);
->>>>> +		amdgpu_dpm_gfx_state_change(adev,
->>>> sGpuChangeState_D0Entry);
->>>>>
->>>>>     	/* post card */
->>>>>     	if (amdgpu_device_need_post(adev)) { diff --git
->>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->>>>> index 1916ec84dd71..3d8f82dc8c97 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->>>>> @@ -615,7 +615,7 @@ int amdgpu_get_gfx_off_status(struct
->>>> amdgpu_device
->>>>> *adev, uint32_t *value)
->>>>>
->>>>>     	mutex_lock(&adev->gfx.gfx_off_mutex);
->>>>>
->>>>> -	r = smu_get_status_gfxoff(adev, value);
->>>>> +	r = amdgpu_dpm_get_status_gfxoff(adev, value);
->>>>>
->>>>>     	mutex_unlock(&adev->gfx.gfx_off_mutex);
->>>>>
->>>>> @@ -852,19 +852,3 @@ int amdgpu_gfx_get_num_kcq(struct
->>>> amdgpu_device *adev)
->>>>>     	}
->>>>>     	return amdgpu_num_kcq;
->>>>>     }
->>>>> -
->>>>> -/* amdgpu_gfx_state_change_set - Handle gfx power state change set
->>>>> - * @adev: amdgpu_device pointer
->>>>> - * @state: gfx power state(1 -sGpuChangeState_D0Entry and 2
->>>>> -sGpuChangeState_D3Entry)
->>>>> - *
->>>>> - */
->>>>> -
->>>>> -void amdgpu_gfx_state_change_set(struct amdgpu_device *adev,
->> enum
->>>>> gfx_change_state state) -{
->>>>> -	mutex_lock(&adev->pm.mutex);
->>>>> -	if (adev->powerplay.pp_funcs &&
->>>>> -	    adev->powerplay.pp_funcs->gfx_state_change_set)
->>>>> -		((adev)->powerplay.pp_funcs->gfx_state_change_set(
->>>>> -			(adev)->powerplay.pp_handle, state));
->>>>> -	mutex_unlock(&adev->pm.mutex);
->>>>> -}
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>> index f851196c83a5..776c886fd94a 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>> @@ -47,12 +47,6 @@ enum amdgpu_gfx_pipe_priority {
->>>>>     	AMDGPU_GFX_PIPE_PRIO_HIGH = AMDGPU_RING_PRIO_2
->>>>>     };
->>>>>
->>>>> -/* Argument for PPSMC_MSG_GpuChangeState */ -enum
->>>> gfx_change_state {
->>>>> -	sGpuChangeState_D0Entry = 1,
->>>>> -	sGpuChangeState_D3Entry,
->>>>> -};
->>>>> -
->>>>>     #define AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM  0
->>>>>     #define AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM  15
->>>>>
->>>>> @@ -410,5 +404,4 @@ int amdgpu_gfx_cp_ecc_error_irq(struct
->>>> amdgpu_device *adev,
->>>>>     uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg);
->>>>>     void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg,
->>>> uint32_t v);
->>>>>     int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev); -void
->>>>> amdgpu_gfx_state_change_set(struct amdgpu_device *adev, enum
->>>> gfx_change_state state);
->>>>>     #endif
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->>>>> index 3c623e589b79..35c4aec04a7e 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->>>>> @@ -901,7 +901,7 @@ static void amdgpu_ras_get_ecc_info(struct
->>>> amdgpu_device *adev, struct ras_err_d
->>>>>     	 * choosing right query method according to
->>>>>     	 * whether smu support query error information
->>>>>     	 */
->>>>> -	ret = smu_get_ecc_info(&adev->smu, (void *)&(ras->umc_ecc));
->>>>> +	ret = amdgpu_dpm_get_ecc_info(adev, (void *)&(ras->umc_ecc));
->>>>>     	if (ret == -EOPNOTSUPP) {
->>>>>     		if (adev->umc.ras_funcs &&
->>>>>     			adev->umc.ras_funcs->query_ras_error_count)
->>>>> @@ -2132,8 +2132,7 @@ int amdgpu_ras_recovery_init(struct
->>>> amdgpu_device *adev)
->>>>>     		if (ret)
->>>>>     			goto free;
->>>>>
->>>>> -		if (adev->smu.ppt_funcs && adev->smu.ppt_funcs-
->>>>> send_hbm_bad_pages_num)
->>>>> -			adev->smu.ppt_funcs-
->>>>> send_hbm_bad_pages_num(&adev->smu, con-
->>>>> eeprom_control.ras_num_recs);
->>>>> +		amdgpu_dpm_send_hbm_bad_pages_num(adev,
->>>>> +con->eeprom_control.ras_num_recs);
->>>>>     	}
->>>>>
->>>>>     #ifdef CONFIG_X86_MCE_AMD
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
->>>>> index 6e4bea012ea4..5fed26c8db44 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
->>>>> @@ -97,7 +97,7 @@ int amdgpu_umc_process_ras_data_cb(struct
->>>> amdgpu_device *adev,
->>>>>     	int ret = 0;
->>>>>
->>>>>     	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
->>>>> -	ret = smu_get_ecc_info(&adev->smu, (void *)&(con->umc_ecc));
->>>>> +	ret = amdgpu_dpm_get_ecc_info(adev, (void *)&(con->umc_ecc));
->>>>>     	if (ret == -EOPNOTSUPP) {
->>>>>     		if (adev->umc.ras_funcs &&
->>>>>     		    adev->umc.ras_funcs->query_ras_error_count)
->>>>> @@ -160,8 +160,7 @@ int amdgpu_umc_process_ras_data_cb(struct
->>>> amdgpu_device *adev,
->>>>>     						err_data->err_addr_cnt);
->>>>>     			amdgpu_ras_save_bad_pages(adev);
->>>>>
->>>>> -			if (adev->smu.ppt_funcs && adev->smu.ppt_funcs-
->>>>> send_hbm_bad_pages_num)
->>>>> -				adev->smu.ppt_funcs-
->>>>> send_hbm_bad_pages_num(&adev->smu, con-
->>>>> eeprom_control.ras_num_recs);
->>>>> +			amdgpu_dpm_send_hbm_bad_pages_num(adev,
->>>>> +con->eeprom_control.ras_num_recs);
->>>>>     		}
->>>>>
->>>>>     		amdgpu_ras_reset_gpu(adev);
->>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
->>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
->>>>> index deae12dc777d..329a4c89f1e6 100644
->>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
->>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
->>>>> @@ -222,7 +222,7 @@ void
->>>>> kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
->>>>>
->>>>>     	len = snprintf(fifo_in, sizeof(fifo_in), "%x %llx:%llx\n",
->>>>>     		       KFD_SMI_EVENT_THERMAL_THROTTLE, throttle_bitmask,
->>>>> -		       atomic64_read(&dev->adev->smu.throttle_int_counter));
->>>>> +		       amdgpu_dpm_get_thermal_throttling_counter(dev-
->>>>> adev));
->>>>>
->>>>>     	add_event_to_kfifo(dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
->>>> 	fifo_in, len);
->>>>>     }
->>>>> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
->>>>> b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
->>>>> index 5c0867ebcfce..2e295facd086 100644
->>>>> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
->>>>> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
->>>>> @@ -26,6 +26,10 @@
->>>>>
->>>>>     extern const struct amdgpu_ip_block_version pp_smu_ip_block;
->>>>>
->>>>> +enum smu_event_type {
->>>>> +	SMU_EVENT_RESET_COMPLETE = 0,
->>>>> +};
->>>>> +
->>>>>     struct amd_vce_state {
->>>>>     	/* vce clocks */
->>>>>     	u32 evclk;
->>>>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>>> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>>> index 08362d506534..54abdf7080de 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->>>>> @@ -1614,3 +1614,93 @@ int amdgpu_pm_load_smu_firmware(struct
->>>>> amdgpu_device *adev, uint32_t *smu_versio
->>>>>
->>>>>     	return 0;
->>>>>     }
->>>>> +
->>>>> +int amdgpu_dpm_set_light_sbr(struct amdgpu_device *adev, bool
->>>> enable)
->>>>> +{
->>>>> +	return smu_set_light_sbr(&adev->smu, enable); }
->>>>> +
->>>>> +int amdgpu_dpm_send_hbm_bad_pages_num(struct amdgpu_device
->>>> *adev,
->>>>> +uint32_t size) {
->>>>> +	return smu_send_hbm_bad_pages_num(&adev->smu, size); }
->>>>> +
->>>>> +int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
->>>>> +				  enum pp_clock_type type,
->>>>> +				  uint32_t *min,
->>>>> +				  uint32_t *max)
->>>>> +{
->>>>> +	if (!is_support_sw_smu(adev))
->>>>> +		return -EOPNOTSUPP;
->>>>> +
->>>>> +	switch (type) {
->>>>> +	case PP_SCLK:
->>>>> +		return smu_get_dpm_freq_range(&adev->smu, SMU_SCLK,
->>>> min, max);
->>>>> +	default:
->>>>> +		return -EINVAL;
->>>>> +	}
->>>>> +}
->>>>> +
->>>>> +int amdgpu_dpm_set_soft_freq_range(struct amdgpu_device *adev,
->>>>> +				   enum pp_clock_type type,
->>>>> +				   uint32_t min,
->>>>> +				   uint32_t max)
->>>>> +{
->>>>> +	if (!is_support_sw_smu(adev))
->>>>> +		return -EOPNOTSUPP;
->>>>> +
->>>>> +	switch (type) {
->>>>> +	case PP_SCLK:
->>>>> +		return smu_set_soft_freq_range(&adev->smu, SMU_SCLK,
->>>> min, max);
->>>>> +	default:
->>>>> +		return -EINVAL;
->>>>> +	}
->>>>> +}
->>>>> +
->>>>> +int amdgpu_dpm_wait_for_event(struct amdgpu_device *adev,
->>>>> +			      enum smu_event_type event,
->>>>> +			      uint64_t event_arg)
->>>>> +{
->>>>> +	if (!is_support_sw_smu(adev))
->>>>> +		return -EOPNOTSUPP;
->>>>> +
->>>>> +	return smu_wait_for_event(&adev->smu, event, event_arg); }
->>>>> +
->>>>> +int amdgpu_dpm_get_status_gfxoff(struct amdgpu_device *adev,
->>>> uint32_t
->>>>> +*value) {
->>>>> +	if (!is_support_sw_smu(adev))
->>>>> +		return -EOPNOTSUPP;
->>>>> +
->>>>> +	return smu_get_status_gfxoff(&adev->smu, value); }
->>>>> +
->>>>> +uint64_t amdgpu_dpm_get_thermal_throttling_counter(struct
->>>>> +amdgpu_device *adev) {
->>>>> +	return atomic64_read(&adev->smu.throttle_int_counter);
->>>>> +}
->>>>> +
->>>>> +/* amdgpu_dpm_gfx_state_change - Handle gfx power state change
->> set
->>>>> + * @adev: amdgpu_device pointer
->>>>> + * @state: gfx power state(1 -sGpuChangeState_D0Entry and 2
->>>>> +-sGpuChangeState_D3Entry)
->>>>> + *
->>>>> + */
->>>>> +void amdgpu_dpm_gfx_state_change(struct amdgpu_device *adev,
->>>>> +				 enum gfx_change_state state)
->>>>> +{
->>>>> +	mutex_lock(&adev->pm.mutex);
->>>>> +	if (adev->powerplay.pp_funcs &&
->>>>> +	    adev->powerplay.pp_funcs->gfx_state_change_set)
->>>>> +		((adev)->powerplay.pp_funcs->gfx_state_change_set(
->>>>> +			(adev)->powerplay.pp_handle, state));
->>>>> +	mutex_unlock(&adev->pm.mutex);
->>>>> +}
->>>>> +
->>>>> +int amdgpu_dpm_get_ecc_info(struct amdgpu_device *adev,
->>>>> +			    void *umc_ecc)
->>>>> +{
->>>>> +	if (!is_support_sw_smu(adev))
->>>>> +		return -EOPNOTSUPP;
->>>>> +
->>>>> +	return smu_get_ecc_info(&adev->smu, umc_ecc); }
->>>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->>>>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->>>>> index 16e3f72d31b9..7289d379a9fb 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->>>>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->>>>> @@ -23,6 +23,12 @@
->>>>>     #ifndef __AMDGPU_DPM_H__
->>>>>     #define __AMDGPU_DPM_H__
->>>>>
->>>>> +/* Argument for PPSMC_MSG_GpuChangeState */ enum
->>>> gfx_change_state {
->>>>> +	sGpuChangeState_D0Entry = 1,
->>>>> +	sGpuChangeState_D3Entry,
->>>>> +};
->>>>> +
->>>>>     enum amdgpu_int_thermal_type {
->>>>>     	THERMAL_TYPE_NONE,
->>>>>     	THERMAL_TYPE_EXTERNAL,
->>>>> @@ -574,5 +580,22 @@ void amdgpu_dpm_enable_vce(struct
->>>> amdgpu_device *adev, bool enable);
->>>>>     void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool
->>>> enable);
->>>>>     void amdgpu_pm_print_power_states(struct amdgpu_device *adev);
->>>>>     int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev,
->>>> uint32_t
->>>>> *smu_version);
->>>>> -
->>>>> +int amdgpu_dpm_set_light_sbr(struct amdgpu_device *adev, bool
->>>>> +enable); int amdgpu_dpm_send_hbm_bad_pages_num(struct
->>>> amdgpu_device
->>>>> +*adev, uint32_t size); int amdgpu_dpm_get_dpm_freq_range(struct
->>>> amdgpu_device *adev,
->>>>> +				       enum pp_clock_type type,
->>>>> +				       uint32_t *min,
->>>>> +				       uint32_t *max);
->>>>> +int amdgpu_dpm_set_soft_freq_range(struct amdgpu_device *adev,
->>>>> +				        enum pp_clock_type type,
->>>>> +				        uint32_t min,
->>>>> +				        uint32_t max);
->>>>> +int amdgpu_dpm_wait_for_event(struct amdgpu_device *adev, enum
->>>> smu_event_type event,
->>>>> +		       uint64_t event_arg);
->>>>> +int amdgpu_dpm_get_status_gfxoff(struct amdgpu_device *adev,
->>>> uint32_t
->>>>> +*value); uint64_t
->> amdgpu_dpm_get_thermal_throttling_counter(struct
->>>>> +amdgpu_device *adev); void amdgpu_dpm_gfx_state_change(struct
->>>> amdgpu_device *adev,
->>>>> +				 enum gfx_change_state state);
->>>>> +int amdgpu_dpm_get_ecc_info(struct amdgpu_device *adev,
->>>>> +			    void *umc_ecc);
->>>>>     #endif
->>>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>>>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>>>> index f738f7dc20c9..942297c69de0 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>>>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
->>>>> @@ -241,11 +241,6 @@ struct smu_user_dpm_profile {
->>>>>     	uint32_t clk_dependency;
->>>>>     };
->>>>>
->>>>> -enum smu_event_type {
->>>>> -
->>>>> -	SMU_EVENT_RESET_COMPLETE = 0,
->>>>> -};
->>>>> -
->>>>>     #define SMU_TABLE_INIT(tables, table_id, s, a, d)	\
->>>>>     	do {						\
->>>>>     		tables[table_id].size = s;		\
->>>>> @@ -1412,15 +1407,15 @@ int smu_set_ac_dc(struct smu_context
->> *smu);
->>>>>
->>>>>     int smu_allow_xgmi_power_down(struct smu_context *smu, bool en);
->>>>>
->>>>> -int smu_get_status_gfxoff(struct amdgpu_device *adev, uint32_t
->>>>> *value);
->>>>> +int smu_get_status_gfxoff(struct smu_context *smu, uint32_t
->>>>> +*value);
->>>>>
->>>>>     int smu_set_light_sbr(struct smu_context *smu, bool enable);
->>>>>
->>>>> -int smu_wait_for_event(struct amdgpu_device *adev, enum
->>>>> smu_event_type event,
->>>>> +int smu_wait_for_event(struct smu_context *smu, enum
->>>> smu_event_type
->>>>> +event,
->>>>>     		       uint64_t event_arg);
->>>>>     int smu_get_ecc_info(struct smu_context *smu, void *umc_ecc);
->>>>>     int smu_stb_collect_info(struct smu_context *smu, void *buff,
->>>>> uint32_t
->>>> size);
->>>>>     void amdgpu_smu_stb_debug_fs_init(struct amdgpu_device *adev);
->>>>> -
->>>>> +int smu_send_hbm_bad_pages_num(struct smu_context *smu,
->> uint32_t
->>>>> +size);
->>>>>     #endif
->>>>>     #endif
->>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> index 5839918cb574..d8cd7c8c4479 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> @@ -100,17 +100,14 @@ static int smu_sys_set_pp_feature_mask(void
->>>> *handle,
->>>>>     	return ret;
->>>>>     }
->>>>>
->>>>> -int smu_get_status_gfxoff(struct amdgpu_device *adev, uint32_t
->>>>> *value)
->>>>> +int smu_get_status_gfxoff(struct smu_context *smu, uint32_t *value)
->>>>>     {
->>>>> -	int ret = 0;
->>>>> -	struct smu_context *smu = &adev->smu;
->>>>> +	if (!smu->ppt_funcs->get_gfx_off_status)
->>>>> +		return -EINVAL;
->>>>>
->>>>> -	if (is_support_sw_smu(adev) && smu->ppt_funcs-
->>>>> get_gfx_off_status)
->>>>> -		*value = smu_get_gfx_off_status(smu);
->>>>> -	else
->>>>> -		ret = -EINVAL;
->>>>> +	*value = smu_get_gfx_off_status(smu);
->>>>>
->>>>> -	return ret;
->>>>> +	return 0;
->>>>>     }
->>>>>
->>>>>     int smu_set_soft_freq_range(struct smu_context *smu, @@ -3167,11
->>>>> +3164,10 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
->>>>>     	.get_smu_prv_buf_details = smu_get_prv_buffer_details,
->>>>>     };
->>>>>
->>>>> -int smu_wait_for_event(struct amdgpu_device *adev, enum
->>>>> smu_event_type event,
->>>>> +int smu_wait_for_event(struct smu_context *smu, enum
->>>> smu_event_type
->>>>> +event,
->>>>>     		       uint64_t event_arg)
->>>>>     {
->>>>>     	int ret = -EINVAL;
->>>>> -	struct smu_context *smu = &adev->smu;
->>>>>
->>>>>     	if (smu->ppt_funcs->wait_for_event) {
->>>>>     		mutex_lock(&smu->mutex);
->>>>> @@ -3285,3 +3281,13 @@ void amdgpu_smu_stb_debug_fs_init(struct
->>>> amdgpu_device *adev)
->>>>>     #endif
->>>>>
->>>>>     }
->>>>> +
->>>>> +int smu_send_hbm_bad_pages_num(struct smu_context *smu,
->> uint32_t
->>>>> +size) {
->>>>> +	int ret = 0;
->>>>> +
->>>>> +	if (smu->ppt_funcs && smu->ppt_funcs-
->>>>> send_hbm_bad_pages_num)
->>>>> +		ret = smu->ppt_funcs->send_hbm_bad_pages_num(smu,
->>>> size);
->>>>> +
->>>>> +	return ret;
->>>>> +}
->>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>> Regards,
+>>>>>>> Lang
+>>>>>>>
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>>> +
+>>>>>>>>>      	return res;
+>>>>>>>>>      }
+>>>>>>>>>
