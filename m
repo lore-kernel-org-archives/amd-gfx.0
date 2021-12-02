@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E78EC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 15:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157C3C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 15:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D9F6E3B2;
-	Thu,  2 Dec 2021 15:09:24 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F206E3B2
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Dec 2021 15:09:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7EA6F4F7;
+	Thu,  2 Dec 2021 15:37:54 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE70D6F4F7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Dec 2021 15:37:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DgLX7IJH+fnzTwQ9pSf0DasVHZ61iaGhWqiMdGmOzAjC1v/74+KxnDpi61ISNIWQYwqsNADtjbCFewRrccy9bR0tAl1u2r08PYiB445pK+Rp6YqJiJNlfSNNcaJrjj6AZwdq2oTWpgshAVGWvZDu0tGNvsOEkbTRUpJdGNcY7B3jcPh1CCCLchfdlf3W5UTrfTtIsWQoWhPaz8NC15pZYgrP0qlVzLs52Teb3yP5HIkijjVdqsGvHOU7/fdUWBx9wf5F8leU/6dkeshVvYEwJJj3aNbjAOGRxZtOhQxqICf1MgQRGDXjqrwRRfvzH8H1pK0LPpQuEe6KhDok+fge/w==
+ b=MW1FmZ+wvQ/bEdd4qBtN7AqzrABZJuZeJBo6julgrXfsz0qh/I1mHq6wlMQc1+DIvyFc7wbifjdKn54HMuJFwFPtUgzGIW1LyHbZb33PmbKry+N4qAU2H3N2duxQLCzkkGzqf+rAXkQZYv7ultXmlkjp43n44kTxnlNIDfUToumsqwAeosPHXllmJ8KmhDxBbqRspSSG8WyH/cLEuTIP+A44PdTzgAXQPcY+dawT0zaBTLvH9aDcGt+xOrUoE5U9u++c80ONaCgyH3+7KQhkJTZbpBkHIqbkrarZQMtfHtHz1gFV1iOpRq+BgP7aUMoKVW7bYa5xV/qcn9P9jjXNjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fUFVoiLich4THgkoLWgo+UiJDeBfz4agP4EYhuI2XwI=;
- b=Pb9CWi63mSiwX+GBNDUK8VDmxSjARKaQ6v2WcsuwmbZ1x8e/G6SYAKfWiJ9PRbagkMwH++J3E8SPp8LxAGHZq5bu8Yw2tKhm1pVl0s7H3JdIcQG/RetUJZUoEkTYuO9KhMRhUvU6oVNXnxQg8jkKdtBjvo3fqKdizUOIDzP8i7ZYpfztNe6g8tc4pM+d7ktJLXdfQv19qyJrBvBqjUAxUt/75j4yI75LeHJepB5+1qgWu7Ksd9g0lrGZhRCTAmgOljzK/YP8jgKzwTSfB2LQYoeFmJ6MDH2NPAX2c/1NLDdaF8MM3YOv/vPMKT08gQjfNgMRKg+N9CO3e8TeiImxLg==
+ bh=hItl33m/BmtSK/W4JJJviyio3gz03p2A3TeIuwMsyeE=;
+ b=Ag2gVOrGpcQpg5XZmdBfxoY585hyARsrUBDjF28yg7Ys+cVhj6z2W1c3ziHe9f1Nja8yL+axk/+m76ob9UHFW26YB2wYGZkgnKRP57k1CN5DQ4BFN6ZE9CucnoGBnlFffTc0sG4vMzXXFWtCXIcMI6V10hVjI7jN1Qf9LBm7KcMbvPnx5vSekCAWmuXO0QNLqdUl+i0Vcc87XxD/swzEQjfNGkbO25pGk5Cicq0mI7O18zlpTyk1/1hRhlepjkpyr4KVRZmA+tern3JSPhS/BWCrtjbwvQsaGTRjXuGKb7pPWC+cm73JS8NHq0fRwnIbd8xCGKIwrUaUzqiR2Lgktg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fUFVoiLich4THgkoLWgo+UiJDeBfz4agP4EYhuI2XwI=;
- b=yR2GcvXXT5+yEOiHuWNH2DhhrgLSp6ZbiQmaWVWNUygtadAlGOZM1cloGOZPLn3ogDSno5UhfHrI9ZN8gnSBUh9S1JsWOGYTmowNzJis0+Jjfg3iRUZFZzIFqwaOSPtmisuYMrmG/t4iPJG+Xj6ouo2Ak58pI43LkdM4HQNDR58=
+ bh=hItl33m/BmtSK/W4JJJviyio3gz03p2A3TeIuwMsyeE=;
+ b=KTkBZbO1rvPfHTnof+intWkLu4NzG9yDsJ5D8s/ps6PVwKna9YLPFU6aK/OqCrJI4TDpVrhAuNQFrbCgVsqimu8vl+i4oKtdDeDAnNgir7AzvAV94EfAMlCkaoLS7SFwl92jyM/fLP3OKFRla5d8EbHjVJ+Odj5b0RatarjR8Zg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24)
- by DM4PR12MB5279.namprd12.prod.outlook.com (2603:10b6:5:39f::8) with
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
+ by DM5PR12MB1756.namprd12.prod.outlook.com (2603:10b6:3:108::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Thu, 2 Dec
- 2021 14:54:05 +0000
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::98fd:4e9b:b4d6:64a3]) by DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::98fd:4e9b:b4d6:64a3%5]) with mapi id 15.20.4734.024; Thu, 2 Dec 2021
- 14:54:05 +0000
-Message-ID: <c2560a82-a4c6-6913-dc67-d11478f46afd@amd.com>
-Date: Thu, 2 Dec 2021 09:54:00 -0500
+ 2021 15:37:52 +0000
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4734.024; Thu, 2 Dec 2021
+ 15:37:52 +0000
+Message-ID: <b632c5a0-a0cf-a0eb-c878-d2b540493e01@amd.com>
+Date: Thu, 2 Dec 2021 21:07:38 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [PATCH v2] drm/amd/display: Use oriented source size when
- checking cursor scaling
+Subject: Re: [PATCH V3 16/17] drm/amd/pm: revise the performance level setting
+ APIs
 Content-Language: en-US
-To: Vlad Zahorodnii <vlad.zahorodnii@kde.org>, amd-gfx@lists.freedesktop.org
-References: <20211202121650.2265-1-vlad.zahorodnii@kde.org>
- <20211202125215.25307-1-vlad.zahorodnii@kde.org>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-In-Reply-To: <20211202125215.25307-1-vlad.zahorodnii@kde.org>
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211202030930.1681278-1-evan.quan@amd.com>
+ <20211202030930.1681278-17-evan.quan@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20211202030930.1681278-17-evan.quan@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL0PR02CA0135.namprd02.prod.outlook.com
- (2603:10b6:208:35::40) To DM4PR12MB5182.namprd12.prod.outlook.com
- (2603:10b6:5:395::24)
+X-ClientProxiedBy: BM1PR0101CA0009.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:18::19) To DM6PR12MB3930.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
-Received: from [172.31.16.161] (165.204.54.211) by
- BL0PR02CA0135.namprd02.prod.outlook.com (2603:10b6:208:35::40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.17 via Frontend Transport; Thu, 2 Dec 2021 14:54:04 +0000
+Received: from [10.252.81.250] (165.204.159.242) by
+ BM1PR0101CA0009.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:18::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16 via Frontend
+ Transport; Thu, 2 Dec 2021 15:37:48 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4c6382b9-4262-42c9-7c3e-08d9b5a39628
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5279:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB52793014098C6FD506579B73EC699@DM4PR12MB5279.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 590c9cb3-1104-430a-4501-08d9b5a9b368
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1756:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1756DB38C1D05A19D724F8BE97699@DM5PR12MB1756.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UTq2cQlQ9jECgZaglroCY/cVp+cANYcCZk14qBh1tFa7B0j0W1cuFHK+zqT2/yvHd96c0kQrFN1HUlLyIFofcKcXtAzhU9fmPhJpcRE41RMcMQq6smD1zYi5FXjtzQeykZCjZr/clzQV+uCGJH/dx01FRebnta76zumJ+hi07WZe1IwQ9Vbyzg6HasetxgKvJuPI6QeJdXsZHgPqBdohUSSp1ZbO6oKXI0HRKQAPV8v1gP4IwGBCoQ9tAgn9S6XhSNXOADhfHpOHsXsXwd2R5f6TnKcQnwfRHynmmqXdC9evj7gFjywgPBP5t+CskhPx1l/M5DXrPpqAb+yU3qjLgfiSmpIEfca75LF+KLAEmdVbUrZzOxehI6G9Mbw/UxlQ43AcL0lLlAEuPMC7vLQGCaZ/rfEMc0kvWWUiEFC7EirwV9OSj2bVMc32yUwKCHtqvUdu2G/ax8ALpuYCymr/j3D33SxVf7iXWJHBR3RsvtbqoJ4a3AHXKQ6Kc22b/CFXBbC5G5ZD3wLDC3jtA3yydreJZ4omBiAVSbQ2KR58MM286s8wHM0PgrEEZdOa3LJ2PP8IHvr6kO0A3id8X+EdZVRQQAaRQyXHNZf926Y8Dhfms4q2EU1bH1BxBSV+ubm3eymsnZTUKM1/bolYDV/0d3x2E2wJpaVHOnozd5U3Nrvu8QUfRVkihaCw7w9gKY56ydGuOJL4sljDmcO8hMasORh6RmmzegIISlzJrUq1AHk=
+X-Microsoft-Antispam-Message-Info: QvQCvDdZKVQg9lfEkQxPMahdO5x//ep5iHB6tp0TpW4pnpjrYBEe2+3bn7sJU4UymjIErdR8E0sfrcHqSsh2V27eq19nuoiHs4h32jRQNly2dW5fBICLLcsUrHXKLEvWLlngcngUCzgQ9ravhC5ywoSFFTaYyON7GOEsTr08fE8sHwtmAhPuvBPl5xw3uIRXQ3wlP9IbZQG3KTwbZXQcPjBYvseXEmyQ2lxUVTLq7t7L0MwKNkhQaZ8vbBBNfzHzpksLTlKmhCTuEhHSgnSksn6W0v37oMWQq9Eyd585LXn5BIl/6avypd0yA0kYPZ8mx+DAKRTXiUlHZUgTtM0BMJTj9LEdzcg+jaHFq866YuDe+kHcjGPuE+acBCR9/ea8g/xwwXWHYS/LI7uhnrSRAlVEf3AyxAdh48xRilea4hI9WXZF3nB0uFPGHelKGBUhq0m7HxDFldKR7/efHZ8IpFqQua86eDOs0+ql0yaK77Ie3WmgYunKGjk1IIInsU3Pz0kWIEAdgc55FJjGbVOTr9IT/0wgp1LfEnTT1Am6CMdrWlL1dl/gIjwxbLyJr0KynbBznS2MP4YSgwhStrvkZ63KuBoQQawQDITO+Crczjg8ChuUOyhSFdCjVzm8IP0I30edv2KAe1swRaKzHpXmvCNf34A2oow6B18fL0itmtS6DiIcgqOJoM69uz33bQH8dUWXL/Fu6pCLwTyDUldK9UjPmORDh6iLuinni5D3Y88=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5182.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2616005)(53546011)(956004)(5660300002)(31696002)(66476007)(6666004)(4326008)(186003)(8676002)(508600001)(86362001)(8936002)(36756003)(38100700002)(66556008)(16576012)(316002)(31686004)(26005)(2906002)(6486002)(66946007)(83380400001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(31686004)(5660300002)(2616005)(66476007)(83380400001)(38100700002)(316002)(6486002)(86362001)(2906002)(8936002)(26005)(36756003)(6666004)(31696002)(4326008)(66556008)(16576012)(53546011)(8676002)(186003)(66946007)(508600001)(956004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TElYRFRyQy92Tzg3SE5kR2p5RWowQ3R1NUNLcnloZE8wRHdadGlodVpqS1RP?=
- =?utf-8?B?Q01ORGpIaTYxS1ZGSlFibW90VHNUVi95NlY1dDJrV0RqeTdtazY4cCtZdCt5?=
- =?utf-8?B?TzYraCtOQXUxTGpWd0dEU1JmNVJpTnlwQ3VWU0RZajJTZXlZVzkzYkxWUk1z?=
- =?utf-8?B?V1U2akwwNmJSdlMyQnRtNEYzN3VPVU1vQm9kNGIvSnVrcklsazZ5SmpKNWFp?=
- =?utf-8?B?aXhJZC8rbndZUGE4SWtwZjErUjE2MjhqWEQ3TnVYZk1jdUNINTdqbEMvY2dr?=
- =?utf-8?B?Q1p2OTZYYkhTWEo1cmRSK1VmbmVzRFhmZkxrNjN5RUpLRFVyRWFlbERTUXFu?=
- =?utf-8?B?anIwVC9IRkp0MWNFTTQ2aXROWUxSMFpWN1ZtZmRIcEF6VHVGd3NTeDdiRlY4?=
- =?utf-8?B?UzZjZnp5blZNS1ZuVS9xVlZxQ0RjMmM0RlVGUTRIa3lpMis0Si9PWUtKM01N?=
- =?utf-8?B?Tk16UGwrMWVXU3l4VXdFMUl2M3ZLTzVHQmVEYlU3ZklnVGhXMG80SElOa1d1?=
- =?utf-8?B?S2FHcTcyTHMrcjZuUlpLYUVxRHFadFc5OFQ2bktrazNvakVjN253WGZsZW1L?=
- =?utf-8?B?SlRSQjhzc2pxaUNPaG5iRk5xL2RadUtueDlSVmdPSWx4Q28xN2kycmRncGdK?=
- =?utf-8?B?MGdLc3hIL05wVzFjekFVcEhRY2o1V3ZVY0xreHE4TS81M2orTkk3eWJYeW4w?=
- =?utf-8?B?U2VLZUxsVXRaaWtqcExHR3JrWGdwa1d0VS9XU2NhR3V5aVZBSTZIbXJxQnoz?=
- =?utf-8?B?b2RjcXExQy9Ecm9MOGhxOVk5QjhMekdMUkFXYjhtMnZxMkM1bCt2YXhCdE1x?=
- =?utf-8?B?MzRhaFlFVnlsWUFEUjZEanJZZGZUU0VVZ1F0VFJIVVlKL3JqRm5xQmpMT2ds?=
- =?utf-8?B?NFptcWNlcGpTN042NjZJOUxPWEJ5R1N1MEZxUjJYUytVU1Y4MjZsc0VvSmlY?=
- =?utf-8?B?U01VRkpuMmx6WW83dUZBb1JpQW41cDlJdW9xd3pybUxuYzV3azVoWVk5MWpI?=
- =?utf-8?B?L3JRNC9aRS9XM0dXMzNpU1BXMmdMdEFIbXppNVNRRWtTcTMva0EweG5aN1Zl?=
- =?utf-8?B?ZFhEWUxqdGVGWVRLY1hFUnRDRzNHVEY0MStuZW83MVRtd0xQQ0tQTHIvR0Z1?=
- =?utf-8?B?aHhrQUdkM2pMc0F4TXFwNjljY1Z5VE9Pc2FEZTFDdUJTUjFUYW5YVTZlNytI?=
- =?utf-8?B?dmFVTFJOWlJGUjMvbllIeVBUWmcremFnVVpkRGtlVzM4blREaHkwRFFTMFZa?=
- =?utf-8?B?cVpGWWU3dFpUTC9OVXdZMUlubXRKT0VQQWYwdExEc3BuUWNhK2ZBT2xiRHdT?=
- =?utf-8?B?MlhpczBWN0JLMmZydjNMK1l6bTkyV05OQ2FhckljS1lnbUx3a1pkK0tJNFgy?=
- =?utf-8?B?djZ6SS9hdnZidjBRckgrWXYwM3EyblpKUUdCalJadlF3SU1PRTc2L1hIZEZD?=
- =?utf-8?B?WkxNc0QzVDViQVQrZUlJQ1ZnK2pIRVdkcHlBSEhMeGRQOWZmTXVzeVJUY1pD?=
- =?utf-8?B?NERTa081UFNydGlnREk3UVdMbFJpWlB0VlZDVnZvS0I5ZStLblpINExXUXdV?=
- =?utf-8?B?TkJSOEFqNDdLOVFENHpBelZoc3krTXBBQ0Vla1AwRDZiWVArZm9LQ3RRcGJa?=
- =?utf-8?B?M1JCZ0tOeS9Fc05jQ0ZHd1VabUl2SFlWaEl1cUZYZExVVWc0RVIrT01jUmd2?=
- =?utf-8?B?cDV6WlVqUjg1YlBvSlJXU0tubzFWdnFLUmN1WDRHLzBUaTRxSnhmQS93RVpx?=
- =?utf-8?B?NElkQUtoVmNSdnhnQ0xEN0FLbDFqUVFJWXNlT2NvZ0xnWTZYY1RvbVFEbzVy?=
- =?utf-8?B?cEZScXFOMGsvSWx6RGZSRXI0YmVnR1A4VDdBVVJSYU5YNWJzQU5ib0dKUE9z?=
- =?utf-8?B?YktyeG5JaElacnlLODUxc09IRlVVbUxxeHNSTG1oOSsrZ2xBQ0FGRENXNjBD?=
- =?utf-8?B?angyTmR6QklKSmwva3pONlhwMkplamZhRVlua1RzRmJRaGNVVjBPdm5IUWcx?=
- =?utf-8?B?UEJ2U1hodDhNRXJ1MU9pRU9MM3luemJya0taMDhBdkh1TElvdG1DSHV2UzA0?=
- =?utf-8?B?czR5TmpsNUhycnFZQjRSVC9RRlpSWDFhTitIQ25DMHNENGpzTmgwcnFmdlFO?=
- =?utf-8?B?aHBrM3kvRkx3R3A0aTN1U21qbHVEYWE1Nzk2SGd1MzYrQmpveEFJOUMraE5T?=
- =?utf-8?Q?tI/ZY5XbaXz9h3XbE15Vsd4=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnRrQUZtRlpoWFlOcFhWSFhiOER4b1ZyM1diZmNtVVB5VktRTDJtY1ZsRGlS?=
+ =?utf-8?B?K0dUbTRrQ3ZERDZiN0lTRkV0VGRScHFwNWwxMjFhUFh1aThuTkdpMUY5QW1w?=
+ =?utf-8?B?d3FtRFJyYnJnMEhFY3NYVmhFaWJVZkVTSExFaW1wRmNGWUhzcStBVWI3c1cv?=
+ =?utf-8?B?d21hQWtpYnU1Rlo2UXAyN3BETjhFOWZlcDh4a2tEUEhhRm50ZnJBamIra3Vn?=
+ =?utf-8?B?WWQ0V2k1QzJuNEVpUVhOb2RLdEZGU0pRR1FMZHIwSjZFRjhjZmpCNGo5amxk?=
+ =?utf-8?B?MXFLVTRVbTl0K2EzaTdlTElObmNSMkVqRDFDNldENDB4ZTczd0htYWp0NW8x?=
+ =?utf-8?B?R1U2bm9TVmNQZVVMS2FheHcxQmxvY0QzMFVwUGdzVjRvQUgrMG9WYkJWbXNX?=
+ =?utf-8?B?YnFRaHlOSjV1OVpqUzhqN0RiWXh0YVl5akN2YjlncjhCNWdLVEVLdzJDU082?=
+ =?utf-8?B?aXNEQmo5cFZKcUNUQkxKUzVOWVdWTWQwVE1VRng0a2pZMURHWE9mOExabUov?=
+ =?utf-8?B?Qk1LN2FIQ2V6ZHNYRS8vUE1jeE9sang5Qkp3OHVVaFlyN28vZlRJQys5bE1C?=
+ =?utf-8?B?YkR3R1BrZTVOamtrTFZQMkRJcW5YZHdkUGdybFFUQTk1VDhIeEpKckpwYTB4?=
+ =?utf-8?B?aUNXU293UGtweitUbWdXWDNjWTFheE5raHMxRC9KK0J4OTlKdHkvUWNHMVVN?=
+ =?utf-8?B?Ym5OcWNjR2s2QWgzMTI2S2w3dTNZbjNTb0xDU0RIQnQxcG5hVmV0Y2RwdFhk?=
+ =?utf-8?B?VXR6aEVoNTJ4OXBVN0JjTGlKS0Z1UWZHbmRUaFNOb2d4OVY5bmVaVEJkMFkx?=
+ =?utf-8?B?cThWMVlNbFRLZ0kzTkE1ZGJuRUhMcmtFTlVWY2tSRjlKanNOQ2VLYnpPSXpL?=
+ =?utf-8?B?QWdGd0VoZ1ZteTlQcG5paDltVFU2aUN3YlRhWXJoV2hJSmE3ajhSREEyaUg1?=
+ =?utf-8?B?RjE5aG9ZUkxJMXV6VnJGOVBHSUJGSmFkRnFvUitaVEhCTnovaC8xU1d1S0JQ?=
+ =?utf-8?B?OXl5TENXSDNBcGxWTkJxMUtUSXQwUjFSL3doTStjNVphMldQUUdiUm8xQWc5?=
+ =?utf-8?B?OFVsbHpkUmF6Nm1HRHJHelJlUHRzSE5VUU9pOWhmWlBiVG9BZGVmSnN3SjE5?=
+ =?utf-8?B?ajNVQS90QUU4bkdCR2d4czFpa3kzREx3YytrTElVK1N3dnlLbURySGRKTG04?=
+ =?utf-8?B?NVZhZUo1SG1INGF4K2ZKUXArMjBMMDFuKzlPYVhyRThTU3BSYlVuNU1VdWNj?=
+ =?utf-8?B?dGhxTmE2ejhyaExGMFk3amxlMnM1YUJsd2oyTWI0T216OUliYTdiUDRvbS9Q?=
+ =?utf-8?B?Sm5vaDRrVEZJeUFyeVBUVXRHZ1p1cTFXcmFPZ1BYc3ExMVdoSFBadExTaDJF?=
+ =?utf-8?B?aDNvM0tBdStyQ2J6YTYrSFVFblJBODlJZ2gxTWJBVGVYZGJlWGNkK0Nzdmph?=
+ =?utf-8?B?emNhSmc2d2wvN2VZekxHTlY2SU5yTHhKc0xZOG5yRTdPN3lNLzAzOG5VTVNl?=
+ =?utf-8?B?M1QxOU9ORlE5bXhkNFk1cG9rM29HUkhPZStlbTlmZmxuK05iTm1VOFZBQWxm?=
+ =?utf-8?B?UTFIaUJORk82Ti90NXlpZ3pxOXJOTVBkT2g4WUt6cjF5anQwQzFHOXlnSGRV?=
+ =?utf-8?B?T1FxVUtSVEU0Nk9uWkpQeXllN2tadXpzc25LK0VoZVMvK3lVbmdnYjFrblA4?=
+ =?utf-8?B?NklIaVRoRDdQZEFLSmN2VVdkNU80bDFKTkgwMXMzV1h6eHFQeGdIRW5wZGdp?=
+ =?utf-8?B?Qjk4NHZ4OW9ySUU4Nk43WFhnUk5EQ3ZMUG1aWjVCY3pYQjJXc1EyK2c4ZmpZ?=
+ =?utf-8?B?TXF3NlNWa2srbWxycXFtMmR2bUdINzdaUzNaRmtEd2FFbTc2bDNURTd5cTVh?=
+ =?utf-8?B?aS9hWTI0RkZKK2FEQ3kzaExPdlMwV1VYK3BiUFB0c1BOWFVoZVcvVVdZUWU2?=
+ =?utf-8?B?cWpKYkRGdkRzOEo3UDA4WmxyeUdUdHZ6RFhFU2pHczZyVTlDbkRNVjBmVmlM?=
+ =?utf-8?B?RVhLQTZYb3B4US91Um5SUHVRbm1GYlR1K2pUOFk0QnFNeTB0WnpoNzd6YlNJ?=
+ =?utf-8?B?RlRleWdvVzdwNzRkYk40NWl0UUcrL3V2Y1Y3cWZEVXphM3BYc0V3N1ZmR1Zz?=
+ =?utf-8?Q?pg/Y=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c6382b9-4262-42c9-7c3e-08d9b5a39628
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5182.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 590c9cb3-1104-430a-4501-08d9b5a9b368
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 14:54:05.5278 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 15:37:51.9887 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 28BnVHyrr2f68hBeb83f+56XKkvFvKJ+Rsr0rVS3AfB1J36uSH7kRlvLrucqeP2VxSixzJZKcJDXI0UwhjgoLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5279
+X-MS-Exchange-CrossTenant-UserPrincipalName: uMPp5xP7JSeou/BMtsghlrButwVioLlnPkuSD7TxwQoU6zbNmCjkyxsD+oIgBRQ3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1756
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,112 +132,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, contact@emersion.fr, Rodrigo.Siqueira@amd.com,
- xaver.hugl@gmail.com, christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, Kenneth.Feng@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-12-02 7:52 a.m., Vlad Zahorodnii wrote:
-> dm_check_crtc_cursor() doesn't take into account plane transforms when
-> calculating plane scaling, this can result in false positives.
-> 
-> For example, if there's an output with resolution 3840x2160 and the
-> output is rotated 90 degrees, CRTC_W and CRTC_H will be 3840 and 2160,
-> respectively, but SRC_W and SRC_H will be 2160 and 3840, respectively.
-> 
-> Since the cursor plane usually has a square buffer attached to it, the
-> dm_check_crtc_cursor() will think that there's a scale factor mismatch
-> even though there isn't really.
-> 
-> This fixes an issue where kwin fails to use hardware plane transforms.
-> 
-> Changes since version 1:
-> - s/orientated/oriented/g
-> 
-> Signed-off-by: Vlad Zahorodnii <vlad.zahorodnii@kde.org>
 
-This looks correct to me. I guess it's also not modifying the actual 
-programming position, just the check to ensure that the cursor is going 
-to be unscaled in the correct orientation.
 
-Would be good to have some IGT tests for these scaled cases to verify 
-atomic check pass/fail assumptions, but for now:
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-Regards,
-Nicholas Kazlauskas
-
+On 12/2/2021 8:39 AM, Evan Quan wrote:
+> Avoid cross callings which make lock protection enforcement
+> on amdgpu_dpm_force_performance_level() impossible.
+> 
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Change-Id: Ie658140f40ab906ce2ec47576a086062b61076a6
 > ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 35 ++++++++++++++-----
->   1 file changed, 27 insertions(+), 8 deletions(-)
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 29 ++++++++++++++++---
+>   .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 17 ++++++-----
+>   .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 12 --------
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 12 --------
+>   4 files changed, 34 insertions(+), 36 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index a3c0f2e4f4c1..c009c668fbe2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10736,6 +10736,24 @@ static int dm_update_plane_state(struct dc *dc,
->   	return ret;
->   }
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index f5c0ae032954..5e5006af6b75 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -305,6 +305,10 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+>   	enum amd_dpm_forced_level level;
+>   	enum amd_dpm_forced_level current_level;
+>   	int ret = 0;
+> +	uint32_t profile_mode_mask = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
+> +					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
+> +					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
+> +					AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
 >   
-> +static void dm_get_oriented_plane_size(struct drm_plane_state *plane_state,
-> +				       int *src_w, int *src_h)
-> +{
-> +	switch (plane_state->rotation & DRM_MODE_ROTATE_MASK) {
-> +	case DRM_MODE_ROTATE_90:
-> +	case DRM_MODE_ROTATE_270:
-> +		*src_w = plane_state->src_h >> 16;
-> +		*src_h = plane_state->src_w >> 16;
-> +		break;
-> +	case DRM_MODE_ROTATE_0:
-> +	case DRM_MODE_ROTATE_180:
-> +	default:
-> +		*src_w = plane_state->src_w >> 16;
-> +		*src_h = plane_state->src_h >> 16;
-> +		break;
-> +	}
-> +}
-> +
->   static int dm_check_crtc_cursor(struct drm_atomic_state *state,
->   				struct drm_crtc *crtc,
->   				struct drm_crtc_state *new_crtc_state)
-> @@ -10744,6 +10762,8 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
->   	struct drm_plane_state *new_cursor_state, *new_underlying_state;
->   	int i;
->   	int cursor_scale_w, cursor_scale_h, underlying_scale_w, underlying_scale_h;
-> +	int cursor_src_w, cursor_src_h;
-> +	int underlying_src_w, underlying_src_h;
->   
->   	/* On DCE and DCN there is no dedicated hardware cursor plane. We get a
->   	 * cursor per pipe but it's going to inherit the scaling and
-> @@ -10755,10 +10775,9 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
->   		return 0;
+>   	if (amdgpu_in_reset(adev))
+>   		return -EPERM;
+> @@ -358,10 +362,7 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
 >   	}
 >   
-> -	cursor_scale_w = new_cursor_state->crtc_w * 1000 /
-> -			 (new_cursor_state->src_w >> 16);
-> -	cursor_scale_h = new_cursor_state->crtc_h * 1000 /
-> -			 (new_cursor_state->src_h >> 16);
-> +	dm_get_oriented_plane_size(new_cursor_state, &cursor_src_w, &cursor_src_h);
-> +	cursor_scale_w = new_cursor_state->crtc_w * 1000 / cursor_src_w;
-> +	cursor_scale_h = new_cursor_state->crtc_h * 1000 / cursor_src_h;
+>   	/* profile_exit setting is valid only when current mode is in profile mode */
+> -	if (!(current_level & (AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
+> -	    AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
+> -	    AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
+> -	    AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)) &&
+> +	if (!(current_level & profile_mode_mask) &&
+>   	    (level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)) {
+>   		pr_err("Currently not in any profile mode!\n");
+>   		pm_runtime_mark_last_busy(ddev->dev);
+> @@ -369,6 +370,26 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+>   		return -EINVAL;
+>   	}
 >   
->   	for_each_new_plane_in_state_reverse(state, underlying, new_underlying_state, i) {
->   		/* Narrow down to non-cursor planes on the same CRTC as the cursor */
-> @@ -10769,10 +10788,10 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
->   		if (!new_underlying_state->fb)
->   			continue;
+> +	if (!(current_level & profile_mode_mask) &&
+> +	      (level & profile_mode_mask)) {
+> +		/* enter UMD Pstate */
+> +		amdgpu_device_ip_set_powergating_state(adev,
+> +						       AMD_IP_BLOCK_TYPE_GFX,
+> +						       AMD_PG_STATE_UNGATE);
+> +		amdgpu_device_ip_set_clockgating_state(adev,
+> +						       AMD_IP_BLOCK_TYPE_GFX,
+> +						       AMD_CG_STATE_UNGATE);
+> +	} else if ((current_level & profile_mode_mask) &&
+> +		    !(level & profile_mode_mask)) {
+> +		/* exit UMD Pstate */
+> +		amdgpu_device_ip_set_clockgating_state(adev,
+> +						       AMD_IP_BLOCK_TYPE_GFX,
+> +						       AMD_CG_STATE_GATE);
+> +		amdgpu_device_ip_set_powergating_state(adev,
+> +						       AMD_IP_BLOCK_TYPE_GFX,
+> +						       AMD_PG_STATE_GATE);
+> +	}
+> +
+>   	if (amdgpu_dpm_force_performance_level(adev, level)) {
+>   		pm_runtime_mark_last_busy(ddev->dev);
+>   		pm_runtime_put_autosuspend(ddev->dev);
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> index 3c6ee493e410..9613c6181c17 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+> @@ -953,6 +953,7 @@ static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct amdgpu_device *adev,
 >   
-> -		underlying_scale_w = new_underlying_state->crtc_w * 1000 /
-> -				     (new_underlying_state->src_w >> 16);
-> -		underlying_scale_h = new_underlying_state->crtc_h * 1000 /
-> -				     (new_underlying_state->src_h >> 16);
-> +		dm_get_oriented_plane_size(new_underlying_state,
-> +					   &underlying_src_w, &underlying_src_h);
-> +		underlying_scale_w = new_underlying_state->crtc_w * 1000 / underlying_src_w;
-> +		underlying_scale_h = new_underlying_state->crtc_h * 1000 / underlying_src_h;
+>   static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+>   {
+> +	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+>   	struct amdgpu_ps *ps;
+>   	enum amd_pm_state_type dpm_state;
+>   	int ret;
+> @@ -976,7 +977,7 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+>   	else
+>   		return -EINVAL;
 >   
->   		if (cursor_scale_w != underlying_scale_w ||
->   		    cursor_scale_h != underlying_scale_h) {
-> 
+> -	if (amdgpu_dpm == 1 && adev->powerplay.pp_funcs->print_power_state) {
+> +	if (amdgpu_dpm == 1 && pp_funcs->print_power_state) {
+>   		printk("switching from power state:\n");
+>   		amdgpu_dpm_print_power_state(adev, adev->pm.dpm.current_ps);
+>   		printk("switching to power state:\n");
+> @@ -985,14 +986,14 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+>   
+>   	/* update whether vce is active */
+>   	ps->vce_active = adev->pm.dpm.vce_active;
+> -	if (adev->powerplay.pp_funcs->display_configuration_changed)
+> +	if (pp_funcs->display_configuration_changed)
+>   		amdgpu_dpm_display_configuration_changed(adev);
+>   
+>   	ret = amdgpu_dpm_pre_set_power_state(adev);
+>   	if (ret)
+>   		return ret;
+>   
+> -	if (adev->powerplay.pp_funcs->check_state_equal) {
+> +	if (pp_funcs->check_state_equal) {
+>   		if (0 != amdgpu_dpm_check_state_equal(adev, adev->pm.dpm.current_ps, adev->pm.dpm.requested_ps, &equal))
+>   			equal = false;
+>   	}
+> @@ -1000,24 +1001,24 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+>   	if (equal)
+>   		return 0;
+>   
+> -	if (adev->powerplay.pp_funcs->set_power_state)
+> -		adev->powerplay.pp_funcs->set_power_state(adev->powerplay.pp_handle);
+> +	if (pp_funcs->set_power_state)
+> +		pp_funcs->set_power_state(adev->powerplay.pp_handle);
+>   
+>   	amdgpu_dpm_post_set_power_state(adev);
+>   
+>   	adev->pm.dpm.current_active_crtcs = adev->pm.dpm.new_active_crtcs;
+>   	adev->pm.dpm.current_active_crtc_count = adev->pm.dpm.new_active_crtc_count;
+>   
+> -	if (adev->powerplay.pp_funcs->force_performance_level) {
+> +	if (pp_funcs->force_performance_level) {
+>   		if (adev->pm.dpm.thermal_active) {
+>   			enum amd_dpm_forced_level level = adev->pm.dpm.forced_level;
+>   			/* force low perf level for thermal */
+> -			amdgpu_dpm_force_performance_level(adev, AMD_DPM_FORCED_LEVEL_LOW);
+> +			pp_funcs->force_performance_level(adev, AMD_DPM_FORCED_LEVEL_LOW);
+>   			/* save the user's level */
+>   			adev->pm.dpm.forced_level = level;
+>   		} else {
+>   			/* otherwise, user selected level */
+> -			amdgpu_dpm_force_performance_level(adev, adev->pm.dpm.forced_level);
+> +			pp_funcs->force_performance_level(adev, adev->pm.dpm.forced_level);
+>   		}
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> index d57d5c28c013..5a14ddd3ef05 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> @@ -323,12 +323,6 @@ static void pp_dpm_en_umd_pstate(struct pp_hwmgr  *hwmgr,
+>   		if (*level & profile_mode_mask) {
+>   			hwmgr->saved_dpm_level = hwmgr->dpm_level;
+>   			hwmgr->en_umd_pstate = true;
+> -			amdgpu_device_ip_set_powergating_state(hwmgr->adev,
+> -					AMD_IP_BLOCK_TYPE_GFX,
+> -					AMD_PG_STATE_UNGATE);
+> -			amdgpu_device_ip_set_clockgating_state(hwmgr->adev,
+> -						AMD_IP_BLOCK_TYPE_GFX,
+> -						AMD_CG_STATE_UNGATE);
+>   		}
+>   	} else {
+>   		/* exit umd pstate, restore level, enable gfx cg*/
+> @@ -336,12 +330,6 @@ static void pp_dpm_en_umd_pstate(struct pp_hwmgr  *hwmgr,
+>   			if (*level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)
+>   				*level = hwmgr->saved_dpm_level;
+>   			hwmgr->en_umd_pstate = false;
+> -			amdgpu_device_ip_set_clockgating_state(hwmgr->adev,
+> -					AMD_IP_BLOCK_TYPE_GFX,
+> -					AMD_CG_STATE_GATE);
+> -			amdgpu_device_ip_set_powergating_state(hwmgr->adev,
+> -					AMD_IP_BLOCK_TYPE_GFX,
+> -					AMD_PG_STATE_GATE);
+>   		}
+>   	}
+>   }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 1edc71dde3e4..e25b3b6fd22d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1681,12 +1681,6 @@ static int smu_enable_umd_pstate(void *handle,
+>   			smu_dpm_ctx->saved_dpm_level = smu_dpm_ctx->dpm_level;
+>   			smu_dpm_ctx->enable_umd_pstate = true;
+>   			smu_gpo_control(smu, false);
+> -			amdgpu_device_ip_set_powergating_state(smu->adev,
+> -							       AMD_IP_BLOCK_TYPE_GFX,
+> -							       AMD_PG_STATE_UNGATE);
+> -			amdgpu_device_ip_set_clockgating_state(smu->adev,
+> -							       AMD_IP_BLOCK_TYPE_GFX,
+> -							       AMD_CG_STATE_UNGATE);
 
+Now that this entry point is not expected to be used as standalone, you 
+can also remove the enable_umd_pstate callback in IP block.
+
+Thanks,
+Lijo
+
+>   			smu_gfx_ulv_control(smu, false);
+>   			smu_deep_sleep_control(smu, false);
+>   			amdgpu_asic_update_umd_stable_pstate(smu->adev, true);
+> @@ -1700,12 +1694,6 @@ static int smu_enable_umd_pstate(void *handle,
+>   			amdgpu_asic_update_umd_stable_pstate(smu->adev, false);
+>   			smu_deep_sleep_control(smu, true);
+>   			smu_gfx_ulv_control(smu, true);
+> -			amdgpu_device_ip_set_clockgating_state(smu->adev,
+> -							       AMD_IP_BLOCK_TYPE_GFX,
+> -							       AMD_CG_STATE_GATE);
+> -			amdgpu_device_ip_set_powergating_state(smu->adev,
+> -							       AMD_IP_BLOCK_TYPE_GFX,
+> -							       AMD_PG_STATE_GATE);
+>   			smu_gpo_control(smu, true);
+>   		}
+>   	}
+> 
