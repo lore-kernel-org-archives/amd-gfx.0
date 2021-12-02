@@ -4,55 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D15C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 17:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 994D4C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 17:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3506E6FC40;
-	Thu,  2 Dec 2021 17:11:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65D556EB85;
+	Thu,  2 Dec 2021 17:13:43 +0000 (UTC)
 Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
  [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16C7F6FC40
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Dec 2021 17:11:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F5AA6EB69;
+ Thu,  2 Dec 2021 17:13:41 +0000 (UTC)
 Received: by mail-ot1-x334.google.com with SMTP id
- n104-20020a9d2071000000b005799790cf0bso518190ota.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Dec 2021 09:11:31 -0800 (PST)
+ n104-20020a9d2071000000b005799790cf0bso526706ota.5; 
+ Thu, 02 Dec 2021 09:13:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ranTZ0uhVK7+p3eZJIfPpu3Ro8BkOXqsK6/RAboGjPw=;
- b=AgnaWpnZSOuwXCJs/bPmVWYsXYGcN0pTMUNzPLz1+fK5efhni0/jCb4iP+VTDZxRPa
- Ii9LrVg/lWGjmmhUoqY8mTH7UGUhKZJYVu1J2rT7RQArCYSyysVAiq9t/J0ko63d+8+6
- R0iwp2H45iT/OspqQeRaMFDS6Fb2zGdm4+3Uwfri56MxMSda6N9a8BBCUOdX1xJl10A4
- LFbcsevhniqU0IZ2qlX0cQY7w0f4N8ffxfatWVNCBivItyGakAAXHoJ+gJq07RJ69IQm
- D26HeV3nQC+kw2RTrDx+od/mM1l1OVGUiGgoEK7Inf9r82YDmeC7Kh3TCwIz4Al8J9CM
- JFqA==
+ :cc:content-transfer-encoding;
+ bh=AajSOfABZmizcM6W0Pmxe8k6X7Mucgg0abkivyflOos=;
+ b=bIlQhALzsSpyrYW9oR4N0/2vKAB+viUUzyc3WxBGoTrY1n1CuWkJAJWPyk//ixBkqO
+ Q8mizzVUZP6eHGSldLFeptQbPnchOCZS0L5bdMOYKq7vmpUhSpYTE4rLByZvBCpx3rsd
+ GBJDhjxb9oB7frIH62viMTVgoO2uX1p/kugcDiQKEArIHIE1qeF9onCNFc1zKr2IkZdN
+ ExoRWlOlUChn5wzXFJ9s4M5Csp76CTawiysoyf2iZE7dhn1MuaNPTXvQRGAcvbS4gbdn
+ 4WyAfbS8Y5LS7K7HFcqsUuIPo59XZp0ov4xEUuHTribO/RQRrpvWFsMIY7+ZG+PqfTTA
+ 27tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ranTZ0uhVK7+p3eZJIfPpu3Ro8BkOXqsK6/RAboGjPw=;
- b=RXruBMURyPKSv9QHbVdxoFAQFqA5hMrhxfNR07eTt9jrPFl8zIBVX4ICpq58w+VKQY
- +hS9cmwv0WOPIoYz+BY9+a9eQ9U8qhhoftLLuGnhKWO5HspeuEUzU1yDQQttt4CaCoGB
- ypRRFUDuCvM/tPfn3LJ5fVGLz/1oSkXB6edWR+oPF62BZhvVZd8TKaxOPcS7e4C06e+K
- jikhmV7TawqykyY6P1S/WogtCJq+nVq9G4Jm/DJMPyEUoZkF6QOhtXXivSyqY1inJSOl
- 4YAVSijWDYOsmIY9qUd1dGpgpwMA491X4rQTGRYjxFbUmNzUURO1jE4JKztL9cKc5sWw
- qIbQ==
-X-Gm-Message-State: AOAM53088OILxJVQPyGcdaw6bR28Wk/LcJrU2LK4uxqJasKsXSpxbwuW
- YY1yIFrdECJpF4ihfXEXl4i4l2LVjZhfWSLbbE4=
-X-Google-Smtp-Source: ABdhPJz+H0n1u9P4yDfuEO3p7YHJCwotpy1ZVtB1anAZgyg5KtOztkHOtRIdFIF/5Sa/bvOVrhCwH/Jer6+rYUkVpwU=
-X-Received: by 2002:a9d:67c1:: with SMTP id c1mr12458949otn.299.1638465090401; 
- Thu, 02 Dec 2021 09:11:30 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=AajSOfABZmizcM6W0Pmxe8k6X7Mucgg0abkivyflOos=;
+ b=35hz4oS6CMMLXCwVWTn+3rCRdHGlRgZGniP5R4RtewcS8N/loTBySd/NuXl1duBA7J
+ ARHLkK5doQQHvgFWi4gE53Lc4PpGeD3NU4zZyZ1A2qS09/kINXhpb4fE5sf81W/7cG+h
+ nYe3UIu2zjG3SWHA2ylKB6s0JIZIhyMPsRhar+6N5l3lqL2YPsZv6dCiToWZGfRHcppm
+ GdP2xLFM+EOekK0E9EpN9T9tub/RUFezWB/ddvpHIe1/Rdg/aNVqnn533PtYE8/Q4IXc
+ 2XwWfzv7+P7a2r8zkgq0I/Ul1DJPP7T18AC2HgqgNABw5+Aj8k8Qs4YTsOTFnhoJZizF
+ DYgQ==
+X-Gm-Message-State: AOAM531I7G2qvIqUFnfQvMw1SGm/xoAHiEc0iwY8pgJfbV0CQxF7s7KV
+ Id31IOgeTZbbk27Xo1oUlVYcxvLhKGLEs4zdfaQ=
+X-Google-Smtp-Source: ABdhPJyY0ZZWWmrlcECjWfIA9f9tGUxAjcFzMuc9v82NaipBZRDDsrY/MKV5w4zTGRjqkwjOCU8VNEXDZDW/t9WcfR0=
+X-Received: by 2002:a9d:67c1:: with SMTP id c1mr12467723otn.299.1638465220553; 
+ Thu, 02 Dec 2021 09:13:40 -0800 (PST)
 MIME-Version: 1.0
-References: <20211202121650.2265-1-vlad.zahorodnii@kde.org>
- <20211202125215.25307-1-vlad.zahorodnii@kde.org>
- <c2560a82-a4c6-6913-dc67-d11478f46afd@amd.com>
-In-Reply-To: <c2560a82-a4c6-6913-dc67-d11478f46afd@amd.com>
+References: <e2685075-fbc5-6f36-907f-76b6f76a59ce@amd.com>
+ <20211201151310.177671-1-zhou1615@umn.edu>
+ <77fca7d2-b1d8-fe11-322a-3d32f40f6f65@amd.com>
+In-Reply-To: <77fca7d2-b1d8-fe11-322a-3d32f40f6f65@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Dec 2021 12:11:19 -0500
-Message-ID: <CADnq5_P2NknRtxxboccRVsqvSmY7y3f0Qqjs+xo10ymuRSoc8A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Use oriented source size when
- checking cursor scaling
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Date: Thu, 2 Dec 2021 12:13:29 -0500
+Message-ID: <CADnq5_M61Ob29ftgNB7L1eEAb_St1WL1wLEF3C4wXSEFP+3BMw@mail.gmail.com>
+Subject: Re: [PATCH v5] drm/radeon/radeon_kms: Fix a NULL pointer dereference
+ in radeon_driver_open_kms()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,122 +66,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vlad Zahorodnii <vlad.zahorodnii@kde.org>, Simon Ser <contact@emersion.fr>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, xaver.hugl@gmail.com,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Kangjie Lu <kjlu@umn.edu>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Zhou Qingyang <zhou1615@umn.edu>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  thanks!
+Applied.  Thanks!
 
 Alex
 
-On Thu, Dec 2, 2021 at 10:09 AM Kazlauskas, Nicholas
-<nicholas.kazlauskas@amd.com> wrote:
+On Wed, Dec 1, 2021 at 10:16 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> On 2021-12-02 7:52 a.m., Vlad Zahorodnii wrote:
-> > dm_check_crtc_cursor() doesn't take into account plane transforms when
-> > calculating plane scaling, this can result in false positives.
+> Am 01.12.21 um 16:13 schrieb Zhou Qingyang:
+> > In radeon_driver_open_kms(), radeon_vm_bo_add() is assigned to
+> > vm->ib_bo_va and passes and used in radeon_vm_bo_set_addr(). In
+> > radeon_vm_bo_set_addr(), there is a dereference of vm->ib_bo_va,
+> > which could lead to a NULL pointer dereference on failure of
+> > radeon_vm_bo_add().
 > >
-> > For example, if there's an output with resolution 3840x2160 and the
-> > output is rotated 90 degrees, CRTC_W and CRTC_H will be 3840 and 2160,
-> > respectively, but SRC_W and SRC_H will be 2160 and 3840, respectively.
+> > Fix this bug by adding a check of vm->ib_bo_va.
 > >
-> > Since the cursor plane usually has a square buffer attached to it, the
-> > dm_check_crtc_cursor() will think that there's a scale factor mismatch
-> > even though there isn't really.
+> > This bug was found by a static analyzer. The analysis employs
+> > differential checking to identify inconsistent security operations
+> > (e.g., checks or kfrees) between two code paths and confirms that the
+> > inconsistent operations are not recovered in the current function or
+> > the callers, so they constitute bugs.
 > >
-> > This fixes an issue where kwin fails to use hardware plane transforms.
+> > Note that, as a bug found by static analysis, it can be a false
+> > positive or hard to trigger. Multiple researchers have cross-reviewed
+> > the bug.
 > >
-> > Changes since version 1:
-> > - s/orientated/oriented/g
+> > Builds with CONFIG_DRM_RADEON=3Dm show no new warnings,
+> > and our static analyzer no longer warns about this code.
 > >
-> > Signed-off-by: Vlad Zahorodnii <vlad.zahorodnii@kde.org>
->
-> This looks correct to me. I guess it's also not modifying the actual
-> programming position, just the check to ensure that the cursor is going
-> to be unscaled in the correct orientation.
->
-> Would be good to have some IGT tests for these scaled cases to verify
-> atomic check pass/fail assumptions, but for now:
->
-> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
->
-> Regards,
-> Nicholas Kazlauskas
->
+> > Fixes: cc9e67e3d700 ("drm/radeon: fix VM IB handling")
+> > Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
 > > ---
-> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 35 ++++++++++++++-----
-> >   1 file changed, 27 insertions(+), 8 deletions(-)
+> > Changes in v5:
+> >    -  Use conditions to avoid unnecessary initialization
 > >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index a3c0f2e4f4c1..c009c668fbe2 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -10736,6 +10736,24 @@ static int dm_update_plane_state(struct dc *dc,
-> >       return ret;
-> >   }
+> > Changes in v4:
+> >    -  Initialize the variables to silence warning
 > >
-> > +static void dm_get_oriented_plane_size(struct drm_plane_state *plane_state,
-> > +                                    int *src_w, int *src_h)
-> > +{
-> > +     switch (plane_state->rotation & DRM_MODE_ROTATE_MASK) {
-> > +     case DRM_MODE_ROTATE_90:
-> > +     case DRM_MODE_ROTATE_270:
-> > +             *src_w = plane_state->src_h >> 16;
-> > +             *src_h = plane_state->src_w >> 16;
-> > +             break;
-> > +     case DRM_MODE_ROTATE_0:
-> > +     case DRM_MODE_ROTATE_180:
-> > +     default:
-> > +             *src_w = plane_state->src_w >> 16;
-> > +             *src_h = plane_state->src_h >> 16;
-> > +             break;
-> > +     }
-> > +}
+> > Changes in v3:
+> >    -  Fix the bug that good case will also be freed
+> >    -  Improve code style
+> >
+> > Changes in v2:
+> >    -  Improve the error handling into goto style
+> >
+> >   drivers/gpu/drm/radeon/radeon_kms.c | 36 ++++++++++++++++------------=
+-
+> >   1 file changed, 20 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/rade=
+on/radeon_kms.c
+> > index 482fb0ae6cb5..66aee48fd09d 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_kms.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_kms.c
+> > @@ -648,6 +648,8 @@ void radeon_driver_lastclose_kms(struct drm_device =
+*dev)
+> >   int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *f=
+ile_priv)
+> >   {
+> >       struct radeon_device *rdev =3D dev->dev_private;
+> > +     struct radeon_fpriv *fpriv;
+> > +     struct radeon_vm *vm;
+> >       int r;
+> >
+> >       file_priv->driver_priv =3D NULL;
+> > @@ -660,8 +662,6 @@ int radeon_driver_open_kms(struct drm_device *dev, =
+struct drm_file *file_priv)
+> >
+> >       /* new gpu have virtual address space support */
+> >       if (rdev->family >=3D CHIP_CAYMAN) {
+> > -             struct radeon_fpriv *fpriv;
+> > -             struct radeon_vm *vm;
+> >
+> >               fpriv =3D kzalloc(sizeof(*fpriv), GFP_KERNEL);
+> >               if (unlikely(!fpriv)) {
+> > @@ -672,35 +672,39 @@ int radeon_driver_open_kms(struct drm_device *dev=
+, struct drm_file *file_priv)
+> >               if (rdev->accel_working) {
+> >                       vm =3D &fpriv->vm;
+> >                       r =3D radeon_vm_init(rdev, vm);
+> > -                     if (r) {
+> > -                             kfree(fpriv);
+> > -                             goto out_suspend;
+> > -                     }
+> > +                     if (r)
+> > +                             goto out_fpriv;
+> >
+> >                       r =3D radeon_bo_reserve(rdev->ring_tmp_bo.bo, fal=
+se);
+> > -                     if (r) {
+> > -                             radeon_vm_fini(rdev, vm);
+> > -                             kfree(fpriv);
+> > -                             goto out_suspend;
+> > -                     }
+> > +                     if (r)
+> > +                             goto out_vm_fini;
+> >
+> >                       /* map the ib pool buffer read only into
+> >                        * virtual address space */
+> >                       vm->ib_bo_va =3D radeon_vm_bo_add(rdev, vm,
+> >                                                       rdev->ring_tmp_bo=
+.bo);
+> > +                     if (!vm->ib_bo_va) {
+> > +                             r =3D -ENOMEM;
+> > +                             goto out_vm_fini;
+> > +                     }
 > > +
-> >   static int dm_check_crtc_cursor(struct drm_atomic_state *state,
-> >                               struct drm_crtc *crtc,
-> >                               struct drm_crtc_state *new_crtc_state)
-> > @@ -10744,6 +10762,8 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
-> >       struct drm_plane_state *new_cursor_state, *new_underlying_state;
-> >       int i;
-> >       int cursor_scale_w, cursor_scale_h, underlying_scale_w, underlying_scale_h;
-> > +     int cursor_src_w, cursor_src_h;
-> > +     int underlying_src_w, underlying_src_h;
-> >
-> >       /* On DCE and DCN there is no dedicated hardware cursor plane. We get a
-> >        * cursor per pipe but it's going to inherit the scaling and
-> > @@ -10755,10 +10775,9 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
-> >               return 0;
+> >                       r =3D radeon_vm_bo_set_addr(rdev, vm->ib_bo_va,
+> >                                                 RADEON_VA_IB_OFFSET,
+> >                                                 RADEON_VM_PAGE_READABLE=
+ |
+> >                                                 RADEON_VM_PAGE_SNOOPED)=
+;
+> > -                     if (r) {
+> > -                             radeon_vm_fini(rdev, vm);
+> > -                             kfree(fpriv);
+> > -                             goto out_suspend;
+> > -                     }
+> > +                     if (r)
+> > +                             goto out_vm_fini;
+> >               }
+> >               file_priv->driver_priv =3D fpriv;
 > >       }
 > >
-> > -     cursor_scale_w = new_cursor_state->crtc_w * 1000 /
-> > -                      (new_cursor_state->src_w >> 16);
-> > -     cursor_scale_h = new_cursor_state->crtc_h * 1000 /
-> > -                      (new_cursor_state->src_h >> 16);
-> > +     dm_get_oriented_plane_size(new_cursor_state, &cursor_src_w, &cursor_src_h);
-> > +     cursor_scale_w = new_cursor_state->crtc_w * 1000 / cursor_src_w;
-> > +     cursor_scale_h = new_cursor_state->crtc_h * 1000 / cursor_src_h;
-> >
-> >       for_each_new_plane_in_state_reverse(state, underlying, new_underlying_state, i) {
-> >               /* Narrow down to non-cursor planes on the same CRTC as the cursor */
-> > @@ -10769,10 +10788,10 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
-> >               if (!new_underlying_state->fb)
-> >                       continue;
-> >
-> > -             underlying_scale_w = new_underlying_state->crtc_w * 1000 /
-> > -                                  (new_underlying_state->src_w >> 16);
-> > -             underlying_scale_h = new_underlying_state->crtc_h * 1000 /
-> > -                                  (new_underlying_state->src_h >> 16);
-> > +             dm_get_oriented_plane_size(new_underlying_state,
-> > +                                        &underlying_src_w, &underlying_src_h);
-> > +             underlying_scale_w = new_underlying_state->crtc_w * 1000 / underlying_src_w;
-> > +             underlying_scale_h = new_underlying_state->crtc_h * 1000 / underlying_src_h;
-> >
-> >               if (cursor_scale_w != underlying_scale_w ||
-> >                   cursor_scale_h != underlying_scale_h) {
-> >
+> > +     if (!r)
+>
+> I think that test is unecessary now, maybe double check.
+>
+> Either way patch Reviewed-by: Christian K=C3=B6nig
+> <christian.koenig@amd.com>. Alex will probably pick it up now.
+>
+> Thanks for the help,
+> Christian.
+>
+> > +             goto out_suspend;
+> > +
+> > +out_vm_fini:
+> > +     radeon_vm_fini(rdev, vm);
+> > +out_fpriv:
+> > +     kfree(fpriv);
+> >   out_suspend:
+> >       pm_runtime_mark_last_busy(dev->dev);
+> >       pm_runtime_put_autosuspend(dev->dev);
 >
