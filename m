@@ -4,92 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B686C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 03:43:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3B7AC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Dec 2021 03:44:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC80E89316;
-	Thu,  2 Dec 2021 03:43:18 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2076.outbound.protection.outlook.com [40.107.96.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EB4989316
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Dec 2021 03:43:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 067156E985;
+	Thu,  2 Dec 2021 03:44:14 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BED2C6E985
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Dec 2021 03:44:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G3C+gFGQC/fn7wlNuf3T9JsUbMWY0fOHzYALu635uhtqRgvphqYYO4rOBH8SFe1l5z8awSDjAuQFAQk7xXy3ugDlZgXn0yqZ6n5Gsv7EXn9jKgMxou4TXgPTAKKSbqihm9HykjxcECnqmiKoVpTOe152/vjBYvEa+RxeXkSMZBrpko5H1gi8rGFJRqNJF5fZ8RnSkv0CSApqpfpIZLXMJxIIlRyWZh1ldOfCWmKujjlmTCkfkzf3jdrEtzjiFZ4Mdchyhe7I83n/yCe66nEk3ToKAILtOJeH2XUrIBoEklUYJA2VZ+dzFmBLJqcXAzRMJ7w1yEdQi7NxoeCqSGHEDQ==
+ b=P9RK3ouBHGMjP3WngC89DUQbTlKTHXyJrqbaInWIiyRm5MbO/SQasyAEbYOYix3TdDq0urIOkzr2mCRSzUSl5gEJsV0oTibKF1lfOgJHRGw/KKAUaS6bFBawrl2lKShh8AaVXGiOT24xOPeZ097NYKFpXU2VoNa1ODxa5KF9xkWItRzc6ypB0fU4c3DAvm9v0HKziwmx+fxsu6q6rLO8c5XSGnHPN2WDhrWBCi5Q3xS0aD8UFhqBmuAEFxWw14PLNfqkftQymKiMNnxH2sfgpjLZlkMVrjGUSJ1H7VcewhtTHbYMx5WaZTZ5hVzcpULoy/DvvhxN+8WmsUHjQOi3kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0DHV8ePH3lj7vBhtKP6k1XzgKTpaA7KM57k8/TlLYl8=;
- b=VpbCvhMLNc1RJ2RDvGYSuPYI4E7w1iGOc3cR+EIfPHPfKp7RkvEO/cSpwwFGpH7la0oR1hFyLnd7s92AuxHf/dt06CTO3OVAZsoDFba/JuFYpoQeZdMLgu1xnNN9GuKLl9EbFy9Xg/dOV6xjdIje5p36wLuicKgfDMi+oP236Tcz8YOO9jm5LU4Tdhggzpu7EnrJZg66WetVxLmBQW75q9G2P3KG+nAKbeozz9KUPh7sjK+wHsK4vj2bgkTqz/Gi6N6CIF7+BQ0LhdPO3mTviAB3TQx2yxF7dNgj/7suQglDjRo1B0VYEG3qThYD1JeI755c0GbJLpUSZNlPV+1HPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=daoTzk9N3ATSwJzVqNJmWe8p9rafOB7ceAaSeXH5q04=;
+ b=b9GeHkvJsxTebRce7d8xXQO3lMcOnPn4M7bp/FZ0FiIoPq8NYlbK9I4mknsIJ/khFCSHC8iG487AWSFuXhhEMKA/vJMkQ6TbxM+GIhrTjRWeb+83OTGlS5o6fBabcnhk4kaJtlLnsPxzJfUcjUzgJv3dyDZMYOPTNYw/FCoOo52ojUr/Q5KlmuI3d60a7LjJ9s/yCMJiuangP8pQ1AhXma4CvFfVULH60Il/8Aw1SAmiWQGaSlK6FIVWOM+Tq11VAS/FeIONfSyqnbaxAvW1H2lCIOz2NcaqjagMhJUkOOz2FAv110jIW41DTN89cJYkYa7Zsdr3z4nKepwE1ablsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0DHV8ePH3lj7vBhtKP6k1XzgKTpaA7KM57k8/TlLYl8=;
- b=2DiNu7To8zRrFnwXZuhme2ouu/cbzNScjYdDvbIvQ9/3uDrCPtBfc1gHzndY8dv/qX6IV8Lso2hEToR9BZVhsu1zgCJpkTYpjSvnbj0RForkls8VkPj95JH0nnq6kbpLBbpZrQFSNiKji1tTDNJDOPWupN68H84B+oN7Zcw0k74=
-Received: from DM5PR08CA0052.namprd08.prod.outlook.com (2603:10b6:4:60::41) by
- DM4PR12MB5214.namprd12.prod.outlook.com (2603:10b6:5:395::22) with
+ bh=daoTzk9N3ATSwJzVqNJmWe8p9rafOB7ceAaSeXH5q04=;
+ b=kUkYwL5K5Dp6FIdAHyHyLRX7LgH5EE0r02Fyh3n5/MOPi7XztJDcVx5afhhpcner174uw4XlXPPDxI69GKC9n68SeBvaxQo9SYzz54jhMKdKztXSaV9H3PQsIRqRl6g2CQSUrTHWke4fMBWdmfGuC3rBL877cNhid2oxCiEnIXE=
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ DM5PR12MB2437.namprd12.prod.outlook.com (2603:10b6:4:ba::13) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.23; Thu, 2 Dec 2021 03:10:31 +0000
-Received: from DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:60:cafe::6e) by DM5PR08CA0052.outlook.office365.com
- (2603:10b6:4:60::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22 via Frontend
- Transport; Thu, 2 Dec 2021 03:10:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT014.mail.protection.outlook.com (10.13.173.132) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Thu, 2 Dec 2021 03:10:30 +0000
-Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 1 Dec
- 2021 21:10:28 -0600
-From: Evan Quan <evan.quan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 14/17] drm/amd/pm: relocate the power related headers
-Date: Thu, 2 Dec 2021 11:09:27 +0800
-Message-ID: <20211202030930.1681278-15-evan.quan@amd.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20211202030930.1681278-1-evan.quan@amd.com>
-References: <20211202030930.1681278-1-evan.quan@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0abdb231-cd6a-48a9-a1d5-08d9b5414c84
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5214:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB52147651CF8C278A4CF07BAFE4699@DM4PR12MB5214.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5dMkXYdU5PiPw+4foJn7MPkZIrOK9BYgejb0R6wlZkK5ADT62BJQx4DYEr/AgW4vrv4Nv9c7J5eikw5sDX3sKhJKTmfpxZlK4XcziB4PIahV88YeZSJssuEQde2tzs/EREybC0rmsfDMr7nkA6XclG/+kIXhJOQ+9Y1ZcXc1C22a7bJCTNTHXrCtN01cX9dwlYQrWkznNvuP5bbnG94CzS2RyjWufoCMY+vbpGLxCa85rtNHLBGAkR1Xhxde8nDG20Z+ShrvXpaD0B0NK/fOhlsR6NvxshiU4EoYXxOKHLawzdtxwX9F3G5CDO0ZHpvvXZi3EorTHXorh9IsB1tHIMldbKWQMEmXbNky2CsmKXYWxitBiz8ICmih+6iYzIUKNYich8MWksYyKHuRG/BaoGxINq2OHtKuBzRNTRCbqscaEZGmHxkryqemzWz0kO4Eft14H01Ad5O/i36qbB6+rjdnT64uX/5Z8p6aXm3g96BLQ+kbJDxAZiWjUaT+gTp2qlEapYNHRTZAMeoc6b+YSP3QGadeIYgrGd8Mjdm+DOhiCezZNKjhUfuH+p/e0YvpANsBsXDCy4c3fE50fusduuGKkfLP6sZ95bvsH8RUy1vYrkZot9kga1PSO4clkUfU+mAoQnHEKU9y9LvL3ud1cKmgKj0AqZjcyZvxgB5pLCEZ5TDf4ln0eIViYCYZT4F5+z/vweG3xVLfm4b2PrIY8VzZ2gACCgjGzvPAomnV4tNdbITkVlWcd84ju/oWP0mjKU9hnDAxgcDELmMITg9FJZ90j7LJxHL5AENtcSmnK8Y=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(16526019)(6916009)(47076005)(336012)(186003)(508600001)(54906003)(2906002)(316002)(30864003)(86362001)(8676002)(70206006)(5660300002)(8936002)(83380400001)(7696005)(2616005)(82310400004)(356005)(36756003)(426003)(81166007)(36860700001)(4326008)(44832011)(40460700001)(26005)(70586007)(1076003)(36900700001);
+ 15.20.4755.11; Thu, 2 Dec 2021 03:12:18 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa%8]) with mapi id 15.20.4734.024; Thu, 2 Dec 2021
+ 03:12:18 +0000
+From: "Yu, Lang" <Lang.Yu@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?=
+ <ckoenig.leichtzumerken@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: add support to SMU debug option
+Thread-Topic: [PATCH] drm/amdgpu: add support to SMU debug option
+Thread-Index: AQHX5pVcc3LghN55bkmOkF3w2Pkmd6wdXtgAgAATJuCAAALugIAABsDggAAEiwCAAAEbcIAA/3wAgAAE+7A=
+Date: Thu, 2 Dec 2021 03:12:18 +0000
+Message-ID: <DM6PR12MB42509EB2DFDA33A65D4B8C96FB699@DM6PR12MB4250.namprd12.prod.outlook.com>
+References: <20211201092458.3348858-1-lang.yu@amd.com>
+ <f7e0dfb0-cdb0-13f2-49e4-d13366a23e0f@amd.com>
+ <DM6PR12MB4250974428DA6713B8BC4802FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
+ <0ee705b0-d9fe-4339-9381-9fe058dfbd3f@gmail.com>
+ <DM6PR12MB42505899AFB96290F516C21BFB689@DM6PR12MB4250.namprd12.prod.outlook.com>
+ <e3bdf34e-b18c-695b-fc58-73426760935b@amd.com>
+ <DM6PR12MB4250CB4C8DE2869BB8BD55D1FB689@DM6PR12MB4250.namprd12.prod.outlook.com>
+ <DM6PR12MB26190D2B5762902954429563E4699@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB26190D2B5762902954429563E4699@DM6PR12MB2619.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-02T02:47:42Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=eb5bb3f2-7db1-460a-adf7-1ca3a197f4bf;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-12-02T03:12:14Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 7460b0bb-d203-47ea-a1fe-39201e51559e
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0d872d46-cf09-4fe0-891a-08d9b5418c6c
+x-ms-traffictypediagnostic: DM5PR12MB2437:
+x-microsoft-antispam-prvs: <DM5PR12MB24370210BD0B452CBCCCA182FB699@DM5PR12MB2437.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: tETJ3LG6N+mGE2KGBPJdR0q6fM2FjoJwhU2Wpqx+amMmpNBGGhd2OSbps5HbTT7I2VNtbpw8jV/w0HeMce7sYQQU7IwaN1DT4FfowTaRn135f4SALAzpMistHH0A+L3jlttVc1T2shuwqbYZ3vhjXRIl17MPVgDUgtQfKsNqFuIEI6tI0NK0vlgQypD0erFBLYFAcc+vXkTvfNy8QMyg+ufLDmJjKJlwUx1qqxlC/6BnQ33MIXDsxRi+G8+miW0Xw+guSNbuhcRbWEiwbgsNnTZ3JDcVQmh8NQUHHPwr8gXP8ywzEUtZTlCyCR35CaImv6nrrcoEyVYkWmQFHrKJuwK3iFITtyYmupjgg5KHvNN54OZjhYxLfHXCEkOSzIwo1bT6O6P3pyxA9Gy7ic3RrJo5Jrtq2kqN2bStl9ijZDkc1X4qu/6sOnudfRtAJByE/0JS6o8IlYGia6o+C8NsAQHXOjM6OrsZvxuOlNIFy/fJcottsVLTSYefUxvIElUvO4xSmmhonHeW6op3s7UW1nibFL5klL7Dkb9E1Xt9g4yTYxZKgpEXFOEn4Zy1Zljn7hXc6QZp51F7umZX/5BAEHGjBhn1tTLZWEm8MJ6YitQN7Mco4HOlJKgbD9TjUXYFu277VyKGY7Uz+2FI5PkNj2NoDIEb2zQMz9N7vS+7LCQyIoxnbGH7ddSGbp1Lwb9rVqYxse+PAQEBlH/5KkfZvw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(53546011)(76116006)(2906002)(52536014)(8936002)(6506007)(71200400001)(54906003)(38070700005)(508600001)(66556008)(64756008)(66946007)(83380400001)(66574015)(186003)(66476007)(66446008)(8676002)(7696005)(9686003)(4326008)(110136005)(5660300002)(86362001)(38100700002)(33656002)(316002)(122000001)(26005)(55016003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?b2IweTArdlgwWEN4SmtNSThOa2tHeWRRblRWRUY4VzUzZ3dqZEc1UGcxY3c1?=
+ =?utf-8?B?VWJFSnRLZCtKdUhxSWhkREd3Vk05UzdLV09QMzJwTlZmUmlteWNYa1NrQllU?=
+ =?utf-8?B?UkVmanNzVVlSdjhVZ2tUVTk2bUlFVzdodXpFMXNIVVordmpYbEZLNWpTMXhs?=
+ =?utf-8?B?RnErSUxKNE5CcG04UVR1aVpob1ErN0gzQmFYaU9BQzVhWndJSktaR0NkVDhm?=
+ =?utf-8?B?bTk5QUFKMitOWUFUWExkdlNzaDdVYVo2QkJTK2NwWS9Rb2tQcVcxZnBnMTNM?=
+ =?utf-8?B?eVhrTGc1emdoMS95TkR3RityYmxoZmZlU20vSWxpTWdrYXB6NHdWT2pqT2FI?=
+ =?utf-8?B?OGgzL1FBc2ZkcmIrZTB6aXlPZURTaGdyQVEvb3o2bFJjSVNKeU40WmRZYnVC?=
+ =?utf-8?B?eHFFM1M5MDB5RlNyODVDbU5XdXZxdkk3STlac3A2TWlwQkdad0pqUzd5bUVo?=
+ =?utf-8?B?Yk0wdmZuOEZXTEJHMWYranR6Uk5HM2FuMmtteWwwSkpKOC9xUUFlNXNRT0hB?=
+ =?utf-8?B?UE12ZER1ME8xQUtROVNZRCtOVVBUV3hzMXpDcFpmbnNiNlNqL2U5N1JReXBS?=
+ =?utf-8?B?RG5mVVhtTG83Z3JPVmlXSW80UWdjOTROTkE4NnZrK2ZtNkFVQXZmV3Urc2Mr?=
+ =?utf-8?B?MjExRll0b3dEdWY2a2x4WGtVK245ZlZpYTlHZjJDdzMyUUtDR29td0hST3gv?=
+ =?utf-8?B?SUIveFNkaVovOFk2N0VFUUxoTVRleU9OdzJKdVlxdStjVUxiK1Q5YnRGWlJi?=
+ =?utf-8?B?UmZJWDhUWExGMmxBV1NWUW5TekhZMUdrSHB4YmE1WmJ3UFZKT21zQUVyMnEw?=
+ =?utf-8?B?RSs4MGEvZGMreWtmRXpTOHBoTmtEczEvem1qVE80RVVrcjk0RVhJZG1PUTQ1?=
+ =?utf-8?B?SVF2YktSaVFZTjNiYVFDQXQ2TEhNcVg1ZS9uTU1XMWs2VUQ0emc3emFlczVU?=
+ =?utf-8?B?V1dsR0E3Q25NUGZ0c2VaUWZjRVVNck1hclJnU1ZoZlJldjhUREM5NnNtVUNI?=
+ =?utf-8?B?L21EcXFRTjRBYnJtQzlzVTRYTWs3V2p6dDE3bFVyQWp2NFlvNEdSZHhEWTc3?=
+ =?utf-8?B?ZmVJV2NQRGU4WWhyN1AzRTBYaXpCUFhvcFA2Q0VpaWo2bzV0R25XYXFCVS9o?=
+ =?utf-8?B?ZkFiQms1YUVJV3NmWGkwNVpldCtIQ1BYanNOSFRnOWhRMHlmU1pjZURNR3lx?=
+ =?utf-8?B?RDRsZGpzSHhEb2grNVIxcUtZRjB1dFpvekczL0VtK0tZNWUvQXZPUUdXbDd0?=
+ =?utf-8?B?UUdPSW1Rbjl6a05kVE1GT0RYdS9YNGtPblZEdmI1V2JUZ2RrVExiN3BDQzJE?=
+ =?utf-8?B?TThlYnNITzM5Yll2eXNRU3I3ekJpRzY0bytyeDNWaXJ1ZnJuMEIrOC9JVnN5?=
+ =?utf-8?B?eDQ5aXdpOGRSZW5lVUVHQkFPS2pEVVRyT0dzRlUyOVZGdFk1QnNRMy9xc1BP?=
+ =?utf-8?B?QlE5Vyt4M3hFcEtQNXdzWldBaVdrRmV4bUxDMVVtUURHTGFreVQ5ZS9VUGcz?=
+ =?utf-8?B?aUFRNVZib296NStLOXl4VlBtUGk2bjl3U0RTMVd6VXIreldBQkViQitNQWJp?=
+ =?utf-8?B?bms1ZkVqLzRMSU5xOG9mK1M1YklnbkszRXJEL09IWnduSzh1UmlrcXpUUHBP?=
+ =?utf-8?B?S25vcTk4WTZlV2JRcGc3dkZwRkpQNmZTT3BaZ3dhNmd4dXpPOEFnL0FFalBN?=
+ =?utf-8?B?cTFwVEtPVUdDT3hWa1BhNHYyYWJQVGxVK1hnVzV3aWdJR2lGdUFndkdvNHVq?=
+ =?utf-8?B?ZXJzSFIrVkFBM1ZYRmcrZzRrdTFrQnE0ZzBUb3dMelhRdFJvbTVOQk5jaDB1?=
+ =?utf-8?B?U20wcUdlVDJIT3VNOFhzN29BLzI4ZXQwV1MzT0xNU0d6eG44MjNvd1NNWkxa?=
+ =?utf-8?B?cWhIMUxGajZPNHJiNTdPSTBXZ0plUyt2RWZiMWxBbElIb2ZBdVVOT3hDSWlV?=
+ =?utf-8?B?WjJibEw0UmNVWGZrd2NVN3g1cWdDcmdNSGNpL05qOFNqYmhYVUxXVExiaHRu?=
+ =?utf-8?B?cDYzNGFXL1h3cVhrTlVnMExZd3FrSjNHTnkwWmFraTB2ZWRaOXBOVS8zcSty?=
+ =?utf-8?B?ZjlRYzdvT05CMjg0c09NMmRBV2xQRWNHNHA0V0t1SFZrVkdzSDg0VHNVK3A3?=
+ =?utf-8?B?cCs2UTduSFo3MjlEU21qeW9kcFJsQ25PNC9zcnY3N1F1K1VJcnNnYitXcG1t?=
+ =?utf-8?Q?3FV3P0Wzct2nrmXMecjuJ5o=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 03:10:30.9994 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0abdb231-cd6a-48a9-a1d5-08d9b5414c84
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5214
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d872d46-cf09-4fe0-891a-08d9b5418c6c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Dec 2021 03:12:18.0730 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OOETxuHpGy/dPs7zE8l6tupVhuHe/0UxDY5ha9M7I1TJk9XSV4bJajXBZB3y6dknfiO1gxZW6Rx5ZSwy/7Bu1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2437
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,628 +152,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, lijo.lazar@amd.com, Kenneth.Feng@amd.com,
- christian.koenig@amd.com, Evan Quan <evan.quan@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of centralizing all headers in the same folder. Separate them into
-different folders and place them among those source files those who really
-need them.
-
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: Id74cb4c7006327ca7ecd22daf17321e417c4aa71
----
- drivers/gpu/drm/amd/pm/Makefile               | 10 +++---
- drivers/gpu/drm/amd/pm/legacy-dpm/Makefile    | 32 +++++++++++++++++++
- .../pm/{powerplay => legacy-dpm}/cik_dpm.h    |  0
- .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.c |  0
- .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.h |  0
- .../amd/pm/{powerplay => legacy-dpm}/kv_smc.c |  0
- .../pm/{powerplay => legacy-dpm}/legacy_dpm.c |  0
- .../pm/{powerplay => legacy-dpm}/legacy_dpm.h |  0
- .../amd/pm/{powerplay => legacy-dpm}/ppsmc.h  |  0
- .../pm/{powerplay => legacy-dpm}/r600_dpm.h   |  0
- .../amd/pm/{powerplay => legacy-dpm}/si_dpm.c |  0
- .../amd/pm/{powerplay => legacy-dpm}/si_dpm.h |  0
- .../amd/pm/{powerplay => legacy-dpm}/si_smc.c |  0
- .../{powerplay => legacy-dpm}/sislands_smc.h  |  0
- drivers/gpu/drm/amd/pm/powerplay/Makefile     |  6 +---
- .../pm/{ => powerplay}/inc/amd_powerplay.h    |  0
- .../drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h |  0
- .../amd/pm/{ => powerplay}/inc/fiji_ppsmc.h   |  0
- .../pm/{ => powerplay}/inc/hardwaremanager.h  |  0
- .../drm/amd/pm/{ => powerplay}/inc/hwmgr.h    |  0
- .../{ => powerplay}/inc/polaris10_pwrvirus.h  |  0
- .../amd/pm/{ => powerplay}/inc/power_state.h  |  0
- .../drm/amd/pm/{ => powerplay}/inc/pp_debug.h |  0
- .../amd/pm/{ => powerplay}/inc/pp_endian.h    |  0
- .../amd/pm/{ => powerplay}/inc/pp_thermal.h   |  0
- .../amd/pm/{ => powerplay}/inc/ppinterrupt.h  |  0
- .../drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu10.h    |  0
- .../pm/{ => powerplay}/inc/smu10_driver_if.h  |  0
- .../pm/{ => powerplay}/inc/smu11_driver_if.h  |  0
- .../gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu71.h    |  0
- .../pm/{ => powerplay}/inc/smu71_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu72.h    |  0
- .../pm/{ => powerplay}/inc/smu72_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu73.h    |  0
- .../pm/{ => powerplay}/inc/smu73_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu74.h    |  0
- .../pm/{ => powerplay}/inc/smu74_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu75.h    |  0
- .../pm/{ => powerplay}/inc/smu75_discrete.h   |  0
- .../amd/pm/{ => powerplay}/inc/smu7_common.h  |  0
- .../pm/{ => powerplay}/inc/smu7_discrete.h    |  0
- .../amd/pm/{ => powerplay}/inc/smu7_fusion.h  |  0
- .../amd/pm/{ => powerplay}/inc/smu7_ppsmc.h   |  0
- .../gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h |  0
- .../amd/pm/{ => powerplay}/inc/smu8_fusion.h  |  0
- .../gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h |  0
- .../pm/{ => powerplay}/inc/smu9_driver_if.h   |  0
- .../{ => powerplay}/inc/smu_ucode_xfer_cz.h   |  0
- .../{ => powerplay}/inc/smu_ucode_xfer_vi.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smumgr.h   |  0
- .../amd/pm/{ => powerplay}/inc/tonga_ppsmc.h  |  0
- .../amd/pm/{ => powerplay}/inc/vega10_ppsmc.h |  0
- .../inc/vega12/smu9_driver_if.h               |  0
- .../amd/pm/{ => powerplay}/inc/vega12_ppsmc.h |  0
- .../amd/pm/{ => powerplay}/inc/vega20_ppsmc.h |  0
- .../amd/pm/{ => swsmu}/inc/aldebaran_ppsmc.h  |  0
- .../drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h   |  0
- .../amd/pm/{ => swsmu}/inc/arcturus_ppsmc.h   |  0
- .../inc/smu11_driver_if_arcturus.h            |  0
- .../inc/smu11_driver_if_cyan_skillfish.h      |  0
- .../{ => swsmu}/inc/smu11_driver_if_navi10.h  |  0
- .../inc/smu11_driver_if_sienna_cichlid.h      |  0
- .../{ => swsmu}/inc/smu11_driver_if_vangogh.h |  0
- .../amd/pm/{ => swsmu}/inc/smu12_driver_if.h  |  0
- .../inc/smu13_driver_if_aldebaran.h           |  0
- .../inc/smu13_driver_if_yellow_carp.h         |  0
- .../pm/{ => swsmu}/inc/smu_11_0_cdr_table.h   |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_types.h    |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h    |  0
- .../pm/{ => swsmu}/inc/smu_v11_0_7_ppsmc.h    |  0
- .../pm/{ => swsmu}/inc/smu_v11_0_7_pptable.h  |  0
- .../amd/pm/{ => swsmu}/inc/smu_v11_0_ppsmc.h  |  0
- .../pm/{ => swsmu}/inc/smu_v11_0_pptable.h    |  0
- .../amd/pm/{ => swsmu}/inc/smu_v11_5_pmfw.h   |  0
- .../amd/pm/{ => swsmu}/inc/smu_v11_5_ppsmc.h  |  0
- .../amd/pm/{ => swsmu}/inc/smu_v11_8_pmfw.h   |  0
- .../amd/pm/{ => swsmu}/inc/smu_v11_8_ppsmc.h  |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h    |  0
- .../amd/pm/{ => swsmu}/inc/smu_v12_0_ppsmc.h  |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h    |  0
- .../amd/pm/{ => swsmu}/inc/smu_v13_0_1_pmfw.h |  0
- .../pm/{ => swsmu}/inc/smu_v13_0_1_ppsmc.h    |  0
- .../pm/{ => swsmu}/inc/smu_v13_0_pptable.h    |  0
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 -
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 -
- 87 files changed, 39 insertions(+), 11 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/cik_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_dpm.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_smc.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/legacy_dpm.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/legacy_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/r600_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_smc.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/sislands_smc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/amd_powerplay.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/fiji_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/hardwaremanager.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/hwmgr.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/polaris10_pwrvirus.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/power_state.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_debug.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_endian.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_thermal.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/ppinterrupt.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu10.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu10_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu11_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_common.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_fusion.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8_fusion.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu_ucode_xfer_cz.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu_ucode_xfer_vi.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smumgr.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/tonga_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega10_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega12/smu9_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega12_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega20_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/aldebaran_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/arcturus_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_arcturus.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_cyan_skillfish.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_navi10.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_sienna_cichlid.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu11_driver_if_vangogh.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu12_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu13_driver_if_aldebaran.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu13_driver_if_yellow_carp.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_11_0_cdr_table.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_types.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_7_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_7_pptable.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_pptable.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_5_pmfw.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_5_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_8_pmfw.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_8_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v12_0_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0_1_pmfw.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0_1_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0_pptable.h (100%)
-
-diff --git a/drivers/gpu/drm/amd/pm/Makefile b/drivers/gpu/drm/amd/pm/Makefile
-index d35ffde387f1..84c7203b5e46 100644
---- a/drivers/gpu/drm/amd/pm/Makefile
-+++ b/drivers/gpu/drm/amd/pm/Makefile
-@@ -21,20 +21,22 @@
- #
- 
- subdir-ccflags-y += \
--		-I$(FULL_AMD_PATH)/pm/inc/  \
- 		-I$(FULL_AMD_PATH)/include/asic_reg  \
- 		-I$(FULL_AMD_PATH)/include  \
-+		-I$(FULL_AMD_PATH)/pm/inc/  \
- 		-I$(FULL_AMD_PATH)/pm/swsmu \
-+		-I$(FULL_AMD_PATH)/pm/swsmu/inc \
- 		-I$(FULL_AMD_PATH)/pm/swsmu/smu11 \
- 		-I$(FULL_AMD_PATH)/pm/swsmu/smu12 \
- 		-I$(FULL_AMD_PATH)/pm/swsmu/smu13 \
--		-I$(FULL_AMD_PATH)/pm/powerplay \
-+		-I$(FULL_AMD_PATH)/pm/powerplay/inc \
- 		-I$(FULL_AMD_PATH)/pm/powerplay/smumgr\
--		-I$(FULL_AMD_PATH)/pm/powerplay/hwmgr
-+		-I$(FULL_AMD_PATH)/pm/powerplay/hwmgr \
-+		-I$(FULL_AMD_PATH)/pm/legacy-dpm
- 
- AMD_PM_PATH = ../pm
- 
--PM_LIBS = swsmu powerplay
-+PM_LIBS = swsmu powerplay legacy-dpm
- 
- AMD_PM = $(addsuffix /Makefile,$(addprefix $(FULL_AMD_PATH)/pm/,$(PM_LIBS)))
- 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile b/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
-new file mode 100644
-index 000000000000..baa4265d1daa
---- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
-@@ -0,0 +1,32 @@
-+#
-+# Copyright 2021 Advanced Micro Devices, Inc.
-+#
-+# Permission is hereby granted, free of charge, to any person obtaining a
-+# copy of this software and associated documentation files (the "Software"),
-+# to deal in the Software without restriction, including without limitation
-+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+# and/or sell copies of the Software, and to permit persons to whom the
-+# Software is furnished to do so, subject to the following conditions:
-+#
-+# The above copyright notice and this permission notice shall be included in
-+# all copies or substantial portions of the Software.
-+#
-+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+# OTHER DEALINGS IN THE SOFTWARE.
-+#
-+
-+AMD_LEGACYDPM_PATH = ../pm/legacy-dpm
-+
-+LEGACYDPM_MGR-y = legacy_dpm.o
-+
-+LEGACYDPM_MGR-$(CONFIG_DRM_AMDGPU_CIK)+= kv_dpm.o kv_smc.o
-+LEGACYDPM_MGR-$(CONFIG_DRM_AMDGPU_SI)+= si_dpm.o si_smc.o
-+
-+AMD_LEGACYDPM_POWER = $(addprefix $(AMD_LEGACYDPM_PATH)/,$(LEGACYDPM_MGR-y))
-+
-+AMD_POWERPLAY_FILES += $(AMD_LEGACYDPM_POWER)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/cik_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/cik_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/cik_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/cik_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/kv_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_smc.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_smc.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/kv_smc.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_smc.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/ppsmc.h b/drivers/gpu/drm/amd/pm/legacy-dpm/ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/ppsmc.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/r600_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/r600_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/r600_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/r600_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/si_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_smc.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/si_smc.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h b/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/Makefile b/drivers/gpu/drm/amd/pm/powerplay/Makefile
-index 614d8b6a58ad..795a3624cbbf 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/Makefile
-+++ b/drivers/gpu/drm/amd/pm/powerplay/Makefile
-@@ -28,11 +28,7 @@ AMD_POWERPLAY = $(addsuffix /Makefile,$(addprefix $(FULL_AMD_PATH)/pm/powerplay/
- 
- include $(AMD_POWERPLAY)
- 
--POWER_MGR-y = amd_powerplay.o legacy_dpm.o
--
--POWER_MGR-$(CONFIG_DRM_AMDGPU_CIK)+= kv_dpm.o kv_smc.o
--
--POWER_MGR-$(CONFIG_DRM_AMDGPU_SI)+= si_dpm.o si_smc.o
-+POWER_MGR-y = amd_powerplay.o
- 
- AMD_PP_POWER = $(addprefix $(AMD_PP_PATH)/,$(POWER_MGR-y))
- 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amd_powerplay.h b/drivers/gpu/drm/amd/pm/powerplay/inc/amd_powerplay.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/amd_powerplay.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/amd_powerplay.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/cz_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/cz_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/cz_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/cz_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/fiji_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/fiji_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/fiji_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/fiji_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/hardwaremanager.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/hardwaremanager.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/hwmgr.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/polaris10_pwrvirus.h b/drivers/gpu/drm/amd/pm/powerplay/inc/polaris10_pwrvirus.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/polaris10_pwrvirus.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/polaris10_pwrvirus.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/power_state.h b/drivers/gpu/drm/amd/pm/powerplay/inc/power_state.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/power_state.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/power_state.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/pp_debug.h b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/pp_debug.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/pp_endian.h b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_endian.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/pp_endian.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_endian.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/pp_thermal.h b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_thermal.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/pp_thermal.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_thermal.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/ppinterrupt.h b/drivers/gpu/drm/amd/pm/powerplay/inc/ppinterrupt.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/ppinterrupt.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/ppinterrupt.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/rv_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/rv_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu10.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu10.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu10.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu10.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu10_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu10_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu11_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu11_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu71.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu71.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu71.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu71.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu71_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu71_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu71_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu71_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu72.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu72.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu72.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu72.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu72_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu72_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu72_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu72_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu73.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu73.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu73_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu73_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu74.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu74.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu74.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu74.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu74_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu74_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu74_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu74_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu75.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu75.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu75_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu75_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu75_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_common.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_common.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_common.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_common.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_fusion.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_fusion.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu8.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu8.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu8.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu8.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu8_fusion.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu8_fusion.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu8_fusion.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu8_fusion.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu9.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu9.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu9.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu9_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu9_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_cz.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_cz.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_vi.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_vi.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_vi.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_vi.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smumgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smumgr.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smumgr.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smumgr.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/tonga_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/tonga_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/tonga_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/tonga_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega10_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega10_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega10_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega10_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega12/smu9_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega12/smu9_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega12/smu9_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega12/smu9_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega12_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega12_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega12_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega12_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega20_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega20_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega20_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega20_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/aldebaran_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/aldebaran_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/arcturus_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/arcturus_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/arcturus_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/arcturus_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_arcturus.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_arcturus.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_cyan_skillfish.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_cyan_skillfish.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_navi10.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_navi10.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_sienna_cichlid.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_sienna_cichlid.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_vangogh.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu11_driver_if_vangogh.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu12_driver_if.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu12_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu12_driver_if.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu12_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu13_driver_if_aldebaran.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu13_driver_if_aldebaran.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu13_driver_if_yellow_carp.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu13_driver_if_yellow_carp.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_11_0_cdr_table.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_11_0_cdr_table.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_types.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_pptable.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_pptable.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_5_pmfw.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_5_pmfw.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_5_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_5_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_8_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_8_pmfw.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_8_pmfw.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_8_pmfw.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_8_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_8_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_8_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_8_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v12_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v12_0.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v12_0_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v12_0_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_1_pmfw.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_1_pmfw.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_1_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_1_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_pptable.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index a03bbd2a7aa0..1e6d76657bbb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -33,7 +33,6 @@
- #include "smu11_driver_if_arcturus.h"
- #include "soc15_common.h"
- #include "atom.h"
--#include "power_state.h"
- #include "arcturus_ppt.h"
- #include "smu_v11_0_pptable.h"
- #include "arcturus_ppsmc.h"
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 3c82f5455f88..cc502a35f9ef 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -33,7 +33,6 @@
- #include "smu13_driver_if_aldebaran.h"
- #include "soc15_common.h"
- #include "atom.h"
--#include "power_state.h"
- #include "aldebaran_ppt.h"
- #include "smu_v13_0_pptable.h"
- #include "aldebaran_ppsmc.h"
--- 
-2.29.0
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KDQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
+LQ0KPkZyb206IFF1YW4sIEV2YW4gPEV2YW4uUXVhbkBhbWQuY29tPg0KPlNlbnQ6IFRodXJzZGF5
+LCBEZWNlbWJlciAyLCAyMDIxIDEwOjQ4IEFNDQo+VG86IFl1LCBMYW5nIDxMYW5nLll1QGFtZC5j
+b20+OyBLb2VuaWcsIENocmlzdGlhbg0KPjxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBDaHJp
+c3RpYW4gS8O2bmlnDQo+PGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPjsgYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj5DYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5k
+ZXIuRGV1Y2hlckBhbWQuY29tPjsgTGF6YXIsIExpam8NCj48TGlqby5MYXphckBhbWQuY29tPjsg
+SHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+DQo+U3ViamVjdDogUkU6IFtQQVRDSF0gZHJt
+L2FtZGdwdTogYWRkIHN1cHBvcnQgdG8gU01VIGRlYnVnIG9wdGlvbg0KPg0KPltBTUQgT2ZmaWNp
+YWwgVXNlIE9ubHldDQo+DQo+DQo+DQo+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4g
+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24g
+QmVoYWxmIE9mIFl1LA0KPj4gTGFuZw0KPj4gU2VudDogV2VkbmVzZGF5LCBEZWNlbWJlciAxLCAy
+MDIxIDc6MzcgUE0NCj4+IFRvOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0Bh
+bWQuY29tPjsgQ2hyaXN0aWFuIEvDtm5pZw0KPj4gPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21h
+aWwuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IENjOiBEZXVjaGVyLCBB
+bGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBMYXphciwgTGlqbw0KPj4gPExp
+am8uTGF6YXJAYW1kLmNvbT47IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPg0KPj4gU3Vi
+amVjdDogUkU6IFtQQVRDSF0gZHJtL2FtZGdwdTogYWRkIHN1cHBvcnQgdG8gU01VIGRlYnVnIG9w
+dGlvbg0KPj4NCj4+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHldDQo+Pg0KPj4NCj4+DQo+PiA+LS0t
+LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+ID5Gcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hy
+aXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPj4gPlNlbnQ6IFdlZG5lc2RheSwgRGVjZW1iZXIgMSwg
+MjAyMSA3OjI5IFBNDQo+PiA+VG86IFl1LCBMYW5nIDxMYW5nLll1QGFtZC5jb20+OyBDaHJpc3Rp
+YW4gS8O2bmlnDQo+PiA+PGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPjsgYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+ID5DYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4
+YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTGF6YXIsIExpam8NCj4+ID48TGlqby5MYXphckBhbWQu
+Y29tPjsgSHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+DQo+PiA+U3ViamVjdDogUmU6IFtQ
+QVRDSF0gZHJtL2FtZGdwdTogYWRkIHN1cHBvcnQgdG8gU01VIGRlYnVnIG9wdGlvbg0KPj4gPg0K
+Pj4gPkFtIDAxLjEyLjIxIHVtIDEyOjIwIHNjaHJpZWIgWXUsIExhbmc6DQo+PiA+PiBbQU1EIE9m
+ZmljaWFsIFVzZSBPbmx5XQ0KPj4gPj4NCj4+ID4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
+LQ0KPj4gPj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5A
+Z21haWwuY29tPg0KPj4gPj4+IFNlbnQ6IFdlZG5lc2RheSwgRGVjZW1iZXIgMSwgMjAyMSA2OjQ5
+IFBNDQo+PiA+Pj4gVG86IFl1LCBMYW5nIDxMYW5nLll1QGFtZC5jb20+OyBLb2VuaWcsIENocmlz
+dGlhbg0KPj4gPj4+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZw0KPj4gPj4+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5E
+ZXVjaGVyQGFtZC5jb20+OyBMYXphciwgTGlqbw0KPj4gPj4+IDxMaWpvLkxhemFyQGFtZC5jb20+
+OyBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT4NCj4+ID4+PiBTdWJqZWN0OiBSZTogW1BB
+VENIXSBkcm0vYW1kZ3B1OiBhZGQgc3VwcG9ydCB0byBTTVUgZGVidWcgb3B0aW9uDQo+PiA+Pj4N
+Cj4+ID4+PiBBbSAwMS4xMi4yMSB1bSAxMTo0NCBzY2hyaWViIFl1LCBMYW5nOg0KPj4gPj4+PiBb
+QU1EIE9mZmljaWFsIFVzZSBPbmx5XQ0KPj4gPj4+Pg0KPj4gPj4+Pg0KPj4gPj4+Pg0KPj4gPj4+
+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+ID4+Pj4+IEZyb206IEtvZW5pZywgQ2hy
+aXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+PiA+Pj4+PiBTZW50OiBXZWRuZXNk
+YXksIERlY2VtYmVyIDEsIDIwMjEgNTozMCBQTQ0KPj4gPj4+Pj4gVG86IFl1LCBMYW5nIDxMYW5n
+Lll1QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4gPj4+Pj4gQ2M6
+IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IExhemFyLCBM
+aWpvDQo+PiA+Pj4+PiA8TGlqby5MYXphckBhbWQuY29tPjsgSHVhbmcsIFJheSA8UmF5Lkh1YW5n
+QGFtZC5jb20+DQo+PiA+Pj4+PiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBhZGQg
+c3VwcG9ydCB0byBTTVUgZGVidWcgb3B0aW9uDQo+PiA+Pj4+Pg0KPj4gPj4+Pj4gQW0gMDEuMTIu
+MjEgdW0gMTA6MjQgc2NocmllYiBMYW5nIFl1Og0KPj4gPj4+Pj4+IFRvIG1haW50YWluIHN5c3Rl
+bSBlcnJvciBzdGF0ZSB3aGVuIFNNVSBlcnJvcnMgb2NjdXJyZWQsIHdoaWNoDQo+PiA+Pj4+Pj4g
+d2lsbCBhaWQgaW4gZGVidWdnaW5nIFNNVSBmaXJtd2FyZSBpc3N1ZXMsIGFkZCBTTVUgZGVidWcg
+b3B0aW9uDQo+PiBzdXBwb3J0Lg0KPj4gPj4+Pj4+DQo+PiA+Pj4+Pj4gSXQgY2FuIGJlIGVuYWJs
+ZWQgb3IgZGlzYWJsZWQgdmlhIGFtZGdwdV9zbXVfZGVidWcgZGVidWdmcyBmaWxlLg0KPj4gPj4+
+Pj4+IFdoZW4gZW5hYmxlZCwgaXQgbWFrZXMgU01VIGVycm9ycyBmYXRhbC4NCj4+ID4+Pj4+PiBJ
+dCBpcyBkaXNhYmxlZCBieSBkZWZhdWx0Lg0KPj4gPj4+Pj4+DQo+PiA+Pj4+Pj4gPT0gQ29tbWFu
+ZCBHdWlkZSA9PQ0KPj4gPj4+Pj4+DQo+PiA+Pj4+Pj4gMSwgZW5hYmxlIFNNVSBkZWJ1ZyBvcHRp
+b24NCj4+ID4+Pj4+Pg0KPj4gPj4+Pj4+ICAgICAjIGVjaG8gMSA+IC9zeXMva2VybmVsL2RlYnVn
+L2RyaS8wL2FtZGdwdV9zbXVfZGVidWcNCj4+ID4+Pj4+Pg0KPj4gPj4+Pj4+IDIsIGRpc2FibGUg
+U01VIGRlYnVnIG9wdGlvbg0KPj4gPj4+Pj4+DQo+PiA+Pj4+Pj4gICAgICMgZWNobyAwID4gL3N5
+cy9rZXJuZWwvZGVidWcvZHJpLzAvYW1kZ3B1X3NtdV9kZWJ1Zw0KPj4gPj4+Pj4+DQo+PiA+Pj4+
+Pj4gdjM6DQo+PiA+Pj4+Pj4gICAgIC0gVXNlIGRlYnVnZnNfY3JlYXRlX2Jvb2woKS4oQ2hyaXN0
+aWFuKQ0KPj4gPj4+Pj4+ICAgICAtIFB1dCB2YXJpYWJsZSBpbnRvIHNtdV9jb250ZXh0IHN0cnVj
+dC4NCj4+ID4+Pj4+PiAgICAgLSBEb24ndCByZXNlbmQgY29tbWFuZCB3aGVuIHRpbWVvdXQuDQo+
+PiA+Pj4+Pj4NCj4+ID4+Pj4+PiB2MjoNCj4+ID4+Pj4+PiAgICAgLSBSZXNlbmQgY29tbWFuZCB3
+aGVuIHRpbWVvdXQuKExpam8pDQo+PiA+Pj4+Pj4gICAgIC0gVXNlIGRlYnVnZnMgZmlsZSBpbnN0
+ZWFkIG9mIG1vZHVsZSBwYXJhbWV0ZXIuDQo+PiA+Pj4+Pj4NCj4+ID4+Pj4+PiBTaWduZWQtb2Zm
+LWJ5OiBMYW5nIFl1IDxsYW5nLnl1QGFtZC5jb20+DQo+PiA+Pj4+PiBXZWxsIHRoZSBkZWJ1Z2Zz
+IHBhcnQgbG9va3MgcmVhbGx5IG5pY2UgYW5kIGNsZWFuIG5vdywgYnV0IG9uZQ0KPj4gPj4+Pj4g
+bW9yZSBjb21tZW50IGJlbG93Lg0KPj4gPj4+Pj4NCj4+ID4+Pj4+PiAtLS0NCj4+ID4+Pj4+PiAg
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYyAgICAgICAgfCAz
+ICsrKw0KPj4gPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVfc211
+LmggICAgICAgICAgICB8IDUgKysrKysNCj4+ID4+Pj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wbS9zd3NtdS9zbXUxMy9hbGRlYmFyYW5fcHB0LmMgfCAyICsrDQo+PiA+Pj4+Pj4gICAgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211X2Ntbi5jICAgICAgICAgICAgIHwgOCArKysr
+KysrLQ0KPj4gPj4+Pj4+ICAgICA0IGZpbGVzIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDEg
+ZGVsZXRpb24oLSkNCj4+ID4+Pj4+Pg0KPj4gPj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jDQo+PiA+Pj4+Pj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jDQo+PiA+Pj4+Pj4gaW5kZXggMTY0ZDZh
+OWU5ZmJiLi44NmNkODg4Yzc4MjIgMTAwNjQ0DQo+PiA+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYw0KPj4gPj4+Pj4+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMNCj4+ID4+Pj4+PiBAQCAtMTYxOCw2
+ICsxNjE4LDkgQEAgaW50IGFtZGdwdV9kZWJ1Z2ZzX2luaXQoc3RydWN0DQo+PiA+Pj4+Pj4gYW1k
+Z3B1X2RldmljZQ0KPj4gPj4+Pj4gKmFkZXYpDQo+PiA+Pj4+Pj4gICAgIAlpZiAoIWRlYnVnZnNf
+aW5pdGlhbGl6ZWQoKSkNCj4+ID4+Pj4+PiAgICAgCQlyZXR1cm4gMDsNCj4+ID4+Pj4+Pg0KPj4g
+Pj4+Pj4+ICsJZGVidWdmc19jcmVhdGVfYm9vbCgiYW1kZ3B1X3NtdV9kZWJ1ZyIsIDA2MDAsIHJv
+b3QsDQo+PiA+Pj4+Pj4gKwkJCQkgICZhZGV2LT5zbXUuc211X2RlYnVnX21vZGUpOw0KPj4gPj4+
+Pj4+ICsNCj4+ID4+Pj4+PiAgICAgCWVudCA9IGRlYnVnZnNfY3JlYXRlX2ZpbGUoImFtZGdwdV9w
+cmVlbXB0X2liIiwgMDYwMCwNCj4+IHJvb3QsDQo+PiA+YWRldiwNCj4+ID4+Pj4+PiAgICAgCQkJ
+CSAgJmZvcHNfaWJfcHJlZW1wdCk7DQo+PiA+Pj4+Pj4gICAgIAlpZiAoSVNfRVJSKGVudCkpIHsN
+Cj4+ID4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1kZ3B1
+X3NtdS5oDQo+PiA+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVfc211
+LmgNCj4+ID4+Pj4+PiBpbmRleCBmNzM4ZjdkYzIwYzkuLjUwZGJmNTU5NGE5ZCAxMDA2NDQNCj4+
+ID4+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVfc211LmgNCj4+
+ID4+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVfc211LmgNCj4+
+ID4+Pj4+PiBAQCAtNTY5LDYgKzU2OSwxMSBAQCBzdHJ1Y3Qgc211X2NvbnRleHQNCj4+ID4+Pj4+
+PiAgICAgCXN0cnVjdCBzbXVfdXNlcl9kcG1fcHJvZmlsZSB1c2VyX2RwbV9wcm9maWxlOw0KPj4g
+Pj4+Pj4+DQo+PiA+Pj4+Pj4gICAgIAlzdHJ1Y3Qgc3RiX2NvbnRleHQgc3RiX2NvbnRleHQ7DQo+
+PiA+Pj4+Pj4gKwkvKg0KPj4gPj4+Pj4+ICsJICogV2hlbiBlbmFibGVkLCBpdCBtYWtlcyBTTVUg
+ZXJyb3JzIGZhdGFsLg0KPj4gPj4+Pj4+ICsJICogKDAgPSBkaXNhYmxlZCAoZGVmYXVsdCksIDEg
+PSBlbmFibGVkKQ0KPj4gPj4+Pj4+ICsJICovDQo+PiA+Pj4+Pj4gKwlib29sIHNtdV9kZWJ1Z19t
+b2RlOw0KPj4gPj4+Pj4+ICAgICB9Ow0KPj4gPj4+Pj4+DQo+PiA+Pj4+Pj4gICAgIHN0cnVjdCBp
+MmNfYWRhcHRlcjsNCj4+ID4+Pj4+PiBkaWZmIC0tZ2l0DQo+PiBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG0vc3dzbXUvc211MTMvYWxkZWJhcmFuX3BwdC5jDQo+PiA+Pj4+Pj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3BtL3N3c211L3NtdTEzL2FsZGViYXJhbl9wcHQuYw0KPj4gPj4+Pj4+IGluZGV4
+IDZlNzgxY2VlOGJiNi4uZDM3OTdhMmQ2NDUxIDEwMDY0NA0KPj4gPj4+Pj4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211MTMvYWxkZWJhcmFuX3BwdC5jDQo+PiA+Pj4+Pj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMy9hbGRlYmFyYW5fcHB0LmMN
+Cj4+ID4+Pj4+PiBAQCAtMTkxOSw2ICsxOTE5LDggQEAgc3RhdGljIGludCBhbGRlYmFyYW5fbW9k
+ZTJfcmVzZXQoc3RydWN0DQo+PiA+Pj4+PiBzbXVfY29udGV4dCAqc211KQ0KPj4gPj4+Pj4+ICAg
+ICBvdXQ6DQo+PiA+Pj4+Pj4gICAgIAltdXRleF91bmxvY2soJnNtdS0+bWVzc2FnZV9sb2NrKTsN
+Cj4+ID4+Pj4+Pg0KPj4gPj4+Pj4+ICsJQlVHX09OKHVubGlrZWx5KHNtdS0+c211X2RlYnVnX21v
+ZGUpICYmIHJldCk7DQo+PiA+Pj4+Pj4gKw0KPj4gPj4+Pj4+ICAgICAJcmV0dXJuIHJldDsNCj4+
+ID4+Pj4+PiAgICAgfQ0KPj4gPj4+Pj4+DQo+PiA+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG0vc3dzbXUvc211X2Ntbi5jDQo+PiA+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3BtL3N3c211L3NtdV9jbW4uYw0KPj4gPj4+Pj4+IGluZGV4IDA0OGNhMTY3Mzg2My4u
+OWJlMDA1ZWI0MjQxIDEwMDY0NA0KPj4gPj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG0vc3dzbXUvc211X2Ntbi5jDQo+PiA+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+bS9zd3NtdS9zbXVfY21uLmMNCj4+ID4+Pj4+PiBAQCAtMzQ5LDE1ICszNDksMjEgQEAgaW50DQo+
+PiA+c211X2Ntbl9zZW5kX3NtY19tc2dfd2l0aF9wYXJhbShzdHJ1Y3QNCj4+ID4+Pj4+IHNtdV9j
+b250ZXh0ICpzbXUsDQo+PiA+Pj4+Pj4gICAgIAkJX19zbXVfY21uX3JlZ19wcmludF9lcnJvcihz
+bXUsIHJlZywgaW5kZXgsIHBhcmFtLA0KPj4gPm1zZyk7DQo+PiA+Pj4+Pj4gICAgIAkJZ290byBP
+dXQ7DQo+PiA+Pj4+Pj4gICAgIAl9DQo+PiA+Pj4+Pj4gKw0KPj4gPj4+Pj4+ICAgICAJX19zbXVf
+Y21uX3NlbmRfbXNnKHNtdSwgKHVpbnQxNl90KSBpbmRleCwgcGFyYW0pOw0KPj4gPj4+Pj4+ICAg
+ICAJcmVnID0gX19zbXVfY21uX3BvbGxfc3RhdChzbXUpOw0KPj4gPj4+Pj4+ICAgICAJcmVzID0g
+X19zbXVfY21uX3JlZzJlcnJubyhzbXUsIHJlZyk7DQo+PiA+Pj4+Pj4gLQlpZiAocmVzICE9IDAp
+DQo+PiA+Pj4+Pj4gKwlpZiAocmVzICE9IDApIHsNCj4+ID4+Pj4+PiAgICAgCQlfX3NtdV9jbW5f
+cmVnX3ByaW50X2Vycm9yKHNtdSwgcmVnLCBpbmRleCwgcGFyYW0sDQo+PiA+bXNnKTsNCj4+ID4+
+Pj4+PiArCQlnb3RvIE91dDsNCj4+ID4+Pj4+PiArCX0NCj4+ID4+Pj4+PiAgICAgCWlmIChyZWFk
+X2FyZykNCj4+ID4+Pj4+PiAgICAgCQlzbXVfY21uX3JlYWRfYXJnKHNtdSwgcmVhZF9hcmcpOw0K
+Pj4gPj4+Pj4+ICAgICBPdXQ6DQo+PiA+Pj4+Pj4gICAgIAltdXRleF91bmxvY2soJnNtdS0+bWVz
+c2FnZV9sb2NrKTsNCj4+ID4+Pj4+PiArDQo+PiA+Pj4+Pj4gKwlCVUdfT04odW5saWtlbHkoc211
+LT5zbXVfZGVidWdfbW9kZSkgJiYgcmVzKTsNCj4+ID4+Pj4+IEJVR19PTigpIHJlYWxseSBjcmFz
+aGVzIHRoZSBrZXJuZWwgYW5kIGlzIG9ubHkgYWxsb3dlZCBpZiB3ZQ0KPj4gPj4+Pj4gcHJldmVu
+dCBmdXJ0aGVyIGRhdGEgY29ycnVwdGlvbiB3aXRoIHRoYXQuDQo+PiA+Pj4+Pg0KPj4gPj4+Pj4g
+TW9zdCBvZiB0aGUgdGltZSBXQVJOX09OKCkgaXMgbW9yZSBhcHByb3ByaWF0ZSwgYnV0IEkgY2Fu
+J3QNCj4+ID4+Pj4+IGZ1bGx5IGp1ZGdlIGhlcmUgc2luY2UgSSBkb24ndCBrbm93IHRoZSBTTVUg
+Y29kZSB3ZWxsIGVub3VnaC4NCj4+ID4+Pj4gVGhpcyBpcyB3aGF0IFNNVSBGVyBndXlzIHdhbnQu
+IFRoZXkgd2FudCAidXNlci12aXNpYmxlDQo+PiA+Pj4+IChwb3RlbnRpYWxseQ0KPj4gPj4+PiBm
+YXRhbCkNCj4+ID4+PiBlcnJvcnMiLCB0aGVuIGEgaGFuZy4NCj4+ID4+Pj4gVGhleSB3YW50IHRv
+IGtlZXAgc3lzdGVtIHN0YXRlIHNpbmNlIHRoZSBlcnJvciBvY2N1cnJlZC4NCj4+ID4+PiBXZWxs
+IHRoYXQgaXMgcmF0aGVyIHByb2JsZW1hdGljLg0KPj4gPj4+DQo+PiA+Pj4gRmlyc3Qgb2YgYWxs
+IHdlIG5lZWQgdG8gcmVhbGx5IGp1c3RpZnkgdGhhdCwgY3Jhc2hpbmcgdGhlIGtlcm5lbA0KPj4g
+Pj4+IGlzIG5vdCBzb21ldGhpbmcgZWFzaWx5IGRvbmUuDQo+PiA+Pj4NCj4+ID4+PiBUaGVuIHRo
+aXMgaXNuJ3QgcmVhbGx5IGVmZmVjdGl2ZSBoZXJlLiBXaGF0IGhhcHBlbnMgaXMgdGhhdCB5b3UN
+Cj4+ID4+PiBjcmFzaCB0aGUga2VybmVsIHRocmVhZCBvZiB0aGUgY3VycmVudGx5IGV4ZWN1dGlu
+ZyBwcm9jZXNzLCBidXQgaXQNCj4+ID4+PiBpcyBwZXJmZWN0bHkgcG9zc2libGUgdGhhdCBhbm90
+aGVyIHRocmVhZCBzdGlsbCB0cmllcyB0byBzZW5kDQo+PiA+Pj4gbWVzc2FnZXMgdG8gdGhlIFNN
+VS4gWW91IG5lZWQgdG8gaGF2ZSB0aGUgQlVHX09OKCkgYmVmb3JlIGRyb3BwaW5nDQo+PiA+Pj4g
+dGhlIGxvY2sgdG8gbWFrZSBzdXJlIHRoYXQgdGhpcyByZWFsbHkgZ2V0cyB0aGUgZHJpdmVyIHN0
+dWNrIGluDQo+PiA+Pj4gdGhlIGN1cnJlbnQNCj4+IHN0YXRlLg0KPj4gPj4gVGhhbmtzLiBJIGdv
+dCBpdC4gSSBqdXN0IHRob3VnaHQgaXQgaXMgYSBrZW5lbCBwYW5pYy4NCj4+ID4+IENvdWxkIHdl
+IHVzZSBhIHBhbmljKCkgaGVyZT8NCj4+ID4NCj4+ID5Qb3RlbnRpYWxseSwgYnV0IHRoYXQgbWln
+aHQgcmVib290IHRoZSBzeXN0ZW0gYXV0b21hdGljYWxseSB3aGljaCBpcw0KPj4gPnByb2JhYmx5
+IG5vdCB3aGF0IHlvdSB3YW50IGVpdGhlci4NCj4+ID4NCj4+ID5Ib3cgZG9lcyB0aGUgU01VIGZp
+cm13YXJlIHRlYW0gZ2F0aGVyIHRoZSBuZWNlc3NhcnkgaW5mb3JtYXRpb24gd2hlbg0KPj4gYQ0K
+Pj4gPnByb2JsZW0gb2NjdXJzPw0KPj4NCj4+IEFzIGZhciBhcyBJIGtub3csIHRoZXkgdXN1YWxs
+eSB1c2UgYSBIRFQgdG8gY29sbGVjdCBpbmZvcm1hdGlvbi4NCj4+IEFuZCB0aGV5IHJlcXVlc3Qg
+YSBoYW5nIHdoZW4gZXJyb3Igb2NjdXJyZWQgaW4gdGlja2V0Lg0KPj4gIlN1Z2dlc3RlZCBlcnJv
+ciByZXNwb25zZXMgaW5jbHVkZSBwb3AtdXAgd2luZG93cyAoYnkgeDg2IGRyaXZlciwgaWYNCj4+
+IHRoaXMgaXMNCj4+IHBvc3NpYmxlKSBvciBzaW1wbHkgaGFuZ2luZyBhZnRlciBsb2dnaW5nIHRo
+ZSBlcnJvci4gIg0KPltRdWFuLCBFdmFuXSBNYXliZSB3aGF0IHRoZXkgd2FudCBpcyBqdXN0IGEg
+c3RhYmxlIFNNVSBzdGF0ZShsaWtlIG5vIG1vcmUNCj5tZXNzYWdlIGlzc3VpbmcgYWZ0ZXIgZmFp
+bHVyZSkuDQo+SWYgdGhhdCdzIHRydWUsIEkgdGhpbmsgeW91IGNhbiBqdXN0IGJhaWwgb3V0IG9u
+IF9fc211X2Ntbl9wb2xsX3N0YXQoKSBmYWlsdXJlKGluDQo+c211X2Ntbl9zZW5kX3NtY19tc2df
+d2l0aF9wYXJhbSgpIGFuZA0KPnNtdV9jbW5fc2VuZF9tc2dfd2l0aG91dF93YWl0aW5nKCkpLg0K
+PlRoYXQgd2lsbCBwcmV2ZW50IGZ1cnRoZXIgbWVzc2FnZSBpc3N1aW5nIHRvIFNNVS4NCg0KQnV0
+IGl0J3MgZGlmZmljdWx0IHRvIGRpc3Rpbmd1aXNoIG5vcm1hbCB0aW1lb3V0IGNhc2VzKHNlZSBh
+bGRlYmFyYW5fbW9kZTJfcmVzZXQoKSkuDQpTb21ldGltZXMgaXQncyByZWFzb25hYmxlIHRvIHJl
+dHVybiBhIHRpbWVvdXQuIFRoZSB1c2VyIHdhbnRzIHRvIHVzZSBhIGxvbmdlciB0aW1lb3V0Lg0K
+DQpSZWdhcmRzLA0KTGFuZw0KDQo+DQo+QlINCj5FdmFuDQo+Pg0KPj4gUmVnYXJkcywNCj4+IExh
+bmcNCj4+DQo+PiA+DQo+PiA+V2hlbiB0aGV5IGNvbm5lY3QgZXh0ZXJuYWwgaGFyZHdhcmUgYSBC
+VUdfT04oKSB3aGlsZSBob2xkaW5nIHRoZSBTTVUNCj4+ID5sb2NrIG1pZ2h0IHdvcmssIGJ1dCBp
+ZiB0aGV5IHdhbnQgdG8gU1NIIGludG8gdGhlIHN5c3RlbSB5b3Ugc2hvdWxkDQo+PiA+cHJvYmFi
+bHkgcmF0aGVyIHNldCBhIGZsYWcgdGhhdCB0aGUgaGFyZHdhcmUgc2hvdWxkbid0IGJlIHRvdWNo
+ZWQgYW55DQo+PiA+bW9yZSBieSB0aGUgZHJpdmVyIGFuZCBjb250aW51ZS4NCj4+ID4NCj4+ID5P
+dGhlcndpc2UgdGhlIGJveCBpcyBtb3N0IGxpa2VseSByZWFsbHkgdW5zdGFibGUgYWZ0ZXIgdGhp
+cy4NCj4+ID4NCj4+ID5SZWdhcmRzLA0KPj4gPkNocmlzdGlhbi4NCj4+ID4NCj4+ID4+DQo+PiA+
+PiBSZWdhcmRzLA0KPj4gPj4gTGFuZw0KPj4gPj4NCj4+ID4+PiBSZWdhcmRzLA0KPj4gPj4+IENo
+cmlzdGlhbi4NCj4+ID4+Pg0KPj4gPj4+PiBSZWdhcmRzLA0KPj4gPj4+PiBMYW5nDQo+PiA+Pj4+
+DQo+PiA+Pj4+PiBDaHJpc3RpYW4uDQo+PiA+Pj4+Pg0KPj4gPj4+Pj4+ICsNCj4+ID4+Pj4+PiAg
+ICAgCXJldHVybiByZXM7DQo+PiA+Pj4+Pj4gICAgIH0NCj4+ID4+Pj4+Pg0K
