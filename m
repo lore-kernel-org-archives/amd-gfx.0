@@ -4,53 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68EC1C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 16:13:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1D2C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 21:06:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C186E824;
-	Fri,  3 Dec 2021 16:13:31 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF966E94F
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 16:13:30 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id q25so6850286oiw.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Dec 2021 08:13:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bekIFSE+X7JqRl18wp3jrA+tORMcrtSirGttycTAOuI=;
- b=Lb72arm0nroSJF1SqkDrGssTAY2WjN/Mp8tv3wiT9zGHD3fjl1j1EukfZHfhgxqkQk
- 0ZjA0UkR6WK4lKrwTcWmFy4AMAMLtJpZqIe+Qap09YKDw8IWTf/sPLE/oW4stT5SVUcU
- g+9FePzeRwN6hGCYvrL0WdJYGWn9wE4s0mgjQmpxbIzHo4R5tUVcubYWDhvypN9KJY1K
- bYddFFOoY6hIKbm1scViNzvVIokhHTHTLevEkRtLLAvI9YTr18y9qVggsnRkFiFt5TGG
- NTMpXmxJsVyE8zp3ynPCbyQIyUNTaqWyJ87MWw+5J65jmbX8nRl8UF/A1WmTqWJ4fnMA
- Zapg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bekIFSE+X7JqRl18wp3jrA+tORMcrtSirGttycTAOuI=;
- b=JRgon2Hk8uukmZusS7YqkkrRyAFEa6+s3DkLTNR1T4JQPs6PihHMm9PBMvxYaL5Vrx
- DtxR9o7JtgLybbkxAGtt/EraLtyBfbsYoezgVTVQQpQd91EQG4soWrILvjSNDIr7yzy/
- yXTJw+MW9fErKaCsXqMv272W+KnYPBadAP2s2ElGhaIwbHiK7rlwi+SLRtbe/Aa+Pzq2
- HahTjWwHimxPWeIWl2JXfihAMxxJqkPuwWTkZ8qj44pA73TfdFD0J/6U51AIFT30nmBv
- 2cpGiBIoRrm6PHQz754bqXRfIfuwd34AZRq0SSHbwCUzt6+EkeWbQ7eBckzEgJlrvTSQ
- /B3A==
-X-Gm-Message-State: AOAM533C2sgHQMlyAqOgLLlQV+pbCXTYG2giuqmHefX9HdW4oUld/u6B
- jxFkbQBd9sDXqlSUfJGpZRckdO58tpuoDONE42U=
-X-Google-Smtp-Source: ABdhPJy61rjqSv7N1wGKFQeJsMvzeuXShPxIcVorNhHNQ3qvLVnOwjR144+5ZWVDGTrY9U4W2QKnwkl0WC2qcYnE9Io=
-X-Received: by 2002:a05:6808:68f:: with SMTP id
- k15mr10302094oig.5.1638548009619; 
- Fri, 03 Dec 2021 08:13:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 783D77AE05;
+	Fri,  3 Dec 2021 21:06:43 +0000 (UTC)
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [IPv6:2a01:e0c:1:1599::10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1B77AE05;
+ Fri,  3 Dec 2021 21:06:42 +0000 (UTC)
+Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
+ by smtp1-g21.free.fr (Postfix) with ESMTP id AF438B00548;
+ Fri,  3 Dec 2021 22:06:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+ s=smtp-20201208; t=1638565600;
+ bh=9jg1lskcUDN3pi4qMReu7lKqjuqE5AtG2JZ1cFjLjIo=;
+ h=Date:From:To:Cc:In-Reply-To:Subject:From;
+ b=IHkL4GyiFz7ho4jBVs3dG5ANconLv/hohyTiBAH68ZvpoyiTcPbRr/LFiT0FGCsRt
+ YdI6VuZkkxhpl+VdoeYfhKwR13zxUWzC3KaFUoLuntovtgDfljOIjQaGW1XT0fqA8j
+ u98fASlOmz1+zTjzOpc+RGEO4r/2EgaaO9B7vx7ElYhEvtkygAHlkZl/Any280ve39
+ RyCzjB0s7Hj18zwfTeEiKxC7Od0NAyKHUn8CCBup5Nbs/Zp5Dh6tjydeaZ3M4LfN6R
+ O9NRPclZYgwlVFHkix4fhCcl+/TjOhp6JMdOOvc4NU5wXs/lUJQPQXgby7nMDm0uF5
+ RsANMxlYlvXFg==
+Date: Fri, 3 Dec 2021 22:06:39 +0100 (CET)
+From: Yann Dirson <ydirson@free.fr>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Message-ID: <480467972.18829393.1638565599646.JavaMail.root@zimbra39-e7>
+In-Reply-To: <20211202160132.2263330-6-Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH v2 5/6] Documentation/gpu: Add basic overview of DC
+ pipeline
 MIME-Version: 1.0
-References: <20211202191912.6148-1-alexander.deucher@amd.com>
- <b05f1327-b26d-ac47-4bac-f94979bd3741@gmail.com>
-In-Reply-To: <b05f1327-b26d-ac47-4bac-f94979bd3741@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 3 Dec 2021 11:13:18 -0500
-Message-ID: <CADnq5_OgW3vfG5kjV-67KYc4RxavJeZOWvNEo5vm9siHj2B0HA@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/2] drm/amdgpu/UAPI: add new PROFILE IOCTL
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/mixed; boundary="0000000000000fa86c05d24030d6"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [88.120.44.86]
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,508 +49,367 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Mark Yacoub <markyacoub@chromium.org>,
+ Harry Wentland <Harry.Wentland@amd.com>, linux-doc@vger.kernel.org,
+ Simon Ser <contact@emersion.fr>, qingqing zhuo <qingqing.zhuo@amd.com>,
+ Marek Olsak <marek.olsak@amd.com>, roman li <roman.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Roman Gilg <subdiff@gmail.com>,
+ Michel Daenzer <michel@daenzer.net>, Pekka Paalanen <ppaalanen@gmail.com>,
+ aurabindo pillai <aurabindo.pillai@amd.com>,
+ nicholas choi <nicholas.choi@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ bhawanpreet lakha <bhawanpreet.lakha@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000000fa86c05d24030d6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> De: "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>
+> Objet: [PATCH v2 5/6] Documentation/gpu: Add basic overview of DC pipeline
+> 
+> This commit describes how DCN works by providing high-level diagrams
+> with an explanation of each component. In particular, it details the
+> Global Sync signals.
+> 
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>  .../gpu/amdgpu/display/config_example.svg     |  414 ++++++
+>  .../amdgpu/display/dc_pipeline_overview.svg   | 1125
+>  +++++++++++++++++
+>  .../gpu/amdgpu/display/dcn-overview.rst       |  168 +++
+>  .../gpu/amdgpu/display/global_sync_vblank.svg |  485 +++++++
+>  Documentation/gpu/amdgpu/display/index.rst    |   23 +-
+>  5 files changed, 2203 insertions(+), 12 deletions(-)
+>  create mode 100644
+>  Documentation/gpu/amdgpu/display/config_example.svg
+>  create mode 100644
+>  Documentation/gpu/amdgpu/display/dc_pipeline_overview.svg
+>  create mode 100644 Documentation/gpu/amdgpu/display/dcn-overview.rst
+>  create mode 100644
+>  Documentation/gpu/amdgpu/display/global_sync_vblank.svg
+> 
+...
+> diff --git a/Documentation/gpu/amdgpu/display/dcn-overview.rst
+> b/Documentation/gpu/amdgpu/display/dcn-overview.rst
+> new file mode 100644
+> index 000000000000..47e9a70de8ae
+> --- /dev/null
+> +++ b/Documentation/gpu/amdgpu/display/dcn-overview.rst
+> @@ -0,0 +1,168 @@
+> +=======================
+> +Display Core Next (DCN)
+> +=======================
+> +
+> +To equip our readers with the basic knowledge of how AMD Display
+> Core Next
+> +(DCN) works, we need to start with an overview of the hardware
+> pipeline. Below
+> +you can see a picture that provides a DCN overview, keep in mind
+> that this is a
+> +generic diagram, and we have variations per ASIC.
+> +
+> +.. kernel-figure:: dc_pipeline_overview.svg
+> +
+> +Based on this diagram, we can pass through each block and briefly
+> describe
+> +them:
 
-On Fri, Dec 3, 2021 at 7:15 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Am 02.12.21 um 20:19 schrieb Alex Deucher:
-> > This adds a new IOCTL currently used to implement querying
-> > and setting the stable power state for GPU profiling.  The
-> > stable pstates use fixed clocks and disable certain power
-> > features in order to get accurate pipeline profiling.
-> >
-> > Currently this is handled via sysfs, and that is still
-> > available, but this makes it easier for applications
-> > to utilize.  Note that the power state is global so
-> > setting it will affect all applications.  There are currently
-> > no checks in place to prevent multiple applications from
-> > using this interface, but it doesn't make sense to do
-> > profiling while you have multiple applications running in the
-> > first place, so it's up to the user to ensure this in order
-> > to get good results.
-> >
-> > This patch add an interface to query what profiling mode is
-> > currently active and to set enable a profiling mode.
->
-> First of all I wouldn't call this profiling mode. Profiling is the use
-> case, but performance and power management are what is controlled here.
->
+Maybe a note on MMHUBBUB is missing ?
 
-Ok.
+> +
+> +* **Display Controller Hub (DCHUB)**: This is the gateway between
+> the Scalable
+> +  Data Port (SDP) and DCN. This component has multiple features,
+> such as memory
+> +  arbitration, rotation, and cursor manipulation.
+> +
+> +* **Display Pipe and Plane (DPP)**: This block provides pre-blend
+> pixel
+> +  processing such as color space conversion, linearization of pixel
+> data, tone
+> +  mapping, and gamut mapping.
+> +
+> +* **Multiple Pipe/Plane Combined (MPC)**: This component performs
+> blending of
+> +  multiple planes, using global or per-pixel alpha.
+> +
+> +* **Output Pixel Processing (OPP)**: Process and format pixels to be
+> sent to
+> +  the display.
+> +
+> +* **Output Pipe Timing Combiner (OPTC)**: It generates time output
+> to combine
+> +  streams or divide capabilities. CRC values are generated in this
+> block.
+> +
+> +* **Display Output (DIO)**: Codify the output to the display
+> connected to our
+> +  GPU.
+> +
+> +* **Display Writeback (DWB)**: It provides the ability to write the
+> output of
+> +  the display pipe back to memory as video frames.
+> +
+> +* **DCN Management Unit (DMU)**: It provides registers with access
+> control and
+> +  interrupts the controller to the SOC host interrupt unit. This
+> block includes
+> +  the Display Micro-Controller Unit - version B (DMCUB), which is
+> handled via
+> +  firmware.
+> +
+> +* **DCN Clock Generator Block (DCCG)**: It provides the clocks and
+> resets
+> +  for all of the display controller clock domains.
+> +
+> +* **Azalia (AZ)**: Audio engine.
+> +
+> +The above diagram is an architecture generalization of DCN, which
+> means that
+> +every ASIC has variations around this base model. Notice that the
+> display
+> +pipeline is connected to the Scalable Data Port (SDP) via DCHUB; you
+> can see
+> +the SDP as the element from our Data Fabric that feeds the display
+> pipe.
+> +
+> +Always approach the DCN architecture as something flexible that can
+> be
+> +configured and reconfigured in multiple ways; in other words, each
+> block can be
+> +setup or ignored accordingly with userspace demands. For example, if
+> we
+> +want to drive an 8k@60Hz with a DSC enabled, our DCN may require 4
+> DPP and 2
+> +OPP. It is DC's responsibility to drive the best configuration for
+> each
+> +specific scenario. Orchestrate all of these components together
+> requires a
+> +sophisticated communication interface which is highlighted in the
+> diagram by
+> +the edges that connect each block; from the chart, each connection
+> between
+> +these blocks represents:
+> +
+> +1. Pixel data interface (red): Represents the pixel data flow;
+> +2. Global sync signals (green): It is a set of synchronization
+> signals composed
+> +   by VStartup, VUpdate, and VReady;
+> +3. Config interface: Responsible to configure blocks;
+> +4. Sideband signals: All other signals that do not fit the previous
+> one.
+> +
+> +These signals are essential and play an important role in DCN.
+> Nevertheless,
+> +the Global Sync deserves an extra level of detail described in the
+> next
+> +section.
+> +
+> +All of these components are represented by a data structure named
+> dc_state.
+> +From DCHUB to MPC, we have a representation called dc_plane; from
+> MPC to OPTC,
+> +we have dc_stream, and the output (DIO) is handled by dc_link. Keep
+> in mind
+> +that HUBP accesses a surface using a specific format read from
+> memory, and our
+> +dc_plane should work to convert all pixels in the plane to something
+> that can
+> +be sent to the display via dc_stream and dc_link.
+> +
+> +Front End and Back End
+> +----------------------
+> +
+> +Display pipeline can be broken down into two components that are
+> usually
+> +referred as **Front End (FE)** and **Back End (BE)**, where FE
+> consists of:
+> +
+> +* DCHUB (Mainly referring to a subcomponent named HUBP)
+> +* DPP
+> +* MPC
+> +
+> +On the other hand, BE consist of
+> +
+> +* OPP
+> +* OPTC
+> +* DIO (DP/HDMI stream encoder and link encoder)
+> +
+> +OPP and OPTC are two joining blocks between FE and BE. On a side
+> note, this is
+> +a one-to-one mapping of the link encoder to PHY, but we can
+> configure the DCN
+> +to choose which link encoder to connect to which PHY. FE's main
+> responsibility
+> +is to change, blend and compose pixel data, while BE's job is to
+> frame a
+> +generic pixel stream to a specific display's pixel stream.
+> +
+> +Data Flow
+> +---------
+> +
+> +Initially, data is passed in from VRAM through Data Fabric (DF) in
+> native pixel
+> +formats. Such data format stays through till HUBP in DCHUB, where
+> HUBP unpacks
+> +different pixel formats and outputs them to DPP in uniform streams
+> through 4
+> +channels (1 for alpha + 3 for colors).
+> +
+> +The Converter and Cursor (CNVC) in DPP would then normalize the data
+> +representation and convert them to a DCN specific floating-point
+> format (i.e.,
+> +different from the IEEE floating-point format). In the process, CNVC
+> also
+> +applies a degamma function to transform the data from non-linear to
+> linear
+> +space to relax the floating-point calculations following. Data would
+> stay in
+> +this floating-point format from DPP to OPP.
+> +
+> +Starting OPP, because color transformation and blending have been
+> completed
+> +(i.e alpha can be dropped), and the end sinks do not require the
+> precision and
+> +dynamic range that floating points provide (i.e. all displays are in
+> integer
+> +depth format), bit-depth reduction/dithering would kick in. In OPP,
+> we would
+> +also apply a regamma function to introduce the gamma removed earlier
+> back.
+> +Eventually, we output data in integer format at DIO.
+> +
+> +Global Sync
+> +-----------
+> +
+> +Many DCN registers are double buffered, most importantly the surface
+> address.
+> +This allows us to updated DCN hardware atomically for page flips, as
+> well as
 
-> Then we already have functionality for process and context priority
-> override for the SW scheduler in amdgpu_sched.c. I think we should add
-> this functionality there.
+to update ?
 
-I'm not sure I follow.  Do you mean to integrate this with the
-rendering context?  That was what my original patch did (attached).
-Or were you thinking it would be better to make this part of the sched
-ioctl?
-
-Alex
-
-
->
-> Christian.
->
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |   2 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c | 112 +++++++++++++++++++=
-+
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h |  30 ++++++
-> >   include/uapi/drm/amdgpu_drm.h               |  28 +++++
-> >   5 files changed, 173 insertions(+), 1 deletion(-)
-> >   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
-> >   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/=
-amdgpu/Makefile
-> > index 7fedbb725e17..4cf5bf637a9e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> > @@ -58,7 +58,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \
-> >       amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nb=
-io.o \
-> >       amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
-> >       amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o \
-> > -     amdgpu_eeprom.o amdgpu_mca.o
-> > +     amdgpu_eeprom.o amdgpu_mca.o amdgpu_profile.o
-> >
-> >   amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_drv.c
-> > index bc1355c6248d..0e27f9673f8f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -46,6 +46,7 @@
-> >   #include "amdgpu_sched.h"
-> >   #include "amdgpu_fdinfo.h"
-> >   #include "amdgpu_amdkfd.h"
-> > +#include "amdgpu_profile.h"
-> >
-> >   #include "amdgpu_ras.h"
-> >   #include "amdgpu_xgmi.h"
-> > @@ -2467,6 +2468,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] =
-=3D {
-> >       DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DR=
-M_RENDER_ALLOW),
-> >       DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DR=
-M_RENDER_ALLOW),
-> >       DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, D=
-RM_AUTH|DRM_RENDER_ALLOW),
-> > +     DRM_IOCTL_DEF_DRV(AMDGPU_PROFILE, amdgpu_profile_ioctl, DRM_AUTH|=
-DRM_RENDER_ALLOW),
-> >   };
-> >
-> >   static const struct drm_driver amdgpu_kms_driver =3D {
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_profile.c
-> > new file mode 100644
-> > index 000000000000..94fe408e810f
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
-> > @@ -0,0 +1,112 @@
-> > +/*
-> > + * Copyright 2021 Advanced Micro Devices, Inc.
-> > + *
-> > + * Permission is hereby granted, free of charge, to any person obtaini=
-ng a
-> > + * copy of this software and associated documentation files (the "Soft=
-ware"),
-> > + * to deal in the Software without restriction, including without limi=
-tation
-> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
-ense,
-> > + * and/or sell copies of the Software, and to permit persons to whom t=
-he
-> > + * Software is furnished to do so, subject to the following conditions=
-:
-> > + *
-> > + * The above copyright notice and this permission notice shall be incl=
-uded in
-> > + * all copies or substantial portions of the Software.
-> > + *
-> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
-RESS OR
-> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
-LITY,
-> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
-SHALL
-> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAG=
-ES OR
-> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWIS=
-E,
-> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE =
-OR
-> > + * OTHER DEALINGS IN THE SOFTWARE.
-> > + *
-> > + */
-> > +
-> > +#include <drm/amdgpu_drm.h>
-> > +#include "amdgpu.h"
-> > +
-> > +/**
-> > + * amdgpu_profile_ioctl - Manages settings for profiling.
-> > + *
-> > + * @dev: drm device pointer
-> > + * @data: drm_amdgpu_vm
-> > + * @filp: drm file pointer
-> > + *
-> > + * Returns:
-> > + * 0 for success, -errno for errors.
-> > + */
-> > +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
-> > +                      struct drm_file *filp)
-> > +{
-> > +     union drm_amdgpu_profile *args =3D data;
-> > +     struct amdgpu_device *adev =3D drm_to_adev(dev);
-> > +     const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
-> > +     enum amd_dpm_forced_level current_level, requested_level;
-> > +     int r;
-> > +
-> > +     if (pp_funcs->get_performance_level)
-> > +             current_level =3D amdgpu_dpm_get_performance_level(adev);
-> > +     else
-> > +             current_level =3D adev->pm.dpm.forced_level;
-> > +
-> > +     switch (args->in.op) {
-> > +     case AMDGPU_PROFILE_OP_GET_STABLE_PSTATE:
-> > +             if (args->in.flags)
-> > +                     return -EINVAL;
-> > +             switch (current_level) {
-> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-> > +                     args->out.flags =3D AMDGPU_PROFILE_FLAGS_STABLE_P=
-STATE_STANDARD;
-> > +                     break;
-> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-> > +                     args->out.flags =3D AMDGPU_PROFILE_FLAGS_STABLE_P=
-STATE_MIN_SCLK;
-> > +                     break;
-> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-> > +                     args->out.flags =3D AMDGPU_PROFILE_FLAGS_STABLE_P=
-STATE_MIN_MCLK;
-> > +                     break;
-> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-> > +                     args->out.flags =3D AMDGPU_PROFILE_FLAGS_STABLE_P=
-STATE_PEAK;
-> > +                     break;
-> > +             default:
-> > +                     args->out.flags =3D AMDGPU_PROFILE_FLAGS_STABLE_P=
-STATE_NONE;
-> > +                     break;
-> > +             }
-> > +             break;
-> > +     case AMDGPU_PROFILE_OP_SET_STABLE_PSTATE:
-> > +             if (args->in.flags & ~AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_=
-MASK)
-> > +                     return -EINVAL;
-> > +             switch (args->in.flags & AMDGPU_PROFILE_FLAGS_STABLE_PSTA=
-TE_MASK) {
-> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD:
-> > +                     requested_level =3D AMD_DPM_FORCED_LEVEL_PROFILE_=
-STANDARD;
-> > +                     break;
-> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK:
-> > +                     requested_level =3D AMD_DPM_FORCED_LEVEL_PROFILE_=
-MIN_SCLK;
-> > +                     break;
-> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK:
-> > +                     requested_level =3D AMD_DPM_FORCED_LEVEL_PROFILE_=
-MIN_MCLK;
-> > +                     break;
-> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK:
-> > +                     requested_level =3D AMD_DPM_FORCED_LEVEL_PROFILE_=
-PEAK;
-> > +                     break;
-> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE:
-> > +                     requested_level =3D AMD_DPM_FORCED_LEVEL_AUTO;
-> > +                     break;
-> > +             default:
-> > +                     return -EINVAL;
-> > +             }
-> > +
-> > +             if ((current_level !=3D requested_level) && pp_funcs->for=
-ce_performance_level) {
-> > +                     mutex_lock(&adev->pm.mutex);
-> > +                     r =3D amdgpu_dpm_force_performance_level(adev, re=
-quested_level);
-> > +                     if (!r)
-> > +                             adev->pm.dpm.forced_level =3D requested_l=
-evel;
-> > +                     mutex_unlock(&adev->pm.mutex);
-> > +                     if (r)
-> > +                             return r;
-> > +             }
-> > +             break;
-> > +     default:
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_profile.h
-> > new file mode 100644
-> > index 000000000000..cd1c597bae11
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
-> > @@ -0,0 +1,30 @@
-> > +/*
-> > + * Copyright 2021 Advanced Micro Devices, Inc.
-> > + *
-> > + * Permission is hereby granted, free of charge, to any person obtaini=
-ng a
-> > + * copy of this software and associated documentation files (the "Soft=
-ware"),
-> > + * to deal in the Software without restriction, including without limi=
-tation
-> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
-ense,
-> > + * and/or sell copies of the Software, and to permit persons to whom t=
-he
-> > + * Software is furnished to do so, subject to the following conditions=
-:
-> > + *
-> > + * The above copyright notice and this permission notice shall be incl=
-uded in
-> > + * all copies or substantial portions of the Software.
-> > + *
-> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
-RESS OR
-> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
-LITY,
-> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
-SHALL
-> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAG=
-ES OR
-> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWIS=
-E,
-> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE =
-OR
-> > + * OTHER DEALINGS IN THE SOFTWARE.
-> > + *
-> > + */
-> > +
-> > +#ifndef __AMDGPU_PROFILE_H__
-> > +#define __AMDGPU_PROFILE_H__
-> > +
-> > +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
-> > +                      struct drm_file *filp);
-> > +
-> > +#endif
-> > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_dr=
-m.h
-> > index 26e45fc5eb1a..b6edf4a826f9 100644
-> > --- a/include/uapi/drm/amdgpu_drm.h
-> > +++ b/include/uapi/drm/amdgpu_drm.h
-> > @@ -54,6 +54,7 @@ extern "C" {
-> >   #define DRM_AMDGPU_VM                       0x13
-> >   #define DRM_AMDGPU_FENCE_TO_HANDLE  0x14
-> >   #define DRM_AMDGPU_SCHED            0x15
-> > +#define DRM_AMDGPU_PROFILE           0x16
-> >
-> >   #define DRM_IOCTL_AMDGPU_GEM_CREATE DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
-> >   #define DRM_IOCTL_AMDGPU_GEM_MMAP   DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-> > @@ -71,6 +72,7 @@ extern "C" {
-> >   #define DRM_IOCTL_AMDGPU_VM         DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_VM, union drm_amdgpu_vm)
-> >   #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + =
-DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
-> >   #define DRM_IOCTL_AMDGPU_SCHED              DRM_IOW(DRM_COMMAND_BASE =
-+ DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
-> > +#define DRM_IOCTL_AMDGPU_PROFILE     DRM_IOW(DRM_COMMAND_BASE + DRM_AM=
-DGPU_PROFILE, union drm_amdgpu_profile)
-> >
-> >   /**
-> >    * DOC: memory domains
-> > @@ -1120,6 +1122,32 @@ struct drm_amdgpu_info_video_caps {
-> >       struct drm_amdgpu_info_video_codec_info codec_info[AMDGPU_INFO_VI=
-DEO_CAPS_CODEC_IDX_COUNT];
-> >   };
-> >
-> > +/* profile ioctl */
-> > +#define AMDGPU_PROFILE_OP_GET_STABLE_PSTATE  1
-> > +#define AMDGPU_PROFILE_OP_SET_STABLE_PSTATE  2
-> > +
-> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK      0xf
-> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE      0
-> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD  1
-> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK  2
-> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK  3
-> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK      4
-> > +
-> > +struct drm_amdgpu_profile_in {
-> > +     /** AMDGPU_PROFILE_OP_* */
-> > +     __u32   op;
-> > +     __u32   flags;
-> > +};
-> > +
-> > +struct drm_amdgpu_profile_out {
-> > +     __u64   flags;
-> > +};
-> > +
-> > +union drm_amdgpu_profile {
-> > +     struct drm_amdgpu_profile_in in;
-> > +     struct drm_amdgpu_profile_out out;
-> > +};
-> > +
-> >   /*
-> >    * Supported GPU families
-> >    */
->
-
---0000000000000fa86c05d24030d6
-Content-Type: text/x-patch; charset="US-ASCII"; name="original.patch"
-Content-Disposition: attachment; filename="original.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_kwql1y330>
-X-Attachment-Id: f_kwql1y330
-
-Y29tbWl0IDAzY2UzOGI0ZjVmYzlkNDM4MjBjNjY5Y2JhN2JkOGMwM2UzYmRjMDIKQXV0aG9yOiBB
-bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkRhdGU6ICAgV2VkIERlYyAx
-IDE2OjE3OjEzIDIwMjEgLTA1MDAKCiAgICBkcm0vYW1kZ3B1L1VBUEk6IGFkZCBuZXcgQ1RYIE9Q
-IGZvciBzZXR0aW5nIHByb2ZpbGUgbW9kZXMKICAgIAogICAgQWRkIGEgbmV3IENUWCBpb2N0bCBv
-cGVyYXRpb24gdG8gc2V0IHByb2ZpbGUgbW9kZXMuICBXaGVuCiAgICBjcmVhdGluZyB0cmFjZXMg
-Zm9yIHRvb2xzIGxpa2UgUkdQIG9yIHVzaW5nIFNQTSBvciBkb2luZwogICAgcGVyZm9ybWFuY2Ug
-cHJvZmlsaW5nLCBpdCdzIHJlcXVpcmVkIHRvIGVuYWJsZSBhIHNwZWNpYWwKICAgIHN0YWJsZSBw
-cm9maWxpbmcgcG93ZXIgc3RhdGUgb24gdGhlIEdQVS4gIFRoZXNlIHByb2ZpbGluZwogICAgc3Rh
-dGVzIHNldCBmaXhlZCBjbG9ja3MgYW5kIGRpc2FibGUgY2VydGFpbiBvdGhlciBwb3dlcgogICAg
-ZmVhdHVyZXMgbGlrZSBwb3dlcmdhdGluZyB3aGljaCBtYXkgaW1wYWN0IHRoZSByZXN1bHRzLgog
-ICAgCiAgICBIaXN0b3JpY2FsbHksIHRoZXNlIHByb2ZpbGVzIHdlcmUgZW5hYmxlZCB2aWEgc3lz
-ZnMsIGJ1dAogICAgdGhpcyBhZGRzIGFuIGludGVyZmFjZSB0byBlbmFibGUgaXQgdmlhIHRoZSBD
-VFggaW9jdGwKICAgIGZyb20gdGhlIGFwcGxpY2F0aW9uLiAgU2luY2UgdGhlIHBvd2VyIHN0YXRl
-IGlzIGdsb2JhbAogICAgb25seSBvbmUgYXBwbGljYXRpb24gY2FuIHNldCBpdCBhdCBhIHRpbWUs
-IHNvIGlmIG11bHRpcGxlCiAgICBhcHBsaWNhdGlvbnMgdHJ5IGFuZCB1c2UgaXQgb25seSB0aGUg
-Zmlyc3Qgd2lsbCBnZXQgaXQsCiAgICB0aGUgaW9jdGwgd2lsbCByZXR1cm4gLUVCVVNZIGZvciBv
-dGhlcnMuCiAgICAKICAgIFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
-dWNoZXJAYW1kLmNvbT4KCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCmluZGV4IGM1Y2Zl
-MjkyNmNhMS4uOTViODkwOGJkMmU1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaApA
-QCAtMTA5Nyw2ICsxMDk3LDkgQEAgc3RydWN0IGFtZGdwdV9kZXZpY2UgewogCiAJc3RydWN0IGFt
-ZGdwdV9yZXNldF9jb250cm9sICAgICAqcmVzZXRfY250bDsKIAl1aW50MzJfdCAgICAgICAgICAg
-ICAgICAgICAgICAgIGlwX3ZlcnNpb25zW01BWF9IV0lQXVtIV0lQX01BWF9JTlNUQU5DRV07CisK
-KwlzdHJ1Y3QgbXV0ZXggICAgICAgICAgICAgICAgICAgIHBzdGF0ZV9wcm9maWxlX2N0eF9sb2Nr
-OworCXN0cnVjdCBhbWRncHVfY3R4ICAgICAgICAgICAgICAgKnBzdGF0ZV9wcm9maWxlX2N0eDsK
-IH07CiAKIHN0YXRpYyBpbmxpbmUgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmRybV90b19hZGV2KHN0
-cnVjdCBkcm1fZGV2aWNlICpkZGV2KQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2N0eC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0
-eC5jCmluZGV4IDQ2ODAwMzU4M2IyYS4uYmY4YTU5MzllNDQ0IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2N0eC5jCkBAIC0yMzcsNiArMjM3LDcgQEAgc3RhdGljIGludCBhbWRn
-cHVfY3R4X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJY3R4LT52cmFtX2xvc3Rf
-Y291bnRlciA9IGF0b21pY19yZWFkKCZhZGV2LT52cmFtX2xvc3RfY291bnRlcik7CiAJY3R4LT5p
-bml0X3ByaW9yaXR5ID0gcHJpb3JpdHk7CiAJY3R4LT5vdmVycmlkZV9wcmlvcml0eSA9IEFNREdQ
-VV9DVFhfUFJJT1JJVFlfVU5TRVQ7CisJY3R4LT5wc3RhdGVfcHJvZmlsZSA9IEFNREdQVV9DVFhf
-UFNUQVRFX1BST0ZJTEVfTk9ORTsKIAogCXJldHVybiAwOwogfQpAQCAtMjU1LDYgKzI1Niw2NyBA
-QCBzdGF0aWMgdm9pZCBhbWRncHVfY3R4X2ZpbmlfZW50aXR5KHN0cnVjdCBhbWRncHVfY3R4X2Vu
-dGl0eSAqZW50aXR5KQogCWtmcmVlKGVudGl0eSk7CiB9CiAKK3N0YXRpYyBpbnQgYW1kZ3B1X2N0
-eF9kb19zZXRfcHN0YXRlX3Byb2ZpbGUoc3RydWN0IGFtZGdwdV9jdHggKmN0eCwKKwkJCQkJICAg
-IHUzMiBwc3RhdGVfcHJvZmlsZSkKK3sKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGN0
-eC0+YWRldjsKKwljb25zdCBzdHJ1Y3QgYW1kX3BtX2Z1bmNzICpwcF9mdW5jcyA9IGFkZXYtPnBv
-d2VycGxheS5wcF9mdW5jczsKKwllbnVtIGFtZF9kcG1fZm9yY2VkX2xldmVsIGxldmVsLCBjdXJy
-ZW50X2xldmVsOworCWludCByID0gMDsKKworCWlmICghY3R4KQorCQlyZXR1cm4gLUVJTlZBTDsK
-KworCW11dGV4X2xvY2soJmFkZXYtPnBzdGF0ZV9wcm9maWxlX2N0eF9sb2NrKTsKKwlpZiAoYWRl
-di0+cHN0YXRlX3Byb2ZpbGVfY3R4ICYmIGFkZXYtPnBzdGF0ZV9wcm9maWxlX2N0eCAhPSBjdHgp
-IHsKKwkJciA9IC1FQlVTWTsKKwkJZ290byBkb25lOworCX0KKworCXN3aXRjaCAocHN0YXRlX3By
-b2ZpbGUpIHsKKwljYXNlIEFNREdQVV9DVFhfUFNUQVRFX1BST0ZJTEVfTk9ORToKKwkJbGV2ZWwg
-PSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9BVVRPOworCQlicmVhazsKKwljYXNlIEFNREdQVV9DVFhf
-UFNUQVRFX1BST0ZJTEVfU1RBTkRBUkQ6CisJCWxldmVsID0gQU1EX0RQTV9GT1JDRURfTEVWRUxf
-UFJPRklMRV9TVEFOREFSRDsKKwkJYnJlYWs7CisJY2FzZSBBTURHUFVfQ1RYX1BTVEFURV9QUk9G
-SUxFX01JTl9TQ0xLOgorCQlsZXZlbCA9IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfTUlO
-X1NDTEs7CisJCWJyZWFrOworCWNhc2UgQU1ER1BVX0NUWF9QU1RBVEVfUFJPRklMRV9NSU5fTUNM
-SzoKKwkJbGV2ZWwgPSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX01JTl9NQ0xLOworCQli
-cmVhazsKKwljYXNlIEFNREdQVV9DVFhfUFNUQVRFX1BST0ZJTEVfUEVBSzoKKwkJbGV2ZWwgPSBB
-TURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX1BFQUs7CisJCWJyZWFrOworCWRlZmF1bHQ6CisJ
-CXIgPSAtRUlOVkFMOworCQlnb3RvIGRvbmU7CisJfQorCisJaWYgKHBwX2Z1bmNzLT5nZXRfcGVy
-Zm9ybWFuY2VfbGV2ZWwpCisJCWN1cnJlbnRfbGV2ZWwgPSBhbWRncHVfZHBtX2dldF9wZXJmb3Jt
-YW5jZV9sZXZlbChhZGV2KTsKKwllbHNlCisJCWN1cnJlbnRfbGV2ZWwgPSBhZGV2LT5wbS5kcG0u
-Zm9yY2VkX2xldmVsOworCisJaWYgKChjdXJyZW50X2xldmVsICE9IGxldmVsKSAmJiBwcF9mdW5j
-cy0+Zm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwpIHsKKwkJbXV0ZXhfbG9jaygmYWRldi0+cG0ubXV0
-ZXgpOworCQlyID0gYW1kZ3B1X2RwbV9mb3JjZV9wZXJmb3JtYW5jZV9sZXZlbChhZGV2LCBsZXZl
-bCk7CisJCWlmICghcikKKwkJCWFkZXYtPnBtLmRwbS5mb3JjZWRfbGV2ZWwgPSBsZXZlbDsKKwkJ
-bXV0ZXhfdW5sb2NrKCZhZGV2LT5wbS5tdXRleCk7CisJfQorCisJaWYgKGxldmVsID09IEFNRF9E
-UE1fRk9SQ0VEX0xFVkVMX0FVVE8pCisJCWFkZXYtPnBzdGF0ZV9wcm9maWxlX2N0eCA9IE5VTEw7
-CisJZWxzZQorCQlhZGV2LT5wc3RhdGVfcHJvZmlsZV9jdHggPSBjdHg7Citkb25lOgorCW11dGV4
-X3VubG9jaygmYWRldi0+cHN0YXRlX3Byb2ZpbGVfY3R4X2xvY2spOworCisJcmV0dXJuIHI7Cit9
-CisKIHN0YXRpYyB2b2lkIGFtZGdwdV9jdHhfZmluaShzdHJ1Y3Qga3JlZiAqcmVmKQogewogCXN0
-cnVjdCBhbWRncHVfY3R4ICpjdHggPSBjb250YWluZXJfb2YocmVmLCBzdHJ1Y3QgYW1kZ3B1X2N0
-eCwgcmVmY291bnQpOwpAQCAtMjcwLDcgKzMzMiw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9jdHhf
-ZmluaShzdHJ1Y3Qga3JlZiAqcmVmKQogCQkJY3R4LT5lbnRpdGllc1tpXVtqXSA9IE5VTEw7CiAJ
-CX0KIAl9Ci0KKwlhbWRncHVfY3R4X2RvX3NldF9wc3RhdGVfcHJvZmlsZShjdHgsIEFNREdQVV9D
-VFhfUFNUQVRFX1BST0ZJTEVfTk9ORSk7CiAJbXV0ZXhfZGVzdHJveSgmY3R4LT5sb2NrKTsKIAlr
-ZnJlZShjdHgpOwogfQpAQCAtNDY3LDExICs1MjksMzggQEAgc3RhdGljIGludCBhbWRncHVfY3R4
-X3F1ZXJ5MihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAlyZXR1cm4gMDsKIH0KIAorCisK
-K3N0YXRpYyBpbnQgYW1kZ3B1X2N0eF9zZXRfcHN0YXRlX3Byb2ZpbGUoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsCisJCQkJCSBzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwgdWludDMyX3Qg
-aWQsCisJCQkJCSB1MzIgcHN0YXRlX3Byb2ZpbGUpCit7CisJc3RydWN0IGFtZGdwdV9jdHggKmN0
-eDsKKwlzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgKm1ncjsKKwlpbnQgcjsKKworCWlmICghZnByaXYp
-CisJCXJldHVybiAtRUlOVkFMOworCisJbWdyID0gJmZwcml2LT5jdHhfbWdyOworCW11dGV4X2xv
-Y2soJm1nci0+bG9jayk7CisJY3R4ID0gaWRyX2ZpbmQoJm1nci0+Y3R4X2hhbmRsZXMsIGlkKTsK
-KwlpZiAoIWN0eCkgeworCQltdXRleF91bmxvY2soJm1nci0+bG9jayk7CisJCXJldHVybiAtRUlO
-VkFMOworCX0KKworCXIgPSBhbWRncHVfY3R4X2RvX3NldF9wc3RhdGVfcHJvZmlsZShjdHgsIHBz
-dGF0ZV9wcm9maWxlKTsKKworCW11dGV4X3VubG9jaygmbWdyLT5sb2NrKTsKKwlyZXR1cm4gcjsK
-K30KKwogaW50IGFtZGdwdV9jdHhfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAq
-ZGF0YSwKIAkJICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHApCiB7CiAJaW50IHI7Ci0JdWludDMy
-X3QgaWQ7CisJdWludDMyX3QgaWQsIHBzdGF0ZV9wcm9maWxlOwogCWludDMyX3QgcHJpb3JpdHk7
-CiAKIAl1bmlvbiBkcm1fYW1kZ3B1X2N0eCAqYXJncyA9IGRhdGE7CkBAIC01MDAsNiArNTg5LDE0
-IEBAIGludCBhbWRncHVfY3R4X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRh
-dGEsCiAJY2FzZSBBTURHUFVfQ1RYX09QX1FVRVJZX1NUQVRFMjoKIAkJciA9IGFtZGdwdV9jdHhf
-cXVlcnkyKGFkZXYsIGZwcml2LCBpZCwgJmFyZ3MtPm91dCk7CiAJCWJyZWFrOworCWNhc2UgQU1E
-R1BVX0NUWF9PUF9TRVRfUFNUQVRFX1BST0ZJTEU6CisJCWlmIChhcmdzLT5pbi5mbGFncyAmIH5B
-TURHUFVfQ1RYX1BTVEFURV9QUk9GSUxFX0ZMQUdTX01BU0spCisJCQlyZXR1cm4gLUVJTlZBTDsK
-KwkJcHN0YXRlX3Byb2ZpbGUgPSBhcmdzLT5pbi5mbGFncyAmIEFNREdQVV9DVFhfUFNUQVRFX1BS
-T0ZJTEVfRkxBR1NfTUFTSzsKKwkJaWYgKHBzdGF0ZV9wcm9maWxlID4gQU1ER1BVX0NUWF9QU1RB
-VEVfUFJPRklMRV9QRUFLKQorCQkJcmV0dXJuIC1FSU5WQUw7CisJCXIgPSBhbWRncHVfY3R4X3Nl
-dF9wc3RhdGVfcHJvZmlsZShhZGV2LCBmcHJpdiwgaWQsIHBzdGF0ZV9wcm9maWxlKTsKKwkJYnJl
-YWs7CiAJZGVmYXVsdDoKIAkJcmV0dXJuIC1FSU5WQUw7CiAJfQpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2N0eC5oCmluZGV4IGE0NGI4YjhlZDM5Yy4uNzAwN2VjOTQ1MGRkIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmgKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5oCkBAIC01Myw2ICs1Myw3IEBAIHN0
-cnVjdCBhbWRncHVfY3R4IHsKIAlhdG9taWNfdAkJCWd1aWx0eTsKIAl1bnNpZ25lZCBsb25nCQkJ
-cmFzX2NvdW50ZXJfY2U7CiAJdW5zaWduZWQgbG9uZwkJCXJhc19jb3VudGVyX3VlOworCXVpbnQz
-Ml90CQkJcHN0YXRlX3Byb2ZpbGU7CiB9OwogCiBzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgewpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IGExYzE0NDY2ZjIz
-ZC4uYzcyZTYxNTMyMzlhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jCkBAIC0zNDUyLDYgKzM0NTIsNyBAQCBpbnQgYW1kZ3B1X2RldmljZV9pbml0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LAogCWluaXRfcndzZW0oJmFkZXYtPnJlc2V0X3NlbSk7CiAJ
-bXV0ZXhfaW5pdCgmYWRldi0+cHNwLm11dGV4KTsKIAltdXRleF9pbml0KCZhZGV2LT5ub3RpZmll
-cl9sb2NrKTsKKwltdXRleF9pbml0KCZhZGV2LT5wc3RhdGVfcHJvZmlsZV9jdHhfbG9jayk7CiAK
-IAlyID0gYW1kZ3B1X2RldmljZV9pbml0X2FwdV9mbGFncyhhZGV2KTsKIAlpZiAocikKZGlmZiAt
-LWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS91YXBpL2RybS9h
-bWRncHVfZHJtLmgKaW5kZXggYjlkNjgzMzkxMDNkLi5hNGMyZjdkYzJmNzcgMTAwNjQ0Ci0tLSBh
-L2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCisrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1k
-Z3B1X2RybS5oCkBAIC0yMDYsNiArMjA2LDcgQEAgdW5pb24gZHJtX2FtZGdwdV9ib19saXN0IHsK
-ICNkZWZpbmUgQU1ER1BVX0NUWF9PUF9GUkVFX0NUWAkyCiAjZGVmaW5lIEFNREdQVV9DVFhfT1Bf
-UVVFUllfU1RBVEUJMwogI2RlZmluZSBBTURHUFVfQ1RYX09QX1FVRVJZX1NUQVRFMgk0CisjZGVm
-aW5lIEFNREdQVV9DVFhfT1BfU0VUX1BTVEFURV9QUk9GSUxFCTUKIAogLyogR1BVIHJlc2V0IHN0
-YXR1cyAqLwogI2RlZmluZSBBTURHUFVfQ1RYX05PX1JFU0VUCQkwCkBAIC0yMzgsNiArMjM5LDE0
-IEBAIHVuaW9uIGRybV9hbWRncHVfYm9fbGlzdCB7CiAjZGVmaW5lIEFNREdQVV9DVFhfUFJJT1JJ
-VFlfSElHSCAgICAgICAgNTEyCiAjZGVmaW5lIEFNREdQVV9DVFhfUFJJT1JJVFlfVkVSWV9ISUdI
-ICAgMTAyMwogCisvKiBzZWxlY3QgYSBwcm9maWxpbmcgcHN0YXRlIGZvciBwZXJmbW9uIHRvb2xz
-ICovCisjZGVmaW5lIEFNREdQVV9DVFhfUFNUQVRFX1BST0ZJTEVfRkxBR1NfTUFTSyAgMHhmCisj
-ZGVmaW5lIEFNREdQVV9DVFhfUFNUQVRFX1BST0ZJTEVfTk9ORSAgMAorI2RlZmluZSBBTURHUFVf
-Q1RYX1BTVEFURV9QUk9GSUxFX1NUQU5EQVJEICAxCisjZGVmaW5lIEFNREdQVV9DVFhfUFNUQVRF
-X1BST0ZJTEVfTUlOX1NDTEsgIDIKKyNkZWZpbmUgQU1ER1BVX0NUWF9QU1RBVEVfUFJPRklMRV9N
-SU5fTUNMSyAgMworI2RlZmluZSBBTURHUFVfQ1RYX1BTVEFURV9QUk9GSUxFX1BFQUsgIDQKKwog
-c3RydWN0IGRybV9hbWRncHVfY3R4X2luIHsKIAkvKiogQU1ER1BVX0NUWF9PUF8qICovCiAJX191
-MzIJb3A7Cg==
---0000000000000fa86c05d24030d6--
+> +for most other updates that don't require enabling or disabling of
+> new pipes.
+> +
+> +(Note: There are many scenarios when DC will decide to reserve extra
+> pipes
+> +in order to support outputs that need a very high pixel clock, or
+> for
+> +power saving purposes.)
+> +
+> +These atomic register updates are driven by global sync signals in
+> DCN. In
+> +order to understand how atomic updates interact with DCN hardware,
+> and how DCN
+> +signals page flip and vblank events it is helpful to understand how
+> global sync
+> +is programmed.
+> +
+> +Global sync consists of three signals, VSTARTUP, VUPDATE, and
+> VREADY. These are
+> +calculated by the Display Mode Library - DML
+> (drivers/gpu/drm/amd/display/dc/dml)
+> +based on a large number of parameters and ensure our hardware is
+> able to feed
+> +the DCN pipeline without underflows or hangs in any given system
+> configuration.
+> +The global sync signals always happen during VBlank, are independent
+> from the
+> +VSync signal, and do not overlap each other.
+> +
+> +VUPDATE is the only signal that is of interest to the rest of the
+> driver stack
+> +or userspace clients as it signals the point at which hardware
+> latches to
+> +atomically programmed (i.e. double buffered) registers. Even though
+> it is
+> +independent of the VSync signal we use VUPDATE to signal the VSync
+> event as it
+> +provides the best indication of how atomic commits and hardware
+> interact.
+> +
+> +Since DCN hardware is double-buffered the DC driver is able to
+> program the
+> +hardware at any point during the frame.
+> +
+> +The below picture illustrates the global sync signals:
+> +
+> +.. kernel-figure:: global_sync_vblank.svg
+> +
+> +These signals affect core DCN behavior. Programming them incorrectly
+> will lead
+> +to a number of negative consequences, most of them quite
+> catastrophic.
+> +
+> +The following picture shows how global sync allows for a mailbox
+> style of
+> +updates, i.e. it allows for multiple re-configurations between
+> VUpdate
+> +events where only the last configuration programmed before the
+> VUpdate signal
+> +becomes effective.
+> +
+> +.. kernel-figure:: config_example.svg
+...
+> diff --git a/Documentation/gpu/amdgpu/display/index.rst
+> b/Documentation/gpu/amdgpu/display/index.rst
+> index a443866332ac..fe2ecad8df81 100644
+> --- a/Documentation/gpu/amdgpu/display/index.rst
+> +++ b/Documentation/gpu/amdgpu/display/index.rst
+> @@ -2,28 +2,27 @@
+>  drm/amd/display - Display Core (DC)
+>  ===================================
+>  
+> -*placeholder - general description of supported platforms, what dc
+> is, etc.*
+> -
+> -Because it is partially shared with other operating systems, the
+> Display Core
+> -Driver is divided in two pieces.
+> +AMD display engine is partially shared with other operating systems;
+> for this
+> +reason, our Display Core Driver is divided into two pieces:
+>  
+>  1. **Display Core (DC)** contains the OS-agnostic components. Things
+>  like
+>     hardware programming and resource management are handled here.
+>  2. **Display Manager (DM)** contains the OS-dependent components.
+>  Hooks to the
+>     amdgpu base driver and DRM are implemented here.
+>  
+> -It doesn't help that the entire package is frequently referred to as
+> DC. But
+> -with the context in mind, it should be clear.
+> +The display pipe is responsible for "scanning out" a rendered frame
+> from the
+> +GPU memory (also called VRAM, FrameBuffer, etc.) to a display. In
+> other words,
+> +it would:
+>  
+> -When CONFIG_DRM_AMD_DC is enabled, DC will be initialized by default
+> for
+> -supported ASICs. To force disable, set `amdgpu.dc=0` on kernel
+> command line.
+> -Likewise, to force enable on unsupported ASICs, set `amdgpu.dc=1`.
+> +1. Read frame information from memory;
+> +2. Perform required transformation;
+> +3. Send pixel data to sink devices.
+>  
+> -To determine if DC is loaded, search dmesg for the following entry:
+> +If you want to learn more about our driver details, take a look at
+> the below
+> +table of content:
+>  
+>  .. toctree::
+>  
+>     display-manager.rst
+>     dc-debug.rst
+> -
+> -``Display Core initialized with <version number here>``
+> +   dcn-overview.rst
+> --
+> 2.25.1
+> 
+> 
