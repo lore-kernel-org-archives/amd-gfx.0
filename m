@@ -4,80 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C29C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 15:36:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD4EC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 16:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A53C673843;
-	Fri,  3 Dec 2021 15:36:58 +0000 (UTC)
-Received: from mta-p6.oit.umn.edu (mta-p6.oit.umn.edu [134.84.196.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4806F6FCBC
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 15:24:01 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mta-p6.oit.umn.edu (Postfix) with ESMTP id 4J5GnW18lBz9vf8W
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 15:23:59 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p6.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p6.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id M-QY5sLI-m7N for <amd-gfx@lists.freedesktop.org>;
- Fri,  3 Dec 2021 09:23:59 -0600 (CST)
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mta-p6.oit.umn.edu (Postfix) with ESMTPS id 4J5GnV68t6z9vf8c
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 09:23:58 -0600 (CST)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p6.oit.umn.edu 4J5GnV68t6z9vf8c
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p6.oit.umn.edu 4J5GnV68t6z9vf8c
-Received: by mail-pj1-f71.google.com with SMTP id
- g14-20020a17090a578e00b001a79264411cso1932877pji.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Dec 2021 07:23:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=cLGGvUHQifyobmz3LmGMV247Dhq0W2shJ3e+qEVTIds=;
- b=TNPaDNzF3K1VhbVDf4I1R5nZaBqAX6g77HbzJdKGnY8RO6IY/AyhqsDuO2Od0a5tu3
- LEKGoEXrT5vTDVyMVrFBWynlxEK2wRyn/TLPqShENHAhrIjwNg4+dKtb9Io5Zsfg0NLA
- V7DopEhSs1IF4LyxnB6EVfDotiDVjzndgeHRNxPemnaxHf/JWtcwFPelz6GdIfkQZHJ1
- 1GkeAl/xxISXAv7T+cAYvg27PuVHwZXGkKRyM1tL18KQlU2pgq9z/0zx14B5Dx48zDca
- S0K1ywGE3yLPfsFmguVhVzkzuebFcbBPMzbqadlkVCiGsy7mlvlDaeLBIfN5DrDlJvLq
- o2mA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2AF36E948;
+	Fri,  3 Dec 2021 16:08:25 +0000 (UTC)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459986E948
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 16:08:25 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ a11-20020a4ad1cb000000b002c2657270a0so2171101oos.8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Dec 2021 08:08:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=q+5RLTh5Fc9HPacHn+sPiuuz+0Skx0QvozaYJi51USY=;
+ b=MoN9vqySrt7DMVdE705eH5zxpjjfu8L2Khk00x0Gvw64ZGbeyW5hMIDTBHgTUQRa4F
+ /tx9pybYAsn9IY3WXk0OvqRMEvU9wXrcc6dTW/dAEeqmqYOlPGw51q2sgw2C1OqS7DAh
+ sTmvjV84GjvNCRiKNZoMugjzB3SKdRbkGPuYqckLbllzlmp6v9xgSPAisbDazle4mZ5u
+ zYVG4aFuX/3MP87U1u1ItDVeYSahiSdqR97po/j8viiO///vMVYz81TedvQXS8/sr4Jt
+ zhgLdpTDtLazYnksAwjp24jhd/2U3YuLO3im3J+ltCswpOLRSqASIOGE9QvFlUYROemh
+ I8lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=cLGGvUHQifyobmz3LmGMV247Dhq0W2shJ3e+qEVTIds=;
- b=1XXOcIdJrjBxPn1QpOK1K/VbqaXr8xa668+3nRA8AYM5LRYf5EmnalVwHxqWzuLkIr
- Slhl7WWj5QOOsC2VfAvw/spRfY/Sgs011sPq2/Y06KfgU593qBd4ngSb1CzusgkyuJdS
- 5gfvUJ5QK9oliQrDc7nZRTKn4vY2O3drm/WgH/ljE0FWgHM88z7SxnGTeVk90lAcQFIr
- tQSHQZW0X/VT0/hHTtLm+JefFROlMl06UmX/tDQzSJ0p69lwIcX4hdPjkxTra+hbV9bE
- vcnrP9+58naMn2JmEEhceQDCHA5zSYu1rmqDc3WssOEJPUzcHbTDEF7d6O6Upk0ElZMP
- 8ZDQ==
-X-Gm-Message-State: AOAM530YTXMRECV3HiBcylnns1MhNxtte6OdHm30SFr0UPFT6icHYK+1
- LhgTXPOO6nxvS7dAXZwoE3LYPVFIaEBqNYTYxmt1bgxiaiaWCRakirXxZ2+Kx45QmZMGWe1cYD1
- Z0LdMhwRYOIRtiNHIz3WH0LpNmRdg7A==
-X-Received: by 2002:a17:90b:1d03:: with SMTP id
- on3mr1285029pjb.68.1638545037868; 
- Fri, 03 Dec 2021 07:23:57 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwjkihQgC/+XOXAxkIe19mpdvtqNj0OFzj+orHDGdZiV+ukP/97LX7BCjS9Dn2qd5/hJVGyUw==
-X-Received: by 2002:a17:90b:1d03:: with SMTP id
- on3mr1284989pjb.68.1638545037601; 
- Fri, 03 Dec 2021 07:23:57 -0800 (PST)
-Received: from zqy787-GE5S.lan ([36.4.93.212])
- by smtp.gmail.com with ESMTPSA id z4sm3550613pfg.101.2021.12.03.07.23.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Dec 2021 07:23:57 -0800 (PST)
-From: Zhou Qingyang <zhou1615@umn.edu>
-To: zhou1615@umn.edu
-Subject: [PATCH v2] drm/radeon/radeon_connectors: Fix a NULL pointer
- dereference in radeon_fp_native_mode()
-Date: Fri,  3 Dec 2021 23:23:50 +0800
-Message-Id: <20211203152350.105099-1-zhou1615@umn.edu>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <CADnq5_ONy+=6ufko6aBiTDwBsUuRGqqJxcDvNmAEoELUMJMxWw@mail.gmail.com>
-References: <CADnq5_ONy+=6ufko6aBiTDwBsUuRGqqJxcDvNmAEoELUMJMxWw@mail.gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=q+5RLTh5Fc9HPacHn+sPiuuz+0Skx0QvozaYJi51USY=;
+ b=xEOleBMtZThSi64FRiRQhSP+m2XTzHfSIy4zGtz2n8D1i3F7j1+gbHP0W+4+VWWsTM
+ IlazMiTHTgBGsbZisUFwSOuPzh8pWAawRj2GLO5Z2JTHoYRq6tn9PFNXZH5bOLPexcAx
+ AAIoevuiz2kHA/LjNt0OJsQ3dxEC7RMrm/UpIhA4Ly0WfAvZEDNGFaRCV97jjwliMWQB
+ T7TXXBmA0v1JB4Fks4Sl+AG2vvodpkq+uwtFXrO2XY7T/Q0Ic/qRMdYkuTrZqjFU5MqZ
+ bTPpFXQ9j+I+RA1trT6vDLqpkfspIJfRwBzhQ0OS43EWCJlJHnZBHC8Y1/8jUM2JSMk5
+ WVIw==
+X-Gm-Message-State: AOAM532FsGEzPqEv6+kZDPcMqT6HuZccKnrnNL+pJsxEAg1Cx5jPQwRk
+ TIug4gcjc8Exkgjw3+GDdRWqlODWyaWc83GPGJs=
+X-Google-Smtp-Source: ABdhPJy/zs+29Wi/GQdxFlTlhm1ySx9pofkDi82yg2f0eQFsZ2pgo6CbXtsInQel88SnSVwkKRIoZpImeihcwsY5CAs=
+X-Received: by 2002:a4a:8701:: with SMTP id z1mr13535384ooh.68.1638547704378; 
+ Fri, 03 Dec 2021 08:08:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 03 Dec 2021 15:36:58 +0000
+References: <20211202191912.6148-1-alexander.deucher@amd.com>
+ <14cb3f8e-7e73-f596-ca3e-d8af7c053d5a@amd.com>
+In-Reply-To: <14cb3f8e-7e73-f596-ca3e-d8af7c053d5a@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 3 Dec 2021 11:08:13 -0500
+Message-ID: <CADnq5_O9KJsAmLcnw=mGUL6aE0XzrFSi=KvmFjtJKxX2cMeZGQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/2] drm/amdgpu/UAPI: add new PROFILE IOCTL
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,67 +62,298 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- kjlu@umn.edu, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In radeon_fp_native_mode(), the return value of drm_mode_duplicate() is
-assigned to mode and there is a dereference of it in
-radeon_fp_native_mode(), which could lead to a NULL pointer
-dereference on failure of drm_mode_duplicate().
+On Fri, Dec 3, 2021 at 7:07 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>
+>
+>
+> On 12/3/2021 12:49 AM, Alex Deucher wrote:
+> > This adds a new IOCTL currently used to implement querying
+> > and setting the stable power state for GPU profiling.  The
+> > stable pstates use fixed clocks and disable certain power
+> > features in order to get accurate pipeline profiling.
+> >
+> > Currently this is handled via sysfs, and that is still
+> > available, but this makes it easier for applications
+> > to utilize.  Note that the power state is global so
+> > setting it will affect all applications.  There are currently
+> > no checks in place to prevent multiple applications from
+> > using this interface, but it doesn't make sense to do
+> > profiling while you have multiple applications running in the
+> > first place, so it's up to the user to ensure this in order
+> > to get good results.
+> >
+> > This patch add an interface to query what profiling mode is
+> > currently active and to set enable a profiling mode.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |   2 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c | 112 ++++++++++++++++++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h |  30 ++++++
+> >   include/uapi/drm/amdgpu_drm.h               |  28 +++++
+> >   5 files changed, 173 insertions(+), 1 deletion(-)
+> >   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
+> >   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> > index 7fedbb725e17..4cf5bf637a9e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> > @@ -58,7 +58,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+> >       amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+> >       amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+> >       amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o \
+> > -     amdgpu_eeprom.o amdgpu_mca.o
+> > +     amdgpu_eeprom.o amdgpu_mca.o amdgpu_profile.o
+> >
+> >   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index bc1355c6248d..0e27f9673f8f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -46,6 +46,7 @@
+> >   #include "amdgpu_sched.h"
+> >   #include "amdgpu_fdinfo.h"
+> >   #include "amdgpu_amdkfd.h"
+> > +#include "amdgpu_profile.h"
+> >
+> >   #include "amdgpu_ras.h"
+> >   #include "amdgpu_xgmi.h"
+> > @@ -2467,6 +2468,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+> >       DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> >       DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> >       DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> > +     DRM_IOCTL_DEF_DRV(AMDGPU_PROFILE, amdgpu_profile_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> >   };
+> >
+> >   static const struct drm_driver amdgpu_kms_driver = {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
+> > new file mode 100644
+> > index 000000000000..94fe408e810f
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
+> > @@ -0,0 +1,112 @@
+> > +/*
+> > + * Copyright 2021 Advanced Micro Devices, Inc.
+> > + *
+> > + * Permission is hereby granted, free of charge, to any person obtaining a
+> > + * copy of this software and associated documentation files (the "Software"),
+> > + * to deal in the Software without restriction, including without limitation
+> > + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> > + * and/or sell copies of the Software, and to permit persons to whom the
+> > + * Software is furnished to do so, subject to the following conditions:
+> > + *
+> > + * The above copyright notice and this permission notice shall be included in
+> > + * all copies or substantial portions of the Software.
+> > + *
+> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> > + * OTHER DEALINGS IN THE SOFTWARE.
+> > + *
+> > + */
+> > +
+> > +#include <drm/amdgpu_drm.h>
+> > +#include "amdgpu.h"
+> > +
+> > +/**
+> > + * amdgpu_profile_ioctl - Manages settings for profiling.
+> > + *
+> > + * @dev: drm device pointer
+> > + * @data: drm_amdgpu_vm
+> > + * @filp: drm file pointer
+> > + *
+> > + * Returns:
+> > + * 0 for success, -errno for errors.
+> > + */
+> > +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
+> > +                      struct drm_file *filp)
+> > +{
+> > +     union drm_amdgpu_profile *args = data;
+> > +     struct amdgpu_device *adev = drm_to_adev(dev);
+> > +     const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+> > +     enum amd_dpm_forced_level current_level, requested_level;
+> > +     int r;
+> > +
+> > +     if (pp_funcs->get_performance_level)
+> > +             current_level = amdgpu_dpm_get_performance_level(adev);
+> > +     else
+> > +             current_level = adev->pm.dpm.forced_level;
+> > +
+> > +     switch (args->in.op) {
+> > +     case AMDGPU_PROFILE_OP_GET_STABLE_PSTATE:
+> > +             if (args->in.flags)
+> > +                     return -EINVAL;
+> > +             switch (current_level) {
+> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
+> > +                     args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD;
+> > +                     break;
+> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
+> > +                     args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK;
+> > +                     break;
+> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
+> > +                     args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK;
+> > +                     break;
+> > +             case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
+> > +                     args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK;
+> > +                     break;
+> > +             default:
+> > +                     args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE;
+> > +                     break;
+> > +             }
+> > +             break;
+> > +     case AMDGPU_PROFILE_OP_SET_STABLE_PSTATE:
+> > +             if (args->in.flags & ~AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK)
+> > +                     return -EINVAL;
+> > +             switch (args->in.flags & AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK) {
+> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD:
+> > +                     requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD;
+> > +                     break;
+> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK:
+> > +                     requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK;
+> > +                     break;
+> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK:
+> > +                     requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK;
+> > +                     break;
+> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK:
+> > +                     requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
+> > +                     break;
+> > +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE:
+> > +                     requested_level = AMD_DPM_FORCED_LEVEL_AUTO;
+> > +                     break;
+> > +             default:
+> > +                     return -EINVAL;
+> > +             }
+> > +
+>
+> Not sure if the below code covers everything, but in general it's better
+> for the sysfs handling in amdgpu_pm (after parsing the options) and this
+> one to call a common API to handle this.
 
-Fix this bug by adding a check of mode.
+Yeah, I considered cleaning that up first, but then Evan's patches
+already took care of that, so I figured that would get cleaned up once
+those land.
 
-This bug was found by a static analyzer. The analysis employs
-differential checking to identify inconsistent security operations
-(e.g., checks or kfrees) between two code paths and confirms that the
-inconsistent operations are not recovered in the current function or
-the callers, so they constitute bugs.
+Alex
 
-Note that, as a bug found by static analysis, it can be a false
-positive or hard to trigger. Multiple researchers have cross-reviewed
-the bug.
-
-Builds with CONFIG_DRM_RADEON=m show no new warnings,
-and our static analyzer no longer warns about this code.
-
-Fixes: d2efdf6d6f42 ("drm/radeon/kms: add cvt mode if we only have lvds w/h and no edid (v4)")
-Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
----
-Changes in v2:
-  -  Add a similar check in else clause
-
- drivers/gpu/drm/radeon/radeon_connectors.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
-index 607ad5620bd9..7953830cc8b5 100644
---- a/drivers/gpu/drm/radeon/radeon_connectors.c
-+++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-@@ -473,6 +473,9 @@ static struct drm_display_mode *radeon_fp_native_mode(struct drm_encoder *encode
- 	    native_mode->vdisplay != 0 &&
- 	    native_mode->clock != 0) {
- 		mode = drm_mode_duplicate(dev, native_mode);
-+		if (!mode)
-+			return NULL;
-+
- 		mode->type = DRM_MODE_TYPE_PREFERRED | DRM_MODE_TYPE_DRIVER;
- 		drm_mode_set_name(mode);
- 
-@@ -487,6 +490,9 @@ static struct drm_display_mode *radeon_fp_native_mode(struct drm_encoder *encode
- 		 * simpler.
- 		 */
- 		mode = drm_cvt_mode(dev, native_mode->hdisplay, native_mode->vdisplay, 60, true, false, false);
-+		if (!mode)
-+			return NULL;
-+
- 		mode->type = DRM_MODE_TYPE_PREFERRED | DRM_MODE_TYPE_DRIVER;
- 		DRM_DEBUG_KMS("Adding cvt approximation of native panel mode %s\n", mode->name);
- 	}
--- 
-2.25.1
-
+>
+> Thanks,
+> Lijo
+>
+> > +             if ((current_level != requested_level) && pp_funcs->force_performance_level) {
+> > +                     mutex_lock(&adev->pm.mutex);
+> > +                     r = amdgpu_dpm_force_performance_level(adev, requested_level);
+> > +                     if (!r)
+> > +                             adev->pm.dpm.forced_level = requested_level;
+> > +                     mutex_unlock(&adev->pm.mutex);
+> > +                     if (r)
+> > +                             return r;
+> > +             }
+> > +             break;
+> > +     default:
+> > +             return -EINVAL;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
+> > new file mode 100644
+> > index 000000000000..cd1c597bae11
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
+> > @@ -0,0 +1,30 @@
+> > +/*
+> > + * Copyright 2021 Advanced Micro Devices, Inc.
+> > + *
+> > + * Permission is hereby granted, free of charge, to any person obtaining a
+> > + * copy of this software and associated documentation files (the "Software"),
+> > + * to deal in the Software without restriction, including without limitation
+> > + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> > + * and/or sell copies of the Software, and to permit persons to whom the
+> > + * Software is furnished to do so, subject to the following conditions:
+> > + *
+> > + * The above copyright notice and this permission notice shall be included in
+> > + * all copies or substantial portions of the Software.
+> > + *
+> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> > + * OTHER DEALINGS IN THE SOFTWARE.
+> > + *
+> > + */
+> > +
+> > +#ifndef __AMDGPU_PROFILE_H__
+> > +#define __AMDGPU_PROFILE_H__
+> > +
+> > +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
+> > +                      struct drm_file *filp);
+> > +
+> > +#endif
+> > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> > index 26e45fc5eb1a..b6edf4a826f9 100644
+> > --- a/include/uapi/drm/amdgpu_drm.h
+> > +++ b/include/uapi/drm/amdgpu_drm.h
+> > @@ -54,6 +54,7 @@ extern "C" {
+> >   #define DRM_AMDGPU_VM                       0x13
+> >   #define DRM_AMDGPU_FENCE_TO_HANDLE  0x14
+> >   #define DRM_AMDGPU_SCHED            0x15
+> > +#define DRM_AMDGPU_PROFILE           0x16
+> >
+> >   #define DRM_IOCTL_AMDGPU_GEM_CREATE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+> >   #define DRM_IOCTL_AMDGPU_GEM_MMAP   DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> > @@ -71,6 +72,7 @@ extern "C" {
+> >   #define DRM_IOCTL_AMDGPU_VM         DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
+> >   #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
+> >   #define DRM_IOCTL_AMDGPU_SCHED              DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
+> > +#define DRM_IOCTL_AMDGPU_PROFILE     DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILE, union drm_amdgpu_profile)
+> >
+> >   /**
+> >    * DOC: memory domains
+> > @@ -1120,6 +1122,32 @@ struct drm_amdgpu_info_video_caps {
+> >       struct drm_amdgpu_info_video_codec_info codec_info[AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT];
+> >   };
+> >
+> > +/* profile ioctl */
+> > +#define AMDGPU_PROFILE_OP_GET_STABLE_PSTATE  1
+> > +#define AMDGPU_PROFILE_OP_SET_STABLE_PSTATE  2
+> > +
+> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK      0xf
+> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE      0
+> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD  1
+> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK  2
+> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK  3
+> > +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK      4
+> > +
+> > +struct drm_amdgpu_profile_in {
+> > +     /** AMDGPU_PROFILE_OP_* */
+> > +     __u32   op;
+> > +     __u32   flags;
+> > +};
+> > +
+> > +struct drm_amdgpu_profile_out {
+> > +     __u64   flags;
+> > +};
+> > +
+> > +union drm_amdgpu_profile {
+> > +     struct drm_amdgpu_profile_in in;
+> > +     struct drm_amdgpu_profile_out out;
+> > +};
+> > +
+> >   /*
+> >    * Supported GPU families
+> >    */
+> >
