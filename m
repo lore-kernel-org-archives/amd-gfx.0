@@ -4,40 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1D2C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 21:06:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B195C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Dec 2021 22:21:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 783D77AE05;
-	Fri,  3 Dec 2021 21:06:43 +0000 (UTC)
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [IPv6:2a01:e0c:1:1599::10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1B77AE05;
- Fri,  3 Dec 2021 21:06:42 +0000 (UTC)
-Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
- by smtp1-g21.free.fr (Postfix) with ESMTP id AF438B00548;
- Fri,  3 Dec 2021 22:06:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1638565600;
- bh=9jg1lskcUDN3pi4qMReu7lKqjuqE5AtG2JZ1cFjLjIo=;
- h=Date:From:To:Cc:In-Reply-To:Subject:From;
- b=IHkL4GyiFz7ho4jBVs3dG5ANconLv/hohyTiBAH68ZvpoyiTcPbRr/LFiT0FGCsRt
- YdI6VuZkkxhpl+VdoeYfhKwR13zxUWzC3KaFUoLuntovtgDfljOIjQaGW1XT0fqA8j
- u98fASlOmz1+zTjzOpc+RGEO4r/2EgaaO9B7vx7ElYhEvtkygAHlkZl/Any280ve39
- RyCzjB0s7Hj18zwfTeEiKxC7Od0NAyKHUn8CCBup5Nbs/Zp5Dh6tjydeaZ3M4LfN6R
- O9NRPclZYgwlVFHkix4fhCcl+/TjOhp6JMdOOvc4NU5wXs/lUJQPQXgby7nMDm0uF5
- RsANMxlYlvXFg==
-Date: Fri, 3 Dec 2021 22:06:39 +0100 (CET)
-From: Yann Dirson <ydirson@free.fr>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Message-ID: <480467972.18829393.1638565599646.JavaMail.root@zimbra39-e7>
-In-Reply-To: <20211202160132.2263330-6-Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH v2 5/6] Documentation/gpu: Add basic overview of DC
- pipeline
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40A08BE9A;
+	Fri,  3 Dec 2021 22:21:15 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6499B8BE9A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Dec 2021 22:21:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l2wl+MvCdWkjmrAXalmnIeHseWzsEXs6MCmDN4f41TbMQFy+F+GMzJT4Q5V3ER6u2YONF7KgAKrPDPNxkrYTFkyT9ZyPt3BQwbkhNVif72K7iSnBffOqF4rFOtiQtQDGVM0d+uONg73Sh9vJjp91rB/T+hgpaQrhyw8S1D1coLD8IyjpMDAEzETYIngAE4cvWr6Afq1OZrfGuX9HKFxEvm3q5zUNQBgwWxHFll2Go0u65um/2KjCkDoc+dE8YWuZG2zatM5DC1am2A6cnx9aNhQBTY7AFX1cWJK0V0fjVBOP4Vo3/3NSI0Sun+cnxn7cWHhhFpPT6FN2w7Oguy7RAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OHPQayWNkAF9B67fC6Zc+nUw13+OiIP56IqhGPH2jiw=;
+ b=G8uvvLv7SD3QkW+ZcX9Jbxz/06vuStuKahNekdU8F4FjYPRRHEnKYlTo5i+C+1vhrBP411PPx00FFl2G5npV1UZ3T702jV6vhByJNdxBmQ3ogTd3wIvPNpsrWaktcE6Wa9zalk8uMmS1Drat7QjQnwNrre5bNiIVuqbxbyXwiq8p4zBBzHcXWRh4hwfAmgqdB0fcy9s9GO4MH2AeINW7+TFPqk5iHaEU/BqSNZuC4+TKorn3xDT0z6WSlbkAIVJ9d1u+rW9pL3zsrRQdhtH34sSLbhh1iLMWAxbBn3ukIC9sIdAhiDmunNXUeHaRnP5vW9PzGnuM4sCg69Gy/E6I+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OHPQayWNkAF9B67fC6Zc+nUw13+OiIP56IqhGPH2jiw=;
+ b=4YDQhbGdqjW44XgJzFMebpopO6B0cATQUyBUZDSN+Ka5i3QzJLEBkI9vs4IoI+lQW7hUJgNP2NrRWJkmChnT10DPUk84OFNP5iP+WDGqFcKYTmFWz1MgyTPQZgzovFcLVZ3UFsE1d53DAjbVWW1L2fPijVULIzsrEezbSX5Lwps=
+Received: from MWHPR20CA0021.namprd20.prod.outlook.com (2603:10b6:300:13d::31)
+ by DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Fri, 3 Dec
+ 2021 22:06:11 +0000
+Received: from CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:13d:cafe::4f) by MWHPR20CA0021.outlook.office365.com
+ (2603:10b6:300:13d::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
+ Transport; Fri, 3 Dec 2021 22:06:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT041.mail.protection.outlook.com (10.13.174.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Fri, 3 Dec 2021 22:06:11 +0000
+Received: from Zhigang-WS.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 3 Dec
+ 2021 16:06:09 -0600
+From: Zhigang Luo <zhigang.luo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: skip reset other device in the same hive if it's
+ sriov vf
+Date: Fri, 3 Dec 2021 17:05:43 -0500
+Message-ID: <20211203220543.29433-1-zhigang.luo@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [88.120.44.86]
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: ydirson@free.fr
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: efd6c689-eff3-478e-0581-08d9b6a91da3
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4124:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4124D40297433C5A0177F18BF16A9@DM6PR12MB4124.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aXwCXOz8XB0BhvvzMDnRixDe5ACnngqof0VN7L42yNuslRrTcjmwcIlqH7tzCEQCldWtkVi8KD/KWSUrjc+PLdKytZZEDEJvvPJjOMnTqP6BEE9qP2eFv1s1Hzya/Js7Cmr8M15wRIodG8I7HuiH/k0PjL9cpxPDsYBrhd1WaGHFjohm0U58wqaD932QyBHVDaRiGVUO8mts8cdiVwOkS1kjhhPpqsosfXNr1i3Ka7iktlfb26+uennNpFEnZVuyd0zRZI/ZRxUctsSGNxjiEkegFLWS42JvI7C2u+hYN6Fd9FStgtuBv7ixSvvr/X1f49NF+3V/kFCd5lcwa3t65swK9kGKm4KrNTwKbhDA0+mNsFM/utLXqQjXJ8XoUzJzrT9IwWgbqvMzRRRiGgUz+uv2rCCcB3uIehvCJqKbPg1FmJLsLyPTeyrQFJ9J0UOelicUB+ii7moM2QqWksc/+TbB+3LCW04PkV+X7HlVSMfjAkzRGJu9TJ5abTWFPfWb+6HEhghVUC+tkKRkhEGw//ZcQxOI8MiUPouwKWgxgcg29QYgwV6mP8DpCWPQRbTG0+ZaBcY9x9dESCDhP+mqMNLtpjcQ2Lhlfl/OpGak3s318UF+IVnjS9VvySLE3wbfp6xPgtNdyFhHvofOabMhctqnIdW5mbl1lfoU8OhirVq1m0743gscMr7loAOB9L7QL6T7Xh62DcdVd5mPPRmz/8vH1tvpP7GUQYvJm0VqvrQSjFf598qrg4B3E54U45bMR/VApe7qOvY+AdpCmH/kqV2GnUHRvo4Y/HmR/Xp7OQc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(8936002)(7696005)(81166007)(6916009)(1076003)(44832011)(5660300002)(36756003)(2906002)(36860700001)(186003)(426003)(316002)(70206006)(8676002)(83380400001)(508600001)(40460700001)(86362001)(82310400004)(336012)(6666004)(4326008)(16526019)(26005)(47076005)(356005)(70586007)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2021 22:06:11.1024 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: efd6c689-eff3-478e-0581-08d9b6a91da3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4124
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,367 +99,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>,
- Harry Wentland <Harry.Wentland@amd.com>, linux-doc@vger.kernel.org,
- Simon Ser <contact@emersion.fr>, qingqing zhuo <qingqing.zhuo@amd.com>,
- Marek Olsak <marek.olsak@amd.com>, roman li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Roman Gilg <subdiff@gmail.com>,
- Michel Daenzer <michel@daenzer.net>, Pekka Paalanen <ppaalanen@gmail.com>,
- aurabindo pillai <aurabindo.pillai@amd.com>,
- nicholas choi <nicholas.choi@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- bhawanpreet lakha <bhawanpreet.lakha@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Zhigang Luo <zhigang.luo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> De: "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>
-> Objet: [PATCH v2 5/6] Documentation/gpu: Add basic overview of DC pipeline
-> 
-> This commit describes how DCN works by providing high-level diagrams
-> with an explanation of each component. In particular, it details the
-> Global Sync signals.
-> 
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->  .../gpu/amdgpu/display/config_example.svg     |  414 ++++++
->  .../amdgpu/display/dc_pipeline_overview.svg   | 1125
->  +++++++++++++++++
->  .../gpu/amdgpu/display/dcn-overview.rst       |  168 +++
->  .../gpu/amdgpu/display/global_sync_vblank.svg |  485 +++++++
->  Documentation/gpu/amdgpu/display/index.rst    |   23 +-
->  5 files changed, 2203 insertions(+), 12 deletions(-)
->  create mode 100644
->  Documentation/gpu/amdgpu/display/config_example.svg
->  create mode 100644
->  Documentation/gpu/amdgpu/display/dc_pipeline_overview.svg
->  create mode 100644 Documentation/gpu/amdgpu/display/dcn-overview.rst
->  create mode 100644
->  Documentation/gpu/amdgpu/display/global_sync_vblank.svg
-> 
-...
-> diff --git a/Documentation/gpu/amdgpu/display/dcn-overview.rst
-> b/Documentation/gpu/amdgpu/display/dcn-overview.rst
-> new file mode 100644
-> index 000000000000..47e9a70de8ae
-> --- /dev/null
-> +++ b/Documentation/gpu/amdgpu/display/dcn-overview.rst
-> @@ -0,0 +1,168 @@
-> +=======================
-> +Display Core Next (DCN)
-> +=======================
-> +
-> +To equip our readers with the basic knowledge of how AMD Display
-> Core Next
-> +(DCN) works, we need to start with an overview of the hardware
-> pipeline. Below
-> +you can see a picture that provides a DCN overview, keep in mind
-> that this is a
-> +generic diagram, and we have variations per ASIC.
-> +
-> +.. kernel-figure:: dc_pipeline_overview.svg
-> +
-> +Based on this diagram, we can pass through each block and briefly
-> describe
-> +them:
+For sriov vf hang, vf flr will be triggered. Hive reset is not needed.
 
-Maybe a note on MMHUBBUB is missing ?
+Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-> +
-> +* **Display Controller Hub (DCHUB)**: This is the gateway between
-> the Scalable
-> +  Data Port (SDP) and DCN. This component has multiple features,
-> such as memory
-> +  arbitration, rotation, and cursor manipulation.
-> +
-> +* **Display Pipe and Plane (DPP)**: This block provides pre-blend
-> pixel
-> +  processing such as color space conversion, linearization of pixel
-> data, tone
-> +  mapping, and gamut mapping.
-> +
-> +* **Multiple Pipe/Plane Combined (MPC)**: This component performs
-> blending of
-> +  multiple planes, using global or per-pixel alpha.
-> +
-> +* **Output Pixel Processing (OPP)**: Process and format pixels to be
-> sent to
-> +  the display.
-> +
-> +* **Output Pipe Timing Combiner (OPTC)**: It generates time output
-> to combine
-> +  streams or divide capabilities. CRC values are generated in this
-> block.
-> +
-> +* **Display Output (DIO)**: Codify the output to the display
-> connected to our
-> +  GPU.
-> +
-> +* **Display Writeback (DWB)**: It provides the ability to write the
-> output of
-> +  the display pipe back to memory as video frames.
-> +
-> +* **DCN Management Unit (DMU)**: It provides registers with access
-> control and
-> +  interrupts the controller to the SOC host interrupt unit. This
-> block includes
-> +  the Display Micro-Controller Unit - version B (DMCUB), which is
-> handled via
-> +  firmware.
-> +
-> +* **DCN Clock Generator Block (DCCG)**: It provides the clocks and
-> resets
-> +  for all of the display controller clock domains.
-> +
-> +* **Azalia (AZ)**: Audio engine.
-> +
-> +The above diagram is an architecture generalization of DCN, which
-> means that
-> +every ASIC has variations around this base model. Notice that the
-> display
-> +pipeline is connected to the Scalable Data Port (SDP) via DCHUB; you
-> can see
-> +the SDP as the element from our Data Fabric that feeds the display
-> pipe.
-> +
-> +Always approach the DCN architecture as something flexible that can
-> be
-> +configured and reconfigured in multiple ways; in other words, each
-> block can be
-> +setup or ignored accordingly with userspace demands. For example, if
-> we
-> +want to drive an 8k@60Hz with a DSC enabled, our DCN may require 4
-> DPP and 2
-> +OPP. It is DC's responsibility to drive the best configuration for
-> each
-> +specific scenario. Orchestrate all of these components together
-> requires a
-> +sophisticated communication interface which is highlighted in the
-> diagram by
-> +the edges that connect each block; from the chart, each connection
-> between
-> +these blocks represents:
-> +
-> +1. Pixel data interface (red): Represents the pixel data flow;
-> +2. Global sync signals (green): It is a set of synchronization
-> signals composed
-> +   by VStartup, VUpdate, and VReady;
-> +3. Config interface: Responsible to configure blocks;
-> +4. Sideband signals: All other signals that do not fit the previous
-> one.
-> +
-> +These signals are essential and play an important role in DCN.
-> Nevertheless,
-> +the Global Sync deserves an extra level of detail described in the
-> next
-> +section.
-> +
-> +All of these components are represented by a data structure named
-> dc_state.
-> +From DCHUB to MPC, we have a representation called dc_plane; from
-> MPC to OPTC,
-> +we have dc_stream, and the output (DIO) is handled by dc_link. Keep
-> in mind
-> +that HUBP accesses a surface using a specific format read from
-> memory, and our
-> +dc_plane should work to convert all pixels in the plane to something
-> that can
-> +be sent to the display via dc_stream and dc_link.
-> +
-> +Front End and Back End
-> +----------------------
-> +
-> +Display pipeline can be broken down into two components that are
-> usually
-> +referred as **Front End (FE)** and **Back End (BE)**, where FE
-> consists of:
-> +
-> +* DCHUB (Mainly referring to a subcomponent named HUBP)
-> +* DPP
-> +* MPC
-> +
-> +On the other hand, BE consist of
-> +
-> +* OPP
-> +* OPTC
-> +* DIO (DP/HDMI stream encoder and link encoder)
-> +
-> +OPP and OPTC are two joining blocks between FE and BE. On a side
-> note, this is
-> +a one-to-one mapping of the link encoder to PHY, but we can
-> configure the DCN
-> +to choose which link encoder to connect to which PHY. FE's main
-> responsibility
-> +is to change, blend and compose pixel data, while BE's job is to
-> frame a
-> +generic pixel stream to a specific display's pixel stream.
-> +
-> +Data Flow
-> +---------
-> +
-> +Initially, data is passed in from VRAM through Data Fabric (DF) in
-> native pixel
-> +formats. Such data format stays through till HUBP in DCHUB, where
-> HUBP unpacks
-> +different pixel formats and outputs them to DPP in uniform streams
-> through 4
-> +channels (1 for alpha + 3 for colors).
-> +
-> +The Converter and Cursor (CNVC) in DPP would then normalize the data
-> +representation and convert them to a DCN specific floating-point
-> format (i.e.,
-> +different from the IEEE floating-point format). In the process, CNVC
-> also
-> +applies a degamma function to transform the data from non-linear to
-> linear
-> +space to relax the floating-point calculations following. Data would
-> stay in
-> +this floating-point format from DPP to OPP.
-> +
-> +Starting OPP, because color transformation and blending have been
-> completed
-> +(i.e alpha can be dropped), and the end sinks do not require the
-> precision and
-> +dynamic range that floating points provide (i.e. all displays are in
-> integer
-> +depth format), bit-depth reduction/dithering would kick in. In OPP,
-> we would
-> +also apply a regamma function to introduce the gamma removed earlier
-> back.
-> +Eventually, we output data in integer format at DIO.
-> +
-> +Global Sync
-> +-----------
-> +
-> +Many DCN registers are double buffered, most importantly the surface
-> address.
-> +This allows us to updated DCN hardware atomically for page flips, as
-> well as
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 3c5afa45173c..474f8ea58aa5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4746,7 +4746,7 @@ static int amdgpu_device_lock_hive_adev(struct amdgpu_device *adev, struct amdgp
+ {
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 
+-	if (adev->gmc.xgmi.num_physical_nodes > 1) {
++	if (!amdgpu_sriov_vf(adev) && (adev->gmc.xgmi.num_physical_nodes > 1)) {
+ 		if (!hive) {
+ 			dev_err(adev->dev, "Hive is NULL while device has multiple xgmi nodes");
+ 			return -ENODEV;
+@@ -4958,7 +4958,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	 * We always reset all schedulers for device and all devices for XGMI
+ 	 * hive so that should take care of them too.
+ 	 */
+-	hive = amdgpu_get_xgmi_hive(adev);
++	if (!amdgpu_sriov_vf(adev))
++		hive = amdgpu_get_xgmi_hive(adev);
+ 	if (hive) {
+ 		if (atomic_cmpxchg(&hive->in_reset, 0, 1) != 0) {
+ 			DRM_INFO("Bailing on TDR for s_job:%llx, hive: %llx as another already in progress",
+@@ -4999,7 +5000,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	 * to put adev in the 1st position.
+ 	 */
+ 	INIT_LIST_HEAD(&device_list);
+-	if (adev->gmc.xgmi.num_physical_nodes > 1) {
++	if (!amdgpu_sriov_vf(adev) && (adev->gmc.xgmi.num_physical_nodes > 1)) {
+ 		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head)
+ 			list_add_tail(&tmp_adev->reset_list, &device_list);
+ 		if (!list_is_first(&adev->reset_list, &device_list))
+-- 
+2.17.1
 
-to update ?
-
-> +for most other updates that don't require enabling or disabling of
-> new pipes.
-> +
-> +(Note: There are many scenarios when DC will decide to reserve extra
-> pipes
-> +in order to support outputs that need a very high pixel clock, or
-> for
-> +power saving purposes.)
-> +
-> +These atomic register updates are driven by global sync signals in
-> DCN. In
-> +order to understand how atomic updates interact with DCN hardware,
-> and how DCN
-> +signals page flip and vblank events it is helpful to understand how
-> global sync
-> +is programmed.
-> +
-> +Global sync consists of three signals, VSTARTUP, VUPDATE, and
-> VREADY. These are
-> +calculated by the Display Mode Library - DML
-> (drivers/gpu/drm/amd/display/dc/dml)
-> +based on a large number of parameters and ensure our hardware is
-> able to feed
-> +the DCN pipeline without underflows or hangs in any given system
-> configuration.
-> +The global sync signals always happen during VBlank, are independent
-> from the
-> +VSync signal, and do not overlap each other.
-> +
-> +VUPDATE is the only signal that is of interest to the rest of the
-> driver stack
-> +or userspace clients as it signals the point at which hardware
-> latches to
-> +atomically programmed (i.e. double buffered) registers. Even though
-> it is
-> +independent of the VSync signal we use VUPDATE to signal the VSync
-> event as it
-> +provides the best indication of how atomic commits and hardware
-> interact.
-> +
-> +Since DCN hardware is double-buffered the DC driver is able to
-> program the
-> +hardware at any point during the frame.
-> +
-> +The below picture illustrates the global sync signals:
-> +
-> +.. kernel-figure:: global_sync_vblank.svg
-> +
-> +These signals affect core DCN behavior. Programming them incorrectly
-> will lead
-> +to a number of negative consequences, most of them quite
-> catastrophic.
-> +
-> +The following picture shows how global sync allows for a mailbox
-> style of
-> +updates, i.e. it allows for multiple re-configurations between
-> VUpdate
-> +events where only the last configuration programmed before the
-> VUpdate signal
-> +becomes effective.
-> +
-> +.. kernel-figure:: config_example.svg
-...
-> diff --git a/Documentation/gpu/amdgpu/display/index.rst
-> b/Documentation/gpu/amdgpu/display/index.rst
-> index a443866332ac..fe2ecad8df81 100644
-> --- a/Documentation/gpu/amdgpu/display/index.rst
-> +++ b/Documentation/gpu/amdgpu/display/index.rst
-> @@ -2,28 +2,27 @@
->  drm/amd/display - Display Core (DC)
->  ===================================
->  
-> -*placeholder - general description of supported platforms, what dc
-> is, etc.*
-> -
-> -Because it is partially shared with other operating systems, the
-> Display Core
-> -Driver is divided in two pieces.
-> +AMD display engine is partially shared with other operating systems;
-> for this
-> +reason, our Display Core Driver is divided into two pieces:
->  
->  1. **Display Core (DC)** contains the OS-agnostic components. Things
->  like
->     hardware programming and resource management are handled here.
->  2. **Display Manager (DM)** contains the OS-dependent components.
->  Hooks to the
->     amdgpu base driver and DRM are implemented here.
->  
-> -It doesn't help that the entire package is frequently referred to as
-> DC. But
-> -with the context in mind, it should be clear.
-> +The display pipe is responsible for "scanning out" a rendered frame
-> from the
-> +GPU memory (also called VRAM, FrameBuffer, etc.) to a display. In
-> other words,
-> +it would:
->  
-> -When CONFIG_DRM_AMD_DC is enabled, DC will be initialized by default
-> for
-> -supported ASICs. To force disable, set `amdgpu.dc=0` on kernel
-> command line.
-> -Likewise, to force enable on unsupported ASICs, set `amdgpu.dc=1`.
-> +1. Read frame information from memory;
-> +2. Perform required transformation;
-> +3. Send pixel data to sink devices.
->  
-> -To determine if DC is loaded, search dmesg for the following entry:
-> +If you want to learn more about our driver details, take a look at
-> the below
-> +table of content:
->  
->  .. toctree::
->  
->     display-manager.rst
->     dc-debug.rst
-> -
-> -``Display Core initialized with <version number here>``
-> +   dcn-overview.rst
-> --
-> 2.25.1
-> 
-> 
