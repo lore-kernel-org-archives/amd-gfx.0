@@ -4,119 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD94C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 15:23:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6496C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 15:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E87972C3A;
-	Mon,  6 Dec 2021 15:23:51 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D32D472C3A
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 15:23:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E7F27B06B;
+	Mon,  6 Dec 2021 15:38:54 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA9F37B065
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 15:38:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lazDsBDczqg2VPzhkNJCn1/+K5nfNLlaw9jY3dSnFto1Ka5HQIgprbHwTBflpZOYq/GoNm85sSgYpb1gMt83TpBZQrzKVvx90XiCpmoVfuLlXmoS/rfHz2mEw7h8Kc5Tp4zeywi2K8AUJ961ArgTmk74se8S3aB9gGnhjmtRZDGhyo/2f0k+f+EaGUQ2OUUoouzhKZOzPqZ6NLvC60Yd47cOoo8J2xwLCJQyplPJJ1Gbp3V/bCzNTrWkH70wD0J6ZLJJQaTD58d564rrzBgOfOJgjROhmIecU8MQThk6ojOj//gRCCP2+U03NA5lTQ0cL51fMJU/PHvax+SRJ3rWFQ==
+ b=cLym751wCZR4ZOjNS22V3NPUMqJonLTC9hqsGi3wK8teCW2H22a0DO4nf8eByg2ICHHI0A7GNSkkq/jDGMMiiUwQKfgMC1H3rnCL5sM+XFmCaIqI59QTEg4oOleM5dtWcGXSLxNaK2+dfP2rFrh5JZPDUiZD97AXdzBqOLdggOYGlHL9Aj68WgiqnjNlUd4OQXKom+6N7lMlz2k3SowIiQJyfT/pmn5tg7WfJKuHlGGDRnN5CV0d6yxCk5fQMWiKu+KXfFtvbDSTatH3jtleuE3U63cxuI0JxHOLi1+5bfzh9m4UCNe8wQMHEQA5ZRODQ+C3wlodA8NnKJKRMYiq4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1liQmOBAnpqg1O7u1sx42THH18FyjTqlu1wgyiiFZAc=;
- b=FPcnvFT1I3oYcZIDm4J40+Sb3krZvGiTPoA8tJYcPIXGpzmseE2uGpSHKIzqyGcw5hTnX0KlnkV7UIDoGDy8QiOjFZFcRkj64CgnL2LSoJyb32o0mWbg6Ih4uOGdpENsJex6JTtb61wPHb65Q2Y62Tc/YCbmkl+0HbU5BTOUaQweuOX6+7/evpgJqDmuitvYA03IX3XEHBcXs33Mk1VqkZApW15zmtz2tge8jrLWLNVeUVrsSvqeLZagYLzgT7IPx5DhZTCzsqz+13WG3DwCgGhIYDmEzA1SXYtKVlAEuqZFUN/A1VP0qqEPd+rfZHvjI/5/nDXls9+ISI4yfdZ5Pg==
+ bh=7NprOK3S3hG1EKerJZAFAWaFuwv9CtjiSdlLNdJu6u8=;
+ b=PQsuYbE24UChCc5QI19nL/BuuOxLYnEct/Cr3i2C6ZdHrtfcQJHPxBKyZLI7ePqOMq1qb4IaqNyMEnmWx9F09r22y7imVvAE2ZgBBRxjEsPqerjNPx9F7xNG0zzyg3IYLApWtna3GoML/j5cQFOGLB2DOfdK+zybNcOAFbV8LM9YGNU2IZfMl7nrVuGdHcK6mushLN5tfDeQjOyNhJ00YLDs5GNrLo0vLZCJxpnnBSWXjBsiBflICfZrYEy2OIAQev8YdmI8cnJ98qrnmgxHdQigOhN9rGfpewQCvHxbix/SbQF74Rqufh8u36bhWiOBqwabVLStnoeO7w0g7QRD/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1liQmOBAnpqg1O7u1sx42THH18FyjTqlu1wgyiiFZAc=;
- b=VSJePudonW0BFgXqb29Mfa/PLCjK9yVxnezVbTZD4xQF80nwV4nHRm0tbt/t2Sx2Y+JPHGEvkXFuHeExsOC1UBNO9pt4jFykYACjA+XIUQytH8K4joJHjdRF7zBIDZQPvbdX+pzmcSQ2raqvhJxR8Kfvb7BNGTFGqJUPHEXDcl4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5255.namprd12.prod.outlook.com (2603:10b6:208:315::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Mon, 6 Dec
- 2021 15:23:47 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6452:dc31:2a24:2830%8]) with mapi id 15.20.4755.021; Mon, 6 Dec 2021
- 15:23:47 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Cui, Flora" <Flora.Cui@amd.com>, "=guchun.chen@amd.com"
- <=guchun.chen@amd.com>, "Yuan, Perry" <Perry.Yuan@amd.com>, "Shi, Leslie"
- <Yuliang.Shi@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: free vkms_output after use
-Thread-Topic: [PATCH 2/2] drm/amdgpu: free vkms_output after use
-Thread-Index: AQHX6ovufwO/p1viOUG9OZo+JmQiQqwllVoT
-Date: Mon, 6 Dec 2021 15:23:47 +0000
-Message-ID: <BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20211206063445.104874-1-flora.cui@amd.com>
- <20211206063445.104874-2-flora.cui@amd.com>
-In-Reply-To: <20211206063445.104874-2-flora.cui@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-06T15:23:47.288Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 74a41050-c2a7-a2d8-67d4-f15cb8ff72af
-authentication-results: dkim=none (message not signed)
+ bh=7NprOK3S3hG1EKerJZAFAWaFuwv9CtjiSdlLNdJu6u8=;
+ b=0B79h9p0TrOADlTdoetHg4K0YaRaEYKoeVgR/Pb1exNARCgk+KJm7J394b49pOCb65g/x4weU+NiqaSije4RmGm0MuJPkOd56toQk6fMmaJ3gwA8ubWjSRQiQ23NLw1OmIqyXyS5lH8JIC928VmLbKoN9yj+Uqa87mNTuS3NxMo=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fa15f8b4-56f0-46e3-c59c-08d9b8cc6656
-x-ms-traffictypediagnostic: BL1PR12MB5255:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB5255DF833FB448EAA85FD6FEF76D9@BL1PR12MB5255.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:569;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ww+TmKLknvLpjivixYUKOwZnYl9dotaBRdKgbn6mAJ7EzG57y3ulGi0oFbBUvPZ8jiWoPW+rb/sfxfJmrSg4YKq34hopPZz9pPYhj2ZfYuD/N6mGElBVPkb0rhT6t5J5TSLLkcV9fdWh9c3B9zmz0YJ8Rk6+Te05caRMNsWE+aubVPiC98+4DuysaHw+SwJA37qqohe1G76H8DUAHgpJBIJ31rtO5UId/zSWoEcOsrfv+RwAUmEZOC9V8vTDGjmdWjkwP0n6NkI9ORelIpzAaPKVelrIJ71IaiqrcGnREzwGNjf4VJUVlqN9Mjde8VFV8UwYYbxqauH5NTSBRpkA7aU7BukI9rbBpoAnqElRZ8e//1UGQqEtP4OCwWot5UdiZv2st+WrX2Oruu/987WqsstAKDSUuq2zHn9gcHvcuSHYHlYQgdB1A0jONTJ7MFzUUolb3oztWovoi4SRg7CAB0eDZECdkLFNpYYgQjjPH6NDWOE82jk2AZsIFi2ZJh4kLovI/lwX5ZvCwU+/kbMJvq40pIrU2WDKGjEdg5dV32wYnJQ9cQQGK+8xtjE5LzODGPz40rH9xNVr9WFA4RMxxFdCjG9B6uZB1zGUngp5t21orflLOSXl0XLSZZ+mXwVGjRML5kcUMOsGq4gkQj/rWPughzJdUyx5WmKqqMi1uCUkZhEyzwqOV+abCCdBKm/vvXSDzVuy6P/60kilm1VuLQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(26005)(2906002)(38100700002)(66446008)(76116006)(86362001)(508600001)(66556008)(5660300002)(64756008)(9686003)(66476007)(7696005)(8676002)(66946007)(122000001)(110136005)(316002)(38070700005)(33656002)(52536014)(186003)(71200400001)(55016003)(19627405001)(6506007)(53546011)(83380400001)(8936002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?p83zzy1eeVnoCmvuXxnbPP8Ym6o+keRVTt7M2YZBq9kpu85M7VNwaPqrghk3?=
- =?us-ascii?Q?2jZpXEQ8S1VCk39wojhWeOEsGSYXe7GB+LU+4q5bnXw/VxciufGoKNAc397u?=
- =?us-ascii?Q?UhxDEh04Ce1Lme3Tx5iGKxXjeTvVaAnAUPbs8So+K/wQH1xqEfHmsobesZQw?=
- =?us-ascii?Q?FrEC86e0mSzGG4U7vWOABbVPRJ+26PzpidvDtIyLK7wZE0X6V3cSpWg23XBp?=
- =?us-ascii?Q?3v8s0zY7OC9U7OkBIsRI70rTKuhIszxMRnjvmPaD6pT/8m03+Ia2Po5FeEVR?=
- =?us-ascii?Q?UW0lEKY5p2W1gJiCHt5dsxVy3qH9n9xg2FZMosGw4VnevVK1KF6hnZHlfP9w?=
- =?us-ascii?Q?Kt8W82xh8qJRqg7EKyq8gq0GF8VTDCHc/0rty6CJZauOFXr7s+Ei3wEHr55d?=
- =?us-ascii?Q?GluyAVHz/rvWlcWbqSEcyHBAM9Hy95efIk59fm/uGe0Sh3WcmhYKH3Mp8i42?=
- =?us-ascii?Q?Zh5tvd4TzV7Y+/DD38iUfd2Hi77laXpyVUKK3S8nIDgpJC1rTvaHRGyBYxv+?=
- =?us-ascii?Q?EP5Nxj2I3Bnc3BGb9LOxShVAs8BnC+9Jb6hk/8hbSpyKsiRdbAjGBP1/SEHB?=
- =?us-ascii?Q?rE3DthAwEGYgt816wtuIfV5uVB4xtTBe5/Imig6dQCWOmOcAvL1oMeS9D1db?=
- =?us-ascii?Q?iuWGH1dH5Vuc6Cv45XdjoqPW7YYEy3HUubv5x5iuru1xCKg9ZZmVJEhGVxLT?=
- =?us-ascii?Q?GJ4jk1hKLNxLKlQ2hPQrGNsLXoMt2yckt5OtoQqdSRJCEviTuE6N5VtYkGtT?=
- =?us-ascii?Q?PJZUZUV13KXhUgyXXajmFJQYrZQha+W7B7R2hVfIZSQPfF5A+FbwAXxkpR4E?=
- =?us-ascii?Q?fTf4BVMVBrqWjAQi6x1NM5OTtrgphdOBnPSnzJt2403oDcPNPduao245lZ4L?=
- =?us-ascii?Q?ebwMqLEKq0a/sl5tzb0YT/5Y4FFfF8YsldUVui6rh6iQtPh6dFI1h8Hl5kxZ?=
- =?us-ascii?Q?pbU6lEZm8O/jBGHp4byijETo2wUpcXLHID9kP9DmbAnnLNYOKssjPJCxuLUD?=
- =?us-ascii?Q?C9qKz5oinzPPb9aUnCbYpLGnoynsh5VVQjbEPhNy1Qqa42HNMfxHVmuLJS1n?=
- =?us-ascii?Q?j+6PzMebcu39yovX86ih3oGF+L5vp/jhzgX9QAwnXatpNo6V4TCTaGt2R5I2?=
- =?us-ascii?Q?37x1aovAnmVxIZBYmSnRybROQleEP8mOnSv7DsKiObMbDQzxo1JFdyM9oZq/?=
- =?us-ascii?Q?vCeNRseSfh4BTmEkNzrezn1M0jBqYUTJhIYE4bxL1+ZBkKgCsgjsTum4Ck1z?=
- =?us-ascii?Q?J5hN6sfar6gud/wQ4QmVADQUbMqIJLPU48kiuhmQWty9ro15zEsn/Q9VNLDt?=
- =?us-ascii?Q?6fHd0jz0CnFLTKxXxe1emycNQX3Gp0ujlGLWLSb+L42xsEaEWR81Ei9Hwjzj?=
- =?us-ascii?Q?CjoySpyM64Xb8b5LaLZw6LjCkpsAsB47QIv+ud1hL17seEyh1lKqnvXsFygA?=
- =?us-ascii?Q?RDBMrvDxYFJGLBSoKugkzOjWP+xJzzm0uoMLEAS/WMtFERm+oJiaGQPzBZLi?=
- =?us-ascii?Q?LdIEvxEai4+elIn5sHi/cqfaLKWzTeAUMtjj7n/9yfrSqkpVnd69yphs2sgy?=
- =?us-ascii?Q?0ub/83EnYl38izf51GPbACtahivf2RJqbM+ovcCmADRBfVqXFDTgJo1rH1/v?=
- =?us-ascii?Q?dQ=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_"
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5211.namprd12.prod.outlook.com (2603:10b6:408:11c::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.14; Mon, 6 Dec
+ 2021 15:24:28 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300%7]) with mapi id 15.20.4755.021; Mon, 6 Dec 2021
+ 15:24:28 +0000
+Subject: Re: [RFC PATCH 1/2] drm/amdgpu/UAPI: add new PROFILE IOCTL
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+References: <20211202191912.6148-1-alexander.deucher@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <88bab1a5-0b03-b0ea-6cb0-19d5e71d1ff5@amd.com>
+Date: Mon, 6 Dec 2021 10:24:25 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20211202191912.6148-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0075.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::15) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+Received: from [192.168.2.100] (142.127.191.123) by
+ YT3PR01CA0075.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.17 via Frontend Transport; Mon, 6 Dec 2021 15:24:28 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4b182993-be12-4b2d-e55e-08d9b8cc7e54
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5211:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5211B4600ECCB841008C6ECE926D9@BN9PR12MB5211.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: F9SQM85dHKGY2mMKKd1qcPPBicqMHr7PNsuG8bJF7Jf7Yz2SJTgZKVwGpfirHMM724VJNXA6M9eTNzy38gmc6q5b2L+43xS7sxXDawKrzu+U0P2J/ZDRXv6RDARcvcYTUkngT0V9AfqgqBhr0GbhE920f7DI/foDdGxuWHunidw46A9T9GFoWuwTZzFdkbZrkR5jvg2rY+MdZ2kGKFmL+CVlidMd+/Ys+y578sv3dpCzOefj0FefXmVrlhbjr4eyueGiAAmxuXSGrLmxlcrvEF0jFiFBaJJYMpm+QP2RoiMQtVSXU0t0JQrmlG9hq8oLaVsf+O1dWttiNxmfOrumTrfYhh87veKtcNIEyc3pAjvU+dDfVzTnSgnoACOCV9yOGYnnHG3dvQogOP3wdJnzkhY9S1ua7msa6j/gG6TXAncKz0iDXpkT4pMcjiOKbfnQFbsemyVthuiLvQ8HDZWKVNvjondQNUsnOQALXVhLcclo66Pma9FIzRTv6RLIiT2y9wBH/djCUmxAo2fYlkDH2Cll9fJ6jGHf27zGPt67vVBTtc5f4lHrpcDLEz1wd2EfbnUqzj+8MrNm2CwtZxd+GnwAL8qwXOHvzNJvoCP3UaU+SdKEWohOPfa0mVNSete6SnNw6U3H9T6AANOjWsVu34uVcwPXJAN5GJ3fEIqD7GrYA/dVsynOp1WrwXpiqvcG5VPAbns70PzvPPxfm049hdaL1dI+wXLii87PLv4ywpwXTF40Pi0WTCsTY8nVFtk7
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6666004)(8936002)(38100700002)(31686004)(6636002)(31696002)(83380400001)(2906002)(36756003)(86362001)(6862004)(8676002)(6486002)(16576012)(5660300002)(37006003)(956004)(66946007)(316002)(66476007)(66556008)(30864003)(508600001)(26005)(186003)(2616005)(44832011)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2hTUU1POWd0ZmVHZUxsUzVzQVdERGdWa0EvVzZjbWVTd01iZ1h6Z3FSa1ZZ?=
+ =?utf-8?B?ZzFuMFEwZXZabWFZT1B0azJPcmsrMDMyajJxbG1abE12anNKdFdTQWpZUmRP?=
+ =?utf-8?B?RzRzU3IrTG13LytKeG95ejdXUFRKM2RpM0Vac0hxZDh1L2JTRWJhb2NOYWhl?=
+ =?utf-8?B?dXRzQ1BjaWdmRzJkOTJhN0lDQ08rTkgwSStGVHp2MlRMSHV4OFFRQk5iamp3?=
+ =?utf-8?B?ak1YOG1iclR5N0VOSzYxVzNzSG1hMUN1N3R6Z01NMFpqb1RwSHJXVzBNdkJq?=
+ =?utf-8?B?M292TnhKbkdZU0gzSTBjMVAzLzduRnZTY1dFWDBxb2RsWnhuRnNTWG1UWEFm?=
+ =?utf-8?B?cmE4dFA1TW5RbEFrNHVWOVJPVEZLVEppTE1VS1RyemdVOXJtczRnbXFINnN3?=
+ =?utf-8?B?R0UrVldWVVBKUTR6MHpZOUJCQXZqVEVsZlU1bTJ2QWNBZlE0R1FFZ1oyVEtE?=
+ =?utf-8?B?S2JwZmlOWTIvNVBZbU96ZXZvSGdiODR0VERDdFVPMkg2Kzg1RjVnb21nQVBs?=
+ =?utf-8?B?Z2R4bHZqQ3N2bFM3YzNSKys1NmlMSnVndzdLUTJabnJwL0xGelJnOS9RR1o3?=
+ =?utf-8?B?N3JGOWZjM1lQLytQMU1ZNXJUS1c3RzZnUkhWSHBPZXRKcldmVkIwZXQ2TXZk?=
+ =?utf-8?B?UUNkdjhWQ0tFY0MzNmdWR3lwS2Q4Q1UrMUk1MEZUZzhrTWIwbmZMTldSbTlJ?=
+ =?utf-8?B?aEx4UFZ4cUxWTHA3ZVZ0bGlaSFpmRnZYKzZMWXBOaUplejBvM2w0UWNrZjdS?=
+ =?utf-8?B?dmJiL0wrQUl6T0xuN0FNSjU5Ukp5SnZlS2p2bkx0M01xclg2VUFJWGdNNkNH?=
+ =?utf-8?B?azlHWk1sZkJGOHQ4SUxEK05kKzF4RWR6TldPTDU5anlmTFFsU0h2VUptdERX?=
+ =?utf-8?B?WVQwOVdQZmlCNmRtNkhHWExMWlk2UzJIdlBEeElqY2dONnFDN0tOS0ZhUnp6?=
+ =?utf-8?B?NDJNMitNbVdIOTNmRml2SlRKU3lTZVpMZ1o1QXc0dlQraTluZWdrTlZXQmxv?=
+ =?utf-8?B?c3paSGtxeDdKNFN0cXMveFNFZSsxRTdNcU8rcDF6VXE0TGI3VERoeC82dWtm?=
+ =?utf-8?B?MjBOdVF6c3dEYUt5ZTRWS2JoZ281UWlGVXJma3R2c0tmUkFFcTB5d2pRcjJv?=
+ =?utf-8?B?VHVTeEVMOVNoN1cwZ1BUTnVEeUZqdTNNMDJNa3d1Z00vNDVKMTR2U3BVWXZE?=
+ =?utf-8?B?RFJEbk16QUt0TnNLd08yc3A4TnhKckZSZittS1ZHL05yV0w4cU5RV1BNZWdW?=
+ =?utf-8?B?bUFoWkRLaVJDdWIyK0k4Q09RSEp2YkNud2VhRmFsN0l6dG1mb0dBMGV3cVph?=
+ =?utf-8?B?RWhQbzg5eCtRVUlKUWdtM1E3WktPczFFNjVRd0RPTE82SkJhaXIxTnNvMjBG?=
+ =?utf-8?B?eDk2L0J5MWNXeVRMMDBQVHRmNHFKbXBxUzJlcllsbnBSbDluUnJHaE1aSWUy?=
+ =?utf-8?B?REhmOWFqSUxDTk02VGV1aUtKcnpuRGptdjU5Qk5ZeWkxRWYzbnRtSmZLaGFy?=
+ =?utf-8?B?UDUwZXJndy92MFZRZ3gwcFpLbGNRWXZtUDJMRm5CbmNUbElER0p3ZnRnOCtF?=
+ =?utf-8?B?RDNoaDBYU0RJbEFha0dRdVBPMENPQndDVllNZ05qUTZDNmRCQmpFR2RkWWZa?=
+ =?utf-8?B?VGJONi85VVR6WWJHcnFZVXN5dlhDNm95UFlYaWFNTmdZRzFralBteDZaWDBO?=
+ =?utf-8?B?ZzUzUGcrUEZpVm41eEw5UE4ydUFiTnNRQ1ZFWS9ha0lJdlNkTU9tK3pBY3Y0?=
+ =?utf-8?B?ZmE3Mm5VdjJkZyt2eVQzaEhUU2g0M2s3TENyVmZZbTNmcWZjdFpOY2szY1JO?=
+ =?utf-8?B?MXUzYjMyK1krQlJsMFVQanRTZ1g4eGJvR0NYSEtQbGlyWEI3OTkzMVdYN01i?=
+ =?utf-8?B?eDJ5VUY2QUd0dHFKNll4eUp6RTU3Smw3Yzc2RUNvUW9OdmtwUEU2azJ3ZFR5?=
+ =?utf-8?B?VS9CUUJkdGdUbW5Kc0VNK1NwRUQzUCt0Qzg1T0pSVlh4Tml4MytZUHZINVFs?=
+ =?utf-8?B?bzkvejk2emFTM1R1SXdtWDlnNHNzRHladDNTa2wyeWJXdU9ISHM0Umxad0Zm?=
+ =?utf-8?B?aWVTTzBrVVBIVmhVL1hpblB4c1F6bVpxaWFJSFN4dW9DM2tBZnpDK2VNMzhC?=
+ =?utf-8?B?RENzWXRxbFY5VWdLd1Q4QU1qUHVSQ1VXWU5GRzhUallMUTVzVW8xVy9jckhR?=
+ =?utf-8?Q?fJr+MNUr3JkP3Guv36wesWE=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b182993-be12-4b2d-e55e-08d9b8cc7e54
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa15f8b4-56f0-46e3-c59c-08d9b8cc6656
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2021 15:23:47.8302 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rOchC8I7EwBTgdIiWGvuGNz6CkXQdZhFK+g9w0aBRvpcHJl4ad8f5h6iRFWxdaQgdHGGEsvVP4k9umwMAwWjPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5255
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2021 15:24:28.3590 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DSdStXOuLCTeDYXHuN442CZOGE9FsYo8zo8uAaczCs1TblJEDFjbyh3QZaycWIRu4DyFGk3wp0UVMyN1MKceGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5211
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,203 +133,290 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Flora Cu=
-i <flora.cui@amd.com>
-Sent: Monday, December 6, 2021 1:34 AM
-To: =3Dguchun.chen@amd.com <=3Dguchun.chen@amd.com>; Yuan, Perry <Perry.Yua=
-n@amd.com>; Shi, Leslie <Yuliang.Shi@amd.com>; amd-gfx@lists.freedesktop.or=
-g <amd-gfx@lists.freedesktop.org>
-Cc: Shi, Leslie <Yuliang.Shi@amd.com>; Cui, Flora <Flora.Cui@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: free vkms_output after use
-
-Signed-off-by: Flora Cui <flora.cui@amd.com>
-Reviewed-by: Leslie Shi <Yuliang.Shi@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vkms.c
-index acc2d31ea93f..af3a2f8c12b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -480,6 +480,11 @@ static int amdgpu_vkms_sw_init(void *handle)
-         int r, i;
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-
-+       adev->amdgpu_vkms_output =3D kcalloc(adev->mode_info.num_crtc,
-+               sizeof(struct amdgpu_vkms_output), GFP_KERNEL);
-+       if (!adev->amdgpu_vkms_output)
-+               return -ENOMEM;
-+
-         adev_to_drm(adev)->max_vblank_count =3D 0;
-
-         adev_to_drm(adev)->mode_config.funcs =3D &amdgpu_vkms_mode_funcs;
-@@ -496,10 +501,6 @@ static int amdgpu_vkms_sw_init(void *handle)
-         if (r)
-                 return r;
-
--       adev->amdgpu_vkms_output =3D kcalloc(adev->mode_info.num_crtc, size=
-of(struct amdgpu_vkms_output), GFP_KERNEL);
--       if (!adev->amdgpu_vkms_output)
--               return -ENOMEM;
--
-         /* allocate crtcs, encoders, connectors */
-         for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
-                 r =3D amdgpu_vkms_output_init(adev_to_drm(adev), &adev->am=
-dgpu_vkms_output[i], i);
-@@ -522,12 +523,13 @@ static int amdgpu_vkms_sw_fini(void *handle)
-                 if (adev->mode_info.crtcs[i])
-                         hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_t=
-imer);
-
--       kfree(adev->mode_info.bios_hardcoded_edid);
--       kfree(adev->amdgpu_vkms_output);
--
-         drm_kms_helper_poll_fini(adev_to_drm(adev));
-+       drm_mode_config_cleanup(adev_to_drm(adev));
-
-         adev->mode_info.mode_config_initialized =3D false;
-+
-+       kfree(adev->mode_info.bios_hardcoded_edid);
-+       kfree(adev->amdgpu_vkms_output);
-         return 0;
- }
-
---
-2.25.1
-
-
---_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+Am 2021-12-02 um 2:19 p.m. schrieb Alex Deucher:
+> This adds a new IOCTL currently used to implement querying
+> and setting the stable power state for GPU profiling.  The
+> stable pstates use fixed clocks and disable certain power
+> features in order to get accurate pipeline profiling.
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Flora Cui &lt;flora.cui@amd.c=
-om&gt;<br>
-<b>Sent:</b> Monday, December 6, 2021 1:34 AM<br>
-<b>To:</b> =3Dguchun.chen@amd.com &lt;=3Dguchun.chen@amd.com&gt;; Yuan, Per=
-ry &lt;Perry.Yuan@amd.com&gt;; Shi, Leslie &lt;Yuliang.Shi@amd.com&gt;; amd=
--gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Shi, Leslie &lt;Yuliang.Shi@amd.com&gt;; Cui, Flora &lt;Flora.Cu=
-i@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: free vkms_output after use</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Signed-off-by: Flora Cui &lt;flora.cui@amd.com&gt;=
-<br>
-Reviewed-by: Leslie Shi &lt;Yuliang.Shi@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 16 +++++++++-------<br>
-&nbsp;1 file changed, 9 insertions(+), 7 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vkms.c<br>
-index acc2d31ea93f..af3a2f8c12b4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c<br>
-@@ -480,6 +480,11 @@ static int amdgpu_vkms_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)handle;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;amdgpu_vkms_output =3D kcall=
-oc(adev-&gt;mode_info.num_crtc,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; sizeof(struct amdgpu_vkms_output), GFP_KERNEL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;amdgpu_vkms_output)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -ENOMEM;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev_to_drm(adev)-&gt;max_=
-vblank_count =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev_to_drm(adev)-&gt;mode=
-_config.funcs =3D &amp;amdgpu_vkms_mode_funcs;<br>
-@@ -496,10 +501,6 @@ static int amdgpu_vkms_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;amdgpu_vkms_output =3D kcall=
-oc(adev-&gt;mode_info.num_crtc, sizeof(struct amdgpu_vkms_output), GFP_KERN=
-EL);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;amdgpu_vkms_output)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -ENOMEM;<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* allocate crtcs, encoder=
-s, connectors */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
-&gt;mode_info.num_crtc; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vkms_output_init(adev_to_drm(adev), &amp=
-;adev-&gt;amdgpu_vkms_output[i], i);<br>
-@@ -522,12 +523,13 @@ static int amdgpu_vkms_sw_fini(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;mode_info.crtcs[i])<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtim=
-er_cancel(&amp;adev-&gt;mode_info.crtcs[i]-&gt;vblank_timer);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;mode_info.bios_hardcod=
-ed_edid);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;amdgpu_vkms_output);<b=
-r>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_kms_helper_poll_fini(a=
-dev_to_drm(adev));<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_mode_config_cleanup(adev_to_drm(a=
-dev));<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mode_info.mode_co=
-nfig_initialized =3D false;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;mode_info.bios_hardcod=
-ed_edid);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;amdgpu_vkms_output);<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> Currently this is handled via sysfs, and that is still
+> available, but this makes it easier for applications
+> to utilize.  Note that the power state is global so
+> setting it will affect all applications.  There are currently
+> no checks in place to prevent multiple applications from
+> using this interface, but it doesn't make sense to do
+> profiling while you have multiple applications running in the
+> first place, so it's up to the user to ensure this in order
+> to get good results.
+>
+> This patch add an interface to query what profiling mode is
+> currently active and to set enable a profiling mode.
 
---_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_--
+I was expecting this to be some exclusive mode that only one client
+could use at a time. If someone is already using it, other users should
+get -EBUSY. When the client terminates, the default mode should be
+restored automatically.
+
+It would also be nice to coordinate with the existing sysfs interface in
+some defined way. E.g. the ioctl could override the mode chosen in sysfs
+and client termination would restore the mode chosen in sysfs. Or a
+non-default mode in sysfs could block the ioctl (return -EBUSY), sysfs
+writes fail if there is an ioctl client, and sysfs faithfully reports
+the current mode chosen by the ioctl.
+
+Regards,
+  Felix
+
+
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |   2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c | 112 ++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h |  30 ++++++
+>  include/uapi/drm/amdgpu_drm.h               |  28 +++++
+>  5 files changed, 173 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 7fedbb725e17..4cf5bf637a9e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -58,7 +58,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>  	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+>  	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+>  	amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o \
+> -	amdgpu_eeprom.o amdgpu_mca.o
+> +	amdgpu_eeprom.o amdgpu_mca.o amdgpu_profile.o
+>  
+>  amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index bc1355c6248d..0e27f9673f8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -46,6 +46,7 @@
+>  #include "amdgpu_sched.h"
+>  #include "amdgpu_fdinfo.h"
+>  #include "amdgpu_amdkfd.h"
+> +#include "amdgpu_profile.h"
+>  
+>  #include "amdgpu_ras.h"
+>  #include "amdgpu_xgmi.h"
+> @@ -2467,6 +2468,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(AMDGPU_PROFILE, amdgpu_profile_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>  };
+>  
+>  static const struct drm_driver amdgpu_kms_driver = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
+> new file mode 100644
+> index 000000000000..94fe408e810f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
+> @@ -0,0 +1,112 @@
+> +/*
+> + * Copyright 2021 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include <drm/amdgpu_drm.h>
+> +#include "amdgpu.h"
+> +
+> +/**
+> + * amdgpu_profile_ioctl - Manages settings for profiling.
+> + *
+> + * @dev: drm device pointer
+> + * @data: drm_amdgpu_vm
+> + * @filp: drm file pointer
+> + *
+> + * Returns:
+> + * 0 for success, -errno for errors.
+> + */
+> +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
+> +			 struct drm_file *filp)
+> +{
+> +	union drm_amdgpu_profile *args = data;
+> +	struct amdgpu_device *adev = drm_to_adev(dev);
+> +	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+> +	enum amd_dpm_forced_level current_level, requested_level;
+> +	int r;
+> +
+> +	if (pp_funcs->get_performance_level)
+> +		current_level = amdgpu_dpm_get_performance_level(adev);
+> +	else
+> +		current_level = adev->pm.dpm.forced_level;
+> +
+> +	switch (args->in.op) {
+> +	case AMDGPU_PROFILE_OP_GET_STABLE_PSTATE:
+> +		if (args->in.flags)
+> +			return -EINVAL;
+> +		switch (current_level) {
+> +		case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
+> +			args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD;
+> +			break;
+> +		case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
+> +			args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK;
+> +			break;
+> +		case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
+> +			args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK;
+> +			break;
+> +		case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
+> +			args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK;
+> +			break;
+> +		default:
+> +			args->out.flags = AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE;
+> +			break;
+> +		}
+> +		break;
+> +	case AMDGPU_PROFILE_OP_SET_STABLE_PSTATE:
+> +		if (args->in.flags & ~AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK)
+> +			return -EINVAL;
+> +		switch (args->in.flags & AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK) {
+> +		case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD:
+> +			requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD;
+> +			break;
+> +		case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK:
+> +			requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK;
+> +			break;
+> +		case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK:
+> +			requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK;
+> +			break;
+> +		case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK:
+> +			requested_level = AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
+> +			break;
+> +		case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE:
+> +			requested_level = AMD_DPM_FORCED_LEVEL_AUTO;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +
+> +		if ((current_level != requested_level) && pp_funcs->force_performance_level) {
+> +			mutex_lock(&adev->pm.mutex);
+> +			r = amdgpu_dpm_force_performance_level(adev, requested_level);
+> +			if (!r)
+> +				adev->pm.dpm.forced_level = requested_level;
+> +			mutex_unlock(&adev->pm.mutex);
+> +			if (r)
+> +				return r;
+> +		}
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
+> new file mode 100644
+> index 000000000000..cd1c597bae11
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
+> @@ -0,0 +1,30 @@
+> +/*
+> + * Copyright 2021 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef __AMDGPU_PROFILE_H__
+> +#define __AMDGPU_PROFILE_H__
+> +
+> +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
+> +			 struct drm_file *filp);
+> +
+> +#endif
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 26e45fc5eb1a..b6edf4a826f9 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -54,6 +54,7 @@ extern "C" {
+>  #define DRM_AMDGPU_VM			0x13
+>  #define DRM_AMDGPU_FENCE_TO_HANDLE	0x14
+>  #define DRM_AMDGPU_SCHED		0x15
+> +#define DRM_AMDGPU_PROFILE		0x16
+>  
+>  #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>  #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> @@ -71,6 +72,7 @@ extern "C" {
+>  #define DRM_IOCTL_AMDGPU_VM		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
+>  #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
+>  #define DRM_IOCTL_AMDGPU_SCHED		DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
+> +#define DRM_IOCTL_AMDGPU_PROFILE	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILE, union drm_amdgpu_profile)
+>  
+>  /**
+>   * DOC: memory domains
+> @@ -1120,6 +1122,32 @@ struct drm_amdgpu_info_video_caps {
+>  	struct drm_amdgpu_info_video_codec_info codec_info[AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT];
+>  };
+>  
+> +/* profile ioctl */
+> +#define AMDGPU_PROFILE_OP_GET_STABLE_PSTATE	1
+> +#define AMDGPU_PROFILE_OP_SET_STABLE_PSTATE	2
+> +
+> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK	0xf
+> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE	0
+> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD	1
+> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK	2
+> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK	3
+> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK	4
+> +
+> +struct drm_amdgpu_profile_in {
+> +	/** AMDGPU_PROFILE_OP_* */
+> +	__u32	op;
+> +	__u32	flags;
+> +};
+> +
+> +struct drm_amdgpu_profile_out {
+> +	__u64	flags;
+> +};
+> +
+> +union drm_amdgpu_profile {
+> +	struct drm_amdgpu_profile_in in;
+> +	struct drm_amdgpu_profile_out out;
+> +};
+> +
+>  /*
+>   * Supported GPU families
+>   */
