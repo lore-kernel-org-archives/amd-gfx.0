@@ -4,45 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C9BC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 21:19:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2076CC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 21:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 929FE6EA91;
-	Mon,  6 Dec 2021 21:19:28 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25F266EA91;
- Mon,  6 Dec 2021 21:19:27 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EA7BCB81110;
- Mon,  6 Dec 2021 21:19:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7B8FC341C1;
- Mon,  6 Dec 2021 21:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638825564;
- bh=90oVr+l1nw0SKDOGAbCUXHNjVu4a5/eCBcOj63Rg83E=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YLacqnqrQg3dFJLM1N/YYTxPBBsWMKwjHSHEt0MTQgkKquOn0azdTTV04Q5Te9ZQF
- 6psK8dz8zRxenNXpLt7i/07ksTUnYtHx41eyvkcQ9yE2VKoyo5fZrLgoFX/dLvOaj/
- rZjF4gpZ0D3u8ViSN/aErSx3LqcbxrSwlm/RigQ/sIR1VZ1QEE1pWTSs7XYm+FMMLn
- gKnt/bghyYMiL7iqHew0CuctNK4Q9LsJAzXp6Do9/QgfTp7obYqx9uslpMnq3UNEms
- l1rY0zCMSveVLXU/TB8JT0P07pZbTEtxJJDbP2E/dNRiOqggpNo1D0um1IpnHStM6f
- XVHpAKdxGaxQg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 09/10] drm/amd/display: add connector type check
- for CRC source set
-Date: Mon,  6 Dec 2021 16:17:28 -0500
-Message-Id: <20211206211738.1661003-9-sashal@kernel.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211206211738.1661003-1-sashal@kernel.org>
-References: <20211206211738.1661003-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 944B273379;
+	Mon,  6 Dec 2021 21:36:16 +0000 (UTC)
+Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 713C673379
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 21:36:15 +0000 (UTC)
+Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
+ by smtp5-g21.free.fr (Postfix) with ESMTP id D08495FF27;
+ Mon,  6 Dec 2021 22:36:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+ s=smtp-20201208; t=1638826573;
+ bh=56JkZHxxSPjJ9+3JdJmQbsPsgzbCie0RwSuteDtLPaA=;
+ h=Date:From:To:Cc:In-Reply-To:Subject:From;
+ b=uDg+0txWrtVK4MG+YeLF6fyFaZ9d3A0Xu1FrF+WQwv1Fn+qsekuQ+rRWFPcAyZcuS
+ sCJ0Q2OlLfUFPAPsrQYPnodMGkR7hJ4MwkVC+bzYEuV9zH323XIOj/vAokU5L61Hho
+ ygBbDJK1h40NvXJins2z3padHO48qvpp0Hc48A5NREOTE8Il05TKCzzAOdlNavIYRT
+ mtaG+x/Jndb05Z3LSNiw8Glb1QqDJ2Mz6/jpB2HEpDQbVDKIeFB+sEnhfWHSlrYXNG
+ skbhHF5Ifa8MSNICN9WwkyPn3wqTpdDuYd8EXg9WSifRiDGpEWHEvK1msZ6Di0TVuX
+ sOSabtFHqpzCw==
+Date: Mon, 6 Dec 2021 22:36:12 +0100 (CET)
+From: Yann Dirson <ydirson@free.fr>
+To: Alex Deucher <alexdeucher@gmail.com>
+Message-ID: <2007970240.32601068.1638826572724.JavaMail.root@zimbra39-e7>
+In-Reply-To: <CADnq5_P6ZoxFXxTAmMsNqbCO3_FZ4+2qn+YJ5488q6Ew-FaU-A@mail.gmail.com>
+Subject: Re: Various problems trying to vga-passthrough a Renoir iGPU to a
+ xen/qubes-os hvm
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [88.120.44.86]
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,86 +49,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Stylon.Wang@amd.com,
- dingchen.zhang@amd.com, sunpeng.li@amd.com, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Nicholas.Kazlauskas@amd.com, airlied@linux.ie, Perry Yuan <Perry.Yuan@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, Wayne.Lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Perry Yuan <Perry.Yuan@amd.com>
+Hi Alex,
 
-[ Upstream commit 2da34b7bb59e1caa9a336e0e20a76b8b6a4abea2 ]
+> We have not validated virtualization of our integrated GPUs.  I don't
+> know that it will work at all.  We had done a bit of testing but ran
+> into the same issues with the PSP, but never had a chance to debug
+> further because this feature is not productized.
+...
+> You need a functional PSP to get the GPU driver up and running.
 
-[Why]
-IGT bypass test will set crc source as DPRX,and display DM didn`t check
-connection type, it run the test on the HDMI connector ,then the kernel
-will be crashed because aux->transfer is set null for HDMI connection.
-This patch will skip the invalid connection test and fix kernel crash issue.
+Ah, thanks for the hint :)
 
-[How]
-Check the connector type while setting the pipe crc source as DPRX or
-auto,if the type is not DP or eDP, the crtc crc source will not be set
-and report error code to IGT test,IGT will show the this subtest as no
-valid crtc/connector combinations found.
+I guess that if I want to have any chance to get the PSP working I'm
+going to need more details on it.  A quick search some time ago mostly
+brought reverse-engineering work, rather than official AMD doc.  Are
+there some AMD resources I missed ?
 
-116.779714] [IGT] amd_bypass: starting subtest 8bpc-bypass-mode
-[ 117.730996] BUG: kernel NULL pointer dereference, address: 0000000000000000
-[ 117.731001] #PF: supervisor instruction fetch in kernel mode
-[ 117.731003] #PF: error_code(0x0010) - not-present page
-[ 117.731004] PGD 0 P4D 0
-[ 117.731006] Oops: 0010 [#1] SMP NOPTI
-[ 117.731009] CPU: 11 PID: 2428 Comm: amd_bypass Tainted: G OE 5.11.0-34-generic #36~20.04.1-Ubuntu
-[ 117.731011] Hardware name: AMD CZN/, BIOS AB.FD 09/07/2021
-[ 117.731012] RIP: 0010:0x0
-[ 117.731015] Code: Unable to access opcode bytes at RIP 0xffffffffffffffd6.
-[ 117.731016] RSP: 0018:ffffa8d64225bab8 EFLAGS: 00010246
-[ 117.731017] RAX: 0000000000000000 RBX: 0000000000000020 RCX: ffffa8d64225bb5e
-[ 117.731018] RDX: ffff93151d921880 RSI: ffffa8d64225bac8 RDI: ffff931511a1a9d8
-[ 117.731022] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[ 117.731023] CR2: ffffffffffffffd6 CR3: 000000010d5a4000 CR4: 0000000000750ee0
-[ 117.731023] PKRU: 55555554
-[ 117.731024] Call Trace:
-[ 117.731027] drm_dp_dpcd_access+0x72/0x110 [drm_kms_helper]
-[ 117.731036] drm_dp_dpcd_read+0xb7/0xf0 [drm_kms_helper]
-[ 117.731040] drm_dp_start_crc+0x38/0xb0 [drm_kms_helper]
-[ 117.731047] amdgpu_dm_crtc_set_crc_source+0x1ae/0x3e0 [amdgpu]
-[ 117.731149] crtc_crc_open+0x174/0x220 [drm]
-[ 117.731162] full_proxy_open+0x168/0x1f0
-[ 117.731165] ? open_proxy_open+0x100/0x100
-
-BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1546
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Perry Yuan <Perry.Yuan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index f0b001b3af578..883ee517673bd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -221,6 +221,14 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 			ret = -EINVAL;
- 			goto cleanup;
- 		}
-+
-+		if ((aconn->base.connector_type != DRM_MODE_CONNECTOR_DisplayPort) &&
-+				(aconn->base.connector_type != DRM_MODE_CONNECTOR_eDP)) {
-+			DRM_DEBUG_DRIVER("No DP connector available for CRC source\n");
-+			ret = -EINVAL;
-+			goto cleanup;
-+		}
-+
- 	}
- 
- 	if (amdgpu_dm_crtc_configure_crc_source(crtc, crtc_state, source)) {
+Best regards,
 -- 
-2.33.0
-
+Yann
