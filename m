@@ -4,39 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62ADCC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 21:14:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22402C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 21:15:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D61F86E8E5;
-	Mon,  6 Dec 2021 21:14:53 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 447DB6E8E5;
- Mon,  6 Dec 2021 21:14:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D48B6EA41;
+	Mon,  6 Dec 2021 21:15:01 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5AB16EA41;
+ Mon,  6 Dec 2021 21:14:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 4C227CE1846;
- Mon,  6 Dec 2021 21:14:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45CBC341C6;
- Mon,  6 Dec 2021 21:14:43 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A514BB815A0;
+ Mon,  6 Dec 2021 21:14:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6DBC341C9;
+ Mon,  6 Dec 2021 21:14:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638825286;
- bh=Zc58ANuGV3Msy+hzdE+4mS7KhdoGskyBSFCTOULUVgA=;
+ s=k20201202; t=1638825297;
+ bh=43vaTSWzCeqdaVI0fvsU4SSsHbOGCmzqdI+/gtOBR5c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=h0sw9sjnKN/y0h/UzwTQLMDLPKZaizrC4skwEijffgI0IUaqSn8ReXvtsvyHJ8idf
- CgbPdrMYfQ/r28f8n760XPFG+IwBICjjl7+qUgMNds+TwHX1Es1Q6dnstyxQm6sWAH
- 7mggZp02gKz6FUV61xSKf3sY1R4TRSWmNpqtQkFCtpE/vHs8G3+Fj+RNLFFBT8saoF
- Cc0zKPE4df46nYA05Ax7I7Y4YJ5VXPKKApmLnzOsUFQPbVbc4Togx5x8ltYcFtFjVH
- wuOJx1qZ9byCTvnefY3jL2wr5yU03dmMva21U9TFpvCwffDhy8fcv6DrQ1iJlMJAKN
- sw7h54R4a/LzQ==
+ b=iULX6Z6tQCNUtnWtgx2eTG6xZoa2Rj+lQYTZyV5EnHzR5jGXC6rBAFFFbqoSWg0Ht
+ RBOPYVXvzMXOPXFzDjet7Do6CpMgAtBdVNAi4Me6u49wzdclv3EHX/hEg3h8IFcHjn
+ +bwpzYJju7CjfNhCCbNsrHksdfkMhALgQw8CF0R6BuAMufp0YAUTArmOEzJeLpmsM1
+ +VDnn2Op+fz7S5Q2soJ80NhU2kbpLBdVsIgacqgszUa+7TdV9TJyE2uPgWwdBtZNT/
+ qWVY5bte3bzH1jgW+u0b3841Gz84tcrJztmc2xi/DQUccx+qDBEwZLYvuygs/7B7Ns
+ C43OOe9WGLJ0w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 18/24] drm/amdgpu: check atomic flag to
- differeniate with legacy path
-Date: Mon,  6 Dec 2021 16:12:23 -0500
-Message-Id: <20211206211230.1660072-18-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 20/24] drm/amdkfd: fix double free mem structure
+Date: Mon,  6 Dec 2021 16:12:25 -0500
+Message-Id: <20211206211230.1660072-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211206211230.1660072-1-sashal@kernel.org>
 References: <20211206211230.1660072-1-sashal@kernel.org>
@@ -55,54 +53,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, andrey.grodzovsky@amd.com,
- Jack.Zhang1@amd.com, evan.quan@amd.com, Guchun Chen <guchun.chen@amd.com>,
- airlied@linux.ie, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- lijo.lazar@amd.com, Alex Deucher <aleander.deucher@amd.com>,
- shaoyun.liu@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Flora Cui <flora.cui@amd.com>,
- christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
+ airlied@linux.ie, Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Flora Cui <flora.cui@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-[ Upstream commit 1053b9c948e614473819a1a5bcaff6d44e680dcf ]
+[ Upstream commit 494f2e42ce4a9ddffb5d8c5b2db816425ef90397 ]
 
-since vkms support atomic KMS interface
+drm_gem_object_put calls release_notify callback to free the mem
+structure and unreserve_mem_limit, move it down after the last access
+of mem and make it conditional call.
 
-Signed-off-by: Flora Cui <flora.cui@amd.com>
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
-Acked-by: Alex Deucher <aleander.deucher@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 96ca42bcfdbf9..1545884dc703e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3854,7 +3854,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 	/* disable all interrupts */
- 	amdgpu_irq_disable_all(adev);
- 	if (adev->mode_info.mode_config_initialized){
--		if (!amdgpu_device_has_dc_support(adev))
-+		if (!drm_drv_uses_atomic_modeset(adev_to_drm(adev)))
- 			drm_helper_force_disable_all(adev_to_drm(adev));
- 		else
- 			drm_atomic_helper_shutdown(adev_to_drm(adev));
-@@ -5130,7 +5130,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 			drm_sched_start(&ring->sched, !tmp_adev->asic_reset_res);
- 		}
- 
--		if (!amdgpu_device_has_dc_support(tmp_adev) && !job_signaled) {
-+		if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled) {
- 			drm_helper_resume_force_mode(adev_to_drm(tmp_adev));
- 		}
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index cdf46bd0d8d5b..ab36cce59d2e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1393,7 +1393,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	struct sg_table *sg = NULL;
+ 	uint64_t user_addr = 0;
+ 	struct amdgpu_bo *bo;
+-	struct drm_gem_object *gobj;
++	struct drm_gem_object *gobj = NULL;
+ 	u32 domain, alloc_domain;
+ 	u64 alloc_flags;
+ 	int ret;
+@@ -1503,14 +1503,16 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	remove_kgd_mem_from_kfd_bo_list(*mem, avm->process_info);
+ 	drm_vma_node_revoke(&gobj->vma_node, drm_priv);
+ err_node_allow:
+-	drm_gem_object_put(gobj);
+ 	/* Don't unreserve system mem limit twice */
+ 	goto err_reserve_limit;
+ err_bo_create:
+ 	unreserve_mem_limit(adev, size, alloc_domain, !!sg);
+ err_reserve_limit:
+ 	mutex_destroy(&(*mem)->lock);
+-	kfree(*mem);
++	if (gobj)
++		drm_gem_object_put(gobj);
++	else
++		kfree(*mem);
+ err:
+ 	if (sg) {
+ 		sg_free_table(sg);
 -- 
 2.33.0
 
