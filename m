@@ -4,70 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD4C9C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 13:59:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8071DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 14:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 965506EADD;
-	Mon,  6 Dec 2021 13:59:08 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21AA1896E7
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 13:59:07 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id l16so22596595wrp.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Dec 2021 05:59:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=X0BabdJXhwC9VBCntqUo9FKT961aI4kPIrngZ51RcFQ=;
- b=GWzofyTdX2baVYEFH5l7CLLnnjz4UdCDSDIF1AorIIOwbp3FNxJqfs9HQ3qiLjlD2J
- ZZKm9Gq4MRPBZiE5jqURwX7uoYXaXO8Km2QQHVdAuvrueDIqS11qiJjDnV8oVB5qkHN6
- XUi7jf5wS3Y3OsMlsdU6qTEyXh42ZxPuD03/PV0z6DkwQpn61vnCwuVXXP245GmjbKw0
- VBRRsGtlRCuRqPZDSCzYB8TsALmxxnFH8sdNrelenETr47QbmimYAnsO7++CCp0TC3xy
- P55IkdoKRtDI5T6jd88+P1VUviWvZL3x1raHOXo8PEBPL19UM6Z8u9VIeNcSNjJMqwVD
- e8dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=X0BabdJXhwC9VBCntqUo9FKT961aI4kPIrngZ51RcFQ=;
- b=ilpZROGc2JQ2oNVwgiMVie3pTRdhOQoj0St/qd2V5cKip7elslJZIZ2PpvtRO4D1Dy
- 7JR+EzNYMtubirCH/s/tjD95N3d3WplSRW9p2yGgGT1chP///7hwmhqvIY76IkjfLABT
- zP6j/MjvYd4uNZ18caYlJ5s6wooU/YVL1REZ4IEEtoQlomIS81cfWS5CKvCazE528b01
- hWP9XkeBR/Nf2e/2pFCH19Z2gzNcQk8+ypB45KCIulrIuuCDANLI6+lDdcrBLAygeiAz
- DjVDV2cr3TeV3Te3LevI2aFdvjs9HkSQrKiXbaHaLhnzDZc+9KeRhsP0JKZRmf5KwYh3
- /HSA==
-X-Gm-Message-State: AOAM533B7IBWRTiU/eYVRJkrSoBbwUCbeVRrd+Qn4uLfXCyxSnWfjhNz
- eKmuRuaMzUmDMa1GfaW9KP+lEHaW+44=
-X-Google-Smtp-Source: ABdhPJzvTz2OLqE9JZcdQT1DIueixrHwJg5I3wGZgOkgp/SrD9bQgtC+TuRsCBTTKbiPGsqHlhDmcg==
-X-Received: by 2002:adf:f352:: with SMTP id e18mr44511797wrp.39.1638799145556; 
- Mon, 06 Dec 2021 05:59:05 -0800 (PST)
-Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id l22sm10709022wmp.34.2021.12.06.05.59.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Dec 2021 05:59:04 -0800 (PST)
-Subject: Re: [RFC PATCH 1/2] drm/amdgpu/UAPI: add new PROFILE IOCTL
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-References: <20211202191912.6148-1-alexander.deucher@amd.com>
- <b05f1327-b26d-ac47-4bac-f94979bd3741@gmail.com>
- <CADnq5_OgW3vfG5kjV-67KYc4RxavJeZOWvNEo5vm9siHj2B0HA@mail.gmail.com>
- <79ab8197-890a-494d-6687-de0f3d467360@gmail.com>
- <8e0b8d8f-b64f-8d17-a877-9a3171b60b2e@amd.com>
- <9d584c64-9351-5b84-6721-887aaeb0bc36@gmail.com>
- <7be3f643-040e-e9ff-46b2-3739112c07e0@amd.com>
- <a381e89e-84c2-92ed-2a06-cb6818d6aba7@gmail.com>
- <636019a6-e08e-7aa9-d62d-52ce802e3a44@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d8679678-55c6-53c0-0068-aa2232945fac@gmail.com>
-Date: Mon, 6 Dec 2021 14:59:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <636019a6-e08e-7aa9-d62d-52ce802e3a44@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id F32D57ACDA;
+	Mon,  6 Dec 2021 14:11:48 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B82257ACDA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 14:11:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XfkK2AzfLPuMvlD88iozJ7m3mhvEsOP1FV9cyWdhM5TAQmMeBqu2KSC8dxrgm6ZiPugVwlTQIzrjuckY1y2sCvphN6NGIXaEHLQI4BRbKw/qqENSTGmd0OmCDBQqOMehFew6CvT1y2tIbjbEPfhXk8fH78W20Djm1uthCMgrLy3fGoSRoR3V6Gsa/eC42rvRIQa3pmvn9uE59znu+refBVrEzP4fPKms4D4Yg0sANOVf27KEyqswaCku/fVZ7Gv9Z6cq2mbL0po24dvL9xPDRM2kqYYN55DB8wfHgStBntkUYqUzseHvpRzcE2mqydiPIVdgDSosbklTaN5tvv5SgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7MHewoz1UxdzE3Bi7eKQFBzTqdFPiu1Vrve7fLpVLT4=;
+ b=ZuOD85YcjbsaCJTqT5t4v3Q6r0FrtM8Vy1dGvoLEXq+VxTY5/YdcurK9Cb1cxmIF8m/8RBWYvF6ehl6aD5A1vnWh+PaY82LlNMlorQZqURnSAYhqwViH6S6m93DFP2pFWxPcDHDg+7RV+lEs3jP+Tgq1V7kocC10yAdJFV7YGvLuiAjHgVHTIibJDmP8pTUsx6khv52LrNSB3JFyQi2cDIFaAxT9pHAuSnciDb4Qsmc2rynu8PKHxf7LzM+z5a/IaBPfRTY2ijmsUvsgBFjt7rqQefiiM1wAVmfoaL5OWPu+ni6M0n9nZg4ZR2oS+5tEUeC+RsbqZzASmvng0aeHYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7MHewoz1UxdzE3Bi7eKQFBzTqdFPiu1Vrve7fLpVLT4=;
+ b=Q0KP38kGASvLzNnJdhvMZBRstdGOkZmh6dBcltb0y74+oTuLIkdeEDvdQ3KF0T07sC776ts0YZ/XERStROGMoyVRBoKEQyft+ByeLyDZljjneMugJ660cavDh8hS+7Vk5/NtthQOwX84zdUeBs11rqxwhyga8mPRKyQ057i0B70=
+Received: from DM6PR12MB3529.namprd12.prod.outlook.com (2603:10b6:5:15d::18)
+ by DM5PR1201MB0090.namprd12.prod.outlook.com (2603:10b6:4:53::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Mon, 6 Dec
+ 2021 14:11:44 +0000
+Received: from DM6PR12MB3529.namprd12.prod.outlook.com
+ ([fe80::88c5:51dc:ed5a:6f5a]) by DM6PR12MB3529.namprd12.prod.outlook.com
+ ([fe80::88c5:51dc:ed5a:6f5a%6]) with mapi id 15.20.4755.021; Mon, 6 Dec 2021
+ 14:11:44 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Kotarac, Pavle" <Pavle.Kotarac@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: DC Patches January 10, 2020 3.2.165
+Thread-Topic: DC Patches January 10, 2020 3.2.165
+Thread-Index: AQHX6JlRhcWGLxBBwE61eu0bpluQMqwlhPdQ
+Date: Mon, 6 Dec 2021 14:11:44 +0000
+Message-ID: <DM6PR12MB3529C542CEA08FB1AAE64E1B9C6D9@DM6PR12MB3529.namprd12.prod.outlook.com>
+References: <20211203225802.651367-1-Pavle.Kotarac@amd.com>
+In-Reply-To: <20211203225802.651367-1-Pavle.Kotarac@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-06T14:10:56Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=94442644-3b83-4ebe-a00d-0b5c2a45ef10;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2021-12-06T14:11:42Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 40cfc13d-a245-46b4-909e-53fffe20a708
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 86bc360f-6756-4e85-b721-08d9b8c2556e
+x-ms-traffictypediagnostic: DM5PR1201MB0090:EE_
+x-microsoft-antispam-prvs: <DM5PR1201MB00906131890139E149AC37549C6D9@DM5PR1201MB0090.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: B9DLXGrnI6g60ZiGF1OCncdmtQwpgLLP/Qgf550N4Tu7dW4rlcp3SY4epS6e1kr57EjfkiPxZmvZym/lKX4H6oS/Ve85CJvw83MKmH5Hz/Rf5uS3+DPIm/K8xnL+I3isD8fLxBJrHjfCQkkuVoTIivDjOC7VTQJvyX2VSgAZ1Wed+uSCs0JOxsjnw/aoWgxFL8GrU3X0yFqEMfNZH/IhGmxl9zqG4iY1uyXOMa72MtAIkoflEOdtuiXdVgxBg+8DQ7anyvX1U5cG1cEbVAhY3rGQ57XyAM92woNkmP7IsgkD6/HBUXSu/3iu/OoV57Enn0HLTCbsVbP09oF7W2iaet06gIN7NGaMpchrdOjcT053L3TcTXMILSNC1sIIpYLrg3FaYHnKwdSTAmqX5HdUZdVAVpj1WuEwKYkl3dfb/xAVLpEqxutOhJ4RkTup4X8QxvjMutD9zsHFu9gfijAvctfsmbjR025KJwBzk9JZuQM/B9uTG5D6iWCh80Ofa6j8ehOIP1ta7M2wNOLfe56c4qyrM/algI5TDoLx6yE3Y5M8MTIXRVf5LRzysqRmVgbQ/M8Yr5rZjX31iS5KNlTJm5FMyL/c5e51xqjodtL1/pKTq8StdfnmJTCFJQsgXberW0Fdmm9i8+8QTMGAW81DoqFKEfkX2H6+nZTqur8YvK0vluW9LSOyGBopekOQ6BCwOso/KChACtvmUrjzciHotw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3529.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(54906003)(71200400001)(8936002)(83380400001)(4326008)(122000001)(26005)(55016003)(316002)(53546011)(9686003)(508600001)(66556008)(66476007)(66946007)(86362001)(66446008)(64756008)(38070700005)(2906002)(6506007)(38100700002)(5660300002)(52536014)(186003)(33656002)(8676002)(7696005)(110136005)(76116006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?z3KGN/XUQAA3tEvdTE1E2bnlLv1uORuZihf8T0AlzGt/Iq2tIIDajTe8pebu?=
+ =?us-ascii?Q?AV39wrC0dZ+XM7ZfS9ENUeBQuZxB86Tx473P5X+RhfBZMVJFVB2LOhv65uof?=
+ =?us-ascii?Q?dt+BTO3/UkulkFJ7JnOHrqguNuhTICU8dg2bHuK8LGmVvrmmQ62opzgolTag?=
+ =?us-ascii?Q?oCHVZfjjYYzZmNu3FiPiM3plJRaHDoE/JJDFshVLsNOlUNg9QnhVKvOMnswB?=
+ =?us-ascii?Q?jWMlLahGCg7FhpYHVIjvi4j8YpuiicGnguZn6IJYwmDjOEBU+RLXgEdqaFyE?=
+ =?us-ascii?Q?ZUv3NIp5fmsEVlX+JiLNojgfTK6ssxI6sFgWihrMNtF1MHrFARE56h0IKGUA?=
+ =?us-ascii?Q?oLtRNa+Z9LZYh5kuampbcIUyc0xUMvK+HiUCeQ0aF0TwDCc5pRqPENc40bpZ?=
+ =?us-ascii?Q?OBQL0E0iDcqzON6gOr8pgJN48Th82U5LdwaDhl+jbyDWdU/y6hyIIImsyuug?=
+ =?us-ascii?Q?dKrQvDL7sQ9+82NkA4ZW9QtzklqO+R2h+SVbsmO/gv2LpsWRXyTie2JUzKMn?=
+ =?us-ascii?Q?kK5CgdR6oQnzslFTyJpE+wwLp6d6lDIIA0gbvMDvP3yvzYycth9z7UG+x4be?=
+ =?us-ascii?Q?OzYbaU7DfSOKptyf1eu1UglQ0g9vrROAVH0wlmCz1EQR7RiokghYZT/pimBk?=
+ =?us-ascii?Q?uxvME3ZM3X+HqPI7ptLMiyUUusQu1ieDKzK9IbjuvfjWDAZjlwLALZDDUwAl?=
+ =?us-ascii?Q?ZOoVGqLo38OycC+16bmuAcfm/XTCRXN5nXNOX6hfBSkbqPGPdaEXPK3F2vws?=
+ =?us-ascii?Q?A6zIx9J+8uvT1krSGMa8Yop92JmFSUvZvrZB3gHaN7wjwZzbaSqNy86HDjmK?=
+ =?us-ascii?Q?+VFCr1LuzxBGZYg18GwcxfJ+MAflDj7Wn+IEImHfAZMWFDiY7VrY0J1Q7a2x?=
+ =?us-ascii?Q?OioXU7Q+hlz8NDhpKmc8PLNKrYDJKEfGsPdFTxmx7oBoK+Y9q25KRt8L7W6o?=
+ =?us-ascii?Q?LVm66eVTUOUqfVVzfbNI2cdzrDa8Em0hQWMelO16j6CvDKWiS44sh9gBbafK?=
+ =?us-ascii?Q?JQbHrl7NofbxY+iFB76I1vCGOAFm4fwil7eGF0JL5iYn/grcZgxtsu/D2+v6?=
+ =?us-ascii?Q?PcabcftES6d23efMbg+y5h1H14Hf71tYULXHTGdT1/byCJyrTlHPdYO7LX3D?=
+ =?us-ascii?Q?CFDuZYbW3V9wfL6aN4Ec7UUzEfShzq+/JpSrJ2z35+3tKEJD3oL5hrYKUhAh?=
+ =?us-ascii?Q?Dhz/2MxQOxGkQXlQOGsnhjrJUU4OjoZyod8ApbnSIbXeNITAdbINrllq2L4o?=
+ =?us-ascii?Q?nr8tZk+xEVpB4Fq9rZkvFICN8E6+kLTf9xisZzMzCfej+deXMfilPz9G8ARP?=
+ =?us-ascii?Q?wL5qncq+YLGdN4ClaWhB592pqPD6nH50eC6ErRaUVZL2OQfvfzuUfb18oTrE?=
+ =?us-ascii?Q?idMaaHXbcYzZdys6Ql/SERCxBhGbA2xFK+3RvwkOeblKxzEQyNjOBxpQHEZR?=
+ =?us-ascii?Q?ygveBht96UoOXnArl6o7SJscIHIIZcY0F+cQFNMQZdNNFo6AdAVqNB0HwJyj?=
+ =?us-ascii?Q?tN+UFLm8rJqJtfnAVa56s1VxDY8bhTFAKsVjJLPip50nOqZEF/4vGHbGZODm?=
+ =?us-ascii?Q?KD0CBpBJ1pvZHMKUkHRiEhES+CjjkPZGDgDLs2I4rALIP0dDlAxchcOFtq6n?=
+ =?us-ascii?Q?Kck3U+C/QX0JRoI4fGlCp1s=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3529.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86bc360f-6756-4e85-b721-08d9b8c2556e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2021 14:11:44.3492 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: raW2CSK/Psq9G4Sd68z+jYBRrYxAhNyGKx7IX6mzLV7CGFKn9+uDqyV5l8P9VEOfGwgYs8piG4hTZt40KFRLsw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0090
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,468 +132,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Jacob,
+ Anson" <Anson.Jacob@amd.com>, "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
+ "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Zhuo,
+ Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, 
+ Roman" <Roman.Li@amd.com>, "Chiu, Solomon" <Solomon.Chiu@amd.com>, "Pillai,
+ Aurabindo" <Aurabindo.Pillai@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>,
+ "Lipski, Mikita" <Mikita.Lipski@amd.com>, "Wentland, 
+ Harry" <Harry.Wentland@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.12.21 um 14:23 schrieb Lazar, Lijo:
-> On 12/6/2021 5:42 PM, Christian König wrote:
->> Am 06.12.21 um 12:36 schrieb Lazar, Lijo:
->>> On 12/6/2021 4:52 PM, Christian König wrote:
->>>> Am 06.12.21 um 11:56 schrieb Lazar, Lijo:
->>>>> On 12/5/2021 2:53 PM, Christian König wrote:
->>>>>> Am 03.12.21 um 17:13 schrieb Alex Deucher:
->>>>>>> On Fri, Dec 3, 2021 at 7:15 AM Christian König
->>>>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>>>>>> Am 02.12.21 um 20:19 schrieb Alex Deucher:
->>>>>>>>> This adds a new IOCTL currently used to implement querying
->>>>>>>>> and setting the stable power state for GPU profiling. The
->>>>>>>>> stable pstates use fixed clocks and disable certain power
->>>>>>>>> features in order to get accurate pipeline profiling.
->>>>>>>>>
->>>>>>>>> Currently this is handled via sysfs, and that is still
->>>>>>>>> available, but this makes it easier for applications
->>>>>>>>> to utilize.  Note that the power state is global so
->>>>>>>>> setting it will affect all applications.  There are currently
->>>>>>>>> no checks in place to prevent multiple applications from
->>>>>>>>> using this interface, but it doesn't make sense to do
->>>>>>>>> profiling while you have multiple applications running in the
->>>>>>>>> first place, so it's up to the user to ensure this in order
->>>>>>>>> to get good results.
->>>>>>>>>
->>>>>>>>> This patch add an interface to query what profiling mode is
->>>>>>>>> currently active and to set enable a profiling mode.
->>>>>>>> First of all I wouldn't call this profiling mode. Profiling is 
->>>>>>>> the use
->>>>>>>> case, but performance and power management are what is 
->>>>>>>> controlled here.
->>>>>>>>
->>>>>>> Ok.
->>>>>>>
->>>>>>>> Then we already have functionality for process and context 
->>>>>>>> priority
->>>>>>>> override for the SW scheduler in amdgpu_sched.c. I think we 
->>>>>>>> should add
->>>>>>>> this functionality there.
->>>>>>> I'm not sure I follow.  Do you mean to integrate this with the
->>>>>>> rendering context?  That was what my original patch did (attached).
->>>>>>> Or were you thinking it would be better to make this part of the 
->>>>>>> sched
->>>>>>> ioctl?
->>>>>>
->>>>>> The later,
->>>>>>
->>>>>> The scheduler IOCTLs are all about adjusting the default priority 
->>>>>> of a process (and optionally a context as well).
->>>>>>
->>>>>> Putting the hardware power management control alongside that kind 
->>>>>> of makes sense I think.
->>>>>>
->>>>>> Something like AMDGPU_SCHED_OP_POWER.
->>>>>
->>>>> That doesn't make sense to me. This is not optimizing scheduling 
->>>>> for power. These settings are applied to the whole hardware. Even 
->>>>> if we assume a hypothetical case of 'no-scheduler' (only one app 
->>>>> running), the settings can be used to figure out whether an app is 
->>>>> sensitive to GFXCLK vs MCLK or which phases of the app are sensitive.
->>>>
->>>> What clocks are eventually in use is pretty much irrelevant. The 
->>>> functionality is that the application is defining a power level to 
->>>> use when it is active.
->>>>
->>>
->>> Exactly and it's irrelevant how it is made active. It just wants to 
->>> run something under certain conditions for specific cases.
->>>
->>> For ex: it could just collect some data for a time period less than 
->>> scheduled quantum and it could make use of in the next phase of its 
->>> logic. It is very much internal to the app and I don't see any 
->>> scheduler related logic inside that (just because an app is made 
->>> active by a scheduler).
->>
->> This is about the GPU scheduler who decides which application runs on 
->> the GPU and not related to the CPU scheduler in any way.
->>
->> Our current plan is to expose the performance level globally, because 
->> it is to much overhead to change the performance level on each 
->> application switch.
->>
->> But ideally you won't do that. Instead each application should note 
->> the performance level it wants to the kernel and the kernel then 
->> makes an adequate decision based on that.
->>
->
-> If I understand correctly, in the ideal case, the current 
-> implementation of immediately switching to requested perf level 
-> shouldn't be done. It should only be associated with that context and 
-> then used later. The current one is way too far from ideal.
+[Public]
 
-Yes, exactly that.
+Hi all,
+=20
+This week this patchset was tested on the following systems:
+=20
+Lenovo Thinkpad T14s Gen2 with AMD Ryzen 5 5650U, with the following displa=
+y types: eDP 1080p 60hz, 4k 60hz  (via USB-C to DP/HDMI), 1440p 144hz (via =
+USB-C to DP/HDMI), 1680*1050 60hz (via USB-C to DP and then DP to DVI/VGA)
+=20
+Sapphire Pulse RX5700XT with the following display types:
+4k 60hz  (via DP/HDMI), 1440p 144hz (via DP/HDMI), 1680*1050 60hz (via DP t=
+o DVI/VGA)
+=20
+Reference AMD RX6800 with the following display types:
+4k 60hz  (via DP/HDMI and USB-C to DP/HDMI), 1440p 144hz (via USB-C to DP/H=
+DMI and USB-C to DP/HDMI), 1680*1050 60hz (via DP to DVI/VGA)
+=20
+Included testing using a Startech DP 1.4 MST hub at 2x 4k 60hz, and 3x 1080=
+p 60hz on all systems. Also tested DSC via USB-C to DP DSC Hub with 3x 4k 6=
+0hz on Ryzen 9 5900h and Ryzen 5 4500u.
+=20
+Tested on Ubuntu 20.04.3 with Kernel Version 5.13
+=20
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+=20
+=20
+Thank you,
+=20
+Dan Wheeler
+Technologist  |  AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com =20
 
-Alex initial patch even tied this to the context, but then we said: Ok 
-an application should at least be capable to figure that out for itself.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Pavle Ko=
+tarac
+Sent: December 3, 2021 5:58 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Chiu, Solomon <Solomon.C=
+hiu@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Wentland, Harry <Har=
+ry.Wentland@amd.com>; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@amd.com>; Siq=
+ueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Li, Roman <Roman.Li@amd.com>; Ja=
+cob, Anson <Anson.Jacob@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.c=
+om>; Lin, Wayne <Wayne.Lin@amd.com>; Lipski, Mikita <Mikita.Lipski@amd.com>=
+; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Gutierrez, Agustin <Agust=
+in.Gutierrez@amd.com>; Kotarac, Pavle <Pavle.Kotarac@amd.com>
+Subject: DC Patches January 10, 2020 3.2.165
 
-One core problem is also that you don't have performance levels like 
-low, medium or high. Instead that's use case driven like desktop, 
-compute, encoding or gaming.
+This new DC version brings improvements in the following areas:
+    - Improvements for USB4;
+    - Isolate FPU code for DCN20, DCN301, and DSC;
+    - Fixes on Linking training;
+    - Refactoring some parts of the code, such as PSR;
 
-Regards,
-Christian.
 
->
-> Thanks for explaining.
->
-> Thanks,
-> Lijo
->
->> Since this is related to how jobs are scheduled and switching between 
->> applications I suggested to put it into amdgpu_scheduler.c.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> That we currently do that globally and only allow the first 
->>>> application to modify this is an implementation detail.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>>
->>>>> Thanks,
->>>>> Lijo
->>>>>
->>>>>>
->>>>>> Christian.
->>>>>>
->>>>>>>
->>>>>>> Alex
->>>>>>>
->>>>>>>
->>>>>>>> Christian.
->>>>>>>>
->>>>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>>>>>>>> ---
->>>>>>>>>    drivers/gpu/drm/amd/amdgpu/Makefile         | 2 +-
->>>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     | 2 +
->>>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c | 112 
->>>>>>>>> ++++++++++++++++++++
->>>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h | 30 ++++++
->>>>>>>>>    include/uapi/drm/amdgpu_drm.h               | 28 +++++
->>>>>>>>>    5 files changed, 173 insertions(+), 1 deletion(-)
->>>>>>>>>    create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
->>>>>>>>>    create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile 
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Makefile
->>>>>>>>> index 7fedbb725e17..4cf5bf637a9e 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
->>>>>>>>> @@ -58,7 +58,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
->>>>>>>>>        amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o 
->>>>>>>>> amdgpu_nbio.o \
->>>>>>>>>        amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o 
->>>>>>>>> amdgpu_rap.o \
->>>>>>>>>        amdgpu_fw_attestation.o amdgpu_securedisplay.o 
->>>>>>>>> amdgpu_hdp.o \
->>>>>>>>> -     amdgpu_eeprom.o amdgpu_mca.o
->>>>>>>>> +     amdgpu_eeprom.o amdgpu_mca.o amdgpu_profile.o
->>>>>>>>>
->>>>>>>>>    amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>>> index bc1355c6248d..0e27f9673f8f 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>>> @@ -46,6 +46,7 @@
->>>>>>>>>    #include "amdgpu_sched.h"
->>>>>>>>>    #include "amdgpu_fdinfo.h"
->>>>>>>>>    #include "amdgpu_amdkfd.h"
->>>>>>>>> +#include "amdgpu_profile.h"
->>>>>>>>>
->>>>>>>>>    #include "amdgpu_ras.h"
->>>>>>>>>    #include "amdgpu_xgmi.h"
->>>>>>>>> @@ -2467,6 +2468,7 @@ const struct drm_ioctl_desc 
->>>>>>>>> amdgpu_ioctls_kms[] = {
->>>>>>>>>        DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, 
->>>>>>>>> DRM_AUTH|DRM_RENDER_ALLOW),
->>>>>>>>>        DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, 
->>>>>>>>> DRM_AUTH|DRM_RENDER_ALLOW),
->>>>>>>>>        DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, 
->>>>>>>>> amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>>>>>>>> +     DRM_IOCTL_DEF_DRV(AMDGPU_PROFILE, amdgpu_profile_ioctl, 
->>>>>>>>> DRM_AUTH|DRM_RENDER_ALLOW),
->>>>>>>>>    };
->>>>>>>>>
->>>>>>>>>    static const struct drm_driver amdgpu_kms_driver = {
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c 
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
->>>>>>>>> new file mode 100644
->>>>>>>>> index 000000000000..94fe408e810f
->>>>>>>>> --- /dev/null
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.c
->>>>>>>>> @@ -0,0 +1,112 @@
->>>>>>>>> +/*
->>>>>>>>> + * Copyright 2021 Advanced Micro Devices, Inc.
->>>>>>>>> + *
->>>>>>>>> + * Permission is hereby granted, free of charge, to any 
->>>>>>>>> person obtaining a
->>>>>>>>> + * copy of this software and associated documentation files 
->>>>>>>>> (the "Software"),
->>>>>>>>> + * to deal in the Software without restriction, including 
->>>>>>>>> without limitation
->>>>>>>>> + * the rights to use, copy, modify, merge, publish, 
->>>>>>>>> distribute, sublicense,
->>>>>>>>> + * and/or sell copies of the Software, and to permit persons 
->>>>>>>>> to whom the
->>>>>>>>> + * Software is furnished to do so, subject to the following 
->>>>>>>>> conditions:
->>>>>>>>> + *
->>>>>>>>> + * The above copyright notice and this permission notice 
->>>>>>>>> shall be included in
->>>>>>>>> + * all copies or substantial portions of the Software.
->>>>>>>>> + *
->>>>>>>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY 
->>>>>>>>> KIND, EXPRESS OR
->>>>>>>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
->>>>>>>>> MERCHANTABILITY,
->>>>>>>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN 
->>>>>>>>> NO EVENT SHALL
->>>>>>>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY 
->>>>>>>>> CLAIM, DAMAGES OR
->>>>>>>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
->>>>>>>>> OTHERWISE,
->>>>>>>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
->>>>>>>>> THE USE OR
->>>>>>>>> + * OTHER DEALINGS IN THE SOFTWARE.
->>>>>>>>> + *
->>>>>>>>> + */
->>>>>>>>> +
->>>>>>>>> +#include <drm/amdgpu_drm.h>
->>>>>>>>> +#include "amdgpu.h"
->>>>>>>>> +
->>>>>>>>> +/**
->>>>>>>>> + * amdgpu_profile_ioctl - Manages settings for profiling.
->>>>>>>>> + *
->>>>>>>>> + * @dev: drm device pointer
->>>>>>>>> + * @data: drm_amdgpu_vm
->>>>>>>>> + * @filp: drm file pointer
->>>>>>>>> + *
->>>>>>>>> + * Returns:
->>>>>>>>> + * 0 for success, -errno for errors.
->>>>>>>>> + */
->>>>>>>>> +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
->>>>>>>>> +                      struct drm_file *filp)
->>>>>>>>> +{
->>>>>>>>> +     union drm_amdgpu_profile *args = data;
->>>>>>>>> +     struct amdgpu_device *adev = drm_to_adev(dev);
->>>>>>>>> +     const struct amd_pm_funcs *pp_funcs = 
->>>>>>>>> adev->powerplay.pp_funcs;
->>>>>>>>> +     enum amd_dpm_forced_level current_level, requested_level;
->>>>>>>>> +     int r;
->>>>>>>>> +
->>>>>>>>> +     if (pp_funcs->get_performance_level)
->>>>>>>>> +             current_level = 
->>>>>>>>> amdgpu_dpm_get_performance_level(adev);
->>>>>>>>> +     else
->>>>>>>>> +             current_level = adev->pm.dpm.forced_level;
->>>>>>>>> +
->>>>>>>>> +     switch (args->in.op) {
->>>>>>>>> +     case AMDGPU_PROFILE_OP_GET_STABLE_PSTATE:
->>>>>>>>> +             if (args->in.flags)
->>>>>>>>> +                     return -EINVAL;
->>>>>>>>> +             switch (current_level) {
->>>>>>>>> +             case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
->>>>>>>>> +                     args->out.flags = 
->>>>>>>>> AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD;
->>>>>>>>> +                     break;
->>>>>>>>> +             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
->>>>>>>>> +                     args->out.flags = 
->>>>>>>>> AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK;
->>>>>>>>> +                     break;
->>>>>>>>> +             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
->>>>>>>>> +                     args->out.flags = 
->>>>>>>>> AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK;
->>>>>>>>> +                     break;
->>>>>>>>> +             case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
->>>>>>>>> +                     args->out.flags = 
->>>>>>>>> AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK;
->>>>>>>>> +                     break;
->>>>>>>>> +             default:
->>>>>>>>> +                     args->out.flags = 
->>>>>>>>> AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE;
->>>>>>>>> +                     break;
->>>>>>>>> +             }
->>>>>>>>> +             break;
->>>>>>>>> +     case AMDGPU_PROFILE_OP_SET_STABLE_PSTATE:
->>>>>>>>> +             if (args->in.flags & 
->>>>>>>>> ~AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK)
->>>>>>>>> +                     return -EINVAL;
->>>>>>>>> +             switch (args->in.flags & 
->>>>>>>>> AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK) {
->>>>>>>>> +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD:
->>>>>>>>> +                     requested_level = 
->>>>>>>>> AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD;
->>>>>>>>> +                     break;
->>>>>>>>> +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK:
->>>>>>>>> +                     requested_level = 
->>>>>>>>> AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK;
->>>>>>>>> +                     break;
->>>>>>>>> +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK:
->>>>>>>>> +                     requested_level = 
->>>>>>>>> AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK;
->>>>>>>>> +                     break;
->>>>>>>>> +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK:
->>>>>>>>> +                     requested_level = 
->>>>>>>>> AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
->>>>>>>>> +                     break;
->>>>>>>>> +             case AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE:
->>>>>>>>> +                     requested_level = 
->>>>>>>>> AMD_DPM_FORCED_LEVEL_AUTO;
->>>>>>>>> +                     break;
->>>>>>>>> +             default:
->>>>>>>>> +                     return -EINVAL;
->>>>>>>>> +             }
->>>>>>>>> +
->>>>>>>>> +             if ((current_level != requested_level) && 
->>>>>>>>> pp_funcs->force_performance_level) {
->>>>>>>>> + mutex_lock(&adev->pm.mutex);
->>>>>>>>> +                     r = 
->>>>>>>>> amdgpu_dpm_force_performance_level(adev, requested_level);
->>>>>>>>> +                     if (!r)
->>>>>>>>> + adev->pm.dpm.forced_level = requested_level;
->>>>>>>>> + mutex_unlock(&adev->pm.mutex);
->>>>>>>>> +                     if (r)
->>>>>>>>> +                             return r;
->>>>>>>>> +             }
->>>>>>>>> +             break;
->>>>>>>>> +     default:
->>>>>>>>> +             return -EINVAL;
->>>>>>>>> +     }
->>>>>>>>> +
->>>>>>>>> +     return 0;
->>>>>>>>> +}
->>>>>>>>> +
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h 
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
->>>>>>>>> new file mode 100644
->>>>>>>>> index 000000000000..cd1c597bae11
->>>>>>>>> --- /dev/null
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profile.h
->>>>>>>>> @@ -0,0 +1,30 @@
->>>>>>>>> +/*
->>>>>>>>> + * Copyright 2021 Advanced Micro Devices, Inc.
->>>>>>>>> + *
->>>>>>>>> + * Permission is hereby granted, free of charge, to any 
->>>>>>>>> person obtaining a
->>>>>>>>> + * copy of this software and associated documentation files 
->>>>>>>>> (the "Software"),
->>>>>>>>> + * to deal in the Software without restriction, including 
->>>>>>>>> without limitation
->>>>>>>>> + * the rights to use, copy, modify, merge, publish, 
->>>>>>>>> distribute, sublicense,
->>>>>>>>> + * and/or sell copies of the Software, and to permit persons 
->>>>>>>>> to whom the
->>>>>>>>> + * Software is furnished to do so, subject to the following 
->>>>>>>>> conditions:
->>>>>>>>> + *
->>>>>>>>> + * The above copyright notice and this permission notice 
->>>>>>>>> shall be included in
->>>>>>>>> + * all copies or substantial portions of the Software.
->>>>>>>>> + *
->>>>>>>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY 
->>>>>>>>> KIND, EXPRESS OR
->>>>>>>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
->>>>>>>>> MERCHANTABILITY,
->>>>>>>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN 
->>>>>>>>> NO EVENT SHALL
->>>>>>>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY 
->>>>>>>>> CLAIM, DAMAGES OR
->>>>>>>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
->>>>>>>>> OTHERWISE,
->>>>>>>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
->>>>>>>>> THE USE OR
->>>>>>>>> + * OTHER DEALINGS IN THE SOFTWARE.
->>>>>>>>> + *
->>>>>>>>> + */
->>>>>>>>> +
->>>>>>>>> +#ifndef __AMDGPU_PROFILE_H__
->>>>>>>>> +#define __AMDGPU_PROFILE_H__
->>>>>>>>> +
->>>>>>>>> +int amdgpu_profile_ioctl(struct drm_device *dev, void *data,
->>>>>>>>> +                      struct drm_file *filp);
->>>>>>>>> +
->>>>>>>>> +#endif
->>>>>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h 
->>>>>>>>> b/include/uapi/drm/amdgpu_drm.h
->>>>>>>>> index 26e45fc5eb1a..b6edf4a826f9 100644
->>>>>>>>> --- a/include/uapi/drm/amdgpu_drm.h
->>>>>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
->>>>>>>>> @@ -54,6 +54,7 @@ extern "C" {
->>>>>>>>>    #define DRM_AMDGPU_VM 0x13
->>>>>>>>>    #define DRM_AMDGPU_FENCE_TO_HANDLE  0x14
->>>>>>>>>    #define DRM_AMDGPU_SCHED            0x15
->>>>>>>>> +#define DRM_AMDGPU_PROFILE           0x16
->>>>>>>>>
->>>>>>>>>    #define DRM_IOCTL_AMDGPU_GEM_CREATE 
->>>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union 
->>>>>>>>> drm_amdgpu_gem_create)
->>>>>>>>>    #define DRM_IOCTL_AMDGPU_GEM_MMAP DRM_IOWR(DRM_COMMAND_BASE 
->>>>>>>>> + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
->>>>>>>>> @@ -71,6 +72,7 @@ extern "C" {
->>>>>>>>>    #define DRM_IOCTL_AMDGPU_VM DRM_IOWR(DRM_COMMAND_BASE + 
->>>>>>>>> DRM_AMDGPU_VM, union drm_amdgpu_vm)
->>>>>>>>>    #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE 
->>>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union 
->>>>>>>>> drm_amdgpu_fence_to_handle)
->>>>>>>>>    #define DRM_IOCTL_AMDGPU_SCHED DRM_IOW(DRM_COMMAND_BASE + 
->>>>>>>>> DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
->>>>>>>>> +#define DRM_IOCTL_AMDGPU_PROFILE DRM_IOW(DRM_COMMAND_BASE + 
->>>>>>>>> DRM_AMDGPU_PROFILE, union drm_amdgpu_profile)
->>>>>>>>>
->>>>>>>>>    /**
->>>>>>>>>     * DOC: memory domains
->>>>>>>>> @@ -1120,6 +1122,32 @@ struct drm_amdgpu_info_video_caps {
->>>>>>>>>        struct drm_amdgpu_info_video_codec_info 
->>>>>>>>> codec_info[AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT];
->>>>>>>>>    };
->>>>>>>>>
->>>>>>>>> +/* profile ioctl */
->>>>>>>>> +#define AMDGPU_PROFILE_OP_GET_STABLE_PSTATE  1
->>>>>>>>> +#define AMDGPU_PROFILE_OP_SET_STABLE_PSTATE  2
->>>>>>>>> +
->>>>>>>>> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MASK 0xf
->>>>>>>>> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_NONE 0
->>>>>>>>> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_STANDARD 1
->>>>>>>>> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_SCLK 2
->>>>>>>>> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_MIN_MCLK 3
->>>>>>>>> +#define AMDGPU_PROFILE_FLAGS_STABLE_PSTATE_PEAK 4
->>>>>>>>> +
->>>>>>>>> +struct drm_amdgpu_profile_in {
->>>>>>>>> +     /** AMDGPU_PROFILE_OP_* */
->>>>>>>>> +     __u32   op;
->>>>>>>>> +     __u32   flags;
->>>>>>>>> +};
->>>>>>>>> +
->>>>>>>>> +struct drm_amdgpu_profile_out {
->>>>>>>>> +     __u64   flags;
->>>>>>>>> +};
->>>>>>>>> +
->>>>>>>>> +union drm_amdgpu_profile {
->>>>>>>>> +     struct drm_amdgpu_profile_in in;
->>>>>>>>> +     struct drm_amdgpu_profile_out out;
->>>>>>>>> +};
->>>>>>>>> +
->>>>>>>>>    /*
->>>>>>>>>     * Supported GPU families
->>>>>>>>>     */
->>>>>>
->>>>
->>
+
+
+
+
+
 
