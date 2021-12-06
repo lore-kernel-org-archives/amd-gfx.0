@@ -4,116 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05594C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 15:22:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD94C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Dec 2021 15:23:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D576FF6F;
-	Mon,  6 Dec 2021 15:22:09 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B25DC6FF6F
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 15:22:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E87972C3A;
+	Mon,  6 Dec 2021 15:23:51 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D32D472C3A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Dec 2021 15:23:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gS7eKPCr+9AbIBaQUj0w7E9/xr1uuxNp/gSz1SmH+VE/f5bu4awF/tJ7X1863gOUufqdRB7RkSPl1QVfi04kVl/7f6VMYlssb5kKJtUyjrFDSvn7H/VWVsHGv6s6Tblt8rtdVMmS/GBG+ZQaBoV0R5qwuJg70qYNmpDxJeR6J1A4U0sqffyR6Ygk3k/Sofm9Cpzej5tYafZsOxUv4BOlNDuvuBDJkKVz2HNjN/BiOUa6jlsQFJF7ORsf4bEYeKFBlVTg49qUktbwIDXOf/PqVm5wCCpHCS0lTa/J4GVfAOXLed2GRLSk5aH4p4mU6r4KWhZ4J1OSyIHgRdLYzlYVtg==
+ b=lazDsBDczqg2VPzhkNJCn1/+K5nfNLlaw9jY3dSnFto1Ka5HQIgprbHwTBflpZOYq/GoNm85sSgYpb1gMt83TpBZQrzKVvx90XiCpmoVfuLlXmoS/rfHz2mEw7h8Kc5Tp4zeywi2K8AUJ961ArgTmk74se8S3aB9gGnhjmtRZDGhyo/2f0k+f+EaGUQ2OUUoouzhKZOzPqZ6NLvC60Yd47cOoo8J2xwLCJQyplPJJ1Gbp3V/bCzNTrWkH70wD0J6ZLJJQaTD58d564rrzBgOfOJgjROhmIecU8MQThk6ojOj//gRCCP2+U03NA5lTQ0cL51fMJU/PHvax+SRJ3rWFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RmmuNq0wKS7Wz47vaIMoxNsRvfsfHrTNrV04KRfvyVQ=;
- b=EQ0Z99X1XhlGXVcK/pfEjgYFykw8qsphAcjU0Lf6XKlzT0p2wNAo9pTsAQpy8t+pThET+psphEOUnFxza5W7gtfINKB+28B0dlRQv4DuK6tT9+be+j3iR97HKH8PZag627NHz+4dfdW6cOMbAHe23hK8HnSyjycuPLmz3S7rszvKn/WSnc9MYIjF5QYtN2a11uVl1RmerTtPZrRV7OMr0TJpmyFKADS2KFKIVL1++04dd/xMJ/Csn1p+x9ex0RBKbdegQrc/wRzuFaAqA3m3fCObA1oPHpNUiVjjnzOR0aWOJQ3q5pIrDqnbgsoSU4r24gpgNBgPvlYVsIWyPuWAyw==
+ bh=1liQmOBAnpqg1O7u1sx42THH18FyjTqlu1wgyiiFZAc=;
+ b=FPcnvFT1I3oYcZIDm4J40+Sb3krZvGiTPoA8tJYcPIXGpzmseE2uGpSHKIzqyGcw5hTnX0KlnkV7UIDoGDy8QiOjFZFcRkj64CgnL2LSoJyb32o0mWbg6Ih4uOGdpENsJex6JTtb61wPHb65Q2Y62Tc/YCbmkl+0HbU5BTOUaQweuOX6+7/evpgJqDmuitvYA03IX3XEHBcXs33Mk1VqkZApW15zmtz2tge8jrLWLNVeUVrsSvqeLZagYLzgT7IPx5DhZTCzsqz+13WG3DwCgGhIYDmEzA1SXYtKVlAEuqZFUN/A1VP0qqEPd+rfZHvjI/5/nDXls9+ISI4yfdZ5Pg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RmmuNq0wKS7Wz47vaIMoxNsRvfsfHrTNrV04KRfvyVQ=;
- b=gkNBfzn8ETo3LbXmNZvPTnLSZ56iWWtG409RAVTDnGFzpYapgUBappp/3wno0YA0YBdZgRQQlQJUTwEzAO2/ytyytgjyFm9z7Te9b3C4n9YZAAKhP9BuppWWYt7d1W0c1aQSOGO3I+GiaNxd6ofb2eML4xcb0vZAvUVYgo1HCto=
+ bh=1liQmOBAnpqg1O7u1sx42THH18FyjTqlu1wgyiiFZAc=;
+ b=VSJePudonW0BFgXqb29Mfa/PLCjK9yVxnezVbTZD4xQF80nwV4nHRm0tbt/t2Sx2Y+JPHGEvkXFuHeExsOC1UBNO9pt4jFykYACjA+XIUQytH8K4joJHjdRF7zBIDZQPvbdX+pzmcSQ2raqvhJxR8Kfvb7BNGTFGqJUPHEXDcl4=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5255.namprd12.prod.outlook.com (2603:10b6:208:315::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11; Mon, 6 Dec
- 2021 15:22:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Mon, 6 Dec
+ 2021 15:23:47 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::6452:dc31:2a24:2830]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::6452:dc31:2a24:2830%8]) with mapi id 15.20.4755.021; Mon, 6 Dec 2021
- 15:22:06 +0000
+ 15:23:47 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Cui, Flora" <Flora.Cui@amd.com>, "=guchun.chen@amd.com"
+ <=guchun.chen@amd.com>, "Yuan, Perry" <Perry.Yuan@amd.com>, "Shi, Leslie"
+ <Yuliang.Shi@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: don't override default ECO_BITs setting
-Thread-Topic: [PATCH] drm/amdgpu: don't override default ECO_BITs setting
-Thread-Index: AQHX6osXxVuB3ETKdU2h37ji6XlK2KwllNRo
-Date: Mon, 6 Dec 2021 15:22:06 +0000
-Message-ID: <BL1PR12MB51448CB40D2F4D41F5D94464F76D9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20211204112402.16229-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20211204112402.16229-1-Hawking.Zhang@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: free vkms_output after use
+Thread-Topic: [PATCH 2/2] drm/amdgpu: free vkms_output after use
+Thread-Index: AQHX6ovufwO/p1viOUG9OZo+JmQiQqwllVoT
+Date: Mon, 6 Dec 2021 15:23:47 +0000
+Message-ID: <BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20211206063445.104874-1-flora.cui@amd.com>
+ <20211206063445.104874-2-flora.cui@amd.com>
+In-Reply-To: <20211206063445.104874-2-flora.cui@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-06T15:22:06.169Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-06T15:23:47.288Z;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 52fa23de-c07d-100c-6a30-ac4fd8fdfb98
+suggested_attachment_session_id: 74a41050-c2a7-a2d8-67d4-f15cb8ff72af
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e15325dd-dd1b-429e-25fd-08d9b8cc2a1b
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB51449B1F4C655919A4A56F5CF76D9@BL1PR12MB5144.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:101;
+x-ms-office365-filtering-correlation-id: fa15f8b4-56f0-46e3-c59c-08d9b8cc6656
+x-ms-traffictypediagnostic: BL1PR12MB5255:EE_
+x-microsoft-antispam-prvs: <BL1PR12MB5255DF833FB448EAA85FD6FEF76D9@BL1PR12MB5255.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:569;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: D+X9WftvEFw+Zzv5JEJu0HpByC2abf6hUzx7RCtU55vs3/1qX6t1R7TXPjyBdkDNwTXNKMGxmDuBdxWrpwpOhlusaDgewpNrfv9rdGuh4HSAYzrf6qDoLIawcTlmkTxIK9wkNDRHy53erT7svZrA7b5GlpcRvXb3c/zDt2tNceJk+zftTDxIw/LrYOrF3L5pP9RaYrid2CozmtezrMm0NIvzRZzyvtSJ01oULxl+QWz7QGJu/Z0LlYTbvUskmdkr5SXLnmDmMWPmawQaj5yNMJUlUL8voM+ZnYDeJh8YnBhMnqY29hxnZEkPrBvJLEdp++BIWyJeD0yKzbd4lX7PQWI4jHRgwMj8jiarJqCPNXS2a6cSxw24LVbWnRpe50vJa7wz6KUYS+oVhiZbYZqhT9ivuXl1avDs6EDt1esmxVwO8XKdi/uCzZkfsGl1N20Y90GnXUBM5tJ5Ml2Gsni/3afeMlIbH0oos1Rd71RUf9uE8/byHSIXfzN1GppkieslFAASCL7e1uki4GKeRt1ynKhM+RNH2WUyp76Bxql0xNkQ1zdJ/tvvkd7PSuHI9xauMvrrQdZhT6k/kYIQtMLi9rCEPb44aKqoyQJs/A+6RlSw68+sXaq9wfUegp6G4mvWwnoHrp00xcrQmNYxYVkLF/BBmcYcqQA1e1T7YdzwOMWQkFKyG0se77Go9uxWt1GE13tDJHHvyrGCZKMS/MeyM43PvezkCicsHpXmK2YWC4U=
+x-microsoft-antispam-message-info: Ww+TmKLknvLpjivixYUKOwZnYl9dotaBRdKgbn6mAJ7EzG57y3ulGi0oFbBUvPZ8jiWoPW+rb/sfxfJmrSg4YKq34hopPZz9pPYhj2ZfYuD/N6mGElBVPkb0rhT6t5J5TSLLkcV9fdWh9c3B9zmz0YJ8Rk6+Te05caRMNsWE+aubVPiC98+4DuysaHw+SwJA37qqohe1G76H8DUAHgpJBIJ31rtO5UId/zSWoEcOsrfv+RwAUmEZOC9V8vTDGjmdWjkwP0n6NkI9ORelIpzAaPKVelrIJ71IaiqrcGnREzwGNjf4VJUVlqN9Mjde8VFV8UwYYbxqauH5NTSBRpkA7aU7BukI9rbBpoAnqElRZ8e//1UGQqEtP4OCwWot5UdiZv2st+WrX2Oruu/987WqsstAKDSUuq2zHn9gcHvcuSHYHlYQgdB1A0jONTJ7MFzUUolb3oztWovoi4SRg7CAB0eDZECdkLFNpYYgQjjPH6NDWOE82jk2AZsIFi2ZJh4kLovI/lwX5ZvCwU+/kbMJvq40pIrU2WDKGjEdg5dV32wYnJQ9cQQGK+8xtjE5LzODGPz40rH9xNVr9WFA4RMxxFdCjG9B6uZB1zGUngp5t21orflLOSXl0XLSZZ+mXwVGjRML5kcUMOsGq4gkQj/rWPughzJdUyx5WmKqqMi1uCUkZhEyzwqOV+abCCdBKm/vvXSDzVuy6P/60kilm1VuLQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(64756008)(38100700002)(122000001)(66556008)(5660300002)(66476007)(316002)(38070700005)(7696005)(186003)(9686003)(66446008)(2906002)(33656002)(76116006)(66946007)(71200400001)(86362001)(508600001)(26005)(52536014)(8676002)(8936002)(55016003)(83380400001)(6506007)(53546011)(110136005)(19627405001)(21314003);
+ SFS:(4636009)(366004)(26005)(2906002)(38100700002)(66446008)(76116006)(86362001)(508600001)(66556008)(5660300002)(64756008)(9686003)(66476007)(7696005)(8676002)(66946007)(122000001)(110136005)(316002)(38070700005)(33656002)(52536014)(186003)(71200400001)(55016003)(19627405001)(6506007)(53546011)(83380400001)(8936002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FSP5WaZ/Bon0Qf5NqRfwlhu53ovE8h5QIv3Y7WMILvOlslbJaAgBPhdIO49w?=
- =?us-ascii?Q?2DxWhIQEqOfGknS3rsiIx+6iWymtoRUNiiezwS4GL4bO8iGnV6J+e6gE1Nps?=
- =?us-ascii?Q?eTxhDhKwy0ULU+Hsr1dlJ7Uq/p/rFQkV4lIgebwMG/0gDy1GhqDRkMDuLeMl?=
- =?us-ascii?Q?g14FankKM/lNcIJ6ItRbUIcnCjAzX1oDpzB6I/eZyi1eyO7VIsJAIRHNMpgB?=
- =?us-ascii?Q?NRQU/jyOv4YEriy+lyx7MJ83V+cQF8eOnio4Hsao8HeHZRAntA17hx8LqqpK?=
- =?us-ascii?Q?ZwISHzEz8Y0uRGWTZ0ZBVHj5RsjT15neTH4/5TdazHSVAi3y5qeRSJu/ksOl?=
- =?us-ascii?Q?VJV9HTh9lzdJm7i5TYOLEmABKcUjRerrpxAwxs60c+jcIQl+MRzo2tqa+B5D?=
- =?us-ascii?Q?edt7++doaKb8M0B1gwxMK2OK/k6/tD5xw2D1PMmVR/W2FCFBK70CZjhtMm3W?=
- =?us-ascii?Q?gKpL7KY5dQUe93E1Yvoy9D+KbUEXiPqnHjsfy7nbXeeZ0uE4geWJq5qmx5th?=
- =?us-ascii?Q?k/TP+Kfe4ren5lKowDB1aJBK8GBnEywiqnXCQe4sMb2fk8+FSEouBQaaIcv2?=
- =?us-ascii?Q?/jJZjNKWEmUq/Jnm2CWr5h0va62sqnSLnQACyltOuWgoo4oVoU/YLoucJak7?=
- =?us-ascii?Q?Bx/pwurZP6dYdXvadCuICt3m4RAGcTDLleddIHoU3shFswtQdzjzRcVT3sm8?=
- =?us-ascii?Q?G/ZzbN8kuC/Cqogor63digHsUjY9zDY545xhggbWLPjETDeHjlZtDaevOoHX?=
- =?us-ascii?Q?ka7mtxABFF6i0FelN7K9xY/lcIj8jnzVxqMhwlQoT5Ot/KMi0lMaZimzEW5r?=
- =?us-ascii?Q?5wJdEkgsLa5PL062VXu+zfOrjKJSpTsYXzzr93b3JsB0eMy0QIRfEdx3gG1v?=
- =?us-ascii?Q?z8a1GakfYPoG59oML4vkheN8gnDYQT7Iq/HljBladapM+qqrR86nP7V1n7zG?=
- =?us-ascii?Q?pltQfW5wyFl4eiat1cVx+wNlLzE4JFrEfhgzYAL77Zqz9+miYoESvBXtJDgW?=
- =?us-ascii?Q?5WrpIo+2fgg4ywh5y9HBDCXXtjRMBkANyTOoVxMoHLAZrgXGXaoPduYQ/99y?=
- =?us-ascii?Q?dCbg5JFo/u+ftGat/+zVnyLE53d0tcsNx6zw3FWXiMv4W/HuY4jvTFG7XgPk?=
- =?us-ascii?Q?EGBRNstZk8R1vDDeHGB2Od7ZFGBlPHrOqk/6lGt22PEjbYk0NYyFmTwyIbny?=
- =?us-ascii?Q?mfXeNyQ3wdAncaNwNSWqesukMgc696Co/KqrKQGj4hOAjO8Wnkg+hK0UgvRr?=
- =?us-ascii?Q?9sqMQqTYofK07g8o1OmODLvV7UscaKQRcvvQUzqwQoVJlzYZ5ZN5rFVJS5Mo?=
- =?us-ascii?Q?glyu7HrkLxZNNdA9dLYTmEivJtryrqvJZYjDPAhC52byKatxdVHoNbxfGxHT?=
- =?us-ascii?Q?9apyzuDACT8BMTrn0MESZC6S1c1RLtq2yzC2V3giL6RrvlMtfh1qnMMQAh1i?=
- =?us-ascii?Q?FzuNicHkJBl8aoX7T9boRdKEqIr+DZSl6tMw315aPPtYU3mitPRdqnZYcOq8?=
- =?us-ascii?Q?m1oVgO1MrsHKl9H1UTlRruRkCKU/ynyBJIq9gnuMkltEqNEn88Kbzx4sT/1A?=
- =?us-ascii?Q?9Ph2pDp9WlIrLsOAE1CA66F07Y6aYcBTAyfcoRKIOPLBK/sjKAAgCT8CTKzs?=
- =?us-ascii?Q?AA=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?p83zzy1eeVnoCmvuXxnbPP8Ym6o+keRVTt7M2YZBq9kpu85M7VNwaPqrghk3?=
+ =?us-ascii?Q?2jZpXEQ8S1VCk39wojhWeOEsGSYXe7GB+LU+4q5bnXw/VxciufGoKNAc397u?=
+ =?us-ascii?Q?UhxDEh04Ce1Lme3Tx5iGKxXjeTvVaAnAUPbs8So+K/wQH1xqEfHmsobesZQw?=
+ =?us-ascii?Q?FrEC86e0mSzGG4U7vWOABbVPRJ+26PzpidvDtIyLK7wZE0X6V3cSpWg23XBp?=
+ =?us-ascii?Q?3v8s0zY7OC9U7OkBIsRI70rTKuhIszxMRnjvmPaD6pT/8m03+Ia2Po5FeEVR?=
+ =?us-ascii?Q?UW0lEKY5p2W1gJiCHt5dsxVy3qH9n9xg2FZMosGw4VnevVK1KF6hnZHlfP9w?=
+ =?us-ascii?Q?Kt8W82xh8qJRqg7EKyq8gq0GF8VTDCHc/0rty6CJZauOFXr7s+Ei3wEHr55d?=
+ =?us-ascii?Q?GluyAVHz/rvWlcWbqSEcyHBAM9Hy95efIk59fm/uGe0Sh3WcmhYKH3Mp8i42?=
+ =?us-ascii?Q?Zh5tvd4TzV7Y+/DD38iUfd2Hi77laXpyVUKK3S8nIDgpJC1rTvaHRGyBYxv+?=
+ =?us-ascii?Q?EP5Nxj2I3Bnc3BGb9LOxShVAs8BnC+9Jb6hk/8hbSpyKsiRdbAjGBP1/SEHB?=
+ =?us-ascii?Q?rE3DthAwEGYgt816wtuIfV5uVB4xtTBe5/Imig6dQCWOmOcAvL1oMeS9D1db?=
+ =?us-ascii?Q?iuWGH1dH5Vuc6Cv45XdjoqPW7YYEy3HUubv5x5iuru1xCKg9ZZmVJEhGVxLT?=
+ =?us-ascii?Q?GJ4jk1hKLNxLKlQ2hPQrGNsLXoMt2yckt5OtoQqdSRJCEviTuE6N5VtYkGtT?=
+ =?us-ascii?Q?PJZUZUV13KXhUgyXXajmFJQYrZQha+W7B7R2hVfIZSQPfF5A+FbwAXxkpR4E?=
+ =?us-ascii?Q?fTf4BVMVBrqWjAQi6x1NM5OTtrgphdOBnPSnzJt2403oDcPNPduao245lZ4L?=
+ =?us-ascii?Q?ebwMqLEKq0a/sl5tzb0YT/5Y4FFfF8YsldUVui6rh6iQtPh6dFI1h8Hl5kxZ?=
+ =?us-ascii?Q?pbU6lEZm8O/jBGHp4byijETo2wUpcXLHID9kP9DmbAnnLNYOKssjPJCxuLUD?=
+ =?us-ascii?Q?C9qKz5oinzPPb9aUnCbYpLGnoynsh5VVQjbEPhNy1Qqa42HNMfxHVmuLJS1n?=
+ =?us-ascii?Q?j+6PzMebcu39yovX86ih3oGF+L5vp/jhzgX9QAwnXatpNo6V4TCTaGt2R5I2?=
+ =?us-ascii?Q?37x1aovAnmVxIZBYmSnRybROQleEP8mOnSv7DsKiObMbDQzxo1JFdyM9oZq/?=
+ =?us-ascii?Q?vCeNRseSfh4BTmEkNzrezn1M0jBqYUTJhIYE4bxL1+ZBkKgCsgjsTum4Ck1z?=
+ =?us-ascii?Q?J5hN6sfar6gud/wQ4QmVADQUbMqIJLPU48kiuhmQWty9ro15zEsn/Q9VNLDt?=
+ =?us-ascii?Q?6fHd0jz0CnFLTKxXxe1emycNQX3Gp0ujlGLWLSb+L42xsEaEWR81Ei9Hwjzj?=
+ =?us-ascii?Q?CjoySpyM64Xb8b5LaLZw6LjCkpsAsB47QIv+ud1hL17seEyh1lKqnvXsFygA?=
+ =?us-ascii?Q?RDBMrvDxYFJGLBSoKugkzOjWP+xJzzm0uoMLEAS/WMtFERm+oJiaGQPzBZLi?=
+ =?us-ascii?Q?LdIEvxEai4+elIn5sHi/cqfaLKWzTeAUMtjj7n/9yfrSqkpVnd69yphs2sgy?=
+ =?us-ascii?Q?0ub/83EnYl38izf51GPbACtahivf2RJqbM+ovcCmADRBfVqXFDTgJo1rH1/v?=
+ =?us-ascii?Q?dQ=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51448CB40D2F4D41F5D94464F76D9BL1PR12MB5144namp_"
+ boundary="_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e15325dd-dd1b-429e-25fd-08d9b8cc2a1b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2021 15:22:06.7045 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa15f8b4-56f0-46e3-c59c-08d9b8cc6656
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2021 15:23:47.8302 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: noexC5RslkZ06bJglkDBRSdRtiWqON0zKt0DR/oj5LncD8VwKgA+cywTpTF8D1tDSZEJ5mDgzviq+v+NQZLHmw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5144
+X-MS-Exchange-CrossTenant-userprincipalname: rOchC8I7EwBTgdIiWGvuGNz6CkXQdZhFK+g9w0aBRvpcHJl4ad8f5h6iRFWxdaQgdHGGEsvVP4k9umwMAwWjPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5255
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,7 +131,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51448CB40D2F4D41F5D94464F76D9BL1PR12MB5144namp_
+--_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -136,145 +139,74 @@ Content-Transfer-Encoding: quoted-printable
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Hawking =
-Zhang <Hawking.Zhang@amd.com>
-Sent: Saturday, December 4, 2021 6:24 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: don't override default ECO_BITs setting
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Flora Cu=
+i <flora.cui@amd.com>
+Sent: Monday, December 6, 2021 1:34 AM
+To: =3Dguchun.chen@amd.com <=3Dguchun.chen@amd.com>; Yuan, Perry <Perry.Yua=
+n@amd.com>; Shi, Leslie <Yuliang.Shi@amd.com>; amd-gfx@lists.freedesktop.or=
+g <amd-gfx@lists.freedesktop.org>
+Cc: Shi, Leslie <Yuliang.Shi@amd.com>; Cui, Flora <Flora.Cui@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: free vkms_output after use
 
-Leave this bit as hardware default setting
-
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Flora Cui <flora.cui@amd.com>
+Reviewed-by: Leslie Shi <Yuliang.Shi@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 1 -
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 1 -
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 1 -
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 1 -
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  | 1 -
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 1 -
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c  | 1 -
- drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c  | 2 --
- 8 files changed, 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v1_0.c
-index 480e41847d7c..ec4d5e15b766 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -162,7 +162,6 @@ static void gfxhub_v1_0_init_tlb_regs(struct amdgpu_dev=
-ice *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC);/* XXX for emulation. */
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v2_0.c
-index 14c1c1a297dd..6e0ace2fbfab 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-@@ -196,7 +196,6 @@ static void gfxhub_v2_0_init_tlb_regs(struct amdgpu_dev=
-ice *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC); /* UC, uncached */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vkms.c
+index acc2d31ea93f..af3a2f8c12b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -480,6 +480,11 @@ static int amdgpu_vkms_sw_init(void *handle)
+         int r, i;
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v2_1.c
-index e80d1dc43079..b4eddf6e98a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -197,7 +197,6 @@ static void gfxhub_v2_1_init_tlb_regs(struct amdgpu_dev=
-ice *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC); /* UC, uncached */
++       adev->amdgpu_vkms_output =3D kcalloc(adev->mode_info.num_crtc,
++               sizeof(struct amdgpu_vkms_output), GFP_KERNEL);
++       if (!adev->amdgpu_vkms_output)
++               return -ENOMEM;
++
+         adev_to_drm(adev)->max_vblank_count =3D 0;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v1_0.c
-index a99953833820..b3bede1dc41d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -145,7 +145,6 @@ static void mmhub_v1_0_init_tlb_regs(struct amdgpu_devi=
-ce *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC);/* XXX for emulation. */
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v1_7.c
-index f80a14a1b82d..f5f7181f9af5 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-@@ -165,7 +165,6 @@ static void mmhub_v1_7_init_tlb_regs(struct amdgpu_devi=
-ce *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC);/* XXX for emulation. */
-         tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v2_0.c
-index 25f8e93e5ec3..3718ff610ab2 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -267,7 +267,6 @@ static void mmhub_v2_0_init_tlb_regs(struct amdgpu_devi=
-ce *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC); /* UC, uncached */
+         adev_to_drm(adev)->mode_config.funcs =3D &amdgpu_vkms_mode_funcs;
+@@ -496,10 +501,6 @@ static int amdgpu_vkms_sw_init(void *handle)
+         if (r)
+                 return r;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v2_3.c
-index a11d60ec6321..9e16da28505a 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-@@ -194,7 +194,6 @@ static void mmhub_v2_3_init_tlb_regs(struct amdgpu_devi=
-ce *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC); /* UC, uncached */
+-       adev->amdgpu_vkms_output =3D kcalloc(adev->mode_info.num_crtc, size=
+of(struct amdgpu_vkms_output), GFP_KERNEL);
+-       if (!adev->amdgpu_vkms_output)
+-               return -ENOMEM;
+-
+         /* allocate crtcs, encoders, connectors */
+         for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
+                 r =3D amdgpu_vkms_output_init(adev_to_drm(adev), &adev->am=
+dgpu_vkms_output[i], i);
+@@ -522,12 +523,13 @@ static int amdgpu_vkms_sw_fini(void *handle)
+                 if (adev->mode_info.crtcs[i])
+                         hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_t=
+imer);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v9_4.c
-index c4ef822bbe8c..ff49eeaf7882 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-@@ -189,8 +189,6 @@ static void mmhub_v9_4_init_tlb_regs(struct amdgpu_devi=
-ce *adev, int hubid)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 1);
-         tmp =3D REG_SET_FIELD(tmp, VMSHAREDVC0_MC_VM_MX_L1_TLB_CNTL,
-                             SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--       tmp =3D REG_SET_FIELD(tmp, VMSHAREDVC0_MC_VM_MX_L1_TLB_CNTL,
--                           ECO_BITS, 0);
-         tmp =3D REG_SET_FIELD(tmp, VMSHAREDVC0_MC_VM_MX_L1_TLB_CNTL,
-                             MTYPE, MTYPE_UC);/* XXX for emulation. */
-         tmp =3D REG_SET_FIELD(tmp, VMSHAREDVC0_MC_VM_MX_L1_TLB_CNTL,
+-       kfree(adev->mode_info.bios_hardcoded_edid);
+-       kfree(adev->amdgpu_vkms_output);
+-
+         drm_kms_helper_poll_fini(adev_to_drm(adev));
++       drm_mode_config_cleanup(adev_to_drm(adev));
+
+         adev->mode_info.mode_config_initialized =3D false;
++
++       kfree(adev->mode_info.bios_hardcoded_edid);
++       kfree(adev->amdgpu_vkms_output);
+         return 0;
+ }
+
 --
-2.17.1
+2.25.1
 
 
---_000_BL1PR12MB51448CB40D2F4D41F5D94464F76D9BL1PR12MB5144namp_
+--_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -300,225 +232,97 @@ Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Hawking Zhang &lt;Hawking.Zha=
-ng@amd.com&gt;<br>
-<b>Sent:</b> Saturday, December 4, 2021 6:24 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: don't override default ECO_BITs setting=
-</font>
+ounces@lists.freedesktop.org&gt; on behalf of Flora Cui &lt;flora.cui@amd.c=
+om&gt;<br>
+<b>Sent:</b> Monday, December 6, 2021 1:34 AM<br>
+<b>To:</b> =3Dguchun.chen@amd.com &lt;=3Dguchun.chen@amd.com&gt;; Yuan, Per=
+ry &lt;Perry.Yuan@amd.com&gt;; Shi, Leslie &lt;Yuliang.Shi@amd.com&gt;; amd=
+-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Shi, Leslie &lt;Yuliang.Shi@amd.com&gt;; Cui, Flora &lt;Flora.Cu=
+i@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: free vkms_output after use</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Leave this bit as hardware default setting<br>
+<div class=3D"PlainText">Signed-off-by: Flora Cui &lt;flora.cui@amd.com&gt;=
 <br>
-Signed-off-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;<br>
+Reviewed-by: Leslie Shi &lt;Yuliang.Shi@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c&nbsp; | 2 --<br>
-&nbsp;8 files changed, 9 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 16 +++++++++-------<br>
+&nbsp;1 file changed, 9 insertions(+), 7 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v1_0.c<br>
-index 480e41847d7c..ec4d5e15b766 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
-@@ -162,7 +162,6 @@ static void gfxhub_v1_0_init_tlb_regs(struct amdgpu_dev=
-ice *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L=
-1_TLB_CNTL, ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC);/* XXX for emulation. */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v2_0.c<br>
-index 14c1c1a297dd..6e0ace2fbfab 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c<br>
-@@ -196,7 +196,6 @@ static void gfxhub_v2_0_init_tlb_regs(struct amdgpu_dev=
-ice *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- GCMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX=
-_L1_TLB_CNTL, ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- GCMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC); /* UC, uncached */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vkms.c<br>
+index acc2d31ea93f..af3a2f8c12b4 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c<br>
+@@ -480,6 +480,11 @@ static int amdgpu_vkms_sw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
 &nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v2_1.c<br>
-index e80d1dc43079..b4eddf6e98a6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c<br>
-@@ -197,7 +197,6 @@ static void gfxhub_v2_1_init_tlb_regs(struct amdgpu_dev=
-ice *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- GCMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, GCMC_VM_MX=
-_L1_TLB_CNTL, ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- GCMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC); /* UC, uncached */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;amdgpu_vkms_output =3D kcall=
+oc(adev-&gt;mode_info.num_crtc,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; sizeof(struct amdgpu_vkms_output), GFP_KERNEL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;amdgpu_vkms_output)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -ENOMEM;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev_to_drm(adev)-&gt;max_=
+vblank_count =3D 0;<br>
 &nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v1_0.c<br>
-index a99953833820..b3bede1dc41d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-@@ -145,7 +145,6 @@ static void mmhub_v1_0_init_tlb_regs(struct amdgpu_devi=
-ce *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev_to_drm(adev)-&gt;mode=
+_config.funcs =3D &amp;amdgpu_vkms_mode_funcs;<br>
+@@ -496,10 +501,6 @@ static int amdgpu_vkms_sw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L=
-1_TLB_CNTL, ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC);/* XXX for emulation. */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v1_7.c<br>
-index f80a14a1b82d..f5f7181f9af5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c<br>
-@@ -165,7 +165,6 @@ static void mmhub_v1_7_init_tlb_regs(struct amdgpu_devi=
-ce *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, MC_VM_MX_L=
-1_TLB_CNTL, ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC);/* XXX for emulation. */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v2_0.c<br>
-index 25f8e93e5ec3..3718ff610ab2 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c<br>
-@@ -267,7 +267,6 @@ static void mmhub_v2_0_init_tlb_regs(struct amdgpu_devi=
-ce *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MMMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX=
-_L1_TLB_CNTL, ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MMMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC); /* UC, uncached */<br>
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
 &nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v2_3.c<br>
-index a11d60ec6321..9e16da28505a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c<br>
-@@ -194,7 +194,6 @@ static void mmhub_v2_3_init_tlb_regs(struct amdgpu_devi=
-ce *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MMMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, MMMC_VM_MX=
-_L1_TLB_CNTL, ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- MMMC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC); /* UC, uncached */<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v9_4.c<br>
-index c4ef822bbe8c..ff49eeaf7882 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c<br>
-@@ -189,8 +189,6 @@ static void mmhub_v9_4_init_tlb_regs(struct amdgpu_devi=
-ce *adev, int hubid)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- VMSHAREDVC0_MC_VM_MX_L1_TLB_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VMSHAREDVC=
-0_MC_VM_MX_L1_TLB_CNTL,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;amdgpu_vkms_output =3D kcall=
+oc(adev-&gt;mode_info.num_crtc, sizeof(struct amdgpu_vkms_output), GFP_KERN=
+EL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;amdgpu_vkms_output)<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ECO_BITS, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- VMSHAREDVC0_MC_VM_MX_L1_TLB_CNTL,<br>
+bsp;&nbsp; return -ENOMEM;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* allocate crtcs, encoder=
+s, connectors */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
+&gt;mode_info.num_crtc; i++) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; MTYPE, MTYPE_UC);/* XXX for emulation. */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- VMSHAREDVC0_MC_VM_MX_L1_TLB_CNTL,<br>
+sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vkms_output_init(adev_to_drm(adev), &amp=
+;adev-&gt;amdgpu_vkms_output[i], i);<br>
+@@ -522,12 +523,13 @@ static int amdgpu_vkms_sw_fini(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;mode_info.crtcs[i])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hrtim=
+er_cancel(&amp;adev-&gt;mode_info.crtcs[i]-&gt;vblank_timer);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;mode_info.bios_hardcod=
+ed_edid);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;amdgpu_vkms_output);<b=
+r>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_kms_helper_poll_fini(a=
+dev_to_drm(adev));<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_mode_config_cleanup(adev_to_drm(a=
+dev));<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mode_info.mode_co=
+nfig_initialized =3D false;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;mode_info.bios_hardcod=
+ed_edid);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;amdgpu_vkms_output);<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
 -- <br>
-2.17.1<br>
+2.25.1<br>
 <br>
 </div>
 </span></font></div>
@@ -526,4 +330,4 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 </body>
 </html>
 
---_000_BL1PR12MB51448CB40D2F4D41F5D94464F76D9BL1PR12MB5144namp_--
+--_000_BL1PR12MB5144B3CD4CAA4BFA6855BC8AF76D9BL1PR12MB5144namp_--
