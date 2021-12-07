@@ -4,39 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5715C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 19:49:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89D7DC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 19:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2758C6ECAE;
-	Tue,  7 Dec 2021 19:49:38 +0000 (UTC)
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB826ECAE;
- Tue,  7 Dec 2021 19:49:36 +0000 (UTC)
-Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
- by smtp3-g21.free.fr (Postfix) with ESMTP id 8C94E13F880;
- Tue,  7 Dec 2021 20:49:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1638906574;
- bh=nZupbNwgHmu2ZpoiVCn6V93nSDg6hHClR88IDxqhVng=;
- h=Date:From:To:Cc:In-Reply-To:Subject:From;
- b=ZuIJs7AP0exqLtS0EeAx8N30eTiESF+qb+c4alwHJtL2qShhPSlrqUalBFynMMJKO
- /8M09MylZBctq475D5GP89wvYPfENUoM9uaL41xolzGd7z/fB1y7rU+UYwdCXt8ji0
- BymCEGaPPxuMfxcFswgArn1WL1u8xXGdJmfFmL7Z6iApgyRLuWFQQ3J4O0hRizcmVx
- evTsfi9RQiyVrGeMQRcYjKsfLmVGcYAshN7SCVyOunJF1lhfoZ6MH/iagipDMDOqOX
- wbeiPyRQY80i89w/l8O0t196y4Nz2RsT+vuDPPQ5ft9MIBIJa0qvaZ4WBYsfjbn1RH
- ujkhJM52RliXg==
-Date: Tue, 7 Dec 2021 20:49:32 +0100 (CET)
-From: Yann Dirson <ydirson@free.fr>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Message-ID: <1907703259.37063142.1638906572289.JavaMail.root@zimbra39-e7>
-In-Reply-To: <Ya+lm9B8opSSkHsu@phenom.ffwll.local>
-Subject: Re: [PATCH v2 6/6] Documentation/gpu: Add amdgpu and dc glossary
+	by gabe.freedesktop.org (Postfix) with ESMTP id 779626EE78;
+	Tue,  7 Dec 2021 19:57:19 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2042.outbound.protection.outlook.com [40.107.101.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E6796ED7E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Dec 2021 19:57:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l0fkZn9GUHTGzLVnBAz4j5sDk9bttRukYJRnnnAVpE13dhOooQvI4citLAJAukxLoc29uYSpPV9AcVr0yicyuKB7ZOBXlfpdQPJdQskHs8FMpuMXVsUSUEGUgbu1H1dqlAuTpwH2+bvvfhRXmzG501LK+q1KpacRicAL/P27v0ov9PbOi3xck9kLWh4nPkfbbOPOjOtWYDVju4tFZUoA6eRuySEe9yhXmiweamS5lyAA2cUlKUNqWSh3BvDKs5Ad/ANZhFs3YItTlvZ1mbsAM/Jjf/ezw8iL/UwbZ4TeQvKPMspQqzmbMmx3ksLwHGInPncvPYVNBZXQDbjWlI9LVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vVrRbklsGVTl0i3FLN4xtt/qncl2ORI5BbbI/TgM4Ro=;
+ b=asIeO4AgA5PupXaVUC6dk8YXJrBaRUME0Cp0jpr/wYcGkTNn+RzPa40XEUoELHTkMn5OJ05YJaV2OW7sXU0tD9E7ws2tbtE/GLrsuS2TiRqa0pt2Yn6lK8GMDGFtiSaQRhdeobU5py77Gasf2BZu8bOnqm+/2wRZQbRo/yxwvjs4u8rGdAa8/kvQ/61sMe5h1Izgbmmmj70c+VghSdnPDA8EJ0RaWTGmt3S4OqII0p7nxY0VKxhSn3894Xy0wM+9mKsDVUuJBSfPNMD1XalG0UrhdpUUZ78qzFHGKR5qM6nPiNIYwAd0rfRHjQgcvlu6i5tPG4JassjdpvZpObs1ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vVrRbklsGVTl0i3FLN4xtt/qncl2ORI5BbbI/TgM4Ro=;
+ b=261n8MdmwC29m5ObdLDP06+CvToUoEru3J3fBlyiwJwpYBCgmGJtnSJVb+6xRNh6XbRXVGjkQSExdGHJhMSQfIYUA/WE7a0CUISth3NuIfr03xE22G7dFyHerLC3tKlw0DFKBZhQq55gc/bEPMSdsWiQHO4FWu7CdnDC8Fm4ISI=
+Received: from DM6PR06CA0027.namprd06.prod.outlook.com (2603:10b6:5:120::40)
+ by MWHPR12MB1903.namprd12.prod.outlook.com (2603:10b6:300:108::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Tue, 7 Dec
+ 2021 19:57:16 +0000
+Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:120:cafe::dc) by DM6PR06CA0027.outlook.office365.com
+ (2603:10b6:5:120::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20 via Frontend
+ Transport; Tue, 7 Dec 2021 19:57:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Tue, 7 Dec 2021 19:57:16 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 7 Dec
+ 2021 13:57:15 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 7 Dec
+ 2021 13:57:15 -0600
+Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
+ Transport; Tue, 7 Dec 2021 13:57:14 -0600
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>,
+ <nicholas.kazlauskas@amd.com>
+Subject: [PATCH v2] drm/amd/display: Add Debugfs Entry to Force in SST Sequence
+Date: Tue, 7 Dec 2021 14:57:03 -0500
+Message-ID: <20211207195703.352933-1-Jerry.Zuo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [88.120.44.86]
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: ydirson@free.fr
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a4102cc9-13e1-48ab-943f-08d9b9bbc4f1
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1903:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1903CAA3877D2F074FC91C99E56E9@MWHPR12MB1903.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: J+ruXKd//CYZc+AyoN2YuAI+rYduV9OqLs0xHk9+GcGjEkn91DtQqSsVK1Mi7tUTTRwAeLel3KnV4SDE+zX+1zaQ1eZ7XfoQNVsmgb+MTNGvB5RtA65Zxta0hFH6E+igRPOL3NQpeIzRyB8J0bpVpR/3VNlVW/npJjjaMUOLWszFNJmq2NF0GL1BV7XXqcw39WJB3GEc1dvX5rVdD3RFHQQWYgcKrVRylL3YDI8SRQ+bahFE/blyL1u3IN6za2rxfjJSA6zEKSXzgVEI530L7gmPXtIew3d+JzQYIcpAo2OAB5sc2D5OiQb9E9bpGaMdgwp9z9Uyk4SW/FKZ6JUXh/TwE6bcvP/LsfqujLqO3Yc72AOgiEiW3gOrsepW1deyQq6INjeevXMt9q9o3HGpLDVTEOWUlNPv/03GebXf/ZOBwKod0+4Gw8/ohp4+KIej80G6UtudwGsq10K849izHiBpglMSO/CJvE1K/fRXuV6ZJo4WgMzp168fEGLvMEka+1CwO8TuisB1jXyRP1N341MrAwQYN/jhaoX66uciJEIlHlSUtHfWopa1HrlPBYcCPolYmx6nznhqbklRn6TNn5e6UPIF0GyZkbk71vgFWan8hx5DstzS90DEbuvtBQObiRlkYRlxDdwy/1fr30cTn0N4ishuz9XXHZR1hpykZ63V0P1typvusHe4B6dUdG4BgibQwTYVDZHd1m3smyQtuLEXLtJTav4hxh7acd9XWCjgqJeZsfYwzhCdcOY6RvICeX+7wSLaZiR16QQn80zU28GTKoK+m+q7VxKLoqhr7AI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(4326008)(336012)(82310400004)(47076005)(426003)(36860700001)(8936002)(7696005)(40460700001)(8676002)(508600001)(2616005)(70206006)(26005)(316002)(36756003)(6666004)(186003)(5660300002)(83380400001)(81166007)(2906002)(70586007)(86362001)(54906003)(110136005)(356005)(6636002)(1076003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 19:57:16.2772 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4102cc9-13e1-48ab-943f-08d9b9bbc4f1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1903
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,408 +104,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>,
- bhawanpreet lakha <bhawanpreet.lakha@amd.com>,
- nicholas choi <nicholas.choi@amd.com>, linux-doc@vger.kernel.org,
- Simon Ser <contact@emersion.fr>, Michel Daenzer <michel@daenzer.net>,
- roman li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Marek Olsak <marek.olsak@amd.com>, Pekka Paalanen <ppaalanen@gmail.com>,
- aurabindo pillai <aurabindo.pillai@amd.com>, Sean Paul <seanpaul@chromium.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>,
- qingqing zhuo <qingqing.zhuo@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Harry Wentland <Harry.Wentland@amd.com>, Roman Gilg <subdiff@gmail.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>, wayne.lin@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+It is to force SST sequence in MST capable receiver.
 
-> On Thu, Dec 02, 2021 at 11:01:32AM -0500, Rodrigo Siqueira wrote:
-> > In the DC driver, we have multiple acronyms that are not obvious
-> > most of
-> > the time; the same idea is valid for amdgpu. This commit introduces
-> > a DC
-> > and amdgpu glossary in order to make it easier to navigate through
-> > our
-> > driver.
-> > 
-> > Changes since V1:
-> >  - Yann: Divide glossary based on driver context.
-> >  - Alex: Make terms more consistent and update CPLIB
-> >  - Add new acronyms to the glossary
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 26 +++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-If you're rerolling, it could be a good time to include the additional
-(and detailed) entries from Alex's answer to "Looking for clarifications
-around gfx/kcq/kiq".  Finding a way to fit the other details not
-fitting directly in the glossary will likely take more rounds, though,
-so we can wait for the first round to be merged before dealing with them.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 31c05eb5c64a..1779c7daaf72 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -3237,6 +3237,30 @@ static int disable_hpd_get(void *data, u64 *val)
+ DEFINE_DEBUGFS_ATTRIBUTE(disable_hpd_ops, disable_hpd_get,
+ 			 disable_hpd_set, "%llu\n");
+ 
++/*
++ * Force sst sequence in mst capable receiver.
++ * Example usage: echo 1 > /sys/kernel/debug/dri/0/amdgpu_dm_dp_set_mst_en_for_sst
++ */
++static int dp_force_sst_set(void *data, u64 val)
++{
++	struct amdgpu_device *adev = data;
++
++	adev->dm.dc->debug.set_mst_en_for_sst = val;
++
++	return 0;
++}
++
++static int dp_force_sst_get(void *data, u64 *val)
++{
++	struct amdgpu_device *adev = data;
++
++	*val = adev->dm.dc->debug.set_mst_en_for_sst;
++
++	return 0;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(dp_set_mst_en_for_sst_ops, dp_force_sst_get,
++			 dp_force_sst_set, "%llu\n");
++
+ /*
+  * Sets the DC visual confirm debug option from the given string.
+  * Example usage: echo 1 > /sys/kernel/debug/dri/0/amdgpu_visual_confirm
+@@ -3346,6 +3370,8 @@ void dtn_debugfs_init(struct amdgpu_device *adev)
+ 			    adev, &mst_topo_fops);
+ 	debugfs_create_file("amdgpu_dm_dtn_log", 0644, root, adev,
+ 			    &dtn_log_fops);
++	debugfs_create_file("amdgpu_dm_dp_set_mst_en_for_sst", 0644, root, adev,
++				&dp_set_mst_en_for_sst_ops);
+ 
+ 	debugfs_create_file_unsafe("amdgpu_dm_visual_confirm", 0644, root, adev,
+ 				   &visual_confirm_fops);
+-- 
+2.25.1
 
-
-
-> > 
-> > Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > ---
-> >  Documentation/gpu/amdgpu/amdgpu-glossary.rst  |  47 ++++
-> >  .../gpu/amdgpu/display/dc-glossary.rst        | 243
-> >  ++++++++++++++++++
-> >  Documentation/gpu/amdgpu/display/index.rst    |   1 +
-> >  Documentation/gpu/amdgpu/index.rst            |   7 +
-> >  4 files changed, 298 insertions(+)
-> >  create mode 100644 Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> >  create mode 100644
-> >  Documentation/gpu/amdgpu/display/dc-glossary.rst
-> > 
-> > diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > new file mode 100644
-> > index 000000000000..e635851025e7
-> > --- /dev/null
-> > +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > @@ -0,0 +1,47 @@
-> > +===============
-> > +AMDGPU Glossary
-> > +===============
-> > +
-> > +Here you can find some generic acronyms used in the amdgpu driver.
-> > Notice that
-> > +we have a dedicated glossary for Display Core.
-> 
-> Maybe add a link to that here so it's easier to find? sphinx
-> autogenerates
-> header targets so pretty easy (if the heading is unique at least).
-> -Daniel
-> 
-> > +
-> > +.. glossary::
-> > +
-> > +    CPLIB
-> > +      Content Protection Library
-> > +
-> > +    DFS
-> > +      Digital Frequency Synthesizer
-> > +
-> > +    ECP
-> > +      Enhanced Content Protection
-> > +
-> > +    EOP
-> > +      End Of Pipe/Pipeline
-> > +
-> > +    HQD
-> > +      Hardware Queue Descriptor
-> > +
-> > +    KCQ
-> > +      Kernel Compute Queue
-> > +
-> > +    KGQ
-> > +      Kernel Graphics Queue
-> > +
-> > +    KIQ
-> > +      Kernel Interface Queue
-> > +
-> > +    MQD
-> > +      Memory Queue Descriptor
-> > +
-> > +    PPLib
-> > +      PowerPlay Library - PowerPlay is the power management
-> > component.
-> > +
-> > +    SMU
-> > +      System Management Unit
-> > +
-> > +    VCE
-> > +      Video Compression Engine
-> > +
-> > +    VCN
-> > +      Video Codec Next
-> > diff --git a/Documentation/gpu/amdgpu/display/dc-glossary.rst
-> > b/Documentation/gpu/amdgpu/display/dc-glossary.rst
-> > new file mode 100644
-> > index 000000000000..547c0bfbb3e2
-> > --- /dev/null
-> > +++ b/Documentation/gpu/amdgpu/display/dc-glossary.rst
-> > @@ -0,0 +1,243 @@
-> > +===========
-> > +DC Glossary
-> > +===========
-> > +
-> > +On this page, we try to keep track of acronyms related to the
-> > display
-> > +component. If you do not find what you are looking for, look at
-> > the amdgpu
-> > +glossary; if you cannot find it anywhere, consider asking in the
-> > amdgfx and
-> > +update this page.
-> > +
-> > +.. glossary::
-> > +
-> > +    ABM
-> > +      Adaptive Backlight Modulation
-> > +
-> > +    APU
-> > +      Accelerated Processing Unit
-> > +
-> > +    ASIC
-> > +      Application-Specific Integrated Circuit
-> > +
-> > +    ASSR
-> > +      Alternate Scrambler Seed Reset
-> > +
-> > +    AZ
-> > +      Azalia (HD audio DMA engine)
-> > +
-> > +    BPC
-> > +      Bits Per Colour/Component
-> > +
-> > +    BPP
-> > +      Bits Per Pixel
-> > +
-> > +    Clocks
-> > +      * PCLK: Pixel Clock
-> > +      * SYMCLK: Symbol Clock
-> > +      * SOCCLK: GPU Engine Clock
-> > +      * DISPCLK: Display Clock
-> > +      * DPPCLK: DPP Clock
-> > +      * DCFCLK: Display Controller Fabric Clock
-> > +      * REFCLK: Real Time Reference Clock
-> > +      * PPLL: Pixel PLL
-> > +      * FCLK: Fabric Clock
-> > +      * MCLK: Memory Clock
-> > +
-> > +    CRC
-> > +      Cyclic Redundancy Check
-> > +
-> > +    CRTC
-> > +      Cathode Ray Tube Controller - commonly called "Controller" -
-> > Generates
-> > +      raw stream of pixels, clocked at pixel clock
-> > +
-> > +    CVT
-> > +      Coordinated Video Timings
-> > +
-> > +    DAL
-> > +      Display Abstraction layer
-> > +
-> > +    DC (Software)
-> > +      Display Core
-> > +
-> > +    DC (Hardware)
-> > +      Display Controller
-> > +
-> > +    DCC
-> > +      Delta Colour Compression
-> > +
-> > +    DCE
-> > +      Display Controller Engine
-> > +
-> > +    DCHUB
-> > +      Display Controller HUB
-> > +
-> > +    ARB
-> > +      Arbiter
-> > +
-> > +    VTG
-> > +      Vertical Timing Generator
-> > +
-> > +    DCN
-> > +      Display Core Next
-> > +
-> > +    DCCG
-> > +      Display Clock Generator block
-> > +
-> > +    DDC
-> > +      Display Data Channel
-> > +
-> > +    DIO
-> > +      Display IO
-> > +
-> > +    DPP
-> > +      Display Pipes and Planes
-> > +
-> > +    DSC
-> > +      Display Stream Compression (Reduce the amount of bits to
-> > represent pixel
-> > +      count while at the same pixel clock)
-> > +
-> > +    dGPU
-> > +      discrete GPU
-> > +
-> > +    DMIF
-> > +      Display Memory Interface
-> > +
-> > +    DML
-> > +      Display Mode Library
-> > +
-> > +    DMCU
-> > +      Display Micro-Controller Unit
-> > +
-> > +    DMCUB
-> > +      Display Micro-Controller Unit, version B
-> > +
-> > +    DPCD
-> > +      DisplayPort Configuration Data
-> > +
-> > +    DPM(S)
-> > +      Display Power Management (Signaling)
-> > +
-> > +    DRR
-> > +      Dynamic Refresh Rate
-> > +
-> > +    DWB
-> > +      Display Writeback
-> > +
-> > +    FB
-> > +      Frame Buffer
-> > +
-> > +    FBC
-> > +      Frame Buffer Compression
-> > +
-> > +    FEC
-> > +      Forward Error Correction
-> > +
-> > +    FRL
-> > +      Fixed Rate Link
-> > +
-> > +    GCO
-> > +      Graphical Controller Object
-> > +
-> > +    GMC
-> > +      Graphic Memory Controller
-> > +
-> > +    GSL
-> > +      Global Swap Lock
-> > +
-> > +    iGPU
-> > +      integrated GPU
-> > +
-> > +    IH
-> > +      Interrupt Handler
-> > +
-> > +    ISR
-> > +      Interrupt Service Request
-> > +
-> > +    ISV
-> > +      Independent Software Vendor
-> > +
-> > +    KMD
-> > +      Kernel Mode Driver
-> > +
-> > +    LB
-> > +      Line Buffer
-> > +
-> > +    LFC
-> > +      Low Framerate Compensation
-> > +
-> > +    LTTPR
-> > +      Link Training Tunable Phy Repeater
-> > +
-> > +    LUT
-> > +      Lookup Table
-> > +
-> > +    MALL
-> > +      Memory Access at Last Level
-> > +
-> > +    MC
-> > +      Memory Controller
-> > +
-> > +    MPC
-> > +      Multiple pipes and plane combine
-> > +
-> > +    MPO
-> > +      Multi Plane Overlay
-> > +
-> > +    MST
-> > +      Multi Stream Transport
-> > +
-> > +    NBP State
-> > +      Northbridge Power State
-> > +
-> > +    NBIO
-> > +      North Bridge Input/Output
-> > +
-> > +    ODM
-> > +      Output Data Mapping
-> > +
-> > +    OPM
-> > +      Output Protection Manager
-> > +
-> > +    OPP
-> > +      Output Plane Processor
-> > +
-> > +    OPTC
-> > +      Output Pipe Timing Combiner
-> > +
-> > +    OTG
-> > +      Output Timing Generator
-> > +
-> > +    PCON
-> > +      Power Controller
-> > +
-> > +    PGFSM
-> > +      Power Gate Finite State Machine
-> > +
-> > +    PSR
-> > +      Panel Self Refresh
-> > +
-> > +    SCL
-> > +      Scaler
-> > +
-> > +    SDP
-> > +      Scalable Data Port
-> > +
-> > +    SLS
-> > +      Single Large Surface
-> > +
-> > +    SST
-> > +      Single Stream Transport
-> > +
-> > +    TMDS
-> > +      Transition-Minimized Differential Signaling
-> > +
-> > +    TMZ
-> > +      Trusted Memory Zone
-> > +
-> > +    TTU
-> > +      Time to Underflow
-> > +
-> > +    VRR
-> > +      Variable Refresh Rate
-> > +
-> > +    UVD
-> > +      Unified Video Decoder
-> > diff --git a/Documentation/gpu/amdgpu/display/index.rst
-> > b/Documentation/gpu/amdgpu/display/index.rst
-> > index fe2ecad8df81..e23c752ee5f5 100644
-> > --- a/Documentation/gpu/amdgpu/display/index.rst
-> > +++ b/Documentation/gpu/amdgpu/display/index.rst
-> > @@ -26,3 +26,4 @@ table of content:
-> >     display-manager.rst
-> >     dc-debug.rst
-> >     dcn-overview.rst
-> > +   dc-glossary.rst
-> > diff --git a/Documentation/gpu/amdgpu/index.rst
-> > b/Documentation/gpu/amdgpu/index.rst
-> > index 5c8cbf514097..ff38c360b04e 100644
-> > --- a/Documentation/gpu/amdgpu/index.rst
-> > +++ b/Documentation/gpu/amdgpu/index.rst
-> > @@ -334,3 +334,10 @@ smartshift_bias
-> >  
-> >  .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> >     :doc: smartshift_bias
-> > +
-> > +AMDGPU Glossary
-> > +===============
-> > +
-> > +.. toctree::
-> > +
-> > +   amdgpu-glossary.rst
-> > --
-> > 2.25.1
-> > 
-> 
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-> 
