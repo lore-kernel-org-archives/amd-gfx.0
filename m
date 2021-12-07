@@ -4,39 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A161BC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 13:45:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DFCC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 14:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 287446F9C4;
-	Tue,  7 Dec 2021 13:45:33 +0000 (UTC)
-Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D09F6F612
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Dec 2021 13:45:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1638884725; bh=HW6dTz3D33n5rVfZBxa79V/ZcMG3fmNlK41HvBZWnfA=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=myADxgL20UePVe+N2i2ABGGrhe91iL4TEq/vKbmTVtKPd0GdjQn88u2h7/NnW2AxK
- F+UhkI+nFoxV7nxa4RQPhwFHN+BJLM4M4c7SXZk3yBcgUy4D+crzOMfjs0JHHNDGty
- EvhqBQRQnaS7c14NuMq9rqddFWyipLQZ+lyt4TEk=
-Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Tue,  7 Dec 2021 14:45:25 +0100 (CET)
-X-EA-Auth: TRqmyO/oI8GBLMJttoRfxxQlE7TBiwcSTVPDT7sp3fvhw7MmZNshLEwgLcUwWdywVvRRzQO3/JbTwVCaPu9+3gn5tgbDln0X
-Date: Tue, 7 Dec 2021 14:45:24 +0100
-From: Claudio Suarez <cssk@net-c.es>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 0/3] drm/amdgpu replace drm_detect_hdmi_monitor() with
- drm_display_info.is_hdmi
-Message-ID: <Ya9ldMI0+jC4RCsK@gineta.localdomain>
-References: <20211017113500.7033-1-cssk@net-c.es>
- <4217d1f5-e189-e3a5-547a-9ae205c3d539@amd.com>
- <YatMeIUyVJnoT3JG@gineta.localdomain>
- <CADnq5_MVpupUnkHrb9xFZOvVR9qVhUob06jsC72CUW_xY4nbuA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6BB26FF55;
+	Tue,  7 Dec 2021 14:54:15 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 674C06EAA2;
+ Tue,  7 Dec 2021 14:54:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CzgDr8c7zNX5MEvL+yc19xPD2ZjeIH/WDFsm7thmRAcfdZ/bXD4nj8NK+53VHrkKzRehM8G2v3jHamGUVF+kXOIgVy/LueKBKBIYSITpQXtejwdAIL6ah4zVS333fA7tjHEooSZB1J7QsfZbdv5FM2BGWrmqWQQfL989GqeX5WkHW4VVfH50O89JejD+3XKKeXjapmSJHpFkmHKmqcLYYGH1qMeyWEKH0BokLbqsXn6rUodBvpHUxAq8xdD6mdkBClQfO9/wSrk7FWUcsjhhHni5fh5cqOGwcymbDBJtPBAribAwAKGZ/aM69wrcL0+pz5P4r7PsQDVsq8bHCICC6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GFNkJzTdHpyTpYertNaeUyGecr4jOAncPcOvhdpbR7Q=;
+ b=YmZL2vMR42+cB9DeY1DBlY/X3gbKTWIiieoyT1YM86PB+EKIm2ACeDGDU5SVYeATGIQ7u63/ENEMCgQuiyaGE5bWDebyBorXvFfFR4M49h8wAILNxQDLAMg1hseVKZqmEuwoz/Qu6JwsHdQKAcDKUVTP3yb/pKkkCXoMWvrVGeS9aBAUh1GwTbNTzXkMi7Fs/QQd96BlSWW60dFkYr5FeZ+dC23djquWDmFGOHSEM4mRPVIDo/82LMwc/j29RGp5Sg3aaTnLXmOpHhCvBx3bVYd4ZDgR2Dx29KnH2CM7EeLZN9sLbTex+zHQ3CwEuNAVw+FaHCtPCUvcLrpTUhGiHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=emersion.fr smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GFNkJzTdHpyTpYertNaeUyGecr4jOAncPcOvhdpbR7Q=;
+ b=x6LpXyea2v81mSsLvP05bVOtMRMGdD5HMu5izVRwyoXAbq6FmxpLsP6op2368NJEdmTYzsn74N3IljDbRKlXORYo2H3QiyJOXZO8B4IHjcceukipA097Cj5ARsElvRhYJt76Q1Endrs1ZJwWYJ4S4ob1ZFzsHEk4/x/6vUWEI34=
+Received: from DM5PR16CA0030.namprd16.prod.outlook.com (2603:10b6:4:15::16) by
+ DM6PR12MB3946.namprd12.prod.outlook.com (2603:10b6:5:1cb::27) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.21; Tue, 7 Dec 2021 14:54:10 +0000
+Received: from DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:15:cafe::66) by DM5PR16CA0030.outlook.office365.com
+ (2603:10b6:4:15::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16 via Frontend
+ Transport; Tue, 7 Dec 2021 14:54:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT032.mail.protection.outlook.com (10.13.173.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Tue, 7 Dec 2021 14:54:10 +0000
+Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 7 Dec
+ 2021 08:54:08 -0600
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Simon Ser <contact@emersion.fr>, Michel Daenzer <michel@daenzer.net>, "Bas
+ Nieuwenhuizen" <bas@basnieuwenhuizen.nl>, Marek Olsak <marek.olsak@amd.com>,
+ Roman Gilg <subdiff@gmail.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, "Mark
+ Yacoub" <markyacoub@chromium.org>, Sean Paul <seanpaul@chromium.org>, "Pekka
+ Paalanen" <ppaalanen@gmail.com>, Yann Dirson <ydirson@free.fr>, Daniel Vetter
+ <daniel@ffwll.ch>
+Subject: [PATCH v3 0/6] Expand display core documentation
+Date: Tue, 7 Dec 2021 09:53:44 -0500
+Message-ID: <20211207145350.286037-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADnq5_MVpupUnkHrb9xFZOvVR9qVhUob06jsC72CUW_xY4nbuA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2926432b-1044-48f1-b771-08d9b9916d6c
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3946:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3946976545BFC0874C8945C5986E9@DM6PR12MB3946.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hzlSAfaQsUwXVSGbBxu208daJ0A3CapN2JsAgNrU0bOqc5u8LOxUlTCVh4a0a2A3zopgediN1csSArETfOszJB5VVeYmti+alhuOnsaxxkmVvhEBOJjjrsdOxFxJq6Pd2+yq3hT/TooBDtXyXLH1ZUXHsBZrEWauHU5NLkzB0pAd6rRMewTl5Yq2VBD8H41kRpwaRSi2I3Kae1kNHAu62g+JEM7kEsLSpOg3j1I+pZ1hID4RkF22EOwEXWyw4dCblU7J1G7D3nKgQVc3bOjw+A4Frq/7MJYfZW4o7BrSGm0vBAAvpgbUulRpYLw2sR4QjhfzBs9VRE2iFky9PExHM+JY0py2Itt0diTrYJpqmgwXFX9zKo2U4yzZFgh44gkzMZxPKrKRc0HkUF9UEgnLcCUKh2/id3AM/DjNdmig5HpMMjvbO/Sxy6bw/qoqlT4GpKdOSUKnr0vMJiwAIEDbI4dBBWc+TMKZbEGJAv85Cm7fOBe3MEsVn4mb+ByICLOiFqMuxzQbXEN7iL02yQZd5YZpNnR5QCMYrMXWMZLuWqGTjdI1q5sI+mpWeRr2xaafHZoV28Rtjsl7/YDk+wWJOvigOcW0rQBPMbYaJLSDTiF+wh7r4+zTeT8gVOt/0vIboHuFhWq6Lt3gQDQs7YrZReaBesXypeTs6biGCHJpTpxJP2IEcJ4eqacPgzBffYi00tsCWE2zLZqHtlQL3wACTZPTKIlFcDGuRwrLzjktXLfvzjHHChZpX8vSYVBcYF/8OVl3Nz+KemE9lw+VzksLXADrg/MRzydPRlfXmeK7lw36OkL1c+xr5yBmV/wbmi66
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(54906003)(82310400004)(8676002)(2906002)(508600001)(426003)(5660300002)(2616005)(4326008)(8936002)(110136005)(81166007)(316002)(6666004)(1076003)(40460700001)(47076005)(83380400001)(70586007)(16526019)(70206006)(26005)(36860700001)(86362001)(186003)(7416002)(921005)(336012)(356005)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 14:54:10.6092 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2926432b-1044-48f1-b771-08d9b9916d6c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3946
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,97 +105,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-doc@vger.kernel.org, qingqing.zhuo@amd.com, roman.li@amd.com,
+ amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com, nicholas.choi@amd.com,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ bhawanpreet.lakha@amd.com, Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 06, 2021 at 05:15:11PM -0500, Alex Deucher wrote:
-> Do you have push rights to drm-misc?  IIRC, these patches depend on
-> the is_hdmi changes that recently went into drm-misc, so these patches
-> should probably go upstream via drm-misc rather than amdgpu.
+Display Core (DC) is one of the components under amdgpu, and it has
+multiple features directly related to the KMS API. Unfortunately, we
+don't have enough documentation about DC in the upstream, which makes
+the life of some external contributors a little bit more challenging.
+For these reasons, this patchset reworks part of the DC documentation
+and introduces a new set of details on how the display core works on DCN
+IP. Another improvement that this documentation effort tries to bring is
+making explicit some of our hardware-specific details to guide
+user-space developers better.
 
-Sorry, I have missed to answer the second part.
-This patch depends on nothing. The only dependency is
-a92d083d08b0 (drm/edid: Add flag to drm_display_info to identify HDMI sinks, 2020-02-26)
-and it is in the kernel source since February 2020.
+In my view, it is easier to review this series if you apply it in your
+local kernel and build the HTML version (make htmldocs). I'm suggesting
+this approach because I added a few SVG diagrams that will be easier to
+see in the HTML version. If you cannot build the documentation, try to
+open the SVG images while reviewing the content. In summary, in this
+series, you will find:
 
-These patches are not uploaded to misc:
-https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-I don't think these patches will go upstream via drm-misc.
-The only post was to this list.
+1. Patch 1: Re-arrange of display core documentation. This is
+   preparation work for the other patches, but it is also a way to expand
+   this documentation.
+2. Patch 2 to 4: Document some common debug options related to display.
+3. Patch 5: This patch provides an overview of how our display core next
+   works and a brief explanation of each component.
+4. Patch 6: We use a lot of acronyms in our driver; for this reason, we
+   exposed a glossary with common terms used by display core.
 
-I thought this is the list for pathches to amd drivers.
-Hope I am not wrong.
+Please let us know what you think we can improve this series and what
+kind of content you want to see for the next series.
 
-Best regards,
-Claudio Suarez
+Changes since V2:
+ - Add a comment about MMHUBBUB
+Changes since V1:
+ - Group amdgpu documentation together.
+ - Create index pages.
+ - Mirror display folder in the documentation.
+ - Divide glossary based on driver context.
+ - Make terms more consistent and update CPLIB
+ - Add new acronyms to the glossary
 
+Thanks
+Siqueira
 
-> 
-> Alex
-> 
-> On Mon, Dec 6, 2021 at 5:21 AM Claudio Suarez <cssk@net-c.es> wrote:
-> >
-> >
-> > Hello,
-> >
-> > These patches
-> >
-> > https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg69247.html
-> >
-> > are not uploaded to the linux source. I suppose I have to ping here.
-> >
-> > Best regards,
-> > Claudio Suarez.
-> >
-> >
-> >
-> >
-> > On Mon, Oct 18, 2021 at 09:37:13AM -0400, Harry Wentland wrote:
-> > > On 2021-10-17 07:34, Claudio Suarez wrote:
-> > > >
-> > > > From the TODO list Documentation/gpu/todo.rst
-> > > > -----------------------
-> > > > Once EDID is parsed, the monitor HDMI support information is available through
-> > > > drm_display_info.is_hdmi. Many drivers still call drm_detect_hdmi_monitor() to
-> > > > retrieve the same information, which is less efficient.
-> > > >
-> > > > Audit each individual driver calling drm_detect_hdmi_monitor() and switch to
-> > > > drm_display_info.is_hdmi if applicable.
-> > > > -----------------------
-> > > > The task is divided in three small patches. The last patch depends on the
-> > > > first one.
-> > > >
-> > >
-> > > Thanks.
-> > >
-> > > This series is
-> > > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> > >
-> > > Harry
-> > >
-> > > >
-> > > >
-> > > > Claudio Suarez (3):
-> > > >   drm/amdgpu: update drm_display_info correctly when the edid is read
-> > > >   drm/amdgpu: use drm_edid_get_monitor_name() instead of duplicating the
-> > > >     code
-> > > >   drm/amdgpu: replace drm_detect_hdmi_monitor() with
-> > > >     drm_display_info.is_hdmi
-> > > >
-> > > >  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 17 +++++----
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c  |  4 +-
-> > > >  .../gpu/drm/amd/amdgpu/atombios_encoders.c    |  6 +--
-> > > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +-
-> > > >  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 37 +++++--------------
-> > > >  drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +-
-> > > >  drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  2 +-
-> > > >  8 files changed, 29 insertions(+), 44 deletions(-)
-> > > >
-> > >
-> >
-> >
+Rodrigo Siqueira (6):
+  Documentation/gpu: Reorganize DC documentation
+  Documentation/gpu: Document amdgpu_dm_visual_confirm debugfs entry
+  Documentation/gpu: Document pipe split visual confirmation
+  Documentation/gpu: How to collect DTN log
+  Documentation/gpu: Add basic overview of DC pipeline
+  Documentation/gpu: Add amdgpu and dc glossary
 
+ Documentation/gpu/amdgpu-dc.rst               |   74 --
+ Documentation/gpu/amdgpu/amdgpu-glossary.rst  |   50 +
+ .../gpu/amdgpu/display/config_example.svg     |  414 ++++++
+ Documentation/gpu/amdgpu/display/dc-debug.rst |   77 ++
+ .../gpu/amdgpu/display/dc-glossary.rst        |  243 ++++
+ .../amdgpu/display/dc_pipeline_overview.svg   | 1125 +++++++++++++++++
+ .../gpu/amdgpu/display/dcn-overview.rst       |  171 +++
+ .../gpu/amdgpu/display/display-manager.rst    |   42 +
+ .../gpu/amdgpu/display/global_sync_vblank.svg |  485 +++++++
+ Documentation/gpu/amdgpu/display/index.rst    |   29 +
+ .../gpu/{amdgpu.rst => amdgpu/index.rst}      |   25 +-
+ Documentation/gpu/drivers.rst                 |    3 +-
+ 12 files changed, 2659 insertions(+), 79 deletions(-)
+ delete mode 100644 Documentation/gpu/amdgpu-dc.rst
+ create mode 100644 Documentation/gpu/amdgpu/amdgpu-glossary.rst
+ create mode 100644 Documentation/gpu/amdgpu/display/config_example.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/dc-debug.rst
+ create mode 100644 Documentation/gpu/amdgpu/display/dc-glossary.rst
+ create mode 100644 Documentation/gpu/amdgpu/display/dc_pipeline_overview.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/dcn-overview.rst
+ create mode 100644 Documentation/gpu/amdgpu/display/display-manager.rst
+ create mode 100644 Documentation/gpu/amdgpu/display/global_sync_vblank.svg
+ create mode 100644 Documentation/gpu/amdgpu/display/index.rst
+ rename Documentation/gpu/{amdgpu.rst => amdgpu/index.rst} (95%)
+
+-- 
+2.25.1
 
