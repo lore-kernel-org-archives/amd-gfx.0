@@ -4,94 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 230E2C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 17:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88DCBC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 17:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA50FEB3E0;
-	Tue,  7 Dec 2021 17:32:54 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30308EB35C
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Dec 2021 17:32:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kMNVgEL8NAS3JkGw27hLE08IgcJApt6bBMNT+EVhLkSnmt/bdSEpygjWtm3X+X06a9FhKQzT4tHA6g8U/IlfarJSGMdhWP6EsLn6siXdZFwmkLMLpm3eL02VFXHqg/J8b6oz8qGszz7gYFjjFhJvCW1RNNjO2L1wqbjgi0ZRkruKVafKp+perSb0N2zkCgZD0/ZK+8m8ln30ez/pTYAyVmOKNYqCfXHoH1KDlHVQ1YYr3/w6BJTI+YZEgrj4+nqWENKQtOvjE9Kimpfek4ksh5mt896bsXPfpH92NC0VX5lkQ6iDqseXvwLa+pgd35sG1Gjw+Y9TJbBDjuOTCweH3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rNj3JJ9tM7OhvIaMqPhsDHv0BVO0E3/szeaTJpluqpM=;
- b=dsQ/SgwVSqfymHXz0fEGUimQTkyhBVbikZaDmyewfN2hCaBONvtXfAt+v2GJDnOxRgI/YHXKMg2qD35iEKwoXp+8rTfMFVkTDe+ewhxfWzNG/vGp6T7vPGSwppU6vjTf8gDcB/Otbn5VImbJz6f+8U9QwYNDGjYydDcIS3rxL1Grkami5GRgdSR89EWnUIDH6YAaGTtJZhmGlcuD2uCYz1FPsMZpkZrL/Fg7tcu0cp5ojHpuqXKLW8pNJ8T61KY1A+LJD1XPFeRoWjx3uoAbN8zh3ek8P7/BUdZsA3/KlvTrjk3nvT50sSG4CLR4HlrI9V/oMQNCnoVwElx6T3Gb5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rNj3JJ9tM7OhvIaMqPhsDHv0BVO0E3/szeaTJpluqpM=;
- b=Cc6BogoB8q0kSIiJ3Qy2eRkPo7z+Odnb7xlewQ4cp2RzQ93Bej4s+gMdhCSjhUx8pcB8bchlLfyIDrpiqEktVun3Rxg74SDsnDWtjSqxkMTLSRfMugKYh0c+T46HOLFlAoVAq2K/FzLbaMTAWmzQ83zX9jmGgediYPA931Mz1rQ=
-Received: from MWHPR1701CA0016.namprd17.prod.outlook.com
- (2603:10b6:301:14::26) by BYAPR12MB3397.namprd12.prod.outlook.com
- (2603:10b6:a03:db::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Tue, 7 Dec
- 2021 17:32:50 +0000
-Received: from CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:14:cafe::86) by MWHPR1701CA0016.outlook.office365.com
- (2603:10b6:301:14::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
- Transport; Tue, 7 Dec 2021 17:32:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT032.mail.protection.outlook.com (10.13.174.218) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Tue, 7 Dec 2021 17:32:50 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 7 Dec
- 2021 11:32:47 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 7 Dec
- 2021 09:32:46 -0800
-Received: from elite-desk-aura.lan (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Tue, 7 Dec 2021 11:32:46 -0600
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Add feature flags to disable LTTPR
-Date: Tue, 7 Dec 2021 12:32:46 -0500
-Message-ID: <20211207173246.1554377-1-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED65DEBFFA;
+	Tue,  7 Dec 2021 17:48:03 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 032D6EBFFB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Dec 2021 17:48:02 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ r10-20020a056830080a00b0055c8fd2cebdso19003728ots.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Dec 2021 09:48:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=StisW4UzL0l6yTqRpcSGZBxWxEXSdW5kVT5c3OGaRYE=;
+ b=m4UagNSbqe76NvMD4Rnw7TD9KDUcXa1G55KgikpB1NwFkhFiKB8mcq/8SJYmfh4rsc
+ vO2JCJ76zNO+fKF/Fq3WD0STo8ygnoggVqgsuZon185UjUMZtmtQ/1QSmjJlOjRjb4P7
+ GUF0Udf1ItPNSkDYtqusiEaF+DnylQeTng1PRpzuSGywsgn1aAokwwQRAE7+Ye+e/O6n
+ SYLI3TxM23lRItwQGgy679kyfub3KHkjzldjEUjmU15FQaImV3oFu2uFRB2F9fMGyXYX
+ 2F7G9mUVUntWcO3K4ScsXTt+Wlq6+JQozFJKMgizqMgelVx48VKCN/3/ZRjeZJ8prOV2
+ aROQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=StisW4UzL0l6yTqRpcSGZBxWxEXSdW5kVT5c3OGaRYE=;
+ b=iOT9Ds1uQhsrIekb7S1wbbl5Nb/K0SEQhJVa83J7WvlCWRmiGk1CCofkpv+mKUOEJE
+ 81yHx5RdFlTKdx2NBzoQeAk2mzfnot4kpSzjurH8uLShA7TDRagSLeCgu14iIsPG/VkV
+ KNDQDsKgO0D3Z+1iiKHjARVadk+Ay2WmVwLno7NdHNao9qOj28Ocofu4EkRynKBtJdHo
+ WZu5L2Z3Ug7bW2Nn+RE4jzGaT0TqZVv28ccF1B7ZjNgvju8E57DjOt31awYenaWfrD0C
+ 8985Imeu8G11//TzP8J0VeDaEJshwIouBAQv5zxZoZiidQdjaW/ZWGTFx2JE5GYbvf+F
+ FZpA==
+X-Gm-Message-State: AOAM5303pdlufdUVDlDgg52UZTif/x9BVp4i4325/5o9b4rntezUmAps
+ tG9TDPMUP9kvAFap3MnCg6W8Xlr5y8uEcxXYmZHTax1h
+X-Google-Smtp-Source: ABdhPJwbqpA/8bOgJ4JS21z0ZqChTPrZzPRKAz3gCVrf2cpFRbfQSlCulUFS1D1aqZRyCebnzB48jA+Df0FKp6j8ta0=
+X-Received: by 2002:a05:6830:1bcf:: with SMTP id
+ v15mr37823071ota.200.1638899282184; 
+ Tue, 07 Dec 2021 09:48:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eb9f344d-bf54-4613-68a9-08d9b9a79781
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3397:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB33979D3ABEFB834761D6D7A48B6E9@BYAPR12MB3397.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PhXV/O5tuglH63uPkOsKdYMWufa/e5nYslAD32lMw34q4mNn+Xr+5ZCGPjdUlKmXj+jwrCsQ7L6i1Pma46Xc9NbNisYQgvMypGEA5xoZpQ6f2jc9eSIQB7McsHUYV4VmfrPaCFDxn3aixS00PtfRbQ9x8EZyn4rPEvh4mCV7EUCa1rbAPuGxZbgC9mS7HRAovJ2NiQbr/KXMgEP+l1af5VHoWhMpISDdGIkt8GBpoYjGlIpb/OW0ikQCFbk5Mmg1XpLjkun9Hc/7JVEdpE0X3rw1OhDMkcs+lgXbUSeS31/iu1dXFZnIaZKK5OOaxIsjl14tffhvJeCybpm/qar4UR4xvFk3s/0285TJP5CvHY5Oj6MhBl/Gy2+gkkg22/ut6No5VnqPKXXhGlWEQXMRWpsz6iVVRcHCz9UjRZLisUrWq9VMqipgBx/K4L1I4cu+TdTaf2+/0Yv9OgqXVpnjNbejO2/4ewvL2oY4fErlV9IthfmZhcuLr0JLZV6m64BtzKL/63WxQbfz9jk2KkfOp3USkgHf6kmKx+2B2DE4vRp/G+GuaZZtaWmDcfWEZgEGJr94jkOp3fB1U9DRUc9pS9ChqPMzndat3kDfyqugrUrg1eTeWIuSm3KcARg20Hw50KjsKhIcrdCxMrtkoKRN23NZIuiO+/tyKvcXs6wfNbmQMqQm1IDH5OGkRqrJfCmKe5O7Jv3G+vY3UBJy/6MaNPTJzT3ncgzecB6cur7AL74MXZaHszdTFJH3vgvgSaUPp834Ij7BnL6ZlNKIxd2T+8+MTBG5ag9rPuSMs9Z6fALL3TlsuhBkY61p0vCSh/aFADWbijyXxWkUwfzIZO/DrA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(336012)(5660300002)(316002)(1076003)(70586007)(82310400004)(40460700001)(36860700001)(426003)(70206006)(54906003)(2616005)(8936002)(81166007)(508600001)(86362001)(8676002)(6916009)(47076005)(26005)(356005)(186003)(83380400001)(2906002)(36756003)(44832011)(4326008)(117716001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 17:32:50.0591 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb9f344d-bf54-4613-68a9-08d9b9a79781
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3397
+References: <20211017113500.7033-1-cssk@net-c.es>
+ <4217d1f5-e189-e3a5-547a-9ae205c3d539@amd.com>
+ <YatMeIUyVJnoT3JG@gineta.localdomain>
+ <CADnq5_MVpupUnkHrb9xFZOvVR9qVhUob06jsC72CUW_xY4nbuA@mail.gmail.com>
+ <Ya9ldMI0+jC4RCsK@gineta.localdomain>
+In-Reply-To: <Ya9ldMI0+jC4RCsK@gineta.localdomain>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 7 Dec 2021 12:47:51 -0500
+Message-ID: <CADnq5_MgiZdBbTZUdkCwDFt_s_bH8rGj8ujuNaGm-Wzzc08a=w@mail.gmail.com>
+Subject: Re: [PATCH 0/3] drm/amdgpu replace drm_detect_hdmi_monitor() with
+ drm_display_info.is_hdmi
+To: Claudio Suarez <cssk@net-c.es>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,56 +67,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, jerry.zuo@amd.com
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Allow for disabling non transparent mode of LTTPR for running tests.
+yeah, sorry about that.  I was mixing these up with another patch set.
+I've applied them.  Sorry for the delay.
 
-[How]
-Add a feature flag and set them during init sequence. The flags are
-already being used in DC.
+Alex
 
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
- drivers/gpu/drm/amd/include/amd_shared.h          | 4 ++++
- 2 files changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d25e5be77dea..9433b9a660e2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1453,6 +1453,13 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	if (amdgpu_dc_feature_mask & DC_EDP_NO_POWER_SEQUENCING)
- 		init_data.flags.edp_no_power_sequencing = true;
- 
-+#ifdef CONFIG_DRM_AMD_DC_DCN
-+	if (amdgpu_dc_feature_mask & DC_DISABLE_LTTPR_DP1_4A)
-+		init_data.flags.allow_lttpr_non_transparent_mode.bits.DP1_4A = true;
-+	if (amdgpu_dc_feature_mask & DC_DISABLE_LTTPR_DP2_0)
-+		init_data.flags.allow_lttpr_non_transparent_mode.bits.DP2_0 = true;
-+#endif
-+
- 	init_data.flags.power_down_display_on_boot = true;
- 
- 	if (check_seamless_boot_capability(adev)) {
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 4b9e68a79f06..3c72208b4754 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -231,6 +231,10 @@ enum DC_FEATURE_MASK {
- 	DC_DISABLE_FRACTIONAL_PWM_MASK = (1 << 2), //0x4, disabled by default
- 	DC_PSR_MASK = (1 << 3), //0x8, disabled by default for dcn < 3.1
- 	DC_EDP_NO_POWER_SEQUENCING = (1 << 4), //0x10, disabled by default
-+#ifdef CONFIG_DRM_AMD_DC_DCN
-+	DC_DISABLE_LTTPR_DP1_4A = (1 << 5), //0x20, disabled by default
-+	DC_DISABLE_LTTPR_DP2_0 = (1 << 6), //0x40, disabled by default
-+#endif
- };
- 
- enum DC_DEBUG_MASK {
--- 
-2.30.2
-
+On Tue, Dec 7, 2021 at 8:45 AM Claudio Suarez <cssk@net-c.es> wrote:
+>
+> On Mon, Dec 06, 2021 at 05:15:11PM -0500, Alex Deucher wrote:
+> > Do you have push rights to drm-misc?  IIRC, these patches depend on
+> > the is_hdmi changes that recently went into drm-misc, so these patches
+> > should probably go upstream via drm-misc rather than amdgpu.
+>
+> Sorry, I have missed to answer the second part.
+> This patch depends on nothing. The only dependency is
+> a92d083d08b0 (drm/edid: Add flag to drm_display_info to identify HDMI sinks, 2020-02-26)
+> and it is in the kernel source since February 2020.
+>
+> These patches are not uploaded to misc:
+> https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> I don't think these patches will go upstream via drm-misc.
+> The only post was to this list.
+>
+> I thought this is the list for pathches to amd drivers.
+> Hope I am not wrong.
+>
+> Best regards,
+> Claudio Suarez
+>
+>
+> >
+> > Alex
+> >
+> > On Mon, Dec 6, 2021 at 5:21 AM Claudio Suarez <cssk@net-c.es> wrote:
+> > >
+> > >
+> > > Hello,
+> > >
+> > > These patches
+> > >
+> > > https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg69247.html
+> > >
+> > > are not uploaded to the linux source. I suppose I have to ping here.
+> > >
+> > > Best regards,
+> > > Claudio Suarez.
+> > >
+> > >
+> > >
+> > >
+> > > On Mon, Oct 18, 2021 at 09:37:13AM -0400, Harry Wentland wrote:
+> > > > On 2021-10-17 07:34, Claudio Suarez wrote:
+> > > > >
+> > > > > From the TODO list Documentation/gpu/todo.rst
+> > > > > -----------------------
+> > > > > Once EDID is parsed, the monitor HDMI support information is available through
+> > > > > drm_display_info.is_hdmi. Many drivers still call drm_detect_hdmi_monitor() to
+> > > > > retrieve the same information, which is less efficient.
+> > > > >
+> > > > > Audit each individual driver calling drm_detect_hdmi_monitor() and switch to
+> > > > > drm_display_info.is_hdmi if applicable.
+> > > > > -----------------------
+> > > > > The task is divided in three small patches. The last patch depends on the
+> > > > > first one.
+> > > > >
+> > > >
+> > > > Thanks.
+> > > >
+> > > > This series is
+> > > > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> > > >
+> > > > Harry
+> > > >
+> > > > >
+> > > > >
+> > > > > Claudio Suarez (3):
+> > > > >   drm/amdgpu: update drm_display_info correctly when the edid is read
+> > > > >   drm/amdgpu: use drm_edid_get_monitor_name() instead of duplicating the
+> > > > >     code
+> > > > >   drm/amdgpu: replace drm_detect_hdmi_monitor() with
+> > > > >     drm_display_info.is_hdmi
+> > > > >
+> > > > >  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 17 +++++----
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c  |  4 +-
+> > > > >  .../gpu/drm/amd/amdgpu/atombios_encoders.c    |  6 +--
+> > > > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +-
+> > > > >  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 37 +++++--------------
+> > > > >  drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +-
+> > > > >  drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  2 +-
+> > > > >  8 files changed, 29 insertions(+), 44 deletions(-)
+> > > > >
+> > > >
+> > >
+> > >
+>
+>
