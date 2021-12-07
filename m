@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88DCBC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 17:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C04C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Dec 2021 18:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED65DEBFFA;
-	Tue,  7 Dec 2021 17:48:03 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032D6EBFFB
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Dec 2021 17:48:02 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- r10-20020a056830080a00b0055c8fd2cebdso19003728ots.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Dec 2021 09:48:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=StisW4UzL0l6yTqRpcSGZBxWxEXSdW5kVT5c3OGaRYE=;
- b=m4UagNSbqe76NvMD4Rnw7TD9KDUcXa1G55KgikpB1NwFkhFiKB8mcq/8SJYmfh4rsc
- vO2JCJ76zNO+fKF/Fq3WD0STo8ygnoggVqgsuZon185UjUMZtmtQ/1QSmjJlOjRjb4P7
- GUF0Udf1ItPNSkDYtqusiEaF+DnylQeTng1PRpzuSGywsgn1aAokwwQRAE7+Ye+e/O6n
- SYLI3TxM23lRItwQGgy679kyfub3KHkjzldjEUjmU15FQaImV3oFu2uFRB2F9fMGyXYX
- 2F7G9mUVUntWcO3K4ScsXTt+Wlq6+JQozFJKMgizqMgelVx48VKCN/3/ZRjeZJ8prOV2
- aROQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B09C06FA8A;
+	Tue,  7 Dec 2021 18:19:13 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 946046FA8A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Dec 2021 18:19:11 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id t9so31276576wrx.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Dec 2021 10:19:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ryBB1dJoJAjwQetkQUG1CkdXjTwGO2uIq3Be4erfjLI=;
+ b=GkieuRCAxWKFS03VV9C6Bquc4bDeerCOXSoIFakdnaM7ADQo9mPtOFZAaiYO5pe1zJ
+ N9Vrb1Pe+MdDqFqIE9ivzVkr98Y7WZRvw/f2e8+tobjY82al+y5Y8O6uMahnUXVGikU8
+ D3/G5zcSlX2AKONlLp775RfJ9rbYEAGp7rdOM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=StisW4UzL0l6yTqRpcSGZBxWxEXSdW5kVT5c3OGaRYE=;
- b=iOT9Ds1uQhsrIekb7S1wbbl5Nb/K0SEQhJVa83J7WvlCWRmiGk1CCofkpv+mKUOEJE
- 81yHx5RdFlTKdx2NBzoQeAk2mzfnot4kpSzjurH8uLShA7TDRagSLeCgu14iIsPG/VkV
- KNDQDsKgO0D3Z+1iiKHjARVadk+Ay2WmVwLno7NdHNao9qOj28Ocofu4EkRynKBtJdHo
- WZu5L2Z3Ug7bW2Nn+RE4jzGaT0TqZVv28ccF1B7ZjNgvju8E57DjOt31awYenaWfrD0C
- 8985Imeu8G11//TzP8J0VeDaEJshwIouBAQv5zxZoZiidQdjaW/ZWGTFx2JE5GYbvf+F
- FZpA==
-X-Gm-Message-State: AOAM5303pdlufdUVDlDgg52UZTif/x9BVp4i4325/5o9b4rntezUmAps
- tG9TDPMUP9kvAFap3MnCg6W8Xlr5y8uEcxXYmZHTax1h
-X-Google-Smtp-Source: ABdhPJwbqpA/8bOgJ4JS21z0ZqChTPrZzPRKAz3gCVrf2cpFRbfQSlCulUFS1D1aqZRyCebnzB48jA+Df0FKp6j8ta0=
-X-Received: by 2002:a05:6830:1bcf:: with SMTP id
- v15mr37823071ota.200.1638899282184; 
- Tue, 07 Dec 2021 09:48:02 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ryBB1dJoJAjwQetkQUG1CkdXjTwGO2uIq3Be4erfjLI=;
+ b=jLxSJ0A9y1YZUL5pZmGuiX4Muh+gDZVHNPHkc4IT8Vx7YWl8qJ6D4LvtIIoFpiWrRN
+ RSKFN6sZ0WdxKo7NrV+hv2cYX56rWEPtF7epuSjgOOaWOFgBhlNqdTYQQXAr3e5DLC5s
+ oEjTwgqWUFz8LZn7S88Bhq++DrIu/h/snrfN3zwY1VRPsj0rc/VV7NZYwAxW3NZF3ful
+ TKfR+8+O0cmnAoYudYrNq8pZTq//fCnGcxowyMu4qZPd8JU2RoQszlyRzUcntEAy/Wsd
+ yr0OIFergRHVP6qHH8LxX2m9KOKYON6n1q3IFmXd+RzGZc5mzItNNNXA/JdmC4gV9yLn
+ 9bLQ==
+X-Gm-Message-State: AOAM531RrthyoDo1oSfQvzgL/U64MAcowChLvcGE/fIgZ/56CttlkskB
+ wGYEGsc/X4iTmOsbXJdjaw/G+g==
+X-Google-Smtp-Source: ABdhPJys+7fkflB/7uVRaDXSUkVakrY1E7ZzZ4ixrqIvd1ejF0OBx2V85+mJtPAb8y/5g4keFYmJng==
+X-Received: by 2002:a5d:68d2:: with SMTP id p18mr53846531wrw.21.1638901150128; 
+ Tue, 07 Dec 2021 10:19:10 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id y6sm3346625wma.37.2021.12.07.10.19.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Dec 2021 10:19:09 -0800 (PST)
+Date: Tue, 7 Dec 2021 19:19:07 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH v2 6/6] Documentation/gpu: Add amdgpu and dc glossary
+Message-ID: <Ya+lm9B8opSSkHsu@phenom.ffwll.local>
+References: <20211202160132.2263330-1-Rodrigo.Siqueira@amd.com>
+ <20211202160132.2263330-7-Rodrigo.Siqueira@amd.com>
 MIME-Version: 1.0
-References: <20211017113500.7033-1-cssk@net-c.es>
- <4217d1f5-e189-e3a5-547a-9ae205c3d539@amd.com>
- <YatMeIUyVJnoT3JG@gineta.localdomain>
- <CADnq5_MVpupUnkHrb9xFZOvVR9qVhUob06jsC72CUW_xY4nbuA@mail.gmail.com>
- <Ya9ldMI0+jC4RCsK@gineta.localdomain>
-In-Reply-To: <Ya9ldMI0+jC4RCsK@gineta.localdomain>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 7 Dec 2021 12:47:51 -0500
-Message-ID: <CADnq5_MgiZdBbTZUdkCwDFt_s_bH8rGj8ujuNaGm-Wzzc08a=w@mail.gmail.com>
-Subject: Re: [PATCH 0/3] drm/amdgpu replace drm_detect_hdmi_monitor() with
- drm_display_info.is_hdmi
-To: Claudio Suarez <cssk@net-c.es>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211202160132.2263330-7-Rodrigo.Siqueira@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,104 +65,379 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com,
+ Roman Gilg <subdiff@gmail.com>, Harry Wentland <Harry.Wentland@amd.com>,
+ Marek Olsak <marek.olsak@amd.com>, Yann Dirson <ydirson@free.fr>,
+ Michel Daenzer <michel@daenzer.net>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ bhawanpreet.lakha@amd.com, Mark Yacoub <markyacoub@chromium.org>,
+ qingqing.zhuo@amd.com, roman.li@amd.com,
+ Christian Koenig <christian.koenig@amd.com>, nicholas.choi@amd.com,
+ Daniel Vetter <daniel@ffwll.ch>, Simon Ser <contact@emersion.fr>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-yeah, sorry about that.  I was mixing these up with another patch set.
-I've applied them.  Sorry for the delay.
+On Thu, Dec 02, 2021 at 11:01:32AM -0500, Rodrigo Siqueira wrote:
+> In the DC driver, we have multiple acronyms that are not obvious most of
+> the time; the same idea is valid for amdgpu. This commit introduces a DC
+> and amdgpu glossary in order to make it easier to navigate through our
+> driver.
+> 
+> Changes since V1:
+>  - Yann: Divide glossary based on driver context.
+>  - Alex: Make terms more consistent and update CPLIB
+>  - Add new acronyms to the glossary
+> 
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>  Documentation/gpu/amdgpu/amdgpu-glossary.rst  |  47 ++++
+>  .../gpu/amdgpu/display/dc-glossary.rst        | 243 ++++++++++++++++++
+>  Documentation/gpu/amdgpu/display/index.rst    |   1 +
+>  Documentation/gpu/amdgpu/index.rst            |   7 +
+>  4 files changed, 298 insertions(+)
+>  create mode 100644 Documentation/gpu/amdgpu/amdgpu-glossary.rst
+>  create mode 100644 Documentation/gpu/amdgpu/display/dc-glossary.rst
+> 
+> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> new file mode 100644
+> index 000000000000..e635851025e7
+> --- /dev/null
+> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> @@ -0,0 +1,47 @@
+> +===============
+> +AMDGPU Glossary
+> +===============
+> +
+> +Here you can find some generic acronyms used in the amdgpu driver. Notice that
+> +we have a dedicated glossary for Display Core.
 
-Alex
+Maybe add a link to that here so it's easier to find? sphinx autogenerates
+header targets so pretty easy (if the heading is unique at least).
+-Daniel
 
-On Tue, Dec 7, 2021 at 8:45 AM Claudio Suarez <cssk@net-c.es> wrote:
->
-> On Mon, Dec 06, 2021 at 05:15:11PM -0500, Alex Deucher wrote:
-> > Do you have push rights to drm-misc?  IIRC, these patches depend on
-> > the is_hdmi changes that recently went into drm-misc, so these patches
-> > should probably go upstream via drm-misc rather than amdgpu.
->
-> Sorry, I have missed to answer the second part.
-> This patch depends on nothing. The only dependency is
-> a92d083d08b0 (drm/edid: Add flag to drm_display_info to identify HDMI sinks, 2020-02-26)
-> and it is in the kernel source since February 2020.
->
-> These patches are not uploaded to misc:
-> https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> I don't think these patches will go upstream via drm-misc.
-> The only post was to this list.
->
-> I thought this is the list for pathches to amd drivers.
-> Hope I am not wrong.
->
-> Best regards,
-> Claudio Suarez
->
->
-> >
-> > Alex
-> >
-> > On Mon, Dec 6, 2021 at 5:21 AM Claudio Suarez <cssk@net-c.es> wrote:
-> > >
-> > >
-> > > Hello,
-> > >
-> > > These patches
-> > >
-> > > https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg69247.html
-> > >
-> > > are not uploaded to the linux source. I suppose I have to ping here.
-> > >
-> > > Best regards,
-> > > Claudio Suarez.
-> > >
-> > >
-> > >
-> > >
-> > > On Mon, Oct 18, 2021 at 09:37:13AM -0400, Harry Wentland wrote:
-> > > > On 2021-10-17 07:34, Claudio Suarez wrote:
-> > > > >
-> > > > > From the TODO list Documentation/gpu/todo.rst
-> > > > > -----------------------
-> > > > > Once EDID is parsed, the monitor HDMI support information is available through
-> > > > > drm_display_info.is_hdmi. Many drivers still call drm_detect_hdmi_monitor() to
-> > > > > retrieve the same information, which is less efficient.
-> > > > >
-> > > > > Audit each individual driver calling drm_detect_hdmi_monitor() and switch to
-> > > > > drm_display_info.is_hdmi if applicable.
-> > > > > -----------------------
-> > > > > The task is divided in three small patches. The last patch depends on the
-> > > > > first one.
-> > > > >
-> > > >
-> > > > Thanks.
-> > > >
-> > > > This series is
-> > > > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> > > >
-> > > > Harry
-> > > >
-> > > > >
-> > > > >
-> > > > > Claudio Suarez (3):
-> > > > >   drm/amdgpu: update drm_display_info correctly when the edid is read
-> > > > >   drm/amdgpu: use drm_edid_get_monitor_name() instead of duplicating the
-> > > > >     code
-> > > > >   drm/amdgpu: replace drm_detect_hdmi_monitor() with
-> > > > >     drm_display_info.is_hdmi
-> > > > >
-> > > > >  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 17 +++++----
-> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
-> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c  |  4 +-
-> > > > >  .../gpu/drm/amd/amdgpu/atombios_encoders.c    |  6 +--
-> > > > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +-
-> > > > >  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 37 +++++--------------
-> > > > >  drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +-
-> > > > >  drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  2 +-
-> > > > >  8 files changed, 29 insertions(+), 44 deletions(-)
-> > > > >
-> > > >
-> > >
-> > >
->
->
+> +
+> +.. glossary::
+> +
+> +    CPLIB
+> +      Content Protection Library
+> +
+> +    DFS
+> +      Digital Frequency Synthesizer
+> +
+> +    ECP
+> +      Enhanced Content Protection
+> +
+> +    EOP
+> +      End Of Pipe/Pipeline
+> +
+> +    HQD
+> +      Hardware Queue Descriptor
+> +
+> +    KCQ
+> +      Kernel Compute Queue
+> +
+> +    KGQ
+> +      Kernel Graphics Queue
+> +
+> +    KIQ
+> +      Kernel Interface Queue
+> +
+> +    MQD
+> +      Memory Queue Descriptor
+> +
+> +    PPLib
+> +      PowerPlay Library - PowerPlay is the power management component.
+> +
+> +    SMU
+> +      System Management Unit
+> +
+> +    VCE
+> +      Video Compression Engine
+> +
+> +    VCN
+> +      Video Codec Next
+> diff --git a/Documentation/gpu/amdgpu/display/dc-glossary.rst b/Documentation/gpu/amdgpu/display/dc-glossary.rst
+> new file mode 100644
+> index 000000000000..547c0bfbb3e2
+> --- /dev/null
+> +++ b/Documentation/gpu/amdgpu/display/dc-glossary.rst
+> @@ -0,0 +1,243 @@
+> +===========
+> +DC Glossary
+> +===========
+> +
+> +On this page, we try to keep track of acronyms related to the display
+> +component. If you do not find what you are looking for, look at the amdgpu
+> +glossary; if you cannot find it anywhere, consider asking in the amdgfx and
+> +update this page.
+> +
+> +.. glossary::
+> +
+> +    ABM
+> +      Adaptive Backlight Modulation
+> +
+> +    APU
+> +      Accelerated Processing Unit
+> +
+> +    ASIC
+> +      Application-Specific Integrated Circuit
+> +
+> +    ASSR
+> +      Alternate Scrambler Seed Reset
+> +
+> +    AZ
+> +      Azalia (HD audio DMA engine)
+> +
+> +    BPC
+> +      Bits Per Colour/Component
+> +
+> +    BPP
+> +      Bits Per Pixel
+> +
+> +    Clocks
+> +      * PCLK: Pixel Clock
+> +      * SYMCLK: Symbol Clock
+> +      * SOCCLK: GPU Engine Clock
+> +      * DISPCLK: Display Clock
+> +      * DPPCLK: DPP Clock
+> +      * DCFCLK: Display Controller Fabric Clock
+> +      * REFCLK: Real Time Reference Clock
+> +      * PPLL: Pixel PLL
+> +      * FCLK: Fabric Clock
+> +      * MCLK: Memory Clock
+> +
+> +    CRC
+> +      Cyclic Redundancy Check
+> +
+> +    CRTC
+> +      Cathode Ray Tube Controller - commonly called "Controller" - Generates
+> +      raw stream of pixels, clocked at pixel clock
+> +
+> +    CVT
+> +      Coordinated Video Timings
+> +
+> +    DAL
+> +      Display Abstraction layer
+> +
+> +    DC (Software)
+> +      Display Core
+> +
+> +    DC (Hardware)
+> +      Display Controller
+> +
+> +    DCC
+> +      Delta Colour Compression
+> +
+> +    DCE
+> +      Display Controller Engine
+> +
+> +    DCHUB
+> +      Display Controller HUB
+> +
+> +    ARB
+> +      Arbiter
+> +
+> +    VTG
+> +      Vertical Timing Generator
+> +
+> +    DCN
+> +      Display Core Next
+> +
+> +    DCCG
+> +      Display Clock Generator block
+> +
+> +    DDC
+> +      Display Data Channel
+> +
+> +    DIO
+> +      Display IO
+> +
+> +    DPP
+> +      Display Pipes and Planes
+> +
+> +    DSC
+> +      Display Stream Compression (Reduce the amount of bits to represent pixel
+> +      count while at the same pixel clock)
+> +
+> +    dGPU
+> +      discrete GPU
+> +
+> +    DMIF
+> +      Display Memory Interface
+> +
+> +    DML
+> +      Display Mode Library
+> +
+> +    DMCU
+> +      Display Micro-Controller Unit
+> +
+> +    DMCUB
+> +      Display Micro-Controller Unit, version B
+> +
+> +    DPCD
+> +      DisplayPort Configuration Data
+> +
+> +    DPM(S)
+> +      Display Power Management (Signaling)
+> +
+> +    DRR
+> +      Dynamic Refresh Rate
+> +
+> +    DWB
+> +      Display Writeback
+> +
+> +    FB
+> +      Frame Buffer
+> +
+> +    FBC
+> +      Frame Buffer Compression
+> +
+> +    FEC
+> +      Forward Error Correction
+> +
+> +    FRL
+> +      Fixed Rate Link
+> +
+> +    GCO
+> +      Graphical Controller Object
+> +
+> +    GMC
+> +      Graphic Memory Controller
+> +
+> +    GSL
+> +      Global Swap Lock
+> +
+> +    iGPU
+> +      integrated GPU
+> +
+> +    IH
+> +      Interrupt Handler
+> +
+> +    ISR
+> +      Interrupt Service Request
+> +
+> +    ISV
+> +      Independent Software Vendor
+> +
+> +    KMD
+> +      Kernel Mode Driver
+> +
+> +    LB
+> +      Line Buffer
+> +
+> +    LFC
+> +      Low Framerate Compensation
+> +
+> +    LTTPR
+> +      Link Training Tunable Phy Repeater
+> +
+> +    LUT
+> +      Lookup Table
+> +
+> +    MALL
+> +      Memory Access at Last Level
+> +
+> +    MC
+> +      Memory Controller
+> +
+> +    MPC
+> +      Multiple pipes and plane combine
+> +
+> +    MPO
+> +      Multi Plane Overlay
+> +
+> +    MST
+> +      Multi Stream Transport
+> +
+> +    NBP State
+> +      Northbridge Power State
+> +
+> +    NBIO
+> +      North Bridge Input/Output
+> +
+> +    ODM
+> +      Output Data Mapping
+> +
+> +    OPM
+> +      Output Protection Manager
+> +
+> +    OPP
+> +      Output Plane Processor
+> +
+> +    OPTC
+> +      Output Pipe Timing Combiner
+> +
+> +    OTG
+> +      Output Timing Generator
+> +
+> +    PCON
+> +      Power Controller
+> +
+> +    PGFSM
+> +      Power Gate Finite State Machine
+> +
+> +    PSR
+> +      Panel Self Refresh
+> +
+> +    SCL
+> +      Scaler
+> +
+> +    SDP
+> +      Scalable Data Port
+> +
+> +    SLS
+> +      Single Large Surface
+> +
+> +    SST
+> +      Single Stream Transport
+> +
+> +    TMDS
+> +      Transition-Minimized Differential Signaling
+> +
+> +    TMZ
+> +      Trusted Memory Zone
+> +
+> +    TTU
+> +      Time to Underflow
+> +
+> +    VRR
+> +      Variable Refresh Rate
+> +
+> +    UVD
+> +      Unified Video Decoder
+> diff --git a/Documentation/gpu/amdgpu/display/index.rst b/Documentation/gpu/amdgpu/display/index.rst
+> index fe2ecad8df81..e23c752ee5f5 100644
+> --- a/Documentation/gpu/amdgpu/display/index.rst
+> +++ b/Documentation/gpu/amdgpu/display/index.rst
+> @@ -26,3 +26,4 @@ table of content:
+>     display-manager.rst
+>     dc-debug.rst
+>     dcn-overview.rst
+> +   dc-glossary.rst
+> diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgpu/index.rst
+> index 5c8cbf514097..ff38c360b04e 100644
+> --- a/Documentation/gpu/amdgpu/index.rst
+> +++ b/Documentation/gpu/amdgpu/index.rst
+> @@ -334,3 +334,10 @@ smartshift_bias
+>  
+>  .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>     :doc: smartshift_bias
+> +
+> +AMDGPU Glossary
+> +===============
+> +
+> +.. toctree::
+> +
+> +   amdgpu-glossary.rst
+> -- 
+> 2.25.1
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
