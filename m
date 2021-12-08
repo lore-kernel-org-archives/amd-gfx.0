@@ -4,118 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908EEC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 16:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF4E7C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 16:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD1D173E69;
-	Wed,  8 Dec 2021 16:49:54 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2048.outbound.protection.outlook.com [40.107.101.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43DCB73E69
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 16:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92AF16F98D;
+	Wed,  8 Dec 2021 16:58:33 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8198D6EA49;
+ Wed,  8 Dec 2021 16:58:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l4TDFNg8KhxLDXpooHLrGo9/lKRR+9zDuZCYwbgpah4LvjoytCTz96+bTHIgOdWM3gZE1LvKJMSQJSVuFFcJA+mXuKjDZVbZ/kUKW2FDJDTD+xda3VeNa442Nw+gfTbb4XDEyclmJ1/Cyyn7JSP6CmhMlkVjRGSX3H9E/VZwXwekbkeYZ3wLhyydta9+Nj69T2qj1tvWEpFUgiWz5DD4sIdQMtik6o0hJacLHVHy6V1Kpmb2ioDkoNftnU3dB0OIylpcXwxlDyqWoZDmrMYNYndRuaeWy+b8rMcFw5pzNDc9fxwSlRdWiXv7X0ZxfCxfy13yXaFMoGTNWNc/o1wnrw==
+ b=lXQMZ/raIE97fpuRhXz4wy36vYi5Avy5+7+IRgP/2sV38Qi/fdGMgc4y9opaGlTaNVKmErWXrzyaSH1EKLo7Xq8rImHDWZSYsLuOyug15047z+A30aFtlQQK7cT5Zq/JJFczBtv+V8HJgtWDFp4u0RwM5ZtXMQdvqaNy/i8u3Rv/MyQAWMfnqq7E6Kb1hOsffF3+hnMvh0EyszmaHOMqB11yWnL0S7FnjC+v9H4uH4B2PF0VEjb+uOCXe/Y4owcO6hJ6pUf9cmroT9YdR8I5fJjryHWEHKVj0Ox8LBDzieLpl56eO0nfYAeQMI1fl0oXHV46qabYpqm+uPhSdyk23A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nh6TdkbRT/3hhIOOSd8+8zA8r100GbsnteCqi/TI63I=;
- b=S8Km+UUEs+lEWnugdASuUNi6TNCV1W+1NZr3B6OMlkuy2Pph2Ey43NUUI0t7MVM8cqbHN8cdReNZIecU9wzZ+JOxV0Y59cJLy5oUZBhlqNdDjldTsDNOeB43ldq+5RGI29nF54yU7BG/0m7hfLGCj7I7ZBP+TOSksfwyN33OhElHG5zhXSI0iuBl8pSVE+K3oIvVOPm7/9HMmq2Uu6hTkigtwGf8Fyy+92D0f09SPCaFnjnEZRPCqtxZCmHcG4Dk3jqIV/rBasQqg6HhX/696ZuLgLkIEW+19FCXUJYqYtlE167H5Tkpy8O/R7+FX2NYXSpQAKBb9DGgGJojbmo+4w==
+ bh=HMfelmiAu8qJRI6DYq6bnj5kc5xr1/NVqUnA2eWCy5M=;
+ b=g6PLah5VOk9e7Ow8OwrR/V5FqYVAdOqoNqy1/cB/9ZiEOKigzIfx4mAReDd5OcR4TQnNBCP3vXBmCvx4zqyu9XOCF3RJo5GKzKP1AtLTThx0uuCD+ka6GFqr3XBgq0Dxfuah1beZrO/FFNJMwq/IKvSNp5+BBBJchR1OV++mcCdr9VnroVW3z2x3aMJpbPsl2OfaEP2MKpqc3sNtRH6VWF14owOxe0la7W7FEg2uA7quvSzy6G0jUn/wc+ATI51l0zbghXGapc0xeD4fov/phN4ClffPnCCUU3p1Tsc9BH2aRWToUHbjBzJ5+vttWPpf566UV37bitELKXYAdNWyzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nh6TdkbRT/3hhIOOSd8+8zA8r100GbsnteCqi/TI63I=;
- b=xLwtqCA52WyqL4FdL1ODze3iZLEOe1wi3nAuF2hmwoNWRwgaUeW4fGYyCq7aS1KSEjKjwQxNmKu//GKbTGNG5mFD8UZgdYl9CxbBr4TdRy20BFDEhaVndlaJmLLveDtMyZwk+MOtL0ILQyEgCiP9w5e9Vr4eT1ZiIbW3eVkiVZc=
-Received: from DM6PR12MB2858.namprd12.prod.outlook.com (2603:10b6:5:182::21)
- by DM6PR12MB2809.namprd12.prod.outlook.com (2603:10b6:5:4a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Wed, 8 Dec
- 2021 16:34:33 +0000
-Received: from DM6PR12MB2858.namprd12.prod.outlook.com
- ([fe80::74bb:cb46:f4ef:73e4]) by DM6PR12MB2858.namprd12.prod.outlook.com
- ([fe80::74bb:cb46:f4ef:73e4%3]) with mapi id 15.20.4755.021; Wed, 8 Dec 2021
- 16:34:33 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdkfd: Make KFD support on Hawaii experimental
-Thread-Topic: [PATCH 2/2] drm/amdkfd: Make KFD support on Hawaii experimental
-Thread-Index: AQHX7A1D/28r3xCsIEqMTvrjAhdvfqwoyr0A
-Date: Wed, 8 Dec 2021 16:34:33 +0000
-Message-ID: <DM6PR12MB28581A2B98772FCA4FDF01FC856F9@DM6PR12MB2858.namprd12.prod.outlook.com>
-References: <20211208082531.918062-1-Felix.Kuehling@amd.com>
- <20211208082531.918062-2-Felix.Kuehling@amd.com>
-In-Reply-To: <20211208082531.918062-2-Felix.Kuehling@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=f5b1c2cf-a7a1-4f44-8efd-bfe18c4b403e;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-08T16:34:07Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=HMfelmiAu8qJRI6DYq6bnj5kc5xr1/NVqUnA2eWCy5M=;
+ b=KXDbWktW6IOlL7BAySAVtgMFB4SBj4F+5WJ7TvpvNovm7sF6yxqAN2ppxT52mX6qEZYvZ5vRk9IdTuF5Osy1ILlJMxMASrhN52uYnvrhozLhb9szux+LWo0YDR0/ehj1FlMnNhT329ckwDEyS0W7du7kaE5H8IU34ywTXDmI9xI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 034fc682-4db4-4378-fcc3-08d9ba689d9b
-x-ms-traffictypediagnostic: DM6PR12MB2809:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB28093F60CC7C1CE5C446B900856F9@DM6PR12MB2809.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:883;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EptP22v99cMfwneNDdlJ+tec0+hVwQAbJANe47d8GueBb9bZuRz4NSpjjkQa+3xDbsu8UZK0QgQJy0/Fi4nt6EFF31qWcUWZ7ylNgAJYk6twcizAa38TDNdUiXlqLKtnxinqYcLfdEyxx/F8ikdTne3Vb/zLWdpTEswZrwQkYMocKDvuGXDlcEZWfncBdjZ6/TLLGWbvzdK8ZLVVdfaIJDMaTyzI8CiI9vIJOGS2/qyVYdWZDJX6skMO9ouvi5CxrVIv0/yoRMlub382rPNQhUFOMjgSSPg4mctJDuMNzoKVptE6gPh+rrOxqnYoCzH+O254+X++cexVvifyFwBBIRNoCMDPLtDTogEtMfZHpxz/DJvJZlkP4bfKVd9NojnVNZJH+3O2PK0BLylMYN/W6egTh5fz9jLtjjRqcJ2qWGtIltDpRu3hUcKf3HuY1gcxYaqUS1ELIs6x4XFJUiLT9aNSxKzO96w1UM9khrZCxaa+UIwxAAWBQqs4yYXwpTlparvl3PJXEVh7IHikwTOMmQELU+aHFQ+6iLbNzbCdDPSChjpH/qDW4Xl1bYA4wuAvb+RoYxnC6WPze2eyezmwSVasWO+MRrcnMk6El1HEZz2fBfXiu0pJchm4rkDJsafC3YIViG9hlHZjvpaNOfpO3AyJLxwcX7B96qg0EtXr/8IGpWsIWAcmlDtBXOZtcTiGyAZ344wAM5zycqw5C9neKQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2858.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(186003)(9686003)(76116006)(66946007)(53546011)(33656002)(52536014)(66476007)(5660300002)(8676002)(6506007)(64756008)(55016003)(66556008)(66446008)(2906002)(86362001)(26005)(122000001)(71200400001)(508600001)(38100700002)(8936002)(38070700005)(83380400001)(110136005)(7696005)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?so0ti0U50Q7hL6HNMnDvGOy2DQLSYYqM3zBaEMOWQrVnkuU5zeQ2Cbme5VO/?=
- =?us-ascii?Q?rOzDXj+8ZOxVpjq8a5zvAvA19pRomTWQdC4enhqiQxinjwmNkdnL/rGYBKcS?=
- =?us-ascii?Q?0wx9oSp0ZAtOiTVk+MOkYpHguLf3L8TZJl172TjcHsJUS4JcY8Sigfz3EN1U?=
- =?us-ascii?Q?4lSnh8QnNWh8M5eOVqXs90tsMhKPG9V4C9Zqfp08bMKZW5sFVoWsTst+Hwk3?=
- =?us-ascii?Q?GUru/ciWN6EI3X+dSRoxw//wioybm7XOJouF/VX6StcSJmGJdaM1XvuTXuRL?=
- =?us-ascii?Q?yqdxOuBPkm7E5CZc1zEYgpMWtQxwlNnTZuhJm89abAsasQzhH2ec32b3BPqR?=
- =?us-ascii?Q?Za+UD5nceO0As6OkEA4fYrPj1mBs608XUwi/VcWEnrHAJxnRWJKaMODSZqaM?=
- =?us-ascii?Q?9IB27cxEvl58AjgRAQUK5UoiM75wLJzIiYgJ92183XfclXfPeoSYx/lmcNzK?=
- =?us-ascii?Q?blPIhiZrtxr/AzBBr/5bg3B2fp0Es8LmA8LTwxiNQHzoivSt7xdVpBl+nP0P?=
- =?us-ascii?Q?SnP0laVxrmXY28IvreyflgjBGVP6jizyMxsX1Zd2j2DjHa0qPqs7OJYHtqn/?=
- =?us-ascii?Q?Z977iP17TYKYzBarcDwdQzJyZxJXNWssSl2+Y+6vsmgEX9Bw8t7mh2iRqZae?=
- =?us-ascii?Q?byfUW8X0+gkolvB/SdmlZ+C9cbs/zGVLyGzP0qYxl6TjjiXeHAiQ3jXOU/hq?=
- =?us-ascii?Q?OrXnpjE9nb9fK5opZ3lRUHpRCqXuvdqTg3rRDfCN6gi0PpXDJ0gecTNxlqkk?=
- =?us-ascii?Q?FI+j0HifBjvjEyqMTRT/m3Ko6mUxuBDecklhWIZ1eHbqZWbf2AeBIW8RYP5t?=
- =?us-ascii?Q?wn4Sv3EMirpGDcHqRj2dcgxg8KLHAf7k32C/XJF1ZhiVmH+SMDLHWcpZgNou?=
- =?us-ascii?Q?1YmArZEAaH0YY0M2RgDRCjV1aQ28hUQISPhbgpezpnnG2WUCsHI9/dYvHwkE?=
- =?us-ascii?Q?BDxj/a4QxJISCcByw9DrV9xvFj4Bp3zMhy1VXYKfKiDqnDRn+UmH7t7+8Q1e?=
- =?us-ascii?Q?2AJ1XhAMCWEAaeXSldaBTl7QNT0N8K9eGRnVaeHcl6WpXIw9YuAMFipgSdkp?=
- =?us-ascii?Q?lmNkMCrqBc+xexeiBdN30bXfL1uOLm3AcqhqVAqMAXmgvZ/H8ng58CKgs9dH?=
- =?us-ascii?Q?d6WBQVqK7s8gtjxjgNGPd1Wjag7c+W5o5vZv9B4SyzMcTwp35Kjp52Lv39Dv?=
- =?us-ascii?Q?6tL+0cfNKJDIhDsoHvHG6pB4iTjhMO1KI2LWHYZQLnKTcSSuMqKD9ZK9GjhH?=
- =?us-ascii?Q?qVtRTzwtpSNv8LUMzrE/09dZikO58ScLbhFRw7Hdvlvnr0xUpT6zLvkGLE3m?=
- =?us-ascii?Q?qX6G9KMdXpAhQiIyreY8zp1uCeaQk8TmTEHwauVejdNbmbF6Q/oMkPd/FsTk?=
- =?us-ascii?Q?dvkbSBxgv473beRtTIKZ0CqT/4QaB4aV3Gxi/on2ZWpf/3QXBJQciHO9Gdlg?=
- =?us-ascii?Q?6/6zN1YV3JbWAI8CdWlps5/JiCa5Syvhfti86UdYkmvm5ix9MbrrodCLaqNS?=
- =?us-ascii?Q?2g4+kdZAZq8YRGK66YrVYEDM2kVvb5xyyY1oAumOz1CAGggcyVJfr5Iz6USc?=
- =?us-ascii?Q?PcWDekxjlgS1Thf6rCCW4vgDUmWWi8jIiyghkDJtZIvT06/RkMzkwhpGkg8+?=
- =?us-ascii?Q?1mdt4KK7sYqDr05nvUSETY4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5308.namprd12.prod.outlook.com (2603:10b6:408:105::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Wed, 8 Dec
+ 2021 16:58:29 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300%7]) with mapi id 15.20.4755.022; Wed, 8 Dec 2021
+ 16:58:29 +0000
+Subject: Re: [PATCH v2 03/11] mm/gup: migrate PIN_LONGTERM dev coherent pages
+ to system
+To: Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org,
+ linux-mm@kvack.org, rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, Alex Sierra <alex.sierra@amd.com>
+References: <20211206185251.20646-1-alex.sierra@amd.com>
+ <20211206185251.20646-4-alex.sierra@amd.com> <2858338.J0npWUQLIM@nvdebian>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <9fa224e6-d51a-d3cc-575b-3d56517a331a@amd.com>
+Date: Wed, 8 Dec 2021 11:58:27 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <2858338.J0npWUQLIM@nvdebian>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT3PR01CA0077.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::25) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+Received: from [192.168.2.100] (142.127.191.123) by
+ YT3PR01CA0077.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.19 via Frontend Transport; Wed, 8 Dec 2021 16:58:28 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 13dc960f-a16f-4f07-522a-08d9ba6bf55f
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5308:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB53089C4A63F846B6D80AD8A8926F9@BN9PR12MB5308.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: v2Pm4bv/Mauxo++G9XNI/sVVFsPzpI+2I+Ni1SLTIrYdT/w4RhbEnebTv1zo8KSbZkWdh5bNNzk3VBMR7QcW7Q2JH4bTOqUYu5jmh4A6gCX6C+z9VoteW+az5G6cG7R3WchPG+/R9SMEFlZX7Q3HTgqIEHoUrsACLKRifR+7RKLgcJzry5W0F1lrS9pcH3bw0XBtGkztisOIGw2TCeeXl7vpB2PxrO/DqI3oHs/rVAmXGFyeP+UW7oknE6zuAm9aBmvFLfCCHIzwZ4icXzPji/ewbWbTqGqi8H9aOS7f/Xm/UcwATNEa6MVBqfOGYN+BE9cXfQwbvNO967iEnjV9E2BQRYvIcPC6+QGh443Iq6g955DMHS41Ktl7jfCEj42xxHCinI290d4rMiIwfab/HqfrUtEUkeOUbpIjn+HSa6j2CCWR59KkZeTFt9XUFsbyC0qqVYuWQ9Bm73EA3v4VY3xehvq0a7F/RxUNsYczlfuWiwpQv3Ts81WcjMC5XSX3FMxQSsTmfBIr1plemD6/3xoplMCqKik2ZumbF8RmFt2A+sVK+RdVcZXfDQ6F6Xd9QifVF6ZzbZB5HzN7+iEMZXFKOzKKtOt7kqeNq0TzxbEFZU9w/ynr4WMChv2PrWooJWv61iXvE2Lf4v5EngjiIvR+wZFW/AECmSk53nb2lQNL6vv8gCiLBytoKvPcUI0UAMUdpbzTeXKqL1+VML5FyjUgbbe9G8eCFVqG8f1HcUjKXlIX/VhseseUZvSIP3wU
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(16576012)(5660300002)(4326008)(66476007)(8936002)(66946007)(26005)(7416002)(8676002)(110136005)(38100700002)(66556008)(31696002)(186003)(6636002)(316002)(956004)(86362001)(6486002)(508600001)(2616005)(2906002)(36756003)(31686004)(44832011)(83380400001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amlFejJtMjhYa2l0Z3owbm9rU0RIN1lUcnR3UnZ1NEtKNkE0VlVLeldWMnRs?=
+ =?utf-8?B?TzVJVlo2d25xcXdFZXN0TDhMZm92azFKdVY4RXh3SlhlMGVqRjFOc2V4NFBG?=
+ =?utf-8?B?NEszTUU2a0Q4a2tMRi9pbnJVVU1WZzh5SGhDakZFVEJkMUhVU0lDbTRCMEFx?=
+ =?utf-8?B?VU1TaFZydkEwVWFLRkZ5WFZvTDJTUmhzVzZOZ2VKV2UxREpxNllCajBnYW5T?=
+ =?utf-8?B?b01xQkFUbTlaaGFaZnhPRjRTQWFmeUh5Ry9MV0xLK1krVEtxdGVGM1NVUHFx?=
+ =?utf-8?B?enl0cGU3QWVXakoxa3NhSFVBZzd1cUpwNXFlbzloUk0rZmY4MEhOOGRvQmNy?=
+ =?utf-8?B?UGNZNStabm1jZ3J2Qm9BL3RJN3hTY3h2aHNTU3FQbjJuVHMxUC9MY0tEQjJl?=
+ =?utf-8?B?bUgybWVoMWZpVDFuVUJkeGdyMzFDZHNENzNsL2g0cG00Mmx2a2dQa3NVdk0r?=
+ =?utf-8?B?algwK3VpZ2NRVGNQU2ZIc0lJYUQ4aWlYdTZVdUFVK0xtbXdTUEJ0WVlXZnZs?=
+ =?utf-8?B?akJ5TnJPSEZBeWtpck82RzhiVTF4clFBNHVTajZJUjd5T1U0VU1udUQzSlg4?=
+ =?utf-8?B?Tm8zcy9nY0JXNUdGVUovQWJtU0p4SHVaM1k2L0g0WUdaV0YvM2JwcnBGa0J5?=
+ =?utf-8?B?NFpTMURJaWZVTFlTa25IZW13ZGtodzVJSGw3Qi9PYnFOTnlXMFhCenREN1NF?=
+ =?utf-8?B?VGJiR1RkWExiTmIvUjdSRXRkZE5lYldpV1pXUW5MbFRkb2pMeUJiNUI3T0pR?=
+ =?utf-8?B?VW50ellKaU9IeUZUL3VxU1NEaUpaN29DNGNPVXordU9IZmtFaTM0UktIOElB?=
+ =?utf-8?B?U0ZqODlNdU1GNWdYNk9zdzNQNXB2OVErZEdoaWlvM3BuTmlZSjcxZGlkdk1r?=
+ =?utf-8?B?aXVlUjhFeVlQNkVzckFKWTZGM2pPQUZsa3NHM05EQTNoNEdtS1U0cTE0ZElq?=
+ =?utf-8?B?cDRFR0sxMkNOWnM4QWx2Q2NUZHMvUHF3ZVlyQWpJRGRxcHFhVlIxaWVTZlZq?=
+ =?utf-8?B?TDFCaFpKQXNxMWRpeFhMRldUdXkxRkRMT0lEWHpkdERUbTFJNGpRZjJGZW9C?=
+ =?utf-8?B?ZTA0Y3VEeDVqaGFuNHlGeU1ZR2NIdFdvVnpXOUZBNHFvQXYyZnVXYVZsQldw?=
+ =?utf-8?B?VFR2VmR0WmtqQytzMzZhK3l2UlpMZ1F0OTFnK2JxQkF1eFpzU0g5SFFuVisz?=
+ =?utf-8?B?dnZlRHZlamJkMFdCRXQ0azFDbGVPRE9yNkx0NjhNSmVjUCtzWUtNRVNacFBE?=
+ =?utf-8?B?RHA3bW5lblhOWlptWTdXRzRWeUlvR1NvMmk5Z29vaXl4VDJPR3l6WUxBNzRt?=
+ =?utf-8?B?WFlvaHhwc2pwTk81ZXRwbkdPMjBKZFlkN0xYNE1oblk0d3NHdVBOYkJ5Q05m?=
+ =?utf-8?B?ay9rK0d2OFdiVjdvZVBXbGw1MlZMU2llTlQxSlJPcUYrVE1vcEVIb2didXQ3?=
+ =?utf-8?B?dlV0eWdBTUM3bWo2eStvZGZ2ek5Va3FndTNRWHVVY2taYUtHYjduL1VZdVgw?=
+ =?utf-8?B?bnB2ZStDVWNhOVRoRTFVK2FuSlBYZ0ROSDJPZDVIb2xJN2o3WEtFZW9ZNmdx?=
+ =?utf-8?B?alBVbFNvTmJQeUdsc1Y4dVIwdTVrQVV6M2hpUFpWeXNwa3NmQythc3d0eE9l?=
+ =?utf-8?B?WGFyY24wanQ1b29rUGtwdmVKN1BWS2xBYjRKUVRvbi90ZXdrVlRMejZYSitq?=
+ =?utf-8?B?ZjhkU3RFRUUvbU5GNlVOTDQwZ3V4M3ZOTGRUdC9XZHlkSVNrYjZTUkJkZEVG?=
+ =?utf-8?B?VlNmMUFjbUFueDIwODJ3ZEh5VCtudmpiQjZvNHZvR1plKzhVTVdRSnlLbmxJ?=
+ =?utf-8?B?TUpYM3J4MmVlY0J4ZEVXV05jNjR5c0RpejdNd0hQWCtIbU05Um9SWU1Pekhw?=
+ =?utf-8?B?azNSS1dmeFVLWGxlSWVrSnNEeE5nUERxcXhqc21vK0FFZjcvdGlkQTBZZFV6?=
+ =?utf-8?B?NTg5WWk5YVQyUzExMTlFcjR6U1I0NGRRLzN5eUpjNW4xcjA4a1hnRUdFTk5q?=
+ =?utf-8?B?VkFQb3p3eFpnZWkxWU9kRkxSaE5SUjJkUkYzVjZuNy9KNkJNVU1Ub1BxcFFF?=
+ =?utf-8?B?Zmd2K21oNjQ2Tk1PbnBXMlhYcnpYNjZUbG81ODJ1dWY0ZUFmS2NpcUo5V0gv?=
+ =?utf-8?B?b0xBbXZTSHRmdlpBcm9adkY3REdUZ2xnR0l5a1VTemFUVmRFclpMOFpMT2VH?=
+ =?utf-8?Q?NL34BxvKKp1YwDmIdJ0zQIU=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13dc960f-a16f-4f07-522a-08d9ba6bf55f
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2858.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 034fc682-4db4-4378-fcc3-08d9ba689d9b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2021 16:34:33.1697 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: K3t+Bq6gFw8sn3AfM4JGrboI2KK9IOzFEEAJVYV8pvaqfrjVkXvTIRaggp26dENCnTt3umHMkJ3nmzufoMrkTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2809
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 16:58:29.2011 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YjVk046th977F+xJFWNf8HmCXLMCGXA97oLE95R3umUK7vG80ySQ4ZJP7p/0yw3rZpjoIokgwZPN0WYjL9lAeA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5308
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,52 +134,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, willy@infradead.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
-
-Reviewed-by: Kent Russell <kent.russell@amd.com>
-
-
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Felix =
-Kuehling
-> Sent: Wednesday, December 8, 2021 3:26 AM
-> To: amd-gfx@lists.freedesktop.org
-> Subject: [PATCH 2/2] drm/amdkfd: Make KFD support on Hawaii experimental
+Am 2021-12-08 um 6:31 a.m. schrieb Alistair Popple:
+> On Tuesday, 7 December 2021 5:52:43 AM AEDT Alex Sierra wrote:
+>> Avoid long term pinning for Coherent device type pages. This could
+>> interfere with their own device memory manager.
+>> If caller tries to get user device coherent pages with PIN_LONGTERM flag
+>> set, those pages will be migrated back to system memory.
+>>
+>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+>> ---
+>>  mm/gup.c | 32 ++++++++++++++++++++++++++++++--
+>>  1 file changed, 30 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/mm/gup.c b/mm/gup.c
+>> index 886d6148d3d0..1572eacf07f4 100644
+>> --- a/mm/gup.c
+>> +++ b/mm/gup.c
+>> @@ -1689,17 +1689,37 @@ struct page *get_dump_page(unsigned long addr)
+>>  #endif /* CONFIG_ELF_CORE */
+>>  
+>>  #ifdef CONFIG_MIGRATION
+>> +static int migrate_device_page(unsigned long address,
+>> +				struct page *page)
+>> +{
+>> +	struct vm_area_struct *vma = find_vma(current->mm, address);
+>> +	struct vm_fault vmf = {
+>> +		.vma = vma,
+>> +		.address = address & PAGE_MASK,
+>> +		.flags = FAULT_FLAG_USER,
+>> +		.pgoff = linear_page_index(vma, address),
+>> +		.gfp_mask = GFP_KERNEL,
+>> +		.page = page,
+>> +	};
+>> +	if (page->pgmap && page->pgmap->ops->migrate_to_ram)
+>> +		return page->pgmap->ops->migrate_to_ram(&vmf);
+> How does this synchronise against pgmap being released? As I understand things
+> at this point we're not holding a reference on either the page or pgmap, so
+> the page and therefore the pgmap may have been freed.
 >
-> Hawaii support is mostly untested these days. ROCm user mode also
-> depends on custom firmware for AQL packet processing, that was never
-> pushed upstream due to quality regressions in graphics driver testing.
->
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 267668b96456..facc28f58c1f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -147,7 +147,11 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *=
-adev, bool
-> vf)
->  #ifdef CONFIG_DRM_AMDGPU_CIK
->       case CHIP_HAWAII:
->               gfx_target_version =3D 70001;
-> -             if (!vf)
-> +             if (!amdgpu_exp_hw_support)
-> +                     pr_info(
-> +     "KFD support on Hawaii is experimental. See modparam exp_hw_support=
-\n"
-> +                             );
-> +             else if (!vf)
->                       f2g =3D &gfx_v7_kfd2kgd;
->               break;
->  #endif
-> --
-> 2.32.0
+> I think a similar problem exists for device private fault handling as well and
+> it has been on my list of things to fix for a while. I think the solution is to
+> call try_get_page(), except it doesn't work with device pages due to the whole
+> refcount thing. That issue is blocking a fair bit of work now so I've started
+> looking into it.
 
+At least the page should have been pinned by the __get_user_pages_locked
+call in __gup_longterm_locked. That refcount is dropped in
+check_and_migrate_movable_pages when it returns 0 or an error.
+
+
+>
+>> +
+>> +	return -EBUSY;
+>> +}
+>> +
+>>  /*
+>>   * Check whether all pages are pinnable, if so return number of pages.  If some
+>>   * pages are not pinnable, migrate them, and unpin all pages. Return zero if
+>>   * pages were migrated, or if some pages were not successfully isolated.
+>>   * Return negative error if migration fails.
+>>   */
+>> -static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>> +static long check_and_migrate_movable_pages(unsigned long start,
+>> +					    unsigned long nr_pages,
+>>  					    struct page **pages,
+>>  					    unsigned int gup_flags)
+>>  {
+>>  	unsigned long i;
+>> +	unsigned long page_index;
+>>  	unsigned long isolation_error_count = 0;
+>>  	bool drain_allow = true;
+>>  	LIST_HEAD(movable_page_list);
+>> @@ -1720,6 +1740,10 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>>  		 * If we get a movable page, since we are going to be pinning
+>>  		 * these entries, try to move them out if possible.
+>>  		 */
+>> +		if (is_device_page(head)) {
+>> +			page_index = i;
+>> +			goto unpin_pages;
+>> +		}
+>>  		if (!is_pinnable_page(head)) {
+>>  			if (PageHuge(head)) {
+>>  				if (!isolate_huge_page(head, &movable_page_list))
+>> @@ -1750,12 +1774,16 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>>  	if (list_empty(&movable_page_list) && !isolation_error_count)
+>>  		return nr_pages;
+>>  
+>> +unpin_pages:
+>>  	if (gup_flags & FOLL_PIN) {
+>>  		unpin_user_pages(pages, nr_pages);
+>>  	} else {
+>>  		for (i = 0; i < nr_pages; i++)
+>>  			put_page(pages[i]);
+>>  	}
+>> +	if (is_device_page(head))
+>> +		return migrate_device_page(start + page_index * PAGE_SIZE, head);
+> This isn't very optimal - if a range contains more than one device page (which
+> seems likely) we will have to go around the whole gup/check_and_migrate loop
+> once for each device page which seems unnecessary. You should be able to either
+> build a list or migrate them as you go through the loop. I'm also currently
+> looking into how to extend migrate_pages() to support device pages which might
+> be useful here too.
+
+We have to do it this way because page->pgmap->ops->migrate_to_ram can
+migrate multiple pages per "CPU page fault" to amortize the cost of
+migration. The AMD driver typically migrates 2MB at a time. Calling
+page->pgmap->ops->migrate_to_ram for each page would probably be even
+less optimal.
+
+Regards,
+  Felix
+
+
+>
+>> +
+>>  	if (!list_empty(&movable_page_list)) {
+>>  		ret = migrate_pages(&movable_page_list, alloc_migration_target,
+>>  				    NULL, (unsigned long)&mtc, MIGRATE_SYNC,
+>> @@ -1798,7 +1826,7 @@ static long __gup_longterm_locked(struct mm_struct *mm,
+>>  					     NULL, gup_flags);
+>>  		if (rc <= 0)
+>>  			break;
+>> -		rc = check_and_migrate_movable_pages(rc, pages, gup_flags);
+>> +		rc = check_and_migrate_movable_pages(start, rc, pages, gup_flags);
+>>  	} while (!rc);
+>>  	memalloc_pin_restore(flags);
+>>  
+>>
+>
+>
