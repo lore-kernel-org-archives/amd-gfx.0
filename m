@@ -4,120 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D22D9C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 16:00:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1449C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 16:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 432416FA56;
-	Wed,  8 Dec 2021 16:00:48 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA0E7359C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 16:00:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6939772F3B;
+	Wed,  8 Dec 2021 16:09:38 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B57372F3B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 16:09:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fcZMQo9fJRQeVEcbEyr38E+7FKMOwFk8a0wKny07k8wfSj8Daq7GBN5d3bnaEGJx3B84VXDHa/UKPncxsSXdoVGncaqsoZnwXeGWPZonsX8kgAOsQs73eyiEpUocvpCEDStCY8Q5UBT6y6dKyr09xCswDJviOPUtwczgUMqL+xsjW9cDf3KWVsP8wsw8ovSDbKdKIfoNPxy0buxHfqpt19Ci28Z85BH5XUypf463dlqJXfwakNexSkfgdeNC+XpbsOOfpp6hVkhKcXoUWlV3Jq9Fjkz9m7ARPiNnTkLJYWu6QpSOFzt/G5THpCnv3PWH7m3LmQ+Ut+BQRb4jmLGdZg==
+ b=epH4hnBQXqtwebITYNLNqNwKRhHp8Rw/SA2Mwco/u5IzBhRuZIav1gmc2VMnykPLaXIT/CG3xJV6Hr1rX0MjaGP9ztAR+BXkeUMzgWCTVLsiUfcHVIdTegk91FRXZIlYOfMVAbNQQ5nUegZm4DEWNdzwWbRnRRAzXAfSaxGX3osvALDg+0bqP/yW4CvQ7ve999tcW8GJT+EJP7Q7nUtUUw7KdVW/duyvuaIhnp9ZgiRi60qp29CZrba0EJbcwyKWDwE/8XCYyNX7yjSt52KLtR+zkBqri9wX/fsViPXjANUt9m/FNHQRCzJCvRcIu5ntQ8xd2I8UNStAzj6tfw0X0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wr/7xtDxLfYZLUEuSpxEK4fCK5S63a+ylWz15MuGz5s=;
- b=HO847g+ZvOzyArC7tB+Mtrg4d2gTNsX81tVdLhlo3GVK608Dvtap2GKVbsEoOT9xpj3SAPM2ZD0CHHz3iaUJgRW7C8vWhYRcs152s6vJzjbjukYAGTS8B0+rUyx2j1h3qlyqJ5lDwi+555GWu50P7kSiCBqacgbk1ujOI0veKJNR7gcZfadCVO9KcLSCB03hJygZLmNWCtjBEi8CSE32/YS6HF/BJZytvnrVVceOowSe2w3K5ZeQ6+BoNkbdFnGQmhnYXmIoGMu5mlTG2Yxjx/kzNH/ZhVOb5zLHm7LVrEdbL5/ahGYLiQn81WQ/b8/JU12kHplSl6RHwVB3vkZ/rg==
+ bh=BSIt7VYFl6Ek+OwVlN8dMORdocfJTWhIIUZlHqIHiaE=;
+ b=nIGm5Oh/NyLRiEIz0XxfWoCiwAD0/0UHmEdLjR0+BRTGCvitb2Fv/lwSofUEC0WXWa4/kuUslzs2ATgYTrZlG3gIor2qAj2BUHdHxtDuA7XzCDMYJdruhCSFVm+X0GA6BEpQHaJ6oOOD/gOF4YVAMGoVE4QATNBI7Di8P17OdrqmRkr7Uw/DR0Uq5u1Hao8kLLlp+KTvYCVUZVlJF2+8360eKRap6oUMYz8r6fp+HMHa92uhC4dXz0Dxh66B/TPoBU0ph6bRwYHXZsWYJSRKQ+ToijsFeP7fQFo6+VLKFjpMG96fQ56NUmg1gZ9S12kMeGGXWFqo4ewHVgozshp+sQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wr/7xtDxLfYZLUEuSpxEK4fCK5S63a+ylWz15MuGz5s=;
- b=0kGjgDDYoWPuiT5hc+Kuud1eC8zUhy6xL8vJF8PlmXZHG8G0K/tWQOScjBav44QK54sxq7qcmBWA2BpPfQ197qbGwkwrWsOgPkBHbbPj8lHii30Xy6/lR/IBTtpxxrcVHlomU809HBbw2IsKWJb1ISZpra0I+SLfjs1EPf9X0/4=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by CH0PR12MB5347.namprd12.prod.outlook.com (2603:10b6:610:d6::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.22; Wed, 8 Dec
- 2021 16:00:41 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::fc8b:a234:609b:884b]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::fc8b:a234:609b:884b%9]) with mapi id 15.20.4778.012; Wed, 8 Dec 2021
- 16:00:41 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Isabella
- Basso <isabbasso@riseup.net>
-Subject: Re: [PATCH] drm/amd/display: fix a missing prototype warning in DCN303
-Thread-Topic: [PATCH] drm/amd/display: fix a missing prototype warning in
- DCN303
-Thread-Index: AQHX66FVaa+kh+eVRE2Ao+13REt/P6wotjuAgAAH/h4=
-Date: Wed, 8 Dec 2021 16:00:41 +0000
-Message-ID: <CH0PR12MB5284EC1FDF4A0500436C432A8B6F9@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20211207191825.2463733-1-aurabindo.pillai@amd.com>
- <8e27923b-bc18-09fe-c7a6-82f70f33f57b@amd.com>
-In-Reply-To: <8e27923b-bc18-09fe-c7a6-82f70f33f57b@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-08T16:00:40.690Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 153f0a51-1d48-f74f-0c62-583cf3c32060
-authentication-results: dkim=none (message not signed)
+ bh=BSIt7VYFl6Ek+OwVlN8dMORdocfJTWhIIUZlHqIHiaE=;
+ b=F7ura9CdDx4NwUUF8n99KLLHYBPvY+N3N11gAMD6rJ74efBFSSa/6GhbV9FpHU//XKZN4jcYTwcovZZaSZvYahtOtG0za1k9GemFhvQVOJQH5Edgtzy5TZ07Xa2iwzzn7zP4noj8hAVesYdqsnRAhJC/P7PbpUwFaExHQoMpSPI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4ef25454-c5ae-4a5c-13e9-08d9ba63e29e
-x-ms-traffictypediagnostic: CH0PR12MB5347:EE_
-x-microsoft-antispam-prvs: <CH0PR12MB53472B6943A872204A4F07B88B6F9@CH0PR12MB5347.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:93;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hHq609DMGhfCfpUofTtsgI5cByAdYXqgZpSp1UIYbOjh1T1ALOF+B8jyOp4uufx02Km/srka3O/AIfgOBcTaUBy8AsX98sEN3XvUyfQ4371jqHFtSWiO9ihs1BUV/lO+Zweh+n3h1OiG0cGTSueX95rbbZ0tbwwJ27/9wIbbZp8wsA1gb/RR9Fp98Sjs7H21/tGHyxpaiPlwUMaSp3Bi1rCJfkxe0lEnpHmmVw4AKRe2gt/+WaDwFEPAVo77J+Pmbw27Kloya5ualK2n1XzHlbiZRL4Q0KYQmrJ3R8/HDIgLMhLecaOVDtdMfMD0ELPyOaYmjvxm6riX65tWV8xAE4N3TSadz2HHNZoJXXvscDT7oWqUk7GVoVqaL49TQjqp3RZjMATBY88P3oTSx41nksM4k4op5zHZir2Q69RLOpgA59wFFl42b+h4wzlHM1qdByDeZ9bwdOmGBoJsiLfA1AZFyZup0weFedFUMNUXBqTwhhaQoMuLoL4LjHvwByW5FuYEzKROQ3f/SRPWSoNQwfvJKTbisRVoBLoM7ytM30LXwI1SQJBVdXSQtmoohtAm/1VAYapAgFxtnwL0zhA2Cxf83ZzTsgA2h2EDlgXEmLyGvGS7ysWl39lcxabRst63sPmgIsUc2iQmxC20ya1ZWAWQVe/bcW5geuw1CppB9mbTNP09aXc09XYDBM5i0z1ME8/7srY5Qyk06A9UDYudlw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(91956017)(66446008)(71200400001)(66556008)(38100700002)(64756008)(54906003)(66476007)(122000001)(55016003)(66946007)(166002)(8936002)(2906002)(33656002)(76116006)(110136005)(966005)(83380400001)(38070700005)(86362001)(5660300002)(52536014)(186003)(508600001)(8676002)(7696005)(9686003)(6506007)(26005)(53546011)(316002)(19627405001)(4326008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Hg7+SoGUW95jZcsEhc8kjS5u72YWO1MEdWUR4L1vmcaPGMMSVW2TZIGxI4ef?=
- =?us-ascii?Q?N9BWFO7d2h4z/MTS0Eb4khE3QmbxSdFVwZfoKoun5c9P4iF0x3Epde5e7c0l?=
- =?us-ascii?Q?liCqd6LSa8ILaAXi8ilaem1T+C+RryD5KRLf4B3d1gwGqGiY7Zdld/l8uZOR?=
- =?us-ascii?Q?90Yzz7rtkleSq5cltv2zIJP3vTLKuauUoqKgMBZFjGOxPnPvLWny9A5F3HCX?=
- =?us-ascii?Q?Iy4lZAPaiQG4Er87GW2eJLgyi+pOtxuOpAy3QsFVCsFu9hv2ul1aXvcItp4g?=
- =?us-ascii?Q?fQc+bIhi92dYH2gg8UNQiDDwh3aUjPKvdipJTUYT1i1hXN3mFn+bOoUAJuPT?=
- =?us-ascii?Q?2xSQu7u3uKEH1KN44F/JxvSaYTOCIpoSzVa1uPMOYdRSYIKmjg2zboGp2QSE?=
- =?us-ascii?Q?JkzDzPEMW/YAgeGuOUOPi2qjH+Esh9AvZg9z6RxZk3mb5rjKnzEjPZn7+2pE?=
- =?us-ascii?Q?ekiSEGFbFYsgNHNDqAMAVxd6IGxHZfkuEzUjkXaoCHjkp1s7oPvi9o/8n/7L?=
- =?us-ascii?Q?lHDz4s04uGaflqebT6Pu8iZUvPTerbNuBfvFOeqtKgYQ6TuPC2kzsfN8jNLP?=
- =?us-ascii?Q?8M4hCmPnWoGVWdrRPJ0KuzxKC+J0L3qzhYYTd9RGcviT4h+zW4Iqxm1khHJA?=
- =?us-ascii?Q?VvC8onrNESc1BXyyOeS4WIMP6LdjsbYh4jwwHomG2a3xApMRuTr2+iZbhFNQ?=
- =?us-ascii?Q?sPVuF2GPpbVrgUCm0Xa88PAJPTDGbOJlis4bzKrDg+clte64hf6jZDrNFV7A?=
- =?us-ascii?Q?6e4KAPJz4iLI1y0qVQGAiU8Y//sZwdHThKlAv+6vKEmz080Y6hFdZy6CsLmG?=
- =?us-ascii?Q?Py37Ar6Tazg9eV4q1dokhsiGiEb5/i1mYUd9jTDcuPscuYuEccvWbJ89eoRT?=
- =?us-ascii?Q?HneK8mLPKvQ4Y8LEueKxgL4aX+Dc6nWYTf+6/S2exeGqmZbkmu+K7C8y7aX+?=
- =?us-ascii?Q?RSly1GeYUjpp0rmo+g7HsWTVj7Ygs8ae5sakO3ZTa3NtODOUBApQdQ/ouEuz?=
- =?us-ascii?Q?HmrhdJpQHF35Y8vCWPkXxoRNsVLFFh99cOCzwjgZZg6yCts4Y22zNCdtH+bO?=
- =?us-ascii?Q?hlFbzMTOjRqy3UBy89useqw+qfoWyUKPqNIHk6cQXpRq/Zie1S9jULW1qV+q?=
- =?us-ascii?Q?Z1CciXGq4obEEH1qyaPkj6sxcTX4Hzwl519s+Bve14RS683BC0XuAWI/yEkX?=
- =?us-ascii?Q?nKkSYqCEX8Lrf8Co+cC5SYDpR8uZd4VfPF0HRleOObSr72qbEEpjHBWOJWq2?=
- =?us-ascii?Q?X7v9/Co95y8Ai0WxB3iMx3jTud83x1DqvgEKBqFKV7PzfWjizhUOrz//rsQC?=
- =?us-ascii?Q?UghJurylqikv7yahSI+Nral2Jy7cuSmx6a9YiYJAOSGOmMVPvRwt5zWe6mCs?=
- =?us-ascii?Q?30kgGWbO1YYsEM2AGSdN2VvDPD1Mta6MXg7541ccnXNiFJtq/1fW0m1zhdGO?=
- =?us-ascii?Q?QpoD9WrktXpmS1GWCybBCQydD0wW0BTGOnR63k4xALvLRcUh3133M61/5NfK?=
- =?us-ascii?Q?L+F4Wh7FuwX/uFB8Oe+5ifV8ayZ7tebGRm2ZQJ9wigkUKMCZFWrflC7t2aN4?=
- =?us-ascii?Q?hJ1C82zGOc6cRopfeV8z9wOeyejLmQrevIrWApuPwyumXfof2HRTQS1XGvKF?=
- =?us-ascii?Q?yA=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB5284EC1FDF4A0500436C432A8B6F9CH0PR12MB5284namp_"
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
+ by DM6PR12MB3305.namprd12.prod.outlook.com (2603:10b6:5:189::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Wed, 8 Dec
+ 2021 15:35:56 +0000
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4778.013; Wed, 8 Dec 2021
+ 15:35:56 +0000
+Message-ID: <6879fff2-fd58-677d-7473-682f1413c5d3@amd.com>
+Date: Wed, 8 Dec 2021 21:05:40 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH] drm/amdgpu: fix incorrect VCN revision in SRIOV
+Content-Language: en-US
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Shi, Leslie" <Yuliang.Shi@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20211208084615.437375-1-Yuliang.Shi@amd.com>
+ <DM5PR12MB246969CECC6AC8D12C2856A3F16F9@DM5PR12MB2469.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <DM5PR12MB246969CECC6AC8D12C2856A3F16F9@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BMXPR01CA0096.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:54::36) To DM6PR12MB3930.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 58cb5620-28ad-4512-54c1-08d9ba606cff
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3305:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB330584ED368195D0181C39E9976F9@DM6PR12MB3305.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Kb/TAxBd4kgOH3ihNxoqgaWIZW8n6DeCrclFFydC2pvompUqstXC2iPx0vcnQP8YdB86gm67HRAeplgqSB8cm6NtirJgAv6al3CFvV6wrKK6W4/xEHl8JHKbhJZYRb/w9Npw5V1ZZonw5ITwQP41w+gARP8NEuDJ+BDnmuBxiHt0VzwrWVr/XMYS95SFqU497tA5xX0d+DE+LKK8ZLf4s99hHy79yq4+xmrfNIrLChVbXxGhEnXdf1W32dm1j7QBhdlfFqtbBrLU40kCddRJWcrtOtWxipUkCaorKj9gDnj8eb0rU81pX1iCPtX44XaH9i8N7fCsW2ASc4LfY1TcHdtSvs+e/eGu6h8A6qglmcqESEUg9k8KQZdyOKg9ag5PLbsEQtW5JoR7cWdh2FWLY1xsuCgkyBNJGUxYLu2SRmBhByBDi5AAZDYkcHxOr8Cym+mSg+yjhDEocevqYvpWZ6kW7P6U1Ow8sfWUbgqG38P9WzDOTiMvQf45Eop60Uj/ymdC0fgxNJRugOwe9J+/TpMgq9xh9kGAvgW/tl8bVRhcEnmn0SU+llzcJbsdsJAT+gjxmTxYQ48OzRmWomocGQTjAhgIPnunJvLzppkOIIfssI0hwXhX5BePepwxKttMbgO/WHuqnoTI+weGLwlbF2wb6uwsAT2hMx9+Bbp1yPHcXoIrIZrsDUJj5+792oCj22GM8tS4423Sr5uctCFV8EUZcK9TVmGNQ83QXwOhZSA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(53546011)(6506007)(31686004)(5660300002)(2906002)(26005)(83380400001)(508600001)(86362001)(110136005)(6512007)(6486002)(38100700002)(316002)(36756003)(2616005)(66556008)(66946007)(31696002)(8936002)(8676002)(66476007)(6666004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vm43NzF2c2xaSlorQkRaazV0S0FJZGY1OHJvSGN0ZTdqcVh1ZUVJOVQ1N2hv?=
+ =?utf-8?B?TUhBWDkzZDRWdUV3S0FsV2k3dloyK09RYk1IMFFJZSt2ME1uemc4UmMwd1NI?=
+ =?utf-8?B?MGxsVENWckFwRFFpc1J6bFg4cjRGZXZnN2g2cjd5dCtUVmVPMnRlYk01WVJr?=
+ =?utf-8?B?RVJ4eG5HRmRZS1dVb1Jsb1dBNFRhSDNLdmJYTjF0M3dIdXpWMkZsQkNJaUVO?=
+ =?utf-8?B?dndKNmppZjRNYVdYUmRSZk00TkVJcllMcFhsNXl0V3JZaHZOTDJZWGJoRmg3?=
+ =?utf-8?B?bEtyd3pIck5qbHQwcEJjLzV3aG93OWZSMDkvVHNra09qaENTUVJLaGV3MmNP?=
+ =?utf-8?B?QXNaNWhsY3NhWnlUR2tVNEVLYjh3eWorbGppUDFQa0g0OGFaNjhmVjBRSnhE?=
+ =?utf-8?B?OGZ4UzhMRGlFRXhvbEJlV2p2elhRZVZrejN1enhPU2t4VHJ2aFJLU1IxQnNL?=
+ =?utf-8?B?TjZ1NSsvZmJUb2sxQ3VNVEt2cXZCbktlOTFKNFZucm5sMFBDOU9IalQ0a2Fw?=
+ =?utf-8?B?Vlh0bUxKY3JVTmM0WHdkRCtaQXBNUWRodll1S0svWmxNRHplQWtDUnJBNzNq?=
+ =?utf-8?B?cmxBWGdnT3dHQXgvM3JOeHpOMVAxanYzUFhTcS81QzBlczNBcTJKZFQwak9m?=
+ =?utf-8?B?ZUcxSlpKT3Iwc0RHTUErNk1xQ0k5N3RVNXptUVBxWjBFcEpacUwwQkxRaVR4?=
+ =?utf-8?B?NGFGcjJINkdxZVNpMUQ2ekN0U3orbFlNb04xekJudWNqUmN5ejl0Vk8rTEN5?=
+ =?utf-8?B?K3RFRjhnQ1BhMnJuYzZnbnN6K2c3MXVlZ1FrS0J5ZmlENUhlbzRpMnhmQ2NZ?=
+ =?utf-8?B?L0dQNVN3a2t4MUhlcGV0OElSYVBqMUZpQnpxN2FjVWJsWjlnYkdnaE9BMFg3?=
+ =?utf-8?B?Tnh4SnhTYi82UkYvWWpralg3RXVoWVdzR0tYZ0UxUTUzWi9VT080SUxmRHJx?=
+ =?utf-8?B?K09DclRmSVVCcnpLUlZqY2FWKzBpR1BrK0xRTmg2TFJ1TjAwQ3k0OFVXOGFF?=
+ =?utf-8?B?a0ZhZkp0bWxudUtpejNhSkF0WjFTYmhRMzJZSGZWRlJBOWRXdlEvZ1psb3Ra?=
+ =?utf-8?B?WUVta09qTDd0dDZuY0JkUmh3QUFPbjd1Qm0zbmRtbWZ3WFFWaE5OK216QUlY?=
+ =?utf-8?B?MzhjSkI4aXp3dDJDM0VzUThYcVlyVTJJMjkrSUN1WURweHVKc1pPWHdDaFlO?=
+ =?utf-8?B?NkdETmtrdVU3VERXcmNVK0lUUTFkbU4vZitRVjN6bEhVNW9SMXliR3VoQ3o0?=
+ =?utf-8?B?RHhRaU9aTEVkMTQwNFBvTmpsVUpOV2xJRW4zSHBlb1NzQkpLNkR1aXpHSURh?=
+ =?utf-8?B?M3lWa290TjNSamg1eHZuWjJJMXdMSDN6RDVGWHMzcStiZ09JTnJrVjhUb2l1?=
+ =?utf-8?B?UjdnU001ays3K3JYSlpFZlFUQ2tOVjFZbkZZQ0F4djUvRDNDZXBNQTBPUjFY?=
+ =?utf-8?B?Z2dKUEh4UGR0bXlSS3VYaHdFczFsL1oxYTNzdnJlSWF3ZFRBV2RpeEJma0hq?=
+ =?utf-8?B?RFJGdVhDbGpnQTRlM3d6dndkM1FUdHpyU1NUS0k1c1FuNmhXSm5CTzM0T0c5?=
+ =?utf-8?B?MVlqSC9IK3ZiNG5mNC9Eb0lOT1RqWHViSU1paXRJWnZCQ21nejRNOHR0MXRN?=
+ =?utf-8?B?OHEwRTh1QlpkOU1JOUtQQkNKOWJ1alhCaDZiY3pIRUVzZm1SdzVUbS9TdGJG?=
+ =?utf-8?B?ZG9WYXYrUG15ckdUcFpDcGQ2cUFCUTdxNGE3WGNEL29hR0pmZ0JaYXVNams3?=
+ =?utf-8?B?UjQ5eVJLZEpOZWxOTGo3ZmFaZ2pNdHlhN3JUdlEwQTZBa0FmNFR1OUhiSnNn?=
+ =?utf-8?B?VVBhSS94R1dSd2R1UUJ3TWJpMzlUTVZRWXZmS0t0UVpnaGZMN0V2eXFaS1J0?=
+ =?utf-8?B?NUMrdlE0WVpra3JxWXZJWmtxQ3dPakVyQi9BTnRxOC9IaDFHc2dzQnZ5bGEz?=
+ =?utf-8?B?cFdkOG5raFVHeUJSWG96U0Voa21Nd2NzekZQQ2liY1QrazFCYndJZDJoTnc3?=
+ =?utf-8?B?SEtDNnJHalQvTlF4VlNBbFQ3bm5tV0tOVG9xeDBObzFYWDE0b1ZNQjhXZXpa?=
+ =?utf-8?B?QmlDa2lhbjBsTFhTdFoyeXJlRWVzeGJyUkFxYVROYnM4UW1HTGRVU2tpVUh5?=
+ =?utf-8?Q?DyTk=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58cb5620-28ad-4512-54c1-08d9ba606cff
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ef25454-c5ae-4a5c-13e9-08d9ba63e29e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2021 16:00:41.5081 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xsyvqtHvJCQkoaKDbtFQ1ehcw0Di1oTqKkSn24+U/XXfu34f2noRt4ElbYHq/+GdkpA7ELISOMJkPc34udaW8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5347
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 15:35:56.2172 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OCJQ3K4iFRxCLMhMeGfg9CIe2sSDCYIREtG+njW1T64lkUDDhwf9Ng3LDMrzGzE6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,208 +127,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wentland, Harry" <Harry.Wentland@amd.com>,
- kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB5284EC1FDF4A0500436C432A8B6F9CH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only]
-
-Hi Siqueira,
-
-Thanks for the heads up, lets apply Isabella's patch instead.
-
---
-
-Regards,
-Jay
-________________________________
-From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>
-Sent: Wednesday, December 8, 2021 10:17 AM
-To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; amd-gfx@lists.freedesktop=
-.org <amd-gfx@lists.freedesktop.org>; Isabella Basso <isabbasso@riseup.net>
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Siqueira, Rodrigo <Rodrigo.Si=
-queira@amd.com>; kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] drm/amd/display: fix a missing prototype warning in DC=
-N303
 
 
+On 12/8/2021 2:43 PM, Chen, Guchun wrote:
+> [Public]
+> 
+> Hi Leslie,
+> 
+> Can we move revision handling in this patch into amdgpu_discovery_get_vcn_version? Then we will maintain all revision handlings only in amdgpu_discovery.c.
+> 
 
-On 2021-12-07 2:18 p.m., Aurabindo Pillai wrote:
-> [Why&How]
-> A missing include statement triggered a warning when running
-> a build with W=3D1:
->
->>> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn303/dcn303_init.c:30:6: war=
-ning: no previous prototype for 'dcn303_hw_sequencer_construct' [-Wmissing-=
-prototypes]
->        30 | void dcn303_hw_sequencer_construct(struct dc *dc)
->           |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> Fixes: cd6d421e3d1a (drm/amd/display: Initial DC support for Beige Goby)
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+This seems to be more about VCN config than revision. A better thing to 
+do will be to rename sriov_config as vcn_config and use that here 
+(regardless of SRIOV or not).
+
+Change discovery code to -
+	adev->vcn.vcn_config[adev->vcn.num_vcn_inst] = (ip->revision & 0xc0);
+
+And check here as:
+	vcn_config & VCN_BLOCK_ENCODE_DISABLE_MASK
+
+Looks like baremetal enables all and VF enables only encode or decode on 
+particular VCN instance.
+
+Thanks,
+Lijo
+
+> Regards,
+> Guchun
+> 
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Leslie Shi
+> Sent: Wednesday, December 8, 2021 4:46 PM
+> To: amd-gfx@lists.freedesktop.org
+> Subject: [PATCH] drm/amdgpu: fix incorrect VCN revision in SRIOV
+> 
+> Guest OS will setup VCN instance 1 which is disabled as an enabled instance.
+> This will cause VCN ib ring test failure during modprobe.
+> 
+> Fixes: 36b7d5646476 ("drm/amdgpu: handle SRIOV VCN revision parsing")
+> Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
 > ---
->   drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c b/driver=
-s/gpu/drm/amd/display/dc/dcn303/dcn303_init.c
-> index aa5dbbade2bd..d59b24a972bc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c
-> @@ -7,6 +7,7 @@
->
->   #include "dcn303_hwseq.h"
->   #include "dcn30/dcn30_init.h"
-> +#include "dcn303_init.h"
->   #include "dc.h"
->
->   void dcn303_hw_sequencer_construct(struct dc *dc)
->
-
-Hi Jay,
-
-Isabella made the below patch that fixes this issue in multiple files:
-
-  https://patchwork.freedesktop.org/patch/465821/?series=3D97701&rev=3D1
-
-Maybe we can go ahead with Isabella's patch?
-
-Thanks
-Siqueira
-
---_000_CH0PR12MB5284EC1FDF4A0500436C432A8B6F9CH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-Hi Siqueira,<br>
-</div>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks for the heads up, lets apply Isabella's patch instead.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"Signature">
-<div>
-<div></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
---</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jay<br>
-</div>
-</div>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Siqueira, Rodrigo &lt=
-;Rodrigo.Siqueira@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, December 8, 2021 10:17 AM<br>
-<b>To:</b> Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; amd-gfx@list=
-s.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; Isabella Basso &lt=
-;isabbasso@riseup.net&gt;<br>
-<b>Cc:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Siqueira, Rodrig=
-o &lt;Rodrigo.Siqueira@amd.com&gt;; kernel test robot &lt;lkp@intel.com&gt;=
-<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: fix a missing prototype warnin=
-g in DCN303</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-<br>
-On 2021-12-07 2:18 p.m., Aurabindo Pillai wrote:<br>
-&gt; [Why&amp;How]<br>
-&gt; A missing include statement triggered a warning when running<br>
-&gt; a build with W=3D1:<br>
-&gt; <br>
-&gt;&gt;&gt; drivers/gpu/drm/amd/amdgpu/../display/dc/dcn303/dcn303_init.c:=
-30:6: warning: no previous prototype for 'dcn303_hw_sequencer_construct' [-=
-Wmissing-prototypes]<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 | void dcn303_hw_sequence=
-r_construct(struct dc *dc)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
-&gt; <br>
-&gt; Fixes: cd6d421e3d1a (drm/amd/display: Initial DC support for Beige Gob=
-y)<br>
-&gt; Reported-by: kernel test robot &lt;lkp@intel.com&gt;<br>
-&gt; Signed-off-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c | 1 +<=
-br>
-&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(+)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c b/dri=
-vers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c<br>
-&gt; index aa5dbbade2bd..d59b24a972bc 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_init.c<br>
-&gt; @@ -7,6 +7,7 @@<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; #include &quot;dcn303_hwseq.h&quot;<br>
-&gt;&nbsp;&nbsp; #include &quot;dcn30/dcn30_init.h&quot;<br>
-&gt; +#include &quot;dcn303_init.h&quot;<br>
-&gt;&nbsp;&nbsp; #include &quot;dc.h&quot;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; void dcn303_hw_sequencer_construct(struct dc *dc)<br>
-&gt; <br>
-<br>
-Hi Jay,<br>
-<br>
-Isabella made the below patch that fixes this issue in multiple files:<br>
-<br>
-&nbsp; <a href=3D"https://patchwork.freedesktop.org/patch/465821/?series=3D=
-97701&amp;rev=3D1">https://patchwork.freedesktop.org/patch/465821/?series=
-=3D97701&amp;rev=3D1</a><br>
-<br>
-Maybe we can go ahead with Isabella's patch?<br>
-<br>
-Thanks<br>
-Siqueira<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CH0PR12MB5284EC1FDF4A0500436C432A8B6F9CH0PR12MB5284namp_--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> index 2658414c503d..2323815ac32d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -293,6 +293,9 @@ bool amdgpu_vcn_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_ring_type t
+>   	if (amdgpu_discovery_get_vcn_version(adev, vcn_instance, &major, &minor, &revision) != 0)
+>   		return true;
+>   
+> +	if (amdgpu_sriov_vf(adev))
+> +		revision |= adev->vcn.sriov_config[vcn_instance] << 6;
+> +
+>   	if ((type == VCN_ENCODE_RING) && (revision & VCN_BLOCK_ENCODE_DISABLE_MASK)) {
+>   		ret = true;
+>   	} else if ((type == VCN_DECODE_RING) && (revision & VCN_BLOCK_DECODE_DISABLE_MASK)) {
+> 
