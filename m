@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7AAC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 19:44:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF671C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 19:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE6F6E88D;
-	Wed,  8 Dec 2021 19:44:36 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47E3B6E88D
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 19:44:35 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id u74so5504355oie.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 11:44:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 402726E14C;
+	Wed,  8 Dec 2021 19:46:37 +0000 (UTC)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 860406E14C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 19:46:34 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ a23-20020a9d4717000000b0056c15d6d0caso3794423otf.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 11:46:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7ECrupbMHTPE+1nRLDFA7DADoN+yGQTgbBNQe1Fpyyg=;
- b=H09wUMpcVX20dBR5eyB1s3OjZ9Mil3mvRZNUrcyfI1pb91Z4zvD+OrUmk8HZgs/1ND
- urAs+JNgA1dR9lpoxHgT/GxNCBusyxWJ5cov6Fn9vXdn4pLJRRYOJ0+GxYntNhsKXi0z
- hwfbJOyHq/9oVIcuGImP/Ct3TX3qqZXhsEdUfQ1cz6ZPxsUN0ygZsc9h2C80LOLC540L
- qd1jc+IjPjrwnDYjWGQt8oBeA5CnliIZwfGxvb3IRybkRNDdKplMXLCRBSIezAE9epAj
- K+LR1CLsTPi7HDgopDr2lVyE0LOB0D1jy00i9E4bDcKzs2Cq4UFRRGGTa98IyavAEQJE
- bgHQ==
+ :cc; bh=XCzF4SVZhA+iCq3EqvzQXjwTykSlZ3KOpsF8lPaDKME=;
+ b=mS+qHPi4QpdetCIGI0TDExkLrHwzoME3CHyLpuisIFyAQIjT9tC/1hDulyF2kZfnUP
+ rDQqVQvYv/qzlNjDfwzVJ3qROyNwWfX0xKSJAoOqlrA7hUMXxrL35lZt6AXlbiL3kWsK
+ 13gcxQaHJMt9ZEJQfLY2oeOO14xR39IoCoVt/J2cw7sHeiaUjHqbGJ3z6B5xcfeNsZLI
+ KjwJgYoQEXQfq4Ee84+yN3EeiJjwWfvGZ19xT8J+Pjdrp99t57C5MOsQ50XF81gmPApu
+ j4FdhzyStVRiWS4bQWgStgvjHUNbM7+/kH6d492Hr7JUM1iZbhCcGb3tRAmkmfNrcBPT
+ BrSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=7ECrupbMHTPE+1nRLDFA7DADoN+yGQTgbBNQe1Fpyyg=;
- b=F6y3Ip7vgorC56BGbkL1u0l/uxPIX7J/Xs2N+pDrpDm2TXkZRolUv1xknXtVh8dQ6U
- 0EHZX3UHHGAexUenppGA0/2rnzTymDmLDiPxDmoCvVA/LquC1hmgSM5nE/ltFan5ngsa
- FefCXDTo3fASlmdjRmuYIkdWKv4RKH8Uz/+Gldy3BgMVWQikdzzxeJz2qjhXxBqvZ8FE
- HsyBey713bKdnw+Hl/hUG38TTY2dkQknlq4n1oXnvEUfYet8b3pHWn3oBmW0y3Wmzx/h
- Gjn3JHRR2G5MrtqTeBp1IC8PYzfw4QxZ58lRMkWHV4Q6IPK5hy9h9DzjAce093qNOJUk
- tdtQ==
-X-Gm-Message-State: AOAM533EbYnUWRdgRUyYdhOHuevs5PoL9LzdzBKXnRJ7Dzy4X+5ORqbL
- 1zHtvD18KRmQQDK2ha4HCKgQgcp0/qPrFONgaA4=
-X-Google-Smtp-Source: ABdhPJyDpt89Mc+N2MvL5/XrG652g2wdSgoCb8ZF0CdRi6H35sDGiUVIpjdafttt5E8b6JDh7hn4gj/T9bRY0XxO3w8=
-X-Received: by 2002:a05:6808:44:: with SMTP id
- v4mr1400662oic.123.1638992674208; 
- Wed, 08 Dec 2021 11:44:34 -0800 (PST)
+ bh=XCzF4SVZhA+iCq3EqvzQXjwTykSlZ3KOpsF8lPaDKME=;
+ b=K3B4YT3GUKy8uX2M2VHwcZ3GVxDBXnyl8OhodTLqf/hAonlMY9+bcEunbVZMVjl8f3
+ 5yBRmL4FCIfyPmf3p5L1u2efAS5WUzkLqe/fUUnevnfCQ/MQtUwFeQSq1qG4YRfKiLm1
+ 7az9MiRB11Aqspw9dtrDUyMKHoRN77Oxpf3nozA/DjpB7+dqs3msGnkjTwqIUzGeC9wJ
+ Qb+gqVJ/EaqIH497YYI5JdDQ5SRtrcgHR/dVv2n6MRW2t0/v9vETC3jWt8sO4+i6Fxsz
+ GhuAfJ43MUgWxMzxLwBNZQVYfMtK+/gffny0RlRUfH2ZJP2FqzIwE8wu/C+oQ9HLi3Cz
+ kVkQ==
+X-Gm-Message-State: AOAM530jLQDiqi+i/SwoWWEnio1JmgpP/4f3DbSJ6pc2KaQ4nli71nAQ
+ ovCAQhEb+bB6691tE060o2lrR+NsezC+4x8G4uA=
+X-Google-Smtp-Source: ABdhPJxWkVxr/EI/h1H8F7fefbZ+FuzstXd4M6HvhXa8jRtalTYDgQirNCfLe3A5t+xLD9g6zesV3mGq++qknHOXAQ4=
+X-Received: by 2002:a05:6830:1bcf:: with SMTP id
+ v15mr1445937ota.200.1638992793887; 
+ Wed, 08 Dec 2021 11:46:33 -0800 (PST)
 MIME-Version: 1.0
 References: <20211208012529.372478-1-isabbasso@riseup.net>
- <20211208012529.372478-5-isabbasso@riseup.net>
-In-Reply-To: <20211208012529.372478-5-isabbasso@riseup.net>
+ <20211208012529.372478-6-isabbasso@riseup.net>
+In-Reply-To: <20211208012529.372478-6-isabbasso@riseup.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Dec 2021 14:44:23 -0500
-Message-ID: <CADnq5_M+c4V5J5ardBKzdXc-DywqjWQDV8HaNYQ+JNJ4nmwGKA@mail.gmail.com>
-Subject: Re: [PATCH 04/10] drm/amdgpu: fix function scopes
+Date: Wed, 8 Dec 2021 14:46:22 -0500
+Message-ID: <CADnq5_PU=egCYEoEa_pycg3R2FRsfHsedxAh8K7fAj7X33z-Xw@mail.gmail.com>
+Subject: Re: [PATCH 05/10] drm/amdkfd: fix function scopes
 To: Isabella Basso <isabbasso@riseup.net>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,43 +72,39 @@ Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Siqueira,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied with minor tweaks to the commit message.  Thanks!
+Applied.  Thanks!
 
 Alex
 
 On Tue, Dec 7, 2021 at 10:17 PM Isabella Basso <isabbasso@riseup.net> wrote:
 >
-> This turns previously global functions into static, thus removing
-> compile-time warnings such as:
+>  This turns previously global functions into static, thus removing
+>  compile-time warnings such as:
 >
->  warning: no previous prototype for 'release_psp_cmd_buf' [-Wmissing-prototypes]
->  521 | void release_psp_cmd_buf(struct psp_context *psp)
->      |      ^~~~~~~~~~~~~~~~~~~
->  ...
->  warning: no previous prototype for 'amdgpu_vkms_output_init' [-Wmissing-prototypes]
->  399 | int amdgpu_vkms_output_init(struct drm_device *dev,
->      |     ^~~~~~~~~~~~~~~~~~~~~~~
+>  warning: no previous prototype for 'pm_set_resources_vi' [-Wmissing-prototypes]
+>  113 | int pm_set_resources_vi(struct packet_manager *pm, uint32_t *buffer,
+>      |     ^~~~~~~~~~~~~~~~~~~
 >
 > Signed-off-by: Isabella Basso <isabbasso@riseup.net>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 4 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c | 4 ++--
 >  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> index af3a2f8c12b4..96895cccf9e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -411,8 +411,8 @@ static struct drm_plane *amdgpu_vkms_plane_init(struct drm_device *dev,
->         return plane;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+> index 08442e7d9944..3c0658e32e93 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+> @@ -110,8 +110,8 @@ static int pm_runlist_vi(struct packet_manager *pm, uint32_t *buffer,
+>         return 0;
 >  }
 >
-> -int amdgpu_vkms_output_init(struct drm_device *dev,
-> -                           struct amdgpu_vkms_output *output, int index)
-> +static int amdgpu_vkms_output_init(struct drm_device *dev, struct
-> +                                  amdgpu_vkms_output *output, int index)
+> -int pm_set_resources_vi(struct packet_manager *pm, uint32_t *buffer,
+> -                               struct scheduling_resources *res)
+> +static int pm_set_resources_vi(struct packet_manager *pm, uint32_t *buffer,
+> +                              struct scheduling_resources *res)
 >  {
->         struct drm_connector *connector = &output->connector;
->         struct drm_encoder *encoder = &output->encoder;
+>         struct pm4_mes_set_resources *packet;
+>
 > --
 > 2.34.1
 >
