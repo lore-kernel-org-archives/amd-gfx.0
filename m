@@ -4,118 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C4AC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 16:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 825A1C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 16:30:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AFC573CB4;
-	Wed,  8 Dec 2021 16:29:40 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC9F73CB4;
- Wed,  8 Dec 2021 16:29:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gBS5N/qTT0U6Zh5wNah8L1JJivXBwiCPLrLuztrdjrP9pdClgzVvWgUMKA9aAQzKVPIp9wV+pTTal3rqj573NEfBYhpikr37UijWajOUym/MY7y+ju6OgBswOQo0ML/PCDvvlhAie7qXVVHFYOzJaEO9Zrq5m2bnGMeqoiiA3ux9/34ZC+bHet0UEJvWTr//ofMkK5qlwU6jigsv5Ae9WoFyJR+tDbnNaKVT9Aca1NcHOrrK6HNsQpAfNmFTLxZlVmvFnhPz7ObapN7jUcug7KDywxEaXLn65Y1mlvnNn1JGLg+HjaT2/UzVMTkr0FtdeeNa2ZfEiItYxsSutkpd/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7hzlYm14aCGyIG/6K8w/1BIUfNbvyyamQodUb2ukU64=;
- b=bHJ4ObjCdvvucrHA7bXhABFW4E1eg9sm1K+mcowmKyBj7b4tQT6CP0K5Ksj/T8zF12MGpm04dKvoPsD34joxgdgSEMJjLE/K1CE/vCmWyydp64d1JWTt9xzebnrRHymnZj6ISVOuCWcRdfLU5KWxvtA3HkxnQLtI96UgBIdVXlF+nbXhPrWK5FHxAcfwOaEAdfttPj9yI0rQp9QsQSo2yghwWOBrua+W+BDR/30rxl5Qt0ynj7UroPy4hNsc4+uNgegNZLwGgcPsVv0OZCTmYkebBDm6g3US/Agudr5XZ429eV1c9SMLacpYcMSH37yNPLdDmAspyZFl4qrM9EP7Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7hzlYm14aCGyIG/6K8w/1BIUfNbvyyamQodUb2ukU64=;
- b=VgAErjKniFMPfiZT0ocSUyYaOvrtiV9YZ3Soglcdsd2bXLoB8MG1T8i+Yk0JD8ibIMqZf6B4/ddk7bJ6mGZqGLVam9EnxepwQcYyd3siV+v5re4apb4dGXBYqOBzRn+GaWQkvpowNW/gP1AOxilg9zoVa6w0+6VNC+OFM6FZJ9w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2896.namprd12.prod.outlook.com (2603:10b6:208:ab::22)
- by MN2PR12MB3630.namprd12.prod.outlook.com (2603:10b6:208:cc::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Wed, 8 Dec
- 2021 16:29:35 +0000
-Received: from MN2PR12MB2896.namprd12.prod.outlook.com
- ([fe80::44f7:66fe:4419:d8d3]) by MN2PR12MB2896.namprd12.prod.outlook.com
- ([fe80::44f7:66fe:4419:d8d3%7]) with mapi id 15.20.4778.011; Wed, 8 Dec 2021
- 16:29:35 +0000
-Subject: Re: [PATCH v2 6/6] Documentation/gpu: Add amdgpu and dc glossary
-To: Yann Dirson <ydirson@free.fr>
-References: <440031901.40973395.1638980185274.JavaMail.root@zimbra39-e7>
-From: Rodrigo Siqueira Jordao <rjordrigo@amd.com>
-Message-ID: <c78ab5cf-0c76-c055-fe40-94b693529144@amd.com>
-Date: Wed, 8 Dec 2021 11:29:32 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <440031901.40973395.1638980185274.JavaMail.root@zimbra39-e7>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0069.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::8) To MN2PR12MB2896.namprd12.prod.outlook.com
- (2603:10b6:208:ab::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6CF373CD6;
+	Wed,  8 Dec 2021 16:30:48 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F91B73CD6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 16:30:47 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ x19-20020a9d7053000000b0055c8b39420bso3294818otj.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 08:30:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LI+6NyTFbiaG5wx1Z2+Q7KxQDLUg3qTNFd+xP2Ikx8A=;
+ b=C5AOqucdSYK1tRNNcuAmMXl1urqXdGvum9SeSfT6H5+RR02E0HNrH1eUYk0H9ga1+q
+ 5oG1JwgUhct4Bo2U5fz69qgHDjt/XTJksm91S6QvWZvt4d+71uAyMPfvNl8LV3I9hmV7
+ aE8sVzDDpOXIBa3IWEqzh++CiCcGmTLgajSu8AUexXWnpz4VTC3HsmnFd/HsfSOfIvet
+ UhrKW6fRg557t3WkUoQwP2tRvIrffSzp5prV7Lmc6uAiOuZ36Plz/mqLlAN9Qxq6MbzB
+ hfuzGADkW/72cD2QhZFStfmaIq5wQgsyXATIszqApXbSoDNrOALh3SUBuChA24OXCCVd
+ nkEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LI+6NyTFbiaG5wx1Z2+Q7KxQDLUg3qTNFd+xP2Ikx8A=;
+ b=rwzcPcsU7jhh3ylcTvKNSOWHbkgsmHkuCsvl2KBmC3EQmxebLkX5DjX6QDtHtWmPTb
+ ObuCnQLksP7FAYc/HM7H6BpLO00/Pm0jtn732Et8MysXnkbAyMX6enujDXK8DwUWB0Xj
+ l9+j+doVEm+FmcPRDIy5LtepnGOKH4N+kzD+lLXLDRdX5YEQQzJQ9yDR2CXpSE42vCU5
+ vJF3c+MXPIJ+9orwa8QXdZh6HNixSdoycWykrMMHcdJpj0U2Nfzfn+4h4+10B7ZVHiTg
+ tYkZEGXWxZGZVjClseaR0Zrsodke18y9GZnAcdFD1RynONt+fA/kUufbMpCF4cX2iEvs
+ 4nhQ==
+X-Gm-Message-State: AOAM5303muvS86o+xJdOyQH8VOiqWcM5yCNLluuP9Y0Iq4oTuFLmtCiK
+ U6GAsoiCRTXXypWgFygY7UHPoeOuPwEvw+tYzM4=
+X-Google-Smtp-Source: ABdhPJyEG0xtdmPKvfCkz5TMh1/cUP6xaDPFuMYsu7smqMzoLGmXFNHRCkiYr+zqgpkTrTJ9ht+OLhqroqe6B8439wE=
+X-Received: by 2002:a9d:6855:: with SMTP id c21mr461895oto.357.1638981046429; 
+ Wed, 08 Dec 2021 08:30:46 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 41addd3a-c44e-4330-5180-08d9ba67ebe8
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3630:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3630730D8BADA63CAAC208AD986F9@MN2PR12MB3630.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QOvyoyz2YlkrRyzorDmFc7xuXR8QDHZdBfDX79Cr3Gnj95EsjUvz7VQcIHT0fnW4zumLUjXyvfnjOpYUsgzKot37NIMDXGtTrzAhxnI0Ak1fhw9PaBobtNiAwJslhP5icZJSM7haOUCUNgi/Rxm/k2xTqyZtttSziULRg+OUph7gJ1NLvfpWCO9slSwf4TKTtO98nakO9MEkt61VW8toU3Y5dXHDGJvg40dBL/yf9IsKttfFx07fswGCIJD4HSbKfGJ1z6qrfWgSNDMmtvaWNsIXdin11GHu29T6wsJ+zc/M6BPMQeW+8RI+Y3NWG9vPgYwg3q2rH7ZtMdtCyGEk2SHfCVxFYwi/tOUAGT6x8gx5896ivRo32YGsQr5yznF0IOko5mqa5ZJpdGIz51ceqsuytYciHQbE9RaQH2hchJMPY0Z0+3msDpAEzXi92ELeWQK8+n1fXKK/YXPVYVgkiP/yrJFGpzohjZcCTOL/UZw8ZNaRMRci5cNtMylFz8nz5dHuM5lfqX6s31894dWnahoeiD4zVW7JAGIKD/6GAZA28MJxQrn+Wgiyy0yl74yfwt5wmW6cXPr6D1Z2BvIjF/qBzGNyqIA5imBcPxvDlAgGpYQpBwGLe9urTxsJqCnO4Wailihj94O/wDqMguqCNEB9M0kk005rMDNTEq+HIp6KZK0Pxy0wtHGBbtxoHz8bCclQIj5ONQoceFGmzTKnPzZcyVaVRMW3WmSJoq01Q3ngXpvvf6yKMwv2VJbIQ0nXExkBNCejiimufBjBjqn0b3K2iULEx1dy6FSSViEvw7FGUKZmQQpRBeYd33LFu4W6BXxu9n9CzD+Vn9Nxr+LNrg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2896.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6666004)(6486002)(54906003)(8936002)(7416002)(8676002)(31686004)(38100700002)(6512007)(36756003)(2906002)(186003)(6916009)(6506007)(53546011)(66946007)(316002)(66476007)(31696002)(2616005)(4326008)(966005)(66556008)(508600001)(83380400001)(5660300002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFVBbGVWOGYrVzg1a2dsbm0vcndSdURoeFFlWnpxc0RXdGNYK0x4MDRkQlla?=
- =?utf-8?B?TVVrbVVSc0MxemVJS3hXN09UODhXa29PdVJ5WGJMN2I2dlcwY1VwbnBnZzRB?=
- =?utf-8?B?Qk5qakxSa01MUTZMMEU3Y2RXamxrclZ2UXJPQnkwbEJrcExFWkdvM2kwaWJH?=
- =?utf-8?B?czFERy9NVzZkOW02dldGUEpJVUVCZ3dheHlLeVNIOXladnM2dFYrNGZnN21M?=
- =?utf-8?B?VDJ1N3RLNGVTMXRRZmZlOUliVFFZWFROUEtxajZQdjd3MDJGeHM2ZFlvR1NM?=
- =?utf-8?B?Y0gyWTBZempRMkZWb0I1Z21lbDZ4c3hLaWdkM1ZMdjd2aHRkMnJpUUlieGVN?=
- =?utf-8?B?c0h0Q29zaXRxMjArT2pnWVAvdkF1endsZitBSDV5dWtETWd4amxMTlNCWElB?=
- =?utf-8?B?TWpTRTg0clY1Q2NDTkVMSnpSVnE3Zzd0aHZwVmtFODIrQjZ2dzI3TzRMSHlT?=
- =?utf-8?B?ZkdvaW1zRG9jSUd1bVY3QmNJaFp5aWc2clNLdy8zMnFvV1ZnTHM1KzNjT3Fh?=
- =?utf-8?B?ZVdUZTkwTFgrZWtoVEhsQWkwWkljOWdwa09BTVgwaldiRmpnbEZNb3lSS1Bi?=
- =?utf-8?B?dEcvWmNDMkFISEd0QzNQZG5EbWJlWW9uZ0I5TTNhb1Radmk3WFZBekpLVGxZ?=
- =?utf-8?B?bzVZZDBCd25TU2VDUm1VakxtNTliclVJeC9YTnY0Nm5GVThqbHQ3clFIRjlI?=
- =?utf-8?B?clN3RGk0K1lNeTJDU2dTYzhWbHpGN3piT1E2Mm81MEs5SUJJcU9aRUZoMno4?=
- =?utf-8?B?N3hqcWphN3hPV1lBQnRCRTdEWEw2cTY2S3c3bkpKdjFDbHVRNHlBTGUrM3hl?=
- =?utf-8?B?dDQxRHRCVE14WnM5eFBkcjJGRE9xcnFuVjBvSTk0R0hkUURYMEIxN0U3ZzBU?=
- =?utf-8?B?VkJrNDhwSnpPRVNVK3M3RDhqckNkYXZDTWd0RXRkTElkRGxDSXpYMkZDYXBt?=
- =?utf-8?B?b1RWMzJ1bWF1eEkzUUZ1aG5GOVZNZEtqVmtQT2piUzJnSFFOL3RlMkJnZ1By?=
- =?utf-8?B?ZHVray9yNEY4VnJuMElROVhJbUZhTWYwaC9LbWRRdWtaWjdRdUMvUEx3V2Ux?=
- =?utf-8?B?WTM2d2JyeFFpZmRjMzMxMWM2eUl3NTR6NUdsZk83SThvcmtaVyt2RU9tRDFV?=
- =?utf-8?B?ajBVeGxmSVd0Snc1ZzlxZGVQeWpEN2FhbU5CdXpsTGVBSTl4VExFeDRLekJP?=
- =?utf-8?B?RXBGU2s1SEwwbEo4VXR2VmZFMG5XNjV6RHNsczhXRy9GclVIcnNJWWxFZU9j?=
- =?utf-8?B?RS9ud01JYjVtTnpxRm1YNzFxTE9DaStXbTlxazZNMnV6TXJ4QTFFaXBKNjlu?=
- =?utf-8?B?YlVFV3ZlTzZkc3NXa21PQlFhVFFGTXdmSHNPQW9ZTDd6TzV5L2ozbDQxNjZm?=
- =?utf-8?B?UWlvT0JIWnJPSlMyL0p1b3N3K0tiQWdmcTlUNW11NnlsNnlIQTUweDN0K3hm?=
- =?utf-8?B?WVE5QVIrUFlYWFFFWXE5WGxsaHFBVDhwU3BWNHIvK2RTUVQ1Mm1DSGxNL09q?=
- =?utf-8?B?M25qYTliWHRJaCs5YitMTGtzNGhQYmpHZWNINGZNUXV0SU1WUTJDdFF4Z2I3?=
- =?utf-8?B?NUVIeUltZ3pmNm4zTW9ORXhBRXRydDF5WTBPcUlzUktDOGNGdXh2akdIYTN0?=
- =?utf-8?B?eVRuS2ZMb3ppSGVmSHBQdUpodURUdENOQnEyZGlrbkRGcWdHK0FpNVlqY0sr?=
- =?utf-8?B?TVN1Q05aQjQ4RFd0V0xRNVRZaXZZTGcvT0ZLUFBZUldSZ3pqWjFlTjFkbHNi?=
- =?utf-8?B?d2ZtWXB6YVpTRS9MWEF0aDMwVjc5N2FTUklUR0hzTEtmazdVRzFrWEkxV2ND?=
- =?utf-8?B?Zm1OS2NLSzNwVWhkTzJHYk1WYmZzTTNQQ212VVB3eGh6ajhZZTIzZFVlSFd1?=
- =?utf-8?B?cUlJTVlvVUpta0pvWU45TStJcEFyV0liQkdMK1kvam1pZFJlMlNWY3FrRTZ2?=
- =?utf-8?B?d1ArbnY3N2JQRDF3OHBvSjFLdm1jTnFLY2ROM0hFWDdVZEpvalRzdzZoYmFQ?=
- =?utf-8?B?QU82TnVhS3Fxd21QWTJpN1h0dlNCRnZMYk1UWDk1U2xIdVJoTm1aNzVQMEZs?=
- =?utf-8?B?SlJZMXBTTlFMQzlScldtQjZocjhEU0VpUVVrbnlXaEZPV1Jab3dHTytrN1Bl?=
- =?utf-8?B?QlI1NXFMemhwQ2lGcGQ4bHV1eFdQTjdHRG1kckRZSUQ0OHRFV1ZJbjVwM0ZH?=
- =?utf-8?B?L1lzVG1lT2NtKzhwWm5hdmhybXhjdkpTdklVQ1NvTHYvb20ydDJSWGRsbXFs?=
- =?utf-8?Q?GCfnImP9z19V9m0rxQDUiiXrcjafHCJIn7dnuSgDVs=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41addd3a-c44e-4330-5180-08d9ba67ebe8
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2896.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 16:29:35.6801 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NRAG7C6h2BGWf/nlFcKKCuy4wHSVLcUKRNeZN3AmfYqqUpA5MlsbJwr5Ec08fpiZrnMDAL/q0alE2WSZrgskuA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3630
+References: <20211208084615.437375-1-Yuliang.Shi@amd.com>
+ <DM5PR12MB246969CECC6AC8D12C2856A3F16F9@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <6879fff2-fd58-677d-7473-682f1413c5d3@amd.com>
+In-Reply-To: <6879fff2-fd58-677d-7473-682f1413c5d3@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 8 Dec 2021 11:30:35 -0500
+Message-ID: <CADnq5_OQ-LNK=Agbabcuyr9_xgBWjtNR-zUC0inkhCEQGQ+OvA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix incorrect VCN revision in SRIOV
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,454 +63,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Simon Ser <contact@emersion.fr>, linux-doc@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, aurabindo pillai <aurabindo.pillai@amd.com>,
- Harry Wentland <Harry.Wentland@amd.com>, Marek Olsak <marek.olsak@amd.com>,
- Michel Daenzer <michel@daenzer.net>, Pekka Paalanen <ppaalanen@gmail.com>,
- Sean Paul <seanpaul@chromium.org>,
- bhawanpreet lakha <bhawanpreet.lakha@amd.com>,
- Mark Yacoub <markyacoub@chromium.org>, qingqing zhuo <qingqing.zhuo@amd.com>,
- roman li <roman.li@amd.com>, Roman Gilg <subdiff@gmail.com>,
- nicholas choi <nicholas.choi@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: "Shi, Leslie" <Yuliang.Shi@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Dec 8, 2021 at 11:09 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>
+>
+>
+> On 12/8/2021 2:43 PM, Chen, Guchun wrote:
+> > [Public]
+> >
+> > Hi Leslie,
+> >
+> > Can we move revision handling in this patch into amdgpu_discovery_get_vcn_version? Then we will maintain all revision handlings only in amdgpu_discovery.c.
+> >
+>
+> This seems to be more about VCN config than revision. A better thing to
+> do will be to rename sriov_config as vcn_config and use that here
+> (regardless of SRIOV or not).
+>
+> Change discovery code to -
+>         adev->vcn.vcn_config[adev->vcn.num_vcn_inst] = (ip->revision & 0xc0);
+>
+> And check here as:
+>         vcn_config & VCN_BLOCK_ENCODE_DISABLE_MASK
+>
+> Looks like baremetal enables all and VF enables only encode or decode on
+> particular VCN instance.
+>
 
+That seems cleaner.  We can also drop
+amdgpu_discovery_get_vcn_version() and just use vcn_config.
 
-On 2021-12-08 11:16 a.m., Yann Dirson wrote:
-> Hi Rodrigo,
-> 
->> On 2021-12-07 2:49 p.m., Yann Dirson wrote:
->>>
->>>> On Thu, Dec 02, 2021 at 11:01:32AM -0500, Rodrigo Siqueira wrote:
->>>>> In the DC driver, we have multiple acronyms that are not obvious
->>>>> most of
->>>>> the time; the same idea is valid for amdgpu. This commit
->>>>> introduces
->>>>> a DC
->>>>> and amdgpu glossary in order to make it easier to navigate
->>>>> through
->>>>> our
->>>>> driver.
->>>>>
->>>>> Changes since V1:
->>>>>    - Yann: Divide glossary based on driver context.
->>>>>    - Alex: Make terms more consistent and update CPLIB
->>>>>    - Add new acronyms to the glossary
->>>
->>> If you're rerolling, it could be a good time to include the
->>> additional
->>> (and detailed) entries from Alex's answer to "Looking for
->>> clarifications
->>> around gfx/kcq/kiq".  Finding a way to fit the other details not
->>> fitting directly in the glossary will likely take more rounds,
->>> though,
->>> so we can wait for the first round to be merged before dealing with
->>> them.
->>
->> Hi Yann,
->>
->> I will send another version to address Daniel's comment, and I'll
->> also
->> expand the amdgpu acronyms glossary based on your mail thread with
->> Alex.
->> However, I don't want to add more details about that discussion in
->> this
->> series because I don't want to lose focus in this patchset since my
->> main
->> goal is to start to expand display documentation.
-> 
-> fair enough
-> 
-> 
->> By the way, I think you could consider writing a kernel-doc based on
->> your discussion with Alex. This way, you can try to consolidate what
->> you
->> discover and get reviews in the content.
-> 
-> that's the idea, though I'm not sure I have enough material to start with
-> yet :)
+Alex
 
-As you know, right now, we have zero documentation about that, which 
-means that if you add something, it is an excellent improvement in the 
-current status :)
-
->>
->> Thanks
->> Siqueira
->>
->>>
->>>
->>>>>
->>>>> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->>>>> ---
->>>>>    Documentation/gpu/amdgpu/amdgpu-glossary.rst  |  47 ++++
->>>>>    .../gpu/amdgpu/display/dc-glossary.rst        | 243
->>>>>    ++++++++++++++++++
->>>>>    Documentation/gpu/amdgpu/display/index.rst    |   1 +
->>>>>    Documentation/gpu/amdgpu/index.rst            |   7 +
->>>>>    4 files changed, 298 insertions(+)
->>>>>    create mode 100644 Documentation/gpu/amdgpu/amdgpu-glossary.rst
->>>>>    create mode 100644
->>>>>    Documentation/gpu/amdgpu/display/dc-glossary.rst
->>>>>
->>>>> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
->>>>> b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
->>>>> new file mode 100644
->>>>> index 000000000000..e635851025e7
->>>>> --- /dev/null
->>>>> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
->>>>> @@ -0,0 +1,47 @@
->>>>> +===============
->>>>> +AMDGPU Glossary
->>>>> +===============
->>>>> +
->>>>> +Here you can find some generic acronyms used in the amdgpu
->>>>> driver.
->>>>> Notice that
->>>>> +we have a dedicated glossary for Display Core.
->>>>
->>>> Maybe add a link to that here so it's easier to find? sphinx
->>>> autogenerates
->>>> header targets so pretty easy (if the heading is unique at least).
->>>> -Daniel
->>>>
->>>>> +
->>>>> +.. glossary::
->>>>> +
->>>>> +    CPLIB
->>>>> +      Content Protection Library
->>>>> +
->>>>> +    DFS
->>>>> +      Digital Frequency Synthesizer
->>>>> +
->>>>> +    ECP
->>>>> +      Enhanced Content Protection
->>>>> +
->>>>> +    EOP
->>>>> +      End Of Pipe/Pipeline
->>>>> +
->>>>> +    HQD
->>>>> +      Hardware Queue Descriptor
->>>>> +
->>>>> +    KCQ
->>>>> +      Kernel Compute Queue
->>>>> +
->>>>> +    KGQ
->>>>> +      Kernel Graphics Queue
->>>>> +
->>>>> +    KIQ
->>>>> +      Kernel Interface Queue
->>>>> +
->>>>> +    MQD
->>>>> +      Memory Queue Descriptor
->>>>> +
->>>>> +    PPLib
->>>>> +      PowerPlay Library - PowerPlay is the power management
->>>>> component.
->>>>> +
->>>>> +    SMU
->>>>> +      System Management Unit
->>>>> +
->>>>> +    VCE
->>>>> +      Video Compression Engine
->>>>> +
->>>>> +    VCN
->>>>> +      Video Codec Next
->>>>> diff --git a/Documentation/gpu/amdgpu/display/dc-glossary.rst
->>>>> b/Documentation/gpu/amdgpu/display/dc-glossary.rst
->>>>> new file mode 100644
->>>>> index 000000000000..547c0bfbb3e2
->>>>> --- /dev/null
->>>>> +++ b/Documentation/gpu/amdgpu/display/dc-glossary.rst
->>>>> @@ -0,0 +1,243 @@
->>>>> +===========
->>>>> +DC Glossary
->>>>> +===========
->>>>> +
->>>>> +On this page, we try to keep track of acronyms related to the
->>>>> display
->>>>> +component. If you do not find what you are looking for, look at
->>>>> the amdgpu
->>>>> +glossary; if you cannot find it anywhere, consider asking in the
->>>>> amdgfx and
->>>>> +update this page.
->>>>> +
->>>>> +.. glossary::
->>>>> +
->>>>> +    ABM
->>>>> +      Adaptive Backlight Modulation
->>>>> +
->>>>> +    APU
->>>>> +      Accelerated Processing Unit
->>>>> +
->>>>> +    ASIC
->>>>> +      Application-Specific Integrated Circuit
->>>>> +
->>>>> +    ASSR
->>>>> +      Alternate Scrambler Seed Reset
->>>>> +
->>>>> +    AZ
->>>>> +      Azalia (HD audio DMA engine)
->>>>> +
->>>>> +    BPC
->>>>> +      Bits Per Colour/Component
->>>>> +
->>>>> +    BPP
->>>>> +      Bits Per Pixel
->>>>> +
->>>>> +    Clocks
->>>>> +      * PCLK: Pixel Clock
->>>>> +      * SYMCLK: Symbol Clock
->>>>> +      * SOCCLK: GPU Engine Clock
->>>>> +      * DISPCLK: Display Clock
->>>>> +      * DPPCLK: DPP Clock
->>>>> +      * DCFCLK: Display Controller Fabric Clock
->>>>> +      * REFCLK: Real Time Reference Clock
->>>>> +      * PPLL: Pixel PLL
->>>>> +      * FCLK: Fabric Clock
->>>>> +      * MCLK: Memory Clock
->>>>> +
->>>>> +    CRC
->>>>> +      Cyclic Redundancy Check
->>>>> +
->>>>> +    CRTC
->>>>> +      Cathode Ray Tube Controller - commonly called "Controller"
->>>>> -
->>>>> Generates
->>>>> +      raw stream of pixels, clocked at pixel clock
->>>>> +
->>>>> +    CVT
->>>>> +      Coordinated Video Timings
->>>>> +
->>>>> +    DAL
->>>>> +      Display Abstraction layer
->>>>> +
->>>>> +    DC (Software)
->>>>> +      Display Core
->>>>> +
->>>>> +    DC (Hardware)
->>>>> +      Display Controller
->>>>> +
->>>>> +    DCC
->>>>> +      Delta Colour Compression
->>>>> +
->>>>> +    DCE
->>>>> +      Display Controller Engine
->>>>> +
->>>>> +    DCHUB
->>>>> +      Display Controller HUB
->>>>> +
->>>>> +    ARB
->>>>> +      Arbiter
->>>>> +
->>>>> +    VTG
->>>>> +      Vertical Timing Generator
->>>>> +
->>>>> +    DCN
->>>>> +      Display Core Next
->>>>> +
->>>>> +    DCCG
->>>>> +      Display Clock Generator block
->>>>> +
->>>>> +    DDC
->>>>> +      Display Data Channel
->>>>> +
->>>>> +    DIO
->>>>> +      Display IO
->>>>> +
->>>>> +    DPP
->>>>> +      Display Pipes and Planes
->>>>> +
->>>>> +    DSC
->>>>> +      Display Stream Compression (Reduce the amount of bits to
->>>>> represent pixel
->>>>> +      count while at the same pixel clock)
->>>>> +
->>>>> +    dGPU
->>>>> +      discrete GPU
->>>>> +
->>>>> +    DMIF
->>>>> +      Display Memory Interface
->>>>> +
->>>>> +    DML
->>>>> +      Display Mode Library
->>>>> +
->>>>> +    DMCU
->>>>> +      Display Micro-Controller Unit
->>>>> +
->>>>> +    DMCUB
->>>>> +      Display Micro-Controller Unit, version B
->>>>> +
->>>>> +    DPCD
->>>>> +      DisplayPort Configuration Data
->>>>> +
->>>>> +    DPM(S)
->>>>> +      Display Power Management (Signaling)
->>>>> +
->>>>> +    DRR
->>>>> +      Dynamic Refresh Rate
->>>>> +
->>>>> +    DWB
->>>>> +      Display Writeback
->>>>> +
->>>>> +    FB
->>>>> +      Frame Buffer
->>>>> +
->>>>> +    FBC
->>>>> +      Frame Buffer Compression
->>>>> +
->>>>> +    FEC
->>>>> +      Forward Error Correction
->>>>> +
->>>>> +    FRL
->>>>> +      Fixed Rate Link
->>>>> +
->>>>> +    GCO
->>>>> +      Graphical Controller Object
->>>>> +
->>>>> +    GMC
->>>>> +      Graphic Memory Controller
->>>>> +
->>>>> +    GSL
->>>>> +      Global Swap Lock
->>>>> +
->>>>> +    iGPU
->>>>> +      integrated GPU
->>>>> +
->>>>> +    IH
->>>>> +      Interrupt Handler
->>>>> +
->>>>> +    ISR
->>>>> +      Interrupt Service Request
->>>>> +
->>>>> +    ISV
->>>>> +      Independent Software Vendor
->>>>> +
->>>>> +    KMD
->>>>> +      Kernel Mode Driver
->>>>> +
->>>>> +    LB
->>>>> +      Line Buffer
->>>>> +
->>>>> +    LFC
->>>>> +      Low Framerate Compensation
->>>>> +
->>>>> +    LTTPR
->>>>> +      Link Training Tunable Phy Repeater
->>>>> +
->>>>> +    LUT
->>>>> +      Lookup Table
->>>>> +
->>>>> +    MALL
->>>>> +      Memory Access at Last Level
->>>>> +
->>>>> +    MC
->>>>> +      Memory Controller
->>>>> +
->>>>> +    MPC
->>>>> +      Multiple pipes and plane combine
->>>>> +
->>>>> +    MPO
->>>>> +      Multi Plane Overlay
->>>>> +
->>>>> +    MST
->>>>> +      Multi Stream Transport
->>>>> +
->>>>> +    NBP State
->>>>> +      Northbridge Power State
->>>>> +
->>>>> +    NBIO
->>>>> +      North Bridge Input/Output
->>>>> +
->>>>> +    ODM
->>>>> +      Output Data Mapping
->>>>> +
->>>>> +    OPM
->>>>> +      Output Protection Manager
->>>>> +
->>>>> +    OPP
->>>>> +      Output Plane Processor
->>>>> +
->>>>> +    OPTC
->>>>> +      Output Pipe Timing Combiner
->>>>> +
->>>>> +    OTG
->>>>> +      Output Timing Generator
->>>>> +
->>>>> +    PCON
->>>>> +      Power Controller
->>>>> +
->>>>> +    PGFSM
->>>>> +      Power Gate Finite State Machine
->>>>> +
->>>>> +    PSR
->>>>> +      Panel Self Refresh
->>>>> +
->>>>> +    SCL
->>>>> +      Scaler
->>>>> +
->>>>> +    SDP
->>>>> +      Scalable Data Port
->>>>> +
->>>>> +    SLS
->>>>> +      Single Large Surface
->>>>> +
->>>>> +    SST
->>>>> +      Single Stream Transport
->>>>> +
->>>>> +    TMDS
->>>>> +      Transition-Minimized Differential Signaling
->>>>> +
->>>>> +    TMZ
->>>>> +      Trusted Memory Zone
->>>>> +
->>>>> +    TTU
->>>>> +      Time to Underflow
->>>>> +
->>>>> +    VRR
->>>>> +      Variable Refresh Rate
->>>>> +
->>>>> +    UVD
->>>>> +      Unified Video Decoder
->>>>> diff --git a/Documentation/gpu/amdgpu/display/index.rst
->>>>> b/Documentation/gpu/amdgpu/display/index.rst
->>>>> index fe2ecad8df81..e23c752ee5f5 100644
->>>>> --- a/Documentation/gpu/amdgpu/display/index.rst
->>>>> +++ b/Documentation/gpu/amdgpu/display/index.rst
->>>>> @@ -26,3 +26,4 @@ table of content:
->>>>>       display-manager.rst
->>>>>       dc-debug.rst
->>>>>       dcn-overview.rst
->>>>> +   dc-glossary.rst
->>>>> diff --git a/Documentation/gpu/amdgpu/index.rst
->>>>> b/Documentation/gpu/amdgpu/index.rst
->>>>> index 5c8cbf514097..ff38c360b04e 100644
->>>>> --- a/Documentation/gpu/amdgpu/index.rst
->>>>> +++ b/Documentation/gpu/amdgpu/index.rst
->>>>> @@ -334,3 +334,10 @@ smartshift_bias
->>>>>    
->>>>>    .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
->>>>>       :doc: smartshift_bias
->>>>> +
->>>>> +AMDGPU Glossary
->>>>> +===============
->>>>> +
->>>>> +.. toctree::
->>>>> +
->>>>> +   amdgpu-glossary.rst
->>>>> --
->>>>> 2.25.1
->>>>>
->>>>
->>>> --
->>>> Daniel Vetter
->>>> Software Engineer, Intel Corporation
->>>> http://blog.ffwll.ch/>>>
->>
-
+> Thanks,
+> Lijo
+>
+> > Regards,
+> > Guchun
+> >
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Leslie Shi
+> > Sent: Wednesday, December 8, 2021 4:46 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Subject: [PATCH] drm/amdgpu: fix incorrect VCN revision in SRIOV
+> >
+> > Guest OS will setup VCN instance 1 which is disabled as an enabled instance.
+> > This will cause VCN ib ring test failure during modprobe.
+> >
+> > Fixes: 36b7d5646476 ("drm/amdgpu: handle SRIOV VCN revision parsing")
+> > Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 3 +++
+> >   1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > index 2658414c503d..2323815ac32d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > @@ -293,6 +293,9 @@ bool amdgpu_vcn_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_ring_type t
+> >       if (amdgpu_discovery_get_vcn_version(adev, vcn_instance, &major, &minor, &revision) != 0)
+> >               return true;
+> >
+> > +     if (amdgpu_sriov_vf(adev))
+> > +             revision |= adev->vcn.sriov_config[vcn_instance] << 6;
+> > +
+> >       if ((type == VCN_ENCODE_RING) && (revision & VCN_BLOCK_ENCODE_DISABLE_MASK)) {
+> >               ret = true;
+> >       } else if ((type == VCN_DECODE_RING) && (revision & VCN_BLOCK_DECODE_DISABLE_MASK)) {
+> >
