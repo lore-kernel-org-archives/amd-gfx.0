@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31915C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 09:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A03BAC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 09:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 943416ED12;
-	Wed,  8 Dec 2021 09:41:45 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2053.outbound.protection.outlook.com [40.107.101.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B55906ED12
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 09:41:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 210AF6EE8E;
+	Wed,  8 Dec 2021 09:43:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161E16EE8E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 09:43:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H6zup0ZcSsDu9teeNj/6SIQ74lUp1tDVhnZpVqrI5fNPOXjnkVJwoI6Z6OLWDUaB+f5t18ZilgXoyPsq3pzVZW0v/6IuN9gBC7O5zDb0eWRQ4tgatMyrT18KK9hfID0V/oRznX3LD+XX42d5+4wb6/yLblP+d286xX7tRQmHTNo58kdWfz7vZU0Z5FYogV2QZlLXbOGq70oseyn42ffbDgnaCiFihS5ma3NPy/Ok92BXv7NGs/0duWHzF/7M0Ix3lnjsRdy/LC+2x/H/WELQxw/RrxJ9BjjBSsPPke9WNZAyQA9dDuhaFczbsaIbDQypLO0LfCv9k8TspHtxTleZ9A==
+ b=TVDnmDe8kp1syJVolbiRbiKulohRqBjxXzgdkLs7iAIxuQqwgqirtQ7Cpzmof2m3gpzbuTVPcciJ3j9kexwWL5ckm+EcfuA2RRoc5gmsz1DdnfLd8rzH2V1o4li3YBDgk9X287Vs/PoemU4u9Mso+JKvAb2/04P4NWcxeb5usxLCtL7BNo50GsKPvfYiQnG+IeYfhdmX4FHYXpFoLYjnKBZ39UKhlzc6gmjkJbObo9nMP2Gy+301pwPLzYJQemmv2HsvqHdn37EA1zU/TsDGVMXM2Xm3ee5uyUFCN2e4kmg1nurOuPCNXKg5vn4E4+w+Udr8tyXooPedzyzZPPDDkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vxOpB7rEznOHfXfF67dE9O6+YsVl1R2LGufQbK3UZH4=;
- b=h5AmU2HrFi7pWLyk1Pi2djuQRD8N0s8WaAbSd2Ww63zxvM/fPsdAu1Gc+F9BXoqS4W2l+CSPJN1PeUlWsOsMbkOQYCaRq4dd9oILORadG9i34edDjjCveX2Cr/zaINg7MMraaW/qS7XRnsDOG+YogjR5PfmiB1em2Ba6JN/gZzppR3sMgOWnWecVXBdCEJ9W73ZaFIqSN2/GShPgC/UTXcS1eolj3FiH8ECTe57abRVk0TYInaPVCnt2V1htXvHlwl4AB+Amst5gIrMpG0F0SZFcma1ap6klAbzeE1scVnNi1qZqrq7qUqOo7vx//AaHoSvgIzLfdUjscYnlLVf3pQ==
+ bh=9pG/BkbaQB+jt/oRv3OLACFSWSM9VXQheaMIt00QBQw=;
+ b=Sy2VdN5Ntwd7yuCG2GGOxktghjxjMH0Pqd3q+VBOZj4KUMCdv4UPIHftK/U4E5HQpxDjRp+TltBiZwZed8dqcl2kxl+KxmTV7lSTJ3qkH0Ndw46Qt4GNJSnMA+GwUbE9Uj325J6++IBxf08Lvz7Nvni10zrwz0/OwxbFh4S5S1L6VxCyjpARnWIk8ExQLpLdSbd1axP/mWxT3mDGwhD1iZfdP3GY66FyfnwUm/0YGc2McU5ypVpDydWVL3rfqmR3XUEHE2n2ZTqgjR4QsHkSp7+MgxyhqtsdeRzk0OOSuZ8DWwIQDyJeP1dbrujrpF8Ny7Iaa+xCeTmflkAYbeYmNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vxOpB7rEznOHfXfF67dE9O6+YsVl1R2LGufQbK3UZH4=;
- b=IeWnPdlLZtk3VbiLxjbBpiqF/PrDwHZPGBHi9VH39Db/astGfZTpbgbgLm2IerWGJAwtkprsYU0JOxOpIUit3W8W3WBlzF0ibRyswzLcpaVomyUj/crLMOhhiwwAjxOIIX1x26FZXd4fMN38cBKiw+U4wHJFHrFHD4uecTBGoMU=
-Received: from MWHPR15CA0032.namprd15.prod.outlook.com (2603:10b6:300:ad::18)
- by CY4PR12MB1270.namprd12.prod.outlook.com (2603:10b6:903:43::17)
+ bh=9pG/BkbaQB+jt/oRv3OLACFSWSM9VXQheaMIt00QBQw=;
+ b=W+W74giJPhvFa9cBDeDE/L2hGxyIvfhtvOksd5g7sxn8Bn01dNc8mv3gVigvVlS07W/Kf8PqI/wbuX2MBbF+sVaVC0m+oUMf+yDV2XtfneVxygODQ4wI3bnVRBo50wk2mQGTZYx13gPBZzPhY2IZSUNN+M71JknGUqbeZnR5rcc=
+Received: from MWHPR15CA0044.namprd15.prod.outlook.com (2603:10b6:300:ad::30)
+ by PH0PR12MB5435.namprd12.prod.outlook.com (2603:10b6:510:ed::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Wed, 8 Dec
- 2021 09:27:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.12; Wed, 8 Dec
+ 2021 09:27:36 +0000
 Received: from CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ad:cafe::b9) by MWHPR15CA0032.outlook.office365.com
- (2603:10b6:300:ad::18) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:300:ad:cafe::30) by MWHPR15CA0044.outlook.office365.com
+ (2603:10b6:300:ad::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
- Transport; Wed, 8 Dec 2021 09:27:37 +0000
+ Transport; Wed, 8 Dec 2021 09:27:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,19 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT011.mail.protection.outlook.com (10.13.175.186) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Wed, 8 Dec 2021 09:27:37 +0000
+ 15.20.4755.13 via Frontend Transport; Wed, 8 Dec 2021 09:27:36 +0000
 Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 8 Dec
- 2021 03:27:35 -0600
+ 2021 03:27:33 -0600
 From: Lang Yu <lang.yu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: only hw fini SMU fisrt for ASICs need that
-Date: Wed, 8 Dec 2021 17:26:42 +0800
-Message-ID: <20211208092642.173385-2-lang.yu@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: remove power on/off SDMA in SMU hw_init/fini()
+Date: Wed, 8 Dec 2021 17:26:41 +0800
+Message-ID: <20211208092642.173385-1-lang.yu@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211208092642.173385-1-lang.yu@amd.com>
-References: <20211208092642.173385-1-lang.yu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -68,28 +66,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 33cd2f69-5001-4e59-43e9-08d9ba2cf976
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1270:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1270A83461F4D35DC97EFA3BFB6F9@CY4PR12MB1270.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:185;
+X-MS-Office365-Filtering-Correlation-Id: 3ca31cb7-076e-4808-209e-08d9ba2cf898
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5435:EE_
+X-Microsoft-Antispam-PRVS: <PH0PR12MB54355F089404DA6DD6B2B59FFB6F9@PH0PR12MB5435.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 71wkUHL6fETkmJppNkuyaIsvOTj2XeRUGs2vD+ewXOhmI12iA6map6fqEDSkWsrd5EsrA3VYhNhgfZNYu6d2L1YW++T9goY0nudZkhF0xAoSYF2QcH7e2wwBx6Br7TrA+VP3cwu7SD1y2UFn+8tPT4/Q+VdQ3LwZgp9kJFQnw8ddC5qfS1CayYuaDPMs+J6g1Fwr1WISeGSJc/0pMWJQW8SYvFPp5VlXk41RCT0ckK/EruYL92sQ1AOm1kj1L1/ANCfvj6VY/xXG0SlyfOLUiFda+Itm5HJ3XJJGOT557qjit4Hd/Tz1eRViMjRclpVHIjU7ELeHS1RsTNd3FCLA2kK2Mr04/KHIEoruQ2pPhlA/IwmupiKZPWygVD76lQ1lro4S+bRYEX7qz1cJFC3/ZVxGIZi6pHmhyH/xBm2lVQQKsECqsl+WRaQVaU0qBFdXJcKOwocF7wiAwaZwrEPpgo+gKH7WmHX8vBXD5JJmeukLBjHpEr2W4DmHTy/xxX4rTGY1JU9zUd/4d/rc35m4NrHCokSXFoRG3tUPD8JpKXcm1jTJR31Lu2+EONh322Xjt/z3b6EFBCm9aEjfXgzb0ZHLCfqtB4olWLh1DddRnexi5xjGPmuwQ27ECAaBWR3p2wit3Z7knk6VSd53a1QAr6FEK04rb6d2zacEQoUW7NgFyraMkh1dPFblVZr8l+3ccDqK1/Wlep9kMhmfgT8vHqMsVI9RzlOcFJEclJ3cQdU/tchhMpt/ejceBBWuCsrw6r/WMnlOP5f6HztWWgO9TM7yr6qoJ1+C3DXtUG+3t2LXzGIDap7pjRX5b00q9NuoRxRLbtRe0ZY9O3R+dYKiIw==
+X-Microsoft-Antispam-Message-Info: uBubKcYtbQXsL9k3nwforFGieBuUw/xviFbKRDiS/gO/7cQQ9siKxzQcYq7QS6ZR5YAcnAy8Wky8aV4jdbaC+pbL2H+/iz7S27tFSGbp3Q/bTvfBcYs43wwQSEBcdhu9q5+B/BudPLuyb90oVANyuCkG4Gx89p0iWshDGEHRCWOFE0VU5qLBnQps5dKLfH6JyQODwANX2pQ3x7ZPO+leVmQBDvXpYaWQmHRvOodpGVS2HIJGwD20n39IJeyHG3bA2enE59ggGRrSgCIeT4076tv6q689vmThKwi7v12+i7/AcJuv4ZUt6J8q7L4vpVw4zlfPiKNz84DYiMl8e8dMCmUUvjV9DyRkFqnn2G/UxOV8W8zheuQTDRYYxwCSwCyCrexSwPAT0CLtlLZll17tSnVkhMf04e9XrNN+dO1cgScCZG/TD8TH5mKnNrxQREhUyv/4KmxzClLLM7drHXnONUVxSsWjyUaVjsDuTYKYVmDjHjkuP2JQqlhy0B0X70hskDmcUQIo1ZJ7LDEFHR7KYFnP2M510LYYPbmFg5GIs66SKi+WhlPo43nv6HEhOR8lmyXLQlFXZ0rcgeR4mfE0JqnP/d4ikk1VmuKx0RmKVtW81LdzTm+BYYX67TJPvsREVoKqasNr3UxFaba5vCLzjZ5UOQQtfTb4+MqZl5cfBXnZWeE/VkdHnmOdUR2QDzcdVR+cPWEW/CfIcED+tTf529on6gGuAAD4dW2GNt+EHT7Eeaz5jKfKYp42OxQjvxHYxp+PzE5tkqe4irKfh5co+RgUxrCkDf3KXQ/buYpbFV8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(36756003)(26005)(6666004)(7696005)(2616005)(316002)(6916009)(1076003)(186003)(40460700001)(70206006)(82310400004)(8676002)(83380400001)(16526019)(70586007)(44832011)(356005)(81166007)(54906003)(4326008)(426003)(336012)(47076005)(36860700001)(508600001)(2906002)(86362001)(5660300002)(8936002)(21314003)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(426003)(47076005)(26005)(36756003)(1076003)(8676002)(2616005)(86362001)(82310400004)(83380400001)(81166007)(40460700001)(6916009)(16526019)(7696005)(186003)(44832011)(356005)(336012)(70586007)(70206006)(54906003)(316002)(6666004)(508600001)(8936002)(4326008)(5660300002)(2906002)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 09:27:37.4663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33cd2f69-5001-4e59-43e9-08d9ba2cf976
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 09:27:36.0090 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ca31cb7-076e-4808-209e-08d9ba2cf898
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1270
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,80 +104,38 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, Lang Yu <lang.yu@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We found some headaches on ASICs don't need that,
-so remove that for them.
+Currently, we don't find some neccesities to power on/off
+SDMA in SMU hw_init/fini(). It makes more sense in SDMA
+hw_init/fini().
 
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Lang Yu <lang.yu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 47 +++++++++++++++-------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 3c5afa45173c..b5b32a582c51 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2656,6 +2656,36 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 5839918cb574..2d718c30c8eb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1350,7 +1350,6 @@ static int smu_hw_init(void *handle)
+ 	}
  
-+/**
-+ * amdgpu_device_smu_fini_early - smu hw_fini wrapper
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * For ASICs need to disable SMC first
-+ */
-+static void amdgpu_device_smu_fini_early(struct amdgpu_device *adev)
-+{
-+	int i, r;
-+
-+	if (adev->ip_versions[GC_HWIP][0] > IP_VERSION(9, 0, 0))
-+		return;
-+
-+	for (i = 0; i < adev->num_ip_blocks; i++) {
-+		if (!adev->ip_blocks[i].status.hw)
-+			continue;
-+		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
-+			r = adev->ip_blocks[i].version->funcs->hw_fini((void *)adev);
-+			/* XXX handle errors */
-+			if (r) {
-+				DRM_DEBUG("hw_fini of IP block <%s> failed %d\n",
-+					  adev->ip_blocks[i].version->funcs->name, r);
-+			}
-+			adev->ip_blocks[i].status.hw = false;
-+			break;
-+		}
-+	}
-+}
-+
- static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
- {
- 	int i, r;
-@@ -2676,21 +2706,8 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
- 	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
- 	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+ 	if (smu->is_apu) {
+-		smu_powergate_sdma(&adev->smu, false);
+ 		smu_dpm_set_vcn_enable(smu, true);
+ 		smu_dpm_set_jpeg_enable(smu, true);
+ 		smu_set_gfx_cgpg(&adev->smu, true);
+@@ -1512,10 +1511,6 @@ static int smu_hw_fini(void *handle)
+ 	if (amdgpu_sriov_vf(adev)&& !amdgpu_sriov_is_pp_one_vf(adev))
+ 		return 0;
  
--	/* need to disable SMC first */
--	for (i = 0; i < adev->num_ip_blocks; i++) {
--		if (!adev->ip_blocks[i].status.hw)
--			continue;
--		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
--			r = adev->ip_blocks[i].version->funcs->hw_fini((void *)adev);
--			/* XXX handle errors */
--			if (r) {
--				DRM_DEBUG("hw_fini of IP block <%s> failed %d\n",
--					  adev->ip_blocks[i].version->funcs->name, r);
--			}
--			adev->ip_blocks[i].status.hw = false;
--			break;
--		}
+-	if (smu->is_apu) {
+-		smu_powergate_sdma(&adev->smu, true);
 -	}
-+	/* Workaroud for ASICs need to disable SMC first */
-+	amdgpu_device_smu_fini_early(adev);
+-
+ 	smu_dpm_set_vcn_enable(smu, false);
+ 	smu_dpm_set_jpeg_enable(smu, false);
  
- 	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
- 		if (!adev->ip_blocks[i].status.hw)
 -- 
 2.25.1
 
