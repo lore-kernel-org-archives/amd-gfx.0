@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1F61C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 03:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5941AC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 05:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1326B6E462;
-	Wed,  8 Dec 2021 03:23:44 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B3DC6E462
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 03:23:42 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- v15-20020a9d604f000000b0056cdb373b82so1348939otj.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Dec 2021 19:23:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E53BA6E419;
+	Wed,  8 Dec 2021 05:16:38 +0000 (UTC)
+Received: from mail-vk1-xa2f.google.com (mail-vk1-xa2f.google.com
+ [IPv6:2607:f8b0:4864:20::a2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA676E1A3;
+ Wed,  8 Dec 2021 05:16:37 +0000 (UTC)
+Received: by mail-vk1-xa2f.google.com with SMTP id h1so889832vkh.0;
+ Tue, 07 Dec 2021 21:16:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BUPUcKIBXb9WLKJxuPBXJG+252B4H99gl6z9NYwHNis=;
- b=DWLRoRvm7HpSo5kJ1+H6nK7eDsJuGwIMv1uLcjjyf/x4oCnWNBpkrpfyG/6cIf+MNB
- sLc+3bx6N6q+j2ayLzRKPuZTc3gvGpPRgtDy5kVrMdfd40uXyuOX3BUjI6k3AjemN7Cb
- DgIkJGBerAfn6EF6klM0qmBjifXM5JcvVkkJq9QRYSZ5lWnQ8kX+Sjh47bDaoeh6eXvd
- 9Gbs/+WH17lCM8edBXPJJP/JIaAs8vU+waMTuf3+JfwWnxTVw8Vx3w3YHjW9DmMkTeTo
- dpLV6HDgTPtC1YEC5FcA7SMEkufnqlUaPE9fl/L8tZkw5+fi3MkMXit/m+LhnlRYUGy5
- UO0w==
+ :cc; bh=k4TgxotWqQC+UlMjLdxFb8gJ1bUTmHEtBJSUoVsJhbA=;
+ b=dVBGqtg8koZ9wqmjjuaZvkBfXkRf/kw1KsZepp29Q8qDovegqcg9NxXyMW6CoR7OSm
+ b2P9yP7Pb+VfvrbkouXsZMzxmewSEVJhhvx4If4eAkek0wNCAtX5pqwsNCIS7PSuhTvj
+ MpkvE9zG+deiW7rnuk2CvcIDcQ+AtMcePhtzm3B04gQBdE1bezQ1SJ8QzW1aMrUqxeU8
+ MDgUmyhVWk+K/KUTD8hkIB+gkkHm+Hm3sui05dDYPKldSe3gTIY7ySrronq3JsMvfL5x
+ db6M4IeoB/h6jOexLFMfirmWrFtvLPUShEKeEGrYhKI5QKl8DkXpk1JnCOmNQ1Vcah4S
+ G86Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=BUPUcKIBXb9WLKJxuPBXJG+252B4H99gl6z9NYwHNis=;
- b=InWGc327BT9q9pRrq+N+ndCBTpkqXlcwqqWn3xx23NLFQzw9gc4N19bHIc8Q4NZmm3
- NO3VdnsIZixuL7msJ6JrgWoTB73Fz9uDDffizJ73xzU9kD/n1tWGQjborNfBDAPHf3QF
- 1K96WOtHqtelDbMLF337+bs0hLqUqtj/aDPhSzldXbkUjFpxdtVLT3mtDRMEV/7lHxJj
- 3lezWpnYkhRcEMJZMqfOB3NtS4RDRoWhTqA3SxcxLMCKcnxfdK5TDxiJMa73FpmPxGiw
- LA/eI91ixF85pGW2yrPidjGxNXRwwnxpu/dhUmkGVcoc7sXkDwN/Truj1vNz0neuZJNk
- 0K6w==
-X-Gm-Message-State: AOAM5320XjM/Va52tqhKGDPohI7lJ4sVvqimPa0jjx2RxJWRB1Cek9hR
- 7UXtuDPPinkpFMZAn40fxFyDZxEWreihLj+zaKWWAEkU
-X-Google-Smtp-Source: ABdhPJxYApy/zj60HodZeTLmwvq10i64E+l/Sb05KHZCWaaDNku2Lp9bQCp0KAfTt0gyvA0LEltPfaer0wyX4lv9WdY=
-X-Received: by 2002:a05:6830:1bcf:: with SMTP id
- v15mr40121363ota.200.1638933821600; 
- Tue, 07 Dec 2021 19:23:41 -0800 (PST)
+ bh=k4TgxotWqQC+UlMjLdxFb8gJ1bUTmHEtBJSUoVsJhbA=;
+ b=HVMLYrpCC61Z0cLbeEPWdlSJZww0Xr4SLUerUf4Tkgmesh34y7hSLDdp+RyAaKmMgI
+ 932YlsgYllUfK4o1MhwuyHKAfvjG9xTsz/CciT8UGcHyHEuxpGLhUjtnkq6BsEWmtGyb
+ 5L0UyhMBygp3fCPBKOO9RKvy8nmcSKpH1MlwSIuT5cxb9vP1JZRaoNUo/cxX4ms21nGY
+ YMUvjgmNF6hzW159PBUTFjn9iuIuxxeXFOHN5FGlcfq4BgnpE86OsrLUkw/1AM8YusHb
+ Y4L/VmjtdDYSDytCN2KbTzutgVaQX3PtGEcppXE53t1YleN27GJV2wcgb0Mdg7TL0Cgx
+ kGcw==
+X-Gm-Message-State: AOAM532vOQnwBLPbOszOQ0hCckccCECeeSyV8fhFr7GKOg1vlyJioD98
+ fA+N4wJl+dgWGIr174XaBtu5v3KAs0k3xe2Xm/M=
+X-Google-Smtp-Source: ABdhPJy5g05zqhLHrO7v+lI4QlKgKpZEKYc8OgtA3+ilRbrq9uHuXaijZGY1/p2g4C3MzOnNU8lJIXaD1kawd4yGmzc=
+X-Received: by 2002:a05:6122:21a2:: with SMTP id
+ j34mr60403060vkd.17.1638940596668; 
+ Tue, 07 Dec 2021 21:16:36 -0800 (PST)
 MIME-Version: 1.0
-References: <20211208025450.1814289-1-evan.quan@amd.com>
- <20211208025450.1814289-2-evan.quan@amd.com>
-In-Reply-To: <20211208025450.1814289-2-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 7 Dec 2021 22:23:30 -0500
-Message-ID: <CADnq5_PN9bk5fqEM62ocActJV7MWkLz4XuxZY6aiVS+x-bX4kA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: drop those unrealistic thermal_type checks
-To: Evan Quan <evan.quan@amd.com>
+References: <20211111220206.121610-1-jim.cromie@gmail.com>
+ <20211111220206.121610-9-jim.cromie@gmail.com>
+ <20211112114953.GA1381@axis.com>
+In-Reply-To: <20211112114953.GA1381@axis.com>
+From: jim.cromie@gmail.com
+Date: Tue, 7 Dec 2021 22:16:10 -0700
+Message-ID: <CAJfuBxxnuXAR7Jgn74MNQC7MLRc0xcDLw1cCidUJ9Xyar+O_2g@mail.gmail.com>
+Subject: Re: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with it
+ - RFC
+To: Vincent Whitchurch <vincent.whitchurch@axis.com>,
+ Steven Rostedt <rostedt@goodmis.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,49 +65,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <lijo.lazar@amd.com>, Kenneth Feng <Kenneth.Feng@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: quic_saipraka@quicinc.com, Catalin Marinas <catalin.marinas@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Will Deacon <will@kernel.org>,
+ maz@kernel.org, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Ingo Molnar <mingo@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Jason Baron <jbaron@akamai.com>, Sean Paul <seanpaul@chromium.org>,
+ intel-gvt-dev@lists.freedesktop.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, Sean Paul <sean@poorly.run>,
+ Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
+ robdclark@gmail.com, quic_psodagud@quicinc.com, mathieu.desnoyers@efficios.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+On Fri, Nov 12, 2021 at 4:49 AM Vincent Whitchurch
+<vincent.whitchurch@axis.com> wrote:
+>
+> On Thu, Nov 11, 2021 at 03:02:04PM -0700, Jim Cromie wrote:
+> > Dynamic-Debug can do 2nd exceedingly well:
+> >
+> > A- all work is behind jump-label's NOOP, zero off cost.
+> > B- exact site selectivity, precisely the useful traffic.
+> >    can tailor enabled set interactively, at shell.
+> >
+> > Since the tracefs interface is effective for drm (the threads suggest
+> > so), adding that interface to dynamic-debug has real potential for
+> > everyone including drm.
+> >
+> > Add a new +T flag to enable tracing, independent of +p, and add and
 
-On Tue, Dec 7, 2021 at 9:55 PM Evan Quan <evan.quan@amd.com> wrote:
 >
-> As it's impossible the thermal sensor of KV is one of them.
+> I posted a patchset a while ago to do something very similar, but that
+> got stalled for some reason and I unfortunately didn't follow it up:
 >
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Change-Id: I52783cb50f037df06f76fbab997e0dc0fd445203
-> ---
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 10 ----------
->  1 file changed, 10 deletions(-)
+>  https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/
 >
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> index b37662c4a413..8b23cc9f098a 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> @@ -1260,18 +1260,8 @@ static void kv_dpm_enable_bapm(void *handle, bool enable)
->  static bool kv_is_internal_thermal_sensor(enum amdgpu_int_thermal_type sensor)
->  {
->         switch (sensor) {
-> -       case THERMAL_TYPE_RV6XX:
-> -       case THERMAL_TYPE_RV770:
-> -       case THERMAL_TYPE_EVERGREEN:
-> -       case THERMAL_TYPE_SUMO:
-> -       case THERMAL_TYPE_NI:
-> -       case THERMAL_TYPE_SI:
-> -       case THERMAL_TYPE_CI:
->         case THERMAL_TYPE_KV:
->                 return true;
-> -       case THERMAL_TYPE_ADT7473_WITH_INTERNAL:
-> -       case THERMAL_TYPE_EMC2103_WITH_INTERNAL:
-> -               return false; /* need special handling */
->         case THERMAL_TYPE_NONE:
->         case THERMAL_TYPE_EXTERNAL:
->         case THERMAL_TYPE_EXTERNAL_GPIO:
-> --
-> 2.29.0
+> A key difference between that patchset and this patch (besides that
+> small fact that I used +x instead of +T) was that my patchset allowed
+> the dyndbg trace to be emitted to the main buffer and did not force them
+> to be in an instance-specific buffer.
 >
+> That feature is quite important at least for my use case since I often
+> use dyndbg combined with function tracing, and the latter doesn't work
+> on non-main instances according to Documentation/trace/ftrace.rst.
+>
+> For example, here's a random example of a bootargs from one of my recent
+> debugging sessions:
+>
+>  trace_event=printk:* ftrace_filter=_mmc*,mmc*,sd*,dw_mci*,mci*
+>  ftrace=function trace_buf_size=20M dyndbg="file drivers/mmc/* +x"
+>
+
+Hi Vincent,
+
+are you planning to dust this patchset off and resubmit it ?
+
+Ive been playing with it and learning ftrace (decade+ late),
+I found your boot-line example very helpful as 1st steps
+(still havent even tried the filtering)
+
+
+with these adjustments (voiced partly to test my understanding)
+I would support it, and rework my patchset to use it.
+
+- change flag to -e, good mnemonics for event/trace-event
+   T is good too, but uppercase, no need to go there.
+
+- include/trace/events/dyndbg.h - separate file, not mixed with print.h
+  dyndbg class, so trace_event=dyndbg:*
+
+- 1 event type per pr_debug, dev_dbg, netdev_dbg ? ibdev_dbg ?
+  with the extra args: descriptor that Steven wanted,
+  probably also struct <|net|ib>dev
+
+If youre too busy for a while, I'd eventually take a (slow) run at it.
