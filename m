@@ -4,53 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F38CC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 20:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62092C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 20:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC1CC6E8A9;
-	Wed,  8 Dec 2021 20:27:57 +0000 (UTC)
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 079E06E8A9
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 20:27:56 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id bj13so5704568oib.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 12:27:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2ba3Y20RZhb0JjXprtU90Ja+G9hOebr9B3mV4Kk/UfQ=;
- b=VHy4rAJAYJQcGhBdM8H0ON5tcdH/NpNiG0duW/b8HsFQ5WgYanZab/1q0zN/V32aVH
- yg44DABSi5IdkT/EK7S+WITNjTtbxhYgj/+neAPniffM5i+aTK1R0lwQgnHunI7CNTi/
- yloij4Hr3DkEFVqxpt/ekslrdFetrrMO9KClHz+V6R3VKrL1o+SP/oAnIBMsRPPj2jKO
- cSgqxSCLLcy4PhnltCcBz55h67qoojJu9pY7iuQ25CYkam2xLThm8Lk1hXJwF7+jhNUc
- Q74NcUMsCGNjF004LtR/WGlNvwzNixHWFt7ImUFq9pDYmCHmbjdD97GrP4YeGph5TVa1
- qShQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2ba3Y20RZhb0JjXprtU90Ja+G9hOebr9B3mV4Kk/UfQ=;
- b=cMENp5GH60UnCamXzeMkM1EjU6BKC20p5fwjaIUrT6yBd2McnpL3xWSRNgOsYgJPbl
- kRaG5YEGTFKK6jWjzfrGwxkDZCycy+fz7HhOesFOqj8fTzQcY9Mv13DhvD8rCLRwExKv
- 5b0lPgaoW1FZYP7hezF3aKty1u2YblGmTyDYk3pivKdJX34I8Ut/+lDDVlhrDD/N09OF
- Qd9sZ54WynRAXJ6jecynrKRNK+l7PN0flxoWjbJjUW3rhr71uQojiGWFsi7lN2PHgTz9
- vjHL0t+4DRsOwkNY1a6DtNg/HMmlPKT630xZic1wrbI7cTXuqWzdMeUnLZEGhK0LgY5M
- mXFQ==
-X-Gm-Message-State: AOAM5321CXu46qCMqhldwLLBvkmKpVBfD+JtmC1AL9AB7g8fkgX5CLtH
- IO6Pisww18mmFWkyLoauHdX8QcYJpqaayfaBFoQ=
-X-Google-Smtp-Source: ABdhPJypd9N+OboylzWWkytxWU2rhdrlt+Z/oEoEjZf44I7ju+Jqs71OrHzummTzJ98c8y4PRg+Gh44S4HCEmo8/f/8=
-X-Received: by 2002:a05:6808:44:: with SMTP id
- v4mr1608285oic.123.1638995276261; 
- Wed, 08 Dec 2021 12:27:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14BE56E8AA;
+	Wed,  8 Dec 2021 20:54:03 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2043.outbound.protection.outlook.com [40.107.102.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3C046E8AA;
+ Wed,  8 Dec 2021 20:54:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eU2VAQR2ZVeGXWv5joi/XHkjHp0qFkDcXYxCgsqIHdvlWLIfKmq8E8neWj3Xuy9CIMnq0sJ3cHgsIeavH014oB/mxJgKz5CpP6fIzbkTaeFQ2ZuaEMYKb7RG8mouMiW7XUTVRe9hgvrgIdkJYomWyT2EpKKrlq6yzs8iPVTEsXsQW/DqYeBzzHVktiGC/NmPAezyqdSrW6uNrHmM4M3jqFWAfBB9q5Jd2GjREKqchIpKAaC6qwEiJSSJIlnFOQO8Nab9/TrfRFqUikUlr7F5ceUyxzW0RfbwF60Gq5Np9IVPJSBeDa6PD6s+//QOYfk8jbpwu/UaeM0hfYEj38l8Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Tcc9h4EbgsyotCesshM2fqMwVEPPGXgtknZEvn/KBx8=;
+ b=CTkavNnFHsHw9a7YxfULFxRjH2BBYbeCSlRP/dtbcWUXrtK3f+xoA3s9DkK3mzA/xG1PxPquZcUHO0aoNERAm885LiAt8fTIwv4v9oPX40UPen0Jr4+jNnEyGu1w9D8XNgoBk/+9inrRMnZFdneA9bBiBRJwMLjgA2U0HehVkLuJOXrTRPTo2hUxj4k58NS3T0pcfqGAOTmCCYylfC2Fk3KZi0R8qYigrByw4w1Mgmk/84FCN5jVQG7X4YZ0A8xiNCIWUnJxKNfnn44o6Q895DTOMh/No8CUuAzQu/chXmzchFv41myyBn9GhA2FBR+OTK7RgXkoLMFiKdubT9OGJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tcc9h4EbgsyotCesshM2fqMwVEPPGXgtknZEvn/KBx8=;
+ b=nTUvNF67qer2Mwi/PCCHQTIWFM9yuG4WjRFY2eQyhDRgY86Vjo1/NG+C/t7p62nSZIhhDHC7WFx0vwPDwfR5TOGsZ5XblmWNWarwkP9uzoETdHeh9k8kf8PM1BOy3sgZ86CGJcG6/00U41Frd478U9L00D9+Y4XJcv67tihmr/8=
+Received: from BN6PR11CA0049.namprd11.prod.outlook.com (2603:10b6:404:f7::11)
+ by MN2PR12MB4303.namprd12.prod.outlook.com (2603:10b6:208:198::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Wed, 8 Dec
+ 2021 20:53:58 +0000
+Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:f7:cafe::f7) by BN6PR11CA0049.outlook.office365.com
+ (2603:10b6:404:f7::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
+ Transport; Wed, 8 Dec 2021 20:53:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Wed, 8 Dec 2021 20:53:57 +0000
+Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 8 Dec
+ 2021 14:53:56 -0600
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
+Date: Wed, 8 Dec 2021 15:53:44 -0500
+Message-ID: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20211208201618.10551-1-Philip.Yang@amd.com>
- <CADnq5_NmfbXL9jzBZxZJOjT_+zpatk+M4Zm_czNsG9VMdcweBg@mail.gmail.com>
-In-Reply-To: <CADnq5_NmfbXL9jzBZxZJOjT_+zpatk+M4Zm_czNsG9VMdcweBg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Dec 2021 15:27:45 -0500
-Message-ID: <CADnq5_O5qsewQatnt7W6n-XHQ9JvZhj=6K=m8mUO-08h6=Jyog@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Handle fault with same timestamp
-To: Philip Yang <Philip.Yang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 328691fe-0f6f-400d-4d19-08d9ba8cdb2b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4303:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB43034BBB71C8B2FB350B03FFFE6F9@MN2PR12MB4303.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6BK2iFyauzEkjgWrCRB3zSANfUKXiuOwLuvPp0Wx6AcHUmGVTVA5pK74UDLIu8/1jTFiN3e2/V7+RZt0AszsX6hUvTQfzx+IXE6Gy88BFo/UttV8fTAQj6aWAzFFB/K7lcsk5s4M5IUBSDKVt1R4EPKjeN8qY/RuOseW+HrpLPZe75SHvqrBg9131jQD6xvfBgkoLnFu7d0j2RoILneq0iv8x+bNaeI8sV/m8GikscyA5/b4H1pCuGOJoklasKhj0jmI316Jw1NbFoT1OuVkq5eulmZczdHvNpJh/S5INQ0v3E8/aXM5d8kZfrkpRfkTb0AJ15Tacr7sRGYEeSUmZYHVXqH6jYY5bxz+7YzKrHsXROKjULJdV8Wxawg2o4mw8YuqBK3nKXBhTZ8/zilWtkvFN1n0DbKIr91l88BLRXwY+JCJyGOU77hageIGble927HUReo7Q7Y2Erhf85PJg2eWylQ39zPvIQum4gdxbPQdc94lGH7hGzRLhHCeFpvUUXZOq6K2a8foIhxsCHpY0ArvQH2f1UesMp1qHwEMMlPzDleIL4AC0vcbnepysjk4MwLQIy7NkVlCnuzCgogeJkrnD+oScCzJ4HVQIp50gJtg9OmfusuXBr63vSNKRJSBZN9b30wgyufgOLDZ5iLT9h5UZINT6gTYbOh1TCDWdyZSkw27BS/LI9KmwEwpIt7mKlVKNOke175qQQJKX6lyjFJfY6JYcOi19c1fcRon0xchAHna1QbDMH9ceNtopfskI31jdmzJbh60QlD9gx9DsUe/vE0byJLx629GMggwIT4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(8676002)(83380400001)(86362001)(356005)(81166007)(8936002)(1076003)(40460700001)(7696005)(82310400004)(508600001)(2616005)(44832011)(5660300002)(426003)(186003)(2906002)(16526019)(70586007)(70206006)(54906003)(26005)(36860700001)(4326008)(36756003)(110136005)(47076005)(6666004)(336012)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 20:53:57.8622 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 328691fe-0f6f-400d-4d19-08d9ba8cdb2b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4303
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,67 +98,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: daniel.vetter@ffwll.ch, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>, David
+ Yat Sin <david.yatsin@amd.com>, alexander.deucher@amd.com, airlied@redhat.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 8, 2021 at 3:25 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Dec 8, 2021 at 3:17 PM Philip Yang <Philip.Yang@amd.com> wrote:
-> >
-> > Remove not unique timestamp WARNING as same timestamp interrupt happens
-> > on some chips,
-> >
-> > Drain fault need to wait for the processed_timestamp to be truly greater
-> > than the checkpoint or the ring to be empty to be sure no stale faults
-> > are handled.
-> >
-> > Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->
-> Maybe add the link to the bug when you push this?
+When an application having open file access to a node forks, its shared
+mappings also get reflected in the address space of child process even
+though it cannot access them with the object permissions applied. With the
+existing permission checks on the gem objects, it might be reasonable to
+also create the VMAs with VM_DONTCOPY flag so a user space application
+doesn't need to explicitly call the madvise(addr, len, MADV_DONTFORK)
+system call to prevent the pages in the mapped range to appear in the
+address space of the child process. It also prevents the memory leaks
+due to additional reference counts on the mapped BOs in the child
+process that prevented freeing the memory in the parent for which we had
+worked around earlier in the user space inside the thunk library.
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1818
+Additionally, we faced this issue when using CRIU to checkpoint restore
+an application that had such inherited mappings in the child which
+confuse CRIU when it mmaps on restore. Having this flag set for the
+render node VMAs helps. VMAs mapped via KFD already take care of this so
+this is needed only for the render nodes.
 
-Alex
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
 
->
-> Alex
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 4 ++--
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 3 ---
-> >  2 files changed, 2 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> > index 8050f7ba93ad..3df146579ad9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> > @@ -188,8 +188,8 @@ int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
-> >         checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
-> >
-> >         return wait_event_interruptible_timeout(ih->wait_process,
-> > -                   !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts),
-> > -                   timeout);
-> > +                   amdgpu_ih_ts_after(checkpoint_ts, ih->processed_timestamp) ||
-> > +                   ih->rptr == amdgpu_ih_get_wptr(adev, ih), timeout);
-> >  }
-> >
-> >  /**
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > index e031f0cf93a2..571b11117992 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > @@ -522,9 +522,6 @@ void amdgpu_irq_dispatch(struct amdgpu_device *adev,
-> >         if (!handled)
-> >                 amdgpu_amdkfd_interrupt(adev, entry.iv_entry);
-> >
-> > -       dev_WARN_ONCE(adev->dev, ih->processed_timestamp == entry.timestamp,
-> > -                     "IH timestamps are not unique");
-> > -
-> >         if (amdgpu_ih_ts_after(ih->processed_timestamp, entry.timestamp))
-> >                 ih->processed_timestamp = entry.timestamp;
-> >  }
-> > --
-> > 2.17.1
-> >
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+---
+ drivers/gpu/drm/drm_gem.c       | 3 ++-
+ drivers/gpu/drm/ttm/ttm_bo_vm.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 09c820045859..d9c4149f36dd 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1058,7 +1058,8 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
+ 			goto err_drm_gem_object_put;
+ 		}
+ 
+-		vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP;
++		vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND
++				| VM_DONTDUMP | VM_DONTCOPY;
+ 		vma->vm_page_prot = pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
+ 		vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+ 	}
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+index 33680c94127c..420a4898fdd2 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+@@ -566,7 +566,7 @@ int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_object *bo)
+ 
+ 	vma->vm_private_data = bo;
+ 
+-	vma->vm_flags |= VM_PFNMAP;
++	vma->vm_flags |= VM_PFNMAP | VM_DONTCOPY;
+ 	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
+ 	return 0;
+ }
+-- 
+2.17.1
+
