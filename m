@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E67C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 03:16:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1089FC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 03:16:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D58936E2B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B45FA6E210;
 	Wed,  8 Dec 2021 03:16:43 +0000 (UTC)
 Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BC406E22F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 761E86E329
  for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 01:32:47 +0000 (UTC)
 Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
  client-signature RSA-PSS (2048 bits) client-digest SHA256)
  (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx1.riseup.net (Postfix) with ESMTPS id 4J7zys51Y5zF4jS;
- Tue,  7 Dec 2021 17:26:29 -0800 (PST)
+ by mx1.riseup.net (Postfix) with ESMTPS id 4J7zz72KXTzF4nR;
+ Tue,  7 Dec 2021 17:26:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1638926789; bh=4wjioRyW3r+LOWxqSou972meOigDouk1tF80QrRy8nk=;
+ t=1638926803; bh=0CNi84euItyXUOMyD8vpBFaZDqzvT0uSwQLfyFA4lMc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JyqVTIDJdiGTMWvqxFbALiUmdEVg3LTavZhaDMKc8mUCH7qh0H2YoT2mwii49hkVu
- 7V/XdDNns2v4X7ttn/pfjUxDU9efXOJUa27oMzkLFQbaveSwVzd35G0BC1fUyduD2T
- 5n1KVhnlAlFdpJ2LQxtVpG4MyysZTRy0gsWNkMKE=
-X-Riseup-User-ID: DCEAEE24D4891B94813A37C355B45D58543A1AE3623A999559F706442D03A3B7
+ b=aeG9Tn7nL173WopkJXS/EA/zkczVBrFoXF/Kj9CXfNo0/NoEp+vNxUBTi6o+7MsSM
+ SmWUBIAEVVL6GE6uRX5Y8+HEHQZXb1zr57IqIPJF39fPrMhACpy92i/Xm17KcoP+UU
+ sFNbw8pj1MJ/JlYySUT7EGmU9DjLoiCTb0Lr+Dn0=
+X-Riseup-User-ID: 06EB3C6F8C2BBD3B565D95F1E2E4236DD43675620618A05967B11F557DB06B3B
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews1.riseup.net (Postfix) with ESMTPSA id 4J7zyq2pblz5vkY;
- Tue,  7 Dec 2021 17:26:27 -0800 (PST)
+ by fews1.riseup.net (Postfix) with ESMTPSA id 4J7zz46LgVz5vkY;
+ Tue,  7 Dec 2021 17:26:40 -0800 (PST)
 From: Isabella Basso <isabbasso@riseup.net>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, daniel@ffwll.ch,
  harry.wentland@amd.com, Rodrigo.Siqueira@amd.com, Felix.Kuehling@amd.com
-Subject: [PATCH 04/10] drm/amdgpu: fix function scopes
-Date: Tue,  7 Dec 2021 22:25:23 -0300
-Message-Id: <20211208012529.372478-5-isabbasso@riseup.net>
+Subject: [PATCH 09/10] drm/amdgpu: remove unnecessary variables
+Date: Tue,  7 Dec 2021 22:25:28 -0300
+Message-Id: <20211208012529.372478-10-isabbasso@riseup.net>
 In-Reply-To: <20211208012529.372478-1-isabbasso@riseup.net>
 References: <20211208012529.372478-1-isabbasso@riseup.net>
 MIME-Version: 1.0
@@ -56,37 +56,67 @@ Cc: ~lkcamp/patches@lists.sr.ht, Isabella Basso <isabbasso@riseup.net>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This turns previously global functions into static, thus removing
-compile-time warnings such as:
+This fixes the warnings below:
 
- warning: no previous prototype for 'release_psp_cmd_buf' [-Wmissing-prototypes]
- 521 | void release_psp_cmd_buf(struct psp_context *psp)
-     |      ^~~~~~~~~~~~~~~~~~~
+ In function 'svm_range_map_to_gpu':
+ warning: variable 'bo_va' set but not used [-Wunused-but-set-variable]
+ 1172 |         struct amdgpu_bo_va bo_va;
+      |                             ^~~~~
  ...
- warning: no previous prototype for 'amdgpu_vkms_output_init' [-Wmissing-prototypes]
- 399 | int amdgpu_vkms_output_init(struct drm_device *dev,
-     |     ^~~~~~~~~~~~~~~~~~~~~~~
+ In function 'dcn201_update_clocks':
+ warning: variable 'enter_display_off' set but not used [-Wunused-but-set-variable]
+ 132 |         bool enter_display_off = false;
+     |              ^~~~~~~~~~~~~~~~~
 
 Signed-off-by: Isabella Basso <isabbasso@riseup.net>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c                          | 3 +--
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c    | 4 ----
+ 2 files changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index af3a2f8c12b4..96895cccf9e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -411,8 +411,8 @@ static struct drm_plane *amdgpu_vkms_plane_init(struct drm_device *dev,
- 	return plane;
- }
- 
--int amdgpu_vkms_output_init(struct drm_device *dev,
--			    struct amdgpu_vkms_output *output, int index)
-+static int amdgpu_vkms_output_init(struct drm_device *dev, struct
-+				   amdgpu_vkms_output *output, int index)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 82cb45e30197..08b2130afa4c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1169,7 +1169,6 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		     unsigned long npages, bool readonly, dma_addr_t *dma_addr,
+ 		     struct amdgpu_device *bo_adev, struct dma_fence **fence)
  {
- 	struct drm_connector *connector = &output->connector;
- 	struct drm_encoder *encoder = &output->encoder;
+-	struct amdgpu_bo_va bo_va;
+ 	bool table_freed = false;
+ 	uint64_t pte_flags;
+ 	unsigned long last_start;
+@@ -1183,7 +1182,7 @@ svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		 last_start, last_start + npages - 1, readonly);
+ 
+ 	if (prange->svm_bo && prange->ttm_res)
+-		bo_va.is_xgmi = amdgpu_xgmi_same_hive(adev, bo_adev);
++		amdgpu_xgmi_same_hive(adev, bo_adev);
+ 
+ 	for (i = offset; i < offset + npages; i++) {
+ 		last_domain = dma_addr[i] & SVM_RANGE_VRAM_DOMAIN;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c
+index f7f46b886162..2ea813a56edf 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c
+@@ -128,7 +128,6 @@ static void dcn201_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	int display_count;
+ 	bool update_dppclk = false;
+ 	bool update_dispclk = false;
+-	bool enter_display_off = false;
+ 	bool dpp_clock_lowered = false;
+ 	bool force_reset = false;
+ 	bool p_state_change_support;
+@@ -146,9 +145,6 @@ static void dcn201_update_clocks(struct clk_mgr *clk_mgr_base,
+ 
+ 	display_count = clk_mgr_helper_get_active_display_cnt(dc, context);
+ 
+-	if (display_count == 0)
+-		enter_display_off = true;
+-
+ 	if (should_set_clock(safe_to_lower, new_clocks->phyclk_khz, clk_mgr_base->clks.phyclk_khz))
+ 		clk_mgr_base->clks.phyclk_khz = new_clocks->phyclk_khz;
+ 
 -- 
 2.34.1
 
