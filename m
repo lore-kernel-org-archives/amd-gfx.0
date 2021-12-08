@@ -4,40 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87B47C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 22:50:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D9EC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:52:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15B076E111;
-	Wed,  8 Dec 2021 22:50:08 +0000 (UTC)
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [IPv6:2a01:e0c:1:1599::10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB4896E203
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 22:50:06 +0000 (UTC)
-Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
- by smtp1-g21.free.fr (Postfix) with ESMTP id 3D691B004EE;
- Wed,  8 Dec 2021 23:50:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1639003804;
- bh=OoqHCwNqw4dVpxTaH9A6R+M2Qay8YI6j/Vo67IMWsEg=;
- h=Date:From:To:Cc:In-Reply-To:Subject:From;
- b=WGfc056rFFJytAqGYPKac0MAoWkYOXt07Ugwv/ySrzYKOs69UbFXhih0+7cBr/lfe
- rNDeFlZhC68YXY8MOuf7yKw7BfmJOhx4D0Q3j3WFwlkzfQqKP3JdrbtXSbB50kg2ZW
- CbZUIdG07E8hBwAmp0AKzm2fol34IqINd1Ve43lTR1+SGDRzHPIwCHDQ9VvBNmexrK
- LuWXkcjDFN6fA9KiSFYim7cR+Qsrc9tlaOV1HOrZaRitmAtjm+Gb0vwgVJrZ6r2A0C
- vPiVmnwyCTQN4mcCcgyov6ac9Vo/rTnvf/Xb06mzTUwZIwUzEaT+Sg2AbKuQg+Z9Oj
- S9VbInS9SBvuA==
-Date: Wed, 8 Dec 2021 23:50:04 +0100 (CET)
-From: Yann Dirson <ydirson@free.fr>
-To: Alex Deucher <alexdeucher@gmail.com>
-Message-ID: <2125070111.42356235.1639003804213.JavaMail.root@zimbra39-e7>
-In-Reply-To: <CADnq5_M_PS6fSza560ReNVki0n40tozig_KsbZnFksco2MZ3Ag@mail.gmail.com>
-Subject: Re: Various problems trying to vga-passthrough a Renoir iGPU to a
- xen/qubes-os hvm
+	by gabe.freedesktop.org (Postfix) with ESMTP id C674C10E117;
+	Thu,  9 Dec 2021 16:52:50 +0000 (UTC)
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 411486F4FF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 13:53:48 +0000 (UTC)
+Received: by mail-qt1-x831.google.com with SMTP id v22so2205194qtx.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 05:53:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=n9Y+oLn3kk/oxvbwaSHPA0YUJg6Lr4J3Kc7nJ3JG/nE=;
+ b=GoexrLnjj1VsVdZoaP5pXTc9vHNtb3FB/yqoPYxnUbJ+/S+d+vBnWe6dlAY4RUbiHb
+ YEIRVrACKQidTrAVCzxZrfgOkALMUBdtNg3xnk5TlFEnnLGZIYssGyDfwIuVAmGISuRj
+ VArI6DY0phSTcH16IZiubLx6kuEL//Sf3bK1iiUeL66xetRRuTIHb52KOy53R2oEnBsl
+ 5+9PifTqlvZzWLgqbsPTPkl9yTPcJbID5QJXtWjjg3Kj9lp7EXRSfLCsT2fqIsqnCxOl
+ Yx7nCNwEt1VOHHNcJ4MNJdMatjqwgaaioDRXeq68Gv72oT5rChdSGBcB6jERNyYT7WNq
+ Zk3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=n9Y+oLn3kk/oxvbwaSHPA0YUJg6Lr4J3Kc7nJ3JG/nE=;
+ b=6mlWCrVGoospNhpHjw1uP0gSk45J//WlFWexZOH4U2ZpYqWGzBXUEPkUu5y2MtYImB
+ 4TQ5vgncyKyfjnyfmiHEph/Nw2MX/3ho71e7Tc+hovn7T+p8EycGAKuRNLnvYWxnAxGE
+ fcHNwUOmx3jzvjeovykqJd9n5Ybdz/GV1ByB9IOZePbFNt/s4BIJ5DEjghxCL3Bvs/mD
+ G3u1by6b/MPbKdE9fPGKnHyHc6iq83YtQXAOmIEFhbPb/3R6dl3wB6que8aO2VvjU6Ji
+ JL81fSXITFUuFTGlgcdNswhydGE2B2rjovqvwFVP3TIEN4Wu9a0OXC6txBOHlhv5nrGO
+ iQwA==
+X-Gm-Message-State: AOAM532PF676gRnlXXh+hW2joiQ2PIAxqLxzxsETgdznlds08ROjoB47
+ /TSr8/JwQ+Nit1z1TX8TYmii7g==
+X-Google-Smtp-Source: ABdhPJyYKvKS0NpCR6PWWVWY6+Vf6yq8PVBWsAJ1cY1C/Ayv7lr1154+ZV+fGaKDlVe8F/mvWjHimA==
+X-Received: by 2002:a05:622a:4ca:: with SMTP id
+ q10mr8015431qtx.631.1638971627307; 
+ Wed, 08 Dec 2021 05:53:47 -0800 (PST)
+Received: from ziepe.ca ([206.223.160.26])
+ by smtp.gmail.com with ESMTPSA id c7sm1763527qtc.32.2021.12.08.05.53.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Dec 2021 05:53:46 -0800 (PST)
+Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
+ id 1muxOD-000nGF-Ki; Wed, 08 Dec 2021 09:53:45 -0400
+Date: Wed, 8 Dec 2021 09:53:45 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Alistair Popple <apopple@nvidia.com>
+Subject: Re: [PATCH v2 03/11] mm/gup: migrate PIN_LONGTERM dev coherent pages
+ to system
+Message-ID: <20211208135345.GC6467@ziepe.ca>
+References: <20211206185251.20646-1-alex.sierra@amd.com>
+ <20211206185251.20646-4-alex.sierra@amd.com>
+ <2858338.J0npWUQLIM@nvdebian>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [88.120.44.86]
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: ydirson@free.fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2858338.J0npWUQLIM@nvdebian>
+X-Mailman-Approved-At: Thu, 09 Dec 2021 08:23:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,76 +73,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
+ willy@infradead.org, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+On Wed, Dec 08, 2021 at 10:31:58PM +1100, Alistair Popple wrote:
+> On Tuesday, 7 December 2021 5:52:43 AM AEDT Alex Sierra wrote:
+> > Avoid long term pinning for Coherent device type pages. This could
+> > interfere with their own device memory manager.
+> > If caller tries to get user device coherent pages with PIN_LONGTERM flag
+> > set, those pages will be migrated back to system memory.
+> > 
+> > Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> >  mm/gup.c | 32 ++++++++++++++++++++++++++++++--
+> >  1 file changed, 30 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/mm/gup.c b/mm/gup.c
+> > index 886d6148d3d0..1572eacf07f4 100644
+> > +++ b/mm/gup.c
+> > @@ -1689,17 +1689,37 @@ struct page *get_dump_page(unsigned long addr)
+> >  #endif /* CONFIG_ELF_CORE */
+> >  
+> >  #ifdef CONFIG_MIGRATION
+> > +static int migrate_device_page(unsigned long address,
+> > +				struct page *page)
+> > +{
+> > +	struct vm_area_struct *vma = find_vma(current->mm, address);
+> > +	struct vm_fault vmf = {
+> > +		.vma = vma,
+> > +		.address = address & PAGE_MASK,
+> > +		.flags = FAULT_FLAG_USER,
+> > +		.pgoff = linear_page_index(vma, address),
+> > +		.gfp_mask = GFP_KERNEL,
+> > +		.page = page,
+> > +	};
+> > +	if (page->pgmap && page->pgmap->ops->migrate_to_ram)
+> > +		return page->pgmap->ops->migrate_to_ram(&vmf);
+> 
+> How does this synchronise against pgmap being released? As I understand things
+> at this point we're not holding a reference on either the page or pgmap, so
+> the page and therefore the pgmap may have been freed.
 
-> 
-> On Mon, Dec 6, 2021 at 4:36 PM Yann Dirson <ydirson@free.fr> wrote:
-> >
-> > Hi Alex,
-> >
-> > > We have not validated virtualization of our integrated GPUs.  I
-> > > don't
-> > > know that it will work at all.  We had done a bit of testing but
-> > > ran
-> > > into the same issues with the PSP, but never had a chance to
-> > > debug
-> > > further because this feature is not productized.
-> > ...
-> > > You need a functional PSP to get the GPU driver up and running.
-> >
-> > Ah, thanks for the hint :)
-> >
-> > I guess that if I want to have any chance to get the PSP working
-> > I'm
-> > going to need more details on it.  A quick search some time ago
-> > mostly
-> > brought reverse-engineering work, rather than official AMD doc.
-> >  Are
-> > there some AMD resources I missed ?
-> 
-> The driver code is pretty much it.  On APUs, the PSP is shared with
-> the CPU and the rest of the platform.  The GPU driver just interacts
-> with it for a few specific tasks:
-> 1. Loading Trusted Applications (e.g., trusted firmware applications
-> that run on the PSP for specific functionality, e.g., HDCP and
-> content
-> protection, etc.)
-> 2. Validating and loading firmware for other engines on the SoC.
->  This
-> is required to use those engines.
+For sure, this can't keep touching the pages[] array after it unpinned
+them:
 
-After some digging, if I understand correctly, the PSP is the 3rd IP
-getting its hw_init() called.  First comes soc15_common, then vega10_ih.
+> >  	if (gup_flags & FOLL_PIN) {
+> >  		unpin_user_pages(pages, nr_pages);
+               ^^^^^^^^^^^^^^^^^^^
 
-- soc15_common_init_hw does some writes through nbio_v7.0 functions,
-  but does not query the hw to check before or after
-- vega10_init_hw does some register reads as part of its work, but once
-  it has written it does not check either
+> >  	} else {
+> >  		for (i = 0; i < nr_pages; i++)
+> >  			put_page(pages[i]);
+> >  	}
+> > +	if (is_device_page(head))
+> > +		return migrate_device_page(start + page_index * PAGE_SIZE, head);
 
-So PSP is the first one to check that "soc15" (I'm still not sure what
-this one represents, really) is in fact alive and well.
+It was safe before this patch as isolate_lru_page(head) has a
+get_page() inside.
 
-Can't we check earlier that the chip is really listening to us ?
+Also, please try hard not to turn this function into goto spaghetti
 
-> 
-> I'm not too familiar with the PSP's path to memory from the GPU
-> perspective.  IIRC, most memory used by the PSP goes through carve
-> out
-> "vram" on APUs so it should work, but I would double check if there
-> are any system memory allocations that used to interact with the PSP
-> and see if changing them to vram helps.  It does work with the IOMMU
-> enabled on bare metal, so it should work in passthrough as well in
-> theory.
-> 
-> Alex
-> 
-> 
-> >
-> > Best regards,
-> > --
-> > Yann
-> 
+> I think a similar problem exists for device private fault handling as well and
+> it has been on my list of things to fix for a while. I think the solution is to
+> call try_get_page(), except it doesn't work with device pages due to the whole
+> refcount thing. That issue is blocking a fair bit of work now so I've started
+> looking into it.
+
+Where is this?
+
+Jason
