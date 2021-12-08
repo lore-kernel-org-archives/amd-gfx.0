@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74EC3C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 08:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75246C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 08:26:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 704766EA15;
-	Wed,  8 Dec 2021 08:25:19 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2054.outbound.protection.outlook.com [40.107.236.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E9626EA17
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 08:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 351646EA4E;
+	Wed,  8 Dec 2021 08:26:06 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97AD96EBC4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 08:26:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eHxOnFcglnjACtSZ2yG+uGms2bGv+gkM7L10UX3O8Bxo9AWgl4sh+bVEJX7+n6bS1xrWQVpbyPTUB11Eh1G+zg9kj4u582iZdSCqx9dz5yXv+8vmnsNlIuOkBnotw7HvUj0lYIXuPCjD+Vtyxnj3MHvyxcjkZBWQzQdQyB/fmQlrkb3QvRj+3e5sZUX+r67G86KdOs/1ZaDluJodDpSaGnlGY08aU78/B+Yee593hzfhOCWR6oiOKU+lQzglRUexaN2+F34h00b/2ZuZeGyUe2C54cIFDP+nA0Aa0jQZAird4D7f6m9RuDQeg2bHM1EaTWDBj39cErCTRaah5B8ALg==
+ b=nsPf7qtnDF98v+px2fvIseuRDSenwdnMsDx8TAVIvGEYgjPc+2d/jkNtJ9il9kxSkxt5rjmbafZMXNFuAsn0Q38CXvwjzSgeG1V1g8TXXOWmh2xNTayk6GYZ2vxF/b39lOLPmbQ4a+Bnz5H5klU7oD5+WKx2czDI6fyf/NtQUaInvJLOv/9aOcet7kll277JakdPwR6neiu27iqwokJ9leFyTSJlvyzZqjYuw9AJJPLH6LFt69TJEToQemrghBbnc9pfFExR1vNiFW0ok6/o7eWlR1VRqS5XRq86scXbm0DdcCbg4J7TLROnKu7aeZTaP8pyeA4J8vcneDB3RnZf2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=msBXhPZDrMFnxQoDQ/79Pe7RkgL8yZq6244P3EZW61o=;
- b=OfgWzb1ZM69R04kcUw2Ja3A56DHrDGCaYPlWu5wq9MJciqtF8mKPy4DYIjQSVCcYzgyFsBe2WMvRrfYMiRnh+3pBXcXrOzizDeJP6urGSYyKl11qaa4YWz6bxQWipPaDTFIglxWOQR7AGCYzTQWmMUpROCfvShSmtCXUIJm/+aBGYAGaWxUvuIxanofTWtnQXdoWGS3pRvmQGQjoE3m9Xt5sTChQ1k+OYXObGaASwNXAS1xtu7TLosolXru35JZUnfJzBAVznupFF6AWi0yDYYFVr82/2l0Gz+VoD6znjXIqagviAPhE+gz1pWnwYqUGCHOmbBvHC4Hllg7I6US1QA==
+ bh=i1J7cDCzG06ONAp54+LC6DTfbkDh6nWDtXcvCeo6Tbk=;
+ b=HN5oUFXMDFKvnLyWF057zgh/H13jOyMily76w4Kij6V2AzFUGdlOp4DmiGQlNhUAWyCIPdQXtUiAkifNLhshCbxVs1QNB1U0Pk5+XdLD9bmJ/hxg5xPAnqFWWPmFOD6TYYex9Qk4bFvQyd88AdZZv9vkCFq9XSx6G9iNU5/Ebzz7GLZ51N18j4r5kIfIkJN3qr3dXf+kPMy2UqlOwynLSA0hyBrggaVTaKS7NZwAEJK350Dmj2pdnpeaF9z+uI7YPuzQ5a3yVLkeuoqI2kP7SqNwZPToXTSAZ0w5wlUnWSVCa8URFwLa2kikQxwLi/Sw/nTB9q4+efc1f1tEHZLE0Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=msBXhPZDrMFnxQoDQ/79Pe7RkgL8yZq6244P3EZW61o=;
- b=QuFnHd9LaON1LBMwgBhBqBli7GlnLGq6kcB7ZLFvQjaIqjTKDqHESrgd7nAV07GKKZGfLQdIK+leq/9+jJxUHI+xOYIEpe2BgtqFtflvt3Iwzbh07cVm+UzLjaQbH5TYx555MH3AykX9P3+laX+oexxBwWnPqCS7mCryjeLWDV4=
-Received: from BN6PR11CA0004.namprd11.prod.outlook.com (2603:10b6:405:2::14)
- by SN1PR12MB2559.namprd12.prod.outlook.com (2603:10b6:802:29::30) with
+ bh=i1J7cDCzG06ONAp54+LC6DTfbkDh6nWDtXcvCeo6Tbk=;
+ b=36btQbqHQOnMQhjTT9SfYyCPtE4BncEf7+CBjz66cMO4jAphkhV8ItbpAUddfBCmgTVEbAD8c0etP4o6MOZ7dZv+71n4gOeXMlFu17lKZewp5GBVKcIaCb3NCBPBKsiETPDGgE8co83CeXqwbZgRaOqpxi2+8VCPj7yPA1q008c=
+Received: from BN9P221CA0006.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::33)
+ by DM6PR12MB4763.namprd12.prod.outlook.com (2603:10b6:5:36::31) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Wed, 8 Dec
- 2021 08:25:14 +0000
-Received: from BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:2:cafe::c4) by BN6PR11CA0004.outlook.office365.com
- (2603:10b6:405:2::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.12 via Frontend
- Transport; Wed, 8 Dec 2021 08:25:14 +0000
+ 2021 08:26:01 +0000
+Received: from BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10a:cafe::a5) by BN9P221CA0006.outlook.office365.com
+ (2603:10b6:408:10a::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20 via Frontend
+ Transport; Wed, 8 Dec 2021 08:26:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,21 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT035.mail.protection.outlook.com (10.13.177.116) with Microsoft SMTP
+ BN8NAM11FT006.mail.protection.outlook.com (10.13.177.21) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Wed, 8 Dec 2021 08:25:14 +0000
+ 15.20.4755.13 via Frontend Transport; Wed, 8 Dec 2021 08:26:01 +0000
 Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 8 Dec
- 2021 02:25:13 -0600
+ 2021 02:26:00 -0600
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amdkfd: Don't split unchanged SVM ranges
-Date: Wed, 8 Dec 2021 03:24:57 -0500
-Message-ID: <20211208082457.918004-3-Felix.Kuehling@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: Make KFD support on Hawaii experimental
+Date: Wed, 8 Dec 2021 03:25:31 -0500
+Message-ID: <20211208082531.918062-2-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211208082457.918004-1-Felix.Kuehling@amd.com>
-References: <20211208082457.918004-1-Felix.Kuehling@amd.com>
+In-Reply-To: <20211208082531.918062-1-Felix.Kuehling@amd.com>
+References: <20211208082531.918062-1-Felix.Kuehling@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -68,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 031adb57-f962-4615-2c21-08d9ba24425d
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2559:EE_
-X-Microsoft-Antispam-PRVS: <SN1PR12MB255955A342E30824E63C70F8926F9@SN1PR12MB2559.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: 5b1ce0f7-bf42-4771-6888-08d9ba245e85
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4763:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB47632CC810EE80017A33E4A9926F9@DM6PR12MB4763.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LIvJIx529fQhDwbMw43mZSqcc9dVhGGOrsMBzVuw2KphFRatQxtEWyGcSnmNyum4J4cY3ViNunWRfp5G2tuIRsqTYC14PWsyOe4m8vWLTI34Vsc1BLql/hQ6qpmS2h+/5p+6xnvWbnDSoFvbyRtJxv0WjarqUV3lyvxk7H0MV2pR4rlveV8ldQ0Z/7hTvWVYxbY97oRtChh0M+dShNjKbSzZKX0h0J5karKWbccq+23eayHlp52ICkZkFSLMAiCwMCE9a0AmrVfN7njW1eZuUOY8d3YaKGIk+oRZZXz1h0m+uKAve9BcnCQqCtkgZavHSmNdJUBbmLZhFNh7J+ucYtwygj/aYaes9yrFl7hygB9nd7g1wags9Ns/pIGxZJCTOgluivJHUeo+C5HueVaatlRWkR9nSlWDbGVrrzmuW2e5/81i0i5pu81I03X5GVHDD1jZiKmhKMM4qgtx2xsFponaApEjmauviEf10WXm25jujG2O9Ap1q7w7BNbr8QBbilmNCpHf7bZxrtwYEZRowd+mCiBL9YFTJBWx7LYhCbhvliWZTUqe3688WTCQKGteh34+Bj/SjK1rwhfiPCOjJFlcCnhHYRoHsc91blC/yzP5btHT0CgnDWSKD5C/7tS0c+wtG0NCCirHcDSrrAg8vHhUEJJ333B2q3tYadHBBE0Gz9MvGGTx8O6VSF8HIEJlC8rl6iX2zwtHL48/4iwFGzkIFlz9UQB+3bgROht4PENN+FBbWqnetSoq9jxo31Dd8xclAphPszNU2bOcCJNJ/IpDW0mir61nVDh97wd87P0=
+X-Microsoft-Antispam-Message-Info: 4N+xEPQTb9NTSYQOiljyVmjayfdfYpvl8Jw/XEPQFwp/2mdxw1SVGDgNSV13/tL0BzcQvtosi+JKAMcMwBJbLk+8I8mSwP0V2F1L54r6rCeBjfjknxZI9tuv3rQWmM7NAYI67oUNaNfe+Os73GfozsfZUheR4CC2ZWtlAE+sWtGQ/1wXjYhs+7yx5WFTsJTyqwBFVrajgtj68jsToVwPJzklS706Cou2tIKPpubfmLAi13IyAoAVTSISKGZx20U7IF7+kPaBpaizswMeMkQornVOWd+mn1YKZ4s4mgqcPZlKCr0p0B1qrT6UI162+4q+C93uTYaOSqr76/OhDni79/nbCcesqdHJ3XIGTjYbIYgEGtHoAq7Buza7UNsC34DG6YH8mU1a+gNKI25Vkg2ikckiLppqZXL3n+ACLNLIe5QGkC6LIGZkBaCvXQEE5NEnGMZ+4aplLnV0qzUC9JvqNt7j3l2LM3aLh06Xk0rt2f+JqEyLKEIwbaweGcPpUaDR5sqalBc6Nb2ShlonTKzP3pJSddJ36CBCQ2X3tgOpiPr7T+mNRDkjxG/fneo1bph6UP0s8EHKNp+Zaeqrl6M4A5wW1GFqu9qdVhW9J2KPc7s1QguoUE7FEPvg/V0jojyka00vqnHH7It1id8HpUbXOukK/YZQBDnxiD3Lr+tCO9I9wqXX+mtHSFnOBMOHLk/gl62uWWe5dYqT0DfeiZ7rxnR1EY4mL4rGIocSoimyR1F5l9GwS/hUgusxPgzhTXCKb1pn7NPa/FpZ5cYAeOiqann7TrLhWWAmxY4f+jDFgg4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(86362001)(5660300002)(508600001)(47076005)(70586007)(6916009)(16526019)(8676002)(186003)(26005)(70206006)(36756003)(2616005)(6666004)(426003)(336012)(1076003)(2906002)(8936002)(7696005)(54906003)(4326008)(36860700001)(356005)(81166007)(82310400004)(83380400001)(40460700001)(316002)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(8676002)(4744005)(336012)(426003)(7696005)(186003)(16526019)(316002)(2906002)(1076003)(70586007)(86362001)(70206006)(2616005)(82310400004)(5660300002)(40460700001)(26005)(47076005)(8936002)(83380400001)(36860700001)(36756003)(508600001)(6916009)(81166007)(6666004)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 08:25:14.4158 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 031adb57-f962-4615-2c21-08d9ba24425d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 08:26:01.6557 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b1ce0f7-bf42-4771-6888-08d9ba245e85
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2559
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4763
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,80 +101,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, philip.yang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If an existing SVM range overlaps an svm_range_set_attr call, we would
-normally split it in order to update only the overlapping part.
-However, if the attributes of the existing range would not be changed
-splitting it is unnecessary.
+Hawaii support is mostly untested these days. ROCm user mode also
+depends on custom firmware for AQL packet processing, that was never
+pushed upstream due to quality regressions in graphics driver testing.
 
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 9ea3981545e5..c93a26e6318b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1853,18 +1853,24 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 	node = interval_tree_iter_first(&svms->objects, start, last);
- 	while (node) {
- 		struct interval_tree_node *next;
--		struct svm_range *old;
- 		unsigned long next_start;
- 
- 		pr_debug("found overlap node [0x%lx 0x%lx]\n", node->start,
- 			 node->last);
- 
--		old = container_of(node, struct svm_range, it_node);
-+		prange = container_of(node, struct svm_range, it_node);
- 		next = interval_tree_iter_next(node, start, last);
- 		next_start = min(node->last, last) + 1;
- 
--		if (node->start < start || node->last > last) {
--			/* node intersects the updated range, clone+split it */
-+		if (svm_range_is_same_attrs(p, prange, nattr, attrs)) {
-+			/* nothing to do */
-+		} else if (node->start < start || node->last > last) {
-+			/* node intersects the update range and its attributes
-+			 * will change. Clone and split it, apply updates only
-+			 * to the overlapping part
-+			 */
-+			struct svm_range *old = prange;
-+
- 			prange = svm_range_clone(old);
- 			if (!prange) {
- 				r = -ENOMEM;
-@@ -1873,6 +1879,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 
- 			list_add(&old->remove_list, remove_list);
- 			list_add(&prange->insert_list, insert_list);
-+			list_add(&prange->update_list, update_list);
- 
- 			if (node->start < start) {
- 				pr_debug("change old range start\n");
-@@ -1892,16 +1899,12 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 			/* The node is contained within start..last,
- 			 * just update it
- 			 */
--			prange = old;
--		}
--
--		if (!svm_range_is_same_attrs(p, prange, nattr, attrs))
- 			list_add(&prange->update_list, update_list);
-+		}
- 
- 		/* insert a new node if needed */
- 		if (node->start > start) {
--			prange = svm_range_new(prange->svms, start,
--					       node->start - 1);
-+			prange = svm_range_new(svms, start, node->start - 1);
- 			if (!prange) {
- 				r = -ENOMEM;
- 				goto out;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 267668b96456..facc28f58c1f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -147,7 +147,11 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+ #ifdef CONFIG_DRM_AMDGPU_CIK
+ 	case CHIP_HAWAII:
+ 		gfx_target_version = 70001;
+-		if (!vf)
++		if (!amdgpu_exp_hw_support)
++			pr_info(
++	"KFD support on Hawaii is experimental. See modparam exp_hw_support\n"
++				);
++		else if (!vf)
+ 			f2g = &gfx_v7_kfd2kgd;
+ 		break;
+ #endif
 -- 
 2.32.0
 
