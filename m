@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87A17C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 20:25:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F38CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Dec 2021 20:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C72E56E8A7;
-	Wed,  8 Dec 2021 20:25:58 +0000 (UTC)
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D16F6E8A7
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 20:25:57 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- x19-20020a9d7053000000b0055c8b39420bso3972890otj.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 12:25:57 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC1CC6E8A9;
+	Wed,  8 Dec 2021 20:27:57 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 079E06E8A9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Dec 2021 20:27:56 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id bj13so5704568oib.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 12:27:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Hc43Yh2gqhcwu0RpuUv5FNqrvAa+gw1CxdOu6cT2CcY=;
- b=H+t+V6kKxy4cJQX117FYX+cKOKNHmr1BKdFAAGvDH+rQoq5r5AHj3LGCx9Ax1IyZYh
- w3qomOXJkR1imF/KGB2fF0VpOE/mNW1awvuDe7NFituLyttoQKgE35aBAfZWoourlJZF
- uTDRATwpKDjrL7Qfxd7FhOTi209g8UiOkvOnoGulGYnZRofbMdU7Q8n1MSM2LX+ch7q0
- 6TjoI1ci3BNhwcsg5wDu/MJbTwEqWClAzoaSs2js3N7/ROy1yp1AOC9gI2JxneVDNwe3
- WcMQTmTjYL9wklGsRb6Ga2icVI10K60WaCy1GgREILANfReNRStLowemGwD6B4i+ysPd
- CMUg==
+ :cc; bh=2ba3Y20RZhb0JjXprtU90Ja+G9hOebr9B3mV4Kk/UfQ=;
+ b=VHy4rAJAYJQcGhBdM8H0ON5tcdH/NpNiG0duW/b8HsFQ5WgYanZab/1q0zN/V32aVH
+ yg44DABSi5IdkT/EK7S+WITNjTtbxhYgj/+neAPniffM5i+aTK1R0lwQgnHunI7CNTi/
+ yloij4Hr3DkEFVqxpt/ekslrdFetrrMO9KClHz+V6R3VKrL1o+SP/oAnIBMsRPPj2jKO
+ cSgqxSCLLcy4PhnltCcBz55h67qoojJu9pY7iuQ25CYkam2xLThm8Lk1hXJwF7+jhNUc
+ Q74NcUMsCGNjF004LtR/WGlNvwzNixHWFt7ImUFq9pDYmCHmbjdD97GrP4YeGph5TVa1
+ qShQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Hc43Yh2gqhcwu0RpuUv5FNqrvAa+gw1CxdOu6cT2CcY=;
- b=HlC9iC4WTGHSE9JIWWNOUtNqalbWntmOlnwMSRBfR5yskeGNB3FwrQrc0RJ8P/1gsU
- TUJhuNyIZS6P9NbZ4X17M8NUmbrBKOOhfa7/6I/Zsdwj9rQ4uyApe3WvlmGnx+NiNzqm
- wOd/vdJkFNeXDiig72tPQ526gANJtmXfGsWaFlXMbOfXC59FiMFCauW4klRZWv+85PZ+
- CCIeQApwHYDQcJsq1KXOsgyMnLAby53oigdH0gx51kkRk30M4Htc++yeWrUM9BQbI8ow
- an35ukzVt1g9AJXw3VyRl6+dKmk/azMnGR7nQFONFJ92bjkF1EegXWo5+Fyfuz/6MghQ
- nUyw==
-X-Gm-Message-State: AOAM532kY+4DoFHxpdoMaW31vBOKzXJ7ssyj32wzWho+0IlmDXQNBgKT
- AKAg8vnYNv9Ph9zUqO6+08uPx4fK6+OGzOL/wXLYbDma
-X-Google-Smtp-Source: ABdhPJx3p9OzJOfvZ0ejE0mnxzQQkbgYMzxnt0/q1Rjv4CDyQl16N+ssK8jH9cWS/2np7OIQnw99Hx69c9k0Syk+/6Q=
-X-Received: by 2002:a05:6830:1bcf:: with SMTP id
- v15mr1618788ota.200.1638995156773; 
- Wed, 08 Dec 2021 12:25:56 -0800 (PST)
+ bh=2ba3Y20RZhb0JjXprtU90Ja+G9hOebr9B3mV4Kk/UfQ=;
+ b=cMENp5GH60UnCamXzeMkM1EjU6BKC20p5fwjaIUrT6yBd2McnpL3xWSRNgOsYgJPbl
+ kRaG5YEGTFKK6jWjzfrGwxkDZCycy+fz7HhOesFOqj8fTzQcY9Mv13DhvD8rCLRwExKv
+ 5b0lPgaoW1FZYP7hezF3aKty1u2YblGmTyDYk3pivKdJX34I8Ut/+lDDVlhrDD/N09OF
+ Qd9sZ54WynRAXJ6jecynrKRNK+l7PN0flxoWjbJjUW3rhr71uQojiGWFsi7lN2PHgTz9
+ vjHL0t+4DRsOwkNY1a6DtNg/HMmlPKT630xZic1wrbI7cTXuqWzdMeUnLZEGhK0LgY5M
+ mXFQ==
+X-Gm-Message-State: AOAM5321CXu46qCMqhldwLLBvkmKpVBfD+JtmC1AL9AB7g8fkgX5CLtH
+ IO6Pisww18mmFWkyLoauHdX8QcYJpqaayfaBFoQ=
+X-Google-Smtp-Source: ABdhPJypd9N+OboylzWWkytxWU2rhdrlt+Z/oEoEjZf44I7ju+Jqs71OrHzummTzJ98c8y4PRg+Gh44S4HCEmo8/f/8=
+X-Received: by 2002:a05:6808:44:: with SMTP id
+ v4mr1608285oic.123.1638995276261; 
+ Wed, 08 Dec 2021 12:27:56 -0800 (PST)
 MIME-Version: 1.0
 References: <20211208201618.10551-1-Philip.Yang@amd.com>
-In-Reply-To: <20211208201618.10551-1-Philip.Yang@amd.com>
+ <CADnq5_NmfbXL9jzBZxZJOjT_+zpatk+M4Zm_czNsG9VMdcweBg@mail.gmail.com>
+In-Reply-To: <CADnq5_NmfbXL9jzBZxZJOjT_+zpatk+M4Zm_czNsG9VMdcweBg@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Dec 2021 15:25:45 -0500
-Message-ID: <CADnq5_NmfbXL9jzBZxZJOjT_+zpatk+M4Zm_czNsG9VMdcweBg@mail.gmail.com>
+Date: Wed, 8 Dec 2021 15:27:45 -0500
+Message-ID: <CADnq5_O5qsewQatnt7W6n-XHQ9JvZhj=6K=m8mUO-08h6=Jyog@mail.gmail.com>
 Subject: Re: [PATCH] drm/amdgpu: Handle fault with same timestamp
 To: Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -67,55 +67,62 @@ Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 8, 2021 at 3:17 PM Philip Yang <Philip.Yang@amd.com> wrote:
+On Wed, Dec 8, 2021 at 3:25 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> Remove not unique timestamp WARNING as same timestamp interrupt happens
-> on some chips,
+> On Wed, Dec 8, 2021 at 3:17 PM Philip Yang <Philip.Yang@amd.com> wrote:
+> >
+> > Remove not unique timestamp WARNING as same timestamp interrupt happens
+> > on some chips,
+> >
+> > Drain fault need to wait for the processed_timestamp to be truly greater
+> > than the checkpoint or the ring to be empty to be sure no stale faults
+> > are handled.
+> >
+> > Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 >
-> Drain fault need to wait for the processed_timestamp to be truly greater
-> than the checkpoint or the ring to be empty to be sure no stale faults
-> are handled.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> Maybe add the link to the bug when you push this?
 
-Maybe add the link to the bug when you push this?
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1818
 
 Alex
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 3 ---
->  2 files changed, 2 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> index 8050f7ba93ad..3df146579ad9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-> @@ -188,8 +188,8 @@ int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
->         checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
+> Alex
 >
->         return wait_event_interruptible_timeout(ih->wait_process,
-> -                   !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts),
-> -                   timeout);
-> +                   amdgpu_ih_ts_after(checkpoint_ts, ih->processed_timestamp) ||
-> +                   ih->rptr == amdgpu_ih_get_wptr(adev, ih), timeout);
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index e031f0cf93a2..571b11117992 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -522,9 +522,6 @@ void amdgpu_irq_dispatch(struct amdgpu_device *adev,
->         if (!handled)
->                 amdgpu_amdkfd_interrupt(adev, entry.iv_entry);
->
-> -       dev_WARN_ONCE(adev->dev, ih->processed_timestamp == entry.timestamp,
-> -                     "IH timestamps are not unique");
-> -
->         if (amdgpu_ih_ts_after(ih->processed_timestamp, entry.timestamp))
->                 ih->processed_timestamp = entry.timestamp;
->  }
-> --
-> 2.17.1
->
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 4 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 3 ---
+> >  2 files changed, 2 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> > index 8050f7ba93ad..3df146579ad9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> > @@ -188,8 +188,8 @@ int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
+> >         checkpoint_ts = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
+> >
+> >         return wait_event_interruptible_timeout(ih->wait_process,
+> > -                   !amdgpu_ih_ts_after(ih->processed_timestamp, checkpoint_ts),
+> > -                   timeout);
+> > +                   amdgpu_ih_ts_after(checkpoint_ts, ih->processed_timestamp) ||
+> > +                   ih->rptr == amdgpu_ih_get_wptr(adev, ih), timeout);
+> >  }
+> >
+> >  /**
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > index e031f0cf93a2..571b11117992 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > @@ -522,9 +522,6 @@ void amdgpu_irq_dispatch(struct amdgpu_device *adev,
+> >         if (!handled)
+> >                 amdgpu_amdkfd_interrupt(adev, entry.iv_entry);
+> >
+> > -       dev_WARN_ONCE(adev->dev, ih->processed_timestamp == entry.timestamp,
+> > -                     "IH timestamps are not unique");
+> > -
+> >         if (amdgpu_ih_ts_after(ih->processed_timestamp, entry.timestamp))
+> >                 ih->processed_timestamp = entry.timestamp;
+> >  }
+> > --
+> > 2.17.1
+> >
