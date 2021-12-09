@@ -4,98 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 163F5C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90349C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 151A110EE83;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62A4410E2F0;
 	Thu,  9 Dec 2021 16:54:59 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B50C10E120;
- Thu,  9 Dec 2021 14:21:09 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44ADC10E116;
+ Thu,  9 Dec 2021 16:30:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lZjQt08a9QcillTJiqwQck6kSOJnsxshsCE+ARgP2aQLVb5Lz2nUb3BecScELe9QeDhWgaIZt/EL283uwE3yO/OntWTa0S9cIOk1JiAcogPqX1bFvZFc8ntUM2oa/4LvVWnzBw316CXIi6hSUzsUcSjI0E6GbzV4gVydtAc12eFB7+e+N1BDmt/IsITTlNoaagYiOjk/313XI89O2LCs1AstTeQjW+OsHV1ShYaLY1WsMR136Ez4tq2z+XORyCuTNLvcOE0Bd+SWvqeiXbhXUxd5ZxhHMc+hTJ8pJGnvdSXf92U4LJd6axF5//4yfgpwRla1X2/z7rZRjcaYlAKXUw==
+ b=lH1ry+rpxAHgAEiaQMP/625wJk8F6PSsg96OMy+CzoN7bnvROi19WtSn7sEiyjTB+p4lwnIxEyKcLqq6MmtyiIVdt1LQSlN4YgeeMp7zAJcSaYFD732OkNQq5wwkwUXNe2PD23y5CPo47+27CGrMKCyVz12dAqNGtz9JSj50GEe+zbZ9G2wIuEH2M00VjFLPYdxsUvG1Zfbt4Ey8HWGSd+0csnYsQvMYSwsw+ybD0wTbz44JLw/Eu9wBZxpyZHzKtmRz333HOc+VxuQpUq50FcEWKUb3/a+XytTWVOVVp50psjR3zyHaYt91oeFI1nC1jKJP6OJoRAapBun3mtmM5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=udUHp7cOVfN39epaKhTDE6ZCY+Q3pzyowQiKKO19vbc=;
- b=oaez6w+JH5u9ki2tZWOHqXUXjkSCai39oNIHT0unDd7JyIGS5rEOMSY35VeSJxJ/f7kdX44IBykV5md76xZ9f6RgTNIRs6SjWvMkqFDT+Ect3/oM5/Z6emRhzibGZY11TI9H2DQRy5wQyOczZB5KVNbFfEvqzQsW91xVEUzAP/Su0PKklKI1Q5LPKB033nbXp1m2e9RghehRw7+hc5U/HS3cwjUL5hh2Gtt0rIkefKMOXU9smrPAHAFDITa60Iy4S5G9Ek1At8uttmeSXW4jxz9V2BUSFFYKImIXoqVYpN8bpmQ/AtwfmpIagEOCu2x5HcKYYEEsBnJkxKPp8ZJ4Jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=emersion.fr smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Z/EJXld3TPW0y+6tVhnUMJaavQGPrfQof/h9xPCEuHw=;
+ b=cSkttlSC08z2Mcu51eFyJSGBCgR7f61UczcpW0dT2xpyVvETnb5XCjGbB2IIgcUP7mqbcnvnBDA5GK6TVw2kcV4qxrp+UICirxYPpP1kpiYC1OPmpT8uUHIUR1bJZxpnKKwLMUaKuf9oKL6WwKtOINV7vfXL0VXSrD9F8GkTUmJ3cd14PRiv4mxLQzjygm4fq3ROa4iLf58w1DiygsHSWB+OmcTW2Y0sEH+V+ataKVxa/PAn+i99d7RWQ9O5wUai834DwzW5VdAqc2mq6XG0FdNKWCdfIdJPGZ8ZshnEHUQ89Mw2wBKJtLO2NlLIYxF2YyHpY2K90PWEO6gtV8p9Hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=udUHp7cOVfN39epaKhTDE6ZCY+Q3pzyowQiKKO19vbc=;
- b=100ub6arTfq/wD/BSLM4BrY5ns+LLetS6tof79VsWqf0KnVUwufZ+XqbWdLk4+7N2er2OjXbbCQHJyBSIIvlADSFXBxdKJW/sTo9U97wF725w6Ksn1svYjz49Y5iYuJCUVv7NbjlqU7WFCO5p2cNxE1PgPJPgOaymXzUtVHlvGI=
-Received: from MWHPR1601CA0017.namprd16.prod.outlook.com
- (2603:10b6:300:da::27) by MWHPR12MB1776.namprd12.prod.outlook.com
- (2603:10b6:300:113::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Thu, 9 Dec
- 2021 14:21:05 +0000
-Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:da:cafe::78) by MWHPR1601CA0017.outlook.office365.com
- (2603:10b6:300:da::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
- Transport; Thu, 9 Dec 2021 14:21:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 14:21:05 +0000
-Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 9 Dec
- 2021 08:21:00 -0600
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: Simon Ser <contact@emersion.fr>, Michel Daenzer <michel@daenzer.net>, "Bas
- Nieuwenhuizen" <bas@basnieuwenhuizen.nl>, Marek Olsak <marek.olsak@amd.com>,
- Roman Gilg <subdiff@gmail.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, "Mark
- Yacoub" <markyacoub@chromium.org>, Sean Paul <seanpaul@chromium.org>, "Pekka
- Paalanen" <ppaalanen@gmail.com>, Yann Dirson <ydirson@free.fr>, Daniel Vetter
- <daniel@ffwll.ch>
-Subject: [PATCH v4 1/6] Documentation/gpu: Reorganize DC documentation
-Date: Thu, 9 Dec 2021 09:20:42 -0500
-Message-ID: <20211209142047.728572-2-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211209142047.728572-1-Rodrigo.Siqueira@amd.com>
-References: <20211209142047.728572-1-Rodrigo.Siqueira@amd.com>
-MIME-Version: 1.0
+ bh=Z/EJXld3TPW0y+6tVhnUMJaavQGPrfQof/h9xPCEuHw=;
+ b=2c72bjIdpvHXdsWDF88oZcwYhXbCfb16dinfKlzJFv9cUV58eyEmJcvMcLreS/ESG485GyUWP9T3cZm4g/A/9XBWW0wqmb17cQbVUQDHb7gHSfDabGLIdBG6pdn7Z76/L7NAh7VEgDXfRnGky8IOqAc4S0BsQH09dPlq/S6b4rM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5113.namprd12.prod.outlook.com (2603:10b6:408:136::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
+ 2021 16:29:57 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9dfe:ccc6:102c:5300%7]) with mapi id 15.20.4755.022; Thu, 9 Dec 2021
+ 16:29:57 +0000
+Subject: Re: [PATCH v2 03/11] mm/gup: migrate PIN_LONGTERM dev coherent pages
+ to system
+To: Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org,
+ linux-mm@kvack.org, rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org,
+ "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
+References: <20211206185251.20646-1-alex.sierra@amd.com>
+ <2b996383-ebe6-e9d8-d794-58ecfd4a16e8@amd.com>
+ <3f8a48d6-7ee7-fb30-5942-29054c34aac5@amd.com> <2497746.4npHOaMrmn@nvdebian>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <b9163ccc-829e-9939-8177-a66ab41187e7@amd.com>
+Date: Thu, 9 Dec 2021 11:29:55 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <2497746.4npHOaMrmn@nvdebian>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0052.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::29) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+Received: from [192.168.2.100] (142.127.191.123) by
+ YTXPR0101CA0052.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::29) with
+ Microsoft SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Thu, 9 Dec 2021 16:29:56 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8c170da9-19a2-4579-d493-08d9bb1f2324
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1776:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1776910703C177D1B37B275698709@MWHPR12MB1776.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
+X-MS-Office365-Filtering-Correlation-Id: 9576076e-7b12-4803-0bd5-08d9bb312386
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5113:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB51136402E1795826BDEADD4492709@BN9PR12MB5113.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uBCHSjDo9MH3d6lUOG/kyZqysswJ3m+0wq2qYW3b/ya4Nv6AMIQkmfTDpi0blY/polCWoxsbXMtYoEBkKfZ+i6HLM7vbqXyv0E8vt+MfYgitX9H9z2vsrEkKH6X9cQ20mFKzjLgR+osHjD8XF1szRv3vEou+xP3Hka7OgyhqgZQFMyZgvhj43T0Z3O1kfE+k4rSDTBLVxcgEQdkoebz2go3giLF0pGQ0D0JaJLEu0pY0cI2os/8aenpBqbKDgSYArsAOvHDrhsYIPPDXMFRrdpD6+bRhp8wuoRfbJbOI2kyeQCIZuSrI0Q/9ctWcze4YLiVqCPAJW3RwHGMvKTwJNXTtDVdAlZTT6NJG+5lhLdj6LQi3R0y77ks4Gsza1AG/6R/fYUuM6gRUlGkE3LTM/JgZ8XfgrdUvdopzU4t4nZF4UGAClUF2tHhoe03/Hj8NkcfC8dW43yz5M7LMIcz342cOeCjk5IKXXouuMHFnJcPCsMy4l5ymXiE7ivsTIKJTzInqWuyL/kIKYCqsFQySTluYDUoyO0MlRWwnePrVg67LpevW9F4m4Z9Gq0RjCW+3FP0Q0IDladZ6ryl7XPLFFBXMB6CkyZFatxx9uz4aLF8Yd0Qa3WD9vffxoY7YsMz4oN2v8AX/GKJbLJcvOYulQ/D+6C/QDrZN9F1n1hD2Ij7OWYXAm5kJKfUiWZ8/Jnwhr5jjAfX32A+nVpTdsTq1eAgZgbkbOsQDRAhvEX+KwnqomHQBqyVsIQ+lsmWrdfTLT3nZNl2wmj9PRKHCVHAqUwyWwHAx2Fe3GDpH3WHw/uQIP8ee29BUEM3FGXUNv0WG
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(81166007)(36756003)(1076003)(6666004)(186003)(47076005)(2906002)(83380400001)(5660300002)(316002)(508600001)(356005)(26005)(36860700001)(426003)(82310400004)(70206006)(70586007)(110136005)(921005)(336012)(7416002)(86362001)(54906003)(8676002)(40460700001)(4326008)(2616005)(16526019)(8936002)(36900700001);
+X-Microsoft-Antispam-Message-Info: RMFHwQ6ecnc3wSIiyVbu+rDd1MLTtmnsn+MXhb7Lwxc8ZtKEakjUhFtZN12RlWn751paZU3s4A8tnc1aMeZdmxZQSZ+xg5c4O7W5FEbqtoiCZBhCib1vJ92Wt3XAV9Jmm99erV6DjCCO4R5VlvloNFniORoHmHYxUyRIy8CdOoSzGG/8B7Qny7CJrsu/a3IP6NzjIjf/nKJ9GZ8keFNeIJxBhm8/2tXM11m6PINEnKJXRDpaBK1OXJtuZIRJTyq5cEVABNE1VzN/y/URkvkmTYyTLhP0TPdYjXffuAKUYDryltuuHedTQAlwaviSNjanEuUGoa5UEmWIIZUJOIFTSOhn6pRIOj8RjTNdaLQgiyESYn0yqBOamWh5sfcpmooIpefxzpWEAryo+pPTOeIKGvr2qLticvkpHpymtYk6N8cyZ86x2vgyLkzTJrz21ccr/8RVOrlwnctqja8KSfScAbewvrMSz+4llZHgrFRtXMNsbcTCa4QyFurVV1Ns+9atClxPY5uQzasOYaypvGc5WN9FvxF37Z5sF3Ck4nyvslKoXNAA0nD8bPtDzifXLrp5ISqzmxcKX2k71xRLlh1uafbKt92EkfICCqWVEU6JuWGY4blFlQT8Qi2jG9LY8z759qp7J4xMk1tEz6+N7JrdAfuh6ZDcJ0tIzfxptmwOpuNRf3Sr61wXcXMXBbGWPyNPESN/tBsnPYYAL7NsEN6qNcMEc+fI8tHVciJ/fQgDEV1exW72CHK3AAMkgxSqTP5Z
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(316002)(508600001)(53546011)(66476007)(5660300002)(186003)(36756003)(26005)(86362001)(7416002)(31696002)(16576012)(110136005)(956004)(83380400001)(38100700002)(44832011)(6486002)(6636002)(66946007)(2616005)(4326008)(66556008)(8676002)(8936002)(2906002)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VEt6U2F0YW5zZjQrNmI0VXdOMHpEdlB3VEJsSFBrdG9lcmZ0Um1yQmptMTlW?=
+ =?utf-8?B?aUJ1aHRCYVROVno4WVVHOUFDWjdhWlRBSGlJd3YrMUdzYWc2R0lkcVpraFJm?=
+ =?utf-8?B?NDg4Mmd0WDduWmw0SlRTQUxFTHlCb0dNS0FWaEdBclFqWmlMVkp4MlNpWTJv?=
+ =?utf-8?B?YjBiMm5XNjRtT0laUVphU2xHMXRGNGxyYkxFZlYxMUw5ZllBV3BqWCs0L1Vi?=
+ =?utf-8?B?NEZUblFFZVZES3ZCSXZvQTlaNDltUjJQNktWdnZvWVMyS3JObC9jcFQwL3g1?=
+ =?utf-8?B?blFGVnpwcWtNYU0zSEdDREd1TGVIenljOFZId2Q1OFh2WkJQM2xKSkNTalUx?=
+ =?utf-8?B?UDJvZE84OXlLL3FwNkpzTTJYSXFGQnNVQTE0L25tdHRhdEs0ZGVKdUlRVE5G?=
+ =?utf-8?B?MGU4NEVwSU1ET0xiSmdNMERYaVQ2Rm1xTkxkbXdaSmFUVytwMDVQdzdYdEhP?=
+ =?utf-8?B?Q0xqQnd3N1hHamJhZ0pzbzlJRkRTY0NCVVk1WEpaTDFBaWZ6djlXR2ZjTWhF?=
+ =?utf-8?B?Wm0xMkR0QTRMVXFIV3o2YUJUKzM5KzhETU5ySXI5ZE9SSzNSQUNVc3ZncGdj?=
+ =?utf-8?B?eWhGRHhWdEMxMUdnbDdmTUozREdJSVNmYW1wcXJ3STFqL3I0Qmp3cGhTYjZ3?=
+ =?utf-8?B?cS90bWl3UGNjRVlicWtZTjFYblJ3ZHYybnAza0t3clAvRjluUFA5dldxZlZD?=
+ =?utf-8?B?RTE4STNlaTVKd2JXZ081eW1MQ1lFZEdlZjRJWXVsS290QURhb1c4c1h6NVp4?=
+ =?utf-8?B?V0x2R3IvRVdseXlXYkNwMFJteHJ6R043bHpDdy9WM3loZkYvWVZuRDMzTTVY?=
+ =?utf-8?B?MmJYRE5YR21QaVorYjBjZVBFU1JNaitIR29JcHNwenZ1VStXaGpSZWU2M0Mv?=
+ =?utf-8?B?TWh5VjVOTDZraXZYZ1V5WDBlWDQ5Z0JSMjdWZE05ajh6OVY1YmcrZ29MckJT?=
+ =?utf-8?B?YlpUSVNpdWJGdjFYakpScStQaWowNFhoaStwSTdhVStqUUVxRDJwS0JrZEhk?=
+ =?utf-8?B?anJxYWZJS09SbUwrNEVSalJ0TEdZVnlyV05ldi9PT1BFNHhVUHZlZmRrSlcv?=
+ =?utf-8?B?dzEzS3VqNUo4UG9Qd2lPb3lnNXZxMUl6R0lBOEpnMEJ6WHI0WXBZWHU3c3RZ?=
+ =?utf-8?B?OFErckdNVjZEZkFIcUp5dmtuKzdIcDlhL0hYZTZRbmx1eFFMV1ArcnI0T2JN?=
+ =?utf-8?B?dkFZWHZ2Ky9vWGI1OTJZVkVIRzNoVmdWK3NtMDBYSmZpVjdZQlRYVWNyRTM3?=
+ =?utf-8?B?QWYvTGFYaERGVHVCd2NkNUo2NlhxUndBcGtTbE45aUVpQndUakUyM2QwdTV1?=
+ =?utf-8?B?aXB2MUUzckZ3VmJLVEFHZ0s1UG1NOENSQ2hHYVhJV3hOSjVSdVlFbGhudzly?=
+ =?utf-8?B?WTFDTVlwbjdReDBoWm0vbERpdFMvWkVMRFIyMmk2Wi9ocXRRWTF3VDNEd2JY?=
+ =?utf-8?B?UXBQMmJKbmk1NzVQV0lLZ2xSL2U3ZXhRT0NVbXlpR2JWbmkrR253UmZiUC9H?=
+ =?utf-8?B?NTE2QndGYXcvVlRheGlzdit4SjRZeVhGRnJFZFg3Q2RSZkgyaE91MG9wYktI?=
+ =?utf-8?B?eHZsWGdwbUw2ckxhSWlmVmVzSnNrUnFMNVZlejFTU1Y5VmNVY1R0NlZFTng1?=
+ =?utf-8?B?WWxIN205YXdrdHV0ZEdSZlU2alR0cVJjR3c1a21kOE5nanNjd2wyMXlFUWRl?=
+ =?utf-8?B?enVvNUo0dE1MNGFVaDI3MVM3NUdOS2Fxa2s3YjZCcTUvV0ZjakdPOFlONXpv?=
+ =?utf-8?B?QmZHaUxQeGY1bjRZTXI2aGM1VDJRd2hsYnlleVRCanZmVnRJZXI1aVk5S01U?=
+ =?utf-8?B?NXhKSnVFa0JNVEt2UU9ubTRQUE5JRHI3UUVjTEVKcSs3S1haR3VYc0t5cTVi?=
+ =?utf-8?B?NmNWaWErMEh4WVl6d25FaC9VN0pGZkdzSW5BdHErNXdWazJNR3AvOHY3OE5S?=
+ =?utf-8?B?RkZ6NkFhb2lORVh0U0Zwb3NLMXdXMVE1ZEo5Rk5DdS9SN3NhWUhGMDdadUVB?=
+ =?utf-8?B?RUZDS3B0dmcwNFpOOVNCOXFPWm41cVZJRUxxUkJFZk1iaDVjQ0sxRDJ1K1dO?=
+ =?utf-8?B?MmhuakkwODdBVTUzRGk2aFp2MllJTUt0aE1aRC9iZGNheDQ3U2s4a09tQkIr?=
+ =?utf-8?B?QmUxc0dyK0ZhU1E1anR6bm51Vi9zOTUwSitreDVPRWhaNWhpNmlCSFpVNnpO?=
+ =?utf-8?Q?CosaqJvkK41WNeKsGR94VcQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 14:21:05.6085 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c170da9-19a2-4579-d493-08d9bb1f2324
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9576076e-7b12-4803-0bd5-08d9bb312386
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 16:29:57.4858 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1776
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mDIbPRNKTM5PNMH2bBTRHdTr0trcorGFcQ9GPyI0Zhz75695PAI90phsXiwzL4tgLkZyS2vDd8qGqaaZKurQ8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5113
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,269 +136,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, qingqing.zhuo@amd.com, roman.li@amd.com,
- amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com, nicholas.choi@amd.com,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- bhawanpreet.lakha@amd.com, Christian Koenig <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ jglisse@redhat.com, willy@infradead.org, jgg@nvidia.com, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Display core documentation is not well organized, and it is hard to find
-information due to the lack of sections. This commit reorganizes the
-documentation layout, and it is preparation work for future changes.
+Am 2021-12-09 um 5:53 a.m. schrieb Alistair Popple:
+> On Thursday, 9 December 2021 5:55:26 AM AEDT Sierra Guiza, Alejandro (Alex) wrote:
+>> On 12/8/2021 11:30 AM, Felix Kuehling wrote:
+>>> Am 2021-12-08 um 11:58 a.m. schrieb Felix Kuehling:
+>>>> Am 2021-12-08 um 6:31 a.m. schrieb Alistair Popple:
+>>>>> On Tuesday, 7 December 2021 5:52:43 AM AEDT Alex Sierra wrote:
+>>>>>> Avoid long term pinning for Coherent device type pages. This could
+>>>>>> interfere with their own device memory manager.
+>>>>>> If caller tries to get user device coherent pages with PIN_LONGTERM flag
+>>>>>> set, those pages will be migrated back to system memory.
+>>>>>>
+>>>>>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+>>>>>> ---
+>>>>>>   mm/gup.c | 32 ++++++++++++++++++++++++++++++--
+>>>>>>   1 file changed, 30 insertions(+), 2 deletions(-)
+>>>>>>
+>>>>>> diff --git a/mm/gup.c b/mm/gup.c
+>>>>>> index 886d6148d3d0..1572eacf07f4 100644
+>>>>>> --- a/mm/gup.c
+>>>>>> +++ b/mm/gup.c
+>>>>>> @@ -1689,17 +1689,37 @@ struct page *get_dump_page(unsigned long addr)
+>>>>>>   #endif /* CONFIG_ELF_CORE */
+>>>>>>   
+>>>>>>   #ifdef CONFIG_MIGRATION
+>>>>>> +static int migrate_device_page(unsigned long address,
+>>>>>> +				struct page *page)
+>>>>>> +{
+>>>>>> +	struct vm_area_struct *vma = find_vma(current->mm, address);
+>>>>>> +	struct vm_fault vmf = {
+>>>>>> +		.vma = vma,
+>>>>>> +		.address = address & PAGE_MASK,
+>>>>>> +		.flags = FAULT_FLAG_USER,
+>>>>>> +		.pgoff = linear_page_index(vma, address),
+>>>>>> +		.gfp_mask = GFP_KERNEL,
+>>>>>> +		.page = page,
+>>>>>> +	};
+>>>>>> +	if (page->pgmap && page->pgmap->ops->migrate_to_ram)
+>>>>>> +		return page->pgmap->ops->migrate_to_ram(&vmf);
+>>>>> How does this synchronise against pgmap being released? As I understand things
+>>>>> at this point we're not holding a reference on either the page or pgmap, so
+>>>>> the page and therefore the pgmap may have been freed.
+>>>>>
+>>>>> I think a similar problem exists for device private fault handling as well and
+>>>>> it has been on my list of things to fix for a while. I think the solution is to
+>>>>> call try_get_page(), except it doesn't work with device pages due to the whole
+>>>>> refcount thing. That issue is blocking a fair bit of work now so I've started
+>>>>> looking into it.
+>>>> At least the page should have been pinned by the __get_user_pages_locked
+>>>> call in __gup_longterm_locked. That refcount is dropped in
+>>>> check_and_migrate_movable_pages when it returns 0 or an error.
+>>> Never mind. We unpin the pages first. Alex, would the migration work if
+>>> we unpinned them afterwards? Also, the normal CPU page fault code path
+>>> seems to make sure the page is locked (check in pfn_swap_entry_to_page)
+>>> before calling migrate_to_ram.
+> I don't think that's true. The check in pfn_swap_entry_to_page() is only for
+> migration entries:
+>
+> 	BUG_ON(is_migration_entry(entry) && !PageLocked(p));
+>
+> As this is coherent memory though why do we have to call into a device driver
+> to do the migration? Couldn't this all be done in the kernel?
 
-Changes since V1:
-- Christian: Group amdgpu documentation together.
-- Daniel: Drop redundant amdgpu prefix.
-- Jani: Create index pages.
-- Yann: Mirror display folder in the documentation.
+I think you're right. I hadn't thought of that mainly because I'm even
+less familiar with the non-device migration code. Alex, can you give
+that a try? As long as the driver still gets a page-free callback when
+the device page is freed, it should work.
 
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- Documentation/gpu/amdgpu-dc.rst               | 74 -------------------
- Documentation/gpu/amdgpu/display/dc-debug.rst |  4 +
- .../gpu/amdgpu/display/display-manager.rst    | 42 +++++++++++
- Documentation/gpu/amdgpu/display/index.rst    | 29 ++++++++
- .../gpu/{amdgpu.rst => amdgpu/index.rst}      | 18 ++++-
- Documentation/gpu/drivers.rst                 |  3 +-
- 6 files changed, 91 insertions(+), 79 deletions(-)
- delete mode 100644 Documentation/gpu/amdgpu-dc.rst
- create mode 100644 Documentation/gpu/amdgpu/display/dc-debug.rst
- create mode 100644 Documentation/gpu/amdgpu/display/display-manager.rst
- create mode 100644 Documentation/gpu/amdgpu/display/index.rst
- rename Documentation/gpu/{amdgpu.rst => amdgpu/index.rst} (96%)
+Regards,
+  Felix
 
-diff --git a/Documentation/gpu/amdgpu-dc.rst b/Documentation/gpu/amdgpu-dc.rst
-deleted file mode 100644
-index f7ff7e1309de..000000000000
---- a/Documentation/gpu/amdgpu-dc.rst
-+++ /dev/null
-@@ -1,74 +0,0 @@
--===================================
--drm/amd/display - Display Core (DC)
--===================================
--
--*placeholder - general description of supported platforms, what dc is, etc.*
--
--Because it is partially shared with other operating systems, the Display Core
--Driver is divided in two pieces.
--
--1. **Display Core (DC)** contains the OS-agnostic components. Things like
--   hardware programming and resource management are handled here.
--2. **Display Manager (DM)** contains the OS-dependent components. Hooks to the
--   amdgpu base driver and DRM are implemented here.
--
--It doesn't help that the entire package is frequently referred to as DC. But
--with the context in mind, it should be clear.
--
--When CONFIG_DRM_AMD_DC is enabled, DC will be initialized by default for
--supported ASICs. To force disable, set `amdgpu.dc=0` on kernel command line.
--Likewise, to force enable on unsupported ASICs, set `amdgpu.dc=1`.
--
--To determine if DC is loaded, search dmesg for the following entry:
--
--``Display Core initialized with <version number here>``
--
--AMDgpu Display Manager
--======================
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
--   :doc: overview
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
--   :internal:
--
--Lifecycle
-----------
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
--   :doc: DM Lifecycle
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
--   :functions: dm_hw_init dm_hw_fini
--
--Interrupts
------------
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
--   :doc: overview
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
--   :internal:
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
--   :functions: register_hpd_handlers dm_crtc_high_irq dm_pflip_high_irq
--
--Atomic Implementation
-----------------------
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
--   :doc: atomic
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
--   :functions: amdgpu_dm_atomic_check amdgpu_dm_atomic_commit_tail
--
--Display Core
--============
--
--**WIP**
--
--FreeSync Video
----------------
--
--.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
--   :doc: FreeSync Video
-diff --git a/Documentation/gpu/amdgpu/display/dc-debug.rst b/Documentation/gpu/amdgpu/display/dc-debug.rst
-new file mode 100644
-index 000000000000..bbb8c3fc8eee
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/dc-debug.rst
-@@ -0,0 +1,4 @@
-+Display Core Debug tools
-+========================
-+
-+TODO
-diff --git a/Documentation/gpu/amdgpu/display/display-manager.rst b/Documentation/gpu/amdgpu/display/display-manager.rst
-new file mode 100644
-index 000000000000..7ce31f89d9a0
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/display-manager.rst
-@@ -0,0 +1,42 @@
-+======================
-+AMDgpu Display Manager
-+======================
-+
-+.. contents:: Table of Contents
-+    :depth: 3
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+   :doc: overview
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+   :internal:
-+
-+Lifecycle
-+=========
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+   :doc: DM Lifecycle
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+   :functions: dm_hw_init dm_hw_fini
-+
-+Interrupts
-+==========
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+   :doc: overview
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+   :internal:
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+   :functions: register_hpd_handlers dm_crtc_high_irq dm_pflip_high_irq
-+
-+Atomic Implementation
-+=====================
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+   :doc: atomic
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+   :functions: amdgpu_dm_atomic_check amdgpu_dm_atomic_commit_tail
-diff --git a/Documentation/gpu/amdgpu/display/index.rst b/Documentation/gpu/amdgpu/display/index.rst
-new file mode 100644
-index 000000000000..a443866332ac
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/index.rst
-@@ -0,0 +1,29 @@
-+===================================
-+drm/amd/display - Display Core (DC)
-+===================================
-+
-+*placeholder - general description of supported platforms, what dc is, etc.*
-+
-+Because it is partially shared with other operating systems, the Display Core
-+Driver is divided in two pieces.
-+
-+1. **Display Core (DC)** contains the OS-agnostic components. Things like
-+   hardware programming and resource management are handled here.
-+2. **Display Manager (DM)** contains the OS-dependent components. Hooks to the
-+   amdgpu base driver and DRM are implemented here.
-+
-+It doesn't help that the entire package is frequently referred to as DC. But
-+with the context in mind, it should be clear.
-+
-+When CONFIG_DRM_AMD_DC is enabled, DC will be initialized by default for
-+supported ASICs. To force disable, set `amdgpu.dc=0` on kernel command line.
-+Likewise, to force enable on unsupported ASICs, set `amdgpu.dc=1`.
-+
-+To determine if DC is loaded, search dmesg for the following entry:
-+
-+.. toctree::
-+
-+   display-manager.rst
-+   dc-debug.rst
-+
-+``Display Core initialized with <version number here>``
-diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu/index.rst
-similarity index 96%
-rename from Documentation/gpu/amdgpu.rst
-rename to Documentation/gpu/amdgpu/index.rst
-index 8ba72e898099..5c8cbf514097 100644
---- a/Documentation/gpu/amdgpu.rst
-+++ b/Documentation/gpu/amdgpu/index.rst
-@@ -1,6 +1,6 @@
--=========================
-+==========================
-  drm/amdgpu AMDgpu driver
--=========================
-+==========================
- 
- The drm/amdgpu driver supports all AMD Radeon GPUs based on the Graphics Core
- Next (GCN) architecture.
-@@ -71,7 +71,7 @@ Interrupt Handling
-    :internal:
- 
- IP Blocks
--------------------
-+---------
- 
- .. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
-    :doc: IP Blocks
-@@ -79,6 +79,18 @@ IP Blocks
- .. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
-    :identifiers: amd_ip_block_type amd_ip_funcs
- 
-+Display Core
-+============
-+
-+This section covers Display core.
-+
-+.. toctree::
-+
-+  display/index
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+   :doc: overview
-+
- AMDGPU XGMI Support
- ===================
- 
-diff --git a/Documentation/gpu/drivers.rst b/Documentation/gpu/drivers.rst
-index b4a0ed3ca961..3a52f48215a3 100644
---- a/Documentation/gpu/drivers.rst
-+++ b/Documentation/gpu/drivers.rst
-@@ -4,8 +4,7 @@ GPU Driver Documentation
- 
- .. toctree::
- 
--   amdgpu
--   amdgpu-dc
-+   amdgpu/index
-    i915
-    mcde
-    meson
--- 
-2.25.1
 
+>
+>> No, you can not unpinned after migration. Due to the expected_count VS 
+>> page_count condition at migrate_page_move_mapping, during migrate_page call.
+>>
+>> Regards,
+>> Alex Sierra
+>>
+>>> Regards,
+>>>    Felix
+>>>
+>>>
+>
+>
