@@ -4,90 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33423C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16D6CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:57:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3538A10E8C5;
-	Thu,  9 Dec 2021 16:53:39 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D6010E116
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 08:27:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 738E710E8EC;
+	Thu,  9 Dec 2021 16:53:41 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 011278925E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 09:01:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KDdQyvjHGX9tmQP+cES+MjSUkFYaNmDCT09HHqBbq0rquEsukU0/DakwQPSkUCSxr7mqNldWGkVaIWx8daqpdecE2vp8E3S1ZaD8O+Nqq7UkXZMce9UGJa6v5T3VLz7Y5/vdLoTbl4iiwUWBXakVQ9Wuo78bdPlxBDDDTEGppqNlcjt8EDx2jKQ9pYmdZxeovk5q2s9bEvSWBLj3l2yHmd0aMsi2pX+b4T/4q/N9GslwEFitOfQcgCa8+3Eg0KlVh0lx+ogW5wwe/oWrzMnA47qDN4CsP6mfYaE01ye0MHN/J5T3MBUT4fH9TR3PBtGHm1iMp5y2/sczmuMxoQZo+w==
+ b=D6rsNwxVjWdfHXh2MsbTO++ZsngXdkJgF2tawcbhj67YCx99pJaznX9aRAR9w4rpz+s7KpjcIC5V0nz5dFWlmoDGfZrJk7UH6UeWbCSh8TFmaqZgQymWrn+g06EP+KCFm+N21yqKS5RoeeEIS+n7ScR5jf+4kxfz+WBGXK2dA0Zjwxh5pTGtQUWoAQ2ZRhBtnN8V8/KTZTCokRLn449H1hMDX3TCvXde+Zs6p0aCvlSMnkbymaxqfPRJ+8fdZaldpjctvV4su/STrEoUrogyFVvQDyfpBjy0O5ByMk7WPo49h8j3ojthmxpyzVNbLO5x/oY0pPf1pZUSVQ1Kj26Ryg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S7rJ0J4Z2GYcnPCeQQwym/zT+SQt0O405mEDuy8+8uc=;
- b=SwQoqdRCy9INzJ7hKtEM8OWmizZAJ8j7DuKyD7hEzhE3+NPhrKUpYp+ucstPfoy8JIMNY71LM2wNRIpu+/dVktt3tdCnskH4J1T3Ci0xLIBwE0g2/KeBmCNZi8XjJBvHldopdjiVbSRnftGC7Ofid1o848bFuo8NG7HXzjq0ARAC+Pk/DcO/TW5BzLU0xQw2EcVwbeMfHBD+Lzg30GICynpB1uZEZT4gcVW9nlBfdkMIdA8gdFYTKC8SpoeXYeeeR8sl3PxBmKYXESuvcbMLi5veliVuNF3DmcJleJBpmc0u9fZ3fSbrh6fDO1Kc9i09YP982QMHQNXrsxiVC9sCBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=FRUgiY5K8c4wU+ZOsq+B+zKl3dyRDI/7xV1/xrb9JOo=;
+ b=WJ1do54EE6GkFQW4p4OXlOZ0H+6FwxLnYCvPGB5JoEWVwZlin4mBk4IkBuVZGe/UKGRDAqoV2ddNfAZ9a23UNTusTx5Ea68zjxqZk+ZrY0RIH3v8L+7s6uS5uK6ESJcMFpcTpTVY5abheWi+GNfpk6pQZ1j3wiOX4HD96aCEZQX9XRFkFRxJdjvp2Ze0A/OefhR91GdvPWebpQkt7gLNb38RGJ5SmL7y3giOm4ulQQQKbybrBKwxoN73puonhQZb+ymtuXX0M26oF0euDw/xZJNINhaJzQAmf8dbOOCTDpIwuw5jIpDIErFpBzApcMX0BdZUiksRzD69Yq26Il2oCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S7rJ0J4Z2GYcnPCeQQwym/zT+SQt0O405mEDuy8+8uc=;
- b=PpYfQmALNhl7B6kmUIwXSHfWMJK9iZhVxKRXrqW5AYcaIF6LCEsgA0UPOH3zu/osWiTbevhbm1JPVqUBuzNiRKcQB5hq43OjK40jrTiBXGfnAvkF5UkCohc/30NIdIbCSSPTJrXr3kL/wjXKVwMy+PwHr7x6Fij3e6uGCkH5pNs=
-Received: from BN0PR07CA0001.namprd07.prod.outlook.com (2603:10b6:408:141::12)
- by BY5PR12MB3844.namprd12.prod.outlook.com (2603:10b6:a03:1ad::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Thu, 9 Dec
- 2021 08:27:02 +0000
-Received: from BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141:cafe::90) by BN0PR07CA0001.outlook.office365.com
- (2603:10b6:408:141::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.11 via Frontend
- Transport; Thu, 9 Dec 2021 08:27:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT028.mail.protection.outlook.com (10.13.176.225) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 08:27:02 +0000
-Received: from syl-dev-machine.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 9 Dec
- 2021 02:26:59 -0600
-From: Leslie Shi <Yuliang.Shi@amd.com>
-To: <lijo.lazar@amd.com>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3] drm/amdgpu: fix incorrect VCN revision in SRIOV
-Date: Thu, 9 Dec 2021 16:26:39 +0800
-Message-ID: <20211209082639.1296627-1-Yuliang.Shi@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=FRUgiY5K8c4wU+ZOsq+B+zKl3dyRDI/7xV1/xrb9JOo=;
+ b=T1fkzQA8N/FxbDV2xA19R/sOgFKJRCa8AUA+LEHNhjr8Bs4l4JqyFzWGxQR/A1LDLpN3s0/4wSPfBVBQ2SfLenqjS0ImQo4gSwJQAFVFhttX7q7f5rFyw1Kj2yYt+6aK8UCLaBwbsn0sRs7v0d13z7S3DieBDmLmc8d9s8nDEQU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MWHPR12MB1341.namprd12.prod.outlook.com
+ (2603:10b6:300:11::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
+ 2021 09:00:58 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4%12]) with mapi id 15.20.4755.024; Thu, 9 Dec 2021
+ 09:00:58 +0000
+Subject: Re: [PATCH 1/2] drm/amdgpu: introduce a kind of halt state for amdgpu
+ device
+To: Lang Yu <lang.yu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211209084914.261889-1-lang.yu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <af6c19e6-fcf4-ac19-637e-1fb47f15f9e6@amd.com>
+Date: Thu, 9 Dec 2021 10:00:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20211209084914.261889-1-lang.yu@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: FR2P281CA0032.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::19) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="y"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
+Received: from [IPv6:2a02:908:1252:fb60:2e35:ddd6:f296:528]
+ (2a02:908:1252:fb60:2e35:ddd6:f296:528) by
+ FR2P281CA0032.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Thu, 9 Dec 2021 09:00:56 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 984f0260-88d8-4fdb-78f1-08d9baedacf4
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3844:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB3844BAFB62B175BC6048161CE0709@BY5PR12MB3844.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: 30855ae5-f475-499c-17ab-08d9baf26a71
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1341:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB13419C42500DF27A6214613083709@MWHPR12MB1341.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hP27rz1MSf9IcKEmEOC+j0cwFa31Dc09n3nnmz6Bg/yIRs3OOiD2Dtv8NvhpgfRVWZFZIbDpgo8doptdanyzyo1kSDkD74c/MSmBc/WDnbxyFBF5QaNBulWFz5zX7ChIHcg9PFA5iqO4nlKqt08bdVhWz7AIVEEKpPscbQvRKXXr1/hx/97kZdzEJJQEfxgs5HE+ZU1rcVpvudyTQZV7jhx9imslOFPq0JNAP+/+tCoTzODvEkdQsLpcx2Z1/hDSPzj1d/wiL5EVmA8qIQJ9N2KpU1QgvEP9BsS51CunNvbVBj5oDbUnYWCJK3cNCSjS9NgdK1wptSYRD8adS/UXosEN9tyRKDnZX6XCNzSIf4c6i2W9/URnPWhK0JpZlc22jn9lkE5D4avXLRIveY6n/7cA/iTzCOdVK2PHo/Lmg8Ep5ayAQ0vbe5l/B1X96V3AsQZNy630rb7Vb3WrO2R8td+5MSQjo2E4e1m6Z9BsqCDxvcaThX3tS9yWbDr/uAMmzUxhlucDHATww1W8pQv6H0Rb2rux7HIwW6B/VK4Erv4FIccr/UuNxxi2SuEvs1HrYnOBXfmiZSvGM7c8fXiV3mx/X9zZUC7c53EwTjc+oZKcUS86EwOiLjOt9PjytlBFH7TR/rO3mV7gLJU+FMvsIDasLPqFnEPkdL87osYhZk3OpTxnCfkh3rIBoRl9CFlWxpzqtC2ZltYDFRHiVZppJMOV68WYZ5hIcLnhdmed5CbDYRxfDgwSHdRPmH32+GkAyPXW8VJG5WstmRbk8s2zR4xYT0dhBaJQDXUHTW7aSAc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(186003)(16526019)(36860700001)(81166007)(336012)(36756003)(7696005)(6666004)(26005)(83380400001)(86362001)(110136005)(54906003)(356005)(70586007)(40460700001)(5660300002)(8676002)(2906002)(426003)(508600001)(316002)(70206006)(1076003)(2616005)(47076005)(8936002)(82310400004)(4326008)(36900700001);
+X-Microsoft-Antispam-Message-Info: 9bVDd4Y6/BW6yVq4pvxoTofvQO5hAM/n5iLiGNcQK42ZivaEwptRK+8I9Jm5w/+qDzkVErj5OYG9xeoAI7yhwTb5l/DAlkMJa0XfR/S4Wllk100GzngQcHilrlPL92xS9mC3ZDVCAeCAkJhjqhZ9EaSBZGJPpMMutMWbe3+PHnvcuCc1SBOpG0oOA+fGCT80TgBI9Tt5XfZE9JH6ivA6T3PRZwruS9+b3PQBxFVi6uFrD2e7svmsmjdQWmuFnnJe6e9mKQBFkzO++zECe2fuH0ayUdZ0zw60NwBA0K90Q+J3+RhAECHDIXkNGwLCNcrmUxskfS5OMH/cc3xzeD+1SuWnv/ECzJod+fb1bfFZ2NY9L1gRyXHIKmqpimRNnD8GRi6BFgyhaZNCI+arEgAOxVpMLRO/BSLirqAZFaUBrQmDEWFJ/MpZSDgearSNzuDJWfMDezoE0GR8cO0uLzZhhr04U/7uwCpyErhrG0/VdS/4CXIWVfDzyaKfPjbLAsj8uOlRdV9S2q23DSGI2+UIihAy+LonptxBfsvvWd/I+c/OiOEtFdYtOSFasFcxoRZOon4mHEK7qj6eKO+7Nge9slm5mKUed+IfMqOpy5me+BBNFb3049jv6kI9C3guw2gYZcWu3VRDjVXKNYom2tOaGrvh/OV7Gz1XLGaRtFulBRWc5NcslzQxpxANFwpiEZeiQqaNcsf2/JseOOJNs/IQFvl4V79aaaO9yj1SpzyJtUU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(2616005)(66556008)(31696002)(5660300002)(36756003)(186003)(83380400001)(31686004)(6666004)(86362001)(508600001)(8676002)(54906003)(66946007)(38100700002)(8936002)(4326008)(316002)(6486002)(66476007)(2906002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ymt2ejlDcE9tWkhCZUJSY1dsRHByWmQrcUlKQUZBVlZOWUtWdmNlTXQraGcx?=
+ =?utf-8?B?ZThoZE5jYUxNSHJ1UFN6TjBKM0pORU1LUnV4SmRlNkhkdlVNYkMrMHRtVGtk?=
+ =?utf-8?B?RE5oSGNkK2l5SGtZR1BwUng1dEZROVdJaEI2N0tvS1p3czYrV0p0ZDMwL0hU?=
+ =?utf-8?B?OEVJKzlBd2pycFdLN0piUUVnSUtxU3VKcldCT1F3ejR1dDFxY29HVXVXMkVU?=
+ =?utf-8?B?Qkt1QXdyc0RYUnFXYnBNZklvbG1FUVcwbytCbUo0dG50eW9vSWNGRDRYOVBw?=
+ =?utf-8?B?cW90WVlmUE9XWDBoY2w0MHNwVzduSW5jT2JZellrMHYzS29wSmJjY2lPREN3?=
+ =?utf-8?B?YURvN1VsZ0ZiendaMGVKczVKQ20rYXNNdmduTU8rQjJ0WUF4Q0pmNUlqWmt0?=
+ =?utf-8?B?VXlVdGh1MThxRTJJZUgrTjdxV2l4WWM0MDdOSGR2L1QxWVhENFgxQitUVm9S?=
+ =?utf-8?B?NlNFUGE5N0hWaGFhckw3dHZPSVRnMmJ1K0dVNERWUWxkUVdOMnlCeThGa1JC?=
+ =?utf-8?B?bHBYSUhWVGxqaUVCdWxWRXFWdjZXQkNvYVM4ZUhHN3VHaHJLYmV6MW4wQ05v?=
+ =?utf-8?B?L3d6c1ZoVnVxOEMvdXF3eGJCaWNzNTBRMHM3ZkxGa1BhRk1IYmE1UzlVME5v?=
+ =?utf-8?B?OFYxSVdpOS9SL09Xa3A5UnI0c25aV1VWcXF0R0htaUxFeitacmdaUkYyb0pn?=
+ =?utf-8?B?ejYrTG9LSFV6WjBjSXhmMTVvZGlPRWl3akwvTTdKTWlITjlxaHFpb0lmdXEw?=
+ =?utf-8?B?ejk1K1lHUDRETVZya1AvVW8zYWs0OWdKQitpcXZaNXM3ekhVdzdrcElzekcr?=
+ =?utf-8?B?MW9URkt1dGtxbjNIMWVvaHU4dlhJY0xBNFhiTGhZZTZSNVlNaFZkVW0rcDBT?=
+ =?utf-8?B?NXJMNnp6dDVVZ2dhdVpIbzJyN0tiOWhPTmVZR280dk9tL1lxVnFmQmhSbXla?=
+ =?utf-8?B?cnBSQ1FrWVFjT1VLemZsaW55YlNQb1NMYXJ4cG1SY2FkdlFvUXRJbWdkUmRN?=
+ =?utf-8?B?dG5PU0hOTUhRUVlZbmc5V1lUOXI1MHJybVNwaklRdEUveTZraE1aaHlhayti?=
+ =?utf-8?B?b2lsaGFmWWprNnN2MitVcDcybjVtbU5sdXlKL1NodzRJdTVQYms2QjJ2WkQy?=
+ =?utf-8?B?ZG9DSHIxOWw5SWdsZ2VHb21WUCtNeThTT2JaL1QzdUlLTHp0b29CMUsrMlh6?=
+ =?utf-8?B?a2xyUzJDbnlhbGxEY1dqaDJjY0QxcUlzQ0c1SW41Y2dMZklIeWZWTGZ2d0M5?=
+ =?utf-8?B?dDZCdFBzQ2FrTUVoK2ZCQ0RxcTJWcWN4TGc2Y29vZXdVWTZEQWNUaXhLcHM4?=
+ =?utf-8?B?VkR3UUsvMFdOTzZ6eW1rb2w3eXZzOHRQZGRmWUcwZy9BNTF6d2N6WlhkQkha?=
+ =?utf-8?B?ZzZPOHFSRzNpbVRURDE2QXJuWDB1SEZOeC9Wb0thU2tQekZKQkdPOUZ1NS9v?=
+ =?utf-8?B?K0NqZ0pjQ05MT2JIQnZGN3VHSCtWTVowRng1RThjOGtKNjVNSDdBSzdvSEQv?=
+ =?utf-8?B?eFdNTk9vVHVOZWhPTUl0S0pYNUZON3AvK2g1WUsvd0dPS3dMWDI4WmpuUTl3?=
+ =?utf-8?B?TlVyK1p6NFo2ZTVRcC95T1ByeHZDSDI3V0pNN2dXd2s1WkhxL253N2JhMXZX?=
+ =?utf-8?B?dlJWWVdadWR0QTl4TkZNZ1NkR2pTRnNtOWhRYkhqSDlnWmtXWDkzYVdaeS9Z?=
+ =?utf-8?B?Z0syalo2dzNWdXZhNWlxTUNFR1EzKzFscTZGUjRBOGtRZStjaGpNWEE0aXAy?=
+ =?utf-8?B?R29PR1dFQ1lja0FUdllZV2x0Vll1b1ZaZlF4a2xVd2NnMWRmNGZSeEp5S0lh?=
+ =?utf-8?B?N24yM0VRTGVPZUloVmI4aWFvcmpMOHRDbUdoV1dTVk9aQ08ybHE1NVRkOGsv?=
+ =?utf-8?B?Q3hqbTdPRUpNVk1lVTVSano3ZGZlSk9STnhsVW0wRmttUGFOTjZQMXNKNGFZ?=
+ =?utf-8?B?K3hRTHBjVGxMOE0vZ0xWZkR2c0s0VEV6RjVUMlZJb1FKaVIvS1dJUXBCZGFo?=
+ =?utf-8?B?Z0ZocVpsdzBJRC9RUk1lUHdqUjFRRUYvdW0yTnFpRyt4THQ4MlRuR0dnMnVV?=
+ =?utf-8?B?N0w5SkdReko3ZFhPd3JQcG5oZ2dvREdGVkV3ZVdwa0pQNlZZT2UwZ1pVelhj?=
+ =?utf-8?B?WjZieTdzL0VSaTkwam15UkxKR1RBSnV4M2w5WDkyQWE1elhiK0NoVElCUjJa?=
+ =?utf-8?Q?t/cYJoeF9PkO7gWa/dnCxl4=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 08:27:02.0729 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 984f0260-88d8-4fdb-78f1-08d9baedacf4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30855ae5-f475-499c-17ab-08d9baf26a71
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 09:00:58.3143 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3844
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vX1ztVmpZrnaVijbn8l0a+0l7eLggwzM1P3031dBih/eRf7jtgQaev1yI23nJnYV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1341
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,134 +132,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yuliang.shi@amd.com, guchun.chen@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Huang Rui <ray.huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Guest OS will setup VCN instance 1 which is disabled as an enabled instance and
-execute initialization work on it, but this causes VCN ib ring test failure
-on the disabled VCN instance during modprobe:
 
-amdgpu 0000:00:08.0: amdgpu: ring vcn_enc_1.0 uses VM inv eng 5 on hub 1
-amdgpu 0000:00:08.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test failed on vcn_dec_0 (-110).
-amdgpu 0000:00:08.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test failed on vcn_enc_0.0 (-110).
-[drm:amdgpu_device_delayed_init_work_handler [amdgpu]] *ERROR* ib ring test failed (-110).
 
-v2: drop amdgpu_discovery_get_vcn_version and rename sriov_config to
-vcn_config
-v3: modify VCN's revision in SR-IOV and bare-metal
+Am 09.12.21 um 09:49 schrieb Lang Yu:
+> It is useful to maintain error context when debugging
+> SW/FW issues. We introduce amdgpu_device_halt() for this
+> purpose. It will bring hardware to a kind of halt state,
+> so that no one can touch it any more.
+>
+> Compare to a simple hang, the system will keep stable
+> at least for SSH access. Then it should be trivial to
+> inspect the hardware state and see what's going on.
+>
+> Suggested-by: Christian Koenig <christian.koenig@amd.com>
+> Suggested-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Signed-off-by: Lang Yu <lang.yu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 39 ++++++++++++++++++++++
+>   2 files changed, 41 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index c5cfe2926ca1..3f5f8f62aa5c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1317,6 +1317,8 @@ void amdgpu_device_flush_hdp(struct amdgpu_device *adev,
+>   void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
+>   		struct amdgpu_ring *ring);
+>   
+> +void amdgpu_device_halt(struct amdgpu_device *adev);
+> +
+>   /* atpx handler */
+>   #if defined(CONFIG_VGA_SWITCHEROO)
+>   void amdgpu_register_atpx_handler(void);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index a1c14466f23d..62216627cc83 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5634,3 +5634,42 @@ void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
+>   
+>   	amdgpu_asic_invalidate_hdp(adev, ring);
+>   }
+> +
+> +/**
+> + * amdgpu_device_halt() - bring hardware to some kind of halt state
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * Bring hardware to some kind of halt state so that no one can touch it
+> + * any more. It will help to maintain error context when error occurred.
+> + * Compare to a simple hang, the system will keep stable at least for SSH
+> + * access. Then it should be trivial to inspect the hardware state and
+> + * see what's going on. Implemented as following:
+> + *
+> + * 1. drm_dev_unplug() makes device inaccessible to user space(IOCTLs, etc),
+> + *    clears all CPU mappings to device, disallows remappings through page faults
+> + * 2. amdgpu_irq_disable_all() disables all interrupts
+> + * 3. amdgpu_fence_driver_hw_fini() signals all HW fences
+> + * 4. amdgpu_device_unmap_mmio() clears all MMIO mappings
+> + * 5. pci_disable_device() and pci_wait_for_pending_transaction()
+> + *    flush any in flight DMA operations
+> + * 6. set adev->no_hw_access to true
+> + */
+> +void amdgpu_device_halt(struct amdgpu_device *adev)
+> +{
+> +	struct pci_dev *pdev = adev->pdev;
+> +	struct drm_device *ddev = &adev->ddev;
+> +
+> +	drm_dev_unplug(ddev);
+> +
+> +	amdgpu_irq_disable_all(adev);
+> +
+> +	amdgpu_fence_driver_hw_fini(adev);
+> +
+> +	amdgpu_device_unmap_mmio(adev);
+> +
+> +	pci_disable_device(pdev);
+> +	pci_wait_for_pending_transaction(pdev);
+> +
+> +	adev->no_hw_access = true;
 
-Fixes: 36b7d5646476 ("drm/amdgpu: handle SRIOV VCN revision parsing")
-Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 29 ++++++-------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |  2 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 15 +++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |  2 +-
- 4 files changed, 14 insertions(+), 34 deletions(-)
+I think we need to reorder this, e.g. set adev->no_hw_access much 
+earlier for example. Andrey what do you think?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 552031950518..f31bc0187394 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -380,18 +380,15 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
- 				  ip->revision);
- 
- 			if (le16_to_cpu(ip->hw_id) == VCN_HWID) {
--				if (amdgpu_sriov_vf(adev)) {
--					/* SR-IOV modifies each VCN’s revision (uint8)
--					 * Bit [5:0]: original revision value
--					 * Bit [7:6]: en/decode capability:
--					 *     0b00 : VCN function normally
--					 *     0b10 : encode is disabled
--					 *     0b01 : decode is disabled
--					 */
--					adev->vcn.sriov_config[adev->vcn.num_vcn_inst] =
--						(ip->revision & 0xc0) >> 6;
--					ip->revision &= ~0xc0;
--				}
-+				/* Bit [5:0]: original revision value
-+				 * Bit [7:6]: en/decode capability:
-+				 *     0b00 : VCN function normally
-+				 *     0b10 : encode is disabled
-+				 *     0b01 : decode is disabled
-+				 */
-+				adev->vcn.vcn_config[adev->vcn.num_vcn_inst] =
-+					ip->revision & 0xc0;
-+				ip->revision &= ~0xc0;
- 				adev->vcn.num_vcn_inst++;
- 			}
- 			if (le16_to_cpu(ip->hw_id) == SDMA0_HWID ||
-@@ -485,14 +482,6 @@ int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id, int n
- 	return -EINVAL;
- }
- 
--
--int amdgpu_discovery_get_vcn_version(struct amdgpu_device *adev, int vcn_instance,
--				     int *major, int *minor, int *revision)
--{
--	return amdgpu_discovery_get_ip_version(adev, VCN_HWID,
--					       vcn_instance, major, minor, revision);
--}
--
- void amdgpu_discovery_harvest_ip(struct amdgpu_device *adev)
- {
- 	struct binary_header *bhdr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-index 0ea029e3b850..14537cec19db 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-@@ -33,8 +33,6 @@ void amdgpu_discovery_harvest_ip(struct amdgpu_device *adev);
- int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id, int number_instance,
-                                     int *major, int *minor, int *revision);
- 
--int amdgpu_discovery_get_vcn_version(struct amdgpu_device *adev, int vcn_instance,
--				     int *major, int *minor, int *revision);
- int amdgpu_discovery_get_gfx_info(struct amdgpu_device *adev);
- int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 2658414c503d..38036cbf6203 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -284,20 +284,13 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
- bool amdgpu_vcn_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_ring_type type, uint32_t vcn_instance)
- {
- 	bool ret = false;
-+	int vcn_config = adev->vcn.vcn_config[vcn_instance];
- 
--	int major;
--	int minor;
--	int revision;
--
--	/* if cannot find IP data, then this VCN does not exist */
--	if (amdgpu_discovery_get_vcn_version(adev, vcn_instance, &major, &minor, &revision) != 0)
--		return true;
--
--	if ((type == VCN_ENCODE_RING) && (revision & VCN_BLOCK_ENCODE_DISABLE_MASK)) {
-+	if ((type == VCN_ENCODE_RING) && (vcn_config & VCN_BLOCK_ENCODE_DISABLE_MASK)) {
- 		ret = true;
--	} else if ((type == VCN_DECODE_RING) && (revision & VCN_BLOCK_DECODE_DISABLE_MASK)) {
-+	} else if ((type == VCN_DECODE_RING) && (vcn_config & VCN_BLOCK_DECODE_DISABLE_MASK)) {
- 		ret = true;
--	} else if ((type == VCN_UNIFIED_RING) && (revision & VCN_BLOCK_QUEUE_DISABLE_MASK)) {
-+	} else if ((type == VCN_UNIFIED_RING) && (vcn_config & VCN_BLOCK_QUEUE_DISABLE_MASK)) {
- 		ret = true;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index 938a5ead3f20..5d3728b027d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -235,7 +235,7 @@ struct amdgpu_vcn {
- 
- 	uint8_t	num_vcn_inst;
- 	struct amdgpu_vcn_inst	 inst[AMDGPU_MAX_VCN_INSTANCES];
--	uint8_t			 sriov_config[AMDGPU_MAX_VCN_INSTANCES];
-+	uint8_t			 vcn_config[AMDGPU_MAX_VCN_INSTANCES];
- 	struct amdgpu_vcn_reg	 internal;
- 	struct mutex		 vcn_pg_lock;
- 	struct mutex		vcn1_jpeg1_workaround;
--- 
-2.25.1
+Apart from that sounds like the right idea to me.
+
+Regards,
+Christian.
+
+> +}
 
