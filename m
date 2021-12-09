@@ -4,95 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19779C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5CB1C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:56:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16CBD10E6ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E8310E6F2;
 	Thu,  9 Dec 2021 16:53:21 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E195189F2D
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 07:50:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aGrDgcIo+L61mrQ7cmZge36SHlc996iyawfoxUqI7y3iRxt2Glcn1folcflEvZeP9CWnmfIGktTYTt7q5LQBfTmOIdE74/zHO3KA9Hi6uKSeRtEOE7MFgEweJSJkkjUp0rp0viBwfX0aj3+HGcDdIs/joGMYh8F/FtEUnhA9TtohZIgWcJOkhYczdb53TMKwAbFhvLajdVjk9Ds2nXc59KWSnB++m4gyb02QkZm0CZCAZCSAINfRCVVeKHONL0ysljY5SCnkE6CyQsqIacZqgrgY9ER3/s2pYnvdRORXIxUzmiJciOKpy52cGcvEVrg9JcAhx4mdTSpbRQo90DwkzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/WLBm8cf1s5U65wM4pJJNdH5UOCP/I1ZcmB/YrZqO/g=;
- b=JFIW8u7JWNnNOTkD1rN945hikvxvj1PTbTTAUXGNpm/UIzYUvkIUwh6ulNc3NwObm/4TCGX1ajtLGCi0ABswgcRGqChqXipam4x2aP+ktt4lpfvROy1BRRNSWhRABzvf1IEH5Iv7HEoXHja+IiDfdU0HtNSebuqgACUwo8ZKYXQvuQcR1ztzOZNj5W49Z5Jji2kaOGH+M6stmQqW4bMvfBErbOXqxDxxs86P2Le4joISIPQIG667XejOkK5lzAu23pDRUl+2MV6ZS6v1C+NMxp0zjPLToV8UhIb0s+N1s7ySj96U5V+am2fSEGp8oS0rcM7n27sfkFC1LwRfJL+sBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/WLBm8cf1s5U65wM4pJJNdH5UOCP/I1ZcmB/YrZqO/g=;
- b=M3/Lc4hPxxPsdNKsnyAxZGD31pp1Ll9bybz7S3exbU66tFnpzz28trbp5nAPnfMcHZk9B0lUNsDOU9KwsqKWdJwWSWxX7yLdZ/NUgISMVuCRMzDP+PPeT3xBNWUSLIjTbtWH9Nx8/GcZS/vnJO6QQPFVtPPkB9LEglePV7BXnbQ=
-Received: from DM5PR20CA0043.namprd20.prod.outlook.com (2603:10b6:3:13d::29)
- by DM6PR12MB3131.namprd12.prod.outlook.com (2603:10b6:5:11d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
- 2021 07:50:22 +0000
-Received: from DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:13d:cafe::a0) by DM5PR20CA0043.outlook.office365.com
- (2603:10b6:3:13d::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
- Transport; Thu, 9 Dec 2021 07:50:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT053.mail.protection.outlook.com (10.13.173.74) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 07:50:22 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 9 Dec
- 2021 01:50:13 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 9 Dec
- 2021 01:50:13 -0600
-Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17
- via Frontend Transport; Thu, 9 Dec 2021 01:50:12 -0600
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: explicitly create/destroy queue attributes under
- /sys
-Date: Thu, 9 Dec 2021 01:49:18 -0600
-Message-ID: <20211209074918.1555320-1-xiaogang.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D2F89F2D;
+ Thu,  9 Dec 2021 07:54:17 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id i12so3459163wmq.4;
+ Wed, 08 Dec 2021 23:54:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=YXJndMpjkY51R7vVxhqGqqKndMXB5liIkpS6VEDt38I=;
+ b=FBh0aV1w/8jpXUnOqck3g5qcdQcjkQ5+P4oGSKoCNUNHcanQECIt0PZU84FU1m1fxZ
+ BDieP60TWaq6GDSAPxgFEMvBZjtmPq5y8TziTF89NRHVBRYiNMAMhBi1Cu8JLpcv6ETb
+ ptWcJpYF1RJL1+9Y/1ziJt+7WYVAEC4F55UYgpYWuCHY1bkA79mHtxu2UFJnR+t+gSf5
+ MIWAS8VvEnwGMvlzHKXSAfZ80OzYRSKKmrn2HUWhIgOUggaggnYxBuSVJLMtXpHIcLbm
+ 85RN8E59RdB59YGyER4R9gKp9LevnKGsf7uGsQ2AArmy6wlQMhwKMykGaupASLzlrCb9
+ dHAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=YXJndMpjkY51R7vVxhqGqqKndMXB5liIkpS6VEDt38I=;
+ b=20G/bs8GXEqHf3cF/kupdxElAHXAPKXRMdJffj+5BdmJvTyzBb7oOk/318eHS97pAr
+ sF6Hz9hPEPABbd9F6uFUsotC4f8zjozmKIZW8/9eQQFmm0GyQZZeNX9gJuPAEzbCIx7u
+ VUtvHvLgUFgvJRcmnCxIZN35DGckwp3MrxiLyICRH36v1si40/GawJa1jYGYaE2pYueH
+ wHLywv9p3S/dwBNHNB7pFJ4+T76XcvoGp23rGRj45BvV3lX90JjZ2PDCDoTAyUCb5E2D
+ RlwbfEXOxz2Kf6jfzblokDQd8ZfA7MKO9F0hm3Dv8E5+lUODLNC5uWYZzfDzlq9+wJLq
+ hR9Q==
+X-Gm-Message-State: AOAM531EDKTirOLCwGDHFk1RhECEIjI9NuWfdl8b1ZbkPoRiGvpV8gVN
+ 7gGfvLFSvbpRdTud5puNi/qzbit48y8=
+X-Google-Smtp-Source: ABdhPJxUoEToWNu7AxtQs8naW0HYkWKxi3yW2B9+xXmGB/t5RmIWALl4IWR1hiqGeQYiy+mya7XPIw==
+X-Received: by 2002:a1c:1fc2:: with SMTP id f185mr4885031wmf.149.1639036456059; 
+ Wed, 08 Dec 2021 23:54:16 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:2e35:ddd6:f296:528?
+ ([2a02:908:1252:fb60:2e35:ddd6:f296:528])
+ by smtp.gmail.com with ESMTPSA id l5sm7784668wms.16.2021.12.08.23.54.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Dec 2021 23:54:15 -0800 (PST)
+Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
+To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <94b992c2-04c2-7305-0a51-d130fc645f3f@gmail.com>
+Date: Thu, 9 Dec 2021 08:54:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 10177d98-6202-47d3-ffe7-08d9bae88e0c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3131:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB31314C263ED48A91885944E2E3709@DM6PR12MB3131.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:248;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: oeTtT3Qsz8ppWYzIWiROU7lQwZIp/qeYwmCKZgveSjG/NeEsYVRwRPlNkjODNTldKq7/q23vw2nVh28FJNkXcC7B66BqS2dQvBFyM4EALyjbLL2THx8uE6Nr28NbuSiISnT+Nd/VApG4+M64DnPQUUfIetmpW3Yw86XYEoAw5gDtMFl1zi0Nqq19LDIcUay+YLofRZLesVT0Z0REbqnyCecrAuZcC3NTDv41WJrxsmCOLGkLRYIACQT5YO+mEFl4ihfd2V6g/gtgPa7XxACtHiC+oxCXszPyDll5owHJTBuxHAKMxdNfhGD7vRvNWI70u0g2nxKTAeU3WCppT2g4Iut8SxpXnX6N0hIqOcRWip1/hpmqu6ilmFV23SGUlnm/SkWgtOvaXlUpk2JJMdzX9Ys30ZHIkjCw1zefdICdyYAWNnENTw6UcA3887yxs4tc6+Rgr+Z4eqo+G6VVc18KwwKrzXfQKpmEb3WlVGSC4HPsZhP277Sjm72dTweiV39sLBOCJFWMyYXClEqmsJujyfBFwsdqWJmhHvWvQv9zOoLtlV937Oy3iwcPYtugcwrjrwe/0NmJABVocZg+RtzL1iXkwSB50QdoK3dFmBNRr+fTOsqRFntmqb6jzXWRHjtMkbToe48rWGEW7hZT/L9aWh3x78WiQl83NGx9A9DXaRMB6GMloqhHZJpSgjOOu9Q3HUTz8JVzLITKZ2sRFJiFN91aw/E74LmJyaufYjdAyOzkQvfiXIRm69GN7gh2B4N+NopbleXvF4TDDEF0qDmchj4sqTr3Bl+uN3a/7XBfZfo=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(83380400001)(36756003)(8676002)(86362001)(8936002)(26005)(81166007)(36860700001)(186003)(47076005)(7696005)(356005)(316002)(4326008)(336012)(70206006)(2906002)(70586007)(2616005)(426003)(82310400004)(508600001)(6916009)(40460700001)(5660300002)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 07:50:22.7250 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10177d98-6202-47d3-ffe7-08d9bae88e0c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3131
+In-Reply-To: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,115 +72,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xiaogang.chen@amd.com
+Cc: daniel.vetter@ffwll.ch, Felix Kuehling <Felix.Kuehling@amd.com>,
+ David Yat Sin <david.yatsin@amd.com>, alexander.deucher@amd.com,
+ airlied@redhat.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+Am 08.12.21 um 21:53 schrieb Rajneesh Bhardwaj:
+> When an application having open file access to a node forks, its shared
+> mappings also get reflected in the address space of child process even
+> though it cannot access them with the object permissions applied. With the
+> existing permission checks on the gem objects, it might be reasonable to
+> also create the VMAs with VM_DONTCOPY flag so a user space application
+> doesn't need to explicitly call the madvise(addr, len, MADV_DONTFORK)
+> system call to prevent the pages in the mapped range to appear in the
+> address space of the child process. It also prevents the memory leaks
+> due to additional reference counts on the mapped BOs in the child
+> process that prevented freeing the memory in the parent for which we had
+> worked around earlier in the user space inside the thunk library.
+>
+> Additionally, we faced this issue when using CRIU to checkpoint restore
+> an application that had such inherited mappings in the child which
+> confuse CRIU when it mmaps on restore. Having this flag set for the
+> render node VMAs helps. VMAs mapped via KFD already take care of this so
+> this is needed only for the render nodes.
 
-When application is about finish it destroys queues it has created by
-an ioctl. Driver deletes queue entry(/sys/class/kfd/kfd/proc/pid/queues/queueid/)
-which is directory including this queue all attributes. Low level kernel
-code deletes all attributes under this directory. The lock from kernel is
-on queue entry, not its attributes. At meantime another user space application
-can read the attributes. There is possibility that the application can
-hold/read the attributes while kernel is deleting the queue entry, cause
-the application have invalid memory access, then killed by kernel.
+Unfortunately that is most likely a NAK. We already tried something similar.
 
-Driver changes: explicitly create/destroy each attribute for each queue,
-let kernel put lock on each attribute too.
+While it is illegal by the OpenGL specification and doesn't work for 
+most userspace stacks, we do have some implementations which call fork() 
+with a GL context open and expect it to work.
 
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 33 +++++++-----------------
- 2 files changed, 13 insertions(+), 23 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 0c3f911e3bf4..045da300749e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -546,6 +546,9 @@ struct queue {
- 
- 	/* procfs */
- 	struct kobject kobj;
-+	struct attribute attr_guid;
-+	struct attribute attr_size;
-+	struct attribute attr_type;
- };
- 
- enum KFD_MQD_TYPE {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 9158f9754a24..04a5638f9196 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -73,6 +73,8 @@ static void evict_process_worker(struct work_struct *work);
- static void restore_process_worker(struct work_struct *work);
- 
- static void kfd_process_device_destroy_cwsr_dgpu(struct kfd_process_device *pdd);
-+static void kfd_sysfs_create_file(struct kobject *kobj, struct attribute *attr,
-+				char *name);
- 
- struct kfd_procfs_tree {
- 	struct kobject *kobj;
-@@ -441,35 +443,12 @@ static ssize_t kfd_sysfs_counters_show(struct kobject *kobj,
- 	return 0;
- }
- 
--static struct attribute attr_queue_size = {
--	.name = "size",
--	.mode = KFD_SYSFS_FILE_MODE
--};
--
--static struct attribute attr_queue_type = {
--	.name = "type",
--	.mode = KFD_SYSFS_FILE_MODE
--};
--
--static struct attribute attr_queue_gpuid = {
--	.name = "gpuid",
--	.mode = KFD_SYSFS_FILE_MODE
--};
--
--static struct attribute *procfs_queue_attrs[] = {
--	&attr_queue_size,
--	&attr_queue_type,
--	&attr_queue_gpuid,
--	NULL
--};
--
- static const struct sysfs_ops procfs_queue_ops = {
- 	.show = kfd_procfs_queue_show,
- };
- 
- static struct kobj_type procfs_queue_type = {
- 	.sysfs_ops = &procfs_queue_ops,
--	.default_attrs = procfs_queue_attrs,
- };
- 
- static const struct sysfs_ops procfs_stats_ops = {
-@@ -511,6 +490,10 @@ int kfd_procfs_add_queue(struct queue *q)
- 		return ret;
- 	}
- 
-+	kfd_sysfs_create_file(&q->kobj, &q->attr_guid, "guid");
-+	kfd_sysfs_create_file(&q->kobj, &q->attr_size, "size");
-+	kfd_sysfs_create_file(&q->kobj, &q->attr_type, "type");
-+
- 	return 0;
- }
- 
-@@ -655,6 +638,10 @@ void kfd_procfs_del_queue(struct queue *q)
- 	if (!q)
- 		return;
- 
-+	sysfs_remove_file(&q->kobj, &q->attr_guid);
-+	sysfs_remove_file(&q->kobj, &q->attr_size);
-+	sysfs_remove_file(&q->kobj, &q->attr_type);
-+
- 	kobject_del(&q->kobj);
- 	kobject_put(&q->kobj);
- }
--- 
-2.25.1
+>
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+>
+> Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> ---
+>   drivers/gpu/drm/drm_gem.c       | 3 ++-
+>   drivers/gpu/drm/ttm/ttm_bo_vm.c | 2 +-
+>   2 files changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 09c820045859..d9c4149f36dd 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1058,7 +1058,8 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
+>   			goto err_drm_gem_object_put;
+>   		}
+>   
+> -		vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP;
+> +		vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND
+> +				| VM_DONTDUMP | VM_DONTCOPY;
+>   		vma->vm_page_prot = pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
+>   		vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+>   	}
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> index 33680c94127c..420a4898fdd2 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> @@ -566,7 +566,7 @@ int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_object *bo)
+>   
+>   	vma->vm_private_data = bo;
+>   
+> -	vma->vm_flags |= VM_PFNMAP;
+> +	vma->vm_flags |= VM_PFNMAP | VM_DONTCOPY;
+>   	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
+>   	return 0;
+>   }
 
