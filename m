@@ -4,46 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 105DDC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 18:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 764F3C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 18:06:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 895EA10E218;
-	Thu,  9 Dec 2021 18:00:35 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437E410E217;
- Thu,  9 Dec 2021 18:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version
- :Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Du1ulIl0nJfgyvVBjJv/Ni5rMz9pM/5JhDhCLOiqtLI=; b=f5ccjmB3z3Zsg2zp2C8KIiTaiG
- tahGEqJAgk3bk+K6yWDfuLwt/tvjKrhO1YMODbN6TCytk2eORd1BC9+cWTxGJTO7rQTSWoue7nkI2
- VcTT1bf1bG0L8QDTZUsmuykcluNaxRhqPPoUEQBqNJ84NB4cMX34ZxurAV9R5iA/EZJsS3MGi14ba
- agwm4gNpMR0pdaoRzsI9RQUo12pkECE3pBX/XPpuQVouGHr5DA68VtRiegqmfxnVg0GGTQ+eWjWod
- E2HJ2Nv2Nre8M1b/JYa6wKSlp8Be1AWvTV5CETadnDwF8arM/0Ka8hG/l+s8kKKDKs5YOG/PILlV+
- jBVbIt0Q==;
-Received: from [177.103.99.151] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1mvNiD-000C0Z-09; Thu, 09 Dec 2021 19:00:09 +0100
-Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
-To: Alex Deucher <alexdeucher@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F70110E1BC;
+	Thu,  9 Dec 2021 18:06:45 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8089810E143;
+ Thu,  9 Dec 2021 18:06:43 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ x3-20020a05683000c300b0057a5318c517so6996590oto.13; 
+ Thu, 09 Dec 2021 10:06:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=GVu5cc9bTD6vf22XXmPr/TIBYXrD+gTouz5yZ1xCKFU=;
+ b=Xf/yTmEHMqg3WBvvWp7JeHPcAbwglbi73Ndqgu4jkx6O/nW1EQQEfD+kVPcXCNgdc2
+ ch0xRU5cTdQdnLf4b6np9zbhXJQMLcwo8SDbaq25SGReFw3ZSso69BYgmUywbrZ32d8T
+ LaY073GbVX8vbg+DRLxJ5R6HOazKLyLuYq/w0vqoV2EIKI2sP3dhf751sjTXaW+x0C0D
+ yrBm/37MR4VsFA/iHLb18Q1PY2CT+IV4QTMv54pTkhFNymH7ItVZssRtoBS8Xb2ZSw/H
+ /A6mmCtjIuD7O+4S5LfDbrwRrwkcAaJc8cDs3RW3miczuhq80AgDirUVVhF8EKCIjfFj
+ 1jYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GVu5cc9bTD6vf22XXmPr/TIBYXrD+gTouz5yZ1xCKFU=;
+ b=3DDqY3XeaGh7Gd6JTVGEkHR6yOtgbRaQ6f7Xd2k3TrUNF+XAo5o3SdN3cOTxcE3Zah
+ HXTxfk8CRK8F/sJP4vjso9DOtLRUiaklsjnI0xFR+pI3atmkmc+R046jWAvOPOOLFZ8r
+ noTicNp1uh7YnypJoLerQ/TYEG5a5rgFLELA3n6C72AMD0WxDK+Knd2qU2K/BCzi+arp
+ 04F2vWt8aUwo9fCeRdFn5C9BEfnYXmzuahE499BgMT1hnnngdLtze4TsYxfWpMa0O9R8
+ curDzEgIaGf5XOfCZ2IIfTpYxq6lM89gKZCnTPTKUhpBklMQh3opWbXcmxAkEf17o999
+ 3IoA==
+X-Gm-Message-State: AOAM531vAO7B/dljcdV6TI7FnZa9XNaXAff14AEnPhMbMF+9M7fCmDBY
+ 8S4ASHVBJC3RaMsOf6B+8aZa77p3dLNYB0EXvsA=
+X-Google-Smtp-Source: ABdhPJzODhY9yg2B/H0YvUtQi1UpyUrWst1qCagatbL8h3sVtVrWHhxikW3ibeZARthXGbUpDT25ejOrazxGsyBff2w=
+X-Received: by 2002:a05:6830:1bcf:: with SMTP id
+ v15mr6999009ota.200.1639073202803; 
+ Thu, 09 Dec 2021 10:06:42 -0800 (PST)
+MIME-Version: 1.0
 References: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
  <CADnq5_O8x3_8f7GZ=tme55-QW+nqMJ2YoqvROjDPg2YZP2catQ@mail.gmail.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Message-ID: <a1f4d263-b3d2-4ceb-8a89-948c8129500f@igalia.com>
-Date: Thu, 9 Dec 2021 14:59:52 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <CADnq5_O8x3_8f7GZ=tme55-QW+nqMJ2YoqvROjDPg2YZP2catQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 09 Dec 2021 18:00:35 +0000
+ <a1f4d263-b3d2-4ceb-8a89-948c8129500f@igalia.com>
+In-Reply-To: <a1f4d263-b3d2-4ceb-8a89-948c8129500f@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 9 Dec 2021 13:06:31 -0500
+Message-ID: <CADnq5_N9ptK4c86LO77YcrF5_M==hket+L7eYjsGCaKbORO=ug@mail.gmail.com>
+Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,7 +67,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: "open list:EFIFB FRAMEBUFFER DRIVER" <linux-fbdev@vger.kernel.org>,
  xinhui pan <Xinhui.Pan@amd.com>, kasong@redhat.com,
  Baoquan He <bhe@redhat.com>,
- =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>,
+ =?UTF-8?Q?Samuel_Iglesias_Gons=C3=A1lvez?= <siglesias@igalia.com>,
  kernel@gpiccoli.net, kexec@lists.infradead.org,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, pjones@redhat.com,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
@@ -68,24 +77,41 @@ Cc: "open list:EFIFB FRAMEBUFFER DRIVER" <linux-fbdev@vger.kernel.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 09/12/2021 14:31, Alex Deucher wrote:
-> [...] 
-> Once the driver takes over, none of the pre-driver state is retained.
-> You'll need to load the driver in the new kernel to initialize the
-> displays.  Note the efifb doesn't actually have the ability to program
-> any hardware, it just takes over the memory region that was used for
-> the pre-OS framebuffer and whatever display timing was set up by the
-> GOP driver prior to the OS loading.  Once that OS driver has loaded
-> the area is gone and the display configuration may have changed.
-> 
+On Thu, Dec 9, 2021 at 1:00 PM Guilherme G. Piccoli <gpiccoli@igalia.com> wrote:
+>
+> On 09/12/2021 14:31, Alex Deucher wrote:
+> > [...]
+> > Once the driver takes over, none of the pre-driver state is retained.
+> > You'll need to load the driver in the new kernel to initialize the
+> > displays.  Note the efifb doesn't actually have the ability to program
+> > any hardware, it just takes over the memory region that was used for
+> > the pre-OS framebuffer and whatever display timing was set up by the
+> > GOP driver prior to the OS loading.  Once that OS driver has loaded
+> > the area is gone and the display configuration may have changed.
+> >
+>
+> Hi Christian and Alex, thanks for the clarifications!
+>
+> Is there any way to save/retain this state before amdgpu takes over?
 
-Hi Christian and Alex, thanks for the clarifications!
+Not really in a generic way.  It's asic and platform specific.  In
+addition most modern displays require link training to bring up the
+display, so you can't just save and restore registers.
 
-Is there any way to save/retain this state before amdgpu takes over?
-Would simpledrm be able to program the device again, to a working state?
+> Would simpledrm be able to program the device again, to a working state?
 
-Finally, do you have any example of such a GOP driver (open source) so I
-can take a look? I tried to find something like that in Tianocore
-project, but didn't find anything that seemed useful for my issue.
+No.  You need an asic specific driver that knows how to program the
+specific hardware.  It's also platform specific in that you need to
+determine platform specific details such as the number and type of
+display connectors and encoders that are present on the system.
 
-Thanks again!
+>
+> Finally, do you have any example of such a GOP driver (open source) so I
+> can take a look? I tried to find something like that in Tianocore
+> project, but didn't find anything that seemed useful for my issue.
+
+The drivers are asic and platform specific.  E.g., the driver for
+vangogh is different from renoir is different from skylake, etc.  The
+display programming interfaces are asic specific.
+
+Alex
