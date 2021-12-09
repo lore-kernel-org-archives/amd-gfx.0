@@ -4,73 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02FFDC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61AE1C433FE
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80001898C7;
-	Thu,  9 Dec 2021 17:04:10 +0000 (UTC)
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Thu, 09 Dec 2021 08:09:53 UTC
-Received: from mx-lax3-1.ucr.edu (mx-lax3-1.ucr.edu [169.235.156.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7455E10E116
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 08:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=ucr.edu; i=@ucr.edu; q=dns/txt; s=selector3;
- t=1639037393; x=1670573393;
- h=mime-version:from:date:message-id:subject:to;
- bh=dwrzKGkrbhqPejgYMu3fnvpsPF6iyB3v31qaNN+PHyY=;
- b=Gf8+5ab4p9/3ojeogJe/D7TQXM41+XQaMoD/mqmc8MuCtUVNFeO/XjKW
- eeoomxosnXVWZs+MZzRTPeTbmXPntUNoUjlCKt+Pb3m9sg6tLqEOzYrYV
- 8yKpFxCYXEsOGe00fSplfX3+r3WGBVj1e6JdnVmP/xZJP9K9sYLxwa+Pu
- EoVKSDuCqQLxQdEonB4oCW6DimnRrpJP7ASmlKZOBwqrqsgTe+dQBTSbC
- SlgYKGa2xQREGd68ZvNdANmTiKKyMlHyyWWms1Z7UiUd4f+jNM7wV16IB
- wKH029ygBZr0F4CDlerLjF4C427iuJ/9gcM0bmHlRFRfaBRQy7VctsgNH A==;
-IronPort-SDR: /H1kYmmab2Yux1jzb83ZqrVTUGboMR5aGdq/fZfL2X/0nzhpUfxHtqXAYy5QgvYO5y3grfcdnv
- IhNDvcA+lXe1YkJ3GdHNat1PJ6lUi+g3/OvScoSYAOBnHtM3NS4Dh03pg07NrxjAbZ+n1A0hQT
- 58E3PhO1a/TkqMGfon1g0Vg/0jTP61j2tuUPJqSRUQpW0QUB/zD/lHq8sLrtgQqCejFOyihZm6
- UZnJs/SlADcCCvudPadgQ+2aoEB2C8ocDe8jYovWdeRJyj1LjnpiEMxqBSqkxpxKO0pI0Fc1Fc
- F/vXhPF1tC/2TUAF8AK/fgVi
-X-IronPort-AV: E=Sophos;i="5.88,191,1635231600"; d="scan'208";a="89681206"
-Received: from mail-yb1-f198.google.com ([209.85.219.198])
- by smtp-lax3-1.ucr.edu with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 09 Dec 2021 00:02:47 -0800
-Received: by mail-yb1-f198.google.com with SMTP id
- v20-20020a25fc14000000b005c2109e5ad1so9151582ybd.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Dec 2021 00:02:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucr.edu; s=rmail;
- h=mime-version:from:date:message-id:subject:to;
- bh=FO/o6XGFp/MRxtI8YH+3dBjf/TITwRdxcsJH3FJWYro=;
- b=t1s2ln+KuTv0vtVTsi6EEL3lVej0+vwpB4bXYl9jV3T86wNpmmJtTG52CTYxRl2HX/
- C/lcRRU7m2gTCaF7HTTFo/7TB6k/6xHGoZF0MDRuMZBsPiKzcllb1pace3tKXOTIsKGF
- 0AAzDKL8xUooJT9j0qaIzMnRMQAXSZG1x+96U=
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDCED10E1C2;
+	Thu,  9 Dec 2021 17:04:08 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AADDB10E116;
+ Thu,  9 Dec 2021 06:28:50 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id 7so7307998oip.12;
+ Wed, 08 Dec 2021 22:28:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:from:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=IhIul+4nURod6NuSkYTrchSPnXVCxWUJGXACRxYc3MQ=;
+ b=eXSVG+Ndarp4Nov0ojL5vYXJOqopOe8rmbtZMAES5EqdQfhuTJT9Uq3lALtJGa4LbO
+ wWHdJFJ87qjeMcSOV3aq0PkzuieWlIvRP179Hr6+sgCEYfH7wf+V4jVqH10ELhTez0XB
+ 22huR9IEqlUxwdOVegX+j/rAjRjz7L8mt/AiBEGrV7CjsOrfNoQ1BJ9XPY8+vJZH31o7
+ 2P/ix6dz02VvGEjb+x0Ea1/8RXd4aZ7czYa7w2YNw1bcNUZxsKs/e400rD6pCJCOWN7L
+ q5fhY1g9Ipg3RqbxuIOSnqylc7dCzgsNU5GquVam3pqRibhz+3qTwbdWItlmR7WucDdh
+ VwaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=FO/o6XGFp/MRxtI8YH+3dBjf/TITwRdxcsJH3FJWYro=;
- b=2kh9E9gy0CyZBLBZ0ASg5rxPM60emsm3TTP6MJ+oDLzNvNi2AFoscCIqF7GsHX102Q
- 26w2g8Iu9Qwk5GAL9HSE+EurF4E4XMkgfo0s92q3c9jCJBssVJMVHbZ2BWn1atiiKPP6
- vYuABkLuwjvsL2RMjaR2A6VJLE8B7R5h6a62w5awhIIW3t+bmvRjVBAY4cCbHZw8zYd8
- gcmiYp1GU2+pSIn8W0egRtF9yVeHudp8WwfxefR72U3w1OJ1VxjQSA0NkPXcuWefHb57
- a7rP9Y2borLxEnMqWy2BXhfUJn96c39ici4fWZjCipW7lRlAJ3IXsdgWmzxMIhKqJDKJ
- 1U0A==
-X-Gm-Message-State: AOAM532mOhC0X0uYoxw5wmhX4kBVLb/IsO5lW4ZNREoY7zzx8uI7fn43
- EgKN3Q7CoJmn684mRfsGq2F71knWsixxV6jBqwsmsCLmctui4HhEeSTgfvOJcM/Kr0KGlZzcYs8
- /pi4Etfz8syYSSK7EepM9NWGidbDW62o84YJDF0dY9Yg=
-X-Received: by 2002:a25:a2c1:: with SMTP id c1mr4713178ybn.473.1639036965954; 
- Thu, 09 Dec 2021 00:02:45 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyWWRUv7JLzhNaIKlyfA820bGMFiWGdwThJIEjD9Cqct6sVTBRUgx4hBb42/x//CxAoiIHHteaSuBGElRn+grI=
-X-Received: by 2002:a25:a2c1:: with SMTP id c1mr4713143ybn.473.1639036965686; 
- Thu, 09 Dec 2021 00:02:45 -0800 (PST)
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=IhIul+4nURod6NuSkYTrchSPnXVCxWUJGXACRxYc3MQ=;
+ b=qMree8V8qqeTE0w7JpLoG48DPbaGlBCb2TL55vqZj6CYDQrQRwO3QOSso4bU5uo3qu
+ EbTvPbuNmpRZxm3x8rtBhlHn7vgx7zESYSbumoEgOHLamjYpFhinCG8nqQFdO1pQWZ/g
+ VewLjHnwz+ed+hI+q8uHr9wy9VLZpQjM3+h4RVbrf7KchHagO2qcWiVpQwFp7A7y6rkT
+ IVbn+shFsXNRQcSd+I5m5mQsZxUFpQ0mSFDi3Ej9UaSSju73VqjQhDVPU5Bo4WMXg57c
+ woXMgHqpX9K5lleX9tiR8nEsPvfGPDkF+V+xg/hHUANOv7y9BC/FEBYqQ8HyqIjN6aLv
+ JupA==
+X-Gm-Message-State: AOAM531NDo/TU8JJIkQQFRA+tKnjEQi28atdD7ORHrGXbYXasTGcGUHp
+ +xaxzf7n/Oqih3IyJLxcM7X6w98jF/w=
+X-Google-Smtp-Source: ABdhPJx7+EvOV3k5F+MwkvlqnlUuZKHGOaLEFVN8ri3k3vpvOVFTKnJpQnsX5z8mTpBCirtuipNWIg==
+X-Received: by 2002:a17:90b:4b4c:: with SMTP id
+ mi12mr12376886pjb.66.1639020881197; 
+ Wed, 08 Dec 2021 19:34:41 -0800 (PST)
+Received: from [183.173.151.43] ([183.173.151.43])
+ by smtp.gmail.com with ESMTPSA id y18sm4729594pfp.190.2021.12.08.19.34.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Dec 2021 19:34:40 -0800 (PST)
+Subject: Re: [BUG] gpu: drm: amd: amdgpu: possible ABBA deadlock in
+ amdgpu_set_power_dpm_force_performance_level() and
+ amdgpu_debugfs_process_reg_op()
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, Hawking.Zhang@amd.com,
+ Felix.Kuehling@amd.com, ray.huang@amd.com, lee.jones@linaro.org
+References: <2dc31435-ba62-b6a4-76dc-cfe9747f4cfb@gmail.com>
+Message-ID: <963eab5f-f333-456e-784c-0d2c81b849da@gmail.com>
+Date: Thu, 9 Dec 2021 11:34:38 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-From: Yizhuo Zhai <yzhai003@ucr.edu>
-Date: Thu, 9 Dec 2021 00:02:35 -0800
-Message-ID: <CABvMjLSXpg00KKkqXH35C7Op0xC3mPaOAhj_xbAOEXL_4Ys_aw@mail.gmail.com>
-Subject: Potential Bug in drm/amd/display/dc_link
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <2dc31435-ba62-b6a4-76dc-cfe9747f4cfb@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Thu, 09 Dec 2021 17:04:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,56 +76,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi All:
-I just found a bug in the cramfs using the static analysis tool, but
-not sure if this could happen in reality, could you please advise me
-here? Thanks for your attention : ) And please ignore the last one
-with HTML format if you did not filter it out.
+Hello,
 
-In function enable_stream_features(), the variable
-"old_downspread.raw" could be uninitialized if core_link_read_dpcd
-fails(), however, it is used in the later if statement, and further,
-core_link_write_dpcd() may write random value, which is potentially
-unsafe. But this function does not return the error code to the up
-caller and I got stuck in drafting the patch, could you please advise
-me here?
+Could you please provide the feedback to my previous report?
+Thanks a lot :)
 
-The related code:
-static void enable_stream_features(struct pipe_ctx *pipe_ctx)
-{
-     union down_spread_ctrl old_downspread;
-    core_link_read_dpcd(link, DP_DOWNSPREAD_CTRL,
-                         &old_downspread.raw, sizeof(old_downspread);
 
-        //old_downspread.raw used here
-        if (new_downspread.raw != old_downspread.raw) {
-               core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
-                         &new_downspread.raw, sizeof(new_downspread));
-        }
-}
-enum dc_status core_link_read_dpcd(
-    struct dc_link *link,
-    uint32_t address,
-    uint8_t *data,
-    uint32_t size)
-{
-        //data could be uninitialized if the helpers fails and log
-some error info
-        if (!dm_helpers_dp_read_dpcd(link->ctx,
-               link,address, data, size))
-                      return DC_ERROR_UNEXPECTED;
-        return DC_OK;
-}
+Best wishes,
+Jia-Ju Bai
 
-The same issue in function wait_for_training_aux_rd_interval() in
-drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
--- 
-Kind Regards,
+On 2021/9/15 17:39, Jia-Ju Bai wrote:
+> Hello,
+>
+> My static analysis tool reports a possible ABBA deadlock in the amdgpu 
+> driver in Linux 5.10:
+>
+> amdgpu_debugfs_process_reg_op()
+>   mutex_lock(&adev->grbm_idx_mutex); --> Line 250 (Lock A)
+>   mutex_lock(&adev->pm.mutex); --> Line 259 (Lock B)
+>
+> amdgpu_set_power_dpm_force_performance_level()
+>   mutex_lock(&adev->pm.mutex); --> Line 381 (Lock B)
+>     pp_dpm_force_performance_level() --> function pointer via 
+> "amdgpu_dpm_force_performance_level()"
+>       pp_dpm_en_umd_pstate()
+>         amdgpu_device_ip_set_clockgating_state()
+>           gfx_v7_0_set_clockgating_state() --> function pointer via 
+> "funcs->set_clockgating_state()"
+>             gfx_v7_0_enable_mgcg()
+>               mutex_lock(&adev->grbm_idx_mutex); --> Line 3646 (Lock A)
+>               mutex_lock(&adev->grbm_idx_mutex); --> Line 3697 (Lock A)
+>
+> When amdgpu_debugfs_process_reg_op() and 
+> amdgpu_set_power_dpm_force_performance_level() are concurrently 
+> executed, the deadlock can occur.
+>
+> I am not quite sure whether this possible deadlock is real and how to 
+> fix it if it is real.
+> Any feedback would be appreciated, thanks :)
+>
+> Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
+>
+>
+> Best wishes,
+> Jia-Ju Bai
 
-Yizhuo Zhai
-
-Computer Science, Graduate Student
-University of California, Riverside
