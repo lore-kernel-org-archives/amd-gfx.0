@@ -4,128 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AB68C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E2A1C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE6E810F55B;
-	Thu,  9 Dec 2021 16:55:36 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAE510E613;
- Thu,  9 Dec 2021 16:54:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NapSjqcCQ7XIa0khyy8xmmaqPCoLWxoeEPYi39sSk/OrsDvlWcKfxQVipNHFGzqoxjvSFIx/qfuzWKSiTsO0GVeTpqYRr+VTPdLyOK+bbx1PXkNDumTA/2j2FfXSNUFMzxo3FZuQ+aK4MkGQJyKRNWdlWeSAVsefVstAk6uHCfn6MP0SAI0bdDXBCpu+9CANNzIIviI0+vl1UGt2UMyQiHZgEkjGoKrU/nsKSX7Q1VColuyR4ks9EkphBj6ZZFT6y+J61TWIY4N7K37KVF2M18fNQPUgNpmvczS6TQXJ2ENAlb7xc5AjZdyERDN/u0NPwZWCiMMO2Zx+dqXIhUZ8TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AICLwtbIemTlaWXH2lgTaX839NJHBT/enrm1fCvSTKQ=;
- b=nbmElctSGDZlyAjr99odCjkRlgIgrtYNuPn/ZW/ifVZBpOmV6lU420GOQ3Q/SE53iDNObYvVYDH2FI/iTH/N9FbZUL9bttbFRMiN2oULdZ/0JC+Blbn9F94Qgm5aQsaRYnhjeTgWnQKLQ6rRD7zROyvoTXnvBKRSKfz0w7SZnYhc+bxIImqCX8HXy+mOAZSAFhyN92JuiqF6D0XffdITtLwwHrU7YPv+QKO0E3YQNPZh11U458qMOI5YB3pGahF6nTz63ON3H3qLXtRYsaJ1bMlXbdlddwGnTuXM0JPgTeGz3eoDA3s8FEp44B4xbBui+D1vZyrrzqxFHO/aC33MRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AICLwtbIemTlaWXH2lgTaX839NJHBT/enrm1fCvSTKQ=;
- b=hplEw8BajMfc7v76dOawh9KzJRdrmlx90ycU65fJcgK/u6Zc+l5OX1i/b2ncUmntnXciGCeGF7xahpI3TGfFmdk1UoagVgRVRG3v7TlNsa+BU52ikCBAa3VBenCoPOJFxy7iRIHmbMcJnQfH1/EN1ON+oYeag0VcKGTHfPw7RLI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB2717.namprd12.prod.outlook.com (2603:10b6:805:68::29)
- by SA0PR12MB4592.namprd12.prod.outlook.com (2603:10b6:806:9b::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
- 2021 16:54:36 +0000
-Received: from SN6PR12MB2717.namprd12.prod.outlook.com
- ([fe80::d461:50bd:ac0c:8c37]) by SN6PR12MB2717.namprd12.prod.outlook.com
- ([fe80::d461:50bd:ac0c:8c37%3]) with mapi id 15.20.4755.025; Thu, 9 Dec 2021
- 16:54:36 +0000
-Content-Type: multipart/alternative;
- boundary="------------7MyazOToij2ne5RqFz0x9Flw"
-Message-ID: <72fe6b48-4aa5-b766-3f33-8c3445fdcc99@amd.com>
-Date: Thu, 9 Dec 2021 10:54:31 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v2 03/11] mm/gup: migrate PIN_LONGTERM dev coherent pages
- to system
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org,
- linux-mm@kvack.org, rcampbell@nvidia.com, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org
-References: <20211206185251.20646-1-alex.sierra@amd.com>
- <2b996383-ebe6-e9d8-d794-58ecfd4a16e8@amd.com>
- <3f8a48d6-7ee7-fb30-5942-29054c34aac5@amd.com> <2497746.4npHOaMrmn@nvdebian>
- <b9163ccc-829e-9939-8177-a66ab41187e7@amd.com>
-From: "Sierra Guiza, Alejandro (Alex)" <alex.sierra@amd.com>
-In-Reply-To: <b9163ccc-829e-9939-8177-a66ab41187e7@amd.com>
-X-ClientProxiedBy: MN2PR04CA0001.namprd04.prod.outlook.com
- (2603:10b6:208:d4::14) To SN6PR12MB2717.namprd12.prod.outlook.com
- (2603:10b6:805:68::29)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 566FD10E3C7;
+	Thu,  9 Dec 2021 16:55:37 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 42F0289CDD;
+ Thu,  9 Dec 2021 16:46:47 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 0BF772020C7;
+ Thu,  9 Dec 2021 17:46:46 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id a9ZTL7EtT3jl; Thu,  9 Dec 2021 17:46:45 +0100 (CET)
+Received: from kaveri (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
+ [85.2.99.24])
+ by netline-mail3.netline.ch (Postfix) with ESMTPA id 26FC82020B9;
+ Thu,  9 Dec 2021 17:46:45 +0100 (CET)
+Received: from daenzer by kaveri with local (Exim 4.95)
+ (envelope-from <michel@daenzer.net>) id 1mvMZA-006nzx-K3;
+ Thu, 09 Dec 2021 17:46:44 +0100
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 1/2] drm/amd/display: Reduce stack size for
+ dml31_ModeSupportAndSystemConfigurationFull
+Date: Thu,  9 Dec 2021 17:46:43 +0100
+Message-Id: <20211209164644.1622152-1-michel@daenzer.net>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Received: from [172.31.9.47] (165.204.77.11) by
- MN2PR04CA0001.namprd04.prod.outlook.com (2603:10b6:208:d4::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.20 via Frontend Transport; Thu, 9 Dec 2021 16:54:34 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4dc63a02-1d0e-41da-50dc-08d9bb3494c9
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4592:EE_
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4592138333B9377F8BA0D419FD709@SA0PR12MB4592.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A16gno6+IIrcrkP6jyxO9FsDKVhCRJduMNjnNJp0Kp49mmo9AbIMUtmBEk2dWBuj0ltcvnKPVxlhtwIbAwlX/Bo1yjoSY2y7KD3rTQk4QBIa5WWyD24DwwQU162ZWjkIWL4Pie8L9C2WuBX6lxU4e7BkPsI4mGH+qtstQOwiPUDJ4wKzi25Ii3+6pgGHjEWdEngfINeZunEwck03ertrhfPGmXJNcdag4W44LCJeejYU1rtEr4gMYzWNqbktwLlYuJTjXI6vo8j6+lTofQJdmZ7BNX8CpxNkHgopqekBk0Ngo/WANUsLmyyfE6/6ndJc9Lw9eJZyNN3pZ7aYps8pJWgOGavg3ZKovBXVLrhdSla/H1WMG1G7pCCniMVjM4CRc5WZkxlqvyJFaFK/cpr7a+iLFQkiOXabQmtQAZKNZ2Dhd7laxdGxMc5zVhrcNNUbTo/4Rb2EAoNWlWC58ThYtAedWTuRTu7R1chComIIfrHfTaMfTy5zztqNy2D4URxO/om+ZPU4Ca/ifbsXbdpUlSHb9sZOSm5mvmsRwi/LRilRT8XKa4BiZ40T+F6e940Lj6AotF4EMP5GoYOeG2Tjp5F9AWxli819YKJ2P3gPIYYdnnRJ3nJ/KzvXX/yIFqceu65F7vrQ018nhMt6zmya9mxd22wuS01rEI8WVbG3F9NMBjMu+TfO8YMdv+pXR8soWnrG7u3CPa84WQtFSa1Aywf0oRjmymiASMUYAmb8BV4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB2717.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(86362001)(6486002)(316002)(31686004)(6666004)(186003)(5660300002)(36756003)(110136005)(16576012)(83380400001)(4326008)(31696002)(7416002)(66476007)(66556008)(8676002)(33964004)(508600001)(8936002)(38100700002)(956004)(53546011)(66946007)(2616005)(26005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0NvUEZOdjdtUnlJWi96a0ZEOE1iS0V6Yk4wd05hYlZFSVp5V1A4NEVaSU5q?=
- =?utf-8?B?VjYzNWF3eEgzWDVMM25tZFIwTnZWL1h2MVhkOEYyQTg5TlQvUGxGRDk0NWQ1?=
- =?utf-8?B?OEl2N1JPc2I1QlcxVVh5Y1FuRDhUWnByV0JINnNnWE5RM3RQdjkwYnBwRkZC?=
- =?utf-8?B?THlqSTQwbVpGbDFqYzRvU1crSnZSQTBqaHg2OTNlQkFyT2UxN3dBSnBYNGlX?=
- =?utf-8?B?VXdENVErYW4yQXFKay9Hd01YZEw3MXhEOGN3Y2MzME9jYmp0Yzd0Z0duLzdD?=
- =?utf-8?B?UTNwRFV6UXNqV0UxenV6NXZkWHhIeEkzWDg4b3VmS2krWUU0MVZFeGlDZFRI?=
- =?utf-8?B?M1VrNGowT3RRV3J1eU4zU2dVVzRxL2hNN2NsMVZHeklXanFzMVVETjZuTFcy?=
- =?utf-8?B?SmF6K3R6SytJM05BOGRRWFVtTVNVWFY3cWFaeHhsQVNkM2xMVDlyL2tKZTdL?=
- =?utf-8?B?Q1hIdXBHL2FiV29mWVhMTGJjeUxPWmtwejRRYUxJemRJWnpmSEV3QlVBcVU2?=
- =?utf-8?B?U241dFQ2K1VVV2dPSnhMSUNyR0JES0h1alFpYjRGdDNFTjB6WnQyQlhYQ3Bm?=
- =?utf-8?B?cGI3c1d4ZDFjZWNCY1JSUnRYaG5Ta1drek8za2NuS0x0c2hMQU1STlA5NUdU?=
- =?utf-8?B?Qmwrc3VYTUVMaDRsWXQ5L3A4RTNWYzQ5ZUp1ZTdKNW9FbU96SG5OcTU5d00x?=
- =?utf-8?B?bmUyYVZVNWp6Vld0TDNLOHE1V1dmeWJsckdsdGRPNklmTWJmSWZTVFlNdHRX?=
- =?utf-8?B?YVQ4aC9pdjNPUlBMbTBXaUZWOVp6VnlLRGFFUFhmcElxL25wNGhOaGplUFVi?=
- =?utf-8?B?aFVyZFk1M2pkYjNJNWhjcGF6WTFyRVpSWUJuTGxCZTdkNlF0ZWpVOCtxSjIr?=
- =?utf-8?B?VjdONnZjVzJiUnNGaEpKaUliTGdLaFpTTHR4eXFlN29Dc0w5Z2NxTVpVYUVx?=
- =?utf-8?B?YjZheStOWkV3Tk5tamtXSnBYczM1MjB5M1h1c3RjdXgxYkdlN2JsYUhnREVH?=
- =?utf-8?B?ZUdlNkExazhZWEc1TE5uM1VkZVRKZEZ3VCtsczMwZmw3UkthazVHNllidFNa?=
- =?utf-8?B?ZnNEVlUrYU9aTW5rbTNtbFVRQkxjNkcvd0hjcDdSNTJKeGFmczIxVkVBdTcz?=
- =?utf-8?B?TU9nK0U0MXV2UUZ3dzRDeExoUEhwL0NjejhYengzczB1dkpPYjdBN1ltOWw5?=
- =?utf-8?B?STNrZys4bFR4VVhZaHZYSkt1L2ZIUldBRk1rZG5PcnBIZ3NxMThNaldobkRu?=
- =?utf-8?B?dGFRWERLQ0I3Z0wraUtha29iaU9VUkd0c0t5MXlSaGhsWGJkWitidWtiMCtM?=
- =?utf-8?B?RTVoMlc0SUVEY245MWhtb252M0VJS0crbGkrRlZoL0g2dkxtQ29WNitBb0FS?=
- =?utf-8?B?c0szaW45S0VtWFU5U3ZLY29kK2lUSm1tbFQycGhCdzFqNjRIL0hlSytVNnd3?=
- =?utf-8?B?Rzk5WlI2UmlEbUllbzRvRFp1TzQ3REFYRGVEMktiUTZZSURCQm0rVVVXQlZx?=
- =?utf-8?B?eDhFYW9iWFZWcThWZ2h5TFFzQXRybk41NHVzeGl5N2NOdktPNkNweXFNUFNw?=
- =?utf-8?B?RXZhOTd2Nnd5YVJCaUVsYytKYjFiU1ozWG1QaXJMYnZOa1h1TjhNcHZORGVz?=
- =?utf-8?B?TnZOQ0gwYUlwM1NHeFJvZ3NFY2VEMHFUL1BHWVBEK05MSDk1aUlHUVByWlhN?=
- =?utf-8?B?UXBSMDhJTkVrYTlSTzRjMmhPcERUZkVYTzFKU216M0cyRU1peVh2Zmtsc0x2?=
- =?utf-8?B?T2YxdUZEZWhlK3VyYlBMMnRUazdhUVJRaGwrT2RjZE9iWlUzK0xWYUtuVmV3?=
- =?utf-8?B?M05sdmp3Q3gvdVBYZHJ6STBteXQ4MGN5c0ZNMFlIS3BJQitCOHdITUU0TkVh?=
- =?utf-8?B?bWJSZlI5THZOazhGa0JydlFkZlliOGZPRTgrTm9NQ2FiemRLRUc2SlloVmxP?=
- =?utf-8?B?VEtBSG5nd3VmdjdralV3NkRTd0RLVS9DbWxWcmcvS0hZYXhkSWpWWHIwMGhX?=
- =?utf-8?B?SmZiUUpCblNIUXUwVEJOMk9pb3BMUCs3eUMzQTc4QXlpb0VNNGN0L1FWbDZz?=
- =?utf-8?B?L0dNWm1pU3gxTTN5akdoWGRaUjhWQUJZOFJCRmRmOEJMTU9iMXViaEg3YTFJ?=
- =?utf-8?B?emwyZmVvd2pGbzlrdTQ3Rjg4SzFsVmU0eDhmUktYdDVBaDhuQVlkQWFYdDZt?=
- =?utf-8?Q?p9Zxg38B2LoG3YyQG7Uv+mo=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dc63a02-1d0e-41da-50dc-08d9bb3494c9
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2717.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 16:54:36.0359 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Mk1Bpej0mG3lJACo3yvQj3KZ9de6vvAV7gg1JvX3zQy8h7vSIk1XlpDHYZbrDApsjs5cdLTlHOase7hUYJYn7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4592
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,240 +49,239 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jglisse@redhat.com, willy@infradead.org, jgg@nvidia.com, hch@lst.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------7MyazOToij2ne5RqFz0x9Flw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Michel Dänzer <mdaenzer@redhat.com>
 
+Move code using the Pipe struct to a new helper function.
 
-On 12/9/2021 10:29 AM, Felix Kuehling wrote:
-> Am 2021-12-09 um 5:53 a.m. schrieb Alistair Popple:
->> On Thursday, 9 December 2021 5:55:26 AM AEDT Sierra Guiza, Alejandro (Alex) wrote:
->>> On 12/8/2021 11:30 AM, Felix Kuehling wrote:
->>>> Am 2021-12-08 um 11:58 a.m. schrieb Felix Kuehling:
->>>>> Am 2021-12-08 um 6:31 a.m. schrieb Alistair Popple:
->>>>>> On Tuesday, 7 December 2021 5:52:43 AM AEDT Alex Sierra wrote:
->>>>>>> Avoid long term pinning for Coherent device type pages. This could
->>>>>>> interfere with their own device memory manager.
->>>>>>> If caller tries to get user device coherent pages with PIN_LONGTERM flag
->>>>>>> set, those pages will be migrated back to system memory.
->>>>>>>
->>>>>>> Signed-off-by: Alex Sierra<alex.sierra@amd.com>
->>>>>>> ---
->>>>>>>    mm/gup.c | 32 ++++++++++++++++++++++++++++++--
->>>>>>>    1 file changed, 30 insertions(+), 2 deletions(-)
->>>>>>>
->>>>>>> diff --git a/mm/gup.c b/mm/gup.c
->>>>>>> index 886d6148d3d0..1572eacf07f4 100644
->>>>>>> --- a/mm/gup.c
->>>>>>> +++ b/mm/gup.c
->>>>>>> @@ -1689,17 +1689,37 @@ struct page *get_dump_page(unsigned long addr)
->>>>>>>    #endif /* CONFIG_ELF_CORE */
->>>>>>>    
->>>>>>>    #ifdef CONFIG_MIGRATION
->>>>>>> +static int migrate_device_page(unsigned long address,
->>>>>>> +				struct page *page)
->>>>>>> +{
->>>>>>> +	struct vm_area_struct *vma = find_vma(current->mm, address);
->>>>>>> +	struct vm_fault vmf = {
->>>>>>> +		.vma = vma,
->>>>>>> +		.address = address & PAGE_MASK,
->>>>>>> +		.flags = FAULT_FLAG_USER,
->>>>>>> +		.pgoff = linear_page_index(vma, address),
->>>>>>> +		.gfp_mask = GFP_KERNEL,
->>>>>>> +		.page = page,
->>>>>>> +	};
->>>>>>> +	if (page->pgmap && page->pgmap->ops->migrate_to_ram)
->>>>>>> +		return page->pgmap->ops->migrate_to_ram(&vmf);
->>>>>> How does this synchronise against pgmap being released? As I understand things
->>>>>> at this point we're not holding a reference on either the page or pgmap, so
->>>>>> the page and therefore the pgmap may have been freed.
->>>>>>
->>>>>> I think a similar problem exists for device private fault handling as well and
->>>>>> it has been on my list of things to fix for a while. I think the solution is to
->>>>>> call try_get_page(), except it doesn't work with device pages due to the whole
->>>>>> refcount thing. That issue is blocking a fair bit of work now so I've started
->>>>>> looking into it.
->>>>> At least the page should have been pinned by the __get_user_pages_locked
->>>>> call in __gup_longterm_locked. That refcount is dropped in
->>>>> check_and_migrate_movable_pages when it returns 0 or an error.
->>>> Never mind. We unpin the pages first. Alex, would the migration work if
->>>> we unpinned them afterwards? Also, the normal CPU page fault code path
->>>> seems to make sure the page is locked (check in pfn_swap_entry_to_page)
->>>> before calling migrate_to_ram.
->> I don't think that's true. The check in pfn_swap_entry_to_page() is only for
->> migration entries:
->>
->> 	BUG_ON(is_migration_entry(entry) && !PageLocked(p));
->>
->> As this is coherent memory though why do we have to call into a device driver
->> to do the migration? Couldn't this all be done in the kernel?
-> I think you're right. I hadn't thought of that mainly because I'm even
-> less familiar with the non-device migration code. Alex, can you give
-> that a try? As long as the driver still gets a page-free callback when
-> the device page is freed, it should work.
+Works around[0] this warning (resulting in failure to build a RHEL debug
+kernel with Werror enabled):
 
-ACK.Will do
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c: In function ‘dml31_ModeSupportAndSystemConfigurationFull’:
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:5740:1: warning: the frame size of 2144 bytes is larger than 2048 bytes [-Wframe-larger-than=]
 
-Alex Sierra
+The culprit seems to be the Pipe struct, so pull the relevant block out
+into its own sub-function. (This is porting
+a62427ef9b55 "drm/amd/display: Reduce stack size for dml21_ModeSupportAndSystemConfigurationFull"
+from dml31 to dml21)
 
-> Regards,
->    Felix
->
->
->>> No, you can not unpinned after migration. Due to the expected_count VS
->>> page_count condition at migrate_page_move_mapping, during migrate_page call.
->>>
->>> Regards,
->>> Alex Sierra
->>>
->>>> Regards,
->>>>     Felix
->>>>
->>>>
->>
---------------7MyazOToij2ne5RqFz0x9Flw
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+[0] AFAICT this doesn't actually reduce the total amount of stack which
+can be used, just moves some of it from
+dml31_ModeSupportAndSystemConfigurationFull to the new helper function,
+so the former happens to no longer exceed the limit for a single
+function.
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 12/9/2021 10:29 AM, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:b9163ccc-829e-9939-8177-a66ab41187e7@amd.com">
-      <pre class="moz-quote-pre" wrap="">Am 2021-12-09 um 5:53 a.m. schrieb Alistair Popple:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">On Thursday, 9 December 2021 5:55:26 AM AEDT Sierra Guiza, Alejandro (Alex) wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">On 12/8/2021 11:30 AM, Felix Kuehling wrote:
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Am 2021-12-08 um 11:58 a.m. schrieb Felix Kuehling:
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Am 2021-12-08 um 6:31 a.m. schrieb Alistair Popple:
-</pre>
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">On Tuesday, 7 December 2021 5:52:43 AM AEDT Alex Sierra wrote:
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">Avoid long term pinning for Coherent device type pages. This could
-interfere with their own device memory manager.
-If caller tries to get user device coherent pages with PIN_LONGTERM flag
-set, those pages will be migrated back to system memory.
-
-Signed-off-by: Alex Sierra <a class="moz-txt-link-rfc2396E" href="mailto:alex.sierra@amd.com">&lt;alex.sierra@amd.com&gt;</a>
+Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
 ---
-  mm/gup.c | 32 ++++++++++++++++++++++++++++++--
-  1 file changed, 30 insertions(+), 2 deletions(-)
+ .../dc/dml/dcn31/display_mode_vba_31.c        | 185 ++++++++++--------
+ 1 file changed, 99 insertions(+), 86 deletions(-)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index 886d6148d3d0..1572eacf07f4 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1689,17 +1689,37 @@ struct page *get_dump_page(unsigned long addr)
-  #endif /* CONFIG_ELF_CORE */
-  
-  #ifdef CONFIG_MIGRATION
-+static int migrate_device_page(unsigned long address,
-+				struct page *page)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+index 7e937bdcea00..8965f9af9d0a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+@@ -3949,6 +3949,102 @@ static double TruncToValidBPP(
+ 	return BPP_INVALID;
+ }
+ 
++static noinline void CalculatePrefetchSchedulePerPlane(
++		struct display_mode_lib *mode_lib,
++		double HostVMInefficiencyFactor,
++		int i,
++		unsigned j,
++		unsigned k)
 +{
-+	struct vm_area_struct *vma = find_vma(current-&gt;mm, address);
-+	struct vm_fault vmf = {
-+		.vma = vma,
-+		.address = address &amp; PAGE_MASK,
-+		.flags = FAULT_FLAG_USER,
-+		.pgoff = linear_page_index(vma, address),
-+		.gfp_mask = GFP_KERNEL,
-+		.page = page,
-+	};
-+	if (page-&gt;pgmap &amp;&amp; page-&gt;pgmap-&gt;ops-&gt;migrate_to_ram)
-+		return page-&gt;pgmap-&gt;ops-&gt;migrate_to_ram(&amp;vmf);
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">How does this synchronise against pgmap being released? As I understand things
-at this point we're not holding a reference on either the page or pgmap, so
-the page and therefore the pgmap may have been freed.
++	struct vba_vars_st *v = &mode_lib->vba;
++	Pipe myPipe;
++
++	myPipe.DPPCLK = v->RequiredDPPCLK[i][j][k];
++	myPipe.DISPCLK = v->RequiredDISPCLK[i][j];
++	myPipe.PixelClock = v->PixelClock[k];
++	myPipe.DCFCLKDeepSleep = v->ProjectedDCFCLKDeepSleep[i][j];
++	myPipe.DPPPerPlane = v->NoOfDPP[i][j][k];
++	myPipe.ScalerEnabled = v->ScalerEnabled[k];
++	myPipe.SourceScan = v->SourceScan[k];
++	myPipe.BlockWidth256BytesY = v->Read256BlockWidthY[k];
++	myPipe.BlockHeight256BytesY = v->Read256BlockHeightY[k];
++	myPipe.BlockWidth256BytesC = v->Read256BlockWidthC[k];
++	myPipe.BlockHeight256BytesC = v->Read256BlockHeightC[k];
++	myPipe.InterlaceEnable = v->Interlace[k];
++	myPipe.NumberOfCursors = v->NumberOfCursors[k];
++	myPipe.VBlank = v->VTotal[k] - v->VActive[k];
++	myPipe.HTotal = v->HTotal[k];
++	myPipe.DCCEnable = v->DCCEnable[k];
++	myPipe.ODMCombineIsEnabled = v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_4to1
++		|| v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1;
++	myPipe.SourcePixelFormat = v->SourcePixelFormat[k];
++	myPipe.BytePerPixelY = v->BytePerPixelY[k];
++	myPipe.BytePerPixelC = v->BytePerPixelC[k];
++	myPipe.ProgressiveToInterlaceUnitInOPP = v->ProgressiveToInterlaceUnitInOPP;
++	v->NoTimeForPrefetch[i][j][k] = CalculatePrefetchSchedule(
++		mode_lib,
++		HostVMInefficiencyFactor,
++		&myPipe,
++		v->DSCDelayPerState[i][k],
++		v->DPPCLKDelaySubtotal + v->DPPCLKDelayCNVCFormater,
++		v->DPPCLKDelaySCL,
++		v->DPPCLKDelaySCLLBOnly,
++		v->DPPCLKDelayCNVCCursor,
++		v->DISPCLKDelaySubtotal,
++		v->SwathWidthYThisState[k] / v->HRatio[k],
++		v->OutputFormat[k],
++		v->MaxInterDCNTileRepeaters,
++		dml_min(v->MaxVStartup, v->MaximumVStartup[i][j][k]),
++		v->MaximumVStartup[i][j][k],
++		v->GPUVMMaxPageTableLevels,
++		v->GPUVMEnable,
++		v->HostVMEnable,
++		v->HostVMMaxNonCachedPageTableLevels,
++		v->HostVMMinPageSize,
++		v->DynamicMetadataEnable[k],
++		v->DynamicMetadataVMEnabled,
++		v->DynamicMetadataLinesBeforeActiveRequired[k],
++		v->DynamicMetadataTransmittedBytes[k],
++		v->UrgLatency[i],
++		v->ExtraLatency,
++		v->TimeCalc,
++		v->PDEAndMetaPTEBytesPerFrame[i][j][k],
++		v->MetaRowBytes[i][j][k],
++		v->DPTEBytesPerRow[i][j][k],
++		v->PrefetchLinesY[i][j][k],
++		v->SwathWidthYThisState[k],
++		v->PrefillY[k],
++		v->MaxNumSwY[k],
++		v->PrefetchLinesC[i][j][k],
++		v->SwathWidthCThisState[k],
++		v->PrefillC[k],
++		v->MaxNumSwC[k],
++		v->swath_width_luma_ub_this_state[k],
++		v->swath_width_chroma_ub_this_state[k],
++		v->SwathHeightYThisState[k],
++		v->SwathHeightCThisState[k],
++		v->TWait,
++		&v->DSTXAfterScaler[k],
++		&v->DSTYAfterScaler[k],
++		&v->LineTimesForPrefetch[k],
++		&v->PrefetchBW[k],
++		&v->LinesForMetaPTE[k],
++		&v->LinesForMetaAndDPTERow[k],
++		&v->VRatioPreY[i][j][k],
++		&v->VRatioPreC[i][j][k],
++		&v->RequiredPrefetchPixelDataBWLuma[i][j][k],
++		&v->RequiredPrefetchPixelDataBWChroma[i][j][k],
++		&v->NoTimeForDynamicMetadata[i][j][k],
++		&v->Tno_bw[k],
++		&v->prefetch_vmrow_bw[k],
++		&v->dummy7[k],
++		&v->dummy8[k],
++		&v->dummy13[k],
++		&v->VUpdateOffsetPix[k],
++		&v->VUpdateWidthPix[k],
++		&v->VReadyOffsetPix[k]);
++}
++
+ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+ {
+ 	struct vba_vars_st *v = &mode_lib->vba;
+@@ -5276,92 +5372,9 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 						v->SREnterPlusExitTime);
+ 
+ 				for (k = 0; k < v->NumberOfActivePlanes; k++) {
+-					Pipe myPipe;
+-
+-					myPipe.DPPCLK = v->RequiredDPPCLK[i][j][k];
+-					myPipe.DISPCLK = v->RequiredDISPCLK[i][j];
+-					myPipe.PixelClock = v->PixelClock[k];
+-					myPipe.DCFCLKDeepSleep = v->ProjectedDCFCLKDeepSleep[i][j];
+-					myPipe.DPPPerPlane = v->NoOfDPP[i][j][k];
+-					myPipe.ScalerEnabled = v->ScalerEnabled[k];
+-					myPipe.SourceScan = v->SourceScan[k];
+-					myPipe.BlockWidth256BytesY = v->Read256BlockWidthY[k];
+-					myPipe.BlockHeight256BytesY = v->Read256BlockHeightY[k];
+-					myPipe.BlockWidth256BytesC = v->Read256BlockWidthC[k];
+-					myPipe.BlockHeight256BytesC = v->Read256BlockHeightC[k];
+-					myPipe.InterlaceEnable = v->Interlace[k];
+-					myPipe.NumberOfCursors = v->NumberOfCursors[k];
+-					myPipe.VBlank = v->VTotal[k] - v->VActive[k];
+-					myPipe.HTotal = v->HTotal[k];
+-					myPipe.DCCEnable = v->DCCEnable[k];
+-					myPipe.ODMCombineIsEnabled = v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_4to1
+-							|| v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1;
+-					myPipe.SourcePixelFormat = v->SourcePixelFormat[k];
+-					myPipe.BytePerPixelY = v->BytePerPixelY[k];
+-					myPipe.BytePerPixelC = v->BytePerPixelC[k];
+-					myPipe.ProgressiveToInterlaceUnitInOPP = v->ProgressiveToInterlaceUnitInOPP;
+-					v->NoTimeForPrefetch[i][j][k] = CalculatePrefetchSchedule(
+-							mode_lib,
+-							HostVMInefficiencyFactor,
+-							&myPipe,
+-							v->DSCDelayPerState[i][k],
+-							v->DPPCLKDelaySubtotal + v->DPPCLKDelayCNVCFormater,
+-							v->DPPCLKDelaySCL,
+-							v->DPPCLKDelaySCLLBOnly,
+-							v->DPPCLKDelayCNVCCursor,
+-							v->DISPCLKDelaySubtotal,
+-							v->SwathWidthYThisState[k] / v->HRatio[k],
+-							v->OutputFormat[k],
+-							v->MaxInterDCNTileRepeaters,
+-							dml_min(v->MaxVStartup, v->MaximumVStartup[i][j][k]),
+-							v->MaximumVStartup[i][j][k],
+-							v->GPUVMMaxPageTableLevels,
+-							v->GPUVMEnable,
+-							v->HostVMEnable,
+-							v->HostVMMaxNonCachedPageTableLevels,
+-							v->HostVMMinPageSize,
+-							v->DynamicMetadataEnable[k],
+-							v->DynamicMetadataVMEnabled,
+-							v->DynamicMetadataLinesBeforeActiveRequired[k],
+-							v->DynamicMetadataTransmittedBytes[k],
+-							v->UrgLatency[i],
+-							v->ExtraLatency,
+-							v->TimeCalc,
+-							v->PDEAndMetaPTEBytesPerFrame[i][j][k],
+-							v->MetaRowBytes[i][j][k],
+-							v->DPTEBytesPerRow[i][j][k],
+-							v->PrefetchLinesY[i][j][k],
+-							v->SwathWidthYThisState[k],
+-							v->PrefillY[k],
+-							v->MaxNumSwY[k],
+-							v->PrefetchLinesC[i][j][k],
+-							v->SwathWidthCThisState[k],
+-							v->PrefillC[k],
+-							v->MaxNumSwC[k],
+-							v->swath_width_luma_ub_this_state[k],
+-							v->swath_width_chroma_ub_this_state[k],
+-							v->SwathHeightYThisState[k],
+-							v->SwathHeightCThisState[k],
+-							v->TWait,
+-							&v->DSTXAfterScaler[k],
+-							&v->DSTYAfterScaler[k],
+-							&v->LineTimesForPrefetch[k],
+-							&v->PrefetchBW[k],
+-							&v->LinesForMetaPTE[k],
+-							&v->LinesForMetaAndDPTERow[k],
+-							&v->VRatioPreY[i][j][k],
+-							&v->VRatioPreC[i][j][k],
+-							&v->RequiredPrefetchPixelDataBWLuma[i][j][k],
+-							&v->RequiredPrefetchPixelDataBWChroma[i][j][k],
+-							&v->NoTimeForDynamicMetadata[i][j][k],
+-							&v->Tno_bw[k],
+-							&v->prefetch_vmrow_bw[k],
+-							&v->dummy7[k],
+-							&v->dummy8[k],
+-							&v->dummy13[k],
+-							&v->VUpdateOffsetPix[k],
+-							&v->VUpdateWidthPix[k],
+-							&v->VReadyOffsetPix[k]);
++					CalculatePrefetchSchedulePerPlane(mode_lib,
++									  HostVMInefficiencyFactor,
++									  i, j,	k);
+ 				}
+ 
+ 				for (k = 0; k < v->NumberOfActivePlanes; k++) {
+-- 
+2.34.1
 
-I think a similar problem exists for device private fault handling as well and
-it has been on my list of things to fix for a while. I think the solution is to
-call try_get_page(), except it doesn't work with device pages due to the whole
-refcount thing. That issue is blocking a fair bit of work now so I've started
-looking into it.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">At least the page should have been pinned by the __get_user_pages_locked
-call in __gup_longterm_locked. That refcount is dropped in
-check_and_migrate_movable_pages when it returns 0 or an error.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Never mind. We unpin the pages first. Alex, would the migration work if
-we unpinned them afterwards? Also, the normal CPU page fault code path
-seems to make sure the page is locked (check in pfn_swap_entry_to_page)
-before calling migrate_to_ram.
-</pre>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I don't think that's true. The check in pfn_swap_entry_to_page() is only for
-migration entries:
-
-	BUG_ON(is_migration_entry(entry) &amp;&amp; !PageLocked(p));
-
-As this is coherent memory though why do we have to call into a device driver
-to do the migration? Couldn't this all be done in the kernel?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I think you're right. I hadn't thought of that mainly because I'm even
-less familiar with the non-device migration code. Alex, can you give
-that a try? As long as the driver still gets a page-free callback when
-the device page is freed, it should work.
-</pre>
-    </blockquote>
-    <pre><font face="monospace">ACK.Will do</font></pre>
-    <pre><font face="monospace">Alex Sierra</font></pre>
-    <blockquote type="cite" cite="mid:b9163ccc-829e-9939-8177-a66ab41187e7@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-Regards,
-&nbsp; Felix
-
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">No, you can not unpinned after migration. Due to the expected_count VS 
-page_count condition at migrate_page_move_mapping, during migrate_page call.
-
-Regards,
-Alex Sierra
-
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Regards,
-   Felix
-
-
-</pre>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
---------------7MyazOToij2ne5RqFz0x9Flw--
