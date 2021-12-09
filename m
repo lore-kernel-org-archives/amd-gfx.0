@@ -4,58 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC41C43219
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A26F2C4321E
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9947010E193;
-	Thu,  9 Dec 2021 17:04:06 +0000 (UTC)
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBADF10E116;
- Thu,  9 Dec 2021 06:17:47 +0000 (UTC)
-Received: by mail-pj1-x1030.google.com with SMTP id
- k6-20020a17090a7f0600b001ad9d73b20bso4005671pjl.3; 
- Wed, 08 Dec 2021 22:17:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ERNdknSdRVKl939EP+EZZR/PoW0Nj1vOL+LFqLPaFaE=;
- b=VnKZQdzGR1KwvVlbMhJ9w4yN5SAgf36Tsu/EQkyNyyDawfgQ9W+WbDf1o1BNf73lum
- LNDL0ZsH9/EqlAIF4Fno0CGooNpVWAJnpiEx/h4Ps2yE9uCrxI9wfG/Lk9U0XHtDZbSs
- 7lpV5zElgJ16wRwhg6Bx9McSbWutm+HQ/EV7H2OlaVe8d0FJv51Mtvtylcg/gy6cq5EZ
- UCrvSfnuFJ23q+ZlJUbDbXF6sJGXVJTDI+jt4mkVgjJUvV9Rz9GXZ3+7dhS5vZXqbAaX
- 4C/iBOy85IGRN/mtQhSfYjy4y1x5WLzd60NZGpmQDiFfHv1Kf4Qm0tDulOeOFurPk/Kg
- Eazw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ERNdknSdRVKl939EP+EZZR/PoW0Nj1vOL+LFqLPaFaE=;
- b=DarKV38RzE7w+4uANNtYycLCCVBWDTvefFsEorcWRq3HOEnB6T8nAWlONpo3eGFMmm
- J78QBUcJTnweD2SqQ9znjDL5tE1VpAmgQA/rUyDR8jPxsRMaCSNtKHQjVW7rzmNVfiJa
- BQaIUz113cW0PdsG5oPx5+aB5Lm2auJcem7a8NmzparOXk57p2B5VBCtItoO3GLHEXjf
- tJEXGk5o778maw8I9B8PnkZ5aao5GUfexz4E3b22yJ7USK5Tfjp8P6sbgmncLjGskRVU
- CW+Uh/MB5DGaOImljPNz0Ff4f+giTkCagK79QAy6S/+h2/K8eDnivNvome6bNfiAh+iX
- goEA==
-X-Gm-Message-State: AOAM533bS6bUIyryj3vUjp3DtW3M4oE705EVfkHWyCWPiaGT9ofNXK10
- tpEzo17gXgDAwlQm9wohBxEV5rIvHnc=
-X-Google-Smtp-Source: ABdhPJxALjGW3u4AEFGEvQxsHH3WOQo5kRwErZMyqNAPO4fMR36Pgv0iMSHN7+mt1Z/nZUz0vkYO5A==
-X-Received: by 2002:a17:902:6a8a:b0:143:905f:aec7 with SMTP id
- n10-20020a1709026a8a00b00143905faec7mr64773494plk.8.1639015108752; 
- Wed, 08 Dec 2021 17:58:28 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id m10sm3619593pgv.75.2021.12.08.17.58.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Dec 2021 17:58:28 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm:amdgpu:remove unneeded variable
-Date: Thu,  9 Dec 2021 01:58:23 +0000
-Message-Id: <20211209015823.409947-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7029589160;
+	Thu,  9 Dec 2021 17:04:08 +0000 (UTC)
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0324310E121;
+ Thu,  9 Dec 2021 15:09:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1639062553;
+ x=1670598553; h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=W2ubuTB0lhYmOjPQa69hEhEIuxyUGZeyP9M+nuyzdoI=;
+ b=l42P+TdouKR//8y/s1tY7Dq14beSJhmkqg48OUmWKmYZl8zu1L7wGl9g
+ nL6YkfaeWLoKl0wgbNsAqENKKefGOUm7Tq61mpG6xjCretjywP5AMi4ye
+ mcc7EXpGZRdC+SAGCYT1WpeUsoNuf4bcUbxzgbLgFPMuPDofV4Kb868Rf
+ +oklWYDuj6kQf/kilASoii+yLC+XP3BPt6Uy+UdI3Zyg4HaB01IhSUhXv
+ 2ohEgIznLTO3UPLgOo9ix27DfKigzVTT8K6kumkU1HvaGjvjTqUjZh4B7
+ 3/iC4cjhx2ozMYySoFPrcTvAiy5lsgMkrkd3DRSExVwmhdFB8sGPQNgDu w==;
+Date: Thu, 9 Dec 2021 16:09:10 +0100
+From: Vincent Whitchurch <vincent.whitchurch@axis.com>
+To: "jim.cromie@gmail.com" <jim.cromie@gmail.com>
+Subject: Re: [PATCH v10 08/10] dyndbg: add print-to-tracefs, selftest with it
+ - RFC
+Message-ID: <20211209150910.GA23668@axis.com>
+References: <20211111220206.121610-1-jim.cromie@gmail.com>
+ <20211111220206.121610-9-jim.cromie@gmail.com>
+ <20211112114953.GA1381@axis.com>
+ <CAJfuBxxnuXAR7Jgn74MNQC7MLRc0xcDLw1cCidUJ9Xyar+O_2g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <CAJfuBxxnuXAR7Jgn74MNQC7MLRc0xcDLw1cCidUJ9Xyar+O_2g@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Thu, 09 Dec 2021 17:04:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,69 +50,417 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, dri-devel@lists.freedesktop.org, airlied@linux.ie,
- Zeal Robot <zealci@zte.com.cm>, Oak.Zeng@amd.com, Xinhui.Pan@amd.com,
- rajneesh.bhardwaj@amd.com, chi.minghao@zte.com.cn,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- Likun.Gao@amd.com, john.clements@amd.com, christian.koenig@amd.com,
- Hawking.Zhang@amd.com
+Cc: "quic_saipraka@quicinc.com" <quic_saipraka@quicinc.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Will Deacon <will@kernel.org>,
+ "maz@kernel.org" <maz@kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Ingo Molnar <mingo@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Jason Baron <jbaron@akamai.com>,
+ Sean Paul <seanpaul@chromium.org>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, Sean Paul <sean@poorly.run>,
+ Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "quic_psodagud@quicinc.com" <quic_psodagud@quicinc.com>,
+ "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: chiminghao <chi.minghao@zte.com.cn>
+On Wed, Dec 08, 2021 at 06:16:10AM +0100, jim.cromie@gmail.com wrote:
+> are you planning to dust this patchset off and resubmit it ?
+> 
+> Ive been playing with it and learning ftrace (decade+ late),
+> I found your boot-line example very helpful as 1st steps
+> (still havent even tried the filtering)
+> 
+> 
+> with these adjustments (voiced partly to test my understanding)
+> I would support it, and rework my patchset to use it.
+> 
+> - change flag to -e, good mnemonics for event/trace-event
+>    T is good too, but uppercase, no need to go there.
 
-return value form directly instead of
-taking this in another redundant variable.
+Any flag name works for me.
 
-Reported-by: Zeal Robot <zealci@zte.com.cm>
-Signed-off-by: chiminghao <chi.minghao@zte.com.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c | 5 +----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     | 6 ++----
- 2 files changed, 3 insertions(+), 8 deletions(-)
+> - include/trace/events/dyndbg.h - separate file, not mixed with print.h
+>   dyndbg class, so trace_event=dyndbg:*
+> 
+> - 1 event type per pr_debug, dev_dbg, netdev_dbg ? ibdev_dbg ?
+>   with the extra args: descriptor that Steven wanted,
+>   probably also struct <|net|ib>dev
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
-index 5cf142e849bb..fb92f827eeb7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
-@@ -37,12 +37,9 @@
- long amdgpu_kms_compat_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
- {
- 	unsigned int nr = DRM_IOCTL_NR(cmd);
--	int ret;
+For my use cases I don't see much value in having separate events for
+the different debug functions, but since all of them can be easily
+enabled (dyndbg:*, as you noted), that works for me too.
+
+> If youre too busy for a while, I'd eventually take a (slow) run at it.
+
+You're welcome to have a go.  I think you've already rebased the
+patchset, but here's a diff top of v5.16-rc4 for reference.  I noticed a
+bug inside the CONFIG_JUMP_LABEL handling (also present in the last
+version I posted) which should be fixed as part of the diff below (I've
+added a comment).  Proper tests for this, like the ones you are adding
+in your patchset, would certainly be a good idea.  Thanks.
+
+8<-------------
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index a89cfa083155..b9c4e808befc 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -228,6 +228,7 @@ of the characters::
+ The flags are::
  
- 	if (nr < DRM_COMMAND_BASE)
- 		return drm_compat_ioctl(filp, cmd, arg);
+   p    enables the pr_debug() callsite.
++  x    enables trace to the printk:dyndbg event
+   f    Include the function name in the printed message
+   l    Include line number in the printed message
+   m    Include module name in the printed message
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index dce631e678dd..bc21bfb0fdc6 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -27,7 +27,7 @@ struct _ddebug {
+ 	 * writes commands to <debugfs>/dynamic_debug/control
+ 	 */
+ #define _DPRINTK_FLAGS_NONE	0
+-#define _DPRINTK_FLAGS_PRINT	(1<<0) /* printk() a message using the format */
++#define _DPRINTK_FLAGS_PRINTK	(1<<0) /* printk() a message using the format */
+ #define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
+ #define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
+ #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+@@ -37,8 +37,11 @@ struct _ddebug {
+ 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+ 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
  
--	ret = amdgpu_drm_ioctl(filp, cmd, arg);
--
--	return ret;
-+	return amdgpu_drm_ioctl(filp, cmd, arg);
++#define _DPRINTK_FLAGS_TRACE		(1<<5)
++#define _DPRINTK_FLAGS_ENABLE		(_DPRINTK_FLAGS_PRINTK | \
++					 _DPRINTK_FLAGS_TRACE)
+ #if defined DEBUG
+-#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
++#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
+ #else
+ #define _DPRINTK_FLAGS_DEFAULT 0
+ #endif
+@@ -120,10 +123,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 
+ #ifdef DEBUG
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) \
+-	likely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
++	likely(descriptor.flags & _DPRINTK_FLAGS_ENABLE)
+ #else
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) \
+-	unlikely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
++	unlikely(descriptor.flags & _DPRINTK_FLAGS_ENABLE)
+ #endif
+ 
+ #endif /* CONFIG_JUMP_LABEL */
+diff --git a/include/trace/events/printk.h b/include/trace/events/printk.h
+index 13d405b2fd8b..1f78bd237a91 100644
+--- a/include/trace/events/printk.h
++++ b/include/trace/events/printk.h
+@@ -7,7 +7,7 @@
+ 
+ #include <linux/tracepoint.h>
+ 
+-TRACE_EVENT(console,
++DECLARE_EVENT_CLASS(printk,
+ 	TP_PROTO(const char *text, size_t len),
+ 
+ 	TP_ARGS(text, len),
+@@ -31,6 +31,16 @@ TRACE_EVENT(console,
+ 
+ 	TP_printk("%s", __get_str(msg))
+ );
++
++DEFINE_EVENT(printk, console,
++	TP_PROTO(const char *text, size_t len),
++	TP_ARGS(text, len)
++);
++
++DEFINE_EVENT(printk, dyndbg,
++	TP_PROTO(const char *text, size_t len),
++	TP_ARGS(text, len)
++);
+ #endif /* _TRACE_PRINTK_H */
+ 
+ /* This part must be outside protection */
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index dd7f56af9aed..161454fa0af8 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -36,6 +36,7 @@
+ #include <linux/sched.h>
+ #include <linux/device.h>
+ #include <linux/netdevice.h>
++#include <trace/events/printk.h>
+ 
+ #include <rdma/ib_verbs.h>
+ 
+@@ -86,11 +87,12 @@ static inline const char *trim_prefix(const char *path)
  }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index cb82404df534..269a7b04b7e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1742,7 +1742,7 @@ static int gmc_v9_0_hw_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	bool value;
--	int r, i;
-+	int i;
  
- 	/* The sequence of these two function calls matters.*/
- 	gmc_v9_0_init_golden_registers(adev);
-@@ -1777,9 +1777,7 @@ static int gmc_v9_0_hw_init(void *handle)
- 	if (adev->umc.funcs && adev->umc.funcs->init_registers)
- 		adev->umc.funcs->init_registers(adev);
+ static struct { unsigned flag:8; char opt_char; } opt_array[] = {
+-	{ _DPRINTK_FLAGS_PRINT, 'p' },
++	{ _DPRINTK_FLAGS_PRINTK, 'p' },
+ 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
+ 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
+ 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
+ 	{ _DPRINTK_FLAGS_INCL_TID, 't' },
++	{ _DPRINTK_FLAGS_TRACE, 'x' },
+ 	{ _DPRINTK_FLAGS_NONE, '_' },
+ };
  
--	r = gmc_v9_0_gart_enable(adev);
--
--	return r;
-+	return gmc_v9_0_gart_enable(adev);
+@@ -210,11 +212,23 @@ static int ddebug_change(const struct ddebug_query *query,
+ 			if (newflags == dp->flags)
+ 				continue;
+ #ifdef CONFIG_JUMP_LABEL
+-			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
+-				if (!(modifiers->flags & _DPRINTK_FLAGS_PRINT))
++			if (dp->flags & _DPRINTK_FLAGS_ENABLE) {
++				/*
++				 * The newflags check is to ensure that the
++				 * static branch doesn't get disabled in step
++				 * 3:
++				 *
++				 * (1) +pf
++				 * (2) +x
++				 * (3) -pf
++				 */
++				if (!(modifiers->flags & _DPRINTK_FLAGS_ENABLE) &&
++				    !(newflags & _DPRINTK_FLAGS_ENABLE)) {
+ 					static_branch_disable(&dp->key.dd_key_true);
+-			} else if (modifiers->flags & _DPRINTK_FLAGS_PRINT)
++				}
++			} else if (modifiers->flags & _DPRINTK_FLAGS_ENABLE) {
+ 				static_branch_enable(&dp->key.dd_key_true);
++			}
+ #endif
+ 			dp->flags = newflags;
+ 			v4pr_info("changed %s:%d [%s]%s =%s\n",
+@@ -621,6 +635,96 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
+ 	return buf;
  }
  
- /**
--- 
-2.25.1
-
++/*
++ * This code is heavily based on __ftrace_trace_stack().
++ *
++ * Allow 4 levels of nesting: normal, softirq, irq, NMI.
++ */
++#define DYNAMIC_TRACE_NESTING	4
++
++struct dynamic_trace_buf {
++	char buf[256];
++};
++
++struct dynamic_trace_bufs {
++	struct dynamic_trace_buf bufs[DYNAMIC_TRACE_NESTING];
++};
++
++static DEFINE_PER_CPU(struct dynamic_trace_bufs, dynamic_trace_bufs);
++static DEFINE_PER_CPU(int, dynamic_trace_reserve);
++
++static void dynamic_trace(const char *fmt, va_list args)
++{
++	struct dynamic_trace_buf *buf;
++	int bufidx;
++	int len;
++
++	preempt_disable_notrace();
++
++	bufidx = __this_cpu_inc_return(dynamic_trace_reserve) - 1;
++
++	if (WARN_ON_ONCE(bufidx > DYNAMIC_TRACE_NESTING))
++		goto out;
++
++	/* For the same reasons as in __ftrace_trace_stack(). */
++	barrier();
++
++	buf = this_cpu_ptr(dynamic_trace_bufs.bufs) + bufidx;
++
++	len = vscnprintf(buf->buf, sizeof(buf->buf), fmt, args);
++	trace_dyndbg(buf->buf, len);
++
++out:
++	/* As above. */
++	barrier();
++	__this_cpu_dec(dynamic_trace_reserve);
++	preempt_enable_notrace();
++}
++
++static void dynamic_printk(unsigned int flags, const char *fmt, ...)
++{
++	if (flags & _DPRINTK_FLAGS_TRACE) {
++		va_list args;
++
++		va_start(args, fmt);
++		/*
++		 * All callers include the KERN_DEBUG prefix to keep the
++		 * vprintk case simple; strip it out for tracing.
++		 */
++		dynamic_trace(fmt + strlen(KERN_DEBUG), args);
++		va_end(args);
++	}
++
++	if (flags & _DPRINTK_FLAGS_PRINTK) {
++		va_list args;
++
++		va_start(args, fmt);
++		vprintk(fmt, args);
++		va_end(args);
++	}
++}
++
++static void dynamic_dev_printk(unsigned int flags, const struct device *dev,
++			       const char *fmt, ...)
++{
++
++	if (flags & _DPRINTK_FLAGS_TRACE) {
++		va_list args;
++
++		va_start(args, fmt);
++		dynamic_trace(fmt, args);
++		va_end(args);
++	}
++
++	if (flags & _DPRINTK_FLAGS_PRINTK) {
++		va_list args;
++
++		va_start(args, fmt);
++		dev_vprintk_emit(LOGLEVEL_DEBUG, dev, fmt, args);
++		va_end(args);
++	}
++}
++
+ static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
+ {
+ 	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
+@@ -642,7 +746,8 @@ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
+ 
+-	printk(KERN_DEBUG "%s%pV", dynamic_emit_prefix(descriptor, buf), &vaf);
++	dynamic_printk(descriptor->flags, KERN_DEBUG "%s%pV",
++		       dynamic_emit_prefix(descriptor, buf), &vaf);
+ 
+ 	va_end(args);
+ }
+@@ -652,6 +757,7 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
+ 		      const struct device *dev, const char *fmt, ...)
+ {
+ 	struct va_format vaf;
++	unsigned int flags;
+ 	va_list args;
+ 
+ 	BUG_ON(!descriptor);
+@@ -661,16 +767,18 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
+ 
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
++	flags = descriptor->flags;
+ 
+ 	if (!dev) {
+-		printk(KERN_DEBUG "(NULL device *): %pV", &vaf);
++		dynamic_printk(flags, KERN_DEBUG "(NULL device *): %pV",
++			      &vaf);
+ 	} else {
+ 		char buf[PREFIX_SIZE] = "";
+ 
+-		dev_printk_emit(LOGLEVEL_DEBUG, dev, "%s%s %s: %pV",
+-				dynamic_emit_prefix(descriptor, buf),
+-				dev_driver_string(dev), dev_name(dev),
+-				&vaf);
++		dynamic_dev_printk(flags, dev, "%s%s %s: %pV",
++				   dynamic_emit_prefix(descriptor, buf),
++				   dev_driver_string(dev), dev_name(dev),
++				   &vaf);
+ 	}
+ 
+ 	va_end(args);
+@@ -683,6 +791,7 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
+ 			  const struct net_device *dev, const char *fmt, ...)
+ {
+ 	struct va_format vaf;
++	unsigned int flags;
+ 	va_list args;
+ 
+ 	BUG_ON(!descriptor);
+@@ -692,22 +801,24 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
+ 
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
++	flags = descriptor->flags;
+ 
+ 	if (dev && dev->dev.parent) {
+ 		char buf[PREFIX_SIZE] = "";
+ 
+-		dev_printk_emit(LOGLEVEL_DEBUG, dev->dev.parent,
+-				"%s%s %s %s%s: %pV",
+-				dynamic_emit_prefix(descriptor, buf),
+-				dev_driver_string(dev->dev.parent),
+-				dev_name(dev->dev.parent),
+-				netdev_name(dev), netdev_reg_state(dev),
+-				&vaf);
++		dynamic_dev_printk(flags, dev->dev.parent,
++				   "%s%s %s %s%s: %pV",
++				   dynamic_emit_prefix(descriptor, buf),
++				   dev_driver_string(dev->dev.parent),
++				   dev_name(dev->dev.parent),
++				   netdev_name(dev), netdev_reg_state(dev),
++				   &vaf);
+ 	} else if (dev) {
+-		printk(KERN_DEBUG "%s%s: %pV", netdev_name(dev),
+-		       netdev_reg_state(dev), &vaf);
++		dynamic_printk(flags, KERN_DEBUG "%s%s: %pV",
++			       netdev_name(dev), netdev_reg_state(dev), &vaf);
+ 	} else {
+-		printk(KERN_DEBUG "(NULL net_device): %pV", &vaf);
++		dynamic_printk(flags, KERN_DEBUG "(NULL net_device): %pV",
++			       &vaf);
+ 	}
+ 
+ 	va_end(args);
+@@ -722,27 +833,31 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 			 const struct ib_device *ibdev, const char *fmt, ...)
+ {
+ 	struct va_format vaf;
++	unsigned int flags;
+ 	va_list args;
+ 
+ 	va_start(args, fmt);
+ 
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
++	flags = descriptor->flags;
+ 
+ 	if (ibdev && ibdev->dev.parent) {
+ 		char buf[PREFIX_SIZE] = "";
+ 
+-		dev_printk_emit(LOGLEVEL_DEBUG, ibdev->dev.parent,
+-				"%s%s %s %s: %pV",
+-				dynamic_emit_prefix(descriptor, buf),
+-				dev_driver_string(ibdev->dev.parent),
+-				dev_name(ibdev->dev.parent),
+-				dev_name(&ibdev->dev),
+-				&vaf);
++		dynamic_dev_printk(flags, ibdev->dev.parent,
++				   "%s%s %s %s: %pV",
++				   dynamic_emit_prefix(descriptor, buf),
++				   dev_driver_string(ibdev->dev.parent),
++				   dev_name(ibdev->dev.parent),
++				   dev_name(&ibdev->dev),
++				   &vaf);
+ 	} else if (ibdev) {
+-		printk(KERN_DEBUG "%s: %pV", dev_name(&ibdev->dev), &vaf);
++		dynamic_printk(flags, KERN_DEBUG "%s: %pV",
++			       dev_name(&ibdev->dev), &vaf);
+ 	} else {
+-		printk(KERN_DEBUG "(NULL ib_device): %pV", &vaf);
++		dynamic_printk(flags, KERN_DEBUG "(NULL ib_device): %pV",
++			       &vaf);
+ 	}
+ 
+ 	va_end(args);
