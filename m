@@ -4,120 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B6EC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 19:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F125CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 19:20:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6356910E256;
-	Thu,  9 Dec 2021 19:15:28 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFFFE10E256
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 19:15:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6956E10E238;
+	Thu,  9 Dec 2021 19:20:39 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2064.outbound.protection.outlook.com [40.107.212.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA5A10E238
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 19:20:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hlbvmKvg5rDiy8JBYc11FUmbgqzu5ev9P7R//oVZPt8iZRxagfLK6M51yxRz0Zr8pJokpMBUFVNC8KOwwS5JcZgTPRrxTaIJ4E6VRyyDNtUjpaTpa4KSOIaImdrARYeZ4AxOGtEN3atlassXs14LGo16ur0YnymRkm1gQNlFH5b/Hq80kVHaWBMESRCUlZGwSwUXZ6N6AoIY3cytmEcPCjZ8b/iowYwO9/AMmuzMY1SWv+qT0+mVDy1UGaGb69jjv720yxzcnjYP214kgJfWOvVMbb23U8Z2Opq6jQIG5xChq+Za5gfePcAnVJMtCP4BaMmGBNdSL2VTebvddgHMqg==
+ b=Y5XqIkocMJwnQlFBZhNqfnYXQIhgY/q1uHG415uwDvJUPQmYwthCyNW2oRKEwwYHVeu6pb397WyOs+tJfHkoKtGOpMFbG/i3gA4ce9Jq4aKlw4ud6MtlVxLsvXU0ijQGPorKGzpgJz8/DBEOHn1WykMJubIEakL9tiS7Ptm4lY+rXuT7WE8zpUvHY3ZiJIkPlUYyckoFrBzn2JLpPK4CxFq3Ydt07F4ZHlTiJBVNP5XpN/UBUfyvsSTaQxrYxhd6PdIxDoj9w+UurvdAhu9q+7/Vt7ndaRFPviV1aPOXxFsYcWDeJT8iBflcETkrQfHC1N9ooHaRSo7zKMFGfEh3yQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DzIwKQHkV32uPp70BznR6AH+zHmmScZvA5+lBuWGWYg=;
- b=E/UntlMqqvAju6i95FBEwCMj301JKZd3KiZpvP3IGJQNbLva/uhEo2uBHtNR7kQSXiOFT8Go48Qvik/l9Go1NQACI53JMqqSDxf2NKwHvcjlWEmjRuXZ3RnJzJpeRwzIjLmCT5HUYHGpfDb1stZCkQ42h55TraWyBmeXowhwz6jk4df+pG2t2/RIOWOewfvQT3CCMg+rCmsn3MreJvOLXRJXmB/mDYjLKn6AQIG42UjX1uDJhQrxDGehufug7A8RYcuWeqj3IeJqtWTB7htribTYUAY9stI9g+3kTz9r/XJ9lIu/hy0z8BQN0IQGR6IKSaOqP2gB2LRk44CRitbcgA==
+ bh=kHgJa9mQBPtTFCfsrdxjEJ8Mfv4UqWgLNLw39/ZA8EE=;
+ b=YfgVYMzkTZOmd/Nf9x/I3R2ZgbkVAg5EnbkHnD9qSttlXmapulYGeoPZcyRl/1iNo9jFSzIOrKCzMK2kpI5lBzMg698ZdQY0NR/Nj72XtAhq8x4jcjH7Q7iq5NWhZnVbWy9oR/mnVJyMMojKGip5okpbkZtZWFrr/9NhpsaoXLAzHikyIL+Uq5h6hCgIhBmEH/I//1frwlbWdhlDbOGm3rSTxNSSv9jBXjisEU+/yhJqo03kpE/idsAaPB/GwKFE5tGg3IQfNtMhqfCSBKs/9LSkHemmEXO3oaSLWLTzQlMFSN2vx9uxiKFKJIXfpK4uAkzg+Cb3HTr3VQIn3/xPWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DzIwKQHkV32uPp70BznR6AH+zHmmScZvA5+lBuWGWYg=;
- b=fBXkcfosQxUOBfrm9J9aWpMjm3meBHBAOEbDBhmMWNn7G1L4U6N5imM9g1UKg0STrQYgVpZ3cvcgCyqMSCIs6082HOjwuWuvGnBfzN4zbrRqBEri9U9uvGpVfY3Vtt84nPiqZYgcnqXlJz2kfplYBVmVJBmk7yJ11ffVo8kqhLs=
+ bh=kHgJa9mQBPtTFCfsrdxjEJ8Mfv4UqWgLNLw39/ZA8EE=;
+ b=l5kRDu6Q3wBuzdoKVr9kd6FnAOjyux8OYotXSmpSC9z7xLy9iCebESbZWj26VXCBdZeeSwfhu3gRaqZa2E2zhm2pXM8AikRJ1KX5heYW6cpjgcz0rs+OuVIoYyics6l0ppiymfMicXngBbnz17t8RX58JkxZJaB33k661tnDK3g=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DM6PR12MB5566.namprd12.prod.outlook.com (2603:10b6:5:20d::21) with
+ by DM4PR12MB5181.namprd12.prod.outlook.com (2603:10b6:5:394::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
- 2021 19:15:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.24; Thu, 9 Dec
+ 2021 19:20:36 +0000
 Received: from DM4PR12MB5149.namprd12.prod.outlook.com
  ([fe80::dcf7:d6ee:654f:a2cf]) by DM4PR12MB5149.namprd12.prod.outlook.com
  ([fe80::dcf7:d6ee:654f:a2cf%5]) with mapi id 15.20.4734.024; Thu, 9 Dec 2021
- 19:15:25 +0000
-Subject: Re: [PATCH 1/2] drm/amdkfd: Use prange->list head for insert_list
+ 19:20:36 +0000
+Subject: Re: [PATCH 2/2] drm/amdkfd: Use prange->update_list head for
+ remove_list
 To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20211209000340.974954-1-Felix.Kuehling@amd.com>
+ <20211209000340.974954-2-Felix.Kuehling@amd.com>
 From: philip yang <yangp@amd.com>
-Message-ID: <8ba69c49-e58e-d730-22fa-a081571b78ea@amd.com>
-Date: Thu, 9 Dec 2021 14:15:23 -0500
+Message-ID: <9d19fe31-2f02-6d69-6ed3-22f5e018930a@amd.com>
+Date: Thu, 9 Dec 2021 14:20:34 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <20211209000340.974954-1-Felix.Kuehling@amd.com>
+In-Reply-To: <20211209000340.974954-2-Felix.Kuehling@amd.com>
 Content-Type: text/html; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR15CA0020.namprd15.prod.outlook.com
- (2603:10b6:610:51::30) To DM4PR12MB5149.namprd12.prod.outlook.com
+X-ClientProxiedBy: BLAPR03CA0045.namprd03.prod.outlook.com
+ (2603:10b6:208:32d::20) To DM4PR12MB5149.namprd12.prod.outlook.com
  (2603:10b6:5:390::14)
 MIME-Version: 1.0
 Received: from [172.27.226.38] (165.204.55.251) by
- CH2PR15CA0020.namprd15.prod.outlook.com (2603:10b6:610:51::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
- Thu, 9 Dec 2021 19:15:24 +0000
+ BLAPR03CA0045.namprd03.prod.outlook.com (2603:10b6:208:32d::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21 via Frontend
+ Transport; Thu, 9 Dec 2021 19:20:35 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ec21fd4e-a325-4839-49d8-08d9bb4840c8
-X-MS-TrafficTypeDiagnostic: DM6PR12MB5566:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB556618AE4BDEFB813F8890BDE6709@DM6PR12MB5566.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Office365-Filtering-Correlation-Id: e8c478ee-82c9-4bf3-c5a3-08d9bb48fa5d
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5181:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5181B2F882CC97775A34AE3BE6709@DM4PR12MB5181.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6jv1xWzJvOXCKFcSognNZFPMruHKJHRc1NHydcaHXbK3IuyhR7IXhaHLNfC78YSqlayaYEYsTyXvP0Z1SWYJ8EnWP9/vFkohppIgXjRJzdOSZUkwaMSvi8bAX1p32mSBUWUzzwLwBRf5cNdaLTpjR4KT7ma6iXg4eWrggVXvfR590g58uzEXnAUg85F90SYBP0xvZmS6A4apy5BL3eulx5RUqDeMSdJKD9pa2IbbAptIXcxYdLUvYpClnSyzc8HMZy9EmmWgaeaVNc4MPH2OYM9S9UeOtg2RGeeM/EaI/LRFMiLjilB5IT4rnETozXrmvaUOKPWMocxE84FqpQXaNzp1e0tZt7B1q/i88YdsnkWFivMhlV2nG6ejFU7sB/ZWtVx/F1bsDP6ES4C8O1KBfr7hIODcVRT0adltIEHx9KySog3tQpneoyNlGcxZxezO4M+3PksJELnzKv908h8gj2j1b3rU9IB1ivRNgXJ9SjLkYgkYfzwPySlj/fLpVCAJdI4UFgb8lZ233OIL46jGTkrEXeMiKWeDFmSxdiL6lMCnAtS2FKg4yndGAM7xfOAH1v1JDQ9hmCP3wnfQvB+uZ80gRc88PbJ4Tz3hEgopvELPXwnE1md4DRiCDLqcYn/GoaLtqtD7OjCgfLOkd2C9vOhZykWPZ7g8o+Sw0VL+2ke7yrS/50fCDxnv2AHdMSuLNWsMK/gfx2S8jhs87AGBUAPu1/AHA9PtTlJQL6WRN8o=
+X-Microsoft-Antispam-Message-Info: fXD5DvAgUz6bGduzdLF7V92e/VWl1Ar5lLBEN+piwmb84oJSxsGRg4TlPB4qkdR83hlWEsVa0EQ15KrqgKyqWJpB0bTO8uHYDOhmtjnhl9vehuSEr/Ei81BMZFmxX/ESqfoKJvjIOBzzoBK20ZSH3aa14E835cyK/jkdSepjPuRZofDTS94ERvqhcdpt/uqRQwIXOYMnH1zsMs2Ippv3iPDZ8tvACwg1ac4CD0ZtABzJg+aqjKp+H+D4FlkSxIh0HfuhVBncsktPn7MJ6xycu3A3yHRl+7K5V+e78hfS9Vp5ok0XJgraVP9lQj6jHIw1IX3xyXTYe8CI507O3iKmEw4jjnkXIM4NzbS5hPxB/k/gkVsV6aRSUermlbTjAcp8iq1qgctvge0npF8EXckyntzUeDw2cDBKY/Cxgyz6ncInA6W2SACQd9n3lDvSSs9cJAyyrGA3oQFXAzYRCdIfRHzME5WQFAK4I0p9Z7t50FB2xWuVho7hTgLBUwGRq07IbzEthIsY1oCXO61AJaI4VqfXj6eJjxqIi0RPLDH4Q1ahw+WKNEKjH2ufwY42C0wPeGXJbb/5NHpMVvDqco0AWFsHJu29i/RnZn48STMkCMMIEwDkIKdYifYgKpDHw4lrtED6TqfM6x0xpIU0UcLy8wVGZx+uvhp6/fRXQvtoqEQT0xYvSZJpb3sN7hVnLanu0G96jQbKUylu4TKCxH6JRgo5ScsrO/WBOPS0A6pFofSFjcFj+sIFRIawBRza+3Gd
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(83380400001)(66946007)(956004)(2906002)(66556008)(66476007)(31686004)(186003)(316002)(16576012)(2616005)(36756003)(8676002)(4326008)(26005)(38100700002)(5660300002)(508600001)(31696002)(53546011)(8936002)(6486002)(45980500001)(43740500002);
+ SFS:(4636009)(366004)(8676002)(26005)(31696002)(15650500001)(2906002)(53546011)(36756003)(83380400001)(31686004)(316002)(16576012)(38100700002)(8936002)(6486002)(956004)(2616005)(5660300002)(186003)(66556008)(508600001)(4326008)(66946007)(66476007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a1dySk9la2M4dXQ5V3JNeUpvRW84Q2ZmS0t5M0dRT2ljM1oxTHpHUHpvQk1q?=
- =?utf-8?B?WVRwOFdpblcyZTBWVTNIK3ZsZHhIYU9WeU9jZ0djQ1NsY3R4bVNvVUdWVzdo?=
- =?utf-8?B?RnM3czl3bzVFVzllRUdNM1BndjVtK1ZwMWdlZWNpd1h5UE9FNVIzb2VIWmsw?=
- =?utf-8?B?cFByYURkOWxkVkN0Q1NsODhLalMwNVJFeHU0L0pjQVo4dmdSTDBKYlBkd25H?=
- =?utf-8?B?NjB5enRGenJnMDN6TGlqSU92NjNzQU0xQXJvL0dGSlRuWjBFNEhXeTl5WXRu?=
- =?utf-8?B?b2xhVk0xV2dyT2NlWkhCcWptS29ZcVRNRXJwNURURlFnYmlkQVcwa1k3bE5a?=
- =?utf-8?B?dGo4U1RNL0YxbUgweXZZcjAxYkJrbW90RzdUUFBhMVZSTVFxMzUzbXpDTGtI?=
- =?utf-8?B?cC83L2xFRUlJcml4Z0M1MllRbFBpckJ5bkdpMVFPWjFMbVdOY0h1cXVqeUc1?=
- =?utf-8?B?YmlPRkhyMlJFbGsvNlRadmd6Z0tHR21laVUzRENLQVp1c0tDMFhRWSt3Wm1F?=
- =?utf-8?B?OVhPUG9hajhhNGJsS2Rvc1lNOVd0NXpQc2VMZk9NRm9hNHNQcnhrSjNidDds?=
- =?utf-8?B?cExvaWVOajZCbVVENTlWY3A4U3lVbHc2M1dWc1pvWnFtZk5xMWd1bHYzKzBj?=
- =?utf-8?B?QzBsazhoUlNqN1BBM1N5UFJUb3hQeXpPQ0E5aFFnM0dNaGZValBBSzV1M3gr?=
- =?utf-8?B?N2JydUNjQnpxUXpBaXIrK3JRR0p5dEl1My9vT05SZG4yazJTUWVKVERxQnJo?=
- =?utf-8?B?VGkzYTdjSkp4NDRxRFEwbUVSbkpENFBNK09tUm9oMlJTc1h1RG9QMzNWK0Nh?=
- =?utf-8?B?QkF0N3YwaWJTUVNjRzZwSm80RWFPYncramszL2M5WlQ1T2hOWXdTc1ZaakZB?=
- =?utf-8?B?cG9JelRrdDZlQkw4T2ZYU0lUeTQ4dnBMV1BDYktIMzBLZHZRWU42Unh1OEt0?=
- =?utf-8?B?enBub1ZySEw5ZE9Jd094VU1UcVU2WC83R1dYdzV2N0pwejh6Q1BWWmk1dlNX?=
- =?utf-8?B?MG9sRUhIbURDQ1UrczJQai9IMEV4Z282YWU2QzJoTUI5cTVQKzNBcEwzUUI4?=
- =?utf-8?B?TzRqMFk2NjFPMm9JbTR3VjIxOWVIZmdrNzJnejFCc1ZRTlFiQ04rNEVEVGhq?=
- =?utf-8?B?RE5XUGFPbXJQclVudHpncW5zMnZqeGpHdGU2TVpMalJ6YTUzWWJ0SVJvZTBk?=
- =?utf-8?B?TlV4TnR3b3lhK2pKbGkvMTY3VkpCOXY0bG9GU01NK1M1dzJ6Z0hGVnd5Mzdp?=
- =?utf-8?B?TVpEZWV6SnRyQzBNVkRLanB1c2NSM3hhb2RXYXFOQkloQ0VHTWpiSWxuRkJS?=
- =?utf-8?B?MzRLdEY1UzIxRG1VOGcxaHRkREgxK0tzVnNIYkJsTUswMlBERkhWdndNRlFY?=
- =?utf-8?B?VU1PMVRac3ZTQS9KOURsR0ZQYTBDczFOOXYrSElsaHYrbTdESVhzZW9aMjlR?=
- =?utf-8?B?RnpHN3ZKNVMxZXJEaCtMaHdmWDJWcXFDV1ZiR2NidnFtbGZoRlJjOXdyTUhr?=
- =?utf-8?B?SlZ4aHAyTE5neHhnUnhEdjRVL3lHclhiZXV4UitaM0R5Z2VIL2RjVHl2SU1T?=
- =?utf-8?B?ZllxNVIvZzlML1FWU3NkQWc0TVhZdUJzQ09pVGdQMWpTL25SNHNud3NNQmQz?=
- =?utf-8?B?YmZhNCtRYmVrNGt3cWRRZ0JTODR0ckhBYnE2MFVmTEFJOXgraE1RdmE2S3VU?=
- =?utf-8?B?TEkyYWMvYkJrNFVqOWduM2tPMHBGV1RtanBaTktuUmtBWGpub1RNaVFCTVBG?=
- =?utf-8?B?ay90eUxicEJoamhKMk5lN2hxRTZuVGszWVB4VGRNRFlOTitmTnVGcFlTc09Y?=
- =?utf-8?B?RlB6Y3kwNFdqcU5tYkdYS3c3dWt2MjZnTUNsRWNvNUtWK2VKbndIMWhuQy90?=
- =?utf-8?B?Q1J0ZHZEWFVscEdBTGxkTzJXVldJTXlGWERQV01obmI2VXc3Ky9GeGJUckpa?=
- =?utf-8?B?ZXhJb3lORTZ3cWlnY2xPSXgyc2pSaHBiSWwyQS9lWVVFYmxQQit2Q1pBeDA3?=
- =?utf-8?B?eWJiZ01RaEYxRmlRQTVqMnIzZ3h3Nksxd0FiVkRWNG9uQllOTkd4WDcxS0dX?=
- =?utf-8?B?RTZXUVBTZmthRzBUeWJ5UERuZHR2WTM3NFZqd2ZFUmcrSVQ0dk53Sk1ITEt0?=
- =?utf-8?Q?Vs3U=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emUwY2dSSU4zZU1UNC9iUGZEN0YzSlYyNWdKbEpCVFo1WmdtL0JQdXFNY2dr?=
+ =?utf-8?B?U0FxaktzSVZaVHY1OUdFQzJVL1A2em4yNUV6Szc5S1VBblBodjVxZUxrNENx?=
+ =?utf-8?B?cjdSS2NMam9kZkNIbCtJZHVmTys2aUd0cXdFSVhjZDhhTDNrVElhaW5MM3Iy?=
+ =?utf-8?B?MWo4K25RNU9LeldkMUxiNjdVWkwyME41ekRrVkVreVc4YmU5Y1I4MzBJVXlM?=
+ =?utf-8?B?YU5QR0lsM3hiaU9pM25UMlYycW9yOTY2UUk5MWlQa0lJKzdyYlFEZDBqWFdI?=
+ =?utf-8?B?SDNHNUNRSEdFVTBmbXhueTRRTHdtb0Y0cGZ2djB2TlhPWVM3bFNuR2IvNkhH?=
+ =?utf-8?B?OFdjQmNyd2E4c0NvZ2hmdUVKSWExNEtmQ0s1STZMMzI0NzR0RkdvdmJCazdi?=
+ =?utf-8?B?aXZpcEhnaE41c1VLdE9HQlB0KzY4cklXdHZFMXR4OG1mYjN0VWUxdEYyMXhw?=
+ =?utf-8?B?VTk2WThkQklUWXVHUHFrYXZNZlhpYmREZFNjNzA4RlI1anBReVlXSjIyRGNt?=
+ =?utf-8?B?d0xnUENlUTNjWjVtWGpiVU1iL0VXcU5OM0RMeWEvMEdVd2E1RUd0clZSZmJV?=
+ =?utf-8?B?QjlNRnMrVFhzd3JkcW15blhiMEFiOGdRUGdSemxibmk2ZnVWeWNxeUhVc1BK?=
+ =?utf-8?B?cnFkL05tb2dsbWhIWXJXT29PVEhSRXFHZE5zMVVuT2lKOGJlejU3d3hVNWNB?=
+ =?utf-8?B?WlNaNGhJVWVCdDZ5aHJUSS9YTjBMWDBjVktjNGRDWnU4VjRERFpVUGN3RmIz?=
+ =?utf-8?B?VkRVdWEyTTl4aDlSZmJhRVRWUHN1c2xkVmJLa041S3AyWTVlRllDN01wZDN5?=
+ =?utf-8?B?ZUwzNDRoWkdQaFJINFRraXIwalRYaEF0cEtqb2hRTHpPQzlKMWFHbFBVL2xl?=
+ =?utf-8?B?WndxVmhMaVFxcDFPTFQxUldqaDZHNDY0emFnamZISHh3aTNOSHVYREdiV2V4?=
+ =?utf-8?B?bTZ0R3VYTERZYk1kVkh2WkJ1ekJ0MWdWelczWmhGYjhBYk5ORXVXNEhDdmJv?=
+ =?utf-8?B?OXJpeE9zVnhzYmlxMDNXZFp6MTB6SDI4dlY2cDZxUHVNeGlUN1dkTldIRW5n?=
+ =?utf-8?B?dnZBYzRMYWRtNHA0ekRRMmtWSmlqMXBRLzlyS3Yza0xiTDNYN2NYTnNUV0dE?=
+ =?utf-8?B?cWI5U1F4Tlp4L0NNNlBsdTR1andIbmFoRHVwaHZIMjF3dFpOMmd0bGIzWkxy?=
+ =?utf-8?B?eXgwRXdnMHVxaFR0c1FRZ0R3UXNobnpMTUc0bVh2azJoNDlyOUhpenB6Uzgw?=
+ =?utf-8?B?QmtScmtqcHVWZk94cXVUUVlkb3c1SzZrTy9oTDEvb25XNDk0OXoxV2cvakFW?=
+ =?utf-8?B?MHVGS2ZIT0JTK3lZeU1VamcyK1p3UVJXWWVWcm5vMlQvdWlJUHF2N1VXNmZE?=
+ =?utf-8?B?cjRkdDI3UkRzY0grenNDVnYxelRFVEZmYUpObHZGdktBM3d3VlRMcVQwRGRO?=
+ =?utf-8?B?QkFPYzZVYW5hcmlEVnhXbkZXdWZEZ1JiaVBsWm9HZ29HSmNRa05IV1RBSjdn?=
+ =?utf-8?B?UEgrQkRGMkV5MDhaS3lqcndsbUV5MEtYT0w4QnZiYk9RcE16QUprRExGaTNI?=
+ =?utf-8?B?czBQUEx5Ym5hdEJuSFFSSWJYN3FzZkNqeTh1SjJmdzhCdnpHUFp4a3orVSti?=
+ =?utf-8?B?RU83M0xYS2RPdEJ0MVZ1ZTg0MVNma1B0VmZMb1NLZWk4OGpMTTVPWUgxRk10?=
+ =?utf-8?B?MWMxSkxRcTBSK0RqYTJETmFWNE5nWWZmd0Jtd1F5eUQzWFJwOFFRNm9ZTzdi?=
+ =?utf-8?B?SWRCL1M4YUFmU1lndjBzeTRnTytuckpVYWY2T2Z1K0NlMDFidjNWYmJNOWl0?=
+ =?utf-8?B?cjVOQVg4QjVyQW1tMzRJcytGQ3h5Yk5GaEhiOWJ3c21rcGNIM2pFellySlNY?=
+ =?utf-8?B?T1cwaTR0VkF6Qzc0WkdwdHhGOUlEWG1qc3JoYm5peDJ2RmQyY3pHMlBzZlJL?=
+ =?utf-8?B?SzUwMk5QcC9pV2lqYnBYRXdSZjdKbXZGZktNaXdEU3o2TkhmbWpHNXFiVEtG?=
+ =?utf-8?B?bmtKbE4ydWZ2RS9OOHpLR1hyYXlmYUlZa0VDNWM1eERPV2x5aUFESEl5bGVM?=
+ =?utf-8?B?a25OVnpvQ3lidjJMRzF2djdvVEc0V2lWbDhUOE9udFQyUHhUSXd2VURRcUh6?=
+ =?utf-8?Q?lDeQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec21fd4e-a325-4839-49d8-08d9bb4840c8
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8c478ee-82c9-4bf3-c5a3-08d9bb48fa5d
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 19:15:25.0245 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 19:20:36.3130 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TMz2LhajTHVOmsJ8HU7hNRn/R6BYKYHejGTRGqxwJLHr3FMPqL4aqBlzEFy7WcgF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5566
+X-MS-Exchange-CrossTenant-UserPrincipalName: JXWZ59CD8F9Bg87sysKIj1VS3Dwrpmbuycx0PAJfcV3nNzaGcGnGhnd5TTwnAHet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5181
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,130 +145,76 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
     <div class="moz-cite-prefix">On 2021-12-08 7:03 p.m., Felix Kuehling
       wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:20211209000340.974954-1-Felix.Kuehling@amd.com">
-      <pre class="moz-quote-pre" wrap="">There are seven list_heads in struct svm_range: list, update_list,
-remove_list, insert_list, svm_bo_list, deferred_list, child_list. This
-patch and the next one remove two of them that are redundant.
+    <blockquote type="cite" cite="mid:20211209000340.974954-2-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">The remove_list head was only used for keeping track of existing ranges
+that are to be removed from the svms-&gt;list. The update_list was used for
+new or existing ranges that need updated attributes. These two cases are
+mutually exclusive (i.e. the same range will never be on both lists).
+Therefore we can use the update_list head to track the remove_list and
+save another 16 bytes in the svm_range struct.
 
-The insert_list head was only used for new ranges that are not on the
-svms-&gt;list yet. So we can use that list head for keeping track of
-new ranges before they get added, and use list_move_tail to move them
-to the svms-&gt;list when ready.
-</pre>
+Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a></pre>
     </blockquote>
-    <p>prange-&gt;insert_list was added to handle rollback case if
-      migration failed, to avoid insert_list is corrupted, now this is
-      not needed as we changed rollback logic.<br>
-    </p>
-    <p>Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a><br>
-    </p>
-    <blockquote type="cite" cite="mid:20211209000340.974954-1-Felix.Kuehling@amd.com">
+    <p>one nit-pick below.</p>
+    <p>Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a></p>
+    <blockquote type="cite" cite="mid:20211209000340.974954-2-Felix.Kuehling@amd.com">
       <pre class="moz-quote-pre" wrap="">
-Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 17 ++++++++---------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h |  2 --
- 2 files changed, 8 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 ++---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h | 2 --
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index c178d56361d6..dea7c6236be5 100644
+index dea7c6236be5..ee7e1eb7394a 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -107,7 +107,7 @@ static void svm_range_add_to_svms(struct svm_range *prange)
- 	pr_debug(&quot;svms 0x%p prange 0x%p [0x%lx 0x%lx]\n&quot;, prange-&gt;svms,
- 		 prange, prange-&gt;start, prange-&gt;last);
- 
--	list_add_tail(&amp;prange-&gt;list, &amp;prange-&gt;svms-&gt;list);
-+	list_move_tail(&amp;prange-&gt;list, &amp;prange-&gt;svms-&gt;list);
- 	prange-&gt;it_node.start = prange-&gt;start;
- 	prange-&gt;it_node.last = prange-&gt;last;
- 	interval_tree_insert(&amp;prange-&gt;it_node, &amp;prange-&gt;svms-&gt;objects);
-@@ -296,7 +296,6 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+@@ -295,7 +295,6 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+ 	prange-&gt;last = last;
  	INIT_LIST_HEAD(&amp;prange-&gt;list);
  	INIT_LIST_HEAD(&amp;prange-&gt;update_list);
- 	INIT_LIST_HEAD(&amp;prange-&gt;remove_list);
--	INIT_LIST_HEAD(&amp;prange-&gt;insert_list);
+-	INIT_LIST_HEAD(&amp;prange-&gt;remove_list);
  	INIT_LIST_HEAD(&amp;prange-&gt;svm_bo_list);
  	INIT_LIST_HEAD(&amp;prange-&gt;deferred_list);
  	INIT_LIST_HEAD(&amp;prange-&gt;child_list);
-@@ -995,7 +994,7 @@ svm_range_split_tail(struct svm_range *prange,
- 	int r = svm_range_split(prange, prange-&gt;start, new_last, &amp;tail);
- 
- 	if (!r)
--		list_add(&amp;tail-&gt;insert_list, insert_list);
-+		list_add(&amp;tail-&gt;list, insert_list);
- 	return r;
- }
- 
-@@ -1007,7 +1006,7 @@ svm_range_split_head(struct svm_range *prange,
- 	int r = svm_range_split(prange, new_start, prange-&gt;last, &amp;head);
- 
- 	if (!r)
--		list_add(&amp;head-&gt;insert_list, insert_list);
-+		list_add(&amp;head-&gt;list, insert_list);
- 	return r;
- }
- 
-@@ -1880,7 +1879,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 			}
- 
- 			list_add(&amp;old-&gt;remove_list, remove_list);
--			list_add(&amp;prange-&gt;insert_list, insert_list);
-+			list_add(&amp;prange-&gt;list, insert_list);
- 			list_add(&amp;prange-&gt;update_list, update_list);
- 
- 			if (node-&gt;start &lt; start) {
-@@ -1912,7 +1911,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+@@ -1878,7 +1877,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
  				goto out;
  			}
  
--			list_add(&amp;prange-&gt;insert_list, insert_list);
-+			list_add(&amp;prange-&gt;list, insert_list);
+-			list_add(&amp;old-&gt;remove_list, remove_list);
++			list_add(&amp;old-&gt;update_list, remove_list);
+ 			list_add(&amp;prange-&gt;list, insert_list);
  			list_add(&amp;prange-&gt;update_list, update_list);
- 		}
  
-@@ -1927,13 +1926,13 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 			r = -ENOMEM;
- 			goto out;
- 		}
--		list_add(&amp;prange-&gt;insert_list, insert_list);
-+		list_add(&amp;prange-&gt;list, insert_list);
- 		list_add(&amp;prange-&gt;update_list, update_list);
+@@ -3225,7 +3224,7 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 		/* TODO: unmap ranges from GPU that lost access */
  	}
- 
- out:
- 	if (r)
--		list_for_each_entry_safe(prange, tmp, insert_list, insert_list)
-+		list_for_each_entry_safe(prange, tmp, insert_list, list)
- 			svm_range_free(prange);
- 
- 	return r;
-@@ -3217,7 +3216,7 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
- 		goto out;
- 	}
- 	/* Apply changes as a transaction */
--	list_for_each_entry_safe(prange, next, &amp;insert_list, insert_list) {
-+	list_for_each_entry_safe(prange, next, &amp;insert_list, list) {
- 		svm_range_add_to_svms(prange);
- 		svm_range_add_notifier_locked(mm, prange);
- 	}
+ 	list_for_each_entry_safe(prange, next, &amp;remove_list,
+-				remove_list) {
++				update_list) {</pre>
+    </blockquote>
+    This line can be combined with previous line.<br>
+    <blockquote type="cite" cite="mid:20211209000340.974954-2-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+ 		pr_debug(&quot;unlink old 0x%p prange 0x%p [0x%lx 0x%lx]\n&quot;,
+ 			 prange-&gt;svms, prange, prange-&gt;start,
+ 			 prange-&gt;last);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 6dc91c33e80f..c3738bd35a3e 100644
+index c3738bd35a3e..5edbd7dccad0 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -76,7 +76,6 @@ struct svm_work_list_item {
+@@ -75,7 +75,6 @@ struct svm_work_list_item {
+  *              aligned, page size is (last - start + 1)
   * @list:       link list node, used to scan all ranges of svms
   * @update_list:link list node used to add to update_list
-  * @remove_list:link list node used to add to remove list
-- * @insert_list:link list node used to add to insert list
+- * @remove_list:link list node used to add to remove list
   * @mapping:    bo_va mapping structure to create and update GPU page table
   * @npages:     number of pages
   * @dma_addr:   dma mapping address on each GPU for system memory physical page
-@@ -113,7 +112,6 @@ struct svm_range {
+@@ -111,7 +110,6 @@ struct svm_range {
+ 	struct interval_tree_node	it_node;
  	struct list_head		list;
  	struct list_head		update_list;
- 	struct list_head		remove_list;
--	struct list_head		insert_list;
+-	struct list_head		remove_list;
  	uint64_t			npages;
  	dma_addr_t			*dma_addr[MAX_GPU_INSTANCE];
  	struct ttm_resource		*ttm_res;
