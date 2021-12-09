@@ -4,40 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E2A1C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9553C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566FD10E3C7;
-	Thu,  9 Dec 2021 16:55:37 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 42F0289CDD;
- Thu,  9 Dec 2021 16:46:47 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 0BF772020C7;
- Thu,  9 Dec 2021 17:46:46 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id a9ZTL7EtT3jl; Thu,  9 Dec 2021 17:46:45 +0100 (CET)
-Received: from kaveri (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 26FC82020B9;
- Thu,  9 Dec 2021 17:46:45 +0100 (CET)
-Received: from daenzer by kaveri with local (Exim 4.95)
- (envelope-from <michel@daenzer.net>) id 1mvMZA-006nzx-K3;
- Thu, 09 Dec 2021 17:46:44 +0100
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 1/2] drm/amd/display: Reduce stack size for
- dml31_ModeSupportAndSystemConfigurationFull
-Date: Thu,  9 Dec 2021 17:46:43 +0100
-Message-Id: <20211209164644.1622152-1-michel@daenzer.net>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6D010F614;
+	Thu,  9 Dec 2021 16:55:40 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6752910E116
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 16:48:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V1c+v0JoSXDS2HuiolxZ5tu45ZqzYVQjY3niEluUpM4i4qUlntM/tYP2mmgUVRFj2f0IhlIdwkJor1pi+rbNnm3NGjczJBULj1d//aaP6HzEYixfosYh18r0SgH1GVnAfrpEjyxOM3218664Io46xWzMMN1ssOlSkKNlvS5obDDI7DyB/7qzibtC8Lpb3y5wpOYAR9ZANz3Za+r3Q2HBzNMadzGsw6tNRgVxehBjUCHBUmLdUvmlf+IbaDI0iwbp1G9cPUDp2Xn29UXosXoU8LqWESzlEmtTOigJG1DbWayUHWUjqaRizHBXH+Rp9O0E/eMQVSQTNQOMmhUdsPovUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d6gSnvuLoC2XaUuG0nUES4wG1K1MDhkA2oSDPCibeOo=;
+ b=j5fRkIjhj1+/zt4CTulSyM6Yye9+D+4QM0bTwUkSGUSucgiww1dxrxbSZVB363Qbj+92iQ0PVHQiOciZjT2zxzxYMcb+R/e4hYbFgOV0O//b7dgvaN6k+3Ti4I9v+88oy4GX8pWRiqZUvRY02P8BKWUsP7I/pkaAXkXzDqwC7IBOmrFk/H//DFyDmBIpOwIK6sxKhID5V89kozjKgj/qcvtJIgmLBprv0aYNhBaRxhe7P8gYnLXNDhlr4oJ7++6NHJM4td+yxG4B+rjafVfe7qFbJ5mVkSwTfb+tGPjlmNn1XJERIMi9TPM01dY+L1Wrkw2ifzKJ8OoIfiAsu4y3qA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d6gSnvuLoC2XaUuG0nUES4wG1K1MDhkA2oSDPCibeOo=;
+ b=RHWNKPj/2t+3mJk6wj7bLU+cuIAidpApr3+NX2V+mB2ZSdAGVQuH33ixPjtOvx+NKXpP33iFOhFnj/ZsDOIJMvhSVV99m3i6aTblH+3iyH8/eQO2JzNWsScbFK2QoAzw7zxr0vczpj/TRWcYrhGUGGZUj4sE5YwYDyyGgb+lsaQ=
+Received: from DM5PR06CA0041.namprd06.prod.outlook.com (2603:10b6:3:5d::27) by
+ DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4734.23; Thu, 9 Dec 2021 16:48:22 +0000
+Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:5d:cafe::bf) by DM5PR06CA0041.outlook.office365.com
+ (2603:10b6:3:5d::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.12 via Frontend
+ Transport; Thu, 9 Dec 2021 16:48:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 16:48:22 +0000
+Received: from sriov-scm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 9 Dec
+ 2021 10:48:22 -0600
+From: Victor Skvortsov <victor.skvortsov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/2] drm/amdgpu: Reserve Bad pages early for SRIOV VF
+Date: Thu, 9 Dec 2021 16:48:09 +0000
+Message-ID: <20211209164809.504378-2-victor.skvortsov@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211209164809.504378-1-victor.skvortsov@amd.com>
+References: <20211209164809.504378-1-victor.skvortsov@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 023acd9e-5549-4290-6048-08d9bb33b67c
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5182:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5182226B717C697D240D1FBD8B709@DM4PR12MB5182.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: M7ixbOed8IXopZh/GLflqi+k6AMJ/bVH5MpsIEM6/2h6cdNc+kviII0lw3++hVxHmAgyWewynDtYchZm9rHnQm4mLLx4GBRu0kdVXesxBzbNZHg4Vpo2aOsobxWhnod1hqusxy2cCMI2KbKqU0ed9TyP7VXu4iEyzG7QIfIbTNQM/b6lcCUdcxdgF5wNAb7dJV+IhvMXwFFhcqVsWgOBCxTeXMeYl1cAlWkpU21OBJ7AM6Rm6W2NlM76C0Qu9fwre3E5KsZrlGncEMdaJ9lvXwqU03aRNUPPrGcK690JuveGN3PsLYe+P3/H/ATFtRAdJ5D/6wsld2pHyXiBh239EaYLNEeehAWPJSnGGnGlsUTgZp5y+AAFAMukjorr2c88mXEEBM7m72YqVufGhDFWudVkcXTrm6Qt6X5uDPgsjVAGtCU4mQQMP5p3e9DnsV+wqub82l2YlV6f/4An/etAVVBcJg/Qw0VFjvHIWKUmcGUxMqTLG0VYkojK95u4fX0uvV9R3VIY5SVyXeXdilArR99PhidVt4ME17hCf0phFjLJhsa7cIu7t6wyJym1kmXeIZA+it8lishxu2GMh+FLPj1phfLyHQ8e1fkiNwKFS1y5zoiDXdZmg/as7/3wP+Ge6nHhvZQpX2jqSy40A0HNXFbfHcDIxA/OuqJCgID3+L/v/zih7t2nfZuuq62SkoTF3MP/sTd5/WSm83eBsrBmm1v0aHa+e0r7E/O5NpQj8GSY4rBoRqABfXCF1txrXYiEFq/K84thTZq+WII1GauBAXBV1xwBDUE0VgO5u1uLnaQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(1076003)(4326008)(8936002)(2906002)(8676002)(86362001)(4744005)(336012)(6666004)(81166007)(508600001)(6916009)(83380400001)(36756003)(47076005)(82310400004)(44832011)(26005)(70206006)(2616005)(426003)(36860700001)(40460700001)(356005)(70586007)(7696005)(316002)(5660300002)(16526019)(186003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 16:48:22.7893 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 023acd9e-5549-4290-6048-08d9bb33b67c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5182
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,239 +101,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Victor Skvortsov <victor.skvortsov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michel Dänzer <mdaenzer@redhat.com>
+Add a pf-vf exchange right after GMC sw init in
+order to reserve bad pages as early as possible
 
-Move code using the Pipe struct to a new helper function.
-
-Works around[0] this warning (resulting in failure to build a RHEL debug
-kernel with Werror enabled):
-
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c: In function ‘dml31_ModeSupportAndSystemConfigurationFull’:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:5740:1: warning: the frame size of 2144 bytes is larger than 2048 bytes [-Wframe-larger-than=]
-
-The culprit seems to be the Pipe struct, so pull the relevant block out
-into its own sub-function. (This is porting
-a62427ef9b55 "drm/amd/display: Reduce stack size for dml21_ModeSupportAndSystemConfigurationFull"
-from dml31 to dml21)
-
-[0] AFAICT this doesn't actually reduce the total amount of stack which
-can be used, just moves some of it from
-dml31_ModeSupportAndSystemConfigurationFull to the new helper function,
-so the former happens to no longer exceed the limit for a single
-function.
-
-Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
 ---
- .../dc/dml/dcn31/display_mode_vba_31.c        | 185 ++++++++++--------
- 1 file changed, 99 insertions(+), 86 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-index 7e937bdcea00..8965f9af9d0a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-@@ -3949,6 +3949,102 @@ static double TruncToValidBPP(
- 	return BPP_INVALID;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 3992c4086d26..a146a55c9864 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2315,6 +2315,9 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
  
-+static noinline void CalculatePrefetchSchedulePerPlane(
-+		struct display_mode_lib *mode_lib,
-+		double HostVMInefficiencyFactor,
-+		int i,
-+		unsigned j,
-+		unsigned k)
-+{
-+	struct vba_vars_st *v = &mode_lib->vba;
-+	Pipe myPipe;
+ 		/* need to do gmc hw init early so we can allocate gpu mem */
+ 		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) {
++			if (amdgpu_sriov_vf(adev))
++				amdgpu_virt_exchange_data(adev);
 +
-+	myPipe.DPPCLK = v->RequiredDPPCLK[i][j][k];
-+	myPipe.DISPCLK = v->RequiredDISPCLK[i][j];
-+	myPipe.PixelClock = v->PixelClock[k];
-+	myPipe.DCFCLKDeepSleep = v->ProjectedDCFCLKDeepSleep[i][j];
-+	myPipe.DPPPerPlane = v->NoOfDPP[i][j][k];
-+	myPipe.ScalerEnabled = v->ScalerEnabled[k];
-+	myPipe.SourceScan = v->SourceScan[k];
-+	myPipe.BlockWidth256BytesY = v->Read256BlockWidthY[k];
-+	myPipe.BlockHeight256BytesY = v->Read256BlockHeightY[k];
-+	myPipe.BlockWidth256BytesC = v->Read256BlockWidthC[k];
-+	myPipe.BlockHeight256BytesC = v->Read256BlockHeightC[k];
-+	myPipe.InterlaceEnable = v->Interlace[k];
-+	myPipe.NumberOfCursors = v->NumberOfCursors[k];
-+	myPipe.VBlank = v->VTotal[k] - v->VActive[k];
-+	myPipe.HTotal = v->HTotal[k];
-+	myPipe.DCCEnable = v->DCCEnable[k];
-+	myPipe.ODMCombineIsEnabled = v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_4to1
-+		|| v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1;
-+	myPipe.SourcePixelFormat = v->SourcePixelFormat[k];
-+	myPipe.BytePerPixelY = v->BytePerPixelY[k];
-+	myPipe.BytePerPixelC = v->BytePerPixelC[k];
-+	myPipe.ProgressiveToInterlaceUnitInOPP = v->ProgressiveToInterlaceUnitInOPP;
-+	v->NoTimeForPrefetch[i][j][k] = CalculatePrefetchSchedule(
-+		mode_lib,
-+		HostVMInefficiencyFactor,
-+		&myPipe,
-+		v->DSCDelayPerState[i][k],
-+		v->DPPCLKDelaySubtotal + v->DPPCLKDelayCNVCFormater,
-+		v->DPPCLKDelaySCL,
-+		v->DPPCLKDelaySCLLBOnly,
-+		v->DPPCLKDelayCNVCCursor,
-+		v->DISPCLKDelaySubtotal,
-+		v->SwathWidthYThisState[k] / v->HRatio[k],
-+		v->OutputFormat[k],
-+		v->MaxInterDCNTileRepeaters,
-+		dml_min(v->MaxVStartup, v->MaximumVStartup[i][j][k]),
-+		v->MaximumVStartup[i][j][k],
-+		v->GPUVMMaxPageTableLevels,
-+		v->GPUVMEnable,
-+		v->HostVMEnable,
-+		v->HostVMMaxNonCachedPageTableLevels,
-+		v->HostVMMinPageSize,
-+		v->DynamicMetadataEnable[k],
-+		v->DynamicMetadataVMEnabled,
-+		v->DynamicMetadataLinesBeforeActiveRequired[k],
-+		v->DynamicMetadataTransmittedBytes[k],
-+		v->UrgLatency[i],
-+		v->ExtraLatency,
-+		v->TimeCalc,
-+		v->PDEAndMetaPTEBytesPerFrame[i][j][k],
-+		v->MetaRowBytes[i][j][k],
-+		v->DPTEBytesPerRow[i][j][k],
-+		v->PrefetchLinesY[i][j][k],
-+		v->SwathWidthYThisState[k],
-+		v->PrefillY[k],
-+		v->MaxNumSwY[k],
-+		v->PrefetchLinesC[i][j][k],
-+		v->SwathWidthCThisState[k],
-+		v->PrefillC[k],
-+		v->MaxNumSwC[k],
-+		v->swath_width_luma_ub_this_state[k],
-+		v->swath_width_chroma_ub_this_state[k],
-+		v->SwathHeightYThisState[k],
-+		v->SwathHeightCThisState[k],
-+		v->TWait,
-+		&v->DSTXAfterScaler[k],
-+		&v->DSTYAfterScaler[k],
-+		&v->LineTimesForPrefetch[k],
-+		&v->PrefetchBW[k],
-+		&v->LinesForMetaPTE[k],
-+		&v->LinesForMetaAndDPTERow[k],
-+		&v->VRatioPreY[i][j][k],
-+		&v->VRatioPreC[i][j][k],
-+		&v->RequiredPrefetchPixelDataBWLuma[i][j][k],
-+		&v->RequiredPrefetchPixelDataBWChroma[i][j][k],
-+		&v->NoTimeForDynamicMetadata[i][j][k],
-+		&v->Tno_bw[k],
-+		&v->prefetch_vmrow_bw[k],
-+		&v->dummy7[k],
-+		&v->dummy8[k],
-+		&v->dummy13[k],
-+		&v->VUpdateOffsetPix[k],
-+		&v->VUpdateWidthPix[k],
-+		&v->VReadyOffsetPix[k]);
-+}
-+
- void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
- {
- 	struct vba_vars_st *v = &mode_lib->vba;
-@@ -5276,92 +5372,9 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 						v->SREnterPlusExitTime);
- 
- 				for (k = 0; k < v->NumberOfActivePlanes; k++) {
--					Pipe myPipe;
--
--					myPipe.DPPCLK = v->RequiredDPPCLK[i][j][k];
--					myPipe.DISPCLK = v->RequiredDISPCLK[i][j];
--					myPipe.PixelClock = v->PixelClock[k];
--					myPipe.DCFCLKDeepSleep = v->ProjectedDCFCLKDeepSleep[i][j];
--					myPipe.DPPPerPlane = v->NoOfDPP[i][j][k];
--					myPipe.ScalerEnabled = v->ScalerEnabled[k];
--					myPipe.SourceScan = v->SourceScan[k];
--					myPipe.BlockWidth256BytesY = v->Read256BlockWidthY[k];
--					myPipe.BlockHeight256BytesY = v->Read256BlockHeightY[k];
--					myPipe.BlockWidth256BytesC = v->Read256BlockWidthC[k];
--					myPipe.BlockHeight256BytesC = v->Read256BlockHeightC[k];
--					myPipe.InterlaceEnable = v->Interlace[k];
--					myPipe.NumberOfCursors = v->NumberOfCursors[k];
--					myPipe.VBlank = v->VTotal[k] - v->VActive[k];
--					myPipe.HTotal = v->HTotal[k];
--					myPipe.DCCEnable = v->DCCEnable[k];
--					myPipe.ODMCombineIsEnabled = v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_4to1
--							|| v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1;
--					myPipe.SourcePixelFormat = v->SourcePixelFormat[k];
--					myPipe.BytePerPixelY = v->BytePerPixelY[k];
--					myPipe.BytePerPixelC = v->BytePerPixelC[k];
--					myPipe.ProgressiveToInterlaceUnitInOPP = v->ProgressiveToInterlaceUnitInOPP;
--					v->NoTimeForPrefetch[i][j][k] = CalculatePrefetchSchedule(
--							mode_lib,
--							HostVMInefficiencyFactor,
--							&myPipe,
--							v->DSCDelayPerState[i][k],
--							v->DPPCLKDelaySubtotal + v->DPPCLKDelayCNVCFormater,
--							v->DPPCLKDelaySCL,
--							v->DPPCLKDelaySCLLBOnly,
--							v->DPPCLKDelayCNVCCursor,
--							v->DISPCLKDelaySubtotal,
--							v->SwathWidthYThisState[k] / v->HRatio[k],
--							v->OutputFormat[k],
--							v->MaxInterDCNTileRepeaters,
--							dml_min(v->MaxVStartup, v->MaximumVStartup[i][j][k]),
--							v->MaximumVStartup[i][j][k],
--							v->GPUVMMaxPageTableLevels,
--							v->GPUVMEnable,
--							v->HostVMEnable,
--							v->HostVMMaxNonCachedPageTableLevels,
--							v->HostVMMinPageSize,
--							v->DynamicMetadataEnable[k],
--							v->DynamicMetadataVMEnabled,
--							v->DynamicMetadataLinesBeforeActiveRequired[k],
--							v->DynamicMetadataTransmittedBytes[k],
--							v->UrgLatency[i],
--							v->ExtraLatency,
--							v->TimeCalc,
--							v->PDEAndMetaPTEBytesPerFrame[i][j][k],
--							v->MetaRowBytes[i][j][k],
--							v->DPTEBytesPerRow[i][j][k],
--							v->PrefetchLinesY[i][j][k],
--							v->SwathWidthYThisState[k],
--							v->PrefillY[k],
--							v->MaxNumSwY[k],
--							v->PrefetchLinesC[i][j][k],
--							v->SwathWidthCThisState[k],
--							v->PrefillC[k],
--							v->MaxNumSwC[k],
--							v->swath_width_luma_ub_this_state[k],
--							v->swath_width_chroma_ub_this_state[k],
--							v->SwathHeightYThisState[k],
--							v->SwathHeightCThisState[k],
--							v->TWait,
--							&v->DSTXAfterScaler[k],
--							&v->DSTYAfterScaler[k],
--							&v->LineTimesForPrefetch[k],
--							&v->PrefetchBW[k],
--							&v->LinesForMetaPTE[k],
--							&v->LinesForMetaAndDPTERow[k],
--							&v->VRatioPreY[i][j][k],
--							&v->VRatioPreC[i][j][k],
--							&v->RequiredPrefetchPixelDataBWLuma[i][j][k],
--							&v->RequiredPrefetchPixelDataBWChroma[i][j][k],
--							&v->NoTimeForDynamicMetadata[i][j][k],
--							&v->Tno_bw[k],
--							&v->prefetch_vmrow_bw[k],
--							&v->dummy7[k],
--							&v->dummy8[k],
--							&v->dummy13[k],
--							&v->VUpdateOffsetPix[k],
--							&v->VUpdateWidthPix[k],
--							&v->VReadyOffsetPix[k]);
-+					CalculatePrefetchSchedulePerPlane(mode_lib,
-+									  HostVMInefficiencyFactor,
-+									  i, j,	k);
- 				}
- 
- 				for (k = 0; k < v->NumberOfActivePlanes; k++) {
+ 			r = amdgpu_device_vram_scratch_init(adev);
+ 			if (r) {
+ 				DRM_ERROR("amdgpu_vram_scratch_init failed %d\n", r);
 -- 
-2.34.1
+2.25.1
 
