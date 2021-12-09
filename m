@@ -4,55 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22ADAC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4409C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEFB510EF57;
-	Thu,  9 Dec 2021 16:55:08 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5FE210E116
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 16:02:00 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- n17-20020a9d64d1000000b00579cf677301so6635198otl.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Dec 2021 08:02:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=V30SLukSq2//sQY295Sane2rkypJRsKCVpvIfJ75ozA=;
- b=AgdXwAK75YYbXJ6lvLsuOZANWK8u5WMBp0hARBVh8JAW3Bim8VO0XaHM7+AgifFGHO
- YMYABU6iWY0VXH5gvGYgyMBZV8Joc/yHM/Rz0ogULD80Pg9EvKzgyX80MHWpPh90Cry4
- pEyOZ9Yo7P80dzDX/Mwb5Y1Gu/306wciRCx6vfOsXH2soznIkSQYdPfd5JMxJCdpko2l
- +nYFbazix5t1mnyFrvPBagX3rr4y9L5auRNw+QvPnzwDzRR3D0kQJRPXtUt2DJG2xT93
- WdtsY0rB3/keAqQFSlxIMPcUIE+bV5pIASRfrsds5zmrURjdDveVexyWL/UUXHQfmqnK
- SQJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=V30SLukSq2//sQY295Sane2rkypJRsKCVpvIfJ75ozA=;
- b=u7lGWxJy9q5e+nC6NHYuPpCsWbGEJr8IOEIBog5IPsrzJLsfDq4vmVeOgGrCJ2315Z
- DLGkidnIhTIyz7odgYj53vZcr72z/qj8fXM0WKDG1LSH8W8g7ePXkNFRmlup3jdtQKAz
- +qjA3ysycoahnYwfXgglaMt97f0vcxUFTqxHtO6lCWiU2AW4UG1T4bo4i8G86lcRv2Or
- NlpVhkCJneN4qsNRNtPC4wb7IAlCWrpbTkBZ4fNo2H4z+7DcQXnxlORwhsBFayQ1gHa3
- AphWvSXX1VI5Tgkf/FppLeAQdqkXDs/ZAf+COUG71otghzG4n3EPhYOGGFWNd9E7muu4
- 2+zg==
-X-Gm-Message-State: AOAM533jxFK7FnESY3sIyQOiGpb2j1AL1kiG3YXZeN2mvgA4h4pLYQiT
- VHmbve+t7GsweUZ7ZI2WdUTWLHZtDEF72AaJqyg=
-X-Google-Smtp-Source: ABdhPJzINeqcnc+qFakbHmikoSfMT0y0BBuQIV8oqyGE34CFa/Rk+99My5wfwk1HJHYkE6JpEyRG5g2y84a6x7ooNdM=
-X-Received: by 2002:a05:6830:1bcf:: with SMTP id
- v15mr6255093ota.200.1639065719716; 
- Thu, 09 Dec 2021 08:01:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B0410F093;
+	Thu,  9 Dec 2021 16:55:16 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0048210E116;
+ Thu,  9 Dec 2021 16:09:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CXJgMPV07fcyPGZRV53ceIweTIn0bPETjkL9FtEtgZ6NbNWgiXzoJKK8SIhheFZl32XXEcL3i8z94Yma1lMWbTwwp3EEHoXOqGD7z6WMdaVE8DWRMMdWDn0TP4VsqINMJKjzLzMkM16kIJ3lDA+rmMiDTPZ+oF2oVlKKL1S7JFOWsf7iJ/uPtevb/xbFnPyPwSycazes7d24eX1XiZpKz68Fu5dt/RoS2phbfgr/Ad7Xe3jHYWiApMp2Wvy2lbu+sGStkPZuk00rog5+/RqIvc+mhwJO1Z+2dcuR800e2OUr7B642maDBGgg+n73bIJAL+sUe6f0ySRQzlcQS7aIqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dIQH8dKpSFLhB+6g7X8O5rMBjVCtA9Mcd/eAtP0sNZc=;
+ b=UG2ylpu0ejkdtQZu8YDU8RkiDnAyknOfGSVjJGizlwsbgXKScdyveRwYYYlMjhaYwsZb49PKsGppX2QSm5Cnm8U9duunZ5wYe4MGFQiduUGjIy/Q4g9s+ksYt/40pSeE5Jhs0ORA0l3qL7FenG7vtSn9rHcQoz+80XZuCbw04IQTY1vogRKJd47C+94RB7Sio3ohO+7OExsg0JVkUJxMlMDVG1DTI67hiV00CG/D9BDLE0mcROkGFiMBgXUkah7JZhFchExXWyHGJIl2DqI8tTuewRadfmDlTQjpKkOhIIvvVBm+JoC7JBTSHagAfAP81UUJ6+vXT35mYUjc0wxe9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dIQH8dKpSFLhB+6g7X8O5rMBjVCtA9Mcd/eAtP0sNZc=;
+ b=BzAUGNbmSldpStLN7oBXUHi6psZ3cbQi+8J2TCNE2LLQZahFtKgFvvMSgkYR03AhS7GFFBy2D43ifL0E7JVMaFs8HE5yAhRqX+evVQOJ5RYrR752m8uwnVfFBNYpyMm2JsOJkXP1m8t6zDAy5MtoLI2SSj424pybOS/sIr9bVLg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MWHPR12MB1342.namprd12.prod.outlook.com
+ (2603:10b6:300:e::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
+ 2021 16:09:53 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4%12]) with mapi id 15.20.4755.024; Thu, 9 Dec 2021
+ 16:09:53 +0000
+Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ linux-fbdev@vger.kernel.org, kexec@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org
+References: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <bb02d57c-d850-b319-9e76-663c0c2f8eed@amd.com>
+Date: Thu, 9 Dec 2021 17:09:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: AM6P195CA0028.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:209:81::41) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-References: <20211209051822.1163450-1-Yuliang.Shi@amd.com>
-In-Reply-To: <20211209051822.1163450-1-Yuliang.Shi@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Dec 2021 11:01:48 -0500
-Message-ID: <CADnq5_MRBPn=5yRY-UrF43vDqnFdNofv-hNhY_885RCyoRM3Fw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix incorrect VCN revision in SRIOV
-To: Leslie Shi <Yuliang.Shi@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from [IPv6:2a02:908:1252:fb60:76cf:54fe:ebe4:b83c]
+ (2a02:908:1252:fb60:76cf:54fe:ebe4:b83c) by
+ AM6P195CA0028.EURP195.PROD.OUTLOOK.COM (2603:10a6:209:81::41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Thu, 9 Dec 2021 16:09:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e9e3eeb9-f6bb-4abd-2b30-08d9bb2e55f5
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1342:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB13427BFAB762F993F784A3E683709@MWHPR12MB1342.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RDbzvSScDPk/9EsXPEXxtn5rKAh7XWcbVWso0X+ZblQ6CsyVUbOouS6jirKkGMQ6XFKLQ0claXSC5LXK01DsISFLJyomeT1gIW+tYci1+OmOaXokJf2GGqmydmd0F8yjJTzZjVYhUg1dOe1i8KkA97yndLshm1lUrJZNhnbLnG+S1U4OnTOayNRrC5u5pMi1OGjOC12Q6NBOiQ/Xu+8tKTDKL7BG6urA8gYkJYjBEXHFPNP4eTStm6m1VImMfUFjWHQe7+FmSnainsPy18zIaFbErGCuxQ8+RZaOm8obbqsFi1gMowtudpmGldETPPwSzXhOsgtvNxjSd35e6xyon/2757uhC3CF28DzXxO3F58OwXJMWkuOgocJMuXGzvKHaobv3yppEBpA76f+e9MMm8mdlfSVwOFWP/BUGPLlImJ8mmr1qmUULab/abg82NosydjQh2k5d46jSAkQU9wD2tXzTzh+N33AEZLAqUgy18qnwuzHZiiRCDdIfNspO8xfnZ3c9JRo63+5wEB3OH2KgpC0Iv7ovh8+2Vl/kWbB6f7b25Cha2KI1xPFYh7EO5B2TjHI+VurpVfGcC6Fagp+0qVNdhXL29i8Uv3NvqBNhLAm3qlaUg+oe1E4pI2uhRgAif9HxICouk3okm8CDh1fbZDj+HtaNNbx6Hek5MApPaKREegWbi7PtZps8xDZx8hEi6soFO7cR1VS/caJkN+g4cXn5r+Km4UgY+AirSOTohTbmt26eyXdjyUjVU/vv2Ws
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66476007)(4326008)(66556008)(8676002)(8936002)(2616005)(508600001)(66946007)(36756003)(7416002)(6666004)(83380400001)(86362001)(31696002)(316002)(2906002)(31686004)(38100700002)(5660300002)(186003)(54906003)(6486002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SktzTW9CTGpXczZGU0NCcjQwWVRTSDVlMnRPeHNGcFVldWZMN2FFcDVNb2Nv?=
+ =?utf-8?B?RTAwcUVtMnl1Mzg2eEJjUEMvOGx3VUdidVMzbGZrVXVlaUJhM3duaEorL0ZJ?=
+ =?utf-8?B?RnNrNUlGS1IrQ1pXdlJjV2JPK2xXVmRIdWdueERoRnl6WDNoemJzOFNZbUdH?=
+ =?utf-8?B?WHcrTzhYY3VvTWVQQWgzbE4vZ3NtU2JQalZobnFMdUZka3MzSWlaUjljc09m?=
+ =?utf-8?B?NGlhbGpwd2psbGxoUVU3dGhsQit3SGp4dTljOFFKQWFMSEpsMlRMWWc4NlU4?=
+ =?utf-8?B?WUROeVhlenRIUkIrd3ZTL0ozbmJhQ0czeWtzZ1llMm9CcEtHck52SEw3emFu?=
+ =?utf-8?B?MmdvR1l1ZFEyMGdzOTBvK1RtVUY4UjVMa0UxcDBWMXdmcWo0bVJLRkhEYXkv?=
+ =?utf-8?B?SVFMcTJVSTJQVWRWOUNRMFRiOVN1TlJ3dkt4c1NEUUR6dUhvcnJkRkxBdDZV?=
+ =?utf-8?B?cElKZ3BWbHZIR3FnU0IxRi8vZ1NJeXVIN1QycWJEUitnb2RvSzNrZVFFL0Ey?=
+ =?utf-8?B?cXh6d2Y3MS9RdUF1L1ljWlNCMmdFY2dOVlp2L0QzcW5ZZEVPUlNvM2lXRlhp?=
+ =?utf-8?B?eVYvU1VEVUhSZ1ViLzdnS1lTTWJUZ1hBSjA1dUhURnRQSk9mT2IxNnM0Tkxl?=
+ =?utf-8?B?dmVVRTdZTUxEVU01MGVFcGdhNStmOGpZNDBFN3E2RFF3U04wQjZxb3IvK3Iz?=
+ =?utf-8?B?YW4vZENjUDBJRTljR09kbFRXcW4yejJKMm5oNi9ydU5VWWlRSGFabHhwS3Jk?=
+ =?utf-8?B?cGxJcVBraHV6YnNZMm51T3ZDSUtUZ0ZKRi9wVEswdHhoTXJORUgvcHFKWDFS?=
+ =?utf-8?B?Nys1Z2NON2FXWjI0MUduS2RBTzZXc3dlbGp1Qjg4bkJlSDRJNE5YbDM5VTQw?=
+ =?utf-8?B?dDNIWjNwdFdLWW01NzlYYzh6YVMzZmRZRzQ0eGdjS0xzUkZIVENHTlFEMVl2?=
+ =?utf-8?B?Smd3QjJyNE44THFMcldUdFdyZW5BeDBhbEs0RUdON3BQRGV1R1AxRXN0WmVF?=
+ =?utf-8?B?UHVrT1Ewd0dJTzhHdWFyc3A1QkFyUDBjT1BUdFU4TnVscEtuZTdsaWJxcWJt?=
+ =?utf-8?B?VDc2ZmtOZldtMGE5aExHam5ObThxUGhPbEprUjVkZEZJWGFkbk4wcmFySWNG?=
+ =?utf-8?B?clV1ZmVnZklqUVZKUUxUWGJuVGRwTytEVEwxdGJlaW05aUQwTEFtQlJvMjkz?=
+ =?utf-8?B?dFo5RmY0MWV2Ukc3UEd1NXdLUHFBQUJ6MFpLdnRJV3V2K3lCQmRRdEtvWTY0?=
+ =?utf-8?B?cWFTWGprd0U5TC91NnYxZW13Nlg3RDJNdGVLVzZrOTR6RC85MUVsb09WaEhO?=
+ =?utf-8?B?dmVQaU9xdXZFUjhabWVST2M0ZndUMy9xQ0draGFvdHVLVnZYOFFVMkY3b0Fa?=
+ =?utf-8?B?TWlpdEhtWjl1NGthMlVrSkJhUVF5SGt0VVVzemIvWE5xeGxiQU1sejAyUVNG?=
+ =?utf-8?B?Ti9hTWxsOFZPLzJiK0xiaS9hZ2FCMERBTEdJK3VKekQrenBSKzV3S3h6VTFs?=
+ =?utf-8?B?aDExcEErOE1yNjRnRFZiN3BEQXg0b0pkR2p6Y3RXN1dOTm1YeVA4MkR1SkRM?=
+ =?utf-8?B?eERxcTZGVHVBZkg4VnhLWFN6eGVtTTZCaTd4TDZ2RWp2dUpCbGRDWUNTdDNK?=
+ =?utf-8?B?ekhkRkQzeDRXYlU4M1hNRXoxOXN1QiswQXdRQTVTSXl5cS9HRm5KTlovMGJW?=
+ =?utf-8?B?UXFwOFl1d3kwbWZySkJIMit1V0NTSU5Qd016N1Y5YVpXSUtzRlUvL3JlaVU4?=
+ =?utf-8?B?alV0MVZ6aHdxMHVrOFRSbFlMOFNNZDBSeGZHbE1DeTZYZFEzbFJvUFRsMkVW?=
+ =?utf-8?B?S1hGRy9YaXpKMUFBVlA2QTVLUFBja1dLMjdyZjZuWVAxbEJ2ZmQxWmIzNEpU?=
+ =?utf-8?B?Z2IrbFRZVVVCTk9GSEZESFA5QXFSaGFEaktkWmFGclVzS2Fhblk1WkcwWUZs?=
+ =?utf-8?B?aFlwOUFIU0lKaHpJMDQ0YkZTOHk2cHZTdXNTMVA1amxIUU00RGpXZXJzcGJ5?=
+ =?utf-8?B?REZ4cmU0UVNpcHBUMWhmQ0cwejJseUZjdkRhN25BQzgydk1VYUlXUDdvckVI?=
+ =?utf-8?B?eFA1U1d5bzJmR2N3NUx0d1A5TUtmbGdlOUxTbElrLzdBNUJsNHh6S0IzRHhO?=
+ =?utf-8?B?WEZXWXJNVnBFbWo2Z0UyZExwNXI0Z1NzUDhjWEtjUDREdGV3ejF2cnRFYTcr?=
+ =?utf-8?Q?9+5g1WZLsQ/wwmmS9TTa/7o=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9e3eeb9-f6bb-4abd-2b30-08d9bb2e55f5
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 16:09:53.6465 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ag49N4Z13oCkQr5Kf9W2CW8i/HQ33D/yfc357i2iykxGRaRSbyK9aT7LvbQ1cF1m
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1342
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,166 +133,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <lijo.lazar@amd.com>, "Chen, Guchun" <guchun.chen@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: kernel@gpiccoli.net, kasong@redhat.com, Baoquan He <bhe@redhat.com>,
+ =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>,
+ Xinhui.Pan@amd.com, dri-devel@lists.freedesktop.org, pjones@redhat.com,
+ kraxel@redhat.com, alexander.deucher@amd.com, Dave Young <dyoung@redhat.com>,
+ Vivek Goyal <vgoyal@redhat.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 9, 2021 at 12:18 AM Leslie Shi <Yuliang.Shi@amd.com> wrote:
->
-> Guest OS will setup VCN instance 1 which is disabled as an enabled instan=
-ce and
-> execute initialization work on it, but this causes VCN ib ring test failu=
-re
-> on the disabled VCN instance during modprobe:
->
-> amdgpu 0000:00:08.0: amdgpu: ring vcn_enc_1.0 uses VM inv eng 5 on hub 1
-> amdgpu 0000:00:08.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test =
-failed on vcn_dec_0 (-110).
-> amdgpu 0000:00:08.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test =
-failed on vcn_enc_0.0 (-110).
-> [drm:amdgpu_device_delayed_init_work_handler [amdgpu]] *ERROR* ib ring te=
-st failed (-110).
->
-> v2: drop amdgpu_discovery_get_vcn_version and rename sriov_config to
-> vcn_config
->
-> Fixes: 36b7d5646476 ("drm/amdgpu: handle SRIOV VCN revision parsing")
-> Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 13 +++----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |  2 --
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 15 ++++-----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |  2 +-
->  4 files changed, 8 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 552031950518..53ff1bbe8bd6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -380,6 +380,9 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_devi=
-ce *adev)
->                                   ip->revision);
->
->                         if (le16_to_cpu(ip->hw_id) =3D=3D VCN_HWID) {
-> +                               adev->vcn.vcn_config[adev->vcn.num_vcn_in=
-st] =3D
-> +                                       ip->revision & 0xc0;
-> +
->                                 if (amdgpu_sriov_vf(adev)) {
+Hi Guilherme,
 
-We can probably just drop the conditional here and just clear the high
-bits for everything.
+Am 09.12.21 um 17:00 schrieb Guilherme G. Piccoli:
+> Hi all, I have a question about the possibility of reusing a framebuffer
+> after a regular (or panic) kexec - my case is with amdgpu (APU, aka, not
+> a separate GPU hardware), but I guess the question is kinda generic
+> hence I've looped most of the lists / people I think does make sense
+> (apologies for duplicates).
+>
+>
+> The context is: we have a hardware that has an amdgpu-controlled device
+> (Vangogh model) and as soon as the machine boots, efifb is providing
+> graphics - I understand the UEFI/GRUB outputs rely in EFI framebuffer as
+> well. As soon amdgpu module is available, kernel loads it and it takes
+> over the GPU, providing graphics. The kexec_file_load syscall allows to
+> pass a valid screen_info structure, so by kexec'ing a new kernel, we
+> have again efifb taking over on boot time, but this time I see nothing
+> in the screen. I've manually blacklisted amdgpu in this new kexec'ed
+> kernel, I'd like to rely in the simple framebuffer - the goal is to have
+> a tiny kernel kexec'ed. I'm using kernel version 5.16.0-rc4.
+>
+> I've done some other experiments, for exemple: I've forced screen_info
+> model to match VLFB, so vesafb took over after the kexec, with the same
+> result. Also noticed that BusMaster bit was off after kexec, in the AMD
+> APU PCIe device, so I've set it on efifb before probe, and finally
+> tested the same things in qemu, with qxl, all with the same result
+> (blank screen).
+> The most interesting result I got (both with amdgpu and qemu/qxl) is
+> that if I blacklist these drivers and let the machine continue using
+> efifb since the beginning, after kexec the efifb is still able to
+> produce graphics.
+>
+> Which then led me to think that likely there's something fundamentally
+> "blocking" the reuse of the simple framebuffer after kexec, like maybe
+> DRM stack is destroying the old framebuffer somehow? What kind of
+> preparation is required at firmware level to make the simple EFI VGA
+> framebuffer work, and could we perform this in a kexec (or "save it"
+> before the amdgpu/qxl drivers take over and reuse later)?
 
-Alex
+unfortunately what you try here will most likely not work easily.
 
->                                         /* SR-IOV modifies each VCN=E2=80=
-=99s revision (uint8)
->                                          * Bit [5:0]: original revision v=
-alue
-> @@ -388,8 +391,6 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_devi=
-ce *adev)
->                                          *     0b10 : encode is disabled
->                                          *     0b01 : decode is disabled
->                                          */
-> -                                       adev->vcn.sriov_config[adev->vcn.=
-num_vcn_inst] =3D
-> -                                               (ip->revision & 0xc0) >> =
-6;
->                                         ip->revision &=3D ~0xc0;
->                                 }
->                                 adev->vcn.num_vcn_inst++;
-> @@ -485,14 +486,6 @@ int amdgpu_discovery_get_ip_version(struct amdgpu_de=
-vice *adev, int hw_id, int n
->         return -EINVAL;
->  }
+During bootup the ASIC is initialized in a VGA compatibility mode by the 
+VBIOS which also allows efifb to display something. And among the first 
+things amdgpu does is to disable this compatibility mode :)
+
+What you need to do to get this working again is to issue a PCIe reset 
+of the GPU and then re-init the ASIC with the VBIOS tables.
+
+Alex should know more details about how to do this.
+
+Regards,
+Christian.
+
 >
-> -
-> -int amdgpu_discovery_get_vcn_version(struct amdgpu_device *adev, int vcn=
-_instance,
-> -                                    int *major, int *minor, int *revisio=
-n)
-> -{
-> -       return amdgpu_discovery_get_ip_version(adev, VCN_HWID,
-> -                                              vcn_instance, major, minor=
-, revision);
-> -}
-> -
->  void amdgpu_discovery_harvest_ip(struct amdgpu_device *adev)
->  {
->         struct binary_header *bhdr;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.h
-> index 0ea029e3b850..14537cec19db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-> @@ -33,8 +33,6 @@ void amdgpu_discovery_harvest_ip(struct amdgpu_device *=
-adev);
->  int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_i=
-d, int number_instance,
->                                      int *major, int *minor, int *revisio=
-n);
+> Any advice is greatly appreciated!
+> Thanks in advance,
 >
-> -int amdgpu_discovery_get_vcn_version(struct amdgpu_device *adev, int vcn=
-_instance,
-> -                                    int *major, int *minor, int *revisio=
-n);
->  int amdgpu_discovery_get_gfx_info(struct amdgpu_device *adev);
->  int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev);
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vcn.c
-> index 2658414c503d..38036cbf6203 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -284,20 +284,13 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
->  bool amdgpu_vcn_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_rin=
-g_type type, uint32_t vcn_instance)
->  {
->         bool ret =3D false;
-> +       int vcn_config =3D adev->vcn.vcn_config[vcn_instance];
->
-> -       int major;
-> -       int minor;
-> -       int revision;
-> -
-> -       /* if cannot find IP data, then this VCN does not exist */
-> -       if (amdgpu_discovery_get_vcn_version(adev, vcn_instance, &major, =
-&minor, &revision) !=3D 0)
-> -               return true;
-> -
-> -       if ((type =3D=3D VCN_ENCODE_RING) && (revision & VCN_BLOCK_ENCODE=
-_DISABLE_MASK)) {
-> +       if ((type =3D=3D VCN_ENCODE_RING) && (vcn_config & VCN_BLOCK_ENCO=
-DE_DISABLE_MASK)) {
->                 ret =3D true;
-> -       } else if ((type =3D=3D VCN_DECODE_RING) && (revision & VCN_BLOCK=
-_DECODE_DISABLE_MASK)) {
-> +       } else if ((type =3D=3D VCN_DECODE_RING) && (vcn_config & VCN_BLO=
-CK_DECODE_DISABLE_MASK)) {
->                 ret =3D true;
-> -       } else if ((type =3D=3D VCN_UNIFIED_RING) && (revision & VCN_BLOC=
-K_QUEUE_DISABLE_MASK)) {
-> +       } else if ((type =3D=3D VCN_UNIFIED_RING) && (vcn_config & VCN_BL=
-OCK_QUEUE_DISABLE_MASK)) {
->                 ret =3D true;
->         }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vcn.h
-> index 938a5ead3f20..5d3728b027d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> @@ -235,7 +235,7 @@ struct amdgpu_vcn {
->
->         uint8_t num_vcn_inst;
->         struct amdgpu_vcn_inst   inst[AMDGPU_MAX_VCN_INSTANCES];
-> -       uint8_t                  sriov_config[AMDGPU_MAX_VCN_INSTANCES];
-> +       uint8_t                  vcn_config[AMDGPU_MAX_VCN_INSTANCES];
->         struct amdgpu_vcn_reg    internal;
->         struct mutex             vcn_pg_lock;
->         struct mutex            vcn1_jpeg1_workaround;
-> --
-> 2.25.1
->
+> Guilherme
+
