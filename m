@@ -4,116 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D1EC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:54:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31288C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 16:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4369B10E22A;
-	Thu,  9 Dec 2021 16:53:06 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2060.outbound.protection.outlook.com [40.107.102.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14B87890C7
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 05:53:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 250B410E4F0;
+	Thu,  9 Dec 2021 16:53:07 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05B0289ABE
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 05:59:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lo4QJctUru6Hny8ShV/+6CcfByBmUYnE1bE1y8418j1pAJ8duuTgCfBnv0FJOZhFgwgHlU3TRE2dves9R+xPPqaAV+71ogZ0ZZ9kCxO4FMcHEm4GFCcOhUsx2/WQMIEpXJq0KnLsQ9RsqMnhyHBT4+RLvaWDvPZX0qXcJKCOGlgRllBPkln8HRG2MCiV2vtmAD8WI83YYFZuo6oqqklPGqEnm8wCabt4k63on4IwDu0W5vAqXtzOiBKK9pTsgDGjYr0qcgf2Xw0xfZladxsqLQFzkFlgJ0lEuuFwnfc/B8kw+zVb8wYquC79Q1Q3V5sicP+P4uaDIRH6JStAfRWX6w==
+ b=mbKEeQiiCDEtCCzf+q+JtRBJzgHgdqgUfCgPTLs2P9r9NACE1ExeGutp7QfKEVH02MUNwxYNKuXOyFjdbiM5ux3iUSxBBNVDjZPr5mhEdpLEP7j+XQDlhb3mmNt+ojL8wX48CtV4fABcyCxiEvNGXqsQos6ZlysKp+vt7Tpid/EmL7mUIGkKFsFajkhN6pCfMKTGPtrdRPK4wTtekRZiU3Ck9lWdlg9xKJx5sMYdDGSKByQX3uobOtHzCXDOJSvlORdStzPlHwl88crERFgLkjjssyANH3K4LnFDcqNj1FqoOe1WWgUuGE/kpNfNUuIfk1GlRGGN8Od63YYl1HM5zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fwfGJYxGKJA0mU7aeMYtZ5rBwbqog2Fx2kCXZkotcaU=;
- b=CUPYWrUckDpiwQgUHdBKP3wZfw1iBZHm2HMqnoVT2wtRcHFhwK/gzZhAEAxdjOcPJ96Ni0lGk2NtmvROAlOobyfaXy4B1Zr8mzHMa+W6Uxk9uOoAwh3ooqcnm2qKkmLzyejDRgE8a75DqTklxJA8Frqay+VvsIQSKqcsuzdG34ke/GE9auPgLdhGnpfBxsr1lgym3/8iFCmLyZA9I1cwJjM29iXYhrnYgg2bPzUgMeTnXXgbQRdTmxAomEQ2X8elcApI3ndAC51GmkY5n2WEGkoM5QFLQzXmnjY5iPAA3hpciCzxEHYslwAdmp9ftR3p9ia+MBKrhF1Z7BT4lTaGsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=DzQeprX6hYXLCCCZKtJF3WzFwbtBRFtrUgcYDP1wzxQ=;
+ b=eX+qc5O2gO+cQoPWVOHEc+pokL7Fw/OFm3awTutysa/ifnQMF/RuiwUmoJ3Nytj/FKleG/Tfq6n8FOaSSCmHfPUB9OswueUebyZEvkS4N0NHuFe69fNBohyeX/wktmNZcReIAN3gIdjoyfQ+LXI9uyBTMtbg5RAOcdwXIJe5euT3yU2NOqApn2AXaZkZeFsofdnBn6u+jGBeZj5wlU0Cz4fxOOTLsopcMXcSFis5cmASvg1agPkGf7fR+c2xWP2gd2v9G4CRHr3KzNwzuV8Ymyl1aPxR+Q1OIKn81JdBhdEOiebUGJUuCgYKHVahIVSk/7ocEJrudu6VYKzEjxRSVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fwfGJYxGKJA0mU7aeMYtZ5rBwbqog2Fx2kCXZkotcaU=;
- b=lUeGcuysaU18OhjzXFf+MMXZvJBtHW6QGIAB5437fWFHzNB1xyD68+fpMd4hP3opovtusBrmZnatGf3MrJfS03cSRazxOHPi+7b9NCMfTOsg0zFPA07/WQ9cLwV/4enbFu6cLNwA+nsEJLl3LT9gqtYhUqREt7Oex2I8PpYXWyM=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5240.namprd12.prod.outlook.com (2603:10b6:208:319::21)
+ bh=DzQeprX6hYXLCCCZKtJF3WzFwbtBRFtrUgcYDP1wzxQ=;
+ b=AgePxjm/Q/0qn4f1eRQyS55v+9kiCkGpQUU1jSmfOVHjoc/ix5/dEgXGlNeSp9BUZdHmZe9KgAQ9SStDz2jOlA4L4rTNLGHUvE7u/cDTvCd9Ul8CqT1oCLmeCRERBEwDFoYm1wgWO62sI7kz4kVux57czavfUUyOh92ZzinBDeQ=
+Received: from BN9PR03CA0647.namprd03.prod.outlook.com (2603:10b6:408:13b::22)
+ by MWHPR12MB1518.namprd12.prod.outlook.com (2603:10b6:301:11::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11; Thu, 9 Dec
- 2021 03:28:36 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f170:3712:b17e:bd65]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f170:3712:b17e:bd65%6]) with mapi id 15.20.4778.013; Thu, 9 Dec 2021
- 03:28:35 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: skip gfx cgpg in the s0ix suspend-resume
-Thread-Topic: [PATCH] drm/amd/pm: skip gfx cgpg in the s0ix suspend-resume
-Thread-Index: AQHX7J9vwpFym18uqkKYYjJ6fe0pC6wpgFu5
-Date: Thu, 9 Dec 2021 03:28:35 +0000
-Message-ID: <BL1PR12MB514434A94141F33C4C265D00F7709@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <1639014681-16853-1-git-send-email-Prike.Liang@amd.com>
-In-Reply-To: <1639014681-16853-1-git-send-email-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-09T03:28:35.104Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 85f6bda8-dc3f-c204-e9f0-a4346068e313
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 305a08dd-42dd-4cf6-1114-08d9bac3fc06
-x-ms-traffictypediagnostic: BL1PR12MB5240:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB524062AF21BC4B5381F8579AF7709@BL1PR12MB5240.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5516;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dgNj/klk1UzxmFEL/2MAAly8jZVRHV589oeqkhIb9zX0co5khb48DMsqyvOo+YVwr5aHM9P6sYdf+VJRtludOEWFa4Dyl3YGGGXWP0oYLi44EeIlCuwK0LrM88blqGAF0qaZcpu0KpX8Hvk+ntSqMje9PTwO4DbQLxfrpXFGyAaNaBf5jt9CFHzg7tCx1Bzjsp1Q3w6SpLBxbnaKtP3J0SH8pWt0zUdU50c7uF2qb4HGM9x9gTQ3mNxYmG6pNnEmFDeHueegOAObblnWpv2NYi3o7VAIionnqcy0moBeXg/iAxLg0ZATvG3xgZZw8utRb3JDtoF+DMEtIiMPjcrzu41HW3BBbKfC4s56hJ8uPyQljmjbFGHjkLsevh9vuFVybp/3Ml5I+X+WaTboYupYuOJP/Bt0gSuYZ89MbgzDLCxtCF7kwnhCY6eZ5S/crEa39MI15R2eoC3hkAqpOVa6Hk862hpoGErxQV0q9zDgm7qgDvcweT7kq3Fr13WEEgne837RgUBL3HFuGlNmjg1jLxVmzyy6rf7BC9As0cuhmg8UjWOamkfiyzB6DJdehgpNNsHvdO2Ij+FWWBcv/ulJfjRmbJEsg8JEtKFJlYCaqZXSIIz5Jic/vb/5chqB+CgFgYFXDaHK2QJglgh1d3bPpNsJuYtzgUZXPYPVZEDN4zy/QXYpnNhlS7B1U7FfcQVORqYxqOcFd7FzFTtn477lXnd+pXSoPFMx+ZXbLbkwRTA=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(122000001)(71200400001)(8676002)(4326008)(83380400001)(19627405001)(38100700002)(8936002)(15650500001)(7696005)(508600001)(26005)(66446008)(76116006)(53546011)(186003)(110136005)(2906002)(38070700005)(5660300002)(66946007)(54906003)(64756008)(66556008)(52536014)(86362001)(66476007)(6506007)(316002)(55016003)(9686003)(33656002)(32563001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EpqHMEUc6bdsn1NaljFNeKUP7rPyvf0gj+rFZHVEQLcWjf2UJPEiQRPTkg7R?=
- =?us-ascii?Q?H7MTow4hvLSEv6IeFZExzN/5Vl9a391uBbPDCtm18bNd6A8WxaTs04chXQd8?=
- =?us-ascii?Q?/Ghpe5jJtvMT6Ivr6UWFMgbSNXuBywRkwV6lBpeEbGwm580xtWupZfZTPRZM?=
- =?us-ascii?Q?cjkHId551HGsRcn7dJ9RvwvrHMRzb8H1ZEYQ5AzsxYWUVPj9d+wqTSLLnDLj?=
- =?us-ascii?Q?GuLjmd6SWmrfnCxIMcLKsgPxDC2mhso5pjXD7nfmI2/Frs+OUKQUY7zea8t0?=
- =?us-ascii?Q?csdi3OlyzI/z+qcIAIA9o4/RIqIRhIYlIzL9497Up8Aa8f5HCMLK+F78Fbzi?=
- =?us-ascii?Q?XZpFyGB9cbD3Vix6eCeGfAEhV9kBL8r1kho0LIlaw8IgfBccXxdGvp15zdUJ?=
- =?us-ascii?Q?ZPnADAnvkGdMOEU3njsqH4G4oHuZ+2CfH+9aZAyPuc7jdL3TZ0oRg20HHtnD?=
- =?us-ascii?Q?73M8LPsv1W9PS5krGSN0X8jqWnPYsrHUfmhEQMLK0cdfygbZlyX7jEmFKxA5?=
- =?us-ascii?Q?T+axThCg2x1f4j4ttdpADouKQJjK6kvp3PFS3mE50skiZ2FuTvpvLhA0QM3F?=
- =?us-ascii?Q?HClQ+XwSnTX3X2LZHPlXGoMUf+Zdga1NVXOLl15O6+NWmlNI+MJkSSibs4Tc?=
- =?us-ascii?Q?VF7UD1QntCvoIBtsXO3wztfvZgZnR4p12C+zkPJLv7nHOY1XIJDETeV2wW/0?=
- =?us-ascii?Q?tXg2GgR0ljiIVAJ3CesYjgJE220as+3UUrkq1FVOfp2vpqhsuaO65JRiFnXL?=
- =?us-ascii?Q?Lfpl91TNxSpG/FqO4Pqka/ZiEyqO+3g4S5YDU21CDVn/G1ths4bKKghtxaSq?=
- =?us-ascii?Q?a5+VTIbXbhmi+WEvCDR8E7cSgsuRJGbNir5RbPAqoepbztFo843L0Zr1XCOR?=
- =?us-ascii?Q?BqJe3FjWhVwiO/zwqRbjwqugGYsyChwfCqwstoTIeY8eVyH2cBTGFWeBNmQ7?=
- =?us-ascii?Q?i2GbSFZNOcIYXEegtWTm2D6KHoyCUEKLh8uPewPDSuaB06XdACfV5zZwda1A?=
- =?us-ascii?Q?FnBfyEiTjnnmAMd23CffYqTgpsF9+06K7O9U7lg6oiU+LueJ+sAPL2vEAXWX?=
- =?us-ascii?Q?taIAHX5GuPH4ACTdMiw9ppZucSR8YDk4hXLG0ON4JxlkU2grYCmQ4054kbuC?=
- =?us-ascii?Q?OBDEZ0chrAgtGzZkAds8b3Y8yfxVcqwUf6+j5BZZOx8L6Fm+7sCGsxAZoMk7?=
- =?us-ascii?Q?drlIT+/hsZ2I1WvX5DcmXaDY8lUL+Q6L3kQOv/3etAPsf+EYW/BZmzmgZfJi?=
- =?us-ascii?Q?eEP6MTrWUBBKqyRADXMABN9HvZunuH//tfg5/M9Z7bG52x35e59B0daqe/bF?=
- =?us-ascii?Q?35jtgtw43FqgladAPQGZI+KwLaiXjIGyl7K1nXbsmeuBB6hb0DK1gdyWG71W?=
- =?us-ascii?Q?0MXr9C+GJAcRfcv1J9XLtPjvVa4itrN73wSfBDwjQqzk/WyGYFR03wZkTghj?=
- =?us-ascii?Q?xPkEVkhlNkUhxMA4UCbATxunLb2mE+QQw1b08isNbUXG2woEci3w/AClb13e?=
- =?us-ascii?Q?UCyJIjFsoZ/8WfrIVftlQdjkK8UnKoC9uzwKjJQhDwSfyOkkpSjMz7ptOW0a?=
- =?us-ascii?Q?l+ikgawmzwuAY0UBxkr737fFVopQiEcwHZL0wcBX5I6+u9cDDDswJoxK4PxN?=
- =?us-ascii?Q?Y8in9jumoJKCquwI+Dhcbbk=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514434A94141F33C4C265D00F7709BL1PR12MB5144namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Thu, 9 Dec
+ 2021 00:04:03 +0000
+Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13b:cafe::fc) by BN9PR03CA0647.outlook.office365.com
+ (2603:10b6:408:13b::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.11 via Frontend
+ Transport; Thu, 9 Dec 2021 00:04:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 00:04:02 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 8 Dec
+ 2021 18:04:02 -0600
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdkfd: Use prange->list head for insert_list
+Date: Wed, 8 Dec 2021 19:03:39 -0500
+Message-ID: <20211209000340.974954-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9dd431ae-d3f2-4a6d-b59b-08d9baa768d0
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1518:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB15184582A9C72C37CB7168D992709@MWHPR12MB1518.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3N6HlMrOFISETh6pDrES2gKbCkkn2Ff5hnDwP+/ZlUp5bESglutSrAlbuw8kpOA9MSpXHP6zXurp7LKguFEFupdlrFn93L36WkjSCRGRfgaiAVUfT47vUmKsXHWFT5hNeRqyo7Z8Mgu+iiota3pJF0NAJk7kfJj3JZ3PDwk4V73Y6XkhKWIch/okaU6azobDDrq5wdIxuK3UVOz6bEHqRnSJDaGGjV9awZZK6Wb2Su5lPabzTeFn3TYnNmYmskMswm4981Thv3C92ZvsIKaYUVCiYIolNn5GDYqfa7ulkA7CHGnF2Gd0gehyBLId9mbpvcJRXvPTTWbeB+/mfXnqymIHxKftqMn6EoUeUYCwSK5cl6wdfHFgZEesc4MPJUOOa26bAoypYalxc5KQmN3BH8GUKoe6xZaUMlrmnTeLd/9OegwnttrHJYSS0Zl+Nf+GNW3+5fTpFNt4BqWyTv31biWeTN2PXaISftxlUln6QqLd1jMIZHyadPpkhzYjenl7+4TWPvwwrcwN/yHP1WaArdsVDJ8YVir7VEo+5Z2DoWN6a2Qp2cOv0m+pgMTshX5Ied355LKr/WV57Aq3IEtIAv/0enKThGc1eSTp4zGgRay64LuwRn87K6NKgNwUVncYp7wNs9Gk1Ms9fShSjQg2ZHzPQXNL+DCNK3SsUEjihAyR40ORYWs8vSqFwTBDuwYGgm3xuyq8WQEzX5iiHkez/LyzedpGE+zkpukyZ8yJNhGWLhVMuB+A5bFjDTmIIUxpvL4AVfkcgqluorwlFEYtn34E28brfNB44zB7ke2mTYA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(70586007)(2906002)(5660300002)(4326008)(86362001)(1076003)(316002)(70206006)(336012)(7696005)(40460700001)(36756003)(8676002)(54906003)(8936002)(356005)(82310400004)(508600001)(26005)(36860700001)(6916009)(47076005)(426003)(2616005)(83380400001)(16526019)(6666004)(81166007)(186003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 305a08dd-42dd-4cf6-1114-08d9bac3fc06
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2021 03:28:35.8343 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QdF4pqd3z/0exS5H5ZxOa4qj9fa9kQmFLzf/Kdq+R4cUMNVkxHTJRXE6jAmm3vtgdCr2bE/HGdkGKBAbpZmAhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5240
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 00:04:02.9980 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dd431ae-d3f2-4a6d-b59b-08d9baa768d0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1518
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,131 +99,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>
+Cc: alex.sierra@amd.com, philip.yang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514434A94141F33C4C265D00F7709BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+There are seven list_heads in struct svm_range: list, update_list,
+remove_list, insert_list, svm_bo_list, deferred_list, child_list. This
+patch and the next one remove two of them that are redundant.
 
-[Public]
+The insert_list head was only used for new ranges that are not on the
+svms->list yet. So we can use that list head for keeping track of
+new ranges before they get added, and use list_move_tail to move them
+to the svms->list when ready.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Liang, Prike <Prike.Liang@amd.com>
-Sent: Wednesday, December 8, 2021 8:51 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
-md.com>; Limonciello, Mario <Mario.Limonciello@amd.com>; Liang, Prike <Prik=
-e.Liang@amd.com>
-Subject: [PATCH] drm/amd/pm: skip gfx cgpg in the s0ix suspend-resume
-
-In the s0ix entry need retain gfx in the gfxoff state,we don't
-disable gfx cgpg in the suspend so there is also needn't enable
-gfx cgpg in the s0ix resume.
-
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 17 ++++++++---------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h |  2 --
+ 2 files changed, 8 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c
-index 5839918..185269f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1607,7 +1607,8 @@ static int smu_resume(void *handle)
-                 return ret;
-         }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index c178d56361d6..dea7c6236be5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -107,7 +107,7 @@ static void svm_range_add_to_svms(struct svm_range *prange)
+ 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms,
+ 		 prange, prange->start, prange->last);
+ 
+-	list_add_tail(&prange->list, &prange->svms->list);
++	list_move_tail(&prange->list, &prange->svms->list);
+ 	prange->it_node.start = prange->start;
+ 	prange->it_node.last = prange->last;
+ 	interval_tree_insert(&prange->it_node, &prange->svms->objects);
+@@ -296,7 +296,6 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+ 	INIT_LIST_HEAD(&prange->list);
+ 	INIT_LIST_HEAD(&prange->update_list);
+ 	INIT_LIST_HEAD(&prange->remove_list);
+-	INIT_LIST_HEAD(&prange->insert_list);
+ 	INIT_LIST_HEAD(&prange->svm_bo_list);
+ 	INIT_LIST_HEAD(&prange->deferred_list);
+ 	INIT_LIST_HEAD(&prange->child_list);
+@@ -995,7 +994,7 @@ svm_range_split_tail(struct svm_range *prange,
+ 	int r = svm_range_split(prange, prange->start, new_last, &tail);
+ 
+ 	if (!r)
+-		list_add(&tail->insert_list, insert_list);
++		list_add(&tail->list, insert_list);
+ 	return r;
+ }
+ 
+@@ -1007,7 +1006,7 @@ svm_range_split_head(struct svm_range *prange,
+ 	int r = svm_range_split(prange, new_start, prange->last, &head);
+ 
+ 	if (!r)
+-		list_add(&head->insert_list, insert_list);
++		list_add(&head->list, insert_list);
+ 	return r;
+ }
+ 
+@@ -1880,7 +1879,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 			}
+ 
+ 			list_add(&old->remove_list, remove_list);
+-			list_add(&prange->insert_list, insert_list);
++			list_add(&prange->list, insert_list);
+ 			list_add(&prange->update_list, update_list);
+ 
+ 			if (node->start < start) {
+@@ -1912,7 +1911,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 				goto out;
+ 			}
+ 
+-			list_add(&prange->insert_list, insert_list);
++			list_add(&prange->list, insert_list);
+ 			list_add(&prange->update_list, update_list);
+ 		}
+ 
+@@ -1927,13 +1926,13 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 			r = -ENOMEM;
+ 			goto out;
+ 		}
+-		list_add(&prange->insert_list, insert_list);
++		list_add(&prange->list, insert_list);
+ 		list_add(&prange->update_list, update_list);
+ 	}
+ 
+ out:
+ 	if (r)
+-		list_for_each_entry_safe(prange, tmp, insert_list, insert_list)
++		list_for_each_entry_safe(prange, tmp, insert_list, list)
+ 			svm_range_free(prange);
+ 
+ 	return r;
+@@ -3217,7 +3216,7 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 		goto out;
+ 	}
+ 	/* Apply changes as a transaction */
+-	list_for_each_entry_safe(prange, next, &insert_list, insert_list) {
++	list_for_each_entry_safe(prange, next, &insert_list, list) {
+ 		svm_range_add_to_svms(prange);
+ 		svm_range_add_notifier_locked(mm, prange);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index 6dc91c33e80f..c3738bd35a3e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -76,7 +76,6 @@ struct svm_work_list_item {
+  * @list:       link list node, used to scan all ranges of svms
+  * @update_list:link list node used to add to update_list
+  * @remove_list:link list node used to add to remove list
+- * @insert_list:link list node used to add to insert list
+  * @mapping:    bo_va mapping structure to create and update GPU page table
+  * @npages:     number of pages
+  * @dma_addr:   dma mapping address on each GPU for system memory physical page
+@@ -113,7 +112,6 @@ struct svm_range {
+ 	struct list_head		list;
+ 	struct list_head		update_list;
+ 	struct list_head		remove_list;
+-	struct list_head		insert_list;
+ 	uint64_t			npages;
+ 	dma_addr_t			*dma_addr[MAX_GPU_INSTANCE];
+ 	struct ttm_resource		*ttm_res;
+-- 
+2.32.0
 
--       if (smu->is_apu)
-+       /* skip gfx cgpg in the s0ix suspend-resume case*/
-+       if (smu->is_apu && !adev->in_s0ix)
-                 smu_set_gfx_cgpg(&adev->smu, true);
-
-         smu->disable_uclk_switch =3D 0;
---
-2.7.4
-
-
---_000_BL1PR12MB514434A94141F33C4C265D00F7709BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liang, Prike &lt;Prik=
-e.Liang@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, December 8, 2021 8:51 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Huang, Ray=
- &lt;Ray.Huang@amd.com&gt;; Limonciello, Mario &lt;Mario.Limonciello@amd.co=
-m&gt;; Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: skip gfx cgpg in the s0ix suspend-resum=
-e</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">In the s0ix entry need retain gfx in the gfxoff st=
-ate,we don't<br>
-disable gfx cgpg in the suspend so there is also needn't enable<br>
-gfx cgpg in the s0ix resume.<br>
-<br>
-Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 ++-<br>
-&nbsp;1 file changed, 2 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c<br>
-index 5839918..185269f 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-@@ -1607,7 +1607,8 @@ static int smu_resume(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;is_apu)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* skip gfx cgpg in the s0ix suspend-=
-resume case*/<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;is_apu &amp;&amp; !adev-&=
-gt;in_s0ix)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu_set_gfx_cgpg(&amp;adev-&gt;smu, true);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;disable_uclk_switc=
-h =3D 0;<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB514434A94141F33C4C265D00F7709BL1PR12MB5144namp_--
