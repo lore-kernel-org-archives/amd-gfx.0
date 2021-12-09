@@ -4,99 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD125C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:01:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCA7C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:01:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 473B610E655;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 459CC10E653;
 	Thu,  9 Dec 2021 16:54:44 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C87C10E121;
- Thu,  9 Dec 2021 14:21:09 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2044.outbound.protection.outlook.com [40.107.212.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A92B89E59
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 15:38:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KSBtAWzf6TCcrATekqeooBeGtDr2uDAOoJLInIj6JoM4vI3loacF4nEdHxYWgdGiH/EXIRcin8s/Ufbx+E7QQfUYicRR3GwQtBVjC32mNNaHEh2WA5PEEc9wj9pTsrUCvPk1l8Qr+SPqYQvN28urI2+SXJ9ZcBsjmwfr/+LrsAanMLSe5r/xYFWE3y3CNogMul9ZYtZKTnML+IVbzlBECkmzgGkaOchGyb9zHS49ZTv5mO3HPnDhHSe0O9ejf5EGyK9WIa7Z+rlERe/xy8b9bHwnpZAquzPNLpeetSfMb5OAZRYbfh5r/jSeUxIReSQl2pEZNQkZqufsfcHd9X+/cg==
+ b=dN4UVIKNYE9e7mwyV9qW2ZdFv5+BXnc1kRWE7oMb31nN7WjY1ln/Cm8KwReXsjWM8GhZcMPOlWfQTVmEVkiJ+GxseTuvYBfC5Ac9eBlE5dejj6q7X+LUJHCwpnpW6L+QDOPzNNATQc6Csmxx7xxJIyGYQdiZfSw45uPVPwMaD04504cmboT56QUnp+q0dPgr2FKNMzEOXgG8SzJA6FPcaeIYkCMV9X1nQkfqKM0+OGbcE0MuJwABSvPw/JcVVijMSqNWmVRmwGjCk+89COUWnJ/KR3kvcgPe+NNiw8zK5xzBE38rgc6OT/tCK6m1DLRt6PCWVgJ9bwCsqt7lVA2Ovw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+mjlovj+UAEX9x+cMvz7GKL6/foenGzy2pc9MGyqZto=;
- b=AD+H29x++V3fdAl8Bsf6VFHEL4W3W3ijHzzYxDDppFPx5omuZyOaw8mJ/XdW8aGhtArqzHKPfxOdzr2qDQ6sCQWXEQOt4CxmPezGhnxSIroMEtvN8uqIyCV2Qtgy/INrA+lk2TCzuwwoGKinWsN/JuqSGMAvKCsHPmnamzwuMP8y8xrLW1RJesOJOzil7XbHQiJPh6dh3ibi3MFm1TqZNLnejf2cx+TFxuVEJW+4dY0UYT6RHSOBZceDFtZiAO6aKFbl6DP8vuH/wKTLzZX1Mhn/nyrWc68jWbnNARaTNNFy9ruTWClUHC/ntT9uRUNHImObosUrFBEI0UEBS+FGiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=emersion.fr smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=jwcRdZxKE8edx0dmdqmz6AwPEpJO4oEkIRn7Ocjc7dQ=;
+ b=OYtpYbf2GOE/GRCS60NLkmeri3v5JXhcGzyDQFWh/meQgSZ8ew3XLAmL8qw9UwN2jpMwXMcHFmgHbhfQEzYR2IOthohK3ffvZxgzGml1uHHNeYQX6NRIWRlzt0dHE1pWCO4G4ecQhkUDN9M/aURwtk3O1ojrPtV0xRH7Xd+jyM/CpobmAV00tatkNZNn1p+5KdvaBxIa6AzNgsiRHDkWQqeEjJO6DY/5FmC55nzau4ESf9KcBcX+xLxbfA64yPuc1K0Ba8iJVsyic23iTyUgnwcFMK+azQ/eNSXE9N4qtfY0kRRlCuatbgifvU3WFMVROZ35s26w8tQG081vHniBQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+mjlovj+UAEX9x+cMvz7GKL6/foenGzy2pc9MGyqZto=;
- b=WHTMxGHYfJ44as6eKh7j11eTK+leWZVvmp1qDIpxH4+SVq73wpotJv4Sx9fd15nBsEsYBFWjj1MOFEEy6pWjZT0UngscMCr1wQO48oDa7MYglpg5W1GQAuthniNfTR1u0L6/j/9op8Y+CV8OfbaLjishQ2KI/orQmg5MLYIVBP8=
-Received: from MWHPR1601CA0023.namprd16.prod.outlook.com
- (2603:10b6:300:da::33) by DM6PR12MB2620.namprd12.prod.outlook.com
- (2603:10b6:5:42::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
- 2021 14:21:06 +0000
-Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:da:cafe::c8) by MWHPR1601CA0023.outlook.office365.com
- (2603:10b6:300:da::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
- Transport; Thu, 9 Dec 2021 14:21:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 14:21:06 +0000
-Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 9 Dec
- 2021 08:21:02 -0600
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: Simon Ser <contact@emersion.fr>, Michel Daenzer <michel@daenzer.net>, "Bas
- Nieuwenhuizen" <bas@basnieuwenhuizen.nl>, Marek Olsak <marek.olsak@amd.com>,
- Roman Gilg <subdiff@gmail.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, "Mark
- Yacoub" <markyacoub@chromium.org>, Sean Paul <seanpaul@chromium.org>, "Pekka
- Paalanen" <ppaalanen@gmail.com>, Yann Dirson <ydirson@free.fr>, Daniel Vetter
- <daniel@ffwll.ch>
-Subject: [PATCH v4 2/6] Documentation/gpu: Document amdgpu_dm_visual_confirm
- debugfs entry
-Date: Thu, 9 Dec 2021 09:20:43 -0500
-Message-ID: <20211209142047.728572-3-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211209142047.728572-1-Rodrigo.Siqueira@amd.com>
-References: <20211209142047.728572-1-Rodrigo.Siqueira@amd.com>
-MIME-Version: 1.0
+ bh=jwcRdZxKE8edx0dmdqmz6AwPEpJO4oEkIRn7Ocjc7dQ=;
+ b=l9YBrLMLuxnkug4VoYVBB2hjzqhlHaeqnW6ZRzi+mtkLyO2dUfPsCRBRRMnvK8Tdsl2PkYvqgQP7abyWOKUZ3u5HkO7G5luwElKjWZDdEIXx34smCrdt07PwzBtGcVZ4uHauTnhWqf51Jn1xb4AB6zhft0Hg/b3HSOgCXuLdx1E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DM5PR12MB1500.namprd12.prod.outlook.com (2603:10b6:4:11::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.21; Thu, 9 Dec 2021 15:38:06 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::2548:bc51:2643:fb7b]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::2548:bc51:2643:fb7b%7]) with mapi id 15.20.4755.025; Thu, 9 Dec 2021
+ 15:38:06 +0000
+Subject: Re: [PATCH 1/2] drm/amdgpu: introduce a kind of halt state for amdgpu
+ device
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Lang Yu <lang.yu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211209084914.261889-1-lang.yu@amd.com>
+ <af6c19e6-fcf4-ac19-637e-1fb47f15f9e6@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <432a38b5-2c56-2b54-4e05-b0a3862ddb2f@amd.com>
+Date: Thu, 9 Dec 2021 10:38:03 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <af6c19e6-fcf4-ac19-637e-1fb47f15f9e6@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
+Content-Language: en-US
+X-ClientProxiedBy: YTOPR0101CA0015.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::28) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
+MIME-Version: 1.0
+Received: from [IPv6:2607:fea8:3edf:49b0:5877:f59b:f2f9:1520]
+ (2607:fea8:3edf:49b0:5877:f59b:f2f9:1520) by
+ YTOPR0101CA0015.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20 via Frontend
+ Transport; Thu, 9 Dec 2021 15:38:05 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59361b9c-4c3a-4fd9-ca3c-08d9bb1f2374
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2620:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB26203846AB4D45B781172EF998709@DM6PR12MB2620.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Office365-Filtering-Correlation-Id: d77c7c65-49e1-4bc7-b423-08d9bb29e4d8
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1500:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB150099F904AA2B794A20AA2DEA709@DM5PR12MB1500.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U9+ql8MemVJHQ1e6TzaCZUnliWsOsNMgq2uBjGc6ckEFKrdYjwguRZKCRb1F4x6ux2kEm1LpCN938bSdPVoG99ITi8Y5DQh+GTjU6XFQdfuZ8fFphi/kXO7uw+v3cv8qF6g5bWiPleKZv3MplV8QzOPJoHMLA61Yn3U7Iy99EwfVFwI8EJpGADNsdD2aorEORlmJjUszNtAj282Z6LOn3aRZyUmbBz+msAQ3MEAxB4qTsdHx7Qw+cctpaCl2lSqw6kXPTZpD0U2GUQwfD17VjwfFD/pZPdjKJ8f+lnrIISbHViL+fZSH0F1677inOpUmwRH9DazAuKUEmiv66yTQJdbfWtNVCYkrR55ofIjkJMZ56a20RMz9wsVXkE8iJvSur1ZaYv5FztZ5K231NKX2AYnkqCNybrPtJqIedNwUjR2j92qCkGswChZk3hi7WUrrFKje9zeP20/v0YWB3D4J5clGMnaYbAYDCIOcNzBysnVEQQ/RwWPxu+Jdy1/O+lDBPaZRTLbTkJRNsR2kn2Lv230pFwVcDYS/ykc0mlxvrPc4E6awQswOjsLXwzGbB0KMQGquOH6xLU96fHthcQJCbgQQNzKSB2K+PeggpHVDOVhA66++mbn4ZJXXlxTRiGEcC9o9IKt7Ppg9l4wqoNi6TpRZ5V/pMKh6eHqC1SWLcbt+aLuV1eLon0uZ0/0hdFRyFtlJIjIjNy00UWgEc/BSDI+xgK3/WqQ4GpBvYYdVah3LmwykzPCKQPZWwE2HgyX77hvOzJD+1mGGCql6QIJjtltP39TYRVIbuShXsjrOTFbwnqzB2J4abUFzLxy/Gmwd
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(356005)(5660300002)(83380400001)(7416002)(26005)(8676002)(81166007)(1076003)(316002)(54906003)(110136005)(36860700001)(70586007)(36756003)(336012)(70206006)(6666004)(8936002)(86362001)(508600001)(426003)(921005)(186003)(82310400004)(2906002)(16526019)(4326008)(2616005)(47076005)(40460700001)(36900700001);
+X-Microsoft-Antispam-Message-Info: loAXiCI+iaAs5nWfLtohXMCp/9ozicqrffngJyzUVqSCQYgIAAEUysWB9TO2AOWpsnW3QLlzGP52wrJiE7bMpIFUXPHp2NQ6bxEg04ZQ0UxAILK9A47B4mFrlIp1YGIfJA9/kF652ULq16WPW6XL1mHruIfn9cAReV1uIlHL5af38nG93IEYw3rAIINFbNuRv/q3R/u3g5c0h5lUjIeFnv1eKqP7MR27TLuS8c10D87gTlbRMsBxYS8YfEKW80PuTBZMtU2SX05tc0jdK2gM5u3lS5ySu6trWtHmr/AT7PwCgglvx67H6zgSzAsLoe0JVFI4EN1KGVfjxPEgxgW3w5ECAn2ydVXMuoKEk+BvQkfE0W3LV02RbKBE4gDUqJMiWueRpUu5dSAms5ROtuMNQcRqY5sh5RrKHqThpOqiPmd8/Q84TLnYesGW05XGs8yLCfh47zPm6KSQjy9etqRczrhNmOgq2fuRVGvq/tkGXQyC/XsWJkhzQolAMgECtjpCKM5KdxDZO2SeAuYu6dMmb6KNiNAsgvpw6upIt+3oiiTh5vTegf96UsIpLhyIuZgfczzTGD+IydI9T3t5FjgZByqTT3a5X+qwm5EMc+KV8C5/8xJqtGgxivss2l8/cKpT4bD0Sjv48izRVT7q1V2fUK8ZeEmk5E+t1rD0lWJGp3p2Bh6WZ+pw9pFG218J59pPA6mLCeYt/09mLTsJgp/z29kmQr+JLd23m624yUPgmw4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(110136005)(6486002)(508600001)(53546011)(186003)(54906003)(8936002)(31686004)(83380400001)(2906002)(66574015)(86362001)(66556008)(66946007)(66476007)(36756003)(8676002)(316002)(5660300002)(44832011)(2616005)(31696002)(38100700002)(4326008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2U4NWxUY3ljQUM4SmtqNVNZQUxiZVNMRmp3RkgxcmZoQXY3QkFMYk5sc3E5?=
+ =?utf-8?B?N2YxRGlIOXkycWx3bWdEcEt3U3R4bDd4YUZsMForT3U0WmhBQUEvS1hFU3VJ?=
+ =?utf-8?B?akMrWUNWcjdSUUJYRzR4L25nTGY0RGJiY2c3UVZRMmxRNmZiNzdIVWdlaW02?=
+ =?utf-8?B?UG03bTdHZ2hWNWgrSHlYWGZoY0V6YWJ6ZnErTjBPdURJZUZVclNEbytZSVoy?=
+ =?utf-8?B?akNPYXRLOHpsMFZoTmxIUjN4cjJWZUVqZjI1d0toTG5qNDM3QVdyUERyR0c4?=
+ =?utf-8?B?V2MxMDlwSFMwcytGUGszZGoxNjVVUHdCZVFIUnRuQm9paFNnU2F2dG5JQkll?=
+ =?utf-8?B?L21qK3pRRzdSN3ZhQXVOU0NsZXRHT3lEeGZiTjVxZVpxWWxGZzFyWm9GYitl?=
+ =?utf-8?B?WVZjRU5vaWZ5YUxIa0VyR2grVnd4ZHJlNUF2anVTckVCZUNuQmVFVEtma3Zn?=
+ =?utf-8?B?cUtuMXNFUWsyaVNDMmsrVG5xUTVRS3BBUHo0elBmZHhNVVJCOWUvQ21zYmVG?=
+ =?utf-8?B?MU9LMzNkd0VuUGtaYmVzQVRXMkRCNURLRVRyV1EzbHBRVGRMRlIwSkJZeUoy?=
+ =?utf-8?B?dEljbW9NdTBYSGVKT3VyUnpZMDE1ZGNaQnlKd2RROHU2ZXJyNCtTY1UvREpT?=
+ =?utf-8?B?RzlzKzgxRjZYRm1EWFFKNXNhb3hJMWhxRXVtdVJEeHZSaU5YaGdUTzlVMm5t?=
+ =?utf-8?B?NmRvVGp0K0IzbE1rOGc2bGJXMHJKSVJBbzdrZ0g2QUxITXNCSG1wQTFBTHBp?=
+ =?utf-8?B?eHhKVUh5c0tYTDJWSmF4S0trZGU5QmYrTVNqYk9abW5lOEN2amVuV0Fyb3Vu?=
+ =?utf-8?B?VHZpaERXRFkxcGV1YTB3MUlJakd2bngyVWtGcmtmNlR0WFRZeDdTSCtUYnR6?=
+ =?utf-8?B?Szg3bHYvL0VaeklMVTRLaUp2TENuY0VlNlRBZzk3QXZ3WnBuVlExaTN0N1ZI?=
+ =?utf-8?B?ZG9ZNm1mdkpYbzdqWUNyWm1janJVR0tDUUxIbkwyUWdoS3U0MEQ2TFdUcXpI?=
+ =?utf-8?B?T284U2ttWUI3ak5hc1lQRXBHejZWTGRCcHl2WWhDVkdvRFhmS0QwZHNwd085?=
+ =?utf-8?B?U2NpTFFEc0RXZ29DMTZwM3JZVXRFK1dzc0s0cmdnT0NuTDBzRGVicmVHSU5i?=
+ =?utf-8?B?aW90WGU5d2k0a2F3cTRESXo3WTlaRUlNTnNKOWgxS2RTY3FKNkh1YmpPSncy?=
+ =?utf-8?B?cWdKaXFvZUMwOEJzbi9pTXJrYTJRK1VRN1RRODcvVWErdFpoWEtEZmw2ZkdF?=
+ =?utf-8?B?SjUwNjFoeUVkK3Q0SDh1cmdtVmkyU09EamV5WXRhRlo0cjFwMU11VktXcnEw?=
+ =?utf-8?B?TGlwc21lUHlmYkxwOGZpeDArT1VRZXk3YUhHZTVWYTQ0MGtvbUxjMnF5Z2pu?=
+ =?utf-8?B?ai9wR3lucWhXR3o5M3NIVnpBcDc4UXlIejB5dUprcVNHUmY0d210cXpQaVBj?=
+ =?utf-8?B?WHhGN1FvWTVqVHhhTWhPdFFubWxVK1dIN0ZuQkdrcXgwSGtzUTc1NStsSkov?=
+ =?utf-8?B?ayt3YjUxbjFZemkzS0o4b3oySDhZc1JUa1JhTlh3OVUzSHQybndNNTYvWWdU?=
+ =?utf-8?B?SXVDRmwrRzFQQ1ZSajFZbGtKS0tVWkRxamVMR24xVitCMTl3cWdkSnczVCtt?=
+ =?utf-8?B?SzFob0R6UmtrYjZtTDJWV3V2ZmZwSURtRW5pbmdybklzTWtxOXM5Q0RtZGJj?=
+ =?utf-8?B?SnFWb1I4Y2N2RFpHNC9TMmZsdVFjemtJYmxDcWpaVmF5NkJVaHdYSUlHaXVw?=
+ =?utf-8?B?MlFzNmZURUs1cXZMbHc5SVNDdi9pN2hKWTRadUpTTHdUVHdOZ05kQ0VxbHNr?=
+ =?utf-8?B?VjltT01xMi9pblQwZ0J0UVAvU3puY1pJNWNsYzZFN2xiRHpWdkRiVjltanlN?=
+ =?utf-8?B?YmtYRDRaWjNlNkN4MUdobHRWQkxsOWl1TGQ2U1d6SUk4RGFYOFBNOUhBdTlU?=
+ =?utf-8?B?RUxJcmZ3cmpXbWxqR21DUFF3c3FLMlVLVDFKUE5iU1J1Sm9pTHR1RUJucnVu?=
+ =?utf-8?B?UGVSODJTYUFZUkgrZWFoN3I3UzJrTnQ4Z1ZUcEJCWkE5Z0wvTm5jMGd5ZFVU?=
+ =?utf-8?B?bGRVT2ZPaER4Y0tnK2xiNXpvTmZQZExhSHUvUlRTRnNhUkVQdFBNRTJOK21F?=
+ =?utf-8?B?K2FqbHBsMXF5WkY0dVlMOUZsUUNETENLTnM0Z1EyY2RibWYxRjZ5M3FTQkpa?=
+ =?utf-8?B?ZWxBekdnd2Y0YVo1bXJLajlvWlBzUTlLakhKazhONmhkVFRYTVVRYVhnVFNo?=
+ =?utf-8?Q?7ZfO6yoEniKn/rMtDCmRDW2hh5ZpKoSpGnWbLKNpnI=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 14:21:06.1330 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59361b9c-4c3a-4fd9-ca3c-08d9bb1f2374
+X-MS-Exchange-CrossTenant-Network-Message-Id: d77c7c65-49e1-4bc7-b423-08d9bb29e4d8
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 15:38:06.0574 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2620
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RZ6FXQ2digFwS2mwx0krRQWqCk4mf05acD1YH+8LJvw6uk6abjP40uhryAC1DMzEopwDUJxvKz7Vs1cTD5ufAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1500
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,64 +135,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, qingqing.zhuo@amd.com, roman.li@amd.com,
- amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com, nicholas.choi@amd.com,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- bhawanpreet.lakha@amd.com, Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Huang Rui <ray.huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Display core provides a feature that makes it easy for users to debug
-Multiple planes by enabling a visual notification at the bottom of each
-plane. This commit introduces how to use such a feature.
 
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- Documentation/gpu/amdgpu/display/dc-debug.rst | 34 ++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+On 2021-12-09 4:00 a.m., Christian König wrote:
+>
+>
+> Am 09.12.21 um 09:49 schrieb Lang Yu:
+>> It is useful to maintain error context when debugging
+>> SW/FW issues. We introduce amdgpu_device_halt() for this
+>> purpose. It will bring hardware to a kind of halt state,
+>> so that no one can touch it any more.
+>>
+>> Compare to a simple hang, the system will keep stable
+>> at least for SSH access. Then it should be trivial to
+>> inspect the hardware state and see what's going on.
+>>
+>> Suggested-by: Christian Koenig <christian.koenig@amd.com>
+>> Suggested-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>> Signed-off-by: Lang Yu <lang.yu@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 39 ++++++++++++++++++++++
+>>   2 files changed, 41 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> index c5cfe2926ca1..3f5f8f62aa5c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> @@ -1317,6 +1317,8 @@ void amdgpu_device_flush_hdp(struct 
+>> amdgpu_device *adev,
+>>   void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
+>>           struct amdgpu_ring *ring);
+>>   +void amdgpu_device_halt(struct amdgpu_device *adev);
+>> +
+>>   /* atpx handler */
+>>   #if defined(CONFIG_VGA_SWITCHEROO)
+>>   void amdgpu_register_atpx_handler(void);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index a1c14466f23d..62216627cc83 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -5634,3 +5634,42 @@ void amdgpu_device_invalidate_hdp(struct 
+>> amdgpu_device *adev,
+>>         amdgpu_asic_invalidate_hdp(adev, ring);
+>>   }
+>> +
+>> +/**
+>> + * amdgpu_device_halt() - bring hardware to some kind of halt state
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + *
+>> + * Bring hardware to some kind of halt state so that no one can 
+>> touch it
+>> + * any more. It will help to maintain error context when error 
+>> occurred.
+>> + * Compare to a simple hang, the system will keep stable at least 
+>> for SSH
+>> + * access. Then it should be trivial to inspect the hardware state and
+>> + * see what's going on. Implemented as following:
+>> + *
+>> + * 1. drm_dev_unplug() makes device inaccessible to user 
+>> space(IOCTLs, etc),
+>> + *    clears all CPU mappings to device, disallows remappings 
+>> through page faults
+>> + * 2. amdgpu_irq_disable_all() disables all interrupts
+>> + * 3. amdgpu_fence_driver_hw_fini() signals all HW fences
+>> + * 4. amdgpu_device_unmap_mmio() clears all MMIO mappings
+>> + * 5. pci_disable_device() and pci_wait_for_pending_transaction()
+>> + *    flush any in flight DMA operations
+>> + * 6. set adev->no_hw_access to true
+>> + */
+>> +void amdgpu_device_halt(struct amdgpu_device *adev)
+>> +{
+>> +    struct pci_dev *pdev = adev->pdev;
+>> +    struct drm_device *ddev = &adev->ddev;
+>> +
+>> +    drm_dev_unplug(ddev);
+>> +
+>> +    amdgpu_irq_disable_all(adev);
+>> +
+>> +    amdgpu_fence_driver_hw_fini(adev);
+>> +
+>> +    amdgpu_device_unmap_mmio(adev);
 
-diff --git a/Documentation/gpu/amdgpu/display/dc-debug.rst b/Documentation/gpu/amdgpu/display/dc-debug.rst
-index bbb8c3fc8eee..532cbbd64863 100644
---- a/Documentation/gpu/amdgpu/display/dc-debug.rst
-+++ b/Documentation/gpu/amdgpu/display/dc-debug.rst
-@@ -1,4 +1,36 @@
-+========================
- Display Core Debug tools
- ========================
- 
--TODO
-+DC Debugfs
-+==========
-+
-+Multiple Planes Debug
-+---------------------
-+
-+If you want to enable or debug multiple planes in a specific user-space
-+application, you can leverage a debug feature named visual confirm. For
-+enabling it, you will need::
-+
-+  echo 1 > /sys/kernel/debug/dri/0/amdgpu_dm_visual_confirm
-+
-+You need to reload your GUI to see the visual confirmation. When the plane
-+configuration changes or a full update occurs there will be a colored bar at
-+the bottom of each hardware plane being drawn on the screen.
-+
-+* The color indicates the format - For example, red is AR24 and green is NV12
-+* The height of the bar indicates the index of the plane
-+* Pipe split can be observed if there are two bars with a difference in height
-+  covering the same plane
-+
-+Consider the video playback case in which a video is played in a specific
-+plane, and the desktop is drawn in another plane. The video plane should
-+feature one or two green bars at the bottom of the video depending on pipe
-+split configuration.
-+
-+* There should **not** be any visual corruption
-+* There should **not** be any underflow or screen flashes
-+* There should **not** be any black screens
-+* There should **not** be any cursor corruption
-+* Multiple plane **may** be briefly disabled during window transitions or
-+  resizing but should come back after the action has finished
--- 
-2.25.1
 
+Note that this one will cause page fault on any subsequent MMIO access 
+(trough registers or by direct VRAM access)
+
+
+>>
+>> +
+>> +    pci_disable_device(pdev);
+>> +    pci_wait_for_pending_transaction(pdev);
+>> +
+>> +    adev->no_hw_access = true;
+>
+> I think we need to reorder this, e.g. set adev->no_hw_access much 
+> earlier for example. Andrey what do you think?
+
+
+Earlier can be ok but at least after the last HW configuration we 
+actaully want to do like disabling IRQs.
+
+Andrey
+
+>
+> Apart from that sounds like the right idea to me.
+>
+> Regards,
+> Christian.
+>
+>> +}
+>
