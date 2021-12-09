@@ -4,42 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F5FDC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2AFCC433F5
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 966A710FB58;
-	Thu,  9 Dec 2021 16:55:54 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.180])
- by gabe.freedesktop.org (Postfix) with ESMTP id 425CE89CDB;
- Thu,  9 Dec 2021 16:46:47 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 37CC62020B9;
- Thu,  9 Dec 2021 17:46:46 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id Tq8NWqNYIXA2; Thu,  9 Dec 2021 17:46:45 +0100 (CET)
-Received: from kaveri (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPA id 361EF2020C2;
- Thu,  9 Dec 2021 17:46:45 +0100 (CET)
-Received: from daenzer by kaveri with local (Exim 4.95)
- (envelope-from <michel@daenzer.net>) id 1mvMZA-006o00-LE;
- Thu, 09 Dec 2021 17:46:44 +0100
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 2/2] drm/amd/display: Reduce stack size for dml31
- UseMinimumDCFCLK
-Date: Thu,  9 Dec 2021 17:46:44 +0100
-Message-Id: <20211209164644.1622152-2-michel@daenzer.net>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20211209164644.1622152-1-michel@daenzer.net>
-References: <20211209164644.1622152-1-michel@daenzer.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31F0A10FB62;
+	Thu,  9 Dec 2021 16:55:55 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B11C10E116
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 16:48:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qqgql2DWCrNO3i2hXBVpIM38YEQSt8c3be5RtiL3ma1W9BJwKPSHKLmr6j+wC7hpKbauHeFpcL0ip8GlF2BFPqZDWWAleF0CxzeoBVtc/Ts/gj083A832lopGXhoRpdqYwLdyNdUSRD2oCrnS1C+HUB9uUlG1tLfRJTzmsyrJibTzCsj8q+a8bYzn1elCYa6AAdKOB+vSpIcaoJdWDa17fcYK3Le1DUNxba7PsHfxASw5ITv77Qrso6lJezA0rv5bCL01m9cluuhf8t0yCAJHR4qqvBf0OHrjwxf14DUK6Cj05qFLHRB4V1++YugkcaXN9f4eyt2fzA1j9TPjl+epg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FALiHg/DkKW/WX2jeVk9otZRp5vQGkNZp+NwscFHiHk=;
+ b=RWB0oGu6Vyyo/dU/FAKM0XtXG6lmNiDP+LF2sQm2oy1qUxQ4FX5c5ZLd8xk/dmwRhDH6vZ+fGVZIAB8yCqKTDVQiGDjVetg0qXnGr+rW/Vm5Ib1KvIWzaHpYhkLvysY2FxGKk+ccHXmp2zwVr9XM9uhjw1GYKnteTjH737yCOJpj9Nn6misUw573PhioOffQpzfbpWdUr6vzzhWXlVnzLx2pRcG/YnDt5rn5SbxcU5g04liPFOjSWCiazAprMfvbhfEZ4+ydCm9Id8j45O37S7H+F0MpUUX7YZx5TaOhyyI3LVLVsVO8vU5Zo3EkJ+f6r/wLCYVF/5pYJyufjcEjLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FALiHg/DkKW/WX2jeVk9otZRp5vQGkNZp+NwscFHiHk=;
+ b=wKNA52W63q0XmS0g0oJpctxe0w0YgN8uoK0vwkfO+R5FdPhRgLWYY8j8MqGdUjDmfnyEBcr8cA0uWw05PXeRWEZSxR9m/hdR1CjOV+Kxzz4VuqQK4BbD9h64eszCyOIjyZ9SbpECGHJsZcCkAO7mTh6f8eBJ7dLUEOIj5jtGoOY=
+Received: from DM5PR06CA0031.namprd06.prod.outlook.com (2603:10b6:3:5d::17) by
+ DM6PR12MB3913.namprd12.prod.outlook.com (2603:10b6:5:1cc::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.20; Thu, 9 Dec 2021 16:48:21 +0000
+Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:5d:cafe::ae) by DM5PR06CA0031.outlook.office365.com
+ (2603:10b6:3:5d::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.12 via Frontend
+ Transport; Thu, 9 Dec 2021 16:48:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 16:48:21 +0000
+Received: from sriov-scm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 9 Dec
+ 2021 10:48:20 -0600
+From: Victor Skvortsov <victor.skvortsov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: Separate vf2pf work item init from virt data
+ exchange
+Date: Thu, 9 Dec 2021 16:48:08 +0000
+Message-ID: <20211209164809.504378-1-victor.skvortsov@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1ad3ad94-5e3b-49f6-8c90-08d9bb33b5bc
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3913:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB39132B6C53E3B4551CE29E378B709@DM6PR12MB3913.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: I85RsYb1yluOq16c+vAbKrJE771fwNTQJP6GLmsaYxeVcHy/X6JJkHOJaDo2DVWbUdH7pKErBlW7RZMkDtUoRNVcFRzQpftf0Gxr11AabqR//DQxuRE4TWCkfeBj7hwQZ0KOIdUMU7NW5bY0TYyDE9wgEe3jiTd20Y0oUFDPfjYc4fBMz18d5qleoc9yI9q1h9+USYj1MqRt0Hs+a6hunXfOX1Q4HDKB/LGKoQQ+fBBQDRYDoOQ/aQ8ul4vY8pqRNjIW0jcbrckOm1+Prpp0gcLZKDcoFSFyCpIvDK0VEM2oREABUiqiLQy2e/MW7U+103hvJWd8W72m8FVMv1TG8Mifd3ys0jbtRxjXH2L6WTb3mbnN1IMk12F9EBueDT/wVM3tKMsL6GMS0hnO4CGW9G+4U8SjQhZ7nQQwhTFpF6HY6srsLXy3wNLVdT8TXqPGWzz83IFm9TJB0/uMdqejYO5G+WkFXt6fAkygqTIlg7H6hiuyksC3951rewjI5eKIgOpFPqrRqX/G53samuP5LostJ02BHOkUpVB91U42+ZiQyouDPv+ldXQKIMWLfDzVOCM5jFf8Sr4+moxLea8KptRYmJzeqkEjgnxomkQNRiCa3t3glCNkQm6zt3FtTZplFsNlLHHq9sEtwBAtgNYKu77+rwc8XMbheDI6g6Hkl5eYS7N2sjxBfFL0ttrodmUYiCy3qSjDC5mTHYizc66QFWzOMWrijjtHrng0LG0Z2OAXcdCivMJDEP8LG2hVVomQGh66qP1To/6VLnURboTBaItfGJvRqC7krghku6ISu4Y=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(1076003)(36860700001)(36756003)(40460700001)(86362001)(6916009)(26005)(6666004)(2616005)(186003)(508600001)(336012)(426003)(82310400004)(7696005)(4326008)(8676002)(70206006)(70586007)(8936002)(5660300002)(2906002)(16526019)(356005)(316002)(81166007)(44832011)(47076005)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 16:48:21.5321 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ad3ad94-5e3b-49f6-8c90-08d9bb33b5bc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,439 +100,217 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Victor Skvortsov <victor.skvortsov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michel Dänzer <mdaenzer@redhat.com>
+We want to be able to call virt data exchange conditionally
+after gmc sw init to reserve bad pages as early as possible.
+Since this is a conditional call, we will need to call
+it again unconditionally later in the init sequence.
 
-Use the struct display_mode_lib pointer instead of passing lots of large
-arrays as parameters by value.
+Refactor the data exchange function so it can be
+called multiple times without re-initializing the work item.
 
-Addresses this warning (resulting in failure to build a RHEL debug kernel
-with Werror enabled):
-
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c: In function ‘UseMinimumDCFCLK’:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:7478:1: warning: the frame size of 2128 bytes is larger than 2048 bytes [-Wframe-larger-than=]
-
-NOTE: AFAICT this function previously had no observable effect, since it
-only modified parameters passed by value and doesn't return anything.
-Now it may modify some values in struct display_mode_lib passed in by
-reference.
-
-Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
 ---
- .../dc/dml/dcn31/display_mode_vba_31.c        | 304 ++++--------------
- 1 file changed, 69 insertions(+), 235 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 20 ++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 42 ++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  5 +--
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  2 +-
+ 5 files changed, 45 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-index 8965f9af9d0a..6feb23432f8d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-@@ -422,62 +422,8 @@ static void CalculateUrgentBurstFactor(
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index ce9bdef185c0..3992c4086d26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2181,7 +2181,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
  
- static void UseMinimumDCFCLK(
- 		struct display_mode_lib *mode_lib,
--		int MaxInterDCNTileRepeaters,
- 		int MaxPrefetchMode,
--		double FinalDRAMClockChangeLatency,
--		double SREnterPlusExitTime,
--		int ReturnBusWidth,
--		int RoundTripPingLatencyCycles,
--		int ReorderingBytes,
--		int PixelChunkSizeInKByte,
--		int MetaChunkSize,
--		bool GPUVMEnable,
--		int GPUVMMaxPageTableLevels,
--		bool HostVMEnable,
--		int NumberOfActivePlanes,
--		double HostVMMinPageSize,
--		int HostVMMaxNonCachedPageTableLevels,
--		bool DynamicMetadataVMEnabled,
--		enum immediate_flip_requirement ImmediateFlipRequirement,
--		bool ProgressiveToInterlaceUnitInOPP,
--		double MaxAveragePercentOfIdealFabricAndSDPPortBWDisplayCanUseInNormalSystemOperation,
--		double PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency,
--		int VTotal[],
--		int VActive[],
--		int DynamicMetadataTransmittedBytes[],
--		int DynamicMetadataLinesBeforeActiveRequired[],
--		bool Interlace[],
--		double RequiredDPPCLK[][2][DC__NUM_DPP__MAX],
--		double RequiredDISPCLK[][2],
--		double UrgLatency[],
--		unsigned int NoOfDPP[][2][DC__NUM_DPP__MAX],
--		double ProjectedDCFCLKDeepSleep[][2],
--		double MaximumVStartup[][2][DC__NUM_DPP__MAX],
--		double TotalVActivePixelBandwidth[][2],
--		double TotalVActiveCursorBandwidth[][2],
--		double TotalMetaRowBandwidth[][2],
--		double TotalDPTERowBandwidth[][2],
--		unsigned int TotalNumberOfActiveDPP[][2],
--		unsigned int TotalNumberOfDCCActiveDPP[][2],
--		int dpte_group_bytes[],
--		double PrefetchLinesY[][2][DC__NUM_DPP__MAX],
--		double PrefetchLinesC[][2][DC__NUM_DPP__MAX],
--		int swath_width_luma_ub_all_states[][2][DC__NUM_DPP__MAX],
--		int swath_width_chroma_ub_all_states[][2][DC__NUM_DPP__MAX],
--		int BytePerPixelY[],
--		int BytePerPixelC[],
--		int HTotal[],
--		double PixelClock[],
--		double PDEAndMetaPTEBytesPerFrame[][2][DC__NUM_DPP__MAX],
--		double DPTEBytesPerRow[][2][DC__NUM_DPP__MAX],
--		double MetaRowBytes[][2][DC__NUM_DPP__MAX],
--		bool DynamicMetadataEnable[],
--		double VActivePixelBandwidth[][2][DC__NUM_DPP__MAX],
--		double VActiveCursorBandwidth[][2][DC__NUM_DPP__MAX],
--		double ReadBandwidthLuma[],
--		double ReadBandwidthChroma[],
--		double DCFCLKPerState[],
--		double DCFCLKState[][2]);
-+		int ReorderingBytes);
+ 			/*get pf2vf msg info at it's earliest time*/
+ 			if (amdgpu_sriov_vf(adev))
+-				amdgpu_virt_init_data_exchange(adev);
++				amdgpu_virt_exchange_data(adev);
  
- static void CalculatePixelDeliveryTimes(
- 		unsigned int NumberOfActivePlanes,
-@@ -5175,66 +5121,8 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 		}
+ 	}
+@@ -2345,8 +2345,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
  		}
  	}
  
--	if (v->UseMinimumRequiredDCFCLK == true) {
--		UseMinimumDCFCLK(
--				mode_lib,
--				v->MaxInterDCNTileRepeaters,
--				MaxPrefetchMode,
--				v->DRAMClockChangeLatency,
--				v->SREnterPlusExitTime,
--				v->ReturnBusWidth,
--				v->RoundTripPingLatencyCycles,
--				ReorderingBytes,
--				v->PixelChunkSizeInKByte,
--				v->MetaChunkSize,
--				v->GPUVMEnable,
--				v->GPUVMMaxPageTableLevels,
--				v->HostVMEnable,
--				v->NumberOfActivePlanes,
--				v->HostVMMinPageSize,
--				v->HostVMMaxNonCachedPageTableLevels,
--				v->DynamicMetadataVMEnabled,
--				v->ImmediateFlipRequirement[0],
--				v->ProgressiveToInterlaceUnitInOPP,
--				v->MaxAveragePercentOfIdealFabricAndSDPPortBWDisplayCanUseInNormalSystemOperation,
--				v->PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency,
--				v->VTotal,
--				v->VActive,
--				v->DynamicMetadataTransmittedBytes,
--				v->DynamicMetadataLinesBeforeActiveRequired,
--				v->Interlace,
--				v->RequiredDPPCLK,
--				v->RequiredDISPCLK,
--				v->UrgLatency,
--				v->NoOfDPP,
--				v->ProjectedDCFCLKDeepSleep,
--				v->MaximumVStartup,
--				v->TotalVActivePixelBandwidth,
--				v->TotalVActiveCursorBandwidth,
--				v->TotalMetaRowBandwidth,
--				v->TotalDPTERowBandwidth,
--				v->TotalNumberOfActiveDPP,
--				v->TotalNumberOfDCCActiveDPP,
--				v->dpte_group_bytes,
--				v->PrefetchLinesY,
--				v->PrefetchLinesC,
--				v->swath_width_luma_ub_all_states,
--				v->swath_width_chroma_ub_all_states,
--				v->BytePerPixelY,
--				v->BytePerPixelC,
--				v->HTotal,
--				v->PixelClock,
--				v->PDEAndMetaPTEBytesPerFrame,
--				v->DPTEBytesPerRow,
--				v->MetaRowBytes,
--				v->DynamicMetadataEnable,
--				v->VActivePixelBandwidth,
--				v->VActiveCursorBandwidth,
--				v->ReadBandwidthLuma,
--				v->ReadBandwidthChroma,
--				v->DCFCLKPerState,
--				v->DCFCLKState);
+-	if (amdgpu_sriov_vf(adev))
+-		amdgpu_virt_init_data_exchange(adev);
++	if (amdgpu_sriov_vf(adev)) {
++		amdgpu_virt_exchange_data(adev);
++		amdgpu_virt_init_vf2pf_work_item(adev);
++	}
+ 
+ 	r = amdgpu_ib_pool_init(adev);
+ 	if (r) {
+@@ -2949,7 +2951,7 @@ int amdgpu_device_ip_suspend(struct amdgpu_device *adev)
+ 	int r;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+-		amdgpu_virt_fini_data_exchange(adev);
++		amdgpu_virt_fini_vf2pf_work_item(adev);
+ 		amdgpu_virt_request_full_gpu(adev, false);
+ 	}
+ 
+@@ -3839,7 +3841,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 	 * */
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		amdgpu_virt_request_full_gpu(adev, false);
+-		amdgpu_virt_fini_data_exchange(adev);
++		amdgpu_virt_fini_vf2pf_work_item(adev);
+ 	}
+ 
+ 	/* disable all interrupts */
+@@ -4317,7 +4319,9 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+ 	if (r)
+ 		goto error;
+ 
+-	amdgpu_virt_init_data_exchange(adev);
++	amdgpu_virt_exchange_data(adev);
++	amdgpu_virt_init_vf2pf_work_item(adev);
++
+ 	/* we need recover gart prior to run SMC/CP/SDMA resume */
+ 	amdgpu_gtt_mgr_recover(ttm_manager_type(&adev->mman.bdev, TTM_PL_TT));
+ 
+@@ -4495,7 +4499,7 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		/* stop the data exchange thread */
+-		amdgpu_virt_fini_data_exchange(adev);
++		amdgpu_virt_fini_vf2pf_work_item(adev);
+ 	}
+ 
+ 	/* block all schedulers and reset given job's ring */
+@@ -4898,7 +4902,7 @@ static void amdgpu_device_recheck_guilty_jobs(
+ retry:
+ 			/* do hw reset */
+ 			if (amdgpu_sriov_vf(adev)) {
+-				amdgpu_virt_fini_data_exchange(adev);
++				amdgpu_virt_fini_vf2pf_work_item(adev);
+ 				r = amdgpu_device_reset_sriov(adev, false);
+ 				if (r)
+ 					adev->asic_reset_res = r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 3fc49823f527..b6e3d379a86a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -611,16 +611,7 @@ static void amdgpu_virt_update_vf2pf_work_item(struct work_struct *work)
+ 	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
+ }
+ 
+-void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev)
+-{
+-	if (adev->virt.vf2pf_update_interval_ms != 0) {
+-		DRM_INFO("clean up the vf2pf work item\n");
+-		cancel_delayed_work_sync(&adev->virt.vf2pf_work);
+-		adev->virt.vf2pf_update_interval_ms = 0;
 -	}
-+	if (v->UseMinimumRequiredDCFCLK == true)
-+		UseMinimumDCFCLK(mode_lib, MaxPrefetchMode, ReorderingBytes);
- 
- 	for (i = 0; i < v->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
-@@ -7262,69 +7150,15 @@ static double CalculateUrgentLatency(
- 
- static void UseMinimumDCFCLK(
- 		struct display_mode_lib *mode_lib,
--		int MaxInterDCNTileRepeaters,
- 		int MaxPrefetchMode,
--		double FinalDRAMClockChangeLatency,
--		double SREnterPlusExitTime,
--		int ReturnBusWidth,
--		int RoundTripPingLatencyCycles,
--		int ReorderingBytes,
--		int PixelChunkSizeInKByte,
--		int MetaChunkSize,
--		bool GPUVMEnable,
--		int GPUVMMaxPageTableLevels,
--		bool HostVMEnable,
--		int NumberOfActivePlanes,
--		double HostVMMinPageSize,
--		int HostVMMaxNonCachedPageTableLevels,
--		bool DynamicMetadataVMEnabled,
--		enum immediate_flip_requirement ImmediateFlipRequirement,
--		bool ProgressiveToInterlaceUnitInOPP,
--		double MaxAveragePercentOfIdealFabricAndSDPPortBWDisplayCanUseInNormalSystemOperation,
--		double PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency,
--		int VTotal[],
--		int VActive[],
--		int DynamicMetadataTransmittedBytes[],
--		int DynamicMetadataLinesBeforeActiveRequired[],
--		bool Interlace[],
--		double RequiredDPPCLK[][2][DC__NUM_DPP__MAX],
--		double RequiredDISPCLK[][2],
--		double UrgLatency[],
--		unsigned int NoOfDPP[][2][DC__NUM_DPP__MAX],
--		double ProjectedDCFCLKDeepSleep[][2],
--		double MaximumVStartup[][2][DC__NUM_DPP__MAX],
--		double TotalVActivePixelBandwidth[][2],
--		double TotalVActiveCursorBandwidth[][2],
--		double TotalMetaRowBandwidth[][2],
--		double TotalDPTERowBandwidth[][2],
--		unsigned int TotalNumberOfActiveDPP[][2],
--		unsigned int TotalNumberOfDCCActiveDPP[][2],
--		int dpte_group_bytes[],
--		double PrefetchLinesY[][2][DC__NUM_DPP__MAX],
--		double PrefetchLinesC[][2][DC__NUM_DPP__MAX],
--		int swath_width_luma_ub_all_states[][2][DC__NUM_DPP__MAX],
--		int swath_width_chroma_ub_all_states[][2][DC__NUM_DPP__MAX],
--		int BytePerPixelY[],
--		int BytePerPixelC[],
--		int HTotal[],
--		double PixelClock[],
--		double PDEAndMetaPTEBytesPerFrame[][2][DC__NUM_DPP__MAX],
--		double DPTEBytesPerRow[][2][DC__NUM_DPP__MAX],
--		double MetaRowBytes[][2][DC__NUM_DPP__MAX],
--		bool DynamicMetadataEnable[],
--		double VActivePixelBandwidth[][2][DC__NUM_DPP__MAX],
--		double VActiveCursorBandwidth[][2][DC__NUM_DPP__MAX],
--		double ReadBandwidthLuma[],
--		double ReadBandwidthChroma[],
--		double DCFCLKPerState[],
--		double DCFCLKState[][2])
-+		int ReorderingBytes)
+-}
+-
+-void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
++void amdgpu_virt_exchange_data(struct amdgpu_device *adev)
  {
- 	struct vba_vars_st *v = &mode_lib->vba;
- 	int dummy1, i, j, k;
- 	double NormalEfficiency,  dummy2, dummy3;
- 	double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
+ 	uint64_t bp_block_offset = 0;
+ 	uint32_t bp_block_size = 0;
+@@ -628,11 +619,8 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
  
--	NormalEfficiency = PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency / 100.0;
-+	NormalEfficiency = v->PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency / 100.0;
- 	for (i = 0; i < v->soc.num_states; ++i) {
- 		for (j = 0; j <= 1; ++j) {
- 			double PixelDCFCLKCyclesRequiredInPrefetch[DC__NUM_DPP__MAX];
-@@ -7342,61 +7176,61 @@ static void UseMinimumDCFCLK(
- 			double MinimumTvmPlus2Tr0;
+ 	adev->virt.fw_reserve.p_pf2vf = NULL;
+ 	adev->virt.fw_reserve.p_vf2pf = NULL;
+-	adev->virt.vf2pf_update_interval_ms = 0;
  
- 			TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
--			for (k = 0; k < NumberOfActivePlanes; ++k) {
-+			for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 				TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = TotalMaxPrefetchFlipDPTERowBandwidth[i][j]
--						+ NoOfDPP[i][j][k] * DPTEBytesPerRow[i][j][k] / (15.75 * HTotal[k] / PixelClock[k]);
-+						+ v->NoOfDPP[i][j][k] * v->DPTEBytesPerRow[i][j][k] / (15.75 * v->HTotal[k] / v->PixelClock[k]);
- 			}
+ 	if (adev->mman.fw_vram_usage_va != NULL) {
+-		adev->virt.vf2pf_update_interval_ms = 2000;
+-
+ 		adev->virt.fw_reserve.p_pf2vf =
+ 			(struct amd_sriov_msg_pf2vf_info_header *)
+ 			(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
+@@ -666,13 +654,39 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
  
--			for (k = 0; k <= NumberOfActivePlanes - 1; ++k) {
--				NoOfDPPState[k] = NoOfDPP[i][j][k];
-+			for (k = 0; k <= v->NumberOfActivePlanes - 1; ++k) {
-+				NoOfDPPState[k] = v->NoOfDPP[i][j][k];
- 			}
+ 		return;
+ 	}
++}
++
++void amdgpu_virt_init_vf2pf_work_item(struct amdgpu_device *adev)
++{
++	if (adev->mman.fw_vram_usage_va != NULL) {
++
++		/* Inverval value is passed from the host.
++		 * Correct too large or too little interval value
++		 */
++		if (adev->virt.vf2pf_update_interval_ms < 200 || adev->virt.vf2pf_update_interval_ms > 10000)
++			adev->virt.vf2pf_update_interval_ms = 2000;
++
++		adev->virt.fw_reserve.p_pf2vf =
++			(struct amd_sriov_msg_pf2vf_info_header *)
++			(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
++		adev->virt.fw_reserve.p_vf2pf =
++			(struct amd_sriov_msg_vf2pf_info_header *)
++			(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
  
--			MinimumTWait = CalculateTWait(MaxPrefetchMode, FinalDRAMClockChangeLatency, UrgLatency[i], SREnterPlusExitTime);
--			NonDPTEBandwidth = TotalVActivePixelBandwidth[i][j] + TotalVActiveCursorBandwidth[i][j] + TotalMetaRowBandwidth[i][j];
--			DPTEBandwidth = (HostVMEnable == true || ImmediateFlipRequirement == dm_immediate_flip_required) ?
--					TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : TotalDPTERowBandwidth[i][j];
-+			MinimumTWait = CalculateTWait(MaxPrefetchMode, v->FinalDRAMClockChangeLatency, v->UrgLatency[i], v->SREnterPlusExitTime);
-+			NonDPTEBandwidth = v->TotalVActivePixelBandwidth[i][j] + v->TotalVActiveCursorBandwidth[i][j] + v->TotalMetaRowBandwidth[i][j];
-+			DPTEBandwidth = (v->HostVMEnable == true || v->ImmediateFlipRequirement[0] == dm_immediate_flip_required) ?
-+					TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : v->TotalDPTERowBandwidth[i][j];
- 			DCFCLKRequiredForAverageBandwidth = dml_max3(
--					ProjectedDCFCLKDeepSleep[i][j],
--					(NonDPTEBandwidth + TotalDPTERowBandwidth[i][j]) / ReturnBusWidth
--							/ (MaxAveragePercentOfIdealFabricAndSDPPortBWDisplayCanUseInNormalSystemOperation / 100),
--					(NonDPTEBandwidth + DPTEBandwidth / NormalEfficiency) / NormalEfficiency / ReturnBusWidth);
-+					v->ProjectedDCFCLKDeepSleep[i][j],
-+					(NonDPTEBandwidth + v->TotalDPTERowBandwidth[i][j]) / v->ReturnBusWidth
-+							/ (v->MaxAveragePercentOfIdealFabricAndSDPPortBWDisplayCanUseInNormalSystemOperation / 100),
-+					(NonDPTEBandwidth + DPTEBandwidth / NormalEfficiency) / NormalEfficiency / v->ReturnBusWidth);
- 
- 			ExtraLatencyBytes = CalculateExtraLatencyBytes(
- 					ReorderingBytes,
--					TotalNumberOfActiveDPP[i][j],
--					PixelChunkSizeInKByte,
--					TotalNumberOfDCCActiveDPP[i][j],
--					MetaChunkSize,
--					GPUVMEnable,
--					HostVMEnable,
--					NumberOfActivePlanes,
-+					v->TotalNumberOfActiveDPP[i][j],
-+					v->PixelChunkSizeInKByte,
-+					v->TotalNumberOfDCCActiveDPP[i][j],
-+					v->MetaChunkSize,
-+					v->GPUVMEnable,
-+					v->HostVMEnable,
-+					v->NumberOfActivePlanes,
- 					NoOfDPPState,
--					dpte_group_bytes,
-+					v->dpte_group_bytes,
- 					1,
--					HostVMMinPageSize,
--					HostVMMaxNonCachedPageTableLevels);
--			ExtraLatencyCycles = RoundTripPingLatencyCycles + __DML_ARB_TO_RET_DELAY__ + ExtraLatencyBytes / NormalEfficiency / ReturnBusWidth;
--			for (k = 0; k < NumberOfActivePlanes; ++k) {
-+					v->HostVMMinPageSize,
-+					v->HostVMMaxNonCachedPageTableLevels);
-+			ExtraLatencyCycles = v->RoundTripPingLatencyCycles + __DML_ARB_TO_RET_DELAY__ + ExtraLatencyBytes / NormalEfficiency / v->ReturnBusWidth;
-+			for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 				double DCFCLKCyclesRequiredInPrefetch;
- 				double ExpectedPrefetchBWAcceleration;
- 				double PrefetchTime;
- 
--				PixelDCFCLKCyclesRequiredInPrefetch[k] = (PrefetchLinesY[i][j][k] * swath_width_luma_ub_all_states[i][j][k] * BytePerPixelY[k]
--						+ PrefetchLinesC[i][j][k] * swath_width_chroma_ub_all_states[i][j][k] * BytePerPixelC[k]) / NormalEfficiency / ReturnBusWidth;
-+				PixelDCFCLKCyclesRequiredInPrefetch[k] = (v->PrefetchLinesY[i][j][k] * v->swath_width_luma_ub_all_states[i][j][k] * v->BytePerPixelY[k]
-+						+ v->PrefetchLinesC[i][j][k] * v->swath_width_chroma_ub_all_states[i][j][k] * v->BytePerPixelC[k]) / NormalEfficiency / v->ReturnBusWidth;
- 				DCFCLKCyclesRequiredInPrefetch = 2 * ExtraLatencyCycles / NoOfDPPState[k]
--						+ PDEAndMetaPTEBytesPerFrame[i][j][k] / NormalEfficiency / NormalEfficiency / ReturnBusWidth * (GPUVMMaxPageTableLevels > 2 ? 1 : 0)
--						+ 2 * DPTEBytesPerRow[i][j][k] / NormalEfficiency / NormalEfficiency / ReturnBusWidth
--						+ 2 * MetaRowBytes[i][j][k] / NormalEfficiency / ReturnBusWidth + PixelDCFCLKCyclesRequiredInPrefetch[k];
--				PrefetchPixelLinesTime[k] = dml_max(PrefetchLinesY[i][j][k], PrefetchLinesC[i][j][k]) * HTotal[k] / PixelClock[k];
--				ExpectedPrefetchBWAcceleration = (VActivePixelBandwidth[i][j][k] + VActiveCursorBandwidth[i][j][k])
--						/ (ReadBandwidthLuma[k] + ReadBandwidthChroma[k]);
-+						+ v->PDEAndMetaPTEBytesPerFrame[i][j][k] / NormalEfficiency / NormalEfficiency / v->ReturnBusWidth * (v->GPUVMMaxPageTableLevels > 2 ? 1 : 0)
-+						+ 2 * v->DPTEBytesPerRow[i][j][k] / NormalEfficiency / NormalEfficiency / v->ReturnBusWidth
-+						+ 2 * v->MetaRowBytes[i][j][k] / NormalEfficiency / v->ReturnBusWidth + PixelDCFCLKCyclesRequiredInPrefetch[k];
-+				PrefetchPixelLinesTime[k] = dml_max(v->PrefetchLinesY[i][j][k], v->PrefetchLinesC[i][j][k]) * v->HTotal[k] / v->PixelClock[k];
-+				ExpectedPrefetchBWAcceleration = (v->VActivePixelBandwidth[i][j][k] + v->VActiveCursorBandwidth[i][j][k])
-+						/ (v->ReadBandwidthLuma[k] + v->ReadBandwidthChroma[k]);
- 				DynamicMetadataVMExtraLatency[k] =
--						(GPUVMEnable == true && DynamicMetadataEnable[k] == true && DynamicMetadataVMEnabled == true) ?
--								UrgLatency[i] * GPUVMMaxPageTableLevels * (HostVMEnable == true ? HostVMMaxNonCachedPageTableLevels + 1 : 1) : 0;
--				PrefetchTime = (MaximumVStartup[i][j][k] - 1) * HTotal[k] / PixelClock[k] - MinimumTWait
--						- UrgLatency[i]
--								* ((GPUVMMaxPageTableLevels <= 2 ? GPUVMMaxPageTableLevels : GPUVMMaxPageTableLevels - 2)
--										* (HostVMEnable == true ? HostVMMaxNonCachedPageTableLevels + 1 : 1) - 1)
-+						(v->GPUVMEnable == true && v->DynamicMetadataEnable[k] == true && v->DynamicMetadataVMEnabled == true) ?
-+								v->UrgLatency[i] * v->GPUVMMaxPageTableLevels * (v->HostVMEnable == true ? v->HostVMMaxNonCachedPageTableLevels + 1 : 1) : 0;
-+				PrefetchTime = (v->MaximumVStartup[i][j][k] - 1) * v->HTotal[k] / v->PixelClock[k] - MinimumTWait
-+						- v->UrgLatency[i]
-+								* ((v->GPUVMMaxPageTableLevels <= 2 ? v->GPUVMMaxPageTableLevels : v->GPUVMMaxPageTableLevels - 2)
-+										* (v->HostVMEnable == true ? v->HostVMMaxNonCachedPageTableLevels + 1 : 1) - 1)
- 						- DynamicMetadataVMExtraLatency[k];
- 
- 				if (PrefetchTime > 0) {
-@@ -7405,14 +7239,14 @@ static void UseMinimumDCFCLK(
- 							/ (PrefetchTime * PixelDCFCLKCyclesRequiredInPrefetch[k] / DCFCLKCyclesRequiredInPrefetch);
- 					DCFCLKRequiredForPeakBandwidthPerPlane[k] = NoOfDPPState[k] * PixelDCFCLKCyclesRequiredInPrefetch[k] / PrefetchPixelLinesTime[k]
- 							* dml_max(1.0, ExpectedVRatioPrefetch) * dml_max(1.0, ExpectedVRatioPrefetch / 4) * ExpectedPrefetchBWAcceleration;
--					if (HostVMEnable == true || ImmediateFlipRequirement == dm_immediate_flip_required) {
-+					if (v->HostVMEnable == true || v->ImmediateFlipRequirement[0] == dm_immediate_flip_required) {
- 						DCFCLKRequiredForPeakBandwidthPerPlane[k] = DCFCLKRequiredForPeakBandwidthPerPlane[k]
--								+ NoOfDPPState[k] * DPTEBandwidth / NormalEfficiency / NormalEfficiency / ReturnBusWidth;
-+								+ NoOfDPPState[k] * DPTEBandwidth / NormalEfficiency / NormalEfficiency / v->ReturnBusWidth;
- 					}
- 				} else {
--					DCFCLKRequiredForPeakBandwidthPerPlane[k] = DCFCLKPerState[i];
-+					DCFCLKRequiredForPeakBandwidthPerPlane[k] = v->DCFCLKPerState[i];
- 				}
--				if (DynamicMetadataEnable[k] == true) {
-+				if (v->DynamicMetadataEnable[k] == true) {
- 					double TSetupPipe;
- 					double TdmbfPipe;
- 					double TdmsksPipe;
-@@ -7420,17 +7254,17 @@ static void UseMinimumDCFCLK(
- 					double AllowedTimeForUrgentExtraLatency;
- 
- 					CalculateVupdateAndDynamicMetadataParameters(
--							MaxInterDCNTileRepeaters,
--							RequiredDPPCLK[i][j][k],
--							RequiredDISPCLK[i][j],
--							ProjectedDCFCLKDeepSleep[i][j],
--							PixelClock[k],
--							HTotal[k],
--							VTotal[k] - VActive[k],
--							DynamicMetadataTransmittedBytes[k],
--							DynamicMetadataLinesBeforeActiveRequired[k],
--							Interlace[k],
--							ProgressiveToInterlaceUnitInOPP,
-+							v->MaxInterDCNTileRepeaters,
-+							v->RequiredDPPCLK[i][j][k],
-+							v->RequiredDISPCLK[i][j],
-+							v->ProjectedDCFCLKDeepSleep[i][j],
-+							v->PixelClock[k],
-+							v->HTotal[k],
-+							v->VTotal[k] - v->VActive[k],
-+							v->DynamicMetadataTransmittedBytes[k],
-+							v->DynamicMetadataLinesBeforeActiveRequired[k],
-+							v->Interlace[k],
-+							v->ProgressiveToInterlaceUnitInOPP,
- 							&TSetupPipe,
- 							&TdmbfPipe,
- 							&TdmecPipe,
-@@ -7438,31 +7272,31 @@ static void UseMinimumDCFCLK(
- 							&dummy1,
- 							&dummy2,
- 							&dummy3);
--					AllowedTimeForUrgentExtraLatency = MaximumVStartup[i][j][k] * HTotal[k] / PixelClock[k] - MinimumTWait - TSetupPipe - TdmbfPipe - TdmecPipe
-+					AllowedTimeForUrgentExtraLatency = v->MaximumVStartup[i][j][k] * v->HTotal[k] / v->PixelClock[k] - MinimumTWait - TSetupPipe - TdmbfPipe - TdmecPipe
- 							- TdmsksPipe - DynamicMetadataVMExtraLatency[k];
- 					if (AllowedTimeForUrgentExtraLatency > 0) {
- 						DCFCLKRequiredForPeakBandwidthPerPlane[k] = dml_max(
- 								DCFCLKRequiredForPeakBandwidthPerPlane[k],
- 								ExtraLatencyCycles / AllowedTimeForUrgentExtraLatency);
- 					} else {
--						DCFCLKRequiredForPeakBandwidthPerPlane[k] = DCFCLKPerState[i];
-+						DCFCLKRequiredForPeakBandwidthPerPlane[k] = v->DCFCLKPerState[i];
- 					}
- 				}
- 			}
- 			DCFCLKRequiredForPeakBandwidth = 0;
--			for (k = 0; k <= NumberOfActivePlanes - 1; ++k) {
-+			for (k = 0; k <= v->NumberOfActivePlanes - 1; ++k) {
- 				DCFCLKRequiredForPeakBandwidth = DCFCLKRequiredForPeakBandwidth + DCFCLKRequiredForPeakBandwidthPerPlane[k];
- 			}
--			MinimumTvmPlus2Tr0 = UrgLatency[i]
--					* (GPUVMEnable == true ?
--							(HostVMEnable == true ?
--									(GPUVMMaxPageTableLevels + 2) * (HostVMMaxNonCachedPageTableLevels + 1) - 1 : GPUVMMaxPageTableLevels + 1) :
-+			MinimumTvmPlus2Tr0 = v->UrgLatency[i]
-+					* (v->GPUVMEnable == true ?
-+							(v->HostVMEnable == true ?
-+									(v->GPUVMMaxPageTableLevels + 2) * (v->HostVMMaxNonCachedPageTableLevels + 1) - 1 : v->GPUVMMaxPageTableLevels + 1) :
- 							0);
--			for (k = 0; k < NumberOfActivePlanes; ++k) {
-+			for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 				double MaximumTvmPlus2Tr0PlusTsw;
--				MaximumTvmPlus2Tr0PlusTsw = (MaximumVStartup[i][j][k] - 2) * HTotal[k] / PixelClock[k] - MinimumTWait - DynamicMetadataVMExtraLatency[k];
-+				MaximumTvmPlus2Tr0PlusTsw = (v->MaximumVStartup[i][j][k] - 2) * v->HTotal[k] / v->PixelClock[k] - MinimumTWait - DynamicMetadataVMExtraLatency[k];
- 				if (MaximumTvmPlus2Tr0PlusTsw <= MinimumTvmPlus2Tr0 + PrefetchPixelLinesTime[k] / 4) {
--					DCFCLKRequiredForPeakBandwidth = DCFCLKPerState[i];
-+					DCFCLKRequiredForPeakBandwidth = v->DCFCLKPerState[i];
- 				} else {
- 					DCFCLKRequiredForPeakBandwidth = dml_max3(
- 							DCFCLKRequiredForPeakBandwidth,
-@@ -7470,7 +7304,7 @@ static void UseMinimumDCFCLK(
- 							(2 * ExtraLatencyCycles + PixelDCFCLKCyclesRequiredInPrefetch[k]) / (MaximumTvmPlus2Tr0PlusTsw - MinimumTvmPlus2Tr0));
- 				}
- 			}
--			DCFCLKState[i][j] = dml_min(DCFCLKPerState[i], 1.05 * dml_max(DCFCLKRequiredForAverageBandwidth, DCFCLKRequiredForPeakBandwidth));
-+			v->DCFCLKState[i][j] = dml_min(v->DCFCLKPerState[i], 1.05 * dml_max(DCFCLKRequiredForAverageBandwidth, DCFCLKRequiredForPeakBandwidth));
- 		}
+-	if (adev->virt.vf2pf_update_interval_ms != 0) {
+ 		INIT_DELAYED_WORK(&adev->virt.vf2pf_work, amdgpu_virt_update_vf2pf_work_item);
+ 		schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
  	}
  }
+ 
++void amdgpu_virt_fini_vf2pf_work_item(struct amdgpu_device *adev)
++{
++	if (adev->virt.vf2pf_update_interval_ms != 0) {
++		DRM_INFO("clean up the vf2pf work item\n");
++		cancel_delayed_work_sync(&adev->virt.vf2pf_work);
++		adev->virt.vf2pf_update_interval_ms = 0;
++	}
++}
++
+ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+ {
+ 	uint32_t reg;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 8d4c20bb71c5..c18a7daab693 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -307,8 +307,9 @@ int amdgpu_virt_wait_reset(struct amdgpu_device *adev);
+ int amdgpu_virt_alloc_mm_table(struct amdgpu_device *adev);
+ void amdgpu_virt_free_mm_table(struct amdgpu_device *adev);
+ void amdgpu_virt_release_ras_err_handler_data(struct amdgpu_device *adev);
+-void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
+-void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev);
++void amdgpu_virt_exchange_data(struct amdgpu_device *adev);
++void amdgpu_virt_init_vf2pf_work_item(struct amdgpu_device *adev);
++void amdgpu_virt_fini_vf2pf_work_item(struct amdgpu_device *adev);
+ void amdgpu_detect_virtualization(struct amdgpu_device *adev);
+ 
+ bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+index 23b066bcffb2..cd2719bc0139 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -255,7 +255,7 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
+ 	if (!down_write_trylock(&adev->reset_sem))
+ 		return;
+ 
+-	amdgpu_virt_fini_data_exchange(adev);
++	amdgpu_virt_fini_vf2pf_work_item(adev);
+ 	atomic_set(&adev->in_gpu_reset, 1);
+ 
+ 	xgpu_ai_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0, 0, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+index a35e6d87e537..2bc93808469a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+@@ -284,7 +284,7 @@ static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
+ 	if (!down_write_trylock(&adev->reset_sem))
+ 		return;
+ 
+-	amdgpu_virt_fini_data_exchange(adev);
++	amdgpu_virt_fini_vf2pf_work_item(adev);
+ 	atomic_set(&adev->in_gpu_reset, 1);
+ 
+ 	xgpu_nv_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0, 0, 0);
 -- 
-2.34.1
+2.25.1
 
