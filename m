@@ -4,46 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F019AC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC14C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 239F510E18D;
-	Thu,  9 Dec 2021 17:04:06 +0000 (UTC)
-X-Greylist: delayed 2352 seconds by postgrey-1.36 at gabe;
- Thu, 09 Dec 2021 16:39:54 UTC
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F3010E116;
- Thu,  9 Dec 2021 16:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
- Message-ID:Cc:To:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=uQm73i/SP9nDAwtnCDdFJdGwSWts5HhgvbF+8/OlYWI=; b=niubyPA5iUr8u1NrlH8/EszIgN
- izee9wd9bTJMaselSh4RK/XNr2psA8MWTmJsGuDRR9ZHGUn1FC/OXNBs+J2tr9btf1r9Atg6ZKoOV
- M6qy8zuJofVZcHN1E4hDmbUFS8aPTuckD26T5EPDXjCqQoVENpVJ4XKx2EpugQMZcU82n9sAdmtr/
- XTWkiR6ibFILabpmDCnHzWwIA8EB3pvdGRSdgGdLwZao8oUS7kRfan36IrjsGWLhghe8ofYhli2yJ
- gRtPpHRpFM61JJzRFrIFQD3ML7jt5+HFn5lmds9hwZ+xBKETz4xZLCFceiqVleKqS9M5aPgN9+E3N
- sBOE9/gQ==;
-Received: from [177.103.99.151] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1mvLqG-0008HM-8F; Thu, 09 Dec 2021 17:00:20 +0100
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Subject: Reuse framebuffer after a kexec (amdgpu / efifb)
-To: linux-fbdev@vger.kernel.org, kexec@lists.infradead.org,
- amd-gfx@lists.freedesktop.org
-Message-ID: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
-Date: Thu, 9 Dec 2021 13:00:04 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9530810E1C8;
+	Thu,  9 Dec 2021 17:04:09 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30B1689ABE;
+ Thu,  9 Dec 2021 06:00:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jFwamrN+acnf51V9itEVZaabZQlA//DmD5xMbQZYVL/IDVmE6LhuaMWHe0v8fLa8f4CFNmJOFK12P3gmjvh+/7wIQVTPFkDl2cuSUxyJ3hPWQYhSIsyJyQF0qLuR8+BrfIsqv03KVu/HfLdafSGu5pyEE5HNmFgxPvWh27xU7uM6xJ3t6sw+GWCaAIi1/IVDqVnQcK3lwuMKRpVoalaoTor07M/XTlKfjqYW7sSwW+X5mzOVDO3peSf0rjRdUw/9LtpxZP16X3hBK29bQeBD012sjP7yPxNGE3VoQBLqd1fyTKoippLyYlSsaB7AKaVbz37olJTf01eQjtG6pjCKSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xwUBwTTD6eMyUmidV+05of0MgoF7nwOYHtAHvU6N0Sg=;
+ b=ZdCVrC+RevN0RgwhiK6sZRPh1HTUMOD+knMMYP+OjaHWewsw13Szo0FI93tzLBM7ov7ntoaZzG9YGnGN8fzBTAuDwVEbwInKS48crhFJHVO0gnsew16RcEeFSu3F13TSdRz4R7sKg84sjQ1ydrWIVsCqUWROYW0gyAbBoZOySqe38r/wMhEbLeHCV1SKYKA/w8BZkS3FSTF0yriiaCG2k6h9mRszuQEVOMvaY+FVBPcxoX1d8/K/FB7nGgtuzACJuG58g3Mqb8F5uKSTsAQvu9AW2lGrySz3uTMtc3vnMerWQMFrkFF692313qe1uJjSmsgXZYCINRoTwnO7u3mouQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 203.18.50.12) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=quarantine sp=quarantine pct=100)
+ action=none header.from=nvidia.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xwUBwTTD6eMyUmidV+05of0MgoF7nwOYHtAHvU6N0Sg=;
+ b=nJbux1Qw5Je2ZWXKLkM0PncpYRHutKyOrXE7GZZPPPEzvdtXi4QxzST0o1DSZRd7ZIJMhOqRv8TKwX5Es3/h3rvkeRUyNCxfaJ6HNwikte6rlq1Hk5hF/PgbB1XzjynpPV3g5mDVWt24ns79WLOb9HErENvXG1pShuHEnaqjWmIUKBksnJ4+7VXCZ1MYD+eStInnK5pM4FgHOJZ99WMNMJVoes5PoPXE0qjjbt5STkZQVu8SlEhlf+06kqoXmNbOboUItghW/kuiCs1dtR16pZAcWhLniKMJ/58yzeXBgGuXKJazHZubwd1DDl3am589kE3/E3BmPy1BfCNkwqTKpg==
+Received: from MW2PR16CA0060.namprd16.prod.outlook.com (2603:10b6:907:1::37)
+ by PH0PR12MB5465.namprd12.prod.outlook.com (2603:10b6:510:ec::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.19; Thu, 9 Dec
+ 2021 01:45:33 +0000
+Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:1:cafe::73) by MW2PR16CA0060.outlook.office365.com
+ (2603:10b6:907:1::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16 via Frontend
+ Transport; Thu, 9 Dec 2021 01:45:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 203.18.50.12)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 203.18.50.12 as permitted sender) receiver=protection.outlook.com;
+ client-ip=203.18.50.12; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (203.18.50.12) by
+ CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 01:45:32 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by HKMAIL101.nvidia.com
+ (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Thu, 9 Dec
+ 2021 01:45:31 +0000
+Received: from nvdebian.localnet (172.20.187.5) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.986.9; Wed, 8 Dec 2021
+ 17:45:26 -0800
+From: Alistair Popple <apopple@nvidia.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v2 03/11] mm/gup: migrate PIN_LONGTERM dev coherent pages
+ to system
+Date: Thu, 9 Dec 2021 12:45:24 +1100
+Message-ID: <117075453.Ddeq1f3ylz@nvdebian>
+In-Reply-To: <20211208135345.GC6467@ziepe.ca>
+References: <20211206185251.20646-1-alex.sierra@amd.com>
+ <2858338.J0npWUQLIM@nvdebian> <20211208135345.GC6467@ziepe.ca>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 09 Dec 2021 17:04:03 +0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-Originating-IP: [172.20.187.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8face818-25b4-4b88-7b71-08d9bab5968e
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5465:EE_
+X-Microsoft-Antispam-PRVS: <PH0PR12MB546575A97EC67D418FA8DEF4DF709@PH0PR12MB5465.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 61859y8NJ0Ntt5/r7EgRvwsDN5dHeI8FzC6C4ACjhC9FHv00bR8RiZUS5kibLdzaok1Jz+mrBX/HdjCg6tpuB7t5R096gQdQ4/khv+O+b9jWmusMJfqnc5CTJsewQzS6NIqqpo58psmtnN9neaAOD140LUDE/IveJLCaqFQ89xSQ0p8W//jAGseHgU4Zgm6v5L6wUnQ75k1L8q57Fyve/of+Y1SFJlfzEjlLjjH/o4ilTHkiQRIzAVByyEunum87q0iwV1EEZk6yN/12+fctos+sPHhNbPZ8FXFvW+QQxMGoYCkLuSZdAMvHTT3tbezmCM6z2+ZWK1OAzPvVDM1apj8w4cnIp/GuEeMwyTtNugUT+dnW0ORUx6GimWqtLQX9OT8HsjzuNlC6FbLvUZ23ol+JUqsbAYRFWHnUA9viafRqzdb9KPh/T8/KuYlDs6I5EV4CGTFi/2jD0oPc+FfLrd7I1EY1JVFNECcdEqEodeBsWV7EOrSmV8CS4JA+lxp//0X4DesoeS01Q7X/kpRmL2hDGlOZC34S7SIrqPSmQuLaHbbZoT6kYVomB7GJTzJHhL6kIJ8ZM3I8VdE8rBPe/cCRgCL1/UbxUwc80lRLUSk3ZzNqyiWgFq+WGFX4WGjY45Cxcg5NX4hkIyOAd3kIxWSXoMlbKThmv+EqQXqOnd9Nmg5cCYz3ytp2L0A3TBWyOYbAROFX3UQirrStNV3X991HoXTn2+4OakoN9+wu4PTkpvgjDPa3tqQIhgaLgEwRTfOExXN+4F/JaLQUn924Apa0XgSg/6Kq4QPGSQnnE/S+H2JixcHL7xYcieR/cppNc/Xduh1UQItjGrlRsHN6gT/GApgtppMQPvoquk7EqaQA/lp8eY5MWB3v0pUCOV9+
+X-Forefront-Antispam-Report: CIP:203.18.50.12; CTRY:HK; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:hkhybrid01.nvidia.com; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(4744005)(6916009)(336012)(54906003)(426003)(7416002)(316002)(7636003)(186003)(5660300002)(966005)(70206006)(70586007)(26005)(47076005)(9576002)(8936002)(16526019)(8676002)(4326008)(508600001)(36860700001)(86362001)(40460700001)(9686003)(34070700002)(83380400001)(356005)(82310400004)(33716001)(2906002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 01:45:32.3904 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8face818-25b4-4b88-7b71-08d9bab5968e
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[203.18.50.12];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5465
+X-Mailman-Approved-At: Thu, 09 Dec 2021 17:04:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,53 +107,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@gpiccoli.net, kasong@redhat.com, Baoquan He <bhe@redhat.com>,
- =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>,
- Xinhui.Pan@amd.com, dri-devel@lists.freedesktop.org, gpiccoli@igalia.com,
- pjones@redhat.com, kraxel@redhat.com, alexander.deucher@amd.com,
- Dave Young <dyoung@redhat.com>, christian.koenig@amd.com,
- Vivek Goyal <vgoyal@redhat.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
+ willy@infradead.org, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all, I have a question about the possibility of reusing a framebuffer
-after a regular (or panic) kexec - my case is with amdgpu (APU, aka, not
-a separate GPU hardware), but I guess the question is kinda generic
-hence I've looped most of the lists / people I think does make sense
-(apologies for duplicates).
+On Thursday, 9 December 2021 12:53:45 AM AEDT Jason Gunthorpe wrote:
+> > I think a similar problem exists for device private fault handling as well and
+> > it has been on my list of things to fix for a while. I think the solution is to
+> > call try_get_page(), except it doesn't work with device pages due to the whole
+> > refcount thing. That issue is blocking a fair bit of work now so I've started
+> > looking into it.
+> 
+> Where is this?
+ 
+Nothing posted yet. I've been going through the mailing list and the old
+thread[1] to get an understanding of what is left to do. If you have any
+suggestions they would be welcome.
+
+[1] https://lore.kernel.org/all/20211014153928.16805-3-alex.sierra@amd.com/
 
 
-The context is: we have a hardware that has an amdgpu-controlled device
-(Vangogh model) and as soon as the machine boots, efifb is providing
-graphics - I understand the UEFI/GRUB outputs rely in EFI framebuffer as
-well. As soon amdgpu module is available, kernel loads it and it takes
-over the GPU, providing graphics. The kexec_file_load syscall allows to
-pass a valid screen_info structure, so by kexec'ing a new kernel, we
-have again efifb taking over on boot time, but this time I see nothing
-in the screen. I've manually blacklisted amdgpu in this new kexec'ed
-kernel, I'd like to rely in the simple framebuffer - the goal is to have
-a tiny kernel kexec'ed. I'm using kernel version 5.16.0-rc4.
 
-I've done some other experiments, for exemple: I've forced screen_info
-model to match VLFB, so vesafb took over after the kexec, with the same
-result. Also noticed that BusMaster bit was off after kexec, in the AMD
-APU PCIe device, so I've set it on efifb before probe, and finally
-tested the same things in qemu, with qxl, all with the same result
-(blank screen).
-The most interesting result I got (both with amdgpu and qemu/qxl) is
-that if I blacklist these drivers and let the machine continue using
-efifb since the beginning, after kexec the efifb is still able to
-produce graphics.
-
-Which then led me to think that likely there's something fundamentally
-"blocking" the reuse of the simple framebuffer after kexec, like maybe
-DRM stack is destroying the old framebuffer somehow? What kind of
-preparation is required at firmware level to make the simple EFI VGA
-framebuffer work, and could we perform this in a kexec (or "save it"
-before the amdgpu/qxl drivers take over and reuse later)?
-
-Any advice is greatly appreciated!
-Thanks in advance,
-
-
-Guilherme
