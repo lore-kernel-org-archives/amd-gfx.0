@@ -4,55 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84002C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 19:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42D73C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 19:59:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 275DF10E255;
-	Thu,  9 Dec 2021 19:20:58 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A767410E251;
- Thu,  9 Dec 2021 19:20:56 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id r26so10081738oiw.5;
- Thu, 09 Dec 2021 11:20:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A201A10E295;
+	Thu,  9 Dec 2021 19:59:58 +0000 (UTC)
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [IPv6:2607:f8b0:4864:20::c2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1B010E295
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 19:59:57 +0000 (UTC)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ e17-20020a4a8291000000b002c5ee0645e7so1931607oog.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Dec 2021 11:59:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1ZruaxW8L8OX9fgPYZgSgXNy2q463+9DO5ICSEYbDKQ=;
- b=N5tZh16fD1ANTvVPiBC20CwgGsc6/G5thWhdbHIjDVfF3kjmqFrMEGeemOh0NUz55r
- T7HSSqVz8FTFdGYKmRFJKlsuNFvd/DuTJjX5ppySrk66OuO+XTQektMUkyMwOQMqzQsn
- PDtBFk2aGCQZMRGrCUIrEQZ1PQX0LeoKy40X1VNZDG2KHrz6Smd1v5EW7YhxZidbmueY
- ylnoSnwlgJVI5cADit6x6G9Mcjbz6T7oyfcnexaLMiMLZbl3cNoOterQV1DkDFAlA5RM
- Zkf86+tx85LOQ8p5BxrMEZM+6tZl4LrMp+r/srfMMzq25DIB7TtdvOWkbU1no2y5UjKw
- TNew==
+ :cc; bh=cjBven+10v96Fdrx5oTYyhF8txHwUBDpu8peJFL2fjI=;
+ b=NlyXlIurBhFuHsDH7beSGX6yeqUFEc/1lHVuc5eBm7yEoABXnIjP/0zfeVcRecgt9N
+ hY7Z/6OTkRv/WOxA6fl91x11LBD7yDjpKIKp2xmL2FLUCSMGkACs9MMwHJiKLOA5f8XL
+ i8jfa/vHcUwaaWp3itMRCoGjyo6QJ/b372ac0ltmy9T3vBufNWkQJmb3WmAQuQ/011s2
+ NpTD2aQHSHMzX17D1ZsFlhJZP09PsdbgeXudGJnB/uk6eRMttC1+FF5TZFt1GqdVmJMF
+ tSWe0qlbXtTHSwpmzSkg+TLiUl3vDOOP3S6BaXNyR5QOPWAruk2uE1q24DvLnrPJoPwr
+ RP2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=1ZruaxW8L8OX9fgPYZgSgXNy2q463+9DO5ICSEYbDKQ=;
- b=bdhhCVkX1P85I2cWxY+qHvdnxaQ8quWJ94emhfN4XzNbWj/H7N2fB3rAalZPgMu6BJ
- Iddma7i7PWpGcVxuV2WNs6YRtC4HdnXKBGaZrtYbf4uqOg8adVDNJ3g1jGZ51C8d7AQv
- YaeDLdHaXGWhSBiyY81RFTqGp/kcuXpluB8PnwTEnJzIh042J2Q/MnP+TUN9rwUVeMWU
- fA8JPwjFGbWXfRsjLALEbDsxs/Dfo/UTKT0avSIFn/0ZWTN03C3buppB5X+Wf1zG3hfu
- XW4/2d+3olp3HR2u9E0goMDsjH1XREuPBQVwrrHIgAVAf4fdPp1EPMLgII+2r8SMbCSC
- nv6A==
-X-Gm-Message-State: AOAM532G/B2E4sqVUKnsQ4OHNdugf0zHhoOHinkZrwWq1rhA4mk1lEEI
- rAIbfurQ47otrXgvfPmbLh903EBE1OyhPZUmMmw=
-X-Google-Smtp-Source: ABdhPJxCMzUslRm7FidnI2hciOCsoX6UY9Zg/OGwr/RHaqiQjQWNzl83PTeK5eoLmny8OS3z8e7aSMDIS+YzrGYC86Y=
-X-Received: by 2002:a05:6808:68f:: with SMTP id
- k15mr7667479oig.5.1639077655957; 
- Thu, 09 Dec 2021 11:20:55 -0800 (PST)
+ bh=cjBven+10v96Fdrx5oTYyhF8txHwUBDpu8peJFL2fjI=;
+ b=vLGAwcgZ6MPKrKT13S8BY8cmXh6/yJVyf1UhZmMhE5kXbLhE5gTmxuUUlju858kp9z
+ CF4QN9d6N7cUprwnb7kthdxAJIrw+7Qq7+9ifLBmR1WBN0KELBlmyUN2/S8i++TRAzID
+ eXgNtjJ3rx1jXqTWaNnDw/eq31kmTzDX01k7Qe6vyu6Q5w0W+QUVKLFC2c/dSWJ0xgRb
+ Yf6nLBdu3fW0fBE/+ghiABXxcny5mLOSfzpzw4YC2H/VpuX2kOdT6puY7uR0/WrTKvwz
+ 90rgbqhRO2EJfe5QcdbpLsW4LobbeT4HpXeWePS752oiTT9TEklkjLOzSL2s6d0NW6V9
+ oWqg==
+X-Gm-Message-State: AOAM533dNsd7rv+QJYduEr1jC7gOXC1PTdy9gNqBG8qGf5kLUaavpaJG
+ XjtvqvnMjoRkd4+bZqWFLpYGvjEf+mWaUyZrsdM=
+X-Google-Smtp-Source: ABdhPJwezmJ/UlZTTvf6jyobLIlp7d37FUaBDfVEwp0qNawxivqx8WEXWAp+tvnUTRfXF5xg2yWpBnuQIpDyCPkPBlY=
+X-Received: by 2002:a4a:8701:: with SMTP id z1mr5492422ooh.68.1639079996726;
+ Thu, 09 Dec 2021 11:59:56 -0800 (PST)
 MIME-Version: 1.0
-References: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
- <CADnq5_O8x3_8f7GZ=tme55-QW+nqMJ2YoqvROjDPg2YZP2catQ@mail.gmail.com>
- <a1f4d263-b3d2-4ceb-8a89-948c8129500f@igalia.com>
- <CADnq5_N9ptK4c86LO77YcrF5_M==hket+L7eYjsGCaKbORO=ug@mail.gmail.com>
- <eaea0143-a961-b83c-3c6c-4d612cd003bc@igalia.com>
-In-Reply-To: <eaea0143-a961-b83c-3c6c-4d612cd003bc@igalia.com>
+References: <20211209154715.20956-1-Philip.Yang@amd.com>
+In-Reply-To: <20211209154715.20956-1-Philip.Yang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Dec 2021 14:20:44 -0500
-Message-ID: <CADnq5_P+J_xxJ62zmTPGY0NfQR05Vnp51M_bYGXmdY1cXARfLA@mail.gmail.com>
-Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Date: Thu, 9 Dec 2021 14:59:45 -0500
+Message-ID: <CADnq5_Mh29hQR_dw_-6tv4M9qgp_sCGTbi2XxdhQ=2cutrGUMw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Detect if amdgpu in IOMMU direct map
+ mode
+To: Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,59 +62,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:EFIFB FRAMEBUFFER DRIVER" <linux-fbdev@vger.kernel.org>,
- xinhui pan <Xinhui.Pan@amd.com>, Baoquan He <bhe@redhat.com>,
- =?UTF-8?Q?Samuel_Iglesias_Gons=C3=A1lvez?= <siglesias@igalia.com>,
- kernel@gpiccoli.net, kexec@lists.infradead.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, pjones@redhat.com,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Dave Young <dyoung@redhat.com>,
- Christian Koenig <christian.koenig@amd.com>, Vivek Goyal <vgoyal@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 9, 2021 at 1:18 PM Guilherme G. Piccoli <gpiccoli@igalia.com> wrote:
+On Thu, Dec 9, 2021 at 12:02 PM Philip Yang <Philip.Yang@amd.com> wrote:
 >
-> Thanks again Alex! Some comments inlined below:
+> If host and amdgpu IOMMU is not enabled or IOMMU is pass through mode,
+> set adev->ram_is_direct_mapped flag which will be used to optimize
+> memory usage for multi GPU mappings.
 >
-> On 09/12/2021 15:06, Alex Deucher wrote:
-> > Not really in a generic way.  It's asic and platform specific.  In
-> > addition most modern displays require link training to bring up the
-> > display, so you can't just save and restore registers.
->
-> Oh sure, I understand that. My question is more like: is there a way,
-> inside amdgpu driver, to save this state before taking
-> over/overwriting/reprogramming the device? So we could (again, from
-> inside the amdgpu driver) dump this pre-saved state in the shutdown
-> handler, for example, having the device in a "pre-OS" state when the new
-> kexec'ed kernel starts.
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-Sure, it could be done, it's just a fair amount of work.  Things like
-legacy vga text mode is a bit more of a challenge, but that tends to
-be less relevant as non-legacy UEFI becomes more pervasive.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++++++
+>  2 files changed, 21 insertions(+)
 >
-> >
-> > The drivers are asic and platform specific.  E.g., the driver for
-> > vangogh is different from renoir is different from skylake, etc.  The
-> > display programming interfaces are asic specific.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 54c882a6b433..0ec19c83a203 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1097,6 +1097,8 @@ struct amdgpu_device {
 >
-> Cool, that makes sense! But if you (or anybody here) know some of these
-> GOP drivers, e.g. for the qemu/qxl device, I'm just curious to
-> see/understand how complex is the FW driver to just put the
-> device/screen in a usable state.
-
-Most of the asic init and display setup on AMD GPUs is handled via
-atombios command tables (basically little scripted stored in the
-vbios) which are shared by the driver and the GOP driver for most
-programming sequences.  In our case, the GOP driver is pretty simple.
-Take a look at the pre-DC display code in amdgpu to see what a basic
-display driver would look like (e.g., dce_v11_0.c).  The GOP driver
-would call the atombios asic_init table to make sure the chip itself
-is initialized (e.g., memory controller, etc.), then walk the display
-data tables in the vbios to determine the display configuration
-specific to this board, then probe the displays and use the atombios
-display command tables to light them up.
-
-Alex
+>         struct amdgpu_reset_control     *reset_cntl;
+>         uint32_t                        ip_versions[MAX_HWIP][HWIP_MAX_INSTANCE];
+> +
+> +       bool                            ram_is_direct_mapped;
+>  };
+>
+>  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index ce9bdef185c0..3318d92de8eb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/module.h>
+>  #include <linux/console.h>
+>  #include <linux/slab.h>
+> +#include <linux/iommu.h>
+>
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_probe_helper.h>
+> @@ -3381,6 +3382,22 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+>         return ret;
+>  }
+>
+> +/**
+> + * amdgpu_device_check_iommu_direct_map - check if RAM direct mapped to GPU
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * RAM direct mapped to GPU if IOMMU is not enabled or is pass through mode
+> + */
+> +static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
+> +{
+> +       struct iommu_domain *domain;
+> +
+> +       domain = iommu_get_domain_for_dev(adev->dev);
+> +       if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY)
+> +               adev->ram_is_direct_mapped = true;
+> +}
+> +
+>  static const struct attribute *amdgpu_dev_attributes[] = {
+>         &dev_attr_product_name.attr,
+>         &dev_attr_product_number.attr,
+> @@ -3784,6 +3801,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>                 queue_delayed_work(system_wq, &mgpu_info.delayed_reset_work,
+>                                    msecs_to_jiffies(AMDGPU_RESUME_MS));
+>
+> +       amdgpu_device_check_iommu_direct_map(adev);
+> +
+>         return 0;
+>
+>  release_ras_con:
+> --
+> 2.17.1
+>
