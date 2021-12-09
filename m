@@ -4,75 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF02AC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2A03C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 17:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46E0810E154;
-	Thu,  9 Dec 2021 17:04:13 +0000 (UTC)
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Thu, 09 Dec 2021 06:48:01 UTC
-Received: from mx6.ucr.edu (mx.ucr.edu [138.23.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D018C89226
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 06:48:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=ucr.edu; i=@ucr.edu; q=dns/txt; s=selector3;
- t=1639032486; x=1670568486;
- h=mime-version:from:date:message-id:subject:to;
- bh=PLtxLRbtG7A4GNXTBJJWn+LmhB2lQF+WbvK+FdtW/M4=;
- b=XcFreqVV32HZCQHeybDQdCHDJKDiflvn+IEhK5s3n+K2Ao7CD87Qk0V6
- BDkK365ZKCt5KitI5x9P+XJs58NdfqC1jTpEGOdBLNPECyLw9BxbeCu38
- 2UztBdSV+BcUOvB/sT9U5uz6mNEPYQ9IVExaSks4o10m8wwkIdYMqz4Bk
- V8OyF695qZRF8oFgwVGcxiXWS0Zc7RZ0oy/HNdGoItLF/gjhPxShnTbBV
- xB/05QhdH7HBeGlB0Ckb++5wM7BsY0E9cNhHnvWjMjyqAeZcr2qBbFrkt
- jxbgdVe2Iz08zaH5YnnhLvD2gpPojDiIoT8LAPPSpni+FfspXCST2xBu0 w==;
-IronPort-SDR: 3ciGfg/on2997wm3emTbxyBBD5UwswuSjc7231t4br074zQM2kcnZcZL2fKk86ymHgGtV5qmYL
- at0BhHzJP0z9blDts0MjyZayRUKdiwCQSaDOyOe3bwu59EGJERsj8soAmE0Nc9dxOHnchrjLJC
- nVtSPyElORfzozUgYS+xXyNho4nTvP+i+uLoWnXTn9F345Hy++Uh73FUOUke0gr0LfOY64CpHF
- FkCT1IbQAPoexovTfSDCR8jEW6F9Hs9H+4KZyutX+fVREzGHEvLvEn9B1CKBdMKr4tdQgP9XKJ
- ODtGOGzuwq23k8xHJ0M5ckcy
-X-IronPort-AV: E=Sophos;i="5.88,191,1635231600"; 
- d="scan'208,217";a="265380147"
-Received: from mail-yb1-f197.google.com ([209.85.219.197])
- by smtpmx6.ucr.edu with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 08 Dec 2021 22:40:55 -0800
-Received: by mail-yb1-f197.google.com with SMTP id
- y17-20020a2586d1000000b005f6596e8760so8815365ybm.17
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Dec 2021 22:40:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucr.edu; s=rmail;
- h=mime-version:from:date:message-id:subject:to;
- bh=s0o4sTGOBE7bP7GZEjPZHpdt1VBOUdd6uyrnR77d+EY=;
- b=v5cjBofIN0w17uRT8vmLtt5L9LTTL2AZEDBNEcwcAmkbhx8dL9A596vcVxfa7dW8U2
- 38HTPdDKSciz9J7nEwquKD51Xn/KBKUQd+UCasJReInPi/9OIMxnuyoQGHclHav7fM6z
- 5ZS+paLkQe1LTZMGPbzR5DL+aJKQXzpLZ/m+8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F1DB10E141;
+	Thu,  9 Dec 2021 17:32:05 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05AA310E141;
+ Thu,  9 Dec 2021 17:32:03 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id bj13so9684511oib.4;
+ Thu, 09 Dec 2021 09:32:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=hJMC/6XGazdnpccU1SQFAtAT2eakAt5TuZ88RaVgxf4=;
+ b=eaLDWdfmaDJowcYporVuPQkkPacWkuZRRERLd1GACogc2yYGlTn5IDnpIJc5mytXH4
+ G/opa3HpphlOfK8X5P/kXyD543tW27MG3AslNkWsNnW3ggm3ab3fsWwkBi/Ylin2u6ia
+ RsgiLjLCdxaylUkoUpbixv1XciOxOepBy238qS6+C6TZStvE9tQ5sH9E6vM4WniyvcJV
+ x1vg/0T5dqnm2QpeQMZUTGhCHXbfjHtnVcaSH7Wld71CkZdiIRLom0/Y+uPPqNOP4ubQ
+ aD/Tg18M+4pkVQHTB1rjodGfVBvQpk5BsdoixzTgp04VGI+Hm8GnSuOii8/OSjKnkiup
+ KWcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=s0o4sTGOBE7bP7GZEjPZHpdt1VBOUdd6uyrnR77d+EY=;
- b=SY9Q9cquUTdQL2fkSHMdCz5MCu5H5qrjCHS5d7frLeiU806P+3w1Iz3KpE8CN97Uhg
- TmIuddUsR43UVUeWoewWVn3a0AsD5eHGZGXD8xgrD1Ez60pCKNiQ1aBttq+Cx4sJDKM1
- EMAO9pZMa4UqkDTMSz3Bw1fTTDRmy2RW75ZpZchlY7pg7r+V/Ao4guJYex0u86byWfqv
- NcL6xWgamfEON450mr0I4jgcV/UuqyA05xBET8LkfZml99fxCTAXV9oG+AGnUen0hYnG
- QkQLyd5c5JBpxMDmzJZNMTLyUMLyBiUJsMBlQYYrKucPKZal8NtCOyRrbuPFu8h0lMb+
- 5gOQ==
-X-Gm-Message-State: AOAM531Cl9OfdMvJ4MIY6cAiv/7OvYpbVueDVHWdsETkMUEG7oLXNbFg
- 6asvTPX0t6JNFxz53OOo4lq5pGHdwTMxtgfiqG1zlbcaa8do+lQq6v/rOK9GL+CNfv4/4NnXkBh
- s6/zIt5Qq86KSgkQPad+EUNHkswObpOOK4whUQtGSb1k=
-X-Received: by 2002:a25:516:: with SMTP id 22mr4305252ybf.294.1639032051935;
- Wed, 08 Dec 2021 22:40:51 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJybju9fJBpj5JXp7EQcFTm/UZyp9V77drW+toFmu2m+Mzn1TSvi5X/UFyqz1UJhapoU2tunkcwH/Vy/ER67gUU=
-X-Received: by 2002:a25:516:: with SMTP id 22mr4305236ybf.294.1639032051735;
- Wed, 08 Dec 2021 22:40:51 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hJMC/6XGazdnpccU1SQFAtAT2eakAt5TuZ88RaVgxf4=;
+ b=U1MEBLQ5IRH43IgvLVnesvbiIG/ZuQRDbl7GL/9ncBFEX43CbAuYa7vhLZc1Wgi/Yc
+ DAmaN9lLzAfr3Z+zv6t0zV01de8X1zVDRsIV1n/PyHfJ6qJdbUj+et+8hgsMhOD1AqMP
+ Tw5Mf1Ukm4Be/3n0uNrJzyNTGNZa9B0Hyxw7MMPICtbPCVtaRLVBypM/XKvbtQY7Vtcn
+ /XYWWsUPTkUueGcm+uB7n3maOZuYFP4dPxgpyjQXK7XUPnjZODYYzSxt0cgkTupSjG3u
+ d0YGjE3+wtqBIc1axlVMhtq/97ov34LoDqyCHGAQBAZSpj/9y0TQa/tomrobw/pAKtfi
+ K+kQ==
+X-Gm-Message-State: AOAM532MhRlYL+7qAMn5Z41gfQ17TJ8Fcg3rqgkv50VRk4xGF6slUkxC
+ JvQ4i3O9+qxNdSLdPpovBojO2niw7DIgQzxqeC8=
+X-Google-Smtp-Source: ABdhPJy6MHVWih4d5IPimIIFxsxWSoGf18XPipyVKTtGgk4agVOpT2bIzZbdI42ON7pCuoF5rqlXzl4H8MRN5iRXWCk=
+X-Received: by 2002:a05:6808:300b:: with SMTP id
+ ay11mr7080461oib.120.1639071121305; 
+ Thu, 09 Dec 2021 09:32:01 -0800 (PST)
 MIME-Version: 1.0
-From: Yizhuo Zhai <yzhai003@ucr.edu>
-Date: Wed, 8 Dec 2021 22:40:41 -0800
-Message-ID: <CABvMjLRJjzeCiCcLg_cxVfcxr5UkAwmou-OZ3i0EVVhAxJF9JQ@mail.gmail.com>
-Subject: A Potential Bug in drm/amd/display/dc_link.c
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: multipart/alternative; boundary="0000000000003835d005d2b0e374"
-X-Mailman-Approved-At: Thu, 09 Dec 2021 17:04:03 +0000
+References: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
+In-Reply-To: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 9 Dec 2021 12:31:50 -0500
+Message-ID: <CADnq5_O8x3_8f7GZ=tme55-QW+nqMJ2YoqvROjDPg2YZP2catQ@mail.gmail.com>
+Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,144 +61,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "open list:EFIFB FRAMEBUFFER DRIVER" <linux-fbdev@vger.kernel.org>,
+ xinhui pan <Xinhui.Pan@amd.com>, kasong@redhat.com,
+ Baoquan He <bhe@redhat.com>,
+ =?UTF-8?Q?Samuel_Iglesias_Gons=C3=A1lvez?= <siglesias@igalia.com>,
+ kernel@gpiccoli.net, kexec@lists.infradead.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, pjones@redhat.com,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Dave Young <dyoung@redhat.com>,
+ Christian Koenig <christian.koenig@amd.com>, Vivek Goyal <vgoyal@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000003835d005d2b0e374
-Content-Type: text/plain; charset="UTF-8"
+On Thu, Dec 9, 2021 at 12:04 PM Guilherme G. Piccoli
+<gpiccoli@igalia.com> wrote:
+>
+> Hi all, I have a question about the possibility of reusing a framebuffer
+> after a regular (or panic) kexec - my case is with amdgpu (APU, aka, not
+> a separate GPU hardware), but I guess the question is kinda generic
+> hence I've looped most of the lists / people I think does make sense
+> (apologies for duplicates).
+>
+>
+> The context is: we have a hardware that has an amdgpu-controlled device
+> (Vangogh model) and as soon as the machine boots, efifb is providing
+> graphics - I understand the UEFI/GRUB outputs rely in EFI framebuffer as
+> well. As soon amdgpu module is available, kernel loads it and it takes
+> over the GPU, providing graphics. The kexec_file_load syscall allows to
+> pass a valid screen_info structure, so by kexec'ing a new kernel, we
+> have again efifb taking over on boot time, but this time I see nothing
+> in the screen. I've manually blacklisted amdgpu in this new kexec'ed
+> kernel, I'd like to rely in the simple framebuffer - the goal is to have
+> a tiny kernel kexec'ed. I'm using kernel version 5.16.0-rc4.
+>
+> I've done some other experiments, for exemple: I've forced screen_info
+> model to match VLFB, so vesafb took over after the kexec, with the same
+> result. Also noticed that BusMaster bit was off after kexec, in the AMD
+> APU PCIe device, so I've set it on efifb before probe, and finally
+> tested the same things in qemu, with qxl, all with the same result
+> (blank screen).
+> The most interesting result I got (both with amdgpu and qemu/qxl) is
+> that if I blacklist these drivers and let the machine continue using
+> efifb since the beginning, after kexec the efifb is still able to
+> produce graphics.
+>
+> Which then led me to think that likely there's something fundamentally
+> "blocking" the reuse of the simple framebuffer after kexec, like maybe
+> DRM stack is destroying the old framebuffer somehow? What kind of
+> preparation is required at firmware level to make the simple EFI VGA
+> framebuffer work, and could we perform this in a kexec (or "save it"
+> before the amdgpu/qxl drivers take over and reuse later)?
+>
 
-Hi All:
-I just found a bug in the cramfs using the static analysis tool, but not
-sure if this could happen in reality, could you please advisehere? Thanks
-for your attention : )
+Once the driver takes over, none of the pre-driver state is retained.
+You'll need to load the driver in the new kernel to initialize the
+displays.  Note the efifb doesn't actually have the ability to program
+any hardware, it just takes over the memory region that was used for
+the pre-OS framebuffer and whatever display timing was set up by the
+GOP driver prior to the OS loading.  Once that OS driver has loaded
+the area is gone and the display configuration may have changed.
 
-In function enable_stream_features(), the variable "old_downspread.raw
-<https://elixir.bootlin.com/linux/v4.18-rc1/source/drivers/gpu/drm/amd/display/dc/core/v4.18-rc1/C/ident/raw>"
-could be uninitialized if core_link_read_dpcd fails(), however, it is used
-in the later if statement, and further, core_link_write_dpcd() may write random
-value, which is potentially unsafe. But this function does not return the
-error code to the up caller and I got stuck in drafting the patch, could
-you please advise me here?
-
-The related code:
-
-static void enable_stream_features(struct pipe_ctx *pipe_ctx)
-{
-	union down_spread_ctrl old_downspread;
-	core_link_read_dpcd(link, DP_DOWNSPREAD_CTRL,
-		&old_downspread.raw, sizeof(old_downspread);
+Alex
 
 
-        //old_downspread.raw
-	if (new_downspread.raw != old_downspread.raw) {
-		core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
-		&new_downspread.raw, sizeof(new_downspread));
-	}
-}
-enum dc_status core_link_read_dpcd(
-	struct dc_link *link,
-	uint32_t address,
-	uint8_t *data,
-	uint32_t size)
-{
-        //data could be uninitialized if the helpers fails and log
-some error info
-
-	if (!dm_helpers_dp_read_dpcd(link->ctx,
-			link,
-			address, data, size))
-			return DC_ERROR_UNEXPECTED;
-
-	return DC_OK;
-}
-
-
--- 
-Kind Regards,
-
-*Yizhuo Zhai*
-
-*Computer Science, Graduate Student*
-*University of California, Riverside *
-
---0000000000003835d005d2b0e374
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi All:<div>I just found a bug in the cramfs using the sta=
-tic analysis tool, but not sure if this could happen in reality, could you<=
-span class=3D"gmail-Apple-converted-space">=C2=A0</span><span class=3D"gmai=
-l-il">please</span><span class=3D"gmail-Apple-converted-space">=C2=A0</span=
-><span class=3D"gmail-il">advise</span>here? Thanks for your attention : )<=
-/div><div><br></div><div><span style=3D"color:rgb(0,0,0);font-family:Arial;=
-font-size:13px;white-space:pre-wrap">In function=C2=A0</span><span style=3D=
-"color:rgb(0,0,0);font-family:Arial;font-size:13px;white-space:pre-wrap">en=
-able_stream_features(), the variable</span><font face=3D"arial, sans-serif"=
-><span style=3D"color:rgb(0,0,0);white-space:pre-wrap"> &quot;</span><span =
-class=3D"gmail-n" style=3D"color:rgb(0,0,0);box-sizing:inherit">old_downspr=
-ead</span><span class=3D"gmail-p" style=3D"box-sizing:inherit;color:rgb(102=
-,102,102)">.</span><span class=3D"gmail-n" style=3D"color:rgb(0,0,0);box-si=
-zing:inherit"><a href=3D"https://elixir.bootlin.com/linux/v4.18-rc1/source/=
-drivers/gpu/drm/amd/display/dc/core/v4.18-rc1/C/ident/raw" style=3D"box-siz=
-ing:inherit;text-decoration-skip:objects;color:inherit;text-decoration:none=
-;background-image:linear-gradient(rgba(0,0,0,0) 10%,rgb(244,246,255) 10%,rg=
-b(244,246,255) 90%,rgba(0,0,0,0) 90%);border-top-left-radius:0.2em;border-t=
-op-right-radius:0.2em;border-bottom-right-radius:0.2em;border-bottom-left-r=
-adius:0.2em">raw</a></span><span style=3D"color:rgb(0,0,0);white-space:pre-=
-wrap">&quot; </span></font><span style=3D"font-size:13px;color:rgb(0,0,0);f=
-ont-family:Arial;white-space:pre-wrap">could be uninitialized i</span><span=
- style=3D"font-size:13px;color:rgb(0,0,0);font-family:Arial;white-space:pre=
--wrap">f core_link_read_dpcd fails(), however, it is used in the later if s=
-tatement, and further, core_link_write_dpcd() may write </span><span style=
-=3D"color:rgb(0,0,0);font-family:Arial;font-size:13px;white-space:pre-wrap"=
->random value, which is potentially unsafe. But this function does not retu=
-rn the error code to the up caller and I got stuck in drafting the patch, c=
-ould you please advise me here?</span></div><div><span style=3D"color:rgb(0=
-,0,0);font-family:Arial;font-size:13px;white-space:pre-wrap"><br></span></d=
-iv><div><span style=3D"color:rgb(0,0,0);font-family:Arial;font-size:13px;wh=
-ite-space:pre-wrap">The related code:</span></div><div><pre style=3D"color:=
-rgb(51,51,51);margin-top:0px;margin-bottom:0px;line-height:16.25px">static =
-void enable_stream_features(struct pipe_ctx *pipe_ctx)
-{
-	union down_spread_ctrl old_downspread;
-	core_link_read_dpcd(link, DP_DOWNSPREAD_CTRL,
-		&amp;old_downspread.raw, sizeof(old_downspread);</pre><pre style=3D"margi=
-n-top:0px;margin-bottom:0px;line-height:16.25px"><span style=3D"color:rgb(5=
-1,51,51)">
-        //<span style=3D"font-family:Arial,Helvetica,sans-serif">old_downsp=
-read.raw</span>
-	<span style=3D"color:rgb(0,136,0);font-weight:bold">if</span> (new_downspr=
-ead.raw !=3D old_downspread.raw) {
-		core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
-		&amp;new_downspread.raw, sizeof(new_downspread));
-	}
-}
-enum dc_status core_link_read_dpcd(
-	struct dc_link *link,
-	uint32_t address,
-	uint8_t *data,
-	uint32_t size)
-{
-        //data could be uninitialized</span><font color=3D"#333333"> if the=
- helpers fails and log some error info</font></pre><pre style=3D"margin-top=
-:0px;margin-bottom:0px;line-height:16.25px"><font color=3D"#333333">	</font=
-><span style=3D"color:rgb(0,136,0);font-weight:bold">if</span><font color=
-=3D"#333333"> (</font><font color=3D"#333333">!dm_helpers_dp_read_dpcd(link=
--&gt;ctx,
-			link,
-			address, data, size))
-			</font><span style=3D"color:rgb(0,136,0);font-weight:bold">return</span>=
-<font color=3D"#333333"> DC_ERROR_UNEXPECTED;
-
-	</font><span style=3D"color:rgb(0,136,0);font-weight:bold">return</span><f=
-ont color=3D"#333333"> DC_OK;
-}</font></pre></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_s=
-ignature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><span style=
-=3D"font-size:14px">Kind Regards,</span><div style=3D"font-size:14px"><br><=
-div><font face=3D"arial, helvetica, sans-serif" size=3D"2"><b>Yizhuo Zhai</=
-b></font></div></div><div style=3D"font-size:14px"><br></div><div style=3D"=
-font-size:14px"><b>Computer Science, Graduate Student</b></div><div style=
-=3D"font-size:14px"><b>University of California, Riverside=C2=A0</b></div><=
-/div></div></div>
-
---0000000000003835d005d2b0e374--
+> Any advice is greatly appreciated!
+> Thanks in advance,
+>
+>
+> Guilherme
