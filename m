@@ -4,64 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C178C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 19:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E51CC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 19:50:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D6110EC87;
-	Fri, 10 Dec 2021 19:11:35 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB5F10EC82;
- Fri, 10 Dec 2021 19:11:34 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id u74so14475903oie.8;
- Fri, 10 Dec 2021 11:11:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C05210ECB2;
+	Fri, 10 Dec 2021 19:50:24 +0000 (UTC)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 479DD10EC9E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 19:50:22 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id t19so14696658oij.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 11:50:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=MCCCrMsD80PYsXI80yfhET4AB8VSWOdySeInd6qTHiw=;
- b=aBi0zyo1vOOvZtbVw1z0ewL0DB+wpsdif/9QhdpeVGrtx2FKxCx3PyanvopaVMam18
- LsNaYYxK9MWHESlmYlzj5cuePZb3rxr2ICfSp9IssOwMeQ/AGLJOBjnH9IEiTb7qbMJl
- 1wLr74UaWxYx2aKRsmS0I+Cag6qTY8rx3+0de9BOEZDbaavQytFuUAl4ikacxrHA5uL+
- jsSYwgX9JiANWLyqTpVbV5DknVCz5LH436HwOZEhqmvHiyMkDtkFCRPHRdh++AczBz0q
- 6c9hflbFHrmt2+yzUIQ0AQpMXZgwHFaGc8/siXhoKQcoWxbHqsoyxBXqy/DYVu80SdzS
- Ny0A==
+ :cc; bh=bEpB3ZCKGyxS8qAFwsnSAPIju7ZYtd1Vha92PPLX1bk=;
+ b=haKz9C+ebWgTUVTC1h60xY+XTXAybLY8lO/cauMd1bUy7HmeL3A+rkue4AyJHa6xqx
+ LzjYOWwTY5R/vc5lU3G6qdl0W5ASAOrAF/Kt8/w+9HiMEKprX7i1sq0D58kA7ZLio01r
+ K5N1Z2K/PTtw0I7u35VGB6qrKM1DjC4x4d3BLGT3WcdLuDWlkoy2AU2gLBTywg/RMuRR
+ 9FJZL4MX0W433nYlzL8MSMingNXWLTdITdnGgY+Ar/qId+lbOByVst6fKOEqxQutOg4d
+ UMz53u0tuQp4Ku3iNAeDwCSoD491rqbPBm6xIrcuXuUVsY9RbPAXBslKKjuoZu0QmqRP
+ w/qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=MCCCrMsD80PYsXI80yfhET4AB8VSWOdySeInd6qTHiw=;
- b=ssWILijMgWRHdRF/iLP3suXaQgS6QXBCrxscBRJfCAREptAGdSbHQnUvrosiSZxrkl
- TvvPkK0OZWAKSWTEwCm02INXWpmU4XGIHMBoTWv0bHPgHVc43ZCrexZpr1CVVjnyD79G
- 0qYb2Z4PsZbkapBeE9NNlznHmpXBOGtI6vZbtL5gz6hYygIR2jKBPVngfDyKTL06+wbr
- hGL3wSUZnk67J8wklm8LWScWPdUrNOsyeIIMWb5L3Cxeq87cIIIU7uQgMghZ2SZyUgMX
- VwwlEgHCUO3moJfMMYTf8+BNX8Bm6MAbXj4XFZ01xLIjmF0zeUR37ZBXY7a2q53pSJRD
- mw5w==
-X-Gm-Message-State: AOAM531j6+dE7f79w5DeAcJ7t2X3bXD58J8h2tjvhIWC5NjG83NtzyG0
- mbtuWp/je0olshYwVdYVRRZD8/gvkBNQTBLgRi4=
-X-Google-Smtp-Source: ABdhPJznkZHc+/04noUEWFMaObXDPF6FRikbNCHRD5le/cb77UpNIAdmSFl/MsYmSVixh4A3WQ7/OGpzRzZw/YTh/js=
+ :message-id:subject:to:cc;
+ bh=bEpB3ZCKGyxS8qAFwsnSAPIju7ZYtd1Vha92PPLX1bk=;
+ b=Vz0uffkowjkItW2bJVyTKv2fJS+rCDLsTTSvFvVGmXt0v6xDsQTrKtNuVt+2h96P74
+ aqrLjAqGZJXMHd0e4ulF+jM0QHpGPDXYyerbUaKHhct8Qlw7JUm4SN0iaDC/bIIfipSg
+ 3eA48vDji7aRiLrizoNYw5iQNn5JKm86gZWmZ8D6W2I9gsIufp2DvJcKWxOcea8eri8v
+ fNj/W7FvaYa1Z91PVSgxgf9q5yLiJMF9KED/IriDATZIs4dujawUHGj6bUZ3DrkfsPgF
+ YxJ2Hf4VPY0pKAFd9zHqKWbXHnMTnoP3adq/5CIx0QHO6KUfmyl22F95tbaLRwd+xgmR
+ Pslg==
+X-Gm-Message-State: AOAM533iktmfelQQWZ9LLptabb/QgTaenIJ+tUmCEm6dHUgtYktYzN1q
+ oDxVV0KCqQxZ3QwCvsVLFbESBn8vAtArVk7ubZw=
+X-Google-Smtp-Source: ABdhPJz+0L9dqi5ET/kgIo4iCA+O5LajryZHhsvmM0MQVe8ESIIceT28epezPlfZVhkpWYM9j4NtyPuqjAyydiI+WuQ=
 X-Received: by 2002:a05:6808:300b:: with SMTP id
- ay11mr14026975oib.120.1639163493704; 
- Fri, 10 Dec 2021 11:11:33 -0800 (PST)
+ ay11mr14196960oib.120.1639165821538; 
+ Fri, 10 Dec 2021 11:50:21 -0800 (PST)
 MIME-Version: 1.0
-References: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
- <CADnq5_O8x3_8f7GZ=tme55-QW+nqMJ2YoqvROjDPg2YZP2catQ@mail.gmail.com>
- <a1f4d263-b3d2-4ceb-8a89-948c8129500f@igalia.com>
- <CADnq5_N9ptK4c86LO77YcrF5_M==hket+L7eYjsGCaKbORO=ug@mail.gmail.com>
- <eaea0143-a961-b83c-3c6c-4d612cd003bc@igalia.com>
- <6d3c7acf-a23f-3073-56ed-375ccb8cc815@suse.de>
- <99b38881-8c63-de04-50f8-aa4119b52b25@igalia.com>
- <CADnq5_NqPEY6vPSsBQSst5Gsw-VpJ-sp-5DHMeB+EGA2t7KoAQ@mail.gmail.com>
- <56dfb915-036b-0584-f0ef-83c786970d6e@igalia.com>
- <d1de6ca3-11ae-af9e-a2fb-7bcb6fae01d6@amd.com>
- <0847ff12-8b1c-a046-eb05-f0011f81e172@igalia.com>
-In-Reply-To: <0847ff12-8b1c-a046-eb05-f0011f81e172@igalia.com>
+References: <1639136511-6357-1-git-send-email-curry.gong@amd.com>
+ <DM6PR12MB2619D53D25DD05BC41D5A4A5E4719@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2619D53D25DD05BC41D5A4A5E4719@DM6PR12MB2619.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Dec 2021 14:11:22 -0500
-Message-ID: <CADnq5_O4+8r_NKCK3JBtHPf03hniR9Q53r-A2PFFFBR9X1nFMQ@mail.gmail.com>
-Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Date: Fri, 10 Dec 2021 14:50:10 -0500
+Message-ID: <CADnq5_NimkOY-WBKQyzkD8HFupYs0XY_inPHe1-dSpmReXKP2Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
+ powergating is explicitly enabled
+To: "Quan, Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,55 +63,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:EFIFB FRAMEBUFFER DRIVER" <linux-fbdev@vger.kernel.org>,
- xinhui pan <Xinhui.Pan@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Baoquan He <bhe@redhat.com>,
- =?UTF-8?Q?Samuel_Iglesias_Gons=C3=A1lvez?= <siglesias@igalia.com>,
- kernel@gpiccoli.net, kexec@lists.infradead.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, pjones@redhat.com,
- Gerd Hoffmann <kraxel@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Dave Young <dyoung@redhat.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Vivek Goyal <vgoyal@redhat.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhu,
+ James" <James.Zhu@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Gong,
+ Curry" <Curry.Gong@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 10, 2021 at 10:24 AM Guilherme G. Piccoli
-<gpiccoli@igalia.com> wrote:
+On Fri, Dec 10, 2021 at 11:06 AM Quan, Evan <Evan.Quan@amd.com> wrote:
 >
-> On 10/12/2021 12:13, Christian K=C3=B6nig wrote:
-> > [...]
-> > How about issuing a PCIe reset and re-initializing the ASIC with just
-> > the VBIOS?
-> >
-> > That should be pretty straightforward I think.
-> >
-> > Christian.
+> [AMD Official Use Only]
 >
+> Hi Curry,
 >
-> Thanks Christian, that'd be perfect! Is it feasible? Per Alex comment,
-> we'd need to run atombios commands to reprogram the timings, display
-> info, etc...like a small driver would do, a full init.
+> Some nitpicks below. With them fixed, the patch is reviewed-by: Evan Quan <evan.quan@amd.com>
 >
+> @Deucher, Alexander this should be able address the issue reported by https://gitlab.freedesktop.org/drm/amd/-/issues/1828. Can you help to confirm this?
 
-You need the equivalent of a GOP driver or a full GPU driver.  I think
-it would be less effort to just fix up any problems amdgpu has when
-trying to load after the crash than to write a new mini driver.  By
-the time you add everything you'd need, you'd be pretty close to a
-full GPU driver.
-
-> Also, what kind of PCIe reset is recommended for this adapter? Like a
-> hot reset, powering-off/re-power, FLR or that MODE2 reset present in
-> amdgpu code? Remembering this is an APU device.
-
-You'd need to issue the relevant device specific reset sequence.  It
-would be a mode2 reset on vangogh, but varies on other asics.  It
-would probably be easiest to just fix up the logic in amdgpu to detect
-bad GPU state on driver load and do a GPU reset before driver init.
-We already have the logic in place for some dGPUs, but APUs only
-recently got full GPU reset support due to architectural limitations
-and hardware bugs.
+Yes, the patch works according to the reporter.
 
 Alex
+
+>
+> BR
+> Evan
+> > -----Original Message-----
+> > From: chen gong <curry.gong@amd.com>
+> > Sent: Friday, December 10, 2021 7:42 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; Quan,
+> > Evan <Evan.Quan@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Gong, Curry <Curry.Gong@amd.com>
+> > Subject: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
+> > powergating is explicitly enabled
+> >
+> > Play a video on the raven (or PCO, raven2) platform, and then do the S3
+> > test. When resume, the following error will be reported:
+> >
+> > amdgpu 0000:02:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR*
+> > ring
+> > vcn_dec test failed (-110)
+> > [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP
+> > block
+> > <vcn_v1_0> failed -110
+> > amdgpu 0000:02:00.0: amdgpu: amdgpu_device_ip_resume failed (-110).
+> > PM: dpm_run_callback(): pci_pm_resume+0x0/0x90 returns -110
+> >
+> > [why]
+> > When playing the video: The power state flag of the vcn block is set to
+> > POWER_STATE_ON.
+> >
+> > When doing suspend: There is no change to the power state flag of the
+> > vcn block, it is still POWER_STATE_ON.
+> >
+> > When doing resume: Need to open the power gate of the vcn block and set
+> > the power state flag of the VCN block to POWER_STATE_ON.
+> > But at this time, the power state flag of the vcn block is already
+> > POWER_STATE_ON. The power status flag check in the "8f2cdef
+> > drm/amd/pm:
+> > avoid duplicate powergate/ungate setting" patch will return the
+> > amdgpu_dpm_set_powergating_by_smu function directly.
+> > As a result, the gate of the power was not opened, causing the
+> > subsequent ring test to fail.
+> Better to update this as some descriptions  below:
+> adev-> vcn.idle_work will be triggered when the VCN ring idle for 1S. And we rely on it to do the VCN gate(power down).
+> However, if the VCN ring is still using on suspend kicked, there will be no chance for adev->vcn.idle_work to do the VCN gate.
+> That will make driver wrongly treat VCN as ungated(power on) and prevent further VCN ungate(power on) operation(which is actually needed) on resume.
+> >
+> > [how]
+> > In the suspend function of the vcn block, explicitly change the power
+> > state flag of the vcn block to POWER_STATE_OFF.
+> Maybe some descriptions as below is better:
+> Manually do the VCN gate(power down) in the suspend routine if adev->vcn.idle_work does not(have no chance) do that.
+> >
+> > Signed-off-by: chen gong <curry.gong@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > index d54d720..d73676b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > @@ -246,6 +246,13 @@ static int vcn_v1_0_suspend(void *handle)
+> >  {
+> >       int r;
+> >       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> > +     bool cancel_success;
+> This seems not a good naming since the cancel always succeed. The difference is whether the idle_work get actually executed.
+>  Better to rename it as "idle_work_unexecuted" or just "vcn_not_gated"?
+> > +
+> > +     cancel_success = cancel_delayed_work_sync(&adev-
+> > >vcn.idle_work);
+> > +     if (cancel_success) {
+> > +             if (adev->pm.dpm_enabled)
+> > +                     amdgpu_dpm_enable_uvd(adev, false);
+> > +     }
+> >
+> >       r = vcn_v1_0_hw_fini(adev);
+> >       if (r)
+> > --
+> > 2.7.4
