@@ -4,28 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B087C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Dec 2021 23:48:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A465FC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 02:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 895B610E140;
-	Thu,  9 Dec 2021 23:48:06 +0000 (UTC)
-Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E38A10E140
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Dec 2021 23:48:05 +0000 (UTC)
-Received: from localhost.localdomain (unknown [88.120.44.86])
- by smtp5-g21.free.fr (Postfix) with ESMTP id 58B9B5FF67;
- Fri, 10 Dec 2021 00:48:03 +0100 (CET)
-From: Yann Dirson <ydirson@free.fr>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] Documentation/gpu: include description of AMDGPU hardware
- structure
-Date: Fri, 10 Dec 2021 00:47:16 +0100
-Message-Id: <20211209234717.8897-3-ydirson@free.fr>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211209234717.8897-1-ydirson@free.fr>
-References: <20211209234717.8897-1-ydirson@free.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F240C10E187;
+	Fri, 10 Dec 2021 02:07:05 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2086.outbound.protection.outlook.com [40.107.93.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFD0610E187
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 02:07:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Pj9HGY/1ON63+4H7eAI6pof0006XEoc6oQNkHkPCH6kEkC93K1FqR+Va5u0MziNlwcbr3BaY2nrY6gYI3Q39BAdLtLBIKkLyakg46mq1nEiBmiRO4Q1HY8VU4dWoEzswoNaQShJLugpmtUz5/e5rBEPIsXWx/MOPomDDVS031Qmq4nlkgZXNTuWG0Z3wf59GLHctcNBBlsw4a3DuLk4jtf/8zRjlmFWkYNiCm+5ANkjuSpTQg0HpJS1TConR+/xvhE9IdNzhX3Wwi8GxXrAAeukgBRGSLnQk4dc6nKb8T3g8x8HC6OZLC2b4/IxuZ1P/yqayUtVWw3EVqKo1rJmQ5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mnxLAxTKQJBicon+xcoHGQq4KwBJiT4ghw35Z6sf5zY=;
+ b=aQhs9mAczZtu3U64Z1zNUsc+JyQmv/xTujzPGmdXZbo+TgZuCjQ4BAZafO+l+IM/MdhB8VpTNEHZ8llMHVS44hVlsfqzLyy1Fu6ZfoXBpiDE1bYyupSI7iHClHOxBZepTZk1Kzd9pGilJfty80MZrBXsEk7PhPEB1SjxMZ861/uTKXp9qE9ZKOTEhZ2gvAM+CdWBBsOWo9CdCmvrDz8IwszIvj8dmj6Whvlbrq2dBJKMHTTGOeYTojb5QZTuWJWQvE6bNgnS7tBH6+NV7Uwts4JUhLmZUHhWz/ggJZORTbOlWTHOfjEiGH/qkyc/t2ZPTWHWtj9XTgIUn1I5pEbv2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mnxLAxTKQJBicon+xcoHGQq4KwBJiT4ghw35Z6sf5zY=;
+ b=mnsccHPOT2QUlD+/6GRH3FtSGpTiVjysdwH+SRyQn7Zu72Qbs3kkFxoG//JRFCg9HfSEKwIDeSkhKU5DJCptJJeEUqPHK4VVP4y14JwhWMCR/QvCW++LEw2apMRtbEYDytoJ6PqY38sEcS+ngmQoocQAYnvkcUE9yVfeKamuE40=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB3468.namprd12.prod.outlook.com (2603:10b6:5:38::33) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4778.11; Fri, 10 Dec 2021 02:07:02 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::15d0:4c36:2886:bbef]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::15d0:4c36:2886:bbef%3]) with mapi id 15.20.4778.013; Fri, 10 Dec 2021
+ 02:07:02 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu: add support for SMU debug option
+Thread-Topic: [PATCH 2/2] drm/amdgpu: add support for SMU debug option
+Thread-Index: AQHX7R3v1iwa+CVypkGTJSNpw3lfa6wq+MPA
+Date: Fri, 10 Dec 2021 02:07:02 +0000
+Message-ID: <DM6PR12MB2619199DA5BBADDF0ED9ED0CE4719@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20211209084914.261889-1-lang.yu@amd.com>
+ <20211209084914.261889-2-lang.yu@amd.com>
+In-Reply-To: <20211209084914.261889-2-lang.yu@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-10T02:06:57Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=57cb7265-e41b-412d-9e5d-0f96c23dfc0a;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 34a8f06f-d9e4-4155-0e79-08d9bb81c1a6
+x-ms-traffictypediagnostic: DM6PR12MB3468:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB3468878F38BC6CCCED6DE69CE4719@DM6PR12MB3468.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Wmp4lKHzhGtqMKX3Rqt+qR4g9BynJmSUiVOB2+UuNFT7MI+/9MUG2jKjxZgUZ7GPchAx8LaP29SLySbTTY86khZEuaeeXAQf4c+XklFcTZ6p6UjhrnoB+ouH/McABIuMfGU/fnugj01Wer6bcN0FsehCHZEWVNOYB0tAimLxU4CmXzM9Y9ZjLp4a3t71/76Q9SeVLeXspGbn2Lb1+HuiKPT/WZdAdKrwb/V0rJKxfEgSzj72u3NEIXJzZtyLJfjK3+qaOYNf75MaLbOXE3+UsbSRAImztrpDcpCKb4NcXr+9q8vfumBCdIl8Aoa6D1/cb++XGRxv6ianyBSGaqDTdFbQ/Vxm0YFF3HUyrWLFxTWayZIXD28qtOvB9mh6VPsnOLvD7MyM3Ww9f//X1mNYtyp9eKLpNwLk3PVpqwuJMDEvebZgqiUo4kWJqDL3XChRyKpcM1xWsnv138FgP4e6RaXi65XU2HwsoLbNUpKoavD6aMLxchPsZ5ZvbrEdFGgxJuucuW8C5Ldfhi11PWP2O1qUYKRI+MMvFRHuzdtT7hE1hFO7Bf8dK8r5kRVcS+gCeu+XAINb2bJn9jG4vX4jF8ZuRKuwnahitpoFuZyjgXNzBRL6NpjnVgYGGBm5/n0x9+rvXScTRoCsdmgNjWykO2Y83yDazNSfts8V+qzM+2mvFnGTw+/s/sVFg1xB0efSkxHH8DYfBn8m+mfV+6gL+Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(508600001)(6506007)(5660300002)(55016003)(83380400001)(26005)(86362001)(66946007)(7696005)(186003)(9686003)(122000001)(53546011)(66476007)(4326008)(66556008)(38100700002)(64756008)(66446008)(76116006)(54906003)(71200400001)(38070700005)(110136005)(8676002)(8936002)(52536014)(316002)(2906002)(33656002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zjLVfYeItYHHqKOj84u2bY/t8t/ezaVlj2XhK3aRQ3qwmdzLUwX/msRGfO2E?=
+ =?us-ascii?Q?XeJoaFn5QokHGRuLrVuINufDoGRgCJASDuFJd5AzSov9sLZtkPJUCrOSXuVp?=
+ =?us-ascii?Q?ZYw0zI0Cob80dbLm8AqBMabbobDhjCZXfgnsTqVNX2GWbDB56wBOrdxTySKY?=
+ =?us-ascii?Q?eVy5g6nzKYkiIAxgQFJGMpOa8z1+b+pyoncgL9NGjXdpqOw0L17S7hse9TAS?=
+ =?us-ascii?Q?/3+8+ZqTDNPp9bYL/iijxA+ONNMgknfU81MOwSbXxdfOKJUsK+XO7vjwUK96?=
+ =?us-ascii?Q?8SPXV/tt3I33OGKFouw3eMihcKoIj69sZaEL33xjmkJdIwIA7xbs3+8X4dMH?=
+ =?us-ascii?Q?q1cfcjh2+JS4OHpwl98MZkmVfEqHm7y3jiKaH397Lgn4Pote5+fIPOMQ3G7F?=
+ =?us-ascii?Q?gJSDmAZMl8ujuICVcqRdWtRj83vU8b/+jpGmgeN2ojeHoa9KAEvnHCxeZOwz?=
+ =?us-ascii?Q?7g7gQ8wC2EJG6tU240nRdTWbWv34mJs7uODEBodkS/P4Tgun+e/yoBKqZ7qj?=
+ =?us-ascii?Q?eI5k98DWuf5r4CNMz9L55MU7DCu/MLmvTOJxDM7bWW05rx+WU7uB1irXn3YV?=
+ =?us-ascii?Q?NFvaPd3kr6d+hTL+scHjGT1y2jzC8stUix2AMvBzCxeFAWBBl+ULqAw56xoQ?=
+ =?us-ascii?Q?1E1RmvFmZTbWect493P4q9Kx9whFctoaAclbq4iPmfPgKsm5V2Anl2qNUZ58?=
+ =?us-ascii?Q?i2VCVUsKf4juY+lkh5PYn3kIC3bPBprkiZh02s+x/Gq6zV9i+YZW4xpJ3Ov/?=
+ =?us-ascii?Q?FEzWyy4nPnMiFuG7dA/9aakxer9IhTfGITMeY9NTqxCj3aS10N66ESGGEwxL?=
+ =?us-ascii?Q?mw/RNAjdA9dIV6Q4nejpiBQGuggIJZmyYzxGcT3BgFWX4kxazI+/MwHf5oLw?=
+ =?us-ascii?Q?iPt9KggcxVJeBoUmWylueMeCHv2OjThOVlw/0GhhaxvOY4c/7DeSMWCTgl7/?=
+ =?us-ascii?Q?S9r3TZH83uUD+XLh3COn7wOKsRSJqrQyQu954WQiC0egNzQpue+YZWccO/pu?=
+ =?us-ascii?Q?s6dpWXrslhmfg5uYKBKbPIGehx8BlwQJdBTp/X2Ql/020mw2KICFCQAasB7E?=
+ =?us-ascii?Q?bb95O//eOSlz/7rOuZuqFOXzNpedec07grGNISpUpN4BQ47+wmVrAhugKPgx?=
+ =?us-ascii?Q?5k9rugSZ5AJP+pWixN+/Oib2xTamEOjXLLTqUWHJu9MoXmvGfPSyGf34e/Ru?=
+ =?us-ascii?Q?HIICtmvTses6tqwrnvwdnp0ShLtejOKP5xBpSBFdcBY3YPzbZ0BBz3Yrtvfv?=
+ =?us-ascii?Q?GGI4EMbB3kKwbgl+4untFFnl2PngTvrBXOnSP/NP8OV22baUqRN8uf1cRQDC?=
+ =?us-ascii?Q?wamhnUaqqrQwJypDcu/XK03xxW7upOcP3ev1N1j+yojEqVcFLIaXMBZLZM+8?=
+ =?us-ascii?Q?EEAXmL/mF1D82gshVUDJYBdDuLsDu8gNOGEX8q7bC6Gfs8KLwsnH85rvzNKj?=
+ =?us-ascii?Q?Jdkr7LDvDi02sv8snStqnOuiU3IdLgVh/64vWAQSTDrggKPDAZo96Y2is/Yz?=
+ =?us-ascii?Q?8Lr3ywSafpE9Ltjn6B/Y5t6NvLO2+EHdqfMsV1r0mgvoAnvtyV9qt3rCbMSR?=
+ =?us-ascii?Q?NicsRJaf3OSghspkWMk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34a8f06f-d9e4-4155-0e79-08d9bb81c1a6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2021 02:07:02.2976 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LmftsHTlgzFMTujpZyspmn+jr3VDiPzPGpB1OjFS5lTauumnCpTy1KyWJYmtI/xz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3468
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,112 +126,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Yann Dirson <ydirson@free.fr>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-doc@vger.kernel.org
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Yu, Lang" <Lang.Yu@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is Alex' description from the "gpu block diagram" thread, edited to
-fit as ReST.
+[AMD Official Use Only]
 
-Originally-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Yann Dirson <ydirson@free.fr>
----
- Documentation/gpu/amdgpu/driver-core.rst | 81 ++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
 
-diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
-index 97f9a9b68924..909b13fad6a8 100644
---- a/Documentation/gpu/amdgpu/driver-core.rst
-+++ b/Documentation/gpu/amdgpu/driver-core.rst
-@@ -2,6 +2,87 @@
-  Core Driver Infrastructure
- ============================
- 
-+GPU hardware structure
-+======================
-+
-+Each asic is a collection of hardware blocks.  We refer to them as
-+"IPs" (Intellectual Property blocks).  Each IP encapsulates certain
-+functionality. IPs are versioned and can also be mixed and matched.
-+E.g., you might have two different asics that both have SDMA 5.x IPs.
-+The driver is arranged by IPs.  There are driver components to handle
-+the initialization and operation of each IP.  There are also a bunch
-+of smaller IPs that don't really need much if any driver interaction.
-+Those end up getting lumped into the common stuff in the soc files.
-+The soc files (e.g., vi.c, soc15.c nv.c) contain code for aspects of
-+the SoC itself rather than specific IPs.  E.g., things like GPU resets
-+and register access functions are SoC dependent.
-+
-+An APU contains more than just CPU and GPU, it also contains all of
-+the platform stuff (audio, usb, gpio, etc.).  Also, a lot of
-+components are shared between the CPU, platform, and the GPU (e.g.,
-+SMU, PSP, etc.).  Specific components (CPU, GPU, etc.) usually have
-+their interface to interact with those common components.  For things
-+like S0i3 there is a ton of coordination required across all the
-+components, but that is probably a bit beyond the scope of this
-+section.
-+
-+With respect to the GPU, we have the following major IPs:
-+
-+GMC (Graphics Memory Controller)
-+    This was a dedicated IP on older pre-vega chips, but has since
-+    become somewhat decentralized on vega and newer chips.  They now
-+    have dedicated memory hubs for specific IPs or groups of IPs.  We
-+    still treat it as a single component in the driver however since
-+    the programming model is still pretty similar.  This is how the
-+    different IPs on the GPU get the memory (VRAM or system memory).
-+    It also provides the support for per process GPU virtual address
-+    spaces.
-+
-+IH (Interrupt Handler)
-+    This is the interrupt controller on the GPU.  All of the IPs feed
-+    their interrupts into this IP and it aggregates them into a set of
-+    ring buffers that the driver can parse to handle interrupts from
-+    different IPs.
-+
-+PSP (Platform Security Processor)
-+    This handles security policy for the SoC and executes trusted
-+    applications, and validates and loads firmwares for other blocks.
-+
-+SMU (System Management Unit)
-+    This is the power management microcontroller.  It manages the entire
-+    SoC.  The driver interacts with it to control power management
-+    features like clocks, voltages, power rails, etc.
-+
-+DCN (Display Controller Next)
-+    This is the display controller.  It handles the display hardware.
-+
-+SDMA (System DMA)
-+    This is a multi-purpose DMA engine.  The kernel driver uses it for
-+    various things including paging and GPU page table updates.  It's also
-+    exposed to userspace for use by user mode drivers (OpenGL, Vulkan,
-+    etc.)
-+
-+GC (Graphics and Compute)
-+    This is the graphics and compute engine, i.e., the block that
-+    encompasses the 3D pipeline and and shader blocks.  The is by far the
-+    largest block on the GPU.  The 3D pipeline has tons of sub-blocks.  In
-+    addition to that, it also contains the CP microcontrollers (ME, PFP,
-+    CE, MEC) and the RLC microcontroller.  It's exposed to userspace for
-+    user mode drivers (OpenGL, Vulkan, OpenCL, etc.)
-+
-+VCN (Video Core Next)
-+    This is the multi-media engine.  It handles video and image encode and
-+    decode.  It's exposed to userspace for user mode drivers (VA-API,
-+    OpenMAX, etc.)
-+
-+Driver structure
-+================
-+
-+In general, the driver has a list of all of the IPs on a particular
-+SoC and for things like init/fini/suspend/resume, more or less just
-+walks the list and handles each IP.
-+
-+
- .. _amdgpu_memory_domains:
- 
- Memory Domains
--- 
-2.31.1
 
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lang
+> Yu
+> Sent: Thursday, December 9, 2021 4:49 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Lazar, Lijo
+> <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>; Deucher,
+> Alexander <Alexander.Deucher@amd.com>; Yu, Lang <Lang.Yu@amd.com>;
+> Koenig, Christian <Christian.Koenig@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: add support for SMU debug option
+>=20
+> SMU firmware guys expect the driver maintains error context
+> and doesn't interact with SMU any more when SMU errors occurred.
+> That will aid in debugging SMU firmware issues.
+>=20
+> Add SMU debug option support for this request, it can be
+> enabled or disabled via amdgpu_smu_debug debugfs file.
+> When enabled, it brings hardware to a kind of halt state
+> so that no one can touch it any more in the envent of SMU
+> errors.
+>=20
+> Currently, dirver interacts with SMU via sending messages.
+> And threre are three ways to sending messages to SMU.
+> Handle them respectively as following:
+>=20
+> 1, smu_cmn_send_smc_msg_with_param() for normal timeout cases
+>=20
+>   Halt on any error.
+>=20
+> 2, smu_cmn_send_msg_without_waiting()/smu_cmn_wait_for_response()
+> for longer timeout cases
+>=20
+>   Halt on errors apart from ETIME. Otherwise this way won't work.
+>=20
+> 3, smu_cmn_send_msg_without_waiting() for no waiting cases
+>=20
+>   Halt on errors apart from ETIME. Otherwise second way won't work.
+>=20
+> After halting, use BUG() to explicitly notify users.
+>=20
+> =3D=3D Command Guide =3D=3D
+>=20
+> 1, enable SMU debug option
+>=20
+>  # echo 1 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+>=20
+> 2, disable SMU debug option
+>=20
+>  # echo 0 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+>=20
+> v4:
+>  - Set to halt state instead of a simple hang.(Christian)
+>=20
+> v3:
+>  - Use debugfs_create_bool().(Christian)
+>  - Put variable into smu_context struct.
+>  - Don't resend command when timeout.
+>=20
+> v2:
+>  - Resend command when timeout.(Lijo)
+>  - Use debugfs file instead of module parameter.
+>=20
+> Signed-off-by: Lang Yu <lang.yu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  3 +++
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     |  5 +++++
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 20
+> +++++++++++++++++++-
+>  3 files changed, 27 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 164d6a9e9fbb..86cd888c7822 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -1618,6 +1618,9 @@ int amdgpu_debugfs_init(struct amdgpu_device
+> *adev)
+>  	if (!debugfs_initialized())
+>  		return 0;
+>=20
+> +	debugfs_create_bool("amdgpu_smu_debug", 0600, root,
+> +				  &adev->smu.smu_debug_mode);
+> +
+>  	ent =3D debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
+>  				  &fops_ib_preempt);
+>  	if (IS_ERR(ent)) {
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> index f738f7dc20c9..50dbf5594a9d 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> @@ -569,6 +569,11 @@ struct smu_context
+>  	struct smu_user_dpm_profile user_dpm_profile;
+>=20
+>  	struct stb_context stb_context;
+> +	/*
+> +	 * When enabled, it makes SMU errors fatal.
+> +	 * (0 =3D disabled (default), 1 =3D enabled)
+> +	 */
+> +	bool smu_debug_mode;
+[Quan, Evan] Can you expand this to bit mask(as ppfeaturemask)? So that in =
+future we can add support for other debug features.
+>  };
+>=20
+>  struct i2c_adapter;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index 048ca1673863..84016d22c075 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -272,6 +272,11 @@ int smu_cmn_send_msg_without_waiting(struct
+> smu_context *smu,
+>  	__smu_cmn_send_msg(smu, msg_index, param);
+>  	res =3D 0;
+>  Out:
+> +	if (unlikely(smu->smu_debug_mode) && res && (res !=3D -ETIME)) {
+> +		amdgpu_device_halt(smu->adev);
+> +		BUG();
+[Quan, Evan] I agree amdgpu_device_halt() is a good idea. Christian and And=
+rey can share you more insights about that.
+Do we still need the "BUG()" then?=20
+
+BR
+Evan
+> +	}
+> +
+>  	return res;
+>  }
+>=20
+> @@ -288,9 +293,17 @@ int smu_cmn_send_msg_without_waiting(struct
+> smu_context *smu,
+>  int smu_cmn_wait_for_response(struct smu_context *smu)
+>  {
+>  	u32 reg;
+> +	int res;
+>=20
+>  	reg =3D __smu_cmn_poll_stat(smu);
+> -	return __smu_cmn_reg2errno(smu, reg);
+> +	res =3D __smu_cmn_reg2errno(smu, reg);
+> +
+> +	if (unlikely(smu->smu_debug_mode) && res && (res !=3D -ETIME)) {
+> +		amdgpu_device_halt(smu->adev);
+> +		BUG();
+> +	}
+> +
+> +	return res;
+>  }
+>=20
+>  /**
+> @@ -357,6 +370,11 @@ int smu_cmn_send_smc_msg_with_param(struct
+> smu_context *smu,
+>  	if (read_arg)
+>  		smu_cmn_read_arg(smu, read_arg);
+>  Out:
+> +	if (unlikely(smu->smu_debug_mode) && res) {
+> +		amdgpu_device_halt(smu->adev);
+> +		BUG();
+> +	}
+> +
+>  	mutex_unlock(&smu->message_lock);
+>  	return res;
+>  }
+> --
+> 2.25.1
