@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D238AC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 23:33:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CEA5C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 23:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F3B410E5A6;
-	Fri, 10 Dec 2021 23:33:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F236610E58E;
+	Fri, 10 Dec 2021 23:33:28 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC31A10E598;
- Fri, 10 Dec 2021 23:24:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22EC010E574;
+ Fri, 10 Dec 2021 23:24:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639178652; x=1670714652;
+ t=1639178651; x=1670714651;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zEYfjvBMHvPx4GKgUpSX8H8PHdgwuH8BVfo+Q46AGGo=;
- b=fCdF3tJWUhn/KiuRLbIU6WXsnI0et6hoz7lQKjtPyjFABIGHwLEywUxx
- BvVnvowjGjPG6xw4bz9DgyU+4KuxQ3jXPNoUMd1FekkkAui/FCvvZcuue
- bLO8eyc8085wmFC5+1AY/F2oDKodxRTHhDcEKfLiZP/A6Z+jdECmfOtnO
- m34/lOE3Ry4s+SZJh4DY4lf6WQqtj/1Lfk5Y18tq7Y2ASgLy4/xBxvHdk
- gA8akHCyxA/nvLAOSeTqj6g2k5C01JrgzXnGLmtb0ehxfoc8FssApRasH
- tbdJ1iDYA/PMSZ1BYj/vnn/sN/EcjSQgPPgcJiH8ffoKdmBT8rJnPs9ER A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237212387"
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="237212387"
+ bh=jCKk2csSz0SQx21NAsEF7Oy/PZTrkEvuuAP1e36rVeQ=;
+ b=Z8fPwvAMJd2XbMmTTZWsGxLasR1abgd5B9LLG1F8MiWJZGQTF8Loca36
+ VfFLULbGtDTH4XO+ozUCV4JDH+J/dMbKvohYKUSxFmCkRFyCiQMPl0/7E
+ AKkpA3e3bms1hpBc10zOaYrQDsGljJxlmYFb3ZSGC6BWvcZQplTC5Yi2U
+ aWuKDn86cZKUFWaFLb1CNDgk262QTnuKemTWITo34yjPqTc5Js88vyKlb
+ CiGLiKaHNhY+v1zRa6NxQ32ZFdWHrfvncgkxXgZtjeHkMAtn4PUShcRkd
+ Ugz2biNQiX8+Xzyl6oEQdIaxppnjcA0x6FFMXcw4bzPXp+8fGQIbpqHUj Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237212370"
+X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="237212370"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 15:24:12 -0800
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="463861484"
+ 10 Dec 2021 15:24:10 -0800
+X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="463861449"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 15:24:12 -0800
+ 10 Dec 2021 15:24:10 -0800
 From: ira.weiny@intel.com
 To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Subject: [PATCH 7/7] drm/radeon: Ensure kunmap is called on error
-Date: Fri, 10 Dec 2021 15:24:04 -0800
-Message-Id: <20211210232404.4098157-8-ira.weiny@intel.com>
+Subject: [PATCH 3/7] drm/gma: Remove calls to kmap()
+Date: Fri, 10 Dec 2021 15:24:00 -0800
+Message-Id: <20211210232404.4098157-4-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211210232404.4098157-1-ira.weiny@intel.com>
 References: <20211210232404.4098157-1-ira.weiny@intel.com>
@@ -65,31 +65,68 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-The default case leaves the buffer object mapped in error.
+kmap() is being deprecated and these instances are easy to convert to
+kmap_local_page().
 
-Add radeon_bo_kunmap() to that case to ensure the mapping is cleaned up.
+Furthermore, in gma_crtc_cursor_set() use the memcpy_from_page() helper
+instead of an open coded use of kmap_local_page().
 
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
-
 ---
-NOTE: It seems like this function could use a fair bit of refactoring
-but this is the easiest way to fix the actual bug.
----
- drivers/gpu/drm/radeon/radeon_uvd.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/gma500/gma_display.c | 6 ++----
+ drivers/gpu/drm/gma500/mmu.c         | 8 ++++----
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
-index 2ea86919d953..7462010e0e6d 100644
---- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -563,6 +563,7 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
+diff --git a/drivers/gpu/drm/gma500/gma_display.c b/drivers/gpu/drm/gma500/gma_display.c
+index cbcecbaa041b..caf7c7b321a9 100644
+--- a/drivers/gpu/drm/gma500/gma_display.c
++++ b/drivers/gpu/drm/gma500/gma_display.c
+@@ -334,7 +334,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
+ 	struct gtt_range *gt;
+ 	struct gtt_range *cursor_gt = gma_crtc->cursor_gt;
+ 	struct drm_gem_object *obj;
+-	void *tmp_dst, *tmp_src;
++	void *tmp_dst;
+ 	int ret = 0, i, cursor_pages;
  
- 	default:
+ 	/* If we didn't get a handle then turn the cursor off */
+@@ -400,9 +400,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
+ 		/* Copy the cursor to cursor mem */
+ 		tmp_dst = dev_priv->vram_addr + cursor_gt->offset;
+ 		for (i = 0; i < cursor_pages; i++) {
+-			tmp_src = kmap(gt->pages[i]);
+-			memcpy(tmp_dst, tmp_src, PAGE_SIZE);
+-			kunmap(gt->pages[i]);
++			memcpy_from_page(tmp_dst, gt->pages[i], 0, PAGE_SIZE);
+ 			tmp_dst += PAGE_SIZE;
+ 		}
  
-+		radeon_bo_kunmap(bo);
- 		DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/gma500/mmu.c b/drivers/gpu/drm/gma500/mmu.c
+index fe9ace2a7967..a70b01ccdf70 100644
+--- a/drivers/gpu/drm/gma500/mmu.c
++++ b/drivers/gpu/drm/gma500/mmu.c
+@@ -184,17 +184,17 @@ struct psb_mmu_pd *psb_mmu_alloc_pd(struct psb_mmu_driver *driver,
+ 		pd->invalid_pte = 0;
  	}
+ 
+-	v = kmap(pd->dummy_pt);
++	v = kmap_local_page(pd->dummy_pt);
+ 	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
+ 		v[i] = pd->invalid_pte;
+ 
+-	kunmap(pd->dummy_pt);
++	kunmap_local(v);
+ 
+-	v = kmap(pd->p);
++	v = kmap_local_page(pd->p);
+ 	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
+ 		v[i] = pd->invalid_pde;
+ 
+-	kunmap(pd->p);
++	kunmap_local(v);
+ 
+ 	clear_page(kmap(pd->dummy_page));
+ 	kunmap(pd->dummy_page);
 -- 
 2.31.1
 
