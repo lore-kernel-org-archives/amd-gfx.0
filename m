@@ -4,64 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A2E0C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 08:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F834C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 08:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF36A10E3F4;
-	Fri, 10 Dec 2021 08:24:25 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1788F10E3E6;
- Fri, 10 Dec 2021 08:24:24 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 933501F3A7;
- Fri, 10 Dec 2021 08:24:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639124661; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0lxt8usXzhfSTMIerYCgaXVZhL3OS40ZuTOH9WL+4LA=;
- b=vN9sqQyTp1lh9JSRPcnhrD3wwtw5IIiv6DYaaqID5j73kDlCTJ64NtDpVUL1qGgH6/bwyt
- NTt609gsYcPOxliGxAecB9g6j66BtaV4k//qgQqPXEYD3Fa8IOvL7jMQ3bHTa5OSVgtmjA
- 1uP1f8LFCsTmmcBwp2emFvIUqRR57GA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639124661;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0lxt8usXzhfSTMIerYCgaXVZhL3OS40ZuTOH9WL+4LA=;
- b=AVo6PKIh1Jc2ZWSRIOTorcQcJQa86tTeWuVytMJ5XoWd43gTmd1TEt8leH3xMH6Bx/bX9Z
- AcP+qtw9+4lFFvDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B67713BA4;
- Fri, 10 Dec 2021 08:24:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UpHxDLUOs2G1FQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Fri, 10 Dec 2021 08:24:21 +0000
-Message-ID: <6d3c7acf-a23f-3073-56ed-375ccb8cc815@suse.de>
-Date: Fri, 10 Dec 2021 09:24:20 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E6CA10E39A;
+	Fri, 10 Dec 2021 08:39:33 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82BB710E39D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 08:39:31 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ m25-20020a7bcb99000000b0033aa12cdd33so6688212wmi.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 00:39:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3Y/F1E//K83QeC1+KKb7wRfKU4YfLVkFshCatabhgsc=;
+ b=q5yWlf7eWF8byxMBMZfTeNcWEuFQ9nFfKpODqi8Svkny0d6LNDlG5GNadHSEiGe2A8
+ zv7u7dirOahYqQFZoQuCoIhkHq8DXpyjMwRstLJwXyFr8Lzw6aRFz0n8clg8/KJdnjAM
+ f4kzmsz7EJvm6f04VGYpGw6IJ7Bk6kzE9q1UTq2RmOEZKxVg+Rz9ycmMBhO/kF+z9lji
+ eNAle6Vsm6/Lw/4pKQTuwDWav3q85Ns9QcigqnnPeU28OtsMtNu2mQRI+EXU9+pkf+4f
+ eRYCXovWY3SuPXj0vHA4OxWbvZiDtQH6qLanXyAplASbvXczB8L9197Sh6xHjIcja/Un
+ gowA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3Y/F1E//K83QeC1+KKb7wRfKU4YfLVkFshCatabhgsc=;
+ b=GNy4HDf6eDdiUQMD0y2qZ/DzuYm2l9rJtZ5tDqFnmZ4rDpAeMjAKp3+LhmuIiOmgpf
+ nZDAEfXTAG2aYtGD/OYFJ54gSsSypwTgHlfO/r9pS6AFp3N5VFKIEhr81+unhSxzcZ1T
+ eAhq1ULFuL5EBhKVBTjbl7Z4miu5Zo2XsRH0VNzNGv1uPMjn/uc8b42lFEYpowlyn2dV
+ 7Sc9WbVnyPiyidqAX9iDm+rnSmtJ+ehn5qluVD/jnV9QGcWa6Rr5+vXATSBJgjgundEa
+ PJj+AIipxVwOkSGKXBUC5r+vPn0a//5SRUL4Qq1s8fF8bwRFyTYSPD668NeccsQRq8GO
+ ABsw==
+X-Gm-Message-State: AOAM5311y+aVsRi+gHU3O0BmRUufo1HuIoRUQNrFnHQsVH9r+fDw+NnI
+ q6EvzcdwUJGOxmX+elh8TecpTjqOFEQ=
+X-Google-Smtp-Source: ABdhPJxhq8ijps0t8OnKKHlGf72yEAc0P0o9pV8my0XVEUhA8oCK3d8Bf6KKeep0tOQo3NuxZYpO1w==
+X-Received: by 2002:a05:600c:3846:: with SMTP id
+ s6mr14576918wmr.37.1639125570034; 
+ Fri, 10 Dec 2021 00:39:30 -0800 (PST)
+Received: from abel.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id d2sm11933280wmb.24.2021.12.10.00.39.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Dec 2021 00:39:29 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	alexdeucher@gmail.com
+Subject: [PATCH] drm/amdgpu: fix dropped backing store handling in
+ amdgpu_dma_buf_move_notify
+Date: Fri, 10 Dec 2021 09:39:27 +0100
+Message-Id: <20211210083927.1754-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
-Content-Language: en-US
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
- <CADnq5_O8x3_8f7GZ=tme55-QW+nqMJ2YoqvROjDPg2YZP2catQ@mail.gmail.com>
- <a1f4d263-b3d2-4ceb-8a89-948c8129500f@igalia.com>
- <CADnq5_N9ptK4c86LO77YcrF5_M==hket+L7eYjsGCaKbORO=ug@mail.gmail.com>
- <eaea0143-a961-b83c-3c6c-4d612cd003bc@igalia.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <eaea0143-a961-b83c-3c6c-4d612cd003bc@igalia.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------KvoFjzqY9p5CbDDYH5tTFH0S"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,104 +71,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:EFIFB FRAMEBUFFER DRIVER" <linux-fbdev@vger.kernel.org>,
- xinhui pan <Xinhui.Pan@amd.com>, Baoquan He <bhe@redhat.com>,
- =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>,
- kernel@gpiccoli.net, kexec@lists.infradead.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, pjones@redhat.com,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Dave Young <dyoung@redhat.com>,
- Christian Koenig <christian.koenig@amd.com>, Vivek Goyal <vgoyal@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------KvoFjzqY9p5CbDDYH5tTFH0S
-Content-Type: multipart/mixed; boundary="------------80WEhdOKoaLAAtRPUYO6iPCM";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: "open list:EFIFB FRAMEBUFFER DRIVER" <linux-fbdev@vger.kernel.org>,
- kexec@lists.infradead.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- kernel@gpiccoli.net, Baoquan He <bhe@redhat.com>,
- =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>,
- xinhui pan <Xinhui.Pan@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- pjones@redhat.com, Gerd Hoffmann <kraxel@redhat.com>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Dave Young <dyoung@redhat.com>, Christian Koenig <christian.koenig@amd.com>,
- Vivek Goyal <vgoyal@redhat.com>
-Message-ID: <6d3c7acf-a23f-3073-56ed-375ccb8cc815@suse.de>
-Subject: Re: Reuse framebuffer after a kexec (amdgpu / efifb)
-References: <62aab616-53cb-ff9f-c5f3-169c547bd1ee@igalia.com>
- <CADnq5_O8x3_8f7GZ=tme55-QW+nqMJ2YoqvROjDPg2YZP2catQ@mail.gmail.com>
- <a1f4d263-b3d2-4ceb-8a89-948c8129500f@igalia.com>
- <CADnq5_N9ptK4c86LO77YcrF5_M==hket+L7eYjsGCaKbORO=ug@mail.gmail.com>
- <eaea0143-a961-b83c-3c6c-4d612cd003bc@igalia.com>
-In-Reply-To: <eaea0143-a961-b83c-3c6c-4d612cd003bc@igalia.com>
+bo->tbo.resource can now be NULL.
 
---------------80WEhdOKoaLAAtRPUYO6iPCM
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1811
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-SGkNCg0KQW0gMDkuMTIuMjEgdW0gMTk6MTcgc2NocmllYiBHdWlsaGVybWUgRy4gUGljY29s
-aToNCj4gVGhhbmtzIGFnYWluIEFsZXghIFNvbWUgY29tbWVudHMgaW5saW5lZCBiZWxvdzoN
-Cj4gDQo+IE9uIDA5LzEyLzIwMjEgMTU6MDYsIEFsZXggRGV1Y2hlciB3cm90ZToNCj4+IE5v
-dCByZWFsbHkgaW4gYSBnZW5lcmljIHdheS4gIEl0J3MgYXNpYyBhbmQgcGxhdGZvcm0gc3Bl
-Y2lmaWMuICBJbg0KPj4gYWRkaXRpb24gbW9zdCBtb2Rlcm4gZGlzcGxheXMgcmVxdWlyZSBs
-aW5rIHRyYWluaW5nIHRvIGJyaW5nIHVwIHRoZQ0KPj4gZGlzcGxheSwgc28geW91IGNhbid0
-IGp1c3Qgc2F2ZSBhbmQgcmVzdG9yZSByZWdpc3RlcnMuDQo+IA0KPiBPaCBzdXJlLCBJIHVu
-ZGVyc3RhbmQgdGhhdC4gTXkgcXVlc3Rpb24gaXMgbW9yZSBsaWtlOiBpcyB0aGVyZSBhIHdh
-eSwNCj4gaW5zaWRlIGFtZGdwdSBkcml2ZXIsIHRvIHNhdmUgdGhpcyBzdGF0ZSBiZWZvcmUg
-dGFraW5nDQo+IG92ZXIvb3ZlcndyaXRpbmcvcmVwcm9ncmFtbWluZyB0aGUgZGV2aWNlPyBT
-byB3ZSBjb3VsZCAoYWdhaW4sIGZyb20NCj4gaW5zaWRlIHRoZSBhbWRncHUgZHJpdmVyKSBk
-dW1wIHRoaXMgcHJlLXNhdmVkIHN0YXRlIGluIHRoZSBzaHV0ZG93bg0KPiBoYW5kbGVyLCBm
-b3IgZXhhbXBsZSwgaGF2aW5nIHRoZSBkZXZpY2UgaW4gYSAicHJlLU9TIiBzdGF0ZSB3aGVu
-IHRoZSBuZXcNCj4ga2V4ZWMnZWQga2VybmVsIHN0YXJ0cy4NCg0KV2UgaGF2ZSBoYXZlIGJl
-ZW4gdGFsa2luZyBhYm91dCByZWFkaW5nIG91dCBhbmQgc3RvcmluZyBzdGF0ZSBvZiBhY3Rp
-dmUgDQpkZXZpY2VzIHdpdGhpbiBEUk0uIFNvIGZhciBub3RoaW5nIHVzYWJsZSBoYXMgZW1l
-cmdlZC4gSW4gYSBkaXN0YW50IA0KZnV0dXJlLCBrZXhlYyBtaWdodCBiZSBhYmxlIHRvIHN0
-b3JlIGluZm9ybWF0aW9uIGFib3V0IHRoZSBhY3RpdmUgDQpmcmFtZWJ1ZmZlciBhbmQgdGhl
-IG5ldyBrZXJuZWwncyBzaW1wbGVkcm0gKG9yIHNvbWUgb3RoZXIgZHJpdmVyKSBjb3VsZCAN
-CnVzZSBpdCBhcyBvdXRwdXQuDQoNCkJ1dCBkb24ndCBob2xkIHlvdXIgYnJlYXRoIGZvciBp
-dC4gSXQgd29uJ3QgaGFwcGVuIGFueXRpbWUgc29vbi4NCg0KQmVzdCByZWdhcmRzDQpUaG9t
-YXMNCg0KPiANCj4+DQo+PiBUaGUgZHJpdmVycyBhcmUgYXNpYyBhbmQgcGxhdGZvcm0gc3Bl
-Y2lmaWMuICBFLmcuLCB0aGUgZHJpdmVyIGZvcg0KPj4gdmFuZ29naCBpcyBkaWZmZXJlbnQg
-ZnJvbSByZW5vaXIgaXMgZGlmZmVyZW50IGZyb20gc2t5bGFrZSwgZXRjLiAgVGhlDQo+PiBk
-aXNwbGF5IHByb2dyYW1taW5nIGludGVyZmFjZXMgYXJlIGFzaWMgc3BlY2lmaWMuDQo+IA0K
-PiBDb29sLCB0aGF0IG1ha2VzIHNlbnNlISBCdXQgaWYgeW91IChvciBhbnlib2R5IGhlcmUp
-IGtub3cgc29tZSBvZiB0aGVzZQ0KPiBHT1AgZHJpdmVycywgZS5nLiBmb3IgdGhlIHFlbXUv
-cXhsIGRldmljZSwgSSdtIGp1c3QgY3VyaW91cyB0bw0KPiBzZWUvdW5kZXJzdGFuZCBob3cg
-Y29tcGxleCBpcyB0aGUgRlcgZHJpdmVyIHRvIGp1c3QgcHV0IHRoZQ0KPiBkZXZpY2Uvc2Ny
-ZWVuIGluIGEgdXNhYmxlIHN0YXRlLg0KPiANCj4gQ2hlZXJzLA0KPiANCj4gDQo+IEd1aWxo
-ZXJtZQ0KPiANCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERl
-dmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJIDQpNYXhmZWxk
-c3RyLiA1LCA5MDQwOSBOw7xybmJlcmcsIEdlcm1hbnkNCihIUkIgMzY4MDksIEFHIE7DvHJu
-YmVyZykNCkdlc2Now6RmdHNmw7xocmVyOiBJdm8gVG90ZXYNCg==
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index ae6ab93c868b..7444484a12bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -384,7 +384,7 @@ amdgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
+ 	struct amdgpu_vm_bo_base *bo_base;
+ 	int r;
+ 
+-	if (bo->tbo.resource->mem_type == TTM_PL_SYSTEM)
++	if (!bo->tbo.resource || bo->tbo.resource->mem_type == TTM_PL_SYSTEM)
+ 		return;
+ 
+ 	r = ttm_bo_validate(&bo->tbo, &placement, &ctx);
+-- 
+2.25.1
 
---------------80WEhdOKoaLAAtRPUYO6iPCM--
-
---------------KvoFjzqY9p5CbDDYH5tTFH0S
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmGzDrQFAwAAAAAACgkQlh/E3EQov+D1
-VA//TolDEsSYZwbPj3dNNMdIhs0PchvGgm6Zjy/NRhlXGo88GEiuDqxJcb51HQZemAHruSwLAu1j
-rDENbU9RdR3kurNVhcnCvFLMWFNAHxR2zzmZVeEvaaCOkyEcFeLCCBY6jKP3l09n+nMxUtZ9lVsD
-7HKgncawMr5JZc8zAhAB5tx0xoudyzWB+GkRiR+xrcD4oDCHG2vrx8HxXkd6AnDlXw92H4AxwYZ9
-p/fgKTV7IVEy0dKc4xbcmNDW5SuookiQCinID2jNOND2+pqnO5yteCQ+m26LAUouL+0twSmwerHJ
-VpoJ7tZKi6gky8S5DvewhXPuuKb/IEZnhl983q5bupJdOw2va9v6jRaXJtJtOw7y0Q4VUA3C9Zop
-t7JX+GFTmMyc2CapAB8VT1C3yj3sAN5iL8U7o6esLF7OUyob06ElvlqJrClIhDlOTlg2UKdQdphc
-RHxwKbkGzLnV3qEu218q37qJrLNfbB0kbOGQCAMAUnIeWN7yRS2K5Yvq81tPJ9LHV1Y1uh5GGXGa
-aWnu1OqHGXu+WFxWw19x27PQi8O1n/A8bLwOfjGUT986k9jJgYt9SmFtRkcdLidNWhl/858606gx
-mW2qMawQUOQ8Hu8CMJm/ackkuFAG6Pa+iQy+itFXewWwYI4vOy3qP/28eg4o1myCduvhOdLj3SYX
-7PQ=
-=WnRY
------END PGP SIGNATURE-----
-
---------------KvoFjzqY9p5CbDDYH5tTFH0S--
