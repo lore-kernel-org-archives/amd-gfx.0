@@ -4,67 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A91EBC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 07:22:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 655D2C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 07:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39BFB10E5D0;
-	Fri, 10 Dec 2021 07:22:24 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A446010E657
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 07:22:23 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id c4so13368810wrd.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Dec 2021 23:22:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=y2CWXJ/56i+lgO9qMBkA0rp5PAMAG0VA0yoZ9pGalPw=;
- b=Qyr2b1HXe1CcvZwX9m4a4uFesmCMrFTMOCLhhSj4mWIfaY2ncNdvrcG56k6W/ibwmQ
- hxloC/GUz75eznFLHZaPxLQow19gw4OyBZhm3KD2LCX0VWpyvItI4jFyknA52oE3C5uf
- qaCEZiYw8aw971n7yOhmdnFzpqXmfw2GyT6c7htQUvw/347450wRBlJkuZNW9nYeqz90
- iFMI9NclKq+9uutEnt1IMKWRo8FfZZYqg7IT3g6OazuhkWcy18kh46VY07/Qm8YDBs03
- 3eNrSgNObzK+VpP9G2zygB4/tBsk6WIWhyfsrhvlM/I6e66skMy5dnHuS2moXiwUVvXU
- PvFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=y2CWXJ/56i+lgO9qMBkA0rp5PAMAG0VA0yoZ9pGalPw=;
- b=68vfOzuw891GVU1cdbh8WvndK7JL1qcpBwlb9pstlWFvSLNdmGoG6vRPDtjH24tJoI
- /+XlhbB/Emj2HDS5e+dZF9N2xeRPF2+IkSyoGxxsba9gYAcr3ocGWI3KXC5Ssm4+uFiT
- xoX5KPh/GCpDNEaBrh6jCDX7TVFqM1W1o6dbUH1kiWeDVxOdRZxcxinSDhbujQlYFxWh
- 9cTDHyr5Ubuh2s04hrqxeRyB/0j95R/ePAGVx6MxveGjeChy0/QTEkC0CgZajr7Lkopr
- dn7Cr2Pif3mmPvBso20tNT9bxb7eqlYwqy5Y70t2X8iPhrWQdvQb6TndUOHsBeycy0tI
- 6Otg==
-X-Gm-Message-State: AOAM530Pdt/XYdnYq6AaBQfrOTXHADUEww4e4hxIjgComJQXH3av6sk/
- kkskqCb3sozC1WVhMDXUOovJg20XEx4=
-X-Google-Smtp-Source: ABdhPJyLLyOUatYpoKNYi3HTwssjvIImQ8fysBmxakOz1VG3RRW0O46ciczU7zwsPshdLXcpfzcaeg==
-X-Received: by 2002:adf:8bda:: with SMTP id w26mr11792950wra.534.1639120942102; 
- Thu, 09 Dec 2021 23:22:22 -0800 (PST)
-Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id g124sm10741645wme.28.2021.12.09.23.22.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Dec 2021 23:22:21 -0800 (PST)
-Subject: Re: [PATCH] drm/amdkfd: explicitly create/destroy queue attributes
- under /sys
-To: Felix Kuehling <felix.kuehling@amd.com>,
- "Chen, Xiaogang" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211209074918.1555320-1-xiaogang.chen@amd.com>
- <93fd623b-9168-09b6-063c-7ece79c9a00d@amd.com>
- <66721e5c-a5fb-9b8a-4766-e5788bee4ee7@amd.com>
- <25d924e7-95df-662e-7a3d-faa978c4cd6b@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <dedee52d-b2e6-c5d7-4807-380aa1990780@gmail.com>
-Date: Fri, 10 Dec 2021 08:22:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D153810E33D;
+	Fri, 10 Dec 2021 07:49:38 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2045.outbound.protection.outlook.com [40.107.237.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E900810E33D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Dec 2021 07:49:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lVkT/7DxuKC44W+zlHYnhdqhXtwo8q8nHpT4RAQvjCce5cum/x4oroSpGOafLBPtDfASCxzVTUzi1No33zOqP7N2ZPcIid/KZ4Hk3kP7csS+GcbJ51mT2WRYeZ28RW6N/K7J8njcTcHmhaDY6HAnRdHE2cIvVYaNs/yGH4lT1y6/CuyoivRQ9qmfBoi70hOK0GxoNntTInbeSQUHqV2+wJwICHZX6swDo+syd7nvPxADD1PK1MeA9td91Wpa64NNSWszNrIxReT9ZJHZotsB2W/3zOYbwZc+absY8dtnTpjEiT8CQyfKmpHf3pOIm2CQ/gfvXk+8B1xEH7zDT96Aaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PpPcvNoYqy4wau2VimUraZ9Pv6JJ/i1M5I2Kdj9LSGc=;
+ b=kCiPoUwjUXLGcX3ykQcb9a1sIDI47MUZwWyqPxcMkn7FBaD+kDjvIvM5OkXqU29WgeM9G2YnF1TAYVpF+bRC0bZR51JzDqARQUXk/YrLLrxBo/jb1a1FQWA5lsN9aseaOKYBj1SvzD025xm2ED9XFWqbt5tfa9IzKYJsgqMIWDnIfl0z7eQ9b6CH2qXR14wT0fc4SzN+KfUREQCcufzvOe2qCu4TqxpEGSNSA/vsCGDMLxGbaYY0CWXxHFRM5KxOR6C+LDG8M+/YKivBFN+LIeeCr+TKXsXXTnkSGdKVxcXAhisbYIRF9TJ8V2hYh7liEoK7hE1bu2JJl96oS4l8Ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PpPcvNoYqy4wau2VimUraZ9Pv6JJ/i1M5I2Kdj9LSGc=;
+ b=tDO4DcrAjqNXOznZvc3KKH5tTG5Dp26gTc35+1riRzFIOdpqUkkdCK0rYeh8+FsQm1vDSZNtCqGEXfxXVYRu0RYDrn1hs+/Efly65QVn/NFTuGdwgVKLXdnWG1EywAPSfrytqDCvoE6SHs3xa4BRZedry+JyZMjGTxc8qZXbmTA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ DM6PR12MB3404.namprd12.prod.outlook.com (2603:10b6:5:3a::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4755.19; Fri, 10 Dec 2021 07:49:35 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::711a:4c44:b4a7:4afa%8]) with mapi id 15.20.4778.015; Fri, 10 Dec 2021
+ 07:49:35 +0000
+Date: Fri, 10 Dec 2021 15:49:24 +0800
+From: Lang Yu <Lang.Yu@amd.com>
+To: Christian KKKnig <christian.koenig@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: add support for SMU debug option
+Message-ID: <YbMGhLUP/X6/GcZu@lang-desktop>
+References: <20211209084914.261889-1-lang.yu@amd.com>
+ <20211209084914.261889-2-lang.yu@amd.com>
+ <DM6PR12MB2619199DA5BBADDF0ED9ED0CE4719@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <YbK8lwgodK5VutKA@lang-desktop>
+ <DM6PR12MB2619F67E8A6A3D230A5D6E52E4719@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <YbLHyOypWV8FV0oc@lang-desktop>
+ <c6151df9-1b12-e985-22df-bfd6ea32f582@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c6151df9-1b12-e985-22df-bfd6ea32f582@amd.com>
+X-ClientProxiedBy: HK2PR04CA0090.apcprd04.prod.outlook.com
+ (2603:1096:202:15::34) To DM6PR12MB4250.namprd12.prod.outlook.com
+ (2603:10b6:5:21a::9)
 MIME-Version: 1.0
-In-Reply-To: <25d924e7-95df-662e-7a3d-faa978c4cd6b@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 89b3286c-6dce-458e-6d37-08d9bbb19c02
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3404:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3404667AF854948498C7146AFB719@DM6PR12MB3404.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IX3R0JWE/zCIpVqPEcnnW7aT7kvSLWaoBQK+A/LBkBWPJgojiuhU29s2VnoAFogqQ6SuuE9yaCbpEiYthTy4IqWgnPF4SJl+DHlp12QjnXBuL6V9+wjjOfNLEqRZ317rXWhM5Dic8+Opon3Su5TXJcDG4Bw66szqSVS7ltLICpLR9XBzhPbzYnFTSZfLeso5g9zJE0MLJaS3PMcj9+YFUKRsEm9SNXTzy3eZiTmYQ4v0VC1Y/5bYOceJsUe+B02OAPgyQhSUNuGAHifetgvHDozeLYPWYK8WgDc0KLpidB0uEG9BFXCrmtD3GuFGDJpFvrxcGc2lvEk+YyOxCetCLhJ+BqFQmAXaNAxamknZvL4YXQQ+ZeshegTBCCxhkoP0BhWNkl3STZh4mOy9jsrH/cX1hpogCGY2VZftlwjwM4gMSur7NOH1LNVEoMG4oWGRSQdD8Ly4YsWxG2q4Ry4uEZ7ZB06LdxywqpqAAyg5FrgkAbQsPLif2Yd9tx7L8hz2DAAfDEx258lZMdNzysAZFex9GuiC2aPgDxwlfOKWfBxluzfOSQX4VtvdMRTdDMwtyFcB8HUUVjT+9A1bmpctj7Cv9D5Exe/INVGZYo7jxodbznLra01h9iYtfmlXkq5w4TCGTRAKeE4ju0pUbPdUyA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(7916004)(4636009)(366004)(26005)(508600001)(186003)(8676002)(8936002)(83380400001)(316002)(6506007)(5660300002)(54906003)(53546011)(6636002)(6666004)(2906002)(6862004)(6512007)(66476007)(4326008)(9686003)(38100700002)(66556008)(33716001)(86362001)(6486002)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uwKVu5GuP44hWeZ+UnE0rwkFkdxVN3MxXKRZEqUrm1l8hBNhBXKQuvoL1abm?=
+ =?us-ascii?Q?Ot4hzWhJ6E91jXf0vyq2L3iHY7MN1GI+8N0T+bW0t5C50yuV2/T6t/PXfl5S?=
+ =?us-ascii?Q?h67dJMaZ7mJXLX/XFcASoX0vGfsZXHaP7b7enq3Tx3BvZepdfCZ2gHweQD6E?=
+ =?us-ascii?Q?kPetS8BYhAJWMclYJd+KNnUlP8WvLbJB8Pp7OnDrZTobzHqnBxv4ySBvljFU?=
+ =?us-ascii?Q?Y9PVkPziAMr8sIa5B9UPL/QDhH5PvxXw9+OI/lk74/aZ9EbpCxIkhcaMZO63?=
+ =?us-ascii?Q?8MED7NBfsOQzLkU1Q9SDNnx8cv4LycJXo2ZxMNiGLhHyvMJuOTftkCOygiqm?=
+ =?us-ascii?Q?WAy7KcxagmxO2kl/32rtwx/E7cesDWXFjKqx79FcrpD4omKkcVzBN89KI4Fy?=
+ =?us-ascii?Q?MwmNgRLpPxBHAXtYxQ3jJOM7wALit5XvcS2+R0mIMrKHH63hZlkBryfMYFD7?=
+ =?us-ascii?Q?2XUVFavMTpL5dVCbuwLj5oyeVDW10js0DW+NkT6TH1L1FY7eWzUikBEKjj7f?=
+ =?us-ascii?Q?pWQFRuqlkE14j3NBs/OL/6gnm5/woM8kojk62qPYKTmSwsQPx+9mUtx67JuM?=
+ =?us-ascii?Q?+awuRZsgU1fl9QqpO+m7GiLze8atnrTw1uSvJVkUdFBfYq+MllFNKrgL4mcq?=
+ =?us-ascii?Q?SMszyha4fD5FojZYX+l9JJDZIx6FypXLh4dhIM8YVStMxKmTfF+w9Jq1zYHX?=
+ =?us-ascii?Q?tbufBA1A7LeDGxbmqMm6s6JHqiN9iZiytjx6i4AfThC6Xowosg6Ph+Bt+bzR?=
+ =?us-ascii?Q?x3eXrA6siKSRk3/uAez9V9+4GTnyjcx9DDGC8ce8sdlFP5EC61/R4ipkgzeD?=
+ =?us-ascii?Q?yQ08vAEi3AK4Lesfdw8aR7IWXh1H6cumMZAc4xEIlSydVB6jI+w6aB5fldpI?=
+ =?us-ascii?Q?YrSlXKoyBLjsfqKVs1dn4mqhZ0yyYyBui3s0UbHYeDIXRerBJ8Doh9cGtrh2?=
+ =?us-ascii?Q?vsjtCPjJu2njfuVKJdbbu8QvqawOqum50VKGrozRx7+r1Qnx5vNirh7zaoXN?=
+ =?us-ascii?Q?N5yBV7mSJkT+ovpMF74liZF0eURPZJOUziqv6yL6hLpNlNlGVyEUXfToXDAk?=
+ =?us-ascii?Q?B7KlJxCLolqtE0NpolL2WibVFbzzw2zdZmU1cIgySDIg2jx6VzF4rkYXpAAZ?=
+ =?us-ascii?Q?JdHyqrug8Yib0eE+Y9DyTZLaRkSLprVR4BMbP4oFJHq64UAbHQUPbKR/quEj?=
+ =?us-ascii?Q?dEIboM8GCHTSHihKZpl0MCZOSy1EIVMaIbttH2Jj5OWHTQ8nMb5zWMRlxck2?=
+ =?us-ascii?Q?C1w7GA1KeFUSkQAcIURUNWMdAhKaQA7dHCXpaCFNxOs8eWdcmpjd36m6R+0I?=
+ =?us-ascii?Q?nHgcOmsr+VQXnINiuIimMeo7JX+S664wYD7DzXqzCEBPMhdMIpNfuDwsRXfb?=
+ =?us-ascii?Q?MM97ivSO2kNZP2TNbi8N1yWXThPsd7ZXJiQzbiiKsmJzCKjLwuvnBxxWRx7X?=
+ =?us-ascii?Q?cHIymoQ5gCHqqFWEZRaWaHpJeLRzOtfqOk7UnANij66q26Ia7zR3fWAOypg4?=
+ =?us-ascii?Q?zRFI3mcEXUt8reloelDXoi9d8j+sbM9qblq3/OI018f7Ktau/hwGxcb4dISe?=
+ =?us-ascii?Q?Ahb5GLMTrMe2wHgyX5yF42ScYRuWpQ54gMm+6emYr9LxkWmvekPm3vbNmVXW?=
+ =?us-ascii?Q?lkMcyKfteEKAieKPGmjPKQk=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89b3286c-6dce-458e-6d37-08d9bbb19c02
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2021 07:49:35.4479 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ylDch2Ivc3Q+WDNWXHVH61qKzD6CzMLmeGbP2BV85ZvXfu+ckPyZ+ZYxfVc2WKdS+gaKrHBDX+P8Yv0IS8pxdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,156 +120,237 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
+ Ray" <Ray.Huang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Quan, Evan" <Evan.Quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.12.21 um 23:27 schrieb Felix Kuehling:
-> Am 2021-12-09 um 5:14 p.m. schrieb Chen, Xiaogang:
->> On 12/9/2021 12:40 PM, Felix Kuehling wrote:
->>> Am 2021-12-09 um 2:49 a.m. schrieb Xiaogang.Chen:
->>>> From: Xiaogang Chen <xiaogang.chen@amd.com>
->>>>
->>>> When application is about finish it destroys queues it has created by
->>>> an ioctl. Driver deletes queue
->>>> entry(/sys/class/kfd/kfd/proc/pid/queues/queueid/)
->>>> which is directory including this queue all attributes. Low level
->>>> kernel
->>>> code deletes all attributes under this directory. The lock from
->>>> kernel is
->>>> on queue entry, not its attributes. At meantime another user space
->>>> application
->>>> can read the attributes. There is possibility that the application can
->>>> hold/read the attributes while kernel is deleting the queue entry,
->>>> cause
->>>> the application have invalid memory access, then killed by kernel.
->>>>
->>>> Driver changes: explicitly create/destroy each attribute for each
->>>> queue,
->>>> let kernel put lock on each attribute too.
->>> Is this working around a bug in kobject_del? Shouldn't that code take
->>> care of the necessary locking itself?
->>>
->>> Regards,
->>>     Felix
->> The patches do not change kobject/kernfs that are too low level and
->> would involve deeper discussions.
->> Made changes at higher level(kfd) instead.
->>
->> Have tested with MSF tool overnight.
-> OK. I'm OK with your changes. The patch is
->
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->
-> But I think we should let the kernfs folks know that there is a problem
-> anyway. It might save someone else a lot of time and headaches down the
-> line. Ideally we'd come up with a small reproducer (dummy driver and a
-> user mode tool (could just be a bash script)) that doesn't require
-> special AMD hardware and the whole ROCm stack.
+On 12/10/ , Christian KKKnig wrote:
+> Am 10.12.21 um 04:21 schrieb Lang Yu:
+> > On 12/10/ , Quan, Evan wrote:
+> > > [AMD Official Use Only]
+> > > 
+> > > 
+> > > 
+> > > > -----Original Message-----
+> > > > From: Yu, Lang <Lang.Yu@amd.com>
+> > > > Sent: Friday, December 10, 2021 10:34 AM
+> > > > To: Quan, Evan <Evan.Quan@amd.com>
+> > > > Cc: amd-gfx@lists.freedesktop.org; Grodzovsky, Andrey
+> > > > <Andrey.Grodzovsky@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Huang,
+> > > > Ray <Ray.Huang@amd.com>; Deucher, Alexander
+> > > > <Alexander.Deucher@amd.com>; Koenig, Christian
+> > > > <Christian.Koenig@amd.com>
+> > > > Subject: Re: [PATCH 2/2] drm/amdgpu: add support for SMU debug option
+> > > > 
+> > > > On 12/10/ , Quan, Evan wrote:
+> > > > > [AMD Official Use Only]
+> > > > > 
+> > > > > 
+> > > > > 
+> > > > > > -----Original Message-----
+> > > > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > > > > > Lang Yu
+> > > > > > Sent: Thursday, December 9, 2021 4:49 PM
+> > > > > > To: amd-gfx@lists.freedesktop.org
+> > > > > > Cc: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Lazar, Lijo
+> > > > > > <Lijo.Lazar@amd.com>; Huang, Ray <Ray.Huang@amd.com>; Deucher,
+> > > > > > Alexander <Alexander.Deucher@amd.com>; Yu, Lang
+> > > > <Lang.Yu@amd.com>;
+> > > > > > Koenig, Christian <Christian.Koenig@amd.com>
+> > > > > > Subject: [PATCH 2/2] drm/amdgpu: add support for SMU debug option
+> > > > > > 
+> > > > > > SMU firmware guys expect the driver maintains error context and
+> > > > > > doesn't interact with SMU any more when SMU errors occurred.
+> > > > > > That will aid in debugging SMU firmware issues.
+> > > > > > 
+> > > > > > Add SMU debug option support for this request, it can be enabled or
+> > > > > > disabled via amdgpu_smu_debug debugfs file.
+> > > > > > When enabled, it brings hardware to a kind of halt state so that no
+> > > > > > one can touch it any more in the envent of SMU errors.
+> > > > > > 
+> > > > > > Currently, dirver interacts with SMU via sending messages.
+> > > > > > And threre are three ways to sending messages to SMU.
+> > > > > > Handle them respectively as following:
+> > > > > > 
+> > > > > > 1, smu_cmn_send_smc_msg_with_param() for normal timeout cases
+> > > > > > 
+> > > > > >    Halt on any error.
+> > > > > > 
+> > > > > > 2,
+> > > > smu_cmn_send_msg_without_waiting()/smu_cmn_wait_for_response()
+> > > > > > for longer timeout cases
+> > > > > > 
+> > > > > >    Halt on errors apart from ETIME. Otherwise this way won't work.
+> > > > > > 
+> > > > > > 3, smu_cmn_send_msg_without_waiting() for no waiting cases
+> > > > > > 
+> > > > > >    Halt on errors apart from ETIME. Otherwise second way won't work.
+> > > > > > 
+> > > > > > After halting, use BUG() to explicitly notify users.
+> > > > > > 
+> > > > > > == Command Guide ==
+> > > > > > 
+> > > > > > 1, enable SMU debug option
+> > > > > > 
+> > > > > >   # echo 1 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+> > > > > > 
+> > > > > > 2, disable SMU debug option
+> > > > > > 
+> > > > > >   # echo 0 > /sys/kernel/debug/dri/0/amdgpu_smu_debug
+> > > > > > 
+> > > > > > v4:
+> > > > > >   - Set to halt state instead of a simple hang.(Christian)
+> > > > > > 
+> > > > > > v3:
+> > > > > >   - Use debugfs_create_bool().(Christian)
+> > > > > >   - Put variable into smu_context struct.
+> > > > > >   - Don't resend command when timeout.
+> > > > > > 
+> > > > > > v2:
+> > > > > >   - Resend command when timeout.(Lijo)
+> > > > > >   - Use debugfs file instead of module parameter.
+> > > > > > 
+> > > > > > Signed-off-by: Lang Yu <lang.yu@amd.com>
+> > > > > > ---
+> > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  3 +++
+> > > > > >   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     |  5 +++++
+> > > > > >   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 20
+> > > > > > +++++++++++++++++++-
+> > > > > >   3 files changed, 27 insertions(+), 1 deletion(-)
+> > > > > > 
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > > > > index 164d6a9e9fbb..86cd888c7822 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > > > > @@ -1618,6 +1618,9 @@ int amdgpu_debugfs_init(struct
+> > > > amdgpu_device
+> > > > > > *adev)
+> > > > > >   	if (!debugfs_initialized())
+> > > > > >   		return 0;
+> > > > > > 
+> > > > > > +	debugfs_create_bool("amdgpu_smu_debug", 0600, root,
+> > > > > > +				  &adev->smu.smu_debug_mode);
+> > > > > > +
+> > > > > >   	ent = debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
+> > > > > >   				  &fops_ib_preempt);
+> > > > > >   	if (IS_ERR(ent)) {
+> > > > > > diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > > > > b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > > > > index f738f7dc20c9..50dbf5594a9d 100644
+> > > > > > --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > > > > +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> > > > > > @@ -569,6 +569,11 @@ struct smu_context
+> > > > > >   	struct smu_user_dpm_profile user_dpm_profile;
+> > > > > > 
+> > > > > >   	struct stb_context stb_context;
+> > > > > > +	/*
+> > > > > > +	 * When enabled, it makes SMU errors fatal.
+> > > > > > +	 * (0 = disabled (default), 1 = enabled)
+> > > > > > +	 */
+> > > > > > +	bool smu_debug_mode;
+> > > > > [Quan, Evan] Can you expand this to bit mask(as ppfeaturemask)? So that
+> > > > in future we can add support for other debug features.
+> > > > > >   };
+> > > > OK.
+> > > > 
+> > > > > >   struct i2c_adapter;
+> > > > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > > > > b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > > > > index 048ca1673863..84016d22c075 100644
+> > > > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> > > > > > @@ -272,6 +272,11 @@ int smu_cmn_send_msg_without_waiting(struct
+> > > > > > smu_context *smu,
+> > > > > >   	__smu_cmn_send_msg(smu, msg_index, param);
+> > > > > >   	res = 0;
+> > > > > >   Out:
+> > > > > > +	if (unlikely(smu->smu_debug_mode) && res && (res != -ETIME)) {
+> > > > > > +		amdgpu_device_halt(smu->adev);
+> > > > > > +		BUG();
+> > > > > [Quan, Evan] I agree amdgpu_device_halt() is a good idea. Christian and
+> > > > Andrey can share you more insights about that.
+> > > > > Do we still need the "BUG()" then?
+> > > > The BUG() is used to explicitly notify users something went wrong.
+> > > > Otherwise userspace may not know immediately.
+> > > > FW guys request this in ticket.
+> > > [Quan, Evan] Won't drm_dev_unplug() and pci_disable_device() used in amdgpu_device_halt throw some errors(on user's further attempt to communicate with our driver)?
+> > > Also if the purpose is to raise user's concern, WARN() may be a more gentle way?
+> >  From my testing and observation, it depends on what the driver will do next.
+> > Probably trigger a page fault. If we don't connect a monitor but SSH access.
+> > We don't know what happended until something like a page fault is triggered.
+> > 
+> > But here what I want to do is throwing the error immediately to userspace.
+> > If using WARN(), the user need to poll dmesg to see if something went wrong.
+> 
+> I agree with Evan as well. Please use WARN() or WARN_ON() here instead.
+> 
+> BUG() and BUG_ON() is only allowed when you prevent further data corruption
+> by intentionally crashing the kernel thread. But that is really invasive
+> because for example locks are not necessarily dropped and so can crash the
+> whole system.
 
-I think we could do this in the DKMS/release branches, but for upstream 
-we should rather fix the underlying problem.
-
-Additional to that this is explicitely what we should not do if I 
-understood Greg correctly in previous discussions, but take that with a 
-grain of salt since I'm not an expert on the topic.
+Ok, will use WARN().
 
 Regards,
-Christian.
+Lang
 
->
 > Regards,
->    Felix
->
->
->> Thanks
->> Xiaogang
->>
->>>> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  3 +++
->>>>    drivers/gpu/drm/amd/amdkfd/kfd_process.c | 33
->>>> +++++++-----------------
->>>>    2 files changed, 13 insertions(+), 23 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>> index 0c3f911e3bf4..045da300749e 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>> @@ -546,6 +546,9 @@ struct queue {
->>>>          /* procfs */
->>>>        struct kobject kobj;
->>>> +    struct attribute attr_guid;
->>>> +    struct attribute attr_size;
->>>> +    struct attribute attr_type;
->>>>    };
->>>>      enum KFD_MQD_TYPE {
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>>> index 9158f9754a24..04a5638f9196 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>>> @@ -73,6 +73,8 @@ static void evict_process_worker(struct
->>>> work_struct *work);
->>>>    static void restore_process_worker(struct work_struct *work);
->>>>      static void kfd_process_device_destroy_cwsr_dgpu(struct
->>>> kfd_process_device *pdd);
->>>> +static void kfd_sysfs_create_file(struct kobject *kobj, struct
->>>> attribute *attr,
->>>> +                char *name);
->>>>      struct kfd_procfs_tree {
->>>>        struct kobject *kobj;
->>>> @@ -441,35 +443,12 @@ static ssize_t kfd_sysfs_counters_show(struct
->>>> kobject *kobj,
->>>>        return 0;
->>>>    }
->>>>    -static struct attribute attr_queue_size = {
->>>> -    .name = "size",
->>>> -    .mode = KFD_SYSFS_FILE_MODE
->>>> -};
->>>> -
->>>> -static struct attribute attr_queue_type = {
->>>> -    .name = "type",
->>>> -    .mode = KFD_SYSFS_FILE_MODE
->>>> -};
->>>> -
->>>> -static struct attribute attr_queue_gpuid = {
->>>> -    .name = "gpuid",
->>>> -    .mode = KFD_SYSFS_FILE_MODE
->>>> -};
->>>> -
->>>> -static struct attribute *procfs_queue_attrs[] = {
->>>> -    &attr_queue_size,
->>>> -    &attr_queue_type,
->>>> -    &attr_queue_gpuid,
->>>> -    NULL
->>>> -};
->>>> -
->>>>    static const struct sysfs_ops procfs_queue_ops = {
->>>>        .show = kfd_procfs_queue_show,
->>>>    };
->>>>      static struct kobj_type procfs_queue_type = {
->>>>        .sysfs_ops = &procfs_queue_ops,
->>>> -    .default_attrs = procfs_queue_attrs,
->>>>    };
->>>>      static const struct sysfs_ops procfs_stats_ops = {
->>>> @@ -511,6 +490,10 @@ int kfd_procfs_add_queue(struct queue *q)
->>>>            return ret;
->>>>        }
->>>>    +    kfd_sysfs_create_file(&q->kobj, &q->attr_guid, "guid");
->>>> +    kfd_sysfs_create_file(&q->kobj, &q->attr_size, "size");
->>>> +    kfd_sysfs_create_file(&q->kobj, &q->attr_type, "type");
->>>> +
->>>>        return 0;
->>>>    }
->>>>    @@ -655,6 +638,10 @@ void kfd_procfs_del_queue(struct queue *q)
->>>>        if (!q)
->>>>            return;
->>>>    +    sysfs_remove_file(&q->kobj, &q->attr_guid);
->>>> +    sysfs_remove_file(&q->kobj, &q->attr_size);
->>>> +    sysfs_remove_file(&q->kobj, &q->attr_type);
->>>> +
->>>>        kobject_del(&q->kobj);
->>>>        kobject_put(&q->kobj);
->>>>    }
-
+> Christian.
+> 
+> > 
+> > Regards,
+> > Lang
+> > 
+> > > BR
+> > > Evan
+> > > > Regards,
+> > > > Lang
+> > > > 
+> > > > > BR
+> > > > > Evan
+> > > > > > +	}
+> > > > > > +
+> > > > > >   	return res;
+> > > > > >   }
+> > > > > > 
+> > > > > > @@ -288,9 +293,17 @@ int smu_cmn_send_msg_without_waiting(struct
+> > > > > > smu_context *smu,
+> > > > > >   int smu_cmn_wait_for_response(struct smu_context *smu)  {
+> > > > > >   	u32 reg;
+> > > > > > +	int res;
+> > > > > > 
+> > > > > >   	reg = __smu_cmn_poll_stat(smu);
+> > > > > > -	return __smu_cmn_reg2errno(smu, reg);
+> > > > > > +	res = __smu_cmn_reg2errno(smu, reg);
+> > > > > > +
+> > > > > > +	if (unlikely(smu->smu_debug_mode) && res && (res != -ETIME)) {
+> > > > > > +		amdgpu_device_halt(smu->adev);
+> > > > > > +		BUG();
+> > > > > > +	}
+> > > > > > +
+> > > > > > +	return res;
+> > > > > >   }
+> > > > > > 
+> > > > > >   /**
+> > > > > > @@ -357,6 +370,11 @@ int
+> > > > smu_cmn_send_smc_msg_with_param(struct
+> > > > > > smu_context *smu,
+> > > > > >   	if (read_arg)
+> > > > > >   		smu_cmn_read_arg(smu, read_arg);
+> > > > > >   Out:
+> > > > > > +	if (unlikely(smu->smu_debug_mode) && res) {
+> > > > > > +		amdgpu_device_halt(smu->adev);
+> > > > > > +		BUG();
+> > > > > > +	}
+> > > > > > +
+> > > > > >   	mutex_unlock(&smu->message_lock);
+> > > > > >   	return res;
+> > > > > >   }
+> > > > > > --
+> > > > > > 2.25.1
+> 
