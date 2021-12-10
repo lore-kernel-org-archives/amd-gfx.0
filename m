@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 354D9C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 23:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46BA2C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Dec 2021 23:33:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 803FA10E5A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DD3410E5A0;
 	Fri, 10 Dec 2021 23:33:24 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED3910E574;
- Fri, 10 Dec 2021 23:24:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459CB10E58E;
+ Fri, 10 Dec 2021 23:24:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639178651; x=1670714651;
+ t=1639178652; x=1670714652;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KXyxgwUM4bkXvDM+XyNRIjGv+8i1m09MysFfC7KN7A8=;
- b=ZW+DD9B8xjomCGeTWtoZQJ3tV58nV+WpFXelOmgx+N8ArUMR9/Ds5Ml6
- RzmHUxAw+YDXyAHDby1H1UBwtgA27+HxZxzIGsTJIhh5aft5xova20MAh
- bv5Vwhx8HJQvyw41F63W7UW90v0rak4fSKQXrqYU2nZ53SAKw+StOnfDE
- yeTAs0QIlw0hkn2buBwGwOh3Q7wJaSlEFoXQCgIKbZA0WqX1TLXRnK1f3
- 4r9lqtP20kY9wrFE7FPn9tT1fwpVUDitC8e8QiF4+uYhQ4UwY/TtsAPxN
- S75gLxZkOY5ETJYURFfIx1upw9izzBoYFMu0CP4nkMxvq6GoehmXBhW60 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237212373"
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="237212373"
+ bh=8QsQEKSxoLGHydWZTS5T8WXMzBP5ZWfGvu6Ze1y391U=;
+ b=Ey4W1cFPxfTiPAPSO1axv1Wr/VRxcjsdvzADEfY1UdD4i5Ohpn1DWI/P
+ 3FASgLeStwZlVVMl1rYRxziwL6VjlT7lfbkwJmGO1Z1WVtrfMN3QN0NF4
+ lCukREHp13kGK56v82pLpsm+Hsal+OViuAxJ6fB/miF1YyUyBLLCyZpCN
+ jyymw4nsTc8OhPaYJ6Zk30Sla7oYFB4ARHuhQzesw2h1pvBpXkiDh0tT1
+ G+nC6uNsAKWHohRzUWemDmIIrkMMulOCzy8cKU4ZQnINq5UtoRCUaj2RQ
+ EH6qJ7ZD/ZtFTNtVTewapKbCFDuKlmq+op8WIocsxaVmbRJDnx6sgKb0W w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237212382"
+X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="237212382"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Dec 2021 15:24:11 -0800
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="463861457"
+X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="463861476"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 15:24:10 -0800
+ 10 Dec 2021 15:24:11 -0800
 From: ira.weiny@intel.com
 To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Subject: [PATCH 4/7] drm/radeon: Replace kmap() with kmap_local_page()
-Date: Fri, 10 Dec 2021 15:24:01 -0800
-Message-Id: <20211210232404.4098157-5-ira.weiny@intel.com>
+Subject: [PATCH 6/7] drm/amdgpu: Ensure kunmap is called on error
+Date: Fri, 10 Dec 2021 15:24:03 -0800
+Message-Id: <20211210232404.4098157-7-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211210232404.4098157-1-ira.weiny@intel.com>
 References: <20211210232404.4098157-1-ira.weiny@intel.com>
@@ -65,31 +65,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-kmap() is being deprecated and this usage is local to the thread.  Use
-kmap_local_page() instead.
+The default case leaves the buffer object mapped in error.
+
+Add amdgpu_bo_kunmap() to that case to ensure the mapping is cleaned up.
 
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
----
- drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 11b21d605584..76d7906e1785 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -907,11 +907,11 @@ static ssize_t radeon_ttm_gtt_read(struct file *f, char __user *buf,
+---
+NOTE: It seems like this function could use a fair bit of refactoring
+but this is the easiest way to fix the actual bug.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index 6f8de11a17f1..b3ffd0f6b35f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -889,6 +889,7 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx *ctx,
+ 		return 0;
  
- 		page = rdev->gart.pages[p];
- 		if (page) {
--			ptr = kmap(page);
-+			ptr = kmap_local_page(page);
- 			ptr += off;
- 
- 			r = copy_to_user(buf, ptr, cur_size);
--			kunmap(rdev->gart.pages[p]);
-+			kunmap_local(ptr);
- 		} else
- 			r = clear_user(buf, cur_size);
+ 	default:
++		amdgpu_bo_kunmap(bo);
+ 		DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
+ 	}
  
 -- 
 2.31.1
