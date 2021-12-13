@@ -4,22 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F73C4321E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42EF1C433FE
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 23:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3AE710E8E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE6C210E8EA;
 	Mon, 13 Dec 2021 23:30:39 +0000 (UTC)
 Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4BF10E8E5
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE0810E8EA
  for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 23:30:38 +0000 (UTC)
 Received: from localhost.localdomain (unknown [88.120.44.86])
- by smtp5-g21.free.fr (Postfix) with ESMTP id B2A2C5FF93;
+ by smtp5-g21.free.fr (Postfix) with ESMTP id A416C5FF88;
  Tue, 14 Dec 2021 00:30:36 +0100 (CET)
 From: Yann Dirson <ydirson@free.fr>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 3/4] amdgpu: fix some kernel-doc markup
-Date: Tue, 14 Dec 2021 00:30:29 +0100
-Message-Id: <20211213233030.6719-4-ydirson@free.fr>
+Subject: [PATCH v3 2/4] Documentation/gpu: include description of some of the
+ GC microcontrollers
+Date: Tue, 14 Dec 2021 00:30:28 +0100
+Message-Id: <20211213233030.6719-3-ydirson@free.fr>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211213233030.6719-1-ydirson@free.fr>
 References: <20211213233030.6719-1-ydirson@free.fr>
@@ -37,75 +38,77 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Yann Dirson <ydirson@free.fr>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-doc@vger.kernel.org
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, linux-doc@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Those are not today pulled by the sphinx doc, but better be ready.
+This is Alex' description from the "Looking for clarifications around gfx/kcq/kiq"
+thread, edited to fit as ReST.
 
+Original text: https://www.spinics.net/lists/amd-gfx/msg71383.html
+
+Originally-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Yann Dirson <ydirson@free.fr>
+Acked-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 6 +++---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ Documentation/gpu/amdgpu/driver-core.rst | 35 ++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 4224be241338..155215c7b7dc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -551,11 +551,11 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
- 	trace_amdgpu_device_wreg(adev->pdev->device, reg, v);
- }
+diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
+index a4aaf7088220..ebf5932845a9 100644
+--- a/Documentation/gpu/amdgpu/driver-core.rst
++++ b/Documentation/gpu/amdgpu/driver-core.rst
+@@ -76,6 +76,28 @@ VCN (Video Core Next)
+     decode.  It's exposed to userspace for user mode drivers (VA-API,
+     OpenMAX, etc.)
  
--/*
-+/**
-  * amdgpu_mm_wreg_mmio_rlc -  write register either with mmio or with RLC path if in range
-  *
-  * this function is invoked only the debugfs register access
-- * */
-+ */
- void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
- 			     uint32_t reg, uint32_t v)
- {
-@@ -1101,7 +1101,7 @@ static void amdgpu_device_wb_fini(struct amdgpu_device *adev)
- }
++Graphics and Compute Microcontrollers
++-------------------------------------
++
++CP (Command Processor)
++    The name for the hardware block that encompasses the front end of the
++    GFX/Compute pipeline.  Consists mainly of a bunch of microcontrollers
++    (PFP, ME, CE, MEC).  The firmware that runs on these microcontrollers
++    provides the driver interface to interact with the GFX/Compute engine.
++
++    MEC (MicroEngine Compute)
++        This is the microcontroller that controls the compute queues on the
++        GFX/compute engine.
++
++    MES (MicroEngine Scheduler)
++        This is a new engine for managing queues.  This is currently unused.
++
++RLC (RunList Controller)
++    This is another microcontroller in the GFX/Compute engine.  It handles
++    power management related functionality within the GFX/Compute engine.
++    The name is a vestige of old hardware where it was originally added
++    and doesn't really have much relation to what the engine does now.
++
+ Driver Structure
+ ================
  
- /**
-- * amdgpu_device_wb_init- Init Writeback driver info and allocate memory
-+ * amdgpu_device_wb_init - Init Writeback driver info and allocate memory
-  *
-  * @adev: amdgpu_device pointer
-  *
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e65214db904c..18335b6154fa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -624,7 +624,7 @@ static void dm_dcn_vertical_interrupt0_high_irq(void *interrupt_params)
- #endif /* CONFIG_DRM_AMD_SECURE_DISPLAY */
+@@ -83,6 +105,19 @@ In general, the driver has a list of all of the IPs on a particular
+ SoC and for things like init/fini/suspend/resume, more or less just
+ walks the list and handles each IP.
  
- /**
-- * dmub_aux_setconfig_reply_callback - Callback for AUX or SET_CONFIG command.
-+ * dmub_aux_setconfig_callback - Callback for AUX or SET_CONFIG command.
-  * @adev: amdgpu_device pointer
-  * @notify: dmub notification structure
-  *
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index bb65f41d1a59..c98e402eab0c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -50,9 +50,9 @@
++Some useful constructs:
++
++KIQ (Kernel Interface Queue)
++    This is a control queue used by the kernel driver to manage other gfx
++    and compute queues on the GFX/compute engine.  You can use it to
++    map/unmap additional queues, etc.
++
++IB (Indirect Buffer)
++    A command buffer for a particular engine.  Rather than writing
++    commands directly to the queue, you can write the commands into a
++    piece of memory and then put a pointer to the memory into the queue.
++    The hardware will then follow the pointer and execute the commands in
++    the memory, then returning to the rest of the commands in the ring.
  
- #define AMDGPU_DMUB_NOTIFICATION_MAX 5
+ .. _amdgpu_memory_domains:
  
--/**
-+/*
-  * DMUB Async to Sync Mechanism Status
-- **/
-+ */
- #define DMUB_ASYNC_TO_SYNC_ACCESS_FAIL 1
- #define DMUB_ASYNC_TO_SYNC_ACCESS_TIMEOUT 2
- #define DMUB_ASYNC_TO_SYNC_ACCESS_SUCCESS 3
 -- 
 2.31.1
 
