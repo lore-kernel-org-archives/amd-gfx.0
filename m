@@ -4,93 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90872C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 15:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 492D2C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 15:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 371B010E71A;
-	Mon, 13 Dec 2021 15:08:56 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C13C10E719
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 15:08:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ToitHIfX6IU1DHbmdmgMaglPOIO6p1TgP/SH5CcarLSVDzZy0L2UF1hJieA2iiRMp+e5Hy/e0dJ9ceR6F4E+gNoL6z/QmvDUb/NdX1FkIxuMF15QVGzLVQYBUL3DO1iHHwwZDiD9vGHt7OX51Q0AQ78D9TOS9E7RihxQgvtncTfsmETdn5HIkRm/+Z8cDdpzBg1vJmjwcE/etZSwWb/qRUB3EQND6e6LL+kwBj8lcNDZ1cwZl1Yf4agZQzuhMwSKD58ylTDiP6pX6vSc+UinZl5SMc3NSCa3mHe3QpHZSZOK195JLkDIWQdC8Al8SdtnsQxgyxfL/VtmBDPjTAtxfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WVhFzHNb32S6ayEV2v/zAqU46zZujv1n1WjZ+JGPwX0=;
- b=XXTSNaQYmzsoELtdO3btjMETeifq7ICrbjwjP4GxuCr+JByqbyCCy1XzZ2F+b57P+r/UwC4lsdQAk0OalsxmSNYXPHg6aiHqpPw/WZ/H19M3NYEV4Ni0VE93owJwnEeUrc3+Yec3IWXTWz/pCkbXT4Aohu+MOasfcwOO/yYB/fLouMfnlqOrDStMZ8AG/8SF658y/iZ58D4BOOGx9EGiFc6QxWZvrU5i6TNGd89BbYew0N/t0xEkU02nf7opORxu68/166xsyR7n1cf4xHqoGLDJd8hc3iapvh+GA7fMt3vbn0wnJiBsEAC5bYjMo3nMTKnQj+M9bzkKgZz/JHfEVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WVhFzHNb32S6ayEV2v/zAqU46zZujv1n1WjZ+JGPwX0=;
- b=5WvdeH3ekrWg+Va4caaiXgs635/1V9Us7Ji3+B/B0E1HdzqomUwao3QwCeYLDAsJRws1oIPnreTfRAWH+rkCPaHL8lPPShoboTXrw0DfPCBTZAYJSYMmT6zhCddxqBPPYZyWdU+/TNDfz0ho0i60j7P8RVNFLkCcX+8dYOmm9oI=
-Received: from MW2PR2101CA0033.namprd21.prod.outlook.com (2603:10b6:302:1::46)
- by BN6PR1201MB2496.namprd12.prod.outlook.com (2603:10b6:404:a7::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.16; Mon, 13 Dec
- 2021 15:08:51 +0000
-Received: from CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:302:1:cafe::28) by MW2PR2101CA0033.outlook.office365.com
- (2603:10b6:302:1::46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.10 via Frontend
- Transport; Mon, 13 Dec 2021 15:08:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT065.mail.protection.outlook.com (10.13.174.62) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4778.13 via Frontend Transport; Mon, 13 Dec 2021 15:08:51 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 13 Dec
- 2021 09:08:48 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 2/2] drivers/amd/pm: drop statement to print FW version for
- smu_v13
-Date: Mon, 13 Dec 2021 09:08:42 -0600
-Message-ID: <20211213150842.21141-2-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211213150842.21141-1-mario.limonciello@amd.com>
-References: <20211213150842.21141-1-mario.limonciello@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA07310E738;
+	Mon, 13 Dec 2021 15:15:21 +0000 (UTC)
+X-Greylist: delayed 389 seconds by postgrey-1.36 at gabe;
+ Mon, 13 Dec 2021 15:15:20 UTC
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org
+ [IPv6:2001:67c:2050::465:201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D63010E754
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 15:15:20 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:105:465:1:2:0])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4JCPzN6RlRzQk9y;
+ Mon, 13 Dec 2021 16:08:48 +0100 (CET)
+X-Virus-Scanned: amavisd-new at heinlein-support.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1639408125;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8mticgOcWJlkcE7zIkDjBM9fr+EReYA5gT4xWIaoqfU=;
+ b=YUNae0mzzg6OlUhY6YEprO8lOGrCI9iqWHH1mS7ludx/8jv2caxTesKwdsIURC+7HrvkUM
+ 3CBKQQdiVVNMp4HyVCT1cl86jNtOysCWHyw7rB8+kUnoBn79Ug/q7QszawS93DrDGRd7bL
+ tRz7dk6pWkmaMEs3QGN6BdU+d212NO6jHPsVMJ23ZRZ9tRaoxHU+30mgAuMR36O6XQyz4Z
+ q+rMZGEiSMx779+92O0fMuJI2Ic6H58ubOS/5ahqrlkTG59NeIiJL1iqHXQ5qt8BlFT3B6
+ b1tx+csMgxr9B18uJHowZp7i7a3NUuRK0OrOAIS3DdwthmriJWrHbXdb1X9Wtw==
+Message-ID: <64013052-450e-62f0-9be1-394b947b09f5@mailbox.org>
+Date: Mon, 13 Dec 2021 16:08:41 +0100
 MIME-Version: 1.0
+Subject: Re: [PATCH 1/2] drm/amd/display: Reduce stack size for
+ dml31_ModeSupportAndSystemConfigurationFull
+Content-Language: en-CA
+To: Rodrigo Siqueira Jordao <rjordrigo@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+References: <20211209164644.1622152-1-michel@daenzer.net>
+ <f513ac48-a2e3-dae9-56f1-ba50da34f6c4@amd.com>
+ <5a770e69-ea65-1e61-dc8f-f044b418dead@daenzer.net>
+ <9a9134ef-35ba-13ef-b28e-ec3a168d99fe@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <9a9134ef-35ba-13ef-b28e-ec3a168d99fe@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 45a5dea6-a633-430f-1ff1-08d9be4a78bf
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB2496:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB2496826685B60AE8CF0AD562E2749@BN6PR1201MB2496.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TvgnRtYCsLofSufPi20vz98wWYrkonpDU2QIPCul/bX3lbl4995bZTBs0Sryg5S8Cd+kO5XBWVBJWyBCS6nxRcQRLHjaM1w8zYIjMwt20kRG4nMvxrFHTMaCBQOpMt3Mkmt5+2TdtekI69hKSy8iqr/DQXwdRKoZg1TJiKjbfUukBoEEeKelbQ811OxbZBIghIjk4ZNGeDLeN0LRfYIGOOMjkCqU8P+KMGagFHqElGhozyB6bHWSmLfr9cqUocxOGliJj6UIRs8mbdptMOXHnuXZEz23tWfqpM7hC+KTGBcjYophGF4k16WVuh52ibLM5ebyix7HVhTajpCzdFUiRaqkt/2W+BKyKHUqbUwSYQ1FpYKY/CU+cn36Zx40MxOKFHRKK3zDP1eXKmvg3wvEap5lK3nA0nJxU1jsNan4ZRKZ5fiQlOEibUHix01O+NAYsFcwy0wGWQ2e0hxcQ0eXDSbBadpeqYMUpgCgqc8wCrWtedoMCEFgObxRppOxkTqVuoIrjoNtQSzaSnkCXD1cQlsaJvBPeJvKf/qgVxkVDQs1dWHa90jTgFx4XFcBLtDC6na+C89HZQSXcLsMOFtkgEMjPz177KQ7mnals0ie3ZIwRCgwct1h8b33o2ew8y9Akkpn7pafDnnx/LzC8WqsUG/hgBiAuksH64Fv6gYGf6Igo0TZsAytbXSkfSKt6XfvY9197L83hf1AWRFfehE0vOX9/NDSDWnxEAr4JsGtAckADNPHoX9F6Cl5nbEZZSMMDxhTcCoacnCQnlJTt8JDd0CTakoFMaM/gTjKmZYDmrU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(40460700001)(356005)(426003)(6916009)(2616005)(82310400004)(1076003)(70586007)(70206006)(44832011)(83380400001)(47076005)(6666004)(4326008)(81166007)(508600001)(8936002)(4744005)(316002)(5660300002)(8676002)(2906002)(7696005)(36860700001)(26005)(16526019)(186003)(36756003)(336012)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 15:08:51.0722 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45a5dea6-a633-430f-1ff1-08d9be4a78bf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB2496
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,32 +64,278 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update smu_v13 to match smu_v12 and smu_v11 behavior where this is
-fetched from debugfs rather than in kernel logs on every boot.
+On 2021-12-13 15:22, Rodrigo Siqueira Jordao wrote:
+> 
+> 
+> On 2021-12-13 4:46 a.m., Michel Dänzer wrote:
+>> On 2021-12-11 13:20, Rodrigo Siqueira Jordao wrote:
+>>>
+>>>
+>>> On 2021-12-09 11:46 a.m., Michel Dänzer wrote:
+>>>> From: Michel Dänzer <mdaenzer@redhat.com>
+>>>>
+>>>> Move code using the Pipe struct to a new helper function.
+>>>>
+>>>> Works around[0] this warning (resulting in failure to build a RHEL debug
+>>>> kernel with Werror enabled):
+>>>>
+>>>> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c: In function ‘dml31_ModeSupportAndSystemConfigurationFull’:
+>>>> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:5740:1: warning: the frame size of 2144 bytes is larger than 2048 bytes [-Wframe-larger-than=]
+>>>>
+>>>> The culprit seems to be the Pipe struct, so pull the relevant block out
+>>>> into its own sub-function. (This is porting
+>>>> a62427ef9b55 "drm/amd/display: Reduce stack size for dml21_ModeSupportAndSystemConfigurationFull"
+>>>> from dml31 to dml21)
+>>>>
+>>>> [0] AFAICT this doesn't actually reduce the total amount of stack which
+>>>> can be used, just moves some of it from
+>>>> dml31_ModeSupportAndSystemConfigurationFull to the new helper function,
+>>>> so the former happens to no longer exceed the limit for a single
+>>>> function.
+>>>>
+>>>> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+>>>> ---
+>>>>    .../dc/dml/dcn31/display_mode_vba_31.c        | 185 ++++++++++--------
+>>>>    1 file changed, 99 insertions(+), 86 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+>>>> index 7e937bdcea00..8965f9af9d0a 100644
+>>>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+>>>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+>>>> @@ -3949,6 +3949,102 @@ static double TruncToValidBPP(
+>>>>        return BPP_INVALID;
+>>>>    }
+>>>>    +static noinline void CalculatePrefetchSchedulePerPlane(
+>>>> +        struct display_mode_lib *mode_lib,
+>>>> +        double HostVMInefficiencyFactor,
+>>>> +        int i,
+>>>> +        unsigned j,
+>>>> +        unsigned k)
+>>>> +{
+>>>> +    struct vba_vars_st *v = &mode_lib->vba;
+>>>> +    Pipe myPipe;
+>>>> +
+>>>> +    myPipe.DPPCLK = v->RequiredDPPCLK[i][j][k];
+>>>> +    myPipe.DISPCLK = v->RequiredDISPCLK[i][j];
+>>>> +    myPipe.PixelClock = v->PixelClock[k];
+>>>> +    myPipe.DCFCLKDeepSleep = v->ProjectedDCFCLKDeepSleep[i][j];
+>>>> +    myPipe.DPPPerPlane = v->NoOfDPP[i][j][k];
+>>>> +    myPipe.ScalerEnabled = v->ScalerEnabled[k];
+>>>> +    myPipe.SourceScan = v->SourceScan[k];
+>>>> +    myPipe.BlockWidth256BytesY = v->Read256BlockWidthY[k];
+>>>> +    myPipe.BlockHeight256BytesY = v->Read256BlockHeightY[k];
+>>>> +    myPipe.BlockWidth256BytesC = v->Read256BlockWidthC[k];
+>>>> +    myPipe.BlockHeight256BytesC = v->Read256BlockHeightC[k];
+>>>> +    myPipe.InterlaceEnable = v->Interlace[k];
+>>>> +    myPipe.NumberOfCursors = v->NumberOfCursors[k];
+>>>> +    myPipe.VBlank = v->VTotal[k] - v->VActive[k];
+>>>> +    myPipe.HTotal = v->HTotal[k];
+>>>> +    myPipe.DCCEnable = v->DCCEnable[k];
+>>>> +    myPipe.ODMCombineIsEnabled = v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_4to1
+>>>> +        || v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1;
+>>>> +    myPipe.SourcePixelFormat = v->SourcePixelFormat[k];
+>>>> +    myPipe.BytePerPixelY = v->BytePerPixelY[k];
+>>>> +    myPipe.BytePerPixelC = v->BytePerPixelC[k];
+>>>> +    myPipe.ProgressiveToInterlaceUnitInOPP = v->ProgressiveToInterlaceUnitInOPP;
+>>>> +    v->NoTimeForPrefetch[i][j][k] = CalculatePrefetchSchedule(
+>>>> +        mode_lib,
+>>>> +        HostVMInefficiencyFactor,
+>>>> +        &myPipe,
+>>>> +        v->DSCDelayPerState[i][k],
+>>>> +        v->DPPCLKDelaySubtotal + v->DPPCLKDelayCNVCFormater,
+>>>> +        v->DPPCLKDelaySCL,
+>>>> +        v->DPPCLKDelaySCLLBOnly,
+>>>> +        v->DPPCLKDelayCNVCCursor,
+>>>> +        v->DISPCLKDelaySubtotal,
+>>>> +        v->SwathWidthYThisState[k] / v->HRatio[k],
+>>>> +        v->OutputFormat[k],
+>>>> +        v->MaxInterDCNTileRepeaters,
+>>>> +        dml_min(v->MaxVStartup, v->MaximumVStartup[i][j][k]),
+>>>> +        v->MaximumVStartup[i][j][k],
+>>>> +        v->GPUVMMaxPageTableLevels,
+>>>> +        v->GPUVMEnable,
+>>>> +        v->HostVMEnable,
+>>>> +        v->HostVMMaxNonCachedPageTableLevels,
+>>>> +        v->HostVMMinPageSize,
+>>>> +        v->DynamicMetadataEnable[k],
+>>>> +        v->DynamicMetadataVMEnabled,
+>>>> +        v->DynamicMetadataLinesBeforeActiveRequired[k],
+>>>> +        v->DynamicMetadataTransmittedBytes[k],
+>>>> +        v->UrgLatency[i],
+>>>> +        v->ExtraLatency,
+>>>> +        v->TimeCalc,
+>>>> +        v->PDEAndMetaPTEBytesPerFrame[i][j][k],
+>>>> +        v->MetaRowBytes[i][j][k],
+>>>> +        v->DPTEBytesPerRow[i][j][k],
+>>>> +        v->PrefetchLinesY[i][j][k],
+>>>> +        v->SwathWidthYThisState[k],
+>>>> +        v->PrefillY[k],
+>>>> +        v->MaxNumSwY[k],
+>>>> +        v->PrefetchLinesC[i][j][k],
+>>>> +        v->SwathWidthCThisState[k],
+>>>> +        v->PrefillC[k],
+>>>> +        v->MaxNumSwC[k],
+>>>> +        v->swath_width_luma_ub_this_state[k],
+>>>> +        v->swath_width_chroma_ub_this_state[k],
+>>>> +        v->SwathHeightYThisState[k],
+>>>> +        v->SwathHeightCThisState[k],
+>>>> +        v->TWait,
+>>>> +        &v->DSTXAfterScaler[k],
+>>>> +        &v->DSTYAfterScaler[k],
+>>>> +        &v->LineTimesForPrefetch[k],
+>>>> +        &v->PrefetchBW[k],
+>>>> +        &v->LinesForMetaPTE[k],
+>>>> +        &v->LinesForMetaAndDPTERow[k],
+>>>> +        &v->VRatioPreY[i][j][k],
+>>>> +        &v->VRatioPreC[i][j][k],
+>>>> +        &v->RequiredPrefetchPixelDataBWLuma[i][j][k],
+>>>> +        &v->RequiredPrefetchPixelDataBWChroma[i][j][k],
+>>>> +        &v->NoTimeForDynamicMetadata[i][j][k],
+>>>> +        &v->Tno_bw[k],
+>>>> +        &v->prefetch_vmrow_bw[k],
+>>>> +        &v->dummy7[k],
+>>>> +        &v->dummy8[k],
+>>>> +        &v->dummy13[k],
+>>>> +        &v->VUpdateOffsetPix[k],
+>>>> +        &v->VUpdateWidthPix[k],
+>>>> +        &v->VReadyOffsetPix[k]);
+>>>> +}
+>>>> +
+>>>>    void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+>>>>    {
+>>>>        struct vba_vars_st *v = &mode_lib->vba;
+>>>> @@ -5276,92 +5372,9 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>>>>                            v->SREnterPlusExitTime);
+>>>>                      for (k = 0; k < v->NumberOfActivePlanes; k++) {
+>>>> -                    Pipe myPipe;
+>>>> -
+>>>> -                    myPipe.DPPCLK = v->RequiredDPPCLK[i][j][k];
+>>>> -                    myPipe.DISPCLK = v->RequiredDISPCLK[i][j];
+>>>> -                    myPipe.PixelClock = v->PixelClock[k];
+>>>> -                    myPipe.DCFCLKDeepSleep = v->ProjectedDCFCLKDeepSleep[i][j];
+>>>> -                    myPipe.DPPPerPlane = v->NoOfDPP[i][j][k];
+>>>> -                    myPipe.ScalerEnabled = v->ScalerEnabled[k];
+>>>> -                    myPipe.SourceScan = v->SourceScan[k];
+>>>> -                    myPipe.BlockWidth256BytesY = v->Read256BlockWidthY[k];
+>>>> -                    myPipe.BlockHeight256BytesY = v->Read256BlockHeightY[k];
+>>>> -                    myPipe.BlockWidth256BytesC = v->Read256BlockWidthC[k];
+>>>> -                    myPipe.BlockHeight256BytesC = v->Read256BlockHeightC[k];
+>>>> -                    myPipe.InterlaceEnable = v->Interlace[k];
+>>>> -                    myPipe.NumberOfCursors = v->NumberOfCursors[k];
+>>>> -                    myPipe.VBlank = v->VTotal[k] - v->VActive[k];
+>>>> -                    myPipe.HTotal = v->HTotal[k];
+>>>> -                    myPipe.DCCEnable = v->DCCEnable[k];
+>>>> -                    myPipe.ODMCombineIsEnabled = v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_4to1
+>>>> -                            || v->ODMCombineEnablePerState[i][k] == dm_odm_combine_mode_2to1;
+>>>> -                    myPipe.SourcePixelFormat = v->SourcePixelFormat[k];
+>>>> -                    myPipe.BytePerPixelY = v->BytePerPixelY[k];
+>>>> -                    myPipe.BytePerPixelC = v->BytePerPixelC[k];
+>>>> -                    myPipe.ProgressiveToInterlaceUnitInOPP = v->ProgressiveToInterlaceUnitInOPP;
+>>>> -                    v->NoTimeForPrefetch[i][j][k] = CalculatePrefetchSchedule(
+>>>> -                            mode_lib,
+>>>> -                            HostVMInefficiencyFactor,
+>>>> -                            &myPipe,
+>>>> -                            v->DSCDelayPerState[i][k],
+>>>> -                            v->DPPCLKDelaySubtotal + v->DPPCLKDelayCNVCFormater,
+>>>> -                            v->DPPCLKDelaySCL,
+>>>> -                            v->DPPCLKDelaySCLLBOnly,
+>>>> -                            v->DPPCLKDelayCNVCCursor,
+>>>> -                            v->DISPCLKDelaySubtotal,
+>>>> -                            v->SwathWidthYThisState[k] / v->HRatio[k],
+>>>> -                            v->OutputFormat[k],
+>>>> -                            v->MaxInterDCNTileRepeaters,
+>>>> -                            dml_min(v->MaxVStartup, v->MaximumVStartup[i][j][k]),
+>>>> -                            v->MaximumVStartup[i][j][k],
+>>>> -                            v->GPUVMMaxPageTableLevels,
+>>>> -                            v->GPUVMEnable,
+>>>> -                            v->HostVMEnable,
+>>>> -                            v->HostVMMaxNonCachedPageTableLevels,
+>>>> -                            v->HostVMMinPageSize,
+>>>> -                            v->DynamicMetadataEnable[k],
+>>>> -                            v->DynamicMetadataVMEnabled,
+>>>> -                            v->DynamicMetadataLinesBeforeActiveRequired[k],
+>>>> -                            v->DynamicMetadataTransmittedBytes[k],
+>>>> -                            v->UrgLatency[i],
+>>>> -                            v->ExtraLatency,
+>>>> -                            v->TimeCalc,
+>>>> -                            v->PDEAndMetaPTEBytesPerFrame[i][j][k],
+>>>> -                            v->MetaRowBytes[i][j][k],
+>>>> -                            v->DPTEBytesPerRow[i][j][k],
+>>>> -                            v->PrefetchLinesY[i][j][k],
+>>>> -                            v->SwathWidthYThisState[k],
+>>>> -                            v->PrefillY[k],
+>>>> -                            v->MaxNumSwY[k],
+>>>> -                            v->PrefetchLinesC[i][j][k],
+>>>> -                            v->SwathWidthCThisState[k],
+>>>> -                            v->PrefillC[k],
+>>>> -                            v->MaxNumSwC[k],
+>>>> -                            v->swath_width_luma_ub_this_state[k],
+>>>> -                            v->swath_width_chroma_ub_this_state[k],
+>>>> -                            v->SwathHeightYThisState[k],
+>>>> -                            v->SwathHeightCThisState[k],
+>>>> -                            v->TWait,
+>>>> -                            &v->DSTXAfterScaler[k],
+>>>> -                            &v->DSTYAfterScaler[k],
+>>>> -                            &v->LineTimesForPrefetch[k],
+>>>> -                            &v->PrefetchBW[k],
+>>>> -                            &v->LinesForMetaPTE[k],
+>>>> -                            &v->LinesForMetaAndDPTERow[k],
+>>>> -                            &v->VRatioPreY[i][j][k],
+>>>> -                            &v->VRatioPreC[i][j][k],
+>>>> -                            &v->RequiredPrefetchPixelDataBWLuma[i][j][k],
+>>>> -                            &v->RequiredPrefetchPixelDataBWChroma[i][j][k],
+>>>> -                            &v->NoTimeForDynamicMetadata[i][j][k],
+>>>> -                            &v->Tno_bw[k],
+>>>> -                            &v->prefetch_vmrow_bw[k],
+>>>> -                            &v->dummy7[k],
+>>>> -                            &v->dummy8[k],
+>>>> -                            &v->dummy13[k],
+>>>> -                            &v->VUpdateOffsetPix[k],
+>>>> -                            &v->VUpdateWidthPix[k],
+>>>> -                            &v->VReadyOffsetPix[k]);
+>>>> +                    CalculatePrefetchSchedulePerPlane(mode_lib,
+>>>> +                                      HostVMInefficiencyFactor,
+>>>> +                                      i, j,    k);
+>>>>                    }
+>>>>                      for (k = 0; k < v->NumberOfActivePlanes; k++) {
+>>>>
+>>>
+>>> Hi Michel,
+>>>
+>>> Overwall I think this series is good. I also run it in our internal CI and everything looks fine.
+>>>
+>>> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+>>>
+>>> And applied to amd-staging-drm-next.
+>>
+>> Thanks!
+>>
+>> Are there any plans for actually reducing the combined amount of stack used by ModeSupportAndSystemConfigurationFull + CalculatePrefetchSchedulePerPlane?
+> 
+> Hi Michel,
+> 
+> Tbh, I'm not fully aware of the problem with the stack size used by "ModeSupportAndSystemConfigurationFull + CalculatePrefetchSchedulePerPlane". Could you help me to understand it better?
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 3 ---
- 1 file changed, 3 deletions(-)
+The warning which inspired this patch (and the corresponding change to dml21_ModeSupportAndSystemConfigurationFull) is about ModeSupportAndSystemConfigurationFull exceeding a threshold of stack usage. The patch moves some of that stack usage to the new CalculatePrefetchSchedulePerPlane helper function. However, since the former calls the latter, together they still use as much stack (possibly even slightly more, due to the function calling convention) as before. So while we've silenced the warning, we haven't actually improved the situation the warning is about.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 7fdb63da1316..677a246212f9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -227,9 +227,6 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
- 		break;
- 	}
- 
--	dev_info(smu->adev->dev, "smu fw reported version = 0x%08x (%d.%d.%d)\n",
--			 smu_version, smu_major, smu_minor, smu_debug);
--
- 	/*
- 	 * 1. if_version mismatch is not critical as our fw is designed
- 	 * to be backward compatible.
+> Could you provide some background? Also, could you help me better understand the impact of this stack size issue in the DML code? Any information will be helpful.
+
+I don't know the exact reasons for the warning offhand. Presumably the fact that this warning is enabled indicates that stack usage should be minimized though, or at least stack shouldn't be lightly wasted.
+
+
+>> Also, did you check that UseMinimumDCFCLK now modifying mode_lib->vba.DCFCLKState[i][j] and possibly other values in mode_lib->vba makes sense?
+> 
+> To check this patch, I submitted it to our Internal CI, where we ran a couple of IGT tests in multiple ASICs, and I conducted a simple smoke test using 5600XT and a Raven system. Everything was fine.
+> 
+> Finally, I checked Dmytro's opinion about this change, and he agreed that your patch is fine.
+
+Great, thanks.
+
+
 -- 
-2.25.1
-
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
