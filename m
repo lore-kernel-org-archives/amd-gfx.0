@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D74BCC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 03:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 806D7C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 03:53:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D34C10ED08;
-	Mon, 13 Dec 2021 03:52:58 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE27D10ECFB
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 03:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF9D10ED00;
+	Mon, 13 Dec 2021 03:53:01 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EEE310ED0A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 03:52:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=armmX0ElP/aB9Wcnokhpp6/bURY7l03v9qFcoKV09bZ1N6yOFO7wLSjbZ+qZy/sHFeBJWY9XdLaHXX70xDAvcS4v9QLY6ElcHipDvyWiN3pDb7Rr5A/wk9akpD6dmkrArsLviJvFbHX8EbpGxK4EZRZQeMYa7AME3+OQP+FjmMPdxseO4T6cqrWATd3/niJRp33f0/lGWdH247quvAw5oakXjabjTy+Z9mpdggDzJDoOwwUu7YPhgqmNaXfvzIuFdAmwyhlWj4k09JWBRIMZdf+sY0ToaPnu7NIpuF0tDD8mv9JuBX93XX1t6ZfVl/7XvUe9dBYJVcP99eb/Ue7dsA==
+ b=Wypcy6Gu0mqKao+LAB6D6jH+jqLYltoOFf9PV8QproCZo/2WJHhE0DHIMT5W51lUcwu7Er+uKddMdK6gp7u8cduZ0IWNyanQcAmMNYvHpitbwEcDKRCJMXmYIj0wWDp5A5yx8aNJ5RngloBtok98uaVkqT3s2uTisfbPJh2b3JdSsrpxQSTOrUpYM5uAJRlOQBY6j6lL232gguNxjq0530QB2uwQN/XnJUymRlqT5Qblmjh5F7G0luJb65H8tnQrLH4j7zvMdt0LqYunrpUlBVZZkaCWYR2OQkYy1I7E/G0Kga2ESK0ih2BrOXnw8llUlSYa2lnfVYBYUvnRnb3DBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rf+NeXZ52LHJ1HVsvfbnxyyn7LHxAcsx7RZyl8i2Y+8=;
- b=kmKoYT1Rk92P6F4vVdLxanv9Xc2RrAadazMdYDc9hfnTzPsVibkysS84Qk36AFYfRsm/TNaCO+wTU65Cqm948GKbc2PtdhO6Ftc6WhVGPdwtzeOtZmSizlB8Yqb64pomRMB9Yu30Qk/9PZ6OtzDg9uRKiamoRRVwD+rWGAQlKsv/0u1KOpcC5UePk4jNwPVwVVo/PQpBCHvAJCskV+pWJdFxPxHHAyRbaHy2uEjYhJ1F6rdoeioVscVpt3py+CU0LGula/xtwinCYLzQktkHItDfptfsIrEJ0IGRRZE8+75exYqCq261xrwLxKY7as/5CqadQEkeqBFjYVJRUeDzrg==
+ bh=KKwfDqh6ErZvo6I77ZSrC8/xBmhclT5K6Jt0AhjM1Rk=;
+ b=DO6KeNI7qbXMFPJofH2R3sGwhnpcSvVK6CEC1/gBtEILx4BssVSKS3M3KYNl/80L3r/dbA2AiNOHwk7W2WKjH2LtFGIoI36i0+k+kezWS4IAn772QMXrcTgW4oIUx3esmsLiOViPlpSNUOoCdGem8vCu7TZ7aU+TgrmleleWvTM8U/Jxah8PUOcjcLSMzGd+/JVqPhOmJsG7ts2yYSRmc8tJ8yZLQz9Mq6MrBrVw9uduI63K1in6Unqg/FgUxLI1jO6u1h0c3Xa078tC3R1gq0Wv8CwMGl4WZeDxQeesMCv28lLLqChoGmqe6bU3ccvAhALeC9LamyZHRSbw5SrP8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rf+NeXZ52LHJ1HVsvfbnxyyn7LHxAcsx7RZyl8i2Y+8=;
- b=ROXPk4ckYfMcv5rqP8QPyFiNXHI1lfazevztt7OOrtWOmPs8yXGarXfqWv2N9qKfy8pdqD2QLLqHXeFwyF+JH4zL38TWEp5ZVtXa2hserHMtc7+2dp/36Cd+qX9zw/5DphkxzFL4T7oOzSAp8UG1Xc/IqqnqPnnSpRJfHZBKaDM=
-Received: from DM5PR16CA0043.namprd16.prod.outlook.com (2603:10b6:4:15::29) by
- PH0PR12MB5420.namprd12.prod.outlook.com (2603:10b6:510:e8::18) with
+ bh=KKwfDqh6ErZvo6I77ZSrC8/xBmhclT5K6Jt0AhjM1Rk=;
+ b=2M6w8HGtUhdoqPFDQ7z3/BJLd6BhVn50Tc4oScbq1KOv978kKQ10d6eU2+Fsh38bl6FEec7BdWtrrJgqD/lTICRfWuJMHzfAtwDVKuuTPcAEW9pA6nIwBNmfTE8Rs7MCqfkvn4Mm7UVdpm5+lM0zIWCm37EuldzoPWhUbhL7nA0=
+Received: from DM5PR18CA0087.namprd18.prod.outlook.com (2603:10b6:3:3::25) by
+ DM6PR12MB3194.namprd12.prod.outlook.com (2603:10b6:5:184::13) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.17; Mon, 13 Dec 2021 03:52:52 +0000
-Received: from DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:15:cafe::23) by DM5PR16CA0043.outlook.office365.com
- (2603:10b6:4:15::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.13 via Frontend
- Transport; Mon, 13 Dec 2021 03:52:52 +0000
+ 15.20.4778.16; Mon, 13 Dec 2021 03:52:57 +0000
+Received: from DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:3:cafe::e) by DM5PR18CA0087.outlook.office365.com
+ (2603:10b6:3:3::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.14 via Frontend
+ Transport; Mon, 13 Dec 2021 03:52:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT049.mail.protection.outlook.com (10.13.172.188) with Microsoft SMTP
+ DM6NAM11FT025.mail.protection.outlook.com (10.13.172.197) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4778.13 via Frontend Transport; Mon, 13 Dec 2021 03:52:52 +0000
+ 15.20.4778.13 via Frontend Transport; Mon, 13 Dec 2021 03:52:56 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Sun, 12 Dec
- 2021 21:52:50 -0600
+ 2021 21:52:54 -0600
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V5 06/16] drm/amd/pm: do not expose the API used internally
- only in kv_dpm.c
-Date: Mon, 13 Dec 2021 11:52:13 +0800
-Message-ID: <20211213035223.772700-7-evan.quan@amd.com>
+Subject: [PATCH V5 08/16] drm/amd/pm: move pp_force_state_enabled member to
+ amdgpu_pm structure
+Date: Mon, 13 Dec 2021 11:52:15 +0800
+Message-ID: <20211213035223.772700-9-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20211213035223.772700-1-evan.quan@amd.com>
 References: <20211213035223.772700-1-evan.quan@amd.com>
@@ -69,28 +69,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dddb8e28-bb2a-4d29-4de3-08d9bdec09d3
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5420:EE_
-X-Microsoft-Antispam-PRVS: <PH0PR12MB542069ED9E9628F827D31CAEE4749@PH0PR12MB5420.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
+X-MS-Office365-Filtering-Correlation-Id: 0a0548f2-de42-4eb8-7672-08d9bdec0c35
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3194:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3194A70C4F22E6244003C7D5E4749@DM6PR12MB3194.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jNaJ3rZPo6sRyISWKh75eFv+4i5zbeAUyEoClePCowQtOUxcoUY37TkgJJ5Aka05JETNCspxC2l+K0pN2HPvzxiEOauiPQADE1yV5eD+6ZXBq/x45uNKERjmXWgQo5ZvGe7nLr6HwjqFyX4M7+YAJW3zKa2Ja6r05BoyTXrxd0dc1BEw1mkdPDz6RKvVMT/WCbJsuGcYXoZYXgenfucTV56P3qhrNk7YCp/iunyFz9keRYqgv4+duUaIjEIdRDRKbGFr7xVRApBUpqHbEfE2KxNiQ16DpL+iu3mNmz36+CSE8bM5IzgFUfUGlrmuF6uO6+yfG7ojHKR7PoXLhddjc7Diw3sBUakdPbJu6FyfrKUZXlTri3Jks2tXgJk1qdVB4YnHhvrE/pkOxZgwjeGOkQCgsf90lxaFel38ZVq6Qaq2KITyVYa+CFEb0/vXxxyZeT9DFCTmh3kgJwVewL/SdzE+HljKhPgrfvBXXJ8pjAUmx2VGmJA9cCdAzFQMIHwQdxxeSxuKhNLBqwoFHZTB1ULZi07h7CUP1DKRhiRMb0lJ3M8evw9blgK6H/UeOPACM0NbvUhu4RmIHftUBUhqc2iUBFwvxL6YHbsMQrXRSVfPqesxXDoUj2Brpc2Kz75Rp9N+FeFKngMXd/7HzKdWZ91n91ayCZp5TCsp1yJe0XpH06023AAHIpae31LHnhMqVXP6gwjMRNTjwHakyp36ozg4O9si4+h41NRIWpS457AL1K/sbeJ2IGQCj1pYhn3gnbRenGtXoeAGt8kl2Px99u5DoqbPMQw06C4i1Jki2kE=
+X-Microsoft-Antispam-Message-Info: KerXPnAgH24WaBClCEgk4Ek1SpM5sJi6/eC5iIUcEEDxP8S6pP9iUoNHtrKAKHWO+O8JcSMGXE3zxOpd5wNF40MwRF3S09e0NP1fu/T7xEHX9JObC4L82wYDER80MpVIT2lhDL5tlLZLj4KCb45EFBs7PEW6vrYFQjYFmMfQpP9Q94SfFHfGMzecl09oA81H9/Y6sVCfDng3Oli3gRdDZ3t9nkHOo4+5Vz2tIyC3PrzFZ6EaAnOIF/FOQ1NhVWR+CQFkP7M860VwE0MLyLp+P0j/ayvtTXSbZAOr0VYwOI9078DCPFammrdpwf1McDAperQ0VnjeakEGbv+ge0DuiXJ9F83F2OZ8928vNDYIYtZvByY9I+bIdbffoEX3oozgnSQZVrsvorqxsW1WMyKYiPxQzPDizdfUrXW2V7+dvvAq2a9ZYIjTWgRcrFk8YRGOX9M9Hp1BS55x1sCyIaWnF6pOn5BcqIt5BPTCcM88PpG7itTJFKCLl7IZ0Yi/xe2f7N/HkVg5jht4uQmop/iPJVvRdvtv2tcQLGdjPMPQ6KvQlyaXKRbGMDAqKYeBABYkBDDtOdUBjG8d4wdrjk4GDAWm4+kxRtIHfJfAmyDWfSRo3vvQGrQTwCCo0vRwvjmN3BWbNN+bqHb+i//WdKjQgKSoZcnPdtWeaFZ62YVLfii19+fco1QxiJkBCCefp1hmSUAosLVTQdBogiLFv6RUAOppXWoSlbarr94lCkBw+KHkfWsN+6/5HCaafwNeEf4Rug9c0iXCNvTVe10yqHrF8jlpmXa2QdFV2NlpmE96JRY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(5660300002)(36756003)(83380400001)(7696005)(44832011)(82310400004)(4326008)(6666004)(8936002)(86362001)(1076003)(2906002)(426003)(40460700001)(54906003)(16526019)(70586007)(316002)(47076005)(70206006)(186003)(81166007)(356005)(2616005)(336012)(8676002)(36860700001)(6916009)(508600001)(26005)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(81166007)(186003)(82310400004)(83380400001)(26005)(47076005)(356005)(426003)(336012)(36860700001)(36756003)(6666004)(86362001)(1076003)(2906002)(508600001)(44832011)(6916009)(70586007)(54906003)(2616005)(8936002)(8676002)(70206006)(16526019)(40460700001)(4326008)(5660300002)(316002)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 03:52:52.3629 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dddb8e28-bb2a-4d29-4de3-08d9bdec09d3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 03:52:56.3460 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a0548f2-de42-4eb8-7672-08d9bdec0c35
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5420
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3194
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,109 +107,73 @@ Cc: Alexander.Deucher@amd.com, lijo.lazar@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move it to kv_dpm.c instead.
+As it lables an internal pm state and amdgpu_pm structure is the more
+proper place than amdgpu_device structure for it.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: I554332b386491a79b7913f72786f1e2cb1f8165b
---
-v1->v2:
-  - rename the API with "kv_" prefix(Alex)
+Change-Id: I7890e8fe7af2ecd8591d30442340deb8773bacc3
 ---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c       | 23 ---------------------
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h   |  2 --
- drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c | 25 ++++++++++++++++++++++-
- 3 files changed, 24 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 -
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c      | 6 +++---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h | 2 ++
+ 3 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 0f9e109941f1..d356c444a034 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -209,29 +209,6 @@ static u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev)
- 	return vrefresh;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 9ceb8f3e73de..2d8070a9394e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -953,7 +953,6 @@ struct amdgpu_device {
  
--bool amdgpu_is_internal_thermal_sensor(enum amdgpu_int_thermal_type sensor)
--{
--	switch (sensor) {
--	case THERMAL_TYPE_RV6XX:
--	case THERMAL_TYPE_RV770:
--	case THERMAL_TYPE_EVERGREEN:
--	case THERMAL_TYPE_SUMO:
--	case THERMAL_TYPE_NI:
--	case THERMAL_TYPE_SI:
--	case THERMAL_TYPE_CI:
--	case THERMAL_TYPE_KV:
--		return true;
--	case THERMAL_TYPE_ADT7473_WITH_INTERNAL:
--	case THERMAL_TYPE_EMC2103_WITH_INTERNAL:
--		return false; /* need special handling */
--	case THERMAL_TYPE_NONE:
--	case THERMAL_TYPE_EXTERNAL:
--	case THERMAL_TYPE_EXTERNAL_GPIO:
--	default:
--		return false;
--	}
--}
--
- union power_info {
- 	struct _ATOM_POWERPLAY_INFO info;
- 	struct _ATOM_POWERPLAY_INFO_V2 info_2;
+ 	/* powerplay */
+ 	struct amd_powerplay		powerplay;
+-	bool				pp_force_state_enabled;
+ 
+ 	/* smu */
+ 	struct smu_context		smu;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 3382d30b5d90..fa2f4e11e94e 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -469,7 +469,7 @@ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+ 	if (adev->in_suspend && !adev->in_runpm)
+ 		return -EPERM;
+ 
+-	if (adev->pp_force_state_enabled)
++	if (adev->pm.pp_force_state_enabled)
+ 		return amdgpu_get_pp_cur_state(dev, attr, buf);
+ 	else
+ 		return sysfs_emit(buf, "\n");
+@@ -492,7 +492,7 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+ 	if (adev->in_suspend && !adev->in_runpm)
+ 		return -EPERM;
+ 
+-	adev->pp_force_state_enabled = false;
++	adev->pm.pp_force_state_enabled = false;
+ 
+ 	if (strlen(buf) == 1)
+ 		return count;
+@@ -523,7 +523,7 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+ 		if (ret)
+ 			goto err_out;
+ 
+-		adev->pp_force_state_enabled = true;
++		adev->pm.pp_force_state_enabled = true;
+ 	}
+ 
+ 	pm_runtime_mark_last_busy(ddev->dev);
 diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index f43b96dfe9d8..01120b302590 100644
+index 89caece4ab3e..b7841a989d59 100644
 --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
 +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -374,8 +374,6 @@ u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev);
- int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
- 			   void *data, uint32_t *size);
+@@ -335,6 +335,8 @@ struct amdgpu_pm {
+ 	struct list_head	pm_attr_list;
  
--bool amdgpu_is_internal_thermal_sensor(enum amdgpu_int_thermal_type sensor);
--
- int amdgpu_get_platform_caps(struct amdgpu_device *adev);
- 
- int amdgpu_parse_extended_power_table(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
-index bcae42cef374..380a5336c74f 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
-@@ -1256,6 +1256,29 @@ static void kv_dpm_enable_bapm(void *handle, bool enable)
- 	}
- }
- 
-+static bool kv_is_internal_thermal_sensor(enum amdgpu_int_thermal_type sensor)
-+{
-+	switch (sensor) {
-+	case THERMAL_TYPE_RV6XX:
-+	case THERMAL_TYPE_RV770:
-+	case THERMAL_TYPE_EVERGREEN:
-+	case THERMAL_TYPE_SUMO:
-+	case THERMAL_TYPE_NI:
-+	case THERMAL_TYPE_SI:
-+	case THERMAL_TYPE_CI:
-+	case THERMAL_TYPE_KV:
-+		return true;
-+	case THERMAL_TYPE_ADT7473_WITH_INTERNAL:
-+	case THERMAL_TYPE_EMC2103_WITH_INTERNAL:
-+		return false; /* need special handling */
-+	case THERMAL_TYPE_NONE:
-+	case THERMAL_TYPE_EXTERNAL:
-+	case THERMAL_TYPE_EXTERNAL_GPIO:
-+	default:
-+		return false;
-+	}
-+}
+ 	atomic_t		pwr_state[AMD_IP_BLOCK_TYPE_NUM];
 +
- static int kv_dpm_enable(struct amdgpu_device *adev)
- {
- 	struct kv_power_info *pi = kv_get_pi(adev);
-@@ -1352,7 +1375,7 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 	}
++	bool			pp_force_state_enabled;
+ };
  
- 	if (adev->irq.installed &&
--	    amdgpu_is_internal_thermal_sensor(adev->pm.int_thermal_type)) {
-+	    kv_is_internal_thermal_sensor(adev->pm.int_thermal_type)) {
- 		ret = kv_set_thermal_temperature_range(adev, KV_TEMP_RANGE_MIN, KV_TEMP_RANGE_MAX);
- 		if (ret) {
- 			DRM_ERROR("kv_set_thermal_temperature_range failed\n");
+ #define R600_SSTU_DFLT                               0
 -- 
 2.29.0
 
