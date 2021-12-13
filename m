@@ -4,93 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABB40C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 06:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D122C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 06:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5147310EB4B;
-	Mon, 13 Dec 2021 06:35:09 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88AF310EB4B;
- Mon, 13 Dec 2021 06:35:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C02510E5F1;
+	Mon, 13 Dec 2021 06:51:47 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2083.outbound.protection.outlook.com [40.107.101.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B13010E5F1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 06:51:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lqoC2MEAs8NAus/RETtTQVdfO2L/CeA4MJKFwm6DW79GPYECqQ4VqDFV94ydA0CS0idVRjslAdlH7bFcVz7o60nVIkaRqh0DRFjxJPwjeb6h79UqkNye6VXvNz0DBv/tMCLje5P/qDnxEXfQP+k8wV8x4qeHAc8NN5NBCARNSlmTvr2493wyTGHGpMHiTag45JGg6ijyR7VZHV5cxCuYGa0VMYuTh0gpVuFxClFpoS/cffPMMIZz6gbBfYLr6Ooz7e8Cg2j8+CAL2EWTaLI9qwjEZLUXSDpU+czAnWqWuy2GaOT/P4IC97d5o4NtjJCoCvhJdFVmE4Mm3H4s3k/UCg==
+ b=FIxJenDbleCEvnSgi61M92xC722PE0UBcVfUYoiwOiyvcrBxd5lM2czap9QSvApcSOS+E6V3AbI/n0XBDyRNb11E3UjsmFtQAYpGWGW5Jqaz97Vh1ZXYZuMghy0VenI/BBtCnJwqSJfsOOSuYRxrMkygaHbq+oddLleqVUZxGasi+WwkCi2ZoR2nMVaVd6PhlHOn95ZKvtK162VMu17WDNcqiBuQBwL2lWcC545MYyFIBRjeBtAbnzDwzZPxj+Lsh3U+eL08gvHAkEz6NeU0BldHXhTAODq8wGSzWmULH7nN+HoKKd9HJ0U/hVFrzZnzKDTbhWbHTo4MxMwiwgLhBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YtvEoVgPwbQN7X83Mue1P5Z3FtzkaZmPb3gwvz6ceyM=;
- b=P9oC5ipaG9QDQ+2QHtVKIPYmcVVlVdgaiqgakB5ijCeXbGz2EFcKZY1ZRErJEC5ocvjyQNPHCbicKSjit/GqsqfT6+h4nutTlqOdlrunUUvLKxr5MjNsUujG54PZtf11SdcHjR+aEVOKLKHaIOkl0nJZrEN0l4ioEK32o+xRfU/Gv8q9ltXQxvk8VILH8szd8aY9XpuxHm5lRHCmF5KGOFcx95XSHnKBa7bV7QhTh193f7/R66jaAXuREHbNOq+tode7+ab9CltgGTKbOGFqYlXSLJ+97uvr0938pi1Yndxjj9Le4ZyoG/6+kKnkmvMTvF9bXhYgHMrKw6ox2h60yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=e0qtdZM3S3jcIlevgE4x5nOTrDOpBI0zlW/YQ6WV6Jg=;
+ b=UL/9+1qpUf+kcA04ZnW0kJX5WtjlLknen34D9EI0fPxUzFNi2FA+FBdiAVshXuoUfPDQAS7zqQHb3+qDHi0uGsCEu/FA549bfMB11NJ4R1KlnzKVB9t0gI04MCTp1plFNHx317m8jCuto4yMHW99GrEx5fu0JpczF3NwgpHgFIhErcR1dnTRDdI/JAqHShFp0bAJYobps2yZ1EdZlj94ySBS5HqA7JIgd95/YJk3pdIjD6O6FBEZX+uvJGhiKg1wVWJcrwIm6k206wdBnYqg663PgJJ91xNaU6vzud/dhy8YaOj8on0/Nixj9EfJnqR7M0P4+qpKIfvNahKOATUzWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YtvEoVgPwbQN7X83Mue1P5Z3FtzkaZmPb3gwvz6ceyM=;
- b=W1UO/L7I7K1TC9wVRt//ZZIS+mJ9dq0cGk1J3a1hS94q/ia0ceQ0fHZ0WIwv1w5bEbYuvQ1TJ9a9Bcr7YG/r4rFt80rutuEwriYJfLG/YMTi7bwEFvXcS9n1J7mMOhUAuz8SPd0OZk5N3e+KLgvamb8M0j7a7GVTdZz5RSWgxAc=
-Received: from DM6PR01CA0026.prod.exchangelabs.com (2603:10b6:5:296::31) by
- BYAPR12MB3142.namprd12.prod.outlook.com (2603:10b6:a03:de::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.16; Mon, 13 Dec 2021 06:35:05 +0000
-Received: from DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:296:cafe::60) by DM6PR01CA0026.outlook.office365.com
- (2603:10b6:5:296::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.13 via Frontend
- Transport; Mon, 13 Dec 2021 06:35:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT045.mail.protection.outlook.com (10.13.173.123) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4778.13 via Frontend Transport; Mon, 13 Dec 2021 06:35:04 +0000
-Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 13 Dec
- 2021 00:35:01 -0600
-From: Huang Rui <ray.huang@amd.com>
-To: <dri-devel@lists.freedesktop.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, "Sumit
- Semwal" <sumit.semwal@linaro.org>
-Subject: [PATCH 3/3] drm: fix the warnning of string style for scheduler trace.
-Date: Mon, 13 Dec 2021 14:34:22 +0800
-Message-ID: <20211213063422.2232155-3-ray.huang@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211213063422.2232155-1-ray.huang@amd.com>
-References: <20211213063422.2232155-1-ray.huang@amd.com>
+ bh=e0qtdZM3S3jcIlevgE4x5nOTrDOpBI0zlW/YQ6WV6Jg=;
+ b=geL1b1plVuBHppDq6JCUNrEvbyTzbTOQFCXdHMuJg29EvMneGa8R1m4vJB6WkyoIruafsLUckun2hPguQY7I1O+4ca+Kp1G3YU6meYZEdyzl9gbBTVVMXmlPJwioZ9+nRGoRQ8PcJwMfTSf9tYu3b3zrYVEPd3JrM2CG3iH+67A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
+ by DM6PR12MB4973.namprd12.prod.outlook.com (2603:10b6:5:1b7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.16; Mon, 13 Dec
+ 2021 06:51:43 +0000
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
+ 06:51:43 +0000
+Message-ID: <62e3d5ec-65ba-1e39-07a2-c16df1b81d37@amd.com>
+Date: Mon, 13 Dec 2021 12:21:30 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH] drm/amdgpu: move smu_debug_mask to a more proper place
+Content-Language: en-US
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211213054241.773719-1-evan.quan@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20211213054241.773719-1-evan.quan@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0160.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::15) To DM6PR12MB3930.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 23661121-62b1-495e-eef1-08d9be02b2ba
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3142:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB314288A427F0CDCBAEDED614EC749@BYAPR12MB3142.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:256;
+X-MS-Office365-Filtering-Correlation-Id: 0cb0b32a-ab1b-494a-70de-08d9be0505ba
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4973:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB49737767C0E9F4FF5418830B97749@DM6PR12MB4973.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WdgqhyvUmWvnUxzNSHNIPHn1yZKE8RCbbvGZ3fSl+UpfNqxj5VgkCPv/M+Q15kReB/rrFWGncCwrZ/EMpiCl6o4WS09LkKpB6ST0NaFwQoernzZxuoz2noL6+JaEeTVhRPksr/7xhGc/qZySZWGfxuXNDR5SbJvt+e76PIqOPdjAhVpO6J5an842bI+96oiQkklL0hksoJpNVcm5i6E4LBYi5xxxhNzgMba7rP50RfmsjzoAZ1UtqBzEm7JlNVb/rynQn1GDCKSqHb3e/FpEb2E1hHo5TMeZUzcv5l1cZtcfJBsdzxIul+29jLmwst44jg7/QaecbJ49qavHiHFf+hyckyI/mmqCB/J2kcvoMMRilUhrO8xhJANHQZODaBgmFWZqEiMLS3yYCnZ7aBwGWLDmesOdoUdWJIQ8vDaKuFJEjeNET1tjHomnL27BgX2eQWJiyGYXvRmICO5E8TY896tV2UEJU/i2Z8suGosuPvZP+v9qykuUaw1hPVFiUpdvvsQPosITn7PWkdFPCMBxoV9LQIo8EauF9WpX/QidSS3qSj+UpusK5UxMF+X+/AfWfG6qhJiK2MPkze23YBPwjDGNjuJqgnyJprrspQNYqUu/QwUJzQK0UeYv4bni9SW65mYsomWebzfmYEO7QRZFDuVa4GnS4yyGeYw2ZEJ7cqvLWSEhZWmCxQZKfdVV0dxoDuZYXgdG0PkEIf/Cyk8HzXIWJYCnlI059XQPg5A9HzfkeRgL7JVd4pA5mnJSJfZEFb8lQWB8G5rhs+45FWqKKjgRuymXJpOWDS1Xg0iS94g=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(26005)(70586007)(5660300002)(7696005)(8936002)(2906002)(86362001)(1076003)(336012)(8676002)(82310400004)(40460700001)(426003)(36860700001)(6666004)(4326008)(16526019)(70206006)(110136005)(83380400001)(186003)(508600001)(316002)(54906003)(36756003)(356005)(81166007)(47076005)(2616005)(36900700001);
+X-Microsoft-Antispam-Message-Info: 6BDcRQrTRGD2BeoyVA0Ue+YGrn9d2bimotbMpAMvm4eYw/7hWi1+ilOMmNFk1hhgU0cBk5WgPKDiVrEhw9Vni1qN7VgKpaUhxkCqGNOALnPeYwNx1TX4AYRAo7QupDK4DKM+2/sbxBkFxuQ0NENrIkMSFwm4khP9bTKg8unjIkpa16i3tqfTjYyOmcbGzWdAi239NeQUP5yrt0ntuirf6K3duPCVnghrvTOC6Gsn+NnmuPiMoOo8PIl3XTA2aIpYp/ngmI2ncPpsfF5GbrPuonGUkG/kUQW4vkyNViUv9YObrt7Fh5pT3sd/XNwfjhhIuK/ZpdQzLNQEvb2yyP/uC4D4Q9Q2jZ6krkMTBMnnoQXZHi7hyKJc9nJ4enkhKCrFhlCoIuKjLEDiFeQYIsmFzgHLDGmY+ZkUQaHzCdZ7dKbUgnUJUHYTI8RqXN+CNpxuyZV3LFbg3I3PGZGTQnRhWO4Z5Wtbr0BTLXyi1YhUxPxGPZ9TM7wKittuxQAKNKH6IgfySs+5JcXdU1yGxVtfePLAM07kQk59o2qxltMsr4/mSotiOGHhdIze8y9HsKOoUQeMnAAUK4Fuay051OC2mjSyh38oqX96S3bhrvR8OWwpx+y3oYVzG7oFnFAGSV05QWg2LygD7P0QQ/Ft3gzLmuMq5Ht40K+iJ/HegkWBqDX80ivkfJ4Am8+t/3T7Kv2FaM5qHEQCo+RIa0jas59H3mFH14MeLFTGsPl2IV5TUxE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(38100700002)(66476007)(66556008)(53546011)(4326008)(6666004)(2616005)(83380400001)(186003)(5660300002)(508600001)(86362001)(31696002)(8936002)(26005)(6506007)(2906002)(31686004)(316002)(6512007)(6486002)(8676002)(36756003)(66946007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnlQMVdIUXY2TTN0Z2NBb3psdVBFMHJyRVBSZGNrTks2Qjd0ajArYkVRY0JE?=
+ =?utf-8?B?VWxxWjZ0eE1QY2JUYU1NRyswOE1VQXBJbnRsYXRrbDVPcUVwUU9SckdqM3ZF?=
+ =?utf-8?B?eW05YVh1QlBMZkJxQ09wN3NNTlVwSllRYk52ZGNOdnp1NE4xWDRtb1paR2xl?=
+ =?utf-8?B?RHlaeUZtblh0bXBodEUzZjhveEJFREZBUk00eExlRWpPRFh5QzAzUXdvMlhK?=
+ =?utf-8?B?enFZM3VuRGtqNHluTmV1VC9wOHdIajZueVk2NjVHd05SamtwNVl4b3p6Q09M?=
+ =?utf-8?B?WHNHQlA2ZUZZQjlRdDc3Z1lVTUh3SHdaeXNjK0s3dFdhUUtXWi85WkJVMEtT?=
+ =?utf-8?B?Q2VHTVZ1eUxUKzhiMXVMK0ZDVGkxQ3NQN2RNNlEyWFJXZmxXMzVod1VWSldO?=
+ =?utf-8?B?OGVPcWJ4QTFkQytublFVQmR5OGwxNXMrd1l5aitJVXVnL0JadWN3ZTAzTExJ?=
+ =?utf-8?B?RDRaNnVQT1NpUXZXWXhuREoyeU5oY3RTeFdRbVpqMStmaWJ5d0xYSXN4eXls?=
+ =?utf-8?B?d3JiQVRYMjlEWTRmdzBhZ2NldTlBSmoyWDRYNnpsTitKc1NscGpzSkZtZUhB?=
+ =?utf-8?B?aENaUXlKZzVxeWdTLzh1VGVjYlNPakZqZG1FNU9NYVlxL2hNUEh2cTlaa21R?=
+ =?utf-8?B?ZE9YRlFvNEJESXlYYlkydFhuY0NPNy95bmRBNTNaS2FrKzNPRktlNUMxZCtC?=
+ =?utf-8?B?RDFPQkt5MzZ3T2lnR043U3FwNHUwakVTalVnWitEdTZ3R1YzNm9MbUgwcXd4?=
+ =?utf-8?B?blVZVWh0NVVreEFtRVZOcHJ2akpkcHVKUVlDYTdPbkZBYkxmYXc2OTVaK1ox?=
+ =?utf-8?B?ZFY5SWRqSzliMWg5TElTWWZNQ1dlVEpBMTdkTVhBbFE3NnFkSVNXWmJwM3Bh?=
+ =?utf-8?B?ZnF2TFhpNWhnMWZYNzlVZjM2N3Z1bmZVdFM1bWZXTHBZVm55Z0tFV0ZhbzZh?=
+ =?utf-8?B?TG91K3dCcXlKc0dCdmMwQmlBMFNZRjd2b0xWeDVWOFFQMnREU2JLV3l2MnQv?=
+ =?utf-8?B?QytmN0VTenhlRnJYWnhiWmMwOFhqTUZoSncrWXhodTNHYTM0bFdCRENGOTY1?=
+ =?utf-8?B?WmNrV3FxN2lWbllmdWtHamNSSHJkMW5FQ202NlJ3aHB2am1SeEtjS3N0UCtv?=
+ =?utf-8?B?bzdWeFRNbWNaa2dVVU1tMVVYL1djNDVlajE5UnVaREtFZ1lEWFAyMnVQNVZI?=
+ =?utf-8?B?NmR3RFZmbnF4ekU0d29MYnRvenJlRGxOdG9sUUVwUnRRNXFrVm1tY1pIa3pX?=
+ =?utf-8?B?UExiWENPd25iM29HbFJ0cXVIWmVRR0FkZkpmNXVPb3BBUzNZeUJRa0Nodm9a?=
+ =?utf-8?B?Z05FRHcvWm1BN3Nyd1hGZnA4b3QrRU5sRDhhZEhoZXVIZkVCNUljUFdGUnY0?=
+ =?utf-8?B?VlF0YlRFUkE4dGh3blRVcUhnejB1cSszTWJsR3dmaVl5SXNGVUxTNHNpck5K?=
+ =?utf-8?B?R1pQYktPVXRpcm5VL2RnNFA3R3BORUFyaGo0Y2lKdHlKdkdUWFFzRGJxRU1B?=
+ =?utf-8?B?OFN2N2s5bnE4TkFYTjE5UzUvdVg5NXhmaEF1Ykx3b0p5SnBHdU9PaEJRZ05v?=
+ =?utf-8?B?d2N2SEJSanBqdFlNcERTUWk0SU80SmtpcXp4ZXc4ZjJRRnNHenUrZEZzMVEy?=
+ =?utf-8?B?OXM2dytMTnYyYTB6VkZKNmdCWWh4b2NnaUh4NFFIenk2OHZuRUxiTTEwSUcw?=
+ =?utf-8?B?NUs3UEk3STNvRFZMYk9ReVNEUDRyUUxLOEp1dkZ0bHltbkFHUVVoRXN3N1ZC?=
+ =?utf-8?B?TmVvRkZRWjJUQXBzdGpJUHJxK2dDUnZ4b0UzR1h1ME1SeGVscFFKcDQ5N05J?=
+ =?utf-8?B?eTBTU0hxL1JnbTVZNVhIREN2a2w4aWNBaFFQZEhHNHRGQ2FzMjVoT0NTQ09K?=
+ =?utf-8?B?TjJMQ3dVWjVNRDQyK2hlQXQwSTJEajgwR1ZBTVdkaXZGUVlLS0ZRTEl3c01y?=
+ =?utf-8?B?eFF1NzU0VVQ0UkhkSUU1NlNjNUpyVkN4Z2tvMm1CeDF0ejBHSFdrNGpBWUQy?=
+ =?utf-8?B?L0Exd205b0hPNHFPTnhUZXczdnlWNEVBeFdFOWlFckhQaEh2aEhGT2R6a2hT?=
+ =?utf-8?B?K0tUUmh1MHVrSFRyUXdIdDltVHFBQXFVSGtBTDQ2aHJESmlXbE1FcFR1UEQr?=
+ =?utf-8?Q?KhAc=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 06:35:04.5880 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23661121-62b1-495e-eef1-08d9be02b2ba
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cb0b32a-ab1b-494a-70de-08d9be0505ba
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 06:51:43.3382 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3142
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mQYft66Kg9RB/bVvAOORg43uCM1/Md17fk+H3Ld6Em1FZD178ZzzzN5PL9Wsudk1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4973
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,106 +125,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org
+Cc: Alexander.Deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use __string(), __assign_str() and __get_str() helpers in the TRACE_EVENT()
-instead of string definitions in gpu scheduler trace.
 
-[  158.890890] ------------[ cut here ]------------
-[  158.890899] fmt: 'entity=%p, id=%llu, fence=%p, ring=%s, job count:%u, hw job count:%d
-               ' current_buffer: '            Xorg-1588    [001] .....   149.391136: drm_sched_job: entity=0000000076f0d517, id=1, fence=000000008dd56028, ring='
-[  158.890910] WARNING: CPU: 6 PID: 1617 at kernel/trace/trace.c:3830 trace_check_vprintf+0x481/0x4a0
 
-Signed-off-by: Huang Rui <ray.huang@amd.com>
----
- drivers/gpu/drm/scheduler/gpu_scheduler_trace.h | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+On 12/13/2021 11:12 AM, Evan Quan wrote:
+> As the smu_context will be invisible from outside(of power). Also,
+> the smu_debug_mask can be shared around all power code instead of
+> some specific framework(swSMU) only.
+> 
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Change-Id: I1a0e1a436a51fc520a47b3fb28cde527d4e5eb6e
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 2 +-
+>   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     | 8 --------
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 9 ++++++---
+>   4 files changed, 14 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index e701dedce344..9ceb8f3e73de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -811,6 +811,9 @@ struct amd_powerplay {
+>   					  (rid == 0x01) || \
+>   					  (rid == 0x10))))
+>   
+> +/* Used to mask smu debug modes */
+> +#define SMU_DEBUG_HALT_ON_ERROR		0x1
+> +
+>   #define AMDGPU_RESET_MAGIC_NUM 64
+>   #define AMDGPU_MAX_DF_PERFMONS 4
+>   struct amdgpu_device {
+> @@ -959,6 +962,10 @@ struct amdgpu_device {
+>   	struct amdgpu_pm		pm;
+>   	u32				cg_flags;
+>   	u32				pg_flags;
+> +	/*
+> +	 * 0 = disabled (default), otherwise enable corresponding debug mode
+> +	 */
+> +	uint32_t			smu_debug_mask;
+>   
+Maybe, better to have it inside pm.
 
-diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-index 877ce9b127f1..4e397790c195 100644
---- a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-+++ b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-@@ -38,6 +38,7 @@ TRACE_EVENT(drm_sched_job,
- 	    TP_STRUCT__entry(
- 			     __field(struct drm_sched_entity *, entity)
- 			     __field(struct dma_fence *, fence)
-+			     __string(name, sched_job->sched->name)
- 			     __field(const char *, name)
- 			     __field(uint64_t, id)
- 			     __field(u32, job_count)
-@@ -48,14 +49,14 @@ TRACE_EVENT(drm_sched_job,
- 			   __entry->entity = entity;
- 			   __entry->id = sched_job->id;
- 			   __entry->fence = &sched_job->s_fence->finished;
--			   __entry->name = sched_job->sched->name;
-+			   __assign_str(name, sched_job->sched->name);
- 			   __entry->job_count = spsc_queue_count(&entity->job_queue);
- 			   __entry->hw_job_count = atomic_read(
- 				   &sched_job->sched->hw_rq_count);
- 			   ),
- 	    TP_printk("entity=%p, id=%llu, fence=%p, ring=%s, job count:%u, hw job count:%d",
- 		      __entry->entity, __entry->id,
--		      __entry->fence, __entry->name,
-+		      __entry->fence, __get_str(name),
- 		      __entry->job_count, __entry->hw_job_count)
- );
- 
-@@ -65,7 +66,7 @@ TRACE_EVENT(drm_run_job,
- 	    TP_STRUCT__entry(
- 			     __field(struct drm_sched_entity *, entity)
- 			     __field(struct dma_fence *, fence)
--			     __field(const char *, name)
-+			     __string(name, sched_job->sched->name)
- 			     __field(uint64_t, id)
- 			     __field(u32, job_count)
- 			     __field(int, hw_job_count)
-@@ -75,14 +76,14 @@ TRACE_EVENT(drm_run_job,
- 			   __entry->entity = entity;
- 			   __entry->id = sched_job->id;
- 			   __entry->fence = &sched_job->s_fence->finished;
--			   __entry->name = sched_job->sched->name;
-+			   __assign_str(name, sched_job->sched->name);
- 			   __entry->job_count = spsc_queue_count(&entity->job_queue);
- 			   __entry->hw_job_count = atomic_read(
- 				   &sched_job->sched->hw_rq_count);
- 			   ),
- 	    TP_printk("entity=%p, id=%llu, fence=%p, ring=%s, job count:%u, hw job count:%d",
- 		      __entry->entity, __entry->id,
--		      __entry->fence, __entry->name,
-+		      __entry->fence, __get_str(name),
- 		      __entry->job_count, __entry->hw_job_count)
- );
- 
-@@ -103,7 +104,7 @@ TRACE_EVENT(drm_sched_job_wait_dep,
- 	    TP_PROTO(struct drm_sched_job *sched_job, struct dma_fence *fence),
- 	    TP_ARGS(sched_job, fence),
- 	    TP_STRUCT__entry(
--			     __field(const char *,name)
-+			     __string(name, sched_job->sched->name)
- 			     __field(uint64_t, id)
- 			     __field(struct dma_fence *, fence)
- 			     __field(uint64_t, ctx)
-@@ -111,14 +112,14 @@ TRACE_EVENT(drm_sched_job_wait_dep,
- 			     ),
- 
- 	    TP_fast_assign(
--			   __entry->name = sched_job->sched->name;
-+			   __assign_str(name, sched_job->sched->name);
- 			   __entry->id = sched_job->id;
- 			   __entry->fence = fence;
- 			   __entry->ctx = fence->context;
- 			   __entry->seqno = fence->seqno;
- 			   ),
- 	    TP_printk("job ring=%s, id=%llu, depends fence=%p, context=%llu, seq=%u",
--		      __entry->name, __entry->id,
-+		      __get_str(name), __entry->id,
- 		      __entry->fence, __entry->ctx,
- 		      __entry->seqno)
- );
--- 
-2.25.1
+Thanks,
+Lijo
 
+>   	/* nbio */
+>   	struct amdgpu_nbio		nbio;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 9dfccb20fedd..ee1cc15c6f09 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -1619,7 +1619,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   		return 0;
+>   
+>   	debugfs_create_x32("amdgpu_smu_debug", 0600, root,
+> -			   &adev->smu.smu_debug_mask);
+> +			   &adev->smu_debug_mask);
+>   
+>   	ent = debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
+>   				  &fops_ib_preempt);
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> index 12e67ad9a3b2..2b9b9a7ba97a 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> @@ -482,9 +482,6 @@ struct stb_context {
+>   
+>   #define WORKLOAD_POLICY_MAX 7
+>   
+> -/* Used to mask smu debug modes */
+> -#define SMU_DEBUG_HALT_ON_ERROR		0x1
+> -
+>   struct smu_context
+>   {
+>   	struct amdgpu_device            *adev;
+> @@ -573,11 +570,6 @@ struct smu_context
+>   	struct smu_user_dpm_profile user_dpm_profile;
+>   
+>   	struct stb_context stb_context;
+> -
+> -	/*
+> -	 * 0 = disabled (default), otherwise enable corresponding debug mode
+> -	 */
+> -	uint32_t smu_debug_mask;
+>   };
+>   
+>   struct i2c_adapter;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index 43637d55fe29..b233d9d766f2 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -257,6 +257,7 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+>   				     uint16_t msg_index,
+>   				     uint32_t param)
+>   {
+> +	struct amdgpu_device *adev = smu->adev;
+>   	u32 reg;
+>   	int res;
+>   
+> @@ -272,7 +273,7 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+>   	__smu_cmn_send_msg(smu, msg_index, param);
+>   	res = 0;
+>   Out:
+> -	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
+> +	if (unlikely(adev->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
+>   	    res && (res != -ETIME)) {
+>   		amdgpu_device_halt(smu->adev);
+>   		WARN_ON(1);
+> @@ -293,13 +294,14 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+>    */
+>   int smu_cmn_wait_for_response(struct smu_context *smu)
+>   {
+> +	struct amdgpu_device *adev = smu->adev;
+>   	u32 reg;
+>   	int res;
+>   
+>   	reg = __smu_cmn_poll_stat(smu);
+>   	res = __smu_cmn_reg2errno(smu, reg);
+>   
+> -	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
+> +	if (unlikely(adev->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
+>   	    res && (res != -ETIME)) {
+>   		amdgpu_device_halt(smu->adev);
+>   		WARN_ON(1);
+> @@ -343,6 +345,7 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+>   				    uint32_t param,
+>   				    uint32_t *read_arg)
+>   {
+> +	struct amdgpu_device *adev = smu->adev;
+>   	int res, index;
+>   	u32 reg;
+>   
+> @@ -372,7 +375,7 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+>   	if (read_arg)
+>   		smu_cmn_read_arg(smu, read_arg);
+>   Out:
+> -	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) && res) {
+> +	if (unlikely(adev->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) && res) {
+>   		amdgpu_device_halt(smu->adev);
+>   		WARN_ON(1);
+>   	}
+> 
