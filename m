@@ -4,116 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADC7BC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 10:40:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC81AC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 10:43:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2554E10E7A3;
-	Mon, 13 Dec 2021 10:40:02 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2045.outbound.protection.outlook.com [40.107.237.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2964310E7A3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 10:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB1E10E730;
+	Mon, 13 Dec 2021 10:43:04 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2047.outbound.protection.outlook.com [40.107.94.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4000310E730
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 10:43:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UVB+FiGwsn2F/koAySyie8hTKwRGiZxH8niYGEEbaRdKuBO8ZVmUndNMoV2gzm3U4XIFxk56Pc3+m4WDNEcVbdJ7ZzULbDlav2n5H+FciWuL5wClaUo7koSc04yU1Ybq/J3jyI3p+Po5z9DsdrPAnLAuBQ2ab3hgg/TPoRSNptYSmvo9fHlm0/wUzNKij85Kc4nCwMB/zLFchcqE2OVJSd1Y5aHMxcm9ae/X4p194RWZMC2m7kv1WhzoWnkOQOreg1+jdLy9n5toCyfgSDeOt8K9P8uRZ3UknnfAz91jy8gEu6CroT8ri1iTDLHBXdYfrccXRT3yezHbAqk3bp1ezw==
+ b=VFpmyHIx/m0bxJWuVgscwjNmsLu+SY1s7y7TiVuPupEfG/7JQjv14btweM7fTxBn5AC+OM4BRdBEUpI+irFwc80zK5TdfwcsF1uBvyDNGdYSpp6EoeXvPcEJXM8Jhhn+cztDdCVjrWUZXH2rbo5+pNbjb+gQW6fi4uIgOwfUdBS+qykm0XzMDBiqmYod4jHfmu0JQ5aF9CZzwU+C6iGztLyQ8QBai1y+dzJIeCrejRDJ8ZlYibijgA2EB40o+BUN4TVAbEW56uLz3Az4T4/Ni2POQlG/QXCaCNxeB4KkoqC6Y0KpS7kkluv/QyNOMDOJExpo46oQG/rF5IEFxAIgPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6a+KH5C8ROuHr6S88GIoRo2nFb1LqS0ABll12xtyVKw=;
- b=eNfsRnxpz3Mq7yzXF5actPb0REyKcwBUBwLabwmFdZ5k8IRv00rYbBCAgFWapDf8M7RjaFidXfcDHj6y2RmM6iFaFJUVBj8PIYRW0s8J++67D/rXzj2FsD/2JiVxlOMxT11P/ThAguUPOgsIq96Z0Erw6E+seAcmiHl8ttvMdLz+6xK8VC1DhDtmPKaEiFSlEJiy+I+a2zJO67oiUOpzFmBMbmcp2aMiDiW1GPsXYZiXDSdZEMrBKf3bRKal8XcJmuNPOVKLG2vD0LzD3odADSo1UyPsJ8FRZLg93cgvStYNFw5/Pj3cz/g9njtcnsE+rDDPRsq3wkgMqHHJo0Sk0g==
+ bh=2XVLAMVd60sKA4kNDi8WgaGVgRwM2lmiTO81kuA9tQ0=;
+ b=d6H91OzaF7gQHn/V3/IGXhDgfOKvqnfxgbfnZrjFewPl8sUyF7nHiOzS3KXflVDrwIb1G2YCfncJqAxyAua5n60TQdzsKDlKoG7m0FCblh2qSIYL/dZjVg5rqt8ZheE32OwxpMbXgtvErr+srRq6rokbpGyN5qFaTj5/4zguMV0XOYplfmXGijZGyud6cja4pntJUms8+in4+QfoglHMghQ7lWfx9qsJz2iYN2GN18N5ekE5jEeivS/b+P5YfVVoZwYzcAq7QvuyRypPib5Gm6EiSTxwrkpAWCMQqPPqF3CIU5TD33e2lNIPPNz8yCQ4s5A9MmWJOZJu62mfmXMqrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6a+KH5C8ROuHr6S88GIoRo2nFb1LqS0ABll12xtyVKw=;
- b=FCSb9l6nhwpaXO48eI5xi3y8LZHw4ttEhfDNlci/u96gFbBCqh1T31Q63D1V8I3wUXrg3VJaXADiAqhFxugEUF0OeGeLk9VGOO8SiZ+Cm2WNco46Q2CgHQhP2zjY4PaEwFuqpGPlplxo2nl6F4tVM3+rbBd2ccZd3owQaF3VAMQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
- by DM6PR12MB4943.namprd12.prod.outlook.com (2603:10b6:5:1bc::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=2XVLAMVd60sKA4kNDi8WgaGVgRwM2lmiTO81kuA9tQ0=;
+ b=2ku3l087w1heagmHCYEHOTBlEerTdne866t4mO9oXDydSt8oOGT7JNsen5v54WfxkF91JPXSP7JnXGRH+LWgPswFpID+uqex2gTtBawejFOQWD33p1Ww+xzcVwDZjht0Jw/PbfQPDzT75bSUWOdzFE3lrV3H67KJxBsJqIb01rs=
+Received: from BL1SPR01MB0002.namprd12.prod.outlook.com (2603:10b6:208:308::6)
+ by BL1PR12MB5047.namprd12.prod.outlook.com (2603:10b6:208:31a::6)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Mon, 13 Dec
- 2021 10:39:56 +0000
-Received: from DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
- ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
- 10:39:56 +0000
-Message-ID: <272c25b0-918b-a49b-2611-18f197c561ac@amd.com>
-Date: Mon, 13 Dec 2021 16:09:41 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH V2] drm/amdgpu: move smu_debug_mask to a more proper place
+ 2021 10:43:01 +0000
+Received: from BL1SPR01MB0002.namprd12.prod.outlook.com
+ ([fe80::89cf:cc51:ece:74d0]) by BL1SPR01MB0002.namprd12.prod.outlook.com
+ ([fe80::89cf:cc51:ece:74d0%3]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
+ 10:43:01 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "thomas.chai@amd.com" <thomas.chai@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>
+Subject: RE: [PATCH 3/3] drm/amdkfd: reset queue which consumes RAS poison
+Thread-Topic: [PATCH 3/3] drm/amdkfd: reset queue which consumes RAS poison
+Thread-Index: AQHX7bc6aSl+JqKXTEu7artWRm+81awwQIDA
+Date: Mon, 13 Dec 2021 10:43:01 +0000
+Message-ID: <BL1SPR01MB0002A6FD2ED57E84EDC28989FC749@BL1SPR01MB0002.namprd12.prod.outlook.com>
+References: <20211210111502.17384-1-tao.zhou1@amd.com>
+ <20211210111502.17384-3-tao.zhou1@amd.com>
+In-Reply-To: <20211210111502.17384-3-tao.zhou1@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211213071959.793698-1-evan.quan@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20211213071959.793698-1-evan.quan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BM1PR0101CA0028.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:1a::14) To DM6PR12MB3930.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::19)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9034e509-2e9d-4c0d-80b8-08d9be24e75c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4943:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4943600C85FE3EA35616FEB097749@DM6PR12MB4943.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: x78cDKdLpOLiE1AquUako9lRe+YU1uXhkFw5frAFOUWSUkgUMlsmukKDYjojHkIpqEiwxuKmajxELrqAqrLJpjhMHI4M+rUlExy93lBynKLQ64a3G7vkkmnejzYg0sJa6el9GvFu5v22OywHNzlIhiQnzc+re0ecq+/Hcz+dXgFhYJvrMFKvWD8jee7WCzNSq5IyvLQ1TdIsNkNfvwsrjEtDONFecHslP/VI4uo+Hasd3MPJAM5sDhqUYi0rFXgrU9569nIZj9bHZ8pLtokAKkQtgJTKqVM576jD+qDX5pBDjwCA8n6kyfSAqR/UpH3xnQtTsfLQ68qnvIT9pbQhgn3OUeJTOh4GeTfVY9HdlWEKYCmE0ZHbbYTw9AdJhi/0PoXMXh+D0A1nyRy9Omn438tUUykZ4To3tgoUJ/JkKT+6vQtyoZcyd76+f8/WqVIBFr4dp/OGlz81zpKTEjf9gTWqE+b3t8idsqH93atYBIIVwfx5P0gZnuZ8bDxIQUEn4QjBheULVl+izNPUPb0Epw+TN4JlJ6HlJC2bqTZinxpVR3D5xL4R4fdGilRkv+WVQEle8jw8iKIM9cErEL6xDvQsg4XyO4dfcrCdq/OkRtrIF84ekf0b+9yutmNYkq57t/GSRWsBMQUdO+5aZsfZHLgoiOQrjqsZBC9TO1h9hG5493hFFxQTJ8sgtVO7z6V8RLaizVyDRIYVFhim5ea7hF2mpDVoaUXOaGj1//atfE0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(6666004)(316002)(6512007)(36756003)(8936002)(186003)(6486002)(8676002)(2616005)(31686004)(508600001)(53546011)(6506007)(86362001)(4326008)(31696002)(5660300002)(66946007)(66556008)(26005)(38100700002)(66476007)(83380400001)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=b73408fa-9ff7-472c-9102-38c5851f77b5;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-13T10:41:20Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0acc5e0d-a663-4ef2-8277-08d9be255602
+x-ms-traffictypediagnostic: BL1PR12MB5047:EE_
+x-microsoft-antispam-prvs: <BL1PR12MB5047F5D1EFCFEB2F69E4153AFC749@BL1PR12MB5047.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2582;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zS2n8fhwEnPgy9j67gDhyrMx5iSYrIrw7hjuqnr1YAM+NAkNpu1ulBFs8k2CsvWhoVCHKoqFHucngz54wqpyrejX0OEceTxOY4Sb7k7vE1Y/czfPWOGWv7/JmCRTHDcObpdh3Ad/xI1aIrMQrEiVuoZ8u6zwTL0JxWADV5u5NbHGALHdVrCidWAc+/YgXYxYjiI7/CAEemNLqLIGp4W6RSRPeCOU8fp00kckx6M/fJyfjbcWvIrlJnlJvmvyN1wJYadjb7DvUIR6yiTnBJ5TI2C2HvVGbkKw4DQ9+R47jaXFc57OQy3zgWukQ0I1mPryYBERkyFE5RAFXV9e63y+OuZQoiF/7feRTe7NmZO2DMhXZjCaQrRdJRB4wCQ/aoCBOmrW7Or6Hrb+mqjlBSz0MBvfN4vSFTbP39GBWiqU7pb4JrrlT3YI8GZgcgi7PicHn5uXCKBa3KecWjlHRmSaTLJW6Vb1X8Jt7zP0mo/H7qiR3i+XTyEqDFuMacD2xe63weND5hxErrd2lJ9jbYeUuTsX82joMk6cn/IV+O70ScmCOGAlpOtswmfS25LArLBYh643ZO8kbrEWAqF63pE31OGRqEOP7E/CODQQA3+c/wOZclWqH4uR0exonCjtuGhj1stR55XnDt5jzWkerewsjVdt26JJxwSE+fM2LoyWQyyetdUucK3zc/l72OW2Cgat4AxTZ8VThe6ajhVF6ELE5Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1SPR01MB0002.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8936002)(508600001)(5660300002)(64756008)(53546011)(7696005)(26005)(6506007)(71200400001)(33656002)(52536014)(83380400001)(6636002)(9686003)(2906002)(122000001)(38100700002)(38070700005)(186003)(8676002)(66446008)(66556008)(66946007)(76116006)(86362001)(110136005)(316002)(55016003)(66476007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVNyYlhzQmpqVEJEQk13UW9pbkRQdms3S0l1Umd1ejgzU0cxSm4wMjBwS0pn?=
- =?utf-8?B?Zy9yS1NqVng3UjZGSGdGbjhQTmxYaDlnMGsrQWtFUTZ2WXkwSmhySlQ1cSty?=
- =?utf-8?B?U0R3ZEpiSFlqZ1czOGtmSVlGald6N2ttR25wTnNiYjYzdktyV2ZINnBRNVh0?=
- =?utf-8?B?dytuNldreEJiMTBYR2JzRGZVbjJHZ3hkVkk2RWVDT2hpVWZ3aERKQW1MaW9k?=
- =?utf-8?B?cTJtNFAvVXRNNDBCTE1naHpGZ0NRK3c1L2NkWFhMUFFHbmc5NlBnN3FIcFlo?=
- =?utf-8?B?M3FwNG1VWkc3dzMybjFjRHBrVmpST0pobXRGSFJvaENXR1VtRGNUUmlzdHBy?=
- =?utf-8?B?UjVCTW1HcURucEFFWGdQN04xSDVJREkyZCt6eThIWjNxNTI2ZytOQmlRcnJW?=
- =?utf-8?B?Vnhtd1J4NjgzOXJINjFERVJJL0paNlJOZlpmODNvMEpXei9JN2xpamcwYTJ5?=
- =?utf-8?B?cmlKNFBDcC9yZlpRYmNUa01EM3FFdHJoRDl1bm5PdjZFbkdXbkVRTGk4NkxC?=
- =?utf-8?B?amk2M3J4WEFjSzNiQVozb09QbTJGcVN2MDdPTHVJczFHbkZYZThJMVh1U3BM?=
- =?utf-8?B?NzFnS0ZuV3VlL3paQ3UwcUh4WW9IS1BTdHFJeGZGcXpOKzJLOXZZc0RGb0J6?=
- =?utf-8?B?bHY4eU5SMUJEdFFJdzNRZmVjWjVBZE9yN0hTN0ZSSm5nbXByWTJQS3NlY1lK?=
- =?utf-8?B?RXVTVExvZXdEcG5majNsVTdYWXRHL1BUWEl2UHA2cHAwN0Y5TDU5dytCcEpH?=
- =?utf-8?B?Um43cnZic0xneUJTa0JDbWp2ZG51YzlaSjJQT1dHekpuTkc3RTJlR2FJU01q?=
- =?utf-8?B?U0VTZWJnNDN5M0JhcDNFZDJCV0pzUU13dzZPdGZsOEladkVvNXBQTXV3Zzdq?=
- =?utf-8?B?ZUN1NG1NcWdRRUZ1dElxZHlZMmplN1F1M1Avc3dGWWF4RUxQcitQNTdNaDYx?=
- =?utf-8?B?aEM4cVU2VU9pek1xdVlJR3EvbkljYjViWUMvejdPRWJvRm0wVHRLcFBPWDRM?=
- =?utf-8?B?Mndac20rblR4VnlkUWZtOTVwUDBJRTA3em9obU1MTnJKY0s0cUpQMnpmRk1n?=
- =?utf-8?B?V0h0cUFNMWplNTVydVN0dkxwSzNvNVVlSCtOT3Q1dm9lbjZLQzBIR21NRnMr?=
- =?utf-8?B?QXJYaTBHQmtkbjRVejVDSi85WFJjbTZlWllWYUpEYS9RaU45TVNWVUp0eE83?=
- =?utf-8?B?VG5BY2FlbSs5UFhPWlA0czR6OHlBcXh2QTFaN2RKYjhLVDZZNFZUaEdzWUsx?=
- =?utf-8?B?SUs5S0dHN0dNeCtlSzVsYUQ1Sjd3WlIyZFpRaTQ5Y21mSEh0UTJHcFBWb3Fw?=
- =?utf-8?B?UFZEMERLaU9xdjNFdTJreXVTMjlIbnJwclNBZWxscG1HazYwT3d1WGNwM2NE?=
- =?utf-8?B?NFFyNXMvZ0xpcEZVSENYbCtjT1UvMmo2NC9iQWlXL1VRN2JnK2Rka2hPQTJG?=
- =?utf-8?B?QVdRQ2ppSjAyK2M4TTMveXdPZzEzSFBFSjlBRTdSMjBHRUNJUDd1b01tbG9s?=
- =?utf-8?B?WGt1dXlVQmgvb2I1S09lV2loYlFJMmZ6bDBlZ1hJVnVmUHgrb0ZLREFMT3o5?=
- =?utf-8?B?SGJraU8wWXkrcHZ3MjdYTVJQOEY4cUp2UHZTUk0rVkZwZDA5WWpFMEh1VFNU?=
- =?utf-8?B?TThoRXM1YnlmeWJsWStOb3hTdFh0aVJvR2FEWVFNRGtqelFzMFByS0ZOUVl5?=
- =?utf-8?B?am9Cb29uU0FsSkNtdHpYNmM4bjFRUWhjZG83cTl6UlZybE8xSG1OVXZlNitX?=
- =?utf-8?B?aGd4RnV3VFloeDJJZUxiMkxnN2xrcjBqTi9la3A2bVZzWVo4SFRPYWErT1pP?=
- =?utf-8?B?OFpjMFcrYlkxcHV4ZzRCa0JLaGtid1VlbEZkNVhyMHdWVmJ4a3lyOHRzQm4z?=
- =?utf-8?B?N0puY1FFNFBPdUI2c285bjR3d0hTd1lzUGFDR3VXNnQ3TDlEa1JwRzhyV3Bq?=
- =?utf-8?B?ZFdaMDFERHU4T3N6UHVFK29IREVtNlo4WmF3QVp6QmQwRC8ybkg0aXZpRnUv?=
- =?utf-8?B?Ym9pRllGb3hFRkpWN0tXbEFTYzRNUG5ScjVvUW92S3lSTzlqQjcwd2g4UE44?=
- =?utf-8?B?NHBhaTJEcWM3ZFFMb2dNYXVsdnNxZ21GTDdpejdZL1J3bGFBTHlHYS82Rnk4?=
- =?utf-8?Q?ZHFI=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NAieZiSaaXQk0GojFqHjR6tqGJ5QERl7/kHWBZmpPLPcpF9hLY6JW9rvGze0?=
+ =?us-ascii?Q?eOw8M3pOOd0+eOhxbZiW9bGey0zIuAiZFXiUthqqEtH/PZz31iuqAobDa1Yb?=
+ =?us-ascii?Q?ZSq0fRW4/z1IhVSZCeI2pT4B6p5kZnXkPBeXBKmFHFN+kLEoVOallLA++fvZ?=
+ =?us-ascii?Q?LGuBDBxs0RKZAxOvifkkj9VHoVE+fFM6cR6cRomDvetGaN2jVlKJ/BT+qwRj?=
+ =?us-ascii?Q?06yInSVYIyYKgGTX5y7Mg3smH6hA5OZq7nwfNoq6CmN4NpyCMpb8abAVLwBe?=
+ =?us-ascii?Q?kjFMaUSkr3WRL4m6PWp4f5QEtxODp1uF5jwuEQhWfSRhTnGtaFVQ2jQnN9AI?=
+ =?us-ascii?Q?3vTAz4zNvE0yDZvg9i1K5nplDbyN1V8XSOPBZh7r2TXDFPFB7rm91JIwenUl?=
+ =?us-ascii?Q?NMe+iy+EOokYpUl1oorVLwZ+W87ycBXMclRZdpfr0AQJJnUPSxptnBKajN+4?=
+ =?us-ascii?Q?au2sMzOx3emSLZwe+sXv3zA4f/dUPmRm/wxwddG0LpVVpZiRJS2irIIp431l?=
+ =?us-ascii?Q?wmd39VrRDDz8EzN6hZSdRmaom4ceVerCDlQLE9EOwsOSQCLGMTq3PP6tLrBJ?=
+ =?us-ascii?Q?D9G9b6sRQSMfo2SULubqsDRpJtFL6rpcufPEa91of1YWlK8awG5AuZ9jjdk5?=
+ =?us-ascii?Q?IYIbOw5LgG2F7ezorDU4dbQdbufd/vqb/zSU73K644BuVxSNOp0+ZJmmeC44?=
+ =?us-ascii?Q?7Fqf4kuqSNIyXP3ZotSf6FJBtwqFk3/QGbSOzu1ko1eCIdOQaBPKQsYQFvp1?=
+ =?us-ascii?Q?8KAfX3JPdJOyTN6Ga33vDY9csgTXNsdGk4cTxiBO1f+xhBo/yIgM0syulmN5?=
+ =?us-ascii?Q?y5nDyeil8X3uRGoercse7l6mbGyNsXOHbdpgB7mzJSNJ7+TMyRtLsS66FQay?=
+ =?us-ascii?Q?aBNbpJbhHOMLzAkOBZUm1YLS975GKAZNUECALbSQ2dJM3xAuFJmeOYSzO5oo?=
+ =?us-ascii?Q?ymJ8/q52/7jhSqH1CRZh7uX1Hpq4fs3+Rtb3Qovm7uhdl5WmDK/uLpnk/H1p?=
+ =?us-ascii?Q?FmPqY19BdsKGkeI01kLmDpRvvANFEyplLVQFNKPaoiC1eEFnPC9ecAa2qLEN?=
+ =?us-ascii?Q?VYeRwZutsZBotNZ1PRAXpbDDZCfAsfHQ0ggbLrnpzfQQUAbEoskMruJut/tn?=
+ =?us-ascii?Q?SO7FF/wU8UZ1mc+xNuRCFsRit1Nmn2OylQTpZWWpG1MQXpA1FJsWoGdbIsf6?=
+ =?us-ascii?Q?czq7KvRo7IcPZ0suGM6VIBXgthGta+9BQJRpdiy2ll1z5WchjhKKPtI3YbXt?=
+ =?us-ascii?Q?qe/59S+xwoWCHjomMixSwynv7/Q3CB7hAj7F3DJUxnBi/44/lw3SHLy+bDeQ?=
+ =?us-ascii?Q?732/pjd2FXiq3xknCAyWjwNRvkvtIMnGx/hWxMH36ZXMwa/uMgPDbpzc++yA?=
+ =?us-ascii?Q?oB85WQEQmkcT7IsC0YxN1v+Ny3tfWtpB4u9/d/IDESghZmu54kcxZm55l0zW?=
+ =?us-ascii?Q?B4vP8Sv8PwsvtEpzsF6/iZn9wS/Y8K33W7FRTtLJstUFbdEJ6cGsyDj/r4p+?=
+ =?us-ascii?Q?i4hWxoN3nlQ5QBgVLJAFKSkVlqhCOiohoQVbF4FkFUNDukSO+Xk5mBFYxsml?=
+ =?us-ascii?Q?tnCD3Uq4p8iEsf81GZANhQHStBCIrR32rugnfBpuhGILYtZx6U8Jefg81GP4?=
+ =?us-ascii?Q?rahOyfJnywclI/qvoy5HmIY=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9034e509-2e9d-4c0d-80b8-08d9be24e75c
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 10:39:56.3442 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CryWEL8lAiYXTEiWZKoTxB1a6fC5bjDcS4KYov3UqX20+hdgOqZ5iHlS0uUGQoWN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4943
+X-MS-Exchange-CrossTenant-AuthSource: BL1SPR01MB0002.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0acc5e0d-a663-4ef2-8277-08d9be255602
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2021 10:43:01.3438 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: H0r48vw6HXRHw0nGVJMK0QdYA92d2m1p0aUVmNo3LA1CIDdWixk+icTuYWXtsBI4vST/B6FOXTa5Ak8rbCaQyw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5047
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,161 +129,208 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Guchun.Chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only]
 
+                } else if (source_id =3D=3D SOC15_INTSRC_SDMA_ECC) {
+-                       kfd_signal_poison_consumed_event(dev, pasid);
+-                       amdgpu_amdkfd_ras_poison_consumption_handler(dev->a=
+dev);
++                       event_interrupt_poison_consumption(dev, pasid);
+                        return;
+                }
 
-On 12/13/2021 12:49 PM, Evan Quan wrote:
-> As the smu_context will be invisible from outside(of power). Also,
-> the smu_debug_mask can be shared around all power code instead of
-> some specific framework(swSMU) only.
-> 
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Change-Id: I1a0e1a436a51fc520a47b3fb28cde527d4e5eb6e
+SDMA shouldn't go to the same handler and need a separated one. (i.e. re-in=
+itialize the RB)
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Regards,
+Hawking
 
-Thanks,
-Lijo
+-----Original Message-----
+From: Zhou1, Tao <Tao.Zhou1@amd.com>
+Sent: Friday, December 10, 2021 19:15
+To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
+Yang, Stanley <Stanley.Yang@amd.com>; thomas.chai@amd.com; Kuehling, Felix =
+<Felix.Kuehling@amd.com>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+Subject: [PATCH 3/3] drm/amdkfd: reset queue which consumes RAS poison
 
-> --
-> v1->v2:
->    - drop non-necessary intermediate adev(Guchun)
->    - move smu_debug_mask inside struct amdgpu_pm(Lijo)
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
->   drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h     |  8 ++++++++
->   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     |  8 --------
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 16 +++++++++-------
->   4 files changed, 18 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 9dfccb20fedd..25e2e5bf90eb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1619,7 +1619,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
->   		return 0;
->   
->   	debugfs_create_x32("amdgpu_smu_debug", 0600, root,
-> -			   &adev->smu.smu_debug_mask);
-> +			   &adev->pm.smu_debug_mask);
->   
->   	ent = debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
->   				  &fops_ib_preempt);
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> index 16e3f72d31b9..c464a045000d 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -423,6 +423,9 @@ enum ip_power_state {
->   	POWER_STATE_OFF,
->   };
->   
-> +/* Used to mask smu debug modes */
-> +#define SMU_DEBUG_HALT_ON_ERROR		0x1
-> +
->   struct amdgpu_pm {
->   	struct mutex		mutex;
->   	u32                     current_sclk;
-> @@ -460,6 +463,11 @@ struct amdgpu_pm {
->   	struct list_head	pm_attr_list;
->   
->   	atomic_t		pwr_state[AMD_IP_BLOCK_TYPE_NUM];
-> +
-> +	/*
-> +	 * 0 = disabled (default), otherwise enable corresponding debug mode
-> +	 */
-> +	uint32_t		smu_debug_mask;
->   };
->   
->   #define R600_SSTU_DFLT                               0
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> index 12e67ad9a3b2..2b9b9a7ba97a 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-> @@ -482,9 +482,6 @@ struct stb_context {
->   
->   #define WORKLOAD_POLICY_MAX 7
->   
-> -/* Used to mask smu debug modes */
-> -#define SMU_DEBUG_HALT_ON_ERROR		0x1
-> -
->   struct smu_context
->   {
->   	struct amdgpu_device            *adev;
-> @@ -573,11 +570,6 @@ struct smu_context
->   	struct smu_user_dpm_profile user_dpm_profile;
->   
->   	struct stb_context stb_context;
-> -
-> -	/*
-> -	 * 0 = disabled (default), otherwise enable corresponding debug mode
-> -	 */
-> -	uint32_t smu_debug_mask;
->   };
->   
->   struct i2c_adapter;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 43637d55fe29..735e1a1e365d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -257,10 +257,11 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
->   				     uint16_t msg_index,
->   				     uint32_t param)
->   {
-> +	struct amdgpu_device *adev = smu->adev;
->   	u32 reg;
->   	int res;
->   
-> -	if (smu->adev->no_hw_access)
-> +	if (adev->no_hw_access)
->   		return 0;
->   
->   	reg = __smu_cmn_poll_stat(smu);
-> @@ -272,9 +273,9 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
->   	__smu_cmn_send_msg(smu, msg_index, param);
->   	res = 0;
->   Out:
-> -	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
-> +	if (unlikely(adev->pm.smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
->   	    res && (res != -ETIME)) {
-> -		amdgpu_device_halt(smu->adev);
-> +		amdgpu_device_halt(adev);
->   		WARN_ON(1);
->   	}
->   
-> @@ -299,7 +300,7 @@ int smu_cmn_wait_for_response(struct smu_context *smu)
->   	reg = __smu_cmn_poll_stat(smu);
->   	res = __smu_cmn_reg2errno(smu, reg);
->   
-> -	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
-> +	if (unlikely(smu->adev->pm.smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
->   	    res && (res != -ETIME)) {
->   		amdgpu_device_halt(smu->adev);
->   		WARN_ON(1);
-> @@ -343,10 +344,11 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
->   				    uint32_t param,
->   				    uint32_t *read_arg)
->   {
-> +	struct amdgpu_device *adev = smu->adev;
->   	int res, index;
->   	u32 reg;
->   
-> -	if (smu->adev->no_hw_access)
-> +	if (adev->no_hw_access)
->   		return 0;
->   
->   	index = smu_cmn_to_asic_specific_index(smu,
-> @@ -372,8 +374,8 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
->   	if (read_arg)
->   		smu_cmn_read_arg(smu, read_arg);
->   Out:
-> -	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) && res) {
-> -		amdgpu_device_halt(smu->adev);
-> +	if (unlikely(adev->pm.smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) && res) {
-> +		amdgpu_device_halt(adev);
->   		WARN_ON(1);
->   	}
->   
-> 
+CP supports unmap queue with reset mode which only destroys specific queue =
+without affecting others.
+Replacing whole gpu reset with reset queue mode for RAS poison consumption =
+saves much time, and we can also fallback to gpu reset solution if reset qu=
+eue fails.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  3 ++-
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 14 ++++++++++  .../drm/amd=
+/amdkfd/kfd_device_queue_manager.h |  1 +
+ .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 27 ++++++++++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 ++
+ 6 files changed, 45 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.c
+index 46cf48b3904a..0bf09a94d944 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -721,13 +721,13 @@ bool amdgpu_amdkfd_have_atomics_support(struct amdgpu=
+_device *adev)
+        return adev->have_atomics_support;
+ }
+
+-void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *ad=
+ev)
++void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device
++*adev, bool reset)
+ {
+        struct ras_err_data err_data =3D {0, 0, 0, NULL};
+
+        /* CPU MCA will handle page retirement if connected_to_cpu is 1 */
+        if (!adev->gmc.xgmi.connected_to_cpu)
+-               amdgpu_umc_process_ras_data_cb(adev, &err_data, NULL);
+-       else
++               amdgpu_umc_do_page_retirement(adev, &err_data, NULL, reset)=
+;
++       else if (reset)
+                amdgpu_amdkfd_gpu_reset(adev);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.h
+index fcbc8a9c9e06..61f899e54fd5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -296,7 +296,8 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_dev=
+ice *adev,
+                                      uint64_t *mmap_offset);
+ int amdgpu_amdkfd_get_tile_config(struct amdgpu_device *adev,
+                                struct tile_config *config);
+-void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *ad=
+ev);
++void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *ad=
+ev,
++                               bool reset);
+ #if IS_ENABLED(CONFIG_HSA_AMD)
+ void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
+ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev, diff --git=
+ a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/=
+amd/amdkfd/kfd_device_queue_manager.c
+index 01a2cc3928ac..095b2e0822aa 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1476,6 +1476,20 @@ static int unmap_queues_cpsch(struct device_queue_ma=
+nager *dqm,
+        return retval;
+ }
+
++int unmap_queues_cpsch_poison(struct device_queue_manager *dqm,
++uint32_t pasid) {
++       int ret;
++
++       dqm_lock(dqm);
++
++       ret =3D unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_BY_PASID,
++                       pasid, true);
++
++       dqm_unlock(dqm);
++
++       return ret;
++}
++
+ /* dqm->lock mutex has to be locked before calling this function */  stati=
+c int execute_queues_cpsch(struct device_queue_manager *dqm,
+                                enum kfd_unmap_queues_filter filter, diff -=
+-git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/=
+drm/amd/amdkfd/kfd_device_queue_manager.h
+index 499fc0ea387f..c52869133159 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@ -219,6 +219,7 @@ unsigned int get_queues_per_pipe(struct device_queue_ma=
+nager *dqm);  unsigned int get_pipes_per_mec(struct device_queue_manager *d=
+qm);  unsigned int get_num_sdma_queues(struct device_queue_manager *dqm);  =
+unsigned int get_num_xgmi_sdma_queues(struct device_queue_manager *dqm);
++int unmap_queues_cpsch_poison(struct device_queue_manager *dqm,
++uint32_t pasid);
+
+ static inline unsigned int get_sh_mem_bases_32(struct kfd_process_device *=
+pdd)  { diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index deb64168c9e8..2863bb9e5bca 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -89,6 +89,27 @@ enum SQ_INTERRUPT_ERROR_TYPE {  #define KFD_SQ_INT_DATA_=
+_ERR_TYPE_MASK 0xF00000  #define KFD_SQ_INT_DATA__ERR_TYPE__SHIFT 20
+
++static void event_interrupt_poison_consumption(struct kfd_dev *dev,
++                               uint16_t pasid)
++{
++       int ret;
++       struct kfd_process *p =3D kfd_lookup_process_by_pasid(pasid);
++
++       /* all queues of a process will be unmapped in one time */
++       if (p && atomic_read(&p->poison))
++               return;
++
++       atomic_set(&p->poison, 1);
++       ret =3D unmap_queues_cpsch_poison(dev->dqm, pasid);
++       kfd_signal_poison_consumed_event(dev, pasid);
++       /* resetting queue passes, do page retirement without gpu reset
++          resetting queue fails, fallback to gpu reset solution */
++       if (!ret)
++               amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, fal=
+se);
++       else
++               amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, tru=
+e); }
++
+ static bool event_interrupt_isr_v9(struct kfd_dev *dev,
+                                        const uint32_t *ih_ring_entry,
+                                        uint32_t *patched_ihre,
+@@ -230,8 +251,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
+                                        sq_intr_err);
+                                if (sq_intr_err !=3D SQ_INTERRUPT_ERROR_TYP=
+E_ILLEGAL_INST &&
+                                        sq_intr_err !=3D SQ_INTERRUPT_ERROR=
+_TYPE_MEMVIOL) {
+-                                       kfd_signal_poison_consumed_event(de=
+v, pasid);
+-                                       amdgpu_amdkfd_ras_poison_consumptio=
+n_handler(dev->adev);
++                                       event_interrupt_poison_consumption(=
+dev, pasid);
+                                        return;
+                                }
+                                break;
+@@ -252,8 +272,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
+                if (source_id =3D=3D SOC15_INTSRC_SDMA_TRAP) {
+                        kfd_signal_event_interrupt(pasid, context_id0 & 0xf=
+ffffff, 28);
+                } else if (source_id =3D=3D SOC15_INTSRC_SDMA_ECC) {
+-                       kfd_signal_poison_consumed_event(dev, pasid);
+-                       amdgpu_amdkfd_ras_poison_consumption_handler(dev->a=
+dev);
++                       event_interrupt_poison_consumption(dev, pasid);
+                        return;
+                }
+        } else if (client_id =3D=3D SOC15_IH_CLIENTID_VMC || diff --git a/d=
+rivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.=
+h
+index 0c3f911e3bf4..ea68f3b3a4e9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -856,6 +856,8 @@ struct kfd_process {
+        struct svm_range_list svms;
+
+        bool xnack_enabled;
++
++       atomic_t poison;
+ };
+
+ #define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
+--
+2.17.1
+
