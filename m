@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6952FC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 03:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3C3C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 03:53:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2592D10ED55;
-	Mon, 13 Dec 2021 03:53:09 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2082.outbound.protection.outlook.com [40.107.95.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D383910ECF6
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 03:53:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 816DA10ED56;
+	Mon, 13 Dec 2021 03:53:13 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2078.outbound.protection.outlook.com [40.107.100.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A29D10ED56
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 03:53:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PnLNadYJyeEBPlE/KgjaDuR70CR0+p53DaYSubjLMZsLKYSvqb1DGG/5a1UCrIVf7YYR5bGvuhYpjbIeyrOkzY/DGf4H8UuzCI95pbpWZr4MUfIQdj39Kif7XKUA+CMZj0EOne8z7D+kW3y80naGWJdar8btoBb7qG+tHLTjF3cUnpN0nWePJFsSiyDIx2FsjF83DPaaq2x+6td/iK1sKPxPTqdtg77lXBF3fERzUmAyaLJNjSPx2k0twK/KcEHSSWfp190+JtZO/UnSeIKcHPA4bNiuhJFcycGEV4eq4+i/+7oAXUpco7a8DuCvt2esds+S1iI0OhrmnWc+z1UbyQ==
+ b=QPXm6mfqEYYsc5aPw7HcL5mQ5QA93Ge59YINbYtF8zcFBsJU3U4tzCB2ua1Wh1yoKrDASdnhTJ4i9IZb424wTVugk3Qk/9T9tUZ0mU/OQpWpvJm/uA3vi7BFow2zQ4mhgb/v33Gfgt9RdTed6IPyeXnQBkZryugii4bm1kVl1HAw4PT9/KPqHPqCgU9KD7e2kKarH5FAvAk1P2xYr8AZ9Jvb0yiXNmTXFtR55PB3Q3f0NeHDAEnI2Z3bxeynxHRpUkIorb4AxAmSkrElTl1KcRyo2D0mbfWIaUPiQW99z5jiDxfi2OlPPGE9IsqJvWHkKfC37xoPERTNjbPV8+WJWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bWgcqhRwsFAKrk96fSChcuOCuvwGS/S1nAj48QMkEj8=;
- b=IcNBh6j9D71b6C54RHq1+x1jGATkZouYbwcsSrpxw3BSwe2KLFaNo3JqA8YIXkvRH/xJy0ZNi7/K1ivKkUSC9C6EWyTWIxnVoij9a0v5cYqVCVOlbp4qUlLQdlouEG2tj6Xr6Yl31nY8fPPjtk6/oZu8xjPnbF8EMm5XS0lZQym18/GFV6DIRpEpZp7tGVnEWVDslrLFUTSVLeUWD+cY35vQuQxPheJWXglOdqTDpghv7lw2LxQvyHiNwB2Sl9xK9d1c3P+iaBBIErwCqnGnSZ3qz9gX/3u7GQJ5Q4/QAzV804BrBJG5lpCJ3XIppCMZqxjaEInBM9Og14/30g+lRQ==
+ bh=9Fu8jEZ5Y8SupjfKlYJ5TdCJzGB4pLvkWxByO7T/O8o=;
+ b=YPHFlx61+aj8m/MObUzJo3eR8XRsANm/e71ZuK2oTUwyXwdWi02pvNshkwu0x/DwUB+1J6jvkTgwYZ+9L1gaBukIaqGpYou4OaVfg9mi8fbpsUVOAXq7yS+MAtx0GbQTLjyzlN2xuG0GObftQCANn89GeAI6u837pALd21dPK10rph+8xh0DcFMLO6uJjiiMS3qnRjQxriX4vSk/YKOzaIr/orjAq3nhlM87/hYlcO4ahxWXoS6gEW6GVM4RJuVrirPKDmm2a6EV0aHodBA51r+TFCtpv+I+nGz29gDUoRTNUkNIqVIRbdnh9S6bTK2d31RgduA0tanueOVgFH5Ukw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bWgcqhRwsFAKrk96fSChcuOCuvwGS/S1nAj48QMkEj8=;
- b=WlhYDbdQWBhOMUsWUrY3Ifbzm2H19N5MOB5T5P5/WMXCo08AVCmpA/8gif0HP9noeQf1qEeUTQU6CBtcvG0uku3b7ilLgh3li0b2R28+S/wiDU68Nk1XPv/ZsTxl5StaSCSyLF3wZlfmIIMXMvC9ipTcBHG1VdYtI7ZtB+Wt/3o=
-Received: from DM6PR10CA0006.namprd10.prod.outlook.com (2603:10b6:5:60::19) by
- DM6PR12MB4331.namprd12.prod.outlook.com (2603:10b6:5:21a::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.17; Mon, 13 Dec 2021 03:53:04 +0000
+ bh=9Fu8jEZ5Y8SupjfKlYJ5TdCJzGB4pLvkWxByO7T/O8o=;
+ b=sBzRgX6S/Ry8mjCgXYUeapg17D3k/KlC3z2uMGUW18T4TPjjLr4B8KQXpfpHSAC2zkOYax3oa+GFRXcbyNT52X8yzxb9ENDmWXnmxv78jqSVfxaZ8I11SFYm+dgwQACaCxkd+sru6bA4+En3IC9cham/6MdvaK0MwiN5Ai7sttI=
+Received: from DM6PR10CA0011.namprd10.prod.outlook.com (2603:10b6:5:60::24) by
+ SJ0PR12MB5488.namprd12.prod.outlook.com (2603:10b6:a03:3ad::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Mon, 13 Dec
+ 2021 03:53:08 +0000
 Received: from DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:60:cafe::ac) by DM6PR10CA0006.outlook.office365.com
- (2603:10b6:5:60::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.14 via Frontend
- Transport; Mon, 13 Dec 2021 03:53:04 +0000
+ (2603:10b6:5:60:cafe::30) by DM6PR10CA0011.outlook.office365.com
+ (2603:10b6:5:60::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.15 via Frontend
+ Transport; Mon, 13 Dec 2021 03:53:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT051.mail.protection.outlook.com (10.13.172.243) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4778.13 via Frontend Transport; Mon, 13 Dec 2021 03:53:04 +0000
+ 15.20.4778.13 via Frontend Transport; Mon, 13 Dec 2021 03:53:08 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Sun, 12 Dec
- 2021 21:53:02 -0600
+ 2021 21:53:05 -0600
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V5 13/16] drm/amd/pm: relocate the power related headers
-Date: Mon, 13 Dec 2021 11:52:20 +0800
-Message-ID: <20211213035223.772700-14-evan.quan@amd.com>
+Subject: [PATCH V5 15/16] drm/amd/pm: revise the performance level setting APIs
+Date: Mon, 13 Dec 2021 11:52:22 +0800
+Message-ID: <20211213035223.772700-16-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20211213035223.772700-1-evan.quan@amd.com>
 References: <20211213035223.772700-1-evan.quan@amd.com>
@@ -68,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 74fd5041-c399-42c3-556a-08d9bdec10d4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4331:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB433150C7E142CC548D5AC5D9E4749@DM6PR12MB4331.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 8e112f80-6af3-47ab-5b45-08d9bdec1332
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5488:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR12MB5488C284B9B682A9BCA76551E4749@SJ0PR12MB5488.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NK0/VXAydhH+VfEVucQrtds1eLQ8xRdtLCGdcCFAo6JBBfZNfcg8h4XHipWmtvt+RzUypClHfVDyP+pEwTAAtqBA5GsyUBeChg9jatXmgZgzKMeofgyGGyfdzlmwBV004htDVrXE9JwC3L2Ewd/NI4bsB5PIfxWYlY+KwzHkcdGmRwwGENTMwYN2NXJkfXWJBv/7Q1f043HYEAeA4WMYgfEyBYTYaAfejmDHZyE/aa4L5Xlgfa0UyMsSohQEjZc5AcajqC6Dh+pOHc9X9ZO/KRJobLYl190RXc1RqzieGllNcAW/XSS/Pjh2sVNN3vxfXDnSjqNCX3JN4wZ256yRIwZCSKqaS/KtZUaCI7cqneNOxCdOixml5X18DX62qT3L0Ch5CoiGLsrWUyfAH01zXgc99tFEWVyCzfCTqurB/5+FToR6oNhA3eMhhV1J7MaPrKzZS+jpQ0lgmCAIaFy/bFqOjZQSkLsOyTYTizLtro8gM7rcGrxzgSYzoMCNPaCNJJUlu34M0bDnsnFWa64jWdj0+7NeGrTB/ashdZjuwGy7Zk/8lGZCuNiGpLJdxLM8rV8f+gGgIsMUIqiVypaFndRtgjRD9lv+whwNUFZ3Y1TcSE7nIVIA5g1dGLiqpBPTgi0RWeyecidTe4qsKPm4LQKVBsgZN8sdD8epxw20qZiiR9KCQg6rS5Sw/wQu+zCKHF1co+SjP9LRAcLBWI2SeUMJjhwPqbJxEP+lVFA5Atc+T6h71KDB5p7xqC0ss77nCJeo+pdHtSmk71E3n2/TQx6GYKodQzkxzVBCjQSWdus=
+X-Microsoft-Antispam-Message-Info: Qc37pn4GL0ZEDB1iyXukMRHytE4ijT4fjAtShI5xUYXzbipP+U1zWhZTIC8l0lLxbkFR7srbYFBhoNfSIMm3bdWbb3eMU8zqX0SthZn0VH1M4xm+9tSQrowtco4Fzw29SaEfT62ZCqJjssVDJdDRGB/ypEIjLxU4g+sTrR/iRmv5ubmBTbJ+tcQNc2p977+8Y9Oujz9PFQfdCoSMD8Gou+lfXJmTBAnaf2PkuTJ2y6SIWCXiTlcsKXmsVfdq7BOHOtKRJI+50DxerrMv4DoyGiHNZtvt2DO5eApqsuWO/NDFTFS320AdVv7sZONFTlRToLrQToFttIwtvP2c4adjdC62xKjpoHryJFXI+Rfxl7llATe4euA+t7c/lmt5yRA7m7MP6y+xXLg5CXS7AUFeGW9Yh0Sf5br6ooyjubUiLovlDkQS2kM3W5xcHaynkxsgQaJD9iXpJzPuayHalj1BGB6YGUFKn0bBKWS9mkIuHEwHeBIalq1YgPhLUt9Jw6swY+2Sacj8texikhf79TK9gioJ2BGZICmFV4wbi+7CsJ83nznIDPYcFL3Xir3UbTv5QZODLwzMacJVNj/TumcRu6kPWZ16+nzb5mtU1DKHJ0Di6Fe/u9BfspQo4LGxudvHjfghn5z2xbkS/tgNOaEbxy5qf6proEFuia3gMswpawbba5qOx+ljl53Gty1jGKcBQKJ3FMj3mLt+D/MxJOfwpWwA6/ZelX9u46cwxviX8b+WQQmCE0zNc1sqB4ztY1x//W0PQdamcM+cZgA0t773vRuKSkzye/yDg+N6EJ9gX5o=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(54906003)(30864003)(316002)(356005)(36756003)(8676002)(7696005)(70206006)(83380400001)(8936002)(2906002)(44832011)(81166007)(2616005)(6916009)(36860700001)(70586007)(26005)(186003)(1076003)(6666004)(336012)(5660300002)(40460700001)(4326008)(508600001)(47076005)(86362001)(426003)(16526019)(82310400004)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(426003)(8676002)(86362001)(26005)(44832011)(16526019)(6666004)(8936002)(186003)(336012)(6916009)(316002)(1076003)(2616005)(47076005)(54906003)(2906002)(36860700001)(40460700001)(70206006)(7696005)(83380400001)(36756003)(356005)(508600001)(70586007)(5660300002)(81166007)(82310400004)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 03:53:04.1114 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74fd5041-c399-42c3-556a-08d9bdec10d4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 03:53:08.0831 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e112f80-6af3-47ab-5b45-08d9bdec1332
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4331
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5488
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,628 +106,251 @@ Cc: Alexander.Deucher@amd.com, lijo.lazar@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of centralizing all headers in the same folder. Separate them into
-different folders and place them among those source files those who really
-need them.
+Avoid cross callings which make lock protection enforcement
+on amdgpu_dpm_force_performance_level() impossible.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: Id74cb4c7006327ca7ecd22daf17321e417c4aa71
+Change-Id: Ie658140f40ab906ce2ec47576a086062b61076a6
 --
 v1->v2:
-  - create separate holders for driver_if and ppsmc headers(Lijo)
+  - drop unused enable_umd_pstate callback(Lijo)
 ---
- drivers/gpu/drm/amd/pm/Makefile               | 12 ++++---
- drivers/gpu/drm/amd/pm/legacy-dpm/Makefile    | 32 +++++++++++++++++++
- .../pm/{powerplay => legacy-dpm}/cik_dpm.h    |  0
- .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.c |  0
- .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.h |  0
- .../amd/pm/{powerplay => legacy-dpm}/kv_smc.c |  0
- .../pm/{powerplay => legacy-dpm}/legacy_dpm.c |  0
- .../pm/{powerplay => legacy-dpm}/legacy_dpm.h |  0
- .../amd/pm/{powerplay => legacy-dpm}/ppsmc.h  |  0
- .../pm/{powerplay => legacy-dpm}/r600_dpm.h   |  0
- .../amd/pm/{powerplay => legacy-dpm}/si_dpm.c |  0
- .../amd/pm/{powerplay => legacy-dpm}/si_dpm.h |  0
- .../amd/pm/{powerplay => legacy-dpm}/si_smc.c |  0
- .../{powerplay => legacy-dpm}/sislands_smc.h  |  0
- drivers/gpu/drm/amd/pm/powerplay/Makefile     |  6 +---
- .../pm/{ => powerplay}/inc/amd_powerplay.h    |  0
- .../drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h |  0
- .../amd/pm/{ => powerplay}/inc/fiji_ppsmc.h   |  0
- .../pm/{ => powerplay}/inc/hardwaremanager.h  |  0
- .../drm/amd/pm/{ => powerplay}/inc/hwmgr.h    |  0
- .../{ => powerplay}/inc/polaris10_pwrvirus.h  |  0
- .../amd/pm/{ => powerplay}/inc/power_state.h  |  0
- .../drm/amd/pm/{ => powerplay}/inc/pp_debug.h |  0
- .../amd/pm/{ => powerplay}/inc/pp_endian.h    |  0
- .../amd/pm/{ => powerplay}/inc/pp_thermal.h   |  0
- .../amd/pm/{ => powerplay}/inc/ppinterrupt.h  |  0
- .../drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu10.h    |  0
- .../pm/{ => powerplay}/inc/smu10_driver_if.h  |  0
- .../pm/{ => powerplay}/inc/smu11_driver_if.h  |  0
- .../gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu71.h    |  0
- .../pm/{ => powerplay}/inc/smu71_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu72.h    |  0
- .../pm/{ => powerplay}/inc/smu72_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu73.h    |  0
- .../pm/{ => powerplay}/inc/smu73_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu74.h    |  0
- .../pm/{ => powerplay}/inc/smu74_discrete.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smu75.h    |  0
- .../pm/{ => powerplay}/inc/smu75_discrete.h   |  0
- .../amd/pm/{ => powerplay}/inc/smu7_common.h  |  0
- .../pm/{ => powerplay}/inc/smu7_discrete.h    |  0
- .../amd/pm/{ => powerplay}/inc/smu7_fusion.h  |  0
- .../amd/pm/{ => powerplay}/inc/smu7_ppsmc.h   |  0
- .../gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h |  0
- .../amd/pm/{ => powerplay}/inc/smu8_fusion.h  |  0
- .../gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h |  0
- .../pm/{ => powerplay}/inc/smu9_driver_if.h   |  0
- .../{ => powerplay}/inc/smu_ucode_xfer_cz.h   |  0
- .../{ => powerplay}/inc/smu_ucode_xfer_vi.h   |  0
- .../drm/amd/pm/{ => powerplay}/inc/smumgr.h   |  0
- .../amd/pm/{ => powerplay}/inc/tonga_ppsmc.h  |  0
- .../amd/pm/{ => powerplay}/inc/vega10_ppsmc.h |  0
- .../inc/vega12/smu9_driver_if.h               |  0
- .../amd/pm/{ => powerplay}/inc/vega12_ppsmc.h |  0
- .../amd/pm/{ => powerplay}/inc/vega20_ppsmc.h |  0
- .../drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h   |  0
- .../inc/interface}/smu11_driver_if_arcturus.h |  0
- .../smu11_driver_if_cyan_skillfish.h          |  0
- .../inc/interface}/smu11_driver_if_navi10.h   |  0
- .../smu11_driver_if_sienna_cichlid.h          |  0
- .../inc/interface}/smu11_driver_if_vangogh.h  |  0
- .../inc/interface}/smu12_driver_if.h          |  0
- .../interface}/smu13_driver_if_aldebaran.h    |  0
- .../interface}/smu13_driver_if_yellow_carp.h  |  0
- .../inc/interface}/smu_v11_5_pmfw.h           |  0
- .../inc/interface}/smu_v11_8_pmfw.h           |  0
- .../inc/interface}/smu_v13_0_1_pmfw.h         |  0
- .../inc/message}/aldebaran_ppsmc.h            |  0
- .../inc/message}/arcturus_ppsmc.h             |  0
- .../inc/message}/smu_v11_0_7_ppsmc.h          |  0
- .../inc/message}/smu_v11_0_ppsmc.h            |  0
- .../inc/message}/smu_v11_5_ppsmc.h            |  0
- .../inc/message}/smu_v11_8_ppsmc.h            |  0
- .../inc/message}/smu_v12_0_ppsmc.h            |  0
- .../inc/message}/smu_v13_0_1_ppsmc.h          |  0
- .../pm/{ => swsmu}/inc/smu_11_0_cdr_table.h   |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_types.h    |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h    |  0
- .../pm/{ => swsmu}/inc/smu_v11_0_7_pptable.h  |  0
- .../pm/{ => swsmu}/inc/smu_v11_0_pptable.h    |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h    |  0
- .../drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h    |  0
- .../pm/{ => swsmu}/inc/smu_v13_0_pptable.h    |  0
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 -
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 -
- 87 files changed, 41 insertions(+), 11 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/cik_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_dpm.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_smc.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/legacy_dpm.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/legacy_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/r600_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.h (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_smc.c (100%)
- rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/sislands_smc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/amd_powerplay.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/fiji_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/hardwaremanager.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/hwmgr.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/polaris10_pwrvirus.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/power_state.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_debug.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_endian.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_thermal.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/ppinterrupt.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu10.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu10_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu11_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_common.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_discrete.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_fusion.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8_fusion.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu_ucode_xfer_cz.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu_ucode_xfer_vi.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smumgr.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/tonga_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega10_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega12/smu9_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega12_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega20_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu11_driver_if_arcturus.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu11_driver_if_cyan_skillfish.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu11_driver_if_navi10.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu11_driver_if_sienna_cichlid.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu11_driver_if_vangogh.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu12_driver_if.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu13_driver_if_aldebaran.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu13_driver_if_yellow_carp.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu_v11_5_pmfw.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu_v11_8_pmfw.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/interface}/smu_v13_0_1_pmfw.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/aldebaran_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/arcturus_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/smu_v11_0_7_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/smu_v11_0_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/smu_v11_5_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/smu_v11_8_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/smu_v12_0_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{inc => swsmu/inc/message}/smu_v13_0_1_ppsmc.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_11_0_cdr_table.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_types.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_7_pptable.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0_pptable.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h (100%)
- rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0_pptable.h (100%)
+ drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 29 ++++++++++++++++---
+ .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 17 ++++++-----
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 12 --------
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 15 ----------
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 -
+ 6 files changed, 34 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/Makefile b/drivers/gpu/drm/amd/pm/Makefile
-index d35ffde387f1..3d17ffb77f31 100644
---- a/drivers/gpu/drm/amd/pm/Makefile
-+++ b/drivers/gpu/drm/amd/pm/Makefile
-@@ -21,20 +21,24 @@
- #
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index f57a1478f0fe..fb6ad56ad6f1 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -268,7 +268,6 @@ enum amd_dpm_forced_level;
+  * @set_clockgating_state: enable/disable cg for the IP block
+  * @set_powergating_state: enable/disable pg for the IP block
+  * @get_clockgating_state: get current clockgating status
+- * @enable_umd_pstate: enable UMD powerstate
+  *
+  * These hooks provide an interface for controlling the operational state
+  * of IP blocks. After acquiring a list of IP blocks for the GPU in use,
+@@ -299,7 +298,6 @@ struct amd_ip_funcs {
+ 	int (*set_powergating_state)(void *handle,
+ 				     enum amd_powergating_state state);
+ 	void (*get_clockgating_state)(void *handle, u32 *flags);
+-	int (*enable_umd_pstate)(void *handle, enum amd_dpm_forced_level *level);
+ };
  
- subdir-ccflags-y += \
--		-I$(FULL_AMD_PATH)/pm/inc/  \
- 		-I$(FULL_AMD_PATH)/include/asic_reg  \
- 		-I$(FULL_AMD_PATH)/include  \
-+		-I$(FULL_AMD_PATH)/pm/inc/  \
- 		-I$(FULL_AMD_PATH)/pm/swsmu \
-+		-I$(FULL_AMD_PATH)/pm/swsmu/inc \
-+		-I$(FULL_AMD_PATH)/pm/swsmu/inc/interface \
-+		-I$(FULL_AMD_PATH)/pm/swsmu/inc/message \
- 		-I$(FULL_AMD_PATH)/pm/swsmu/smu11 \
- 		-I$(FULL_AMD_PATH)/pm/swsmu/smu12 \
- 		-I$(FULL_AMD_PATH)/pm/swsmu/smu13 \
--		-I$(FULL_AMD_PATH)/pm/powerplay \
-+		-I$(FULL_AMD_PATH)/pm/powerplay/inc \
- 		-I$(FULL_AMD_PATH)/pm/powerplay/smumgr\
--		-I$(FULL_AMD_PATH)/pm/powerplay/hwmgr
-+		-I$(FULL_AMD_PATH)/pm/powerplay/hwmgr \
-+		-I$(FULL_AMD_PATH)/pm/legacy-dpm
  
- AMD_PM_PATH = ../pm
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index ce80430c0eb6..106f6ee955f4 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -301,6 +301,10 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 	enum amd_dpm_forced_level level;
+ 	enum amd_dpm_forced_level current_level;
+ 	int ret = 0;
++	uint32_t profile_mode_mask = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
++					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
++					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
++					AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
  
--PM_LIBS = swsmu powerplay
-+PM_LIBS = swsmu powerplay legacy-dpm
+ 	if (amdgpu_in_reset(adev))
+ 		return -EPERM;
+@@ -354,10 +358,7 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 	}
  
- AMD_PM = $(addsuffix /Makefile,$(addprefix $(FULL_AMD_PATH)/pm/,$(PM_LIBS)))
+ 	/* profile_exit setting is valid only when current mode is in profile mode */
+-	if (!(current_level & (AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
+-	    AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
+-	    AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
+-	    AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)) &&
++	if (!(current_level & profile_mode_mask) &&
+ 	    (level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)) {
+ 		pr_err("Currently not in any profile mode!\n");
+ 		pm_runtime_mark_last_busy(ddev->dev);
+@@ -365,6 +366,26 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 		return -EINVAL;
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile b/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
-new file mode 100644
-index 000000000000..baa4265d1daa
---- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
-@@ -0,0 +1,32 @@
-+#
-+# Copyright 2021 Advanced Micro Devices, Inc.
-+#
-+# Permission is hereby granted, free of charge, to any person obtaining a
-+# copy of this software and associated documentation files (the "Software"),
-+# to deal in the Software without restriction, including without limitation
-+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+# and/or sell copies of the Software, and to permit persons to whom the
-+# Software is furnished to do so, subject to the following conditions:
-+#
-+# The above copyright notice and this permission notice shall be included in
-+# all copies or substantial portions of the Software.
-+#
-+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+# OTHER DEALINGS IN THE SOFTWARE.
-+#
++	if (!(current_level & profile_mode_mask) &&
++	      (level & profile_mode_mask)) {
++		/* enter UMD Pstate */
++		amdgpu_device_ip_set_powergating_state(adev,
++						       AMD_IP_BLOCK_TYPE_GFX,
++						       AMD_PG_STATE_UNGATE);
++		amdgpu_device_ip_set_clockgating_state(adev,
++						       AMD_IP_BLOCK_TYPE_GFX,
++						       AMD_CG_STATE_UNGATE);
++	} else if ((current_level & profile_mode_mask) &&
++		    !(level & profile_mode_mask)) {
++		/* exit UMD Pstate */
++		amdgpu_device_ip_set_clockgating_state(adev,
++						       AMD_IP_BLOCK_TYPE_GFX,
++						       AMD_CG_STATE_GATE);
++		amdgpu_device_ip_set_powergating_state(adev,
++						       AMD_IP_BLOCK_TYPE_GFX,
++						       AMD_PG_STATE_GATE);
++	}
 +
-+AMD_LEGACYDPM_PATH = ../pm/legacy-dpm
-+
-+LEGACYDPM_MGR-y = legacy_dpm.o
-+
-+LEGACYDPM_MGR-$(CONFIG_DRM_AMDGPU_CIK)+= kv_dpm.o kv_smc.o
-+LEGACYDPM_MGR-$(CONFIG_DRM_AMDGPU_SI)+= si_dpm.o si_smc.o
-+
-+AMD_LEGACYDPM_POWER = $(addprefix $(AMD_LEGACYDPM_PATH)/,$(LEGACYDPM_MGR-y))
-+
-+AMD_POWERPLAY_FILES += $(AMD_LEGACYDPM_POWER)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/cik_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/cik_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/cik_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/cik_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/kv_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_smc.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_smc.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/kv_smc.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_smc.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/ppsmc.h b/drivers/gpu/drm/amd/pm/legacy-dpm/ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/ppsmc.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/r600_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/r600_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/r600_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/r600_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.h b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/si_dpm.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_smc.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/si_smc.c
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h b/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h
-rename to drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/Makefile b/drivers/gpu/drm/amd/pm/powerplay/Makefile
-index 614d8b6a58ad..795a3624cbbf 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/Makefile
-+++ b/drivers/gpu/drm/amd/pm/powerplay/Makefile
-@@ -28,11 +28,7 @@ AMD_POWERPLAY = $(addsuffix /Makefile,$(addprefix $(FULL_AMD_PATH)/pm/powerplay/
+ 	if (amdgpu_dpm_force_performance_level(adev, level)) {
+ 		pm_runtime_mark_last_busy(ddev->dev);
+ 		pm_runtime_put_autosuspend(ddev->dev);
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+index 3c6ee493e410..9613c6181c17 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+@@ -953,6 +953,7 @@ static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct amdgpu_device *adev,
  
- include $(AMD_POWERPLAY)
+ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+ {
++	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	struct amdgpu_ps *ps;
+ 	enum amd_pm_state_type dpm_state;
+ 	int ret;
+@@ -976,7 +977,7 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+ 	else
+ 		return -EINVAL;
  
--POWER_MGR-y = amd_powerplay.o legacy_dpm.o
--
--POWER_MGR-$(CONFIG_DRM_AMDGPU_CIK)+= kv_dpm.o kv_smc.o
--
--POWER_MGR-$(CONFIG_DRM_AMDGPU_SI)+= si_dpm.o si_smc.o
-+POWER_MGR-y = amd_powerplay.o
+-	if (amdgpu_dpm == 1 && adev->powerplay.pp_funcs->print_power_state) {
++	if (amdgpu_dpm == 1 && pp_funcs->print_power_state) {
+ 		printk("switching from power state:\n");
+ 		amdgpu_dpm_print_power_state(adev, adev->pm.dpm.current_ps);
+ 		printk("switching to power state:\n");
+@@ -985,14 +986,14 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
  
- AMD_PP_POWER = $(addprefix $(AMD_PP_PATH)/,$(POWER_MGR-y))
+ 	/* update whether vce is active */
+ 	ps->vce_active = adev->pm.dpm.vce_active;
+-	if (adev->powerplay.pp_funcs->display_configuration_changed)
++	if (pp_funcs->display_configuration_changed)
+ 		amdgpu_dpm_display_configuration_changed(adev);
  
-diff --git a/drivers/gpu/drm/amd/pm/inc/amd_powerplay.h b/drivers/gpu/drm/amd/pm/powerplay/inc/amd_powerplay.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/amd_powerplay.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/amd_powerplay.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/cz_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/cz_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/cz_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/cz_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/fiji_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/fiji_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/fiji_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/fiji_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/hardwaremanager.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/hardwaremanager.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/hwmgr.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/polaris10_pwrvirus.h b/drivers/gpu/drm/amd/pm/powerplay/inc/polaris10_pwrvirus.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/polaris10_pwrvirus.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/polaris10_pwrvirus.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/power_state.h b/drivers/gpu/drm/amd/pm/powerplay/inc/power_state.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/power_state.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/power_state.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/pp_debug.h b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/pp_debug.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/pp_endian.h b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_endian.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/pp_endian.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_endian.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/pp_thermal.h b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_thermal.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/pp_thermal.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_thermal.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/ppinterrupt.h b/drivers/gpu/drm/amd/pm/powerplay/inc/ppinterrupt.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/ppinterrupt.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/ppinterrupt.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/rv_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/rv_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu10.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu10.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu10.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu10.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu10_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu10_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu11_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu11_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu71.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu71.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu71.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu71.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu71_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu71_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu71_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu71_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu72.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu72.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu72.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu72.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu72_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu72_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu72_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu72_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu73.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu73.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu73_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu73_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu74.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu74.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu74.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu74.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu74_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu74_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu74_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu74_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu75.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu75.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu75_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu75_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu75_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_common.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_common.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_common.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_common.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_discrete.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_discrete.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_discrete.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_fusion.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_fusion.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu8.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu8.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu8.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu8.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu8_fusion.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu8_fusion.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu8_fusion.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu8_fusion.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu9.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu9.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu9.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu9_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu9_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_cz.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_cz.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_vi.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_vi.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_vi.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_vi.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smumgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smumgr.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smumgr.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/smumgr.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/tonga_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/tonga_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/tonga_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/tonga_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega10_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega10_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega10_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega10_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega12/smu9_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega12/smu9_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega12/smu9_driver_if.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega12/smu9_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega12_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega12_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega12_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega12_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/vega20_ppsmc.h b/drivers/gpu/drm/amd/pm/powerplay/inc/vega20_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/vega20_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega20_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_arcturus.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_arcturus.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_cyan_skillfish.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_cyan_skillfish.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_navi10.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_navi10.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_sienna_cichlid.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_sienna_cichlid.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_vangogh.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_vangogh.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu12_driver_if.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu12_driver_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu12_driver_if.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu12_driver_if.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_aldebaran.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_aldebaran.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_yellow_carp.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_yellow_carp.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_5_pmfw.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_5_pmfw.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_8_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_8_pmfw.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_8_pmfw.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_8_pmfw.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v13_0_1_pmfw.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v13_0_1_pmfw.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/aldebaran_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/aldebaran_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/arcturus_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/arcturus_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/arcturus_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/arcturus_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_7_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_7_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_5_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_5_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_8_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_8_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_8_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_8_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v12_0_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v12_0_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v12_0_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v12_0_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v13_0_1_ppsmc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v13_0_1_ppsmc.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_11_0_cdr_table.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_11_0_cdr_table.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_types.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_pptable.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_pptable.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v12_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v12_0.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_pptable.h
-rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index a03bbd2a7aa0..1e6d76657bbb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -33,7 +33,6 @@
- #include "smu11_driver_if_arcturus.h"
- #include "soc15_common.h"
- #include "atom.h"
--#include "power_state.h"
- #include "arcturus_ppt.h"
- #include "smu_v11_0_pptable.h"
- #include "arcturus_ppsmc.h"
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 3c82f5455f88..cc502a35f9ef 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -33,7 +33,6 @@
- #include "smu13_driver_if_aldebaran.h"
- #include "soc15_common.h"
- #include "atom.h"
--#include "power_state.h"
- #include "aldebaran_ppt.h"
- #include "smu_v13_0_pptable.h"
- #include "aldebaran_ppsmc.h"
+ 	ret = amdgpu_dpm_pre_set_power_state(adev);
+ 	if (ret)
+ 		return ret;
+ 
+-	if (adev->powerplay.pp_funcs->check_state_equal) {
++	if (pp_funcs->check_state_equal) {
+ 		if (0 != amdgpu_dpm_check_state_equal(adev, adev->pm.dpm.current_ps, adev->pm.dpm.requested_ps, &equal))
+ 			equal = false;
+ 	}
+@@ -1000,24 +1001,24 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+ 	if (equal)
+ 		return 0;
+ 
+-	if (adev->powerplay.pp_funcs->set_power_state)
+-		adev->powerplay.pp_funcs->set_power_state(adev->powerplay.pp_handle);
++	if (pp_funcs->set_power_state)
++		pp_funcs->set_power_state(adev->powerplay.pp_handle);
+ 
+ 	amdgpu_dpm_post_set_power_state(adev);
+ 
+ 	adev->pm.dpm.current_active_crtcs = adev->pm.dpm.new_active_crtcs;
+ 	adev->pm.dpm.current_active_crtc_count = adev->pm.dpm.new_active_crtc_count;
+ 
+-	if (adev->powerplay.pp_funcs->force_performance_level) {
++	if (pp_funcs->force_performance_level) {
+ 		if (adev->pm.dpm.thermal_active) {
+ 			enum amd_dpm_forced_level level = adev->pm.dpm.forced_level;
+ 			/* force low perf level for thermal */
+-			amdgpu_dpm_force_performance_level(adev, AMD_DPM_FORCED_LEVEL_LOW);
++			pp_funcs->force_performance_level(adev, AMD_DPM_FORCED_LEVEL_LOW);
+ 			/* save the user's level */
+ 			adev->pm.dpm.forced_level = level;
+ 		} else {
+ 			/* otherwise, user selected level */
+-			amdgpu_dpm_force_performance_level(adev, adev->pm.dpm.forced_level);
++			pp_funcs->force_performance_level(adev, adev->pm.dpm.forced_level);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index d57d5c28c013..5a14ddd3ef05 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -323,12 +323,6 @@ static void pp_dpm_en_umd_pstate(struct pp_hwmgr  *hwmgr,
+ 		if (*level & profile_mode_mask) {
+ 			hwmgr->saved_dpm_level = hwmgr->dpm_level;
+ 			hwmgr->en_umd_pstate = true;
+-			amdgpu_device_ip_set_powergating_state(hwmgr->adev,
+-					AMD_IP_BLOCK_TYPE_GFX,
+-					AMD_PG_STATE_UNGATE);
+-			amdgpu_device_ip_set_clockgating_state(hwmgr->adev,
+-						AMD_IP_BLOCK_TYPE_GFX,
+-						AMD_CG_STATE_UNGATE);
+ 		}
+ 	} else {
+ 		/* exit umd pstate, restore level, enable gfx cg*/
+@@ -336,12 +330,6 @@ static void pp_dpm_en_umd_pstate(struct pp_hwmgr  *hwmgr,
+ 			if (*level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)
+ 				*level = hwmgr->saved_dpm_level;
+ 			hwmgr->en_umd_pstate = false;
+-			amdgpu_device_ip_set_clockgating_state(hwmgr->adev,
+-					AMD_IP_BLOCK_TYPE_GFX,
+-					AMD_CG_STATE_GATE);
+-			amdgpu_device_ip_set_powergating_state(hwmgr->adev,
+-					AMD_IP_BLOCK_TYPE_GFX,
+-					AMD_PG_STATE_GATE);
+ 		}
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index b5fbad92738b..29f521854796 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1674,14 +1674,7 @@ static int smu_enable_umd_pstate(void *handle,
+ 		/* enter umd pstate, save current level, disable gfx cg*/
+ 		if (*level & profile_mode_mask) {
+ 			smu_dpm_ctx->saved_dpm_level = smu_dpm_ctx->dpm_level;
+-			smu_dpm_ctx->enable_umd_pstate = true;
+ 			smu_gpo_control(smu, false);
+-			amdgpu_device_ip_set_powergating_state(smu->adev,
+-							       AMD_IP_BLOCK_TYPE_GFX,
+-							       AMD_PG_STATE_UNGATE);
+-			amdgpu_device_ip_set_clockgating_state(smu->adev,
+-							       AMD_IP_BLOCK_TYPE_GFX,
+-							       AMD_CG_STATE_UNGATE);
+ 			smu_gfx_ulv_control(smu, false);
+ 			smu_deep_sleep_control(smu, false);
+ 			amdgpu_asic_update_umd_stable_pstate(smu->adev, true);
+@@ -1691,16 +1684,9 @@ static int smu_enable_umd_pstate(void *handle,
+ 		if (!(*level & profile_mode_mask)) {
+ 			if (*level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)
+ 				*level = smu_dpm_ctx->saved_dpm_level;
+-			smu_dpm_ctx->enable_umd_pstate = false;
+ 			amdgpu_asic_update_umd_stable_pstate(smu->adev, false);
+ 			smu_deep_sleep_control(smu, true);
+ 			smu_gfx_ulv_control(smu, true);
+-			amdgpu_device_ip_set_clockgating_state(smu->adev,
+-							       AMD_IP_BLOCK_TYPE_GFX,
+-							       AMD_CG_STATE_GATE);
+-			amdgpu_device_ip_set_powergating_state(smu->adev,
+-							       AMD_IP_BLOCK_TYPE_GFX,
+-							       AMD_PG_STATE_GATE);
+ 			smu_gpo_control(smu, true);
+ 		}
+ 	}
+@@ -2146,7 +2132,6 @@ const struct amd_ip_funcs smu_ip_funcs = {
+ 	.soft_reset = NULL,
+ 	.set_clockgating_state = smu_set_clockgating_state,
+ 	.set_powergating_state = smu_set_powergating_state,
+-	.enable_umd_pstate = smu_enable_umd_pstate,
+ };
+ 
+ const struct amdgpu_ip_block_version smu_v11_0_ip_block =
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 9d4a85c39ad2..778196167de2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -363,7 +363,6 @@ struct smu_dpm_context {
+ 	uint32_t dpm_context_size;
+ 	void *dpm_context;
+ 	void *golden_dpm_context;
+-	bool enable_umd_pstate;
+ 	enum amd_dpm_forced_level dpm_level;
+ 	enum amd_dpm_forced_level saved_dpm_level;
+ 	enum amd_dpm_forced_level requested_dpm_level;
 -- 
 2.29.0
 
