@@ -4,119 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DD6EC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 05:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40F9DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Dec 2021 06:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54FC110EACB;
-	Mon, 13 Dec 2021 05:45:30 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2069.outbound.protection.outlook.com [40.107.237.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C439A10EACB
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 05:45:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D675E10EACF;
+	Mon, 13 Dec 2021 06:02:30 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D19110EACF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Dec 2021 06:02:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BfuAys0TmMEfSg4Jjg0XkMRB6Jeg4Pno6P5dxwRt3gkttrLY3oQENL+7npjhqX88j8isxDqToJ6qS7gRJq4zJRhMge6/0/3h/x+ni2oEcgLGpHDxXZJaASbq5+Yu5I0BbLqg+LSlI8LeNcFNeewwk9rpXblWkR88BF1cYj0vEjK86yYBchxQBylar/sCU/jnOtPqxtFJn/8wIPk2CKNLf0rvqsRSVGhusDyLoUzgiuwwqpO1kyvWj4Gv3cDQpmU9lW7R1Ct1uQLC72R3rl1ds5HTQLaEM22sikQ9IJE6A9XYdyDfw7ei84QLvBE48/8La2/u2rDNWZWFmk0RFQQgGA==
+ b=Ku94XhVfewEmeTz/PO/XHdrXP2oL9gP/cytXeZfUbBiRX438pAD5lnf7ScUP8jEVA+2ZPkEKeHAQ2QyruT04RIL6f3yc7SewZum3qyyUOOgnpS8E4Grh4VNSOrvM4PEWmh+u6NHTfXSAfgrki+2qp2SqCIalNZqZRLNMGg+g9uxvwkjeVjRf0YOCkUi+ViUMZroQFqxptQnLNb8jrsGOEP4h9hYDx9x8sqjWQ3Tzc/TxFPfWgRFuonSRk8cSs1+J1oN+3+iz/awyQOXTXL7/vPzSVAktisA+4fSORTqwBObzAO9oOLDO5DRQ7svPtRhpSFATHvkM4JF9dEYO8TPcUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aqSc6tAbSn21E/Uw4M6zm0z0RL7KThyv+bt81BemmcQ=;
- b=ii4as+RkBTq685z7Jmtw2WnBj5SGQ5OL2Lu0Fw+A9De7eIXzuvlcjpHmNU14U0msvKVFq168whnFyTdKxQ0NKSBGukKo2cRGLgvGe8DJqXwTQbNxuRc/nq+zhWdtUClp+3v/tXCuIhqpVqFkjxSXZpQ4cqGUqYKrX7JEGI18gzUl7PQdRABwRDWvrxujUWI49xgiS/+/gQtuRraLHM3dhnT7NmcQAyq/YhNYgQP2pBPDsBAMYqmE7Jxu+InqAdZsRQj/CMBrR8+0ffPA/7O79N8RCW2j3lCo1H75x0GTtcELbQ3EeW+JgA3KjHDqDS+Z/ez5D0Sa67H3P3tXEtdvVw==
+ bh=ZbHXbSOri9Fu8IZ2o/1D/X1WMCPcNe/NE3Cm37ObdfI=;
+ b=n+E3jtw5VLJYIDI089G/eYN6H3Ggi13IzEy4dxDFTtbeY0ZgDPvKr2XCp/AwkxflCjJbZdMEUh/pAR61c8qmmTVwGc32oahhF7BILVoxpHFHJPIF0rTM9i6ShUrA46PBfmXaDQf/1KPEAW08p10NcgIu3Ca0iBKqz5ezrqes7jY4tpTJwn4Yp/dLhwewqe0HzDkyk0BX4aLUdWsjCmTqXozVCE+ceKvxs+rZBaSuc3O4Snh+9oy+GNzchTRi1pNEoI9TiMqt+vGbRNbYpSb77LidVhhMJK0B7ITHdLujOXqBawvlYezWr9SlApwJQdp7//Xgco3xIuxxWYnm+AfGpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aqSc6tAbSn21E/Uw4M6zm0z0RL7KThyv+bt81BemmcQ=;
- b=JcH+WDoDx8DWRqadcedfLhxD7kcNrT5IJ/Q8uYLDxzy3l+97HkMmmx2BjDYNrCF0p2WZLF0pW/U+5ynHU2HgfW+jF7qolBq1dEnmz+eNU004pNs/mMruS2MdSnKrrasfJqv9xhBtj2TMdoVV1tfd0qgmijabzC2y6yAD9Tzd8Xg=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB1452.namprd12.prod.outlook.com (2603:10b6:4:a::20) with
+ bh=ZbHXbSOri9Fu8IZ2o/1D/X1WMCPcNe/NE3Cm37ObdfI=;
+ b=djYit0oCzl8bCRUg7oPVhqVpgGWFvLBFEU1d/vCusrSfnj1fcWpGQIumQRV9whbQrDtyRfveK3przLxgrs4MEPg1MNwWY5qu9pQ9elQAuSFhZBV9oN63YMvrmiUwSj1oSMFDzl0mFXDrG0bfEPvnZPwn2OA+KuRf37hOKrB9IqE=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ DM6PR12MB4516.namprd12.prod.outlook.com (2603:10b6:5:2ac::20) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.16; Mon, 13 Dec 2021 05:45:25 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef%3]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
- 05:45:24 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 15.20.4778.11; Mon, 13 Dec 2021 06:02:28 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::3562:eba5:418b:b43e]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::3562:eba5:418b:b43e%5]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
+ 06:02:28 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH V5 15/16] drm/amd/pm: revise the performance level setting
- APIs
-Thread-Topic: [PATCH V5 15/16] drm/amd/pm: revise the performance level
- setting APIs
-Thread-Index: AQHX79TyNnI2r6DOOkO1uWaQU5kE/qwv4RQAgAAIShA=
-Date: Mon, 13 Dec 2021 05:45:24 +0000
-Message-ID: <DM6PR12MB26194D50ECF7DE6D1DA6EE1DE4749@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20211213035223.772700-1-evan.quan@amd.com>
- <20211213035223.772700-16-evan.quan@amd.com>
- <DM5PR12MB2469965CA3B320B4D9716905F1749@DM5PR12MB2469.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB2469965CA3B320B4D9716905F1749@DM5PR12MB2469.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: [PATCH] drm/amdgpu: move smu_debug_mask to a more proper place
+Thread-Topic: [PATCH] drm/amdgpu: move smu_debug_mask to a more proper place
+Thread-Index: AQHX7+RM5kVyULNtwU+eVVM5hOP5d6wv7SoQ
+Date: Mon, 13 Dec 2021 06:02:27 +0000
+Message-ID: <DM5PR12MB246976396E09AB78B215FEC0F1749@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20211213054241.773719-1-evan.quan@amd.com>
+In-Reply-To: <20211213054241.773719-1-evan.quan@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-13T05:45:22Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-13T05:58:42Z; 
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=a3892cb1-c6db-42bd-a27d-8419e4b97d9d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=65b7bfc3-d2be-48dc-9ed9-d9cdfffc7448;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2021-12-13T06:02:24Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 4da622f5-316f-4750-8729-dcf75fde8d2d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 512d74c5-3e15-4fa2-4d0b-08d9bdfbc297
-x-ms-traffictypediagnostic: DM5PR12MB1452:EE_
-x-microsoft-antispam-prvs: <DM5PR12MB14529F7732301638B0A4978CE4749@DM5PR12MB1452.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-ms-office365-filtering-correlation-id: 4f04379d-3eed-40b6-48b2-08d9bdfe247e
+x-ms-traffictypediagnostic: DM6PR12MB4516:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB4516D25D7F12BE593830A18AF1749@DM6PR12MB4516.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lkznWxfG++tYtFkk+e9dpT/fOxqS/ncbX2dNH0kegNU2iSR5y3CUMAtoOh9RcmqkbfOikb+axDA2bfxCef8Azk4l4InsYKJZcXguSE6TMbb3IrHCV4A1FR2aL8walS2L4QucyxbqjTbTv83fGnok5w5qKko2H01qApBA4ho2qqpvVu/tm0kTSCqCSDgHo32itJ5m385xLADvT+Pr0Y4XHmTebMuVOBBbX8nCXSYjHCQQviz6OthoM7ZGJgRJOdgbFccHvpV9WoZJR0hdoFbjnEPHi0Ii+ricLIY5qhcDFqoNo3R5L0xlSUz/ZTaQ6I49UlPFA3KyArV9h0xCZEWF3llQbdUr6vSJLAeseQiTFOdKYbhD8aYlLnPEwqygvVWsNaCTGP2s1+uAQ7d1L/TTWiCQAihq1ta2jjIhatlNq6MU19vXkBKkGTmhqIdqaMHFzN8m5e5FduGdWgn9Kx4cqJjPoMbD1uM864wXbdjNsFzC6Vuf3/hj+lVpLAH7BhEkaUL2xQUWDLcxcZehXum6l/piQkqj5TYrA4GrUQt84elOQ8zPXxBzJULphE4v4pJCEAuRY5SC+GSZ+dBNk3hiJc86yPa2K3uqJRBfHowTR+gWR8yZuAo2N33TiVU0ba0eT5sV2Mylwe75hEIpImVkGjei74QOY6YblAUbnHaQI4V+q5n2FMZvw+Knq3Zo//3hWD4gEDz4qCFEcCP+RGrqzA==
+x-microsoft-antispam-message-info: 1FYzGkdgGbDPIh5U+x1dFKxXzCjeXMkogbIAmC4eMbG8mENJZB2prFWGPX3TNJxELGyJ10Ly5vsq6CBqTZlvQO+GnALSUA8UtQgGOU1/QQOFF48uo1z/cutgs+ob78J4F2+0gXhTXPXyb6Lp9ef9GyL0MhC2WRCCtRsdgJsZZN7xStZ3p4aQx4yqfuRcp8s+pEFHeluIs5B6bWu5J8qz1W7WQSr8+fXaQvX+bQKXArykbk+m1D1nOtIZbxrV9B1rRpY9gtktv6CXpyeRT2CBt/p5+Cjw2HA2T9iIeeuSJWunXQ4rNGYJ36QZJBO/I25vgrhNDLsFVV2+0uZvhK//WlhGAIKRgx6HZLIagCmnWKovoNgUodODTWdrb59hu/NNLjExWf0zoQbeLTtYbWds0TT0Ul/ti+qFXnDTa2HGA4FwBkIYemr0MOtUAxckmdeJsuekxPxO4Ejs14Me2jBheflsnK+Y3VSNmA+r4AH1NivYhjtjMZaYL7+1KdkrcPf+mT9WPUEq/g9Wm0AcXUuxLYr9ds589hDQ/vxudDWPnAM3tWQjqhFfKMHbnzBVtLiqVt2tcn7RwN3p0bZimGeSAhBWXE5Rd1vyERsKY1hDrtZGzhRGJ0bOuEBrHzhY3RJjQEAIMNb2nW34Od1/c83hgtkk/sT0bICrEaYfoX4qfmO8NsErgs9bca7vg8VDgeFsrCsDTWxOw4scNLUgv1fRXA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(7696005)(66556008)(66446008)(26005)(316002)(66476007)(64756008)(55016003)(8676002)(86362001)(54906003)(8936002)(30864003)(38100700002)(83380400001)(5660300002)(53546011)(52536014)(9686003)(6506007)(76116006)(66946007)(33656002)(110136005)(508600001)(186003)(38070700005)(122000001)(4326008)(2906002)(71200400001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66946007)(9686003)(4326008)(71200400001)(66556008)(66476007)(38070700005)(66446008)(7696005)(64756008)(54906003)(186003)(26005)(5660300002)(110136005)(316002)(76116006)(508600001)(8936002)(33656002)(2906002)(53546011)(8676002)(52536014)(6506007)(122000001)(83380400001)(86362001)(38100700002)(55016003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ytRt3aRQuuj7sAHCryeH/jELSAfdq6Q5vR19NiuU5duqFDYzysL33flj41VI?=
- =?us-ascii?Q?HEDu3oYGgPUifH+a9Hmb2uwdyVUquwKC/+wrpFIAZYuOHjxpukNWzEgNzBy/?=
- =?us-ascii?Q?6pmgZlJtSnT0MwGWQwZSsfr83Xf5YdF2Uj8Hfgr63BpDNFzDBzh9wWHDEBMk?=
- =?us-ascii?Q?ynI7fzv9GUxczzkKj1dgPYtP2m4EDR1oBQ7ltfFa1X14agkNofie3xo4VMvH?=
- =?us-ascii?Q?y/TcXdv9MkMyaDZts0OWwcw5n5crKeHNatCnNvtx1JEsXgVLqGSpg0onqokL?=
- =?us-ascii?Q?nG3KtLB2YYO54FXdeEikazqNyU8jPYTaqtbsCzVQkJ+wmZ0RHL1dXcZU/HHu?=
- =?us-ascii?Q?3TZzmTdg3s045nQ8dYUWlhvnm45zz5gvbdGBViXMSNDyIhK0YgMx+pIeDRXH?=
- =?us-ascii?Q?PA6RhnI8kc82MHL81DsvbuXTKPObkFw5BlBG6XllNJ+JOvd/6OUTBMpUojmM?=
- =?us-ascii?Q?ES+wHp2M3WzXpP+0V25y9qip92u+G7N2TPcdMGNG1H6ShK3tz6nYe3hMp29K?=
- =?us-ascii?Q?x922sZPbwzUweSXRFVPUPP1qBov/YRmyC717urWfKtT2Bf3rEPmEPVMARBuU?=
- =?us-ascii?Q?8ovjdAxE6/MGp29KnQYhc6zliNz1L5lM+aVYfmqrRHLrpGNEQ6YyahcYNHS4?=
- =?us-ascii?Q?FEYCBzO9k4ek1qt6fwfsUG7RDK9VCOxwKBTczEfRLD8KsHkHZJyBJTOc4E4D?=
- =?us-ascii?Q?KkI9g9w17ZtvmEsuUe7heQ8ipI8FCUyityinF/zzHU14xf7FtaeNP93o7VA/?=
- =?us-ascii?Q?5uq3qlqKRtOUs2RaxSTj2Z6SNDLDpBOcp2jHH/g130Ga8OCyNYCOu3wimhL+?=
- =?us-ascii?Q?xOLX9NwB3upH++Hj8e4polpSzE5wtfUTApD3wFxdurxQ62y1EwbL9VSbb4gW?=
- =?us-ascii?Q?4CQW1dhlQpClzZnRK5PQMZmO1roHMh00gne64z/+ePdAlT57wgGDdjTL4eqw?=
- =?us-ascii?Q?W4Z5Hsx4PMDG8AUb/Wy1XNCluSHq4B8kxcgB47Fgz8z6ECQu87NKvx98ae+8?=
- =?us-ascii?Q?lItMeg/RhjsVSFsdoCj6lOfcND2WyA/CWXtOou4TgtCDa3x7M2HkZBiUzR2/?=
- =?us-ascii?Q?Oq+A6xobfBsO+6coF4ZvWpNlBoifv8N2phWwpvO/3JkHOHHkq88xTkf7tFs9?=
- =?us-ascii?Q?uGMA+RqWc/6oGtyRLUpkBARYR2Yf4QZZymQhzv1mVrCDBZNlwyy+0QmQWNh6?=
- =?us-ascii?Q?ao3SA2AzY7AnKKzFx9Ku6cGTjyq0n/kKgd96kZfWwFPmyXUfGZmwmX1wKhFZ?=
- =?us-ascii?Q?dgV8pcmw9QO40DdMu4Cj95ckGoLEgDztOE6Gs7Q1zhoixkFsCBYy1D+/SUwg?=
- =?us-ascii?Q?zNeIicdNKT1BOApGXEi6wxHgzKoX6ifO2R4JiZkz6nIofyZq5ircJo21JBTF?=
- =?us-ascii?Q?VrIqF7u5zcq17f/iS0d4BDXGybQHp2h2Fmvk+FMaAx/JELOf3ewf/n6QamJ0?=
- =?us-ascii?Q?1qpCqffAfCSvBnVyatzAH4m1IwJo1dOTg8rIvHaRg0OYd5/asGA5T5S16Jwt?=
- =?us-ascii?Q?m79wVASS+lEf5DGbsRhf+RosfJtNhI/hJjdzAF9ylcyn+dWGBMHqJQq4+JeV?=
- =?us-ascii?Q?FTa+wRUy0OuGKfwPbYg=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?MsdZv+lw+aNfj9G1bt1Shui4eqRjMR/77ZyhGWxR0F6JSc51OuabP4ADDPwF?=
+ =?us-ascii?Q?HkUfbxaBEc9tZMspCbxZodHHF0wDaUP1eRNl+L9sSitLyIrdr/9lPOlMfIwD?=
+ =?us-ascii?Q?XydLgmAUizTqdItzeA73whRZOuIGYOJ2fzmBYBQ0OVo5yzSl47C8FyAbw4x3?=
+ =?us-ascii?Q?k+0plXhrETkDj8H8mMCZsVVLUsUxTbHiRVj/8xxkxA8lZezN+H+qTgQoCrML?=
+ =?us-ascii?Q?xlxRzpxwVLg0342H7K5cvGoeyTPffH+/7Sf+UCPmoYIjfPfxqhymdNeFUmYb?=
+ =?us-ascii?Q?Xn9/a6mmyXSSrk6hayYAIrA2Wo009muyDZzFY4v+b1hNGmParPJhTaOJIWM3?=
+ =?us-ascii?Q?z1NSvvu2FfstcpCTlDxHV9wbv+MZI/5OWAZk/WocYo0fdyjclnOlDXSHl5Gf?=
+ =?us-ascii?Q?oEqupJcge41V17rrEWUKdUTswKqubh5azYeWAzQJXoSEeff04XyfaD97QbUe?=
+ =?us-ascii?Q?1c2TtuNFG0SpyqTys25VrOR3IznhQm1wo17YAslK55Ma5WiuyIfoJ2vrAkDu?=
+ =?us-ascii?Q?78ec86twHgjaG4c1k23Dyje9zopCl3b76vto3JHNiTQ4wck/lQbwuvFsbI0l?=
+ =?us-ascii?Q?v4PadrAZsbkMSz59UFLWrsYLfkNsKmMd/q7qUOH/xAYvK1U9uXKoZgO7K8xh?=
+ =?us-ascii?Q?/b7SU6oV6xxm2zlgUcDM1oypgXeO0cUsSyyGZhWn/tmUIPuoWuyPwQo2OhgH?=
+ =?us-ascii?Q?kGYRDf9zKY9X8tyt5Jj0UraYcqNQX1NfC3R8g34qbuSY1/kYGoYzHkIgTX/G?=
+ =?us-ascii?Q?nrCHsnyjVQaxZVpL8nsMt7LN3jk1vNxrhL8RavxzCkEfZ01g5kimjoiGgCgu?=
+ =?us-ascii?Q?7nwbG3NcOrt4NIAcEB4bKuPwSAT+ZwSPxuyeACgkQiN1gBO3Rp1vZyUOo4CA?=
+ =?us-ascii?Q?Gmx39GIMV5WTTQYOHS2K71L23kEakb577MfB3i5+HR2wxPUCcgSnnzfULiOi?=
+ =?us-ascii?Q?KbvouLiK/2JaEKS1svigd1+5J7qtxEnCrHoCBFJaHK7Z/ksNj7c3jUbi+a26?=
+ =?us-ascii?Q?hn1nbqlu3ZdTol/DihOoaBP8FQy7WxaUj4ZbZd4XMg3sTIKUNBpj+xnH9DFz?=
+ =?us-ascii?Q?lsMnU1ZLxxm/5p4G+HvVihfuGCznsBLNhqwGY6jzixEjOxCC79NIrFwlrbaa?=
+ =?us-ascii?Q?Qa2odbXT1XRsk//KHZ8xM9oAxeBjVicgKMUJqGMDAWuZKi0Yk/bQ3H13Uzwm?=
+ =?us-ascii?Q?SrF+hOiXm3tvzX4DBtKw7x9Pv/RHVPFaWD2FWm/+PCRv6+ljfYfX3V8Mr3EJ?=
+ =?us-ascii?Q?DcIt7gM90+TtTQmz4ODCmiXBtV+QKYV8lRdcrJKcwKblh++PmiW8cN9WCgOg?=
+ =?us-ascii?Q?5R/5YEakOwb8S/vVPoLSFD+0YvY+67MUb2KM4lm38Ognhn7r4nhh7i1h9mW7?=
+ =?us-ascii?Q?bJdo7XPKuSat7UewmsU5u3U3pNuOZRhJ+p+JYpveBztndgO5CTRRJtJ4HLQ7?=
+ =?us-ascii?Q?BywiY+3EAylK+IEJsGkXBD6nYQpIEBP14L8QgOUr/mX13VNuZhyGik9YEQlW?=
+ =?us-ascii?Q?AP8RLVtrB6iNh9TTwW4dtiprNG6Q+HVxGRMVo3yWYhDPYT4MUIX7fjHPQj1D?=
+ =?us-ascii?Q?ahviTkCKM0yt4a6myCMz/vJYtmXHhUmyP0kIYfYiXe/uxIj0IIi7NyaiWB/b?=
+ =?us-ascii?Q?f8ywxV69HDJWosEAfGYyN98=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 512d74c5-3e15-4fa2-4d0b-08d9bdfbc297
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2021 05:45:24.7722 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f04379d-3eed-40b6-48b2-08d9bdfe247e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2021 06:02:27.9828 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bGZmgQZbL3QwGRZOfUjw2ew0lsnO/lQcYg+bYI+lbeAyjKUoYsxA3d5VyH2mjBd5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1452
+X-MS-Exchange-CrossTenant-userprincipalname: BfmU36muS9weMg4MyBJuAIwvtFygT1xklMpm54HuzzhiFWo7kecKaZ3LSxRrthLPpmh8QIBdmyZcBh+f8nK9UQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4516
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,364 +132,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Public]
 
+-	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
++	if (unlikely(adev->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
+ 	    res && (res !=3D -ETIME)) {
+ 		amdgpu_device_halt(smu->adev);
 
+[Guchun] As we have set an 'adev' variable, we can replace 'smu->adev' with=
+ 'adev' in each function directly.
 
-> -----Original Message-----
-> From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: Monday, December 13, 2021 1:15 PM
-> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
-> <Lijo.Lazar@amd.com>; Quan, Evan <Evan.Quan@amd.com>
-> Subject: RE: [PATCH V5 15/16] drm/amd/pm: revise the performance level
-> setting APIs
->=20
-> [Public]
->=20
-> A coding style nitpick.
->=20
-> 	int ret =3D 0;
-> +	uint32_t profile_mode_mask =3D
-> AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
-> +
-> 	AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
-> +
-> 	AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
-> +
-> 	AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
->=20
-> It's better to declare short variable at the end. So pls move "int ret =
-=3D 0;" after
-> profile_mode_mask.
-[Quan, Evan] Sure, will update that.
+Regards,
+Guchun
 
-BR
-Evan
->=20
-> Regards,
-> Guchun
->=20
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Evan
-> Quan
-> Sent: Monday, December 13, 2021 11:52 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
-> <Lijo.Lazar@amd.com>; Quan, Evan <Evan.Quan@amd.com>
-> Subject: [PATCH V5 15/16] drm/amd/pm: revise the performance level
-> setting APIs
->=20
-> Avoid cross callings which make lock protection enforcement on
-> amdgpu_dpm_force_performance_level() impossible.
->=20
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Change-Id: Ie658140f40ab906ce2ec47576a086062b61076a6
-> --
-> v1->v2:
->   - drop unused enable_umd_pstate callback(Lijo)
-> ---
->  drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 29 ++++++++++++++++---
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 17 ++++++-----
->  .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 12 --------
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 15 ----------
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 -
->  6 files changed, 34 insertions(+), 42 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h
-> b/drivers/gpu/drm/amd/include/amd_shared.h
-> index f57a1478f0fe..fb6ad56ad6f1 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -268,7 +268,6 @@ enum amd_dpm_forced_level;
->   * @set_clockgating_state: enable/disable cg for the IP block
->   * @set_powergating_state: enable/disable pg for the IP block
->   * @get_clockgating_state: get current clockgating status
-> - * @enable_umd_pstate: enable UMD powerstate
->   *
->   * These hooks provide an interface for controlling the operational stat=
-e
->   * of IP blocks. After acquiring a list of IP blocks for the GPU in use,=
- @@ -
-> 299,7 +298,6 @@ struct amd_ip_funcs {
->  	int (*set_powergating_state)(void *handle,
->  				     enum amd_powergating_state state);
->  	void (*get_clockgating_state)(void *handle, u32 *flags);
-> -	int (*enable_umd_pstate)(void *handle, enum
-> amd_dpm_forced_level *level);
->  };
->=20
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index ce80430c0eb6..106f6ee955f4 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -301,6 +301,10 @@ static ssize_t
-> amdgpu_set_power_dpm_force_performance_level(struct device *dev,
->  	enum amd_dpm_forced_level level;
->  	enum amd_dpm_forced_level current_level;
->  	int ret =3D 0;
-> +	uint32_t profile_mode_mask =3D
-> AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
-> +
-> 	AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
-> +
-> 	AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
-> +
-> 	AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
->=20
->  	if (amdgpu_in_reset(adev))
->  		return -EPERM;
-> @@ -354,10 +358,7 @@ static ssize_t
-> amdgpu_set_power_dpm_force_performance_level(struct device *dev,
->  	}
->=20
->  	/* profile_exit setting is valid only when current mode is in profile
-> mode */
-> -	if (!(current_level &
-> (AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
-> -	    AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
-> -	    AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
-> -	    AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)) &&
-> +	if (!(current_level & profile_mode_mask) &&
->  	    (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)) {
->  		pr_err("Currently not in any profile mode!\n");
->  		pm_runtime_mark_last_busy(ddev->dev);
-> @@ -365,6 +366,26 @@ static ssize_t
-> amdgpu_set_power_dpm_force_performance_level(struct device *dev,
->  		return -EINVAL;
->  	}
->=20
-> +	if (!(current_level & profile_mode_mask) &&
-> +	      (level & profile_mode_mask)) {
-> +		/* enter UMD Pstate */
-> +		amdgpu_device_ip_set_powergating_state(adev,
-> +
-> AMD_IP_BLOCK_TYPE_GFX,
-> +
-> AMD_PG_STATE_UNGATE);
-> +		amdgpu_device_ip_set_clockgating_state(adev,
-> +
-> AMD_IP_BLOCK_TYPE_GFX,
-> +
-> AMD_CG_STATE_UNGATE);
-> +	} else if ((current_level & profile_mode_mask) &&
-> +		    !(level & profile_mode_mask)) {
-> +		/* exit UMD Pstate */
-> +		amdgpu_device_ip_set_clockgating_state(adev,
-> +
-> AMD_IP_BLOCK_TYPE_GFX,
-> +						       AMD_CG_STATE_GATE);
-> +		amdgpu_device_ip_set_powergating_state(adev,
-> +
-> AMD_IP_BLOCK_TYPE_GFX,
-> +						       AMD_PG_STATE_GATE);
-> +	}
-> +
->  	if (amdgpu_dpm_force_performance_level(adev, level)) {
->  		pm_runtime_mark_last_busy(ddev->dev);
->  		pm_runtime_put_autosuspend(ddev->dev);
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> index 3c6ee493e410..9613c6181c17 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> @@ -953,6 +953,7 @@ static struct amdgpu_ps
-> *amdgpu_dpm_pick_power_state(struct amdgpu_device *adev,
->=20
->  static int amdgpu_dpm_change_power_state_locked(struct
-> amdgpu_device *adev)  {
-> +	const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
->  	struct amdgpu_ps *ps;
->  	enum amd_pm_state_type dpm_state;
->  	int ret;
-> @@ -976,7 +977,7 @@ static int
-> amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
->  	else
->  		return -EINVAL;
->=20
-> -	if (amdgpu_dpm =3D=3D 1 && adev->powerplay.pp_funcs-
-> >print_power_state) {
-> +	if (amdgpu_dpm =3D=3D 1 && pp_funcs->print_power_state) {
->  		printk("switching from power state:\n");
->  		amdgpu_dpm_print_power_state(adev, adev-
-> >pm.dpm.current_ps);
->  		printk("switching to power state:\n"); @@ -985,14 +986,14
-> @@ static int amdgpu_dpm_change_power_state_locked(struct
-> amdgpu_device *adev)
->=20
->  	/* update whether vce is active */
->  	ps->vce_active =3D adev->pm.dpm.vce_active;
-> -	if (adev->powerplay.pp_funcs->display_configuration_changed)
-> +	if (pp_funcs->display_configuration_changed)
->  		amdgpu_dpm_display_configuration_changed(adev);
->=20
->  	ret =3D amdgpu_dpm_pre_set_power_state(adev);
->  	if (ret)
->  		return ret;
->=20
-> -	if (adev->powerplay.pp_funcs->check_state_equal) {
-> +	if (pp_funcs->check_state_equal) {
->  		if (0 !=3D amdgpu_dpm_check_state_equal(adev, adev-
-> >pm.dpm.current_ps, adev->pm.dpm.requested_ps, &equal))
->  			equal =3D false;
->  	}
-> @@ -1000,24 +1001,24 @@ static int
-> amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
->  	if (equal)
->  		return 0;
->=20
-> -	if (adev->powerplay.pp_funcs->set_power_state)
-> -		adev->powerplay.pp_funcs->set_power_state(adev-
-> >powerplay.pp_handle);
-> +	if (pp_funcs->set_power_state)
-> +		pp_funcs->set_power_state(adev->powerplay.pp_handle);
->=20
->  	amdgpu_dpm_post_set_power_state(adev);
->=20
->  	adev->pm.dpm.current_active_crtcs =3D adev-
-> >pm.dpm.new_active_crtcs;
->  	adev->pm.dpm.current_active_crtc_count =3D adev-
-> >pm.dpm.new_active_crtc_count;
->=20
-> -	if (adev->powerplay.pp_funcs->force_performance_level) {
-> +	if (pp_funcs->force_performance_level) {
->  		if (adev->pm.dpm.thermal_active) {
->  			enum amd_dpm_forced_level level =3D adev-
-> >pm.dpm.forced_level;
->  			/* force low perf level for thermal */
-> -			amdgpu_dpm_force_performance_level(adev,
-> AMD_DPM_FORCED_LEVEL_LOW);
-> +			pp_funcs->force_performance_level(adev,
-> AMD_DPM_FORCED_LEVEL_LOW);
->  			/* save the user's level */
->  			adev->pm.dpm.forced_level =3D level;
->  		} else {
->  			/* otherwise, user selected level */
-> -			amdgpu_dpm_force_performance_level(adev,
-> adev->pm.dpm.forced_level);
-> +			pp_funcs->force_performance_level(adev, adev-
-> >pm.dpm.forced_level);
->  		}
->  	}
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> index d57d5c28c013..5a14ddd3ef05 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> @@ -323,12 +323,6 @@ static void pp_dpm_en_umd_pstate(struct
-> pp_hwmgr  *hwmgr,
->  		if (*level & profile_mode_mask) {
->  			hwmgr->saved_dpm_level =3D hwmgr->dpm_level;
->  			hwmgr->en_umd_pstate =3D true;
-> -			amdgpu_device_ip_set_powergating_state(hwmgr-
-> >adev,
-> -					AMD_IP_BLOCK_TYPE_GFX,
-> -					AMD_PG_STATE_UNGATE);
-> -			amdgpu_device_ip_set_clockgating_state(hwmgr-
-> >adev,
-> -						AMD_IP_BLOCK_TYPE_GFX,
-> -						AMD_CG_STATE_UNGATE);
->  		}
->  	} else {
->  		/* exit umd pstate, restore level, enable gfx cg*/ @@ -336,12
-> +330,6 @@ static void pp_dpm_en_umd_pstate(struct pp_hwmgr  *hwmgr,
->  			if (*level =3D=3D
-> AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)
->  				*level =3D hwmgr->saved_dpm_level;
->  			hwmgr->en_umd_pstate =3D false;
-> -			amdgpu_device_ip_set_clockgating_state(hwmgr-
-> >adev,
-> -					AMD_IP_BLOCK_TYPE_GFX,
-> -					AMD_CG_STATE_GATE);
-> -			amdgpu_device_ip_set_powergating_state(hwmgr-
-> >adev,
-> -					AMD_IP_BLOCK_TYPE_GFX,
-> -					AMD_PG_STATE_GATE);
->  		}
->  	}
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index b5fbad92738b..29f521854796 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -1674,14 +1674,7 @@ static int smu_enable_umd_pstate(void *handle,
->  		/* enter umd pstate, save current level, disable gfx cg*/
->  		if (*level & profile_mode_mask) {
->  			smu_dpm_ctx->saved_dpm_level =3D smu_dpm_ctx-
-> >dpm_level;
-> -			smu_dpm_ctx->enable_umd_pstate =3D true;
->  			smu_gpo_control(smu, false);
-> -			amdgpu_device_ip_set_powergating_state(smu-
-> >adev,
-> -
-> AMD_IP_BLOCK_TYPE_GFX,
-> -
-> AMD_PG_STATE_UNGATE);
-> -			amdgpu_device_ip_set_clockgating_state(smu-
-> >adev,
-> -
-> AMD_IP_BLOCK_TYPE_GFX,
-> -
-> AMD_CG_STATE_UNGATE);
->  			smu_gfx_ulv_control(smu, false);
->  			smu_deep_sleep_control(smu, false);
->  			amdgpu_asic_update_umd_stable_pstate(smu-
-> >adev, true); @@ -1691,16 +1684,9 @@ static int
-> smu_enable_umd_pstate(void *handle,
->  		if (!(*level & profile_mode_mask)) {
->  			if (*level =3D=3D
-> AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)
->  				*level =3D smu_dpm_ctx->saved_dpm_level;
-> -			smu_dpm_ctx->enable_umd_pstate =3D false;
->  			amdgpu_asic_update_umd_stable_pstate(smu-
-> >adev, false);
->  			smu_deep_sleep_control(smu, true);
->  			smu_gfx_ulv_control(smu, true);
-> -			amdgpu_device_ip_set_clockgating_state(smu-
-> >adev,
-> -
-> AMD_IP_BLOCK_TYPE_GFX,
-> -
-> AMD_CG_STATE_GATE);
-> -			amdgpu_device_ip_set_powergating_state(smu-
-> >adev,
-> -
-> AMD_IP_BLOCK_TYPE_GFX,
-> -
-> AMD_PG_STATE_GATE);
->  			smu_gpo_control(smu, true);
->  		}
->  	}
-> @@ -2146,7 +2132,6 @@ const struct amd_ip_funcs smu_ip_funcs =3D {
->  	.soft_reset =3D NULL,
->  	.set_clockgating_state =3D smu_set_clockgating_state,
->  	.set_powergating_state =3D smu_set_powergating_state,
-> -	.enable_umd_pstate =3D smu_enable_umd_pstate,
->  };
->=20
->  const struct amdgpu_ip_block_version smu_v11_0_ip_block =3D diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 9d4a85c39ad2..778196167de2 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -363,7 +363,6 @@ struct smu_dpm_context {
->  	uint32_t dpm_context_size;
->  	void *dpm_context;
->  	void *golden_dpm_context;
-> -	bool enable_umd_pstate;
->  	enum amd_dpm_forced_level dpm_level;
->  	enum amd_dpm_forced_level saved_dpm_level;
->  	enum amd_dpm_forced_level requested_dpm_level;
-> --
-> 2.29.0
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Evan Qua=
+n
+Sent: Monday, December 13, 2021 1:43 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
+md.com>
+Subject: [PATCH] drm/amdgpu: move smu_debug_mask to a more proper place
+
+As the smu_context will be invisible from outside(of power). Also, the smu_=
+debug_mask can be shared around all power code instead of some specific fra=
+mework(swSMU) only.
+
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I1a0e1a436a51fc520a47b3fb28cde527d4e5eb6e
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h         | 7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 2 +-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     | 8 --------
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c      | 9 ++++++---
+ 4 files changed, 14 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index e701dedce344..9ceb8f3e73de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -811,6 +811,9 @@ struct amd_powerplay {
+ 					  (rid =3D=3D 0x01) || \
+ 					  (rid =3D=3D 0x10))))
+=20
++/* Used to mask smu debug modes */
++#define SMU_DEBUG_HALT_ON_ERROR		0x1
++
+ #define AMDGPU_RESET_MAGIC_NUM 64
+ #define AMDGPU_MAX_DF_PERFMONS 4
+ struct amdgpu_device {
+@@ -959,6 +962,10 @@ struct amdgpu_device {
+ 	struct amdgpu_pm		pm;
+ 	u32				cg_flags;
+ 	u32				pg_flags;
++	/*
++	 * 0 =3D disabled (default), otherwise enable corresponding debug mode
++	 */
++	uint32_t			smu_debug_mask;
+=20
+ 	/* nbio */
+ 	struct amdgpu_nbio		nbio;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_debugfs.c
+index 9dfccb20fedd..ee1cc15c6f09 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1619,7 +1619,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 		return 0;
+=20
+ 	debugfs_create_x32("amdgpu_smu_debug", 0600, root,
+-			   &adev->smu.smu_debug_mask);
++			   &adev->smu_debug_mask);
+=20
+ 	ent =3D debugfs_create_file("amdgpu_preempt_ib", 0600, root, adev,
+ 				  &fops_ib_preempt);
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/=
+pm/inc/amdgpu_smu.h
+index 12e67ad9a3b2..2b9b9a7ba97a 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -482,9 +482,6 @@ struct stb_context {
+=20
+ #define WORKLOAD_POLICY_MAX 7
+=20
+-/* Used to mask smu debug modes */
+-#define SMU_DEBUG_HALT_ON_ERROR		0x1
+-
+ struct smu_context
+ {
+ 	struct amdgpu_device            *adev;
+@@ -573,11 +570,6 @@ struct smu_context
+ 	struct smu_user_dpm_profile user_dpm_profile;
+=20
+ 	struct stb_context stb_context;
+-
+-	/*
+-	 * 0 =3D disabled (default), otherwise enable corresponding debug mode
+-	 */
+-	uint32_t smu_debug_mask;
+ };
+=20
+ struct i2c_adapter;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index 43637d55fe29..b233d9d766f2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -257,6 +257,7 @@ int smu_cmn_send_msg_without_waiting(struct smu_context=
+ *smu,
+ 				     uint16_t msg_index,
+ 				     uint32_t param)
+ {
++	struct amdgpu_device *adev =3D smu->adev;
+ 	u32 reg;
+ 	int res;
+=20
+@@ -272,7 +273,7 @@ int smu_cmn_send_msg_without_waiting(struct smu_context=
+ *smu,
+ 	__smu_cmn_send_msg(smu, msg_index, param);
+ 	res =3D 0;
+ Out:
+-	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
++	if (unlikely(adev->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
+ 	    res && (res !=3D -ETIME)) {
+ 		amdgpu_device_halt(smu->adev);
+[Guchun] As we have set a adev variable, we can replace smu->adev with adev=
+ directly.
+
+ 		WARN_ON(1);
+@@ -293,13 +294,14 @@ int smu_cmn_send_msg_without_waiting(struct smu_conte=
+xt *smu,
+  */
+ int smu_cmn_wait_for_response(struct smu_context *smu)  {
++	struct amdgpu_device *adev =3D smu->adev;
+ 	u32 reg;
+ 	int res;
+=20
+ 	reg =3D __smu_cmn_poll_stat(smu);
+ 	res =3D __smu_cmn_reg2errno(smu, reg);
+=20
+-	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
++	if (unlikely(adev->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
+ 	    res && (res !=3D -ETIME)) {
+ 		amdgpu_device_halt(smu->adev);
+ 		WARN_ON(1);
+@@ -343,6 +345,7 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context =
+*smu,
+ 				    uint32_t param,
+ 				    uint32_t *read_arg)
+ {
++	struct amdgpu_device *adev =3D smu->adev;
+ 	int res, index;
+ 	u32 reg;
+=20
+@@ -372,7 +375,7 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context =
+*smu,
+ 	if (read_arg)
+ 		smu_cmn_read_arg(smu, read_arg);
+ Out:
+-	if (unlikely(smu->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) && res) {
++	if (unlikely(adev->smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) && res) {
+ 		amdgpu_device_halt(smu->adev);
+ 		WARN_ON(1);
+ 	}
+--
+2.29.0
