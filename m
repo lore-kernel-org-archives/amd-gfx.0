@@ -4,124 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A6A3C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 09:51:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 502A9C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 10:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D941310E37F;
-	Tue, 14 Dec 2021 09:51:32 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37B5510E37F;
- Tue, 14 Dec 2021 09:51:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBBAE10E410;
+	Tue, 14 Dec 2021 10:53:16 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D494410E410
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 10:53:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GgSbRMSJU3fgf+yWdiXQSade8yZR5gNharMOuAvYCiHCPiuDo1gXuVa9yRBCUiZY9CQxld/Mi87zXoeGoCIlTwvIkzE0SGaFLkOxBG3U42FVwwrBETUex3hU58OyR49IyZeylIazJmctKaLXJdXv1IcGXRtbqBaTVWGNWmSA/gIgrH5osPumTZl9EkakyErrmcrNGl+JYltoxndD/0vL7I7a5j5DECm1qnSnA2mOp7pZJEHyh9cs+RwOJ+DJu1cBM5pu63XWm8vmWgQzSoFjSpFaGlQz7VZzmTGxgtrZLAA2REbGKlGDKzIuEI70oBoHIhSLXPMTxbJfLW+8b7ai0A==
+ b=E0NwTuQUfSTVUIGM8d6AgBDe2NnXC4DKUHBoUfAOiit5Ihega/AkpSIJCtNgKO5GcUgnWcp40Q4/Y+0wBwX9oAZJYEI6FU77Uw7RG0lZP9JYLVtKaNh56moxGVpslUhpYfBtJqUMIt/X8zEpMQ3vhzXPu7Mn9WfBYS+l4BwA//MDDZClf6XvEingHv1OXBE2dYgLIN2rzQdxmh95Yll1penzvKIA2Qn7BGGuubmH5ttI7tztqoO40cu96+EblNydfPPtVvcbR65lG+Ijw2THGC2fVw+QvbPjyzlMJfklEOgAR0ggjRxj5opuf4s9Mko4ZmlSDCjBtQ37uDofXjMz1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=paJeH/CFVEnQdILeHBQ1Nw+QJs+aqZ2uDG5aNA+WkMs=;
- b=jSMnY5XxIfsDZf5gGQp1awSD0Kn33rYXqpSvqaPsYZ802kl5q2ff8/05512c2B9anJJE/kKI40voVHtMfPBYL+w8a0pbrVLVM/j2YGhwQsJmbXV9XtKedZMnE+KNBEueCeKpY9zxQ2xdOn5mI1OSMF/RiIOegU1YJaMafOdYCPRArWWhzE6msQ9TJPGmMzq8gpz7lfOt/BDQh4kTdSjPBbYg2qS8RyZOgn+4oZ6djI5S82bki4VqSBALQHCiYFBgGBLPyBq1kNqxvgpSpCEKjsMDt82ubhmcGsTon+LX3EWvfhmFOiyChchvJoWHwa3UH0Wl9g5qZGrhZQX4r63Niw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=pIbSR9Vfna80GtgXdJfl81Doer1SdNeNS+CgORBvo5U=;
+ b=kNE1J0lkA/ImcOnrMrPysc/UmwVkAZEwOxkEbFAIs/jEcjULnwV6370jkEQ/Gw2FwngV6jVl+H7pUQ8mSnnyHhRuvsulaJLqGXvoHk40kdKZzfeuwvMum140oQrLOcHPzpc/xOzSHZAYnuOwvldIb49stgRhOIpDP6oKx7cGjFCcJ0AHOLzf1vRL4fiP0yVV06urA+Xn7978RkRptYkz9p5dC23cHlxGOjO4PH3yJO5hKbK9++KH1R+y36y+cIsLSaokhN0vJ5d70kXy14SqAmSwKAsDy3gWsKTCyQnSqSorPHnP/+xZAAhmZNvaahPRm2tAatEOe39IcMQNfAZKeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=paJeH/CFVEnQdILeHBQ1Nw+QJs+aqZ2uDG5aNA+WkMs=;
- b=VA8xrF4CxNyNmf34xqPkR2eC2DZ//JeR+19uxDWukotiDh6A590TT9w3A7kEA8d9QiK9Fe0As8wgdE59hAmB0p/mf3pvD+z431tTGrkd8QxBK8XrhzbGVpmU+AkYglvM4j/kUeU+MDNJH7KFe36bJVRb851o90t67HV5v3i6IVg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MWHPR12MB1614.namprd12.prod.outlook.com
- (2603:10b6:301:f::15) with Microsoft SMTP Server (version=TLS1_2,
+ bh=pIbSR9Vfna80GtgXdJfl81Doer1SdNeNS+CgORBvo5U=;
+ b=G1xgq5fNHWaV1T/2BjSj2CgpMwGVdSYeDkRviRObxSgOcnCAt1PVF+drQr8yjbx3JkMY7Dyz6M902WQCmHVbGOTTfn1H1pWr3KRhd83XlXvZh24LAZOlIZU6zB6oGeI8v4/AEJzUxMaV3UOC5jOMooAXaBetYWcMyoj8CKIMBho=
+Received: from BN0PR03CA0025.namprd03.prod.outlook.com (2603:10b6:408:e6::30)
+ by CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Tue, 14 Dec
- 2021 09:51:27 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::d16c:a6d5:5d2e:f9d4]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::d16c:a6d5:5d2e:f9d4%12]) with mapi id 15.20.4778.018; Tue, 14 Dec
- 2021 09:51:27 +0000
-Subject: Re: [PATCH 1/3] dma-buf: make the flags can be configured during dma
- fence init
-To: "Huang, Ray" <Ray.Huang@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>
-References: <20211213063422.2232155-1-ray.huang@amd.com>
- <5adca96a-e2bb-833a-e470-807a22b9b2fc@amd.com>
- <DM5PR12MB250468603570AFC28C211F56EC759@DM5PR12MB2504.namprd12.prod.outlook.com>
- <152dd115-1155-20cb-879a-d4756146edb0@amd.com>
- <DM5PR12MB25040492913BA8FCA15F18D4EC759@DM5PR12MB2504.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <8ccd7aef-944b-0277-f590-f6f9b646b091@amd.com>
-Date: Tue, 14 Dec 2021 10:51:19 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <DM5PR12MB25040492913BA8FCA15F18D4EC759@DM5PR12MB2504.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: AM8P251CA0018.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:21b::23) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+ 2021 10:53:14 +0000
+Received: from BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e6:cafe::f4) by BN0PR03CA0025.outlook.office365.com
+ (2603:10b6:408:e6::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.15 via Frontend
+ Transport; Tue, 14 Dec 2021 10:53:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT065.mail.protection.outlook.com (10.13.177.63) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4778.13 via Frontend Transport; Tue, 14 Dec 2021 10:53:13 +0000
+Received: from kevin-ws.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 14 Dec
+ 2021 04:53:07 -0600
+From: Yang Wang <KevinYang.Wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: add smu fw version check for ECC table support
+Date: Tue, 14 Dec 2021 18:52:54 +0800
+Message-ID: <20211214105254.594167-1-KevinYang.Wang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 67a7f470-2d53-4e08-2e89-08d9bee74bf8
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1614:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB16147DE79B66329F20ABC6D183759@MWHPR12MB1614.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: e32de34c-0feb-466a-94fb-08d9beefed79
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1463:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB146337DC50B4EEA39CE23C9682759@CY4PR12MB1463.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1417;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OxqtmBRAIhHLiphrpX/wAx8ZzlgO9tiA3EZEenMbcq67i4PBuVFbRShS4WuB2MfOgCdIWqv7x2EiCXbXiH7C+k56Jh9eF1aoqUTMGuBcEbIqmuKl0XgM/4vSP+fo4YYNuN7OCuVRCctKUpK9IQWAQiK7HZvB7G2VhXVtx+FWRpYa4UpH1uG51Ah9Z1nROQ73VF62Z2+vnWMuMhceGrwnH6sx4Q+C4rQpgz3KMAqp7xoaA0x/LqXDtdACOdWclBPMDuPUtZVemidLEpGgRScM31DoTiJ6MwZzYT0hgzkzlXQ0Ve63g4Jor8Gd0TTXy88W5kubfd1YRTBassufj15ll7FOlf4kmUufZrzmCc2+GvkPEkKuYazu5bjHLQjAyRC1FDPV2qztBp7RUOFvbS7feHvw2A3IJ+eL+7mEuGVlDnP+ZUOBjvIzUszxm2LU/iOpU4rAQU2SJc7wSA9qAC2sDqcnX66lPn+1LslXosU4bQsF4UEP6w3rqdYpIpXUUmR5kbZhY9v3JtFPbRlkUSdEW3bAjWtexYPlSM/HwmqEkBp2k+AFP/6XqAOS/uulUwoxTZN9HyGW+lyMVHfneylMFut8q2w74NVBcnkkZylsEZBCvGYIOeHUI72BPYbfPiPebsDVy7y5jrrDRZjO3TSDD11BMg4hcpFehAbU4A9TaFEppgLyIsnZyw+WTKqcx699UwRAKdMaHyJZbw5B65/D1S6d4GmsP3lxI4fC9LwGHYvmcCVjFuPmpZP+WTlD+6eL
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(53546011)(38100700002)(6506007)(8936002)(66946007)(66556008)(36756003)(31696002)(186003)(66476007)(86362001)(2906002)(6512007)(4326008)(6486002)(2616005)(31686004)(5660300002)(83380400001)(26005)(8676002)(316002)(508600001)(110136005)(6666004)(54906003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: I5e8DoHq/HL1RTc1lU4U5YhzPLt/Y/dAeGob3m+H+lrRoznjrn2+U3OhAk8CAj8rUo0JWtu8ZnMHcs0cRoJJQWDj1BH6mgOGFMVaueLMPOvnZxAWj9XR6TjOPjulT7AJMGqA6oseQvuN+ISmpyP6sY8v2O+Edkdm5eEXLkQL4pAFQBGkKw5QhYzagH4Lgha8cc4Skzy8dSCRmm+cahmCc0QAYLRKFLUnAw5g2SNZUj96bZKqiJ0IU2NeuuWiFMHgm3JVIErvmqGt8RzUjMkfewS2Sk5O51iq+6IUK/u/FG2fwY7B8M2T9oL7Ul8ECwRhevI0cYgcGt3MYfHixynv8IV3ryXhQUFIbBWMQeFiZjI2/ASND1Ca29m2j+r66woXODwjgrcRQ0eo/+uQO/77wA15ub83bHDutCTr9XOv0JRCezB7pg0qybbZQFWfvZOeuncUCQPFzMD/Ee43WbuYFpX3nOTPbcWxrAnSAw/EHOyJkbE6PlCpGXESJDTSa6ynR2rkRSX4McqO6FIH2HoFqDD582nfwMQmHxgywSd5WyjKmF920i6tfGIdMzxopFo3sbU6jQFibNTdKDtAL80csaSGvO4hGGfshkwIk0HwlcF+6Nlm1+j15XEvBCHwWUTB+7CgTCL7tFYQFe7dA6N0JVbHmc/JPCuWKVoDSfpE8nRcZ6rwfJp+lDQ7iqL/bk7Za5VvN1SyCoUbP94N4NW1Mu3uVLhbHglxIfvPEHsRLVw/xXxjhT1KGaZDV5Tcy40oyyPOQIOXH1O6P4Pl0tnBVtMje3BuCBuyIJfPAK34OV0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(356005)(426003)(83380400001)(5660300002)(508600001)(316002)(82310400004)(70206006)(70586007)(7696005)(36860700001)(2906002)(2616005)(8676002)(1076003)(81166007)(8936002)(6916009)(54906003)(26005)(40460700001)(4326008)(36756003)(186003)(336012)(6666004)(47076005)(86362001)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFNGVEJ5MUxaakN6STRBK2hlcUJTYStwR3dpY282dWRKYi92eStWRDBwSkNE?=
- =?utf-8?B?U1NXZzRzQUNpWi9YUHVjc0MyVlRtSWtxTUNTSVY5SnV1Uk1zcnVrOVFJbHA3?=
- =?utf-8?B?VEZ4RVNXWUNRSVVXM3ZwOVZtZVFUMTJacWU5eFRwczdDaExtMmJ2em1OMTZY?=
- =?utf-8?B?cTJlM1hLcE1aamNVRVJBRFF1T2x0WUVnNWhka2IzVjkvQU9Dc1ppM1BaYWxI?=
- =?utf-8?B?NERLdXlydHpYd0ZiVnRGeW9SQ0VvalgxbEJGbnd1T251Y0JkOU9aZG5VWGw3?=
- =?utf-8?B?QlRkRE9NOUt0aVMxc2xKZzA0ZGhUSUtVdGxrSTdaTmZtcktKVXkwYU94aVhu?=
- =?utf-8?B?NmR3NFR0TlgzMlRsZUlUN1NvUVpmbXJ1ZFBROThETTcxZEM1dEdyVGE1S1lW?=
- =?utf-8?B?c1ZSc2gwVEhaTGN3cjNNbHV4TG9qNTNXdGJyK3dhTCtzL09xZHk5dTJLQnlj?=
- =?utf-8?B?UGNwUlVHVUhNVE9zTHRpRlZKMkc2Y1dIbU9WUDV3a2pwNW5lUFhESkF1QzJy?=
- =?utf-8?B?eEVmSW4vaUlCT0MzeUlabUlhU2FjZ0EvOS9mUXlGNm8zcjdsL2oyS1JtTzM2?=
- =?utf-8?B?MWVwT0doMFhrZkxyNk5GSlRqK0FCUDZoTUxxTjA3aGxCL0xpZkl4dzNZS1Aw?=
- =?utf-8?B?UXBwU1JGWTdDOHp0LzRMNWlDcjFxb3RuVUJmc2xOei9ObXU1OHpkckxXeDRM?=
- =?utf-8?B?Y2VnT3pWcWYxcDNiSHJVOU12V2JPTzdWRUVoOURWTVFOOHkzVDArMlJyeG9T?=
- =?utf-8?B?V2x2SnhvSlBEdzJaZk5lSnZEdFhyNkVvMThqajhWbTF6NkNicVdMY2hEamZp?=
- =?utf-8?B?bkhLU3JiS2pHdEExaVQzSll5YmswZXBUM095czdocW1kNmxyTktGbzJpTGNS?=
- =?utf-8?B?ZllRKzM3bHJhMER2VUlhdEVWcEo1MWRtbWNMZFdJZjJnT2tzWVFOaXY2ejBJ?=
- =?utf-8?B?M0hUSGEzYllzaFVkWUpMTytmZE5NVnZ3Ry9CaDlqV2NrZXVpY3plOEROMjY2?=
- =?utf-8?B?V29ReTdiWTVoNDh5d1ZxTzQ1eWpsd1I3WUlVbVBScENtbCs1Ky9hZnpkdHNL?=
- =?utf-8?B?UjY1Ky9UajkxdWhFRm01aDJ1MFhxd0w2eUhHWE9LQjR6bUJWS1drdWhudlBJ?=
- =?utf-8?B?TUNOVGMreTFOc2EvWDlPcWtvK1YrNzhiVnpXbC9TV1pvaytQa3dpbjFCU1o0?=
- =?utf-8?B?RXJQY1Y2YkpDenArMVJMWW9ubzRpamg5S21IUElEdmJ4Qk9BajlsdmEzVURh?=
- =?utf-8?B?dVg2YUJDVU1LQm5iVEU5NXlNa1cvMGttVlF4NC9VMkJrSEc5Wm9XWVFrS0RH?=
- =?utf-8?B?cVBZdS9xeE5WS016OE1MN1oxSXFjMk1vN0N4OGZGYVhxMVZOOGZ2Z1ZRa1dN?=
- =?utf-8?B?elRQWUxSdXJrcERDdmc5Umc2K0tlUnZxK08vQ1czSXBTUUJwR0JWZGVENXdm?=
- =?utf-8?B?SEZOcUpLVnlGanp4L1g2UmtxdWZsUzVSZWdZYTA3eXg2TC9KWUY5U3MzTjVs?=
- =?utf-8?B?dW1NOGJrTmcxLzV1YXlUelQyY0J6RW82dUdsWXNHdzVhaUtmRVZCczlJa3lJ?=
- =?utf-8?B?ZldMQUlsem1JQ2Z3RmNmZHdFUWVsdWl6YjFnWWlJVHBhNXM0SjdXNGhhMXRh?=
- =?utf-8?B?RE9XcE9vTUoxUDZqVGl2eVlDK3BmWXR1b1IybXVYVnhxcGN1VGlCUGRocEp4?=
- =?utf-8?B?WkZFZG0xbUZtOHhMWWlPTHhid08waFl3djIvdzVFZm1oeGp6UEZuVllRTHlz?=
- =?utf-8?B?Wnl3c211c3V1V214UWltQ29iNzViTzRiaDFSZHg3Umt3UVhnWm1sRExFOW9w?=
- =?utf-8?B?Ny9mc3AvaDdDcEJ4TGQ3Nng4TC82MFJDcmNBZzN4UHgwVUQzYWFxMllsbDMr?=
- =?utf-8?B?T3I1Q3NSeHNWQnBWd1ZKcG55S3ZIamF4NG1ScFlYMjQ0RE9Rc0JCQjZsdTNU?=
- =?utf-8?B?QVJhaU9hc3RTcCtFOVRqMlZoM2RaU3VRejRvQ0V6U1Y5ZGFHZ0QyZ0oxSGlB?=
- =?utf-8?B?eEhwc09vVEE2cGYxQ3VWakJlbWRwdjNYbUJBVitsa1FSQlVuWXZzZVNTZGVW?=
- =?utf-8?B?TUhQL2FINXBXTjRHVWNLaXNtUVlLR0JRZDVpQzczUDcveXRWRGlSeklFbXlS?=
- =?utf-8?Q?WgAM=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67a7f470-2d53-4e08-2e89-08d9bee74bf8
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 09:51:27.3433 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 10:53:13.6202 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e32de34c-0feb-466a-94fb-08d9beefed79
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tV0b3zZ75Hz+8NBgn4RLdZYzc/W4FHsgMGIFQi7EHAnTgE5Yu3643tY32KaIQMSu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1614
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1463
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,171 +99,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liu,
- Monk" <Monk.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Cc: hao.zhou@amd.com, lijo.lazar@amd.com, Yang
+ Wang <KevinYang.Wang@amd.com>, hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 14.12.21 um 10:44 schrieb Huang, Ray:
-> [AMD Official Use Only]
->
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Tuesday, December 14, 2021 5:24 PM
->> To: Huang, Ray <Ray.Huang@amd.com>; dri-devel@lists.freedesktop.org;
->> Daniel Vetter <daniel.vetter@ffwll.ch>; Sumit Semwal
->> <sumit.semwal@linaro.org>
->> Cc: amd-gfx@lists.freedesktop.org; linux-media@vger.kernel.org; Deucher,
->> Alexander <Alexander.Deucher@amd.com>; Liu, Monk
->> <Monk.Liu@amd.com>
->> Subject: Re: [PATCH 1/3] dma-buf: make the flags can be configured during
->> dma fence init
->>
->> Am 14.12.21 um 10:19 schrieb Huang, Ray:
->>> [AMD Official Use Only]
->>>
->>>> -----Original Message-----
->>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>> Sent: Tuesday, December 14, 2021 4:00 PM
->>>> To: Huang, Ray <Ray.Huang@amd.com>; dri-devel@lists.freedesktop.org;
->>>> Daniel Vetter <daniel.vetter@ffwll.ch>; Sumit Semwal
->>>> <sumit.semwal@linaro.org>
->>>> Cc: amd-gfx@lists.freedesktop.org; linux-media@vger.kernel.org;
->>>> Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Monk
->>>> <Monk.Liu@amd.com>
->>>> Subject: Re: [PATCH 1/3] dma-buf: make the flags can be configured
->>>> during dma fence init
->>>>
->>>> Am 13.12.21 um 07:34 schrieb Huang Rui:
->>>>> In some user scenarios, the get_timeline_name callback uses the
->>>>> flags to decide which way to return the timeline string name. Once
->>>>> the trace_dma_fence_init event is enabled, it will call
->>>>> get_timeline_name callback to dump the fence structure. However, at
->>>>> this moment, the flags are always 0, and it might trigger some
->>>>> issues in get_timeline_name callback implementation of different gpu
->>>>> driver. So make a member to initialize the flags in dma_fence_init().
->>>> Well that doesn't make much sense to me.
->>>>
->>>> None of the dma_fence callbacks is called from the dma_fence_init
->>>> function (or at least shouldn't). So drivers always have the
->>>> opportunity to to adjust the flags.
->>>>
->>>> So please explain the rational again?
->>> Once we enable trace_dma_fence_init event, we will call get_driver_name
->> and get_timeline_name callback function to dump the names in
->> dma_fence_init().
->>> At that time, the flags are always 0. However, in
->> amdgpu_fence_get_timeline_name(), it will check the flags
->> (AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT) to select which way to get
->> the ring.
->>> If the fence should be actually embedded in the job (will be set after that),
->> it still will trigger a kernel panic (please see patch2) because it go with a
->> wrong way. Because we cannot set the flags at the start of dma_fence_init.
->> That is the problem.
->>
->> Well then I think we should fix the whole approach instead because what
->> you try to do here is utterly nonsense. You can't modify the ops structure on
->> the fly because that is used by all the fences.
->>
->> Instead please just duplicate the amdgpu_fence_ops() and separate them
->> into two structure, one for each case.
->>
->> This way we should also be able to completely drop the
->> AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT flag.
->>
-> OK, you mean this flag is not one of them in standard dma_fence_flag_bits and it AMD specific, so we would better to drop this to align the dam_fence structure design?
+the smu firmware has been remove ECC TABLE support from 68.46.0.
 
-Well yes and no. We can use driver private flags, it's just that for 
-this use case it doesn't make much sense.
+Signed-off-by: Yang Wang <KevinYang.Wang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h            | 2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 8 +-------
+ 2 files changed, 3 insertions(+), 7 deletions(-)
 
-See what the functions do, for example amdgpu_fence_enable_signaling():
-
-        if (test_bit(AMDGPU_FENCE_FLAG_EMBED_IN_JOB_BIT, &f->flags)) {
-                 struct amdgpu_job *job = container_of(f, struct 
-amdgpu_job, hw_fence);
-
-                 ring = to_amdgpu_ring(job->base.sched);
-         } else {
-                 ring = to_amdgpu_fence(f)->ring;
-         }
-
-         if (!timer_pending(&ring->fence_drv.fallback_timer))
-                 amdgpu_fence_schedule_fallback(ring);
-
-         return true;
-
-That can much cleaner be done as
-
-static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
-{
-         if (!timer_pending(&ring->fence_drv.fallback_timer))
-amdgpu_fence_schedule_fallback(to_amdgpu_fence(f)->ring);
-         return true;
-}
-
-static bool amdgpu_job_fence_enable_signaling(struct dma_fence *f)
-{
-....
-}
-
-If we want to avoid the duplication of logic we should just move the 
-timer_pending() check into a separate function.
-
-Regards,
-Christian.
-
->
-> Thanks,
-> Ray
->
->> Regards,
->> Christian.
->>
->>> Thanks,
->>> Ray
->>>
->>>> Christian.
->>>>
->>>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>>>> ---
->>>>>     drivers/dma-buf/dma-fence.c | 2 +-
->>>>>     include/linux/dma-fence.h   | 7 +++++++
->>>>>     2 files changed, 8 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/dma-buf/dma-fence.c
->>>>> b/drivers/dma-buf/dma-fence.c index 066400ed8841..3e0622bf385f
->>>>> 100644
->>>>> --- a/drivers/dma-buf/dma-fence.c
->>>>> +++ b/drivers/dma-buf/dma-fence.c
->>>>> @@ -952,7 +952,7 @@ dma_fence_init(struct dma_fence *fence, const
->>>> struct dma_fence_ops *ops,
->>>>>     	fence->lock = lock;
->>>>>     	fence->context = context;
->>>>>     	fence->seqno = seqno;
->>>>> -	fence->flags = 0UL;
->>>>> +	fence->flags = ops->init_flags;
->>>>>     	fence->error = 0;
->>>>>
->>>>>     	trace_dma_fence_init(fence);
->>>>> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
->>>>> index 1ea691753bd3..f9270c5bc07a 100644
->>>>> --- a/include/linux/dma-fence.h
->>>>> +++ b/include/linux/dma-fence.h
->>>>> @@ -131,6 +131,13 @@ struct dma_fence_ops {
->>>>>     	 */
->>>>>     	bool use_64bit_seqno;
->>>>>
->>>>> +	/**
->>>>> +	 * @init_flags:
->>>>> +	 *
->>>>> +	 * The initial value of fence flags (A mask of DMA_FENCE_FLAG_*
->>>> defined).
->>>>> +	 */
->>>>> +	unsigned long init_flags;
->>>>> +
->>>>>     	/**
->>>>>     	 * @get_driver_name:
->>>>>     	 *
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index 2b9b9a7ba97a..78ce451d0b37 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -79,6 +79,8 @@
+ #define SMU_THROTTLER_PPM_BIT			56
+ #define SMU_THROTTLER_FIT_BIT			57
+ 
++#define SMU_FW_VERSION(maj, min, rev)	((maj & 0xffff) << 16 | (min & 0xff) << 8 | (rev & 0xff))
++
+ struct smu_hw_power_state {
+ 	unsigned int magic;
+ };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 0907da022197..7f8f00a19836 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -78,12 +78,6 @@
+ 
+ #define smnPCIE_ESM_CTRL			0x111003D0
+ 
+-/*
+- * SMU support ECCTABLE since version 68.42.0,
+- * use this to check ECCTALE feature whether support
+- */
+-#define SUPPORT_ECCTABLE_SMU_VERSION 0x00442a00
+-
+ static const struct smu_temperature_range smu13_thermal_policy[] =
+ {
+ 	{-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 99000},
+@@ -1780,7 +1774,7 @@ static int aldebaran_check_ecc_table_support(struct smu_context *smu)
+ 		ret = -EOPNOTSUPP;
+ 	}
+ 
+-	if (smu_version < SUPPORT_ECCTABLE_SMU_VERSION)
++	if (smu_version < SMU_FW_VERSION(68, 42, 0) || smu_version >= SMU_FW_VERSION(68, 46, 0))
+ 		ret = -EOPNOTSUPP;
+ 
+ 	return ret;
+-- 
+2.25.1
 
