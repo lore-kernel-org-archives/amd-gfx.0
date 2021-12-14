@@ -4,90 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 906F4C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 07:13:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45690C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 07:17:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C86F410EA59;
-	Tue, 14 Dec 2021 07:13:20 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D3510EA59
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 07:13:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VVv80kawEwJXHKHHOlCFdD8uRSi5QaP+M6/ya/dcfaBRARWA8GzLHemsLl7J3CS6TDPll+JWP9gtzpJPPPUEbprVoHFZ2ztVarQ1qQMKRlixsijmmOzNvyThk6hmU7O4drZFvqeUlantTU1Z+6f+KW5IbXEZtf3axvuPmU/EH5DmpJnVNNKUj0F9pg+vhz8HpHWhwNfmbrzISacluz/O7pTOLugs3/xIayzRuDqbzo28DshRKjxEBQfyNed4BEZIqfxYCk2piuu4+6hXCgmtix6HQiKvQnveUTyA0vi0ig+7kejhUqFwiLxlT+GGa0uDV6wun4aF8DrK9k6/fBTC7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HwbbvGy9FgO1fSFJ8zKrRb1Cf4xM/nbdNFmc+RaAN5E=;
- b=D5fuiWZdXLc52wd72MlWTAClKTQCYWny4+ntO+n1tj4GvQ6xNPu9yrX/7SdSOqjldDhoF7J9zpOK25VDfz04PzR5ZhoT885YizU8xiG2vWxDj/Jr3KcNu1ewydGKHzZEb86QulYTDsg3Oj006vAbkc3dcJuHFkhsw/hZno4y43LBKAFtGAL7YAyiPnVUEElbqScsXBPAhjPQ2evb3VJlxfZcMRDO3pJJ6DKHshA0NqQN3UnMc2SF3ge/LDa3N8nyxdo5Cd2ZA69wfuByhmW31ozubfX2zzkPnM2CeJI2Y8JddovUjGc5hxaK5orMaeF/tdfRUkQ63K6INN0/fuCo6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HwbbvGy9FgO1fSFJ8zKrRb1Cf4xM/nbdNFmc+RaAN5E=;
- b=ueJ0tWmh2x25Y1HlRo68/vLzjTRruNWG9M8p72bNn4AvaMhDFKTyNfByj6+BABByYqRcJ9WjpLwTcTF88JdsuXP5bHHDeJxgJuV64EkUJTS+WnU1U5dssvHMM98/P5d6AFcIrmaCCDoaeI+uk5R9ykFVVY26tM8msk460gkKw5k=
-Received: from DM5PR13CA0047.namprd13.prod.outlook.com (2603:10b6:3:7b::33) by
- DM5PR1201MB2504.namprd12.prod.outlook.com (2603:10b6:3:e3::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.17; Tue, 14 Dec 2021 07:13:17 +0000
-Received: from DM6NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:7b:cafe::d3) by DM5PR13CA0047.outlook.office365.com
- (2603:10b6:3:7b::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.7 via Frontend
- Transport; Tue, 14 Dec 2021 07:13:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT046.mail.protection.outlook.com (10.13.172.121) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4778.13 via Frontend Transport; Tue, 14 Dec 2021 07:13:17 +0000
-Received: from lijo-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 14 Dec
- 2021 01:13:15 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: Skip power state allocation
-Date: Tue, 14 Dec 2021 15:12:59 +0800
-Message-ID: <20211214071259.580602-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB8C710EABD;
+	Tue, 14 Dec 2021 07:17:40 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDAD10EA61;
+ Tue, 14 Dec 2021 07:17:39 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id u17so30808149wrt.3;
+ Mon, 13 Dec 2021 23:17:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=SxGgEKWaacutyDseHK2Zk06l+7ntRzxPrOLFtMNQTm8=;
+ b=KBR1OIlzFK4+1Wu6SUrNHQ3ZMbN+5Z0ppz7qGHRBtuPKpjNxCvhHaTxMUn92N8kvzb
+ 9QwpvdOpfAT/XUfzCzhKD05XF4WabfUa4LHf4A7ryKT08xgJEN6Vo1JijUZX93hadBVO
+ 2L+aGSQH0QeHxqopcaDCE1xohURFxyHB058acNKCHUBRNiqjQ+EfqIx9MqzroZ6FgU2w
+ q9kE1a/sUPc3xVfe7gQnxvL6Z6Z3dVxS2OC25l4RUg3Gv/1pKnPvrB7HpO80IboXPZa2
+ pHubsLeFTfvPeVgUms9688USf9nuhjHcBziwDbX2J/DrfZf+Gpr0QO+CMsmtv1axupts
+ i3pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=SxGgEKWaacutyDseHK2Zk06l+7ntRzxPrOLFtMNQTm8=;
+ b=13MEANBUvur6ctLe2no1s245o5/AhmJVoA6gS2M4I9UgVkeUATRjnLeMmpfM+4FLHt
+ uYrvGlDnepU1xn8ZBNcJnHndQPXY/UctB47ICcef3ZS5yUUZwYUQWSPy/5xytlOLRrRV
+ BZ7cxFOnb8YXHGe12HxIE2BheFNLUQnnz7LCh5/oQsl/YeRwbRxeDoBgBH3KFbn9yv7k
+ +ZvTw+l/fy3lqzGbRB/NVeNdBFHpiK1EmEDJRY9DzG7SiRwOKnnxtlY1kk1VF2A36Uyo
+ DILyf2b2Cb2nnIHUdbatHhz9jza7CV44BlcZb1+Nh3a6NJOTPvoLm+oEuQlk6a39rxFx
+ 93Cw==
+X-Gm-Message-State: AOAM531qy1MgtEvpGH655gsGXK7c6TbYqEOLHDTC6EZl6JwzKmmnNW9P
+ KyCc+q+02rW8i9jPBLM8a8s=
+X-Google-Smtp-Source: ABdhPJzDaCs/0EzH2TALZ4HzjMdRGA1/bZx5rqmeN3RjBR+7SJT7aifOXYOwfS9YJK+dUPSO+zwcRQ==
+X-Received: by 2002:a05:6000:188d:: with SMTP id
+ a13mr1793582wri.461.1639466258012; 
+ Mon, 13 Dec 2021 23:17:38 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id j40sm1258926wms.19.2021.12.13.23.17.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Dec 2021 23:17:37 -0800 (PST)
+Subject: Re: [Patch v2] drm/amdgpu: Don't inherit GEM object VMAs in child
+ process
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20211210214802.12620-1-rajneesh.bhardwaj@amd.com>
+ <a1a865f5-ad2c-29c8-cbe4-2635d53eceb6@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <66740f3b-00c6-5b0c-92fa-a04f97f5d120@gmail.com>
+Date: Tue, 14 Dec 2021 08:17:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+In-Reply-To: <a1a865f5-ad2c-29c8-cbe4-2635d53eceb6@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1a3f88aa-8c45-45ea-3a13-08d9bed133ef
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB2504:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB2504DDB7A1DC81DFF5F1EF6797759@DM5PR1201MB2504.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0+jdBEdJbSOpKYwwkKGq1ibmatTR706axMyCwZXh8++EVtOXAYLTkAkZgRXnSiPrU+a5YK/Rfb7XpkEBwFzc70LMkPC5FysgZZZsu1N6ouV1fn6ZI+qtGGbfrAb9qPKi/LOEKzimZwT4pf4xp11XSLZWqzwfpE7pJh8kMvu8bq8repXaakAFjvWPkQ+4kZ6HGdyslWT+/qXlusmiMyYRxmDmAs138FtpOP8s8xTqM1O/1eX7o+NhPcNztKp2fQKK0j9qk+Opj1cPJ2QKcIyrslcQvH4bMFe6YaJ8KtKjUyEcBnhMDiWOPmp0p9r00k9w04T6dz2eyJzzwYCYXlemzaIr4ex5QWoHf9L7TRHVR234PnqOXD+lGCNymJeVUk5M4RuqWearLXBxbCJYhcA3iWYDnyfru4sqrg82/dhWheqONZjG+cs87WvSPxpoeS1oskmpfiQu6lqrV39b20uvksw9jiwxwkQPZSHZdLfUoeDinjZJVwErWD66p8IFG5ajpUd3ZkY3bPLEcy3QEI0XvFGA9wg/Q6c6TJinc9kAnQpH0wEPIX025nGm9tqtaqDqcUz6hJxUN6aoYdfr+6owEYugUxmUecgMO2DK33jL6FIgojuQwknB7AsQS++VrDDQE+SvJMeU1GKtmLSbcl0/mG1p61r6ntOTUzj6TPw+10fkVYZUFFwH4UwkxJG7A8RSiwsA3WgCJ0MrXw4AnarPWlFXPohvetenH/JIJOFdd6O/ClS2t6deVffLbfa1bUOnQCHqrAM3zXumt6GhnICV5jLYet18+PxFxsQ83MlmLLc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(336012)(44832011)(16526019)(36756003)(508600001)(4326008)(47076005)(186003)(70206006)(5660300002)(6666004)(426003)(70586007)(8676002)(26005)(2616005)(83380400001)(7696005)(36860700001)(2906002)(8936002)(81166007)(316002)(82310400004)(1076003)(356005)(54906003)(86362001)(40460700001)(6916009)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 07:13:17.7612 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a3f88aa-8c45-45ea-3a13-08d9bed133ef
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT046.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2504
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,62 +76,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Kevin1.Wang@amd.com, Evan.Quan@amd.com,
- Hawking.Zhang@amd.com
+Cc: alexander.deucher@amd.com, airlied@redhat.com,
+ David Yat Sin <david.yatsin@amd.com>, christian.koenig@amd.com,
+ daniel.vetter@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Power states are not valid for arcturus and aldebaran, no need to
-allocate memory.
+Am 11.12.21 um 01:55 schrieb Felix Kuehling:
+> On 2021-12-10 4:48 p.m., Rajneesh Bhardwaj wrote:
+>> When an application having open file access to a node forks, its shared
+>> mappings also get reflected in the address space of child process even
+>> though it cannot access them with the object permissions applied. 
+>> With the
+>> existing permission checks on the gem objects, it might be reasonable to
+>> also create the VMAs with VM_DONTCOPY flag so a user space application
+>> doesn't need to explicitly call the madvise(addr, len, MADV_DONTFORK)
+>> system call to prevent the pages in the mapped range to appear in the
+>> address space of the child process. It also prevents the memory leaks
+>> due to additional reference counts on the mapped BOs in the child
+>> process that prevented freeing the memory in the parent for which we had
+>> worked around earlier in the user space inside the thunk library.
+>>
+>> Additionally, we faced this issue when using CRIU to checkpoint restore
+>> an application that had such inherited mappings in the child which
+>> confuse CRIU when it mmaps on restore. Having this flag set for the
+>> render node VMAs helps. VMAs mapped via KFD already take care of this so
+>> this is needed only for the render nodes.
+>>
+>> To limit the impact of the change to user space consumers such as OpenGL
+>> etc, limit it to KFD BOs only.
+>>
+>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+>>
+>> Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+>> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>
+> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 10 ----------
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 10 ----------
- 2 files changed, 20 deletions(-)
+At some point we probably want to extend that to all AMDGPU BOs, but for 
+now the patch is Reviewed-by: Christian König <christian.koenig@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 05defeee0c87..58bc387fb279 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -295,16 +295,6 @@ static int arcturus_allocate_dpm_context(struct smu_context *smu)
- 		return -ENOMEM;
- 	smu_dpm->dpm_context_size = sizeof(struct smu_11_0_dpm_context);
- 
--	smu_dpm->dpm_current_power_state = kzalloc(sizeof(struct smu_power_state),
--				       GFP_KERNEL);
--	if (!smu_dpm->dpm_current_power_state)
--		return -ENOMEM;
--
--	smu_dpm->dpm_request_power_state = kzalloc(sizeof(struct smu_power_state),
--				       GFP_KERNEL);
--	if (!smu_dpm->dpm_request_power_state)
--		return -ENOMEM;
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 6e781cee8bb6..0907da022197 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -262,16 +262,6 @@ static int aldebaran_allocate_dpm_context(struct smu_context *smu)
- 		return -ENOMEM;
- 	smu_dpm->dpm_context_size = sizeof(struct smu_13_0_dpm_context);
- 
--	smu_dpm->dpm_current_power_state = kzalloc(sizeof(struct smu_power_state),
--						   GFP_KERNEL);
--	if (!smu_dpm->dpm_current_power_state)
--		return -ENOMEM;
--
--	smu_dpm->dpm_request_power_state = kzalloc(sizeof(struct smu_power_state),
--						   GFP_KERNEL);
--	if (!smu_dpm->dpm_request_power_state)
--		return -ENOMEM;
--
- 	return 0;
- }
- 
--- 
-2.25.1
+Thanks,
+Christian.
+
+>
+>
+>> ---
+>>
+>> Changes in v2:
+>>   * Addressed Christian's concerns for user space impact
+>>   * Further reduced the scope to KFD BOs only
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index a224b5295edd..64a7931eda8c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -263,6 +263,9 @@ static int amdgpu_gem_object_mmap(struct 
+>> drm_gem_object *obj, struct vm_area_str
+>>           !(vma->vm_flags & (VM_READ | VM_WRITE | VM_EXEC)))
+>>           vma->vm_flags &= ~VM_MAYWRITE;
+>>   +    if (bo->kfd_bo)
+>> +        vma->vm_flags |= VM_DONTCOPY;
+>> +
+>>       return drm_gem_ttm_mmap(obj, vma);
+>>   }
 
