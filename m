@@ -4,118 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E5DCC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 02:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B73C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 03:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E58D910E872;
-	Tue, 14 Dec 2021 02:42:44 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2075.outbound.protection.outlook.com [40.107.95.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9CC810E872
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 02:42:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28CBE10E813;
+	Tue, 14 Dec 2021 03:16:56 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED2610E813
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 03:16:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=me8z9nZbUj3NFO7StttVo4BsS1jbyp+7UHVmv90bp+jl2QotJnyosvbL4Z7CCClxr6W7rleYc7zzdXaO4ChVkEGjTJaE2J/kjC4LXX0uyrAhK4VLUuFnOpeSC/vF9ahLb41/5n1uO9HyJJga7cTP/uqICv41v6gRWwshBUWI+guCGqAzt3WD6+bH3YU+WqhHN+oKQudSk423io6wwgFW8x5GnG31ZZJbJTcoxGU5Oq0klBS8RcZAHUm6ZlbmZyqED90JxI9mQ3lU0oqfEoVD0VM+A7fn3bqRX0sxnZ/YAj5GRBOmRZGX7cy2HzDkLq6RN678HauiWcwWiTlTsG4EIA==
+ b=X8Jz2wDpMpi4/2OU8qjJUUfH0Fn7t3+/XMnQkjIb67JtZvlHDHUlakKtFZ0nEGH3l4hVRPT2PlNCd55Q6OkElv479EnuJuzrI0Y7vKBYQqAr4C6WvJmmSbzbBfBtecaeptC3NOThFZyrGMripO6QgH/ucDDyxgH2noxXmDGLJlmRF+PAWHM0KRzq9GoCBiNN2QYEyWjoSuI9kI0AEmlGzH3vbVhFYsGoatznlyWLHuO7VXbTB4oUJa4vUgUcSC1rFuQuu2b6vD5NQJwGjry0Fm9GdIyot5giYf8YZ4W4tsrrvQpn9guyAR4yAnICGLLKoXIW4v9TPkajQQDl8VC4Vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pyd+Axs7O0cYDMRdRsQ7DpOj65uh+SKmeEMbuR9Bwkc=;
- b=DZvvLaAjlhR1kGgZncEbnkoyyT/qA9Vg/i2FAHDbCmOaZC24Jx6NWdRUwOjifAzUuBxNVcDQu4gcLyd+D9DNOG2uRfQmz5ZiDZbYdDeOLrIw6c9x1z7JCBXdQURy81jir2v+fdllf7qmcfCYdLO2RVBgOn6owGRf1Mgv96R9WoMwxBQFp2cvqbCI4Wrq1y31BLMoUcRd6P6vvidYil4531cDQpe8FsPhGbeuPWC2jzkTTtzD+gpvR92XypO9oVbNVZ+y1LVQ+BFZcRd/6XK2ghL81/YvKSH+YF3r0e33f7IMFVJRemgUOZIaxCDHlW1ev0eAm4MUhXfRJ1VGV17+fg==
+ bh=UPgqPMJTu31m3h+xL6dOF46g7yfCfSYW5Xwo5+gNfl4=;
+ b=Jn5gqa4cYz1JsF3Wak/s5lD96wCYR5rtC2gsGrshxv2TVG11tfvpK+qnsGplfQF+w3ELx9mjn4S+HiMvaTzvmS6uNklIzANmJfIPCHy1PNNNY0Ba75BEHH6JG3ai9SHJc/zgLQDfz0078/SGs4SaGbGmxZLRBg9/BBwkjJfr2HSaxHI/Iq4Q5GrvPNakgNN4enwF7lNppGvwHI9pMHypm5Y48zKRtmy33n16EetMn1i38BomoL5x8YZqD04CgXCeOa1LzUFz4ZT8gzhObT+afPhWbvrrB5Y4m0hwFMra4sbQi24BoJCJbsRMMAUYpOKEwS9R3cBQzaC/2IdiUihLLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pyd+Axs7O0cYDMRdRsQ7DpOj65uh+SKmeEMbuR9Bwkc=;
- b=P2jDEjOOCbJhpFowMinJ6i/eirjdm0gaWKx52F4HZPuZ/BHf1HeIgvCOd5zEKUj/JbwYvzgXbhCIWYxAYcrf7ELLo9o7Vxa6EDY66xohG4WrDGDdgvYouz52VZ7eMR5O/EZla9og+FqbVw+nvsAtS5fl7jyvSIwtdlJhO0TFA/M=
-Received: from SA0PR12MB4510.namprd12.prod.outlook.com (2603:10b6:806:94::8)
- by SN1PR12MB2365.namprd12.prod.outlook.com (2603:10b6:802:2e::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.15; Tue, 14 Dec
- 2021 02:42:41 +0000
-Received: from SA0PR12MB4510.namprd12.prod.outlook.com
- ([fe80::9481:9017:a6a:3028]) by SA0PR12MB4510.namprd12.prod.outlook.com
- ([fe80::9481:9017:a6a:3028%8]) with mapi id 15.20.4778.018; Tue, 14 Dec 2021
- 02:42:41 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=UPgqPMJTu31m3h+xL6dOF46g7yfCfSYW5Xwo5+gNfl4=;
+ b=C0nF0MVN0wsyp14VIPvq/qvlLSNpYxuho3fMHp5EAKV9lLNWAG/jFZ4/sYc3eWwyHObnPrmctYi33gNZgXhqpeGLSykoD0JFTc1mA+275aCqFjcwxIb0kpv0ALPQQ4MZhfg+TGMxjauAAM0IDna/Ens9vY53oVFpMEe7kRv2nqM=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ DM6PR12MB2892.namprd12.prod.outlook.com (2603:10b6:5:182::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4778.17; Tue, 14 Dec 2021 03:16:52 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::3562:eba5:418b:b43e]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::3562:eba5:418b:b43e%5]) with mapi id 15.20.4778.017; Tue, 14 Dec 2021
+ 03:16:52 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2 1/2] drm/amd/pm: fix reading SMU FW version from
- amdgpu_firmware_info on YC
-Thread-Topic: [PATCH v2 1/2] drm/amd/pm: fix reading SMU FW version from
- amdgpu_firmware_info on YC
-Thread-Index: AQHX8DNU+JEcsXFL8kqXKkIyUwvY86wxR7yAgAAAPuc=
-Date: Tue, 14 Dec 2021 02:42:41 +0000
-Message-ID: <SA0PR12MB4510CA0476D240F6C39329ACE2759@SA0PR12MB4510.namprd12.prod.outlook.com>
-References: <20211213150842.21141-1-mario.limonciello@amd.com>
- <DM5PR12MB2469F11AABDA9E7A723EA67CF1759@DM5PR12MB2469.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB2469F11AABDA9E7A723EA67CF1759@DM5PR12MB2469.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
+Thread-Topic: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
+Thread-Index: AQHX8FiFJ0cmjAHNmUSSO7lZpleR6awxUPZA
+Date: Tue, 14 Dec 2021 03:16:52 +0000
+Message-ID: <DM5PR12MB24693785E4E9F4543D5D60EBF1759@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20211213193402.96278-1-kent.russell@amd.com>
+ <20211213193402.96278-4-kent.russell@amd.com>
+In-Reply-To: <20211213193402.96278-4-kent.russell@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-14T03:16:28Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-14T02:33:59.0000000Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0; MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7f4e7385-27b9-4909-bf3c-1d032d7d88a5;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2021-12-14T03:16:49Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 447d987e-7401-4279-8d3f-7b1e01e02c68
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 765a976c-da27-435f-5e49-08d9beab6634
-x-ms-traffictypediagnostic: SN1PR12MB2365:EE_
-x-microsoft-antispam-prvs: <SN1PR12MB23656C6671A44030EA068022E2759@SN1PR12MB2365.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3631;
+x-ms-office365-filtering-correlation-id: 556e5432-3f30-47da-d9c6-08d9beb02cc0
+x-ms-traffictypediagnostic: DM6PR12MB2892:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB2892E777166BFB2589F601C0F1759@DM6PR12MB2892.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4502;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: +SoRLddffi6JxiAn+oYx0Y10qKN9Q3L/APUvIazK5/mcr0oF6wCEbBVFaRnR3SstGohQGLicMWV9vxZdjPhbTXKukGSIJAFLNu5hQoLi3KvC5vWH4Kpaj2cJddhL362afUMdmoOIB9iPzAgSRuxWM9byAekQlXBQWDlXYYg58mP2ybJ02Bf7K2aM8JyCcmtEk0NACFbpXGzdIayQIMlZuVNDKZvmdrpKoA5qF/NHAD32uRii3Uqpag+d0s75VE267OpzqrrThQrMkrl+z/cQrolKZfvyepCBThjDTWaEBFiSQAPEl71FSF0Tb6eZBfj+URvo1lciCUMRntCsSFv8zfB3QIl/fKkRxqugPW/uBw0S0EMGvLYZSAIyyKaeXtavvERc4woM7OcdSvTDasD7Qhz6/DQfjkI8AUBFlxjCp0sFdJfgYQ6A0aDMNdUFSzpU/TaqCKVxM57edsccmSx2ofR3uIVjIHdFlTNqTwG57w2kbeEMyopRllTXoyM6+9mMzFKoKyGadsTVBSNh//5zQFpCuIokzk+JUOeXnNB7L9co3T86Wqx6Cn2Aa6VhJLD2olc7RZX+ervwCG8nSqvyrigy3j8RaaPdPL/mzDL5L2x192NetQgQoNUXGBCb/a2aF/BJTHKgdnij+7wAbMoCkycvFximU1Qj59Wbg4siYj7xD+SCZqsNOnfPugKAzP1PQgbPEYSkhR+T/fjZwDLcVyC2TX6rsPsKRAEW7xlYeed3oXepeRNJsuKXpQR94ukAtPKaSmMHV6o0GouCSmNarSTech9ZpK5RbEA90oXmegU=
+x-microsoft-antispam-message-info: UKfAmEUp/nGkTd/TfU/j2aIsCimNMPdK/Hb6FwYYhu6Rrra02leWPLuuKsa4T4lCHO3E8rZKVNS2X1OpdE7YpMBvgvpEQkIpDLUJad7PPuuRk3gwUPC6SG/KfzoUSEblcAMA+3SXtNo81qHgIOqeQV5q0KPw7uWxp4iex6gDFGujB22kU9v5NK1T+S1sY3QzPxbIq9pM7yRUjwv45i8yq0548B1RCpxF172hHbx9Kf9Fq8Ov+BzaIVPeABwgdF/c8r+smVEnVSFmeuVM681sq7pA31PBBnYpLWkTpE1zVrv7VQCg+hQyM4XJ8duiKKoz0eZGdHd4I8KjvaIJpZeLv08sZ3XVnO58e+Ho1qr3VrjTFDO+Rq/osl2cC1lAdxnBdQhVuXo59+Zngov35BJDpie/yogWEMGCIWnmYTv/vvAs4QIQuEczwjIhIb+qHMWXjFbBQ4rbVCOucwLd+v90C+6N4HZjGdbz1mkjBLzyMQIt4rYd4jgMDmMQQ4tO0PBemmu02qsy+R8NDV8rtWaUUY6bWI6DGrTnbMjmUV36lzk7499AxC24v6fM5n2GtHnLIU4/smCPx+Nu5gxTvHnbEFoR50DbsVKpaPTKEZFqlXhNPCQ2QbOKiz9ulPzE/Hx6aofHZibY5RmrbdD816GZPmVgkFoyl99u10HSmfI3weV1sLe07OiOFQBdWWmQO3BdWcYz3yPtaYMvvx8PmOC0RA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4510.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(55016003)(9686003)(64756008)(83380400001)(66446008)(76116006)(45080400002)(66476007)(52536014)(66946007)(8676002)(53546011)(2906002)(110136005)(66556008)(508600001)(186003)(71200400001)(33656002)(6506007)(122000001)(166002)(5660300002)(38100700002)(26005)(38070700005)(7696005)(316002)(8936002)(86362001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(38100700002)(53546011)(2906002)(6506007)(7696005)(122000001)(83380400001)(38070700005)(8676002)(66556008)(110136005)(9686003)(508600001)(316002)(33656002)(4326008)(66946007)(5660300002)(86362001)(64756008)(71200400001)(55016003)(66446008)(186003)(26005)(52536014)(76116006)(66476007)(8936002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YZmOVDSMDhIZPXfN58ieFSljhgqYjDgGrrNBmw1HUfhCuMSPVL3I1zhvkXOc?=
- =?us-ascii?Q?UbQ94YJnHviUIisnJS9uG7mwZLhVEtwOtHlMa5oehLFlNkcLrIyypEN5YKvO?=
- =?us-ascii?Q?NwtLfoULu4lg3hkb9bdlUdshfgl+/IljNoXj+t0fpjJZZQ1zZBOGJEbnHiXB?=
- =?us-ascii?Q?GPLXRst783r4tO1ZdM/raxBLNGbCd+osXzzYA/NB45F2b0rmGp2qcYNOANCz?=
- =?us-ascii?Q?lM5oruGEZsyjaDOx0H75ORrDDJKxGTyGvtwrz0B/80EPi3muUjWIBhFt/Vim?=
- =?us-ascii?Q?K+uC27uqF//0BVrks6/BBiZOiLl+594S0qKgSsQU3+NKrkfh1DQnLcP5849x?=
- =?us-ascii?Q?9HpOa1wxoBFIUxtMxZqyKx8yAfWGaMbLFhteGUDot73fYHck3cGjnOJyz+z/?=
- =?us-ascii?Q?NLfE+hd/x4rcXQc84svA0NQpfnHNNJpAqbL2o8klmcc7xZGDtxc/jsNyeD5j?=
- =?us-ascii?Q?EZFpRQtXdEN5d+LiQE1Omq8xVTabFFKxkNDyGb+Glmyv0Uncgz+x0q3i1wjG?=
- =?us-ascii?Q?UWdU/MoBbE55e2H+2L19Oo7BnMgLONc+pDu3Dc7Jmhzk1TwTbF6js12WFsdE?=
- =?us-ascii?Q?/qeWaxTp7QGgyWjPUwAb+rDTIURioSfiavl6aB7Q1DmeGGT03EsPvfqunCX2?=
- =?us-ascii?Q?J+hxgEoTr/5LF2YQ//8rkTgiAURuzO2fObEBElGFgUOChn1i9b351ZW7sREF?=
- =?us-ascii?Q?fv2LZ43FcPaA/EDSn97cVl4KAIngjMFcwbYEyRoebRy325bwe5BA9OtBX/Pg?=
- =?us-ascii?Q?06eFspcqV7LHcn6SYjFHje1hHK2T69RnDL2+ZD5M3dyTo5PrZ1ZpO2MkXqqY?=
- =?us-ascii?Q?zFFF8udu6w/9bLkp10OZwdiq9XbCtEy4XK33q/tuelK8odK3iR46bgDs4+XR?=
- =?us-ascii?Q?VIN23WakQd32ZKfIiAwyh4PruIpuw4S0p+3DiD3Ry04tVk0I8c0MZNyGSnhY?=
- =?us-ascii?Q?WMbG5I0N30fzPWSpACF/FKNwF6NGGf22jeFPjvrRHw2atseAavGcWNn2eXOC?=
- =?us-ascii?Q?0lJ8AgjTcVOhXCCo5KvIeG4u+4+FljrG3d05uX0irXgoHyBQNPt7RlIqD4i3?=
- =?us-ascii?Q?Gk0BpWORuxS7odLuCyVbKLPHLMX6RdEcLwkASLR88QCoJkScmWdUxspRLZHb?=
- =?us-ascii?Q?3az8iQDOf5L6h34VHcyQAhjDTGIgswP/TAf1oKGMYE5/AiITzOSOTNI113Py?=
- =?us-ascii?Q?ehEYmO/7Xisp+G+rT5pe53zs7gT3DQhBGcT7nMcZME8A2Kb1SZr5ja9U/GZB?=
- =?us-ascii?Q?BJYReRTyqNVzxB7KjH5vmmUN8LLX2MLW0Q9REQ7OSh2JM+ldZVjDTQJRndqN?=
- =?us-ascii?Q?mKiR+XXlKcGE4kf7T/nY/aKpKsacHvH5sCcqDyGWg/+u7tj+pCoxR6IQkc1w?=
- =?us-ascii?Q?P1gJvEtS54Qsohi2U8qGaxLlftgK/9wZFZbNMcG8qrAenCpbnjZqhFmkIGWR?=
- =?us-ascii?Q?14VutNhhPHHRVLkahvTsQsogBFOnkQt7rcVCUH7AMciS//QGs1k4oKww5Bfx?=
- =?us-ascii?Q?sE75KwinNcmCcavUA/iDv76OOc6mOeKBlFmGqo6nIzy43Se2JsePqpiAmR1z?=
- =?us-ascii?Q?dmyTFg/dWc5hl/21RnCFILXnqpt4XZDPqLgZfHAqayNieSLsQAllbOFHeCIR?=
- =?us-ascii?Q?4W8aDAcKhpA6Bj63VsOQ6PKuES78BvvgBSSHXPR5IfLQ?=
-Content-Type: multipart/alternative;
- boundary="_000_SA0PR12MB4510CA0476D240F6C39329ACE2759SA0PR12MB4510namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sJeotjxjJEYdncOkQUdm1wCrY+NWeEUWi+mnw7jgkj9XYwfSoZ0j7u8w3kp2?=
+ =?us-ascii?Q?TSYxu4GCMO18cr4CEalOOlRcB3yPWdVOUw9q16Bk7iHfGMeiaprfHaclpuKe?=
+ =?us-ascii?Q?45aCjKRdAwTF/Nr1fcUhcnDbZB3KVw7+tM30lQn6eHxO/wkdCSInMAXsBIM3?=
+ =?us-ascii?Q?/fCsGzykm0wUSizY8Iouo13gkq2zRlvvZnvPXz3uNNZxb2wjZOmvwyS5nhWE?=
+ =?us-ascii?Q?+gVikVH3w3pALsoajyp4eYVF54hLXiIs88c9sF7oqJfzaWk6v2qDOyuEh4cZ?=
+ =?us-ascii?Q?l8+rKBtlskthwTHGaNoRxdlc4HX1QhrbevWcN9Fqk1KlY4j8Vte9tAvT84J2?=
+ =?us-ascii?Q?dyHjkac4FHkC2Y+FdKQJP+bcFEEBDjFPicREMBEGMauRbq5QFOmUHTRdI9LT?=
+ =?us-ascii?Q?nPlrprHpmeLvrc2VvucmJ4SQHLUjntvENoqsfP11vS7tqYA9RP4vMomdZiba?=
+ =?us-ascii?Q?Xnz0c5HGoKfCWkgMwSYE1sRv03mg7JdLrdAJtiEJ+7j1gJ25Zpo1I/L+b8E7?=
+ =?us-ascii?Q?6RvywyL9KLZckv+jYldX5D7qGhwxDIGCXjQb1KhI9lTAu6xhR8TP+ZSRDDQW?=
+ =?us-ascii?Q?8RZruNvRd3vvT9jVVM6BWZmM7NWrf4hA/RacsxuipXpCoEcGiQDviceecuuA?=
+ =?us-ascii?Q?bQ0Sjw9rvT92STKlrPer2kWzYxhpZBYnYAIxNxm495EiqvF8z/nafRF7fm7F?=
+ =?us-ascii?Q?E9ZmRZCbdgjkP9A9uekCaRlUmozNBM66+eGj1LnQpFnwrHLvkNaJRxIAt3Gf?=
+ =?us-ascii?Q?LdCncA7RDuFljMBy5QhA/ydr1kPAMAKkkKiJv4DRiR2sID/oTnOOSGTVoLmI?=
+ =?us-ascii?Q?3/wkO03OLdF4z7q1cH98km4yKgVq47ZfHLbvN2YpmG2bTrkjZHzHd/jRVqbo?=
+ =?us-ascii?Q?Mg6mEm1QMWIr8MBt8rrRJ/tY56Tq53N1U0Xia8w2EXJUcCSneV062C6R6NZq?=
+ =?us-ascii?Q?t5INkglzfQxHUmTZc2404DQjIP+0BFFCC2KhqPAffgoTsP/4OXr0dc1ccYlk?=
+ =?us-ascii?Q?sU1IsjANKdxHLuTY0sprQ8rTdoFjO3D5FIB8iTGvctxZPfMSmmFf6kGKOJQS?=
+ =?us-ascii?Q?IOvrerOiI7MCcSbbwXvYq8I0bZk4kUPXMPf7EnzhD6KP3t+QyX4OkWcdcXVo?=
+ =?us-ascii?Q?yIUYqCG+UmLr5dkkBMryJrs0mWT4c31HSWRkzzltmmvR6y4nu3yog6HzMwUX?=
+ =?us-ascii?Q?K/2zQ9cmmeFaqOJvhYIwa15vAN4ubdddSwEda0lxsRmHmiQnDWznogZ/KRTC?=
+ =?us-ascii?Q?oAVcqXLAw66fwzYLvz/D+tG8G9wGicHUGFzUnh0U0iE9hwcPNgsTdvAvuitI?=
+ =?us-ascii?Q?HxXxpzGNJkw1/Lh5+uCtMdCqd45xxZ6avDDnvDnm8OQFIr5Zinvz82QBflcQ?=
+ =?us-ascii?Q?Im+7ylB/S5y2iP20I+pLn2rg13A5hqyG4KmoW0FULEn4BXNNJt5WqaKkoYpg?=
+ =?us-ascii?Q?ntrbUI1dQyp1/TJxWuLxFL6Mb0TyZt7oybDZSyEsHlbRdvSyazKe0zBr8WBt?=
+ =?us-ascii?Q?H4G1wGFNKDslVr54I6ATMmkCh9DeCOzNKeCWEGC/aYfQN3wUFm0rl5LFw8yN?=
+ =?us-ascii?Q?Xix5ybioTDhWV2L+SkigpinUuYvgUsDT09Dxkym9zhIZ/bWoDFEIiT4ofZLN?=
+ =?us-ascii?Q?/Cf2cjRgOYxdlpQVDKQX5tk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4510.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 765a976c-da27-435f-5e49-08d9beab6634
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2021 02:42:41.2590 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 556e5432-3f30-47da-d9c6-08d9beb02cc0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2021 03:16:52.2431 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hZ3XSXNpoMOlEmooYVRqVCOP6T9gnZQeNGqxzFgpv2v3RukfvMP/D3kK2aT9/EzpJmcU+byw5RerJoMbNiplRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2365
+X-MS-Exchange-CrossTenant-userprincipalname: Ym53fHVajut7M02fAfaXQAywDjHerECTd6TJdDzxxQrUnbs1K2JtirwnzBFzGAlfcyeQJ2D3Ai3tn7REkz0UKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2892
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,187 +133,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Russell, Kent" <Kent.Russell@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SA0PR12MB4510CA0476D240F6C39329ACE2759SA0PR12MB4510namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-I've pushed it already after Alex's review comment. I'll send an extra patc=
-h tomorrow for this extra cleanup.
-
-Get Outlook for Android<https://aka.ms/AAb9ysg>
-________________________________
-From: Chen, Guchun <Guchun.Chen@amd.com>
-Sent: Monday, December 13, 2021 8:41:17 PM
-To: Limonciello, Mario <Mario.Limonciello@amd.com>; amd-gfx@lists.freedeskt=
-op.org <amd-gfx@lists.freedesktop.org>
-Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
-Subject: RE: [PATCH v2 1/2] drm/amd/pm: fix reading SMU FW version from amd=
-gpu_firmware_info on YC
-
 [Public]
 
-A nitpick.
++	if (adev->asic_type =3D=3D CHIP_ALDEBARAN)
++		offset =3D 0;
+=20
+ 	if (!is_fru_eeprom_supported(adev))
+ 		return 0;
 
-As we have defined a local variable 'adev', so code like 'smu->adev' should=
- be replaced directly by 'adev' in the function to make code clean.
-
-With above addressed, the series is:
-
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+I assume the logic should be adjusted. It's better to put the asic_type che=
+ck after is_fru_eeprom_supported.
 
 Regards,
 Guchun
 
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario Li=
-monciello
-Sent: Monday, December 13, 2021 11:09 PM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kent Rus=
+sell
+Sent: Tuesday, December 14, 2021 3:34 AM
 To: amd-gfx@lists.freedesktop.org
-Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
-Subject: [PATCH v2 1/2] drm/amd/pm: fix reading SMU FW version from amdgpu_=
-firmware_info on YC
+Cc: Russell, Kent <Kent.Russell@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
 
-This value does not get cached into adev->pm.fw_version during startup for =
-smu13 like it does for other SMU like smu12.
+This is supported, although the offset is different from VG20, so fix that =
+with a variable and enable getting the product name and serial number from =
+the FRU.
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Kent Russell <kent.russell@amd.com>
 ---
-v1->v2:
-* Run on all v13 APU to match v12 behavior  drivers/gpu/drm/amd/pm/swsmu/sm=
-u13/smu_v13_0.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 55421ea622fb..7fdb63da1316 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -196,6 +196,7 @@ int smu_v13_0_check_fw_status(struct smu_context *smu)
-
- int smu_v13_0_check_fw_version(struct smu_context *smu)  {
-+       struct amdgpu_device *adev =3D smu->adev;
-         uint32_t if_version =3D 0xff, smu_version =3D 0xff;
-         uint16_t smu_major;
-         uint8_t smu_minor, smu_debug;
-@@ -208,6 +209,8 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
-         smu_major =3D (smu_version >> 16) & 0xffff;
-         smu_minor =3D (smu_version >> 8) & 0xff;
-         smu_debug =3D (smu_version >> 0) & 0xff;
-+       if (smu->is_apu)
-+               adev->pm.fw_version =3D smu_version;
-
-         switch (smu->adev->ip_versions[MP1_HWIP][0]) {
-         case IP_VERSION(13, 0, 2):
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_fru_eeprom.c
+index b3b951fe0861..124376b666fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -56,6 +56,8 @@ static bool is_fru_eeprom_supported(struct amdgpu_device =
+*adev)
+ 			return true;
+ 		else
+ 			return false;
++	case CHIP_ALDEBARAN:
++		return true;
+ 	default:
+ 		return false;
+ 	}
+@@ -91,6 +93,10 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *ad=
+ev)
+ 	unsigned char buff[66];
+ 	u32 addrptr;
+ 	int size, len;
++	int offset =3D 2;
++
++	if (adev->asic_type =3D=3D CHIP_ALDEBARAN)
++		offset =3D 0;
+=20
+ 	if (!is_fru_eeprom_supported(adev))
+ 		return 0;
+@@ -139,7 +145,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *a=
+dev)
+ 		len =3D sizeof(adev->product_name) - 1;
+ 	}
+ 	/* Start at 2 due to buff using fields 0 and 1 for the address */
+-	memcpy(adev->product_name, &buff[2], len);
++	memcpy(adev->product_name, &buff[offset], len);
+ 	adev->product_name[len] =3D '\0';
+=20
+ 	addrptr +=3D size + 1;
+@@ -157,7 +163,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *a=
+dev)
+ 		DRM_WARN("FRU Product Number is larger than 16 characters. This is likel=
+y a mistake");
+ 		len =3D sizeof(adev->product_number) - 1;
+ 	}
+-	memcpy(adev->product_number, &buff[2], len);
++	memcpy(adev->product_number, &buff[offset], len);
+ 	adev->product_number[len] =3D '\0';
+=20
+ 	addrptr +=3D size + 1;
+@@ -184,7 +190,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *a=
+dev)
+ 		DRM_WARN("FRU Serial Number is larger than 16 characters. This is likely=
+ a mistake");
+ 		len =3D sizeof(adev->serial) - 1;
+ 	}
+-	memcpy(adev->serial, &buff[2], len);
++	memcpy(adev->serial, &buff[offset], len);
+ 	adev->serial[len] =3D '\0';
+=20
+ 	return 0;
 --
 2.25.1
-
---_000_SA0PR12MB4510CA0476D240F6C39329ACE2759SA0PR12MB4510namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-I've pushed it already after Alex's review comment. I'll send<span id=3D"ms=
--outlook-android-cursor"></span> an extra patch tomorrow for this extra cle=
-anup.</div>
-<div><br>
-</div>
-<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">Get <a href=3D"https:/=
-/aka.ms/AAb9ysg">
-Outlook for Android</a></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
-un.Chen@amd.com&gt;<br>
-<b>Sent:</b> Monday, December 13, 2021 8:41:17 PM<br>
-<b>To:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; amd-gfx@li=
-sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH v2 1/2] drm/amd/pm: fix reading SMU FW version f=
-rom amdgpu_firmware_info on YC</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Public]<br>
-<br>
-A nitpick.<br>
-<br>
-As we have defined a local variable 'adev', so code like 'smu-&gt;adev' sho=
-uld be replaced directly by 'adev' in the function to make code clean.<br>
-<br>
-With above addressed, the series is:<br>
-<br>
-Reviewed-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
-<br>
-Regards,<br>
-Guchun<br>
-<br>
------Original Message-----<br>
-From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Ma=
-rio Limonciello<br>
-Sent: Monday, December 13, 2021 11:09 PM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
-Subject: [PATCH v2 1/2] drm/amd/pm: fix reading SMU FW version from amdgpu_=
-firmware_info on YC<br>
-<br>
-This value does not get cached into adev-&gt;pm.fw_version during startup f=
-or smu13 like it does for other SMU like smu12.<br>
-<br>
-Signed-off-by: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
----<br>
-v1-&gt;v2:<br>
-* Run on all v13 APU to match v12 behavior&nbsp; drivers/gpu/drm/amd/pm/sws=
-mu/smu13/smu_v13_0.c | 3 +++<br>
-&nbsp;1 file changed, 3 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-index 55421ea622fb..7fdb63da1316 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-@@ -196,6 +196,7 @@ int smu_v13_0_check_fw_status(struct smu_context *smu)<=
-br>
-&nbsp;<br>
-&nbsp;int smu_v13_0_check_fw_version(struct smu_context *smu)&nbsp; {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&g=
-t;adev;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t if_version =3D 0x=
-ff, smu_version =3D 0xff;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t smu_major;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t smu_minor, smu_deb=
-ug;<br>
-@@ -208,6 +209,8 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_major =3D (smu_version=
- &gt;&gt; 16) &amp; 0xffff;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_minor =3D (smu_version=
- &gt;&gt; 8) &amp; 0xff;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_debug =3D (smu_version=
- &gt;&gt; 0) &amp; 0xff;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;is_apu)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;pm.fw_version =3D smu_version;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (smu-&gt;adev-&gt;i=
-p_versions[MP1_HWIP][0]) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(13, 0, 2):=
-<br>
---<br>
-2.25.1<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SA0PR12MB4510CA0476D240F6C39329ACE2759SA0PR12MB4510namp_--
