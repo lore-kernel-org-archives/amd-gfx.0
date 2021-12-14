@@ -4,62 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2007C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 14:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AFA5C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 14:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AA4D10E549;
-	Tue, 14 Dec 2021 14:54:08 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF2B210E547;
- Tue, 14 Dec 2021 14:54:06 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id v11so32784215wrw.10;
- Tue, 14 Dec 2021 06:54:06 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE11410E54F;
+	Tue, 14 Dec 2021 14:54:33 +0000 (UTC)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EFF910E53D;
+ Tue, 14 Dec 2021 14:48:30 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id h24so14492165pjq.2;
+ Tue, 14 Dec 2021 06:48:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=QHcUAfEad7WKaEaeKkLn7LFVZww3lXYZUw4oQRq9+tU=;
- b=BECO94Qf+icNNuF+N/ts4ObCn6Ncn4/JdMOyQl4d3TMSz3OV1aRdYNCeSgVO4HwMNq
- DWReQKBIgjgwr9qr9IrJ/WXkov6RV5Pgd38M1W9UfdWeiQ+UYiJI5K46SPV3wZ2jFR1X
- 2NCz/xQfNhQcoZaItIchM4Zq2nQUBCB7BxS0tD33MX5q1rlgLlqsu3zIK8h0gisVdnQ4
- RxYeEASInhwmW2sW3uGJL6ozbUpZl7jPSzCkddiNbqzXsVfgiM6CW4SFrYD48ysY1fnj
- lWPITR0znyQoPMhDjXCvz/mOqOl2IqhxtOvRhqz0Lj0dH6zrqrk86OCeIChRKyKZZsOW
- 5wYw==
+ h=from:to:cc:subject:date:message-id;
+ bh=Iulmly40W1bDkhduoNsg+HBkwz1jkiNj6QQWr6cyxGI=;
+ b=bVQ0yxfqR4gM8cvY3QfzVLBcKqhQI0nJLVV4RQfceHzyjSNcQpSou3zvsdx2WTGUGv
+ xl3xVudr5Oeu4DaGKSB+/bmFlRpfPZkzOnRa1H6aIbsC1m4MCmw5UJhLd6/5njKfU0Wv
+ LVuCbgS74ETHCAJ5Thx3+b+i0JoWHn5tSodY/IzyHg61gXSXY8uALr9Nh4fcM31JEPyY
+ HEBkle6Lq92XyrBc94TZ4k6SoKkLl9hNzQO9/skGJZLIlcdpmU59AxMo6gNScBMD6plH
+ DgvRUzAY6bJ7HJoTd8IjJnw/tfzo/NgepRbYNbEOp0JGh8owSwHG7t/iSAMYsdI8LBHa
+ TdJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=QHcUAfEad7WKaEaeKkLn7LFVZww3lXYZUw4oQRq9+tU=;
- b=zhyCPfw6SO1g2NigkibEJj7dOhxdyS2TSJyncxs7FSVrgDA9WuTWI6ggEJuW/6zwIO
- uIlQHPNXynV6Td/4LAx7A4TQafor0q6iQ2H28rdWXlc+GSmSkjaaPh1psqID7mCmiM6z
- qqBq6dzHJ8luAm5pyYGviakAaHXOltYCB2sxvOV3eE7Yzzlo4NTrz+GPAkoN1LCmV8yH
- Ojch62DsmmNvzjebSzSKufxztLarsihVAdkC5ubQH29+Xgg35CQzusyEBQME1VhvOdAJ
- Ww+UeIXirxZi+A6qTjwxggAm5FcM35whN2Ss2El87fnd48uSWyxcfRFxeon7vTHxPmYX
- bsQQ==
-X-Gm-Message-State: AOAM532RPfK/f52mUwAHQL6OZxoPFI59FpbDCSdzQZ/LsHLX7szJtJV6
- UIqgMlUVZmxp4x3ytK/C0zU=
-X-Google-Smtp-Source: ABdhPJx51kLMiGT+xWuWKMZmjb7/M74p4GAa3jGXnjWTY3hsaSdXQfh6sVj/tCHskuH56l3fj/t67A==
-X-Received: by 2002:a5d:4084:: with SMTP id o4mr6432264wrp.47.1639493645360;
- Tue, 14 Dec 2021 06:54:05 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:65ee:6e65:8955:bfe8?
- ([2a02:908:1252:fb60:65ee:6e65:8955:bfe8])
- by smtp.gmail.com with ESMTPSA id d8sm91994wrm.76.2021.12.14.06.54.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Dec 2021 06:54:04 -0800 (PST)
-Subject: Re: [PATCH] drm/radeon: Fix syntax errors in comments
-To: Xiang wangx <wangxiang@cdjrlc.com>, airlied@linux.ie
-References: <20211214135217.24444-1-wangxiang@cdjrlc.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ba96bb4f-1666-32a2-68a9-8fe3d6e2c10e@gmail.com>
-Date: Tue, 14 Dec 2021 15:54:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <20211214135217.24444-1-wangxiang@cdjrlc.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Iulmly40W1bDkhduoNsg+HBkwz1jkiNj6QQWr6cyxGI=;
+ b=M695SLfKq2t6y/HQf1P3U/YUwsBqR7ngRQAPcm1JZ+UAwA17Bd03RLP2/1GutYDPHM
+ PqTA5YCLyNEqqTClexI1l9te43q0LAXJEOO5UY0ybRZ9r1EwBYz37085n4i6L3vwpdg3
+ YK7jNk6Lzq7UeICed2dpXNSejOjBV9Oms37n9LIY5u9tdaAMaSXzKQPYk9GqqIVSewoS
+ XtGCy8ZR9cIXGMsCL68Agl/m4GVX1ntxbBmmfahuikp4CnI2O+M6/TOgLRCIwNoFULP9
+ DIqEUG72+920OcSNezeBYHU9hcGYCTaKgjTBlejkYKvFzkzvU7KzhMfoaF2S2iNPCCll
+ sUmQ==
+X-Gm-Message-State: AOAM530IcqKIzigIWUbdMRKbvdbV2NCegVnIJmyFd9ziYWeURN4S7Uxh
+ GnNaayLY1dflcPkizWGHtfJfTsijixGsy63Dlr8=
+X-Google-Smtp-Source: ABdhPJwZ1uKUDFQaXtTUt03NxX7hd0yKn9NTGJLMfjB3K+xhXU208vU7PYQTDnm0wNMJOYtiw2zB7Q==
+X-Received: by 2002:a17:90b:1c8d:: with SMTP id
+ oo13mr6164377pjb.139.1639493309906; 
+ Tue, 14 Dec 2021 06:48:29 -0800 (PST)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id d9sm2556776pjs.2.2021.12.14.06.48.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Dec 2021 06:48:29 -0800 (PST)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: 
+Subject: [PATCH] drm/amdkfd: Fix missing check in kfd_parse_subtype_iolink
+Date: Tue, 14 Dec 2021 14:48:23 +0000
+Message-Id: <20211214144823.16057-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Tue, 14 Dec 2021 14:54:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,37 +62,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: linmq006@gmail.com, David Airlie <airlied@linux.ie>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 14.12.21 um 14:52 schrieb Xiang wangx:
-> Delete the redundant word 'we'.
->
-> Signed-off-by: Xiang wangx <wangxiang@cdjrlc.com>
+The kmemdup() function may return NULL in case of error.
+Add NULL checking to prevent potential null deference.
 
-Well not a syntax error in the sense of a coding error, but valid fix 
-anyway :)
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/radeon/radeon_vce.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_vce.c b/drivers/gpu/drm/radeon/radeon_vce.c
-> index 511a942e851d..ca4a36464340 100644
-> --- a/drivers/gpu/drm/radeon/radeon_vce.c
-> +++ b/drivers/gpu/drm/radeon/radeon_vce.c
-> @@ -513,7 +513,7 @@ int radeon_vce_cs_reloc(struct radeon_cs_parser *p, int lo, int hi,
->    * @allocated: allocated a new handle?
->    *
->    * Validates the handle and return the found session index or -EINVAL
-> - * we we don't have another free session index.
-> + * we don't have another free session index.
->    */
->   static int radeon_vce_validate_handle(struct radeon_cs_parser *p,
->   				      uint32_t handle, bool *allocated)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index cfedfb1e8596..59d55f752aa7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1060,6 +1060,8 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
+ 			return -ENODEV;
+ 		/* same everything but the other direction */
+ 		props2 = kmemdup(props, sizeof(*props2), GFP_KERNEL);
++		if (!props2)
++			return -ENOMEM;
+ 		props2->node_from = id_to;
+ 		props2->node_to = id_from;
+ 		props2->kobj = NULL;
+-- 
+2.17.1
 
