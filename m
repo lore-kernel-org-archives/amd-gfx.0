@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20A5AC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 19:22:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F5D2C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 19:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FF1910E150;
-	Tue, 14 Dec 2021 19:22:09 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC4D510E150
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 19:22:08 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- h19-20020a9d3e53000000b0056547b797b2so22012342otg.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 11:22:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6621110E15B;
+	Tue, 14 Dec 2021 19:23:36 +0000 (UTC)
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [IPv6:2607:f8b0:4864:20::c31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2205610E153;
+ Tue, 14 Dec 2021 19:23:35 +0000 (UTC)
+Received: by mail-oo1-xc31.google.com with SMTP id
+ v19-20020a4a2453000000b002bb88bfb594so5212308oov.4; 
+ Tue, 14 Dec 2021 11:23:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9yLYDwGx5cg1ntky6MqjaHTJ+/4qss8QGpdcFwkthKk=;
- b=OyoK+02PlCZX6XlJjNmNZqCTRxarLsNJBXiyftLt5nBAr1pw4dXDJMdhgIELyqvRzX
- DWvsMC8PBdSp6+84tPYRWeacv+DZjtKIByr4ZRdJuWpQqu3GOVHkWUUkuTNq5eifq6uT
- cSo5As3kNwMgY6s9gjbcUk++0te2sDT4UpQn8y+YqvRmzfOS9xiGjJJ/+AmON7jBQre1
- 7y4048RBZqhoLN2MqU4YEYD3zOyr9Ah+6J1nzT50oEE86kZ+8MgiU4NY+Z0O8KgxxCgz
- ne5HPdsBAr3uF+J3UpWLPqQEYIciRegfJB1uSykmdbmcC+b8pluRaKgMi339y+poTBIP
- piNw==
+ :cc:content-transfer-encoding;
+ bh=Ly7ashr0Abfix6SoCDJYNsr0pgjAfUrtoNa4BxcGFmI=;
+ b=DaubiwHwzJwXsWIRixjWAKO7YA+Njfarz7GWWLXaUfA2fcW40KoSMkWIh3y/Zkdxyh
+ BdXsnDNnEGn2GhdebKFdq7tXv/4MW3ZEK7emL9lvnOVwIPB8udu9qVCEX085iBt40FAe
+ eGrE6OmNnQjO/CHduWdRD9ucpoUFbkz+H6f+3IQox3dSQU4SYvd89vx/JvAJQFhrPmMl
+ D0h14/RP1SoYbCNAbMbEV5rI3Bnsc2shomrnanhui91YPDbEzrbz/2BQ6GPWWxUVpV6P
+ BsvQNY8RMOOQmXMxpnIi7V06SBq6apMW3fz80Tu4fpGNFJDDYjYP4qF0xN5mKRb3Vr+3
+ sSQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9yLYDwGx5cg1ntky6MqjaHTJ+/4qss8QGpdcFwkthKk=;
- b=yf4OdyjmnivbUcDD0zBsYBmDc09wcbgHlOzJ3uiRexnjq7S8kbXS/vJYD5VKs4JdDW
- OMVnDPSWf+sMDkNcOWpJPY3dc+30UAv6gIwGsoEIiYWawyd7euZdkK/0IxxNai8LIH9e
- CrYoH36x6lwTBqkXEzp8/x3JV4Ew0yh2hXOpPL3MX2eOs0uNx/FXNE64HYNaUTnnZzXO
- sQO+iUpjAO88X40/nJKiisozRqom5OANNs53WESO6EPEOh2n4gorYYHQT/i8ysYmezua
- +4zRMGlvsxnUTigEK+VEEwSzyrklmQwgEwR8xJW2w//Y12mVAHHdZ/6xo8PMOkwxv3gb
- Qd4Q==
-X-Gm-Message-State: AOAM533Xw/ivnoEHGOGAXIlpXcJhzuX2FLnmadbZgOSYP5mruY5ACclH
- 5WETED+VORFcQ7lCngvQIVRtnwjD+XisNK14xQt+g3iF
-X-Google-Smtp-Source: ABdhPJy5U8ShA6A8T2UdYV4soDwnZEFxnsVVCvAPqLjBAiCU8aWLy2PA0B1Ma4odPJoR+NRUXKdi38oG13Ho0yJpWlI=
-X-Received: by 2002:a9d:67c1:: with SMTP id c1mr5907475otn.299.1639509728008; 
- Tue, 14 Dec 2021 11:22:08 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Ly7ashr0Abfix6SoCDJYNsr0pgjAfUrtoNa4BxcGFmI=;
+ b=yDA/EMW4Pc7D4yi2DdmWUARIC1flzWgE35kuj6vEaT7L2EYC2Ef9xc+M+3C9yybGhE
+ 7EFytOWRJ1Imy6OJcDdtli3Z3X1ZvrXy0fc9jsTl9ZlX+7Yx0z1gxM11PKcSwdaF2Po2
+ Go8edkOVx/oZjQhTKXG83V+MmTBkjGeMQA/fXJCRKfMLNxsx9hD2hK+SW72+PgdEv0e8
+ HXvEJjRwGS5TEIXFFQH44o56PE0OeSWXdapozDnftglYsoHW5sds7dR3qf80XKDWo22k
+ a8MM751GIpRqP1mbvSH+GQvT8tq1cMqUB6e0QD2lPFClqQ1mmchG+evH9FJCLX0bhatT
+ BBQA==
+X-Gm-Message-State: AOAM533AhpiZ+6nEsRobFc01nWNNqcuqe7/tnNRbLXLpTrkeJKWoyYZq
+ 3pFJgcTjfqhnXZG1erGJLUxZYu8Wr3kxPmIXCv0=
+X-Google-Smtp-Source: ABdhPJz/pMYwME4RUdHlSZKIwCyCbYPbaG8SyeKTNS+1TSa4EuIzL7K2wrWvAQGoXRVaGW3cZxi1o4susTjozQai9T8=
+X-Received: by 2002:a4a:8701:: with SMTP id z1mr4746722ooh.68.1639509814392;
+ Tue, 14 Dec 2021 11:23:34 -0800 (PST)
 MIME-Version: 1.0
-References: <20211213233030.6719-1-ydirson@free.fr>
-In-Reply-To: <20211213233030.6719-1-ydirson@free.fr>
+References: <20211214135217.24444-1-wangxiang@cdjrlc.com>
+ <ba96bb4f-1666-32a2-68a9-8fe3d6e2c10e@gmail.com>
+In-Reply-To: <ba96bb4f-1666-32a2-68a9-8fe3d6e2c10e@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Dec 2021 14:21:56 -0500
-Message-ID: <CADnq5_Mn+WeLWNoe6FdN=4Ssbfi2v6o=XorQrzwxdda2Hgk7mg@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] Enrich amdgpu docs from recent threads
-To: Yann Dirson <ydirson@free.fr>
+Date: Tue, 14 Dec 2021 14:23:23 -0500
+Message-ID: <CADnq5_M_VJ7jisaqJuq9x7GrUjQHCDLDJmwo+KNUpPuYgQEwxQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Fix syntax errors in comments
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,10 +64,12 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Cc: Xiang wangx <wangxiang@cdjrlc.com>, Dave Airlie <airlied@linux.ie>,
+ xinhui pan <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -72,39 +77,36 @@ Applied.  Thanks!
 
 Alex
 
-On Mon, Dec 13, 2021 at 6:30 PM Yann Dirson <ydirson@free.fr> wrote:
+On Tue, Dec 14, 2021 at 9:54 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> This series is basically bringing Alex' descriptions of the hardware and
-> driver internals into the doc.
+> Am 14.12.21 um 14:52 schrieb Xiang wangx:
+> > Delete the redundant word 'we'.
+> >
+> > Signed-off-by: Xiang wangx <wangxiang@cdjrlc.com>
 >
-> Changes in v3:
-> * camel case in titles (Rodrigo Siqueira)
-> * link DCN description to DC doc (Rodrigo Siqueira)
-> * links to email archive in commit messages (Rodrigo Siqueira)
-> * acronym expansion in intro (Rodrigo Siqueira)
-> * new commits for kerneldoc content fixes
+> Well not a syntax error in the sense of a coding error, but valid fix
+> anyway :)
 >
-> Changes in v2:
-> * fix typos (Harry Wentland)
-> * get rid of double headings
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
-> Yann Dirson (4):
->   Documentation/gpu: include description of AMDGPU hardware structure
->   Documentation/gpu: include description of some of the GC
->     microcontrollers
->   amdgpu: fix some kernel-doc markup
->   amdgpu: fix some comment typos
->
->  Documentation/gpu/amdgpu/display/index.rst    |   2 +
->  Documentation/gpu/amdgpu/driver-core.rst      | 117 ++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   2 +-
->  drivers/gpu/drm/amd/amdgpu/soc15.c            |   2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   4 +-
->  include/uapi/drm/amdgpu_drm.h                 |   2 +-
->  8 files changed, 128 insertions(+), 9 deletions(-)
->
-> --
-> 2.31.1
+> > ---
+> >   drivers/gpu/drm/radeon/radeon_vce.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_vce.c b/drivers/gpu/drm/rade=
+on/radeon_vce.c
+> > index 511a942e851d..ca4a36464340 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_vce.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_vce.c
+> > @@ -513,7 +513,7 @@ int radeon_vce_cs_reloc(struct radeon_cs_parser *p,=
+ int lo, int hi,
+> >    * @allocated: allocated a new handle?
+> >    *
+> >    * Validates the handle and return the found session index or -EINVAL
+> > - * we we don't have another free session index.
+> > + * we don't have another free session index.
+> >    */
+> >   static int radeon_vce_validate_handle(struct radeon_cs_parser *p,
+> >                                     uint32_t handle, bool *allocated)
 >
