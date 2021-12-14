@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E74C9C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 15:23:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07FD4C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 15:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6998E10E562;
-	Tue, 14 Dec 2021 15:23:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5D7210E564;
+	Tue, 14 Dec 2021 15:23:54 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D0310E55C
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 15:23:27 +0000 (UTC)
+ (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B625F10E564
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 15:23:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MeSUOI9inMGNaK3/lrcbiJMM94GgRJPUPRx4I/JH531eqDX2IUoX5Qesut9tG3vTS1sEJs+ucm0rX1Ix2icwrjBPjSy5bjfXJ4UoCjGbuul/kr/e9AFYjmFBYvUo+JTQ4HjbieBlxrceYFsL/woXaDHDO3Pv53XHmpbE8swdF3SSdIadKxAOkHgbHXiOjsQebGRo9ck9QRnFYtGrafrOupVgT0egZDu64AbTZbMgcm/GtwfEPxyqOIRfOTzFsDpqKcmOK6hloigdfolupdtUpmPE49auXIWm7fdhjehTcWgzXz63Nl9ObnOeFrhAegBpebAyZQBBy6FOdHgFCrSHsA==
+ b=GtbK6N2Us3JEAWEMwY/UJjeGS29AzRv2fEObxEMb9SQvdbHGoS0c3WueK3Z0bsjZDRGnFnvtGa06FFNwtH3mo9CYiLuVmYF2OEJnt1i0C2RuAUpApUsmCgbOzRzRb+mkBbOQysnMkYr3RxQ1bc0D2Az790hX5b+lTNM3uA5Gwdeu+Fj8BxWDKC9dslZq32/fGu5Km4cQ1q4ZKKsCn5Fmtttn5hPVbJVL0Hq7F/kNThLHTnQ1EG0VPBG7QL4rzzrGUb9kXJOvVaGEOeCOCPreSBsU8+jr3dh4qx/dEzlIxd9U9LfcZub6TlQM1uo9QoLsDIHgqzsBTecTs424U98YJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+c1OjgbtHVxXojPLqVI85j7ahMzS7ocu9MBYPvyzO7k=;
- b=C/U0i5QoHxnWgUKBneHdLEJMCMOQU4KbWcoKbPhVd+zIx80N41oYO/b2QVpXKOLMajZlNmjQsIK8y8idOvcXTSy5fyCZdB2v0OBluypmi+ffRAdSwoN6hw1kkQFem6uBbwbO/iWpVOVQDU2unhyMA7BYDvV7v40CtDgdg4V++qHuovhtiiw4WM2KP5apOnt4NJIhaCaQuBGAflYcmhhM2ORxjgwXbwYbeNxCIQ+/A3y5tSjuFKC27ECHrGQx+M+Fbh4f2JK9oS5bl+tCRy4KD3Ymp/HW80ghldhxiW8bOMKaJ7mgh2biDnZm1PAQ206eZ+byc4FqYMDccL12MVSTIg==
+ bh=3TiH1uvGYoUYOVyrWpa9ds3CmuVAtbzO5ue4NGIAY4E=;
+ b=mN7eUabnejdYwbkm42vf+6mGJJ83seWmO0GhqmoTzRlbWWCyc+zlrOnjCuDJiMFpA170rvpstA9D5MfR+qhGo6plKZjao6OsMsnxE1ATmHJN1O/o9kbUayKlnLJc/Lg1HerszFhLDZEEn3U2DEhrgPh2DttHNhQYjAHQEU3iRIOpEdlPDZAcsN+jmWdvJLyOhZy5O2cw4opNY2DhzVqcORRidicO/tKxQLqOXuI52aGFRDz0oSvw+rmbID8rZSI9WwhJZOI/IEluGQgTBw77CxRJ6ei2s4qiqcp79CAcQEMXCOPXCKupj5c4zRGp978JUlQdBLv+RelkKTJpQUk+qw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+c1OjgbtHVxXojPLqVI85j7ahMzS7ocu9MBYPvyzO7k=;
- b=AFPDga2VE1thpIpR5FMPeBZqekQR2M6dC4Ef3A07kVh6dw6v3DoWcrcyqjs3hAQ0kSdnk91f++G2l69lPaYDQ7tT4TAMF5Z8scFjVofhqn2EJulpxitR29wgMsM5KgEd2pcicEcMaL66HUDkmJi1WSnTcMUWz1eXIQQxuqvjGcU=
+ bh=3TiH1uvGYoUYOVyrWpa9ds3CmuVAtbzO5ue4NGIAY4E=;
+ b=cHvw6NnmGFUwd6Em9Kk9bR0Cgzu7xCKXYWnPmE+qDCvZRV9QBN65JzJOmuIfOFCYUn7XfA+diyQikLhF8t47p5gIh/Giwsn7P/vMBTOJnTmXa2ulMlupY5AP/s/lscqzSO5uAVs5qDMROwPS1rhmIrbYs/BZ2mMirrz4sonHevQ=
 Received: from DM6PR12MB2858.namprd12.prod.outlook.com (2603:10b6:5:182::21)
  by DM5PR1201MB2491.namprd12.prod.outlook.com (2603:10b6:3:eb::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Tue, 14 Dec
- 2021 15:23:26 +0000
+ 2021 15:23:52 +0000
 Received: from DM6PR12MB2858.namprd12.prod.outlook.com
  ([fe80::74bb:cb46:f4ef:73e4]) by DM6PR12MB2858.namprd12.prod.outlook.com
  ([fe80::74bb:cb46:f4ef:73e4%3]) with mapi id 15.20.4778.018; Tue, 14 Dec 2021
- 15:23:26 +0000
+ 15:23:52 +0000
 From: "Russell, Kent" <Kent.Russell@amd.com>
 To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
-Thread-Topic: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
-Thread-Index: AQHX8Fh/92X1o8JYXkO3enQxghXMzawxUWMAgAAGGICAAMS84A==
-Date: Tue, 14 Dec 2021 15:23:25 +0000
-Message-ID: <DM6PR12MB2858493C6E0FD95B57E20B8185759@DM6PR12MB2858.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 1/4] drm/amdgpu: Increase potential product_name to 64
+ characters
+Thread-Topic: [PATCH 1/4] drm/amdgpu: Increase potential product_name to 64
+ characters
+Thread-Index: AQHX8FhpwWFszDKGIUKRAurWmFdAi6wxVcmAgADGpAA=
+Date: Tue, 14 Dec 2021 15:23:52 +0000
+Message-ID: <DM6PR12MB285830E57CC87D249239E9B485759@DM6PR12MB2858.namprd12.prod.outlook.com>
 References: <20211213193402.96278-1-kent.russell@amd.com>
- <20211213193402.96278-4-kent.russell@amd.com>
- <DM5PR12MB24693785E4E9F4543D5D60EBF1759@DM5PR12MB2469.namprd12.prod.outlook.com>
- <DM5PR12MB2469E1497AC1CDE2E586F8A2F1759@DM5PR12MB2469.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB2469E1497AC1CDE2E586F8A2F1759@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <DM5PR12MB2469C2C6C65FCB39C7C10D97F1759@DM5PR12MB2469.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB2469C2C6C65FCB39C7C10D97F1759@DM5PR12MB2469.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-14T03:16:28Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-14T03:29:25Z; 
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7f4e7385-27b9-4909-bf3c-1d032d7d88a5;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=5713d6e2-2398-45aa-9ecc-5dbbe47aa19a;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: eae23dc8-183a-49fc-56c8-08d9bf15acb7
+x-ms-office365-filtering-correlation-id: 86618e51-6fda-4d65-7d3f-08d9bf15bc35
 x-ms-traffictypediagnostic: DM5PR1201MB2491:EE_
-x-microsoft-antispam-prvs: <DM5PR1201MB2491F6D08337DED103541F3485759@DM5PR1201MB2491.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-microsoft-antispam-prvs: <DM5PR1201MB2491A19A6ADF5988012920FE85759@DM5PR1201MB2491.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RuzlW6WdOn9HBhbvnMdClKc4iF2udqXSpQfJMQBmajQ1eVdB69338WEcqxZ3ip3wKZ2IMHxiDgB7z3gvGCjayawZDoWlNuTjsFuC6zu+4awgCkl76leIalhnmlG+bwa116IG+M17FS70KBUwFqwZuCXejRm7hv5kjP8QxSsmChwv3do32KNliH3/CwsJjNisQruM7Rz40Vq1ylGlSoT7hEKN8efa1DDbKw+t3eK8v+8AElSBQJtok0rQp0fxEdK0/aRL8TTr0genS0DQaEmqBp7kB72AHni6Dq1jindZ0ITJ7vogrcXan8WZUpuq6gMGWIivVYzJk1NRuJJU+92uxvJJwbxynvVEIm6+3KWH0BHYmhiwizaeaI7lj81SOidCrOHdJIKoOSv9qBuC4V23/k8FIavA+RytiJDucmygwbty/KT/SxEEGt/zbBpwVPJ9R2MM0yPUtq2YgM/c/l8OAhO25liV9MNfTJoIk4iAX/Cka28symLoFXkn+CosdKoFWDyQc2VXNV19k2sLu7p/BnJZ7aSEW+jeczlKd8hp5s+0X+BI2W90V4soXi2YI01ngis2+5OKaSA2l0/qL+LpDia7G5KR6zTRIKDefkpDNAn+Rn5dWTExvh9i2ZdWkwphRwVnbxBgD+zI99tw8IDVvFtXtJSLSbFd4f2I+gz3JdHo2tqk/g0pZtpFS9HGvvi3QpGN8Qeu9dRo9LA1xAgYsg==
+x-microsoft-antispam-message-info: PUVUDJu6YzfJd/2ujSbmtQf42NSVyHflUxn5rY/ns1kRBNL2bIcBhmdm7/sE+2plaDUz4HEHL7os/lBvFX8pZ5Gb8r3Y0liWiYrjXlfOmqtPx/9fv6hJJx/egvkW4YMaEFXxAGDQvIms7CGtZ5XNyFhr0wfgeNrdq841DYw8Xne21WZYMoP7sV3ZfUewIY+Ea5ynNBisWIIr2MUj2YIvHgAh7CPYVa+yP3vbHuzjQlky8eY7E9vRBo7WNSzOu7u6qI77N2pGkXzRtgfAlNcJBD1bmBFclPILhYE9OqJkry74sQNbrTpFEidiNLKMbB7/7POMS6mdJWd9EqXTWuWTvhD7v3Ou8mFuF186ZwplkaWvZwNyrIr8GBz3poAXR5ES2DSXRZYox5KMcsNyBfttRezmvceJ3MjZPfmRl7NmXTCtm9VUyxYteHM6MQUH7lCaz9mMQuPpTfGBppe0knw4IvyU9yygR3EOGbkxJDpX6RZb6p4uol1JDbtXJPgOouRcIiHFydo9y7iDL4TbNBM0X2P61MVT4IKP1x2HNrZYWvR4z8f7SMKw5F4yCGrA5fdT+Ngf3BfgI6GM5SXQTz8VRatzk7BGAnEyCkF55WLkWz3z+uDYPnZqHdrN9DkXXFQJJWh+/xyzfTUQAgwHcNUxPK9ofgJp2z4BXI9fVIMzkEJMlip6spirRwZ9DwMOQzL53pO258niCUyo8wScMAdGFQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2858.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(76116006)(66446008)(66946007)(53546011)(66556008)(55016003)(64756008)(33656002)(7696005)(122000001)(8936002)(9686003)(71200400001)(38100700002)(5660300002)(66476007)(83380400001)(6506007)(508600001)(26005)(38070700005)(52536014)(8676002)(86362001)(316002)(2906002)(186003)(110136005);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hLmpv/AbEqCnTDFnVkOUxqBk/V7JqAOMFm5ZuXsCQxOrZ3DxAfd6hsFuBu5E?=
- =?us-ascii?Q?zOQwcjjG7/z4SbbnZ0/BVEh1VZKgijiz3rn//XCcIUffmjnZnrpe35CWRt5S?=
- =?us-ascii?Q?9dwOHgMuTVeS38pHESxnPT6es90ZnDwFhSJF1rkKdEbWmzt8heZ/AqnFP99y?=
- =?us-ascii?Q?rvDO3f6RcEDT4HVfPF4v60cvVoMgOuINQ9pKunt8MEsUyB3B0G62UErFwjUE?=
- =?us-ascii?Q?tiWBbqrMj+IntevwupX1gveCUS02vjqJbYVrFc/TJjUl5tNeOp4Lu3+0DkRT?=
- =?us-ascii?Q?dTfYd8VjfLM99y97oUM6j5Mw3OzV5jcSskg5Y5TO7rl3ZH90IBDxQfAKjsHy?=
- =?us-ascii?Q?xHAZkX/fN3Sh+rR68jjvGXzj765vdbSN6uZTE8meclivTp8Qbz1NWbHOfrP5?=
- =?us-ascii?Q?j2gepEdMUbj5b9qagsArEhu3gHsbReYEwJyC4+nEc2qtEjArEAadYKXlg1Wa?=
- =?us-ascii?Q?r7de/qn0zz9G2n0hw8HllwsrPbApFQXh5JtB6C26EWjJv6uwaIps1tM1wUPM?=
- =?us-ascii?Q?5mMzbtZMTAjOQfeljekNWa9oBKETLSRctvuHdDfGWbnWFWesFd6Abl37V81I?=
- =?us-ascii?Q?FiipPsZHEgB0PnD0vmvPB6lV5J+PZVzVwLqRB7TGmSi2q9tbOTPeGpk+VRPR?=
- =?us-ascii?Q?HBwDnxhQYyKlR/Zk30u4RgE5ArvLdtRZL7629O+ZNHqvvjzTH4kh7J4NfLeP?=
- =?us-ascii?Q?0H3LH+BIVMcoahbyKw0ah6ihMznaYFw9Je/oz/CqxErZ0IAZizg4foWKep08?=
- =?us-ascii?Q?+fqaYwlDcLgNYed1PeDfuC//5PTldkKrWRmYYY2878/TbO5iuifeAe91E+3Q?=
- =?us-ascii?Q?oPvdxS34BfxRBifQLq5WZbzci1yMcKW/b87ZzYSSV/XC3FmNDJRGuxTcObRk?=
- =?us-ascii?Q?vwwCwQz4YvQyegO7Py0YQm1MfGoUYIRMlE05l/+StkaoLnQSB6Np9MCq4Gu3?=
- =?us-ascii?Q?nrolJVnXDXO7hxYjCK/V9P75Uun0jti7X9AKIu56z2A6ztnSsZeSJnRqnq3K?=
- =?us-ascii?Q?QWhGtnzmCToRf3ABK3mHV/2FaHB5urwR837kNTo/8qviQgf7aFArz45xOOt6?=
- =?us-ascii?Q?NacI3wIT/8SNXtqKpGspY9N/xfN5bjWhzZ2qbhq7IYyhc9TFohEFefeQNgJg?=
- =?us-ascii?Q?Ij9IZxkdr0tVT7tyhoKsBGfMykb+uGENhYO2XWzN44Rcqh0t0dev7A0jh2be?=
- =?us-ascii?Q?QqvP90gFIUHlQT7Vy3GOMm3fCDsjfTUvnvAGqaNYI7tx0+krDJy3lonT6mgA?=
- =?us-ascii?Q?SYcqWmvDU0dDaq4L4JgoEkCjCKpk+JPmYwyzxuP0kCRHVKbmi5QZSigu5ShW?=
- =?us-ascii?Q?gVUCGvEuINcX54m7YqOyuDpvz5pi+g0bfJ6aFg7cAX2Js/ZwQz44Nw/irGb1?=
- =?us-ascii?Q?f2NZ7yyMNrmgGkQjD1mxIraA6i5dDdF8uAKS44900yTPJ1FBAlywZUiiK/T2?=
- =?us-ascii?Q?q0HYKyUrqblhonSykWcLilhBn1DARD/rdPClP3La4PuEpW3gqz4V4ZZsOu15?=
- =?us-ascii?Q?CX4E1aPpmCqKUIGNgZx6jH1ibpk+48k307U3BDlkxSu/n+9lO0KuRhntboTD?=
- =?us-ascii?Q?9MtVDTFc5bd47ahJIbzsVZ4JK/dVkpqXfc+yuaFg9DlgvH2dAXwcS9sJktZD?=
- =?us-ascii?Q?bHO9f8rgPnso6hIEgo5c/kM=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?A+ZnoSNLelP3JqvWWDNBbVJ/f5FZn5ePoBP087KtpHVUeMw/B8W3UlJY6Pon?=
+ =?us-ascii?Q?dStYG/HzcjzV+uhhwgHF/a9rcQbce4aHkau49Ys3G4ABm51E4SdAwYpokspl?=
+ =?us-ascii?Q?ooxnHWiLkorb3VXpsge5qD77zrfzhz01yexnRUMNxZXY5eZ8AD3Gnkt05msi?=
+ =?us-ascii?Q?kq4ZyvZ4kotcHhUL/8Brcz6DmQckA68jS6y0dkXdr4cW9Zzxv91g3biRTzYm?=
+ =?us-ascii?Q?3B7j5GDsz0mI+rypHvLUwn4UoFf3OGki1auUtCzhPF8eVeTvabW1Tiv2IMgH?=
+ =?us-ascii?Q?sg1w/uPzrZSbHLxolV9xZDyGv0yvT9JXqfeM9+zd6oVyF4HsOVosxzxvqB+1?=
+ =?us-ascii?Q?1K+Lv+r7FDk5JlaH49b+iyTsw+RqLi9fFYPJrMWIhXsMaAhYactNgNdRBNCc?=
+ =?us-ascii?Q?9DzgHzF3tSI1A9I8Xj7T3ZmDR6bsK2P0Ooolq5IPbdccbse52f/YAPKOwoni?=
+ =?us-ascii?Q?Igp+JE8oY8ZxYM1ki7CWVIDOnHqrrMr7zIoaTRn/0VaONGi0ll35zLKA0sZW?=
+ =?us-ascii?Q?hMTGxcYbZbP+q+VmIPaR3y4gFtAAcwApY4xwzJsc404fU37/W7eRdhDrfFv/?=
+ =?us-ascii?Q?fUm7HITw/y/bSoLeUPpQUzNDmIF1Y/oBpugmwbm6GhY/fzvihxoaXT0kDDAr?=
+ =?us-ascii?Q?qE1KJNpgd9YckcESYRftN+ZXwq9xqcFFi0KzuXltl3z57bEgj7WKp9qDy8ud?=
+ =?us-ascii?Q?ijGUtVhVAKJrunjlbSavcl69dHM1ViXGfOutWVsO5Wrpsds7PJ7erem53jDe?=
+ =?us-ascii?Q?3KbEV4ANXKBgWZ1YdcEegCDakU2DiFgb5JOXjiiwDxe689DJLstI6Fo3jvu4?=
+ =?us-ascii?Q?S2lro3ueLAoA75NirPxTThXXzjrRROaVecIG3j7QBo/i/uh6h3E9cZwQhc+7?=
+ =?us-ascii?Q?H5eAhehGcYwWk90xPE609e22Q6ufhk9bQb7wpc+td8ELy2h9/RknrbWlkmA5?=
+ =?us-ascii?Q?30Rl6MotKFyAkrMpn86sVmbLdq3PgerMGecRhgIYXSQraNMBzVx/6Iy5lRZ3?=
+ =?us-ascii?Q?jAkphYwe+9UCgOpbT/uO0pItlgqJ9BFxLdOhk/hQ4KZxjWKB0M3pwKNLTy8E?=
+ =?us-ascii?Q?eXjxCphIjR42pwkB029oupU7wMsx1ljZkh9mK0CSoeElEmVPliyazaKeYn3W?=
+ =?us-ascii?Q?iqydi9kaAeGXx8byvWQrU/gdxZ1dNNEYD7+cqd447YeFJaQPMV2MtQ/HT+N/?=
+ =?us-ascii?Q?OATY0y4lSujKzWdrcgsXDQvFoslmo5yA8SEtbasfC4bU4iwZ/+3LdVTlLZyY?=
+ =?us-ascii?Q?SvwzJmk1+DKs/vB+K1YfM0sdVFp3bHPZirz6fleqF+bYziK2idBErXCsUbNa?=
+ =?us-ascii?Q?boU8Lrdc0lg5u21GupuFAlR42ZvMJP7GiwBOAj9leIILs78DJEZ9CMxd9Jvf?=
+ =?us-ascii?Q?H7tz7ZxgWiGg9JuC3b/AB00WQ4Y4WxxpAlBx1S2QlhWwOBT3uej/T2DhCNBE?=
+ =?us-ascii?Q?Llu3h+Mp+ebMwh967pls/VjFW04gWykz5eXuGZt4/mvVyHg7tCcg666XnT4N?=
+ =?us-ascii?Q?V/+p1q10tuTOwVy8uKvg3qK9L2LAO+fyVBJpYS+JLsIsbWQ0xjZcZK5VL2EP?=
+ =?us-ascii?Q?tKRS3B4K5VX29bmT1XONLaiR3dwKofQFMLvbB3Ko50Fx+onNJuIESp1Rn0Bo?=
+ =?us-ascii?Q?AmffA0Epxso2ob5x4kogSpg=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2858.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eae23dc8-183a-49fc-56c8-08d9bf15acb7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2021 15:23:26.1111 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86618e51-6fda-4d65-7d3f-08d9bf15bc35
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2021 15:23:52.0467 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MPHVlezkBN3ChCHMHIITt6jXibkq3aLIl8sSLDLYGx3aDlxHfFRynkadWOwFLA2lNDQgm9azhbaM6xbXNq/40g==
+X-MS-Exchange-CrossTenant-userprincipalname: 8urCbmzvx4PbNjTCF2W7LxiotM6ov2acDKW8Th1VZ2i2pWcly5A9lPbVGfto5jlaZchzgbSjnHKCZE7rrk77Mg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,65 +131,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I'm not aware of any Aldebaran SKUs that don't have the FRU, but I can look=
- into it before submitting this patch.
+Yeah that would make things a little clearer, and make it easier to change =
+going forward. Thanks!
 
  Kent
 
 > -----Original Message-----
 > From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: Monday, December 13, 2021 10:39 PM
-> To: Chen, Guchun <Guchun.Chen@amd.com>; Russell, Kent <Kent.Russell@amd.c=
-om>;
-> amd-gfx@lists.freedesktop.org
-> Cc: Russell, Kent <Kent.Russell@amd.com>
-> Subject: RE: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
->=20
-> [Public]
->=20
-> BTW, does FRU exists on all the Aldebaran SKUs?
->=20
-> This patch acks FRU's presence when it's Aldebaran. So if some Aldebaran =
-SKUs do not have
-> a FRU, some i2c access failures will be observed during boot up. This is =
-not friendly to user.
->=20
-> Please check Vega20 case we talked before, and there are some more strict=
- checks for FRU
-> on several Vega20 SKUs.
->=20
-> case CHIP_VEGA20:
-> 		/* D161 and D163 are the VG20 server SKUs */
-> 		if (strnstr(atom_ctx->vbios_version, "D161",
-> 			    sizeof(atom_ctx->vbios_version)) ||
-> 		    strnstr(atom_ctx->vbios_version, "D163",
-> 			    sizeof(atom_ctx->vbios_version)))
-> 			return true;
-> 		else
-> 			return false;
->=20
-> Regards,
-> Guchun
->=20
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Chen, =
-Guchun
-> Sent: Tuesday, December 14, 2021 11:17 AM
+> Sent: Monday, December 13, 2021 10:33 PM
 > To: Russell, Kent <Kent.Russell@amd.com>; amd-gfx@lists.freedesktop.org
 > Cc: Russell, Kent <Kent.Russell@amd.com>
-> Subject: RE: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
+> Subject: RE: [PATCH 1/4] drm/amdgpu: Increase potential product_name to 6=
+4 characters
 >=20
 > [Public]
 >=20
-> +	if (adev->asic_type =3D=3D CHIP_ALDEBARAN)
-> +		offset =3D 0;
+> How about set a define like PRODUCT_NAME_LEN to be 64, and use it in FRU =
+code? In this
+> case, if it needs to bump string length of product name later on, it will=
+ be simple.
 >=20
->  	if (!is_fru_eeprom_supported(adev))
->  		return 0;
+> #define PRODUCT_NAME_LEN 64
 >=20
-> I assume the logic should be adjusted. It's better to put the asic_type c=
-heck after
-> is_fru_eeprom_supported.
+> unsigned char buff[PRODUCT_NAME_LEN + 2];
 >=20
 > Regards,
 > Guchun
@@ -200,77 +164,65 @@ ussell
 > Sent: Tuesday, December 14, 2021 3:34 AM
 > To: amd-gfx@lists.freedesktop.org
 > Cc: Russell, Kent <Kent.Russell@amd.com>
-> Subject: [PATCH 4/4] drm/amdgpu: Access the FRU on Aldebaran
+> Subject: [PATCH 1/4] drm/amdgpu: Increase potential product_name to 64 ch=
+aracters
 >=20
-> This is supported, although the offset is different from VG20, so fix tha=
-t with a variable and
-> enable getting the product name and serial number from the FRU.
+> Having seen at least 1 42-character product_name, bump the number up to 6=
+4.
 >=20
 > Signed-off-by: Kent Russell <kent.russell@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h            | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 8 ++++----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
 >=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index e701dedce344..1afb3066f6dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1083,7 +1083,7 @@ struct amdgpu_device {
+>=20
+>  	/* Chip product information */
+>  	char				product_number[16];
+> -	char				product_name[32];
+> +	char				product_name[64];
+>  	char				serial[20];
+>=20
+>  	atomic_t			throttling_logging_enabled;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> index b3b951fe0861..124376b666fd 100644
+> index 7709caeb233d..b3b951fe0861 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> @@ -56,6 +56,8 @@ static bool is_fru_eeprom_supported(struct amdgpu_devic=
-e *adev)
->  			return true;
->  		else
->  			return false;
-> +	case CHIP_ALDEBARAN:
-> +		return true;
->  	default:
->  		return false;
->  	}
-> @@ -91,6 +93,10 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *=
-adev)
->  	unsigned char buff[66];
+> @@ -88,7 +88,7 @@ static int amdgpu_fru_read_eeprom(struct amdgpu_device =
+*adev,
+> uint32_t addrptr,
+>=20
+>  int amdgpu_fru_get_product_info(struct amdgpu_device *adev)  {
+> -	unsigned char buff[34];
+> +	unsigned char buff[66];
 >  	u32 addrptr;
 >  	int size, len;
-> +	int offset =3D 2;
-> +
-> +	if (adev->asic_type =3D=3D CHIP_ALDEBARAN)
-> +		offset =3D 0;
 >=20
->  	if (!is_fru_eeprom_supported(adev))
->  		return 0;
-> @@ -139,7 +145,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
-*adev)
+> @@ -131,11 +131,11 @@ int amdgpu_fru_get_product_info(struct amdgpu_devic=
+e *adev)
+>  	}
+>=20
+>  	len =3D size;
+> -	/* Product name should only be 32 characters. Any more,
+> -	 * and something could be wrong. Cap it at 32 to be safe
+> +	/* Product name should logically be < 64 characters. Any more,
+> +	 * and something could be wrong. Cap it at 64 to be safe
+>  	 */
+>  	if (len >=3D sizeof(adev->product_name)) {
+> -		DRM_WARN("FRU Product Number is larger than 32 characters. This is lik=
+ely
+> a mistake");
+> +		DRM_WARN("FRU Product Name is larger than 64 characters. This is
+> +likely a mistake");
 >  		len =3D sizeof(adev->product_name) - 1;
 >  	}
 >  	/* Start at 2 due to buff using fields 0 and 1 for the address */
-> -	memcpy(adev->product_name, &buff[2], len);
-> +	memcpy(adev->product_name, &buff[offset], len);
->  	adev->product_name[len] =3D '\0';
->=20
->  	addrptr +=3D size + 1;
-> @@ -157,7 +163,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
-*adev)
->  		DRM_WARN("FRU Product Number is larger than 16 characters. This is lik=
-ely
-> a mistake");
->  		len =3D sizeof(adev->product_number) - 1;
->  	}
-> -	memcpy(adev->product_number, &buff[2], len);
-> +	memcpy(adev->product_number, &buff[offset], len);
->  	adev->product_number[len] =3D '\0';
->=20
->  	addrptr +=3D size + 1;
-> @@ -184,7 +190,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device =
-*adev)
->  		DRM_WARN("FRU Serial Number is larger than 16 characters. This is like=
-ly a
-> mistake");
->  		len =3D sizeof(adev->serial) - 1;
->  	}
-> -	memcpy(adev->serial, &buff[2], len);
-> +	memcpy(adev->serial, &buff[offset], len);
->  	adev->serial[len] =3D '\0';
->=20
->  	return 0;
 > --
 > 2.25.1
