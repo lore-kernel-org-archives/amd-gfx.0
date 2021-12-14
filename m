@@ -4,95 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE2DC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 04:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C281C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Dec 2021 04:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7228210EBFB;
-	Tue, 14 Dec 2021 04:00:28 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5296910EBFB
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 04:00:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5723510E8CB;
+	Tue, 14 Dec 2021 04:12:45 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1073F10E8BF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Dec 2021 04:12:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bpyKmoSUhGPJf2hFY2XcLjPpXTyaWUKbBQGz2szdh4x//0EKJ66Ej5bMnkE3BEG2HX0qHjqC24uoBVOHEqWD/9YYakma6xaHjvWdM5GaD5wpvJZIGlHJd+UsDNXm4FZgFUx0c7b4+YVaweh3tku8r7Ekysv7j7o2ts02zWChlG6OLcktZIhClkXFyln2sw8of0V6URpLUqbzXYfTt1rFSL0xws2MeFWZmBd3d/N2wLURT9nLALGloZnz+yRBzUAFsv2e+ZW7Yo+znH0uYw6E7+ohjoRSgZvECz6Bnb8n/5rbkpVKBWFLYBt80J2u5Z0P2Thy7m57EPMdHQT5P0HVgg==
+ b=IQFyHItQIz4x7K0Jf1GSqytmztOlQbTC3no6W8h5BwHIWkPuP/ssEFZhUyRzqLIdyjIzgoeVVrCmVA2KrkP2VIwPzi+8WlFRKNK4xf5AnecL5pKEUUgYfteXwecIwsTDW9GB9YR1ExiV6LWHBhUYQ73iofEaKOjuSc4jgHTMPCLhskbJgCqFI0x7dZNVxGFIpDY5teV+u+eDpzZtUuxDR8hhaDBKMcQ8QgLfRyOUyZEvYTMinAEhSllY5v8r9VOWlIIy7fo56lsrHsCB3fOVb3eshbatwWEr4VqAb/hF3oIv9cG0FxpQT10rGJAwOXvTyR6RS16NDbBB/4D4grmVpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BFoxCvNY7WRhXuZpRAIpIdiobVBR8O2KjT4+7SACPgg=;
- b=MuL+eIsJe4pOHav4Q1/kayO6c5+nv0jLxmRLJ8RsmpjPJBykq1s4473LsMflvlLzIysNSi9SbEjq6AdxgxYqzwQQI/THRKQxfXU88M8FK9WjZmeZBUhQwtOwLDmOaNJuafArPRSFO02SJyWUYCch4Djqbvng8Xxy8SA1syKTKj1msSLZvqTCaKEMS/grrggUNdHB4rqGWPbJ/MbSXx2btoXFClmDG7NnKuLAODjasPV5zekhsgJ5rZvEVhsRxRPxEZL/BKJzUQhYPmfb1mIMgyWVTI9sdXMaBVh4qOZ0FV58YdoWaFRm5oJwNxJCAd4PcZzCCnJ5ceu/c9f7ZnZqtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=fYvJplPHrx+tiL6AEBUUNoUjNS/ccULsb28CqbS5ENY=;
+ b=lj4CpQR5MyoIhP/9TzABVP8InQO8aFcUPDsT9ezQ2g6U+mOP3vK5LeQm2g/S0Kjm4kwEQa+BGjSUayp4hTcDrSLb8Hl1Gh2Dp7TgatDlJbTZ860PMMBZ52TDaswygMT/Nh3ljsz6tWVlMbykkpoHBloenUAoDLfakUF2LbQQdiRgery7CpC2S36h0B/o8LcKW9pdgOV62nkc/XLTAV7P7TrDkj5JtWtzaBbpA5NsBMzwFhtPebom7Z79kMWye4scFEI7bZMhL3PyLX4GgOCxIE5WhjbMXcqXo/+lCs7Joy7hIHu+0XQV7H1MRMWSL+bgq4PR3/oHHj2FcV4eRwLLhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BFoxCvNY7WRhXuZpRAIpIdiobVBR8O2KjT4+7SACPgg=;
- b=kzUJYnRfGg2BFKpI6WVH/W2GheIBqrTuTWizdpJ2pIBYq+6y+/Z0veMCG4/Hp5upQ5mGfhrFxu0jtacH8962oc2AMP835rOmFn1wn1NB0+mq+WC6tRe12xjSGpFUSIjg63jYRHvNrv7OKrQ4PeTThWV+FJClSAEUekIoctMzR4o=
-Received: from DS7PR03CA0063.namprd03.prod.outlook.com (2603:10b6:5:3bb::8) by
- DM4PR12MB5216.namprd12.prod.outlook.com (2603:10b6:5:398::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.16; Tue, 14 Dec 2021 04:00:25 +0000
-Received: from DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::d9) by DS7PR03CA0063.outlook.office365.com
- (2603:10b6:5:3bb::8) with Microsoft SMTP Server (version=TLS1_2,
+ bh=fYvJplPHrx+tiL6AEBUUNoUjNS/ccULsb28CqbS5ENY=;
+ b=mqqluWIP+rX9/e0LX3UezFEwUXOC+hrls/RUnlclBNRY15axiSSyo/VZFHPbNmek0au/yMq4m7yzE4UvqTIbFNSCkRHEs8s4zEJzi6b1I0zGL4HSIScoeXH8ZZL4ePluR+dynhd3po1SXAQbk2hRhcsGhq1AZz3lZtZnjRCHIPw=
+Received: from BN0PR04CA0154.namprd04.prod.outlook.com (2603:10b6:408:eb::9)
+ by BYAPR12MB4792.namprd12.prod.outlook.com (2603:10b6:a03:108::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Tue, 14 Dec
+ 2021 04:12:41 +0000
+Received: from BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:eb:cafe::38) by BN0PR04CA0154.outlook.office365.com
+ (2603:10b6:408:eb::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17 via Frontend
- Transport; Tue, 14 Dec 2021 04:00:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+ Transport; Tue, 14 Dec 2021 04:12:41 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT049.mail.protection.outlook.com (10.13.172.188) with Microsoft SMTP
+ BN8NAM11FT013.mail.protection.outlook.com (10.13.176.182) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4778.13 via Frontend Transport; Tue, 14 Dec 2021 04:00:25 +0000
-Received: from [10.65.96.204] (10.180.168.240) by SATLEXMB03.amd.com
+ 15.20.4778.13 via Frontend Transport; Tue, 14 Dec 2021 04:12:39 +0000
+Received: from wayne-dev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 13 Dec
- 2021 22:00:23 -0600
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu: fix gmc bo pin count leak in SRIOV
-To: Jingwen Chen <Jingwen.Chen2@amd.com>, <amd-gfx@lists.freedesktop.org>
-References: <20211214035252.15798-1-Jingwen.Chen2@amd.com>
- <20211214035252.15798-2-Jingwen.Chen2@amd.com>
-From: JingWen Chen <jingwech@amd.com>
-Message-ID: <6725bb57-3570-7764-730d-5c766707b54a@amd.com>
-Date: Tue, 14 Dec 2021 12:00:20 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ 2021 22:12:38 -0600
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amd/amdgpu: fix psp tmr bo pin count leak in SRIOV
+Date: Tue, 14 Dec 2021 12:12:13 +0800
+Message-ID: <20211214041213.20120-1-Jingwen.Chen2@amd.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20211214035252.15798-2-Jingwen.Chen2@amd.com>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fe67cc82-9b7b-4d4a-e897-08d9beb6420d
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5216:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB52167D2D76D908C2F41A1CFCB7759@DM4PR12MB5216.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-MS-Office365-Filtering-Correlation-Id: e2d0767a-cbb5-4cd7-d6bb-08d9beb7f7ec
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4792:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB47926335B79D32ADAE710D40B7759@BYAPR12MB4792.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JSZ/HY4yUv1EEcfkypCpeniL7drGddhAqUFwhJuDHHaHMpweUqwA6Hb3HYUfTdeGqzrxfEix6blXZgzKLZYz/eg7aAlVvzwky073afOH0Oc+xMK5tIuxg09/QFm1ROJkPCSlUI0xbXZzE90axE2qhUwYqPvEBR2pTUowRxTygcVyS2EvuQANvt6WHFzFVeosKP8D/2Sh+rTUS2iPXmAVrZNKowtTOKckYmFpdMnDwzk3X7Q/heSUPHg55Tdd7alGgWGFxyR+vh6YpH2tmKGfS/9UUJ5GeH5BukUi0x5+nTOAY9yJWtEca0WStUVoBB+H+tn4O7ovnikz/goDFcYNC1LVaVCVMnclADE5yPheNs5jDzR7quHKSiMgSkEjLEohcOmA6rpz6MaNiPqVV90HO4Lj8sNDtwVHGUVZlire4ZgHuOop68xsRIc0kdBQ3r2+IsVYtjiIvQeBgSaqrYSs8+gjRat3JHEjHlN1Ty6X++x2e+AB3SdnW+HJGuffxpEOpRaoy4xlYeL4YjIWGhaVc4QiJK9I1zWoOW4F5bxvjg3rOU1HoabR418hq5Y1iOfNs+49eU5m73HozzfSfjKkXvK6u+lFxhBqftiyupDra1gTbhbYr59jtrYEZRkCRcLaYw1Amxxf92gV8tN7oI/yh5qqmumnc6vP2EfJYDi/AhilR1zkiwdg6Zzx75eCH4F972M1kcdJHBKlmmAj4DWct5SxP7iyJIpdyF5FAkWlPx1vOvWIVOoZeu4jhGfs4dSFBF+lIRklSEd44zahZAtIy7LiMXN056h8Y5bhdF3lIoGuyODGTiFnOgLzl4dEPxpVf08CfM54TkXvyFDetxVOJQ==
+X-Microsoft-Antispam-Message-Info: slA7rB2uuklfB1DIJ0Y61sLLy3Nno3rPtZtZltbQ+tf/m08wSx5eiDcdZ794Dt7jzStmUCOQ4c11N+X3D0qk2KRxUl+HUwFKwgb/WYq2fNitHcRGLe5zqKPj3hp9GDhjBJPpbUSfJ7wKfOxJaDg9Zr3FqVKFcNFSxt/O+Y6+7qjEhzQwluM/KI5xQZogoIFMwYA5gaYrgc+EgiReQavkQSs7eg/rKp4O+9Hgr+Set1fHpj9tnORZKQ80ESI05TnBQtfr0cVescs/NhWSej2+iQOuz/n+4FU3xkY124lvMXkEd/TgWddUf4KcTtDNMdab27+yWHfnp8YM0DZL9p9B2GXkH9LCIQqMMZYa9GdhxYmiyuCwOQwLgJTS+NbTReVDmHivvKWdxPCHiE9epEg/kQ94fVgfBDdKMQKzuKqXpnBK20Y/no50jVlO7e8xMUEkTHRMfX25HUn8uCT5VwmAl+iwe5JCqCY8ml/y3OHzGD7Ca3G6TMqVIKOZFhbfoFoftGDdei6HWFfFzUmiYLOZl5az0CljK2EYSm0kR2jYEQ71M/96nlXFinbB2x1SJYe9Me+IRhrJqRCH1nvwGCmx9iOpUq3q2hwxtS+kkrmgUT730V5hCAy5uqtSEs3XR4QBLlMIoC3aNfoMEbm+ElTqP9407kFCeY+FOyM8AzCWr7o8Kss6W1WdvazdYm98eVIfdNgi44gYQeBVruEEB5s17Gu6E3yIYeMHx6fmm5F+EgV3UgX96JUFnI8SJQwF23ks7RroLrN61xBAWw9zCkIATLTyilPO1jg9QqeEac9quLs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(4326008)(81166007)(426003)(356005)(316002)(36860700001)(5660300002)(508600001)(83380400001)(8936002)(16576012)(47076005)(16526019)(36756003)(2906002)(26005)(40460700001)(336012)(8676002)(54906003)(82310400004)(31696002)(110136005)(186003)(70206006)(2616005)(70586007)(31686004)(43740500002)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(5660300002)(63370400001)(63350400001)(4326008)(508600001)(426003)(82310400004)(336012)(4744005)(2906002)(26005)(70206006)(6666004)(36756003)(70586007)(7696005)(86362001)(1076003)(36860700001)(8936002)(47076005)(81166007)(316002)(8676002)(6916009)(356005)(40460700001)(16526019)(2616005)(186003)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 04:00:25.0387 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe67cc82-9b7b-4d4a-e897-08d9beb6420d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 04:12:39.7109 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2d0767a-cbb5-4cd7-d6bb-08d9beb7f7ec
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5216
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4792
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,61 +99,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: horace.chen@amd.com, monk.liu@amd.com
+Cc: horace.chen@amd.com, Jingwen Chen <Jingwen.Chen2@amd.com>, monk.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-patch abandoned
+[Why]
+psp tmr bo will be pinned during loading amdgpu and reset in SRIOV while
+only unpinned in unload amdgpu
 
-On 2021/12/14 上午11:52, Jingwen Chen wrote:
-> [Why]
-> gmc bo will be pinned during loading amdgpu and reset in SRIOV while
-> only unpinned in unload amdgpu
->
-> [How]
-> add amdgpu_in_reset and sriov judgement for pin bo in gart_enable
->
-> Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 8 +++++---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 8 +++++---
->  2 files changed, 10 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index d696c4754bea..b0f4d1ded977 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -992,9 +992,11 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
->  		return -EINVAL;
->  	}
->  
-> -	r = amdgpu_gart_table_vram_pin(adev);
-> -	if (r)
-> -		return r;
-> +	if (amdgpu_sriov_vf(adev) && !amdgpu_in_reset(adev)) {
-> +		r = amdgpu_gart_table_vram_pin(adev);
-> +		if (r)
-> +			return r;
-> +	}
->  
->  	r = adev->gfxhub.funcs->gart_enable(adev);
->  	if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index db2ec84f7237..c1adb212276d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1717,9 +1717,11 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
->  		return -EINVAL;
->  	}
->  
-> -	r = amdgpu_gart_table_vram_pin(adev);
-> -	if (r)
-> -		return r;
-> +	if (amdgpu_sriov_vf(adev) && !amdgpu_in_reset(adev)) {
-> +		r = amdgpu_gart_table_vram_pin(adev);
-> +		if (r)
-> +			return r;
-> +	}
->  
->  	r = adev->gfxhub.funcs->gart_enable(adev);
->  	if (r)
+[How]
+add amdgpu_in_reset and sriov judgement to skip pin bo
+
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 103bcadbc8b8..cf5baa57ab95 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2017,12 +2017,16 @@ static int psp_hw_start(struct psp_context *psp)
+ 		return ret;
+ 	}
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_in_reset(adev)) 
++		goto skip_pin_bo;
++
+ 	ret = psp_tmr_init(psp);
+ 	if (ret) {
+ 		DRM_ERROR("PSP tmr init failed!\n");
+ 		return ret;
+ 	}
+ 
++skip_pin_bo:
+ 	/*
+ 	 * For ASICs with DF Cstate management centralized
+ 	 * to PMFW, TMR setup should be performed after PMFW
+-- 
+2.30.2
+
