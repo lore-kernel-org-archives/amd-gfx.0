@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14533C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Dec 2021 19:20:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD7DC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Dec 2021 19:23:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F92410F907;
-	Wed, 15 Dec 2021 19:20:11 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2073.outbound.protection.outlook.com [40.107.102.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87DB210F907
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Dec 2021 19:20:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52C1810F861;
+	Wed, 15 Dec 2021 19:23:44 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062.outbound.protection.outlook.com [40.107.237.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2EE210F861
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Dec 2021 19:23:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DvrjARUE7dYoBlgf/7sm+jJ/WBR/HUCjdyBTlZeYDNQCifk74QjhwBA+85L//iP3sYPTvhiXgICbwSwdGgnvPWsb0bny2ATCb3tB5eeCGPnRtt3VtDWY1Bejle85TiZwuLe6HXGq5HV3/NzRiLbTjvY0BlYv+aRQHoLXU/CV4rCm8Zhh9UJqnrUbJwIBvtGjSgpSUcAu2rk+rvJzX0wRERntD5AkSZf+FUIfsG5fkRIcWLkz0mPfL8lATZ02Iws3bpp8T7wi2JkeiMmF0g9QoUgjoOyFiC1551hY8qoEhJ4/UtV56MBthhFqR1KX7ILcpVC8bC1GGNhFK+UrL7/yVg==
+ b=QUymceGFSjeYFqiomUPI1OYBGXzk7/nFKondV0OR5mbFLH+knDxWlgEKhJlB+d2UwzTy51Gs/DBEdjsSMZRoPQYZmbaC1ADiW8cmv4gJI+TRzsxWeZ2b5XPwutTLrUQ78O8CjqiMvR2ormBwGzibOQB5djJTXbgi84gRaQG7za3Mm2b744f4Qk4chOUvLp5tTDRN+Lm2jrNanY0GwWlQuIeMIl7VICoOgyn80EYXe6qZ5x+vbaBN7qeTNmx3uWJhm2yxB+45hkoQ1K7RbRLxXeGq6XUr+frUXZ8hsVctNq0DA2d+MlVLOi3xZW+pQ9jdFgvjbOA7H1Ta87FLGnn9JA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yy2bdGBU+/cWoTVC7/svoJoxP/iqWfQRWtrRE0Cu/Kw=;
- b=IqCtyZy3QoyJqTHbZ9QZ1oJ4lAOxtrOZLD8Y8flNO8z0UVwAG2oxL+0nm5XKoWLWeMnO4R9aUYHmN67K6az6wmpO/B3fljPzSZSsKIC+w1LC1EPkpqTVUn+z3SKyDwVnXU1ArL6dKYqOt4sBZIFVMq3cnGFsqSVZTPY+AyD/EMRgswzskj3OZtmQeOzGbE03lCtD0sPkQI91rRh77zODjl1LEzwp0aSBc1FYEcZoSzXTeY8TehOqawg+mgt3CiV+iqyWVXUiiRL1VrY+2UWF8inkR+3qWZQLE3y7Ees/w/s2YnR375Ny3rCW/EQ/0mT28tAY4ccR/3FMOqSR+BPqtA==
+ bh=NAO6iCbR/IO2JClHapfCOEW3h4/prFQwGpMeadHp/Gw=;
+ b=bhOHMTITMUZcVmERJkdxVUPslJTBmR8h3BTDbarAqQ66IUYPFko/+BkVvUvT1duhM3AGpsVW31fACR+2hVV2QBIUDqSEOnmzJ0399QJd1lWPU6D9FUJLmdUqT0yQplOL4wPgjlk54nnMr1INzKxDybmj08gwmvD+jJMq+2IMgkNVJBnuYC1lvVOfs7YGdIBDFPScWYFMjGwX4LE33TvOXIZumbaTUZc+oQmLhEl18gOgfbN6XFX2eqhkz0wcUHbf2eNMxx+rw/gQrTjYs8D3wKxpcmugYbPtk7iejDyiwY71MgUtPvO9wLyi6I60ZeCFH2QwFynqwfT7YtXe3rrHRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yy2bdGBU+/cWoTVC7/svoJoxP/iqWfQRWtrRE0Cu/Kw=;
- b=tbVsrU34puKS+VmcQcfxlFJkR2GorewrowvQvOBaCCY9Bi8tch1lFsr2rvihZwiQsEbn7iPoZTBbzxLZ6r9bMAuAvNdzbV+4dr0Keq45EGwHO5Zl8X3G0Q4QAqdcIn40+SsCfGqmrhaJH/0/56cSgbQPeDyvnW9Uxa+7SbI6qi4=
+ bh=NAO6iCbR/IO2JClHapfCOEW3h4/prFQwGpMeadHp/Gw=;
+ b=Zt1BUyUjEHxLu+wbUfS29H5789f0NuqaInGLtU+JqYnFgCe8v8sGeU1i6JXijy5HGCJi1wkMVQrPPoJe+69ZjDHWuuwK/47H98RT1ppnyIhyb9jZoKE0dkRbAjr7lSOTgTRZFJFLpMCDBc5OzXXc/kiAkUeYqaSHs/pondUJZeA=
 Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BY5PR12MB4856.namprd12.prod.outlook.com (2603:10b6:a03:1d5::10)
+ by BYAPR12MB3191.namprd12.prod.outlook.com (2603:10b6:a03:133::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.11; Wed, 15 Dec
- 2021 19:20:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.18; Wed, 15 Dec
+ 2021 19:23:40 +0000
 Received: from BYAPR12MB2840.namprd12.prod.outlook.com
  ([fe80::5425:7b82:3787:d5fa]) by BYAPR12MB2840.namprd12.prod.outlook.com
  ([fe80::5425:7b82:3787:d5fa%5]) with mapi id 15.20.4778.018; Wed, 15 Dec 2021
- 19:20:08 +0000
+ 19:23:40 +0000
 From: "Nieto, David M" <David.Nieto@amd.com>
 To: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deng,
@@ -43,84 +43,82 @@ To: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
  <Davis.Ming@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Zhou, Peng Ju"
  <PengJu.Zhou@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>, "Chen,
  Horace" <Horace.Chen@amd.com>
-Subject: Re: [PATCH 2/5] drm/amdgpu: Modify indirect register access for
- gmc_v9_0 sriov
-Thread-Topic: [PATCH 2/5] drm/amdgpu: Modify indirect register access for
- gmc_v9_0 sriov
-Thread-Index: AQHX8eVWyluks1UgEES7t7+xitRLkKwz7MuM
-Date: Wed, 15 Dec 2021 19:20:07 +0000
-Message-ID: <BYAPR12MB2840B1948370983D178DDD7CF4769@BYAPR12MB2840.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro definitions
+Thread-Topic: [PATCH 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro definitions
+Thread-Index: AQHX8eVY62Olu6eh+Ueeji7BN+++1awz7psS
+Date: Wed, 15 Dec 2021 19:23:39 +0000
+Message-ID: <BYAPR12MB284084C6B2F4AC19D5421B2DF4769@BYAPR12MB2840.namprd12.prod.outlook.com>
 References: <20211215185510.15134-1-victor.skvortsov@amd.com>
- <20211215185510.15134-3-victor.skvortsov@amd.com>
-In-Reply-To: <20211215185510.15134-3-victor.skvortsov@amd.com>
+ <20211215185510.15134-2-victor.skvortsov@amd.com>
+In-Reply-To: <20211215185510.15134-2-victor.skvortsov@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-15T19:20:07.389Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-15T19:23:39.403Z;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
  Official Use
  Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 46e587ea-fc0e-17e3-f978-3e807316eb57
+suggested_attachment_session_id: 0e3264ba-1848-522b-6b0f-8d0e0d79cb69
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a17dd22f-e1b5-4759-6153-08d9bfffe818
-x-ms-traffictypediagnostic: BY5PR12MB4856:EE_
-x-microsoft-antispam-prvs: <BY5PR12MB485674C84FE91C228FAAD228F4769@BY5PR12MB4856.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
+x-ms-office365-filtering-correlation-id: 16aadb98-81b3-46f7-b57a-08d9c000666f
+x-ms-traffictypediagnostic: BYAPR12MB3191:EE_
+x-microsoft-antispam-prvs: <BYAPR12MB319137F333B8076B2819DBEBF4769@BYAPR12MB3191.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:216;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: imJwNW9Im65vlSpXZD5vxjgkF5JQJqHzs1FDJLLrHszO9hsIJaeFSTLoHQq/zzotAFDAjLGDP//0P3AqaUdFRDUsZSPLlujasFrfwShDUMpy63cSz7xUwMOV9Nhbvkxblf5fdQh93W1sC8Z+TkL/HdsdDBoACNlMuhdw6oQ+4bR57noaZYMFI3zDGxBOOrh04k7/3s0SY2jfmBMwnhoi6oeOBzOqk08eAxe3u+9gSOrGL4aYlvQxbRe0RZn+K/u32DnD3Sa6yDv255lA8WGlP4o82x4vkhkPnBI5WsacKg6x5Q7x8r8gO+easpfaOHcVnjAm7SDGjAEJoFs5kBFwY7/0WTGxxp8ia4nr/UKHLbS9a3VWpqsA6IbsvczXadybHHc9reXiABNpfuoSohLly8fCqK2Cu0Rqu6v3GJ8fj7J79QrMan4BU8GB5rtvE+zF3s/07i0oz3dXtiqdNZbDvMgGM1t7rH9++0YxpjQG7yS9W+cp7sbA4J8LvhQmT58YoOcBMwBFYu81pAMf+/VupJeGOf81SwaTAWqlugOhir4vVNLjrKlfikCsrFLnrsYkV5UXHK8d/7sxBhyuzFQTxbZRkkrniL4aLq+KVm8AaHlMx/p9Y2cGFPSLcHgz0VXlAIKsmsbS+wNX/NAl75MlFUE/Xld6oh+aGXYkPvRxD9sHgLzpb8JGoT+DCqlNLcpShliIa6sASDRaWjlbnnsUr6/r8JNkqLCqZexwURnJprQ=
+x-microsoft-antispam-message-info: jkjqzGfqvNWoeKx03HFFk1H0/gArf39/uk7b+EC5lt75w3e5QuNQSxBJ1m1neCx8pg5uIoYTwXxwKzn72H3lmm0w+pJJ+E2j7nV5Ge8Y/ipUEOG73B6kXkOcuQjBNOF0vzPOUzQ2BFXYnqM81c2YmGlGdfBgsRUG/ZuQUD1wJkLVUmu/XdGstJJtz0zBYlxVuBAmxA0oJzsgxyaFx0aXge+nwUzKkIXBuZxCnXHUkCGAnyAuYjWUvXKQ2VZ3a3qAWq/SSJWzZe0vyeN57S4YL+kvAx6utOIJxw3JNM3z0kQvtw8KqOYAD8KvRwdQt5J7nQpfe/y74qXdtZHaCYKx+inWHlwNjLVDr12SEP3baXX7XKDtOTjjRDMF+Qkh0Eq7OwkEg3YlFYB1DmQmbnxox76VrQRv4Tf/LijlO7tXCCSmsBa8IjG7aBCxxuoyQMaZt4GwHj4xZs1uNnusk2FWyEZgp1OuPkzmPkPUQfSd25eutasPpj4hmp5yHKeUxEN3vSsBjneCKEJNZNKeW96nP5wO5AqJ0fm3rejjTfiVWVYLiOxtVgg12q5xeT85Mwl+y7mwzwcqnL2DDh4v0+0Zy6Q+jvCyV161KzieF2PUm4FAg84tRW2dZjwQ6gzKoqyrpiotZWh6YNQAbQ1onw65wytS/zs1Z6LPdGtFhZY0nkdwOxsrHCWwQUfZ2LOsQ1sU3t5ShTn4jEcnO1AqFn6cLY0wcmotTN0aB+vC9DTS+Qg=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(55016003)(64756008)(9686003)(66446008)(6506007)(508600001)(5660300002)(6636002)(66556008)(186003)(7696005)(921005)(86362001)(122000001)(83380400001)(71200400001)(38070700005)(52536014)(2906002)(8936002)(316002)(76116006)(53546011)(110136005)(66946007)(8676002)(66476007)(19627405001)(33656002)(38100700002);
+ SFS:(4636009)(366004)(86362001)(316002)(71200400001)(66556008)(38100700002)(55016003)(64756008)(66946007)(122000001)(66446008)(110136005)(53546011)(52536014)(83380400001)(8936002)(5660300002)(508600001)(8676002)(6506007)(76116006)(9686003)(33656002)(6636002)(38070700005)(921005)(66476007)(19627405001)(186003)(7696005)(2906002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PRU8naJMQivuv5L7q4FpgDkGNuHssQNfqei+WO6y6Tsw1TopDLIZbkY1TkmX?=
- =?us-ascii?Q?iuh1PrHTw8zI3L9oG8byVexWnkm8cMC1pUM+XaDijUKvRBhjUByrSeE1kn0W?=
- =?us-ascii?Q?zGPf1AAg49i4xE/zD3bk6nn3yWZ8YZoYPlYHgnde2SU1RIxsy8DKCJvNq/R1?=
- =?us-ascii?Q?s41Hsla7wvu4/oWU+1PlOwMGEw2L0BQhydXIzdtaQLfhffaGXhtLmPUHPDRC?=
- =?us-ascii?Q?C7fykAe0LS2yFF9B9f6e2j00NMOMd6lh2vw+zopO3BSnAcB9dDq+FldOLIU2?=
- =?us-ascii?Q?blmZWteJFjmracb2eYeMa1lOYO45a6cb2Z0xqWYnEiLQUI7Int+VPaO+FJrg?=
- =?us-ascii?Q?JzMkNOe7r2r0m/IcrAthWsoj4lQ5BPkt+x5+hOg9m6cbzcFX1WW1hQYbIrFC?=
- =?us-ascii?Q?hwBv4Ra2LCl5P9iyo5VGytaOlsCbb6c7pZMg/SS8Oov1JqJ5T3Q6/27kgCUt?=
- =?us-ascii?Q?Hum1Ss4frMqwOXw1P0Qkc4hi1LMSutHSK7YXgfyv5LMtiU7sQ3FjPFV0s0nr?=
- =?us-ascii?Q?ySHr07B+8FId8xPZAe4gt7b0t019jh6yKIouO19pXjKJZNjd7tUbGUMxMq2G?=
- =?us-ascii?Q?vegBDJSiyTbeiWLR2J96UXB+/HigLf9FuBXk5HClo98H9MWYQ/Wk+2cTk8ck?=
- =?us-ascii?Q?ZTJoCWZFH5ymuW5jD6Qu/dI1JZtErJHzyEVqOGeKuXuXY5H5fKfV2uwAj79R?=
- =?us-ascii?Q?nU4pepRJH3xHqb+8k4HYlm5RuvmlB32Psv+F/6FRZICl43bmDATHpPCjCVOR?=
- =?us-ascii?Q?N0JphPzPZQC1769UpZxtu1Cy8dRP5i16+tdDirDl708PLghx3JNjxHzG2m3k?=
- =?us-ascii?Q?FcaJOclGuN9XDXlosMVU+0wTqi1a9m1oJxeWZRMfwet2DpDaLM+Ke9J4t04B?=
- =?us-ascii?Q?tpF5IKq5JmlrZki8JmIWy0xpfXRacxzATzIFTCvesSa21EHBEi1RzPZeLnBo?=
- =?us-ascii?Q?iybU6PnZYF29JQm36O6XMa+CtlTD9P/Wqe1x0KufaNLolIokjpBg3Azmk0s9?=
- =?us-ascii?Q?62yvFE2Xsq9LtGnooRlHiKW7mJnNcrJf6xa+mNw8QUaVHBsJ4mY6h1jMOur5?=
- =?us-ascii?Q?9orcbqqrG8BbszFZRqBCb2XiV8KuZ02EAXDk48N6RXESHfk52gNCZH2A+qi2?=
- =?us-ascii?Q?V8g8inOKhm5sAqljwahBvQGJAjfSZ/7Nz9eyp7WrClZoQu8pL7Crkf0wKOjT?=
- =?us-ascii?Q?c4VxRYj0z3Xze6JYWir+XHdOyi9aTsRItFsj3mBO4v07RUzKQcnJ+3DR2Bp5?=
- =?us-ascii?Q?98UmXWIjzvJ4wsTE3ZUAGBAvD1LyAutPZ2wy6NpuDDYfPKR2fr7ZQJgSf71K?=
- =?us-ascii?Q?ASvUkt3j7Ls2U50rSlsi+wRh9whTr/ReO3ge9WkYQz82tm2mYyBd5IMBNxMP?=
- =?us-ascii?Q?Eho2k8PO6SPRtg1pGKacoz4C7m4IvPdv7C0BoY/zkIGF/6IAS79iTUlbqE9i?=
- =?us-ascii?Q?HAj6mIUivRGynyKrFRT5yedsdzYII93zUIT/o8yP1xGjTLWo336qgKCI4SIB?=
- =?us-ascii?Q?CplAmjmUoMmgTLmMTqT8tUKAv+GNVOqsRnTOwZpzmYr0j9WzUMfLSpBIpD07?=
- =?us-ascii?Q?Ewt+B8b22VYRTiSSz+Vz7V5+lfZpu5qkcH9m5bay?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nUIOdf2oKK4EliSiu4s07NdvzM7qbAHjNdebEa2+ZxsPGwt9SYjROrudIQhM?=
+ =?us-ascii?Q?WurMJWvh/Zbb9/5l6+pub0O19Zc5AgxhZq19mUr4t0NRpNkKobdDv1sHaLe/?=
+ =?us-ascii?Q?Oxnht8ja7BDt6Ms4mxi6ngGtF70Kt8UPoyV/auiSkzXDrrZOrUMGw0soLG1m?=
+ =?us-ascii?Q?6W1DVX2lieqUl01/kddhD6wLJ7Gs0Q4nlSvBeRKS0fiNfbLGeSn7Q4PtF9xd?=
+ =?us-ascii?Q?wCJiQw5g/PyiyH5duD8eirw7jjAxhfMJfyGCPg0cc4eufUzKx1UzDEv/e0UV?=
+ =?us-ascii?Q?sXpGyds54352GCPb4Rxtv5O/TdUqs7QQrAMLw0z+0DiBg/1rLiWVqBKY4io3?=
+ =?us-ascii?Q?GZFsr0/uKaLRJX7fo5krJGFRRGBskBcEEByYR4pDo3M3bsAK1XYQ0mr8vwU3?=
+ =?us-ascii?Q?MOL3rtmTlDMo8/0bjV614wGyO95VoNaURDO9INeEdGB/rintiMOa2QMqhbMC?=
+ =?us-ascii?Q?AebCgHd2ENV2X1524EjUmQHCNZVEGTG5XODHywQqpE9KVWmGArQfgIbSElep?=
+ =?us-ascii?Q?w/lDJyt4PfHrznERVE2kMA4tfCU4jI72z9yOEtkFtirzsaveVym+1JQro0Fh?=
+ =?us-ascii?Q?m3Q8Wl7e1QPXfCYxo1p1l9Lsm3VZyM/WZ/m+CeJ9TieIalL8SJk1KKNh8gY4?=
+ =?us-ascii?Q?PwVDARpBaiKg/i4POpaH+eyjlmv1SW0/L+KxysTEcxsj98CmQPNSvCvQ6wwy?=
+ =?us-ascii?Q?8bCEiwMckMV/ob/414rtjXgMp12SYzwPCpbtPUp8apuSw5TN3fhV2JL4vvjW?=
+ =?us-ascii?Q?b9ee+R+VVqpNZbPO+dVKKXLJ4ZhiZkyZ2gQNAaIVKCa/hm0cUhr87gmtZPrj?=
+ =?us-ascii?Q?QVpbSH6Mmt1YbzcvahxQD2IZPaz6mEo51h7Yi8Ls+zhA9h+67lMZ6S8kzqit?=
+ =?us-ascii?Q?vl0tRjI3askhxDDVgOFfMOkYpTqF10EIkxccFpuKbFcCBzQYbxnEOtctkAEn?=
+ =?us-ascii?Q?VKqzwo95vTraHEnaL6heh0l/77LAmdNorQkx/8YbuAxODKztFOjB90SPjx9a?=
+ =?us-ascii?Q?P9lVZvX6gY35aEmSV92d+hDSKbjQh+u8saVdDVz8wrk65VKfEF8vmMXudJ9P?=
+ =?us-ascii?Q?041zVXxeJwxwppyGxXXzIjQDmrvpFJskva+VIjfU6H00/KWqR9/tSTZrZ5lN?=
+ =?us-ascii?Q?nWVfhzcX0JZj/JUU+kUwF/FP9O3mc1cdIMSq40pefl76MBPZpwpqFNb8We91?=
+ =?us-ascii?Q?EAeONS9FiXINbXJxASHts+zcm3R22uJ0Q8M8/r+W/722EbKf6ecY+fuRC5nM?=
+ =?us-ascii?Q?NwnZ7In2Dev0Oie4uvq4IrkJx4D9IggUmYHb0YOyaDSbza9kwx6Ky5zlzzHA?=
+ =?us-ascii?Q?VMq6+ucn2rSql0QwvjFmWt4BjeLMDWLU9Mq0K+qtIDS6xGJwbYIGu83WMLwv?=
+ =?us-ascii?Q?prk1hE677mtNbrsN93+R7k2k/tB2VFKPnij1rpQTo3s02vQj7I+fidISJPJG?=
+ =?us-ascii?Q?QPqYw3R595vCev4UVvSlSQSN3aNoncfGfvRqV/EU++S0k6LbeX00Cv5oP2Mq?=
+ =?us-ascii?Q?MB+KaxACa+1egQXg9ZfKLOoirgOn/vEc8982A47M3WYlQhRv46n2EYiGueK+?=
+ =?us-ascii?Q?7vgPj5N7zZ9wwR0bMn25vHRZlaQI0Uie+R16qL4P?=
 Content-Type: multipart/alternative;
- boundary="_000_BYAPR12MB2840B1948370983D178DDD7CF4769BYAPR12MB2840namp_"
+ boundary="_000_BYAPR12MB284084C6B2F4AC19D5421B2DF4769BYAPR12MB2840namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a17dd22f-e1b5-4759-6153-08d9bfffe818
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2021 19:20:08.0134 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16aadb98-81b3-46f7-b57a-08d9c000666f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2021 19:23:39.9986 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ULeel58ub2vuIFVOferP8UpD+ZjYcxLxaE9kMA6kJE8LToHrOQwT2+Auk3RKvTnL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4856
+X-MS-Exchange-CrossTenant-userprincipalname: kQ58wtLIIfGX9SF4hTTun7knipFVmuHZhUR3NwYNRNZ3H9bCNVlmCV6SFyM42L46
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3191
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,37 +133,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BYAPR12MB2840B1948370983D178DDD7CF4769BYAPR12MB2840namp_
+--_000_BYAPR12MB284084C6B2F4AC19D5421B2DF4769BYAPR12MB2840namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only]
 
-I don't know what others may think, but this coding while correct:
-
--               WREG32_NO_KIQ(hub->vm_inv_eng0_req +
--                             hub->eng_distance * eng, inv_req);
-+               (vmhub =3D=3D AMDGPU_GFXHUB_0) ?
-+                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_req + h=
-ub->eng_distance * eng, inv_req) :
-+                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_req =
-+ hub->eng_distance * eng, inv_req);
-
-if is bit difficult to read. I wouldn't mind if the results of those functi=
-on calls were stored in a variable, but here, you are using it as an if/els=
-e or a switch statement. It is better to do it like that:
-
-switch(vmhub) {
-case AMDGPU_GFXHUB_0):
-//yadayada
-
-or
-
-if (vmhub =3D=3D AMDGPU_GFXHUB_0)
- //yadayada
-else {
- // yada du
-}
+Reviewed-by: David Nieto <david.nieto@amd.com>
 ________________________________
 From: Skvortsov, Victor <Victor.Skvortsov@amd.com>
 Sent: Wednesday, December 15, 2021 10:55 AM
@@ -175,136 +149,48 @@ Ming@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Zhou, Peng Ju <PengJu.Zh=
 ou@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; Chen, Horace <Horace.Ch=
 en@amd.com>; Nieto, David M <David.Nieto@amd.com>
 Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>
-Subject: [PATCH 2/5] drm/amdgpu: Modify indirect register access for gmc_v9=
-_0 sriov
+Subject: [PATCH 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro definitions
 
-Modify GC register access from MMIO to RLCG if the
-indirect flag is set
+Add helper macros to change register access
+from direct to indirect.
 
 Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 45 +++++++++++++++++++--------
- 1 file changed, 32 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c
-index db2ec84f7237..345ce7fc6463 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -478,9 +478,16 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
-dgpu_device *adev,
-                         hub =3D &adev->vmhub[j];
-                         for (i =3D 0; i < 16; i++) {
-                                 reg =3D hub->vm_context0_cntl + i;
--                               tmp =3D RREG32(reg);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/am=
+d/amdgpu/soc15_common.h
+index 8a9ca87d8663..473767e03676 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+@@ -51,6 +51,8 @@
+
+ #define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0, ip##_HWIP)
+
++#define RREG32_SOC15_IP_NO_KIQ(ip, reg) __RREG32_SOC15_RLC__(reg, AMDGPU_R=
+EGS_NO_KIQ, ip##_HWIP)
 +
-+                               tmp =3D (j =3D=3D AMDGPU_GFXHUB_0) ?
-+                                       RREG32_SOC15_IP(GC, reg) :
-+                                       RREG32_SOC15_IP(MMHUB, reg);
+ #define RREG32_SOC15_NO_KIQ(ip, inst, reg) \
+         __RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_=
+IDX] + reg, \
+                          AMDGPU_REGS_NO_KIQ, ip##_HWIP)
+@@ -65,6 +67,9 @@
+ #define WREG32_SOC15_IP(ip, reg, value) \
+          __WREG32_SOC15_RLC__(reg, value, 0, ip##_HWIP)
+
++#define WREG32_SOC15_IP_NO_KIQ(ip, reg, value) \
++        __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)
 +
-                                 tmp &=3D ~bits;
--                               WREG32(reg, tmp);
-+
-+                               (j =3D=3D AMDGPU_GFXHUB_0) ?
-+                                       WREG32_SOC15_IP(GC, reg, tmp) :
-+                                       WREG32_SOC15_IP(MMHUB, reg, tmp);
-                         }
-                 }
-                 break;
-@@ -489,9 +496,16 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
-dgpu_device *adev,
-                         hub =3D &adev->vmhub[j];
-                         for (i =3D 0; i < 16; i++) {
-                                 reg =3D hub->vm_context0_cntl + i;
--                               tmp =3D RREG32(reg);
-+
-+                               tmp =3D (j =3D=3D AMDGPU_GFXHUB_0) ?
-+                                       RREG32_SOC15_IP(GC, reg) :
-+                                       RREG32_SOC15_IP(MMHUB, reg);
-+
-                                 tmp |=3D bits;
--                               WREG32(reg, tmp);
-+
-+                               (j =3D=3D AMDGPU_GFXHUB_0) ?
-+                                       WREG32_SOC15_IP(GC, reg, tmp) :
-+                                       WREG32_SOC15_IP(MMHUB, reg, tmp);
-                         }
-                 }
-                 break;
-@@ -789,8 +803,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device=
- *adev, uint32_t vmid,
-         if (use_semaphore) {
-                 for (j =3D 0; j < adev->usec_timeout; j++) {
-                         /* a read return value of 1 means semaphore acuqir=
-e */
--                       tmp =3D RREG32_NO_KIQ(hub->vm_inv_eng0_sem +
--                                           hub->eng_distance * eng);
-+                       tmp =3D (vmhub =3D=3D AMDGPU_GFXHUB_0) ?
-+                                       RREG32_SOC15_IP_NO_KIQ(GC, hub->vm_=
-inv_eng0_sem + hub->eng_distance * eng) :
-+                                       RREG32_SOC15_IP_NO_KIQ(MMHUB, hub->=
-vm_inv_eng0_sem + hub->eng_distance * eng);
-                         if (tmp & 0x1)
-                                 break;
-                         udelay(1);
-@@ -801,8 +816,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device=
- *adev, uint32_t vmid,
-         }
-
-         do {
--               WREG32_NO_KIQ(hub->vm_inv_eng0_req +
--                             hub->eng_distance * eng, inv_req);
-+               (vmhub =3D=3D AMDGPU_GFXHUB_0) ?
-+                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_req + h=
-ub->eng_distance * eng, inv_req) :
-+                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_req =
-+ hub->eng_distance * eng, inv_req);
-
-                 /*
-                  * Issue a dummy read to wait for the ACK register to
-@@ -815,8 +831,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device=
- *adev, uint32_t vmid,
-                                       hub->eng_distance * eng);
-
-                 for (j =3D 0; j < adev->usec_timeout; j++) {
--                       tmp =3D RREG32_NO_KIQ(hub->vm_inv_eng0_ack +
--                                           hub->eng_distance * eng);
-+                       tmp =3D (vmhub =3D=3D AMDGPU_GFXHUB_0) ?
-+                               RREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0=
-_ack + hub->eng_distance * eng) :
-+                               RREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_e=
-ng0_ack + hub->eng_distance * eng);
-                         if (tmp & (1 << vmid))
-                                 break;
-                         udelay(1);
-@@ -827,13 +844,15 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
-ce *adev, uint32_t vmid,
-         } while (inv_req);
-
-         /* TODO: It needs to continue working on debugging with semaphore =
-for GFXHUB as well. */
--       if (use_semaphore)
-+       if (use_semaphore) {
-                 /*
-                  * add semaphore release after invalidation,
-                  * write with 0 means semaphore release
-                  */
--               WREG32_NO_KIQ(hub->vm_inv_eng0_sem +
--                             hub->eng_distance * eng, 0);
-+               (vmhub =3D=3D AMDGPU_GFXHUB_0) ?
-+                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_sem + h=
-ub->eng_distance * eng, 0) :
-+                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_sem =
-+ hub->eng_distance * eng, 0);
-+       }
-
-         spin_unlock(&adev->gmc.invalidate_lock);
-
+ #define WREG32_SOC15_NO_KIQ(ip, inst, reg, value) \
+         __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_=
+IDX] + reg, \
+                              value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)
 --
 2.25.1
 
 
---_000_BYAPR12MB2840B1948370983D178DDD7CF4769BYAPR12MB2840namp_
+--_000_BYAPR12MB284084C6B2F4AC19D5421B2DF4769BYAPR12MB2840namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -324,121 +210,7 @@ gn=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-I don't know what others may think, but this coding while correct:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;
- WREG32_NO_KIQ(hub-&gt;vm_inv_eng0_req +</span><br>
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- hub-&gt;eng_distance * eng, inv_req);</span><br style=3D"color: rgb(0, 0, =
-0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&q=
-uot;, &quot;Segoe UI&quot;, -apple-system, &quot;system-ui&quot;, Roboto, &=
-quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; background-col=
-or: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;
- (vmhub =3D=3D AMDGPU_GFXHUB_0) ?</span><br style=3D"color: rgb(0, 0, 0); f=
-ont-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;,=
- &quot;Segoe UI&quot;, -apple-system, &quot;system-ui&quot;, Roboto, &quot;=
-Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; background-color: r=
-gb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- WREG32_SOC15_IP_NO_KIQ(GC, hub-&gt;vm_inv_eng0_req + hub-&gt;eng_distance =
-* eng, inv_req) :</span><br style=3D"color: rgb(0, 0, 0); font-family: &quo=
-t;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&=
-quot;, -apple-system, &quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&q=
-uot;, sans-serif; font-size: 14.6667px; background-color: rgb(255, 255, 255=
-);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- WREG32_SOC15_IP_NO_KIQ(MMHUB, hub-&gt;vm_inv_eng0_req + hub-&gt;eng_distan=
-ce * eng, inv_req);</span><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;"><br>
-</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">if
- is bit difficult to read. I wouldn't mind if the results of those function=
- calls were stored in a variable, but here, you are using it as an if/else =
-or a switch statement. It is better to do it like that:</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-switch(vmhub) {</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-case AMDGPU_GFXHUB_0):</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-//yadayada</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-or</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-if (vmhub =3D=3D AMDGPU_GFXHUB_0)&nbsp;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-&nbsp;//yadayada</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-else {</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-&nbsp;// yada du</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-}</div>
+Reviewed-by: David Nieto &lt;david.nieto@amd.com&gt;</div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
@@ -452,266 +224,54 @@ amd.com&gt;; Zhou, Peng Ju &lt;PengJu.Zhou@amd.com&gt;; Chen, JingWen
  &lt;JingWen.Chen2@amd.com&gt;; Chen, Horace &lt;Horace.Chen@amd.com&gt;; N=
 ieto, David M &lt;David.Nieto@amd.com&gt;<br>
 <b>Cc:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/5] drm/amdgpu: Modify indirect register access for=
- gmc_v9_0 sriov</font>
+<b>Subject:</b> [PATCH 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro defin=
+itions</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Modify GC register access from MMIO to RLCG if the=
-<br>
-indirect flag is set<br>
+<div class=3D"PlainText">Add helper macros to change register access<br>
+from direct to indirect.<br>
 <br>
 Signed-off-by: Victor Skvortsov &lt;victor.skvortsov@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 45 +++++++++++++++++++-------=
--<br>
-&nbsp;1 file changed, 32 insertions(+), 13 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc15_common.h | 5 +++++<br>
+&nbsp;1 file changed, 5 insertions(+)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c<br>
-index db2ec84f7237..345ce7fc6463 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-@@ -478,9 +478,16 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
-dgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hub =
-=3D &amp;adev-&gt;vmhub[j];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (=
-i =3D 0; i &lt; 16; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D hub-&gt;vm_context0_cntl=
- + i;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(reg);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D (j =3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; RREG32_SOC15_IP(GC, reg) :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; RREG32_SOC15_IP(MMHUB, reg);<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D ~bits;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(reg, tmp);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (j =3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_SOC15_IP(GC, reg, tmp) :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-@@ -489,9 +496,16 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
-dgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hub =
-=3D &amp;adev-&gt;vmhub[j];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (=
-i =3D 0; i &lt; 16; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D hub-&gt;vm_context0_cntl=
- + i;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(reg);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D (j =3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; RREG32_SOC15_IP(GC, reg) :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; RREG32_SOC15_IP(MMHUB, reg);<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D bits;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(reg, tmp);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (j =3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_SOC15_IP(GC, reg, tmp) :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-@@ -789,8 +803,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device=
- *adev, uint32_t vmid,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_semaphore) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; for (j =3D 0; j &lt; adev-&gt;usec_timeout; j++) {<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* a =
-read return value of 1 means semaphore acuqire */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_N=
-O_KIQ(hub-&gt;vm_inv_eng0_sem +<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D (vmhub =
-=3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; RREG32_SOC15_IP_NO_KIQ(GC, hub-&gt;vm_inv_eng0_sem + hub-&gt;eng_dista=
-nce * eng) :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; RREG32_SOC15_IP_NO_KIQ(MMHUB, hub-&gt;vm_inv_eng0_sem + hub-&gt;eng_di=
-stance * eng);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (t=
-mp &amp; 0x1)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udela=
-y(1);<br>
-@@ -801,8 +816,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device=
- *adev, uint32_t vmid,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/am=
+d/amdgpu/soc15_common.h<br>
+index 8a9ca87d8663..473767e03676 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h<br>
+@@ -51,6 +51,8 @@<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_NO_KIQ(hub-&gt;vm_inv_eng0_req +<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng, inv_req);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (vmhub =3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
-NO_KIQ(GC, hub-&gt;vm_inv_eng0_req + hub-&gt;eng_distance * eng, inv_req) :=
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
-NO_KIQ(MMHUB, hub-&gt;vm_inv_eng0_req + hub-&gt;eng_distance * eng, inv_req=
-);<br>
+&nbsp;#define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0, ip##_HW=
+IP)<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /*<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * Issue a dummy read to wait for the ACK regist=
-er to<br>
-@@ -815,8 +831,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device=
- *adev, uint32_t vmid,<br>
++#define RREG32_SOC15_IP_NO_KIQ(ip, reg) __RREG32_SOC15_RLC__(reg, AMDGPU_R=
+EGS_NO_KIQ, ip##_HWIP)<br>
++<br>
+&nbsp;#define RREG32_SOC15_NO_KIQ(ip, inst, reg) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __RREG32_SOC15_RLC__(adev-=
+&gt;reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; hub-&gt;eng_distance * eng);<br>
+ AMDGPU_REGS_NO_KIQ, ip##_HWIP)<br>
+@@ -65,6 +67,9 @@<br>
+&nbsp;#define WREG32_SOC15_IP(ip, reg, value) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __WREG32_SOC15_RLC__=
+(reg, value, 0, ip##_HWIP)<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; for (j =3D 0; j &lt; adev-&gt;usec_timeout; j++) {<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_N=
-O_KIQ(hub-&gt;vm_inv_eng0_ack +<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D (vmhub =
-=3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RREG32_SOC15_IP_NO_KIQ(GC, hub-&gt;vm_inv_e=
-ng0_ack + hub-&gt;eng_distance * eng) :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RREG32_SOC15_IP_NO_KIQ(MMHUB, hub-&gt;vm_in=
-v_eng0_ack + hub-&gt;eng_distance * eng);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (t=
-mp &amp; (1 &lt;&lt; vmid))<br>
++#define WREG32_SOC15_IP_NO_KIQ(ip, reg, value) \<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __WREG32_SOC15_RLC__(reg, value=
+, AMDGPU_REGS_NO_KIQ, ip##_HWIP)<br>
++<br>
+&nbsp;#define WREG32_SOC15_NO_KIQ(ip, inst, reg, value) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __WREG32_SOC15_RLC__(adev-=
+&gt;reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udela=
-y(1);<br>
-@@ -827,13 +844,15 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
-ce *adev, uint32_t vmid,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (inv_req);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO: It needs to conti=
-nue working on debugging with semaphore for GFXHUB as well. */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_semaphore)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_semaphore) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /*<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * add semaphore release after invalidation,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * write with 0 means semaphore release<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_NO_KIQ(hub-&gt;vm_inv_eng0_sem +<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (vmhub =3D=3D AMDGPU_GFXHUB_0) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
-NO_KIQ(GC, hub-&gt;vm_inv_eng0_sem + hub-&gt;eng_distance * eng, 0) :<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
-NO_KIQ(MMHUB, hub-&gt;vm_inv_eng0_sem + hub-&gt;eng_distance * eng, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;adev-&gt;=
-gmc.invalidate_lock);<br>
-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)<br>
 -- <br>
 2.25.1<br>
 <br>
@@ -721,4 +281,4 @@ gmc.invalidate_lock);<br>
 </body>
 </html>
 
---_000_BYAPR12MB2840B1948370983D178DDD7CF4769BYAPR12MB2840namp_--
+--_000_BYAPR12MB284084C6B2F4AC19D5421B2DF4769BYAPR12MB2840namp_--
