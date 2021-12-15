@@ -4,123 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B7F9C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Dec 2021 19:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFA7BC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Dec 2021 19:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B474E10F8B2;
-	Wed, 15 Dec 2021 19:16:09 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E58D10F8B2
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Dec 2021 19:16:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 282FC10F8EB;
+	Wed, 15 Dec 2021 19:18:38 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4854B10F8EE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Dec 2021 19:18:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YElplddb5614DlBlUzyAVPaqvUgCw7xpKH5aWQyDVfFntcYobf7vOov+HhjRZvliGK1bBWMN+UgNgP98urF6+nZI1C9+6CYFtP4jA9UZ3MA2SdBK90iMK0VvmpJ/ewYVbRfd5IkeQCEHApkDrNh4zsz8fe+hyDXPgpsB4cler1y97PpNhwHuzya0wUJDPmoiTKxJLoU8xhwCn0lGWD1gfRGNwrq8iKMFN7ITODp0/cJ2P69pyZdFsiVFT5J9pACsHLKuoWyVVxVQa5ClfVLnIGGBPymY1yxWZQRZY68wSJ4Hkh4U5kGTzNoruuFufUlaZz53iKHS0tpFqYO1drrsbQ==
+ b=GoVqG8OqcRR4NHPXyHRt8XXzmsNSOJvkc9UdFE81K1C+e6G1i9ubqSQ8m1ZD3lJLzbCXmgyeRVcMuBciWDEgi+ifdu6pH5UuIup+I/rwxolJW85SrVzRq0i5PFxXHvaZXE4Ykz3qYKMElcY7CSfx9q4OOt3trFkZgpE5ylU5XjhUqdpLAirXf78m0hlPzPpzd/gLImwAevf2E7WSXC2xsz3BupVM5dBUEQzXBXJdpJiGI7ZLDYtoqjGEdmirhYaBWfnrXXuMJ6V3ZGfgadNK+j+PO49LZkRDqPJzeZU6geBb89/eE/zccDKQsyN2HZjIsbH+d7/lgNSnJdqlSbDYSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=haqLFw1znHsUd2Q3S114uPfGEPInuTnW+Gsl5H60iE8=;
- b=XW+UezkLhouqVt8Ki65I3w+HtBzdFgBZqayoFpVi6FKWA6NmKjeRZYgg8rOoXGtqFKDmnLasBNpbKYTdVdTIFlh2fVMrtGlOj/0amZrX8F7BO5LBujsba0u7ZZfp/nVT9MqmA+oo45SLIM9dFoJ4oeBNJQRxR7OEc/rk6dzVXUbjzYk5wpx8czLPRLXryAJYB16bSxmgn5qSTDqn8xwF84dzdxPtjse5SxtCCugH9/Ii9Kwuef4OWeR3UmC8+T20jxcY3A10ec4KtVGM0BBGU+z2ILK8tAC3tM1/Z1+b5XhPdw5eUQW3wkEmqOhSEIAQEqPt88e40ccZWBBKy1N7HQ==
+ bh=TGhNKyX4NUccikDc4IabnkNNYbfRKPlyBFMaJTmuJU4=;
+ b=c2zN/n+GQpMJliiFD6BtZguEFhRuC6ILyTd0K4h6ClxJy9wtTM+P/+Xb8e2SXax+gFnPkDIkb+a+h6DbDa8G0SeN/hPTLeIUdjp40QHKGAkFhJwPt63ICtN7q3mnUUH0IMNqCbD7oE7qsHNdiIcNgSiB/NJaeoTkTzc3oPKpY12Iof63TtAS0z4VToa42AT/QNFFnf9ehnfcBETweeRFGkXQ4gEeQPPKEZx7yKEZ+1J1c755dv8QhamwqVzdYcLNdb/kdnyp+F644FoRixMcxDn29npPuN8PAs5XoW05S8dc8d6/2AxF3lvYhfWCE8lnEwp+HDpNFY9x7wzSxuYqlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=haqLFw1znHsUd2Q3S114uPfGEPInuTnW+Gsl5H60iE8=;
- b=frMQZKR89WYzMm294qSTIVtDqAUTMjUXTqrPxA8fTlOuQ5n9xHLjqSvPlBuZXapDx5JEcazmT2PlfjCgZuG0e+VkuwnT2xJvGG1Lg8vx8aObsFyTDLl7Bw+BiRZS0s85uJ2v1CBIs+LOLXwDN1DgaBlZhsykrQNeGHwDUKp37EM=
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB4597.namprd12.prod.outlook.com (2603:10b6:a03:10b::14)
+ bh=TGhNKyX4NUccikDc4IabnkNNYbfRKPlyBFMaJTmuJU4=;
+ b=GbRj48N4v+n+pYONWyv2osQO1hn7CmWeeOxTUkfFzlqCd5i83ykHYqEFZ3N4coCSkhRhigt1LD7EQtdNwc9KcS4A6jubjH1hgFbtY+V+36pqzdd3WHTPomBJD9lqtazGmmeCZgnfFnAz2Ust45HwrIJizkiIxnwhytzM3UeCoSA=
+Received: from BN9PR12MB5324.namprd12.prod.outlook.com (2603:10b6:408:105::15)
+ by BN9PR12MB5324.namprd12.prod.outlook.com (2603:10b6:408:105::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Wed, 15 Dec
- 2021 19:16:05 +0000
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::5425:7b82:3787:d5fa]) by BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::5425:7b82:3787:d5fa%5]) with mapi id 15.20.4778.018; Wed, 15 Dec 2021
- 19:16:05 +0000
-From: "Nieto, David M" <David.Nieto@amd.com>
-To: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deng,
- Emily" <Emily.Deng@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, "Ming, Davis"
- <Davis.Ming@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Zhou, Peng Ju"
- <PengJu.Zhou@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>, "Chen,
- Horace" <Horace.Chen@amd.com>
-Subject: Re: [PATCH 5/5] drm/amdgpu: Modify indirect register access for gfx9
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.16; Wed, 15 Dec
+ 2021 19:18:34 +0000
+Received: from BN9PR12MB5324.namprd12.prod.outlook.com
+ ([fe80::a10e:e3e6:7760:fd5a]) by BN9PR12MB5324.namprd12.prod.outlook.com
+ ([fe80::a10e:e3e6:7760:fd5a%3]) with mapi id 15.20.4778.018; Wed, 15 Dec 2021
+ 19:18:34 +0000
+From: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>
+To: "Nieto, David M" <David.Nieto@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deng, Emily" <Emily.Deng@amd.com>, "Liu,
+ Monk" <Monk.Liu@amd.com>, "Ming, Davis" <Davis.Ming@amd.com>, "Liu, Shaoyun"
+ <Shaoyun.Liu@amd.com>, "Zhou, Peng Ju" <PengJu.Zhou@amd.com>, "Chen, JingWen"
+ <JingWen.Chen2@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>
+Subject: RE: [PATCH 5/5] drm/amdgpu: Modify indirect register access for gfx9
  sriov
 Thread-Topic: [PATCH 5/5] drm/amdgpu: Modify indirect register access for gfx9
  sriov
-Thread-Index: AQHX8eVYqkrz5GuZGEuqCdtGaPXlTKwz7Ac/
-Date: Wed, 15 Dec 2021 19:16:05 +0000
-Message-ID: <BYAPR12MB2840F2BD83E7E075F7EF40D0F4769@BYAPR12MB2840.namprd12.prod.outlook.com>
+Thread-Index: AQHX8eVYmuBqCA4Fe0WzC0Whr/cJRqwz7J6AgAAAGvA=
+Date: Wed, 15 Dec 2021 19:18:34 +0000
+Message-ID: <BN9PR12MB5324E5F73B6CD4829091DE6E8B769@BN9PR12MB5324.namprd12.prod.outlook.com>
 References: <20211215185510.15134-1-victor.skvortsov@amd.com>
  <20211215185510.15134-6-victor.skvortsov@amd.com>
-In-Reply-To: <20211215185510.15134-6-victor.skvortsov@amd.com>
+ <BYAPR12MB2840F2BD83E7E075F7EF40D0F4769@BYAPR12MB2840.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB2840F2BD83E7E075F7EF40D0F4769@BYAPR12MB2840.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-15T19:18:31Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-15T19:16:04.337Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 1c740e27-cafe-2c5f-c1f0-1db9bc19f4b2
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-12-15T19:18:31Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: aa39872e-fda5-4e35-81f4-4579f81f2e91
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e55d4757-3f71-4936-c9fc-08d9bfff5748
-x-ms-traffictypediagnostic: BYAPR12MB4597:EE_
-x-microsoft-antispam-prvs: <BYAPR12MB45977993F0F81303C5E83567F4769@BYAPR12MB4597.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2449;
+x-ms-office365-filtering-correlation-id: 29d32153-6e11-4cc9-751b-08d9bfffb05e
+x-ms-traffictypediagnostic: BN9PR12MB5324:EE_
+x-microsoft-antispam-prvs: <BN9PR12MB532456F2241C567D598A06EF8B769@BN9PR12MB5324.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4502;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: mqemLvU24Ar1jxRGb322h+zqkjD6qN/glfT7IomBu3GjR9ZeEpALEnnBk3Yta2VLDgw/RYxMAKnI3iJSrwVIR4vIbmRiIhhQQ1ItlpEdnKEVNAVdDrnh/jEDUV/tB8WyiuENspSE4YW/n6AIcwy5BMKsQOaI5QZzOgA2pf1jAlKkc2HIkGvYxAB07Oz1CceaJK5byr1xCmzFEt34iM4WmkWdhQC+1QPYIO+vHPup6vqK7Qpg8hsc7p5FNIRW5w3YvdAyCG/Hp5Jrm/tlKv1ucpuj3HJjBXBDtCoLMruXQ/FCWJJYNlZ415CjQrO/CqVFA9JnlRquTcnjFZ6/5l/5qqE3QgHPNCq1/YTavJXvEBiZq2NZnh+teVU9zzPGZhnZME3bwSar31VBD9f8LKldDCq9ZxXG3kWEuzP8qWfEI7qDwFEoH9SSF78pPz7kn/Jxmw7Vy2PIAal9vACATuOPhalTm/KpuBYS5vDwxpJgSxXq98gzUnnvcVFedJyAxEKm3yjug4FrIx4vuIhImDYN3kKVND4AeYZZn3DMUhZjIT4Qfpo7SslA36LV2gBTkYdQAXsSPfn6ABNq5Bhk/XfooV6K8W4lzQpqHptHpxI6cpFHspaoBIgeCUfRONmBjj46SGYpFAYcdNx90mcX5if0DnDf24WVkYYDfa5B+NlMMf7FNJFboJTyq++nCLBzH1tsPUeO3+xBUiqWUcqSdnPdvEIDrdh100x9jLvRIBdik60=
+x-microsoft-antispam-message-info: voKYE5kbMZTdSbdHiuc3/lflusp7EPdS8rSkjkQY57eRC7hptOSDQdhxj9POzgPWSWXM215lgXxeQymEO/agVcusKL4f3GIuJEEvzyL8JON/EiU20hi+qMuVoO8ueJvb3HAlkJX9ziLXGlHT+3Z15CR5z+BLPLJZ/t46esbHNwWzJ67m8N54dXJBc+fS8WHEARY9/Dmd4RXo+4Y4+bAdlZtNGXQafWfClPaHb9mPF7rS4TXs/ShwU+rQ415NFLBMRIUU6nLTugkPVv/CrMYvuY68IeOMiWqcb8GvxV6xU03xN4fAWPxwSRO693jcTB+qmqMPxj++Xs26V2JASBNnpkrdSE0ecKSnTeqGHQW+sjLOGCe4CP0iiA2zUcEfpLWUH+BQ3is5GqEIPXA5LtLiWiIcQf0ScqMzJEi/zK1er7NfDMIEt4by9EZ9CbnMK8nJBGRjb3D3jxIoKdmneQxLpACPk6IkacX3xB06owdHXTXMKy3ajaRJ0b89QEIGCCHLUo4F+xU6oKUwj4IUaLLk3+HU9bxRsovMM1m7GAfXb12dsl4j6c59K8nrK/wJY1aTcaefghKGiObKIXb5GJUuP+vu77Nd94BIcRWKsxBEc/GoZvxNX04Ke3bYOZHNLFMnNDV5BiJ6SJH2/n8NfkT+e8bgwMZFkZDr7VdhxqUAqQn2fCVIidoT0mlFWmt9aYEcPKkDQbDdbBG2hPk3BheqRfqei4A25pLjniWgFXTWJec=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(122000001)(71200400001)(2906002)(66946007)(66476007)(76116006)(5660300002)(8936002)(66556008)(66446008)(64756008)(55016003)(921005)(110136005)(508600001)(38100700002)(316002)(7696005)(83380400001)(33656002)(19627405001)(53546011)(6636002)(86362001)(6506007)(8676002)(38070700005)(9686003)(186003)(52536014);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5324.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(55016003)(38100700002)(76116006)(8936002)(8676002)(2906002)(7696005)(110136005)(71200400001)(26005)(122000001)(33656002)(86362001)(83380400001)(5660300002)(64756008)(66556008)(52536014)(66476007)(508600001)(66946007)(921005)(6506007)(9686003)(186003)(66446008)(38070700005)(53546011)(6636002)(316002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xOJ/phWF65JobPyS2QYYazdBYHZjumojI67UQ+EeKumjo7mI7PV+Jha+AOmo?=
- =?us-ascii?Q?HNP5zz0MCUgmO7GEYa29kFBO61ZoiDS+v3rHvXke0sHtCTDX6fUAf/JxAzxQ?=
- =?us-ascii?Q?x9ZmzM/aQr5Qp2EggWMj0nUthx+9agaZAOumBMEjpyXdraV9D9GkUWk+vJis?=
- =?us-ascii?Q?6+5CKVBq7CCe24fgETquKVwTFTYEgtRZ6Efm9x+fzqUy566ieCqXacn+qnec?=
- =?us-ascii?Q?kYi1inUsJKA6hNExJCf2XAsZNCp7HF3uDU76BV05IKjJeeTSJ6Oga32K2ESs?=
- =?us-ascii?Q?ujEE3/w4w9QNW9N3q6m506DNUQaJ/SxG8qzzGN+nkLwptsd4sWu21JaorWv2?=
- =?us-ascii?Q?wCWglhIoHxv/++EpX1wSYPqmj19GDtP0ImSgXRDEzq2e/2JUK56z70AaBIYg?=
- =?us-ascii?Q?V3FM6ZtUEBHDB0qfTt6qd1xFhE6RbMdnhhE+G9jhMc4m2/+qiIu4ABdwWyJn?=
- =?us-ascii?Q?iNkb2kb5dLupAVOcYMGeUk8aFyDh6PxGQg6scOTN66ORw39BxFImkRI3EKYD?=
- =?us-ascii?Q?/aAEFNMNVipq6PP43J2LuvlYQBxy/GkPQTyMiMxafkLPgaKZJWt5LeBT5WZi?=
- =?us-ascii?Q?7tmpyEfubm+TDT0chi/e7N+wu6e09TFg+czeecsNbi39K/7Ccp29851Y4IiA?=
- =?us-ascii?Q?+x1WmqmL12PG7gqQ/4bGvoqiRCylrVqeK+MjMZjySSrII/P3RpFZ4GgjM6dP?=
- =?us-ascii?Q?oJl5aZWQ0MkbCwmRnZ9Fxfs5Qm25gDehnpzmsRnA+JK6mq5qYCnBWAI0nE0z?=
- =?us-ascii?Q?RssyBQA8wt4MJ3QERcN44I/f8APcGNm1Olz9D8vCNn0GPIGy3f+TRaElOXJF?=
- =?us-ascii?Q?NQrx2fHTC3BIQmOkvwzdjsxk5JGAqegv7XRkyxNhDULS/F3R1XPPNppxvFj4?=
- =?us-ascii?Q?tk4PTMbIbBBgMx7kV0cPgMZTxK6MDJQydvfZf5A/1Nr7BxgUSq98geFdC95i?=
- =?us-ascii?Q?Xl2HFWbhNSIl2446VN5Lh2ypRbVF2b0cZufUUZDp55ciGdfszpD5TpVI9nvC?=
- =?us-ascii?Q?zUJsJq8fG4G4LTQd+3Fb1B1wN9gwl1gHVOk18ai4BV1W7dHB9AYfYb8gl8ID?=
- =?us-ascii?Q?PLtXAOpniEY5vOb5w9DeSG5NyC2X3dB4jr5zM8SVMBGuDAhWggFXcBfgWCZs?=
- =?us-ascii?Q?NTghQpu48TvvQFW86k9Ocg83FrmCATiDCD6nIvK2ejrn/jJnVC0MI84BLlv/?=
- =?us-ascii?Q?WSge8TdNRgdSZBVFvx520YVQCnQ8kmpKi1fu1zYaT5CYzeMd6sRKgwRhIy8D?=
- =?us-ascii?Q?kDhq911edwcAIV9P4NbWPVmXa2XPWalWYD1GpKUY7ig6woOrcN4558NXxoTS?=
- =?us-ascii?Q?MirgtUjXfK5Uq+zU8a8Oec95VlItgvgbNGOBEquXTcqieUGEe+kS84/Xi8Qe?=
- =?us-ascii?Q?gkZKwc9RmODch/bx9qvlVVD/dZsSBVOw512f7jajVdpCYIJdBlI4QOp9bZex?=
- =?us-ascii?Q?23qxT8csbQYpa6brKlxnczuDxquZN6POzFJz1hee42Xu0eo6wzgNv8ivYzXk?=
- =?us-ascii?Q?Kq7uqDUCC6jAIj4k0S1M8x2xzQ48sfDtx/mSssssFSr6cP8TWnt0a++ZHTYA?=
- =?us-ascii?Q?nmuASbGliS97VbDf8JsCsJK/VX0LmfBM2LAncQFT?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OTYnJzkrMeRTw+uNx4iPFrNzVmA8Lbl2LkDKObXCQOXsXaSMP9jrZZ7Bo5Y5?=
+ =?us-ascii?Q?FU/FGRgg1kzavY8QmyQ85rXl3F6xCxxd+ZWFKh/SfT3t/ToP1iKA3VJdViHY?=
+ =?us-ascii?Q?buie9VdCyR5sRNhzlVkQCKq7NXZMpCHmDFC0UFoT4nwMcBhN/kCayyCitzw8?=
+ =?us-ascii?Q?tBVYknjw519KJ6/VTSdX4Ygx6uyhNmcHkL10vdiL5EQpIXiZm+vDZy34BG1L?=
+ =?us-ascii?Q?mtSk/aDS9KxdqKzlV65Lzrn4aT88aYkCcA4bN0By4a2DKN7aLMke3yOjKWUv?=
+ =?us-ascii?Q?t1wm569U/2Y+gQHNWa8ZirEd+SZt+4IOTVFba+wR/pzwnXRnxRZ+R9nrN3ug?=
+ =?us-ascii?Q?S7bDzwUyREKdbUtNouhauMXk+yPaYNkXjEURKzweB19KY4kD4bhpTmoxdvxD?=
+ =?us-ascii?Q?qIF89gWs9BHu0c3HN0a+OnSPDfbwA+YkQHzuIYmsl9czYwq26UDZBUKw/qjJ?=
+ =?us-ascii?Q?yGnGLll7XrO6Zkgda/jaAWl3UdrsTKi0a7mJPJhPpj4mgxlyriWPhI6N46PR?=
+ =?us-ascii?Q?Lo3eCBEBJ7TKBZ0RN2JZcPjJV1ugY2tAYJtbftcFqIQLElEJYl1ezgeX1CQ2?=
+ =?us-ascii?Q?8sza10lPFfR0srK0eJI8BC9dNDu0O9gH8LDt9luf7QZgsxgQX2mtfDb5MpUk?=
+ =?us-ascii?Q?hCEOVunTNCKl+mlQy1XkQ1csTZo1+teMRxE02eYw8S1GAIESFt5deZZUFvgQ?=
+ =?us-ascii?Q?w8Qvrx6vtHsC6db/id14on4zkAap5zOy8kZ2TkQHi2D+9Z73r1YAKXuKclJP?=
+ =?us-ascii?Q?hDQIApfMe2jHX72SBz5QXvSWxf6uO/4oPu9l3m8JPZqrCh+CJQFEXCfxHWwm?=
+ =?us-ascii?Q?W8GNDEfzQdzlCT8SIlYf9LMUHIStz4xEhyKIJLJ8Mm+cM9hxEnpe4kQ2L8pl?=
+ =?us-ascii?Q?+6vHSArirs/UHxyS1zdwad83PdUxANYcJ/5GsbaGMC2RUZyZcK/eifYzrAhe?=
+ =?us-ascii?Q?UYRaa7nYwWFzpcUYg/DsU+vd6yrJcFQUBOjpe4lGh4h8rgvJMzZ5jUELPI33?=
+ =?us-ascii?Q?JBW3sC1NZpf7Q/dxI5iu/VUpkJ3Q6zaI0MPMk5HEBRGEv5Qg7ScDH/xP9fBf?=
+ =?us-ascii?Q?kr00nH4elHlXbpyCrpJkqyGdgoUwsEZE2d4+WrjycNuijfDS/QDfyPGdYt1Y?=
+ =?us-ascii?Q?sK3MiK2KtkCWHZWXawZIJTnxRBXgXqhj+BXUreBTWWPFcfVIIkPFno0s9nlL?=
+ =?us-ascii?Q?gJ42DcPxTcZOEaHIEAJSBc/oBEaABVd4loEQYwFjXRCwcQoWES6dHe/Bj2P7?=
+ =?us-ascii?Q?z4eWCIzjqDN4k85LKBY534opR5wSd57vuIEdYjhshK9RCISi77DmN5sY4fBc?=
+ =?us-ascii?Q?HvZhQ8eIpgA6QSxSSBR3mw5h0zZLL9j7Z3QDEaM6Pb+SHoqwnt7SO8nGZOJa?=
+ =?us-ascii?Q?pj7DPyZOM3ZeBhIxzpPW3JpvU2ICU1b//2UF/iSakZurOHeCD0oMJtmemJ/O?=
+ =?us-ascii?Q?PUmSy3E+qSpsUqtpvycaJje9KxeWmfSdEwdZsshRpSaU0vcSxhWfHxu1p6Rb?=
+ =?us-ascii?Q?vjqMpBDcfKzQhJSaesBfYLssnmpUV6Wl7wke+sqACvxTQGNQOzHG/wJdYl08?=
+ =?us-ascii?Q?gEhzSrc0VAADxVuQcLrfIWgcdFx/169CFVAYsJn8FvaCDq898c93whNA7K0m?=
+ =?us-ascii?Q?0ihNTJkUJ1vz24SHfK4IIZA=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BYAPR12MB2840F2BD83E7E075F7EF40D0F4769BYAPR12MB2840namp_"
+ boundary="_000_BN9PR12MB5324E5F73B6CD4829091DE6E8B769BN9PR12MB5324namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e55d4757-3f71-4936-c9fc-08d9bfff5748
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2021 19:16:05.0360 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5324.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29d32153-6e11-4cc9-751b-08d9bfffb05e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2021 19:18:34.4450 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: peTrT0q6qINDDw0xujLjrLPUreHoBFMahGLcbIBwVrkdditNNccxfj+vDqN6PXpf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4597
+X-MS-Exchange-CrossTenant-userprincipalname: BqL1hvwKKu0MpI+D7wWD2GdapL8eLyXiP/CnzbvMlmEsfECefVxsBh9R1jR/i4Bp+4v91pvEg6RVAHIt3lg77A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5324
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,9 +143,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BYAPR12MB2840F2BD83E7E075F7EF40D0F4769BYAPR12MB2840namp_
+--_000_BN9PR12MB5324E5F73B6CD4829091DE6E8B769BN9PR12MB5324namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+This was a bug in the original definition, but it functionally it makes no =
+difference (in both cases the macros resolve to the same value).
+
+From: Nieto, David M <David.Nieto@amd.com>
+Sent: Wednesday, December 15, 2021 2:16 PM
+To: Skvortsov, Victor <Victor.Skvortsov@amd.com>; amd-gfx@lists.freedesktop=
+.org; Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Ming,=
+ Davis <Davis.Ming@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Zhou, Peng=
+ Ju <PengJu.Zhou@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; Chen, Hor=
+ace <Horace.Chen@amd.com>
+Subject: Re: [PATCH 5/5] drm/amdgpu: Modify indirect register access for gf=
+x9 sriov
+
 
 [AMD Official Use Only]
 
@@ -159,21 +183,28 @@ ARE_INT_BASE_IDX] + mmRLC_SPARE_INT)*4;
 the definition of scratch_reg2 and 3 has here.... will this be backwards co=
 mpatible? Was it a bug in the definition?
 ________________________________
-From: Skvortsov, Victor <Victor.Skvortsov@amd.com>
+From: Skvortsov, Victor <Victor.Skvortsov@amd.com<mailto:Victor.Skvortsov@a=
+md.com>>
 Sent: Wednesday, December 15, 2021 10:55 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deng, Em=
-ily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Ming, Davis <Davis.=
-Ming@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Zhou, Peng Ju <PengJu.Zh=
-ou@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; Chen, Horace <Horace.Ch=
-en@amd.com>; Nieto, David M <David.Nieto@amd.com>
-Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; Deng, E=
+mily <Emily.Deng@amd.com<mailto:Emily.Deng@amd.com>>; Liu, Monk <Monk.Liu@a=
+md.com<mailto:Monk.Liu@amd.com>>; Ming, Davis <Davis.Ming@amd.com<mailto:Da=
+vis.Ming@amd.com>>; Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@am=
+d.com>>; Zhou, Peng Ju <PengJu.Zhou@amd.com<mailto:PengJu.Zhou@amd.com>>; C=
+hen, JingWen <JingWen.Chen2@amd.com<mailto:JingWen.Chen2@amd.com>>; Chen, H=
+orace <Horace.Chen@amd.com<mailto:Horace.Chen@amd.com>>; Nieto, David M <Da=
+vid.Nieto@amd.com<mailto:David.Nieto@amd.com>>
+Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com<mailto:Victor.Skvortsov@amd=
+.com>>
 Subject: [PATCH 5/5] drm/amdgpu: Modify indirect register access for gfx9 s=
 riov
 
 Expand RLCG interface for new GC read & write commands.
 New interface will only be used if the PF enables the flag in pf2vf msg.
 
-Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com<mailto:victor.skv=
+ortsov@amd.com>>
 ---
  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 111 +++++++++++++++++++-------
  1 file changed, 83 insertions(+), 28 deletions(-)
@@ -415,139 +446,180 @@ INT_CNTL,
 --
 2.25.1
 
-
---_000_BYAPR12MB2840F2BD83E7E075F7EF40D0F4769BYAPR12MB2840namp_
+--_000_BN9PR12MB5324E5F73B6CD4829091DE6E8B769BN9PR12MB5324namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
+	{mso-style-name:msipheadera4477989;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">This was a bug in the original definition, but it fu=
+nctionally it makes no difference (in both cases the macros resolve to the =
+same value).<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- scratch_reg0 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRAT=
-CH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;</span><br>
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- scratch_reg1 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRAT=
-CH_REG1_BASE_IDX] + mmSCRATCH_REG1)*4;</span><br style=3D"color: rgb(0, 0, =
-0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&q=
-uot;, &quot;Segoe UI&quot;, -apple-system, &quot;system-ui&quot;, Roboto, &=
-quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; background-col=
-or: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- scratch_reg2 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRAT=
-CH_REG1_BASE_IDX] + mmSCRATCH_REG2)*4;</span><br style=3D"color: rgb(0, 0, =
-0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&q=
-uot;, &quot;Segoe UI&quot;, -apple-system, &quot;system-ui&quot;, Roboto, &=
-quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; background-col=
-or: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- scratch_reg3 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRAT=
-CH_REG1_BASE_IDX] + mmSCRATCH_REG3)*4;</span><br style=3D"color: rgb(0, 0, =
-0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&q=
-uot;, &quot;Segoe UI&quot;, -apple-system, &quot;system-ui&quot;, Roboto, &=
-quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; background-col=
-or: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- scratch_reg2 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRAT=
-CH_REG2_BASE_IDX] + mmSCRATCH_REG2)*4;</span><br style=3D"color: rgb(0, 0, =
-0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&q=
-uot;, &quot;Segoe UI&quot;, -apple-system, &quot;system-ui&quot;, Roboto, &=
-quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; background-col=
-or: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- scratch_reg3 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRAT=
-CH_REG3_BASE_IDX] + mmSCRATCH_REG3)*4;</span><br style=3D"color: rgb(0, 0, =
-0); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&q=
-uot;, &quot;Segoe UI&quot;, -apple-system, &quot;system-ui&quot;, Roboto, &=
-quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; background-col=
-or: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- spare_int =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmRLC_SPAR=
-E_INT_BASE_IDX] + mmRLC_SPARE_INT)*4;</span><br>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Nieto, David M &lt;David.Nieto@amd.com&=
+gt; <br>
+<b>Sent:</b> Wednesday, December 15, 2021 2:16 PM<br>
+<b>To:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;; amd-gfx@list=
+s.freedesktop.org; Deng, Emily &lt;Emily.Deng@amd.com&gt;; Liu, Monk &lt;Mo=
+nk.Liu@amd.com&gt;; Ming, Davis &lt;Davis.Ming@amd.com&gt;; Liu, Shaoyun &l=
+t;Shaoyun.Liu@amd.com&gt;; Zhou, Peng Ju &lt;PengJu.Zhou@amd.com&gt;;
+ Chen, JingWen &lt;JingWen.Chen2@amd.com&gt;; Chen, Horace &lt;Horace.Chen@=
+amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH 5/5] drm/amdgpu: Modify indirect register access=
+ for gfx9 sriov<o:p></o:p></p>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;"><br>
-</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); font-family: &quot;Segoe UI&quot;, &quo=
-t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
-&quot;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant;">the
- definition of scratch_reg2 and 3 has here.... will this be backwards compa=
-tible? Was it a bug in the definition?</span></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Skvortsov, Victor &lt=
-;Victor.Skvortsov@amd.com&gt;<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Segoe UI&quot;,sans-serif;color:black;background:white">&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg0 =3D adev-&gt;rmmio + (ad=
+ev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;=
+</span><span style=3D"font-size:12.0pt;color:black"><br>
+</span><span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif;color:bla=
+ck;background:white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scrat=
+ch_reg1 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG=
+1_BASE_IDX] + mmSCRATCH_REG1)*4;</span><span style=3D"font-family:&quot;Seg=
+oe UI&quot;,sans-serif;color:black"><br>
+<span style=3D"background:white">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scra=
+tch_reg2 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_RE=
+G1_BASE_IDX] + mmSCRATCH_REG2)*4;</span><br>
+<span style=3D"background:white">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scra=
+tch_reg3 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_RE=
+G1_BASE_IDX] + mmSCRATCH_REG3)*4;</span><br>
+<span style=3D"background:white">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scra=
+tch_reg2 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_RE=
+G2_BASE_IDX] + mmSCRATCH_REG2)*4;</span><br>
+<span style=3D"background:white">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scra=
+tch_reg3 =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_RE=
+G3_BASE_IDX] + mmSCRATCH_REG3)*4;</span><br>
+<span style=3D"background:white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; spare_int =3D adev-&gt;rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmRL=
+C_SPARE_INT_BASE_IDX] + mmRLC_SPARE_INT)*4;</span></span><span style=3D"fon=
+t-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Segoe UI&quot;,sans-serif;color:black;background:white">the definit=
+ion of scratch_reg2 and 3 has here.... will this be backwards compatible? W=
+as it a bug in the definition?</span><span style=3D"font-size:12.0pt;color:=
+black"><o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"1" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Skvortsov, Victor &lt;<a href=3D"mailto:Victor.Skvo=
+rtsov@amd.com">Victor.Skvortsov@amd.com</a>&gt;<br>
 <b>Sent:</b> Wednesday, December 15, 2021 10:55 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deng, Emily &lt;Emily.Deng@amd.com&gt;; Liu, Monk &lt;Monk.Liu@amd.com=
-&gt;; Ming, Davis &lt;Davis.Ming@amd.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@=
-amd.com&gt;; Zhou, Peng Ju &lt;PengJu.Zhou@amd.com&gt;; Chen, JingWen
- &lt;JingWen.Chen2@amd.com&gt;; Chen, Horace &lt;Horace.Chen@amd.com&gt;; N=
-ieto, David M &lt;David.Nieto@amd.com&gt;<br>
-<b>Cc:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;; Deng, Emily &lt;<a href=3D"mailto:Emily=
+.Deng@amd.com">Emily.Deng@amd.com</a>&gt;; Liu, Monk
+ &lt;<a href=3D"mailto:Monk.Liu@amd.com">Monk.Liu@amd.com</a>&gt;; Ming, Da=
+vis &lt;<a href=3D"mailto:Davis.Ming@amd.com">Davis.Ming@amd.com</a>&gt;; L=
+iu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.Liu@amd.com<=
+/a>&gt;; Zhou, Peng Ju &lt;<a href=3D"mailto:PengJu.Zhou@amd.com">PengJu.Zh=
+ou@amd.com</a>&gt;;
+ Chen, JingWen &lt;<a href=3D"mailto:JingWen.Chen2@amd.com">JingWen.Chen2@a=
+md.com</a>&gt;; Chen, Horace &lt;<a href=3D"mailto:Horace.Chen@amd.com">Hor=
+ace.Chen@amd.com</a>&gt;; Nieto, David M &lt;<a href=3D"mailto:David.Nieto@=
+amd.com">David.Nieto@amd.com</a>&gt;<br>
+<b>Cc:</b> Skvortsov, Victor &lt;<a href=3D"mailto:Victor.Skvortsov@amd.com=
+">Victor.Skvortsov@amd.com</a>&gt;<br>
 <b>Subject:</b> [PATCH 5/5] drm/amdgpu: Modify indirect register access for=
- gfx9 sriov</font>
-<div>&nbsp;</div>
+ gfx9 sriov</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Expand RLCG interface for new GC read &amp; write =
-commands.<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Expand RLCG interface=
+ for new GC read &amp; write commands.<br>
 New interface will only be used if the PF enables the flag in pf2vf msg.<br=
 >
 <br>
-Signed-off-by: Victor Skvortsov &lt;victor.skvortsov@amd.com&gt;<br>
+Signed-off-by: Victor Skvortsov &lt;<a href=3D"mailto:victor.skvortsov@amd.=
+com">victor.skvortsov@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 111 +++++++++++++++++++------=
 -<br>
@@ -938,12 +1010,12 @@ sp;&nbsp;&nbsp;&nbsp; break;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp; break;<br>
 -- <br>
-2.25.1<br>
-<br>
+2.25.1<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_BYAPR12MB2840F2BD83E7E075F7EF40D0F4769BYAPR12MB2840namp_--
+--_000_BN9PR12MB5324E5F73B6CD4829091DE6E8B769BN9PR12MB5324namp_--
