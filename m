@@ -4,123 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1BB1C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 20:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8839DC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 20:12:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 450A210EE0F;
-	Thu, 16 Dec 2021 20:04:38 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2088.outbound.protection.outlook.com [40.107.223.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72C6710EE03
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 20:04:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ADFA10EDAF;
+	Thu, 16 Dec 2021 20:12:07 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1900B10EDAF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 20:12:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cnbmVOGq3B1laJOz684/BbwECEdL+nSU3C5nfte+o59h8x9JRYpbPVgdUfilSuHGJgSd4IPg9a4D5iNb9p/CjR0D7geoQenR84BN4zUJNtbWEx7Hp8tvmDFbAdXPoDd9Z4uSTqkKfMeHFrpoecJaXm3f2aOWF6myYxrehXL04gFTL10Wn1+F5KzT9lWZfjoGMsBJ1fWQsAi4y0AJSZZXtlNS78J0OWtY+kGgfG4eAL19Lq6hSf/y9wYQlle71PqXXOPkhDtpfhORq8kXvJLQDn2/yf+ECe0d4moQAZL4/Om3sYIaKrcAVt+xbiLpJlZfbF9+d6cj1PuZ3gU7wfOgbQ==
+ b=Awg8NT5gh7UFwPKpzeju3Y5Ch/E6yCiKmIX7foNVvanQ66gaUjBHtDt8O2uunIv0fQkhfy3E3sqbrQHjkZy+ekDoy0unvmy/JRqgSo79fLn1eA1hy6Nu9ngy2alDR0KZ0pxpsncd7qRuKR0VWqcYGLjFk+PBAdIXjUS1Pg77txIv7mnhaHSQjCOgYrzyh3lkgYsq6bKVsAjJSBmZO5pcb5jZ7Z7MRccsHIbkSra+IYhAZgVJigK8c8pJPN8qk4SYksGiSraqwVJIs7+jsdxBlQXlZC4JtiZPmmucd99C2Byl+8Ot6fzwJKyc4MuS7jIwhdZCMY2r7veMqab2GFSWXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eX9SV8pU+mgVYXtOWVl1Yz0uEHkPnK4ZtZj3YJ2vi6M=;
- b=Mt6MB8b1Ai3CPOCQ/oNoYGyHDcr9+Vidhz7/+laYLtQgU/H35aRNQcigpU+V8wS5urDRDoHfW2cOFqNCBdyIc0LkCpclRoCQv2qIxydX59J3c1ApOzf3rNUu0wWWSoNvd6NVuG9hZcrcTvfuOnCUons9NOnSUMwjzeFkCpmSbbN9psQ3qHjNGcVE27PABB1rlAeB89rbIj23TwbjQR+bcHl0acM1DOIh1t4EhlB+sq/T0oXz6xz43afLAjVI3XQWvzSq22LsdbRkZLEyE33AreGqvFCnFxb7PoIBQOKj2AIjTKKBadf3SPjSvF/ZioPzEANKtALm4k4BlO8IErP04Q==
+ bh=ltDf22u5F7M+l0+plC8Vq3zCQBxOfAtWY6Yd2lKBd+E=;
+ b=W8RF19PYmIHijmhhfYv3YsOHSbUl2p4XJnHpsfMm9TakGpY0kG7NUcBSP9HZJhcsEkH89PB2Y0vwlrwN3cF4XCG0FtKkUpfruaiHkr8y+vErQnEGrHyMi3lgZ3LqfuIWC/SFx7lqCmMfZsU0LtEOIrR2pWY0fzCmpn2YkqD1Eiv4qH25VQPHrbocWrdjPCkfu46gv/rAyiFZpHkBVz0or6Q5BGCxpz0Xz4beiaI9A95FBHPqYN4TNSMJ01P4IA7bHovrpYKKL1VulxDmMcPpLcy0m9Y4J0aU4RLGQHyR9qEMdDMzFksAvENIvA5PeqoRWEGU20FfBVtwkFVeG19tuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eX9SV8pU+mgVYXtOWVl1Yz0uEHkPnK4ZtZj3YJ2vi6M=;
- b=yPr6HTDKJva0zuWui3HUeDQp/SZ8igg8DtND8NsYPZy3YRJoaeut8BhnVZ/JUo8YvKR9EkedT1hPXc0tq7vwRsxKpAIZEZEP8ISip7+gJqYFqXfgBRyzMPnpkCtOfZK/1v5iOQR+LIGQBIugfrH7p9C+ikTxn7iC4+St7EpIR0k=
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB4630.namprd12.prod.outlook.com (2603:10b6:a03:107::18)
+ bh=ltDf22u5F7M+l0+plC8Vq3zCQBxOfAtWY6Yd2lKBd+E=;
+ b=Vj6OgwJFNwho/8LBrNUFOjuU2lKdcJCyR3pYcV7xKg6XZX0xhvpp+DF7ykcDb3U5N1GZ4RD1CCiXec2sb01nU6togK2PQMGxkmJu2AipWvzoFl+42gNKMNZXpj2Iq/iM6vnr4tuSA3Rw66A3SL+qeCthiPch4XwD2rh6X63EvAk=
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
+ by CH0PR12MB5107.namprd12.prod.outlook.com (2603:10b6:610:be::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Thu, 16 Dec
- 2021 20:04:34 +0000
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::5425:7b82:3787:d5fa]) by BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::5425:7b82:3787:d5fa%5]) with mapi id 15.20.4778.019; Thu, 16 Dec 2021
- 20:04:33 +0000
-From: "Nieto, David M" <David.Nieto@amd.com>
+ 2021 20:12:03 +0000
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::31b4:ebc:1707:f563]) by CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::31b4:ebc:1707:f563%8]) with mapi id 15.20.4778.017; Thu, 16 Dec 2021
+ 20:12:03 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
 To: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deng,
  Emily" <Emily.Deng@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, "Ming, Davis"
- <Davis.Ming@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Zhou, Peng Ju"
- <PengJu.Zhou@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>, "Chen,
- Horace" <Horace.Chen@amd.com>
-Subject: Re: [PATCH v3 5/5] drm/amdgpu: Modify indirect register access for
- gfx9 sriov
-Thread-Topic: [PATCH v3 5/5] drm/amdgpu: Modify indirect register access for
- gfx9 sriov
-Thread-Index: AQHX8rUhXAv2gc7NfkiobH7XlCXi0Kw1ityr
-Date: Thu, 16 Dec 2021 20:04:33 +0000
-Message-ID: <BYAPR12MB284013E7528672ABB17CD67CF4779@BYAPR12MB2840.namprd12.prod.outlook.com>
+ <Davis.Ming@amd.com>, "Zhou, Peng Ju" <PengJu.Zhou@amd.com>, "Chen, JingWen"
+ <JingWen.Chen2@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>, "Nieto, David
+ M" <David.Nieto@amd.com>
+Subject: RE: [PATCH v3 4/5] drm/amdgpu: get xgmi info before ip_init
+Thread-Topic: [PATCH v3 4/5] drm/amdgpu: get xgmi info before ip_init
+Thread-Index: AQHX8rUg1i1TEPBKpUWPxQELqOTNQqw1jM0Q
+Date: Thu, 16 Dec 2021 20:12:02 +0000
+Message-ID: <CH0PR12MB5372BFDA80F5FBEED48ECE87F4779@CH0PR12MB5372.namprd12.prod.outlook.com>
 References: <20211216194233.3839-1-victor.skvortsov@amd.com>
- <20211216194233.3839-6-victor.skvortsov@amd.com>
-In-Reply-To: <20211216194233.3839-6-victor.skvortsov@amd.com>
-Accept-Language: en-US
+ <20211216194233.3839-5-victor.skvortsov@amd.com>
+In-Reply-To: <20211216194233.3839-5-victor.skvortsov@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-16T20:11:28Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-16T20:04:33.223Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 111b8dc6-10ed-67bc-0382-777988946582
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=a3dfabb2-7cae-486b-840e-d74544ad0e8b;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-12-16T20:12:00Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 9c4ef836-6fd3-407d-ade0-501fa3e1133f
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8e8b76cf-35af-41cf-8f21-08d9c0cf477b
-x-ms-traffictypediagnostic: BYAPR12MB4630:EE_
-x-microsoft-antispam-prvs: <BYAPR12MB4630293ABECAD2842EFCB519F4779@BYAPR12MB4630.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1923;
+x-ms-office365-filtering-correlation-id: 0543b080-d93f-460b-3fd2-08d9c0d05323
+x-ms-traffictypediagnostic: CH0PR12MB5107:EE_
+x-microsoft-antispam-prvs: <CH0PR12MB5107BC1508C73361C019FDCBF4779@CH0PR12MB5107.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:792;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lqAqxCzuDO60rfYjqE2BSUzEvrB5KYQCTnXT9lX69j2dv8PraCLCvqcPyx2GoQ2XTHfvlvRmqHZiC5Y/eG2IvZUzqz/QUgKZb7D2y6mDEH/mPU+8g2WoMr94LZbbzK58BV57+sfO/hP+dQERCjiuqJHHS1FhXeXTW8GI7NeK6FvdN+aPxL+FI8IsEheVPe910ncTdCuJ0cE7OSFc+oUSEu5yM1PzgBdL+1wDgg+BsHd6dMkPy/CY3FZg19bFQyb50ijzbEXmG52ajo3wu8P5Rssa9wyEBxBiDpQWKgQ0ubtiCCp6y+ZECjSPmhpyuicSdU7SCYmo1f7BmqnWlDKaND5MYSPV4mkvhwV2PrH2Vl9VVGAom0NjYo40I++CfFT+2zAVBh86Gm+QW+qM/XQS5WZbu/KrcD1mSbEuHDkwfxfL2hRaVY1Q9c4tNJ2vgjn7S1ycLIRfLM9m5ajcU2dQWxhhISSn54+gC7Ef93J1IENVXYQZzGPJfkRJy22gKfO+GyQ+PikY7rL09FPy9+RtEUREQRlx1s32ywFU4ZYwEZ/pe4sViTHMox/r5j7pElzWmJ8W75QG+3Kilmwov+fwGw4w5yaOP3Y/LZxuSBXEtBUPuBN/CodfCTxU11UTHELV1g5SFZxgHaeaF9RZQXJig8hAP3k2haa226vE0Xz7m+2dFfRJQaRplAZvVB5u1SZ+x/vUhXLIm0tBMTa/7fXZGFyd8nzIWVeFlMLuxGoR0us=
+x-microsoft-antispam-message-info: us7nv8Q6xpD6mvKyBIxMfz+BJTc5//SR5zTRuJmkDWxZKopJ/D4GagXGqy+YDqWkQa4FqV+FZNR4h8cdvEzCLuAZfWyns5F5y9mm3ejwjLD3VXSzq/rDJHmq9C/Y7V/y+MmgaGnPciu/WldZWkzueCmgO+aSvLoxJwYA7LCG+TbNDys7p79z/A6KNwmdyRu9w0pRZPvlz2o7hcy+NWY+4uSBKubxRNnUzaDuZvRrPofvDdi0lktRjSzBeCASpki8mS5J6c2OtgQ+S9819kiUePeOopebD/c0Tl0UHMusD0vAfVeVj9k48d9TX2jKh02JryCWwUzELf+PxP/Ort5RKvrQidvtnzqIgx3Cw3clyiH9auU51sgY6QoNOBrjLpKumeZu147mI9heMg2AXE5UcMLpgEP/B9RmPuA+26MnlCmTmimgoxBv5P0N2thTkKX2w9W1pre0v58Z5lYRiMqGXVxuUI19toavptcp/Bg4KTVow7tkrxaTUt6wJXwSlH+6f1s9c0m4JQJsMhiZXl24SJ7a/7sbWiBTngFMvWdIk37eJANOVEdaAxv5ybrQ3QfRavx1LdeCfKoZo25VTMwAsj5YW596qwL+f3A01Mj8j9fa6CKniAX0kSl05q463WqRjocxga/B++/uD/7Vki6Dg9XYHG7Iu9jr/ZSCZsUs+PaQqlO6ZylTwzqDYcFBuEG0O9egJQ0rblimHxKO1qp+t4BfjwbqPw80NAE3hoSAU2I=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(33656002)(110136005)(55016003)(2906002)(6636002)(38070700005)(19627405001)(316002)(66476007)(86362001)(7696005)(53546011)(6506007)(52536014)(83380400001)(921005)(66946007)(5660300002)(76116006)(8676002)(66446008)(64756008)(66556008)(186003)(508600001)(9686003)(8936002)(122000001)(38100700002)(71200400001);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(5660300002)(71200400001)(9686003)(38070700005)(6636002)(86362001)(66946007)(8676002)(921005)(2906002)(26005)(83380400001)(33656002)(64756008)(110136005)(76116006)(316002)(6506007)(66556008)(66476007)(38100700002)(53546011)(186003)(508600001)(52536014)(122000001)(7696005)(8936002)(55016003)(66446008);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?t+hUdI1692fgpeUpcKKhI7hgIRyEX7Pc9OwNCC/Y+2gpyJqrkGxtbryOucyo?=
- =?us-ascii?Q?oibtDHvJh5IvHsn2PjhLMnvJP7XSqJwjt+4Gj9/ND9LbQnfsPUgRknZxKESK?=
- =?us-ascii?Q?/VB/Noah2tdlXE3pkKEBbApouKK5QPFCH9XimuQYjz/w55cgD/zFPwD4+XeF?=
- =?us-ascii?Q?7axtby4/M/vTQLew0ArC3gKkdzyfOiRqQfPXt8sPI+broMOszvV8ncLc7+ZX?=
- =?us-ascii?Q?0WCjYrH0Kk+EpHQBHw1qAINNCiyBvqB4xXlhZ2xTh8ou7vtrbBekYyV/NU2u?=
- =?us-ascii?Q?2FhgBnD59PT2KcOO5Q6cVdqZY7Mj8+FQZJZL2jXthJ17zw6ane1eJ9WvasmP?=
- =?us-ascii?Q?vytpyYcAhv8AxJP6vQP+MguDfs6pHTDGZAuLOCw4IEdNr0fO7HdIfviWvwE8?=
- =?us-ascii?Q?KVKaXsfP9hsbIrBoObKKRwKx8KohfJiCQB554BBnHIJ5sG8ta1wK6ufeM0VZ?=
- =?us-ascii?Q?mkOWT5kHRuGfD2j1OZIS78hTZvlvxfxBZEmSpGJaNrofqZt+yIIRaQmaCFfs?=
- =?us-ascii?Q?846aa9QfdH2mcK5LwViUdmri0UgE8m0iaMa4tfYUmR3VpiDGMTCEGY11I0Hd?=
- =?us-ascii?Q?LkVj4AQ3oxJKGZvz+lWYpSVr8l9HO5UeDyhLAIBcmNLvspH3vC53PNGtyavr?=
- =?us-ascii?Q?X5wg55iQPlU8g0jVms590Y/d+qLU0OkTz0cMRCAfkoojyk3MdZHYXcWKGYUE?=
- =?us-ascii?Q?H8UlYfvxoFgfWgdusYpBaJdDWfGMjD3xeZQvj8QBnkpYf/XMCwEr2tl69vSD?=
- =?us-ascii?Q?mo34/hCVzyoch7ZyZQONZUZW02Lwrd3kTYJmD4yNQtXkLXHTPK0hbLU71IFN?=
- =?us-ascii?Q?I933FTr25pwAGlcqg65uwRgxeuxhvSHxdNenkDleV0qLucrC7/HNa2E+kbm4?=
- =?us-ascii?Q?95cJEV22Ff7/ljYRqx2890oErDjDHh2HtwRhgXODp4aMt8UWB6cCx8Sc1p4W?=
- =?us-ascii?Q?rKpTE1uzW8Uu1FFF5uF/JgyMqYgzsmiY/ziCF15y1EqsaQZOewQ1sxViDxLN?=
- =?us-ascii?Q?/Crs1SamoDJn3UiyCWZIQcTN9Hnrf7BBGHhWjJZu6hMEpD+F9Yn4sKBFrLGi?=
- =?us-ascii?Q?WU69CMcGpTyddyMSJuOD2INIsJtnE/4Sgv50++oObPH2F0JSjxnLWA0a0+Co?=
- =?us-ascii?Q?H4T2lG7CL+8oiprWfdQA9TjZJxramCJIPFxFAAQDohUyh29mMNV9wBIMwolX?=
- =?us-ascii?Q?ZsFLqyUKBcm5qx5+N4MnSSiwhyfnoQDNCE1XTQgNhn4xosmkIs8rC+gXIT/m?=
- =?us-ascii?Q?fhLpcq8Z3gHT1pGqOn9ajCJcC4WlzaRnx65UbpiJ+Z+65eU5eyf/tBx0Azso?=
- =?us-ascii?Q?i1NEYNDsT9BTTJJqfthPfXml+DmryvoM+Kja6zV3qSnUFEf/IEB6cxE4R+jn?=
- =?us-ascii?Q?4kvRGSq1g9sGGe0Nf7QWqup8lyM3EtMhhqsGhPTbB9UNwDoKz+rN7EWsX46o?=
- =?us-ascii?Q?zFzkPw1dxRy17LMwpowDQ9F9DkbbnvB+R+uBbRYr/Q/6ghqqIVGhnBD8SqCz?=
- =?us-ascii?Q?yKtPC3aC4BJABzlFaFC62Q/5Q+EXj+MD1mUtqI7gH/pfUxx64Ry3lj4jI6mb?=
- =?us-ascii?Q?ODgIN2xJdz+RDUCM9/z9f2F+XqjOiDhRyLDQnain?=
-Content-Type: multipart/alternative;
- boundary="_000_BYAPR12MB284013E7528672ABB17CD67CF4779BYAPR12MB2840namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CjiDU+VXd+wpQTC7z42c2i/95pl7gnQm1o5flHxE56bBtEn7erAJSm1GzVnX?=
+ =?us-ascii?Q?00LJOKJYlO10nD0U14q7Yd6p5IrBu8NEYBEd2i+q2Jfs8kjqrho9eOxASV8a?=
+ =?us-ascii?Q?VOETZZQkY3LKdd19krttvnpeemtUt6bFpYWf3xANM89j3mqjl1EZt2a/V0tD?=
+ =?us-ascii?Q?9UHMDsndQ8yCKmtDaObFyjrF8bOdUgPFqzWV1E5EJOwqxQuLfMdQVbjGM2sr?=
+ =?us-ascii?Q?zJzPHV1iPJMOuX4sc5REc0lLVND0rIOgHHxssSHWlIqQhiI4puZX/IxGd4w7?=
+ =?us-ascii?Q?uxAJr79MNPdGC+nA62C4yCDeVVMll76Nbdj68hqtviMArxwwyavU4+QDN1zD?=
+ =?us-ascii?Q?O2wEhUrYSGCGlR1lVpAdlNdW4vHStLoODv1ZcxAAsHEOwqoVU1drCKLM86H3?=
+ =?us-ascii?Q?QqGlD6WwxpJK2nz9UGYVeqBybHqhg588h8ZcppfggukDSECTr/iSf4P96Jo1?=
+ =?us-ascii?Q?9MY//P8S4FcAOIzP3boRlC2QujvTFj2gnN8pPkEvi9t/PRJPFaG8EWRXEjTm?=
+ =?us-ascii?Q?pOK9lij3rQf3fiRV2xeHkH1ZGIMpXPdHsp7YRvZYQOmzwJDqIfKmEFJU7lVb?=
+ =?us-ascii?Q?/zmuNYRs5mh95ca2VTMtX5e/FayF1iXPfi90mLC60U1iVnRgT+I6YBD8Q1t0?=
+ =?us-ascii?Q?XhNID6N/fT7cjQFdbeGOgZPfClIBdYa2+MEKzMGvOEvPeUPKKDtXswSzi0gU?=
+ =?us-ascii?Q?lHKJPpLEhAY9zOndiiysbf9ezF4ZJ3/A1i3sosnK0ABuK8hbI1j+FKDqN2MG?=
+ =?us-ascii?Q?PaMlunDvgmlsqZv2IHnrbBeOFvXzBZ9qr17N+GzDy7NuNUFT118W1YrMHxmB?=
+ =?us-ascii?Q?Oib2/4ADsgnlH58yqDxgCHd6ZmzrXW7LmrQ/DZoN7xS1/RVIe6GJqOoTl42w?=
+ =?us-ascii?Q?nauexzdaH6hhHlHog/eTjTbS+A3KPGCZh9JztPUgxYCYGpvmquO1ES+fMkOy?=
+ =?us-ascii?Q?toi3CiRVYllGimlnlq8JKj4IC3y0P3BV9iGzIEHep+17MURs7AEQ00MzWFBn?=
+ =?us-ascii?Q?qFpPzYOAR8ONE2Rpb6JD+X9XRlj854zobjgt/W7GvfCEOFFrjUFgDYkCM6OK?=
+ =?us-ascii?Q?fs6sV9ri5FzIueFVf2zwffbBtJz1Mr7paxjc+OBjE8rtI6dN6u+XDqp1WO/b?=
+ =?us-ascii?Q?PFAlUN4iKPBICdfrEEStWLP3i597skDMcuxu9wIcSpTGgvd0Fi10Ucpqg4Tl?=
+ =?us-ascii?Q?TfWa4jwD6EClFH9LyzpsnHTeP5owN9faZoAI0p4fXy08vcybfLKqgk/BBCuO?=
+ =?us-ascii?Q?kLgnCkvOEMusb7MHRGJf4Gnqo82frqwL6N/V4lulCaChMRx6E0/V0xXWWCJF?=
+ =?us-ascii?Q?Zmvab6huShgGA5ZaruPUrHllO3fUNqD+xbVJ+hxR9NHPn13fv4GcqJ8InN4w?=
+ =?us-ascii?Q?7E7owQ3WSJVW9fWHa8eAWgupNE36++aqEhHyq5f29NW+1FPP5GfinWbuJc7j?=
+ =?us-ascii?Q?fedVpUs8t8G1er6ZxjiqwvpWqEBGmJBE0aFW9xtmODqZzw8jem1h5L3+cTXo?=
+ =?us-ascii?Q?c5PLiAfsRa/48qeivpgcqd5R80QSqrZheOBTvBWMtYwB2Uzh33PS2zRjJ0wu?=
+ =?us-ascii?Q?AwR5hmp8uLf353unPLgIRjUUx+XRoqVOKgK6p0301yUL3sPdDw+propjdumL?=
+ =?us-ascii?Q?vIbAuUV6H/8lPahWljs8yHk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e8b76cf-35af-41cf-8f21-08d9c0cf477b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 20:04:33.7870 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0543b080-d93f-460b-3fd2-08d9c0d05323
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 20:12:02.7616 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EhIMPzrfM1Q++T53WHjUReu6+ezT4NpvfEQXCUo/pBL48r3qs78aaVr8+F7gjE+9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4630
+X-MS-Exchange-CrossTenant-userprincipalname: /76cQEz2HiJQZM2lovs/XG8Zaow5PdXtmrbQ/+xgyiU4D49ssLBh4vQSa6hzuW5P4r711h8f2c595d7Y6RMvAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5107
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,739 +142,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BYAPR12MB284013E7528672ABB17CD67CF4779BYAPR12MB2840namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
 [AMD Official Use Only]
 
-Reviewed-by: David Nieto <david.nieto@amd.com>
-________________________________
-From: Skvortsov, Victor <Victor.Skvortsov@amd.com>
-Sent: Thursday, December 16, 2021 11:42 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deng, Em=
-ily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Ming, Davis <Davis.=
-Ming@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Zhou, Peng Ju <PengJu.Zh=
-ou@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; Chen, Horace <Horace.Ch=
-en@amd.com>; Nieto, David M <David.Nieto@amd.com>
+Reviewed by: shaoyun.liu <Shaoyun.lui@amd.com>
+
+-----Original Message-----
+From: Skvortsov, Victor <Victor.Skvortsov@amd.com>=20
+Sent: Thursday, December 16, 2021 2:43 PM
+To: amd-gfx@lists.freedesktop.org; Deng, Emily <Emily.Deng@amd.com>; Liu, M=
+onk <Monk.Liu@amd.com>; Ming, Davis <Davis.Ming@amd.com>; Liu, Shaoyun <Sha=
+oyun.Liu@amd.com>; Zhou, Peng Ju <PengJu.Zhou@amd.com>; Chen, JingWen <Jing=
+Wen.Chen2@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Nieto, David M <Dav=
+id.Nieto@amd.com>
 Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>
-Subject: [PATCH v3 5/5] drm/amdgpu: Modify indirect register access for gfx=
-9 sriov
+Subject: [PATCH v3 4/5] drm/amdgpu: get xgmi info before ip_init
 
-Expand RLCG interface for new GC read & write commands.
-New interface will only be used if the PF enables the flag in pf2vf msg.
-
-v2: Added a description for the scratch registers
+Driver needs to call get_xgmi_info() before ip_init to determine whether it=
+ needs to handle a pending hive reset.
 
 Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 117 ++++++++++++++++++++------
- 1 file changed, 89 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     | 6 ------
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 6 ------
+ 3 files changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
-index edb3e3b08eed..9189fb85a4dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -63,6 +63,13 @@
- #define mmGCEA_PROBE_MAP                        0x070c
- #define mmGCEA_PROBE_MAP_BASE_IDX               0
-
-+#define GFX9_RLCG_GC_WRITE_OLD                 (0x8 << 28)
-+#define GFX9_RLCG_GC_WRITE                     (0x0 << 28)
-+#define GFX9_RLCG_GC_READ                      (0x1 << 28)
-+#define GFX9_RLCG_VFGATE_DISABLED              0x4000000
-+#define GFX9_RLCG_WRONG_OPERATION_TYPE         0x2000000
-+#define GFX9_RLCG_NOT_IN_RANGE                 0x1000000
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 5bd785cfc5ca..4fd370016834 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3576,6 +3576,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (r)
+ 		return r;
+=20
++	/* Need to get xgmi info early to decide the reset behavior*/
++	if (adev->gmc.xgmi.supported) {
++		r =3D adev->gfxhub.funcs->get_xgmi_info(adev);
++	if (r)
++			return r;
++	}
 +
- MODULE_FIRMWARE("amdgpu/vega10_ce.bin");
- MODULE_FIRMWARE("amdgpu/vega10_pfp.bin");
- MODULE_FIRMWARE("amdgpu/vega10_me.bin");
-@@ -739,7 +746,7 @@ static const u32 GFX_RLC_SRM_INDEX_CNTL_DATA_OFFSETS[] =
-=3D
-         mmRLC_SRM_INDEX_CNTL_DATA_7 - mmRLC_SRM_INDEX_CNTL_DATA_0,
- };
-
--static void gfx_v9_0_rlcg_w(struct amdgpu_device *adev, u32 offset, u32 v,=
- u32 flag)
-+static u32 gfx_v9_0_rlcg_rw(struct amdgpu_device *adev, u32 offset, u32 v,=
- uint32_t flag)
- {
-         static void *scratch_reg0;
-         static void *scratch_reg1;
-@@ -748,21 +755,20 @@ static void gfx_v9_0_rlcg_w(struct amdgpu_device *ade=
-v, u32 offset, u32 v, u32 f
-         static void *spare_int;
-         static uint32_t grbm_cntl;
-         static uint32_t grbm_idx;
-+       uint32_t i =3D 0;
-+       uint32_t retries =3D 50000;
-+       u32 ret =3D 0;
-+       u32 tmp;
-
-         scratch_reg0 =3D adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCR=
-ATCH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;
-         scratch_reg1 =3D adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCR=
-ATCH_REG1_BASE_IDX] + mmSCRATCH_REG1)*4;
--       scratch_reg2 =3D adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRA=
-TCH_REG1_BASE_IDX] + mmSCRATCH_REG2)*4;
--       scratch_reg3 =3D adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRA=
-TCH_REG1_BASE_IDX] + mmSCRATCH_REG3)*4;
-+       scratch_reg2 =3D adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRA=
-TCH_REG2_BASE_IDX] + mmSCRATCH_REG2)*4;
-+       scratch_reg3 =3D adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRA=
-TCH_REG3_BASE_IDX] + mmSCRATCH_REG3)*4;
-         spare_int =3D adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmRLC_SP=
-ARE_INT_BASE_IDX] + mmRLC_SPARE_INT)*4;
-
-         grbm_cntl =3D adev->reg_offset[GC_HWIP][0][mmGRBM_GFX_CNTL_BASE_ID=
-X] + mmGRBM_GFX_CNTL;
-         grbm_idx =3D adev->reg_offset[GC_HWIP][0][mmGRBM_GFX_INDEX_BASE_ID=
-X] + mmGRBM_GFX_INDEX;
-
--       if (amdgpu_sriov_runtime(adev)) {
--               pr_err("shouldn't call rlcg write register during runtime\n=
-");
--               return;
--       }
+ 	/* enable PCIE atomic ops */
+ 	if (amdgpu_sriov_vf(adev))
+ 		adev->have_atomics_support =3D ((struct amd_sriov_msg_pf2vf_info *) diff=
+ --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgp=
+u/gmc_v10_0.c
+index ae46eb35b3d7..3d5d47a799e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -914,12 +914,6 @@ static int gmc_v10_0_sw_init(void *handle)
+ 		return r;
+ 	}
+=20
+-	if (adev->gmc.xgmi.supported) {
+-		r =3D adev->gfxhub.funcs->get_xgmi_info(adev);
+-		if (r)
+-			return r;
+-	}
 -
-         if (offset =3D=3D grbm_cntl || offset =3D=3D grbm_idx) {
-                 if (offset  =3D=3D grbm_cntl)
-                         writel(v, scratch_reg2);
-@@ -771,41 +777,95 @@ static void gfx_v9_0_rlcg_w(struct amdgpu_device *ade=
-v, u32 offset, u32 v, u32 f
-
-                 writel(v, ((void __iomem *)adev->rmmio) + (offset * 4));
-         } else {
--               uint32_t i =3D 0;
--               uint32_t retries =3D 50000;
+ 	r =3D gmc_v10_0_mc_init(adev);
+ 	if (r)
+ 		return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c
+index 2b86c63b032a..57f2729a7bd0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1628,12 +1628,6 @@ static int gmc_v9_0_sw_init(void *handle)
+ 	}
+ 	adev->need_swiotlb =3D drm_need_swiotlb(44);
+=20
+-	if (adev->gmc.xgmi.supported) {
+-		r =3D adev->gfxhub.funcs->get_xgmi_info(adev);
+-		if (r)
+-			return r;
+-	}
 -
-+               /*
-+                * SCRATCH_REG0   =3D read/write value
-+                * SCRATCH_REG1[30:28]   =3D command
-+                * SCRATCH_REG1[19:0]    =3D address in dword
-+                * SCRATCH_REG1[26:24]   =3D Error reporting
-+                */
-                 writel(v, scratch_reg0);
--               writel(offset | 0x80000000, scratch_reg1);
-+               writel(offset | flag, scratch_reg1);
-                 writel(1, spare_int);
--               for (i =3D 0; i < retries; i++) {
--                       u32 tmp;
-
-+               for (i =3D 0; i < retries; i++) {
-                         tmp =3D readl(scratch_reg1);
--                       if (!(tmp & 0x80000000))
-+                       if (!(tmp & flag))
-                                 break;
-
-                         udelay(10);
-                 }
--               if (i >=3D retries)
--                       pr_err("timeout: rlcg program reg:0x%05x failed !\n=
-", offset);
-+
-+               if (i >=3D retries) {
-+                       if (amdgpu_sriov_reg_indirect_gc(adev)) {
-+                               if (tmp & GFX9_RLCG_VFGATE_DISABLED)
-+                                       pr_err("The vfgate is disabled, pro=
-gram reg:0x%05x failed!\n", offset);
-+                               else if (tmp & GFX9_RLCG_WRONG_OPERATION_TY=
-PE)
-+                                       pr_err("Wrong operation type, progr=
-am reg:0x%05x failed!\n", offset);
-+                               else if (tmp & GFX9_RLCG_NOT_IN_RANGE)
-+                                       pr_err("The register is not in rang=
-e, program reg:0x%05x failed!\n", offset);
-+                               else
-+                                       pr_err("Unknown error type, program=
- reg:0x%05x failed!\n", offset);
-+                       } else
-+                               pr_err("timeout: rlcg program reg:0x%05x fa=
-iled!\n", offset);
-+               }
-         }
-
-+       ret =3D readl(scratch_reg0);
-+
-+       return ret;
-+}
-+
-+static bool gfx_v9_0_get_rlcg_flag(struct amdgpu_device *adev, u32 acc_fla=
-gs, u32 hwip,
-+                               int write, u32 *rlcg_flag)
-+{
-+
-+       switch (hwip) {
-+       case GC_HWIP:
-+               if (amdgpu_sriov_reg_indirect_gc(adev)) {
-+                       *rlcg_flag =3D write ? GFX9_RLCG_GC_WRITE : GFX9_RL=
-CG_GC_READ;
-+
-+                       return true;
-+               /* only in new version, AMDGPU_REGS_NO_KIQ and AMDGPU_REGS_=
-RLC enabled simultaneously */
-+               } else if ((acc_flags & AMDGPU_REGS_RLC) && !(acc_flags & A=
-MDGPU_REGS_NO_KIQ) && write) {
-+                       *rlcg_flag =3D GFX9_RLCG_GC_WRITE_OLD;
-+                       return true;
-+               }
-+
-+               break;
-+       default:
-+               return false;
-+       }
-+
-+       return false;
-+}
-+
-+static u32 gfx_v9_0_sriov_rreg(struct amdgpu_device *adev, u32 offset, u32=
- acc_flags, u32 hwip)
-+{
-+       u32 rlcg_flag;
-+
-+       if (!amdgpu_sriov_runtime(adev) && gfx_v9_0_get_rlcg_flag(adev, acc=
-_flags, hwip, 0, &rlcg_flag))
-+               return gfx_v9_0_rlcg_rw(adev, offset, 0, rlcg_flag);
-+
-+       if (acc_flags & AMDGPU_REGS_NO_KIQ)
-+               return RREG32_NO_KIQ(offset);
-+       else
-+               return RREG32(offset);
- }
-
- static void gfx_v9_0_sriov_wreg(struct amdgpu_device *adev, u32 offset,
--                              u32 v, u32 acc_flags, u32 hwip)
-+                              u32 value, u32 acc_flags, u32 hwip)
- {
--       if ((acc_flags & AMDGPU_REGS_RLC) &&
--           amdgpu_sriov_fullaccess(adev)) {
--               gfx_v9_0_rlcg_w(adev, offset, v, acc_flags);
-+       u32 rlcg_flag;
-
-+       if (!amdgpu_sriov_runtime(adev) && gfx_v9_0_get_rlcg_flag(adev, acc=
-_flags, hwip, 1, &rlcg_flag)) {
-+               gfx_v9_0_rlcg_rw(adev, offset, value, rlcg_flag);
-                 return;
-         }
-
-         if (acc_flags & AMDGPU_REGS_NO_KIQ)
--               WREG32_NO_KIQ(offset, v);
-+               WREG32_NO_KIQ(offset, value);
-         else
--               WREG32(offset, v);
-+               WREG32(offset, value);
- }
-
- #define VEGA10_GB_ADDR_CONFIG_GOLDEN 0x2a114042
-@@ -5135,7 +5195,7 @@ static void gfx_v9_0_update_spm_vmid(struct amdgpu_de=
-vice *adev, unsigned vmid)
-         if (amdgpu_sriov_is_pp_one_vf(adev))
-                 data =3D RREG32_NO_KIQ(reg);
-         else
--               data =3D RREG32(reg);
-+               data =3D RREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL);
-
-         data &=3D ~RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK;
-         data |=3D (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_M=
-C_CNTL__RLC_SPM_VMID__SHIFT;
-@@ -5191,6 +5251,7 @@ static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_fun=
-cs =3D {
-         .start =3D gfx_v9_0_rlc_start,
-         .update_spm_vmid =3D gfx_v9_0_update_spm_vmid,
-         .sriov_wreg =3D gfx_v9_0_sriov_wreg,
-+       .sriov_rreg =3D gfx_v9_0_sriov_rreg,
-         .is_rlcg_access_range =3D gfx_v9_0_is_rlcg_access_range,
- };
-
-@@ -5796,16 +5857,16 @@ static void gfx_v9_0_set_compute_eop_interrupt_stat=
-e(struct amdgpu_device *adev,
-
-         switch (state) {
-         case AMDGPU_IRQ_STATE_DISABLE:
--               mec_int_cntl =3D RREG32(mec_int_cntl_reg);
-+               mec_int_cntl =3D RREG32_SOC15_IP(GC,mec_int_cntl_reg);
-                 mec_int_cntl =3D REG_SET_FIELD(mec_int_cntl, CP_ME1_PIPE0_=
-INT_CNTL,
-                                              TIME_STAMP_INT_ENABLE, 0);
--               WREG32(mec_int_cntl_reg, mec_int_cntl);
-+               WREG32_SOC15_IP(GC, mec_int_cntl_reg, mec_int_cntl);
-                 break;
-         case AMDGPU_IRQ_STATE_ENABLE:
--               mec_int_cntl =3D RREG32(mec_int_cntl_reg);
-+               mec_int_cntl =3D RREG32_SOC15_IP(GC, mec_int_cntl_reg);
-                 mec_int_cntl =3D REG_SET_FIELD(mec_int_cntl, CP_ME1_PIPE0_=
-INT_CNTL,
-                                              TIME_STAMP_INT_ENABLE, 1);
--               WREG32(mec_int_cntl_reg, mec_int_cntl);
-+               WREG32_SOC15_IP(GC, mec_int_cntl_reg, mec_int_cntl);
-                 break;
-         default:
-                 break;
+ 	r =3D gmc_v9_0_mc_init(adev);
+ 	if (r)
+ 		return r;
 --
 2.25.1
-
-
---_000_BYAPR12MB284013E7528672ABB17CD67CF4779BYAPR12MB2840namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); d=
-isplay: inline !important;">Reviewed-by: David Nieto &lt;david.nieto@amd.co=
-m&gt;</span><br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Skvortsov, Victor &lt=
-;Victor.Skvortsov@amd.com&gt;<br>
-<b>Sent:</b> Thursday, December 16, 2021 11:42 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deng, Emily &lt;Emily.Deng@amd.com&gt;; Liu, Monk &lt;Monk.Liu@amd.com=
-&gt;; Ming, Davis &lt;Davis.Ming@amd.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@=
-amd.com&gt;; Zhou, Peng Ju &lt;PengJu.Zhou@amd.com&gt;; Chen, JingWen
- &lt;JingWen.Chen2@amd.com&gt;; Chen, Horace &lt;Horace.Chen@amd.com&gt;; N=
-ieto, David M &lt;David.Nieto@amd.com&gt;<br>
-<b>Cc:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v3 5/5] drm/amdgpu: Modify indirect register access =
-for gfx9 sriov</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Expand RLCG interface for new GC read &amp; write =
-commands.<br>
-New interface will only be used if the PF enables the flag in pf2vf msg.<br=
->
-<br>
-v2: Added a description for the scratch registers<br>
-<br>
-Signed-off-by: Victor Skvortsov &lt;victor.skvortsov@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 117 ++++++++++++++++++++-----=
--<br>
-&nbsp;1 file changed, 89 insertions(+), 28 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c<br>
-index edb3e3b08eed..9189fb85a4dd 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-@@ -63,6 +63,13 @@<br>
-&nbsp;#define mmGCEA_PROBE_MAP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; 0x070c<br>
-&nbsp;#define mmGCEA_PROBE_MAP_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
-&nbsp;<br>
-+#define GFX9_RLCG_GC_WRITE_OLD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (0x8 &lt;&lt; 28)<br>
-+#define GFX9_RLCG_GC_WRITE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (0=
-x0 &lt;&lt; 28)<br>
-+#define GFX9_RLCG_GC_READ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; (0x1 &lt;&lt; 28)<br>
-+#define GFX9_RLCG_VFGATE_DISABLED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x4000000<br>
-+#define GFX9_RLCG_WRONG_OPERATION_TYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; 0x2000000<br>
-+#define GFX9_RLCG_NOT_IN_RANGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1000000<br>
-+<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/vega10_ce.bin&quot;);<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/vega10_pfp.bin&quot;);<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/vega10_me.bin&quot;);<br>
-@@ -739,7 +746,7 @@ static const u32 GFX_RLC_SRM_INDEX_CNTL_DATA_OFFSETS[] =
-=3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmRLC_SRM_INDEX_CNTL_DATA_=
-7 - mmRLC_SRM_INDEX_CNTL_DATA_0,<br>
-&nbsp;};<br>
-&nbsp;<br>
--static void gfx_v9_0_rlcg_w(struct amdgpu_device *adev, u32 offset, u32 v,=
- u32 flag)<br>
-+static u32 gfx_v9_0_rlcg_rw(struct amdgpu_device *adev, u32 offset, u32 v,=
- uint32_t flag)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void *scratch_reg0;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void *scratch_reg1;=
-<br>
-@@ -748,21 +755,20 @@ static void gfx_v9_0_rlcg_w(struct amdgpu_device *ade=
-v, u32 offset, u32 v, u32 f<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static void *spare_int;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static uint32_t grbm_cntl;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static uint32_t grbm_idx;<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retries =3D 50000;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 ret =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg0 =3D adev-&gt;=
-rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG0_BASE_IDX] + mmSCRAT=
-CH_REG0)*4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg1 =3D adev-&gt;=
-rmmio + (adev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRAT=
-CH_REG1)*4;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg2 =3D adev-&gt;rmmio + (ad=
-ev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG2)*4;=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg3 =3D adev-&gt;rmmio + (ad=
-ev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG3)*4;=
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg2 =3D adev-&gt;rmmio + (ad=
-ev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG2_BASE_IDX] + mmSCRATCH_REG2)*4;=
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg3 =3D adev-&gt;rmmio + (ad=
-ev-&gt;reg_offset[GC_HWIP][0][mmSCRATCH_REG3_BASE_IDX] + mmSCRATCH_REG3)*4;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spare_int =3D adev-&gt;rmm=
-io + (adev-&gt;reg_offset[GC_HWIP][0][mmRLC_SPARE_INT_BASE_IDX] + mmRLC_SPA=
-RE_INT)*4;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; grbm_cntl =3D adev-&gt;reg=
-_offset[GC_HWIP][0][mmGRBM_GFX_CNTL_BASE_IDX] + mmGRBM_GFX_CNTL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; grbm_idx =3D adev-&gt;reg_=
-offset[GC_HWIP][0][mmGRBM_GFX_INDEX_BASE_IDX] + mmGRBM_GFX_INDEX;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_runtime(adev)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_err(&quot;shouldn't call rlcg write register during runtime\n=
-&quot;);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (offset =3D=3D grbm_cnt=
-l || offset =3D=3D grbm_idx) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (offset&nbsp; =3D=3D grbm_cntl)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; write=
-l(v, scratch_reg2);<br>
-@@ -771,41 +777,95 @@ static void gfx_v9_0_rlcg_w(struct amdgpu_device *ade=
-v, u32 offset, u32 v, u32 f<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; writel(v, ((void __iomem *)adev-&gt;rmmio) + (offset =
-* 4));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; uint32_t i =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; uint32_t retries =3D 50000;<br>
--<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /*<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * SCRATCH_REG0&nbsp;&nbsp; =3D read/write value<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * SCRATCH_REG1[30:28]&nbsp;&nbsp; =3D command<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * SCRATCH_REG1[19:0]&nbsp;&nbsp;&nbsp; =3D address in dwor=
-d<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * SCRATCH_REG1[26:24]&nbsp;&nbsp; =3D Error reporting<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; writel(v, scratch_reg0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; writel(offset | 0x80000000, scratch_reg1);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; writel(offset | flag, scratch_reg1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; writel(1, spare_int);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; for (i =3D 0; i &lt; retries; i++) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; for (i =3D 0; i &lt; retries; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =
-=3D readl(scratch_reg1);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(tmp &amp; =
-0x80000000))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(tmp &amp; =
-flag))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udela=
-y(10);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (i &gt;=3D retries)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;tim=
-eout: rlcg program reg:0x%05x failed !\n&quot;, offset);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (i &gt;=3D retries) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov=
-_reg_indirect_gc(adev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp &amp; GFX9_RLCG_VFGATE_DISABLED)<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pr_err(&quot;The vfgate is disabled, program reg:0x%05x failed!\n&quot=
-;, offset);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (tmp &amp; GFX9_RLCG_WRONG_OPERATIO=
-N_TYPE)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pr_err(&quot;Wrong operation type, program reg:0x%05x failed!\n&quot;,=
- offset);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (tmp &amp; GFX9_RLCG_NOT_IN_RANGE)<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pr_err(&quot;The register is not in range, program reg:0x%05x failed!\=
-n&quot;, offset);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pr_err(&quot;Unknown error type, program reg:0x%05x failed!\n&quot;, o=
-ffset);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;timeout: rlcg program reg:0x%0=
-5x failed!\n&quot;, offset);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D readl(scratch_reg0);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+}<br>
-+<br>
-+static bool gfx_v9_0_get_rlcg_flag(struct amdgpu_device *adev, u32 acc_fla=
-gs, u32 hwip,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int write, u32 *rlcg_flag)<br>
-+{<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (hwip) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case GC_HWIP:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_sriov_reg_indirect_gc(adev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *rlcg_flag =3D w=
-rite ? GFX9_RLCG_GC_WRITE : GFX9_RLCG_GC_READ;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* only in new version, AMDGPU_REGS_NO_KIQ and AMDGPU_REGS_RLC e=
-nabled simultaneously */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if ((acc_flags &amp; AMDGPU_REGS_RLC) &amp;&amp; !(acc_fl=
-ags &amp; AMDGPU_REGS_NO_KIQ) &amp;&amp; write) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *rlcg_flag =3D G=
-FX9_RLCG_GC_WRITE_OLD;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return false;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-+}<br>
-+<br>
-+static u32 gfx_v9_0_sriov_rreg(struct amdgpu_device *adev, u32 offset, u32=
- acc_flags, u32 hwip)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 rlcg_flag;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_runtime(adev) &amp;=
-&amp; gfx_v9_0_get_rlcg_flag(adev, acc_flags, hwip, 0, &amp;rlcg_flag))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return gfx_v9_0_rlcg_rw(adev, offset, 0, rlcg_flag);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (acc_flags &amp; AMDGPU_REGS_NO_KI=
-Q)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return RREG32_NO_KIQ(offset);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return RREG32(offset);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void gfx_v9_0_sriov_wreg(struct amdgpu_device *adev, u32 offse=
-t,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; u32 v, u32 acc_flags, u32 hwip)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; u32 value, u32 acc_flags, u32 hwip)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((acc_flags &amp; AMDGPU_REGS_RLC)=
- &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_sriov_=
-fullaccess(adev)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; gfx_v9_0_rlcg_w(adev, offset, v, acc_flags);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 rlcg_flag;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_runtime(adev) &amp;=
-&amp; gfx_v9_0_get_rlcg_flag(adev, acc_flags, hwip, 1, &amp;rlcg_flag)) {<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; gfx_v9_0_rlcg_rw(adev, offset, value, rlcg_flag);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (acc_flags &amp; AMDGPU=
-_REGS_NO_KIQ)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_NO_KIQ(offset, v);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_NO_KIQ(offset, value);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32(offset, v);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32(offset, value);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;#define VEGA10_GB_ADDR_CONFIG_GOLDEN 0x2a114042<br>
-@@ -5135,7 +5195,7 @@ static void gfx_v9_0_update_spm_vmid(struct amdgpu_de=
-vice *adev, unsigned vmid)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_is_pp_one=
-_vf(adev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; data =3D RREG32_NO_KIQ(reg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; data =3D RREG32(reg);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; data =3D RREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data &amp;=3D ~RLC_SPM_MC_=
-CNTL__RLC_SPM_VMID_MASK;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data |=3D (vmid &amp; RLC_=
-SPM_MC_CNTL__RLC_SPM_VMID_MASK) &lt;&lt; RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHI=
-FT;<br>
-@@ -5191,6 +5251,7 @@ static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_fun=
-cs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v9_0_rlc_st=
-art,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .update_spm_vmid =3D gfx_v=
-9_0_update_spm_vmid,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .sriov_wreg =3D gfx_v9_0_s=
-riov_wreg,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .sriov_rreg =3D gfx_v9_0_sriov_rreg,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_rlcg_access_range =3D =
-gfx_v9_0_is_rlcg_access_range,<br>
-&nbsp;};<br>
-&nbsp;<br>
-@@ -5796,16 +5857,16 @@ static void gfx_v9_0_set_compute_eop_interrupt_stat=
-e(struct amdgpu_device *adev,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (state) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_IRQ_STATE_DISA=
-BLE:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mec_int_cntl =3D RREG32(mec_int_cntl_reg);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mec_int_cntl =3D RREG32_SOC15_IP(GC,mec_int_cntl_reg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mec_int_cntl =3D REG_SET_FIELD(mec_int_cntl, CP_ME1_P=
-IPE0_INT_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME_STAMP_INT_ENABLE, 0);<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32(mec_int_cntl_reg, mec_int_cntl);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15_IP(GC, mec_int_cntl_reg, mec_int_cntl);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_IRQ_STATE_ENAB=
-LE:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mec_int_cntl =3D RREG32(mec_int_cntl_reg);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mec_int_cntl =3D RREG32_SOC15_IP(GC, mec_int_cntl_reg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mec_int_cntl =3D REG_SET_FIELD(mec_int_cntl, CP_ME1_P=
-IPE0_INT_CNTL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME_STAMP_INT_ENABLE, 1);<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32(mec_int_cntl_reg, mec_int_cntl);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15_IP(GC, mec_int_cntl_reg, mec_int_cntl);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BYAPR12MB284013E7528672ABB17CD67CF4779BYAPR12MB2840namp_--
