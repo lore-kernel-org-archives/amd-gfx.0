@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD7ECC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 20:04:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61422C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 20:04:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4873F10EDE0;
-	Thu, 16 Dec 2021 20:04:00 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C98A110EDE0
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 20:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D873E10EDEB;
+	Thu, 16 Dec 2021 20:04:07 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31EC010EDEB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 20:04:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LR30WxbPQ6zAvgIovdImSe2ALqEq6SCyQVKdUK08r3Cmc3t7kcnmipP1WbSTmDotaIvbCqbwWdf/lMNSxX9OzHz/pmx0LlE7IpmxBbbZpk1VjxZj84hmzqBRzEyjjTLSHXF+FmCQZpSburJiLks5Ym3VvLuvdmwUMZF4fv2cwFrBXgFYZ1FTG+2mCfEHVpwCnzEMM+uBM44U18JfuOT3++NMVC87dhVx+jt+v4elKDMhCOVRHG1I5vtrvd5DcFlIIN7ceyxbeqU3RXgiyn0unhv3+cVnXwrzugo4eqwzO9u6u0HdQGgsH6Bqi0T80/vrHHDoIECKggOGEDwuOvm89g==
+ b=b6E9ty9aEA5ftbOA7q5VbAtcTHFjSyrAQyhAGNnJsIFvQPxW4YiBJJW7nZEqMNubUfIY02ZuqdbHC5DZgx01CGw47coWp57vRLIpn4ZnX68Lh092+bK1MRNNRvt/xs5KxN+XlGNRzFVMr/moDWC+nnYk2xK5Bcjxg3bCc6lH2veYtgeX2ukGPQXwZddlBkPBPscOCf255eAX99fXcbNDWPhE+Zkb+pocslQZK6C2pT+qZGURED4Vf/8QLWSdM3WeFlIf3ip5F+VU0+HT4R2j4TK4KxQ6YStX1AbYR8i0So3RG2jAXHagd1xsmfGg7vSdSlVezUU5/8EoH4F/nSWFzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nSXDzopmCBMQsH6h8uK4WoxN5E1ZsPvgIbFY0U0U1eA=;
- b=a8LXO5KO+Zu9Z7DVtSlaCOWpGTX60YUabQFC9YZ5X2MxBwsdSFeGlnAwSxBYqYdCdWLIvjegcsCMnGIR4V9QQ842qzfpUqhfHOowyx0Az9LT0AiwKA5mBhJthgwu4GgKuL4x54xCWuy/zIEYeiNHbLjLKOODcSQmUHOIxu9ZRdgfBdcIiLpBt6GvpFLKW7QPjd2/+LDQROcVfIprvCGkG8AnB44oK6GtDmikj0E/BuGTBiqmRwVOujThSjFUcvjp5WTQwoQG2VTiySoOlCpOynK847Vp+71YfvTUmgAe1ft29EyFj7LR9tH1I6VEj+VwbLW+QuFxNngTQuViDeF6KA==
+ bh=nOY0B8u39fJ3DqY3rQJYt6waPV/oAF9dLNx+1/mhMzg=;
+ b=aWiLAJmfqTKBngL5bGz8HFv7fDH+TomaejQhoKiVLXdfSDfZG0BzzkunRsOka/q7hWzcs+2Xf9izm1wPktfoiPosMS9KRoHYaR/cVK5z6CTL1edsJh9v4nDzOW4bbP5xuFLf7MpzhiLQWPZEQkHINHxXEGMOX4Sr7h9TQEBIDVkF48CJtZD1w3hQb8RfuqTyCPI3OhorAjTCHg+49wwNlGhtwOXTq3dJYnizDyLQi2BnnXQkuziPVcUnECfg99h4Nqxq0WKXDzuWdSV0OMWuACvpl5NB9WW3Nq9kEUvypKpQbg8K7MZIgFiTn7NJYzRK4GtTSzUAsH3pXwDEhfpgLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nSXDzopmCBMQsH6h8uK4WoxN5E1ZsPvgIbFY0U0U1eA=;
- b=WiBEDG01fAlnoQ/ctmuEepmmpYcnhU3Y4sRkQDcmBJnX+wMM9Tk5JEo2Op5AFADh6JacCK2ymAapPQBvW9OF9EBd/Xdalt08/fh9+tWOJRk25vClRVk2gaRD0I64U7/eqHa14R6bBxwprdTTSozKH7Kpr1c1vA+1x6qqNanR3gM=
+ bh=nOY0B8u39fJ3DqY3rQJYt6waPV/oAF9dLNx+1/mhMzg=;
+ b=p5gFguWHjRNwUPGR+CX7LkDkGV4hZgin6QlX9w8pD5FnLo/EZIRyinyvp3zcYor7GXX4M92MQgLfinb32UnNQRmOYbaXHGRuPQLNss1HxZPnGXaX2I+BNHLatwrSyBCkyvZeUuWdk41/PwMfRJzJd4Frxtik9L3jbuf+uffEPfc=
 Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB2918.namprd12.prod.outlook.com (2603:10b6:a03:13c::27)
+ by BYAPR12MB4630.namprd12.prod.outlook.com (2603:10b6:a03:107::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Thu, 16 Dec
- 2021 20:03:56 +0000
+ 2021 20:04:02 +0000
 Received: from BYAPR12MB2840.namprd12.prod.outlook.com
  ([fe80::5425:7b82:3787:d5fa]) by BYAPR12MB2840.namprd12.prod.outlook.com
  ([fe80::5425:7b82:3787:d5fa%5]) with mapi id 15.20.4778.019; Thu, 16 Dec 2021
- 20:03:56 +0000
+ 20:04:02 +0000
 From: "Nieto, David M" <David.Nieto@amd.com>
 To: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deng,
@@ -43,84 +43,84 @@ To: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
  <Davis.Ming@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Zhou, Peng Ju"
  <PengJu.Zhou@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>, "Chen,
  Horace" <Horace.Chen@amd.com>
-Subject: Re: [PATCH v3 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro
- definitions
-Thread-Topic: [PATCH v3 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro
- definitions
-Thread-Index: AQHX8rUcYET5BQchok2Syhxpy4gjbqw1ipW3
-Date: Thu, 16 Dec 2021 20:03:55 +0000
-Message-ID: <BYAPR12MB28403C7468987898CE42EED7F4779@BYAPR12MB2840.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v3 2/5] drm/amdgpu: Modify indirect register access for
+ gmc_v9_0 sriov
+Thread-Topic: [PATCH v3 2/5] drm/amdgpu: Modify indirect register access for
+ gmc_v9_0 sriov
+Thread-Index: AQHX8rUdmh8yTsO6yUW7YC4SS/Yw7aw1irbF
+Date: Thu, 16 Dec 2021 20:04:02 +0000
+Message-ID: <BYAPR12MB2840DF4CC1B2F91382DC81DFF4779@BYAPR12MB2840.namprd12.prod.outlook.com>
 References: <20211216194233.3839-1-victor.skvortsov@amd.com>
- <20211216194233.3839-2-victor.skvortsov@amd.com>
-In-Reply-To: <20211216194233.3839-2-victor.skvortsov@amd.com>
+ <20211216194233.3839-3-victor.skvortsov@amd.com>
+In-Reply-To: <20211216194233.3839-3-victor.skvortsov@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-16T20:03:55.446Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-16T20:04:02.127Z;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
  Official Use
  Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: cb300032-0619-8996-1d04-3365f2ec025b
+suggested_attachment_session_id: 54fa2ee6-d084-f1ac-7e75-1ea6fab084fa
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5fa1009b-3197-4d44-1736-08d9c0cf3100
-x-ms-traffictypediagnostic: BYAPR12MB2918:EE_
-x-microsoft-antispam-prvs: <BYAPR12MB291843510C2A7614136CD1E9F4779@BYAPR12MB2918.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:216;
+x-ms-office365-filtering-correlation-id: 17627d86-32e7-4d2f-b784-08d9c0cf34f9
+x-ms-traffictypediagnostic: BYAPR12MB4630:EE_
+x-microsoft-antispam-prvs: <BYAPR12MB4630433D3EAF342E7AE0776BF4779@BYAPR12MB4630.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2582;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SC08t+n6wBjwB6nk8GgVyCpBK9HMhe1L6dDnIVn2MWkY6ge2Ob9AMR8mUCCOzvbpjnrllRWd9x0pb2jChUwg4ZZflNN2V7W7gdmdhvo6q2PrJA+k9Nw6+Lx/rXUfxAPSztI6OPZPufg7DwxgIsVpHzrQ8sWfjsjG3uNawPPCQurShdbepC8NSl+NmvQ63DAGxferxgKIwc9zj64jBsJTMmO+gz94jDE0781sBg1O+sh+dkvOm9n+0P9ucHuOiBNTAYz1wWqE57BrP8ZbWx4adrQ1kpy9EDVZAof2SCJ4inrrx1D60xq8omjhgG9LulfLxL8xL3garmKzRgyS+/UUJxtV5ZWxDQO/6iIYeSdtvQkhYTXhRk9QT6R9Cok48nVQ56jw1zEWVVQkgqr0poOoKmzQ6ah3RsE0rIM4K3cBVR5WxUUMTnItAW0gVWngFHCw0tD6QV1t95mDXYmNyBEWAirF6uvjamJRa9GDdao0x/mxZJr2MvYCTXFkSuW/0qLeU1nMrSuy7qiNyBLARGthkc8ScXOSkmwnA5JOP+yUX1jUhtqlj3l4zZiT56zsrXbDrPo221QThUJfV0JYYF1R0z5WUtQ0HvKbTgwjFO0Bv9KlznWrYklP66v/j21pjFJ+lOGYJELMhUgIRx+yGZkDVCdB2Edipn+FVeL4oDzQ2Wj9lw8FPVEAeBQBCmKnR3iLP92YKrptrK7BAfhCZopy70P8gd2QDDzyU1PRGzyaVYU=
+x-microsoft-antispam-message-info: NlZLHutjG6xJCfg0h2OiDjLfvlgAaB2Iz2m+y4y525fIKCcnWiqjXSBLs4D81Ep781ITev1QJRJEehMZ68EfH/OaiobfhvIGLcvI3kyevE1W/cWvxeIfaFNxAxhIbWLoL9uPw0q9c8UREygQhZlHiHh3SYY4zp1FtMbSe8LMzEl7ngPc67lsgY3cfHR5Q/gWW8VaflYJkmvxKzaZ5sUfGsEIA5aae5TrlZXfqtPSF5QIDztqrBcHRZSNWgv2SUknEgcOO0eKhtVFRdBB9c7yDKpbfC8Nx6mewJf97KWehE6kIORjhyZ4jlQ5nyqT3ty2j1hw7F8bJUrvNpVBz2Vtme7ujM5SNUWQs5fh2wEkUSiRf0BQNxzmfzLUDnDwgVoHb/K0YDB+sg0RhcGq/pJmFRDZqaEztWoVydaGNGf63d5Sqm4O93ogHypX382pm1yAyD31zo8EdjvmdPvfdRuGFWxjixeCy4SuIAB+t/ftfnQEe6zp8Sb+o8ob7Kboh34kzOKP8GgI4dsHqfKxW9fY82tpDpgeOg0MW3pcLntGeD1fQnceOW84kjetKoGfv/ZqECmPFSrU2ydWHJNDJXtPzgjJ4eKS08QwH3up297IPv66/t+id1cLhfHhNh2VyhZ9KqM7tU5WvVIxZIx+N97+H4jG8qKOJbmz6p47D+73IjvfCtw+BzFy510hQdu/Glft4VaJ7nwJDnH1JH0fDaveA+jX8DzxQ3e5VC9iruZGpgU=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(76116006)(186003)(33656002)(66946007)(8936002)(55016003)(66446008)(19627405001)(508600001)(86362001)(71200400001)(9686003)(7696005)(110136005)(6506007)(5660300002)(316002)(53546011)(38100700002)(66476007)(64756008)(66556008)(52536014)(6636002)(38070700005)(8676002)(122000001)(921005)(83380400001)(2906002);
+ SFS:(4636009)(366004)(33656002)(110136005)(55016003)(2906002)(6636002)(38070700005)(19627405001)(316002)(66476007)(86362001)(7696005)(53546011)(6506007)(52536014)(83380400001)(921005)(66946007)(5660300002)(76116006)(8676002)(66446008)(64756008)(66556008)(186003)(508600001)(9686003)(8936002)(122000001)(38100700002)(71200400001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mz8JcxIlBxdtuwsMxn7ldArDJQJeXbTDwwOIWrbcez4Hv6+MGKi41PICnUbI?=
- =?us-ascii?Q?Hhe/pjPyLGdEVRGEAQgWzD2DvQ+qx96/aDBhDpiLD/5Ud2p7FxU1AxboWYwu?=
- =?us-ascii?Q?zBm21As0fh72qQr9kqkAHdVHiA8IrMRFUClkW+Gx/nlu4hv7aB1A15XQIJNH?=
- =?us-ascii?Q?rgvGXP7A8Z9aQmcMtjJkCkRUDAr+qc7nT4Hw3CAXHCytw4Mp5+Mdfhb/YNBP?=
- =?us-ascii?Q?XHxht1OwafRfbjPjTSwiVDNKN1pYwDeuTtV8SCGhQoMZehPEWmCN9sl/+zuf?=
- =?us-ascii?Q?5pUX3NeVYgsTJcurlQySJGO1dTMg/+saA+GtAKhX/YqAW9KtVpRMF6gZ2wVR?=
- =?us-ascii?Q?bq2DdP2So+1kgP59zXmWQCYLiWMk39lLXfR4089XJViS3l5xAiv5BeBFhebQ?=
- =?us-ascii?Q?zsx4oqky3Zyhe0DNd/HGlodTdCJ4dLKj0eIjhaYRLqAN7xwtiq1t27FUHcIi?=
- =?us-ascii?Q?6Y4LhcFmMJS34YCjh8/huSDE2iqYoRbOnt3/rkPTBMe4r7gJJLIvhnhMuVIM?=
- =?us-ascii?Q?gUb18ryLsm6I3IYmTq25KC1tbsEQLJoMdSMG8LKkhCx1kZr3yr7ROyeU0DHR?=
- =?us-ascii?Q?03F8RgPBxygJqzzJSK5V9xXC2qsWkV85XUOTFufx/5NSkaqU7KU+OlCQGA3B?=
- =?us-ascii?Q?QdXhzlfvCe6x4jvn53Wu971g4kJzXXbp2Uz4RvyxpRdRMvb2X9wXfBHTcCl7?=
- =?us-ascii?Q?fARCEEtK9qkqJLk3SGq8aaKMUxN5YWHqfCD/lpSfQ4UdfLGqg0DXe71AXgfV?=
- =?us-ascii?Q?yuKPQx47qDJa+eSzOlyNHFLyGnZfR79StXs4HFB6lSAyAQnhSo165QV4+W+b?=
- =?us-ascii?Q?aHAEQfX/iIB+8hPWSx96/ViWXdyxJggP/Txe9W3X+vM5+kJlTowsJDQjFo7S?=
- =?us-ascii?Q?6Lh4yF3HxN7rljaYxozj/dy3fsUoGwITVffIbAb61VMaEsXPxAaKWREOjKAB?=
- =?us-ascii?Q?PTdro2Tbw7EjPZQDfrrWy3y3CBgXWUyUqJzQgsjZ6XYmUC/AmidTB/DIfnr0?=
- =?us-ascii?Q?x0cEggizQkMuT3ZZLdX9paMWz5WxSHxMd/nONF0+37ehKPxr8hgLhWFS+9Hp?=
- =?us-ascii?Q?eHk2NzwSDbb6akM7DJ441mQSgTYcfQ8n9WnMmbtrs3IJp7nSVplmrZVxOlbV?=
- =?us-ascii?Q?qtgabCWCRALDm6451kAcDWOlORCV/2Oxo7yG3WzfEYjEXiNUoDKF+zVhr01F?=
- =?us-ascii?Q?D/WmAOVXgMB2X1tG8ubdspxlZS/r1HE5C5D5cbKGh2M2n9MWYFXEkrsl4i9u?=
- =?us-ascii?Q?eG/2BwcWgR4tsokhkBK5L6SrXJD2U4MvzTIJ8PI6n5fyfoY6LncFLXMvnPmp?=
- =?us-ascii?Q?iVN5MQW+VwNtOH/8vIigRqhgy8GPrhVK2uPgkj0OmO5vSQoZWYPcEG2Zt/oO?=
- =?us-ascii?Q?JAy1FmPB7z410fbyHWM+zRpijauBfeu13m948WOiVQ/I595xovwOLwJgAbYW?=
- =?us-ascii?Q?K/tGxvnY8dNH4JGAv+FwxMrdchd30dbqb60FAs1LEkxle0W6ay1oxkC1GPrd?=
- =?us-ascii?Q?DWfLfSU4XOJIl8eWHl8KSVYgwK48sNwp2TXyKavMkxrYsPp5NJPr0HAFEcKY?=
- =?us-ascii?Q?l8lA5a2HOZcpNwW1GEAy9DGPiiiJIC2k0tGmVx5J?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3ojlzcLyoDGioIc7tN02Z6PAqnRCceghU0NlDw6drH8j8ZjWre6Hm8dhs+HH?=
+ =?us-ascii?Q?DLjl3xpdezspc1ZcElAhUQIpoH8w2XoabuPjTusbfK9+xoLSOx/3V4iLAGwr?=
+ =?us-ascii?Q?Av7vk5e8jeqfz4a14WgTtmm2teuPBwLwYZW9yMED3sdYwBGyTWbStvUxrHLo?=
+ =?us-ascii?Q?MUNL0ZfHu/wyOJ14VfROs0LLCJKU8Z49gBP1k2B245nCUnQv2TrVnv1FZCaE?=
+ =?us-ascii?Q?LdGxXBK45GUNEoye8S5P7TdUT0WTuDxQikNIJuvnoppOCVIRlS0m9pgwV2d6?=
+ =?us-ascii?Q?MeN/8WyGbtUAmVpJMkGNGVfYZWAAFe9MnkzJjfN+m7YFEhTGyzP0Hgikbv4c?=
+ =?us-ascii?Q?s1qPvIUcdUeq4gsxFT10ZY1CHi493OUxg1tyfZtn7bxhexfr5K0Bt4AU1tV6?=
+ =?us-ascii?Q?rSvj2NS1YfDsIuaE/QMMHFULm29RJt/0mR99wUA/f3EV7p19h/6btYncLjXc?=
+ =?us-ascii?Q?uPGScEILefxVDvTFjpVMZPehidcuA98TZECMwwcGSSIidDmpR2WH6q4mx0xd?=
+ =?us-ascii?Q?ai1fKe1IJvhXb/X+bnXOzzhN+4NVVdKo82qsKv7xGhUNepvcbtS1AAGc0Tkv?=
+ =?us-ascii?Q?Vnc6Q7WjI8GTNZ4IrUYYWwHIl3rHwltZUEOnA9C/IBRs/Z3YegNK2xezjnj/?=
+ =?us-ascii?Q?dI/F1a+hdk9DIytP+Z4Y0sAWhN2OXv4mjeu6xFCF/vwNVkgR/FeuD6kfDSAT?=
+ =?us-ascii?Q?O6NLsL7jphPOThPTsG4aLfeCUqa7Utl9mUEeEfNlhaceHSTtIadFQEDzA7IQ?=
+ =?us-ascii?Q?2fRpH2k96IU6uALxySrGncK16STs7zGq9p+laS1dB0GOwrF62hWQ3ypLJJUv?=
+ =?us-ascii?Q?Gas59pDnwjN9OCoSAq72UXRCOjNKBvJI9aqKuV5AtgHYIXMBmU6ffzcMvYKM?=
+ =?us-ascii?Q?Ot9i2IiapFClERDr/ky/C4+x0RXEDRnWz/HXdgeoc2PqXBoaM6MlI2NK13Je?=
+ =?us-ascii?Q?HbtJk/kinEcsqJ+IVjXvkW7VyEK10ds8AKG4jM1ad8zLMyTZkKEYDBu3j1cu?=
+ =?us-ascii?Q?6U2J0eOhDVcE6wVwpOcJKE+APBCTyoQbZG7d1/EJlX3NmDnoVH4JBtVIc3tW?=
+ =?us-ascii?Q?5K1IFp452efkJQsZjt5LaSfT0cbUEXLwnCrZPHXmMZNugarfi+MNmcsbtZzN?=
+ =?us-ascii?Q?Hnl4+gfjtJIcJ/oL8pXVW/ImOYZ0tQdmOy4s/ZakDOkVnCJR5UMy6KnHJcRb?=
+ =?us-ascii?Q?gte6rHtE+0laTYJ5oYTq00BYz0sXSK5dw44nS47CtQ06ezOHVmjW72+DpqQV?=
+ =?us-ascii?Q?zNu3Pjpg6Srx6rLQ4igQ5Wam+GuUXaQg1fjtx8zZELO5qEezRpnpt0dFKZgM?=
+ =?us-ascii?Q?g5LetPdKNNs5abN3dR+bDxRJxhRl49x7xEQEQz8/UB5Zr1PwzPPGhpS3FUH2?=
+ =?us-ascii?Q?K7qpjbfKORNmcHbR39VzwsGDR5OQu6d1dt54t81ewWw2gXsh3hHAQ9U6kn07?=
+ =?us-ascii?Q?M8JBCeJWmSnUTzov0en2+QHs4iy/zfvF9eqr4zO8zjumf/dDi+auZl/7lIe2?=
+ =?us-ascii?Q?FEJsOuZmNyPkfKCYHQaYvY6MKSVJHgfB0qLHFCxSDlTVvelu0PSjS/sRxU08?=
+ =?us-ascii?Q?6gLjiHmkpagSbqSoaZOKED8lrTVoWroX7DBxYcxz?=
 Content-Type: multipart/alternative;
- boundary="_000_BYAPR12MB28403C7468987898CE42EED7F4779BYAPR12MB2840namp_"
+ boundary="_000_BYAPR12MB2840DF4CC1B2F91382DC81DFF4779BYAPR12MB2840namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fa1009b-3197-4d44-1736-08d9c0cf3100
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 20:03:55.9920 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17627d86-32e7-4d2f-b784-08d9c0cf34f9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 20:04:02.7270 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Dnz2j7MA9k0qMeZ/OMGcX1P+DJilffJP1c1jn6nUbYFZY21KV1E9pt60iUVw1Ova
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2918
+X-MS-Exchange-CrossTenant-userprincipalname: H+G4o18hOB+pPeNjJDV5LhozVO3pyaQ1hfnWwVaa+Rummd1jTX/p381xvAke4WDX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4630
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,7 +135,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BYAPR12MB28403C7468987898CE42EED7F4779BYAPR12MB2840namp_
+--_000_BYAPR12MB2840DF4CC1B2F91382DC81DFF4779BYAPR12MB2840namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -151,49 +151,155 @@ Ming@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Zhou, Peng Ju <PengJu.Zh=
 ou@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; Chen, Horace <Horace.Ch=
 en@amd.com>; Nieto, David M <David.Nieto@amd.com>
 Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>
-Subject: [PATCH v3 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro definitio=
-ns
+Subject: [PATCH v3 2/5] drm/amdgpu: Modify indirect register access for gmc=
+_v9_0 sriov
 
-Add helper macros to change register access
-from direct to indirect.
+Modify GC register access from MMIO to RLCG if the
+indirect flag is set
+
+v2: Replaced ternary operator with if-else for better
+readability
 
 Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15_common.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 57 ++++++++++++++++++++-------
+ 1 file changed, 43 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/am=
-d/amdgpu/soc15_common.h
-index 8a9ca87d8663..473767e03676 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-@@ -51,6 +51,8 @@
-
- #define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0, ip##_HWIP)
-
-+#define RREG32_SOC15_IP_NO_KIQ(ip, reg) __RREG32_SOC15_RLC__(reg, AMDGPU_R=
-EGS_NO_KIQ, ip##_HWIP)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c
+index a5471923b3f6..2b86c63b032a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -478,9 +478,18 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
+dgpu_device *adev,
+                         hub =3D &adev->vmhub[j];
+                         for (i =3D 0; i < 16; i++) {
+                                 reg =3D hub->vm_context0_cntl + i;
+-                               tmp =3D RREG32(reg);
 +
- #define RREG32_SOC15_NO_KIQ(ip, inst, reg) \
-         __RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_=
-IDX] + reg, \
-                          AMDGPU_REGS_NO_KIQ, ip##_HWIP)
-@@ -65,6 +67,9 @@
- #define WREG32_SOC15_IP(ip, reg, value) \
-          __WREG32_SOC15_RLC__(reg, value, 0, ip##_HWIP)
-
-+#define WREG32_SOC15_IP_NO_KIQ(ip, reg, value) \
-+        __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)
++                               if (j =3D=3D AMDGPU_GFXHUB_0)
++                                       tmp =3D RREG32_SOC15_IP(GC, reg);
++                               else
++                                       tmp =3D RREG32_SOC15_IP(MMHUB, reg)=
+;
 +
- #define WREG32_SOC15_NO_KIQ(ip, inst, reg, value) \
-         __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_=
-IDX] + reg, \
-                              value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)
+                                 tmp &=3D ~bits;
+-                               WREG32(reg, tmp);
++
++                               if (j =3D=3D AMDGPU_GFXHUB_0)
++                                       WREG32_SOC15_IP(GC, reg, tmp);
++                               else
++                                       WREG32_SOC15_IP(MMHUB, reg, tmp);
+                         }
+                 }
+                 break;
+@@ -489,9 +498,18 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
+dgpu_device *adev,
+                         hub =3D &adev->vmhub[j];
+                         for (i =3D 0; i < 16; i++) {
+                                 reg =3D hub->vm_context0_cntl + i;
+-                               tmp =3D RREG32(reg);
++
++                               if (j =3D=3D AMDGPU_GFXHUB_0)
++                                       tmp =3D RREG32_SOC15_IP(GC, reg);
++                               else
++                                       tmp =3D RREG32_SOC15_IP(MMHUB, reg)=
+;
++
+                                 tmp |=3D bits;
+-                               WREG32(reg, tmp);
++
++                               if (j =3D=3D AMDGPU_GFXHUB_0)
++                                       WREG32_SOC15_IP(GC, reg, tmp);
++                               else
++                                       WREG32_SOC15_IP(MMHUB, reg, tmp);
+                         }
+                 }
+                 break;
+@@ -788,9 +806,12 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,
+         /* TODO: It needs to continue working on debugging with semaphore =
+for GFXHUB as well. */
+         if (use_semaphore) {
+                 for (j =3D 0; j < adev->usec_timeout; j++) {
+-                       /* a read return value of 1 means semaphore acuqire=
+ */
+-                       tmp =3D RREG32_NO_KIQ(hub->vm_inv_eng0_sem +
+-                                           hub->eng_distance * eng);
++                       /* a read return value of 1 means semaphore acquire=
+ */
++                       if (vmhub =3D=3D AMDGPU_GFXHUB_0)
++                               tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, hub->vm_=
+inv_eng0_sem + hub->eng_distance * eng);
++                       else
++                               tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, hub->=
+vm_inv_eng0_sem + hub->eng_distance * eng);
++
+                         if (tmp & 0x1)
+                                 break;
+                         udelay(1);
+@@ -801,8 +822,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,
+         }
+
+         do {
+-               WREG32_NO_KIQ(hub->vm_inv_eng0_req +
+-                             hub->eng_distance * eng, inv_req);
++               if (vmhub =3D=3D AMDGPU_GFXHUB_0)
++                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_req + h=
+ub->eng_distance * eng, inv_req);
++               else
++                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_req =
++ hub->eng_distance * eng, inv_req);
+
+                 /*
+                  * Issue a dummy read to wait for the ACK register to
+@@ -815,8 +838,11 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,
+                                       hub->eng_distance * eng);
+
+                 for (j =3D 0; j < adev->usec_timeout; j++) {
+-                       tmp =3D RREG32_NO_KIQ(hub->vm_inv_eng0_ack +
+-                                           hub->eng_distance * eng);
++                       if (vmhub =3D=3D AMDGPU_GFXHUB_0)
++                               tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, hub->vm_=
+inv_eng0_ack + hub->eng_distance * eng);
++                       else
++                               tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, hub->=
+vm_inv_eng0_ack + hub->eng_distance * eng);
++
+                         if (tmp & (1 << vmid))
+                                 break;
+                         udelay(1);
+@@ -827,13 +853,16 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
+ce *adev, uint32_t vmid,
+         } while (inv_req);
+
+         /* TODO: It needs to continue working on debugging with semaphore =
+for GFXHUB as well. */
+-       if (use_semaphore)
++       if (use_semaphore) {
+                 /*
+                  * add semaphore release after invalidation,
+                  * write with 0 means semaphore release
+                  */
+-               WREG32_NO_KIQ(hub->vm_inv_eng0_sem +
+-                             hub->eng_distance * eng, 0);
++               if (vmhub =3D=3D AMDGPU_GFXHUB_0)
++                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_sem + h=
+ub->eng_distance * eng, 0);
++               else
++                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_sem =
++ hub->eng_distance * eng, 0);
++       }
+
+         spin_unlock(&adev->gmc.invalidate_lock);
+
 --
 2.25.1
 
 
---_000_BYAPR12MB28403C7468987898CE42EED7F4779BYAPR12MB2840namp_
+--_000_BYAPR12MB2840DF4CC1B2F91382DC81DFF4779BYAPR12MB2840namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -213,7 +319,10 @@ gn=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-Reviewed-by: David Nieto &lt;david.nieto@amd.com&gt;</div>
+<span style=3D"color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); d=
+isplay: inline !important;">Reviewed-by: David Nieto &lt;david.nieto@amd.co=
+m&gt;</span><br>
+</div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
@@ -227,54 +336,294 @@ amd.com&gt;; Zhou, Peng Ju &lt;PengJu.Zhou@amd.com&gt;; Chen, JingWen
  &lt;JingWen.Chen2@amd.com&gt;; Chen, Horace &lt;Horace.Chen@amd.com&gt;; N=
 ieto, David M &lt;David.Nieto@amd.com&gt;<br>
 <b>Cc:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v3 1/5] drm/amdgpu: Add *_SOC15_IP_NO_KIQ() macro de=
-finitions</font>
+<b>Subject:</b> [PATCH v3 2/5] drm/amdgpu: Modify indirect register access =
+for gmc_v9_0 sriov</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Add helper macros to change register access<br>
-from direct to indirect.<br>
+<div class=3D"PlainText">Modify GC register access from MMIO to RLCG if the=
+<br>
+indirect flag is set<br>
+<br>
+v2: Replaced ternary operator with if-else for better<br>
+readability<br>
 <br>
 Signed-off-by: Victor Skvortsov &lt;victor.skvortsov@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15_common.h | 5 +++++<br>
-&nbsp;1 file changed, 5 insertions(+)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 57 ++++++++++++++++++++------=
+-<br>
+&nbsp;1 file changed, 43 insertions(+), 14 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/am=
-d/amdgpu/soc15_common.h<br>
-index 8a9ca87d8663..473767e03676 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h<br>
-@@ -51,6 +51,8 @@<br>
-&nbsp;<br>
-&nbsp;#define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0, ip##_HW=
-IP)<br>
-&nbsp;<br>
-+#define RREG32_SOC15_IP_NO_KIQ(ip, reg) __RREG32_SOC15_RLC__(reg, AMDGPU_R=
-EGS_NO_KIQ, ip##_HWIP)<br>
-+<br>
-&nbsp;#define RREG32_SOC15_NO_KIQ(ip, inst, reg) \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __RREG32_SOC15_RLC__(adev-=
-&gt;reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c<br>
+index a5471923b3f6..2b86c63b032a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+@@ -478,9 +478,18 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
+dgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hub =
+=3D &amp;adev-&gt;vmhub[j];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (=
+i =3D 0; i &lt; 16; i++) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- AMDGPU_REGS_NO_KIQ, ip##_HWIP)<br>
-@@ -65,6 +67,9 @@<br>
-&nbsp;#define WREG32_SOC15_IP(ip, reg, value) \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __WREG32_SOC15_RLC__=
-(reg, value, 0, ip##_HWIP)<br>
-&nbsp;<br>
-+#define WREG32_SOC15_IP_NO_KIQ(ip, reg, value) \<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __WREG32_SOC15_RLC__(reg, value=
-, AMDGPU_REGS_NO_KIQ, ip##_HWIP)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D hub-&gt;vm_context0_cntl=
+ + i;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(reg);<br>
 +<br>
-&nbsp;#define WREG32_SOC15_NO_KIQ(ip, inst, reg, value) \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __WREG32_SOC15_RLC__(adev-=
-&gt;reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j =3D=3D AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_SOC15_IP(GC, reg);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_SOC15_IP(MMHUB, reg);<br>
++<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D ~bits;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(reg, tmp);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j =3D=3D AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_SOC15_IP(GC, reg, tmp);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+@@ -489,9 +498,18 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct am=
+dgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hub =
+=3D &amp;adev-&gt;vmhub[j];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (=
+i =3D 0; i &lt; 16; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D hub-&gt;vm_context0_cntl=
+ + i;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(reg);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j =3D=3D AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_SOC15_IP(GC, reg);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_SOC15_IP(MMHUB, reg);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D bits;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(reg, tmp);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j =3D=3D AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_SOC15_IP(GC, reg, tmp);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+@@ -788,9 +806,12 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO: It needs to conti=
+nue working on debugging with semaphore for GFXHUB as well. */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_semaphore) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (j =3D 0; j &lt; adev-&gt;usec_timeout; j++) {<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* a read return=
+ value of 1 means semaphore acuqire */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_N=
+O_KIQ(hub-&gt;vm_inv_eng0_sem +<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* a read return=
+ value of 1 means semaphore acquire */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vmhub =3D=3D=
+ AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, hub-&gt;=
+vm_inv_eng0_sem + hub-&gt;eng_distance * eng);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, hub-&=
+gt;vm_inv_eng0_sem + hub-&gt;eng_distance * eng);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (t=
+mp &amp; 0x1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udela=
+y(1);<br>
+@@ -801,8 +822,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_NO_KIQ(hub-&gt;vm_inv_eng0_req +<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng, inv_req);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (vmhub =3D=3D AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
+NO_KIQ(GC, hub-&gt;vm_inv_eng0_req + hub-&gt;eng_distance * eng, inv_req);<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
+NO_KIQ(MMHUB, hub-&gt;vm_inv_eng0_req + hub-&gt;eng_distance * eng, inv_req=
+);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * Issue a dummy read to wait for the ACK regist=
+er to<br>
+@@ -815,8 +838,11 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hub-&gt;eng_distance * eng);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (j =3D 0; j &lt; adev-&gt;usec_timeout; j++) {<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_N=
+O_KIQ(hub-&gt;vm_inv_eng0_ack +<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vmhub =3D=3D=
+ AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, hub-&gt;=
+vm_inv_eng0_ack + hub-&gt;eng_distance * eng);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, hub-&=
+gt;vm_inv_eng0_ack + hub-&gt;eng_distance * eng);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (t=
+mp &amp; (1 &lt;&lt; vmid))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udela=
+y(1);<br>
+@@ -827,13 +853,16 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
+ce *adev, uint32_t vmid,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (inv_req);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO: It needs to conti=
+nue working on debugging with semaphore for GFXHUB as well. */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_semaphore)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_semaphore) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * add semaphore release after invalidation,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * write with 0 means semaphore release<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_NO_KIQ(hub-&gt;vm_inv_eng0_sem +<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hub-&gt;eng_distance * eng, 0);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (vmhub =3D=3D AMDGPU_GFXHUB_0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
+NO_KIQ(GC, hub-&gt;vm_inv_eng0_sem + hub-&gt;eng_distance * eng, 0);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_IP_=
+NO_KIQ(MMHUB, hub-&gt;vm_inv_eng0_sem + hub-&gt;eng_distance * eng, 0);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;adev-&gt;=
+gmc.invalidate_lock);<br>
+&nbsp;<br>
 -- <br>
 2.25.1<br>
 <br>
@@ -284,4 +633,4 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 </body>
 </html>
 
---_000_BYAPR12MB28403C7468987898CE42EED7F4779BYAPR12MB2840namp_--
+--_000_BYAPR12MB2840DF4CC1B2F91382DC81DFF4779BYAPR12MB2840namp_--
