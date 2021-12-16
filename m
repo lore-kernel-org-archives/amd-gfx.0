@@ -4,60 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4EFDC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 15:38:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFD3DC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 15:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6920810E24C;
-	Thu, 16 Dec 2021 15:38:42 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426F410E24C
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 15:38:41 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- n104-20020a9d2071000000b005799790cf0bso29430475ota.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 07:38:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=ww80AeAZqNBcgagA675GRlU7wlLrA+kPXizSVou96AY=;
- b=RowyXX9UK16nAStqzRDVQ+Z1AAzdlrSGheKH11GhM1/lamNMf1HMtzfNZ1eebfzzzm
- yETAoobuhvpOPmzq0YFJzOIzzNfeWtYwybHo8d0NXwQyWn5e7O0YAgJkAKvlPyEwh9p9
- qYnE+cx27EOJ4kXdKlRP1tf6MdHPZpRqB/cqCexu7plVdSQwwrHoKAltVLcBuwkf5J9d
- ytCICbsyI/R+/X/dMyKsQhLjtRcUMJZCKSt5E2GVwcyuosg0Gub88b/J8WzbJx64YFih
- TWh1WNMALop0zAnR1Lw8PRJZObzaPijLGau+CDvo7wmVWSNvewXytOE8/sGI+dtWeVAG
- eoDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=ww80AeAZqNBcgagA675GRlU7wlLrA+kPXizSVou96AY=;
- b=OVorvYK4BSJLRQr6umOFgFxttZdD5AGcyrxKdtcyn81qbL4U/nmePBWNKX4T6msJ9m
- QlBxx30rW/g0rjAF21s98UJ/gUHqxqReVwX2ZGJ0rzlUlTCCgwVQ6QHO1zOsg4GdUPCF
- KOco4LyM0+HGELXThvkWfCHO6SPYKle0YI4AdHl0FdLM+FYMoW1rrQ+jujLgBoJrMdce
- Y82WqrUc6hVjZaOSR6YXzT4xqYDWlEwHvSFMwWQ+T1bhlWWP26etkLS7nsrVbpULEwoH
- 6l8VYcKQZqM+f6VCf78cKQQaOTf2yx0bNWr5Vz0spAEiBrX2KZY73R36MM962dlLmqPU
- vNcg==
-X-Gm-Message-State: AOAM531X7/grvwCo2USAahjrm1+I9VFYJKx0yWC3flxn+esG26tabfAX
- BaZCe4LODlBj3CHuqGv3WutyoKFI7tHau6vUwFDqY3zI
-X-Google-Smtp-Source: ABdhPJycSpG7BGHNiPaubvXh05v42XY8/lLTz/I3gB6MBrl0hfXynoiWEWHevDUss0552vrVu0LK1MLjiVdC10+saDA=
-X-Received: by 2002:a05:6830:1bcf:: with SMTP id
- v15mr13456189ota.200.1639669120558; 
- Thu, 16 Dec 2021 07:38:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA9810E3BB;
+	Thu, 16 Dec 2021 15:40:33 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2044.outbound.protection.outlook.com [40.107.96.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C114F10E3BB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 15:40:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nq7FFxDqRuBekkHWY3OeruGLpM6JiM8iZGHApy4EnEAE8Aq7WU0Z0f39CFjWHb6QKsWejIJdiJpya9UPmI3F53/Tov1tQlnTVyfcjK55G/x1mDcSywLzlqvKANa6mXJDI6AjuCfdbWJnMEfBF7Z4px3BUz0+kyMeJsHHxXYDfQGrvwpwNJrbwW66A5TNshOy9fJF+IDz47VrjxWwzOoXWtjTQpJ/gE1oljNoD3lkgtHAzczGKq+JXFYOvlx4NZ0JS8c5GlLMyCuYnQQ+sX28k4CbVQvm5QxdE0W7JCNtxgHg0j3KIv9/1vMAMtCuzwzegAF7Ou1UVBcuUlXQIRnAIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bRzSvcf9tY+AAiopOAnJEDAtszRliONocgTIDlRomhE=;
+ b=R3wemDOOyhFewfNzstJjgtIKF/tlcGs8Xu9O655EX1H3KBwgsVqlSNnuUhxmIaQdZVEatqrn+inz0/etNTsN9fXF+ermDZ0HrdHmit+be25kzZ3jKGzsl7jnbeYMocqIXEhlyr1P5nsIfUrkmJ2PhKGteLw0mjG3iaFkbf3XyUfbjftn0EjisGN1lPkcUMj1tprbar0FJF8Oz8YX7L7sGnwUC5rw510y9nQdqw6m+GG0pck3b+BmeRl7cndOBwhGaTE7iDHZ0RtqPCCgnx23v7Twcn0F+299eeMNH/aUWWT7d3cxBWl/RVhs+sS7o1sl3LCxHsr/DWmgES27AZ/Rkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bRzSvcf9tY+AAiopOAnJEDAtszRliONocgTIDlRomhE=;
+ b=tYLC6di2YtkuEohDcAy4sWxq5mFobLUj6HdT9fsrfUgPnmNocrFq7AYK/j0fPebFZUCQtI6XdSrCkAq5zBUGR54rtRtOH1QDmH0SdRJJNvMRau0hJXpyn9rHl3iBsAYzSFAAdWXCrMdqxFxM8AqXHYt9KGHkOO8s6bLPiI7OgOM=
+Received: from DM6PR01CA0010.prod.exchangelabs.com (2603:10b6:5:296::15) by
+ BN7PR12MB2660.namprd12.prod.outlook.com (2603:10b6:408:29::26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4778.17; Thu, 16 Dec 2021 15:39:20 +0000
+Received: from DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:296:cafe::c9) by DM6PR01CA0010.outlook.office365.com
+ (2603:10b6:5:296::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17 via Frontend
+ Transport; Thu, 16 Dec 2021 15:39:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT045.mail.protection.outlook.com (10.13.173.123) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4801.14 via Frontend Transport; Thu, 16 Dec 2021 15:39:19 +0000
+Received: from sriov-scm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 16 Dec
+ 2021 09:39:18 -0600
+From: Victor Skvortsov <victor.skvortsov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Shaoyun.Liu@amd.com>,
+ <David.Nieto@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Separate vf2pf work item init from virt data
+ exchange
+Date: Thu, 16 Dec 2021 15:39:01 +0000
+Message-ID: <20211216153901.17820-1-victor.skvortsov@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1639136511-6357-1-git-send-email-curry.gong@amd.com>
- <f1f996f4-0bc3-aa01-f9da-3664b14f7861@amd.com>
- <BN7PR12MB2641CA6290B6CEFB4A5016EF9D749@BN7PR12MB2641.namprd12.prod.outlook.com>
- <826e98e0-5e6a-cc87-0690-b444e34bb367@amd.com>
- <DM6PR12MB2619D50306A965F94357A555E4759@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2619D50306A965F94357A555E4759@DM6PR12MB2619.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Dec 2021 10:38:29 -0500
-Message-ID: <CADnq5_PthY5p9zDnAHiKTsP8WyptK1Ni+yN4Uqj=JFqJkO7QQw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
- powergating is explicitly enabled
-To: "Quan, Evan" <Evan.Quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 39917dec-1de8-43a2-e37f-08d9c0aa39cd
+X-MS-TrafficTypeDiagnostic: BN7PR12MB2660:EE_
+X-Microsoft-Antispam-PRVS: <BN7PR12MB26601F2ACF14600F4B6DC27E8B779@BN7PR12MB2660.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0VKSgn1kJ9tCsbv1DgTZFEyXBkiLBcI9p5RShC+osiAcidMShUgYeL2iICSlY0XA0ru40GkYcClQyuAptXaNROQ379lJCFB6FrFhdPbpSF7+D/swuacD7yypYEd9gWdvtrJL8Yx1IUS9YtGMPUSTn4PIPAnlqDwtuP92UvIZTJ85B/kvHxcYPOuSJAl9ThpLE66ilSPjRQFTmJlrSmz9T2Q33IMHenJln2jL54LcgBptzy5FNgZ74u/NLBAFB7i2hUVP3hgQYAwOt4ZSXVYW7Of2y/r67ZGUNkzDnVC43ECLMPl7sbKAb62OhhERmYLVvmMNqrZWa31EOelpeCsPW2FIuxVp0AxjxWg7787gNJvRCkCHnZ0VBR4+p686eNzxtoGlTzszG9nPYSpHoE9ghRTbEfxTaZJAiCLyiamdLHyfsdlOnssUnK4+uETOcTYhNZvgFu0VvJv/8p0iDPfc+4tsVFACJrcff8+c+ngL/CUasJlxJmMjM1apAqLAfkpY8CmKieIxDGloor0J8yP2P2LCDD6Bkyi83nZYINb8ZMGXSDMdkTmP/UHWgwV0B/koF5dL28hlLUDGUDNQT3OYwUmd9Tdbv/jdtjsQTE9iNjyAsTrfCTZS2NH6+nFG2xW79wDvLovaUckG8Xs9HtAErQhf9rf2iODpuFpoeViSDXYfVihHu/sKU2sGDJaSPsLZT7sgKQhjcTVstSjEKAYFMCqKb7M8jxo2DEd0tVZiM7B+IBPGAOYrM0aidLWrMBR6IsgiuPBztJEXGPLV2f/8W48BSz4VowBYMgs8j/k4/tk=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(4326008)(110136005)(316002)(6636002)(2906002)(7696005)(426003)(8936002)(70206006)(70586007)(1076003)(44832011)(26005)(6666004)(86362001)(36756003)(2616005)(8676002)(36860700001)(336012)(508600001)(16526019)(186003)(5660300002)(47076005)(83380400001)(40460700001)(356005)(82310400004)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2021 15:39:19.5622 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39917dec-1de8-43a2-e37f-08d9c0aa39cd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2660
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,373 +100,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhu,
- James" <James.Zhu@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Gong,
- Curry" <Curry.Gong@amd.com>
+Cc: Victor Skvortsov <victor.skvortsov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-FWIW, it looks like all versions of VCN need the same fix.  There have
-been reports of suspend failing when VCN is in use on other newer APUs
-as well.
+We want to be able to call virt data exchange conditionally
+after gmc sw init to reserve bad pages as early as possible.
+Since this is a conditional call, we will need to call
+it again unconditionally later in the init sequence.
 
-Alex
+Refactor the data exchange function so it can be
+called multiple times without re-initializing the work item.
 
-On Tue, Dec 14, 2021 at 12:59 AM Quan, Evan <Evan.Quan@amd.com> wrote:
->
-> [AMD Official Use Only]
->
->
->
->
->
->
->
-> From: Zhu, James <James.Zhu@amd.com>
-> Sent: Monday, December 13, 2021 9:39 PM
-> To: Gong, Curry <Curry.Gong@amd.com>; Zhu, James <James.Zhu@amd.com>; amd=
--gfx@lists.freedesktop.org
-> Cc: Liu, Leo <Leo.Liu@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Deucher, =
-Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended, po=
-wergating is explicitly enabled
->
->
->
-> Hi Curry, Evan,
->
-> It seems vcn1.0 power gate sequence are special.
->
-> if the original solution is thread safe, then the following solution will=
- be thread safe also.
->
-> static int vcn_v1_0_hw_fini(void *handle)
-> {
->     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->
->     cancel_delayed_work_sync(&adev->vcn.idle_work);
->
->     if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
->         (adev->vcn.cur_state !=3D AMD_PG_STATE_GATE &&
->          RREG32_SOC15(VCN, 0, mmUVD_STATUS))) {
-> +        if (adev->pm.dpm_enabled)
-> +            amdgpu_dpm_enable_uvd(adev, false);
-> +        else
-> +            vcn_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
->
-> [Quan, Evan] Considering adev->pm.dpm_enabled is always true, =E2=80=9Cvc=
-n_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE); =E2=80=9C will becom=
-e dead code.
->
-> Also, the vcn_v1_0_hw_fini is also used in other scenarios(except the sus=
-pend/resume discussed here). So, it seems quite risky compared with Curry=
-=E2=80=99s original patch.
->
-> Before we can come up with a better idea, I would suggest to land Curry=
-=E2=80=99s original patch as a quick fix.
->
->
->
-> BR
->
-> Evan
->
->
->     }
->
-> Best Regards!
->
-> James
->
-> On 2021-12-13 3:55 a.m., Gong, Curry wrote:
->
-> [AMD Official Use Only]
->
->
->
-> Hi James:
->
->
->
-> With the following patch, an error will be reported when the driver is lo=
-aded
->
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->
-> @@ -1202,6 +1204,9 @@ static int vcn_v1_0_stop(struct amdgpu_device *adev=
-)
->
->         else
->
->                 r =3D vcn_v1_0_stop_spg_mode(adev);
->
->
->
-> c
->
->         return r;
->
-> }
->
->
->
->
->
-> $ dmesg
->
-> [  363.181081] INFO: task kworker/3:2:223 blocked for more than 120 secon=
-ds.
->
-> [  363.181150]       Tainted: G           OE     5.11.0-41-generic #45~20=
-.04.1-Ubuntu
->
-> [  363.181208] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disable=
-s this message.
->
-> [  363.181266] task:kworker/3:2     state:D stack:    0 pid:  223 ppid:  =
-   2 flags:0x00004000
->
-> [  363.181276] Workqueue: events vcn_v1_0_idle_work_handler [amdgpu]
->
-> [  363.181612] Call Trace:
->
-> [  363.181618]  __schedule+0x44c/0x8a0
->
-> [  363.181627]  schedule+0x4f/0xc0
->
-> [  363.181631]  schedule_preempt_disabled+0xe/0x10
->
-> [  363.181636]  __mutex_lock.isra.0+0x183/0x4d0
->
-> [  363.181643]  __mutex_lock_slowpath+0x13/0x20
->
-> [  363.181648]  mutex_lock+0x32/0x40
->
-> [  363.181652]  amdgpu_dpm_set_powergating_by_smu+0x9c/0x180 [amdgpu]
->
-> [  363.182055]  amdgpu_dpm_enable_uvd+0x38/0x110 [amdgpu]
->
-> [  363.182454]  vcn_v1_0_set_powergating_state+0x2e7e/0x3cf0 [amdgpu]
->
-> [  363.182776]  amdgpu_device_ip_set_powergating_state+0x6c/0xc0 [amdgpu]
->
-> [  363.183028]  smu10_powergate_vcn+0x2a/0x80 [amdgpu]
->
-> [  363.183361]  pp_set_powergating_by_smu+0xc5/0x2b0 [amdgpu]
->
-> [  363.183699]  amdgpu_dpm_set_powergating_by_smu+0xb6/0x180 [amdgpu]
->
-> [  363.184040]  amdgpu_dpm_enable_uvd+0x38/0x110 [amdgpu]
->
-> [  363.184391]  vcn_v1_0_idle_work_handler+0xe1/0x130 [amdgpu]
->
-> [  363.184667]  process_one_work+0x220/0x3c0
->
-> [  363.184674]  worker_thread+0x4d/0x3f0
->
-> [  363.184677]  ? process_one_work+0x3c0/0x3c0
->
-> [  363.184680]  kthread+0x12b/0x150
->
-> [  363.184685]  ? set_kthread_struct+0x40/0x40
->
-> [  363.184690]  ret_from_fork+0x22/0x30
->
-> [  363.184699] INFO: task kworker/2:2:233 blocked for more than 120 secon=
-ds.
->
-> [  363.184739]       Tainted: G           OE     5.11.0-41-generic #45~20=
-.04.1-Ubuntu
->
-> [  363.184782] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disable=
-s this message.
->
-> [  363.184825] task:kworker/2:2     state:D stack:    0 pid:  233 ppid:  =
-   2 flags:0x00004000
->
-> [  363.184831] Workqueue: events amdgpu_device_delayed_init_work_handler =
-[amdgpu]
->
-> [  363.185085] Call Trace:
->
-> [  363.185087]  __schedule+0x44c/0x8a0
->
-> [  363.185092]  schedule+0x4f/0xc0
->
-> [  363.185095]  schedule_timeout+0x202/0x290
->
-> [  363.185099]  ? sched_clock_cpu+0x11/0xb0
->
-> [  363.185105]  wait_for_completion+0x94/0x100
->
-> [  363.185110]  __flush_work+0x12a/0x1e0
->
-> [  363.185113]  ? worker_detach_from_pool+0xc0/0xc0
->
-> [  363.185119]  __cancel_work_timer+0x10e/0x190
->
-> [  363.185123]  cancel_delayed_work_sync+0x13/0x20
->
-> [  363.185126]  vcn_v1_0_ring_begin_use+0x20/0x70 [amdgpu]
->
-> [  363.185401]  amdgpu_ring_alloc+0x48/0x60 [amdgpu]
->
-> [  363.185640]  amdgpu_ib_schedule+0x493/0x600 [amdgpu]
->
-> [  363.185884]  amdgpu_job_submit_direct+0x3c/0xd0 [amdgpu]
->
-> [  363.186186]  amdgpu_vcn_dec_send_msg+0x105/0x210 [amdgpu]
->
-> [  363.186460]  amdgpu_vcn_dec_ring_test_ib+0x69/0x110 [amdgpu]
->
-> [  363.186734]  amdgpu_ib_ring_tests+0xf5/0x160 [amdgpu]
->
-> [  363.186978]  amdgpu_device_delayed_init_work_handler+0x15/0x30 [amdgpu=
-]
->
-> [  363.187206]  process_one_work+0x220/0x3c0
->
-> [  363.187210]  worker_thread+0x4d/0x3f0
->
-> [  363.187214]  ? process_one_work+0x3c0/0x3c0
->
-> [  363.187217]  kthread+0x12b/0x150
->
-> [  363.187221]  ? set_kthread_struct+0x40/0x40
->
-> [  363.187226]  ret_from_fork+0x22/0x30
->
->
->
->
->
-> BR
->
-> Curry Gong
->
-> From: Zhu, James <James.Zhu@amd.com>
-> Sent: Saturday, December 11, 2021 5:07 AM
-> To: Gong, Curry <Curry.Gong@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>; Quan, Eva=
-n <Evan.Quan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended, po=
-wergating is explicitly enabled
->
->
->
-> On 2021-12-10 6:41 a.m., chen gong wrote:
->
-> Play a video on the raven (or PCO, raven2) platform, and then do the S3
->
-> test. When resume, the following error will be reported:
->
->
->
-> amdgpu 0000:02:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring
->
-> vcn_dec test failed (-110)
->
-> [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block
->
-> <vcn_v1_0> failed -110
->
-> amdgpu 0000:02:00.0: amdgpu: amdgpu_device_ip_resume failed (-110).
->
-> PM: dpm_run_callback(): pci_pm_resume+0x0/0x90 returns -110
->
->
->
-> [why]
->
-> When playing the video: The power state flag of the vcn block is set to
->
-> POWER_STATE_ON.
->
->
->
-> When doing suspend: There is no change to the power state flag of the
->
-> vcn block, it is still POWER_STATE_ON.
->
->
->
-> When doing resume: Need to open the power gate of the vcn block and set
->
-> the power state flag of the VCN block to POWER_STATE_ON.
->
-> But at this time, the power state flag of the vcn block is already
->
-> POWER_STATE_ON. The power status flag check in the "8f2cdef drm/amd/pm:
->
-> avoid duplicate powergate/ungate setting" patch will return the
->
-> amdgpu_dpm_set_powergating_by_smu function directly.
->
-> As a result, the gate of the power was not opened, causing the
->
-> subsequent ring test to fail.
->
->
->
-> [how]
->
-> In the suspend function of the vcn block, explicitly change the power
->
-> state flag of the vcn block to POWER_STATE_OFF.
->
->
->
-> Signed-off-by: chen gong <curry.gong@amd.com>
->
-> ---
->
->  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 7 +++++++
->
->  1 file changed, 7 insertions(+)
->
->
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v1_0.c
->
-> index d54d720..d73676b 100644
->
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->
-> @@ -246,6 +246,13 @@ static int vcn_v1_0_suspend(void *handle)
->
->  {
->
->   int r;
->
->   struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->
-> + bool cancel_success;
->
-> +
->
-> + cancel_success =3D cancel_delayed_work_sync(&adev->vcn.idle_work);
->
-> [JZ] Can you refer to vcn_v3_0_stop , and add amdgpu_dpm_enable_uvd(adev,=
- false); to the end of vcn_v1_0_stop?
->
-> See if it also can help.
->
->
->
-> + if (cancel_success) {
->
-> +        if (adev->pm.dpm_enabled)
->
-> +                amdgpu_dpm_enable_uvd(adev, false);
->
-> + }
->
->
->
->   r =3D vcn_v1_0_hw_fini(adev);
->
->   if (r)
+v2: Cleaned up the code. Kept the original call to init_exchange_data()
+inside early init to initialize the work item, afterwards call
+exchange_data() when needed.
+
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 36 ++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  1 +
+ 3 files changed, 30 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 48aeca3b8f16..ddc67b900587 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2316,6 +2316,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+ 
+ 		/* need to do gmc hw init early so we can allocate gpu mem */
+ 		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) {
++			/* Try to reserve bad pages early */
++			if (amdgpu_sriov_vf(adev))
++				amdgpu_virt_exchange_data(adev);
++
+ 			r = amdgpu_device_vram_scratch_init(adev);
+ 			if (r) {
+ 				DRM_ERROR("amdgpu_vram_scratch_init failed %d\n", r);
+@@ -2347,7 +2351,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+ 	}
+ 
+ 	if (amdgpu_sriov_vf(adev))
+-		amdgpu_virt_init_data_exchange(adev);
++		amdgpu_virt_exchange_data(adev);
+ 
+ 	r = amdgpu_ib_pool_init(adev);
+ 	if (r) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 3fc49823f527..f8e574cc0e22 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -622,17 +622,35 @@ void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev)
+ 
+ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
+ {
+-	uint64_t bp_block_offset = 0;
+-	uint32_t bp_block_size = 0;
+-	struct amd_sriov_msg_pf2vf_info *pf2vf_v2 = NULL;
+-
+ 	adev->virt.fw_reserve.p_pf2vf = NULL;
+ 	adev->virt.fw_reserve.p_vf2pf = NULL;
+ 	adev->virt.vf2pf_update_interval_ms = 0;
+ 
+-	if (adev->mman.fw_vram_usage_va != NULL) {
++	if (adev->bios != NULL) {
+ 		adev->virt.vf2pf_update_interval_ms = 2000;
+ 
++		adev->virt.fw_reserve.p_pf2vf =
++			(struct amd_sriov_msg_pf2vf_info_header *)
++			(adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
++
++		amdgpu_virt_read_pf2vf_data(adev);
++	}
++
++	if (adev->virt.vf2pf_update_interval_ms != 0) {
++		INIT_DELAYED_WORK(&adev->virt.vf2pf_work, amdgpu_virt_update_vf2pf_work_item);
++		schedule_delayed_work(&(adev->virt.vf2pf_work), msecs_to_jiffies(adev->virt.vf2pf_update_interval_ms));
++	}
++}
++
++
++void amdgpu_virt_exchange_data(struct amdgpu_device *adev)
++{
++	uint64_t bp_block_offset = 0;
++	uint32_t bp_block_size = 0;
++	struct amd_sriov_msg_pf2vf_info *pf2vf_v2 = NULL;
++
++	if (adev->mman.fw_vram_usage_va != NULL) {
++
+ 		adev->virt.fw_reserve.p_pf2vf =
+ 			(struct amd_sriov_msg_pf2vf_info_header *)
+ 			(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
+@@ -663,16 +681,10 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
+ 			(adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
+ 
+ 		amdgpu_virt_read_pf2vf_data(adev);
+-
+-		return;
+-	}
+-
+-	if (adev->virt.vf2pf_update_interval_ms != 0) {
+-		INIT_DELAYED_WORK(&adev->virt.vf2pf_work, amdgpu_virt_update_vf2pf_work_item);
+-		schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
+ 	}
+ }
+ 
++
+ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+ {
+ 	uint32_t reg;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 8d4c20bb71c5..9adfb8d63280 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -308,6 +308,7 @@ int amdgpu_virt_alloc_mm_table(struct amdgpu_device *adev);
+ void amdgpu_virt_free_mm_table(struct amdgpu_device *adev);
+ void amdgpu_virt_release_ras_err_handler_data(struct amdgpu_device *adev);
+ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
++void amdgpu_virt_exchange_data(struct amdgpu_device *adev);
+ void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev);
+ void amdgpu_detect_virtualization(struct amdgpu_device *adev);
+ 
+-- 
+2.25.1
+
