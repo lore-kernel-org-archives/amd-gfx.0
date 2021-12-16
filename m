@@ -4,130 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B0F0C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 07:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E354C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 08:15:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6D810E543;
-	Thu, 16 Dec 2021 07:27:36 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFCAB10E56F
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 07:27:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00C1D10E309;
+	Thu, 16 Dec 2021 08:15:31 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE5310E2B8;
+ Thu, 16 Dec 2021 08:15:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ge31Xe5ieU23K6R+ykhefB+X2+I8qBs/hJzActH1o5Fvx30/iAkvsxHFSrGgjnECv+D9h+xQfLAOhu5TUo/nTN+nBcOmsjzLfjbUMGunVpw8wA+OeSHCNsd5FDHB7QzKtPvJvDL+RY7ZKiHkGsKpcqogkn032uipClacRXSqwjIa87QLwszhaqnHbJwJjYU6SEAS5yKgt5ZUD8VkkHtF1ZoAns+G2au14MRBzUY1uZJoR8xpJa9/7LzP3XLgYrHSsdlEzT6JRHnht5MawEcViMuoWGcXzTcM9XmxmIOiPdViTgK5X8AqNNELSADWttpgonj5970/O5sZvVHqW/7EtA==
+ b=ahH0PCIlQuGzK8b5jo3XcaUWDuEs083wBKZIlwi4FyEYyxIai8iK5buxAzba22+EdMvk6FIv/cQ0H98tXxLIBT/b/FkLIeYcuRTu/x0WrPpdn06XmEYVG0SpU0Xc872wM1kuZtIv13V+wWRPhyHyDG9ow3eK+uR4As3RtyYnk2VNe8MU9qPUhOSexh99grRHHwVOTwPACIOrJ5Ndt08NbhRaMJirCRqmrVV2e2bsnPpvqUffDQ3cmzfy+JWHD+qipY6TCOCV/drwcIwG4X8Xn7jJe5eyLthjvVhFymslUMr9g51YSNbcVsQzlu49kBCrU14S6W5IOXss7GSgWexIUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U7sQ1lGxbD7pqNTgJh1YWFSAZxjCT8ryv49uCeJDCf0=;
- b=Kk6aUAYlSSy6nmc+S/4IsQUAzcinIpSLt/VDbr+60B/yA2xTmOatrE5X9CvFzpbyLCxxFadMwM/p8i/K9pHtUaaMxws7A4QCE+Uyz4ZwUa2k0kClKNtxrINWu+jMWE3bykWel2bFwhRvHE3nb26JSeLcCvXPHFwnl2dhOWLZKYjDUrPG949bVDC+4ddw35tdfBONY6lhpSfe+4qf6doEaA6yBTO91WaslWf2coSRYn/obrHbyRMSuOZ2bRdkS5Y62GHyKjHsR/wzp6PbySY4HlOvMopM2eyvqzmUkvFF/La05kPsEBkt0hfGIpk7zGRunBZVedj83pMKaXFuVl5ytg==
+ bh=fMsQQLgtaC0FO4+h/pmdzV6iFfDJt17pC6kDaM3ICcA=;
+ b=C0kT9dpDL01c3MSlDt6HiWKvBkGuB2a1CnUxzmkFIAI+IeLwR1/rQaSZgLH1cNR4nfKFG85ddZowHnzAbV56f8ZVqUHs9teg6ChTJwE09AOOpmTALRXYQEh/Gr+h75Wqa08LKsQdeYQG+5QNTtCORED1Y7JiIS3ZiwHm1W5/Dl0n8vfPutzkBdrYyMlwfO8o0hLIPHtCRpSGiEVy+QY3djReki5Pnd9KBQrmvNH6dXKZ9ng9gvZOZUsW1MPWR41SLHr5WWCz7kRjmqyzzkm/48MNM1w0LvhpuZfDsEgnsTNVxTU/THtKDmPQgA2IQ6jeT9zLfdxnr6My6rVk1/K0gQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U7sQ1lGxbD7pqNTgJh1YWFSAZxjCT8ryv49uCeJDCf0=;
- b=WgGZawFCk6LDzNvtPlZoD3r0RKuuUb+LWkH3/IRwTjBDUgwdM1JzSTsz6pc1v+BHdIenDCby8U4n4aUNBPSXXcRtK8sIZkH7p3/DKTABZUxO3wPpWcJAk5P8zILNwXuiImve42yi6YAitm2EQF3hV/iVOEdizk9bVbk9/tbhDU0=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- DM5PR12MB4680.namprd12.prod.outlook.com (2603:10b6:4:a6::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4801.14; Thu, 16 Dec 2021 07:27:30 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::3562:eba5:418b:b43e]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::3562:eba5:418b:b43e%5]) with mapi id 15.20.4801.014; Thu, 16 Dec 2021
- 07:27:30 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Shi, Leslie" <Yuliang.Shi@amd.com>, "Grodzovsky, Andrey"
- <Andrey.Grodzovsky@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2] drm/amdgpu: Call amdgpu_device_unmap_mmio() iff device
- is unplugged to prevent crash in GPU initialization failure
-Thread-Topic: [PATCH v2] drm/amdgpu: Call amdgpu_device_unmap_mmio() iff
- device is unplugged to prevent crash in GPU initialization failure
-Thread-Index: AQHX8kQdcX5J8Yep0USGQsEri35C/qw0q+FQgAAEyACAAARHkA==
-Date: Thu, 16 Dec 2021 07:27:30 +0000
-Message-ID: <DM5PR12MB246983C6BC18ECA5EAC2F86FF1779@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20211216061342.2385661-1-Yuliang.Shi@amd.com>
- <DM5PR12MB2469859E35394E34AC2A7A01F1779@DM5PR12MB2469.namprd12.prod.outlook.com>
- <CO6PR12MB545814E39E2A95074E7924CCE0779@CO6PR12MB5458.namprd12.prod.outlook.com>
-In-Reply-To: <CO6PR12MB545814E39E2A95074E7924CCE0779@CO6PR12MB5458.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-16T06:46:14Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=6df1ece5-3d8e-4cad-b7a2-b6205aac7b55;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2021-12-16T07:27:27Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: eb042e79-d395-4477-9013-d1dfb5d8a826
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
+ bh=fMsQQLgtaC0FO4+h/pmdzV6iFfDJt17pC6kDaM3ICcA=;
+ b=A7kgdvthm5+iEM9TIsdIMTo2g7cglgSP92r15mrdf/l6T3VtpzXrr44eTXi9fplbzRbdRqIri1p3M9vE6Pa0ZAPlZepzjeTwdl9cV8JUwhFAkkiJK4AyP0OHJjr+eQ1QQ1WD1MUSlvep+EyPa5zgaF2NEda4sspZxAaxsAT6t0s=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 55411541-9d5a-411d-131c-08d9c06584d8
-x-ms-traffictypediagnostic: DM5PR12MB4680:EE_
-x-microsoft-antispam-prvs: <DM5PR12MB4680B1FF3D38D0540B03FA11F1779@DM5PR12MB4680.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: O+h9pn2dmFgX94Q5spPD4Eg3vp3P2qshlibxZfHgAJzw1iabpzv/PlbhbJXCRt40gAVzR6JbjQp7RWLmJ6k6RLD9hDzKFd5RpyG5wFrNd0Iloch8RulMtwbyOlI4tsxrBlwUu5IuXRabcMq2k/RKwjSymmcmMbg9la4ykFkwle3ZBGBEw6sbzhyMRqCRzsiVHa/PJI2JnRhRVZFB4Cy0rVAVJI2P3yfkJz9bTQ4PuYKVdUiHRzK9hK2TX5nfeF3+E1PuQNGJaBBp+LlvH3Bch15jm4MgArDxDZnhWGHsrzQu1plDHvWQILDjlm1176SPnl1l2b93hpIDQe+QVTaU45216ux+4PwsbWG+zM6+k1T4S4rjEkDrubZ6xoHvAjDxDc8G9Nn6rd0yOSh/D10dXBNgcGQUjRYVakjGrftKiKyH78UWgakYuK1B14CY/kyvgqF0JIeygkW9b7Bm9fYs21iTd2RGIsCejzSsstmfChJe7ToiLvTjNOSKW8efVJvQcGQphwjBNXr9AWXsXKAd7iZueVvsvwbHc4faJXTPtyT+yXWKRwp6QPqHjbs2zhqn7rBIIw1EzPXw3Jg/+CbjcLFVz6aumHRew3WvCHZXLrl5aWJHw826t76I6BQ1Wi2JVYVAEs0cqctclMp8vrZ3LNvbcx2cWlKUpeeZYWTRWpLalbaISDHjko7afnYtYii2rV0W00CVj56RkoF/sq+C9Ph5O9rF4Uw12O9qFH1sSgw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66446008)(52536014)(71200400001)(83380400001)(8676002)(7696005)(9686003)(55016003)(33656002)(86362001)(921005)(38070700005)(5660300002)(53546011)(110136005)(122000001)(508600001)(6506007)(316002)(26005)(186003)(38100700002)(66556008)(66946007)(66476007)(2906002)(76116006)(64756008)(8936002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lyJlhDfXhtHEfaz8/IhneWV4ihaNkK39mwmxct/23hmFI/VncxnTfqAiuw4J?=
- =?us-ascii?Q?WtFq/u34Ci3NgPyXZ70NjsQSqbe1jtu/LKfB/E4wvWv7j+oSUBK1FHLB+1y2?=
- =?us-ascii?Q?xul3/IsYUeypzu59x62V13o7YkfesrrMREm1EzUapkTZVop+jRkZsbLzHPCC?=
- =?us-ascii?Q?g9L/rikaeOYIOXqddj41YsY1TznElYAnxdZ/OcrV/mE+JamDG/i3C6gORReD?=
- =?us-ascii?Q?99MqFKLXbQ0mBXhYC61Glb/DfJG9P/BZ3fPA1BbcudQqMmfGu/ZB5N8gMVZ4?=
- =?us-ascii?Q?xNMjYMLrkVbjcgSQm7s2cJgrMt6Vwre3QzkC5V11gWkYop5PiUn+nl1M/hz6?=
- =?us-ascii?Q?nyxaB+r2jpwe0jEPjBF+El7Z7AS5vu5/mozcJpehSlhLsHtqqS5CShw56vE0?=
- =?us-ascii?Q?ePBClVpcxAAhWpP252fwCyh9+40qqNujClceiS56GnzzDlbzh7OshPOiUicI?=
- =?us-ascii?Q?bZgeDtsR7xy01NfKYq8TPhs9zrLKja6p5+EqPtimriDTZP6or+8nEucWjm7o?=
- =?us-ascii?Q?vSYKUj1NfeUl6rjgxBUqzItlSu1qZ7zdNdNTy+bmAoLjDdRCKHaZibGIvOPS?=
- =?us-ascii?Q?sAJloE5p1mJ9vQ6s10vPpPY/JJPFR8USWs2Yvj0p/57xL//+KIJFLLXMFOej?=
- =?us-ascii?Q?et0JCW28U4Gc4xwdGy+amg5aufwrijcHWllR1IsTEZ722xKkvvWlBFEKgTgY?=
- =?us-ascii?Q?a5R7EyFtYbyRoJKBHn15kQi9h4e3ZY4lLeFeEteg9XWRjMWpLs28sPIlwjzZ?=
- =?us-ascii?Q?cXhUK/jrKLEE3eMVh27y7nG9Kvkx33oE/9dIig3ixTThe/Oo+daU5CL93f3I?=
- =?us-ascii?Q?lANCdJwbj/KcQGAlkqNThnaPYrQudrl7ST0tYFzQBJSjVXf6SugSxEpINYfC?=
- =?us-ascii?Q?cNuam4Un12JfCNbnIKhV11QeVkKJNlbjlVwj/fpzCZZsaOfShTa6vVwZmaIO?=
- =?us-ascii?Q?CY+ocuuYqQKKova336Ekzq4t4/5De6Qw7AvoNa4oPPjeB6HltzVYALTfQk1h?=
- =?us-ascii?Q?f4EQnr+Ndi5EwHRzd5YFd+/dEnOglhuMe4naw0qjxc3f3X3BpPZzquWoHQWD?=
- =?us-ascii?Q?EWjJYF3sPY5Pbcwn70K2MRR+2mWvooFTKrtUqfdBe3pdzdJIWDT/LdzqLC7l?=
- =?us-ascii?Q?/osBdWpokt0XjZuhThWbsl5/4NkcnWo0vY20kZeIqTFTCfhFFDPTZlV/In75?=
- =?us-ascii?Q?X1+qThdAB78Ufx3l73kIpMc7cogEB8aIve4Ma+ET3YCi+nuR7Z6SwsOG0KNs?=
- =?us-ascii?Q?sT96VWIEMnysJ/Jcu+XKnBhIiIYjsqqc84YF2yXg/ZHWhCn0swoyMkZzJdVT?=
- =?us-ascii?Q?1MLI64QwncjDBR9ARJzslpxB8ZwgDj1XwWAKrRKfuPikF8q7OwgN8Oj4f0o6?=
- =?us-ascii?Q?Y2ie4s+jhfJk487khWlAeR9l2AbPo0/8/CDDQMoC+F3Fvlppvi4maZFifOPR?=
- =?us-ascii?Q?m3OiM8qgGuR88i+VfT0sN5KoYRPmOp364+JZMecRP3kllNDIP9wnUB2FjDfd?=
- =?us-ascii?Q?dmRLKAD2yiUoBO+cfnFiFoWGn2L+C5pyuuE2TWo/qe9krCxiFbM3A02VsVFd?=
- =?us-ascii?Q?YqIMpncfG/U1u7upIuR53W8pSgoiNJPwsiNHgbvWmo0cx+vS1sF5jwRsZaZ6?=
- =?us-ascii?Q?c1Dhs28ZbfeLudQvKUjivcg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MW3PR12MB4586.namprd12.prod.outlook.com
+ (2603:10b6:303:53::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Thu, 16 Dec
+ 2021 08:15:27 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4%12]) with mapi id 15.20.4778.018; Thu, 16 Dec
+ 2021 08:15:27 +0000
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogZml4dXAg?=
+ =?UTF-8?Q?bad_vram_size_on_gmc_v8?=
+To: =?UTF-8?B?5ZGo5a6X5pWP?= <zhouzongmin@kylinos.cn>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <q0npc15ith-q0npc15iti@nsmail6.0>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <b0ec23d3-933b-d04d-26d8-ab3cd6363c48@amd.com>
+Date: Thu, 16 Dec 2021 09:15:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <q0npc15ith-q0npc15iti@nsmail6.0>
+Content-Type: multipart/alternative;
+ boundary="------------C428A7FE6F5323675A36310D"
+Content-Language: en-US
+X-ClientProxiedBy: AM7PR03CA0009.eurprd03.prod.outlook.com
+ (2603:10a6:20b:130::19) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 56bf5564-d4be-4f46-3125-08d9c06c374b
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4586:EE_
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4586CBD8EE84500C1A1EAC3183779@MW3PR12MB4586.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: No8fx71XpKGMcMZCZObPVejnTpxqJ6N4gLH2uSg00HgrghNTpUHMj+PS0z3uQCsmKkZ/l+/c6/HTQqsjbKmnbMptj6a2zaodICFjZ7dnvxaa7BR/5JiwUkIKeW4PWCiXSfkGXzrTNyOLKUx6ytm/4Pv+fLltfUrHhlHlXOGlUhLEHzVRG3rj55pFfRFKCyO4IRa/RdiP0sgmhcJBOvXFgkQ718cn4wJcB1XYbNpWOaNHqYUpopUd5PeaBPHIbvRcnvYFMGXGDn6pVG3kZUU7eFFQwr5DB89c/yCdKJEGhhFyt7HWvscCttlvamvjIaNPH9kpnKw9pkS/t46/1On0N2S5b6gZa+wcrUy4w8Wh+K8EkILUN2L+UpQlzI1vcJk+E5njvCMt9OpzA5gvgIjyRaYJRvXVmcoufX1Jo63Hfuz9/CH/puWfPhuuRSIcQuCx9fHN9+8U3jp+kdR66RJXknXhDNTzrzl+C/LF8jIluZHaOsNRUZjG5aUNtrau4sk7Ojj2t4325XlMis2FA+Z4h4xQQ2GthCCSXyRINVj7RtKpCSf0NShMxiLKhCHHQ5tZWFt392VoTNf9FFK/5i70u3/YihyKS1HQYaWkAHxvU82PJBBQqbnbmemHbejv3FM/avmYjlwxf+QFCCvAw3PTxP4LENx0Km/HSN5qWJlBrexvA+//ch4T0FKbn+c+0lINWlDrwsDTYWlXWkLCpiIEiCW5kB7RZ6BbdcQRgUaBGvcB5+o8vStt8nblpKJgSjFtNBxmB6c+ZdBvmX1DNQRVPOE+++dUrXglQXNRJ1OtxJk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(2616005)(186003)(8936002)(31686004)(36756003)(508600001)(31696002)(86362001)(6512007)(6486002)(5660300002)(6666004)(316002)(4001150100001)(6506007)(54906003)(110136005)(38100700002)(4326008)(224303003)(66556008)(66476007)(33964004)(66574015)(83380400001)(26005)(2906002)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dExkRWtzNHg0NVY1a3FyWWdLcE9pVWxZY013M2tIRVEyeWVvNWFPOXc2eGVN?=
+ =?utf-8?B?MkpmZk15MGZTOVVjOHdMbUQvK1VwRmx0VWRPelB1RXFLM2JXMStISkhsbzlv?=
+ =?utf-8?B?M2ZGdjU4MmQxY0h4TnZlVGhSWWlYTVdKdFZ4OGNydjkyTm1tVXNENFVWbFE3?=
+ =?utf-8?B?MUZOYi9pcEV3cERMY3JkWFN1bXJJdnYwZzJ2TkRuNFl6U1ZmK1luUjh6TWtu?=
+ =?utf-8?B?bmRrR1JQZlFLSnFVMXBNNG9NYUVkZW1ZYllQYzdQbHM1ampjRklPOE5YUlVy?=
+ =?utf-8?B?YktUTzBESk1CODhVSFJFN1c3M2NyV0d0eHhFTmhBMVFKOUo5bXJNZzRhZmdm?=
+ =?utf-8?B?NHF3eCtTeDF3T3hDOGRBRTFOeFY1VUVDVEFOUkIzcEVsaUhSaFZ4NnFyRkto?=
+ =?utf-8?B?MUZjTVhaaTBnYng4d1pxTEFiTmFYa3BHTko1eFVHZlpSanpuYytqZXN4dVIv?=
+ =?utf-8?B?bmwyQ04xa1FrbE13OTZ6V1RXKytKbkZ6NU9wR0FQUXhNNmZ0a2tLZTB4d1py?=
+ =?utf-8?B?WlFaYVBhampTMkQ0L3E1SzcrM0ZjZHdtTlQ1ZDIwYUZpUmJ1eW5ITEpSaEQ1?=
+ =?utf-8?B?SG5tYkZ1Yi9ZSDAzTXhGdzB6L05LN3NUU2xKUy9zS1hYc0tWYlJxK3N3Njk4?=
+ =?utf-8?B?QUpDL3o5aGtLR3JabUR5eDhxNUo2SWNobU5MOFhselBJMkk0ZDBCRFk3YjFx?=
+ =?utf-8?B?Y0hFR2w1VnUzQlphU3R6TjB0VjczKzVYRkRZeFBxNTRxOElUWVo5SVMxWnZi?=
+ =?utf-8?B?Q3AyQ3pEbjV0ZHBhNmJKR2w3U2Rmd0VRMjIxNEhPbXFXQ1d1MmsxMmRHSmg0?=
+ =?utf-8?B?UGY4S2lHUmVFOWRGOUxwamFDNTI2dkVrdkNVK0VtaURHZXpVT043Y1R0b0hP?=
+ =?utf-8?B?SmtGazZBbWxZMVJIM2crTGduVzZ4Ny9tTmlZLzE5RHJjdFhFTnorQVM0WXhU?=
+ =?utf-8?B?NEIreE1jS01Jd2lsVGtvRFU1Yzl3TXNTNWtsejdWOG5PbkFhQnBtemt4bnVD?=
+ =?utf-8?B?RmE5Nzh4aGtJOXNiUEhUcFVtUTdTYjljb2xleXZDbUs2U3BocFBuZ0JBWXpB?=
+ =?utf-8?B?dXhvVXFVNlIySnU3NFd5UmRncVYzRU1YZk92OVFTMUdLVVJOeklINkphSHBR?=
+ =?utf-8?B?bDFzdGc4NFFUNGR2QzlacElmQm1qV2FOd1VGQTVOcFplTmlncUNzRUsweXBa?=
+ =?utf-8?B?Wk1FSGpjcXRwdklmRml2cWY2Z1poOTdKSVZuNlhaNmI1UnBkUFNSaENDaGVP?=
+ =?utf-8?B?Y2hTaVJUTHVQQnRvZDlKT2lNMC81VFhNa25BamNOWEx5L2l4RmxFVGZkclpX?=
+ =?utf-8?B?Mkt6SzRMM2ZTUThMQ0Q0Yi91M05zVDk2TjQwZlFndHlSUXpOZWhOSk1IS2Rp?=
+ =?utf-8?B?NlVZTGdmTGtRZFJEbkNMVUwwemhKMldlSEtxYkZ1MjZ3M2x0bi8xditVa3dy?=
+ =?utf-8?B?RHAxVlBmb1E4S0JFYXoweFZPNTBWUHNJNmZZNTlZYnVGMHh2bHhqYzZUNkFS?=
+ =?utf-8?B?NFE4Zno1ZmVhajBxRjB2RVAzdDZ0RVVmQUlCcTNmV3FmYkxVMjIxZ3V4cTR5?=
+ =?utf-8?B?MEZ6R05IeTZ4dWxmbUdBK2orMGVBaDRod3ArbjVqQ3JXUXNpMGdzY2p2MGhx?=
+ =?utf-8?B?KzFQQWlMSGFwQjdZOW5vamxsb1RRTEo0aGZQTmU3OW5idVFLWVB4ZzlSdGk4?=
+ =?utf-8?B?STFLOEdtNUpQcHVpMHVGNGxDUTM1RzlaMkRmNW9lTE9zamx0enVVUmIrczZk?=
+ =?utf-8?B?elh3am9jc0tWbndaMno0aWNvTEpzK0Z3RDRKZ2NzVU5pS3c5UmdIYWZXSHE3?=
+ =?utf-8?B?TW1hRjYyd3VyUEUyR0UzbWh6NnpNVTNQbW5sMks3dDkzL2cxaVYyYlpSTE9P?=
+ =?utf-8?B?Y0FUeDFKZmIrSjVvY1VHODdlMkZpWitSK1M3eC9BeVdreWRXaGVteGcwV2Jl?=
+ =?utf-8?B?YlM3dCs5ZzE4ZEZ0VExmcVNNbEE1K2hxRTE2aU5ZTmdLWThRajhwWjhDZ1pi?=
+ =?utf-8?B?NmFiMjRwVnZZc056ODlSRk1wNWV2WnZnc3NmdGxia3lqT3pFQU9vekJaS2RJ?=
+ =?utf-8?B?VjJudzVISHJwdXYvZHhMK05TMkowTkZIWWxwWHV3Yzh2d0N5RWNSSWMwcjRD?=
+ =?utf-8?Q?TceU=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56bf5564-d4be-4f46-3125-08d9c06c374b
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55411541-9d5a-411d-131c-08d9c06584d8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 07:27:30.1681 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Sevl/O2okkb/IZHLSM78Wl7dnT2yNPo2DHEw9QWy6XU2rajLBQwwyATS7MymHNdPWhCUsAV9P3lcv2L0LG/csw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB4680
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2021 08:15:27.0299 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 68MqEO1JixeCMipVZZgW8waYEuc7vzSP6pGKIYQg5TrRgsaqT3gJmIKl50fl2jZu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4586
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,129 +127,306 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--------------C428A7FE6F5323675A36310D
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-My BAD to misunderstand this.
+Hi Zongmin,
 
-There are both spell typos in patch subject and body, s/iff/if.
+that strongly sounds like the ASIC is not correctly initialized when 
+trying to read the register.
 
-The patch is: Reviewed-by: Guchun Chen <guchun.chen@amd.com>
-
-Please wait for the ack from Andrey and Christian before pushing this.
-
-Regards,
-Guchun
-
------Original Message-----
-From: Shi, Leslie <Yuliang.Shi@amd.com>=20
-Sent: Thursday, December 16, 2021 3:00 PM
-To: Chen, Guchun <Guchun.Chen@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovs=
-ky@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xin=
-hui.Pan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@l=
-ists.freedesktop.org
-Subject: RE: [PATCH v2] drm/amdgpu: Call amdgpu_device_unmap_mmio() iff dev=
-ice is unplugged to prevent crash in GPU initialization failure
-
-[Public]
-
-Hi Guchun,
-
-As Andrey says, "we should not call amdgpu_device_unmap_mmio unless device =
-is unplugged", I think we should call amdgpu_device_unmap_mmio() only if de=
-vice is unplugged (drm_dev_enter() return false) .=20
-
-+if (!drm_dev_enter(adev_to_drm(adev), &idx))
-+	amdgpu_device_unmap_mmio(adev);
-+ else=20
-# 	drm_dev_exit(idx);
-
+What board and environment are you using this GPU with? Is that a normal 
+x86 system?
 
 Regards,
-Leslie
+Christian.
 
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com>=20
-Sent: Thursday, December 16, 2021 2:46 PM
-To: Shi, Leslie <Yuliang.Shi@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsk=
-y@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinh=
-ui.Pan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@li=
-sts.freedesktop.org
-Subject: RE: [PATCH v2] drm/amdgpu: Call amdgpu_device_unmap_mmio() iff dev=
-ice is unplugged to prevent crash in GPU initialization failure
+Am 16.12.21 um 04:11 schrieb 周宗敏:
+>
+> 1.
+>
+>     the problematic boards that I have tested is [AMD/ATI] Lexa PRO
+>     [Radeon RX 550/550X] ;  and the vbios version : 113-RXF9310-C09-BT
+>
+> 2.
+>
+>     When an exception occurs I can see the following changes in the
+>     values of vram size get from RREG32(mmCONFIG_MEMSIZE) ,
+>
+>     it seems to have garbage in the upper 16 bits
+>
+>     image.png
+>
+>
+> 3.
+>
+>     and then I can also see some dmesg like below:
+>
+>     when vram size register have garbage,we may see error message like
+>     below:
+>
+>     amdgpu 0000:09:00.0: VRAM: 4286582784M 0x000000F400000000 -
+>     0x000FF8F4FFFFFFFF (4286582784M used)
+>
+>     the correct message should like below:
+>
+>     amdgpu 0000:09:00.0: VRAM: 4096M 0x000000F400000000 -
+>     0x000000F4FFFFFFFF (4096M used)
+>
+>
+>     if you have any problems,please send me mail.
+>
+>     thanks very much.
+>
+>
+> ----
+>
+> *主　题：*Re: [PATCH] drm/amdgpu: fixup bad vram size on gmc v8
+> *日　期：*2021-12-16 04:23
+> *发件人：*Alex Deucher
+> *收件人：*Zongmin Zhou
+>
+>
+> On Wed, Dec 15, 2021 at 10:31 AM Zongmin Zhouwrote:
+> >
+> > Some boards(like RX550) seem to have garbage in the upper
+> > 16 bits of the vram size register.  Check for
+> > this and clamp the size properly.  Fixes
+> > boards reporting bogus amounts of vram.
+> >
+> > after add this patch,the maximum GPU VRAM size is 64GB,
+> > otherwise only 64GB vram size will be used.
+>
+> Can you provide some examples of problematic boards and possibly a
+> vbios image from the problematic board?  What values are you seeing?
+> It would be nice to see what the boards are reporting and whether the
+> lower 16 bits are actually correct or if it is some other issue.  This
+> register is undefined until the asic has been initialized.  The vbios
+> programs it as part of it's asic init sequence (either via vesa/gop or
+> the OS driver).
+>
+> Alex
+>
+>
+> >
+> > Signed-off-by: Zongmin Zhou
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 13 ++++++++++---
+> >  1 file changed, 10 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > index 492ebed2915b..63b890f1e8af 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > @@ -515,10 +515,10 @@ static void gmc_v8_0_mc_program(struct 
+> amdgpu_device *adev)
+> >  static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+> >  {
+> >         int r;
+> > +       u32 tmp;
+> >
+> >         adev->gmc.vram_width = amdgpu_atombios_get_vram_width(adev);
+> >         if (!adev->gmc.vram_width) {
+> > -               u32 tmp;
+> >                 int chansize, numchan;
+> >
+> >                 /* Get VRAM informations */
+> > @@ -562,8 +562,15 @@ static int gmc_v8_0_mc_init(struct 
+> amdgpu_device *adev)
+> >                 adev->gmc.vram_width = numchan * chansize;
+> >         }
+> >         /* size in MB on si */
+> > -       adev->gmc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) * 1024ULL 
+> * 1024ULL;
+> > -       adev->gmc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) * 
+> 1024ULL * 1024ULL;
+> > +       tmp = RREG32(mmCONFIG_MEMSIZE);
+> > +       /* some boards may have garbage in the upper 16 bits */
+> > +       if (tmp & 0xffff0000) {
+> > +               DRM_INFO("Probable bad vram size: 0x%08x\n", tmp);
+> > +               if (tmp & 0xffff)
+> > +                       tmp &= 0xffff;
+> > +       }
+> > +       adev->gmc.mc_vram_size = tmp * 1024ULL * 1024ULL;
+> > +       adev->gmc.real_vram_size = adev->gmc.mc_vram_size;
+> >
+> >         if (!(adev->flags & AMD_IS_APU)) {
+> >                 r = amdgpu_device_resize_fb_bar(adev);
+> > --
+> > 2.25.1
+> >
+> >
+> > No virus found
+> >                 Checked by Hillstone Network AntiVirus
+>
 
-[Public]
 
-Hi Leslie,
+--------------C428A7FE6F5323675A36310D
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-I think we need to modify it like:
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Hi Zongmin,<br>
+    <br>
+    that strongly sounds like the ASIC is not correctly initialized when
+    trying to read the register.<br>
+    <br>
+    What board and environment are you using this GPU with? Is that a
+    normal x86 system?<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 16.12.21 um 04:11 schrieb 周宗敏:<br>
+    </div>
+    <blockquote type="cite" cite="mid:q0npc15ith-q0npc15iti@nsmail6.0">
+      
+      <ol class=" list-paddingleft-2" style="list-style-type: decimal;">
+        <li>
+          <p>the&nbsp;problematic boards that I have tested is&nbsp;[AMD/ATI] Lexa
+            PRO [Radeon RX 550/550X] ;&nbsp; and the vbios version :
+            113-RXF9310-C09-BT</p>
+        </li>
+        <li>
+          <p>When an exception occurs I can see the following changes in
+            the values of vram size get from RREG32(mmCONFIG_MEMSIZE) ,</p>
+          <p>it seems&nbsp;to have garbage in the upper 16 bits&nbsp;</p>
+          <p><img src="/nsmail/js/ueditor/php/upload/image/20211216/1639623655693645.png" title="1639623655693645.png" alt="image.png" moz-do-not-send="true"><br>
+          </p>
+          <p><br>
+          </p>
+        </li>
+        <li>
+          <p>and then I can also see some dmesg like below:</p>
+          <p>when vram size register have garbage,we may see error
+            message like below:</p>
+          <p>amdgpu 0000:09:00.0: VRAM: 4286582784M 0x000000F400000000 -
+            0x000FF8F4FFFFFFFF (4286582784M used)</p>
+          <p>the correct message should like below:</p>
+          <p>amdgpu 0000:09:00.0: VRAM: 4096M 0x000000F400000000 -
+            0x000000F4FFFFFFFF (4096M used)</p>
+          <p><br>
+          </p>
+          <p>if you have any problems,please send me mail.</p>
+          <p>thanks very much.</p>
+          <p><br>
+          </p>
+        </li>
+      </ol>
+      <p>----&nbsp; &nbsp; &nbsp;&nbsp;</p>
+      <p><strong>主　题：</strong><span id="subject">Re: [PATCH] drm/amdgpu:
+          fixup bad vram size on gmc v8</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+        <strong>日　期：</strong><span id="date">2021-12-16 04:23</span> &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp;<br>
+        <strong>发件人：</strong><span id="from">Alex Deucher</span> &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp;<br>
+        <strong>收件人：</strong><span id="to">Zongmin Zhou</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+      <p><br>
+        &nbsp; &nbsp; &nbsp; &nbsp;</p>
+      <p>On Wed, Dec 15, 2021 at 10:31 AM Zongmin Zhou<zhouzongmin@kylinos.cn>wrote:<br>
+          &gt;<br>
+          &gt; Some boards(like RX550) seem to have garbage in the upper<br>
+          &gt; 16 bits of the vram size register. &nbsp;Check for<br>
+          &gt; this and clamp the size properly. &nbsp;Fixes<br>
+          &gt; boards reporting bogus amounts of vram.<br>
+          &gt;<br>
+          &gt; after add this patch,the maximum GPU VRAM size is 64GB,<br>
+          &gt; otherwise only 64GB vram size will be used.<br>
+          <br>
+          Can you provide some examples of problematic boards and
+          possibly a<br>
+          vbios image from the problematic board? &nbsp;What values are you
+          seeing?<br>
+          It would be nice to see what the boards are reporting and
+          whether the<br>
+          lower 16 bits are actually correct or if it is some other
+          issue. &nbsp;This<br>
+          register is undefined until the asic has been initialized.
+          &nbsp;The vbios<br>
+          programs it as part of it's asic init sequence (either via
+          vesa/gop or<br>
+          the OS driver).<br>
+          <br>
+          Alex<br>
+          <br>
+          <br>
+          &gt;<br>
+          &gt; Signed-off-by: Zongmin Zhou<zhouzongmin@kylinos.cn><br>
+            &gt; ---<br>
+            &gt; &nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 13
+            ++++++++++---<br>
+            &gt; &nbsp;1 file changed, 10 insertions(+), 3 deletions(-)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+            b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+            &gt; index 492ebed2915b..63b890f1e8af 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+            &gt; @@ -515,10 +515,10 @@ static void
+            gmc_v8_0_mc_program(struct amdgpu_device *adev)<br>
+            &gt; &nbsp;static int gmc_v8_0_mc_init(struct amdgpu_device
+            *adev)<br>
+            &gt; &nbsp;{<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; int r;<br>
+            &gt; + &nbsp; &nbsp; &nbsp; u32 tmp;<br>
+            &gt;<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; adev-&gt;gmc.vram_width =
+            amdgpu_atombios_get_vram_width(adev);<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; if (!adev-&gt;gmc.vram_width) {<br>
+            &gt; - &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; u32 tmp;<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int chansize, numchan;<br>
+            &gt;<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* Get VRAM informations */<br>
+            &gt; @@ -562,8 +562,15 @@ static int gmc_v8_0_mc_init(struct
+            amdgpu_device *adev)<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; adev-&gt;gmc.vram_width = numchan *
+            chansize;<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; }<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; /* size in MB on si */<br>
+            &gt; - &nbsp; &nbsp; &nbsp; adev-&gt;gmc.mc_vram_size =
+            RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;<br>
+            &gt; - &nbsp; &nbsp; &nbsp; adev-&gt;gmc.real_vram_size =
+            RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;<br>
+            &gt; + &nbsp; &nbsp; &nbsp; tmp = RREG32(mmCONFIG_MEMSIZE);<br>
+            &gt; + &nbsp; &nbsp; &nbsp; /* some boards may have garbage in the upper 16
+            bits */<br>
+            &gt; + &nbsp; &nbsp; &nbsp; if (tmp &amp; 0xffff0000) {<br>
+            &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DRM_INFO(&quot;Probable bad vram size:
+            0x%08x\n&quot;, tmp);<br>
+            &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (tmp &amp; 0xffff)<br>
+            &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tmp &amp;= 0xffff;<br>
+            &gt; + &nbsp; &nbsp; &nbsp; }<br>
+            &gt; + &nbsp; &nbsp; &nbsp; adev-&gt;gmc.mc_vram_size = tmp * 1024ULL *
+            1024ULL;<br>
+            &gt; + &nbsp; &nbsp; &nbsp; adev-&gt;gmc.real_vram_size =
+            adev-&gt;gmc.mc_vram_size;<br>
+            &gt;<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU)) {<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; r = amdgpu_device_resize_fb_bar(adev);<br>
+            &gt; --<br>
+            &gt; 2.25.1<br>
+            &gt;<br>
+            &gt;<br>
+            &gt; No virus found<br>
+            &gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Checked by Hillstone Network AntiVirus<br>
+          </zhouzongmin@kylinos.cn></zhouzongmin@kylinos.cn></p>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
-+if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-+	amdgpu_device_unmap_mmio(adev);
-+	drm_dev_exit(idx);
-+}
-
-Also you need to credit Andrey a 'suggested-by' in your patch.
-
-Regards,
-Guchun
-
------Original Message-----
-From: Shi, Leslie <Yuliang.Shi@amd.com>=20
-Sent: Thursday, December 16, 2021 2:14 PM
-To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Deucher, Alexander=
- <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Chen, Guchun <Guchun.Chen@amd.com>; Shi, Leslie <Yuliang.Shi@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Call amdgpu_device_unmap_mmio() iff device =
-is unplugged to prevent crash in GPU initialization failure
-
-[Why]
-In amdgpu_driver_load_kms, when amdgpu_device_init returns error during dri=
-ver modprobe, it will start the error handle path immediately and call into=
- amdgpu_device_unmap_mmio as well to release mapped VRAM. However, in the f=
-ollowing release callback, driver stills visits the unmapped memory like vc=
-n.inst[i].fw_shared_cpu_addr in vcn_v3_0_sw_fini. So a kernel crash occurs.
-
-[How]
-call amdgpu_device_unmap_mmio() iff device is unplugged to prevent invalid =
-memory address in
-vcn_v3_0_sw_fini() when GPU initialization failure.
-
-Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index fb03d75880ec..d3656e7b60c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3845,6 +3845,8 @@ static void amdgpu_device_unmap_mmio(struct amdgpu_de=
-vice *adev)
-  */
- void amdgpu_device_fini_hw(struct amdgpu_device *adev)  {
-+	int idx;
-+
- 	dev_info(adev->dev, "amdgpu: finishing device.\n");
- 	flush_delayed_work(&adev->delayed_init_work);
- 	if (adev->mman.initialized) {
-@@ -3888,7 +3890,11 @@ void amdgpu_device_fini_hw(struct amdgpu_device *ade=
-v)
-=20
- 	amdgpu_gart_dummy_page_fini(adev);
-=20
--	amdgpu_device_unmap_mmio(adev);
-+	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-+		amdgpu_device_unmap_mmio(adev);
-+	else
-+		drm_dev_exit(idx);
-+
- }
-=20
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
---
-2.25.1
+--------------C428A7FE6F5323675A36310D--
