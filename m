@@ -4,116 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B2EC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 04:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 436F2C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 04:34:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C2F10EDD8;
-	Thu, 16 Dec 2021 04:17:26 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E38E10EDD8
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 04:17:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8801C112127;
+	Thu, 16 Dec 2021 04:34:37 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2089.outbound.protection.outlook.com [40.107.102.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74F89112123;
+ Thu, 16 Dec 2021 04:34:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aKIeNi8rk91icPpxZcYNTw6wRwpPoLJmUzvMiPnc/cO+Gdsal7guCstd73j+Yol6jPslvfOPl5UreuFf/4/O0qbdsxTxZfABBZGW0E3HxuMCtqJo3rsbityqHmPD1cmAFnYCT6LrL5iWnD7OE55ZtleyglGsWmf5WwVrBdhUVbzbvHd5X6QIN+Pj1ytG446j6YEuey5e6HSdTwftZyz4XsdZViQf/3q8KKcLiyrF+697kpBFxeUQY/Yr4h4RMRSwr/xjKMFbJBarNUTJdsCLhDrvnkR1XQR0uuycKp10E0YUlJFNqPPiHe6tzrbTFaMnD0B5dSChjJVao/CM909OiQ==
+ b=VpbdWs5RIk8xkjSANt8GO4LrIlB0boFls+LYmUiVUAXpXLMRNt5wu8Tsggub8yBiuJNxMC+j+7W7wrhf27EF2nlCvq2P4Wp3odMJARvZAyspVqLikfEpkQKpP0pJcH/pKPzYvq1IZwXTa8M/B3tyznJjY1kLDO2Dx6ObW6fyaUyokOrJ5Bam5rkhsfGryxv2mOjgqoH39FvcAJba3VWNu0kImAFkAeZ18YwzlQYlrvZEa/rq0Ddl9fHvkXJZw3UtP9yWsaJPojhiWbLKAOh433CuTeTZV254xcOAueFj0Zaukp4HIAUW/hbytyFLshOhHFdQ9pBCEdQw/5LWrooPmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6+iWqF/2dI+qKqMFGxFiw9/NIEWKgW6xoeXQm7dVT0Q=;
- b=nGzn4Yqzwe3g4oJah/W8QumLtonsqc6/qUApLUp13PUg2/po/1syAudo/f8Fvrqh6kRwunEaZ4Nhy2xGnPfFF5yRTUJyJCCykeqZetEsaAkpEBYl0hfO91ddRLZ56orfOw+qXhwroa8CZk7yBJuRl4oZo7JhnY08dSsFFeA0NvT6vCgIGjk/8JWqhgaBnUMhUkH7B4hmk/U90CkWGdYob8WYaDZ2Ep3Obi/O2G8tqjNFnOsIqgKOsywYNTUQy9FxfHZxINN7uKwEAar6Bz5k7mpxXpZqrUUv7zvdAY6OpTCOs79SoTcSkOyuZxLNmbBfoPLOqVWTckfoX6HerwwSsQ==
+ bh=ZMxfc/rVVOmDOyb67gFsGflbojYNvpW+XJ/IKqnb+9Q=;
+ b=QdLVoSlApchTYni/9sD00OVhzBaNcnD+0DyA788iXN4/FLybEgTG6alqeSWSUV6xSmGlk3Mc1CNhmTfMbUpflKPD3Ds5tTaqj7BjirIbe02IdRAAP71We8SXzUWD1DLVMUAQgoheHYPqNJTndlQ4e0b7QQ10Eus/PmgIkO55fnbW2LpzAqezRKP9JJkNNjeij8cq62++eHmxM7J1kLeBrKe0A9As0CSrrJfOCGil/VV+N8YAN2libfarxCGd52+jUbWtEqH4r03AW0wh6kzO9hFKX47EoMpMky1tf7vQ+9tb5ATf0460bxIBSn89U87f46Km8LiOTdsiq3o40LWghg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6+iWqF/2dI+qKqMFGxFiw9/NIEWKgW6xoeXQm7dVT0Q=;
- b=mcHd2N3d9s4kNYz1C/3lj++jnIew1TgFDhTNddROaV3Vxg7pzscTQ4QmO/vQGUtJSgSs1sMUoNfadDtDeXbHGqAJZcGgV1UH9u0ysnkSXRE8dkfCgJrUn4g1t+w5ks9J0vNfkmBzXEznXAo30VK2URYlc/R5OPHKO2JI5UBk+XM=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ bh=ZMxfc/rVVOmDOyb67gFsGflbojYNvpW+XJ/IKqnb+9Q=;
+ b=vIyBPXSoHT4rZ/2W/jGdPfKajdml/IU3QpOKMfsri9nS5/GnP6h6PLlyZmbcgMA1XDCmSTAUxtR+qN0iGx4yyB7kVjVQLmIr45z7LlFNqTK+ecUBzRn9r1ZfUedtqmyGiloThxdA8VekfpMgeBG0rUcMw8o6RPHShM81/avbiUo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) by
  DM5PR12MB1771.namprd12.prod.outlook.com (2603:10b6:3:110::22) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.17; Thu, 16 Dec 2021 04:17:20 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::15d0:4c36:2886:bbef%3]) with mapi id 15.20.4778.018; Thu, 16 Dec 2021
- 04:17:20 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH V5 00/16] Unified entry point for other blocks to interact
- with power
-Thread-Topic: [PATCH V5 00/16] Unified entry point for other blocks to
- interact with power
-Thread-Index: AQHX79Ti7kfbNp5dQEmuSG2Ny2nQn6w0hc8Q
-Date: Thu, 16 Dec 2021 04:17:20 +0000
-Message-ID: <DM6PR12MB2619110E8CD278DF53A25D69E4779@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20211213035223.772700-1-evan.quan@amd.com>
-In-Reply-To: <20211213035223.772700-1-evan.quan@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-16T04:17:17Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=bac45364-fdb5-4dca-ba4c-df2b6ca43484;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 023ad25a-3dfe-4204-fa48-08d9c04af43b
-x-ms-traffictypediagnostic: DM5PR12MB1771:EE_
-x-microsoft-antispam-prvs: <DM5PR12MB177183FB636422AD2814AF59E4779@DM5PR12MB1771.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4125;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: rpMB/lLU7rIjJmn3xrkZnHq27W0nL6TUzDWeidm6r9OxgyXH931v6BM4O5We3JDTKUV0xOlKENM9KSPSNvjye90wN5FcZqqkLJB1ppv/DUyfK0yKtcJwkLGLDtah9Ua0yZuMx/ISzAx4syJIPU8hrvwwVckR9Jovcp+G0o/XtiUK7HKKUPLlq+d8EqTNCQhMMoN3Ny7rsNkCvw28Nh9AgypF60QxDIHfzlJOan0DfhmrjyV7DIWPQgz+27b/V3+U0nnXPQ2GSdzW1JSwj0XK0RfisMEbL2P1eSLcvLk2aYa2prNGw7wmvI9FQGkxlwPgX0NXn9TyChh9Csdp2XosiE3EZcnHi3bsD13xODu/+JzibkhHSYs/ynQm/80+ARG49N4qL6BAYqDn7p6+3ERCxbrsS50/etdEXt2tYsn4/9nYFqUvg+FFQrVEIgRJI4KNsfT4JRmKgldo/TUBgC+ROs1wlHk7Luk5kp1hCbEiyY3TbIjN+nM4YsFqbHwS9/nMqiy5YtugUYn/0buJ9Ak0BgOjbdLnn0mtrCg/5U5d4XJKkv4/e6nyQZdNv/8Y4rC/COUlZaunob7f+QjYXT3hCXYjf0ey01tc5GNEfuaSptr2N58FljtKfPHyoUMHo2154V5o4TKrSjzXz/nIJwQD1Z0C94yl9oA7xU0BK/MRERqPsi0VQzoDAW9+jJZ07ZXgKepvnvstqLUvDZwLrz4TlQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(9686003)(122000001)(316002)(5660300002)(86362001)(52536014)(71200400001)(6506007)(55016003)(7696005)(2906002)(6916009)(54906003)(33656002)(53546011)(4326008)(8936002)(76116006)(30864003)(66946007)(38100700002)(38070700005)(508600001)(66556008)(83380400001)(64756008)(66446008)(26005)(66476007)(186003)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cnydPOkU1tygHKaRyBb0T8p/7h+lLgyY8qfE27BZg+QRbOfCYO70yTvgxmry?=
- =?us-ascii?Q?t4KDKbbkN1F2yzon7bND3RCK8AuhMe8855WG4A11FxOMl9eY5E+LW5eCWHpJ?=
- =?us-ascii?Q?lDx2vBWviaqkkUEm4nWsI1DECz4pX4qdcIF4+Um3KaLgTnaSMxt42WPXEU8c?=
- =?us-ascii?Q?W579nQmHn4acvVrRas8csEQJjD/50q7/go5eMrRV/RRnB60iNMKt6HC2XPEf?=
- =?us-ascii?Q?m80MJ4CpR4erRQmJ3BxPVz/4+tiz6bCw+PXewtFANsN+CLNi163PPFa2gG4I?=
- =?us-ascii?Q?7J2wNEnCNP6za5b+HyouJwFSRYm4ejdHD/6YcT75SfPp1Sc5FGSqCnvzbVF2?=
- =?us-ascii?Q?mU56/ojy1ISfkNuMY8rwniVwlrlQd3COp1n/DGQFXZ4k1JlDJcrWlHAHSN4C?=
- =?us-ascii?Q?YuM6JdUO+LOLxOXGOkiwxOceuW/t3711s4pYI9tc1vv8weOPbUcacyA6RHN6?=
- =?us-ascii?Q?6T1qVEI2wTXjMGLio3PeyXyK1NLePRidS7/pmLXdYK0CsrmCbvVtkClL3ktC?=
- =?us-ascii?Q?Wwu58pOV8BSXoSMpIkbZxblfqhrrHCThq1eklpaiPavSbnTpX+cXtihVbU/e?=
- =?us-ascii?Q?6DURdWFmyFrxCY8gzty9PtPTfgpuq3H3zfrfJcfYRUZJ3xwHGjS+oH1EylZN?=
- =?us-ascii?Q?fCsMddYoEglO1oRrp/SkOTY7okWU5Y3gnbkkTLvlhWviX8XR/iEulZP91v8T?=
- =?us-ascii?Q?PjH2IkywMgcpHZIfAJkOkBPTulEL2OFEXqTSP7b2iHAtrsGahLgW9af3UW3z?=
- =?us-ascii?Q?24/vltM0wl0+ocw38azdXGO7pYQt4y209Pe+m2FefXyENYii+75auM3L4MgT?=
- =?us-ascii?Q?giexEFokAja9p6H7prdWUPyE1Zyzyxjd/V/EaMD4X1Vtd7L6MVXAQagji6yY?=
- =?us-ascii?Q?wC/M/Na0VPU/WydqUk63TdMgMqAP0WGdZfE68bCxzRMnQ3Nic5ggNXv5dJGp?=
- =?us-ascii?Q?oMM2TwAw/O11jbPx1+0qQM784IYEn+1zPXfRixIE2OgSsB1Ke1AXbqqWOexc?=
- =?us-ascii?Q?T4n2fkbiqAKQYYTwmjaH/8CIum8+wPkbHq9WBHUoJi6bVhbHKgYMJWwf4lxQ?=
- =?us-ascii?Q?/KtKI6pwqJbLP9E8NPydKxnfOKPx0y19i0AXCBVvWb9y844aj5SsPtb9lPng?=
- =?us-ascii?Q?EkvcC1YtY9EsZGMaK6mWCknkKtORYoPpIhl+leCqNfhtlEf0/fhOfQfl5C4f?=
- =?us-ascii?Q?tURhrtG3gloW1OanYqqIiGTeUw59yiJTNtDK4rIGD3rXORkUXOisXP7Yu1p4?=
- =?us-ascii?Q?VLW3HRmw+EAQkifS5q65ecUGv9Ms8oTAGeV0kKLbr7RfIhktUxzNvvUa1ZUq?=
- =?us-ascii?Q?tZF923eRCDDBZWFREyH+bvjpNJSo7G0clYCwGktnaChGe1eTu2CH8oSQO6qU?=
- =?us-ascii?Q?s0cIp/thwoRydzJkeSwKysD7rHY43WYOaoZYm4b696gb3nqCVpgJ2vPhm0h0?=
- =?us-ascii?Q?00um/ZHRFCNXqbl4xQ5uppENSUrqLOKEftccMKE1R+KAIxL0ezu6t4ZA3he7?=
- =?us-ascii?Q?/75jm7NJzvFE5RDWz5KtXlatf6NmZPcHq2GCybCL8vkwYSHLXmW73rxMr5ey?=
- =?us-ascii?Q?qEpLdwj6HytDlYH6K3Y=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 15.20.4778.17; Thu, 16 Dec 2021 04:34:34 +0000
+Received: from DM5PR12MB2504.namprd12.prod.outlook.com
+ ([fe80::5d07:e475:316c:d187]) by DM5PR12MB2504.namprd12.prod.outlook.com
+ ([fe80::5d07:e475:316c:d187%5]) with mapi id 15.20.4755.027; Thu, 16 Dec 2021
+ 04:34:33 +0000
+Date: Thu, 16 Dec 2021 12:34:12 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v3] drm/amdgpu: introduce new amdgpu_fence object to
+ indicate the job embedded fence
+Message-ID: <YbrBxEejrB812him@amd.com>
+References: <20211215063551.2810601-1-ray.huang@amd.com>
+ <202112152115.sqAqnvG7-lkp@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202112152115.sqAqnvG7-lkp@intel.com>
+X-ClientProxiedBy: HK2PR02CA0202.apcprd02.prod.outlook.com
+ (2603:1096:201:20::14) To DM5PR12MB2504.namprd12.prod.outlook.com
+ (2603:10b6:4:b5::19)
 MIME-Version: 1.0
+Received: from amd.com (165.204.134.251) by
+ HK2PR02CA0202.apcprd02.prod.outlook.com (2603:1096:201:20::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Thu, 16 Dec 2021 04:34:30 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1a39504f-c23a-4a0a-a24d-08d9c04d5bde
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1771:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB17719887C471665A0C747DEAEC779@DM5PR12MB1771.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Qu56qTKYXb7VRk717nbeLGUS5peSIde2+Nj0BzVT+sk3uizvMYcm6MiRR9/oGiEX4Xj40L5psOVfcWzZ8pnolAEuirl+CO2Sp2xAeEFPxISWVr20JvL/6K8/2UmiKqNe0Y7FRciTh28eQx257VREztIdteugGfMha5A9VHcVwc+EpkqhJW8qSCxStTrV9jxIwfsa/TXKQWNoadgQx7Q4qKqq7Now3syX3j34dPKJChFFdGE1oiJkqT0SCQ5ilsY7jyIoSBcj6XyizplCh2LExYUZXztckrdLrzYbQ+KNZKmQGXqdCOUvnG5UAJFacCpds5Ci5dsSdTs4oh+nXp6TtO3s1WnMT4SSj6AwIgAgmm3NxD6b1JURBNfhJxOOJetCkyHERjnu3fDcuau/KF1dhrLOBhfkYEj7B7shV4343jk55crKX1CQLPiN/WCd5v5LjddhGHYmQTjzLauh43c/72ijCcydJWrlvhfFfac11Tyypl9Eqbv2hbP4BRHnn1Z+H+QLgzrUsWeZbnzYNtE7PkOJ+ssBC7nHvEZf+o208dxmqN4UXZ/E030iWUN8IM/h4HNwVmQK5x3XWp6WsuyFqgS4YnBnibfCdRaKwVCFGMAAijkcj6wz8ZUug57BtoY0P9PdXY2QnTP+GOUhttNTokZbkmoBQGJGk5pPptL/aRp8zoXcYYdPJy17Q4UeNqlOVGJwynpz0cGiwS8/hMQqJYaFwYqpgVNOhRDeJyYlf9FGK9ifWdU0gw4oqW67ViTHN8RIVHu0twrWlnWBx83QSg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2504.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(45080400002)(316002)(86362001)(2616005)(5660300002)(6666004)(55016003)(7696005)(2906002)(956004)(6916009)(54906003)(4326008)(8936002)(66946007)(38100700002)(508600001)(66556008)(966005)(83380400001)(26005)(36756003)(8886007)(66476007)(186003)(8676002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?x9aP1nqP7nhX3sXZ6BU7LT81kWr/8B4bGVkKhEMxrMtkaTMRPlfAow7lT4BX?=
+ =?us-ascii?Q?0nXcInupNVzoLJ1ekM4Eip3Tw2kzwVVOY2Qf8dT/f8Zcx/rHyqwI1Ahfpeur?=
+ =?us-ascii?Q?d3xO+8UPlOLOpycqZjJgrahkdXZJcIdtkMTxfD1CUzmxW1y8PSdedCu8ntJi?=
+ =?us-ascii?Q?TAAhV6oXwagJ7Cv81HLkYxSlO23J3HKSj9Guy2J5VsJ+kMXWY5R7DdBVetoV?=
+ =?us-ascii?Q?NOLRVmCEEshTxWDq4/RqBcI11JkG3XFpQmoUEn65HIh4Uy+0+IneyF0JSJqi?=
+ =?us-ascii?Q?ODxzi/gxbRvK1Yb3QKGeaKmL1QsIMQ1B5Zkp2b5OCZjbzxXvAwPMFLsIO0jX?=
+ =?us-ascii?Q?t5n3aH7frg4579F8hdnyJwBZcNF/z3FBogn0jygH46ko9Qo0elF2Rfe6vaOT?=
+ =?us-ascii?Q?VECzzBlyc1NFb5ZEyRjfgrgOAovcBdXEmBccCk8nqRiGtRMoMvBfOuGZuREz?=
+ =?us-ascii?Q?H4VUFHspNVXJlqE0KM6z1/2PfCzeni3JqALUXozP0JWE7iMXCPFRiBQ2sUcy?=
+ =?us-ascii?Q?OyISLBP+yCQVTczZK2RGeeNkpSvmqT4Epa/owgOSNwxDdSXvnfkgZDOwe0yY?=
+ =?us-ascii?Q?/Z/3kFh9p7ulq27Kr1lo8agInG12Zo9WADmBUhMIvko8kyGRYoOL1vp/bxLt?=
+ =?us-ascii?Q?vyGNRohXW5EzjjSoI7i/ooqZv5WAX+XGawNhsQX5ITEGGUgYdV2mAV6xu2lK?=
+ =?us-ascii?Q?HZyTlwsdcqBEAku815YdojEivsfpcjvKOfsedp8jtvx0hGwW2jYSgCORy6Zv?=
+ =?us-ascii?Q?SORWWa6m50xidEYn4DTkZddN4VlBIAuulgLsbM46RRkKiXn8wBretbz7VKiB?=
+ =?us-ascii?Q?no8P+0iBGNCVdKJQoZJfdaQ8NWMHZG/ICV2++QJlcaWHIvez/F0GI9B2ULHF?=
+ =?us-ascii?Q?lE2QJk6lq+6Mj2p4IVa/ssl+AQVXDsNo3WRRIyHrGj+OAUScxEbBbrrG71HE?=
+ =?us-ascii?Q?ImIb4cS0MLzASzb5Eusb9+xsTVkiVXRt0H1mnahwxOzol2leF7BL/Zh9JCwx?=
+ =?us-ascii?Q?CXILHDG8/TizQL0qu826bj8mDbAUdfW1ZPRBynO6zgKTg398qa1pLCT8BTkV?=
+ =?us-ascii?Q?+6P8zkSjV0HvodyJ8vvd3ChBD/z1NFzbBRpZ6BGeaor+UFQ1GDNoXSOSjF10?=
+ =?us-ascii?Q?qopU6hNjcsEJRZasQWsUQNDN/P20IKvCppcQ7dGEB4j7TUgFhJT38voU5ILj?=
+ =?us-ascii?Q?oKHztnF2MUFXm93bYg08gpWGZEJ/157GCf5rpqCo4OOKwuRkGe1mzOK201dm?=
+ =?us-ascii?Q?yOLyA3FlVdrhzE4U2Yci0xbNtGisW2GHojeaRkrOFjCZ9kvt8nBAY7tzd/SJ?=
+ =?us-ascii?Q?UC3In8qOdUhNKcCMJHXG1NyyWiCL4UvR1+UgyBfMU4mb1SwJnAjpEVO5BPUp?=
+ =?us-ascii?Q?3MeGkZzpfBuxgo18wyNH6BT4+PmVhDW1wkfABHYRURtUQfLrfahGqYsVXhMA?=
+ =?us-ascii?Q?xpxMvjxd8l+G/0NswF5CFdFgY0+Ke1oQLyRicc+YWInDS01bvERA+Lox+DTJ?=
+ =?us-ascii?Q?y7bgiObsO9Updh8/NgM7fEHMKkxjXlhYfedyZc9RofZPmisYyxVxvjnwn4hX?=
+ =?us-ascii?Q?2N1mqLRBvRQz+3Nf5r91sVos/rHd93LK6ok7CpCwtkVsjlf+H2u++vPlCnbm?=
+ =?us-ascii?Q?4drb2IIgYzDoPoAsjvC01WU=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a39504f-c23a-4a0a-a24d-08d9c04d5bde
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2504.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 023ad25a-3dfe-4204-fa48-08d9c04af43b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 04:17:20.6140 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: esBuUjwcklKc7OP1+MM8JnmZCjZXFL2HUglbHI6w0M+anfUVgrXr2d/tXbpxE0N+
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2021 04:34:33.8155 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VnBHM0Ey1cVrzLA1XXRF9+iLPPaCQQj8ICYiSnlplW7sPvqfeSrUL/v1VeB/412fqcz+4wv6WUq6c+K8fWCFwA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1771
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,344 +120,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
+ "kbuild-all@lists.01.org" <kbuild-all@lists.01.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+On Wed, Dec 15, 2021 at 09:30:31PM +0800, kernel test robot wrote:
+> Hi Huang,
+> 
+> I love your patch! Perhaps something to improve:
+> 
+> [auto build test WARNING on drm/drm-next]
+> [also build test WARNING on drm-intel/for-linux-next drm-tip/drm-tip v5.16-rc5 next-20211214]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit-scm.com%2Fdocs%2Fgit-format-patch&amp;data=04%7C01%7Cray.huang%40amd.com%7C57b8f278a2a14c8dab7908d9bfcf2649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637751718697946000%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=GHmkohA1RYdTxSAsM%2BGd1QhX%2BOREjXw0xuALuROXd7I%3D&amp;reserved=0]
+> 
+> url:    https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2F0day-ci%2Flinux%2Fcommits%2FHuang-Rui%2Fdrm-amdgpu-introduce-new-amdgpu_fence-object-to-indicate-the-job-embedded-fence%2F20211215-143731&amp;data=04%7C01%7Cray.huang%40amd.com%7C57b8f278a2a14c8dab7908d9bfcf2649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637751718697946000%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=LqI6BC9bWIb9iq9BKIpIZ8R%2FYB2m4x3OkytvPxundbw%3D&amp;reserved=0
+> base:   git://anongit.freedesktop.org/drm/drm drm-next
+> config: x86_64-allyesconfig (https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdownload.01.org%2F0day-ci%2Farchive%2F20211215%2F202112152115.sqAqnvG7-lkp%40intel.com%2Fconfig&amp;data=04%7C01%7Cray.huang%40amd.com%7C57b8f278a2a14c8dab7908d9bfcf2649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637751718697946000%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=5fJoEJtN2294YWevl8ys2VTHWh1AgaYtDOKuvg3Qi6w%3D&amp;reserved=0)
+> compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+> reproduce (this is a W=1 build):
+>         # https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2F0day-ci%2Flinux%2Fcommit%2Fa47becf231b123760625c45242e89f5e5b5b4915&amp;data=04%7C01%7Cray.huang%40amd.com%7C57b8f278a2a14c8dab7908d9bfcf2649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637751718697946000%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=qbMYgGRhW%2BTUqKoJAodp5V2VNybzmekZLCinmUtQhho%3D&amp;reserved=0
+>         git remote add linux-review https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2F0day-ci%2Flinux&amp;data=04%7C01%7Cray.huang%40amd.com%7C57b8f278a2a14c8dab7908d9bfcf2649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637751718697946000%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=eX6JF%2FjinJTZj9CzP4tvTA3Chd8NODf85oNlSdCpq14%3D&amp;reserved=0
+>         git fetch --no-tags linux-review Huang-Rui/drm-amdgpu-introduce-new-amdgpu_fence-object-to-indicate-the-job-embedded-fence/20211215-143731
+>         git checkout a47becf231b123760625c45242e89f5e5b5b4915
+>         # save the config file to linux build tree
+>         mkdir build_dir
+>         make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
+> 
+> If you fix the issue, kindly add following tag as appropriate
+> Reported-by: kernel test robot <lkp@intel.com>
+> 
+> All warnings (new ones prefixed by >>):
+> 
+> >> drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c:631: warning: expecting prototype for amdgpu_fence_clear_job_fences(). Prototype was for amdgpu_fence_driver_clear_job_fences() instead
+> 
 
-Hi Lijo,
+Nice catch! Thank you. It's my typo and will fix this.
 
-Please check the latest series. All your comments were addressed except tho=
-se about return value(EOPNOTSUPP) on api unimplemented.
-That I would like to handle separately(with follow-up patches).
+Thanks,
+Ray
 
-BR
-Evan
-> -----Original Message-----
-> From: Quan, Evan <Evan.Quan@amd.com>
-> Sent: Monday, December 13, 2021 11:52 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
-> <Lijo.Lazar@amd.com>; Quan, Evan <Evan.Quan@amd.com>
-> Subject: [PATCH V5 00/16] Unified entry point for other blocks to interac=
-t
-> with power
->=20
-> There are several problems with current power implementations:
-> 1. Too many internal details are exposed to other blocks. Thus to interac=
-t
-> with
->    power, they need to know which power framework is used(powerplay vs
-> swsmu)
->    or even whether some API is implemented.
-> 2. A lot of cross callings exist which make it hard to get a whole pictur=
-e of
->    the code hierarchy. And that makes any code change/increment error-
-> prone.
-> 3. Many different types of lock are used. It is calculated there is total=
-ly
->    13 different locks are used within power. Some of them are even design=
-ed
-> for
->    the same purpose.
->=20
-> To ease the problems above, this patch series try to
-> 1. provide unified entry point for other blocks to interact with power.
-> 2. relocate some source code piece/headers to avoid cross callings.
-> 3. enforce a unified lock protection on those entry point APIs above.
->    That makes the future optimization for unnecessary power locks possibl=
-e.
->=20
-> Evan Quan (16):
->   drm/amd/pm: do not expose implementation details to other blocks out
->     of power
->   drm/amd/pm: do not expose power implementation details to
-> amdgpu_pm.c
->   drm/amd/pm: do not expose power implementation details to display
->   drm/amd/pm: do not expose those APIs used internally only in
->     amdgpu_dpm.c
->   drm/amd/pm: do not expose those APIs used internally only in si_dpm.c
->   drm/amd/pm: do not expose the API used internally only in kv_dpm.c
->   drm/amd/pm: create a new holder for those APIs used only by legacy
->     ASICs(si/kv)
->   drm/amd/pm: move pp_force_state_enabled member to amdgpu_pm
-> structure
->   drm/amd/pm: optimize the amdgpu_pm_compute_clocks()
-> implementations
->   drm/amd/pm: move those code piece used by Stoney only to
-> smu8_hwmgr.c
->   drm/amd/pm: drop redundant or unused APIs and data structures
->   drm/amd/pm: do not expose the smu_context structure used internally in
->     power
->   drm/amd/pm: relocate the power related headers
->   drm/amd/pm: drop unnecessary gfxoff controls
->   drm/amd/pm: revise the performance level setting APIs
->   drm/amd/pm: unified lock protections in amdgpu_dpm.c
->=20
->  drivers/gpu/drm/amd/amdgpu/aldebaran.c        |    2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |    7 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   25 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |    6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |   18 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |    7 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |    5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |    5 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |    2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |    2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |    2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |    2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   |    2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    6 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  248 +-
->  drivers/gpu/drm/amd/include/amd_shared.h      |    2 -
->  .../gpu/drm/amd/include/kgd_pp_interface.h    |    8 +
->  drivers/gpu/drm/amd/pm/Makefile               |   14 +-
->  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 2467 ++++++++---------
->  drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  |   94 +
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  552 ++--
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  341 +--
->  .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |   32 +
->  drivers/gpu/drm/amd/pm/legacy-dpm/Makefile    |   32 +
->  .../pm/{powerplay =3D> legacy-dpm}/cik_dpm.h    |    0
->  .../amd/pm/{powerplay =3D> legacy-dpm}/kv_dpm.c |   47 +-
->  .../amd/pm/{powerplay =3D> legacy-dpm}/kv_dpm.h |    0
->  .../amd/pm/{powerplay =3D> legacy-dpm}/kv_smc.c |    0
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 1081 ++++++++
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h    |   38 +
->  .../amd/pm/{powerplay =3D> legacy-dpm}/ppsmc.h  |    0
->  .../pm/{powerplay =3D> legacy-dpm}/r600_dpm.h   |    0
->  .../amd/pm/{powerplay =3D> legacy-dpm}/si_dpm.c |  163 +-
->  .../amd/pm/{powerplay =3D> legacy-dpm}/si_dpm.h |   15 +-
->  .../amd/pm/{powerplay =3D> legacy-dpm}/si_smc.c |    0
->  .../{powerplay =3D> legacy-dpm}/sislands_smc.h  |    0
->  drivers/gpu/drm/amd/pm/powerplay/Makefile     |    4 -
->  .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |   51 +-
->  .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c   |   10 +-
->  .../pm/{ =3D> powerplay}/inc/amd_powerplay.h    |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/cz_ppsmc.h |    0
->  .../amd/pm/{ =3D> powerplay}/inc/fiji_ppsmc.h   |    0
->  .../pm/{ =3D> powerplay}/inc/hardwaremanager.h  |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/hwmgr.h    |    3 -
->  .../{ =3D> powerplay}/inc/polaris10_pwrvirus.h  |    0
->  .../amd/pm/{ =3D> powerplay}/inc/power_state.h  |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/pp_debug.h |    0
->  .../amd/pm/{ =3D> powerplay}/inc/pp_endian.h    |    0
->  .../amd/pm/{ =3D> powerplay}/inc/pp_thermal.h   |    0
->  .../amd/pm/{ =3D> powerplay}/inc/ppinterrupt.h  |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/rv_ppsmc.h |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/smu10.h    |    0
->  .../pm/{ =3D> powerplay}/inc/smu10_driver_if.h  |    0
->  .../pm/{ =3D> powerplay}/inc/smu11_driver_if.h  |    0
->  .../gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu7.h |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/smu71.h    |    0
->  .../pm/{ =3D> powerplay}/inc/smu71_discrete.h   |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/smu72.h    |    0
->  .../pm/{ =3D> powerplay}/inc/smu72_discrete.h   |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/smu73.h    |    0
->  .../pm/{ =3D> powerplay}/inc/smu73_discrete.h   |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/smu74.h    |    0
->  .../pm/{ =3D> powerplay}/inc/smu74_discrete.h   |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/smu75.h    |    0
->  .../pm/{ =3D> powerplay}/inc/smu75_discrete.h   |    0
->  .../amd/pm/{ =3D> powerplay}/inc/smu7_common.h  |    0
->  .../pm/{ =3D> powerplay}/inc/smu7_discrete.h    |    0
->  .../amd/pm/{ =3D> powerplay}/inc/smu7_fusion.h  |    0
->  .../amd/pm/{ =3D> powerplay}/inc/smu7_ppsmc.h   |    0
->  .../gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu8.h |    0
->  .../amd/pm/{ =3D> powerplay}/inc/smu8_fusion.h  |    0
->  .../gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu9.h |    0
->  .../pm/{ =3D> powerplay}/inc/smu9_driver_if.h   |    0
->  .../{ =3D> powerplay}/inc/smu_ucode_xfer_cz.h   |    0
->  .../{ =3D> powerplay}/inc/smu_ucode_xfer_vi.h   |    0
->  .../drm/amd/pm/{ =3D> powerplay}/inc/smumgr.h   |    0
->  .../amd/pm/{ =3D> powerplay}/inc/tonga_ppsmc.h  |    0
->  .../amd/pm/{ =3D> powerplay}/inc/vega10_ppsmc.h |    0
->  .../inc/vega12/smu9_driver_if.h               |    0
->  .../amd/pm/{ =3D> powerplay}/inc/vega12_ppsmc.h |    0
->  .../amd/pm/{ =3D> powerplay}/inc/vega20_ppsmc.h |    0
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   94 +-
->  .../drm/amd/pm/{ =3D> swsmu}/inc/amdgpu_smu.h   |   16 +-
->  .../inc/interface}/smu11_driver_if_arcturus.h |    0
->  .../smu11_driver_if_cyan_skillfish.h          |    0
->  .../inc/interface}/smu11_driver_if_navi10.h   |    0
->  .../smu11_driver_if_sienna_cichlid.h          |    0
->  .../inc/interface}/smu11_driver_if_vangogh.h  |    0
->  .../inc/interface}/smu12_driver_if.h          |    0
->  .../interface}/smu13_driver_if_aldebaran.h    |    0
->  .../interface}/smu13_driver_if_yellow_carp.h  |    0
->  .../inc/interface}/smu_v11_5_pmfw.h           |    0
->  .../inc/interface}/smu_v11_8_pmfw.h           |    0
->  .../inc/interface}/smu_v13_0_1_pmfw.h         |    0
->  .../inc/message}/aldebaran_ppsmc.h            |    0
->  .../inc/message}/arcturus_ppsmc.h             |    0
->  .../inc/message}/smu_v11_0_7_ppsmc.h          |    0
->  .../inc/message}/smu_v11_0_ppsmc.h            |    0
->  .../inc/message}/smu_v11_5_ppsmc.h            |    0
->  .../inc/message}/smu_v11_8_ppsmc.h            |    0
->  .../inc/message}/smu_v12_0_ppsmc.h            |    0
->  .../inc/message}/smu_v13_0_1_ppsmc.h          |    0
->  .../pm/{ =3D> swsmu}/inc/smu_11_0_cdr_table.h   |    0
->  .../drm/amd/pm/{ =3D> swsmu}/inc/smu_types.h    |    0
->  .../drm/amd/pm/{ =3D> swsmu}/inc/smu_v11_0.h    |    0
->  .../pm/{ =3D> swsmu}/inc/smu_v11_0_7_pptable.h  |    0
->  .../pm/{ =3D> swsmu}/inc/smu_v11_0_pptable.h    |    0
->  .../drm/amd/pm/{ =3D> swsmu}/inc/smu_v12_0.h    |    0
->  .../drm/amd/pm/{ =3D> swsmu}/inc/smu_v13_0.h    |    0
->  .../pm/{ =3D> swsmu}/inc/smu_v13_0_pptable.h    |    0
->  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |   10 +-
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |    9 +-
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |   34 +-
->  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |   11 +-
->  .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |   10 +-
->  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |   15 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |    4 +
->  117 files changed, 3232 insertions(+), 2264 deletions(-)
->  create mode 100644 drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
->  create mode 100644
-> drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
->  create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/cik_dpm.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/kv_dpm.c
-> (99%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/kv_dpm.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/kv_smc.c
-> (100%)
->  create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
->  create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/ppsmc.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/r600_dpm.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/si_dpm.c
-> (98%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/si_dpm.h
-> (99%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-dpm}/si_smc.c
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{powerplay =3D> legacy-
-> dpm}/sislands_smc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/amd_powerplay.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/cz_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/fiji_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D>
-> powerplay}/inc/hardwaremanager.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/hwmgr.h (99%)
->  rename drivers/gpu/drm/amd/pm/{ =3D>
-> powerplay}/inc/polaris10_pwrvirus.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/power_state.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/pp_debug.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/pp_endian.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/pp_thermal.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/ppinterrupt.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/rv_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu10.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu10_driver_if.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu11_driver_if.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu7.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu71.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu71_discrete.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu72.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu72_discrete.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu73.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu73_discrete.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu74.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu74_discrete.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu75.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu75_discrete.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu7_common.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu7_discrete.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu7_fusion.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu7_ppsmc.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu8.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu8_fusion.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu9.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smu9_driver_if.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D>
-> powerplay}/inc/smu_ucode_xfer_cz.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D>
-> powerplay}/inc/smu_ucode_xfer_vi.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/smumgr.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/tonga_ppsmc.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/vega10_ppsmc.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D>
-> powerplay}/inc/vega12/smu9_driver_if.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/vega12_ppsmc.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> powerplay}/inc/vega20_ppsmc.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/amdgpu_smu.h (98%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu11_driver_if_arcturus.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu11_driver_if_cyan_skillfish.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu11_driver_if_navi10.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu11_driver_if_sienna_cichlid.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu11_driver_if_vangogh.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu12_driver_if.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu13_driver_if_aldebaran.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu13_driver_if_yellow_carp.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu_v11_5_pmfw.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu_v11_8_pmfw.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/interface}/smu_v13_0_1_pmfw.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/aldebaran_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/arcturus_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/smu_v11_0_7_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/smu_v11_0_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/smu_v11_5_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/smu_v11_8_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/smu_v12_0_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{inc =3D>
-> swsmu/inc/message}/smu_v13_0_1_ppsmc.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/smu_11_0_cdr_table.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/smu_types.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/smu_v11_0.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D>
-> swsmu}/inc/smu_v11_0_7_pptable.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/smu_v11_0_pptable.h
-> (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/smu_v12_0.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/smu_v13_0.h (100%)
->  rename drivers/gpu/drm/amd/pm/{ =3D> swsmu}/inc/smu_v13_0_pptable.h
-> (100%)
->=20
-> --
-> 2.29.0
+> 
+> vim +631 drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> 
+>    623	
+>    624	/**
+>    625	 * amdgpu_fence_clear_job_fences - clear job embedded fences of ring
+>    626	 *
+>    627	 * @ring: fence of the ring to be cleared
+>    628	 *
+>    629	 */
+>    630	void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring)
+>  > 631	{
+>    632		int i;
+>    633		struct dma_fence *old, **ptr;
+>    634	
+>    635		for (i = 0; i <= ring->fence_drv.num_fences_mask; i++) {
+>    636			ptr = &ring->fence_drv.fences[i];
+>    637			old = rcu_dereference_protected(*ptr, 1);
+>    638			if (old && old->ops == &amdgpu_job_fence_ops)
+>    639				RCU_INIT_POINTER(*ptr, NULL);
+>    640		}
+>    641	}
+>    642	
+> 
+> ---
+> 0-DAY CI Kernel Test Service, Intel Corporation
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.01.org%2Fhyperkitty%2Flist%2Fkbuild-all%40lists.01.org&amp;data=04%7C01%7Cray.huang%40amd.com%7C57b8f278a2a14c8dab7908d9bfcf2649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637751718697946000%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=KIv5jCARD1lYITkfLGINkMIF93OGw2MAf6yAAs64KXU%3D&amp;reserved=0
