@@ -4,137 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E8B5C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 12:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B9BC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 12:21:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A40B10F817;
-	Thu, 16 Dec 2021 12:08:25 +0000 (UTC)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC4210F813;
- Thu, 16 Dec 2021 12:08:23 +0000 (UTC)
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1BG8naij004235; 
- Thu, 16 Dec 2021 12:08:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
- bh=s5OXnTOuwXSI8G3Qel/m6UhMnrsffjooJtDdVGfRa8k=;
- b=f1mwXaMpDLDj5RaT1+oj3IWu8KkG8shValenbxHSiGkT26lJIZ83iqH90tom1jfKJSP+
- 2vGmr+TRcOBZCK4hVPvoVGY2SMuMj15RD/Cnq//4gYYGSB00mCLYju9yjWIJVPJQ2Xzd
- HsCkDLQBdaT/QAj8dCkRjYZWJwEdg5S9XUfgz4PX2F3MYVrkv2SBkLkv/w5/82ykuKe8
- N3pun7xMk3JLBcLh7lre8HZ7GnEKMLu4lW1+Mq3wyAdXc5pyLvUu6QnuXt6ERYB3f/b2
- Pro1u1Sv9ByR7jiqJgpM6RBuoOKKT7Tanvb6sCEjoPw9faNILbkHv5uIQTbx01RoHieU 4Q== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by mx0b-00069f02.pphosted.com with ESMTP id 3cykm5amb1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 Dec 2021 12:08:22 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1BGC6wuE051634;
- Thu, 16 Dec 2021 12:08:21 GMT
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2100.outbound.protection.outlook.com [104.47.58.100])
- by userp3030.oracle.com with ESMTP id 3cvh41vgbg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 Dec 2021 12:08:20 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3D1810E508;
+	Thu, 16 Dec 2021 12:21:34 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2049.outbound.protection.outlook.com [40.107.95.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 029F310F238
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 12:21:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dN+ambiPLzbsm3V6Nt3T6nxxAiIx1x6wItiPT32cu3qdEmps1QIN1DzicS7ZPAeweCkOvIHzFPsBo7L7exJIH+KEyZMdD8LcjabY++WDWIyaR73hGugImhbg88skdvdMgW/AgNpYpp5iAV/QyGPlvBmN5A84cpiHJ8SDKTZU8JYR0EdU8sUxR9arX3oPID7MF2uyrEnzdy3VizQRGuiaO812ZYuRfz0WRbTkcM1HPjspuNben5iVZKJMW4rz+rVMVxsPAlJkjfNNmjLydWXYFoC5asuh5oIbJMF0XR5ptQ9bJgehdYtv3MLfHlnJV64g/S6l8OHikwXrBhvEIvpLMA==
+ b=I9WOY6nMkWh9/WtCUA2K9FEMKirseSul/kG/yD1kYyWeJXkUvZ4jL5XYH6Lxy+jPPtus2Cq0svqmnMA6xRG1yKhb48HS7yscBb4dhwxBR68cJ/0HeAh/wYtf7ogINKx1LlkfSrfLbOid6hOMPtmpoWOwy208WMT1l+he1EAvfFzfifOOWO3m7kc1NkzYumw6dihUgFNubwSez6TOiz5aPRpJtRHExCWV/Qu1l+y8cNti130Z20kTiwleEvgcz92/iQqIU0y+mm8t9dD71Z1pVzalmtW3712S3KmUa7OvYYhHCgnsCMRvLwLczNOSiVicOV9WbqwGVXiqD4tt/LwWTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s5OXnTOuwXSI8G3Qel/m6UhMnrsffjooJtDdVGfRa8k=;
- b=U0CvnaC65tlINyfpMoOlny8a5ZaUPsC1jABHoZ6ZedklEVS5rt+d8s3EQfENe2zUZ78gBNCiCaxvuPHd6NBLGFxCN10bvnJJZ+OofNCAgnmrrWHmRkxViAJ3Avz130rSPX5fvMmkEmySzAVXwIxsCcfivHj/Gg8JJb3+TVJl9PfmXx1E2v/WiyqtSB1pWcxx1PXQxtCEzWM6NOnO6Xe9h2zJLQd0djH7MbZDPjJf5qBJ1zITZWrP+Da7CX7OdbGBpNo2qxkciYMXdTp8GUpwP/ZxMoiEZyOi586JNz7h+WK6ZIin6cXBDUGSROq3qZEBLn25rwE09xQ9zTYwaSqqzg==
+ bh=3Xnb0+El8JhWoEK6Xpr8rSehNUNfzGVEoBe7GNfyW8c=;
+ b=cE+U9Cs1g7VPwFPfpNmwX10W5LudHDIJLBeoq5mTBSZBwVTEe9kQtCDwrd5Sql63AN3RW8+NkOr/v+PYTkLjkqbYhJ3uYWChdokWU4MGmvhBVvbUmcnIVlNLHhgEuTIipB3HATVhIjZZJ5BWgXnaApub1JNSC7ofT8WJmg0ir13vAjg2IY4a1mDJ3PubRMP/tgyih7lpJBJNRVFdlJPs7aB5UQ7cy+fIxUno/7ti8nBExoq/w+p5D7YNezRsnQvvbKd2hM2F67w6NfgjYUUN75TiokEBtLvaYJDO6Q0TsGunqkGTWhreg0kAQSymX2VjjnT3Pe0PWapayziBFg4VTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s5OXnTOuwXSI8G3Qel/m6UhMnrsffjooJtDdVGfRa8k=;
- b=UIwyNABQB84WW4nu0Ob48yjA5ULneLYU6n9sSg49E/TtkvtZCMDHHBGNCleGsiCy7P2cf2eVxRnztd7CxxnV7ViOnoYs41d0EpwvVoY3ZcV4O6fI8C9Ypw8OAZgMbDbIO6b2IFOI2acH2esex2dNtvebPmSeDJ/xUMHQRYPLi98=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34) with Microsoft SMTP Server (version=TLS1_2,
+ bh=3Xnb0+El8JhWoEK6Xpr8rSehNUNfzGVEoBe7GNfyW8c=;
+ b=ffRGzRP7ywOqF7/A4WwgkIn3YJScAq4y1JI7JTUrbjCRy2xSnr8Idx2oEUYuFtK5ME7Oftw2X2SgancExJyS7FyhDc0MjmueCxtaVWfZ9Mla9Sz7IrAFc3IIwsDVpgB3l+NVlBSV70FoUmyHKPXmoEBhJoEd+cSiKfQxLdvC0Qo=
+Received: from BL1SPR01MB0002.namprd12.prod.outlook.com (2603:10b6:208:308::6)
+ by BL1PR12MB5303.namprd12.prod.outlook.com (2603:10b6:208:317::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Thu, 16 Dec
- 2021 12:08:18 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::7194:c377:36cc:d9f0]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::7194:c377:36cc:d9f0%6]) with mapi id 15.20.4801.014; Thu, 16 Dec 2021
- 12:08:18 +0000
-Date: Thu, 16 Dec 2021 15:08:06 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [bug report] new kvmalloc() WARN() triggered by DRM ioctls tracking
-Message-ID: <20211216120806.GA3691@kili>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-ClientProxiedBy: FR3P281CA0083.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::21) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 55c42b19-b2ad-433e-ffe2-08d9c08cbf07
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2095:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR1001MB209513F08D3D4C44EFC9D9CB8E779@MWHPR1001MB2095.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:486;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6TBapzWwybYZdvk+ZuyYNL0qX9b5YgMayNbVfMmAtS+40M2Uwft2K6g1uOU55nZ30UUkKCN+DrkRsXdUFMFq6h1zP8yZ4D3cHHeKxSqqXfw9wwo9A7+0f+sF1p7effHHvcRXjbC2ZCy8maeskF5Ybe1EWvzjOk/GnxYamk8ckknPkD3OII/eSvq+IZlbGV7jqk2X0VuXHNrVWOiVu6+H8hpsXn93zHRbSMq8XRFdcMwRnO0g6xOoE51bLVU8e9qtVuCaNBrFGTMj+YRogW272fjYsasuM0Y9PMeZTuwRiNO/lQaNew40PVdqX48B/069z96AynT9QKr2PcNvaO1/A/4RX0dup7nXD381OGTnhFM4qmvKxwlv9SQz6C4FOuz2Aoy9TaPt025VgJlNdp10EMf8AHuudHQZL1GtLjmnCVyLYCwDa5WShWWv8JXz1930dJrU7NgmtXOvcCkABbOMogwZ+1OCDKNONMQZFzfSPhlSzMeSlVGltZ6k98ATCAc+Bk5hOjQWptBuxvZ4C3sDcrnnh5nb9T/qPnOvIB/+VhgR+e4ZN1c4ajxvpjQCZIUsckArhwKg5hTlMVzTa4z53bcWFJ+OaIXYGQufwgD0TPduUedF+RCxqmEsOFwvuJIq9gCVael1YgAYRaFzaXCOhwLuhTwab4JfU/qpm+hBkjuIHuKOTUgc+D/9Hgrtnmspp22J1Zpkts+kkuWLOJGjBQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(7916004)(366004)(4326008)(1076003)(33656002)(6666004)(52116002)(508600001)(6916009)(86362001)(316002)(8676002)(66556008)(66946007)(2906002)(9686003)(6512007)(6486002)(38100700002)(5660300002)(66476007)(6506007)(38350700002)(186003)(26005)(44832011)(33716001)(8936002)(83380400001);
+ 2021 12:21:32 +0000
+Received: from BL1SPR01MB0002.namprd12.prod.outlook.com
+ ([fe80::89cf:cc51:ece:74d0]) by BL1SPR01MB0002.namprd12.prod.outlook.com
+ ([fe80::89cf:cc51:ece:74d0%3]) with mapi id 15.20.4778.018; Thu, 16 Dec 2021
+ 12:21:32 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "Chai, Thomas" <YiPeng.Chai@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>
+Subject: RE: [PATCH 3/4] drm/amdkfd: add reset queue function for RAS poison
+Thread-Topic: [PATCH 3/4] drm/amdkfd: add reset queue function for RAS poison
+Thread-Index: AQHX8nEVFP+xiYYYxkutVFWmA/fRE6w1CXzQ
+Date: Thu, 16 Dec 2021 12:21:31 +0000
+Message-ID: <BL1SPR01MB00021E27716174BE8B8544C9FC779@BL1SPR01MB0002.namprd12.prod.outlook.com>
+References: <20211216113532.12369-1-tao.zhou1@amd.com>
+ <20211216113532.12369-3-tao.zhou1@amd.com>
+In-Reply-To: <20211216113532.12369-3-tao.zhou1@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 109e931d-01c2-4f24-9e93-08d9c08e982f
+x-ms-traffictypediagnostic: BL1PR12MB5303:EE_
+x-microsoft-antispam-prvs: <BL1PR12MB53034EB4AE3B53C47D6CC060FC779@BL1PR12MB5303.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 49AX5sdzirj/YkOUjLDxUEdBe5wrFTKhudYvuSc/qifUQmowF9DQXt3CeeaAfl/yO180c8IOgF56XqMFfYUxsRbacX9AsdROdBW4YmHM4EXcBTJ3EAFztYfD3YkTTSC+o1ZZi47wmQWO2WtQhrIZLj2+P+5YyY/pmVm5pC6WVAgb0UZsvwJv6j/b8cLgZKzlA+cck2BKuGOAAV7m1OTO9uukrnZaUMtdJZZon0Y+0Mn1Pgz5a+/g/VUokEBDsS6nEoz/QEzU6scVNIUcOB9JOOfM18ecWHvQt6KnTLj3RndtWYigRshMxeRcTQCZegDPcaba6ecnLPuhrdD+VC6AyHm9UBfL7KMmfC4pSAI7PKyMZGpt24SBG8AKsLGM8IubRjZ5PaTao4ANDKUdCcY4BA5L498AhYMQhR+RYLgFMa537AHtlBYsZ43D8Soaz60WNdkk6WdMevZH7RrZLngwN8I3JlByR+YnFSRBvluOIdMIukZXKIupnu6y0JO3ylP6PvxNfD61xjnO8y4JBgPw4MANfeUSMeEW1argXhvjneWeYysSTQk6jr+jNW4ChSYB6Ak+7hmEjx2A+gnKE5FvCvZXqHL4ds1PM4s++slHIZwaSOjVchNXkRR8aJ/HIW1wr10PtaDADqzSTWucdRppZQVK3BHR2TemsSA3B6qqKpE0D0/c5wRp727rpgeaoaKZS6208bZ7DGABW1AV9E0VEQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1SPR01MB0002.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66946007)(2906002)(66476007)(66556008)(186003)(53546011)(8676002)(52536014)(508600001)(7696005)(83380400001)(6506007)(66446008)(26005)(6636002)(5660300002)(71200400001)(9686003)(38070700005)(33656002)(64756008)(76116006)(55016003)(316002)(122000001)(8936002)(86362001)(38100700002)(110136005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2TT5IOjHW50h35eqQMvFXaQXYwomt1CSj0P9ptfPRyH9sgHbxr+w8PaR2H+3?=
- =?us-ascii?Q?cNfeXZ77o8SeKRN6d2ZVAflnCjv55OeWcOhGX0Cfbj9VwiiL5jAod/cvW6a9?=
- =?us-ascii?Q?J9p2O5tIDINSrH00IAJEIRWruvTbJy+GD0k1ttUImMpx1EwlE+P7POEAniwb?=
- =?us-ascii?Q?3RHHfzgVgGyA7oln9Z6CABM+0iTX+9kI6r+07VywEIV9+KFaLsDXvCtB1ih2?=
- =?us-ascii?Q?t+qDwwohMR4ociGw+DJ4QQOkpHX6F6VB1CqMmyEjo/dFj9kcQR3oZbh900zF?=
- =?us-ascii?Q?zckx8DzCe/X3Ol7vaoyRutR6Q8qwGVMAksY5y5Xc05gaiOqc5bBQFud0M13z?=
- =?us-ascii?Q?Yr5TOHj8C77gePw51TemjzCSxIobBAdtYzdOWOrnIcKfZQInYCem5jozeXnA?=
- =?us-ascii?Q?UxdGn76QI2N7YHwyPEq7e5+hbXsXrYqIuoavKLEiT4FCWKQBTU8oo2tUkr2z?=
- =?us-ascii?Q?IDQCrcsfBokQujktecH2Vx5p2Td9q40lwzMWedZJ48VCEEeJ0SM95xFIyz2I?=
- =?us-ascii?Q?R3h8X8Nn8EZG14LE1VFU6Dp1a2wYIoK1tpmQrqRojjyiCE212WoZR27oOwXq?=
- =?us-ascii?Q?7AW2xNl3iFOQ63RYh2gk5W1GNP5tyf4Pd2+jmBu9OLJS2hE9QmHXHOgA3p86?=
- =?us-ascii?Q?0dgIiBJzXp5NuFtYiixwj5esXD1HhUIRrc9tI3q7QEWTneAWCmJJZj1Mr7Hj?=
- =?us-ascii?Q?JvZFhVWK9psDiK2J660AFZujBlkVwqYLMBQVdbqakg8Ikmjwi7jxlud/aFJv?=
- =?us-ascii?Q?081re9NsDSRR8SKmNvjPRawAMe/cQz6ebULzDjQmzVKjWv+sQjl898d/yW0N?=
- =?us-ascii?Q?HCdpkIdmi8UomeSDBbgKEcrD8OGGITVtbSyQoJ/RcGAcLj3Bj5BUvg3T9g/Y?=
- =?us-ascii?Q?QM92OcfK7V55k8IDI6CvRRHXivH9Vp7eKio4WCZ9ctngaoB9EoUEnULeTp7o?=
- =?us-ascii?Q?qTypZWl8+OoheS8UnySFpRHilg0yVOWEy7vz3PvufVext1Dz5olt4O1ypJ3V?=
- =?us-ascii?Q?P6hmJm7vyGcDtessRV5RN02nhyDw6So12BKTgf5a1OmBwtoWELZkf/m7+Xcy?=
- =?us-ascii?Q?/4RXx+KHw85p3Z3YQSrb+DbPKscvGEHM6or80QVJOZrHwW+myfAVJgG+cRke?=
- =?us-ascii?Q?tM+zpJKiF8cE+DHiWUgnNKL+qXn5EgCdr8zkX9/SiUohrc9jj+VlzOLcUzvP?=
- =?us-ascii?Q?LrAS1FF65kNtPVTMOXxOycDP28clWBfy8BSxgI8IbwtLnzNfbrDbd8EDmXKv?=
- =?us-ascii?Q?1n6iZftO1HnXcXi0qB1WCy5mi5mtmo1gCC7/OMx+/I+pX0GOVsZc0PK3N14H?=
- =?us-ascii?Q?4gBnqfPra7QPpO4Lei3Yp9mlQDWk91T3Mur0kOCPvUHLBhRCnig+WynNZKFp?=
- =?us-ascii?Q?4tjUqdz4V57GBsGvDLVxkXbiz7RUYHS+BaLRqQAmEPTt3P6DOM4qb09k2YjC?=
- =?us-ascii?Q?9mbQJ6skbJG+USaodNv4RLFUpCbBpIUBUSAxP7Jfv1hhdkVygXYubqQPuv5D?=
- =?us-ascii?Q?OLfXTkkFkXGm/440u6Ak7ZomKyhAjm6rfm5o1IsMQeHHx1XiEJHfHq6NnJ4S?=
- =?us-ascii?Q?b7yrsqg4Y/Qcl3Z83q6J8J4LjjpkgUwghy0yCBlIY4y6JzUOnWKJRNOC8bLi?=
- =?us-ascii?Q?CeclldOHyQDSCVs3WLft+79UbvpPsMVFofrWxuqsrDkgNsXpTtTNBnBm8ltW?=
- =?us-ascii?Q?giodncusH7//m2p+/Avkb6AQcks=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55c42b19-b2ad-433e-ffe2-08d9c08cbf07
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?G4WkwMl383WcecS48ZNDf2beicZaMBJWIeXlzSGrKOHGbN7fUgHiPR614rML?=
+ =?us-ascii?Q?keMMirRZ5SAV0bWpxEcqttSSbQNbMd8bO5l9pPsfU6yPXgtKzqgAdxZCDBmc?=
+ =?us-ascii?Q?LVMXGdwWixmBXLlG85oUTT83J7PUBAi9I9AawrhLnSLnNLGuA0CHtXMfMrta?=
+ =?us-ascii?Q?woFFGsQECgZ3XagVTSlpfTdiGoCkOGm7qaBU5ymN8FjrNfILkNc7jIrjU2ZH?=
+ =?us-ascii?Q?QFqbEAdB9qi2TzFZKmmgtSofEy71GoQME+ymyqrAnBvEaAOgdP1c/CwByNgj?=
+ =?us-ascii?Q?yEDIGPYZwMCN8ld69d2K7Oyw+HJ2YItH4zkOLInmQ1P8AsuLl7CeRCzsD+8d?=
+ =?us-ascii?Q?/m1ZpMmElrj95AlWfptjuTZnOfyW1c2NEdMYxBifHAGLc1M1vTEDo0+wJTDb?=
+ =?us-ascii?Q?MJqo3pMfzlR9j2WrMwulHwdLvyfdvhyQlwFSAhlrxLXMmfK6qFbIs8ldx2MF?=
+ =?us-ascii?Q?LkYd2Rh8EJUpopkLRXw4wCIXQ/FCGJjlR7YgjCiIwzHCuf4pEWcEGXhgFEPU?=
+ =?us-ascii?Q?WsCQawDSG+JplDvN1EVE/fLROZF0kItT/ij9I16ADBKHpIqM3nS59XxS8Cnj?=
+ =?us-ascii?Q?fSEFqpIKf9DauHn7vtWZjGcG/RoUqbAGS03U6rLbDd7pphzesHoXd7dXmXYr?=
+ =?us-ascii?Q?CB101giRNXixR7RQA0W6dG6AzJw6dr2u9TaZP3Z1uL5FTh6fo6jnGqSNBd4X?=
+ =?us-ascii?Q?Rkwvd6bQ5Bzk392+Ync5xcXFOvpTkewZGzm6DWE7y+Ihxnel6d9dWjwk3pyV?=
+ =?us-ascii?Q?eJO6IRcEOzGNMaZZVAEMlqOznCuHhncSRtjUP+wbxgeBYlEN8PXo6cc3wY1I?=
+ =?us-ascii?Q?xhiCQMWTfpnSnTs5wE6vBz7yHQ1xn+yZifKSPSp58nYY0N2sWtl1+dUXs/uF?=
+ =?us-ascii?Q?cCQzLNqCILKKJFrSKdbeS29iCkUcGAs/p2QU4wTiz1vxgseylNTpaS4EghBU?=
+ =?us-ascii?Q?TQbAzGOXHYZRdb8pbXvdw7nouaV9seh+KWxka1o/8XElv+obg/u0JiqDIM9z?=
+ =?us-ascii?Q?/EQU4z7x6LAaNoZ0yLd9tIKvMecp2aOBmo+i/Kx2QEGoKm5sIdF+tybQ/PNB?=
+ =?us-ascii?Q?qXoewM09WSBWtUeTFHGUMRf4XbkbMEIHocUBp67h2BTHPOmddi4UrB+GKIdu?=
+ =?us-ascii?Q?OHrmpYqdsgZtaRt0m2guBorIj9Mhu40k+o4EZJztzAUz8qmArYOg6tdaf+UD?=
+ =?us-ascii?Q?6CGS+vO/rtVlqwmyyOKiedq3rZiq2kycFtmc0pAKebYukhO7QEjZJgqfMHwd?=
+ =?us-ascii?Q?GPp8ws8NyjTwuFix/ztxvQE6k0JzoH0F9oRdR+eO4y8zvVh5zGMs49KobgMO?=
+ =?us-ascii?Q?IRtJmnglXPqgq6sixb/0LcDgqvFKALDFE5DCzdNohSTBe5c3YFemUK9Fythu?=
+ =?us-ascii?Q?1ckDm1ySNf6QXiGv7kYyJMGRaWTKH38A6Y/GqSEVBbebzwo5EMKjZhzkQ1BD?=
+ =?us-ascii?Q?REEQuyf2swv2sLPAHw/zTMcPGVjN1J470RnyG4wPX15pzTLTXPJY2PTpMNSQ?=
+ =?us-ascii?Q?kLt4Trz6g3AaRssbFr0vwXnJ3Cxu6t85QOsNEjyqafQShrNunmRDh8/AnKqs?=
+ =?us-ascii?Q?2fjP7ZXIXH0cj26LoipBAuQd+TbuRjH9xbqybbNpLaMcbCvYldz7ZGwM7r0D?=
+ =?us-ascii?Q?ZTUwcOuqH9BlxegVDugLRAs=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2021 12:08:18.4731 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kYZZIQwoRvg1YMuDCQ9UhTpWsS+06YQHp13AZ87qc4xJf2hanLhGoAi3hWb+kPtWFpISdD/b3Sc49E64EV4TKm/jhc6wlQWqHh4A2V4uF9U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2095
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10199
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- spamscore=0 suspectscore=0
- malwarescore=0 mlxlogscore=999 bulkscore=0 mlxscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2112160068
-X-Proofpoint-GUID: 9nVEvHTk4R6CmkePYhhVtjdiJGxlsekn
-X-Proofpoint-ORIG-GUID: 9nVEvHTk4R6CmkePYhhVtjdiJGxlsekn
+X-MS-Exchange-CrossTenant-AuthSource: BL1SPR01MB0002.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 109e931d-01c2-4f24-9e93-08d9c08e982f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 12:21:31.8134 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 25DxhpkyNZj809WuGeiT2T6BYg5g/Yjmp8czv3+nWoGbmMlEhQwqlF1rY/j/8f3zFiYfJUJOaVJjk554M1OcdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5303
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,36 +121,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org,
- lima@lists.freedesktop.org, etnaviv@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi DRM Devs,
++
++	int (*unmap_queues_cpsch_poison)(struct device_queue_manager *dqm,
++					uint16_t pasid);
+ };
 
-In commit 7661809d493b ("mm: don't allow oversized kvmalloc() calls")
-from July, Linus added a WARN_ONCE() for "crazy" allocations over 2GB.
-I have a static checker warning for this and most of the warnings are
-from DRM ioctls.
+Might be better call it reset_queue directly (match with update_queue, crea=
+te_queue, .etc.,)
 
-drivers/gpu/drm/lima/lima_drv.c:124 lima_ioctl_gem_submit() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/radeon/radeon_cs.c:291 radeon_cs_parser_init() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/v3d/v3d_gem.c:311 v3d_lookup_bos() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/v3d/v3d_gem.c:319 v3d_lookup_bos() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/v3d/v3d_gem.c:601 v3d_get_multisync_post_deps() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c:476 etnaviv_ioctl_gem_submit() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c:477 etnaviv_ioctl_gem_submit() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c:478 etnaviv_ioctl_gem_submit() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c:479 etnaviv_ioctl_gem_submit() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/virtio/virtgpu_ioctl.c:186 virtio_gpu_execbuffer_ioctl() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/panfrost/panfrost_drv.c:198 panfrost_copy_in_sync() warn: uncapped user size for kvmalloc() will WARN
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:120 amdgpu_cs_parser_init() warn: uncapped user size for kvmalloc() will WARN
+Others look good to me
 
-These ioctls can all trigger the stack dump.  The line numbers are from
-linux next (next-20211214).
+The series (4 patches) is
 
-I feel like ideally if this could be fixed in a central way, but if not
-then hopefully I've added the relevant lists to the CC.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-regards,
-dan carpenter
+Regards,
+Hawking
+-----Original Message-----
+From: Zhou1, Tao <Tao.Zhou1@amd.com>=20
+Sent: Thursday, December 16, 2021 19:36
+To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
+Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; K=
+uehling, Felix <Felix.Kuehling@amd.com>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+Subject: [PATCH 3/4] drm/amdkfd: add reset queue function for RAS poison
+
+The new interface unmaps queues with reset mode for the process consumes RA=
+S poison, it's only for compute queue.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c    | 16 ++++++++++++++++
+ .../drm/amd/amdkfd/kfd_device_queue_manager.h    |  5 +++++
+ 2 files changed, 21 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 01a2cc3928ac..b4b0495c7024 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1476,6 +1476,21 @@ static int unmap_queues_cpsch(struct device_queue_ma=
+nager *dqm,
+ 	return retval;
+ }
+=20
++/* only for compute queue */
++static int unmap_queues_cpsch_poison(struct device_queue_manager *dqm,
++			uint16_t pasid)
++{
++	int retval;
++
++	dqm_lock(dqm);
++
++	retval =3D unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_BY_PASID,
++			pasid, true);
++
++	dqm_unlock(dqm);
++	return retval;
++}
++
+ /* dqm->lock mutex has to be locked before calling this function */  stati=
+c int execute_queues_cpsch(struct device_queue_manager *dqm,
+ 				enum kfd_unmap_queues_filter filter, @@ -1896,6 +1911,7 @@ struct devi=
+ce_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
+ 		dqm->ops.evict_process_queues =3D evict_process_queues_cpsch;
+ 		dqm->ops.restore_process_queues =3D restore_process_queues_cpsch;
+ 		dqm->ops.get_wave_state =3D get_wave_state;
++		dqm->ops.unmap_queues_cpsch_poison =3D unmap_queues_cpsch_poison;
+ 		break;
+ 	case KFD_SCHED_POLICY_NO_HWS:
+ 		/* initialize dqm for no cp scheduling */ diff --git a/drivers/gpu/drm/a=
+md/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_devic=
+e_queue_manager.h
+index 499fc0ea387f..19ec3e8859e8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@ -81,6 +81,8 @@ struct device_process_node {
+  *
+  * @get_wave_state: Retrieves context save state and optionally copies the
+  * control stack, if kept in the MQD, to the given userspace address.
++ *
++ * @unmap_queues_cpsch_poison: reset queue which consumes RAS poison
+  */
+=20
+ struct device_queue_manager_ops {
+@@ -134,6 +136,9 @@ struct device_queue_manager_ops {
+ 				  void __user *ctl_stack,
+ 				  u32 *ctl_stack_used_size,
+ 				  u32 *save_area_used_size);
++
++	int (*unmap_queues_cpsch_poison)(struct device_queue_manager *dqm,
++					uint16_t pasid);
+ };
+=20
+ struct device_queue_manager_asic_ops {
+--
+2.17.1
+
