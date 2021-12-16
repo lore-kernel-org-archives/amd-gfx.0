@@ -4,52 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F19B8C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 15:20:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F23EC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Dec 2021 15:25:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C38510ED1B;
-	Thu, 16 Dec 2021 15:20:32 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDADF10ED1B;
- Thu, 16 Dec 2021 15:20:31 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- u18-20020a9d7212000000b00560cb1dc10bso29307972otj.11; 
- Thu, 16 Dec 2021 07:20:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BzROn8ygEIvbgv1YLRyZ5KtKZ741t/BVqbnCoQQpFcI=;
- b=hzrKz0GP7Af08AiTFt6vyTs82/qpYYXkPNcJsIJI5Cs2ooHjlq7z6GFiVWoHUaO4dJ
- 809J0cpvrRGNBvLpNhWZ36mIEFtCIlvWUfrCVLpIscPlMfU8PgOKpdn+8xZeKDf5Ult8
- tc/Rx4OBK5bzyo2lQgb39j8rzXManNzeXqRVDcCK7E/rgSoeUuokEI5A0N90opouRAki
- sIbe8GLcaCPGvPQKu+Ju+5tMlrvi0m40UjjuujoS9oyyoF13WAotLpZpHzGjBPb9cvVP
- HaSCBrFMYqy2oxNSfAQQTP4pQUivjXroQeua1IQkWmrZIAW450HcZY+23dZc5YVMiL99
- VruA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BzROn8ygEIvbgv1YLRyZ5KtKZ741t/BVqbnCoQQpFcI=;
- b=1swk/lG/sAkiwnMmUusIinPQe0gWE56bWv3cBtHjUHmzkjIGdYhOtGUHtIdf4x6SFY
- /GRR4MAkryJ94Qnv1Vn65Pm35k74sTQlEuQrI/Fy6W+juRn+Va07nuI9uTtgoF56ON1I
- 7hfWQ2WrsJGa/R/gEOEu7PfbzgECFT2v28lXKxr6nU1QgP80WE4UN/qFvc573gI4fs6m
- G4sOLpHNrQuGiZ1t0UenoTFzWcYQaVx1VTVJH1cmHtghNUqcH5Db69FkmKyPzuSbXA72
- 34CEmqXn6nsDerP7RPfmuqX+XY2kOHiaFbL/TIMC5SNRY/dihi5GIO0RFdq7SnLBgT25
- s3eA==
-X-Gm-Message-State: AOAM53331WO6ZNCh2LyjsNLMIyXHQh3dPsqivzH8ePbWZMGHGM12D6I+
- ukHXP8MSvM8gPEetTreMXMEk4yApUXfFurw4RjsYfMU7
-X-Google-Smtp-Source: ABdhPJwic3C3ahfgH+CaAHrVLrjrsIqftmDBpwPvpOxhFIPcFLq3nEH9vzxZr7cRlDsGItxYtVYwg2vDH6jx+kmYxL4=
-X-Received: by 2002:a9d:6855:: with SMTP id c21mr13159059oto.357.1639668031273; 
- Thu, 16 Dec 2021 07:20:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2002210E563;
+	Thu, 16 Dec 2021 15:25:38 +0000 (UTC)
+Received: from ubuntu2004-NV21-clean.amd.com (unknown [165.204.54.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD45A10E563
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 15:25:36 +0000 (UTC)
+Received: by ubuntu2004-NV21-clean.amd.com (Postfix, from userid 0)
+ id 49963161E0B; Thu, 16 Dec 2021 10:25:35 -0500 (EST)
+From: Surbhi Kakarya <surbhi.kakarya@amd.com>
+To: amd-gfx@lists.freedesktop.org, Bokun.Zhang@amd.com, HaiJun.Chang@amd.com,
+ Monk.Liu@amd.com, Alexander.Deucher@amd.com
+Subject: [PATCH] drm/amdgpu: Check the memory can be accesssed by
+ ttm_device_clear_dma_mappings.
+Date: Thu, 16 Dec 2021 10:25:33 -0500
+Message-Id: <20211216152533.2131-1-surbhi.kakarya@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20211216075017.73996-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20211216075017.73996-1-jiapeng.chong@linux.alibaba.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Dec 2021 10:20:20 -0500
-Message-ID: <CADnq5_N4rVUenOBs_oh1_AkyNYcKOKHp_gduiMYq-hGrkyrStw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix warning comparing pointer to 0
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,47 +35,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
- Abaci Robot <abaci@linux.alibaba.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Dave Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: skakarya <Surbhi.Kakarya@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+If the event guard is enabled and VF doesn't receive an ack from PF for full access,
+the guest driver load crashes.
+This is caused due to the call to ttm_device_clear_dma_mappings with non-initialized
+mman during driver tear down.
 
-Alex
+This patch adds the necessary condition to check if the mman initialization passed or not
+and takes the path based on the condition output.
 
-On Thu, Dec 16, 2021 at 2:50 AM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
->
-> Fix the following coccicheck warning:
->
-> ./drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c:744:35-36:
-> WARNING comparing pointer to 0.
->
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> index 8f78e62b28b7..48005def1164 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> @@ -741,7 +741,7 @@ void vg_clk_mgr_construct(
->                                 sizeof(struct watermarks),
->                                 &clk_mgr->smu_wm_set.mc_address.quad_part);
->
-> -       if (clk_mgr->smu_wm_set.wm_set == 0) {
-> +       if (!clk_mgr->smu_wm_set.wm_set) {
->                 clk_mgr->smu_wm_set.wm_set = &dummy_wms;
->                 clk_mgr->smu_wm_set.mc_address.quad_part = 0;
->         }
-> --
-> 2.20.1.7.g153144c
->
+Signed-off-by: skakarya <Surbhi.Kakarya@amd.com>
+Change-Id: I1c18c7eb3500687c8b6e7fc414503dcf2a20b94c
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 598250a380f5..226110be7a2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3984,7 +3984,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 
+ 	amdgpu_irq_fini_hw(adev);
+ 
+-	ttm_device_clear_dma_mappings(&adev->mman.bdev);
++	if (adev->mman.initialized)
++		ttm_device_clear_dma_mappings(&adev->mman.bdev);
+ 
+ 	amdgpu_gart_dummy_page_fini(adev);
+ 
+-- 
+2.25.1
+
