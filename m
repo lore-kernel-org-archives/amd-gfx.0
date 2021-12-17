@@ -4,53 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D492BC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 21:19:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86731C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 21:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01C9910E4B4;
-	Fri, 17 Dec 2021 21:19:15 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A7B510E36B;
- Fri, 17 Dec 2021 21:19:14 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id be32so5463475oib.11;
- Fri, 17 Dec 2021 13:19:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+3zG98dhkknDPg0guLaL1wLcjtaO+4bciqLoXH/PZo4=;
- b=PTUDy+uRKXkxMGYzBB6nwi6qjnGaTPAIls7AP/2jlVKJJyk5uQN75N5zt7DCK/2+I+
- syQeS0W4144KsS/CN2M4wGaO4fcBwSXlGIvP7d0veKltPWVfpPzDCLEnwLosLDta1NUP
- kpymoVDSESqtlVMHAQXkAjnqMR97taNcXCSiF8txvdqr3SA/DQrQmUSLU1AjCk5CeFyP
- Xjw9kJeJZR5V2/ee/bizgOPXG32bga+kx7aqGaSfq2obFExTmIXoJySgoxT21hzU3Jvr
- CjgRyBVxwzBy9d3uMZMDxC9806nxN3pnWPhuNSNzTEZhPj0oaV5MkwyMwLNAypTR2NKh
- oL+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+3zG98dhkknDPg0guLaL1wLcjtaO+4bciqLoXH/PZo4=;
- b=epZE+sXXS/Ssc9rTJxhuMPJ9Oaffp1NV7xVPa9DXp2NSXlljSwhqNsUOUj6QpJ1Ojo
- 4ClN3P9KZwhTnVUEICtKzIqqp3nieeSEx7Y0X8WacKimWXHHKd1uLdAygpyicZavYWke
- d4LW+ttDketDc3UYEpIsss2HKpvmqE6ae6YtC6Dh0bfmVNiT0vaRikxqcgArhFAcH/RW
- c3CLjJvUs449D3F62CCfnic1bPHQAeEAcDTDTQGZ+KR8hP1NgRsYWBQ5iPSJ0r8MOvs2
- p7EntPLUT6weu93/LkTMtxIQ04dqKZ4x6mSqaAOrgko6MdLO9fGZfDuUJrZ2Bo5jwbGp
- 6N+w==
-X-Gm-Message-State: AOAM532x+hjNSjyDtwcsuKDNjI61FIDECijWIUIuFcIGE0anZjFE/3p2
- s3+oGkIJujoGlbgUQbF8YWjrMLvpOuDOSeCt+4Q=
-X-Google-Smtp-Source: ABdhPJxdXhTBT7/nc/jrdhDMwZ8Glw2/vRnOlNZ1lHjtfHgMUtTK0ONRjp6amV9WUSiIS9HZB57Uo7RsY25z4LdO8N8=
-X-Received: by 2002:a05:6808:300b:: with SMTP id
- ay11mr3624298oib.120.1639775953328; 
- Fri, 17 Dec 2021 13:19:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28B0810E4E0;
+	Fri, 17 Dec 2021 21:24:29 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2089.outbound.protection.outlook.com [40.107.96.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D904A10E4E0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 21:24:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fp+6v2G81Wp3jVmXGFAp+MZdBbs+Dva35I3g7NXQsnK1CqEU8A7FtOUH0P2fWfhPdeK+VgRO0XmFjo5O5KHX/Ebd8k64kv2Bm+S3/QorRhI8uPibKs1JYFcWaOEhAjF9EyrAEeCtsfMFhNXY2rk5Fj1xOtrJsETjQ/uq1dEPA36g4HKwIVI0hSTTX8JL9UWuhtJ1vBRT2H4quP7WLYxozTnP2cBXLd4hMCZAAIRPSVKua3SwZ1jVi03LnfIRDCnvqQstZiH8/ok7Gj9R70wOyKPj1MuY9amHqkJ1PGqIm3tJZ2XUrBJX6+ccSqDTo3aQrPXcpESRCkOCA0Enk0u+Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=31hsCzKzRTOkR+xXnzaj2OPWfchdnB+e8OKAs6w2xvM=;
+ b=Q9h2+ZtKunaVQ5jOEt0Vvpiq1kLeYVe4g3MotArM/sSMxd9LunZASmFoKGjhz6ILkWszHiCHftlpd+vvtwR95dfGJLK1jnlM7vioHqN23elvibz41opoRZaN5T3fuzvp78dPHiDYw9NHjVd5g03P08jOTskohhyd+DZqbpNGcY+EEgfdP5og1Hla/G1GoEFtDC7Z1xDHw1j54FKt+L07lA9AqheFpaYGhzEjeyBy1VBv/WD2IDIE+AEFv5pKmcL7l1+hhiytveuNdKddl+Si9LrpsHKcWtobTR7TdQOu9CN5dZdKLj4ngOOI9GzD9LoXDAThJIiH/rTpyR4psN8icQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=31hsCzKzRTOkR+xXnzaj2OPWfchdnB+e8OKAs6w2xvM=;
+ b=Ndef7OBmJ/3w0rwft9NfQRZO0wcBauf2nXiP8okhN7eZRrW/BJe+DpEhAAtm5LSSsceFxTd4/xRnIH+v4L9VAIocaJCYZhnUCiDB8esDgspmAWChwomrsUkjixFHt8Dqpao2/HAnFKF8I3/vkBGmwI138pnziejftxM6FT9VayQ=
+Received: from MWHPR20CA0032.namprd20.prod.outlook.com (2603:10b6:300:ed::18)
+ by BN8PR12MB3523.namprd12.prod.outlook.com (2603:10b6:408:69::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Fri, 17 Dec
+ 2021 21:24:24 +0000
+Received: from CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:ed:cafe::f4) by MWHPR20CA0032.outlook.office365.com
+ (2603:10b6:300:ed::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14 via Frontend
+ Transport; Fri, 17 Dec 2021 21:24:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT058.mail.protection.outlook.com (10.13.174.164) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4801.14 via Frontend Transport; Fri, 17 Dec 2021 21:24:23 +0000
+Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 17 Dec
+ 2021 15:24:22 -0600
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/19] DC Patches December 17, 2021
+Date: Fri, 17 Dec 2021 16:23:48 -0500
+Message-ID: <20211217212407.3583190-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <u7vio364zx-u7wslwl6tq@nsmail6.0>
-In-Reply-To: <u7vio364zx-u7wslwl6tq@nsmail6.0>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 Dec 2021 16:19:01 -0500
-Message-ID: <CADnq5_M5DebMiRWUsh8=O61h=pLCDrJ7nO1rTJTHnrcj4HZEPw@mail.gmail.com>
-Subject: =?UTF-8?B?UmU6IFJlOiBSZTog5Zue5aSNOiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXh1cCBiYQ==?=
- =?UTF-8?B?ZCB2cmFtIHNpemUgb24gZ21jIHY4?=
-To: =?UTF-8?B?5ZGo5a6X5pWP?= <zhouzongmin@kylinos.cn>
-Content-Type: multipart/alternative; boundary="00000000000035a02505d35e173a"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 201e99a8-6a80-4956-e0d4-08d9c1a39912
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3523:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3523CCED1A9208356C0050E698789@BN8PR12MB3523.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xk3kmDZ41ujn+QRWME+RjhdupFz5Byu2NXrEGyBOPRzBXfu3X6XPz49XRVmBVOrNGFYnf+8Pbr9q7HplmSv4NFj6r+946I4I39UNwgqP8edYap+0116/8Nzi77CoLQ5BTx9mAYz5DLj4L7SuUN+MbeXuuE/l1j67JsZp95rvAX+ylDAbkePRlnu3cSI8Z+WrK2EOVYTXfw4cJabaxaLDByj3g/MTNRROSiMhV+Z8k4pEtdG/VFZu0BDMI8uunxBrRDkQK/r1ZQpkFLbk+FfZ43CzfZqNT6VhopoP1iXxjJa8gQlk6ioXCLeKi8A9wL3P5sPqyuwLCMz3A0GWcbV+ahbuvLKuLEzJSusncNDPNlBMt/eiIB4ELb1lkKm1vF7Sl4pTRaDLAk3V2KgwlJueL3nINxHLKLThjkVx4Gj4a+JdMZSAuzAYemMQVWP9reJxKs/Q+P4zbU4DkpC6N0GmbnRIGHruMicA3j281hX2v0wjgucra8ek23UU6Y6ZVSIuORJUQpww8DWNP3hkhkVbfCJ5zqYRWxjbK9YQYb4NH9KHopNDKWAsgRXhyrSW64i9n1f7xTgx11VQ6+QcMoLVnb4mxaVw2ZGCq7LBY9Z76X0t1vdCxY34gR48doplncXGiOAX/I91CuouoMWf6+wFBZZBtgo+83fwcfmfOG66//tPnSB1NjDFH5xdvJDj9okYGQ/vveLkL0Z4dWG/FQ29IxscfvSmkhUMvifJk7CdLxhm4QYfc0OYFhx152SD50sc8k3Lu2tzyLMqMyYtFya/sh7N1B5MN5F+Wjgn3ZoEaMs=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(70586007)(70206006)(1076003)(47076005)(86362001)(6666004)(356005)(426003)(4326008)(36756003)(316002)(81166007)(2906002)(82310400004)(36860700001)(8936002)(2616005)(40460700001)(54906003)(26005)(186003)(16526019)(5660300002)(508600001)(83380400001)(6916009)(336012)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 21:24:23.9898 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 201e99a8-6a80-4956-e0d4-08d9c1a39912
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3523
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,570 +99,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, mikita.lipski@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000035a02505d35e173a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This DC patchset brings improvements in multiple areas. In summary, we
+highlight:
 
-If you could get me a copy of the vbios image from a problematic board,
-that would be helpful.  In the meantime, I've applied the patch.
+- Fixes and improvements in the LTTPR code
+- Improve z-state
+- Fix null pointer check
+- Improve communication with s0i2
+- Update multiple-display split policy
+- Add missing registers
 
-Alex
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
+Thanks
+Siqueira
 
-On Thu, Dec 16, 2021 at 9:38 PM =E5=91=A8=E5=AE=97=E6=95=8F <zhouzongmin@ky=
-linos.cn> wrote:
+Alvin Lee (1):
+  drm/amd/display: Fix check for null function ptr
 
-> Dear Alex:
->
->
-> >Is the issue reproducible with the same board in bare metal on x86?Or
-> does it only happen with passthrough on ARM?
->
->
-> Unfortunately, my current environment is not convenient to test this GPU
-> board on x86 platform.
->
-> but I can tell you the problem still occurs on ARM without passthrough to
-> virtual machine.
->
->
-> In addition,at end of 2020,my colleagues also found similar problems on
-> MIPS platforms with Graphics chips of Radeon R7 340.
->
-> So,I may think it can happen to no matter based on x86 ,ARM or mips.
->
->
-> I hope the above information is helpful to you=EF=BC=8Cand I also think i=
-t will be
-> better for user if can root cause this issue.
->
->
-> Best regards.
->
->
->
->
-> ----
->
->
->
->
->
->
-> *=E4=B8=BB =E9=A2=98=EF=BC=9A*Re: Re: =E5=9B=9E=E5=A4=8D: Re: [PATCH] drm=
-/amdgpu: fixup bad vram size on gmc v8
->
-> *=E6=97=A5 =E6=9C=9F=EF=BC=9A*2021-12-16 23:28
-> *=E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=9A*Alex Deucher
-> *=E6=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=9A*=E5=91=A8=E5=AE=97=E6=95=8F
->
->
-> Is the issue reproducible with the same board in bare metal on x86?  Or
-> does it only happen with passthrough on ARM?  Looking through the archive=
-s,
-> the SI patch I made was for an x86 laptop.  It would be nice to root
-> cause this, but there weren't any gfx8 boards with more than 64G of vram,
-> so I think it's safe.  That said, if you see similar issues with newer gf=
-x
-> IPs then we have an issue since the upper bit will be meaningful, so it
-> would be nice to root cause this.
->
-> Alex
->
->
-> On Thu, Dec 16, 2021 at 4:36 AM =E5=91=A8=E5=AE=97=E6=95=8F <zhouzongmin@=
-kylinos.cn> wrote:
->
->> Hi  Christian,
->>
->>
->> I'm  testing for GPU passthrough feature, so I pass through this GPU to
->> virtual machine to use. It  based on arm64 system.
->>
->> As far as i know, Alex had dealt with a similar problems on
->> dri/radeon/si.c .  Maybe they have a same reason to cause it?
->>
->> the history commit message is below:
->>
->>
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
-t/?id=3D0ca223b029a261e82fb2f50c52eb85d510f4260e
->>
->> [image: image.png]
->>
->>
->> Thanks very much.
->>
->>
->>
->> ----
->>
->>
->>
->> *=E4=B8=BB =E9=A2=98=EF=BC=9A*Re: =E5=9B=9E=E5=A4=8D: Re: [PATCH] drm/am=
-dgpu: fixup bad vram size on gmc v8
->>
->> *=E6=97=A5 =E6=9C=9F=EF=BC=9A*2021-12-16 16:15
->> *=E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=9A*Christian K=C3=B6nig
->> *=E6=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=9A*=E5=91=A8=E5=AE=97=E6=95=8FAlex De=
-ucher
->>
->>
->>
->>
->> Hi Zongmin,
->>
->>    that strongly sounds like the ASIC is not correctly initialized when
->>  trying to read the register.
->>
->>    What board and environment are you using this GPU with? Is that a
->>  normal x86 system?
->>
->>    Regards,
->>    Christian.
->>
->>
->>
->> Am 16.12.21 um 04:11 schrieb =E5=91=A8=E5=AE=97=E6=95=8F:
->>
->>
->>
->>    1.
->>
->>    the problematic boards that I have tested is [AMD/ATI] Lexa
->>     PRO [Radeon RX 550/550X] ;  and the vbios version :
->>     113-RXF9310-C09-BT
->>    2.
->>
->>    When an exception occurs I can see the following changes in
->>     the values of vram size get from RREG32(mmCONFIG_MEMSIZE) ,
->>
->>    it seems to have garbage in the upper 16 bits
->>
->>    [image: image.png]
->>
->>
->>
->>
->>    3.
->>
->>    and then I can also see some dmesg like below:
->>
->>    when vram size register have garbage,we may see error
->>     message like below:
->>
->>    amdgpu 0000:09:00.0: VRAM: 4286582784M 0x000000F400000000 -
->>     0x000FF8F4FFFFFFFF (4286582784M used)
->>
->>    the correct message should like below:
->>
->>    amdgpu 0000:09:00.0: VRAM: 4096M 0x000000F400000000 -
->>     0x000000F4FFFFFFFF (4096M used)
->>
->>
->>
->>
->>    if you have any problems,please send me mail.
->>
->>    thanks very much.
->>
->>
->>
->>
->> ----
->>
->> *=E4=B8=BB =E9=A2=98=EF=BC=9A*Re: [PATCH] drm/amdgpu:          fixup bad=
- vram size on gmc v8
->>
->>        *=E6=97=A5 =E6=9C=9F=EF=BC=9A*2021-12-16 04:23
->>        *=E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=9A*Alex Deucher
->>        *=E6=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=9A*Zongmin Zhou
->>
->>
->>
->>
->> On Wed, Dec 15, 2021 at 10:31 AM Zongmin Zhouwrote:
->>          >
->>          > Some boards(like RX550) seem to have garbage in the upper
->>          > 16 bits of the vram size register.  Check for
->>          > this and clamp the size properly.  Fixes
->>          > boards reporting bogus amounts of vram.
->>          >
->>          > after add this patch,the maximum GPU VRAM size is 64GB,
->>          > otherwise only 64GB vram size will be used.
->>
->>          Can you provide some examples of problematic boards and
->>  possibly a
->>          vbios image from the problematic board?  What values are you
->>      seeing?
->>          It would be nice to see what the boards are reporting and
->>    whether the
->>          lower 16 bits are actually correct or if it is some other
->>    issue.  This
->>          register is undefined until the asic has been initialized.
->>     The vbios
->>          programs it as part of it's asic init sequence (either via
->>    vesa/gop or
->>          the OS driver).
->>
->>          Alex
->>
->>
->>          >
->>          > Signed-off-by: Zongmin Zhou
->>            > ---
->>            >  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 13
->>  ++++++++++---
->>            >  1 file changed, 10 insertions(+), 3 deletions(-)
->>            >
->>            > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>  b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>            > index 492ebed2915b..63b890f1e8af 100644
->>            > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>            > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>            > @@ -515,10 +515,10 @@ static void
->>  gmc_v8_0_mc_program(struct amdgpu_device *adev)
->>            >  static int gmc_v8_0_mc_init(struct amdgpu_device
->>  *adev)
->>            >  {
->>            >         int r;
->>            > +       u32 tmp;
->>            >
->>            >         adev->gmc.vram_width =3D
->>  amdgpu_atombios_get_vram_width(adev);
->>            >         if (!adev->gmc.vram_width) {
->>            > -               u32 tmp;
->>            >                 int chansize, numchan;
->>            >
->>            >                 /* Get VRAM informations */
->>            > @@ -562,8 +562,15 @@ static int gmc_v8_0_mc_init(struct
->>        amdgpu_device *adev)
->>            >                 adev->gmc.vram_width =3D numchan *
->>  chansize;
->>            >         }
->>            >         /* size in MB on si */
->>            > -       adev->gmc.mc_vram_size =3D
->>  RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
->>            > -       adev->gmc.real_vram_size =3D
->>  RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
->>            > +       tmp =3D RREG32(mmCONFIG_MEMSIZE);
->>            > +       /* some boards may have garbage in the upper 16
->>        bits */
->>            > +       if (tmp & 0xffff0000) {
->>            > +               DRM_INFO("Probable bad vram size:
->>  0x%08x\n", tmp);
->>            > +               if (tmp & 0xffff)
->>            > +                       tmp &=3D 0xffff;
->>            > +       }
->>            > +       adev->gmc.mc_vram_size =3D tmp * 1024ULL *
->>  1024ULL;
->>            > +       adev->gmc.real_vram_size =3D
->>  adev->gmc.mc_vram_size;
->>            >
->>            >         if (!(adev->flags & AMD_IS_APU)) {
->>            >                 r =3D amdgpu_device_resize_fb_bar(adev);
->>            > --
->>            > 2.25.1
->>            >
->>            >
->>            > No virus found
->>            >                 Checked by Hillstone Network AntiVirus
->>
->>
->>
->>
->>
->
+Angus Wang (1):
+  drm/amd/display: Changed pipe split policy to allow for multi-display
+    pipe split
 
---00000000000035a02505d35e173a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.98
 
-<div dir=3D"ltr"><div>If you could get me a copy of the vbios image from a =
-problematic board, that would be helpful.=C2=A0 In the meantime, I&#39;ve a=
-pplied the patch.</div><div><br></div><div>Alex</div><div><br></div><br><di=
-v class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 1=
-6, 2021 at 9:38 PM =E5=91=A8=E5=AE=97=E6=95=8F &lt;<a href=3D"mailto:zhouzo=
-ngmin@kylinos.cn">zhouzongmin@kylinos.cn</a>&gt; wrote:<br></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex"><p>Dear Alex:</p><p><br></p><p><spa=
-n style=3D"color:rgb(192,80,77)">&gt;Is the issue reproducible with the sam=
-e board in bare metal on x86?Or does it only happen with passthrough on ARM=
-?</span></p><p><br></p><p>Unfortunately, my current environment is not conv=
-enient to test this GPU board on x86 platform.</p><p>but I can tell you the=
- problem still occurs on ARM without passthrough to virtual machine.</p><p>=
-<br></p><p>In addition,at end of 2020,my colleagues also found similar prob=
-lems on MIPS platforms with Graphics chips of Radeon R7 340.</p><p>So,I may=
- think it can happen to no matter based on x86 ,ARM or mips.</p><p><br></p>=
-<p>I hope the above information is helpful to you=EF=BC=8Cand I also think =
-it will be better for user if can=C2=A0root cause this issue.</p><p><br></p=
-><p>Best regards.</p><br><br>
+Aric Cyr (1):
+  drm/amd/display: 3.2.167
 
- =C2=A0 =C2=A0<p>----</p><p></p><p><br></p><p></p><div id=3D"gmail-m_527949=
-4021112996146re" style=3D"margin-left:0.5em;padding-left:0.5em;border-left:=
-1px solid green"><br><br><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0<div style=3D"background-color:rgb(245,247,250)=
-"><b>=E4=B8=BB=E3=80=80=E9=A2=98=EF=BC=9A</b><span id=3D"gmail-m_5279494021=
-112996146subject">Re: Re: =E5=9B=9E=E5=A4=8D: Re: [PATCH] drm/amdgpu: fixup=
- bad vram size on gmc v8</span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><b>=E6=97=A5=E3=80=80=E6=9C=
-=9F=EF=BC=9A</b><span id=3D"gmail-m_5279494021112996146date">2021-12-16 23:=
-28</span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><b>=E5=8F=91=E4=BB=B6=E4=BA=
-=BA=EF=BC=9A</b><span id=3D"gmail-m_5279494021112996146from">Alex Deucher</=
-span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><b>=E6=94=B6=E4=BB=B6=E4=BA=
-=BA=EF=BC=9A</b><span id=3D"gmail-m_5279494021112996146to">=E5=91=A8=E5=AE=
-=97=E6=95=8F</span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
- =C2=A0 =C2=A0 =C2=A0 =C2=A0</div><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0<div id=3D"gmail-m_5279494021112996146content">=
-<div><div><div dir=3D"ltr"><div>Is the issue reproducible with the same boa=
-rd in bare metal on x86?=C2=A0 Or does it only happen with passthrough on A=
-RM?=C2=A0 Looking through the archives, the SI patch I made was for an x86 =
-laptop.=C2=A0 <span>It</span> would be nice to root cause this, but there w=
-eren&#39;t any gfx8 boards with more than 64G of vram, so I think it&#39;s =
-safe.=C2=A0 That said, if you see similar issues with newer gfx IPs then we=
- have an issue since the upper bit will be meaningful, so it would be nice =
-to root cause this.<br></div><br><div>Alex</div><br></div><br><div class=3D=
-"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 16, 2021 at=
- 4:36 AM =E5=91=A8=E5=AE=97=E6=95=8F &lt;<a href=3D"mailto:zhouzongmin@kyli=
-nos.cn" target=3D"_blank">zhouzongmin@kylinos.cn</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex"><p>Hi=C2=A0=C2=A0Christian,=
-</p><p><br></p><p>I&#39;m=C2=A0 testing for GPU passthrough feature, so I p=
-ass through this GPU to=C2=A0 virtual machine to use. It=C2=A0 based on arm=
-64 system.</p><br><p>As far as i know, Alex had dealt with a similar proble=
-ms on dri/radeon/si.c .=C2=A0 Maybe they have a same reason to cause it?</p=
-><p>the history commit message is below:</p><p><a href=3D"https://git.kerne=
-l.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3D0ca223b029a2=
-61e82fb2f50c52eb85d510f4260e" target=3D"_blank">https://git.kernel.org/pub/=
-scm/linux/kernel/git/torvalds/linux.git/commit/?id=3D0ca223b029a261e82fb2f5=
-0c52eb85d510f4260e</a></p><p><img src=3D"http:///nsmail/js/ueditor/php/uplo=
-ad/image/20211216/1639647221165090.png" title=3D"1639647221165090.png" alt=
-=3D"image.png"></p><p><br></p><p>Thanks very much.</p><p>=C2=A0 =C2=A0<br><=
-/p><p>----</p><p>=C2=A0 =C2=A0=C2=A0</p><p><b>=E4=B8=BB=E3=80=80=E9=A2=98=
-=EF=BC=9A</b><span id=3D"gmail-m_5279494021112996146gmail-m_515247130580575=
-6242gmail-m_8043105273083894711subject">Re: =E5=9B=9E=E5=A4=8D: Re: [PATCH]=
- drm/amdgpu: fixup bad vram size on gmc v8</span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><b>=E6=97=A5=E3=80=80=E6=9C=
-=9F=EF=BC=9A</b><span id=3D"gmail-m_5279494021112996146gmail-m_515247130580=
-5756242gmail-m_8043105273083894711date">2021-12-16 16:15</span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><b>=E5=8F=91=E4=BB=B6=E4=BA=
-=BA=EF=BC=9A</b><span id=3D"gmail-m_5279494021112996146gmail-m_515247130580=
-5756242gmail-m_8043105273083894711from">Christian K=C3=B6nig</span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><b>=E6=94=B6=E4=BB=B6=E4=BA=
-=BA=EF=BC=9A</b><span id=3D"gmail-m_5279494021112996146gmail-m_515247130580=
-5756242gmail-m_8043105273083894711to">=E5=91=A8=E5=AE=97=E6=95=8FAlex Deuch=
-er</span>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
- =C2=A0 =C2=A0 =C2=A0 =C2=A0</p><p><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0</p><p>Hi Zongmin,<br>
- =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0that strongly sounds like the ASIC is not correctly initializ=
-ed when
- =C2=A0 =C2=A0trying to read the register.<br>
- =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0What board and environment are you using this GPU with? Is th=
-at a
- =C2=A0 =C2=A0normal x86 system?<br>
- =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0Regards,<br>
- =C2=A0 =C2=A0Christian.<br>
- =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0</p><p>Am 16.12.21 um 04:11 schrieb =E5=91=A8=E5=AE=97=E6=95=
-=8F:<br>
- =C2=A0 =C2=A0</p><blockquote type=3D"cite"><ol style=3D"list-style-type:de=
-cimal"><li><p>the=C2=A0problematic boards that I have tested is=C2=A0[AMD/A=
-TI] Lexa
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PRO [Radeon RX 550/550X] ;=C2=A0 =
-and the vbios version :
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0113-RXF9310-C09-BT</p></li><li><p=
->When an exception occurs I can see the following changes in
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0the values of vram size get from =
-RREG32(mmCONFIG_MEMSIZE) ,</p><p>it seems=C2=A0to have garbage in the upper=
- 16 bits=C2=A0</p><p><img src=3D"http:///nsmail/js/ueditor/php/upload/image=
-/20211216/1639623655693645.png" title=3D"1639623655693645.png" alt=3D"image=
-.png"><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</p><p><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</p></li><li><p>and then I can also see =
-some dmesg like below:</p><p>when vram size register have garbage,we may se=
-e error
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0message like below:</p><p>amdgpu =
-0000:09:00.0: VRAM: 4286582784M 0x000000F400000000 -
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x000FF8F4FFFFFFFF (4286582784M u=
-sed)</p><p>the correct message should like below:</p><p>amdgpu 0000:09:00.0=
-: VRAM: 4096M 0x000000F400000000 -
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x000000F4FFFFFFFF (4096M used)</=
-p><p><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</p><p>if you have any problems,please s=
-end me mail.</p><p>thanks very much.</p><p><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</p></li></ol><p>----=C2=A0 =C2=A0 =C2=
-=A0=C2=A0</p><p><b>=E4=B8=BB=E3=80=80=E9=A2=98=EF=BC=9A</b><span id=3D"gmai=
-l-m_5279494021112996146gmail-m_5152471305805756242gmail-m_80431052730838947=
-11subject">Re: [PATCH] drm/amdgpu:
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fixup bad vram size on gmc v8</span> =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0<b>=E6=97=A5=E3=80=80=E6=9C=9F=EF=BC=9A</b><spa=
-n id=3D"gmail-m_5279494021112996146gmail-m_5152471305805756242gmail-m_80431=
-05273083894711date">2021-12-16 04:23</span> =C2=A0 =C2=A0
- =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0<b>=E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=9A</b><spa=
-n id=3D"gmail-m_5279494021112996146gmail-m_5152471305805756242gmail-m_80431=
-05273083894711from">Alex Deucher</span> =C2=A0 =C2=A0 =C2=A0 =C2=A0
- =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0<b>=E6=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=9A</b><spa=
-n id=3D"gmail-m_5279494021112996146gmail-m_5152471305805756242gmail-m_80431=
-05273083894711to">Zongmin Zhou</span> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
- =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</p><p><br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0</p><p>On Wed, Dec 1=
-5, 2021 at 10:31 AM Zongmin Zhouwrote:<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Some boards(like RX550) seem to hav=
-e garbage in the upper<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; 16 bits of the vram size register.=
-=C2=A0 Check for<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; this and clamp the size properly.=
-=C2=A0 Fixes<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; boards reporting bogus amounts of v=
-ram.<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; after add this patch,the maximum GP=
-U VRAM size is 64GB,<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; otherwise only 64GB vram size will =
-be used.<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Can you provide some examples of problem=
-atic boards and
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0possibly a<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vbios image from the problematic board?=
-=C2=A0 What values are you
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0seeing?<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0It would be nice to see what the boards =
-are reporting and
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0whether the<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lower 16 bits are actually correct or if=
- it is some other
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0issue.=C2=A0 This<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0register is undefined until the asic has=
- been initialized.
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0The vbios<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0programs it as part of it&#39;s asic ini=
-t sequence (either via
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vesa/gop or<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0the OS driver).<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Alex<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Signed-off-by: Zongmin Zhou<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; ---<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0drivers/gpu/drm/amd/am=
-dgpu/gmc_v8_0.c | 13
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0++++++++++---<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A01 file changed, 10 ins=
-ertions(+), 3 deletions(-)<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; diff --git a/drivers/gpu/drm=
-/amd/amdgpu/gmc_v8_0.c
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/amdgpu/gmc_=
-v8_0.c<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; index 492ebed2915b..63b890f1=
-e8af 100644<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; --- a/drivers/gpu/drm/amd/am=
-dgpu/gmc_v8_0.c<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; +++ b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v8_0.c<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; @@ -515,10 +515,10 @@ static=
- void
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gmc_v8_0_mc_program(struct amdgpu=
-_device *adev)<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0static int gmc_v8_0_mc=
-_init(struct amdgpu_device
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*adev)<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0{<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-int r;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 u32 t=
-mp;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-adev-&gt;gmc.vram_width =3D
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_atombios_get_vram_width(ad=
-ev);<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-if (!adev-&gt;gmc.vram_width) {<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; - =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 u32 tmp;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int chansize, numchan;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Get VRAM informations */<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; @@ -562,8 +562,15 @@ static =
-int gmc_v8_0_mc_init(struct
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_device *adev)<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gmc.vram_width =3D numchan *
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0chansize;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-}<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-/* size in MB on si */<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; - =C2=A0 =C2=A0 =C2=A0 adev-=
-&gt;gmc.mc_vram_size =3D
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RREG32(mmCONFIG_MEMSIZE) * 1024UL=
-L * 1024ULL;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; - =C2=A0 =C2=A0 =C2=A0 adev-=
-&gt;gmc.real_vram_size =3D
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RREG32(mmCONFIG_MEMSIZE) * 1024UL=
-L * 1024ULL;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 tmp =
-=3D RREG32(mmCONFIG_MEMSIZE);<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 /* so=
-me boards may have garbage in the upper 16
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bits */<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 if (t=
-mp &amp; 0xffff0000) {<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 DRM_INFO(&quot;Probable bad vram size:
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x%08x\n&quot;, tmp);<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 if (tmp &amp; 0xffff)<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tmp &amp;=3D 0xffff;<b=
-r>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 }<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 adev-=
-&gt;gmc.mc_vram_size =3D tmp * 1024ULL *
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A01024ULL;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; + =C2=A0 =C2=A0 =C2=A0 adev-=
-&gt;gmc.real_vram_size =3D
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gmc.mc_vram_size;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-if (!(adev-&gt;flags &amp; AMD_IS_APU)) {<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D amdgpu_device_resize_fb_bar(adev);<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; --<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; 2.25.1<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; No virus found<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 Checked by Hillstone Network AntiVirus<br>
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</p></blockquote><p><br>
- =C2=A0</p></blockquote></div></div></div></div></div></blockquote></div></=
-div>
+Charlene Liu (1):
+  drm/amd/display: fix B0 TMDS deepcolor no dislay issue
 
---00000000000035a02505d35e173a--
+George Shen (2):
+  drm/amd/display: Limit max link cap with LTTPR caps
+  drm/amd/display: Remove CR AUX RD Interval limit for LTTPR
+
+Lai, Derek (1):
+  drm/amd/display: Added power down for DCN10
+
+Martin Leung (1):
+  drm/amd/display: Undo ODM combine
+
+Nicholas Kazlauskas (3):
+  drm/amd/display: Block z-states when stutter period exceeds criteria
+  drm/amd/display: Send s0i2_rdy in stream_count == 0 optimization
+  drm/amd/display: Set optimize_pwr_state for DCN31
+
+Shen, George (1):
+  drm/amd/display: Refactor vendor specific link training sequence
+
+Wenjing Liu (5):
+  drm/amd/display: define link res and make it accessible to all link
+    interfaces
+  drm/amd/display: populate link res in both detection and validation
+  drm/amd/display: access hpo dp link encoder only through link resource
+  drm/amd/display: support dynamic HPO DP link encoder allocation
+  drm/amd/display: get and restore link res map
+
+Wesley Chalmers (1):
+  drm/amd/display: Add reg defs for DCN303
+
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  18 -
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |   2 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 234 +++++---
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 501 +++++++++++++++---
+ .../drm/amd/display/dc/core/dc_link_dpia.c    |  48 +-
+ .../drm/amd/display/dc/core/dc_link_hwss.c    |  63 ++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 199 ++++---
+ drivers/gpu/drm/amd/display/dc/dc.h           |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  15 +-
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  14 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |   1 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   2 +-
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |   5 +-
+ .../amd/display/dc/dcn201/dcn201_resource.c   |   2 +-
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c |   2 +-
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |  13 +-
+ .../amd/display/dc/dcn301/dcn301_resource.c   |   2 +-
+ .../amd/display/dc/dcn302/dcn302_resource.c   |   2 +-
+ .../drm/amd/display/dc/dcn303/dcn303_dccg.h   |  20 +-
+ .../amd/display/dc/dcn303/dcn303_resource.c   |   2 +-
+ .../dc/dcn31/dcn31_hpo_dp_link_encoder.c      |   6 +-
+ .../dc/dcn31/dcn31_hpo_dp_link_encoder.h      |   3 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |   1 +
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  27 +-
+ .../drm/amd/display/dc/dcn31/dcn31_resource.h |  31 ++
+ .../gpu/drm/amd/display/dc/dml/dml_wrapper.c  |   2 +-
+ .../gpu/drm/amd/display/dc/inc/core_status.h  |   2 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  17 +
+ .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |  15 +-
+ .../gpu/drm/amd/display/dc/inc/dc_link_dpia.h |   5 +-
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |   3 +-
+ .../gpu/drm/amd/display/dc/inc/link_hwss.h    |  10 +-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   6 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   4 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |   4 +-
+ 36 files changed, 964 insertions(+), 321 deletions(-)
+
+-- 
+2.25.1
+
