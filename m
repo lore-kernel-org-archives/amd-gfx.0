@@ -4,119 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADCEC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 08:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B61C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 14:31:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE5710F653;
-	Fri, 17 Dec 2021 08:49:26 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 136A110F653
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 08:49:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFAA9112749;
+	Fri, 17 Dec 2021 14:31:27 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3470F112749
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 14:31:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OxmneRe8YXV/4FTqtbSApmZ9aX8OvE115Uxg+F9Qy7HwSFDaSQVGcZ2DpNCxyJ4wcPWrnRqN9peBxjVyH7Fsu5ChFCBhX+fCU1wAJaxVMrxHClJdP117ydFJj0MV3iRepco3MbPF/qmYv6BUHdtbYpj4zdn+R2OLkjG8siVIm30Jt3vNHsMV0N2BaJDStudbwggwYPXSfZOgozRg1SXJ6uY2/iU9dx5uiueJCIZpAix9IYeruGp+f93xfVgd7rORqZUcTGZsiGqyH5FeDFX1Z9Au4bHwHL4l0SYHZV7YBIuGwd7EPqkcVUoX+Rq5wlSRWqIkfbANnqNuzhK5++5oYQ==
+ b=P4YJxTkAWrWbbLfsN/+tUAbNJyKmBqqd5+65r9qi0InZLgl6EBSBre1z6JazY3NkUghbaNveT8Emp49hXRaq0yds4AwG8kwnKgST5pm48qVfsTs2P0ioZIBGwZHOqCrCqncNkcwcjutujAzu86KE+N6H2d2kANHs7A3dGpekQpmOs3LMivgGu98gFNS7SzVb/saZomm/kOp1YypQGtvEyOJo/yCoUi8miqnChy59oPU4U7KYEsfw6CLunPmIyEcnjq+hLnzqfxCof5/Px74kLoGnUuLQ21eERHObRcchvvuSwAwwTMawBdFDmBzCf6vJRExpIm6D6Fe1qpLQ5S2osg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LiqQDad446/3s7uIld0rrKny6lb3PgJS8U5hCAI2jSE=;
- b=krQo/p1bln6brt4eSVBYl7wXDkPxhkoxSpEEENguC+6Ojp2pWSG5foG7mLYlpaCwvysX/r9a8V70qsdyo6AQpwZKYPp74/0sSCp8ymTqnNk/SykBIleCYp+Bsb0R9zWlorTUC3EETNjTGrVEQ27qTz3qbpylax/LwcqV7AMigrFz6PpDm3qXEmhhaSntRSQjZEsB2T3OOs7w1fOCGaI4tNDAlG3egM1gEiGiKlu1dctgy+x5EcKcG7UaSK9BLMdOV8YXpQTKptUGnrMvxFRfbAG7BB5ZR3v5Vuqe3NVM/lBBkvK3S3NbVA8d6T/y4Armzas9YV0MFcvf3879iHtN8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=mhnMZkbaSD1YhQFzyk32y65j32brLtm7OI1oHVYwQzs=;
+ b=fPgMEyqcF0hw7rG0q62X6OI7F/J/ff2gb4Jwx2+P3T/QZWQiiYXIjskxPzmXV2YRyUqc8AmbrtEW99QmppnP7dYcjcansPaCkHSdE6Sb0G/q8xvSa/uzUEo4/KekIDfa20Si/tisKb4uWnhExupswoA9BErQy76ytCf8xobt24pp/P3ANTdU6KIF7FC8F1QgqSS4mdBsoXq4H07nDtyE1DlRJUtVSYLLBUbCql4VYS8LY3oWg9F3DSEUAhAjVqqv99cq01mt79VZMWRBOrtAQpZlFa+ERLyE9GQ59ZP/FFWfu/ATI58hKH8l0mFztdngJUVWKY6rs9j2dVn1RZ6hzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LiqQDad446/3s7uIld0rrKny6lb3PgJS8U5hCAI2jSE=;
- b=oPWspJ6MfY4MnfzeHNPrpt6qLlSJwmxeWiL97wpoFLmLIg+Lp06D0MhP2VgFkTlnaTeDjN9YoutIwKUHwO1VCqEWG2LHpkqtJ0AQlxm+Ij1uvOcKSolXPBbFgKr2+zyb1Q9PUr6qI+0XxFgPWZ+NBgS1EtZVyl+FwDnKQol0Bis=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MW3PR12MB4410.namprd12.prod.outlook.com
- (2603:10b6:303:5b::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.15; Fri, 17 Dec
- 2021 08:49:18 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::d16c:a6d5:5d2e:f9d4]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::d16c:a6d5:5d2e:f9d4%12]) with mapi id 15.20.4801.016; Fri, 17 Dec
- 2021 08:49:18 +0000
-Subject: Re: [PATCH v3] drm/amdgpu: Call amdgpu_device_unmap_mmio() if device
- is unplugged to prevent crash in GPU initialization failure
-To: Leslie Shi <Yuliang.Shi@amd.com>, andrey.grodzovsky@amd.com,
- xinhui.pan@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-References: <20211217022601.2995743-1-Yuliang.Shi@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <b5b1e8f6-c7c6-b465-6d4b-75e7a709f4dd@amd.com>
-Date: Fri, 17 Dec 2021 09:49:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20211217022601.2995743-1-Yuliang.Shi@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: AM6P193CA0091.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:209:88::32) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+ bh=mhnMZkbaSD1YhQFzyk32y65j32brLtm7OI1oHVYwQzs=;
+ b=QemZHNHWzLOmp9uWbKDqBgeK1sKOBek3ywGX6/S9qqNFPEmqN1AxZ3o5SVohXKyDIpYJeHQqdNtSI3tWVxUTK1ispkANsg+S+9Us1RGns6vDhGWRgX3ROdWWOmdJ9UpiYJFNj2EKQ+EZwb1IX+UJT0u/nmn9dngYNSqjQ/GKUho=
+Received: from DS7PR03CA0173.namprd03.prod.outlook.com (2603:10b6:5:3b2::28)
+ by MWHPR12MB1775.namprd12.prod.outlook.com (2603:10b6:300:109::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Fri, 17 Dec
+ 2021 14:31:23 +0000
+Received: from DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b2:cafe::d3) by DS7PR03CA0173.outlook.office365.com
+ (2603:10b6:5:3b2::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14 via Frontend
+ Transport; Fri, 17 Dec 2021 14:31:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT009.mail.protection.outlook.com (10.13.173.20) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4801.14 via Frontend Transport; Fri, 17 Dec 2021 14:31:23 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Fri, 17 Dec 2021 08:31:21 -0600
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <Graham.Sider@amd.com>, <Felix.Kuehling@amd.com>, <jonathan.kim@amd.com>
+Subject: [PATCH] drm/amdkfd: correct sdma queue number in kfd device init
+Date: Fri, 17 Dec 2021 22:31:06 +0800
+Message-ID: <20211217143106.14140-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e57a924b-dabb-4680-6e45-08d9c13a1c7b
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4410:EE_
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4410A6C7ABB83EA2C2719CC183789@MW3PR12MB4410.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Office365-Filtering-Correlation-Id: e781f943-ab0d-4659-ed42-08d9c169e6a2
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1775:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1775801366864BF333954BD7F1789@MWHPR12MB1775.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:546;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9xTOFhRuF26eGUYyu5LZ51oELYDm6yQG+aFlrTp6xlskhqx+WIeiONcbXrhzONe1AphZQtlI8pRfNc1S74X4xRHHxFc1X6f6mRI7VTRrPwRC9Y6KcfkQu5dA6U+AhjTmyGzPpqbhIj4OXp4xb3uYD457Z+blq3dQAowdipvcZwQmDPEs1RPficXjdMyQksvYLC6gxO1rjxigMsbRnEuhxVZOBt0ykICNlONWhQ/Jqg5RUsa/4P0i4Mx7axR20mdFGvsAFeI1r7I5ETRZYX1dPQzRFa1fQ+S6lZDtfuM5WklnMRjGH2Mhn/yh400Jcu6Stmy41V+OASU1MqgVyOXdV06FtHV+xjykReuljYXD2HiLNuqHf8bSIdHGFMtvuNXwQeJ8X/hsSi6lXBUJPGWZJru1rATSXWeeVBwUCrmk49B/iTBy98pJsLaXb03BofPj0yZRJjEe+HKoMEuUY/UQBI5HY96GBBxTVhGZR15GYOyJHxQhfi57SO52pnNiSRTwKacbqTk+kEjoSfhcyLOP09MKKyorAq3s4cGbwA7O+O13E0FcySv4uo4nKTqCHKq6b9UohebiG6xxLn92uYLRWnU2NuQ/qIuplI5mNrkasJ3n6TPydGhcYovDov1QVp/IGZFblljHjO5ThPpV6P5k7tzDux8/Phr3zIp4j+Y3DRWU2dGakNNQxtA8uN7yifhFxcAQNaNZcQglmkS2OznxlF7oRA2/XU/03A0k5dMuaTEuc8sUtQuXoxhUQ4fVwWKD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38100700002)(2616005)(5660300002)(6486002)(66556008)(66476007)(316002)(6512007)(186003)(66946007)(86362001)(83380400001)(8936002)(31686004)(66574015)(8676002)(36756003)(508600001)(2906002)(4326008)(6666004)(31696002)(6506007)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: Vn5P/ird0B7PKPUeiECLGi6c7W2HjM1jwag5l7MmtAEBzNjMMtIPEF0ZGPNInNj4M3UtDD4/WC9+57rDeOINIc9hTp4Za2skBFr9Qbgrz9+e75TgrnV6maTL4DRGsYxc537fSCPyJQnnab3T6d49ivFqxUWld64hEj54s8Fitx8sCN/6QoYrKu2OkTuyXCrJVnylSeIQQ1o53I1X6W0KAiVSmbgGnB0N8klGM1kDbKUEPzbIyk8dc8fXrutb0Dd21E96QZvcokajYSRdrtX4sPV1duSzoB6Tzb6WZ5V8+0GHaSrtP8/Ed0sL+PJmT7sWcHJtK51F3+xy/gJOCz2HEbTItNMl87Ho+S4XIh5GMZ+I1Sb7+yrz5QGwcwC8MKrsqxMZMu4Yfsamhe7Cz3ZB9aH/wPmKnxxvENFn1sQZb4H0GiBPU7tSPJZr+2BP8EyzoerGI60XOf45TGKT7YCX4TCutWaqtK2XW0pq8igQ7Tf1GxjUZrQNjsvuWDCy6uTrPjTVT2IW4HhaBEmUdvUBhUvQGocn8ZxZIiJDIH9jLbfp7b0IZ1c4SBev6mSRyWikLnOSBBDX8JAfIYsj+enwb138KjnRlxJM6ai6x0O17FzGj2Z/yytEz1xOKDPxujFz0bnogQB/jzzUiMTgGvg4rNRC1xqXPys3sPmMCpOeQl7CxNysSV86Jf1I42c8Jut/clHYNDk2bUWh5DhrTdn/CzmH+Q12t/rMaWZeBZAMrcsux32Zy9nblAvGlRJTn70FA35n/crLYM3IHT5QzQC6Tap/LBKhMv8fsbeBjm4d7mRaJd43kr4Sv1toG7Owwan0
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700001)(7696005)(36756003)(508600001)(6666004)(70586007)(1076003)(6636002)(2906002)(26005)(81166007)(356005)(316002)(5660300002)(40460700001)(47076005)(70206006)(36860700001)(110136005)(82310400004)(86362001)(83380400001)(8936002)(2616005)(44832011)(4326008)(426003)(8676002)(336012)(16526019)(186003)(36900700001)(2101003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WVdESkJFcGRROXd5TXJNMU9ydldyL3lMTEg1Q0NLdXVlRWo1aDlIUEMwZk9j?=
- =?utf-8?B?RXJBWnFCdzV3MUV2WFEwaHNFS1RJbFU5RGYvalZYdUNyV1c3ekVoUUp2N2t0?=
- =?utf-8?B?NGcwcFVpaTJzMC9zY2pUQTFXOWcwMVIwUTY0aDdpejAxdVdBRnhVR2RMaXZF?=
- =?utf-8?B?ZzBzRlgwN3RCUWFqTHc2eUFDcDRnN3l4Vkl1Z2kvR3VISkY5VFZqWXRNRHJB?=
- =?utf-8?B?NjZ1dHhPM3VxY3p2M3hUV254QVJVaU1tWGNoZnlJODFFV2FzODV4dkNTY25X?=
- =?utf-8?B?eDhBR1FDVzh1T09rM3RjOVBTKzRKMUlJTUJSU0labzcwTXpGd0wyQXNudXNZ?=
- =?utf-8?B?ZkpKVisvcXdoaDdhOEd2MndHUGlWK3BvSGthVzdKSEV5SnFMWW9zZElMaElt?=
- =?utf-8?B?cDREa0sra0hBL0tRZFJLcDA4STAzdk56TWdobEZLcThIK0tmMytuOGVYUi8r?=
- =?utf-8?B?RGljU2xXelkwN0ZlelNxd3lxZUNITjMyeFBmQlJkTDlndjNmVnZzR0UrR2tH?=
- =?utf-8?B?UHh0eC9YNnpQNWRTWVkzRUFXWE5UUXU2Rm5CVE54VThLbEQ0N0ROUWJPSllO?=
- =?utf-8?B?MmJpb09rL2w3YmRMOWF5WGwyK3RWTGdFNVlHSEtGUzAzQ3ZZZzVIMnJyWFZ6?=
- =?utf-8?B?VzVzZStId1N5SHFVTll0MFVXTVJINUpKSDEvTm5uK2NNTittWnEyVTFwYlZP?=
- =?utf-8?B?YklQYkh4UTBpNnJyR3FNRnNyQjdHREg1Y0dVZWN2NzlpajF4QjRrYjZVSGc2?=
- =?utf-8?B?Yk9rTDBUR01JRkhsaFRWOVZJS3FVNmJJTGxzaWhIY3BLSHo5YWVTRGgza3Iy?=
- =?utf-8?B?VEZkNTl4Tjl4Y0k0SWpBY3g4dEhRSksrRG1qZlVMSks4dVB5T3RJbGNhdkNJ?=
- =?utf-8?B?WjF2dGpTR0o4QlJGVzBpeTh6TmlKSzNDYy9mSnpIbUx2L3hmQzQybkRFb2VD?=
- =?utf-8?B?R0xBWm1zU285dkFoT0xXYVYvSG41anZJeWxRTncxY3g0WVZaekFuZEsxTkp2?=
- =?utf-8?B?YlMzM1ZKekUzOHZIUkhURGpnWVIrdW9kRkNDMzF6aU8wYlhHYmIzT0cyb29H?=
- =?utf-8?B?YXhhdWhkMnZ1YjNsQ2k3dzBtREZCcGxudnY2bGJjZzc2NUtQN3l2ZFJHQnBK?=
- =?utf-8?B?MkNVV3BkcmZZU3NLYWVDSGo5NzJGMk5maWZ3RENzSERRUGR0QUZ3emg1Qjhh?=
- =?utf-8?B?Q2UwOEpwWmhheVJGRnQ4ZXRQL0VKUktZRW9Ianhpdi9udkNnMytEODVUTlg0?=
- =?utf-8?B?N05KaWdydUMyL0ROQWwycG0wNEFpbnJneFBLSUpXY0VuQVFZVEJhQ0lkZEtT?=
- =?utf-8?B?QVc5eUN0SnlzQTEyN2Y2dVMvMi9BUmN3QnB5SjZLS2hES01XL2w2eksxTFdy?=
- =?utf-8?B?VkNtREJNRUZSa3Y1YUFFQmxtWlhRRUhhTHJiOUd3dlVwd3U1Z3pMMGo5ZXJr?=
- =?utf-8?B?QVpFUFh1SlNUK0R4elVhcTd0WVJZUkszVVdpYm5QUld4dWI2OGhFeHBjTk9y?=
- =?utf-8?B?V081cjZ6ZUJPK0ViVmJHUXdTTjNDUWxJdG9BRVRJbFRnVmh5OHFJR1RxNEpQ?=
- =?utf-8?B?bVJ4M2YybEptT1Q5RVpUa1l6QUJubU1MVkQ5cFR0UVNlQXdJWE5XMTRkVkN0?=
- =?utf-8?B?b3N0T05HL2orOW5JNTBhL3haVHdWSGJwamhJRFFZMTBXeTIyY0lJVnBoQ0R2?=
- =?utf-8?B?djVFUGMzTXRSbjBUQVZEV2N4NGNpQnpsekg1WmlLZm1qRzdBSGpDbUR2Ly92?=
- =?utf-8?B?QkRRUnVpcHZNN01XUDVxcDdVZzR4VEl4YnMwWjJTTEo0eGU4TEVRU3FBUDBw?=
- =?utf-8?B?VVA4TzlqWGY1ZUduUUV3VUpsTWNYb3V3U05UbENNYXlHMExMd3o1TGNibmdh?=
- =?utf-8?B?dWxVbFgvYkwyV1FDY283dVE5NUlhR2UxcEltMkZSVHBCK0taUmQrckRKNC90?=
- =?utf-8?B?R2JCcUFhNHdsUTA4WXhIbEtVTWVVWDVRMmFSQmhUQThPL0paMXV0TnIrYmdr?=
- =?utf-8?B?a0hyNWRWeG95ci95TTVvS2oxcDF5eml3WFFObDJwZVBBdHFmQ3Fka3d3Z2kz?=
- =?utf-8?B?OHk0MFJpV2RKMTJ4anRCSGVYcHBEdll2STNVNFlUVmg1US9rMXBaVGliYWdv?=
- =?utf-8?B?QitudHl1aVZCSndXclhWbG42QVpyYzVpLzUyZDd1dndpcjlqdTlXQWJCMXgx?=
- =?utf-8?Q?yjqST6XBzX1WrbOCAs72RfU=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e57a924b-dabb-4680-6e45-08d9c13a1c7b
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 08:49:18.1270 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 14:31:23.4018 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e781f943-ab0d-4659-ed42-08d9c169e6a2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mviWXLR3A2tM5X7WV/oOj72s1m4fjQKFyhcN7UXNo7RDbslVjQT9QRdOPg8eomao
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4410
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1775
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,44 +99,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: guchun.chen@amd.com
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.12.21 um 03:26 schrieb Leslie Shi:
-> [Why]
-> In amdgpu_driver_load_kms, when amdgpu_device_init returns error during driver modprobe, it
-> will start the error handle path immediately and call into amdgpu_device_unmap_mmio as well
-> to release mapped VRAM. However, in the following release callback, driver stills visits the
-> unmapped memory like vcn.inst[i].fw_shared_cpu_addr in vcn_v3_0_sw_fini. So a kernel crash occurs.
->
-> [How]
-> call amdgpu_device_unmap_mmio() if device is unplugged to prevent invalid memory address in
-> vcn_v3_0_sw_fini() when GPU initialization failure.
->
-> Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
+sdma queue number is not correct like on vega20, this patch
+promises the setting keeps the same after code refactor.
+Additionally, improve code to use switch case to list IP
+version to complete kfd device_info structure filling.
+This keeps consistency with the IP parse code in amdgpu_discovery.c.
 
-Looks sane to me, but Andrey should probably nood as well.
+Fixes: a9e2c4dc6cc4("drm/amdkfd: add kfd_device_info_init function")
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 74 ++++++++++++++++++++++---
+ 1 file changed, 65 insertions(+), 9 deletions(-)
 
-Acked-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index f31caec669e7..f6a47b927cfd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3899,7 +3899,9 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
->   
->   	amdgpu_gart_dummy_page_fini(adev);
->   
-> -	amdgpu_device_unmap_mmio(adev);
-> +	if (drm_dev_is_unplugged(adev_to_drm(adev)))
-> +		amdgpu_device_unmap_mmio(adev);
-> +
->   }
->   
->   void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index facc28f58c1f..e50bf992f298 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -59,11 +59,72 @@ static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+ 
+ static int kfd_resume(struct kfd_dev *kfd);
+ 
++static void kfd_device_info_set_sdma_queue_num(struct kfd_dev *kfd)
++{
++	uint32_t sdma_version = kfd->adev->ip_versions[SDMA0_HWIP][0];
++
++	switch (sdma_version) {
++		case IP_VERSION(4, 0, 0):/* VEGA10 */
++		case IP_VERSION(4, 0, 1):/* VEGA12 */
++		case IP_VERSION(4, 1, 0):/* RAVEN */
++		case IP_VERSION(4, 1, 1):/* RAVEN */
++		case IP_VERSION(4, 1, 2):/* RENIOR */
++		case IP_VERSION(5, 2, 1):/* VANGOGH */
++		case IP_VERSION(5, 2, 3):/* YELLOW_CARP */
++			kfd->device_info.num_sdma_queues_per_engine = 2;
++			break;
++		case IP_VERSION(4, 2, 0):/* VEGA20 */
++		case IP_VERSION(4, 2, 2):/* ARCTUTUS */
++		case IP_VERSION(4, 4, 0):/* ALDEBARAN */
++		case IP_VERSION(5, 0, 0):/* NAVI10 */
++		case IP_VERSION(5, 0, 1):/* CYAN_SKILLFISH */
++		case IP_VERSION(5, 0, 2):/* NAVI14 */
++		case IP_VERSION(5, 0, 5):/* NAVI12 */
++		case IP_VERSION(5, 2, 0):/* SIENNA_CICHLID */
++		case IP_VERSION(5, 2, 2):/* NAVY_FLOUDER */
++		case IP_VERSION(5, 2, 4):/* DIMGREY_CAVEFISH */
++			kfd->device_info.num_sdma_queues_per_engine = 8;
++			break;
++		default:
++			dev_err(kfd_device,
++				"Failed to find sdma ip blocks(SDMA_HWIP:0x%x) in %s\n",
++                                sdma_version, __func__);
++	}
++}
++
++static void kfd_device_info_set_event_interrupt_class(struct kfd_dev *kfd)
++{
++	uint32_t gc_version = KFD_GC_VERSION(kfd);
++
++	switch (gc_version) {
++	case IP_VERSION(9, 0, 1): /* VEGA10 */
++	case IP_VERSION(9, 2, 1): /* VEGA12 */
++	case IP_VERSION(9, 3, 0): /* RENOIR */
++	case IP_VERSION(9, 4, 0): /* VEGA20 */
++	case IP_VERSION(9, 4, 1): /* ARCTURUS */
++	case IP_VERSION(9, 4, 2): /* ALDEBARAN */
++	case IP_VERSION(10, 3, 1): /* VANGOGH */
++	case IP_VERSION(10, 3, 3): /* YELLOW_CARP */
++	case IP_VERSION(10, 1, 3): /* CYAN_SKILLFISH */
++	case IP_VERSION(10, 1, 10): /* NAVI10 */
++	case IP_VERSION(10, 1, 2): /* NAVI12 */
++	case IP_VERSION(10, 1, 1): /* NAVI14 */
++	case IP_VERSION(10, 3, 0): /* SIENNA_CICHLID */
++	case IP_VERSION(10, 3, 2): /* NAVY_FLOUNDER */
++	case IP_VERSION(10, 3, 4): /* DIMGREY_CAVEFISH */
++	case IP_VERSION(10, 3, 5): /* BEIGE_GOBY */
++		kfd->device_info.event_interrupt_class = &event_interrupt_class_v9;
++		break;
++	default:
++		dev_err(kfd_device, "Failed to find gc ip blocks(GC_HWIP:0x%x) in %s\n",
++				gc_version, __func__);
++	}
++}
++
+ static void kfd_device_info_init(struct kfd_dev *kfd,
+ 				 bool vf, uint32_t gfx_target_version)
+ {
+ 	uint32_t gc_version = KFD_GC_VERSION(kfd);
+-	uint32_t sdma_version = kfd->adev->ip_versions[SDMA0_HWIP][0];
+ 	uint32_t asic_type = kfd->adev->asic_type;
+ 
+ 	kfd->device_info.max_pasid_bits = 16;
+@@ -75,16 +136,11 @@ static void kfd_device_info_init(struct kfd_dev *kfd,
+ 	if (KFD_IS_SOC15(kfd)) {
+ 		kfd->device_info.doorbell_size = 8;
+ 		kfd->device_info.ih_ring_entry_size = 8 * sizeof(uint32_t);
+-		kfd->device_info.event_interrupt_class = &event_interrupt_class_v9;
+ 		kfd->device_info.supports_cwsr = true;
+ 
+-		if ((sdma_version >= IP_VERSION(4, 0, 0)  &&
+-		     sdma_version <= IP_VERSION(4, 2, 0)) ||
+-		     sdma_version == IP_VERSION(5, 2, 1)  ||
+-		     sdma_version == IP_VERSION(5, 2, 3))
+-			kfd->device_info.num_sdma_queues_per_engine = 2;
+-		else
+-			kfd->device_info.num_sdma_queues_per_engine = 8;
++		kfd_device_info_set_sdma_queue_num(kfd);
++
++		kfd_device_info_set_event_interrupt_class(kfd);
+ 
+ 		/* Raven */
+ 		if (gc_version == IP_VERSION(9, 1, 0) ||
+-- 
+2.17.1
 
