@@ -4,119 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57251C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 16:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26FE3C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 16:45:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB78310E570;
-	Fri, 17 Dec 2021 16:39:20 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1068310E570
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 16:39:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78BCF10E59E;
+	Fri, 17 Dec 2021 16:45:03 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A357E10E59E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 16:45:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bW18oAX5xvFhp6acroiiayQJ2+qJ4BQ2zQPOfoy4HPq3vwd3AL6rZWLKaxTcK38ai/3Wcmm/0H5v6Na2dn6H41DZIKYd3kDJE+8jBh0XvzqCqtOjwBZn9bi+X5Lc1/ib/PXE2XkKP3mfswZlJc8APD9Z/1edNY+8XN1Mum9N4MYWKRmjEo1uwql5yioFsSh8zot5/NLUW9QnUsoOEt6qipFwcSYkhN58yj5S2LNpwgWG9gInKP6sNcztQLdCLp9aSpsRTUE7OuA7xR6S6HyxQTck/nQw8GmxfG5BZPNoLfZ/+Kzq6Y4EEK18K/vKkYqsinc7RMLO4NZOPBR1KURMbg==
+ b=Q70nu5j54D1gOFYwyrYll5w9YWolgwtm6k0Zq/s43sJ+ElDFCoyvrWKTmmqXnZs5atmJ2PgTD8CYjziz/HayBJfd2wT9z0jITApW1F1Tfaq6hKJ5KEWrszxeT7LPs87jIaymu68dYUGzmXPBTjdIDsxD91cbsKezOG1Gay/WogS18+v4jzPNQSXXvlnAv0yOq98V7F9f7wotK/PtkUxuXEgoB39txOEbftH6yiVjx/lDamBVv+CFd5nwO4hoSpDmdVQuQsFMMxoonbgDz/VnzBQjhaKyheYnWOSak1aWwfRx40K+RwHUa1mt0bzJn8D4w1Yhoeei1YgQeQd1b4ELXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EpGnjr5H5tA/B3exYrG+uXDSx6HVwk6ZGsbtYVE8erY=;
- b=jCgaD6ByFs6XjDIdaWqyaXZy/VtKlXtlVxFnuLEhyOtYEk+kbtfuaL/NExuEk4uOBeVL3wzqBRcl+Bq858McLIlYh4hMRxe5VElirNodO7fBFrho5r7JAFFYRYTcg6mTbSWxtuUqH7oCoeAjG50s6vApVgKRpUjUrkYx8PseeB1Irqf8rHrGzG4qb9ed7E0uVzyT76y9Y30exVIx4MDUxIUVWxrBYdlFJMxGdPCV1T/b4oZaA2mxabbUjE+4moSQQep80pY5qroBmkkYjCdmZT9VMxVuWGRC3tK0UG7HvyhWj89boWdCaXrgCOipYtWStEoX7oJRo11YdI5u0JpXwQ==
+ bh=MD4dKskNDIR2HSvnGL+Q7zAs1wU8JksWweWJ/y3zOG8=;
+ b=AFkC7+9fX0xx98iAkTJYGtBqs/9K7V0iOP6KVxT81/8PMcQaBlgLFF8tc7wQvgDqbz2P1oZ9ZdIeE3e3bxtsKe8qJo1PXFkdmdqPiRtAiBPHbVTJJ4xLSvUDkuOTKfFW5d1NdERBlFigRZSttXNZE8/NkjRBg0+30165dNPB1b/cYPDyw9Rk7CLK+KT7I6KrMVMSUIvV8I19T/kCsdorCDly8412qO1yvfpPcppcxb7C9wuG9DT26bJ9qyIJcF1eRdj26lBZ8DPd93TEhvY1Pasv6xpJ1aIg/DnmT3SxhjK7IKPnCProLhLIIRohniI/BsqkYAuTAQmE1k8fVuMcqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EpGnjr5H5tA/B3exYrG+uXDSx6HVwk6ZGsbtYVE8erY=;
- b=5VEhdpC1Hj9OXkZiE1sf9cE+J8J2/hIRMmPj2WNyV+MtQ/moxCiyMH5faxaR95OA0sdpsddYNxxPXSNyEJ3Cz82N5JZimdy8FyKJixCZI3irwTTxdkP5Sc/kK0FSpqV4aZcJMlETs32NvHnwNdaNOVJHywGGVbGm3at+bwoGkBc=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5077.namprd12.prod.outlook.com (2603:10b6:208:310::17)
+ bh=MD4dKskNDIR2HSvnGL+Q7zAs1wU8JksWweWJ/y3zOG8=;
+ b=rWYTfut9tMg+PKihx7vSBNloqZvsb3EB21J5b58uuLPDaEab1ArgCGWN7fNgQDKCZvaZODYfPd9j+CNpNd/mRb9R814+57q6FcaQQfAEPwJ9/HMU/4ohw+JcRQDSEMXw7Nvn0At7TowKle7MSeb9uhS9R/+vKJkuA0xrhbL1K1M=
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
+ by CH0PR12MB5369.namprd12.prod.outlook.com (2603:10b6:610:d4::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17; Fri, 17 Dec
- 2021 16:39:16 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f170:3712:b17e:bd65]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f170:3712:b17e:bd65%9]) with mapi id 15.20.4801.014; Fri, 17 Dec 2021
- 16:39:15 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: ZhiJie.Zhang <zhangzhijie@loongson.cn>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Fri, 17 Dec
+ 2021 16:44:59 +0000
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::31b4:ebc:1707:f563]) by CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::31b4:ebc:1707:f563%8]) with mapi id 15.20.4778.017; Fri, 17 Dec 2021
+ 16:44:59 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Saye, Sashank" <Sashank.Saye@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Try To using WARN() instead BUG() avoid
- kernel panic
-Thread-Topic: [PATCH] drm/amdgpu: Try To using WARN() instead BUG() avoid
- kernel panic
-Thread-Index: AQHX8u88ofqL9FkkBE+Yxi2UHTSly6w24vi0
-Date: Fri, 17 Dec 2021 16:39:15 +0000
-Message-ID: <BL1PR12MB5144AD700F07EE3ECA1BA2B6F7789@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20211217023847.13379-1-zhangzhijie@loongson.cn>
-In-Reply-To: <20211217023847.13379-1-zhangzhijie@loongson.cn>
-Accept-Language: en-US
+Subject: RE: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrough
+ for sbr handling
+Thread-Topic: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrough
+ for sbr handling
+Thread-Index: AQHX81uBknBplA2VSkGfNdOPR8f4G6w23geg
+Date: Fri, 17 Dec 2021 16:44:59 +0000
+Message-ID: <CH0PR12MB5372EAFB8ECE025BA088D829F4789@CH0PR12MB5372.namprd12.prod.outlook.com>
+References: <20211217153324.181888-1-sashank.saye@amd.com>
+In-Reply-To: <20211217153324.181888-1-sashank.saye@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-17T16:39:15.244Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 689869d8-dfcf-1e62-f400-80f2e3558fe8
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-17T16:23:06Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=122135e3-fada-41e2-a729-6a70502decbc;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-12-17T16:44:58Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 50838d97-868e-45a1-b937-4b19ef610024
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0a26517a-747c-46e7-93a4-08d9c17bc3d1
-x-ms-traffictypediagnostic: BL1PR12MB5077:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB5077F2004D7B86A154730EA2F7789@BL1PR12MB5077.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:439;
+x-ms-office365-filtering-correlation-id: 753f3d13-dc08-4320-da5c-08d9c17c90b2
+x-ms-traffictypediagnostic: CH0PR12MB5369:EE_
+x-microsoft-antispam-prvs: <CH0PR12MB5369BA3AB1ADF69B9936BD2BF4789@CH0PR12MB5369.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: q1yIbfayqY53HMiaN+KtfKtKF1meb2ws0m6XASDqq2q7de+48TNfQhxYbgSXcvYqbcUBj3K67bg52mPeQ/zBJt1X/wlKiity030gCAXnaG4m9jxwGf7CDl7N7dTxGGm/ZPEknMPrkqf2tYkLtxFYx9vTQ4hQZiaz2EPISCDdmdJOOPo6+GCnzLSU4hgSAWFa6CB5KgNPhk+dZJ9EWSmzLpIbafYAdOGTx+r06+JSQJgc0PTNmYK9Ys16fKw2qubZVEziCvpowWUJFvbARBrBYaU465CGjiw523l2PTOt6cH0OjyXImsHGkWhk3ZY6+Wg0wp9Mf7Viee4jTVMxtLQz5JnG9P45MzRDTf0Z0IY6AFLyKgoph/rzgR5GnjjCWXMtdI4xyMpJKJv6UzrlMRj4YGWDYW9SvpRWARTS6zwsFX8RKhTtMIj+/v6K1PudZLirSjpWyAg3joieG4ywadWk4V3lMx3cqFYewJ4TDmlcnlaitkx+j2M4YsBvLmkY98Fpa3v3pJmkA0bfYcjtEovoWWgNJQg2O46J4jeEZ3KMLrR633tQQpb7cwZ2g2V9Y7wf478R87XJWSXw5FFOdXvmln0JcgnBWYB5fWQwoycd/PgbLIBBVDvBp8FIZDTaBh8+L0KDy6NvnIJZAY+7HsGAkdkvR/z4T1g/MYeCOmHcbjxaNjA128dnljOUQUZimAEropWwZJUHmh8EHGeeVUE5w==
+x-microsoft-antispam-message-info: Zvw8z9XeuW1pVQzpsq78Hp0kEiOsJOXLp6JJ5iaCfZjcSHHZpp5pF7E/Nxzo6KG+tSppK1NfnWpf36dEo0MqjvoK7eQL5LQDRChY7UnA0C2qEjUvagn/4lA8JfuQqRS3IT1QOByUyQWirSYedf41MTUpEgQ2jpu/fNs0A3h2TtQQH44s7BCfkpbOVl3LHWpmbwVF5qCt0fvqF5LGw5N1LPFoBZmbLqGuCoBRbaGceJNTVi/AjUCoojDVomzdvsRutB8vOofoExji2m8tH7ZnghvMRB42bESyZXY12CKqKFpvncZUotwtbsse/aO/iW0keDCtgrEMuivgPVvTO0ieJuO0aS+kCZP6927tC/busWqlXePGaJKui4uQ0kA1Hy9KVVY103MqBgP6oT2o68E1TmG6rGgDmY0f6MXUsSykJ4NXEjOTgSzRZvfH6oakmCWI0oz3StUwBr7cu3ybKpKWks2g/NUIXhG0MCeCqJVy5KzDUhcj2HpH7exxFKUMVXeUGvqGWhfnHcrMUi/sjVw6iOdf3iRblYGpbDWxE3frZ1e1QFDxxpp0ru18+wR199fXnTl+L4ZAcQfElXyiT5O/U7+6vxuPnUUZ0CiIa4VNRV/pfZrCUUWz+yOaO6ThlPGnskbDM6vsxJ7OXfkkS2CATdKJpcj7jzv3yNM25BzzEadQXvNhK9a+3tX6mwtrL34s9dveFCS4dumZ3yvOnPj9pw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38100700002)(186003)(86362001)(7696005)(8936002)(33656002)(508600001)(52536014)(71200400001)(8676002)(2906002)(122000001)(83380400001)(55016003)(53546011)(6506007)(38070700005)(66476007)(76116006)(4326008)(19627405001)(110136005)(66556008)(54906003)(26005)(64756008)(9686003)(316002)(66446008)(66946007)(5660300002);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(52536014)(53546011)(15650500001)(83380400001)(71200400001)(33656002)(7696005)(122000001)(76116006)(66946007)(8676002)(38070700005)(4326008)(110136005)(86362001)(508600001)(6506007)(55016003)(186003)(64756008)(66476007)(9686003)(38100700002)(2906002)(5660300002)(8936002)(26005)(66446008)(66556008)(316002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?x7SdquJQYd8WQATUILHsRkQIgcKbCXQeJ9bRa6KLjP8UDZ0+fdaC0KWDMs/o?=
- =?us-ascii?Q?7p9BDnNxZr8NNW/7wLfTVylxaGZuK1xcZV6QXWNSkhG+LuHzSip/piwLVwPy?=
- =?us-ascii?Q?r48sNV8v88hJ+g2wACdY0iEVcQeJC9P4Gzz0j0qVFDC5WYduOvAAHzN1ry38?=
- =?us-ascii?Q?d2yRPrKWg67agSi8dMDorMEIqdLq12kEAepXIf20IwT/7pCvCASkv9cKSZ78?=
- =?us-ascii?Q?DtVADwWWUuZw/uKGovVG45H7KnKgYqpWK3C2TJ/JF2qTugI1KMDKB3PoA2Ml?=
- =?us-ascii?Q?uzxTfIfpgfkVEZ3ZTXA1PkYIXTlHcRm2E5+vRqMcOU34umxHURPjtfR5Z/2Y?=
- =?us-ascii?Q?yRjfi6cRJzJnDXXch6IoT2ioE0ve/fdTkH1CiZvW7R8DUGTR1Gju9UtXqVe7?=
- =?us-ascii?Q?0tYhIpO14b8ilIb26Vpmjgt0NtiMqyT0bcdJwI44YGWX4f3H0hQ4qIZgkH0w?=
- =?us-ascii?Q?WCdTMJl4l3d53yyA6i1MW3NYT1bz8gBRB21Xt1NBRq2rtAcpkRZU1saWJft/?=
- =?us-ascii?Q?Ze1DUoNzCyMpdDiUGDcY9qt6KztlAV9EicEBHHU2vGpJLuZQL7bGMuEB55tK?=
- =?us-ascii?Q?UXsC9jxzvfcdfcOs89thKmBfXcNt7IfnAS+8SJdG54NLEITuCzHFlSIsQnpE?=
- =?us-ascii?Q?Hl/TrMcmuDIR2Iqn0RT7wGOCtyLl3XiaM/XQUysE7Mbf8dWcLHK7ZfegPgN1?=
- =?us-ascii?Q?HGEyhmKEv/A41jk+Dh4NgDZzfvMqiLEh1ltVXNLQ+lSWrDduDWHqZTwkWVp8?=
- =?us-ascii?Q?qG7yXS39aeeBKWIAcdCMl4h4gyL0ye/byLbLy9QSORpJPSs6xD2bZ5P7NWyy?=
- =?us-ascii?Q?s9ZkfyDZgwHbM0NTZitdSwhp9KToEtsv35bP+TygST95lWMOlGa/xQB8x2oU?=
- =?us-ascii?Q?X7eEN3OO8FFOijM/C0HYwy7EPo4LU4+cfbApt9vHYa6CoqtR5m2+NIxwc4s1?=
- =?us-ascii?Q?ECMnZMN487omZlGdhSNdpTiYMvoqlTzh+W4LfvDAGsxty+2wjbLSG3ObvGYj?=
- =?us-ascii?Q?ricB5hMOzEgksjEUxJkV7EOWVtxFwkdUQy5lSXvFNoDv7Zxq/Y6u+CpUmRbU?=
- =?us-ascii?Q?EMc90c939al5IxIVfhSnVUV/SGf+Ponbfl1vwRNniXTnqsvRgclMiHicUxie?=
- =?us-ascii?Q?J9pJ++nFE9e/JzEmrFdQ6UjLPc5vN6gQomkSnKS8l5rTOB6G4XiiYzsD9WQH?=
- =?us-ascii?Q?Ub3LsfP5By9Eci9YRcBGwyNiuNq9Q6x3q0AL/1Xxb56TIV3arJbFpNP5kQg6?=
- =?us-ascii?Q?dsuc2lDS6w0iPH2SPidK8NdEc+fMpek3j2hTdE5jdET0j8I/MZFvt3xwK1tn?=
- =?us-ascii?Q?NmZZZjaAbU8rbJ0hYWhO2r/qgkFKMlMu1yYpBj+us1LcjjD8F+CUJ8MdJ7vn?=
- =?us-ascii?Q?XfRc/kg5Pcrr13ezz9ifEXRQK/XCLwVZ4LwtIs3DjAcIJuHot+obl4O9C3Go?=
- =?us-ascii?Q?ddjK+7abFnJH5LJhml9s7Yu9nH7RGpEnHf7KOoPBppng2dzjBaB75TNvxNW/?=
- =?us-ascii?Q?74IgS7sxJiWRMfpTwwBidcSpRXjB0nbD6LFyKdApvFxN8m+67lLB4jsSXoqw?=
- =?us-ascii?Q?Bw636lk4wrETzCLRvyin0HDdOmLaidRlyK4n5TaIfjHPLFKW0mUixS9JZ7Q9?=
- =?us-ascii?Q?db+ktECMuFv33E6khqwq6z0=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144AD700F07EE3ECA1BA2B6F7789BL1PR12MB5144namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?vnUnefq+anHGzalstatelQcaeHEUQzIrhzIWS9XD1niOmdhCuz6d4zRyeuJO?=
+ =?us-ascii?Q?iNBOXKRjuXoiSMUA6FPqBt5GSnOoJTpaxTaeZRkjNhF30eHveKiT40mfP+95?=
+ =?us-ascii?Q?yD9C5ByD0AZOb1IkG8T0M0mQ4pDfzY2aD+AlXE2IAhAs7YFT6A0U7T2xkduE?=
+ =?us-ascii?Q?2jhovM09TluzKBskn0Gpd1Qhf2jWG5l0vVsxLLTrFqzs7hbBXla6gwH122bP?=
+ =?us-ascii?Q?M3jv0Y5eb9rR0cN2nt08m3I4m/fS/rbq3iC3BdQJYtt5qlHAihdjyb4fFoir?=
+ =?us-ascii?Q?F8+4c8xjhZe/EVbhR/i0g8Rdc1YRBI9ocEksxzpKWgZAZhpTQGR7nE9vomoH?=
+ =?us-ascii?Q?4zCkJKvPjqzZGtlZwAJGGBbWc8wZ8bqI+zZ2cCTgA1t4GUrT7FaHwS8WhZmC?=
+ =?us-ascii?Q?9IybPOOsrLP7PpVT6xSKjw72rJXwFXoXNCXs+oCRx6C4gGxkWCncswuvQBcV?=
+ =?us-ascii?Q?hliRXZPomYnBSvqUG1UfTPieucw8b4feg0I19HzG6zaekSdo3rlzbsnebffa?=
+ =?us-ascii?Q?iOLjrzmUEyIPGZt4gi5gu/PF2FmxBxau/orf5kTl6Df33kN540//Ya9B6qr4?=
+ =?us-ascii?Q?SeuAt2VY284P6pZk6OMPEmDjqIiQjG+sYKqWSqjO5zXRBRCvVeMPW4QnmpFs?=
+ =?us-ascii?Q?fDXZ/H6MQ4T5mud2L1equWhSQAllbKBoh4RWm+znMBqYT1PC6UAW1szqkbPO?=
+ =?us-ascii?Q?isnrXt82o7f7wUARmRcP2fVvbbf5umDq6iVoSlG/RIwIObKak5cH7wrK85M+?=
+ =?us-ascii?Q?Og40JGosfj3zlODuwYsz+zk3Il2+oREuF0hGVYs4cOa57BcGPsVsnBz9pN/9?=
+ =?us-ascii?Q?d6I0UDOVo1yTOOl47w+MBiiU0s7YposR6R38Hx4TxkxTcgqR8pSEfTHaiDOm?=
+ =?us-ascii?Q?kO2fl2kGP2/8PwyNyqIvWyOS7+Twx2SOwKerYOBtDWyU5HzzWAawkPg3i7rP?=
+ =?us-ascii?Q?kLFBxTA4IfUYz0ASmGI1HBSf0TasiCiw5WuYvu2eqpV15BPE6BlmcRlge3I/?=
+ =?us-ascii?Q?yaHG3rjjHXSaZrdRjVT554hdXakS7WFBdRa1FclcnT4f6dEuPEk6jjf8cCTJ?=
+ =?us-ascii?Q?RvieY4+I2+qWV3ZmPX0B8MnAlLIP4gEv0pGLKKdHGN+wTx/I9WQG45FhMRrB?=
+ =?us-ascii?Q?oLFYHYDo7p9Cp8MDRzN+d4TpB5KLfWLwlkn2g7i2aJIseFldf4JysTtx6n9D?=
+ =?us-ascii?Q?2KJfpWMIB3HNoQDtaL+fLK66YOr7stHL7jUveVrE2WSSpGNGQpzjXoAbYAFR?=
+ =?us-ascii?Q?Qjo3CX0bibJBRyzMpTXnR7RSglQlwe/+3ITYbEBukj2K3pTHd/DMBYxU6+8x?=
+ =?us-ascii?Q?AwGUCI9QImxAjtqvxgFIYB1RfkLCh+nP9Q9p5WCPeqBoX0zJFCVmCGVWN9uH?=
+ =?us-ascii?Q?3AEbrpd1fmws7VGvpalXrr+jwvEAjpMOMw99I6efkP08HkN9rdks8V3quoYB?=
+ =?us-ascii?Q?6Lzz4ITH/I8rtiqHgkxzTkYzwKe+UelLSb4pl5I74Df1VRVvukHeNd0DLsdt?=
+ =?us-ascii?Q?s4kk6zGT5CgNRMJWWGjbsXskPP/zsvtVSn9T+xKhrKIzEVmTydQUbIZVPVm5?=
+ =?us-ascii?Q?SAW4iAr2qPx6H2ndjqX5zqAcNtLQdtZW6PnVvwHfAtjDPU3tsstUdmTAFkSM?=
+ =?us-ascii?Q?yLcfGq7jtfyzE0bj5X+aPTc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a26517a-747c-46e7-93a4-08d9c17bc3d1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2021 16:39:15.8659 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 753f3d13-dc08-4320-da5c-08d9c17c90b2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2021 16:44:59.5738 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xrYDCZiLknoNOEfzI+UB+Wpva5Ufb3WAM3P93WLOxZdkpaM6zUCRrgvJAT4a7bpkf68+uN8zq3bgSnR6psultw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5077
+X-MS-Exchange-CrossTenant-userprincipalname: n1/gdtgTC1FC0Sl9gWpasaZVsyNSLfrvoWWGFdEJJ0bLHrYzLWSH9dGBirkyGzQKM8eASSND5RoSCz3te8yujQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5369
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,593 +136,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "airlied@linux.ie" <airlied@linux.ie>,
- "Jack.Zhang1@amd.com" <Jack.Zhang1@amd.com>,
- "botton_zhang@163.com" <botton_zhang@163.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>
+Cc: "Saye, Sashank" <Sashank.Saye@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144AD700F07EE3ECA1BA2B6F7789BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+[AMD Official Use Only]
 
-[Public]
+First , the name of heavy SBR  is confusing when you need to go through  li=
+ght SBR code path.=20
+Secondary,  originally we introduce the light SBR is because on older asic,=
+   FW can not synchronize the reset on the devices within the hive, so it d=
+epends on driver to sync the reset.  From what I have heard , for chip aruc=
+tus , the FW actually can sync the reset itself.  I don't see a necessary t=
+o  introduce the heavy SBR message, it seems SMU will do a full reset  when=
+ it get SBR  request.  IS there  a different code path  for SMU to handle t=
+he reset  for XGMI in passthrough mode ? =20
 
-I think these are pretty fundamental errors.  You should never hit them in =
-practice and if you do, I think a BUG is fine.
+Regards
+Shaoyun.liu
 
-Alex
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of sashank =
+saye
+Sent: Friday, December 17, 2021 10:33 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Saye, Sashank <Sashank.Saye@amd.com>
+Subject: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrough f=
+or sbr handling
 
-________________________________
-From: ZhiJie.Zhang <zhangzhijie@loongson.cn>
-Sent: Thursday, December 16, 2021 9:38 PM
-To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedes=
-ktop.org>
-Cc: zhangzhijie@loongson.cn <zhangzhijie@loongson.cn>; botton_zhang@163.com=
- <botton_zhang@163.com>; airlied@linux.ie <airlied@linux.ie>; daniel@ffwll.=
-ch <daniel@ffwll.ch>; Jack.Zhang1@amd.com <Jack.Zhang1@amd.com>
-Subject: [PATCH] drm/amdgpu: Try To using WARN() instead BUG() avoid kernel=
- panic
+For Aldebaran chip passthrough case we need to intimate SMU about special h=
+andling for SBR.On older chips we send LightSBR to SMU, enabling the same f=
+or Aldebaran. Slight difference, compared to previous chips, is on Aldebara=
+n, SMU would do a heavy reset on SBR. Hence, the word Heavy instead of Ligh=
+t SBR is used for SMU to differentiate.
 
-Signed-off-by: ZhiJie.Zhang <zhangzhijie@loongson.cn>
+Signed-off-by: sashank saye <sashank.saye@amd.com>
+Change-Id: I79420e7352bb670d6f9696df97d7546f131b18fc
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c    |  4 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 +++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c      |  5 +++-
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c      | 18 +++++++++----
- 4 files changed, 41 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  4 ++--
+ drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h       |  4 +++-
+ drivers/gpu/drm/amd/pm/inc/smu_types.h             |  3 ++-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 11 +++++++++++
+ 4 files changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_cgs.c
-index f1a050379190..edf2de4cec8c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-@@ -76,7 +76,7 @@ static uint32_t amdgpu_cgs_read_ind_register(struct cgs_d=
-evice *cgs_device,
-                 DRM_ERROR("audio endpt register access not implemented.\n"=
-);
-                 return 0;
-         default:
--               BUG();
-+               adev->accel_working =3D false;
-         }
-         WARN(1, "Invalid indirect register space");
-         return 0;
-@@ -104,9 +104,9 @@ static void amdgpu_cgs_write_ind_register(struct cgs_de=
-vice *cgs_device,
-                 DRM_ERROR("audio endpt register access not implemented.\n"=
-);
-                 return;
-         default:
--               BUG();
-         }
-         WARN(1, "Invalid indirect register space");
-+       adev->accel_working =3D false;
- }
-
- static uint32_t fw_type_convert(struct cgs_device *cgs_device, uint32_t fw=
-_type)
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
 md/amdgpu/amdgpu_device.c
-index 188accb71249..b9ecf7f70409 100644
+index f31caec669e7..06aee23505b2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -488,7 +488,11 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, ui=
-nt32_t offset)
-
-         if (offset < adev->rmmio_size)
-                 return (readb(adev->rmmio + offset));
--       BUG();
+@@ -2618,8 +2618,8 @@ static int amdgpu_device_ip_late_init(struct amdgpu_d=
+evice *adev)
+ 	if (r)
+ 		DRM_ERROR("enable mgpu fan boost failed (%d).\n", r);
+=20
+-	/* For XGMI + passthrough configuration on arcturus, enable light SBR */
+-	if (adev->asic_type =3D=3D CHIP_ARCTURUS &&
++	/* For XGMI + passthrough configuration on arcturus and aldebaran, enable=
+ light SBR */
++	if ((adev->asic_type =3D=3D CHIP_ARCTURUS || adev->asic_type =3D=3D=20
++CHIP_ALDEBARAN ) &&
+ 	    amdgpu_passthrough(adev) &&
+ 	    adev->gmc.xgmi.num_physical_nodes > 1)
+ 		smu_set_light_sbr(&adev->smu, true);
+diff --git a/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h b/drivers/gpu/drm=
+/amd/pm/inc/aldebaran_ppsmc.h
+index 35fa0d8e92dd..ab66a4b9e438 100644
+--- a/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
+@@ -102,7 +102,9 @@
+=20
+ #define PPSMC_MSG_GfxDriverResetRecovery	0x42
+ #define PPSMC_MSG_BoardPowerCalibration 	0x43
+-#define PPSMC_Message_Count			0x44
++#define PPSMC_MSG_HeavySBR                      0x45
++#define PPSMC_Message_Count			0x46
 +
-+       WARN(1, "Invalid indirect register space");
-+       adev->accel_working =3D false;
-+
-+       return 0;
+=20
+ //PPSMC Reset Types
+ #define PPSMC_RESET_TYPE_WARM_RESET              0x00
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/p=
+m/inc/smu_types.h
+index 18b862a90fbe..ff8a0bcbd290 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+@@ -229,7 +229,8 @@
+ 	__SMU_DUMMY_MAP(BoardPowerCalibration),   \
+ 	__SMU_DUMMY_MAP(RequestGfxclk),           \
+ 	__SMU_DUMMY_MAP(ForceGfxVid),             \
+-	__SMU_DUMMY_MAP(UnforceGfxVid),
++	__SMU_DUMMY_MAP(UnforceGfxVid),           \
++	__SMU_DUMMY_MAP(HeavySBR),
+=20
+ #undef __SMU_DUMMY_MAP
+ #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/g=
+pu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 7433a051e795..f442950e9676 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -141,6 +141,7 @@ static const struct cmn2asic_msg_mapping aldebaran_mess=
+age_map[SMU_MSG_MAX_COUNT
+ 	MSG_MAP(SetUclkDpmMode,			     PPSMC_MSG_SetUclkDpmMode,			0),
+ 	MSG_MAP(GfxDriverResetRecovery,		     PPSMC_MSG_GfxDriverResetRecovery,		=
+0),
+ 	MSG_MAP(BoardPowerCalibration,		     PPSMC_MSG_BoardPowerCalibration,		0)=
+,
++	MSG_MAP(HeavySBR,                            PPSMC_MSG_HeavySBR,         =
+               0),
+ };
+=20
+ static const struct cmn2asic_mapping aldebaran_clk_map[SMU_CLK_COUNT] =3D =
+{ @@ -1912,6 +1913,15 @@ static int aldebaran_mode2_reset(struct smu_contex=
+t *smu)
+ 	return ret;
  }
-
- /*
-@@ -513,8 +517,10 @@ void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint3=
-2_t offset, uint8_t value)
-
-         if (offset < adev->rmmio_size)
-                 writeb(value, adev->rmmio + offset);
--       else
--               BUG();
-+       else {
-+               WARN(1, "Invalid indirect register space");
-+               adev->accel_working =3D false;
-+       }
- }
-
- /**
-@@ -803,7 +809,8 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device=
- *adev,
- static uint32_t amdgpu_invalid_rreg(struct amdgpu_device *adev, uint32_t r=
-eg)
- {
-         DRM_ERROR("Invalid callback to read register 0x%04X\n", reg);
--       BUG();
+=20
++static int aldebaran_set_light_sbr(struct smu_context *smu, bool=20
++enable) {
++	int ret =3D 0;
++	//For alderbarn chip, SMU would do a mode 1 reset as part of SBR hence we=
+ call it HeavySBR instead of light
++	ret =3D  smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_HeavySBR, enable ?=
+=20
++1 : 0, NULL);
 +
-+       adev->accel_working =3D false;
-         return 0;
- }
-
-@@ -821,7 +828,8 @@ static void amdgpu_invalid_wreg(struct amdgpu_device *a=
-dev, uint32_t reg, uint32
- {
-         DRM_ERROR("Invalid callback to write register 0x%04X with 0x%08X\n=
-",
-                   reg, v);
--       BUG();
++	return ret;
++}
 +
-+       adev->accel_working =3D false;
- }
-
- /**
-@@ -837,7 +845,8 @@ static void amdgpu_invalid_wreg(struct amdgpu_device *a=
-dev, uint32_t reg, uint32
- static uint64_t amdgpu_invalid_rreg64(struct amdgpu_device *adev, uint32_t=
- reg)
- {
-         DRM_ERROR("Invalid callback to read 64 bit register 0x%04X\n", reg=
-);
--       BUG();
-+
-+       adev->accel_working =3D false;
-         return 0;
- }
-
-@@ -855,7 +864,8 @@ static void amdgpu_invalid_wreg64(struct amdgpu_device =
-*adev, uint32_t reg, uint
- {
-         DRM_ERROR("Invalid callback to write 64 bit register 0x%04X with 0=
-x%08llX\n",
-                   reg, v);
--       BUG();
-+
-+       adev->accel_working =3D false;
- }
-
- /**
-@@ -874,7 +884,9 @@ static uint32_t amdgpu_block_invalid_rreg(struct amdgpu=
-_device *adev,
- {
-         DRM_ERROR("Invalid callback to read register 0x%04X in block 0x%04=
-X\n",
-                   reg, block);
--       BUG();
-+
-+       adev->accel_working =3D false;
-+
-         return 0;
- }
-
-@@ -895,7 +907,8 @@ static void amdgpu_block_invalid_wreg(struct amdgpu_dev=
-ice *adev,
- {
-         DRM_ERROR("Invalid block callback to write register 0x%04X in bloc=
-k 0x%04X with 0x%08X\n",
-                   reg, block, v);
--       BUG();
-+
-+       adev->accel_working =3D false;
- }
-
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/am=
-dgpu/cik_sdma.c
-index c8ebd108548d..957169142e57 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -129,7 +129,10 @@ static int cik_sdma_init_microcode(struct amdgpu_devic=
-e *adev)
-         case CHIP_MULLINS:
-                 chip_name =3D "mullins";
-                 break;
--       default: BUG();
-+       default:
-+               DRM_ERROR("Invalid CHIPS");
-+               err =3D -EINVAL;
-+               goto out;
-         }
-
-         for (i =3D 0; i < adev->sdma.num_instances; i++) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v6_0.c
-index 6a8dadea40f9..e312a2146f6f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -334,7 +334,10 @@ static int gfx_v6_0_init_microcode(struct amdgpu_devic=
-e *adev)
-         case CHIP_HAINAN:
-                 chip_name =3D "hainan";
-                 break;
--       default: BUG();
-+       default:
-+               DRM_ERROR("Invalid CHIPS");
-+               err =3D -EINVAL;
-+               goto out;
-         }
-
-         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", chip_name)=
-;
-@@ -1668,8 +1671,8 @@ static void gfx_v6_0_constants_init(struct amdgpu_dev=
-ice *adev)
-                 gb_addr_config =3D HAINAN_GB_ADDR_CONFIG_GOLDEN;
-                 break;
-         default:
--               BUG();
--               break;
-+               DRM_ERROR("Invalid CHIPS");
-+               return;
-         }
-
-         WREG32(mmGRBM_CNTL, (0xff << GRBM_CNTL__READ_TIMEOUT__SHIFT));
-@@ -2153,7 +2156,10 @@ static u64 gfx_v6_0_ring_get_wptr(struct amdgpu_ring=
- *ring)
-         else if (ring =3D=3D &adev->gfx.compute_ring[1])
-                 return RREG32(mmCP_RB2_WPTR);
-         else
--               BUG();
-+               WARN(1, "Invalid Ring Buffer");
-+
-+       adev->accel_working =3D false;
-+       return -EINVAL;
- }
-
- static void gfx_v6_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
-@@ -2175,7 +2181,9 @@ static void gfx_v6_0_ring_set_wptr_compute(struct amd=
-gpu_ring *ring)
-                 WREG32(mmCP_RB2_WPTR, lower_32_bits(ring->wptr));
-                 (void)RREG32(mmCP_RB2_WPTR);
-         } else {
--               BUG();
-+               WARN(1, "Invalid Ring Buffer");
-+
-+               adev->accel_working =3D false;
-         }
-
- }
+ static bool aldebaran_is_mode1_reset_supported(struct smu_context *smu)  {=
+  #if 0 @@ -2021,6 +2031,7 @@ static const struct pptable_funcs aldebaran_p=
+pt_funcs =3D {
+ 	.get_gpu_metrics =3D aldebaran_get_gpu_metrics,
+ 	.mode1_reset_is_support =3D aldebaran_is_mode1_reset_supported,
+ 	.mode2_reset_is_support =3D aldebaran_is_mode2_reset_supported,
++	.set_light_sbr =3D aldebaran_set_light_sbr,
+ 	.mode1_reset =3D aldebaran_mode1_reset,
+ 	.set_mp1_state =3D aldebaran_set_mp1_state,
+ 	.mode2_reset =3D aldebaran_mode2_reset,
 --
-2.34.0
-
-
---_000_BL1PR12MB5144AD700F07EE3ECA1BA2B6F7789BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I think these are pretty fundamental errors.&nbsp; You should never hit the=
-m in practice and if you do, I think a BUG is fine.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> ZhiJie.Zhang &lt;zhan=
-gzhijie@loongson.cn&gt;<br>
-<b>Sent:</b> Thursday, December 16, 2021 9:38 PM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher, Ale=
-xander &lt;Alexander.Deucher@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt=
-;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> zhangzhijie@loongson.cn &lt;zhangzhijie@loongson.cn&gt;; botton_=
-zhang@163.com &lt;botton_zhang@163.com&gt;; airlied@linux.ie &lt;airlied@li=
-nux.ie&gt;; daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;; Jack.Zhang1@amd.com &l=
-t;Jack.Zhang1@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Try To using WARN() instead BUG() avoid=
- kernel panic</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Signed-off-by: ZhiJie.Zhang &lt;zhangzhijie@loongs=
-on.cn&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c&nbsp;&nbsp;&nbsp; |&nbsp; 4 +=
---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 +++++++++++++++------=
--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/cik_sdma.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |=
-&nbsp; 5 +++-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |=
- 18 +++++++++----<br>
-&nbsp;4 files changed, 41 insertions(+), 17 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_cgs.c<br>
-index f1a050379190..edf2de4cec8c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c<br>
-@@ -76,7 +76,7 @@ static uint32_t amdgpu_cgs_read_ind_register(struct cgs_d=
-evice *cgs_device,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;audio endpt register access not imple=
-mented.\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; BUG();<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN(1, &quot;Invalid indi=
-rect register space&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-@@ -104,9 +104,9 @@ static void amdgpu_cgs_write_ind_register(struct cgs_de=
-vice *cgs_device,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;audio endpt register access not imple=
-mented.\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; BUG();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN(1, &quot;Invalid indi=
-rect register space&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static uint32_t fw_type_convert(struct cgs_device *cgs_device, uint32=
-_t fw_type)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 188accb71249..b9ecf7f70409 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -488,7 +488,11 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, ui=
-nt32_t offset)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (offset &lt; adev-&gt;r=
-mmio_size)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return (readb(adev-&gt;rmmio + offset));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN(1, &quot;Invalid indirect regist=
-er space&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/*<br>
-@@ -513,8 +517,10 @@ void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint3=
-2_t offset, uint8_t value)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (offset &lt; adev-&gt;r=
-mmio_size)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; writeb(value, adev-&gt;rmmio + offset);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; BUG();<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WARN(1, &quot;Invalid indirect register space&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-@@ -803,7 +809,8 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device=
- *adev,<br>
-&nbsp;static uint32_t amdgpu_invalid_rreg(struct amdgpu_device *adev, uint3=
-2_t reg)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid ca=
-llback to read register 0x%04X\n&quot;, reg);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -821,7 +828,8 @@ static void amdgpu_invalid_wreg(struct amdgpu_device *a=
-dev, uint32_t reg, uint32<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid ca=
-llback to write register 0x%04X with 0x%08X\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg, v);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-@@ -837,7 +845,8 @@ static void amdgpu_invalid_wreg(struct amdgpu_device *a=
-dev, uint32_t reg, uint32<br>
-&nbsp;static uint64_t amdgpu_invalid_rreg64(struct amdgpu_device *adev, uin=
-t32_t reg)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid ca=
-llback to read 64 bit register 0x%04X\n&quot;, reg);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -855,7 +864,8 @@ static void amdgpu_invalid_wreg64(struct amdgpu_device =
-*adev, uint32_t reg, uint<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid ca=
-llback to write 64 bit register 0x%04X with 0x%08llX\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg, v);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-@@ -874,7 +884,9 @@ static uint32_t amdgpu_block_invalid_rreg(struct amdgpu=
-_device *adev,<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid ca=
-llback to read register 0x%04X in block 0x%04X\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg, block);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -895,7 +907,8 @@ static void amdgpu_block_invalid_wreg(struct amdgpu_dev=
-ice *adev,<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid bl=
-ock callback to write register 0x%04X in block 0x%04X with 0x%08X\n&quot;,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg, block, v);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/am=
-dgpu/cik_sdma.c<br>
-index c8ebd108548d..957169142e57 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c<br>
-@@ -129,7 +129,10 @@ static int cik_sdma_init_microcode(struct amdgpu_devic=
-e *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_MULLINS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; chip_name =3D &quot;mullins&quot;;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default: BUG();<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Invalid CHIPS&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; err =3D -EINVAL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; goto out;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
-&gt;sdma.num_instances; i++) {<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v6_0.c<br>
-index 6a8dadea40f9..e312a2146f6f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
-@@ -334,7 +334,10 @@ static int gfx_v6_0_init_microcode(struct amdgpu_devic=
-e *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_HAINAN:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; chip_name =3D &quot;hainan&quot;;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default: BUG();<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Invalid CHIPS&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; err =3D -EINVAL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; goto out;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(f=
-w_name), &quot;amdgpu/%s_pfp.bin&quot;, chip_name);<br>
-@@ -1668,8 +1671,8 @@ static void gfx_v6_0_constants_init(struct amdgpu_dev=
-ice *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; gb_addr_config =3D HAINAN_GB_ADDR_CONFIG_GOLDEN;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; BUG();<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Invalid CHIPS&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRBM_CNTL, (0xff =
-&lt;&lt; GRBM_CNTL__READ_TIMEOUT__SHIFT));<br>
-@@ -2153,7 +2156,10 @@ static u64 gfx_v6_0_ring_get_wptr(struct amdgpu_ring=
- *ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (ring =3D=3D &amp;=
-adev-&gt;gfx.compute_ring[1])<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return RREG32(mmCP_RB2_WPTR);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; BUG();<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WARN(1, &quot;Invalid Ring Buffer&quot;);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void gfx_v6_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)<br>
-@@ -2175,7 +2181,9 @@ static void gfx_v6_0_ring_set_wptr_compute(struct amd=
-gpu_ring *ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32(mmCP_RB2_WPTR, lower_32_bits(ring-&gt;wptr));<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; (void)RREG32(mmCP_RB2_WPTR);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; BUG();<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WARN(1, &quot;Invalid Ring Buffer&quot;);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;accel_working =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;}<br>
--- <br>
-2.34.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144AD700F07EE3ECA1BA2B6F7789BL1PR12MB5144namp_--
+2.25.1
