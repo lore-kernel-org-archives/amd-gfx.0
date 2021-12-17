@@ -4,129 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB188C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 17:11:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26345C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 17:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20BF610E670;
-	Fri, 17 Dec 2021 17:11:27 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 542E510E667
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 17:11:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IuvtDHTB/NnN5qawPZ6IG7m9LRqCEZpsLTk2nXCXuoqs9R62vhY9PLFf3RIiPIVZ/MENtKydGita6Juo5/nksLLr6n8bk8vZHFsxYtY8Ft03iMQeYb6nyLUWH17hMo9O4YQ9NAtRT3jqw5tPWUePqDzprfTf9ldjlZSIPxOtIqscAuexzwFINUY2yCmBIC8mSHfLTW4pVAzaAuNFJJ48oUPQMk7vj44KdZUGgV5k6G9EkUh24a9r+CF1iIAUQH36u4qmpdDYleeaURUdJ40rOkFX3PO+d9GMNBPP5badS1ADvjzLxA+PJ5vErnMRZFTEdbU1VxKEagrdvEqXIRq82g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cMR7LgDGiydVMjzwUfL6UT3UBc/HSiag1mrXxRLDNZ0=;
- b=PN+yvbmt7P5ZDA5t+nGSrAPdvteihsDe1QxTF3zgvhp5F9LAmikTT8hIFVYv+7t7dXts+/p3cINe0j1wqocZAX3zkxv8cClRFOd34hSqIQ5b3ZbfyOhE+a+I83JkjNaLEgDohtzX3aTUMuK7MnSNaTf8vz+wzmtIYmTE6qLH/NdZw4zrIkvCljrTqWPjNg+JPOI2lD1GbXG5ko+949UwPv8gacUzH38lZ6HiZyIrpE4W6pK7ioeET3h0+USYXmC4zSYgAPtVkUQM2VL/lCeXYeJtJI0CSVCgKnJF917tuSM3sZcpLPz+dxV4nCgjw5pR8+xhR5x3tEMzs1/4Grv7HQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cMR7LgDGiydVMjzwUfL6UT3UBc/HSiag1mrXxRLDNZ0=;
- b=hEhsTbKqv8PwfK1lvO6tiEAN+K11jWZQNI1WlZ4RYxghlokD4pxxxz14ElpaJMZUz/xO1bZIBPzIpPf08ok0fUGjWcg11ZRsvxjONyLOlDRV0CvgrflCGTQRaxBrKaRFk7chQ3hkUNN8LRH0SlFUCSn4vzIOBE7kq5dGwLp77YY=
-Received: from BL0PR12MB2433.namprd12.prod.outlook.com (2603:10b6:207:4a::25)
- by MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Fri, 17 Dec
- 2021 17:11:23 +0000
-Received: from BL0PR12MB2433.namprd12.prod.outlook.com
- ([fe80::950:57c2:75bf:aefa]) by BL0PR12MB2433.namprd12.prod.outlook.com
- ([fe80::950:57c2:75bf:aefa%7]) with mapi id 15.20.4778.018; Fri, 17 Dec 2021
- 17:11:23 +0000
-From: "Saye, Sashank" <Sashank.Saye@amd.com>
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrough
- for sbr handling
-Thread-Topic: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrough
- for sbr handling
-Thread-Index: AQHX81t7hy2jKHuu/UiEWJtjhi9W/qw25CSAgAAASmCAAAXFAIAAAPWg
-Date: Fri, 17 Dec 2021 17:11:23 +0000
-Message-ID: <BL0PR12MB2433C87A670C49F021812CC090789@BL0PR12MB2433.namprd12.prod.outlook.com>
-References: <20211217153324.181888-1-sashank.saye@amd.com>
- <CH0PR12MB5372EAFB8ECE025BA088D829F4789@CH0PR12MB5372.namprd12.prod.outlook.com>
- <BL0PR12MB2433BF358DCC96638855549390789@BL0PR12MB2433.namprd12.prod.outlook.com>
- <CH0PR12MB5372126F79E6ECC03CD0801FF4789@CH0PR12MB5372.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5372126F79E6ECC03CD0801FF4789@CH0PR12MB5372.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-17T16:23:06Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=122135e3-fada-41e2-a729-6a70502decbc;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-12-17T17:11:22Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 1005bc1f-c325-4f35-bb12-5dcf17913928
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1daaa772-5918-4de8-9957-08d9c1804087
-x-ms-traffictypediagnostic: MN2PR12MB4190:EE_
-x-microsoft-antispam-prvs: <MN2PR12MB4190917D7C8BD7DD64ED20B590789@MN2PR12MB4190.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 592JBQHJihEc5MPVanQpu9QX4K7fTjj+4AQRVrZ4/oPZ+jlnMcEJGSG3HlzwpkzzV7MhuXTXrjGrcyh6MsJMHuggLlhqXM5W4toINTUQkmqJ+vjoxOnbh9iuf4jkzP6u8uve/hfDoW/DRwdJki9gHvmVDGQJ25jM+PbiLpbsv+ihvQdELr4t65HsSEi8n8d1q0mztGY5qeskdJwURPZgsTe4B8PHyqkCwKAevIA33W8GReaHWRIDoQ7Xt3hOxipLJG86UKXFv/XmiwMA69uneLFAaDODxuR9ika8O32GIqkpZatqZki4MymTBWeRGi4XPm/NC7MHm8y3rwXY/H1Z7ixfvg33Xx+481B4CU5Ek+LpvPb9qi7WytuxbgoUYWrGbM8qS6xDP7C9AZ+OmVm6/vaCPhiDIMfG6wlHhProqmZgDbcY3At7SrlEL9VzLsov8AOUxHsnOEh2LLlvjceLi51RsgAOgj7ULn0n8O/tasfy02D+9d5gbNC6Z0f2qySgcrEXnn3u48dazbvY3uH2HyV8Gbzd9OwlFCvMd0Z0lNQH+3PEhvhP1Jtm//7jm1TdhYkrhepOaXnPjBBSPvcxFdTkZxUdQ+Xw0ilCNje6uoSja12dYjE4RrKNu2hZZW4Pe5xVWIuTfRoIPCy04lND+N/L8yZUZ0M1YggZZaf2W4JjlKp2P3T7fQAvXoe6Vo/qlH6jVvXba/an+jNZJ1gtEg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2433.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(122000001)(38100700002)(9686003)(7696005)(26005)(66446008)(83380400001)(66556008)(64756008)(8676002)(66476007)(66946007)(55016003)(2906002)(110136005)(76116006)(52536014)(6506007)(316002)(38070700005)(71200400001)(186003)(86362001)(5660300002)(33656002)(508600001)(15650500001)(8936002)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mo0PmB7XxUbfigIjHQLTJibDK66rLf0HLS5+ElfDAkmk9eHX1j6juWPdZ6GX?=
- =?us-ascii?Q?XKIoLD8zmd9TW3g5IfzNB5IytOvix0Bpxm5i7xOggpg1y3WG+/qCe/4Nj6TT?=
- =?us-ascii?Q?fT/MlV7n9p6ksRCHBvZ1//jy7mdjvnotLChOSsUt+Coksg108U6MP+Mu4fvT?=
- =?us-ascii?Q?E2lGxRMYdewyF9MAz7ZZddv1P7HT8O/DmZna7dUhYSbCdFUG1xL1rbp6p1oK?=
- =?us-ascii?Q?heaahSEmY4i02Hda+mclDo3XNPqLwfB7Agd6xmZLcUmMzdWkVXWWIuQ6TmRQ?=
- =?us-ascii?Q?JWGdIL2FhfmPSNMwmS47Ua2d1m5tf5/YdoF8iM0ysddFXjzcE1opVDyMJViQ?=
- =?us-ascii?Q?KKjJFqqGI+MOZ6uClfKpziJlwjvtf57Oi7Znt8BO/lWzkikQgVgsK+xer/WJ?=
- =?us-ascii?Q?6anFWOfpvLi/RRumFYZKs+i6hoxaWmn23arV8HluhMy6lLWfb9n8ae+0xT8x?=
- =?us-ascii?Q?aWARuV5K+PbiYnWKw8Q6QPIv0mvJJCEoH/SM12diipa4IEKXhpseYZVTmxrs?=
- =?us-ascii?Q?bXuezr/j5l7w8/UV+EMDpWTwAurCfhjgKnYCxih4gGzzhFrr/g2g+GQYL0M6?=
- =?us-ascii?Q?Mma+G6iiamp5WSUCtXIe0DpZ+fZPi7FP1W8to44GbgxSl7BCwOgNAaEUMXIY?=
- =?us-ascii?Q?k3owhTuIKE2bdp0SYadP0xMzHSDJgN5kSl6FRfFxrl9MXGFiTi3YP0qSfuuZ?=
- =?us-ascii?Q?Dg38nkEd5CFTwTdcKc+7Mjg6tnovt3mvgJjGTPqsNQElIpHNI3t0Z5Jd3yeS?=
- =?us-ascii?Q?8ombkOUJqA1Y2ZRnVZmMfQuTJLEcOCQ31un8oBVci2wOG5og1lnaeNDJYmuc?=
- =?us-ascii?Q?YYotQwrukXd0Vg9PqoMvx29v7vX43FWa3UTwLyM7QuD8WZkJOSLnkNctSQIC?=
- =?us-ascii?Q?taeB4FlimiEeLqhup8m3EB64ddAeVsnwQeRcaKSFnhMWXIPz88hB1F+k9mc1?=
- =?us-ascii?Q?llg9momLWKHsylg9w2CB5hUOGyu1VlnvhJvTlCon/Dn5AL4dHZi1sxYoFjlL?=
- =?us-ascii?Q?PLet6waSYrku4KaN0G+VatKUqC9N7x5Z8Ot5lj8QyFrpw9+Kj169Ri/51kTZ?=
- =?us-ascii?Q?Si0dncK9ZD/azyQi9949X5z6133Y7X7oUAJrNMaVu8ugexlNcUMn5LmmQqz0?=
- =?us-ascii?Q?xbGgq4ZICbVPlYk+e60+Q5il7m96vGslWABZEv0aG0ADoCnOS36I4ZvMpX+8?=
- =?us-ascii?Q?roQRjdtVc+rk1PPQqMjcTgSpg7PQm44wcl+G5Aqb+JGZ440wvyn9B51/1cvj?=
- =?us-ascii?Q?D0b3x0fgj21IyGNRtXcmuR9sS072OUc1S1XTNE7mGEWiBbiUoKjfL2TFEatn?=
- =?us-ascii?Q?99ykWAYOsfpAMT2bokDvPC7UcxEoX7G0IJsSdapg8E32rpCorNhHQIBHtLCL?=
- =?us-ascii?Q?XaxqRj1IyiH/sfHAvCrlbDd6Ydbql4Zegv8CKmGmmCrzZKHtkwNALiHUNHsR?=
- =?us-ascii?Q?yjarlFKKnTQc0wMqJu2I8oDFtkVsiAewKdJHUkEf9caII8d2xquwiZujZh0j?=
- =?us-ascii?Q?uiLSSwFAqw8A6C6mQ8ndE3Fakq6w4RJPE1n/aFE4zAKT1hwQpplBXQ3hyBo9?=
- =?us-ascii?Q?nTmk+Mh+5/1Nj9xFNGE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAA9510E875;
+	Fri, 17 Dec 2021 17:24:51 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5110310EAC3;
+ Fri, 17 Dec 2021 17:19:43 +0000 (UTC)
+Received: from ip4d173d4a.dynamic.kabel-deutschland.de ([77.23.61.74]
+ helo=[192.168.66.200]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1myGtO-0002Mw-9f; Fri, 17 Dec 2021 18:19:38 +0100
+Message-ID: <2f27c760-7679-c8d6-15f0-da1423ee9eb8@leemhuis.info>
+Date: Fri, 17 Dec 2021 18:19:37 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2433.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1daaa772-5918-4de8-9957-08d9c1804087
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2021 17:11:23.1269 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jaHhdAMLLrGCoREC6a/tAK1EjPy/xOeKc/ByHaBi4H7NxtdGwz7PPHXnr5dt/VYd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [Bug Report] Desktop monitor sleep regression
+Content-Language: en-BS
+To: Imre Deak <imre.deak@intel.com>
+References: <8a27c986-4767-bd29-2073-6c4ffed49bba@jetfuse.net>
+ <962fe0af-a080-fc0d-15f3-203166ff4584@leemhuis.info>
+ <dca67eb4-d007-2fa0-e0c2-b21d124967f1@leemhuis.info>
+ <20211217145202.GB1572087@ideak-desk.fi.intel.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <20211217145202.GB1572087@ideak-desk.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1639761583;
+ d09af403; 
+X-HE-SMSGID: 1myGtO-0002Mw-9f
+X-Mailman-Approved-At: Fri, 17 Dec 2021 17:24:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,199 +49,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-fbdev@vger.kernel.org,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, pjones@redhat.com,
+ Geert Uytterhoeven <geert@linux-m68k.org>, dri-devel@lists.freedesktop.org,
+ Brandon Nielsen <nielsenb@jetfuse.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
 
-Yeah after smu does the mode 1 reset, the clock is cleared, hence when the =
-driver boots after that, it will look like a regular cold boot.=20
 
-Regards
-Sashank
+On 17.12.21 15:52, Imre Deak wrote:
+> On Fri, Dec 17, 2021 at 03:46:21PM +0100, Thorsten Leemhuis wrote:
+>> added some CCs Geert added in his reply
+>>
+>> On 07.12.21 08:20, Thorsten Leemhuis wrote:
+>>>
+>>> [TLDR: adding this regression to regzbot; most of this mail is compiled
+>>> from a few templates paragraphs some of you might have seen already.]
+>>>
+>>> Hi, this is your Linux kernel regression tracker speaking.
+>>
+>> /me again
+>>
+>> What's up here? We are getting close to rc6, but there afaics wasn't any
+>> reply of substance since the report ten days ago. Hence:
+>>
+>> Could anybody please comment on this? Imre Deak, the commit Brandon
+>> found in the bisection contains a patch of yours, do you maybe have an
+>> idea what's up here?
+> 
+> Yes,
+> https://bugzilla.kernel.org/show_bug.cgi?id=215203
+> 
+> based on which the problem is somehere in the AMD driver.
 
------Original Message-----
-From: Liu, Shaoyun <Shaoyun.Liu@amd.com>=20
-Sent: Friday, December 17, 2021 12:07 PM
-To: Saye, Sashank <Sashank.Saye@amd.com>; amd-gfx@lists.freedesktop.org
-Subject: RE: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrou=
-gh for sbr handling
+Ha, sorry for the noise then, I really feel stupid: I have no idea why I
+didn't check the bug report for an update, as I do normally do. Much
+have slipped through. Ohh well, hopefully we one day have have a central
+place to handle these things.
 
-[AMD Official Use Only]
+Ciao, Thorsten
 
-Ok, sounds reasonable . I'm ok for the function name change . =20
-Another concern , from driver side , before it start the  ip init ,  it wil=
-l check the SMU clock to determine whether the  asic need a reset from driv=
-er side . For your case , the hypervisor will trigger the SBR on  VM on/off=
- and SMU will handle the reset.  Can  you check after this  reset , will SM=
-U still alive ? If it's alive , the driver will trigger the reset again .=20
-
-Regards
-Shaoyun.liu
-
------Original Message-----
-From: Saye, Sashank <Sashank.Saye@amd.com>
-Sent: Friday, December 17, 2021 11:53 AM
-To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; amd-gfx@lists.freedesktop.org
-Subject: RE: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrou=
-gh for sbr handling
-
-[AMD Official Use Only]
-
-Hi Shaoyun,
-Yes, From SMU FW point of view they do see a difference between Bare metal =
-and passthrough case for SBR. For baremetal they get it as a PCI reset wher=
-eas passthrough case they get it as a BIF reset. Now within BIF reset they =
-would need to differentiate between older asic( where we do BACO) and newer=
- ones where we do mode 1 reset. Hence in-order for SMU to differentiate the=
-se scenarios we are adding a new message.=20
-
-I think I will rename the function to smu_handle_passthrough_sbr from the c=
-urrent smu_set_light_sbr function name.
-
-Regards
-Sashank
-
------Original Message-----
-From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
-Sent: Friday, December 17, 2021 11:45 AM
-To: Saye, Sashank <Sashank.Saye@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Saye, Sashank <Sashank.Saye@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrou=
-gh for sbr handling
-
-[AMD Official Use Only]
-
-First , the name of heavy SBR  is confusing when you need to go through  li=
-ght SBR code path.=20
-Secondary,  originally we introduce the light SBR is because on older asic,=
-   FW can not synchronize the reset on the devices within the hive, so it d=
-epends on driver to sync the reset.  From what I have heard , for chip aruc=
-tus , the FW actually can sync the reset itself.  I don't see a necessary t=
-o  introduce the heavy SBR message, it seems SMU will do a full reset  when=
- it get SBR  request.  IS there  a different code path  for SMU to handle t=
-he reset  for XGMI in passthrough mode ? =20
-
-Regards
-Shaoyun.liu
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of sashank =
-saye
-Sent: Friday, December 17, 2021 10:33 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Saye, Sashank <Sashank.Saye@amd.com>
-Subject: [PATCH] drm/amdgpu: Send Message to SMU on aldebaran passthrough f=
-or sbr handling
-
-For Aldebaran chip passthrough case we need to intimate SMU about special h=
-andling for SBR.On older chips we send LightSBR to SMU, enabling the same f=
-or Aldebaran. Slight difference, compared to previous chips, is on Aldebara=
-n, SMU would do a heavy reset on SBR. Hence, the word Heavy instead of Ligh=
-t SBR is used for SMU to differentiate.
-
-Signed-off-by: sashank saye <sashank.saye@amd.com>
-Change-Id: I79420e7352bb670d6f9696df97d7546f131b18fc
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  4 ++--
- drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h       |  4 +++-
- drivers/gpu/drm/amd/pm/inc/smu_types.h             |  3 ++-
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 11 +++++++++++
- 4 files changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index f31caec669e7..06aee23505b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2618,8 +2618,8 @@ static int amdgpu_device_ip_late_init(struct amdgpu_d=
-evice *adev)
- 	if (r)
- 		DRM_ERROR("enable mgpu fan boost failed (%d).\n", r);
-=20
--	/* For XGMI + passthrough configuration on arcturus, enable light SBR */
--	if (adev->asic_type =3D=3D CHIP_ARCTURUS &&
-+	/* For XGMI + passthrough configuration on arcturus and aldebaran, enable=
- light SBR */
-+	if ((adev->asic_type =3D=3D CHIP_ARCTURUS || adev->asic_type =3D=3D=20
-+CHIP_ALDEBARAN ) &&
- 	    amdgpu_passthrough(adev) &&
- 	    adev->gmc.xgmi.num_physical_nodes > 1)
- 		smu_set_light_sbr(&adev->smu, true);
-diff --git a/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h b/drivers/gpu/drm=
-/amd/pm/inc/aldebaran_ppsmc.h
-index 35fa0d8e92dd..ab66a4b9e438 100644
---- a/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
-@@ -102,7 +102,9 @@
-=20
- #define PPSMC_MSG_GfxDriverResetRecovery	0x42
- #define PPSMC_MSG_BoardPowerCalibration 	0x43
--#define PPSMC_Message_Count			0x44
-+#define PPSMC_MSG_HeavySBR                      0x45
-+#define PPSMC_Message_Count			0x46
-+
-=20
- //PPSMC Reset Types
- #define PPSMC_RESET_TYPE_WARM_RESET              0x00
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/p=
-m/inc/smu_types.h
-index 18b862a90fbe..ff8a0bcbd290 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
-@@ -229,7 +229,8 @@
- 	__SMU_DUMMY_MAP(BoardPowerCalibration),   \
- 	__SMU_DUMMY_MAP(RequestGfxclk),           \
- 	__SMU_DUMMY_MAP(ForceGfxVid),             \
--	__SMU_DUMMY_MAP(UnforceGfxVid),
-+	__SMU_DUMMY_MAP(UnforceGfxVid),           \
-+	__SMU_DUMMY_MAP(HeavySBR),
-=20
- #undef __SMU_DUMMY_MAP
- #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/g=
-pu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 7433a051e795..f442950e9676 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -141,6 +141,7 @@ static const struct cmn2asic_msg_mapping aldebaran_mess=
-age_map[SMU_MSG_MAX_COUNT
- 	MSG_MAP(SetUclkDpmMode,			     PPSMC_MSG_SetUclkDpmMode,			0),
- 	MSG_MAP(GfxDriverResetRecovery,		     PPSMC_MSG_GfxDriverResetRecovery,		=
-0),
- 	MSG_MAP(BoardPowerCalibration,		     PPSMC_MSG_BoardPowerCalibration,		0)=
-,
-+	MSG_MAP(HeavySBR,                            PPSMC_MSG_HeavySBR,         =
-               0),
- };
-=20
- static const struct cmn2asic_mapping aldebaran_clk_map[SMU_CLK_COUNT] =3D =
-{ @@ -1912,6 +1913,15 @@ static int aldebaran_mode2_reset(struct smu_contex=
-t *smu)
- 	return ret;
- }
-=20
-+static int aldebaran_set_light_sbr(struct smu_context *smu, bool
-+enable) {
-+	int ret =3D 0;
-+	//For alderbarn chip, SMU would do a mode 1 reset as part of SBR hence we=
- call it HeavySBR instead of light
-+	ret =3D  smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_HeavySBR, enable ?=
-=20
-+1 : 0, NULL);
-+
-+	return ret;
-+}
-+
- static bool aldebaran_is_mode1_reset_supported(struct smu_context *smu)  {=
-  #if 0 @@ -2021,6 +2031,7 @@ static const struct pptable_funcs aldebaran_p=
-pt_funcs =3D {
- 	.get_gpu_metrics =3D aldebaran_get_gpu_metrics,
- 	.mode1_reset_is_support =3D aldebaran_is_mode1_reset_supported,
- 	.mode2_reset_is_support =3D aldebaran_is_mode2_reset_supported,
-+	.set_light_sbr =3D aldebaran_set_light_sbr,
- 	.mode1_reset =3D aldebaran_mode1_reset,
- 	.set_mp1_state =3D aldebaran_set_mp1_state,
- 	.mode2_reset =3D aldebaran_mode2_reset,
---
-2.25.1
+>> Ciao, Thorsten
+>>
+>> #regzbot poke
+>>
+>>> Adding the regression mailing list to the list of recipients, as it
+>>> should be in the loop for all regressions, as explained here:
+>>> https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html
+>>>
+>>> Also adding the authors and reviewers of the culprit and two appropriate
+>>> mailing lists.
+>>>
+>>> On 07.12.21 01:21, Brandon Nielsen wrote:
+>>>> Monitors no longer sleep properly on my system (dual monitor connected
+>>>> via DP->DVI, amdgpu, x86_64). The monitors slept properly on 5.14, but
+>>>> stopped during the 5.15 series. I have also filed this bug on the kernel
+>>>> bugzilla[0] and downstream[1].
+>>>>
+>>>> I have performed a bisect, first "bad" commit to master is
+>>>> 55285e21f04517939480966164a33898c34b2af2[1], the same change made it
+>>>> into the 5.15 branch as e3b39825ed0813f787cb3ebdc5ecaa5131623647.
+>>>
+>>> TWIMC: That was for 5.15.3
+>>>
+>>>> I have
+>>>> verified the issue exists in latest master
+>>>> (a51e3ac43ddbad891c2b1a4f3aa52371d6939570).
+>>>>
+>>>> Steps to reproduce:
+>>>>
+>>>>   1. Boot system (Fedora Workstation 35 in this case)
+>>>>   2. Log in
+>>>>   3. Lock screen (after a few seconds, monitors will enter power save
+>>>> "sleep" state with backlight off)
+>>>>   4. Wait (usually no more than 30 seconds, sometimes up to a few minutes)
+>>>>   5. Observe monitor leaving "sleep" state (backlight comes back on),
+>>>> but nothing is displayed
+>>>>
+>>>> [0] - https://bugzilla.kernel.org/show_bug.cgi?id=215203
+>>>> [1] - https://bugzilla.redhat.com/show_bug.cgi?id=2028613
+>>>
+>>> To be sure this issue doesn't fall through the cracks unnoticed, I'm
+>>> adding it to regzbot, my Linux kernel regression tracking bot:
+>>>
+>>> #regzbot ^introduced 55285e21f04517939480966164a33898c34b2af2
+>>> #regzbot title fbdev/efifb: Monitors no longer sleep (amdgpu dual
+>>> monitor setup)
+>>> #regzbot ignore-activity
+>>>
+>>> Reminder: when fixing the issue, please add a 'Link:' tag with the URL
+>>> to the report (the parent of this mail), then regzbot will automatically
+>>> mark the regression as resolved once the fix lands in the appropriate
+>>> tree. For more details about regzbot see footer.
+>>>
+>>> Sending this to everyone that got the initial report, to make all aware
+>>> of the tracking. I also hope that messages like this motivate people to
+>>> directly get at least the regression mailing list and ideally even
+>>> regzbot involved when dealing with regressions, as messages like this
+>>> wouldn't be needed then.
+>>>
+>>> Don't worry, I'll send further messages wrt to this regression just to
+>>> the lists (with a tag in the subject so people can filter them away), as
+>>> long as they are intended just for regzbot. With a bit of luck no such
+>>> messages will be needed anyway.
+>>>
+>>> Ciao, Thorsten, your Linux kernel regression tracker.
+>>>
+>>> P.S.: As a Linux kernel regression tracker I'm getting a lot of reports
+>>> on my table. I can only look briefly into most of them. Unfortunately
+>>> therefore I sometimes will get things wrong or miss something important.
+>>> I hope that's not the case here; if you think it is, don't hesitate to
+>>> tell me about it in a public reply. That's in everyone's interest, as
+>>> what I wrote above might be misleading to everyone reading this; any
+>>> suggestion I gave they thus might sent someone reading this down the
+>>> wrong rabbit hole, which none of us wants.
+>>>
+>>> BTW, I have no personal interest in this issue, which is tracked using
+>>> regzbot, my Linux kernel regression tracking bot
+>>> (https://linux-regtracking.leemhuis.info/regzbot/). I'm only posting
+>>> this mail to get things rolling again and hence don't need to be CC on
+>>> all further activities wrt to this regression.
+>>>
+> 
