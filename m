@@ -4,90 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B61C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 14:31:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86815C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 14:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFAA9112749;
-	Fri, 17 Dec 2021 14:31:27 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3470F112749
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 14:31:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P4YJxTkAWrWbbLfsN/+tUAbNJyKmBqqd5+65r9qi0InZLgl6EBSBre1z6JazY3NkUghbaNveT8Emp49hXRaq0yds4AwG8kwnKgST5pm48qVfsTs2P0ioZIBGwZHOqCrCqncNkcwcjutujAzu86KE+N6H2d2kANHs7A3dGpekQpmOs3LMivgGu98gFNS7SzVb/saZomm/kOp1YypQGtvEyOJo/yCoUi8miqnChy59oPU4U7KYEsfw6CLunPmIyEcnjq+hLnzqfxCof5/Px74kLoGnUuLQ21eERHObRcchvvuSwAwwTMawBdFDmBzCf6vJRExpIm6D6Fe1qpLQ5S2osg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mhnMZkbaSD1YhQFzyk32y65j32brLtm7OI1oHVYwQzs=;
- b=fPgMEyqcF0hw7rG0q62X6OI7F/J/ff2gb4Jwx2+P3T/QZWQiiYXIjskxPzmXV2YRyUqc8AmbrtEW99QmppnP7dYcjcansPaCkHSdE6Sb0G/q8xvSa/uzUEo4/KekIDfa20Si/tisKb4uWnhExupswoA9BErQy76ytCf8xobt24pp/P3ANTdU6KIF7FC8F1QgqSS4mdBsoXq4H07nDtyE1DlRJUtVSYLLBUbCql4VYS8LY3oWg9F3DSEUAhAjVqqv99cq01mt79VZMWRBOrtAQpZlFa+ERLyE9GQ59ZP/FFWfu/ATI58hKH8l0mFztdngJUVWKY6rs9j2dVn1RZ6hzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mhnMZkbaSD1YhQFzyk32y65j32brLtm7OI1oHVYwQzs=;
- b=QemZHNHWzLOmp9uWbKDqBgeK1sKOBek3ywGX6/S9qqNFPEmqN1AxZ3o5SVohXKyDIpYJeHQqdNtSI3tWVxUTK1ispkANsg+S+9Us1RGns6vDhGWRgX3ROdWWOmdJ9UpiYJFNj2EKQ+EZwb1IX+UJT0u/nmn9dngYNSqjQ/GKUho=
-Received: from DS7PR03CA0173.namprd03.prod.outlook.com (2603:10b6:5:3b2::28)
- by MWHPR12MB1775.namprd12.prod.outlook.com (2603:10b6:300:109::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Fri, 17 Dec
- 2021 14:31:23 +0000
-Received: from DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b2:cafe::d3) by DS7PR03CA0173.outlook.office365.com
- (2603:10b6:5:3b2::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14 via Frontend
- Transport; Fri, 17 Dec 2021 14:31:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT009.mail.protection.outlook.com (10.13.173.20) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4801.14 via Frontend Transport; Fri, 17 Dec 2021 14:31:23 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Fri, 17 Dec 2021 08:31:21 -0600
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <Graham.Sider@amd.com>, <Felix.Kuehling@amd.com>, <jonathan.kim@amd.com>
-Subject: [PATCH] drm/amdkfd: correct sdma queue number in kfd device init
-Date: Fri, 17 Dec 2021 22:31:06 +0800
-Message-ID: <20211217143106.14140-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8AE211286E;
+	Fri, 17 Dec 2021 14:52:18 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA79811286E;
+ Fri, 17 Dec 2021 14:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639752737; x=1671288737;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=THqJJZ8NhSQo4SXDMk2vLpE8+I3lzrSzq6fTuTEKzUw=;
+ b=UoWZDxETpfUsKJCBeBmc9PEdzGx9Mj5jcAra4XC+xXder6ma8ROdQs5Y
+ GYvCfaZr4kkzKnZNFLLktQC6S+9SyiN4hAKlWWj2O6D3/rX0j1GVgooZN
+ PIykTMXjfCbJohKFMfIysnhg//1ay9QhPCdVdU8jE/Y+VgbUJYj58Ggox
+ Y270MzaegUj2j3Ubx6cI7N3iKFO+mz2uHbDr/gdKSthj5yW9yJxSU6TZO
+ kl9wISret0FgwXKyeXZShnWuefx1xASNRKpVEG2kpJNccVKvTcSdVfGAk
+ 0fOvDEJZT47lC0cRWPxxiduedfE3Vok9YSbPNzv9hKQe/aYw0cItFcgo8 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="239576967"
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="239576967"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2021 06:52:10 -0800
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="615578684"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2021 06:52:07 -0800
+Date: Fri, 17 Dec 2021 16:52:02 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [Bug Report] Desktop monitor sleep regression
+Message-ID: <20211217145202.GB1572087@ideak-desk.fi.intel.com>
+References: <8a27c986-4767-bd29-2073-6c4ffed49bba@jetfuse.net>
+ <962fe0af-a080-fc0d-15f3-203166ff4584@leemhuis.info>
+ <dca67eb4-d007-2fa0-e0c2-b21d124967f1@leemhuis.info>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e781f943-ab0d-4659-ed42-08d9c169e6a2
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1775:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1775801366864BF333954BD7F1789@MWHPR12MB1775.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:546;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Vn5P/ird0B7PKPUeiECLGi6c7W2HjM1jwag5l7MmtAEBzNjMMtIPEF0ZGPNInNj4M3UtDD4/WC9+57rDeOINIc9hTp4Za2skBFr9Qbgrz9+e75TgrnV6maTL4DRGsYxc537fSCPyJQnnab3T6d49ivFqxUWld64hEj54s8Fitx8sCN/6QoYrKu2OkTuyXCrJVnylSeIQQ1o53I1X6W0KAiVSmbgGnB0N8klGM1kDbKUEPzbIyk8dc8fXrutb0Dd21E96QZvcokajYSRdrtX4sPV1duSzoB6Tzb6WZ5V8+0GHaSrtP8/Ed0sL+PJmT7sWcHJtK51F3+xy/gJOCz2HEbTItNMl87Ho+S4XIh5GMZ+I1Sb7+yrz5QGwcwC8MKrsqxMZMu4Yfsamhe7Cz3ZB9aH/wPmKnxxvENFn1sQZb4H0GiBPU7tSPJZr+2BP8EyzoerGI60XOf45TGKT7YCX4TCutWaqtK2XW0pq8igQ7Tf1GxjUZrQNjsvuWDCy6uTrPjTVT2IW4HhaBEmUdvUBhUvQGocn8ZxZIiJDIH9jLbfp7b0IZ1c4SBev6mSRyWikLnOSBBDX8JAfIYsj+enwb138KjnRlxJM6ai6x0O17FzGj2Z/yytEz1xOKDPxujFz0bnogQB/jzzUiMTgGvg4rNRC1xqXPys3sPmMCpOeQl7CxNysSV86Jf1I42c8Jut/clHYNDk2bUWh5DhrTdn/CzmH+Q12t/rMaWZeBZAMrcsux32Zy9nblAvGlRJTn70FA35n/crLYM3IHT5QzQC6Tap/LBKhMv8fsbeBjm4d7mRaJd43kr4Sv1toG7Owwan0
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700001)(7696005)(36756003)(508600001)(6666004)(70586007)(1076003)(6636002)(2906002)(26005)(81166007)(356005)(316002)(5660300002)(40460700001)(47076005)(70206006)(36860700001)(110136005)(82310400004)(86362001)(83380400001)(8936002)(2616005)(44832011)(4326008)(426003)(8676002)(336012)(16526019)(186003)(36900700001)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 14:31:23.4018 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e781f943-ab0d-4659-ed42-08d9c169e6a2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1775
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dca67eb4-d007-2fa0-e0c2-b21d124967f1@leemhuis.info>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,120 +57,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: linux-fbdev@vger.kernel.org,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, pjones@redhat.com,
+ Geert Uytterhoeven <geert@linux-m68k.org>, dri-devel@lists.freedesktop.org,
+ Brandon Nielsen <nielsenb@jetfuse.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sdma queue number is not correct like on vega20, this patch
-promises the setting keeps the same after code refactor.
-Additionally, improve code to use switch case to list IP
-version to complete kfd device_info structure filling.
-This keeps consistency with the IP parse code in amdgpu_discovery.c.
+On Fri, Dec 17, 2021 at 03:46:21PM +0100, Thorsten Leemhuis wrote:
+> added some CCs Geert added in his reply
+> 
+> On 07.12.21 08:20, Thorsten Leemhuis wrote:
+> > 
+> > [TLDR: adding this regression to regzbot; most of this mail is compiled
+> > from a few templates paragraphs some of you might have seen already.]
+> > 
+> > Hi, this is your Linux kernel regression tracker speaking.
+> 
+> /me again
+> 
+> What's up here? We are getting close to rc6, but there afaics wasn't any
+> reply of substance since the report ten days ago. Hence:
+>
+> Could anybody please comment on this? Imre Deak, the commit Brandon
+> found in the bisection contains a patch of yours, do you maybe have an
+> idea what's up here?
 
-Fixes: a9e2c4dc6cc4("drm/amdkfd: add kfd_device_info_init function")
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 74 ++++++++++++++++++++++---
- 1 file changed, 65 insertions(+), 9 deletions(-)
+Yes,
+https://bugzilla.kernel.org/show_bug.cgi?id=215203
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index facc28f58c1f..e50bf992f298 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -59,11 +59,72 @@ static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
- 
- static int kfd_resume(struct kfd_dev *kfd);
- 
-+static void kfd_device_info_set_sdma_queue_num(struct kfd_dev *kfd)
-+{
-+	uint32_t sdma_version = kfd->adev->ip_versions[SDMA0_HWIP][0];
-+
-+	switch (sdma_version) {
-+		case IP_VERSION(4, 0, 0):/* VEGA10 */
-+		case IP_VERSION(4, 0, 1):/* VEGA12 */
-+		case IP_VERSION(4, 1, 0):/* RAVEN */
-+		case IP_VERSION(4, 1, 1):/* RAVEN */
-+		case IP_VERSION(4, 1, 2):/* RENIOR */
-+		case IP_VERSION(5, 2, 1):/* VANGOGH */
-+		case IP_VERSION(5, 2, 3):/* YELLOW_CARP */
-+			kfd->device_info.num_sdma_queues_per_engine = 2;
-+			break;
-+		case IP_VERSION(4, 2, 0):/* VEGA20 */
-+		case IP_VERSION(4, 2, 2):/* ARCTUTUS */
-+		case IP_VERSION(4, 4, 0):/* ALDEBARAN */
-+		case IP_VERSION(5, 0, 0):/* NAVI10 */
-+		case IP_VERSION(5, 0, 1):/* CYAN_SKILLFISH */
-+		case IP_VERSION(5, 0, 2):/* NAVI14 */
-+		case IP_VERSION(5, 0, 5):/* NAVI12 */
-+		case IP_VERSION(5, 2, 0):/* SIENNA_CICHLID */
-+		case IP_VERSION(5, 2, 2):/* NAVY_FLOUDER */
-+		case IP_VERSION(5, 2, 4):/* DIMGREY_CAVEFISH */
-+			kfd->device_info.num_sdma_queues_per_engine = 8;
-+			break;
-+		default:
-+			dev_err(kfd_device,
-+				"Failed to find sdma ip blocks(SDMA_HWIP:0x%x) in %s\n",
-+                                sdma_version, __func__);
-+	}
-+}
-+
-+static void kfd_device_info_set_event_interrupt_class(struct kfd_dev *kfd)
-+{
-+	uint32_t gc_version = KFD_GC_VERSION(kfd);
-+
-+	switch (gc_version) {
-+	case IP_VERSION(9, 0, 1): /* VEGA10 */
-+	case IP_VERSION(9, 2, 1): /* VEGA12 */
-+	case IP_VERSION(9, 3, 0): /* RENOIR */
-+	case IP_VERSION(9, 4, 0): /* VEGA20 */
-+	case IP_VERSION(9, 4, 1): /* ARCTURUS */
-+	case IP_VERSION(9, 4, 2): /* ALDEBARAN */
-+	case IP_VERSION(10, 3, 1): /* VANGOGH */
-+	case IP_VERSION(10, 3, 3): /* YELLOW_CARP */
-+	case IP_VERSION(10, 1, 3): /* CYAN_SKILLFISH */
-+	case IP_VERSION(10, 1, 10): /* NAVI10 */
-+	case IP_VERSION(10, 1, 2): /* NAVI12 */
-+	case IP_VERSION(10, 1, 1): /* NAVI14 */
-+	case IP_VERSION(10, 3, 0): /* SIENNA_CICHLID */
-+	case IP_VERSION(10, 3, 2): /* NAVY_FLOUNDER */
-+	case IP_VERSION(10, 3, 4): /* DIMGREY_CAVEFISH */
-+	case IP_VERSION(10, 3, 5): /* BEIGE_GOBY */
-+		kfd->device_info.event_interrupt_class = &event_interrupt_class_v9;
-+		break;
-+	default:
-+		dev_err(kfd_device, "Failed to find gc ip blocks(GC_HWIP:0x%x) in %s\n",
-+				gc_version, __func__);
-+	}
-+}
-+
- static void kfd_device_info_init(struct kfd_dev *kfd,
- 				 bool vf, uint32_t gfx_target_version)
- {
- 	uint32_t gc_version = KFD_GC_VERSION(kfd);
--	uint32_t sdma_version = kfd->adev->ip_versions[SDMA0_HWIP][0];
- 	uint32_t asic_type = kfd->adev->asic_type;
- 
- 	kfd->device_info.max_pasid_bits = 16;
-@@ -75,16 +136,11 @@ static void kfd_device_info_init(struct kfd_dev *kfd,
- 	if (KFD_IS_SOC15(kfd)) {
- 		kfd->device_info.doorbell_size = 8;
- 		kfd->device_info.ih_ring_entry_size = 8 * sizeof(uint32_t);
--		kfd->device_info.event_interrupt_class = &event_interrupt_class_v9;
- 		kfd->device_info.supports_cwsr = true;
- 
--		if ((sdma_version >= IP_VERSION(4, 0, 0)  &&
--		     sdma_version <= IP_VERSION(4, 2, 0)) ||
--		     sdma_version == IP_VERSION(5, 2, 1)  ||
--		     sdma_version == IP_VERSION(5, 2, 3))
--			kfd->device_info.num_sdma_queues_per_engine = 2;
--		else
--			kfd->device_info.num_sdma_queues_per_engine = 8;
-+		kfd_device_info_set_sdma_queue_num(kfd);
-+
-+		kfd_device_info_set_event_interrupt_class(kfd);
- 
- 		/* Raven */
- 		if (gc_version == IP_VERSION(9, 1, 0) ||
--- 
-2.17.1
+based on which the problem is somehere in the AMD driver.
 
+> Ciao, Thorsten
+> 
+> #regzbot poke
+> 
+> > Adding the regression mailing list to the list of recipients, as it
+> > should be in the loop for all regressions, as explained here:
+> > https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html
+> > 
+> > Also adding the authors and reviewers of the culprit and two appropriate
+> > mailing lists.
+> > 
+> > On 07.12.21 01:21, Brandon Nielsen wrote:
+> >> Monitors no longer sleep properly on my system (dual monitor connected
+> >> via DP->DVI, amdgpu, x86_64). The monitors slept properly on 5.14, but
+> >> stopped during the 5.15 series. I have also filed this bug on the kernel
+> >> bugzilla[0] and downstream[1].
+> >>
+> >> I have performed a bisect, first "bad" commit to master is
+> >> 55285e21f04517939480966164a33898c34b2af2[1], the same change made it
+> >> into the 5.15 branch as e3b39825ed0813f787cb3ebdc5ecaa5131623647.
+> > 
+> > TWIMC: That was for 5.15.3
+> > 
+> >> I have
+> >> verified the issue exists in latest master
+> >> (a51e3ac43ddbad891c2b1a4f3aa52371d6939570).
+> >>
+> >> Steps to reproduce:
+> >>
+> >>   1. Boot system (Fedora Workstation 35 in this case)
+> >>   2. Log in
+> >>   3. Lock screen (after a few seconds, monitors will enter power save
+> >> "sleep" state with backlight off)
+> >>   4. Wait (usually no more than 30 seconds, sometimes up to a few minutes)
+> >>   5. Observe monitor leaving "sleep" state (backlight comes back on),
+> >> but nothing is displayed
+> >>
+> >> [0] - https://bugzilla.kernel.org/show_bug.cgi?id=215203
+> >> [1] - https://bugzilla.redhat.com/show_bug.cgi?id=2028613
+> > 
+> > To be sure this issue doesn't fall through the cracks unnoticed, I'm
+> > adding it to regzbot, my Linux kernel regression tracking bot:
+> > 
+> > #regzbot ^introduced 55285e21f04517939480966164a33898c34b2af2
+> > #regzbot title fbdev/efifb: Monitors no longer sleep (amdgpu dual
+> > monitor setup)
+> > #regzbot ignore-activity
+> > 
+> > Reminder: when fixing the issue, please add a 'Link:' tag with the URL
+> > to the report (the parent of this mail), then regzbot will automatically
+> > mark the regression as resolved once the fix lands in the appropriate
+> > tree. For more details about regzbot see footer.
+> > 
+> > Sending this to everyone that got the initial report, to make all aware
+> > of the tracking. I also hope that messages like this motivate people to
+> > directly get at least the regression mailing list and ideally even
+> > regzbot involved when dealing with regressions, as messages like this
+> > wouldn't be needed then.
+> > 
+> > Don't worry, I'll send further messages wrt to this regression just to
+> > the lists (with a tag in the subject so people can filter them away), as
+> > long as they are intended just for regzbot. With a bit of luck no such
+> > messages will be needed anyway.
+> > 
+> > Ciao, Thorsten, your Linux kernel regression tracker.
+> > 
+> > P.S.: As a Linux kernel regression tracker I'm getting a lot of reports
+> > on my table. I can only look briefly into most of them. Unfortunately
+> > therefore I sometimes will get things wrong or miss something important.
+> > I hope that's not the case here; if you think it is, don't hesitate to
+> > tell me about it in a public reply. That's in everyone's interest, as
+> > what I wrote above might be misleading to everyone reading this; any
+> > suggestion I gave they thus might sent someone reading this down the
+> > wrong rabbit hole, which none of us wants.
+> > 
+> > BTW, I have no personal interest in this issue, which is tracked using
+> > regzbot, my Linux kernel regression tracking bot
+> > (https://linux-regtracking.leemhuis.info/regzbot/). I'm only posting
+> > this mail to get things rolling again and hence don't need to be CC on
+> > all further activities wrt to this regression.
+> > 
