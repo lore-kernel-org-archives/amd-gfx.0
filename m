@@ -4,131 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D5FFC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 01:43:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6BBCC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 02:03:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC1910E2A0;
-	Fri, 17 Dec 2021 01:43:05 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A30E310E2A0
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 01:43:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bU1xMp9skj3ylRH0L+kU6TKkE4Pbfp0ALBjvmvJ1Xbnwf291SOv1OgbZIorCHpdMRWVZLnlwIt5GNzNq6x6u2i0WEJ8gPUoXEZDZ7YOadXVq3c7y8kTYEDahqTNT9fwuETOLRi+M0K3i6GMnmEhxDbflTL7rG/NDaIkJ3yYf3CIqii9nr6MLR96rENUFTBKyfn/3+bvb2z5mTy3tkLIizx3bhFGgdj05D/ctzXYzndBWgBNDd54BHJuIIHvBA4kzs0fTd3ExZW/lLT3NcwxYZ3Nhth7Tvd4uzyN0OVHzzcn9Q0ndgiiic0l/fLDEEpzPrkWyQirMQrnUg5Cn67rsjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rfhXKNz61aYmDR7SdE7dBQJEHNj7Lmi+W+zWv7nfOvM=;
- b=H5qjDrkpUjL9HjdN0NF+f7q4BjDuuZAUW73wMfnqHvZipz7f1HqilezNYxokyKiRVKBInM/2slmjt68XUAfmSSTzyvsIp5pD7b+B0rjNf2jSzzs5CswRmMvHxrH5GA1iSayg8J/wZJoaWw+4p7HLry+6xvcXoOP3daUNNt8ZBvsfv4kE6CMpyayaSMlyucxkqp6tpqhjkASsCIbY86qPs2x/O9AlyVGi+deMJnXCt9Sm8uBBArU/Vcm/AEXvvfyefvXtcyxEPh4/l0R8aDv279D6rcDaUKGVWnFj5fiCIJ0T2I+is2mOIoAh7hJih1mZrr3TRleb0rH226LEcUPCdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rfhXKNz61aYmDR7SdE7dBQJEHNj7Lmi+W+zWv7nfOvM=;
- b=v5w6yu2mqFYVbpSCB+nYLG0y+kXdZVlTpaC5ghNT40D0M2adydT2qfglbyB+zvbY5K/zqGXCI9I1bC+5Ue48nHeNwtGuUUkT9tEbw/buZca6v7OMG7u3xdLoUQVVbMzpI/3LzNuoKFFbZJCqdJ6fYiEhbKjESuUooNXuMuw2msY=
-Received: from BYAPR12MB2615.namprd12.prod.outlook.com (2603:10b6:a03:61::29)
- by BY5PR12MB4228.namprd12.prod.outlook.com (2603:10b6:a03:20b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.11; Fri, 17 Dec
- 2021 01:43:00 +0000
-Received: from BYAPR12MB2615.namprd12.prod.outlook.com
- ([fe80::645c:ab55:adba:1c2a]) by BYAPR12MB2615.namprd12.prod.outlook.com
- ([fe80::645c:ab55:adba:1c2a%7]) with mapi id 15.20.4778.018; Fri, 17 Dec 2021
- 01:43:00 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
- powergating is explicitly enabled
-Thread-Topic: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
- powergating is explicitly enabled
-Thread-Index: AQHX7brzHYmPYDzJVEu2BZp1426D3KwsOEyAgAPqpgCAAE8sAIABDtRQgAPJioCAAKb6IA==
-Date: Fri, 17 Dec 2021 01:43:00 +0000
-Message-ID: <BYAPR12MB26156AFBEA1B63D12F42CF39E4789@BYAPR12MB2615.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71CDF10E313;
+	Fri, 17 Dec 2021 02:03:13 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2419A10E307
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 02:03:12 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id m6so1560999oim.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 18:03:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=LBCK6Iwz5eQHgNs7glcVc/9HPa+WjDFOqISqThcvSOo=;
+ b=YpXRkVua6vkfk2YdRyCWgQfNOOqDgNDCBfy6wMZ0HwXCPAszZM2+Emc0LS0NAwhCWX
+ 4bF/tOI3arYshUZ4JECh9v/2BOCCFz5ZQjN9OFzC+gC4X5UuiFXLhCjfzh6BN1qJ/yWC
+ j4G85H5Jf2YNlKW6Fl22OZnzo/eFoYfD+Q5085H42FaLFxGllgZKqhK4bNXvouT1zI1n
+ 3fyv9Yw7whvHC1bklQjbT6zpeRr0ncgRJxbbdutgmsSReOT9fDUw80j6IDFdJXGXb1FB
+ AJwdEQCrXgvYEGOOBxEC1Ynrfs1+MYNAfmbH7sTTHThy0+HO22YqidXtUwC/9MPZ7Ve3
+ e3kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=LBCK6Iwz5eQHgNs7glcVc/9HPa+WjDFOqISqThcvSOo=;
+ b=iIqL66/zZfr1Jmu0O/VNX+N6ZvbpLstdknYPUud9Tr7Rb0AgCLUMxa9p9t0USrnsGq
+ 15193uz6UFeGRZrWfKWFFZQ/aAkdhUBPvPjXIbx93olI/3IzYwIWVykzZtys1xkbTwOg
+ oeh9epBnoeyCi+NPx76FT64hcvuK5PHrJ19GDhWZcAL6oMW70TL50xwwr+RBfg/UHa+V
+ FB6B7vPA+DldpucqZ77DqTFS16PNdQbL6hCbntihGKTjhPXPOu/lnLzwDJBaxdP39uhK
+ T+Kf2BjAMc9F+oZBNlSDakpfziEyh4bOYhH4WlonIxtInKYdnE7WdTCIF5ES/lXPYeG2
+ CEKA==
+X-Gm-Message-State: AOAM531hIN3NCowkS5SpyYmlys8zyIGxi6cyrqBEyhgM+jWlPiTsVRlQ
+ 9iZk9lsmj6phZLRIH7dlFQCJVUG0uxgI7EEri1yvO17r5bE=
+X-Google-Smtp-Source: ABdhPJy+xZjLmKSqt1u5r/Qt4J0E0SiA+5m2l7Z5KUhdoC5be3765/I7X6r/hr6rDahh2OF/KcOe1sq2XnVY8R5CURA=
+X-Received: by 2002:a05:6808:44:: with SMTP id v4mr487540oic.123.1639706591181; 
+ Thu, 16 Dec 2021 18:03:11 -0800 (PST)
+MIME-Version: 1.0
 References: <1639136511-6357-1-git-send-email-curry.gong@amd.com>
  <f1f996f4-0bc3-aa01-f9da-3664b14f7861@amd.com>
  <BN7PR12MB2641CA6290B6CEFB4A5016EF9D749@BN7PR12MB2641.namprd12.prod.outlook.com>
  <826e98e0-5e6a-cc87-0690-b444e34bb367@amd.com>
  <DM6PR12MB2619D50306A965F94357A555E4759@DM6PR12MB2619.namprd12.prod.outlook.com>
  <CADnq5_PthY5p9zDnAHiKTsP8WyptK1Ni+yN4Uqj=JFqJkO7QQw@mail.gmail.com>
-In-Reply-To: <CADnq5_PthY5p9zDnAHiKTsP8WyptK1Ni+yN4Uqj=JFqJkO7QQw@mail.gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-17T01:42:56Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=42c215c5-3370-4ab9-aea8-d255199dbf0c;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6cd07d40-f5b0-421b-d326-08d9c0fe8f2e
-x-ms-traffictypediagnostic: BY5PR12MB4228:EE_
-x-microsoft-antispam-prvs: <BY5PR12MB42283BF625799FB0F30398D9E4789@BY5PR12MB4228.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: MYP8+2A8Ktkl10m/gnXj8g2ltgVef/hypP5cmjTXGIO2fYd82/MFWZTslobpRqzX+7bW6m7+1RmavS9LpskDKm2UqdN2N0egGUCroWmrgIFPiTHkzp983WgbWc5yQsMkVOl38ce/RHMdSi2vpC5b8CTrsqe0OfnXZM25WrrTdrK1gnhqqTT3goVqGf8bBWrmoO+y+ggTMlRtyaJLDvl6brYQpSwu9JHPWvXv90IWbIH98faPR6q9YmJdEh25+d3mS+2kz2sfu8AMbndq0WYoPznZzz4wJg7LgYSzWqzBVvaQCs94Umie4OS2PtsOr/xlw+FcQw6CmErHvLKtmSRsPnkKgITJX6Epypc7mvhSNIA5ynAZeYfdBAMGkfvUCouHIZq7DGlELekPucmIvkJEB9YTvh8+nCgtEiq6cMwmF2YBh0Ag6Dm10izqxoGURVcWxrTeaWyE7mFIHNX/mcsPUSrYFyeaP+z8Ihuo+xWFLUiu9hRa9RGtEkXXs6uN5JchW+4P7zfpx8XIl5i/qC6GGW3BHOpcEqLI4K0PuTNQQvLnWNXDiAZAERVxoHDHip0rfITPdt0O3l5culBausYDvriavkRsNZhV6xowAOlV6zT4FuSikfOp0CHYXYCXjtYTRg+ZZPvcMoomHWeKEFpMhc5x277R5mE+yCdKH8TKbNmTKX3eYf8mbFXWZeMknT/a2C4zRJWal4Z3nBebcr9VWg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2615.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(186003)(4326008)(6506007)(26005)(2906002)(86362001)(4001150100001)(7696005)(76116006)(9686003)(66946007)(38100700002)(15650500001)(122000001)(66446008)(64756008)(66556008)(66476007)(52536014)(5660300002)(8936002)(71200400001)(54906003)(38070700005)(83380400001)(33656002)(6916009)(55016003)(8676002)(316002)(508600001)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Z1BndE9jeEc4UjljMkNsYWExT0dMVVB1dG1TU3plR2I3c0svOE1ycjJqMDgx?=
- =?utf-8?B?UVlXTlErUUh6NnczMm4xUUtoODRyYXB1SExucllEZFM5RWN6V05rQkRvTmZa?=
- =?utf-8?B?T0N6cDRabXBtSVhaNHBHZFJkRmRKNjNmQTVUWXg3a05KT282UGFnZS80QmNP?=
- =?utf-8?B?dG0za2RpS0NVZ0RzR3RMQnBJc05jd1NMVUJFTzNkUVMxU2FhbTlLSWlSOVlU?=
- =?utf-8?B?TUNiek9oWEhEb1VaNVAxcnM0enEzeFZmQUhrV0psNER5enJzVWVoMnZqR1B5?=
- =?utf-8?B?SS8vcDdmMElXZEZZY0RxWGJyeDJNWVhXRndlQ0NGTHRkbVpOV0F4SEJPd2xN?=
- =?utf-8?B?V2FoeW1Fa3RlV01nNDNjeU1vZW90THgxNTliQ3paWGEwb2g0VEFaZ1J6Nnoz?=
- =?utf-8?B?YVh1cE1WQ1dQY1RZTFYxZWpKS3NPcDFwem1UVU1hSjFGWFJqYW90RVJSZVRC?=
- =?utf-8?B?RkNjTHFUdnpjcTdRVTgvc243cFlLa21mRTJEZE1WZmQ3Uk5xc2kvNWtvaFJz?=
- =?utf-8?B?d29CNWp2Z01aOVJ2N2hVTEpMN1o2MXJOUGFsUG52aTdzRHZGWk1WUytKSVVO?=
- =?utf-8?B?MFhxTEIzWlVUdnFTVlNaVWlPWlpoZkRsc3VidDM3QWRrbjV5cjZYaXFCcnAv?=
- =?utf-8?B?cFhjUEh3TkJUcWxva1ZQN1greEVpc1JLeENvZzJRQ09mSEVMaVRXSXVEWFFC?=
- =?utf-8?B?a21GTE9uOGZtNllNVFBKU0xvWEtvQjJwQVF6Tk9QYnBkcWdxTGRMbVNrNFBY?=
- =?utf-8?B?enY1bHBrMXN1U1FrMElvNFRhVC9Mc2diL1oyOHIwRGU5YWo3SVV3NEVLTnVj?=
- =?utf-8?B?c3F1ZnJOcHI4bU9XRVJvQjBuWUZJR21USkxjU0xpOFhZeU51V2RRWHcxYUIr?=
- =?utf-8?B?QjQ3ZkZlWWJlVHFFd2lYVmdrd0tYemYyZ0c2elhtTFVySFpZZ3NEM3pYQW9T?=
- =?utf-8?B?RjhZZmxkVkRzY2lwTTU2U3RCaU5CYWlwRFhRdldPQWFTWFd4R0ZvV2pBUDBW?=
- =?utf-8?B?MmxnZ3R5ZWE1MEVBY1d3M2ttLys3MkltelhlZit3Q1BXbHpXem1NY3U2VTNu?=
- =?utf-8?B?dENNUVVFZ05tS2o3TW1sYUFoS0FTeXkyQnhCUjg0YkdYSlFTSDRCRU1oOTJ6?=
- =?utf-8?B?OEt2R1dVMFp0Wmd2M3VGaWtsSHBEbHBqNndUMDU2THJHTmcxZ2xpMEZWMzRq?=
- =?utf-8?B?MHAwTCswbS9ZbjNQT0laK2ZHL0k1d0RaTm1oRHZBa2tyYTlXbjBwNWhaa2VP?=
- =?utf-8?B?RW5OcDluRWk1YlZPbGdGNWdWQXZqM1JFa0pHS0J4dFN1VnJnY0xjV1krV1hZ?=
- =?utf-8?B?NHFjYVc3OG1qOFdRN1pOK0xBOXBRclNQSGI1V3I1Um5GVTRQSUo1RDRqdVhi?=
- =?utf-8?B?UzNVTkptVUpKTEYvQXltOC9waUZTYXFxSVcvcWJhdnRCY01oOFh6RW9MV3li?=
- =?utf-8?B?TXhSMDNoYUhCQmZFZjhxR1lNbTFxM09RUXowYkM4UXhyeExKcnlUZDdPQmJZ?=
- =?utf-8?B?enZINVFTUXJzMUJjRWxGajl0NEYwVUtnTlFSMGR6R1Y4alRoOGYzTlZGM3VX?=
- =?utf-8?B?aGtQQTB5OFBRV3MraGxkRkFraTRiS3hOM1BycHpTNDFmZjhEU1lIWFhMNVpi?=
- =?utf-8?B?dlpjY0FkOUk0SlRuZEVxczA3MnpudnZKTzc4MWIxUmJJVXRrVkNLV09CR25n?=
- =?utf-8?B?cjFEdE8wU05pbFFiVjd1V1JCWTBhR1RNSVYrWkZ5c2V4SDZsNVFpNjBlMkV4?=
- =?utf-8?B?NS9aOExiVVB2dGRIcER2djlqYW1OaUd3dTRHblhXanlLbzRyS2VUOFIreFhv?=
- =?utf-8?B?YW12WkFCd3dIcWhuSnp5azZxY2lkOUtseExJZGltaTVTQTRVcXlVMDBtRE94?=
- =?utf-8?B?aVlVSTRwdm9YVVBMem9udGFiYVgrVmY0ZTQ0L3IxcE5UQkdKMWxFQTdJRjBY?=
- =?utf-8?B?YlRYTlFnd0luYTZNRFRlQ0RVQmYrVEkvbE5ydDhVY3V2bms3d0lMdnZHdlZC?=
- =?utf-8?B?UHdsZWZFUVl0azZwTDJLaktqbUdyNHhIMFJYbWRrSWJJblMxRzRjTEIyS0FT?=
- =?utf-8?B?S0MyWEZIRmtwRC9pdHZzRTUrNXVzSDY3UkF2ZnV6NWFoWHZOTXp1a3hwWEY5?=
- =?utf-8?Q?s2H8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2615.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cd07d40-f5b0-421b-d326-08d9c0fe8f2e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2021 01:43:00.3354 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZcFjHGoKj8Bhv3HLHiiiH9XlMBPYOxqUTblK+C71SJoWOR/HzsLl9GOiuuyrQ0lo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4228
+ <BYAPR12MB26156AFBEA1B63D12F42CF39E4789@BYAPR12MB2615.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB26156AFBEA1B63D12F42CF39E4789@BYAPR12MB2615.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Dec 2021 21:02:59 -0500
+Message-ID: <CADnq5_N=iL12aLj7DdapXFp41W+Jnrb=nS+x-2-DPAYws11zGA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
+ powergating is explicitly enabled
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,195 +69,427 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>,
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhu,
+ James" <James.Zhu@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Gong,
  Curry" <Curry.Gong@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KSGkgQWxleCwNCg0KUGVyIG91ciBjaGVja2luZywg
-dmNuX3YyIGFuZCB2Y25fdjMgYWxyZWFkeSBoYXZlIHRoZSBkcG0gZGlzYWJsZW1lbnQoYmVsb3cp
-IGluIHRoZWlyIC0+c3VzcGVuZCByb3V0aW5lIHdoaWNoIHNob3VsZCBwcmV2ZW50IHRoZW0gZnJv
-bSB0aGUgaXNzdWUgaGVyZS4NCglpZiAoYWRldi0+cG0uZHBtX2VuYWJsZWQpDQoJCWFtZGdwdV9k
-cG1fZW5hYmxlX3V2ZChhZGV2LCBmYWxzZSk7DQpTbywgbWF5YmUgaXQncyBhIGRpZmZlcmVudCBz
-dG9yeSB3aXRoIHRob3NlIG5ld2VyIEFQVXMuIENhbiB5b3UgZm9yd2FyZCB0aGUgYnVnIHJlcG9y
-dHMgdG8gbWU/DQoNClRoYW5rcywNCkV2YW4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-Cj4gRnJvbTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+IFNlbnQ6IFRo
-dXJzZGF5LCBEZWNlbWJlciAxNiwgMjAyMSAxMTozOCBQTQ0KPiBUbzogUXVhbiwgRXZhbiA8RXZh
-bi5RdWFuQGFtZC5jb20+DQo+IENjOiBaaHUsIEphbWVzIDxKYW1lcy5aaHVAYW1kLmNvbT47IEdv
-bmcsIEN1cnJ5DQo+IDxDdXJyeS5Hb25nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZzsgRGV1Y2hlciwNCj4gQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29t
-PjsgTGl1LCBMZW8gPExlby5MaXVAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJt
-L2FtZGdwdTogV2hlbiB0aGUgVkNOKDEuMCkgYmxvY2sgaXMgc3VzcGVuZGVkLA0KPiBwb3dlcmdh
-dGluZyBpcyBleHBsaWNpdGx5IGVuYWJsZWQNCj4gDQo+IEZXSVcsIGl0IGxvb2tzIGxpa2UgYWxs
-IHZlcnNpb25zIG9mIFZDTiBuZWVkIHRoZSBzYW1lIGZpeC4gIFRoZXJlIGhhdmUgYmVlbg0KPiBy
-ZXBvcnRzIG9mIHN1c3BlbmQgZmFpbGluZyB3aGVuIFZDTiBpcyBpbiB1c2Ugb24gb3RoZXIgbmV3
-ZXIgQVBVcyBhcyB3ZWxsLg0KPiANCj4gQWxleA0KPiANCj4gT24gVHVlLCBEZWMgMTQsIDIwMjEg
-YXQgMTI6NTkgQU0gUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+IHdyb3RlOg0KPiA+DQo+
-ID4gW0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCj4gPg0KPiA+DQo+ID4NCj4gPg0KPiA+DQo+ID4N
-Cj4gPg0KPiA+IEZyb206IFpodSwgSmFtZXMgPEphbWVzLlpodUBhbWQuY29tPg0KPiA+IFNlbnQ6
-IE1vbmRheSwgRGVjZW1iZXIgMTMsIDIwMjEgOTozOSBQTQ0KPiA+IFRvOiBHb25nLCBDdXJyeSA8
-Q3VycnkuR29uZ0BhbWQuY29tPjsgWmh1LCBKYW1lcw0KPiA8SmFtZXMuWmh1QGFtZC5jb20+Ow0K
-PiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4gQ2M6IExpdSwgTGVvIDxMZW8u
-TGl1QGFtZC5jb20+OyBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNvbT47DQo+ID4gRGV1Y2hl
-ciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KPiA+IFN1YmplY3Q6IFJl
-OiBbUEFUQ0hdIGRybS9hbWRncHU6IFdoZW4gdGhlIFZDTigxLjApIGJsb2NrIGlzIHN1c3BlbmRl
-ZCwNCj4gPiBwb3dlcmdhdGluZyBpcyBleHBsaWNpdGx5IGVuYWJsZWQNCj4gPg0KPiA+DQo+ID4N
-Cj4gPiBIaSBDdXJyeSwgRXZhbiwNCj4gPg0KPiA+IEl0IHNlZW1zIHZjbjEuMCBwb3dlciBnYXRl
-IHNlcXVlbmNlIGFyZSBzcGVjaWFsLg0KPiA+DQo+ID4gaWYgdGhlIG9yaWdpbmFsIHNvbHV0aW9u
-IGlzIHRocmVhZCBzYWZlLCB0aGVuIHRoZSBmb2xsb3dpbmcgc29sdXRpb24gd2lsbCBiZQ0KPiB0
-aHJlYWQgc2FmZSBhbHNvLg0KPiA+DQo+ID4gc3RhdGljIGludCB2Y25fdjFfMF9od19maW5pKHZv
-aWQgKmhhbmRsZSkgew0KPiA+ICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsNCj4gPg0KPiA+ICAgICBjYW5jZWxfZGVsYXllZF93
-b3JrX3N5bmMoJmFkZXYtPnZjbi5pZGxlX3dvcmspOw0KPiA+DQo+ID4gICAgIGlmICgoYWRldi0+
-cGdfZmxhZ3MgJiBBTURfUEdfU1VQUE9SVF9WQ05fRFBHKSB8fA0KPiA+ICAgICAgICAgKGFkZXYt
-PnZjbi5jdXJfc3RhdGUgIT0gQU1EX1BHX1NUQVRFX0dBVEUgJiYNCj4gPiAgICAgICAgICBSUkVH
-MzJfU09DMTUoVkNOLCAwLCBtbVVWRF9TVEFUVVMpKSkgew0KPiA+ICsgICAgICAgIGlmIChhZGV2
-LT5wbS5kcG1fZW5hYmxlZCkNCj4gPiArICAgICAgICAgICAgYW1kZ3B1X2RwbV9lbmFibGVfdXZk
-KGFkZXYsIGZhbHNlKTsNCj4gPiArICAgICAgICBlbHNlDQo+ID4gKyAgICAgICAgICAgIHZjbl92
-MV8wX3NldF9wb3dlcmdhdGluZ19zdGF0ZShhZGV2LCBBTURfUEdfU1RBVEVfR0FURSk7DQo+ID4N
-Cj4gPiBbUXVhbiwgRXZhbl0gQ29uc2lkZXJpbmcgYWRldi0+cG0uZHBtX2VuYWJsZWQgaXMgYWx3
-YXlzIHRydWUsDQo+IOKAnHZjbl92MV8wX3NldF9wb3dlcmdhdGluZ19zdGF0ZShhZGV2LCBBTURf
-UEdfU1RBVEVfR0FURSk7IOKAnCB3aWxsDQo+IGJlY29tZSBkZWFkIGNvZGUuDQo+ID4NCj4gPiBB
-bHNvLCB0aGUgdmNuX3YxXzBfaHdfZmluaSBpcyBhbHNvIHVzZWQgaW4gb3RoZXIgc2NlbmFyaW9z
-KGV4Y2VwdCB0aGUNCj4gc3VzcGVuZC9yZXN1bWUgZGlzY3Vzc2VkIGhlcmUpLiBTbywgaXQgc2Vl
-bXMgcXVpdGUgcmlza3kgY29tcGFyZWQgd2l0aA0KPiBDdXJyeeKAmXMgb3JpZ2luYWwgcGF0Y2gu
-DQo+ID4NCj4gPiBCZWZvcmUgd2UgY2FuIGNvbWUgdXAgd2l0aCBhIGJldHRlciBpZGVhLCBJIHdv
-dWxkIHN1Z2dlc3QgdG8gbGFuZCBDdXJyeeKAmXMNCj4gb3JpZ2luYWwgcGF0Y2ggYXMgYSBxdWlj
-ayBmaXguDQo+ID4NCj4gPg0KPiA+DQo+ID4gQlINCj4gPg0KPiA+IEV2YW4NCj4gPg0KPiA+DQo+
-ID4gICAgIH0NCj4gPg0KPiA+IEJlc3QgUmVnYXJkcyENCj4gPg0KPiA+IEphbWVzDQo+ID4NCj4g
-PiBPbiAyMDIxLTEyLTEzIDM6NTUgYS5tLiwgR29uZywgQ3Vycnkgd3JvdGU6DQo+ID4NCj4gPiBb
-QU1EIE9mZmljaWFsIFVzZSBPbmx5XQ0KPiA+DQo+ID4NCj4gPg0KPiA+IEhpIEphbWVzOg0KPiA+
-DQo+ID4NCj4gPg0KPiA+IFdpdGggdGhlIGZvbGxvd2luZyBwYXRjaCwgYW4gZXJyb3Igd2lsbCBi
-ZSByZXBvcnRlZCB3aGVuIHRoZSBkcml2ZXIgaXMNCj4gPiBsb2FkZWQNCj4gPg0KPiA+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMNCj4gPg0KPiA+IEBAIC0xMjAy
-LDYgKzEyMDQsOSBAQCBzdGF0aWMgaW50IHZjbl92MV8wX3N0b3Aoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UNCj4gPiAqYWRldikNCj4gPg0KPiA+ICAgICAgICAgZWxzZQ0KPiA+DQo+ID4gICAgICAgICAg
-ICAgICAgIHIgPSB2Y25fdjFfMF9zdG9wX3NwZ19tb2RlKGFkZXYpOw0KPiA+DQo+ID4NCj4gPg0K
-PiA+IGMNCj4gPg0KPiA+ICAgICAgICAgcmV0dXJuIHI7DQo+ID4NCj4gPiB9DQo+ID4NCj4gPg0K
-PiA+DQo+ID4NCj4gPg0KPiA+ICQgZG1lc2cNCj4gPg0KPiA+IFsgIDM2My4xODEwODFdIElORk86
-IHRhc2sga3dvcmtlci8zOjI6MjIzIGJsb2NrZWQgZm9yIG1vcmUgdGhhbiAxMjANCj4gc2Vjb25k
-cy4NCj4gPg0KPiA+IFsgIDM2My4xODExNTBdICAgICAgIFRhaW50ZWQ6IEcgICAgICAgICAgIE9F
-ICAgICA1LjExLjAtNDEtZ2VuZXJpYyAjNDV+MjAuMDQuMS0NCj4gVWJ1bnR1DQo+ID4NCj4gPiBb
-ICAzNjMuMTgxMjA4XSAiZWNobyAwID4gL3Byb2Mvc3lzL2tlcm5lbC9odW5nX3Rhc2tfdGltZW91
-dF9zZWNzIg0KPiBkaXNhYmxlcyB0aGlzIG1lc3NhZ2UuDQo+ID4NCj4gPiBbICAzNjMuMTgxMjY2
-XSB0YXNrOmt3b3JrZXIvMzoyICAgICBzdGF0ZTpEIHN0YWNrOiAgICAwIHBpZDogIDIyMyBwcGlk
-OiAgICAgMg0KPiBmbGFnczoweDAwMDA0MDAwDQo+ID4NCj4gPiBbICAzNjMuMTgxMjc2XSBXb3Jr
-cXVldWU6IGV2ZW50cyB2Y25fdjFfMF9pZGxlX3dvcmtfaGFuZGxlciBbYW1kZ3B1XQ0KPiA+DQo+
-ID4gWyAgMzYzLjE4MTYxMl0gQ2FsbCBUcmFjZToNCj4gPg0KPiA+IFsgIDM2My4xODE2MThdICBf
-X3NjaGVkdWxlKzB4NDRjLzB4OGEwDQo+ID4NCj4gPiBbICAzNjMuMTgxNjI3XSAgc2NoZWR1bGUr
-MHg0Zi8weGMwDQo+ID4NCj4gPiBbICAzNjMuMTgxNjMxXSAgc2NoZWR1bGVfcHJlZW1wdF9kaXNh
-YmxlZCsweGUvMHgxMA0KPiA+DQo+ID4gWyAgMzYzLjE4MTYzNl0gIF9fbXV0ZXhfbG9jay5pc3Jh
-LjArMHgxODMvMHg0ZDANCj4gPg0KPiA+IFsgIDM2My4xODE2NDNdICBfX211dGV4X2xvY2tfc2xv
-d3BhdGgrMHgxMy8weDIwDQo+ID4NCj4gPiBbICAzNjMuMTgxNjQ4XSAgbXV0ZXhfbG9jaysweDMy
-LzB4NDANCj4gPg0KPiA+IFsgIDM2My4xODE2NTJdICBhbWRncHVfZHBtX3NldF9wb3dlcmdhdGlu
-Z19ieV9zbXUrMHg5Yy8weDE4MA0KPiBbYW1kZ3B1XQ0KPiA+DQo+ID4gWyAgMzYzLjE4MjA1NV0g
-IGFtZGdwdV9kcG1fZW5hYmxlX3V2ZCsweDM4LzB4MTEwIFthbWRncHVdDQo+ID4NCj4gPiBbICAz
-NjMuMTgyNDU0XSAgdmNuX3YxXzBfc2V0X3Bvd2VyZ2F0aW5nX3N0YXRlKzB4MmU3ZS8weDNjZjAg
-W2FtZGdwdV0NCj4gPg0KPiA+IFsgIDM2My4xODI3NzZdICBhbWRncHVfZGV2aWNlX2lwX3NldF9w
-b3dlcmdhdGluZ19zdGF0ZSsweDZjLzB4YzANCj4gPiBbYW1kZ3B1XQ0KPiA+DQo+ID4gWyAgMzYz
-LjE4MzAyOF0gIHNtdTEwX3Bvd2VyZ2F0ZV92Y24rMHgyYS8weDgwIFthbWRncHVdDQo+ID4NCj4g
-PiBbICAzNjMuMTgzMzYxXSAgcHBfc2V0X3Bvd2VyZ2F0aW5nX2J5X3NtdSsweGM1LzB4MmIwIFth
-bWRncHVdDQo+ID4NCj4gPiBbICAzNjMuMTgzNjk5XSAgYW1kZ3B1X2RwbV9zZXRfcG93ZXJnYXRp
-bmdfYnlfc211KzB4YjYvMHgxODANCj4gW2FtZGdwdV0NCj4gPg0KPiA+IFsgIDM2My4xODQwNDBd
-ICBhbWRncHVfZHBtX2VuYWJsZV91dmQrMHgzOC8weDExMCBbYW1kZ3B1XQ0KPiA+DQo+ID4gWyAg
-MzYzLjE4NDM5MV0gIHZjbl92MV8wX2lkbGVfd29ya19oYW5kbGVyKzB4ZTEvMHgxMzAgW2FtZGdw
-dV0NCj4gPg0KPiA+IFsgIDM2My4xODQ2NjddICBwcm9jZXNzX29uZV93b3JrKzB4MjIwLzB4M2Mw
-DQo+ID4NCj4gPiBbICAzNjMuMTg0Njc0XSAgd29ya2VyX3RocmVhZCsweDRkLzB4M2YwDQo+ID4N
-Cj4gPiBbICAzNjMuMTg0Njc3XSAgPyBwcm9jZXNzX29uZV93b3JrKzB4M2MwLzB4M2MwDQo+ID4N
-Cj4gPiBbICAzNjMuMTg0NjgwXSAga3RocmVhZCsweDEyYi8weDE1MA0KPiA+DQo+ID4gWyAgMzYz
-LjE4NDY4NV0gID8gc2V0X2t0aHJlYWRfc3RydWN0KzB4NDAvMHg0MA0KPiA+DQo+ID4gWyAgMzYz
-LjE4NDY5MF0gIHJldF9mcm9tX2ZvcmsrMHgyMi8weDMwDQo+ID4NCj4gPiBbICAzNjMuMTg0Njk5
-XSBJTkZPOiB0YXNrIGt3b3JrZXIvMjoyOjIzMyBibG9ja2VkIGZvciBtb3JlIHRoYW4gMTIwDQo+
-IHNlY29uZHMuDQo+ID4NCj4gPiBbICAzNjMuMTg0NzM5XSAgICAgICBUYWludGVkOiBHICAgICAg
-ICAgICBPRSAgICAgNS4xMS4wLTQxLWdlbmVyaWMgIzQ1fjIwLjA0LjEtDQo+IFVidW50dQ0KPiA+
-DQo+ID4gWyAgMzYzLjE4NDc4Ml0gImVjaG8gMCA+IC9wcm9jL3N5cy9rZXJuZWwvaHVuZ190YXNr
-X3RpbWVvdXRfc2VjcyINCj4gZGlzYWJsZXMgdGhpcyBtZXNzYWdlLg0KPiA+DQo+ID4gWyAgMzYz
-LjE4NDgyNV0gdGFzazprd29ya2VyLzI6MiAgICAgc3RhdGU6RCBzdGFjazogICAgMCBwaWQ6ICAy
-MzMgcHBpZDogICAgIDINCj4gZmxhZ3M6MHgwMDAwNDAwMA0KPiA+DQo+ID4gWyAgMzYzLjE4NDgz
-MV0gV29ya3F1ZXVlOiBldmVudHMNCj4gPiBhbWRncHVfZGV2aWNlX2RlbGF5ZWRfaW5pdF93b3Jr
-X2hhbmRsZXIgW2FtZGdwdV0NCj4gPg0KPiA+IFsgIDM2My4xODUwODVdIENhbGwgVHJhY2U6DQo+
-ID4NCj4gPiBbICAzNjMuMTg1MDg3XSAgX19zY2hlZHVsZSsweDQ0Yy8weDhhMA0KPiA+DQo+ID4g
-WyAgMzYzLjE4NTA5Ml0gIHNjaGVkdWxlKzB4NGYvMHhjMA0KPiA+DQo+ID4gWyAgMzYzLjE4NTA5
-NV0gIHNjaGVkdWxlX3RpbWVvdXQrMHgyMDIvMHgyOTANCj4gPg0KPiA+IFsgIDM2My4xODUwOTld
-ICA/IHNjaGVkX2Nsb2NrX2NwdSsweDExLzB4YjANCj4gPg0KPiA+IFsgIDM2My4xODUxMDVdICB3
-YWl0X2Zvcl9jb21wbGV0aW9uKzB4OTQvMHgxMDANCj4gPg0KPiA+IFsgIDM2My4xODUxMTBdICBf
-X2ZsdXNoX3dvcmsrMHgxMmEvMHgxZTANCj4gPg0KPiA+IFsgIDM2My4xODUxMTNdICA/IHdvcmtl
-cl9kZXRhY2hfZnJvbV9wb29sKzB4YzAvMHhjMA0KPiA+DQo+ID4gWyAgMzYzLjE4NTExOV0gIF9f
-Y2FuY2VsX3dvcmtfdGltZXIrMHgxMGUvMHgxOTANCj4gPg0KPiA+IFsgIDM2My4xODUxMjNdICBj
-YW5jZWxfZGVsYXllZF93b3JrX3N5bmMrMHgxMy8weDIwDQo+ID4NCj4gPiBbICAzNjMuMTg1MTI2
-XSAgdmNuX3YxXzBfcmluZ19iZWdpbl91c2UrMHgyMC8weDcwIFthbWRncHVdDQo+ID4NCj4gPiBb
-ICAzNjMuMTg1NDAxXSAgYW1kZ3B1X3JpbmdfYWxsb2MrMHg0OC8weDYwIFthbWRncHVdDQo+ID4N
-Cj4gPiBbICAzNjMuMTg1NjQwXSAgYW1kZ3B1X2liX3NjaGVkdWxlKzB4NDkzLzB4NjAwIFthbWRn
-cHVdDQo+ID4NCj4gPiBbICAzNjMuMTg1ODg0XSAgYW1kZ3B1X2pvYl9zdWJtaXRfZGlyZWN0KzB4
-M2MvMHhkMCBbYW1kZ3B1XQ0KPiA+DQo+ID4gWyAgMzYzLjE4NjE4Nl0gIGFtZGdwdV92Y25fZGVj
-X3NlbmRfbXNnKzB4MTA1LzB4MjEwIFthbWRncHVdDQo+ID4NCj4gPiBbICAzNjMuMTg2NDYwXSAg
-YW1kZ3B1X3Zjbl9kZWNfcmluZ190ZXN0X2liKzB4NjkvMHgxMTAgW2FtZGdwdV0NCj4gPg0KPiA+
-IFsgIDM2My4xODY3MzRdICBhbWRncHVfaWJfcmluZ190ZXN0cysweGY1LzB4MTYwIFthbWRncHVd
-DQo+ID4NCj4gPiBbICAzNjMuMTg2OTc4XSAgYW1kZ3B1X2RldmljZV9kZWxheWVkX2luaXRfd29y
-a19oYW5kbGVyKzB4MTUvMHgzMA0KPiA+IFthbWRncHVdDQo+ID4NCj4gPiBbICAzNjMuMTg3MjA2
-XSAgcHJvY2Vzc19vbmVfd29yaysweDIyMC8weDNjMA0KPiA+DQo+ID4gWyAgMzYzLjE4NzIxMF0g
-IHdvcmtlcl90aHJlYWQrMHg0ZC8weDNmMA0KPiA+DQo+ID4gWyAgMzYzLjE4NzIxNF0gID8gcHJv
-Y2Vzc19vbmVfd29yaysweDNjMC8weDNjMA0KPiA+DQo+ID4gWyAgMzYzLjE4NzIxN10gIGt0aHJl
-YWQrMHgxMmIvMHgxNTANCj4gPg0KPiA+IFsgIDM2My4xODcyMjFdICA/IHNldF9rdGhyZWFkX3N0
-cnVjdCsweDQwLzB4NDANCj4gPg0KPiA+IFsgIDM2My4xODcyMjZdICByZXRfZnJvbV9mb3JrKzB4
-MjIvMHgzMA0KPiA+DQo+ID4NCj4gPg0KPiA+DQo+ID4NCj4gPiBCUg0KPiA+DQo+ID4gQ3Vycnkg
-R29uZw0KPiA+DQo+ID4gRnJvbTogWmh1LCBKYW1lcyA8SmFtZXMuWmh1QGFtZC5jb20+DQo+ID4g
-U2VudDogU2F0dXJkYXksIERlY2VtYmVyIDExLCAyMDIxIDU6MDcgQU0NCj4gPiBUbzogR29uZywg
-Q3VycnkgPEN1cnJ5LkdvbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+ID4gQ2M6IExpdSwgTGVvIDxMZW8uTGl1QGFtZC5jb20+OyBaaHUsIEphbWVzIDxKYW1lcy5a
-aHVAYW1kLmNvbT47DQo+IFF1YW4sDQo+ID4gRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBEZXVj
-aGVyLCBBbGV4YW5kZXINCj4gPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4NCj4gPiBTdWJq
-ZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBXaGVuIHRoZSBWQ04oMS4wKSBibG9jayBpcyBz
-dXNwZW5kZWQsDQo+ID4gcG93ZXJnYXRpbmcgaXMgZXhwbGljaXRseSBlbmFibGVkDQo+ID4NCj4g
-Pg0KPiA+DQo+ID4gT24gMjAyMS0xMi0xMCA2OjQxIGEubS4sIGNoZW4gZ29uZyB3cm90ZToNCj4g
-Pg0KPiA+IFBsYXkgYSB2aWRlbyBvbiB0aGUgcmF2ZW4gKG9yIFBDTywgcmF2ZW4yKSBwbGF0Zm9y
-bSwgYW5kIHRoZW4gZG8gdGhlDQo+ID4gUzMNCj4gPg0KPiA+IHRlc3QuIFdoZW4gcmVzdW1lLCB0
-aGUgZm9sbG93aW5nIGVycm9yIHdpbGwgYmUgcmVwb3J0ZWQ6DQo+ID4NCj4gPg0KPiA+DQo+ID4g
-YW1kZ3B1IDAwMDA6MDI6MDAuMDogW2RybTphbWRncHVfcmluZ190ZXN0X2hlbHBlciBbYW1kZ3B1
-XV0gKkVSUk9SKg0KPiA+IHJpbmcNCj4gPg0KPiA+IHZjbl9kZWMgdGVzdCBmYWlsZWQgKC0xMTAp
-DQo+ID4NCj4gPiBbZHJtOmFtZGdwdV9kZXZpY2VfaXBfcmVzdW1lX3BoYXNlMiBbYW1kZ3B1XV0g
-KkVSUk9SKiByZXN1bWUgb2YNCj4gSVANCj4gPiBibG9jaw0KPiA+DQo+ID4gPHZjbl92MV8wPiBm
-YWlsZWQgLTExMA0KPiA+DQo+ID4gYW1kZ3B1IDAwMDA6MDI6MDAuMDogYW1kZ3B1OiBhbWRncHVf
-ZGV2aWNlX2lwX3Jlc3VtZSBmYWlsZWQgKC0xMTApLg0KPiA+DQo+ID4gUE06IGRwbV9ydW5fY2Fs
-bGJhY2soKTogcGNpX3BtX3Jlc3VtZSsweDAvMHg5MCByZXR1cm5zIC0xMTANCj4gPg0KPiA+DQo+
-ID4NCj4gPiBbd2h5XQ0KPiA+DQo+ID4gV2hlbiBwbGF5aW5nIHRoZSB2aWRlbzogVGhlIHBvd2Vy
-IHN0YXRlIGZsYWcgb2YgdGhlIHZjbiBibG9jayBpcyBzZXQNCj4gPiB0bw0KPiA+DQo+ID4gUE9X
-RVJfU1RBVEVfT04uDQo+ID4NCj4gPg0KPiA+DQo+ID4gV2hlbiBkb2luZyBzdXNwZW5kOiBUaGVy
-ZSBpcyBubyBjaGFuZ2UgdG8gdGhlIHBvd2VyIHN0YXRlIGZsYWcgb2YgdGhlDQo+ID4NCj4gPiB2
-Y24gYmxvY2ssIGl0IGlzIHN0aWxsIFBPV0VSX1NUQVRFX09OLg0KPiA+DQo+ID4NCj4gPg0KPiA+
-IFdoZW4gZG9pbmcgcmVzdW1lOiBOZWVkIHRvIG9wZW4gdGhlIHBvd2VyIGdhdGUgb2YgdGhlIHZj
-biBibG9jayBhbmQNCj4gPiBzZXQNCj4gPg0KPiA+IHRoZSBwb3dlciBzdGF0ZSBmbGFnIG9mIHRo
-ZSBWQ04gYmxvY2sgdG8gUE9XRVJfU1RBVEVfT04uDQo+ID4NCj4gPiBCdXQgYXQgdGhpcyB0aW1l
-LCB0aGUgcG93ZXIgc3RhdGUgZmxhZyBvZiB0aGUgdmNuIGJsb2NrIGlzIGFscmVhZHkNCj4gPg0K
-PiA+IFBPV0VSX1NUQVRFX09OLiBUaGUgcG93ZXIgc3RhdHVzIGZsYWcgY2hlY2sgaW4gdGhlICI4
-ZjJjZGVmDQo+IGRybS9hbWQvcG06DQo+ID4NCj4gPiBhdm9pZCBkdXBsaWNhdGUgcG93ZXJnYXRl
-L3VuZ2F0ZSBzZXR0aW5nIiBwYXRjaCB3aWxsIHJldHVybiB0aGUNCj4gPg0KPiA+IGFtZGdwdV9k
-cG1fc2V0X3Bvd2VyZ2F0aW5nX2J5X3NtdSBmdW5jdGlvbiBkaXJlY3RseS4NCj4gPg0KPiA+IEFz
-IGEgcmVzdWx0LCB0aGUgZ2F0ZSBvZiB0aGUgcG93ZXIgd2FzIG5vdCBvcGVuZWQsIGNhdXNpbmcg
-dGhlDQo+ID4NCj4gPiBzdWJzZXF1ZW50IHJpbmcgdGVzdCB0byBmYWlsLg0KPiA+DQo+ID4NCj4g
-Pg0KPiA+IFtob3ddDQo+ID4NCj4gPiBJbiB0aGUgc3VzcGVuZCBmdW5jdGlvbiBvZiB0aGUgdmNu
-IGJsb2NrLCBleHBsaWNpdGx5IGNoYW5nZSB0aGUgcG93ZXINCj4gPg0KPiA+IHN0YXRlIGZsYWcg
-b2YgdGhlIHZjbiBibG9jayB0byBQT1dFUl9TVEFURV9PRkYuDQo+ID4NCj4gPg0KPiA+DQo+ID4g
-U2lnbmVkLW9mZi1ieTogY2hlbiBnb25nIDxjdXJyeS5nb25nQGFtZC5jb20+DQo+ID4NCj4gPiAt
-LS0NCj4gPg0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jIHwgNyAr
-KysrKysrDQo+ID4NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQ0KPiA+DQo+
-ID4NCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25f
-djFfMC5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jDQo+ID4N
-Cj4gPiBpbmRleCBkNTRkNzIwLi5kNzM2NzZiIDEwMDY0NA0KPiA+DQo+ID4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYw0KPiA+DQo+ID4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYw0KPiA+DQo+ID4gQEAgLTI0Niw2ICsyNDYsMTMg
-QEAgc3RhdGljIGludCB2Y25fdjFfMF9zdXNwZW5kKHZvaWQgKmhhbmRsZSkNCj4gPg0KPiA+ICB7
-DQo+ID4NCj4gPiAgIGludCByOw0KPiA+DQo+ID4gICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsNCj4gPg0KPiA+ICsgYm9vbCBjYW5j
-ZWxfc3VjY2VzczsNCj4gPg0KPiA+ICsNCj4gPg0KPiA+ICsgY2FuY2VsX3N1Y2Nlc3MgPSBjYW5j
-ZWxfZGVsYXllZF93b3JrX3N5bmMoJmFkZXYtPnZjbi5pZGxlX3dvcmspOw0KPiA+DQo+ID4gW0pa
-XSBDYW4geW91IHJlZmVyIHRvIHZjbl92M18wX3N0b3AgLCBhbmQgYWRkDQo+IGFtZGdwdV9kcG1f
-ZW5hYmxlX3V2ZChhZGV2LCBmYWxzZSk7IHRvIHRoZSBlbmQgb2YgdmNuX3YxXzBfc3RvcD8NCj4g
-Pg0KPiA+IFNlZSBpZiBpdCBhbHNvIGNhbiBoZWxwLg0KPiA+DQo+ID4NCj4gPg0KPiA+ICsgaWYg
-KGNhbmNlbF9zdWNjZXNzKSB7DQo+ID4NCj4gPiArICAgICAgICBpZiAoYWRldi0+cG0uZHBtX2Vu
-YWJsZWQpDQo+ID4NCj4gPiArICAgICAgICAgICAgICAgIGFtZGdwdV9kcG1fZW5hYmxlX3V2ZChh
-ZGV2LCBmYWxzZSk7DQo+ID4NCj4gPiArIH0NCj4gPg0KPiA+DQo+ID4NCj4gPiAgIHIgPSB2Y25f
-djFfMF9od19maW5pKGFkZXYpOw0KPiA+DQo+ID4gICBpZiAocikNCg==
+On Thu, Dec 16, 2021 at 8:43 PM Quan, Evan <Evan.Quan@amd.com> wrote:
+>
+> [AMD Official Use Only]
+>
+> Hi Alex,
+>
+> Per our checking, vcn_v2 and vcn_v3 already have the dpm disablement(belo=
+w) in their ->suspend routine which should prevent them from the issue here=
+.
+>         if (adev->pm.dpm_enabled)
+>                 amdgpu_dpm_enable_uvd(adev, false);
+> So, maybe it's a different story with those newer APUs. Can you forward t=
+he bug reports to me?
+
+https://gitlab.freedesktop.org/drm/amd/-/issues/1712#note_1192187
+
+Alex
+
+>
+> Thanks,
+> Evan
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Thursday, December 16, 2021 11:38 PM
+> > To: Quan, Evan <Evan.Quan@amd.com>
+> > Cc: Zhu, James <James.Zhu@amd.com>; Gong, Curry
+> > <Curry.Gong@amd.com>; amd-gfx@lists.freedesktop.org; Deucher,
+> > Alexander <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.com>
+> > Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
+> > powergating is explicitly enabled
+> >
+> > FWIW, it looks like all versions of VCN need the same fix.  There have =
+been
+> > reports of suspend failing when VCN is in use on other newer APUs as we=
+ll.
+> >
+> > Alex
+> >
+> > On Tue, Dec 14, 2021 at 12:59 AM Quan, Evan <Evan.Quan@amd.com> wrote:
+> > >
+> > > [AMD Official Use Only]
+> > >
+> > >
+> > >
+> > >
+> > >
+> > >
+> > >
+> > > From: Zhu, James <James.Zhu@amd.com>
+> > > Sent: Monday, December 13, 2021 9:39 PM
+> > > To: Gong, Curry <Curry.Gong@amd.com>; Zhu, James
+> > <James.Zhu@amd.com>;
+> > > amd-gfx@lists.freedesktop.org
+> > > Cc: Liu, Leo <Leo.Liu@amd.com>; Quan, Evan <Evan.Quan@amd.com>;
+> > > Deucher, Alexander <Alexander.Deucher@amd.com>
+> > > Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended=
+,
+> > > powergating is explicitly enabled
+> > >
+> > >
+> > >
+> > > Hi Curry, Evan,
+> > >
+> > > It seems vcn1.0 power gate sequence are special.
+> > >
+> > > if the original solution is thread safe, then the following solution =
+will be
+> > thread safe also.
+> > >
+> > > static int vcn_v1_0_hw_fini(void *handle) {
+> > >     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> > >
+> > >     cancel_delayed_work_sync(&adev->vcn.idle_work);
+> > >
+> > >     if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
+> > >         (adev->vcn.cur_state !=3D AMD_PG_STATE_GATE &&
+> > >          RREG32_SOC15(VCN, 0, mmUVD_STATUS))) {
+> > > +        if (adev->pm.dpm_enabled)
+> > > +            amdgpu_dpm_enable_uvd(adev, false);
+> > > +        else
+> > > +            vcn_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
+> > >
+> > > [Quan, Evan] Considering adev->pm.dpm_enabled is always true,
+> > =E2=80=9Cvcn_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE); =E2=
+=80=9C will
+> > become dead code.
+> > >
+> > > Also, the vcn_v1_0_hw_fini is also used in other scenarios(except the
+> > suspend/resume discussed here). So, it seems quite risky compared with
+> > Curry=E2=80=99s original patch.
+> > >
+> > > Before we can come up with a better idea, I would suggest to land Cur=
+ry=E2=80=99s
+> > original patch as a quick fix.
+> > >
+> > >
+> > >
+> > > BR
+> > >
+> > > Evan
+> > >
+> > >
+> > >     }
+> > >
+> > > Best Regards!
+> > >
+> > > James
+> > >
+> > > On 2021-12-13 3:55 a.m., Gong, Curry wrote:
+> > >
+> > > [AMD Official Use Only]
+> > >
+> > >
+> > >
+> > > Hi James:
+> > >
+> > >
+> > >
+> > > With the following patch, an error will be reported when the driver i=
+s
+> > > loaded
+> > >
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > >
+> > > @@ -1202,6 +1204,9 @@ static int vcn_v1_0_stop(struct amdgpu_device
+> > > *adev)
+> > >
+> > >         else
+> > >
+> > >                 r =3D vcn_v1_0_stop_spg_mode(adev);
+> > >
+> > >
+> > >
+> > > c
+> > >
+> > >         return r;
+> > >
+> > > }
+> > >
+> > >
+> > >
+> > >
+> > >
+> > > $ dmesg
+> > >
+> > > [  363.181081] INFO: task kworker/3:2:223 blocked for more than 120
+> > seconds.
+> > >
+> > > [  363.181150]       Tainted: G           OE     5.11.0-41-generic #4=
+5~20.04.1-
+> > Ubuntu
+> > >
+> > > [  363.181208] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+> > disables this message.
+> > >
+> > > [  363.181266] task:kworker/3:2     state:D stack:    0 pid:  223 ppi=
+d:     2
+> > flags:0x00004000
+> > >
+> > > [  363.181276] Workqueue: events vcn_v1_0_idle_work_handler [amdgpu]
+> > >
+> > > [  363.181612] Call Trace:
+> > >
+> > > [  363.181618]  __schedule+0x44c/0x8a0
+> > >
+> > > [  363.181627]  schedule+0x4f/0xc0
+> > >
+> > > [  363.181631]  schedule_preempt_disabled+0xe/0x10
+> > >
+> > > [  363.181636]  __mutex_lock.isra.0+0x183/0x4d0
+> > >
+> > > [  363.181643]  __mutex_lock_slowpath+0x13/0x20
+> > >
+> > > [  363.181648]  mutex_lock+0x32/0x40
+> > >
+> > > [  363.181652]  amdgpu_dpm_set_powergating_by_smu+0x9c/0x180
+> > [amdgpu]
+> > >
+> > > [  363.182055]  amdgpu_dpm_enable_uvd+0x38/0x110 [amdgpu]
+> > >
+> > > [  363.182454]  vcn_v1_0_set_powergating_state+0x2e7e/0x3cf0 [amdgpu]
+> > >
+> > > [  363.182776]  amdgpu_device_ip_set_powergating_state+0x6c/0xc0
+> > > [amdgpu]
+> > >
+> > > [  363.183028]  smu10_powergate_vcn+0x2a/0x80 [amdgpu]
+> > >
+> > > [  363.183361]  pp_set_powergating_by_smu+0xc5/0x2b0 [amdgpu]
+> > >
+> > > [  363.183699]  amdgpu_dpm_set_powergating_by_smu+0xb6/0x180
+> > [amdgpu]
+> > >
+> > > [  363.184040]  amdgpu_dpm_enable_uvd+0x38/0x110 [amdgpu]
+> > >
+> > > [  363.184391]  vcn_v1_0_idle_work_handler+0xe1/0x130 [amdgpu]
+> > >
+> > > [  363.184667]  process_one_work+0x220/0x3c0
+> > >
+> > > [  363.184674]  worker_thread+0x4d/0x3f0
+> > >
+> > > [  363.184677]  ? process_one_work+0x3c0/0x3c0
+> > >
+> > > [  363.184680]  kthread+0x12b/0x150
+> > >
+> > > [  363.184685]  ? set_kthread_struct+0x40/0x40
+> > >
+> > > [  363.184690]  ret_from_fork+0x22/0x30
+> > >
+> > > [  363.184699] INFO: task kworker/2:2:233 blocked for more than 120
+> > seconds.
+> > >
+> > > [  363.184739]       Tainted: G           OE     5.11.0-41-generic #4=
+5~20.04.1-
+> > Ubuntu
+> > >
+> > > [  363.184782] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+> > disables this message.
+> > >
+> > > [  363.184825] task:kworker/2:2     state:D stack:    0 pid:  233 ppi=
+d:     2
+> > flags:0x00004000
+> > >
+> > > [  363.184831] Workqueue: events
+> > > amdgpu_device_delayed_init_work_handler [amdgpu]
+> > >
+> > > [  363.185085] Call Trace:
+> > >
+> > > [  363.185087]  __schedule+0x44c/0x8a0
+> > >
+> > > [  363.185092]  schedule+0x4f/0xc0
+> > >
+> > > [  363.185095]  schedule_timeout+0x202/0x290
+> > >
+> > > [  363.185099]  ? sched_clock_cpu+0x11/0xb0
+> > >
+> > > [  363.185105]  wait_for_completion+0x94/0x100
+> > >
+> > > [  363.185110]  __flush_work+0x12a/0x1e0
+> > >
+> > > [  363.185113]  ? worker_detach_from_pool+0xc0/0xc0
+> > >
+> > > [  363.185119]  __cancel_work_timer+0x10e/0x190
+> > >
+> > > [  363.185123]  cancel_delayed_work_sync+0x13/0x20
+> > >
+> > > [  363.185126]  vcn_v1_0_ring_begin_use+0x20/0x70 [amdgpu]
+> > >
+> > > [  363.185401]  amdgpu_ring_alloc+0x48/0x60 [amdgpu]
+> > >
+> > > [  363.185640]  amdgpu_ib_schedule+0x493/0x600 [amdgpu]
+> > >
+> > > [  363.185884]  amdgpu_job_submit_direct+0x3c/0xd0 [amdgpu]
+> > >
+> > > [  363.186186]  amdgpu_vcn_dec_send_msg+0x105/0x210 [amdgpu]
+> > >
+> > > [  363.186460]  amdgpu_vcn_dec_ring_test_ib+0x69/0x110 [amdgpu]
+> > >
+> > > [  363.186734]  amdgpu_ib_ring_tests+0xf5/0x160 [amdgpu]
+> > >
+> > > [  363.186978]  amdgpu_device_delayed_init_work_handler+0x15/0x30
+> > > [amdgpu]
+> > >
+> > > [  363.187206]  process_one_work+0x220/0x3c0
+> > >
+> > > [  363.187210]  worker_thread+0x4d/0x3f0
+> > >
+> > > [  363.187214]  ? process_one_work+0x3c0/0x3c0
+> > >
+> > > [  363.187217]  kthread+0x12b/0x150
+> > >
+> > > [  363.187221]  ? set_kthread_struct+0x40/0x40
+> > >
+> > > [  363.187226]  ret_from_fork+0x22/0x30
+> > >
+> > >
+> > >
+> > >
+> > >
+> > > BR
+> > >
+> > > Curry Gong
+> > >
+> > > From: Zhu, James <James.Zhu@amd.com>
+> > > Sent: Saturday, December 11, 2021 5:07 AM
+> > > To: Gong, Curry <Curry.Gong@amd.com>; amd-gfx@lists.freedesktop.org
+> > > Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>;
+> > Quan,
+> > > Evan <Evan.Quan@amd.com>; Deucher, Alexander
+> > > <Alexander.Deucher@amd.com>
+> > > Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended=
+,
+> > > powergating is explicitly enabled
+> > >
+> > >
+> > >
+> > > On 2021-12-10 6:41 a.m., chen gong wrote:
+> > >
+> > > Play a video on the raven (or PCO, raven2) platform, and then do the
+> > > S3
+> > >
+> > > test. When resume, the following error will be reported:
+> > >
+> > >
+> > >
+> > > amdgpu 0000:02:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR*
+> > > ring
+> > >
+> > > vcn_dec test failed (-110)
+> > >
+> > > [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of
+> > IP
+> > > block
+> > >
+> > > <vcn_v1_0> failed -110
+> > >
+> > > amdgpu 0000:02:00.0: amdgpu: amdgpu_device_ip_resume failed (-110).
+> > >
+> > > PM: dpm_run_callback(): pci_pm_resume+0x0/0x90 returns -110
+> > >
+> > >
+> > >
+> > > [why]
+> > >
+> > > When playing the video: The power state flag of the vcn block is set
+> > > to
+> > >
+> > > POWER_STATE_ON.
+> > >
+> > >
+> > >
+> > > When doing suspend: There is no change to the power state flag of the
+> > >
+> > > vcn block, it is still POWER_STATE_ON.
+> > >
+> > >
+> > >
+> > > When doing resume: Need to open the power gate of the vcn block and
+> > > set
+> > >
+> > > the power state flag of the VCN block to POWER_STATE_ON.
+> > >
+> > > But at this time, the power state flag of the vcn block is already
+> > >
+> > > POWER_STATE_ON. The power status flag check in the "8f2cdef
+> > drm/amd/pm:
+> > >
+> > > avoid duplicate powergate/ungate setting" patch will return the
+> > >
+> > > amdgpu_dpm_set_powergating_by_smu function directly.
+> > >
+> > > As a result, the gate of the power was not opened, causing the
+> > >
+> > > subsequent ring test to fail.
+> > >
+> > >
+> > >
+> > > [how]
+> > >
+> > > In the suspend function of the vcn block, explicitly change the power
+> > >
+> > > state flag of the vcn block to POWER_STATE_OFF.
+> > >
+> > >
+> > >
+> > > Signed-off-by: chen gong <curry.gong@amd.com>
+> > >
+> > > ---
+> > >
+> > >  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 7 +++++++
+> > >
+> > >  1 file changed, 7 insertions(+)
+> > >
+> > >
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > > b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > >
+> > > index d54d720..d73676b 100644
+> > >
+> > > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > >
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > >
+> > > @@ -246,6 +246,13 @@ static int vcn_v1_0_suspend(void *handle)
+> > >
+> > >  {
+> > >
+> > >   int r;
+> > >
+> > >   struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> > >
+> > > + bool cancel_success;
+> > >
+> > > +
+> > >
+> > > + cancel_success =3D cancel_delayed_work_sync(&adev->vcn.idle_work);
+> > >
+> > > [JZ] Can you refer to vcn_v3_0_stop , and add
+> > amdgpu_dpm_enable_uvd(adev, false); to the end of vcn_v1_0_stop?
+> > >
+> > > See if it also can help.
+> > >
+> > >
+> > >
+> > > + if (cancel_success) {
+> > >
+> > > +        if (adev->pm.dpm_enabled)
+> > >
+> > > +                amdgpu_dpm_enable_uvd(adev, false);
+> > >
+> > > + }
+> > >
+> > >
+> > >
+> > >   r =3D vcn_v1_0_hw_fini(adev);
+> > >
+> > >   if (r)
