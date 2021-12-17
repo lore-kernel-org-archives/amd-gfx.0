@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 826EFC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 22:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3361EC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 22:28:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B68710E746;
-	Fri, 17 Dec 2021 22:28:17 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A846210E5C3;
- Fri, 17 Dec 2021 22:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92D2E10E5EE;
+	Fri, 17 Dec 2021 22:28:19 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2070.outbound.protection.outlook.com [40.107.102.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2372810E6CE;
+ Fri, 17 Dec 2021 22:28:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FHS8GGi4ObC/62N9dzJhuiSi1Pxcf55dzzqNDkv4KEnWtZr9/RsRCQuvPDFgmsoRlw4V/yqeqnR1UoJgruTWuy/OeiqbwrjjviVLwgNoeNJMpIYiptbCDMf1SYmhOhOkAQNmG+vqTrnKoy5JmUs842dvoemWjYtyt7L+ERl/Inpqne7eGUvDo0yOUkJC95g3O9PwO79fGBeE2P2clEVz+u6W88ExPkC/Fnk/thYLWxkhOEfmjyVMCN1C2RKxWdq32dENMGvWLKd7QAE+1DvwtXwcsiUtTk/MFExNB9FMdTgMzOSDE+Ch9exgAWgQqiG5Wno/ctiMx9PhEGWBOdRyzw==
+ b=AWG9yl6z7/2i3bKvZjT/EpKFyiZ/DozGEVFmzK89rlDDGURxWsJukqVY0kkHnpqniq5FTIOrwOD3Mv74EX+elV5wsCd04sFQLfbDDgWoghGgjDG0sLXpsL/irq/gySai6r9pLsvV4/HfEMHNtsRLC432RLo7b/Gio2xKLZNZ5El/JGvasXvghbpdzYNFxHy/AeyqwtEzqU+kUMyDfjxUnKqvPNCG8+1M+Xi8ODFy1y0YFSDJW9mNxX0EUOS3nkercrCpbrv2iJTg+wi8PuxRqhDM12wAugr7o3hczR8D93D8usBf3zwXzGU3LVBcUFIqDfW78KBG/Ks2J9cKjUQIbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hu1UsnP5dzlqhRd1usnZSk8Ohz+/2ADy9Nznttuu9bY=;
- b=n1+rAJl0Ws5QXZBj2ebZ71lWu5KkFyPhAZi6ghmPiwtBohNaIqNJuRw2uWlzB6ybUaQEp8R+2jy8owsZlci1erMXcoY4HeaxtFfkXlTXgP8b2Vcs64OM7pOVoQRPhpwFku6kfcQY3OMosscuMooTRpXs7t17pIw0p/dG1zCXtgYWz20f4ilc8a7WagrZfmv20J0N/E0KpK6oAiXx+gnLtAGKEwVjk5DVDFKKjj6UfnQ/YlrYvho+suAHiTnMVUEpmrcKUDdv+ZwFejn0Rxmc+0biN0AZ0zAZs2cvUtJCPb0ROh9I5dzEwhUiyIEj58cW6OTSSjBIPas8U30FJNqmDw==
+ bh=GOqzt8UQjxRRCGvkuiLk04dl9aIzxyq/VPOFpOyI8pA=;
+ b=D5udkzSmRPg0b77v8o89gjL4F3+lP+aaXwg9u/buMNhee7w752bpH0J7uUVhZ56uS4vvuae+t4Nru++b3x6Kf9/sSr3MW9ir86nNbuFw1b423CMOk0n6Zq1QjDIsnLBvpVH5CH1o7t32beeI7knBLRycYCz+2JZNNWd74fVdJ80RdxlAXzfCobLPYw1uHeB0qv2DJz8i9mqNB++i5/57utg13KAKSdq5QOuEaa8kRHhZtOY7fB+ymF3WNovDxaD6sUddRPsCMnfzz4BDUEcwmryWTpxRRHMVr+YAIv+1K9LG6g4ttZUcU1wUW+Q7wSeC5341InXNuapJAgfHCeXc5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hu1UsnP5dzlqhRd1usnZSk8Ohz+/2ADy9Nznttuu9bY=;
- b=4SgjM12AWpesA0kPC30d3wdbmIebBOpQUnrwq+JkQVQtWCWhqlIb4qvuUH7rsYMySQVmgQS9Z+F7ukwiFNWipPwmyr5KDfHG9IB7id/4VOUmtEmRXhBHw+XNBiGzUSAuHQo3U5QzfZqbakVGmOaT7yS905452nRDmSXodubz4hI=
-Received: from BN6PR12CA0035.namprd12.prod.outlook.com (2603:10b6:405:70::21)
- by DM5PR12MB1129.namprd12.prod.outlook.com (2603:10b6:3:7a::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4778.17; Fri, 17 Dec 2021 22:28:11 +0000
-Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:70:cafe::b4) by BN6PR12CA0035.outlook.office365.com
- (2603:10b6:405:70::21) with Microsoft SMTP Server (version=TLS1_2,
+ bh=GOqzt8UQjxRRCGvkuiLk04dl9aIzxyq/VPOFpOyI8pA=;
+ b=d/1VKs/WBGhpGIN1hWB5pFaHqLOx8ADUteTRjs70+dfkZaOrAUPA5a1LFBggOlhnBkitQovFk2EqJctNCRM8IMrTVGwMDVZ5XdYReWbeV2ONGxvRX2dxWaK46a2xleSaccGTBbN+fJ9f3SSotG9zVrS5EId2bc3hjLHqBjcZrMI=
+Received: from BN8PR04CA0027.namprd04.prod.outlook.com (2603:10b6:408:70::40)
+ by BYAPR12MB3080.namprd12.prod.outlook.com (2603:10b6:a03:de::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Fri, 17 Dec
+ 2021 22:28:14 +0000
+Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:70:cafe::8a) by BN8PR04CA0027.outlook.office365.com
+ (2603:10b6:408:70::40) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14 via Frontend
- Transport; Fri, 17 Dec 2021 22:28:11 +0000
+ Transport; Fri, 17 Dec 2021 22:28:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
+ BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4801.14 via Frontend Transport; Fri, 17 Dec 2021 22:28:10 +0000
+ 15.20.4801.14 via Frontend Transport; Fri, 17 Dec 2021 22:28:13 +0000
 Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Fri, 17 Dec 2021 16:28:09 -0600
+ 15.1.2375.17; Fri, 17 Dec 2021 16:28:12 -0600
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [RFC 1/6] drm/amdgpu: Init GPU reset single threaded wq
-Date: Fri, 17 Dec 2021 17:27:40 -0500
-Message-ID: <20211217222745.881637-2-andrey.grodzovsky@amd.com>
+Subject: [RFC 4/6] drm/amdgpu: Serialize non TDR gpu recovery with TDRs
+Date: Fri, 17 Dec 2021 17:27:43 -0500
+Message-ID: <20211217222745.881637-5-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211217222745.881637-1-andrey.grodzovsky@amd.com>
 References: <20211217222745.881637-1-andrey.grodzovsky@amd.com>
@@ -68,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fcb1cb81-d0bb-4c00-b0b1-08d9c1ac81f2
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1129:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1129E0A8981A5B27A6F8022AEA789@DM5PR12MB1129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Office365-Filtering-Correlation-Id: b5c82c37-f06b-4a3e-dfb8-08d9c1ac83da
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3080:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB308070D2C66A74612E6E1C31EA789@BYAPR12MB3080.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M3AXGPFuXMR3jUgAxzTsEI2LfM/RqvDxLmsZO+yYU2JUv3DGgky4JZnegptxUmPB0MKhg0l2weeNnjfSlnswjJ51BWfB6xo/GBY6on5x9D+Vv659rgqvUKFoSbtcxnW2xVVTI5jlvgEVE0wsjHI7DFgQCszjlOHFFnpXafqvIYwci/QUThg5ALyGbFkhDMG5biH/InvMtpmEh5p5zxiZHBWAcioblEArbfq8hZeMOJqqFHKtTJ+e0b8EztTYCZPi6hncwqn1RzOKUMgo6zMbzgefWVUK0jqQkDvtSoXeTi1e53hi8f6P+so6AzuXzc1enOskKp6dWpTv41a9y2xmrdoBAhAnNRD2EqG5T0B1737YDuO+vGpCiVom1W/eFV7g0thIOKVhzYziP7eIeV5AKdfJIgaPtTz5XHm3VUJuzgiCBjs/ZBc79OHOQ32wD0c2Y9XCMgepSlyvNaLikEEFNXd1vW29mKu/RcoFFGlvSlD8LzX2DOiZqHP7O3r0sVenEbjyTGEpUh/C6m/npG9+5Gubb83HzfZE3wu/D6+F+sNRQzoRJGSgEUopRgwtsOvNKPZN6YX/ldnmOXUmcy3x/7bnsBBiNAHSAb5d1tnWzZT2mif3XS5JVpmQWukODJwx0kWPGrvLOBdbB3RCTjspIDYSrrYNGYLY8paPV9DT8VuhpKuIdSqupHc4L46T8Pv8HL31bqcA621jDMmo8mg0H45Yji4Yoyv2mybuYDqbhNEvp8exEviz7cSQ3YciNSI9vcb3e1pNDwhFMc+MqHhykZTHI9Gqggi2fTWFoccWKOQ=
+X-Microsoft-Antispam-Message-Info: 02CEsSi0v2xyM1gCk/6v6na7jdus/vl0xrnVRxad58F5VvpViZ5QvuXTNwqvA+iEQ3yFXl2GZxAYL1i+j2azMZr3+gj4p1Q+DDu8z4mlbfx016Et7K56vohSvCkN44zrPxgFLuNlDHP2iUBEjF6Xjk71JQmx0SFG1q4/iNwiNT67Cdh9MnmPi1GNWJCs2BEANBa9gnCAIhWJ7d+BW5QErOdH0EYdDP9yRvRGtjWIMVx1CVPr1Rq9eGiQ1TswB2/DYtY3lCNzOi2Yo3DmRvmVKguk88/qXievC8VYC8SZkbt0d4jccPgEORThF6H6hHCaR1QaUJSszrAhJimCduYghMY5imZ4pvR3h9DOtLrqlH4ULECPueYn3mSH76fIXqzkur7pJUj5toArdTkWhgIGaSUkg2ecStyjMr/Hd4bSWkIe4BLekpJdDLLmgZYokqgNOa9Qzw68SRpm74bl028PdsYfAl56h25VOSKfEMqy0B2WeBJZG9VE8TdkxQP/Pjc9s/E38o7kukugaxhcz1C5ZtRUQ8pIv48SbM7MvYFb/ohE75kJ0Aj6o9klrBlCMfBPRqL/AnPiNRumtBRmYx9BJbiT2lR/juQWiEOpVEAkTR2Jlo9QH7InoAF3TPGG/SVYaoS13wG6SLnulk+M/gR1OpKu7To1/26ocxQ6Rfd27gy96+SbeyU0ICpUcBWWFuIMn0vC09MmRTmorFpffrFSLC64gpgAj/dqdYQCdCBI7RZ1bsxyX3rO56BX1i9TMDYn7M8zPg34A2wU3ZbWOL9o4SuUrMmkMgu+EcvXg+zNwtM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(46966006)(40470700001)(336012)(6666004)(83380400001)(47076005)(2906002)(356005)(81166007)(1076003)(2616005)(426003)(70586007)(44832011)(36756003)(70206006)(82310400004)(36860700001)(508600001)(40460700001)(5660300002)(4326008)(8676002)(86362001)(8936002)(316002)(186003)(54906003)(16526019)(7696005)(26005)(110136005)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(36756003)(4326008)(47076005)(8936002)(5660300002)(86362001)(336012)(83380400001)(82310400004)(44832011)(40460700001)(70586007)(26005)(6666004)(7696005)(81166007)(356005)(110136005)(54906003)(316002)(16526019)(426003)(36860700001)(186003)(508600001)(8676002)(2906002)(70206006)(2616005)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 22:28:10.7843 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcb1cb81-d0bb-4c00-b0b1-08d9c1ac81f2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 22:28:13.9003 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5c82c37-f06b-4a3e-dfb8-08d9c1ac83da
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1129
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3080
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,114 +106,97 @@ Cc: Monk.Liu@amd.com, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Do it for both single device and XGMI hive cases.
+Use reset domain wq also for non TDR gpu recovery trigers
+such as sysfs and RAS. We must serialize all possible
+GPU recoveries to gurantee no concurrency there.
+For TDR call the original recovery function directly since
+it's already executed from within the wq. For others just
+use a wrapper to qeueue work and wait on it to finish.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  7 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 20 +++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |  9 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  2 ++
- 4 files changed, 37 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 33 +++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  2 +-
+ 3 files changed, 35 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 9f017663ac50..b5ff76aae7e0 100644
+index b5ff76aae7e0..8e96b9a14452 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -812,6 +812,11 @@ struct amd_powerplay {
- 
- #define AMDGPU_RESET_MAGIC_NUM 64
- #define AMDGPU_MAX_DF_PERFMONS 4
-+
-+struct amdgpu_reset_domain {
-+	struct workqueue_struct *wq;
-+};
-+
- struct amdgpu_device {
- 	struct device			*dev;
- 	struct pci_dev			*pdev;
-@@ -1096,6 +1101,8 @@ struct amdgpu_device {
- 
- 	struct amdgpu_reset_control     *reset_cntl;
- 	uint32_t                        ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
-+
-+	struct amdgpu_reset_domain	reset_domain;
- };
- 
- static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+@@ -1296,6 +1296,8 @@ bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
+ bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
+ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 			      struct amdgpu_job* job);
++int amdgpu_device_gpu_recover_imp(struct amdgpu_device *adev,
++			      struct amdgpu_job *job);
+ void amdgpu_device_pci_config_reset(struct amdgpu_device *adev);
+ int amdgpu_device_pci_reset(struct amdgpu_device *adev);
+ bool amdgpu_device_need_post(struct amdgpu_device *adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5625f7736e37..5f13195d23d1 100644
+index b595e6d699b5..55cd67b9ede2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2391,9 +2391,27 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto init_failed;
+@@ -4979,7 +4979,7 @@ static void amdgpu_device_recheck_guilty_jobs(
+  * Returns 0 for success or an error on failure.
+  */
  
--	if (adev->gmc.xgmi.num_physical_nodes > 1)
-+	if (adev->gmc.xgmi.num_physical_nodes > 1) {
-+		struct amdgpu_hive_info *hive;
-+
- 		amdgpu_xgmi_add_device(adev);
+-int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
++int amdgpu_device_gpu_recover_imp(struct amdgpu_device *adev,
+ 			      struct amdgpu_job *job)
+ {
+ 	struct list_head device_list, *device_list_handle =  NULL;
+@@ -5236,6 +5236,37 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	return r;
+ }
  
-+		hive = amdgpu_get_xgmi_hive(adev);
-+		if (!hive || !hive->reset_domain.wq) {
-+			DRM_ERROR("Failed to obtain reset domain info for XGMI hive:%llx", hive->hive_id);
-+			r = -EINVAL;
-+			goto init_failed;
-+		}
++struct recover_work_struct {
++	struct work_struct base;
++	struct amdgpu_device *adev;
++	struct amdgpu_job *job;
++	int ret;
++};
 +
-+		adev->reset_domain.wq = hive->reset_domain.wq;
-+	} else {
-+		adev->reset_domain.wq = alloc_ordered_workqueue("amdgpu-reset-dev", 0);
-+		if (!adev->reset_domain.wq) {
-+			r = -ENOMEM;
-+			goto init_failed;
-+		}
-+	}
++static void amdgpu_device_queue_gpu_recover_work(struct work_struct *work)
++{
++	struct recover_work_struct *recover_work = container_of(work, struct recover_work_struct, base);
 +
- 	/* Don't init kfd if whole hive need to be reset during init */
- 	if (!adev->gmc.xgmi.pending_reset)
- 		amdgpu_amdkfd_device_init(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 0fad2bf854ae..8b116f398101 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -391,6 +391,14 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
- 		goto pro_end;
- 	}
++	recover_work->ret = amdgpu_device_gpu_recover_imp(recover_work->adev, recover_work->job);
++}
++/*
++ * Serialize gpu recover into reset domain single threaded wq
++ */
++int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
++				    struct amdgpu_job *job)
++{
++	struct recover_work_struct work = {.adev = adev, .job = job};
++
++	INIT_WORK(&work.base, amdgpu_device_queue_gpu_recover_work);
++
++	if (!queue_work(adev->reset_domain.wq, &work.base))
++		return -EAGAIN;
++
++	flush_work(&work.base);
++
++	return work.ret;
++}
++
+ /**
+  * amdgpu_device_get_pcie_info - fence pcie info about the PCIE slot
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index bfc47bea23db..38c9fd7b7ad4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -63,7 +63,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
  
-+	hive->reset_domain.wq = alloc_ordered_workqueue("amdgpu-reset-hive", 0);
-+	if (!hive->reset_domain.wq) {
-+		dev_err(adev->dev, "XGMI: failed allocating wq for reset domain!\n");
-+		kfree(hive);
-+		hive = NULL;
-+		goto pro_end;
-+	}
-+
- 	hive->hive_id = adev->gmc.xgmi.hive_id;
- 	INIT_LIST_HEAD(&hive->device_list);
- 	INIT_LIST_HEAD(&hive->node);
-@@ -400,6 +408,7 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
- 	task_barrier_init(&hive->tb);
- 	hive->pstate = AMDGPU_XGMI_PSTATE_UNKNOWN;
- 	hive->hi_req_gpu = NULL;
-+
- 	/*
- 	 * hive pstate on boot is high in vega20 so we have to go to low
- 	 * pstate on after boot.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-index d2189bf7d428..6121aaa292cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-@@ -42,6 +42,8 @@ struct amdgpu_hive_info {
- 		AMDGPU_XGMI_PSTATE_MAX_VEGA20,
- 		AMDGPU_XGMI_PSTATE_UNKNOWN
- 	} pstate;
-+
-+	struct amdgpu_reset_domain reset_domain;
- };
- 
- struct amdgpu_pcs_ras_field {
+ 	if (amdgpu_device_should_recover_gpu(ring->adev)) {
+-		amdgpu_device_gpu_recover(ring->adev, job);
++		amdgpu_device_gpu_recover_imp(ring->adev, job);
+ 	} else {
+ 		drm_sched_suspend_timeout(&ring->sched);
+ 		if (amdgpu_sriov_vf(adev))
 -- 
 2.25.1
 
