@@ -4,60 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6BBCC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 02:03:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68E05C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Dec 2021 02:19:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71CDF10E313;
-	Fri, 17 Dec 2021 02:03:13 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2419A10E307
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 02:03:12 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id m6so1560999oim.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Dec 2021 18:03:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=LBCK6Iwz5eQHgNs7glcVc/9HPa+WjDFOqISqThcvSOo=;
- b=YpXRkVua6vkfk2YdRyCWgQfNOOqDgNDCBfy6wMZ0HwXCPAszZM2+Emc0LS0NAwhCWX
- 4bF/tOI3arYshUZ4JECh9v/2BOCCFz5ZQjN9OFzC+gC4X5UuiFXLhCjfzh6BN1qJ/yWC
- j4G85H5Jf2YNlKW6Fl22OZnzo/eFoYfD+Q5085H42FaLFxGllgZKqhK4bNXvouT1zI1n
- 3fyv9Yw7whvHC1bklQjbT6zpeRr0ncgRJxbbdutgmsSReOT9fDUw80j6IDFdJXGXb1FB
- AJwdEQCrXgvYEGOOBxEC1Ynrfs1+MYNAfmbH7sTTHThy0+HO22YqidXtUwC/9MPZ7Ve3
- e3kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=LBCK6Iwz5eQHgNs7glcVc/9HPa+WjDFOqISqThcvSOo=;
- b=iIqL66/zZfr1Jmu0O/VNX+N6ZvbpLstdknYPUud9Tr7Rb0AgCLUMxa9p9t0USrnsGq
- 15193uz6UFeGRZrWfKWFFZQ/aAkdhUBPvPjXIbx93olI/3IzYwIWVykzZtys1xkbTwOg
- oeh9epBnoeyCi+NPx76FT64hcvuK5PHrJ19GDhWZcAL6oMW70TL50xwwr+RBfg/UHa+V
- FB6B7vPA+DldpucqZ77DqTFS16PNdQbL6hCbntihGKTjhPXPOu/lnLzwDJBaxdP39uhK
- T+Kf2BjAMc9F+oZBNlSDakpfziEyh4bOYhH4WlonIxtInKYdnE7WdTCIF5ES/lXPYeG2
- CEKA==
-X-Gm-Message-State: AOAM531hIN3NCowkS5SpyYmlys8zyIGxi6cyrqBEyhgM+jWlPiTsVRlQ
- 9iZk9lsmj6phZLRIH7dlFQCJVUG0uxgI7EEri1yvO17r5bE=
-X-Google-Smtp-Source: ABdhPJy+xZjLmKSqt1u5r/Qt4J0E0SiA+5m2l7Z5KUhdoC5be3765/I7X6r/hr6rDahh2OF/KcOe1sq2XnVY8R5CURA=
-X-Received: by 2002:a05:6808:44:: with SMTP id v4mr487540oic.123.1639706591181; 
- Thu, 16 Dec 2021 18:03:11 -0800 (PST)
-MIME-Version: 1.0
-References: <1639136511-6357-1-git-send-email-curry.gong@amd.com>
- <f1f996f4-0bc3-aa01-f9da-3664b14f7861@amd.com>
- <BN7PR12MB2641CA6290B6CEFB4A5016EF9D749@BN7PR12MB2641.namprd12.prod.outlook.com>
- <826e98e0-5e6a-cc87-0690-b444e34bb367@amd.com>
- <DM6PR12MB2619D50306A965F94357A555E4759@DM6PR12MB2619.namprd12.prod.outlook.com>
- <CADnq5_PthY5p9zDnAHiKTsP8WyptK1Ni+yN4Uqj=JFqJkO7QQw@mail.gmail.com>
- <BYAPR12MB26156AFBEA1B63D12F42CF39E4789@BYAPR12MB2615.namprd12.prod.outlook.com>
-In-Reply-To: <BYAPR12MB26156AFBEA1B63D12F42CF39E4789@BYAPR12MB2615.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Dec 2021 21:02:59 -0500
-Message-ID: <CADnq5_N=iL12aLj7DdapXFp41W+Jnrb=nS+x-2-DPAYws11zGA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
- powergating is explicitly enabled
-To: "Quan, Evan" <Evan.Quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9295610E30E;
+	Fri, 17 Dec 2021 02:19:04 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2075.outbound.protection.outlook.com [40.107.100.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B95E10E30E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Dec 2021 02:19:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fseIblajksub/eaTAYYxZyT8mQUw83nyfb55aUIebq+ixlK04Z/+uI+pIrXTXX3Y5A9YkHE4kBgV56sURmrEJ5nG0IZcF8ZHL7Y9pYHzsIcEthYjv5Kg5u4YIC9Qw/QoM3LSIsT46CfJBhysAUM6SUr0nVwW/izgMiypmPTwH2gjmT5qJzY6ohQpTw5RFmOauB78r9avgf0tr0YC3UruYJMqg/sp0xJD+u9C/xJ21+HDnDC/VyBOHYcq+XEbW/viSc2pNB54tCq3wvFhxzolRdeSbaf3NGazsYMhaFytqsg0D19y7Znoo3nNrXp2FDTtBh6RuGxQM27q/pfoTQ3GEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=51ROYfulmm9CrVWry+1z+JqCf1eQSqxiEOEyJgXL824=;
+ b=IL4+0q3APi1TNxw3v0uiG8wLX3H6YS4XFtWmX+dLGXNdLVJLGZgFqyN9V+5VlT4W0cE0LFz4+I5CIj3KXPotZaHg3LnUuJTE9SNfHQPSO3Te/CQcjYB0lYOEP/f+MED1APMDKA9U5Vx4q2Cgf02fFxGZGP7YEmVrSXlza/IdBn33R6K8ivhMyaspd6ydu03w5HNYiHxykHmryDp1fcy9kZ17qEa6k9pMf4R6W0dRFiksjMBjFKBVZ1a8JJ2I9aMkgr7sSv1aH+s+S8m9++NSep017v2Ps8AMD/GdAkfjDQXPO4V+GtQWtDBx3wFvMZgPg0jeATeRYFPcN/cPJhnz5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=51ROYfulmm9CrVWry+1z+JqCf1eQSqxiEOEyJgXL824=;
+ b=gXGd0tZ0qYXSwmXC2c+aP3m7AjNyYBavuMjAqjD/N/DubaANLKiceiDrd4db+FaGxjdQ0quhF3lZjRBV2t1M/dvXMSwTY02lxY5Gqckyc8t1ccs66R8pCwkd4KRQjqR63tJMNUHgqn0IgRQtrafZSuXkDlv/v0U+f4ttzOP51L0=
+Received: from DM6PR12MB4650.namprd12.prod.outlook.com (2603:10b6:5:1fd::27)
+ by DM6PR12MB3049.namprd12.prod.outlook.com (2603:10b6:5:11d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Fri, 17 Dec
+ 2021 02:18:59 +0000
+Received: from DM6PR12MB4650.namprd12.prod.outlook.com
+ ([fe80::d434:e9b4:307c:2819]) by DM6PR12MB4650.namprd12.prod.outlook.com
+ ([fe80::d434:e9b4:307c:2819%7]) with mapi id 15.20.4778.019; Fri, 17 Dec 2021
+ 02:18:59 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "Chai, Thomas" <YiPeng.Chai@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>
+Subject: RE: [PATCH 3/4] drm/amdkfd: add reset queue function for RAS poison
+Thread-Topic: [PATCH 3/4] drm/amdkfd: add reset queue function for RAS poison
+Thread-Index: AQHX8nEVzesQtsoaE0qs00k5Hhthvaw1CgeAgADpuOA=
+Date: Fri, 17 Dec 2021 02:18:58 +0000
+Message-ID: <DM6PR12MB46504A9D0304CC26FC57C7CBB0789@DM6PR12MB4650.namprd12.prod.outlook.com>
+References: <20211216113532.12369-1-tao.zhou1@amd.com>
+ <20211216113532.12369-3-tao.zhou1@amd.com>
+ <BL1SPR01MB00021E27716174BE8B8544C9FC779@BL1SPR01MB0002.namprd12.prod.outlook.com>
+In-Reply-To: <BL1SPR01MB00021E27716174BE8B8544C9FC779@BL1SPR01MB0002.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-17T02:18:54Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=845639b8-97e9-443f-b486-7a5e25111263;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2021-12-17T02:18:54Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 2ceb81a7-a4c0-4d64-bee9-12485a889ec5
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 443b1c37-909b-4861-4b2c-08d9c10395b9
+x-ms-traffictypediagnostic: DM6PR12MB3049:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB3049B744D014C2C02FE26D48B0789@DM6PR12MB3049.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: pkprgSLxDqoI5bHUm8l/e+fJI3rabouIjzH+XziWpA2+Jsk4JRzR2NjOoHj0FhZImuClXxxxUqi/IApUXrBeXL4gBRI2gw/zJN/8PyKK2bmump3CKw/4oggqUSG9Qx8X81CHQkrKUzGFSNMhKLkV2L5Chr9yEu1poLbAxBjRwOS3WQmi3i1EzK5i72QlYRHVsSFmUZpGZ3QA1j142eF2AkHIVIHygPrihWDE2y8FEGqKcKKg4tyJ6ZyWTiZ5npantxFQ5H9KX28Kjd9bojCSTQH7fqyKJ4YLOQOKkeTTlSstahOqpEybt/Rm4XSzwEM7fmy6IbiwgF6lSk1+wYVtNUrY5uzimfnzOwQ5HOkBQHW4I0HvN3TfrBOU78Lc51nZV5WN/G9qtVXksyd2IuGFNAu4rFwi6deXRadCOHegOVv9xnAQVKIdXb8RHYDZmsr65n7h0bvTXnD317WuKNRWid4CIBgqS8/q+Hov1nkchtdDSe0tO9t0YKWfwKL3XOAeSGDRJR6bRy1wth/pPFsgWObF6quCHZe18lQKFt0k6PJgQ5r+AX0Mqxcc0WXWEWkW3EVP3h8ISwTCLjbmNlZ19upeh336z0L7NUVpH+TDFFAVjbdMllvhrVYXC9kJHiO62ngefY+W3SP5iMhgzVA/dgj8JSZsRss5kTECnYa4Nuz+Z/7Vyodrny3JhnAwk/LXOeg7VlHehsKEmH4tJ3P68A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4650.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(53546011)(6506007)(55016003)(26005)(2906002)(66476007)(5660300002)(76116006)(66446008)(38070700005)(66556008)(66946007)(8936002)(8676002)(52536014)(122000001)(38100700002)(186003)(6636002)(9686003)(508600001)(64756008)(71200400001)(86362001)(33656002)(7696005)(110136005)(83380400001)(316002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZbSi4PumiT+Vb1cpr0rrpAYQjZWHbZwbUh65TcAGgSTFf7v7qA2bZ3f9MIYv?=
+ =?us-ascii?Q?eqFGnRrHoOE+erxZYM3oSdf0FkFXiPHakh6cWxyaq5H91cPs5K32q5fr3qUG?=
+ =?us-ascii?Q?+4mVKyPeHQlIiDbbrSKIu6QPkD4FaK3kQl6JQ6HEabuwoHMZZ7yTevJkhcX6?=
+ =?us-ascii?Q?gg0NmvaMHbcSfeWMpo9uAaQP6Y/uQfsqacynQ2FKMZfqI7NdxbZpQPvaG9+o?=
+ =?us-ascii?Q?yiMJfdsgi13ZbR6MA2noiyYoSD5Xd5E+/wP7mcds36AaHHVnlxVWFX4S0Xga?=
+ =?us-ascii?Q?1IMiC01vEe579g8lSogGKWdpZh03xSCYIu6bNYb5xNwikGtIsMo0HBNH1/mY?=
+ =?us-ascii?Q?/I8E/1bofGSHU2dRlpNsGOgzN6Dp8IPwOLCWKqga+pCPCL5UkBIQWbd9i25w?=
+ =?us-ascii?Q?ZvkMvzcL9UFgAsShGCeMx9kYSEuIQIDnpf8XeTewb+IhkpQlHYqoLzP35sF4?=
+ =?us-ascii?Q?qYsRl3gftf/9dRT/WeMWhBtkpWKE66g0T1gur+ncUtDgPHd/G59vxgxqCPkj?=
+ =?us-ascii?Q?0qDV4iMf+yzbofWEPHgUlXIj7UFusfWaKEaTYBZWj7+ZbtOVFrzhAbLEcfGk?=
+ =?us-ascii?Q?eF7Ec1aqxXOHU0bEifo8frvj0809DMY0zo9gy+V6oKChJwcVBhth7v+5aDxp?=
+ =?us-ascii?Q?WhrjJIHEAOzWxOmNvwJWbP1AtEyDTFoVctUfhdhSrI+IaDrIbjq9UUWW8gQ3?=
+ =?us-ascii?Q?IqeEl+dkO0bahYgy2RoVBJr1tTDkDaRFlfmKyDsV57X3z7Yt8uvNLqHidIy4?=
+ =?us-ascii?Q?T3+u9/5dQ5Lb8Y3Rn/RmKdG+LrMNHVnJmL/aMHyYWeNqdmxNZGN7IlIaxIX7?=
+ =?us-ascii?Q?ClPYnNzs9w8FNOHbjcYVYDusSMmY/2oqPWQcqJkbMYTsC9n+eymAsqhCOwj9?=
+ =?us-ascii?Q?ySopM+O5AFz1FcgbozGyvz5v2tRytTARgspdPo51rEWqOb6doj399Sn3pzHq?=
+ =?us-ascii?Q?fNQSdK4cr9VEMiZcvM3+YhnuMU1nPbphw9GBGMT8E872t2R9SRXU92WiBljj?=
+ =?us-ascii?Q?jA5z5xwK8jwJx2MAqmK3mI4xLK1z68OnW2PW0+BHTjOPsS709Hq55wy6ZPVN?=
+ =?us-ascii?Q?8J1nAlR1MguT5xCGSjuseWZLKl5NhMRmziC0fD4mpcfoYBO9K9ELDdQsdcq3?=
+ =?us-ascii?Q?aobfSzQxukvxUEG+C6b4MLSQl2i/MfNDeKDHovcHrm5r79Aew+hUaCGuXL0C?=
+ =?us-ascii?Q?dQQ7b4LzA+4ERNsk5GWrSJt43LOTtEDbho6xEVsAyRHFYx/nOKbQMVA49rkH?=
+ =?us-ascii?Q?A3jyhedTzfrh1wb1zye4xz9kz7EkrpnjW1AzEpiWPZxwMG5Do3JYes5dBsLl?=
+ =?us-ascii?Q?5ppj7c/uxMseHc+YLYcgD1A5sRG/VSAebujP81LMdy0bFrLNVM+idN16uNVA?=
+ =?us-ascii?Q?QmxpyJiPgEHzr7Ba5CCdhMF1SGo9H3MjnxIsUPXX1gJ4GwPpdiUYNGgG8M19?=
+ =?us-ascii?Q?rfKscH65zbdBlPKIIRBt7IPICvYqrPSHQVq9I1SGqcR8O42o19oEScR/6cIy?=
+ =?us-ascii?Q?+nOTv6EGKy60xAFVBOKAH7y2f8KR8Cg0W0Yz5LxdHbUkCB3CnlsLNFYPortI?=
+ =?us-ascii?Q?0sLB6+hmoAmT+JT6QcU=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4650.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 443b1c37-909b-4861-4b2c-08d9c10395b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2021 02:18:58.8918 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kGM39XsKhCV6n4wKrGbld6TAmzflTqfgFWIF5rUT50womnv2tI7stUxlKRHAu2yq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3049
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,427 +137,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhu,
- James" <James.Zhu@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Gong,
- Curry" <Curry.Gong@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 16, 2021 at 8:43 PM Quan, Evan <Evan.Quan@amd.com> wrote:
->
-> [AMD Official Use Only]
->
-> Hi Alex,
->
-> Per our checking, vcn_v2 and vcn_v3 already have the dpm disablement(belo=
-w) in their ->suspend routine which should prevent them from the issue here=
-.
->         if (adev->pm.dpm_enabled)
->                 amdgpu_dpm_enable_uvd(adev, false);
-> So, maybe it's a different story with those newer APUs. Can you forward t=
-he bug reports to me?
+[AMD Official Use Only]
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/1712#note_1192187
+OK, I'll rename it before submit.
 
-Alex
+Regards,
+Tao
 
->
-> Thanks,
-> Evan
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Thursday, December 16, 2021 11:38 PM
-> > To: Quan, Evan <Evan.Quan@amd.com>
-> > Cc: Zhu, James <James.Zhu@amd.com>; Gong, Curry
-> > <Curry.Gong@amd.com>; amd-gfx@lists.freedesktop.org; Deucher,
-> > Alexander <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.com>
-> > Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended,
-> > powergating is explicitly enabled
-> >
-> > FWIW, it looks like all versions of VCN need the same fix.  There have =
-been
-> > reports of suspend failing when VCN is in use on other newer APUs as we=
-ll.
-> >
-> > Alex
-> >
-> > On Tue, Dec 14, 2021 at 12:59 AM Quan, Evan <Evan.Quan@amd.com> wrote:
-> > >
-> > > [AMD Official Use Only]
-> > >
-> > >
-> > >
-> > >
-> > >
-> > >
-> > >
-> > > From: Zhu, James <James.Zhu@amd.com>
-> > > Sent: Monday, December 13, 2021 9:39 PM
-> > > To: Gong, Curry <Curry.Gong@amd.com>; Zhu, James
-> > <James.Zhu@amd.com>;
-> > > amd-gfx@lists.freedesktop.org
-> > > Cc: Liu, Leo <Leo.Liu@amd.com>; Quan, Evan <Evan.Quan@amd.com>;
-> > > Deucher, Alexander <Alexander.Deucher@amd.com>
-> > > Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended=
-,
-> > > powergating is explicitly enabled
-> > >
-> > >
-> > >
-> > > Hi Curry, Evan,
-> > >
-> > > It seems vcn1.0 power gate sequence are special.
-> > >
-> > > if the original solution is thread safe, then the following solution =
-will be
-> > thread safe also.
-> > >
-> > > static int vcn_v1_0_hw_fini(void *handle) {
-> > >     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> > >
-> > >     cancel_delayed_work_sync(&adev->vcn.idle_work);
-> > >
-> > >     if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
-> > >         (adev->vcn.cur_state !=3D AMD_PG_STATE_GATE &&
-> > >          RREG32_SOC15(VCN, 0, mmUVD_STATUS))) {
-> > > +        if (adev->pm.dpm_enabled)
-> > > +            amdgpu_dpm_enable_uvd(adev, false);
-> > > +        else
-> > > +            vcn_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
-> > >
-> > > [Quan, Evan] Considering adev->pm.dpm_enabled is always true,
-> > =E2=80=9Cvcn_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE); =E2=
-=80=9C will
-> > become dead code.
-> > >
-> > > Also, the vcn_v1_0_hw_fini is also used in other scenarios(except the
-> > suspend/resume discussed here). So, it seems quite risky compared with
-> > Curry=E2=80=99s original patch.
-> > >
-> > > Before we can come up with a better idea, I would suggest to land Cur=
-ry=E2=80=99s
-> > original patch as a quick fix.
-> > >
-> > >
-> > >
-> > > BR
-> > >
-> > > Evan
-> > >
-> > >
-> > >     }
-> > >
-> > > Best Regards!
-> > >
-> > > James
-> > >
-> > > On 2021-12-13 3:55 a.m., Gong, Curry wrote:
-> > >
-> > > [AMD Official Use Only]
-> > >
-> > >
-> > >
-> > > Hi James:
-> > >
-> > >
-> > >
-> > > With the following patch, an error will be reported when the driver i=
-s
-> > > loaded
-> > >
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> > >
-> > > @@ -1202,6 +1204,9 @@ static int vcn_v1_0_stop(struct amdgpu_device
-> > > *adev)
-> > >
-> > >         else
-> > >
-> > >                 r =3D vcn_v1_0_stop_spg_mode(adev);
-> > >
-> > >
-> > >
-> > > c
-> > >
-> > >         return r;
-> > >
-> > > }
-> > >
-> > >
-> > >
-> > >
-> > >
-> > > $ dmesg
-> > >
-> > > [  363.181081] INFO: task kworker/3:2:223 blocked for more than 120
-> > seconds.
-> > >
-> > > [  363.181150]       Tainted: G           OE     5.11.0-41-generic #4=
-5~20.04.1-
-> > Ubuntu
-> > >
-> > > [  363.181208] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
-> > disables this message.
-> > >
-> > > [  363.181266] task:kworker/3:2     state:D stack:    0 pid:  223 ppi=
-d:     2
-> > flags:0x00004000
-> > >
-> > > [  363.181276] Workqueue: events vcn_v1_0_idle_work_handler [amdgpu]
-> > >
-> > > [  363.181612] Call Trace:
-> > >
-> > > [  363.181618]  __schedule+0x44c/0x8a0
-> > >
-> > > [  363.181627]  schedule+0x4f/0xc0
-> > >
-> > > [  363.181631]  schedule_preempt_disabled+0xe/0x10
-> > >
-> > > [  363.181636]  __mutex_lock.isra.0+0x183/0x4d0
-> > >
-> > > [  363.181643]  __mutex_lock_slowpath+0x13/0x20
-> > >
-> > > [  363.181648]  mutex_lock+0x32/0x40
-> > >
-> > > [  363.181652]  amdgpu_dpm_set_powergating_by_smu+0x9c/0x180
-> > [amdgpu]
-> > >
-> > > [  363.182055]  amdgpu_dpm_enable_uvd+0x38/0x110 [amdgpu]
-> > >
-> > > [  363.182454]  vcn_v1_0_set_powergating_state+0x2e7e/0x3cf0 [amdgpu]
-> > >
-> > > [  363.182776]  amdgpu_device_ip_set_powergating_state+0x6c/0xc0
-> > > [amdgpu]
-> > >
-> > > [  363.183028]  smu10_powergate_vcn+0x2a/0x80 [amdgpu]
-> > >
-> > > [  363.183361]  pp_set_powergating_by_smu+0xc5/0x2b0 [amdgpu]
-> > >
-> > > [  363.183699]  amdgpu_dpm_set_powergating_by_smu+0xb6/0x180
-> > [amdgpu]
-> > >
-> > > [  363.184040]  amdgpu_dpm_enable_uvd+0x38/0x110 [amdgpu]
-> > >
-> > > [  363.184391]  vcn_v1_0_idle_work_handler+0xe1/0x130 [amdgpu]
-> > >
-> > > [  363.184667]  process_one_work+0x220/0x3c0
-> > >
-> > > [  363.184674]  worker_thread+0x4d/0x3f0
-> > >
-> > > [  363.184677]  ? process_one_work+0x3c0/0x3c0
-> > >
-> > > [  363.184680]  kthread+0x12b/0x150
-> > >
-> > > [  363.184685]  ? set_kthread_struct+0x40/0x40
-> > >
-> > > [  363.184690]  ret_from_fork+0x22/0x30
-> > >
-> > > [  363.184699] INFO: task kworker/2:2:233 blocked for more than 120
-> > seconds.
-> > >
-> > > [  363.184739]       Tainted: G           OE     5.11.0-41-generic #4=
-5~20.04.1-
-> > Ubuntu
-> > >
-> > > [  363.184782] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
-> > disables this message.
-> > >
-> > > [  363.184825] task:kworker/2:2     state:D stack:    0 pid:  233 ppi=
-d:     2
-> > flags:0x00004000
-> > >
-> > > [  363.184831] Workqueue: events
-> > > amdgpu_device_delayed_init_work_handler [amdgpu]
-> > >
-> > > [  363.185085] Call Trace:
-> > >
-> > > [  363.185087]  __schedule+0x44c/0x8a0
-> > >
-> > > [  363.185092]  schedule+0x4f/0xc0
-> > >
-> > > [  363.185095]  schedule_timeout+0x202/0x290
-> > >
-> > > [  363.185099]  ? sched_clock_cpu+0x11/0xb0
-> > >
-> > > [  363.185105]  wait_for_completion+0x94/0x100
-> > >
-> > > [  363.185110]  __flush_work+0x12a/0x1e0
-> > >
-> > > [  363.185113]  ? worker_detach_from_pool+0xc0/0xc0
-> > >
-> > > [  363.185119]  __cancel_work_timer+0x10e/0x190
-> > >
-> > > [  363.185123]  cancel_delayed_work_sync+0x13/0x20
-> > >
-> > > [  363.185126]  vcn_v1_0_ring_begin_use+0x20/0x70 [amdgpu]
-> > >
-> > > [  363.185401]  amdgpu_ring_alloc+0x48/0x60 [amdgpu]
-> > >
-> > > [  363.185640]  amdgpu_ib_schedule+0x493/0x600 [amdgpu]
-> > >
-> > > [  363.185884]  amdgpu_job_submit_direct+0x3c/0xd0 [amdgpu]
-> > >
-> > > [  363.186186]  amdgpu_vcn_dec_send_msg+0x105/0x210 [amdgpu]
-> > >
-> > > [  363.186460]  amdgpu_vcn_dec_ring_test_ib+0x69/0x110 [amdgpu]
-> > >
-> > > [  363.186734]  amdgpu_ib_ring_tests+0xf5/0x160 [amdgpu]
-> > >
-> > > [  363.186978]  amdgpu_device_delayed_init_work_handler+0x15/0x30
-> > > [amdgpu]
-> > >
-> > > [  363.187206]  process_one_work+0x220/0x3c0
-> > >
-> > > [  363.187210]  worker_thread+0x4d/0x3f0
-> > >
-> > > [  363.187214]  ? process_one_work+0x3c0/0x3c0
-> > >
-> > > [  363.187217]  kthread+0x12b/0x150
-> > >
-> > > [  363.187221]  ? set_kthread_struct+0x40/0x40
-> > >
-> > > [  363.187226]  ret_from_fork+0x22/0x30
-> > >
-> > >
-> > >
-> > >
-> > >
-> > > BR
-> > >
-> > > Curry Gong
-> > >
-> > > From: Zhu, James <James.Zhu@amd.com>
-> > > Sent: Saturday, December 11, 2021 5:07 AM
-> > > To: Gong, Curry <Curry.Gong@amd.com>; amd-gfx@lists.freedesktop.org
-> > > Cc: Liu, Leo <Leo.Liu@amd.com>; Zhu, James <James.Zhu@amd.com>;
-> > Quan,
-> > > Evan <Evan.Quan@amd.com>; Deucher, Alexander
-> > > <Alexander.Deucher@amd.com>
-> > > Subject: Re: [PATCH] drm/amdgpu: When the VCN(1.0) block is suspended=
-,
-> > > powergating is explicitly enabled
-> > >
-> > >
-> > >
-> > > On 2021-12-10 6:41 a.m., chen gong wrote:
-> > >
-> > > Play a video on the raven (or PCO, raven2) platform, and then do the
-> > > S3
-> > >
-> > > test. When resume, the following error will be reported:
-> > >
-> > >
-> > >
-> > > amdgpu 0000:02:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR*
-> > > ring
-> > >
-> > > vcn_dec test failed (-110)
-> > >
-> > > [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of
-> > IP
-> > > block
-> > >
-> > > <vcn_v1_0> failed -110
-> > >
-> > > amdgpu 0000:02:00.0: amdgpu: amdgpu_device_ip_resume failed (-110).
-> > >
-> > > PM: dpm_run_callback(): pci_pm_resume+0x0/0x90 returns -110
-> > >
-> > >
-> > >
-> > > [why]
-> > >
-> > > When playing the video: The power state flag of the vcn block is set
-> > > to
-> > >
-> > > POWER_STATE_ON.
-> > >
-> > >
-> > >
-> > > When doing suspend: There is no change to the power state flag of the
-> > >
-> > > vcn block, it is still POWER_STATE_ON.
-> > >
-> > >
-> > >
-> > > When doing resume: Need to open the power gate of the vcn block and
-> > > set
-> > >
-> > > the power state flag of the VCN block to POWER_STATE_ON.
-> > >
-> > > But at this time, the power state flag of the vcn block is already
-> > >
-> > > POWER_STATE_ON. The power status flag check in the "8f2cdef
-> > drm/amd/pm:
-> > >
-> > > avoid duplicate powergate/ungate setting" patch will return the
-> > >
-> > > amdgpu_dpm_set_powergating_by_smu function directly.
-> > >
-> > > As a result, the gate of the power was not opened, causing the
-> > >
-> > > subsequent ring test to fail.
-> > >
-> > >
-> > >
-> > > [how]
-> > >
-> > > In the suspend function of the vcn block, explicitly change the power
-> > >
-> > > state flag of the vcn block to POWER_STATE_OFF.
-> > >
-> > >
-> > >
-> > > Signed-off-by: chen gong <curry.gong@amd.com>
-> > >
-> > > ---
-> > >
-> > >  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 7 +++++++
-> > >
-> > >  1 file changed, 7 insertions(+)
-> > >
-> > >
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> > > b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> > >
-> > > index d54d720..d73676b 100644
-> > >
-> > > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> > >
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> > >
-> > > @@ -246,6 +246,13 @@ static int vcn_v1_0_suspend(void *handle)
-> > >
-> > >  {
-> > >
-> > >   int r;
-> > >
-> > >   struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> > >
-> > > + bool cancel_success;
-> > >
-> > > +
-> > >
-> > > + cancel_success =3D cancel_delayed_work_sync(&adev->vcn.idle_work);
-> > >
-> > > [JZ] Can you refer to vcn_v3_0_stop , and add
-> > amdgpu_dpm_enable_uvd(adev, false); to the end of vcn_v1_0_stop?
-> > >
-> > > See if it also can help.
-> > >
-> > >
-> > >
-> > > + if (cancel_success) {
-> > >
-> > > +        if (adev->pm.dpm_enabled)
-> > >
-> > > +                amdgpu_dpm_enable_uvd(adev, false);
-> > >
-> > > + }
-> > >
-> > >
-> > >
-> > >   r =3D vcn_v1_0_hw_fini(adev);
-> > >
-> > >   if (r)
+> -----Original Message-----
+> From: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Sent: Thursday, December 16, 2021 8:22 PM
+> To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org; Yang,
+> Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>;
+> Kuehling, Felix <Felix.Kuehling@amd.com>
+> Subject: RE: [PATCH 3/4] drm/amdkfd: add reset queue function for RAS poi=
+son
+>=20
+> +
+> +	int (*unmap_queues_cpsch_poison)(struct device_queue_manager
+> *dqm,
+> +					uint16_t pasid);
+>  };
+>=20
+> Might be better call it reset_queue directly (match with update_queue,
+> create_queue, .etc.,)
+>=20
+> Others look good to me
+>=20
+> The series (4 patches) is
+>=20
+> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+>=20
+> Regards,
+> Hawking
+> -----Original Message-----
+> From: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Sent: Thursday, December 16, 2021 19:36
+> To: amd-gfx@lists.freedesktop.org; Zhang, Hawking
+> <Hawking.Zhang@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Chai,
+> Thomas <YiPeng.Chai@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Subject: [PATCH 3/4] drm/amdkfd: add reset queue function for RAS poison
+>=20
+> The new interface unmaps queues with reset mode for the process consumes
+> RAS poison, it's only for compute queue.
+>=20
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+> ---
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c    | 16 ++++++++++++++++
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.h    |  5 +++++
+>  2 files changed, 21 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 01a2cc3928ac..b4b0495c7024 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -1476,6 +1476,21 @@ static int unmap_queues_cpsch(struct
+> device_queue_manager *dqm,
+>  	return retval;
+>  }
+>=20
+> +/* only for compute queue */
+> +static int unmap_queues_cpsch_poison(struct device_queue_manager *dqm,
+> +			uint16_t pasid)
+> +{
+> +	int retval;
+> +
+> +	dqm_lock(dqm);
+> +
+> +	retval =3D unmap_queues_cpsch(dqm,
+> KFD_UNMAP_QUEUES_FILTER_BY_PASID,
+> +			pasid, true);
+> +
+> +	dqm_unlock(dqm);
+> +	return retval;
+> +}
+> +
+>  /* dqm->lock mutex has to be locked before calling this function */  sta=
+tic int
+> execute_queues_cpsch(struct device_queue_manager *dqm,
+>  				enum kfd_unmap_queues_filter filter, @@ -
+> 1896,6 +1911,7 @@ struct device_queue_manager
+> *device_queue_manager_init(struct kfd_dev *dev)
+>  		dqm->ops.evict_process_queues =3D evict_process_queues_cpsch;
+>  		dqm->ops.restore_process_queues =3D
+> restore_process_queues_cpsch;
+>  		dqm->ops.get_wave_state =3D get_wave_state;
+> +		dqm->ops.unmap_queues_cpsch_poison =3D
+> unmap_queues_cpsch_poison;
+>  		break;
+>  	case KFD_SCHED_POLICY_NO_HWS:
+>  		/* initialize dqm for no cp scheduling */ diff --git
+> a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> index 499fc0ea387f..19ec3e8859e8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> @@ -81,6 +81,8 @@ struct device_process_node {
+>   *
+>   * @get_wave_state: Retrieves context save state and optionally copies t=
+he
+>   * control stack, if kept in the MQD, to the given userspace address.
+> + *
+> + * @unmap_queues_cpsch_poison: reset queue which consumes RAS poison
+>   */
+>=20
+>  struct device_queue_manager_ops {
+> @@ -134,6 +136,9 @@ struct device_queue_manager_ops {
+>  				  void __user *ctl_stack,
+>  				  u32 *ctl_stack_used_size,
+>  				  u32 *save_area_used_size);
+> +
+> +	int (*unmap_queues_cpsch_poison)(struct device_queue_manager
+> *dqm,
+> +					uint16_t pasid);
+>  };
+>=20
+>  struct device_queue_manager_asic_ops {
+> --
+> 2.17.1
