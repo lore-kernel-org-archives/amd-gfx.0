@@ -4,63 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50764C433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Dec 2021 14:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF100C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Dec 2021 16:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96D4589C53;
-	Sat, 18 Dec 2021 14:36:31 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 199D4113E4E
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Dec 2021 14:36:30 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id s1so9799732wrg.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Dec 2021 06:36:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=FUFKW3Vn+YYxidNuTUWVb+i8kDuTGIgdDGfMbwZYcXA=;
- b=FmxdRiVG9t5C+4QxuxRcljqlGpDVlGG21sGMkJAXuEpnSr26VNrdK9lTIt2aRU3ha5
- Ae4N3KOr4zlgNHl/hn0YroVvy84KDC5Yz8su9nmtlcMP42AxDMtVRlmr4WmT+gc+wgPb
- w+xPO5Rpj+bMrASkr5baMwcwMcF79pqM19RvJ8kk5ZfV8/i0u49heEuhrwoTPf6YEAnd
- ocn1+QFOm3upjiKhKiXRqAr5lk7r1XC1LCppaNVmN6c0Gy0Is20Xp2BNKnOQuC1oK7tu
- eZLYmTLB6mLB1x+7HIeJQBD5uCjwDBjsGRkaHoeY8t9NGBkeA5DVbQZnOlKdUirw4JiA
- WTLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=FUFKW3Vn+YYxidNuTUWVb+i8kDuTGIgdDGfMbwZYcXA=;
- b=4hIFbacV/QcULV3p+gDBlNHNFNvMuWxJyefCNKJnisMHcYwnx3njbNIBqJiYLMXBLo
- 25QRWDfEX85uIpKQOqbOE+8ejXDtTRCqc6wSbLUBcLOhS7WVp2LpHlxd+/yGqQQ0D9Xh
- mhsNmq0mglwfKBh9xZNcVC74PkBmRpbJbRzHj60u4+GbQjDPVD7u7MqUcjH0q+EqNH2B
- kgzUWQ3empJAfjlvmynDyvOfN5eylRhuZHyuNapNvf4sucPfCsZOELxyxl6JqjelU+nT
- DQ78oxFT6Erl6cFuvtn6R7uRsIK/d2/5UjYU1zb6tBcx/jLTwIZ+W1eRV92A5jdTfDhD
- qPnQ==
-X-Gm-Message-State: AOAM530sm/T26/HZvryU6rnr6p1cUWWxFmsRVUnoLdtaV98HrPOq5Eez
- oU9XimpIne/t6KcAiPV6ySSXI7GC4dw=
-X-Google-Smtp-Source: ABdhPJwdAXezHf58B0okIySF9Ko5wcD22ZI9HebIDmPaqvI623rZC4rUErXb+gU6i2gq7ypY4OqLJQ==
-X-Received: by 2002:adf:db8d:: with SMTP id u13mr6254154wri.583.1639838188598; 
- Sat, 18 Dec 2021 06:36:28 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:65ec:13e2:fbf4:846c?
- ([2a02:908:1252:fb60:65ec:13e2:fbf4:846c])
- by smtp.gmail.com with ESMTPSA id q123sm13239872wma.30.2021.12.18.06.36.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Dec 2021 06:36:28 -0800 (PST)
-Subject: Re: [PATCH 1/4] drm/amdgpu: Increase potential product_name to 64
- characters
-To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20211217153131.321226-1-kent.russell@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <850d619c-046b-de2b-0f5c-722a2ddcd5c3@gmail.com>
-Date: Sat, 18 Dec 2021 15:36:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E04A12BC65;
+	Sun, 19 Dec 2021 16:00:51 +0000 (UTC)
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAAF812BC68
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Dec 2021 16:00:49 +0000 (UTC)
+Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
+ by smtp3-g21.free.fr (Postfix) with ESMTP id B662113F854;
+ Sun, 19 Dec 2021 17:00:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+ s=smtp-20201208; t=1639929647;
+ bh=bcRAIn9kAttvrX9qQpCk+aHbaQzuDfmhmgZFO2GWG+E=;
+ h=Date:From:To:Cc:In-Reply-To:Subject:From;
+ b=u5Z6yMEgRaj9FZn+nbynrD0ZrXPHCroshnZAaybNzne6uDLJ3rvNZnwzRNDTxH2tW
+ uqULx+Zt2KkpL+9i4AW3y0y7RFbx2hcCT9IKT5xV2hnnAF8tclKrzDNvWOL69Oxy1h
+ xXFTPj/CWZJ+izTtIaNROCHlZ2K6QfbluSJuN82uTylGJARH8k2cInoQmdcdJBpVh4
+ CS+zpcoLB8tjbtIw2c9P4JOwM/EgZ6xyokkplJjzyLTvvg1W6qI9mSglhGVBFVd7O4
+ KpOOBSQa+k8QxkoFn1P3pyryiStUd4wxMnnHoWjmDkuYieIZZQP2jxvaaVwYoB7Sx5
+ q+40QJ8v6jlTg==
+Date: Sun, 19 Dec 2021 17:00:47 +0100 (CET)
+From: Yann Dirson <ydirson@free.fr>
+To: Alex Deucher <alexdeucher@gmail.com>
+Message-ID: <1637613643.90960837.1639929647710.JavaMail.root@zimbra39-e7>
+In-Reply-To: <CADnq5_PqgcEcoMkE2AhKunBdgk9RPG0f0qy2kM3EjjFT01GMcw@mail.gmail.com>
+Subject: Re: Various problems trying to vga-passthrough a Renoir iGPU to a
+ xen/qubes-os hvm
 MIME-Version: 1.0
-In-Reply-To: <20211217153131.321226-1-kent.russell@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+X-Originating-IP: [88.120.44.86]
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,77 +49,217 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Alex wrote:
+> Thinking about this more, I think the problem might be related to CPU
+> access to "VRAM".  APUs don't have dedicated VRAM, they use a
+> reserved
+> carve out region at the top of system memory.  For CPU access to this
+> memory, we kmap the physical address of the carve out region of
+> system
+> memory.  You'll need to make sure that region is accessible to the
+> guest.
 
+So basically, the non-virt flow is is: (video?) BIOS reserves memory, marks it
+as reserved in e820, stores the physaddr somewhere, which the GPU driver gets.
+Since I suppose this includes the framebuffer, this probably has to occur around
+the moment the driver calls drm_aperture_remove_conflicting_pci_framebuffers()
+(which happens before this hw init step), right ?
 
-Am 17.12.21 um 16:31 schrieb Kent Russell:
-> Having seen at least 1 42-character product_name, bump the number up to
-> 64, and put that definition into amdgpu.h to make future adjustments
-> simpler.
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h            |  3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 12 +++++-------
->   2 files changed, 7 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index e701dedce344..4e6737e4c36c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -813,6 +813,7 @@ struct amd_powerplay {
->   
->   #define AMDGPU_RESET_MAGIC_NUM 64
->   #define AMDGPU_MAX_DF_PERFMONS 4
-> +#define PRODUCT_NAME_LEN 64
+... which brings me to a point that's been puzzling me for some time, which is
+that as the hw init fails, the efifb driver is still using the framebuffer.
 
-Please prefix all defines with AMDGPU_, apart from that looks good to me.
+Am I right in suspecting that efifb should get stripped of its ownership of the
+fb aperture first, and that if I don't get a black screen on hw_init failure
+that issue should be the first focus point ?
 
-Regards,
-Christian.
-
->   struct amdgpu_device {
->   	struct device			*dev;
->   	struct pci_dev			*pdev;
-> @@ -1083,7 +1084,7 @@ struct amdgpu_device {
->   
->   	/* Chip product information */
->   	char				product_number[16];
-> -	char				product_name[32];
-> +	char				product_name[PRODUCT_NAME_LEN];
->   	char				serial[20];
->   
->   	atomic_t			throttling_logging_enabled;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> index 7709caeb233d..5ed24701f9cf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-> @@ -88,7 +88,7 @@ static int amdgpu_fru_read_eeprom(struct amdgpu_device *adev, uint32_t addrptr,
->   
->   int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
->   {
-> -	unsigned char buff[34];
-> +	unsigned char buff[PRODUCT_NAME_LEN+2];
->   	u32 addrptr;
->   	int size, len;
->   
-> @@ -131,12 +131,10 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
->   	}
->   
->   	len = size;
-> -	/* Product name should only be 32 characters. Any more,
-> -	 * and something could be wrong. Cap it at 32 to be safe
-> -	 */
-> -	if (len >= sizeof(adev->product_name)) {
-> -		DRM_WARN("FRU Product Number is larger than 32 characters. This is likely a mistake");
-> -		len = sizeof(adev->product_name) - 1;
-> +	if (len >= PRODUCT_NAME_LEN) {
-> +		DRM_WARN("FRU Product Name is larger than %d characters. This is likely a mistake",
-> +				PRODUCT_NAME_LEN);
-> +		len = PRODUCT_NAME_LEN - 1;
->   	}
->   	/* Start at 2 due to buff using fields 0 and 1 for the address */
->   	memcpy(adev->product_name, &buff[2], len);
-
+> 
+> Alex
+> 
+> On Mon, Dec 13, 2021 at 3:29 PM Alex Deucher <alexdeucher@gmail.com>
+> wrote:
+> >
+> > On Sun, Dec 12, 2021 at 5:19 PM Yann Dirson <ydirson@free.fr>
+> > wrote:
+> > >
+> > > Alex wrote:
+> > > > On Mon, Dec 6, 2021 at 4:36 PM Yann Dirson <ydirson@free.fr>
+> > > > wrote:
+> > > > >
+> > > > > Hi Alex,
+> > > > >
+> > > > > > We have not validated virtualization of our integrated
+> > > > > > GPUs.  I
+> > > > > > don't
+> > > > > > know that it will work at all.  We had done a bit of
+> > > > > > testing but
+> > > > > > ran
+> > > > > > into the same issues with the PSP, but never had a chance
+> > > > > > to
+> > > > > > debug
+> > > > > > further because this feature is not productized.
+> > > > > ...
+> > > > > > You need a functional PSP to get the GPU driver up and
+> > > > > > running.
+> > > > >
+> > > > > Ah, thanks for the hint :)
+> > > > >
+> > > > > I guess that if I want to have any chance to get the PSP
+> > > > > working
+> > > > > I'm
+> > > > > going to need more details on it.  A quick search some time
+> > > > > ago
+> > > > > mostly
+> > > > > brought reverse-engineering work, rather than official AMD
+> > > > > doc.
+> > > > >  Are
+> > > > > there some AMD resources I missed ?
+> > > >
+> > > > The driver code is pretty much it.
+> > >
+> > > Let's try to shed some more light on how things work, taking as
+> > > excuse
+> > > psp_v12_0_ring_create().
+> > >
+> > > First, register access through [RW]REG32_SOC15() is implemented
+> > > in
+> > > terms of __[RW]REG32_SOC15_RLC__(), which is basically a
+> > > [RW]REG32(),
+> > > except it has to be more complex in the SR-IOV case.
+> > > Has the RLC anything to do with SR-IOV ?
+> >
+> > When running the driver on a SR-IOV virtual function (VF), some
+> > registers are not available directly via the VF's MMIO aperture so
+> > they need to go through the RLC.  For bare metal or passthrough
+> > this
+> > is not relevant.
+> >
+> > >
+> > > It accesses registers in the MMIO range of the MP0 IP, and the
+> > > "MP0"
+> > > name correlates highly with MMIO accesses in PSP-handling code.
+> > > Is "MP0" another name for PSP (and "MP1" for SMU) ?  The MP0
+> > > version
+> >
+> > Yes.
+> >
+> > > reported at v11.0.3 by discovery seems to contradict the use of
+> > > v12.0
+> > > for RENOIR as set by soc15_set_ip_blocks(), or do I miss
+> > > something ?
+> >
+> > Typo in the ip discovery table on renoir.
+> >
+> > >
+> > > More generally (and mostly out of curiosity while we're at it),
+> > > do we
+> > > have a way to match IPs listed at discovery time with the ones
+> > > used
+> > > in the driver ?
+> >
+> > In general, barring typos, the code is shared at the major version
+> > level.  The actual code may or may not need changes to handle minor
+> > revision changes in an IP.  The driver maps the IP versions from
+> > the
+> > ip discovery table to the code contained in the driver.
+> >
+> > >
+> > > ---
+> > >
+> > > As for the register names, maybe we could have a short
+> > > explanation of
+> > > how they are structured ?  Eg. mmMP0_SMN_C2PMSG_69: that seems to
+> > > be
+> > > a MMIO register named "C2PMSG_69" in the "MP0" IP, but I'm not
+> > > sure
+> > > of the "SMN" part -- that could refer to the "System Management
+> > > Network",
+> > > described in [0] as an internal bus.  Are we accessing this
+> > > register
+> > > through this SMN ?
+> >
+> > These registers are just mailboxes for the PSP firmware.  All of
+> > the
+> > C2PMSG registers functionality is defined by the PSP firmware.
+> >  They
+> > are basically scratch registers used to communicate between the
+> > driver
+> > and the PSP firmware.
+> >
+> > >
+> > >
+> > > >  On APUs, the PSP is shared with
+> > > > the CPU and the rest of the platform.  The GPU driver just
+> > > > interacts
+> > > > with it for a few specific tasks:
+> > > > 1. Loading Trusted Applications (e.g., trusted firmware
+> > > > applications
+> > > > that run on the PSP for specific functionality, e.g., HDCP and
+> > > > content
+> > > > protection, etc.)
+> > > > 2. Validating and loading firmware for other engines on the
+> > > > SoC.
+> > > >  This
+> > > > is required to use those engines.
+> > >
+> > > Trying to understand in more details how we start the PSP up, I
+> > > noticed
+> > > that psp_v12_0 has support for loading a sOS firmware, but never
+> > > calls
+> > > init_sos_microcode() - and anyway there is no sos firmware for
+> > > renoir
+> > > and green_sardine, which seem to be the only ASICs with this PSP
+> > > version.
+> > > Is it something that's just not been completely wired up yet ?
+> >
+> > On APUs, the PSP is shared with the CPU so the PSP firmware is part
+> > of
+> > the sbios image.  The driver doesn't load it.  We only load it on
+> > dGPUs where the driver is responsible for the chip initialization.
+> >
+> > >
+> > > That also rings a bell, that we have nothing about Secure OS in
+> > > the doc
+> > > yet (not even the acronym in the glossary).
+> > >
+> > >
+> > > > I'm not too familiar with the PSP's path to memory from the GPU
+> > > > perspective.  IIRC, most memory used by the PSP goes through
+> > > > carve
+> > > > out
+> > > > "vram" on APUs so it should work, but I would double check if
+> > > > there
+> > > > are any system memory allocations that used to interact with
+> > > > the PSP
+> > > > and see if changing them to vram helps.  It does work with the
+> > > > IOMMU
+> > > > enabled on bare metal, so it should work in passthrough as well
+> > > > in
+> > > > theory.
+> > >
+> > > I can see a single case in the PSP code where GTT is used instead
+> > > of
+> > > vram: to create fw_pri_bo when SR-IOV is not used (and there has
+> > > to be a reason, since the SR-IOV code path does use vram).
+> > > Changing it to vram does not make a difference, but then the
+> > > only bo that seems to be used at that point is the one for the
+> > > psp ring,
+> > > which is allocated in vram, so I'm not too much surprised.
+> > >
+> > > Maybe I should double-check bo_create calls to hunt for more ?
+> >
+> > We looked into this a bit ourselves and ran into the same issues.
+> > We'd probably need to debug this with the PSP team to make further
+> > progress, but this was not productized so neither team had the
+> > resources to delve further.
+> >
+> > Alex
+> >
+> > >
+> > >
+> > > [0]
+> > > https://github.com/PSPReverse/psp-docs/blob/master/masterthesis-eichner-psp-2020.pdf
+> 
