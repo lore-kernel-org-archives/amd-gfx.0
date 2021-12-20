@@ -4,121 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5EEDC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Dec 2021 19:22:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08360C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Dec 2021 19:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17482112948;
-	Mon, 20 Dec 2021 19:22:57 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2057.outbound.protection.outlook.com [40.107.212.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B476112948;
- Mon, 20 Dec 2021 19:22:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VGKiH92UGveDdtnJO3/Q6Mtw4ZN9mT8E78xBtq3i+2X/TgQT3CGhtZWwNP8wC/cNFhrfkMa6aSIkISPaaaTcM8qjlH1cIAwl3IZ4wFInIbzAKGFu7RCJfr/Ao091utGnuBy8Se4AD4dWH1AwUYOII+jSaKAYNpb56gDdQorQqk05mFOgB3cF2r6wJPBk5p+jr+cuOx1XWy9NgXhq2UGuyiCjbw1EwBcIDwBTxZkC2RAWdO7VdJiRQN6BbkTI6CBBjxv36oSApiI+afJY6M6dmqwD9oVi6wq2oLkWAT7xIO3Py5rmMPXimAMQ5+cXU4iz5WKF/nuRqFYcpfMAecqt1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jtdm4ktODZ37tyYrngFMG64l//tPFl93RTWjX/MzAQQ=;
- b=CrRMXyg/vu43M1DkX/l0ndveK0QjVOkncd8iaVx+jFgRsyvEyvUct2CeR/v0c+H60tahlPo8c02YWHgzJaXHvqG0BITFgMg3wsvYAeoY2Pi04PBsBmIElBFTyPmN949E3C9AfzLeU8sur+f0JNEA9Qe/3JK79btLDmWvcjZlPugg0lfBcWzMN6JS/cO2k34IlEjrbeChE+9w5iFDFoaj52pKIx21P2DfGZ5wWvKvXPWAw+472aPnKzAqMzg5l2+xDjsEvVxWiq1aW9eAzl8IogCSGMYES1sb7ckuvUX/6hgrSDioNV8+ym1e7pxwC3iplgY05eWVQ6ol90ow+74N2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jtdm4ktODZ37tyYrngFMG64l//tPFl93RTWjX/MzAQQ=;
- b=WVoOummi9fDz/YSO5oC6PXDU6jZCppCLucHavhesVn6/Tf1hAZayk1APqI9I0LdWNgcdvrD4Urs6g0D3XFqnHvvvZE3Ed9uVq17VPDmX4LY4kL64YAXgt4iPutkG1EyRjCjMZBKVrGjfcuKXGI6ZP75ksMTlBfT8/J30zO4xN3E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
- by DM6PR12MB3194.namprd12.prod.outlook.com (2603:10b6:5:184::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.15; Mon, 20 Dec
- 2021 19:22:54 +0000
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::5573:3d0a:9cfd:f13c]) by DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::5573:3d0a:9cfd:f13c%7]) with mapi id 15.20.4801.020; Mon, 20 Dec 2021
- 19:22:54 +0000
-Subject: Re: [RFC 3/6] drm/amdgpu: Fix crash on modprobe
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20211217222745.881637-1-andrey.grodzovsky@amd.com>
- <20211217222745.881637-4-andrey.grodzovsky@amd.com>
- <bdbb195f-a9a7-2129-deaa-93e4e49cc8a2@gmail.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <72fe2521-ef31-63d8-6bcf-67af5a74330e@amd.com>
-Date: Mon, 20 Dec 2021 14:22:51 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <bdbb195f-a9a7-2129-deaa-93e4e49cc8a2@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: CH0PR03CA0026.namprd03.prod.outlook.com
- (2603:10b6:610:b0::31) To DM5PR12MB1947.namprd12.prod.outlook.com
- (2603:10b6:3:111::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BAE211A1D7;
+	Mon, 20 Dec 2021 19:25:15 +0000 (UTC)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45AF811A1D5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Dec 2021 19:25:14 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ x19-20020a9d7053000000b0055c8b39420bso13817404otj.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Dec 2021 11:25:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tnDU5fZO7dWd8G6xW0M16I+f4i3WH7k1uM9qzFeh7IM=;
+ b=B2hUoiF5LmLve0eUtevV/ZWGKddViZsO3WSnfc2Q/OW35BNi71As+bmnsouynVy8Tc
+ ejUTZmHmde3GJEKW03/UdsFaAUef84cuMT/oxNXSL58UonP61KZ8sUtoSJqWIvTvIDVg
+ GJzblR/XrxeqhRp7UVh4W89C5h6jfaGiSOMJk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tnDU5fZO7dWd8G6xW0M16I+f4i3WH7k1uM9qzFeh7IM=;
+ b=zLuIebDDcWLJdDMpqXQ3d4WwAQEUw3Lek9PQReGndOdW2Z8MOXu0FN/B72SfvBpnVo
+ rfmhASn09aqYkOWlz9iU+ambOGo/yNEUr3f3o+5MEhjSaSoX4BZWORsBvjYYZb/Maa2D
+ 10xwy7/bJDaBoeIB7+WL/IE4Twe5pBp4wl0LjFzVIY3uKr+gRTuzTIbrnny+7+m+mbXo
+ CoxfdkddDHvbFwHurnM63OwsiQPDkOqfUVuGkY5tz8m1jB4z3Ms4NeS7BJq2JrI3S0kP
+ rdeyBnFTeb5GKxuJh3Lha+vD1WXwAhCfD35v1VErTPC7aUnbWOEkO63zOUOSTBzx/x8s
+ iLQQ==
+X-Gm-Message-State: AOAM5302mcWoVB5s65R6UmVncgGLPm10vKSxfGwnafVs31+eEO/JOvjc
+ JtzQxPXrehuz8CkQv8EDdegURW2ujHcq2auRai41kw==
+X-Google-Smtp-Source: ABdhPJwWZZs2K7aNc2Q7dfVWJm48zE7Wpuci4+5g99v1EIEGAfYcrpEHUOm4LcOkYaThA4khk0HcQxJGWhTPSWxQwhM=
+X-Received: by 2002:a9d:7d89:: with SMTP id j9mr11974824otn.239.1640028313519; 
+ Mon, 20 Dec 2021 11:25:13 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3c2f3519-7ca2-4071-29da-08d9c3ee1f0f
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3194:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB319487EE100787C444FB441CEA7B9@DM6PR12MB3194.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 36icOxgxaMOdId13cmjagflXai2mO9/pOZUd9J1d0K/zxW/ApYB7OYnHJ2srYeXAw1uWMNT4ZXFS89fnFVSM/jwuL2m7Btw9DUyiPbUpf3dfirstkKOrd9xUhB+X3PsFLKuk9lnOCZ1AeVa3BOSBYLlbzxpRDPEdOzjbtegm4MGJQJ8hlXZjzDD/SXFu3/o8Wc3pfNhzNh9nRyg2cUyDKiceqFY2OY1s1T/Vm161c3lSYli2AKPnMPu3Kq2WxhJ25KjpCRP/ZLAmLS6UsacKCIaAQ6WPSptqCtXflTPdAYM4qXwSOWsx63+dme2RWmZ8e5qtlXqazq6zxFM4zwGf+/FEe/tUUBzQMNxz7CfrPBm0zU4RvJE0TxYzCSg40KyLOH3A5sZa10H1MWmqidAMnqrThcJRXfnVqsSTXbX5jxOs+o5JwgSRwm0+pxTOdU0y/BBmhp8yMwh5HXaOzbaQKvmmmTGmias+l8t5fMv9nYPQWYPeka4/jPuOAQ1C1rJNE/Ni3Cb6G5QTD5LHbIsn9WZFvCwCfV658Lui2rHfn8FVHfMWJbPtsCB7k6YgnHQfmg9HrQYcVhykc803xKXAL08qXF2A4OrJA+ODLTtGilNwbklsadx7/mLuyp3dD0Txexd3mieDZ1UrnuaBhijtx7mtdxyoaei68r9RqoRKeR0WzJBR8OM1i9JxD7bH6IS2EUqC00zz1zIAWOQhQ1B1TdyFIC/7eolLsQLRghgAHZU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6486002)(6512007)(36756003)(53546011)(6666004)(86362001)(6506007)(8936002)(2616005)(66556008)(4326008)(66946007)(66476007)(2906002)(508600001)(186003)(8676002)(83380400001)(31696002)(38100700002)(31686004)(5660300002)(44832011)(4001150100001)(316002)(66574015)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1lkdVFzTDQ2OHBNSDUrRFdwQ0xEKzFIb3J1M2podzhaYXpLdFdWakFaZUds?=
- =?utf-8?B?UW5vVHpncXNaOHBPRUd2UENlZ3pMVmJRY2RoenNwa0h0dHNoUnBWazl3TWJR?=
- =?utf-8?B?YlVabGhJODcrVC9EQWFuUDgxd2pVdG1YVjM4MytVa2ZMRFRENjZzY0hHc0Zi?=
- =?utf-8?B?THp5R1ZBUW83QSswZGRjYlBIbGNXN3JZek1JdVE4Uy9pWHAzWGdWOHBNK1cz?=
- =?utf-8?B?V0FRYUZqNkcyUExvNVpXNks1cllhc3V6bGsvRmxvT0s1djUxcVNuazBERzVi?=
- =?utf-8?B?cVNyS1dXejB2MmpqMG5SS0JMd3lab2dGR2padHcyenRUOWQ5MVN0UWluSHda?=
- =?utf-8?B?aUgyZWtzaGZ1T0NZQTlCMFh6cERFR0hqOE41dWpRSXZhWDhhdUw5QTdoZVAv?=
- =?utf-8?B?c1FOdGtpRUZwMU96SkdRNDJTVUprVVdPeU5Ya2Y3MVBLQnBGU3hxYTVpemMx?=
- =?utf-8?B?S1owSFFlbVZHNnFjTjhMdzlaM3dLRFF2MnhpM2pIL0dPV0xlOHBNS0pHdmt3?=
- =?utf-8?B?K0c3aGNRT1ZveGxzRWtYR2tyZDZYSUFSa1BUTXIrK1NzRXlTbVdGUEIxYnZZ?=
- =?utf-8?B?a0pNdjM5and3WGpFQW1iU1BkZThlRUMvNzZiUnpobnpaREVDUXRsQVZPYU1l?=
- =?utf-8?B?M2xUQisrTE01Q1F3YzZlNmpQK292WWtFckRWakFHczc1RENVY2pILzF1bFhs?=
- =?utf-8?B?aVdwZWcxTk9HcVZQSTRZUzl2OEVzYmVYQ0h6cmltenlpVmgrTWtJTWZJazdq?=
- =?utf-8?B?NHFockxtUmVCMWxGeHRBRVFiRzB6WFlpYWlKZThqTm9qSnhZQlZ4Uk9XMnhz?=
- =?utf-8?B?Q2lydUordVRselJMcW9OU3RlRHFqZ2lJa0VESSs4MFJIRFpzdlJrSXlVRWtl?=
- =?utf-8?B?bHZORFhHR0RWdlRYVnpjS1ZkRWNPWVJROUtMdmtxTWlmcEI1MkRUeHJWbXUx?=
- =?utf-8?B?a0J4S3A5bWRPdFNlZXc1SEllNmNYNmpmZnhJRC9VMDM0MGpHb0phTGVKdHFM?=
- =?utf-8?B?R2g4b2tMZUdkdXkzNy9lc2VrUmVzMm5jdTVtSzFNUENUemhyVnF3L2cyV3JU?=
- =?utf-8?B?ZmNPY2xLTnFTSTBTdWJadUdmUm5ycytiWmJLOFhsM0pmM2Y0ODY3eWV2MWUw?=
- =?utf-8?B?UlNBajErdmgxWDZ4SXdIS1gyNmpVWU5RcUlYRnM4TVRXNWRpVWRST1UxRXk3?=
- =?utf-8?B?U1IxUDYyWnFOSEsyekVuR0toY1I2djU0dkUwMm5pZVViM3hKTERzODArdk0x?=
- =?utf-8?B?NjNBandYanBodnpqQUUxOWswZ3lOT1V3U2dKZjZJNzRsUDIvQ0RKZm9RNitk?=
- =?utf-8?B?Y2haUXpSV2xndjRIQUJLWUVSTUxaRVhvRXZFWSt3cEJ4R0ROVmZYMUhFT1Nm?=
- =?utf-8?B?eFc4SjEzaTlWSlNtSHoxQng1T0pqM1I2dWtwaDA0S1I1aXJRZ1o0a09Uak1K?=
- =?utf-8?B?QmRaV3k3V2RBdU11QThoT3MzeVRjckljVzRJK0Z4QWMxWm5kRXEwcDlGbkFF?=
- =?utf-8?B?L3IvSUptYTBjL3ZKeitlcHlnbGZWTlRDcEtLbkIyQXo2MFdvYXJWa2ZCZEpz?=
- =?utf-8?B?czh6ZGRsYkpUeWRaMTkycTZZM3N4ZVFINUhiOU1UZ2NNZjF6eGlpTTcxT2Mx?=
- =?utf-8?B?eDRZWXpHNThtTmNMZlRUZzhVR2hSTktTZ1grV1BQelpDQUMyeTBOam1zRzVM?=
- =?utf-8?B?SWhDNzhIY2FiRjYvNjR6WjFpNllYZWlXZG9Fc3VzM3ZZV283VDdla1JPUVJ3?=
- =?utf-8?B?enRqM3RlVXJSVVVjUjkxSFRLWUxzdGJBNDFuM2Fxalk0ckJwRCtXeW1ObUhx?=
- =?utf-8?B?UG0zTFZMZTRQWURlL1RxdTdUVzJ5WmZ6M1pJWGI2dDJYZzRzZWlVUzFnSjRI?=
- =?utf-8?B?MWhFWnF6RGQvVWtsdEVIY09HdXBnR2NDbTJoNnZCZGU2bTZWTjdtSkhLbjc3?=
- =?utf-8?B?NkVrTXJXd1NLN2xjamFxV3RoVFR2WkNWaldGeFZLRk5CT210U0gzTlpjWVBj?=
- =?utf-8?B?a000LzBoQzEwQk5mYXV5YW9JU3NHaC95OUZYTlNBZFVBOCs2REtZSXA1bU5R?=
- =?utf-8?B?MzZXQmlXNHZlRzZGT21Ndm1BS1ZtMGJTaDFzY3huRmdUR052VHBnOWY5bU44?=
- =?utf-8?B?cE5rblFhaExJYlZucCt3N3E5Qis4TEFJOFZoU2R3R1hORkl0WWEwYzlnUXZV?=
- =?utf-8?B?eGxDU1dvUURkRHVrMll5K3Zod0xSMHVyVjdBYjh6Q2tRelYwdHZZcS8xam9C?=
- =?utf-8?Q?uBMzqQ0RKaPvmO2f/PKt/GnaHxAgTvUG9NlnxaKjQw=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c2f3519-7ca2-4071-29da-08d9c3ee1f0f
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2021 19:22:54.1762 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gU3k6in8EqoxTb68gFVTNTCWrfMLLCYuXsZxY+MKPMSZAljy4btdCBmJXovrHLpPhp6vJGkiCq/6gkx0bS9brg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3194
+References: <CAHk-=wjs4AjAKJ26W69xcMB7snFc+0u+rbgA+Tj0S1GvwY2T3Q@mail.gmail.com>
+In-Reply-To: <CAHk-=wjs4AjAKJ26W69xcMB7snFc+0u+rbgA+Tj0S1GvwY2T3Q@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Mon, 20 Dec 2021 20:25:02 +0100
+Message-ID: <CAKMK7uGAbE_t=D+5=F0mH3gzLOO8CCmqO8ofQ4HN8vS2RCK8Gg@mail.gmail.com>
+Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb: Release PCI
+ device ..."
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Wentland,
+ Harry" <harry.wentland@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "airlied@gmail.com" <airlied@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,47 +63,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel@ffwll.ch, horace.chen@amd.com, christian.koenig@amd.com,
- Monk.Liu@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Imre Deak <imre.deak@intel.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Adding more amdgpu folks.
 
-On 2021-12-20 2:17 a.m., Christian König wrote:
-> Am 17.12.21 um 23:27 schrieb Andrey Grodzovsky:
->> Restrict jobs resubmission to suspend case
->> only since schedulers not initialised yet on
->> probe.
->>
->> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> index 5527c68c51de..8ebd954e06c6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> @@ -582,7 +582,7 @@ void amdgpu_fence_driver_hw_init(struct 
->> amdgpu_device *adev)
->>           if (!ring || !ring->fence_drv.initialized)
->>               continue;
->>   -        if (!ring->no_scheduler) {
->> +        if (adev->in_suspend && !ring->no_scheduler) {
+Smells like this runtime pm leak is papering over an issue in the
+amdgpu driver. Other bug reports are also only about amdgpu.ko it
+seems, would an unconditional pm_runtime_get_sync() in
+amdgpu_pci_probe() also work? If you do it before the
+drm_aperture_remove_conflicting_pci_framebuffers() which throws out
+efifb it should be equivalent to the efifb revert.
+
+That would avoid the revert for everyone else, but revert's fine too
+imo this close to holidays. I don't think actually fixing this rpm fun
+in a late -rc is realistic, these tend to be very gnarly.
+-Daniel
+
+On Mon, Dec 20, 2021 at 6:38 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> Uff, why is that suddenly necessary? Because of the changed order?
+> So my lovely eldest daughter came back from NYC for xmas, and two days
+> later was informed that she had been in contact with somebody who
+> tested positive. And sure enough, so did she.
 >
-> Christian.
-
-
-Yes.
-
-Andrey
-
-
+> I'm all vaxxed up and boostered, and feeling fine with just a slightly
+> sore throat and no other symptoms, but I did test positive too a few
+> days after that. And as a result I'm distancing in my office. It turns
+> out that is not so hugely different from my normal life.
 >
->> drm_sched_resubmit_jobs(&ring->sched);
->>               drm_sched_start(&ring->sched, true);
->>           }
+> One difference *is* that I now have an inflatable mattress and am
+> sleeping here by my desktop, and as a result last night I noticed that
+> my monitors didn't go to sleep. I had to turn them off manually to get
+> the backlight to go away.
 >
+> So this morning I start to search for the reason, and find this listed
+> by the regression bot, and sure enough, reverting commit 55285e21f045
+> ("fbdev/efifb: Release PCI device's runtime PM ref during FB destroy")
+> makes it all work again.
+>
+> I've reverted it in my private testing tree, in the hope that somebody
+> figures out the actual real cause. But if that doesn't happen, I
+> expect to revert it in my main git tree too before rc7.
+>
+> So this is mainly just a heads-up. I'm not seeing anything interesting
+> in the kernel logs, apart from the usual unending stream of
+>
+>   [drm] PCIE GART of 256M enabled (table at 0x000000F400000000).
+>   [drm] UVD and UVD ENC initialized successfully.
+>   [drm] VCE initialized successfully.
+>   [drm] PCIE GART of 256M enabled (table at 0x000000F400000000).
+>   [drm] UVD and UVD ENC initialized successfully.
+>   [drm] VCE initialized successfully.
+>
+> that happens randomly (sometimes every minute, sometimes hours apart)
+> with or without that commit.
+>
+> This is some random Radeon card with two monitors attached (PCI ID
+> 1002:67df rev e7, subsystem ID 1da2:e353).
+>
+> The symptoms are exactly as reported elsewhere:
+>
+>       https://lore.kernel.org/linux-fbdev/8a27c986-4767-bd29-2073-6c4ffed49bba@jetfuse.net/
+>       https://linux-regtracking.leemhuis.info/regzbot/regression/8a27c986-4767-bd29-2073-6c4ffed49bba@jetfuse.net/
+>       https://bugzilla.kernel.org/show_bug.cgi?id=215203
+>
+> ie I can lock my desktop, wait a few seconds, see the "No signal,
+> enabling power management" on my monitors, but when that actually
+> happens, the desktop lockscreen just comes right back.
+>
+> I suspect/assume that the screen off event triggers some status event
+> on the GPU side, and now some pm logic then just wakes things right up
+> again.
+>
+>                Linus
+
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
