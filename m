@@ -4,65 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83176C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Dec 2021 09:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 288DAC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Dec 2021 09:43:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBC2D113B28;
-	Mon, 20 Dec 2021 09:29:05 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12D3E113B28
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Dec 2021 09:29:05 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- p27-20020a05600c1d9b00b0033bf8532855so6205042wms.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Dec 2021 01:29:04 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70D74113F01;
+	Mon, 20 Dec 2021 09:43:43 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5358113F0A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Dec 2021 09:43:42 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ j140-20020a1c2392000000b003399ae48f58so9093188wmj.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Dec 2021 01:43:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=veKz7pqKEvJOHj+yQvYH7QBzpYMR6TzDT1gVkqQw5NA=;
- b=jEsak5Za+6G/8XRJVrCHBVFSHzhGyBhDZFpfgsGWTUypw4VhhcR/6EV08xsM/dxBo1
- 3xyfvva5iWSc4i8ZrxC1R5nF5IDCxt9uxEoM6HqYF2R1QSAV/b5fBOnazQj1we3IMuBv
- cnUX6JXgs5OteD1Z4coTieNjkN2tWKvVkeoTg=
+ bh=ROJgopUUnQZIGTv5KtOBScHw/EXv42kqY46Z9OcVbwo=;
+ b=eDWoH43bh1PI7YYFmv2Tx4Rp9Nzx9YnJKURGmQduqjCStXmpMN/ZBOuq1eDLLnhxn2
+ 9akO1ISbxn+7rv5gHE5dNoqCv+26S02GRXM0a3T/42OGtPKmEwLFZy3VjNIOpzeudIVe
+ /CPydC17jvPADVWejcN6jl+QyT3AeCYh8yx54=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=veKz7pqKEvJOHj+yQvYH7QBzpYMR6TzDT1gVkqQw5NA=;
- b=IYHR4RZYJehqOe4jdNMjNs00cbSVbhOcG3G04/NtAMYoYJQR48MwCHzK6fcKoxaEBf
- m7c63DhAPFr3ZfRXLjB4VFcoqdcCeZd9BjXn5Vyq+ZNeDdQ0jW3QlmJQRhtg8w1LNNHd
- VixruDe4msK43XuDqUqA+B6+ZlHwFxSuWdC5vTW5hDpPem+6odQeNTdGWSbc8Lwg1Mdl
- 3y3n5AeLe9M6Ucpuc6rWYoTt5982Bu9k9uaYZcGJnkLJrueTHRkucru6PGdTDqpv7FMx
- J12afTZxvQR67HJ59rMlvkjpk6YodzrluLWkMbSPF5UvuwiDGFTzwteBF1iOLskD/Ee2
- fuNA==
-X-Gm-Message-State: AOAM533F9ERZr91joQdDNXaS/fryCCTXXY2jjNnqfVf7aUH0p/UCctsD
- 8qEYBpdUn2mDYRp4VOCjM/Vp3g==
-X-Google-Smtp-Source: ABdhPJyn23ZKsEn429DuwLi/QqE3pv7uq8XnE92UxEVnTd/5sj2Zm1sUTyKDW0GFlFpn+yQqHlc33Q==
-X-Received: by 2002:a05:600c:231a:: with SMTP id
- 26mr4966938wmo.16.1639992543593; 
- Mon, 20 Dec 2021 01:29:03 -0800 (PST)
+ bh=ROJgopUUnQZIGTv5KtOBScHw/EXv42kqY46Z9OcVbwo=;
+ b=cS5g29qDQLQpoBbO4IxOKlou/JekDW+G44ZLeoAJgw12+u+pjg1BdjOxDlYZHVoz+M
+ JH+ZjJDd91pl5mCBCVVm2yJgSWANjo5o+GNQfG/Tjr2/jkfMzQzTlqlnFRUVBYPYKuAk
+ kf4/lmo5bSU1M9m0RWDyM/kajfpUOvNnaILZHywKWKwP902Q1UpQ3IKM9hLQXU1NOFI7
+ HLnfhxi7swlE45/s3/eBkihBGceW30AlEGDqjBgVUNIilsumiL5WRMjFY0hc4k/VjfMq
+ 44XQWkTXlsgphIwpzsYmA+s9sl5tUK8ufEx5K48n6IGVMCh0hIbRTipAbLpEQDTei6kB
+ 4ZyQ==
+X-Gm-Message-State: AOAM530feMIQjDo7Y5rPHSZxf7jkSX6yLMlXpxCfzzMrBfBzkWjyI7ag
+ 5dwIof3EtPCNnnZWgg9MIAzw0g==
+X-Google-Smtp-Source: ABdhPJxb4gGIn5faIu5r7HvECNQYNxSUIzRj4gATdfoNmhxaFErxEkNl5vV+eEHvD/bnuPT3q5Frjw==
+X-Received: by 2002:a1c:f302:: with SMTP id q2mr15004583wmq.107.1639993421223; 
+ Mon, 20 Dec 2021 01:43:41 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p22sm2806378wms.2.2021.12.20.01.29.02
+ by smtp.gmail.com with ESMTPSA id d4sm6156222wrx.102.2021.12.20.01.43.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Dec 2021 01:29:03 -0800 (PST)
-Date: Mon, 20 Dec 2021 10:29:00 +0100
+ Mon, 20 Dec 2021 01:43:40 -0800 (PST)
+Date: Mon, 20 Dec 2021 10:43:38 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
-Message-ID: <YcBM3PMz7J90F3LQ@phenom.ffwll.local>
-References: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
- <94b992c2-04c2-7305-0a51-d130fc645f3f@gmail.com>
- <58d61e47-3796-3147-db6c-ea7912d16902@amd.com>
- <de272de9-3f4a-db40-699a-41394cb699dc@amd.com>
- <cb5668d4-a13d-3b0b-442a-bfe1b3a7239a@amd.com>
- <000edeaf-8a89-ea4d-5b9a-2bd7758f675c@amd.com>
- <f00f2f16-f0b3-cb54-f88e-d53353bfdb79@amd.com>
- <f4527002-ec6d-5279-3b79-1aacb6cc55cc@amd.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [RFC 0/6] Define and use reset domain for GPU recovery in amdgpu
+Message-ID: <YcBQSgynkO0VYUoC@phenom.ffwll.local>
+References: <20211217222745.881637-1-andrey.grodzovsky@amd.com>
+ <0a30778e-28b8-7d02-01e9-9db690227222@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f4527002-ec6d-5279-3b79-1aacb6cc55cc@amd.com>
+In-Reply-To: <0a30778e-28b8-7d02-01e9-9db690227222@gmail.com>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,158 +68,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Felix Kuehling <felix.kuehling@amd.com>, "Bhardwaj,
- Rajneesh" <rajneesh.bhardwaj@amd.com>, dri-devel@lists.freedesktop.org,
- David Yat Sin <david.yatsin@amd.com>, amd-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, alexander.deucher@amd.com, airlied@redhat.com
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, horace.chen@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, christian.koenig@amd.com, Monk.Liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 10, 2021 at 07:58:50AM +0100, Christian König wrote:
-> Am 09.12.21 um 19:28 schrieb Felix Kuehling:
-> > Am 2021-12-09 um 10:30 a.m. schrieb Christian König:
-> > > That still won't work.
-> > > 
-> > > But I think we could do this change for the amdgpu mmap callback only.
-> > If graphics user mode has problems with it, we could even make this
-> > specific to KFD BOs in the amdgpu_gem_object_mmap callback.
+On Mon, Dec 20, 2021 at 08:25:05AM +0100, Christian König wrote:
+> Am 17.12.21 um 23:27 schrieb Andrey Grodzovsky:
+> > This patchset is based on earlier work by Boris[1] that allowed to have an
+> > ordered workqueue at the driver level that will be used by the different
+> > schedulers to queue their timeout work. On top of that I also serialized
+> > any GPU reset we trigger from within amdgpu code to also go through the same
+> > ordered wq and in this way simplify somewhat our GPU reset code so we don't need
+> > to protect from concurrency by multiple GPU reset triggeres such as TDR on one
+> > hand and sysfs trigger or RAS trigger on the other hand.
+> > 
+> > As advised by Christian and Daniel I defined a reset_domain struct such that
+> > all the entities that go through reset together will be serialized one against
+> > another.
+> > 
+> > TDR triggered by multiple entities within the same domain due to the same reason will not
+> > be triggered as the first such reset will cancel all the pending resets. This is
+> > relevant only to TDR timers and not to triggered resets coming from RAS or SYSFS,
+> > those will still happen after the in flight resets finishes.
+> > 
+> > [1] https://patchwork.kernel.org/project/dri-devel/patch/20210629073510.2764391-3-boris.brezillon@collabora.com/
+> > 
+> > P.S Going through drm-misc-next and not amd-staging-drm-next as Boris work hasn't landed yet there.
 > 
-> I think it's fine for the whole amdgpu stack, my concern is more about
-> radeon, nouveau and the ARM stacks which are using this as well.
+> Patches #1 and #5, #6 are Reviewed-by: Christian König
+> <christian.koenig@amd.com>
 > 
-> That blew up so nicely the last time we tried to change it and I know of at
-> least one case where radeon was/is used with BOs in a child process.
+> Some minor comments on the rest, but in general absolutely looks like the
+> way we want to go.
 
-I'm way late and burried again, but I think it'd be good to be consistent
-here across drivers. Or at least across drm drivers. And we've had the vma
-open/close refcounting to make fork work since forever.
-
-I think if we do this we should really only do this for mmap() where this
-applies, but reading through the thread here I'm honestly confused why
-this is a problem. If CRIU can't handle forked mmaps it needs to be
-thought that, not hacked around. Or at least I'm not understanding why
-this shouldn't work ...
+I only scrolled through quickly, but yeah I'm concurring.
 -Daniel
-
 > 
 > Regards,
 > Christian.
 > 
 > > 
-> > Regards,
-> >    Felix
+> > Andrey Grodzovsky (6):
+> >    drm/amdgpu: Init GPU reset single threaded wq
+> >    drm/amdgpu: Move scheduler init to after XGMI is ready
+> >    drm/amdgpu: Fix crash on modprobe
+> >    drm/amdgpu: Serialize non TDR gpu recovery with TDRs
+> >    drm/amdgpu: Drop hive->in_reset
+> >    drm/amdgpu: Drop concurrent GPU reset protection for device
 > > 
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   9 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 206 +++++++++++----------
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  |  36 +---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |   2 +-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |   2 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |  10 +-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |   3 +-
+> >   7 files changed, 132 insertions(+), 136 deletions(-)
 > > 
-> > > Regards,
-> > > Christian.
-> > > 
-> > > Am 09.12.21 um 16:29 schrieb Bhardwaj, Rajneesh:
-> > > > Sounds good. I will send a v2 with only ttm_bo_mmap_obj change. Thank
-> > > > you!
-> > > > 
-> > > > On 12/9/2021 10:27 AM, Christian König wrote:
-> > > > > Hi Rajneesh,
-> > > > > 
-> > > > > yes, separating this from the drm_gem_mmap_obj() change is certainly
-> > > > > a good idea.
-> > > > > 
-> > > > > > The child cannot access the BOs mapped by the parent anyway with
-> > > > > > access restrictions applied
-> > > > > exactly that is not correct. That behavior is actively used by some
-> > > > > userspace stacks as far as I know.
-> > > > > 
-> > > > > Regards,
-> > > > > Christian.
-> > > > > 
-> > > > > Am 09.12.21 um 16:23 schrieb Bhardwaj, Rajneesh:
-> > > > > > Thanks Christian. Would it make it less intrusive if I just use the
-> > > > > > flag for ttm bo mmap and remove the drm_gem_mmap_obj change from
-> > > > > > this patch? For our use case, just the ttm_bo_mmap_obj change
-> > > > > > should suffice and we don't want to put any more work arounds in
-> > > > > > the user space (thunk, in our case).
-> > > > > > 
-> > > > > > The child cannot access the BOs mapped by the parent anyway with
-> > > > > > access restrictions applied so I wonder why even inherit the vma?
-> > > > > > 
-> > > > > > On 12/9/2021 2:54 AM, Christian König wrote:
-> > > > > > > Am 08.12.21 um 21:53 schrieb Rajneesh Bhardwaj:
-> > > > > > > > When an application having open file access to a node forks, its
-> > > > > > > > shared
-> > > > > > > > mappings also get reflected in the address space of child process
-> > > > > > > > even
-> > > > > > > > though it cannot access them with the object permissions applied.
-> > > > > > > > With the
-> > > > > > > > existing permission checks on the gem objects, it might be
-> > > > > > > > reasonable to
-> > > > > > > > also create the VMAs with VM_DONTCOPY flag so a user space
-> > > > > > > > application
-> > > > > > > > doesn't need to explicitly call the madvise(addr, len,
-> > > > > > > > MADV_DONTFORK)
-> > > > > > > > system call to prevent the pages in the mapped range to appear in
-> > > > > > > > the
-> > > > > > > > address space of the child process. It also prevents the memory
-> > > > > > > > leaks
-> > > > > > > > due to additional reference counts on the mapped BOs in the child
-> > > > > > > > process that prevented freeing the memory in the parent for which
-> > > > > > > > we had
-> > > > > > > > worked around earlier in the user space inside the thunk library.
-> > > > > > > > 
-> > > > > > > > Additionally, we faced this issue when using CRIU to checkpoint
-> > > > > > > > restore
-> > > > > > > > an application that had such inherited mappings in the child which
-> > > > > > > > confuse CRIU when it mmaps on restore. Having this flag set for the
-> > > > > > > > render node VMAs helps. VMAs mapped via KFD already take care of
-> > > > > > > > this so
-> > > > > > > > this is needed only for the render nodes.
-> > > > > > > Unfortunately that is most likely a NAK. We already tried
-> > > > > > > something similar.
-> > > > > > > 
-> > > > > > > While it is illegal by the OpenGL specification and doesn't work
-> > > > > > > for most userspace stacks, we do have some implementations which
-> > > > > > > call fork() with a GL context open and expect it to work.
-> > > > > > > 
-> > > > > > > Regards,
-> > > > > > > Christian.
-> > > > > > > 
-> > > > > > > > Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> > > > > > > > 
-> > > > > > > > Signed-off-by: David Yat Sin <david.yatsin@amd.com>
-> > > > > > > > Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-> > > > > > > > ---
-> > > > > > > >    drivers/gpu/drm/drm_gem.c       | 3 ++-
-> > > > > > > >    drivers/gpu/drm/ttm/ttm_bo_vm.c | 2 +-
-> > > > > > > >    2 files changed, 3 insertions(+), 2 deletions(-)
-> > > > > > > > 
-> > > > > > > > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> > > > > > > > index 09c820045859..d9c4149f36dd 100644
-> > > > > > > > --- a/drivers/gpu/drm/drm_gem.c
-> > > > > > > > +++ b/drivers/gpu/drm/drm_gem.c
-> > > > > > > > @@ -1058,7 +1058,8 @@ int drm_gem_mmap_obj(struct drm_gem_object
-> > > > > > > > *obj, unsigned long obj_size,
-> > > > > > > >                goto err_drm_gem_object_put;
-> > > > > > > >            }
-> > > > > > > >    -        vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND |
-> > > > > > > > VM_DONTDUMP;
-> > > > > > > > +        vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND
-> > > > > > > > +                | VM_DONTDUMP | VM_DONTCOPY;
-> > > > > > > >            vma->vm_page_prot =
-> > > > > > > > pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
-> > > > > > > >            vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
-> > > > > > > >        }
-> > > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> > > > > > > > b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> > > > > > > > index 33680c94127c..420a4898fdd2 100644
-> > > > > > > > --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> > > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> > > > > > > > @@ -566,7 +566,7 @@ int ttm_bo_mmap_obj(struct vm_area_struct
-> > > > > > > > *vma, struct ttm_buffer_object *bo)
-> > > > > > > >          vma->vm_private_data = bo;
-> > > > > > > >    -    vma->vm_flags |= VM_PFNMAP;
-> > > > > > > > +    vma->vm_flags |= VM_PFNMAP | VM_DONTCOPY;
-> > > > > > > >        vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
-> > > > > > > >        return 0;
-> > > > > > > >    }
 > 
 
 -- 
