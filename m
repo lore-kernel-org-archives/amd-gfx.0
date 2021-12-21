@@ -4,138 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 933FDC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 18:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBDA3C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 20:29:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 205B910F1C9;
-	Tue, 21 Dec 2021 18:47:06 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2064.outbound.protection.outlook.com [40.107.92.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD71B10F1C9
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 18:47:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l285eHt1u+l5x2GDz4z6KxoRGF5oEgTSWXeg8GwYBH+LG8y+wSXnVPuSaa3yub7XfACfgDeEp8se501ArToTiORZP3PB50qWKbojsKzop6HfmiL2R6doqKoMewvrDi591fDX2OYDsUyncocipZHxT2+mez3jAurSPOSuJzKphDmiNgTeZ51zXbyPlyK+QaeMQ4FESlc3vJGnCW4mPtLXhDzSnIc5tpbiO+rm+NYNl2DdXu8zHPuI5ebLkmLigs/ODnlpTXPkHLq878buIwKAIgNE3cUStnKW2nETlL3VheieIi+5CYyAsjfs6mTOdMrgnQXtW6Kn1rcxTI9ThHINdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mkzz/yzfUxc3/tdPUVYaE03ZYZJyeUHH1oGbaM/5g7c=;
- b=oVFNnJw8PDSZN7EkzvOAhc1+427DF9epkgF68jzdBifUkTk0f7eTQiM4sXOoTrxicVOuatYTB9/UqlEYroQrY0x3lD4qc1ZrpgNO/pYaZqdB0oWANzKmguU5o42KmzqWpMLkZr1va+vrbhXNig+VzAyBojZ6YUSEbZrGgt6fU8GGSVtPeMOoFkLc2FM/3Z0M6abFMRYeNtiYo4mpqyf2trGYFbvKw6w0EJjR/U8WhfQgJZIorO6gLWKbjASUqAiwfQwm/ErE8NoWUpQHbtNF0V42VhgyWP/u5aCzKObMemfwNC1Y4tX29oWG3Z7qFeI+idiTPsJAVk4FeM5u3cC8Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mkzz/yzfUxc3/tdPUVYaE03ZYZJyeUHH1oGbaM/5g7c=;
- b=RRqFJgdrbPPE0oTazBjjiU0v30vKcK6ffI55CksRkGW9MUq2l+NEu3Vl6eZibZNSIMrd7y5dSrHor1BDsEidv+nGC0irSNlRT/ATzOGEa3Rw7etfOWFUI6isncGb/3QQb83ERJqnX7knHHV07rRk1gkXP454+gxPUBd3EvaxMl4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL0PR12MB5521.namprd12.prod.outlook.com (2603:10b6:208:1c7::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17; Tue, 21 Dec
- 2021 18:47:02 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f170:3712:b17e:bd65]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::f170:3712:b17e:bd65%7]) with mapi id 15.20.4823.017; Tue, 21 Dec 2021
- 18:47:02 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>, Imre Deak
- <imre.deak@intel.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, Lyude Paul <lyude@redhat.com>
-Subject: RE: Expecting to revert commit 55285e21f045 "fbdev/efifb: Release PCI
- device ..."
-Thread-Topic: Expecting to revert commit 55285e21f045 "fbdev/efifb: Release
- PCI device ..."
-Thread-Index: AQHX9chgu3Z8LhpJr0q5gQSTVOUPJaw75roAgAAI7ACAATPqcIAAGOYQ
-Date: Tue, 21 Dec 2021 18:47:02 +0000
-Message-ID: <BL1PR12MB5144E1E5C51C5B5226197978F77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <CAHk-=wjs4AjAKJ26W69xcMB7snFc+0u+rbgA+Tj0S1GvwY2T3Q@mail.gmail.com>
- <20211220213254.GA7250@ideak-desk.fi.intel.com>
- <CAHk-=winh9=DS2ZJZbgwTFS3r3oWfrZcM9MedQ4dKzsGW8QaTA@mail.gmail.com>
- <BL1PR12MB514437F7B1726A2173650FBFF77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB514437F7B1726A2173650FBFF77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2021-12-21T16:28:19Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7d9c7ac9-17dc-459c-afa0-68943568ec01;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2021-12-21T18:47:04Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 360ba1f1-93dc-4ce6-b37f-a5a6c275105e
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9118804b-6b86-42ce-3827-08d9c4b24738
-x-ms-traffictypediagnostic: BL0PR12MB5521:EE_
-x-microsoft-antispam-prvs: <BL0PR12MB5521E2E06E77B5A7395F4606F77C9@BL0PR12MB5521.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EjDvcXFQZpyZL/lbRQYyUt74dsMizTiARJMQuF8STf7kmWhydQvXoXk7IGuWoIuUHXai3KmXETgQA5TEoSqUV4HyORUGyge2hYK/hVZ0Mz40Ej+9IySTdoX6YY6GBLeycCARpmccaFNWdvmFSlrB62w5jBCRnODQnUAn4/vQ4GnG4PTvspxbluK30+FDrrWt1teK1UPdd4a7auwCbkvm9BwwVYAbF6scgjwqwu4xPHfSrYYm30Ysx0XvZ68DW8c8YJiwJlFMAodAVsmXuaIEUjRE5XRv050nZDun0bc8jyz2fZkviErAajZlPc4gR8ZvznhLHASw5TGC+ExHgHZcFi4IAyXPR9UEIukJBT4XoPbi4CWPdlKDJvKTcs/KYEkfDwhF4Ny4Zxkm9PKalZkcXKtCRb+hNZKYEV49tfcT5JJVTjDk0UrGE9sOwD+JT1rZ8QxE1VZkw/hD6MR8U3WxdHz1Vf5FYZ1Vxufu0X48gIWzQjABM4XliVEPYG3KC5FLpKsz0axBM2ogAhxgVpFrSbvdXGTMgN1foWvJnakgawOAG9X8JdNyd14XMqzc4AEmfEk1hDrdydjrVf8l9UmaewyOc9+qe1GRBVfe9mt4E0Ip+aJ7MUbiwmiwc1BZscvNNUTxYnIFNl9El/lKntIDlDysLCE5xPw7AUUzWpC07PeUqhp1CJoPWGqr6KVjddy5NjOlGyuRFlc58l+FHaGdZ7tQ4DXHIpt+dSMsNkSls0bIGboVWSnNcv/fYbYCq6b1CeqGj/LWaAmGA8T+3olJuEQfOYKluQ5oHoqP29eOXEA=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(122000001)(71200400001)(38100700002)(6506007)(7696005)(52536014)(64756008)(4326008)(38070700005)(83380400001)(66476007)(66556008)(86362001)(33656002)(76116006)(66946007)(8936002)(53546011)(2940100002)(26005)(54906003)(966005)(5660300002)(508600001)(9686003)(110136005)(2906002)(186003)(66446008)(8676002)(316002)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QVRnY3ZTWHdYeUFBeGFCa2cySFRxSVprVmQ2c2FtbDlGTjQyVlhnWHJzUjI0?=
- =?utf-8?B?WU1VVTdZV1dQL0VhejJWc05FMWF0dTJUM005UVpteldhQ1VneW9zYlJtbGwr?=
- =?utf-8?B?d2lVVGd6UERRdzRkUjNpdVdpOXVPMlMzWC9vSGF5U3VqYSt2eTBpcGpsZ1VV?=
- =?utf-8?B?UlFEcEdhdm9Oc3B2bytsb1FVZWRZdnFsMnZZT0w4dVZURExLTUdsRUNmK3BB?=
- =?utf-8?B?QUcwSllQVGpMT0dzUGtEcXRWZEdnOWtUMGlnK3l5TWpZUGNnZnlPZDU5MVBF?=
- =?utf-8?B?YUlIRnlsa0R0d3V6c29BYjRlVTYrd21Bb2lqZ1dybVYvS05Obk1ndHFOZXNj?=
- =?utf-8?B?SzhlRHl4WmtxbDkvNG5ZWFhjcDU1OVpzUjU5UWdVZ3JGdjJScHhQdklCUW1H?=
- =?utf-8?B?NWlEamt5UGJQbkJLdVRaQkhhQXpXK1JxVDRKR3FhRElRTjF2VE9xRVl6TFZn?=
- =?utf-8?B?TnZJU0JadWlRUE9GQlo4MzZiVnppLytDeGRZYlhXK09TblM5MlA0Yy90NlZI?=
- =?utf-8?B?V0tkN0g4MlVCS2pFd292Qktzbnc5TU9SNG0vOWI4RzBRRDFvTVpDRTFuUXFT?=
- =?utf-8?B?R296ZENEYzEvQ1l3MDlwWWNkRHF3VkVqcjJOUUFwSGZlOW9oa2M3OGFZQ280?=
- =?utf-8?B?a3V4QUhuRUN1NjM2NmZ6VmdTS2l0ZFcwRjMwZ1lXUk04L0pxdytzSWw2NFdI?=
- =?utf-8?B?ak1BaTJwelE5L1ZYbllkTVJXbStZbk9zdzBKdFljTXJHMXFHajBaQWtIUitI?=
- =?utf-8?B?K0tZbStGdFdnVkRtMExFem8waCtPQUp0cGZNU01saDRZeVA2TXJXY0hkVHlP?=
- =?utf-8?B?Z3VubHYwckpnWjNUM0E3WkVLQ0RoV0NBeUpZUitweVRSWEVMVDlwSlJjcVBz?=
- =?utf-8?B?eGx6TjU4aW9QQlljQktyK0dZRzZZNVFiSVdxSmFmK3p4SVVmZUhIVlcrYjdv?=
- =?utf-8?B?RFpZZG9YTkROM1dhRVkrelJtZkswV0NEaEkxSXBvYmkzM2dKRmVTQm91b3VZ?=
- =?utf-8?B?Q24xd1RBK3ZIb0NMYXdGY3BmTGU1NkV1Tmc5UVdhRHkwbjBDRlpNK1dKL2Zs?=
- =?utf-8?B?T0xoWE1yUFJ4am5ZM0VXR2h4bEovam9hSnBYRWhyeVVzZEVYUWF2YTZyaXdo?=
- =?utf-8?B?Qk5JKytrVysvUUE4Y3JqY1FRWHJwZ2FBREdDOUVrRExtMkh0ZjNqdWtPRTE1?=
- =?utf-8?B?d2k4Qk55WWJ5WEZ3KzZjb0xEaSs4eUQ2UExDRWJpTElhenEydXlOSjZjNHNV?=
- =?utf-8?B?SjlCL1ZsSWVQdzVZYVB2NEtLWURVL1o3ZVF4bWx6M2l1UThFdVVpdVMxemdC?=
- =?utf-8?B?N1g1NDVqaWpoWE1HeXNlZ1JoNWpHdWY4Nml3Rm9WR3d4SDhvWnNwSlB1UHpa?=
- =?utf-8?B?Wm9vUlVvNkUrUU1DWjF5R0lDZ1ZoK1UwOTRhTmJXYUo1WjV2dFRYeVlybGlw?=
- =?utf-8?B?SWVlNHVQTE1kU2VCOVQ1UGFPVlY3SGt6SGtUZEJINmFBblgxdDRZOXhvTThM?=
- =?utf-8?B?Uk1tNlBjb08rYXc1V3haTDkrMmk5ZHVwYUI2MnlNLzhXdE5Ed24yaEs2OU80?=
- =?utf-8?B?MlVIWWlUWncrbG1HMnJnL2krMUJXSFBTaU9pbW1VTTEvQ3AzWnFEczRHaVlF?=
- =?utf-8?B?Nm9hcUg4QzJmZjVaN1VkWFdkTCt6STZJMkdOWncybHVKWmpGYkFFa2h6Z3Q3?=
- =?utf-8?B?cDhULzhmbTRlaXl5R0NNaFZDVExHaG91UnVnejVvYXZaRlNoek1VcFhWTG9y?=
- =?utf-8?B?d3AyalB1SjRKTmJJb0VqR1NnM05tbGVZSmMvZHFMd1RjanRxWlZ3QUFyclFX?=
- =?utf-8?B?NjBsSG1FNWhyUlh0UURsRzJiUEFaUDVPdjRRVDFVdnNYbEdkT244T2haWEx3?=
- =?utf-8?B?V3dUdmcyeEEvS3hmOWl3eStvSjVvZkNmTUx5R1FLb0xLK0NiaWIzNmZWN0xw?=
- =?utf-8?B?dmxrMTlVcWd5TE4vRWIwRUg4Uy9mNFIzTHBzdGUzTGdXQTRvVnhDMmFNdzlY?=
- =?utf-8?B?WStUYUxZRlpuSUNKVHo2bENVZHg2ak9XeXdmYnVSTSs5Lzg5d3ZiZUo5dmJp?=
- =?utf-8?B?YmJPU2ZBWGpjMDUvZkRKZWpDUnZSaXZ1WTBuM2J2SXlyRXVvS3NjZm1nTzZT?=
- =?utf-8?B?RnRocjI4UVRDc1o1clRBc0ZpVVkwSTJ5ZmxuR3lrOFdZaFNvcWlJYk1ac2FK?=
- =?utf-8?Q?JRdtfsUha1wuJgbnGZhLpic=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18D71112962;
+	Tue, 21 Dec 2021 20:29:13 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2A10112957
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 20:29:11 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id q25so638720oiw.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 12:29:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XNJ3MfuUXEjK0F0P95ZwyHEFVKcML2BEV7qHHxf/J80=;
+ b=kU18H+qFjsGDPcF2OPBttlRI7r+napJk09JJZY+JT4PsFJiBo556aCtWeEh+jbT1Re
+ zb9J/b+Qbgg4YM8Kx7mrwSr//Z8S2faJMCRh1sz9H7qX7xGrU0A5J6aVK8Y7NiSCIgUL
+ lw3Q3jhvor1cAQDCa7tdbEIU/5+cX0MCjXisoQC/YbweEx1jryzGe0l4/CWta/sqXeEM
+ G6/sXAjtdpE1f8zd8BjiibmZ3vLbjs6S9vCtV1RuBQP3TpKqkuPVhrFiRbnFS+UGTda2
+ cXx5o9AcIHzdaDU5Cbtx48JJrLiqd28haEnrutdrztKUis6qurP1PPH7+bU8BuHIp6R1
+ +Zdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XNJ3MfuUXEjK0F0P95ZwyHEFVKcML2BEV7qHHxf/J80=;
+ b=jHOX7EB78Vm0bHIynpEFwK4yd7l9hkdqm4uJMG0gaVC+fVs/QoYzwu4jFBmJTiuYhD
+ 0NQBH8b/PhAKCjzB4I5hBOJVrhr+HU/lDdKxa4mJ50iLgv+PMRocKufDVCxORNETKZDt
+ IFZiWvzGn2AkcZGS9bHmEjkkjr+zsF+4Rro35A2CViIzGhHiqoLBHj5BX9BwOkooSwRA
+ +3cB3jCHmjdlz5MehDZ7+Dup5CuJe+dtmjm5+eLXf2hM25fGYeCcO0EshJV1aVUjcjTm
+ QgUqbJLs0Wlvf4fNyPvSgzQRA2rV3kH4gaWXwGqS7Pk+YWEsCEFDc/GUwDHKxzsJ9yox
+ YZPw==
+X-Gm-Message-State: AOAM531reK6LLAbz/VghOvdp9JFe1pNTUjCKwH8crOSg7PpJxY/uU53R
+ zFeKXRmVOwlkpRcI282TPJaohxpbuFKQQ5wbMHQ=
+X-Google-Smtp-Source: ABdhPJxTZy/vWVKDs3GEzDIv5Hx8Ni7k8+Q9oPypsaHhWDDYlkEg0+5DM67/3oRtHF3nm31eF8tXP95dLdLPZku+qrc=
+X-Received: by 2002:a05:6808:44:: with SMTP id v4mr95478oic.123.1640118550907; 
+ Tue, 21 Dec 2021 12:29:10 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9118804b-6b86-42ce-3827-08d9c4b24738
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Dec 2021 18:47:02.7256 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SsC94v5tl3OrztouYk0QUKFUF5h691PbVPr28L2EsKDSFdbFDsGpwS1MyvU1TL9HJM4Edh9BOwgPubY2p73wBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5521
+References: <909640d5-d2e2-6e03-2bb0-1aca9877cb79@gmail.com>
+ <1391457040.91074677.1639932075125.JavaMail.root@zimbra39-e7>
+In-Reply-To: <1391457040.91074677.1639932075125.JavaMail.root@zimbra39-e7>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Dec 2021 15:28:59 -0500
+Message-ID: <CADnq5_PpnoGCxSO95+mEkcXuR7umWU-hTtUQh2G8q5xPNzPzrg@mail.gmail.com>
+Subject: Re: Various problems trying to vga-passthrough a Renoir iGPU to a
+ xen/qubes-os hvm
+To: Yann Dirson <ydirson@free.fr>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,107 +62,257 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBEZXVjaGVy
-LCBBbGV4YW5kZXINCj4gU2VudDogVHVlc2RheSwgRGVjZW1iZXIgMjEsIDIwMjEgMTI6MDEgUE0N
-Cj4gVG86IExpbnVzIFRvcnZhbGRzIDx0b3J2YWxkc0BsaW51eC1mb3VuZGF0aW9uLm9yZz47IElt
-cmUgRGVhaw0KPiA8aW1yZS5kZWFrQGludGVsLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQo+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPjsgS2Fp
-LUhlbmcgRmVuZw0KPiA8a2FpLmhlbmcuZmVuZ0BjYW5vbmljYWwuY29tPg0KPiBTdWJqZWN0OiBS
-RTogRXhwZWN0aW5nIHRvIHJldmVydCBjb21taXQgNTUyODVlMjFmMDQ1ICJmYmRldi9lZmlmYjog
-UmVsZWFzZQ0KPiBQQ0kgZGV2aWNlIC4uLiINCj4gDQo+IFtQdWJsaWNdDQo+IA0KPiA+IC0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4gRnJvbTogTGludXMgVG9ydmFsZHMgPHRvcnZhbGRz
-QGxpbnV4LWZvdW5kYXRpb24ub3JnPg0KPiA+IFNlbnQ6IE1vbmRheSwgRGVjZW1iZXIgMjAsIDIw
-MjEgNTowNSBQTQ0KPiA+IFRvOiBJbXJlIERlYWsgPGltcmUuZGVha0BpbnRlbC5jb20+DQo+ID4g
-Q2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+OyBEZXVjaGVyLCBBbGV4
-YW5kZXINCj4gPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEthaS1IZW5nIEZlbmcNCj4g
-PiA8a2FpLmhlbmcuZmVuZ0BjYW5vbmljYWwuY29tPg0KPiA+IFN1YmplY3Q6IFJlOiBFeHBlY3Rp
-bmcgdG8gcmV2ZXJ0IGNvbW1pdCA1NTI4NWUyMWYwNDUgImZiZGV2L2VmaWZiOg0KPiA+IFJlbGVh
-c2UgUENJIGRldmljZSAuLi4iDQo+ID4NCj4gPiBPbiBNb24sIERlYyAyMCwgMjAyMSBhdCAxOjMz
-IFBNIEltcmUgRGVhayA8aW1yZS5kZWFrQGludGVsLmNvbT4NCj4gd3JvdGU6DQo+ID4gPg0KPiA+
-ID4gYW1kZ3B1LnJ1bnBtPTANCj4gPg0KPiA+IEhtbW0uDQo+ID4NCj4gPiBUaGlzIGRvZXMgc2Vl
-bSB0byAid29yayIsIGJ1dCBub3QgdmVyeSB3ZWxsLg0KPiA+DQo+ID4gV2l0aCB0aGlzLCB3aGF0
-IHNlZW1zIHRvIGhhcHBlbiBpcyBvZGQ6IEkgbG9jayB0aGUgc2NyZWVuLCB3YWl0LCBpdA0KPiA+
-IGdvZXMgIk5vIHNpZ25hbCwgc2h1dHRpbmcgZG93biIsIGJ1dCB0aGVuIGRvZXNuJ3QgYWN0dWFs
-bHkgc2h1dCBkb3duDQo+ID4gYnV0IHN0YXlzIGJsYWNrICh3aXRoIHRoZSBiYWNrbGlnaHQgb24p
-LiBBZnRlciBfYW5vdGhlcl8gZml2ZSBzZWNvbmRzDQo+ID4gb3Igc28sIHRoZSBtb25pdG9yIGdv
-ZXMgIk5vIHNpZ25hbCwgc2h1dHRpbmcgZG93biIgX2FnYWluXywgYW5kIGF0IHRoYXQNCj4gcG9p
-bnQgaXQgYWN0dWFsbHkgZG9lcyBpdC4NCj4gPg0KPiA+IFNvIGl0IHNvbHZlcyBteSBpbW1lZGlh
-dGUgcHJvYmxlbSAtIGluIHRoYXQgeWVzLCB0aGUgYmFja2xpZ2h0IGZpbmFsbHkNCj4gPiBkb2Vz
-IHR1cm4gb2ZmIGluIHRoZSBlbmQgLSBidXQgaXQgZG9lcyBzZWVtIHRvIGJlIHN0aWxsIGJyb2tl
-bi4NCj4gPg0KPiA+IEknbSB2ZXJ5IHN1cnByaXNlZCBpZiBubyBBTUQgZHJtIGRldmVsb3BlcnMg
-Y2FuIHNlZSB0aGlzIGV4YWN0IHNhbWUgdGhpbmcuDQo+ID4gVGhpcyBpcyBhIHZlcnkgc2ltcGxl
-IHNldHVwLiBUaGUgb25seSBwb3NzaWJseSBzbGlnaHRseSBsZXNzIGNvbW1vbg0KPiA+IHRoaW5n
-IGlzIHRoYXQgSSBoYXZlIHR3byBtb25pdG9ycywgYnV0IHdoaWxlIHRoYXQgaXMgbm90IG5lY2Vz
-c2FyaWx5DQo+ID4gdGhlIF9tb3N0XyBjb21tb24gc2V0dXAgaW4gYW4gYWJzb2x1dGUgc2Vuc2Us
-IEknZCBleHBlY3QgaXQgdG8gYmUgdmVyeQ0KPiA+IGNvbW1vbiBhbW9uZyBEUk0gZGV2ZWxvcGVy
-cy4uDQo+ID4NCj4gPiBJIGd1ZXNzIEkgY2FuIGp1c3QgY2hhbmdlIHRoZSByZXZlcnQgdG8ganVz
-dCBhDQo+ID4NCj4gPiAgICAgLWludCBhbWRncHVfcnVudGltZV9wbSA9IC0xOw0KPiA+ICAgICAr
-aW50IGFtZGdwdV9ydW50aW1lX3BtID0gMDsNCj4gPg0KPiA+IGluc3RlYWQuIFRoZSBhdXRvLWRl
-dGVjdCBpcyBhcHBhcmVudGx5IGJyb2tlbi4gTWF5YmUgaXQgc2hvdWxkIG9ubHkNCj4gPiBraWNr
-IGluIGZvciBMVkRTIHNjcmVlbnMgb24gYWN0dWFsIGxhcHRvcHM/DQo+ID4NCj4gPiBOb3RlOiBv
-biBteSBtYWNoaW5lLCBJIGdldCB0aGF0DQo+ID4NCj4gPiAgICBhbWRncHUgMDAwMDo0OTowMC4w
-OiBhbWRncHU6IFVzaW5nIEJBQ08gZm9yIHJ1bnRpbWUgcG0NCj4gPg0KPiA+IHNvIG1heWJlIHRo
-ZSBvdGhlciBwb3NzaWJsZSBydW50aW1lIHBtIG1vZGVscyAoQVJQWCBhbmQgQk9DTykgYXJlIG9r
-LA0KPiA+IGFuZCBpdCdzIG9ubHkgdGhhdCBCQUNPIGNhc2UgdGhhdCBpcyBicm9rZW4uDQo+ID4N
-Cj4gPiBJIGhhdmUgbm8gaWRlYSB3aGF0IGFueSBvZiB0aG9zZSB0aHJlZSB0aGluZ3MgYXJlIC0g
-SSdtIGp1c3QgbG9va2luZw0KPiA+IGF0IHRoZSB1c2VzIG9mIHRoYXQgYW1kZ3B1X3J1bnRpbWVf
-cG0gdmFyaWFibGUuDQo+ID4NCj4gPiBhbWRncHUgcGVvcGxlOiBpZiB5b3UgZG9uJ3Qgd2FudCB0
-aGF0IGFtZGdwdV9ydW50aW1lX3BtIHR1cm5lZCBvZmYgYnkNCj4gPiBkZWZhdWx0LCB0ZWxsIG1l
-IHNvbWV0aGluZyBlbHNlIHRvIHRyeS4NCj4gDQo+IEZvciBhIGxpdHRsZSBiYWNrZ3JvdW5kLCBy
-dW50aW1lIFBNIHN1cHBvcnQgd2FzIGFkZGVkIGFib3V0IDEwIHllYXIgYWdvDQo+IG9yaWdpbmFs
-bHkgdG8gc3VwcG9ydCBsYXB0b3BzIHdpdGggbXVsdGlwbGUgR1BVcyAoaW50ZWdyYXRlZCBhbmQg
-ZGlzY3JldGUpLg0KPiBJdCdzIG5vdCBzcGVjaWZpYyB0byB0aGUgZGlzcGxheSBoYXJkd2FyZS4g
-IFdoZW4gdGhlIEdQVSBpcyBpZGxlLCBpdCBjYW4gYmUNCj4gcG93ZXJlZCBkb3duIGNvbXBsZXRl
-bHkuICBJbiB0aGUgY2FzZSBvZiB0aGVzZSBsYXB0b3BzLCBpdCdzIEQzIGNvbGQNCj4gKG1hbmFn
-ZWQgYnkgQUNQSSwgd2UgY2FsbCB0aGlzIEJPQ08gaW4gQU1EIHBhcmxhbmNlIC0gQnVzIE9mZiwg
-Q2hpcCBPZmYpDQo+IHdoaWNoIHBvd2VycyBvZmYgdGhlIGRHUFUgY29tcGxldGVseSAoaS5lLiwg
-aXQgZGlzYXBwZWFycyBmcm9tIHRoZSBidXMpLiAgQQ0KPiBmZXcgeWVhcnMgYWdvIHdlIGV4dGVu
-ZGVkIHRoaXMgdG8gc3VwcG9ydCBkZXNrdG9wIGRHUFVzIGFzIHdlbGwgd2hpY2gNCj4gc3VwcG9y
-dCB0aGVpciBvd24gdmVyc2lvbiBvZiBydW50aW1lIEQzIChjYWxsZWQgQkFDTyBpbiBBTUQgcGFy
-bGFuY2UgLSBCdXMNCj4gQWN0aXZlLCBDaGlwIE9mZikuICBUaGUgZHJpdmVyIGNhbiBwdXQgdGhl
-IGNoaXAgaW50byBhIGxvdyBwb3dlciBzdGF0ZSB3aGVyZQ0KPiBldmVyeXRoaW5nIGV4Y2VwdCB0
-aGUgYnVzIGludGVyZmFjZSBpcyBwb3dlcmVkIGRvd24gKHRvIGF2b2lkIHRoZSBkZXZpY2UNCj4g
-ZGlzYXBwZWFyaW5nIGZyb20gdGhlIGJ1cykuICBTbyB0aGlzIGhhcyB3b3JrZWQgZm9yIGFsbW9z
-dCAyIHllYXJzIG5vdyBvbg0KPiBCQUNPIGNhcGFibGUgcGFydHMgYW5kIGZvciBhIGRlY2FkZSBv
-ciBtb3JlIG9uIEJPQ08gc3lzdGVtcy4NCj4gVW5mb3J0dW5hdGVseSwgY2hhbmdpbmcgdGhlIGRl
-ZmF1bHQgcnVucG0gcGFyYW1ldGVyIHNldHRpbmcgd291bGQgY2F1c2UgYQ0KPiBmbG9vZCBvZiBi
-dWcgcmVwb3J0cyBhYm91dCBydW50aW1lIHBvd2VyIG1hbmFnZW1lbnQgYnJlYWtpbmcgYW5kDQo+
-IHN1ZGRlbmx5IHN5c3RlbXMgYXJlIHVzaW5nIG1vcmUgcG93ZXIuDQo+IA0KPiBJbXJlJ3MgY29t
-bWl0ICg1NTI4NWUyMWYwNDUpIGZpeGVzIGFub3RoZXIgY29tbWl0IChhNmMwZmQzZDVhOGIpLg0K
-PiBSdW50aW1lIHBtIHdhcyB3b3JraW5nIG9uIGFtZGdwdSBwcmlvciB0byB0aGF0IGNvbW1pdC4g
-IElzIGl0IHBvc3NpYmxlDQo+IHRoZXJlIGlzIHN0aWxsIHNvbWUgcmFjZSBiZXR3ZWVuIHdoZW4g
-YW1kZ3B1IHRha2VzIG92ZXIgZnJvbSBlZmlmYj8gIERvZXMNCj4gaXQgd29yayBwcm9wZXJseSB3
-aGVuIGFsbCBwbV9ydW50aW1lIGNhbGxzIGluIGVmaWZiIGFyZSByZW1vdmVkIG9yIGlmIGVmaWZi
-IGlzDQo+IG5vdCBlbmFibGVkPyAgUnVudGltZSBwbSBmb3IgUG9sYXJpcyBib2FyZHMgaGFzIGJl
-ZW4gZW5hYmxlZCBieSBkZWZhdWx0DQo+IHNpbmNlIDRmZGRhMmU2NmRlMGIgd2hpY2ggcHJlZGF0
-ZXMgYm90aCBvZiB0aG9zZSBwYXRjaGVzLg0KDQpUaGlua2luZyBhYm91dCB0aGlzIG1vcmUsIEkg
-d29uZGVyIGlmIHRoZXJlIHdhcyBzb21lIGNoYW5nZSBpbiBzb21lIHVzZXJzcGFjZSBjb21wb25l
-bnQgd2hpY2ggd2FzIGhpZGRlbiBieSB0aGUgY2hhbmdlcyBpbiA1NTI4NWUyMWYwNDUgYW5kIGE2
-YzBmZDNkNWE4Yi4gIEUuZy4sIHNvbWUgZGVza3RvcCBjb21wb25lbnQgc3RhcnRlZCBwb2xsaW5n
-IGZvciBkaXNwbGF5IGNoYW5nZXMgb3IgR1BVIHRlbXBlcmF0dXJlIG9yIHNvbWV0aGluZyBsaWtl
-IHRoYXQgYW5kIHdoZW4gYTZjMGZkM2Q1YThiIHdhcyBpbiBwbGFjZSB0aGUgR1BVIG5ldmVyIGVu
-dGVyZWQgcnVudGltZSBzdXNwZW5kLiAgVGhlbiB3aGVuIDU1Mjg1ZTIxZjA0NSB3YXMgYXBwbGll
-ZCwgaXQgdW5tYXNrZWQgdGhlIG5ldyBiZWhhdmlvciBpbiB0aGUgdXNlcnBhY2UgY29tcG9uZW50
-Lg0KDQpXaGF0IHNob3VsZCBoYXBwZW4gaXMgdGhhdCB3aGVuIGFsbCBvZiB0aGUgZGlzcGxheXMg
-YmxhbmssIGFzc3VtaW5nIHRoZSBHUFUgaXMgb3RoZXJ3aXNlIGlkbGUsIHRoZSBHUFUgd2lsbCBy
-dW50aW1lIHN1c3BlbmQgYWZ0ZXIgIHNlY29uZHMuICBXaGVuIHlvdSBtb3ZlIHRoZSBtb3VzZSBv
-ciBoaXQgdGhlIGtleWJvYXJkLCB0aGF0IHNob3VsZCB0cmlnZ2VyIHRoZSBHUFUgc2hvdWxkIHJ1
-bnRpbWUgcmVzdW1lIGFuZCB0aGVuIHRoZSBkaXNwbGF5cyB3aWxsIGJlIHJlLWVuYWJsZWQuDQoN
-CkluIHRoZSBiZWhhdmlvciB5b3UgYXJlIHNlZWluZywgd2hlbiB0aGUgZGlzcGxheXMgY29tZSBi
-YWNrIG9uIGFmdGVyIHRoZXkgYmxhbmsgYXJlIHlvdSBzZWVpbmcgdGhlIGRldmljZSByZXN1bWUg
-ZnJvbSBydW50aW1lIHN1c3BlbmQ/ICBPbiByZXN1bWUgZnJvbSBzdXNwZW5kIChydW50aW1lIG9y
-IHN5c3RlbSkgd2UgaXNzdWUgYSBob3RwbHVnIG5vdGlmaWNhdGlvbiB0byB1c2Vyc3BhY2UgaW4g
-Y2FzZSBhbnkgZGlzcGxheXMgY2hhbmdlZCBkdXJpbmcgc3VzcGVuZCB3aGVuIHRoZSBHUFUgd2Fz
-IHBvd2VyZWQgZG93biAoYW5kIGhlbmNlIGNvdWxkIG5vdCBkZXRlY3QgYSBob3RwbHVnIGV2ZW50
-KS4gIFBlcmhhcHMgdGhhdCBldmVudCBpcyB0cmlnZ2VyaW5nIHVzZXJzcGFjZSB0byByZXByb2Jl
-IGFuZCByZS1lbmFibGUgdGhlIGRpc3BsYXlzIHNob3J0bHkgYWZ0ZXIgcmVzdW1lIGZyb20gcnVu
-dGltZSBzdXNwZW5kIGR1ZSB0byBzb21lIG90aGVyIGV2ZW50IHRoYXQgY2F1c2VkIHRoZSBkZXZp
-Y2UgdG8gcnVudGltZSByZXN1bWUuICBEb2VzIHNvbWV0aGluZyBsaWtlIHRoaXMgaGVscCBieSBh
-bnkgY2hhbmNlPw0KaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL2F0dGFjaG1lbnQuY2dpP2lk
-PTMwMDEwMyZhY3Rpb249ZGlmZiZjb2xsYXBzZWQ9JmhlYWRlcnM9MSZmb3JtYXQ9cmF3DQoNCkFs
-ZXgNCg==
+On Sun, Dec 19, 2021 at 11:41 AM Yann Dirson <ydirson@free.fr> wrote:
+>
+> Christian wrote:
+> > Am 19.12.21 um 17:00 schrieb Yann Dirson:
+> > > Alex wrote:
+> > >> Thinking about this more, I think the problem might be related to
+> > >> CPU
+> > >> access to "VRAM".  APUs don't have dedicated VRAM, they use a
+> > >> reserved
+> > >> carve out region at the top of system memory.  For CPU access to
+> > >> this
+> > >> memory, we kmap the physical address of the carve out region of
+> > >> system
+> > >> memory.  You'll need to make sure that region is accessible to the
+> > >> guest.
+> > > So basically, the non-virt flow is is: (video?) BIOS reserves
+> > > memory, marks it
+> > > as reserved in e820, stores the physaddr somewhere, which the GPU
+> > > driver gets.
+> > > Since I suppose this includes the framebuffer, this probably has to
+> > > occur around
+> > > the moment the driver calls
+> > > drm_aperture_remove_conflicting_pci_framebuffers()
+> > > (which happens before this hw init step), right ?
+> >
+> > Well, that partially correct. The efifb is using the PCIe resources
+> > to
+> > access the framebuffer and as far as I know we use that one to kick
+> > it out.
+> >
+> > The stolen memory we get over e820/registers is separate to that.
+> >
+> > > ... which brings me to a point that's been puzzling me for some
+> > > time, which is
+> > > that as the hw init fails, the efifb driver is still using the
+> > > framebuffer.
+> >
+> > No, it isn't. You are probably just still seeing the same screen.
+> >
+> > The issue is most likely that while efi was kicked out nobody
+> > re-programmed the display hardware to show something different.
+> >
+> > > Am I right in suspecting that efifb should get stripped of its
+> > > ownership of the
+> > > fb aperture first, and that if I don't get a black screen on
+> > > hw_init failure
+> > > that issue should be the first focus point ?
+> >
+> > You assumption with the black screen is incorrect. Since the hardware
+> > works independent even if you kick out efi you still have the same
+> > screen content, you just can't update it anymore.
+>
+> It's not only that the screen keeps its contents, it's that the dom0
+> happily continues updating it.
+
+If the hypevisor is using efifb, then yes that could be a problem as
+the hypervisor could be writing to the efifb resources which ends up
+writing to the same physical memory.  That applies to any GPU on a
+UEFI system.  You'll need to make sure efifb is not in use in the
+hypervisor.
+
+Alex
+
+
+>
+> > But putting efi asside what Alex pointed out pretty much breaks your
+> > neck trying to forward the device. You maybe could try to hack the
+> > driver to use the PCIe BAR for framebuffer access, but that might be
+> > quite a bit slower.
+> >
+> > Regards,
+> > Christian.
+> >
+> > >
+> > >> Alex
+> > >>
+> > >> On Mon, Dec 13, 2021 at 3:29 PM Alex Deucher
+> > >> <alexdeucher@gmail.com>
+> > >> wrote:
+> > >>> On Sun, Dec 12, 2021 at 5:19 PM Yann Dirson <ydirson@free.fr>
+> > >>> wrote:
+> > >>>> Alex wrote:
+> > >>>>> On Mon, Dec 6, 2021 at 4:36 PM Yann Dirson <ydirson@free.fr>
+> > >>>>> wrote:
+> > >>>>>> Hi Alex,
+> > >>>>>>
+> > >>>>>>> We have not validated virtualization of our integrated
+> > >>>>>>> GPUs.  I
+> > >>>>>>> don't
+> > >>>>>>> know that it will work at all.  We had done a bit of
+> > >>>>>>> testing but
+> > >>>>>>> ran
+> > >>>>>>> into the same issues with the PSP, but never had a chance
+> > >>>>>>> to
+> > >>>>>>> debug
+> > >>>>>>> further because this feature is not productized.
+> > >>>>>> ...
+> > >>>>>>> You need a functional PSP to get the GPU driver up and
+> > >>>>>>> running.
+> > >>>>>> Ah, thanks for the hint :)
+> > >>>>>>
+> > >>>>>> I guess that if I want to have any chance to get the PSP
+> > >>>>>> working
+> > >>>>>> I'm
+> > >>>>>> going to need more details on it.  A quick search some time
+> > >>>>>> ago
+> > >>>>>> mostly
+> > >>>>>> brought reverse-engineering work, rather than official AMD
+> > >>>>>> doc.
+> > >>>>>>   Are
+> > >>>>>> there some AMD resources I missed ?
+> > >>>>> The driver code is pretty much it.
+> > >>>> Let's try to shed some more light on how things work, taking as
+> > >>>> excuse
+> > >>>> psp_v12_0_ring_create().
+> > >>>>
+> > >>>> First, register access through [RW]REG32_SOC15() is implemented
+> > >>>> in
+> > >>>> terms of __[RW]REG32_SOC15_RLC__(), which is basically a
+> > >>>> [RW]REG32(),
+> > >>>> except it has to be more complex in the SR-IOV case.
+> > >>>> Has the RLC anything to do with SR-IOV ?
+> > >>> When running the driver on a SR-IOV virtual function (VF), some
+> > >>> registers are not available directly via the VF's MMIO aperture
+> > >>> so
+> > >>> they need to go through the RLC.  For bare metal or passthrough
+> > >>> this
+> > >>> is not relevant.
+> > >>>
+> > >>>> It accesses registers in the MMIO range of the MP0 IP, and the
+> > >>>> "MP0"
+> > >>>> name correlates highly with MMIO accesses in PSP-handling code.
+> > >>>> Is "MP0" another name for PSP (and "MP1" for SMU) ?  The MP0
+> > >>>> version
+> > >>> Yes.
+> > >>>
+> > >>>> reported at v11.0.3 by discovery seems to contradict the use of
+> > >>>> v12.0
+> > >>>> for RENOIR as set by soc15_set_ip_blocks(), or do I miss
+> > >>>> something ?
+> > >>> Typo in the ip discovery table on renoir.
+> > >>>
+> > >>>> More generally (and mostly out of curiosity while we're at it),
+> > >>>> do we
+> > >>>> have a way to match IPs listed at discovery time with the ones
+> > >>>> used
+> > >>>> in the driver ?
+> > >>> In general, barring typos, the code is shared at the major
+> > >>> version
+> > >>> level.  The actual code may or may not need changes to handle
+> > >>> minor
+> > >>> revision changes in an IP.  The driver maps the IP versions from
+> > >>> the
+> > >>> ip discovery table to the code contained in the driver.
+> > >>>
+> > >>>> ---
+> > >>>>
+> > >>>> As for the register names, maybe we could have a short
+> > >>>> explanation of
+> > >>>> how they are structured ?  Eg. mmMP0_SMN_C2PMSG_69: that seems
+> > >>>> to
+> > >>>> be
+> > >>>> a MMIO register named "C2PMSG_69" in the "MP0" IP, but I'm not
+> > >>>> sure
+> > >>>> of the "SMN" part -- that could refer to the "System Management
+> > >>>> Network",
+> > >>>> described in [0] as an internal bus.  Are we accessing this
+> > >>>> register
+> > >>>> through this SMN ?
+> > >>> These registers are just mailboxes for the PSP firmware.  All of
+> > >>> the
+> > >>> C2PMSG registers functionality is defined by the PSP firmware.
+> > >>>   They
+> > >>> are basically scratch registers used to communicate between the
+> > >>> driver
+> > >>> and the PSP firmware.
+> > >>>
+> > >>>>
+> > >>>>>   On APUs, the PSP is shared with
+> > >>>>> the CPU and the rest of the platform.  The GPU driver just
+> > >>>>> interacts
+> > >>>>> with it for a few specific tasks:
+> > >>>>> 1. Loading Trusted Applications (e.g., trusted firmware
+> > >>>>> applications
+> > >>>>> that run on the PSP for specific functionality, e.g., HDCP and
+> > >>>>> content
+> > >>>>> protection, etc.)
+> > >>>>> 2. Validating and loading firmware for other engines on the
+> > >>>>> SoC.
+> > >>>>>   This
+> > >>>>> is required to use those engines.
+> > >>>> Trying to understand in more details how we start the PSP up, I
+> > >>>> noticed
+> > >>>> that psp_v12_0 has support for loading a sOS firmware, but never
+> > >>>> calls
+> > >>>> init_sos_microcode() - and anyway there is no sos firmware for
+> > >>>> renoir
+> > >>>> and green_sardine, which seem to be the only ASICs with this PSP
+> > >>>> version.
+> > >>>> Is it something that's just not been completely wired up yet ?
+> > >>> On APUs, the PSP is shared with the CPU so the PSP firmware is
+> > >>> part
+> > >>> of
+> > >>> the sbios image.  The driver doesn't load it.  We only load it on
+> > >>> dGPUs where the driver is responsible for the chip
+> > >>> initialization.
+> > >>>
+> > >>>> That also rings a bell, that we have nothing about Secure OS in
+> > >>>> the doc
+> > >>>> yet (not even the acronym in the glossary).
+> > >>>>
+> > >>>>
+> > >>>>> I'm not too familiar with the PSP's path to memory from the GPU
+> > >>>>> perspective.  IIRC, most memory used by the PSP goes through
+> > >>>>> carve
+> > >>>>> out
+> > >>>>> "vram" on APUs so it should work, but I would double check if
+> > >>>>> there
+> > >>>>> are any system memory allocations that used to interact with
+> > >>>>> the PSP
+> > >>>>> and see if changing them to vram helps.  It does work with the
+> > >>>>> IOMMU
+> > >>>>> enabled on bare metal, so it should work in passthrough as well
+> > >>>>> in
+> > >>>>> theory.
+> > >>>> I can see a single case in the PSP code where GTT is used
+> > >>>> instead
+> > >>>> of
+> > >>>> vram: to create fw_pri_bo when SR-IOV is not used (and there has
+> > >>>> to be a reason, since the SR-IOV code path does use vram).
+> > >>>> Changing it to vram does not make a difference, but then the
+> > >>>> only bo that seems to be used at that point is the one for the
+> > >>>> psp ring,
+> > >>>> which is allocated in vram, so I'm not too much surprised.
+> > >>>>
+> > >>>> Maybe I should double-check bo_create calls to hunt for more ?
+> > >>> We looked into this a bit ourselves and ran into the same issues.
+> > >>> We'd probably need to debug this with the PSP team to make
+> > >>> further
+> > >>> progress, but this was not productized so neither team had the
+> > >>> resources to delve further.
+> > >>>
+> > >>> Alex
+> > >>>
+> > >>>>
+> > >>>> [0]
+> > >>>> https://github.com/PSPReverse/psp-docs/blob/master/masterthesis-eichner-psp-2020.pdf
+> >
+> >
