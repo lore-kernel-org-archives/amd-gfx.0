@@ -4,121 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 099E9C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 07:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE5FC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 07:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4542E10E52D;
-	Tue, 21 Dec 2021 07:05:21 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2072.outbound.protection.outlook.com [40.107.102.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBE6910E43D;
- Tue, 21 Dec 2021 07:05:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB60710E15F;
+	Tue, 21 Dec 2021 07:52:08 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05C9A10E130
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 07:52:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fD1EdA4XknwKucdZF8IcVSSdfzmDXfsuHW1V470+zFX3imxtN/b4Wh1L6h+j+v3vPAbyUtK5CYeehCLZxNPpV7QBbXvsYVXpTACeL1yswk559zgfAri7RoUVTkbC2WQvHYDWIz0SR/wNXI62Y2fm/bBPhH53Rw4KPiNS1GIPNn4HzH0miFvLHr4L3DsVGzJ9CPQwKIaTKljmZr7sjiC73IFYu/+gUQLN1ngrvKoZS3j5zfylyHTBf4MiQ2HYYKZaOtDBmsTApxk6o4HaVb6UyY0fjnB4n1C4kU+y2PbvDbQeOmYgAqTmR1Zl3PJ+MMN6CBlTMchU/GWtsXw9zsDOFQ==
+ b=KiKqTh6bQ3YTMeH8Ti9cjSQFdjuKcu09XC3a4Dc9bgGDgu2eXC/F1q3cwApBnZYNwY9dEGdjlkNBDhP4ffuwYt6emWStAVdZs3BOXev1JgKxJKhuRxjqaodZ14nCV6RqaLCsYNReIz4Fc573zmILCz6nwp3R1CziVXN5otlNkMcsI6/5bIiO5Jn+o3yQ8zVpwNIT5pjKrHUSMEMCLT6iK16e/8L6Jmkf2dBWqKAjgKrioqiNP9FJDZ3MJZcDhEy3fkofsOGHpH/5JnmkEWJrYRKL/+QqKPfrWcJP+vn5AET9PaUOR/m4ljn0NhpnZW0jZdfPch1l3YoKJbb0CDNETQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N1gOabUEzEctbH0dzQHG/Mm9Xz2bVKjndinnqg7vmfA=;
- b=XG1JjOKuOe5bkxEZY5xtCL5SQ0LEg2+8fZyrz4B6gOfIGVINQUvHfGEMdwb0qynr7Q0ZKPcsul6bm3w8qPInA+2GlSh5ULJe1twY8U1d646c+XuOIkHLelVceHrBxzLyn9+2WOjbWWDW/yPTdtTxgUBTj4B0jyffUzAVwDLcEF6gMOrV6C6Xdv+7dBKdihRi/YRuue1lPf+wBmnfJbTHZfOqfxRVGiCRjLAhsmoawptqs9GGanC4EVdx7+7KYVRRzmHc7dPETGllHgW+r8tHLLiLWfuZNVAMIqHHiKnXzDgMwVqhzwCxVhaEP2Qh2BB/yBdAeGj9t2qS0ENIheNRWw==
+ bh=TcMb3MuvmlZ6M/HHk+mDBi17Ze955Lx3N1hauEyHLhA=;
+ b=lzIfy3/tdBx5A5QQ97S+udxeAQTdYlZXbQDnqdkjlZ9tcGLZjqPnbmDJnRrdvNiC3fPhJJhUX+z488zSePn9YFuB7gQdUC9V1hIygY8Gs93scJJj/yGqSj253J2H+iWAMjnmn8J4PFP25dez3VjAPKiTSK4sTY94OFWiA4AzWk66a56+mhVBeMm0OmPc2Fw9plmIih/cohQIObjYhdzua7d0WD60ztUpbJy5cozK6EKqb2EG84fAl6ey6D1MwixZjS0NuwRflSWVkAiVcP9EYBtlLchXOref4BNSLPYKVB/kxmfXg2kwhWpnMWpr31dfYVLe5KoVchHfwkrN8TLg1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N1gOabUEzEctbH0dzQHG/Mm9Xz2bVKjndinnqg7vmfA=;
- b=tj27HFrnmzNIzkm3n0URQ9F3ZS9dXzi8yUvMfMSFv3NqA3vac47uK+r2EItDroGJuYUpTF1LsDhOD9W3qoCcTvDJvAnc79M9Ett1w740opFEYw/takXdf+cj1DUyM0Ns3Ah8ApEjQlmmYtrD6G0wYLyxXezYbDiFstv1I5VxnkU=
+ bh=TcMb3MuvmlZ6M/HHk+mDBi17Ze955Lx3N1hauEyHLhA=;
+ b=NI8CzY//onyEXKoYsbu3b/KRyZk9XmaEzQw0aXDL8hYf8DdiGgBLYyB29ptm2YUjhqRPoTShVrxPMXTh+sGUW3uOZgb/YlTmx/C11yV/W4iJSn5vGD9/wFe0CqsllRrnolnLMAJMTzvz2pIU0nRuNRjenniYEcjNEcKJEAQDUqs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MWHPR1201MB0191.namprd12.prod.outlook.com
- (2603:10b6:301:56::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17; Tue, 21 Dec
- 2021 07:05:16 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::d16c:a6d5:5d2e:f9d4]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::d16c:a6d5:5d2e:f9d4%12]) with mapi id 15.20.4801.020; Tue, 21 Dec
- 2021 07:05:16 +0000
-Subject: Re: [RFC 2/6] drm/amdgpu: Move scheduler init to after XGMI is ready
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20211217222745.881637-1-andrey.grodzovsky@amd.com>
- <20211217222745.881637-3-andrey.grodzovsky@amd.com>
- <d7872062-e99a-03be-c52e-d27a7022de09@gmail.com>
- <98c9e91d-adb8-3ee9-7c4c-567c214c34a9@amd.com>
+Received: from DM5PR1201MB0187.namprd12.prod.outlook.com (2603:10b6:4:5b::9)
+ by DM6PR12MB2746.namprd12.prod.outlook.com (2603:10b6:5:41::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.20; Tue, 21 Dec
+ 2021 07:52:04 +0000
+Received: from DM5PR1201MB0187.namprd12.prod.outlook.com
+ ([fe80::17b:556a:9bb2:60e7]) by DM5PR1201MB0187.namprd12.prod.outlook.com
+ ([fe80::17b:556a:9bb2:60e7%12]) with mapi id 15.20.4801.020; Tue, 21 Dec 2021
+ 07:52:04 +0000
+Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb: Release PCI
+ device ..."
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Imre Deak <imre.deak@intel.com>, "Wentland, Harry" <harry.wentland@amd.com>
+References: <CAHk-=wjs4AjAKJ26W69xcMB7snFc+0u+rbgA+Tj0S1GvwY2T3Q@mail.gmail.com>
+ <20211220213254.GA7250@ideak-desk.fi.intel.com>
+ <CAHk-=winh9=DS2ZJZbgwTFS3r3oWfrZcM9MedQ4dKzsGW8QaTA@mail.gmail.com>
+ <CAHk-=wgtGHeEqE9e-NSYQ51pU8QR13CL5Njp_wh9n2hwPiKZEg@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <42944d1a-efc1-87fe-20bb-466cfc9ad9a0@amd.com>
-Date: Tue, 21 Dec 2021 08:05:07 +0100
+Message-ID: <ebe70af1-d90a-7c98-b8d3-e631b777013b@amd.com>
+Date: Tue, 21 Dec 2021 08:51:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <98c9e91d-adb8-3ee9-7c4c-567c214c34a9@amd.com>
+In-Reply-To: <CAHk-=wgtGHeEqE9e-NSYQ51pU8QR13CL5Njp_wh9n2hwPiKZEg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-ClientProxiedBy: AM0PR03CA0004.eurprd03.prod.outlook.com
- (2603:10a6:208:14::17) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+X-ClientProxiedBy: AM3PR07CA0078.eurprd07.prod.outlook.com
+ (2603:10a6:207:6::12) To DM5PR1201MB0187.namprd12.prod.outlook.com
+ (2603:10b6:4:5b::9)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e02ba9f9-0074-4a43-655b-08d9c4503dbc
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0191:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB019189276EF6ACEF36E43FCA837C9@MWHPR1201MB0191.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-MS-Office365-Filtering-Correlation-Id: 6443706e-fd92-40b2-73d4-08d9c456c776
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2746:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB274650EDF617F69BE03243F0837C9@DM6PR12MB2746.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WDqDi+b0D2KRMpBdTXhEIjqY/x3uPhBHCT5oHkDWlD4onQFknGE4y9b4rd28gg/3kipo5r0cyXpFk/vxg34qGtd6G87JhhgXI3CgSEHKbxOxSAj9nX7FieTzG6A11xuJo8LUY9Uu6k+RNjGqnFf2sSkMkFYg9JbUfZNypQfdwYTe7JRTBH0aEOknk65S/yQ9CewI19ckVoGPg77iv/zAjoS3QsVKyjHx7g462ynTS6MGJTdUe4EHuP1JNdFkkdMQ5kTClm9agkdnhvDVveW5lV1q7QAbq4jkWzb5+79WiEcKQPkW73ZwnMIbs5Gqs3luzCCHzTvn8sP+78MQi7cBIlkr7tk0Xlrr+9Wc821BOL2cYa5fWxQPpoqFUUDgK8Zv/ojn5LnQMHAHu8trdpjLJ/mzQ5w1pBUV8LMD98Sv9vxD4YigB8JchhE709lCeyLcFn8JOjoQSPMJLvIUupm9Mz75JnS6IHb/8zOGhZv7EVcCBW9u7l+ldcHGa1f/fYxLvIAEStHkMGK1RGrV9mGPueNqfdhZNx7QiEdrEICrQPLNk8bk6kkkoC5K0YmY+IINmhbvFEn8HFkeQVsSW7MyCdX5VyBhBUjuagTbKlhyACd8a5cAKpdvLb0U5/e7nTIPkw9kJyeoOt2z/uNcBdQE0uMmQCz4LjJSYNrhYE5YtLWKI/rGOE9w9vi7JwUfmNwMHzkDhTnjbu+RJGvWXqi1W1/B1cLSxszokrvbhoig172b68UEr7oyyETVOHZJR+0d
+X-Microsoft-Antispam-Message-Info: zfXestJbKKENIfP0Q3pYYsZ84HtkhfWXAnhztdOI27SvYu3PEF9rZmLZ7xkSMLDnVq7RFLHBdqDJVifvlZdYaIInCu9mC+e8fL8MCTNpk7yAY1/NgQoO/EHxG35s0y7mZw3RDyEie4LERIp5Jf8cBABueFr9CRzUvY5iqrhRJpG7MTy6C3Lgu5iEp05GpOT1cKCghgEwT7wUALpZIa4gFlqAYpuhxil3JxpmIYE1InXP0mcDtEhMwh1v88BXAjOOpDlJM4nn+UDdtgq6XBEao08LYO+jvuEV0z2a3fsiAhr0X4F62F2WwFNJXnqSanrDMosu5oTkw74icx+QGZl5hQULt/3x1U3CB4389Uj9iow1NLhcQQh5+SPO2bBx+kV24AZPAuq6x7HY8GrLUoTDsQflvGREwwqYHP570T2x6xWJRQNJq0xtc+8wP0znrgETRg8LbwDfvSjZmRwdWE4dWAiJJNJujCulA8tPsA9i4/tGaB8qIrdhYH9YyQW+SnwuxeZJkxKdPag2GJiv8OZPPX1OdQN23r7KM9HV18Wlx70krtoqaXTCVHN2ICQVVtOO0kUuAF51UL5vpbdhbKpSfqVYVxMyEtA+KxWpwqRseHTf2ZibltHKtKgxvCZGjdfTnbuVEFN6CJPs7NcboTkWvQe/FU8TvarcAuRoH1M0VxdTiXa2dT65BwKQWBLIGnCr0fs5wKWXUsOqj2vh0UTWOfsIyvXWI6ccNfmIr+h9dxA78oyhEk4M/YMAcjitxpC3
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2616005)(66556008)(66476007)(66946007)(83380400001)(6666004)(38100700002)(4326008)(6486002)(6512007)(110136005)(53546011)(8676002)(36756003)(5660300002)(31696002)(4001150100001)(316002)(8936002)(2906002)(86362001)(508600001)(26005)(66574015)(6506007)(186003)(31686004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB0187.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(26005)(31696002)(508600001)(2616005)(83380400001)(8936002)(6512007)(8676002)(186003)(6486002)(6506007)(110136005)(2906002)(6636002)(38100700002)(316002)(54906003)(5660300002)(86362001)(4326008)(36756003)(66556008)(66476007)(66946007)(31686004)(6666004)(53546011)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlVJVGpRVG5uT3Zqdm1oRTlXalc3OW9LNDlUNFNmQzBVWnpndUcxMFZHdTRI?=
- =?utf-8?B?RGhHRTF4MzlXT2ZkZjJFYkU0akpLU0trU1VTUkVFaW1uMGJQSXgxZERzZ1ZM?=
- =?utf-8?B?VHF0OThLOENoQ0graDk4UElLMzY2UEdRY3BwU0FJeDluc2luQ0phSkFhaytq?=
- =?utf-8?B?N3E4TGU3NW9UTE9uaVRlcE5hcU0vTEs3d0JjeXlqYklPK3ZjeHNyQ2x3UVYy?=
- =?utf-8?B?M21wMHNBUENjRG9GVVFjSGpLNkdYRXhBS3dzU0trWS9ZR2JIYWVNWmxHRVJF?=
- =?utf-8?B?VDdmTkZLdm9NbjNhUktDS1FGVWNYdXgwM25iU25YaEl4bHJRckE2RTc0cDdZ?=
- =?utf-8?B?dE96aEhQRGNScjhDd1ppcmpuQWVxZDM5cXpZelVNMDhRbGpJRjBpRkJSK2VP?=
- =?utf-8?B?YU9QajVabEZlaDR2WXZuekt3QkJ3cWRYeUhQbXZUcjFkcFpOZ1hkSjNCVDht?=
- =?utf-8?B?QWlYc3pjQ2VEdWV4ZVpSdWRQYS9vcThtdkQzOWc2R2JpcHR1UmZkRExhRFBP?=
- =?utf-8?B?SDZmeU4yaHpBc2lTZk9PbFR1em00OE4xcURXdWI5NGUxbFh6ZzFvbDczMnkw?=
- =?utf-8?B?RkxlZ0RhSC9xZWhJanpYcTJadTByUTYyOVNFT296MGpkNWZaN09zMTBpd3Aw?=
- =?utf-8?B?SGQ4Yno5NHZJOUs1aDlibysyZ0w2NStkSktsbS9PWU9LS3lUNEpLMDkzWkpY?=
- =?utf-8?B?SG9yT1VDdGU5OWZ3ekR0bmUvRUhIYk4xankzM2RuU1cvTmRvelJVY3NRNDg5?=
- =?utf-8?B?dEFzaDVVaC9tTnJvTW9RVlhvWWhVUzNVWUpxY2V3NE40UFFITVE2TkpuODZG?=
- =?utf-8?B?ZlBrMlV6QWVYL3NQQU5HQ1A5Rnk2RWdDdTRXaWhHdkhod0JqbmNqZ1BnRzJS?=
- =?utf-8?B?emVKcU5HcVZHOVZua0RZQWZIZWM5R2trWHJHb3JaRzYxK2NqL2pvdmNZTzNl?=
- =?utf-8?B?WEd0cU9pS3JnK0NHcG5jUTc3Uy91VHlEYWdudnpLZ0YwRXBXaFFvYWZSU2xr?=
- =?utf-8?B?OGkyRytlc1dxelVFNTdzSjdEYmZFZWM4Q203d1ZUeDdxTHBJSkQ2NEZCejQr?=
- =?utf-8?B?anlxVHYzUzkwTXpxa2FTbC9nTThwWnlHSW1WdW1sMkdmT2xGQXEzMVJITHlM?=
- =?utf-8?B?N3ZHN2xqSnZnTjZtZi9DN3Bvc1g1dlJFdURXZzlXVXVBVVR5K0lmeEdwbzJ4?=
- =?utf-8?B?V0VYTEpFMHVxM252WEtDdUxkZVF5cGZwNDFFZmttRjVJNUhDVk9ZVFcwSXpP?=
- =?utf-8?B?eDZUYVFHTmp5NEk3ekd4NmptdFdvbVZKaktjc1o0T3FIeFZJS0tiT0FhWk5L?=
- =?utf-8?B?aEQ3U3hQUE1NN1dCN21nY3JuNU93SVBFS1dPNHJuZnZRSW5MdjRXU2JyY3Qr?=
- =?utf-8?B?cTdlRlc3L1NjcVNzTDhidlZid3QxS2RLc2JmN2VNc0JWcmoyeUExV1d2aUZ2?=
- =?utf-8?B?RHNadTJmNDNoL1hyaFhFVjhYMHdianF0TUtrejF0ZGZ3ZUJGQWt0bU9MK0hU?=
- =?utf-8?B?RTA4ZWcyNXVBYnloWVhKK1dGNURNUGVKOW9ONkh2b2FOcUR6eCtwNWJqOXA4?=
- =?utf-8?B?c1FybS9rbTArc2xYc0FLZnVvd2VWY1JuU1pjdC80eWVCMW0ydHZjTHZSVGdr?=
- =?utf-8?B?WmdqdG1GRERPSXFHS2VPcWJLV3lhOXI2WDNWc04rTGRvbjF4YngvTmRiNlpH?=
- =?utf-8?B?d0xZS0tRSUR0azNDVlNIYUNlaVpQeTNjRVpSeVdzNE1SczAzU0dVdmtVZ3po?=
- =?utf-8?B?dVJ6T25OeTNMdEJuWG9wMFpvZ1RrVHhiejBaWGpUQys3MFQzNGxnc2crYzhL?=
- =?utf-8?B?MXN6TUl3QTRnZzNXbGtKSlgzcDNJWmh6N3J3bndaUkg0MTdlSnRmV3VRUU1Y?=
- =?utf-8?B?bU5xL1g4VTZtZWQ4TUk4L2FVdTlRVFA2MVpIdzhTQ2Yvc084bXJ5eHdDekVD?=
- =?utf-8?B?bzJDK05QK1YyeFVnTVBhUS9DM2ZPU2ROeEx1bytNWTc3QWFPc0N4M3lNNHZQ?=
- =?utf-8?B?MGRLb1pJWkNab01YcnpmRHpFKy9NRmhlQ1NuMzJ2V0Z1L1lKdzFSZFU5L3hI?=
- =?utf-8?B?TnEvMUZaeTExMzY0bUoxS0ZhQzlDbld3UFRablNKVXAyOCt5eGJYR2JvWm9M?=
- =?utf-8?Q?4lC8=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzNhYTNXL1U3OGlXc0wrV3NlV05LTmdGUzdhTFpwdzdCN2hiZmNTWEpWUU5O?=
+ =?utf-8?B?K0V5QXcreHZ0T3JHVU5qNUQyNmMzVzRXS2htWExNaVR3aFAvZzdkV2kxYkE0?=
+ =?utf-8?B?RStwTkwrK052ZmlBNnB1TkxYTDJnR2t6M29vV0lnV1dIVTNwYWJJaU1MZmhm?=
+ =?utf-8?B?UDJhQ0EyUmNrcVpqUVc5MThEdXdOdDhHOTZEdCtoTzNheSttVDVVa1IzVFRq?=
+ =?utf-8?B?TXBKTGl4SjJXSldiL3BnUUhSdUJBb292amhHTmNCZ3FiWlNUM2VkNmtXSkVw?=
+ =?utf-8?B?bTB4UEF5YUVBdGZEK0w4bHR0TE1kWUVEZWl0RnpXS21HaS9WM1loMERBbkZW?=
+ =?utf-8?B?R2huUzV2eEc0aWVoN3gzODN2bnVqSEp3QzB1VDZvdTl2VFI0TzhmSDZ2MXlP?=
+ =?utf-8?B?MUduQy91eFF4RmZsSW44b2JmM3FlRk1NR2g5aVk1WWJFQUs4M2crNG16L2p4?=
+ =?utf-8?B?REN1SDZKa0J0cWlpYnpLcEh4TmNOY3pzZW1ib1lIK3pDU3BYejltMFg1L3Zj?=
+ =?utf-8?B?VlByR0JWYm43cUhCQnRLWTU1KzNOZ2FLSHNoVWRtK2svUUo0K01QckZMbkFt?=
+ =?utf-8?B?a1dFMnNMLzNHZmV3YThOeWNYUmErZVJsUGQzdXB2eFEvN3dVd21RTlJpSGND?=
+ =?utf-8?B?d3BKM0tJTFJTbVFxeHBvOWRubXJrOEpMVEJHMXlsUUhMSk5qV0J1T1JlQldv?=
+ =?utf-8?B?Yzkya1JnVGhZRjZIZ1B6TG0zc05qdVpjZThHZWg5N2lKQzAvakI0QjRJTVBP?=
+ =?utf-8?B?ZHJTaHpib3ROLzhYeWE3eWUvVGhIdkFkTFhmZGNCRGR4ZjVXTmRqRjF5OUxL?=
+ =?utf-8?B?WjY3MDMzeGVHOWhMbzZhYnR3cnBuaDU0alV2NWRROE5ianJLQ1NoZU5xYVdU?=
+ =?utf-8?B?dDU4TEt2M2V5bEZpZzdxcThiS2dsUWRaZnM5SXVNNzd0M3RIREdsQUh0WVFX?=
+ =?utf-8?B?bUdXM2kvL3dhN3RNK1NWVzIza0JLU3c4WStWc3RGVjArMThIVkltUzJMdGFP?=
+ =?utf-8?B?LzRxcm5rL205SFpGbE5vaXdwODRRWkwrS0czaDhCcEJVTjhmenE2MTI0am8y?=
+ =?utf-8?B?K001WTh2d2R2aVFDbVV3eHBaWFg2ckQ1MUdyVlNCd0t6dVNZZkxBVnBNVERH?=
+ =?utf-8?B?c3ZHNGtZUXJCSzdCWWRhMkNWNXcwRUxaTitibk83akZJWGFaTHhFRTVGWC90?=
+ =?utf-8?B?OGJpdFJyRTRxM0pzdFhZNVpNZzFaL0JNR1BqT0dTNHI4Szl3R21DTUNwOTI0?=
+ =?utf-8?B?NE5LNFJHREtzRTNPVklhazlaOVJoeW9ESktMaTVQLzV4enhBTzE3TjlTbVlQ?=
+ =?utf-8?B?Q0piemc2ckZ5TzFjcDVhNXBoTmkzRnF2cGM5TDZOU2ZNZDY2MHBXWFE4MjJk?=
+ =?utf-8?B?cjFmZG4yQjRPdGgxYlhZdUlZS1ltWGhDRXNBRFlNUEtCaDJCcjhGU0JGN1hH?=
+ =?utf-8?B?UDhoNFhYRVVwYlVwb3VQMms1MDJadUdsRFZWTmVJN2pzSjN6N3VlVzVRRmtw?=
+ =?utf-8?B?QllsY2ZFSnRaR3ZNRDhtYUJBR1lRU2xKZzNhS2s0TW1iKzNSYmNhSXNLR3Vr?=
+ =?utf-8?B?R1hxTHdYYUc1ZTMyMUwrYlVKL2F3ekZUemZqa2pXK05iN252b3ZkSXRzTTBQ?=
+ =?utf-8?B?N1o4WFJwUWp3YVlYNUFYeW5HRFEvNWRKeDdrb1ZYSEhEdFZmQ2QyV01mbUNP?=
+ =?utf-8?B?VlJ4UGhMOFRtRG55NXA4bFlLM2hwdVRZNnhvdWZjNkE0cjl6RVI5MkQrekRm?=
+ =?utf-8?B?VlgvM0dHODJmRzVVNHk4T2pMQU1OOXdDS1BNQ2x3RVZHNTlRN3VjZGVCb2Nw?=
+ =?utf-8?B?aWF1TWZLWW1laWQzdHJEa05GbDNMeDQxOStGMWxadmZLQWdEYzE0VWlyK28r?=
+ =?utf-8?B?dzJzbEpjcFJGditmUlhJRFlTdWJOQVV5SkROTVFYTk9qbTI0V01HNm43MXA3?=
+ =?utf-8?B?VXVmeTdPTVlPWWMvY2lMVnhnUk05L3g3ZzhhbTBYUHBFbnJnRWtSOG1Bby9i?=
+ =?utf-8?B?em9HV0tWakdIL0lRZHBudFVmb0YxZkRxeE1xWFNveDIyamdHejBJZkVpcGZR?=
+ =?utf-8?B?NE50SzhUR3V3ZWhHTldXUWxvMCtSaFlqYTZnLzVGQlFValduZnpybDFPSGJ2?=
+ =?utf-8?Q?xRcM=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e02ba9f9-0074-4a43-655b-08d9c4503dbc
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6443706e-fd92-40b2-73d4-08d9c456c776
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB0187.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2021 07:05:16.4509 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2021 07:52:04.4327 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BI7w4v75tSjkNBYV2HqRbSOh6C/acfoLoDUFTDd8wRQ/8PJ3avrz3pRybpZ/y+KJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0191
+X-MS-Exchange-CrossTenant-UserPrincipalName: szLfySIDIvXd0179ounSSceyjmGb9XKuQ0Hok02HzG9nyVFRF7L5PFrTr47B1APK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2746
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,192 +130,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: horace.chen@amd.com, daniel@ffwll.ch, Monk.Liu@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.12.21 um 22:51 schrieb Andrey Grodzovsky:
->
-> On 2021-12-20 2:16 a.m., Christian König wrote:
->>
->>
->> Am 17.12.21 um 23:27 schrieb Andrey Grodzovsky:
->>> Before we initialize schedulers we must know which reset
->>> domain are we in - for single device there iis a single
->>> domain per device and so single wq per device. For XGMI
->>> the reset domain spans the entire XGMI hive and so the
->>> reset wq is per hive.
->>>
->>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 45 
->>> ++++++++++++++++++++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 34 ++--------------
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  2 +
->>>   3 files changed, 51 insertions(+), 30 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index 5f13195d23d1..b595e6d699b5 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -2284,6 +2284,47 @@ static int amdgpu_device_fw_loading(struct 
->>> amdgpu_device *adev)
->>>       return r;
->>>   }
->>>   +static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
->>> +{
->>> +    long timeout;
->>> +    int r, i;
->>> +
->>> +    for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->>> +        struct amdgpu_ring *ring = adev->rings[i];
->>> +
->>> +        /* No need to setup the GPU scheduler for rings that don't 
->>> need it */
->>> +        if (!ring || ring->no_scheduler)
->>> +            continue;
->>> +
->>> +        switch (ring->funcs->type) {
->>> +        case AMDGPU_RING_TYPE_GFX:
->>> +            timeout = adev->gfx_timeout;
->>> +            break;
->>> +        case AMDGPU_RING_TYPE_COMPUTE:
->>> +            timeout = adev->compute_timeout;
->>> +            break;
->>> +        case AMDGPU_RING_TYPE_SDMA:
->>> +            timeout = adev->sdma_timeout;
->>> +            break;
->>> +        default:
->>> +            timeout = adev->video_timeout;
->>> +            break;
->>> +        }
->>> +
->>
->>
->>> +        r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
->>> +                   ring->num_hw_submission, amdgpu_job_hang_limit,
->>> +                   timeout, adev->reset_domain.wq, 
->>> ring->sched_score, ring->name);
->>> +        if (r) {
->>> +            DRM_ERROR("Failed to create scheduler on ring %s.\n",
->>> +                  ring->name);
->>> +            return r;
->>> +        }
->>
->> Maybe better put that into amdgpu_ring.c. But not really a hard 
->> requirement, more a gut feeling.
->>
->>> +    }
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +
->>>   /**
->>>    * amdgpu_device_ip_init - run init for hardware IPs
->>>    *
->>> @@ -2412,6 +2453,10 @@ static int amdgpu_device_ip_init(struct 
->>> amdgpu_device *adev)
->>>           }
->>>       }
->>>   +    r = amdgpu_device_init_schedulers(adev);
->>> +    if (r)
->>> +        goto init_failed;
->>> +
->>>       /* Don't init kfd if whole hive need to be reset during init */
->>>       if (!adev->gmc.xgmi.pending_reset)
->>>           amdgpu_amdkfd_device_init(adev);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>> index 3b7e86ea7167..5527c68c51de 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>> @@ -456,8 +456,6 @@ int amdgpu_fence_driver_init_ring(struct 
->>> amdgpu_ring *ring,
->>>                     atomic_t *sched_score)
->>>   {
->>>       struct amdgpu_device *adev = ring->adev;
->>> -    long timeout;
->>> -    int r;
->>>         if (!adev)
->>>           return -EINVAL;
->>> @@ -477,36 +475,12 @@ int amdgpu_fence_driver_init_ring(struct 
->>> amdgpu_ring *ring,
->>>       spin_lock_init(&ring->fence_drv.lock);
->>>       ring->fence_drv.fences = kcalloc(num_hw_submission * 2, 
->>> sizeof(void *),
->>>                        GFP_KERNEL);
->>> -    if (!ring->fence_drv.fences)
->>> -        return -ENOMEM;
->>>   -    /* No need to setup the GPU scheduler for rings that don't 
->>> need it */
->>> -    if (ring->no_scheduler)
->>> -        return 0;
->>> +    ring->num_hw_submission = num_hw_submission;
->>> +    ring->sched_score = sched_score;
->>
->> Probably better to set that in the caller and drop the parameters 
->> from the amdgpu_fence_driver_init_ring() function completely.
->>
->> Christian.
->
->
-> I noticed that at least num_hw_submission is validated within the 
-> function so not sure we should then discard the parameters.
+Good morning guys,
 
-Good point. It also doesn't make sense to move this check up because the 
-power of two requirement comes from the fences, doesn't it?
+first of all get better soon Linus.
 
-Ok in this case just keep it like it is.
+I'm unfortunately not the best expert for runtime power management 
+(Alex) nor display (Harry), but from the lack of their response I guess 
+that they are already on vacation. So maybe take everything I explain 
+here with a grain of salt.
 
+Then for the background we have two separate power management features 
+here which doesn't seem to work as they should.
+
+The first buggy one is runtime power management, which is what commit 
+55285e21f045 surfaces. My educated guess is that the now corrected 
+reference counting turns of the GPU before userspace has a chance to 
+send a signal to the monitor to turn of it's backlight. Double checking 
+the code I can see the correct calls to pm_runtime_get_*() and 
+pm_runtime_put_*() in amdgpu_dm_atomic_commit_tail(), but to be honest 
+that function seems to be quite a mess.
+
+A trace of what exactly happens during PM autosuspend might help here. 
+Daniel do you know any tracepoint for that?
+
+Then we have DPMS, which is basically the way of telling the monitor to 
+shut of it's backlight. When this doesn't work as expected (e.g. you 
+need *two* cycles) then it can as well be that userspace is not sending 
+the right command.
+
+When you use X you could double check with "xset dpms force off" and 
+"xset dpms force suspend". At least with my monitor it turns of the 
+backlight in both cases, but maybe your hardware behaves differently.
+
+Regards,
 Christian.
 
+Am 20.12.21 um 23:21 schrieb Linus Torvalds:
+> [ Adding back in more amd people and the amd list, the people Daniel
+> added seem to have gotten lost again, but I think people at least saw
+> my original report thanks to Daniel ]
 >
-> Andrey
+> With "amdgpu.runpm=0", things are better, but not perfect. With that I
+> can lock the screen, and it has to go through *two* cycles of "No
+> signal, turning off", but on the second cycle it does finally work.
 >
+> This was exposed by commit 55285e21f045 ("fbdev/efifb: Release PCI
+> device's runtime PM ref during FB destroy"), probably because that
+> made runtime PM actually potentially work, but it is then broken on
+> amdgpu.
 >
+> Absolutely nothing odd in my setup. Two monitors, one GPU. PCI ID
+> 1002:67df rev e7, subsystem ID 1da2:e353.
+>
+> I'd expect pretty much any amdgpu person to see this.
+>
+> On Mon, Dec 20, 2021 at 2:04 PM Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+>> Note: on my machine, I get that
 >>
->>>   -    switch (ring->funcs->type) {
->>> -    case AMDGPU_RING_TYPE_GFX:
->>> -        timeout = adev->gfx_timeout;
->>> -        break;
->>> -    case AMDGPU_RING_TYPE_COMPUTE:
->>> -        timeout = adev->compute_timeout;
->>> -        break;
->>> -    case AMDGPU_RING_TYPE_SDMA:
->>> -        timeout = adev->sdma_timeout;
->>> -        break;
->>> -    default:
->>> -        timeout = adev->video_timeout;
->>> -        break;
->>> -    }
->>> -
->>> -    r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
->>> -               num_hw_submission, amdgpu_job_hang_limit,
->>> -               timeout, NULL, sched_score, ring->name);
->>> -    if (r) {
->>> -        DRM_ERROR("Failed to create scheduler on ring %s.\n",
->>> -              ring->name);
->>> -        return r;
->>> -    }
->>> +    if (!ring->fence_drv.fences)
->>> +        return -ENOMEM;
->>>         return 0;
->>>   }
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> index 4d380e79752c..a4b8279e3011 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> @@ -253,6 +253,8 @@ struct amdgpu_ring {
->>>       bool            has_compute_vm_bug;
->>>       bool            no_scheduler;
->>>       int            hw_prio;
->>> +    unsigned         num_hw_submission;
->>> +    atomic_t        *sched_score;
->>>   };
->>>     #define amdgpu_ring_parse_cs(r, p, ib) 
->>> ((r)->funcs->parse_cs((p), (ib)))
+>>     amdgpu 0000:49:00.0: amdgpu: Using BACO for runtime pm
 >>
+>> so maybe the other possible runtime pm models (ARPX and BOCO) are ok,
+>> and it's only that BACO case that is broken.
+> Hmm. The *documentation* says:
+>
+>      PX runtime pm
+>          2 = force enable with BAMACO,
+>          1 = force enable with BACO,
+>          0 = disable,
+>          -1 = PX only default
+>
+> but the code actually makes anything != 0 enable it, except on VEGA20
+> and ARCTURUS, where it needs to be positive.
+>
+> My card is apparently "POLARIS10", whatever that means, which means
+> that any non-zero value of amdgpu_runtime_pm will enable runtime PM as
+> long as "amdgpu_device_supports_baco()" is true. Which it is.
+>
+> Whatever. Now I'm just kwetching about the documentation not matching
+> what I see the code doing, which is never a great sign when things
+> don't work.
+>
+>                Linus
 
