@@ -4,57 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E7F2C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 20:41:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69753C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 21:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA1ED10F0B0;
-	Tue, 21 Dec 2021 20:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A987010E128;
+	Tue, 21 Dec 2021 21:18:51 +0000 (UTC)
 Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
  [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DED110F0B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 20:40:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2D2210E128
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 21:18:50 +0000 (UTC)
 Received: by mail-ot1-x329.google.com with SMTP id
- 35-20020a9d08a6000000b00579cd5e605eso58093otf.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 12:40:57 -0800 (PST)
+ w6-20020a9d77c6000000b0055e804fa524so131111otl.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 13:18:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rGoBJKSO8Y2r6NZ0KD+/k/BxYOmwq4PD5I5F1i0OQPc=;
- b=Q858qVZ7xvt6TbzMuuBIFus1sSdMIb4Vi4rPs+HCFwQllEWVrvZl/YihJlZNKsz0kY
- FtXefsJ78TPf/lEOXQX9sgJdrljeUyxFSAA/RWynGMI8WHAbT8G4Wir6rHQx+79cMDLb
- UMNW7nF3Oyvqu/KqfW2BefNtCfLhTTohzu20KxA0Oo0T+31GaAy0i3z1r9UjDAJxCsWz
- jQIM7tcP/d4P/Qe1RYMfsxJmECIydkgGw4Q2fCy1LzNdMXGQlMIR8N7rNldYTmTUtIgE
- thTBkdFJqJlTtvqhrh++8+7qAKEqyt4CdB7LeV3BEECC9z/RyiKYUWgX+NjdFyX3OvY+
- LXrA==
+ :cc:content-transfer-encoding;
+ bh=27WHcACjztK03VvBkxoLJEfrCz+DH6/aRFveY0i6k+U=;
+ b=mwRODge/sPBnTtotAXXRSagnD/A7OXw6CmnEDzMxeoIMYHLeqE+4uFhUnUtWUAvGg6
+ sMTAY6NlW6ZCUGuEt13Iuxs0L2KfWHiPhY0KcTlp+tIqcb7aoT+XKNVTVY2p5IqxnAYx
+ khNgKr9bRL+pmwSTfcMC5IuXtSiq21gwk6kp0ZBpGhgTVrdgz264TJ5tFmND3CF67omp
+ drpQ1v0H+qD/Ga8XNnmYhUDs8dzayYMBNMMKFXdLFcUB9GtBetxYbDmI3+mK8ZsKiVC6
+ HhyIDmqaraakEcJBS0iWCSU/I555JU/5I98tD5NHKlGFnKxjX1Lf222d20Ayf1J34J5Q
+ iEEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rGoBJKSO8Y2r6NZ0KD+/k/BxYOmwq4PD5I5F1i0OQPc=;
- b=E7W3QTBoVq/TCVVhH3FX9/BUrSUQcNCecupTEWJvJdQYIFZylc9P4zhkyPRW9+rxNp
- h7BDk/0al1g/gUQ++i6c4cOT9DZ00VJsLJuU/uzjFWEFvXNxgfCGz8X8NnpY8SCUsB2g
- P5QB84MwMv+CaXdFuLIowyKv2SbRtupc5xPMiiBhZHmZ+KioY+q6SoPJZrr8NeAcl1B8
- 4na8xeppp20ChFWB7gjjZpSzTrYZ7nndXPp4pSOFq10w10Nk1qNxtD0LX14Lf5jCuST/
- he1IjCQoG6Ue6W+5XZtw5Ww9/sa297i//40MoOJTEit6khNJ4t5YnJIq3dH++5hXtNEC
- XIxQ==
-X-Gm-Message-State: AOAM533T7HwY+3Kv730+aKeS8fMGtZWaaAyyXcGWRCC2Psxqk/w6daWR
- EVJ9yN2Vjva/OprDdMKEQRCNsvwxbojhocO0cADV19KkJz8=
-X-Google-Smtp-Source: ABdhPJynryFO6e+p04FRs1ONqtHwS3HrQjvs7b0da2rdOYqZdB60GOYFcR7/bkJwx+vk8wstNqr50ul6EUZkBcnTLEI=
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=27WHcACjztK03VvBkxoLJEfrCz+DH6/aRFveY0i6k+U=;
+ b=BS6DXYmNZiZ7z7LmfUByMkc1JIn6dEjDAI9TTenScLvGKKpFnkGxXAFNMofUSUH/Hr
+ R1yDUGDPv/ybjVVx3lVHcsUIiIitMUxIKhVSS+iON2wBM9Ni/wY5IH8vgWDHPVhlgM5q
+ 5TbG4YtXRW56Pq5sOpmdyaqtWikDos/7QjDkav3Tc96D81snXkCJieLhJQP1pzYz3f3W
+ mT+wcJP+KFdDfuIbZAr/mGf6snr4L1PkKxRWhWYSGPsFJJC8nXtEiPG4DgaB4p3x7tZH
+ RZyIHBgeGtj0iUsTWstvW1VFIos8tcbdRXKDGI+CNFsuHvyw0yyDsAyI6i4+/BgUWp8P
+ aNmA==
+X-Gm-Message-State: AOAM532iSTMwF2+GO9gXW09hJugiJenx2kzj9XuMHee/QtnOgjDIb629
+ vGl6+eEDAvztBodgkvrK7gYwXYHPjHD+yedaSh0=
+X-Google-Smtp-Source: ABdhPJxAIKNEeQ10gfEXuDjj6KSKWPmRyyx3caROKxmBafGJCKpesAfFoiRh05xdWPY7RwdBOaKCct8Fif/lLtLAYoo=
 X-Received: by 2002:a05:6830:1bcf:: with SMTP id
- v15mr74305ota.200.1640119256905; 
- Tue, 21 Dec 2021 12:40:56 -0800 (PST)
+ v15mr160134ota.200.1640121525409; 
+ Tue, 21 Dec 2021 13:18:45 -0800 (PST)
 MIME-Version: 1.0
-References: <20211217212407.3583190-1-Rodrigo.Siqueira@amd.com>
- <20211217212407.3583190-11-Rodrigo.Siqueira@amd.com>
- <BL1PR12MB5144269CBE04ED1053012CEBF7789@BL1PR12MB5144.namprd12.prod.outlook.com>
- <0e7cdf85-c330-ccf0-0401-0fee61faa621@amd.com>
-In-Reply-To: <0e7cdf85-c330-ccf0-0401-0fee61faa621@amd.com>
+References: <CAHk-=wjs4AjAKJ26W69xcMB7snFc+0u+rbgA+Tj0S1GvwY2T3Q@mail.gmail.com>
+ <20211220213254.GA7250@ideak-desk.fi.intel.com>
+ <CAHk-=winh9=DS2ZJZbgwTFS3r3oWfrZcM9MedQ4dKzsGW8QaTA@mail.gmail.com>
+ <BL1PR12MB514437F7B1726A2173650FBFF77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <BL1PR12MB5144E1E5C51C5B5226197978F77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5144E1E5C51C5B5226197978F77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 Dec 2021 15:40:45 -0500
-Message-ID: <CADnq5_Ns=TnYAq4sU86pOQRna=y45kd9P=OSEveSpX0kd-Afjg@mail.gmail.com>
-Subject: Re: [PATCH 10/19] drm/amd/display: Changed pipe split policy to allow
- for multi-display pipe split
-To: Rodrigo Siqueira Jordao <rjordrigo@amd.com>
+Date: Tue, 21 Dec 2021 16:18:33 -0500
+Message-ID: <CADnq5_Pio64msSwvDXL6Ocm6Ty5B2VVf+v+7f+Dz2EJ_-J7VzQ@mail.gmail.com>
+Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb: Release PCI
+ device ..."
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,217 +70,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Cyr,
- Aric" <Aric.Cyr@amd.com>, "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chiu,
- Solomon" <Solomon.Chiu@amd.com>, "Pillai,
- Aurabindo" <Aurabindo.Pillai@amd.com>, "Wang, Angus" <Angus.Wang@amd.com>,
- "Lin, Wayne" <Wayne.Lin@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Lipski,
- Mikita" <Mikita.Lipski@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 17, 2021 at 4:51 PM Rodrigo Siqueira Jordao
-<rjordrigo@amd.com> wrote:
+On Tue, Dec 21, 2021 at 1:47 PM Deucher, Alexander
+<Alexander.Deucher@amd.com> wrote:
 >
+> [Public]
 >
+> > -----Original Message-----
+> > From: Deucher, Alexander
+> > Sent: Tuesday, December 21, 2021 12:01 PM
+> > To: Linus Torvalds <torvalds@linux-foundation.org>; Imre Deak
+> > <imre.deak@intel.com>; amd-gfx@lists.freedesktop.org
+> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>; Kai-Heng Feng
+> > <kai.heng.feng@canonical.com>
+> > Subject: RE: Expecting to revert commit 55285e21f045 "fbdev/efifb: Rele=
+ase
+> > PCI device ..."
+> >
+> > [Public]
+> >
+> > > -----Original Message-----
+> > > From: Linus Torvalds <torvalds@linux-foundation.org>
+> > > Sent: Monday, December 20, 2021 5:05 PM
+> > > To: Imre Deak <imre.deak@intel.com>
+> > > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>; Deucher, Alexander
+> > > <Alexander.Deucher@amd.com>; Kai-Heng Feng
+> > > <kai.heng.feng@canonical.com>
+> > > Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb:
+> > > Release PCI device ..."
+> > >
+> > > On Mon, Dec 20, 2021 at 1:33 PM Imre Deak <imre.deak@intel.com>
+> > wrote:
+> > > >
+> > > > amdgpu.runpm=3D0
+> > >
+> > > Hmmm.
+> > >
+> > > This does seem to "work", but not very well.
+> > >
+> > > With this, what seems to happen is odd: I lock the screen, wait, it
+> > > goes "No signal, shutting down", but then doesn't actually shut down
+> > > but stays black (with the backlight on). After _another_ five seconds
+> > > or so, the monitor goes "No signal, shutting down" _again_, and at th=
+at
+> > point it actually does it.
+> > >
+> > > So it solves my immediate problem - in that yes, the backlight finall=
+y
+> > > does turn off in the end - but it does seem to be still broken.
+> > >
+> > > I'm very surprised if no AMD drm developers can see this exact same t=
+hing.
+> > > This is a very simple setup. The only possibly slightly less common
+> > > thing is that I have two monitors, but while that is not necessarily
+> > > the _most_ common setup in an absolute sense, I'd expect it to be ver=
+y
+> > > common among DRM developers..
+> > >
+> > > I guess I can just change the revert to just a
+> > >
+> > >     -int amdgpu_runtime_pm =3D -1;
+> > >     +int amdgpu_runtime_pm =3D 0;
+> > >
+> > > instead. The auto-detect is apparently broken. Maybe it should only
+> > > kick in for LVDS screens on actual laptops?
+> > >
+> > > Note: on my machine, I get that
+> > >
+> > >    amdgpu 0000:49:00.0: amdgpu: Using BACO for runtime pm
+> > >
+> > > so maybe the other possible runtime pm models (ARPX and BOCO) are ok,
+> > > and it's only that BACO case that is broken.
+> > >
+> > > I have no idea what any of those three things are - I'm just looking
+> > > at the uses of that amdgpu_runtime_pm variable.
+> > >
+> > > amdgpu people: if you don't want that amdgpu_runtime_pm turned off by
+> > > default, tell me something else to try.
+> >
+> > For a little background, runtime PM support was added about 10 year ago
+> > originally to support laptops with multiple GPUs (integrated and discre=
+te).
+> > It's not specific to the display hardware.  When the GPU is idle, it ca=
+n be
+> > powered down completely.  In the case of these laptops, it's D3 cold
+> > (managed by ACPI, we call this BOCO in AMD parlance - Bus Off, Chip Off=
+)
+> > which powers off the dGPU completely (i.e., it disappears from the bus)=
+.  A
+> > few years ago we extended this to support desktop dGPUs as well which
+> > support their own version of runtime D3 (called BACO in AMD parlance - =
+Bus
+> > Active, Chip Off).  The driver can put the chip into a low power state =
+where
+> > everything except the bus interface is powered down (to avoid the devic=
+e
+> > disappearing from the bus).  So this has worked for almost 2 years now =
+on
+> > BACO capable parts and for a decade or more on BOCO systems.
+> > Unfortunately, changing the default runpm parameter setting would cause=
+ a
+> > flood of bug reports about runtime power management breaking and
+> > suddenly systems are using more power.
+> >
+> > Imre's commit (55285e21f045) fixes another commit (a6c0fd3d5a8b).
+> > Runtime pm was working on amdgpu prior to that commit.  Is it possible
+> > there is still some race between when amdgpu takes over from efifb?  Do=
+es
+> > it work properly when all pm_runtime calls in efifb are removed or if e=
+fifb is
+> > not enabled?  Runtime pm for Polaris boards has been enabled by default
+> > since 4fdda2e66de0b which predates both of those patches.
 >
-> On 2021-12-17 4:36 p.m., Deucher, Alexander wrote:
-> > [AMD Official Use Only]
-> >
-> >
-> > Maybe add Bug links for:
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/1522
-> > <https://gitlab.freedesktop.org/drm/amd/-/issues/1522>
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/1709
-> > <https://gitlab.freedesktop.org/drm/amd/-/issues/1709>
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/1655
-> > <https://gitlab.freedesktop.org/drm/amd/-/issues/1655>
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/1403
-> > <https://gitlab.freedesktop.org/drm/amd/-/issues/1403>
+> Thinking about this more, I wonder if there was some change in some users=
+pace component which was hidden by the changes in 55285e21f045 and a6c0fd3d=
+5a8b.  E.g., some desktop component started polling for display changes or =
+GPU temperature or something like that and when a6c0fd3d5a8b was in place t=
+he GPU never entered runtime suspend.  Then when 55285e21f045 was applied, =
+it unmasked the new behavior in the userpace component.
 >
-> Sure, I'll update the commit message before apply this patch.
+> What should happen is that when all of the displays blank, assuming the G=
+PU is otherwise idle, the GPU will runtime suspend after  seconds.  When yo=
+u move the mouse or hit the keyboard, that should trigger the GPU should ru=
+ntime resume and then the displays will be re-enabled.
 >
-> Thanks.
->
-> >
-> >
-> >
-> > ------------------------------------------------------------------------
-> > *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of
-> > Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > *Sent:* Friday, December 17, 2021 4:23 PM
-> > *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> > *Cc:* Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Cyr, Aric
-> > <Aric.Cyr@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Wentland,
-> > Harry <Harry.Wentland@amd.com>; Zhuo, Qingqing (Lillian)
-> > <Qingqing.Zhuo@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>;
-> > Li, Roman <Roman.Li@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>;
-> > Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Wang, Angus
-> > <Angus.Wang@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Lipski, Mikita
-> > <Mikita.Lipski@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>;
-> > Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Kotarac, Pavle
-> > <Pavle.Kotarac@amd.com>
-> > *Subject:* [PATCH 10/19] drm/amd/display: Changed pipe split policy to
-> > allow for multi-display pipe split
-> > From: Angus Wang <angus.wang@amd.com>
-> >
-> > [WHY]
-> > Current implementation of pipe split policy prevents pipe split with
-> > multiple displays connected, which caused the MCLK speed to be stuck at
-> > max
-> >
-> > [HOW]
-> > Changed the pipe split policies so that pipe split is allowed for
-> > multi-display configurations
-> >
-> > Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-> > Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > Signed-off-by: Angus Wang <angus.wang@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c | 2 +-
-> >   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c   | 2 +-
+> In the behavior you are seeing, when the displays come back on after they=
+ blank are you seeing the device resume from runtime suspend?  On resume fr=
+om suspend (runtime or system) we issue a hotplug notification to userspace=
+ in case any displays changed during suspend when the GPU was powered down =
+(and hence could not detect a hotplug event).  Perhaps that event is trigge=
+ring userspace to reprobe and re-enable the displays shortly after resume f=
+rom runtime suspend due to some other event that caused the device to runti=
+me resume.  Does something like this help by any chance?
+> https://bugzilla.kernel.org/attachment.cgi?id=3D300103&action=3Ddiff&coll=
+apsed=3D&headers=3D1&format=3Draw
 
-Also, it looks like dcn10_resource.c was missed.  Was that intentional?
+I'm not seeing this on my system, and another user tried the patch and
+it fixed his system, so it indeed seems to be something along the
+lines of what I described above.  Something in userspace seems to be
+accessing the GPU causing it to runtime resume.  On resume the driver
+then sends a hotplug event to userspace (in case anything display
+related changed while the GPU was suspended).  The desktop manager
+then sees the hotplug event and reprobes and lights up the displays
+again.  @Wentland, Harry, I guess the display code may already handle
+this (seeing if anything has changed on resume since suspend), so we
+can probably drop the call from the generic amdgpu resume code?  Or if
+not, it should be pretty straightforward to fix that in
+dm_suspend()/dm_resume().
 
 Alex
-
-
-> >   8 files changed, 8 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > index 2a72517e2b28..2bc93df023ad 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > @@ -1069,7 +1069,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >                   .timing_trace = false,
-> >                   .clock_trace = true,
-> >                   .disable_pplib_clock_request = true,
-> > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >                   .force_single_disp_pipe_split = false,
-> >                   .disable_dcc = DCC_ENABLE,
-> >                   .vsr_support = true,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > index d6acf9a8590a..0bb7d3dd53fa 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > @@ -603,7 +603,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >                   .timing_trace = false,
-> >                   .clock_trace = true,
-> >                   .disable_pplib_clock_request = true,
-> > -               .pipe_split_policy = MPC_SPLIT_AVOID,
-> > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >                   .force_single_disp_pipe_split = false,
-> >                   .disable_dcc = DCC_ENABLE,
-> >                   .vsr_support = true,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > index ca1bbc942fd4..e5cc6bf45743 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > @@ -873,7 +873,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >                   .clock_trace = true,
-> >                   .disable_pplib_clock_request = true,
-> >                   .min_disp_clk_khz = 100000,
-> > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >                   .force_single_disp_pipe_split = false,
-> >                   .disable_dcc = DCC_ENABLE,
-> >                   .vsr_support = true,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > index 369ceeeddc7e..e12660c609ee 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > @@ -840,7 +840,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >           .timing_trace = false,
-> >           .clock_trace = true,
-> >           .disable_pplib_clock_request = true,
-> > -       .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > +       .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >           .force_single_disp_pipe_split = false,
-> >           .disable_dcc = DCC_ENABLE,
-> >           .vsr_support = true,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > index b4001233867c..c1c6e602b06c 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > @@ -686,7 +686,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >           .disable_clock_gate = true,
-> >           .disable_pplib_clock_request = true,
-> >           .disable_pplib_wm_range = true,
-> > -       .pipe_split_policy = MPC_SPLIT_AVOID,
-> > +       .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >           .force_single_disp_pipe_split = false,
-> >           .disable_dcc = DCC_ENABLE,
-> >           .vsr_support = true,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > index 003e95368672..2e9cbfa7663b 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > @@ -211,7 +211,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >                   .timing_trace = false,
-> >                   .clock_trace = true,
-> >                   .disable_pplib_clock_request = true,
-> > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >                   .force_single_disp_pipe_split = false,
-> >                   .disable_dcc = DCC_ENABLE,
-> >                   .vsr_support = true,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > index 01ba9d656c72..2de687f64cf6 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > @@ -193,7 +193,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >                   .timing_trace = false,
-> >                   .clock_trace = true,
-> >                   .disable_pplib_clock_request = true,
-> > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >                   .force_single_disp_pipe_split = false,
-> >                   .disable_dcc = DCC_ENABLE,
-> >                   .vsr_support = true,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > index 6d07dcecc953..7c64317a56f7 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > @@ -1003,7 +1003,7 @@ static const struct dc_debug_options
-> > debug_defaults_drv = {
-> >           .timing_trace = false,
-> >           .clock_trace = true,
-> >           .disable_pplib_clock_request = false,
-> > -       .pipe_split_policy = MPC_SPLIT_AVOID,
-> > +       .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> >           .force_single_disp_pipe_split = false,
-> >           .disable_dcc = DCC_ENABLE,
-> >           .vsr_support = true,
-> > --
-> > 2.25.1
-> >
->
