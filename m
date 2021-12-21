@@ -4,61 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C973C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 22:19:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4552C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 22:31:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3183710E273;
-	Tue, 21 Dec 2021 22:19:09 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 493B710E29F
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 22:19:08 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- u18-20020a9d7212000000b00560cb1dc10bso262231otj.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 14:19:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4938D10E1D0;
+	Tue, 21 Dec 2021 22:31:15 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BFE210E1D0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 22:31:14 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id t19so1013342oij.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 14:31:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=jBzs35093DbXqK8zWbgGQIma92n1ky9DMRARM0To2zU=;
- b=IhsSNn/focP3sjfGY3mtHEh7rfjKTNQpeVTb24szryxV8Lj/+QWwX5FUFbTAdXIRV2
- bCsIpJnxBuTB+rP+fvXZ0+n7Ig86KkptOTq2+NDdDvT3PMiTckHwyOlWuhnmrtRGA0qh
- Nsyu7pUMAx2RkMq0FPvV7rEQIEgjoHYuxUFm2qpZ4lcCe7jXl8tl/dR0UP2xnLW9tdy4
- 2Xb1mUQ3/NKghu6W9a2HQakuusdzpjVUcZCDD9Z0YkAVbReOgrgZ0IN4a771WMTxnjH3
- S86/XjxgssVAGy4npEpISBkjSwP8TEzOJPZVnlPVefDK+wqnVIiAB6oKfCF4KJ/RgNA7
- xFbQ==
+ :cc; bh=9VZfMnI+tc4Evxph20KBb5jrbHl1hFHyaH+emrz2QCM=;
+ b=l0VvJOge4mnBm1IySGlHnzpndO8TSayQbIF1I0yO/ZsXELZ7lmg8CGAxrWzF8XCh6n
+ phdf2KZrb+7P8KwitQmmzFZCnrKuxkTjVaDvEumenmHAlvwsD4wWSc57fQLnrhxtfyWK
+ 4cEXtqFkeK7qgPUjiyaBWITu5c3thrDHMzuWMN5L96IqP7xRnYAlZtiqypeaUXM6ZlWR
+ OmlZOXUh64U5iNLaY7qRZFbuRP3xlOVqhLwY9K4i2+04AVIB1cCFi4xxxzVQgtb8sbLN
+ wua9STajMASUsX5y69KbTFzZjgq52FhN9kgI79H97u0sTs285qtxRvGYvtTE/SK+KTYv
+ zwDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=jBzs35093DbXqK8zWbgGQIma92n1ky9DMRARM0To2zU=;
- b=K0QU+0nP5IUBjk8WOfKxVVsvFEo9mlt3/A/39hgYix6XPAoORpmzVzEFSXHd05AeFm
- JyJ7i2RpoCZ3bwEGA/hVD0Cs2cntz0takgf0SkSji69DX92PA+bI6UkeEoU+84bZpTqE
- tEgF6PY1UeR8wGatz9iZ2rZpRI+VZAfKGqwGlhEBqloJ8RJ+OsSEh0+5FGM4/Va61be0
- snXfc06Sp8ObO6VvpW/Xd3UrWqBTvpKlxbK4szjt2ZGgKbOoxrODHBZ6wYxDudMz3IqO
- aAe6aZcTPCOZrVqh9ZNQAIkLg00li4sO2bql6I2N8Gl3pqxhKrkQQaAd8MgO1xkGKIHV
- US7A==
-X-Gm-Message-State: AOAM5302DxXGGM0bjJuBLPn54OH5C7ttjjaZf9mV9UivHnKbIwnbyMAF
- 42XDjc26Jqp6LCwH5taPNxB4M2vzYj3VWheQvRM=
-X-Google-Smtp-Source: ABdhPJxWBN/hcIthkoRzYtLwQA7SdAriI9w+ee/gm1InGAaO43/iWAt54fVqesYcyHeglaPvoTRKjESAwKo9KOD0C8Q=
-X-Received: by 2002:a9d:6855:: with SMTP id c21mr251778oto.357.1640125147587; 
- Tue, 21 Dec 2021 14:19:07 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=9VZfMnI+tc4Evxph20KBb5jrbHl1hFHyaH+emrz2QCM=;
+ b=2DhQDLtU5gGr7mvhpyv69i/iwDe8t695ic/XgxbhAPOFpDBDOYQmlP58eQoizASMUX
+ mSXn+U0WiDfll0tzUsHxT4lAjpr60PYCsv2iTd2VF2SOaMowsQAAVM1F5f0qzul1cT8v
+ OpkHSJZJ6w5loN6UHKo28O4ouuVlbYX+KgixCG8zqbdlZT9KP4oWPj9lzCOQXJHs0LDf
+ UvhRhJ/ypypqLbtDTxQipL+Diczgx9khPOKiIcLd5frvxYHGB4KiXaHqqHC2/iSQ1ix+
+ pfPjDO0lUGCDcQ2d4BwUPe6UAQv5A6bgcZjvnWGpxXAsWXaM6ieEq763mRnYEJJFR9ew
+ CRvg==
+X-Gm-Message-State: AOAM532gH1P9b565MlF9r/E7iFWnlD3UHbZrpyUQTq4Wnx5+EV6r/5KE
+ ToehfvgB7+gwt502cjKyM8hlJbSpzKZNlTqqftQ=
+X-Google-Smtp-Source: ABdhPJwm2vST3nqiZz0puezbq9c/7d00uG6EqLNk8ScgYzquCpmZlBM0b/OD2wuqrHBgSYTBV4YRLgofId/WYFHnuNk=
+X-Received: by 2002:a05:6808:300b:: with SMTP id
+ ay11mr227934oib.120.1640125873222; 
+ Tue, 21 Dec 2021 14:31:13 -0800 (PST)
 MIME-Version: 1.0
-References: <CAHk-=wjs4AjAKJ26W69xcMB7snFc+0u+rbgA+Tj0S1GvwY2T3Q@mail.gmail.com>
- <20211220213254.GA7250@ideak-desk.fi.intel.com>
- <CAHk-=winh9=DS2ZJZbgwTFS3r3oWfrZcM9MedQ4dKzsGW8QaTA@mail.gmail.com>
- <BL1PR12MB514437F7B1726A2173650FBFF77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <BL1PR12MB5144E1E5C51C5B5226197978F77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <CADnq5_Pio64msSwvDXL6Ocm6Ty5B2VVf+v+7f+Dz2EJ_-J7VzQ@mail.gmail.com>
- <32ca7ff8-b5d3-23e5-7821-e429baa4c5aa@amd.com>
-In-Reply-To: <32ca7ff8-b5d3-23e5-7821-e429baa4c5aa@amd.com>
+References: <CADnq5_PpnoGCxSO95+mEkcXuR7umWU-hTtUQh2G8q5xPNzPzrg@mail.gmail.com>
+ <586782620.100878224.1640124762456.JavaMail.root@zimbra39-e7>
+In-Reply-To: <586782620.100878224.1640124762456.JavaMail.root@zimbra39-e7>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 Dec 2021 17:18:56 -0500
-Message-ID: <CADnq5_Mj8A4sUc4Gg11zJrWZsKvkv=F32Vu59RhC9BYR=nObYg@mail.gmail.com>
-Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb: Release PCI
- device ..."
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Tue, 21 Dec 2021 17:31:01 -0500
+Message-ID: <CADnq5_O=DxnsZaCtFxoWX7jxO-nydyGyBaxWeDyeDLrODAGS9A@mail.gmail.com>
+Subject: Re: Various problems trying to vga-passthrough a Renoir iGPU to a
+ xen/qubes-os hvm
+To: Yann Dirson <ydirson@free.fr>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,214 +63,367 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 21, 2021 at 5:09 PM Harry Wentland <harry.wentland@amd.com> wro=
-te:
+On Tue, Dec 21, 2021 at 5:12 PM Yann Dirson <ydirson@free.fr> wrote:
 >
 >
->
-> On 2021-12-21 16:18, Alex Deucher wrote:
-> > On Tue, Dec 21, 2021 at 1:47 PM Deucher, Alexander
-> > <Alexander.Deucher@amd.com> wrote:
-> >>
-> >> [Public]
-> >>
-> >>> -----Original Message-----
-> >>> From: Deucher, Alexander
-> >>> Sent: Tuesday, December 21, 2021 12:01 PM
-> >>> To: Linus Torvalds <torvalds@linux-foundation.org>; Imre Deak
-> >>> <imre.deak@intel.com>; amd-gfx@lists.freedesktop.org
-> >>> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>; Kai-Heng Feng
-> >>> <kai.heng.feng@canonical.com>
-> >>> Subject: RE: Expecting to revert commit 55285e21f045 "fbdev/efifb: Re=
-lease
-> >>> PCI device ..."
-> >>>
-> >>> [Public]
-> >>>
-> >>>> -----Original Message-----
-> >>>> From: Linus Torvalds <torvalds@linux-foundation.org>
-> >>>> Sent: Monday, December 20, 2021 5:05 PM
-> >>>> To: Imre Deak <imre.deak@intel.com>
-> >>>> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>; Deucher, Alexander
-> >>>> <Alexander.Deucher@amd.com>; Kai-Heng Feng
-> >>>> <kai.heng.feng@canonical.com>
-> >>>> Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb:
-> >>>> Release PCI device ..."
-> >>>>
-> >>>> On Mon, Dec 20, 2021 at 1:33 PM Imre Deak <imre.deak@intel.com>
-> >>> wrote:
-> >>>>>
-> >>>>> amdgpu.runpm=3D0
-> >>>>
-> >>>> Hmmm.
-> >>>>
-> >>>> This does seem to "work", but not very well.
-> >>>>
-> >>>> With this, what seems to happen is odd: I lock the screen, wait, it
-> >>>> goes "No signal, shutting down", but then doesn't actually shut down
-> >>>> but stays black (with the backlight on). After _another_ five second=
-s
-> >>>> or so, the monitor goes "No signal, shutting down" _again_, and at t=
-hat
-> >>> point it actually does it.
-> >>>>
-> >>>> So it solves my immediate problem - in that yes, the backlight final=
-ly
-> >>>> does turn off in the end - but it does seem to be still broken.
-> >>>>
-> >>>> I'm very surprised if no AMD drm developers can see this exact same =
-thing.
-> >>>> This is a very simple setup. The only possibly slightly less common
-> >>>> thing is that I have two monitors, but while that is not necessarily
-> >>>> the _most_ common setup in an absolute sense, I'd expect it to be ve=
-ry
-> >>>> common among DRM developers..
-> >>>>
-> >>>> I guess I can just change the revert to just a
-> >>>>
-> >>>>     -int amdgpu_runtime_pm =3D -1;
-> >>>>     +int amdgpu_runtime_pm =3D 0;
-> >>>>
-> >>>> instead. The auto-detect is apparently broken. Maybe it should only
-> >>>> kick in for LVDS screens on actual laptops?
-> >>>>
-> >>>> Note: on my machine, I get that
-> >>>>
-> >>>>    amdgpu 0000:49:00.0: amdgpu: Using BACO for runtime pm
-> >>>>
-> >>>> so maybe the other possible runtime pm models (ARPX and BOCO) are ok=
-,
-> >>>> and it's only that BACO case that is broken.
-> >>>>
-> >>>> I have no idea what any of those three things are - I'm just looking
-> >>>> at the uses of that amdgpu_runtime_pm variable.
-> >>>>
-> >>>> amdgpu people: if you don't want that amdgpu_runtime_pm turned off b=
-y
-> >>>> default, tell me something else to try.
-> >>>
-> >>> For a little background, runtime PM support was added about 10 year a=
-go
-> >>> originally to support laptops with multiple GPUs (integrated and disc=
-rete).
-> >>> It's not specific to the display hardware.  When the GPU is idle, it =
-can be
-> >>> powered down completely.  In the case of these laptops, it's D3 cold
-> >>> (managed by ACPI, we call this BOCO in AMD parlance - Bus Off, Chip O=
-ff)
-> >>> which powers off the dGPU completely (i.e., it disappears from the bu=
-s).  A
-> >>> few years ago we extended this to support desktop dGPUs as well which
-> >>> support their own version of runtime D3 (called BACO in AMD parlance =
-- Bus
-> >>> Active, Chip Off).  The driver can put the chip into a low power stat=
-e where
-> >>> everything except the bus interface is powered down (to avoid the dev=
-ice
-> >>> disappearing from the bus).  So this has worked for almost 2 years no=
-w on
-> >>> BACO capable parts and for a decade or more on BOCO systems.
-> >>> Unfortunately, changing the default runpm parameter setting would cau=
-se a
-> >>> flood of bug reports about runtime power management breaking and
-> >>> suddenly systems are using more power.
-> >>>
-> >>> Imre's commit (55285e21f045) fixes another commit (a6c0fd3d5a8b).
-> >>> Runtime pm was working on amdgpu prior to that commit.  Is it possibl=
-e
-> >>> there is still some race between when amdgpu takes over from efifb?  =
-Does
-> >>> it work properly when all pm_runtime calls in efifb are removed or if=
- efifb is
-> >>> not enabled?  Runtime pm for Polaris boards has been enabled by defau=
-lt
-> >>> since 4fdda2e66de0b which predates both of those patches.
-> >>
-> >> Thinking about this more, I wonder if there was some change in some us=
-erspace component which was hidden by the changes in 55285e21f045 and a6c0f=
-d3d5a8b.  E.g., some desktop component started polling for display changes =
-or GPU temperature or something like that and when a6c0fd3d5a8b was in plac=
-e the GPU never entered runtime suspend.  Then when 55285e21f045 was applie=
-d, it unmasked the new behavior in the userpace component.
-> >>
-> >> What should happen is that when all of the displays blank, assuming th=
-e GPU is otherwise idle, the GPU will runtime suspend after  seconds.  When=
- you move the mouse or hit the keyboard, that should trigger the GPU should=
- runtime resume and then the displays will be re-enabled.
-> >>
-> >> In the behavior you are seeing, when the displays come back on after t=
-hey blank are you seeing the device resume from runtime suspend?  On resume=
- from suspend (runtime or system) we issue a hotplug notification to usersp=
-ace in case any displays changed during suspend when the GPU was powered do=
-wn (and hence could not detect a hotplug event).  Perhaps that event is tri=
-ggering userspace to reprobe and re-enable the displays shortly after resum=
-e from runtime suspend due to some other event that caused the device to ru=
-ntime resume.  Does something like this help by any chance?
-> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbu=
-gzilla.kernel.org%2Fattachment.cgi%3Fid%3D300103%26action%3Ddiff%26collapse=
-d%3D%26headers%3D1%26format%3Draw&amp;data=3D04%7C01%7CHarry.Wentland%40amd=
-.com%7Cd1d2f9528d8e42199af508d9c4c7793d%7C3dd8961fe4884e608e11a82d994e183d%=
-7C0%7C0%7C637757183279389936%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLC=
-JQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DKdIAXxYP0oQ=
-pNCFCe1slYwqgDhRdse2CrkGuCc2KrAE%3D&amp;reserved=3D0
+> Alex wrote:
 > >
-> > I'm not seeing this on my system, and another user tried the patch and
-> > it fixed his system, so it indeed seems to be something along the
-> > lines of what I described above.  Something in userspace seems to be
-> > accessing the GPU causing it to runtime resume.  On resume the driver
-> > then sends a hotplug event to userspace (in case anything display
-> > related changed while the GPU was suspended).  The desktop manager
-> > then sees the hotplug event and reprobes and lights up the displays
-> > again.  @Wentland, Harry, I guess the display code may already handle
-> > this (seeing if anything has changed on resume since suspend), so we
-> > can probably drop the call from the generic amdgpu resume code?  Or if
-> > not, it should be pretty straightforward to fix that in
-> > dm_suspend()/dm_resume().
+> > On Sun, Dec 19, 2021 at 11:41 AM Yann Dirson <ydirson@free.fr> wrote:
+> > >
+> > > Christian wrote:
+> > > > Am 19.12.21 um 17:00 schrieb Yann Dirson:
+> > > > > Alex wrote:
+> > > > >> Thinking about this more, I think the problem might be related
+> > > > >> to
+> > > > >> CPU
+> > > > >> access to "VRAM".  APUs don't have dedicated VRAM, they use a
+> > > > >> reserved
+> > > > >> carve out region at the top of system memory.  For CPU access
+> > > > >> to
+> > > > >> this
+> > > > >> memory, we kmap the physical address of the carve out region
+> > > > >> of
+> > > > >> system
+> > > > >> memory.  You'll need to make sure that region is accessible to
+> > > > >> the
+> > > > >> guest.
+> > > > > So basically, the non-virt flow is is: (video?) BIOS reserves
+> > > > > memory, marks it
+> > > > > as reserved in e820, stores the physaddr somewhere, which the
+> > > > > GPU
+> > > > > driver gets.
+> > > > > Since I suppose this includes the framebuffer, this probably
+> > > > > has to
+> > > > > occur around
+> > > > > the moment the driver calls
+> > > > > drm_aperture_remove_conflicting_pci_framebuffers()
+> > > > > (which happens before this hw init step), right ?
+> > > >
+> > > > Well, that partially correct. The efifb is using the PCIe
+> > > > resources
+> > > > to
+> > > > access the framebuffer and as far as I know we use that one to
+> > > > kick
+> > > > it out.
+> > > >
+> > > > The stolen memory we get over e820/registers is separate to that.
+>
+> How is the stolen memory communicated to the driver ?  That host physical
+> memory probably has to be mapped at the same guest physical address for
+> the magic to work, right ?
+
+Correct.  The driver reads the physical location of that memory from
+hardware registers.  Removing this chunk of code from gmc_v9_0.c will
+force the driver to use the BAR, but I'm not sure if there are any
+other places in the driver that make assumptions about using the
+physical host address or not on APUs off hand.
+
+        if ((adev->flags & AMD_IS_APU) ||
+            (adev->gmc.xgmi.supported &&
+             adev->gmc.xgmi.connected_to_cpu)) {
+                adev->gmc.aper_base =
+                        adev->gfxhub.funcs->get_mc_fb_offset(adev) +
+                        adev->gmc.xgmi.physical_node_id *
+                        adev->gmc.xgmi.node_segment_size;
+                adev->gmc.aper_size = adev->gmc.real_vram_size;
+        }
+
+
+
+>
+> > > >
+> > > > > ... which brings me to a point that's been puzzling me for some
+> > > > > time, which is
+> > > > > that as the hw init fails, the efifb driver is still using the
+> > > > > framebuffer.
+> > > >
+> > > > No, it isn't. You are probably just still seeing the same screen.
+> > > >
+> > > > The issue is most likely that while efi was kicked out nobody
+> > > > re-programmed the display hardware to show something different.
+> > > >
+> > > > > Am I right in suspecting that efifb should get stripped of its
+> > > > > ownership of the
+> > > > > fb aperture first, and that if I don't get a black screen on
+> > > > > hw_init failure
+> > > > > that issue should be the first focus point ?
+> > > >
+> > > > You assumption with the black screen is incorrect. Since the
+> > > > hardware
+> > > > works independent even if you kick out efi you still have the
+> > > > same
+> > > > screen content, you just can't update it anymore.
+> > >
+> > > It's not only that the screen keeps its contents, it's that the
+> > > dom0
+> > > happily continues updating it.
 > >
+> > If the hypevisor is using efifb, then yes that could be a problem as
+> > the hypervisor could be writing to the efifb resources which ends up
+> > writing to the same physical memory.  That applies to any GPU on a
+> > UEFI system.  You'll need to make sure efifb is not in use in the
+> > hypervisor.
 >
-> We handle re-detection in dm_resume but only seem to call the
-> drm_kms_helper_hotplug_event for MST. We might want to call it
-> in dm_resume but that would just move it from amdgpu_device_resume
-> and will probably cause the same issue.
->
-> What I think we'd really want here is to make sure
-> drm_kms_helper_hotplug_event is only called when any display
-> config actually changes. Unfortunately, we're not being very
-> smart in our detection and just recreate everything (even
-> though dc_link_detect_helper seems to have code that wants to
-> be smart enough to detect if the sink is changed or not).
-> This means this change is non-trivial. At least I can't see
-> an easy fix that doesn't run the risk of breaking a bunch of
-> stuff.
+> That remark evokes several things to me.  First one is that every time
+> I've tried booting with efifb disabled in dom0, there was no visible
+> improvements in the guest driver - i.i. I really have to dig how vram mapping
+> is performed and check things are as expected anyway.
 
-I think something like this patch may do the trick:
-https://bugzilla.kernel.org/attachment.cgi?id=3D300109&action=3Ddiff&collap=
-sed=3D&headers=3D1&format=3Draw
-We can use the helper to check if anything actually changed.
-
-Alex
+Ultimately you end up at the same physical memory.  efifb uses the PCI
+BAR which points to the same physical memory that the driver directly
+maps.
 
 >
-> Or maybe someone can try to see if (non-MST) detection during
-> RPM still works with your patch. If it does (for some reason)
-> then we should be good.
+> The other is that, when dom0 cannot use efifb, entering a luks key is
+> suddenly less user-friendly.  But in theory I'd think we could overcome
+> this by letting dom0 use efifb until ready to start the guest, a simple
+> driver unbind at the right moment should be expected to work, right ?
+> Going further and allowing the guest to use efifb on its own could
+> possibly be more tricky (starting with a different state?) but does
+> not seem to sound completely outlandish either - or does it ?
 >
-> I can't seem to repro the problem on my Navi 1x card with KDE Plasma.
-> I wonder if it's a Polaris issue.
->
-> I also don't see my Navi 1x card going into RPM after
-> 'xset dpms force off' with the Manjaro 5.15 kernel. Might need
-> to try the latest mainline or amd-stg.
->
-> Harry
->
->
+
+efifb just takes whatever hardware state the GOP driver in the pre-OS
+environment left the GPU in.  Once you have a driver loaded in the OS,
+that state is gone so I I don't see much value in using efifb once you
+have a real driver in the mix.  If you want a console on the host,
+it's probably better to use 2 GPU or just load the real driver as
+needed in both the host and guest.
+
+> >
 > > Alex
+> >
+> >
+> > >
+> > > > But putting efi asside what Alex pointed out pretty much breaks
+> > > > your
+> > > > neck trying to forward the device. You maybe could try to hack
+> > > > the
+> > > > driver to use the PCIe BAR for framebuffer access, but that might
+> > > > be
+> > > > quite a bit slower.
+> > > >
+> > > > Regards,
+> > > > Christian.
+> > > >
+> > > > >
+> > > > >> Alex
+> > > > >>
+> > > > >> On Mon, Dec 13, 2021 at 3:29 PM Alex Deucher
+> > > > >> <alexdeucher@gmail.com>
+> > > > >> wrote:
+> > > > >>> On Sun, Dec 12, 2021 at 5:19 PM Yann Dirson <ydirson@free.fr>
+> > > > >>> wrote:
+> > > > >>>> Alex wrote:
+> > > > >>>>> On Mon, Dec 6, 2021 at 4:36 PM Yann Dirson
+> > > > >>>>> <ydirson@free.fr>
+> > > > >>>>> wrote:
+> > > > >>>>>> Hi Alex,
+> > > > >>>>>>
+> > > > >>>>>>> We have not validated virtualization of our integrated
+> > > > >>>>>>> GPUs.  I
+> > > > >>>>>>> don't
+> > > > >>>>>>> know that it will work at all.  We had done a bit of
+> > > > >>>>>>> testing but
+> > > > >>>>>>> ran
+> > > > >>>>>>> into the same issues with the PSP, but never had a chance
+> > > > >>>>>>> to
+> > > > >>>>>>> debug
+> > > > >>>>>>> further because this feature is not productized.
+> > > > >>>>>> ...
+> > > > >>>>>>> You need a functional PSP to get the GPU driver up and
+> > > > >>>>>>> running.
+> > > > >>>>>> Ah, thanks for the hint :)
+> > > > >>>>>>
+> > > > >>>>>> I guess that if I want to have any chance to get the PSP
+> > > > >>>>>> working
+> > > > >>>>>> I'm
+> > > > >>>>>> going to need more details on it.  A quick search some
+> > > > >>>>>> time
+> > > > >>>>>> ago
+> > > > >>>>>> mostly
+> > > > >>>>>> brought reverse-engineering work, rather than official AMD
+> > > > >>>>>> doc.
+> > > > >>>>>>   Are
+> > > > >>>>>> there some AMD resources I missed ?
+> > > > >>>>> The driver code is pretty much it.
+> > > > >>>> Let's try to shed some more light on how things work, taking
+> > > > >>>> as
+> > > > >>>> excuse
+> > > > >>>> psp_v12_0_ring_create().
+> > > > >>>>
+> > > > >>>> First, register access through [RW]REG32_SOC15() is
+> > > > >>>> implemented
+> > > > >>>> in
+> > > > >>>> terms of __[RW]REG32_SOC15_RLC__(), which is basically a
+> > > > >>>> [RW]REG32(),
+> > > > >>>> except it has to be more complex in the SR-IOV case.
+> > > > >>>> Has the RLC anything to do with SR-IOV ?
+> > > > >>> When running the driver on a SR-IOV virtual function (VF),
+> > > > >>> some
+> > > > >>> registers are not available directly via the VF's MMIO
+> > > > >>> aperture
+> > > > >>> so
+> > > > >>> they need to go through the RLC.  For bare metal or
+> > > > >>> passthrough
+> > > > >>> this
+> > > > >>> is not relevant.
+> > > > >>>
+> > > > >>>> It accesses registers in the MMIO range of the MP0 IP, and
+> > > > >>>> the
+> > > > >>>> "MP0"
+> > > > >>>> name correlates highly with MMIO accesses in PSP-handling
+> > > > >>>> code.
+> > > > >>>> Is "MP0" another name for PSP (and "MP1" for SMU) ?  The MP0
+> > > > >>>> version
+> > > > >>> Yes.
+> > > > >>>
+> > > > >>>> reported at v11.0.3 by discovery seems to contradict the use
+> > > > >>>> of
+> > > > >>>> v12.0
+> > > > >>>> for RENOIR as set by soc15_set_ip_blocks(), or do I miss
+> > > > >>>> something ?
+> > > > >>> Typo in the ip discovery table on renoir.
+> > > > >>>
+> > > > >>>> More generally (and mostly out of curiosity while we're at
+> > > > >>>> it),
+> > > > >>>> do we
+> > > > >>>> have a way to match IPs listed at discovery time with the
+> > > > >>>> ones
+> > > > >>>> used
+> > > > >>>> in the driver ?
+> > > > >>> In general, barring typos, the code is shared at the major
+> > > > >>> version
+> > > > >>> level.  The actual code may or may not need changes to handle
+> > > > >>> minor
+> > > > >>> revision changes in an IP.  The driver maps the IP versions
+> > > > >>> from
+> > > > >>> the
+> > > > >>> ip discovery table to the code contained in the driver.
+> > > > >>>
+> > > > >>>> ---
+> > > > >>>>
+> > > > >>>> As for the register names, maybe we could have a short
+> > > > >>>> explanation of
+> > > > >>>> how they are structured ?  Eg. mmMP0_SMN_C2PMSG_69: that
+> > > > >>>> seems
+> > > > >>>> to
+> > > > >>>> be
+> > > > >>>> a MMIO register named "C2PMSG_69" in the "MP0" IP, but I'm
+> > > > >>>> not
+> > > > >>>> sure
+> > > > >>>> of the "SMN" part -- that could refer to the "System
+> > > > >>>> Management
+> > > > >>>> Network",
+> > > > >>>> described in [0] as an internal bus.  Are we accessing this
+> > > > >>>> register
+> > > > >>>> through this SMN ?
+> > > > >>> These registers are just mailboxes for the PSP firmware.  All
+> > > > >>> of
+> > > > >>> the
+> > > > >>> C2PMSG registers functionality is defined by the PSP
+> > > > >>> firmware.
+> > > > >>>   They
+> > > > >>> are basically scratch registers used to communicate between
+> > > > >>> the
+> > > > >>> driver
+> > > > >>> and the PSP firmware.
+> > > > >>>
+> > > > >>>>
+> > > > >>>>>   On APUs, the PSP is shared with
+> > > > >>>>> the CPU and the rest of the platform.  The GPU driver just
+> > > > >>>>> interacts
+> > > > >>>>> with it for a few specific tasks:
+> > > > >>>>> 1. Loading Trusted Applications (e.g., trusted firmware
+> > > > >>>>> applications
+> > > > >>>>> that run on the PSP for specific functionality, e.g., HDCP
+> > > > >>>>> and
+> > > > >>>>> content
+> > > > >>>>> protection, etc.)
+> > > > >>>>> 2. Validating and loading firmware for other engines on the
+> > > > >>>>> SoC.
+> > > > >>>>>   This
+> > > > >>>>> is required to use those engines.
+> > > > >>>> Trying to understand in more details how we start the PSP
+> > > > >>>> up, I
+> > > > >>>> noticed
+> > > > >>>> that psp_v12_0 has support for loading a sOS firmware, but
+> > > > >>>> never
+> > > > >>>> calls
+> > > > >>>> init_sos_microcode() - and anyway there is no sos firmware
+> > > > >>>> for
+> > > > >>>> renoir
+> > > > >>>> and green_sardine, which seem to be the only ASICs with this
+> > > > >>>> PSP
+> > > > >>>> version.
+> > > > >>>> Is it something that's just not been completely wired up yet
+> > > > >>>> ?
+> > > > >>> On APUs, the PSP is shared with the CPU so the PSP firmware
+> > > > >>> is
+> > > > >>> part
+> > > > >>> of
+> > > > >>> the sbios image.  The driver doesn't load it.  We only load
+> > > > >>> it on
+> > > > >>> dGPUs where the driver is responsible for the chip
+> > > > >>> initialization.
+> > > > >>>
+> > > > >>>> That also rings a bell, that we have nothing about Secure OS
+> > > > >>>> in
+> > > > >>>> the doc
+> > > > >>>> yet (not even the acronym in the glossary).
+> > > > >>>>
+> > > > >>>>
+> > > > >>>>> I'm not too familiar with the PSP's path to memory from the
+> > > > >>>>> GPU
+> > > > >>>>> perspective.  IIRC, most memory used by the PSP goes
+> > > > >>>>> through
+> > > > >>>>> carve
+> > > > >>>>> out
+> > > > >>>>> "vram" on APUs so it should work, but I would double check
+> > > > >>>>> if
+> > > > >>>>> there
+> > > > >>>>> are any system memory allocations that used to interact
+> > > > >>>>> with
+> > > > >>>>> the PSP
+> > > > >>>>> and see if changing them to vram helps.  It does work with
+> > > > >>>>> the
+> > > > >>>>> IOMMU
+> > > > >>>>> enabled on bare metal, so it should work in passthrough as
+> > > > >>>>> well
+> > > > >>>>> in
+> > > > >>>>> theory.
+> > > > >>>> I can see a single case in the PSP code where GTT is used
+> > > > >>>> instead
+> > > > >>>> of
+> > > > >>>> vram: to create fw_pri_bo when SR-IOV is not used (and there
+> > > > >>>> has
+> > > > >>>> to be a reason, since the SR-IOV code path does use vram).
+> > > > >>>> Changing it to vram does not make a difference, but then the
+> > > > >>>> only bo that seems to be used at that point is the one for
+> > > > >>>> the
+> > > > >>>> psp ring,
+> > > > >>>> which is allocated in vram, so I'm not too much surprised.
+> > > > >>>>
+> > > > >>>> Maybe I should double-check bo_create calls to hunt for more
+> > > > >>>> ?
+> > > > >>> We looked into this a bit ourselves and ran into the same
+> > > > >>> issues.
+> > > > >>> We'd probably need to debug this with the PSP team to make
+> > > > >>> further
+> > > > >>> progress, but this was not productized so neither team had
+> > > > >>> the
+> > > > >>> resources to delve further.
+> > > > >>>
+> > > > >>> Alex
+> > > > >>>
+> > > > >>>>
+> > > > >>>> [0]
+> > > > >>>> https://github.com/PSPReverse/psp-docs/blob/master/masterthesis-eichner-psp-2020.pdf
+> > > >
+> > > >
+> >
