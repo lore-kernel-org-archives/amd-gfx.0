@@ -4,40 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A3ACC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Dec 2021 23:09:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10154C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 03:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 921AD10E1B1;
-	Tue, 21 Dec 2021 23:09:15 +0000 (UTC)
-Received: from smtp2-g21.free.fr (smtp2-g21.free.fr [IPv6:2a01:e0c:1:1599::11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6755610E1B1
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 23:09:14 +0000 (UTC)
-Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
- by smtp2-g21.free.fr (Postfix) with ESMTP id 98B5F20039F;
- Wed, 22 Dec 2021 00:09:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1640128152;
- bh=3IXDFco/SOZJloZn9PeXl32Tr/O4gpSuPNbOUeLECXk=;
- h=Date:From:To:Cc:In-Reply-To:Subject:From;
- b=EKZmtzKKdQ6r8pmRtcAHGNZHYyB6F2SZH0LpbdN0iWessNN+Gc3hS55qZn5r9fpzL
- nM+VqBmfRW8x47AG5X713nHVd4jiqDwtw3Bh4Qg/sIJVxabfvNPhIZgccUgpwMl7II
- r5xZ4df5McE6ODdKQCpZWfTPGiHoYrBVYEPJN2vvGQOVkYr9Eh23kiZLIdzmK3y/9T
- mNOJmE6uRNoIkBp+YZ1ikmWhOJY507iZmH89IbBdLU05AS+jn4P526/cheKwTn0VuM
- Ki5hmsKZInqrh0+HZ/9F0CrzSIYAo8AAn5hAEStzmRYw7xtMlkUqXMlc/b7/oaVhcC
- qONuGWlt9ok/w==
-Date: Wed, 22 Dec 2021 00:09:12 +0100 (CET)
-From: Yann Dirson <ydirson@free.fr>
-To: Alex Deucher <alexdeucher@gmail.com>
-Message-ID: <64661462.100971220.1640128152568.JavaMail.root@zimbra39-e7>
-In-Reply-To: <CADnq5_O=DxnsZaCtFxoWX7jxO-nydyGyBaxWeDyeDLrODAGS9A@mail.gmail.com>
-Subject: Re: Various problems trying to vga-passthrough a Renoir iGPU to a
- xen/qubes-os hvm
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 533CD10E433;
+	Wed, 22 Dec 2021 03:13:27 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A421F10E433
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 03:13:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QOLOWhqCDRapkqleE6luzxqh1UCeVKRtjycmj80GXYn6WPS28E8oD0x04iRDl6hlDOR75qj8tldQTO5DIwzTZ52XeUVwSSn4jj9RiY4FmpQWyg85DGLhKla3vivO70p87cMtkVwAkbnEU5t1/fknWvz5QT2G2ptBqgBLdpgGMY4ttGJfey6x38iSpg/iE5wv8mWqm5lRJIpCwnufan8CUAZa5qN3B26jJtF+Qtmr+fjaD527EZeGDAtd1vbr814DYt2LAXRPX9if2mbcbQiGceWhunGypnHp5Rj+07WcoHfFnbi7i07HvMvRe4vSul9rgleezHoa2HmlG8vif/Dqzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0DdutDmyyEq8GQQtE08F6hfntyRkeIrovSDoDut/6pI=;
+ b=Y9WnMHMFWUDJutKet8YPMK06BrBLtJa6fwOlLun+t0NvgYEjoNLc0DzGbKMr4NfoCWga8h2qN2AalrrdH0F03tsqgPyOK/hMmrxXj9nLdeXL0tURVHeseKzNuLie+OgHPMnGxhgPWF/I37Gh8QQqq0I0JsdMzvv7ZdHmnmW/+ZQHX8dSDYU+EXAPCVIjG0cpIE/32ldzS1pbt0bV6sZ+FIzdXP9lJz/5Z2mKXtvif3Q8RBFqP/q5wve2ULqz2WXbt9U17ljtkk6zs2p0U2H4Qbe2C2XLC8zIF3QqtF2GpwVcgLCHLz9ATZRDeNCiECn48I/0pFcYAz3GxRprD1+N9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0DdutDmyyEq8GQQtE08F6hfntyRkeIrovSDoDut/6pI=;
+ b=TpGzh5G0xkNcjPAWXgHrBCxD5nDIWiOqUQxx57lqM4xK+IeOd5Oi35PDiKwDJVwDTaLiC59FFiUqaJhYxbLVK7EoF7BRhYAz+UVhjYNfki+dkQIVdDqjhWCGR3op+tvTaoSmM2GpDG2YDxaXv4SIlnVU5pFt2bZtdGIJ+zlxh+w=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB2794.namprd12.prod.outlook.com (2603:10b6:5:48::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4801.20; Wed, 22 Dec 2021 03:13:24 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::a894:300e:5c16:5639]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::a894:300e:5c16:5639%5]) with mapi id 15.20.4801.023; Wed, 22 Dec 2021
+ 03:13:24 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: fix runpm documentation
+Thread-Topic: [PATCH] drm/amdgpu: fix runpm documentation
+Thread-Index: AQHX9ntTn1xxPA7UpEOCISJEZLy1d6w91fLg
+Date: Wed, 22 Dec 2021 03:13:23 +0000
+Message-ID: <DM6PR12MB26191802EE0608EAA06DDBD3E47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20211221145853.725472-1-alexander.deucher@amd.com>
+In-Reply-To: <20211221145853.725472-1-alexander.deucher@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-22T03:13:21Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=51810db7-d47a-4be8-9493-aa7a84281ae7;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 357a3b91-9c7d-400c-bf02-08d9c4f903e2
+x-ms-traffictypediagnostic: DM6PR12MB2794:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB2794A44F9831D96AF9270EE5E47D9@DM6PR12MB2794.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: LW8kjg4ePxYcM8TuWyBeU+ZNFJ0/sz6nLvjoKctNMfJv20B574JDK2UOE7YWobykWP4BDOypHE7qzFoZr/C0U+mFOjFJjvnngZafnyhByRZLtO70YPD5n486hd8wn3BBWXNngN/u3KdkewdMf3yURdhN0yt3Ym+Czj4YGdnDlGTTL0POowThmqzUb1T5PES/j+6kE4FCkWDt3nK+wgXsHxU/qu8c8zwdsanHZ7ze0eIAbr6ES2PuYp0s6H/zIAZWlayl+to+SUXL9nF0MWtePCAl/Y/9TA6HzB3htWdEMSR/YlxWR+lxc8e0PgfL8VVXN0zeAGE7wuADU4cWVBWN+9nN/pHw8T2DEWdrz/1PsxXcfCHzz/iY/Ezt0NFVwCvkB0l6HQU0fqf7mweN31TfHvDdn2hrb+7ukU8FC2IIjg5uS3S/i9YrLTZz3l0yMIGilD6+3fAcTF5ndkMxNbsx6C/ZGhZ2kqx/MRU9n8tOIVL3UYjukoFW1kZcRE5xVJIUqpPwG+U40bfS9RrCZYZIoH7oLiPlm/7aBeLfAxTRBi5au7S+/ERDFSxLvyxchaknYoOi7X2NPB9xsZmb0c3VLQ6nsqIO/yxFAv8Lm/eDCLKNVQoCFkzAuBz4BLScg7W1aB8YZLL436ViyUlQX70iRxaKsGp0bVUe46t/qtKULGzeRQm9pTIi2tzm4ZLCs1puN3B4BxU7ZT7PqYTgGTxAwA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8676002)(86362001)(52536014)(66476007)(66446008)(83380400001)(38070700005)(64756008)(6506007)(66556008)(66946007)(26005)(186003)(53546011)(2906002)(33656002)(4326008)(55016003)(5660300002)(7696005)(316002)(508600001)(110136005)(8936002)(9686003)(122000001)(71200400001)(38100700002)(76116006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?vz1HWyOSmZqObM73v+eusvGPejgg52VNFaSw8QjhtZLgplQL0WpDJ04S+ins?=
+ =?us-ascii?Q?IbPPlbsHoZAKpsOv0AI5OKaepcHmug99y2C6tluAQ5ctIdFRRs2PC9t2gnqJ?=
+ =?us-ascii?Q?BmjYAq8p+hKJug3WjeXFtcam/qSZFzCQD5H/luhTsqhPsXGiq/uXGKRIMVty?=
+ =?us-ascii?Q?CZnDGUUxLd8si0YmOPxiBho6+XDTTkCawtFHLWY9OlYOh6o4hNmmsNSNACGz?=
+ =?us-ascii?Q?t9JBAjNl+ZOGSuEQG0VngP7c7iCYbA98UeHo4TYQ3mgkfJ40qpnJhHwgCDzP?=
+ =?us-ascii?Q?028ZKosLr7JhxiMobIKKLFraWmISkF0eRJTdvy2u+uNdHNv3klxuV3qALXmp?=
+ =?us-ascii?Q?Kn4Y2iooQrF4Xi2eTeSpy/EqQ9mXXFAHNoFBUSOx/yHd5LXKwk4lSzUorRaQ?=
+ =?us-ascii?Q?g/u4YyiUHQqp0zDer74R+tqJcUkM5Ni2hcUtWUgwTPkauNSZ9xGHbTDca7pZ?=
+ =?us-ascii?Q?j+a507nyHOXh1zx/Pwiougd5de3hZieKurhNetnKCie+JELt7dAyorwM1M3E?=
+ =?us-ascii?Q?E2q3/x/Mzqk9MNJ1yhYgevaXSb2H3+QRyaOjuQ3ffJTahgWam3JmB8JgUJwy?=
+ =?us-ascii?Q?uf8pisgF8IGOjHFxycCzJHngLc6FdPnjYZLwHDb4I86NeOnlKd2gWAFctPg9?=
+ =?us-ascii?Q?wRf1zooXVmOstSUbuFO4+9tfZH2dMKePW1A+Sv2RTjzoBbTRyX57+XL9677k?=
+ =?us-ascii?Q?NAaUeLQ/pBp3CLZaOmUB/kBIDA2WBAqAsD0QEJGoIyUu/kelRerDYP2EhoLj?=
+ =?us-ascii?Q?9VdKutN7U8gAHpDOXlybLuunSIltI3Mb/Bg0tGfqtyWJYsxlOOsku8zS1JiZ?=
+ =?us-ascii?Q?fhpCYNyrmBwsuP/c4UymllxQw6MzF7cCrGiNmOxUXZZhODFP4oCuersklatR?=
+ =?us-ascii?Q?+fGWm16YfL0QnQQqQ9+pFi3BJwoM/Px1wlfq2bZTJnAYGEYjGmtwmOo8h7Bf?=
+ =?us-ascii?Q?Q7wHP3jXwSA/7WxjA9RSbtvtcjO/TkmOXl6PVJe/HQJ3BjT/I8RYJqHYGoiS?=
+ =?us-ascii?Q?1t/FfuntK4faLmFXlKXMdeC4w7B5YK8pMO41xYzX3lPrAKfgucXjD7Z2TUfO?=
+ =?us-ascii?Q?CVcLbrMDCw0I606roUgk/UGr2Zt+aKl4uzX527YYNTgEQMyMlNCo+6lRjjKp?=
+ =?us-ascii?Q?NRyPTH4V2tzbeGOWgRX1zGkRaZJ3ozXjTsee+SyWti3Gb2CaqajNQ09xc2HG?=
+ =?us-ascii?Q?m1uKaCQFoMtgV8dmVI8S76HwiO4EwOKfsJv9ADEZSpBjVkvA+/cNIqUpOZzA?=
+ =?us-ascii?Q?N0Xz8uya3PbrscTvPBAY6v5kbC8GbCw/VHPhDrBt/3LWFEjcNAxPMb54hfil?=
+ =?us-ascii?Q?Zmu5QzcshvRUJyLymiR5pILGaqw9H7N69jW3n/+nEC8wCjfgqNiG50thwf4Y?=
+ =?us-ascii?Q?fRfgCFFMo1OP/uKKKykUnFmD58bAXm9bbYkNs7zkQ5psaB+DGPFbcDWuMYXx?=
+ =?us-ascii?Q?lewGSOlPL0gr2tmSfOY5AjFJ284xVSGCfwzil2tq0xyiBFRCyk/Cq2EDc5oN?=
+ =?us-ascii?Q?CcqokQmKdtDU5hV5DmCAsU935EnInhJnibA3riJQ9YdXDYTGz7wNpsqoS5JX?=
+ =?us-ascii?Q?+q1zAcKKhYmK/DlPSa0=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [88.120.44.86]
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: ydirson@free.fr
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 357a3b91-9c7d-400c-bf02-08d9c4f903e2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Dec 2021 03:13:23.9790 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JV2QfwVUvbjLJ+BYlgOsibs2s5RqWTPb2WhIzzl8++3X5jPUG81VqO4W+vYPWyam
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2794
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,469 +125,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian =?utf-8?Q?K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only]
 
 
------ Mail original -----
-> De: "Alex Deucher" <alexdeucher@gmail.com>
-> =C3=80: "Yann Dirson" <ydirson@free.fr>
-> Cc: "Christian K=C3=B6nig" <ckoenig.leichtzumerken@gmail.com>, "amd-gfx l=
-ist" <amd-gfx@lists.freedesktop.org>
-> Envoy=C3=A9: Mardi 21 D=C3=A9cembre 2021 23:31:01
-> Objet: Re: Various problems trying to vga-passthrough a Renoir iGPU to a =
-xen/qubes-os hvm
->=20
-> On Tue, Dec 21, 2021 at 5:12 PM Yann Dirson <ydirson@free.fr> wrote:
-> >
-> >
-> > Alex wrote:
-> > >
-> > > On Sun, Dec 19, 2021 at 11:41 AM Yann Dirson <ydirson@free.fr>
-> > > wrote:
-> > > >
-> > > > Christian wrote:
-> > > > > Am 19.12.21 um 17:00 schrieb Yann Dirson:
-> > > > > > Alex wrote:
-> > > > > >> Thinking about this more, I think the problem might be
-> > > > > >> related
-> > > > > >> to
-> > > > > >> CPU
-> > > > > >> access to "VRAM".  APUs don't have dedicated VRAM, they
-> > > > > >> use a
-> > > > > >> reserved
-> > > > > >> carve out region at the top of system memory.  For CPU
-> > > > > >> access
-> > > > > >> to
-> > > > > >> this
-> > > > > >> memory, we kmap the physical address of the carve out
-> > > > > >> region
-> > > > > >> of
-> > > > > >> system
-> > > > > >> memory.  You'll need to make sure that region is
-> > > > > >> accessible to
-> > > > > >> the
-> > > > > >> guest.
-> > > > > > So basically, the non-virt flow is is: (video?) BIOS
-> > > > > > reserves
-> > > > > > memory, marks it
-> > > > > > as reserved in e820, stores the physaddr somewhere, which
-> > > > > > the
-> > > > > > GPU
-> > > > > > driver gets.
-> > > > > > Since I suppose this includes the framebuffer, this
-> > > > > > probably
-> > > > > > has to
-> > > > > > occur around
-> > > > > > the moment the driver calls
-> > > > > > drm_aperture_remove_conflicting_pci_framebuffers()
-> > > > > > (which happens before this hw init step), right ?
-> > > > >
-> > > > > Well, that partially correct. The efifb is using the PCIe
-> > > > > resources
-> > > > > to
-> > > > > access the framebuffer and as far as I know we use that one
-> > > > > to
-> > > > > kick
-> > > > > it out.
-> > > > >
-> > > > > The stolen memory we get over e820/registers is separate to
-> > > > > that.
-> >
-> > How is the stolen memory communicated to the driver ?  That host
-> > physical
-> > memory probably has to be mapped at the same guest physical address
-> > for
-> > the magic to work, right ?
->=20
-> Correct.  The driver reads the physical location of that memory from
-> hardware registers.  Removing this chunk of code from gmc_v9_0.c will
-> force the driver to use the BAR, but I'm not sure if there are any
-> other places in the driver that make assumptions about using the
-> physical host address or not on APUs off hand.
->=20
->         if ((adev->flags & AMD_IS_APU) ||
->             (adev->gmc.xgmi.supported &&
->              adev->gmc.xgmi.connected_to_cpu)) {
->                 adev->gmc.aper_base =3D
->                         adev->gfxhub.funcs->get_mc_fb_offset(adev) +
->                         adev->gmc.xgmi.physical_node_id *
->                         adev->gmc.xgmi.node_segment_size;
->                 adev->gmc.aper_size =3D adev->gmc.real_vram_size;
->         }
->=20
->=20
->=20
-> >
-> > > > >
-> > > > > > ... which brings me to a point that's been puzzling me for
-> > > > > > some
-> > > > > > time, which is
-> > > > > > that as the hw init fails, the efifb driver is still using
-> > > > > > the
-> > > > > > framebuffer.
-> > > > >
-> > > > > No, it isn't. You are probably just still seeing the same
-> > > > > screen.
-> > > > >
-> > > > > The issue is most likely that while efi was kicked out nobody
-> > > > > re-programmed the display hardware to show something
-> > > > > different.
-> > > > >
-> > > > > > Am I right in suspecting that efifb should get stripped of
-> > > > > > its
-> > > > > > ownership of the
-> > > > > > fb aperture first, and that if I don't get a black screen
-> > > > > > on
-> > > > > > hw_init failure
-> > > > > > that issue should be the first focus point ?
-> > > > >
-> > > > > You assumption with the black screen is incorrect. Since the
-> > > > > hardware
-> > > > > works independent even if you kick out efi you still have the
-> > > > > same
-> > > > > screen content, you just can't update it anymore.
-> > > >
-> > > > It's not only that the screen keeps its contents, it's that the
-> > > > dom0
-> > > > happily continues updating it.
-> > >
-> > > If the hypevisor is using efifb, then yes that could be a problem
-> > > as
-> > > the hypervisor could be writing to the efifb resources which ends
-> > > up
-> > > writing to the same physical memory.  That applies to any GPU on
-> > > a
-> > > UEFI system.  You'll need to make sure efifb is not in use in the
-> > > hypervisor.
-> >
-> > That remark evokes several things to me.  First one is that every
-> > time
-> > I've tried booting with efifb disabled in dom0, there was no
-> > visible
-> > improvements in the guest driver - i.i. I really have to dig how
-> > vram mapping
-> > is performed and check things are as expected anyway.
->=20
-> Ultimately you end up at the same physical memory.  efifb uses the
-> PCI
-> BAR which points to the same physical memory that the driver directly
-> maps.
->=20
-> >
-> > The other is that, when dom0 cannot use efifb, entering a luks key
-> > is
-> > suddenly less user-friendly.  But in theory I'd think we could
-> > overcome
-> > this by letting dom0 use efifb until ready to start the guest, a
-> > simple
-> > driver unbind at the right moment should be expected to work, right
-> > ?
-> > Going further and allowing the guest to use efifb on its own could
-> > possibly be more tricky (starting with a different state?) but does
-> > not seem to sound completely outlandish either - or does it ?
-> >
->=20
-> efifb just takes whatever hardware state the GOP driver in the pre-OS
-> environment left the GPU in.  Once you have a driver loaded in the
-> OS,
-> that state is gone so I I don't see much value in using efifb once
-> you
-> have a real driver in the mix.  If you want a console on the host,
-> it's probably better to use 2 GPU or just load the real driver as
-> needed in both the host and guest.
 
-My point is essentially making sure we always have a usable display.
-Dom0 will essentially use it for entering luks key (but having boot logs
-visible may also be useful for some troubleshooting), and I was figuring
-out that once dom0 has relinquished it to start a guest with passthrough,
-the guest might as well make use of it before it can start amdgpu. =20
-Could be useful as a first step of seeing the GPU in the guest, in
-case there are more issues to be solved to be able to start amdgpu.
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Tuesday, December 21, 2021 10:59 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu: fix runpm documentation
+>=20
+> It's not only supported by HG/PX laptops.  It's supported
+> by all dGPUs which supports BOCO/BACO functionality (runtime
+> D3).
+>=20
+> BOCO - Bus Off, Chip Off.  The entire chip is powered off.
+>        This is controlled by ACPI.
+> BACO - Bus Active, Chip Off.  The chip still shows up
+>        on the PCI bus, but the device itself is powered
+>        down.
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index a78bbea9629d..f001924ed92e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -331,9 +331,10 @@ module_param_named(aspm, amdgpu_aspm, int,
+> 0444);
+>  /**
+>   * DOC: runpm (int)
+>   * Override for runtime power management control for dGPUs in PX/HG
+> laptops. The amdgpu driver can dynamically power down
+[Quan, Evan] This("dGPUs in PX/HG latops") needs also be updated. Maybe mis=
+sing unintentionally ?
+With that fixed, the patch is reviewed-by: Evan Quan <evan.quan@amd.com>
 
+BR
+Evan
+> - * the dGPU on PX/HG laptops when it is idle. The default is -1 (auto en=
+able).
+> Setting the value to 0 disables this functionality.
+> + * the dGPUs when they are idle if supported. The default is -1 (auto
+> enable).
+> + * Setting the value to 0 disables this functionality.
+>   */
+> -MODULE_PARM_DESC(runpm, "PX runtime pm (2 =3D force enable with
+> BAMACO, 1 =3D force enable with BACO, 0 =3D disable, -1 =3D PX only defau=
+lt)");
+> +MODULE_PARM_DESC(runpm, "PX runtime pm (2 =3D force enable with
+> BAMACO, 1 =3D force enable with BACO, 0 =3D disable, -1 =3D auto)");
+>  module_param_named(runpm, amdgpu_runtime_pm, int, 0444);
 >=20
-> > >
-> > > Alex
-> > >
-> > >
-> > > >
-> > > > > But putting efi asside what Alex pointed out pretty much
-> > > > > breaks
-> > > > > your
-> > > > > neck trying to forward the device. You maybe could try to
-> > > > > hack
-> > > > > the
-> > > > > driver to use the PCIe BAR for framebuffer access, but that
-> > > > > might
-> > > > > be
-> > > > > quite a bit slower.
-> > > > >
-> > > > > Regards,
-> > > > > Christian.
-> > > > >
-> > > > > >
-> > > > > >> Alex
-> > > > > >>
-> > > > > >> On Mon, Dec 13, 2021 at 3:29 PM Alex Deucher
-> > > > > >> <alexdeucher@gmail.com>
-> > > > > >> wrote:
-> > > > > >>> On Sun, Dec 12, 2021 at 5:19 PM Yann Dirson
-> > > > > >>> <ydirson@free.fr>
-> > > > > >>> wrote:
-> > > > > >>>> Alex wrote:
-> > > > > >>>>> On Mon, Dec 6, 2021 at 4:36 PM Yann Dirson
-> > > > > >>>>> <ydirson@free.fr>
-> > > > > >>>>> wrote:
-> > > > > >>>>>> Hi Alex,
-> > > > > >>>>>>
-> > > > > >>>>>>> We have not validated virtualization of our
-> > > > > >>>>>>> integrated
-> > > > > >>>>>>> GPUs.  I
-> > > > > >>>>>>> don't
-> > > > > >>>>>>> know that it will work at all.  We had done a bit of
-> > > > > >>>>>>> testing but
-> > > > > >>>>>>> ran
-> > > > > >>>>>>> into the same issues with the PSP, but never had a
-> > > > > >>>>>>> chance
-> > > > > >>>>>>> to
-> > > > > >>>>>>> debug
-> > > > > >>>>>>> further because this feature is not productized.
-> > > > > >>>>>> ...
-> > > > > >>>>>>> You need a functional PSP to get the GPU driver up
-> > > > > >>>>>>> and
-> > > > > >>>>>>> running.
-> > > > > >>>>>> Ah, thanks for the hint :)
-> > > > > >>>>>>
-> > > > > >>>>>> I guess that if I want to have any chance to get the
-> > > > > >>>>>> PSP
-> > > > > >>>>>> working
-> > > > > >>>>>> I'm
-> > > > > >>>>>> going to need more details on it.  A quick search some
-> > > > > >>>>>> time
-> > > > > >>>>>> ago
-> > > > > >>>>>> mostly
-> > > > > >>>>>> brought reverse-engineering work, rather than official
-> > > > > >>>>>> AMD
-> > > > > >>>>>> doc.
-> > > > > >>>>>>   Are
-> > > > > >>>>>> there some AMD resources I missed ?
-> > > > > >>>>> The driver code is pretty much it.
-> > > > > >>>> Let's try to shed some more light on how things work,
-> > > > > >>>> taking
-> > > > > >>>> as
-> > > > > >>>> excuse
-> > > > > >>>> psp_v12_0_ring_create().
-> > > > > >>>>
-> > > > > >>>> First, register access through [RW]REG32_SOC15() is
-> > > > > >>>> implemented
-> > > > > >>>> in
-> > > > > >>>> terms of __[RW]REG32_SOC15_RLC__(), which is basically a
-> > > > > >>>> [RW]REG32(),
-> > > > > >>>> except it has to be more complex in the SR-IOV case.
-> > > > > >>>> Has the RLC anything to do with SR-IOV ?
-> > > > > >>> When running the driver on a SR-IOV virtual function
-> > > > > >>> (VF),
-> > > > > >>> some
-> > > > > >>> registers are not available directly via the VF's MMIO
-> > > > > >>> aperture
-> > > > > >>> so
-> > > > > >>> they need to go through the RLC.  For bare metal or
-> > > > > >>> passthrough
-> > > > > >>> this
-> > > > > >>> is not relevant.
-> > > > > >>>
-> > > > > >>>> It accesses registers in the MMIO range of the MP0 IP,
-> > > > > >>>> and
-> > > > > >>>> the
-> > > > > >>>> "MP0"
-> > > > > >>>> name correlates highly with MMIO accesses in
-> > > > > >>>> PSP-handling
-> > > > > >>>> code.
-> > > > > >>>> Is "MP0" another name for PSP (and "MP1" for SMU) ?  The
-> > > > > >>>> MP0
-> > > > > >>>> version
-> > > > > >>> Yes.
-> > > > > >>>
-> > > > > >>>> reported at v11.0.3 by discovery seems to contradict the
-> > > > > >>>> use
-> > > > > >>>> of
-> > > > > >>>> v12.0
-> > > > > >>>> for RENOIR as set by soc15_set_ip_blocks(), or do I miss
-> > > > > >>>> something ?
-> > > > > >>> Typo in the ip discovery table on renoir.
-> > > > > >>>
-> > > > > >>>> More generally (and mostly out of curiosity while we're
-> > > > > >>>> at
-> > > > > >>>> it),
-> > > > > >>>> do we
-> > > > > >>>> have a way to match IPs listed at discovery time with
-> > > > > >>>> the
-> > > > > >>>> ones
-> > > > > >>>> used
-> > > > > >>>> in the driver ?
-> > > > > >>> In general, barring typos, the code is shared at the
-> > > > > >>> major
-> > > > > >>> version
-> > > > > >>> level.  The actual code may or may not need changes to
-> > > > > >>> handle
-> > > > > >>> minor
-> > > > > >>> revision changes in an IP.  The driver maps the IP
-> > > > > >>> versions
-> > > > > >>> from
-> > > > > >>> the
-> > > > > >>> ip discovery table to the code contained in the driver.
-> > > > > >>>
-> > > > > >>>> ---
-> > > > > >>>>
-> > > > > >>>> As for the register names, maybe we could have a short
-> > > > > >>>> explanation of
-> > > > > >>>> how they are structured ?  Eg. mmMP0_SMN_C2PMSG_69: that
-> > > > > >>>> seems
-> > > > > >>>> to
-> > > > > >>>> be
-> > > > > >>>> a MMIO register named "C2PMSG_69" in the "MP0" IP, but
-> > > > > >>>> I'm
-> > > > > >>>> not
-> > > > > >>>> sure
-> > > > > >>>> of the "SMN" part -- that could refer to the "System
-> > > > > >>>> Management
-> > > > > >>>> Network",
-> > > > > >>>> described in [0] as an internal bus.  Are we accessing
-> > > > > >>>> this
-> > > > > >>>> register
-> > > > > >>>> through this SMN ?
-> > > > > >>> These registers are just mailboxes for the PSP firmware.
-> > > > > >>>  All
-> > > > > >>> of
-> > > > > >>> the
-> > > > > >>> C2PMSG registers functionality is defined by the PSP
-> > > > > >>> firmware.
-> > > > > >>>   They
-> > > > > >>> are basically scratch registers used to communicate
-> > > > > >>> between
-> > > > > >>> the
-> > > > > >>> driver
-> > > > > >>> and the PSP firmware.
-> > > > > >>>
-> > > > > >>>>
-> > > > > >>>>>   On APUs, the PSP is shared with
-> > > > > >>>>> the CPU and the rest of the platform.  The GPU driver
-> > > > > >>>>> just
-> > > > > >>>>> interacts
-> > > > > >>>>> with it for a few specific tasks:
-> > > > > >>>>> 1. Loading Trusted Applications (e.g., trusted firmware
-> > > > > >>>>> applications
-> > > > > >>>>> that run on the PSP for specific functionality, e.g.,
-> > > > > >>>>> HDCP
-> > > > > >>>>> and
-> > > > > >>>>> content
-> > > > > >>>>> protection, etc.)
-> > > > > >>>>> 2. Validating and loading firmware for other engines on
-> > > > > >>>>> the
-> > > > > >>>>> SoC.
-> > > > > >>>>>   This
-> > > > > >>>>> is required to use those engines.
-> > > > > >>>> Trying to understand in more details how we start the
-> > > > > >>>> PSP
-> > > > > >>>> up, I
-> > > > > >>>> noticed
-> > > > > >>>> that psp_v12_0 has support for loading a sOS firmware,
-> > > > > >>>> but
-> > > > > >>>> never
-> > > > > >>>> calls
-> > > > > >>>> init_sos_microcode() - and anyway there is no sos
-> > > > > >>>> firmware
-> > > > > >>>> for
-> > > > > >>>> renoir
-> > > > > >>>> and green_sardine, which seem to be the only ASICs with
-> > > > > >>>> this
-> > > > > >>>> PSP
-> > > > > >>>> version.
-> > > > > >>>> Is it something that's just not been completely wired up
-> > > > > >>>> yet
-> > > > > >>>> ?
-> > > > > >>> On APUs, the PSP is shared with the CPU so the PSP
-> > > > > >>> firmware
-> > > > > >>> is
-> > > > > >>> part
-> > > > > >>> of
-> > > > > >>> the sbios image.  The driver doesn't load it.  We only
-> > > > > >>> load
-> > > > > >>> it on
-> > > > > >>> dGPUs where the driver is responsible for the chip
-> > > > > >>> initialization.
-> > > > > >>>
-> > > > > >>>> That also rings a bell, that we have nothing about
-> > > > > >>>> Secure OS
-> > > > > >>>> in
-> > > > > >>>> the doc
-> > > > > >>>> yet (not even the acronym in the glossary).
-> > > > > >>>>
-> > > > > >>>>
-> > > > > >>>>> I'm not too familiar with the PSP's path to memory from
-> > > > > >>>>> the
-> > > > > >>>>> GPU
-> > > > > >>>>> perspective.  IIRC, most memory used by the PSP goes
-> > > > > >>>>> through
-> > > > > >>>>> carve
-> > > > > >>>>> out
-> > > > > >>>>> "vram" on APUs so it should work, but I would double
-> > > > > >>>>> check
-> > > > > >>>>> if
-> > > > > >>>>> there
-> > > > > >>>>> are any system memory allocations that used to interact
-> > > > > >>>>> with
-> > > > > >>>>> the PSP
-> > > > > >>>>> and see if changing them to vram helps.  It does work
-> > > > > >>>>> with
-> > > > > >>>>> the
-> > > > > >>>>> IOMMU
-> > > > > >>>>> enabled on bare metal, so it should work in passthrough
-> > > > > >>>>> as
-> > > > > >>>>> well
-> > > > > >>>>> in
-> > > > > >>>>> theory.
-> > > > > >>>> I can see a single case in the PSP code where GTT is
-> > > > > >>>> used
-> > > > > >>>> instead
-> > > > > >>>> of
-> > > > > >>>> vram: to create fw_pri_bo when SR-IOV is not used (and
-> > > > > >>>> there
-> > > > > >>>> has
-> > > > > >>>> to be a reason, since the SR-IOV code path does use
-> > > > > >>>> vram).
-> > > > > >>>> Changing it to vram does not make a difference, but then
-> > > > > >>>> the
-> > > > > >>>> only bo that seems to be used at that point is the one
-> > > > > >>>> for
-> > > > > >>>> the
-> > > > > >>>> psp ring,
-> > > > > >>>> which is allocated in vram, so I'm not too much
-> > > > > >>>> surprised.
-> > > > > >>>>
-> > > > > >>>> Maybe I should double-check bo_create calls to hunt for
-> > > > > >>>> more
-> > > > > >>>> ?
-> > > > > >>> We looked into this a bit ourselves and ran into the same
-> > > > > >>> issues.
-> > > > > >>> We'd probably need to debug this with the PSP team to
-> > > > > >>> make
-> > > > > >>> further
-> > > > > >>> progress, but this was not productized so neither team
-> > > > > >>> had
-> > > > > >>> the
-> > > > > >>> resources to delve further.
-> > > > > >>>
-> > > > > >>> Alex
-> > > > > >>>
-> > > > > >>>>
-> > > > > >>>> [0]
-> > > > > >>>> https://github.com/PSPReverse/psp-docs/blob/master/masterthe=
-sis-eichner-psp-2020.pdf
-> > > > >
-> > > > >
-> > >
->=20
+>  /**
+> --
+> 2.33.1
