@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC239C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 14:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DEABC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 14:36:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E16210E17A;
-	Wed, 22 Dec 2021 14:25:23 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F33F10E17A
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 14:25:21 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id w64so4158147oif.10
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 06:25:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8CE10E1EC;
+	Wed, 22 Dec 2021 14:36:15 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1788810E1EC;
+ Wed, 22 Dec 2021 14:36:14 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ x3-20020a05683000c300b0057a5318c517so3037378oto.13; 
+ Wed, 22 Dec 2021 06:36:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pfTZL8Knbs17J+HlCXTbKsePu1y0bnHitSIQiVh5mOI=;
- b=EC7WdILPtOPOrJiDVWcY461w1/ekG/OCxqTUQjwRoD9Na6Vq8zXdEpnlOWhUoDOXSS
- BjY/P670nujx7LAxvpXh5HalCcRJ2UcnTIkZ85yzu/dz3W6ld9W96UdsNcBjANld6vcs
- McQXTO7sdkWsKhf1OVfgxJrdEgH3sGvP3fvzSY/gJTxEeLlbQSwZ9j2d0hYoERYgzKZD
- PpV56AwgHB+WBQZlgx14ASdORKcpJQsu6NeyAZMEJd40tjpQt/1U5TuvRwI5/eVvQ2kz
- Oj3NMNg+nHhZofvKXaXUEeuNyeJmbhR46gTgVcXmMI8uOXG5y6FmHOhpsABK6DVEzU1N
- Qz1A==
+ :cc; bh=YKV2BgPx3gxDDsLRq0VaVFxrk1VsU28qjAbSzmWcK8s=;
+ b=F4FtXIvPLHbNUO3PvwjUupkMTlh/8PoI8Mlv+LjOyiWfHwe3Rp4hnQZYbK32u0+Uf9
+ d2vsLj3kr/GNU6EArfgKY/7c01pFl10W5OlApZ8PcERSfkfKRDeWRSILqMhwWhSMJMzl
+ VnPXpUUwQs39GmhzqKEw98M/UcJxxDoM0A0ovMyK57n2LZ6URDRbzkEgd8Z9c/VR8Gil
+ 61TtT5V1UDXYkcSnbPGKlZ2h+jyTxrBQuh0b6sD5WelYsvqD9k7sIMY/0vVuxC5qol0J
+ fMyR/bh7AXjyBNk3tTMl0MMIGVHuTu0YO5n5j8xGABViZbXX3EdAwDSn8f6T4KLQ31/o
+ 0e+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=pfTZL8Knbs17J+HlCXTbKsePu1y0bnHitSIQiVh5mOI=;
- b=0gyw6co/xPeCxqGQE4vjWm0Oc1w/EapaaFSeGhYo4TpvQu0MZ2zrc9Sy0ziIwaom1/
- G9+0rEzkK6T+5yNVzpLTkLDVhhLSp9WAMhBfn7f0fVfUHxryJkRMX/TGvgXosFs//oti
- xgZgyoXK/YEK4jAFWtvfbNP1hpxd+zbozrvIEszOJrYHBR8WrMNt2EUizxO4K8YMS8JV
- Fx30DPYYwoeV7PTGYCDCIUDosOAqK/QEDPAWyfSwPxzDgw7QVnyu3xw8WVqkt+sqjzhB
- GXLBrg/jHbJLvn6QciAiBztJEuuAby+bpZfh48mBUkEE5v55mkvn+p4ZZV9Odji4g79y
- 8djA==
-X-Gm-Message-State: AOAM5337XRLVyAprrnKTIFippjZzE5F4gMDJSemH/Uc0R6CIdG8Yi+Dr
- 7pIxi3d3PkZBDHyI3ydrwqJSYomslmRYHaXoJQQ=
-X-Google-Smtp-Source: ABdhPJy6F1khxlFJXvkUZ6T2kptjqRbM82lEnKERXkK3vRac2mj+GnwzYgr5FfpUqapDeRFAuaPXlvzJxcA4hy5ROCc=
-X-Received: by 2002:a05:6808:44:: with SMTP id v4mr925102oic.123.1640183120391; 
- Wed, 22 Dec 2021 06:25:20 -0800 (PST)
+ bh=YKV2BgPx3gxDDsLRq0VaVFxrk1VsU28qjAbSzmWcK8s=;
+ b=3MdIq5TuQmeV7zgGnt+7diG28Z98pNV0r9aa8ZUgWFj9XHsOmJHE+hn9i4anWLpJhV
+ 1YLnmFdfIU65n/ulxp/imBmLxSs6Er+yE8iQl/hjQiDCNYIUDtgHeFnLa/6UZUBhvB0x
+ MvbNklGk4l48bGLRgfP2jp4k+fzC2gr1va3Orb8Mt5BrYo7X82R09P+tEAKhsoCjpKpJ
+ g9sRyuEBzKVb3Qb2Vn1tll7wHO6FlPWgGAj1zOKQIV/q6TqCOmwHKMzY2yGr7GDYfx/g
+ rr+iBjemxbb5zYN4mhIQS/OsaC+C82Z/SOfl/9oBnjdOWcLVYgHXx2k1bkDePsxU0xIB
+ etjg==
+X-Gm-Message-State: AOAM532dVYlcZBzJZXeaYAylvqWdafafA1bsdXQjVjJbkeVliqfNPLAz
+ bN3QDcimsWmmZidfLh/IX6XbVdsK4UprmZFTGQiVmLmP
+X-Google-Smtp-Source: ABdhPJy3WcmtsTxv7JJwydEOin6GI2gdo+m/5Hy64ORpHVjNNh9PY34ZN27QovkF7vfUp/iqgBerodD18DXLUYQeGSA=
+X-Received: by 2002:a9d:6855:: with SMTP id c21mr2261142oto.357.1640183773245; 
+ Wed, 22 Dec 2021 06:36:13 -0800 (PST)
 MIME-Version: 1.0
-References: <20211221145853.725472-1-alexander.deucher@amd.com>
- <DM6PR12MB26191802EE0608EAA06DDBD3E47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26191802EE0608EAA06DDBD3E47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20211218042226.2608212-1-yzhai003@ucr.edu>
+In-Reply-To: <20211218042226.2608212-1-yzhai003@ucr.edu>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Dec 2021 09:25:09 -0500
-Message-ID: <CADnq5_NgwgKr=r1ROpKcMYh56zrmc3pDRh8XOy2hyjwun22RfQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix runpm documentation
-To: "Quan, Evan" <Evan.Quan@amd.com>
+Date: Wed, 22 Dec 2021 09:36:02 -0500
+Message-ID: <CADnq5_MT3Ci94jytrXWM_WJaMU7BpzQHMhJnPb-hgUhU6JDa1w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix the uninitialized variable in
+ enable_stream_features()
+To: Yizhuo Zhai <yzhai003@ucr.edu>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,75 +62,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Jun Lei <jun.lei@amd.com>, Anthony Koo <Anthony.Koo@amd.com>,
+ Jimmy Kizito <Jimmy.Kizito@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, "Guo, Bing" <Bing.Guo@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Agustin Gutierrez <agustin.gutierrez@amd.com>,
+ Mark Morra <MarkAlbert.Morra@amd.com>, Robin Singh <robin.singh@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ "for 3.8" <stable@vger.kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 21, 2021 at 10:13 PM Quan, Evan <Evan.Quan@amd.com> wrote:
->
-> [AMD Official Use Only]
->
->
->
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> > Deucher
-> > Sent: Tuesday, December 21, 2021 10:59 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: [PATCH] drm/amdgpu: fix runpm documentation
-> >
-> > It's not only supported by HG/PX laptops.  It's supported
-> > by all dGPUs which supports BOCO/BACO functionality (runtime
-> > D3).
-> >
-> > BOCO - Bus Off, Chip Off.  The entire chip is powered off.
-> >        This is controlled by ACPI.
-> > BACO - Bus Active, Chip Off.  The chip still shows up
-> >        on the PCI bus, but the device itself is powered
-> >        down.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index a78bbea9629d..f001924ed92e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -331,9 +331,10 @@ module_param_named(aspm, amdgpu_aspm, int,
-> > 0444);
-> >  /**
-> >   * DOC: runpm (int)
-> >   * Override for runtime power management control for dGPUs in PX/HG
-> > laptops. The amdgpu driver can dynamically power down
-> [Quan, Evan] This("dGPUs in PX/HG latops") needs also be updated. Maybe missing unintentionally ?
-> With that fixed, the patch is reviewed-by: Evan Quan <evan.quan@amd.com>
-
-Yes, good catch.  Fixed up.
-
-Thanks!
+Applied.  Thanks!
 
 Alex
 
+On Fri, Dec 17, 2021 at 11:22 PM Yizhuo Zhai <yzhai003@ucr.edu> wrote:
 >
-> BR
-> Evan
-> > - * the dGPU on PX/HG laptops when it is idle. The default is -1 (auto enable).
-> > Setting the value to 0 disables this functionality.
-> > + * the dGPUs when they are idle if supported. The default is -1 (auto
-> > enable).
-> > + * Setting the value to 0 disables this functionality.
-> >   */
-> > -MODULE_PARM_DESC(runpm, "PX runtime pm (2 = force enable with
-> > BAMACO, 1 = force enable with BACO, 0 = disable, -1 = PX only default)");
-> > +MODULE_PARM_DESC(runpm, "PX runtime pm (2 = force enable with
-> > BAMACO, 1 = force enable with BACO, 0 = disable, -1 = auto)");
-> >  module_param_named(runpm, amdgpu_runtime_pm, int, 0444);
-> >
-> >  /**
-> > --
-> > 2.33.1
+> In function enable_stream_features(), the variable "old_downspread.raw"
+> could be uninitialized if core_link_read_dpcd() fails, however, it is
+> used in the later if statement, and further, core_link_write_dpcd()
+> may write random value, which is potentially unsafe.
+>
+> Fixes: 6016cd9dba0f ("drm/amd/display: add helper for enabling mst stream features")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yizhuo Zhai <yzhai003@ucr.edu>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> index c8457babfdea..fd5a0e7eb029 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> @@ -1844,6 +1844,8 @@ static void enable_stream_features(struct pipe_ctx *pipe_ctx)
+>                 union down_spread_ctrl old_downspread;
+>                 union down_spread_ctrl new_downspread;
+>
+> +               memset(&old_downspread, 0, sizeof(old_downspread));
+> +
+>                 core_link_read_dpcd(link, DP_DOWNSPREAD_CTRL,
+>                                 &old_downspread.raw, sizeof(old_downspread));
+>
+> --
+> 2.25.1
+>
