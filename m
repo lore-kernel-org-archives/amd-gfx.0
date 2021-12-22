@@ -4,94 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD8AC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 05:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B88C2C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 07:50:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD8010E22B;
-	Wed, 22 Dec 2021 05:51:57 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 481C310E22B
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 05:51:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e6sC3Aiu1uIAD8CFcqG31rb1QU21xw4ibelAUAacQOvCyrX65h2mEDAO0jBbAn/dA+eVKP8b9TXTIFD5X7yLatZJwJ1OAki28eTEjPIyOF3zfDrHgsBgIApGUb49QrmhBzpHgKgOO8oixXtkaUXsVltq8m3KP6/XhPz/URkQ51gY+D3W1+cjXpWWKbTFDLN8dmbLltHz9S59Dz8IEBULY8lmBo4kNo21O+XRhBw+sipfNiWh8oGpSTXXPJrNelQJRsWKlzw7MsywS/Ud71DLHowX85oIN8U9Y48T/QQYWHz4q86PEETZhX+fuqMMGLNVPdn4cx8/yVVUq5pPmt8HNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OzImYX2zs+MRNk0NuLUz8/NNczdJTP2gQMsb966fDYE=;
- b=Oxq58kiKr5oeNtZZZo6QnG3xNv5bkzOvEfAYI4Lzzjn5DVFdFyKgAeBM6U6ihJVJydbtx5VOZSsfxll7rrIiIIpy6OYt5KQPelv4Bw74i5g7dd6RR+gN6RHZrp9rqbgg3d76ujLOCpQdedjl2IUUXxFbqlbzs8HPhHBPw6BaaPgPi3fCoQRT7eAkROC2AczAdFYDwK6iTrZhs911+SV52og4cSOdk56w+ck902u61aS9nX5h2TAhADU1ifZu3aO0qBEe6ilfY/zs3S8FTt94b9sX6GFlanoxGyHdT+RkgPmVQ82y5B64pkrLNX1MOYT9DZckcneWxVRmF0zgEYhh/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OzImYX2zs+MRNk0NuLUz8/NNczdJTP2gQMsb966fDYE=;
- b=MdPExzI4HIE7sC0gpBjuHJwnekZTb+8jEt3PyOatbkgzzXeLgn9+0Y67H1J63ah2VVfB9RmIqFByRMTjZJynZa5CK+Bx3kWC24t6/5WzVkAXhMexjmn/XOatWgRIruqVVvfW9yopcIoGF4QZ/v6SdJUyOOWIGHIVmxTDI9/XKi4=
-Received: from BN6PR22CA0057.namprd22.prod.outlook.com (2603:10b6:404:ca::19)
- by MWHPR12MB1616.namprd12.prod.outlook.com (2603:10b6:301:b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.20; Wed, 22 Dec
- 2021 05:51:52 +0000
-Received: from BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:ca:cafe::64) by BN6PR22CA0057.outlook.office365.com
- (2603:10b6:404:ca::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.16 via Frontend
- Transport; Wed, 22 Dec 2021 05:51:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT050.mail.protection.outlook.com (10.13.177.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4823.18 via Frontend Transport; Wed, 22 Dec 2021 05:51:51 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 21 Dec
- 2021 23:51:51 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 21 Dec
- 2021 21:51:50 -0800
-Received: from victor-aws2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Tue, 21 Dec 2021 23:51:49 -0600
-From: Victor Zhao <Victor.Zhao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/ttm: add workaround for some arm hardware issue
-Date: Wed, 22 Dec 2021 13:51:40 +0800
-Message-ID: <20211222055140.1215839-1-Victor.Zhao@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDC011229A;
+	Wed, 22 Dec 2021 07:50:49 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2F0A1121B8;
+ Wed, 22 Dec 2021 07:50:47 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ d198-20020a1c1dcf000000b0034569cdd2a2so948274wmd.5; 
+ Tue, 21 Dec 2021 23:50:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=MdtgjKYpobEBx1vtlxyNvAdu1nuei7NEW9qX8scp1AU=;
+ b=ga0UdqCQfv7tRhE25V0WynofhsZylsbFD/A/xtNx8JuOzw/TbwlheHnV2cJMngEO08
+ DPso8DwEXKX2v+t+xChDtKMHuOWyJOM55+juFV4umUaAW1lr2p5uLcUnNvTTAPVt4TC+
+ o/1q26MGMss52QhNMxqC6oFXLsjCfX6fzs4wZvoDtM5rhbzOS8SV6D5RB54MQaW5YVB7
+ flp9jGf+a7we845anf+6FYOyuZFuMRHg1X+5bpUSQfCBNNTRuQY2ze5LbYF+m54/KXGL
+ tmytL/NI7SvnxDYEN2YtHnaqsqOR5fXgemXAVwWZ8judyT/g9U2JAvVAlVtMZW08p1rb
+ YyDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=MdtgjKYpobEBx1vtlxyNvAdu1nuei7NEW9qX8scp1AU=;
+ b=3oY6kXSZVMZ7wBM8s5dII9LIx71K+SJJ+VNhQjB/CooUL+xXRalGoPJWKYdIs3troB
+ sewBYy6hmgDNQmGg/czP78YZ25OnIIhl2goSxd7Hfte2OKg1iorWEVrhGMhtAX1VV98t
+ G7+7/wq3cx0/Flk1Nx58srauUohqO4eXSolDl/sF85cfWPnRdYEjTO+12VBHrGxbCbTs
+ x3wELVZz8bNlYMKi7HrFfmH2l9zTHwV6PdIpKAkUvIdz/TxAx/5yz4B0CK8iVRjKx3VT
+ ELVJV5T0BZrhImoz98du7Qfm8fbHHa5izIiS74wPnSnzkoyXnEthBXc8PM+W+ajQjq2t
+ yomw==
+X-Gm-Message-State: AOAM531iDA2gECsBj0ZNY2JSyniWwxJ6cBMzcB1jqsbho7eXhMJauH1y
+ 02aIyr4XcfYgz96a5/+vI5ykxkaxvMs=
+X-Google-Smtp-Source: ABdhPJxj0INqQ3fAUj5MH3rK8LpkV1hB6zU0IqK5L0tik9mW19VJQyVwLgRVJTKjjc408G1LY31hbA==
+X-Received: by 2002:a1c:1f88:: with SMTP id f130mr1395123wmf.91.1640159446390; 
+ Tue, 21 Dec 2021 23:50:46 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id c4sm1167139wrr.37.2021.12.21.23.50.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Dec 2021 23:50:45 -0800 (PST)
+Subject: Re: [RFC 3/6] drm/amdgpu: Fix crash on modprobe
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20211217222745.881637-1-andrey.grodzovsky@amd.com>
+ <20211217222745.881637-4-andrey.grodzovsky@amd.com>
+ <bdbb195f-a9a7-2129-deaa-93e4e49cc8a2@gmail.com>
+ <72fe2521-ef31-63d8-6bcf-67af5a74330e@amd.com>
+ <48f45e4d-7219-5031-44bf-d1aec3a4bb61@gmail.com>
+ <dce7b2d7-ac9c-047c-365b-38added395b8@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <9f32fed2-3a72-44d3-0eb9-474725fc86ab@gmail.com>
+Date: Wed, 22 Dec 2021 08:50:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+In-Reply-To: <dce7b2d7-ac9c-047c-365b-38added395b8@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 28f92d94-2856-4ec0-d2f0-08d9c50f26b8
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1616:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB16163B492ACB0CED83D6EB62FA7D9@MWHPR12MB1616.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: f6u6v5Tih706+e0ywcejQQjpBLPgjUkqMmYdvE4/N5lwKBev8AdS0jmPRfdHqMie+mpmy1WlqYAk72k1FIdtuXyZW5ZaL5Ne8Xkq+6WcTktEQU7l4AUsgBBczW7tgKw9zyhPNLSARgwfvZb6RS7hcfASJYIuBy6KULxFtuDXEP6XmsVAhBr4k9KZRFYP1g6bgddWIpt9taiBpt7LxumsjZ+STf01v5j+WFpGtobun/s9Ju2iuOSOkqKYAbtGrolzbzWpsBmk1TqPaGOzwHSOKz52Tsu6UDXLyJPVZBUlzLXLPiw0OtogkRsN3leDgXx1wpsE3Hqed+gHrVAVKJCBitGkx4HrSpS4bbBnnGVAYw5ExnfsatuoL8B6sH/uQx7+28QShXVv+6RPm+m0f8phBZGLBiCAGd6cbhTg8t5FQmkSixJdj3nChCQCaMb+lwLVFOK1bIRSFhsrIKQkkD+twqXdvfXNTSMf7+yvPHT0jemef0LL8pWzzXHRNP++s+k9ihxWElZuUoOiD4Zd/Pv6jiLT+FiJNCfIx6/tOM3sa6S+ozpxH8GWtjaxUduDy+IIdTPMOwsvzilwDL6ibVBOQ2lsCUBMuEAnd0ybiHL/BN06UDsyunlD1/2VkQ99hCnVqe4R5lTCiyoXEtbzIYcr0YSTVw67JhBB0BDVviHNUJxlVddyDtbFGaujw1SL5Bae9DXF8ZAIO8QV9e27BTSiBhbLCEfnsADTwADWzs8IzsS+zHkccnUyOIpFUW/rWwP6zPcXRZcAvvsHqXK20lGaRvj3jJg2FEC7c8wNu6HT0Sg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(46966006)(36840700001)(36756003)(6916009)(70206006)(36860700001)(82310400004)(336012)(40460700001)(6666004)(1076003)(81166007)(70586007)(2906002)(8676002)(83380400001)(8936002)(5660300002)(4326008)(186003)(47076005)(26005)(316002)(7696005)(426003)(2616005)(356005)(508600001)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2021 05:51:51.3995 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28f92d94-2856-4ec0-d2f0-08d9c50f26b8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1616
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,50 +78,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Victor Zhao <Victor.Zhao@amd.com>
+Cc: daniel@ffwll.ch, horace.chen@amd.com, christian.koenig@amd.com,
+ Monk.Liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some Arm based platform has hardware issue which may
-generate incorrect addresses when receiving writes from the CPU
-with a discontiguous set of byte enables. This affects the writes
-with write combine property.
+Am 21.12.21 um 17:03 schrieb Andrey Grodzovsky:
+>
+> On 2021-12-21 2:02 a.m., Christian König wrote:
+>>
+>>
+>> Am 20.12.21 um 20:22 schrieb Andrey Grodzovsky:
+>>>
+>>> On 2021-12-20 2:17 a.m., Christian König wrote:
+>>>> Am 17.12.21 um 23:27 schrieb Andrey Grodzovsky:
+>>>>> Restrict jobs resubmission to suspend case
+>>>>> only since schedulers not initialised yet on
+>>>>> probe.
+>>>>>
+>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
+>>>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>> index 5527c68c51de..8ebd954e06c6 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>> @@ -582,7 +582,7 @@ void amdgpu_fence_driver_hw_init(struct 
+>>>>> amdgpu_device *adev)
+>>>>>           if (!ring || !ring->fence_drv.initialized)
+>>>>>               continue;
+>>>>>   -        if (!ring->no_scheduler) {
+>>>>> +        if (adev->in_suspend && !ring->no_scheduler) {
+>>>>
+>>>> Uff, why is that suddenly necessary? Because of the changed order?
+>>>>
+>>>> Christian.
+>>>
+>>>
+>>> Yes.
+>>
+>> Mhm, that's quite bad design then.
+>
+>
+> If you look at the original patch for this 
+> https://www.spinics.net/lists/amd-gfx/msg67560.html you will
+> see that that restarting scheduler here is only relevant for 
+> suspend/resume case because there was
+> a race to fix. There is no point in this code on driver init because 
+> nothing was submitted to scheduler yet
+> and so it seems to me ok to add condition that this code run only 
+> in_suspend case.
 
-Workaround by change PROT_NORMAL_NC to PROT_DEVICE_nGnRE on arm.
-As this is an issue with some specific arm based cpu, adding
-a ttm parameter to control.
+Yeah, but having extra logic like this means that we have some design 
+issue in the IP block handling.
 
-Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
----
- drivers/gpu/drm/ttm/ttm_module.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+We need to clean that and some other odd approaches up at some point, 
+but probably not now.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_module.c b/drivers/gpu/drm/ttm/ttm_module.c
-index e87f40674a4d..b27473cbbd52 100644
---- a/drivers/gpu/drm/ttm/ttm_module.c
-+++ b/drivers/gpu/drm/ttm/ttm_module.c
-@@ -41,6 +41,12 @@
- 
- #include "ttm_module.h"
- 
-+static int enable_use_wc = 1;
-+
-+MODULE_PARM_DESC(enable_use_wc,
-+	"control write combine usage on arm platform due to hardware issue with write combine found on some specific arm cpu (1 = enable(default), 0 = disable)");
-+module_param(enable_use_wc, int, 0644);
-+
- /**
-  * ttm_prot_from_caching - Modify the page protection according to the
-  * ttm cacing mode
-@@ -63,7 +69,7 @@ pgprot_t ttm_prot_from_caching(enum ttm_caching caching, pgprot_t tmp)
- #endif
- #if defined(__ia64__) || defined(__arm__) || defined(__aarch64__) || \
- 	defined(__powerpc__) || defined(__mips__)
--	if (caching == ttm_write_combined)
-+	if (caching == ttm_write_combined && enable_use_wc != 0)
- 		tmp = pgprot_writecombine(tmp);
- 	else
- 		tmp = pgprot_noncached(tmp);
--- 
-2.25.1
+Christian.
+
+>
+>
+>>
+>> How about we keep the order as is and allow specifying the reset work 
+>> queue with drm_sched_start() ?
+>
+>
+> As i mentioned above, the fact we even have drm_sched_start there is 
+> just part of a solution to resolve a race
+> during suspend/resume. It is not for device initialization and indeed, 
+> other client drivers of gpu shcheduler never call
+> drm_sched_start on device init. We must guarantee that reset work 
+> queue already initialized before any job submission to scheduler
+> and because of that IMHO the right place for this is drm_sched_init.
+>
+> Andrey
+>
+>
+>>
+>> Christian.
+>>
+>>>
+>>> Andrey
+>>>
+>>>
+>>>>
+>>>>> drm_sched_resubmit_jobs(&ring->sched);
+>>>>>               drm_sched_start(&ring->sched, true);
+>>>>>           }
+>>>>
+>>
 
