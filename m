@@ -4,68 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B88C2C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 07:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A33C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 08:11:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDC011229A;
-	Wed, 22 Dec 2021 07:50:49 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2F0A1121B8;
- Wed, 22 Dec 2021 07:50:47 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- d198-20020a1c1dcf000000b0034569cdd2a2so948274wmd.5; 
- Tue, 21 Dec 2021 23:50:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE1A0112546;
+	Wed, 22 Dec 2021 08:11:04 +0000 (UTC)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6531F112546
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 08:11:04 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ a203-20020a1c7fd4000000b003457874263aso3309125wmd.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 00:11:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=MdtgjKYpobEBx1vtlxyNvAdu1nuei7NEW9qX8scp1AU=;
- b=ga0UdqCQfv7tRhE25V0WynofhsZylsbFD/A/xtNx8JuOzw/TbwlheHnV2cJMngEO08
- DPso8DwEXKX2v+t+xChDtKMHuOWyJOM55+juFV4umUaAW1lr2p5uLcUnNvTTAPVt4TC+
- o/1q26MGMss52QhNMxqC6oFXLsjCfX6fzs4wZvoDtM5rhbzOS8SV6D5RB54MQaW5YVB7
- flp9jGf+a7we845anf+6FYOyuZFuMRHg1X+5bpUSQfCBNNTRuQY2ze5LbYF+m54/KXGL
- tmytL/NI7SvnxDYEN2YtHnaqsqOR5fXgemXAVwWZ8judyT/g9U2JAvVAlVtMZW08p1rb
- YyDQ==
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=+BxDvWH9O+bjIEGEOb0fyZp+XpVGE0FDUGCjIylvmdo=;
+ b=ncyoqdqYMQ7l3jcKatDEObclpR8jXydtSdRLg3EQvbgv8msWmp8dZUB3w2iXJNTUXx
+ FuGvz46CmLwjDV6moOdr1Gq/wts1IiFrZPzieOA7asJddyUCFNhRxtWqfgp6kej+EGQH
+ hTvM+9xafio7LQ4H85jlEbMduRWAkhHhkgc3K7FZ/9WeAuXugLbi3dLDW3SekqE5hsFX
+ 9yoj6VDDJoJ+XC4kJqi1v+1iWeWgWkaJxt74ESGhK2J8IpnWNlBwftrYXgIWm4NdvEIq
+ 6yCkquo3H3yH3iF2uGIqpuP9drX3wnubBk7UXjNoB6Rttjp6sgZFGooWD9Zqz9HKhV9i
+ vWvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=MdtgjKYpobEBx1vtlxyNvAdu1nuei7NEW9qX8scp1AU=;
- b=3oY6kXSZVMZ7wBM8s5dII9LIx71K+SJJ+VNhQjB/CooUL+xXRalGoPJWKYdIs3troB
- sewBYy6hmgDNQmGg/czP78YZ25OnIIhl2goSxd7Hfte2OKg1iorWEVrhGMhtAX1VV98t
- G7+7/wq3cx0/Flk1Nx58srauUohqO4eXSolDl/sF85cfWPnRdYEjTO+12VBHrGxbCbTs
- x3wELVZz8bNlYMKi7HrFfmH2l9zTHwV6PdIpKAkUvIdz/TxAx/5yz4B0CK8iVRjKx3VT
- ELVJV5T0BZrhImoz98du7Qfm8fbHHa5izIiS74wPnSnzkoyXnEthBXc8PM+W+ajQjq2t
- yomw==
-X-Gm-Message-State: AOAM531iDA2gECsBj0ZNY2JSyniWwxJ6cBMzcB1jqsbho7eXhMJauH1y
- 02aIyr4XcfYgz96a5/+vI5ykxkaxvMs=
-X-Google-Smtp-Source: ABdhPJxj0INqQ3fAUj5MH3rK8LpkV1hB6zU0IqK5L0tik9mW19VJQyVwLgRVJTKjjc408G1LY31hbA==
-X-Received: by 2002:a1c:1f88:: with SMTP id f130mr1395123wmf.91.1640159446390; 
- Tue, 21 Dec 2021 23:50:46 -0800 (PST)
+ bh=+BxDvWH9O+bjIEGEOb0fyZp+XpVGE0FDUGCjIylvmdo=;
+ b=TGuVad1rryL7UjgO399W/U6bzRM+uDX1NNa36p6suX5k6ZKai2S4EJGVxS4AQIoK8r
+ ZQR4IQBwq5SU+2q57bee2GxcCsWGRxysqtPZ+RW79TtOPzYOQptyQSMvwEj8HPO2T7n3
+ mJZ0fZJlfaOycfFuPHCs+Ew9S9fTuNVouQEIAr2hukaIuQGGUkwiyyyfp0J1cXLZSHvy
+ fDQ/bJ2HcSetMyHmlSbY53zDypFcnVLK1VGaP/6busomY4fEzEHHqiXPRRunMHIH6ov9
+ QpnKAmJiC0d9MpXhCSLvuk+HvM4i9gTm0mdhm+i3l15d6RLbhXwMqSlVz+QQ0R2P5f/W
+ Y+EQ==
+X-Gm-Message-State: AOAM531dp3elFF3Z2mzFLvASJbt+i4adY1CMLoWJF44EN9gPfvVy46io
+ i+HbyhPErH3desqAhzAADG3QUjuqr84=
+X-Google-Smtp-Source: ABdhPJwjweMQJF0fQU0YIFQfegB8zOrtzc0x8CvuT/WyoXgoZeI/0BI/lG47jP/zelJ3HRVYxeflrg==
+X-Received: by 2002:a05:600c:1e01:: with SMTP id
+ ay1mr60987wmb.152.1640160662985; 
+ Wed, 22 Dec 2021 00:11:02 -0800 (PST)
 Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
  [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id c4sm1167139wrr.37.2021.12.21.23.50.45
+ by smtp.gmail.com with ESMTPSA id j17sm1223512wrp.68.2021.12.22.00.11.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Dec 2021 23:50:45 -0800 (PST)
-Subject: Re: [RFC 3/6] drm/amdgpu: Fix crash on modprobe
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20211217222745.881637-1-andrey.grodzovsky@amd.com>
- <20211217222745.881637-4-andrey.grodzovsky@amd.com>
- <bdbb195f-a9a7-2129-deaa-93e4e49cc8a2@gmail.com>
- <72fe2521-ef31-63d8-6bcf-67af5a74330e@amd.com>
- <48f45e4d-7219-5031-44bf-d1aec3a4bb61@gmail.com>
- <dce7b2d7-ac9c-047c-365b-38added395b8@amd.com>
+ Wed, 22 Dec 2021 00:11:02 -0800 (PST)
+Subject: Re: [PATCH] drm/ttm: add workaround for some arm hardware issue
+To: Victor Zhao <Victor.Zhao@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20211222055140.1215839-1-Victor.Zhao@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <9f32fed2-3a72-44d3-0eb9-474725fc86ab@gmail.com>
-Date: Wed, 22 Dec 2021 08:50:44 +0100
+Message-ID: <b6edb4d8-b9b6-224f-d35f-5477fc1f7687@gmail.com>
+Date: Wed, 22 Dec 2021 09:11:01 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <dce7b2d7-ac9c-047c-365b-38added395b8@amd.com>
+In-Reply-To: <20211222055140.1215839-1-Victor.Zhao@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,97 +73,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel@ffwll.ch, horace.chen@amd.com, christian.koenig@amd.com,
- Monk.Liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.12.21 um 17:03 schrieb Andrey Grodzovsky:
->
-> On 2021-12-21 2:02 a.m., Christian König wrote:
->>
->>
->> Am 20.12.21 um 20:22 schrieb Andrey Grodzovsky:
->>>
->>> On 2021-12-20 2:17 a.m., Christian König wrote:
->>>> Am 17.12.21 um 23:27 schrieb Andrey Grodzovsky:
->>>>> Restrict jobs resubmission to suspend case
->>>>> only since schedulers not initialised yet on
->>>>> probe.
->>>>>
->>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
->>>>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c 
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>> index 5527c68c51de..8ebd954e06c6 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>> @@ -582,7 +582,7 @@ void amdgpu_fence_driver_hw_init(struct 
->>>>> amdgpu_device *adev)
->>>>>           if (!ring || !ring->fence_drv.initialized)
->>>>>               continue;
->>>>>   -        if (!ring->no_scheduler) {
->>>>> +        if (adev->in_suspend && !ring->no_scheduler) {
->>>>
->>>> Uff, why is that suddenly necessary? Because of the changed order?
->>>>
->>>> Christian.
->>>
->>>
->>> Yes.
->>
->> Mhm, that's quite bad design then.
->
->
-> If you look at the original patch for this 
-> https://www.spinics.net/lists/amd-gfx/msg67560.html you will
-> see that that restarting scheduler here is only relevant for 
-> suspend/resume case because there was
-> a race to fix. There is no point in this code on driver init because 
-> nothing was submitted to scheduler yet
-> and so it seems to me ok to add condition that this code run only 
-> in_suspend case.
+Am 22.12.21 um 06:51 schrieb Victor Zhao:
+> Some Arm based platform has hardware issue which may
+> generate incorrect addresses when receiving writes from the CPU
+> with a discontiguous set of byte enables. This affects the writes
+> with write combine property.
 
-Yeah, but having extra logic like this means that we have some design 
-issue in the IP block handling.
+Can you point out which arm platforms are that exactly?
 
-We need to clean that and some other odd approaches up at some point, 
-but probably not now.
+> Workaround by change PROT_NORMAL_NC to PROT_DEVICE_nGnRE on arm.
+> As this is an issue with some specific arm based cpu, adding
+> a ttm parameter to control.
 
+Something as fundamental as this should not be made controllable by an 
+module parameter.
+
+Write combining is very important for good performance and so we should 
+only disable it on boards where we know that this won't work correctly.
+
+Regards,
 Christian.
 
 >
+> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+> ---
+>   drivers/gpu/drm/ttm/ttm_module.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
 >
->>
->> How about we keep the order as is and allow specifying the reset work 
->> queue with drm_sched_start() ?
->
->
-> As i mentioned above, the fact we even have drm_sched_start there is 
-> just part of a solution to resolve a race
-> during suspend/resume. It is not for device initialization and indeed, 
-> other client drivers of gpu shcheduler never call
-> drm_sched_start on device init. We must guarantee that reset work 
-> queue already initialized before any job submission to scheduler
-> and because of that IMHO the right place for this is drm_sched_init.
->
-> Andrey
->
->
->>
->> Christian.
->>
->>>
->>> Andrey
->>>
->>>
->>>>
->>>>> drm_sched_resubmit_jobs(&ring->sched);
->>>>>               drm_sched_start(&ring->sched, true);
->>>>>           }
->>>>
->>
+> diff --git a/drivers/gpu/drm/ttm/ttm_module.c b/drivers/gpu/drm/ttm/ttm_module.c
+> index e87f40674a4d..b27473cbbd52 100644
+> --- a/drivers/gpu/drm/ttm/ttm_module.c
+> +++ b/drivers/gpu/drm/ttm/ttm_module.c
+> @@ -41,6 +41,12 @@
+>   
+>   #include "ttm_module.h"
+>   
+> +static int enable_use_wc = 1;
+> +
+> +MODULE_PARM_DESC(enable_use_wc,
+> +	"control write combine usage on arm platform due to hardware issue with write combine found on some specific arm cpu (1 = enable(default), 0 = disable)");
+> +module_param(enable_use_wc, int, 0644);
+> +
+>   /**
+>    * ttm_prot_from_caching - Modify the page protection according to the
+>    * ttm cacing mode
+> @@ -63,7 +69,7 @@ pgprot_t ttm_prot_from_caching(enum ttm_caching caching, pgprot_t tmp)
+>   #endif
+>   #if defined(__ia64__) || defined(__arm__) || defined(__aarch64__) || \
+>   	defined(__powerpc__) || defined(__mips__)
+> -	if (caching == ttm_write_combined)
+> +	if (caching == ttm_write_combined && enable_use_wc != 0)
+>   		tmp = pgprot_writecombine(tmp);
+>   	else
+>   		tmp = pgprot_noncached(tmp);
 
