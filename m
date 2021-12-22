@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA19C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 22:06:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B366C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 22:06:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5934B10E34F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC6C10E364;
 	Wed, 22 Dec 2021 22:06:00 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5F5410E33B
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 22:05:54 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2069.outbound.protection.outlook.com [40.107.102.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143CB10E34F;
+ Wed, 22 Dec 2021 22:05:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N7N3Jce51lbK0RhSsFiDhQqcpLpRnlvMKithbKTlDfdMZduuglWfnIVaZa5+qH9MFhi527PNw5Ero39Hsssvv0oSzbEWOzSZ1Lx6fjVhSoy6Lcv/8OkDoBZJkJPPDXCapLUWnjr24j5YGGhxqNgpD/5b/HyF1U5NCprpFPX418FVkaR2cEtgldI6HG4htkP58MsneO9HgvgPaIDngjiJYCf6MLH95Sh2W953+A21AJk/sz2oG8rKmKbjZzvhqrwE6Bd9nQJ5aFqtI4yGNapf3Cw+uGZGKASL8DoYy8/jah62AFLIqGzr2x6zvqUzuC8kWlYZzE0vwLPdpQ7TWPTsZw==
+ b=TOKBC0+3Lz10Q0e0kOaQTtlLuKTOAUVPBrYw6slnRMiKsH1sMKuDL7r1jRVRA+M9+NMJl9dSunRkfaAmH8uvd/HfbpLaadJYrP6RFF6q1G6pUunXx3errJAGXCmGA/svACgRkd8iS8La28f2pmElvKEdaw7mbvO9kBtc5Ii+6kk/zE7tqP9nLY3yZHsHglpGeUNvijWSKB8LaAVMusWbKRDgvTnkyh7RBarKGhygAYNvcZfc657TRNoCI5pK7DvVI5yfbDooFdo9NLHlMEBiQr602VGjpc6EAP9vuYC5B6yjNtL49oaYeiS0/Aqqz47yz7AQOjIIv7mGSXrNBTz0kA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jKjrNTcVZSVWJNjrv8se6xUXc+TqdRFqR0wyngB6baA=;
- b=mftctzP0ps/07Xl+yTxILJ94TGiy2sDPRh1GihlMkmYSGjaITxE81PzVXqQ5vqjgEB4ymYzQYgAnoj7JzryUsqSTECIgo7o+ASpPHjEdFJQdG0rZYHsvLG73YAPxwwlDLFzZ6rK/L4TZjaMdUczqIgYjMS37yNvq3eQsC+HVGEoHGGbZ6M35TDNSYW8hyqFAJRtwUwjqDEgEoCdQ8ghYrNzUxFSTeSsECPPPn9L9XBeMrQCNbYPkdeqB7yokPvJC5BXKXyBwGHTlJUa6HQwPXTMiYI92TBiDilsaU1yjO9jq7u3Q8Dq047pyA2pHIUs86AMxTG7sUzPsRsY0J9nGxw==
+ bh=Lk+/v5Ru5WVHNwhF49eB/zlLQWIh929hS53FBd/x8jo=;
+ b=XREJkiPlIjFnoP7zA+WWqyCS+EEQHwKOAkNfvxmSShuu4a3WNeXipqWtf781XarbYXLMfLy3sayfnLGsN99TzkxG1CxfcMdhar2MhkWUVosf0WmV/yy0CSG8CeNElSiUsWzeGpU0/YKyQlrdWZnPSw1peQNryRbtDE4UNCCU0J9d5gf6V36PiFqwtX3Bap2g/MCYoYK13mNsFh52qXT7ejWqObWM7nBWxq9rjhbKW+1IUZRAxS7fA+ovt3EhyNDeAY6P2ajm3SVGgMDxA1mQiLbrvIQKZpVN2iOS50Lykl49xKM5YKZr8mxCLcRFjhuotDlcgr2x0flblS/pl4pr/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jKjrNTcVZSVWJNjrv8se6xUXc+TqdRFqR0wyngB6baA=;
- b=zLNxA21agjQPifZPv3AHNriR0b50BUn0x4FuH7CksWLuqRuPyNZPjyT3Gyn9R5oIYssNj0w9yBXNQ2TnI/L0gEXdv4ffcYacYcI6HW1uBqJwyCV/9RAVcu43Oa6gMJ0ckQZjM1/IfS8cD54CQQdlf1pt69HD3IC/0A5F8Zs6h18=
-Received: from MWHPR07CA0002.namprd07.prod.outlook.com (2603:10b6:300:116::12)
- by MN2PR12MB4390.namprd12.prod.outlook.com (2603:10b6:208:26e::21)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=Lk+/v5Ru5WVHNwhF49eB/zlLQWIh929hS53FBd/x8jo=;
+ b=UIejDADHTDQ3ueckHqECXsw17b6XZcIYi8/mWGUU+swDyAq0nl39P9yzeuCixKoCJKElQ/Uf2Qa1W7ZbHHL8ZRpaoTBLTh+6tfCXLd/oRNFQlq8aKBegNHAS7B5Fv9P2wMtNNBzOOBTCJwoVIPzyvTWgeRpixIHuC6wk6/wx++4=
+Received: from CO2PR04CA0202.namprd04.prod.outlook.com (2603:10b6:104:5::32)
+ by CY4PR12MB1480.namprd12.prod.outlook.com (2603:10b6:910:f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17; Wed, 22 Dec
- 2021 22:05:51 +0000
-Received: from CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:116:cafe::b3) by MWHPR07CA0002.outlook.office365.com
- (2603:10b6:300:116::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.14 via Frontend
- Transport; Wed, 22 Dec 2021 22:05:51 +0000
+ 2021 22:05:55 +0000
+Received: from CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:5:cafe::16) by CO2PR04CA0202.outlook.office365.com
+ (2603:10b6:104:5::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17 via Frontend
+ Transport; Wed, 22 Dec 2021 22:05:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,52 +45,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT059.mail.protection.outlook.com (10.13.174.160) with Microsoft SMTP
+ CO1NAM11FT030.mail.protection.outlook.com (10.13.174.125) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4823.18 via Frontend Transport; Wed, 22 Dec 2021 22:05:51 +0000
-Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 22 Dec
- 2021 16:05:49 -0600
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 6/6] drm/amd/display: Add version check before using DP alt
- query interface
-Date: Wed, 22 Dec 2021 17:05:19 -0500
-Message-ID: <20211222220519.1682537-7-Rodrigo.Siqueira@amd.com>
+ 15.20.4823.18 via Frontend Transport; Wed, 22 Dec 2021 22:05:55 +0000
+Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Wed, 22 Dec 2021 16:05:54 -0600
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: [RFC v2 2/8] drm/amdgpu: Move scheduler init to after XGMI is ready
+Date: Wed, 22 Dec 2021 17:05:00 -0500
+Message-ID: <20211222220506.789133-3-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211222220519.1682537-1-Rodrigo.Siqueira@amd.com>
-References: <20211222220519.1682537-1-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20211222220506.789133-1-andrey.grodzovsky@amd.com>
+References: <20211222220506.789133-1-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f005a67f-9a65-4afa-5418-08d9c5973788
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4390:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB43900716C9A697EE4A543DF0987D9@MN2PR12MB4390.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: b4c354bd-30aa-4560-1def-08d9c5973a16
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1480:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1480122C60CCEE6AC3254586EA7D9@CY4PR12MB1480.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:510;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KNjyHnnValdPrQ/27tz//UA+3VqgR8PgPIglenGcBtGD8Kff1AnJLFw+j//28VZESuhpHsUVdIyKnEk1mB/X8jxhQwBwTDYYtUeVNm41vr9EvKaIV4AwHLFPo/UA5X5voDRxkVAxxmrpyCe9dDyI6HxGliKOX85itLAx3dtyiWxPcZBD0lYYZhwUWJKJ6DSTYF/9xufap9mlzzzABSjm6y+rh2RkDlySe5rPutULDJSVPDY+FD5NmoiHyIZdBKNE+c7p2eUc7TinZucA4Cf6kI5lqEA8fdqnc3Qd7pDw8ZXhayOhRMtMFhmovvKKVXmBpkJGmLLGJjtgLgXTYoVcSrGM9m/TzviiJSLWRsYi7/38RTf0g/a5gPbxUOFwdZ+NtSciRN7Ts47eT8lwUmJBCDB5My/VxXkxKgox5I/C44aSBPJLbu8rE9teaYCrhidQsy/tDgx6Dk/NCAiDmbeDvoBm3kWXO+mIGjQdBRxES4ww3jehOgOCkIM4AM0A1lU1Ivbewz8Wvd1N/8Z6VlbiUPwaUSftWylQ+m9uS0N/R7WI6j7NDoxeViwEimufj3xM+OV8o1Gf1r9HqexUt8aZmHY5x3rBxWoNhQ8AHxPxkutCO2Dyp90PhYEkWT9hc8QNDCYvjNQlfbLufpL/0vcVgGa4rVdF9ATgnaxIab3zH3fqT7FShsACIBG8Ox5iPIxt0PgF/UleJjzfIQioSUT5j5xML8siCy+gFcYdAZ4BjRjaNABPTczw28mAiZFWDWxX5rRrX+T7pE4QHPO0ESpP81FbDtWEkUoawfKYvxKu8AM=
+X-Microsoft-Antispam-Message-Info: nst00jqddR+LwDzG0uVMp6uLxK/iK5CgdbDxyXKBFRCR1GyUvYaaOho5MhQIP/BcuEuWl7uhiS8juxpISxMHrsdRufIam41nQGMSUroA109cqI9yeoBVYx8EtSldoojbsheeAcUH6QHtO52X++m/3rDcv4tp2DnLYV3URjmIZ9xGaNwR8bTSJQekdGzP2RXS9LdctYNkzO6aCaG7z33SqFoiYNFq1qchqBbdINfKpuYfanEorEqwRdFYjm9555gB4WzE5siKv1o5xW/6z5vhiYxFmvX2sGvzQcXQjUuXrsGPF5xujLn/HNedDBk6NnHhEIyQisAs8Yw1wgc0DeH4X2UAYJHndZg2Oar6H1vz6tufG2uwi6rHzuELF3N6Az78F6iKFBz+ZenYBj10Em+8b/9YiuWRrpfcTwh2ScV5ayHFoXW4ai3o3zmPMeT5cV1UlnJhKtUIiyWYdVyaNtymNPrCDwMlUAfGQMYgUBxkJCg6LnWCi4P4HL/mj7Ajg8nUHNZ/I/gSwMKF4/qwZI85JlojFaX35+04+jrLrNN9pT8jn8C69H9mWp7+i+C5LIcl6/rKusCAtmodkrvbLxIH4aqpsTSxXZ/6ck1/tprfDdGwfKyojO/XENkOzv9BXHMWbeVDO5kBMp1pKAttmh74zIzD1s3Z2JL/Q0scjKWYlh30JxJfHGCDzjlFL89Ory0yxozjWb21dkPu8Jkje5jrYUgeEirkBYWmNQwtD8fgF463NJaT1o/SQTgLuaRK/l4OBlBmocTe9Qy7i8tmrgMGWRPbcl7FCWovGYuRQLOybLg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(40470700002)(46966006)(316002)(40460700001)(336012)(6916009)(508600001)(83380400001)(47076005)(36860700001)(426003)(82310400004)(186003)(6666004)(356005)(4326008)(16526019)(86362001)(8936002)(5660300002)(36756003)(26005)(1076003)(70586007)(2906002)(81166007)(8676002)(70206006)(54906003)(2616005)(36900700001);
+ SFS:(4636009)(36840700001)(40470700002)(46966006)(6666004)(70586007)(36860700001)(2616005)(81166007)(70206006)(44832011)(26005)(336012)(47076005)(1076003)(426003)(4326008)(54906003)(16526019)(83380400001)(5660300002)(36756003)(316002)(7696005)(8676002)(40460700001)(110136005)(356005)(82310400004)(186003)(2906002)(86362001)(8936002)(508600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2021 22:05:51.0332 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f005a67f-9a65-4afa-5418-08d9c5973788
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2021 22:05:55.3335 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4c354bd-30aa-4560-1def-08d9c5973a16
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4390
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1480
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,188 +101,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Hansen Dsouza <hansen.dsouza@amd.com>,
- solomon.chiu@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- mikita.lipski@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: Monk.Liu@amd.com, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ horace.chen@amd.com, christian.koenig@amd.com, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Before we initialize schedulers we must know which reset
+domain are we in - for single device there iis a single
+domain per device and so single wq per device. For XGMI
+the reset domain spans the entire XGMI hive and so the
+reset wq is per hive.
 
-[Why]
-To maintain compatibility with firmware older than 4.0.11.
-
-Those firmware may have interrmittent hangs with RDCSPIPE or the PHY,
-but we shouldn't regress their previous behavior.
-
-[How]
-Use the new path if firmware is development or 4.0.11 or newer. Use the
-legacy path otherwise.
-
-Fixes: b60a041393f7 ("drm/amd/display: Query DMCUB for dp alt status")
-
-Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- .../display/dc/dcn31/dcn31_dio_link_encoder.c | 114 +++++++++++++++---
- 1 file changed, 94 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 45 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 34 ++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  2 +
+ 3 files changed, 51 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
-index 71c359f9cdd2..8b9b1a5309ba 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dio_link_encoder.c
-@@ -100,6 +100,35 @@ static uint8_t phy_id_from_transmitter(enum transmitter t)
- 	return phy_id;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0f3e6c078f88..7c063fd37389 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2284,6 +2284,47 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
+ 	return r;
  }
  
-+static bool has_query_dp_alt(struct link_encoder *enc)
++static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
 +{
-+	struct dc_dmub_srv *dc_dmub_srv = enc->ctx->dmub_srv;
++	long timeout;
++	int r, i;
 +
-+	/* Supports development firmware and firmware >= 4.0.11 */
-+	return dc_dmub_srv &&
-+	       !(dc_dmub_srv->dmub->fw_version >= DMUB_FW_VERSION(4, 0, 0) &&
-+		 dc_dmub_srv->dmub->fw_version <= DMUB_FW_VERSION(4, 0, 10));
-+}
++	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
++		struct amdgpu_ring *ring = adev->rings[i];
 +
-+static bool query_dp_alt_from_dmub(struct link_encoder *enc,
-+				   union dmub_rb_cmd *cmd)
-+{
-+	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
-+	struct dc_dmub_srv *dc_dmub_srv = enc->ctx->dmub_srv;
++		/* No need to setup the GPU scheduler for rings that don't need it */
++		if (!ring || ring->no_scheduler)
++			continue;
 +
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->query_dp_alt.header.type = DMUB_CMD__VBIOS;
-+	cmd->query_dp_alt.header.sub_type =
-+		DMUB_CMD__VBIOS_TRANSMITTER_QUERY_DP_ALT;
-+	cmd->query_dp_alt.header.payload_bytes = sizeof(cmd->query_dp_alt.data);
-+	cmd->query_dp_alt.data.phy_id = phy_id_from_transmitter(enc10->base.transmitter);
++		switch (ring->funcs->type) {
++		case AMDGPU_RING_TYPE_GFX:
++			timeout = adev->gfx_timeout;
++			break;
++		case AMDGPU_RING_TYPE_COMPUTE:
++			timeout = adev->compute_timeout;
++			break;
++		case AMDGPU_RING_TYPE_SDMA:
++			timeout = adev->sdma_timeout;
++			break;
++		default:
++			timeout = adev->video_timeout;
++			break;
++		}
 +
-+	if (!dc_dmub_srv_cmd_with_reply_data(dc_dmub_srv, cmd))
-+		return false;
-+
-+	return true;
-+}
-+
- void dcn31_link_encoder_set_dio_phy_mux(
- 	struct link_encoder *enc,
- 	enum encoder_type_select sel,
-@@ -569,45 +598,90 @@ void dcn31_link_encoder_disable_output(
- bool dcn31_link_encoder_is_in_alt_mode(struct link_encoder *enc)
- {
- 	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
--	struct dc_dmub_srv *dc_dmub_srv = enc->ctx->dmub_srv;
- 	union dmub_rb_cmd cmd;
--	bool is_usb_c_alt_mode = false;
-+	uint32_t dp_alt_mode_disable;
- 
--	if (enc->features.flags.bits.DP_IS_USB_C && dc_dmub_srv) {
--		memset(&cmd, 0, sizeof(cmd));
--		cmd.query_dp_alt.header.type = DMUB_CMD__VBIOS;
--		cmd.query_dp_alt.header.sub_type = DMUB_CMD__VBIOS_TRANSMITTER_QUERY_DP_ALT;
--		cmd.query_dp_alt.header.payload_bytes = sizeof(cmd.panel_cntl.data);
--		cmd.query_dp_alt.data.phy_id = phy_id_from_transmitter(enc10->base.transmitter);
-+	/* Only applicable to USB-C PHY. */
-+	if (!enc->features.flags.bits.DP_IS_USB_C)
-+		return false;
- 
--		if (!dc_dmub_srv_cmd_with_reply_data(dc_dmub_srv, &cmd))
-+	/*
-+	 * Use the new interface from DMCUB if available.
-+	 * Avoids hanging the RDCPSPIPE if DMCUB wasn't already running.
-+	 */
-+	if (has_query_dp_alt(enc)) {
-+		if (!query_dp_alt_from_dmub(enc, &cmd))
- 			return false;
- 
--		is_usb_c_alt_mode = (cmd.query_dp_alt.data.is_dp_alt_disable == 0);
-+		return (cmd.query_dp_alt.data.is_dp_alt_disable == 0);
- 	}
- 
--	return is_usb_c_alt_mode;
-+	/* Legacy path, avoid if possible. */
-+	if (enc->ctx->asic_id.hw_internal_rev != YELLOW_CARP_B0) {
-+		REG_GET(RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DISABLE,
-+			&dp_alt_mode_disable);
-+	} else {
-+		/*
-+		 * B0 phys use a new set of registers to check whether alt mode is disabled.
-+		 * if value == 1 alt mode is disabled, otherwise it is enabled.
-+		 */
-+		if ((enc10->base.transmitter == TRANSMITTER_UNIPHY_A) ||
-+		    (enc10->base.transmitter == TRANSMITTER_UNIPHY_B) ||
-+		    (enc10->base.transmitter == TRANSMITTER_UNIPHY_E)) {
-+			REG_GET(RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DISABLE,
-+				&dp_alt_mode_disable);
-+		} else {
-+			REG_GET(RDPCSPIPE_PHY_CNTL6, RDPCS_PHY_DPALT_DISABLE,
-+				&dp_alt_mode_disable);
++		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
++				   ring->num_hw_submission, amdgpu_job_hang_limit,
++				   timeout, adev->reset_domain.wq, ring->sched_score, ring->name);
++		if (r) {
++			DRM_ERROR("Failed to create scheduler on ring %s.\n",
++				  ring->name);
++			return r;
 +		}
 +	}
 +
-+	return (dp_alt_mode_disable == 0);
- }
- 
- void dcn31_link_encoder_get_max_link_cap(struct link_encoder *enc, struct dc_link_settings *link_settings)
- {
- 	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
--	struct dc_dmub_srv *dc_dmub_srv = enc->ctx->dmub_srv;
- 	union dmub_rb_cmd cmd;
-+	uint32_t is_in_usb_c_dp4_mode = 0;
- 
- 	dcn10_link_encoder_get_max_link_cap(enc, link_settings);
- 
--	if (enc->features.flags.bits.DP_IS_USB_C && dc_dmub_srv) {
--		memset(&cmd, 0, sizeof(cmd));
--		cmd.query_dp_alt.header.type = DMUB_CMD__VBIOS;
--		cmd.query_dp_alt.header.sub_type = DMUB_CMD__VBIOS_TRANSMITTER_QUERY_DP_ALT;
--		cmd.query_dp_alt.header.payload_bytes = sizeof(cmd.panel_cntl.data);
--		cmd.query_dp_alt.data.phy_id = phy_id_from_transmitter(enc10->base.transmitter);
-+	/* Take the link cap directly if not USB */
-+	if (!enc->features.flags.bits.DP_IS_USB_C)
-+		return;
- 
--		if (!dc_dmub_srv_cmd_with_reply_data(dc_dmub_srv, &cmd))
-+	/*
-+	 * Use the new interface from DMCUB if available.
-+	 * Avoids hanging the RDCPSPIPE if DMCUB wasn't already running.
-+	 */
-+	if (has_query_dp_alt(enc)) {
-+		if (!query_dp_alt_from_dmub(enc, &cmd))
- 			return;
- 
--		if (cmd.query_dp_alt.data.is_usb && cmd.query_dp_alt.data.is_dp4 == 0)
-+		if (cmd.query_dp_alt.data.is_usb &&
-+		    cmd.query_dp_alt.data.is_dp4 == 0)
- 			link_settings->lane_count = MIN(LANE_COUNT_TWO, link_settings->lane_count);
++	return 0;
++}
 +
-+		return;
++
+ /**
+  * amdgpu_device_ip_init - run init for hardware IPs
+  *
+@@ -2412,6 +2453,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+ 		}
  	}
+ 
++	r = amdgpu_device_init_schedulers(adev);
++	if (r)
++		goto init_failed;
 +
-+	/* Legacy path, avoid if possible. */
-+	if (enc->ctx->asic_id.hw_internal_rev != YELLOW_CARP_B0) {
-+		REG_GET(RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DP4,
-+			&is_in_usb_c_dp4_mode);
-+	} else {
-+		if ((enc10->base.transmitter == TRANSMITTER_UNIPHY_A) ||
-+		    (enc10->base.transmitter == TRANSMITTER_UNIPHY_B) ||
-+		    (enc10->base.transmitter == TRANSMITTER_UNIPHY_E)) {
-+			REG_GET(RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DP4,
-+				&is_in_usb_c_dp4_mode);
-+		} else {
-+			REG_GET(RDPCSPIPE_PHY_CNTL6, RDPCS_PHY_DPALT_DP4,
-+				&is_in_usb_c_dp4_mode);
-+		}
-+	}
-+
-+	if (!is_in_usb_c_dp4_mode)
-+		link_settings->lane_count = MIN(LANE_COUNT_TWO, link_settings->lane_count);
+ 	/* Don't init kfd if whole hive need to be reset during init */
+ 	if (!adev->gmc.xgmi.pending_reset)
+ 		amdgpu_amdkfd_device_init(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 3b7e86ea7167..5527c68c51de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -456,8 +456,6 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+ 				  atomic_t *sched_score)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	long timeout;
+-	int r;
+ 
+ 	if (!adev)
+ 		return -EINVAL;
+@@ -477,36 +475,12 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+ 	spin_lock_init(&ring->fence_drv.lock);
+ 	ring->fence_drv.fences = kcalloc(num_hw_submission * 2, sizeof(void *),
+ 					 GFP_KERNEL);
+-	if (!ring->fence_drv.fences)
+-		return -ENOMEM;
+ 
+-	/* No need to setup the GPU scheduler for rings that don't need it */
+-	if (ring->no_scheduler)
+-		return 0;
++	ring->num_hw_submission = num_hw_submission;
++	ring->sched_score = sched_score;
+ 
+-	switch (ring->funcs->type) {
+-	case AMDGPU_RING_TYPE_GFX:
+-		timeout = adev->gfx_timeout;
+-		break;
+-	case AMDGPU_RING_TYPE_COMPUTE:
+-		timeout = adev->compute_timeout;
+-		break;
+-	case AMDGPU_RING_TYPE_SDMA:
+-		timeout = adev->sdma_timeout;
+-		break;
+-	default:
+-		timeout = adev->video_timeout;
+-		break;
+-	}
+-
+-	r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+-			   num_hw_submission, amdgpu_job_hang_limit,
+-			   timeout, NULL, sched_score, ring->name);
+-	if (r) {
+-		DRM_ERROR("Failed to create scheduler on ring %s.\n",
+-			  ring->name);
+-		return r;
+-	}
++	if (!ring->fence_drv.fences)
++		return -ENOMEM;
+ 
+ 	return 0;
  }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 4d380e79752c..a4b8279e3011 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -253,6 +253,8 @@ struct amdgpu_ring {
+ 	bool			has_compute_vm_bug;
+ 	bool			no_scheduler;
+ 	int			hw_prio;
++	unsigned 		num_hw_submission;
++	atomic_t		*sched_score;
+ };
+ 
+ #define amdgpu_ring_parse_cs(r, p, ib) ((r)->funcs->parse_cs((p), (ib)))
 -- 
 2.25.1
 
