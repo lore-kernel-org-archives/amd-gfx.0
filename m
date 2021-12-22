@@ -4,124 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36BDAC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 11:25:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C6FAC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 13:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1E3010E884;
-	Wed, 22 Dec 2021 11:25:21 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 545F510E883
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 11:25:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 008F810E168;
+	Wed, 22 Dec 2021 13:51:28 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C597110E168
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 13:51:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gy9kGTGJJnkM+yeSRvfWjtNu/3vQQXM3hGhWERKOxy2lAnnJ7k0mqDz3PzEFzFYoa6YkvlxZ5QTFEf4oO2gPLQBucQAu+1gMoahiup8wmVowEdhGdPxb6uU1KrZSrl7ZdHwO5V2867wfEGTgeQqn8uwAwVopXXfV9AtqAF2sAmzw9ltJNb+ocqi7mWyeOFQNLLV1F+0WdzPdh+SEYbmj+jHCSi+GtiAcqXNTGDeE7nCWwgL8KG4Y8XBFYTRDSQsVD6UIq281yja8h49Ji/jJ3TGZJFB4AnzrR2K7rjmjEaoPUddhB8k5LjNB2wiGkjBU6v+NhTXs39wojbaRtKWNXA==
+ b=RZhkt0eEB2j76GL+hNCmLG+QqNTFKerDqBXQ0K6YjMZCkw3x7gwNoogTQqh2IVyPITBItCrBtIoj0YvlboaPaXwFA6N3Q2MZhS3gL++GUmTkiJfo8zHzXgGyKrCUQyZbbSDY1+0zVOQK2Nkv0K/lopaa7nC5vFSo6XLC7IynTPWHBHoiseZBtKGqWPlhcudN3F07AJCXqn6Bgyd6ZOgIkc4nS3GfedFgwRZ3RmdzJ4FEJXvag0GOc7ULVfr9JZPBS0t4fXrWUe2/H4Tac5/VRvNLFeGkyNHRW+IaYkhwoET3eu1PVNirN78mav2fi5GRvbfutOV8RZ3OB0RnU7AcLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wovm92xQXGVfHKRLHTFnvJCd23fJTpIXGc5YtnQOlmc=;
- b=KbUjbKogmjuJk3Qc9ewiIWpB5ZXChrEA0Uxsxd1BrLHhbcnpf1vrd0u61Fpa7TSs6orD6rGA6SyoatNZCByu7P4WGvQqJaw9NaR6e3AIr5wuZbOIyxZNQNvBbikvz7dayRnSh6CQe3po41mt40mTuHaMO/WphF+l/oLAL20woroOWeO4PLhR2yiTVYPjD1P10RbaqRV8/NW1e81xNf8sfIYZiDweBEF2ENfQHotL8y+vgTan/xNXufUAywWkO2MaVmT05OnEzavclbEVl/BX4wC29pzCKV9K3T68JiXgZ90I7wqM3UI2HV7m702oLpFUzAwF1s/SO6UH8P8zJed5zw==
+ bh=+R7+psov/LVU/ZnaKeVGZXp+nk1KNIHw+e7AFdVBU40=;
+ b=PfDr8FB/bj1rMIuUMCIaME3fxa3MAcUJtx1jhFqBMxYynv7P9F01NOaHjyM8mg45YlrAtstBLTVUBx+0Brg13BmMYd+wNJHbxq2zua8HpArUaZgGM0d9FYaN/+KEfEHx7y7OKEFLiUC3AkaQh2NCrRWlN11oqBLjAx164LMxxOvvBTm8foOnmQOy5jHcNgGqebNv+iTcKm98/nmEUrMjbGP5SgOUSxVnqOHO6amhk3qsrtN7xG2TcllTLoaVf4dSIYZiOXjFgIj+9E9pNiA08Ar4Uv3TpjvvveUzWmu+QvfAvdj0xeP5m6qQGu7sj8Cd1g40SLOdzyohGSr/EE8IQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wovm92xQXGVfHKRLHTFnvJCd23fJTpIXGc5YtnQOlmc=;
- b=Qz1rfTKerM91SZdf2BiAvHRFY9FGDX7PUufU4ZjFKBiJnuuz6FXtbuz1fpS9ux48mpC8HO+f1kBcs7airlhtpZjCNe8dxsGYk08t1oosm1MMGKv2E/v1dhFdy3WI29sfmAoQPsYQvQ6jMpGWsVtb25V08q1Uscf875AhPXEps0c=
-Received: from DM6PR12MB4300.namprd12.prod.outlook.com (2603:10b6:5:21a::21)
- by DM5PR12MB1852.namprd12.prod.outlook.com (2603:10b6:3:10a::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.19; Wed, 22 Dec
- 2021 11:25:18 +0000
-Received: from DM6PR12MB4300.namprd12.prod.outlook.com
- ([fe80::ad2e:ee2e:f3a6:398a]) by DM6PR12MB4300.namprd12.prod.outlook.com
- ([fe80::ad2e:ee2e:f3a6:398a%5]) with mapi id 15.20.4801.020; Wed, 22 Dec 2021
- 11:25:18 +0000
-From: "Nikolic, Marina" <Marina.Nikolic@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "Russell, Kent" <Kent.Russell@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] amdgpu/pm: Modify sysfs to have only read permission in
- SRIOV/ONEVF mode
-Thread-Topic: [PATCH] amdgpu/pm: Modify sysfs to have only read permission in
- SRIOV/ONEVF mode
-Thread-Index: AQHX9yaZ1A0RESguVEGK7wEmINJXUQ==
-Date: Wed, 22 Dec 2021 11:25:17 +0000
-Message-ID: <DM6PR12MB43004E4DF34D166C06C9AB9A8E7D9@DM6PR12MB4300.namprd12.prod.outlook.com>
-References: <20211220160834.8400-1-Marina.Nikolic@amd.com>
- <DM6PR12MB2858E316736722D6682BAAAA857B9@DM6PR12MB2858.namprd12.prod.outlook.com>
- <DM6PR12MB4300CCD940D7D651D07CBD2A8E7C9@DM6PR12MB4300.namprd12.prod.outlook.com>
- <DM6PR12MB4300DD7B8B8F194198F7D6E78E7C9@DM6PR12MB4300.namprd12.prod.outlook.com>
- <DM6PR12MB26190A8388C1E472837BC094E47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26190A8388C1E472837BC094E47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-22T11:25:17.585Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: c38f7bb2-e874-5a67-7f2e-98127a302c17
-authentication-results: dkim=none (message not signed)
+ bh=+R7+psov/LVU/ZnaKeVGZXp+nk1KNIHw+e7AFdVBU40=;
+ b=f1mzkPUPXSxfoM3kZIXlirfhjTo59thvxNJDv41UQ3vb+p7AHNKVK5gOQELkQg+9UwAnphTdxVHe38i7gAPtnl1EqUfSt7Bl3DmEN4mwB78gGbdPsJWMpbMjrWhlugqyOegxYQPXm0UQJBUKhizt70ayVEp99d5KYgsNJ9bgSsg=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6745181b-f969-49af-8c28-08d9c53dbb92
-x-ms-traffictypediagnostic: DM5PR12MB1852:EE_
-x-microsoft-antispam-prvs: <DM5PR12MB18527AB6A6489D7C24206B208E7D9@DM5PR12MB1852.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3968;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: OrIvd6Zq2eytcQeWxGxoI0Fnzd0lXxdPu7Ay9nRDWR+FLuNQ+THggp40dAS4ErreK021WUK93/9LEe8xAhdoorhPwg6KlPm042r0YYCkJMCzNIQDzPLTigpID3b3W1MRpDD0F8WsbK16NTiUKPiEzlCA3SNdg0o51XMF7e5DzhveNIHxBc48ZbqblDHtjruEPo7jssX87VTfFRGm91515mPSgU/aQqQeuBwE4glBdoI0tCDu6SJbAqKVu4dZ6pZvcldSvpL0O0fj/Azp2HvNZndIJgv857DuPhFS8aBe2gZ1MaifulOpOIAvc6Ox2VTJWxs3VE7VP9EwYcOZAToLKHzyJUHO0P6wvABH7pTjBVWRcw2CJx9ARmMpV1CgghV/jgpCiO2poVaVhSnkRiw4170dHL6+SIknmL7lKFJDIZ5L4zH1/t/ya4HROCb1fBXd73imhmTyFsQqp7/QU9vpg1ZdJCuiyieaRDiH/wjmDuUA75TWjpCZXQ8ZcJOS0zj7WwKeauK+Y2aJ1cCCGVxZf8mxYjp+3ZTG6/T3UmClfLqOt+z+fmujNQ/kvcZRY+p64U3/58TGRtwVPcc8FoGIk24plbTxB1fnDXDhphpIQ9RtCyNWqtiGXZB8Pcgl3yRdQeeuTeHwYyZCjE8dS2UwHRj+E5g0bWCNAhSpoQ7MXMXrGEEWZrfUkmMvGapJebiRB5NUTRi57bPP4VBz1v4ggA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4300.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(33656002)(316002)(5660300002)(26005)(110136005)(38100700002)(8936002)(8676002)(7696005)(122000001)(38070700005)(55016003)(86362001)(54906003)(186003)(52536014)(76116006)(4326008)(9686003)(83380400001)(19627405001)(2906002)(6506007)(66946007)(66446008)(53546011)(66476007)(66556008)(91956017)(508600001)(71200400001)(64756008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?hbyUjzyWq6+TcbPKfToT32VGyqSXj7gRAJoD70v47K1MtoVLeStH/EReL2?=
- =?iso-8859-1?Q?+l1uTsZ9AAABoj0r/5aB6BKTbz2Mc+T3DnDmYUN5N1kqZK4NMTdhCw165U?=
- =?iso-8859-1?Q?ETl7jSBZdRoANr357S/y8Cus7ZQgf6FWIlsKZlyLK1AAKtkd0DyOtJ3kcZ?=
- =?iso-8859-1?Q?PKb1dcOim3iNLTPdaDC3XCs9QRQ+u7fJhwWEfxg1erejd3pd6P/P4P5+og?=
- =?iso-8859-1?Q?y3VMedc2MrlQ67bGNz0l5/95NXsz9cGVL/x4SaHxahfUzX1XYYxVb816u7?=
- =?iso-8859-1?Q?WLVQ/xaInkDTNX6vgWHc1A517Nw0IaZ4bJ0A1Ggudmxhfw/h4YN8nIp56w?=
- =?iso-8859-1?Q?dTMsW/yxQxwoP8QHsbQe2AEK7h9pRXxMihyua5LHshY2CQufFwHhUuZn9Z?=
- =?iso-8859-1?Q?2pDqSUfdFmRdBmFKYBZgeB/huXidPVLejHekRPK7nntwEdE1axFUG6FXqM?=
- =?iso-8859-1?Q?h0lR0DrTMiEctoOUpV0oxWodE/ycFf4tmpGbWvRMSWIaau/OBo0e1VAwUZ?=
- =?iso-8859-1?Q?JR4RFgttXnZrUs6mANnV/CHFI0YrcHWPg1SchIXwWNDnTBmC/1pSYR5WFm?=
- =?iso-8859-1?Q?yzQ3w6oPUeFI/9YDu2m40oPvFObRsFvAUdANmJ4663LXKussZ7Jar0ncoD?=
- =?iso-8859-1?Q?1DN86zfGiXtN3Vs250KfBo+Y+LQoGUcTUSeSkVO5BIiJ1iIR+t1MI/5bmQ?=
- =?iso-8859-1?Q?vMZCfS0ImLKeOATvE5L/d4ZGhgoDcdElZ+d+eqFLTPiiHynWpf+9eka7lQ?=
- =?iso-8859-1?Q?AA5HfRkxaqPQ1ASDK0i7X4/z9U+jrK/q1H7FMN9RLYll74wNrZCTWag8QS?=
- =?iso-8859-1?Q?9XwNICnmNr67a+k8rrunjsrD7s0xzdTqCO0oQUDQKgENLv+0zuqZlQypjo?=
- =?iso-8859-1?Q?extFTHISOFd13j8qzncMLJDoiDwEBnlFgONvuXOyaqglzSiM4FDKC6JxmU?=
- =?iso-8859-1?Q?D7EOtEL6RdnELY/Gr/M7ERkKNsyFj7iM1SIaiLS+FgwB0kfgcTklpSya26?=
- =?iso-8859-1?Q?ZG0hwpNHb9NhL0Vor2GhBxV2HUb7TDL7zkw7QmgtqG5cCazPludiOjPFcn?=
- =?iso-8859-1?Q?Z03+EjyXMTcd14lw+HUmFtDVp+6YH8n93ZoryH/VVpXxZOi2bfrkEv5pJM?=
- =?iso-8859-1?Q?11zuUU8CZqvEdVpIF87WXWCgmuHXr92erfSmsuVK9U6w7eeL6fi9bDVgdH?=
- =?iso-8859-1?Q?IXOKkyv5H+102Q+i4I/UYTMyKaPcoyNOVKYm7Hp7TvUhzqxhYKWVj8VQZ3?=
- =?iso-8859-1?Q?6cU//eDl0nB17o6y+bxzlPtptRc+x7DTcv5KZzTk8TvKPV4J4cy8LyIiP6?=
- =?iso-8859-1?Q?JCUdDqAJknfU1jzMBoF2yVgCzL0ZVZ8y3ADinnXpYVEI+/NDe2us5e4bnV?=
- =?iso-8859-1?Q?TgdjY0KUn7i3nhoo+WGSMGF9Cn25uIF5czFXYAB8pT+wAYazaJVxW8PG/I?=
- =?iso-8859-1?Q?SJXAwr3ehTD+kO0q8TH6mseFwxraFKxYM5tAjzGTTPbse2wci0gz97gtUG?=
- =?iso-8859-1?Q?ZU/oi6GN3G5rB1n2Hote3huoFM1xyVxw3nbNzqAwLG0C3PhUG1QJ/Td6ms?=
- =?iso-8859-1?Q?6CdXvW7/lswVdSPl+qqkz92FsW3DG6glEr3kiUqiyO9UVNkKFlgUJJrPF7?=
- =?iso-8859-1?Q?0eXmzA4FmoBOiq0OVQNN+SAvOw7tLhG3ojLHYtcp1nbl2Fyk23FlgfMg?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB43004E4DF34D166C06C9AB9A8E7D9DM6PR12MB4300namp_"
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com (2603:10b6:5:1c9::19)
+ by DM5PR12MB1435.namprd12.prod.outlook.com (2603:10b6:3:7a::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Wed, 22 Dec
+ 2021 13:51:23 +0000
+Received: from DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c]) by DM6PR12MB3930.namprd12.prod.outlook.com
+ ([fe80::41ea:d7dc:f041:633c%5]) with mapi id 15.20.4801.023; Wed, 22 Dec 2021
+ 13:51:23 +0000
+Message-ID: <4fa5bfaf-ac9e-1f88-e9ad-dad342e63614@amd.com>
+Date: Wed, 22 Dec 2021 19:21:10 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH V5 13/16] drm/amd/pm: relocate the power related headers
+Content-Language: en-US
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20211213035223.772700-1-evan.quan@amd.com>
+ <20211213035223.772700-14-evan.quan@amd.com>
+ <9520c003-0321-0d5b-ce06-e2449d52e079@amd.com>
+ <DM6PR12MB2619ED055BF01FE71E8C462FE47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <DM6PR12MB2619ED055BF01FE71E8C462FE47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN1PR0101CA0011.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:e::21) To DM6PR12MB3930.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b2c5a163-8105-4042-fa00-08d9c55223e3
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1435:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1435EDB52B30CFA0F6A016D6977D9@DM5PR12MB1435.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FSHSPHjueLtVTVw4mhjCgbpbmLbpZhTT58yUXG8V9GjIHsVibRXM1rQWflbBFvKR60/l84+gPUVxDN8wR7kgzgyTEpKomlHckjzqe2/15pvxZFbygfGBBxY9HXZdufmTxFSIdySxCRshiigbCtKR2vcLtWPlUnqfpE/g6XIwysI4DTUTaweIfWOFIJg9YQ+aRMzhmIjCDqX9WbyXpy4ptBY3ikblIu9+/gSr5flEi6nTDYGU+VMw9PMUZgOT0qT2R5mEoTXtgVytf06vJiwtnW5r/NXA6LjPvdiQcheGY2YrexYU3urtALRK3yav+7QSd9BXYWN6ZP+DkCyZA4YOCi6RdUyvSyqDUG52H0eqxhdvN7fAVX7LlZmH7vEfOklBQrJWmG+2W6pmj6wFwScp8DAEO/I6r2OrrkWXC3dN1y9N7SwPUvAVTjQXsUvoJ6zSxY0Z5QCHPj8DGBGPGprp1SinRD5f++IFD/rKDJHbGgZjD+kzO/+KZJDO7vwTkPlZJZqscKGJey+lP1EdcYDJsWoT3D5PLeDS/F+3eycZgwunkIpRg4ix6JUAlYdj4Mt2FUGMEkGnCSIp+mtCnUKS7QU1Zq9bNg3AP6wLjtB96NfGfPlgi2gU4O67ALx0bBHYzGNC7QCK0Ar0sqT5RUXgpYr2tmsPK4444AeKF+GZJgjf4QMsQPy8imQzpG+lFccz5tID9pRKn0PgL3iDUES9AxgH7Yecx9QYip2p3EfK6+PuHsLGNGLXNSDU68LAKO0A
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3930.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(5660300002)(8936002)(30864003)(66476007)(36756003)(31686004)(110136005)(26005)(66556008)(66946007)(6512007)(53546011)(83380400001)(31696002)(2616005)(316002)(38100700002)(508600001)(86362001)(4326008)(6666004)(6506007)(6486002)(186003)(2906002)(8676002)(45980500001)(43740500002)(579004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QlVzQ3hEMmNrdVZ4N1dkNFc1NmR5Z0RFN2hMQ2hNSi84Uzc2MlVoUFN3NzF3?=
+ =?utf-8?B?WURHSXZLQUloS2xiV0Y5c3lLdWhaYnQwZ0xFd25sd0lOTFRRTnNEQnZHbHd4?=
+ =?utf-8?B?NEdtNnpZS0RldlBKYWNyL3RzTVBwU0N1SFYxOUU0aU93WCtwK1FFVVZIZTJE?=
+ =?utf-8?B?NTZIY3Z4NkNGbUZYRHlLZ1ZZRXZNKzRXZDNmdnVHSys0Yjdjb1A3V2h0bTBB?=
+ =?utf-8?B?ZGg3Q1RSeXI1VTVpYVM3Qm5Za3o1VkJNemxXTzdlS3o0bHZiMGtvdVZUMG0w?=
+ =?utf-8?B?L3Z1b1dZK2lTNWxJWE9INjB1L0lrMVJ5VVBBYW5MbGtvQzlneFYzY2dYRHBE?=
+ =?utf-8?B?UHhXTXFIcWVFYStjdkVtYVRocDJCTlZ6eGVRWStLVTIrQm1PcjdiNVZoMWt2?=
+ =?utf-8?B?cU1hdkxpN3ltTGp0cVM3MjdlOVZSN0N2VnZkWmdzK2g5MVJUa0psZ0hkNkJM?=
+ =?utf-8?B?RFFsQ0dYQkw4dUlYcUFyQkd2c0YwS0c3WEdmTmR5dnZHSkRURVRjVVRlVFl0?=
+ =?utf-8?B?K1JORkxBL2ZibDNNdVkvVGU3cmVkeFJvL2IxMm5PSm9OaXFJOUdDUjNZaVV3?=
+ =?utf-8?B?YlJyVEVMb0FlSWFvL3FEYTJlMFRyYzVkL29wcnVOOTNhcWFDa1krS3RpeG1i?=
+ =?utf-8?B?UHdGQWowbmxMTGxxNXNCYnNMQ0VJWlNVTitqUzNUZlBqQW92TzFOa3liU3VD?=
+ =?utf-8?B?Um84ZW5RZHpKNHc3ekxzUDl6TDMyNG9lb0V3UUVrSkUrMzJBN0hKM2dOTUpQ?=
+ =?utf-8?B?MXdDS1d3OEg1ZXNjUzFBR3VFTWxPVWVCNFFwSzRaSmxtcEVqQXcxK1ZSaENr?=
+ =?utf-8?B?ZkpMaVJTMmNkeUxLNThVZGNheGV4bW5MQzYrUElXb1U5LzY4Z2pZUU5sQld0?=
+ =?utf-8?B?MVVzQUlsU3NDcDJacHBXT3pqaC9ZS1M3YVJOVWtJeVN2TzZRUFppM0hVQ2pL?=
+ =?utf-8?B?SEdibGE0VzBVVDIzNFNQL3VtYkUrbVNuSnVnNzdaQnFPdUFMVHVlcUJjRWVS?=
+ =?utf-8?B?ekFMWnNCdDZ1TVpmVGMwUXJJQnlwNXNOcmJNcTRQMXlBcmNVMWdoOVBUU1Br?=
+ =?utf-8?B?ZEhHQjl3Y0ZqTmJGVlpzM2hmOUJXV1YzSHR6RElEUlE3aHN5Vml6MVN3a1hP?=
+ =?utf-8?B?ZzlMc3N4YXJiMWNacW5Oa3BZcDV3bEJZbHgxU09pTjVaMjlSaWVkSGJsVmRi?=
+ =?utf-8?B?eEUwa0VCNnZFRXY0WDFBRU1wTlIxZVBVVDRLOWxRVUJZTmU0WnVjaElTQ3Bw?=
+ =?utf-8?B?ckRCTzc2Q1VXT0w2d2Q5UG45bTZBZXpraE9HYTViejNsRGtHZGdOQ2M5cGNi?=
+ =?utf-8?B?ckxNTkQ4Vm81RXYxdnBCM0ExRmJjR2xhbDBpdldyb2tOL2NmMkZ6ODBGNEV2?=
+ =?utf-8?B?M2ZReit2RnJZTHFBWlVwRGNIaFNRKzRhcHZjU3I3V0kzUkxndlU5eVJNVHNE?=
+ =?utf-8?B?bDFiM0EzdUI3VjU0eGpxTUF0ZE8zRTlZNFE0eC9Dek9VSWpFTUtLNkJhV2gx?=
+ =?utf-8?B?b1AyUTFERzhBNUxVS25TaTZzWkIvYVNwT2Y1SnlBbzljRnJYSW5aQktVV1g5?=
+ =?utf-8?B?RmFTdUVkWGU5SzdtbnpzZlN3b1V6MDZXVnJ0a1A0NXlGVVpZcS9XYitkZ05Y?=
+ =?utf-8?B?eWRwaTdTdkdiYThNT0IvVnNydGt1c2dXcGRjK3lsR0FVTUxGWTlsbXF0Q1ha?=
+ =?utf-8?B?YTd0cG1xRi9WcFMrcCtkQk9pc2p3UmhsM3Jib0toWitJOUdGNU1SVEU5U0Rv?=
+ =?utf-8?B?U2xhY2lGeW8vcVVlV05PbVI0cnhNMC9Ka1hNc2k3M1MxY0U4Um9EdFlJS2N1?=
+ =?utf-8?B?aEdJaUM4RzJEUE0zeUh5UWdObmJJN29JMlk2WXRsYlRkc2NUL0xTTS9xQnFH?=
+ =?utf-8?B?TERtNnQwRUJsSkxYT2krSU04SHJMeG8vbndXWjRNZmVOaUFtY3dNeTlla1VN?=
+ =?utf-8?B?MXhWTk85aHJVcHhhRzRmNEJPaTdjSHM4VXJadVoxejlickJQOStpRk1obmU1?=
+ =?utf-8?B?bVNEM0IvK0JOZEphcGh1NTQxcVJxR29rWXRuclJWZ1RwdHV0VzFERS9PVmdj?=
+ =?utf-8?B?U0RpU3E1OVFmTHJDVlUxQjZsM0FMdkprSzhXSXE2eUV3OFEra3dyZy9WTzRz?=
+ =?utf-8?Q?pxuM=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2c5a163-8105-4042-fa00-08d9c55223e3
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3930.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4300.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6745181b-f969-49af-8c28-08d9c53dbb92
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Dec 2021 11:25:17.9475 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Q/7HO370hwmat6/4MLz5HEVDc5Yc7L7/8aB0ZviAOydiXpiwi+JsBJgdufCZaTW6cHgyp46trZoKUcL41evkeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1852
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2021 13:51:23.4236 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h4KrEjulaWXYo0ZXEXr86F+bsp4TPm31iVRhgUaSBYesdXDAEbhVhVNHbXaX/Ckl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,969 +129,894 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Mitrovic, Milan" <Milan.Mitrovic@amd.com>, "Kitchen,
- Greg" <Greg.Kitchen@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB43004E4DF34D166C06C9AB9A8E7D9DM6PR12MB4300namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only]
 
-From a6512c0897aa58ccac9e5483d31193d83fb590b2 Mon Sep 17 00:00:00 2001
-From: Marina Nikolic <Marina.Nikolic@amd.com>
-Date: Tue, 14 Dec 2021 20:57:53 +0800
-Subject: [PATCH] amdgpu/pm: Modify sysfs to have only read permission in
- SRIOV/ONEVF mode
-
-=3D=3D Description =3D=3D
-Setting through sysfs should not be allowed in SRIOV mode.
-These calls will not be processed by FW anyway,
-but error handling on sysfs level should be improved.
-
-=3D=3D Changes =3D=3D
-This patch prohibits performing of all set commands
-in SRIOV mode on sysfs level.
-It offers better error handling as calls that are
-not allowed will not be propagated further.
-
-=3D=3D Test =3D=3D
-Writing to any sysfs file in passthrough mode will succeed.
-Writing to any sysfs file in ONEVF mode will yield error:
-"calling process does not have sufficient permission to execute a command".
-
-Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index 082539c70fd4..c43818cd02aa 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_device =
-*adev, struct amdgpu_device_
-                }
-        }
-
-+       /* setting should not be allowed from VF */
-+       if (amdgpu_sriov_vf(adev)) {
-+               dev_attr->attr.mode &=3D ~S_IWUGO;
-+               dev_attr->store =3D NULL;
-+       }
-+
- #undef DEVICE_ATTR_IS
-
-        return 0;
---
-2.20.1
-
-
-________________________________
-From: Quan, Evan <Evan.Quan@amd.com>
-Sent: Wednesday, December 22, 2021 4:19 AM
-To: Nikolic, Marina <Marina.Nikolic@amd.com>; Russell, Kent <Kent.Russell@a=
-md.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com>; Kitchen, Greg <Greg.Kitchen@a=
-md.com>
-Subject: RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
-premission in ONEVF mode
-
-
-[AMD Official Use Only]
-
-
-
-
-
-
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Nikolic,=
- Marina
-Sent: Tuesday, December 21, 2021 10:36 PM
-To: Russell, Kent <Kent.Russell@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com>; Kitchen, Greg <Greg.Kitchen@a=
-md.com>
-Subject: Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
-premission in ONEVF mode
-
-
-
-[AMD Official Use Only]
-
-
-
-[AMD Official Use Only]
-
-
-
-From 06359f3be0c0b889519d6dd954fb11f31e9a15e0 Mon Sep 17 00:00:00 2001
-
-From: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>=
->
-
-Date: Tue, 14 Dec 2021 20:57:53 +0800
-
-Subject: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read
-
- permission in ONEVF mode
-
-[Quan, Evan] With the subject updated(remove the description about pp_dpm_s=
-clk), the patch is acked-by: Evan Quan <evan.quan@amd.com>
-
-
-
-BR
-
-Evan
-
-=3D=3D Description =3D=3D
-
-Setting through sysfs should not be allowed in SRIOV mode.
-
-These calls will not be processed by FW anyway,
-
-but error handling on sysfs level should be improved.
-
-
-
-=3D=3D Changes =3D=3D
-
-This patch prohibits performing of all set commands
-
-in SRIOV mode on sysfs level.
-
-It offers better error handling as calls that are
-
-not allowed will not be propagated further.
-
-
-
-=3D=3D Test =3D=3D
-
-Writing to any sysfs file in passthrough mode will succeed.
-
-Writing to any sysfs file in ONEVF mode will yield error:
-
-"calling process does not have sufficient permission to execute a command".
-
-
-
-Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikolic=
-@amd.com>>
-
----
-
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
-
- 1 file changed, 6 insertions(+)
-
-
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-
-index 082539c70fd4..c43818cd02aa 100644
-
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-
-@@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_device =
-*adev, struct amdgpu_device_
-
-                }
-
-        }
-
-
-
-+       /* setting should not be allowed from VF */
-
-+       if (amdgpu_sriov_vf(adev)) {
-
-+               dev_attr->attr.mode &=3D ~S_IWUGO;
-
-+               dev_attr->store =3D NULL;
-
-+       }
-
-+
-
- #undef DEVICE_ATTR_IS
-
-
-
-        return 0;
-
---
-
-2.20.1
-
-
-
-________________________________
-
-From: Nikolic, Marina <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com=
+On 12/22/2021 10:53 AM, Quan, Evan wrote:
+> [AMD Official Use Only]
+> 
+> 
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Tuesday, December 21, 2021 2:22 PM
+>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Subject: Re: [PATCH V5 13/16] drm/amd/pm: relocate the power related
+>> headers
 >>
-Sent: Tuesday, December 21, 2021 3:15 PM
-To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; amd-=
-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@li=
-sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com>>=
-; Kitchen, Greg <Greg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
-Subject: Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
-premission in ONEVF mode
+>>
+>>
+>> On 12/13/2021 9:22 AM, Evan Quan wrote:
+>>> Instead of centralizing all headers in the same folder. Separate them
+>>> into different folders and place them among those source files those
+>>> who really need them.
+>>>
+>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
+>>> Change-Id: Id74cb4c7006327ca7ecd22daf17321e417c4aa71
+>>> --
+>>> v1->v2:
+>>>     - create separate holders for driver_if and ppsmc headers(Lijo)
+>>> ---
+>>>    drivers/gpu/drm/amd/pm/Makefile               | 12 ++++---
+>>>    drivers/gpu/drm/amd/pm/legacy-dpm/Makefile    | 32
+>> +++++++++++++++++++
+>>>    .../pm/{powerplay => legacy-dpm}/cik_dpm.h    |  0
+>>>    .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.c |  0
+>>>    .../amd/pm/{powerplay => legacy-dpm}/kv_dpm.h |  0
+>>>    .../amd/pm/{powerplay => legacy-dpm}/kv_smc.c |  0
+>>>    .../pm/{powerplay => legacy-dpm}/legacy_dpm.c |  0
+>>>    .../pm/{powerplay => legacy-dpm}/legacy_dpm.h |  0
+>>>    .../amd/pm/{powerplay => legacy-dpm}/ppsmc.h  |  0
+>>>    .../pm/{powerplay => legacy-dpm}/r600_dpm.h   |  0
+>>>    .../amd/pm/{powerplay => legacy-dpm}/si_dpm.c |  0
+>>>    .../amd/pm/{powerplay => legacy-dpm}/si_dpm.h |  0
+>>>    .../amd/pm/{powerplay => legacy-dpm}/si_smc.c |  0
+>>>    .../{powerplay => legacy-dpm}/sislands_smc.h  |  0
+>>>    drivers/gpu/drm/amd/pm/powerplay/Makefile     |  6 +---
+>>>    .../pm/{ => powerplay}/inc/amd_powerplay.h    |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h |  0
+>>>    .../amd/pm/{ => powerplay}/inc/fiji_ppsmc.h   |  0
+>>>    .../pm/{ => powerplay}/inc/hardwaremanager.h  |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/hwmgr.h    |  0
+>>>    .../{ => powerplay}/inc/polaris10_pwrvirus.h  |  0
+>>>    .../amd/pm/{ => powerplay}/inc/power_state.h  |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/pp_debug.h |  0
+>>>    .../amd/pm/{ => powerplay}/inc/pp_endian.h    |  0
+>>>    .../amd/pm/{ => powerplay}/inc/pp_thermal.h   |  0
+>>>    .../amd/pm/{ => powerplay}/inc/ppinterrupt.h  |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/smu10.h    |  0
+>>>    .../pm/{ => powerplay}/inc/smu10_driver_if.h  |  0
+>>>    .../pm/{ => powerplay}/inc/smu11_driver_if.h  |  0
+>>>    .../gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/smu71.h    |  0
+>>>    .../pm/{ => powerplay}/inc/smu71_discrete.h   |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/smu72.h    |  0
+>>>    .../pm/{ => powerplay}/inc/smu72_discrete.h   |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/smu73.h    |  0
+>>>    .../pm/{ => powerplay}/inc/smu73_discrete.h   |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/smu74.h    |  0
+>>>    .../pm/{ => powerplay}/inc/smu74_discrete.h   |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/smu75.h    |  0
+>>>    .../pm/{ => powerplay}/inc/smu75_discrete.h   |  0
+>>>    .../amd/pm/{ => powerplay}/inc/smu7_common.h  |  0
+>>>    .../pm/{ => powerplay}/inc/smu7_discrete.h    |  0
+>>>    .../amd/pm/{ => powerplay}/inc/smu7_fusion.h  |  0
+>>>    .../amd/pm/{ => powerplay}/inc/smu7_ppsmc.h   |  0
+>>>    .../gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h |  0
+>>>    .../amd/pm/{ => powerplay}/inc/smu8_fusion.h  |  0
+>>>    .../gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h |  0
+>>>    .../pm/{ => powerplay}/inc/smu9_driver_if.h   |  0
+>>>    .../{ => powerplay}/inc/smu_ucode_xfer_cz.h   |  0
+>>>    .../{ => powerplay}/inc/smu_ucode_xfer_vi.h   |  0
+>>>    .../drm/amd/pm/{ => powerplay}/inc/smumgr.h   |  0
+>>>    .../amd/pm/{ => powerplay}/inc/tonga_ppsmc.h  |  0
+>>>    .../amd/pm/{ => powerplay}/inc/vega10_ppsmc.h |  0
+>>>    .../inc/vega12/smu9_driver_if.h               |  0
+>>>    .../amd/pm/{ => powerplay}/inc/vega12_ppsmc.h |  0
+>>>    .../amd/pm/{ => powerplay}/inc/vega20_ppsmc.h |  0
+>>>    .../drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h   |  0
+>>>    .../inc/interface}/smu11_driver_if_arcturus.h |  0
+>>>    .../smu11_driver_if_cyan_skillfish.h          |  0
+>>>    .../inc/interface}/smu11_driver_if_navi10.h   |  0
+>>>    .../smu11_driver_if_sienna_cichlid.h          |  0
+>>>    .../inc/interface}/smu11_driver_if_vangogh.h  |  0
+>>>    .../inc/interface}/smu12_driver_if.h          |  0
+>>>    .../interface}/smu13_driver_if_aldebaran.h    |  0
+>>>    .../interface}/smu13_driver_if_yellow_carp.h  |  0
+>>>    .../inc/interface}/smu_v11_5_pmfw.h           |  0
+>>>    .../inc/interface}/smu_v11_8_pmfw.h           |  0
+>>>    .../inc/interface}/smu_v13_0_1_pmfw.h         |  0
+>>>    .../inc/message}/aldebaran_ppsmc.h            |  0
+>>>    .../inc/message}/arcturus_ppsmc.h             |  0
+>>>    .../inc/message}/smu_v11_0_7_ppsmc.h          |  0
+>>>    .../inc/message}/smu_v11_0_ppsmc.h            |  0
+>>>    .../inc/message}/smu_v11_5_ppsmc.h            |  0
+>>>    .../inc/message}/smu_v11_8_ppsmc.h            |  0
+>>>    .../inc/message}/smu_v12_0_ppsmc.h            |  0
+>>>    .../inc/message}/smu_v13_0_1_ppsmc.h          |  0
+>>>    .../pm/{ => swsmu}/inc/smu_11_0_cdr_table.h   |  0
+>>>    .../drm/amd/pm/{ => swsmu}/inc/smu_types.h    |  0
+>>>    .../drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h    |  0
+>>>    .../pm/{ => swsmu}/inc/smu_v11_0_7_pptable.h  |  0
+>>>    .../pm/{ => swsmu}/inc/smu_v11_0_pptable.h    |  0
+>>>    .../drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h    |  0
+>>>    .../drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h    |  0
+>>>    .../pm/{ => swsmu}/inc/smu_v13_0_pptable.h    |  0
+>>>    .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 -
+>>>    .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 -
+>>>    87 files changed, 41 insertions(+), 11 deletions(-)
+>>>    create mode 100644 drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-
+>> dpm}/cik_dpm.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_dpm.c
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-
+>> dpm}/kv_dpm.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/kv_smc.c
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-
+>> dpm}/legacy_dpm.c (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-
+>> dpm}/legacy_dpm.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-
+>> dpm}/r600_dpm.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.c
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_dpm.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-dpm}/si_smc.c
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{powerplay => legacy-
+>> dpm}/sislands_smc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/amd_powerplay.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/cz_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/fiji_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/hardwaremanager.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/hwmgr.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/polaris10_pwrvirus.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/power_state.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_debug.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_endian.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/pp_thermal.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/ppinterrupt.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/rv_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu10.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/smu10_driver_if.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/smu11_driver_if.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu71_discrete.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu72_discrete.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu73_discrete.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu74_discrete.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu75_discrete.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_common.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_discrete.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_fusion.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu7_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu8_fusion.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smu9_driver_if.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/smu_ucode_xfer_cz.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/smu_ucode_xfer_vi.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/smumgr.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/tonga_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega10_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> powerplay}/inc/vega12/smu9_driver_if.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega12_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => powerplay}/inc/vega20_ppsmc.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/amdgpu_smu.h
+>> (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu11_driver_if_arcturus.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu11_driver_if_cyan_skillfish.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu11_driver_if_navi10.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu11_driver_if_sienna_cichlid.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu11_driver_if_vangogh.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu12_driver_if.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu13_driver_if_aldebaran.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu13_driver_if_yellow_carp.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu_v11_5_pmfw.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu_v11_8_pmfw.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/interface}/smu_v13_0_1_pmfw.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/message}/aldebaran_ppsmc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/message}/arcturus_ppsmc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/message}/smu_v11_0_7_ppsmc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/message}/smu_v11_0_ppsmc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/message}/smu_v11_5_ppsmc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/message}/smu_v11_8_ppsmc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>> swsmu/inc/message}/smu_v12_0_ppsmc.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{inc =>
+>>> swsmu/inc/message}/smu_v13_0_1_ppsmc.h (100%)
+>>
+>> I didn't mean to separate them to two different folders. Original intention
+>> was to group together FW headers as 'third party component'
+>> headers in a separate folder.
+> [Quan, Evan] OK, if I gather all those pmfw related headers into a separate folder named "pmfw_if", does that make sense to you?
+> 
+Yes, that's fine.
 
+Thanks,
+Lijo
 
-
-Hi Kent,
-
-
-
-Thank you for the review. Yes, I can confirm I am trying to set this for ev=
-ery single file for SRIOV mode.
-
-@Kitchen, Greg<mailto:Greg.Kitchen@amd.com> required this for ROCM-SMI 5.0 =
-release. In case you need it, he can provide more details.
-
-I'm going to clarify commit message more and send a new patch.
-
-
-
-BR,
-Marina
-
-________________________________
-
-From: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>
-Sent: Monday, December 20, 2021 8:01 PM
-To: Nikolic, Marina <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>>=
-; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-=
-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com>>=
-; Nikolic, Marina <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>>; =
-Kitchen, Greg <Greg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
-Subject: RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
-premission in ONEVF mode
-
-
-
-[AMD Official Use Only]
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounc=
-es@lists.freedesktop.org>> On Behalf Of Marina Nikolic
-> Sent: Monday, December 20, 2021 11:09 AM
-> To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com=
->>; Nikolic, Marina
-> <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>>; Kitchen, Greg <G=
-reg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
-> Subject: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read pr=
-emission in
-> ONEVF mode
->
-> =3D=3D Description =3D=3D
-> Due to security reasons setting through sysfs
-> should only be allowed in passthrough mode.
-> Options that are not mapped as SMU messages
-> do not have any mechanizm to distinguish between
-> passthorugh, onevf and mutivf usecase.
-> A unified approach is needed.
->
-> =3D=3D Changes =3D=3D
-> This patch introduces a new mechanizm to distinguish
-> ONEVF and PASSTHROUGH use case on sysfs level
-> and prohibit setting (writting to sysfs).
-> It also applies the new mechanizm on pp_dpm_sclk sysfs file.
->
-> =3D=3D Test =3D=3D
-> Writing to pp_dpm_sclk sysfs file in passthrough mode will succeed.
-> Writing to pp_dpm_sclk sysfs file in ONEVF mode will yield error:
-> "calling process does not have sufficient permission to execute a command=
-".
-> Sysfs pp_dpm_sclk will not be created in MULTIVF mode.
->
-> Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikol=
-ic@amd.com>>
-> ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index 082539c70fd4..d2b168babc7d 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_devic=
-e *adev,
-> struct amdgpu_device_
->               }
->       }
->
-> +     /* security: setting should not be allowed from VF */
-> +     if (amdgpu_sriov_vf(adev)) {
-
-You should be checking for pp_dpm_sclk here, for example:
-                if (DEVICE_ATTR_IS(pp_dpm_sclk) {
-
-Otherwise I am pretty sure you're setting this for every single file. And i=
-s it only sclk? Or does it also need to affect mclk/fclk/etc? If it's only =
-sclk, the line above should help. If it's for more, then the commit should =
-try to clarify that as it's not 100% clear.
-
- Kent
-
-> +             dev_attr->attr.mode &=3D ~S_IWUGO;
-> +             dev_attr->store =3D NULL;
-> +     }
-> +
->  #undef DEVICE_ATTR_IS
->
->       return 0;
-> --
-> 2.20.1
-
---_000_DM6PR12MB43004E4DF34D166C06C9AB9A8E7D9DM6PR12MB4300namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-From a6512c0897aa58ccac9e5483d31193d83fb590b2 Mon Sep 17 00:00:00 2001
-<div>From: Marina Nikolic &lt;Marina.Nikolic@amd.com&gt;</div>
-<div>Date: Tue, 14 Dec 2021 20:57:53 +0800</div>
-<div>Subject: [PATCH] amdgpu/pm: Modify sysfs to have only read permission =
-in</div>
-<div>&nbsp;SRIOV/ONEVF mode</div>
-<div><br>
-</div>
-<div>=3D=3D Description =3D=3D</div>
-<div>Setting through sysfs should not be allowed in SRIOV mode.</div>
-<div>These calls will not be processed by FW anyway,</div>
-<div>but error handling on sysfs level should be improved.</div>
-<div><br>
-</div>
-<div>=3D=3D Changes =3D=3D</div>
-<div>This patch prohibits performing of all set commands</div>
-<div>in SRIOV mode on sysfs level.</div>
-<div>It offers better error handling as calls that are</div>
-<div>not allowed will not be propagated further.</div>
-<div><br>
-</div>
-<div>=3D=3D Test =3D=3D</div>
-<div>Writing to any sysfs file in passthrough mode will succeed.</div>
-<div>Writing to any sysfs file in ONEVF mode will yield error:</div>
-<div>&quot;calling process does not have sufficient permission to execute a=
- command&quot;.</div>
-<div><br>
-</div>
-<div>Signed-off-by: Marina Nikolic &lt;Marina.Nikolic@amd.com&gt;</div>
-<div>---</div>
-<div>&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++</div>
-<div>&nbsp;1 file changed, 6 insertions(+)</div>
-<div><br>
-</div>
-<div>diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/=
-pm/amdgpu_pm.c</div>
-<div>index 082539c70fd4..c43818cd02aa 100644</div>
-<div>--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c</div>
-<div>+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c</div>
-<div>@@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_de=
-vice *adev, struct amdgpu_device_</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; }</div>
-<div><br>
-</div>
-<div>+ &nbsp; &nbsp; &nbsp; /* setting should not be allowed from VF */</di=
-v>
-<div>+ &nbsp; &nbsp; &nbsp; if (amdgpu_sriov_vf(adev)) {</div>
-<div>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dev_attr-&gt;attr.m=
-ode &amp;=3D ~S_IWUGO;</div>
-<div>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dev_attr-&gt;store =
-=3D NULL;</div>
-<div>+ &nbsp; &nbsp; &nbsp; }</div>
-<div>+</div>
-<div>&nbsp;#undef DEVICE_ATTR_IS</div>
-<div><br>
-</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; return 0;</div>
-<div>--</div>
-<div>2.20.1</div>
-<span></span><br>
-</div>
-<div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Quan, Evan &lt;Evan.Q=
-uan@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, December 22, 2021 4:19 AM<br>
-<b>To:</b> Nikolic, Marina &lt;Marina.Nikolic@amd.com&gt;; Russell, Kent &l=
-t;Kent.Russell@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists=
-.freedesktop.org&gt;<br>
-<b>Cc:</b> Mitrovic, Milan &lt;Milan.Mitrovic@amd.com&gt;; Kitchen, Greg &l=
-t;Greg.Kitchen@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
-y read premission in ONEVF mode</font>
-<div>&nbsp;</div>
-</div>
-<div lang=3D"EN-US" style=3D"word-wrap:break-word">
-<div class=3D"x_WordSection1">
-<p class=3D"x_msipheadera4477989" style=3D"margin-right: 0in; margin-left: =
-0in; font-size: 11pt; font-family: Calibri, sans-serif;margin:0in">
-<span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; =
-color:blue">[AMD Official Use Only]</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; <b>On Be=
-half Of </b>
-Nikolic, Marina<br>
-<b>Sent:</b> Tuesday, December 21, 2021 10:36 PM<br>
-<b>To:</b> Russell, Kent &lt;Kent.Russell@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org<br>
-<b>Cc:</b> Mitrovic, Milan &lt;Milan.Mitrovic@amd.com&gt;; Kitchen, Greg &l=
-t;Greg.Kitchen@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
-y read premission in ONEVF mode</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt; font-family:&quo=
-t;Arial&quot;,sans-serif; color:blue">[AMD Official Use Only]</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<div>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt; font-family:&quo=
-t;Arial&quot;,sans-serif; color:blue">[AMD Official Use Only]</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">From 06359f3be0c0b889519d6dd9=
-54fb11f31e9a15e0 Mon Sep 17 00:00:00 2001
-</span></p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">From: Marina Nikolic &lt;<a h=
-ref=3D"mailto:Marina.Nikolic@amd.com">Marina.Nikolic@amd.com</a>&gt;</span>=
-</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Date: Tue, 14 Dec 2021 20:57:=
-53 +0800</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Subject: [PATCH] amdgpu/pm: M=
-odify sysfs pp_dpm_sclk to have only read</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;permission in ONEVF mod=
-e</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<b><i>[Quan, Evan] With the subject updated(remove the description about pp=
-_dpm_sclk), the patch is acked-by: Evan Quan &lt;evan.quan@amd.com&gt;</i><=
-/b></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt">&nbsp;</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt">BR</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt">Evan</span><b><i></i></b></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">=3D=3D Description =3D=3D</sp=
-an></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Setting through sysfs should =
-not be allowed in SRIOV mode.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">These calls will not be proce=
-ssed by FW anyway,</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">but error handling on sysfs l=
-evel should be improved.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">=3D=3D Changes =3D=3D</span><=
-/p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">This patch prohibits performi=
-ng of all set commands</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">in SRIOV mode on sysfs level.=
-</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">It offers better error handli=
-ng as calls that are</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">not allowed will not be propa=
-gated further.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">=3D=3D Test =3D=3D</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Writing to any sysfs file in =
-passthrough mode will succeed.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Writing to any sysfs file in =
-ONEVF mode will yield error:</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&quot;calling process does no=
-t have sufficient permission to execute a command&quot;.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Signed-off-by: Marina Nikolic=
- &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marina.Nikolic@amd.com</a>&g=
-t;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">---</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c | 6 ++++++</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;1 file changed, 6 inser=
-tions(+)</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">diff --git a/drivers/gpu/drm/=
-amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">index 082539c70fd4..c43818cd0=
-2aa 100644</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">--- a/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">+++ b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">@@ -2133,6 +2133,12 @@ static=
- int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_<=
-/span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp; &nbsp; &nbsp; &nbsp; }=
-</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">+ &nbsp; &nbsp; &nbsp; /* set=
-ting should not be allowed from VF */</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">+ &nbsp; &nbsp; &nbsp; if (am=
-dgpu_sriov_vf(adev)) {</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">+ &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; dev_attr-&gt;attr.mode &amp;=3D ~S_IWUGO;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">+ &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; dev_attr-&gt;store =3D NULL;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">+ &nbsp; &nbsp; &nbsp; }</spa=
-n></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">+</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;#undef DEVICE_ATTR_IS</=
-span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp; &nbsp; &nbsp; &nbsp; r=
-eturn 0;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">--</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">2.20.1</span></p>
-</div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in; font-size=
-: 11pt; font-family: Calibri, sans-serif;text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<b><span style=3D"color:black">From:</span></b><span style=3D"color:black">=
- Nikolic, Marina &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marina.Nikol=
-ic@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, December 21, 2021 3:15 PM<br>
-<b>To:</b> Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.R=
-ussell@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mi=
-lan.Mitrovic@amd.com</a>&gt;; Kitchen, Greg &lt;<a href=3D"mailto:Greg.Kitc=
-hen@amd.com">Greg.Kitchen@amd.com</a>&gt;<br>
-<b>Subject:</b> Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
-y read premission in ONEVF mode</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Hi Kent,&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">Thank you for the review. Yes=
-, I can confirm I am trying to set this for every single file for SRIOV mod=
-e.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black"><a id=3D"OWAAM749892" href=3D=
-"mailto:Greg.Kitchen@amd.com"><span style=3D"font-family:&quot;Calibri&quot=
-;,sans-serif; text-decoration:none">@Kitchen, Greg</span></a>&nbsp;required=
- this for ROCM-SMI 5.0 release. In case you need it, he
- can provide more details.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">I'm going to clarify commit m=
-essage more and send a new patch.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">BR,<br>
-Marina</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in; font-size=
-: 11pt; font-family: Calibri, sans-serif;text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<b><span style=3D"color:black">From:</span></b><span style=3D"color:black">=
- Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Russell@amd=
-.com</a>&gt;<br>
-<b>Sent:</b> Monday, December 20, 2021 8:01 PM<br>
-<b>To:</b> Nikolic, Marina &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Ma=
-rina.Nikolic@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mi=
-lan.Mitrovic@amd.com</a>&gt;; Nikolic, Marina &lt;<a href=3D"mailto:Marina.=
-Nikolic@amd.com">Marina.Nikolic@amd.com</a>&gt;; Kitchen, Greg &lt;<a href=
-=3D"mailto:Greg.Kitchen@amd.com">Greg.Kitchen@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
-y read premission in ONEVF mode</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;margin-bottom:12.0pt">
-<a name=3D"x_x_BM_BEGIN"></a><span style=3D"font-family:&quot;Times New Rom=
-an&quot;,serif">[AMD Official Use Only]<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.=
-org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Behalf Of Marina Niko=
-lic<br>
-&gt; Sent: Monday, December 20, 2021 11:09 AM<br>
-&gt; To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.fre=
-edesktop.org</a><br>
-&gt; Cc: Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mila=
-n.Mitrovic@amd.com</a>&gt;; Nikolic, Marina<br>
-&gt; &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marina.Nikolic@amd.com</=
-a>&gt;; Kitchen, Greg &lt;<a href=3D"mailto:Greg.Kitchen@amd.com">Greg.Kitc=
-hen@amd.com</a>&gt;<br>
-&gt; Subject: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read=
- premission in<br>
-&gt; ONEVF mode<br>
-&gt;<br>
-&gt; =3D=3D Description =3D=3D<br>
-&gt; Due to security reasons setting through sysfs<br>
-&gt; should only be allowed in passthrough mode.<br>
-&gt; Options that are not mapped as SMU messages<br>
-&gt; do not have any mechanizm to distinguish between<br>
-&gt; passthorugh, onevf and mutivf usecase.<br>
-&gt; A unified approach is needed.<br>
-&gt;<br>
-&gt; =3D=3D Changes =3D=3D<br>
-&gt; This patch introduces a new mechanizm to distinguish<br>
-&gt; ONEVF and PASSTHROUGH use case on sysfs level<br>
-&gt; and prohibit setting (writting to sysfs).<br>
-&gt; It also applies the new mechanizm on pp_dpm_sclk sysfs file.<br>
-&gt;<br>
-&gt; =3D=3D Test =3D=3D<br>
-&gt; Writing to pp_dpm_sclk sysfs file in passthrough mode will succeed.<br=
->
-&gt; Writing to pp_dpm_sclk sysfs file in ONEVF mode will yield error:<br>
-&gt; &quot;calling process does not have sufficient permission to execute a=
- command&quot;.<br>
-&gt; Sysfs pp_dpm_sclk will not be created in MULTIVF mode.<br>
-&gt;<br>
-&gt; Signed-off-by: Marina Nikolic &lt;<a href=3D"mailto:Marina.Nikolic@amd=
-.com">Marina.Nikolic@amd.com</a>&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++<br>
-&gt;&nbsp; 1 file changed, 6 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt; b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt; index 082539c70fd4..d2b168babc7d 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt; @@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_de=
-vice *adev,<br>
-&gt; struct amdgpu_device_<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* security: setting should not be allowed f=
-rom VF */<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-<br>
-You should be checking for pp_dpm_sclk here, for example:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; if (DEVICE_ATTR_IS(pp_dpm_sclk) {<br>
-<br>
-Otherwise I am pretty sure you're setting this for every single file. And i=
-s it only sclk? Or does it also need to affect mclk/fclk/etc? If it's only =
-sclk, the line above should help. If it's for more, then the commit should =
-try to clarify that as it's not
- 100% clear.<br>
-<br>
-&nbsp;Kent<br>
-<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; dev_attr-&gt;attr.mode &amp;=3D ~S_IWUGO;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; dev_attr-&gt;store =3D NULL;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; +<br>
-&gt;&nbsp; #undef DEVICE_ATTR_IS<br>
-&gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; --<br>
-&gt; 2.20.1</span><span style=3D"font-size:12.0pt; font-family:&quot;Times =
-New Roman&quot;,serif"></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB43004E4DF34D166C06C9AB9A8E7D9DM6PR12MB4300namp_--
+> BR
+> Evan
+>>
+>> As another thought, 'interface' folder also looks good but for a different
+>> purpose - to keep the public API headers of swsmu and powerplay
+>> components to other components.
+>>
+>> Thanks,
+>> Lijo
+>>
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> swsmu}/inc/smu_11_0_cdr_table.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_types.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v11_0.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> swsmu}/inc/smu_v11_0_7_pptable.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> swsmu}/inc/smu_v11_0_pptable.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v12_0.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ => swsmu}/inc/smu_v13_0.h (100%)
+>>>    rename drivers/gpu/drm/amd/pm/{ =>
+>> swsmu}/inc/smu_v13_0_pptable.h
+>>> (100%)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/Makefile
+>>> b/drivers/gpu/drm/amd/pm/Makefile index d35ffde387f1..3d17ffb77f31
+>>> 100644
+>>> --- a/drivers/gpu/drm/amd/pm/Makefile
+>>> +++ b/drivers/gpu/drm/amd/pm/Makefile
+>>> @@ -21,20 +21,24 @@
+>>>    #
+>>>
+>>>    subdir-ccflags-y += \
+>>> -		-I$(FULL_AMD_PATH)/pm/inc/  \
+>>>    		-I$(FULL_AMD_PATH)/include/asic_reg  \
+>>>    		-I$(FULL_AMD_PATH)/include  \
+>>> +		-I$(FULL_AMD_PATH)/pm/inc/  \
+>>>    		-I$(FULL_AMD_PATH)/pm/swsmu \
+>>> +		-I$(FULL_AMD_PATH)/pm/swsmu/inc \
+>>> +		-I$(FULL_AMD_PATH)/pm/swsmu/inc/interface \
+>>> +		-I$(FULL_AMD_PATH)/pm/swsmu/inc/message \
+>>>    		-I$(FULL_AMD_PATH)/pm/swsmu/smu11 \
+>>>    		-I$(FULL_AMD_PATH)/pm/swsmu/smu12 \
+>>>    		-I$(FULL_AMD_PATH)/pm/swsmu/smu13 \
+>>> -		-I$(FULL_AMD_PATH)/pm/powerplay \
+>>> +		-I$(FULL_AMD_PATH)/pm/powerplay/inc \
+>>>    		-I$(FULL_AMD_PATH)/pm/powerplay/smumgr\
+>>> -		-I$(FULL_AMD_PATH)/pm/powerplay/hwmgr
+>>> +		-I$(FULL_AMD_PATH)/pm/powerplay/hwmgr \
+>>> +		-I$(FULL_AMD_PATH)/pm/legacy-dpm
+>>>
+>>>    AMD_PM_PATH = ../pm
+>>>
+>>> -PM_LIBS = swsmu powerplay
+>>> +PM_LIBS = swsmu powerplay legacy-dpm
+>>>
+>>>    AMD_PM = $(addsuffix /Makefile,$(addprefix
+>>> $(FULL_AMD_PATH)/pm/,$(PM_LIBS)))
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
+>>> new file mode 100644
+>>> index 000000000000..baa4265d1daa
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/Makefile
+>>> @@ -0,0 +1,32 @@
+>>> +#
+>>> +# Copyright 2021 Advanced Micro Devices, Inc.
+>>> +#
+>>> +# Permission is hereby granted, free of charge, to any person
+>>> +obtaining a # copy of this software and associated documentation
+>>> +files (the "Software"), # to deal in the Software without
+>>> +restriction, including without limitation # the rights to use, copy,
+>>> +modify, merge, publish, distribute, sublicense, # and/or sell copies
+>>> +of the Software, and to permit persons to whom the # Software is
+>> furnished to do so, subject to the following conditions:
+>>> +#
+>>> +# The above copyright notice and this permission notice shall be
+>>> +included in # all copies or substantial portions of the Software.
+>>> +#
+>>> +# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+>> KIND,
+>>> +EXPRESS OR # IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+>> WARRANTIES OF
+>>> +MERCHANTABILITY, # FITNESS FOR A PARTICULAR PURPOSE AND
+>>> +NONINFRINGEMENT.  IN NO EVENT SHALL # THE COPYRIGHT HOLDER(S)
+>> OR
+>>> +AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR # OTHER LIABILITY,
+>>> +WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, # ARISING
+>> FROM,
+>>> +OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR #
+>> OTHER DEALINGS IN THE SOFTWARE.
+>>> +#
+>>> +
+>>> +AMD_LEGACYDPM_PATH = ../pm/legacy-dpm
+>>> +
+>>> +LEGACYDPM_MGR-y = legacy_dpm.o
+>>> +
+>>> +LEGACYDPM_MGR-$(CONFIG_DRM_AMDGPU_CIK)+= kv_dpm.o
+>> kv_smc.o
+>>> +LEGACYDPM_MGR-$(CONFIG_DRM_AMDGPU_SI)+= si_dpm.o si_smc.o
+>>> +
+>>> +AMD_LEGACYDPM_POWER = $(addprefix
+>>> +$(AMD_LEGACYDPM_PATH)/,$(LEGACYDPM_MGR-y))
+>>> +
+>>> +AMD_POWERPLAY_FILES += $(AMD_LEGACYDPM_POWER)
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/cik_dpm.h
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/cik_dpm.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/cik_dpm.h
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/cik_dpm.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/kv_dpm.c
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_dpm.h
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/kv_dpm.h
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/kv_smc.c
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_smc.c
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/kv_smc.c
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/kv_smc.c
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.c
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/legacy_dpm.h
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/r600_dpm.h
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/r600_dpm.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/r600_dpm.h
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/r600_dpm.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.h
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/si_dpm.h
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_smc.c
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/si_smc.c
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/si_smc.c
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h
+>>> b/drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h
+>>> rename to drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>>> b/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>>> index 614d8b6a58ad..795a3624cbbf 100644
+>>> --- a/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/Makefile
+>>> @@ -28,11 +28,7 @@ AMD_POWERPLAY = $(addsuffix
+>> /Makefile,$(addprefix
+>>> $(FULL_AMD_PATH)/pm/powerplay/
+>>>
+>>>    include $(AMD_POWERPLAY)
+>>>
+>>> -POWER_MGR-y = amd_powerplay.o legacy_dpm.o
+>>> -
+>>> -POWER_MGR-$(CONFIG_DRM_AMDGPU_CIK)+= kv_dpm.o kv_smc.o
+>>> -
+>>> -POWER_MGR-$(CONFIG_DRM_AMDGPU_SI)+= si_dpm.o si_smc.o
+>>> +POWER_MGR-y = amd_powerplay.o
+>>>
+>>>    AMD_PP_POWER = $(addprefix $(AMD_PP_PATH)/,$(POWER_MGR-y))
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amd_powerplay.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/amd_powerplay.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/amd_powerplay.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/amd_powerplay.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/cz_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/cz_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/cz_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/cz_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/fiji_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/fiji_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/fiji_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/fiji_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/hardwaremanager.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/hardwaremanager.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/hwmgr.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/hwmgr.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/polaris10_pwrvirus.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/polaris10_pwrvirus.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/polaris10_pwrvirus.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/polaris10_pwrvirus.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/power_state.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/power_state.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/power_state.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/power_state.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/pp_debug.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/pp_debug.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/pp_endian.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_endian.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/pp_endian.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_endian.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/pp_thermal.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_thermal.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/pp_thermal.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/pp_thermal.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/ppinterrupt.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/ppinterrupt.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/ppinterrupt.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/ppinterrupt.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/rv_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/rv_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu10.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu10.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu10.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu10.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu10_driver_if.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu10_driver_if.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu11_driver_if.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu11_driver_if.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu7.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu7.h rename to
+>>> drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu71.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu71.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu71.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu71.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu71_discrete.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu71_discrete.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu71_discrete.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu71_discrete.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu72.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu72.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu72.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu72.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu72_discrete.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu72_discrete.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu72_discrete.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu72_discrete.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu73.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu73.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu73_discrete.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu73_discrete.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu74.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu74.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu74.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu74.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu74_discrete.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu74_discrete.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu74_discrete.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu74_discrete.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu75.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu75.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu75_discrete.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75_discrete.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu75_discrete.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu75_discrete.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_common.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_common.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu7_common.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_common.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_discrete.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_discrete.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu7_discrete.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_discrete.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_fusion.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu7_fusion.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu7_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu8.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu8.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu8.h rename to
+>>> drivers/gpu/drm/amd/pm/powerplay/inc/smu8.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu8_fusion.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu8_fusion.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu8_fusion.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu8_fusion.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu9.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu9.h rename to
+>>> drivers/gpu/drm/amd/pm/powerplay/inc/smu9.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu9_driver_if.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu9_driver_if.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_cz.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_cz.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_vi.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_vi.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_ucode_xfer_vi.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_vi.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smumgr.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/smumgr.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smumgr.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/smumgr.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/tonga_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/tonga_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/tonga_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/tonga_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/vega10_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/vega10_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/vega10_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega10_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/vega12/smu9_driver_if.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/vega12/smu9_driver_if.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/vega12/smu9_driver_if.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/powerplay/inc/vega12/smu9_driver_if.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/vega12_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/vega12_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/vega12_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega12_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/vega20_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/powerplay/inc/vega20_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/vega20_ppsmc.h
+>>> rename to drivers/gpu/drm/amd/pm/powerplay/inc/vega20_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
+>>>
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_arcturu
+>> s.
+>>> h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_arcturus.h
+>>> rename to
+>>>
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_arcturus.h
+>>> diff --git
+>>> a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h
+>>>
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_cyan_s
+>> kil
+>>> lfish.h
+>>> similarity index 100%
+>>> rename from
+>>> drivers/gpu/drm/amd/pm/inc/smu11_driver_if_cyan_skillfish.h
+>>> rename to
+>>>
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_cyan_skill
+>> f
+>>> ish.h diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
+>>>
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_navi10.
+>> h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
+>>> rename to
+>>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_navi10.h
+>>> diff --git
+>>> a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h
+>>>
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_sienna_
+>> ci
+>>> chlid.h
+>>> similarity index 100%
+>>> rename from
+>>> drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h
+>>> rename to
+>>>
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_sienna_ci
+>> ch
+>>> lid.h diff --git
+>>> a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
+>>>
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_vangog
+>> h.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
+>>> rename to
+>>>
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu11_driver_if_vangogh.
+>> h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu12_driver_if.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu12_driver_if.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu12_driver_if.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu12_driver_if.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
+>>>
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_aldebar
+>> an
+>>> .h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
+>>> rename to
+>>>
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_aldebaran
+>> .h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
+>>>
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_yellow_
+>> ca
+>>> rp.h
+>>> similarity index 100%
+>>> rename from
+>> drivers/gpu/drm/amd/pm/inc/smu13_driver_if_yellow_carp.h
+>>> rename to
+>>>
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu13_driver_if_yellow_ca
+>> rp
+>>> .h diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_5_pmfw.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_5_pmfw.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_8_pmfw.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_8_pmfw.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_8_pmfw.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v11_8_pmfw.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v13_0_1_pmfw.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_pmfw.h
+>>> rename to
+>>> drivers/gpu/drm/amd/pm/swsmu/inc/interface/smu_v13_0_1_pmfw.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/aldebaran_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/aldebaran_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/arcturus_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/arcturus_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/arcturus_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/arcturus_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_7_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_7_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_0_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_5_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_5_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_8_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_8_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_8_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v11_8_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v12_0_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v12_0_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v12_0_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v12_0_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v13_0_1_ppsmc.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_1_ppsmc.h
+>>> rename to
+>> drivers/gpu/drm/amd/pm/swsmu/inc/message/smu_v13_0_1_ppsmc.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_11_0_cdr_table.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_11_0_cdr_table.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_types.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_pptable.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_7_pptable.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_7_pptable.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_pptable.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v11_0_pptable.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v12_0.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v12_0.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_pptable.h
+>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
+>>> similarity index 100%
+>>> rename from drivers/gpu/drm/amd/pm/inc/smu_v13_0_pptable.h
+>>> rename to drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0_pptable.h
+>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>> index a03bbd2a7aa0..1e6d76657bbb 100644
+>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>> @@ -33,7 +33,6 @@
+>>>    #include "smu11_driver_if_arcturus.h"
+>>>    #include "soc15_common.h"
+>>>    #include "atom.h"
+>>> -#include "power_state.h"
+>>>    #include "arcturus_ppt.h"
+>>>    #include "smu_v11_0_pptable.h"
+>>>    #include "arcturus_ppsmc.h"
+>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>> index 3c82f5455f88..cc502a35f9ef 100644
+>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>> @@ -33,7 +33,6 @@
+>>>    #include "smu13_driver_if_aldebaran.h"
+>>>    #include "soc15_common.h"
+>>>    #include "atom.h"
+>>> -#include "power_state.h"
+>>>    #include "aldebaran_ppt.h"
+>>>    #include "smu_v13_0_pptable.h"
+>>>    #include "aldebaran_ppsmc.h"
+>>>
