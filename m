@@ -4,48 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7ECAC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 14:15:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4A1FC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 14:20:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60C3F10E213;
-	Wed, 22 Dec 2021 14:15:07 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2469A10F0C6;
- Wed, 22 Dec 2021 06:09:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1640153343; x=1671689343;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ckaMJ+H0/TF9SKL+CkhWzBkJvEUKaEsg9J96VhyiPio=;
- b=JKzFzzQcadx5fZAzuIL6w1+uqhxGc2gHNJFIWMWUCPmMMx9n1bUL6QQn
- fTtUzjv647Xrrsmpv014iVFp7uEvgo2wcw7aniHOzy/3R97AwxmpyMuBm
- 9peyiNGQ7d0Ksh/vqWgZjFmCZhLe17+X11aK10UsHHurokX4ILDWfo+62
- FEpylndQPSkpascus1WBx0vdRP3TmkQab3H7tpCtIN91YCFqfEShDpHZZ
- DU+MsNK6Re/P5qF15Ho+cE6mchL4/KnNWvB0Jq7H8zVuNeRRWk1moTp+9
- 0PqLsYofhsX5tZ5ouTgAdwp1QsSJCfvroElwQvE0aTOjqEh2pZfkG8Z3f A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10205"; a="240359189"
-X-IronPort-AV: E=Sophos;i="5.88,225,1635231600"; d="scan'208";a="240359189"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2021 22:09:02 -0800
-X-IronPort-AV: E=Sophos;i="5.88,225,1635231600"; d="scan'208";a="521548248"
-Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2021 22:09:00 -0800
-From: ira.weiny@intel.com
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Subject: [PATCH V2] drm/i915: Replace kmap() with kmap_local_page()
-Date: Tue, 21 Dec 2021 22:08:57 -0800
-Message-Id: <20211222060857.21791-1-ira.weiny@intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211210232404.4098157-2-ira.weiny@intel.com>
-References: <20211210232404.4098157-2-ira.weiny@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE2410E251;
+	Wed, 22 Dec 2021 14:20:16 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2088.outbound.protection.outlook.com [40.107.96.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A980E10E251
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 14:20:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=emMApQ1aiiCnJSfu1/8CcoCRhi4NijxQpMUwiaIktogwqa+e+dKfW5cgwcFn0T5cWiDpsSLj2x1bgUbPPjvl7Ai5/s3v2fadXrVyuaI4rUbXRqZ+oHAVehvNlJmlgoCN3jfimYgfv8Fo04h6SZCg7H6xwoG7dHF1a0GUqdHOyWcSadroRyJxx6JIniXPamPsnukXmbxL8g99tF1Z/G0/EpLWiuYvQ7qRXExRz/EcCA9aRiKNw4eIJAoKtnNlYefToL5rNuLwAlt3wEa2bFumaZNEiSpYctL0x8vf4nklLbSaklKwAxSedmRE9cLL+zKzLk8/ptpIPM1MkDJ43WFTsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4wLkKNuWknUapsQ3SbqR2iHTQb12ZkRNsb5LJLCh3/Y=;
+ b=eqzDQ1cVNN6K4xXPdHIVMEcyPo0heS5Q6F4mdJ8w9P4YeQfRG7FFr05lbkVroUQuIv9perlRZYWcJKsiqt9n4WcKpuve4RVslHMbLwHaV91kZZ2AjFKBiyiDl6E5zvx7J+S7UdGPnzrmOe4KmV3ihMc57fZ75OcqSifIwV6xvfK/xYChCgU2YFSUK9ZFxmpj54imAwrGfHxiqcBU0iwiECkhaBQKsudOKWp6N48M+pIx2PsNWQegBw9IxWItw12R1cATomUqOzVQHQ13a9ZEf4iPgug9CoR/U720Gwm4e2x0nEIFffLLnJjY8v4GFXJ/Jmhz/mgZ5Igg5hXhY2QTkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4wLkKNuWknUapsQ3SbqR2iHTQb12ZkRNsb5LJLCh3/Y=;
+ b=QgrnK29Ze2p4aQ4SbXQlNHe6eone9JXcvYE8Mm+GPdf9hClJ5TrBP0qrv8X8SZ4gmblfpNPX+8MwBfwysqLVhnRL9leOT9h2fC4AJTuQVoZakMw6JLf+JyP45majC2UZES8oETNt1adlBy4DgG4H9628GXzsAFSaZsWwuIKm9Hk=
+Received: from DM5PR06CA0076.namprd06.prod.outlook.com (2603:10b6:3:4::14) by
+ CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4823.18; Wed, 22 Dec 2021 14:20:13 +0000
+Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:4:cafe::1d) by DM5PR06CA0076.outlook.office365.com
+ (2603:10b6:3:4::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.15 via Frontend
+ Transport; Wed, 22 Dec 2021 14:20:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4823.18 via Frontend Transport; Wed, 22 Dec 2021 14:20:13 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Wed, 22 Dec 2021 08:20:11 -0600
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
+ <Tao.Zhou1@amd.com>, <John.Clements@amd.com>, <lijo.lazar@amd.com>
+Subject: [PATCH] drm/amdgpu: avoid NULL pointer dereference
+Date: Wed, 22 Dec 2021 22:19:56 +0800
+Message-ID: <20211222141956.13239-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 22 Dec 2021 14:15:06 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d0f5a838-b867-489f-7ec8-08d9c5562b46
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5427E8F56B5F6D566250EB36F17D9@CO6PR12MB5427.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hJti8IhWPTiVda+Xwmqg/2dgeQuN1tDjT5COSYCyt+qTvni1Eo7HL1ADL8eXqQz2uEJPO3zZoXywIiUQYDkTHmBDPBFFykaoKRot4A7wHQL31FsRR0hOMjFcawNAGt45g1HNXkFKeN2bXK0HOWwenVIujWD1rpw4UxY/j6u4eM5YnH1vVF/RimvyKaKckPXuASFhVm2KZuJK7HXCxxaOFmrufQms7txMLIMw9mk59kZqwvoGRdVjJLSok2oN1EeIhchym8eC1uxTnETUHpl1HneuGexL8/99xBzR/mKzWblJRG68dI4NgIj6JzMETmwNSHigBArdBgG0th1TsJ510FOHdqCnFlIrTPYSsjQOpAgkpsvsMLWeeofHk7rwFWv3OQ5YCWFVDwX4BLu3F6inQcouvxK+WfcEL9aX0I25BykRUB1jwc+HOU/iIuPccWksgjwTuTt7bBbcJBQmoZ9rq0x5WN/O1ozldjWtZDxuqjlsEHC3bpP4uEsvS2vWxr1SlrCeSLSavGQibUrL4vQg7SvzTpdEYwLoVxv40yKXrHhlWC0Ww50s1Y3K/YGdwH/TEOjlKKDMnJzA3ylEZeW74l6xNPn6KKvjD2koiCT08lLH9kc6G+31LatfnDppl3Jc66SwHYvgAVKtDI/FyWugjuA8gQ/hj0mvR8rQz9+Lulwn2fiBADARqfO0L8feDrnzbmJzBd+YG61mjvlrFvjemjiRN0osjv2TUpj+hEYVUJep8WzGaT5gAHwxnT4uB95gGTa7jgHmMCk6D1G4KJ3mfY6310D6VtiWa4eLKrz8YgE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700002)(70206006)(2906002)(186003)(36860700001)(16526019)(1076003)(36756003)(6666004)(7696005)(81166007)(8676002)(110136005)(86362001)(336012)(508600001)(83380400001)(356005)(8936002)(426003)(44832011)(2616005)(316002)(4326008)(70586007)(82310400004)(26005)(47076005)(40460700001)(5660300002)(6636002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2021 14:20:13.2754 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0f5a838-b867-489f-7ec8-08d9c5562b46
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5427
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,207 +99,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Ira Weiny <ira.weiny@intel.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ira Weiny <ira.weiny@intel.com>
+amdgpu_umc_poison_handler for UMC RAS consumption gets
+called in KFD queue reset, but it needs to return early when
+RAS context is NULL. This can guarantee lower access to
+RAS context like in amdgpu_umc_do_page_retirement. Also
+improve coding style in amdgpu_umc_poison_handler.
 
-kmap() is being deprecated and these usages are all local to the thread
-so there is no reason kmap_local_page() can't be used.
-
-Replace kmap() calls with kmap_local_page().
-
-Signed-off-by: Ira Weiny <ira.weiny@intel.com>
-
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
-NOTE: I'm sending as a follow on to the V1 patch.  Please let me know if you
-prefer the entire series instead.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Changes for V2:
-	From Christoph Helwig
-	Prefer the use of memcpy_*_page() where appropriate.
----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c          | 6 ++----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c       | 4 ++--
- drivers/gpu/drm/i915/gt/shmem_utils.c              | 7 ++-----
- drivers/gpu/drm/i915/i915_gem.c                    | 8 ++++----
- drivers/gpu/drm/i915/i915_gpu_error.c              | 4 ++--
- 6 files changed, 16 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index d77da59fae04..842e089aaaa5 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -589,7 +589,7 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
- 	do {
- 		unsigned int len = min_t(typeof(size), size, PAGE_SIZE);
- 		struct page *page;
--		void *pgdata, *vaddr;
-+		void *pgdata;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 46264a4002f7..b455fc7d1546 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -112,16 +112,20 @@ int amdgpu_umc_poison_handler(struct amdgpu_device *adev,
+ 		void *ras_error_status,
+ 		bool reset)
+ {
+-	int ret;
+ 	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
+ 	struct ras_common_if head = {
+ 		.block = AMDGPU_RAS_BLOCK__UMC,
+ 	};
+-	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct ras_manager *obj;
++	int ret;
++
++	if (!con)
++		return 0;
  
- 		err = pagecache_write_begin(file, file->f_mapping,
- 					    offset, len, 0,
-@@ -597,9 +597,7 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
- 		if (err < 0)
- 			goto fail;
+-	ret =
+-		amdgpu_umc_do_page_retirement(adev, ras_error_status, NULL, reset);
++	ret = amdgpu_umc_do_page_retirement(adev, ras_error_status, NULL, reset);
  
--		vaddr = kmap(page);
--		memcpy(vaddr, data, len);
--		kunmap(page);
-+		memcpy_to_page(page, 0, data, len);
- 
- 		err = pagecache_write_end(file, file->f_mapping,
- 					  offset, len, len,
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 6d30cdfa80f3..e59e1725e29d 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -144,7 +144,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	intel_gt_flush_ggtt_writes(&to_i915(obj->base.dev)->gt);
- 
- 	p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
--	cpu = kmap(p) + offset_in_page(offset);
-+	cpu = kmap_local_page(p) + offset_in_page(offset);
- 	drm_clflush_virt_range(cpu, sizeof(*cpu));
- 	if (*cpu != (u32)page) {
- 		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
-@@ -162,7 +162,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	}
- 	*cpu = 0;
- 	drm_clflush_virt_range(cpu, sizeof(*cpu));
--	kunmap(p);
-+	kunmap_local(cpu);
- 
- out:
- 	__i915_vma_put(vma);
-@@ -237,7 +237,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 		intel_gt_flush_ggtt_writes(&to_i915(obj->base.dev)->gt);
- 
- 		p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
--		cpu = kmap(p) + offset_in_page(offset);
-+		cpu = kmap_local_page(p) + offset_in_page(offset);
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
- 		if (*cpu != (u32)page) {
- 			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
-@@ -255,7 +255,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 		}
- 		*cpu = 0;
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
--		kunmap(p);
-+		kunmap_local(cpu);
- 		if (err)
- 			return err;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-index f8948de72036..743a414f86f3 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-@@ -743,7 +743,7 @@ static void swizzle_page(struct page *page)
- 	char *vaddr;
- 	int i;
- 
--	vaddr = kmap(page);
-+	vaddr = kmap_local_page(page);
- 
- 	for (i = 0; i < PAGE_SIZE; i += 128) {
- 		memcpy(temp, &vaddr[i], 64);
-@@ -751,7 +751,7 @@ static void swizzle_page(struct page *page)
- 		memcpy(&vaddr[i + 64], temp, 64);
- 	}
- 
--	kunmap(page);
-+	kunmap_local(vaddr);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-index 0683b27a3890..d47f262d2f07 100644
---- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-+++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-@@ -97,22 +97,19 @@ static int __shmem_rw(struct file *file, loff_t off,
- 		unsigned int this =
- 			min_t(size_t, PAGE_SIZE - offset_in_page(off), len);
- 		struct page *page;
--		void *vaddr;
- 
- 		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
- 						   GFP_KERNEL);
- 		if (IS_ERR(page))
- 			return PTR_ERR(page);
- 
--		vaddr = kmap(page);
- 		if (write) {
--			memcpy(vaddr + offset_in_page(off), ptr, this);
-+			memcpy_to_page(page, offset_in_page(off), ptr, this);
- 			set_page_dirty(page);
- 		} else {
--			memcpy(ptr, vaddr + offset_in_page(off), this);
-+			memcpy_from_page(ptr, page, offset_in_page(off), this);
- 		}
- 		mark_page_accessed(page);
--		kunmap(page);
- 		put_page(page);
- 
- 		len -= this;
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 981e383d1a5d..af5adb187ca4 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -196,14 +196,14 @@ shmem_pread(struct page *page, int offset, int len, char __user *user_data,
- 	char *vaddr;
- 	int ret;
- 
--	vaddr = kmap(page);
-+	vaddr = kmap_local_page(page);
- 
- 	if (needs_clflush)
- 		drm_clflush_virt_range(vaddr + offset, len);
- 
- 	ret = __copy_to_user(user_data, vaddr + offset, len);
- 
--	kunmap(page);
-+	kunmap_local(vaddr);
- 
- 	return ret ? -EFAULT : 0;
- }
-@@ -618,7 +618,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
- 	char *vaddr;
- 	int ret;
- 
--	vaddr = kmap(page);
-+	vaddr = kmap_local_page(page);
- 
- 	if (needs_clflush_before)
- 		drm_clflush_virt_range(vaddr + offset, len);
-@@ -627,7 +627,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
- 	if (!ret && needs_clflush_after)
- 		drm_clflush_virt_range(vaddr + offset, len);
- 
--	kunmap(page);
-+	kunmap_local(vaddr);
- 
- 	return ret ? -EFAULT : 0;
- }
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 2a2d7643b551..c526d7892081 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1094,9 +1094,9 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 
- 			drm_clflush_pages(&page, 1);
- 
--			s = kmap(page);
-+			s = kmap_local_page(page);
- 			ret = compress_page(compress, s, dst, false);
--			kunmap(page);
-+			kunmap_local(s);
- 
- 			drm_clflush_pages(&page, 1);
- 
++	obj = amdgpu_ras_find_obj(adev, &head);
+ 	if (ret == AMDGPU_RAS_SUCCESS && obj) {
+ 		obj->err_data.ue_count += err_data->ue_count;
+ 		obj->err_data.ce_count += err_data->ce_count;
 -- 
-2.31.1
+2.17.1
 
