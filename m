@@ -4,61 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C0EEC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 05:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD8AC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Dec 2021 05:51:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F3E10EEB2;
-	Wed, 22 Dec 2021 05:27:58 +0000 (UTC)
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 461A310E99C
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 05:27:56 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id
- z9-20020a17090a7b8900b001b13558eadaso4640288pjc.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Dec 2021 21:27:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=igel-co-jp.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=FZMLZON20bWtrq2sz7nwh4szNbVAnGuVe7s0LuBQMY8=;
- b=UyG/PNgRZFP+f0K7oJsfFcc5cx0QD0KkSprzgxJyzSsQOTIZTmUQPik+BRVLqiNfg9
- grOsl5/Fgc/ZUmhEJOGz1tSmF37OAFbLNCtua+JEYOdqC8D0er7AEYQY9/PXLYP2KkIz
- TMIRtpqnpRgwOQz4CoIhPgQ4c11ZZYVdt6eULiAx9a7GTUAKUHztSoEcV+CYC0QoBGLg
- ofVYhLyh4IEZNMllZimyaR5pdINQss0X+kBAlwN1faa09IPAdKdL2VZPviYaxBeNY8XO
- a25i+zxIg+k4sVZARLV6HlSp7sD7JbIfLwOTe0WxfRJIo06O34fwvYxdRApGg5oLK2Jw
- PNtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=FZMLZON20bWtrq2sz7nwh4szNbVAnGuVe7s0LuBQMY8=;
- b=KecpLcHneDii484r4y2ldS3qyTujWpfW2iHSCpPGO601NT5lu60OjYUl8iSIMG108L
- BiF+Nug0dEigspNh2u/Wwaj5IhhN5xv/TeMvX5taemugkbPgA66heWXpFHu3+xU3iMWB
- 6+vqSiFCWh3XO7T8CrROyC6E4BZCYdxyvuAPM6oqoWWEj/LmRt6nW8FIi8M3cNnA/in9
- n+ozbvll2AKOalJQdb1P4ZUeK39x2T2ygDbBLIpNaavNjgfi/3cRr/GzlDI1wrb+I1P0
- fA6vPCnG3e7O1qZVBrn0jADT2FPhs6VhM7fpyG263AY8z6zXhpzOfgz5nDU7cElMaJv/
- krig==
-X-Gm-Message-State: AOAM533uyQQADNcKRSO8fvHcFDidzgbF6EhS2pgihf+wdw1EELkEiQwN
- /W3BdNOvJ61F65Fwn467O3QctQ==
-X-Google-Smtp-Source: ABdhPJy7FkeNfEP/7vNs+Ieyaz441/RBOQCDZsCiph+YCqhU9zps42TIopAfRgQSxH+FSStJjWPiug==
-X-Received: by 2002:a17:902:ea03:b0:148:ea19:557 with SMTP id
- s3-20020a170902ea0300b00148ea190557mr1355994plg.129.1640150875860; 
- Tue, 21 Dec 2021 21:27:55 -0800 (PST)
-Received: from aqua.hq.igel.co.jp (napt.igel.co.jp. [219.106.231.132])
- by smtp.gmail.com with ESMTPSA id v63sm737465pgv.71.2021.12.21.21.27.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Dec 2021 21:27:55 -0800 (PST)
-From: Tomohito Esaki <etom@igel.co.jp>
-To: dri-devel@lists.freedesktop.org
-Subject: [RFC PATH 3/3] drm: replace allow_fb_modifiers with
- fb_modifiers_not_supported
-Date: Wed, 22 Dec 2021 14:27:27 +0900
-Message-Id: <20211222052727.19725-4-etom@igel.co.jp>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD8010E22B;
+	Wed, 22 Dec 2021 05:51:57 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 481C310E22B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 05:51:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e6sC3Aiu1uIAD8CFcqG31rb1QU21xw4ibelAUAacQOvCyrX65h2mEDAO0jBbAn/dA+eVKP8b9TXTIFD5X7yLatZJwJ1OAki28eTEjPIyOF3zfDrHgsBgIApGUb49QrmhBzpHgKgOO8oixXtkaUXsVltq8m3KP6/XhPz/URkQ51gY+D3W1+cjXpWWKbTFDLN8dmbLltHz9S59Dz8IEBULY8lmBo4kNo21O+XRhBw+sipfNiWh8oGpSTXXPJrNelQJRsWKlzw7MsywS/Ud71DLHowX85oIN8U9Y48T/QQYWHz4q86PEETZhX+fuqMMGLNVPdn4cx8/yVVUq5pPmt8HNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OzImYX2zs+MRNk0NuLUz8/NNczdJTP2gQMsb966fDYE=;
+ b=Oxq58kiKr5oeNtZZZo6QnG3xNv5bkzOvEfAYI4Lzzjn5DVFdFyKgAeBM6U6ihJVJydbtx5VOZSsfxll7rrIiIIpy6OYt5KQPelv4Bw74i5g7dd6RR+gN6RHZrp9rqbgg3d76ujLOCpQdedjl2IUUXxFbqlbzs8HPhHBPw6BaaPgPi3fCoQRT7eAkROC2AczAdFYDwK6iTrZhs911+SV52og4cSOdk56w+ck902u61aS9nX5h2TAhADU1ifZu3aO0qBEe6ilfY/zs3S8FTt94b9sX6GFlanoxGyHdT+RkgPmVQ82y5B64pkrLNX1MOYT9DZckcneWxVRmF0zgEYhh/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OzImYX2zs+MRNk0NuLUz8/NNczdJTP2gQMsb966fDYE=;
+ b=MdPExzI4HIE7sC0gpBjuHJwnekZTb+8jEt3PyOatbkgzzXeLgn9+0Y67H1J63ah2VVfB9RmIqFByRMTjZJynZa5CK+Bx3kWC24t6/5WzVkAXhMexjmn/XOatWgRIruqVVvfW9yopcIoGF4QZ/v6SdJUyOOWIGHIVmxTDI9/XKi4=
+Received: from BN6PR22CA0057.namprd22.prod.outlook.com (2603:10b6:404:ca::19)
+ by MWHPR12MB1616.namprd12.prod.outlook.com (2603:10b6:301:b::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.20; Wed, 22 Dec
+ 2021 05:51:52 +0000
+Received: from BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:ca:cafe::64) by BN6PR22CA0057.outlook.office365.com
+ (2603:10b6:404:ca::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.16 via Frontend
+ Transport; Wed, 22 Dec 2021 05:51:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT050.mail.protection.outlook.com (10.13.177.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4823.18 via Frontend Transport; Wed, 22 Dec 2021 05:51:51 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 21 Dec
+ 2021 23:51:51 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 21 Dec
+ 2021 21:51:50 -0800
+Received: from victor-aws2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
+ Transport; Tue, 21 Dec 2021 23:51:49 -0600
+From: Victor Zhao <Victor.Zhao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/ttm: add workaround for some arm hardware issue
+Date: Wed, 22 Dec 2021 13:51:40 +0800
+Message-ID: <20211222055140.1215839-1-Victor.Zhao@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211222052727.19725-1-etom@igel.co.jp>
-References: <20211222052727.19725-1-etom@igel.co.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 28f92d94-2856-4ec0-d2f0-08d9c50f26b8
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1616:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB16163B492ACB0CED83D6EB62FA7D9@MWHPR12MB1616.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: f6u6v5Tih706+e0ywcejQQjpBLPgjUkqMmYdvE4/N5lwKBev8AdS0jmPRfdHqMie+mpmy1WlqYAk72k1FIdtuXyZW5ZaL5Ne8Xkq+6WcTktEQU7l4AUsgBBczW7tgKw9zyhPNLSARgwfvZb6RS7hcfASJYIuBy6KULxFtuDXEP6XmsVAhBr4k9KZRFYP1g6bgddWIpt9taiBpt7LxumsjZ+STf01v5j+WFpGtobun/s9Ju2iuOSOkqKYAbtGrolzbzWpsBmk1TqPaGOzwHSOKz52Tsu6UDXLyJPVZBUlzLXLPiw0OtogkRsN3leDgXx1wpsE3Hqed+gHrVAVKJCBitGkx4HrSpS4bbBnnGVAYw5ExnfsatuoL8B6sH/uQx7+28QShXVv+6RPm+m0f8phBZGLBiCAGd6cbhTg8t5FQmkSixJdj3nChCQCaMb+lwLVFOK1bIRSFhsrIKQkkD+twqXdvfXNTSMf7+yvPHT0jemef0LL8pWzzXHRNP++s+k9ihxWElZuUoOiD4Zd/Pv6jiLT+FiJNCfIx6/tOM3sa6S+ozpxH8GWtjaxUduDy+IIdTPMOwsvzilwDL6ibVBOQ2lsCUBMuEAnd0ybiHL/BN06UDsyunlD1/2VkQ99hCnVqe4R5lTCiyoXEtbzIYcr0YSTVw67JhBB0BDVviHNUJxlVddyDtbFGaujw1SL5Bae9DXF8ZAIO8QV9e27BTSiBhbLCEfnsADTwADWzs8IzsS+zHkccnUyOIpFUW/rWwP6zPcXRZcAvvsHqXK20lGaRvj3jJg2FEC7c8wNu6HT0Sg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(40470700002)(46966006)(36840700001)(36756003)(6916009)(70206006)(36860700001)(82310400004)(336012)(40460700001)(6666004)(1076003)(81166007)(70586007)(2906002)(8676002)(83380400001)(8936002)(5660300002)(4326008)(186003)(47076005)(26005)(316002)(7696005)(426003)(2616005)(356005)(508600001)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2021 05:51:51.3995 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28f92d94-2856-4ec0-d2f0-08d9c50f26b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1616
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,143 +103,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Lee Jones <lee.jones@linaro.org>, Tomohito Esaki <etom@igel.co.jp>,
- Rob Clark <robdclark@chromium.org>, Evan Quan <evan.quan@amd.com>,
- amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>,
- Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Takanari Hayama <taki@igel.co.jp>, Sean Paul <seanpaul@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Yacoub <markyacoub@chromium.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
- Alex Deucher <alexander.deucher@amd.com>,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Victor Zhao <Victor.Zhao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since almost drivers support fb modifiers, allow_fb_modifiers is
-replaced with fb_modifiers_not_supported and removed.
+Some Arm based platform has hardware issue which may
+generate incorrect addresses when receiving writes from the CPU
+with a discontiguous set of byte enables. This affects the writes
+with write combine property.
 
-Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
+Workaround by change PROT_NORMAL_NC to PROT_DEVICE_nGnRE on arm.
+As this is an issue with some specific arm based cpu, adding
+a ttm parameter to control.
+
+Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
 ---
- drivers/gpu/drm/drm_framebuffer.c                |  6 +++---
- drivers/gpu/drm/drm_ioctl.c                      |  2 +-
- drivers/gpu/drm/drm_plane.c                      |  9 ---------
- drivers/gpu/drm/selftests/test-drm_framebuffer.c |  1 -
- include/drm/drm_mode_config.h                    | 16 ----------------
- 5 files changed, 4 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/ttm/ttm_module.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-index 07f5abc875e9..4562a8b86579 100644
---- a/drivers/gpu/drm/drm_framebuffer.c
-+++ b/drivers/gpu/drm/drm_framebuffer.c
-@@ -309,7 +309,7 @@ drm_internal_framebuffer_create(struct drm_device *dev,
- 	}
+diff --git a/drivers/gpu/drm/ttm/ttm_module.c b/drivers/gpu/drm/ttm/ttm_module.c
+index e87f40674a4d..b27473cbbd52 100644
+--- a/drivers/gpu/drm/ttm/ttm_module.c
++++ b/drivers/gpu/drm/ttm/ttm_module.c
+@@ -41,6 +41,12 @@
  
- 	if (r->flags & DRM_MODE_FB_MODIFIERS &&
--	    !dev->mode_config.allow_fb_modifiers) {
-+	    dev->mode_config.fb_modifiers_not_supported) {
- 		DRM_DEBUG_KMS("driver does not support fb modifiers\n");
- 		return ERR_PTR(-EINVAL);
- 	}
-@@ -594,7 +594,7 @@ int drm_mode_getfb2_ioctl(struct drm_device *dev,
- 	r->pixel_format = fb->format->format;
+ #include "ttm_module.h"
  
- 	r->flags = 0;
--	if (dev->mode_config.allow_fb_modifiers)
-+	if (!dev->mode_config.fb_modifiers_not_supported)
- 		r->flags |= DRM_MODE_FB_MODIFIERS;
- 
- 	for (i = 0; i < ARRAY_SIZE(r->handles); i++) {
-@@ -607,7 +607,7 @@ int drm_mode_getfb2_ioctl(struct drm_device *dev,
- 	for (i = 0; i < fb->format->num_planes; i++) {
- 		r->pitches[i] = fb->pitches[i];
- 		r->offsets[i] = fb->offsets[i];
--		if (dev->mode_config.allow_fb_modifiers)
-+		if (!dev->mode_config.fb_modifiers_not_supported)
- 			r->modifier[i] = fb->modifier;
- 	}
- 
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 8b8744dcf691..51fcf1298023 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -297,7 +297,7 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
- 			req->value = 64;
- 		break;
- 	case DRM_CAP_ADDFB2_MODIFIERS:
--		req->value = dev->mode_config.allow_fb_modifiers;
-+		req->value = !dev->mode_config.fb_modifiers_not_supported;
- 		break;
- 	case DRM_CAP_CRTC_IN_VBLANK_EVENT:
- 		req->value = 1;
-diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-index 75308ee240c0..5b546d80d248 100644
---- a/drivers/gpu/drm/drm_plane.c
-+++ b/drivers/gpu/drm/drm_plane.c
-@@ -302,15 +302,6 @@ static int __drm_universal_plane_init(struct drm_device *dev,
- 		}
- 	}
- 
--	/* autoset the cap and check for consistency across all planes */
--	if (format_modifier_count) {
--		drm_WARN_ON(dev, !config->allow_fb_modifiers &&
--			    !list_empty(&config->plane_list));
--		config->allow_fb_modifiers = true;
--	} else {
--		drm_WARN_ON(dev, config->allow_fb_modifiers);
--	}
--
- 	plane->modifier_count = format_modifier_count;
- 	plane->modifiers = kmalloc_array(format_modifier_count,
- 					 sizeof(format_modifiers[0]),
-diff --git a/drivers/gpu/drm/selftests/test-drm_framebuffer.c b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-index 61b44d3a6a61..f6d66285c5fc 100644
---- a/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-+++ b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-@@ -323,7 +323,6 @@ static struct drm_device mock_drm_device = {
- 		.max_width = MAX_WIDTH,
- 		.min_height = MIN_HEIGHT,
- 		.max_height = MAX_HEIGHT,
--		.allow_fb_modifiers = true,
- 		.funcs = &mock_config_funcs,
- 	},
- };
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index c56f298c55bd..6fd13d6510f1 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -904,22 +904,6 @@ struct drm_mode_config {
- 	 */
- 	bool async_page_flip;
- 
--	/**
--	 * @allow_fb_modifiers:
--	 *
--	 * Whether the driver supports fb modifiers in the ADDFB2.1 ioctl call.
--	 * Note that drivers should not set this directly, it is automatically
--	 * set in drm_universal_plane_init().
--	 *
--	 * IMPORTANT:
--	 *
--	 * If this is set the driver must fill out the full implicit modifier
--	 * information in their &drm_mode_config_funcs.fb_create hook for legacy
--	 * userspace which does not set modifiers. Otherwise the GETFB2 ioctl is
--	 * broken for modifier aware userspace.
--	 */
--	bool allow_fb_modifiers;
--
- 	/**
- 	 * @fb_modifiers_not_supported:
- 	 *
++static int enable_use_wc = 1;
++
++MODULE_PARM_DESC(enable_use_wc,
++	"control write combine usage on arm platform due to hardware issue with write combine found on some specific arm cpu (1 = enable(default), 0 = disable)");
++module_param(enable_use_wc, int, 0644);
++
+ /**
+  * ttm_prot_from_caching - Modify the page protection according to the
+  * ttm cacing mode
+@@ -63,7 +69,7 @@ pgprot_t ttm_prot_from_caching(enum ttm_caching caching, pgprot_t tmp)
+ #endif
+ #if defined(__ia64__) || defined(__arm__) || defined(__aarch64__) || \
+ 	defined(__powerpc__) || defined(__mips__)
+-	if (caching == ttm_write_combined)
++	if (caching == ttm_write_combined && enable_use_wc != 0)
+ 		tmp = pgprot_writecombine(tmp);
+ 	else
+ 		tmp = pgprot_noncached(tmp);
 -- 
-2.17.1
+2.25.1
 
