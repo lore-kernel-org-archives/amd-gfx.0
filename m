@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5D87C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC623C433FE
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 Dec 2021 00:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2A4F10E159;
-	Thu, 23 Dec 2021 00:37:34 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB9F10E140;
- Thu, 23 Dec 2021 00:37:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01AAD10E155;
+	Thu, 23 Dec 2021 00:37:36 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2070.outbound.protection.outlook.com [40.107.101.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C37F710E156;
+ Thu, 23 Dec 2021 00:37:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b8E9mKojGQEbZovHMc1klgah5sM2gTzF2idfKoeZbyXKwzpTg9g/S4YdD2g2sJM7W28FeuWuvwEvHxQpgORgeiqYuSISIIiJrmTQOCTKfLWj2+jhbog+892uygpGPGJLP31bMM2PxNQRaoywIOq+zJgPsnED9ivrfSKlDSQYbgcmIOj8joP+3cvtzalsMq/UfCi4Jq6/wiG/R4uw/CJGOpHvPeQra/hLzRS52OaAsBNDo+Rvt5wCqSa0Zc6vib4wA+8MVf7bPWbFGVgkuuRpVNo0SLIbP8OeMgMYpRu0RqwMt3kUuhSUCIFiWtzanMjjCu+rqgG5RZ5MB/CqT0Dj9A==
+ b=aG9LenKNVe+Z1D9lp1P1MESU5l0W6AlJMnz6X42ojthzY0ivD5yOVYNxa2tqnI1HPfEYHd1iZ95OuMfgDZ/x6kSmD+HccLg5qFb6Y5J5vPDLoq6dcLL/zZ2kFhZ3Kq7tvnihBqoyvXpXScY/NjMuXloJB5/R/tVvji9ljzET4ofb+tiWohVqUXymQdcRhA7DnR8pQ8I/6Wy+TPoK6ZplxpTJbbil6CGIqcTeFH6af6Ll3u4mgpnroeqq0+KBCBkrbauexuLFomABLwxrrLjebY+ENnVZVQhT331NrOdLpZ3Jl1dOkPFzYi8iLLdEJyVR+GGCUBfCbAdPKlDVHnl2Sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+zYVNg3SbHh/7gdm9rc/mEZ3fPDkc+g0Jjnp38LUSMw=;
- b=FGbGrDpBMeyxkWuYxWpfpqrQFCcwlDyetYQBFDnKjYs12KwjKKdL197uQ5epIYFCWdq1IxIkx0/2WFlZiolcJitrEnUXLTaRzdOjhTsbK0KCkmb39oE9Cx2IEcbxqVMLxVx0EyYO0gUwqzanTw0WulfaOEyYCp13KuX0YJd5yw26VRskZy16ApYgj4GRUCMfTMKKezCZBAIyjNTcKXEM4rtCsnpXOVmEWFtVFd6KdaOwYRYmDzsnB8ndVGm/bW7pdqELusVzV7VK8peJbv6CWu42k3p97YftDoIwpaFRBGZlnWZLnK61aPMO86+blin36c/9sVJj4IgRX4WTrISXCw==
+ bh=tL8qfmaZedB1GitLEyTY70GMcfsPAJNU6DzFsPZbGG8=;
+ b=VIOFB364nfTLr+SiR5/QvaN5ax2WfWO1H2Bc3j7yxqXDTrLCT1iQvY1LWfVxv0q0HNcw8NdNsmdRxJei1eoW4XHNHxR92C4GC8qcMKdq2rJ9CfZC0Pf+rsJPIBJ9ih6ewaYrwyvz0VWITXYga6HScz9d0zBSW30uoIPLXIJGjeVru+kwwRtECcoOlj2queYn9OD9hU1MqjfXD01jkn6qWeKiwiIas/QaR+hAc1oITT8tWGyyt2Qwq/FVqfM2SD3iiPlkM/L/LAJwSI6wNyc9aa3wIhpy+Cn01TsAWboX4ZqAcay2okb4duTCMzOa2XEutgvFx+w8Wnd10NyhDjJhqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+zYVNg3SbHh/7gdm9rc/mEZ3fPDkc+g0Jjnp38LUSMw=;
- b=I2BjYkpvtN+r+RIkW1ptswt2qq17qgB+lMrKPFpsJk5nUxRFrPDAJE7mDj1eu/cNS0RbJNKuXU2paM68X9DaHG2/UOVsChTqu04RsTXC2d2TC+RuRVueEE/XqoA+9xOuSSpaTXiXumdQrvisuFrFuSiw6s+wXhKmwwX6In8nxuU=
-Received: from BN6PR2001CA0044.namprd20.prod.outlook.com
- (2603:10b6:405:16::30) by BL0PR12MB5540.namprd12.prod.outlook.com
- (2603:10b6:208:1cb::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.17; Thu, 23 Dec
- 2021 00:37:27 +0000
-Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:16:cafe::8d) by BN6PR2001CA0044.outlook.office365.com
- (2603:10b6:405:16::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.20 via Frontend
- Transport; Thu, 23 Dec 2021 00:37:26 +0000
+ bh=tL8qfmaZedB1GitLEyTY70GMcfsPAJNU6DzFsPZbGG8=;
+ b=Lrl0hTkXw7hCOEDWNfoVgSw5Hp2wpgtq4rl+F/Ot60b3E1fal3khlpEMgCcdXtLya9GCgM0tlfNGcsVgQagmsrkHNdlcm6/M/QS1vbk+TIutx2mOIT+Z1nfayRBP5pTq2kimVDosyPdlOf7WIdiKFZG8Ls2jALiLPvKVN/K2P3M=
+Received: from BN0PR04CA0033.namprd04.prod.outlook.com (2603:10b6:408:e8::8)
+ by CY4PR1201MB0085.namprd12.prod.outlook.com (2603:10b6:910:1c::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.18; Thu, 23 Dec
+ 2021 00:37:32 +0000
+Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e8:cafe::9f) by BN0PR04CA0033.outlook.office365.com
+ (2603:10b6:408:e8::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.19 via Frontend
+ Transport; Thu, 23 Dec 2021 00:37:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+ BN8NAM11FT011.mail.protection.outlook.com (10.13.176.140) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4823.18 via Frontend Transport; Thu, 23 Dec 2021 00:37:26 +0000
+ 15.20.4823.18 via Frontend Transport; Thu, 23 Dec 2021 00:37:32 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 22 Dec
- 2021 18:37:26 -0600
+ 2021 18:37:30 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [Patch v4 03/24] drm/amdkfd: CRIU Introduce Checkpoint-Restore APIs
-Date: Wed, 22 Dec 2021 19:36:50 -0500
-Message-ID: <20211223003711.13064-4-rajneesh.bhardwaj@amd.com>
+Subject: [Patch v4 10/24] drm/amdkfd: CRIU restore queue ids
+Date: Wed, 22 Dec 2021 19:36:57 -0500
+Message-ID: <20211223003711.13064-11-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20211223003711.13064-1-rajneesh.bhardwaj@amd.com>
 References: <20211223003711.13064-1-rajneesh.bhardwaj@amd.com>
@@ -67,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e2027546-3dee-47f3-1062-08d9c5ac650d
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5540:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR12MB5540FB97227FE79E03478FFFFE7E9@BL0PR12MB5540.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 05ed03aa-f4ed-4aff-e845-08d9c5ac6820
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0085:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0085668FC05D03A1FDF474B0FE7E9@CY4PR1201MB0085.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:422;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MIpgU9PJrVY7uWLKYT2Ld19ZRig7wFrvnTF0s55SofntexC2hPib9NKheIbIL7lbR5j1K9caEaKGqa6Y8RJcHNnssvEaxDp7q3v1bPo9mGTmFlUf1c8vqadJqBCqTWPmvFG5+tz9Nn9IKLSCPXfB9qewDZtNTVavhygYEzZVUTfJv/Arn71nOEGG9HBGzQfzI+DRnGBgIHdtmxvavxLYErDO3qhVC01l1PuDo5p6Sb8pMTHICaaghaM9PgNWCyoBYLNmJrzxgfUobNM8Fc6e5z824urqBABRnT3sSD6wud/XhkTHh4uKOapjQxQRzcmThAycEEGJDP3V2ktYUH47dnIqFR1Ub82+D5ZFM8kBd2RnvF2o+Jx5u8QXwRjbXRde3c1lnGEgfmXpjXTOXDN99+jbR7tkb/Sg4sGa87ycKkIZzYJn5LNJvaoIyBwarDHSu+kJR+tr83/BxedR2eadfgNG+3fFgpedLgFv6IFvBvj8K7rn3fb6PogKn1VpwUmCqnIRQgWBhfvxKOdBQzw4IQUX4ogqauBtlDEO8CMxlpTSVePLwLwi38M+ylYeCshbEREllce2Ivy3NBhMYYnhmaUUmA/ITC/zPfTYDddyQg4FQCBlOXOdbZivgQBOdHQ/YR49q1JT+Hn0kg1WUCTLnRhucswKDnYiXZhYO3ampqNHVI6HnrVhIxpR+QRfSAVqzhNMvVEUEUZNT9MX5qNJnui2HHACNaDHY9e/L+QyU8SGT1r1z50dWFfv26roTZiRC9pIWCOpZULUXhyjmtdy27smYL2UziYJb0hpq4QRM0sblZ8M+kicj5bZGIcbKxOSHcbZpg37y4q6g4bjH+OV61tmK1/KuVe6ZwFSkYMQ0iI=
+X-Microsoft-Antispam-Message-Info: Wa/BxEbeSWNDDxEKix9rC1bjKRilC5uEFum2NgWjb3QJwG2lgm/THqXGhSGnx5vSRoDkdrEsWgaci1psc1QdXuH6iayWBf+i6KJ1Img8upWZEAhwuCA0w2ubl/oGQ2XCe4G/Ofxa/OmWBtWhfXmnTCpC2PtIiYW6aiy2f2z/oOoOSxCQyJ/Al7E505V0P50sM8uca1q/FD12L8hqGtSmusKzDYj54p4wiHR2QmF6yf6Lo7ilxbYt75ezGgfsx1ic3Iqcn4EK0j0BsX2javmTBenTr3t0mObEA/Fbh8s5CQnEmokJp0VcTG9pvKvXMXruERCAw4m0GTogQRe7LKk5RtntySQ/Ht+POVYporeK29eUt2U4M0YqFtASKern9DnxQ2HG8+n+D+/KaZsTidvGWm9/ZIwI02Bj7m+jwtyOQ/r8AinODe4/IWa4fokKOfk9XjWpKbOmpRJ3+pAvipyJMgRCq7oIBAQ6cuPm2dotRlE+Rg2IaKhwNtHLAPSfrdD/1kj3fdCuGaMXhnsBRR8h6B7n6PEiVvWK7pGKl5WEL6ChO7l6iOuJFc/QPF3hBJl5vFaP+KtUL6fEAS/72XX1sEe6AUwY5Jqog80QLhWJasaPQSZ9NZg6HIZ4qeoiwWfZPiC0kkefReRgvS/MNNMUSU5HvEGuj5Gz/6IqU8cXODMN+5OUqxoa8KNk5rAkbrKpItjTFMtop858ppwBXy9xUnvnN5mqVwie6MVr4F3m0Pil1BDdLG3GDQwRMXcApMdBP987J6wa+FZveq50EDNpbAERBLxjA+MVrAHPEsBozBQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(36840700001)(46966006)(44832011)(186003)(1076003)(81166007)(36860700001)(16526019)(426003)(26005)(40460700001)(336012)(70206006)(2616005)(70586007)(508600001)(5660300002)(356005)(83380400001)(2906002)(7696005)(316002)(47076005)(8936002)(86362001)(110136005)(36756003)(30864003)(4326008)(82310400004)(8676002)(54906003)(6666004)(36900700001);
+ SFS:(4636009)(40470700002)(46966006)(36840700001)(186003)(26005)(16526019)(1076003)(36756003)(4326008)(336012)(2906002)(6666004)(508600001)(426003)(2616005)(86362001)(70206006)(70586007)(7696005)(8676002)(8936002)(110136005)(83380400001)(44832011)(47076005)(5660300002)(82310400004)(356005)(316002)(36860700001)(54906003)(81166007)(40460700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2021 00:37:26.9568 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2027546-3dee-47f3-1062-08d9c5ac650d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2021 00:37:32.1357 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ed03aa-f4ed-4aff-e845-08d9c5ac6820
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5540
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0085
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,353 +107,166 @@ Cc: daniel.vetter@ffwll.ch, felix.kuehling@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Checkpoint-Restore in userspace (CRIU) is a powerful tool that can
-snapshot a running process and later restore it on same or a remote
-machine but expects the processes that have a device file (e.g. GPU)
-associated with them, provide necessary driver support to assist CRIU
-and its extensible plugin interface. Thus, In order to support the
-Checkpoint-Restore of any ROCm process, the AMD Radeon Open Compute
-Kernel driver, needs to provide a set of new APIs that provide
-necessary VRAM metadata and its contents to a userspace component
-(CRIU plugin) that can store it in form of image files.
+From: David Yat Sin <david.yatsin@amd.com>
 
-This introduces some new ioctls which will be used to checkpoint-Restore
-any KFD bound user process. KFD doesn't allow any arbitrary ioctl call
-unless it is called by the group leader process. Since these ioctls are
-expected to be called from a KFD criu plugin which has elevated ptrace
-attached privileges and CAP_CHECKPOINT_RESTORE capabilities attached with
-the file descriptors so modify KFD to allow such calls.
+When re-creating queues during CRIU restore, restore the queue with the
+same queue id value used during CRIU dump.
 
-(API redesigned by David Yat Sin)
-Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: David Yat Sin <david.yatsin@amd.com>
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 94 +++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 65 +++++++++++++++-
- include/uapi/linux/kfd_ioctl.h           | 79 +++++++++++++++++++-
- 3 files changed, 235 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c       |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +
+ .../amd/amdkfd/kfd_process_queue_manager.c    | 37 +++++++++++++++----
+ 4 files changed, 34 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 4bfc0c8ab764..1b863bd84c96 100644
+index 9665c8657929..3fb155f756fd 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -33,6 +33,7 @@
- #include <linux/time.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
-+#include <linux/ptrace.h>
- #include <linux/dma-buf.h>
- #include <asm/processor.h>
- #include "kfd_priv.h"
-@@ -1856,6 +1857,75 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
- }
- #endif
+@@ -312,7 +312,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 			p->pasid,
+ 			dev->id);
  
-+static int criu_checkpoint(struct file *filep,
-+			   struct kfd_process *p,
-+			   struct kfd_ioctl_criu_args *args)
-+{
-+	return 0;
-+}
-+
-+static int criu_restore(struct file *filep,
-+			struct kfd_process *p,
-+			struct kfd_ioctl_criu_args *args)
-+{
-+	return 0;
-+}
-+
-+static int criu_unpause(struct file *filep,
-+			struct kfd_process *p,
-+			struct kfd_ioctl_criu_args *args)
-+{
-+	return 0;
-+}
-+
-+static int criu_resume(struct file *filep,
-+			struct kfd_process *p,
-+			struct kfd_ioctl_criu_args *args)
-+{
-+	return 0;
-+}
-+
-+static int criu_process_info(struct file *filep,
-+				struct kfd_process *p,
-+				struct kfd_ioctl_criu_args *args)
-+{
-+	return 0;
-+}
-+
-+static int kfd_ioctl_criu(struct file *filep, struct kfd_process *p, void *data)
-+{
-+	struct kfd_ioctl_criu_args *args = data;
-+	int ret;
-+
-+	dev_dbg(kfd_device, "CRIU operation: %d\n", args->op);
-+	switch (args->op) {
-+	case KFD_CRIU_OP_PROCESS_INFO:
-+		ret = criu_process_info(filep, p, args);
-+		break;
-+	case KFD_CRIU_OP_CHECKPOINT:
-+		ret = criu_checkpoint(filep, p, args);
-+		break;
-+	case KFD_CRIU_OP_UNPAUSE:
-+		ret = criu_unpause(filep, p, args);
-+		break;
-+	case KFD_CRIU_OP_RESTORE:
-+		ret = criu_restore(filep, p, args);
-+		break;
-+	case KFD_CRIU_OP_RESUME:
-+		ret = criu_resume(filep, p, args);
-+		break;
-+	default:
-+		dev_dbg(kfd_device, "Unsupported CRIU operation:%d\n", args->op);
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	if (ret)
-+		dev_dbg(kfd_device, "CRIU operation:%d err:%d\n", args->op, ret);
-+
-+	return ret;
-+}
-+
- #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
- 	[_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags = _flags, \
- 			    .cmd_drv = 0, .name = #ioctl}
-@@ -1959,6 +2029,9 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
+-	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id,
++	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id, NULL,
+ 			&doorbell_offset_in_process);
+ 	if (err != 0)
+ 		goto err_create_queue;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
+index 1e30717b5253..0c50e67e2b51 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
+@@ -185,7 +185,7 @@ static int dbgdev_register_diq(struct kfd_dbgdev *dbgdev)
+ 	properties.type = KFD_QUEUE_TYPE_DIQ;
  
- 	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SET_XNACK_MODE,
- 			kfd_ioctl_set_xnack_mode, 0),
-+
-+	AMDKFD_IOCTL_DEF(AMDKFD_IOC_CRIU_OP,
-+			kfd_ioctl_criu, KFD_IOC_FLAG_CHECKPOINT_RESTORE),
- };
+ 	status = pqm_create_queue(dbgdev->pqm, dbgdev->dev, NULL,
+-				&properties, &qid, NULL);
++				&properties, &qid, NULL, NULL);
  
- #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
-@@ -1973,6 +2046,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
- 	char *kdata = NULL;
- 	unsigned int usize, asize;
- 	int retcode = -EINVAL;
-+	bool ptrace_attached = false;
- 
- 	if (nr >= AMDKFD_CORE_IOCTL_COUNT)
- 		goto err_i1;
-@@ -1998,7 +2072,15 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
- 	 * processes need to create their own KFD device context.
- 	 */
- 	process = filep->private_data;
--	if (process->lead_thread != current->group_leader) {
-+
-+	rcu_read_lock();
-+	if ((ioctl->flags & KFD_IOC_FLAG_CHECKPOINT_RESTORE) &&
-+	    ptrace_parent(process->lead_thread) == current)
-+		ptrace_attached = true;
-+	rcu_read_unlock();
-+
-+	if (process->lead_thread != current->group_leader
-+	    && !ptrace_attached) {
- 		dev_dbg(kfd_device, "Using KFD FD in wrong process\n");
- 		retcode = -EBADF;
- 		goto err_i1;
-@@ -2013,6 +2095,16 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
- 		goto err_i1;
- 	}
- 
-+	/*
-+	 * Versions of docker shipped in Ubuntu 18.xx and 20.xx do not support
-+	 * CAP_CHECKPOINT_RESTORE, so we also allow access if CAP_SYS_ADMIN as CAP_SYS_ADMIN is a
-+	 * more priviledged access.
-+	 */
-+	if (unlikely(ioctl->flags & KFD_IOC_FLAG_CHECKPOINT_RESTORE)) {
-+		if (!capable(CAP_CHECKPOINT_RESTORE) && !capable(CAP_SYS_ADMIN))
-+			return -EACCES;
-+	}
-+
- 	if (cmd & (IOC_IN | IOC_OUT)) {
- 		if (asize <= sizeof(stack_kdata)) {
- 			kdata = stack_kdata;
+ 	if (status) {
+ 		pr_err("Failed to create DIQ\n");
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 1d3f012bcd2a..e68f692362bb 100644
+index 7c2679a23aa3..8272bd5c4600 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -121,7 +121,26 @@
+@@ -461,6 +461,7 @@ enum KFD_QUEUE_PRIORITY {
+  * it's user mode or kernel mode queue.
+  *
   */
- #define KFD_QUEUE_DOORBELL_MIRROR_OFFSET 512
++
+ struct queue_properties {
+ 	enum kfd_queue_type type;
+ 	enum kfd_queue_format format;
+@@ -1156,6 +1157,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 			    struct file *f,
+ 			    struct queue_properties *properties,
+ 			    unsigned int *qid,
++			    const struct kfd_criu_queue_priv_data *q_data,
+ 			    uint32_t *p_doorbell_offset_in_process);
+ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid);
+ int pqm_update_queue_properties(struct process_queue_manager *pqm, unsigned int qid,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 480ad794df4e..275aeebc58fa 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -42,6 +42,20 @@ static inline struct process_queue_node *get_queue_by_qid(
+ 	return NULL;
+ }
  
--
-+/**
-+ * enum kfd_ioctl_flags - KFD ioctl flags
-+ * Various flags that can be set in &amdkfd_ioctl_desc.flags to control how
-+ * userspace can use a given ioctl.
-+ */
-+enum kfd_ioctl_flags {
-+	/*
-+	 * @KFD_IOC_FLAG_CHECKPOINT_RESTORE:
-+	 * Certain KFD ioctls such as AMDKFD_IOC_CRIU_OP can potentially
-+	 * perform privileged operations and load arbitrary data into MQDs and
-+	 * eventually HQD registers when the queue is mapped by HWS. In order to
-+	 * prevent this we should perform additional security checks.
-+	 *
-+	 * This is equivalent to callers with the CHECKPOINT_RESTORE capability.
-+	 *
-+	 * Note: Since earlier versions of docker do not support CHECKPOINT_RESTORE,
-+	 * we also allow ioctls with SYS_ADMIN capability.
-+	 */
-+	KFD_IOC_FLAG_CHECKPOINT_RESTORE = BIT(0),
-+};
- /*
-  * Kernel module parameter to specify maximum number of supported queues per
-  * device
-@@ -1004,6 +1023,50 @@ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
- 				  uint64_t tba_addr,
- 				  uint64_t tma_addr);
++static int assign_queue_slot_by_qid(struct process_queue_manager *pqm,
++				    unsigned int qid)
++{
++	if (qid >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
++		return -EINVAL;
++
++	if (__test_and_set_bit(qid, pqm->queue_slot_bitmap)) {
++		pr_err("Cannot create new queue because requested qid(%u) is in use\n", qid);
++		return -ENOSPC;
++	}
++
++	return 0;
++}
++
+ static int find_available_queue_slot(struct process_queue_manager *pqm,
+ 					unsigned int *qid)
+ {
+@@ -194,6 +208,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 			    struct file *f,
+ 			    struct queue_properties *properties,
+ 			    unsigned int *qid,
++			    const struct kfd_criu_queue_priv_data *q_data,
+ 			    uint32_t *p_doorbell_offset_in_process)
+ {
+ 	int retval;
+@@ -225,7 +240,12 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 	if (pdd->qpd.queue_count >= max_queues)
+ 		return -ENOSPC;
  
-+/* CRIU */
-+/*
-+ * Need to increment KFD_CRIU_PRIV_VERSION each time a change is made to any of the CRIU private
-+ * structures:
-+ * kfd_criu_process_priv_data
-+ * kfd_criu_device_priv_data
-+ * kfd_criu_bo_priv_data
-+ * kfd_criu_queue_priv_data
-+ * kfd_criu_event_priv_data
-+ * kfd_criu_svm_range_priv_data
-+ */
+-	retval = find_available_queue_slot(pqm, qid);
++	if (q_data) {
++		retval = assign_queue_slot_by_qid(pqm, q_data->q_id);
++		*qid = q_data->q_id;
++	} else
++		retval = find_available_queue_slot(pqm, qid);
 +
-+#define KFD_CRIU_PRIV_VERSION 1
-+
-+struct kfd_criu_process_priv_data {
-+	uint32_t version;
-+};
-+
-+struct kfd_criu_device_priv_data {
-+	/* For future use */
-+	uint64_t reserved;
-+};
-+
-+struct kfd_criu_bo_priv_data {
-+	uint64_t reserved;
-+};
-+
-+struct kfd_criu_svm_range_priv_data {
-+	uint32_t object_type;
-+	uint64_t reserved;
-+};
-+
-+struct kfd_criu_queue_priv_data {
-+	uint32_t object_type;
-+	uint64_t reserved;
-+};
-+
-+struct kfd_criu_event_priv_data {
-+	uint32_t object_type;
-+	uint64_t reserved;
-+};
-+
-+/* CRIU - End */
-+
- /* Queue Context Management */
- int init_queue(struct queue **q, const struct queue_properties *properties);
- void uninit_queue(struct queue *q);
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index af96af174dc4..b5c297be081b 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -468,6 +468,80 @@ struct kfd_ioctl_smi_events_args {
- 	__u32 anon_fd;	/* from KFD */
- };
+ 	if (retval != 0)
+ 		return retval;
  
-+/**************************************************************************************************
-+ * CRIU IOCTLs (Checkpoint Restore In Userspace)
-+ *
-+ * When checkpointing a process, the userspace application will perform:
-+ * 1. PROCESS_INFO op to determine current process information
-+ * 2. CHECKPOINT op to checkpoint process contents (BOs, queues, events, svm-ranges)
-+ * 3. UNPAUSE op to un-evict all the queues
-+ *
-+ * When restoring a process, the CRIU userspace application will perform:
-+ *
-+ * 1. RESTORE op to restore process contents
-+ * 2. RESUME op to start the process
-+ *
-+ * Note: Queues are forced into an evicted state after a successful PROCESS_INFO. If user
-+ * application need to perform an UNPAUSE operation to complete or abort a checkpoint.
-+ */
-+
-+enum kfd_criu_op {
-+	KFD_CRIU_OP_PROCESS_INFO,
-+	KFD_CRIU_OP_CHECKPOINT,
-+	KFD_CRIU_OP_UNPAUSE,
-+	KFD_CRIU_OP_RESTORE,
-+	KFD_CRIU_OP_RESUME,
-+};
-+
-+/**
-+ * kfd_ioctl_criu_args - Arguments perform CRIU operation
-+ * @devices:		[in/out] User pointer to memory location for devices information
-+ * @bos:		[in/out] User pointer to memory location for BOs information
-+ * @priv_data:		[in/out] User pointer to memory location for private data
-+ * @priv_data_size:	[in/out] Size of priv_data in bytes
-+ * @num_devices:	[in/out] Number of GPUs used by process
-+ * @num_bos		[in/out] Number of BOs used by process
-+ * @num_objects:	[in/out] Number of objects used by process. Objects are opaque to
-+ *				 user application
-+ * @pid:		[in/out] PID of the process being checkpointed/restored
-+ * @op			[in] Type of operation (kfd_criu_op)
-+ *
-+ * Takes and releases process lock.
-+ * Return: 0 on success, -errno on failure
-+ */
-+struct kfd_ioctl_criu_args {
-+	__u64 devices;		/* Used during ops: CHECKPOINT, RESTORE */
-+	__u64 bos;		/* Used during ops: CHECKPOINT, RESTORE */
-+	__u64 priv_data;	/* Used during ops: CHECKPOINT, RESTORE */
-+	__u64 priv_data_size;	/* Used during ops: PROCESS_INFO, RESTORE */
-+	__u32 num_devices;	/* Used during ops: PROCESS_INFO, RESTORE */
-+	__u32 num_bos;		/* Used during ops: PROCESS_INFO, RESTORE */
-+	__u32 num_objects;	/* Used during ops: PROCESS_INFO, RESTORE */
-+	__u32 pid;		/* Used during ops: PROCESS_INFO, RESTORE */
-+	__u32 op;
-+};
-+
-+struct kfd_criu_device_bucket {
-+	__u32 user_gpu_id;
-+	__u32 actual_gpu_id;
-+	__u32 drm_fd;
-+	__u32 pad;
-+};
-+
-+struct kfd_criu_bo_bucket {
-+	__u64 addr;
-+	__u64 size;
-+	__u64 offset;
-+	__u64 restored_offset;    /* During restore, updated offset for BO */
-+	__u32 gpu_id;
-+	__u32 alloc_flags;
-+	__u32 dmabuf_fd;
-+	__u32 pad;
-+};
-+
-+/* CRIU IOCTLs - END */
-+/**************************************************************************************************/
-+
- /* Register offset inside the remapped mmio page
-  */
- enum kfd_mmio_remap {
-@@ -742,7 +816,10 @@ struct kfd_ioctl_set_xnack_mode_args {
- #define AMDKFD_IOC_SET_XNACK_MODE		\
- 		AMDKFD_IOWR(0x21, struct kfd_ioctl_set_xnack_mode_args)
+@@ -528,7 +548,7 @@ int kfd_process_get_queue_info(struct kfd_process *p,
+ 	return 0;
+ }
  
-+#define AMDKFD_IOC_CRIU_OP			\
-+		AMDKFD_IOWR(0x22, struct kfd_ioctl_criu_args)
-+
- #define AMDKFD_COMMAND_START		0x01
--#define AMDKFD_COMMAND_END		0x22
-+#define AMDKFD_COMMAND_END		0x23
+-static void criu_dump_queue(struct kfd_process_device *pdd,
++static void criu_checkpoint_queue(struct kfd_process_device *pdd,
+ 			   struct queue *q,
+ 			   struct kfd_criu_queue_priv_data *q_data)
+ {
+@@ -560,7 +580,7 @@ static void criu_dump_queue(struct kfd_process_device *pdd,
+ 	pr_debug("Dumping Queue: gpu_id:%x queue_id:%u\n", q_data->gpu_id, q_data->q_id);
+ }
  
- #endif
+-static int criu_dump_queues_device(struct kfd_process_device *pdd,
++static int criu_checkpoint_queues_device(struct kfd_process_device *pdd,
+ 				   uint8_t __user *user_priv,
+ 				   unsigned int *q_index,
+ 				   uint64_t *queues_priv_data_offset)
+@@ -582,7 +602,8 @@ static int criu_dump_queues_device(struct kfd_process_device *pdd,
+ 			return -EOPNOTSUPP;
+ 		}
+ 
+-		criu_dump_queue(pdd, q, q_data);
++		criu_checkpoint_queue(pdd, q, q_data);
++		q_data->object_type = KFD_CRIU_OBJECT_TYPE_QUEUE;
+ 
+ 		ret = copy_to_user(user_priv + *queues_priv_data_offset, q_data, sizeof(*q_data));
+ 		if (ret) {
+@@ -608,10 +629,12 @@ int kfd_criu_checkpoint_queues(struct kfd_process *p,
+ 		struct kfd_process_device *pdd = p->pdds[pdd_index];
+ 
+ 		/*
+-		 * criu_dump_queues_device will copy data to user and update q_index and
++		 * criu_checkpoint_queues_device will copy data to user and update q_index and
+ 		 * queues_priv_data_offset
+ 		 */
+-		ret = criu_dump_queues_device(pdd, user_priv_data, &q_index, priv_data_offset);
++		ret = criu_checkpoint_queues_device(pdd, user_priv_data, &q_index,
++					      priv_data_offset);
++
+ 		if (ret)
+ 			break;
+ 	}
+@@ -693,7 +716,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 
+ 	print_queue_properties(&qp);
+ 
+-	ret = pqm_create_queue(&p->pqm, pdd->dev, NULL, &qp, &queue_id, NULL);
++	ret = pqm_create_queue(&p->pqm, pdd->dev, NULL, &qp, &queue_id, q_data, NULL);
+ 	if (ret) {
+ 		pr_err("Failed to create new queue err:%d\n", ret);
+ 		ret = -EINVAL;
 -- 
 2.17.1
 
