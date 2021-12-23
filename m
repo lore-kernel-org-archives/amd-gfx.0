@@ -4,128 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A95A4C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Dec 2021 01:52:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D10C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Dec 2021 02:31:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 410A110E20A;
-	Thu, 23 Dec 2021 01:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53EB910E262;
+	Thu, 23 Dec 2021 02:31:08 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E75610E20A;
- Thu, 23 Dec 2021 01:52:07 +0000 (UTC)
+ (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D935A10E262
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Dec 2021 02:31:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kGUTyg4ixMpxAnJJmhWRq4LiWaEMhHU7MTrDN5My+KUdwm+dlxtAxETQgL/uanDkoJXpi1h/cqciGqrksXMu8Kal3+kDdrZAnDmRWDZ7q3q86OV0KwVCYjK0tMf6Uj0IZNwL11WhnrWgmow70s4RRt6dJ0kTCrwOF5gvbT9/irgYt8D1dUTNntyHYhGsatuUmH5rL/5vYwE6VVBNUQ0ipzndMpSGw99Skd3G/M0HnCkwvcgel5clHqFcihtay2e2vHt6yU9mpEDayNpG+JE2EICsUgWoco9UjpME3r+vuDfDOI7gkYN8FplPiT8tFrL1NQcXN0yEGTJcRisZ6BzD8w==
+ b=gn0iroFxeV5rZ/YUfXcuXv+oy35+OPrflV7FAOsP6MZgnRKFVr5VksIvHMHzvJvYNmWkpgdnhrlbuJF/WbciTXAbHv7YM9IpYB8bT8mozpfu2xAAJo9IEZL/UrLnbH6YF9Y6Gg03YfLMBMk8/uMUCsqaWYY3pypphoPmnTrw3ntsgDLWiYC61pI0yR/Y+jxjQH++TKxMhPwXotToHzD9q+ub+N6E+f60Sq/DBRqxqzhWzU7NzTBt+9NvTFMwLjV7+10/NvrcZgCPMiebz+zL+QoAx+EnM4ruz5sMlRCYXMmHJUDedA6b0hLivzA1rlZL9Wmup28AOZC+lutGHovK2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R8ADLSw0b9up48Y6TQEUQP/b78cgENaVp4KCK2n5G/U=;
- b=BW5oVwp38UX9QMzR7IWY6oxJ9lSFUhe/7zBAU8x9U/N7n/cW+Q0Kgu2gOHTgpiCUNzC+8Wi4jRMy5Ub6RsjV1WbDv+OXguYvxsUAwblnNwnc7nlL0sAGhgYP5H/yXOplwWbvi1o6kuMmWrKNTJ56g5t2heVoXRFSnCn1vYL5Lu8J1m4BVjlTY6N8yRQ23GnmTGMeOE/YJp2p72ndXOPodW0qCCmWIqWqzrrngxlxdN26BtBsWLnCReu2a36Ci1ZTDTJ951SywDetzaIPv7D+RZ2z1GCEUitfswW9JY6yYd1k6cR9uCo+bqrFlVIrxkiCX5dxZnwO0/4sBR8Z+J6SsA==
+ bh=NyaZKK3cqmzzEnGPqsNsDYf1HCzeZnMPlgqFcITdceA=;
+ b=g8fjshZX4HnnCYEwVGlBl0hkLfY7gPf1+GR8I5qrQQUQXUmQJHaB20GhhLiNvG9YXhukQK5WUAmXkL6FeAy0Ftl5ERS5FJiw7Wq8svpHexXaR4+OLdfZ/XrTV44DkB7VKC3T3/KpVcHnvW3zPh3VNL1+tb3Sd4qdcVgzRZVQ95yd2ACJk4vC12D2FmOQfWMdgefWVEShzzGTzwA7N+cUKLisXoOM3IBq+QS9PVKNp20SEYNwBRJpc6CJBic7m3cjLjiuhCtz90J5xxyl9Fz2D6ap79jxy46ospEhLjg8fFzvcGmqVOa1pP0yh5HpXTF8XVprntpxGHs/wNn4YC3TEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R8ADLSw0b9up48Y6TQEUQP/b78cgENaVp4KCK2n5G/U=;
- b=3Nn+43qW1hl4z6pyiVPOUK0OlfS4smiIRI5iZF871NAPap5atBhk1X7WOwm9PolJMROIlcobFZP1NSoZzANvJDBHENWoILI50L8h0EXOq1Y1o5Tu06PcRXBwk8mGACxcKVZrwWWiwLPB7cRrp5u870Qi9fCuAiZ7Ef59ziUsU+o=
-Authentication-Results: dkim=none (message not signed)
+ bh=NyaZKK3cqmzzEnGPqsNsDYf1HCzeZnMPlgqFcITdceA=;
+ b=ZuUbE1FDix3ser/gJ8mvetm55wFkPAYIZ7pkBI4SgsCCFnKNtqQaHcBg1qB1HWLw6PByHBg8YtxbgS4Hm5QM2FF2xWwmeMQcEeOQvo/hUAE41GAILi3f67f20T0X/wBTYLQ2g27yIKzAZxBgClBXH5Lvbc51m/xAYRUgZMhwOGE=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR12MB1707.namprd12.prod.outlook.com (2603:10b6:3:108::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4823.19; Thu, 23 Dec 2021 02:31:04 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::a894:300e:5c16:5639]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::a894:300e:5c16:5639%6]) with mapi id 15.20.4823.019; Thu, 23 Dec 2021
+ 02:31:04 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Nikolic, Marina" <Marina.Nikolic@amd.com>, "Russell, Kent"
+ <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] amdgpu/pm: Modify sysfs to have only read permission in
+ SRIOV/ONEVF mode
+Thread-Topic: [PATCH] amdgpu/pm: Modify sysfs to have only read permission in
+ SRIOV/ONEVF mode
+Thread-Index: AQHX9yaZfa3kXBeNX0mWaYhlCPGrraw/W9ng
+Date: Thu, 23 Dec 2021 02:31:04 +0000
+Message-ID: <DM6PR12MB26198CFC597504433EF8D18BE47E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20211220160834.8400-1-Marina.Nikolic@amd.com>
+ <DM6PR12MB2858E316736722D6682BAAAA857B9@DM6PR12MB2858.namprd12.prod.outlook.com>
+ <DM6PR12MB4300CCD940D7D651D07CBD2A8E7C9@DM6PR12MB4300.namprd12.prod.outlook.com>
+ <DM6PR12MB4300DD7B8B8F194198F7D6E78E7C9@DM6PR12MB4300.namprd12.prod.outlook.com>
+ <DM6PR12MB26190A8388C1E472837BC094E47D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <DM6PR12MB43004E4DF34D166C06C9AB9A8E7D9@DM6PR12MB4300.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB43004E4DF34D166C06C9AB9A8E7D9@DM6PR12MB4300.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-12-23T02:31:01Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY4PR12MB1527.namprd12.prod.outlook.com (2603:10b6:910:5::23)
- by CY4PR12MB1142.namprd12.prod.outlook.com (2603:10b6:903:40::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.17; Thu, 23 Dec
- 2021 01:52:04 +0000
-Received: from CY4PR12MB1527.namprd12.prod.outlook.com
- ([fe80::b83d:9c56:74dd:937b]) by CY4PR12MB1527.namprd12.prod.outlook.com
- ([fe80::b83d:9c56:74dd:937b%11]) with mapi id 15.20.4801.020; Thu, 23 Dec
- 2021 01:52:04 +0000
-Content-Type: multipart/alternative;
- boundary="------------DCNk5e0wNmrRTsbceS12SjrI"
-Message-ID: <9a2dd649-6925-e798-b9da-19e578a89b4c@amd.com>
-Date: Wed, 22 Dec 2021 20:51:57 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
-Content-Language: en-CA
-From: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
-To: Daniel Vetter <daniel@ffwll.ch>, Adrian Reber <areber@redhat.com>
-References: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
- <94b992c2-04c2-7305-0a51-d130fc645f3f@gmail.com>
- <58d61e47-3796-3147-db6c-ea7912d16902@amd.com>
- <de272de9-3f4a-db40-699a-41394cb699dc@amd.com>
- <cb5668d4-a13d-3b0b-442a-bfe1b3a7239a@amd.com>
- <000edeaf-8a89-ea4d-5b9a-2bd7758f675c@amd.com>
- <f00f2f16-f0b3-cb54-f88e-d53353bfdb79@amd.com>
- <f4527002-ec6d-5279-3b79-1aacb6cc55cc@amd.com>
- <YcBM3PMz7J90F3LQ@phenom.ffwll.local>
- <9d1030c2-2269-cfdd-bbb0-9c3d5995841a@amd.com>
- <YcOQN/l7W66W/X0f@phenom.ffwll.local>
- <ebcdbdad-1d34-41be-0423-e97b994e2bb2@amd.com>
-In-Reply-To: <ebcdbdad-1d34-41be-0423-e97b994e2bb2@amd.com>
-X-ClientProxiedBy: CH0PR03CA0283.namprd03.prod.outlook.com
- (2603:10b6:610:e6::18) To CY4PR12MB1527.namprd12.prod.outlook.com
- (2603:10b6:910:5::23)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e793642e-cde3-4e47-8bc4-08d9c5b6d1a2
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1142:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB114233E4716FB2787FD1910AFE7E9@CY4PR12MB1142.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mgCOTnlbnoPmLsIUfWhid3dWHB42B7hZI8hBnSNTJjQNzio9rOChwwvwKLRLyahBXExbM1FZ4IyJFuai9IiIaUqSwf7AAMYbUaJfTTo15j2e2iQp0vEHAa9EHqwhMm7HGdDSX+zahLC7SNmGZ9ClaC6RR16IeVGjdjKRk8yMCXP3SWTjmcmNT7MEcIv5I4hxCZ/Y9jInjXzK63BOC1QDkIrpq469CG2Tw6m+tH2oIiWAIj7WjVCFf+YnOsPldrMaucPvET9JrWISLRsMWDlOJMKUJvSzteXC/AyISmIMMIeausoVPgroSOffQOpfjHSjHH8yg5kVWCc9zo2Y32lMk+RHU4cpr76q4zulS+/hxCftswlKLYR56JA81zeh+z83vGWMr0hO1WUxtzzGpRiBiI5UDx35Se1zK0da3GUOPWT7JXd0m7GOT/N9xTXGruZB0QLZENo9Fj9uAUveE9Mm+fY4rSZtbLXL/QH09LqKZB43gmQLQZpwWx1yBiEMqrIpZEDdTUgmtXRw/qExPJLtDrkqibHdjK2t/DHwse7zhx4NdBm9XUMUr97uRZJNGLIyK2ftrU4us7QeVzlD/pbyQyb/HEJDLsVykniyq16HWCXqGBTa86ZRt0PvnUpfF+PSKqzMJ0O5yEC/Y16koikkcpkbzhjAHp0fLQiEO7GA0GwgZOUZ4H8ZCeXK6shPTPxSnOpSZ3J0LqaiAwIqAdZcnvy0a4/57Nbll8VKCKE17c/QYv+/zSQOwxF+1r7qZ9xZe6qCbTMbUYgIFPTkFgcMAobbTetlOARMb35dc9oj0I26gDlhGRxhkIVg7lpgedF8Imb8ndV2VjR1bbbCM3nwbA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1527.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66476007)(66574015)(66556008)(38100700002)(2616005)(66946007)(2906002)(30864003)(36756003)(5660300002)(508600001)(45080400002)(4326008)(54906003)(316002)(110136005)(166002)(26005)(31696002)(966005)(186003)(83380400001)(31686004)(6486002)(8676002)(6506007)(6666004)(33964004)(8936002)(86362001)(53546011)(6512007)(45980500001)(43740500002);
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: c3e5b040-aab2-4b33-ef91-08d9c5bc446b
+x-ms-traffictypediagnostic: DM5PR12MB1707:EE_
+x-microsoft-antispam-prvs: <DM5PR12MB170779345F5CA4E00A638B63E47E9@DM5PR12MB1707.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3968;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: v1eL6721GbZLd5AHydV3ZwBWjOeuZvZ0/Dn0vh575LXVpxcI2nWW3Uv91bR6tueMKBJTOixFcI+TkNs8h8QXM67ejH0iYSaOlnC+e2q8BUQo1Ilm+fOgI1xnIcgVnOqDVP0q60VCE4b90VMytmCQf+xU5Sm4R2eSW5EORIn7q4GC5ecvQkvxD77sR2u27+2r/dVb8NYENNxMBBReHJ/qKY3T+fXcW7lpDHlMvD9KIkr5njvS3lCQgcL2Lpbt6uTHA8gsaxIq5OXmikKToWTm0h/GjlUuv5r++pvo1UJ6XZKomKil2X2HwpS6MNwumf2sPM49EEy980zBbwcYhdV+Q0rN6GqhBUz6cp5+T6VeWP1mY7XLV+FprVDtYrdJoX3JLlqX/lezmf2k4tKoGnmw/9+0Vemsnov5B7ZaGzm2fW5DjL3VzvyjxxC817B32S4+50xWAsbcb7OLWc9ZL5NJZpEOo7PLjYbkRq6yd0ZZl6eUU13BWrM/RHu/QVpB15W8MEQsbuy5CaNPoGEI1hMgAYEdJCXtA/cz/i9sCPpauTs6gWOEyzGWxW7Cj5XeZKH54LEZcY6mVUeLFhxqeGUPt4BUBbVhdXT2jK1IUBGVOk0tCglzPmFY0GDzGMPJY0qAoMB1DL7e7h2RU0417g5vTG8psOAdpwEAiAwKJaJ4t43atPdrOe6mfheAVDgHs3Vdno74F0OkNSS5RG6N0tBYYg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(38070700005)(8676002)(316002)(508600001)(53546011)(6506007)(64756008)(66446008)(66946007)(76116006)(33656002)(71200400001)(66476007)(66556008)(9686003)(4326008)(2906002)(86362001)(83380400001)(52536014)(7696005)(110136005)(5660300002)(54906003)(38100700002)(26005)(8936002)(186003)(55016003)(122000001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K29WWjcyZEpWeWkxRzVWbXhBT3NXS1BlVXhPbE04MEswblR1aDhQK3FrU1ls?=
- =?utf-8?B?QjNhaE5tVjVucUo1ZGZERzJmWnRCSExWSDJsSHlEQnpvSmFQTzRwcXRxSSt4?=
- =?utf-8?B?ZFh5dU5jakYyMHRBcHFwbjRRUnh2T3F5OVRiM0VnTFM3VUtmdWszUFRVZ0Zm?=
- =?utf-8?B?KzJNaWVPQmlMTnpRZkRJNWRCU0NocGFLNERRUDVEOGphQ1dSNHoyb0JoYWdN?=
- =?utf-8?B?NDlESksxV05JWmVHRW41ZzVDaHhsTVh1Vzh1UEZIKzBYM2VpcEhkRXRkeXJJ?=
- =?utf-8?B?eUU3bjJQNGx2OVNKT2NIR0prZUpIZDhFaEwxa1U3RDI4bnVIbHlaZWFRMEF6?=
- =?utf-8?B?RzltSkdsU3dlNUkyTW1IY21UMUJDSUNJdTROdng4NW9Sd2NaWWg0cEVrcUU0?=
- =?utf-8?B?aHFFeDZkMGlwb0pTT1VxN0lqZmNwZXpleGdueDhYUHNzRWEzQ2cxc2pLSXR4?=
- =?utf-8?B?c0srcGJpRjBqME1vamU4TUMzVW5XQWdtazRteVJCc28vY3RFZnRQempVWlEw?=
- =?utf-8?B?VzdTaWF2bkVVNVBuelZ5OHVPODh4UVBkOEdXVmdhcjlNcG5yVGMxVzR6MWlZ?=
- =?utf-8?B?dlgyLzZyK2NYMzdjRTNvTmVYcWtObHB3QTZpSzJyaEJLZVVuWWt2bmRMN0Iv?=
- =?utf-8?B?a2tFZ01qcWtrRXpwVVplaGtwaXNQWXJnVGQ0NXNmRTBoQmRwQ0h0T1ExUVlo?=
- =?utf-8?B?Wm1pZmlMRnhUUmFsamEwRmd1UjdjYk12QUtDeEdhWm85NjgrazlvZXFVZVds?=
- =?utf-8?B?cG4zSjY5Z3E5T1ZPNHNDcm5MaEY1UzR1TlVFNE9jT245a01NeGRvelIwek9G?=
- =?utf-8?B?WXp0K3dyem5SUHhCWEpoR0V4YUtMRWVXV2ZBZmR6blo0azlGNlZ2dzRtcXZJ?=
- =?utf-8?B?d01Ld2IyUUl3bGwxeVFkTFQzbURkS0diVmlhUEhmNktSNWljVFFkQ3pwUUFz?=
- =?utf-8?B?OE0yRzVaaTRnWGxqMjd5cGJ2SEQ5eER3K3gyZVJyV0pMQW56Y2xxeEVidTY1?=
- =?utf-8?B?ZlNBQjg5eStvSlV5Mm04Y0c0VFVmS1RwcmlnMHQ0N2w2SVZJTnY4ZitMd3Vq?=
- =?utf-8?B?RE5MK1dBUUp0Wm9zRXE2RnpmbEs2VDdRTnEzN2tOcTdwVW8xZWxEaHEwY2Va?=
- =?utf-8?B?RXBLUzQ4N3ZaNm94ZWVTb004bFpnQjRSRkFlbWxwLzdGd3R3d3NlRExod21r?=
- =?utf-8?B?WXVLU1VTa1d4WFE0ZFlFUnB0OFE5Q2xRRW40L1dMejQ2NjlZUm85WWFrN0hO?=
- =?utf-8?B?cm9GbHBWTlNqenluWXFlaE1RVUxYWUltaVQ1ZHJLMkNBZWVoT0FzN0FJM3dU?=
- =?utf-8?B?Q2creVkzK3dSVGxJNkxSUkJ6dGNmRHJBdng1aXVtcStsQk1WL0hOcFdrcENP?=
- =?utf-8?B?d0hZS09FSzdDeXY2S2VRdjcrcXBqT0xQSkh2VUpSaS9qWDhRV2lqZmNiN1dY?=
- =?utf-8?B?bVZ4ekpjVzk5cnlHYWh5S2lBYzFLWHJrUU1zTXN0ZEhPdHl4VmhiR3EvQ0VU?=
- =?utf-8?B?WDgvSXNBMkhqZHJpekt4Tno2ajZoYTJlWVhlNHJsL25qMW1kb2wxWVk0STRY?=
- =?utf-8?B?WGUvV0JIM3NkbEttdStRK2VTb0I2S044dndURFZ4b1NRb21KUW50Q21YWWNJ?=
- =?utf-8?B?Z1d1VlpsMmQremx2WUR0NGNCb2dISDF5SElCaGUxL2QwdmhFa0djL29WTERz?=
- =?utf-8?B?aEZnajJteUZ3b1R0WkRtZUExeFhqMHp2MjFNSU05Ukp6czVJZllmRUdxWEdG?=
- =?utf-8?B?aFhpVW45blp2aGN2dXkydkVDRHZlNndYOC9FZnB2Q2wyNmFLN0xMcXlJd1Ex?=
- =?utf-8?B?ODZxRzFaWVZ2MTFLdUN5aENmOE8wSksxdVFVL1FFaGlIalprVG9LU2NvY2N6?=
- =?utf-8?B?ZFRIUHNWL3YvUEtzMzJLTXNtKzYxUnE3YkpXNnBvYVFJa3ByVlQzcVpIa2Yw?=
- =?utf-8?B?STZIRWpRVmZ0VGFUREVZRDAvTzE0ejloUUc4SG9TWEJhbWtvcjRMRngxQVRK?=
- =?utf-8?B?TzdJZThDVXEwV25vUUlrRVNTVGErNzRjYTdIOXlvaFptWE9zTU5EWlpCVi9v?=
- =?utf-8?B?VU94RktTaDVBdnNIaWNVZ1A3OXZqQ1hpeUlaVlYxakdXRGQycWd2eW11Z0d1?=
- =?utf-8?B?cGZPdTBCL3llSDdLM2p5QVlOODRKdjhpYWllSzJ4Z3l6R1dIclJ2Ulp0a0xN?=
- =?utf-8?Q?FheAdf1YbfbAers6KR81/Qc=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?w6rRBVYNbimpRRJ4kw4M2O8+fhif+6QYXYWYprp3ESn/8MNltbQO1Z+wom9s?=
+ =?us-ascii?Q?oe4Lck59ssIjDUttyzhqn1aYPiLuqf9MuY2p/vLj4+Za813iLLkdPUcLZfLn?=
+ =?us-ascii?Q?VLbGh+v87f6xSqBnm52XUDJ2lpf5Oa1taPWtvMSfjU1DzCUlCpcCx4siRNnC?=
+ =?us-ascii?Q?ANNiehGS0kCEIAg/sHxe5GCA3Mm81An28gokNLBSgClsHC1WS+VcTv54PJNr?=
+ =?us-ascii?Q?vaIeuEsJPrJtUBRK3TqYPPyNf/q2zbjSbenEqlt+ncDVGO9VhdLZGsH/bWE6?=
+ =?us-ascii?Q?Up08M1gC2/IfmTHSrP5+W3/bfXhlLb/sEHWAJp+V9bOSiSMG9XNgkezMDfrK?=
+ =?us-ascii?Q?5cTUntuMnylxq8wd0hEwim6HBk32k4Py01YYuqkU5CLbIQLt1eAEWloh4ZaM?=
+ =?us-ascii?Q?FDj5x86qtQvv88UfIcKrhp8z6BeyDCfiqdPIFF3oGhm24PUQyDusT3m0Ehc6?=
+ =?us-ascii?Q?C4qCgwwXFY/Zo2jJcQtyi+yrc9x/wKG+aCWjSoXH2N89w2H4SSxracrPALvK?=
+ =?us-ascii?Q?bMevLpYii7smGx6CQJ4p9yDQL1tRdbhBcwnH9UwvyrClIuMZKD9iqQUMN2Hl?=
+ =?us-ascii?Q?lE4vq7DG9Zdcw1Ps8i3egd0CRCwjoorfwCGc0YOviQ0b80MEANKQIIwxgIRS?=
+ =?us-ascii?Q?TfRWU8D5ZQx8jBGU5KuymddujOyqXeHYBibgzg3thbu6Xw29f+2eVgzyvXJt?=
+ =?us-ascii?Q?ufmY/28Z6XUBVXwboIARCrPPdnCkfcAZnkujJHcOmDrBwjeIYIYDr4zoiVDj?=
+ =?us-ascii?Q?ps9vqOs9A1T6tadbuP7fduFgC6oGmyorGqICHlk2tPOVbhf8hOc9t8fciMzR?=
+ =?us-ascii?Q?UtU7/a0N0e38Idj94UGTq7LhyNjpJ5MVH4bWLG1sOf59VV5Ko0isC/OLuzYa?=
+ =?us-ascii?Q?bZuybw8ZGtKSsZ5xDM8L917D+ULga9tD0LSwDXVUmbkfP2mcr5r4wXHgcCfD?=
+ =?us-ascii?Q?SzNNajgRZKg8Dye00mT5dY7WZUTbqOX2RWdN+IBTJ1izHvQkjp6r8x4mN02z?=
+ =?us-ascii?Q?kCh3ziD3A2bbA0lo0PZY0G8OyIClHaw7jPvqsZ59qXijOnb68+koTCq/LJuX?=
+ =?us-ascii?Q?B+5VyTvthJvi1ILXZHAqXh2oBVnD5FpitRae+waHst3QpPuFu4bwgfnv9TMU?=
+ =?us-ascii?Q?JmBJIS4BtK2b7OPvUyQuD0aDfHtLXdU0rmFSHROBKerkcyFtTuhBxnLcgC2R?=
+ =?us-ascii?Q?tJvA7Gf6Jq3VbKIJHyKFFPVsqsYJIp5uCtBOLG/FiFz5m34HY6fBh9zgnVri?=
+ =?us-ascii?Q?PWvQfu8kxXJ3Vp8PobO/PWjbh1gwCSTlV1O0U3cH3GdasXtvVHF2p+E23L6W?=
+ =?us-ascii?Q?70NTET6bS4int+AGU1XFm5uZW/6n7JpDhUeAH1pq72HbEihK3jO9lgm0z1eR?=
+ =?us-ascii?Q?WUPExFpYE17fhTaQJWuNOXFfc8mYMHPpvN8tlTICQfKVrp/P1qrKNbh8X7nS?=
+ =?us-ascii?Q?cRM2x/AxePhzETWKIJbmMi/weQzoS72xKJZ7AAoBYFwBAEyMSoDWUfmDrrRN?=
+ =?us-ascii?Q?1qJqVVORecKek8BaimcaakHxYfo19Bvx3btL0/JvhOCMjD+77/u6L4HP+hcg?=
+ =?us-ascii?Q?g1U5z+h9N3JTiar59a4=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM6PR12MB26198CFC597504433EF8D18BE47E9DM6PR12MB2619namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e793642e-cde3-4e47-8bc4-08d9c5b6d1a2
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1527.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2021 01:52:04.3305 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pyec+1WZ8a0231z4KgiV8RN6V6eh2q3D4Nxk8/ZPDtTLcdULX3+ALI7w/Of/FsUqJdcZaIi8N0CIDagN+81nyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1142
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3e5b040-aab2-4b33-ef91-08d9c5bc446b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2021 02:31:04.1146 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MVGq8tm0MolTK9Tph8VljAzgkRNi0D+Chyw5kkGWb98YbOsLbxoreKPvszfCWyyD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1707
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,559 +133,1114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Felix Kuehling <felix.kuehling@amd.com>, dri-devel@lists.freedesktop.org,
- criu@openvz.org, David Yat Sin <david.yatsin@amd.com>,
- amd-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- alexander.deucher@amd.com, airlied@redhat.com,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: "Mitrovic, Milan" <Milan.Mitrovic@amd.com>, "Kitchen,
+ Greg" <Greg.Kitchen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------DCNk5e0wNmrRTsbceS12SjrI
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Sorry for the typo in my previous email. Please read Adrian Reber*
-
-On 12/22/2021 8:49 PM, Bhardwaj, Rajneesh wrote:
->
-> Adding Adrian Rebel who is the CRIU maintainer and CRIU list
->
-> On 12/22/2021 3:53 PM, Daniel Vetter wrote:
->> On Mon, Dec 20, 2021 at 01:12:51PM -0500, Bhardwaj, Rajneesh wrote:
->>> On 12/20/2021 4:29 AM, Daniel Vetter wrote:
->>>> On Fri, Dec 10, 2021 at 07:58:50AM +0100, Christian König wrote:
->>>>> Am 09.12.21 um 19:28 schrieb Felix Kuehling:
->>>>>> Am 2021-12-09 um 10:30 a.m. schrieb Christian König:
->>>>>>> That still won't work.
->>>>>>>
->>>>>>> But I think we could do this change for the amdgpu mmap callback only.
->>>>>> If graphics user mode has problems with it, we could even make this
->>>>>> specific to KFD BOs in the amdgpu_gem_object_mmap callback.
->>>>> I think it's fine for the whole amdgpu stack, my concern is more about
->>>>> radeon, nouveau and the ARM stacks which are using this as well.
->>>>>
->>>>> That blew up so nicely the last time we tried to change it and I know of at
->>>>> least one case where radeon was/is used with BOs in a child process.
->>>> I'm way late and burried again, but I think it'd be good to be consistent
->
->
-> I had committed this change into our amd-staging-drm-next branch last 
-> week after I got the ACK and RB from Felix and Christian.
->
->
->>>> here across drivers. Or at least across drm drivers. And we've had the vma
->>>> open/close refcounting to make fork work since forever.
->>>>
->>>> I think if we do this we should really only do this for mmap() where this
->>>> applies, but reading through the thread here I'm honestly confused why
->>>> this is a problem. If CRIU can't handle forked mmaps it needs to be
->>>> thought that, not hacked around. Or at least I'm not understanding why
->>>> this shouldn't work ...
->>>> -Daniel
->>>>
->>> Hi Daniel
->>>
->>> In the v2
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2Fa1a865f5-ad2c-29c8-cbe4-2635d53eceb6%40amd.com%2FT%2F&amp;data=04%7C01%7Crajneesh.bhardwaj%40amd.com%7Ce4634a16c37149da173408d9c58d1338%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637758031981907821%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=h0z4sO19bsJecMqeHGdz%2BHZElKuyzK%2BW%2FMbLWA79I10%3D&amp;reserved=0
->>> I pretty much limited the scope of the change to KFD BOs on mmap. Regarding
->>> CRIU, I think its not a CRIU problem as CRIU on restore, only tries to
->>> recreate all the child processes and then mmaps all the VMAs it sees (as per
->>> checkpoint snapshot) in the new process address space after the VMA
->>> placements are finalized in the position independent code phase. Since the
->>> inherited VMAs don't have access rights the criu mmap fails.
->> Still sounds funky. I think minimally we should have an ack from CRIU
->> developers that this is officially the right way to solve this problem. I
->> really don't want to have random one-off hacks that don't work across the
->> board, for a problem where we (drm subsystem) really shouldn't be the only
->> one with this problem. Where "this problem" means that the mmap space is
->> per file description, and not per underlying inode or real device or
->> whatever. That part sounds like a CRIU problem, and I expect CRIU folks
->> want a consistent solution across the board for this. Hence please grab an
->> ack from them.
->>
->> Cheers, Daniel
->
->
-> Maybe Adrian can share his views on this.
->
-> Hi Adrian - For the context, on CRIU restore we see mmap failures ( in 
-> PIE restore phase) due to permission issues on the (render node) VMAs 
-> that were inherited since the application that check pointed had 
-> forked.  The VMAs ideally should not be in the child process but the 
-> smaps file shows these VMAs in the child address space. We didn't want 
-> to use madvise to avoid this copy and rather change in the kernel mode 
-> to limit the impact to our user space library thunk. Based on my 
-> understanding, during PIE restore phase, after the VMA placements are 
-> finalized, CRIU does a sys_mmap on all the VMA it sees in the VmaEntry 
-> list and I think its not an issue as per CRIU design but do you think 
-> we could handle this corner case better inside CRIU?
->
->
->>> Regards,
->>>
->>> Rajneesh
->>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>> Regards,
->>>>>>      Felix
->>>>>>
->>>>>>
->>>>>>> Regards,
->>>>>>> Christian.
->>>>>>>
->>>>>>> Am 09.12.21 um 16:29 schrieb Bhardwaj, Rajneesh:
->>>>>>>> Sounds good. I will send a v2 with only ttm_bo_mmap_obj change. Thank
->>>>>>>> you!
->>>>>>>>
->>>>>>>> On 12/9/2021 10:27 AM, Christian König wrote:
->>>>>>>>> Hi Rajneesh,
->>>>>>>>>
->>>>>>>>> yes, separating this from the drm_gem_mmap_obj() change is certainly
->>>>>>>>> a good idea.
->>>>>>>>>
->>>>>>>>>> The child cannot access the BOs mapped by the parent anyway with
->>>>>>>>>> access restrictions applied
->>>>>>>>> exactly that is not correct. That behavior is actively used by some
->>>>>>>>> userspace stacks as far as I know.
->>>>>>>>>
->>>>>>>>> Regards,
->>>>>>>>> Christian.
->>>>>>>>>
->>>>>>>>> Am 09.12.21 um 16:23 schrieb Bhardwaj, Rajneesh:
->>>>>>>>>> Thanks Christian. Would it make it less intrusive if I just use the
->>>>>>>>>> flag for ttm bo mmap and remove the drm_gem_mmap_obj change from
->>>>>>>>>> this patch? For our use case, just the ttm_bo_mmap_obj change
->>>>>>>>>> should suffice and we don't want to put any more work arounds in
->>>>>>>>>> the user space (thunk, in our case).
->>>>>>>>>>
->>>>>>>>>> The child cannot access the BOs mapped by the parent anyway with
->>>>>>>>>> access restrictions applied so I wonder why even inherit the vma?
->>>>>>>>>>
->>>>>>>>>> On 12/9/2021 2:54 AM, Christian König wrote:
->>>>>>>>>>> Am 08.12.21 um 21:53 schrieb Rajneesh Bhardwaj:
->>>>>>>>>>>> When an application having open file access to a node forks, its
->>>>>>>>>>>> shared
->>>>>>>>>>>> mappings also get reflected in the address space of child process
->>>>>>>>>>>> even
->>>>>>>>>>>> though it cannot access them with the object permissions applied.
->>>>>>>>>>>> With the
->>>>>>>>>>>> existing permission checks on the gem objects, it might be
->>>>>>>>>>>> reasonable to
->>>>>>>>>>>> also create the VMAs with VM_DONTCOPY flag so a user space
->>>>>>>>>>>> application
->>>>>>>>>>>> doesn't need to explicitly call the madvise(addr, len,
->>>>>>>>>>>> MADV_DONTFORK)
->>>>>>>>>>>> system call to prevent the pages in the mapped range to appear in
->>>>>>>>>>>> the
->>>>>>>>>>>> address space of the child process. It also prevents the memory
->>>>>>>>>>>> leaks
->>>>>>>>>>>> due to additional reference counts on the mapped BOs in the child
->>>>>>>>>>>> process that prevented freeing the memory in the parent for which
->>>>>>>>>>>> we had
->>>>>>>>>>>> worked around earlier in the user space inside the thunk library.
->>>>>>>>>>>>
->>>>>>>>>>>> Additionally, we faced this issue when using CRIU to checkpoint
->>>>>>>>>>>> restore
->>>>>>>>>>>> an application that had such inherited mappings in the child which
->>>>>>>>>>>> confuse CRIU when it mmaps on restore. Having this flag set for the
->>>>>>>>>>>> render node VMAs helps. VMAs mapped via KFD already take care of
->>>>>>>>>>>> this so
->>>>>>>>>>>> this is needed only for the render nodes.
->>>>>>>>>>> Unfortunately that is most likely a NAK. We already tried
->>>>>>>>>>> something similar.
->>>>>>>>>>>
->>>>>>>>>>> While it is illegal by the OpenGL specification and doesn't work
->>>>>>>>>>> for most userspace stacks, we do have some implementations which
->>>>>>>>>>> call fork() with a GL context open and expect it to work.
->>>>>>>>>>>
->>>>>>>>>>> Regards,
->>>>>>>>>>> Christian.
->>>>>>>>>>>
->>>>>>>>>>>> Cc: Felix Kuehling<Felix.Kuehling@amd.com>
->>>>>>>>>>>>
->>>>>>>>>>>> Signed-off-by: David Yat Sin<david.yatsin@amd.com>
->>>>>>>>>>>> Signed-off-by: Rajneesh Bhardwaj<rajneesh.bhardwaj@amd.com>
->>>>>>>>>>>> ---
->>>>>>>>>>>>      drivers/gpu/drm/drm_gem.c       | 3 ++-
->>>>>>>>>>>>      drivers/gpu/drm/ttm/ttm_bo_vm.c | 2 +-
->>>>>>>>>>>>      2 files changed, 3 insertions(+), 2 deletions(-)
->>>>>>>>>>>>
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
->>>>>>>>>>>> index 09c820045859..d9c4149f36dd 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/drm_gem.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/drm_gem.c
->>>>>>>>>>>> @@ -1058,7 +1058,8 @@ int drm_gem_mmap_obj(struct drm_gem_object
->>>>>>>>>>>> *obj, unsigned long obj_size,
->>>>>>>>>>>>                  goto err_drm_gem_object_put;
->>>>>>>>>>>>              }
->>>>>>>>>>>>      -        vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND |
->>>>>>>>>>>> VM_DONTDUMP;
->>>>>>>>>>>> +        vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND
->>>>>>>>>>>> +                | VM_DONTDUMP | VM_DONTCOPY;
->>>>>>>>>>>>              vma->vm_page_prot =
->>>>>>>>>>>> pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
->>>>>>>>>>>>              vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
->>>>>>>>>>>>          }
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c
->>>>>>>>>>>> b/drivers/gpu/drm/ttm/ttm_bo_vm.c
->>>>>>>>>>>> index 33680c94127c..420a4898fdd2 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
->>>>>>>>>>>> @@ -566,7 +566,7 @@ int ttm_bo_mmap_obj(struct vm_area_struct
->>>>>>>>>>>> *vma, struct ttm_buffer_object *bo)
->>>>>>>>>>>>            vma->vm_private_data = bo;
->>>>>>>>>>>>      -    vma->vm_flags |= VM_PFNMAP;
->>>>>>>>>>>> +    vma->vm_flags |= VM_PFNMAP | VM_DONTCOPY;
->>>>>>>>>>>>          vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
->>>>>>>>>>>>          return 0;
->>>>>>>>>>>>      }
---------------DCNk5e0wNmrRTsbceS12SjrI
-Content-Type: text/html; charset=UTF-8
+--_000_DM6PR12MB26198CFC597504433EF8D18BE47E9DM6PR12MB2619namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html><head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
-  </head>
-  <body>
-    <p>Sorry for the typo in my previous email. Please read Adrian
-      Reber*<br>
-    </p>
-    <div class=3D"moz-cite-prefix">On 12/22/2021 8:49 PM, Bhardwaj,
-      Rajneesh wrote:<br>
-    </div>
-    <blockquote type=3D"cite" cite=3D"mid:ebcdbdad-1d34-41be-0423-e97b994e2=
-bb2@amd.com">
-     =20
-      <p>Adding Adrian Rebel who is the CRIU maintainer and CRIU list<br>
-      </p>
-      <div class=3D"moz-cite-prefix">On 12/22/2021 3:53 PM, Daniel Vetter
-        wrote:<br>
-      </div>
-      <blockquote type=3D"cite" cite=3D"mid:YcOQN%2Fl7W66W%2FX0f@phenom.ffw=
-ll.local">
-        <pre class=3D"moz-quote-pre" wrap=3D"">On Mon, Dec 20, 2021 at 01:1=
-2:51PM -0500, Bhardwaj, Rajneesh wrote:
-</pre>
-        <blockquote type=3D"cite">
-          <pre class=3D"moz-quote-pre" wrap=3D"">On 12/20/2021 4:29 AM, Dan=
-iel Vetter wrote:
-</pre>
-          <blockquote type=3D"cite">
-            <pre class=3D"moz-quote-pre" wrap=3D"">On Fri, Dec 10, 2021 at =
-07:58:50AM +0100, Christian K=C3=B6nig wrote:
-</pre>
-            <blockquote type=3D"cite">
-              <pre class=3D"moz-quote-pre" wrap=3D"">Am 09.12.21 um 19:28 s=
-chrieb Felix Kuehling:
-</pre>
-              <blockquote type=3D"cite">
-                <pre class=3D"moz-quote-pre" wrap=3D"">Am 2021-12-09 um 10:=
-30 a.m. schrieb Christian K=C3=B6nig:
-</pre>
-                <blockquote type=3D"cite">
-                  <pre class=3D"moz-quote-pre" wrap=3D"">That still won't w=
-ork.
+[AMD Official Use Only]
 
-But I think we could do this change for the amdgpu mmap callback only.
-</pre>
-                </blockquote>
-                <pre class=3D"moz-quote-pre" wrap=3D"">If graphics user mod=
-e has problems with it, we could even make this
-specific to KFD BOs in the amdgpu_gem_object_mmap callback.
-</pre>
-              </blockquote>
-              <pre class=3D"moz-quote-pre" wrap=3D"">I think it's fine for =
-the whole amdgpu stack, my concern is more about
-radeon, nouveau and the ARM stacks which are using this as well.
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-That blew up so nicely the last time we tried to change it and I know of at
-least one case where radeon was/is used with BOs in a child process.
-</pre>
-            </blockquote>
-            <pre class=3D"moz-quote-pre" wrap=3D"">I'm way late and burried=
- again, but I think it'd be good to be consistent</pre>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-      <p><br>
-      </p>
-      <p>I had committed this change into our amd-staging-drm-next
-        branch last week after I got the ACK and RB from Felix and
-        Christian.<br>
-      </p>
-      <p><br>
-      </p>
-      <blockquote type=3D"cite" cite=3D"mid:YcOQN%2Fl7W66W%2FX0f@phenom.ffw=
-ll.local">
-        <blockquote type=3D"cite">
-          <blockquote type=3D"cite">
-            <pre class=3D"moz-quote-pre" wrap=3D"">here across drivers. Or =
-at least across drm drivers. And we've had the vma
-open/close refcounting to make fork work since forever.
-
-I think if we do this we should really only do this for mmap() where this
-applies, but reading through the thread here I'm honestly confused why
-this is a problem. If CRIU can't handle forked mmaps it needs to be
-thought that, not hacked around. Or at least I'm not understanding why
-this shouldn't work ...
--Daniel
-
-</pre>
-          </blockquote>
-          <pre class=3D"moz-quote-pre" wrap=3D"">Hi Daniel
-
-In the v2
-<a class=3D"moz-txt-link-freetext" href=3D"https://nam11.safelinks.protecti=
-on.outlook.com/?url=3Dhttps%3A%2F%2Flore.kernel.org%2Fall%2Fa1a865f5-ad2c-2=
-9c8-cbe4-2635d53eceb6%40amd.com%2FT%2F&amp;amp;data=3D04%7C01%7Crajneesh.bh=
-ardwaj%40amd.com%7Ce4634a16c37149da173408d9c58d1338%7C3dd8961fe4884e608e11a=
-82d994e183d%7C0%7C0%7C637758031981907821%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC=
-4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;amp;sda=
-ta=3Dh0z4sO19bsJecMqeHGdz%2BHZElKuyzK%2BW%2FMbLWA79I10%3D&amp;amp;reserved=
-=3D0" moz-do-not-send=3D"true">https://nam11.safelinks.protection.outlook.c=
-om/?url=3Dhttps%3A%2F%2Flore.kernel.org%2Fall%2Fa1a865f5-ad2c-29c8-cbe4-263=
-5d53eceb6%40amd.com%2FT%2F&amp;amp;data=3D04%7C01%7Crajneesh.bhardwaj%40amd=
-.com%7Ce4634a16c37149da173408d9c58d1338%7C3dd8961fe4884e608e11a82d994e183d%=
-7C0%7C0%7C637758031981907821%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLC=
-JQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;amp;sdata=3Dh0z4sO1=
-9bsJecMqeHGdz%2BHZElKuyzK%2BW%2FMbLWA79I10%3D&amp;amp;reserved=3D0</a>
-I pretty much limited the scope of the change to KFD BOs on mmap. Regarding
-CRIU, I think its not a CRIU problem as CRIU on restore, only tries to
-recreate all the child processes and then mmaps all the VMAs it sees (as pe=
-r
-checkpoint snapshot) in the new process address space after the VMA
-placements are finalized in the position independent code phase. Since the
-inherited VMAs don't have access rights the criu mmap fails.
-</pre>
-        </blockquote>
-        <pre class=3D"moz-quote-pre" wrap=3D"">Still sounds funky. I think =
-minimally we should have an ack from CRIU
-developers that this is officially the right way to solve this problem. I
-really don't want to have random one-off hacks that don't work across the
-board, for a problem where we (drm subsystem) really shouldn't be the only
-one with this problem. Where &quot;this problem&quot; means that the mmap s=
-pace is
-per file description, and not per underlying inode or real device or
-whatever. That part sounds like a CRIU problem, and I expect CRIU folks
-want a consistent solution across the board for this. Hence please grab an
-ack from them.
-
-Cheers, Daniel</pre>
-      </blockquote>
-      <p><br>
-      </p>
-      <p>Maybe Adrian can share his views on this. <br>
-      </p>
-      <p>Hi Adrian - For the context, on CRIU restore we see mmap
-        failures ( in PIE restore phase) due to permission issues on the
-        (render node) VMAs that were inherited since the application
-        that check pointed had forked.&nbsp; The VMAs ideally should not be
-        in the child process but the smaps file shows these VMAs in the
-        child address space. We didn't want to use madvise to avoid this
-        copy and rather change in the kernel mode to limit the impact to
-        our user space library thunk. Based on my understanding, during
-        PIE restore phase, after the VMA placements are finalized, CRIU
-        does a sys_mmap on all the VMA it sees in the VmaEntry list and
-        I think its not an issue as per CRIU design but do you think we
-        could handle this corner case better inside CRIU? <span style=3D"co=
-lor: rgb(201, 209, 217); font-family: ui-monospace, SFMono-Regular, &quot;S=
-F Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;, monospace; font=
--size: 12px; font-style: normal; font-variant-ligatures: normal; font-varia=
-nt-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text=
--align: start; text-indent: 0px; text-transform: none; white-space: pre; wi=
-dows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-colo=
-r: rgb(13, 17, 23); text-decoration-thickness: initial; text-decoration-sty=
-le: initial; text-decoration-color: initial; display: inline !important; fl=
-oat: none;"></span></p>
-      <p><br>
-      </p>
-      <blockquote type=3D"cite" cite=3D"mid:YcOQN%2Fl7W66W%2FX0f@phenom.ffw=
-ll.local">
-        <blockquote type=3D"cite">
-          <pre class=3D"moz-quote-pre" wrap=3D"">Regards,
-
-Rajneesh
-
-</pre>
-          <blockquote type=3D"cite">
-            <blockquote type=3D"cite">
-              <pre class=3D"moz-quote-pre" wrap=3D"">Regards,
-Christian.
-
-</pre>
-              <blockquote type=3D"cite">
-                <pre class=3D"moz-quote-pre" wrap=3D"">Regards,
-  &nbsp; Felix
+From: Nikolic, Marina <Marina.Nikolic@amd.com>
+Sent: Wednesday, December 22, 2021 7:25 PM
+To: Quan, Evan <Evan.Quan@amd.com>; Russell, Kent <Kent.Russell@amd.com>; a=
+md-gfx@lists.freedesktop.org
+Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com>; Kitchen, Greg <Greg.Kitchen@a=
+md.com>
+Subject: Re: [PATCH] amdgpu/pm: Modify sysfs to have only read permission i=
+n SRIOV/ONEVF mode
 
 
-</pre>
-                <blockquote type=3D"cite">
-                  <pre class=3D"moz-quote-pre" wrap=3D"">Regards,
-Christian.
+[AMD Official Use Only]
 
-Am 09.12.21 um 16:29 schrieb Bhardwaj, Rajneesh:
-</pre>
-                  <blockquote type=3D"cite">
-                    <pre class=3D"moz-quote-pre" wrap=3D"">Sounds good. I w=
-ill send a v2 with only ttm_bo_mmap_obj change. Thank
-you!
+From a6512c0897aa58ccac9e5483d31193d83fb590b2 Mon Sep 17 00:00:00 2001
+From: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>=
+>
+Date: Tue, 14 Dec 2021 20:57:53 +0800
+Subject: [PATCH] amdgpu/pm: Modify sysfs to have only read permission in
+ SRIOV/ONEVF mode
 
-On 12/9/2021 10:27 AM, Christian K=C3=B6nig wrote:
-</pre>
-                    <blockquote type=3D"cite">
-                      <pre class=3D"moz-quote-pre" wrap=3D"">Hi Rajneesh,
+=3D=3D Description =3D=3D
+Setting through sysfs should not be allowed in SRIOV mode.
+These calls will not be processed by FW anyway,
+but error handling on sysfs level should be improved.
 
-yes, separating this from the drm_gem_mmap_obj() change is certainly
-a good idea.
+=3D=3D Changes =3D=3D
+This patch prohibits performing of all set commands
+in SRIOV mode on sysfs level.
+It offers better error handling as calls that are
+not allowed will not be propagated further.
 
-</pre>
-                      <blockquote type=3D"cite">
-                        <pre class=3D"moz-quote-pre" wrap=3D"">The child ca=
-nnot access the BOs mapped by the parent anyway with
-access restrictions applied
-</pre>
-                      </blockquote>
-                      <pre class=3D"moz-quote-pre" wrap=3D"">exactly that i=
-s not correct. That behavior is actively used by some
-userspace stacks as far as I know.
+=3D=3D Test =3D=3D
+Writing to any sysfs file in passthrough mode will succeed.
+Writing to any sysfs file in ONEVF mode will yield error:
+"calling process does not have sufficient permission to execute a command".
 
-Regards,
-Christian.
-
-Am 09.12.21 um 16:23 schrieb Bhardwaj, Rajneesh:
-</pre>
-                      <blockquote type=3D"cite">
-                        <pre class=3D"moz-quote-pre" wrap=3D"">Thanks Chris=
-tian. Would it make it less intrusive if I just use the
-flag for ttm bo mmap and remove the drm_gem_mmap_obj change from
-this patch? For our use case, just the ttm_bo_mmap_obj change
-should suffice and we don't want to put any more work arounds in
-the user space (thunk, in our case).
-
-The child cannot access the BOs mapped by the parent anyway with
-access restrictions applied so I wonder why even inherit the vma?
-
-On 12/9/2021 2:54 AM, Christian K=C3=B6nig wrote:
-</pre>
-                        <blockquote type=3D"cite">
-                          <pre class=3D"moz-quote-pre" wrap=3D"">Am 08.12.2=
-1 um 21:53 schrieb Rajneesh Bhardwaj:
-</pre>
-                          <blockquote type=3D"cite">
-                            <pre class=3D"moz-quote-pre" wrap=3D"">When an =
-application having open file access to a node forks, its
-shared
-mappings also get reflected in the address space of child process
-even
-though it cannot access them with the object permissions applied.
-With the
-existing permission checks on the gem objects, it might be
-reasonable to
-also create the VMAs with VM_DONTCOPY flag so a user space
-application
-doesn't need to explicitly call the madvise(addr, len,
-MADV_DONTFORK)
-system call to prevent the pages in the mapped range to appear in
-the
-address space of the child process. It also prevents the memory
-leaks
-due to additional reference counts on the mapped BOs in the child
-process that prevented freeing the memory in the parent for which
-we had
-worked around earlier in the user space inside the thunk library.
-
-Additionally, we faced this issue when using CRIU to checkpoint
-restore
-an application that had such inherited mappings in the child which
-confuse CRIU when it mmaps on restore. Having this flag set for the
-render node VMAs helps. VMAs mapped via KFD already take care of
-this so
-this is needed only for the render nodes.
-</pre>
-                          </blockquote>
-                          <pre class=3D"moz-quote-pre" wrap=3D"">Unfortunat=
-ely that is most likely a NAK. We already tried
-something similar.
-
-While it is illegal by the OpenGL specification and doesn't work
-for most userspace stacks, we do have some implementations which
-call fork() with a GL context open and expect it to work.
-
-Regards,
-Christian.
-
-</pre>
-                          <blockquote type=3D"cite">
-                            <pre class=3D"moz-quote-pre" wrap=3D"">Cc: Feli=
-x Kuehling <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Felix.Kuehling=
-@amd.com" moz-do-not-send=3D"true">&lt;Felix.Kuehling@amd.com&gt;</a>
-
-Signed-off-by: David Yat Sin <a class=3D"moz-txt-link-rfc2396E" href=3D"mai=
-lto:david.yatsin@amd.com" moz-do-not-send=3D"true">&lt;david.yatsin@amd.com=
-&gt;</a>
-Signed-off-by: Rajneesh Bhardwaj <a class=3D"moz-txt-link-rfc2396E" href=3D=
-"mailto:rajneesh.bhardwaj@amd.com" moz-do-not-send=3D"true">&lt;rajneesh.bh=
-ardwaj@amd.com&gt;</a>
+Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikolic=
+@amd.com>>
 ---
-  &nbsp; drivers/gpu/drm/drm_gem.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 3 =
-++-
-  &nbsp; drivers/gpu/drm/ttm/ttm_bo_vm.c | 2 +-
-  &nbsp; 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 09c820045859..d9c4149f36dd 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1058,7 +1058,8 @@ int drm_gem_mmap_obj(struct drm_gem_object
-*obj, unsigned long obj_size,
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; goto err_drm_gem_object_put;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-  &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_flags |=3D =
-VM_IO | VM_PFNMAP | VM_DONTEXPAND |
-VM_DONTDUMP;
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_flags |=3D VM_IO | V=
-M_PFNMAP | VM_DONTEXPAND
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; | VM_DONTDUMP | VM_DONTCOPY;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_page_pr=
-ot =3D
-pgprot_writecombine(vm_get_page_prot(vma-&gt;vm_flags));
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_page_pr=
-ot =3D pgprot_decrypted(vma-&gt;vm_page_prot);
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index 33680c94127c..420a4898fdd2 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -566,7 +566,7 @@ int ttm_bo_mmap_obj(struct vm_area_struct
-*vma, struct ttm_buffer_object *bo)
-  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_private_data =3D bo;
-  &nbsp; -&nbsp;&nbsp;&nbsp; vma-&gt;vm_flags |=3D VM_PFNMAP;
-+&nbsp;&nbsp;&nbsp; vma-&gt;vm_flags |=3D VM_PFNMAP | VM_DONTCOPY;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_flags |=3D VM_IO | VM_DONTEXPAN=
-D | VM_DONTDUMP;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
-  &nbsp; }
-</pre>
-                          </blockquote>
-                        </blockquote>
-                      </blockquote>
-                    </blockquote>
-                  </blockquote>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>=
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index 082539c70fd4..c43818cd02aa 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_device =
+*adev, struct amdgpu_device_
+                }
+        }
 
---------------DCNk5e0wNmrRTsbceS12SjrI--
++       /* setting should not be allowed from VF */
++       if (amdgpu_sriov_vf(adev)) {
++               dev_attr->attr.mode &=3D ~S_IWUGO;
++               dev_attr->store =3D NULL;
++       }
++
+ #undef DEVICE_ATTR_IS
+
+        return 0;
+--
+2.20.1
+
+
+________________________________
+From: Quan, Evan <Evan.Quan@amd.com<mailto:Evan.Quan@amd.com>>
+Sent: Wednesday, December 22, 2021 4:19 AM
+To: Nikolic, Marina <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>>=
+; Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; amd-gf=
+x@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@list=
+s.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com>>=
+; Kitchen, Greg <Greg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
+Subject: RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
+premission in ONEVF mode
+
+
+[AMD Official Use Only]
+
+
+
+
+
+
+
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Nikolic, Marina
+Sent: Tuesday, December 21, 2021 10:36 PM
+To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; amd-=
+gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com>>=
+; Kitchen, Greg <Greg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
+Subject: Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
+premission in ONEVF mode
+
+
+
+[AMD Official Use Only]
+
+
+
+[AMD Official Use Only]
+
+
+
+From 06359f3be0c0b889519d6dd954fb11f31e9a15e0 Mon Sep 17 00:00:00 2001
+
+From: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>=
+>
+
+Date: Tue, 14 Dec 2021 20:57:53 +0800
+
+Subject: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read
+
+ permission in ONEVF mode
+
+[Quan, Evan] With the subject updated(remove the description about pp_dpm_s=
+clk), the patch is acked-by: Evan Quan <evan.quan@amd.com<mailto:evan.quan@=
+amd.com>>
+
+
+
+BR
+
+Evan
+
+=3D=3D Description =3D=3D
+
+Setting through sysfs should not be allowed in SRIOV mode.
+
+These calls will not be processed by FW anyway,
+
+but error handling on sysfs level should be improved.
+
+
+
+=3D=3D Changes =3D=3D
+
+This patch prohibits performing of all set commands
+
+in SRIOV mode on sysfs level.
+
+It offers better error handling as calls that are
+
+not allowed will not be propagated further.
+
+
+
+=3D=3D Test =3D=3D
+
+Writing to any sysfs file in passthrough mode will succeed.
+
+Writing to any sysfs file in ONEVF mode will yield error:
+
+"calling process does not have sufficient permission to execute a command".
+
+
+
+Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikolic=
+@amd.com>>
+
+---
+
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
+
+ 1 file changed, 6 insertions(+)
+
+
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+
+index 082539c70fd4..c43818cd02aa 100644
+
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+
+@@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_device =
+*adev, struct amdgpu_device_
+
+                }
+
+        }
+
+
+
++       /* setting should not be allowed from VF */
+
++       if (amdgpu_sriov_vf(adev)) {
+
++               dev_attr->attr.mode &=3D ~S_IWUGO;
+
++               dev_attr->store =3D NULL;
+
++       }
+
++
+
+ #undef DEVICE_ATTR_IS
+
+
+
+        return 0;
+
+--
+
+2.20.1
+
+
+
+________________________________
+
+From: Nikolic, Marina <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com=
+>>
+Sent: Tuesday, December 21, 2021 3:15 PM
+To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; amd-=
+gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com>>=
+; Kitchen, Greg <Greg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
+Subject: Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
+premission in ONEVF mode
+
+
+
+Hi Kent,
+
+
+
+Thank you for the review. Yes, I can confirm I am trying to set this for ev=
+ery single file for SRIOV mode.
+
+@Kitchen, Greg<mailto:Greg.Kitchen@amd.com> required this for ROCM-SMI 5.0 =
+release. In case you need it, he can provide more details.
+
+I'm going to clarify commit message more and send a new patch.
+
+
+
+BR,
+Marina
+
+________________________________
+
+From: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>
+Sent: Monday, December 20, 2021 8:01 PM
+To: Nikolic, Marina <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>>=
+; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-=
+gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com>>=
+; Nikolic, Marina <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>>; =
+Kitchen, Greg <Greg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
+Subject: RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read =
+premission in ONEVF mode
+
+
+
+[AMD Official Use Only]
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounc=
+es@lists.freedesktop.org>> On Behalf Of Marina Nikolic
+> Sent: Monday, December 20, 2021 11:09 AM
+> To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com<mailto:Milan.Mitrovic@amd.com=
+>>; Nikolic, Marina
+> <Marina.Nikolic@amd.com<mailto:Marina.Nikolic@amd.com>>; Kitchen, Greg <G=
+reg.Kitchen@amd.com<mailto:Greg.Kitchen@amd.com>>
+> Subject: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read pr=
+emission in
+> ONEVF mode
+>
+> =3D=3D Description =3D=3D
+> Due to security reasons setting through sysfs
+> should only be allowed in passthrough mode.
+> Options that are not mapped as SMU messages
+> do not have any mechanizm to distinguish between
+> passthorugh, onevf and mutivf usecase.
+> A unified approach is needed.
+>
+> =3D=3D Changes =3D=3D
+> This patch introduces a new mechanizm to distinguish
+> ONEVF and PASSTHROUGH use case on sysfs level
+> and prohibit setting (writting to sysfs).
+> It also applies the new mechanizm on pp_dpm_sclk sysfs file.
+>
+> =3D=3D Test =3D=3D
+> Writing to pp_dpm_sclk sysfs file in passthrough mode will succeed.
+> Writing to pp_dpm_sclk sysfs file in ONEVF mode will yield error:
+> "calling process does not have sufficient permission to execute a command=
+".
+> Sysfs pp_dpm_sclk will not be created in MULTIVF mode.
+>
+> Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com<mailto:Marina.Nikol=
+ic@amd.com>>
+> ---
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index 082539c70fd4..d2b168babc7d 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_devic=
+e *adev,
+> struct amdgpu_device_
+>               }
+>       }
+>
+> +     /* security: setting should not be allowed from VF */
+> +     if (amdgpu_sriov_vf(adev)) {
+
+You should be checking for pp_dpm_sclk here, for example:
+                if (DEVICE_ATTR_IS(pp_dpm_sclk) {
+
+Otherwise I am pretty sure you're setting this for every single file. And i=
+s it only sclk? Or does it also need to affect mclk/fclk/etc? If it's only =
+sclk, the line above should help. If it's for more, then the commit should =
+try to clarify that as it's not 100% clear.
+
+ Kent
+
+> +             dev_attr->attr.mode &=3D ~S_IWUGO;
+> +             dev_attr->store =3D NULL;
+> +     }
+> +
+>  #undef DEVICE_ATTR_IS
+>
+>       return 0;
+> --
+> 2.20.1
+
+--_000_DM6PR12MB26198CFC597504433EF8D18BE47E9DM6PR12MB2619namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+p.xmsipheadera4477989, li.xmsipheadera4477989, div.xmsipheadera4477989
+	{mso-style-name:x_msipheadera4477989;
+	margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
+	{mso-style-name:msipheadera4477989;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Reviewed-by: Evan Quan &lt;evan.quan@amd.com&gt;<o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Nikolic, Marina &lt;Marina.Nikolic@amd.=
+com&gt; <br>
+<b>Sent:</b> Wednesday, December 22, 2021 7:25 PM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;; Russell, Kent &lt;Kent.Rus=
+sell@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>Cc:</b> Mitrovic, Milan &lt;Milan.Mitrovic@amd.com&gt;; Kitchen, Greg &l=
+t;Greg.Kitchen@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] amdgpu/pm: Modify sysfs to have only read permi=
+ssion in SRIOV/ONEVF mode<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">From a6=
+512c0897aa58ccac9e5483d31193d83fb590b2 Mon Sep 17 00:00:00 2001
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">From: M=
+arina Nikolic &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marina.Nikolic@=
+amd.com</a>&gt;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Date: T=
+ue, 14 Dec 2021 20:57:53 +0800<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Subject=
+: [PATCH] amdgpu/pm: Modify sysfs to have only read permission in<o:p></o:p=
+></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;S=
+RIOV/ONEVF mode<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D =
+Description =3D=3D<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Setting=
+ through sysfs should not be allowed in SRIOV mode.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">These c=
+alls will not be processed by FW anyway,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">but err=
+or handling on sysfs level should be improved.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D =
+Changes =3D=3D<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">This pa=
+tch prohibits performing of all set commands<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">in SRIO=
+V mode on sysfs level.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">It offe=
+rs better error handling as calls that are<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">not all=
+owed will not be propagated further.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D =
+Test =3D=3D<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Writing=
+ to any sysfs file in passthrough mode will succeed.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Writing=
+ to any sysfs file in ONEVF mode will yield error:<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&quot;c=
+alling process does not have sufficient permission to execute a command&quo=
+t;.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Signed-=
+off-by: Marina Nikolic &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marina=
+.Nikolic@amd.com</a>&gt;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">---<o:p=
+></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;d=
+rivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;1=
+ file changed, 6 insertions(+)<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">diff --=
+git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm=
+.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">index 0=
+82539c70fd4..c43818cd02aa 100644<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">--- a/d=
+rivers/gpu/drm/amd/pm/amdgpu_pm.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+++ b/d=
+rivers/gpu/drm/amd/pm/amdgpu_pm.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">@@ -213=
+3,6 +2133,12 @@ static int default_attr_update(struct amdgpu_device *adev, =
+struct amdgpu_device_<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; }<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ &nbsp=
+; &nbsp; &nbsp; /* setting should not be allowed from VF */<o:p></o:p></spa=
+n></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ &nbsp=
+; &nbsp; &nbsp; if (amdgpu_sriov_vf(adev)) {<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dev_attr-&gt;attr.mode &amp;=3D=
+ ~S_IWUGO;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dev_attr-&gt;store =3D NULL;<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ &nbsp=
+; &nbsp; &nbsp; }<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+<o:p><=
+/o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;#=
+undef DEVICE_ATTR_IS<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; return 0;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">--<o:p>=
+</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">2.20.1<=
+o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Quan, Evan &lt;<a href=3D"mailto:Evan.Quan@amd.com"=
+>Evan.Quan@amd.com</a>&gt;<br>
+<b>Sent:</b> Wednesday, December 22, 2021 4:19 AM<br>
+<b>To:</b> Nikolic, Marina &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Ma=
+rina.Nikolic@amd.com</a>&gt;; Russell, Kent &lt;<a href=3D"mailto:Kent.Russ=
+ell@amd.com">Kent.Russell@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mi=
+lan.Mitrovic@amd.com</a>&gt;; Kitchen, Greg &lt;<a href=3D"mailto:Greg.Kitc=
+hen@amd.com">Greg.Kitchen@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
+y read premission in ONEVF mode</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsipheadera4477989"><span style=3D"font-size:10.0pt;font-famil=
+y:&quot;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]</span><o=
+:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-=
+bounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt=
+;
+<b>On Behalf Of </b>Nikolic, Marina<br>
+<b>Sent:</b> Tuesday, December 21, 2021 10:36 PM<br>
+<b>To:</b> Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.R=
+ussell@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Cc:</b> Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mi=
+lan.Mitrovic@amd.com</a>&gt;; Kitchen, Greg &lt;<a href=3D"mailto:Greg.Kitc=
+hen@amd.com">Greg.Kitchen@amd.com</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
+y read premission in ONEVF mode<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]</span><o:p></o:=
+p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only]</span><o:p></o:=
+p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">From 0=
+6359f3be0c0b889519d6dd954fb11f31e9a15e0 Mon Sep 17 00:00:00 2001
+</span><o:p></o:p></p>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">From: =
+Marina Nikolic &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marina.Nikolic=
+@amd.com</a>&gt;</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Date: =
+Tue, 14 Dec 2021 20:57:53 +0800</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Subjec=
+t: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read</span><o:p=
+></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+permission in ONEVF mode</span><o:p></o:p></p>
+<p class=3D"xmsonormal"><b><i>[Quan, Evan] With the subject updated(remove =
+the description about pp_dpm_sclk), the patch is acked-by: Evan Quan &lt;<a=
+ href=3D"mailto:evan.quan@amd.com">evan.quan@amd.com</a>&gt;</i></b><o:p></=
+o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt">&nbsp;</span><o:p>=
+</o:p></p>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt">BR</span><o:p></o:=
+p></p>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt">Evan</span><o:p></=
+o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D=
+ Description =3D=3D</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Settin=
+g through sysfs should not be allowed in SRIOV mode.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">These =
+calls will not be processed by FW anyway,</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">but er=
+ror handling on sysfs level should be improved.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D=
+ Changes =3D=3D</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">This p=
+atch prohibits performing of all set commands</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">in SRI=
+OV mode on sysfs level.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">It off=
+ers better error handling as calls that are</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">not al=
+lowed will not be propagated further.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">=3D=3D=
+ Test =3D=3D</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Writin=
+g to any sysfs file in passthrough mode will succeed.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Writin=
+g to any sysfs file in ONEVF mode will yield error:</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&quot;=
+calling process does not have sufficient permission to execute a command&qu=
+ot;.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Signed=
+-off-by: Marina Nikolic &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marin=
+a.Nikolic@amd.com</a>&gt;</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">---</s=
+pan><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+1 file changed, 6 insertions(+)</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">diff -=
+-git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_p=
+m.c</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">index =
+082539c70fd4..c43818cd02aa 100644</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">--- a/=
+drivers/gpu/drm/amd/pm/amdgpu_pm.c</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">+++ b/=
+drivers/gpu/drm/amd/pm/amdgpu_pm.c</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">@@ -21=
+33,6 +2133,12 @@ static int default_attr_update(struct amdgpu_device *adev,=
+ struct amdgpu_device_</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+ &nbsp; &nbsp; &nbsp; }</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">+ &nbs=
+p; &nbsp; &nbsp; /* setting should not be allowed from VF */</span><o:p></o=
+:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">+ &nbs=
+p; &nbsp; &nbsp; if (amdgpu_sriov_vf(adev)) {</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">+ &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dev_attr-&gt;attr.mode &amp;=
+=3D ~S_IWUGO;</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">+ &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dev_attr-&gt;store =3D NULL;</=
+span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">+ &nbs=
+p; &nbsp; &nbsp; }</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">+</spa=
+n><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+#undef DEVICE_ATTR_IS</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+ &nbsp; &nbsp; &nbsp; return 0;</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">--</sp=
+an><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">2.20.1=
+</span><o:p></o:p></p>
+</div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"xmsonormal"><b><span style=3D"color:black">From:</span></b><spa=
+n style=3D"color:black"> Nikolic, Marina &lt;<a href=3D"mailto:Marina.Nikol=
+ic@amd.com">Marina.Nikolic@amd.com</a>&gt;<br>
+<b>Sent:</b> Tuesday, December 21, 2021 3:15 PM<br>
+<b>To:</b> Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.R=
+ussell@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mi=
+lan.Mitrovic@amd.com</a>&gt;; Kitchen, Greg &lt;<a href=3D"mailto:Greg.Kitc=
+hen@amd.com">Greg.Kitchen@amd.com</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
+y read premission in ONEVF mode</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Hi Ken=
+t,&nbsp;</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">Thank =
+you for the review. Yes, I can confirm I am trying to set this for every si=
+ngle file for SRIOV mode.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black"><a id=
+=3D"OWAAM749892" href=3D"mailto:Greg.Kitchen@amd.com"><span style=3D"font-f=
+amily:&quot;Calibri&quot;,sans-serif;text-decoration:none">@Kitchen, Greg</=
+span></a>&nbsp;required this for ROCM-SMI 5.0 release. In
+ case you need it, he can provide more details.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">I'm go=
+ing to clarify commit message more and send a new patch.</span><o:p></o:p><=
+/p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;=
+</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black">BR,<br=
+>
+Marina</span><o:p></o:p></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_x_divRplyFwdMsg">
+<p class=3D"xmsonormal"><b><span style=3D"color:black">From:</span></b><spa=
+n style=3D"color:black"> Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@a=
+md.com">Kent.Russell@amd.com</a>&gt;<br>
+<b>Sent:</b> Monday, December 20, 2021 8:01 PM<br>
+<b>To:</b> Nikolic, Marina &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Ma=
+rina.Nikolic@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mi=
+lan.Mitrovic@amd.com</a>&gt;; Nikolic, Marina &lt;<a href=3D"mailto:Marina.=
+Nikolic@amd.com">Marina.Nikolic@amd.com</a>&gt;; Kitchen, Greg &lt;<a href=
+=3D"mailto:Greg.Kitchen@amd.com">Greg.Kitchen@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have onl=
+y read premission in ONEVF mode</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsonormal" style=3D"margin-bottom:12.0pt"><a name=3D"x_x_BM_BE=
+GIN"></a><span style=3D"font-family:&quot;Times New Roman&quot;,serif">[AMD=
+ Official Use Only]<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.=
+org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Behalf Of Marina Niko=
+lic<br>
+&gt; Sent: Monday, December 20, 2021 11:09 AM<br>
+&gt; To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.fre=
+edesktop.org</a><br>
+&gt; Cc: Mitrovic, Milan &lt;<a href=3D"mailto:Milan.Mitrovic@amd.com">Mila=
+n.Mitrovic@amd.com</a>&gt;; Nikolic, Marina<br>
+&gt; &lt;<a href=3D"mailto:Marina.Nikolic@amd.com">Marina.Nikolic@amd.com</=
+a>&gt;; Kitchen, Greg &lt;<a href=3D"mailto:Greg.Kitchen@amd.com">Greg.Kitc=
+hen@amd.com</a>&gt;<br>
+&gt; Subject: [PATCH] amdgpu/pm: Modify sysfs pp_dpm_sclk to have only read=
+ premission in<br>
+&gt; ONEVF mode<br>
+&gt;<br>
+&gt; =3D=3D Description =3D=3D<br>
+&gt; Due to security reasons setting through sysfs<br>
+&gt; should only be allowed in passthrough mode.<br>
+&gt; Options that are not mapped as SMU messages<br>
+&gt; do not have any mechanizm to distinguish between<br>
+&gt; passthorugh, onevf and mutivf usecase.<br>
+&gt; A unified approach is needed.<br>
+&gt;<br>
+&gt; =3D=3D Changes =3D=3D<br>
+&gt; This patch introduces a new mechanizm to distinguish<br>
+&gt; ONEVF and PASSTHROUGH use case on sysfs level<br>
+&gt; and prohibit setting (writting to sysfs).<br>
+&gt; It also applies the new mechanizm on pp_dpm_sclk sysfs file.<br>
+&gt;<br>
+&gt; =3D=3D Test =3D=3D<br>
+&gt; Writing to pp_dpm_sclk sysfs file in passthrough mode will succeed.<br=
+>
+&gt; Writing to pp_dpm_sclk sysfs file in ONEVF mode will yield error:<br>
+&gt; &quot;calling process does not have sufficient permission to execute a=
+ command&quot;.<br>
+&gt; Sysfs pp_dpm_sclk will not be created in MULTIVF mode.<br>
+&gt;<br>
+&gt; Signed-off-by: Marina Nikolic &lt;<a href=3D"mailto:Marina.Nikolic@amd=
+.com">Marina.Nikolic@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++<br>
+&gt;&nbsp; 1 file changed, 6 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; index 082539c70fd4..d2b168babc7d 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; @@ -2133,6 +2133,12 @@ static int default_attr_update(struct amdgpu_de=
+vice *adev,<br>
+&gt; struct amdgpu_device_<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* security: setting should not be allowed f=
+rom VF */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+<br>
+You should be checking for pp_dpm_sclk here, for example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (DEVICE_ATTR_IS(pp_dpm_sclk) {<br>
+<br>
+Otherwise I am pretty sure you're setting this for every single file. And i=
+s it only sclk? Or does it also need to affect mclk/fclk/etc? If it's only =
+sclk, the line above should help. If it's for more, then the commit should =
+try to clarify that as it's not
+ 100% clear.<br>
+<br>
+&nbsp;Kent<br>
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_attr-&gt;attr.mode &amp;=3D ~S_IWUGO;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_attr-&gt;store =3D NULL;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt;&nbsp; #undef DEVICE_ATTR_IS<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; --<br>
+&gt; 2.20.1</span><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB26198CFC597504433EF8D18BE47E9DM6PR12MB2619namp_--
