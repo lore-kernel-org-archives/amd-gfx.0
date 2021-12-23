@@ -4,59 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE76FC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Dec 2021 04:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DEABC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Dec 2021 07:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DEBC10E271;
-	Thu, 23 Dec 2021 04:07:22 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACD2210E271
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Dec 2021 04:07:21 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- 45-20020a9d0a30000000b0058f1a6df088so5409588otg.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Dec 2021 20:07:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=5ybcWOCSQ8S2/rG9CG1tImB2MLhhQW4gg2Qo5Sh9h0o=;
- b=hStwB31uvP/xPAWdMnE3iXpBSPdjR5OWqbjMjerenDSNGvbpUoJj4GFTWKXt0v5Yfu
- cW3fInzbw7r4Q3VSi4ynRmEPsrbXtUQJM2hS4/uFd7jU5QeWiZfhhGuJXiUjDoNAMC8o
- a9rcGhZZIlwpyT8BSe2ZVGRhcGohAqM1TFPKzqRGuw4+Ezh9arpqPyWKSyxFaFZo5pf3
- 26Y6qnRJ4qBy5I5RB5O1LQC+h897KbLBQHcQXpVFlFbbm6vFXf3Cx1juTNSvmdMY51Yv
- IoXO8q7/YZSGG0cSrjxdlajJKC6R9xsno3QtPxd6q3uwFEMw/Am9MJ8IhizLRFveoXqa
- Nzcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=5ybcWOCSQ8S2/rG9CG1tImB2MLhhQW4gg2Qo5Sh9h0o=;
- b=BL+k9TCpBTF72OjtmX99n0I3tfMTqZ2KQONXzoFdBhjivg4x1PdBv1uGElmvohKT2e
- Tf4FNAjz5ByXGlD4lrmGv6PgtAZMtgWpE82faP1ubczfRfy9gjh9nzU95lJwmrylIzn/
- 9aHV88sex3cwvCuq73cl4+DvzyU9nm5K1y0oflag3u6bWK/m7TStpUtW1bgm+PyV3hoy
- kzSaR8p9za0c24LtzbhrbhdfcCDt8fccxhXP3aCxPPZceev2QI1rHi/pwPpkU6qjFjJP
- 1/tdXYx2iniswNTwdOH4WgXovo1hwR2mLUVy6KIDUZ736kvpxResi+l/RvR9IX7sKgod
- iIoQ==
-X-Gm-Message-State: AOAM531hsbzVNtj6jh+mmCR0wb/63ClLuZaf+UHTQFnF2hhmzzlWllPJ
- vZEunyKWyDtvOntxiA53NfkU60tvtzy7oGwIuPs=
-X-Google-Smtp-Source: ABdhPJwKzEuVqxHjMFsZILHF6+0HGuX0Ync/sKn59qeoc0sICG0WesjfTWQ8OERexzFBd0N9TZKMs9gdWKvO2KxMSzo=
-X-Received: by 2002:a9d:67c1:: with SMTP id c1mr374925otn.299.1640232440937;
- Wed, 22 Dec 2021 20:07:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFD6210E283;
+	Thu, 23 Dec 2021 07:06:06 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2070.outbound.protection.outlook.com [40.107.212.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89D4F10E283;
+ Thu, 23 Dec 2021 07:06:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HHIQ6bES5Yp/nLYKp2NpcpYRchg2Pdf9wP++CJ+vlgPLYJgWhTy/AtXeqM+yNWLyToHJEtV5gY/73MDxxMSbHaNLrRXcEyzRBhEgWVi/f0j6MHGp9ahHaW+1sLe6McRH/mPvn6V4KjH75nry3jYvVF54dS+mY/yXKUE8m/BMcJ52UyCfseGdIkK2xNw9WWlLVairAVQsZBCMj0UJp+fa2ZpOtfhfdfPRygn5Ukc5RlT8XSL7zqwlnuputBx28ibiJ4sG7mRfJsX0LsSTgK+WSCN8JadkADAJOuOunElg6MB3Ch8jSpeoW9Owg+S84cWNkdS7MFNzOLnKaqei2YKL4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ABtrUFxQgOCVV1tm3sZZXHzsb2GiQx/EOQt72ynoOX0=;
+ b=hebZlWDK8gHQn8wkquXiMOgW+t9c4IqnDPIWRNgYIGFb2Fy4pVgKkqm+z/1e9T/08auxW14yvpnBK0d0XEG9u7TTSwTZ8W65ZjcWOO9W8I0UOY8oelPBmCcQ658IriN4XqEwz+om2eEkBa/jIYzZp7Bo5BlMcLV0QtqMM7Zj5XrvqNJXlpRh+I1X1xfph1ZvFZd8BOf9rhuqVCYeLlElr10HwDPdEGT5gDb19LdZBoMJQkfS0fhuurI4b5Mk+wgMv8CrArKMa4crSSTMNM904Eu4IoxeFHGx8sBduL5N+Ims9q7nTJgrOlFdfI2eRsM7nrtxaHrsZifuMoHZa/9hpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ABtrUFxQgOCVV1tm3sZZXHzsb2GiQx/EOQt72ynoOX0=;
+ b=pg7yhcqFptO11C9ZhJ3M35I9hy0R4M9qKGdUhshu191eFvSRlJcT4wAjtUkh7Ugrr8jNLjiN5zmUYRBDNVFRF48PdYXGx5wBFwM3E2vpkT0T2ufQDIcguklFWKCfS+z9wQGM5OlCXtsfoXA7t52exFXuGPDIN9an6HUzEEDv28Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MWHPR12MB1838.namprd12.prod.outlook.com
+ (2603:10b6:300:106::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Thu, 23 Dec
+ 2021 07:06:01 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::d16c:a6d5:5d2e:f9d4%12]) with mapi id 15.20.4823.019; Thu, 23 Dec
+ 2021 07:06:01 +0000
+Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
+To: Daniel Vetter <daniel@ffwll.ch>,
+ "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
+References: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
+ <94b992c2-04c2-7305-0a51-d130fc645f3f@gmail.com>
+ <58d61e47-3796-3147-db6c-ea7912d16902@amd.com>
+ <de272de9-3f4a-db40-699a-41394cb699dc@amd.com>
+ <cb5668d4-a13d-3b0b-442a-bfe1b3a7239a@amd.com>
+ <000edeaf-8a89-ea4d-5b9a-2bd7758f675c@amd.com>
+ <f00f2f16-f0b3-cb54-f88e-d53353bfdb79@amd.com>
+ <f4527002-ec6d-5279-3b79-1aacb6cc55cc@amd.com>
+ <YcBM3PMz7J90F3LQ@phenom.ffwll.local>
+ <9d1030c2-2269-cfdd-bbb0-9c3d5995841a@amd.com>
+ <YcOQN/l7W66W/X0f@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <a5c769fd-7eac-2628-a36d-fedddfb7d398@amd.com>
+Date: Thu, 23 Dec 2021 08:05:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <YcOQN/l7W66W/X0f@phenom.ffwll.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: AM6P195CA0005.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:209:81::18) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-References: <CAHk-=wjs4AjAKJ26W69xcMB7snFc+0u+rbgA+Tj0S1GvwY2T3Q@mail.gmail.com>
- <20211220213254.GA7250@ideak-desk.fi.intel.com>
- <CAHk-=winh9=DS2ZJZbgwTFS3r3oWfrZcM9MedQ4dKzsGW8QaTA@mail.gmail.com>
- <BL1PR12MB514437F7B1726A2173650FBFF77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <BL1PR12MB5144E1E5C51C5B5226197978F77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5144E1E5C51C5B5226197978F77C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Dec 2021 23:07:10 -0500
-Message-ID: <CADnq5_NDiV+k8xmQt2zxYRjhd1_8NDBZxdSuZ__65U0=+MXN=Q@mail.gmail.com>
-Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb: Release PCI
- device ..."
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 61035903-5a0f-4632-afa5-08d9c5e2ad5e
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1838:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB18383E15790FD806721AB86A837E9@MWHPR12MB1838.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Gx7/0t4NkiS1S9SeXbBM+eQp4BFqIjGcsiCLe6zF2S6D+LM/QLVEA6ECFOZkFd+PWeb/yIbWSM2GahXErqGGuAtkvon0Fverb4lTFDaivViLZn7gulmtqCOwxcShKR+46k3FY4x9bxtYbOdQTlPzoJm7K8+aprpIXJT1e23r8igEogAreE3P+Ni7Nfe/x9uxuXnGmrxywbcKtiAu/XtZcKjS/h9GuQqX9XkdmvUH5y0UmwrCgClr4ZnHTm3YQuTAiannm5xbRwqyZ8EU5OJ1Qy7oQwaB4X7ROieBKmGLthWDcgIt9WeRKgxlxbO8TvIJQ3l6RjyhLtJonDq1ewabSELx/1RobGhzhb3LzEy+/X6oGgrlrJLjrnQejtKF/5MLgHwAWbMLHx33x+cvkb/7cud56OyrtsjtU9YTO9t+BrCYjdTPfR4mnpVJZ+/3qCOhe451KBrz0C3h7KmGTfZ9clQi0IEl1JgrRSSiDAysJ4MgHHpN5PbTlVBRMoTfVamw598tE+3B+vaaPT1BVQVcadNMWtqHAPMb+1tx5bseNtuZWrqA1RSud0IZPzZSMm01KcxNPKxcx4rL2/mOxx448ZgXPRFrtW3HF4k9dzs2ZnlGguvxk4PerT1Tfn5/3ntDenlnWwZQsVu5SudQ29q9aVYFGI+1Hc5EEil2R4qD8y7SofwQ8NAA7Czv7sWte4zt8mf+RwUO8CydNQGPl7A/1YOQ+6WTQo9P4lM0Ft1luv/XcumEk1mgdT9mL7N4nrzR
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(2906002)(5660300002)(6486002)(66946007)(6506007)(316002)(186003)(110136005)(54906003)(8676002)(38100700002)(31686004)(66476007)(66556008)(26005)(508600001)(8936002)(31696002)(6512007)(86362001)(6636002)(36756003)(6666004)(2616005)(4326008)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHlTT1BWakF6dW84WlJzbEd2TUg4TElDaDFON0VEaFRpWWV5V2xCaWV5YWh1?=
+ =?utf-8?B?eFlWdXkrYjJtNHhaVmdYajVvaWtlSTVnUkllNnpUZUhLeFljRlUveXNQL2Yz?=
+ =?utf-8?B?enEzOFJGZ25ZOHBnZ0h1ZG1UQnZkb2RkVit5b2JFcExwc2s5SFRsVEFZbXNr?=
+ =?utf-8?B?UHUrNW4wQVc0OUlTRHhPLzF0SHp0RWdoYUhRMUpveFRsUG1ER09XTk11dXNT?=
+ =?utf-8?B?L0JUMU5jQ21ISW95QkdqRjJTSWJsQVNVNkxJODdsMHBIOVhvYm9zdGtxY1FL?=
+ =?utf-8?B?SFdSRmluRzZFS1dvRkFZNnFyaUIvWjQ1bjdUS3I3L091bDNlQ1g5NHhrK0Q0?=
+ =?utf-8?B?bFFKa1pNMDJOdzIzdmYyWFQvcSs0eEsxc2tPRlZGc1ZUc0V5Zk9vNGp1SlV4?=
+ =?utf-8?B?ZDltRWxmOFg2dWJyeEt3NGMvM2VuUHkxOFlrZTh6VnFMNjBoWmQyZVJMZVBu?=
+ =?utf-8?B?Z2c4T0g3V0ZENkVBc0dETnJXNVBnVDdTU0N2eVMwNHZaNDBxTWdjd28xd0VW?=
+ =?utf-8?B?OGFBWGo3SW9DYUVXZGlZOUJmUExlSVlOaERZMGpyd0xZSkhZZU5yZ0FPV2Fo?=
+ =?utf-8?B?WEt4NWFQZkovQjdhaytwdEZrY3lMc3R2SVJLK2dSdDczQTY5ZWdEUkI3MGx3?=
+ =?utf-8?B?OGFFdSsxMzh1M1UzTFV3ZUF1amJ0YytrSzVCOVR5VUVlZENrVmg0UTVOMG51?=
+ =?utf-8?B?V3RHRWR1bVo4WWM2QWg3TTJPRmNVK2xpbmFUU2tqV0xEdUVUV0x5cExaYUFw?=
+ =?utf-8?B?ejN6bS8xdkRjWXErMUJ0YkJjWmZjVW9iOUt3d0FJQTZwV09Qc21XNnFmQWZS?=
+ =?utf-8?B?cUJyWkJvT1Nza3FoRy9aSXJEaGZSeXdtSnpJYmVJVmdBRXI3bEhQTElzKzRH?=
+ =?utf-8?B?K05ObENxbUcxM05Dck1ZMXptRUQ4enpaOUorNm44NTU0cDY1RVBWbTRnM3RJ?=
+ =?utf-8?B?N1pBbzRGS3dLbE9DdEJrajZGMFpyeGZSWnhvZGZ5alJkbDRNYzR2QXZwUWRG?=
+ =?utf-8?B?M0NzZE5WRWEyallGNWlwUDJoVFliZ3BOMWZadTNPRDdVSVE5UmpyUmlHdmcy?=
+ =?utf-8?B?Y014WTNLQ3NCenArWXhZa1RyRWxWVHB6R051SXI3QUhKMnZ2bXdSL1A5Mzdo?=
+ =?utf-8?B?RkRLeXpSdG9aN0Q1aUk5TzlRYXF6OEs2NlEwTUdWdThoK1ViSXQxZkNXMnBS?=
+ =?utf-8?B?by8rOWdqMEJ6bDIybkUyeGtMVmw2UXhacURFakVQNS9KejBXQ0poTXJaVGhz?=
+ =?utf-8?B?bVVpYldjTU42L2x0YVFIblJ5b3ZSUXl3QUtUZGljV0xjSTViQ3dmVVAzQkVB?=
+ =?utf-8?B?ay9qMDJlS2lXYTg4NWp2WEZJa1dxajBtakdWN0s5NTF4YitEOEttR2c0WkU5?=
+ =?utf-8?B?M0FlKzhCeHVQekF1WWx1d3NHZmovSUEreXBYcWVrVnBKRjRqK1NWZVJGb2li?=
+ =?utf-8?B?MU51eCs5c0JkQTU5c2VVUVZidXljcTh1ZWMza1oweXRkOWd5TmJRcFhjSXhZ?=
+ =?utf-8?B?Vm80aUNBclR6Wm40UjYwcTBCNStDZGhhV2gyd1FqSzBjUDdQdzNPSXRWaFBB?=
+ =?utf-8?B?ckZpYVZHSks5Y1V0YWJRWjNoYlNvL09Ja1h6SXUxcm5kSVgyOTFUZ0tvSnBv?=
+ =?utf-8?B?YlpIZTF2b1NWVUp4TnpkL2lLWVFLNG51OU1xbFl0VDhMbFptZ21XTFZoNklx?=
+ =?utf-8?B?RDhkdkNWR0FGakxKc0ZFYUFFSm9UeW9UNmUvUzd5bUxtZHNJbmVxY3VmaXFq?=
+ =?utf-8?B?UHl4T05memkrM1hsVnVWc1BaeVR0aUJGRHo2dTFIVkFmM3pKMVdmYTg5ejM5?=
+ =?utf-8?B?anRVM0RYTkdQcysrZU00L3lsYWpmWnZBeUlmS1YzbE85YklQbWg5cXhxRno0?=
+ =?utf-8?B?QzFpYjQ5S2lqTCtUUkcvbTFSTGdpTWszd3VNd1ZQRER0Mi9ScndLY2s4R3Ro?=
+ =?utf-8?B?U2pvTXdDMzl1RWRMdDA5UDkyOEpJdEc4d0hQL0dXUEhTQUE4ZXdnRitEUndh?=
+ =?utf-8?B?bVZNOTlsckdTTkhDckJzanIwVzBmb2lKaVBFQURkVTNwdktJWnZqRktNaW1F?=
+ =?utf-8?B?RzZGaVl0Z0JaaUxJZGVhMStkR0xuRFZ6ZUtkUlNsQ2dZb2lzUk5mS2d3Qi9x?=
+ =?utf-8?Q?Duzk=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61035903-5a0f-4632-afa5-08d9c5e2ad5e
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2021 07:06:01.7377 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1hELURzyRtgbc6M64f7DM4zTIcARmSwE4unt21GeoET2RxZy4jjR7vI30tYRIL7c
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1838
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,150 +136,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
+Cc: daniel.vetter@ffwll.ch, Felix Kuehling <felix.kuehling@amd.com>,
+ dri-devel@lists.freedesktop.org, David Yat Sin <david.yatsin@amd.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, airlied@redhat.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 21, 2021 at 1:47 PM Deucher, Alexander
-<Alexander.Deucher@amd.com> wrote:
+Am 22.12.21 um 21:53 schrieb Daniel Vetter:
+> On Mon, Dec 20, 2021 at 01:12:51PM -0500, Bhardwaj, Rajneesh wrote:
 >
-> [Public]
->
-> > -----Original Message-----
-> > From: Deucher, Alexander
-> > Sent: Tuesday, December 21, 2021 12:01 PM
-> > To: Linus Torvalds <torvalds@linux-foundation.org>; Imre Deak
-> > <imre.deak@intel.com>; amd-gfx@lists.freedesktop.org
-> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>; Kai-Heng Feng
-> > <kai.heng.feng@canonical.com>
-> > Subject: RE: Expecting to revert commit 55285e21f045 "fbdev/efifb: Rele=
-ase
-> > PCI device ..."
-> >
-> > [Public]
-> >
-> > > -----Original Message-----
-> > > From: Linus Torvalds <torvalds@linux-foundation.org>
-> > > Sent: Monday, December 20, 2021 5:05 PM
-> > > To: Imre Deak <imre.deak@intel.com>
-> > > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>; Deucher, Alexander
-> > > <Alexander.Deucher@amd.com>; Kai-Heng Feng
-> > > <kai.heng.feng@canonical.com>
-> > > Subject: Re: Expecting to revert commit 55285e21f045 "fbdev/efifb:
-> > > Release PCI device ..."
-> > >
-> > > On Mon, Dec 20, 2021 at 1:33 PM Imre Deak <imre.deak@intel.com>
-> > wrote:
-> > > >
-> > > > amdgpu.runpm=3D0
-> > >
-> > > Hmmm.
-> > >
-> > > This does seem to "work", but not very well.
-> > >
-> > > With this, what seems to happen is odd: I lock the screen, wait, it
-> > > goes "No signal, shutting down", but then doesn't actually shut down
-> > > but stays black (with the backlight on). After _another_ five seconds
-> > > or so, the monitor goes "No signal, shutting down" _again_, and at th=
-at
-> > point it actually does it.
-> > >
-> > > So it solves my immediate problem - in that yes, the backlight finall=
-y
-> > > does turn off in the end - but it does seem to be still broken.
-> > >
-> > > I'm very surprised if no AMD drm developers can see this exact same t=
-hing.
-> > > This is a very simple setup. The only possibly slightly less common
-> > > thing is that I have two monitors, but while that is not necessarily
-> > > the _most_ common setup in an absolute sense, I'd expect it to be ver=
-y
-> > > common among DRM developers..
-> > >
-> > > I guess I can just change the revert to just a
-> > >
-> > >     -int amdgpu_runtime_pm =3D -1;
-> > >     +int amdgpu_runtime_pm =3D 0;
-> > >
-> > > instead. The auto-detect is apparently broken. Maybe it should only
-> > > kick in for LVDS screens on actual laptops?
-> > >
-> > > Note: on my machine, I get that
-> > >
-> > >    amdgpu 0000:49:00.0: amdgpu: Using BACO for runtime pm
-> > >
-> > > so maybe the other possible runtime pm models (ARPX and BOCO) are ok,
-> > > and it's only that BACO case that is broken.
-> > >
-> > > I have no idea what any of those three things are - I'm just looking
-> > > at the uses of that amdgpu_runtime_pm variable.
-> > >
-> > > amdgpu people: if you don't want that amdgpu_runtime_pm turned off by
-> > > default, tell me something else to try.
-> >
-> > For a little background, runtime PM support was added about 10 year ago
-> > originally to support laptops with multiple GPUs (integrated and discre=
-te).
-> > It's not specific to the display hardware.  When the GPU is idle, it ca=
-n be
-> > powered down completely.  In the case of these laptops, it's D3 cold
-> > (managed by ACPI, we call this BOCO in AMD parlance - Bus Off, Chip Off=
-)
-> > which powers off the dGPU completely (i.e., it disappears from the bus)=
-.  A
-> > few years ago we extended this to support desktop dGPUs as well which
-> > support their own version of runtime D3 (called BACO in AMD parlance - =
-Bus
-> > Active, Chip Off).  The driver can put the chip into a low power state =
-where
-> > everything except the bus interface is powered down (to avoid the devic=
-e
-> > disappearing from the bus).  So this has worked for almost 2 years now =
-on
-> > BACO capable parts and for a decade or more on BOCO systems.
-> > Unfortunately, changing the default runpm parameter setting would cause=
- a
-> > flood of bug reports about runtime power management breaking and
-> > suddenly systems are using more power.
-> >
-> > Imre's commit (55285e21f045) fixes another commit (a6c0fd3d5a8b).
-> > Runtime pm was working on amdgpu prior to that commit.  Is it possible
-> > there is still some race between when amdgpu takes over from efifb?  Do=
-es
-> > it work properly when all pm_runtime calls in efifb are removed or if e=
-fifb is
-> > not enabled?  Runtime pm for Polaris boards has been enabled by default
-> > since 4fdda2e66de0b which predates both of those patches.
->
-> Thinking about this more, I wonder if there was some change in some users=
-pace component which was hidden by the changes in 55285e21f045 and a6c0fd3d=
-5a8b.  E.g., some desktop component started polling for display changes or =
-GPU temperature or something like that and when a6c0fd3d5a8b was in place t=
-he GPU never entered runtime suspend.  Then when 55285e21f045 was applied, =
-it unmasked the new behavior in the userpace component.
->
-> What should happen is that when all of the displays blank, assuming the G=
-PU is otherwise idle, the GPU will runtime suspend after  seconds.  When yo=
-u move the mouse or hit the keyboard, that should trigger the GPU should ru=
-ntime resume and then the displays will be re-enabled.
->
-> In the behavior you are seeing, when the displays come back on after they=
- blank are you seeing the device resume from runtime suspend?  On resume fr=
-om suspend (runtime or system) we issue a hotplug notification to userspace=
- in case any displays changed during suspend when the GPU was powered down =
-(and hence could not detect a hotplug event).  Perhaps that event is trigge=
-ring userspace to reprobe and re-enable the displays shortly after resume f=
-rom runtime suspend due to some other event that caused the device to runti=
-me resume.  Does something like this help by any chance?
-> https://bugzilla.kernel.org/attachment.cgi?id=3D300103&action=3Ddiff&coll=
-apsed=3D&headers=3D1&format=3Draw
+> [SNIP]
+> Still sounds funky. I think minimally we should have an ack from CRIU
+> developers that this is officially the right way to solve this problem. I
+> really don't want to have random one-off hacks that don't work across the
+> board, for a problem where we (drm subsystem) really shouldn't be the only
+> one with this problem. Where "this problem" means that the mmap space is
+> per file description, and not per underlying inode or real device or
+> whatever. That part sounds like a CRIU problem, and I expect CRIU folks
+> want a consistent solution across the board for this. Hence please grab an
+> ack from them.
 
-I've been working with the reporters of the following bug reports.
-Probably best to follow the progress there:
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215203
-https://gitlab.freedesktop.org/drm/amd/-/issues/1840
+Unfortunately it's a KFD design problem. AMD used a single device node, 
+then mmaped different objects from the same offset to different 
+processes and expected it to work the rest of the fs subsystem without 
+churn.
 
-Alex
+So yes, this is indeed because the mmap space is per file descriptor for 
+the use case here.
+
+And thanks for pointing this out, this indeed makes the whole change 
+extremely questionable.
+
+Regards,
+Christian.
+
+>
+> Cheers, Daniel
+>
+
