@@ -4,32 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F1CC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Dec 2021 05:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA2B9C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Dec 2021 05:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0132895C4;
-	Thu, 30 Dec 2021 05:07:03 +0000 (UTC)
-X-Greylist: delayed 399 seconds by postgrey-1.36 at gabe;
- Thu, 30 Dec 2021 05:07:02 UTC
-Received: from lechuck.jsg.id.au (jsg.id.au [193.114.144.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3701E895C4
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Dec 2021 05:07:02 +0000 (UTC)
-Received: from largo.jsg.id.au (largo.jsg.id.au [192.168.1.43])
- by lechuck.jsg.id.au (OpenSMTPD) with ESMTP id c0e69629;
- Thu, 30 Dec 2021 16:00:19 +1100 (AEDT)
-Received: from largo.jsg.id.au (localhost [127.0.0.1])
- by largo.jsg.id.au (OpenSMTPD) with ESMTP id b63d5476;
- Thu, 30 Dec 2021 16:00:19 +1100 (AEDT)
-From: Jonathan Gray <jsg@jsg.id.au>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	Xinhui.Pan@amd.com
-Subject: [PATCH] drm/radeon: use kernel is_power_of_2 rather than local version
-Date: Thu, 30 Dec 2021 16:00:19 +1100
-Message-Id: <20211230050019.18402-1-jsg@jsg.id.au>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E90910E2CF;
+	Thu, 30 Dec 2021 05:24:32 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5F0E10E2CF;
+ Thu, 30 Dec 2021 05:24:30 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id j6so93739487edw.12;
+ Wed, 29 Dec 2021 21:24:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TRgYzTqIcjTzXeZXK/ria11F24MgAieM4h1sn0O8Io0=;
+ b=lb4GP57XHc7hki/NAm4dE+RTGb58GBFRjy+aEZZUjxqsQmxwXc02Gc6+beCDhp8nP+
+ /mcQha6QGXNWPuLoE5q58p5BZFlvkp+yzO7YC/+37tuYYY20Wdo/Xp+URC/tuEkNg+pw
+ NDtpfLvsAyQ9jun933Is1hSABWcxPmJ4No3SyyZ+iy6AxC83VPu30G8p4QfGef3jBrub
+ y6SS3J31optPCF2DRBS0MW8LkJ7+WrPf750UCGXJgZ24WpA/j159XDlC+aYgJ+GB2MVh
+ NTPexwicui+j4aFFodSjtX/vfGX8NdR1IIl/jZu1UxMjWMRYIzyWx+nONg/GESkNfLAt
+ S6UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TRgYzTqIcjTzXeZXK/ria11F24MgAieM4h1sn0O8Io0=;
+ b=xjFLpJDVErZGeXiVr6MORG6pREhuP4R0qp0TGLYOJPmjF/5tn8Hfs2HLgC4Brx+UVl
+ qxPLhsA0MS0SuqeLKGFx5TcDIgFkQFldjbHOtYDUbzxWdkQzsh3GnhmYWifIekJsz2qI
+ UAfTr210EkWaJofoGyEVEG2mCqKiV7Hnnk6LKbIX0/L2dqFPlj9kaobXhOESBRUl29X7
+ cJbqjhvLgVufNZAVCEzHIuosmb9snxXLPacsHZK1IEsYpBvyLsCibv8MReIevlOnEkjt
+ 46I9wvrC2AHYT67f19soSuxnv8SyxTYrzr8Anvg1TcZ2u9OXatwBnTPIgQzWdjM5Vs8I
+ Yxbw==
+X-Gm-Message-State: AOAM533IhsyUU56p/scZyuf3Gg9v5nYPXSgTrut272ObmFDvusJS+hZ1
+ l4ldX4kyw3pvtMmT5v26Jvv3q2Gro1Y1pBVS8IVAlgdTwwc=
+X-Google-Smtp-Source: ABdhPJxDlUUVrmLqP6hYEYkotwYmo+0dDQ8TixLURPce6QSywYMpBI7kGKd8Wamwzg5PdILRPPWCe1oRruvxOH2oVYU=
+X-Received: by 2002:aa7:d55a:: with SMTP id u26mr28629562edr.265.1640841869279; 
+ Wed, 29 Dec 2021 21:24:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20211229164631.5722-1-alexander.deucher@amd.com>
+In-Reply-To: <20211229164631.5722-1-alexander.deucher@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 30 Dec 2021 15:24:18 +1000
+Message-ID: <CAPM=9tz-o5KiowmzbtrNB31PU4YEEde3vBqta9LbeVXtWR0j7A@mail.gmail.com>
+Subject: Re: [pull] amdgpu, amdkfd drm-next-5.17
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,70 +60,19 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tbullock@comlore.com, amd-gfx@lists.freedesktop.org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Follow the amdgpu change made in
-7611750784664db46d0db95631e322aeb263dde7
-and replace local radeon function with is_power_of_2().
+Hey,
 
-Signed-off-by: Jonathan Gray <jsg@jsg.id.au>
----
- drivers/gpu/drm/radeon/radeon_device.c | 19 +++----------------
- 1 file changed, 3 insertions(+), 16 deletions(-)
+dim: 3be2709660dc ("drm/amdgpu: Call amdgpu_device_unmap_mmio() if
+device is unplugged to prevent crash in GPU initialization failure"):
+committer Signed-off-by missing.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 4f0fbf667431..15692cb241fc 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1085,19 +1085,6 @@ static unsigned int radeon_vga_set_decode(struct pci_dev *pdev, bool state)
- 		return VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
- }
- 
--/**
-- * radeon_check_pot_argument - check that argument is a power of two
-- *
-- * @arg: value to check
-- *
-- * Validates that a certain argument is a power of two (all asics).
-- * Returns true if argument is valid.
-- */
--static bool radeon_check_pot_argument(int arg)
--{
--	return (arg & (arg - 1)) == 0;
--}
--
- /**
-  * radeon_gart_size_auto - Determine a sensible default GART size
-  *                         according to ASIC family.
-@@ -1126,7 +1113,7 @@ static int radeon_gart_size_auto(enum radeon_family family)
- static void radeon_check_arguments(struct radeon_device *rdev)
- {
- 	/* vramlimit must be a power of two */
--	if (!radeon_check_pot_argument(radeon_vram_limit)) {
-+	if (!is_power_of_2(radeon_vram_limit)) {
- 		dev_warn(rdev->dev, "vram limit (%d) must be a power of 2\n",
- 				radeon_vram_limit);
- 		radeon_vram_limit = 0;
-@@ -1140,7 +1127,7 @@ static void radeon_check_arguments(struct radeon_device *rdev)
- 		dev_warn(rdev->dev, "gart size (%d) too small\n",
- 				radeon_gart_size);
- 		radeon_gart_size = radeon_gart_size_auto(rdev->family);
--	} else if (!radeon_check_pot_argument(radeon_gart_size)) {
-+	} else if (!is_power_of_2(radeon_gart_size)) {
- 		dev_warn(rdev->dev, "gart size (%d) must be a power of 2\n",
- 				radeon_gart_size);
- 		radeon_gart_size = radeon_gart_size_auto(rdev->family);
-@@ -1163,7 +1150,7 @@ static void radeon_check_arguments(struct radeon_device *rdev)
- 		break;
- 	}
- 
--	if (!radeon_check_pot_argument(radeon_vm_size)) {
-+	if (!is_power_of_2(radeon_vm_size)) {
- 		dev_warn(rdev->dev, "VM size (%d) must be a power of 2\n",
- 			 radeon_vm_size);
- 		radeon_vm_size = 4;
--- 
-2.34.1
+is missing your sob as you committed it. Please fix it up.
 
+Thanks,
+Dave.
