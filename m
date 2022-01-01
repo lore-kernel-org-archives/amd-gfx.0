@@ -4,91 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 811A5C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Dec 2021 14:38:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A853C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Jan 2022 11:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96DE789D3E;
-	Fri, 31 Dec 2021 14:38:44 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 551A589CF9;
- Fri, 31 Dec 2021 14:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7D2289D87;
+	Sat,  1 Jan 2022 11:19:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 226B489D87;
+ Sat,  1 Jan 2022 11:19:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SZvwRZsu6xKsejJPgNG4XhtXghR7PbY74GIjACl/VGDMgkQSVzCjGYqok72R2cQaHC9um8+1IEE/eawSHWPFDTP5rBsx5yDidrFTXdSDWwoyu0emvl1RPWDY3fwO/0H1oP0DdIV2G08/gev8T7AKDWTsMUwiNMOd7xzo/CVl8FGctgz7WDoCaXzSfFz4ioIlQxuFCBp23q6SZAa/acLuins6LYV0ynfW3OXcvalINwjhK7feImqmhvh0VeZkG/q+EIah0IP2slC1EeEb2A7M4/iDpluyC7budXodB8DI7uvugtjnaNvs3dwV5m2pbyDLlZ9xi0xYvGOFmD7XBaBdRQ==
+ b=iJ8LF+4znTy1KxqQwaizxeMNHuJeEfrL4d0SnTTjHCng/yxpDEpeH/tARti7XNZsH3vepC/BHgZOyVQ79plWCViPNLgV482DLHLcjrVOPG/FX9d3hCfjgyFFhzL8e64dw7JJTOQDJnf/mO+CBbMCLNnDPmsS/ZikvchNR+J/dDk1s7hg8Tac2HgGiiS6fTB5hPL6FwZHFiBgWBRFLoj5a0ZQnOlia99zhQy9tFpk9iSFoJ8CNaYqtjv6I+Yf03dnqAXOejeiNUSamt9awCG/uNMCmmqBY4oAFYv9PMGALUprwf+lkNd2v+E4MSlgfBl9xRIiPlDN00FL7c2y40TZOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OvF/y4JzoAbjYuT6E+VR40pRj1kGn+nBcr9kXPLCGbg=;
- b=mOO+xOn9AAvo4DOUv+3qax4ydZmYl2cOXn7BQu3TGWcqCyerfrQlZtBVz15oQEBMEFKm3ItXgAiYSRTgmhH+mM1TILmKqEOHSGMhn0XvPpRerjm0nf14Gk2K9o16sYCmiRusrSe6C4+TF0dez1M3cTIa3x8FioOSPyqJ2H2BM8ME/YmWR9EVRnPZ/DeJ4Wc7OufqXgx8u9cD/VhlzohSA7Ga0bfIYJFBwu0ycUxgBWni1YguSU14VOTQd0vT6wvoy2h65fv3aVY4fRa6VQ3XZXvR91ONQXUxVs9kMW2Fd2K1bCVn/MFnA3ZGlrAVou6nOStDQOkQ5V8sh9+x8FVVoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=uEc+o40Phw17+Vm4JOQfwNStJCQvFbxAnej2UtKIFlk=;
+ b=mcf2tpef8YnNcFfePEFVoAWZ3eV6SnFpkxE8ITnubmjt7a+VBoHCJtdSbvj1Y/30CXlz9PhOGyH4l0iQg+ycjKICrtYe2HVCOQ8R40Mn9BvomUhefgE+8Je7REQnUCHHJcGyxfWR1XYA9QyFudxUQZewycr1vLcdY2RllU5LVocrXMQCMBaZspcirC7UywR/FGAsG4LJClTwIch81LNtiPSVz60yp2rzcnaPryIErMzAQnFazUmUbMRKycCiFGswccIRwua9ktfBfGWS0q9B4uZi8uWxR7zPq+OpYNytyhoAPpdDqmjTdEVNCWkPN+/+SUQnWh7T4S9vkb9mAmCygQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OvF/y4JzoAbjYuT6E+VR40pRj1kGn+nBcr9kXPLCGbg=;
- b=Pj7vSTYroJ/E3gyuzIS5e5409GlSB+Zns265gqhzKdVSjlaoRbVc89cnHkZUpF20Tb6mK9FdONui7ASWn4lO5leQJgxzBUz3sAmrCkWr1F0mJySkdugWt2GwCL9omgVRhVBY47I5TRz9NOLsrPfXaj7ukCLHIWBNqbeDGpMaS9I=
-Received: from MWHPR20CA0007.namprd20.prod.outlook.com (2603:10b6:300:13d::17)
- by CH2PR12MB4008.namprd12.prod.outlook.com (2603:10b6:610:26::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.13; Fri, 31 Dec
- 2021 14:38:39 +0000
-Received: from CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:13d:cafe::65) by MWHPR20CA0007.outlook.office365.com
- (2603:10b6:300:13d::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.13 via Frontend
- Transport; Fri, 31 Dec 2021 14:38:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT024.mail.protection.outlook.com (10.13.174.162) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4844.14 via Frontend Transport; Fri, 31 Dec 2021 14:38:38 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 31 Dec
- 2021 08:38:37 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-5.16
-Date: Fri, 31 Dec 2021 09:38:25 -0500
-Message-ID: <20211231143825.11479-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.33.1
+ bh=uEc+o40Phw17+Vm4JOQfwNStJCQvFbxAnej2UtKIFlk=;
+ b=DL0ARV9q1qAUWXwc1MJIpjKpO+Hf+K4Gs0bb/nY4TXjc6yseB7kR+H68Vzh+fbe44f+khbZ7f3mRWMU0p7jQTDPLZniTkPyPfY3XvIeQ8QAQ9drkVPBLwD3Aq1MipAehEZyFRT3j8Yb9OLIkAeGgrZx1MmyfxefPlWOX7Z5pc1g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MW3PR12MB4476.namprd12.prod.outlook.com
+ (2603:10b6:303:2d::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.21; Sat, 1 Jan
+ 2022 11:19:01 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::b4d6:f148:3798:6246]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::b4d6:f148:3798:6246%7]) with mapi id 15.20.4844.015; Sat, 1 Jan 2022
+ 11:19:00 +0000
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogUmU6IFtQQVRDSF0gZ3B1L2RybS9yYWRlb246Rml4?=
+ =?UTF-8?Q?_null_pointer_risk?=
+To: =?UTF-8?B?5rip5b+X5Lyf?= <wenzhiwei@kylinos.cn>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch
+References: <xfsceflzgr-xftmc911ak@nsmail6.0>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <6e676e19-b6c8-579a-df76-9947a2fc4145@amd.com>
+Date: Sat, 1 Jan 2022 12:18:53 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <xfsceflzgr-xftmc911ak@nsmail6.0>
+Content-Type: multipart/alternative;
+ boundary="------------A1EFA530548228487156E3EE"
+Content-Language: en-US
+X-ClientProxiedBy: AS8PR04CA0128.eurprd04.prod.outlook.com
+ (2603:10a6:20b:127::13) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 81f8377f-009c-4c91-260e-08d9cc6b3bff
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4008:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB4008A842904F186515534150F7469@CH2PR12MB4008.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Office365-Filtering-Correlation-Id: f78c8356-050d-48c2-7f63-08d9cd188283
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4476:EE_
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4476B1E6FC41BA6C5D6D115183479@MW3PR12MB4476.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0KudU43rha2FlUAZl5411TkD2zulgdeVajqTmeyXGYyfJISW42Y1UDUqDozAtA1FhYQRM2OwC6V6NjRMKbcHqhkt9SIL9FGlRbmXHRnDlkvTQOVjPyUavu/FSL9pukv0l7bkVObYYN6vvJv7zijZtECxqfbB5AJjHKAESvj/FbWZvDNB2GBJ4YQgIGekLhxVdxZffFQVsunYV/vEQJEDiELTIwgV1TP4CwSGe4Y9BpnSmB/xDlJqly6mzqg5HQ6h8Zr5Gu2YmxWERxmUbpR4ElU4CX98MPxGx+SPWSLA9FSG2v7sZj/juML0Gc9r4MPyDOXgPqd6pSsf8OVJV4QSjx0n2u00KT9YErC/l8P31N17uIGwxzarapBhBF15ce1YSNPEIwrcRRPGv22iUE7FC4wVh1RTBvjokDTYe848BTMjMwvS9+m1TE4vuv7wh9QKlBWMW7LhXfpLyf2XBy7VgB3Aye8oOR5AJmdTEwCtHYd9M16/zcr4Oi+MqqWBaf7QDHHh3fpIKfJixTxWWG4uGSEc2fliPAKbsUvldYtCIwu38TY3SrHiA07CafnhFZHnYnH9QhoAFRPpmsorVD5bXSWLb1SIp3xc2xy3JX6bjFdsHpD5hg0cAu2RY2jTbm09RgZoURCb3t4crRDyG7dpRQIrdnF79HGl7HVX5QPCrRLHy/C6lk3ULbvruiJvTvTD9aYsNZIja50ZCV79loUEJw23uaC0sie4BEqJ6O45BsnE3l98kvDgVbWu+7fdgdDllu2733zu6p2IOdv7eyl6yx/rRieKWdwIZnQ4eCqCKC4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(36840700001)(46966006)(336012)(426003)(966005)(36860700001)(83380400001)(70586007)(70206006)(86362001)(508600001)(356005)(8676002)(36756003)(47076005)(7696005)(8936002)(316002)(26005)(110136005)(81166007)(4001150100001)(16526019)(186003)(2616005)(2906002)(5660300002)(6666004)(4326008)(40460700001)(1076003)(82310400004)(36900700001);
+X-Microsoft-Antispam-Message-Info: xWp3kMGge65Omdwa5vlrnbWkQ8mBn14/+4bqYpVxmuxOqWNsFlMmKlBMXRfXWeS7iLwpFetkMccCiMJBqzLnX/v/Hbvp6LYJgxgHO5C4SGh7d9wTu2+gWkoBzavD7Fv/3ke5T+janvmql0ccpgLUUTVsq+Nck5/MH73joz+YUmRLWr7qkZGHAkXknBHaJvDD8K3HDzNVkCM+wjDYG8SCdemvLP4xPFvaqvd6dLPG6cCG7dbdx5UBXH3bcrTyJxOYBJNeMuiz1G3b31TUwivCWKtTGrT4FGG7Auc7RDbQFWUHPh0VEq+ymCmjYA0KhotrCEWnVT/aUARcnQNHji/XtYN+65FSL2aNa3n6Lx4TsoYOBQNvFzBxww6fQJPzup9IzRqozFBYj5gjQey69ROz8s03/E5+kps9NKLsrY8+XH1bYtCkYk7J8s4D5N8SyBFAWSszF9unP7fMuk1O8dDsloc56DUALFUbsc51QCJXOak6gS7+SeGY82gj/OnvxnTayVdBeLgKBs34PqMPuNw9r76phNlqOUe7RNGC/q60/MPHCTtzUdLmbfnAHbVJPsWz5gqFbDqiP1GXLlUTQIh4HNaL/QF7c3I6HLNLBqe2+rZHuVKibn9FlTKNHlBuMRxRNGMKrBFDx+h8hmBj6pyrxrs0/zHayIU2TKEagq8jv9fLxyq15DNiGL+w/aJurWqdReSZ1pe+YVkeb460qsigYcFKmifLp0d80bCI+f78yRI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(8936002)(186003)(4326008)(6666004)(2906002)(83380400001)(31696002)(6512007)(6506007)(6486002)(5660300002)(224303003)(4001150100001)(508600001)(31686004)(66476007)(66556008)(36756003)(2616005)(38100700002)(86362001)(33964004)(316002)(66946007)(66574015)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmRsWS85WTlQYU5ibTRDUWUxYy9uQnZvUkpxY2Y0NnRDRFVaOXNJS2Ztb0Mz?=
+ =?utf-8?B?TmVIbGU2REFJZ01pK3lkZjVGbmc2a1dOVzBHa2o5Qm9kbUQ1NTQ5bEYwaUtN?=
+ =?utf-8?B?VS9EN055VzEwSXEwVDJlKzhBenIzK0NmVFAvMmZtV2tNUDkyVTNUL012K0pZ?=
+ =?utf-8?B?ZDRZZUh3b1FObHMvK2lwTkRQNzdpRUtQM2R1Zm5URGZ6ci9DUDdFQVo1K2lT?=
+ =?utf-8?B?b2FZeG1uM0xoaTVPendzU1NFTi9KTmNHY1Q0OTMvMEt2VytGTXYxMVdDQ2dp?=
+ =?utf-8?B?bTFrYjVlb0JNR0ZQS1E5R04yMWtWY0dUVnpKMjJIMXZGYkF0Tk15bzJYUVBn?=
+ =?utf-8?B?L2pEVEFqVDdUMVY4Umd0MnBSUGJXQTNld25EZGQ1SzJoT2Q2MjJLaEJrYlZz?=
+ =?utf-8?B?RGtweTJWbXVlK21sbGJtcE0vblpZWHozRWlTTWVtTXdZU29zWCtYaHZ4U09a?=
+ =?utf-8?B?N0FCVUVzOTQ5WmgrSzZmYzZ4VzVuZVFNS3QwNEwxNndETDNBU3BENEN2M3FD?=
+ =?utf-8?B?QTFGT2EvMml2cHZVSjZqUXl5Vklvam9sZjNwRXREbUpSZDJUUmplaVR3Vkh6?=
+ =?utf-8?B?ejdLUC9VaDAwS0JIQ09EYk91NVpDTzNwVUtod0sydnM2cVNTSWNYMVJzbVEw?=
+ =?utf-8?B?UTVRNGNJYmpVMHdWVzFSSlhmZFdjNWhacG5JM1Y3SG1xUFFOUHZOZWxpdW82?=
+ =?utf-8?B?YkVTUWQ3Smh4a3ZxY05IN3VvcGV0QXVka09vM3Q5N0Z3Y29XcGFsR1RtR093?=
+ =?utf-8?B?VWh0bUdDMGlPV2tHMWFDdURFT2V5OElvWFE1SlZKcllROXJJMFUyMHk1Wklr?=
+ =?utf-8?B?LzdqbTEvc0wyMDB1UjAvaHJBaHVEeHVZQ2ZySElCV3ZxRS8wcEFsanBMeDRM?=
+ =?utf-8?B?MW00U0YxVlpwUmVYQzJyYkJoMDZhYU1DQjZuRHVOSTVpaDJJWDhJajV1cm1V?=
+ =?utf-8?B?LzRvUzRaZ2dtcGdRbkQxVnZoMXBlTjdKQ2hoeHdxSWhqd2ZSaVRralJLNHho?=
+ =?utf-8?B?U2dSZWRac20vaUpOekNWMEpnMWxkY1VyQ1JUS1FBMTFVOFJ5eTVmU0x1MXl6?=
+ =?utf-8?B?cCtZdDg3UTNCdFJzamZEWFNseXZoS1pPSisvRVNRV0Z1TFZlanQrS21aV2JL?=
+ =?utf-8?B?TEgrZlRscWtybUhHRGJXTy9vSmNvS2prakMwSTJLTStPZDNSUFV1OVNsQ3lQ?=
+ =?utf-8?B?SUpoaCs3cXFSTVU1VWV1UVhiWkVCVTE1eXhxZFlUcnJ2cGIvZHQrY2VpcmZP?=
+ =?utf-8?B?TTdEbEpGTTZzdTdIVzZmck1kWjlGRUU1Y3lJRVAvUWsyK2FRdXVwaWNwS3Fp?=
+ =?utf-8?B?aFJ3d3A3cFVmdEFHUkJvVkIwcWxpRlNGVmY2TnNPL1QwcTBaYzVJaDNRYTlt?=
+ =?utf-8?B?bGZaRFBxY3plVnFzMlA4elkzRlhkWEh6TUtUeDJob2hZZE1Fc0J2ZUZUS2Vs?=
+ =?utf-8?B?dGpWaHMrWXF5b3JWZ294RnlpTVBJdEhxaUIySkdRVFdvRlJDY3lOWlRsVU93?=
+ =?utf-8?B?SzJVcGQ5cisrU2IxeTM3cGhnQ2NBTEZKNG80eE5obFhjdng0MGo4ZmFuaDRD?=
+ =?utf-8?B?MUVCbGRTcTlvZ2Q3OWhIdlhuYk5TL3FWUGNXZmxGdzR0WUgxWXFDWnpkRDhI?=
+ =?utf-8?B?dEtiTVYzM0lyTVR3T29DYS9IZHluL0wvS2N0M2ZCNFJ2YnV2dC8vYTdzQXYw?=
+ =?utf-8?B?YVloYWkwcXE4M3RteXRqdkRSTk54NEdqNHRkVnZwM05BZ01vWFMwcnM4NFBs?=
+ =?utf-8?B?NkIrZDJXZmUxL28rTWcyU1ZBWkVsVU9kdE9PUFRtdkU0NVU0ekpRaHl4aTBy?=
+ =?utf-8?B?U0hESHl3ejFjNGswbTY1cG84TGk3NnIrdEpNT1Z6VGl1MVZMQkh4QWZmVnd3?=
+ =?utf-8?B?cTN6dVJZZFA3dkxiQ2JOdUsvdFJXU2JrYmdsbHRPTy9tRUhjajVCeFZLelZ5?=
+ =?utf-8?B?ZEltZEJyanpERnBKRklXNDAwOTRjNXpxTVJqRDNMaTFCaUczdENOVTg1eHgv?=
+ =?utf-8?B?SzcxME54Zjcza0QvT3ZpbzhtKzF5bDhic2N0ZDduZFRTL0dBVGZ2UzRDWFhZ?=
+ =?utf-8?B?Z2pIWTI5M0xyTkRsWWo3eWlUMkxKOUVKdjhFc2JlYjJVSXJmYUtVTFQvQk4y?=
+ =?utf-8?B?UXpXVG5VNFYxZ0traHdPNFBGTkpOK0tFVUFXZTF2TlJWZzcxd091eHYrN0xh?=
+ =?utf-8?Q?DKp16GcCt4X6LhJum6vp34c=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Dec 2021 14:38:38.8217 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81f8377f-009c-4c91-260e-08d9cc6b3bff
+X-MS-Exchange-CrossTenant-Network-Message-Id: f78c8356-050d-48c2-7f63-08d9cd188283
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jan 2022 11:19:00.7669 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4008
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tlUXUtZXoog+McqXiXSWfRQ6XsAIZ98B3GeDB5S7TGhqgSgx6zUfAtY+HnvLvnUT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4476
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,54 +129,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+--------------A1EFA530548228487156E3EE
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-One small suspend/resume fix, and the rest is restoring the runtime pm behavior
-that changed for some people when efifb dropped its extra runtime pm reference.
-Unfortunately the issue has not been something we've been able to reproduce
-consistently.  The patches here basically re-enable the previous behavior, but
-in the driver if the device is the one that was used by the firmware
-framebuffer.  It is limited to the device used by firmware since I don't want to
-regress hybrid graphics laptops and other systems that have been working fine
-years.  The first patch adds a helper to fbmem.c to determine if the adapter is
-the one used by firmware.  This needs a more indepth analysis, but with the
-holidays and the late state of the 5.16 cycle, this seems like the best option.
+Am 31.12.21 um 09:37 schrieb 温志伟:
+>
+>
+>
+> Then the judgment in line 944 is needed. Are the possibilities of 
+> these two positions consistent.
+>
+> Why keep this judgment？
+>
 
-The following changes since commit ce9b333c73a5a8707f2f446a837a6ca743ddcffd:
+Because when mem is non-NULL bo_va->bo can't be NULL either.
 
-  Merge branch 'drm-misc-fixes' of ssh://git.freedesktop.org/git/drm/drm-misc into drm-fixes (2021-12-31 11:40:29 +1000)
+Regards,
+Christian.
 
-are available in the Git repository at:
+>
+> Regards,
+>
+> Wen Zhiwei.
+>
+>
+> ----
+>
+>
+>
+>
+>
+> *主　题：*Re: [PATCH] gpu/drm/radeon:Fix null pointer risk
+> *日　期：*2021-12-31 00:36
+> *发件人：*Christian König
+> *收件人：*Wen 
+> Zhiweialexander.deucher@amd.comXinhui.Pan@amd.comairlied@linux.iedaniel@ffwll.ch 
+>
+>
+> Am 28.12.21 um 08:31 schrieb Wen Zhiwei:
+> > If the null pointer is not judged in advance,
+> > there is a risk that the pointer will cross
+> > the boundary
+>
+> As far as I can see that case is impossible, why do you want to add a
+> check for it?
+>
+> Regards,
+> Christian.
+>
+> >
+> > Signed-off-by: Wen Zhiwei
+> > ---
+> >   drivers/gpu/drm/radeon/radeon_vm.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_vm.c 
+> b/drivers/gpu/drm/radeon/radeon_vm.c
+> > index bb53016f3138..d3d342041adf 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_vm.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_vm.c
+> > @@ -951,7 +951,7 @@ int radeon_vm_bo_update(struct radeon_device *rdev,
+> >
+> >   if (mem->mem_type == TTM_PL_TT) {
+> >   bo_va->flags |= RADEON_VM_PAGE_SYSTEM;
+> > - if (!(bo_va->bo->flags & (RADEON_GEM_GTT_WC | RADEON_GEM_GTT_UC)))
+> > + if (bo_va->bo && !(bo_va->bo->flags & (RADEON_GEM_GTT_WC | 
+> RADEON_GEM_GTT_UC)))
+> >   bo_va->flags |= RADEON_VM_PAGE_SNOOPED;
+> >
+> >   } else {
+>
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.16-2021-12-31
 
-for you to fetch changes up to b95dc06af3e683d6b7ddbbae178b2b2a21ee8b2b:
+--------------A1EFA530548228487156E3EE
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-  drm/amdgpu: disable runpm if we are the primary adapter (2021-12-31 08:57:45 -0500)
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Am 31.12.21 um 09:37 schrieb 温志伟:<br>
+    <blockquote type="cite" cite="mid:xfsceflzgr-xftmc911ak@nsmail6.0">
+      
+      <p><br>
+      </p>
+      <div class="viewer_part">
+        <div>&nbsp; &nbsp;<br>
+          <p>Then the judgment in line 944 is needed. Are the
+            possibilities of these two positions consistent.</p>
+          <p>Why keep this judgment？</p>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    Because when mem is non-NULL bo_va-&gt;bo can't be NULL either.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite" cite="mid:xfsceflzgr-xftmc911ak@nsmail6.0">
+      <div class="viewer_part">
+        <div>
+          <p><br>
+          </p>
+          <p>Regards,</p>
+          <p>Wen Zhiwei.</p>
+          <p><br>
+          </p>
+          &nbsp; &nbsp;
+          <p>----</p>
+          <p><br>
+          </p>
+          <div id="re" style="margin-left:0.5em;padding-left:0.5em;border-left:1px
+            solid green;"><br>
+            <br>
+            <br>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <div style="background-color:#f5f7fa"><b>主　题：</b><span id="subject">Re: [PATCH] gpu/drm/radeon:Fix null pointer
+                risk</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+              <b>日　期：</b><span id="date">2021-12-31 00:36</span> &nbsp; &nbsp; &nbsp; &nbsp;
+              &nbsp; &nbsp;<br>
+              <b>发件人：</b><span id="from">Christian König</span> &nbsp; &nbsp; &nbsp; &nbsp;
+              &nbsp; &nbsp;<br>
+              <b>收件人：</b><span id="to">Wen
+<a class="moz-txt-link-abbreviated" href="mailto:Zhiweialexander.deucher@amd.comXinhui.Pan@amd.comairlied@linux.iedaniel@ffwll.ch">Zhiweialexander.deucher@amd.comXinhui.Pan@amd.comairlied@linux.iedaniel@ffwll.ch</a></span>
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+            <br>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <div id="content">
+              <div class="viewer_part">
+                <div>Am 28.12.21 um 08:31 schrieb Wen Zhiwei:<br>
+                  &gt; If the null pointer is not judged in advance,<br>
+                  &gt; there is a risk that the pointer will cross<br>
+                  &gt; the boundary<br>
+                  <br>
+                  As far as I can see that case is impossible, why do
+                  you want to add a <br>
+                  check for it?<br>
+                  <br>
+                  Regards,<br>
+                  Christian.<br>
+                  <br>
+                  &gt;<br>
+                  &gt; Signed-off-by: Wen Zhiwei<wenzhiwei@kylinos.cn><br>
+                    &gt; ---<br>
+                    &gt; &nbsp; drivers/gpu/drm/radeon/radeon_vm.c | 2 +-<br>
+                    &gt; &nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+                    &gt;<br>
+                    &gt; diff --git a/drivers/gpu/drm/radeon/radeon_vm.c
+                    b/drivers/gpu/drm/radeon/radeon_vm.c<br>
+                    &gt; index bb53016f3138..d3d342041adf 100644<br>
+                    &gt; --- a/drivers/gpu/drm/radeon/radeon_vm.c<br>
+                    &gt; +++ b/drivers/gpu/drm/radeon/radeon_vm.c<br>
+                    &gt; @@ -951,7 +951,7 @@ int
+                    radeon_vm_bo_update(struct radeon_device *rdev,<br>
+                    &gt; &nbsp; <br>
+                    &gt; &nbsp; if (mem-&gt;mem_type == TTM_PL_TT) {<br>
+                    &gt; &nbsp; bo_va-&gt;flags |= RADEON_VM_PAGE_SYSTEM;<br>
+                    &gt; - if (!(bo_va-&gt;bo-&gt;flags &amp;
+                    (RADEON_GEM_GTT_WC | RADEON_GEM_GTT_UC)))<br>
+                    &gt; + if (bo_va-&gt;bo &amp;&amp;
+                    !(bo_va-&gt;bo-&gt;flags &amp; (RADEON_GEM_GTT_WC |
+                    RADEON_GEM_GTT_UC)))<br>
+                    &gt; &nbsp; bo_va-&gt;flags |= RADEON_VM_PAGE_SNOOPED;<br>
+                    &gt; &nbsp; <br>
+                    &gt; &nbsp; } else {<br>
+                    <br>
+                  </wenzhiwei@kylinos.cn></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
-----------------------------------------------------------------
-amd-drm-fixes-5.16-2021-12-31:
-
-amdgpu:
-- Suspend/resume fix
-- Restore runtime pm behavior with efifb
-
-----------------------------------------------------------------
-Alex Deucher (2):
-      fbdev: fbmem: add a helper to determine if an aperture is used by a fw fb
-      drm/amdgpu: disable runpm if we are the primary adapter
-
-Evan Quan (1):
-      drm/amd/pm: keep the BACO feature enabled for suspend
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   | 28 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   |  6 ++++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c |  8 +++++-
- drivers/video/fbdev/core/fbmem.c          | 47 +++++++++++++++++++++++++++++++
- include/linux/fb.h                        |  1 +
- 6 files changed, 90 insertions(+), 1 deletion(-)
+--------------A1EFA530548228487156E3EE--
