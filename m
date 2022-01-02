@@ -4,120 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A853C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Jan 2022 11:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B40A4C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun,  2 Jan 2022 14:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D2289D87;
-	Sat,  1 Jan 2022 11:19:06 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 226B489D87;
- Sat,  1 Jan 2022 11:19:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iJ8LF+4znTy1KxqQwaizxeMNHuJeEfrL4d0SnTTjHCng/yxpDEpeH/tARti7XNZsH3vepC/BHgZOyVQ79plWCViPNLgV482DLHLcjrVOPG/FX9d3hCfjgyFFhzL8e64dw7JJTOQDJnf/mO+CBbMCLNnDPmsS/ZikvchNR+J/dDk1s7hg8Tac2HgGiiS6fTB5hPL6FwZHFiBgWBRFLoj5a0ZQnOlia99zhQy9tFpk9iSFoJ8CNaYqtjv6I+Yf03dnqAXOejeiNUSamt9awCG/uNMCmmqBY4oAFYv9PMGALUprwf+lkNd2v+E4MSlgfBl9xRIiPlDN00FL7c2y40TZOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uEc+o40Phw17+Vm4JOQfwNStJCQvFbxAnej2UtKIFlk=;
- b=mcf2tpef8YnNcFfePEFVoAWZ3eV6SnFpkxE8ITnubmjt7a+VBoHCJtdSbvj1Y/30CXlz9PhOGyH4l0iQg+ycjKICrtYe2HVCOQ8R40Mn9BvomUhefgE+8Je7REQnUCHHJcGyxfWR1XYA9QyFudxUQZewycr1vLcdY2RllU5LVocrXMQCMBaZspcirC7UywR/FGAsG4LJClTwIch81LNtiPSVz60yp2rzcnaPryIErMzAQnFazUmUbMRKycCiFGswccIRwua9ktfBfGWS0q9B4uZi8uWxR7zPq+OpYNytyhoAPpdDqmjTdEVNCWkPN+/+SUQnWh7T4S9vkb9mAmCygQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uEc+o40Phw17+Vm4JOQfwNStJCQvFbxAnej2UtKIFlk=;
- b=DL0ARV9q1qAUWXwc1MJIpjKpO+Hf+K4Gs0bb/nY4TXjc6yseB7kR+H68Vzh+fbe44f+khbZ7f3mRWMU0p7jQTDPLZniTkPyPfY3XvIeQ8QAQ9drkVPBLwD3Aq1MipAehEZyFRT3j8Yb9OLIkAeGgrZx1MmyfxefPlWOX7Z5pc1g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MW3PR12MB4476.namprd12.prod.outlook.com
- (2603:10b6:303:2d::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.21; Sat, 1 Jan
- 2022 11:19:01 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246%7]) with mapi id 15.20.4844.015; Sat, 1 Jan 2022
- 11:19:00 +0000
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTogUmU6IFtQQVRDSF0gZ3B1L2RybS9yYWRlb246Rml4?=
- =?UTF-8?Q?_null_pointer_risk?=
-To: =?UTF-8?B?5rip5b+X5Lyf?= <wenzhiwei@kylinos.cn>,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch
-References: <xfsceflzgr-xftmc911ak@nsmail6.0>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <6e676e19-b6c8-579a-df76-9947a2fc4145@amd.com>
-Date: Sat, 1 Jan 2022 12:18:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <xfsceflzgr-xftmc911ak@nsmail6.0>
-Content-Type: multipart/alternative;
- boundary="------------A1EFA530548228487156E3EE"
-Content-Language: en-US
-X-ClientProxiedBy: AS8PR04CA0128.eurprd04.prod.outlook.com
- (2603:10a6:20b:127::13) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB568997C;
+	Sun,  2 Jan 2022 14:30:31 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D15A8996F;
+ Sun,  2 Jan 2022 14:30:29 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1557360EB3;
+ Sun,  2 Jan 2022 14:30:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F279C36AE7;
+ Sun,  2 Jan 2022 14:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641133824;
+ bh=R0oVKfZw6YAt4sm6GjaVCweudwqIJ6wnCtw3jLd37Sk=;
+ h=Subject:From:To:Cc:Date:From;
+ b=a8L4dkVSulNGb9rbNaAQhUfhlAS+kSTslmd7QWKbgNeJPQ2LYXQqr35O9WHCQiqkG
+ tq5DbYGGsIfLw6tC2t4hDukT+hFD6+MFdJXBCK5xD/Kom8f2TvrxMfBK6OzBFdjFlH
+ iT2oFT/9OeSFR/7BVQAwKqalTFQSNowIpdXe54ID5R+iSP+scddCIqiaciAVKDCSf7
+ Hpbfn8UMMy1zCRothwYyMZXfiW1gnfY0oiFKfmFYuRmbXZssIHFyDhT6xgAchjZ8di
+ g+UJ89w3Wn4svwuowdXUzhKoxwqjto91FnavZmM82pnXjYG7hvLYgk/Ybg4LTAHYGS
+ TQ3aOHo1Dwe4A==
+Message-ID: <995b4eaf85a9dd1630b2b81755e30292ce4571e6.camel@kernel.org>
+Subject: softlockup in v5.15.12 in dcn20_post_unlock_program_front_end
+From: Jeff Layton <jlayton@kernel.org>
+To: amd-gfx <amd-gfx@lists.freedesktop.org>
+Date: Sun, 02 Jan 2022 09:30:22 -0500
+Content-Type: text/plain; charset="ISO-8859-15"
+User-Agent: Evolution 3.42.2 (3.42.2-1.fc35) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f78c8356-050d-48c2-7f63-08d9cd188283
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4476:EE_
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4476B1E6FC41BA6C5D6D115183479@MW3PR12MB4476.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xWp3kMGge65Omdwa5vlrnbWkQ8mBn14/+4bqYpVxmuxOqWNsFlMmKlBMXRfXWeS7iLwpFetkMccCiMJBqzLnX/v/Hbvp6LYJgxgHO5C4SGh7d9wTu2+gWkoBzavD7Fv/3ke5T+janvmql0ccpgLUUTVsq+Nck5/MH73joz+YUmRLWr7qkZGHAkXknBHaJvDD8K3HDzNVkCM+wjDYG8SCdemvLP4xPFvaqvd6dLPG6cCG7dbdx5UBXH3bcrTyJxOYBJNeMuiz1G3b31TUwivCWKtTGrT4FGG7Auc7RDbQFWUHPh0VEq+ymCmjYA0KhotrCEWnVT/aUARcnQNHji/XtYN+65FSL2aNa3n6Lx4TsoYOBQNvFzBxww6fQJPzup9IzRqozFBYj5gjQey69ROz8s03/E5+kps9NKLsrY8+XH1bYtCkYk7J8s4D5N8SyBFAWSszF9unP7fMuk1O8dDsloc56DUALFUbsc51QCJXOak6gS7+SeGY82gj/OnvxnTayVdBeLgKBs34PqMPuNw9r76phNlqOUe7RNGC/q60/MPHCTtzUdLmbfnAHbVJPsWz5gqFbDqiP1GXLlUTQIh4HNaL/QF7c3I6HLNLBqe2+rZHuVKibn9FlTKNHlBuMRxRNGMKrBFDx+h8hmBj6pyrxrs0/zHayIU2TKEagq8jv9fLxyq15DNiGL+w/aJurWqdReSZ1pe+YVkeb460qsigYcFKmifLp0d80bCI+f78yRI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8936002)(186003)(4326008)(6666004)(2906002)(83380400001)(31696002)(6512007)(6506007)(6486002)(5660300002)(224303003)(4001150100001)(508600001)(31686004)(66476007)(66556008)(36756003)(2616005)(38100700002)(86362001)(33964004)(316002)(66946007)(66574015)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmRsWS85WTlQYU5ibTRDUWUxYy9uQnZvUkpxY2Y0NnRDRFVaOXNJS2Ztb0Mz?=
- =?utf-8?B?TmVIbGU2REFJZ01pK3lkZjVGbmc2a1dOVzBHa2o5Qm9kbUQ1NTQ5bEYwaUtN?=
- =?utf-8?B?VS9EN055VzEwSXEwVDJlKzhBenIzK0NmVFAvMmZtV2tNUDkyVTNUL012K0pZ?=
- =?utf-8?B?ZDRZZUh3b1FObHMvK2lwTkRQNzdpRUtQM2R1Zm5URGZ6ci9DUDdFQVo1K2lT?=
- =?utf-8?B?b2FZeG1uM0xoaTVPendzU1NFTi9KTmNHY1Q0OTMvMEt2VytGTXYxMVdDQ2dp?=
- =?utf-8?B?bTFrYjVlb0JNR0ZQS1E5R04yMWtWY0dUVnpKMjJIMXZGYkF0Tk15bzJYUVBn?=
- =?utf-8?B?L2pEVEFqVDdUMVY4Umd0MnBSUGJXQTNld25EZGQ1SzJoT2Q2MjJLaEJrYlZz?=
- =?utf-8?B?RGtweTJWbXVlK21sbGJtcE0vblpZWHozRWlTTWVtTXdZU29zWCtYaHZ4U09a?=
- =?utf-8?B?N0FCVUVzOTQ5WmgrSzZmYzZ4VzVuZVFNS3QwNEwxNndETDNBU3BENEN2M3FD?=
- =?utf-8?B?QTFGT2EvMml2cHZVSjZqUXl5Vklvam9sZjNwRXREbUpSZDJUUmplaVR3Vkh6?=
- =?utf-8?B?ejdLUC9VaDAwS0JIQ09EYk91NVpDTzNwVUtod0sydnM2cVNTSWNYMVJzbVEw?=
- =?utf-8?B?UTVRNGNJYmpVMHdWVzFSSlhmZFdjNWhacG5JM1Y3SG1xUFFOUHZOZWxpdW82?=
- =?utf-8?B?YkVTUWQ3Smh4a3ZxY05IN3VvcGV0QXVka09vM3Q5N0Z3Y29XcGFsR1RtR093?=
- =?utf-8?B?VWh0bUdDMGlPV2tHMWFDdURFT2V5OElvWFE1SlZKcllROXJJMFUyMHk1Wklr?=
- =?utf-8?B?LzdqbTEvc0wyMDB1UjAvaHJBaHVEeHVZQ2ZySElCV3ZxRS8wcEFsanBMeDRM?=
- =?utf-8?B?MW00U0YxVlpwUmVYQzJyYkJoMDZhYU1DQjZuRHVOSTVpaDJJWDhJajV1cm1V?=
- =?utf-8?B?LzRvUzRaZ2dtcGdRbkQxVnZoMXBlTjdKQ2hoeHdxSWhqd2ZSaVRralJLNHho?=
- =?utf-8?B?U2dSZWRac20vaUpOekNWMEpnMWxkY1VyQ1JUS1FBMTFVOFJ5eTVmU0x1MXl6?=
- =?utf-8?B?cCtZdDg3UTNCdFJzamZEWFNseXZoS1pPSisvRVNRV0Z1TFZlanQrS21aV2JL?=
- =?utf-8?B?TEgrZlRscWtybUhHRGJXTy9vSmNvS2prakMwSTJLTStPZDNSUFV1OVNsQ3lQ?=
- =?utf-8?B?SUpoaCs3cXFSTVU1VWV1UVhiWkVCVTE1eXhxZFlUcnJ2cGIvZHQrY2VpcmZP?=
- =?utf-8?B?TTdEbEpGTTZzdTdIVzZmck1kWjlGRUU1Y3lJRVAvUWsyK2FRdXVwaWNwS3Fp?=
- =?utf-8?B?aFJ3d3A3cFVmdEFHUkJvVkIwcWxpRlNGVmY2TnNPL1QwcTBaYzVJaDNRYTlt?=
- =?utf-8?B?bGZaRFBxY3plVnFzMlA4elkzRlhkWEh6TUtUeDJob2hZZE1Fc0J2ZUZUS2Vs?=
- =?utf-8?B?dGpWaHMrWXF5b3JWZ294RnlpTVBJdEhxaUIySkdRVFdvRlJDY3lOWlRsVU93?=
- =?utf-8?B?SzJVcGQ5cisrU2IxeTM3cGhnQ2NBTEZKNG80eE5obFhjdng0MGo4ZmFuaDRD?=
- =?utf-8?B?MUVCbGRTcTlvZ2Q3OWhIdlhuYk5TL3FWUGNXZmxGdzR0WUgxWXFDWnpkRDhI?=
- =?utf-8?B?dEtiTVYzM0lyTVR3T29DYS9IZHluL0wvS2N0M2ZCNFJ2YnV2dC8vYTdzQXYw?=
- =?utf-8?B?YVloYWkwcXE4M3RteXRqdkRSTk54NEdqNHRkVnZwM05BZ01vWFMwcnM4NFBs?=
- =?utf-8?B?NkIrZDJXZmUxL28rTWcyU1ZBWkVsVU9kdE9PUFRtdkU0NVU0ekpRaHl4aTBy?=
- =?utf-8?B?U0hESHl3ejFjNGswbTY1cG84TGk3NnIrdEpNT1Z6VGl1MVZMQkh4QWZmVnd3?=
- =?utf-8?B?cTN6dVJZZFA3dkxiQ2JOdUsvdFJXU2JrYmdsbHRPTy9tRUhjajVCeFZLelZ5?=
- =?utf-8?B?ZEltZEJyanpERnBKRklXNDAwOTRjNXpxTVJqRDNMaTFCaUczdENOVTg1eHgv?=
- =?utf-8?B?SzcxME54Zjcza0QvT3ZpbzhtKzF5bDhic2N0ZDduZFRTL0dBVGZ2UzRDWFhZ?=
- =?utf-8?B?Z2pIWTI5M0xyTkRsWWo3eWlUMkxKOUVKdjhFc2JlYjJVSXJmYUtVTFQvQk4y?=
- =?utf-8?B?UXpXVG5VNFYxZ0traHdPNFBGTkpOK0tFVUFXZTF2TlJWZzcxd091eHYrN0xh?=
- =?utf-8?Q?DKp16GcCt4X6LhJum6vp34c=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f78c8356-050d-48c2-7f63-08d9cd188283
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jan 2022 11:19:00.7669 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tlUXUtZXoog+McqXiXSWfRQ6XsAIZ98B3GeDB5S7TGhqgSgx6zUfAtY+HnvLvnUT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4476
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,188 +49,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------A1EFA530548228487156E3EE
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+I'm seeing a reproducible softlockup on amdgpu on v5.15.12:
 
-Am 31.12.21 um 09:37 schrieb 温志伟:
->
->
->
-> Then the judgment in line 944 is needed. Are the possibilities of 
-> these two positions consistent.
->
-> Why keep this judgment？
->
+[  861.656146] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting f=
+or DMUB idle: status=3D3
+[  861.914848] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting f=
+or DMUB idle: status=3D3
+[  862.173368] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting f=
+or DMUB idle: status=3D3
+[  862.381635] [drm] enabling link 0 failed: 15
+[  862.640908] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting f=
+or DMUB idle: status=3D3
+[  862.743704] [drm:dcn20_wait_for_blank_complete [amdgpu]] *ERROR* DC: fai=
+led to blank crtc!
+[  863.002846] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting f=
+or DMUB idle: status=3D3
+[  863.261451] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting f=
+or DMUB idle: status=3D3
+[  863.262090] [drm] REG_WAIT timeout 1us * 10 tries - optc3_lock line:112
+[  863.532231] [drm] REG_WAIT timeout 1us * 100000 tries - optc1_wait_for_s=
+tate line:835
+[  888.900914] watchdog: BUG: soft lockup - CPU#11 stuck for 26s! [gnome-sh=
+ell:2306]
+[  888.900921] Modules linked in: uinput rfcomm snd_seq_dummy snd_hrtimer r=
+pcrdma rdma_cm iw_cm ib_cm ib_core nft_objref nf_conntrack_netbios_ns nf_co=
+nntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject=
+_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat bridge =
+stp llc ip6table_nat ip6table_mangle ip6table_raw ip6table_security iptable=
+_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 iptable_mangle iptab=
+le_raw iptable_security ip_set nf_tables nfnetlink ip6table_filter ip6_tabl=
+es iptable_filter qrtr ns bnep vfat fat snd_hda_codec_realtek intel_rapl_ms=
+r snd_hda_codec_generic intel_rapl_common ledtrig_audio snd_hda_codec_hdmi =
+snd_hda_intel snd_intel_dspcfg edac_mce_amd snd_intel_sdw_acpi snd_usb_audi=
+o snd_hda_codec kvm_amd snd_hda_core btusb snd_usbmidi_lib btrtl snd_rawmid=
+i snd_hwdep btbcm ppdev kvm snd_seq btintel uvcvideo snd_seq_device videobu=
+f2_vmalloc videobuf2_memops bluetooth videobuf2_v4l2 snd_pcm videobuf2_comm=
+on irqbypass wmi_bmof mxm_wmi
+[  888.900963]  pcspkr snd_timer rapl k10temp i2c_piix4 videodev snd ecdh_g=
+eneric rfkill joydev soundcore mc parport_pc parport gpio_amdpt gpio_generi=
+c acpi_cpufreq nfsd auth_rpcgss nfs_acl lockd grace sunrpc zram ip_tables a=
+mdgpu drm_ttm_helper ttm iommu_v2 gpu_sched i2c_algo_bit drm_kms_helper cec=
+ drm crct10dif_pclmul crc32_pclmul crc32c_intel uas ccp ghash_clmulni_intel=
+ sp5100_tco usb_storage r8169 nvme nvme_core wmi ipmi_devintf ipmi_msghandl=
+er fuse
+[  888.900989] CPU: 11 PID: 2306 Comm: gnome-shell Not tainted 5.15.12-200.=
+fc35.x86_64 #1
+[  888.900992] Hardware name: Micro-Star International Co., Ltd. MS-7A33/X3=
+70 SLI PLUS (MS-7A33), BIOS 3.JR 11/29/2019
+[  888.900993] RIP: 0010:delay_halt_mwaitx+0x39/0x40
+[  888.900999] Code: 03 05 cb b6 95 4d 31 d2 48 89 d1 0f 01 fa b8 ff ff ff =
+ff b9 02 00 00 00 48 39 c6 48 0f 46 c6 48 89 c3 b8 f0 00 00 00 0f 01 fb <5b=
+> c3 0f 1f 44 00 00 0f 1f 44 00 00 48 8b 05 9c 2f 03 01 e9 7f 47
+[  888.901001] RSP: 0018:ffffb7f243e63878 EFLAGS: 00000293
+[  888.901003] RAX: 00000000000000f0 RBX: 00000000002dc50a RCX: 00000000000=
+00002
+[  888.901005] RDX: 0000000000000000 RSI: 00000000002dc50a RDI: 0000027b571=
+2e506
+[  888.901006] RBP: 00000000002dc50a R08: ffffb7f243e63824 R09: 00000000000=
+00001
+[  888.901007] R10: ffffb7f243e63660 R11: 000000000000000d R12: ffff917bd71=
+90000
+[  888.901009] R13: ffff917dd4500000 R14: ffff917dd45006a0 R15: ffff917bd54=
+1fc00
+[  888.901010] FS:  00007f2912683d80(0000) GS:ffff918a9ecc0000(0000) knlGS:=
+0000000000000000
+[  888.901011] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  888.901013] CR2: 000033910fce0000 CR3: 0000000105b22000 CR4: 00000000003=
+506e0
+[  888.901014] Call Trace:
+[  888.901016]  <TASK>
+[  888.901018]  delay_halt+0x3b/0x60
+[  888.901021]  dcn20_post_unlock_program_front_end+0xf4/0x2c0 [amdgpu]
+[  888.901209]  dc_commit_state+0x4b6/0xa50 [amdgpu]
+[  888.901382]  amdgpu_dm_atomic_commit_tail+0x55c/0x2610 [amdgpu]
+[  888.901557]  ? dcn20_calculate_dlg_params+0x4f4/0x540 [amdgpu]
+[  888.901735]  ? dcn20_calculate_dlg_params+0x4f4/0x540 [amdgpu]
+[  888.901916]  ? dcn30_calculate_wm_and_dlg_fp+0x707/0x8a0 [amdgpu]
+[  888.902090]  ? dcn30_validate_bandwidth+0x10f/0x240 [amdgpu]
+[  888.902261]  ? kfree+0xaa/0x3f0
+[  888.902265]  ? dcn30_validate_bandwidth+0x10f/0x240 [amdgpu]
+[  888.902435]  ? dc_validate_global_state+0x31f/0x3c0 [amdgpu]
+[  888.902604]  ? ttm_bo_mem_compat+0x2c/0x90 [ttm]
+[  888.902609]  ? ttm_bo_validate+0x42/0x100 [ttm]
+[  888.902614]  ? __raw_callee_save___native_queued_spin_unlock+0x11/0x1e
+[  888.902619]  ? amdgpu_bo_destroy+0x70/0x70 [amdgpu]
+[  888.902746]  ? dm_plane_helper_prepare_fb+0x1f4/0x260 [amdgpu]
+[  888.902924]  ? __cond_resched+0x16/0x40
+[  888.902927]  ? __wait_for_common+0x2b/0x140
+[  888.902929]  ? __raw_callee_save___native_queued_spin_unlock+0x11/0x1e
+[  888.902934]  commit_tail+0x94/0x120 [drm_kms_helper]
+[  888.902955]  drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
+[  888.902969]  drm_mode_atomic_ioctl+0x8fd/0xac0 [drm]
+[  888.902992]  ? __cond_resched+0x16/0x40
+[  888.902994]  ? drm_plane_get_damage_clips.cold+0x1c/0x1c [drm]
+[  888.903015]  ? drm_atomic_set_property+0xb30/0xb30 [drm]
+[  888.903035]  drm_ioctl_kernel+0x86/0xd0 [drm]
+[  888.903055]  ? wp_page_reuse+0x61/0x70
+[  888.903057]  drm_ioctl+0x220/0x3e0 [drm]
+[  888.903077]  ? drm_atomic_set_property+0xb30/0xb30 [drm]
+[  888.903097]  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
+[  888.903222]  __x64_sys_ioctl+0x82/0xb0
+[  888.903226]  do_syscall_64+0x3b/0x90
+[  888.903228]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[  888.903231] RIP: 0033:0x7f2918b362bb
+[  888.903234] Code: ff ff ff 85 c0 79 9b 49 c7 c4 ff ff ff ff 5b 5d 4c 89 =
+e0 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa b8 10 00 00 00 0f 05 <48=
+> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 3d 2b 0f 00 f7 d8 64 89 01 48
+[  888.903235] RSP: 002b:00007ffdd451da48 EFLAGS: 00000246 ORIG_RAX: 000000=
+0000000010
+[  888.903237] RAX: ffffffffffffffda RBX: 00007ffdd451da90 RCX: 00007f2918b=
+362bb
+[  888.903238] RDX: 00007ffdd451da90 RSI: 00000000c03864bc RDI: 00000000000=
+00009
+[  888.903239] RBP: 00000000c03864bc R08: 0000000000000012 R09: 00000000000=
+00012
+[  888.903240] R10: 0000000000000002 R11: 0000000000000246 R12: 000055bcad4=
+05c50
+[  888.903241] R13: 0000000000000009 R14: 000055bca9f13bc0 R15: 000055bcabe=
+0d6a0
+[  888.903243]  </TASK>
 
-Because when mem is non-NULL bo_va->bo can't be NULL either.
+(gdb) list *(dcn20_post_unlock_program_front_end+0xf4)
+0x2561b4 is in dcn20_post_unlock_program_front_end (drivers/gpu/drm/amd/amd=
+gpu/../display/dc/dcn20/dcn20_hwseq.c:1766).
+1761			if (pipe->plane_state && !pipe->top_pipe && pipe->update_flags.bits.=
+enable) {
+1762				struct hubp *hubp =3D pipe->plane_res.hubp;
+1763				int j =3D 0;
+1764=09
+1765				for (j =3D 0; j < TIMEOUT_FOR_PIPE_ENABLE_MS*1000
+1766						&& hubp->funcs->hubp_is_flip_pending(hubp); j++)
+1767					mdelay(1);
+1768			}
+1769		}
+1770=09
 
-Regards,
-Christian.
+I can reproduce this by logging with GNOME on wayland, starting up the
+steam client and then letting the screen blank kick in. Note that
+starting an actual game is not necessary.  Once I try to unblank the
+screen (keypress or mouse movement), it never does and the machine goes
+into a soft lockup.
 
->
-> Regards,
->
-> Wen Zhiwei.
->
->
-> ----
->
->
->
->
->
-> *主　题：*Re: [PATCH] gpu/drm/radeon:Fix null pointer risk
-> *日　期：*2021-12-31 00:36
-> *发件人：*Christian König
-> *收件人：*Wen 
-> Zhiweialexander.deucher@amd.comXinhui.Pan@amd.comairlied@linux.iedaniel@ffwll.ch 
->
->
-> Am 28.12.21 um 08:31 schrieb Wen Zhiwei:
-> > If the null pointer is not judged in advance,
-> > there is a risk that the pointer will cross
-> > the boundary
->
-> As far as I can see that case is impossible, why do you want to add a
-> check for it?
->
-> Regards,
-> Christian.
->
-> >
-> > Signed-off-by: Wen Zhiwei
-> > ---
-> >   drivers/gpu/drm/radeon/radeon_vm.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_vm.c 
-> b/drivers/gpu/drm/radeon/radeon_vm.c
-> > index bb53016f3138..d3d342041adf 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_vm.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_vm.c
-> > @@ -951,7 +951,7 @@ int radeon_vm_bo_update(struct radeon_device *rdev,
-> >
-> >   if (mem->mem_type == TTM_PL_TT) {
-> >   bo_va->flags |= RADEON_VM_PAGE_SYSTEM;
-> > - if (!(bo_va->bo->flags & (RADEON_GEM_GTT_WC | RADEON_GEM_GTT_UC)))
-> > + if (bo_va->bo && !(bo_va->bo->flags & (RADEON_GEM_GTT_WC | 
-> RADEON_GEM_GTT_UC)))
-> >   bo_va->flags |= RADEON_VM_PAGE_SNOOPED;
-> >
-> >   } else {
->
+The host is Fedora 35 with a stock kernels. I also see this with earlier
+v5.15 kernels. I haven't tested anything pre-5.15 though. If I log in
+with Xorg, I don't see the issue. Video card is:
 
+30:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] N=
+avi 23 [Radeon RX 6600/6600 XT/6600M] (rev c7) (prog-if 00 [VGA controller]=
+)
+        Subsystem: Sapphire Technology Limited Device e447
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-=
+ Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort+ <T=
+Abort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 66
+        IOMMU group: 17
+        Region 0: Memory at e0000000 (64-bit, prefetchable) [size=3D256M]
+        Region 2: Memory at f0000000 (64-bit, prefetchable) [size=3D2M]
+        Region 4: I/O ports at e000 [size=3D256]
+        Region 5: Memory at fc800000 (32-bit, non-prefetchable) [size=3D1M]
+        Expansion ROM at 000c0000 [disabled] [size=3D128K]
+        Capabilities: <access denied>
+        Kernel driver in use: amdgpu
+        Kernel modules: amdgpu
 
---------------A1EFA530548228487156E3EE
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+I'm able to test patches if it helps. Let me know if you want other info
+as well.
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Am 31.12.21 um 09:37 schrieb 温志伟:<br>
-    <blockquote type="cite" cite="mid:xfsceflzgr-xftmc911ak@nsmail6.0">
-      
-      <p><br>
-      </p>
-      <div class="viewer_part">
-        <div>&nbsp; &nbsp;<br>
-          <p>Then the judgment in line 944 is needed. Are the
-            possibilities of these two positions consistent.</p>
-          <p>Why keep this judgment？</p>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Because when mem is non-NULL bo_va-&gt;bo can't be NULL either.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:xfsceflzgr-xftmc911ak@nsmail6.0">
-      <div class="viewer_part">
-        <div>
-          <p><br>
-          </p>
-          <p>Regards,</p>
-          <p>Wen Zhiwei.</p>
-          <p><br>
-          </p>
-          &nbsp; &nbsp;
-          <p>----</p>
-          <p><br>
-          </p>
-          <div id="re" style="margin-left:0.5em;padding-left:0.5em;border-left:1px
-            solid green;"><br>
-            <br>
-            <br>
-            &nbsp; &nbsp; &nbsp; &nbsp;
-            <div style="background-color:#f5f7fa"><b>主　题：</b><span id="subject">Re: [PATCH] gpu/drm/radeon:Fix null pointer
-                risk</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
-              <b>日　期：</b><span id="date">2021-12-31 00:36</span> &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp;<br>
-              <b>发件人：</b><span id="from">Christian König</span> &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp;<br>
-              <b>收件人：</b><span id="to">Wen
-<a class="moz-txt-link-abbreviated" href="mailto:Zhiweialexander.deucher@amd.comXinhui.Pan@amd.comairlied@linux.iedaniel@ffwll.ch">Zhiweialexander.deucher@amd.comXinhui.Pan@amd.comairlied@linux.iedaniel@ffwll.ch</a></span>
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
-            <br>
-            &nbsp; &nbsp; &nbsp; &nbsp;
-            <div id="content">
-              <div class="viewer_part">
-                <div>Am 28.12.21 um 08:31 schrieb Wen Zhiwei:<br>
-                  &gt; If the null pointer is not judged in advance,<br>
-                  &gt; there is a risk that the pointer will cross<br>
-                  &gt; the boundary<br>
-                  <br>
-                  As far as I can see that case is impossible, why do
-                  you want to add a <br>
-                  check for it?<br>
-                  <br>
-                  Regards,<br>
-                  Christian.<br>
-                  <br>
-                  &gt;<br>
-                  &gt; Signed-off-by: Wen Zhiwei<wenzhiwei@kylinos.cn><br>
-                    &gt; ---<br>
-                    &gt; &nbsp; drivers/gpu/drm/radeon/radeon_vm.c | 2 +-<br>
-                    &gt; &nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-                    &gt;<br>
-                    &gt; diff --git a/drivers/gpu/drm/radeon/radeon_vm.c
-                    b/drivers/gpu/drm/radeon/radeon_vm.c<br>
-                    &gt; index bb53016f3138..d3d342041adf 100644<br>
-                    &gt; --- a/drivers/gpu/drm/radeon/radeon_vm.c<br>
-                    &gt; +++ b/drivers/gpu/drm/radeon/radeon_vm.c<br>
-                    &gt; @@ -951,7 +951,7 @@ int
-                    radeon_vm_bo_update(struct radeon_device *rdev,<br>
-                    &gt; &nbsp; <br>
-                    &gt; &nbsp; if (mem-&gt;mem_type == TTM_PL_TT) {<br>
-                    &gt; &nbsp; bo_va-&gt;flags |= RADEON_VM_PAGE_SYSTEM;<br>
-                    &gt; - if (!(bo_va-&gt;bo-&gt;flags &amp;
-                    (RADEON_GEM_GTT_WC | RADEON_GEM_GTT_UC)))<br>
-                    &gt; + if (bo_va-&gt;bo &amp;&amp;
-                    !(bo_va-&gt;bo-&gt;flags &amp; (RADEON_GEM_GTT_WC |
-                    RADEON_GEM_GTT_UC)))<br>
-                    &gt; &nbsp; bo_va-&gt;flags |= RADEON_VM_PAGE_SNOOPED;<br>
-                    &gt; &nbsp; <br>
-                    &gt; &nbsp; } else {<br>
-                    <br>
-                  </wenzhiwei@kylinos.cn></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------A1EFA530548228487156E3EE--
+Thanks!
+--=20
+Jeff Layton <jlayton@kernel.org>
