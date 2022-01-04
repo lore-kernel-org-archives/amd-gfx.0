@@ -4,43 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BABEC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jan 2022 20:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEF55C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jan 2022 02:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C62810E124;
-	Mon,  3 Jan 2022 20:25:25 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1480A89FE8;
- Mon,  3 Jan 2022 20:25:23 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 99B9BB81097;
- Mon,  3 Jan 2022 20:25:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30916C36AE9;
- Mon,  3 Jan 2022 20:25:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641241518;
- bh=ZNju7db1qhf/6lneTqNwgZUKnRZ1aX+EYp/CjzXJir8=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=oFh4HoVrW8KfVRwFq7ojgdG/TnDYr2B5yAL58+qwTec11sZXkyXIJ/utpM/X6RNuM
- Q0ZfbxEgMoIpMJ277OmaFt8rRPePycNNd3moE15hUMjhSJ3HYlvCHDlan+dPPdHdQz
- UtzlOGV+ikZJk1kJfgl1YalJGw795h97oCfNI29Fgeer58WjyBsTgHEFQ6Gx28Jbt+
- W3JigFfLL8CfBBAhQqOTAatx3M1zacgYZK0Jyivmi9/Wvry1x6XwGfvb3PmCnomgC5
- uF/yO869ktBmmtH7reIexHHzZSlRgq0r7ilprwSde3EqA/tHDnY+WaLCfOSY+zJxsw
- 10wmeuHAq8b6g==
-Message-ID: <abc18b3f74e3393592d5f527d85d20a3b980c6f2.camel@kernel.org>
-Subject: Re: softlockup in v5.15.12 in dcn20_post_unlock_program_front_end
-From: Jeff Layton <jlayton@kernel.org>
-To: amd-gfx <amd-gfx@lists.freedesktop.org>
-Date: Mon, 03 Jan 2022 15:25:16 -0500
-In-Reply-To: <995b4eaf85a9dd1630b2b81755e30292ce4571e6.camel@kernel.org>
-References: <995b4eaf85a9dd1630b2b81755e30292ce4571e6.camel@kernel.org>
-Content-Type: text/plain; charset="ISO-8859-15"
-User-Agent: Evolution 3.42.2 (3.42.2-1.fc35) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id A60C810E12C;
+	Tue,  4 Jan 2022 02:30:58 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5668B10E12C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jan 2022 02:30:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ThRbie2I5XvccUFeBKFvGMEu/0Ul04a5VcMeGZDW6jlB35DPsKTTDhwjND7Aq7icGmJbD2ZhznUFnG9/PpRN6OgYhkl6w9djytiOrmKtXX3EyJuKDZz5KySIALkzAC5QA27k3DHdTJ5iAuurhdINvLuLQYh3dDLc/fB17j7iWMiZnxsHRkMmz/W21PYYxeNJP4LyH23q0CL9PkIR+ZwjLSEU9x8aQXxmq9ac3r/tLdsdR+fHVusNQapcKdv0+28N9VMye4KoxWgdqXavd2YVUjCzl5B9bfmesF8ELFlh4Y6IwSZVy8uuXi9GWmbd/X4Pce0HczRxBlyni20IIEDctg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1pYcLwGOcPEh/+06PBbLiIa0iy4RlhjTpb58IDOFIwQ=;
+ b=kqFHX2pZ3TXPdQp4IcnbsbSPqa/RP468a8J6+AgMLgpxyNSPSaN6b4B6K5fODTP9u8kMPwOghr8vOlxhEs6q8KRkdlG3v5+veMmwJH3llvjOeYThbW5IxYtShZIndoXq1gn/8c9iPQxXhtcj8dOHvLWHFew6h5pmWK9giyE1Wlh84nj+PJl3UO7j/5ZkT+blg9uosEBG37LRM5vf5WL1JP9Hv+W9aQPR/B6pjyjoAXYF1RIu9vIqTlJ3kN/3dU31dUKn+sXLfRbFExBa6G1j1cL9XjWh4nKKj6juV8BiqRk4RQpcsRx57jLYee/me8hmut45Yj/p1LPwV9g/2eB78g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1pYcLwGOcPEh/+06PBbLiIa0iy4RlhjTpb58IDOFIwQ=;
+ b=OKpbek06dD+56cK6D1k53Z5iu40sgSSTWvaZv/3k0y/3NdYK6UKXmqyZjAxHwam1kFhAMrVxsdQpbuaP+u8B8OrpwWmh8dmG0eiDn0Yf3Tvg3Al60SM1mySiVq2a8lm7O1LkZODYCBC5s7C2YTspGFKAYlL8EpXlXNL7HWcTRsU=
+Received: from CO2PR07CA0059.namprd07.prod.outlook.com (2603:10b6:100::27) by
+ DM5PR12MB1195.namprd12.prod.outlook.com (2603:10b6:3:7a::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4844.15; Tue, 4 Jan 2022 02:30:54 +0000
+Received: from CO1NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:100:0:cafe::18) by CO2PR07CA0059.outlook.office365.com
+ (2603:10b6:100::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.14 via Frontend
+ Transport; Tue, 4 Jan 2022 02:30:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT045.mail.protection.outlook.com (10.13.175.181) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4844.14 via Frontend Transport; Tue, 4 Jan 2022 02:30:53 +0000
+Received: from syl-dev-machine.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 3 Jan
+ 2022 20:30:51 -0600
+From: Leslie Shi <Yuliang.Shi@amd.com>
+To: <andrey.grodzovsky@amd.com>, <lijo.lazar@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Delay unmapping MMIO VRAM to amdgpu_ttm_fini() in
+ GPU initialization failure
+Date: Tue, 4 Jan 2022 10:30:36 +0800
+Message-ID: <20220104023036.2114-1-Yuliang.Shi@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c3a71b56-cf1a-43d7-6a38-08d9cf2a3b52
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1195:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1195C86F8916668D56D34CD2E04A9@DM5PR12MB1195.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gBP6DElCPCaY3dwHCbcTh1hvnGWIKtPoM8i52cqalKp+b+iqexIUdoZp0DpctkS9y52pS08fJNYlvrWCZWVCEOgxQxfiAB19QAUl7Jc6YLfF81MpPvxaT/bEggfeG00+Pf6eadBexeXukTo8iK2sLInT0FTmbC+W98gCNS7lpHyLBy6+U8g97AAA+qNKYR14sgjbG2cac0A22PCALxFhPN2n4fqi78ubTY35LfQ3D7I2O2F3Fxwwtw8Iper1A5XMfYnXrj9s/D3OC71pjhIHhZYG5aEWWqmDuvGnB+gN2UyYNj3cwKZNgB3E+4rQrjXBnVviOicwHLSsy1Pmj8Ia/u26sbEOtcQDcSXieu1cJnBX2E+nL/XkeJnT62E4JpAabQLntswzTVgKIR45we4u3LtBzJTEdSemHD2Nwmw2Yz36h+aQE6ymasINT1rwEvyS2gkxw6gw/QYKwZFAega/YaU+VmCqhIhq8DdDb4vrwlzy8mRkM8BkhuRFeswFTxcc15UvDCqMp76VLaWCj1mla4smFdHAd8glkfDJWqex1x3Xdhy/Uuec8K4arndzsXS+OxbHfIecGvKKYYWPn5WEZcXK86eo4s2xQuPYUq87dLfiI9D0O5AQlM8FxSGFafxa0w76jAiMupqpc+UYb2YMeuka1ojqMRU5FjMCjWxRgqwEHqRWiAq84DzgCorAY0Hrs3ZdIF2Je6z5QdVgerePl3h9sJnnl2RH7S3kWCKDzlpLXuzp/tbtMcqRYuSWwPqWo8ir33JEsqyczGUJO1zZU/U0fMhLruSlv1I68VuIrno=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(40470700002)(36840700001)(81166007)(426003)(2616005)(36860700001)(7696005)(8936002)(47076005)(16526019)(186003)(4326008)(5660300002)(6666004)(316002)(2906002)(356005)(336012)(54906003)(26005)(86362001)(83380400001)(1076003)(8676002)(110136005)(70586007)(508600001)(36756003)(82310400004)(40460700001)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2022 02:30:53.8750 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3a71b56-cf1a-43d7-6a38-08d9cf2a3b52
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT045.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1195
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,294 +101,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>
+Cc: yuliang.shi@amd.com, guchun.chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 2022-01-02 at 09:30 -0500, Jeff Layton wrote:
-> I'm seeing a reproducible softlockup on amdgpu on v5.15.12:
->=20
-> [  861.656146] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting=
- for DMUB idle: status=3D3
-> [  861.914848] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting=
- for DMUB idle: status=3D3
-> [  862.173368] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting=
- for DMUB idle: status=3D3
-> [  862.381635] [drm] enabling link 0 failed: 15
-> [  862.640908] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting=
- for DMUB idle: status=3D3
-> [  862.743704] [drm:dcn20_wait_for_blank_complete [amdgpu]] *ERROR* DC: f=
-ailed to blank crtc!
-> [  863.002846] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting=
- for DMUB idle: status=3D3
-> [  863.261451] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting=
- for DMUB idle: status=3D3
-> [  863.262090] [drm] REG_WAIT timeout 1us * 10 tries - optc3_lock line:11=
-2
-> [  863.532231] [drm] REG_WAIT timeout 1us * 100000 tries - optc1_wait_for=
-_state line:835
-> [  888.900914] watchdog: BUG: soft lockup - CPU#11 stuck for 26s! [gnome-=
-shell:2306]
-> [  888.900921] Modules linked in: uinput rfcomm snd_seq_dummy snd_hrtimer=
- rpcrdma rdma_cm iw_cm ib_cm ib_core nft_objref nf_conntrack_netbios_ns nf_=
-conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reje=
-ct_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat bridg=
-e stp llc ip6table_nat ip6table_mangle ip6table_raw ip6table_security iptab=
-le_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 iptable_mangle ipt=
-able_raw iptable_security ip_set nf_tables nfnetlink ip6table_filter ip6_ta=
-bles iptable_filter qrtr ns bnep vfat fat snd_hda_codec_realtek intel_rapl_=
-msr snd_hda_codec_generic intel_rapl_common ledtrig_audio snd_hda_codec_hdm=
-i snd_hda_intel snd_intel_dspcfg edac_mce_amd snd_intel_sdw_acpi snd_usb_au=
-dio snd_hda_codec kvm_amd snd_hda_core btusb snd_usbmidi_lib btrtl snd_rawm=
-idi snd_hwdep btbcm ppdev kvm snd_seq btintel uvcvideo snd_seq_device video=
-buf2_vmalloc videobuf2_memops bluetooth videobuf2_v4l2 snd_pcm videobuf2_co=
-mmon irqbypass wmi_bmof mxm_wmi
-> [  888.900963]  pcspkr snd_timer rapl k10temp i2c_piix4 videodev snd ecdh=
-_generic rfkill joydev soundcore mc parport_pc parport gpio_amdpt gpio_gene=
-ric acpi_cpufreq nfsd auth_rpcgss nfs_acl lockd grace sunrpc zram ip_tables=
- amdgpu drm_ttm_helper ttm iommu_v2 gpu_sched i2c_algo_bit drm_kms_helper c=
-ec drm crct10dif_pclmul crc32_pclmul crc32c_intel uas ccp ghash_clmulni_int=
-el sp5100_tco usb_storage r8169 nvme nvme_core wmi ipmi_devintf ipmi_msghan=
-dler fuse
-> [  888.900989] CPU: 11 PID: 2306 Comm: gnome-shell Not tainted 5.15.12-20=
-0.fc35.x86_64 #1
-> [  888.900992] Hardware name: Micro-Star International Co., Ltd. MS-7A33/=
-X370 SLI PLUS (MS-7A33), BIOS 3.JR 11/29/2019
-> [  888.900993] RIP: 0010:delay_halt_mwaitx+0x39/0x40
-> [  888.900999] Code: 03 05 cb b6 95 4d 31 d2 48 89 d1 0f 01 fa b8 ff ff f=
-f ff b9 02 00 00 00 48 39 c6 48 0f 46 c6 48 89 c3 b8 f0 00 00 00 0f 01 fb <=
-5b> c3 0f 1f 44 00 00 0f 1f 44 00 00 48 8b 05 9c 2f 03 01 e9 7f 47
-> [  888.901001] RSP: 0018:ffffb7f243e63878 EFLAGS: 00000293
-> [  888.901003] RAX: 00000000000000f0 RBX: 00000000002dc50a RCX: 000000000=
-0000002
-> [  888.901005] RDX: 0000000000000000 RSI: 00000000002dc50a RDI: 0000027b5=
-712e506
-> [  888.901006] RBP: 00000000002dc50a R08: ffffb7f243e63824 R09: 000000000=
-0000001
-> [  888.901007] R10: ffffb7f243e63660 R11: 000000000000000d R12: ffff917bd=
-7190000
-> [  888.901009] R13: ffff917dd4500000 R14: ffff917dd45006a0 R15: ffff917bd=
-541fc00
-> [  888.901010] FS:  00007f2912683d80(0000) GS:ffff918a9ecc0000(0000) knlG=
-S:0000000000000000
-> [  888.901011] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  888.901013] CR2: 000033910fce0000 CR3: 0000000105b22000 CR4: 000000000=
-03506e0
-> [  888.901014] Call Trace:
-> [  888.901016]  <TASK>
-> [  888.901018]  delay_halt+0x3b/0x60
-> [  888.901021]  dcn20_post_unlock_program_front_end+0xf4/0x2c0 [amdgpu]
-> [  888.901209]  dc_commit_state+0x4b6/0xa50 [amdgpu]
-> [  888.901382]  amdgpu_dm_atomic_commit_tail+0x55c/0x2610 [amdgpu]
-> [  888.901557]  ? dcn20_calculate_dlg_params+0x4f4/0x540 [amdgpu]
-> [  888.901735]  ? dcn20_calculate_dlg_params+0x4f4/0x540 [amdgpu]
-> [  888.901916]  ? dcn30_calculate_wm_and_dlg_fp+0x707/0x8a0 [amdgpu]
-> [  888.902090]  ? dcn30_validate_bandwidth+0x10f/0x240 [amdgpu]
-> [  888.902261]  ? kfree+0xaa/0x3f0
-> [  888.902265]  ? dcn30_validate_bandwidth+0x10f/0x240 [amdgpu]
-> [  888.902435]  ? dc_validate_global_state+0x31f/0x3c0 [amdgpu]
-> [  888.902604]  ? ttm_bo_mem_compat+0x2c/0x90 [ttm]
-> [  888.902609]  ? ttm_bo_validate+0x42/0x100 [ttm]
-> [  888.902614]  ? __raw_callee_save___native_queued_spin_unlock+0x11/0x1e
-> [  888.902619]  ? amdgpu_bo_destroy+0x70/0x70 [amdgpu]
-> [  888.902746]  ? dm_plane_helper_prepare_fb+0x1f4/0x260 [amdgpu]
-> [  888.902924]  ? __cond_resched+0x16/0x40
-> [  888.902927]  ? __wait_for_common+0x2b/0x140
-> [  888.902929]  ? __raw_callee_save___native_queued_spin_unlock+0x11/0x1e
-> [  888.902934]  commit_tail+0x94/0x120 [drm_kms_helper]
-> [  888.902955]  drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
-> [  888.902969]  drm_mode_atomic_ioctl+0x8fd/0xac0 [drm]
-> [  888.902992]  ? __cond_resched+0x16/0x40
-> [  888.902994]  ? drm_plane_get_damage_clips.cold+0x1c/0x1c [drm]
-> [  888.903015]  ? drm_atomic_set_property+0xb30/0xb30 [drm]
-> [  888.903035]  drm_ioctl_kernel+0x86/0xd0 [drm]
-> [  888.903055]  ? wp_page_reuse+0x61/0x70
-> [  888.903057]  drm_ioctl+0x220/0x3e0 [drm]
-> [  888.903077]  ? drm_atomic_set_property+0xb30/0xb30 [drm]
-> [  888.903097]  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-> [  888.903222]  __x64_sys_ioctl+0x82/0xb0
-> [  888.903226]  do_syscall_64+0x3b/0x90
-> [  888.903228]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> [  888.903231] RIP: 0033:0x7f2918b362bb
-> [  888.903234] Code: ff ff ff 85 c0 79 9b 49 c7 c4 ff ff ff ff 5b 5d 4c 8=
-9 e0 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa b8 10 00 00 00 0f 05 <=
-48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 3d 2b 0f 00 f7 d8 64 89 01 48
-> [  888.903235] RSP: 002b:00007ffdd451da48 EFLAGS: 00000246 ORIG_RAX: 0000=
-000000000010
-> [  888.903237] RAX: ffffffffffffffda RBX: 00007ffdd451da90 RCX: 00007f291=
-8b362bb
-> [  888.903238] RDX: 00007ffdd451da90 RSI: 00000000c03864bc RDI: 000000000=
-0000009
-> [  888.903239] RBP: 00000000c03864bc R08: 0000000000000012 R09: 000000000=
-0000012
-> [  888.903240] R10: 0000000000000002 R11: 0000000000000246 R12: 000055bca=
-d405c50
-> [  888.903241] R13: 0000000000000009 R14: 000055bca9f13bc0 R15: 000055bca=
-be0d6a0
-> [  888.903243]  </TASK>
->=20
-> (gdb) list *(dcn20_post_unlock_program_front_end+0xf4)
-> 0x2561b4 is in dcn20_post_unlock_program_front_end (drivers/gpu/drm/amd/a=
-mdgpu/../display/dc/dcn20/dcn20_hwseq.c:1766).
-> 1761			if (pipe->plane_state && !pipe->top_pipe && pipe->update_flags.bit=
-s.enable) {
-> 1762				struct hubp *hubp =3D pipe->plane_res.hubp;
-> 1763				int j =3D 0;
-> 1764=09
-> 1765				for (j =3D 0; j < TIMEOUT_FOR_PIPE_ENABLE_MS*1000
-> 1766						&& hubp->funcs->hubp_is_flip_pending(hubp); j++)
-> 1767					mdelay(1);
-> 1768			}
-> 1769		}
-> 1770=09
->=20
-> I can reproduce this by logging with GNOME on wayland, starting up the
-> steam client and then letting the screen blank kick in. Note that
-> starting an actual game is not necessary.  Once I try to unblank the
-> screen (keypress or mouse movement), it never does and the machine goes
-> into a soft lockup.
->=20
-> The host is Fedora 35 with a stock kernels. I also see this with earlier
-> v5.15 kernels. I haven't tested anything pre-5.15 though. If I log in
-> with Xorg, I don't see the issue. Video card is:
->=20
-> 30:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]=
- Navi 23 [Radeon RX 6600/6600 XT/6600M] (rev c7) (prog-if 00 [VGA controlle=
-r])
->         Subsystem: Sapphire Technology Limited Device e447
->         Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParEr=
-r- Stepping- SERR- FastB2B- DisINTx+
->         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort+ =
-<TAbort- <MAbort- >SERR- <PERR- INTx-
->         Latency: 0, Cache Line Size: 64 bytes
->         Interrupt: pin A routed to IRQ 66
->         IOMMU group: 17
->         Region 0: Memory at e0000000 (64-bit, prefetchable) [size=3D256M]
->         Region 2: Memory at f0000000 (64-bit, prefetchable) [size=3D2M]
->         Region 4: I/O ports at e000 [size=3D256]
->         Region 5: Memory at fc800000 (32-bit, non-prefetchable) [size=3D1=
-M]
->         Expansion ROM at 000c0000 [disabled] [size=3D128K]
->         Capabilities: <access denied>
->         Kernel driver in use: amdgpu
->         Kernel modules: amdgpu
->=20
-> I'm able to test patches if it helps. Let me know if you want other info
-> as well.
->=20
-> Thanks!
+If the driver loads failed during hw_init(), delay unmapping MMIO VRAM to amdgpu_ttm_fini().
+Its prevents accessing invalid memory address in vcn_v3_0_sw_fini().
 
-Update. I just got the same soft lockup with Xorg as well. Here's the
-stack trace. The problem looks basically the same. Not sure why it's
-more easily reproducible under wayland, but it does seem to be:
+Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 +++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  4 ++++
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
-Jan 03 15:16:08 tleilax kernel: [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR=
-* Error waiting for DMUB idle: status=3D3
-Jan 03 15:16:11 tleilax kernel: [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR=
-* Error waiting for DMUB idle: status=3D3
-Jan 03 15:16:11 tleilax kernel: [drm:dcn20_wait_for_blank_complete [amdgpu]=
-] *ERROR* DC: failed to blank crtc!
-Jan 03 15:16:11 tleilax kernel: [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR=
-* Error waiting for DMUB idle: status=3D3
-Jan 03 15:16:12 tleilax kernel: [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR=
-* Error waiting for DMUB idle: status=3D3
-Jan 03 15:16:12 tleilax kernel: [drm] REG_WAIT timeout 1us * 10 tries - opt=
-c3_lock line:112
-Jan 03 15:16:12 tleilax kernel: [drm] REG_WAIT timeout 1us * 100000 tries -=
- optc1_wait_for_state line:835
-Jan 03 15:16:37 tleilax kernel: watchdog: BUG: soft lockup - CPU#1 stuck fo=
-r 26s! [Xorg:2077]
-Jan 03 15:16:37 tleilax kernel: Modules linked in: rpcsec_gss_krb5 vhost_ne=
-t vhost vhost_iotlb tap tun rfcomm snd_seq_dummy snd_hrtimer rpcrdma rdma_c=
-m iw_cm ib_cm ib_core nft_objref nf_conntrack_netbios_n>
-Jan 03 15:16:37 tleilax kernel:  videobuf2_v4l2 irqbypass rapl videobuf2_co=
-mmon snd_timer wmi_bmof mxm_wmi k10temp i2c_piix4 ecdh_generic pcspkr rfkil=
-l videodev joydev snd mc soundcore parport_pc parport g>
-Jan 03 15:16:37 tleilax kernel: CPU: 1 PID: 2077 Comm: Xorg Not tainted 5.1=
-5.12-200.fc35.x86_64 #1
-Jan 03 15:16:37 tleilax kernel: Hardware name: Micro-Star International Co.=
-, Ltd. MS-7A33/X370 SLI PLUS (MS-7A33), BIOS 3.JR 11/29/2019
-Jan 03 15:16:37 tleilax kernel: RIP: 0010:delay_halt_mwaitx+0x39/0x40
-Jan 03 15:16:37 tleilax kernel: Code: 03 05 cb b6 95 53 31 d2 48 89 d1 0f 0=
-1 fa b8 ff ff ff ff b9 02 00 00 00 48 39 c6 48 0f 46 c6 48 89 c3 b8 f0 00 0=
-0 00 0f 01 fb <5b> c3 0f 1f 44 00 00 0f 1f 44 00 00 48 >
-Jan 03 15:16:37 tleilax kernel: RSP: 0018:ffffa50683d2f870 EFLAGS: 00000297
-Jan 03 15:16:37 tleilax kernel: RAX: 00000000000000f0 RBX: 00000000002dc570=
- RCX: 0000000000000002
-Jan 03 15:16:37 tleilax kernel: RDX: 0000000000000000 RSI: 00000000002dc570=
- RDI: 00005c30244016bc
-Jan 03 15:16:37 tleilax kernel: RBP: 00000000002dc570 R08: ffffa50683d2f81c=
- R09: 0000000000000001
-Jan 03 15:16:37 tleilax kernel: R10: ffffa50683d2f658 R11: 000000000000000d=
- R12: ffff9466ce390000
-Jan 03 15:16:37 tleilax kernel: R13: ffff9467c24e0000 R14: ffff9467c24e01e8=
- R15: ffff9466c11da000
-Jan 03 15:16:37 tleilax kernel: FS:  00007f655a17bf00(0000) GS:ffff94759ea4=
-0000(0000) knlGS:0000000000000000
-Jan 03 15:16:37 tleilax kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080=
-050033
-Jan 03 15:16:37 tleilax kernel: CR2: 00007f32b95303a0 CR3: 000000010f644000=
- CR4: 00000000003506e0
-Jan 03 15:16:37 tleilax kernel: Call Trace:
-Jan 03 15:16:37 tleilax kernel:  <TASK>
-Jan 03 15:16:37 tleilax kernel:  delay_halt+0x3b/0x60
-Jan 03 15:16:37 tleilax kernel:  dcn20_post_unlock_program_front_end+0xf4/0=
-x2c0 [amdgpu]
-Jan 03 15:16:37 tleilax kernel:  dc_commit_state+0x4b6/0xa50 [amdgpu]
-Jan 03 15:16:37 tleilax kernel:  amdgpu_dm_atomic_commit_tail+0x55c/0x2610 =
-[amdgpu]
-Jan 03 15:16:37 tleilax kernel:  ? dcn20_calculate_dlg_params+0x4f4/0x540 [=
-amdgpu]
-Jan 03 15:16:37 tleilax kernel:  ? dcn20_calculate_dlg_params+0x4f4/0x540 [=
-amdgpu]
-Jan 03 15:16:37 tleilax kernel:  ? dcn30_calculate_wm_and_dlg_fp+0x707/0x8a=
-0 [amdgpu]
-Jan 03 15:16:37 tleilax kernel:  ? dcn30_validate_bandwidth+0x10f/0x240 [am=
-dgpu]
-Jan 03 15:16:37 tleilax kernel:  ? kfree+0xaa/0x3f0
-Jan 03 15:16:37 tleilax kernel:  ? dcn30_validate_bandwidth+0x10f/0x240 [am=
-dgpu]
-Jan 03 15:16:37 tleilax kernel:  ? dc_validate_global_state+0x31f/0x3c0 [am=
-dgpu]
-Jan 03 15:16:37 tleilax kernel:  ? ttm_bo_mem_compat+0x2c/0x90 [ttm]
-Jan 03 15:16:37 tleilax kernel:  ? ttm_bo_validate+0x42/0x100 [ttm]
-Jan 03 15:16:37 tleilax kernel:  ? dm_plane_helper_prepare_fb+0x1a9/0x260 [=
-amdgpu]
-Jan 03 15:16:37 tleilax kernel:  ? __cond_resched+0x16/0x40
-Jan 03 15:16:37 tleilax kernel:  ? __wait_for_common+0x2b/0x140
-Jan 03 15:16:37 tleilax kernel:  ? __raw_callee_save___native_queued_spin_u=
-nlock+0x11/0x1e
-Jan 03 15:16:37 tleilax kernel:  commit_tail+0x94/0x120 [drm_kms_helper]
-Jan 03 15:16:37 tleilax kernel:  drm_atomic_helper_commit+0x113/0x140 [drm_=
-kms_helper]
-Jan 03 15:16:37 tleilax kernel:  drm_atomic_helper_set_config+0x70/0xb0 [dr=
-m_kms_helper]
-Jan 03 15:16:37 tleilax kernel:  drm_mode_setcrtc+0x1ab/0x6b0 [drm]
-Jan 03 15:16:37 tleilax kernel:  ? drm_mode_getcrtc+0x170/0x170 [drm]
-Jan 03 15:16:37 tleilax kernel:  drm_ioctl_kernel+0x86/0xd0 [drm]
-Jan 03 15:16:37 tleilax kernel:  drm_ioctl+0x220/0x3e0 [drm]
-Jan 03 15:16:37 tleilax kernel:  ? drm_mode_getcrtc+0x170/0x170 [drm]
-Jan 03 15:16:37 tleilax kernel:  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-Jan 03 15:16:37 tleilax kernel:  __x64_sys_ioctl+0x82/0xb0
-Jan 03 15:16:37 tleilax kernel:  do_syscall_64+0x3b/0x90
-Jan 03 15:16:37 tleilax kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xae
-Jan 03 15:16:37 tleilax kernel: RIP: 0033:0x7f655a9f12bb
-Jan 03 15:16:37 tleilax kernel: Code: ff ff ff 85 c0 79 9b 49 c7 c4 ff ff f=
-f ff 5b 5d 4c 89 e0 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa b8 10 0=
-0 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 3d >
-Jan 03 15:16:37 tleilax kernel: RSP: 002b:00007ffd327e0878 EFLAGS: 00000246=
- ORIG_RAX: 0000000000000010
-Jan 03 15:16:37 tleilax kernel: RAX: ffffffffffffffda RBX: 00007ffd327e08b0=
- RCX: 00007f655a9f12bb
-Jan 03 15:16:37 tleilax kernel: RDX: 00007ffd327e08b0 RSI: 00000000c06864a2=
- RDI: 000000000000000e
-Jan 03 15:16:37 tleilax kernel: RBP: 00000000c06864a2 R08: 0000000000000000=
- R09: 000056234be435b0
-Jan 03 15:16:37 tleilax kernel: R10: 0000000000000000 R11: 0000000000000246=
- R12: 0000000000000000
-Jan 03 15:16:37 tleilax kernel: R13: 000000000000000e R14: 000056234be435b0=
- R15: 0000000000000000
-Jan 03 15:16:37 tleilax kernel:  </TASK>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index ce93a304292c..d6006de57af5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3830,7 +3830,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	return r;
+ }
+ 
+-static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev)
++static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev, bool unmap_mmio_vram)
+ {
+ 	/* Clear all CPU mappings pointing to this device */
+ 	unmap_mapping_range(adev->ddev.anon_inode->i_mapping, 0, 0, 1);
+@@ -3840,9 +3840,12 @@ static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev)
+ 
+ 	iounmap(adev->rmmio);
+ 	adev->rmmio = NULL;
+-	if (adev->mman.aper_base_kaddr)
+-		iounmap(adev->mman.aper_base_kaddr);
+-	adev->mman.aper_base_kaddr = NULL;
++
++	if (unmap_mmio_vram) {
++		if (adev->mman.aper_base_kaddr)
++			iounmap(adev->mman.aper_base_kaddr);
++		adev->mman.aper_base_kaddr = NULL;
++	}
+ 
+ 	/* Memory manager related */
+ 	if (!adev->gmc.xgmi.connected_to_cpu) {
+@@ -3905,8 +3908,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 
+ 	amdgpu_gart_dummy_page_fini(adev);
+ 
+-	if (drm_dev_is_unplugged(adev_to_drm(adev)))
+-		amdgpu_device_unmap_mmio(adev);
++	amdgpu_device_unmap_mmio(adev, drm_dev_is_unplugged(adev_to_drm(adev)));
+ 
+ }
+ 
+@@ -5727,7 +5729,7 @@ void amdgpu_device_halt(struct amdgpu_device *adev)
+ 
+ 	adev->no_hw_access = true;
+ 
+-	amdgpu_device_unmap_mmio(adev);
++	amdgpu_device_unmap_mmio(adev, true);
+ 
+ 	pci_disable_device(pdev);
+ 	pci_wait_for_pending_transaction(pdev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 367abed1d6e6..67cd12caf019 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1815,6 +1815,10 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 				      NULL, NULL);
+ 	amdgpu_ttm_fw_reserve_vram_fini(adev);
+ 
++        if (adev->mman.aper_base_kaddr)
++                iounmap(adev->mman.aper_base_kaddr);
++        adev->mman.aper_base_kaddr = NULL;
++
+ 	amdgpu_vram_mgr_fini(adev);
+ 	amdgpu_gtt_mgr_fini(adev);
+ 	amdgpu_preempt_mgr_fini(adev);
+-- 
+2.25.1
 
---=20
-Jeff Layton <jlayton@kernel.org>
