@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFA27C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jan 2022 17:15:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A267CC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jan 2022 17:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA2E310E532;
-	Tue,  4 Jan 2022 17:15:01 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E924810E50A
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jan 2022 17:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D3510E206;
+	Tue,  4 Jan 2022 17:24:30 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE88610E206
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jan 2022 17:24:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z4UqBCumc49iU0PkSMUL+hvlbajimwi9o3ll4pRVbjyw27ZJAOQPNWfrPsEhqRkmYtUyF5h//gul/p8UyGcIGiCn0aaTYLTCVC6ZiqWYhYYyzvfykrJrrBu6fiz2AHrGbgjdbPiBYIFi84mAhOt8eelj/cOq0zDTLw45QRjQZYU7ifHsidcb5Sh8QkyQOFKX1gM30olbB1utCpLDnLSZyctN4BHsGhrNq1JhG7TopCVC1yqMV+tlbFFqGB0fp7uzXh7QfsIOZcb+EL9ly3728qwsnb2t0fdFvaFE0pAlr6OYtB3zlG7wnNPUdkFDmJJoD5Y39acF+D3ccy2GH39nYA==
+ b=KSEcFQuLAsq0MDXYVSj0pPFEP8wDp73IuSUaXc/46w86LGcl0TkzejPfhyP1/lAVdSpw5G0GOIh0jkBL/3gqOwWWuv5QWB5atderDK18m7lS+f08cJLa7qXy0NhAOvO/wM0aMcrc/S5qnJe/FHVurv6XYfkGx1enVQ/Wil+2cyLGy5t8aQb8iEO4V0O2X5aQ6CzSsuv8ZYLD0pMuuVzNQdmIJWWzk4aE5eXwA77fWrQlRFVLmv1REGoISKeNZE5PVX+ZBqC3Rk9jXTkWNSTdLy/XvkYaaLkGu97VPQj1VVhxnwRTv2cVBw8ROwNfiK5dUHtRHpAMeXNjfnRMGShUng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CIxt107iizLP0VBfL/c9gD9xG2FpbOCdqhRk3s3q29g=;
- b=aOvEW8H9DI+QjbG6OQgdht61mwJCHDBDjtdknSK7hlO8y+s0/cWebc7iVw0qHjyaQ1tctHkCjaVLzRtNuQgReIj5NuL/JQJP75x8dOJC3zhuparqsdGSvoNjQ/fEsCVI8zg1KP5IXAGHzbW6bMS8vc+ErSD6R0WOCbmBSTPAf77X1XDqq3mLLb7fPMz6pc3iCpTVUhnz4olyapuTxlJuEDKCrX6oLLIlnyxQwIoY5F4WqxyJAlvceB8zgKUBWF1Mt6VW22ToucS9sIl7dDat6f6JLdT7ycZkh45lb79XdaWb2oCxjD/kMq1cmHv+ga8HO9nBSb3a2eGRAKbQoB0rSA==
+ bh=72dorpE4SJsBeENSqMRLmhLjdnDsZNH26LEVkAltu9E=;
+ b=hI+V2Mk5jWXJsyQY0XYIUvT7TBARcLyT+QgnNIdGIivVIAMH5HQUzn/O6rk5/kItANltpZciqd8InTb+Q8hkirC2xL1RBHqazcp1I/09h/Er0KneS1OLGSX0e30WJJUApa0xCzXKl+UQUK45S4jhNXR3+aMpyhj1puL+79oEWRL25qcQSTI7mvzSpfkHT9Yzy3nRARJv7yxlIcdbJKh4n9W+SBDmS7FnA2sY/yC+L+pYoHVINgGpL5t2cwP3ht8ID70ug9nAujPofNvwtQQ800PRZi7pYveF3JCbM+eYe4zJFSxB1cVbKv+EH4c2z2NSlpP7KPHD5c4S4QUYHRUK9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CIxt107iizLP0VBfL/c9gD9xG2FpbOCdqhRk3s3q29g=;
- b=Plcwp6aHmFbSNUbHJ/T9W33I8tdGcZAnsGB5Bk9/H9ggROg/0yLM3L90663kAXh3Y4bdJyzaJFS7jzhQrGOD+k3KAd3bjeBlOeyqur6Gt1itd0xRiZP2Ryn+RhFyEhESw9kzjb45xYxyIEdfJUP/ZOId2I6AVo1CV9kd9gtR01w=
+ bh=72dorpE4SJsBeENSqMRLmhLjdnDsZNH26LEVkAltu9E=;
+ b=kmT2KMlcEFB/YyFj7cAgDjjcFUPZCwkOEIBNcVphNSYpFsSYCIq974kARE6LtANc49E0otLp9tMwIdsIzxCqAaO2zU8nwmq4Usijzr2PRTwZIxz0hhjGMLsWll0LQHPFxBW7aL5RCLE0McBBmgko61yooodRrI02UUCCFpJdtgo=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
+ by BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.14; Tue, 4 Jan
- 2022 17:14:58 +0000
+ 2022 17:24:27 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::f170:3712:b17e:bd65]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::f170:3712:b17e:bd65%8]) with mapi id 15.20.4844.016; Tue, 4 Jan 2022
- 17:14:58 +0000
+ 17:24:27 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: explicitly check for s0ix when evicting
- resources
-Thread-Topic: [PATCH 1/2] drm/amdgpu: explicitly check for s0ix when evicting
- resources
-Thread-Index: AQHYALX3kuNQsjfi6UO72WLKGcDqAqxTG6HE
-Date: Tue, 4 Jan 2022 17:14:58 +0000
-Message-ID: <BL1PR12MB5144B867DC2BC2F8203E4268F74A9@BL1PR12MB5144.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: don't set s3 and s0ix at the same time
+Thread-Topic: [PATCH 2/2] drm/amdgpu: don't set s3 and s0ix at the same time
+Thread-Index: AQHYALX1XY5+mnZkv0+jwyBJh15KmqxTHepG
+Date: Tue, 4 Jan 2022 17:24:27 +0000
+Message-ID: <BL1PR12MB5144856BFAA05B8100781100F74A9@BL1PR12MB5144.namprd12.prod.outlook.com>
 References: <20220103152311.1453-1-mario.limonciello@amd.com>
-In-Reply-To: <20220103152311.1453-1-mario.limonciello@amd.com>
+ <20220103152311.1453-2-mario.limonciello@amd.com>
+In-Reply-To: <20220103152311.1453-2-mario.limonciello@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-04T17:14:57.944Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 05f5fb91-44a6-313b-8023-b322494e4c90
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-04T17:24:26.537Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+suggested_attachment_session_id: accbc3f2-e213-6048-6f4d-4d01ebe2bf2e
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a4c3fa1a-93dc-45f4-fc95-08d9cfa5bc6a
-x-ms-traffictypediagnostic: BL1PR12MB5157:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB5157DEFD63AD5AC0D0B54026F74A9@BL1PR12MB5157.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-ms-office365-filtering-correlation-id: d5e5677b-9394-4081-82e1-08d9cfa70f3e
+x-ms-traffictypediagnostic: BL1PR12MB5112:EE_
+x-microsoft-antispam-prvs: <BL1PR12MB51120DEBD58BAC7E93C22DA4F74A9@BL1PR12MB5112.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5knXMutwTAzbAAoSkzJ39dPBL6qtcF+r1qrOLkTpyBn/4dOo7GxkrVXydToxzzs/xIwtd8mP1P5ke02GjkOZ6CCetxMv3GPqnJwaqbX+bZv7uhdSdmdMhlxqgHAqMX1E2Gdmk2CQW3+EspZHnYhHAzPsG4MZS/jdg8T5Oeiryk8AKlhj771AkIsswbxo+KuGfwSMLctU7Ht99Jfg3W6jbphTAIA4xW1bUmqIWZAYPmmBZsufD4YyZ3KSgNjHTRsLinezKmIkRFZ/yBbYZ+zd6aWccCYmP8MtHCb4h4VqLolaYo6j5BRh5V+hNFqMnbtw5fRGxQZ866FPORCLcKB4/Ls6XfNZ3TLHn1gaamWohVsAkT2muFyL5cPMy45FX2oRctpJJZSntis0iCFUvNtmdjkfOMunSQJ8UsPAVy9Pde6xw46JArffqJTDxHH9WwioED7MmTwte5myhnKppJcprDRWhvugRVQLI/hMdeCg/n8LyGe47Ckroapl5DHdv6H07462ThhT4NYDTtrjAIebd8EmBKmSMvWOI9x38RyhvaVFgadglO4ZJO5xqIYdb3OfjU+oF/dBJLUjSMDBz8HYsGkUobqP8k1G/ensyKa/W84AI+B46Mz29wX+D3xGy9QSXoaf6SHF4QkUeENfGnkopwHGciBg0rfWY3BRqQt4C5RfkPJORbkloUcu8kAwHVWdgXn0q0ziEYGfF8oJtooHreKqq0KxR0lFlnxmFQUHDtg=
+x-microsoft-antispam-message-info: U5a7EBkDQzZZoy0gC+2uiMhSjjLTxc6hhIMVt9GEXaGL70bpLAoWpIVVDXn0QdAiS5aLISYCduacdSwiHEy0bQejNPQuODA/hzJnVi2EJDOTvvqbBkRF97JBToMLcq+x7LeyzjmQ7CoT0MCYrIGnhNi8EcAr9dW0a6u5CAlcogAmtwCdteMDBbfA9JB9kZdUp9qM2G7YGAFSnwv7QbG4KmMJyPXO+X9MqohE/Ur7qhtosA7dQoljezRb0dZUw5hm7ocUtM1ZnO5HTZ8rtZPoCJBQg5OnbbmFCA5Bv2+7y7PoPyK9MVaA5vPlDAOVudqktT64XMOvTBFT3ctuE5mWu0RXJj+Hl0vNE1aKuZTWvsApR4CEfcyJv1/OJN7wjxS3yo6CcVl1SeM2fHoW1fdnyDitFBs+Q4Uum0gEAjr+MEwhtnjMYRxIHNhz9lVEZlaGo/S2bmY+WZxlQm/kaZzzAIlBMOH/zaKV84nuKHZauw+Ul0rMkBdO59qmuxHfnUBWM0wMRfoGHcA57pSqtRIA8lZ/nPo99eBOnl0xjx6CmglPjfGH3j5OPDVO+PbBJI38AT1BxLRDhZ54teDF1XTEj38MVMj+B7tr7Fba+i6xwWjnnX/Jgn891s/iFq6XHXpkyYYwZpN/uXSE2Cjle//7nOuP4479KlDDHAGao/T5aCBOESPXPnPdSRk155+qZQWCErN3irkbHmt4Bd2zhR1u93zU27ehx4jdkDQl7ILoQ40=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(508600001)(64756008)(76116006)(186003)(66446008)(33656002)(86362001)(9686003)(55016003)(7696005)(26005)(2906002)(8936002)(19627405001)(66556008)(83380400001)(66946007)(110136005)(71200400001)(66476007)(316002)(5660300002)(6506007)(52536014)(8676002)(122000001)(38070700005)(38100700002)(53546011)(32563001);
+ SFS:(4636009)(366004)(38100700002)(8676002)(7696005)(5660300002)(8936002)(33656002)(2906002)(66946007)(38070700005)(186003)(26005)(508600001)(83380400001)(316002)(76116006)(110136005)(55016003)(6506007)(9686003)(19627405001)(71200400001)(53546011)(64756008)(122000001)(52536014)(66446008)(86362001)(66476007)(66556008)(32563001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?IQkh8rtdSeCQn9Py1/U89jhb+a3SjkLF+pmUrJpleOi4kbwQYIwRay2DhmYV?=
- =?us-ascii?Q?84LGx2Gb7EQaG2fqwm35HT2kQ/fsp08AUcb3LCUuM7lPWNTNYLE4INDdXW9O?=
- =?us-ascii?Q?nYEI+Ck3pv9JLP/CQnK9orV/JwVopbdfD0wtbixtMtk4IwkJKNzixRcS7HDe?=
- =?us-ascii?Q?2pw4AAOCdJ/TSnheszv7c1y3c067VtlwlWLtOmdva8Kqd4Cmcc64TBNHo7Lm?=
- =?us-ascii?Q?iHeU5eeVBbJKQTmRJpFFdj4npZeBStjPDSEARFEZZskkgkrh5q715v62oiVV?=
- =?us-ascii?Q?qIDGmuwyZWpK+OTAXfGUpbrTDtrAXhyThwQqwdj0vdSENRXvPxqlhJY6EdX1?=
- =?us-ascii?Q?gR2SgE7iVWYyPAJtF+6GXW8Wp1zyXbTvbm4sRhrPRQhrfcIwKC7xDlH8vWMc?=
- =?us-ascii?Q?Vrq6VGIVSKLxpAKs6BzfnShb735q5LmjU10wyNgHgqDqO7gvShw1TMmoDwfD?=
- =?us-ascii?Q?y9raotwr3Qs1FLte84jmc/AuGGwODmoEav3FCJj6gjm0rpfFKK49ZQ4JJ3Fd?=
- =?us-ascii?Q?T3KSTpkXxm0FHxA49/0H/2n8L18O0X0QwmLkFRY5u6sVwme8J/hga+EEtcme?=
- =?us-ascii?Q?+UDQUjpoSFgj+LUHnDSXlCC2nbzK/K9oK7VrW4E3QMV5q44rRT9dkQtn4e8v?=
- =?us-ascii?Q?fGZjIw8katCJmYWCETtXZzAw1qjw2TPV6V+OcG0Byur2IJi655WHeMBIcRIC?=
- =?us-ascii?Q?LWTZrlsCXCuvrz1TWnYAjYd4kPz4DvL/1wwEQQgCoCRU8a945Q6SP6cNjx95?=
- =?us-ascii?Q?lS+4s3czEPj2uYuEEA9vutbrz8ygHI7EEzU808Ic3PfqNIdqnscpkY0ReOla?=
- =?us-ascii?Q?FDNMEFKnLfaVtcsXdeNROHTOokkLBz/G3j/sQFo3GA1lLjlO3cieiA3fs8B4?=
- =?us-ascii?Q?2luqBzvu5ekBnt2kHwH7CmYc8YmjDgNGZlTRmQ5ua+pA7Fb9uUZbrLKwZyTC?=
- =?us-ascii?Q?go9BvO2B8H38hmIaln/Af3pFQz+KmdbxYARkm5Jkdun++GG+r/ZquTjoH9qk?=
- =?us-ascii?Q?uavvK7MFrIWZqLlEdDn9qXkvbu/anaEvB+tXHv2QXMuBT7kTRQ7G8uDMJ3CY?=
- =?us-ascii?Q?94PLMhazw5hlvmyFAjXEe90F6az3Ud5r+j13pRiTOAX2Jsswx+bxXEu0MweO?=
- =?us-ascii?Q?7yt9vfrWvtfc2vF/+NXvbLWG8XQOB8nM4pg8TLzZ8HdM8lIMxnCZUQqN8iVq?=
- =?us-ascii?Q?GsQx60W5VNipRteIoRq5X2n682n9pYAUa00HFm07VxKB7km9HtAWvcyi0n/0?=
- =?us-ascii?Q?OMoktkr6wbGEmH9HYW5UDAIkz259Llx4FI3+EjxB24Mb8ugFmGuxnpxSE23C?=
- =?us-ascii?Q?KaQdXod+/qKizBt5ILQgRuJ47p7wI3BBDSWXlOAsure9dktdGTjWAeVqZtqW?=
- =?us-ascii?Q?98EcbC9StYGmoiv/wTS1lVzIk9GlxCoaKyp2kLifzgYu3gHpIaCJPOtockey?=
- =?us-ascii?Q?HUlhf9UyUzdPuai6XwLmyhgbs/iqmw4DA6QMzuMOVjHeOadyNYv/XfjMopPy?=
- =?us-ascii?Q?RZVmPPJm6g5SNDahCOglVriYANWp8e7xmuqXyUArwEPFnK+lPiBypuxD6E29?=
- =?us-ascii?Q?gmUmZZWSC+a3Z9WLCD4VhozY7hCn/GUPCTFI4o+XHhABdigDkkC+VqKqjeOs?=
- =?us-ascii?Q?TT6+zdyqN1V5EAqSEEok5y0=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cEQQQNsA4R1FTnmPnyxFKaNMK4FcgGKZaro6XRVw1E5p/q3dMcqBdDVSN/Tg?=
+ =?us-ascii?Q?TSWpQnYGG0MKcmTx1YdQlXU/8kFtmFh1Cp/6ojyUn/0fP7VYKLPcAHC4mQgx?=
+ =?us-ascii?Q?CPkpghZu3FxoFJqlt35GhjM8F9P4yClzivI76qsP+L7xe1HX2h+eiSGXM5xk?=
+ =?us-ascii?Q?T8hWociE5yfPZJ10o8o+Y9teqUNlj0xe/+z8OfaSdi5jTMVAdrYi12eyDG/c?=
+ =?us-ascii?Q?yNPD0Bhm4MlVi7qyXEKctFmEqYZVZ1jdRWtSJuNFyu7ctxaXxpROclJcpCLG?=
+ =?us-ascii?Q?KPEPz44Ziuuwrjc1U4d4PN7lY2D3D/m51CCL3s1GjibpVbpxaPN1SofWMYtU?=
+ =?us-ascii?Q?boFbsBIqnHn3fb91tK7A/bpw8/+ecfX9AOiwjNmFU/NYqHutmEklMzqMK4Fu?=
+ =?us-ascii?Q?TeEkXDDmeR7KNVj9cNQKQJiBSB7zzcjxA7/nIR5fVUkWOLTQshSnMa2bC+YF?=
+ =?us-ascii?Q?MVkTMA5aAJJxl+NLGbMt/Ik+fsXHxExACgWq9NQYXx3LmKOMMtjU0/kRk1q2?=
+ =?us-ascii?Q?pF0WqUGFdD4+MijxupflBIhl1ky3UiG3KomuWZciDlIix5Q6U1T6UTRngBqH?=
+ =?us-ascii?Q?UdvtBoRfuegzRVSsjzd8QgzZ12Ckc4A3Zq9yPLnGvyD3F8DT8crgrDSIau3B?=
+ =?us-ascii?Q?O1dAiuWQW0Q6n3KOJKI2nsTyMrtVaxyRmGIcONETjTixE9Lg7+9hkdtwJzqY?=
+ =?us-ascii?Q?SareH1jRK20x5Ta/c2ixmb1tT3KCOegIm+ITilMefqBHYlpzqObfT7v8NUJ4?=
+ =?us-ascii?Q?eJe9tiz3v93o4UmMZKXj6GnQ23/UbVbdsXRTUlHvAKaYpzhcY/Yi5uQrSo8M?=
+ =?us-ascii?Q?rZiwbKFTpsbtJKVzlJ2FMirrhApfRfHfjuEz4Sm5tN5G1A5U1e3Fgn7c9WIp?=
+ =?us-ascii?Q?H1JfhNcWNKZSJFX6/3hKDrpQWQTMz5ADaZ9Ahhy2JVAC+UxHV+3Yf55rXOQ6?=
+ =?us-ascii?Q?78woPmhJS5tEdhImuONkqieY9QhzKvbgLEsau4b3Lrm7ybFrqyd8QuKo68Jr?=
+ =?us-ascii?Q?8/Cd1XrvDAswuZssCzbG2tCt1fC9yh6bSvVVnOnCcsLyaxL/sNFIM2LGVl3U?=
+ =?us-ascii?Q?woHym6B/TbSaRdTHp/KiQRy5HvEjNkPwM+uhI8icusHd2Gt6BNHq0YF2vy/z?=
+ =?us-ascii?Q?pQx1XQ0YiQ/MELKKD3OJOtoZsVaXLaTX5TGJwDO/vxp6ayMAFKbeACesSEw0?=
+ =?us-ascii?Q?+63erPQl9jOWaY+b1kHItSoqhwfNeVmkYh+1I7XzOpV3nDf5pfuEwxiXpKk7?=
+ =?us-ascii?Q?BMflWn42jF5jvXa5m6fxOGDZN4bh8dq0b6S+HQpdXbUByAYRO4i7E8XLzjpq?=
+ =?us-ascii?Q?1NL+91bm8UP1mkhZ1q8DAteNTUcAppAYP71eT8BHGTaLvNmYgMuV4/DzyBcA?=
+ =?us-ascii?Q?hiiCJxALRCfX28BmQap5uEcJGeukiIpcDnZKZpcZW+l3zH02Icqq+AlP3NxT?=
+ =?us-ascii?Q?yYHa3kyQc26ZgQ88v92Iz7t+MZfxQi/9LBIqEPvhoS/aqcYWWFE/6gfqAQZ1?=
+ =?us-ascii?Q?aoB5pSKQb5hAUzqz8xYgzCQiz3HWUB1vAa/fJb/SF1BJyGPE6wu1Cw3r2KOt?=
+ =?us-ascii?Q?XB0noQLG5daTEO0vXXrn53HU509Hlr+eWtlxoAzSwX9k3yuvLwhSnw5bvu9O?=
+ =?us-ascii?Q?K5Sm5RbCcnlNZkl0DXjeld4=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144B867DC2BC2F8203E4268F74A9BL1PR12MB5144namp_"
+ boundary="_000_BL1PR12MB5144856BFAA05B8100781100F74A9BL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4c3fa1a-93dc-45f4-fc95-08d9cfa5bc6a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jan 2022 17:14:58.5911 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5e5677b-9394-4081-82e1-08d9cfa70f3e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jan 2022 17:24:27.0472 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EducVSJyNLsIDCwX5YX2WTZp+3AYk/NETbbx+KZjK9XRBkOw+PmIE2bAQ6eK8JELOA9lC6Skb9W+bU6op8eIfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5157
+X-MS-Exchange-CrossTenant-userprincipalname: 8YJ0VlAOi/RmDizYdzA4pWLoxgnDWaZsVlbkF/+1unTMKQy44HqwrrzK27gYz71HLZ/7/xCZAtANi2OIzBCaZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,52 +130,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144B867DC2BC2F8203E4268F74A9BL1PR12MB5144namp_
+--_000_BL1PR12MB5144856BFAA05B8100781100F74A9BL1PR12MB5144namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-[Public]
+[AMD Official Use Only]
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I don't think this will work properly.  The in_s3 flag was mainly for runti=
+me pm vs system suspend.  I'm not sure if in_s0ix is properly handled every=
+where we check in_s3.
+
+Alex
+
 ________________________________
 From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Mario Li=
 monciello <mario.limonciello@amd.com>
 Sent: Monday, January 3, 2022 10:23 AM
 To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
 Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: explicitly check for s0ix when evicting re=
-sources
+Subject: [PATCH 2/2] drm/amdgpu: don't set s3 and s0ix at the same time
 
-This codepath should be running in both s0ix and s3, but only does
-currently because s3 and s0ix are both set in the s0ix case.
+This makes it clearer which codepaths are in use specifically in
+one state or the other.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index ce93a304292c..412f377f80b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3956,8 +3956,8 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev=
-)
-  */
- static void amdgpu_device_evict_resources(struct amdgpu_device *adev)
- {
--       /* No need to evict vram on APUs for suspend to ram */
--       if (adev->in_s3 && (adev->flags & AMD_IS_APU))
-+       /* No need to evict vram on APUs for suspend to ram or s2idle */
-+       if ((adev->in_s3 || adev->in_s0ix) && (adev->flags & AMD_IS_APU))
-                 return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index db2a9dfd5918..413fecc89e6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2165,9 +2165,9 @@ static int amdgpu_pmops_suspend(struct device *dev)
 
-         if (amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM))
+         if (amdgpu_acpi_is_s0ix_active(adev))
+                 adev->in_s0ix =3D true;
+-       adev->in_s3 =3D true;
++       else
++               adev->in_s3 =3D true;
+         r =3D amdgpu_device_suspend(drm_dev, true);
+-       adev->in_s3 =3D false;
+         if (r)
+                 return r;
+         if (!adev->in_s0ix)
+@@ -2188,6 +2188,8 @@ static int amdgpu_pmops_resume(struct device *dev)
+         r =3D amdgpu_device_resume(drm_dev, true);
+         if (amdgpu_acpi_is_s0ix_active(adev))
+                 adev->in_s0ix =3D false;
++       else
++               adev->in_s3 =3D false;
+         return r;
+ }
+
 --
 2.25.1
 
 
---_000_BL1PR12MB5144B867DC2BC2F8203E4268F74A9BL1PR12MB5144namp_
+--_000_BL1PR12MB5144856BFAA05B8100781100F74A9BL1PR12MB5144namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -187,15 +200,27 @@ Content-Transfer-Encoding: quoted-printable
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
 </p>
 <br>
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+I don't think this will work properly.&nbsp; The in_s3 flag was mainly for =
+runtime pm vs system suspend.&nbsp; I'm not sure if in_s0ix is properly han=
+dled everywhere we check in_s3.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
 </div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
@@ -207,45 +232,58 @@ imonciello@amd.com&gt;<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
 <b>Cc:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 1/2] drm/amdgpu: explicitly check for s0ix when evic=
-ting resources</font>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: don't set s3 and s0ix at the same t=
+ime</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">This codepath should be running in both s0ix and s=
-3, but only does<br>
-currently because s3 and s0ix are both set in the s0ix case.<br>
+<div class=3D"PlainText">This makes it clearer which codepaths are in use s=
+pecifically in<br>
+one state or the other.<br>
 <br>
 Signed-off-by: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--<br>
-&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 6 ++++--<br>
+&nbsp;1 file changed, 4 insertions(+), 2 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index ce93a304292c..412f377f80b1 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -3956,8 +3956,8 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev=
-)<br>
-&nbsp; */<br>
-&nbsp;static void amdgpu_device_evict_resources(struct amdgpu_device *adev)=
-<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* No need to evict vram on APUs for =
-suspend to ram */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_s3 &amp;&amp; (adev-&=
-gt;flags &amp; AMD_IS_APU))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* No need to evict vram on APUs for =
-suspend to ram or s2idle */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;in_s3 || adev-&gt;in_s0=
-ix) &amp;&amp; (adev-&gt;flags &amp; AMD_IS_APU))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index db2a9dfd5918..413fecc89e6c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -2165,9 +2165,9 @@ static int amdgpu_pmops_suspend(struct device *dev)<b=
+r>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ttm_evict_resou=
-rces(adev, TTM_PL_VRAM))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_acpi_is_s0ix_ac=
+tive(adev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;in_s0ix =3D true;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_s3 =3D true;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;in_s3 =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_device_suspen=
+d(drm_dev, true);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_s3 =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;in_s0ix)<br>
+@@ -2188,6 +2188,8 @@ static int amdgpu_pmops_resume(struct device *dev)<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_device_resume=
+(drm_dev, true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_acpi_is_s0ix_ac=
+tive(adev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;in_s0ix =3D false;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;in_s3 =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
 -- <br>
 2.25.1<br>
 <br>
@@ -255,4 +293,4 @@ rces(adev, TTM_PL_VRAM))<br>
 </body>
 </html>
 
---_000_BL1PR12MB5144B867DC2BC2F8203E4268F74A9BL1PR12MB5144namp_--
+--_000_BL1PR12MB5144856BFAA05B8100781100F74A9BL1PR12MB5144namp_--
