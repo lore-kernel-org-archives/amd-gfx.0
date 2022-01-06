@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42576C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544F4C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30DE310EA0C;
-	Fri,  7 Jan 2022 18:28:03 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Fri, 07 Jan 2022 10:03:10 UTC
-Received: from nksmu.kylinos.cn (mailgw.kylinos.cn [123.150.8.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC75411B91B;
- Fri,  7 Jan 2022 10:03:10 +0000 (UTC)
-X-UUID: 51f8efc21ea04903991e1abefbd59d34-20220107
-X-CPASD-INFO: b29efc9df7c3401f828f9506db65018e@q4JzhZOVZ5SSV6V_g3N8oFhjaJZqYVC
- FppxWZV5hZIWVhH5xTWJsXVKBfG5QZWNdYVN_eGpQY19gZFB5i3-XblBgXoZgUZB3sXRzhZaRaQ==
-X-CPASD-FEATURE: 0.0
-X-CLOUD-ID: b29efc9df7c3401f828f9506db65018e
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, EXT:0.0, OB:0.0,
- URL:-5, T
- VAL:187.0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:1.0, CUTS:130.0, IP:-2.0, MAL:0.0,
- ATTNUM:0
- .0, PHF:-5.0, PHC:-5.0, SPF:4.0, EDMS:-3, IPLABEL:4480.0, FROMTO:0, AD:0,
- FFOB:0.0, CF
- OB:0.0, SPC:0.0, SIG:-5, AUF:12, DUF:29770, ACD:157, DCD:259, SL:0, AG:0,
- CFC:0.168, CF SR:0.366,UAT:0,RAF:0,VERSION:2.3.4
-X-CPASD-ID: 51f8efc21ea04903991e1abefbd59d34-20220107
-X-CPASD-BLOCK: 1001
-X-CPASD-STAGE: 1, 1
-X-UUID: 51f8efc21ea04903991e1abefbd59d34-20220107
-X-User: lizhenneng@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by nksmu.kylinos.cn
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 1687336020; Fri, 07 Jan 2022 18:11:04 +0800
-From: Zhenneng Li <lizhenneng@kylinos.cn>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 0/2]
-Date: Fri,  7 Jan 2022 17:57:30 +0800
-Message-Id: <20220107095732.982194-1-lizhenneng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF8B910E8ED;
+	Fri,  7 Jan 2022 18:28:02 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 807D410E9D6;
+ Thu,  6 Jan 2022 09:56:16 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3F714B82005;
+ Thu,  6 Jan 2022 09:56:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44ABBC36AE5;
+ Thu,  6 Jan 2022 09:56:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1641462974;
+ bh=g2OTglO7kNt/1C9rH1eMGfeioryhDpMhIlFqJBCB/nU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=UtlwpY27Hi40UW/6ZzEqlLUTopJNXx7nPPJwPu9uvIPwIxDEsdfltgYDzEjZeA4qj
+ XzunqvFVzviK1PdrHgh+6QoMSwQt7ICq8LuAU4fBY2Df+9UYioSE3a4Knlxjd38WqK
+ eXfwRs1E1ohUeE3dl5jyDw1C8dE2+oXY0MxiD1gc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: use default_groups in kobj_type
+Date: Thu,  6 Jan 2022 10:56:10 +0100
+Message-Id: <20220106095610.3275631-1-gregkh@linuxfoundation.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1984; h=from:subject;
+ bh=g2OTglO7kNt/1C9rH1eMGfeioryhDpMhIlFqJBCB/nU=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDInX9uyyrZZY3yDCcVOo9ml7unfUk6gPXxdHa+naSk8RXy1Z
+ /X5VRywLgyATg6yYIsuXbTxH91ccUvQytD0NM4eVCWQIAxenAEyk5yLDgsmGTv967jFYL/sda3Fv1X
+ lRqdKGLoYFWxPWliQ6dKaH+Z1Z97no9s+tm+fJAgA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Jan 2022 18:28:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -55,40 +55,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Zhenneng Li <lizhenneng@kylinos.cn>,
- Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jonathan Kim <jonathan.kim@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, shaoyunl <shaoyun.liu@amd.com>,
+ John Clements <john.clements@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For adapting radeon rx6600 xt on arm64 platform,
-there report some compile errors.
+There are currently 2 ways to create a set of sysfs files for a
+kobj_type, through the default_attrs field, and the default_groups
+field.  Move the amdgpu sysfs code to use default_groups field which has
+been the preferred way since aa30f47cf666 ("kobject: Add support for
+default attribute groups to kobj_type") so that we can soon get rid of
+the obsolete default_attrs field.
 
-Zhenneng Li (2):
-  drm/amdgpu: fix compile error for dcn on arm64
-  drm/amdgpu: enable dcn support on arm64
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: John Clements <john.clements@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Jonathan Kim <jonathan.kim@amd.com>
+Cc: Kevin Wang <kevin1.wang@amd.com>
+Cc: shaoyunl <shaoyun.liu@amd.com>
+Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/display/Kconfig           |  2 +-
- drivers/gpu/drm/amd/display/dc/calcs/Makefile |  6 +++++
- .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |  7 ++++++
- drivers/gpu/drm/amd/display/dc/dcn10/Makefile |  4 +++
- drivers/gpu/drm/amd/display/dc/dcn20/Makefile |  4 +++
- .../gpu/drm/amd/display/dc/dcn201/Makefile    |  6 +++++
- drivers/gpu/drm/amd/display/dc/dcn21/Makefile |  4 +++
- drivers/gpu/drm/amd/display/dc/dcn30/Makefile |  6 +++++
- .../gpu/drm/amd/display/dc/dcn302/Makefile    |  6 +++++
- .../gpu/drm/amd/display/dc/dcn303/Makefile    |  6 +++++
- drivers/gpu/drm/amd/display/dc/dcn31/Makefile |  6 +++++
- drivers/gpu/drm/amd/display/dc/dml/Makefile   | 25 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dsc/Makefile   |  7 ++++++
- 13 files changed, 88 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 567df2db23ac..94dcb004988d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -208,6 +208,7 @@ static struct attribute *amdgpu_xgmi_hive_attrs[] = {
+ 	&amdgpu_xgmi_hive_id,
+ 	NULL
+ };
++ATTRIBUTE_GROUPS(amdgpu_xgmi_hive);
+ 
+ static ssize_t amdgpu_xgmi_show_attrs(struct kobject *kobj,
+ 	struct attribute *attr, char *buf)
+@@ -237,7 +238,7 @@ static const struct sysfs_ops amdgpu_xgmi_hive_ops = {
+ struct kobj_type amdgpu_xgmi_hive_type = {
+ 	.release = amdgpu_xgmi_hive_release,
+ 	.sysfs_ops = &amdgpu_xgmi_hive_ops,
+-	.default_attrs = amdgpu_xgmi_hive_attrs,
++	.default_groups = amdgpu_xgmi_hive_groups,
+ };
+ 
+ static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
 -- 
-2.25.1
+2.34.1
 
-
-No virus found
-		Checked by Hillstone Network AntiVirus
