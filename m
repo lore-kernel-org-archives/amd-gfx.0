@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A95DC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 16:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58EA4C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 16:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BABA310E868;
-	Thu,  6 Jan 2022 16:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD77210EA1F;
+	Thu,  6 Jan 2022 16:31:02 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A96110E868
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 16:31:00 +0000 (UTC)
+ (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D9DF10E868
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 16:31:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GzrqSjXvSWCLThWZ/zaW5TfexsuwGy69Kws4L1OxoEtEoA6d4NAkK5f6wyGXah+x9DdHbHUjmhz5gUkBlAIsc635CCXHybuf/00UqW3sPLh5cbeLdpvTRPF1xHa0b280Ny9+pVN/q9J9zHDiPFR7g6iE64Hwq+5/eNI2ROjZFRDmepz+1Upl1FOOJ5ihQuj6LSEk/LgqyCVhyWV28ojUeBbuk2Kg/brIbOtQ/tQoGDKPFqA5uxgR5xfgiuquZ1H8ogjTTrTLZxTFLF2+7jLP4FNOKu84humWV5ay0sNJHYXHwwfjZaTgl3u99f+5Z+y1QAeonQTMbvZ9fur0uYPtkQ==
+ b=ZlrXsH6qFEZzAwHp9mjDHG7rWGfTk9y5ifY4IO+miKWIGgEl9OCmchCgzEGZOv3UBzIwecY3OqGHYfO3/SWgQuQDm11NkQRVXfPrS3LCtPWT9mnnxLPtDZwNSvFEo28BuKVYkHC7GQpDLnNqCzDxI40r0r+EtkWoz6cTDasVn7S3+CgbFkNlDRFEMvIwVtNBTZEcBWQbIccsU70AWuKxiXGgXflDmg7t/fBO1Q050MHGvOdelgEQiSpdrhtXs3CuJl2ZXy0PYJXdjYVVhQmdtCjRplIUopvJgtQ5ECsb7k9t1KsVHrsRQT+WB7VQS/LmlX0Hlh7QMOhRq0W/eGhLOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EjiI/EfbvdWKabhyxwosJwicNylNwiuWQMjsIqPCBQ8=;
- b=PV1xoyoq8nj9DWkmDJ+WtQJcjQCD0+lUDfs4wmHuUilsb6zZw7JvuDiSe60+cCsVy6QxyWzKOuTiZ+YQrQM9jD8E1nYeF4IVRXFf9B2mYILKhuAdGfiMYQTjJmlunSE6b+PlpIjeRkV9fBRsXwUKLzmcKVgik6XqGbvJ1q+8CXS6YKwdYH6kMAu7xVnY5DRV7Q7w9Od3wozeJFHjgPyiR6NYX9Jf0r496btaI8TYFcvabWR0MugMwL2cxX7wpGbR+Xtf157jdatgg0LjTokSyi7QHFCwAuFR7n1feM7s06NLIK4Ejp8twmujotgfjHHB7RyG5qvpfByn6RKDnKG6DA==
+ bh=hG4/3y23gmCSWBbeRsHNdGeSPG+WZUvrvn+Uufv10/Y=;
+ b=bHMnF8Cv0rbdFpebMSM0Jsu5cVm37AOqUDbg5aMKw5loLCp34KXtNMs/fuXSpFJEjcFsM2rPqTSbv2lF9DL10bT5i5djQBM+7p4Axh0jv602jVr/JKkHZquCYsxgOCJPtTqEvXmeVOeZsA15KuDFM9bENNLt1DsqUG0TNiO2cbswAWnotNwtG4b7C4Gg9a/0yh/vtDK+Z3+ha9rhqH1+h6jnJvnzYQJKeQpPsrtT364N2CE1ei6/rd+v6jgG5b+y4WJiwpeji7AcwzbhWRv9sUL8BeCvybfakl9xOlfsy5dTTC6cgOcbD50NYdcrD19Oh6kcfKbxNhKhq9ZcMfntfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EjiI/EfbvdWKabhyxwosJwicNylNwiuWQMjsIqPCBQ8=;
- b=k3DOR3/EE9PGf147rb/DggA2ZJq5Mqq9o1eE2UMiV8ICRAjm5PYcARhWMxkObgOop0Y3XrPrWSscfGHGI4CbhVd59ojs3r6O+2V/gQaqysHKNgPstvciAVFNpKKdx7wN3KsF/LXm1LO1f4j2gNU40ji/ZnC/P+h4/ZuQ08THCUE=
-Received: from MWHPR15CA0066.namprd15.prod.outlook.com (2603:10b6:301:4c::28)
- by MWHPR12MB1326.namprd12.prod.outlook.com (2603:10b6:300:10::19)
+ bh=hG4/3y23gmCSWBbeRsHNdGeSPG+WZUvrvn+Uufv10/Y=;
+ b=QbexhFN4dzvfGBP4h5LJZujIv8VDOSqxjoO/VwNUJgRMVw6qw5NafsTiSTa9yTz86WXib0IK576LAebw/FtalfaMw2OpIzSHeKI+SijVx1N8FMxPm6iaWq5uMewJdiY9O99OgyW4Bf5aERT9vzo2omjCfn+Z2NA70ZYvc0Jg730=
+Received: from MWHPR15CA0058.namprd15.prod.outlook.com (2603:10b6:301:4c::20)
+ by MWHPR12MB1680.namprd12.prod.outlook.com (2603:10b6:301:10::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.15; Thu, 6 Jan
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.14; Thu, 6 Jan
  2022 16:30:58 +0000
 Received: from CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:4c:cafe::1f) by MWHPR15CA0066.outlook.office365.com
- (2603:10b6:301:4c::28) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:301:4c:cafe::d5) by MWHPR15CA0058.outlook.office365.com
+ (2603:10b6:301:4c::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7 via Frontend
  Transport; Thu, 6 Jan 2022 16:30:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -51,13 +51,13 @@ Received: from SATLEXMB03.amd.com (165.204.84.17) by
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 6 Jan
- 2022 10:30:56 -0600
+ 2022 10:30:57 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4 2/3] drm/amd/display: Split out checks for applying HPD WA
- into a separate function
-Date: Thu, 6 Jan 2022 10:30:53 -0600
-Message-ID: <20220106163054.13781-2-mario.limonciello@amd.com>
+Subject: [PATCH v4 3/3] drm/amd/display: Use requested power state to avoid
+ HPD WA during s0ix
+Date: Thu, 6 Jan 2022 10:30:54 -0600
+Message-ID: <20220106163054.13781-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220106163054.13781-1-mario.limonciello@amd.com>
 References: <20220106163054.13781-1-mario.limonciello@amd.com>
@@ -69,28 +69,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd1ff2e8-25a3-4f6a-bef7-08d9d131eb74
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1326:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB13266EF2948C1F669D5C6EE0E24C9@MWHPR12MB1326.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: ed221852-31a9-4ab5-6b19-08d9d131ebc3
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1680:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1680A22330BF299919DF47F0E24C9@MWHPR12MB1680.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PXyiuyObH62dbEdbNKR5PJi4xGACKUQpbqItaYWLl7sQNvMmwbs+cM0uNOKe5M4YjI8lhmsATHEI10w+EX4svJ+qIuxhJe3gwc7BGjscWU28yRctsJZ0+8AGWzWkvE4hO3sR5tekGB69nUAStUuP3bfLvmCImIqvfL66OvIdgVJIk5rcIvnEb7n6n+HPeC/HKn72FYWwx6lvgAqYBjRKUsIawVDhrily/coglhhkKLXyQtKRRXLQq/isiYiTYoTqRh0LaiGS4PMh7qVKRWMI5M85hUnh7z7kxq6rXtupZIc7AvIM+M3uDYtZ7Eh/oBO/C28OfD2EbtNbpK0m+HYvNl8uGKZvoOhlkRIRy6LN2/QhH2f7mjQfO+Zu46LkLgRP8hPV5qw6WfFX521pfOy7adR3SojNj1SkfOkiwlGmvKYAyMOyvBSOPk4KTBzszrjiy1QMVaf8huPh5AMcRUilQ3f1KsrX8LuPyxacg0N7rS/vfqlUYTkB9KTWouBJgHq3mJQxFuZ+9MZ/w/ZUScXjpSUzIVMqmA5Iriu4QuKIDzxMfTSghHJFg+/BMqNSltE32ktdwiFKqzm60sKee3fU/1DDv/Td2qkr30UnJgDqK/ys4jQ2EhZHGvZgLDblIW7ZSHVYRN/i8JjaFAkQYwQaX/kTUh9LGIdbzISCyltcxGMZxh/FoEBJI6G6G9woEazW46iuhqjqNePuh2RwJd4TZWOkKhluax0v2d7Hii8VZEagJuomDqLlkwSYOGYa2/wmBqlMpN2SwbjT+YJqh7guMY2Z/9D2x92bha0KRzrCyDs=
+X-Microsoft-Antispam-Message-Info: drjErB124UhKlsreTnPv5jI7PHwJHAlToTuA0Ef7X8oRVIGif/VJTwvputsks/TlI5TbxQ5cfwctuLf7GTcycPDTfLTJyVyo0D/zybILFIEmD90Sg+9wLfZKtWC08w35azQlQqHUGd9viPcxwCWk2LkzJJwnh09eyEJDz+uTjuo99UsrZiKdzehb2OOL1Pug2BY0DP3jyHwAQHj8K+8fGIknVQ61jq/YpW8hMSt4tJyTtfe+4nkMB3EzZ5gNSuuJ8IRrki9u6JwhlnTo8J/WoToBKNXTeH3vW8xjGanQBgD9dRo2hjEVuE6BdMlm3sDL5rbJ+em08YMcOBK/jqp4AoY1jtFy5eKZu5W0Qe6Fp49+Xx5ZojVUHOONaeJIwqwjB+6HNDYabLaRTaRLpAFdlmP7hK9TXQpm3wVK+b3DAMNfN/JBsqaMYiFMTobjOG1A/ZyJTpdgRC/MqLVRcG8MWy6dQz8e7GaeYpRtZg1LncgBOigUipWfxxsRRMCVZ4fwcIiXpyIIQOf27nSTd/STQHs//kSwbsNck1uOWM4zPnF/Py3w7b/bS7cYIJQkwAjHRY9Xvbs6scuAFGeIL/GmJe4Z+210GXONIVQR77PSp4IpTFEdhxpTbbh8nhD+5qve2Dy/Yp1ZvFnlRMYf/UT+UvSfFLn+PwkokNnb8mPUhUygJJ+pdNmxd3MSp8J51bjiwmLra25FLCpUoQgGlb1ZLEjWc6K/WI2bwmjJdeLEVlsRz6X5l9CznWdY7KBCXXFUCiOmaGsmeNxYqI/bCYmJuGsriRKrSbUxTSHJbqShmTTDwEdNml+y5649iw+m7FjeY9aNntsZ5GW19Z14lci/9HG8Lx4KHY9S+oMDbm0865otkC7CCwpqiJQg770KiC+i4UWdMMalr8g7BMNbuGyAGA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(40470700002)(46966006)(426003)(316002)(70586007)(82310400004)(26005)(36860700001)(44832011)(8676002)(16526019)(6666004)(1076003)(36756003)(4326008)(8936002)(186003)(2616005)(2906002)(40460700001)(6916009)(70206006)(336012)(7696005)(83380400001)(5660300002)(356005)(86362001)(47076005)(508600001)(81166007)(36900700001);
+ SFS:(4636009)(40470700002)(36840700001)(46966006)(47076005)(966005)(508600001)(316002)(2906002)(54906003)(8676002)(6916009)(7696005)(36756003)(36860700001)(82310400004)(426003)(70206006)(86362001)(1076003)(16526019)(83380400001)(26005)(6666004)(40460700001)(356005)(2616005)(336012)(186003)(4326008)(5660300002)(70586007)(8936002)(81166007)(44832011)(32563001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 16:30:58.1972 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd1ff2e8-25a3-4f6a-bef7-08d9d131eb74
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 16:30:58.7285 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed221852-31a9-4ab5-6b19-08d9d131ebc3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1326
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1680
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,78 +102,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>, Scott Bruce <smbruce@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Chris Hixon <linux-kernel-bugs@hixontech.com>, spasswolf@web.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This will make it cleaner to read through the logic for an upcoming change.
+The WA from commit 5965280abd30 ("drm/amd/display: Apply w/a for
+hard hang on HPD") causes a regression in s0ix where the system will
+fail to resume properly.  This may be because an HPD was active the last
+time clocks were updated but clocks didn't get updated again during s0ix.
 
+So add an extra call to update clocks as part of the suspend routine:
+dm_suspend->dc_set_power_state->clk_mgr_optimize_pwr_state
+
+In case HPD is set during this time, also check if the call happened during
+suspend to allow overriding the WA.
+
+Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Reported-by: Scott Bruce <smbruce@gmail.com>
+Reported-by: Chris Hixon <linux-kernel-bugs@hixontech.com>
+Reported-by: spasswolf@web.de
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=215436
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1821
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1852
+Fixes: 5965280abd30 ("drm/amd/display: Apply w/a for hard hang on HPD")
+Fixes: 1bd3bc745e7f ("drm/amd/display: Extend w/a for hard hang on HPD to dcn20")
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-Changes from v3->v4:
- * New patch
- .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 30 +++++++++++--------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+changes from v3->v4:
+ * Move into new function
+ * Explicitly check that current_state is active for safety
+ * Change metadata from BugLink to Link
+changes from v2->v3:
+ * stop depending on adev, get value of power state from display core
+changes from v1->v2:
+ * Add fallthrough statement
+ * Extend case to check if call was explicitly in s0ix since #1852 showed hpd_state
+   can be set at this time too
+ * Adjust commit message and title
+ * Add extra commit and bug fixed to metadata
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 4 ++++
+ drivers/gpu/drm/amd/display/dc/core/dc.c                  | 3 +++
+ 2 files changed, 7 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index fbda42313bfe..20974829f304 100644
+index 20974829f304..d2e1938555dc 100644
 --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
 +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -120,6 +120,23 @@ static void rn_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
- 	}
- }
+@@ -129,6 +129,10 @@ static bool check_really_safe_to_lower(struct dc *dc, struct dc_state *context)
+ 	if (display_count > 0)
+ 		return false;
  
-+static bool check_really_safe_to_lower(struct dc *dc, struct dc_state *context)
-+{
-+	int display_count = rn_get_active_display_cnt_wa(dc, context);
-+	uint32_t hpd_state;
-+	int irq_src;
++	if (dc->current_state &&
++	    dc->current_state->power_state == DC_ACPI_CM_POWER_STATE_D3)
++		return true;
 +
-+	if (display_count > 0)
-+		return false;
-+
-+	for (irq_src = DC_IRQ_SOURCE_HPD1; irq_src <= DC_IRQ_SOURCE_HPD5; irq_src++) {
-+		hpd_state = dc_get_hpd_state_dcn21(dc->res_pool->irqs, irq_src);
-+		if (hpd_state)
-+			break;
-+	}
-+
-+	return !hpd_state;
-+}
+ 	for (irq_src = DC_IRQ_SOURCE_HPD1; irq_src <= DC_IRQ_SOURCE_HPD5; irq_src++) {
+ 		hpd_state = dc_get_hpd_state_dcn21(dc->res_pool->irqs, irq_src);
+ 		if (hpd_state)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 8edbb6c70512..716e055a61c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3302,6 +3302,9 @@ void dc_set_power_state(
+ 		}
  
- static void rn_update_clocks(struct clk_mgr *clk_mgr_base,
- 			struct dc_state *context,
-@@ -128,12 +145,9 @@ static void rn_update_clocks(struct clk_mgr *clk_mgr_base,
- 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
- 	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
- 	struct dc *dc = clk_mgr_base->ctx->dc;
--	int display_count;
--	int irq_src;
- 	bool update_dppclk = false;
- 	bool update_dispclk = false;
- 	bool dpp_clock_lowered = false;
--	uint32_t hpd_state;
- 
- 	struct dmcu *dmcu = clk_mgr_base->ctx->dc->res_pool->dmcu;
- 
-@@ -148,16 +162,8 @@ static void rn_update_clocks(struct clk_mgr *clk_mgr_base,
- 		/* check that we're not already in lower */
- 		if (clk_mgr_base->clks.pwr_state != DCN_PWR_STATE_LOW_POWER) {
- 
--			display_count = rn_get_active_display_cnt_wa(dc, context);
--
--			for (irq_src = DC_IRQ_SOURCE_HPD1; irq_src <= DC_IRQ_SOURCE_HPD5; irq_src++) {
--				hpd_state = dc_get_hpd_state_dcn21(dc->res_pool->irqs, irq_src);
--				if (hpd_state)
--					break;
--			}
--
- 			/* if we can go lower, go lower */
--			if (display_count == 0 && !hpd_state) {
-+			if (check_really_safe_to_lower(dc, context)) {
- 				rn_vbios_smu_set_dcn_low_power_state(clk_mgr, DCN_PWR_STATE_LOW_POWER);
- 				/* update power state */
- 				clk_mgr_base->clks.pwr_state = DCN_PWR_STATE_LOW_POWER;
+ 		break;
++	case DC_ACPI_CM_POWER_STATE_D3:
++		clk_mgr_optimize_pwr_state(dc, dc->clk_mgr);
++		fallthrough;
+ 	default:
+ 		ASSERT(dc->current_state->stream_count == 0);
+ 		/* Zero out the current context so that on resume we start with
 -- 
 2.25.1
 
