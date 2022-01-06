@@ -4,120 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C8CC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 08:29:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A25BC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 09:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A584F113638;
-	Thu,  6 Jan 2022 08:29:12 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02F5F113637
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 08:29:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78BA7113D44;
+	Thu,  6 Jan 2022 09:05:19 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7EB113D44;
+ Thu,  6 Jan 2022 09:05:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NhRYBfrwSYUX6Z7ukjMh2hzlzGHYjRKSELHIXGbAm8w0esHbfmj4UY0F80BXfnBTjxj77ZLrGdCGulSs9oFlNzNtWqqxviGsUoiEVTPsA/3NHLCoB5g0hJ5UBqdM2HqrzXqqVFsITiFCLX9x6ns5AaZWYbBs1mTINJEC1MRDkezeRYyb+qbY+7898dfFqvhK+BIDBPyvhSCNxaNyKX7kS0hpq5aDL31Dfa7w9cYniX8ibfXGjDPGyS2aWDx+OUAqnM4Vw5PMvYGrqfisgPQlE/cub1JXq7WmEhuRVsYy/oRbwluJWs23IP7WgOphi7rDe7ZhurKzCld534YoKu6MNg==
+ b=KkhoII/E5yyoxTzhcH6wnU13Kt5r8vyI1WF0iES7agK457cWyEsgfrndhyLQaI7PrV2pSG5tCRfYx3cAxyLLZF+PuDTf0vYmcJjJZfY2Kk3+IIle+YY7l8OGFAFQNwSBTAU6ChUrMBNLnE/cWsaRXvCK3uSjy7/geTfrXJnFHQpelXG6f0O93CuWzpXmf2E8i0/vC5jq910Ukln12m4DrdRn0FebETiZtyd/b2g9f/t33JoXEmlw9WKbtMmoNLuelp9jkJOA3p5wAoZdfaK0fWG7g4dLQFVlhigm3itF0m1iZxwL4qiB6FZpdTm2WZ5dJxozs1dBLUxeziaaM9GC8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NRIzA+JWRpZ2zasNXnf9BZlkGVHA61L7zo6FRI+V8L0=;
- b=BT/K5cRFIxgHlgjOMY2M8ixDdO1jN17FS7hN4f5JkRwifHToHBRe1ScrmrDVIZKsfMvKfKigq0YzpqRlH66vjHR8O4qjkBNpJIcOpZhUDI7eFgB8qSIzfjx/D5+uC+xKF6YFl2/8pBwyyd4DoWeD2PKVHGSsvAY9e/cOxRhKtdOg/dkqihomB2iajEkD56byahWbYpkiqjnxcDD7Ttx/+kyi/b4dNogQpJxVu7p4XpVdG7QaMvJaWo61xJFYf2AIuvWK4GY50Gw7VxLpRqWlOyAdZC1oZnoHHC3xgBXymu8WjHHXFzqI/tmsZ1X9DuYlCNuAGtQgmr+RC/s9CtbBlQ==
+ bh=nrlZlYU115v8V97wNvSqjwU8Q+4W9i2WyTqhIrlYQLY=;
+ b=khXSBmCiyjouy9RJzMu+I0aJpaynkaDaZvTWtrcIzQFSptu801vmqQjF3DXYtjdS0lbFOIS/T8n9O2U7RGc45Qce57fmAtvSa0W782qOqBcAlC+Bel77QH3AmG0YR9JuLo09ZAQCNGkHQEViQUkVkV6TuaCbFkXWBRFbyjsg2Be6s32J/ahD8z0TFQLXS0etIQAlRPCYqxnpXEVX+T8okrZQrYe/SE/pPQUwMfYEY1zF1tl+iY/NtYevblKeFUvZSrafV/x82dYwOIVoEsYz1EDDFH+Ro+wUC2reaSquDhZS9qNzGt+nq9cqs8F29TL3KRC4tB3qy5WkBfTNGnpEKg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NRIzA+JWRpZ2zasNXnf9BZlkGVHA61L7zo6FRI+V8L0=;
- b=k/aEHgjndT5cl7rNfbb0gYkay1gfeXHqGSmPncmQeIEHi9xyfmyWgRdwVko/q5Q10P+Ur4bdWaJC7GAldoBc5IVuq98veE55/ptwv2rV6Dl+npvygbS4qb+XqyaVr7QC5WVruWgd9ofHyVMEAKvqEfdt+NTuyggSeDgMhu92t8I=
+ bh=nrlZlYU115v8V97wNvSqjwU8Q+4W9i2WyTqhIrlYQLY=;
+ b=15Z2GSs+4Hu27ABvX4ELCBEN/eGiM8xFgAKRUe8JcHR7fv2FuL9cbxxmJRAitRSZ6po248+p24zRL+8Qcb6qzZucjlBinaTeVZ2Wn2jZ7g7yYllrq9+S/YQpz15Wgeq3glfARhx7S93bxrsnPvLNfi3fMVhrEiNKqWRX5sBR3wE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4621.namprd12.prod.outlook.com (2603:10b6:805:e4::10)
- by SN6PR12MB2798.namprd12.prod.outlook.com (2603:10b6:805:69::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.15; Thu, 6 Jan
- 2022 08:29:06 +0000
-Received: from SN6PR12MB4621.namprd12.prod.outlook.com
- ([fe80::183:1343:d261:7870]) by SN6PR12MB4621.namprd12.prod.outlook.com
- ([fe80::183:1343:d261:7870%4]) with mapi id 15.20.4844.017; Thu, 6 Jan 2022
- 08:29:06 +0000
-Message-ID: <7dbaa69b-2465-c1ab-9676-4dec289d6356@amd.com>
-Date: Thu, 6 Jan 2022 13:58:51 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH 3/7] drm/amd/pm: drop unneeded smu->metrics_lock
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MWHPR1201MB0077.namprd12.prod.outlook.com
+ (2603:10b6:301:55::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9; Thu, 6 Jan
+ 2022 09:05:14 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::b4d6:f148:3798:6246]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::b4d6:f148:3798:6246%7]) with mapi id 15.20.4867.009; Thu, 6 Jan 2022
+ 09:05:14 +0000
+Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>,
+ Adrian Reber <adrian@lisas.de>
+References: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
+ <94b992c2-04c2-7305-0a51-d130fc645f3f@gmail.com>
+ <58d61e47-3796-3147-db6c-ea7912d16902@amd.com>
+ <de272de9-3f4a-db40-699a-41394cb699dc@amd.com>
+ <cb5668d4-a13d-3b0b-442a-bfe1b3a7239a@amd.com>
+ <000edeaf-8a89-ea4d-5b9a-2bd7758f675c@amd.com>
+ <f00f2f16-f0b3-cb54-f88e-d53353bfdb79@amd.com>
+ <f4527002-ec6d-5279-3b79-1aacb6cc55cc@amd.com>
+ <YcBM3PMz7J90F3LQ@phenom.ffwll.local>
+ <9d1030c2-2269-cfdd-bbb0-9c3d5995841a@amd.com>
+ <YcOQN/l7W66W/X0f@phenom.ffwll.local>
+ <a5c769fd-7eac-2628-a36d-fedddfb7d398@amd.com>
+ <279c7ffc-99e5-f052-5de1-9b957c455d85@amd.com>
+ <1ab2558b-1af0-3319-dce6-b805320a49d0@gmail.com>
+ <60760210-3b3d-952c-2637-4d70fab1a857@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <fd95f1c0-7550-0497-7284-64a5257304ca@amd.com>
+Date: Thu, 6 Jan 2022 10:05:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <60760210-3b3d-952c-2637-4d70fab1a857@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-To: "Quan, Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220106055732.3073780-1-evan.quan@amd.com>
- <20220106055732.3073780-4-evan.quan@amd.com>
- <4c820046-fc95-e7ef-c857-eebea6542990@amd.com>
- <DM6PR12MB2619F53DE7747026D05E3A49E44C9@DM6PR12MB2619.namprd12.prod.outlook.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DM6PR12MB2619F53DE7747026D05E3A49E44C9@DM6PR12MB2619.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BM1PR01CA0166.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:68::36) To SN6PR12MB4621.namprd12.prod.outlook.com
- (2603:10b6:805:e4::10)
+X-ClientProxiedBy: AM0PR08CA0031.eurprd08.prod.outlook.com
+ (2603:10a6:208:d2::44) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1a74c504-97f2-4166-d1fd-08d9d0ee9a5e
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2798:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR12MB2798413B332B68977370347D974C9@SN6PR12MB2798.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 081f7605-56b1-4411-5ccf-08d9d0f3a680
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0077:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB0077C3B9A6367BB40EE29C22834C9@MWHPR1201MB0077.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GOO5v0QVit3UuMMBKl9BSmDDFSCWkbaXOjVAsjdvskEexq2G3RR1uE3UjdZWmGRomAEkeba4NgnwOGuQotZ5li/Mxr5wSGIeapor/AxSsdzW/Us9qU3fEI/+A6UQkwGIGdcUfWJNSCdN/IGsYsHVUnfYFdElbwNUWJCzZRKV1nNYlnfg3ittpj58ybkHzcQDuLdVOgYKvXaGVl1/32BtJn9rb1yaUJLzXLoWDNpqwlGw8s1rAbIoaseWGdM8pDiUgaFElI5BweOMixGWyQr8BIJO0GA8K/9KwztowNFCr2VMfpYP8NexuANZqJxto8ojD3+kdtj+zQrhV2wkmRoCh4WVDeP8zRZbRQMcT5xnjHlUmqWIz6qR9LkMBTaC1D0/eVi37EkXQ66eRmwHVsup6a02fvgIhJ6eqb9zH3THAMOuqSehN9U0m2GCRQIwahZgZzUfb2qbgbJmNYT4RP6n9nCNfWGWVTauMA9kRTFigK+3LSXqysxKXzEsphfsiNIremLIhzZkMfOu58+9ceVsZQ6JEoLBA664wULLmiwFHOLZpYqPF5LG5IMswRsRCowQw2Egt/jD9MPAwnzpbC3iChKheHmK5jEQgp8kKMmOrp6YI1POlqJ0T0F60iImBNgXXB720ekRJwSqHqr6sTW+lI2xWciUZ+N7welwt3o6ucri9IWBS7jzgoCtRA1LdaeVLKU2ymmLobVnhmxctjIfUU8IDTZBHOC+nhupMlcIKkI=
+X-Microsoft-Antispam-Message-Info: 4BmKikO4F0UKu4ogz8MOdyHaFNSBDeczP0IQ1SH9H3U4cmq5MCrGNXq05pQzKQbBZJfT6mOTMHHyNYt6eoW2b+aKRuSkoSjkNwVoRFTz+QJYKheKVxx0qQZ4kzea4YWs2co76P9m51YVtKceltAa6FDguzEhXSQDbbaOdy72gaNThMDSrX0likpE8z5dR39oH2SakVdDyWrobIe7gJ+mfVX27SZ8I6bH3UWPyNNxTw7I0VJKvrV7ZKLG1tsOILxgROvvycMhwmufiTbx0cFsSlhzRflJRhAGCkdw13rAwbHoTx7uKEI0wxU2OD5+RLOQcXxE3ElksYh4CC8KdvE6mXMibT1d1j61/JD8TxYO2KKKUIxN0E/ZR/gW/uGehobQgVik47f/Xvv48rTP/Rgb75T/q0Jq5JuMPafwzrhkqUGMwP+3LrFZW5QiZejHkNr9l87s6Shh71leYojdD5IgnWMHDgGrasayjyqGGRHrCS3Z34k5MezVpOw9zwXIEdK6tCVP5NZ35FQt8L2oOEAhDvkFjYGRSLkO75D7SoQcUtd7z57QNxMDbb6q5AFPHdoIG/fK77uSEEY1NbD1aSdCHgGkgrussxtcBmM+w2etiUw1pDQq4cLRoK6YDkQLL6HslU3DVf4aambL91mUMRCOd5L8TI6/bWwIn9+iNgi0OQa6lDu81p7r9gyEJo4DkXiT1qZiobU8InV/wEr9533SRp5MMdroC95OZVgSqZYV89Y5zlu+UAyMVWWTftEZ80cF
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4621.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2616005)(6506007)(508600001)(4326008)(86362001)(26005)(53546011)(19627235002)(186003)(66946007)(36756003)(66556008)(31696002)(8936002)(30864003)(66476007)(83380400001)(110136005)(5660300002)(316002)(8676002)(6486002)(2906002)(38100700002)(6512007)(31686004)(6666004)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(31696002)(36756003)(66556008)(66476007)(66946007)(316002)(6666004)(110136005)(6486002)(2906002)(31686004)(8936002)(508600001)(6512007)(86362001)(6506007)(38100700002)(4326008)(26005)(186003)(8676002)(2616005)(5660300002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0wwQXZ1bzUva3dkWDMwNno2WGVqNVFGNVlIQU40VnVEaGpNVFNGUHdpcUZa?=
- =?utf-8?B?M0FjKzZEN1FZMjBEUy9zbDNoT3hHRHdlMTNROWJhTHRlZVl6RTVCOTN1aFhz?=
- =?utf-8?B?R295NkRUbFNBL2ZmUStEcWVVbTNIcjBxR29SaExBa0lMME50cHJBZ3h3cjlu?=
- =?utf-8?B?c3RzdmZtN3h3NVhrSXA2R3dlSW1meXNDNW5nOUVIRWIyT3VML0p1NTRoN0J5?=
- =?utf-8?B?K3ZQNm54QTYxWDZUT2J0RGJEOEU5MytQTURBRFVYOW1NYU9WcjhGTDNsd0hI?=
- =?utf-8?B?NGlBbHQyME9uSEpTM0V4MnA1NFkwUWZPa0xqTDZ2UFBGclFIUDJwS1RGREFX?=
- =?utf-8?B?Yk8rOTV3ZmpkRE5vRGthVFdEY1BZb3ZqWmozNnJXTHo2cDBlZmRYQ3NsVXVL?=
- =?utf-8?B?YnEzdXc5Q2tVQXdreTdHY0NhbG9USVVwTkorMmttMnczOTFpdHdQSHp4Y1RU?=
- =?utf-8?B?LzZTNWxtVnRQbWhRY0JrTk9hem1DNzEyaXc0Zy9hTjNaM2VGYXE1K2s3bk83?=
- =?utf-8?B?UzdzMUdYTjg1R1JhcW01d2hiWVRtRk1ab0IyYUgvb3JnZSs4VmdvZW9vaVll?=
- =?utf-8?B?czhWSURQbVZlcFRmK0tBUzlMM1ZsZ1ZCdmdTU0QyVEZabmRaWHRzbDJBYkFD?=
- =?utf-8?B?NjMzRThJd2cweVcxVjdKTkh3cmtnajM0Rjh2bVU4L043QWZ2dDZrZ3ZPTzNi?=
- =?utf-8?B?N1E2RTl4Q2U4emNFaEtCdTVDSFZIRzc3bHlHQVhsNzJJNDdPM1RZdTcwcklK?=
- =?utf-8?B?eC9OM0gwMzNRdSs1dmZ4UGNPMTRrYW1VKzUxU2owR0pIdHAxWFVLN0E5c1Nv?=
- =?utf-8?B?SU9DWjBRMFo0WXRRZVU4Vng5ZGNwYk9SN1RBNC9IQUE4OWh2VEUyTTUyNEk1?=
- =?utf-8?B?RDhUODdVUU5ONTBKWkY5RG9FSzZsaVNKTU9Vd0tGc2JyZ2VMTHF4L0JhWnJU?=
- =?utf-8?B?OHc5ZWE4ZUw1TUcxTkZXVW1KR1VYSDQ2a2luaWZFRFF5WHlLRmxaZUdhRUND?=
- =?utf-8?B?TW9xdGQvcmVKb0ZhVm5ZVTZ3SFh1ZVpaMTArMVlXeVBtQWxTNnlPbzdybkNV?=
- =?utf-8?B?TjYxVWhEQ3FrNnVwYjF4dm5RYjRUVjJLWGk2Tno5WW8wd1I1T0hWcTg1ckFa?=
- =?utf-8?B?NDF0UXQ0WXZwdm9KQzNuMlZLL0VJaXFNR3hPVGFwejBwZ0NXbHc4Qi9RNDJP?=
- =?utf-8?B?dFo4WHZ0S3RYek9pUVcvUXd0UTNwR3c0YWVkLy8yWlZ6alFSc1haemVvTk1B?=
- =?utf-8?B?ZStFRG1hNDlmWXBnSTdVUy8vS3laVnZNWmVPN2lxNWpEZXB6VlE2YlJ0bmcw?=
- =?utf-8?B?S0grS3NIWmZTVlJkaWdnV1B4REpiVnd3d3Jxc2szQzhxSTMxNFZiTkNOaWRl?=
- =?utf-8?B?VWNybHMySGVOZ29kczlOcE5lbnV3Q3B6bXdEUnlnQ0FxMTVETERTVTZBbThv?=
- =?utf-8?B?bTFBS09nWFBCTDRKRHhNTkdVbkc2YmtMaDlkMm5PK2wrUWExQmVKNG5GVTYr?=
- =?utf-8?B?YmJiS0tZcWYvOHd5cnJ3OTB3eUdBR1AzNUwxQU1BRWdUMmQzVE5NS0dncUc2?=
- =?utf-8?B?TG1BRzh3NklROU5hZDRUc1VOZVRudzlnMEx4R1V1VlNpc1ZVcUNUU2I4cWJK?=
- =?utf-8?B?aE1wVkJOalRyZnM4MjZpS2hxOElHZGtNSmRORHVhTVdNanJRUWVCMENISTNW?=
- =?utf-8?B?Uld2dDNhMlNjZVNYd25Sc052Rkp3T0V3a093N24zVWhtUEg4UVVXMC9HR2Fv?=
- =?utf-8?B?eUltU2RsUGExVmJwV2FQZmhOSTNBVWJlTDhLVEVuT0FKdkY5T0wyNFdmQ0x6?=
- =?utf-8?B?S3NxVER0UWtqTnY2TTV6YUI3ZmtnSTNzdjVkWjlGYjBKYm1WSVMvbE1oNEw2?=
- =?utf-8?B?dWozWENIMmJBQzdXYWltMitZeWNxTUZKaDd1Qld0Y3NMeEFDWVdHdUJuMEFC?=
- =?utf-8?B?RXQ2V3h4SlJuczFaOG5uQ1F4M1BGQ2pmU21leDNteG9rT1V4MEJvRzJsNWJY?=
- =?utf-8?B?YmNYMk1kNVZpMGFpMEdPWUY0aTB6S2dxdUFlNHYvYVV3Z2VQUS8vek5KV1Ir?=
- =?utf-8?B?SjM4ZVpzcFJrR1ViZ0Uxbi9JS1pqZXNvMDNrb0dqRHNHY0FibjJ2Q1hMTEs0?=
- =?utf-8?Q?7jj8=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEkrVEtSUms4bFFYY1RRUUpjQkJ2V3ZmSmp1WXhsMjBjbG1mcW9FWVdlSUVG?=
+ =?utf-8?B?ditFK3I2R1g3VGE0eE5NcFVjMGZPK0dYUkNVcUNXYTRiL0lwOVFEWnhnTWxF?=
+ =?utf-8?B?RFF5RFE5ZnRRQWlUSnBNWFVlNzEweVdWWVFySEk5UWprWEhzM0Jtd1IrTU5y?=
+ =?utf-8?B?Y21DSHBCS2RORGowd012WU5reUJ3eDdoTnl2VjJ1dHBIU1Rsd1RtUzBpWWgw?=
+ =?utf-8?B?OTRCakR6M2Fxa21TTnpvR1dOWkZDRGg1RUZNcytwd0wvQ2FCbTBSSkNMS1JX?=
+ =?utf-8?B?WDRESzB0Sk52Z3RaemozTEJYemtSclE1NGt1RXQ3ODNsYkxNWjBTVFA0NHI5?=
+ =?utf-8?B?QjUzNVFidTU5MFliNDEzR2l2MjJldnUwSDNHeGdIaktmRlljTU5OQ1poNEtQ?=
+ =?utf-8?B?SEx0NDFJWHo2SnZpejZiNWRkMmVMNXRRKzdhWjVVa1pvQTM0NE1uRVhyb0tD?=
+ =?utf-8?B?Yld2TEtmRmwyWEFneG1oOGMrMHZzSWtPYlhkemNJZjQxZTFlaGQ0WWxxbEJw?=
+ =?utf-8?B?alJuRGFxT2FHeElzRkptcGcxUnJTbE1sN3hEVGNOMDI1ajRVL0xZb2lTbGFm?=
+ =?utf-8?B?bnFiV1lXUGFzbmFoSXdpMExjdE5lLzVTSFNEY0lvT0RTWGowSEl4aU1vbnlm?=
+ =?utf-8?B?cWhsa3pEK1RFVXRqTmEzS0xXRm5IR3ZSNmxHcDZsdDJYaC9BMTJYZlRlNUJD?=
+ =?utf-8?B?eGR5U25TUkk3ck54NjJIZm9XdDdISFFJSGVIRTlhOENOMVNNbXdKbnFXYmdP?=
+ =?utf-8?B?WmsrYzl3ODdmNEVmN3l4T3hLY0VYODI5aTlKREk5Rmx6NUhrdi9hZ0tTZDVQ?=
+ =?utf-8?B?a0UwdjRRN0ZPblRhU0pOaVhKSHFxWm1RQmFGWlZMc0FUc2NRODBId0hwQUxk?=
+ =?utf-8?B?V05hYVRIQllHSEltMlVtcEwxMGEyVUpudk1sVSs5VXVhMFRiMEF2S2xuTmdp?=
+ =?utf-8?B?aER4cWVueHBtZVNvR05Vd0EzaytpQWpZSFhURWMrc0R6YlNrQk9yV1VwU3R5?=
+ =?utf-8?B?UjJ6SVJZTWc3d2RTV0lyYUJxVUN1cGVMM3hlQWI1amVtVkxTRG5NSjJybHZM?=
+ =?utf-8?B?YXpVVmtDQS9MTjB5dnpsUklhandsR0lZL2ZDMUpOcHNZNjZMV3Bpd3lVZHV1?=
+ =?utf-8?B?RU9ZYTk2bDFEeFI1R3FTMElYcXgwTDZUcGpLYm5pS0VBTkY5Y1dqV0dGbFhQ?=
+ =?utf-8?B?YzY4RWx2YzBUT3Z0eHY1ZnVwYUk5VThhYnlYM3o4ZzgwTjZYQWVjdnN4SWlQ?=
+ =?utf-8?B?WGRnL3YzTmVQenEzSHVBaldpZTZBWCtpMVVJZU1tVWV4N3QrWmFJc1BCMjBV?=
+ =?utf-8?B?U2hmaGxwS0ptN29zVUFIa0NEbFdNTUsxdG5DVnJJTGVDaVdoNUtlV2p2SHJ2?=
+ =?utf-8?B?SjNYS3c5V2NzOUpCSkc2bGtCc1ljUFVORVYxQ3drb1Z6Smp0RXZ3VVVzTW43?=
+ =?utf-8?B?cDJoeUJHQ01zbkhGeWMrNGY0SzMza01XbmxRWUY5bElVcHBpYU5iRENrS2FH?=
+ =?utf-8?B?aDZzZlNlMWNTWURmTjhLUnVCOTZlSVBNSm9obnNqZitBMm9JcGUvN0ZRM1RK?=
+ =?utf-8?B?N05yQW9nOUFpWVpvck1BcHZYK0srZnVsZ2xBUXQ1dFlLZXhQTEJVeWU4a0pI?=
+ =?utf-8?B?VVlJWnlUdlVVcFBsc1ZaZ2hTcnBJeERnVXFYQ1JjcjFVWENGenF6TDNjazNI?=
+ =?utf-8?B?bTI1aDZ1VzBxbDYzVFcyeldzY3FIaWUyWTVncjdMWnU5ZE11cFZLNXk5aktn?=
+ =?utf-8?B?dTkzWWdlOE9UZ2ZCK3RVUkp4VTRKVUlXNUVTSlZJQUtuanYzMmFrSXlITEsr?=
+ =?utf-8?B?SndWc20xWndmZmtuNmN2cHJEN3gyRmxNK2NwVm9QdXAxTjVCVVZTOElSWitB?=
+ =?utf-8?B?QmJaeisvUEowcHQxUm9kTlVPeEtkckoxTEVGZW1QUnU0czZZVEpLazhkRzFx?=
+ =?utf-8?B?M0FuZG96ZTFzR2dtS00xZHpFQWFjYWFWeFhxQk1EWSsxamxoNE9HTlMwTThI?=
+ =?utf-8?B?VGdmOTgwdmR6MXBlRmlzbHpkRHl0U2ovUEVOQURxN0NGOWhoL0QxYTNQUFdq?=
+ =?utf-8?B?YmQ2cFVvR1BUN3pkVktrRGUyN3dHdUR2eCt3Vy9reFd2bzkyaHJRbUpOVTVx?=
+ =?utf-8?Q?lu2c=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a74c504-97f2-4166-d1fd-08d9d0ee9a5e
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 081f7605-56b1-4411-5ccf-08d9d0f3a680
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 08:29:06.5647 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 09:05:14.2133 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rmn7zeO56n1C0hnU+axMtBSIs6VRemMxWQ/Ca2PfaDSQF/tMBDJF4g83TrpFS5LI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2798
+X-MS-Exchange-CrossTenant-UserPrincipalName: iPGRYq7bvPBlPNF8cGrqU0KdYBxielieKNjfZtii3UK19ht46po6C8TP3ykfQuLU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0077
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,734 +143,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ David Yat Sin <david.yatsin@amd.com>, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, airlied@redhat.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 05.01.22 um 17:16 schrieb Felix Kuehling:
+> [SNIP]
+>>> But KFD doesn't know anything about the inherited BOs
+>>> from the parent process.
+>> Ok, why that? When the KFD is reinitializing it's context why
+>> shouldn't it cleanup those VMAs?
+> That cleanup has to be initiated by user mode. Basically closing the old
+> KFD and DRM file descriptors, cleaning up all the user mode VM state,
+> unmapping all the VMAs, etc. Then it reopens KFD and the render nodes
+> and starts from scratch.
+>
+> User mode will do this automatically when it tries to reinitialize ROCm.
+> However, in this case the child process doesn't do that (e.g. a python
+> application using the multi-processing package). The child process does
+> not use ROCm. But you're left with all the dangling VMAs in the child
+> process indefinitely.
 
+Oh, not that one again. I'm unfortunately pretty sure that this is an 
+clear NAK then.
 
-On 1/6/2022 12:32 PM, Quan, Evan wrote:
-> [AMD Official Use Only]
-> 
-> 
-> 
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Thursday, January 6, 2022 2:17 PM
->> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Subject: Re: [PATCH 3/7] drm/amd/pm: drop unneeded smu->metrics_lock
->>
->>
->>
->> On 1/6/2022 11:27 AM, Evan Quan wrote:
->>> As all those related APIs are already well protected by
->>> adev->pm.mutex and smu->message_lock.
->>>
->>
->> This one may be widely used. Instead of relying on pm.mutex it's better to
->> keep metrics lock so that multiple clients can read data without waiting on
->> other APIs that use pm.mutex.
-> [Quan, Evan] If I understand it correctly, what you wanted to express is to use fine-grained lock instead of cross-grained one to avoid chasing for the same lock.
-> Yes, that was what we did before and that's why we have so many types of locks. Below are my considerations for this:
-> 1. We actually do not have such issue that many APIs/clients chasing for the same lock. Thus fine-grained locks cannot bring much benefits.
-> Take the metrics_lock here for example.  The data protected by metrics_lock are for those pm sysfs interfaces. Those sysfs interface are not so frequently called. And almost all the time, they are called one after one. So, it's rarely they will chase for the same lock.
-> 
+This python multi-processing package is violating various specifications 
+by doing this fork() and we already had multiple discussions about that.
 
-It's not just sysfs, there are other interfaces like sensors, hwmons 
-etc. Basically, metrics table provides data like GFX activity or 
-throttler status that may be continuously monitored by app layer. So 
-other APIs could suffer. My thought is to just keep metrics under a 
-separate lock and not tie with pm.mutex.
+Let's talk about this on Mondays call. Thanks for giving the whole context.
 
-Thanks,
-Lijo
+Regards,
+Christian.
 
-> 2. Cross-grained lock can simplify our implementations. It's hard to believe, there is 10+(actually 13 as I counted) different types of locks used in our existing power code.
-> By the cross-grained lock, we can simplify the code and protect us from some unintentional dead-locks(I actually run into that several times and it's really tricky).
-> 
-> BR
-> Evan
->>
->> Thanks,
->> Lijo
->>
->>> Signed-off-by: Evan Quan <evan.quan@amd.com>
->>> Change-Id: Ic75326ba7b4b67be8762d5407d02f6c514e1ad35
->>> ---
->>>    drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   1 -
->>>    drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |   1 -
->>>    .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  14 +--
->>>    .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  10 +-
->>>    .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 112 +++++------------
->> -
->>>    .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  27 ++---
->>>    .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  28 ++---
->>>    .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  14 +--
->>>    .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  23 ++--
->>>    .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  10 +-
->>>    drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  21 +---
->>>    drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |   4 -
->>>    12 files changed, 70 insertions(+), 195 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>> index ecbc768dfe2f..f0136bf36533 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>> @@ -956,7 +956,6 @@ static int smu_sw_init(void *handle)
->>>    	bitmap_zero(smu->smu_feature.allowed, SMU_FEATURE_MAX);
->>>
->>>    	mutex_init(&smu->sensor_lock);
->>> -	mutex_init(&smu->metrics_lock);
->>>    	mutex_init(&smu->message_lock);
->>>
->>>    	INIT_WORK(&smu->throttling_logging_work,
->>> smu_throttling_logging_work_fn); diff --git
->>> a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->>> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->>> index c3efe4fea5e0..63ed807c96f5 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
->>> @@ -487,7 +487,6 @@ struct smu_context
->>>    	const struct cmn2asic_mapping	*pwr_src_map;
->>>    	const struct cmn2asic_mapping	*workload_map;
->>>    	struct mutex			sensor_lock;
->>> -	struct mutex			metrics_lock;
->>>    	struct mutex			message_lock;
->>>    	uint64_t pool_size;
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
->>> index addb0472d040..3f7c1f23475b 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
->>> @@ -602,15 +602,11 @@ static int arcturus_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
->>> metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -693,8 +689,6 @@ static int arcturus_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
->>> index 2238ee19c222..7ae6b1bd648a 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
->>> @@ -150,13 +150,9 @@ cyan_skillfish_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
->>> metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu, NULL, false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -200,8 +196,6 @@ cyan_skillfish_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
->>> index fe17b3c1ece7..fdb059e7c6ba 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
->>> @@ -546,15 +546,11 @@ static int
->> navi10_get_legacy_smu_metrics_data(struct smu_context *smu,
->>>    		(SmuMetrics_legacy_t *)smu_table->metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -624,8 +620,6 @@ static int
->> navi10_get_legacy_smu_metrics_data(struct smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> @@ -638,15 +632,11 @@ static int navi10_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		(SmuMetrics_t *)smu_table->metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -719,8 +709,6 @@ static int navi10_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> @@ -733,15 +721,11 @@ static int
->> navi12_get_legacy_smu_metrics_data(struct smu_context *smu,
->>>    		(SmuMetrics_NV12_legacy_t *)smu_table->metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -811,8 +795,6 @@ static int
->> navi12_get_legacy_smu_metrics_data(struct smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> @@ -825,15 +807,11 @@ static int navi12_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		(SmuMetrics_NV12_t *)smu_table->metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -906,8 +884,6 @@ static int navi12_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> @@ -2708,20 +2684,14 @@ static ssize_t
->> navi10_get_legacy_gpu_metrics(struct smu_context *smu,
->>>    	SmuMetrics_legacy_t metrics;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       true);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					true);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	memcpy(&metrics, smu_table->metrics_table,
->>> sizeof(SmuMetrics_legacy_t));
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
->>>
->>>    	gpu_metrics->temperature_edge = metrics.TemperatureEdge; @@
->>> -2899,20 +2869,14 @@ static ssize_t navi10_get_gpu_metrics(struct
->> smu_context *smu,
->>>    	SmuMetrics_t metrics;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       true);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					true);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	memcpy(&metrics, smu_table->metrics_table,
->> sizeof(SmuMetrics_t));
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
->>>
->>>    	gpu_metrics->temperature_edge = metrics.TemperatureEdge; @@
->>> -2977,20 +2941,14 @@ static ssize_t navi12_get_legacy_gpu_metrics(struct
->> smu_context *smu,
->>>    	SmuMetrics_NV12_legacy_t metrics;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       true);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					true);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	memcpy(&metrics, smu_table->metrics_table,
->>> sizeof(SmuMetrics_NV12_legacy_t));
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
->>>
->>>    	gpu_metrics->temperature_edge = metrics.TemperatureEdge; @@
->>> -3058,20 +3016,14 @@ static ssize_t navi12_get_gpu_metrics(struct
->> smu_context *smu,
->>>    	SmuMetrics_NV12_t metrics;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       true);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					true);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	memcpy(&metrics, smu_table->metrics_table,
->>> sizeof(SmuMetrics_NV12_t));
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
->>>
->>>    	gpu_metrics->temperature_edge = metrics.TemperatureEdge; diff --
->> git
->>> a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
->>> index 93caaf45a2db..2241250c2d2a 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
->>> @@ -525,15 +525,11 @@ static int
->> sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
->>>    	uint16_t average_gfx_activity;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -633,8 +629,6 @@ static int
->> sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>
->>>    }
->>> @@ -3564,14 +3558,11 @@ static ssize_t
->> sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
->>>    	uint16_t average_gfx_activity;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       &metrics_external,
->>> -					       true);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					&metrics_external,
->>> +					true);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
->>>
->>> @@ -3661,8 +3652,6 @@ static ssize_t
->> sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
->>>
->> 	smu_v11_0_get_current_pcie_link_speed(smu);
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
->>>
->>>    	*table = (void *)gpu_metrics;
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
->>> index 5cb07ed227fb..c736adca6fbb 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
->>> @@ -273,15 +273,11 @@ static int
->> vangogh_get_legacy_smu_metrics_data(struct smu_context *smu,
->>>    	SmuMetrics_legacy_t *metrics = (SmuMetrics_legacy_t
->> *)smu_table->metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -335,8 +331,6 @@ static int
->> vangogh_get_legacy_smu_metrics_data(struct smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> @@ -348,15 +342,11 @@ static int vangogh_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
->>> metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -410,8 +400,6 @@ static int vangogh_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
->>> index 25c4b135f830..d75508085578 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
->>> @@ -1128,15 +1128,11 @@ static int renoir_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
->>> metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_AVERAGE_GFXCLK:
->>> @@ -1201,8 +1197,6 @@ static int renoir_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> index f065d95b117a..014fb88daa04 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
->>> @@ -571,15 +571,11 @@ static int
->> aldebaran_get_smu_metrics_data(struct smu_context *smu,
->>>    	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
->>> metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       NULL,
->>> -					       false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu,
->>> +					NULL,
->>> +					false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_CURR_GFXCLK:
->>> @@ -653,8 +649,6 @@ static int aldebaran_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> @@ -1592,17 +1586,14 @@ static void aldebaran_get_unique_id(struct
->> smu_context *smu)
->>>    	uint32_t upper32 = 0, lower32 = 0;
->>>    	int ret;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
->>> +	ret = smu_cmn_get_metrics_table(smu, NULL, false);
->>>    	if (ret)
->>> -		goto out_unlock;
->>> +		goto out;
->>>
->>>    	upper32 = metrics->PublicSerialNumUpper32;
->>>    	lower32 = metrics->PublicSerialNumLower32;
->>>
->>> -out_unlock:
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>> +out:
->>>    	adev->unique_id = ((uint64_t)upper32 << 32) | lower32;
->>>    	if (adev->serial[0] == '\0')
->>>    		sprintf(adev->serial, "%016llx", adev->unique_id); diff --git
->>> a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
->>> index caf1775d48ef..451d30dcc639 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
->>> @@ -310,13 +310,9 @@ static int
->> yellow_carp_get_smu_metrics_data(struct smu_context *smu,
->>>    	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
->>> metrics_table;
->>>    	int ret = 0;
->>>
->>> -	mutex_lock(&smu->metrics_lock);
->>> -
->>> -	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
->>> -	if (ret) {
->>> -		mutex_unlock(&smu->metrics_lock);
->>> +	ret = smu_cmn_get_metrics_table(smu, NULL, false);
->>> +	if (ret)
->>>    		return ret;
->>> -	}
->>>
->>>    	switch (member) {
->>>    	case METRICS_AVERAGE_GFXCLK:
->>> @@ -387,8 +383,6 @@ static int yellow_carp_get_smu_metrics_data(struct
->> smu_context *smu,
->>>    		break;
->>>    	}
->>>
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>>    	return ret;
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> index 735e1a1e365d..d78e4f689a2a 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
->>> @@ -964,9 +964,9 @@ int smu_cmn_write_pptable(struct smu_context
->> *smu)
->>>    				    true);
->>>    }
->>>
->>> -int smu_cmn_get_metrics_table_locked(struct smu_context *smu,
->>> -				     void *metrics_table,
->>> -				     bool bypass_cache)
->>> +int smu_cmn_get_metrics_table(struct smu_context *smu,
->>> +			      void *metrics_table,
->>> +			      bool bypass_cache)
->>>    {
->>>    	struct smu_table_context *smu_table= &smu->smu_table;
->>>    	uint32_t table_size =
->>> @@ -994,21 +994,6 @@ int smu_cmn_get_metrics_table_locked(struct
->> smu_context *smu,
->>>    	return 0;
->>>    }
->>>
->>> -int smu_cmn_get_metrics_table(struct smu_context *smu,
->>> -			      void *metrics_table,
->>> -			      bool bypass_cache)
->>> -{
->>> -	int ret = 0;
->>> -
->>> -	mutex_lock(&smu->metrics_lock);
->>> -	ret = smu_cmn_get_metrics_table_locked(smu,
->>> -					       metrics_table,
->>> -					       bypass_cache);
->>> -	mutex_unlock(&smu->metrics_lock);
->>> -
->>> -	return ret;
->>> -}
->>> -
->>>    void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t
->> crev)
->>>    {
->>>    	struct metrics_table_header *header = (struct metrics_table_header
->>> *)table; diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
->>> index 67a25da79256..f0b4fb2a0960 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
->>> @@ -101,10 +101,6 @@ int smu_cmn_write_watermarks_table(struct
->>> smu_context *smu);
->>>
->>>    int smu_cmn_write_pptable(struct smu_context *smu);
->>>
->>> -int smu_cmn_get_metrics_table_locked(struct smu_context *smu,
->>> -				     void *metrics_table,
->>> -				     bool bypass_cache);
->>> -
->>>    int smu_cmn_get_metrics_table(struct smu_context *smu,
->>>    			      void *metrics_table,
->>>    			      bool bypass_cache);
->>>
+>
+> Regards,
+>    Felix
+>
+
