@@ -4,125 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF34EC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 15:30:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ABCFC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 15:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73ADA10FEA1;
-	Thu,  6 Jan 2022 15:30:46 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2075.outbound.protection.outlook.com [40.107.92.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3334810FEA1
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 15:30:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oAJ10yOE22QqkjPKF0uQlHDirKR8XabFbNPLTW6YztMKe8d58/SdzplNdH1YR7qWiZ0kxX1U2zZnzgTYYQGACXJh9fEYfKemLFj3jCmuvCMfapRK9WD/sc3lMPiPxE1aKl/HjvUKq3oWKK+MRoPlFfRieAqJyDuTKMcS+FfdOuS+1735lgNJSJlNFZM4NTM9pIF8NoZfjev08Q/+kTjqhIm82WuLEBTZvumnuZs4Z77eSmbm39XVHdKl8WvpugSx7bdzv2iHx4JudVW07uaiD2s9FGNJd9M0arA6diZPd6eg/Frhj35HQy+kMtO2Qs1zgp6WgQIirLBOkQ3fFhiS7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i+AxcQzlwosU+jjwasnnuMUwMcdE5R/JOPhQhe5SmZs=;
- b=RNqkeZTceLhWT3LSBBEYtqMxboJiRO7OtZUPNbaKP4uS1kS84mm1gjTZaczBvq6EYuI7o0ac1/eMkjUUm+7Qm+ReTsSTxYehbh9ZeJSYkmT1pu4tvjDGTpcE6se9qIJhqRDdho6kO3rgHdm1kegSiEp8oHcReeYJC1BDO5SDK+9EMzRPhBDqlw+btwOhFrBbDxpzfa+LZRHP4leg8mis2kKG3nwLaUdiz1VM8PaMmrD9OViuv9R0cPRsoMO4TmcCrPTktP4jbLZmQzapRE1rlXD4k6R6Jf5bQ7dxglIw8Td5CC7fEDF1Gqci/Ie2txMc9CoatXB3pQ5D7aHpYI0Mew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i+AxcQzlwosU+jjwasnnuMUwMcdE5R/JOPhQhe5SmZs=;
- b=hzdK8vUKAezvLhGCMRxXFaQnaxGjSOe5DlucUZVf+rdGuZqGD1nLi3ttWKDfDLFnjKNTTlmoQZL3MOHEkXztNBXkimrz5X9N2n+ZJCDP20TOyymMoPzsojbw+B9N4AqzQWM0kvrNM+4vojYbcVknZxFW5qIV/h2kl1FQb2ddHno=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9; Thu, 6 Jan
- 2022 15:30:43 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be%4]) with mapi id 15.20.4867.010; Thu, 6 Jan 2022
- 15:30:43 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Wentland, Harry" <Harry.Wentland@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Lee, Becle" <Becle.Lee@amd.com>,
- "Huang, Rex" <Rex.Huang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Use correct VIEWPORT_DIMENSION for DCN2
-Thread-Topic: [PATCH] drm/amdgpu: Use correct VIEWPORT_DIMENSION for DCN2
-Thread-Index: AQHYAnRMeshOYlewL06UbWiIMmg0R6xWH2Hg
-Date: Thu, 6 Jan 2022 15:30:43 +0000
-Message-ID: <BL1PR12MB51446FCF05C6914E1965D128F74C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220105203901.52175-1-harry.wentland@amd.com>
-In-Reply-To: <20220105203901.52175-1-harry.wentland@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-06T15:29:33Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7f75df74-5f90-4d09-a8c0-662df92d4aa8;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-06T15:30:39Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: c9dfbc46-46d8-41dc-addd-f7f89e6801df
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e0a6bef8-067b-4a03-7dc2-08d9d12980c8
-x-ms-traffictypediagnostic: BL1PR12MB5157:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB51572D12903862314F732B53F74C9@BL1PR12MB5157.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EwUvXr9TH4yo5P8pvLuHOytCY3z9Sb7RXO8O4Qh+IuM1bNa1IJJ6W/5VHfBOhZS0NUd1oETXP/ZCf+NADUGVHunoul9lhNiYaSS6rSxvA0223LeXGKoExJ6LZjV8eb9uMZG51uNxQSUyA5e+9VZOMAotpxwRJrDh/ndpczDzdkYWFS6Np0IKjkDO2sd1MaQJAraV+DA31Iv+0bFLEXB+GuypdDCHyBWvfjaj/dgm/M1xeHE/SY/CDf3MALCv7GsDquyEL+Yq1Q7RtDlIvbMNkMYrvst+2PEhrG2dw5AzqPxx5a5vbnZnTAN7YJ/G2ruMj8RTdFEZK3Kem/2tkS//PgxcaAWSNsVZZiS04p4qwTCSTuPp72a1zwX3ssImh2A2Ob74g76BiTTvCZFQDXlY0MjN1YFh9chucYHOyYTA18c1W+C06w7zAlAYLCzEpbo7Su6en4LM5ccyPYjClLqPukl0MeLj3AG6AX9SDMcb+QdO+2uGv4fMrzYuA1wAwIjPqR7eGY5DRtDz4zN66o7W/OjGvqMK9YljeKdkyxRPtwm/yzQtI3p8GOsaVW9BgyBqLNrrmqOJM+A45BYZAktCNF3g2EFSl8Ff72TMVqqryEh2jTutyPGh9H5qNLSiPe5swkgQQ9V3x4wq+cp4acjZRMNs9HxZlsfnvyfk7Bzw+DWIJI+mYauVQ58k2bxxhTU/n0X7QJEwvOSES9MYlEIa8/saycHooioLkiCwwoEZx9M=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(7696005)(76116006)(38100700002)(5660300002)(64756008)(66476007)(66946007)(66446008)(55016003)(122000001)(52536014)(186003)(38070700005)(66556008)(8936002)(2906002)(8676002)(4326008)(83380400001)(921005)(110136005)(6506007)(53546011)(33656002)(26005)(9686003)(71200400001)(6636002)(86362001)(316002)(508600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gYav0/El9PpQekv1sq/8n+DcQXNrjmQLBBnY8YNsRGoC7k6UZBAFIgF3EFEF?=
- =?us-ascii?Q?qu4CfQ9OJOAHsklFHSM4J0XHXGv1s1MfhqY8t0LeQxMIjpr2kD0x3nYJdl4z?=
- =?us-ascii?Q?e2luR0Az0iz3lJ+fIaiHAdeDD2aaTftsiCSFB6ccDH3IxpiSlEfH47/XYkmG?=
- =?us-ascii?Q?dtq0Vwm5hIV7oFcf85wVaEYvdihaVK11OMNwYYY3cR94H8TBmjFdPbYOYHMt?=
- =?us-ascii?Q?yFADP555D0E69O4zGGNR17KNda+VRxhTBkwuVEcYxzEbd0ET24I/Tcsbbh3M?=
- =?us-ascii?Q?eOcoqKJPkCuedT6YXazdf9QlF1eL+sGcmFUgzDbXYf7HGTReAoxin7H6fwTx?=
- =?us-ascii?Q?XqaUc9ks2+qOm5Y+UUiRGLqGxHcSJkAt5rpSYWelIpveOPAFcOIG+Q0JlqRZ?=
- =?us-ascii?Q?Hko5SXQET6Pvg5L/nyA0hwBVDp5YpPtXUYyw2NAaF8R7RRZx9nIxFVG9g9Zt?=
- =?us-ascii?Q?61fiV2Oub6QGT0UIZDbwA/3PgXzipDMz+Mr/C/28nx5rh3Lbr2Tu/Yl5+qTX?=
- =?us-ascii?Q?hs09DHQNqcM/ykWxaPrKQrBpRz3zII8kQ8qy8GJiFMdlqXEtv17bRjLJQba8?=
- =?us-ascii?Q?Ev3QjE3zev9vq7mlP8c0rnUSoaDNxgcMuxzBaH7aMiYFzOrUYDKEPlPEmsbV?=
- =?us-ascii?Q?NBY3gVrAxCqTArTuWNXUNzB3RwbZewt7Cr1dfmPinBDvaXPBO0hkyJns7g80?=
- =?us-ascii?Q?ozu5qEpwJ/gmsEUG7InX+H71emd6EO4jBuMi9/bM5fYjLK6b5AHeAt5po71s?=
- =?us-ascii?Q?s1L4ILbcWsv/g8Fb+Z4mYVV19eg7arMgxEw1VpyMbYGqdaiIzX8gZW1V3osX?=
- =?us-ascii?Q?606zwCT1lAoHaE2Hg7XUu+0zI+PHJshE2e/3AxADqQWaAsgVhjNTOOlbLTzz?=
- =?us-ascii?Q?POwFRjSm8zwPpJWKeJrj2sxjLIi+t1bdJMTcNBWg2XBaARxKI6lxcV5ulbC+?=
- =?us-ascii?Q?XDMuM+kXT/gpkMUeOS8FWOa9tHh7DcBEyMWEfbde7m33i9d48v0V4FOdhzCu?=
- =?us-ascii?Q?73s99msQePFGJkS63JPc6C7J3L/hKra4FXxRzh+CmKOkhwt81eVFRiuXMrvl?=
- =?us-ascii?Q?FPTsyKoxjYuQ2uIdfI3G+4phNBQwCOgJkJTfn7crmzMvJeUAWxAnyli2+S4F?=
- =?us-ascii?Q?KGRajrigg0vRHnvGP404iULqFMFKcax7EknsOa6k8eR/MA4lTAFo4RuD4tj3?=
- =?us-ascii?Q?iSZsk7L5Wqhc8ReXBTgLWFO+b3zIda4gLo5V+StXT0UBSR6oyRl48bgLqAXT?=
- =?us-ascii?Q?2zVyuY3gmS091d9hNUXAjXRPQvFF+HL8lEMVvQUXRj1V75I1efF2JMdVt9Jq?=
- =?us-ascii?Q?dOylCg/xjE2OsCEh40yqjCPP3NtKegjQdD+0m0+7JqRhFxFlOC9YRvF1Zmaw?=
- =?us-ascii?Q?b1vdqXOJn9oIvuSWdk1He8kT/I2DAhjUoE+pk0bSGwgwvlaOHQGzurt9/jn8?=
- =?us-ascii?Q?QOQJtXG7s6wzqx1UxyNj+n02Qf/O86pZYgl4cD62IztcaX9o2cxWylBga3NM?=
- =?us-ascii?Q?Fjtz4maJtka4bn8+D9IfqOykErmKI/A60H0yVY+2VD7Hp+fQ8elE5Ge5Zwu1?=
- =?us-ascii?Q?FW+J6XxhdgFqJB6Q46Vc3hdUqnqSwQrps8gnzgutjaeZWWCiE+hauq1VYKz6?=
- =?us-ascii?Q?pQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1FB911252E;
+	Thu,  6 Jan 2022 15:38:06 +0000 (UTC)
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [IPv6:2a01:e0c:1:1599::13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC27611252E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 15:38:05 +0000 (UTC)
+Received: from zimbra39-e7.priv.proxad.net (unknown [172.20.243.189])
+ by smtp4-g21.free.fr (Postfix) with ESMTP id DE43F19F55C;
+ Thu,  6 Jan 2022 16:38:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+ s=smtp-20201208; t=1641483483;
+ bh=3Gm0CWdfecKZY2UhjVkNV75CgXIwYocFyBUDgajTjT4=;
+ h=Date:From:To:Cc:In-Reply-To:Subject:From;
+ b=Q8piktIpiedwEyPYdkOqUmQqkxhwasqaIocJIMkcoC2sAW6VJ8GsSSu710IaTH8OW
+ bY1ynB6+ULOPKHcri7qnDWZ15W4p3US17S3+CXgCiqOttdG6owVYlq5UdS1dbN5idz
+ n6Jpguy8Z8rNHxsgLMiiwKBFri8ODIPxjuHff5RQYlzB6ndhqRtJzryBxi1igIa8rz
+ QaDYXez1o7ryxVffSUQEC7nblSnAKCVjp4LG3IlCaIVibL1ZWGk2deKhP4BzYujbPL
+ wCjQkEXd5OzBT8Q7PYPim1IX1egFpRJZrJRichRk+yfxo9EV6IAaQPgbdyklsXDWnV
+ yiRodGiJxzUgw==
+Date: Thu, 6 Jan 2022 16:38:02 +0100 (CET)
+From: Yann Dirson <ydirson@free.fr>
+To: Alex Deucher <alexdeucher@gmail.com>
+Message-ID: <2102533868.175329251.1641483482834.JavaMail.root@zimbra39-e7>
+In-Reply-To: <CADnq5_O=DxnsZaCtFxoWX7jxO-nydyGyBaxWeDyeDLrODAGS9A@mail.gmail.com>
+Subject: Re: Various problems trying to vga-passthrough a Renoir iGPU to a
+ xen/qubes-os hvm
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0a6bef8-067b-4a03-7dc2-08d9d12980c8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jan 2022 15:30:43.3342 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xMv3+jjM9aZTC5hbEy3gw3nLL4M56Y/aoMj/lK3FD7pXLcXUbg80jsz1bkl29kT37HXiT5demBB3ZvkzDAYgwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5157
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [88.120.44.86]
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - FF3.0 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: ydirson@free.fr
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,101 +49,560 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wentland, Harry" <Harry.Wentland@amd.com>
+Cc: Christian =?utf-8?Q?K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+Alex wrote:
+> > How is the stolen memory communicated to the driver ?  That host
+> > physical
+> > memory probably has to be mapped at the same guest physical address
+> > for
+> > the magic to work, right ?
+> 
+> Correct.  The driver reads the physical location of that memory from
+> hardware registers.  Removing this chunk of code from gmc_v9_0.c will
+> force the driver to use the BAR,
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Harry Wentland
-> Sent: Wednesday, January 5, 2022 3:39 PM
-> To: amd-gfx@lists.freedesktop.org; Koenig, Christian
-> <Christian.Koenig@amd.com>; Lee, Becle <Becle.Lee@amd.com>; Huang,
-> Rex <Rex.Huang@amd.com>; Huang, Ray <Ray.Huang@amd.com>
-> Cc: Wentland, Harry <Harry.Wentland@amd.com>
-> Subject: [PATCH] drm/amdgpu: Use correct VIEWPORT_DIMENSION for
-> DCN2
->=20
-> For some reason this file isn't using the appropriate register headers fo=
-r DCN
-> headers, which means that on DCN2 we're getting the
-> VIEWPORT_DIMENSION offset wrong.
->=20
-> This means that we're not correctly carving out the framebuffer memory
-> correctly for a framebuffer allocated by EFI and therefore see corruption
-> when loading amdgpu before the display driver takes over control of the
-> framebuffer scanout.
->=20
-> Fix this by checking the DCE_HWIP and picking the correct offset accordin=
-gly.
->=20
-> Long-term we should expose this info from DC as GMC shouldn't need to
-> know about DCN registers.
->=20
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 57f2729a7bd0..8367ecf61af1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -72,6 +72,9 @@
->  #define mmDCHUBBUB_SDPIF_MMIO_CNTRL_0
-> 0x049d
->  #define mmDCHUBBUB_SDPIF_MMIO_CNTRL_0_BASE_IDX
-> 2
->=20
-> +#define DCN2_mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION
-> 0x05ea
-> +#define
-> DCN2_mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION_BASE_IDX
-> 2
-> +
+That would only be a workaround for a missing mapping of stolen
+memory to the guest, right ?
 
-We normally append the _DCN2 to the end in these cases of the macro.  With =
-that fixed,
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
->=20
->  static const char *gfxhub_client_ids[] =3D {
->  	"CB",
-> @@ -1142,7 +1145,6 @@ static unsigned
-> gmc_v9_0_get_vbios_fb_size(struct amdgpu_device *adev)
->  		switch (adev->ip_versions[DCE_HWIP][0]) {
->  		case IP_VERSION(1, 0, 0):
->  		case IP_VERSION(1, 0, 1):
-> -		case IP_VERSION(2, 1, 0):
->  			viewport =3D RREG32_SOC15(DCE, 0,
-> mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION);
->  			size =3D (REG_GET_FIELD(viewport,
->=20
-> HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT) *
-> @@ -1150,6 +1152,14 @@ static unsigned
-> gmc_v9_0_get_vbios_fb_size(struct amdgpu_device *adev)
->=20
-> HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_WIDTH) *
->  				4);
->  			break;
-> +		case IP_VERSION(2, 1, 0):
-> +			viewport =3D RREG32_SOC15(DCE, 0,
-> DCN2_mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION);
-> +			size =3D (REG_GET_FIELD(viewport,
-> +
-> HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT) *
-> +				REG_GET_FIELD(viewport,
-> +
-> HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_WIDTH) *
-> +				4);
-> +			break;
->  		default:
->  			viewport =3D RREG32_SOC15(DCE, 0,
-> mmSCL0_VIEWPORT_SIZE);
->  			size =3D (REG_GET_FIELD(viewport,
-> SCL0_VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
-> --
-> 2.34.1
+> but I'm not sure if there are any
+> other places in the driver that make assumptions about using the
+> physical host address or not on APUs off hand.
+
+gmc_v9_0_vram_gtt_location() updates vm_manager.vram_base_offset from
+the same value.  I'm not sure I understand why in this case there is
+no reason to use the BAR while there are some in gmc_v9_0_mc_init().
+
+vram_base_offset then gets used in several places:
+
+* amdgpu_gmc_init_pdb0, that seems likely enough to be problematic,
+  right ?  
+  As a sidenote the XGMI offset added earlier gets substracted
+  here to deduce vram base addr
+  (a couple of new acronyms there: PDB, PDE -- page directory base/entry?)
+
+* amdgpu_ttm_map_buffer, amdgpu_vm_bo_update_mapping: those seem to be
+  as problematic
+
+* amdgpu_gmc_vram_mc2pa: until I got there I had assumed MC could stand for 
+  "memory controller", but then "MC address of buffer" makes me doubt
+
+
+> 
+>         if ((adev->flags & AMD_IS_APU) ||
+>             (adev->gmc.xgmi.supported &&
+>              adev->gmc.xgmi.connected_to_cpu)) {
+>                 adev->gmc.aper_base =
+>                         adev->gfxhub.funcs->get_mc_fb_offset(adev) +
+>                         adev->gmc.xgmi.physical_node_id *
+>                         adev->gmc.xgmi.node_segment_size;
+>                 adev->gmc.aper_size = adev->gmc.real_vram_size;
+>         }
+
+
+Now for the test... it does indeed seem to go much further, I even
+loose the dom0's efifb to that black screen hopefully showing the
+driver started to setup the hardware.  Will probably still have to
+hunt down whether it still tries to use efifb afterwards (can't see
+why it would not, TBH, given the previous behaviour where it kept
+using it after the guest failed to start).
+
+The log shows many details about TMR loading
+
+Then as expected:
+
+[2022-01-06 15:16:09] <6>[    5.844589] amdgpu 0000:00:05.0: amdgpu: RAP: optional rap ta ucode is not available
+[2022-01-06 15:16:09] <6>[    5.844619] amdgpu 0000:00:05.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
+[2022-01-06 15:16:09] <7>[    5.844639] [drm:amdgpu_device_init.cold [amdgpu]] hw_init (phase2) of IP block <smu>...
+[2022-01-06 15:16:09] <6>[    5.845515] amdgpu 0000:00:05.0: amdgpu: SMU is initialized successfully!
+
+
+not sure about that unhandled interrupt (and a bit worried about messed-up logs):
+
+[2022-01-06 15:16:09] <7>[    6.010681] amdgpu 0000:00:05.0: [drm:amdgpu_ring_test_hel[2022-01-06 15:16:10] per [amdgpu]] ring test on sdma0 succeeded
+[2022-01-06 15:16:10] <7>[    6.010831] [drm:amdgpu_ih_process [amdgpu]] amdgpu_ih_process: rptr 0, wptr 32
+[2022-01-06 15:16:10] <7>[    6.011002] [drm:amdgpu_irq_dispatch [amdgpu]] Unhandled interrupt src_id: 243
+
+
+then comes a first error:
+
+[2022-01-06 15:16:10] <6>[    6.011785] [drm] Display Core initialized with v3.2.149!
+[2022-01-06 15:16:10] <6>[    6.012714] [drm] DMUB hardware initialized: version=0x0101001C
+[2022-01-06 15:16:10] <3>[    6.228263] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting for DMUB idle: status=3
+[2022-01-06 15:16:10] <7>[    6.229125] [drm:amdgpu_dm_init.isra.0.cold [amdgpu]] amdgpu: freesync_module init done 0000000076c7b459.
+[2022-01-06 15:16:10] <7>[    6.229677] [drm:amdgpu_dm_init.isra.0.cold [amdgpu]] amdgpu: hdcp_workqueue init done 0000000087e28b47.
+[2022-01-06 15:16:10] <7>[    6.229979] [drm:amdgpu_dm_init.isra.0.cold [amdgpu]] amdgpu_dm_connector_init()
+
+... which we can see again several times later though the driver seems sufficient to finish init:
+
+[2022-01-06 15:16:10] <6>[    6.615615] [drm] late_init of IP block <smu>...
+[2022-01-06 15:16:10] <6>[    6.615772] [drm] late_init of IP block <gfx_v9_0>...
+[2022-01-06 15:16:10] <6>[    6.615801] [drm] late_init of IP block <sdma_v4_0>...
+[2022-01-06 15:16:10] <6>[    6.615827] [drm] late_init of IP block <dm>...
+[2022-01-06 15:16:10] <3>[    6.801790] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting for DMUB idle: status=3
+[2022-01-06 15:16:10] <7>[    6.806079] [drm:drm_minor_register [drm]] 
+[2022-01-06 15:16:10] <7>[    6.806195] [drm:drm_minor_register [drm]] new minor registered 128
+[2022-01-06 15:16:10] <7>[    6.806223] [drm:drm_minor_register [drm]] 
+[2022-01-06 15:16:10] <7>[    6.806289] [drm:drm_minor_register [drm]] new minor registered 0
+[2022-01-06 15:16:10] <7>[    6.806355] [drm:drm_sysfs_connector_add [drm]] adding "eDP-1" to sysfs
+[2022-01-06 15:16:10] <7>[    6.806424] [drm:drm_dp_aux_register_devnode [drm_kms_helper]] drm_dp_aux_dev: aux [AMDGPU DM aux hw bus 0] registered as minor 0
+[2022-01-06 15:16:10] <7>[    6.806498] [drm:drm_sysfs_hotplug_event [drm]] generating hotplug event
+[2022-01-06 15:16:10] <6>[    6.806533] [drm] Initialized amdgpu 3.42.0 20150101 for 0000:00:05.0 on minor 0
+
+
+At one point though a new problem shows: it seem to have issues driving the CRTC in the end:
+
+[2022-01-06 15:16:25] <7>[   11.140807] amdgpu 0000:00:05.0: [drm:drm_vblank_enable [drm]] enabling vblank on crtc 0, ret: 0
+[2022-01-06 15:16:25] <3>[   11.329306] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting for DMUB idle: status=3
+[2022-01-06 15:16:25] <3>[   11.524327] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting for DMUB idle: status=3
+[2022-01-06 15:16:25] <4>[   11.641814] [drm] Fence fallback timer expired on ring comp_1.3.0
+[2022-01-06 15:16:25] <7>[   11.641877] amdgpu 0000:00:05.0: [drm:amdgpu_ib_ring_tests [amdgpu]] ib test on comp_1.3.0 succeeded
+[2022-01-06 15:16:25] <4>[   12.145804] [drm] Fence fallback timer expired on ring comp_1.0.1
+[2022-01-06 15:16:25] <7>[   12.145862] amdgpu 0000:00:05.0: [drm:amdgpu_ib_ring_tests [amdgpu]] ib test on comp_1.0.1 succeeded
+[2022-01-06 15:16:25] <4>[   12.649771] [drm] Fence fallback timer expired on ring comp_1.1.1
+[2022-01-06 15:16:25] <7>[   12.649789] amdgpu 0000:00:05.0: [drm:amdgpu_ib_ring_tests [amdgpu]] ib test on comp_1.1.1 succeeded
+[2022-01-06 15:16:25] <4>[   13.153815] [drm] Fence fallback timer expired on ring comp_1.2.1
+[2022-01-06 15:16:25] <7>[   13.153836] amdgpu 0000:00:05.0: [drm:amdgpu_ib_ring_tests [amdgpu]] ib test on comp_1.2.1 succeeded
+[2022-01-06 15:16:25] <4>[   13.657756] [drm] Fence fallback timer expired on ring comp_1.3.1
+[2022-01-06 15:16:25] <7>[   13.657767] amdgpu 0000:00:05.0: [drm:amdgpu_ib_ring_tests [amdgpu]] ib test on comp_1.3.1 succeeded
+[2022-01-06 15:16:25] <7>[   13.657899] [drm:sdma_v4_0_ring_set_wptr [amdgpu]] Setting write pointer
+[2022-01-06 15:16:25] <7>[   13.658008] [drm:sdma_v4_0_ring_set_wptr [amdgpu]] Using doorbell -- wptr_offs == 0x00000198 lower_32_bits(ring->wptr) << 2 == 0x00000100 upper_32_bits(ring->wptr) << 2 == 0x00000000
+[2022-01-06 15:16:25] <7>[   13.658114] [drm:sdma_v4_0_ring_set_wptr [amdgpu]] calling WDOORBELL64(0x000001e0, 0x0000000000000100)
+[2022-01-06 15:16:25] <4>[   14.161792] [drm] Fence fallback timer expired on ring sdma0
+[2022-01-06 15:16:25] <7>[   14.161811] amdgpu 0000:00:05.0: [drm:amdgpu_ib_ring_tests [amdgpu]] ib test on sdma0 succeeded
+[2022-01-06 15:16:25] <3>[   21.609821] [drm:drm_atomic_helper_wait_for_flip_done [drm_kms_helper]] *ERROR* [CRTC:67:crtc-0] flip_done timed out
+
+
+No visible change if I boot with efifb:off (aside from entering LUKS
+passphrase in the dark, that is).
+
+
+Tried patching gmc_v9_0_vram_gtt_location() to use the BAR too [2], but
+that turns out to work even less:
+
+[2022-01-06 16:27:48] <6>[    6.230166] amdgpu 0000:00:05.0: amdgpu: SMU is initialized successfully!
+[2022-01-06 16:27:48] <7>[    6.230168] [drm:amdgpu_device_init.cold [amdgpu]] hw_init (phase2) of IP block <gfx_v9_0>...
+[2022-01-06 16:27:48] <6>[    6.231948] [drm] kiq ring mec 2 pipe 1 q 0
+[2022-01-06 16:27:48] <7>[    6.231861] [drm:amdgpu_ih_process [amdgpu]] amdgpu_ih_process: rptr 448, wptr 512
+[2022-01-06 16:27:48] <7>[    6.231962] [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] kiq alloc'd 64
+[2022-01-06 16:27:48] <7>[    6.232172] [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] kiq size init: 256
+[2022-01-06 16:27:48] <7>[    6.232344] [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] kiq size after set_res: 248
+[2022-01-06 16:27:48] <7>[    6.232530] [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] kiq size after map_q: 192
+[2022-01-06 16:27:48] <7>[    6.232725] [drm:amdgpu_ih_process [amdgpu]] amdgpu_ih_process: rptr 512, wptr 544
+[2022-01-06 16:27:48] <3>[    6.429974] amdgpu 0000:00:05.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_2.1.0 test failed (-110)
+[2022-01-06 16:27:48] <7>[    6.430167] [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] kiq size after test: 0
+[2022-01-06 16:27:48] <3>[    6.430353] [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] *ERROR* KCQ enable failed
+[2022-01-06 16:27:48] <3>[    6.430532] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block <gfx_v9_0> failed -110
+[2022-01-06 16:27:48] <3>[    6.430720] amdgpu 0000:00:05.0: amdgpu: amdgpu_device_ip_init failed
+
+
+
+
+As a sidenote, my warning on ring_alloc() being called twice without
+commiting or undoing [1] gets triggered.  Given the call chain it looks
+like this would happen in the previous usage of that ring, would have to
+dig deeper to understand that.  Unless I'm missing something and this would
+be legal ?
+
+[2022-01-06 15:52:17] <4>[    5.929158] ------------[ cut here ]------------
+[2022-01-06 15:52:17] <4>[    5.929170] WARNING: CPU: 1 PID: 458 at drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:74 amdgpu_ring_alloc+0x62/0x70 [amdgpu]
+[2022-01-06 15:52:17] <4>[    5.929323] Modules linked in: ip6table_filter ip6table_mangle joydev ip6table_raw ip6_tables ipt_REJECT nf_reject_ipv4 xt_state xt_conntrack iptable_filter iptable_mangle iptable_raw xt_MASQUERADE iptable_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 intel_rapl_msr intel_rapl_common crct10dif_pclmul crc32_pclmul crc32c_intel ghash_clmulni_intel amdgpu(+) iommu_v2 gpu_sched i2c_algo_bit drm_ttm_helper ttm drm_kms_helper ehci_pci cec pcspkr ehci_hcd i2c_piix4 serio_raw ata_generic pata_acpi xen_scsiback target_core_mod xen_netback xen_privcmd xen_gntdev xen_gntalloc xen_blkback fuse drm xen_evtchn bpf_preload ip_tables overlay xen_blkfront
+[2022-01-06 15:52:17] <4>[    5.929458] CPU: 1 PID: 458 Comm: sdma0 Not tainted 5.15.4-1.fc32.qubes.x86_64+ #8
+[2022-01-06 15:52:17] <4>[    5.929474] Hardware name: Xen HVM domU, BIOS 4.14.3 01/03/2022
+[2022-01-06 15:52:17] <4>[    5.929487] RIP: 0010:amdgpu_ring_alloc+0x62/0x70 [amdgpu]
+[2022-01-06 15:52:17] <4>[    5.929628] Code: 87 28 02 00 00 48 8b 82 b8 00 00 00 48 85 c0 74 05 e8 b2 ae 90 ee 44 89 e0 41 5c c3 0f 0b 41 bc f4 ff ff ff 44 89 e0 41 5c c3 <0f> 0b 48 8b 57 08 eb bc 66 0f 1f 44 00 00 0f 1f 44 00 00 85 f6 0f
+[2022-01-06 15:52:17] <4>[    5.929667] RSP: 0018:ffffb129005f3dd8 EFLAGS: 00010206
+[2022-01-06 15:52:17] <4>[    5.929678] RAX: 0000000000000060 RBX: ffff96209112d230 RCX: 0000000000000050
+[2022-01-06 15:52:17] <4>[    5.929693] RDX: ffffffffc0ac6c60 RSI: 000000000000006d RDI: ffff96208c5eb8f8
+[2022-01-06 15:52:17] <4>[    5.929707] RBP: ffff96209112d000 R08: ffffb129005f3e50 R09: ffff96208c5eba98
+[2022-01-06 15:52:17] <4>[    5.929722] R10: 0000000000000000 R11: 0000000000000001 R12: ffff962090a0c780
+[2022-01-06 15:52:17] <4>[    5.929736] R13: 0000000000000001 R14: ffff96208c5eb8f8 R15: ffff96208c5eb970
+[2022-01-06 15:52:17] <4>[    5.929752] FS:  0000000000000000(0000) GS:ffff9620bcd00000(0000) knlGS:0000000000000000
+[2022-01-06 15:52:17] <4>[    5.929768] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[2022-01-06 15:52:17] <4>[    5.929781] CR2: 00007c1130d0f860 CR3: 00000000040c4000 CR4: 0000000000350ee0
+[2022-01-06 15:52:17] <4>[    5.929797] Call Trace:
+[2022-01-06 15:52:17] <4>[    5.929805]  <TASK>
+[2022-01-06 15:52:17] <4>[    5.929812]  amdgpu_ib_schedule+0xa9/0x540 [amdgpu]
+[2022-01-06 15:52:17] <4>[    5.929956]  ? _raw_spin_unlock_irqrestore+0xa/0x20
+[2022-01-06 15:52:17] <4>[    5.929969]  amdgpu_job_run+0xce/0x1f0 [amdgpu]
+[2022-01-06 15:52:17] <4>[    5.930131]  drm_sched_main+0x300/0x500 [gpu_sched]
+[2022-01-06 15:52:17] <4>[    5.930146]  ? finish_wait+0x80/0x80
+[2022-01-06 15:52:17] <4>[    5.930156]  ? drm_sched_rq_select_entity+0xa0/0xa0 [gpu_sched]
+[2022-01-06 15:52:17] <4>[    5.930171]  kthread+0x127/0x150
+[2022-01-06 15:52:17] <4>[    5.930181]  ? set_kthread_struct+0x40/0x40
+[2022-01-06 15:52:17] <4>[    5.930192]  ret_from_fork+0x22/0x30
+[2022-01-06 15:52:17] <4>[    5.930203]  </TASK>
+[2022-01-06 15:52:17] <4>[    5.930208] ---[ end trace cf0edb400b0116c7 ]---
+
+
+[1] https://github.com/ydirson/linux/commit/4a010943e74d6bf621bd9e72a7620a65af23ecc9
+[2] https://github.com/ydirson/linux/commit/e90230e008ce204d822f07e36b3c3e196d561c28
+
+> 
+> 
+> 
+> >
+> > > > >
+> > > > > > ... which brings me to a point that's been puzzling me for
+> > > > > > some
+> > > > > > time, which is
+> > > > > > that as the hw init fails, the efifb driver is still using
+> > > > > > the
+> > > > > > framebuffer.
+> > > > >
+> > > > > No, it isn't. You are probably just still seeing the same
+> > > > > screen.
+> > > > >
+> > > > > The issue is most likely that while efi was kicked out nobody
+> > > > > re-programmed the display hardware to show something
+> > > > > different.
+> > > > >
+> > > > > > Am I right in suspecting that efifb should get stripped of
+> > > > > > its
+> > > > > > ownership of the
+> > > > > > fb aperture first, and that if I don't get a black screen
+> > > > > > on
+> > > > > > hw_init failure
+> > > > > > that issue should be the first focus point ?
+> > > > >
+> > > > > You assumption with the black screen is incorrect. Since the
+> > > > > hardware
+> > > > > works independent even if you kick out efi you still have the
+> > > > > same
+> > > > > screen content, you just can't update it anymore.
+> > > >
+> > > > It's not only that the screen keeps its contents, it's that the
+> > > > dom0
+> > > > happily continues updating it.
+> > >
+> > > If the hypevisor is using efifb, then yes that could be a problem
+> > > as
+> > > the hypervisor could be writing to the efifb resources which ends
+> > > up
+> > > writing to the same physical memory.  That applies to any GPU on
+> > > a
+> > > UEFI system.  You'll need to make sure efifb is not in use in the
+> > > hypervisor.
+
+> >
+> > That remark evokes several things to me.  First one is that every
+> > time
+> > I've tried booting with efifb disabled in dom0, there was no
+> > visible
+> > improvements in the guest driver - i.i. I really have to dig how
+> > vram mapping
+> > is performed and check things are as expected anyway.
+> 
+> Ultimately you end up at the same physical memory.  efifb uses the
+> PCI
+> BAR which points to the same physical memory that the driver directly
+> maps.
+> 
+> >
+> > The other is that, when dom0 cannot use efifb, entering a luks key
+> > is
+> > suddenly less user-friendly.  But in theory I'd think we could
+> > overcome
+> > this by letting dom0 use efifb until ready to start the guest, a
+> > simple
+> > driver unbind at the right moment should be expected to work, right
+> > ?
+> > Going further and allowing the guest to use efifb on its own could
+> > possibly be more tricky (starting with a different state?) but does
+> > not seem to sound completely outlandish either - or does it ?
+> >
+> 
+> efifb just takes whatever hardware state the GOP driver in the pre-OS
+> environment left the GPU in.  Once you have a driver loaded in the
+> OS,
+> that state is gone so I I don't see much value in using efifb once
+> you
+> have a real driver in the mix.  If you want a console on the host,
+> it's probably better to use 2 GPU or just load the real driver as
+> needed in both the host and guest.
+> 
+> > >
+> > > Alex
+> > >
+> > >
+> > > >
+> > > > > But putting efi asside what Alex pointed out pretty much
+> > > > > breaks
+> > > > > your
+> > > > > neck trying to forward the device. You maybe could try to
+> > > > > hack
+> > > > > the
+> > > > > driver to use the PCIe BAR for framebuffer access, but that
+> > > > > might
+> > > > > be
+> > > > > quite a bit slower.
+> > > > >
+> > > > > Regards,
+> > > > > Christian.
+> > > > >
+> > > > > >
+> > > > > >> Alex
+> > > > > >>
+> > > > > >> On Mon, Dec 13, 2021 at 3:29 PM Alex Deucher
+> > > > > >> <alexdeucher@gmail.com>
+> > > > > >> wrote:
+> > > > > >>> On Sun, Dec 12, 2021 at 5:19 PM Yann Dirson
+> > > > > >>> <ydirson@free.fr>
+> > > > > >>> wrote:
+> > > > > >>>> Alex wrote:
+> > > > > >>>>> On Mon, Dec 6, 2021 at 4:36 PM Yann Dirson
+> > > > > >>>>> <ydirson@free.fr>
+> > > > > >>>>> wrote:
+> > > > > >>>>>> Hi Alex,
+> > > > > >>>>>>
+> > > > > >>>>>>> We have not validated virtualization of our
+> > > > > >>>>>>> integrated
+> > > > > >>>>>>> GPUs.  I
+> > > > > >>>>>>> don't
+> > > > > >>>>>>> know that it will work at all.  We had done a bit of
+> > > > > >>>>>>> testing but
+> > > > > >>>>>>> ran
+> > > > > >>>>>>> into the same issues with the PSP, but never had a
+> > > > > >>>>>>> chance
+> > > > > >>>>>>> to
+> > > > > >>>>>>> debug
+> > > > > >>>>>>> further because this feature is not productized.
+> > > > > >>>>>> ...
+> > > > > >>>>>>> You need a functional PSP to get the GPU driver up
+> > > > > >>>>>>> and
+> > > > > >>>>>>> running.
+> > > > > >>>>>> Ah, thanks for the hint :)
+> > > > > >>>>>>
+> > > > > >>>>>> I guess that if I want to have any chance to get the
+> > > > > >>>>>> PSP
+> > > > > >>>>>> working
+> > > > > >>>>>> I'm
+> > > > > >>>>>> going to need more details on it.  A quick search some
+> > > > > >>>>>> time
+> > > > > >>>>>> ago
+> > > > > >>>>>> mostly
+> > > > > >>>>>> brought reverse-engineering work, rather than official
+> > > > > >>>>>> AMD
+> > > > > >>>>>> doc.
+> > > > > >>>>>>   Are
+> > > > > >>>>>> there some AMD resources I missed ?
+> > > > > >>>>> The driver code is pretty much it.
+> > > > > >>>> Let's try to shed some more light on how things work,
+> > > > > >>>> taking
+> > > > > >>>> as
+> > > > > >>>> excuse
+> > > > > >>>> psp_v12_0_ring_create().
+> > > > > >>>>
+> > > > > >>>> First, register access through [RW]REG32_SOC15() is
+> > > > > >>>> implemented
+> > > > > >>>> in
+> > > > > >>>> terms of __[RW]REG32_SOC15_RLC__(), which is basically a
+> > > > > >>>> [RW]REG32(),
+> > > > > >>>> except it has to be more complex in the SR-IOV case.
+> > > > > >>>> Has the RLC anything to do with SR-IOV ?
+> > > > > >>> When running the driver on a SR-IOV virtual function
+> > > > > >>> (VF),
+> > > > > >>> some
+> > > > > >>> registers are not available directly via the VF's MMIO
+> > > > > >>> aperture
+> > > > > >>> so
+> > > > > >>> they need to go through the RLC.  For bare metal or
+> > > > > >>> passthrough
+> > > > > >>> this
+> > > > > >>> is not relevant.
+> > > > > >>>
+> > > > > >>>> It accesses registers in the MMIO range of the MP0 IP,
+> > > > > >>>> and
+> > > > > >>>> the
+> > > > > >>>> "MP0"
+> > > > > >>>> name correlates highly with MMIO accesses in
+> > > > > >>>> PSP-handling
+> > > > > >>>> code.
+> > > > > >>>> Is "MP0" another name for PSP (and "MP1" for SMU) ?  The
+> > > > > >>>> MP0
+> > > > > >>>> version
+> > > > > >>> Yes.
+> > > > > >>>
+> > > > > >>>> reported at v11.0.3 by discovery seems to contradict the
+> > > > > >>>> use
+> > > > > >>>> of
+> > > > > >>>> v12.0
+> > > > > >>>> for RENOIR as set by soc15_set_ip_blocks(), or do I miss
+> > > > > >>>> something ?
+> > > > > >>> Typo in the ip discovery table on renoir.
+> > > > > >>>
+> > > > > >>>> More generally (and mostly out of curiosity while we're
+> > > > > >>>> at
+> > > > > >>>> it),
+> > > > > >>>> do we
+> > > > > >>>> have a way to match IPs listed at discovery time with
+> > > > > >>>> the
+> > > > > >>>> ones
+> > > > > >>>> used
+> > > > > >>>> in the driver ?
+> > > > > >>> In general, barring typos, the code is shared at the
+> > > > > >>> major
+> > > > > >>> version
+> > > > > >>> level.  The actual code may or may not need changes to
+> > > > > >>> handle
+> > > > > >>> minor
+> > > > > >>> revision changes in an IP.  The driver maps the IP
+> > > > > >>> versions
+> > > > > >>> from
+> > > > > >>> the
+> > > > > >>> ip discovery table to the code contained in the driver.
+> > > > > >>>
+> > > > > >>>> ---
+> > > > > >>>>
+> > > > > >>>> As for the register names, maybe we could have a short
+> > > > > >>>> explanation of
+> > > > > >>>> how they are structured ?  Eg. mmMP0_SMN_C2PMSG_69: that
+> > > > > >>>> seems
+> > > > > >>>> to
+> > > > > >>>> be
+> > > > > >>>> a MMIO register named "C2PMSG_69" in the "MP0" IP, but
+> > > > > >>>> I'm
+> > > > > >>>> not
+> > > > > >>>> sure
+> > > > > >>>> of the "SMN" part -- that could refer to the "System
+> > > > > >>>> Management
+> > > > > >>>> Network",
+> > > > > >>>> described in [0] as an internal bus.  Are we accessing
+> > > > > >>>> this
+> > > > > >>>> register
+> > > > > >>>> through this SMN ?
+> > > > > >>> These registers are just mailboxes for the PSP firmware.
+> > > > > >>>  All
+> > > > > >>> of
+> > > > > >>> the
+> > > > > >>> C2PMSG registers functionality is defined by the PSP
+> > > > > >>> firmware.
+> > > > > >>>   They
+> > > > > >>> are basically scratch registers used to communicate
+> > > > > >>> between
+> > > > > >>> the
+> > > > > >>> driver
+> > > > > >>> and the PSP firmware.
+> > > > > >>>
+> > > > > >>>>
+> > > > > >>>>>   On APUs, the PSP is shared with
+> > > > > >>>>> the CPU and the rest of the platform.  The GPU driver
+> > > > > >>>>> just
+> > > > > >>>>> interacts
+> > > > > >>>>> with it for a few specific tasks:
+> > > > > >>>>> 1. Loading Trusted Applications (e.g., trusted firmware
+> > > > > >>>>> applications
+> > > > > >>>>> that run on the PSP for specific functionality, e.g.,
+> > > > > >>>>> HDCP
+> > > > > >>>>> and
+> > > > > >>>>> content
+> > > > > >>>>> protection, etc.)
+> > > > > >>>>> 2. Validating and loading firmware for other engines on
+> > > > > >>>>> the
+> > > > > >>>>> SoC.
+> > > > > >>>>>   This
+> > > > > >>>>> is required to use those engines.
+> > > > > >>>> Trying to understand in more details how we start the
+> > > > > >>>> PSP
+> > > > > >>>> up, I
+> > > > > >>>> noticed
+> > > > > >>>> that psp_v12_0 has support for loading a sOS firmware,
+> > > > > >>>> but
+> > > > > >>>> never
+> > > > > >>>> calls
+> > > > > >>>> init_sos_microcode() - and anyway there is no sos
+> > > > > >>>> firmware
+> > > > > >>>> for
+> > > > > >>>> renoir
+> > > > > >>>> and green_sardine, which seem to be the only ASICs with
+> > > > > >>>> this
+> > > > > >>>> PSP
+> > > > > >>>> version.
+> > > > > >>>> Is it something that's just not been completely wired up
+> > > > > >>>> yet
+> > > > > >>>> ?
+> > > > > >>> On APUs, the PSP is shared with the CPU so the PSP
+> > > > > >>> firmware
+> > > > > >>> is
+> > > > > >>> part
+> > > > > >>> of
+> > > > > >>> the sbios image.  The driver doesn't load it.  We only
+> > > > > >>> load
+> > > > > >>> it on
+> > > > > >>> dGPUs where the driver is responsible for the chip
+> > > > > >>> initialization.
+> > > > > >>>
+> > > > > >>>> That also rings a bell, that we have nothing about
+> > > > > >>>> Secure OS
+> > > > > >>>> in
+> > > > > >>>> the doc
+> > > > > >>>> yet (not even the acronym in the glossary).
+> > > > > >>>>
+> > > > > >>>>
+> > > > > >>>>> I'm not too familiar with the PSP's path to memory from
+> > > > > >>>>> the
+> > > > > >>>>> GPU
+> > > > > >>>>> perspective.  IIRC, most memory used by the PSP goes
+> > > > > >>>>> through
+> > > > > >>>>> carve
+> > > > > >>>>> out
+> > > > > >>>>> "vram" on APUs so it should work, but I would double
+> > > > > >>>>> check
+> > > > > >>>>> if
+> > > > > >>>>> there
+> > > > > >>>>> are any system memory allocations that used to interact
+> > > > > >>>>> with
+> > > > > >>>>> the PSP
+> > > > > >>>>> and see if changing them to vram helps.  It does work
+> > > > > >>>>> with
+> > > > > >>>>> the
+> > > > > >>>>> IOMMU
+> > > > > >>>>> enabled on bare metal, so it should work in passthrough
+> > > > > >>>>> as
+> > > > > >>>>> well
+> > > > > >>>>> in
+> > > > > >>>>> theory.
+> > > > > >>>> I can see a single case in the PSP code where GTT is
+> > > > > >>>> used
+> > > > > >>>> instead
+> > > > > >>>> of
+> > > > > >>>> vram: to create fw_pri_bo when SR-IOV is not used (and
+> > > > > >>>> there
+> > > > > >>>> has
+> > > > > >>>> to be a reason, since the SR-IOV code path does use
+> > > > > >>>> vram).
+> > > > > >>>> Changing it to vram does not make a difference, but then
+> > > > > >>>> the
+> > > > > >>>> only bo that seems to be used at that point is the one
+> > > > > >>>> for
+> > > > > >>>> the
+> > > > > >>>> psp ring,
+> > > > > >>>> which is allocated in vram, so I'm not too much
+> > > > > >>>> surprised.
+> > > > > >>>>
+> > > > > >>>> Maybe I should double-check bo_create calls to hunt for
+> > > > > >>>> more
+> > > > > >>>> ?
+> > > > > >>> We looked into this a bit ourselves and ran into the same
+> > > > > >>> issues.
+> > > > > >>> We'd probably need to debug this with the PSP team to
+> > > > > >>> make
+> > > > > >>> further
+> > > > > >>> progress, but this was not productized so neither team
+> > > > > >>> had
+> > > > > >>> the
+> > > > > >>> resources to delve further.
+> > > > > >>>
+> > > > > >>> Alex
+> > > > > >>>
+> > > > > >>>>
+> > > > > >>>> [0]
+> > > > > >>>> https://github.com/PSPReverse/psp-docs/blob/master/masterthesis-eichner-psp-2020.pdf
+> > > > >
+> > > > >
+> > >
+> 
