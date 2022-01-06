@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4573C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22F60C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4427510E498;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDD3A10E8DC;
 	Fri,  7 Jan 2022 18:28:02 +0000 (UTC)
-Received: from nksmu.kylinos.cn (mailgw.kylinos.cn [123.150.8.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ADD111B91B;
- Fri,  7 Jan 2022 10:03:11 +0000 (UTC)
-X-UUID: b4422ce86f974f36a6a8bb0102ab501a-20220107
-X-CPASD-INFO: 4652e3ea3efa4753b3b4e4a09666967f@fYZvUpJlk5Ffhaitg3qAbYJkkmSVYIF
- _e3BWZmdmY4aVhH5xTWJsXVKBfG5QZWNdYVN_eGpQYl9gZFB5i3-XblBgXoZgUZB3g3hvUpVhlQ==
-X-CPASD-FEATURE: 0.0
-X-CLOUD-ID: 4652e3ea3efa4753b3b4e4a09666967f
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, EXT:0.0, OB:0.0,
- URL:-5, T
- VAL:181.0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:98.0, IP:-2.0, MAL:0.0,
- ATTNUM:0.
- 0, PHF:-5.0, PHC:-5.0, SPF:4.0, EDMS:-3, IPLABEL:4480.0, FROMTO:0, AD:0,
- FFOB:0.0, CFO
- B:0.0, SPC:0.0, SIG:-5, AUF:13, DUF:29771, ACD:157, DCD:259, SL:0, AG:0,
- CFC:0.239, CFS R:0.16,UAT:0,RAF:0,VERSION:2.3.4
-X-CPASD-ID: b4422ce86f974f36a6a8bb0102ab501a-20220107
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1, 1
-X-UUID: b4422ce86f974f36a6a8bb0102ab501a-20220107
-X-User: lizhenneng@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by nksmu.kylinos.cn
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 611986031; Fri, 07 Jan 2022 18:11:05 +0800
-From: Zhenneng Li <lizhenneng@kylinos.cn>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: enable dcn support on arm64
-Date: Fri,  7 Jan 2022 17:57:32 +0800
-Message-Id: <20220107095732.982194-3-lizhenneng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220107095732.982194-1-lizhenneng@kylinos.cn>
-References: <20220107095732.982194-1-lizhenneng@kylinos.cn>
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42EB510E9FF;
+ Thu,  6 Jan 2022 09:57:19 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0E9DBB81FEB;
+ Thu,  6 Jan 2022 09:57:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444E6C36AEB;
+ Thu,  6 Jan 2022 09:57:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1641463036;
+ bh=XHcihxlg55irUljDtcOsfIt5U7f67CRr+vIMHJeiFXE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=BGsrLo5/J8jfvBjvOmPv1Xb6uZc7IWrJSkkjO3HxD+zq/3DxibGbNylHVJ48il4yi
+ 0x6/mnqAbYv3kD+QYRZzUrqFZP0NuIX48W4YU8ZdG6EDPR8YNygB2re+VW+tVG9SZH
+ svXnI5OqAkI5E3zSEyQA9VWR/T/Q4Jg1rvbonkvk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdkfd: use default_groups in kobj_type
+Date: Thu,  6 Jan 2022 10:57:13 +0100
+Message-Id: <20220106095713.3276112-1-gregkh@linuxfoundation.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1664; h=from:subject;
+ bh=XHcihxlg55irUljDtcOsfIt5U7f67CRr+vIMHJeiFXE=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDInX9vxUTf3ySzPPzGfz/Pw9nwr9SltW+wi1rM94YpeQyBXR
+ PkuhI5aFQZCJQVZMkeXLNp6j+ysOKXoZ2p6GmcPKBDKEgYtTACYy14ZhnoHLu0Va6z+mfZzVt2TTkj
+ lle75KNDIs6CqwlzolOevO1NXc5j+3iEgnJHBKAgA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Jan 2022 18:28:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -55,36 +55,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Zhenneng Li <lizhenneng@kylinos.cn>,
- Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+Cc: David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+There are currently 2 ways to create a set of sysfs files for a
+kobj_type, through the default_attrs field, and the default_groups
+field.  Move the amdkfd sysfs code to use default_groups field which has
+been the preferred way since aa30f47cf666 ("kobject: Add support for
+default attribute groups to kobj_type") so that we can soon get rid of
+the obsolete default_attrs field.
+
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/display/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 127667e549c1..1c6c4cb1fd0a 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -6,7 +6,7 @@ config DRM_AMD_DC
- 	bool "AMD DC - Enable new display engine"
- 	default y
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
--	select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
-+	select DRM_AMD_DC_DCN if (X86 || PPC64 || (ARM64 && KERNEL_MODE_NEON)) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
- 	help
- 	  Choose this option if you want to use the new display engine
- 	  support for AMDGPU. This adds required support for Vega and
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index b993011cfa64..1f4a07f984eb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -462,6 +462,7 @@ static struct attribute *procfs_queue_attrs[] = {
+ 	&attr_queue_gpuid,
+ 	NULL
+ };
++ATTRIBUTE_GROUPS(procfs_queue);
+ 
+ static const struct sysfs_ops procfs_queue_ops = {
+ 	.show = kfd_procfs_queue_show,
+@@ -469,7 +470,7 @@ static const struct sysfs_ops procfs_queue_ops = {
+ 
+ static struct kobj_type procfs_queue_type = {
+ 	.sysfs_ops = &procfs_queue_ops,
+-	.default_attrs = procfs_queue_attrs,
++	.default_groups = procfs_queue_groups,
+ };
+ 
+ static const struct sysfs_ops procfs_stats_ops = {
 -- 
-2.25.1
+2.34.1
 
-
-No virus found
-		Checked by Hillstone Network AntiVirus
