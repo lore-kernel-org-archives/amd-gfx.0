@@ -4,50 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B13C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 553D2C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4305810E5BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2D3E10E9E3;
 	Fri,  7 Jan 2022 18:28:05 +0000 (UTC)
-Received: from forward107p.mail.yandex.net (forward107p.mail.yandex.net
- [IPv6:2a02:6b8:0:1472:2741:0:8b7:115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17D1E10E8ED
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 18:20:08 +0000 (UTC)
-Received: from iva8-6b29e352664c.qloud-c.yandex.net
- (iva8-6b29e352664c.qloud-c.yandex.net
- [IPv6:2a02:6b8:c0c:5b2e:0:640:6b29:e352])
- by forward107p.mail.yandex.net (Yandex) with ESMTP id A0BF5556C6B9;
- Fri,  7 Jan 2022 21:20:03 +0300 (MSK)
-Received: from iva1-dcde80888020.qloud-c.yandex.net
- (iva1-dcde80888020.qloud-c.yandex.net [2a02:6b8:c0c:7695:0:640:dcde:8088])
- by iva8-6b29e352664c.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
- euR5bt0U3x-K3fOpt58; Fri, 07 Jan 2022 21:20:03 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1641579603; bh=OrWPYp0vmxROxPJySTPjYtjZfWYS3Oa7auboC1JAC48=;
- h=In-Reply-To:References:Date:To:From:Subject:Message-ID;
- b=W64bN0WTTVFJoVj7rHUT2ldQMbxKMbJ4uFZBA0mVOVb50YdbPw5uDPvc4kdql1yEO
- p/Wk3Vv0Y1JRNtJ2SRQq8I3tiocatscvK6u5BxwiZHB99ieZ5CVaCj5SfreCEfu8YM
- rR5JNTC8a7DZVhbr/Ymfe+ovlI3HCg+Q0160UzW8=
-Authentication-Results: iva8-6b29e352664c.qloud-c.yandex.net;
- dkim=pass header.i=@yandex.ru
-Received: by iva1-dcde80888020.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
- id VkaxZNamsB-K2PaYHfr; Fri, 07 Jan 2022 21:20:02 +0300
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (Client certificate not present)
-X-Yandex-Fwd: 2
-Message-ID: <5849ab287df1b06e141d87bbffdbcd627e999578.camel@yandex.ru>
-Subject: Re: [PATCH] Revert "i2c: core: support bus regulator controlling in
- adapter"
-From: Konstantin Kharlamov <hi-angel@yandex.ru>
-To: wsa@kernel.org, linux-i2c@vger.kernel.org, bibby.hsieh@mediatek.com, 
- amd-gfx@lists.freedesktop.org
-Date: Fri, 07 Jan 2022 21:20:02 +0300
-In-Reply-To: <20220106122452.18719-1-wsa () kernel ! org>
-References: <20220106122452.18719-1-wsa () kernel ! org>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.42.2 
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AEF510E9CD
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 11:38:56 +0000 (UTC)
+Received: from ip4d173d02.dynamic.kabel-deutschland.de ([77.23.61.2]
+ helo=[192.168.66.200]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1n5R6c-0002Ih-10; Thu, 06 Jan 2022 12:38:54 +0100
+Message-ID: <96531626-b1d0-70cd-7d87-3a282667e39e@leemhuis.info>
+Date: Thu, 6 Jan 2022 12:38:53 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Subject: Re: [PATCH v2] drm/amd/display: explicitly update clocks when DC is
+ set to D3 in s0i3
+Content-Language: en-BW
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220105170656.2121-1-mario.limonciello@amd.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <20220105170656.2121-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1641469136;
+ 7dff8ecd; 
+X-HE-SMSGID: 1n5R6c-0002Ih-10
 X-Mailman-Approved-At: Fri, 07 Jan 2022 18:28:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,197 +48,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>, Scott Bruce <smbruce@gmail.com>,
+ spasswolf@web.de, Chris Hixon <linux-kernel-bugs@hixontech.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thank you! I tested it (had to resolve a small conflict), works for me. So, in
-case you need it, the patch is
+Hi, this is your Linux kernel regression tracker speaking.
 
-	Tested-by: Konstantin Kharlamov <hi-angel@yandex.ru>
-
-By the way, shouldn't the patch include a field 
-
-	Cc: <stable@vger.kernel.org> # 5.14+
-
-?
-
-P.S.: sorry, for all mangled up CC fields. For some reason I didn't get your
-email, I found this patch in the archive. And the mbox that archive provides
-breaks all TO and CC fields, so I manually restored addresses that I have.
-
-On Thu, 2022-01-06 at 12:24 +0000, Wolfram Sang wrote:
-> This largely reverts commit 5a7b95fb993ec399c8a685552aa6a8fc995c40bd. It
-> breaks suspend with AMD GPUs, and we couldn't incrementally fix it. So,
-> let's remove the code and go back to the drawing board. We keep the
-> header extension to not break drivers already populating the regulator.
-> We expect to re-add the code handling it soon.
+On 05.01.22 18:06, Mario Limonciello wrote:
+> The WA from commit 5965280abd30 ("drm/amd/display: Apply w/a for
+> hard hang on HPD") causes a regression in s0ix where the system will
+> fail to resume properly.  This may be because an HPD was active the last
+> time clocks were updated but clocks didn't get updated again during s0ix.
 > 
-> Reported-by: "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>
-> Link: https://lore.kernel.org/r/1295184560.182511.1639075777725@mail.yahoo.com
-> Reported-by: Konstantin Kharlamov <hi-angel@yandex.ru>
-> Link:
-> https://lore.kernel.org/r/7143a7147978f4104171072d9f5225d2ce355ec1.camel@yandex.ru
-> BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1850
-> Signed-off-by: Wolfram Sang <wsa@kernel.org>
+> So add an extra call to update clocks as part of the suspend routine:
+> dm_suspend->dc_set_power_state->clk_mgr_optimize_pwr_state
+> 
+> In case HPD is set during this time, also check if the call happened during
+> suspend to allow overriding the WA.
+
+Thx for this. Our of interest: is that something that should still go
+into v5.16?
+
+> Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>
+> Reported-by: Scott Bruce <smbruce@gmail.com>
+> Reported-by: Chris Hixon <linux-kernel-bugs@hixontech.com>
+> Reported-by: spasswolf@web.de
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215436
+> BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1821
+> BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1852
+
+What is "BugLink"? It's not mention in the kernel's documentation, which
+tells people to use "Link:" for linking to bug reports:
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+
+That is not new, bug recently was made more explicit.
+
+Hence, please consider changing them to "Link:", there are tools out
+there that repy on them (I'm running such a tool, but there might be
+others out there we are not aware of).
+
+FWIW, in principe I agree that we need a seperate tag for this. But then
+we should get this discussed and blessed through the usual channels.
+That's why I recently proposed "Reported:", without much success so far:
+https://lore.kernel.org/lkml/c6724c7fb534a46e095e6aef13d996ed9589e578.1639042966.git.linux@leemhuis.info/
+
+Ciao, Thorsten
+
+> Fixes: 5965280abd30 ("drm/amd/display: Apply w/a for hard hang on HPD")
+> Fixes: 1bd3bc745e7f ("drm/amd/display: Extend w/a for hard hang on HPD to dcn20")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
+> changes from v1->v2:
+>  * Add fallthrough statement
+>  * Extend case to check if call was explicitly in s0ix since #1852 showed hpd_state
+>    can be set at this time too
+>  * Adjust commit message and title
+>  * Add extra commit and bug fixed to metadata
+>  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 5 ++++-
+>  drivers/gpu/drm/amd/display/dc/core/dc.c                  | 3 +++
+>  2 files changed, 7 insertions(+), 1 deletion(-)
 > 
-> So far, I tested it on a Renesas R-Car M3-N board verifying that I2C
-> still works. I'll apply it to my for-next branch right away to get the
-> buildbots involved as well. But I am still open for comments until I
-> apply it to my for-current branch, probably tomorrow.
-> 
->  drivers/i2c/i2c-core-base.c | 95 -------------------------------------
->  1 file changed, 95 deletions(-)
-> 
-> diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-> index f193f9058584..73253e667de1 100644
-> --- a/drivers/i2c/i2c-core-base.c
-> +++ b/drivers/i2c/i2c-core-base.c
-> @@ -466,14 +466,12 @@ static int i2c_smbus_host_notify_to_irq(const struct
-> i2c_client *client)
->  static int i2c_device_probe(struct device *dev)
->  {
->         struct i2c_client       *client = i2c_verify_client(dev);
-> -       struct i2c_adapter      *adap;
->         struct i2c_driver       *driver;
->         int status;
->  
->         if (!client)
->                 return 0;
->  
-> -       adap = client->adapter;
->         client->irq = client->init_irq;
->  
->         if (!client->irq) {
-> @@ -539,14 +537,6 @@ static int i2c_device_probe(struct device *dev)
->  
->         dev_dbg(dev, "probe\n");
->  
-> -       if (adap->bus_regulator) {
-> -               status = regulator_enable(adap->bus_regulator);
-> -               if (status < 0) {
-> -                       dev_err(&adap->dev, "Failed to enable bus
-> regulator\n");
-> -                       goto err_clear_wakeup_irq;
-> -               }
-> -       }
-> -
->         status = of_clk_set_defaults(dev->of_node, false);
->         if (status < 0)
->                 goto err_clear_wakeup_irq;
-> @@ -605,10 +595,8 @@ static int i2c_device_probe(struct device *dev)
->  static void i2c_device_remove(struct device *dev)
->  {
->         struct i2c_client       *client = to_i2c_client(dev);
-> -       struct i2c_adapter      *adap;
->         struct i2c_driver       *driver;
->  
-> -       adap = client->adapter;
->         driver = to_i2c_driver(dev->driver);
->         if (driver->remove) {
->                 int status;
-> @@ -623,8 +611,6 @@ static void i2c_device_remove(struct device *dev)
->         devres_release_group(&client->dev, client->devres_group_id);
->  
->         dev_pm_domain_detach(&client->dev, !i2c_acpi_waive_d0_probe(dev));
-> -       if (!pm_runtime_status_suspended(&client->dev) && adap->bus_regulator)
-> -               regulator_disable(adap->bus_regulator);
->  
->         dev_pm_clear_wake_irq(&client->dev);
->         device_init_wakeup(&client->dev, false);
-> @@ -634,86 +620,6 @@ static void i2c_device_remove(struct device *dev)
->                 pm_runtime_put(&client->adapter->dev);
->  }
->  
-> -#ifdef CONFIG_PM_SLEEP
-> -static int i2c_resume_early(struct device *dev)
-> -{
-> -       struct i2c_client *client = i2c_verify_client(dev);
-> -       int err;
-> -
-> -       if (!client)
-> -               return 0;
-> -
-> -       if (pm_runtime_status_suspended(&client->dev) &&
-> -               client->adapter->bus_regulator) {
-> -               err = regulator_enable(client->adapter->bus_regulator);
-> -               if (err)
-> -                       return err;
-> -       }
-> -
-> -       return pm_generic_resume_early(&client->dev);
-> -}
-> -
-> -static int i2c_suspend_late(struct device *dev)
-> -{
-> -       struct i2c_client *client = i2c_verify_client(dev);
-> -       int err;
-> -
-> -       if (!client)
-> -               return 0;
-> -
-> -       err = pm_generic_suspend_late(&client->dev);
-> -       if (err)
-> -               return err;
-> -
-> -       if (!pm_runtime_status_suspended(&client->dev) &&
-> -               client->adapter->bus_regulator)
-> -               return regulator_disable(client->adapter->bus_regulator);
-> -
-> -       return 0;
-> -}
-> -#endif
-> -
-> -#ifdef CONFIG_PM
-> -static int i2c_runtime_resume(struct device *dev)
-> -{
-> -       struct i2c_client *client = i2c_verify_client(dev);
-> -       int err;
-> -
-> -       if (!client)
-> -               return 0;
-> -
-> -       if (client->adapter->bus_regulator) {
-> -               err = regulator_enable(client->adapter->bus_regulator);
-> -               if (err)
-> -                       return err;
-> -       }
-> -
-> -       return pm_generic_runtime_resume(&client->dev);
-> -}
-> -
-> -static int i2c_runtime_suspend(struct device *dev)
-> -{
-> -       struct i2c_client *client = i2c_verify_client(dev);
-> -       int err;
-> -
-> -       if (!client)
-> -               return 0;
-> -
-> -       err = pm_generic_runtime_suspend(&client->dev);
-> -       if (err)
-> -               return err;
-> -
-> -       if (client->adapter->bus_regulator)
-> -               return regulator_disable(client->adapter->bus_regulator);
-> -       return 0;
-> -}
-> -#endif
-> -
-> -static const struct dev_pm_ops i2c_device_pm = {
-> -       SET_LATE_SYSTEM_SLEEP_PM_OPS(i2c_suspend_late, i2c_resume_early)
-> -       SET_RUNTIME_PM_OPS(i2c_runtime_suspend, i2c_runtime_resume, NULL)
-> -};
-> -
->  static void i2c_device_shutdown(struct device *dev)
->  {
->         struct i2c_client *client = i2c_verify_client(dev);
-> @@ -773,7 +679,6 @@ struct bus_type i2c_bus_type = {
->         .probe          = i2c_device_probe,
->         .remove         = i2c_device_remove,
->         .shutdown       = i2c_device_shutdown,
-> -       .pm             = &i2c_device_pm,
->  };
->  EXPORT_SYMBOL_GPL(i2c_bus_type);
->  
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+> index fbda42313bfe..fa5efe10b779 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+> @@ -23,6 +23,8 @@
+>   *
+>   */
+>  
+> +#include "amdgpu.h"
+> +
+>  #include "dccg.h"
+>  #include "clk_mgr_internal.h"
+>  
+> @@ -126,6 +128,7 @@ static void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+>  			bool safe_to_lower)
+>  {
+>  	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> +	struct amdgpu_device *adev = clk_mgr_base->ctx->driver_context;
+>  	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
+>  	struct dc *dc = clk_mgr_base->ctx->dc;
+>  	int display_count;
+> @@ -157,7 +160,7 @@ static void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+>  			}
+>  
+>  			/* if we can go lower, go lower */
+> -			if (display_count == 0 && !hpd_state) {
+> +			if (display_count == 0 && (adev->in_s0ix || !hpd_state)) {
+>  				rn_vbios_smu_set_dcn_low_power_state(clk_mgr, DCN_PWR_STATE_LOW_POWER);
+>  				/* update power state */
+>  				clk_mgr_base->clks.pwr_state = DCN_PWR_STATE_LOW_POWER;
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 91c4874473d6..8e0c820f6892 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -3299,6 +3299,9 @@ void dc_set_power_state(
+>  		}
+>  
+>  		break;
+> +	case DC_ACPI_CM_POWER_STATE_D3:
+> +		clk_mgr_optimize_pwr_state(dc, dc->clk_mgr);
+> +		fallthrough;
+>  	default:
+>  		ASSERT(dc->current_state->stream_count == 0);
+>  		/* Zero out the current context so that on resume we start with
 
