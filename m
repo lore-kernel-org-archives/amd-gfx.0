@@ -4,122 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7354C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 18:58:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC67DC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 19:13:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A6A310EFCF;
-	Thu,  6 Jan 2022 18:58:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C055B10F118;
+	Thu,  6 Jan 2022 19:13:51 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7660010EFB8
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 18:58:53 +0000 (UTC)
+ (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3269510F10A;
+ Thu,  6 Jan 2022 19:13:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ieC8Y8wxEYbZiqAfoQ7MiWXHG0MCy5kCn3BHzwHxUv106BbjlwPy4cR3NxdccNO50cHzQX0cRYRDNIbf5G4pEmgotb6FGpyEoHhNtoAKfJpSLENAh3QUrXGMdRxf+uxawQRa+kyQE0V/iMGnrSqIwJQCQonlDYi+WPybibyzih+FY3z675gB3JEfEbAC8ZriSLQQgdqCWtEf6ZLQXMl3x8pvZnzEVAPY0JBnxkBhuwKYFHThrrrgbAG3UoarJ9+fkagNeGp8LrKVqVXpO4LRqPD8EVt/U3Nvir8cwo6wRb7TztIkiURl0YKz6pfmqaZNfGJ8wuAB4+2yxEKSl9oMUg==
+ b=DSKY+/YTxjvvh8lw4p4Qx7mV2vmF9fZCimxJW5l3lpSJLsDuY5Avo7sKaV2xpy19TjkwAwbdUKQhfEHS+QFZe/WmgkkOJYoVMomDG8OfhoIWZ3H2quPvoKF63X9ThnZiqH10jDKsY3BtLX6avJy6LgL8OnVIcP15GfrF+rqDLi+xus3cDaL50gEw//YwlToAp26spUCWqX0eKk+gdAuGmP0q+Xk/eLcdRi2KatO59N/jmeoEWzVpirqfm+6NV3ZH0KqHWZUt1A91jZaimHoCy17LGhDze9MYg/35sGuSgP4JwFJqN0GblF1IybG8EZKAKT7RUZq4ByZDjDNW277vzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R26dLg9Kn36Ii2Tkz24rQ0YiO+Sw9ac28ehEGuKXKYo=;
- b=RaRyuGFdeBXFel+0dYK7mOENOCXEhqHmySo3+oQCx08hhWXzV/P5fWHJc7jXZUeDHheqcj2VmjQug28OOhIsJRXrZgeSk4454isg/A8p1bvCAeN/LYpH/SBs1eI1kP9PSWZ1KTZtps9+c2ZsDz2H9kswX9rMnBzgtvTEYrsHoNexGYf6OrT8OcZX8CpTobFAVXz+GzhAUlNxKV8ESF9kGyqC4Tszo07twcRcZv0k8isMcItmYQwlSRoir3HH2kEQUALblO8LumOtuJWFMorovViqUBNBG+LNihBCxFYgQNtvAO40VsF3WQKO0BOBl989WEfwUR3yVZyMMMR36a2vlw==
+ bh=qewXOUDLdetFOCDL6BjiVx3BxjhJrLDmjyQZHAN/UQY=;
+ b=aJerXyQ80NhHUkcP96EOpNqlEWbncc9V5oti59CpQyrfifCckNzIamw2EFtwFo/pnF8UtBY7l4GhVbpjf3bf+F3K07+lfp/xvB4W1WCVmN27+lPaBre0UXuc9lAuXkih7wCgqjqRCN76T1JYCjnr6FMpFhzItAM+XKW+UkB4QK4tBxfeg23uZiHOchnxy4vl9ivv5jepZJzF1mv/Zf13IDREGmtcsj8fOEpniNlheAF5xOjlVRdfS2SdqnuLtZ3B3Ymjje86/GrNV6+AijcJPO/WQArBz1PhLlEjrrAq2iFGaalC502/EmcTdAWyOPRS128IF1Z2/cjyriXzsyT8bw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R26dLg9Kn36Ii2Tkz24rQ0YiO+Sw9ac28ehEGuKXKYo=;
- b=uVzqES3ipr1pgvQb/fEI/eOHVwP5qMNKdJUuQW4P7CKJc1qZF9jn3dJq393pGw+SaqnOjt/sg73nUEnaOxdvErCzFv92SelIXHBYHY1YZXlr1ovb1pKbm3i6dnaKkQc0R+1pPkQuTCNm/nL63UcDGWoilX9LccxEu4krVy3fn7Y=
+ bh=qewXOUDLdetFOCDL6BjiVx3BxjhJrLDmjyQZHAN/UQY=;
+ b=ogN/NTfn3Qezxw58tU0tVdEaPCHf8XRXncHoQ522gd0SwrO/AsCNPGAYAkzmcFH25YJTdSPOqMinkUIe7m1Glkwr+nzwdZP+bHa4Hk/lEFZ11XgPpVC/ORj8NERCm/Axrw8Yw4oJX1JWRpf1OLLeKW1rneSCC9z8VSHi1aU5zQw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
- by DM6PR12MB4044.namprd12.prod.outlook.com (2603:10b6:5:21d::17) with
+ by DM6PR12MB4466.namprd12.prod.outlook.com (2603:10b6:5:2ae::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9; Thu, 6 Jan
- 2022 18:58:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Thu, 6 Jan
+ 2022 19:13:48 +0000
 Received: from DM5PR12MB1947.namprd12.prod.outlook.com
  ([fe80::5573:3d0a:9cfd:f13c]) by DM5PR12MB1947.namprd12.prod.outlook.com
  ([fe80::5573:3d0a:9cfd:f13c%7]) with mapi id 15.20.4867.010; Thu, 6 Jan 2022
- 18:58:51 +0000
-Subject: Re: [PATCH v2] drm/amdgpu: Unmap MMIO mappings when device is not
- unplugged
-To: "Shi, Leslie" <Yuliang.Shi@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220105042344.988200-1-Yuliang.Shi@amd.com>
- <36b4daf3-c18f-b860-4f82-646731be9fc2@amd.com>
- <CO6PR12MB5458950D4F580F8B6CA08785E04C9@CO6PR12MB5458.namprd12.prod.outlook.com>
+ 19:13:48 +0000
+Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset protection
+ for SRIOV
+To: JingWen Chen <jingwech@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Liu, Monk" <Monk.Liu@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>,
+ "Deng, Emily" <Emily.Deng@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Chen, Horace" <Horace.Chen@amd.com>
+References: <20211222220506.789133-1-andrey.grodzovsky@amd.com>
+ <20211222221400.790842-4-andrey.grodzovsky@amd.com>
+ <9125ac3a-e578-6b34-1533-7622ec0274f1@amd.com>
+ <BL1PR12MB5269AE1B82F1D07433B95B59847E9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <PH0PR12MB5417F12B403B8181D5CD03988F7F9@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <cc8e296d-360d-9a2f-85cd-f47d55581e99@amd.com>
+ <f5ba0a69-1cae-7d8b-bfe7-4e4400e9c32a@amd.com>
+ <2dee6f65-9ca9-a332-7206-f24021fb4c44@gmail.com>
+ <b5a31f18-262d-951e-2530-bdb0738e5033@amd.com>
+ <20363a4e-b282-232d-34d0-14867bad4931@amd.com>
+ <BL1PR12MB5269922395096810CC79E66D844A9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <23bebf13-c622-7c61-af88-0e0970b90389@amd.com>
+ <a74c1198-6027-6a0f-55a8-24227c868704@amd.com>
+ <c41f0294-fd64-cf16-8c22-994a7a2ed157@amd.com>
+ <821c0b66-8c9c-9dff-a328-bfbc2233d4ef@gmail.com>
+ <eecdf721-bdd1-0bc1-70c0-29bc8b844d68@amd.com>
+ <b23a5387-7bb1-ef1a-82f5-a012cc530203@amd.com>
+ <1f876e45-964e-3796-b7b7-24a7ac40fa90@amd.com>
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <b4854c22-1463-5030-4886-3b910259a298@amd.com>
-Date: Thu, 6 Jan 2022 13:58:48 -0500
+Message-ID: <a40beb3f-5ace-1932-8918-18c10339afdc@amd.com>
+Date: Thu, 6 Jan 2022 14:13:46 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <CO6PR12MB5458950D4F580F8B6CA08785E04C9@CO6PR12MB5458.namprd12.prod.outlook.com>
+In-Reply-To: <1f876e45-964e-3796-b7b7-24a7ac40fa90@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YT3PR01CA0133.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::10) To DM5PR12MB1947.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT3PR01CA0111.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::12) To DM5PR12MB1947.namprd12.prod.outlook.com
  (2603:10b6:3:111::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 41c1b7d6-f381-4d3f-02d2-08d9d1469411
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4044:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4044B94FB90306492CB7AA40EA4C9@DM6PR12MB4044.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: 98e83d4e-5d32-4662-5fd1-08d9d148aaa2
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4466:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB44667B1632E9613E27A82A07EA4C9@DM6PR12MB4466.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sIhEkex78BRWQj81Oxe/3hmlmcr/1Cs9VMLD5Woa22jyBqltIMOKIeWgVq6k1SC3xlMxG84T71zrK4V9ot6SYW+q10xuFNszCldt1D53Yxg3v0gtRo0LUKrJMe0BGHr9gm45Bwpfqy8AoZZXqfgbhDwfUU3CYa0ZuRoyaTAZzK+4pj+ik5rQhJdGG9UoqjpA+NqyK/hKCOfp1CAEM3u6kPsLkA3YiJU6dZSHJ93PnLerrx1Vt0tz8D8mPwlaG+6ITkWsUlXTwe3sP4w1DT0/Y4luu6ZEs/+djRi29lpy8Hln8K2LelSYv3DwqoI5UHvXwt2sCSB1hIb2RpCb1hw7tf/61Q/QWS0OVMSfuYUKrEUaeoZ5yLsjl4MQYmjXwG1dp4Gl9BKAtDCAXR9mevfuC9J+vr6FVnD+Sl2DtPMD3DGKwcIQ/9KLjhtDYe+/ymxXqXchNRIGGoh2gbSygArU7t72QD81xy20QgFdPgTmQ1/zQwTuXoRuhtM4B0EYWGSaqHvOLWUoTnnM2yKAxRg/HyNy3T+yyDh/uGdcI56CdC7rcP8Db11k0DqlrWcjzpo1eiN+UQMOfqCIVxYpdxWgiIPoGohkm2gY3wFaoOnpkSrsVitA290I0xTw/7JisV/mB8loMbpzVNzxKQf65Pc93z8OieEdsQPN5YnXCuAQeOJWI2g5a38GKVXobrDK4uAOrmZ6+XowIAk53A3tNxBSRpNr8+1bqDIcvl4Q0rnkSGA=
+X-Microsoft-Antispam-Message-Info: jd6evu89D4v5hw3zzkprCWLVgEz+jU2idUsIjn2mpJ6dZPr8Ks+qxbz+QA1FyM32HOk/Y/zuVuxsJth+qj5JVQLavVmCZnj0ek4v5MzdoHP+wmJLAsmH21FX8HiNg2BdN6Mi15AnrsXaIA+lNQDLiQVOcZD300E7eWltTmOdbgFj5EzOVtlit7XcSqQ5qiLNFM+vZA3vMAYodf47SHVyBqImYiWsekzdcJhORyvAGzSfnJS38gfykY9VSDyT5lfFhVG0hTlqn5AcZKLRBxDiwdkleSJuHL3mgHEo9/q5MsDF5DvrBMA9Qo9PBJL/FJLEufzkoROXbt2B60Yzx6zmqcYiaTDXGYr9iM3tGpiUiy6ZNCnWEerQGE6Aboi9C/B/+e3KBs3ovlpxjOrJfbdfAlePlJV4o8VlQJOxnaNqCTBemFX8KyrOR0GJ+qMgMtP5nBw+G5QSSE4X5ee4oIBlvpahe3IXpSBkN7Io+WKwhjlvnDxi7N1XjPnFF2QpHrTzbUo5QuJs5VvhWemJI7ySNx0EyIgZNb7gZm9fcQvfDivQ0LiRI4JMrDV3F8Oh8UEZuN+iLvdviSReO/YOrL3d2pJUp87Z2OefhxJ8yEeRtqZg7gvYqmh2y0vFTZnKXX6Fp/nqtHtk5Qt7JjmbmC7r2J7tqvFuNTqSxiwYllvgV5xdTioFMN7wUwlam8MAoWcNpzFgLkERamyU56AQzGacbA0rIIO4XJ/3LxP/rQQEq3NA0IAS7PVsy9CBCBt5tjFM
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(5660300002)(66556008)(36756003)(8676002)(66476007)(6666004)(66946007)(316002)(6486002)(2906002)(110136005)(8936002)(508600001)(6512007)(86362001)(83380400001)(31686004)(53546011)(6506007)(44832011)(38100700002)(2616005)(4326008)(186003)(45980500001)(43740500002);
+ SFS:(4636009)(366004)(38100700002)(6512007)(5660300002)(66476007)(6636002)(86362001)(31696002)(508600001)(4001150100001)(316002)(36756003)(4326008)(8936002)(2906002)(110136005)(8676002)(66556008)(66946007)(44832011)(2616005)(66574015)(53546011)(6506007)(186003)(31686004)(30864003)(83380400001)(6486002)(921005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWF4TzJYNFlWUDZYQVVvZVBVTjZPMnRYL1RSUzZYbzVmOVFiNzdnd3hTaGxl?=
- =?utf-8?B?UEIwVWtYdklJZERMOUVCN05sVk16NXVuM1VLVVdwT2VzZ3dVbkdFb05qcER1?=
- =?utf-8?B?dnhxYTBqV0ZNSC9EQVJkQitpSzliSGp0TlhYMnEyQ3NFSE1HMThlY0VkRFJI?=
- =?utf-8?B?Wk9ZNG4vUEN6cm5ITWRBUThxaDN4NTlxQTNzY0pWa2RISTI5UnR6OFh0TGY5?=
- =?utf-8?B?ak41aDdGczEvakI3djJCSFNQd1huQUoxYXVMbWI2bzJpOHVIems2U1FITjVq?=
- =?utf-8?B?MzhjbExZcEVOTHNFRXppeEdTSEdQcHQvN3RHMFBNZElVMnh6MVBDcWlabXd1?=
- =?utf-8?B?M2VxaUl6WmVpSE1ndWZKYkJVWUNSUXAxWXpLTVJNdi9CelhKS2JKWGx4N1Ey?=
- =?utf-8?B?K0FnSnpqd3NwKzhtQ0IvRmt4QXRyT0xubDZiMjBzeWFBSUxuQ2FsbkMrYk5I?=
- =?utf-8?B?djVUWENRZnFvRFR6eDZiMmJEZlpaNlNXaUNnWFpzOExCeU9oQ1lyM2tyMFlQ?=
- =?utf-8?B?TEo4NnlOUlg1V1ROL0Eyb0VQenpJUlFQWGFGUW1VclpIVG5ZSjZsVksra1Fp?=
- =?utf-8?B?S3hsWUZsOUlIb2svYlJxRGRGQ2dSZjF3MEk2eHNJeGZaaW9NWkZPdjBPWmtv?=
- =?utf-8?B?VkFJTUlyWTdUeDZmRjRKT0gxUlNnZ3JIRHVVaEpLUFF1TklIMFVUaEt4ZTJy?=
- =?utf-8?B?WmdvT0pMendXbE81c3JsZmZNZzBhVnBUNnpoK1ZyUitSQTQvM1ZRbkJhNGty?=
- =?utf-8?B?TUp1RlZjeVNXc0p0cW5LTHA1c21NU2hCeE5kWXM0bjBxQjdIQm1uY2RvZThU?=
- =?utf-8?B?RW9wUG13OU00a3NRTkRLd3QrcDlEZXoyRThIOEQ1SUlweWdsZkZJQ2tMaTVN?=
- =?utf-8?B?U2dGNHRzSU5vQTU0eTJTVGJXQkZpSFo1Wk9EOXpscEM3ZWJvWFRrYWNvVm1O?=
- =?utf-8?B?ejJaQ2g2KzJSTVdwYVdRTmFLZUdmS2Ryc2ZoWjdCR2Q2cmNZSHpMZ2ZqdnJi?=
- =?utf-8?B?cUMvUTBZRUZ1MVFSbnBLR0s0ZkhYY1k4WmVJVFpXVFp6aGtxbExzWWxjQ3Vm?=
- =?utf-8?B?ZmRpZEpGN0tLOE1SV0YzcjJUNW5wNEJ3ekpGZjBvZldWS21mZXZTZDh1VHF6?=
- =?utf-8?B?cnpqSC9jZHVIdzY4Q3hwcjZBVnRQL1BhRUo1cU9tWEhjemZNOGhGQkxZNGRu?=
- =?utf-8?B?SHJ2eWpha3U2ZDU2MkEzV1hHeG1NSDJiOFliS1U1ZHpDSVRjUWZ2SklCM0tS?=
- =?utf-8?B?RVZWUnpYM3R2dnl3eDNzRW1mNlJqbzVucEtFMXE0YThGYnUxcE5QSFZjRWVa?=
- =?utf-8?B?YkRRQUIzaFdJbzQzZGN5ejU4VkJieEhhZVIwUXNkNk1uTmNITW9JcENnV3V5?=
- =?utf-8?B?d3RzeGlKRkNDdmRDWG5ORStLZEdnUFdIMDFuZWpITU5VbENHcENGa1lMOENO?=
- =?utf-8?B?ZlZxQUJIOVFWeEdTejUwWitQbkV3T3VtdDlQN1lNRGEwTTFNd3VDVnhUQ2Jq?=
- =?utf-8?B?N21nWVYvV2ZWUDhhK0pWMEhVS3g4a2pQekVTcDhuVFBTUEozcDVMYzBJTklT?=
- =?utf-8?B?SkhsRFhxOUY0eVdYUDBtNkFYbTJna1JVQ3BXTDRIYUl3OU1mRk0xWi9TV0s2?=
- =?utf-8?B?V3F1RVpJcUxtQ2dKZHBEdnBkeW9SdEtwaEpMMEZSMlFkVjdyU0hXQ2M5aGpT?=
- =?utf-8?B?VGhuSWtPT21pQndDUUh1U2RlNnY4a2t6eG9hYS9iYzVDTjZIaTllL3FDdlRr?=
- =?utf-8?B?L2tGbHZhUWJjNDNuQ01PQVVvdHBBYWRBUXlNRzh6NWxYekgwQ25DR2s4OXhR?=
- =?utf-8?B?K0hZcTcrVU9mM21tOU1rVTN4ZWR5YjVJb1Axc2ROQzZhUURLUUV6M2tHRWw5?=
- =?utf-8?B?cmlNMzdyNWdKM2VsVUtzakZTOVdnWEJoRnU5VC90MHYzODIvQnFzRkt1ZHdQ?=
- =?utf-8?B?TDhSMUlCZEVBMTExQlJNOWFSOE9pN2psVTluMnRJd1hrdzk4Q3QxYUFPUGVE?=
- =?utf-8?B?NEFQNXlGYi8rdGNrTmNDNnhNNXFwYnhWVUx3KzQ0b0RYK0toaXRTOFZnQ3E5?=
- =?utf-8?B?cTMvclFiNTUxVWlOWmJrQmhmM1JuOGlrYzNoa2xRcFVranNMTHZUN21tVVc3?=
- =?utf-8?B?ZzBUNGpjRXBDSTd6NmUrbEhtSnp1QU1hV2lXZmk5TWw1SCt1Ti9WT0pha3pr?=
- =?utf-8?B?NWdiZjI5SVVGZ0lVRmlMZEpuaDRicTd5RkV5Vkc1TFFUMllITEppQUJvY2hE?=
- =?utf-8?Q?BIRFBD/Qv1Mx+jcUpQ9I6CF6S+gREsR+d/8UTgeOZc=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXZjWTljcmVZVERQSXhMWUo3ZGVNWDZrSUZvMkZCS0dHcjczN3poRml5cWZU?=
+ =?utf-8?B?Ykx4WTY5RFpacjFnYmFvay9iU0k5dUtvL2ZFdDErMWRWcGZ5YVM3MGNiemNs?=
+ =?utf-8?B?UDd5N05OVERyOW1NMTZVOXVXam1RcjNmZkJjakczZ0VxNTlkOXJySVdMdVUw?=
+ =?utf-8?B?N3FZbzJZTWt4aDdRMFF5MFFaaDlPZFhFZWh2aFBKanJ2b0hhZEErSlRBQWxX?=
+ =?utf-8?B?Ni9kS3NueW8xU1hFaVZKVFZ2NDRDcHRyYW5PaGErTHZNanlHWEtxNzhsVy81?=
+ =?utf-8?B?WW1qSEJkclI3WTFDYUFHN1BlN3RlUjE1OHNhWlBSa0hzUmpXNzhlaXdxeElQ?=
+ =?utf-8?B?K2orZjlsYVZkT2o4dnUwdzRuZS82MVRJUm4wa3JRQm9JSzV4RnBKbG9KTE9T?=
+ =?utf-8?B?eGZGR25Hd1Z0eGlTajRTVzY3Ty8rWTdoTWhMM2RDRWZObktld1JkQW55Vjl2?=
+ =?utf-8?B?VzIxWVBoeHVDUnNMSnN4bjVjK0piNlFJd1lNd1d3djZFeHZmUTMvZ1Y3YVJN?=
+ =?utf-8?B?N09IallNWk5TbVBTUEYrWHVsVGhJZ1RDTzI5NURQVWlOaGFQMmFrMkw4a0FQ?=
+ =?utf-8?B?Z0xJM3FBajA0N0U4RjFtWU9FUWpQY1I2RlZmTk9aUVJUU29mRnRCSWNHaDR6?=
+ =?utf-8?B?cWhoa2FsVUlFQURDbngwclliOTIrMlluYmVCY01VSEF2Z2JIb29WRnlxN2JM?=
+ =?utf-8?B?L1ZSZHFyaXh1R0JQUENvS0NJSHFzZW5hbThjZHA3UUJ6MDY2Rjg0MkxMNitL?=
+ =?utf-8?B?NUtxc0N3ZklJcjZ6UEdCckhWY2hMOGRmQTBLZE1mWGR6eS85S2ttR2cvS1Zr?=
+ =?utf-8?B?bXM0UTlvb3B2YXBZajRKM0lVNUNkSERPeVRrSDgyVWxZK3pxbFdicFhsTFJ3?=
+ =?utf-8?B?VHEvU1dYUDhCTG1SVDZUakk2WmJ2OEhwT2R3L2IrcFlvc2ZvdjJjWnRZN0cv?=
+ =?utf-8?B?eFRXTnh0dm5jdHdCcVZYU21BcVJFTFpyendpOXBtTENPNFZobXZCRUhhN2hl?=
+ =?utf-8?B?QjJzNTd3dGFLK0VzMXpSQnNYSDFYendSRHhmTysvMXNra0o5TXl0ZHpKN1ov?=
+ =?utf-8?B?MjFLaG44OXA3ZFh2ZTZnTy9RalhUNW1CK1hERU0yNFRPcHBZbzFxTSt4VmpZ?=
+ =?utf-8?B?YnJMampwbGpkYTgrd0djaitrbDkxNWx5NnR3U21yMjgxYVpMbmpKWU1oTk54?=
+ =?utf-8?B?dW9Kczg3dXlucU5vQUFNcnhTZ21rWC9tWUpIYWVtR1pMbFRjUHJIdHNSLytF?=
+ =?utf-8?B?SXJ6OVpMMnlpbW42STNoS09jQ25yTkhOQkNGdzEvYWI1VDZtdGNheUZsWlFT?=
+ =?utf-8?B?V25VQlh3OXZjait5UTBkcHV4Tm5lUTVlbStpTU1sT0JHYW91N1ltbGdsV1k4?=
+ =?utf-8?B?bGZZTnFIN2I2SjZxV2lOWEc2aWNIV0xnN1liRU9mVHRIZjRpN0diZzFxZm83?=
+ =?utf-8?B?RUIvZVljTG5jbWFkQjFOelRUemlBaklmemdldHF5VHJuNnNlOVZxQWN6L1ZR?=
+ =?utf-8?B?eGNSNjBtVWFyL1VQaE01TDR5cDZhYWIybnNRRlFWYWVpaTMwQlo4dkxBd1Zs?=
+ =?utf-8?B?RnRBTVB4aUhQQnlFRkU4WFdaUEFFTDF4dmlRUnZyKzFIZXlWS0d0enFNNHV1?=
+ =?utf-8?B?V1ZZa0VGL2xLTGs3QlJEc1VqUzE0NnlZVVdtekhORnJPNDl2Rm53RG55OHlG?=
+ =?utf-8?B?YmJoRnU1cE4vdnpwNlRHRy81MDVKMEFYZ1ZBTzRFZHVwbVJQSWJoeVk1czF3?=
+ =?utf-8?B?SzVTSU1rTHRLZGsxekdFQXJKcW5QK0NKVFFsU2ZsNVNWZGtMMTRMUGxlRTdr?=
+ =?utf-8?B?M1lXQm45d2FpYitpa1hUTnJFbDd6WGJ6Qi9oWi9tZ2dENFJnMlRIWW0wN29O?=
+ =?utf-8?B?bVBoYjdOYUM3QnNuYXhYWkhRcnZscms1OTd0NXZUWnJQYnViRTFJOWdpRjJI?=
+ =?utf-8?B?OG85K2d2Q0M4cVB1YkVSR0YzNGwxQXBmTlRYbDRad01lcmtuN1FHcVRKTjhM?=
+ =?utf-8?B?WHlheUFwUGlWcngxblR3d2hzRFlFanlibXRXa0tqZHlhRWtkRUxHSjh4VHkv?=
+ =?utf-8?B?MFhUOHlIdlhKaXNZZmtHWGgxdlBIVnZGWlpucTM3RzgxSDhPUytSUjM5ZmZp?=
+ =?utf-8?B?TUdBcDFDaFI0a1dLaHVFOVcwODYxR1JxbHdjeWQrSEJkNTdMVXVwUnVvYlg3?=
+ =?utf-8?B?MEl0MWh1My90dWlhOUg4WFpzVzZqaXBPQTFQMUt1bFh6S2Y3OGxHK0FzQU9i?=
+ =?utf-8?Q?iow8l+qrhdBai3dxbeYKBENhGdvMnK7zlg3CvxLZk0=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41c1b7d6-f381-4d3f-02d2-08d9d1469411
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98e83d4e-5d32-4662-5fd1-08d9d148aaa2
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 18:58:51.5444 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 19:13:48.2129 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EZXfhxhtsoI4O9qJGloIgmdhxc/h69SZ20iynTA3vQTWDnIoqgr1CfEYxSuXFBkbw3ma8YCM/twx4Pm4ZCRihA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4044
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9eQSgl6DdNGB755aQS8wub0vki79uUOL6HAuox748BLdgkJ6y6jEAtWgfveMMnxuz2QM4Z7NvniKIUS/2cL+dg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4466
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,169 +152,297 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chen, Guchun" <Guchun.Chen@amd.com>
+Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Got it
 
-See bellow one small comment, with that the patch is Reviewed-by: Andrey 
-Grodzovsky <andrey.grodzovsky@amd.com>
-
-On 2022-01-05 9:24 p.m., Shi, Leslie wrote:
-> [AMD Official Use Only]
->
-> Hi Andrey,
->
-> It is the following patch calls to amdgpu_device_unmap_mmio() conditioned on device unplugged.
->
-> 3efb17ae7e92 "drm/amdgpu: Call amdgpu_device_unmap_mmio() if device is unplugged to prevent crash in GPU initialization failure"
->
-> Regards,
-> Leslie
->
-> -----Original Message-----
-> From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-> Sent: Thursday, January 6, 2022 2:22 AM
-> To: Shi, Leslie <Yuliang.Shi@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Chen, Guchun <Guchun.Chen@amd.com>
-> Subject: Re: [PATCH v2] drm/amdgpu: Unmap MMIO mappings when device is not unplugged
->
->
-> On 2022-01-04 11:23 p.m., Leslie Shi wrote:
->> Patch: 3efb17ae7e92 ("drm/amdgpu: Call amdgpu_device_unmap_mmio() if
->> device is unplugged to prevent crash in GPU initialization failure")
->> makes call to
->> amdgpu_device_unmap_mmio() conditioned on device unplugged. This patch
->> unmaps MMIO mappings even when device is not unplugged.
-> drm/amdgpu: Call amdgpu_device_unmap_mmio() if device is unplugged to prevent crash in GPU initialization failure
->
-> I don't see the 'call to amdgpu_device_unmap_mmio() conditioned on device unplugged'
-> part in this patch
->
-> Also, please add 'v2:bla bla bla' part in patch description telling what was done in v2
->
-> Andrey
->
->> Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
->> ---
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++++++++
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 12 ++++++++++++
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 11 +++++++++++
->>    3 files changed, 34 insertions(+)
+On 2022-01-06 12:18 a.m., JingWen Chen wrote:
+> On 2022/1/6 下午12:59, JingWen Chen wrote:
+>> On 2022/1/6 上午2:24, Andrey Grodzovsky wrote:
+>>> On 2022-01-05 2:59 a.m., Christian König wrote:
+>>>> Am 05.01.22 um 08:34 schrieb JingWen Chen:
+>>>>> On 2022/1/5 上午12:56, Andrey Grodzovsky wrote:
+>>>>>> On 2022-01-04 6:36 a.m., Christian König wrote:
+>>>>>>> Am 04.01.22 um 11:49 schrieb Liu, Monk:
+>>>>>>>> [AMD Official Use Only]
+>>>>>>>>
+>>>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
+>>>>>>>> No it's not, FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long
+>>>>>>>>
+>>>>>>> Then we have a major design issue in the SRIOV protocol and really need to question this.
+>>>>>>>
+>>>>>>> How do you want to prevent a race between the hypervisor resetting the hardware and the client trying the same because of a timeout?
+>>>>>>>
+>>>>>>> As far as I can see the procedure should be:
+>>>>>>> 1. We detect that a reset is necessary, either because of a fault a timeout or signal from hypervisor.
+>>>>>>> 2. For each of those potential reset sources a work item is send to the single workqueue.
+>>>>>>> 3. One of those work items execute first and prepares the reset.
+>>>>>>> 4. We either do the reset our self or notify the hypervisor that we are ready for the reset.
+>>>>>>> 5. Cleanup after the reset, eventually resubmit jobs etc..
+>>>>>>> 6. Cancel work items which might have been scheduled from other reset sources.
+>>>>>>>
+>>>>>>> It does make sense that the hypervisor resets the hardware without waiting for the clients for too long, but if we don't follow this general steps we will always have a race between the different components.
+>>>>>> Monk, just to add to this - if indeed as you say that 'FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long'
+>>>>>> and there is no strict waiting from the hypervisor for IDH_READY_TO_RESET to be recived from guest before starting the reset then setting in_gpu_reset and locking reset_sem from guest side is not really full proof
+>>>>>> protection from MMIO accesses by the guest - it only truly helps if hypervisor waits for that message before initiation of HW reset.
+>>>>>>
+>>>>> Hi Andrey, this cannot be done. If somehow guest kernel hangs and never has the chance to send the response back, then other VFs will have to wait it reset. All the vfs will hang in this case. Or sometimes the mailbox has some delay and other VFs will also wait. The user of other VFs will be affected in this case.
+>>>> Yeah, agree completely with JingWen. The hypervisor is the one in charge here, not the guest.
+>>>>
+>>>> What the hypervisor should do (and it already seems to be designed that way) is to send the guest a message that a reset is about to happen and give it some time to response appropriately.
+>>>>
+>>>> The guest on the other hand then tells the hypervisor that all processing has stopped and it is ready to restart. If that doesn't happen in time the hypervisor should eliminate the guest probably trigger even more severe consequences, e.g. restart the whole VM etc...
+>>>>
+>>>> Christian.
+>>> So what's the end conclusion here regarding dropping this particular patch ? Seems to me we still need to drop it to prevent driver's MMIO access
+>>> to the GPU during reset from various places in the code.
+>>>
+>>> Andrey
+>>>
+>> Hi Andrey & Christian,
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 412f377f80b1..16dc16c860cc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -3832,6 +3832,7 @@ int amdgpu_device_init(struct amdgpu_device
->> *adev,
->>    
->>    static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev)
->>    {
->> +
+>> I have ported your patch(drop the reset_sem and in_gpu_reset in flr work) and run some tests. If a engine hang during an OCL benchmark(using kfd), we can see the logs below:
 
 
-Drop the new line
+Did you port the entire patchset or just 'drm/amd/virt: Drop concurrent 
+GPU reset protection for SRIOV' ?
+
+
+>>
+>> [  397.190727] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  397.301496] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  397.406601] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  397.532343] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  397.642251] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  397.746634] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  397.850761] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  397.960544] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  398.065218] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  398.182173] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  398.288264] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  398.394712] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+>> [  428.400582] [drm] clean up the vf2pf work item
+>> [  428.500528] amdgpu 0000:00:07.0: amdgpu: [gfxhub] page fault (src_id:0 ring:153 vmid:8 pasid:32771, for process xgemmStandalone pid 3557 thread xgemmStandalone pid 3557)
+>> [  428.527576] amdgpu 0000:00:07.0: amdgpu:   in page starting at address 0x00007fc991c04000 from client 0x1b (UTCL2)
+>> [  437.531392] amdgpu: qcm fence wait loop timeout expired
+>> [  437.535738] amdgpu: The cp might be in an unrecoverable state due to an unsuccessful queues preemption
+>> [  437.537191] amdgpu 0000:00:07.0: amdgpu: GPU reset begin!
+>> [  438.087443] [drm] RE-INIT-early: nv_common succeeded
+>>
+>> As kfd relies on these to check if GPU is in reset, dropping it will hit some page fault and fence error very easily.
+> To be clear, we can also hit the page fault with the reset_sem and in_gpu_reset, just not as easily as dropping them.
+
+Are you saying that the entire patch-set with and without patch 
+'drm/amd/virt: Drop concurrent GPU reset protection for SRIOV
+is casing this GPUVM page fault during testing engine hang while running 
+benchmark ?
+
+Do you never observe this page fault when running this test with 
+original tree without the new patch-set ?
 
 Andrey
 
 
->>    	/* Clear all CPU mappings pointing to this device */
->>    	unmap_mapping_range(adev->ddev.anon_inode->i_mapping, 0, 0, 1);
->>    
->> @@ -3912,6 +3913,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device
->> *adev)
->>    
->>    void amdgpu_device_fini_sw(struct amdgpu_device *adev)
->>    {
->> +	int idx;
->> +
->>    	amdgpu_fence_driver_sw_fini(adev);
->>    	amdgpu_device_ip_fini(adev);
->>    	release_firmware(adev->firmware.gpu_info_fw);
->> @@ -3936,6 +3939,14 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
->>    	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
->>    		vga_client_register(adev->pdev, NULL, NULL, NULL);
->>    
->> +	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
->> +
->> +		iounmap(adev->rmmio);
->> +		adev->rmmio = NULL;
->> +		amdgpu_device_doorbell_fini(adev);
->> +		drm_dev_exit(idx);
->> +	}
->> +
->>    	if (IS_ENABLED(CONFIG_PERF_EVENTS))
->>    		amdgpu_pmu_fini(adev);
->>    	if (adev->mman.discovery_bin)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 156002db24e1..ff9dc377a3a0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -33,6 +33,7 @@
->>    #include <linux/slab.h>
->>    #include <linux/dma-buf.h>
->>    
->> +#include <drm/drm_drv.h>
->>    #include <drm/amdgpu_drm.h>
->>    #include <drm/drm_cache.h>
->>    #include "amdgpu.h"
->> @@ -1061,7 +1062,18 @@ int amdgpu_bo_init(struct amdgpu_device *adev)
->>     */
->>    void amdgpu_bo_fini(struct amdgpu_device *adev)
->>    {
->> +	int idx;
->> +
->>    	amdgpu_ttm_fini(adev);
->> +
->> +	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
->> +
->> +		if (!adev->gmc.xgmi.connected_to_cpu) {
->> +			arch_phys_wc_del(adev->gmc.vram_mtrr);
->> +			arch_io_free_memtype_wc(adev->gmc.aper_base, adev->gmc.aper_size);
->> +		}
->> +		drm_dev_exit(idx);
->> +	}
->>    }
->>    
->>    /**
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 367abed1d6e6..ea897feeddd2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -42,6 +42,7 @@
->>    #include <linux/dma-buf.h>
->>    #include <linux/sizes.h>
->>    
->> +#include <drm/drm_drv.h>
->>    #include <drm/ttm/ttm_bo_api.h>
->>    #include <drm/ttm/ttm_bo_driver.h>
->>    #include <drm/ttm/ttm_placement.h>
->> @@ -1801,6 +1802,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->>     */
->>    void amdgpu_ttm_fini(struct amdgpu_device *adev)
->>    {
->> +	int idx;
->>    	if (!adev->mman.initialized)
->>    		return;
->>    
->> @@ -1815,6 +1817,15 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->>    				      NULL, NULL);
->>    	amdgpu_ttm_fw_reserve_vram_fini(adev);
->>    
->> +	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
->> +
->> +		if (adev->mman.aper_base_kaddr)
->> +			iounmap(adev->mman.aper_base_kaddr);
->> +		adev->mman.aper_base_kaddr = NULL;
->> +
->> +		drm_dev_exit(idx);
->> +	}
->> +
->>    	amdgpu_vram_mgr_fini(adev);
->>    	amdgpu_gtt_mgr_fini(adev);
->>    	amdgpu_preempt_mgr_fini(adev);
+>>>>>> Andrey
+>>>>>>
+>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>> Am 04.01.22 um 11:49 schrieb Liu, Monk:
+>>>>>>>> [AMD Official Use Only]
+>>>>>>>>
+>>>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
+>>>>>>>> No it's not, FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long
+>>>>>>>>
+>>>>>>>>>> In other words I strongly think that the current SRIOV reset implementation is severely broken and what Andrey is doing is actually fixing it.
+>>>>>>>> It makes the code to crash ... how could it be a fix ?
+>>>>>>>>
+>>>>>>>> I'm afraid the patch is NAK from me,  but it is welcome if the cleanup do not ruin the logic, Andry or jingwen can try it if needed.
+>>>>>>>>
+>>>>>>>> Thanks
+>>>>>>>> -------------------------------------------------------------------
+>>>>>>>> Monk Liu | Cloud GPU & Virtualization Solution | AMD
+>>>>>>>> -------------------------------------------------------------------
+>>>>>>>> we are hiring software manager for CVS core team
+>>>>>>>> -------------------------------------------------------------------
+>>>>>>>>
+>>>>>>>> -----Original Message-----
+>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>>>> Sent: Tuesday, January 4, 2022 6:19 PM
+>>>>>>>> To: Chen, JingWen <JingWen.Chen2@amd.com>; Christian König <ckoenig.leichtzumerken@gmail.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Chen, Horace <Horace.Chen@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>
+>>>>>>>> Cc: daniel@ffwll.ch
+>>>>>>>> Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset protection for SRIOV
+>>>>>>>>
+>>>>>>>> Hi Jingwen,
+>>>>>>>>
+>>>>>>>> well what I mean is that we need to adjust the implementation in amdgpu to actually match the requirements.
+>>>>>>>>
+>>>>>>>> Could be that the reset sequence is questionable in general, but I doubt so at least for now.
+>>>>>>>>
+>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
+>>>>>>>>
+>>>>>>>> Properly setting in_gpu_reset is indeed mandatory, but should happen at a central place and not in the SRIOV specific code.
+>>>>>>>>
+>>>>>>>> In other words I strongly think that the current SRIOV reset implementation is severely broken and what Andrey is doing is actually fixing it.
+>>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>> Am 04.01.22 um 10:07 schrieb JingWen Chen:
+>>>>>>>>> Hi Christian,
+>>>>>>>>> I'm not sure what do you mean by "we need to change SRIOV not the driver".
+>>>>>>>>>
+>>>>>>>>> Do you mean we should change the reset sequence in SRIOV? This will be a huge change for our SRIOV solution.
+>>>>>>>>>
+>>>>>>>>>     From my point of view, we can directly use amdgpu_device_lock_adev
+>>>>>>>>> and amdgpu_device_unlock_adev in flr_work instead of try_lock since no one will conflict with this thread with reset_domain introduced.
+>>>>>>>>> But we do need the reset_sem and adev->in_gpu_reset to keep device untouched via user space.
+>>>>>>>>>
+>>>>>>>>> Best Regards,
+>>>>>>>>> Jingwen Chen
+>>>>>>>>>
+>>>>>>>>> On 2022/1/3 下午6:17, Christian König wrote:
+>>>>>>>>>> Please don't. This patch is vital to the cleanup of the reset procedure.
+>>>>>>>>>>
+>>>>>>>>>> If SRIOV doesn't work with that we need to change SRIOV and not the driver.
+>>>>>>>>>>
+>>>>>>>>>> Christian.
+>>>>>>>>>>
+>>>>>>>>>> Am 30.12.21 um 19:45 schrieb Andrey Grodzovsky:
+>>>>>>>>>>> Sure, I guess i can drop this patch then.
+>>>>>>>>>>>
+>>>>>>>>>>> Andrey
+>>>>>>>>>>>
+>>>>>>>>>>> On 2021-12-24 4:57 a.m., JingWen Chen wrote:
+>>>>>>>>>>>> I do agree with shaoyun, if the host find the gpu engine hangs first, and do the flr, guest side thread may not know this and still try to access HW(e.g. kfd is using a lot of amdgpu_in_reset and reset_sem to identify the reset status). And this may lead to very bad result.
+>>>>>>>>>>>>
+>>>>>>>>>>>> On 2021/12/24 下午4:58, Deng, Emily wrote:
+>>>>>>>>>>>>> These patches look good to me. JingWen will pull these patches and do some basic TDR test on sriov environment, and give feedback.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Best wishes
+>>>>>>>>>>>>> Emily Deng
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>> -----Original Message-----
+>>>>>>>>>>>>>> From: Liu, Monk <Monk.Liu@amd.com>
+>>>>>>>>>>>>>> Sent: Thursday, December 23, 2021 6:14 PM
+>>>>>>>>>>>>>> To: Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky,
+>>>>>>>>>>>>>> Andrey <Andrey.Grodzovsky@amd.com>;
+>>>>>>>>>>>>>> dri-devel@lists.freedesktop.org; amd- gfx@lists.freedesktop.org;
+>>>>>>>>>>>>>> Chen, Horace <Horace.Chen@amd.com>; Chen, JingWen
+>>>>>>>>>>>>>> <JingWen.Chen2@amd.com>; Deng, Emily <Emily.Deng@amd.com>
+>>>>>>>>>>>>>> Cc: daniel@ffwll.ch
+>>>>>>>>>>>>>> Subject: RE: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset
+>>>>>>>>>>>>>> protection for SRIOV
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> [AMD Official Use Only]
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> @Chen, Horace @Chen, JingWen @Deng, Emily
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Please take a review on Andrey's patch
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Thanks
+>>>>>>>>>>>>>> -----------------------------------------------------------------
+>>>>>>>>>>>>>> -- Monk Liu | Cloud GPU & Virtualization Solution | AMD
+>>>>>>>>>>>>>> -----------------------------------------------------------------
+>>>>>>>>>>>>>> -- we are hiring software manager for CVS core team
+>>>>>>>>>>>>>> -----------------------------------------------------------------
+>>>>>>>>>>>>>> -- 
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> -----Original Message-----
+>>>>>>>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>>>>>>>>>> Sent: Thursday, December 23, 2021 4:42 PM
+>>>>>>>>>>>>>> To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; dri-
+>>>>>>>>>>>>>> devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+>>>>>>>>>>>>>> Cc: daniel@ffwll.ch; Liu, Monk <Monk.Liu@amd.com>; Chen, Horace
+>>>>>>>>>>>>>> <Horace.Chen@amd.com>
+>>>>>>>>>>>>>> Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset
+>>>>>>>>>>>>>> protection for SRIOV
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Am 22.12.21 um 23:14 schrieb Andrey Grodzovsky:
+>>>>>>>>>>>>>>> Since now flr work is serialized against  GPU resets there is no
+>>>>>>>>>>>>>>> need for this.
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>>>>>>>>>>> Acked-by: Christian König <christian.koenig@amd.com>
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>>>        drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 11 -----------
+>>>>>>>>>>>>>>>        drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 11 -----------
+>>>>>>>>>>>>>>>        2 files changed, 22 deletions(-)
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>>>> index 487cd654b69e..7d59a66e3988 100644
+>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>>>> @@ -248,15 +248,7 @@ static void xgpu_ai_mailbox_flr_work(struct
+>>>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>>>            struct amdgpu_device *adev = container_of(virt, struct
+>>>>>>>>>>>>>> amdgpu_device, virt);
+>>>>>>>>>>>>>>>            int timeout = AI_MAILBOX_POLL_FLR_TIMEDOUT;
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> -    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
+>>>>>>>>>>>>>>> -     * otherwise the mailbox msg will be ruined/reseted by
+>>>>>>>>>>>>>>> -     * the VF FLR.
+>>>>>>>>>>>>>>> -     */
+>>>>>>>>>>>>>>> -    if (!down_write_trylock(&adev->reset_sem))
+>>>>>>>>>>>>>>> -        return;
+>>>>>>>>>>>>>>> -
+>>>>>>>>>>>>>>> amdgpu_virt_fini_data_exchange(adev);
+>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 1);
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>            xgpu_ai_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0,
+>>>>>>>>>>>>>>> 0, 0);
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> @@ -269,9 +261,6 @@ static void xgpu_ai_mailbox_flr_work(struct
+>>>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>>>            } while (timeout > 1);
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>        flr_done:
+>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 0);
+>>>>>>>>>>>>>>> -    up_write(&adev->reset_sem);
+>>>>>>>>>>>>>>> -
+>>>>>>>>>>>>>>>            /* Trigger recovery for world switch failure if no TDR
+>>>>>>>>>>>>>>> */
+>>>>>>>>>>>>>>>            if (amdgpu_device_should_recover_gpu(adev)
+>>>>>>>>>>>>>>>                && (!amdgpu_device_has_job_running(adev) || diff
+>>>>>>>>>>>>>>> --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>>>> index e3869067a31d..f82c066c8e8d 100644
+>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>>>> @@ -277,15 +277,7 @@ static void xgpu_nv_mailbox_flr_work(struct
+>>>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>>>            struct amdgpu_device *adev = container_of(virt, struct
+>>>>>>>>>>>>>> amdgpu_device, virt);
+>>>>>>>>>>>>>>>            int timeout = NV_MAILBOX_POLL_FLR_TIMEDOUT;
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> -    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
+>>>>>>>>>>>>>>> -     * otherwise the mailbox msg will be ruined/reseted by
+>>>>>>>>>>>>>>> -     * the VF FLR.
+>>>>>>>>>>>>>>> -     */
+>>>>>>>>>>>>>>> -    if (!down_write_trylock(&adev->reset_sem))
+>>>>>>>>>>>>>>> -        return;
+>>>>>>>>>>>>>>> -
+>>>>>>>>>>>>>>> amdgpu_virt_fini_data_exchange(adev);
+>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 1);
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>            xgpu_nv_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0,
+>>>>>>>>>>>>>>> 0, 0);
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> @@ -298,9 +290,6 @@ static void xgpu_nv_mailbox_flr_work(struct
+>>>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>>>            } while (timeout > 1);
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>        flr_done:
+>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 0);
+>>>>>>>>>>>>>>> -    up_write(&adev->reset_sem);
+>>>>>>>>>>>>>>> -
+>>>>>>>>>>>>>>>            /* Trigger recovery for world switch failure if no TDR
+>>>>>>>>>>>>>>> */
+>>>>>>>>>>>>>>>            if (amdgpu_device_should_recover_gpu(adev)
+>>>>>>>>>>>>>>>                && (!amdgpu_device_has_job_running(adev) ||
