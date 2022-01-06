@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 774C1C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 02:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 329B2C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jan 2022 05:00:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD84810E1F6;
-	Thu,  6 Jan 2022 02:54:45 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAC310E1F6
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jan 2022 02:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E0D810F68B;
+	Thu,  6 Jan 2022 05:00:09 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFA210F687;
+ Thu,  6 Jan 2022 05:00:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mjtce91sYmMzfhnnXP09Lxm+rN+jX1hS4vvtJspZ4TasQa7HlqOjxcujIBbJF+i26siaUSpEU/Ant4gjfpcRmpfyqn0irZZHNsccBSMrisE57ceWmK/7SwcpePIicRnDWPtFf9DrQRoq0KvgrVM/T17g2lO5+hYpgigBlnNtzuQazDLT8wiQVLw+pA1LR0g+5fT85t9bECNm27WizG+w7k7dk2gwj8SC6HJvz6hHzMCNp7HWcF9mQKO5SoEaX+p5aGfJ27mu4TZ1LcCvRvfm+QRMsr2ogwKXb+8PvknUikIEbtvFB+5YymSsrPu8NTgMiZjpFZ7PhBAaj0ZOhcmcvg==
+ b=D7Q92qkTGmvOsDxnOaBN8KYT9Cl6pyfQEXCud2c+VXHnfl4GQhCa6nXQvEmDkV2RFrAqcr1sjhikE73ftALakYNFDTcdV+u9vjhgBJn6CXGhFjof++VCg1c3YSMrKPM7yorFfM1BwhH89XoshJTcJZypy1PNd/s2pX4oDzEV/qbvw/XD7zR8GTpHuZGcwurOYkFV/jg/euDw1/jii6ujWiwdgFcSwUgjCyZp8G9iXq61VcSaalvqKWPaMuJwtzJYrffzeVRemOysT/YpXwRnpi571lpVfSWPOC5ZWBMuD7JU+tL/RtC6dCYItCSDSrMetjXJhwz26Z//yRSQY51RWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jaYTuIPBLEx4Qwh7HuM4uH5yA43SZk146O9KQgwiiJE=;
- b=OfrbUMDxKY3K/1LYs4D9EgAVXpcaWTs3iK/uB1PJnnCr7GzV/o1Fszr84LZiGX0t6GhpCqgH+kZPZL/+v4W/HMVP7nOwF4BWlRDePagfsuaR7FCigMBw3q5ONzlmfSWoMq/4hIxh8fcW5bPRcy2ktEwkcI/po67ZwTnqju+lD+mGb2G8YQKc9ubQDRZSti1QVyFy0IdGW2MvA2WVU9AO2oc2cS4Y6yKALS1r2RwVyoV2ZFVT3ifrpf37B58b/n23aWndMOa5Mdc68YW+jw62Ovgcgg59lkkowenH1Gk8tIJ7UAgSufB4wAZ2HjldUc579aA3QeNE0KoSlkmSwFOHMA==
+ bh=9Ub1gp+ws7aWNB8W8ZDdE5kWO61aKQQEAQn4NVg4fp4=;
+ b=FX8BT9coMOODCoiEA5rR1eh5i3DDqoFD1dANmAUm/oPG8NlH3ACpDimiG9y78fFRvDoUOIGaD+tZp0MPsLgCKP+Zw3KHqKg+232oDn4MxWjmz9W3YT28briOX5Ky1jwqPsCVik3CRLHNO8IKt7A7nMV3prX+o1D1ZrGaKVLeeET9cuxH5E79Fge1SZKUy8fu4qIOhdO9qP+WG8xfuolmxp20YRmxS1X4FWBZCeh935XkvpAXfF2Bjl51fsPf33ZIqVhYmMgl4o7ThxwclticKjoabihulcDO6WmTQpFHklQTUkRFuAFENwNzqqqdZsD3cfMmgStWSpOCnErwweBzEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jaYTuIPBLEx4Qwh7HuM4uH5yA43SZk146O9KQgwiiJE=;
- b=Fog+2mprPuk9aP9xuI1sTmewTnz4sCchCWdfwlOVhLRpae2rpFRzL7S1L4kOyrsGMaYCvHLAN2IuUU+eNcOE1HZ9n2JdlXqnipkgCtKchBTPfGVRtfURtvwhJU+Uo6M1Rs8SjotXLd8kDfv4OoRGezmdGsHLTiJObllGkxtP+9w=
-Received: from MWHPR20CA0005.namprd20.prod.outlook.com (2603:10b6:300:13d::15)
- by MN2PR12MB4112.namprd12.prod.outlook.com (2603:10b6:208:19a::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=9Ub1gp+ws7aWNB8W8ZDdE5kWO61aKQQEAQn4NVg4fp4=;
+ b=Dktbx8Vw0IF4JfRUjXGbJIUowIb+CqBMbXRLoDsSB2ke3dwoMt5dFqCz1d1M0+VOTPtPEYwM9cgqm7vz6J2TVk9zY6CTzVLkBTx9wm9/SpTrryvGnPedJa4EDUi8fB2cs3QFAVjxZxogyRH2zMoNPVxXBI1H/9/PJVJQwDDBCc8=
+Received: from CO2PR06CA0074.namprd06.prod.outlook.com (2603:10b6:104:3::32)
+ by CY4PR1201MB0087.namprd12.prod.outlook.com (2603:10b6:910:1b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.15; Thu, 6 Jan
- 2022 02:54:42 +0000
-Received: from CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:13d:cafe::9b) by MWHPR20CA0005.outlook.office365.com
- (2603:10b6:300:13d::15) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 05:00:05 +0000
+Received: from CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:3:cafe::99) by CO2PR06CA0074.outlook.office365.com
+ (2603:10b6:104:3::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7 via Frontend
- Transport; Thu, 6 Jan 2022 02:54:42 +0000
+ Transport; Thu, 6 Jan 2022 05:00:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +45,76 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT060.mail.protection.outlook.com (10.13.175.132) with Microsoft SMTP
+ CO1NAM11FT029.mail.protection.outlook.com (10.13.174.214) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4867.7 via Frontend Transport; Thu, 6 Jan 2022 02:54:42 +0000
-Received: from AWS-Host-01.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ 15.20.4867.9 via Frontend Transport; Thu, 6 Jan 2022 05:00:04 +0000
+Received: from [10.65.96.204] (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 5 Jan
- 2022 20:54:41 -0600
-From: Bokun Zhang <Bokun.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Add interface to load SRIOV cap FW
-Date: Wed, 5 Jan 2022 21:54:28 -0500
-Message-ID: <20220106025428.215309-1-Bokun.Zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2022 22:59:58 -0600
+Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset protection
+ for SRIOV
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "Liu, Monk"
+ <Monk.Liu@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>, "Deng, Emily"
+ <Emily.Deng@amd.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Chen, Horace" <Horace.Chen@amd.com>
+References: <20211222220506.789133-1-andrey.grodzovsky@amd.com>
+ <20211222221400.790842-1-andrey.grodzovsky@amd.com>
+ <20211222221400.790842-4-andrey.grodzovsky@amd.com>
+ <9125ac3a-e578-6b34-1533-7622ec0274f1@amd.com>
+ <BL1PR12MB5269AE1B82F1D07433B95B59847E9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <PH0PR12MB5417F12B403B8181D5CD03988F7F9@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <cc8e296d-360d-9a2f-85cd-f47d55581e99@amd.com>
+ <f5ba0a69-1cae-7d8b-bfe7-4e4400e9c32a@amd.com>
+ <2dee6f65-9ca9-a332-7206-f24021fb4c44@gmail.com>
+ <b5a31f18-262d-951e-2530-bdb0738e5033@amd.com>
+ <20363a4e-b282-232d-34d0-14867bad4931@amd.com>
+ <BL1PR12MB5269922395096810CC79E66D844A9@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <23bebf13-c622-7c61-af88-0e0970b90389@amd.com>
+ <a74c1198-6027-6a0f-55a8-24227c868704@amd.com>
+ <c41f0294-fd64-cf16-8c22-994a7a2ed157@amd.com>
+ <821c0b66-8c9c-9dff-a328-bfbc2233d4ef@gmail.com>
+ <eecdf721-bdd1-0bc1-70c0-29bc8b844d68@amd.com>
+From: JingWen Chen <jingwech@amd.com>
+Message-ID: <b23a5387-7bb1-ef1a-82f5-a012cc530203@amd.com>
+Date: Thu, 6 Jan 2022 12:59:55 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+In-Reply-To: <eecdf721-bdd1-0bc1-70c0-29bc8b844d68@amd.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Language: en-US
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4b265d74-f898-4d63-6ad3-08d9d0bfe37f
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4112:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB411275582BB93480F8728CD5F44C9@MN2PR12MB4112.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:194;
+X-MS-Office365-Filtering-Correlation-Id: 183dd7af-4de2-4755-0c25-08d9d0d16701
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0087:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0087B5C18038E03BAAAE8500B74C9@CY4PR1201MB0087.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Qn+gdklh4CHdjCthbgsXKgNrtApP4oS9F0gmprPaDl7fFXlFExIot8UEuElaYd1jaA1b/MZhC3SYOR5w6yh5IA4QwwR6yP599dQJwWqZSaCOmXsVvlPFd6sHBSbrvdh4e+ghdWUsoHeb97Lje0e8hY8Z2xGjlonajYUCoK6ybcHSp0x7qZyZo2Tdy5QQdQBNtE8cw+8YsGfVYGv3aeeK2QS8ifHHj+cPt5xyLqyvQpDYdPsBXaqo0Xj9/l/gWHXsKZaJY6DGBV42qusQ7DNz01Ew9VnAsdnOwq00AWeMkYYj0dnybmLZuQbmqnmp9FS58Lv12EBqWflKOZD/FHe+V/JB9FW2cZkdN3J24CnnOiRJbzWZPdi1h92npNVcXrIHnfp5eni5K4igIRdlKWJW4NUF83Wsgtuea8wGlzRjhRvmgLka+4DQCbj4byXeD5pLPLC5ZZPMPsWbbMeb0mUzkbzeVoSHjrUstipMrg4V2tbxU/NGt77QnaGXaFkQdOc/V4KqKr/KuYktWJIBq3e0fIO9gbJBvwgYO7GYbRHni4AanLpG4adh9F3OatCNZhWZNM1y7OJBEFWbKWc4JKPee8fXaukSJTeqdECspQm+s3nS3YTUOj5HsjxDIS/LJJs+i41xtH4IaqXS4kpPCOSwvP2gEUy0JeFsOTDTNGEO4HAHrKrDAH/Xht8CaPHhCjBtQj3H5GApZOrEDvZxvzCtPw20RvRxvjEWr43NF0oQ5E2OgzbnILZ4uERo8yAil+U60D+mhQCfsZiUjYoDxvcgdBaw+NT5x4NryqTIdcrXhSg=
+X-Microsoft-Antispam-Message-Info: xjwvvS71vn+o8n54aMoXDovnXO2IjP6bngEgmASu/JnkFX0Yf3CbWz04NsbfX9/AB7Rp4I9kLycEyh8azRVkMcivrR8x4p83W9OQmH5x4cD0QcTGntf/z7UutVDQLP5XEuRQBs+9hGUleHkpcz7OqCbjYxUGcIiBd0JSM0UmBwG5Vv3YaXN7e7Jva7kwLLqa75vuv6JKUxGuy9eiBeb/ZQM17UXAnuIxgdAoEcWr86bsX2M+bT+c8u87T8fOYGIiLgdIwXVUQ0s3oImw4kE4er9ammjXNrMjuo5LE1/OOA1VFLauInGUlT/xdX07Ft6ACxwWkyLh4n+4xbDBbwL39P3frwwf6dWa9HsNtTEcdvxvuDHzRfdq86xdxZKM3iye1bkvHj6LoAAd+VkhXtZFnsvZ3B4opkfbM57ApS/9T1RYfRBlLtCfZhh1E/bjeQ4k7JPEYlHDdfbzIJCY8wubGdkTpnPy1RXeLYrvHyU5dM7akOAFqf/PcWhitxg6H4bTp1pGGyJB20zyxQIyzwJMVe+JllKuYbV3L+djIA2QvDsIfpl7DteajRxHFg9gj2zcF+LSbnVWz/aceoW8MqnK0HG2fqJWnYPOJHAWWy69Ftm3qCiYh0emoEWF9BeoUyDx5z4EbTV8/FOfDC9p7f+qQM3QjYOgiW41mJhz/TlMEDDe3/yT0iYX6Mng1ZOEYgVlHB+au/LUV1w0tyiIx1MOyBfULXjUrIuALrxBifBVlP/oSWuC09tWvFAu+egF9kUWHYCxeYIvfd7CrSQRFZAsuhL4tXnwu9rA5jy0fP6gcMRsebNCMlgoxdImobhRngVhLYyvFUJURrElywsy2/aPwu3CY9JNfCCAsDJlm4UYFrg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700002)(316002)(26005)(36860700001)(86362001)(508600001)(70586007)(47076005)(16526019)(186003)(6916009)(6666004)(2906002)(36756003)(7696005)(82310400004)(5660300002)(8676002)(30864003)(2616005)(8936002)(4326008)(81166007)(426003)(1076003)(40460700001)(356005)(336012)(83380400001)(70206006)(36900700001);
+ SFS:(4636009)(36840700001)(40470700002)(46966006)(4001150100001)(110136005)(6666004)(31696002)(36860700001)(53546011)(426003)(5660300002)(336012)(316002)(356005)(47076005)(83380400001)(30864003)(40460700001)(2906002)(2616005)(82310400004)(16576012)(81166007)(186003)(66574015)(16526019)(921005)(26005)(36756003)(508600001)(4326008)(8676002)(70586007)(8936002)(6636002)(70206006)(31686004)(43740500002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 02:54:42.2182 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b265d74-f898-4d63-6ad3-08d9d0bfe37f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2022 05:00:04.2937 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 183dd7af-4de2-4755-0c25-08d9d0d16701
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT060.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4112
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,336 +126,285 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>
+Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-- Add interface to load SRIOV cap FW. If the FW does not
-  exist, simply skip this FW loading routine.
-  This FW will only be loaded under SRIOV. Other driver
-  setup will not be affected.
-  By adding this interface, it will make us easier to
-  prepare SRIOV Linux guest driver for different users.
 
-- Update sysfs interface to read cap FW version.
+On 2022/1/6 上午2:24, Andrey Grodzovsky wrote:
+>
+> On 2022-01-05 2:59 a.m., Christian König wrote:
+>> Am 05.01.22 um 08:34 schrieb JingWen Chen:
+>>> On 2022/1/5 上午12:56, Andrey Grodzovsky wrote:
+>>>> On 2022-01-04 6:36 a.m., Christian König wrote:
+>>>>> Am 04.01.22 um 11:49 schrieb Liu, Monk:
+>>>>>> [AMD Official Use Only]
+>>>>>>
+>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
+>>>>>> No it's not, FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long
+>>>>>>
+>>>>> Then we have a major design issue in the SRIOV protocol and really need to question this.
+>>>>>
+>>>>> How do you want to prevent a race between the hypervisor resetting the hardware and the client trying the same because of a timeout?
+>>>>>
+>>>>> As far as I can see the procedure should be:
+>>>>> 1. We detect that a reset is necessary, either because of a fault a timeout or signal from hypervisor.
+>>>>> 2. For each of those potential reset sources a work item is send to the single workqueue.
+>>>>> 3. One of those work items execute first and prepares the reset.
+>>>>> 4. We either do the reset our self or notify the hypervisor that we are ready for the reset.
+>>>>> 5. Cleanup after the reset, eventually resubmit jobs etc..
+>>>>> 6. Cancel work items which might have been scheduled from other reset sources.
+>>>>>
+>>>>> It does make sense that the hypervisor resets the hardware without waiting for the clients for too long, but if we don't follow this general steps we will always have a race between the different components.
+>>>>
+>>>> Monk, just to add to this - if indeed as you say that 'FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long'
+>>>> and there is no strict waiting from the hypervisor for IDH_READY_TO_RESET to be recived from guest before starting the reset then setting in_gpu_reset and locking reset_sem from guest side is not really full proof
+>>>> protection from MMIO accesses by the guest - it only truly helps if hypervisor waits for that message before initiation of HW reset.
+>>>>
+>>> Hi Andrey, this cannot be done. If somehow guest kernel hangs and never has the chance to send the response back, then other VFs will have to wait it reset. All the vfs will hang in this case. Or sometimes the mailbox has some delay and other VFs will also wait. The user of other VFs will be affected in this case.
+>>
+>> Yeah, agree completely with JingWen. The hypervisor is the one in charge here, not the guest.
+>>
+>> What the hypervisor should do (and it already seems to be designed that way) is to send the guest a message that a reset is about to happen and give it some time to response appropriately.
+>>
+>> The guest on the other hand then tells the hypervisor that all processing has stopped and it is ready to restart. If that doesn't happen in time the hypervisor should eliminate the guest probably trigger even more severe consequences, e.g. restart the whole VM etc...
+>>
+>> Christian.
+>
+>
+> So what's the end conclusion here regarding dropping this particular patch ? Seems to me we still need to drop it to prevent driver's MMIO access
+> to the GPU during reset from various places in the code.
+>
+> Andrey
+>
+Hi Andrey & Christian,
 
-- Refactor PSP FW loading routine under SRIOV to use a
-  unified SWITCH statement instead of using IF statement
+I have ported your patch(drop the reset_sem and in_gpu_reset in flr work) and run some tests. If a engine hang during an OCL benchmark(using kfd), we can see the logs below:
 
-- Remove redundant amdgpu_sriov_vf() check in FW loading
-  routine
+[  397.190727] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  397.301496] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  397.406601] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  397.532343] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  397.642251] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  397.746634] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  397.850761] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  397.960544] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  398.065218] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  398.182173] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  398.288264] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  398.394712] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
+[  428.400582] [drm] clean up the vf2pf work item
+[  428.500528] amdgpu 0000:00:07.0: amdgpu: [gfxhub] page fault (src_id:0 ring:153 vmid:8 pasid:32771, for process xgemmStandalone pid 3557 thread xgemmStandalone pid 3557)
+[  428.527576] amdgpu 0000:00:07.0: amdgpu:   in page starting at address 0x00007fc991c04000 from client 0x1b (UTCL2)
+[  437.531392] amdgpu: qcm fence wait loop timeout expired
+[  437.535738] amdgpu: The cp might be in an unrecoverable state due to an unsuccessful queues preemption
+[  437.537191] amdgpu 0000:00:07.0: amdgpu: GPU reset begin!
+[  438.087443] [drm] RE-INIT-early: nv_common succeeded
 
-Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   |  14 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 108 +++++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h   |   9 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |   3 +-
- drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h   |   1 +
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c    |   4 +-
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c     |   1 +
- include/uapi/drm/amdgpu_drm.h             |   2 +
- 8 files changed, 126 insertions(+), 16 deletions(-)
+As kfd relies on these to check if GPU is in reset, dropping it will hit some page fault and fence error very easily.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 35bee9dabe1c..dc7f24a98c44 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -400,6 +400,10 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
- 		fw_info->ver = adev->psp.toc.fw_version;
- 		fw_info->feature = adev->psp.toc.feature_version;
- 		break;
-+	case AMDGPU_INFO_FW_CAP:
-+		fw_info->ver = adev->psp.cap_fw_version;
-+		fw_info->feature = adev->psp.cap_feature_version;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -1665,6 +1669,16 @@ static int amdgpu_debugfs_firmware_info_show(struct seq_file *m, void *unused)
- 	seq_printf(m, "TOC feature version: %u, firmware version: 0x%08x\n",
- 		   fw_info.feature, fw_info.ver);
- 
-+	/* CAP */
-+	if (adev->psp.cap_fw) {
-+		query_fw.fw_type = AMDGPU_INFO_FW_CAP;
-+		ret = amdgpu_firmware_info(&fw_info, &query_fw, adev);
-+		if (ret)
-+			return ret;
-+		seq_printf(m, "CAP feature version: %u, firmware version: 0x%08x\n",
-+				fw_info.feature, fw_info.ver);
-+	}
-+
- 	seq_printf(m, "VBIOS version: %s\n", ctx->vbios_version);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 07d563c6641f..03e43327c4c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -259,6 +259,32 @@ static bool psp_get_runtime_db_entry(struct amdgpu_device *adev,
- 	return ret;
- }
- 
-+static int psp_init_sriov_microcode(struct psp_context *psp)
-+{
-+	struct amdgpu_device *adev = psp->adev;
-+	int ret = 0;
-+
-+	switch (adev->ip_versions[MP0_HWIP][0]) {
-+	case IP_VERSION(9, 0, 0):
-+		ret = psp_init_cap_microcode(psp, "vega10");
-+		break;
-+	case IP_VERSION(11, 0, 9):
-+		ret = psp_init_cap_microcode(psp, "navi12");
-+		break;
-+	case IP_VERSION(11, 0, 7):
-+		ret = psp_init_cap_microcode(psp, "sienna_cichlid");
-+		break;
-+	case IP_VERSION(13, 0, 2):
-+		ret = psp_init_ta_microcode(psp, "aldebaran");
-+		break;
-+	default:
-+		BUG();
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
- static int psp_sw_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -273,19 +299,13 @@ static int psp_sw_init(void *handle)
- 		ret = -ENOMEM;
- 	}
- 
--	if (!amdgpu_sriov_vf(adev)) {
-+	if (amdgpu_sriov_vf(adev))
-+		ret = psp_init_sriov_microcode(psp);
-+	else
- 		ret = psp_init_microcode(psp);
--		if (ret) {
--			DRM_ERROR("Failed to load psp firmware!\n");
--			return ret;
--		}
--	} else if (amdgpu_sriov_vf(adev) &&
--		   adev->ip_versions[MP0_HWIP][0] == IP_VERSION(13, 0, 2)) {
--		ret = psp_init_ta_microcode(psp, "aldebaran");
--		if (ret) {
--			DRM_ERROR("Failed to initialize ta microcode!\n");
--			return ret;
--		}
-+	if (ret) {
-+		DRM_ERROR("Failed to load psp firmware!\n");
-+		return ret;
- 	}
- 
- 	memset(&boot_cfg_entry, 0, sizeof(boot_cfg_entry));
-@@ -353,6 +373,10 @@ static int psp_sw_fini(void *handle)
- 		release_firmware(psp->ta_fw);
- 		psp->ta_fw = NULL;
- 	}
-+	if (adev->psp.cap_fw) {
-+		release_firmware(psp->cap_fw);
-+		psp->cap_fw = NULL;
-+	}
- 
- 	if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(11, 0, 0) ||
- 	    adev->ip_versions[MP0_HWIP][0] == IP_VERSION(11, 0, 7))
-@@ -491,7 +515,10 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 		DRM_WARN("psp gfx command %s(0x%X) failed and response status is (0x%X)\n",
- 			 psp_gfx_cmd_name(psp->cmd_buf_mem->cmd_id), psp->cmd_buf_mem->cmd_id,
- 			 psp->cmd_buf_mem->resp.status);
--		if (!timeout) {
-+		/* If we load CAP FW, PSP must return 0 under SRIOV
-+		 * also return failure in case of timeout
-+		 */
-+		if ((ucode->ucode_id == AMDGPU_UCODE_ID_CAP) || !timeout) {
- 			ret = -EINVAL;
- 			goto exit;
- 		}
-@@ -2052,6 +2079,9 @@ static int psp_get_fw_type(struct amdgpu_firmware_info *ucode,
- 			   enum psp_gfx_fw_type *type)
- {
- 	switch (ucode->ucode_id) {
-+	case AMDGPU_UCODE_ID_CAP:
-+		*type = GFX_FW_TYPE_CAP;
-+		break;
- 	case AMDGPU_UCODE_ID_SDMA0:
- 		*type = GFX_FW_TYPE_SDMA0;
- 		break;
-@@ -3218,6 +3248,58 @@ int psp_init_ta_microcode(struct psp_context *psp,
- 	return err;
- }
- 
-+int psp_init_cap_microcode(struct psp_context *psp,
-+			  const char *chip_name)
-+{
-+	struct amdgpu_device *adev = psp->adev;
-+	char fw_name[PSP_FW_NAME_LEN];
-+	int err = 0;
-+	const struct psp_firmware_header_v1_0 *cap_hdr_v1_0;
-+	struct amdgpu_firmware_info *info = NULL;
-+
-+	if (!chip_name) {
-+		dev_err(adev->dev, "invalid chip name for cap microcode\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!amdgpu_sriov_vf(adev)) {
-+		dev_err(adev->dev, "cap microcode should only be loaded under SRIOV\n");
-+		return -EINVAL;
-+	}
-+
-+	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_cap.bin", chip_name);
-+	err = request_firmware(&adev->psp.cap_fw, fw_name, adev->dev);
-+	if (err) {
-+		dev_warn(adev->dev, "cap microcode does not exist, skip\n");
-+		err = 0;
-+		goto out;
-+	}
-+
-+	err = amdgpu_ucode_validate(adev->psp.cap_fw);
-+	if (err) {
-+		dev_err(adev->dev, "fail to initialize cap microcode\n");
-+		goto out;
-+	}
-+
-+	info = &adev->firmware.ucode[AMDGPU_UCODE_ID_CAP];
-+	info->ucode_id = AMDGPU_UCODE_ID_CAP;
-+	info->fw = adev->psp.cap_fw;
-+	cap_hdr_v1_0 = (const struct psp_firmware_header_v1_0 *)
-+		adev->psp.cap_fw->data;
-+	adev->firmware.fw_size += ALIGN(
-+			le32_to_cpu(cap_hdr_v1_0->header.ucode_size_bytes), PAGE_SIZE);
-+	adev->psp.cap_fw_version = le32_to_cpu(cap_hdr_v1_0->header.ucode_version);
-+	adev->psp.cap_feature_version = le32_to_cpu(cap_hdr_v1_0->sos.fw_version);
-+	adev->psp.cap_ucode_size = le32_to_cpu(cap_hdr_v1_0->header.ucode_size_bytes);
-+
-+	return 0;
-+
-+out:
-+	release_firmware(adev->psp.cap_fw);
-+	adev->psp.cap_fw = NULL;
-+	return err;
-+}
-+
- static int psp_set_clockgating_state(void *handle,
- 				     enum amd_clockgating_state state)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index f29afabbff1f..ff7d533eb746 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -306,6 +306,9 @@ struct psp_context
- 	/* toc firmware */
- 	const struct firmware		*toc_fw;
- 
-+	/* cap firmware */
-+	const struct firmware		*cap_fw;
-+
- 	/* fence buffer */
- 	struct amdgpu_bo		*fence_buf_bo;
- 	uint64_t			fence_buf_mc_addr;
-@@ -327,6 +330,10 @@ struct psp_context
- 	const struct firmware		*ta_fw;
- 	uint32_t			ta_fw_version;
- 
-+	uint32_t			cap_fw_version;
-+	uint32_t			cap_feature_version;
-+	uint32_t			cap_ucode_size;
-+
- 	struct ta_context		asd_context;
- 	struct psp_xgmi_context		xgmi_context;
- 	struct psp_ras_context		ras_context;
-@@ -440,6 +447,8 @@ int psp_init_sos_microcode(struct psp_context *psp,
- 			   const char *chip_name);
- int psp_init_ta_microcode(struct psp_context *psp,
- 			  const char *chip_name);
-+int psp_init_cap_microcode(struct psp_context *psp,
-+			  const char *chip_name);
- int psp_get_fw_attestation_records_addr(struct psp_context *psp,
- 					uint64_t *output_ptr);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-index 7c2538db3cd5..40dffbac85a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-@@ -343,7 +343,8 @@ union amdgpu_firmware_header {
-  * fw loading support
-  */
- enum AMDGPU_UCODE_ID {
--	AMDGPU_UCODE_ID_SDMA0 = 0,
-+	AMDGPU_UCODE_ID_CAP = 0,
-+	AMDGPU_UCODE_ID_SDMA0,
- 	AMDGPU_UCODE_ID_SDMA1,
- 	AMDGPU_UCODE_ID_SDMA2,
- 	AMDGPU_UCODE_ID_SDMA3,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-index dd0dce254901..1f276ddd26e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-@@ -258,6 +258,7 @@ enum psp_gfx_fw_type {
- 	GFX_FW_TYPE_SDMA6                           = 56,   /* SDMA6                    MI      */
- 	GFX_FW_TYPE_SDMA7                           = 57,   /* SDMA7                    MI      */
- 	GFX_FW_TYPE_VCN1                            = 58,   /* VCN1                     MI      */
-+	GFX_FW_TYPE_CAP                             = 62,   /* CAP_FW                           */
- 	GFX_FW_TYPE_REG_LIST                        = 67,   /* REG_LIST                 MI      */
- 	GFX_FW_TYPE_MAX
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index d0e76b36d4ab..9518b4394a6e 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -53,11 +53,13 @@ MODULE_FIRMWARE("amdgpu/navi14_ta.bin");
- MODULE_FIRMWARE("amdgpu/navi12_sos.bin");
- MODULE_FIRMWARE("amdgpu/navi12_asd.bin");
- MODULE_FIRMWARE("amdgpu/navi12_ta.bin");
-+MODULE_FIRMWARE("amdgpu/navi12_cap.bin");
- MODULE_FIRMWARE("amdgpu/arcturus_sos.bin");
- MODULE_FIRMWARE("amdgpu/arcturus_asd.bin");
- MODULE_FIRMWARE("amdgpu/arcturus_ta.bin");
- MODULE_FIRMWARE("amdgpu/sienna_cichlid_sos.bin");
- MODULE_FIRMWARE("amdgpu/sienna_cichlid_ta.bin");
-+MODULE_FIRMWARE("amdgpu/sienna_cichlid_cap.bin");
- MODULE_FIRMWARE("amdgpu/navy_flounder_sos.bin");
- MODULE_FIRMWARE("amdgpu/navy_flounder_ta.bin");
- MODULE_FIRMWARE("amdgpu/vangogh_asd.bin");
-@@ -177,8 +179,6 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 		err = psp_init_asd_microcode(psp, chip_name);
- 		if (err)
- 			return err;
--		if (amdgpu_sriov_vf(adev))
--			break;
- 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
- 		err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
- 		if (err) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index 1ed357cb0f49..01f3bcc62a6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -44,6 +44,7 @@
- 
- MODULE_FIRMWARE("amdgpu/vega10_sos.bin");
- MODULE_FIRMWARE("amdgpu/vega10_asd.bin");
-+MODULE_FIRMWARE("amdgpu/vega10_cap.bin");
- MODULE_FIRMWARE("amdgpu/vega12_sos.bin");
- MODULE_FIRMWARE("amdgpu/vega12_asd.bin");
- 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index eef6e7e95a11..7b7190609ad0 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -790,6 +790,8 @@ struct drm_amdgpu_cs_chunk_data {
- 	#define AMDGPU_INFO_FW_DMCUB		0x14
- 	/* Subquery id: Query TOC firmware version */
- 	#define AMDGPU_INFO_FW_TOC		0x15
-+	/* Subquery id: Query CAP firmware version */
-+	#define AMDGPU_INFO_FW_CAP		0x16
- 
- /* number of bytes moved for TTM migration */
- #define AMDGPU_INFO_NUM_BYTES_MOVED		0x0f
--- 
-2.25.1
-
+>
+>>
+>>>> Andrey
+>>>>
+>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>> Am 04.01.22 um 11:49 schrieb Liu, Monk:
+>>>>>> [AMD Official Use Only]
+>>>>>>
+>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
+>>>>>> No it's not, FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long
+>>>>>>
+>>>>>>>> In other words I strongly think that the current SRIOV reset implementation is severely broken and what Andrey is doing is actually fixing it.
+>>>>>> It makes the code to crash ... how could it be a fix ?
+>>>>>>
+>>>>>> I'm afraid the patch is NAK from me,  but it is welcome if the cleanup do not ruin the logic, Andry or jingwen can try it if needed.
+>>>>>>
+>>>>>> Thanks
+>>>>>> -------------------------------------------------------------------
+>>>>>> Monk Liu | Cloud GPU & Virtualization Solution | AMD
+>>>>>> -------------------------------------------------------------------
+>>>>>> we are hiring software manager for CVS core team
+>>>>>> -------------------------------------------------------------------
+>>>>>>
+>>>>>> -----Original Message-----
+>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>> Sent: Tuesday, January 4, 2022 6:19 PM
+>>>>>> To: Chen, JingWen <JingWen.Chen2@amd.com>; Christian König <ckoenig.leichtzumerken@gmail.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Chen, Horace <Horace.Chen@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>
+>>>>>> Cc: daniel@ffwll.ch
+>>>>>> Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset protection for SRIOV
+>>>>>>
+>>>>>> Hi Jingwen,
+>>>>>>
+>>>>>> well what I mean is that we need to adjust the implementation in amdgpu to actually match the requirements.
+>>>>>>
+>>>>>> Could be that the reset sequence is questionable in general, but I doubt so at least for now.
+>>>>>>
+>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
+>>>>>>
+>>>>>> Properly setting in_gpu_reset is indeed mandatory, but should happen at a central place and not in the SRIOV specific code.
+>>>>>>
+>>>>>> In other words I strongly think that the current SRIOV reset implementation is severely broken and what Andrey is doing is actually fixing it.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>> Am 04.01.22 um 10:07 schrieb JingWen Chen:
+>>>>>>> Hi Christian,
+>>>>>>> I'm not sure what do you mean by "we need to change SRIOV not the driver".
+>>>>>>>
+>>>>>>> Do you mean we should change the reset sequence in SRIOV? This will be a huge change for our SRIOV solution.
+>>>>>>>
+>>>>>>>    From my point of view, we can directly use amdgpu_device_lock_adev
+>>>>>>> and amdgpu_device_unlock_adev in flr_work instead of try_lock since no one will conflict with this thread with reset_domain introduced.
+>>>>>>> But we do need the reset_sem and adev->in_gpu_reset to keep device untouched via user space.
+>>>>>>>
+>>>>>>> Best Regards,
+>>>>>>> Jingwen Chen
+>>>>>>>
+>>>>>>> On 2022/1/3 下午6:17, Christian König wrote:
+>>>>>>>> Please don't. This patch is vital to the cleanup of the reset procedure.
+>>>>>>>>
+>>>>>>>> If SRIOV doesn't work with that we need to change SRIOV and not the driver.
+>>>>>>>>
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>> Am 30.12.21 um 19:45 schrieb Andrey Grodzovsky:
+>>>>>>>>> Sure, I guess i can drop this patch then.
+>>>>>>>>>
+>>>>>>>>> Andrey
+>>>>>>>>>
+>>>>>>>>> On 2021-12-24 4:57 a.m., JingWen Chen wrote:
+>>>>>>>>>> I do agree with shaoyun, if the host find the gpu engine hangs first, and do the flr, guest side thread may not know this and still try to access HW(e.g. kfd is using a lot of amdgpu_in_reset and reset_sem to identify the reset status). And this may lead to very bad result.
+>>>>>>>>>>
+>>>>>>>>>> On 2021/12/24 下午4:58, Deng, Emily wrote:
+>>>>>>>>>>> These patches look good to me. JingWen will pull these patches and do some basic TDR test on sriov environment, and give feedback.
+>>>>>>>>>>>
+>>>>>>>>>>> Best wishes
+>>>>>>>>>>> Emily Deng
+>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>>> -----Original Message-----
+>>>>>>>>>>>> From: Liu, Monk <Monk.Liu@amd.com>
+>>>>>>>>>>>> Sent: Thursday, December 23, 2021 6:14 PM
+>>>>>>>>>>>> To: Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky,
+>>>>>>>>>>>> Andrey <Andrey.Grodzovsky@amd.com>;
+>>>>>>>>>>>> dri-devel@lists.freedesktop.org; amd- gfx@lists.freedesktop.org;
+>>>>>>>>>>>> Chen, Horace <Horace.Chen@amd.com>; Chen, JingWen
+>>>>>>>>>>>> <JingWen.Chen2@amd.com>; Deng, Emily <Emily.Deng@amd.com>
+>>>>>>>>>>>> Cc: daniel@ffwll.ch
+>>>>>>>>>>>> Subject: RE: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset
+>>>>>>>>>>>> protection for SRIOV
+>>>>>>>>>>>>
+>>>>>>>>>>>> [AMD Official Use Only]
+>>>>>>>>>>>>
+>>>>>>>>>>>> @Chen, Horace @Chen, JingWen @Deng, Emily
+>>>>>>>>>>>>
+>>>>>>>>>>>> Please take a review on Andrey's patch
+>>>>>>>>>>>>
+>>>>>>>>>>>> Thanks
+>>>>>>>>>>>> -----------------------------------------------------------------
+>>>>>>>>>>>> -- Monk Liu | Cloud GPU & Virtualization Solution | AMD
+>>>>>>>>>>>> -----------------------------------------------------------------
+>>>>>>>>>>>> -- we are hiring software manager for CVS core team
+>>>>>>>>>>>> -----------------------------------------------------------------
+>>>>>>>>>>>> -- 
+>>>>>>>>>>>>
+>>>>>>>>>>>> -----Original Message-----
+>>>>>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>>>>>>>> Sent: Thursday, December 23, 2021 4:42 PM
+>>>>>>>>>>>> To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; dri-
+>>>>>>>>>>>> devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+>>>>>>>>>>>> Cc: daniel@ffwll.ch; Liu, Monk <Monk.Liu@amd.com>; Chen, Horace
+>>>>>>>>>>>> <Horace.Chen@amd.com>
+>>>>>>>>>>>> Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset
+>>>>>>>>>>>> protection for SRIOV
+>>>>>>>>>>>>
+>>>>>>>>>>>> Am 22.12.21 um 23:14 schrieb Andrey Grodzovsky:
+>>>>>>>>>>>>> Since now flr work is serialized against  GPU resets there is no
+>>>>>>>>>>>>> need for this.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>>>>>>>>> Acked-by: Christian König <christian.koenig@amd.com>
+>>>>>>>>>>>>
+>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>       drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 11 -----------
+>>>>>>>>>>>>>       drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 11 -----------
+>>>>>>>>>>>>>       2 files changed, 22 deletions(-)
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>> index 487cd654b69e..7d59a66e3988 100644
+>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>>>>>>> @@ -248,15 +248,7 @@ static void xgpu_ai_mailbox_flr_work(struct
+>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>           struct amdgpu_device *adev = container_of(virt, struct
+>>>>>>>>>>>> amdgpu_device, virt);
+>>>>>>>>>>>>>           int timeout = AI_MAILBOX_POLL_FLR_TIMEDOUT;
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> -    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
+>>>>>>>>>>>>> -     * otherwise the mailbox msg will be ruined/reseted by
+>>>>>>>>>>>>> -     * the VF FLR.
+>>>>>>>>>>>>> -     */
+>>>>>>>>>>>>> -    if (!down_write_trylock(&adev->reset_sem))
+>>>>>>>>>>>>> -        return;
+>>>>>>>>>>>>> -
+>>>>>>>>>>>>> amdgpu_virt_fini_data_exchange(adev);
+>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 1);
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>           xgpu_ai_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0,
+>>>>>>>>>>>>> 0, 0);
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> @@ -269,9 +261,6 @@ static void xgpu_ai_mailbox_flr_work(struct
+>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>           } while (timeout > 1);
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>       flr_done:
+>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 0);
+>>>>>>>>>>>>> -    up_write(&adev->reset_sem);
+>>>>>>>>>>>>> -
+>>>>>>>>>>>>>           /* Trigger recovery for world switch failure if no TDR
+>>>>>>>>>>>>> */
+>>>>>>>>>>>>>           if (amdgpu_device_should_recover_gpu(adev)
+>>>>>>>>>>>>>               && (!amdgpu_device_has_job_running(adev) || diff
+>>>>>>>>>>>>> --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>> index e3869067a31d..f82c066c8e8d 100644
+>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>>>>>>>>>>>> @@ -277,15 +277,7 @@ static void xgpu_nv_mailbox_flr_work(struct
+>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>           struct amdgpu_device *adev = container_of(virt, struct
+>>>>>>>>>>>> amdgpu_device, virt);
+>>>>>>>>>>>>>           int timeout = NV_MAILBOX_POLL_FLR_TIMEDOUT;
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> -    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
+>>>>>>>>>>>>> -     * otherwise the mailbox msg will be ruined/reseted by
+>>>>>>>>>>>>> -     * the VF FLR.
+>>>>>>>>>>>>> -     */
+>>>>>>>>>>>>> -    if (!down_write_trylock(&adev->reset_sem))
+>>>>>>>>>>>>> -        return;
+>>>>>>>>>>>>> -
+>>>>>>>>>>>>> amdgpu_virt_fini_data_exchange(adev);
+>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 1);
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>           xgpu_nv_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0,
+>>>>>>>>>>>>> 0, 0);
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> @@ -298,9 +290,6 @@ static void xgpu_nv_mailbox_flr_work(struct
+>>>>>>>>>>>> work_struct *work)
+>>>>>>>>>>>>>           } while (timeout > 1);
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>       flr_done:
+>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 0);
+>>>>>>>>>>>>> -    up_write(&adev->reset_sem);
+>>>>>>>>>>>>> -
+>>>>>>>>>>>>>           /* Trigger recovery for world switch failure if no TDR
+>>>>>>>>>>>>> */
+>>>>>>>>>>>>>           if (amdgpu_device_should_recover_gpu(adev)
+>>>>>>>>>>>>>               && (!amdgpu_device_has_job_running(adev) ||
+>>
