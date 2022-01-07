@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C74C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 05:30:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3FA3C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 05:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52410113256;
-	Fri,  7 Jan 2022 05:30:13 +0000 (UTC)
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78082113237;
- Fri,  7 Jan 2022 05:30:06 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id x6so5757597iol.13;
- Thu, 06 Jan 2022 21:30:06 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46E23113269;
+	Fri,  7 Jan 2022 05:30:16 +0000 (UTC)
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DEB111324D;
+ Fri,  7 Jan 2022 05:30:11 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id e128so5859460iof.1;
+ Thu, 06 Jan 2022 21:30:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=O69jwEK6BGWuT7bxOYDKnQEBPlUpFxQn3cSq5pD/L6c=;
- b=kjIfxzNx9rucec9vax5OFMutL6FvvqBipuTamNE+LERXDRo6gx8l/eHFoPN6aT+3aN
- 839At6W/5jr7R8zFP3y1+IwGhQE39mEt7TDVl3kRBKxcuorV8/pxARug/hXVBmf569pS
- JrT3PgROyKCagtD+A6Gwn+Zi0Ha6/M1YNlHEvnWCqADuPkOrlo5g3V3KeXEu50IoqxNI
- VxzhW5roni2KOcI2LE+/afrWFB7QTwTKMr9s5K6OdYPK/lzQNU95S8l0TmNIsgmOCR4f
- 0MoIrxeICOcqDG3fniszaXgabKKQoGpnyxn6NaSlmPuvSP+XUpFOGumJBlcrv7/XAJfv
- jWMA==
+ bh=qYyJ2gcl34AtG+ZwzeuT+zalv5tvCFacm4aJJ3L+PFU=;
+ b=n5cDKpY/cS3ddfduU75FLd0mm/XG5Pm3C7omvy4wXv3FY5Ljt7Dn096WxhuV01V/uR
+ agjlDHLToD0Cg8Tc+m/rD0aVxrP3mLxB2DCAHY6VKw3DlGhz6uOzIMJCFLkFg/Fk6fQa
+ m9kieutSbD75E/lHgv7lCWlrz7p9i+Jqkz2sxDfcRXkdx83cO+prvc5LWdXNmJWfjeCK
+ QnPA+yX6Y8dW0FOO1MGgT6XRj2b6FzA56X4/L1wM8wzyddIVlrUX8cICTROh6Xc5PHCS
+ 2OhKsU+un9BbaB5LdDVwo5pAfJIOYGuGyHfic5lyoWk6pCAn/UGOkjfDYClncsTWpPd2
+ VZtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=O69jwEK6BGWuT7bxOYDKnQEBPlUpFxQn3cSq5pD/L6c=;
- b=I5lvRurycf+Nyox/hk8QPwUuYt0qU12lj1fOZ8MHSWbOBBOgDS31PU2mNaadhENpFX
- TIen7i1/LnY1qkybFj3ftttQxSBHwcm+lQPBRGTuHKY+tKOSJh7POIHxpAgWLx1Dj4LX
- GRNn2O6AvCTGQ/UW3EDJwfyiqPSrrx9LlZq7bumIPdyvwJqMv6T4yB4k60GKnX1nKho0
- ZiHft3PvTeCH62YNdoFHFNY9KPolNnXIBY5Yl/XVi72rp7YSyiRmqSYOnNAxDs6IWgBe
- MOStsfctnARzFyR8d0SM1SMRF3+u7jUHaEH0q2w+1fWZvBmYGgD5yUwOTRYo0voZ1DPq
- urlg==
-X-Gm-Message-State: AOAM5313VqDQhA4K+5CnvZZRmnbtyl5391XuaHzUZq/lCdc0XyTb/2Yy
- EAxqgZ4rBa8rE9SLooxE5g0=
-X-Google-Smtp-Source: ABdhPJxTkXRmMBve2LtAb8XAmhR2+L3R66b7dP6c1YxaZdMVvWReyuf74i4hY6RdW4AdcGIW1ZI0lw==
-X-Received: by 2002:a05:6638:370c:: with SMTP id
- k12mr28932444jav.25.1641533405766; 
- Thu, 06 Jan 2022 21:30:05 -0800 (PST)
+ bh=qYyJ2gcl34AtG+ZwzeuT+zalv5tvCFacm4aJJ3L+PFU=;
+ b=6mqX1yvQpxl0tOf0PjnTQVdye7D+Yz+PxpCBCsnHTV9YEIIJTBPY9BFmqWKFrVgElB
+ dc2FVXtVHnUHa2wCPk1OO5zvScaLH9bcqRRqiG+jpEnI/NH3icJujyyH864rT8l2OPj6
+ nEUhrbPTVZ1lN/T8OCGQWyRzQe/Xxu+cc90Y6Ih22E75vyS949Jr7ygjvNRNoldfPEWA
+ 3j9XD2Z7s1SR9pANwiVa2INqF+1ios0vwoVV0pShLi1h7Zwaco7tfvtfIUz1330CNatL
+ hj0LodrDq/5V3dZA0EhpWMOFfHKIa75+DxYLmf0omimsLSV631v68mcek3czTXz/9TKb
+ 904Q==
+X-Gm-Message-State: AOAM530qBmRBfSl2ze5OUInWfMnaZn4l9cSUlpjolR6elxijYhgYgsf7
+ fL/7/1vjgbexUXiJ7NfbU4E=
+X-Google-Smtp-Source: ABdhPJyZ2DQ/f+275CIjKbX91nJCLDE4hjHieIEqtncwcYdaOvFghGTgMmBnVGaYwBuweKjCTTGK8A==
+X-Received: by 2002:a5d:8543:: with SMTP id b3mr29143476ios.11.1641533409455; 
+ Thu, 06 Jan 2022 21:30:09 -0800 (PST)
 Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id c18sm1843446iod.18.2022.01.06.21.30.04
+ by smtp.googlemail.com with ESMTPSA id c18sm1843446iod.18.2022.01.06.21.30.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 21:30:05 -0800 (PST)
+ Thu, 06 Jan 2022 21:30:09 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, linux@rasmusvillemoes.dk,
  rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
@@ -53,10 +52,9 @@ To: jbaron@akamai.com, gregkh@linuxfoundation.org, linux@rasmusvillemoes.dk,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v11 13/19] drm_print: refine drm_debug_enabled for
- dyndbg+jump-label
-Date: Thu,  6 Jan 2022 22:29:36 -0700
-Message-Id: <20220107052942.1349447-14-jim.cromie@gmail.com>
+Subject: [PATCH v11 16/19] drm_print: add struct _ddebug desc to drm_*dbg
+Date: Thu,  6 Jan 2022 22:29:39 -0700
+Message-Id: <20220107052942.1349447-17-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20220107052942.1349447-1-jim.cromie@gmail.com>
 References: <20220107052942.1349447-1-jim.cromie@gmail.com>
@@ -80,60 +78,142 @@ Cc: quic_saipraka@quicinc.com, arnd@arndb.de, jim.cromie@gmail.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In order to use dynamic-debug's jump-label optimization in drm-debug,
-its clarifying to refine drm_debug_enabled into 3 uses:
+A recent commit adding trace-events to drm noted:
 
-1.   drm_debug_enabled - legacy, public
-2. __drm_debug_enabled - optimized for dyndbg jump-label enablement.
-3.  _drm_debug_enabled - pr_debug instrumented, observable
+   trace_*() additions are strictly redundant with printks to syslog,
+   not properly placed to reduce overall work.
 
-1. The legacy version always checks the bits.
+That was because it didn't have the struct _ddebug *descriptor, whose
+.flags specify TRACE and PRINTK actions on a controlled callsite.  So
+it could only duplicate the stream (from the enabled callsites).
 
-2. is privileged, for use by __drm_dbg(), __drm_dev_dbg(), which do an
-early return unless the category is enabled (free of call/NOOP side
-effects).  For dyndbg builds, debug callsites are selectively
-"pre-enabled", so __drm_debug_enabled() short-circuits to true there.
-Remaining callers of 1 may be able to use 2, case by case.
+To issue TRACE, PRINTK selectively:
 
-3. is 1st wrapped in a macro, with a pr_debug, which reports each
-usage in /proc/dynamic_debug/control, making it observable in the
-logs.  The macro lets the pr_debug see the real caller, not the inline
-function.
+- add struct _ddebug * param to prototypes and functions:
+  ___drm_dbg(), __drm_dev_dbg()
+  add "struct _ddebug;" to name the ptr-type, to silence warning.
 
-When plugged into 1, it identified ~10 remaining callers of the
-function, leading to the follow-on cleanup patch, and would allow
-activating the pr_debugs, estimating the callrate, and the potential
-savings by using the wrapper macro.
+- adjust the forwarding macros: drm_dbg, drm_dev_dbg
+  to provide a descriptor, or NULL.
+  basically this is dropping the _no_desc_,
+  ie using _dynamic_func_call_cls(), since the callee can now accept it.
 
-It is unused ATM, but it fills out the picture.
+- add if (desc->flags ...) TRACE / PRINTK actions.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_print.c | 25 ++++++++++++++++---------
+ include/drm/drm_print.h     | 20 ++++++++++----------
+ 2 files changed, 26 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 5dd6713c14f2..aab29dd6cad1 100644
+index b911f949af5b..8c33302212fc 100644
 --- a/drivers/gpu/drm/drm_print.c
 +++ b/drivers/gpu/drm/drm_print.c
-@@ -265,7 +265,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+@@ -258,8 +258,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
+ }
+ EXPORT_SYMBOL(drm_dev_printk);
+ 
+-void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+-		   const char *format, ...)
++void __drm_dev_dbg(struct _ddebug *desc, const struct device *dev,
++		   enum drm_debug_category category, const char *format, ...)
+ {
  	struct va_format vaf;
  	va_list args;
- 
--	if (!drm_debug_enabled(category))
-+	if (!__drm_debug_enabled(category))
+@@ -267,24 +267,31 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	if (!__drm_debug_enabled(category))
  		return;
  
++	/* we know we are printing for either syslog, tracefs, or both */
  	va_start(args, format);
-@@ -290,7 +290,7 @@ void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
+ 	vaf.fmt = format;
+ 	vaf.va = &args;
+ 
+ 	if (dev) {
+-		dev_printk(KERN_DEBUG, dev, "[" DRM_NAME ":%ps] %pV",
+-			   __builtin_return_address(0), &vaf);
+-		trace_drm_devdbg(dev, category, &vaf);
++		if (desc->flags & _DPRINTK_FLAGS_PRINTK)
++			dev_printk(KERN_DEBUG, dev, "[" DRM_NAME ":%ps] %pV",
++				   __builtin_return_address(0), &vaf);
++
++		if (desc->flags & _DPRINTK_FLAGS_TRACE)
++			trace_drm_devdbg(dev, category, &vaf);
+ 	} else {
+-		printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
+-		       __builtin_return_address(0), &vaf);
+-		trace_drm_debug(category, &vaf);
++		if (desc->flags & _DPRINTK_FLAGS_PRINTK)
++			printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
++			       __builtin_return_address(0), &vaf);
++
++		if (desc->flags & _DPRINTK_FLAGS_TRACE)
++			trace_drm_debug(category, &vaf);
+ 	}
+ 	va_end(args);
+ }
+ EXPORT_SYMBOL(__drm_dev_dbg);
+ 
+-void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
++void ___drm_dbg(struct _ddebug *desc, enum drm_debug_category category, const char *format, ...)
+ {
  	struct va_format vaf;
  	va_list args;
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 0c704610c770..6d43b81a0ee4 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -360,9 +360,9 @@ static inline bool drm_debug_enabled(enum drm_debug_category category)
+ __printf(3, 4)
+ void drm_dev_printk(const struct device *dev, const char *level,
+ 		    const char *format, ...);
+-__printf(3, 4)
+-void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+-		 const char *format, ...);
++__printf(4, 5)
++void __drm_dev_dbg(struct _ddebug *desc, const struct device *dev,
++		   enum drm_debug_category category, const char *format, ...);
  
--	if (!drm_debug_enabled(category))
-+	if (!__drm_debug_enabled(category))
- 		return;
+ /**
+  * DRM_DEV_ERROR() - Error output.
+@@ -412,11 +412,11 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
  
- 	va_start(args, format);
+ #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ #define drm_dev_dbg(dev, eCat, fmt, ...)				\
+-	__drm_dev_dbg(dev, eCat, fmt, ##__VA_ARGS__)
++	__drm_dev_dbg(NULL, dev, eCat, fmt, ##__VA_ARGS__)
+ #else
+ #define drm_dev_dbg(dev, eCat, fmt, ...)				\
+-	_dynamic_func_call_no_desc_cls(fmt, eCat, __drm_dev_dbg,	\
+-				       dev, eCat, fmt, ##__VA_ARGS__)
++	_dynamic_func_call_cls(eCat, fmt, __drm_dev_dbg,		\
++			       dev, eCat, fmt, ##__VA_ARGS__)
+ #endif
+ 
+ /**
+@@ -519,8 +519,8 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+  * Prefer drm_device based logging over device or prink based logging.
+  */
+ 
+-__printf(2, 3)
+-void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
++__printf(3, 4)
++void ___drm_dbg(struct _ddebug *desc, enum drm_debug_category category, const char *format, ...);
+ __printf(1, 2)
+ void __drm_err(const char *format, ...);
+ 
+@@ -528,8 +528,8 @@ void __drm_err(const char *format, ...);
+ #define __drm_dbg(fmt, ...)		___drm_dbg(NULL, fmt, ##__VA_ARGS__)
+ #else
+ #define __drm_dbg(eCat, fmt, ...)					\
+-	_dynamic_func_call_no_desc_cls(fmt, eCat, ___drm_dbg,		\
+-				       eCat, fmt, ##__VA_ARGS__)
++	_dynamic_func_call_cls(eCat, fmt, ___drm_dbg,			\
++			       eCat, fmt, ##__VA_ARGS__)
+ #endif
+ 
+ /* Macros to make printk easier */
 -- 
 2.33.1
 
