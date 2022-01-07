@@ -4,41 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00053C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 21:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E21C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 21:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51D510F34F;
-	Fri,  7 Jan 2022 21:33:52 +0000 (UTC)
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 106A810F34F
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 21:33:51 +0000 (UTC)
-Received: from fews1.riseup.net (fews1-pn.riseup.net [10.0.1.83])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx1.riseup.net (Postfix) with ESMTPS id 4JVxL64D1tzDq9w;
- Fri,  7 Jan 2022 13:33:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1641591230; bh=qM2sGazKUd4z2srxWUXgCpAVDSGpM1Oefh2qTsb0roQ=;
- h=From:To:Cc:Subject:Date:From;
- b=Kn6Yxjk+3U6W17KUpfEmHTmOkSgwxDUU09bqSfZ/8ieUFrWfqocJwr38gP5wkN58A
- p5AgZ8isCvByz5Fe3S6R19iM2THsgIB7CXJxbdcFpJe4XKmc7AZarr6J4wbNqdbktA
- MqoUX6e4LTXUw/p4m/+9FmEi4fShLEWpMnJ65+lY=
-X-Riseup-User-ID: A2A0DF7648B59EA35F796CCCEFACED5855755C2F4A3D8C8810F282A8C255E714
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews1.riseup.net (Postfix) with ESMTPSA id 4JVxL21L1Xz5vbc;
- Fri,  7 Jan 2022 13:33:45 -0800 (PST)
-From: Isabella Basso <isabbasso@riseup.net>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, daniel@ffwll.ch,
- harry.wentland@amd.com, Rodrigo.Siqueira@amd.com, sunpeng.li@amd.com,
- Xinhui.Pan@amd.com, qingqing.zhuo@amd.com, jasdeep.dhillon@amd.com,
- mwen@igalia.com
-Subject: [PATCH v3] drm/amd/display: move calcs folder into DML
-Date: Fri,  7 Jan 2022 18:33:36 -0300
-Message-Id: <20220107213336.2116825-1-isabbasso@riseup.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36A6A10E9E9;
+	Fri,  7 Jan 2022 21:40:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2087.outbound.protection.outlook.com [40.107.223.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FEE410E8E2
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 21:40:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VdU63j4xFoNGwtXrQc1J0FbRAt4ftWCe0F+PIYuS2WmGMsC3p1BM5s2FAFiTJN9rexsYY/eCp8NgjUTiLMS/l3EsoG2Sg6f4NJ+WQ+FhXnR8otVsH9E+KUqdxDf+Dyukoga7u+k0E7QY3mJ/y5A7YtFYDaos72IHFSNnedpIz2XHVfxraL+Y1py99jbCYZ3T3NgVkTEvtyyGTq85M96M5jRXAy5O0fuo9r2yYIjPQxydHBNV1NwUwz0XdSLuZzYx+xCNGi/F4LoxUB5GFg9z1tnfcfqoOjdA2XIAMs0Tbvu5K9yArFKgrJHP5FlCndmrX0o9Tu7mOBrAxtuj/IcuUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=alK9eNEzfBn1Df4x+IddXaEye2MoFC5f/XFhk1RK5VQ=;
+ b=Wf9JuQDPKUa6CwTdRX5LmqeVYO14ZQgezbCJxyVOhOjj/P1eLV3r9JXOqfptZDZDEV4fsG4EmFLbvIRelv//jvM8/fx4+JIZaDtfHc5zkNeDJ54k/L1bRKRVOIGiovnMkexBmcC1sKRSW20FNl7sCH+o5kuWD0WSa9k9kMVJgSEv1kx9txjgK1qUX0QZGArtglNZsaRmn4BrrfwmwrJKIlgrFTZvZgscpiJOYwaC7RMW+VreT4nB26l7eeEcTngz4Xps+AOE3x+j3k/g4/C1r51WhCASvaZUWth73F9NE+rtU+9DxZLlqsvaZr1gk3ArSFrkmYuvZlOP1BgwXHyE6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=alK9eNEzfBn1Df4x+IddXaEye2MoFC5f/XFhk1RK5VQ=;
+ b=V1/HSpnv/CyRpyTVgimJpSuuVzP+O99oIitJrGDkT7vApdeijx7VuvcKomGvCuK0gq4OSwoo/bKeRquDs1Cm/awpcw5s7+C3jleDyx4z9EevVTmcdysDbjuY9LBo+gv//1GXcUMMRdit96efcB/ACr3a7IBebz7/oxsOEJkZ1Xk=
+Received: from DS7PR05CA0003.namprd05.prod.outlook.com (2603:10b6:5:3b9::8) by
+ DM6PR12MB2889.namprd12.prod.outlook.com (2603:10b6:5:18a::26) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4867.9; Fri, 7 Jan 2022 21:40:09 +0000
+Received: from DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b9:cafe::9e) by DS7PR05CA0003.outlook.office365.com
+ (2603:10b6:5:3b9::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.6 via Frontend
+ Transport; Fri, 7 Jan 2022 21:40:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT049.mail.protection.outlook.com (10.13.172.188) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4867.7 via Frontend Transport; Fri, 7 Jan 2022 21:40:09 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 7 Jan
+ 2022 15:40:08 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: reset dcn31 SMU mailbox on failures
+Date: Fri, 7 Jan 2022 15:40:10 -0600
+Message-ID: <20220107214010.12977-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 56e4f4b7-b142-4650-9407-08d9d226470d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2889:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB288903FE212364A2203CE61AE24D9@DM6PR12MB2889.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xD396Yr+ArrydeBJukzQWJ50WyXVwM0YC2Jl3F/2dWpp0qpTiMWb5DprQ31jZD2jfdZFF/JB53o9HiOZgTRSKoW5TNQgzcIK52vNa3Wkq8Ut3PGQFaoLba1QS9MAcLt3de+rMnvPyMS80JMf0Bf6H9UHykVfipozd2a4qOgom6GB+xPhtD4nOXIWQh4gKxi6TvrVUebElSrGr6vo/jc6LbNAPmCKuFiXUoNi/GYkxZNMyxjcoUc56j8/ch33mMjpZBdLGQbY6T9rPqXkFQeuhVw/OWZnDkJYOfWyrizh3sxvONKLkSpqMrAruo9y6JKMqsWzl3WDfiUDbCxonIo+bcksHlMjUYqDr6QRCX45GXiEUilwbDbF6kZTW1+QSOK9PeOKSwAQl5JFmEmEav1cGc329FTlQft6NdPR4QrCEx90hnwGzulB4cRAawe5v5h9fGf7AGri5dEmJerRuw8fankpcVT3Pq5cJc3qQnKHkPu26HGAfN21teXmEcHryNXMlzocayIkkL9UmmAhe/IuGQjdJeWypxEKxwoZPR/8NbUKLJ37GiNieZkJEJhCgAsottyA0KWc/ZBkMJaiwa2HGAjGkF/bY/8MmW8rBmI2E2Xn2hF7tvNyfyT6uf897KYNl05IJAwmlmuDRKv1zX0h6+sZDXl8R8jEX5XZH0zy4q05d4EfofHQdWEtk4FwH6n14wac0qnTmWlFiGGKn+kU8TSRuKGKh4yf+dnl1k/4Q5EaJ9z8R5jy4rvNGnvgMO3ocuR+z2R70nUGICYBF/QcnNQxZhEQcufEtU7pCzXTxKs=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(40470700002)(36840700001)(2616005)(426003)(1076003)(316002)(40460700001)(36860700001)(82310400004)(44832011)(8676002)(336012)(5660300002)(8936002)(86362001)(6916009)(4744005)(70206006)(508600001)(81166007)(4326008)(2906002)(36756003)(186003)(16526019)(6666004)(47076005)(70586007)(356005)(26005)(7696005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2022 21:40:09.1517 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56e4f4b7-b142-4650-9407-08d9d226470d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2889
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,207 +99,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ~lkcamp/patches@lists.sr.ht, Isabella Basso <isabbasso@riseup.net>,
- amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The calcs folder has FPU code on it, which should be isolated inside the
-DML folder as per https://patchwork.freedesktop.org/series/93042/.
+Otherwise future commands may fail as well leading to downstream
+problems that look like they stemmed from a timeout the first time
+but really didn't.
 
-This commit aims single-handedly to correct the location of such FPU
-code and does not refactor any functions.
-
-Changes since v2:
-- Corrected problems to compile when DCN was disabled.
-
-Signed-off-by: Isabella Basso <isabbasso@riseup.net>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/Makefile       |  4 +-
- drivers/gpu/drm/amd/display/dc/calcs/Makefile | 68 -------------------
- drivers/gpu/drm/amd/display/dc/dml/Makefile   | 10 ++-
- .../amd/display/dc/{ => dml}/calcs/bw_fixed.c |  0
- .../display/dc/{ => dml}/calcs/calcs_logger.h |  0
- .../display/dc/{ => dml}/calcs/custom_float.c |  0
- .../display/dc/{ => dml}/calcs/dce_calcs.c    |  0
- .../dc/{ => dml}/calcs/dcn_calc_auto.c        |  0
- .../dc/{ => dml}/calcs/dcn_calc_auto.h        |  0
- .../dc/{ => dml}/calcs/dcn_calc_math.c        |  0
- .../display/dc/{ => dml}/calcs/dcn_calcs.c    |  0
- 11 files changed, 11 insertions(+), 71 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/calcs/Makefile
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/bw_fixed.c (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/calcs_logger.h (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/custom_float.c (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/dce_calcs.c (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/dcn_calc_auto.c (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/dcn_calc_auto.h (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/dcn_calc_math.c (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dml}/calcs/dcn_calcs.c (100%)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index b1f0d6260226..a4ef8f314307 100644
---- a/drivers/gpu/drm/amd/display/dc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -23,12 +23,12 @@
- # Makefile for Display Core (dc) component.
- #
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
+index 8c2b77eb9459..162ae7186124 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
+@@ -119,6 +119,12 @@ int dcn31_smu_send_msg_with_param(
  
--DC_LIBS = basics bios calcs clk_mgr dce gpio irq virtual
-+DC_LIBS = basics bios clk_mgr dce dml gpio irq virtual
+ 	result = dcn31_smu_wait_for_response(clk_mgr, 10, 200000);
  
- ifdef CONFIG_DRM_AMD_DC_DCN
- DC_LIBS += dcn20
- DC_LIBS += dsc
--DC_LIBS += dcn10 dml
-+DC_LIBS += dcn10
- DC_LIBS += dcn21
- DC_LIBS += dcn201
- DC_LIBS += dcn30
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-deleted file mode 100644
-index f3c00f479e1c..000000000000
---- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-+++ /dev/null
-@@ -1,68 +0,0 @@
--#
--# Copyright 2017 Advanced Micro Devices, Inc.
--# Copyright 2019 Raptor Engineering, LLC
--#
--# Permission is hereby granted, free of charge, to any person obtaining a
--# copy of this software and associated documentation files (the "Software"),
--# to deal in the Software without restriction, including without limitation
--# the rights to use, copy, modify, merge, publish, distribute, sublicense,
--# and/or sell copies of the Software, and to permit persons to whom the
--# Software is furnished to do so, subject to the following conditions:
--#
--# The above copyright notice and this permission notice shall be included in
--# all copies or substantial portions of the Software.
--#
--# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
--# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
--# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
--# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
--# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
--# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
--# OTHER DEALINGS IN THE SOFTWARE.
--#
--#
--# Makefile for the 'calcs' sub-component of DAL.
--# It calculates Bandwidth and Watermarks values for HW programming
--#
--
--ifdef CONFIG_X86
--calcs_ccflags := -mhard-float -msse
--endif
--
--ifdef CONFIG_PPC64
--calcs_ccflags := -mhard-float -maltivec
--endif
--
--ifdef CONFIG_CC_IS_GCC
--ifeq ($(call cc-ifversion, -lt, 0701, y), y)
--IS_OLD_GCC = 1
--endif
--endif
--
--ifdef CONFIG_X86
--ifdef IS_OLD_GCC
--# Stack alignment mismatch, proceed with caution.
--# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
--# (8B stack alignment).
--calcs_ccflags += -mpreferred-stack-boundary=4
--else
--calcs_ccflags += -msse2
--endif
--endif
--
--CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calcs.o := $(calcs_ccflags)
--CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calc_auto.o := $(calcs_ccflags)
--CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calc_math.o := $(calcs_ccflags) -Wno-tautological-compare
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calcs.o := $(calcs_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calc_auto.o := $(calcs_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calc_math.o := $(calcs_rcflags)
--
--BW_CALCS = dce_calcs.o bw_fixed.o custom_float.o
--
--ifdef CONFIG_DRM_AMD_DC_DCN
--BW_CALCS += dcn_calcs.o dcn_calc_math.o dcn_calc_auto.o
--endif
--
--AMD_DAL_BW_CALCS = $(addprefix $(AMDDALPATH)/dc/calcs/,$(BW_CALCS))
--
--AMD_DISPLAY_FILES += $(AMD_DAL_BW_CALCS)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index eee6672bd32d..2ca43e654243 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -73,6 +73,9 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn31/display_rq_dlg_calc_31.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
-+CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_ccflags)
-+CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_ccflags)
-+CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_ccflags) -Wno-tautological-compare
- CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
- CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn2x/dcn2x.o := $(dml_rcflags)
- CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
-@@ -93,10 +96,14 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
- CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_rcflags)
- CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_rcflags)
-+CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_rcflags)
-+CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_rcflags)
-+CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags)
- 
--DML = display_mode_lib.o display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o \
-+DML = calcs/dce_calcs.o calcs/custom_float.o calcs/bw_fixed.o
- 
- ifdef CONFIG_DRM_AMD_DC_DCN
-+DML += display_mode_lib.o display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o
- DML += dcn20/dcn20_fpu.o
- DML += display_mode_vba.o dcn20/display_rq_dlg_calc_20.o dcn20/display_mode_vba_20.o
- DML += dcn20/display_rq_dlg_calc_20v2.o dcn20/display_mode_vba_20v2.o
-@@ -105,6 +112,7 @@ DML += dcn30/display_mode_vba_30.o dcn30/display_rq_dlg_calc_30.o
- DML += dcn31/display_mode_vba_31.o dcn31/display_rq_dlg_calc_31.o
- DML += dcn301/dcn301_fpu.o
- DML += dsc/rc_calc_fpu.o
-+DML += calcs/dcn_calcs.o calcs/dcn_calc_math.o calcs/dcn_calc_auto.o
- endif
- 
- AMD_DAL_DML = $(addprefix $(AMDDALPATH)/dc/dml/,$(DML))
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/calcs_logger.h b/drivers/gpu/drm/amd/display/dc/dml/calcs/calcs_logger.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/calcs_logger.h
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/calcs_logger.h
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/custom_float.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/custom_float.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/custom_float.c
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/custom_float.c
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dce_calcs.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/dce_calcs.c
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_auto.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calc_auto.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_auto.c
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calc_auto.c
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_auto.h b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calc_auto.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_auto.h
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calc_auto.h
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_math.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calc_math.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_math.c
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calc_math.c
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-rename to drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
++	if (result == VBIOSSMC_Result_Failed) {
++		ASSERT(0);
++		REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Result_OK);
++		return -1;
++	}
++
+ 	if (IS_SMU_TIMEOUT(result)) {
+ 		ASSERT(0);
+ 		dm_helpers_smu_timeout(CTX, msg_id, param, 10 * 200000);
 -- 
-2.34.1
+2.25.1
 
