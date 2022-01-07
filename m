@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544F4C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B13C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 18:28:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8B910E8ED;
-	Fri,  7 Jan 2022 18:28:02 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 807D410E9D6;
- Thu,  6 Jan 2022 09:56:16 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3F714B82005;
- Thu,  6 Jan 2022 09:56:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44ABBC36AE5;
- Thu,  6 Jan 2022 09:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1641462974;
- bh=g2OTglO7kNt/1C9rH1eMGfeioryhDpMhIlFqJBCB/nU=;
- h=From:To:Cc:Subject:Date:From;
- b=UtlwpY27Hi40UW/6ZzEqlLUTopJNXx7nPPJwPu9uvIPwIxDEsdfltgYDzEjZeA4qj
- XzunqvFVzviK1PdrHgh+6QoMSwQt7ICq8LuAU4fBY2Df+9UYioSE3a4Knlxjd38WqK
- eXfwRs1E1ohUeE3dl5jyDw1C8dE2+oXY0MxiD1gc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: use default_groups in kobj_type
-Date: Thu,  6 Jan 2022 10:56:10 +0100
-Message-Id: <20220106095610.3275631-1-gregkh@linuxfoundation.org>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4305810E5BD;
+	Fri,  7 Jan 2022 18:28:05 +0000 (UTC)
+Received: from forward107p.mail.yandex.net (forward107p.mail.yandex.net
+ [IPv6:2a02:6b8:0:1472:2741:0:8b7:115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17D1E10E8ED
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 18:20:08 +0000 (UTC)
+Received: from iva8-6b29e352664c.qloud-c.yandex.net
+ (iva8-6b29e352664c.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0c:5b2e:0:640:6b29:e352])
+ by forward107p.mail.yandex.net (Yandex) with ESMTP id A0BF5556C6B9;
+ Fri,  7 Jan 2022 21:20:03 +0300 (MSK)
+Received: from iva1-dcde80888020.qloud-c.yandex.net
+ (iva1-dcde80888020.qloud-c.yandex.net [2a02:6b8:c0c:7695:0:640:dcde:8088])
+ by iva8-6b29e352664c.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
+ euR5bt0U3x-K3fOpt58; Fri, 07 Jan 2022 21:20:03 +0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1641579603; bh=OrWPYp0vmxROxPJySTPjYtjZfWYS3Oa7auboC1JAC48=;
+ h=In-Reply-To:References:Date:To:From:Subject:Message-ID;
+ b=W64bN0WTTVFJoVj7rHUT2ldQMbxKMbJ4uFZBA0mVOVb50YdbPw5uDPvc4kdql1yEO
+ p/Wk3Vv0Y1JRNtJ2SRQq8I3tiocatscvK6u5BxwiZHB99ieZ5CVaCj5SfreCEfu8YM
+ rR5JNTC8a7DZVhbr/Ymfe+ovlI3HCg+Q0160UzW8=
+Authentication-Results: iva8-6b29e352664c.qloud-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+Received: by iva1-dcde80888020.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id VkaxZNamsB-K2PaYHfr; Fri, 07 Jan 2022 21:20:02 +0300
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client certificate not present)
+X-Yandex-Fwd: 2
+Message-ID: <5849ab287df1b06e141d87bbffdbcd627e999578.camel@yandex.ru>
+Subject: Re: [PATCH] Revert "i2c: core: support bus regulator controlling in
+ adapter"
+From: Konstantin Kharlamov <hi-angel@yandex.ru>
+To: wsa@kernel.org, linux-i2c@vger.kernel.org, bibby.hsieh@mediatek.com, 
+ amd-gfx@lists.freedesktop.org
+Date: Fri, 07 Jan 2022 21:20:02 +0300
+In-Reply-To: <20220106122452.18719-1-wsa () kernel ! org>
+References: <20220106122452.18719-1-wsa () kernel ! org>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.42.2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1984; h=from:subject;
- bh=g2OTglO7kNt/1C9rH1eMGfeioryhDpMhIlFqJBCB/nU=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDInX9uyyrZZY3yDCcVOo9ml7unfUk6gPXxdHa+naSk8RXy1Z
- /X5VRywLgyATg6yYIsuXbTxH91ccUvQytD0NM4eVCWQIAxenAEyk5yLDgsmGTv967jFYL/sda3Fv1X
- lRqdKGLoYFWxPWliQ6dKaH+Z1Z97no9s+tm+fJAgA=
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
- fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Jan 2022 18:28:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -55,66 +60,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Kim <jonathan.kim@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
- David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, shaoyunl <shaoyun.liu@amd.com>,
- John Clements <john.clements@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are currently 2 ways to create a set of sysfs files for a
-kobj_type, through the default_attrs field, and the default_groups
-field.  Move the amdgpu sysfs code to use default_groups field which has
-been the preferred way since aa30f47cf666 ("kobject: Add support for
-default attribute groups to kobj_type") so that we can soon get rid of
-the obsolete default_attrs field.
+Thank you! I tested it (had to resolve a small conflict), works for me. So, in
+case you need it, the patch is
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: John Clements <john.clements@amd.com>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Jonathan Kim <jonathan.kim@amd.com>
-Cc: Kevin Wang <kevin1.wang@amd.com>
-Cc: shaoyunl <shaoyun.liu@amd.com>
-Cc: Tao Zhou <tao.zhou1@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+	Tested-by: Konstantin Kharlamov <hi-angel@yandex.ru>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 567df2db23ac..94dcb004988d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -208,6 +208,7 @@ static struct attribute *amdgpu_xgmi_hive_attrs[] = {
- 	&amdgpu_xgmi_hive_id,
- 	NULL
- };
-+ATTRIBUTE_GROUPS(amdgpu_xgmi_hive);
- 
- static ssize_t amdgpu_xgmi_show_attrs(struct kobject *kobj,
- 	struct attribute *attr, char *buf)
-@@ -237,7 +238,7 @@ static const struct sysfs_ops amdgpu_xgmi_hive_ops = {
- struct kobj_type amdgpu_xgmi_hive_type = {
- 	.release = amdgpu_xgmi_hive_release,
- 	.sysfs_ops = &amdgpu_xgmi_hive_ops,
--	.default_attrs = amdgpu_xgmi_hive_attrs,
-+	.default_groups = amdgpu_xgmi_hive_groups,
- };
- 
- static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
--- 
-2.34.1
+By the way, shouldn't the patch include a field 
+
+	Cc: <stable@vger.kernel.org> # 5.14+
+
+?
+
+P.S.: sorry, for all mangled up CC fields. For some reason I didn't get your
+email, I found this patch in the archive. And the mbox that archive provides
+breaks all TO and CC fields, so I manually restored addresses that I have.
+
+On Thu, 2022-01-06 at 12:24 +0000, Wolfram Sang wrote:
+> This largely reverts commit 5a7b95fb993ec399c8a685552aa6a8fc995c40bd. It
+> breaks suspend with AMD GPUs, and we couldn't incrementally fix it. So,
+> let's remove the code and go back to the drawing board. We keep the
+> header extension to not break drivers already populating the regulator.
+> We expect to re-add the code handling it soon.
+> 
+> Reported-by: "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>
+> Link: https://lore.kernel.org/r/1295184560.182511.1639075777725@mail.yahoo.com
+> Reported-by: Konstantin Kharlamov <hi-angel@yandex.ru>
+> Link:
+> https://lore.kernel.org/r/7143a7147978f4104171072d9f5225d2ce355ec1.camel@yandex.ru
+> BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1850
+> Signed-off-by: Wolfram Sang <wsa@kernel.org>
+> ---
+> 
+> So far, I tested it on a Renesas R-Car M3-N board verifying that I2C
+> still works. I'll apply it to my for-next branch right away to get the
+> buildbots involved as well. But I am still open for comments until I
+> apply it to my for-current branch, probably tomorrow.
+> 
+>  drivers/i2c/i2c-core-base.c | 95 -------------------------------------
+>  1 file changed, 95 deletions(-)
+> 
+> diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+> index f193f9058584..73253e667de1 100644
+> --- a/drivers/i2c/i2c-core-base.c
+> +++ b/drivers/i2c/i2c-core-base.c
+> @@ -466,14 +466,12 @@ static int i2c_smbus_host_notify_to_irq(const struct
+> i2c_client *client)
+>  static int i2c_device_probe(struct device *dev)
+>  {
+>         struct i2c_client       *client = i2c_verify_client(dev);
+> -       struct i2c_adapter      *adap;
+>         struct i2c_driver       *driver;
+>         int status;
+>  
+>         if (!client)
+>                 return 0;
+>  
+> -       adap = client->adapter;
+>         client->irq = client->init_irq;
+>  
+>         if (!client->irq) {
+> @@ -539,14 +537,6 @@ static int i2c_device_probe(struct device *dev)
+>  
+>         dev_dbg(dev, "probe\n");
+>  
+> -       if (adap->bus_regulator) {
+> -               status = regulator_enable(adap->bus_regulator);
+> -               if (status < 0) {
+> -                       dev_err(&adap->dev, "Failed to enable bus
+> regulator\n");
+> -                       goto err_clear_wakeup_irq;
+> -               }
+> -       }
+> -
+>         status = of_clk_set_defaults(dev->of_node, false);
+>         if (status < 0)
+>                 goto err_clear_wakeup_irq;
+> @@ -605,10 +595,8 @@ static int i2c_device_probe(struct device *dev)
+>  static void i2c_device_remove(struct device *dev)
+>  {
+>         struct i2c_client       *client = to_i2c_client(dev);
+> -       struct i2c_adapter      *adap;
+>         struct i2c_driver       *driver;
+>  
+> -       adap = client->adapter;
+>         driver = to_i2c_driver(dev->driver);
+>         if (driver->remove) {
+>                 int status;
+> @@ -623,8 +611,6 @@ static void i2c_device_remove(struct device *dev)
+>         devres_release_group(&client->dev, client->devres_group_id);
+>  
+>         dev_pm_domain_detach(&client->dev, !i2c_acpi_waive_d0_probe(dev));
+> -       if (!pm_runtime_status_suspended(&client->dev) && adap->bus_regulator)
+> -               regulator_disable(adap->bus_regulator);
+>  
+>         dev_pm_clear_wake_irq(&client->dev);
+>         device_init_wakeup(&client->dev, false);
+> @@ -634,86 +620,6 @@ static void i2c_device_remove(struct device *dev)
+>                 pm_runtime_put(&client->adapter->dev);
+>  }
+>  
+> -#ifdef CONFIG_PM_SLEEP
+> -static int i2c_resume_early(struct device *dev)
+> -{
+> -       struct i2c_client *client = i2c_verify_client(dev);
+> -       int err;
+> -
+> -       if (!client)
+> -               return 0;
+> -
+> -       if (pm_runtime_status_suspended(&client->dev) &&
+> -               client->adapter->bus_regulator) {
+> -               err = regulator_enable(client->adapter->bus_regulator);
+> -               if (err)
+> -                       return err;
+> -       }
+> -
+> -       return pm_generic_resume_early(&client->dev);
+> -}
+> -
+> -static int i2c_suspend_late(struct device *dev)
+> -{
+> -       struct i2c_client *client = i2c_verify_client(dev);
+> -       int err;
+> -
+> -       if (!client)
+> -               return 0;
+> -
+> -       err = pm_generic_suspend_late(&client->dev);
+> -       if (err)
+> -               return err;
+> -
+> -       if (!pm_runtime_status_suspended(&client->dev) &&
+> -               client->adapter->bus_regulator)
+> -               return regulator_disable(client->adapter->bus_regulator);
+> -
+> -       return 0;
+> -}
+> -#endif
+> -
+> -#ifdef CONFIG_PM
+> -static int i2c_runtime_resume(struct device *dev)
+> -{
+> -       struct i2c_client *client = i2c_verify_client(dev);
+> -       int err;
+> -
+> -       if (!client)
+> -               return 0;
+> -
+> -       if (client->adapter->bus_regulator) {
+> -               err = regulator_enable(client->adapter->bus_regulator);
+> -               if (err)
+> -                       return err;
+> -       }
+> -
+> -       return pm_generic_runtime_resume(&client->dev);
+> -}
+> -
+> -static int i2c_runtime_suspend(struct device *dev)
+> -{
+> -       struct i2c_client *client = i2c_verify_client(dev);
+> -       int err;
+> -
+> -       if (!client)
+> -               return 0;
+> -
+> -       err = pm_generic_runtime_suspend(&client->dev);
+> -       if (err)
+> -               return err;
+> -
+> -       if (client->adapter->bus_regulator)
+> -               return regulator_disable(client->adapter->bus_regulator);
+> -       return 0;
+> -}
+> -#endif
+> -
+> -static const struct dev_pm_ops i2c_device_pm = {
+> -       SET_LATE_SYSTEM_SLEEP_PM_OPS(i2c_suspend_late, i2c_resume_early)
+> -       SET_RUNTIME_PM_OPS(i2c_runtime_suspend, i2c_runtime_resume, NULL)
+> -};
+> -
+>  static void i2c_device_shutdown(struct device *dev)
+>  {
+>         struct i2c_client *client = i2c_verify_client(dev);
+> @@ -773,7 +679,6 @@ struct bus_type i2c_bus_type = {
+>         .probe          = i2c_device_probe,
+>         .remove         = i2c_device_remove,
+>         .shutdown       = i2c_device_shutdown,
+> -       .pm             = &i2c_device_pm,
+>  };
+>  EXPORT_SYMBOL_GPL(i2c_bus_type);
+>  
 
