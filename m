@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB87C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 20:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B64AC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 21:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3615010E32C;
-	Fri,  7 Jan 2022 20:28:44 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9152810E32C
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 20:28:42 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 062D961F91;
- Fri,  7 Jan 2022 20:28:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE8CC36AE9;
- Fri,  7 Jan 2022 20:28:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641587321;
- bh=5hs9o7Y0/M10LfMom2sJh2iZ2CcjB8bH8iHJC8sTRXU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tpLw1LhR+ui1ai6iQG2W0IRYaQRXF8uI6AdQcklRVO7iMNrJZEK1ifzdfp8bWGT7e
- D8DiOJACdjKX1wF+BHUq8fdmNWrhq+vOYhnR/Nzmf7mBId9DH3cVlefZgnFMJdYBD5
- sVnIyOTtgOGY//alD+miTo17a3BFEBoWALH2nkgQGWvQ5zfOodpVemmm6G8UTjFDEz
- zMkQhiF6Cn03MstIUo+mIHljRUqnHfNqRTqLLxsyg1RxE6qmyzzKIp2tQUvLSFQ6c7
- wpyP2YbzKgar2p+QYWEttzgzODW4s7x+2z+Sy4tTC5nteK3ciELmILAcLY5CUm7ubh
- ZoKcMqpYiPM6w==
-Date: Fri, 7 Jan 2022 21:28:38 +0100
-From: Wolfram Sang <wsa@kernel.org>
-To: linux-i2c@vger.kernel.org
-Subject: Re: [PATCH] Revert "i2c: core: support bus regulator controlling in
- adapter"
-Message-ID: <YdiidodK03y0oCMD@ninjato>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
- "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>,
- Konstantin Kharlamov <hi-angel@yandex.ru>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Bibby Hsieh <bibby.hsieh@mediatek.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Hsin-Yi Wang <hsinyi@chromium.org>,
- Matthias Brugger <matthias.bgg@gmail.com>
-References: <20220106122452.18719-1-wsa@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2F1810EEEF;
+	Fri,  7 Jan 2022 21:08:57 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBF6810EEEF;
+ Fri,  7 Jan 2022 21:08:56 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id v124so2693795oie.0;
+ Fri, 07 Jan 2022 13:08:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=O7pvSOfIkV4dqbPfuv/2HOh0xU+VB9JiCav0R4FD6b4=;
+ b=pr418NVHAUExpVkYCuuatPAeH6dxKsAdEKvI0rruXEbnOAk1Lj5AVEaq989nHFeUP8
+ xFXlhLn9+/zsAiLiBpNCuk/bu+LDmSXRqEUKrwmXopsHTlWrM/g8pmJFPlTb2UktTcWr
+ JqGGSfdJ4qMpZSig3S1uwVD4RBOfLcbRmilmvSlg5EPM6SHY3VdPHEicCzSZm027pzuz
+ XLfEmyV48472KMtvVCa6qRclsTAKT4HXpNFmqqkk0eMFXEoA3U3sWRMBSaPFCqAzlujY
+ 5uNx2OIq8a4bjewwDKJ2rZNWs0eRbtYpB98v/XGOckHWULrSUB+AhAgj0MmZbvmCXgG2
+ YXyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=O7pvSOfIkV4dqbPfuv/2HOh0xU+VB9JiCav0R4FD6b4=;
+ b=eHbb7TnpJ9rTcoKxLRP5RQvMnMkHyDMCECrTZ0YFXP9Vwhi6y+rvFCbqsvvdfi4LF+
+ Baz5EkGW7r9Op5+FsT539kLbHT44vWJPRgaTJi0LqdNjmE42vFT7/HV2Sq9m5a1uHJTq
+ IdNS6mUn1A3Q6acn94GoWHhTsYuK6Fr+SMpHt8t1MgRPEXx6IW4T+3F3jxrpX9nHwFRb
+ odpCFbDUt8GvE1uRnJ6tB54IxiOp9Pw8lcGWDWtu7b0wpJP5HyaJKgmnHODXqmJZIZTR
+ ISzvZ3r+KTntp1MMlarwoZyQbfcreAJ5nqHrmvQEJPjBdwO3OQ2eWtbsc3Vkei+PQzK4
+ 8O1Q==
+X-Gm-Message-State: AOAM532S276BuM+GMJo92TpAFEMYMyX5QhXt82RVi+kpUzxxgnHDETRn
+ gxGzCt6s7fUB3dCoA1Vmt0HqR2ypCGLiDn8q2lU=
+X-Google-Smtp-Source: ABdhPJz/BW/3gQ7COMiFX5lVTDRtnXMjaMVu4RoviTgP8z3CUc0YhYzZKKZOXmlZyqFiTsL0pwvkpb21SPSJvzf4f90=
+X-Received: by 2002:a05:6808:68f:: with SMTP id
+ k15mr10755798oig.5.1641589736048; 
+ Fri, 07 Jan 2022 13:08:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="NInPz8sSrNptA7q8"
-Content-Disposition: inline
-In-Reply-To: <20220106122452.18719-1-wsa@kernel.org>
+References: <20220106095610.3275631-1-gregkh@linuxfoundation.org>
+In-Reply-To: <20220106095610.3275631-1-gregkh@linuxfoundation.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 7 Jan 2022 16:08:45 -0500
+Message-ID: <CADnq5_Mwxto+cp3MLmkWchzos8yeXaLqtJPFkZkyvWHR4_e+ug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: use default_groups in kobj_type
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +63,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hsin-Yi Wang <hsinyi@chromium.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Bibby Hsieh <bibby.hsieh@mediatek.com>,
- Konstantin Kharlamov <hi-angel@yandex.ru>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Jonathan Kim <jonathan.kim@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
+ David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ John Clements <john.clements@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ shaoyunl <shaoyun.liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Jan 6, 2022 at 4:56 AM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> There are currently 2 ways to create a set of sysfs files for a
+> kobj_type, through the default_attrs field, and the default_groups
+> field.  Move the amdgpu sysfs code to use default_groups field which has
+> been the preferred way since aa30f47cf666 ("kobject: Add support for
+> default attribute groups to kobj_type") so that we can soon get rid of
+> the obsolete default_attrs field.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: John Clements <john.clements@amd.com>
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Jonathan Kim <jonathan.kim@amd.com>
+> Cc: Kevin Wang <kevin1.wang@amd.com>
+> Cc: shaoyunl <shaoyun.liu@amd.com>
+> Cc: Tao Zhou <tao.zhou1@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
---NInPz8sSrNptA7q8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied.  Thanks!
 
-On Thu, Jan 06, 2022 at 01:24:52PM +0100, Wolfram Sang wrote:
-> This largely reverts commit 5a7b95fb993ec399c8a685552aa6a8fc995c40bd. It
-> breaks suspend with AMD GPUs, and we couldn't incrementally fix it. So,
-> let's remove the code and go back to the drawing board. We keep the
-> header extension to not break drivers already populating the regulator.
-> We expect to re-add the code handling it soon.
->=20
-> Reported-by: "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>
-> Link: https://lore.kernel.org/r/1295184560.182511.1639075777725@mail.yaho=
-o.com
-> Reported-by: Konstantin Kharlamov <hi-angel@yandex.ru>
-> Link: https://lore.kernel.org/r/7143a7147978f4104171072d9f5225d2ce355ec1.=
-camel@yandex.ru
-> BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1850
-> Signed-off-by: Wolfram Sang <wsa@kernel.org>
+Alex
 
-Applied to for-current, thanks!
-
-
---NInPz8sSrNptA7q8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmHYonYACgkQFA3kzBSg
-KbaESw//Yifh5V0HIYEvxarVwyg8B4g4TvQBSBVlzchPdF8g8BKRmnpCCsqc62Ks
-JqQWIFN8KAWt7LV8LtM3d3KRuLkkwrhrAHdr8RygtkDOJJeyjbtvcarXPUe8QYM0
-gAZPXNlAObjretxgeTtJrHIWUkCVcAA6YdxMDj1XMQYjfa15lQTem/nHJr53ngo2
-DM1HY5N390WZAzmd0EiUmkVJBuLe7oOBh2qnBwa8uYGhqpisQRXmSBQS5OtWs2a+
-bA5IT/cusIDSG2G2SfIheFFsKYmar1RtSXf2W49Y/EPl8IdaGRGjFFcNtMWZgRVv
-wrpNIu5O1uhawJ5Kb9fuc7noQt4VKxHYFc+KjAF6oUJrWatHyJpi4263yL9KR3J2
-bul/r+aKDxd9eX3sqoHwHtjE4jlEsLC+9LKBCqgwXBxthuf3pT/KY9+92U/WyNN+
-SSRtme95cwPkqge5/4v9pq8ZbWvZhU5XNf7a7BeYdushtqSEmxe6bcLl4Z6iOq0C
-3bvq6e5+CspHHCMObX8jvis6uKxCQue5cLq4e7M0tG+GEJDrVPVL6GEr4tGM6QEp
-bZQDmKSvD91bfW6EKymJY5UnOZ0VUOEHYce8/H3NpTRV9jDzS8rjqmWF1xV3yLBu
-vM5zjuhNhQ5YLW6jvxz5iB51ebI7+RSRKzOGxyciAH7i3v/4GtU=
-=gvGl
------END PGP SIGNATURE-----
-
---NInPz8sSrNptA7q8--
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_xgmi.c
+> index 567df2db23ac..94dcb004988d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -208,6 +208,7 @@ static struct attribute *amdgpu_xgmi_hive_attrs[] =3D=
+ {
+>         &amdgpu_xgmi_hive_id,
+>         NULL
+>  };
+> +ATTRIBUTE_GROUPS(amdgpu_xgmi_hive);
+>
+>  static ssize_t amdgpu_xgmi_show_attrs(struct kobject *kobj,
+>         struct attribute *attr, char *buf)
+> @@ -237,7 +238,7 @@ static const struct sysfs_ops amdgpu_xgmi_hive_ops =
+=3D {
+>  struct kobj_type amdgpu_xgmi_hive_type =3D {
+>         .release =3D amdgpu_xgmi_hive_release,
+>         .sysfs_ops =3D &amdgpu_xgmi_hive_ops,
+> -       .default_attrs =3D amdgpu_xgmi_hive_attrs,
+> +       .default_groups =3D amdgpu_xgmi_hive_groups,
+>  };
+>
+>  static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
+> --
+> 2.34.1
+>
