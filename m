@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3834C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 20:24:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB87C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 20:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2408710EBB2;
-	Fri,  7 Jan 2022 20:24:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3615010E32C;
+	Fri,  7 Jan 2022 20:28:44 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCF510E6F7
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 20:24:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9152810E32C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 20:28:42 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CFD0D61F91;
- Fri,  7 Jan 2022 20:24:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03700C36AED;
- Fri,  7 Jan 2022 20:24:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 062D961F91;
+ Fri,  7 Jan 2022 20:28:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE8CC36AE9;
+ Fri,  7 Jan 2022 20:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641587057;
- bh=UAfnoL86ZB98XRycStRMpkOz27mbd1CkSVdgWDPqoVw=;
+ s=k20201202; t=1641587321;
+ bh=5hs9o7Y0/M10LfMom2sJh2iZ2CcjB8bH8iHJC8sTRXU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CxkoS7+Aruk4/7+DqCXCZLAKViPpVIKZ8uuz2N0VissXeC5dmsrNGJYQMzstfKqOI
- qx0035OhIEnWvgUoYFR7FSJohaEz7RiyTGpo5d8KCi2gCWAv7RgPx61b4LQ3CB5cAF
- Ydj5T5Y2hK7fAUOXwXTcv/byHv9SQeThwWiU8ktKIW8WH6z0Hzu99KiFJzioskuug6
- OWmXt1HANu88VFJpunrjjaoFSkz0uddR+MBM0nYjHPnxHaDzgtjPXeTvXzVc/FydaQ
- beAL6cWYZqSg3Wc2VguIik0UTma2i8LQCRBDqk2v3GIldXITLUyKLCxD2ltWpqSmY3
- +JD0M6V4P7MCQ==
-Date: Fri, 7 Jan 2022 21:24:10 +0100
+ b=tpLw1LhR+ui1ai6iQG2W0IRYaQRXF8uI6AdQcklRVO7iMNrJZEK1ifzdfp8bWGT7e
+ D8DiOJACdjKX1wF+BHUq8fdmNWrhq+vOYhnR/Nzmf7mBId9DH3cVlefZgnFMJdYBD5
+ sVnIyOTtgOGY//alD+miTo17a3BFEBoWALH2nkgQGWvQ5zfOodpVemmm6G8UTjFDEz
+ zMkQhiF6Cn03MstIUo+mIHljRUqnHfNqRTqLLxsyg1RxE6qmyzzKIp2tQUvLSFQ6c7
+ wpyP2YbzKgar2p+QYWEttzgzODW4s7x+2z+Sy4tTC5nteK3ciELmILAcLY5CUm7ubh
+ ZoKcMqpYiPM6w==
+Date: Fri, 7 Jan 2022 21:28:38 +0100
 From: Wolfram Sang <wsa@kernel.org>
-To: Konstantin Kharlamov <hi-angel@yandex.ru>
+To: linux-i2c@vger.kernel.org
 Subject: Re: [PATCH] Revert "i2c: core: support bus regulator controlling in
  adapter"
-Message-ID: <Ydihaksfmm6TiG8y@ninjato>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+Message-ID: <YdiidodK03y0oCMD@ninjato>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
+ "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>,
  Konstantin Kharlamov <hi-angel@yandex.ru>,
- linux-i2c@vger.kernel.org, bibby.hsieh@mediatek.com,
- amd-gfx@lists.freedesktop.org
-References: <20220106122452.18719-1-wsakernel!org>
- <5849ab287df1b06e141d87bbffdbcd627e999578.camel@yandex.ru>
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Bibby Hsieh <bibby.hsieh@mediatek.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Hsin-Yi Wang <hsinyi@chromium.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+References: <20220106122452.18719-1-wsa@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="S/gKSxHGeHhRRdpK"
+ protocol="application/pgp-signature"; boundary="NInPz8sSrNptA7q8"
 Content-Disposition: inline
-In-Reply-To: <5849ab287df1b06e141d87bbffdbcd627e999578.camel@yandex.ru>
+In-Reply-To: <20220106122452.18719-1-wsa@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,49 +60,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- bibby.hsieh@mediatek.com
+Cc: Hsin-Yi Wang <hsinyi@chromium.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Bibby Hsieh <bibby.hsieh@mediatek.com>,
+ Konstantin Kharlamov <hi-angel@yandex.ru>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---S/gKSxHGeHhRRdpK
+--NInPz8sSrNptA7q8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-
-> 	Tested-by: Konstantin Kharlamov <hi-angel@yandex.ru>
-
-Thanks!
-
-> By the way, shouldn't the patch include a field=20
+On Thu, Jan 06, 2022 at 01:24:52PM +0100, Wolfram Sang wrote:
+> This largely reverts commit 5a7b95fb993ec399c8a685552aa6a8fc995c40bd. It
+> breaks suspend with AMD GPUs, and we couldn't incrementally fix it. So,
+> let's remove the code and go back to the drawing board. We keep the
+> header extension to not break drivers already populating the regulator.
+> We expect to re-add the code handling it soon.
 >=20
-> 	Cc: <stable@vger.kernel.org> # 5.14+
+> Reported-by: "Tareque Md.Hanif" <tarequemd.hanif@yahoo.com>
+> Link: https://lore.kernel.org/r/1295184560.182511.1639075777725@mail.yaho=
+o.com
+> Reported-by: Konstantin Kharlamov <hi-angel@yandex.ru>
+> Link: https://lore.kernel.org/r/7143a7147978f4104171072d9f5225d2ce355ec1.=
+camel@yandex.ru
+> BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1850
+> Signed-off-by: Wolfram Sang <wsa@kernel.org>
 
-Yes, but I add such lines only when applying to my tree. If I add it
-when sending out patches, the mail gets CCed to stable although the
-patch is not upstream yet.
+Applied to for-current, thanks!
 
 
---S/gKSxHGeHhRRdpK
+--NInPz8sSrNptA7q8
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmHYoWYACgkQFA3kzBSg
-KbbyBxAAmoMZVtND7b+hYvwEhq6vE1IWvlD+tkGACi94UWfnxie12sV1lBgFQuth
-lBcs1jvh1AUyht/cgN7zJP4hYoGpAUFmITs5lxx/JKBYXGMVVqMy/UFRSEgBxfJ0
-ZM0F5YjCOn811vHck+Z9rpPfJcaqv3i0Ox5sPHQtr+LoKkLWQwgcvtjcnqGje0nH
-bTE+TU+GzRBXr+kDlERSrGDOLfGOLvccwhfEWrPCHlUi6SdmgoO4LI88pjuzIMYO
-AMYUI+TvCyjWcSizhoyX76GDphU/zgFgUvvlkhwnzBmuWrOYIhRik0EDIyr3FEld
-mQQ9scebHvrDLj9JTj22TmW6qS3MaDouSxLyb2SBvczx44kB55Vu48V1Ta1v6b9R
-RD0WOP1NR5X2CUHIQN90hOF4Df/HfNa2b09nbS2x5TwUVvsGl56+Xu0N2ijWMgJt
-3V8Y4h3iU6CxnIo4OihDdfaCWRMTaffA1zrbhGTvcobrZiqY5EAGGojxYZTjEySY
-WTTraD1YRwBeKKu5kAbd5zN20hXyqZV5GSpd0P4lpDU6AtJ6ANf9F6Wlacp9Bxtz
-67EsjrxTg/bZEsWYUwc3BNRgAZej/q8orXr/fLhirphGCLFtIecU3YL4jcALcZap
-4yaJRgqinw84Z01huSBEP//sOyvIPgCuiTKQgWz2WR7FMzsQU1k=
-=JJG0
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmHYonYACgkQFA3kzBSg
+KbaESw//Yifh5V0HIYEvxarVwyg8B4g4TvQBSBVlzchPdF8g8BKRmnpCCsqc62Ks
+JqQWIFN8KAWt7LV8LtM3d3KRuLkkwrhrAHdr8RygtkDOJJeyjbtvcarXPUe8QYM0
+gAZPXNlAObjretxgeTtJrHIWUkCVcAA6YdxMDj1XMQYjfa15lQTem/nHJr53ngo2
+DM1HY5N390WZAzmd0EiUmkVJBuLe7oOBh2qnBwa8uYGhqpisQRXmSBQS5OtWs2a+
+bA5IT/cusIDSG2G2SfIheFFsKYmar1RtSXf2W49Y/EPl8IdaGRGjFFcNtMWZgRVv
+wrpNIu5O1uhawJ5Kb9fuc7noQt4VKxHYFc+KjAF6oUJrWatHyJpi4263yL9KR3J2
+bul/r+aKDxd9eX3sqoHwHtjE4jlEsLC+9LKBCqgwXBxthuf3pT/KY9+92U/WyNN+
+SSRtme95cwPkqge5/4v9pq8ZbWvZhU5XNf7a7BeYdushtqSEmxe6bcLl4Z6iOq0C
+3bvq6e5+CspHHCMObX8jvis6uKxCQue5cLq4e7M0tG+GEJDrVPVL6GEr4tGM6QEp
+bZQDmKSvD91bfW6EKymJY5UnOZ0VUOEHYce8/H3NpTRV9jDzS8rjqmWF1xV3yLBu
+vM5zjuhNhQ5YLW6jvxz5iB51ebI7+RSRKzOGxyciAH7i3v/4GtU=
+=gvGl
 -----END PGP SIGNATURE-----
 
---S/gKSxHGeHhRRdpK--
+--NInPz8sSrNptA7q8--
