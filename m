@@ -4,119 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FEC8C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 16:55:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98870C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 17:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8031121C4;
-	Fri,  7 Jan 2022 16:55:51 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2082.outbound.protection.outlook.com [40.107.244.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAB031121C4
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 16:55:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A69F112109;
+	Fri,  7 Jan 2022 17:47:51 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2042.outbound.protection.outlook.com [40.107.236.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12EA010FE0D;
+ Fri,  7 Jan 2022 17:47:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MS6Tdwv/UEzzL9IPh3XVGMzfGMVWWput8govfD1viKFM3AdblskViczQvKRbJMBjS9KVCm085E49zqNKO0NFcKmJOs1vT+/PE7t0ivP28ftDGbuT1TLpsPxSbBFZKA+AqSEYtzJ9PtZ6a6Yc1nH0wSUlVXSP2Zx22KULwjvUAcHZKQ83vRX3DkXwymHXXWt6S8uOh2GKn/6TXH9IlwKKbo3ie9NDap+Eo24ZzimHbHTFl2eIuU735Ae3+9ojwZvMciKXbzhj2hl4XhtwTDLeAF/BMx7WcAu0K2KR7f3LAW6IyPFTeodZyTJo/yGJ9QEJWBCnhkMr6w/Okn7E2sgvRg==
+ b=BgY+Bw12/p6us65JgsIZUbwhYFtCq6qIRo0+ZQDLMjsYYJfBv8cjS6/OfOdUm9JBPZH5KykvXrYwtiMOuxKprtzSTncad7MXolnYr2gWvWdy4bRR0X5qF+6GvuiGyLbJjkwKnetauIpsZGBI5KZ6ebruyhPEAY4bH9KIodlng/Yie4kTe7mds101P3w7izutPksXn9PF9NsYBqUiheIgN7ZIG3zUYz9ipnlSJIfdlJmRh0QCtP0FD3fqRZM+RbLpVLsKjf5P4ul4+Airr6+yhCE2KDjE1ecK3ICwYt/N9r9By9Z0uT+FdPxRd66ULp8CYvSpcLsxkUyucOdCsIp9jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sLtslZitmThsTma6/n4/4gRGbT0FntrkKNUFYUZxV+Q=;
- b=PCzLp2y+6upOjiC2/acFNABtr1Nnws0d0bhaw5qCGhhetJvuhDar/8QUnoyxMA/hziPDaDkXlVUNyu6z2zfiRvMtRlnl9Qj0SoSu97k3ycmWGZbADdrzVHO4vuNDvlS+xopmJY/pGTZCZ5FJMmDf5t+Ua+O+0p4/kl/wRBMaklfQajqHMW8lOVMRn/ohGlKsAqekwl3JFjhj6dbprsjOkyB8F47SPt0RMggRN9WWhljXJgPjskz5XMdvVGy+CP1fIc+D1XZI3wfzOQs2+VvPIrvBKsP9qMucsmsriOtGivZIfV5FNmdau+ISl/T+rqcEzSvksO7vgcHg78Q6u0olJQ==
+ bh=LVtYDFc2gAqncR7dHCVw716VCwZq2L+ELfRP6yllzJA=;
+ b=d+7YhyAgvCmCCD6WcSwtfMMoj8RffuRBUb3cst4IsJ6POC7Gs0mdNQk8SGYu+wAhKMNC453LhoAVh7oxPbEMAVMDJsQII3yoqY7YKHI9BAKkjV7c6Ovz5Mu4IDbVgCVDe9k7gthXNjltm/oa3EPhoO+F31pqmzI8eWqcaZQ339F/6/AdBnyJf1H6b6ucHgL9bLhuDC9IEJ627gSqlIR6lU/5Jt46+JzuyU/iintOXXUTXOn41Ws/cYKJHdkuxSRJDtljSq+jxGBjR5NMZhokvs0G7oTNSsUHF+QT3zY13Bma7Ovx7A8S53yeNIFqDpNlKit+CgHQ0AzjnxEh5wNdhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sLtslZitmThsTma6/n4/4gRGbT0FntrkKNUFYUZxV+Q=;
- b=eYbaJiLvJ5QcVRWFmV/LzrzdqFV42f4itSdtdjrJgbyso9IvT0xACBq4E12OA7kQhw2as7vyQPp9N74jECv0pgjtgnQrJIZQHp6inp1RmcYVWndHhoHhlSFRRS+eW65VERrJagr0rz2+UfNRqqDXMgWUCz0ixfRA469dMQb6vUc=
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24)
- by DM4PR12MB5360.namprd12.prod.outlook.com (2603:10b6:5:39f::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.21; Fri, 7 Jan
- 2022 16:55:48 +0000
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::98fd:4e9b:b4d6:64a3]) by DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::98fd:4e9b:b4d6:64a3%7]) with mapi id 15.20.4867.011; Fri, 7 Jan 2022
- 16:55:48 +0000
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
- DCN20/DCN21
-Thread-Topic: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
- DCN20/DCN21
-Thread-Index: AQHYA+ae6sg+dIaBJUyRjV2fOt6qWqxXxhOA
-Date: Fri, 7 Jan 2022 16:55:48 +0000
-Message-ID: <DM4PR12MB51821C74C0F9C8254A8CE048EC4D9@DM4PR12MB5182.namprd12.prod.outlook.com>
-References: <20220107164959.12511-1-mario.limonciello@amd.com>
-In-Reply-To: <20220107164959.12511-1-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=840ffa62-39d5-4d2a-820b-33ceb3ffcdbd;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-07T16:52:21Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=LVtYDFc2gAqncR7dHCVw716VCwZq2L+ELfRP6yllzJA=;
+ b=M+FUmt0/REwlSbyPlyVOdOaYCsRtJo4S1wgHi6qq7Y5lgYo3mWTT4LcGyNFXObumvBXi4TKTJlcFKyNOuwudQ2lQZtxjnldN26sQOfC+HIJVkACA7wzoJIXKJN2sG4lCj+RfayH0ae8r8KG95jV8l/iLGgT2FCAHiRholGZvW0A=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1d99d0c5-ea3e-4780-0d1f-08d9d1fe8e28
-x-ms-traffictypediagnostic: DM4PR12MB5360:EE_
-x-microsoft-antispam-prvs: <DM4PR12MB53603B495529BF16D64EA78AEC4D9@DM4PR12MB5360.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:279;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zHJFM2fJGvFtzgZTXjXU5NQ6UDWJqlbhadyWXgm6Jx6lsep5IYsqYWQm/wxy9c5XVyL2XHLs3xIltPDidjZBYuIhjoZK/87l6UfW/O9Ano3+V8RynDNgBS0LnhOS+vab1Mf34NL2Y2Qc97brgu9NnH2vvrQ/iDoYJ8CIMB82jbJVA6e1q0v3H3E7hpuLyQZgnwDiAk/82wi34LHq05SAB819fo0W5TaObLOkx5SYz7mVMBSmpHmo/JTKhiCJ+aNYD7yZOVdXaoy1g7qAb48mDafFvX56gstNWir+I5xFaVdOI3HDquVaOPEHPzyQp1AGzQX3kw7UjZO1rncKk+mExuQOgdjRmVdAgPbNlgfJnGxutjG2RayRh4dZFLwnUlUahDfgWtuthiJCne6THFg/13hCEXFxLFfVq6m4qhl0lwYLSyHBsrWDxi0nIxKNMHBD3JZ7VHwf6R7QYLG1NKMMsN2XL2xI9R5pte4qBldAcS3ZP6ORIgPGB4P1vsybV07oev8J7REWBmGnix5PUQ64rxZF5XW3mq1vLi9SE/Q4MfRxAUoth99tR08L/ZIS1S01Rn2dtGZO/VmG7eg6SU/zh9F6iVjvS2Rb4Ey/UfYtFjSE8JGfAzHhPJuVFzCUzlgroZnHFxTDBQoRPfdRtw46WBh60qYDYKAA/W1EpTv+MxoRtkQy7pQCVfPvqN7nvb0k9w8fAYkKXQVSd1O9HXDe5PZ32F1NuRpNUs1Z7BNtEdNGks8NSH2607TAkYAQLL/ym5fkQzDSQzX6A4/pcwbaioDVH60PsExunyE+xOEKu/4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5182.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(54906003)(38100700002)(66556008)(4326008)(66946007)(316002)(53546011)(6506007)(26005)(71200400001)(8676002)(64756008)(508600001)(66476007)(66446008)(5660300002)(2906002)(33656002)(83380400001)(8936002)(110136005)(55016003)(186003)(9686003)(52536014)(86362001)(966005)(122000001)(76116006)(38070700005)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mLFQGDaMFHKmdD+GOAgeugRaJpqvKL+2VeUPsNlPq/MOfGCIrTOgfAIJ9sXN?=
- =?us-ascii?Q?2S+ES/zuQuOpXcOkXWOQh/FVFpq3CXR3omEcZo3BUZ6BB454YZBgqXLJGj0h?=
- =?us-ascii?Q?js3F5G18Ir9deKTDIRfItVlEVCr8UAcUTS00qrJTVIljTNXKt1C13qHn1FCo?=
- =?us-ascii?Q?WWDrlWhZnvpUwgbXZx7nQfu7Buryqdcwq0sOKqerZmAwh0y8pSX6WnvLJhN5?=
- =?us-ascii?Q?flyRoNKkvRhu9KINUN36cGZBI8ReA9+EGHSTBk9PE1/8zEAhWzvW12z+lwbR?=
- =?us-ascii?Q?OTXVjfpSGTU+k85fD3DDBnC1WXTUCAQj6uAuYdartjcYIm55L9iE/JHVCaXa?=
- =?us-ascii?Q?OOUjuYuFl+ho7YdbV5ZhFpSh0XarcWE44dy8Su0JijD8VNSunrnzNZj3Bj93?=
- =?us-ascii?Q?ScuYj/M7OqIYi/AFEWiZCn4WF3cn4AhWs0w5ecNrwMgQfQ2Jjg4pkr1yCQFt?=
- =?us-ascii?Q?B25RwVylIp9ykKgCjC5+OHAaF41bXsDlEfDP6TcESDtk89cFytHJgo/LDHmQ?=
- =?us-ascii?Q?0/Dmhm8hfGqOL/sOkwUWiLavglAQHo8V/9175dkduaYYRC633B99zmcv0HOg?=
- =?us-ascii?Q?gUOhhM7rvqcKO7+QVHVqDdpDe3qtZ6bA//rQOk0SMGQO1hv+jiX13DLIjpVe?=
- =?us-ascii?Q?yYPM11ZsympDPWZRbOiszQD2uLrpRbBYN46T6YKgmCxOaci70jpqgrZ0rkAo?=
- =?us-ascii?Q?zf81d949GxTN9cDNEbbT2EM7QSZ94QsreGVflmiQ68qqPQ5YmMAxceWqiqrj?=
- =?us-ascii?Q?lmcBrJ1uQBExaCA2NsKLGVz071kzEHepodaIc0I4eK9Rap70O1ZbtLNGPoBL?=
- =?us-ascii?Q?/UObXBIG9R17sgC0422BdRQCcWBvSXNfHe5CuBT+5zSu3Pxze+RdxZPGkA8m?=
- =?us-ascii?Q?/Cl1dUpk9p4D+8Ne+p64FpDKC+FAFi/gg1oNcTlxZHrHb9/CQjjaWVRLOE3i?=
- =?us-ascii?Q?eO6yM3zCRwtAKb+MCeqgwcAUE7wTwZjARPNurvMkKBHB5BsMYG/6oUhykwiq?=
- =?us-ascii?Q?6cvjC0bdalTLs8s5Uc/4aRgWDY7+zRZ/HNvYgY11XttN0ZcPQrkEOKUndqBY?=
- =?us-ascii?Q?cvlCfFAtHnYNuvualrIrCEiNSJEIAqZQDIyZiUhCIC20uBGg2a3QU8U4GDyA?=
- =?us-ascii?Q?hOU86DXtw7tuJCd5lMB2ekCqc83h6en69ZjtQxFBE/uKIQw7TBki5SYQCp7m?=
- =?us-ascii?Q?RmhNGqiUJp/aah1lRocJsCqbhrjB/Xr/5gQM+OTV5h0x5A8DCRZcWuRimH5B?=
- =?us-ascii?Q?njk7erkH1CvFtp//o8SSnu2+4E8MjHHgRfD2PnjDpDU+J4k4lB5yJ/JKCUcl?=
- =?us-ascii?Q?0aMp0w+q88/crEuBWTZT3yB8841OxpnT9bE7MrikxS04tDdSO8h099ZC1EA6?=
- =?us-ascii?Q?cH7Jy5sSYZEF4wTbc1bSRpwmyq67b7kzxGQRxM7vMlzQXMX8LSleELwZfSA4?=
- =?us-ascii?Q?vQCR08e781LYvtc271Cg8cNO8HyVvEi7qmr2IPvrjkepS9T4sV7k9cm5VsLW?=
- =?us-ascii?Q?ZFb0rJxKPsujQ0C+ZgXXbTf4r81GXJUsbhX8f+HWI9NDVTMLz6ShCSu7aXCZ?=
- =?us-ascii?Q?gb8foAs1QCWlg2MrlZzs+QIspKi3oKcHSfhvXJrJg6BeXyQ2r7NOF85b7hC3?=
- =?us-ascii?Q?QWZxlxMm7BEuf31/18hBrJo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5365.namprd12.prod.outlook.com (2603:10b6:408:102::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.14; Fri, 7 Jan
+ 2022 17:47:47 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4867.011; Fri, 7 Jan 2022
+ 17:47:47 +0000
+Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>,
+ Adrian Reber <adrian@lisas.de>
+References: <20211208205344.3034-1-rajneesh.bhardwaj@amd.com>
+ <94b992c2-04c2-7305-0a51-d130fc645f3f@gmail.com>
+ <58d61e47-3796-3147-db6c-ea7912d16902@amd.com>
+ <de272de9-3f4a-db40-699a-41394cb699dc@amd.com>
+ <cb5668d4-a13d-3b0b-442a-bfe1b3a7239a@amd.com>
+ <000edeaf-8a89-ea4d-5b9a-2bd7758f675c@amd.com>
+ <f00f2f16-f0b3-cb54-f88e-d53353bfdb79@amd.com>
+ <f4527002-ec6d-5279-3b79-1aacb6cc55cc@amd.com>
+ <YcBM3PMz7J90F3LQ@phenom.ffwll.local>
+ <9d1030c2-2269-cfdd-bbb0-9c3d5995841a@amd.com>
+ <YcOQN/l7W66W/X0f@phenom.ffwll.local>
+ <a5c769fd-7eac-2628-a36d-fedddfb7d398@amd.com>
+ <279c7ffc-99e5-f052-5de1-9b957c455d85@amd.com>
+ <1ab2558b-1af0-3319-dce6-b805320a49d0@gmail.com>
+ <60760210-3b3d-952c-2637-4d70fab1a857@amd.com>
+ <fd95f1c0-7550-0497-7284-64a5257304ca@amd.com>
+ <ddb344cc-48ec-7323-4494-4e1cb8323585@amd.com>
+ <071fbdc1-38ce-d1e8-0e11-25204a3cc217@amd.com>
+ <af705589-a601-9774-ec55-d1c244f756a9@amd.com>
+ <386142cc-1df5-228c-af24-2187998d9307@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <b80efca2-4a51-7ac9-cc9e-e497ac7c9c7c@amd.com>
+Date: Fri, 7 Jan 2022 12:47:45 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <386142cc-1df5-228c-af24-2187998d9307@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0076.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::15) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d5e1f803-a63f-4806-e8cb-08d9d205d100
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5365:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB536559FF4C0E863CBC89DD90924D9@BN9PR12MB5365.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RUBczCeBfvcOue2K+0ejwasr91BSczGh2icjFe0s9AH7ZdsWXIYrRp+r+JKxCjeF4mTswB5OxHMmm+5qNPaKiYOFsM2gRFhiqt5i9c7qoGqa8xTFJnjop816sxP7Eq1t4qFfKNpYFbcv4Tmy0reZV+Rlfy+0rpDxfyd4BRfd/VRhRWzBo9dM8v82i8ICfBLSyqp+J9ouWbHlsLMRa5BWniDHiQD6A0mjelKPFzkEiepMXjaR8OMutml40fwBIljS4a4cPJ9mlW5EqLCseeUPzcVR3pgWfDtmq/fm97yvQAZZlLK/cpu8FusR7Q//fEUnwYSjiOSMc1i70ZOpHg1zOZ1T7Ch2uCmybx1cGA+m57vXufMMwqI1xIIutBqINpyYhyPQ/WnD5vrVwdrQ0EEwZAcRCqVNRe14W1xWqe2133uvmFy4rFGf0wUHPtv8vlTZ26qz2aYXJzhu33Z/liE/6KCK9LVEbbgr8NdyWyp9p+r6m3ct2eTw58QBQlnLM0bevUmYuJmOvEN3oHh8cr9BoN+lvGVmo3Q9US9Z3buwngmK0v6JyqVxlEHeXXKssY0Frx8xJUkduFNgVsUQh4QkIEAIq83z6Zu0VbTXfphET4C/aBfZmLtXT1ISs8ak+jCQtnVwMJ220jfZkWz24BhmeNeLYhF3o0agyl7DDcdVvuHYdzOsTZFkXC9HXDtHSFBxPe1Seqbguxy9AJjoNziHp640/QnxDGR/PNo3JRQ16lA4No2rOy72C2HOKqApERO1
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(316002)(4326008)(2616005)(66476007)(36756003)(66556008)(508600001)(8676002)(8936002)(6506007)(86362001)(5660300002)(44832011)(2906002)(186003)(31686004)(26005)(38100700002)(83380400001)(66946007)(31696002)(6486002)(66574015)(110136005)(6512007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkpqdDZweldRSFc5Yy9Wclo3QjQ0SWdkS054WG16SVdZMm9KN21sZmpLRXFO?=
+ =?utf-8?B?YXdmdmtRS2lTQ01nTUxTa0w4dmFkTWNvQzVNbTN4eFVRc3NTdTZ2a2NQZFRG?=
+ =?utf-8?B?VmRHbUgyNXlKcWN2Vit0TUtleTgwcHJFbSt2TW5sNmFZbWV2ckNuamYrN1hL?=
+ =?utf-8?B?emJxOUQ1SmpqVnpDMkpkdFZlWUMrTzFMdUtyb3ZYZWp5SG9Gd05ycUc5bFBG?=
+ =?utf-8?B?WTUwWmpKck5yRXJUOEg2VDZVcXZRRzc5UXR2NlhidEJoNm1ic3RQWkVpd0da?=
+ =?utf-8?B?Mk80ZFAxRysyN1VRSVdzZkROTCtFbkdJTklScGVadTFQWW04UEg4K005bDJI?=
+ =?utf-8?B?dmFiMW9QTzBWVTRJL3cxUUZjT1VjeUFOWi9QRyt2UWtLbUkwNEpyMytNcUda?=
+ =?utf-8?B?ZWdVRjlkVWpSN1JYQ0ZraFZrdEplMjUzVFVad1c2ZmNVejFRYmVlNWNEb0Ju?=
+ =?utf-8?B?bWxsRUswSytBN3l5aC9XRWRROWltaFdHQ2k5Z2pHb2pIdHFKQkY4MmxnMm8v?=
+ =?utf-8?B?cTFqQnVrZmJMU3huc05CQ2p2TzYwaGVHZERNeTI1TTRmU1hMV0NZaHBOZmNs?=
+ =?utf-8?B?Wk5TZXlFS3k0YWlwNWJrTStvZHNSb05UMFppWDlQTGNORVRuS2NiaGVId1cx?=
+ =?utf-8?B?elJwSC83R1BJdWpobmtzODB6T3FENys3VEQvRlhWRHU4d0N3Q0dPd1RvQnhP?=
+ =?utf-8?B?K0tCYXovMmVSWC9WajF5UWU1a3IySXA3clJiTWs3aUdMSFpvZzFWbHVnbXA5?=
+ =?utf-8?B?aVphQmt0MHpCSHJSblQrTUJHOEwzeHNyUnBvUmtNMVZ1MHRaRHYrVURLTGp4?=
+ =?utf-8?B?WGk1V2lvamU3NitwOERGR0ZwcytPUVhPTVVMYmcwVDhnTi95QnMySzRhTlND?=
+ =?utf-8?B?aVM1eFFpWENDUWozZDRjNExaSnp1RnRPWU91Skp6Z1V3RnNMZHJrKy93SnF0?=
+ =?utf-8?B?SkR6SXcwWkV2TkhlYzJxNzcwZUwrYTJCY2NudWN4OTh1U0h6bHhKWkNPNFhp?=
+ =?utf-8?B?WVozaGdpTkN0ZzhCVGJPTVZGR3VZSGNmRmhuWEY5NXh6Y3BteDZRdy8rUTNl?=
+ =?utf-8?B?c3JhMGdUZ2s0eFdhbEtFbVhBNzdBenhDaTVZQ0N5dGlVNll2cGZxUWdPSnRh?=
+ =?utf-8?B?WDZIakNocU8xVDM4bDVwcENsejZuMURRRkNDYXpFem5BYlR6Q1lnaEhHQ0JM?=
+ =?utf-8?B?WkNaRWtKREFwWmdGNVFiWkRBcUtBSGl1a0RVbkJXeWZRNGd4aWtLQmQ1L2Z1?=
+ =?utf-8?B?eno4MEdkY2YrMTkwdUl0aUFOQ3ZyQWpISzhybGZVNVBpMFQ2UUlsTy9PcUxq?=
+ =?utf-8?B?Q1V4MmV5WDBzMUgySnRBRkpiZmFST3ZXNlRwZmpXS1JRWEdvdS9iTVFSMmEr?=
+ =?utf-8?B?L1VnclQ0QXZSTmsvY2xFNlhjbWRpOFE0ZVAycDZTUWZHU1FOR0xhbFh4UnpW?=
+ =?utf-8?B?d1pHZUJUVVdManFhVHd5eThsejdXand0cWxwcm9lVnJXTUZ5QnQxc1E1Q0JW?=
+ =?utf-8?B?aENiTkEvZDJFdmNTNjBoR3VJS2VEVCtPaXgxZzloeEd3UjYvY0h4anZSRXpJ?=
+ =?utf-8?B?dGU0UTFWemxyM05xSHMzekRBMFBoQTBqVkFHV3Jzc1VWeXl2VnV3NmhEZkdh?=
+ =?utf-8?B?SEJQMFV5V2lEcUhDT3ZFbzhxTHNBeEdYay9MQTZ4QjhGM0NHemhUTEFwMmZW?=
+ =?utf-8?B?aXRrMkdOUnJUc29ydkhzUzVxK3ZyZ2ZLenBzaUhLRVR6SlFsUWV3UmFqbTRz?=
+ =?utf-8?B?ektXcm5vUllEdnB6c2ZrZnpnZ3JxYmRGRDlCY1cwcDc5VzhqWkFTU2srbVY3?=
+ =?utf-8?B?L0J6Rmp2clcxZEJxcGlwUzg5Ym9Yb3Nqd2pWaTBDWEJsL20yKzIwVkdNTGxp?=
+ =?utf-8?B?SWRiM09SeHd6bXZyZ2Q1SitCK2ozWW14UXhudTIrSE9UZERTbVNkeVRvTkpD?=
+ =?utf-8?B?ZGtBOXMza21DWWxZNFM5Z3o0OE5qVE9Jc3ZmeVBLdk5FUTIvdW95Q1R4TWtu?=
+ =?utf-8?B?ejFudHY0TUQxSkVVUjRWdlg0LytwMllGYWJLVkNtRVRJSTdHQXBTTWhoT3hz?=
+ =?utf-8?B?eWcrMW1QNEVGWHR2dUwxM3B4M1lNalovbENqYVZqSmpSZEhwVXRwVkZDR3c1?=
+ =?utf-8?B?WHJidnV4NjVkWEZYeHN3VW1NWDhBZVllbFRDR1h2bFhUclMvRkZqSnY3TEdu?=
+ =?utf-8?Q?tPnvO6ZXB7kYZrQpWKzE8k0=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5e1f803-a63f-4806-e8cb-08d9d205d100
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5182.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d99d0c5-ea3e-4780-0d1f-08d9d1fe8e28
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jan 2022 16:55:48.4562 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lvgsW5q1cxoMsgFJaAxQyqFuvV8k8FGSZBzyWCGC9qGkycSqQJpk3LH48TtvB2DAxi2dxbqxOQAl/yW48WsBMg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5360
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2022 17:47:47.4208 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BifUyvKVf8Z/kYTaHTlZIKSCLjJZL3JV4zBiOMx58AxHLz453g2/dQos1MdbMrBGz/mr+sNVge/V0kG517z1fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5365
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,307 +149,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhuo, Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>,
- Scott Bruce <smbruce@gmail.com>, "spasswolf@web.de" <spasswolf@web.de>,
- Chris Hixon <linux-kernel-bugs@hixontech.com>
+Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ David Yat Sin <david.yatsin@amd.com>, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, airlied@redhat.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
-
-> -----Original Message-----
-> From: Limonciello, Mario <Mario.Limonciello@amd.com>
-> Sent: January 7, 2022 11:50 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Kazlauskas, Nicholas
-> <Nicholas.Kazlauskas@amd.com>; Zhuo, Qingqing (Lillian)
-> <Qingqing.Zhuo@amd.com>; Scott Bruce <smbruce@gmail.com>; Chris
-> Hixon <linux-kernel-bugs@hixontech.com>; spasswolf@web.de
-> Subject: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
-> DCN20/DCN21
-> Importance: High
+Am 2022-01-07 um 3:56 a.m. schrieb Christian König:
+> Am 06.01.22 um 17:51 schrieb Felix Kuehling:
+>> Am 2022-01-06 um 11:48 a.m. schrieb Christian König:
+>>> Am 06.01.22 um 17:45 schrieb Felix Kuehling:
+>>>> Am 2022-01-06 um 4:05 a.m. schrieb Christian König:
+>>>> [SNIP]
+>>>> Also, why does your ACK or NAK depend on this at all. If it's the
+>>>> right
+>>>> thing to do, it's the right thing to do regardless of who benefits
+>>>> from
+>>>> it. In addition, how can a child process that doesn't even use the GPU
+>>>> be in violation of any GPU-driver related specifications.
+>>> The argument is that the application is broken and needs to be fixed
+>>> instead of worked around inside the kernel.
+>> I still don't get how they the application is broken. Like I said, the
+>> child process is not using the GPU. How can the application be fixed in
+>> this case?
 >
-> The WA from commit 2a50edbf10c8 ("drm/amd/display: Apply w/a for hard
-> hang
-> on HPD") and commit 1bd3bc745e7f ("drm/amd/display: Extend w/a for hard
-> hang on HPD to dcn20") causes a regression in s0ix where the system will
-> fail to resume properly on many laptops.  Pull the workarounds out to
-> avoid that s0ix regression in the common case.  This HPD hang happens wit=
-h
-> an external device and a new W/A will need to be developed for this in th=
-e
-> future.
+> Sounds like I'm still missing some important puzzle pieces for the
+> full picture to figure out why this doesn't work.
 >
-> Cc: Kazlauskas Nicholas <Nicholas.Kazlauskas@amd.com>
-> Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>
-> Reported-by: Scott Bruce <smbruce@gmail.com>
-> Reported-by: Chris Hixon <linux-kernel-bugs@hixontech.com>
-> Reported-by: spasswolf@web.de
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D215436
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1821
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1852
-> Fixes: 2a50edbf10c8 ("drm/amd/display: Apply w/a for hard hang on HPD")
-> Fixes: 1bd3bc745e7f ("drm/amd/display: Extend w/a for hard hang on HPD to
-> dcn20")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> Are you saying, any application that forks and doesn't immediately call
+>> exec is broken?
+>
+> More or less yes. We essentially have three possible cases here:
+>
+> 1. Application is already using (for example) OpenGL or OpenCL to do
+> some rendering on the GPU and then calls fork() and expects to use
+> OpenGL both in the parent and the child at the same time.
+>     As far as I know that's illegal from the Khronos specification
+> point of view and working around inside the kernel for something not
+> allowed in the first place is seen as futile effort.
+>
+> 2. Application opened the file descriptor, forks and then initializes
+> OpenGL/Vulkan/OpenCL.
+>     That's what some compositors are doing to drop into the backround
+> and is explicitly legal.
+>
+> 3. Application calls fork() and then doesn't use the GPU in the child.
+> Either by not using it or calling exec.
+>     That should be legal and not cause any problems in the first place. 
+>
+> But from your description I still don't get why we are running into
+> problems here.
+>
+> I was assuming that you have case #1 because we previously had some
+> examples of this with this python library, but from your description
+> it seems to be case #3.
 
-I think the revert is fine once we figure out where we're missing calls to:
+Correct. #3 has at least one issue we previously worked around in the
+Thunk: The inherited VMAs prevent BOs from being freed in the parent
+process. This manifests as an apparent memory leak. Therefore the Thunk
+calls madvise(..., MADV_DONTFORK) on all its VRAM allocation. The BOs
+that are causing problems with CRIU are GTT BOs that weren't covered by
+this previous workaround.
 
-        .optimize_pwr_state =3D dcn21_optimize_pwr_state,
-        .exit_optimized_pwr_state =3D dcn21_exit_optimized_pwr_state,
+The new issue with CRIU is, that CRIU saves and restores all the VMAs.
+When trying to restore the inherited VMAs in the child process, the mmap
+call fails because the child process' render node FD is no longer
+inherited from the parent, but is instead created by its own "open"
+system call. The mmap call in the child fails for at least two reasons:
 
-These are already part of dc_link_detect, so I suspect there's another inte=
-rface in DC that should be using these.
+  * The child process' render node FD doesn't have permission to map the
+    parent process' BO any more
+  * The parent BO doesn't get restored in the child process, so its mmap
+    offset doesn't get updated to the new mmap offset of the restored
+    parent BO by the amdgpu CRIU plugin
 
-I think the best way to debug this is to revert the patch locally and add a=
- stack dump when DMCUB hangs our times out.
-
-That way you can know where the PHY was trying to be accessed without the r=
-efclk being on.
-
-We had a similar issue in DCN31 which didn't require a W/A like DCN21.
-
-I'd like to hold off on merging this until that hang is verified as gone.
+We could maybe add a whole bunch of complexity in CRIU and our CRIU
+plugin to fix this. But it's pointless because like you said, actually
+doing anything with the BO in the child process is illegal anyway
+(scenario #1 above). The easiest solution seems to be, to just not
+inherit the VMA in the first place.
 
 Regards,
-Nicholas Kazlauskas
+  Felix
 
-> ---
->  .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  | 11 +-------
->  .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 11 +-------
->  .../display/dc/irq/dcn20/irq_service_dcn20.c  | 25 -------------------
->  .../display/dc/irq/dcn20/irq_service_dcn20.h  |  2 --
->  .../display/dc/irq/dcn21/irq_service_dcn21.c  | 25 -------------------
->  .../display/dc/irq/dcn21/irq_service_dcn21.h  |  2 --
->  .../gpu/drm/amd/display/dc/irq/irq_service.c  |  2 +-
->  .../gpu/drm/amd/display/dc/irq/irq_service.h  |  4 ---
->  8 files changed, 3 insertions(+), 79 deletions(-)
->
-> diff --git
-> a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-> b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-> index 9f35f2e8f971..cac80ba69072 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-> @@ -38,7 +38,6 @@
->  #include "clk/clk_11_0_0_offset.h"
->  #include "clk/clk_11_0_0_sh_mask.h"
->
-> -#include "irq/dcn20/irq_service_dcn20.h"
->
->  #undef FN
->  #define FN(reg_name, field_name) \
-> @@ -223,8 +222,6 @@ void dcn2_update_clocks(struct clk_mgr
-> *clk_mgr_base,
->       bool force_reset =3D false;
->       bool p_state_change_support;
->       int total_plane_count;
-> -     int irq_src;
-> -     uint32_t hpd_state;
->
->       if (dc->work_arounds.skip_clock_update)
->               return;
-> @@ -242,13 +239,7 @@ void dcn2_update_clocks(struct clk_mgr
-> *clk_mgr_base,
->       if (dc->res_pool->pp_smu)
->               pp_smu =3D &dc->res_pool->pp_smu->nv_funcs;
->
-> -     for (irq_src =3D DC_IRQ_SOURCE_HPD1; irq_src <=3D
-> DC_IRQ_SOURCE_HPD6; irq_src++) {
-> -             hpd_state =3D dc_get_hpd_state_dcn20(dc->res_pool->irqs,
-> irq_src);
-> -             if (hpd_state)
-> -                     break;
-> -     }
-> -
-> -     if (display_count =3D=3D 0 && !hpd_state)
-> +     if (display_count =3D=3D 0)
->               enter_display_off =3D true;
->
->       if (enter_display_off =3D=3D safe_to_lower) {
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> index fbda42313bfe..f4dee0e48a67 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> @@ -42,7 +42,6 @@
->  #include "clk/clk_10_0_2_sh_mask.h"
->  #include "renoir_ip_offset.h"
->
-> -#include "irq/dcn21/irq_service_dcn21.h"
->
->  /* Constants */
->
-> @@ -129,11 +128,9 @@ static void rn_update_clocks(struct clk_mgr
-> *clk_mgr_base,
->       struct dc_clocks *new_clocks =3D &context->bw_ctx.bw.dcn.clk;
->       struct dc *dc =3D clk_mgr_base->ctx->dc;
->       int display_count;
-> -     int irq_src;
->       bool update_dppclk =3D false;
->       bool update_dispclk =3D false;
->       bool dpp_clock_lowered =3D false;
-> -     uint32_t hpd_state;
->
->       struct dmcu *dmcu =3D clk_mgr_base->ctx->dc->res_pool->dmcu;
->
-> @@ -150,14 +147,8 @@ static void rn_update_clocks(struct clk_mgr
-> *clk_mgr_base,
->
->                       display_count =3D rn_get_active_display_cnt_wa(dc,
-> context);
->
-> -                     for (irq_src =3D DC_IRQ_SOURCE_HPD1; irq_src <=3D
-> DC_IRQ_SOURCE_HPD5; irq_src++) {
-> -                             hpd_state =3D dc_get_hpd_state_dcn21(dc-
-> >res_pool->irqs, irq_src);
-> -                             if (hpd_state)
-> -                                     break;
-> -                     }
-> -
->                       /* if we can go lower, go lower */
-> -                     if (display_count =3D=3D 0 && !hpd_state) {
-> +                     if (display_count =3D=3D 0) {
->
->       rn_vbios_smu_set_dcn_low_power_state(clk_mgr,
-> DCN_PWR_STATE_LOW_POWER);
->                               /* update power state */
->                               clk_mgr_base->clks.pwr_state =3D
-> DCN_PWR_STATE_LOW_POWER;
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-> b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-> index 9ccafe007b23..c4b067d01895 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-> @@ -132,31 +132,6 @@ enum dc_irq_source to_dal_irq_source_dcn20(
->       }
->  }
->
-> -uint32_t dc_get_hpd_state_dcn20(struct irq_service *irq_service, enum
-> dc_irq_source source)
-> -{
-> -     const struct irq_source_info *info;
-> -     uint32_t addr;
-> -     uint32_t value;
-> -     uint32_t current_status;
-> -
-> -     info =3D find_irq_source_info(irq_service, source);
-> -     if (!info)
-> -             return 0;
-> -
-> -     addr =3D info->status_reg;
-> -     if (!addr)
-> -             return 0;
-> -
-> -     value =3D dm_read_reg(irq_service->ctx, addr);
-> -     current_status =3D
-> -             get_reg_field_value(
-> -                     value,
-> -                     HPD0_DC_HPD_INT_STATUS,
-> -                     DC_HPD_SENSE);
-> -
-> -     return current_status;
-> -}
-> -
->  static bool hpd_ack(
->       struct irq_service *irq_service,
->       const struct irq_source_info *info)
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.h
-> b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.h
-> index 4d69ab24ca25..aee4b37999f1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.h
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.h
-> @@ -31,6 +31,4 @@
->  struct irq_service *dal_irq_service_dcn20_create(
->       struct irq_service_init_data *init_data);
->
-> -uint32_t dc_get_hpd_state_dcn20(struct irq_service *irq_service, enum
-> dc_irq_source source);
-> -
->  #endif
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> index 235294534c43..0f15bcada4e9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> @@ -134,31 +134,6 @@ static enum dc_irq_source
-> to_dal_irq_source_dcn21(struct irq_service *irq_servic
->       return DC_IRQ_SOURCE_INVALID;
->  }
->
-> -uint32_t dc_get_hpd_state_dcn21(struct irq_service *irq_service, enum
-> dc_irq_source source)
-> -{
-> -     const struct irq_source_info *info;
-> -     uint32_t addr;
-> -     uint32_t value;
-> -     uint32_t current_status;
-> -
-> -     info =3D find_irq_source_info(irq_service, source);
-> -     if (!info)
-> -             return 0;
-> -
-> -     addr =3D info->status_reg;
-> -     if (!addr)
-> -             return 0;
-> -
-> -     value =3D dm_read_reg(irq_service->ctx, addr);
-> -     current_status =3D
-> -             get_reg_field_value(
-> -                     value,
-> -                     HPD0_DC_HPD_INT_STATUS,
-> -                     DC_HPD_SENSE);
-> -
-> -     return current_status;
-> -}
-> -
->  static bool hpd_ack(
->       struct irq_service *irq_service,
->       const struct irq_source_info *info)
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.h
-> b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.h
-> index 616470e32380..da2bd0e93d7a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.h
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.h
-> @@ -31,6 +31,4 @@
->  struct irq_service *dal_irq_service_dcn21_create(
->       struct irq_service_init_data *init_data);
->
-> -uint32_t dc_get_hpd_state_dcn21(struct irq_service *irq_service, enum
-> dc_irq_source source);
-> -
->  #endif
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-> b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-> index 4db1133e4466..a2a4fbeb83f8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
-> @@ -79,7 +79,7 @@ void dal_irq_service_destroy(struct irq_service
-> **irq_service)
->       *irq_service =3D NULL;
->  }
->
-> -const struct irq_source_info *find_irq_source_info(
-> +static const struct irq_source_info *find_irq_source_info(
->       struct irq_service *irq_service,
->       enum dc_irq_source source)
->  {
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-> b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-> index e60b82480093..dbfcb096eedd 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
-> @@ -69,10 +69,6 @@ struct irq_service {
->       const struct irq_service_funcs *funcs;
->  };
->
-> -const struct irq_source_info *find_irq_source_info(
-> -     struct irq_service *irq_service,
-> -     enum dc_irq_source source);
-> -
->  void dal_irq_service_construct(
->       struct irq_service *irq_service,
->       struct irq_service_init_data *init_data);
-> --
-> 2.25.1
 
+>
+>> Or does an application that forks need to be aware that some other part
+>> of the application used the GPU and explicitly free any GPU resources?
+>
+> Others might fill that information in, but I think that was the plan
+> for newer APIs like Vulkan.
+>
+> Regards,
+> Christian.
+>
+>>
+>> Thanks,
+>>    Felix
+>>
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> Regards,
+>>>>     Felix
+>>>>
+>>>>
+>>>>> Let's talk about this on Mondays call. Thanks for giving the whole
+>>>>> context.
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>>> Regards,
+>>>>>>      Felix
+>>>>>>
+>
