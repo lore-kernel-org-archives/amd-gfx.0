@@ -4,56 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DA34C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 19:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3834C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jan 2022 20:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98C6310E59B;
-	Fri,  7 Jan 2022 19:51:38 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3433110E59B
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 19:51:37 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id t204so9624646oie.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Jan 2022 11:51:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=vlRc5NhtMjiKdzpPMCANUFGvyRstifrYCNetZhEMuBg=;
- b=XbjVpLy3Rk9lFRvc4ZTQo5DSxbJ4NYiD8JA3a04Shxm0dipJvTKXbp+3kE1Tb23+SH
- z4kAtiT19l1K3mTageSpCHVAvNTYO3aVOip8XbLXxUV1Fgoz9a2U4CbB1sW/DbZ0ZM+b
- 0V97thi4BHxsVUPVLCHTzTeo3UvaOKhiydhsBuci/D+E+q2eEljaYdTZPLK/Pdv5Mmg9
- Mj1GjZ87nsQF4+RmyRHeiI7pAAh2qTzN9uUeQbA9WtJ1520XHtylllh5KyUvwmbyiC3X
- bH4K5kDoBh/i+RSnSC4tvnFGeBeUoH9Cq6XX+aIMhY7g+OIsoPyVnnVYXSDLvJGkiRQy
- lKfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=vlRc5NhtMjiKdzpPMCANUFGvyRstifrYCNetZhEMuBg=;
- b=kV+6pAAcb/AVPqGvQlmJDUYKL3ReSMAf3PnGpKHADqEdN/jxwnPgoKDigima1ZCFNk
- pVJLl7976fXpcOYWsTjd6SC2bkp4163BJH/lVZM6cNeAcOOA6vQYM5PDxmHjEsum+t18
- aj3SlGv46Xiu1DCzcOQVVy2rx18gOb3SKT04zJO9ZKk4LtYIgCm0QC7ZOgNm1ZNEv10z
- lYVIOHcb3R5q+VKtVuj0DILqIEfNRFNgIBq5ojMPY3eV2DuDtgbkZZ2nawOwSDkUYIYs
- sUwgQPFibe56/zTqKRGcKaRoeZtu7e/Xg2mznUiUBuHgkzZaC5Gg8NIRMvVAjfS+ay0y
- DDPA==
-X-Gm-Message-State: AOAM531KUtX9hPsZYTlW7HAgHQcvEBcM3f+hu2S+IGxvuLy8qY4hNg+X
- fz9wE2KA2YOa7uEttWq6faf2ZN0SKCzVaS5ZDurbOlST
-X-Google-Smtp-Source: ABdhPJzNV0HZFkhYXldObHjOv/yDSy6Lt4xZUOYtmhbBab2x80wpAwurCfDT3CvytklJaZEFiW2GLvZD+1PiuHkkoZs=
-X-Received: by 2002:a05:6808:4c3:: with SMTP id
- a3mr11085212oie.123.1641585096407; 
- Fri, 07 Jan 2022 11:51:36 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2408710EBB2;
+	Fri,  7 Jan 2022 20:24:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCF510E6F7
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jan 2022 20:24:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CFD0D61F91;
+ Fri,  7 Jan 2022 20:24:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03700C36AED;
+ Fri,  7 Jan 2022 20:24:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641587057;
+ bh=UAfnoL86ZB98XRycStRMpkOz27mbd1CkSVdgWDPqoVw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CxkoS7+Aruk4/7+DqCXCZLAKViPpVIKZ8uuz2N0VissXeC5dmsrNGJYQMzstfKqOI
+ qx0035OhIEnWvgUoYFR7FSJohaEz7RiyTGpo5d8KCi2gCWAv7RgPx61b4LQ3CB5cAF
+ Ydj5T5Y2hK7fAUOXwXTcv/byHv9SQeThwWiU8ktKIW8WH6z0Hzu99KiFJzioskuug6
+ OWmXt1HANu88VFJpunrjjaoFSkz0uddR+MBM0nYjHPnxHaDzgtjPXeTvXzVc/FydaQ
+ beAL6cWYZqSg3Wc2VguIik0UTma2i8LQCRBDqk2v3GIldXITLUyKLCxD2ltWpqSmY3
+ +JD0M6V4P7MCQ==
+Date: Fri, 7 Jan 2022 21:24:10 +0100
+From: Wolfram Sang <wsa@kernel.org>
+To: Konstantin Kharlamov <hi-angel@yandex.ru>
+Subject: Re: [PATCH] Revert "i2c: core: support bus regulator controlling in
+ adapter"
+Message-ID: <Ydihaksfmm6TiG8y@ninjato>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Konstantin Kharlamov <hi-angel@yandex.ru>,
+ linux-i2c@vger.kernel.org, bibby.hsieh@mediatek.com,
+ amd-gfx@lists.freedesktop.org
+References: <20220106122452.18719-1-wsakernel!org>
+ <5849ab287df1b06e141d87bbffdbcd627e999578.camel@yandex.ru>
 MIME-Version: 1.0
-References: <20211230050019.18402-1-jsg@jsg.id.au>
- <cb3ed5ea-4f20-2cec-2e66-1931f210342d@amd.com>
-In-Reply-To: <cb3ed5ea-4f20-2cec-2e66-1931f210342d@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 7 Jan 2022 14:51:24 -0500
-Message-ID: <CADnq5_M8u4acQAmatbp_S_fyCUK2fCkNxJz52N-jFg7UP_EW2w@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: use kernel is_power_of_2 rather than local
- version
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="S/gKSxHGeHhRRdpK"
+Content-Disposition: inline
+In-Reply-To: <5849ab287df1b06e141d87bbffdbcd627e999578.camel@yandex.ru>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,89 +57,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- xinhui pan <Xinhui.Pan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- tbullock@comlore.com, Jonathan Gray <jsg@jsg.id.au>
+Cc: amd-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ bibby.hsieh@mediatek.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
 
-Alex
+--S/gKSxHGeHhRRdpK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Dec 30, 2021 at 11:32 AM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 30.12.21 um 06:00 schrieb Jonathan Gray:
-> > Follow the amdgpu change made in
-> > 7611750784664db46d0db95631e322aeb263dde7
-> > and replace local radeon function with is_power_of_2().
-> >
-> > Signed-off-by: Jonathan Gray <jsg@jsg.id.au>
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> > ---
-> >   drivers/gpu/drm/radeon/radeon_device.c | 19 +++----------------
-> >   1 file changed, 3 insertions(+), 16 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/r=
-adeon/radeon_device.c
-> > index 4f0fbf667431..15692cb241fc 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_device.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> > @@ -1085,19 +1085,6 @@ static unsigned int radeon_vga_set_decode(struct=
- pci_dev *pdev, bool state)
-> >               return VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
-> >   }
-> >
-> > -/**
-> > - * radeon_check_pot_argument - check that argument is a power of two
-> > - *
-> > - * @arg: value to check
-> > - *
-> > - * Validates that a certain argument is a power of two (all asics).
-> > - * Returns true if argument is valid.
-> > - */
-> > -static bool radeon_check_pot_argument(int arg)
-> > -{
-> > -     return (arg & (arg - 1)) =3D=3D 0;
-> > -}
-> > -
-> >   /**
-> >    * radeon_gart_size_auto - Determine a sensible default GART size
-> >    *                         according to ASIC family.
-> > @@ -1126,7 +1113,7 @@ static int radeon_gart_size_auto(enum radeon_fami=
-ly family)
-> >   static void radeon_check_arguments(struct radeon_device *rdev)
-> >   {
-> >       /* vramlimit must be a power of two */
-> > -     if (!radeon_check_pot_argument(radeon_vram_limit)) {
-> > +     if (!is_power_of_2(radeon_vram_limit)) {
-> >               dev_warn(rdev->dev, "vram limit (%d) must be a power of 2=
-\n",
-> >                               radeon_vram_limit);
-> >               radeon_vram_limit =3D 0;
-> > @@ -1140,7 +1127,7 @@ static void radeon_check_arguments(struct radeon_=
-device *rdev)
-> >               dev_warn(rdev->dev, "gart size (%d) too small\n",
-> >                               radeon_gart_size);
-> >               radeon_gart_size =3D radeon_gart_size_auto(rdev->family);
-> > -     } else if (!radeon_check_pot_argument(radeon_gart_size)) {
-> > +     } else if (!is_power_of_2(radeon_gart_size)) {
-> >               dev_warn(rdev->dev, "gart size (%d) must be a power of 2\=
-n",
-> >                               radeon_gart_size);
-> >               radeon_gart_size =3D radeon_gart_size_auto(rdev->family);
-> > @@ -1163,7 +1150,7 @@ static void radeon_check_arguments(struct radeon_=
-device *rdev)
-> >               break;
-> >       }
-> >
-> > -     if (!radeon_check_pot_argument(radeon_vm_size)) {
-> > +     if (!is_power_of_2(radeon_vm_size)) {
-> >               dev_warn(rdev->dev, "VM size (%d) must be a power of 2\n"=
-,
-> >                        radeon_vm_size);
-> >               radeon_vm_size =3D 4;
->
+
+> 	Tested-by: Konstantin Kharlamov <hi-angel@yandex.ru>
+
+Thanks!
+
+> By the way, shouldn't the patch include a field=20
+>=20
+> 	Cc: <stable@vger.kernel.org> # 5.14+
+
+Yes, but I add such lines only when applying to my tree. If I add it
+when sending out patches, the mail gets CCed to stable although the
+patch is not upstream yet.
+
+
+--S/gKSxHGeHhRRdpK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmHYoWYACgkQFA3kzBSg
+KbbyBxAAmoMZVtND7b+hYvwEhq6vE1IWvlD+tkGACi94UWfnxie12sV1lBgFQuth
+lBcs1jvh1AUyht/cgN7zJP4hYoGpAUFmITs5lxx/JKBYXGMVVqMy/UFRSEgBxfJ0
+ZM0F5YjCOn811vHck+Z9rpPfJcaqv3i0Ox5sPHQtr+LoKkLWQwgcvtjcnqGje0nH
+bTE+TU+GzRBXr+kDlERSrGDOLfGOLvccwhfEWrPCHlUi6SdmgoO4LI88pjuzIMYO
+AMYUI+TvCyjWcSizhoyX76GDphU/zgFgUvvlkhwnzBmuWrOYIhRik0EDIyr3FEld
+mQQ9scebHvrDLj9JTj22TmW6qS3MaDouSxLyb2SBvczx44kB55Vu48V1Ta1v6b9R
+RD0WOP1NR5X2CUHIQN90hOF4Df/HfNa2b09nbS2x5TwUVvsGl56+Xu0N2ijWMgJt
+3V8Y4h3iU6CxnIo4OihDdfaCWRMTaffA1zrbhGTvcobrZiqY5EAGGojxYZTjEySY
+WTTraD1YRwBeKKu5kAbd5zN20hXyqZV5GSpd0P4lpDU6AtJ6ANf9F6Wlacp9Bxtz
+67EsjrxTg/bZEsWYUwc3BNRgAZej/q8orXr/fLhirphGCLFtIecU3YL4jcALcZap
+4yaJRgqinw84Z01huSBEP//sOyvIPgCuiTKQgWz2WR7FMzsQU1k=
+=JJG0
+-----END PGP SIGNATURE-----
+
+--S/gKSxHGeHhRRdpK--
