@@ -4,57 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA386C433F5
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 Jan 2022 21:17:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DC68C433EF
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Jan 2022 10:14:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0380010E13F;
-	Sat,  8 Jan 2022 21:17:42 +0000 (UTC)
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C10A10E13F
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Jan 2022 21:17:40 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- g79-20020a9d12d5000000b0058f08f31338so10872840otg.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Jan 2022 13:17:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gjk09K9pnAzRY4DF+EYkRUU9ktl6EtmSnOGC3XcZHu4=;
- b=FysEP6brxLonUc9IgKK5SgIhAXoA8xMUpgoN0BB65pGn2yvwba80A/F/ECSWFcCkR+
- 3yBEUWI2uhyhkZlMBlNj7CN7iE35TyAE2UnUFPGha1DyMzPTcA3y455fXSowyFncQphy
- 5TBrA2anXg1164do66erqnsO0Vp74/TGGwA0VbY7r3SUDkjdZZes1dFcFiDiBXB91h8a
- QLHyOwGG3dV7LrYee5xK/OAa3i4HjI8rv9cC7oCevI8A/mz5+1ud190AmL2TlmHO4yXG
- 1TvSjpiBODxJ0jH7+5VM+baTQ7+q8Uo/ICGv4xqYUkmhCwhM7ixTjxiw/JosdcguefwH
- 88XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gjk09K9pnAzRY4DF+EYkRUU9ktl6EtmSnOGC3XcZHu4=;
- b=IAsMP+t9ajWntr8sLLSzuNiFvcNPon/OllzDpen81HXFVkGky5OnY+/Xlxo8FZRsCw
- XoddtZPbpm7MkNFpYJIha5zTU4zY0x/UaKgRS3BubkwSTukwtj3psYESc2LnEslwFeNE
- K9faPI/nd2uL3zXMMuKOq5AbnDSg2oEgR6LkUVTj0DbUYh/5uqmcxnCAIdgZznjTleV/
- /NJZe580w1Kzy/Njdu4z3WFw40efnKEBIemm9ygSnfaVcROLOvSDZKyr/XLNdH2kZ4kH
- kHxKqL0kpU7r/FSsBFBUhlxjJ7RtEunJ/1xlJiRuluDVKEpmv6KdS88+glVmxH+IGSSF
- zJFQ==
-X-Gm-Message-State: AOAM533WguZPOskvHZKnx4P2RO4fq1MgLP6izdFAwkmLDFJo39NuxtZu
- FTBWDltyGNFuYhNjVdHHay6FsWPeGFC+nUjWkbjz2FzEjI0=
-X-Google-Smtp-Source: ABdhPJyX28fseYLpJ4TaEbCSpyaprrZWZrcR1Oxx2/ksulv3lqIoIn/blXSLYl2lw9CulFI7KiKsBjC269gm8NQ9494=
-X-Received: by 2002:a9d:f09:: with SMTP id 9mr5321663ott.299.1641676659915;
- Sat, 08 Jan 2022 13:17:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A21410E4C0;
+	Sun,  9 Jan 2022 10:14:25 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2062.outbound.protection.outlook.com [40.107.212.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6691510E4BC;
+ Sun,  9 Jan 2022 10:14:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MISP5RmOH3zr0X0iapZMmBTruK1yo+XoG4VtgleMelD2qcol4PcYCw7Kt6r6AR00rzDRiOPcsMRLnMUiwMKpHrI15ZTfPxPLBPX3k1tGOS9X/On7OQtZDo3QSXsEsdv7jXzHwBkz7847mrl9Osg43uiy7R9n+dMZp0NQPGt4nbk8Swq+lxMcjdK2vZL6A0V+b0t+rhFXoT40vWNiqk91Hmsv5AneeJBCl3hS8XgUOcJATrwfF4hT/O1eGl7JxZzxwvbJJWr4RVtF0mWmOTyVUHT5Y0GoOHkVcMt4qTEeY3wB21hjnkTj6Ar7gl+t/xggLto3r8rNgNrh+sBQYedHBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zfzJHMizSFwUWEZO4hXs/gG9uLIEny0BXH9Jw7jpVbI=;
+ b=Ll7jX8deOe8PzW8qVqgp/jtsNLLFb8rsYmbMowiAL9dp1idDnJaGQUxtJeRnMvZ7NAUOovQBxOBhcqMCtJrpEcZv0wnRT4ePtcr7b2PvPtYCDfS/lergUGnoUMblerZhqXJQhgDooSWdw0xbF7ICmmeNRqPTbSNhoHd/7UNrFtuOgrUnyTnXumzsaOoAMhksm9EP7JPxiSCRUr+onNxlFgI9B5dVFFC2NNvg7T0abj5DmsFZEwwQ3D6VfFrv2uFs9MKy/deX3Ny+U1WnMn4uA7FXMoLsm3wVnkyXmd7gV2cAgVpg+gsqWe/aWMlxs5QXPkvkcmXS8jsRksI25DxXTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zfzJHMizSFwUWEZO4hXs/gG9uLIEny0BXH9Jw7jpVbI=;
+ b=MOdbMM87B1/DpYJR4ftB+bkGOzTTcWeMrQdZTSN9bmSbN6YhK0GCCgUU2z+9W9sAVn4XmonSykMatrjld0Y5O0zhWYgp5gKxxm+PgJFlBjkkaAAcyEtTC/gQtc7gdZMed2GRTjgDRuCrrxQG16so2Mu1D5M0037JJLyVs+1BhE8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by MN2PR12MB4797.namprd12.prod.outlook.com (2603:10b6:208:a4::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Sun, 9 Jan
+ 2022 10:14:20 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c411:8d69:9007:aed6]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c411:8d69:9007:aed6%5]) with mapi id 15.20.4867.011; Sun, 9 Jan 2022
+ 10:14:20 +0000
+Message-ID: <2d1428cc-b681-f036-f03b-ffe51af8b2eb@amd.com>
+Date: Sun, 9 Jan 2022 15:52:40 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH v6 1/6] drm: move the buddy allocator from i915 into
+ common drm
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20211226222425.544863-1-Arunpravin.PaneerSelvam@amd.com>
+ <1d1a4278-5aee-20d5-b536-7ca199e85e93@intel.com>
+ <4053214f-bbb2-b6ad-37e9-4a579792a4b3@amd.com>
+From: Arunpravin <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <4053214f-bbb2-b6ad-37e9-4a579792a4b3@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BM1PR01CA0110.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00::26)
+ To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
-References: <20211217212407.3583190-1-Rodrigo.Siqueira@amd.com>
- <20211217212407.3583190-11-Rodrigo.Siqueira@amd.com>
- <BL1PR12MB5144269CBE04ED1053012CEBF7789@BL1PR12MB5144.namprd12.prod.outlook.com>
- <0e7cdf85-c330-ccf0-0401-0fee61faa621@amd.com>
- <CADnq5_Ns=TnYAq4sU86pOQRna=y45kd9P=OSEveSpX0kd-Afjg@mail.gmail.com>
-In-Reply-To: <CADnq5_Ns=TnYAq4sU86pOQRna=y45kd9P=OSEveSpX0kd-Afjg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sat, 8 Jan 2022 16:17:28 -0500
-Message-ID: <CADnq5_My_Uvf0-AWJsPTm7mDSSBaLnWzq11GFdnDJo4Sg5BVAQ@mail.gmail.com>
-Subject: Re: [PATCH 10/19] drm/amd/display: Changed pipe split policy to allow
- for multi-display pipe split
-To: Rodrigo Siqueira Jordao <rjordrigo@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0ea17c3c-2066-42f8-bf4e-08d9d358cce1
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4797:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB47970978280DCB76CD3336DDE44F9@MN2PR12MB4797.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LClfxi4pgpd3amMD29KBGsCHj4h9xlhBAQ6P+jmRUEGDPWVY9WlKy31bO+/5KHy51RCQ0Hl3cMX9lYgGyHh4P7IHy+X5lB6hQ0Y20X9ADTYHcwX4xUvKBgkDCeX0wkn1z69v5/tELsPC1mGhJ9Ex5v10gnd/xQdYd5+E17kj17B7voEFM3z6CL6KUbRg5av9Asd0guXAfbVKtlWKXbV+0mlF5nGFIf2MWfX0hdv4RakjGyw/0ylPVkdTru1x9j8ieFc1ruWvpM48zCXPTCQ4yzQrK5frREH/AKpi8sQqJN2igy/LOoSQBoBTVbgatcBmGf8y4NSfRx3Fq2gpwkOdiCPLesa7IEvCjn909QPbVpw+gV0acnu0tOfmRFSgpLVp3iw5B64f9g5mUCRRnL9OfZxR+Gxq9BTPpk1uPE8r0Wk5G9rwszRxHdtYwbybQAy75nhrs2O3zg5MLIhxAbg4xVxEaBBBCKwkwCQNigcCh8HtUPbp0rDBV6t6zm3i7V1KysHcfe/DPUdaIp8jmgMjlZl8pUHjWoG6k0hCwHW3MKGPqHh2ZgpTuNA93ZHndQB5ajrJX6UK2zPLS1CEW1MGC1z1qKhDBqRx4Ze2q8C6oe97Kw+AlsahG8obIqpCWeJfT1ciTgTF0WiogdHP1jcHnd0JgTSMxGPQbYNlvm8YifLHjGL05ZOuYe+U+oVM8KwaERdUi0EoIHfPKy4fX0BET2YCLaSs2gRh4Lfuxj9EXViF0lc7A5QXi8WSSPFRm9DZMrs8JqjK74OKkiVnwohCn23YXGvNAC1GXWgngbk/2KacTmtjBW4L+w6wJVm/2gnN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(26005)(8936002)(38100700002)(6486002)(508600001)(86362001)(31686004)(2906002)(966005)(45080400002)(8676002)(53546011)(6506007)(83380400001)(186003)(66946007)(66476007)(36756003)(4326008)(316002)(31696002)(2616005)(110136005)(6666004)(6512007)(66556008)(5660300002)(66574015)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ay8xZGwyWDFLYUdtaWJWMk54Njc5NEF5cGxQS1FVM1V1L3hHbXArV2l5ejEy?=
+ =?utf-8?B?cnIzeGk2aUhJeW1qeWEvcDFyUGhGS1Bad3hmSWVGbjkwcGJjWk9mUVF3QkJ0?=
+ =?utf-8?B?QllVbURkTGJmZlpZU2dKSjlWMHY1RGYrQ3EzQjdJZU4yUVVieFBYS29lMUZJ?=
+ =?utf-8?B?UERtUUR6T1FUV0lxREhTaEJDeDhENUkvUC95dXJkdE40SlFWaER2YTlWR1Zk?=
+ =?utf-8?B?dnZ0d0lTc2pIUEpJKzRWWEE2ZHh2RDdwZ2dEZ0JOekI0VlhnQ0oxNkYvNDJr?=
+ =?utf-8?B?QTJlMFY5c1ZSeUF5blRWb1FGOXdUWjdpYnVXMTBCNE1nTmJIY09FYjRLc2ZO?=
+ =?utf-8?B?azJjaWpHUUNRVjdWcng4Rk1rUE83SDExRWw0NTZ0dTJmTXVxV201a2lCbUJI?=
+ =?utf-8?B?WStJY1Yza2hodzhQb2JXMlFxWEZxKzhleFBvNlhiVGFNTG9PdnllZC9lbTFH?=
+ =?utf-8?B?TXk3SUdnNkZNaUdsdkZmdkFwQk1iYlJBb1F2UEl4OGhZN2Z0T1BCN29ZSGF6?=
+ =?utf-8?B?dEdsbkNYclVrSFZuZmFtV3B0QmlFZWdwaWh4dzNYMS81cVF2SkFDVVBIQm1S?=
+ =?utf-8?B?S00wMEFmQUVjQUQ1QlRtWTlUUGgralNVUVhmSWM5Rm5ZOG90bkpqK281ZzF3?=
+ =?utf-8?B?VVVnUGpaaElOQzlyRzB6V3REWDFZTk1DNTJuOU5UWjVMbFVJUDVVQzVHSzRy?=
+ =?utf-8?B?NjR3RlhuSHZoKzRwNDBDdHR2ZEMxbUF6Ukdwa2treFZWa04yWGZBcTZXbU0x?=
+ =?utf-8?B?OE1lODJaTVVweGFCK2hjTVZHVURZQ3A1NjZDY09pN1hlc2xINGFKUFdoQUV4?=
+ =?utf-8?B?R2NFeW84Q2hUb1dtRk5HaGpPYStCZ3NJbHV5b2VUOEgxNVVRZk5BNEcralpK?=
+ =?utf-8?B?RzZ3WVBndHlVWi95S1d1KzBveElHdXNNbmhCL01QUHJsZDdDR00waUdMQkdG?=
+ =?utf-8?B?QXVMM2hnT1RUaktkdFpmSkFRZ3oyUHFHTFBiMy94QW9sNzVWMzJ1V1NNK3BX?=
+ =?utf-8?B?TWJjYkZrWjhHVTk3aWF1VHJ3dmdsWFpIdlpLUmxhRnVXVGZRNzRBRWx4Tkty?=
+ =?utf-8?B?NW1TVkU0S05aSUwwanpMVnEzTmNpaVhQQ0ZIMEpuTWRJWEQ2cWpwZ1Z3cjQ5?=
+ =?utf-8?B?NklSanNJQVRxczNsUGVmeXZIbWUvZ0tkUTZxUzJmSWxtQUV2ejVwRzNlaHNW?=
+ =?utf-8?B?TkJxc29iY1VIdis1S1AxMHhXR2lZRmNDSlhRLzZVZTFxd1ZJRFk4T1JtNUhl?=
+ =?utf-8?B?WGxaN24yQ0RqTEcwRkErYlVKYTZmUm1CMTNxUktiS1dPOGlMOEtJeSt3K3RV?=
+ =?utf-8?B?TzU5Vkw5UlgrVFJwL2p3TE1UWDJuNlpXSVFVdVhUaHNQNG5NZlYrL0pPVzBo?=
+ =?utf-8?B?VzhGci9Oa1NDQTFHK0tkMGs0czVaY0pVcHhzMEIzSnRLTXR6WXVnU0VJNzd5?=
+ =?utf-8?B?TEZ5eUlYOC9UUStxQllzWDliOXo4emZrY1V5cjhVdmkzNjFtdjJXcHRHUFMv?=
+ =?utf-8?B?Yk16VFd6cXJuNWhITjB0aVgwT0liREJUNTAvc1dDa3pycEtKZEgybXlOK1VL?=
+ =?utf-8?B?NlJwanpZQ3VpMXNmUFdRUVVXTW5sMjJQYTJNaW9lVXdoSXQraEVtc0lXamVZ?=
+ =?utf-8?B?TEdsWWloWU9Ka1M5QitaQkY0bE1GSG4yb3pQOGt5QnlqRlJVRTBKcTVTWTl5?=
+ =?utf-8?B?UXRhdytCS2lWZmNiT055NUpJdDkzQTFWQXNYSVdZanJwUVY1RldLT2d0dURI?=
+ =?utf-8?B?ZnFrMHQyYlB4TUI1NGdRZG9BVVdVQldVTXVrbGpxMzBBa1FYWFk4dGlHMDVC?=
+ =?utf-8?B?ZlBRSEZyWEg3L2I5TWZkQVJZS0h5U0NlWlZkclpHZVNnZCsyOHBpdnRNRFdS?=
+ =?utf-8?B?L2VSNVBnQjk1Z2ZFSXpNMmV5TE1HWHhRTDRpbmgyN0ZyR1BvSWpBNzlWWmZa?=
+ =?utf-8?B?RGtHdzFTSWZud2s2WTdZUTFwd0xqeVdVQVBMeWNnVXM2QlZ3WldwTEZTZHpj?=
+ =?utf-8?B?cEYzSjZwaWwzb0RiRWNRVERBdkZzVXp3MWRJWVdkU0dpODcxVmFyR21SdmRB?=
+ =?utf-8?B?MjU0SHlhZVd4WTdYOVdsNWw2d3lWNE03NFpDVXlyV1A1TDRyNm5mSnZ1WHVl?=
+ =?utf-8?B?ajdzLzBaWHVmOEUrL0FVVVN6eHlrbUhzV0xCVzBma3pSRjRKN1BMWHBLUDV4?=
+ =?utf-8?Q?rUZF20GkQhhrYOunOXoqPic=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ea17c3c-2066-42f8-bf4e-08d9d358cce1
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2022 10:14:20.1314 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: duASBLQZ0xioNOJZj+2D1ucJvDxRMGMx6sq5KFPeuAliMkXceJ4Di2yvmRX7yrm0vMCuplaOzEn+Zew0AYPlEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,226 +131,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Cyr,
- Aric" <Aric.Cyr@amd.com>, "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chiu,
- Solomon" <Solomon.Chiu@amd.com>, "Pillai,
- Aurabindo" <Aurabindo.Pillai@amd.com>, "Wang, Angus" <Angus.Wang@amd.com>,
- "Lin, Wayne" <Wayne.Lin@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Lipski,
- Mikita" <Mikita.Lipski@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
+Cc: alexander.deucher@amd.com, jani.nikula@linux.intel.com, tzimmermann@suse.de,
+ daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 21, 2021 at 3:40 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Fri, Dec 17, 2021 at 4:51 PM Rodrigo Siqueira Jordao
-> <rjordrigo@amd.com> wrote:
-> >
-> >
-> >
-> > On 2021-12-17 4:36 p.m., Deucher, Alexander wrote:
-> > > [AMD Official Use Only]
-> > >
-> > >
-> > > Maybe add Bug links for:
-> > > https://gitlab.freedesktop.org/drm/amd/-/issues/1522
-> > > <https://gitlab.freedesktop.org/drm/amd/-/issues/1522>
-> > > https://gitlab.freedesktop.org/drm/amd/-/issues/1709
-> > > <https://gitlab.freedesktop.org/drm/amd/-/issues/1709>
-> > > https://gitlab.freedesktop.org/drm/amd/-/issues/1655
-> > > <https://gitlab.freedesktop.org/drm/amd/-/issues/1655>
-> > > https://gitlab.freedesktop.org/drm/amd/-/issues/1403
-> > > <https://gitlab.freedesktop.org/drm/amd/-/issues/1403>
-> >
-> > Sure, I'll update the commit message before apply this patch.
-> >
-> > Thanks.
-> >
-> > >
-> > >
-> > >
-> > > ------------------------------------------------------------------------
-> > > *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of
-> > > Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > > *Sent:* Friday, December 17, 2021 4:23 PM
-> > > *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> > > *Cc:* Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Cyr, Aric
-> > > <Aric.Cyr@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Wentland,
-> > > Harry <Harry.Wentland@amd.com>; Zhuo, Qingqing (Lillian)
-> > > <Qingqing.Zhuo@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>;
-> > > Li, Roman <Roman.Li@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>;
-> > > Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Wang, Angus
-> > > <Angus.Wang@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Lipski, Mikita
-> > > <Mikita.Lipski@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>;
-> > > Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Kotarac, Pavle
-> > > <Pavle.Kotarac@amd.com>
-> > > *Subject:* [PATCH 10/19] drm/amd/display: Changed pipe split policy to
-> > > allow for multi-display pipe split
-> > > From: Angus Wang <angus.wang@amd.com>
-> > >
-> > > [WHY]
-> > > Current implementation of pipe split policy prevents pipe split with
-> > > multiple displays connected, which caused the MCLK speed to be stuck at
-> > > max
-> > >
-> > > [HOW]
-> > > Changed the pipe split policies so that pipe split is allowed for
-> > > multi-display configurations
-> > >
-> > > Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-> > > Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > > Signed-off-by: Angus Wang <angus.wang@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c | 2 +-
-> > >   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c   | 2 +-
->
-> Also, it looks like dcn10_resource.c was missed.  Was that intentional?
-
-Ping on this.  Changing dcn10_resource.c as well fixes:
-https://gitlab.freedesktop.org/drm/amd/-/issues/1522
-
-Alex
 
 
->
-> Alex
->
->
-> > >   8 files changed, 8 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > > index 2a72517e2b28..2bc93df023ad 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> > > @@ -1069,7 +1069,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >                   .timing_trace = false,
-> > >                   .clock_trace = true,
-> > >                   .disable_pplib_clock_request = true,
-> > > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >                   .force_single_disp_pipe_split = false,
-> > >                   .disable_dcc = DCC_ENABLE,
-> > >                   .vsr_support = true,
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > > index d6acf9a8590a..0bb7d3dd53fa 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-> > > @@ -603,7 +603,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >                   .timing_trace = false,
-> > >                   .clock_trace = true,
-> > >                   .disable_pplib_clock_request = true,
-> > > -               .pipe_split_policy = MPC_SPLIT_AVOID,
-> > > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >                   .force_single_disp_pipe_split = false,
-> > >                   .disable_dcc = DCC_ENABLE,
-> > >                   .vsr_support = true,
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > > index ca1bbc942fd4..e5cc6bf45743 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> > > @@ -873,7 +873,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >                   .clock_trace = true,
-> > >                   .disable_pplib_clock_request = true,
-> > >                   .min_disp_clk_khz = 100000,
-> > > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >                   .force_single_disp_pipe_split = false,
-> > >                   .disable_dcc = DCC_ENABLE,
-> > >                   .vsr_support = true,
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > > index 369ceeeddc7e..e12660c609ee 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> > > @@ -840,7 +840,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >           .timing_trace = false,
-> > >           .clock_trace = true,
-> > >           .disable_pplib_clock_request = true,
-> > > -       .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > > +       .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >           .force_single_disp_pipe_split = false,
-> > >           .disable_dcc = DCC_ENABLE,
-> > >           .vsr_support = true,
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > > index b4001233867c..c1c6e602b06c 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> > > @@ -686,7 +686,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >           .disable_clock_gate = true,
-> > >           .disable_pplib_clock_request = true,
-> > >           .disable_pplib_wm_range = true,
-> > > -       .pipe_split_policy = MPC_SPLIT_AVOID,
-> > > +       .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >           .force_single_disp_pipe_split = false,
-> > >           .disable_dcc = DCC_ENABLE,
-> > >           .vsr_support = true,
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > > index 003e95368672..2e9cbfa7663b 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-> > > @@ -211,7 +211,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >                   .timing_trace = false,
-> > >                   .clock_trace = true,
-> > >                   .disable_pplib_clock_request = true,
-> > > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >                   .force_single_disp_pipe_split = false,
-> > >                   .disable_dcc = DCC_ENABLE,
-> > >                   .vsr_support = true,
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > > index 01ba9d656c72..2de687f64cf6 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-> > > @@ -193,7 +193,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >                   .timing_trace = false,
-> > >                   .clock_trace = true,
-> > >                   .disable_pplib_clock_request = true,
-> > > -               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> > > +               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >                   .force_single_disp_pipe_split = false,
-> > >                   .disable_dcc = DCC_ENABLE,
-> > >                   .vsr_support = true,
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > > b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > > index 6d07dcecc953..7c64317a56f7 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-> > > @@ -1003,7 +1003,7 @@ static const struct dc_debug_options
-> > > debug_defaults_drv = {
-> > >           .timing_trace = false,
-> > >           .clock_trace = true,
-> > >           .disable_pplib_clock_request = false,
-> > > -       .pipe_split_policy = MPC_SPLIT_AVOID,
-> > > +       .pipe_split_policy = MPC_SPLIT_DYNAMIC,
-> > >           .force_single_disp_pipe_split = false,
-> > >           .disable_dcc = DCC_ENABLE,
-> > >           .vsr_support = true,
-> > > --
-> > > 2.25.1
-> > >
-> >
+On 07/01/22 9:27 pm, Christian König wrote:
+> Am 07.01.22 um 16:49 schrieb Matthew Auld:
+>> On 26/12/2021 22:24, Arunpravin wrote:
+>>> Move the base i915 buddy allocator code into drm
+>>> - Move i915_buddy.h to include/drm
+>>> - Move i915_buddy.c to drm root folder
+>>> - Rename "i915" string with "drm" string wherever applicable
+>>> - Rename "I915" string with "DRM" string wherever applicable
+>>> - Fix header file dependencies
+>>> - Fix alignment issues
+>>> - add Makefile support for drm buddy
+>>> - export functions and write kerneldoc description
+>>> - Remove i915 selftest config check condition as buddy selftest
+>>>    will be moved to drm selftest folder
+>>>
+>>> cleanup i915 buddy references in i915 driver module
+>>> and replace with drm buddy
+>>>
+>>> v2:
+>>>    - include header file in alphabetical order(Thomas)
+>>>    - merged changes listed in the body section into a single patch
+>>>      to keep the build intact(Christian, Jani)
+>>>
+>>> v3:
+>>>    - make drm buddy a separate module(Thomas, Christian)
+>>>
+>>> v4:
+>>>    - Fix build error reported by kernel test robot <lkp@intel.com>
+>>>    - removed i915 buddy selftest from i915_mock_selftests.h to
+>>>      avoid build error
+>>>    - removed selftests/i915_buddy.c file as we create a new set of
+>>>      buddy test cases in drm/selftests folder
+>>>
+>>> v5:
+>>>    - Fix merge conflict issue
+>>>
+>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>
+>> <snip>
+>>
+>>> +int drm_buddy_init(struct drm_buddy_mm *mm, u64 size, u64 chunk_size)
+>>> +{
+>>> +    unsigned int i;
+>>> +    u64 offset;
+>>> +
+>>> +    if (size < chunk_size)
+>>> +        return -EINVAL;
+>>> +
+>>> +    if (chunk_size < PAGE_SIZE)
+>>> +        return -EINVAL;
+>>> +
+>>> +    if (!is_power_of_2(chunk_size))
+>>> +        return -EINVAL;
+>>> +
+>>> +    size = round_down(size, chunk_size);
+>>> +
+>>> +    mm->size = size;
+>>> +    mm->avail = size;
+>>> +    mm->chunk_size = chunk_size;
+>>> +    mm->max_order = ilog2(size) - ilog2(chunk_size);
+>>> +
+>>> +    BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
+>>> +
+>>> +    mm->slab_blocks = KMEM_CACHE(drm_buddy_block, 0);
+>>> +    if (!mm->slab_blocks)
+>>> +        return -ENOMEM;
+>>
+>> It looks like every KMEM_CACHE() also creates a debugfs entry? See the 
+>> error here[1]. I guess because we end with multiple instances in i915. 
+>> If so, is it possible to have a single KMEM_CACHE() as part of the 
+>> buddy module, similar to what i915 was doing previously?
+> 
+> Oh, that is a really good point, this code here doesn't make to much sense.
+> 
+> The value of a KMEM_CACHE() is to allow speeding up allocation of the 
+> same structure size between different drm_buddy object. If you allocate 
+> one cache per drm_buddy that makes the whole functionality useless.
+> 
+> Please fix, this is actually a bug.
+> 
+> Christian.
+> 
+
+I fixed in v7 version
+
+Thanks,
+Arun
+>>
+>> [1] 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fintel-gfx-ci.01.org%2Ftree%2Fdrm-tip%2FTrybot_8217%2Fshard-skl4%2Figt%40i915_selftest%40mock%40memory_region.html&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C56202fbe886f415c3b8308d9d1f5409c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637771673545453215%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=ZnRmAQo%2BjX414hbqHigL4R18oBDKLIugUQIVcwhFI%2BY%3D&amp;reserved=0
+> 
