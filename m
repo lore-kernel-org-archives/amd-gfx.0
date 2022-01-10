@@ -4,118 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D73DC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 16:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7193C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 16:32:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15630112C36;
-	Mon, 10 Jan 2022 16:18:13 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62912112C27
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 16:18:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ABA8112C39;
+	Mon, 10 Jan 2022 16:32:42 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB76112C39
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 16:32:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UQ/zQBT4iiGTqoIw8ziKRwoOGaxxICe0SQLpk+T17D7OW4rkWqv7sk+fkqSKx5dagFEnxKv6jVko/gDxBZftJy0hlm/ZE8x3OV8KGnYm/NUoNfnNIVSXrdMb4F4eehxD1U5lK71sR8OPJErdWc8O7F+7l1+8eOLrEYD9ae8qBaG77OBkbXLjc5IJueWdwOCNtt6CYTzUfWbK1M8SHV2z6ztuUDiwZTbFsrqQKyo0E04UyU70Gqke330iDSCz7ceNkR6VXMbLzk//+cSjV5girRPPBZ0LqlcepnHQn7UlJC0h8cw0/9fth/XxSiml9IERpVcjgaVURVlMbRxrTHTjuQ==
+ b=kOQXXMG851qMtbpwLlYv2dBf5ahzC52KZih3ldo3d51mst/K1ZL2oosyqPF4f8ZFcRysq85PkUli5+09NG5GAIdiPKaBrpCnmYya0nz5CTj0Difxrypa+Bcoec0d9UiA0JhoqD12Zpta33z535dT8RTrgnBtxe9LAK9NR3sX/etOFMAtw18SwgLNWKEz3idBEA6pQrPfeHEBpEANvAR70wgGVQaYdSqhEK6J9dpzN6vWpYBScHT5kqwd++h3hkN614y5V4LPLezu/DHEhrchx4Q7YjebrOPe3QRJETWu68fGj2t12DK+fR9uhHXUr04IIfW4NrQWs5DSfuNPWPK7ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wya443akmFozc4e+k6aMh5Ne+FIKOm2cQj7/tuKDAHM=;
- b=nVcnnMkhfzZ7qeIYicCJbhESFFsxdIbsdHVjfc8mUOyMgwqeSq2wDt/Ugr8CRmG94kUXyfWgmB/6RbqNly/xWtxGM3tMO/WCy7SV6k9PJagor4NZcAF5q8OOMbvdPGgGqfpKOA1oHO0eL1zbLKlcHG15qkD+mdF2nheZl+oA2lxKUMKinGgh8VnYt2whdEfr0tbSO3SamxhGzZ56lFQ+2bl3zEr7wvrqjx3EPdUcl5QVt/kioQ1e2A6qAZKO3Bmrx0hGEKOvN7S0DjqT+OwKvFboifW3OoL+KjuJfS4oWa6TseeHL96ySaXH5iMRR9359zrnCPfViHih87WV7yOJpQ==
+ bh=atutLfL/n10LEl/9QJ3ULBOqVp2x4Y71Q4k8avzBUWk=;
+ b=Y1lhcnmFuTbVJJ7tF9uH5L3vjVl093iI8SNid/gwILpzU8CXsESe/4E/QF1gQnMMbh7KLddGS2MCSdkc/jb1ebBAPh4kWNCgl4Hk57MlYKm8YZzrnK59GNPGmQK4iI9Pb+N0NoCFThZgR2nixbXSBye4mmA7jlhmnxMmiNOY1b9PEvSOhAzjvHrjHQ/RHtwy7UYztv3qb0UcRR6OVvtuwxb40zp2GWoLQBURf2U+/Ku63I+jdL+4Gv6aaHNjUye0mvvztKYZbDZGYCeT8R+fQRzkpo5xD+6HIbAz7l5Y6/5GQm7MvyAJrNCFn0YsX5zASqTPCdVzG306U24AH4XU/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wya443akmFozc4e+k6aMh5Ne+FIKOm2cQj7/tuKDAHM=;
- b=Pf742nFUeFGV9WNI0lbIYTpYNoyfhe0xdkOSZTobDqnjjuqi2PzUISQ/Nd682aCoZ2UdGqFV2dF7IlX9xLX8ip+1DXAdqDriX7vOsVVmQYClT8wnB6r3WUY65cVwT1cGfEqQAG+yfaUvu44pr+z7el5LnbPQM799g8LwZx+EePk=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5173.namprd12.prod.outlook.com (2603:10b6:208:308::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Mon, 10 Jan
- 2022 16:18:09 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be%4]) with mapi id 15.20.4867.012; Mon, 10 Jan 2022
- 16:18:09 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Mahapatra, Rajib" <Rajib.Mahapatra@amd.com>, "Wu, Hersen"
- <hersenxs.wu@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>
+ bh=atutLfL/n10LEl/9QJ3ULBOqVp2x4Y71Q4k8avzBUWk=;
+ b=yhWayIAyJaptuM9kUTol0t+q8cj/iwlzezsntIOzAIvFmAnP5f6NScBni+9OdTutCVvHrqpiwutaWGh+2+iWHpMoUH29HDgVIiuUUfnkpDs2A4wote9Os+Hn1d5U2va7XLuweve5MmZ8xuQO2CNBYFb6iAYFpgAIgQG8eUkzo6o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CO6PR12MB5490.namprd12.prod.outlook.com (2603:10b6:303:13d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9; Mon, 10 Jan
+ 2022 16:32:39 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::dd4b:b67b:1688:b52]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::dd4b:b67b:1688:b52%9]) with mapi id 15.20.4867.012; Mon, 10 Jan 2022
+ 16:32:39 +0000
+Message-ID: <44d54537-82b6-b1aa-c9a6-8dc6b16440e0@amd.com>
+Date: Mon, 10 Jan 2022 11:32:35 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
 Subject: Re: [PATCH] drm/amd/display: Not to call
  dpcd_set_source_specific_data during resume.
-Thread-Topic: [PATCH] drm/amd/display: Not to call
- dpcd_set_source_specific_data during resume.
-Thread-Index: AQHYBgFyiymel+rBxkGSQ52wV/py9qxcby0H
-Date: Mon, 10 Jan 2022 16:18:09 +0000
-Message-ID: <BL1PR12MB5144F7AB8D1275D4E569F7A1F7509@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220110090652.3759559-1-rajib.mahapatra@amd.com>
-In-Reply-To: <20220110090652.3759559-1-rajib.mahapatra@amd.com>
-Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-10T16:18:08.526Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: a655d042-8e6d-60b9-5694-92e37c05b3ff
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ebc15082-d743-41a3-dce3-08d9d454cad5
-x-ms-traffictypediagnostic: BL1PR12MB5173:EE_
-x-microsoft-antispam-prvs: <BL1PR12MB5173FFE99864E775EEE77CFDF7509@BL1PR12MB5173.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:499;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 4yY8Y9erVHYexOpAXNjT+wFqm4ae46ONaMHHGC9miss2VgV1OcoclKkeD4GumBOmEBLwlmTR9NP8UI/x+xSDZiMc+HV4tmot+g9qKGvzR3c4hJ731uc20xEpqgI5WhRWuL+bFp4cI2cGom9fxvpz3qE6s2aWXrbZT1K+lfMFPJINTSFTHmFa/vqQu4DJtP/tgDmjSZoNMufjtolbuHOGFOiApGuEMZirTYPLCaPZfPJKhHijwuNoejtsDmgH8zSzVnur+/3DJZHnWbC11MQxoxiVC4mIHLDY7nVhVmw377IQFCit8k3eoVgWmzwPK7cYeT4wY7WN8v9M6CunQQ3LfSw447/JC/ZOtul+z4dDQG1wBbKIQtVSoCGCNlRrHTReIk5YkVDfdd2QLy16TU860VGuORGfBaFwKtwTjLldm2/aWtIEHgY+8PvwqSmnkEO5QgtI9gEhyGXvIPsvjT1wJ8HiOgfBbfpKvSP7w7xBJ6fayBlJmBbEFnjNGyCLxquVIsaMPIwjRvm/ThzzAnFRjxudKB6BGKX5ei6kTEAdwItxmjHnFJOqs5ga7b2DGQweWO9ZNtl4D1Np/hKOyjmBbUEhNaMw4nMRyfaDcP5G01InWCwdSBfFrDj4s0iEf9CjalCwQ8p1LmjjdtBxFpMonE4twiwIDwU1cM/nQFCLNp/1WXDv1ruCyZrCxKocBW4XC6o7SjkndBBry+imhcUrbw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(508600001)(110136005)(54906003)(9686003)(26005)(5660300002)(8676002)(38070700005)(83380400001)(4326008)(7696005)(86362001)(52536014)(186003)(316002)(76116006)(55016003)(8936002)(66946007)(6636002)(66446008)(64756008)(66476007)(53546011)(122000001)(19627405001)(66556008)(2906002)(38100700002)(33656002)(6506007)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?b9VqerXh0o31l8wr5AULV8PeC0MvrXu6HdSWitROvp/YULd2nRaA3WzS5XhQ?=
- =?us-ascii?Q?twJWBUr39Uw3Yw6sIBYDcAekr14MZtp7dRvHtFlrCBEAaoun7KQ7Orv9kC6L?=
- =?us-ascii?Q?eieFiUX7mf1zdfnFNcjoFP09FaxYR1v67p684+SCJnDCr4YXPMerurRmo8gP?=
- =?us-ascii?Q?BeHaz7YvUQ4Y2yI/aPhLigw92A+Xc+GtvUjNBbZ6K1w8PHCZt3M01foosQ6i?=
- =?us-ascii?Q?Ofrcb1lndI/lIp7cYsHcrma6hUJS48YjWBkShGwUMXNpR5Z/wi209+AoMIxG?=
- =?us-ascii?Q?lbVm3QoyqeTsmwcPtw6mqXIkXzZW9lNOS/ZKPUTl+KySuLkFxyeQz4NM37di?=
- =?us-ascii?Q?3Hth+YmB7bvqUrSdKnXo4T/wJ8yqoY3nvBQirngeXphCxVWjsipiKsAxZMj1?=
- =?us-ascii?Q?uD/IfV84tgvrNYUzX8sN9qp30lHWS2AgYwyTdT8r3tbVjrdIRvu97fxwr1RC?=
- =?us-ascii?Q?yYM3AZxDjE0FH9nEGZdYJSO+SzF9R9ez1kAg1ipuDzrRfSl8msO5w+/BeBOQ?=
- =?us-ascii?Q?jlMTeC1fSG5/Kds5rfxCxJ7vDSs3Oa8mhUByczjC/GxckEd4ACTcbgwlMgFe?=
- =?us-ascii?Q?g4YMAs1k7HC9axAOY0yImTc7eggGAxHq5fI5iUBKbWJ5J7iQCFCPV0y19Kvr?=
- =?us-ascii?Q?NLKfo0UrK/6CZLNWDgjj+0R+YOCRKn/L67vhbA2mwbLzzoJ7vNULc27XjrI+?=
- =?us-ascii?Q?18CpOcJsatTKt9svwgl6w5tWLo0ReTgLqGaIX9ZIhCTjh+DjhmMZ2+AVUVVt?=
- =?us-ascii?Q?H7xB3aDm6e3OZ6KUB8hRc/pvE+4n0iT9SH76+M96JaTmW+pwjTEUUpB1i4Sf?=
- =?us-ascii?Q?2LTyLykl44YM4wXHLILACqciC2v/DTDX0Si3KaYUt4L8eVFYrHl1Q4nEfMRg?=
- =?us-ascii?Q?WLkkqb8PgaW4W6CeXN8I0B6+VtGQ3+osppdddjBLb36VJllBYaHI3Qcp9HR3?=
- =?us-ascii?Q?O/p+cr9gltY33lHDX6vdahch1u0n/D/HP3306dRiYMRxJGPVPB+GizQWQ+5N?=
- =?us-ascii?Q?lVEboNYb0rboZghB9MyMG0UusBP8Bf0ceQg6bWWG6Oi5l9Iv5oMNmmOVPGnP?=
- =?us-ascii?Q?PgZksWU6PAkL6bXeWRXTgrkWAaY2pk3wpzQGGhz7+AzaC6xnduqZ450LSfpm?=
- =?us-ascii?Q?A3hk68IgQ+8YI85kTgPT56HAvKkQrCr/Fd2DMJcLo6AuFK62szaqTj2XHuX/?=
- =?us-ascii?Q?rV4BPgh5GhSCp0LTy5msT7Fz+iCOkgjUiJyc10dLzBqV46APPdS6dO/T4sVt?=
- =?us-ascii?Q?bIHswYQMWELMuM5dcMtjp2YmNoW2AUtGoAq3GHx8+swyp99o/7rnwLLg/qkt?=
- =?us-ascii?Q?3/61w5qVNp/uJ3wUJi2Ux/9N4+jGvggziRSt28JK1Js7e98D36/Eodrrozy/?=
- =?us-ascii?Q?c/TNGOo4PnnJl8lTN+0QaTwtoyerYOOyVn7fIjslc6ueciRqyhJ7LQVyPWIg?=
- =?us-ascii?Q?TyTwVyE7JZ49O3TcxmaYXmU0hpCnexzwH23dYYkDXfd5Rq7FHBdiNeFoMaCH?=
- =?us-ascii?Q?pZeMARVzV4ml8f7PI1T0MojrzLSgXwFJgMVF548xRQCo4seqjMlSb/PbcNz+?=
- =?us-ascii?Q?FrsCVSEQPa2ILP4AGeyQfP4yqAQzoDHj/CHo8vamr1fnMwkSIDFT8Msgy6Xp?=
- =?us-ascii?Q?OA=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144F7AB8D1275D4E569F7A1F7509BL1PR12MB5144namp_"
+To: Rajib Mahapatra <rajib.mahapatra@amd.com>, hersenxs.wu@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20220110090652.3759559-1-rajib.mahapatra@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20220110090652.3759559-1-rajib.mahapatra@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0251.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::15) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 67edb019-8970-4a88-9532-08d9d456d13d
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5490:EE_
+X-Microsoft-Antispam-PRVS: <CO6PR12MB54909973634C68BB613FD6528C509@CO6PR12MB5490.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BjbrZduGnxlzEIUFeK9VPgqEtYDU1ZPEVQ8qtxg6EyIki9gXdGZuSv6j4kn0mdisoylivQZCYOLbxZ6Zq7aZM23UrR8pKe2H0cwaA/X+FxjsanQYE5KNwE4GTh0LDLIR5hk3w/voVOoXpxqO0VaLdVB7mcZTmZYDYPzT5mgU/vHbti1thQndMJgYKkl3Wv7Ys2bVrGkNrmvLZY8qLZfq9jzsQQTBunJ93PlcXX1ZgyaQrv+EzDslqS5Xdu3G1vAu2Sw/BN075jvmnazk5Dk3XgPuiFOprULmPO7Nb5irU8ZADiESQ7MazFJCyHeMGa5873msFIq8f7gDrOO96xi6e4wjZUqSqeCs6sn1rG+CeQotXzP96B+2obkZZaLzsY/yJ0EyDRaR7CYE2L3j2gaDA/DevwTp6my9+R3KbHNP8EOCWjWHzNsTnEHto3ZQfFH7aZDuf3iUTfN4Vuopgp+RxF1Jgiqy7oti4uoTDdtgD+OXcVM2c0XpHH14xAfHP9MyssUFH7p5EUtUa8S+4ZERtjPpBgLa/ho64zBsH1RycOb/L+Y2/xlboRwVswyset46TPP2aBsGx09oHpeqRa/lzLoXeQl5n88a0zujNWy/gqqZlYvzKXaCxxEmKx39CqJF4g1C+5FYrxxp7fLLh2bgWObY83qhMssQzktNDLb2aWpgSkbSfwo6sU7w9RJR/0GpKMvBEagKPNMJaerA7p1Ys4mKfZ6rbEsNQ0qcedoZSPo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6636002)(110136005)(6666004)(38100700002)(44832011)(31696002)(4326008)(508600001)(6486002)(31686004)(2616005)(53546011)(6512007)(83380400001)(2906002)(8936002)(186003)(6506007)(8676002)(5660300002)(86362001)(36756003)(26005)(316002)(66556008)(66476007)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWtLMUdXenFTNU1HRFNpc1NKeUhjVG5sVVpjSUR5RDVKY0V4WnNTc1BZVHF5?=
+ =?utf-8?B?Z3k4ZmhnMG1VN2JPZ0J6RURUN2E4bGZxWGJRU2Znd3EvMEZkM0ZsZmQycE4r?=
+ =?utf-8?B?bmZ0eWNlVHNlYUZtV3NRMzdhODBVbmJvY2RkMGF1L2RVZmlhWDdBWGhDbWYx?=
+ =?utf-8?B?aG1FZXBNYVRFc3RsRWVkZHJSLzJaS0RGNUpQa3hDVGZNNFcwQkppMnQvb3c0?=
+ =?utf-8?B?bmxyM3RMVkRuY3AxaVcrVGlWTWgycmRKeUJ5STJqK25Rb3dhK0VCUnNTVEd2?=
+ =?utf-8?B?aThIa1J2RWFaMGhoTVY3QURjcm1wVjZPVHF0K0g5eFlEc1FaR3Q0bGROd0U2?=
+ =?utf-8?B?aks1T2VIQU5kcXFSZjFGa0lLNFlLa3EzZkV4VkJ6cVUvMkJkdXVHRmFoT0tC?=
+ =?utf-8?B?QUVDTmdYa3RCYWdIVCtlaUQ1c3JRdGxGb2hTT0dNbmx6bUNLUy9JWTlHaHU4?=
+ =?utf-8?B?N1k2MjIzWEVqdVVGL0RnaEpRYkpzY2xxSFNic1lNSHNBbHpTZGh0TS9xcU5S?=
+ =?utf-8?B?cUZBUmJDRDRnTGo4U3BYc3QwTWZHcFM4OFB2bGg3eTJ2bXJqY2Q1SHdrdEJo?=
+ =?utf-8?B?QTBQNGV0UGw1UmFDcmwzNERSQXF5Z01NTDdvREhaa0NCRUNXSW9zdWdhcEpq?=
+ =?utf-8?B?OXNsbUxENENQUmhOaU12ckV4UlQxRkdodVp3ZzE3Tk5zUjdHd2RnQkh5VXRr?=
+ =?utf-8?B?dDNUbDNuMFZYTXlyQnljd0VxY3dyMExWc0Zkb2cya2Z6N2lLS25IWWtiS2pT?=
+ =?utf-8?B?NXZBbVpmTXU5dzdNQUUzNWdsdGljaXhHUUlCUDhyN0xXdlhzU0hxMmMzdjRx?=
+ =?utf-8?B?MlhLYUFEYWhMcXJmU3VTcTlZUE5SeXpHUm5OQ1F4blhQdzdwOFBoVHZ0UVpk?=
+ =?utf-8?B?NHB1emFWV3VLc2xyTGpWaVpWejZ4MTdtMmYwSWFkT09ZWW9hWnRLamtjRGZp?=
+ =?utf-8?B?T2l0OVViQWdSbk9SRjBDaWNjNk1JQU9qemhSd2JMSTAzSUhKVU1adUt5ZFNy?=
+ =?utf-8?B?V3hoTkdsUVM3MWxsU2toZ1Z2RU1EYjJCUnlOOUtPaW1MV3JZVER3eHBOMjRu?=
+ =?utf-8?B?UW11eDlrU2YvZklBL2tZRTVVeHhZc2NOUGNpb1dxc09XMGJFMWRlQnk0Ump5?=
+ =?utf-8?B?RWxYQ1RoSDBFMkpPTlRUV3czOHJCS3l6YzU4NmNPWHdwSDRYVXhIWnJxR3Rn?=
+ =?utf-8?B?TEZzUWVRYmVad000aWZ5bktCdEVhVHd0S21TUC9WUmRSNjdjWEdTM0xEQlZr?=
+ =?utf-8?B?emg5TzFUNzJreENlb2dsVlppMGFYRjJjd3hRaWh5MktHNlZBWFRlNVVIOWxL?=
+ =?utf-8?B?ZGNiNng5OTNsemFsVm9vZ2NJeXNZM0c5SjFVNWRJTXljN0JRaTB1SUxibGpj?=
+ =?utf-8?B?ZGc5SXhtb2ZBdngrWEQyN1cvZlhGcUs5TThnc1FmWTdURFJ1cVQ0ZGpjWnBi?=
+ =?utf-8?B?MHpSM0dLR1M4bUgvMUlReWVSL2M5QlZ4S2xJOFJrZGZ3LytmODl6KzN2MVB6?=
+ =?utf-8?B?VFpXTndQS0V4S2JNWUtlNHJKWnRONmUrbTdKQ0ZhUXQ3OHM5T1ZvZnlDNktZ?=
+ =?utf-8?B?VmMzR0dVMjFUQzJpdXZTajA4UWQvM2ZxNlN1aXBRNmM5TTBBajVhbDhJaVNK?=
+ =?utf-8?B?eUNZRi94Q21BVG0vVmpSVDVxeElyTWZSS01tRVJ3TDlXUUVCQlhhYlhXWjVx?=
+ =?utf-8?B?Q2tFVU5NbzJ0U0JhalFQa0p1R2IwWk5WWTBSNXNjRFFrMjdKUVRpWmhrdURV?=
+ =?utf-8?B?L3VCeUFJZS9tcVJDMnpDZ1JLUEJpOE9wVFRHenFDOWVnZVA3d3VPOTRqZ2lW?=
+ =?utf-8?B?dExqMjBrLzA2blUzSVdjaEp0cXNwb0tTSHl3Z1lGTWl1Z0w2TkhZWTI3Szk3?=
+ =?utf-8?B?MWw3QkJZcDhpbHExZGlQb0ZWNUFhMGdjYzJSS3JjYmppSEljaFVnL2svM0wv?=
+ =?utf-8?B?YmRFcjRkZVV6dmkwejIrdHhPbUxNVU8zU2t0VjlOKzNoYmd0blczeFVyQ2gv?=
+ =?utf-8?B?ZWZJbzdyODRkMGhucjltOXlRRWtHVStxSlJZN2dDemN1ZURMZExXbGpxNkpt?=
+ =?utf-8?B?SkxIZnBmb3NaRWIxdEsxQUptRXhJU0Q3SnAyQ2pMY3R4R0J6My96czU5ditq?=
+ =?utf-8?B?MjRxcXZRd2Qzck9NYkx2Tm05Yk93d0RWbDVxZHcwemg4K1IrNkdiWmd5cFlZ?=
+ =?utf-8?Q?wePiM5QGKHNTeBngNd3ZOXk=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67edb019-8970-4a88-9532-08d9d456d13d
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebc15082-d743-41a3-dce3-08d9d454cad5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2022 16:18:09.3272 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TgmkhbCxQZTQZZZ40eZLwdMCHqawdqeWw+KvxzsBPb3G1bV9JQyKEm4hYEY/y0MGCFTIFsIkPoWkBVc9d3uJFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5173
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 16:32:39.6447 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n1kVtyCCMGQb98cMHwUzCi2PsCdMkOc7Z5C3e6mJo/v53Z/k23UP8u/5reKi7TYDVkY1diMemj1vbOZeiaeehg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5490
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,169 +128,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "S,
- Shirish" <Shirish.S@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, shirish.s@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144F7AB8D1275D4E569F7A1F7509BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 2022-01-10 04:06, Rajib Mahapatra wrote:
+> [Why]
+> During resume path, dpcd_set_source_specific_data is taking
+> extra time when core_link_write_dpcd fails on DP_SOURCE_OUI+0x03
+> and DP_SOURCE_MINIMUM_HBLANK_SUPPORTED. Here,aux->transfer fails
+> with multiple retries and consume sigficantamount time during
+> S0i3 resume.
+> 
+> [How]
+> Not to call dpcd_set_source_specific_data during resume path
+> when there is no oled panel connected and achieve faster resume
+> during S0i3.
+> 
+> Signed-off-by: Rajib Mahapatra <rajib.mahapatra@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> index c0bdc23702c8..04086c199dbb 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> @@ -892,7 +892,8 @@ static bool dc_link_detect_helper(struct dc_link *link,
+>  		(!link->dc->config.allow_edp_hotplug_detection)) &&
+>  		link->local_sink) {
+>  		// need to re-write OUI and brightness in resume case
+> -		if (link->connector_signal == SIGNAL_TYPE_EDP) {
+> +		if (link->connector_signal == SIGNAL_TYPE_EDP &&
+> +			(link->dpcd_sink_ext_caps.bits.oled == 1)) {
 
-[Public]
+Is the source specific data only used by OLED panels?
 
-Seems reasonable.
+Do we know that this won't lead to regressions with any features on non-OLED panels?
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Mahapatra, Rajib <Rajib.Mahapatra@amd.com>
-Sent: Monday, January 10, 2022 4:06 AM
-To: Wu, Hersen <hersenxs.wu@amd.com>; Wentland, Harry <Harry.Wentland@amd.c=
-om>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; S, Shiri=
-sh <Shirish.S@amd.com>; Mahapatra, Rajib <Rajib.Mahapatra@amd.com>
-Subject: [PATCH] drm/amd/display: Not to call dpcd_set_source_specific_data=
- during resume.
+Harry
 
-[Why]
-During resume path, dpcd_set_source_specific_data is taking
-extra time when core_link_write_dpcd fails on DP_SOURCE_OUI+0x03
-and DP_SOURCE_MINIMUM_HBLANK_SUPPORTED. Here,aux->transfer fails
-with multiple retries and consume sigficantamount time during
-S0i3 resume.
+>  			dpcd_set_source_specific_data(link);
+>  			msleep(post_oui_delay);
+>  			dc_link_set_default_brightness_aux(link);
 
-[How]
-Not to call dpcd_set_source_specific_data during resume path
-when there is no oled panel connected and achieve faster resume
-during S0i3.
-
-Signed-off-by: Rajib Mahapatra <rajib.mahapatra@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c
-index c0bdc23702c8..04086c199dbb 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -892,7 +892,8 @@ static bool dc_link_detect_helper(struct dc_link *link,
-                 (!link->dc->config.allow_edp_hotplug_detection)) &&
-                 link->local_sink) {
-                 // need to re-write OUI and brightness in resume case
--               if (link->connector_signal =3D=3D SIGNAL_TYPE_EDP) {
-+               if (link->connector_signal =3D=3D SIGNAL_TYPE_EDP &&
-+                       (link->dpcd_sink_ext_caps.bits.oled =3D=3D 1)) {
-                         dpcd_set_source_specific_data(link);
-                         msleep(post_oui_delay);
-                         dc_link_set_default_brightness_aux(link);
---
-2.25.1
-
-
---_000_BL1PR12MB5144F7AB8D1275D4E569F7A1F7509BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Seems reasonable.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Mahapatra, Rajib &lt;=
-Rajib.Mahapatra@amd.com&gt;<br>
-<b>Sent:</b> Monday, January 10, 2022 4:06 AM<br>
-<b>To:</b> Wu, Hersen &lt;hersenxs.wu@amd.com&gt;; Wentland, Harry &lt;Harr=
-y.Wentland@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt=
-;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; S, Shirish &lt;Shirish.S@amd.com&gt;; Mahapatra, Rajib &lt;Rajib.Mahap=
-atra@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Not to call dpcd_set_source_specif=
-ic_data during resume.</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-During resume path, dpcd_set_source_specific_data is taking<br>
-extra time when core_link_write_dpcd fails on DP_SOURCE_OUI+0x03<br>
-and DP_SOURCE_MINIMUM_HBLANK_SUPPORTED. Here,aux-&gt;transfer fails<br>
-with multiple retries and consume sigficantamount time during<br>
-S0i3 resume.<br>
-<br>
-[How]<br>
-Not to call dpcd_set_source_specific_data during resume path<br>
-when there is no oled panel connected and achieve faster resume<br>
-during S0i3.<br>
-<br>
-Signed-off-by: Rajib Mahapatra &lt;rajib.mahapatra@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 ++-<br>
-&nbsp;1 file changed, 2 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c<br>
-index c0bdc23702c8..04086c199dbb 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-@@ -892,7 +892,8 @@ static bool dc_link_detect_helper(struct dc_link *link,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; (!link-&gt;dc-&gt;config.allow_edp_hotplug_detection)=
-) &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; link-&gt;local_sink) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; // need to re-write OUI and brightness in resume case=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (link-&gt;connector_signal =3D=3D SIGNAL_TYPE_EDP) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (link-&gt;connector_signal =3D=3D SIGNAL_TYPE_EDP &amp;&amp;<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (link-&gt;dpcd_s=
-ink_ext_caps.bits.oled =3D=3D 1)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpcd_=
-set_source_specific_data(link);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mslee=
-p(post_oui_delay);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_li=
-nk_set_default_brightness_aux(link);<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144F7AB8D1275D4E569F7A1F7509BL1PR12MB5144namp_--
