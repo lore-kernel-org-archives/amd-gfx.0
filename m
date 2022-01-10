@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F761C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 22:32:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DDC0C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 22:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9618210E1FE;
-	Mon, 10 Jan 2022 22:32:20 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 734CB10E397;
- Mon, 10 Jan 2022 22:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE25610E3E7;
+	Mon, 10 Jan 2022 22:32:22 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2EC710E3E7;
+ Mon, 10 Jan 2022 22:32:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m/+H0n0+6QOFTW5dAlb7UJyy26em+ouYP2xnVgewIX+ef5wXEDEab4KN7ir6mjd/r01Dz6WT0LOdU+6YKhfR70EGP96U/9GP+4spQsPz5GbKGBwzS9f4/L+vgdMtA1Nv7DMZ8v+e76LDs1ApvoVmojo4fZTJU7NiUFQuGb1t4/fnParkrEBoySzBVTjEiaLVCFdUCTDGl1PLNyY8X2fSVVt86G3TeHwNAjkt+6nFCyG4xUFxWkK5xF/l9PIxU/0+vqnJnEVnwmYGoBLtPl3QQrWGY/H6gY/PF/BP67xY/dBtoqzTwkw1yp11tJYX6KRYi8kraQVKfIFGQCHt7Ls4dw==
+ b=AnomdC+SWyp5JYCd49ieKD9C8crFn06iEW/c4sOyjtPecG/Hn6Jr8j2B3szp0L0tJQt4eN+XAp92dC7UaVuOzmjYh/eXYw/kg9x3kST/ksEKb3zETaRjHchTDDzyWTYsS/UzyrfdMFJwT3n/WnLYCrp7vqjKpRF4Vg1A+6MUHaIZzo8mCa20OtcBpl1/rLuXQzWifBOrTvIiyfHaES/+HOMKwASZYiVnsM+ECHvbttK2NouXaUK2SsGCPdDw6eMOcRWS9qMfedXDTCWS71gFb1pSOokg2ijqMnrH4WavBYqZhZLdeE/+ZvHhAzJtyt+2aaymC+pOc00odCVNJRb+IQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SN4TZuTqTKm3s0l6VB7Pala5pjfNrTVsDcquCXNhKko=;
- b=Mgpvl465YFEpk81c60gESfDg6SEFBigv3iEvf8z0mGCJRlQWR+adFOrDzSM2J+VQmSLOQ7CDoJ7kqWi7mh/OX3pbp0hkKIgn5DzucxuvKB0l8z30R0E9JVP7oSWB9D2orrS3xf318WOCXKrNxtHm+ER7n8kDdU+94p/i7khHSVlAWCQUyVz6BwYl4m1jLXdWqUE7CiGW5nW9fOAN6e9kX/vZbCE9D0MaxJuF0bthQw1uix0QUKh2+qSZJ222IDhybh316FkQdSXsYJ7nVimMUS49AMyTQPaMyceCeY4uBX/VBJVLKgnIFGUA4EugTeIiowETaKs4I/bSnITyblZuHg==
+ bh=1qD2ixq/vLnSS4aNhFrllhgbewikjW/f/oYG2JvKQgo=;
+ b=ASNN/0Qqg3/yXhaKGnqzaP1IXze+LQd3j5gGlD4lIskJaGwTa6200zdT4BZehX1kzhopjgZAWXM1xGRoZekXiwlAdm9wBJtqnI85TddzlOQwrzBKwgHzhYmpstBXgz8K0FvEMBmkSHh7CCn55Dh5XMIFKybPBbtueoHk0VPyk2WX7sgxcx/bUbqa3k5Avbx/Fm+qWNmp+l8/oYtwBlDzJL3sSXmC7LMsln2MWrEZlJIH/cSeUBk0tD8rvfxDGdtGB2Yo0aLvTLOUWsNk3WKGkPex4GS6afoN2mYSMMQAJ3HLHq9CBSrA9mG8Ie1opUgXTpCCofaeSkQxIc6o3rZc3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SN4TZuTqTKm3s0l6VB7Pala5pjfNrTVsDcquCXNhKko=;
- b=3vreLj1rYyUAzp7hUMh0cFOxtVxW+GN1WZhZ3xzJlUmWRzEW25m+FdKT2h5N5zjLlmDjGw0+Xnapvli617fD74/WxhIYjEzILeCMhBRWY4ISzE4hf9EHt+yWSoH6KeoynRojCD3RjxVeJyP4ZlcdojOkkLZvU1CtI6zkUJgSr1w=
-Received: from BN0PR04CA0136.namprd04.prod.outlook.com (2603:10b6:408:ed::21)
- by DM6PR12MB2681.namprd12.prod.outlook.com (2603:10b6:5:41::30) with
+ bh=1qD2ixq/vLnSS4aNhFrllhgbewikjW/f/oYG2JvKQgo=;
+ b=lqNRWI0YIN/FkRVFaUgYkV0MbRizZGMgitVOU7EKfJZP35qgHYBDAjtikPmH6Nhw2zt80WZvLcD0gU8eSLORYTaWH4bDD44seI+FDExMMlJgoTtLNKWX5a4rhkvsw5xYZmMJecwEyFOdmNVCEL3XuR9v40vRkRoKx2sWXasSQKY=
+Received: from BN9P221CA0017.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::8)
+ by SN1PR12MB2431.namprd12.prod.outlook.com (2603:10b6:802:27::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9; Mon, 10 Jan
- 2022 22:32:13 +0000
-Received: from BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ed:cafe::87) by BN0PR04CA0136.outlook.office365.com
- (2603:10b6:408:ed::21) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 22:32:18 +0000
+Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10a:cafe::68) by BN9P221CA0017.outlook.office365.com
+ (2603:10b6:408:10a::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9 via Frontend
- Transport; Mon, 10 Jan 2022 22:32:13 +0000
+ Transport; Mon, 10 Jan 2022 22:32:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,21 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT013.mail.protection.outlook.com (10.13.176.182) with Microsoft SMTP
+ BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4867.9 via Frontend Transport; Mon, 10 Jan 2022 22:32:13 +0000
+ 15.20.4867.9 via Frontend Transport; Mon, 10 Jan 2022 22:32:18 +0000
 Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 10 Jan
- 2022 16:32:12 -0600
+ 2022 16:32:17 -0600
 From: Alex Sierra <alex.sierra@amd.com>
 To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
  <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
  <linux-xfs@vger.kernel.org>
-Subject: [PATCH v3 02/10] mm: add device coherent vma selection for memory
- migration
-Date: Mon, 10 Jan 2022 16:31:53 -0600
-Message-ID: <20220110223201.31024-3-alex.sierra@amd.com>
+Subject: [PATCH v3 09/10] tools: update hmm-test to support device coherent
+ type
+Date: Mon, 10 Jan 2022 16:32:00 -0600
+Message-ID: <20220110223201.31024-10-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220110223201.31024-1-alex.sierra@amd.com>
 References: <20220110223201.31024-1-alex.sierra@amd.com>
@@ -71,28 +71,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b161fbe9-979d-4980-1ed4-08d9d4890c95
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2681:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2681285D109C10B62C0BE4F1FD509@DM6PR12MB2681.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:635;
+X-MS-Office365-Filtering-Correlation-Id: 4d06fe8a-a89f-4bfd-913f-08d9d4890f96
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2431:EE_
+X-Microsoft-Antispam-PRVS: <SN1PR12MB24319F803487EC0BE0AB7762FD509@SN1PR12MB2431.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VHEJMRGzywtNWH/sGdFLvBNW9MVJbf1SJzRLP19GxRpJT+GMIMlREEVAkpWoULjSkK81YHpVa9WTytpUVNEwJqsSpCJZHNQeq2r2yaZbTuPlIzUUrIZboV3pzHoxspw2tQQNFrPrAOj/gkv5vZN+ECFqsExOEJF8aeqVUDe2KcZRDBbGoJF7tgkofw38ahi9gH7l3VSsNyxXTgE0XI7DhjuORcw+tsGUJkSToLR2eaRHgABZ0zChtKuUgNN5d+0/DnWTwGcfGTAQRLYNB0Uwf9Uxbwuu4LEn+QW4lJfaM0p/B8VFFIvQRz7O6Ien/FTUYysSUzPZEaJpUpnBTXh66sdfBC27Sn27v3PYfrTDnoVjkqm9YHDO0cmrUvbIC5llgE+nWb2Pm4m4OOk2WCkaiAeVtkCh1T/GBXUDRcEPZej6lKAAdc7qeVfiPXj7x3lDp5DeDI6JjNFwMoZagc+byDxn0Kkbk78A8wpQFJfbswzJ4IX/Un4dU+Ucuv9VVqWMfYg15TURrvZmkOZ9IcwSHFqmNjDDPZE8aIvHcUB3WCZRxnnCy5oXlZnSgn7EoQ51NDCZaR5UwYpaugnh6rwpb8W+tV8Wsj6XxKJa1fnqBm5BjYr9GeUpJ84tFEkyP7WRKxUFUwgBhmJ2nC2DL15osum6ZqBlfZlvPAb+duLg46N19G3xvdWzoenT6/sbbmA+NKfjGoqy4Q45KUbIItiARvRf2pQc2BCV8AmwnZTVDTn57QXrSpL1wZze/SvRcS2MVwombHCL8BVO6aPsB6RJWWgqOf7M1GYS5NPZejGVANw=
+X-Microsoft-Antispam-Message-Info: cduj0ZzhMHMf8R8eVaGHWQG5KOJtpXGs+fHBHgokyntqHXaeK5/t2tcNra0MIvtCRbsI0+CyMjsDn9QtHeWU4ArzZVopg2nCJ21XsrnphzgRPbGnKSipUz183XuXA6xSz3v5ok+BVFzRBimsAIUiPVc5AuQSRFl4ztR+xvk1PhpSam44fFoRo4yGfjVrUSPIGjt00Mb7pEpWH1HA7bTMA+XCAD37AqEpgab0bxSA4aB6e4LORafZ2dKJj63KpHwT5TlR2Cd/wTJs01zcnRgkyn+Y08Mze05QiXd1I7cKXm8JktmKNW+tznba2QMlVtBeQbwPusJkArJRePnEkGVerXwt0LR9G1aV/11UfyRCYXstLiVOvGfnXzX4A7ZM7oxX0Gvgfr7Bkcy/XPzCm4Ojhpd7iC0nW1Vm81qbdnxKqY5Sngh/ZkkVNjGwnm8AqQv5+z6nctO6DDx3W2dfXPjTgQrIrNSC2ETrNbbeV9hXn071RkWJ8lYbPNN/38Xs0s7ZhBbExIpO3d4Qg6Qji5UWkhcdBNbWIinlCXy2xrK866VL9buhbns11PAppjlbQmEEAaxUApob0z+U4xSH0/d8DZ4mS+N0LxuFJp0TXfmZefwHM0qxCnaFFKkCR36kX88XOKOllYBVYmLPiWYR2VX0TxgR44COHpdYkC8vRk2w3GehpXTgLUfCwrvY/3HE08bdeKZEqDYYjRarHeVF1VRGFsYCtAC+CL11JVp9v63N321yuyrXFDj1lwkvaL1VrdP8eJ40Yftca56r8xO9yvdMfCfOCj+PModhciHNgI7PLNY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(36840700001)(46966006)(44832011)(356005)(40460700001)(316002)(82310400004)(81166007)(83380400001)(2616005)(6666004)(16526019)(7696005)(70586007)(70206006)(186003)(7416002)(426003)(508600001)(2906002)(336012)(36756003)(110136005)(5660300002)(4326008)(8936002)(1076003)(8676002)(26005)(36860700001)(47076005)(86362001)(54906003)(36900700001);
+ SFS:(4636009)(40470700002)(46966006)(36840700001)(7416002)(8676002)(16526019)(8936002)(2616005)(508600001)(36860700001)(186003)(336012)(70206006)(70586007)(2906002)(4326008)(110136005)(36756003)(54906003)(1076003)(40460700001)(81166007)(356005)(83380400001)(82310400004)(5660300002)(26005)(316002)(47076005)(15650500001)(6666004)(44832011)(86362001)(7696005)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 22:32:13.2281 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b161fbe9-979d-4980-1ed4-08d9d4890c95
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 22:32:18.6301 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d06fe8a-a89f-4bfd-913f-08d9d4890f96
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2681
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2431
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,58 +109,303 @@ Cc: willy@infradead.org, apopple@nvidia.com, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This case is used to migrate pages from device memory, back to system
-memory. Device coherent type memory is cache coherent from device and CPU
-point of view.
+Test cases such as migrate_fault and migrate_multiple, were modified to
+explicit migrate from device to sys memory without the need of page
+faults, when using device coherent type.
+
+Snapshot test case updated to read memory device type first and based
+on that, get the proper returned results migrate_ping_pong test case
+added to test explicit migration from device to sys memory for both
+private and coherent zone types.
+
+Helpers to migrate from device to sys memory and vicerversa
+were also added.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
 v2:
-condition added when migrations from device coherent pages.
+Set FIXTURE_VARIANT to add multiple device types to the FIXTURE. This
+will run all the tests for each device type (private and coherent) in
+case both existed during hmm-test driver probed.
 ---
- include/linux/migrate.h | 1 +
- mm/migrate.c            | 9 +++++++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ tools/testing/selftests/vm/hmm-tests.c | 122 ++++++++++++++++++++-----
+ 1 file changed, 101 insertions(+), 21 deletions(-)
 
-diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-index c8077e936691..e74bb0978f6f 100644
---- a/include/linux/migrate.h
-+++ b/include/linux/migrate.h
-@@ -138,6 +138,7 @@ static inline unsigned long migrate_pfn(unsigned long pfn)
- enum migrate_vma_direction {
- 	MIGRATE_VMA_SELECT_SYSTEM = 1 << 0,
- 	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
-+	MIGRATE_VMA_SELECT_DEVICE_COHERENT = 1 << 2,
+diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
+index 864f126ffd78..8eb81dfba4b3 100644
+--- a/tools/testing/selftests/vm/hmm-tests.c
++++ b/tools/testing/selftests/vm/hmm-tests.c
+@@ -44,6 +44,14 @@ struct hmm_buffer {
+ 	int		fd;
+ 	uint64_t	cpages;
+ 	uint64_t	faults;
++	int		zone_device_type;
++};
++
++enum {
++	HMM_PRIVATE_DEVICE_ONE,
++	HMM_PRIVATE_DEVICE_TWO,
++	HMM_COHERENCE_DEVICE_ONE,
++	HMM_COHERENCE_DEVICE_TWO,
  };
  
- struct migrate_vma {
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 91018880dc7f..0367f471211a 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -2340,8 +2340,6 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 			if (is_writable_device_private_entry(entry))
- 				mpfn |= MIGRATE_PFN_WRITE;
- 		} else {
--			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
--				goto next;
- 			pfn = pte_pfn(pte);
- 			if (is_zero_pfn(pfn)) {
- 				mpfn = MIGRATE_PFN_MIGRATE;
-@@ -2349,6 +2347,13 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 				goto next;
- 			}
- 			page = vm_normal_page(migrate->vma, addr, pte);
-+			if (page && !is_zone_device_page(page) &&
-+			    !(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
-+				goto next;
-+			if (page && is_device_coherent_page(page) &&
-+			    (!(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_COHERENT) ||
-+			     page->pgmap->owner != migrate->pgmap_owner))
-+				goto next;
- 			mpfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
- 			mpfn |= pte_write(pte) ? MIGRATE_PFN_WRITE : 0;
- 		}
+ #define TWOMEG		(1 << 21)
+@@ -60,6 +68,21 @@ FIXTURE(hmm)
+ 	unsigned int	page_shift;
+ };
+ 
++FIXTURE_VARIANT(hmm)
++{
++	int     device_number;
++};
++
++FIXTURE_VARIANT_ADD(hmm, hmm_device_private)
++{
++	.device_number = HMM_PRIVATE_DEVICE_ONE,
++};
++
++FIXTURE_VARIANT_ADD(hmm, hmm_device_coherent)
++{
++	.device_number = HMM_COHERENCE_DEVICE_ONE,
++};
++
+ FIXTURE(hmm2)
+ {
+ 	int		fd0;
+@@ -68,6 +91,24 @@ FIXTURE(hmm2)
+ 	unsigned int	page_shift;
+ };
+ 
++FIXTURE_VARIANT(hmm2)
++{
++	int     device_number0;
++	int     device_number1;
++};
++
++FIXTURE_VARIANT_ADD(hmm2, hmm2_device_private)
++{
++	.device_number0 = HMM_PRIVATE_DEVICE_ONE,
++	.device_number1 = HMM_PRIVATE_DEVICE_TWO,
++};
++
++FIXTURE_VARIANT_ADD(hmm2, hmm2_device_coherent)
++{
++	.device_number0 = HMM_COHERENCE_DEVICE_ONE,
++	.device_number1 = HMM_COHERENCE_DEVICE_TWO,
++};
++
+ static int hmm_open(int unit)
+ {
+ 	char pathname[HMM_PATH_MAX];
+@@ -81,12 +122,19 @@ static int hmm_open(int unit)
+ 	return fd;
+ }
+ 
++static bool hmm_is_coherent_type(int dev_num)
++{
++	return (dev_num >= HMM_COHERENCE_DEVICE_ONE);
++}
++
+ FIXTURE_SETUP(hmm)
+ {
+ 	self->page_size = sysconf(_SC_PAGE_SIZE);
+ 	self->page_shift = ffs(self->page_size) - 1;
+ 
+-	self->fd = hmm_open(0);
++	self->fd = hmm_open(variant->device_number);
++	if (self->fd < 0 && hmm_is_coherent_type(variant->device_number))
++		SKIP(exit(0), "DEVICE_COHERENT not available");
+ 	ASSERT_GE(self->fd, 0);
+ }
+ 
+@@ -95,9 +143,11 @@ FIXTURE_SETUP(hmm2)
+ 	self->page_size = sysconf(_SC_PAGE_SIZE);
+ 	self->page_shift = ffs(self->page_size) - 1;
+ 
+-	self->fd0 = hmm_open(0);
++	self->fd0 = hmm_open(variant->device_number0);
++	if (self->fd0 < 0 && hmm_is_coherent_type(variant->device_number0))
++		SKIP(exit(0), "DEVICE_COHERENT not available");
+ 	ASSERT_GE(self->fd0, 0);
+-	self->fd1 = hmm_open(1);
++	self->fd1 = hmm_open(variant->device_number1);
+ 	ASSERT_GE(self->fd1, 0);
+ }
+ 
+@@ -144,6 +194,7 @@ static int hmm_dmirror_cmd(int fd,
+ 	}
+ 	buffer->cpages = cmd.cpages;
+ 	buffer->faults = cmd.faults;
++	buffer->zone_device_type = cmd.zone_device_type;
+ 
+ 	return 0;
+ }
+@@ -211,6 +262,20 @@ static void hmm_nanosleep(unsigned int n)
+ 	nanosleep(&t, NULL);
+ }
+ 
++static int hmm_migrate_sys_to_dev(int fd,
++				   struct hmm_buffer *buffer,
++				   unsigned long npages)
++{
++	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_DEV, buffer, npages);
++}
++
++static int hmm_migrate_dev_to_sys(int fd,
++				   struct hmm_buffer *buffer,
++				   unsigned long npages)
++{
++	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_SYS, buffer, npages);
++}
++
+ /*
+  * Simple NULL test of device open/close.
+  */
+@@ -875,7 +940,7 @@ TEST_F(hmm, migrate)
+ 		ptr[i] = i;
+ 
+ 	/* Migrate memory to device. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -923,7 +988,7 @@ TEST_F(hmm, migrate_fault)
+ 		ptr[i] = i;
+ 
+ 	/* Migrate memory to device. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -936,7 +1001,7 @@ TEST_F(hmm, migrate_fault)
+ 		ASSERT_EQ(ptr[i], i);
+ 
+ 	/* Migrate memory to the device again. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -976,7 +1041,7 @@ TEST_F(hmm, migrate_shared)
+ 	ASSERT_NE(buffer->ptr, MAP_FAILED);
+ 
+ 	/* Migrate memory to device. */
+-	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 	ASSERT_EQ(ret, -ENOENT);
+ 
+ 	hmm_buffer_free(buffer);
+@@ -1015,7 +1080,7 @@ TEST_F(hmm2, migrate_mixed)
+ 	p = buffer->ptr;
+ 
+ 	/* Migrating a protected area should be an error. */
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, npages);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, npages);
+ 	ASSERT_EQ(ret, -EINVAL);
+ 
+ 	/* Punch a hole after the first page address. */
+@@ -1023,7 +1088,7 @@ TEST_F(hmm2, migrate_mixed)
+ 	ASSERT_EQ(ret, 0);
+ 
+ 	/* We expect an error if the vma doesn't cover the range. */
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 3);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 3);
+ 	ASSERT_EQ(ret, -EINVAL);
+ 
+ 	/* Page 2 will be a read-only zero page. */
+@@ -1055,13 +1120,13 @@ TEST_F(hmm2, migrate_mixed)
+ 
+ 	/* Now try to migrate pages 2-5 to device 1. */
+ 	buffer->ptr = p + 2 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 4);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 4);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, 4);
+ 
+ 	/* Page 5 won't be migrated to device 0 because it's on device 1. */
+ 	buffer->ptr = p + 5 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
++	ret = hmm_migrate_sys_to_dev(self->fd0, buffer, 1);
+ 	ASSERT_EQ(ret, -ENOENT);
+ 	buffer->ptr = p;
+ 
+@@ -1070,8 +1135,12 @@ TEST_F(hmm2, migrate_mixed)
+ }
+ 
+ /*
+- * Migrate anonymous memory to device private memory and fault it back to system
+- * memory multiple times.
++ * Migrate anonymous memory to device memory and back to system memory
++ * multiple times. In case of private zone configuration, this is done
++ * through fault pages accessed by CPU. In case of coherent zone configuration,
++ * the pages from the device should be explicitly migrated back to system memory.
++ * The reason is Coherent device zone has coherent access by CPU, therefore
++ * it will not generate any page fault.
+  */
+ TEST_F(hmm, migrate_multiple)
+ {
+@@ -1107,8 +1176,7 @@ TEST_F(hmm, migrate_multiple)
+ 			ptr[i] = i;
+ 
+ 		/* Migrate memory to device. */
+-		ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer,
+-				      npages);
++		ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
+ 		ASSERT_EQ(ret, 0);
+ 		ASSERT_EQ(buffer->cpages, npages);
+ 
+@@ -1116,7 +1184,12 @@ TEST_F(hmm, migrate_multiple)
+ 		for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
+ 			ASSERT_EQ(ptr[i], i);
+ 
+-		/* Fault pages back to system memory and check them. */
++		/* Migrate back to system memory and check them. */
++		if (hmm_is_coherent_type(variant->device_number)) {
++			ret = hmm_migrate_dev_to_sys(self->fd, buffer, npages);
++			ASSERT_EQ(ret, 0);
++		}
++
+ 		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
+ 			ASSERT_EQ(ptr[i], i);
+ 
+@@ -1312,13 +1385,13 @@ TEST_F(hmm2, snapshot)
+ 
+ 	/* Page 5 will be migrated to device 0. */
+ 	buffer->ptr = p + 5 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
++	ret = hmm_migrate_sys_to_dev(self->fd0, buffer, 1);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, 1);
+ 
+ 	/* Page 6 will be migrated to device 1. */
+ 	buffer->ptr = p + 6 * self->page_size;
+-	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 1);
++	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 1);
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(buffer->cpages, 1);
+ 
+@@ -1335,9 +1408,16 @@ TEST_F(hmm2, snapshot)
+ 	ASSERT_EQ(m[2], HMM_DMIRROR_PROT_ZERO | HMM_DMIRROR_PROT_READ);
+ 	ASSERT_EQ(m[3], HMM_DMIRROR_PROT_READ);
+ 	ASSERT_EQ(m[4], HMM_DMIRROR_PROT_WRITE);
+-	ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
+-			HMM_DMIRROR_PROT_WRITE);
+-	ASSERT_EQ(m[6], HMM_DMIRROR_PROT_NONE);
++	if (!hmm_is_coherent_type(variant->device_number0)) {
++		ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
++				HMM_DMIRROR_PROT_WRITE);
++		ASSERT_EQ(m[6], HMM_DMIRROR_PROT_NONE);
++	} else {
++		ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_COHERENT_LOCAL |
++				HMM_DMIRROR_PROT_WRITE);
++		ASSERT_EQ(m[6], HMM_DMIRROR_PROT_DEV_COHERENT_REMOTE |
++				HMM_DMIRROR_PROT_WRITE);
++	}
+ 
+ 	hmm_buffer_free(buffer);
+ }
 -- 
 2.32.0
 
