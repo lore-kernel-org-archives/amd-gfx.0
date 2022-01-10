@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D1ADC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 20:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69EC9C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jan 2022 20:20:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E972B10E629;
-	Mon, 10 Jan 2022 20:20:42 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 057D210E629
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 20:20:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2FA510E6D1;
+	Mon, 10 Jan 2022 20:20:44 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E63F810E6D1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 20:20:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aXHS5M6X6G4YNF01uWrVvq7P7803alUPL+BiIE/98DdsIFMld+c1qtUGteCis7XN/DhzeUfA1HSz8p8UAT2sU5FnZCYYp6p1K8AgQuNfbBgCwIcHObZ/YLcjuRPR2wqG628+Onm+2g+9yxtokkj4nNw4ZF9aDIQz1kFgdiNPYgFvPWjpe/HRhWbTDlRx/sSl9oh7fLTOOxJcAjBV58thljZAECS/wHKsFQDInAB0/zO4kSdDW17wJsK0qlcvr47ITH3q+DrE2L1XUEniU7rOMbFkEmBP5orKPOU+mnn7qpccBX0bNRgwYDDdK3un0L/IiAG/3+5tgYOfZQDsf57dGQ==
+ b=Nw170b30tZFXi7gohCVW1BUgIw4dN4DNiXtAVt6ILOJgZoHhLL+JU5i/s4Uwna9/L9j7wg4L3uazigcWRzJ8kaJ+ViPL1EkZe43E7Xfw34aU2lnEId8LM+CdYqAUvHfr8FRkkcMlEKojCgFi+vjCXaFccNFFoQ6mB3k+mg7bUFB9mAbq4bEq5hWfRGWjNK2AhbPF2u7KfV85XFUICsBrrcXZotnKWE0RhkMjsq3pLDw5Ta2DwHHIeiIMQ6f3/eqVqedQC3WOSTUfyPBhNOgbnKQbNqyelWwaDz98R+OoM4jJ/7DcPtpBtBVUkLcC1199+wl5aAcLGYZdIpr6YgBeww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wSnWdWU7jhaNw1DM+XUWmd3q2qAgpyMiiqZxiBwt3wg=;
- b=nkff+H/pSmKiX+HLuSDeWqxVeKl6tow5QvTjMi3EImdAOKSmqTtZyM4C3CEsUCQwaibIwLjZh/zrKTbSBFqhT0qA9JD1trfSx5SX6u3JhyARxsmGnKhUOQv6R0sFXjugzbsoV4Y/SY6EOssL+z7WyfJMvrhaTgIbI7Cj1kRf2LridbRbfbcVmqhbYOyO7IBeKwoCD1qDLmixY0NngPTWUTb1yYTfQlhlUUeQbTdsJQmsB2dk6wxG3JFTmPA6yrNqG5FQ+4KqeMRqrSlQKlEcvcrXGlKT1Dy3SvrPyc7o94hYE0F73cDQ+tC0rTKcO2E0qia/kAM51ZDllDHMkz9njw==
+ bh=O8/bvyKKi60pG4kiv6S4Sk5u2w5jRXLchnuk0laU5PI=;
+ b=Z8gxoRkHFj8LoTcboI0EygKjS+XKC9kvy375voMTGAAs8vSqQLtlldfCih3ufWQfWczUIND/ElbYH8RLIjYEoBS1eB7GcYSiaEhtWBfuAjtARctYTD8o0VxGXXiMezu41w/tQQAqQKIs7dwsw0qOgmtG3ihjHV9/D338bWxlw7Oib4ICmAsG76fNbvRnS9hjhjb+Dj8bgwoMkLa/TZgiGc2uOQmq88f79srfhfv+BUycAcpbn2fRaGMnlmPrvTUHDKCqZG0QhdldXNTXwSR3RwH2PcqWwHQmD2bL9VHtPdg8YFHoXBFTwoDC4FCQRBn9AtjiqTGoR21qGLR4Efi4HA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wSnWdWU7jhaNw1DM+XUWmd3q2qAgpyMiiqZxiBwt3wg=;
- b=N/f+r6ADr+m99LUHla5gSGwk3yOJMgTX+A/pZ2NIA4DE+KcSEjcsmYsRQknaAg5X4aZvjZjBAFUQhplY8Qt/7RL28QLCYQINgBXw4SQjRrRodoV7sNFMYo+aqMokAzwJQ33LmCQg9lqTp1huve1HHrOE83eSUT7nNTbxj+jU0YU=
-Received: from CO2PR04CA0177.namprd04.prod.outlook.com (2603:10b6:104:4::31)
- by BL1PR12MB5255.namprd12.prod.outlook.com (2603:10b6:208:315::7) with
+ bh=O8/bvyKKi60pG4kiv6S4Sk5u2w5jRXLchnuk0laU5PI=;
+ b=QRTf4JgkR31RFldDzhsyaONlV7NOTMM1vXXcef5ne4Rkz0parsWxAxPCz4Dl+FNYryh0UR+H5KBqU2M43jHHKT9z18zKYnnWOU9aQfMQecpIo3IVKldqkRjSouPuFPmlnS+Z8IpXAiUtpD13apR6zS7bGGXJwMPrhABcsVDdRQg=
+Received: from CO2PR04CA0172.namprd04.prod.outlook.com (2603:10b6:104:4::26)
+ by CY4PR12MB1765.namprd12.prod.outlook.com (2603:10b6:903:120::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Mon, 10 Jan
- 2022 20:20:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Mon, 10 Jan
+ 2022 20:20:40 +0000
 Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:4:cafe::a8) by CO2PR04CA0177.outlook.office365.com
- (2603:10b6:104:4::31) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:104:4:cafe::c1) by CO2PR04CA0172.outlook.office365.com
+ (2603:10b6:104:4::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7 via Frontend
- Transport; Mon, 10 Jan 2022 20:20:39 +0000
+ Transport; Mon, 10 Jan 2022 20:20:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,18 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4867.7 via Frontend Transport; Mon, 10 Jan 2022 20:20:39 +0000
+ 15.20.4867.7 via Frontend Transport; Mon, 10 Jan 2022 20:20:40 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 10 Jan
  2022 14:20:38 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/3] drm/amdgpu/pm: move additional logic into
- amdgpu_dpm_force_performance_level
-Date: Mon, 10 Jan 2022 15:20:25 -0500
-Message-ID: <20220110202027.1949684-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu/UAPI: add new CTX OP to get/set stable pstates
+Date: Mon, 10 Jan 2022 15:20:26 -0500
+Message-ID: <20220110202027.1949684-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20220110202027.1949684-1-alexander.deucher@amd.com>
+References: <20220110202027.1949684-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 237c2b8e-202f-40b2-18a2-08d9d476ab2d
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5255:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB52553005C5D24E42FC92D27BF7509@BL1PR12MB5255.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Office365-Filtering-Correlation-Id: 516e65eb-9fd9-43ec-0bea-08d9d476ac06
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1765:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB176574B207AFC75EABD3BDE7F7509@CY4PR12MB1765.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:473;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uYreluQG0IvnPwVosg+RxY0cMmVZNucsifKe+XPIzWIlEVHszYMDzEMGoZdEuTYbTsPgqJ3N2xKoib15U9d7RTE9mBioMRXVMfjVjyffFs2ZaBjWAfBseiuhhVBm0Q3NHpNEqq6UnmGEL30t7HPlYLfBozmbCr0SHGXDiidNVGb95/sxepY1tHFAWxSW6smKwB79fRj8wFYVVe2993H/dxnF/cToZN3LFQrjqie17Prj7S6sLDFe2DfoBQSqiyopz5Lv18pwoKRj8C6lHwESCCZwckfxgA9cRi9UEvM9SW60FVHKDjSBtaLJ1lYsaK57yTjqcCE2vggSWQoOi260dxVXC1vDRXJljmuxXLj6S9d5evB2+Eoe2y5aI4F1T6D+C1RNdAzgkQd40it1EUsnu4Zl/63v4cvZvdP/7D21a+NXTEAdrX9gMytK9h0iDT2mYyjrZpEMmejOkT2OlB7ZViKnNswap2pM7JZeZ3f1pJ3rJ9x94dOAjbKM0fuJEaGwG5eSndIzdThpIfuNEJ3AZk+uIG1IY7g/goz+/G3U9J53XdmsQeBdfK5f5UPIhFmtsoRbB22V+IZLDs4Y1nW2Qv+ATPoC2Bw/cxNoSyR2jv/ohi1QDgP/J+BbD4nsp8IUHQ4pAVvBANqt36gmRta8KkOzFSTmxOstHCcD502dPgXsJ4DQy3ivUoChbjYBkBisQSWz0JkbE7e6dVfcRURmc5IobB7z7VE1VQzOC6TI7/2AHhFG19CQ35sUlBgqi9HGFZss3zzPhMMzKmPXodDR187pYcwwJi5Zlt/KoRbAab8=
+X-Microsoft-Antispam-Message-Info: r06Cm6me2s2FRrx6bcbhKqDaLFGUmHQloeCkGINQfFxuXW/+LO2zhpkGTeN8EgPyJUOcVu3bkgbnMRWJscpspsUxEbP3+yl8ngZ46aeHnWncFJbZfiuE8bB2kK2Q1TXPrK1dGV5k+FVk2JjwS6zZ3ZQU1rJ0TbEDAyF0gA/g0DxfA9QkXa9SNtYk3Aa3d4G2NrTld3486o7Ksur5cCNqXXIPvRITBzfFMl/Sv94lvZlF+8pIh7EybLNTg8MOszjwoMVIaUb21FEpNnRvzlLGV6uzjicAieBO6qAiEXNXJ//pzBMADqP1EEqwYQpBkr7cFoU9ufpamHsWfhCXUiLJehdhHZJ/NZoGsbiUhXQr6Yt5G9y8ZLcTZXXcNeHxJa6XsgYLbQNawPETk6NRQQSVdTHcNgijDVn5MWfrDLTlI8tAEgcK9SFIQfi/PNmIS7D/IW/oJiX8W0GZwY/VxBjD9MuziwvNXU0kKsvwDM9pTFvoMZGun0UOsKDpNelxa2i7X3bCgY6vJ/vVEh6s1o0FuNYUHIRs05CAuzjeI5VzMEGFpnXFhoGS27E9FIwKDo1b4rqg08rrJkvFQec7Y3qsdqY5b3GT+vKBJWp3ny0oJWz2rEX2LMHYVfhM8bu5ge3p3DdQpPm/OJY7SLjOSn8GgjOaq9weQHYaiY6OzPEMbkE+gMDya9nMCJORw2P3WVWjTMmrO0hAVWOpU/w0Aw9h2ga7+KZICKSuviizM94jOPil+APzB0vGdOT2s/9OGMBw5L80+IJtT+skKt5bWRSOSJq8MPv2xjy/jfs8rs2p+LQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700002)(1076003)(86362001)(81166007)(5660300002)(83380400001)(36756003)(82310400004)(356005)(6666004)(316002)(508600001)(40460700001)(336012)(16526019)(26005)(8676002)(70586007)(36860700001)(426003)(2906002)(70206006)(186003)(8936002)(4326008)(6916009)(47076005)(2616005)(7696005)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(40470700002)(1076003)(8936002)(26005)(4326008)(36756003)(70586007)(356005)(70206006)(83380400001)(6666004)(6916009)(86362001)(336012)(7696005)(81166007)(508600001)(5660300002)(47076005)(82310400004)(40460700001)(426003)(966005)(36860700001)(16526019)(2616005)(186003)(8676002)(2906002)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 20:20:39.1162 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 237c2b8e-202f-40b2-18a2-08d9d476ab2d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 20:20:40.5380 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 516e65eb-9fd9-43ec-0bea-08d9d476ac06
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5255
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1765
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,177 +105,312 @@ Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is part of the forced performance level.  Move it from
-the sysfs handler into amdgpu_dpm_force_performance_level.
+Add a new CTX ioctl operation to set stable pstates for profiling.
+When creating traces for tools like RGP or using SPM or doing
+performance profiling, it's required to enable a special
+stable profiling power state on the GPU.  These profiling
+states set fixed clocks and disable certain other power
+features like powergating which may impact the results.
+
+Historically, these profiling pstates were enabled via sysfs,
+but this adds an interface to enable it via the CTX ioctl
+from the application.  Since the power state is global
+only one application can set it at a time, so if multiple
+applications try and use it only the first will get it,
+the ioctl will return -EBUSY for others.  The sysfs interface
+will override whatever has been set by this interface.
+
+Mesa MR: https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/207
+
+v2: don't default r = 0;
+v3: rebase on Evan's PM cleanup
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 61 ++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/pm/amdgpu_pm.c  | 50 -----------------------
- 2 files changed, 59 insertions(+), 52 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 129 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h    |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c         |   5 +
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |   3 +
+ include/uapi/drm/amdgpu_drm.h              |  17 ++-
+ 6 files changed, 153 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 68d2e80a673b..728b6e10f302 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -692,16 +692,25 @@ void amdgpu_dpm_set_power_state(struct amdgpu_device *adev,
- 		amdgpu_dpm_compute_clocks(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 468003583b2a..2c929fa40379 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -237,6 +237,7 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+ 	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+ 	ctx->init_priority = priority;
+ 	ctx->override_priority = AMDGPU_CTX_PRIORITY_UNSET;
++	ctx->stable_pstate = AMDGPU_CTX_STABLE_PSTATE_NONE;
+ 
+ 	return 0;
+ }
+@@ -255,6 +256,86 @@ static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
+ 	kfree(entity);
  }
  
--enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device *adev)
-+static enum amd_dpm_forced_level amdgpu_dpm_get_performance_level_locked(struct amdgpu_device *adev)
- {
- 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
- 	enum amd_dpm_forced_level level;
- 
--	mutex_lock(&adev->pm.mutex);
- 	if (pp_funcs->get_performance_level)
- 		level = pp_funcs->get_performance_level(adev->powerplay.pp_handle);
- 	else
- 		level = adev->pm.dpm.forced_level;
++static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
++					u32 *stable_pstate)
++{
++	struct amdgpu_device *adev = ctx->adev;
++	enum amd_dpm_forced_level current_level;
 +
-+	return level;
++	if (!ctx)
++		return -EINVAL;
++
++	current_level = amdgpu_dpm_get_performance_level(adev);
++
++	switch (current_level) {
++	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
++		*stable_pstate = AMDGPU_CTX_STABLE_PSTATE_STANDARD;
++		break;
++	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
++		*stable_pstate = AMDGPU_CTX_STABLE_PSTATE_MIN_SCLK;
++		break;
++	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
++		*stable_pstate = AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK;
++		break;
++	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
++		*stable_pstate = AMDGPU_CTX_STABLE_PSTATE_PEAK;
++		break;
++	default:
++		*stable_pstate = AMDGPU_CTX_STABLE_PSTATE_NONE;
++		break;
++	}
++	return 0;
 +}
 +
-+enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device *adev)
++static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
++					u32 stable_pstate)
 +{
++	struct amdgpu_device *adev = ctx->adev;
 +	enum amd_dpm_forced_level level;
++	int r;
 +
-+	mutex_lock(&adev->pm.mutex);
-+	level = amdgpu_dpm_get_performance_level_locked(adev);
- 	mutex_unlock(&adev->pm.mutex);
- 
- 	return level;
-@@ -711,6 +720,11 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
- 				       enum amd_dpm_forced_level level)
++	if (!ctx)
++		return -EINVAL;
++
++	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
++	if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx != ctx) {
++		r = -EBUSY;
++		goto done;
++	}
++
++	switch (stable_pstate) {
++	case AMDGPU_CTX_STABLE_PSTATE_NONE:
++		level = AMD_DPM_FORCED_LEVEL_AUTO;
++		break;
++	case AMDGPU_CTX_STABLE_PSTATE_STANDARD:
++		level = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD;
++		break;
++	case AMDGPU_CTX_STABLE_PSTATE_MIN_SCLK:
++		level = AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK;
++		break;
++	case AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK:
++		level = AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK;
++		break;
++	case AMDGPU_CTX_STABLE_PSTATE_PEAK:
++		level = AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
++		break;
++	default:
++		r = -EINVAL;
++		goto done;
++	}
++
++	r = amdgpu_dpm_force_performance_level(adev, level);
++
++	if (level == AMD_DPM_FORCED_LEVEL_AUTO)
++		adev->pm.stable_pstate_ctx = NULL;
++	else
++		adev->pm.stable_pstate_ctx = ctx;
++done:
++	mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
++
++	return r;
++}
++
+ static void amdgpu_ctx_fini(struct kref *ref)
  {
- 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	enum amd_dpm_forced_level current_level;
-+	uint32_t profile_mode_mask = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
-+					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
-+					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
-+					AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
- 	int ret = 0;
- 
- 	if (!pp_funcs->force_performance_level)
-@@ -723,6 +737,49 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
- 		goto out;
+ 	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
+@@ -270,7 +351,7 @@ static void amdgpu_ctx_fini(struct kref *ref)
+ 			ctx->entities[i][j] = NULL;
+ 		}
  	}
+-
++	amdgpu_ctx_set_stable_pstate(ctx, AMDGPU_CTX_STABLE_PSTATE_NONE);
+ 	mutex_destroy(&ctx->lock);
+ 	kfree(ctx);
+ }
+@@ -467,11 +548,41 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
+ 	return 0;
+ }
  
-+	current_level = amdgpu_dpm_get_performance_level_locked(adev);
-+	if (current_level == level) {
-+		ret = 0;
-+		goto out;
++
++
++static int amdgpu_ctx_stable_pstate(struct amdgpu_device *adev,
++				    struct amdgpu_fpriv *fpriv, uint32_t id,
++				    bool set, u32 *stable_pstate)
++{
++	struct amdgpu_ctx *ctx;
++	struct amdgpu_ctx_mgr *mgr;
++	int r;
++
++	if (!fpriv)
++		return -EINVAL;
++
++	mgr = &fpriv->ctx_mgr;
++	mutex_lock(&mgr->lock);
++	ctx = idr_find(&mgr->ctx_handles, id);
++	if (!ctx) {
++		mutex_unlock(&mgr->lock);
++		return -EINVAL;
 +	}
 +
-+	if (adev->asic_type == CHIP_RAVEN) {
-+		if (!(adev->apu_flags & AMD_APU_IS_RAVEN2)) {
-+			if (current_level != AMD_DPM_FORCED_LEVEL_MANUAL &&
-+			    level == AMD_DPM_FORCED_LEVEL_MANUAL)
-+				amdgpu_gfx_off_ctrl(adev, false);
-+			else if (current_level == AMD_DPM_FORCED_LEVEL_MANUAL &&
-+				 level != AMD_DPM_FORCED_LEVEL_MANUAL)
-+				amdgpu_gfx_off_ctrl(adev, true);
-+		}
-+	}
++	if (set)
++		r = amdgpu_ctx_set_stable_pstate(ctx, *stable_pstate);
++	else
++		r = amdgpu_ctx_get_stable_pstate(ctx, stable_pstate);
 +
-+	if (!(current_level & profile_mode_mask) &&
-+	    (level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
++	mutex_unlock(&mgr->lock);
++	return r;
++}
 +
-+	if (!(current_level & profile_mode_mask) &&
-+	      (level & profile_mode_mask)) {
-+		/* enter UMD Pstate */
-+		amdgpu_device_ip_set_powergating_state(adev,
-+						       AMD_IP_BLOCK_TYPE_GFX,
-+						       AMD_PG_STATE_UNGATE);
-+		amdgpu_device_ip_set_clockgating_state(adev,
-+						       AMD_IP_BLOCK_TYPE_GFX,
-+						       AMD_CG_STATE_UNGATE);
-+	} else if ((current_level & profile_mode_mask) &&
-+		    !(level & profile_mode_mask)) {
-+		/* exit UMD Pstate */
-+		amdgpu_device_ip_set_clockgating_state(adev,
-+						       AMD_IP_BLOCK_TYPE_GFX,
-+						       AMD_CG_STATE_GATE);
-+		amdgpu_device_ip_set_powergating_state(adev,
-+						       AMD_IP_BLOCK_TYPE_GFX,
-+						       AMD_PG_STATE_GATE);
-+	}
-+
- 	if (pp_funcs->force_performance_level(adev->powerplay.pp_handle,
- 					      level))
- 		ret = -EINVAL;
+ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 		     struct drm_file *filp)
+ {
+ 	int r;
+-	uint32_t id;
++	uint32_t id, stable_pstate;
+ 	int32_t priority;
+ 
+ 	union drm_amdgpu_ctx *args = data;
+@@ -500,6 +611,20 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 	case AMDGPU_CTX_OP_QUERY_STATE2:
+ 		r = amdgpu_ctx_query2(adev, fpriv, id, &args->out);
+ 		break;
++	case AMDGPU_CTX_OP_GET_STABLE_PSTATE:
++		if (args->in.flags)
++			return -EINVAL;
++		r = amdgpu_ctx_stable_pstate(adev, fpriv, id, false, &stable_pstate);
++		args->out.pstate.flags = stable_pstate;
++		break;
++	case AMDGPU_CTX_OP_SET_STABLE_PSTATE:
++		if (args->in.flags & ~AMDGPU_CTX_STABLE_PSTATE_FLAGS_MASK)
++			return -EINVAL;
++		stable_pstate = args->in.flags & AMDGPU_CTX_STABLE_PSTATE_FLAGS_MASK;
++		if (stable_pstate > AMDGPU_CTX_STABLE_PSTATE_PEAK)
++			return -EINVAL;
++		r = amdgpu_ctx_stable_pstate(adev, fpriv, id, true, &stable_pstate);
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index a44b8b8ed39c..142f2f87d44c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -53,6 +53,7 @@ struct amdgpu_ctx {
+ 	atomic_t			guilty;
+ 	unsigned long			ras_counter_ce;
+ 	unsigned long			ras_counter_ue;
++	uint32_t			stable_pstate;
+ };
+ 
+ struct amdgpu_ctx_mgr {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 257593bd1c40..3229381bf3fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3497,6 +3497,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	init_rwsem(&adev->reset_sem);
+ 	mutex_init(&adev->psp.mutex);
+ 	mutex_init(&adev->notifier_lock);
++	mutex_init(&adev->pm.stable_pstate_ctx_lock);
+ 
+ 	r = amdgpu_device_init_apu_flags(adev);
+ 	if (r)
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index d3eab245e0fe..d2823aaeca09 100644
+index d2823aaeca09..7731dbbcb288 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -299,11 +299,6 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	enum amd_dpm_forced_level level;
--	enum amd_dpm_forced_level current_level;
--	uint32_t profile_mode_mask = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
--					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
--					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
--					AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
- 	int ret = 0;
- 
- 	if (amdgpu_in_reset(adev))
-@@ -341,51 +336,6 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+@@ -336,11 +336,16 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
  		return ret;
  	}
  
--	current_level = amdgpu_dpm_get_performance_level(adev);
--	if (current_level == level) {
--		pm_runtime_mark_last_busy(ddev->dev);
--		pm_runtime_put_autosuspend(ddev->dev);
--		return count;
--	}
--
--	if (adev->asic_type == CHIP_RAVEN) {
--		if (!(adev->apu_flags & AMD_APU_IS_RAVEN2)) {
--			if (current_level != AMD_DPM_FORCED_LEVEL_MANUAL && level == AMD_DPM_FORCED_LEVEL_MANUAL)
--				amdgpu_gfx_off_ctrl(adev, false);
--			else if (current_level == AMD_DPM_FORCED_LEVEL_MANUAL && level != AMD_DPM_FORCED_LEVEL_MANUAL)
--				amdgpu_gfx_off_ctrl(adev, true);
--		}
--	}
--
--	/* profile_exit setting is valid only when current mode is in profile mode */
--	if (!(current_level & profile_mode_mask) &&
--	    (level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)) {
--		pr_err("Currently not in any profile mode!\n");
--		pm_runtime_mark_last_busy(ddev->dev);
--		pm_runtime_put_autosuspend(ddev->dev);
--		return -EINVAL;
--	}
--
--	if (!(current_level & profile_mode_mask) &&
--	      (level & profile_mode_mask)) {
--		/* enter UMD Pstate */
--		amdgpu_device_ip_set_powergating_state(adev,
--						       AMD_IP_BLOCK_TYPE_GFX,
--						       AMD_PG_STATE_UNGATE);
--		amdgpu_device_ip_set_clockgating_state(adev,
--						       AMD_IP_BLOCK_TYPE_GFX,
--						       AMD_CG_STATE_UNGATE);
--	} else if ((current_level & profile_mode_mask) &&
--		    !(level & profile_mode_mask)) {
--		/* exit UMD Pstate */
--		amdgpu_device_ip_set_clockgating_state(adev,
--						       AMD_IP_BLOCK_TYPE_GFX,
--						       AMD_CG_STATE_GATE);
--		amdgpu_device_ip_set_powergating_state(adev,
--						       AMD_IP_BLOCK_TYPE_GFX,
--						       AMD_PG_STATE_GATE);
--	}
--
++	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
  	if (amdgpu_dpm_force_performance_level(adev, level)) {
  		pm_runtime_mark_last_busy(ddev->dev);
  		pm_runtime_put_autosuspend(ddev->dev);
++		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 		return -EINVAL;
+ 	}
++	/* override whatever a user ctx may have set */
++	adev->pm.stable_pstate_ctx = NULL;
++	mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index ba857ca75392..64e54d0daa15 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -328,6 +328,9 @@ struct amdgpu_pm {
+ 	uint32_t		smu_debug_mask;
+ 
+ 	bool			pp_force_state_enabled;
++
++	struct mutex            stable_pstate_ctx_lock;
++	struct amdgpu_ctx       *stable_pstate_ctx;
+ };
+ 
+ u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev);
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 0b94ec7b73e7..7f01f9830bf8 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -206,6 +206,8 @@ union drm_amdgpu_bo_list {
+ #define AMDGPU_CTX_OP_FREE_CTX	2
+ #define AMDGPU_CTX_OP_QUERY_STATE	3
+ #define AMDGPU_CTX_OP_QUERY_STATE2	4
++#define AMDGPU_CTX_OP_GET_STABLE_PSTATE	5
++#define AMDGPU_CTX_OP_SET_STABLE_PSTATE	6
+ 
+ /* GPU reset status */
+ #define AMDGPU_CTX_NO_RESET		0
+@@ -238,10 +240,18 @@ union drm_amdgpu_bo_list {
+ #define AMDGPU_CTX_PRIORITY_HIGH        512
+ #define AMDGPU_CTX_PRIORITY_VERY_HIGH   1023
+ 
++/* select a stable profiling pstate for perfmon tools */
++#define AMDGPU_CTX_STABLE_PSTATE_FLAGS_MASK  0xf
++#define AMDGPU_CTX_STABLE_PSTATE_NONE  0
++#define AMDGPU_CTX_STABLE_PSTATE_STANDARD  1
++#define AMDGPU_CTX_STABLE_PSTATE_MIN_SCLK  2
++#define AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK  3
++#define AMDGPU_CTX_STABLE_PSTATE_PEAK  4
++
+ struct drm_amdgpu_ctx_in {
+ 	/** AMDGPU_CTX_OP_* */
+ 	__u32	op;
+-	/** For future use, no flags defined so far */
++	/** Flags */
+ 	__u32	flags;
+ 	__u32	ctx_id;
+ 	/** AMDGPU_CTX_PRIORITY_* */
+@@ -262,6 +272,11 @@ union drm_amdgpu_ctx_out {
+ 			/** Reset status since the last call of the ioctl. */
+ 			__u32	reset_status;
+ 		} state;
++
++		struct {
++			__u32	flags;
++			__u32	_pad;
++		} pstate;
+ };
+ 
+ union drm_amdgpu_ctx {
 -- 
 2.33.1
 
