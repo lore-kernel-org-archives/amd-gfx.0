@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2443FC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 15:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8AF5C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 15:08:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7F8C10FBDA;
-	Tue, 11 Jan 2022 15:00:29 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF67110F28B
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 02:44:23 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id i5so7852772edf.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 18:44:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E50A210E575;
+	Tue, 11 Jan 2022 15:08:23 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 626F610E575;
+ Tue, 11 Jan 2022 15:08:23 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id x193so614007oix.0;
+ Tue, 11 Jan 2022 07:08:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=e6DyqGEc7jzs2DrDJmcf97NoOyRv5WUpu09hjtDmwco=;
- b=hJDeHn78W2/WOsFsir7PnHTW5K5JqwfeQEbtREyhNP3YkXeJuuNPxsJMMuRVOKNERO
- 4IztEvTJ3tkQNP3fGimMcyk9S/2AQPl4EDMEx1um2swdGTRBh8PwZNj2XMMmdXxYBMHW
- UYc2haQhH/vma0IrvqX+M2q9fjcFBdSlgcbqQ=
+ :cc; bh=zo32VZLxMS3zJXGjj1I1zmEGC+mu6YnSTq3H93JaVfE=;
+ b=Heyv3jK4mICHGAg012fN5bLm0U8J43bySG6C7i3qEmYU3W4v4K5T/HU6QotlZPmNtM
+ 3NjOHZXk6+tEHOBl1/MeNi2wiIYOlY8+nucM+gl8WjsFxunOsfIq070wf08UxVvTomvm
+ BnmR8diWkLVSL2wMK8Cx3w0Gu1yo7kFftTON5/pJOOhfShySbIQV6JvlCVnvx3ZgSb4Z
+ kj8hmfT2kivsxcL85x9rZVmdR/DmbogPyRa6TrekwHnzj+h7Ev4MgcYQPGV1NXfvIo+I
+ bdOTh2/FrCw8k66dyFo6TIZeU8Jdb82+Pr0QVjTVpORBqUb9e9qTdx56DG3RSBHTilh3
+ j9xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=e6DyqGEc7jzs2DrDJmcf97NoOyRv5WUpu09hjtDmwco=;
- b=z1dcXeCuLi2QFvG6L45UuPzdcKPLQ/QSuJlx1qw0UzPm8P0RIfyDKGnzOAAEW4EMjJ
- JfVxEjKUQeeWHjOQQyvU2Y1ttob4KaxAgNmUetQWkTszDvVDmiTyonq/nG/O81d8lOjR
- zLF9vfBjcbUzZnmZB9IQAQEDeltYw0Rx8DlMCftpBQwICg59dDbu3ZQ3mD5+hFnEq6dp
- EeTYBju1/+wLcsv9gpsBHTjJZHftXUuBG/qUPTXLgi00dlFWkO5Im58FUBJq49Cd0Jcc
- lPUX2BnU+J94x7EJb/GpIUbjXCgb5JF+dFdBuTz/w4j+zUVoOF3M/kHra1ITf9uyub53
- cblw==
-X-Gm-Message-State: AOAM533tO1xvpFsYJYzBQK4tV349TiJtyqaYDtaWOWmPAcu53Gt8c0Wn
- Z9GfIcr8cjw5DCPxRrsGOKogOLmCaS2WV8BBd+Q=
-X-Google-Smtp-Source: ABdhPJzlxInTevlqokhuZWxZlibgXl5Ls0K4vmx00iYvelsXFWf9qlWmpkkAQrvAxdm8onC3/WmZCw==
-X-Received: by 2002:a17:907:1687:: with SMTP id
- hc7mr1923285ejc.565.1641869062029; 
- Mon, 10 Jan 2022 18:44:22 -0800 (PST)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com.
- [209.85.128.52])
- by smtp.gmail.com with ESMTPSA id qw28sm1459209ejc.154.2022.01.10.18.44.21
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jan 2022 18:44:21 -0800 (PST)
-Received: by mail-wm1-f52.google.com with SMTP id
- n19-20020a7bc5d3000000b003466ef16375so577318wmk.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 18:44:21 -0800 (PST)
-X-Received: by 2002:a05:600c:4f13:: with SMTP id
- l19mr521503wmq.152.1641869060707; 
- Mon, 10 Jan 2022 18:44:20 -0800 (PST)
+ bh=zo32VZLxMS3zJXGjj1I1zmEGC+mu6YnSTq3H93JaVfE=;
+ b=4q4EVHeXoC1DHYMZheUCQcbB8zJtQDLK+i19fbZggCEPcjkvhRgrm95LeSNdz+iiLM
+ 1TmZ7xvXzfC/NepzTZmreHg8wHyaenL2wMC5ShFK+b8scqfveVMKeN3HLkg1NdywkJeW
+ HK/XJ0JJSE6FHgqmM6xDGJ5iDB8WEkzg00PpU8YXC3UVHjDHdhgpCyo/HWRcZ0bhjHgR
+ n0ntti8bYYEaBCOQlG2zUJXOGUZwodm5nyBzmSM+ck4BlDk47AUSBoTZFFzRNbEvt386
+ rx+5RwjPCymVnDK3XLifuzslIUxkS1MwrrNRIOU0lJCdPZnPVL1nqrKNQ6L2BcZ+ikGs
+ AuqQ==
+X-Gm-Message-State: AOAM531wdmkEGOs+zT7/hTNaVUu7Jq9dJYIWqtAuj1TqY5x4mq1ssP/p
+ MkIVEAlGFOCVgMKc+MaT7dUCtyJvgdVRnKZChkpDydpv
+X-Google-Smtp-Source: ABdhPJwWtVP4MUZ1ZhbDstAftVZRtLtF9Yj4Z9a9nCZ3XslWL/zrmxNq9Mr+sGuurWu+NDiAulzfV+j3KakpH8XjWCI=
+X-Received: by 2002:a05:6808:4c3:: with SMTP id
+ a3mr2123816oie.123.1641913702634; 
+ Tue, 11 Jan 2022 07:08:22 -0800 (PST)
 MIME-Version: 1.0
 References: <CAPM=9tz=_hRpQV1V3M-=KmVVEbr1K166qeb-ne64PHk9Sn-ozg@mail.gmail.com>
  <CAHk-=wg9hDde_L3bK9tAfdJ4N=TJJ+SjO3ZDONqH5=bVoy_Mzg@mail.gmail.com>
@@ -60,15 +50,15 @@ References: <CAPM=9tz=_hRpQV1V3M-=KmVVEbr1K166qeb-ne64PHk9Sn-ozg@mail.gmail.com>
  <CADnq5_OYO7kq+9DBnDvbSfpouFvdLB0LPSL6+f1ZPRBsV=qEqA@mail.gmail.com>
  <CAHk-=wiCCRG9Lwzr+Cur=K1V2GJ9ab_ket7EnG4RZhJ8jJM7xQ@mail.gmail.com>
  <CAHk-=wi8b-YKHeNfwyYHMcgR2vJh4xpSZ0qjkv8E8Y9V8Sv2Tg@mail.gmail.com>
-In-Reply-To: <CAHk-=wi8b-YKHeNfwyYHMcgR2vJh4xpSZ0qjkv8E8Y9V8Sv2Tg@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 10 Jan 2022 18:44:04 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whnWnB9yjVaqWNKjavSJxDOEbTAPwef=O7qjL8nKZgV6A@mail.gmail.com>
-Message-ID: <CAHk-=whnWnB9yjVaqWNKjavSJxDOEbTAPwef=O7qjL8nKZgV6A@mail.gmail.com>
+ <CAHk-=whnWnB9yjVaqWNKjavSJxDOEbTAPwef=O7qjL8nKZgV6A@mail.gmail.com>
+ <CAHk-=whSAYiO_TkKut6XckdQigFj39ft1Kcs2qJe5niHWPGdwg@mail.gmail.com>
+In-Reply-To: <CAHk-=whSAYiO_TkKut6XckdQigFj39ft1Kcs2qJe5niHWPGdwg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 11 Jan 2022 10:08:08 -0500
+Message-ID: <CADnq5_OZR9Ft=WVVbpM_WUpFZurni4yVxGPpa4nDkhupmod_ag@mail.gmail.com>
 Subject: Re: [git pull] drm for 5.17-rc1 (pre-merge window pull)
-To: Alex Deucher <alexdeucher@gmail.com>
-Content-Type: multipart/mixed; boundary="00000000000021eae505d5456e24"
-X-Mailman-Approved-At: Tue, 11 Jan 2022 15:00:28 +0000
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,77 +72,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, LKML <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
+ meenakshikumar somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, "Wentland,
- Harry" <harry.wentland@amd.com>, Dave Airlie <airlied@gmail.com>, "Koenig,
- Christian" <christian.koenig@amd.com>
+ Harry" <harry.wentland@amd.com>, Dave Airlie <airlied@gmail.com>,
+ Jun Lei <Jun.Lei@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ "Koenig, Christian" <christian.koenig@amd.com>,
+ Mustapha Ghaddar <mustapha.ghaddar@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000021eae505d5456e24
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Jan 10, 2022 at 6:22 PM Linus Torvalds
+On Mon, Jan 10, 2022 at 9:53 PM Linus Torvalds
 <torvalds@linux-foundation.org> wrote:
 >
-> and I guess I'll do the few more bisections to pick out the exact one.
+> On Mon, Jan 10, 2022 at 6:44 PM Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> >
+> > I'll double-check to see if a revert fixes it at the top of my tree.
+>
+> Yup. It reverts cleanly, and the end result builds and works fine, and
+> doesn't show the horrendous flickering.
+>
+> I have done that revert, and will continue the merge window work.
+> Somebody else gets to figure out what the actual bug is, but that
+> commit was horribly broken on my machine (Sapphire Pulse RX 580 8GB,
+> fwiw).
 
-a896f870f8a5f23ec961d16baffd3fda1f8be57c is the first bad commit.
+Thanks for tracking this down.  We are investigating the issue.
 
-Attaching ther BISECT_LOG in case anybody cares.
-
-I'll double-check to see if a revert fixes it at the top of my tree.
-
-                Linus
-
---00000000000021eae505d5456e24
-Content-Type: application/octet-stream; name=BISECT_LOG
-Content-Disposition: attachment; filename=BISECT_LOG
-Content-Transfer-Encoding: base64
-Content-ID: <f_ky9i2ijq0>
-X-Attachment-Id: f_ky9i2ijq0
-
-Z2l0IGJpc2VjdCBzdGFydAojIGJhZDogWzhkMDc0OWI0ZjgzYmY0NzY4Y2VhZTQ1ZWU2YTc5ZTZl
-N2VkZGZjMmFdIE1lcmdlIHRhZyAnZHJtLW5leHQtMjAyMi0wMS0wNycgb2YgZ2l0Oi8vYW5vbmdp
-dC5mcmVlZGVza3RvcC5vcmcvZHJtL2RybQpnaXQgYmlzZWN0IGJhZCA4ZDA3NDliNGY4M2JmNDc2
-OGNlYWU0NWVlNmE3OWU2ZTdlZGRmYzJhCiMgZ29vZDogW2JmNGVlYmY4Y2ZhMmNkNTBlMjBiNzMy
-MWRmYjNlZmZkY2RjNmU5MDldIE1lcmdlIHRhZyAnbGludXgta3NlbGZ0ZXN0LWt1bml0LTUuMTct
-cmMxJyBvZiBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc2h1
-YWgvbGludXgta3NlbGZ0ZXN0CmdpdCBiaXNlY3QgZ29vZCBiZjRlZWJmOGNmYTJjZDUwZTIwYjcz
-MjFkZmIzZWZmZGNkYzZlOTA5CiMgZ29vZDogWzE1YmI3OTkxMGZlNzM0YWQyMWM3NjVkMWNhZTc2
-MmU4NTU5NjljYWFdIE1lcmdlIHRhZyAnZHJtLW1pc2MtbmV4dC0yMDIxLTEyLTA5JyBvZiBnaXQ6
-Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9kcm0vZHJtLW1pc2MgaW50byBkcm0tbmV4dApnaXQg
-YmlzZWN0IGdvb2QgMTViYjc5OTEwZmU3MzRhZDIxYzc2NWQxY2FlNzYyZTg1NTk2OWNhYQojIGJh
-ZDogW2IwNjEwM2I1MzI1MzY0ZTBiOTk0NDAyNGRiNDFiNDAwYjkwMjhkZjldIE1lcmdlIHRhZyAn
-YW1kLWRybS1uZXh0LTUuMTctMjAyMS0xMi0xNicgb2YgaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0
-b3Aub3JnL2FnZDVmL2xpbnV4IGludG8gZHJtLW5leHQKZ2l0IGJpc2VjdCBiYWQgYjA2MTAzYjUz
-MjUzNjRlMGI5OTQ0MDI0ZGI0MWI0MDBiOTAyOGRmOQojIGdvb2Q6IFtlYWNlZjlmZDYxZGNmNWVh
-YzhiNzc1YmIxODE0MDQyZTc4YTVjNDJkXSBNZXJnZSB0YWcgJ2RybS1pbnRlbC1uZXh0LTIwMjEt
-MTItMTQnIG9mIHNzaDovL2dpdC5mcmVlZGVza3RvcC5vcmcvZ2l0L2RybS9kcm0taW50ZWwgaW50
-byBkcm0tbmV4dApnaXQgYmlzZWN0IGdvb2QgZWFjZWY5ZmQ2MWRjZjVlYWM4Yjc3NWJiMTgxNDA0
-MmU3OGE1YzQyZAojIGJhZDogWzJjYjY1NzdhMzAzNDI1MDkwZjNiNWY0YzQwMDk2ZDQ1YTkwNDg4
-NzVdIGRybS9hbWRncHU6IHJlYWQgYW5kIGF1dGhlbnRpY2F0ZSBpcCBkaXNjb3ZlcnkgYmluYXJ5
-CmdpdCBiaXNlY3QgYmFkIDJjYjY1NzdhMzAzNDI1MDkwZjNiNWY0YzQwMDk2ZDQ1YTkwNDg4NzUK
-IyBiYWQ6IFthYjUwY2I5ZGY4ODk2YjM5YWFlNjVjNTM3YTMwZGUyYzc5YzE5NzM1XSBkcm0vcmFk
-ZW9uL3JhZGVvbl9rbXM6IEZpeCBhIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBpbiByYWRlb25f
-ZHJpdmVyX29wZW5fa21zKCkKZ2l0IGJpc2VjdCBiYWQgYWI1MGNiOWRmODg5NmIzOWFhZTY1YzUz
-N2EzMGRlMmM3OWMxOTczNQojIGJhZDogWzk2MDIwNDRkMWNjMTIyODBlMjBjODg4ODVmMmNkNjQw
-YWU4MGY2OWVdIGRybS9hbWQvZGlzcGxheTogRml4IGZvciB0aGUgbm8gQXVkaW8gYnVnIHdpdGgg
-VGlsZWQgRGlzcGxheXMKZ2l0IGJpc2VjdCBiYWQgOTYwMjA0NGQxY2MxMjI4MGUyMGM4ODg4NWYy
-Y2Q2NDBhZTgwZjY5ZQojIGdvb2Q6IFszODY3ZTM3MDRmMTM2YmVhZGY1ZTAwNGI2MTY5NmVmN2Y5
-OTBiZWU0XSBhbWRncHUvcG06IENyZWF0ZSBzaGFyZWQgYXJyYXkgb2YgcG93ZXIgcHJvZmlsZSBu
-YW1lIHN0cmluZ3MKZ2l0IGJpc2VjdCBnb29kIDM4NjdlMzcwNGYxMzZiZWFkZjVlMDA0YjYxNjk2
-ZWY3Zjk5MGJlZTQKIyBnb29kOiBbNTBiMWY0NGVjNTQ3NDZlNTMzMmY0YmM4N2M3MGMyMjMxOTJl
-ODIxZl0gZHJtL2FtZC9kaXNwbGF5OiBBZGQgRFAtSERNSSBGUkwgUENPTiBTU1QgU3VwcG9ydCBp
-biBETQpnaXQgYmlzZWN0IGdvb2QgNTBiMWY0NGVjNTQ3NDZlNTMzMmY0YmM4N2M3MGMyMjMxOTJl
-ODIxZgojIGdvb2Q6IFs2NDIxZjdjNzUwZTkyYzM1Y2ViMjM5Y2NiZDAzY2VlYWUyYzY1ZmY4XSBk
-cm0vYW1kL2Rpc3BsYXk6IEFsbG93IERTQyBvbiBzdXBwb3J0ZWQgTVNUIGJyYW5jaCBkZXZpY2Vz
-CmdpdCBiaXNlY3QgZ29vZCA2NDIxZjdjNzUwZTkyYzM1Y2ViMjM5Y2NiZDAzY2VlYWUyYzY1ZmY4
-CiMgZ29vZDogW2FiYTNjM2ZlZGU1NGU1NTU3Mzk1NGZhN2E3ZTI4ZWMzMDQ1NTdlNTBdIGRybS9h
-bWQvZGlzcGxheTogQ2xlYXIgRFBDRCBsYW5lIHNldHRpbmdzIGFmdGVyIHJlcGVhdGVyIHRyYWlu
-aW5nCmdpdCBiaXNlY3QgZ29vZCBhYmEzYzNmZWRlNTRlNTU1NzM5NTRmYTdhN2UyOGVjMzA0NTU3
-ZTUwCiMgYmFkOiBbYTg5NmY4NzBmOGE1ZjIzZWM5NjFkMTZiYWZmZDNmZGExZjhiZTU3Y10gZHJt
-L2FtZC9kaXNwbGF5OiBGaXggZm9yIG90ZyBzeW5jaHJvbml6YXRpb24gbG9naWMKZ2l0IGJpc2Vj
-dCBiYWQgYTg5NmY4NzBmOGE1ZjIzZWM5NjFkMTZiYWZmZDNmZGExZjhiZTU3YwojIGZpcnN0IGJh
-ZCBjb21taXQ6IFthODk2Zjg3MGY4YTVmMjNlYzk2MWQxNmJhZmZkM2ZkYTFmOGJlNTdjXSBkcm0v
-YW1kL2Rpc3BsYXk6IEZpeCBmb3Igb3RnIHN5bmNocm9uaXphdGlvbiBsb2dpYwo=
---00000000000021eae505d5456e24--
+Alex
