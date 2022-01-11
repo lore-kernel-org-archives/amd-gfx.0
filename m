@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCF9C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 11:01:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2439AC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 11:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16CF910F037;
-	Tue, 11 Jan 2022 11:01:28 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D96010F037
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 11:01:27 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id e9so30711100wra.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 03:01:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7357D1122E6;
+	Tue, 11 Jan 2022 11:04:49 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C2D10F4C9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 11:04:47 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ q9-20020a7bce89000000b00349e697f2fbso574625wmj.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 03:04:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=DMwf7Nb5ALC4I6rcr+iZ7pNo/02mNwlQ9CF04BzLgIA=;
- b=LR0NV05Vt8tjJBaJen5UCQ3MBLPeHEcZjqKOqQG7BbJkpMnGd9QysfmYPC4OT5q9dd
- Tkxp1FtxtJvTx8NRt6ZErxsIIq84TZWn067uhDGl5a9CWNVQQkT6MBRPs1QwLEZRwYsT
- F2UtNJUlxXoR544RN/uzTcz98O9u6rsIaf+km+/Lw5YNIy/myqu/ZoYYNDBHkq44vcRP
- 6CMGTs7Vw3TA0iDup1S4fqSZ5JABGA2WJhtuzvRggvIszjDarOqNTsCvtAr1MNczdNzQ
- 99VYJ3YPbAlC4iF0zWnfM1G+s1spYc5zzRzc1goDSu9hYxeRde6VT64U2WTT3ccfkz5+
- sAgA==
+ bh=aanpBfHBAUjfC3pclVLQ2CxQXaho+PFqjiZxy7LZZh0=;
+ b=lgH53HNDX79hOGhrL7FT2qjzzlYFvKTIoe7YovC6ukRDX9alogRidLVwAtbMnVvSn6
+ bIeJY/6WX/Gs1AY0SXt9QtWzbWhsB4d9ulC2YCGPwYYN5S223hNLqibKTbxGYGSoVpLO
+ bjII6treou2HMzpJc5uHiI8VYPn2HCpE8W402RUnuo2m+kRYG6ZfF6O9/lFKSfFrD/wl
+ 6uBcXOcHRNTz5CNzjlriab3fShdCkFnznPPlaf9E/DI6/28Ct1+t/Ai9dBKhhQNYMOUW
+ HeeFROfjGwbnYmehKodhC1o3RGNSsZeNO7HHaPGx4UGQMQzCtOMArH8Crl1GQtkMKu2j
+ +ZNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=DMwf7Nb5ALC4I6rcr+iZ7pNo/02mNwlQ9CF04BzLgIA=;
- b=HV1ZMSC9CV5RtowqEo6WTInxut+lfd1UB8xXiXUWpxZe8h0xnT1shqvV7mfblG3azl
- jO81DE1R11UfGlIDvXqiaAqZ6EzJasPQWHAOu4RHxOWus0nviZwPkTGh+tuQfnNbGzOW
- 3K00aQrPWpxGHB0jwfhLwEgwnkkU0fq+8DwB74+/qVvtmT1Kn9sDNVDxlSu3JjtcbYwZ
- VhfmP9FxKAReRRTJfHaRungG137Myu/w35GgqXTquT6a7+zS+YKWkgnYMIJ6PuqVGFBX
- sCdtU+YgEjPqk7c0h1m6aLaF6IWKR4C1bb56sJmiJipGuRSRyv99VnRYjHl7r1uwNONB
- /gPQ==
-X-Gm-Message-State: AOAM531YxssOuqSbGtxth/Fh+SO8j0wVXwUJthKzMQZI38FuX9nsEXc+
- NzNUEP5aaxzzT54YOzXAXcH0b4Vl4U0=
-X-Google-Smtp-Source: ABdhPJwNJjxUBof2Fq+yUAZL75M4QUFcEt4CiTtAtdFdV+EpaCwMFWi6u5uKBGXwDE737MT0xUPwAQ==
-X-Received: by 2002:a05:6000:1567:: with SMTP id
- 7mr3369226wrz.513.1641898885679; 
- Tue, 11 Jan 2022 03:01:25 -0800 (PST)
+ bh=aanpBfHBAUjfC3pclVLQ2CxQXaho+PFqjiZxy7LZZh0=;
+ b=E+LbhJj9mP3GvWwuQGbZm1lraVXZckl+r26+fnkQbtuuM8Ovh26hdLuqQbw9McqrsI
+ 2781r+w1KnsWgMbF/j4rV1s7v1WwBZo+38BAAriZS49bP5JRNlb7uQEOTe5hEO99u6Df
+ mUodNa/byQKrrH1nGU58pIYLyPAd7jSP16ilkYC8gCorRE7E7mP90UCHy6fyH+yzLc/V
+ auY4TIMfXDq/ZTPfroGVoRW/nE5fLJ9PwqQ66v2NuCwqzGgq9gi66t/h6B0p+rR0f7B4
+ 9YKNyFpYqjNDM/lAUKoxz/P0DE9oYKagbJZ34Q7OOz5szJz+TyrhKa/STSa0V2EXxnKe
+ Tx/A==
+X-Gm-Message-State: AOAM533bke/wM5J1ZTXfeYWdfdXHGjKWMcYoevPg1KAHxEQdq7AVcAeF
+ v9rsR3o0wQ/2FsjkbDUHSjw=
+X-Google-Smtp-Source: ABdhPJy8DV7yclhXaytBBFOwhQXgxHtubRst79Lz53KgYMEpZzagjUtMlLn/ygf3x8B2K7zlJileaA==
+X-Received: by 2002:a1c:44d7:: with SMTP id r206mr1967585wma.79.1641899086207; 
+ Tue, 11 Jan 2022 03:04:46 -0800 (PST)
 Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
  [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id j9sm1247566wms.0.2022.01.11.03.01.24
+ by smtp.gmail.com with ESMTPSA id u11sm1508139wmq.2.2022.01.11.03.04.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jan 2022 03:01:25 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: limit the number of dst address in trace
+ Tue, 11 Jan 2022 03:04:45 -0800 (PST)
+Subject: Re: [PATCH 1/3] drm/amdgpu: add reset register dump function for
+ gfx_v10_0
 To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
  amd-gfx@lists.freedesktop.org
-References: <20220111070943.5370-1-Amaranath.Somalapuram@amd.com>
+References: <20220111071119.5464-1-Amaranath.Somalapuram@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <0bcd420e-7591-db90-cb82-ef837a24899f@gmail.com>
-Date: Tue, 11 Jan 2022 12:01:24 +0100
+Message-ID: <1b0dfcf1-f483-94a7-2061-1283ec36c07d@gmail.com>
+Date: Tue, 11 Jan 2022 12:04:44 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20220111070943.5370-1-Amaranath.Somalapuram@amd.com>
+In-Reply-To: <20220111071119.5464-1-Amaranath.Somalapuram@amd.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
@@ -77,37 +78,119 @@ Cc: alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Am 11.01.22 um 08:09 schrieb Somalapuram Amaranath:
-> trace_amdgpu_vm_update_ptes trace unable to log when nptes too large
+Am 11.01.22 um 08:11 schrieb Somalapuram Amaranath:
+> Implementation of register dump function when the AMD GPU resets
 >
 > Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 55 +++++++++++++++++++++++-
+>   drivers/gpu/drm/amd/include/amd_shared.h |  2 +
+>   2 files changed, 56 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 0e7dc23f78e7..0630bd43238c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1632,6 +1632,7 @@ static int amdgpu_vm_update_ptes(struct amdgpu_vm_update_params *params,
->   			 * silent to stop fault floods.
->   			 */
->   			nptes = max(nptes, 1u);
-> +			nptes = nptes > 32 ? 32 : nptes;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index dbe7442fb25c..dbd74204f06d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -7466,7 +7466,6 @@ static int gfx_v10_0_hw_init(void *handle)
+>   {
+>   	int r;
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> -
+>   	if (!amdgpu_emu_mode)
+>   		gfx_v10_0_init_golden_registers(adev);
+>   
+> @@ -7580,6 +7579,59 @@ static int gfx_v10_0_hw_fini(void *handle)
+>   	return 0;
+>   }
+>   
+> +static int gfx_v10_0_reset_reg_dumps(void *handle,
+> +		uint32_t (**dump)[2], uint32_t *n_regs, char ***r_names)
+> +{
+> +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	uint32_t i = 0;
+> +
+> +#define N_REGS (17)
+> +#define DUMP_REG(addr) do {				\
+> +		(*dump)[i][0] = (addr);			\
+> +		(*dump)[i++][1] = RREG32(addr);		\
+> +	} while (0)
 
-Please do something like min(nptes, 32) in the parameter list of 
-trace_amdgpu_vm_update_ptes instead. I'm not sure if the nptes are not 
-needed any more after this.
+Please no unprefixed local defines like this.
 
-Then please also remove the previous workaround in amdgpu_trace.h.
+> +
+> +	char *reg_names[N_REGS] = {
+> +		"mmGRBM_STATUS2", "mmGRBM_STATUS_SE0", "mmGRBM_STATUS_SE1",
+> +		"mmGRBM_STATUS_SE2", "mmGRBM_STATUS_SE3", "mmSDMA0_STATUS_REG",
+> +		"mmSDMA1_STATUS_REG", "mmCP_STAT", "mmCP_STALLED_STAT1",
+> +		"mmCP_STALLED_STAT1", "mmCP_STALLED_STAT3", "mmCP_CPC_STATUS",
+> +		"mmCP_CPC_BUSY_STAT", "mmCP_CPC_STALLED_STAT1", "mmCP_CPF_STATUS",
+> +		"mmCP_CPF_BUSY_STAT", "mmCP_CPF_STALLED_STAT1"
+> +	};
 
-Apart from that sounds like the right idea to me.
+IIRC you can avoid that by stringifying the names in the macro, but in 
+general I think the kernel should not have those names.
 
+Only userspace needs to be able to match the register number to the name.
+
+Regards,
 Christian.
 
+> +
+> +	*dump = kmalloc(N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
+> +	if (*dump == NULL)
+> +		return -ENOMEM;
+> +	DUMP_REG(mmGRBM_STATUS2);
+> +	DUMP_REG(mmGRBM_STATUS_SE0);
+> +	DUMP_REG(mmGRBM_STATUS_SE1);
+> +	DUMP_REG(mmGRBM_STATUS_SE2);
+> +	DUMP_REG(mmGRBM_STATUS_SE3);
+> +	DUMP_REG(mmSDMA0_STATUS_REG);
+> +	DUMP_REG(mmSDMA1_STATUS_REG);
+> +	DUMP_REG(mmCP_STAT);
+> +	DUMP_REG(mmCP_STALLED_STAT1);
+> +	DUMP_REG(mmCP_STALLED_STAT1);
+> +	DUMP_REG(mmCP_STALLED_STAT3);
+> +	DUMP_REG(mmCP_CPC_STATUS);
+> +	DUMP_REG(mmCP_CPC_BUSY_STAT);
+> +	DUMP_REG(mmCP_CPC_STALLED_STAT1);
+> +	DUMP_REG(mmCP_CPF_STATUS);
+> +	DUMP_REG(mmCP_CPF_BUSY_STAT);
+> +	DUMP_REG(mmCP_CPF_STALLED_STAT1);
+
+> +
+> +	*n_regs = i;
+> +
+> +	(*r_names) = kcalloc(N_REGS, sizeof(char *), GFP_KERNEL);
+> +	for (i = 0; i < N_REGS; i++) {
+> +		(*r_names)[i] = kcalloc(30, sizeof(char), GFP_KERNEL);
+> +		strcpy((*r_names)[i], reg_names[i]);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int gfx_v10_0_suspend(void *handle)
+>   {
+>   	return gfx_v10_0_hw_fini(handle);
+> @@ -9359,6 +9411,7 @@ static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
+>   	.set_clockgating_state = gfx_v10_0_set_clockgating_state,
+>   	.set_powergating_state = gfx_v10_0_set_powergating_state,
+>   	.get_clockgating_state = gfx_v10_0_get_clockgating_state,
+> +	.reset_reg_dumps = gfx_v10_0_reset_reg_dumps,
+>   };
 >   
->   			trace_amdgpu_vm_update_ptes(params, frag_start, upd_end,
->   						    nptes, dst, incr, upd_flags,
+>   static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index 4b9e68a79f06..98291a8f57dd 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -298,6 +298,8 @@ struct amd_ip_funcs {
+>   				     enum amd_powergating_state state);
+>   	void (*get_clockgating_state)(void *handle, u32 *flags);
+>   	int (*enable_umd_pstate)(void *handle, enum amd_dpm_forced_level *level);
+> +	int (*reset_reg_dumps)(void *handle,
+> +			uint32_t (**dump)[2], uint32_t *n_regs, char ***r_names);
+>   };
+>   
+>   
 
