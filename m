@@ -4,116 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18ADDC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 08:13:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45B3C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 08:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8658B11B77F;
-	Tue, 11 Jan 2022 08:13:52 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 740C111B716
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 08:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E04D41138E3;
+	Tue, 11 Jan 2022 08:47:48 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5B6211360E;
+ Tue, 11 Jan 2022 08:47:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A4307IU3XT6hf2gjS+NcloHLMUYZeXJ4dfZeYir0fZLJyYU/pvG4bsP133GQJOdxUeVQcOjtZecWvb/yQtafUoSO3Ao3J636bAXj7O0oubX3pAYGiQ9sDCf2I4tO+uDJAfK6m/2Si2M76xkaKvYpJD0ktJshn0oi1En8CO7RsKX58FK1xZy3+ZC+c1xL07+IGVKao4RQNTAhncd07O19qwbQLvJ0VjJIe38NDgpTfTyVnfxUKQvIlN5RSzy4GqwvnnVLdfjeM588FiJzBWrTPv0iiUGdqn+p+se4Ak9XlpOnLtxDc7SX04cQL8QVD8i7uWLPOMX+9j2DqkwamhrAng==
+ b=bBvT97Af5Nf6/W2J3+SebMFQNyYLBhp1F12BYtPlOOqR0Cr1nlXHGioqOaaZMGTfQdX+ONJcnse73YUBTZZ0F7cukbPpMIwzppGH+Oe/kVz8k/vNFlmUeKc2p+b10a8TXkFMcA1bmBsL/6ZsuWJZoMcciomWylOc90zNsBt9Z4D2wSVrJQCjgf6MoYYD+OYCo0WHtlBJ8mAx+h/qDmmOxUTRRCAMkH9I/bV5vEeqYYEcnyDI+Rpb3WoqwEs5IW7fDQ08Fzo58IEnkoNfISj4YdSDRvIj4AN+4WlUWdShyKBxMZWg5PUI51LpXBjlgjY0Zh/glckgkUIHDQ8zMMiWwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8fUKWkdv9cxl4E2D/ejFjPqB8GP/S8EmYlu3LEn7On4=;
- b=cLw0nFCLGPeW6zPedSahFLinJMkapA5qwFtuv9QnH8vgUSlw8pA48ekCHEUOA+liApXX8Q1LI0mIvo5/bLeWb8m7/wPgtEg3aRVLJsdXIbZv/u4PkOAFHK8XXy8GPaNx6x/DgesjKZup4Z5LjP2moVgvTMVlye3OeOd2+Ewts8NEO2Tr3gRoocTJJOOPi2fPQa/M9eiFulpUhZly8ejqRPBf48FKUp7TZQJhSrKtjw8Q5Nt1Ja5njw+Vl2dmKcJKFdVpnOlRVSn6k0TdeeZNrKedHfUTPAC7uJkjQV/74DSfx8icRE18dpkRR7itafBLTGHHuT2uLySIbkCqrP20cw==
+ bh=+PAxhShjxAeGrs2Ps6PCSc5b0X7R5WekjnTRNh8P0Xg=;
+ b=XW1hU2gqN5i4iOO/r48gtll3aDUTXJYuQAgiMeprYIFnpatSCtNcFbnGnbrpGhqlkO+7Or20gxCPY5suYQy3YkVNsVW8OWoRBi4kM85KQSDJbOyFcabAgABNsydIeRJ7mFhNk8hmziV712UJalA7f1IXQvccTIiOO5fL/MbYp/61Jht0I/+1cJRM+sF5/IrJjMWYA2uW3TsxpSW/XnxPY3Zg8Iey53swOS4OWeUz3lxIVdfYnYu+4ULrm9IWrE+H0hBUP8ZYF0ije07nh8qWNFe/oEmUOozUB2e37niwkdfaovHAzv9HNY0KpEI4HqPhqcV3HJWbSjAQjCX8Hxn7+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8fUKWkdv9cxl4E2D/ejFjPqB8GP/S8EmYlu3LEn7On4=;
- b=MRhxsXJdxI6+XGZkBQK2u6+m18E6W5MgfhKXi6LxaQFbX+64hHexQtptE5OyqeG6zYgvjpSL1O+ZtaPhOgMnPl/ehk9SxDRzolVbOuZsq2hz3gBSOra05FWmq9+Sk1elith0/9thX2Qv53vdTVoYTVleKh6Ny65OC0HV/AuQBGE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by BYAPR12MB3111.namprd12.prod.outlook.com (2603:10b6:a03:dd::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Tue, 11 Jan
- 2022 08:13:48 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::9c25:ce1d:a478:adda]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::9c25:ce1d:a478:adda%5]) with mapi id 15.20.4867.012; Tue, 11 Jan 2022
- 08:13:48 +0000
-Message-ID: <529cd021-7342-8efb-b1bc-266bbf0fee88@amd.com>
-Date: Tue, 11 Jan 2022 13:43:36 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH] drm/amd/pm: correct the checks for fan attributes support
+ bh=+PAxhShjxAeGrs2Ps6PCSc5b0X7R5WekjnTRNh8P0Xg=;
+ b=2Q6hHfQRjscwxLhCyam0sx0rOiNevrSXZY8fFVu04mBG2UzWXgqUrU6dBXH/KNyN6hxU95oBEcWcsnkTIQiG1w3AL5qsBCUtlp0ez5msUKeizOQvNoOsO+JFwmZc4RlQqjLOdUw65fNksYIzWgtbrLuSDAdAQd7gEcSArYekd+E=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ DM4PR12MB5325.namprd12.prod.outlook.com (2603:10b6:5:39e::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4867.11; Tue, 11 Jan 2022 08:47:44 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::1500:4b8c:efd6:672]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::1500:4b8c:efd6:672%4]) with mapi id 15.20.4888.009; Tue, 11 Jan 2022
+ 08:47:43 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: =?utf-8?B?UkU6IOWbnuWkjTogW1BBVENIXSBkcm0vdHRtOiBQdXQgQk8gaW4gaXRzIG1l?=
+ =?utf-8?Q?mory_manager's_lru_list?=
+Thread-Topic: =?utf-8?B?5Zue5aSNOiBbUEFUQ0hdIGRybS90dG06IFB1dCBCTyBpbiBpdHMgbWVtb3J5?=
+ =?utf-8?Q?_manager's_lru_list?=
+Thread-Index: AQHX1VvfGiamfxE0yEqVAKGPQSb88av7Hb4AgAACCACAAAHwAIAACIoAgAAC6ACAYrevoA==
+Date: Tue, 11 Jan 2022 08:47:43 +0000
+Message-ID: <DM5PR12MB246972E69DADF83D83FD9C73F1519@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20211109111954.41968-1-xinhui.pan@amd.com>
+ <da46c607-1a3c-7ea9-92ef-78a2b60d38c9@amd.com>
+ <DM4PR12MB51653AB0F1A0B89A41782B1087929@DM4PR12MB5165.namprd12.prod.outlook.com>
+ <76d78ff7-efe4-4796-ec18-a668757f2e04@amd.com>
+ <DM4PR12MB51657C53FAA6C096884118AD87929@DM4PR12MB5165.namprd12.prod.outlook.com>
+ <DM4PR12MB51658A8C75586BCC2B0BDA6487929@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB51658A8C75586BCC2B0BDA6487929@DM4PR12MB5165.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220111074729.40906-1-evan.quan@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20220111074729.40906-1-evan.quan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BMXPR01CA0084.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:54::24) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dab309ca-53e5-4ebf-ed68-08d9d4da4b73
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3111:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3111181985A842AA7428014197519@BYAPR12MB3111.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: t5gIVbb1zDuo9xv7rY7YwCoOxjtr0KkHVdIRQIXHsDWI6SQv2cjKFDlaMuZ6J1LRsi6r9w3oHKdELaSsAVXB6mEgGVlJBZh7XtsL+D/1/QkrshOH/qamMX+sxnNBzBYmEEsj0PUrUne9Z1W8c5IykrT10raoQo3dbH6X7Kt9E3IGNRa5aNvAbRI1HnS2W6hVFZXqgvxgF3LCi4qMvqoSN8duce8G646RLQJNifugl5ChIUXNmBdmb3bQNmZs399UwK79GE/y/V4hR8bWXb3PW8uoe+eMoEMKD5IoY+mZ00bPcOu/55R0wlEVsrJuB++LwHr5FhZbCnYX4iU8tDg4cft8QZFCvTuD7yGlLn91+L+eoCxeQ1GmfjoG0rNi4qabXviSn9rO6i+xkboA/5riKkip+Hdb++hhoRBltRk6+gNQ7ECXwNwyO7rRL88MrpUgBXWyrxZWQ+O3Qn4Ci8OzAS6V8JCEqT1awYzAmgVS6AXC/ijr1WfLx5aiklwAyYiYWs8eLn+O2jx3JVeQ6OJiJUVwZicG7Tp8QVXbal6yl9SOuPEHwD7c0tuZYBGrMhWqOmLRupzbt6oXmOd2L+IJz5LwbX1oi5OJsgw/zw3n/e1jQepYg6PyhPDRtJvilArGS4Rs5R0lEYkYAf8s6nTDVxp+PPEyH6LR5TuaUKbfxj2xz9arbKg1QA9INyvX9alBYxcRJnhiAjlpwTtgvYCuWGo/V2Ffo3hWBPgxF9bToE1ijtRJRe4eUpExR2blv9cL
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(2906002)(6506007)(6666004)(6512007)(8936002)(186003)(38100700002)(508600001)(8676002)(30864003)(83380400001)(66476007)(53546011)(66946007)(86362001)(66556008)(2616005)(31696002)(31686004)(4326008)(26005)(6486002)(36756003)(5660300002)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-11T08:46:58Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7aa3c55d-d563-4d71-8e37-6dc135c6fe7d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-11T08:47:40Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 4cfb9acd-3a66-4da2-8d7b-551e20b0f984
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f6dd6962-9c57-428e-ed65-08d9d4df08c9
+x-ms-traffictypediagnostic: DM4PR12MB5325:EE_
+x-microsoft-antispam-prvs: <DM4PR12MB53257B4CCA09ADC1CD85C5F6F1519@DM4PR12MB5325.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: kgBjiiE2nUHoeIngf4A7h/Xikwllq8SNMMiIaZtYWadMfVRRAhOAqlew0iFnuRW5cUQP1PdmTw/oVyvSKbZ3hG3UrpMqLCjJWpBiNCwanZp+tQenuvr+TkPvr96zaAvT1bdxfzcR+SFQc8yBGbDPjUo4DfLlC7J21xX6dI3unG/xcPhiT2oKk1kZ1sGFO/89Pe6SpMqe9HCio5sSHg/t79O5kO3sRvAHW30WhhW64Kmvca696itzN8cd7i3ee/CpaEAsRGu8TKEpvi3IbAJU0Z3EfvXHB1JitJBHPhKnSpkHmjSETN1KhWaBJ/jH28esF6qdn64C+cZPiXUM2HWC4UxbrIytxw7Gyq1gnCVdr57xmG2sahFVtRHDofCdtHv9uT301lx04jACL0liwH2/lhC0ztEK41qFqqGSatbEEc285jtfhYHlYeXihr+KPrzWkkQ29j8N3/lNDcaLIIdXq2BMtIPsgz1Gz2Ff8kNGV3ZUZmTySqn+PYLER0P+89Mi1ovOnpWwlc0faBZ9J5fv2ZH7nZCuzhWcIQ8B5W5vtCv7MfQot6b+mBjFA5QlEcNnMl6p1FfdJ1WXG/BbPOjwwmmwj/ID3Kx9yHBiGbjpzYoBA1uiwvfy7zG4giivCR3wMVQUJBf47enUcbOG+I+bowat+liD04ywiKRGAZR50iRPHY4ruCdNnfOOIYVS7fq5K6aW5MI7ejRV5WQw9uVrm3cwAeyfpFH7ivYqgPfroaeKQUIK3heauvE3J8+LC0lXxtJh4JfnNl90c/NuEDVfhOOLsZkqgJC5qsm1UlNKtPw=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(33656002)(86362001)(186003)(66476007)(450100002)(110136005)(4326008)(5660300002)(64756008)(7696005)(52536014)(38070700005)(224303003)(8936002)(966005)(122000001)(6506007)(38100700002)(9686003)(66556008)(508600001)(26005)(2906002)(71200400001)(66574015)(83380400001)(66946007)(76116006)(316002)(53546011)(66446008)(55016003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGlsUWNybklKTzF3M1NheTJpK1A4dXIwcDhQbzhLcFVsTTJZK203Rkx2eFdI?=
- =?utf-8?B?ckxPM2NrL0l0YTJUZjFmUHRDbGx3TGcvUXNxT3YrVnVYclJEV2xYcmtWbXJm?=
- =?utf-8?B?cjY4THI1TGFjcjQrZStIdk5QZGNodFJxSEtSOHJ3TFV0RFJSdkxjN1E1Z21r?=
- =?utf-8?B?bW5uZXI5WGVhMEM1aUNCUEZnQ0x1QzFXaVNDV2VwOU1HVGRNS2dyajBHQ1kw?=
- =?utf-8?B?SjczRERRRFcxN0ZhNndtTnQ4K2xRMU9XZmxSSGRoRElLS2duWDB1eGpCNmZo?=
- =?utf-8?B?V3pBZG5uWitjK21NWEQyRHdmT3lLVG9SWlorQkE0aFRNSGpicTJkMFlGaWhL?=
- =?utf-8?B?cS91MFloK0ZoaVordmIvQlVGSjZGcUxyVXhHT0ZPR2NHMTBRcWpoMEUwaXdS?=
- =?utf-8?B?dlk4b3U2TDA1Sm5qMXpUdDh0UUcrTGRmYVpndFhrdUx1bWlZNmZpVjg1a0tJ?=
- =?utf-8?B?emtvVHp2VjZJUEUwNG8vUE9Rbzd6c0FtZ3lmQTRkVHBJSzhEVFBUajc0U3d6?=
- =?utf-8?B?cXdTdDdBeVpHMkJIcks4YXM2dWU2eENEVlRyTXZvWGVpOWRDWlZXdGhkY2Jw?=
- =?utf-8?B?ZFBvTWhWMDVmbTFYdkVLdXZXS0xaRmI0TmNvRjEwcFgySXAyMk9JYjFGeWFM?=
- =?utf-8?B?cnNFRmRuNGlUcGRzdVNmRjBha2QxdjdZNnZkczRwd0lqTmNwczlWUVJiTDgy?=
- =?utf-8?B?d0NMRjBDWWFld3VSZ2RPeE5nY051TTZrVmRrQ3pKbm1UVHAzWHRFR3hxWit5?=
- =?utf-8?B?bzVZZ1JyUU4yT1M5b1g3QU83R0IvcTYzdGp2NEtLWk5VSUs0ditiaEVYeThD?=
- =?utf-8?B?bEZvTnBaY1RlamlHSm1JTUhwM3QybFo5TGpoQVFsVTNTdzZPVHdyZllCMnVw?=
- =?utf-8?B?dFg4WkJEeXpRWlRubmNKaUEzVU9xZUtnYVZmZ3RkaDFDUWoyTjZjMWNRVnlN?=
- =?utf-8?B?Q3ZZSHBJSGRucUhxYTJkN05BR2swSXpiUDRKOGt4ZE5nV2J5a2kxNVY0emkr?=
- =?utf-8?B?cVdBUGRpTDc1a2Z6VDJyZndYMkFrNkwrVU1ETnBadlh4Rm96NzAySDBUZUdM?=
- =?utf-8?B?eVBoVUo1V3VMWDFMbm5GSUZCNWZrVG9nZFlXSTQyT3dCSlBDcUppV0VDUzUz?=
- =?utf-8?B?SUJjcjhsd2dieVpoNG1nTlNCeWVxTGhQMTdBVFFDRUJ6Z2kvMmNTY25BSkRD?=
- =?utf-8?B?OGhJc3NRMUdTM1RDQUp2dnl1SS9xalFpZVQ0Y3pUVkhrTEFmZHlJeVA2eGtD?=
- =?utf-8?B?dkN1cm5IeGEvcWVVbGpWaFlKT1h0TkRLem9rOHVxeVk5NE1RVmRtSWdibU9I?=
- =?utf-8?B?R0YzQkk1aU1kRlhjUTJ1dFQ5ZVZHWlpsOU0zZVlQZkpUN1MyeFpEdjZzL2Jn?=
- =?utf-8?B?a0ZxWVBIWjNCTDJiWTZaaktGN0VMMWVGYnNnZXNWNHd6ZU5ZR1lXVmdsQy90?=
- =?utf-8?B?WWJVMFFIYUpYenNxWXhlMmVOenZjTjBQTTdWOWMxSHVKbmFYWHNvRzI2cGxt?=
- =?utf-8?B?OVBMRngrTG5OWTdHbDR1OXhFYS9rZCt1OStUcW9xNDIyN21CYzlRMmxHc25H?=
- =?utf-8?B?UTgzdUlsQ2dDb3NGdkN1emtoRHc1NnhKQVFFc0FRaS8zMzE3aEZBeU12TnZi?=
- =?utf-8?B?RUFxdFYyMGN1UU9qNTUzcktiU0hwVkV0WlVJdEZ4elBXYzRoZXFmekNpbm1m?=
- =?utf-8?B?UjlMZ0lib3RQMEVBUHM2U3BLYk9Wb2Y2RlR2Q3c5a0Z1U05IZmFXRXZGRTE4?=
- =?utf-8?B?c0NacUNsN2svRFhNdmNYZWd4dHNZV3duZCtKMFgrcnB0MHVSZ0ZMN0RVVmpk?=
- =?utf-8?B?SnphVURyRHc5UGlSSU9FOWdCbGpVemNJR0ZEQ3MwNWk4ZjErYW15TnFtYmFS?=
- =?utf-8?B?dE0vL3M4WkZBa1FieGtkeGJJNG9PV29QRWhGd0c2WElEeTVQd1NjVW5KVDNF?=
- =?utf-8?B?M2ZPUkRXSGpCazlkTjdjVFZSbndxYUdnb2d6K1RhVTd5VUs3TnZVRVd2a2FP?=
- =?utf-8?B?djRvSjdyWDNsc29FY0RFK3ZJcEVKYVZYbjBwTTJwMXNkREpGVjc0cC8yQmw4?=
- =?utf-8?B?Wmc5bGtsdzdqUldvSDFsdm5JcUNhNDR0RnhYTmtjdHhENFRaZkZSTHVpV3RE?=
- =?utf-8?Q?Ltz4=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MVo2NVhjUUdYWHM3d2VOMEJVUTRNMnpyUWFUOHd0UXFIUVNOTEU4azlkekdV?=
+ =?utf-8?B?VmRYZlQwcDFWNXZrb3RmZjJnNGlyT1JISTlhdG50aFA2ZUZNL1l2UkF3YUNW?=
+ =?utf-8?B?RkVoRXdrTUcwdmN0ZlRvei80NE9ra1VEQmNTWWludnhiOHBxVmlPSDNPREYy?=
+ =?utf-8?B?MXp5RjcxUHljTlc5M2VnSG83dEZYdklwTzBqM1dzSjZRWlJxYUpkNmpmWW50?=
+ =?utf-8?B?UDlPaTB6NXA5M2J1WWFDWVloQlJnQVZRV25DdWMyYUNFWDVRTzk4Tk04TS9C?=
+ =?utf-8?B?cTRqcjZSUzJ6aTVtYUR1a1BLZmhGTnJFRmpPRDgwNFZhR3c5VnRDcnphUVc4?=
+ =?utf-8?B?SVZ2OHpCSkkvZUdwZ0FYNWtISS90Qkh2VWp5SUcyTkxRaERxNE40Snl2aStn?=
+ =?utf-8?B?SzNjbDdoRkNTTW1NaEhnaHh0Ujc2UlcyUFR4UWxpZW15SHl3aFdkZmxCeUV6?=
+ =?utf-8?B?RGdnOERJTnBlUnhyLzQwanpQMi9Vdy9yTW9ZbzRWLzNXcWozeHpwak9GVlRy?=
+ =?utf-8?B?ZnFrbjFqdVhNVHdVaFgxWFZ3M3Fldmc3QWVldERKTlFXQ2t6QU9jUEh5SS9s?=
+ =?utf-8?B?dkFtS2s2aHA1elJqRXI2dGVoUERLVlVBbm52K1padllpaDRuNlpNc2xHRkVN?=
+ =?utf-8?B?T0xTSW9Kdk5iOG16N1lEQjlQSU50WjFJbzdIakU3aHY2UE9wdU9URUtpYTRz?=
+ =?utf-8?B?V0VkUzJDbkdtUkdLcnBWN0FrRmFRTlpKM1dOMEZUZCtwcHltNFJlUEEvbkZE?=
+ =?utf-8?B?K2ZDSFQvUEhaSkdqYWtIRk9DM05DT21mbktPQ3l1ZGl0TXZDaCtFWTdsZEdP?=
+ =?utf-8?B?MWRmemtKcTdxV1VFY2plazI3QXpqY1AwNEVxMkY2cnFvdWMxbkpDVHdjNHpM?=
+ =?utf-8?B?YnJRSmRpc0k4dGFSdGJzelpVOExzSFk0a3Y0bXVIaDljUmt6RjZYelZhTFNY?=
+ =?utf-8?B?VVBEbkNtTzdiMGE0RG9JdTBLTzUwMTF5UEJTR3l3WVB0TFNFd0EvOVpMMTN1?=
+ =?utf-8?B?cFJ3MFR0SldvZ0lpTlBWNEpKMkhjVVpIb1d1ZDcycnlCNWVoN0JadVNQRGxq?=
+ =?utf-8?B?dThJZHNvMEgrR0hLTHFQUlBLSmJKeStaQ3dkT0RiM0NVRWc4SWF3N0dHcW9h?=
+ =?utf-8?B?cmROOThqV3FsUldHTlhDM3RFalNJK3VVNnVLc0ZGVEhnbkJqZ051MmFiZ2F3?=
+ =?utf-8?B?b3Jocm91VnZTbmozT2w0dGFvczJRalgrVVFTNnM3dS9udGVUZk9WeVdzdTlY?=
+ =?utf-8?B?U01ycXBYR0FXYnNWaVNLM0IyY0tyVFJOSlIyMlNsMnF6aHFPZUI5WEdhNHdP?=
+ =?utf-8?B?aTQzNityYzRFekQ4Y2NQK1AyWm9PZ2IxUUh0M0R5cW9YY3JvVEcyNlhBdEJt?=
+ =?utf-8?B?cllhU0h1dUs5bU1ub1B0ZjhGQ0l0UWk4ajdwNUJoSzUzZk1neHVidDRxRVBi?=
+ =?utf-8?B?K3BEVDM3eE5UcWVXZWhlZlVBZlBsOEhnWkZlSzB3ckFFQ1N4WFg3a1k1dmlo?=
+ =?utf-8?B?S0pESnZucDB5UVBTWnZ6SWw3S2xTVnNHeW53MzZnQ2txcEhDWXZVc0k1YkNQ?=
+ =?utf-8?B?YkRacVhKb3QyQTI1anNtbk1WNFArS292akhsTzQ5SW1QcnltRjBscTVPcy9k?=
+ =?utf-8?B?a2VoSURycWVQbWEyWjBYbjVKaFFQR3NFY25mNkc5SFREQ1dCOGJldHYycnRl?=
+ =?utf-8?B?eEU1N3F6ejg3MWdzOHBNUnZqWE4wMXZjRjZ1eGQzczNqSTAzUzVOTFV3M0pE?=
+ =?utf-8?B?a1lBeVlBcnV6bHFvak9ETWtKQytsa2p6bTg3SzRQUU1SeWtHUk9RY0RIYk80?=
+ =?utf-8?B?Z2paRnlKd1hvcGJxNUdwRW53TkJrRVZxTTFzajJ2Qm9WM1BMMSsvckU0T3hU?=
+ =?utf-8?B?REVIMmZHZjBWSUlXWlFlN1pHR2haN0FzVW4waENTUnh0dWVSVElWd01Ndy8y?=
+ =?utf-8?B?dVdwSDFoMlJwNWdLSE1vcEZ3aGNHK3QwT2UzMi9vVXdLLzVBbndMYW1lNFZN?=
+ =?utf-8?B?WjBTSXYyODhydGl6aHNpaElWWXVDaE56RVBmYktMNUJTSHV2TndTYmZPeHBM?=
+ =?utf-8?B?WEw0UDNIQlJ6alM0NC94SDc2enpsRmJXU3IxcTJmVFFiTjIraTRkWEdBMEFn?=
+ =?utf-8?B?SDAvNWdNSVpacGtTRlVKQVI0U2ZyRHVxS3k5TnN4VDhEYm5kL3Z5TmRtQ0Nt?=
+ =?utf-8?Q?9FSKK3m7yRR9QCtz9zYS7kg=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dab309ca-53e5-4ebf-ed68-08d9d4da4b73
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2022 08:13:48.6920 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lUVGCfobpor7bIcZBcaAa5p39YkYldvQ+Azg8TTKfEaOqje1++MsntX9cjoxWsZd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3111
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6dd6962-9c57-428e-ed65-08d9d4df08c9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2022 08:47:43.7695 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lSKebP6Sob0xt7o9dVG5Pc4xOvUjXPtwieq0vnDamWH76woYhLDfWrqX6Qj2n6xRYak6MgWYGqHJsCwgWVJ52Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,580 +149,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Guchun.Chen@amd.com
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 1/11/2022 1:17 PM, Evan Quan wrote:
-> On functionality unsupported, -EOPNOTSUPP will be returned. And we rely
-> on that to determine the fan attributes support.
-> 
-> Fixes: 801771de0331 ("drm/amd/pm: do not expose power implementation details to
-> amdgpu_pm.c")
-> 
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Change-Id: I95e7e0beebd678a446221a72234cd356e14f0fcd
-> ---
->   .../gpu/drm/amd/include/kgd_pp_interface.h    |   4 +-
->   drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  31 ++++-
->   drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  21 ++--
->   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  10 +-
->   .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  59 ++++-----
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 115 +++++++++---------
->   6 files changed, 132 insertions(+), 108 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> index a8eec91c0995..387120099493 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -315,8 +315,8 @@ struct amd_pm_funcs {
->   				void  *rps,
->   				bool  *equal);
->   /* export for sysfs */
-> -	void (*set_fan_control_mode)(void *handle, u32 mode);
-> -	u32 (*get_fan_control_mode)(void *handle);
-> +	int (*set_fan_control_mode)(void *handle, u32 mode);
-> +	int (*get_fan_control_mode)(void *handle, u32 *fan_mode);
->   	int (*set_fan_speed_pwm)(void *handle, u32 speed);
->   	int (*get_fan_speed_pwm)(void *handle, u32 *speed);
->   	int (*force_clock_level)(void *handle, enum pp_clock_type type, uint32_t mask);
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> index 68d2e80a673b..fe69785df403 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -1030,15 +1030,20 @@ int amdgpu_dpm_get_fan_control_mode(struct amdgpu_device *adev,
->   				    uint32_t *fan_mode)
->   {
->   	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +	int ret = 0;
->   
->   	if (!pp_funcs->get_fan_control_mode)
->   		return -EOPNOTSUPP;
->   
-> +	if (!fan_mode)
-> +		return -EINVAL;
-> +
-
-pp_funcs most likely will be there for smu/powerplay subsystem. I think 
-the checks should be at one layer down - smu_get_fan_control_mode() and 
-pp_dpm_get_fan_control_mode()
-
-First one will check if ppt func is implemented and second one will 
-check if hwmgr func is implemented for the specific ASIC.
-
-Thanks,
-Lijo
-
->   	mutex_lock(&adev->pm.mutex);
-> -	*fan_mode = pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle);
-> +	ret = pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle,
-> +					     fan_mode);
->   	mutex_unlock(&adev->pm.mutex);
->   
-> -	return 0;
-> +	return ret;
->   }
->   
->   int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev,
-> @@ -1048,6 +1053,9 @@ int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev,
->   	int ret = 0;
->   
->   	if (!pp_funcs->set_fan_speed_pwm)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (speed == U32_MAX)
->   		return -EINVAL;
->   
->   	mutex_lock(&adev->pm.mutex);
-> @@ -1065,6 +1073,9 @@ int amdgpu_dpm_get_fan_speed_pwm(struct amdgpu_device *adev,
->   	int ret = 0;
->   
->   	if (!pp_funcs->get_fan_speed_pwm)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!speed)
->   		return -EINVAL;
->   
->   	mutex_lock(&adev->pm.mutex);
-> @@ -1082,6 +1093,9 @@ int amdgpu_dpm_get_fan_speed_rpm(struct amdgpu_device *adev,
->   	int ret = 0;
->   
->   	if (!pp_funcs->get_fan_speed_rpm)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!speed)
->   		return -EINVAL;
->   
->   	mutex_lock(&adev->pm.mutex);
-> @@ -1099,6 +1113,9 @@ int amdgpu_dpm_set_fan_speed_rpm(struct amdgpu_device *adev,
->   	int ret = 0;
->   
->   	if (!pp_funcs->set_fan_speed_rpm)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (speed == U32_MAX)
->   		return -EINVAL;
->   
->   	mutex_lock(&adev->pm.mutex);
-> @@ -1113,16 +1130,20 @@ int amdgpu_dpm_set_fan_control_mode(struct amdgpu_device *adev,
->   				    uint32_t mode)
->   {
->   	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +	int ret = 0;
->   
->   	if (!pp_funcs->set_fan_control_mode)
->   		return -EOPNOTSUPP;
->   
-> +	if (mode == U32_MAX)
-> +		return -EINVAL;
-> +
->   	mutex_lock(&adev->pm.mutex);
-> -	pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
-> -				       mode);
-> +	ret = pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
-> +					     mode);
->   	mutex_unlock(&adev->pm.mutex);
->   
-> -	return 0;
-> +	return ret;
->   }
->   
->   int amdgpu_dpm_get_power_limit(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index d3eab245e0fe..940cbe751163 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -3197,7 +3197,6 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
->   	struct device *dev = kobj_to_dev(kobj);
->   	struct amdgpu_device *adev = dev_get_drvdata(dev);
->   	umode_t effective_mode = attr->mode;
-> -	uint32_t speed = 0;
->   
->   	/* under multi-vf mode, the hwmon attributes are all not supported */
->   	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-> @@ -3263,15 +3262,15 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
->   		return 0;
->   
->   	/* mask fan attributes if we have no bindings for this asic to expose */
-> -	if (((amdgpu_dpm_get_fan_speed_pwm(adev, &speed) == -EINVAL) &&
-> +	if (((amdgpu_dpm_get_fan_speed_pwm(adev, NULL) == -EOPNOTSUPP) &&
->   	      attr == &sensor_dev_attr_pwm1.dev_attr.attr) || /* can't query fan */
-> -	    ((amdgpu_dpm_get_fan_control_mode(adev, &speed) == -EOPNOTSUPP) &&
-> +	    ((amdgpu_dpm_get_fan_control_mode(adev, NULL) == -EOPNOTSUPP) &&
->   	     attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't query state */
->   		effective_mode &= ~S_IRUGO;
->   
-> -	if (((amdgpu_dpm_set_fan_speed_pwm(adev, speed) == -EINVAL) &&
-> +	if (((amdgpu_dpm_set_fan_speed_pwm(adev, U32_MAX) == -EOPNOTSUPP) &&
->   	      attr == &sensor_dev_attr_pwm1.dev_attr.attr) || /* can't manage fan */
-> -	      ((amdgpu_dpm_set_fan_control_mode(adev, speed) == -EOPNOTSUPP) &&
-> +	      ((amdgpu_dpm_set_fan_control_mode(adev, U32_MAX) == -EOPNOTSUPP) &&
->   	      attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't manage state */
->   		effective_mode &= ~S_IWUSR;
->   
-> @@ -3291,16 +3290,16 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
->   		return 0;
->   
->   	/* hide max/min values if we can't both query and manage the fan */
-> -	if (((amdgpu_dpm_set_fan_speed_pwm(adev, speed) == -EINVAL) &&
-> -	      (amdgpu_dpm_get_fan_speed_pwm(adev, &speed) == -EINVAL) &&
-> -	      (amdgpu_dpm_set_fan_speed_rpm(adev, speed) == -EINVAL) &&
-> -	      (amdgpu_dpm_get_fan_speed_rpm(adev, &speed) == -EINVAL)) &&
-> +	if (((amdgpu_dpm_set_fan_speed_pwm(adev, U32_MAX) == -EOPNOTSUPP) &&
-> +	      (amdgpu_dpm_get_fan_speed_pwm(adev, NULL) == -EOPNOTSUPP) &&
-> +	      (amdgpu_dpm_set_fan_speed_rpm(adev, U32_MAX) == -EOPNOTSUPP) &&
-> +	      (amdgpu_dpm_get_fan_speed_rpm(adev, NULL) == -EOPNOTSUPP)) &&
->   	    (attr == &sensor_dev_attr_pwm1_max.dev_attr.attr ||
->   	     attr == &sensor_dev_attr_pwm1_min.dev_attr.attr))
->   		return 0;
->   
-> -	if ((amdgpu_dpm_set_fan_speed_rpm(adev, speed) == -EINVAL) &&
-> -	     (amdgpu_dpm_get_fan_speed_rpm(adev, &speed) == -EINVAL) &&
-> +	if ((amdgpu_dpm_set_fan_speed_rpm(adev, U32_MAX) == -EOPNOTSUPP) &&
-> +	     (amdgpu_dpm_get_fan_speed_rpm(adev, NULL) == -EOPNOTSUPP) &&
->   	     (attr == &sensor_dev_attr_fan1_max.dev_attr.attr ||
->   	     attr == &sensor_dev_attr_fan1_min.dev_attr.attr))
->   		return 0;
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> index 92b987fb31d4..7677d3a21f8c 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -6669,7 +6669,7 @@ static int si_dpm_set_fan_speed_pwm(void *handle,
->   	return 0;
->   }
->   
-> -static void si_dpm_set_fan_control_mode(void *handle, u32 mode)
-> +static int si_dpm_set_fan_control_mode(void *handle, u32 mode)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> @@ -6685,9 +6685,11 @@ static void si_dpm_set_fan_control_mode(void *handle, u32 mode)
->   		else
->   			si_fan_ctrl_set_default_mode(adev);
->   	}
-> +
-> +	return 0;
->   }
->   
-> -static u32 si_dpm_get_fan_control_mode(void *handle)
-> +static int si_dpm_get_fan_control_mode(void *handle, u32 *fan_mode)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	struct si_power_info *si_pi = si_get_pi(adev);
-> @@ -6697,7 +6699,9 @@ static u32 si_dpm_get_fan_control_mode(void *handle)
->   		return 0;
->   
->   	tmp = RREG32(CG_FDO_CTRL2) & FDO_PWM_MODE_MASK;
-> -	return (tmp >> FDO_PWM_MODE_SHIFT);
-> +	*fan_mode = (tmp >> FDO_PWM_MODE_SHIFT);
-> +
-> +	return 0;
->   }
->   
->   #if 0
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> index 89341729744d..57bc9405d6a9 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> @@ -488,38 +488,37 @@ static enum amd_pm_state_type pp_dpm_get_current_power_state(void *handle)
->   	return pm_type;
->   }
->   
-> -static void pp_dpm_set_fan_control_mode(void *handle, uint32_t mode)
-> +static int pp_dpm_set_fan_control_mode(void *handle, uint32_t mode)
->   {
->   	struct pp_hwmgr *hwmgr = handle;
->   
->   	if (!hwmgr || !hwmgr->pm_en)
-> -		return;
-> +		return -EOPNOTSUPP;
-> +
-> +	if (hwmgr->hwmgr_func->set_fan_control_mode == NULL)
-> +		return -EOPNOTSUPP;
->   
-> -	if (hwmgr->hwmgr_func->set_fan_control_mode == NULL) {
-> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
-> -		return;
-> -	}
->   	mutex_lock(&hwmgr->smu_lock);
->   	hwmgr->hwmgr_func->set_fan_control_mode(hwmgr, mode);
->   	mutex_unlock(&hwmgr->smu_lock);
-> +
-> +	return 0;
->   }
->   
-> -static uint32_t pp_dpm_get_fan_control_mode(void *handle)
-> +static int pp_dpm_get_fan_control_mode(void *handle, uint32_t *fan_mode)
->   {
->   	struct pp_hwmgr *hwmgr = handle;
-> -	uint32_t mode = 0;
->   
->   	if (!hwmgr || !hwmgr->pm_en)
-> -		return 0;
-> +		return -EOPNOTSUPP;
-> +
-> +	if (hwmgr->hwmgr_func->get_fan_control_mode == NULL)
-> +		return -EOPNOTSUPP;
->   
-> -	if (hwmgr->hwmgr_func->get_fan_control_mode == NULL) {
-> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
-> -		return 0;
-> -	}
->   	mutex_lock(&hwmgr->smu_lock);
-> -	mode = hwmgr->hwmgr_func->get_fan_control_mode(hwmgr);
-> +	*fan_mode = hwmgr->hwmgr_func->get_fan_control_mode(hwmgr);
->   	mutex_unlock(&hwmgr->smu_lock);
-> -	return mode;
-> +	return 0;
->   }
->   
->   static int pp_dpm_set_fan_speed_pwm(void *handle, uint32_t speed)
-> @@ -528,12 +527,11 @@ static int pp_dpm_set_fan_speed_pwm(void *handle, uint32_t speed)
->   	int ret = 0;
->   
->   	if (!hwmgr || !hwmgr->pm_en)
-> -		return -EINVAL;
-> +		return -EOPNOTSUPP;
-> +
-> +	if (hwmgr->hwmgr_func->set_fan_speed_pwm == NULL)
-> +		return -EOPNOTSUPP;
->   
-> -	if (hwmgr->hwmgr_func->set_fan_speed_pwm == NULL) {
-> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
-> -		return 0;
-> -	}
->   	mutex_lock(&hwmgr->smu_lock);
->   	ret = hwmgr->hwmgr_func->set_fan_speed_pwm(hwmgr, speed);
->   	mutex_unlock(&hwmgr->smu_lock);
-> @@ -546,12 +544,10 @@ static int pp_dpm_get_fan_speed_pwm(void *handle, uint32_t *speed)
->   	int ret = 0;
->   
->   	if (!hwmgr || !hwmgr->pm_en)
-> -		return -EINVAL;
-> +		return -EOPNOTSUPP;
->   
-> -	if (hwmgr->hwmgr_func->get_fan_speed_pwm == NULL) {
-> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
-> -		return 0;
-> -	}
-> +	if (hwmgr->hwmgr_func->get_fan_speed_pwm == NULL)
-> +		return -EOPNOTSUPP;
->   
->   	mutex_lock(&hwmgr->smu_lock);
->   	ret = hwmgr->hwmgr_func->get_fan_speed_pwm(hwmgr, speed);
-> @@ -565,10 +561,10 @@ static int pp_dpm_get_fan_speed_rpm(void *handle, uint32_t *rpm)
->   	int ret = 0;
->   
->   	if (!hwmgr || !hwmgr->pm_en)
-> -		return -EINVAL;
-> +		return -EOPNOTSUPP;
->   
->   	if (hwmgr->hwmgr_func->get_fan_speed_rpm == NULL)
-> -		return -EINVAL;
-> +		return -EOPNOTSUPP;
->   
->   	mutex_lock(&hwmgr->smu_lock);
->   	ret = hwmgr->hwmgr_func->get_fan_speed_rpm(hwmgr, rpm);
-> @@ -582,12 +578,11 @@ static int pp_dpm_set_fan_speed_rpm(void *handle, uint32_t rpm)
->   	int ret = 0;
->   
->   	if (!hwmgr || !hwmgr->pm_en)
-> -		return -EINVAL;
-> +		return -EOPNOTSUPP;
-> +
-> +	if (hwmgr->hwmgr_func->set_fan_speed_rpm == NULL)
-> +		return -EOPNOTSUPP;
->   
-> -	if (hwmgr->hwmgr_func->set_fan_speed_rpm == NULL) {
-> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
-> -		return 0;
-> -	}
->   	mutex_lock(&hwmgr->smu_lock);
->   	ret = hwmgr->hwmgr_func->set_fan_speed_rpm(hwmgr, rpm);
->   	mutex_unlock(&hwmgr->smu_lock);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index c374c3067496..474f1f04cc96 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -59,7 +59,7 @@ static int smu_handle_task(struct smu_context *smu,
->   			   bool lock_needed);
->   static int smu_reset(struct smu_context *smu);
->   static int smu_set_fan_speed_pwm(void *handle, u32 speed);
-> -static int smu_set_fan_control_mode(struct smu_context *smu, int value);
-> +static int smu_set_fan_control_mode(void *handle, u32 value);
->   static int smu_set_power_limit(void *handle, uint32_t limit);
->   static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
->   static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
-> @@ -407,7 +407,7 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
->   	if (smu->user_dpm_profile.fan_mode == AMD_FAN_CTRL_MANUAL ||
->   	    smu->user_dpm_profile.fan_mode == AMD_FAN_CTRL_NONE) {
->   		ret = smu_set_fan_control_mode(smu, smu->user_dpm_profile.fan_mode);
-> -		if (ret) {
-> +		if (ret != -EOPNOTSUPP) {
->   			smu->user_dpm_profile.fan_speed_pwm = 0;
->   			smu->user_dpm_profile.fan_speed_rpm = 0;
->   			smu->user_dpm_profile.fan_mode = AMD_FAN_CTRL_AUTO;
-> @@ -416,13 +416,13 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
->   
->   		if (smu->user_dpm_profile.fan_speed_pwm) {
->   			ret = smu_set_fan_speed_pwm(smu, smu->user_dpm_profile.fan_speed_pwm);
-> -			if (ret)
-> +			if (ret != -EOPNOTSUPP)
->   				dev_err(smu->adev->dev, "Failed to set manual fan speed in pwm\n");
->   		}
->   
->   		if (smu->user_dpm_profile.fan_speed_rpm) {
->   			ret = smu_set_fan_speed_rpm(smu, smu->user_dpm_profile.fan_speed_rpm);
-> -			if (ret)
-> +			if (ret != -EOPNOTSUPP)
->   				dev_err(smu->adev->dev, "Failed to set manual fan speed in rpm\n");
->   		}
->   	}
-> @@ -2218,18 +2218,19 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t speed)
->   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->   		return -EOPNOTSUPP;
->   
-> +	if (!smu->ppt_funcs->set_fan_speed_rpm)
-> +		return -EOPNOTSUPP;
-> +
->   	mutex_lock(&smu->mutex);
->   
-> -	if (smu->ppt_funcs->set_fan_speed_rpm) {
-> -		ret = smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
-> -		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
-> -			smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_RPM;
-> -			smu->user_dpm_profile.fan_speed_rpm = speed;
-> +	ret = smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
-> +	if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
-> +		smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_RPM;
-> +		smu->user_dpm_profile.fan_speed_rpm = speed;
->   
-> -			/* Override custom PWM setting as they cannot co-exist */
-> -			smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_PWM;
-> -			smu->user_dpm_profile.fan_speed_pwm = 0;
-> -		}
-> +		/* Override custom PWM setting as they cannot co-exist */
-> +		smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_PWM;
-> +		smu->user_dpm_profile.fan_speed_pwm = 0;
->   	}
->   
->   	mutex_unlock(&smu->mutex);
-> @@ -2562,60 +2563,59 @@ static int smu_set_power_profile_mode(void *handle,
->   }
->   
->   
-> -static u32 smu_get_fan_control_mode(void *handle)
-> +static int smu_get_fan_control_mode(void *handle, u32 *fan_mode)
->   {
->   	struct smu_context *smu = handle;
-> -	u32 ret = 0;
->   
->   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-> -		return AMD_FAN_CTRL_NONE;
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!smu->ppt_funcs->get_fan_control_mode)
-> +		return -EOPNOTSUPP;
->   
->   	mutex_lock(&smu->mutex);
->   
-> -	if (smu->ppt_funcs->get_fan_control_mode)
-> -		ret = smu->ppt_funcs->get_fan_control_mode(smu);
-> +	*fan_mode = smu->ppt_funcs->get_fan_control_mode(smu);
->   
->   	mutex_unlock(&smu->mutex);
->   
-> -	return ret;
-> +	return 0;
->   }
->   
-> -static int smu_set_fan_control_mode(struct smu_context *smu, int value)
-> +static int smu_set_fan_control_mode(void *handle, u32 value)
->   {
-> +	struct smu_context *smu = handle;
->   	int ret = 0;
->   
->   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-> -		return  -EOPNOTSUPP;
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!smu->ppt_funcs->set_fan_control_mode)
-> +		return -EOPNOTSUPP;
->   
->   	mutex_lock(&smu->mutex);
->   
-> -	if (smu->ppt_funcs->set_fan_control_mode) {
-> -		ret = smu->ppt_funcs->set_fan_control_mode(smu, value);
-> -		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
-> -			smu->user_dpm_profile.fan_mode = value;
-> -	}
-> +	ret = smu->ppt_funcs->set_fan_control_mode(smu, value);
-> +	if (ret)
-> +		goto out;
->   
-> -	mutex_unlock(&smu->mutex);
-> +	if (!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
-> +		smu->user_dpm_profile.fan_mode = value;
->   
-> -	/* reset user dpm fan speed */
-> -	if (!ret && value != AMD_FAN_CTRL_MANUAL &&
-> -			!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
-> -		smu->user_dpm_profile.fan_speed_pwm = 0;
-> -		smu->user_dpm_profile.fan_speed_rpm = 0;
-> -		smu->user_dpm_profile.flags &= ~(SMU_CUSTOM_FAN_SPEED_RPM | SMU_CUSTOM_FAN_SPEED_PWM);
-> +		/* reset user dpm fan speed */
-> +		if (value != AMD_FAN_CTRL_MANUAL) {
-> +			smu->user_dpm_profile.fan_speed_pwm = 0;
-> +			smu->user_dpm_profile.fan_speed_rpm = 0;
-> +			smu->user_dpm_profile.flags &= ~(SMU_CUSTOM_FAN_SPEED_RPM | SMU_CUSTOM_FAN_SPEED_PWM);
-> +		}
->   	}
->   
-> -	return ret;
-> -}
-> -
-> -static void smu_pp_set_fan_control_mode(void *handle, u32 value)
-> -{
-> -	struct smu_context *smu = handle;
-> +out:
-> +	mutex_unlock(&smu->mutex);
->   
-> -	smu_set_fan_control_mode(smu, value);
-> +	return ret;
->   }
->   
-> -
->   static int smu_get_fan_speed_pwm(void *handle, u32 *speed)
->   {
->   	struct smu_context *smu = handle;
-> @@ -2624,10 +2624,12 @@ static int smu_get_fan_speed_pwm(void *handle, u32 *speed)
->   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->   		return -EOPNOTSUPP;
->   
-> +	if (!smu->ppt_funcs->get_fan_speed_pwm)
-> +		return -EOPNOTSUPP;
-> +
->   	mutex_lock(&smu->mutex);
->   
-> -	if (smu->ppt_funcs->get_fan_speed_pwm)
-> -		ret = smu->ppt_funcs->get_fan_speed_pwm(smu, speed);
-> +	ret = smu->ppt_funcs->get_fan_speed_pwm(smu, speed);
->   
->   	mutex_unlock(&smu->mutex);
->   
-> @@ -2642,18 +2644,19 @@ static int smu_set_fan_speed_pwm(void *handle, u32 speed)
->   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->   		return -EOPNOTSUPP;
->   
-> +	if (!smu->ppt_funcs->set_fan_speed_pwm)
-> +		return -EOPNOTSUPP;
-> +
->   	mutex_lock(&smu->mutex);
->   
-> -	if (smu->ppt_funcs->set_fan_speed_pwm) {
-> -		ret = smu->ppt_funcs->set_fan_speed_pwm(smu, speed);
-> -		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
-> -			smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_PWM;
-> -			smu->user_dpm_profile.fan_speed_pwm = speed;
-> +	ret = smu->ppt_funcs->set_fan_speed_pwm(smu, speed);
-> +	if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
-> +		smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_PWM;
-> +		smu->user_dpm_profile.fan_speed_pwm = speed;
->   
-> -			/* Override custom RPM setting as they cannot co-exist */
-> -			smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_RPM;
-> -			smu->user_dpm_profile.fan_speed_rpm = 0;
-> -		}
-> +		/* Override custom RPM setting as they cannot co-exist */
-> +		smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_RPM;
-> +		smu->user_dpm_profile.fan_speed_rpm = 0;
->   	}
->   
->   	mutex_unlock(&smu->mutex);
-> @@ -2669,10 +2672,12 @@ static int smu_get_fan_speed_rpm(void *handle, uint32_t *speed)
->   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->   		return -EOPNOTSUPP;
->   
-> +	if (!smu->ppt_funcs->get_fan_speed_rpm)
-> +		return -EOPNOTSUPP;
-> +
->   	mutex_lock(&smu->mutex);
->   
-> -	if (smu->ppt_funcs->get_fan_speed_rpm)
-> -		ret = smu->ppt_funcs->get_fan_speed_rpm(smu, speed);
-> +	ret = smu->ppt_funcs->get_fan_speed_rpm(smu, speed);
->   
->   	mutex_unlock(&smu->mutex);
->   
-> @@ -3101,7 +3106,7 @@ static int smu_get_prv_buffer_details(void *handle, void **addr, size_t *size)
->   
->   static const struct amd_pm_funcs swsmu_pm_funcs = {
->   	/* export for sysfs */
-> -	.set_fan_control_mode    = smu_pp_set_fan_control_mode,
-> +	.set_fan_control_mode    = smu_set_fan_control_mode,
->   	.get_fan_control_mode    = smu_get_fan_control_mode,
->   	.set_fan_speed_pwm   = smu_set_fan_speed_pwm,
->   	.get_fan_speed_pwm   = smu_get_fan_speed_pwm,
-> 
+W1B1YmxpY10NCg0KSGkgQ2hyaXN0aWFuLA0KDQpMb29rcyB0aGlzIHBhdGNoIHN0aWxsIG1pc3Nl
+ZCBpbiA1LjE2IGtlcm5lbC4gSXMgaXQgaW50ZW50aW9uYWw/DQpodHRwczovL2dpdC5rZXJuZWwu
+b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQvdHJlZS9kcml2
+ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jP2g9djUuMTYNCg0KUmVnYXJkcywNCkd1Y2h1bg0KDQot
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIFBhbiwgWGluaHVpDQpTZW50OiBU
+dWVzZGF5LCBOb3ZlbWJlciA5LCAyMDIxIDk6MTYgUE0NClRvOiBLb2VuaWcsIENocmlzdGlhbiA8
+Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+CkNjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiDlm57lpI06IOWb
+nuWkjTogW1BBVENIXSBkcm0vdHRtOiBQdXQgQk8gaW4gaXRzIG1lbW9yeSBtYW5hZ2VyJ3MgbHJ1
+IGxpc3QNCg0KW0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KW0FNRCBPZmZpY2lhbCBVc2UgT25s
+eV0NCg0KQWN0dWFsbHkgdGhpcyBwYXRjaCBkb2VzIG5vdCB0b3RhbGx5IGZpeCB0aGUgbWlzbWF0
+Y2ggb2YgbHJ1IGxpc3Qgd2l0aCBtZW1fdHlwZSBhcyBtZW1fdHlwZSBpcyBjaGFuZ2VkIGluIC0+
+bW92ZSgpIGFuZCBscnUgbGlzdCBpcyBjaGFuZ2VkIGFmdGVyIHRoYXQuDQoNCkR1cmluZyB0aGlz
+IHNtYWxsIHBlcmlvZCwgYW5vdGhlciBldmljdGlvbiBjb3VsZCBzdGlsbCBoYXBwZWQgYW5kIGV2
+aWN0IHRoaXMgbWlzbWF0Y2hlZCBCTyBmcm9tIHNNYW0oc2F5LCBpdHMgbHJ1IGxpc3QgaXMgb24g
+dnJhbSBkb21haW4pIHRvIHNNZW0uDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fDQrlj5Hku7bkuro6IFBhbiwgWGluaHVpIDxYaW5odWkuUGFuQGFtZC5jb20+DQrlj5Hp
+gIHml7bpl7Q6IDIwMjHlubQxMeaciDnml6UgMjE6MDUNCuaUtuS7tuS6ujogS29lbmlnLCBDaHJp
+c3RpYW47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQrmioTpgIE6IGRyaS1kZXZlbEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcNCuS4u+mimDog5Zue5aSNOiDlm57lpI06IFtQQVRDSF0gZHJt
+L3R0bTogUHV0IEJPIGluIGl0cyBtZW1vcnkgbWFuYWdlcidzIGxydSBsaXN0DQoNClllcywgYSBz
+dGFibGUgdGFnIGlzIG5lZWRlZC4gdnVsa2FuIGd1eXMgc2F5IDUuMTQgaGl0IHRoaXMgaXNzdWUg
+dG9vLg0KDQpJIHRoaW5rIHRoYXQgYW1kZ3B1X2JvX21vdmUoKSBkb2VzIHN1cHBvcnQgY29weSBm
+cm9tIHN5c01lbSB0byBzeXNNZW0gY29ycmVjdGx5Lg0KbWF5YmUgc29tZXRoaW5nIGJlbG93IGlz
+IG5lZWRlZC4NCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCmluZGV4IGM4
+M2VmNDJjYTcwMi4uYWE2M2FlN2RkZjFlIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdHRtLmMNCkBAIC00ODUsNyArNDg1LDggQEAgc3RhdGljIGludCBhbWRncHVfYm9fbW92
+ZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBib29sIGV2aWN0LA0KICAgICAgICB9DQog
+ICAgICAgIGlmIChvbGRfbWVtLT5tZW1fdHlwZSA9PSBUVE1fUExfU1lTVEVNICYmDQogICAgICAg
+ICAgICAobmV3X21lbS0+bWVtX3R5cGUgPT0gVFRNX1BMX1RUIHx8DQotICAgICAgICAgICAgbmV3
+X21lbS0+bWVtX3R5cGUgPT0gQU1ER1BVX1BMX1BSRUVNUFQpKSB7DQorICAgICAgICAgICAgbmV3
+X21lbS0+bWVtX3R5cGUgPT0gQU1ER1BVX1BMX1BSRUVNUFQgfHwNCisgICAgICAgICAgICBuZXdf
+bWVtLT5tZW1fdHlwZSA9PSBUVE1fUExfU1lTVEVNKSkgew0KICAgICAgICAgICAgICAgIHR0bV9i
+b19tb3ZlX251bGwoYm8sIG5ld19tZW0pOw0KICAgICAgICAgICAgICAgIGdvdG8gb3V0Ow0KICAg
+ICAgICB9DQoNCm90aGVyd2lzZSwgYW1kZ3B1X21vdmVfYmxpdCgpIGlzIGNhbGxlZCB0byBkbyB0
+aGUgc3lzdGVtIG1lbW9yeSBjb3B5IHdoaWNoIHVzZSBhIHdyb25nIGFkZHJlc3MuDQogMjA2ICAg
+ICAgICAgLyogTWFwIG9ubHkgd2hhdCBjYW4ndCBiZSBhY2Nlc3NlZCBkaXJlY3RseSAqLw0KIDIw
+NyAgICAgICAgIGlmICghdG16ICYmIG1lbS0+c3RhcnQgIT0gQU1ER1BVX0JPX0lOVkFMSURfT0ZG
+U0VUKSB7DQogMjA4ICAgICAgICAgICAgICAgICAqYWRkciA9IGFtZGdwdV90dG1fZG9tYWluX3N0
+YXJ0KGFkZXYsIG1lbS0+bWVtX3R5cGUpICsNCiAyMDkgICAgICAgICAgICAgICAgICAgICAgICAg
+bW1fY3VyLT5zdGFydDsNCiAyMTAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0KIDIxMSAgICAg
+ICAgIH0NCg0KbGluZSAyMDgsICphZGRyIGlzIHplcm8uIFNvIHdoZW4gYW1kZ3B1X2NvcHlfYnVm
+ZmVyIHN1Ym1pdCBqb2Igd2l0aCBzdWNoIGFkZHIsIHBhZ2UgZmF1bHQgaGFwcGVucy4NCg0KDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQrlj5Hku7bkuro6IEtvZW5p
+ZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQrlj5HpgIHml7bpl7Q6IDIw
+MjHlubQxMeaciDnml6UgMjA6MzUNCuaUtuS7tuS6ujogUGFuLCBYaW5odWk7IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnDQrmioTpgIE6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcNCuS4u+mimDogUmU6IOWbnuWkjTogW1BBVENIXSBkcm0vdHRtOiBQdXQgQk8gaW4gaXRzIG1l
+bW9yeSBtYW5hZ2VyJ3MgbHJ1IGxpc3QNCg0KTWhtLCBJJ20gbm90IHN1cmUgd2hhdCB0aGUgcmF0
+aW9uYWwgYmVoaW5kIHRoYXQgaXMuDQoNCk5vdCBtb3ZpbmcgdGhlIEJPIHdvdWxkIG1ha2UgdGhp
+bmdzIGxlc3MgZWZmaWNpZW50LCBidXQgc2hvdWxkIG5ldmVyIGNhdXNlIGEgY3Jhc2guDQoNCk1h
+eWJlIHdlIHNob3VsZCBhZGQgYSBDQzogc3RhYmxlIHRhZyBhbmQgcHVzaCBpdCB0byAtZml4ZXMg
+aW5zdGVhZD8NCg0KQ2hyaXN0aWFuLg0KDQpBbSAwOS4xMS4yMSB1bSAxMzoyOCBzY2hyaWViIFBh
+biwgWGluaHVpOg0KPiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5XQ0KPg0KPiBJIGhpdCB2dWxrYW4g
+Y3RzIHRlc3QgaGFuZyB3aXRoIG5hdmkyMy4NCj4NCj4gZG1lc2cgc2F5cyBnbWMgcGFnZSBmYXVs
+dCB3aXRoIGFkZHJlc3MgMHgwLCAweDEwMDAsIDB4MjAwMC4uLi4NCj4gQW5kIHNvbWUgZGVidWcg
+bG9nIGFsc28gc2F5cyBhbWRndSBjb3B5IG9uZSBCTyBmcm9tIHN5c3RlbSBEb21haW4gdG8gc3lz
+dGVtIERvbWFpbiB3aGljaCBpcyByZWFsbHkgd2VpcmQuDQo+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18NCj4g5Y+R5Lu25Lq6OiBLb2VuaWcsIENocmlzdGlhbiA8Q2hy
+aXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiDlj5HpgIHml7bpl7Q6IDIwMjHlubQxMeaciDnml6Ug
+MjA6MjANCj4g5pS25Lu25Lq6OiBQYW4sIFhpbmh1aTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcNCj4g5oqE6YCBOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IOS4u+mi
+mDogUmU6IFtQQVRDSF0gZHJtL3R0bTogUHV0IEJPIGluIGl0cyBtZW1vcnkgbWFuYWdlcidzIGxy
+dSBsaXN0DQo+DQo+IEFtIDA5LjExLjIxIHVtIDEyOjE5IHNjaHJpZWIgeGluaHVpIHBhbjoNCj4+
+IEFmdGVyIHdlIG1vdmUgQk8gdG8gYSBuZXcgbWVtb3J5IHJlZ2lvbiwgd2Ugc2hvdWxkIHB1dCBp
+dCB0byB0aGUgbmV3IA0KPj4gbWVtb3J5IG1hbmFnZXIncyBscnUgbGlzdCByZWdhcmRsZXNzIHdl
+IHVubG9jayB0aGUgcmVzdiBvciBub3QuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogeGluaHVpIHBh
+biA8eGluaHVpLnBhbkBhbWQuY29tPg0KPiBJbnRlcmVzdGluZyBmaW5kLCBkaWQgeW91IHRyaWdn
+ZXIgdGhhdCBzb21laG93IG9yIGRpZCB5b3UganVzdCANCj4gc3R1bWJsZWQgb3ZlciBpdCBieSBy
+ZWFkaW5nIHRoZSBjb2RlPw0KPg0KPiBQYXRjaCBpcyBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvD
+tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiwgSSANCj4gd2lsbCBwaWNrIHRoYXQgdXAg
+Zm9yIGRybS1taXNjLW5leHQuDQo+DQo+IFRoYW5rcywNCj4gQ2hyaXN0aWFuLg0KPg0KPj4gLS0t
+DQo+PiAgICBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIHwgMiArKw0KPj4gICAgMSBmaWxl
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vdHRtL3R0bV9iby5jIA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGlu
+ZGV4IGYxMzY3MTA3OTI1Yi4uZTMwNzAwNGYwYjI4IA0KPj4gMTAwNjQ0DQo+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0
+bV9iby5jDQo+PiBAQCAtNzAxLDYgKzcwMSw4IEBAIGludCB0dG1fbWVtX2V2aWN0X2ZpcnN0KHN0
+cnVjdCB0dG1fZGV2aWNlICpiZGV2LA0KPj4gICAgICAgIHJldCA9IHR0bV9ib19ldmljdChibywg
+Y3R4KTsNCj4+ICAgICAgICBpZiAobG9ja2VkKQ0KPj4gICAgICAgICAgICAgICAgdHRtX2JvX3Vu
+cmVzZXJ2ZShibyk7DQo+PiArICAgICBlbHNlDQo+PiArICAgICAgICAgICAgIHR0bV9ib19tb3Zl
+X3RvX2xydV90YWlsX3VubG9ja2VkKGJvKTsNCj4+DQo+PiAgICAgICAgdHRtX2JvX3B1dChibyk7
+DQo+PiAgICAgICAgcmV0dXJuIHJldDsNCg==
