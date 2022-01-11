@@ -4,51 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 413B3C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 11:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCF9C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 11:01:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFD710ECF1;
-	Tue, 11 Jan 2022 11:00:43 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org
- [IPv6:2001:67c:2050::465:202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AD3F10ECF1
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 11:00:42 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:105:465:1:2:0])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4JY75h4YqtzQjwq;
- Tue, 11 Jan 2022 12:00:40 +0100 (CET)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1641898838;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q/dKDvOg4KUY8qPYHfKynCydh1EVjvwgL1FE0FLMPuY=;
- b=cC8AQDHjlWy4/lqn/EK2msE0w75pHnXOMvPHGz/87cGpBqFouoShiP9uPrpELkX2uGTvBt
- Ya5G52QGFnC6XLX1zdJPSKhDr0NXbrez+m3BSk/KpDJP2q893CXSb8h99fnSimEiEAe9RV
- N/MupruTR8+ww6n0Ni29AnmjpL9U3D0vDkurd/RCCJg+out57AnE3Tav8OOAv009p8Skmg
- R+zrQNedKY1fEYmKYtcHPbyDGp8MwMZ0HiX0ENVTDkKopxZCPoImPiy6v1/K5ZD5kYngfW
- 38yCRhlzrb0F7AHhUnBquBxXBAO1q5JGTh6M5Hr3be5RWNu6L4N7XNa9uP0+/Q==
-Message-ID: <bead9711-fe1f-730c-0daf-7e5f4fb533a4@mailbox.org>
-Date: Tue, 11 Jan 2022 12:00:34 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16CF910F037;
+	Tue, 11 Jan 2022 11:01:28 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D96010F037
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 11:01:27 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id e9so30711100wra.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 03:01:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=DMwf7Nb5ALC4I6rcr+iZ7pNo/02mNwlQ9CF04BzLgIA=;
+ b=LR0NV05Vt8tjJBaJen5UCQ3MBLPeHEcZjqKOqQG7BbJkpMnGd9QysfmYPC4OT5q9dd
+ Tkxp1FtxtJvTx8NRt6ZErxsIIq84TZWn067uhDGl5a9CWNVQQkT6MBRPs1QwLEZRwYsT
+ F2UtNJUlxXoR544RN/uzTcz98O9u6rsIaf+km+/Lw5YNIy/myqu/ZoYYNDBHkq44vcRP
+ 6CMGTs7Vw3TA0iDup1S4fqSZ5JABGA2WJhtuzvRggvIszjDarOqNTsCvtAr1MNczdNzQ
+ 99VYJ3YPbAlC4iF0zWnfM1G+s1spYc5zzRzc1goDSu9hYxeRde6VT64U2WTT3ccfkz5+
+ sAgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=DMwf7Nb5ALC4I6rcr+iZ7pNo/02mNwlQ9CF04BzLgIA=;
+ b=HV1ZMSC9CV5RtowqEo6WTInxut+lfd1UB8xXiXUWpxZe8h0xnT1shqvV7mfblG3azl
+ jO81DE1R11UfGlIDvXqiaAqZ6EzJasPQWHAOu4RHxOWus0nviZwPkTGh+tuQfnNbGzOW
+ 3K00aQrPWpxGHB0jwfhLwEgwnkkU0fq+8DwB74+/qVvtmT1Kn9sDNVDxlSu3JjtcbYwZ
+ VhfmP9FxKAReRRTJfHaRungG137Myu/w35GgqXTquT6a7+zS+YKWkgnYMIJ6PuqVGFBX
+ sCdtU+YgEjPqk7c0h1m6aLaF6IWKR4C1bb56sJmiJipGuRSRyv99VnRYjHl7r1uwNONB
+ /gPQ==
+X-Gm-Message-State: AOAM531YxssOuqSbGtxth/Fh+SO8j0wVXwUJthKzMQZI38FuX9nsEXc+
+ NzNUEP5aaxzzT54YOzXAXcH0b4Vl4U0=
+X-Google-Smtp-Source: ABdhPJwNJjxUBof2Fq+yUAZL75M4QUFcEt4CiTtAtdFdV+EpaCwMFWi6u5uKBGXwDE737MT0xUPwAQ==
+X-Received: by 2002:a05:6000:1567:: with SMTP id
+ 7mr3369226wrz.513.1641898885679; 
+ Tue, 11 Jan 2022 03:01:25 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id j9sm1247566wms.0.2022.01.11.03.01.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Jan 2022 03:01:25 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu: limit the number of dst address in trace
+To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220111070943.5370-1-Amaranath.Somalapuram@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <0bcd420e-7591-db90-cb82-ef837a24899f@gmail.com>
+Date: Tue, 11 Jan 2022 12:01:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/4] drm/amdgpu: Treat warning as an error
-Content-Language: en-CA
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-References: <20220110233906.1178021-1-Rodrigo.Siqueira@amd.com>
- <20220110233906.1178021-2-Rodrigo.Siqueira@amd.com>
- <3bfd4b1f-effb-e16f-8282-628fe2e6089b@mailbox.org>
-In-Reply-To: <3bfd4b1f-effb-e16f-8282-628fe2e6089b@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220111070943.5370-1-Amaranath.Somalapuram@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,39 +73,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nicholas.choi@amd.com, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-01-11 11:41, Michel Dänzer wrote:
-> On 2022-01-11 00:39, Rodrigo Siqueira wrote:
->> We have one internal CI that builds our kernel with the -Werror flag; as
->> a result, when we try to sync our branch with amd-staging-drm-next we
->> get some failures due to warnings. This commit tries to alleviate this
->> problem by forcing a warning to be treated as an error.
->>
->> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/Makefile | 2 ++
->>  1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
->> index 7fedbb725e17..158f427c2f2e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
->> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
->> @@ -27,6 +27,8 @@ FULL_AMD_PATH=$(srctree)/$(src)/..
->>  DISPLAY_FOLDER_NAME=display
->>  FULL_AMD_DISPLAY_PATH = $(FULL_AMD_PATH)/$(DISPLAY_FOLDER_NAME)
->>  
->> +subdir-ccflags-y += -Werror
-> 
-> The problem with this is that different compilers, or even different versions of the same compiler, can generate different warnings for the same code. So this will definitely result in some people hitting compile failures for no reason other than using a different compiler (version) than the code had been tested with.
-
-A corollary of this is that your internal CI might still hit compile failures due to warnings, if its compiler (version) is sufficiently different from those used by the critical path of maintainers for merging amdgpu changes.
-
-Since that CI cannot prevent merging of changes with warnings, it cannot enable -Werror without risking this.
 
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+Am 11.01.22 um 08:09 schrieb Somalapuram Amaranath:
+> trace_amdgpu_vm_update_ptes trace unable to log when nptes too large
+>
+> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 0e7dc23f78e7..0630bd43238c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1632,6 +1632,7 @@ static int amdgpu_vm_update_ptes(struct amdgpu_vm_update_params *params,
+>   			 * silent to stop fault floods.
+>   			 */
+>   			nptes = max(nptes, 1u);
+> +			nptes = nptes > 32 ? 32 : nptes;
+
+Please do something like min(nptes, 32) in the parameter list of 
+trace_amdgpu_vm_update_ptes instead. I'm not sure if the nptes are not 
+needed any more after this.
+
+Then please also remove the previous workaround in amdgpu_trace.h.
+
+Apart from that sounds like the right idea to me.
+
+Christian.
+
+>   
+>   			trace_amdgpu_vm_update_ptes(params, frag_start, upd_end,
+>   						    nptes, dst, incr, upd_flags,
+
