@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C924C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 01:31:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E53FC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 01:31:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA61810E187;
-	Tue, 11 Jan 2022 01:31:15 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA62310E507
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 01:29:07 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id k15so60800797edk.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 17:29:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B399710E4D6;
+	Tue, 11 Jan 2022 01:31:16 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C390510E4FB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 01:21:27 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id w16so60858000edc.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 17:21:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=NvnMrqyyprPM82tM0QymR8SVUNtcjFg9kaau7vLVoys=;
- b=bJYuXFund9ha/pHIpixqe7ZULRG3XbPW/bwVA7ekt6FXGMxCxnXxW4Fckng6N5csqk
- CyQhn5VacnnVs0QpdCxP+hbBvwGfQp/bqct74HUPFt2EyD1c2GPpLFRq3POifHGPxFQr
- PP+TEmIue3otyL9vk0BEUmsF4uO6DbqkrFWHs=
+ :cc; bh=VghT5Vb1bGkkfuhJyJBbYpfymLiEG6YlV0Ofo+lXSRs=;
+ b=CuoC1S5DPEPzxhaI/t/Zt5/7ZnredBXUx63/7QgMSrKdR6dU+kjwkn5e4Y9dVXNX5l
+ Vo7r+EcjrjXKC7eYS94RpKiX0PkhEoqLxQYqUn0fSn6sOhYsh649ExJNudF9PbHfqlwH
+ HhetD8jit7LuyHbRhw8nh7NJ4t8W84qHpTvYE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=NvnMrqyyprPM82tM0QymR8SVUNtcjFg9kaau7vLVoys=;
- b=KOuPAZdSAyGpuaweSmdwV8oUmHiF84yNAKuqR1xHEubPsaV6w3Dt2JEk3NfqSF/9DZ
- 6djRo512rU/q0UfeWIVEOYXrSfz9NsTEVCsKG3AkuKzYVWtUHQqyxEs84YxEiqClWRa/
- 8kWV+OqSW5GQInt6WlsBztvYMYHzN0rhr+bCOyAqT5s9LWXgf4uIoWyqX/f3uUMXQ3IR
- G1STXffkA6bwPnqWGMmMdRJ+YfXVi4OjKXjfr7iSExtwpCXkTBqvMoyqg18HR+tVmgSG
- 0b2ylZWa7v0iTBtuPt/OgYIB/WXgL/p69UPrMvzIEDz+La31UfNqq+JOwpWsl5EL99H3
- 59Eg==
-X-Gm-Message-State: AOAM532N/Mf4Ym6XOIfdg9mrLym6fMj66+hk7jMGcPam8t/B4rpMuGkr
- GLfFHtLS6nWt21f6B4bNYJMjGUeX1wRRtV4vc6M=
-X-Google-Smtp-Source: ABdhPJyARGCzZJofZTOJhKy0JU69M+A5G8knTzFzzZdnL/cEFXXsopT+W3NkyPiiwkGIncTEAaMBgg==
-X-Received: by 2002:a17:907:8a06:: with SMTP id
- sc6mr1782688ejc.214.1641864546331; 
- Mon, 10 Jan 2022 17:29:06 -0800 (PST)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com.
- [209.85.128.47])
- by smtp.gmail.com with ESMTPSA id p3sm2977600ejo.61.2022.01.10.17.29.05
+ bh=VghT5Vb1bGkkfuhJyJBbYpfymLiEG6YlV0Ofo+lXSRs=;
+ b=4Ni+TjLKbnDBbnKbjMdHNMeLalQN+FsAvWdufTDL+lK3UHgidVF/TTt5EGXJLBlXp0
+ XlW+0sauXajTvhmkmbbHcOXbyHoN0X95orlSwr+IPlw22He+242pq1Qjf17gO4SQn9pc
+ wMwvfnhSxJzuyxA6ci3ZC2Q4l2L4TftpJw/dFnPKuOlRrH1fmgguKnftY68CajAZTMPL
+ tMqcKLXp3vLy09tOqoHc0Dpp6y2IIkhojffwNn+0scxMKnJTkpg/ukAJffF5uuxk3e9f
+ joCgftUZJFk4v2PDc9m6vKCKC7kX4C0GWa5W0rRNSmj5wItr8ADenOEkbS2yz2n2+NJZ
+ merQ==
+X-Gm-Message-State: AOAM5301/D5sqvQ1a1p2zQgubpNIpRyxJFjkMQLVQ4oO+r4r5ukv5Vy7
+ KZ+fZv7BpZ8H/MDIg0hp6MqK3YIWfPzDxmPF3L8=
+X-Google-Smtp-Source: ABdhPJx5k3UqcUW0TA1iYb1hHtYsesSCzhMhNDTXKRyo1pkCX0RUuyj9RxB2NoBizrsSG5lnIzt74A==
+X-Received: by 2002:a05:6402:291f:: with SMTP id
+ ee31mr2280593edb.194.1641864086197; 
+ Mon, 10 Jan 2022 17:21:26 -0800 (PST)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com.
+ [209.85.128.42])
+ by smtp.gmail.com with ESMTPSA id qk11sm2972762ejc.110.2022.01.10.17.21.25
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jan 2022 17:29:05 -0800 (PST)
-Received: by mail-wm1-f47.google.com with SMTP id
- l12-20020a7bc34c000000b003467c58cbdfso507802wmj.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 17:29:05 -0800 (PST)
-X-Received: by 2002:a1c:19c6:: with SMTP id 189mr334541wmz.155.1641864544815; 
- Mon, 10 Jan 2022 17:29:04 -0800 (PST)
+ Mon, 10 Jan 2022 17:21:25 -0800 (PST)
+Received: by mail-wm1-f42.google.com with SMTP id
+ c126-20020a1c9a84000000b00346f9ebee43so920120wme.4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jan 2022 17:21:25 -0800 (PST)
+X-Received: by 2002:a05:600c:4c94:: with SMTP id
+ g20mr337592wmp.26.1641864085524; 
+ Mon, 10 Jan 2022 17:21:25 -0800 (PST)
 MIME-Version: 1.0
 References: <CAPM=9tz=_hRpQV1V3M-=KmVVEbr1K166qeb-ne64PHk9Sn-ozg@mail.gmail.com>
  <CAHk-=wg9hDde_L3bK9tAfdJ4N=TJJ+SjO3ZDONqH5=bVoy_Mzg@mail.gmail.com>
@@ -57,12 +58,11 @@ References: <CAPM=9tz=_hRpQV1V3M-=KmVVEbr1K166qeb-ne64PHk9Sn-ozg@mail.gmail.com>
  <CADnq5_P9n39RQ5+Nm8O=YKXXvXh1CEzwC2fOEzEJuS2zQLUWEw@mail.gmail.com>
  <CAHk-=wgDGcaRxUwRCR6p-rxDVO78Yj4YyM6ZsPRGiT2JOCoQ6A@mail.gmail.com>
  <CADnq5_OYO7kq+9DBnDvbSfpouFvdLB0LPSL6+f1ZPRBsV=qEqA@mail.gmail.com>
- <CAHk-=wiCCRG9Lwzr+Cur=K1V2GJ9ab_ket7EnG4RZhJ8jJM7xQ@mail.gmail.com>
-In-Reply-To: <CAHk-=wiCCRG9Lwzr+Cur=K1V2GJ9ab_ket7EnG4RZhJ8jJM7xQ@mail.gmail.com>
+In-Reply-To: <CADnq5_OYO7kq+9DBnDvbSfpouFvdLB0LPSL6+f1ZPRBsV=qEqA@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 10 Jan 2022 17:28:48 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wj9EQdO=gdgrajp03xNf6dtcE03oYucXmJJst0GgSs=VA@mail.gmail.com>
-Message-ID: <CAHk-=wj9EQdO=gdgrajp03xNf6dtcE03oYucXmJJst0GgSs=VA@mail.gmail.com>
+Date: Mon, 10 Jan 2022 17:21:09 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiCCRG9Lwzr+Cur=K1V2GJ9ab_ket7EnG4RZhJ8jJM7xQ@mail.gmail.com>
+Message-ID: <CAHk-=wiCCRG9Lwzr+Cur=K1V2GJ9ab_ket7EnG4RZhJ8jJM7xQ@mail.gmail.com>
 Subject: Re: [git pull] drm for 5.17-rc1 (pre-merge window pull)
 To: Alex Deucher <alexdeucher@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -86,26 +86,19 @@ Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, LKML <linux-kernel@vger.kernel.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 10, 2022 at 5:21 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
+On Mon, Jan 10, 2022 at 5:11 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> It also seems to depend a bit on the screen contents - or possibly on
-> what else is going on. Hiding the browser window makes it happen less,
-> I think. But I suspect that's about "less gpu activity" than anything
-> else.
+> We are putting together a system to try and repro the issue.  Does it
+> happen with a single monitor or only with two?
 
-Actually, sometimes "more activity" makes it go away too. Moving a
-window around wildly with the mouse makes it *stop* happen.
+Nope. With a single monitor everything seems to look fine. And when I
+plug in the second monitor, it immediately starts happening again.
 
-But moving the mouse over different elements of the screen - or
-writing text in the web browser email window - seems to make it worse.
+It also seems to depend a bit on the screen contents - or possibly on
+what else is going on. Hiding the browser window makes it happen less,
+I think. But I suspect that's about "less gpu activity" than anything
+else.
 
-Funky.
+I'll see if I can bisect it at least partially.
 
-It does "feel" to me like some bandwidth limitation, it has kind of
-the same behavior that I remember from the bad old times when you were
-pushing the video card past a resolution that it could really handle.
-
-But that can't be the case, this card has had no problems with this before.
-
-               Linus
+                  Linus
