@@ -4,117 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CDDC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 11:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E33C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 11:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2650112FF9;
-	Tue, 11 Jan 2022 11:26:10 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE59F112FF9
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 11:26:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c0s7T+9K1JVOi4dJs1lKOYGnxHcG8PKgsxvLfHC6Y7WKGmQCHJtOHApcRJuzCLp9OYkUn5hnvfeBk4tSwZzY+zvS/I0bBgkdvvf789qNJ6eVLonUsljA48wGdL45rJ58grUDKm8qYNkWUnA70LCXXFLtGQS5HabSESPrmzAh4f+uB+tl6mXwAveRlTR4tBzCEa1krgkYGyXhbQTyjAwpxhpYxURN37tDdiFvFUigjPD7dzIy57ropQV8itr0SPM1FU3F3F6t59fBZU1jsB8tCUV2JvGJpwF5sL8OmkihEHifmv/xWHV16YK/1D9HW7zKn7OhnlUK5ig5VF4J4qfZ3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kpk4m5gpbmtCblkhsqCW5v2o314IfvD2c2vGRNFPe7M=;
- b=FfjX4gsQrcKhTBzj3N9xYg4LjenwhW2UBRXgrAsLMjZBi3QlrRE1lwwi6FWEDtqnVLPni6uQmQsTfqM2UTTQ9XmTKAajNFpETg75UmNSrhkRVEZk3VbtSvhX9cki46NiEFHmPxXFzrbw/GCmrFglBHXiSQfCSoY8NCdIBXPgCUBE+tb0FyF7+VAbzGHOCDfTG7bmnaymgeYQCDHWqtsHg/v7Olc0mCsabtHcsQWJPEVrXj5iajLevvVdOmZsz6C5odYI17+ukGRAjy9/DS0YXpgEAmgIReMujZ+bYRAyIyRbMRD1z53DMvIEPXYmAYyNEEtTMYp+fXIgdy53tIOSnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kpk4m5gpbmtCblkhsqCW5v2o314IfvD2c2vGRNFPe7M=;
- b=PFrjAp1vRX2qje82SPJ2DH8F7E1UGlnhddGXXsVgTpwRm8Xoy3QC09sM1NiSuF4NX1FqagzM67UcwhFZaN0GRxSxvoA862Qhu1bwj0obUt6Xu+Aam6qEm065tpIRWL//U3XMoli8XiRLL7BdVQBJVcMUt/3qPHiDr3pkUXGRJZM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by MW3PR12MB4458.namprd12.prod.outlook.com
- (2603:10b6:303:5d::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Tue, 11 Jan
- 2022 11:26:07 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246%7]) with mapi id 15.20.4867.012; Tue, 11 Jan 2022
- 11:26:07 +0000
-Subject: Re: [PATCH 3/3] drm/amdgpu: add AMDGPURESET uevent on AMD GPU reset
-To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220111071219.5638-1-Amaranath.Somalapuram@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <1b35f6db-d101-519f-aac9-f30380fbcb34@amd.com>
-Date: Tue, 11 Jan 2022 12:26:01 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E1011363D;
+	Tue, 11 Jan 2022 11:27:23 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDD1B113635;
+ Tue, 11 Jan 2022 11:27:21 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id o3so32313980wrh.10;
+ Tue, 11 Jan 2022 03:27:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=wzSIvmK0FC7GKp/cmS9osW+9w8pDjkPKnFbNuusa8zc=;
+ b=o5n+iPCxXrG5UbrpvjBW6ksPyDQjoKNXdd72IPUJnnWR80oArksh8CcSos7cjf7xoK
+ 0EGMS4122inRXTjtZAHBEOokhfQMzriMC0m20tbs3BWiSPZqzqz3Ooomyx7YSM+KgbyR
+ f4gwdK4UIvbW/MF3ZDRSLnkjQPrM6eeJVBfBHjpphkbr09wzEw0OpjBqSK5L0vUz8qZw
+ 1tKbIV3leSjaMOQf8hlFJAiy6mru/knC8P5d8p2uDHj5F6BjVyDQlCrsUh2P/PWVrobT
+ OSqcuiKzF8/I8ZinapNvMrN77XYLvE0Lh1K8a1evCWAOxB8qoQPrNAgEtXxXwM8LvFYR
+ 7iUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=wzSIvmK0FC7GKp/cmS9osW+9w8pDjkPKnFbNuusa8zc=;
+ b=2TL0BBvWurtDq8XJ9wdz1ArRaPHl54akDbNfzdqw4WJo2JJO9zWAcwDpLgA5qKDKfq
+ PVORQeJTbMgCWsKNdYfRhJZVtnPcSd7F6e9QpmIiZMXz8ea+DJaGGQW8r0wSed8ZDGPS
+ sY9QitgovppTUqx6RBt/T8HgWwNV/Sz//ts3rhjz7t3wthQ/G3BPZ76BLkTr0eGasVG2
+ SRcKsdolHS3eGm/oU23diX2lc/QuDkfiF5dBex2Z2KJvobMg1XfgebDUQuz8cWG4D7fl
+ ZG/qDI3ppr/o6U+F8Z+ZO5qH3KKq7CVGPNy/P1mVxICitti0g0atP50URrwuWjrK1+u1
+ LQmg==
+X-Gm-Message-State: AOAM532rB3fb6w8julO+pz2yO7x3ej/8huihByKG3C8GXS1wps+zigv0
+ SYaw78fWNX65zvfZc1EhPtfE6f+4chw=
+X-Google-Smtp-Source: ABdhPJxAMn+RU3FYYyNaDOgzflxccEZip70wd3y3/om7P7zQuGMeLcXyVFqcfGRQS0BDGIdrrSkJrg==
+X-Received: by 2002:adf:fc0e:: with SMTP id i14mr3282401wrr.119.1641900440413; 
+ Tue, 11 Jan 2022 03:27:20 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id z17sm6257174wrr.4.2022.01.11.03.27.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Jan 2022 03:27:19 -0800 (PST)
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vdHRtOiBQdXQgQk8gaW4gaXRz?=
+ =?UTF-8?Q?_memory_manager=27s_lru_list?=
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20211109111954.41968-1-xinhui.pan@amd.com>
+ <da46c607-1a3c-7ea9-92ef-78a2b60d38c9@amd.com>
+ <DM4PR12MB51653AB0F1A0B89A41782B1087929@DM4PR12MB5165.namprd12.prod.outlook.com>
+ <76d78ff7-efe4-4796-ec18-a668757f2e04@amd.com>
+ <DM4PR12MB51657C53FAA6C096884118AD87929@DM4PR12MB5165.namprd12.prod.outlook.com>
+ <DM4PR12MB51658A8C75586BCC2B0BDA6487929@DM4PR12MB5165.namprd12.prod.outlook.com>
+ <DM5PR12MB246972E69DADF83D83FD9C73F1519@DM5PR12MB2469.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <04b252b5-b04c-a5a7-23ec-adc10024d317@gmail.com>
+Date: Tue, 11 Jan 2022 12:27:18 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <20220111071219.5638-1-Amaranath.Somalapuram@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: AM0PR04CA0005.eurprd04.prod.outlook.com
- (2603:10a6:208:122::18) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1cf478d1-8493-41e5-9b10-08d9d4f52941
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4458:EE_
-X-Microsoft-Antispam-PRVS: <MW3PR12MB44582FBEA4C240AE7C50486183519@MW3PR12MB4458.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fgWhG8f6BYXMLLqBBvrqGTV68wMXpayY+UhPuQ1n9ZebtSSPy3zkyJUeyMCpjIRZ2N5Rwpmo8DceWObC73YqWzBen4OhLpUumMr9RsVfymGH+RXspGbgOrObYEcELVtrG6fP0EqDVR8ecyEpB0RQYN3AHWOvV/P+Zf9NThWK2WO5UQnZYm++d6Mh1ppbBtDC/8s0MEUryGciqAVa/ap8rjLtN4dEEQGVQ+mopnk3RyWTqI03k+E77SEeb8h477FSVWjXKpbdSIqoWJ0BOD/LEuWYg+FVlM91aPVuSzyGfFgaxXTeOrC9tOJEYswWUTJ29OB2oUIM2DlUr0MDnbbea86pYnDZh8vbfX6MHt0Pb5RMLvHCkIGviQ5KNFQipGvnVMW2btqYL/KFIiAqBSduP0mLr1z0IH6CsRRyH7ZFCONp09MIUAuP4l7P+hSLkiYZsaawfTdSQQ1j5U49Tzg9DlsyZwm1YuQWFRSuobKvyTs48XO1sPYRX6bOHTCue+IjjFNsPcHQX7jW+PsOgGNUdhxgIBzVyLJzDlbvpayHTs1mDkg2DRCexyDSQ6VzHZ1U/L4ROYHwiCN4n4MYmh49m6DFvtFlrO3SNzZTCDw/TbjQ2EOyODusUSfXalqOR+z/moUbyOdVPHefgmaepNJgHyvuE3ntmwgfWEI4/8Ev5SbyZex8IcT/e/DvxEH1tuqvYQo18h85e7lB9F+OO3vQonWkeh8LAAhVNkJH2tR7KqOKeGmjh/sCiinFHQM0YdQV
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66476007)(508600001)(4326008)(31696002)(86362001)(36756003)(2906002)(8936002)(38100700002)(31686004)(2616005)(66556008)(6506007)(186003)(5660300002)(8676002)(6486002)(26005)(316002)(6666004)(66946007)(6512007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2Q0QkVlTjdZMnpxelVLeGR0TDlqcUJReGU0MFVZV0ZRNUx1Z0ZZUDdiZEF2?=
- =?utf-8?B?ZmRwZzBhOWxCNTNiRjhLQlpPT0NOM3dNaFJta3FxQlBmZE9qdWZSVUJ6Y2Fl?=
- =?utf-8?B?NHQzTjRyN0JQckNMRWo2K29td0ZYbzdXMXdMamJXTVhjY0g1VlNmMDllaEMz?=
- =?utf-8?B?bGROeUdrTHNUdm1lUXg0L1B0ekt3cFNyck1YMGkycS82UjAzbGZpMUx2eG1o?=
- =?utf-8?B?UldBNFlnSHBLdTMxaS9lbFFTM2JoZStQMSt2ZDQ4aStWYk5oeGhYRDkzc0tt?=
- =?utf-8?B?UjRYeXV2RmttOUpSTEMrTVdLUkpacWdEM0FQQ0ROekFVdzlvMmdlTTRRbkgy?=
- =?utf-8?B?d2FPTUJ0KzcrU0VNTFcvdVZDRkxXWEVIUVphekZrMU9aemNVY3VUQ1AxblRs?=
- =?utf-8?B?SEg4Q2hSejF6bDdNU0kxTFVHOUVXb3piYms2d3ZKN2dYWjRTSjUwcFlHU3I2?=
- =?utf-8?B?UXc2UjExMzhOdGJLVGxDcyt3WFQwaFRtZUJaYi9WN1Azd29KeGZ5VTloSHJp?=
- =?utf-8?B?ck5DYzBWWDhqcUJnUElWQytwdTk1a0MxQVpYZzdIdnhWSkJ6NFg3Ti9COERu?=
- =?utf-8?B?WlFTOC8zRU8xZU1MK1RXTC9RcFp6TnkxTVVpeWZkUXdBUzdZMkdsNE92Rmk0?=
- =?utf-8?B?SHMwUEZpajJPRnQ4TWUxNkhzR2F0UlpIM3RZNnBxSFZxaEtlMXBmYkZLZ1hj?=
- =?utf-8?B?YjlHYTI5Y2pRUHkwN3l2WFBYelRERGVaSmxsanlhSjhrNExzUENQalhzelFX?=
- =?utf-8?B?a1BWVDQyV3REVFkwTVhTN1h6RmpvWTN1cGtNZjUyeHQ3VUl3aXJRR0dmaGJK?=
- =?utf-8?B?OU1IRUwxYjNueVJjb3c5U2Fqdnp1dGZVUEpUbzlndlFlc0FjK2x6cUJnTFh2?=
- =?utf-8?B?RzdyOGpnWGUyZWN5TUduL0NOYlB2L29IdU00aVU4TjFHQ2xPZURKMEFpK3Zs?=
- =?utf-8?B?aFpHcit2UW1LV2kvMDl5WWVYWWJCeERpMVNuUE8rSURJbUN5RGp3WjVxakN3?=
- =?utf-8?B?UkVVeG5VQUhrbVkrS0laMGhVSS90REdMMVdkRGMxNm1wdFlYd1p6emQybzh4?=
- =?utf-8?B?YjlmalozdTVUSDQrMDUwN1crYVZTMTNhVG1wWUlSdlNHZjIrL01KUzI1L2F2?=
- =?utf-8?B?anBFdTF0akVGeFl3LzFlWVFJNUpWNzJ5bGhDSVkxOWRRZmwvWTNOZHVJaU4y?=
- =?utf-8?B?RWlyZUF2Vi9pYm9OWExHblo3RVJSN05CaGt0S1g4VS84WVVFVXNuR1R2UFB4?=
- =?utf-8?B?VjB2NE1hK3hPRHNuSGhjdEcxZEZDZWZhY2ZRS2MxWVd0enJCUWgyVWJwamRI?=
- =?utf-8?B?cnhWYnRYTkIyNlV2Y2IxeitEaXczblRZRmIrU3hBT29BckFJN0FSWjdVNmVF?=
- =?utf-8?B?VGtQSnZDTVIrMWc1SFp6RGs4NHVSY3JFWmRLYWh2ZW5sRHBUbUczQ3VvRDV2?=
- =?utf-8?B?UXBhdkJ3Mmd6eDlvdEZiR1BOWVVhajNrUnM3ajgvTlpoM2lHcWN1bmwxbC95?=
- =?utf-8?B?VlZHNkhaVEdBOGNVSmZKVHpldmhSWi9Na1U4Wkg3ZUFsTVpmMmVrQ1hnajN0?=
- =?utf-8?B?UC9SRklIdmV1VktJMVh5TWRSMTF2cFQ4bjhzY2ExU2ZBSHJyOTg1RlZnaE50?=
- =?utf-8?B?S0dIcFJkemE3cGtGaWdmZ2pyQW83bzA2U29ReGd4SXdHbjN1NWhkemFLZ0t2?=
- =?utf-8?B?VGNkRG8rRm1Ud1FqWWlDRmNzNytwaUxkRXk5OENDRm01aW1PU3Y1RGVpOEpC?=
- =?utf-8?B?MDE2Uys3Q3VSM3IxWXV0RnM2YythYXhZYnJ4MWpFNC9wUzJFUm05K0Nyc2Qx?=
- =?utf-8?B?UUIyWXFjV3kxcmx6WmV3MGlCNFdJY09iVzQvSmQ4RUU3NzVBdjFIYVluUGVm?=
- =?utf-8?B?Mko0K0VZeFJFS3paQUZZVTh3S2hjVWthcUZabGVMZlg0cEV6M3g5N1labXNC?=
- =?utf-8?B?WkpMREtxQTY1aytHU3RqVFhqQmFPbHJDUXVTQ2xZSGNpclovM3hLaWVESS82?=
- =?utf-8?B?eDhmV3ZSNTVKWmY1VEFWUVJIejVScTlrNXVmdWRDTG5SR2Q0NngrZjViaFhL?=
- =?utf-8?B?N3c0dVJFaEdYeHU1QkVMdTgzVHB4UHpTOVFqb0xZRFpuZEdYT0JkM0RHTTFP?=
- =?utf-8?Q?f6cE=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cf478d1-8493-41e5-9b10-08d9d4f52941
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2022 11:26:07.5439 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IlGdFDeUPuHFw6nwmRShh2eT1DmeykAx8+NYOm6BeTQG0mTZSWiOn4ID9i53wsqp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4458
+In-Reply-To: <DM5PR12MB246972E69DADF83D83FD9C73F1519@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,76 +80,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.01.22 um 08:12 schrieb Somalapuram Amaranath:
-> AMDGPURESET uevent added to notify userspace,
-> collect dump_stack and amdgpu_reset_reg_dumps
->
-> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/nv.c | 31 +++++++++++++++++++++++++++++++
->   1 file changed, 31 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index 2ec1ffb36b1f..41a2c37e825f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -529,10 +529,41 @@ nv_asic_reset_method(struct amdgpu_device *adev)
->   	}
->   }
->   
-> +/**
-> + * drm_sysfs_reset_event - generate a DRM uevent
-> + * @dev: DRM device
-> + *
-> + * Send a uevent for the DRM device specified by @dev.  Currently we only
-> + * set AMDGPURESET=1 in the uevent environment, but this could be expanded to
-> + * deal with other types of events.
-> + *
-> + * Any new uapi should be using the drm_sysfs_connector_status_event()
-> + * for uevents on connector status change.
-> + */
-> +void drm_sysfs_reset_event(struct drm_device *dev)
-> +{
-> +	char *event_string = "AMDGPURESET=1";
-> +	char *envp[2] = { event_string, NULL };
-> +
-> +	kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
-
-That won't work like this.
-
-kobject_uevent_env() needs to allocate memory to send the event to 
-userspace and that is not allowed while we do an reset. The Intel guys 
-felt into the same trap already.
-
-What we could maybe do is to teach kobject_uevent_env() gfp flags and 
-make all allocations from the atomic pool.
+IIRC we have completely dropped this patch in favor of a check at a 
+different place.
 
 Regards,
 Christian.
 
-> +}
-> +
-> +void amdgpu_reset_dumps(struct amdgpu_device *adev)
-> +{
-> +	struct drm_device *ddev = adev_to_drm(adev);
-> +	/* original raven doesn't have full asic reset */
-> +	if ((adev->apu_flags & AMD_APU_IS_RAVEN) &&
-> +		!(adev->apu_flags & AMD_APU_IS_RAVEN2))
-> +		return;
-> +	drm_sysfs_reset_event(ddev);
-> +	dump_stack();
-> +}
-> +
->   static int nv_asic_reset(struct amdgpu_device *adev)
->   {
->   	int ret = 0;
->   
-> +	amdgpu_reset_dumps(adev);
->   	switch (nv_asic_reset_method(adev)) {
->   	case AMD_RESET_METHOD_PCI:
->   		dev_info(adev->dev, "PCI reset\n");
+Am 11.01.22 um 09:47 schrieb Chen, Guchun:
+> [Public]
+>
+> Hi Christian,
+>
+> Looks this patch still missed in 5.16 kernel. Is it intentional?
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/ttm/ttm_bo.c?h=v5.16
+>
+> Regards,
+> Guchun
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Pan, Xinhui
+> Sent: Tuesday, November 9, 2021 9:16 PM
+> To: Koenig, Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Subject: 回复: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
+>
+> [AMD Official Use Only]
+>
+> [AMD Official Use Only]
+>
+> Actually this patch does not totally fix the mismatch of lru list with mem_type as mem_type is changed in ->move() and lru list is changed after that.
+>
+> During this small period, another eviction could still happed and evict this mismatched BO from sMam(say, its lru list is on vram domain) to sMem.
+> ________________________________________
+> 发件人: Pan, Xinhui <Xinhui.Pan@amd.com>
+> 发送时间: 2021年11月9日 21:05
+> 收件人: Koenig, Christian; amd-gfx@lists.freedesktop.org
+> 抄送: dri-devel@lists.freedesktop.org
+> 主题: 回复: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
+>
+> Yes, a stable tag is needed. vulkan guys say 5.14 hit this issue too.
+>
+> I think that amdgpu_bo_move() does support copy from sysMem to sysMem correctly.
+> maybe something below is needed.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index c83ef42ca702..aa63ae7ddf1e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -485,7 +485,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>          }
+>          if (old_mem->mem_type == TTM_PL_SYSTEM &&
+>              (new_mem->mem_type == TTM_PL_TT ||
+> -            new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
+> +            new_mem->mem_type == AMDGPU_PL_PREEMPT ||
+> +            new_mem->mem_type == TTM_PL_SYSTEM)) {
+>                  ttm_bo_move_null(bo, new_mem);
+>                  goto out;
+>          }
+>
+> otherwise, amdgpu_move_blit() is called to do the system memory copy which use a wrong address.
+>   206         /* Map only what can't be accessed directly */
+>   207         if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
+>   208                 *addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
+>   209                         mm_cur->start;
+>   210                 return 0;
+>   211         }
+>
+> line 208, *addr is zero. So when amdgpu_copy_buffer submit job with such addr, page fault happens.
+>
+>
+> ________________________________________
+> 发件人: Koenig, Christian <Christian.Koenig@amd.com>
+> 发送时间: 2021年11月9日 20:35
+> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
+> 抄送: dri-devel@lists.freedesktop.org
+> 主题: Re: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
+>
+> Mhm, I'm not sure what the rational behind that is.
+>
+> Not moving the BO would make things less efficient, but should never cause a crash.
+>
+> Maybe we should add a CC: stable tag and push it to -fixes instead?
+>
+> Christian.
+>
+> Am 09.11.21 um 13:28 schrieb Pan, Xinhui:
+>> [AMD Official Use Only]
+>>
+>> I hit vulkan cts test hang with navi23.
+>>
+>> dmesg says gmc page fault with address 0x0, 0x1000, 0x2000....
+>> And some debug log also says amdgu copy one BO from system Domain to system Domain which is really weird.
+>> ________________________________________
+>> 发件人: Koenig, Christian <Christian.Koenig@amd.com>
+>> 发送时间: 2021年11月9日 20:20
+>> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
+>> 抄送: dri-devel@lists.freedesktop.org
+>> 主题: Re: [PATCH] drm/ttm: Put BO in its memory manager's lru list
+>>
+>> Am 09.11.21 um 12:19 schrieb xinhui pan:
+>>> After we move BO to a new memory region, we should put it to the new
+>>> memory manager's lru list regardless we unlock the resv or not.
+>>>
+>>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+>> Interesting find, did you trigger that somehow or did you just
+>> stumbled over it by reading the code?
+>>
+>> Patch is Reviewed-by: Christian König <christian.koenig@amd.com>, I
+>> will pick that up for drm-misc-next.
+>>
+>> Thanks,
+>> Christian.
+>>
+>>> ---
+>>>     drivers/gpu/drm/ttm/ttm_bo.c | 2 ++
+>>>     1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+>>> b/drivers/gpu/drm/ttm/ttm_bo.c index f1367107925b..e307004f0b28
+>>> 100644
+>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>>> @@ -701,6 +701,8 @@ int ttm_mem_evict_first(struct ttm_device *bdev,
+>>>         ret = ttm_bo_evict(bo, ctx);
+>>>         if (locked)
+>>>                 ttm_bo_unreserve(bo);
+>>> +     else
+>>> +             ttm_bo_move_to_lru_tail_unlocked(bo);
+>>>
+>>>         ttm_bo_put(bo);
+>>>         return ret;
 
