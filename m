@@ -4,118 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE23C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 13:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0E25C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jan 2022 14:26:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E330010EAD2;
-	Tue, 11 Jan 2022 13:58:02 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2074.outbound.protection.outlook.com [40.107.92.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 716A710EAD2
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 13:58:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RVMRO6VTtbHgPYq010YsAteP2IGf+5joOtcAGNwuUpcHLxUA3ivpWpID9GWiu1ezjVTl8XxH+Rp3uPUIsD82FP6ppXhYAkFvnsn9BWFqA38OiV5C7caJ0435MWhD5EzSKesUp4wHU6IqpL6oFBmcmdxAypxXzpeKyC0EMWOxBJqvUciXOPDzR6JNIP5MbWAnVSEF0e0Z49kiSKk/dL8KzBeIyi8JHzhRSAZYKT//NB94IGips2xuQPKSIgYt+yE4bOsy/JDs2eO8rLJXw4OINPCyW4L7/Xddt6mEbYrv3c2/z78XioWwUU0oCZWnpqUNlVO9F1+PKmwbVlgZq+pokw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QVlHMXxOiqVCjSq3qAn5X0QowuuatzBRx1TkDFeeE3M=;
- b=lfgPvkwhGOGIyt2Flg1iYNoOaVGdfGvNdwXAh9KLGunzdOZi7ZPOgBBvzvVCXGfpUwfpPTFrz1aiIQDV5YieSM6hYPWu5dJI35vxid+RNbSfZtIAw0yZWj+v7cLJzPdjYMtvqg2LeE6K8UqW5d6oyIfbzmqme6ukWYDEzyJLgzIE66ormJXZMmqSj4jAq5i7kqhsdzUMyKEtEMA0PXmn9ssVK2fGDklTIgJxVrx2+wnC+FcswYVfwYv3ApjD1ZXqQEypvA0v0SyxNk8IX5rjeFhTkMhW7Yi7MT7scUJYe1lnG/4LAjYEaobaJ8l8WF6JhwoR+7wqfn5N2DZj2YkgbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QVlHMXxOiqVCjSq3qAn5X0QowuuatzBRx1TkDFeeE3M=;
- b=jwjuTtPaE+KgwdQs4iyRy1uzfWAPK6b4mU+ooYoTsRKuH3kdOdtYfq4ukvohQGlpS8yjJlFhJOB4G8C3vlpt0iUYbH3H7Hcx8oDKsFkoJ2vwKcqVtSvVIpCX6AaZGNqLjrNy1Olk4DlQL3O+XS/QTqvvaNMYg/Rr4GtujdzKluM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2896.namprd12.prod.outlook.com (2603:10b6:208:ab::22)
- by MN2PR12MB3422.namprd12.prod.outlook.com (2603:10b6:208:ce::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Tue, 11 Jan
- 2022 13:58:00 +0000
-Received: from MN2PR12MB2896.namprd12.prod.outlook.com
- ([fe80::44f7:66fe:4419:d8d3]) by MN2PR12MB2896.namprd12.prod.outlook.com
- ([fe80::44f7:66fe:4419:d8d3%7]) with mapi id 15.20.4867.012; Tue, 11 Jan 2022
- 13:58:00 +0000
-Subject: Re: [PATCH 1/3] drm/amdgpu: fix warning
-To: amd-gfx@lists.freedesktop.org
-References: <20220110201929.1949571-1-alexander.deucher@amd.com>
-From: Rodrigo Siqueira Jordao <rjordrigo@amd.com>
-Message-ID: <2ac0f3fe-afc5-1fe5-300d-4d7bbf0a9f80@amd.com>
-Date: Tue, 11 Jan 2022 08:57:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20220110201929.1949571-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0428.namprd03.prod.outlook.com
- (2603:10b6:610:10e::23) To MN2PR12MB2896.namprd12.prod.outlook.com
- (2603:10b6:208:ab::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48D5510E40F;
+	Tue, 11 Jan 2022 14:26:22 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA17710E532
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 14:26:20 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ a23-20020a9d4717000000b0056c15d6d0caso18682356otf.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jan 2022 06:26:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=EaK5v9cHZ51ZB5vCALmIvlFFKiU62GKCg+Y5LeYv0zs=;
+ b=FNCRRIZ8k5C4bL+FpppcNg1MX6BsXGN5aKbS/x5eSlUIAoqEu/UrZasC/CTWGGs3zs
+ vfMkqE+I6SfhPezOqj1SYoQvB7v0/4L3rm32TAdUUA1PZwbSEIBSOZFXf4cQUX/1hgre
+ Ozayd83uzm0hlcNnpFi9f0dWJB2FRza7rBJbD7vnEpblooIXIHfQv7l5ZieNEMP+E7Yx
+ uZI2IuzUjux7qhcKP5kUtjEbqD3hDgCgwHp5oCvsoAWSws07Gb+G64uKdCvKvS41qf8u
+ BDAaGNU69OAid5WDCLRV44vGfjqKUXp7ThTFsFkSakmXpzb2ja6g9D0q7Cyd/bF/fzt+
+ EjOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EaK5v9cHZ51ZB5vCALmIvlFFKiU62GKCg+Y5LeYv0zs=;
+ b=h/1aGvBrWicD6Sj98gQyIc12CmKb0J5PAuwQMU8ZLt2glgRBBhKtrSpNHkL1tnZKHB
+ s56ly7GZDfTt8IfQuaB8L+nNbPhmcL4hU/AAUBSl3syiHcdiFU6iq5Hfw+jUliBK4aXH
+ QIDvq8qrKDLdNPOnuZKOze8iEJ/gzZCSd5Xly7wAPpraBejjkYrSQWW2GZYIFUFxhZKk
+ tOPRVRjWhPYklg7fb9qe17Tu2545iBjW/zmSMPPXjcYOfr6aNO8feGqs0UEsHaE4OXzp
+ K9ZszyXffGEH+4mZWG1Pnf9ACrVtY0WT8iUI7+U3S0bsbdnzim88mRfipzOXppyRMJ4l
+ 1DsA==
+X-Gm-Message-State: AOAM533C8kLyuifd/EhCzF3ENthjpgKkhB/Txg9ZQ7zfagyIAjjtRRIY
+ reka3FqiaUYLrbBGT4o/wmgTwBF5qU08MkGAVOc=
+X-Google-Smtp-Source: ABdhPJyYV5/erg1hgN7nhJ0HVnjLKymwd+0jL8ODX8DOFQghDuqIvYK2iliCWh/RWVRAlWKDPZ74DobbQj98fdZL1zw=
+X-Received: by 2002:a9d:6390:: with SMTP id w16mr3582119otk.200.1641911179991; 
+ Tue, 11 Jan 2022 06:26:19 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 55738c33-f9f1-4726-7f49-08d9d50a60f9
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3422:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3422391340422BFD1E7D01B498519@MN2PR12MB3422.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kAU9r7JX3phWTNIbFO87fH+44jRiQGmEB1hPIxQ5xihCVopV8xHQlbzfVxU6xOt6eTr6YFeXeFUOvd0+pC0p45vOXly6e79yb6YwvksUUw5BkzqYrw5TD1SQZGmokmWJ7QJ9JrEC+s4Qq+S8RTPWxAlY3Tgw/HP8jD14H1m1U4iVYiHaCcVH1emudm4GcPqYYNVsbNeuFHZxzqDJ1Hcmc598NWqPFjUWarvxVJZCC75vEuN9by3Btcb2YDpO9Uv1lFbj8YY7aCJs0ZEhw7XKdPAaaDXQoyURGv16HmKBXSFHJbJGDSJ3WZ7Gt3KwapIdoI86m1swdhPJ2irVBzAhq0iEJCrDrNQCpwxC56MgITbL2hAR6cYQm1bmYvNFkr05QITd5o8O4N5D0ITANaBMa9BP1MXBS3ZfA3itjpOwMKbVpjfMekPyaZ1nng6uTgqVMHXQ4xOdtrGnnSgwyeyX2Ny+djV9Owy458Qg9p1bEOxGi5JR5oMMNRtSkoqEcRbldJ4pOVRKAGoKyLQQb0rrRB1lJ8+gpWzyfJ4fdarfLHBgHlPVH9xWc2NyR9gQRPxrp9s5iAi+vgMo5H3xeT9N/3gkfBnpXhM2iXHmQ8JkKrphtHBvJKdwP2pMAuiMVkW1SlwjLwDVxvVkWo28OFLbFFXEoZiUE0QOrvAiqxdMkQN02sF6NH6vtUCdbwLIanP7KfhBzVfh9OcQvBNqrTxKJZbQ+rkHdiLd+bJIrACPnbcJaSYAScX5SYy1rKAIfAB1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2896.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(66476007)(8676002)(66556008)(53546011)(31686004)(38100700002)(66946007)(6486002)(186003)(316002)(2616005)(83380400001)(31696002)(2906002)(6506007)(8936002)(6512007)(6916009)(36756003)(508600001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUxBeUx1L3RubFlrRUZZNGZMbENwV1Y1ZzJOUG9wU0w1QXh6UGV1TUU3eHVx?=
- =?utf-8?B?UG5MY05vSlJ5TUVtdmRrSWt5d0d0LzdqY3czcFNUdmM1RU1xUGJGUjNMa3lz?=
- =?utf-8?B?TWU1UStmUjdvNHVDaHphbWVyWCtKQ2hrSmhDb1NWZkkwOCt3QmV2aWR3WWkz?=
- =?utf-8?B?KzlxVHduZVNBdytDOGZGWXg2aEZtSXUvKzI5a1Zna200dDBvdFVsaUhld1ZZ?=
- =?utf-8?B?Y2tsODY4K0pLa09CMXAzK1pXa2M5SDROU1g2N3R1aFZBcjQ5K2VCUFcxSlZP?=
- =?utf-8?B?emlSK1ZWSG9RL3JuQ3J6aFRqdDEvTGRzM3lFdWpYNnNZRjh3TnVDNHIxZFBo?=
- =?utf-8?B?bnR6UG1NUzhZTlRwVFZja3l3dG1QZVg5YStnS3J5Q0VIeEhBMk1jRGZFY2ZL?=
- =?utf-8?B?R29mckxvT3VqUkNhbWNLUWY5SVUxbG5NVzU3RnRsbWpqS3RxWXZIa1NEYjlk?=
- =?utf-8?B?OXhsK0U4SmFid1F3SWk3d2J5V0IyUDhCR1paVFQ0K1FHSU9paTdhSDgxWmNt?=
- =?utf-8?B?QklrWDU4ZDM0VWp3V3l2cmR6TW9DVDV5aG9DQ3F5bWhXbXJKQmVpTUtCQWcx?=
- =?utf-8?B?T256VEJvSm1KcUswRXdORFRxaDFlajJQMUV0UThwVEtBWHlBZ2VXU0wrMlpw?=
- =?utf-8?B?NTF5czl0V1pSclpIczdvNzlwOG5oWnpmT09iWWVEWUJvc2I2T2ptY29DTHdt?=
- =?utf-8?B?Qk1BK2srZmMwbUpiSTlnNjdSaFdEM2pzVnQ1NGh1MUtoTWlnaElrMTFrRGZk?=
- =?utf-8?B?L1FJV2lkK1dESnUwSDlvM3EzbEFGak15SE1KcktYZXVoRmk1ZXE4MGNWaTU3?=
- =?utf-8?B?dGFTc1BWMVk1dzFnVy9QRTJvRkE5SzNpS3prYnNSRXlZeWo3cmtGK3BHTmh5?=
- =?utf-8?B?ZmJmUnM0OGlJMzVORm02cHRGdjNBMVVPSG8yWlJjaHEwb1hsREhiMi83ZWs3?=
- =?utf-8?B?VVFYWHlnRnJvOG0zS2xjeTlRNzBiekhRN3NmQWVKVkxoeEFNVDd6Si8xVWNt?=
- =?utf-8?B?RGJLRHZnalZvTW50V1NLWnhVLzJ0M1NZOGxzbkdPdm1LbzVQTWY4RzlYL241?=
- =?utf-8?B?WXExam04RjBldFh4UmxZeGtZWllxYXNqbnpRaVdhdHFDbmpHL2NqcmJuOEVV?=
- =?utf-8?B?MWFpQTVqd2xWTVk2WGJDTGtTYmlNK3lLdTJ0TGtBUnZOeHZiaEtDZkFRN09K?=
- =?utf-8?B?OTkwa3VoRGk4WUd2Nm5iWkpGcWlZQnJ6T0NUV0lvYldubDMzcE9mOE9zc3R6?=
- =?utf-8?B?RkJoNnZCWGJBMUdreC9BdkxyTkZoL00wbWVsOURvVi85Wmc1Q0pXdTVPdWtn?=
- =?utf-8?B?VlVjb1orc0NmRzJ0cFhNRTMzRmFLYzllZmQ3cmJsYTM5N0M2dWpncHVJakVh?=
- =?utf-8?B?dHZGY2w5UjMzcnZTcG0yM0ZJZTdHMmlrTFpsbFNzUW5UMlRIb0xYbjZGOVZF?=
- =?utf-8?B?dXlqNVMyemduRUVJcDA2aVBoNFB4NVVnbE1uZ2VkUE9VQ2NqaFh3QWMrZEVZ?=
- =?utf-8?B?MmpWN3JnSXNCTkM2NzVqNGNsOG8yRUwzeWVuWmxVMG0vTUZVRGVZekt4VzFx?=
- =?utf-8?B?WmJZWDRpa21ZSmg3c2Q2dmZZQklodm5wcmlwNXBnSzd5YzRZcDd2c2lqc0Qr?=
- =?utf-8?B?NHpyeGZjQTJ4ckp6TDMzazFNenRUVTBvUUN2UTFydnI0QldzeXowMlVSOUpB?=
- =?utf-8?B?cVJNRGIrNXJ6V0ZVQjZiaFRpU3Z6bkRmcUZuUko4MU1oOENEVVF2MnBwb3Z2?=
- =?utf-8?B?UnUvRnhjZTJkbjhXeUgwUVEwaHRSTnphbzBFZEExNGhId0JGNnU3SGJ1MCtn?=
- =?utf-8?B?L2p5M0NOYzhOazJEdlRBeVlMNXovejI5ZTNaUkY5UUtzYitibjF6VjF6T1Iv?=
- =?utf-8?B?S0ZQWkhHbDVBLzE1KzNZdEN3T3NLS2F4bGV5T2xOSVczY24ycGY4SWpQMzBs?=
- =?utf-8?B?OUhVTDdDNVc1d2k3Skc5ZXZzcGI2WkxhdXU5bTAyQlVaOEMxb2dQcy9ZMk5S?=
- =?utf-8?B?RzVLUVBvenBaRkhTend6Smh3bThxRGJVRzY5L0p2Z0ZLS24wQ2FjWTYrODdo?=
- =?utf-8?B?ZGZEL3RGbkVsVUh2dUtUaElWK2c0RWNibGlnWURtZTRJSW5JcWxMOXVFTnY3?=
- =?utf-8?B?dVBaaWRCV1NWeDFUcWMyMWJzYkVUekZpalB3Z1A1WElsRHltU1NIUitCcFF6?=
- =?utf-8?B?bEg3US9KWkZGWkhCZGRWeXhzcHc2NForN2g0Ky9hZ1J0dTdOS1hGSTlVejZH?=
- =?utf-8?Q?vwCt3vurY75gMS2CAgYJmKEpdIOW/jAa7WORkXUJ0o=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55738c33-f9f1-4726-7f49-08d9d50a60f9
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2896.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2022 13:58:00.4148 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qUjiYMuvuI+viOWslPs5dqfUop2WKUInyYMNkb6DbP4SbmwXluSQJ0B/E9fIoHuOZBj2beLkzDgF/CA2vnVpvQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3422
+References: <20220111071119.5464-1-Amaranath.Somalapuram@amd.com>
+In-Reply-To: <20220111071119.5464-1-Amaranath.Somalapuram@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 11 Jan 2022 09:26:09 -0500
+Message-ID: <CADnq5_PdtKnRxvQFJpFr=22FOiaw4PzFHnd18SZGDTmX2gnVVQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: add reset register dump function for
+ gfx_v10_0
+To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,40 +62,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 2022-01-10 3:19 p.m., Alex Deucher wrote:
-> warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
-> 
-> Fixes: 8c50db2f64ee ("drm/amdgpu: Adjust error inject function code style in amdgpu_ras.c")
-> Cc: yipechai <YiPeng.Chai@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+On Tue, Jan 11, 2022 at 2:11 AM Somalapuram Amaranath
+<Amaranath.Somalapuram@amd.com> wrote:
+>
+> Implementation of register dump function when the AMD GPU resets
+>
+> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index aa8d614009d4..478457637d29 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -949,7 +949,7 @@ static void amdgpu_xgmi_query_ras_error_count(struct amdgpu_device *adev,
->   /* Trigger XGMI/WAFL error */
->   static int amdgpu_ras_error_inject_xgmi(struct amdgpu_device *adev,  void *inject_if)
->   {
-> -	int ret = 0;;
-> +	int ret = 0;
->   	struct ta_ras_trigger_error_input *block_info =  (struct ta_ras_trigger_error_input *)inject_if;
->   
->   	if (amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_DISALLOW))
-> 
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 55 +++++++++++++++++++++++-
+>  drivers/gpu/drm/amd/include/amd_shared.h |  2 +
+>  2 files changed, 56 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index dbe7442fb25c..dbd74204f06d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -7466,7 +7466,6 @@ static int gfx_v10_0_hw_init(void *handle)
+>  {
+>         int r;
+>         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> -
+>         if (!amdgpu_emu_mode)
+>                 gfx_v10_0_init_golden_registers(adev);
+>
+> @@ -7580,6 +7579,59 @@ static int gfx_v10_0_hw_fini(void *handle)
+>         return 0;
+>  }
+>
+> +static int gfx_v10_0_reset_reg_dumps(void *handle,
+> +               uint32_t (**dump)[2], uint32_t *n_regs, char ***r_names)
+> +{
+> +       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +       uint32_t i = 0;
+> +
+> +#define N_REGS (17)
+> +#define DUMP_REG(addr) do {                            \
+> +               (*dump)[i][0] = (addr);                 \
+> +               (*dump)[i++][1] = RREG32(addr);         \
 
-Hi Alex,
+For soc15 and newer asics (e.g., vega and newer), we need to use the
+RREG_SOC15 macros rather than the regular RREG macros.
 
-This entire series is:
+Alex
 
-Tested-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-Thanks.
+> +       } while (0)
+> +
+> +       char *reg_names[N_REGS] = {
+> +               "mmGRBM_STATUS2", "mmGRBM_STATUS_SE0", "mmGRBM_STATUS_SE1",
+> +               "mmGRBM_STATUS_SE2", "mmGRBM_STATUS_SE3", "mmSDMA0_STATUS_REG",
+> +               "mmSDMA1_STATUS_REG", "mmCP_STAT", "mmCP_STALLED_STAT1",
+> +               "mmCP_STALLED_STAT1", "mmCP_STALLED_STAT3", "mmCP_CPC_STATUS",
+> +               "mmCP_CPC_BUSY_STAT", "mmCP_CPC_STALLED_STAT1", "mmCP_CPF_STATUS",
+> +               "mmCP_CPF_BUSY_STAT", "mmCP_CPF_STALLED_STAT1"
+> +       };
+> +
+> +       *dump = kmalloc(N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
+> +       if (*dump == NULL)
+> +               return -ENOMEM;
+> +       DUMP_REG(mmGRBM_STATUS2);
+> +       DUMP_REG(mmGRBM_STATUS_SE0);
+> +       DUMP_REG(mmGRBM_STATUS_SE1);
+> +       DUMP_REG(mmGRBM_STATUS_SE2);
+> +       DUMP_REG(mmGRBM_STATUS_SE3);
+> +       DUMP_REG(mmSDMA0_STATUS_REG);
+> +       DUMP_REG(mmSDMA1_STATUS_REG);
+> +       DUMP_REG(mmCP_STAT);
+> +       DUMP_REG(mmCP_STALLED_STAT1);
+> +       DUMP_REG(mmCP_STALLED_STAT1);
+> +       DUMP_REG(mmCP_STALLED_STAT3);
+> +       DUMP_REG(mmCP_CPC_STATUS);
+> +       DUMP_REG(mmCP_CPC_BUSY_STAT);
+> +       DUMP_REG(mmCP_CPC_STALLED_STAT1);
+> +       DUMP_REG(mmCP_CPF_STATUS);
+> +       DUMP_REG(mmCP_CPF_BUSY_STAT);
+> +       DUMP_REG(mmCP_CPF_STALLED_STAT1);
+> +
+> +       *n_regs = i;
+> +
+> +       (*r_names) = kcalloc(N_REGS, sizeof(char *), GFP_KERNEL);
+> +       for (i = 0; i < N_REGS; i++) {
+> +               (*r_names)[i] = kcalloc(30, sizeof(char), GFP_KERNEL);
+> +               strcpy((*r_names)[i], reg_names[i]);
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static int gfx_v10_0_suspend(void *handle)
+>  {
+>         return gfx_v10_0_hw_fini(handle);
+> @@ -9359,6 +9411,7 @@ static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
+>         .set_clockgating_state = gfx_v10_0_set_clockgating_state,
+>         .set_powergating_state = gfx_v10_0_set_powergating_state,
+>         .get_clockgating_state = gfx_v10_0_get_clockgating_state,
+> +       .reset_reg_dumps = gfx_v10_0_reset_reg_dumps,
+>  };
+>
+>  static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index 4b9e68a79f06..98291a8f57dd 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -298,6 +298,8 @@ struct amd_ip_funcs {
+>                                      enum amd_powergating_state state);
+>         void (*get_clockgating_state)(void *handle, u32 *flags);
+>         int (*enable_umd_pstate)(void *handle, enum amd_dpm_forced_level *level);
+> +       int (*reset_reg_dumps)(void *handle,
+> +                       uint32_t (**dump)[2], uint32_t *n_regs, char ***r_names);
+>  };
+>
+>
+> --
+> 2.25.1
+>
