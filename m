@@ -4,120 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D160C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 06:28:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E1BC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 07:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E517810E59C;
-	Wed, 12 Jan 2022 06:28:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D54F10EFA7;
+	Wed, 12 Jan 2022 07:00:18 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC35D10E537;
- Wed, 12 Jan 2022 06:28:44 +0000 (UTC)
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 449AC10EF94
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 07:00:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oQTIF4/jbwo7mvmiMF6R4Oq92WGIIzYVzGUSC2xW0RuSG7yHTJ7mhVhWbk1fW1iQs/uW2c2/PaQw/m1fKrP1Vxj19Y6CQpeUIHqnOhuDqBttqBGH+hK2v2s+wMR5EkP+IdIvskeLhAjqw+JLGa+c3txdg1M2JSgbbNS9/H3ShkGzxvmTZbecb02Iz+kAoABX+BUGskLrN548EI7gx+Y4Z6Qb2PMvHxiT2Qwi4v6T5gpczjhXnhzE4EibqVm0c076g52zUeFviXYHGYA4T0HZWt/pi2T2O1F+XCtAoYzLrUuWSFXZdTsdST1dnY79CxKN68/4oLvkempQi+0VUkIvfw==
+ b=Gd791PkZqyJsKtRp0YNPnf+6KASqn+WLRLxDKD46A9VpVohRkhe4eV+M/lLcQOHn494ldLFDWC6CMTIvmtoAG9ssXlD4YXPKrMODeDqzBHkgM3LkrkB4DUSBlkkfDAjKUN5XdLp5hnvv2mHbiHnihsJ+OLLucmTKp9bHdoOv0jYCRPOuRUFPw8xJy2FyGTciDzo2Kpe5FV2SkkH9sRQtbLaUFiR69DULlZXmi0IJw9RlfNM9qvN/Hnn0GuBKdTL7xNqySaC8oBHK0/fXq9K06N50oE+hTHo5vlw9WW85HJUMWcnTaZ/mZDfabYVeMAPe8pB5B8j1x0Co5lRAPzA8iQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=80odTjt+edlWDmeu1+962i19j6eCcuNlE3md1MUZP7A=;
- b=oItJdEe8OYj4TXG6/zIODB8Zar7vGyUQ6UHeOJZs6xZrZ2vIr26FGwwd9O524vFxj3OdaZeV2+qqcepWNbdffjbU0I7+gpAZLRCkv0UwqzcJFCFX8jmD7mGadVzfMIPLxqJ3BFyf3zggvV5xg7jZwmBvbHHopmSvw1urpTp9F+tPMQ+PukUOoxQBCkA05sndH29xkM62UxUgwKzxTI+HS/jOrtYeMgo25hgg1oXzdAhrEWXeJphMys6P1b6uxC8cntbYSZE3ogpg22aBqaY5GWv9qKPn4KmIivZz39eGq9pICXTKyouPl27z6P0IOc68DpGnO08+X3oFnf9G4QVNAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=PI53NsO0tQJxtvYF1QKlTYKRG+UObfl2xcKCfd/jbeU=;
+ b=F0hi761lLz68kGqePWS3Rb8R9xj+WnFIfhrUIaDOMpFFq4zcSasdrpgSfQA3Q0/87xghSrGPVy1dpdXsWt8/RD9t1i2JNUXKeORwmHfNDRSNCDQpAZ6nnYYTrkbyGRIa5i/mRCJvX1+Rw5sKdcTu4MblUz2XG7HxbgxqYggk5jGqKZp6NL8zpo/8x92VP41n+y+jtp5FSMg01f3zIkA24YVucl6im8l2m36QDVXVsq6/QRiDZibTpp0HTeq9eM3Xn9YQRvV1UlGvCIt+DdV4rzj4sqYJldsw23tBdNl5/ENFHV54Jcg8SicdZ3Z5fwm8ggaq2F4jAwCBCzZVl1oGSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=80odTjt+edlWDmeu1+962i19j6eCcuNlE3md1MUZP7A=;
- b=SDxhFYKOiubTW2sfDh8CF0UOdcidF0CEBd+jD7H65XNFTdpjcMsahdlQxvofOXxcWGQLCKkvxWK7T6/cq9holjmFoTROi3nx+0XLtzmEGsuzjp56z5YfYTRZMBNDUJJ5oHMLEbZ30+OBMW04hsb+PKs+p4t2VqN6wFZ+ittVAIA=
-Received: from BN9PR03CA0422.namprd03.prod.outlook.com (2603:10b6:408:113::7)
- by DM6PR12MB4563.namprd12.prod.outlook.com (2603:10b6:5:28e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Wed, 12 Jan
- 2022 06:28:42 +0000
-Received: from BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:113:cafe::48) by BN9PR03CA0422.outlook.office365.com
- (2603:10b6:408:113::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.9 via Frontend
- Transport; Wed, 12 Jan 2022 06:28:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT005.mail.protection.outlook.com (10.13.176.69) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4867.9 via Frontend Transport; Wed, 12 Jan 2022 06:28:41 +0000
-Received: from [10.65.96.204] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 12 Jan
- 2022 00:28:37 -0600
-Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset protection
- for SRIOV
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "Liu, Monk"
- <Monk.Liu@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>, "Deng, Emily"
- <Emily.Deng@amd.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Chen, Horace" <Horace.Chen@amd.com>,
- <kaili.wang@amd.com>
-References: <20211222220506.789133-1-andrey.grodzovsky@amd.com>
- <PH0PR12MB5417F12B403B8181D5CD03988F7F9@PH0PR12MB5417.namprd12.prod.outlook.com>
- <cc8e296d-360d-9a2f-85cd-f47d55581e99@amd.com>
- <f5ba0a69-1cae-7d8b-bfe7-4e4400e9c32a@amd.com>
- <2dee6f65-9ca9-a332-7206-f24021fb4c44@gmail.com>
- <b5a31f18-262d-951e-2530-bdb0738e5033@amd.com>
- <20363a4e-b282-232d-34d0-14867bad4931@amd.com>
- <BL1PR12MB5269922395096810CC79E66D844A9@BL1PR12MB5269.namprd12.prod.outlook.com>
- <23bebf13-c622-7c61-af88-0e0970b90389@amd.com>
- <a74c1198-6027-6a0f-55a8-24227c868704@amd.com>
- <c41f0294-fd64-cf16-8c22-994a7a2ed157@amd.com>
- <821c0b66-8c9c-9dff-a328-bfbc2233d4ef@gmail.com>
- <eecdf721-bdd1-0bc1-70c0-29bc8b844d68@amd.com>
- <b23a5387-7bb1-ef1a-82f5-a012cc530203@amd.com>
- <1f876e45-964e-3796-b7b7-24a7ac40fa90@amd.com>
- <a40beb3f-5ace-1932-8918-18c10339afdc@amd.com>
- <3dad24dc-b060-1739-a0de-0904e70ddaf6@amd.com>
- <a04dfafb-e65c-451d-e429-ae596d35a98b@amd.com>
- <b0711077-9f41-3b2f-5e4e-b8bf97f54809@amd.com>
-From: JingWen Chen <jingwech@amd.com>
-Message-ID: <af474db1-b40f-b365-beba-3f964b84cf90@amd.com>
-Date: Wed, 12 Jan 2022 14:28:35 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <b0711077-9f41-3b2f-5e4e-b8bf97f54809@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ bh=PI53NsO0tQJxtvYF1QKlTYKRG+UObfl2xcKCfd/jbeU=;
+ b=SUTZT+02owrDW8n/QF6q2oQZUNTydum4Ju3B+bKLYzRThHw613MyH/8ytHxwyTyKKDdKo4HkOpiwYkch4nP86YOhE1/rWzZ4v3tYcyK5y7XP/eSYZ3YXt0Tku8NU1dy9GK2tm9GL8C/HFmU42Zobrb4a007MgS1iu2VvYif8ilQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by BYAPR12MB4758.namprd12.prod.outlook.com (2603:10b6:a03:a5::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Wed, 12 Jan
+ 2022 07:00:15 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::9c25:ce1d:a478:adda]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::9c25:ce1d:a478:adda%5]) with mapi id 15.20.4867.012; Wed, 12 Jan 2022
+ 07:00:15 +0000
+Message-ID: <13f1822b-9723-e8d9-b3c7-9fe48bdf7cb4@amd.com>
+Date: Wed, 12 Jan 2022 12:29:55 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH] drm/amd/pm: correct the checks for fan attributes support
 Content-Language: en-US
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220111124112.52884-1-evan.quan@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20220111124112.52884-1-evan.quan@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BMXPR01CA0005.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:d::15) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9b423edd-c46d-4d1b-f7e2-08d9d594c6fa
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4563:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB456342DBA5C639B036A8415BB7529@DM6PR12MB4563.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 29b84d10-3cdf-44fd-e0ce-08d9d5992efd
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4758:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB47583AF4A1798317B0B2CD1797529@BYAPR12MB4758.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 19cuOdx+PYHtASnecj2FrQIBdO6s6oMX2CmvrigES0QOALh+MmNezIx7vTjMxeigrL5W2/d2KTnASBp5LzyFJIL/rmVZnTWHjzHwYZQRRSB6EFuCzgMGint7Miu7bFsRwwN+A24Zg575xpjBffKygNNc1mLMaxG+rSWRCQwaXrDkjLtk0DB9rtEv5p+nWO6rIVYiMRiVFEmjj7bbwfH1BIV3DPNTelkH7AntKH43HeAiWgcrziDTpggYH/htf+RVqk0mCAGikAwp9Bim0Prj3Dp4/46y9vPC1f39Lx5wbMFD7NRFno/1CnMTV47wO6KzR2K27ax0Lo4MiNEpibXc4BkkUrCijnMs02kQL5t6m+9XwJYuRkbXxr771ZB/VCwzi/pRecJo36ujPhPsvJsQfTx4gQqpgkG8L6AqB07zpgKxdRFYzvBdHzIOD/XMRRTddhPmactCxSPE1MQGzDvxZHlRKZjWEv66WzVD9+SxCuC0SzPUhCzhgJrbIKOZ1QwLbXuL7V/JlXmSu7w2+18WKQDfV7uVK+eemg30ZLZrxjlMMVrosZpiUk38GWNTbIAdvLGq5brKFO/JjabbwaT+kFUJKFj5uavhMfyYH3WcnHEuwUBRg5Sk894T9AWcVa69FwlsZ6F68NM5W/891tUvPKeiBtUV+80JSPUJl89mos3dlEu8Dk25khIFMOL2+16sfn+iuRmMlk9zO/vFr+DEVD0GouFYBfxCkPp931rAvnYRNzAtSpE3O3Y76Y3rDpd6lz5fLyWgjkn9mtISAD4I+1T4y6AiL1UNusrnuceT8U14ncrm9G5CYCefROI9iFSPn53ZRD9feqJ1jeFTlouLrPqrLRNAHVztMTLgazRZ1D8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(40470700002)(36840700001)(336012)(31696002)(40460700001)(47076005)(8676002)(921005)(6636002)(4326008)(53546011)(82310400004)(31686004)(4001150100001)(316002)(36756003)(16576012)(81166007)(70206006)(426003)(36860700001)(186003)(356005)(66574015)(83380400001)(16526019)(508600001)(5660300002)(110136005)(30864003)(8936002)(70586007)(2906002)(2616005)(26005)(43740500002)(36900700001);
+X-Microsoft-Antispam-Message-Info: cOjcjpTKlhj0UZdz+JdfShRxDdXSh0FaXa0MJUNWOarVkcqmyKkCrcdOznYG7tGD4UZcWrEPVQ1t4SENu4BGoPsMfdZD1iHProiNRm5IDrU7wKO7kRmKR6ptgoCm7L127eDQvhLH/tF+PaiafPcK0iT3xNnBmarzmTZn79dSaKEtOPzOr68HnrTnW4Lh2O3QgUlqNeUXJXJEAraAlU2t4wCy4LCb8WsmtW/f5RmH2e88yyyjpp4FGTt2lnWliaZexDvH+wjmYq63buoqnxihmSh0vjIplfrD2GW9eAKJS5zmlS3jIYn03ww+gErnYzKpuzfj1Sp4QcW5aLNZWPZ4Oa56VAd/r5OUa4St0HNzY+6ycy/1CK4KbVpwn92XrrF6h99mDO+oZf22ZAjANVQflxpr7f5MeiPM+z4KtlqmD3wx/kH09BZK57Nl/ssK6bppvTe9EUDpj8uudutUh7UHzGtLKw4ENxePIwgbwzhFFZBCrdYGYGa8mDQuH3TbCNDSQLSV3m1pYdSdiBNBBbfkyIinLs/bS16B5okjozmhjYdSgEnkZg06nSqWPojBdEf3DNFEpt+rHUkusUU7fzAJ7q1ZkkToEwFovEtT2yy13prgHYSR9yG2fwGopNt1E48z+XhwApF43MsHDFzj90mN8ctOuFClcdyJDcGuyS6T3CNGFvhfPZA3bFwq6J4zyk4PCoHeFBo52+xZXLq5jxXOEj7JJHUas0RqZO2opsLDoI0SFLsV+mhEqqEJdEFIc45R
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(53546011)(6506007)(38100700002)(316002)(2906002)(508600001)(30864003)(66556008)(8676002)(2616005)(5660300002)(4326008)(83380400001)(186003)(26005)(6486002)(36756003)(66476007)(8936002)(31686004)(31696002)(6512007)(86362001)(6666004)(66946007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnJ1YmVmTzZFTGdSbm0zZGtscXJwbWNFckxGa0lJcnBjQW9RNk1wN2VEaDFK?=
+ =?utf-8?B?Q1BaVkhwUTNsTjJEcFI1WVdGYXZDQTZ3dFAvN21SZEFaM29PVFJBZCtGTkZT?=
+ =?utf-8?B?UURVRlFuS200UUhKczNEUVRoV3kyeGF0ZnQwSzhWZFF2V2lsMEdJZnoyTXBI?=
+ =?utf-8?B?KzRjYnpoRFc3VVZuMllVVDZoOTZmdXdXQnlVQVkvQlVrMzJWTjcveENKS3RT?=
+ =?utf-8?B?L2dibmcwQytVZWpFNU9RYTJIWVNmS3J1eTh5NFVkNE1hR1g4TGFUeW43d2oz?=
+ =?utf-8?B?enNQWWJGMGkxOTN4cWZXQjNHRXhTRXpkWWpVUGp0MzRVSHNiT2VHZjM2ZWsw?=
+ =?utf-8?B?VEdRRXZhQllFUHdEZjlrdlduOFdaWmk4UTljNG5iZEo3d0ZPZHpKMEZ1eTFZ?=
+ =?utf-8?B?YU93UEYvNzRtRkNJOEFCY2RoeEJDZW02NEZNSXBwL1dieHhOemppUDR3T3NO?=
+ =?utf-8?B?U05vRHliamsxVEJ3aVd6MW90czkweGNBQ3RpT0VLdXdYN1pQdEFQN2xGREds?=
+ =?utf-8?B?Sit1RitJOXg1VW9oSnNYK3psd3d4Y0Q0eWM4K0RLb2xXM1FsTENEM0tidEIy?=
+ =?utf-8?B?cHBOaWZVSjVqLzNDV2RLMEhsSEoyb1FRaUZqWFZNM25BVWxpblVhc2JTZmYv?=
+ =?utf-8?B?Q2kzS2tCYnhMTlhSRE42d2FuQ0IxZzFDcmQ5RzZmWE0rK3dBSDZXVWM5Q2Jl?=
+ =?utf-8?B?dEVVTlFSZjBUV3pkOGE4ZGNDOUU5M2lyUmpIZEVNK0dFWVY5d1NTT0lHaWcr?=
+ =?utf-8?B?bk81NFcvaVlOQ2pZNGxua0I0ajlmaGZTR29ZbUx4UWx6VlFrUjcxT3NmZTdx?=
+ =?utf-8?B?MHBORGl4MzRjWkhoQlpFVEFCQlN0WjJxdXBreVlCYXphYW5OY2p5UmdTa0VG?=
+ =?utf-8?B?NEUzV3hVNHZPYjluOW51eUIxK1hDWGxTdm1IWCtaY09Kbm9KZkxjYjBsOHhw?=
+ =?utf-8?B?VWdodlgvUThGbi80K2x6cVBrcEE1VHNET2szenFoY2FHUXZvR2swbGEvMzEz?=
+ =?utf-8?B?T1NxenlGeWdlQlRQemR0ZjAzSlU2dWxtRXNsUllTbU9Rd3dFSE1UWVBQR01k?=
+ =?utf-8?B?N0Y5WTExUjhhUW5pN3l3b25rckNmaEhtR3Q4aTNUeHRLN242RHM0K09TRnFY?=
+ =?utf-8?B?TjVlbzMxZDdkVDIwczZzYkxUVXFic29NSmxROWpFVU1PZkRxTFRsYmw1ai9V?=
+ =?utf-8?B?V0FTWldkL1BGd211blpoY1piZThWWWlnTEdyVVAwSmN1UkFrK2JaNERNYm9D?=
+ =?utf-8?B?OFpBQW5ndTlpeTFqNGJQRERzUXFNdzJyeXFVa2pZSkEwMnZnMTNKNjBXR1J5?=
+ =?utf-8?B?Nk9DR3M3dFRzRkgxTjJVZHE0ZHJPR3NoWC9MTUVpNFZYZWNNQzhrUmR1NFQz?=
+ =?utf-8?B?c2cvUUc0emV3MTFrZ3F3MEs5eHVEekNYb25IalV3T2tSdjVOZ0x5SUduYS9y?=
+ =?utf-8?B?bVhBZ2EvV2tGTnMrV25oLzBzNm9uWUszVlpzeHhWZ3V5Um1KZmQzL0Q2bEFN?=
+ =?utf-8?B?VUZKcEtBbXU5bHcrVU9LQURwWWFLTlRhSkdnaFdHdk4zckt3UW81b0p5RVBG?=
+ =?utf-8?B?ck1YZDU3ZWZWN3JuREEyRDRHWjFuUjg5MzA5UkdtZGdxbkJQMDhkVjVhTjM2?=
+ =?utf-8?B?dEJzMU9BeVU2SlpsM2RjbWt5SzBENS9CS0RCSFNwcDdmUzBJTEhDeG1WRVlJ?=
+ =?utf-8?B?ZUpmdFZSR2czSlNyVklEUk9xNE1aejNoUGxsbEo5K1E5THY1Q0xMWWVWUHNH?=
+ =?utf-8?B?TVIzNkprZ0xkdDJxZy9UMkdFblUzYXdkb0lXbit3ZHdTQUN2Z2JnTUhQc1lX?=
+ =?utf-8?B?RkJVV1V4TzRZb0FHUVNWWk5mSkJIcDY0WEMvNWE0b3hzUlc1UkVxWTRLUFBK?=
+ =?utf-8?B?aUhXbzIxbHJCMzd4R3grekFWZ2lubHZLK25lYVpzdDNYU0VxNElteWU1Tnhv?=
+ =?utf-8?B?UHUrbmQydS9wSlhjZm92YTdaUWRaN2R1eTNmWStTQ2VQWVdvandWaTRsTmNU?=
+ =?utf-8?B?eW1jcTVOUWJGa3p4WFpRZSt1WnJzUUVJQndOS0NIZWMwSk1JMTgreEhhb0sw?=
+ =?utf-8?B?Zm1oVzhsK3gwQmQrVFY0NXRZQ2JLK3ZGemZFU2lFS0M2NTBXYTJaSWFqaFMr?=
+ =?utf-8?Q?pNvU=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 06:28:41.9379 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b423edd-c46d-4d1b-f7e2-08d9d594c6fa
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29b84d10-3cdf-44fd-e0ce-08d9d5992efd
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 07:00:14.8644 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4563
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OZ5v7t96JKWvyvAktcQbiVAF+JoXvnN6zW5GOVJXPuI96XM3WiufjUY2auA31Ihh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4758
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,317 +125,622 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>
+Cc: Alexander.Deucher@amd.com, Guchun.Chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andrey,
 
-Please go ahead and push your change. I will prepare the RFC later.
 
-On 2022/1/8 上午12:02, Andrey Grodzovsky wrote:
->
-> On 2022-01-07 12:46 a.m., JingWen Chen wrote:
->> On 2022/1/7 上午11:57, JingWen Chen wrote:
->>> On 2022/1/7 上午3:13, Andrey Grodzovsky wrote:
->>>> On 2022-01-06 12:18 a.m., JingWen Chen wrote:
->>>>> On 2022/1/6 下午12:59, JingWen Chen wrote:
->>>>>> On 2022/1/6 上午2:24, Andrey Grodzovsky wrote:
->>>>>>> On 2022-01-05 2:59 a.m., Christian König wrote:
->>>>>>>> Am 05.01.22 um 08:34 schrieb JingWen Chen:
->>>>>>>>> On 2022/1/5 上午12:56, Andrey Grodzovsky wrote:
->>>>>>>>>> On 2022-01-04 6:36 a.m., Christian König wrote:
->>>>>>>>>>> Am 04.01.22 um 11:49 schrieb Liu, Monk:
->>>>>>>>>>>> [AMD Official Use Only]
->>>>>>>>>>>>
->>>>>>>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
->>>>>>>>>>>> No it's not, FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long
->>>>>>>>>>>>
->>>>>>>>>>> Then we have a major design issue in the SRIOV protocol and really need to question this.
->>>>>>>>>>>
->>>>>>>>>>> How do you want to prevent a race between the hypervisor resetting the hardware and the client trying the same because of a timeout?
->>>>>>>>>>>
->>>>>>>>>>> As far as I can see the procedure should be:
->>>>>>>>>>> 1. We detect that a reset is necessary, either because of a fault a timeout or signal from hypervisor.
->>>>>>>>>>> 2. For each of those potential reset sources a work item is send to the single workqueue.
->>>>>>>>>>> 3. One of those work items execute first and prepares the reset.
->>>>>>>>>>> 4. We either do the reset our self or notify the hypervisor that we are ready for the reset.
->>>>>>>>>>> 5. Cleanup after the reset, eventually resubmit jobs etc..
->>>>>>>>>>> 6. Cancel work items which might have been scheduled from other reset sources.
->>>>>>>>>>>
->>>>>>>>>>> It does make sense that the hypervisor resets the hardware without waiting for the clients for too long, but if we don't follow this general steps we will always have a race between the different components.
->>>>>>>>>> Monk, just to add to this - if indeed as you say that 'FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long'
->>>>>>>>>> and there is no strict waiting from the hypervisor for IDH_READY_TO_RESET to be recived from guest before starting the reset then setting in_gpu_reset and locking reset_sem from guest side is not really full proof
->>>>>>>>>> protection from MMIO accesses by the guest - it only truly helps if hypervisor waits for that message before initiation of HW reset.
->>>>>>>>>>
->>>>>>>>> Hi Andrey, this cannot be done. If somehow guest kernel hangs and never has the chance to send the response back, then other VFs will have to wait it reset. All the vfs will hang in this case. Or sometimes the mailbox has some delay and other VFs will also wait. The user of other VFs will be affected in this case.
->>>>>>>> Yeah, agree completely with JingWen. The hypervisor is the one in charge here, not the guest.
->>>>>>>>
->>>>>>>> What the hypervisor should do (and it already seems to be designed that way) is to send the guest a message that a reset is about to happen and give it some time to response appropriately.
->>>>>>>>
->>>>>>>> The guest on the other hand then tells the hypervisor that all processing has stopped and it is ready to restart. If that doesn't happen in time the hypervisor should eliminate the guest probably trigger even more severe consequences, e.g. restart the whole VM etc...
->>>>>>>>
->>>>>>>> Christian.
->>>>>>> So what's the end conclusion here regarding dropping this particular patch ? Seems to me we still need to drop it to prevent driver's MMIO access
->>>>>>> to the GPU during reset from various places in the code.
->>>>>>>
->>>>>>> Andrey
->>>>>>>
->>>>>> Hi Andrey & Christian,
->>>>>>
->>>>>> I have ported your patch(drop the reset_sem and in_gpu_reset in flr work) and run some tests. If a engine hang during an OCL benchmark(using kfd), we can see the logs below:
->>>> Did you port the entire patchset or just 'drm/amd/virt: Drop concurrent GPU reset protection for SRIOV' ?
->>>>
->>>>
->>> I ported the entire patchset
->>>>>> [  397.190727] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  397.301496] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  397.406601] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  397.532343] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  397.642251] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  397.746634] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  397.850761] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  397.960544] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  398.065218] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  398.182173] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  398.288264] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  398.394712] amdgpu 0000:00:07.0: amdgpu: wait for kiq fence error: 0.
->>>>>> [  428.400582] [drm] clean up the vf2pf work item
->>>>>> [  428.500528] amdgpu 0000:00:07.0: amdgpu: [gfxhub] page fault (src_id:0 ring:153 vmid:8 pasid:32771, for process xgemmStandalone pid 3557 thread xgemmStandalone pid 3557)
->>>>>> [  428.527576] amdgpu 0000:00:07.0: amdgpu:   in page starting at address 0x00007fc991c04000 from client 0x1b (UTCL2)
->>>>>> [  437.531392] amdgpu: qcm fence wait loop timeout expired
->>>>>> [  437.535738] amdgpu: The cp might be in an unrecoverable state due to an unsuccessful queues preemption
->>>>>> [  437.537191] amdgpu 0000:00:07.0: amdgpu: GPU reset begin!
->>>>>> [  438.087443] [drm] RE-INIT-early: nv_common succeeded
->>>>>>
->>>>>> As kfd relies on these to check if GPU is in reset, dropping it will hit some page fault and fence error very easily.
->>>>> To be clear, we can also hit the page fault with the reset_sem and in_gpu_reset, just not as easily as dropping them.
->>>> Are you saying that the entire patch-set with and without patch 'drm/amd/virt: Drop concurrent GPU reset protection for SRIOV
->>>> is casing this GPUVM page fault during testing engine hang while running benchmark ?
->>>>
->>>> Do you never observe this page fault when running this test with original tree without the new patch-set ?
->>>>
->>>> Andrey
->>>>
->>> I think this page fault issue can be seen even on the original tree. It's just drop the concurrent GPU reset will hit it more easily.
->>>
->>> We may need a new way to protect the reset in SRIOV.
->>>
->> Hi Andrey
->>
->> Actually, I would like to propose a RFC based on your patch, which will move the waiting logic in SRIOV flr work into amdgpu_device_gpu_recover_imp, host will wait a certain time till the pre_reset work done and guest send back response then actually do the vf flr. Hopefully this will help solving the page fault issue.
->>
->> JingWen
->
->
-> This makes sense to me, you want the guest driver to be as idle as possible before host side starts actual reset. Go ahead and try it on top of my patch-set and update with results.
-> I am away all next week but will try to find time and peek at your updates.
->
-> Another question - how much the switch to single threaded reset makes SRIOV more unstable ? Is it OK to push the patches as is without your RFC or we need to wait for your RFC before push ?
->
-> Andrey
->
->
->>
->>>>>>>>>> Andrey
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>>> Regards,
->>>>>>>>>>> Christian.
->>>>>>>>>>>
->>>>>>>>>>> Am 04.01.22 um 11:49 schrieb Liu, Monk:
->>>>>>>>>>>> [AMD Official Use Only]
->>>>>>>>>>>>
->>>>>>>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
->>>>>>>>>>>> No it's not, FLR from hypervisor is just to notify guest the hw VF FLR is about to start or was already executed, but host will do FLR anyway without waiting for guest too long
->>>>>>>>>>>>
->>>>>>>>>>>>>> In other words I strongly think that the current SRIOV reset implementation is severely broken and what Andrey is doing is actually fixing it.
->>>>>>>>>>>> It makes the code to crash ... how could it be a fix ?
->>>>>>>>>>>>
->>>>>>>>>>>> I'm afraid the patch is NAK from me,  but it is welcome if the cleanup do not ruin the logic, Andry or jingwen can try it if needed.
->>>>>>>>>>>>
->>>>>>>>>>>> Thanks
->>>>>>>>>>>> -------------------------------------------------------------------
->>>>>>>>>>>> Monk Liu | Cloud GPU & Virtualization Solution | AMD
->>>>>>>>>>>> -------------------------------------------------------------------
->>>>>>>>>>>> we are hiring software manager for CVS core team
->>>>>>>>>>>> -------------------------------------------------------------------
->>>>>>>>>>>>
->>>>>>>>>>>> -----Original Message-----
->>>>>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>>>>>> Sent: Tuesday, January 4, 2022 6:19 PM
->>>>>>>>>>>> To: Chen, JingWen <JingWen.Chen2@amd.com>; Christian König <ckoenig.leichtzumerken@gmail.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Chen, Horace <Horace.Chen@amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>
->>>>>>>>>>>> Cc: daniel@ffwll.ch
->>>>>>>>>>>> Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset protection for SRIOV
->>>>>>>>>>>>
->>>>>>>>>>>> Hi Jingwen,
->>>>>>>>>>>>
->>>>>>>>>>>> well what I mean is that we need to adjust the implementation in amdgpu to actually match the requirements.
->>>>>>>>>>>>
->>>>>>>>>>>> Could be that the reset sequence is questionable in general, but I doubt so at least for now.
->>>>>>>>>>>>
->>>>>>>>>>>> See the FLR request from the hypervisor is just another source of signaling the need for a reset, similar to each job timeout on each queue. Otherwise you have a race condition between the hypervisor and the scheduler.
->>>>>>>>>>>>
->>>>>>>>>>>> Properly setting in_gpu_reset is indeed mandatory, but should happen at a central place and not in the SRIOV specific code.
->>>>>>>>>>>>
->>>>>>>>>>>> In other words I strongly think that the current SRIOV reset implementation is severely broken and what Andrey is doing is actually fixing it.
->>>>>>>>>>>>
->>>>>>>>>>>> Regards,
->>>>>>>>>>>> Christian.
->>>>>>>>>>>>
->>>>>>>>>>>> Am 04.01.22 um 10:07 schrieb JingWen Chen:
->>>>>>>>>>>>> Hi Christian,
->>>>>>>>>>>>> I'm not sure what do you mean by "we need to change SRIOV not the driver".
->>>>>>>>>>>>>
->>>>>>>>>>>>> Do you mean we should change the reset sequence in SRIOV? This will be a huge change for our SRIOV solution.
->>>>>>>>>>>>>
->>>>>>>>>>>>>      From my point of view, we can directly use amdgpu_device_lock_adev
->>>>>>>>>>>>> and amdgpu_device_unlock_adev in flr_work instead of try_lock since no one will conflict with this thread with reset_domain introduced.
->>>>>>>>>>>>> But we do need the reset_sem and adev->in_gpu_reset to keep device untouched via user space.
->>>>>>>>>>>>>
->>>>>>>>>>>>> Best Regards,
->>>>>>>>>>>>> Jingwen Chen
->>>>>>>>>>>>>
->>>>>>>>>>>>> On 2022/1/3 下午6:17, Christian König wrote:
->>>>>>>>>>>>>> Please don't. This patch is vital to the cleanup of the reset procedure.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> If SRIOV doesn't work with that we need to change SRIOV and not the driver.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Christian.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Am 30.12.21 um 19:45 schrieb Andrey Grodzovsky:
->>>>>>>>>>>>>>> Sure, I guess i can drop this patch then.
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>> Andrey
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>> On 2021-12-24 4:57 a.m., JingWen Chen wrote:
->>>>>>>>>>>>>>>> I do agree with shaoyun, if the host find the gpu engine hangs first, and do the flr, guest side thread may not know this and still try to access HW(e.g. kfd is using a lot of amdgpu_in_reset and reset_sem to identify the reset status). And this may lead to very bad result.
->>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>> On 2021/12/24 下午4:58, Deng, Emily wrote:
->>>>>>>>>>>>>>>>> These patches look good to me. JingWen will pull these patches and do some basic TDR test on sriov environment, and give feedback.
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>> Best wishes
->>>>>>>>>>>>>>>>> Emily Deng
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> -----Original Message-----
->>>>>>>>>>>>>>>>>> From: Liu, Monk <Monk.Liu@amd.com>
->>>>>>>>>>>>>>>>>> Sent: Thursday, December 23, 2021 6:14 PM
->>>>>>>>>>>>>>>>>> To: Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky,
->>>>>>>>>>>>>>>>>> Andrey <Andrey.Grodzovsky@amd.com>;
->>>>>>>>>>>>>>>>>> dri-devel@lists.freedesktop.org; amd- gfx@lists.freedesktop.org;
->>>>>>>>>>>>>>>>>> Chen, Horace <Horace.Chen@amd.com>; Chen, JingWen
->>>>>>>>>>>>>>>>>> <JingWen.Chen2@amd.com>; Deng, Emily <Emily.Deng@amd.com>
->>>>>>>>>>>>>>>>>> Cc: daniel@ffwll.ch
->>>>>>>>>>>>>>>>>> Subject: RE: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset
->>>>>>>>>>>>>>>>>> protection for SRIOV
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> [AMD Official Use Only]
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> @Chen, Horace @Chen, JingWen @Deng, Emily
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> Please take a review on Andrey's patch
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> Thanks
->>>>>>>>>>>>>>>>>> -----------------------------------------------------------------
->>>>>>>>>>>>>>>>>> -- Monk Liu | Cloud GPU & Virtualization Solution | AMD
->>>>>>>>>>>>>>>>>> -----------------------------------------------------------------
->>>>>>>>>>>>>>>>>> -- we are hiring software manager for CVS core team
->>>>>>>>>>>>>>>>>> -----------------------------------------------------------------
->>>>>>>>>>>>>>>>>> -- 
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> -----Original Message-----
->>>>>>>>>>>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>>>>>>>>>>>> Sent: Thursday, December 23, 2021 4:42 PM
->>>>>>>>>>>>>>>>>> To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; dri-
->>>>>>>>>>>>>>>>>> devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
->>>>>>>>>>>>>>>>>> Cc: daniel@ffwll.ch; Liu, Monk <Monk.Liu@amd.com>; Chen, Horace
->>>>>>>>>>>>>>>>>> <Horace.Chen@amd.com>
->>>>>>>>>>>>>>>>>> Subject: Re: [RFC v2 8/8] drm/amd/virt: Drop concurrent GPU reset
->>>>>>>>>>>>>>>>>> protection for SRIOV
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>> Am 22.12.21 um 23:14 schrieb Andrey Grodzovsky:
->>>>>>>>>>>>>>>>>>> Since now flr work is serialized against  GPU resets there is no
->>>>>>>>>>>>>>>>>>> need for this.
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>>>>>>>>>>>>>>>> Acked-by: Christian König <christian.koenig@amd.com>
->>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> ---
->>>>>>>>>>>>>>>>>>>         drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 11 -----------
->>>>>>>>>>>>>>>>>>>         drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 11 -----------
->>>>>>>>>>>>>>>>>>>         2 files changed, 22 deletions(-)
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>>>>>>>>>>>>>>>>>> index 487cd654b69e..7d59a66e3988 100644
->>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>>>>>>>>>>>>>>>>>> @@ -248,15 +248,7 @@ static void xgpu_ai_mailbox_flr_work(struct
->>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>             struct amdgpu_device *adev = container_of(virt, struct
->>>>>>>>>>>>>>>>>> amdgpu_device, virt);
->>>>>>>>>>>>>>>>>>>             int timeout = AI_MAILBOX_POLL_FLR_TIMEDOUT;
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> -    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
->>>>>>>>>>>>>>>>>>> -     * otherwise the mailbox msg will be ruined/reseted by
->>>>>>>>>>>>>>>>>>> -     * the VF FLR.
->>>>>>>>>>>>>>>>>>> -     */
->>>>>>>>>>>>>>>>>>> -    if (!down_write_trylock(&adev->reset_sem))
->>>>>>>>>>>>>>>>>>> -        return;
->>>>>>>>>>>>>>>>>>> -
->>>>>>>>>>>>>>>>>>> amdgpu_virt_fini_data_exchange(adev);
->>>>>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 1);
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>             xgpu_ai_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0,
->>>>>>>>>>>>>>>>>>> 0, 0);
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> @@ -269,9 +261,6 @@ static void xgpu_ai_mailbox_flr_work(struct
->>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>             } while (timeout > 1);
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>         flr_done:
->>>>>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 0);
->>>>>>>>>>>>>>>>>>> -    up_write(&adev->reset_sem);
->>>>>>>>>>>>>>>>>>> -
->>>>>>>>>>>>>>>>>>>             /* Trigger recovery for world switch failure if no TDR
->>>>>>>>>>>>>>>>>>> */
->>>>>>>>>>>>>>>>>>>             if (amdgpu_device_should_recover_gpu(adev)
->>>>>>>>>>>>>>>>>>>                 && (!amdgpu_device_has_job_running(adev) || diff
->>>>>>>>>>>>>>>>>>> --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>>>>>>>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>>>>>>>>>>>>>>>>>> index e3869067a31d..f82c066c8e8d 100644
->>>>>>>>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>>>>>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>>>>>>>>>>>>>>>>>> @@ -277,15 +277,7 @@ static void xgpu_nv_mailbox_flr_work(struct
->>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>             struct amdgpu_device *adev = container_of(virt, struct
->>>>>>>>>>>>>>>>>> amdgpu_device, virt);
->>>>>>>>>>>>>>>>>>>             int timeout = NV_MAILBOX_POLL_FLR_TIMEDOUT;
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> -    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
->>>>>>>>>>>>>>>>>>> -     * otherwise the mailbox msg will be ruined/reseted by
->>>>>>>>>>>>>>>>>>> -     * the VF FLR.
->>>>>>>>>>>>>>>>>>> -     */
->>>>>>>>>>>>>>>>>>> -    if (!down_write_trylock(&adev->reset_sem))
->>>>>>>>>>>>>>>>>>> -        return;
->>>>>>>>>>>>>>>>>>> -
->>>>>>>>>>>>>>>>>>> amdgpu_virt_fini_data_exchange(adev);
->>>>>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 1);
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>             xgpu_nv_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0,
->>>>>>>>>>>>>>>>>>> 0, 0);
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>> @@ -298,9 +290,6 @@ static void xgpu_nv_mailbox_flr_work(struct
->>>>>>>>>>>>>>>>>> work_struct *work)
->>>>>>>>>>>>>>>>>>>             } while (timeout > 1);
->>>>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>>>>         flr_done:
->>>>>>>>>>>>>>>>>>> -    atomic_set(&adev->in_gpu_reset, 0);
->>>>>>>>>>>>>>>>>>> -    up_write(&adev->reset_sem);
->>>>>>>>>>>>>>>>>>> -
->>>>>>>>>>>>>>>>>>>             /* Trigger recovery for world switch failure if no TDR
->>>>>>>>>>>>>>>>>>> */
->>>>>>>>>>>>>>>>>>>             if (amdgpu_device_should_recover_gpu(adev)
->>>>>>>>>>>>>>>>>>>                 && (!amdgpu_device_has_job_running(adev) ||
+On 1/11/2022 6:11 PM, Evan Quan wrote:
+> On functionality unsupported, -EOPNOTSUPP will be returned. And we rely
+> on that to determine the fan attributes support.
+> 
+> Fixes: 801771de0331 ("drm/amd/pm: do not expose power implementation details to
+> amdgpu_pm.c")
+> 
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+
+Thanks,
+Lijo
+
+> Change-Id: I95e7e0beebd678a446221a72234cd356e14f0fcd
+> --
+> v1->v2:
+>    - move the checks for invalid inputs(null pointer, U32_MAX) to the
+>      layer down(Lijo)
+> ---
+>   .../gpu/drm/amd/include/kgd_pp_interface.h    |   4 +-
+>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  21 +--
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  21 ++-
+>   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  19 ++-
+>   .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  71 ++++++----
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 133 ++++++++++--------
+>   6 files changed, 160 insertions(+), 109 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> index a8eec91c0995..387120099493 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> @@ -315,8 +315,8 @@ struct amd_pm_funcs {
+>   				void  *rps,
+>   				bool  *equal);
+>   /* export for sysfs */
+> -	void (*set_fan_control_mode)(void *handle, u32 mode);
+> -	u32 (*get_fan_control_mode)(void *handle);
+> +	int (*set_fan_control_mode)(void *handle, u32 mode);
+> +	int (*get_fan_control_mode)(void *handle, u32 *fan_mode);
+>   	int (*set_fan_speed_pwm)(void *handle, u32 speed);
+>   	int (*get_fan_speed_pwm)(void *handle, u32 *speed);
+>   	int (*force_clock_level)(void *handle, enum pp_clock_type type, uint32_t mask);
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> index 68d2e80a673b..51d5d1a1717b 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -1030,15 +1030,17 @@ int amdgpu_dpm_get_fan_control_mode(struct amdgpu_device *adev,
+>   				    uint32_t *fan_mode)
+>   {
+>   	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+> +	int ret = 0;
+>   
+>   	if (!pp_funcs->get_fan_control_mode)
+>   		return -EOPNOTSUPP;
+>   
+>   	mutex_lock(&adev->pm.mutex);
+> -	*fan_mode = pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle);
+> +	ret = pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle,
+> +					     fan_mode);
+>   	mutex_unlock(&adev->pm.mutex);
+>   
+> -	return 0;
+> +	return ret;
+>   }
+>   
+>   int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev,
+> @@ -1048,7 +1050,7 @@ int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev,
+>   	int ret = 0;
+>   
+>   	if (!pp_funcs->set_fan_speed_pwm)
+> -		return -EINVAL;
+> +		return -EOPNOTSUPP;
+>   
+>   	mutex_lock(&adev->pm.mutex);
+>   	ret = pp_funcs->set_fan_speed_pwm(adev->powerplay.pp_handle,
+> @@ -1065,7 +1067,7 @@ int amdgpu_dpm_get_fan_speed_pwm(struct amdgpu_device *adev,
+>   	int ret = 0;
+>   
+>   	if (!pp_funcs->get_fan_speed_pwm)
+> -		return -EINVAL;
+> +		return -EOPNOTSUPP;
+>   
+>   	mutex_lock(&adev->pm.mutex);
+>   	ret = pp_funcs->get_fan_speed_pwm(adev->powerplay.pp_handle,
+> @@ -1082,7 +1084,7 @@ int amdgpu_dpm_get_fan_speed_rpm(struct amdgpu_device *adev,
+>   	int ret = 0;
+>   
+>   	if (!pp_funcs->get_fan_speed_rpm)
+> -		return -EINVAL;
+> +		return -EOPNOTSUPP;
+>   
+>   	mutex_lock(&adev->pm.mutex);
+>   	ret = pp_funcs->get_fan_speed_rpm(adev->powerplay.pp_handle,
+> @@ -1099,7 +1101,7 @@ int amdgpu_dpm_set_fan_speed_rpm(struct amdgpu_device *adev,
+>   	int ret = 0;
+>   
+>   	if (!pp_funcs->set_fan_speed_rpm)
+> -		return -EINVAL;
+> +		return -EOPNOTSUPP;
+>   
+>   	mutex_lock(&adev->pm.mutex);
+>   	ret = pp_funcs->set_fan_speed_rpm(adev->powerplay.pp_handle,
+> @@ -1113,16 +1115,17 @@ int amdgpu_dpm_set_fan_control_mode(struct amdgpu_device *adev,
+>   				    uint32_t mode)
+>   {
+>   	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+> +	int ret = 0;
+>   
+>   	if (!pp_funcs->set_fan_control_mode)
+>   		return -EOPNOTSUPP;
+>   
+>   	mutex_lock(&adev->pm.mutex);
+> -	pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
+> -				       mode);
+> +	ret = pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
+> +					     mode);
+>   	mutex_unlock(&adev->pm.mutex);
+>   
+> -	return 0;
+> +	return ret;
+>   }
+>   
+>   int amdgpu_dpm_get_power_limit(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index d3eab245e0fe..940cbe751163 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -3197,7 +3197,6 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+>   	struct device *dev = kobj_to_dev(kobj);
+>   	struct amdgpu_device *adev = dev_get_drvdata(dev);
+>   	umode_t effective_mode = attr->mode;
+> -	uint32_t speed = 0;
+>   
+>   	/* under multi-vf mode, the hwmon attributes are all not supported */
+>   	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
+> @@ -3263,15 +3262,15 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+>   		return 0;
+>   
+>   	/* mask fan attributes if we have no bindings for this asic to expose */
+> -	if (((amdgpu_dpm_get_fan_speed_pwm(adev, &speed) == -EINVAL) &&
+> +	if (((amdgpu_dpm_get_fan_speed_pwm(adev, NULL) == -EOPNOTSUPP) &&
+>   	      attr == &sensor_dev_attr_pwm1.dev_attr.attr) || /* can't query fan */
+> -	    ((amdgpu_dpm_get_fan_control_mode(adev, &speed) == -EOPNOTSUPP) &&
+> +	    ((amdgpu_dpm_get_fan_control_mode(adev, NULL) == -EOPNOTSUPP) &&
+>   	     attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't query state */
+>   		effective_mode &= ~S_IRUGO;
+>   
+> -	if (((amdgpu_dpm_set_fan_speed_pwm(adev, speed) == -EINVAL) &&
+> +	if (((amdgpu_dpm_set_fan_speed_pwm(adev, U32_MAX) == -EOPNOTSUPP) &&
+>   	      attr == &sensor_dev_attr_pwm1.dev_attr.attr) || /* can't manage fan */
+> -	      ((amdgpu_dpm_set_fan_control_mode(adev, speed) == -EOPNOTSUPP) &&
+> +	      ((amdgpu_dpm_set_fan_control_mode(adev, U32_MAX) == -EOPNOTSUPP) &&
+>   	      attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't manage state */
+>   		effective_mode &= ~S_IWUSR;
+>   
+> @@ -3291,16 +3290,16 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+>   		return 0;
+>   
+>   	/* hide max/min values if we can't both query and manage the fan */
+> -	if (((amdgpu_dpm_set_fan_speed_pwm(adev, speed) == -EINVAL) &&
+> -	      (amdgpu_dpm_get_fan_speed_pwm(adev, &speed) == -EINVAL) &&
+> -	      (amdgpu_dpm_set_fan_speed_rpm(adev, speed) == -EINVAL) &&
+> -	      (amdgpu_dpm_get_fan_speed_rpm(adev, &speed) == -EINVAL)) &&
+> +	if (((amdgpu_dpm_set_fan_speed_pwm(adev, U32_MAX) == -EOPNOTSUPP) &&
+> +	      (amdgpu_dpm_get_fan_speed_pwm(adev, NULL) == -EOPNOTSUPP) &&
+> +	      (amdgpu_dpm_set_fan_speed_rpm(adev, U32_MAX) == -EOPNOTSUPP) &&
+> +	      (amdgpu_dpm_get_fan_speed_rpm(adev, NULL) == -EOPNOTSUPP)) &&
+>   	    (attr == &sensor_dev_attr_pwm1_max.dev_attr.attr ||
+>   	     attr == &sensor_dev_attr_pwm1_min.dev_attr.attr))
+>   		return 0;
+>   
+> -	if ((amdgpu_dpm_set_fan_speed_rpm(adev, speed) == -EINVAL) &&
+> -	     (amdgpu_dpm_get_fan_speed_rpm(adev, &speed) == -EINVAL) &&
+> +	if ((amdgpu_dpm_set_fan_speed_rpm(adev, U32_MAX) == -EOPNOTSUPP) &&
+> +	     (amdgpu_dpm_get_fan_speed_rpm(adev, NULL) == -EOPNOTSUPP) &&
+>   	     (attr == &sensor_dev_attr_fan1_max.dev_attr.attr ||
+>   	     attr == &sensor_dev_attr_fan1_min.dev_attr.attr))
+>   		return 0;
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> index 92b987fb31d4..23ff0d812e4b 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> @@ -6619,6 +6619,9 @@ static int si_dpm_get_fan_speed_pwm(void *handle,
+>   	u64 tmp64;
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	if (!speed)
+> +		return -EINVAL;
+> +
+>   	if (adev->pm.no_fan)
+>   		return -ENOENT;
+>   
+> @@ -6669,10 +6672,13 @@ static int si_dpm_set_fan_speed_pwm(void *handle,
+>   	return 0;
+>   }
+>   
+> -static void si_dpm_set_fan_control_mode(void *handle, u32 mode)
+> +static int si_dpm_set_fan_control_mode(void *handle, u32 mode)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	if (mode == U32_MAX)
+> +		return -EINVAL;
+> +
+>   	if (mode) {
+>   		/* stop auto-manage */
+>   		if (adev->pm.dpm.fan.ucode_fan_control)
+> @@ -6685,19 +6691,26 @@ static void si_dpm_set_fan_control_mode(void *handle, u32 mode)
+>   		else
+>   			si_fan_ctrl_set_default_mode(adev);
+>   	}
+> +
+> +	return 0;
+>   }
+>   
+> -static u32 si_dpm_get_fan_control_mode(void *handle)
+> +static int si_dpm_get_fan_control_mode(void *handle, u32 *fan_mode)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   	struct si_power_info *si_pi = si_get_pi(adev);
+>   	u32 tmp;
+>   
+> +	if (!fan_mode)
+> +		return -EINVAL;
+> +
+>   	if (si_pi->fan_is_controlled_by_smc)
+>   		return 0;
+>   
+>   	tmp = RREG32(CG_FDO_CTRL2) & FDO_PWM_MODE_MASK;
+> -	return (tmp >> FDO_PWM_MODE_SHIFT);
+> +	*fan_mode = (tmp >> FDO_PWM_MODE_SHIFT);
+> +
+> +	return 0;
+>   }
+>   
+>   #if 0
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> index 89341729744d..76c26ae368f9 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> @@ -488,38 +488,43 @@ static enum amd_pm_state_type pp_dpm_get_current_power_state(void *handle)
+>   	return pm_type;
+>   }
+>   
+> -static void pp_dpm_set_fan_control_mode(void *handle, uint32_t mode)
+> +static int pp_dpm_set_fan_control_mode(void *handle, uint32_t mode)
+>   {
+>   	struct pp_hwmgr *hwmgr = handle;
+>   
+>   	if (!hwmgr || !hwmgr->pm_en)
+> -		return;
+> +		return -EOPNOTSUPP;
+> +
+> +	if (hwmgr->hwmgr_func->set_fan_control_mode == NULL)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (mode == U32_MAX)
+> +		return -EINVAL;
+>   
+> -	if (hwmgr->hwmgr_func->set_fan_control_mode == NULL) {
+> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
+> -		return;
+> -	}
+>   	mutex_lock(&hwmgr->smu_lock);
+>   	hwmgr->hwmgr_func->set_fan_control_mode(hwmgr, mode);
+>   	mutex_unlock(&hwmgr->smu_lock);
+> +
+> +	return 0;
+>   }
+>   
+> -static uint32_t pp_dpm_get_fan_control_mode(void *handle)
+> +static int pp_dpm_get_fan_control_mode(void *handle, uint32_t *fan_mode)
+>   {
+>   	struct pp_hwmgr *hwmgr = handle;
+> -	uint32_t mode = 0;
+>   
+>   	if (!hwmgr || !hwmgr->pm_en)
+> -		return 0;
+> +		return -EOPNOTSUPP;
+> +
+> +	if (hwmgr->hwmgr_func->get_fan_control_mode == NULL)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!fan_mode)
+> +		return -EINVAL;
+>   
+> -	if (hwmgr->hwmgr_func->get_fan_control_mode == NULL) {
+> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
+> -		return 0;
+> -	}
+>   	mutex_lock(&hwmgr->smu_lock);
+> -	mode = hwmgr->hwmgr_func->get_fan_control_mode(hwmgr);
+> +	*fan_mode = hwmgr->hwmgr_func->get_fan_control_mode(hwmgr);
+>   	mutex_unlock(&hwmgr->smu_lock);
+> -	return mode;
+> +	return 0;
+>   }
+>   
+>   static int pp_dpm_set_fan_speed_pwm(void *handle, uint32_t speed)
+> @@ -528,12 +533,14 @@ static int pp_dpm_set_fan_speed_pwm(void *handle, uint32_t speed)
+>   	int ret = 0;
+>   
+>   	if (!hwmgr || !hwmgr->pm_en)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (hwmgr->hwmgr_func->set_fan_speed_pwm == NULL)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (speed == U32_MAX)
+>   		return -EINVAL;
+>   
+> -	if (hwmgr->hwmgr_func->set_fan_speed_pwm == NULL) {
+> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
+> -		return 0;
+> -	}
+>   	mutex_lock(&hwmgr->smu_lock);
+>   	ret = hwmgr->hwmgr_func->set_fan_speed_pwm(hwmgr, speed);
+>   	mutex_unlock(&hwmgr->smu_lock);
+> @@ -546,12 +553,13 @@ static int pp_dpm_get_fan_speed_pwm(void *handle, uint32_t *speed)
+>   	int ret = 0;
+>   
+>   	if (!hwmgr || !hwmgr->pm_en)
+> -		return -EINVAL;
+> +		return -EOPNOTSUPP;
+>   
+> -	if (hwmgr->hwmgr_func->get_fan_speed_pwm == NULL) {
+> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
+> -		return 0;
+> -	}
+> +	if (hwmgr->hwmgr_func->get_fan_speed_pwm == NULL)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!speed)
+> +		return -EINVAL;
+>   
+>   	mutex_lock(&hwmgr->smu_lock);
+>   	ret = hwmgr->hwmgr_func->get_fan_speed_pwm(hwmgr, speed);
+> @@ -565,9 +573,12 @@ static int pp_dpm_get_fan_speed_rpm(void *handle, uint32_t *rpm)
+>   	int ret = 0;
+>   
+>   	if (!hwmgr || !hwmgr->pm_en)
+> -		return -EINVAL;
+> +		return -EOPNOTSUPP;
+>   
+>   	if (hwmgr->hwmgr_func->get_fan_speed_rpm == NULL)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!rpm)
+>   		return -EINVAL;
+>   
+>   	mutex_lock(&hwmgr->smu_lock);
+> @@ -582,12 +593,14 @@ static int pp_dpm_set_fan_speed_rpm(void *handle, uint32_t rpm)
+>   	int ret = 0;
+>   
+>   	if (!hwmgr || !hwmgr->pm_en)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (hwmgr->hwmgr_func->set_fan_speed_rpm == NULL)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (rpm == U32_MAX)
+>   		return -EINVAL;
+>   
+> -	if (hwmgr->hwmgr_func->set_fan_speed_rpm == NULL) {
+> -		pr_info_ratelimited("%s was not implemented.\n", __func__);
+> -		return 0;
+> -	}
+>   	mutex_lock(&hwmgr->smu_lock);
+>   	ret = hwmgr->hwmgr_func->set_fan_speed_rpm(hwmgr, rpm);
+>   	mutex_unlock(&hwmgr->smu_lock);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index c374c3067496..828cb932f6a9 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -59,7 +59,7 @@ static int smu_handle_task(struct smu_context *smu,
+>   			   bool lock_needed);
+>   static int smu_reset(struct smu_context *smu);
+>   static int smu_set_fan_speed_pwm(void *handle, u32 speed);
+> -static int smu_set_fan_control_mode(struct smu_context *smu, int value);
+> +static int smu_set_fan_control_mode(void *handle, u32 value);
+>   static int smu_set_power_limit(void *handle, uint32_t limit);
+>   static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
+>   static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
+> @@ -407,7 +407,7 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
+>   	if (smu->user_dpm_profile.fan_mode == AMD_FAN_CTRL_MANUAL ||
+>   	    smu->user_dpm_profile.fan_mode == AMD_FAN_CTRL_NONE) {
+>   		ret = smu_set_fan_control_mode(smu, smu->user_dpm_profile.fan_mode);
+> -		if (ret) {
+> +		if (ret != -EOPNOTSUPP) {
+>   			smu->user_dpm_profile.fan_speed_pwm = 0;
+>   			smu->user_dpm_profile.fan_speed_rpm = 0;
+>   			smu->user_dpm_profile.fan_mode = AMD_FAN_CTRL_AUTO;
+> @@ -416,13 +416,13 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
+>   
+>   		if (smu->user_dpm_profile.fan_speed_pwm) {
+>   			ret = smu_set_fan_speed_pwm(smu, smu->user_dpm_profile.fan_speed_pwm);
+> -			if (ret)
+> +			if (ret != -EOPNOTSUPP)
+>   				dev_err(smu->adev->dev, "Failed to set manual fan speed in pwm\n");
+>   		}
+>   
+>   		if (smu->user_dpm_profile.fan_speed_rpm) {
+>   			ret = smu_set_fan_speed_rpm(smu, smu->user_dpm_profile.fan_speed_rpm);
+> -			if (ret)
+> +			if (ret != -EOPNOTSUPP)
+>   				dev_err(smu->adev->dev, "Failed to set manual fan speed in rpm\n");
+>   		}
+>   	}
+> @@ -2218,18 +2218,22 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t speed)
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>   		return -EOPNOTSUPP;
+>   
+> +	if (!smu->ppt_funcs->set_fan_speed_rpm)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (speed == U32_MAX)
+> +		return -EINVAL;
+> +
+>   	mutex_lock(&smu->mutex);
+>   
+> -	if (smu->ppt_funcs->set_fan_speed_rpm) {
+> -		ret = smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
+> -		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> -			smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_RPM;
+> -			smu->user_dpm_profile.fan_speed_rpm = speed;
+> +	ret = smu->ppt_funcs->set_fan_speed_rpm(smu, speed);
+> +	if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> +		smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_RPM;
+> +		smu->user_dpm_profile.fan_speed_rpm = speed;
+>   
+> -			/* Override custom PWM setting as they cannot co-exist */
+> -			smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_PWM;
+> -			smu->user_dpm_profile.fan_speed_pwm = 0;
+> -		}
+> +		/* Override custom PWM setting as they cannot co-exist */
+> +		smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_PWM;
+> +		smu->user_dpm_profile.fan_speed_pwm = 0;
+>   	}
+>   
+>   	mutex_unlock(&smu->mutex);
+> @@ -2562,60 +2566,65 @@ static int smu_set_power_profile_mode(void *handle,
+>   }
+>   
+>   
+> -static u32 smu_get_fan_control_mode(void *handle)
+> +static int smu_get_fan_control_mode(void *handle, u32 *fan_mode)
+>   {
+>   	struct smu_context *smu = handle;
+> -	u32 ret = 0;
+>   
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+> -		return AMD_FAN_CTRL_NONE;
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!smu->ppt_funcs->get_fan_control_mode)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!fan_mode)
+> +		return -EINVAL;
+>   
+>   	mutex_lock(&smu->mutex);
+>   
+> -	if (smu->ppt_funcs->get_fan_control_mode)
+> -		ret = smu->ppt_funcs->get_fan_control_mode(smu);
+> +	*fan_mode = smu->ppt_funcs->get_fan_control_mode(smu);
+>   
+>   	mutex_unlock(&smu->mutex);
+>   
+> -	return ret;
+> +	return 0;
+>   }
+>   
+> -static int smu_set_fan_control_mode(struct smu_context *smu, int value)
+> +static int smu_set_fan_control_mode(void *handle, u32 value)
+>   {
+> +	struct smu_context *smu = handle;
+>   	int ret = 0;
+>   
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+> -		return  -EOPNOTSUPP;
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!smu->ppt_funcs->set_fan_control_mode)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (value == U32_MAX)
+> +		return -EINVAL;
+>   
+>   	mutex_lock(&smu->mutex);
+>   
+> -	if (smu->ppt_funcs->set_fan_control_mode) {
+> -		ret = smu->ppt_funcs->set_fan_control_mode(smu, value);
+> -		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+> -			smu->user_dpm_profile.fan_mode = value;
+> -	}
+> +	ret = smu->ppt_funcs->set_fan_control_mode(smu, value);
+> +	if (ret)
+> +		goto out;
+>   
+> -	mutex_unlock(&smu->mutex);
+> +	if (!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> +		smu->user_dpm_profile.fan_mode = value;
+>   
+> -	/* reset user dpm fan speed */
+> -	if (!ret && value != AMD_FAN_CTRL_MANUAL &&
+> -			!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> -		smu->user_dpm_profile.fan_speed_pwm = 0;
+> -		smu->user_dpm_profile.fan_speed_rpm = 0;
+> -		smu->user_dpm_profile.flags &= ~(SMU_CUSTOM_FAN_SPEED_RPM | SMU_CUSTOM_FAN_SPEED_PWM);
+> +		/* reset user dpm fan speed */
+> +		if (value != AMD_FAN_CTRL_MANUAL) {
+> +			smu->user_dpm_profile.fan_speed_pwm = 0;
+> +			smu->user_dpm_profile.fan_speed_rpm = 0;
+> +			smu->user_dpm_profile.flags &= ~(SMU_CUSTOM_FAN_SPEED_RPM | SMU_CUSTOM_FAN_SPEED_PWM);
+> +		}
+>   	}
+>   
+> -	return ret;
+> -}
+> -
+> -static void smu_pp_set_fan_control_mode(void *handle, u32 value)
+> -{
+> -	struct smu_context *smu = handle;
+> +out:
+> +	mutex_unlock(&smu->mutex);
+>   
+> -	smu_set_fan_control_mode(smu, value);
+> +	return ret;
+>   }
+>   
+> -
+>   static int smu_get_fan_speed_pwm(void *handle, u32 *speed)
+>   {
+>   	struct smu_context *smu = handle;
+> @@ -2624,10 +2633,15 @@ static int smu_get_fan_speed_pwm(void *handle, u32 *speed)
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>   		return -EOPNOTSUPP;
+>   
+> +	if (!smu->ppt_funcs->get_fan_speed_pwm)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!speed)
+> +		return -EINVAL;
+> +
+>   	mutex_lock(&smu->mutex);
+>   
+> -	if (smu->ppt_funcs->get_fan_speed_pwm)
+> -		ret = smu->ppt_funcs->get_fan_speed_pwm(smu, speed);
+> +	ret = smu->ppt_funcs->get_fan_speed_pwm(smu, speed);
+>   
+>   	mutex_unlock(&smu->mutex);
+>   
+> @@ -2642,18 +2656,22 @@ static int smu_set_fan_speed_pwm(void *handle, u32 speed)
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>   		return -EOPNOTSUPP;
+>   
+> +	if (!smu->ppt_funcs->set_fan_speed_pwm)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (speed == U32_MAX)
+> +		return -EINVAL;
+> +
+>   	mutex_lock(&smu->mutex);
+>   
+> -	if (smu->ppt_funcs->set_fan_speed_pwm) {
+> -		ret = smu->ppt_funcs->set_fan_speed_pwm(smu, speed);
+> -		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> -			smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_PWM;
+> -			smu->user_dpm_profile.fan_speed_pwm = speed;
+> +	ret = smu->ppt_funcs->set_fan_speed_pwm(smu, speed);
+> +	if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> +		smu->user_dpm_profile.flags |= SMU_CUSTOM_FAN_SPEED_PWM;
+> +		smu->user_dpm_profile.fan_speed_pwm = speed;
+>   
+> -			/* Override custom RPM setting as they cannot co-exist */
+> -			smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_RPM;
+> -			smu->user_dpm_profile.fan_speed_rpm = 0;
+> -		}
+> +		/* Override custom RPM setting as they cannot co-exist */
+> +		smu->user_dpm_profile.flags &= ~SMU_CUSTOM_FAN_SPEED_RPM;
+> +		smu->user_dpm_profile.fan_speed_rpm = 0;
+>   	}
+>   
+>   	mutex_unlock(&smu->mutex);
+> @@ -2669,10 +2687,15 @@ static int smu_get_fan_speed_rpm(void *handle, uint32_t *speed)
+>   	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>   		return -EOPNOTSUPP;
+>   
+> +	if (!smu->ppt_funcs->get_fan_speed_rpm)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (!speed)
+> +		return -EINVAL;
+> +
+>   	mutex_lock(&smu->mutex);
+>   
+> -	if (smu->ppt_funcs->get_fan_speed_rpm)
+> -		ret = smu->ppt_funcs->get_fan_speed_rpm(smu, speed);
+> +	ret = smu->ppt_funcs->get_fan_speed_rpm(smu, speed);
+>   
+>   	mutex_unlock(&smu->mutex);
+>   
+> @@ -3101,7 +3124,7 @@ static int smu_get_prv_buffer_details(void *handle, void **addr, size_t *size)
+>   
+>   static const struct amd_pm_funcs swsmu_pm_funcs = {
+>   	/* export for sysfs */
+> -	.set_fan_control_mode    = smu_pp_set_fan_control_mode,
+> +	.set_fan_control_mode    = smu_set_fan_control_mode,
+>   	.get_fan_control_mode    = smu_get_fan_control_mode,
+>   	.set_fan_speed_pwm   = smu_set_fan_speed_pwm,
+>   	.get_fan_speed_pwm   = smu_get_fan_speed_pwm,
+> 
