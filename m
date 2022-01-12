@@ -4,78 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD4FC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 13:26:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B0CDC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 13:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA9F9112868;
-	Wed, 12 Jan 2022 13:26:25 +0000 (UTC)
-Received: from sonic312-47.consmr.mail.bf2.yahoo.com
- (sonic312-47.consmr.mail.bf2.yahoo.com [74.6.128.109])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2437E113755
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 10:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1641981737; bh=x74AItx7Ee5VjJ4f5OqmLv3BDuRb3BTQjkAYk8QhY2k=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To;
- b=BXKbOcuZ9NruH7oBNDiX6ARkTrwpagVtHBL33bBhsfgmoJ1Gy/M64XAhQ5E7uPCfwWq32p0nu2nL1i1do3rVOStwEPW5yA5IK6RFWyNMBLrc6ZC3H3P+I2eas47Ox9WIo+JtjeGeWzzSo+YsgX6hWvOERQrwAW4X9rjjSdhjYMM51Y893fcgr4XqnGt0sBaU8db5VLIqgqXU4MOg1g19JTZoZEjZABDKSJZXv+ckMjy15qMuM1IBBrfiyHAcwYLBTzvDrl6LERCeOo+Zx2S5/jdwz++mRzANYJv+vKxbVIWu57bkqZvDsP4wHqs3UumNI6oBa4B4GKFr4ioxL04H1A==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1641981737; bh=nqGQ4gDlDgnM1Jjkxm+NWeaX0X1nZFj/CxGfwgm/nGw=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=W5FYYqgJEeId03xfFEUn9AS8eW19717g14BglMgJ1RzubJRHn5QGIYw4w6Gv1+/0osXWox70mqNk6Dq6dTT4uobfb2qug39XkOBwIZ43yrsMWktzp276GPOqe98Y0+ityqzbAFM3uUY/1MSuEq6GphstK2fnSkvdwr7NRx5ijDcSzTrHA8HuNPO8epVAXeauAJ/VjMMWNeYJszOJR1BK8nhbst8Puh6rwZGGpjPGaavZvD7R3Uf1N+IuaZzm9+xnaqiCWIO4S3KvhkCjY/VCsvnT3kot8lnFWsPiHkz0JR+AboMeQQzMekopqpPhdLIP6QLW3YwbJXseksaPl6Tklw==
-X-YMail-OSG: rrbW4voVM1lPPPbDZfOu1D3vmZV1COT5ESm9hlL2lOQar6jwQTwCPH7CI0zhgbp
- Ey2sgCdF4DTPDraG3d4WbUp_DY96ua3exFRZCSJbqzqLtHaU.p6qNnyzcFbw6WTL2XBIAcr4TIDD
- Nv5MXhAqR_AMcsM0n7xQzvsURFMN8VOrQNfXuzr4gJjpIHwNUx6sSQDrdOPzCZ9ZngL1vjPUWwIR
- vr9.fR0CLmMt9fafHNEpYNDpI2XXCLGK.sMPErxdBzLUX0.58QZ6EtEtirPf698cYliiQizU5KX1
- .zpx50rSpuXOhSb61iNRfGbudpP2UeMBhb2G6ENRuEmIeuAZbLo6Gpfmsb_c2rCrXaGlgH22pXFk
- ewuvg61ATT.rkMosaiybDjM7j4wbXPEAN4uZngHb3V5BLDlIxX20VMJOPHfbA5qAqtw__2qsFqhq
- xzYjoG15zAhIgyoAc8E0zECpy9dIwcOYiA6ymRMMM9.H9_dkc8n4wyuaqtwKaDcZcdCiN6ZkY.a6
- SI2j9n7.Xh2YGg4NxfLDxTL8iuKLTkZtOSXN9eHP6bqCV7mVEqQ0qDfkllkKmAW3cfDRjS6x2jQV
- .fNpllVY.8_edjvlS4XlahrnbC5RsGBWaYIExDeAwpDMx6EQD1LqG7aNQ3NyiMFVYAyC5zag1OJw
- hOJWz0Ak8Zqaeljd3_tCkKE6PWklLbmy.oamootPqeMVAyVOjeZxXJgLWl_lvsTX4WYC6KMk8BtZ
- 6m4kuMR1SvzBeSiuijKeYmQ5uHxrmb3CEoIt6RkaqP2DmTj9ODrzJlXwScVJsaFQlc8fzQc7Jx5r
- czC.CKq.yTN9B3FvlTnhVr5RtPZixI6dcrhJRH7OMOuJ.zWrgguMD1V3X59z09s.mFRfkoZl4ty4
- woB7DSkTmxqgMzy2poLysPnDlGADIK.ZT8IHAB5Cq_ciylQw6DMBtaRkDRpiodzZ8jfXe6fWcLZJ
- qGh4yj62y.Z3mFnyqdKK_bp.f2zzUetUhgqYKWrrNab9RdBo8J_WiK44MeGUnKrPgqXevXuqYNHd
- p0whdd14jb7vloKRh8uPtKQBzZcpZsj8_yFuB2gCPqPegKNZc0f.zRhFvDE12VEJ9sNfQdNsPUZC
- wl7wiyy6PtaCxtqwVjopMfGNkedkveUxF5OpCz58UUjPHw0.nC6E.Q3gr7ZfpG5FocjrtvHLW3jg
- CLtYP5zknp1jSdcbnB4kGPrfdf2b7ad0qgTLUlmFGUSLzi94xuk_tvz7pJ.yxgxkSajOzqEsVQtk
- UH6cRZwdrK2opOLKGtinCtve7Fs.XZANQLdvKeGZynPM8Jkbn4dgVIULMRcK2n0AvA.cQ3.jd_ji
- dpFdUg9JEbEgQRvtvMbJmbcu2AdKId6Oc5CfloCyuVG17HQreIiL18hfdXRiQ5BOL9eMrwGFHQmZ
- FxJXjbzbWsmLSYjjX5tComEkDn7HK4Xm9krdNLhdnBYaSXa9.IzK4ANDHaFXoTv1J2i1WHpyTvs.
- RT8JQJREC.FPlt5qTdMevMNnX5cMQvwmTyIJe45lhMH0Zh_EIH9bYLCPIBR1nj6FJWdA.LW4FupI
- 6R0ALEBJ.nnD1xyVFxVLxwC_ZGYP_LrWrDN0S3kp_3LLCtE5GTbgWX1SVi7iGD4BsB5hAhlusgVm
- FZJZKz7u0lQvakXyce7IUUgcioHVz0hkZvo93qxtYg8HOloN3Wi.0eVCkVdqJURn6KLeGIGeqj8O
- iwatxz7CFxF5tV.Sl3DFksgA61jCMscJ6FncgFbGzfi4LrvrpnTRj2JO_OUauN5Bx937syfikuc9
- tt4p0Qf5vpelxNqQR1ZyKSZ.thpoqP53wXsDBr3xyBV0dNkD2YJhP6U5XDiZ_MVDHy1dXwPwWFdx
- FqMhNxnw_QOzNormjENIKPiS.KYdw.v0ERlJL1Ci6enDq7R_MiTJDf8KIdQXhm_g.ZpQf8Ng.g1J
- PQBXUE.oJ0a8ZMcBofU_jA_Y4Fnc5.3XWQaoLkQ2J.tOKPBK2dk_urpo9njAyAVfrWI37n3B1Dqi
- h3ONq8jiRYu5YR4TTdPAoIjs9kxYQs1Pk2EiefB8mE2zVO_Cc6JUbnjRPw12EIjEyPbn7bTM2RT8
- 5lIstf1_tf0ShebRmHKarI81DZcyQeVBH_R43rec8GVB0QR4imLRdNlKAwSY4Zu_o3kEXxZpYA1z
- FjESR7sOPpjqKks3S.nh6GfWV8lhcc7Bh_uzXZwX9Q1_2zU9eqMujhFkDsEoRTK44a7H9S62K9lp
- 55t2XXeyHj4E9K.ZufrwuTmf_T1JahvNG.eQF9DbGSJzVlGiGKTfbLO9PLDJw3Rj9IBQESI0_Yjb
- 2Fdr0geTvpVexMLDnCsyMRl3ESW0KvJD17fNOkxBWRCXG63uPYacWeYg-
-X-Sonic-MF: <tarequemd.hanif@yahoo.com>
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic312.consmr.mail.bf2.yahoo.com with HTTP; Wed, 12 Jan 2022 10:02:17 +0000
-Received: by kubenode517.mail-prod1.omega.sg3.yahoo.com (VZM Hermes SMTP
- Server) with ESMTPA ID 705d92632efb658ce59ff3af9b8c9d06; 
- Wed, 12 Jan 2022 10:00:13 +0000 (UTC)
-Message-ID: <4dfbee97-14c2-718b-9cbd-fdeeace96f59@yahoo.com>
-Date: Wed, 12 Jan 2022 15:58:25 +0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67AB011286E;
+	Wed, 12 Jan 2022 13:26:26 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1DF510E933
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 11:16:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1641986184;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rvfHccyQZvOEcbK/VSQsdfq4siS9aIa44pr1d+OE6yo=;
+ b=HV2n6834naNCbIZnaNHPIypf2eoTRdIK79SE8YfNmCfh7aR8WTDGMpDKzqQhigMZiW22/R
+ f76eXrQOjATiw8DNAqwilw3VwEz/yVLM24JMngFqKxqGgwqnAFr0NZooHUXjlSDSTq6T8I
+ QkhgDBqfNNMqblUru8Oewr4NvjKKvZU=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-487-AdCo1OJ8MKaPOEM3JpkUqA-1; Wed, 12 Jan 2022 06:16:15 -0500
+X-MC-Unique: AdCo1OJ8MKaPOEM3JpkUqA-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ b8-20020a056402350800b003f8f42a883dso1953195edd.16
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 03:16:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=rvfHccyQZvOEcbK/VSQsdfq4siS9aIa44pr1d+OE6yo=;
+ b=7M8my1un0VbNWxOQKC9NLtKqyyQuceqTSIyAnPEquWJ0dqrkl9AFyspUJ8gJ5P1GAl
+ Uu8eupTS0cKahtkQQppKIky5csvbX95JakSSIPnghg6XLqx7lEI32DtYkyEMv9SsyblV
+ b1hUb8FFPaIwcJsuIrlPU9QAo2ZvVnSfdR68scBwNLbM4aUEOC8GHaf3YHYOOmXBQq6j
+ 8EPQ1Suu3s5bFJIzrOWS9/syUVH/dHFDZ9/GfsiVmW4/2EDZKPTCUbgY1N6a/XU39p3/
+ PAe3JL6hPzHN9IAZZMN4A6OZtRXYE4/Po4chv5TdFtBXZ20SumRWmYLLtwTYoJ1ywMSi
+ K43w==
+X-Gm-Message-State: AOAM531YloG/EdiDpQHxEdvViV36DjIuS26vA+bKtJjHBX/kO3Jkh4OB
+ KE7pJKfTw2PbFhXTkSxORmbx9sUKDz6oNOYpTJBi9HnEgb3H7QQGQ8XpKOC16zHSARbec5aqDGQ
+ XjDSDPctGrOKYH9GHwZyfxsGGvw==
+X-Received: by 2002:a17:906:974a:: with SMTP id
+ o10mr7201047ejy.226.1641986174390; 
+ Wed, 12 Jan 2022 03:16:14 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJylcjOYtqv8QO2gzLMiyLf36NeGdQwoe97SOgETUwT3484y0JFJN63XyHPi2xLKoaaQHMvZ5w==
+X-Received: by 2002:a17:906:974a:: with SMTP id
+ o10mr7201027ejy.226.1641986174194; 
+ Wed, 12 Jan 2022 03:16:14 -0800 (PST)
+Received: from ?IPV6:2003:cb:c702:4700:e25f:39eb:3cb8:1dec?
+ (p200300cbc7024700e25f39eb3cb81dec.dip0.t-ipconnect.de.
+ [2003:cb:c702:4700:e25f:39eb:3cb8:1dec])
+ by smtp.gmail.com with ESMTPSA id f18sm6068251edf.95.2022.01.12.03.16.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Jan 2022 03:16:13 -0800 (PST)
+Message-ID: <8c4df8e4-ef99-c3fd-dcca-759e92739d4c@redhat.com>
+Date: Wed, 12 Jan 2022 12:16:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] Revert "i2c: core: support bus regulator controlling in
- adapter"
+ Thunderbird/91.4.0
+Subject: Re: [PATCH v3 00/10] Add MEMORY_DEVICE_COHERENT for coherent device
+ memory mapping
+To: Alex Sierra <alex.sierra@amd.com>, akpm@linux-foundation.org,
+ Felix.Kuehling@amd.com, linux-mm@kvack.org, rcampbell@nvidia.com,
+ linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
+References: <20220110223201.31024-1-alex.sierra@amd.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <20220110223201.31024-1-alex.sierra@amd.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-To: Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org
-References: <20220106122452.18719-1-wsa@kernel.org> <Yd6gRR0jtqhRLwtB@ninjato>
- <98ed8d6d16a3d472d9432eb169aa2da44b66b5cc.camel@yandex.ru>
-From: Tareque Md Hanif <tarequemd.hanif@yahoo.com>
-In-Reply-To: <98ed8d6d16a3d472d9432eb169aa2da44b66b5cc.camel@yandex.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.19551
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 12 Jan 2022 13:26:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,15 +92,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Bibby Hsieh <bibby.hsieh@mediatek.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: willy@infradead.org, apopple@nvidia.com, dri-devel@lists.freedesktop.org,
+ jglisse@redhat.com, amd-gfx@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 10.01.22 23:31, Alex Sierra wrote:
+> This patch series introduces MEMORY_DEVICE_COHERENT, a type of memory
+> owned by a device that can be mapped into CPU page tables like
+> MEMORY_DEVICE_GENERIC and can also be migrated like
+> MEMORY_DEVICE_PRIVATE.
+> 
+> Christoph, the suggestion to incorporate Ralph Campbell’s refcount
+> cleanup patch into our hardware page migration patchset originally came
+> from you, but it proved impractical to do things in that order because
+> the refcount cleanup introduced a bug with wide ranging structural
+> implications. Instead, we amended Ralph’s patch so that it could be
+> applied after merging the migration work. As we saw from the recent
+> discussion, merging the refcount work is going to take some time and
+> cooperation between multiple development groups, while the migration
+> work is ready now and is needed now. So we propose to merge this
+> patchset first and continue to work with Ralph and others to merge the
+> refcount cleanup separately, when it is ready.
+> 
+> This patch series is mostly self-contained except for a few places where
+> it needs to update other subsystems to handle the new memory type.
+> System stability and performance are not affected according to our
+> ongoing testing, including xfstests.
+> 
+> How it works: The system BIOS advertises the GPU device memory
+> (aka VRAM) as SPM (special purpose memory) in the UEFI system address
+> map.
+> 
+> The amdgpu driver registers the memory with devmap as
+> MEMORY_DEVICE_COHERENT using devm_memremap_pages. The initial user for
+> this hardware page migration capability is the Frontier supercomputer
+> project. This functionality is not AMD-specific. We expect other GPU
+> vendors to find this functionality useful, and possibly other hardware
+> types in the future.
+> 
+> Our test nodes in the lab are similar to the Frontier configuration,
+> with .5 TB of system memory plus 256 GB of device memory split across
+> 4 GPUs, all in a single coherent address space. Page migration is
+> expected to improve application efficiency significantly. We will
+> report empirical results as they become available.
 
-On 1/12/22 15:51, Wolfram Sang wrote:
-> would the reporters of the
-> regression be available for further testing?
-Sure. I am available.
+Hi,
+
+might be a dumb question because I'm not too familiar with
+MEMORY_DEVICE_COHERENT, but who's in charge of migrating *to* that
+memory? Or how does a process ever get a grab on such pages?
+
+And where does migration come into play? I assume migration is only
+required to migrate off of that device memory to ordinary system RAM
+when required because the device memory has to be freed up, correct?
+
+(a high level description on how this is exploited from users space
+would be great)
+
+-- 
+Thanks,
+
+David / dhildenb
+
