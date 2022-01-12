@@ -4,90 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D8C9C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 16:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74A82C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 16:08:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7591C10E8EC;
-	Wed, 12 Jan 2022 16:00:00 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2047.outbound.protection.outlook.com [40.107.94.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9730C10E78B
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 15:59:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4FB410E3D2;
+	Wed, 12 Jan 2022 16:08:52 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 315A010E3D2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 16:08:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hlQ8Bzn1+JWTYTNOK/0bJqNaINcPJ9wh7vPPb/v5MACgMWUDUrbe47znIz3A72fpD/gQfrkN7Oi1MdH2l0N+kEbfdrm2f2l+Hc/AipKhApNamYVGp1OLHTHpk7xLlVcQm+ETJag3ibE+L0ercLuJIYc7eWS6Lw91pnHz6nGNW0ufFKyHLfoVQlWbgVMv5j635hu4qbdTzelkNRbtxT1pRdAEEiWKI7KXfbvcIEl6B8dsUq3VAPC0wyaFLOok0TBln496/pr8Dc/YDdKc6XCm/GPz1X4mQ2eXb9O0IRIuMShmv5Lm+r9EfUif/vkaFTZ7yjKwDyAQtUOtGG8v5/N5tA==
+ b=JpVR+KHpALmpLCeT+MAAUHvYFqEU/NMsXpJYjVafIRS9lbfy1/UzYCng1zXnKxNbQMh2x/gxoEyMwIGp+OFVM5XgPyop6N2gbVyL6ddCcw6tsBsuGSYDl6w8rGHoHSUmmpRexUG+ulueV6IqSs4qJM+vcP0Vn81b2p4paZP9Kqt2zDUC6MXJjQNZNLWXUpjir6UKSYFFDJYb4XufSaA4ewwfWBu+x1QkB8elcV/DMAuyaKJFMVAvH8ilMdPVhaj4z8wz8Tfwe4eY/5D3d9LDxSq6RpopZPGKJh5gnvFajIZIFYEoxfMfbnwoPcV7DzyJTJv2tX3RtaNkdKK/5HuiZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QRkZcXKz+9l8baOp4Q3HifhtjpVehS7PwvZfht6p3Qk=;
- b=n6AnN9FjJkVKXaFKtGvy7uklUmR9wiEPJh87Zpx5vBmmzp+krMS8aCZb1/aYHx7OTGLAFllFLcs5Fs8XP16alRNSFyy/92Q9YfSlTz867VNJfBDvtLDmd5UoK2YSSZzV9DcCd6ncSGhUcOJHn67yY2esLJxpBNLKxiKLs2Hg9tUVzBrArSXKuyTxK3gs70MATvcmomb9p6cTuX48+HeG1uE+mJwDH/ioYv+Lh39m1v3WH+JNqULvwdyGQPLlhYVOvR9qQD9YDfxayF6iiUu6HF95NBi/N9mhX/tIIqQyOQhkp9VLDJ21Uqh7w6Ic7rANDoBlpxskPWHp3TnNwm5Dug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=vGfBhsoWrxCoYYZf0soPFtnaU8XngmmsMWd3tEp/9uc=;
+ b=Nu0lZteMcol49tvkHnCdVJlTqE7D5XnsoE9nCcQ6OhxVbmNv3hIg8uFbJUv62kqOBnCJejV9kwlaNohzcd8Q5HxkjK8fMBduZvTplvXIYudJ5D2DZKXh/vLqX8NmI8Fvhs+Z7CXkhIDP0ZYJdPDpNVOvWcfhNLB8SuwDcYKctH8ZKpA4tsHCBvCyhuwh3oBDmwJcgjcnYBIIPmVs19tmEHPDGS+VxCr/YpeteqjegTWJKfKKz79gR9R1fqFus39r7xJ9ukXWifLOL1oJiqYw5ayTkItvJdHgw0inLbw1+JqOwTJCkh8UyeqgHo1FkQMv1gfyFMng/muTAXkqigqJsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QRkZcXKz+9l8baOp4Q3HifhtjpVehS7PwvZfht6p3Qk=;
- b=LCkDYNawL+uPsBCMpCsqMflrkaGjjaJ332tu9PjexO9gKfsmjDqbUAiVoR1wsNcSchLlBf0ioxiQmX5B0OvOk6YatPHzS+rcYslLQy5qPl1Dsfi6WAvaaO7JqhkwFeUjVMFGbjmD1G7eYwKPsNX7T0TFDBmZAUed5fsOPtyyu8M=
-Received: from BN9PR03CA0106.namprd03.prod.outlook.com (2603:10b6:408:fd::21)
- by BN8PR12MB3219.namprd12.prod.outlook.com (2603:10b6:408:9b::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9; Wed, 12 Jan
- 2022 15:59:56 +0000
-Received: from BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fd:cafe::30) by BN9PR03CA0106.outlook.office365.com
- (2603:10b6:408:fd::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.9 via Frontend
- Transport; Wed, 12 Jan 2022 15:59:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT023.mail.protection.outlook.com (10.13.177.103) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4888.9 via Frontend Transport; Wed, 12 Jan 2022 15:59:56 +0000
-Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 12 Jan
- 2022 09:59:55 -0600
-From: Jonathan Kim <jonathan.kim@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: cleanup ttm debug sdma vram access function
-Date: Wed, 12 Jan 2022 10:59:45 -0500
-Message-ID: <20220112155945.2466798-1-jonathan.kim@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=vGfBhsoWrxCoYYZf0soPFtnaU8XngmmsMWd3tEp/9uc=;
+ b=tBh2dv5FOp8scQ65e3PExeiRax8a+sF9veCxvBVNe6pBK8ImM/2JFOY7Q0xRpe8yCxajXhCLr1/d2wYJqngSRWW8IQAgll/BOrZhL11G5E6BjH6CTmk8jtRH/wP22hx2BcL0P2eZJTbvJ14JcxrZxkrJdrzxSnvQC6VKqnehrCo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by DM5PR12MB2486.namprd12.prod.outlook.com
+ (2603:10b6:4:b2::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10; Wed, 12 Jan
+ 2022 16:08:47 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::b4d6:f148:3798:6246]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::b4d6:f148:3798:6246%7]) with mapi id 15.20.4888.010; Wed, 12 Jan 2022
+ 16:08:47 +0000
+Subject: Re: [PATCH] drm/amdgpu: cleanup ttm debug sdma vram access function
+To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220112155945.2466798-1-jonathan.kim@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <70ceee8f-04f9-205f-93e2-a589d7af2035@amd.com>
+Date: Wed, 12 Jan 2022 17:08:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20220112155945.2466798-1-jonathan.kim@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: AS9PR0301CA0057.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::11) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f2cb8b1e-203e-490d-e75a-08d9d5e49400
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3219:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3219C159A6A6D8E455C3B62685529@BN8PR12MB3219.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
+X-MS-Office365-Filtering-Correlation-Id: 2a9d5037-5f9a-4197-b784-08d9d5e5d06c
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2486:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB24866A8A68BD8ED81BBEE4F983529@DM5PR12MB2486.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1728;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ke40DQeXBUqp04qp+SzQ64XDVdMZ4HMUqLfwh/XP1XzITLukHYkHyP8KRhK8XTdT75BBXYm4pK7jP19GzS2xIyv4ga2J+5ib75WIUkXT2nnkau+GW9ZIZehwF9RGUy+MtOcvTFD5k9To7YcOiL4CAgclT0lW5TLBiT42b5N00mvUNofLSyjw9myOutgrnNWLIVRetoVVYh+hPFeRXhPKTnwn/9Wv8L06c6JstOe1bLvoFbmTDoUKnirwCt8nQRlcVpTm8O/IkiNV19OsRVhVWxOmpxzQ39nB8BXpWz3Ph7dX36wtYWaKtSmMRcAAR3kF84VMPtzkOXA/KjhsQPfUVbKLicmj7zqN28lYLdGn+rJEqEhs77pD9J94t5XPakj/gecCZkV8l90OBGibzU/GNO1zwhB3eD1w/h811h03SzbzyrX8D7CKwcAbgtWsAvvFhRaYen+LRccJnRQ8BKUf7XqRF0VaaLFcN/AT8m13IIlBxWEJq9mB4Ctr4se9rsyCi7xcTWc+ktOQzHkhyvglkL3vz0YaAKNqMXnZxOyUAtLZ+8AhqaUWQ3u5PY9VR2GZpWpo48E0lAXOEM8zqIvAIrTOV99FdeA9Jd/dzmQ1VcARaWIxMPHV/v8XAwA+C1nmKCoDrS0v7QoFHOGY6kRe1lCfwXVYTbQ0NBxRpfcWYDKYZKLjl1xYKPAm+lTE/Ci6c2dVnJKlcEKmxOBc9q9YGWNVSQU9Elz1oNQO3jrR6L8daIqcgo9VauHB1vokw3EkEtV92S14ZkX0ohLZeY9o10TT0bG8LkjYD1odrso26j0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(46966006)(36840700001)(336012)(2906002)(8936002)(2616005)(36860700001)(70206006)(508600001)(8676002)(426003)(186003)(4326008)(70586007)(16526019)(36756003)(54906003)(1076003)(356005)(82310400004)(40460700001)(5660300002)(44832011)(316002)(47076005)(6666004)(26005)(86362001)(83380400001)(6916009)(7696005)(81166007)(36900700001);
+X-Microsoft-Antispam-Message-Info: LcjCRnKoDUrOteY4kIXGiv0oJBtOgBm/XxHSxFGddxkp6eqqbQcjGihPE2fLOWMJzccaKEpQo6yW4AaKCuMr5NB3ubwwHep8HMJ3Bpsq9OiZmnsIADIbq7DvbDiKWKPVzSqfgwaYfh0MpvBPVg1MF9Fh/ixXJ8u6VNrF+9zJvsOU/4amMB/mJkr3WUbNGqtEQxhn9mRtmEkLBdQ3QpURe0yi6vJz2BXkEh5ta3WxcxPgcXUJ9RWqqiskFRcRVVMl9MOnkRIm6MyWjWlKyoVqzACcQdzMViKWSKrT56GBhcbaw2kj81siXfQqGePUbuu5zkBy/J6sjhE/IX0jgKRZM7FfAQvWZ2gNZIpFszZYkcG6DFsXaPduLlE2rZ/sH0UdmzR+0PM4g3cxIQ8IHDnpjW1ID/KQpFeIIpkPmm28gmobWFbh0/mpccT+e+50XB5SFkl2zcEn6jCd5JIdrSt21rhWauzk+b4OLnwebElxx7X0w5yEf+bYPNTK25A+bBZCe/jghw92sLP2cMfll1v0Wswckmj0jAP1LIOfNUsUUsEHGNLmpSJ/A7oBzw6oS0YVIxadC4Fj877hhzTFc5eQ8amFkIS674ILqxxD2SnhAiu/JOsi18HuVlRMsDhJtid2DEOPd4I+1ZDf4kokzCLEkQY2f88XStKcsKP7uAJZyJOC5TA3+efsrBgsuW0hCY/7hf6UWyZ03ZJeVMYhSagsHOSwyjWktmMaiXseTOO8QX8ztTUNwzzyxuBfyvF0Z9Si
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66476007)(66556008)(38100700002)(186003)(86362001)(316002)(66946007)(6666004)(508600001)(31686004)(2616005)(5660300002)(6506007)(31696002)(6512007)(2906002)(83380400001)(8936002)(8676002)(36756003)(6486002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlZMRkR6eS9wMmFPQXVIdDZGczArWVRMV2Ywa3dwczhCRkNJK29jWGRWZVdy?=
+ =?utf-8?B?b09ra2pCaW9QdG5QanI5ekZEd3pWeUk5RmFPb295aXcvZmJWbVhidEFOQUYy?=
+ =?utf-8?B?QnorTlphdVFDQVB0bHNQck80U28wYVJrY0hzT1c0RWpndGkyOGM2UkdUdUph?=
+ =?utf-8?B?Uko2SVd6c09nNW1lL3RBcDRNbWxlZS9xUlllSVBnd1ZudGcvQU51NDJybkxC?=
+ =?utf-8?B?UjhrUGhhT2JQdm9pbVpHWU1kTkgzTmxJazAyN1lzTlJGZ1VFQ2lyRnd1U1lX?=
+ =?utf-8?B?VE03S3J0c3pzV0REZjd6WlUyeE5oYXlzMUdKMnJ2Z0lQam9Ja2xJeWNDWEty?=
+ =?utf-8?B?TU51cmdpeUxjQjdPWUpOL1M2cjNSaXh5Nk1NOGhBbGN3dnRWZnpDTGtNMEpw?=
+ =?utf-8?B?TTBMckZkSnkvbXdUeVlQTEhnVU83UHJjRE8zSEFYeDZYMUF6NFh0RFZSM2xm?=
+ =?utf-8?B?anVvVi9SYytKbG9FK1lKV0VmMkFsdUhjVnJCQ3g0a0VPTTJFaVl3SFZhNkR2?=
+ =?utf-8?B?MEdib2krUGtFNmtiN1c2MFV6TFVoTy9hUGN3N2VsY29iSmxjSmFDRVJNMGRs?=
+ =?utf-8?B?NjNMWVZ2U2M5UWFkUW9JNlozMFlTbzI5SHZvQjBYSjAraldoU1Y5M1hpVkdo?=
+ =?utf-8?B?Z3B1R1BkanhSVmFmbC9xRk9teTdFTnladmpobUdtWGRWZ0VSUHVWUkFEanBt?=
+ =?utf-8?B?dFNWZEpUZFFFcFVOOEdlSXlxMjhxa1RRQk9ZekNDNTFLQVZWTmdKZFpHeEVG?=
+ =?utf-8?B?bUxuQU9KMCtGMFN0UVgvbEdRNlVRYUpGL0JjSmtOY0s4ajJLVzRUVFh0OXU5?=
+ =?utf-8?B?b09sZjZNSEd5SWthYUdlRjhWK2J5Z0tDTlNFYU92Q1VFL29sY1ZKV1ZWZElQ?=
+ =?utf-8?B?L1pnOFQ3SHFjY1VwbEh4emgwTXVoRWZlb2FPa3dpQjl6OEU4c09JT3RnTkJE?=
+ =?utf-8?B?dnRTUGczMVdISll0a3RUMCt5RXFjS3FRMVlUY2xzVy80SGpLOUk2amVsbGVm?=
+ =?utf-8?B?M0NRVDVISVM0ckdySkhCeS9Zc2JlM0pkV3NPeTdnMGNPYzJFOXRnZjJNTGdQ?=
+ =?utf-8?B?NUhGS3BHekVuUEVNTDFwOVE4SFNtMDFiVHFRekdUKzVyQzd5bXNDcjI3WGZl?=
+ =?utf-8?B?eFFVNCtXUGJXV3QybVZxRkQrZHNXTnE2NTBQNjlZdEI5L1VZbXMxMXltOXlt?=
+ =?utf-8?B?dy81VVdVTzBJVmNJaGVlSm5JSFRMQ2JOSDRwZnhvNUxSSnF2ZWYrelIwQWZ4?=
+ =?utf-8?B?dUhUZlFIQnJRdU9pK1pzdkZxMHh0RWI4NmlHUEwvYXQ0TGduMzJUQWI4Sk83?=
+ =?utf-8?B?U1YzdmxoeVRxeWdRb1c2cjhkcks4bWU5R05vTm5MZkFJakQzZldXUGxJUWdx?=
+ =?utf-8?B?TjBTMEcrSkpmWFhqS0dBRjZyRnVQbGNmUW1mKzBsdVlBMFJzMEpOTlFZcTNv?=
+ =?utf-8?B?WVl5Ym1QUm5lTlEzeEsyckJvLzBMVXord1ZoL3JLV1NHVnF0RFUzWkZJM3JZ?=
+ =?utf-8?B?QTdkSWNOcWJncjI5S3BKd2UvalZ1aS9ZYXRGeXdDVVZpbEVVT04yb3hjSWJ0?=
+ =?utf-8?B?RG9BeVVVejdZc1pYTmxkS0o2WjBTWndNL2lreWxBZ1BoM1FJR3NWZkl6ald3?=
+ =?utf-8?B?OFNiMXNiRkRHWGR5ODZiVHFyL2kyK0VsWEs5eFk5Y2h4cnhDczdjR05aMHFv?=
+ =?utf-8?B?eHlCMHFnWk51c211Y2xOc0h3TStiTEdkQjlZMGMySFRqMFM2UGJMK1NLTngz?=
+ =?utf-8?B?VnYyZnhLYUFpdU9NWGt4WWs3ektJdGhTSUZ1b3kxdXo5UFZTNERTcm12YTJS?=
+ =?utf-8?B?SGJ1WGVuMzFZS1ZVQ1F0c24wNG9qMUNkaFh6NXNDaXpTam1TK3ZybFFXRDBh?=
+ =?utf-8?B?RWk3RGxRajhmNUh2Q3RVUlpCSklZeForWG1vZmMxM0pORGNaa25KSUp5U2Fu?=
+ =?utf-8?B?ZG1mYVBMNGQxOER1T2NYRlQ1QlRjUFo2WGpjbHNHMTJmYVVwYWYyYTBlUDdl?=
+ =?utf-8?B?bVl1M1JFYk1nVndVd3UwdDVmQ203OFhacTRaOE84V3BUM01STEw5Q3MyKzdW?=
+ =?utf-8?B?bTVzd2pTaGpRRWVGTE0vclQ2a2w1VHNZMERtbWQ1Y3ZjNFJZQXI5YXUvOXV5?=
+ =?utf-8?B?RFJpQ0NQNFBScmZ1QXVlK3lSMkFZZHhyOHV6YkxzSEdwcDVGSitUSitMOUNx?=
+ =?utf-8?Q?/zC6zwNlLaajvwLsBmjLtd4=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 15:59:56.1670 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2cb8b1e-203e-490d-e75a-08d9d5e49400
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a9d5037-5f9a-4197-b784-08d9d5e5d06c
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 16:08:47.2992 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3219
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ljV6kSQrrNbsWk41kW28H/SolzDnAC4pZnz1VyQlhxett6pzy1TZbeHakcuBNi6i
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2486
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,94 +126,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Kim <jonathan.kim@amd.com>, Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some suggested cleanups to declutter ttm when doing debug VRAM access over
-SDMA.
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  9 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 23 +++++++----------------
- 2 files changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a675dde81ce0..4d77842f2183 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1448,6 +1448,15 @@ int amdgpu_device_set_cg_state(struct amdgpu_device *adev,
- int amdgpu_device_set_pg_state(struct amdgpu_device *adev,
- 			       enum amd_powergating_state state);
- 
-+static inline bool amdgpu_allow_post_mortem_debug(struct amdgpu_device *adev)
-+{
-+	return amdgpu_gpu_recovery == 0 ||
-+		adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
-+		adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
-+		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
-+		adev->video_timeout == MAX_SCHEDULE_TIMEOUT;
-+}
-+
- #include "amdgpu_object.h"
- 
- static inline bool amdgpu_is_tmz(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 33781509838c..02515f1ea5fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1460,10 +1460,11 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
- 	if (r)
- 		goto out;
- 
--	src_addr = write ? amdgpu_bo_gpu_offset(adev->mman.sdma_access_bo) :
--			amdgpu_bo_gpu_offset(abo);
--	dst_addr = write ? amdgpu_bo_gpu_offset(abo) :
--			amdgpu_bo_gpu_offset(adev->mman.sdma_access_bo);
-+	src_addr = amdgpu_bo_gpu_offset(abo);
-+	dst_addr = amdgpu_bo_gpu_offset(adev->mman.sdma_access_bo);
-+	if (write)
-+		swap(src_addr, dst_addr);
-+
- 	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr, dst_addr, PAGE_SIZE, false);
- 
- 	amdgpu_ring_pad_ib(adev->mman.buffer_funcs_ring, &job->ibs[0]);
-@@ -1486,15 +1487,6 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
- 	return r;
- }
- 
--static inline bool amdgpu_ttm_allow_post_mortem_debug(struct amdgpu_device *adev)
--{
--	return amdgpu_gpu_recovery == 0 ||
--		adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
--		adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
--		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
--		adev->video_timeout == MAX_SCHEDULE_TIMEOUT;
--}
--
- /**
-  * amdgpu_ttm_access_memory - Read or Write memory that backs a buffer object.
-  *
-@@ -1519,7 +1511,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,
- 	if (bo->resource->mem_type != TTM_PL_VRAM)
- 		return -EIO;
- 
--	if (!amdgpu_ttm_allow_post_mortem_debug(adev) &&
-+	if (!amdgpu_allow_post_mortem_debug(adev) &&
- 			!amdgpu_ttm_access_memory_sdma(bo, offset, buf, len, write))
- 		return len;
- 
-@@ -1909,8 +1901,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- 	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA);
- 	ttm_device_fini(&adev->mman.bdev);
- 	adev->mman.initialized = false;
--	if (adev->mman.sdma_access_ptr)
--		amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
-+	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
- 					&adev->mman.sdma_access_ptr);
- 	DRM_INFO("amdgpu: ttm finalized\n");
- }
--- 
-2.25.1
+Am 12.01.22 um 16:59 schrieb Jonathan Kim:
+> Some suggested cleanups to declutter ttm when doing debug VRAM access over
+> SDMA.
+>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  9 +++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 23 +++++++----------------
+>   2 files changed, 16 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index a675dde81ce0..4d77842f2183 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1448,6 +1448,15 @@ int amdgpu_device_set_cg_state(struct amdgpu_device *adev,
+>   int amdgpu_device_set_pg_state(struct amdgpu_device *adev,
+>   			       enum amd_powergating_state state);
+>   
+> +static inline bool amdgpu_allow_post_mortem_debug(struct amdgpu_device *adev)
+
+Give that a better name, something like 
+amdgpu_device_are_timeouts_enabled().
+
+Apart from that looks good to me,
+Christian.
+
+> +{
+> +	return amdgpu_gpu_recovery == 0 ||
+> +		adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
+> +		adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
+> +		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
+> +		adev->video_timeout == MAX_SCHEDULE_TIMEOUT;
+> +}
+> +
+>   #include "amdgpu_object.h"
+>   
+>   static inline bool amdgpu_is_tmz(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 33781509838c..02515f1ea5fa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1460,10 +1460,11 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
+>   	if (r)
+>   		goto out;
+>   
+> -	src_addr = write ? amdgpu_bo_gpu_offset(adev->mman.sdma_access_bo) :
+> -			amdgpu_bo_gpu_offset(abo);
+> -	dst_addr = write ? amdgpu_bo_gpu_offset(abo) :
+> -			amdgpu_bo_gpu_offset(adev->mman.sdma_access_bo);
+> +	src_addr = amdgpu_bo_gpu_offset(abo);
+> +	dst_addr = amdgpu_bo_gpu_offset(adev->mman.sdma_access_bo);
+> +	if (write)
+> +		swap(src_addr, dst_addr);
+> +
+>   	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr, dst_addr, PAGE_SIZE, false);
+>   
+>   	amdgpu_ring_pad_ib(adev->mman.buffer_funcs_ring, &job->ibs[0]);
+> @@ -1486,15 +1487,6 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
+>   	return r;
+>   }
+>   
+> -static inline bool amdgpu_ttm_allow_post_mortem_debug(struct amdgpu_device *adev)
+> -{
+> -	return amdgpu_gpu_recovery == 0 ||
+> -		adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
+> -		adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
+> -		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
+> -		adev->video_timeout == MAX_SCHEDULE_TIMEOUT;
+> -}
+> -
+>   /**
+>    * amdgpu_ttm_access_memory - Read or Write memory that backs a buffer object.
+>    *
+> @@ -1519,7 +1511,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,
+>   	if (bo->resource->mem_type != TTM_PL_VRAM)
+>   		return -EIO;
+>   
+> -	if (!amdgpu_ttm_allow_post_mortem_debug(adev) &&
+> +	if (!amdgpu_allow_post_mortem_debug(adev) &&
+>   			!amdgpu_ttm_access_memory_sdma(bo, offset, buf, len, write))
+>   		return len;
+>   
+> @@ -1909,8 +1901,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+>   	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA);
+>   	ttm_device_fini(&adev->mman.bdev);
+>   	adev->mman.initialized = false;
+> -	if (adev->mman.sdma_access_ptr)
+> -		amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+> +	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+>   					&adev->mman.sdma_access_ptr);
+>   	DRM_INFO("amdgpu: ttm finalized\n");
+>   }
 
