@@ -4,128 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CADCC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 07:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27AF1C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jan 2022 07:04:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6077110EFBF;
-	Wed, 12 Jan 2022 07:00:28 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 640AD10EFAF;
- Wed, 12 Jan 2022 07:00:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0F510F15A;
+	Wed, 12 Jan 2022 07:04:07 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8CB10F15A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jan 2022 07:04:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MuvX8mzymWi+y3EZBqOMLuicXukk8dSNUqCliHzlMPtXBjsa2h5Uaicy1KE7Nu4+4aa3d2WK5Hf6hqgtB5IK/zygXeDBYyCSxNnkJcXBd5Y4nFkTKr1G7pqClrQ6jBtXtTCBDJHng5ydNMo+vQiWgj0PG7OaC4Nds4WOCri1ahTczIgx70NRc0Vjx7oo77lqY3TeXMEN32cBg3ibrY7EhS4eNdLWfffzaoVU78OrOF5sdjVMbV6qzVeaYT4kR5LuKPoa4y0JZsmPHNg7FzArg2zW+xVg/uFZyQOm0xPY+ZrEIDB/UmjqVbNWDdNOQ8QLHIar4ESLGaMCpmCO3j4yPQ==
+ b=ljP/nhQD5HXzOFAPyrJVNXHfaLI6vOPVZNJGHttR4g4kxg+bbgPiuDL3j40jzDGjnilOeeU4Ve8XO3xgOmnM0qH97LZHSAKUGyCaFd+9EnUdDgyTGVYITGPNzWTOnCukOVQ7wFEVs1lUBdO/X41drh6p/MPGrB7/ViywLEiT0w0MCaJ8XOKwhv3GX7jFxgfUuSmtIlIRxXVNaignapb9cZwsdMojxm1L5VpQIreaK21eSKLLnJ87fJJkGaSycJFMHpufrJYuk8968HJX2r1TWJGS14e6gEafs5PgT8g04utNqIzYrCn6c+c/ATIaYKPKqCEQb9PyslqeIhcGo+iikA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bpuzsekq3LzYnCrsbTMmDQ93BqmHEJenDWsFb8sQ8uk=;
- b=htbpsmcAr6chxfYtBihJ9Ap7Lt+lSiv/A4ultnVQbKBfvt3TYw/FpxSpuyO2o+bnkF7eKPU3fVQ1b54NeHi6Z4sRM+Y6mewAqr/L6t6j73FlOpwau8jx+5jON+udTrjy/Yx6DObF8D8/WPvZp1mA9b3e1VtXCe7L14H3mMw93Eei7QO2lYeNw7F+0kcjnlFVCSXsvQ94H4FofI9Y+V7hVBPkGpJq7Qeh7+RcprDnIWFZKt6V28GfDfQ+viLC6S4nwvaHkP7oJiun46AF732khMPTSTOoB+xDgBw04uLSZYMRakHNtS5KhsIG1RQGwo4/eKEWn6AzBcjoCGsUNCGv3A==
+ bh=iQC6o6W35jRYi5g42Z4YVsJoMFx+E7mPrbHyONzW00g=;
+ b=BjJKcEhvQhBpGlx+ydGYW6+lDuzT9cn6CtikgawCPQYIfoHd1Tbfrn0oP86L0JxZxQYL6CIuYzfIHwhTrovJElK9ayJ5O2fr3h2YejqzqXJiir1Um0tJVBIG77yinS6M9QC8k1Zn5tasSbl/q+Xm30VSsOBMy/bEdw+x9Tdf4q58hkMwPwFLNHxnog2rACjcnvuzMjO+kE5/fweIYi+Xvon+hcfZqmw2/uqIOguErLewcOsAL23obgroVp94ga99AEiMlDaUImIi20CIzwNbwL+Znes4DDMb3ltMucIPt4BwynRERv4sG6uR64BD5cXsvFhO/RkzZGKjjjNIc/IHGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bpuzsekq3LzYnCrsbTMmDQ93BqmHEJenDWsFb8sQ8uk=;
- b=WynQ2BdTj7Lmr9g7+N1HJjgkkT2qPKDFfchcXqBEX/pAevUi2KDKgCNS81bpP8zbI/Qeh8wowMDIr8F2CDlSH79WDfE2CgGlU006KQXWcuHXrPVsEPFhLjooRqdM5+LfR1DGBlmqe6cdu2uDk+aMyDIsVg056jbUVfJZiwpWQhU=
+ bh=iQC6o6W35jRYi5g42Z4YVsJoMFx+E7mPrbHyONzW00g=;
+ b=NBiJdECDM1vOpxVGOWgcijqT8G2d4rjgaFPUmVXNU4zEYLmvUXtgHjFL8RdpKSzgwIqz1YJqCTp6TO8bew+wdDMEFLYDMCOwpk7P2qzrLty/2X8bix4pmt57QMr0BVlT5C71Ir9UnaPndnuIvK4IzVAgPGWim+1A7/a51UUIE5c=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by DM5PR12MB2535.namprd12.prod.outlook.com
- (2603:10b6:4:b5::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.9; Wed, 12 Jan
- 2022 07:00:23 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246%7]) with mapi id 15.20.4888.010; Wed, 12 Jan 2022
- 07:00:23 +0000
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vdHRtOiBQdXQgQk8gaW4gaXRz?=
- =?UTF-8?Q?_memory_manager=27s_lru_list?=
-To: "Chen, Guchun" <Guchun.Chen@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20211109111954.41968-1-xinhui.pan@amd.com>
- <da46c607-1a3c-7ea9-92ef-78a2b60d38c9@amd.com>
- <DM4PR12MB51653AB0F1A0B89A41782B1087929@DM4PR12MB5165.namprd12.prod.outlook.com>
- <76d78ff7-efe4-4796-ec18-a668757f2e04@amd.com>
- <DM4PR12MB51657C53FAA6C096884118AD87929@DM4PR12MB5165.namprd12.prod.outlook.com>
- <DM4PR12MB51658A8C75586BCC2B0BDA6487929@DM4PR12MB5165.namprd12.prod.outlook.com>
- <DM5PR12MB246972E69DADF83D83FD9C73F1519@DM5PR12MB2469.namprd12.prod.outlook.com>
- <04b252b5-b04c-a5a7-23ec-adc10024d317@gmail.com>
- <DM5PR12MB246955A077D5C6245EFE9052F1529@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <8558bf41-3422-87d7-0937-e08a0abd9eec@amd.com>
-Date: Wed, 12 Jan 2022 08:00:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <DM5PR12MB246955A077D5C6245EFE9052F1529@DM5PR12MB2469.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by BY5PR12MB4196.namprd12.prod.outlook.com (2603:10b6:a03:205::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Wed, 12 Jan
+ 2022 07:04:02 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::9c25:ce1d:a478:adda]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::9c25:ce1d:a478:adda%5]) with mapi id 15.20.4867.012; Wed, 12 Jan 2022
+ 07:04:02 +0000
+Message-ID: <15a19c92-299b-16d1-41de-c00c46220e33@amd.com>
+Date: Wed, 12 Jan 2022 12:33:49 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH 3/7] drm/amd/pm: drop unneeded smu->metrics_lock
 Content-Language: en-US
-X-ClientProxiedBy: AS9PR06CA0206.eurprd06.prod.outlook.com
- (2603:10a6:20b:45d::26) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220106055732.3073780-1-evan.quan@amd.com>
+ <20220106055732.3073780-4-evan.quan@amd.com>
+ <4c820046-fc95-e7ef-c857-eebea6542990@amd.com>
+ <DM6PR12MB2619F53DE7747026D05E3A49E44C9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <7dbaa69b-2465-c1ab-9676-4dec289d6356@amd.com>
+ <DM6PR12MB2619470CEF4FBD3439694FA2E44D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <997293a5-a5e0-1216-6155-3eff7618b5e8@amd.com>
+ <DM6PR12MB2619C8FB7EDBFA5A906F0BE4E4519@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <DM6PR12MB2619C8FB7EDBFA5A906F0BE4E4519@DM6PR12MB2619.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BM1PR01CA0148.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:68::18) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3c81de8f-74ca-4ca4-70cf-08d9d5993383
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2535:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB25357FD3306DF2F407797FB983529@DM5PR12MB2535.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: fc5013e5-a56a-4688-eca6-08d9d599b6d2
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4196:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB419642A80F71F4883E4CF72997529@BY5PR12MB4196.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DmZZtZnFc/AB3zFeslxZZ5N7Dv+v1gc9o+kk+eFcEkbltS4rxFEEG+T/aJkhfMbxQW5voxsLH35mJg7u00GRG4x4NHv0gZ95pW1r6G8+G077KCdd4OL0Pr8WUyDx717R6UMrPkgMPSHnyneMWhoJQLM6vMCDy0pIxFyNshp3+CmJFTBEci9H4KBVQuW8WGYFf4kAM3Cp50QDfcF3Y/YkwRpcKpuyyFh2EpQd+s+ZBahAG/E8p+kkM0K/HfgeigcxwQnOyXklPz5sBhgLulwv+RYuI6gEY+8o+THoJ3/HKKt4rNhd0jPDE8zga20bIlXaSOZacwTfDxdT1lzGDcxMRaDMfdozWefdxeOmaRz7O0lZ3jPJfb+0hcPcHK0JpzTWqN85XZ0zosN5bR/Jw3kUDiqosHDqt72IB7+kqBOuMvEfDIqWncVIYaqvZOpBDIMUkmrUIxTnHOOU5ai0LciUk89Qbs18aXHKmOmQI8DIc7TzOw7/4ptK5dQ9RwH47WrspBgsxNe3U5/g5idxZB7wbTnwIEr2lz21YAaoMhhuyqQmNn5RMI+vRMXfMGRYGXDw8ytW0caOGsu47J7iieaAqkWMXnVapFvvXHW3unaRxqUgiBA3tYq2NA6tI2p5m1duiXCDSW+dj+KwZYCQBqHAHwvBDP0zdCusi+mMfgIHFKlEdV3KqNCTUOC83iU6YeA1kH30Ot5Bs8IEDR6XkLq2uVzedX0NqT2PeQin/oXiO5SqAvthfSiznJi9UO8QalNrhafykBMar1SZMeuhsUkyUOnvuSbPQ1DLCg+YFPS1E3PLsgPZZLHWKsZNpfoIv1JM
+X-Microsoft-Antispam-Message-Info: FgIudJfrsPObabGRib+jz60D2I1kHxVykLEoHpHcZjQbJoGK4Jf9faTY5LSWZ46UF/OWfO4vMjvVMz5fgggj02sWYs3rwdu0xle+jcbJjLYpRyqBkjN0m0Cj1I5XXxgLZVBQHNmssgb/Bz+iq+wF8ukzvpm67JAj+9lhXfuF7QE2m/4b6mvYU5wI3BvcdWhcVjlwHIar08gt3+1N9IuJYsTEsN2kox6AtuhXqSHpJalNgAAb7W5HBXOHp1UQVZTVUm3kVfQffe4s6Te5wEuSR6JI9CLbak73LtUIUPjcXNVhG7AiMpvxXkGrwfgaTy5Cp0mCWtyhQybaX1Dm+oICx/7UuCGaG4dd6Jrv+dgz7/lvym+bZCRsu/ZV/JO57Y7mczbtrzf8i9mskY/qNlTuMKCLcbiWJzO5mvkFdMFu6cIEglkq0Uj8VN1sgdqf49u2wZ76rmMyhCZ5LIUq0DXivcpgEmZXFX0hfHvMFQuOJbedyvPybRT60A60jkLIRW6Ey1oBCeUzwAfqFfrbM01VUt/KQAp0ZfSCYCobA6Gkql6bALtu/DOb080JQNjw7kzAAjE4pdcLZNyoQL+9n0LjcFkFOIHbadr2lIMHPZgC/NS4UotV0sGfIfHii/Q2lj5zvrq4xTEpYvhfypBlA+8pSkU2vJSE/K5Bf2pFC3CMS1XNAFoT/pagfxlFBfi/T1e8BBEo2nnlh+jBbnr2IzgK3bJBUMyT5r8vNj5wgWr6T+KTHTib0SOTMy01osOoXzDs
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(6512007)(83380400001)(31686004)(508600001)(38100700002)(53546011)(6506007)(966005)(66946007)(86362001)(224303003)(45080400002)(8936002)(6486002)(36756003)(66476007)(66556008)(2906002)(6666004)(316002)(186003)(31696002)(4326008)(66574015)(2616005)(26005)(110136005)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(26005)(5660300002)(86362001)(31696002)(2906002)(6486002)(110136005)(316002)(19627235002)(66946007)(508600001)(66556008)(66476007)(8676002)(53546011)(30864003)(2616005)(6506007)(36756003)(31686004)(38100700002)(6666004)(8936002)(6512007)(4326008)(83380400001)(186003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bERiKzBQb1pLSUxRQThJTGpqcW51dHJ2VHl2VE1GTjRSZ0pxOW84TmhMamVB?=
- =?utf-8?B?TkVSY3d1R1RZZzNnTjYvb0plWFZoOFhHcUNQbWVuakNPdmJYNkI4bXQ3ZSsz?=
- =?utf-8?B?RHl1Rm8vKys4MHUrOFBYVFV5ZHdvZWpIcUxJSENGazMwN1Z4N0dQVmRyRVQr?=
- =?utf-8?B?MENlN0YwWWsvaHVKR1hpNC8weTNSaE1lV3VOb0RFS3g0NVRLMTJPZXVQU2lw?=
- =?utf-8?B?d3dSNGdyN3k3MndQeDMrRGJVL0ZMVjcxZmN4Wk5XRmFlVFhLOVlrOFUvczBN?=
- =?utf-8?B?K1pFUTVoSDNiUkt5cFNONERjbWwvaFdOK05IdGt6ejl4dDhiaVhiVjVOUGs3?=
- =?utf-8?B?eWNyYlo1dk9YN1BaL05PS28yTkc2eWJqUFJRUWpVMzRJcEtYWUU4RzZRTGRp?=
- =?utf-8?B?djV5TGs4QkFRVEJtbG16Sm9ORkswOVhYdEtvWGdqUGFwWlZQVzZVenUwWWdk?=
- =?utf-8?B?U0hoU2FWaW5nZExhaG85K29KVFZ5WnUzdnR6UjZlenJEUE11a1lRZ1h4Zmdr?=
- =?utf-8?B?clAwaXZOdG1sWWpoVDRWVnVHZUpXZWQ5Ylg1UjJ4Mk9QRk1jMlJadU5oMUd2?=
- =?utf-8?B?REJGd0ZSVFp5eHNjb0tsQisyYmNSU09NMjlPKzRYM0I2a2p2bUY1ODU3akxG?=
- =?utf-8?B?Qnhrd0VDNTI4dDBOWVB0Q1Vic1RvM3g3d2E1ZWxZSHdjd0pzSEdUU3Bwcldl?=
- =?utf-8?B?TkhCbjlhNzBRU2syTE80UHBibmc5ZXp4Tmh0UDFsbXhpZmNCOW0xeTRIaE1P?=
- =?utf-8?B?S0x1UmcwbnNQOUN5WExKcTNpMGU4M1BLLy8rNUs5OXEwR2dSQyszVndPZFFG?=
- =?utf-8?B?TE52cjlUL214U2ZtVTU5WnphaWI3NFd6Y01rV1NZMW84b3NLR0JtN0g1dVJK?=
- =?utf-8?B?dWlRbXRyaXZ4c1U1ZjB6ZWFPTnVFKzIvdTd1NHdzcGx3ZnU4VjQxc0M3SFhH?=
- =?utf-8?B?Wnk5REVFRUhaWTFyRWNiTllEeFNjcDRRc0hZbm03UU5nd1RJSExEVWg0VEpN?=
- =?utf-8?B?dzJ4NWVRc3hDS1Q0WTFuNGlkbkVnY0ppUmo0UVFJUGdJWmJ1dWg0Q2JuU0xx?=
- =?utf-8?B?d2lTUnk1ZVEwc1M5OXpiSFVGaSt2dW5GOFFXOEtDVUxSaUNvUFhoNzVSbmFE?=
- =?utf-8?B?dzNjbDlhUnRacEJZOTJ4Zlg1bWw5WGhkMEdNMFV5MUdHSUg5cHVSOTdLWi8v?=
- =?utf-8?B?dUVZNFZlQkFHcm9rNmZLNEJFelpROUp0eTdkNFdITjVxQVYzOVhmWEdubmZa?=
- =?utf-8?B?UTF1WEJRVkt0R0F4aEcvRkF5bUUzNVArMG9vVnJxNjNsQVhGeXBZc3lmbSta?=
- =?utf-8?B?dHJ0UlhMZWc1MDFPY0krc25nVGp4ejY0NXhYbTUrTEhUejdON2pybXVtN0pM?=
- =?utf-8?B?YWRETkxNUnZYdkFPRmY1UzVJVEdJREFjZUtXZFNhcnRVMW0vaHk1UktpbjZP?=
- =?utf-8?B?K1lvRHExRlRsSG9nZ2FqaXhld0tSS2JzNkVuUEtaMWRPWGo0MmNabFl3blU3?=
- =?utf-8?B?RFlveFhDM2RQRnRhRXhJaTZkcGtaWE1Kbi9SL2JSeGVEL3FGU2VqR0JXWC9P?=
- =?utf-8?B?V2V1OHBOcEp0blh0VFJ2RHVEMzJZVW5tV3dIV0t5YUhTQmp5cFNKVktOelov?=
- =?utf-8?B?bmxadEVWKy8vRE50alM0VHVYbFVZajZicHZKV1NKclNhRklvOGQ0djdnSkZi?=
- =?utf-8?B?RE5Lb25pQmZlWWhNb3pCSWUySUtOUFZIeFNGUHNDZjZ1Uzgxdm16MDk2RUZp?=
- =?utf-8?B?WDBQWFRIV1lqNThITDcvdHErSUk4a2ROaGp5eE9mVXNNdFdwRVpGdmhEWGhN?=
- =?utf-8?B?Wm5qMGVaYmlJaml3N1ZkZzBFMHFjdHhTNVdKdkVJNEw3SU5VZlpOOWYvQUZ5?=
- =?utf-8?B?bVBXTWhhdFQ5emc0a2pIK2tSVjVyTDU1ZjE4UEJzMmlHSU5Xb0NIYlZtVytL?=
- =?utf-8?B?Tnh2UjdXeHZJNXRpYk9kdE9FNUIxWm04ek9GeDFYdUpoSmNMVW4vUXpTcjVH?=
- =?utf-8?B?QkgyU0Rtb0kydG52Rk1zNEZxcGovV1hzN2taZ3ZzUFUwVmxuK3VGL2YzQUY3?=
- =?utf-8?B?cnRNeFlwTk9UWDBCbGZsWlg3ZHZDbDJYS2tqaEVzWWVjQlMzR2wzdnpUMkdK?=
- =?utf-8?Q?sguk=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dys1eW1CSnkwWUVaeWRWK1BaYnY2eTllY2xQaXU0MHpkVFU3MTZMWkZDUEdD?=
+ =?utf-8?B?S3prL3BIcERNVGRsbW92c1gyME9LRHJsK1UwSHFmNWFJbkRnM1B4cEhYMGhE?=
+ =?utf-8?B?aVBuZkc0OVZYSDkxbG9OR0JwMUhKNGk0VjUwQWlZYzc2VU9ZOU5tQ09Fa0Rm?=
+ =?utf-8?B?Tkh3cWZLcit2MnRDTmxLZzdxMUEwVkloRmt1d0IzTGRHVkNhdFNtVy9CZ2Qw?=
+ =?utf-8?B?V3dvakZCS0pWTnI1WkdhajQ3eEx3a1U0U3hzV0V2QWwrbTBKem4ydEpwRHds?=
+ =?utf-8?B?UlhWWE5WaUJyTmVEVVVPa3AycnpRdGtBR0ZnNmtSUFBkRUpEQnFBdTVzSFp2?=
+ =?utf-8?B?RFVpQXdiZ0dIOEEvVk5vV1FyTmMyeWpnWDVvdjBlNzZZQTRseDRoV3BnZGNF?=
+ =?utf-8?B?T1hMWnNhL0hDNlZjdWFES2FOSjNlVVBLWkJLQmMzZzlrRHhZMmQ2TVk2ZXFG?=
+ =?utf-8?B?OXNJbGI5STEybVJBOUZEZXQxVWFzdjVEMzR2SXhMSnV4Z3NFZUhSdGlaa1M5?=
+ =?utf-8?B?ZHdobE1HVUh6bUpOcDkzYnhQcVR0aXRFcEw4aFRadWo5ZEtXck1WU3htZlZP?=
+ =?utf-8?B?MUNWcWNmQWNOcFI3V1ZPK1d2WXB5eWhIaXVUM0k2MWJsd05hSFc5Mjdtd0Jo?=
+ =?utf-8?B?TVZ6RVR4VVZoZnZ0QmNlNFYyVk5mQVdFeFF3cGlyZlBLOFZOS0JQVC9nd29H?=
+ =?utf-8?B?c09SRXVkaXcvR1c0VytjMkc1RmtMT1RMamNEci9PeE4wYmVjUGN3NEVQQlJW?=
+ =?utf-8?B?ZEJlQXZJeTc2NlJUUnJvTzhZcEdFMXRIWjQ1RXRFaXc4MTluTWRmczAxRGhi?=
+ =?utf-8?B?bCtxQlJ5N1YrR05sSjBBdVVPZWhjNFRWek9EWncyVi9LVVIxdU1Uam1HajZZ?=
+ =?utf-8?B?ZjNnbnoxb2hVWnNIZE9sWjRDUitxTDR5NmZ6bENyTEFEdDhvNklQZGpDaG93?=
+ =?utf-8?B?OXp6aUF2V1p2MzBpL3NWVjJZK09oUXhESXgrR1YzWDFpcXREczBVUUhIV0ZF?=
+ =?utf-8?B?NGhJTEhBODRTc1RXcHpLV3E3eTNxQWJUeGtRTVpWdGJZUHZnS2dxZEcxL2Rr?=
+ =?utf-8?B?Q3VNbitrWGNBTDlCRHlLZnJUSENJLy9zbTBtTi9pRkVXSEo0VXErTjU0VTFK?=
+ =?utf-8?B?QUtweG52Zmhia281V1JXNjY5YzF3TitFWHhUa2hvN2t1RFBZYWF5TWxRWnFx?=
+ =?utf-8?B?VWVlREs3aDFHVHQyZzFnTk9BZzEzVk1DZmxHRDhaSDg5MXhLdDg0UmpoY3gw?=
+ =?utf-8?B?NWVySUM2Qzg5WEtJMjhVanVpWWhPWDV3ZloyUTNac0x4V0JoQTNxNUk2TmxU?=
+ =?utf-8?B?d0FxRGNkcG53WndkU2VOcHZ4Z1RMem1GV3FJUFViaTQrOTNGcmJvL0VUcWNl?=
+ =?utf-8?B?T1pHNkFIbG1OVjB0K1R6MEJrTmVvazZsdzRXZkxQY3lEODlWb0JWYi9uZk5H?=
+ =?utf-8?B?WUx1dVlLTXkwcXkra3hKUUpmRjlpcHVLVUNtQnMyOEJWazBTZDFFcUszNXVQ?=
+ =?utf-8?B?T0JBZWIxOTVXdEZpc1FNd3llL2pYQjhpUjZ6NXh6VFJVOEZZaThwWU1lUmxE?=
+ =?utf-8?B?UXlBVUEweW5Ea2lFaHRzeWZlanlYNnVrWDBPWitRekJDU0l6RGM1S1VFYS9k?=
+ =?utf-8?B?bUJpVytzTXFKNk5mSjVRS0dncGlBMXJQNFlsYWpPcDZqMXovRHI5Z2RrbDNm?=
+ =?utf-8?B?M05mcmh1ZTFYeUFvVVZPL2ZaQzZWUmR1OVFFT202Zzh0Mm9QZGZEZ0FOSTJ0?=
+ =?utf-8?B?OUtvbmZGZ1V2SXJPY0c0dTJ2SVQxSytYTm53Z0JGYVdSSUNaRVBKYnIxSVVH?=
+ =?utf-8?B?WlFxbW9VdXY1Y3E4ejhZb2p0UHVWT00vWkdmR3FBMytlYTl4S3hOdGUvR0VI?=
+ =?utf-8?B?ckpOV1FFTjYzTkEwUGdSZ1E4RmhidU5MVjRwR3dPaGhsdkZwL2xObEF5SzFq?=
+ =?utf-8?B?S200SlNzTVlVNXNqNzkzN29STzBrNnZnK096bnZMc2lPQUE0RTdHWHFQeitk?=
+ =?utf-8?B?S0hxemtsRVBKR3NpTmxwdHhUSStzZmJDVit1d1p4d2ZsVHRaSUhGRWVMK085?=
+ =?utf-8?B?MVpLUnpFS3V6OTdMdWpiSHVZS1QyUEdMeEhmVHhGbTZJM3dHR3g2eTRDMkFZ?=
+ =?utf-8?Q?MNIc=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c81de8f-74ca-4ca4-70cf-08d9d5993383
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc5013e5-a56a-4688-eca6-08d9d599b6d2
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 07:00:22.3569 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 07:04:02.7218 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 33K1A+drGpTAyInIMPRZp60qmS3aVYsuiisAwWltxyprdRNv+jP3mfo+9YBZSjuK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2535
+X-MS-Exchange-CrossTenant-UserPrincipalName: l9ih5f9S13LwPRAwMu0OZV9MP7kyVvxV4Dd/c45XGCu2igJCvLEFvXfoVnHt3xqi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,168 +133,856 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Yeah, that should probably be the right one.
 
-Christian.
 
-Am 12.01.22 um 03:19 schrieb Chen, Guchun:
-> [Public]
->
-> Hi Christian,
->
-> My BAD, I checked that discussion history of this just now. So If I read it correctly, the double check at a different place to skip evict is: " drm/ttm: Double check mem_type of BO while eviction"? It is in 5.16 kernel.
->
-> Regards,
-> Guchun
->
-> -----Original Message-----
-> From: Christian König <ckoenig.leichtzumerken@gmail.com>
-> Sent: Tuesday, January 11, 2022 7:27 PM
-> To: Chen, Guchun <Guchun.Chen@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Subject: Re: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
->
-> IIRC we have completely dropped this patch in favor of a check at a different place.
->
-> Regards,
-> Christian.
->
-> Am 11.01.22 um 09:47 schrieb Chen, Guchun:
->> [Public]
->>
->> Hi Christian,
->>
->> Looks this patch still missed in 5.16 kernel. Is it intentional?
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.
->> kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2
->> Ftree%2Fdrivers%2Fgpu%2Fdrm%2Fttm%2Fttm_bo.c%3Fh%3Dv5.16&amp;data=04%7
->> C01%7CGuchun.Chen%40amd.com%7Cf3b7f4971dc8405b0c2908d9d4f55547%7C3dd89
->> 61fe4884e608e11a82d994e183d%7C0%7C0%7C637774972434004088%7CUnknown%7CT
->> WFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI
->> 6Mn0%3D%7C3000&amp;sdata=vbuBPHO40J2HGt7abzfzC0nC1DQa62qal5S6TXBRj4w%3
->> D&amp;reserved=0
->>
->> Regards,
->> Guchun
->>
+On 1/11/2022 6:51 PM, Quan, Evan wrote:
+> [AMD Official Use Only]
+> 
+> 
+> 
 >> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->> Pan, Xinhui
->> Sent: Tuesday, November 9, 2021 9:16 PM
->> To: Koenig, Christian <Christian.Koenig@amd.com>;
->> amd-gfx@lists.freedesktop.org
->> Cc: dri-devel@lists.freedesktop.org
->> Subject: 回复: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru
->> list
->>
->> [AMD Official Use Only]
->>
->> [AMD Official Use Only]
->>
->> Actually this patch does not totally fix the mismatch of lru list with mem_type as mem_type is changed in ->move() and lru list is changed after that.
->>
->> During this small period, another eviction could still happed and evict this mismatched BO from sMam(say, its lru list is on vram domain) to sMem.
->> ________________________________________
->> 发件人: Pan, Xinhui <Xinhui.Pan@amd.com>
->> 发送时间: 2021年11月9日 21:05
->> 收件人: Koenig, Christian; amd-gfx@lists.freedesktop.org
->> 抄送: dri-devel@lists.freedesktop.org
->> 主题: 回复: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
->>
->> Yes, a stable tag is needed. vulkan guys say 5.14 hit this issue too.
->>
->> I think that amdgpu_bo_move() does support copy from sysMem to sysMem correctly.
->> maybe something below is needed.
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index c83ef42ca702..aa63ae7ddf1e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -485,7 +485,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
->>           }
->>           if (old_mem->mem_type == TTM_PL_SYSTEM &&
->>               (new_mem->mem_type == TTM_PL_TT ||
->> -            new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
->> +            new_mem->mem_type == AMDGPU_PL_PREEMPT ||
->> +            new_mem->mem_type == TTM_PL_SYSTEM)) {
->>                   ttm_bo_move_null(bo, new_mem);
->>                   goto out;
->>           }
->>
->> otherwise, amdgpu_move_blit() is called to do the system memory copy which use a wrong address.
->>    206         /* Map only what can't be accessed directly */
->>    207         if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
->>    208                 *addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
->>    209                         mm_cur->start;
->>    210                 return 0;
->>    211         }
->>
->> line 208, *addr is zero. So when amdgpu_copy_buffer submit job with such addr, page fault happens.
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Monday, January 10, 2022 3:03 PM
+>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Subject: Re: [PATCH 3/7] drm/amd/pm: drop unneeded smu->metrics_lock
 >>
 >>
->> ________________________________________
->> 发件人: Koenig, Christian <Christian.Koenig@amd.com>
->> 发送时间: 2021年11月9日 20:35
->> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
->> 抄送: dri-devel@lists.freedesktop.org
->> 主题: Re: 回复: [PATCH] drm/ttm: Put BO in its memory manager's lru list
 >>
->> Mhm, I'm not sure what the rational behind that is.
->>
->> Not moving the BO would make things less efficient, but should never cause a crash.
->>
->> Maybe we should add a CC: stable tag and push it to -fixes instead?
->>
->> Christian.
->>
->> Am 09.11.21 um 13:28 schrieb Pan, Xinhui:
+>> On 1/7/2022 7:49 AM, Quan, Evan wrote:
 >>> [AMD Official Use Only]
 >>>
->>> I hit vulkan cts test hang with navi23.
 >>>
->>> dmesg says gmc page fault with address 0x0, 0x1000, 0x2000....
->>> And some debug log also says amdgu copy one BO from system Domain to system Domain which is really weird.
->>> ________________________________________
->>> 发件人: Koenig, Christian <Christian.Koenig@amd.com>
->>> 发送时间: 2021年11月9日 20:20
->>> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
->>> 抄送: dri-devel@lists.freedesktop.org
->>> 主题: Re: [PATCH] drm/ttm: Put BO in its memory manager's lru list
 >>>
->>> Am 09.11.21 um 12:19 schrieb xinhui pan:
->>>> After we move BO to a new memory region, we should put it to the new
->>>> memory manager's lru list regardless we unlock the resv or not.
+>>>> -----Original Message-----
+>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>> Sent: Thursday, January 6, 2022 4:29 PM
+>>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>>>> Subject: Re: [PATCH 3/7] drm/amd/pm: drop unneeded smu-
+>>> metrics_lock
 >>>>
->>>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
->>> Interesting find, did you trigger that somehow or did you just
->>> stumbled over it by reading the code?
->>>
->>> Patch is Reviewed-by: Christian König <christian.koenig@amd.com>, I
->>> will pick that up for drm-misc-next.
->>>
->>> Thanks,
->>> Christian.
->>>
->>>> ---
->>>>      drivers/gpu/drm/ttm/ttm_bo.c | 2 ++
->>>>      1 file changed, 2 insertions(+)
 >>>>
->>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
->>>> b/drivers/gpu/drm/ttm/ttm_bo.c index f1367107925b..e307004f0b28
->>>> 100644
->>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->>>> @@ -701,6 +701,8 @@ int ttm_mem_evict_first(struct ttm_device *bdev,
->>>>          ret = ttm_bo_evict(bo, ctx);
->>>>          if (locked)
->>>>                  ttm_bo_unreserve(bo);
->>>> +     else
->>>> +             ttm_bo_move_to_lru_tail_unlocked(bo);
 >>>>
->>>>          ttm_bo_put(bo);
->>>>          return ret;
+>>>> On 1/6/2022 12:32 PM, Quan, Evan wrote:
+>>>>> [AMD Official Use Only]
+>>>>>
+>>>>>
+>>>>>
+>>>>>> -----Original Message-----
+>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>>>> Sent: Thursday, January 6, 2022 2:17 PM
+>>>>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-
+>> gfx@lists.freedesktop.org
+>>>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>>>>>> Subject: Re: [PATCH 3/7] drm/amd/pm: drop unneeded smu-
+>>>>> metrics_lock
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> On 1/6/2022 11:27 AM, Evan Quan wrote:
+>>>>>>> As all those related APIs are already well protected by
+>>>>>>> adev->pm.mutex and smu->message_lock.
+>>>>>>>
+>>>>>>
+>>>>>> This one may be widely used. Instead of relying on pm.mutex it's
+>>>>>> better to keep metrics lock so that multiple clients can read data
+>>>>>> without waiting on other APIs that use pm.mutex.
+>>>>> [Quan, Evan] If I understand it correctly, what you wanted to
+>>>>> express is to
+>>>> use fine-grained lock instead of cross-grained one to avoid chasing
+>>>> for the same lock.
+>>>>> Yes, that was what we did before and that's why we have so many
+>>>>> types of
+>>>> locks. Below are my considerations for this:
+>>>>> 1. We actually do not have such issue that many APIs/clients chasing
+>>>>> for the
+>>>> same lock. Thus fine-grained locks cannot bring much benefits.
+>>>>> Take the metrics_lock here for example.  The data protected by
+>>>> metrics_lock are for those pm sysfs interfaces. Those sysfs interface
+>>>> are not so frequently called. And almost all the time, they are called one
+>> after one.
+>>>> So, it's rarely they will chase for the same lock.
+>>>>>
+>>>>
+>>>> It's not just sysfs, there are other interfaces like sensors, hwmons etc.
+>>>> Basically, metrics table provides data like GFX activity or throttler
+>>>> status that may be continuously monitored by app layer. So other APIs
+>>>> could suffer. My thought is to just keep metrics under a separate
+>>>> lock and not tie with pm.mutex.
+>>> [Quan, Evan] I doubt about the guess that "other APIs could suffer if
+>> metrics data is continuously polled by app layer".
+>>> Since according to my previous test(watch -n 0.1 "cat
+>> /sys/kernel/debug/dri/0/amdgpu_pm_info") which polled the metrics data
+>> every 0.1 second, the smu busy percent was almost not affected.
+>>
+>> May be try close to real cases like running some videos/changing resolution
+>> and run radeon profile or some monitoring app in the background?
+> [Quan, Evan] There is actually not many interactions between the UMD and driver during the video palying and game running.
+> My local verifications proved that. Although that seems surprising. It's kind of expected.
+> As pmfw is self-governed and it can perform clocks arbitration without driver's involvement.
+> 
+> Most of the loadings come from the monitoring command(watch -n 1 "cat/sys/kernel/debug/dri/0/amdgpu_pm_info") in the background during
+> my verifications. In fact, different from the way taken by amdgpu_pm_info sysfs implementation, UMD uses a much more clever way which can reduce
+> the loadings even further: via the gpu_metrics interface, UMD can get the all metrics data instead of each at one time.
 
+Ok, then let's go ahead and remove this lock. If at all there is an 
+issue, we can revisit.
+
+Thanks,
+Lijo
+
+>>
+>>> So, even the metric data is polled every second by app layer, that should
+>> not enforce much loading on the CPUs and SMU cores.
+>>>
+>>> Also, keeping a separate lock for metrics data does not help much with the
+>> issue mentioned here(even if there is such).
+>>> As they(app layer and other APIs) will still chase for another
+>> lock(message_lock which is kept) for interaction with SMU.
+>>>
+>>
+>> Yes, only the subsequent steps related to reading table data from VRAM.
+>> Other APIs don't need to wait for this. Only thinking about profiling cases,
+>> may be I'm overthinking.
+> [Quan, Evan] As far as I can remember, the metrics_lock was introduced to resolve some racing issue. It did not aim at performance improvement.
+> So, it should be quite safe to drop it.
+> 
+> BR
+> Evan
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> BR
+>>> Evan
+>>>>
+>>>> Thanks,
+>>>> Lijo
+>>>>
+>>>>> 2. Cross-grained lock can simplify our implementations. It's hard to
+>>>>> believe,
+>>>> there is 10+(actually 13 as I counted) different types of locks used
+>>>> in our existing power code.
+>>>>> By the cross-grained lock, we can simplify the code and protect us
+>>>>> from
+>>>> some unintentional dead-locks(I actually run into that several times
+>>>> and it's really tricky).
+>>>>>
+>>>>> BR
+>>>>> Evan
+>>>>>>
+>>>>>> Thanks,
+>>>>>> Lijo
+>>>>>>
+>>>>>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
+>>>>>>> Change-Id: Ic75326ba7b4b67be8762d5407d02f6c514e1ad35
+>>>>>>> ---
+>>>>>>>      drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   1 -
+>>>>>>>      drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |   1 -
+>>>>>>>      .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  14 +--
+>>>>>>>      .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  10 +-
+>>>>>>>      .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 112 +++++----
+>> ----
+>>>> ----
+>>>>>> -
+>>>>>>>      .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  27 ++---
+>>>>>>>      .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  28 ++---
+>>>>>>>      .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  14 +--
+>>>>>>>      .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  23 ++--
+>>>>>>>      .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  10 +-
+>>>>>>>      drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  21 +---
+>>>>>>>      drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |   4 -
+>>>>>>>      12 files changed, 70 insertions(+), 195 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>>>> index ecbc768dfe2f..f0136bf36533 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>>>>>>> @@ -956,7 +956,6 @@ static int smu_sw_init(void *handle)
+>>>>>>>      	bitmap_zero(smu->smu_feature.allowed,
+>> SMU_FEATURE_MAX);
+>>>>>>>
+>>>>>>>      	mutex_init(&smu->sensor_lock);
+>>>>>>> -	mutex_init(&smu->metrics_lock);
+>>>>>>>      	mutex_init(&smu->message_lock);
+>>>>>>>
+>>>>>>>      	INIT_WORK(&smu->throttling_logging_work,
+>>>>>>> smu_throttling_logging_work_fn); diff --git
+>>>>>>> a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>>>>>>> index c3efe4fea5e0..63ed807c96f5 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>>>>>>> @@ -487,7 +487,6 @@ struct smu_context
+>>>>>>>      	const struct cmn2asic_mapping	*pwr_src_map;
+>>>>>>>      	const struct cmn2asic_mapping	*workload_map;
+>>>>>>>      	struct mutex			sensor_lock;
+>>>>>>> -	struct mutex			metrics_lock;
+>>>>>>>      	struct mutex			message_lock;
+>>>>>>>      	uint64_t pool_size;
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>>>>>> index addb0472d040..3f7c1f23475b 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>>>>>>> @@ -602,15 +602,11 @@ static int
+>>>>>>> arcturus_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
+>>>>>>> metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -693,8 +689,6 @@ static int
+>>>>>>> arcturus_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> diff --git
+>>>> a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+>>>>>>> index 2238ee19c222..7ae6b1bd648a 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+>>>>>>> @@ -150,13 +150,9 @@ cyan_skillfish_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
+>>>>>>> metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu, NULL, false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -200,8 +196,6 @@ cyan_skillfish_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+>>>>>>> index fe17b3c1ece7..fdb059e7c6ba 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+>>>>>>> @@ -546,15 +546,11 @@ static int
+>>>>>> navi10_get_legacy_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      		(SmuMetrics_legacy_t *)smu_table->metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -624,8 +620,6 @@ static int
+>>>>>> navi10_get_legacy_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> @@ -638,15 +632,11 @@ static int
+>>>>>>> navi10_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		(SmuMetrics_t *)smu_table->metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -719,8 +709,6 @@ static int navi10_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> @@ -733,15 +721,11 @@ static int
+>>>>>> navi12_get_legacy_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      		(SmuMetrics_NV12_legacy_t *)smu_table-
+>>> metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -811,8 +795,6 @@ static int
+>>>>>> navi12_get_legacy_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> @@ -825,15 +807,11 @@ static int
+>>>>>>> navi12_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		(SmuMetrics_NV12_t *)smu_table->metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -906,8 +884,6 @@ static int navi12_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> @@ -2708,20 +2684,14 @@ static ssize_t
+>>>>>> navi10_get_legacy_gpu_metrics(struct smu_context *smu,
+>>>>>>>      	SmuMetrics_legacy_t metrics;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       true);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					true);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	memcpy(&metrics, smu_table->metrics_table,
+>>>>>>> sizeof(SmuMetrics_legacy_t));
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+>>>>>>>
+>>>>>>>      	gpu_metrics->temperature_edge =
+>> metrics.TemperatureEdge; @@
+>>>>>>> -2899,20 +2869,14 @@ static ssize_t navi10_get_gpu_metrics(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	SmuMetrics_t metrics;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       true);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					true);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	memcpy(&metrics, smu_table->metrics_table,
+>>>>>> sizeof(SmuMetrics_t));
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+>>>>>>>
+>>>>>>>      	gpu_metrics->temperature_edge =
+>> metrics.TemperatureEdge; @@
+>>>>>>> -2977,20 +2941,14 @@ static ssize_t
+>>>>>>> navi12_get_legacy_gpu_metrics(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	SmuMetrics_NV12_legacy_t metrics;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       true);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					true);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	memcpy(&metrics, smu_table->metrics_table,
+>>>>>>> sizeof(SmuMetrics_NV12_legacy_t));
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+>>>>>>>
+>>>>>>>      	gpu_metrics->temperature_edge =
+>> metrics.TemperatureEdge; @@
+>>>>>>> -3058,20 +3016,14 @@ static ssize_t navi12_get_gpu_metrics(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	SmuMetrics_NV12_t metrics;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       true);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					true);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	memcpy(&metrics, smu_table->metrics_table,
+>>>>>>> sizeof(SmuMetrics_NV12_t));
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+>>>>>>>
+>>>>>>>      	gpu_metrics->temperature_edge =
+>> metrics.TemperatureEdge; diff
+>>>>>>> --
+>>>>>> git
+>>>>>>> a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+>>>>>>> index 93caaf45a2db..2241250c2d2a 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+>>>>>>> @@ -525,15 +525,11 @@ static int
+>>>>>> sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      	uint16_t average_gfx_activity;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -633,8 +629,6 @@ static int
+>>>>>> sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>
+>>>>>>>      }
+>>>>>>> @@ -3564,14 +3558,11 @@ static ssize_t
+>>>>>> sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
+>>>>>>>      	uint16_t average_gfx_activity;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       &metrics_external,
+>>>>>>> -					       true);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					&metrics_external,
+>>>>>>> +					true);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
+>>>>>>>
+>>>>>>> @@ -3661,8 +3652,6 @@ static ssize_t
+>>>>>> sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
+>>>>>>>
+>>>>>> 	smu_v11_0_get_current_pcie_link_speed(smu);
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	gpu_metrics->system_clock_counter =
+>> ktime_get_boottime_ns();
+>>>>>>>
+>>>>>>>      	*table = (void *)gpu_metrics; diff --git
+>>>>>>> a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+>>>>>>> index 5cb07ed227fb..c736adca6fbb 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+>>>>>>> @@ -273,15 +273,11 @@ static int
+>>>>>> vangogh_get_legacy_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      	SmuMetrics_legacy_t *metrics = (SmuMetrics_legacy_t
+>>>>>> *)smu_table->metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -335,8 +331,6 @@ static int
+>>>>>> vangogh_get_legacy_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> @@ -348,15 +342,11 @@ static int
+>>>> vangogh_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
+>>>>>>> metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -410,8 +400,6 @@ static int
+>> vangogh_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+>>>>>>> index 25c4b135f830..d75508085578 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+>>>>>>> @@ -1128,15 +1128,11 @@ static int
+>>>>>>> renoir_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
+>>>>>>> metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_AVERAGE_GFXCLK:
+>>>>>>> @@ -1201,8 +1197,6 @@ static int
+>>>>>>> renoir_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>> index f065d95b117a..014fb88daa04 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+>>>>>>> @@ -571,15 +571,11 @@ static int
+>>>>>> aldebaran_get_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
+>>>>>>> metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       NULL,
+>>>>>>> -					       false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu,
+>>>>>>> +					NULL,
+>>>>>>> +					false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_CURR_GFXCLK:
+>>>>>>> @@ -653,8 +649,6 @@ static int
+>>>> aldebaran_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> @@ -1592,17 +1586,14 @@ static void
+>> aldebaran_get_unique_id(struct
+>>>>>> smu_context *smu)
+>>>>>>>      	uint32_t upper32 = 0, lower32 = 0;
+>>>>>>>      	int ret;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu, NULL, false);
+>>>>>>>      	if (ret)
+>>>>>>> -		goto out_unlock;
+>>>>>>> +		goto out;
+>>>>>>>
+>>>>>>>      	upper32 = metrics->PublicSerialNumUpper32;
+>>>>>>>      	lower32 = metrics->PublicSerialNumLower32;
+>>>>>>>
+>>>>>>> -out_unlock:
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> +out:
+>>>>>>>      	adev->unique_id = ((uint64_t)upper32 << 32) | lower32;
+>>>>>>>      	if (adev->serial[0] == '\0')
+>>>>>>>      		sprintf(adev->serial, "%016llx", adev->unique_id);
+>> diff
+>>>>>>> --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+>>>>>>> index caf1775d48ef..451d30dcc639 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+>>>>>>> @@ -310,13 +310,9 @@ static int
+>>>>>> yellow_carp_get_smu_metrics_data(struct smu_context *smu,
+>>>>>>>      	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table-
+>>>>>>> metrics_table;
+>>>>>>>      	int ret = 0;
+>>>>>>>
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
+>>>>>>> -	if (ret) {
+>>>>>>> -		mutex_unlock(&smu->metrics_lock);
+>>>>>>> +	ret = smu_cmn_get_metrics_table(smu, NULL, false);
+>>>>>>> +	if (ret)
+>>>>>>>      		return ret;
+>>>>>>> -	}
+>>>>>>>
+>>>>>>>      	switch (member) {
+>>>>>>>      	case METRICS_AVERAGE_GFXCLK:
+>>>>>>> @@ -387,8 +383,6 @@ static int
+>>>>>>> yellow_carp_get_smu_metrics_data(struct
+>>>>>> smu_context *smu,
+>>>>>>>      		break;
+>>>>>>>      	}
+>>>>>>>
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>>      	return ret;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> index 735e1a1e365d..d78e4f689a2a 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> @@ -964,9 +964,9 @@ int smu_cmn_write_pptable(struct
+>> smu_context
+>>>>>> *smu)
+>>>>>>>      				    true);
+>>>>>>>      }
+>>>>>>>
+>>>>>>> -int smu_cmn_get_metrics_table_locked(struct smu_context *smu,
+>>>>>>> -				     void *metrics_table,
+>>>>>>> -				     bool bypass_cache)
+>>>>>>> +int smu_cmn_get_metrics_table(struct smu_context *smu,
+>>>>>>> +			      void *metrics_table,
+>>>>>>> +			      bool bypass_cache)
+>>>>>>>      {
+>>>>>>>      	struct smu_table_context *smu_table= &smu->smu_table;
+>>>>>>>      	uint32_t table_size =
+>>>>>>> @@ -994,21 +994,6 @@ int
+>> smu_cmn_get_metrics_table_locked(struct
+>>>>>> smu_context *smu,
+>>>>>>>      	return 0;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> -int smu_cmn_get_metrics_table(struct smu_context *smu,
+>>>>>>> -			      void *metrics_table,
+>>>>>>> -			      bool bypass_cache)
+>>>>>>> -{
+>>>>>>> -	int ret = 0;
+>>>>>>> -
+>>>>>>> -	mutex_lock(&smu->metrics_lock);
+>>>>>>> -	ret = smu_cmn_get_metrics_table_locked(smu,
+>>>>>>> -					       metrics_table,
+>>>>>>> -					       bypass_cache);
+>>>>>>> -	mutex_unlock(&smu->metrics_lock);
+>>>>>>> -
+>>>>>>> -	return ret;
+>>>>>>> -}
+>>>>>>> -
+>>>>>>>      void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev,
+>>>>>>> uint8_t
+>>>>>> crev)
+>>>>>>>      {
+>>>>>>>      	struct metrics_table_header *header = (struct
+>>>>>>> metrics_table_header *)table; diff --git
+>>>>>>> a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+>>>>>>> index 67a25da79256..f0b4fb2a0960 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+>>>>>>> @@ -101,10 +101,6 @@ int smu_cmn_write_watermarks_table(struct
+>>>>>>> smu_context *smu);
+>>>>>>>
+>>>>>>>      int smu_cmn_write_pptable(struct smu_context *smu);
+>>>>>>>
+>>>>>>> -int smu_cmn_get_metrics_table_locked(struct smu_context *smu,
+>>>>>>> -				     void *metrics_table,
+>>>>>>> -				     bool bypass_cache);
+>>>>>>> -
+>>>>>>>      int smu_cmn_get_metrics_table(struct smu_context *smu,
+>>>>>>>      			      void *metrics_table,
+>>>>>>>      			      bool bypass_cache);
+>>>>>>>
