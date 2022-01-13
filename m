@@ -4,118 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B07C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 16:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D3D7C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 17:55:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6000910E35F;
-	Thu, 13 Jan 2022 16:03:18 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11BE210E35F
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 16:03:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BOmg/nzNqOfQRExcHEv2BmpJtBVLahCV7UBjzHGIRI8pdqnSqDShF2sKn9aGf01ndfEwDVnsqPBh2GmYCFhR6H1arWOar87rw4FUQDNWumnvH5Aa5eRuZwM/uLaCid+VrVl9aaA5h1y9D83+LyMSlZ0vM+H7+tMni1ZoFzIBFSscKWZ5xlYDjxXxARYFAJW3Bqbun0wDUPVm5YAZ0mX5hXqG99abLeuPwUo7BPTTJO3VFdFvGwHHJky1+c6NQTm3P5ayiiwxntmweq7FF1awE2KbT+YO4NRjCk8PN3rWEva6T5uGJF+NDClti28DhdJxp3Y94W+7m06jh+W0lozW4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ogngIZ2O94g/petTyJWAUnl1RQbOcJTXOgVizvJ0oEI=;
- b=nVcEujfFvYgF04T36vcQJPa68WF6hnu4FB4XdGQg0S1KScHgU8U3NTnbWmvwWADUp2ihdU75pS8Roqct7EKSQFFELXjrRMSzsnVg4A88Ci9UMuK0T/GxzrXZ1QOC1nSWv5pyfb2ap3i8r/knwbi8TVcAqbNZWUhcse3UXnmGhtb8S31tg++Z3X5QSUei4lxOdlazcJekBWBZszY3MeH+qti9IIAVIyLLlPUuA+KH1Xs4X1d9W3qvWLmpWwT/gprA8P1Gpj2fu3+UzA6ri1RT3MuIdZZQ8PzYXZ9/KmNOy2Nzw6XBjNX79LSC3BQ8XQ9gCJM1Vmyh1sCyFKDUe1u6RA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ogngIZ2O94g/petTyJWAUnl1RQbOcJTXOgVizvJ0oEI=;
- b=HwK3oWMpQblH6xX2P4U0XJT196IYvqd+Lx8m+ti3LpJ9KQh1FB64YxRCttnR9rPe1KpnPTAZ3BiX9vP233ZeFjlBSeXwwi2AxFMFmPBnpBCemqTns/UoLjxOvD+/m7/59+R9RiG/+QFk4UIo+lLLKc+RveolYF9RSk6BDXKnGH8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BYAPR12MB3141.namprd12.prod.outlook.com (2603:10b6:a03:da::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Thu, 13 Jan
- 2022 16:03:05 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4888.011; Thu, 13 Jan 2022
- 16:03:05 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: add vram check function for GMC
-To: Xiaojian Du <Xiaojian.Du@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220113074526.29827-1-Xiaojian.Du@amd.com>
- <20220113074526.29827-2-Xiaojian.Du@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <df013d8e-84e1-dae3-9ab9-3460bb526f35@amd.com>
-Date: Thu, 13 Jan 2022 11:03:03 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20220113074526.29827-2-Xiaojian.Du@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0134.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::13) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D6910E1A3;
+	Thu, 13 Jan 2022 17:55:02 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E1E10E1A3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 17:55:01 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ s8-20020a0568301e0800b00590a1c8cc08so7135597otr.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 09:55:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=AyfzdositwQA49h6dpExArLuIGen3fmqMk+UP3ecDWY=;
+ b=iSiekV48bszR9AMcunQYFdGaLgyThLWNP0Ssc0kqrMNzKOZSXEWulqrcnpkIOYqyj+
+ q3NrYGl+UhHkvyJI5IFenqvguWTkIoGAlrNVTAQaKMpO++PinvM4Ec4d8KqzEGJlsPsY
+ EfSPyH4t3DnQv0acLKdm237XsBoHpIRY0l4YxN4vseWjDlHSpqpTlH/cMs8a97mO/vd0
+ s6in4fW8eXwNa8sXGUom6+j2CYDpSB3uKz9Aej63uNqekcwgVHdRCCE5ojG9lUEAaBhe
+ haV4mwRZI2X0zT/nHSeG3Z7Q24EEqU8c3yYrYT4oZ81xByKCvBNXN4JRtfbt4IC5BD9c
+ 5Ekw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=AyfzdositwQA49h6dpExArLuIGen3fmqMk+UP3ecDWY=;
+ b=vs5cLzmYumql3mfoGQ8QAypWy2JRUb0W8RIzZKDR+tbVbb05RiBsWrL7uRAkIshviA
+ 36Mez+xxKUx4soJqMWUaQfDewwKV0RBi0srYWxD4qxVGzoY4BD2PDL4SymP7L0QTvug+
+ RAH3aXLqWFBFGy9TN/QmWh+TY8eldJomzbzadH+1FjXzbY9h8f7w3U+83CUDZ7XhT7/r
+ uC71QOa8DSFNLtxcFX9As6jmyFeMtEtUGLinFUIduJ5/OIPM6I4h4nP/k2RBXtppLpif
+ vsmp57IuPW1xFjd2344TeDcG1LIXbWCnxZ6hZZktN5oXDDMmwUqOA+lykgOCul/eItdF
+ nuTg==
+X-Gm-Message-State: AOAM533fXhkhZm+HcD5GsW8CEvlWNl+q9S6A6X1towVtTMQw/7RdRTP1
+ jp4XQRcGyPvU0Utx3y8GgT8cTcYA7P7SUz4RePg=
+X-Google-Smtp-Source: ABdhPJz1CYEuqS9xBR2K15HmGMuPYqtU7WykTABtIepY0groIKhyOv1v1r1mIWWv7w7jw0lokAT4aJYGjv2u1SbWxmk=
+X-Received: by 2002:a9d:6390:: with SMTP id w16mr3994100otk.200.1642096501159; 
+ Thu, 13 Jan 2022 09:55:01 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ed72b14e-1320-447f-3e33-08d9d6ae2f44
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3141:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB31414E1D0B7AA6595DB622EA92539@BYAPR12MB3141.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: L1miEnPXt/2mK5J4HePyK4qJQ5Q51RcL5sGG/nolcUyHgN7QsOuB2eR2FD/9NPqOq9iUCQ+kLsmWdGl1H8jHSWh1VHABwwF2vn2ar37dbAzyfER0xi58AWYheJQ0NmKoQrY/OXheO/ayuIbbXHz0iurTiBt8yU8LjBSbdX4xmJ8fi4DnvasOXocxfuIRFdW6763LKKRO3qS/EOZSHCl5Al2MbP2BrvSdJGWdqiTGECbudN9PEh9Knot81w29UZ3Sr3HbGtt1c1JGar1OolVu6oU+8+uskGrqC46tR+1+CYMF6q8VVAigQi/fiy9F2/1OJLU02UwsXuiB9khM1qHB45AU16Xia0vC94ff/zDPApWnwOxKCKDS9ini3qp8aw2HdhCwzMcMZvlJcrNJR5qvPy/4RuicxZE8gz0ppbtGPlyf/xu2+TxJ4RnzINAIuYHHQZVGQZAtAzAzzQIF2PwWg3wIqoGxKnqhyFUAhmzKCCiVX3lH/Ofi7Lt3TY5TizU+v/V/47LHAV8ua9/BfxA8sMYi+Yq+KJ5oYo/BVX57KpxtFAvp4fg5xw8uG+YOWjvsxXz6EA/BhRdByFb0hA3mRXwq8rtHDs3Te12nEvgxpvTwQtRQGF23DLqqoljZ3TxeFkx211rJVA8NnSmwj8muPUaWboM4HYj0E5/jetlAeuSKFpcVy4jIBY3dypkyG2YYWpKFOt83MVpcadPYSqwprbG4yEQyhIqBclBKUUpGPVPAmdkkR1x5Hrvw0yyrtx2p
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(86362001)(2616005)(4326008)(31686004)(8936002)(31696002)(38100700002)(508600001)(8676002)(66946007)(83380400001)(66556008)(5660300002)(66476007)(6486002)(6506007)(186003)(26005)(316002)(2906002)(6512007)(44832011)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjRmVEVOcFNjZ05VbTFFN2VhbzhCcmVpdlV2cTJhOHhTaWhpS1lMVWZhY1JV?=
- =?utf-8?B?ZmxzZENRUnVDRFFpSW9FSUxCNnh3THJhdmU5VE8yWGZTYkVvNzNSUWhsY3VS?=
- =?utf-8?B?dHhQVVdHbHZYSW9VZVM2WVJBdFR5NjdnK0FRWEgxd0FpVmdrYmdhTzRRdGdG?=
- =?utf-8?B?OE45aUhacElCQUZvSlpQSGhDTS9zaVRNSTIxanQxbk1RSFBtaE9WdXBUYW5B?=
- =?utf-8?B?S0NhR2hxOEppSnVROTlUZkFLVnVLNVp1WTNXRG1VYm45dWxiWDlORUpYRzJl?=
- =?utf-8?B?N0VCaFFRVERoeVJmVis3M2UvU0E3MFdXRzR4ZVB4T3plOTFCN2VucnoxS2Ru?=
- =?utf-8?B?VmRrVjV5cldpODJKL3Y5SkdPcEhsOWRvc0xrdGhScFo5cnRCQi84R01ublo5?=
- =?utf-8?B?OHFXd0xyMml0TEdZaW83Q0k0YnhpZlBZOWJ1YmYxWG53L3lrOE5qdE9kTGRI?=
- =?utf-8?B?L1Y5QVg3d05EbVBRaWFuakZOcFk3bFowNU9wckpkRTBoMG12bTcxdjUzSVVI?=
- =?utf-8?B?TlpwS3dlVlUzdGtRVTh5cGVoZU1WMTJpd3FqMGpubTNFL0dpNDdSb1lSN1JZ?=
- =?utf-8?B?dVNWUlJYdTViZGViY25vTVVsYWhoWTRIVWJKekxYS09BaGgxNDJPNDdQc3Fz?=
- =?utf-8?B?bHM2SjljMkY1NDNZT01wQy9kOHBLTldrd0x4V2ZFQkxPNjh5Y0ZOSjZOQUtJ?=
- =?utf-8?B?SThpWmtRdFV6cCtuUExyWk5kaU82WlpaU3dNMFNJd1FjQ0NIMkdLK2F2bVI5?=
- =?utf-8?B?WVN1YlhTNFNkeFJqNlhaWGUyVjBMRFpPVjZtdWQ5Yy9Ra0Rtc3M1Tk82SEtY?=
- =?utf-8?B?QWlBTkNxQVA4UjJicm16TUs5RlBsTEUvK3RhZTVBUTJQZWtzZHlPeXZoWVds?=
- =?utf-8?B?TlhPb3Y2SkRqTlFCVExmYjM3NjZIMjhoSks0N1Bvemo0RlY2b2NXZlNudVVQ?=
- =?utf-8?B?czRXUWMwaXlMOWZmZDB1SlVWTG9RaUl3eGhGUy9qd3Z0b3VnalJHZy9uMWI1?=
- =?utf-8?B?QlJ1RzFpbFpZTGpETy92M1NvWk41Zmt0akpVSkpFN2FXdWczVW01TThISnRx?=
- =?utf-8?B?elZzNzFlR1hJL0pRS1JqWC84NHlwekhuSEFYYTVNbGR6WnRMVVJldEFrQUJ1?=
- =?utf-8?B?OE01Y3lkcGFLa2lrQ0dJYUtQbDBhSXo0akFEQkR2M1RaR1hJbXd1SlBkeFA2?=
- =?utf-8?B?NHk2OFhLMTF1ZjU0czdQUWV6RGN2Sk1LTzZTK2twNjhsZ3ptMHJTa3phSkVW?=
- =?utf-8?B?Tks5NWxlRGd0bmtoS210QVlTeXYrZzk2ektEWnIyVUxqdC94Z0VrYkV2YjdF?=
- =?utf-8?B?a3NlQ3R2MGpJTkt0K3lGTDJJa1l4ZVNlNk5wODd0VFhwSzY2V3NNZmZOMmtt?=
- =?utf-8?B?WTVRVS9oSEc3RlZxejluSDMrQ1VVYk5tMU9xaVQ0cjQyY2Fld01MOTYrTmUv?=
- =?utf-8?B?d2hnUm9oN3dReURTKzEzejVoL2NxWDVlYTU1MXdLN3lqWnpwRmhDdXdIeWJQ?=
- =?utf-8?B?eDh3bDJYUDIvRURFaGdXYWdhSUlVTkhHNUN6d2N0QmRFMTdxZjN4UkpRTUZx?=
- =?utf-8?B?ZmlobHdQYjdGK29OM2JDcnlPSDZrR0ExWmV6NGNwaDdkRTV0N3RtMnpDWWZt?=
- =?utf-8?B?aTQzd3h1VGZLRGR3dTZHYitRK0hKdWo2eCtvbjYxNEVhTlRCWkpDSzhHazNh?=
- =?utf-8?B?YjJtTzdyMFZGY3Z4QTIxSm1rbFlzemhQSjNPWW9xSmE5cDhiUCthN2FueVpU?=
- =?utf-8?B?WkN3STZJMThCYUwrWnFjWXdobDE4T2ErZzErNnBYdi9ONEJHSXVqRURLVHhx?=
- =?utf-8?B?MkVBS2p3cnpnaEpEWjlzV1RtSHB6ZHRPVmV5dktaV1JiQWl0Uk55RWpSOUxx?=
- =?utf-8?B?S0VUdDliK01pNlFobE5KSm52THkwME1GeWUzUk1aOWRyVW5sR1RuRUcxZFN0?=
- =?utf-8?B?UkFQK1RyOVlYT1hrcWZpZ1pZOXBSYXdzR3hvTlNCN1JtU1I1bnlUT1hDcE4x?=
- =?utf-8?B?bXVVeHQrVk94a2RveDRGeSs0SHB3bE9mYVlzRThEK29WR054d2QxOFowWUYy?=
- =?utf-8?B?TGdXeUlZWnFrTnB0T0VtVWlPcEJxazB4d0xrR0M5bCtiaHkvRE9XWmZ2RTAv?=
- =?utf-8?B?VjBNT2EzSW04R0xPME1RV01BUlIyQzcwelhmZ1lnWHlMeGVyWFhvMkxEaVQ5?=
- =?utf-8?Q?dK3IlE0d6i8JALmlSfBOb30=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed72b14e-1320-447f-3e33-08d9d6ae2f44
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 16:03:05.6540 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ShCyqjcPygz65d8MuYh6I8ApXOcIkuBuZEh5sG9f0q+rlROSpS/bhTFzL6FMa3X0epfLiGQz+s4LXa7CtURE/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3141
+References: <20220112074802.2867813-1-YiPeng.Chai@amd.com>
+ <20220112074802.2867813-2-YiPeng.Chai@amd.com>
+ <DM5PR12MB177086BF0F422DFE80C636A7B0529@DM5PR12MB1770.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB177086BF0F422DFE80C636A7B0529@DM5PR12MB1770.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Jan 2022 12:54:50 -0500
+Message-ID: <CADnq5_Nqqn1-G0E=1HpMcNe-a=b0cPNL-_WzA8dvD9n56LK2yQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: No longer insert ras blocks into ras_list
+ if it already exists in ras_list
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,145 +64,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, ray.huang@amd.com
+Cc: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Clements,
+ John" <John.Clements@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-01-13 um 2:45 a.m. schrieb Xiaojian Du:
-> This will add vram check function for GMC, it will cover gmc v8/9/10
+On Wed, Jan 12, 2022 at 3:36 AM Zhou1, Tao <Tao.Zhou1@amd.com> wrote:
 >
-> Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
-> Reviewed-by: Huang Rui <ray.huang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 42 +++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  4 +++
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  6 +++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  8 ++++-
->  5 files changed, 59 insertions(+), 2 deletions(-)
+> [AMD Official Use Only]
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 83f26bca7dac..dbc0de89d7e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -833,3 +833,45 @@ void amdgpu_gmc_get_reserved_allocation(struct amdgpu_device *adev)
->  		break;
->  	}
->  }
-> +
-> +int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
-> +{
-> +	int ret, size = 0x100000;
-> +	uint8_t cptr[10];
-> +
-> +	ret = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
-> +				AMDGPU_GEM_DOMAIN_VRAM,
-> +				&adev->vram_bo,
-> +				&adev->vram_gpu,
-> +				&adev->vram_ptr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	memset(adev->vram_ptr, 0x86, size);
-> +	memset(cptr, 0x86, 10);
-> +
-> +	/**
-> +	* Check the start, the mid, and the end of the memory if the content of
-> +	* each byte is the pattern "0x86". If yes, we suppose the vram bo is
-> +	* workable.
-> +	*
-> +	* Note: If check the each byte of whole 1M bo, it will cost too many
-> +	* seconds, so here, we just pick up three parts for emulation.
-> +	*/
-> +	ret = memcmp(adev->vram_ptr, cptr, 10);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = memcmp(adev->vram_ptr + (size / 2), cptr, 10);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = memcmp(adev->vram_ptr + size - 10, cptr, 10);
-> +	if (ret)
-> +		return ret;
-> +
-> +	amdgpu_bo_free_kernel(&adev->vram_bo, &adev->vram_gpu,
-> +			&adev->vram_ptr);
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 82ec665b366c..f06af61378ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -343,4 +343,5 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev);
->  uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
->  uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
->  uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
-> +int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 3915ba837596..5e407c88c8d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -1048,6 +1048,10 @@ static int gmc_v10_0_hw_init(void *handle)
->  	if (r)
->  		return r;
->  
-> +	r = amdgpu_gmc_vram_checking(adev);
-> +	if (r)
-> +		return r;
-> +
->  	if (adev->umc.funcs && adev->umc.funcs->init_registers)
->  		adev->umc.funcs->init_registers(adev);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 9a3fc0926903..6c94a9712a3a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1241,7 +1241,11 @@ static int gmc_v8_0_hw_init(void *handle)
->  	if (r)
->  		return r;
->  
-> -	return r;
-> +	r = amdgpu_gmc_vram_checking(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	return 0;
+>
+>
+> > -----Original Message-----
+> > From: Chai, Thomas <YiPeng.Chai@amd.com>
+> > Sent: Wednesday, January 12, 2022 3:48 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking
+> > <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements,
+> > John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+> > Subject: [PATCH 2/2] drm/amdgpu: No longer insert ras blocks into ras_list if it
+> > already exists in ras_list
+> >
+> > No longer insert ras blocks into ras_list if it already exists in ras_list.
+> >
+> > Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > index 62be0b4909b3..e6d3bb4b56e4 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > @@ -2754,9 +2754,17 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device
+> > *adev)  int amdgpu_ras_register_ras_block(struct amdgpu_device *adev,
+> >               struct amdgpu_ras_block_object* ras_block_obj)  {
+> > +     struct amdgpu_ras_block_object *obj, *tmp;
+> >       if (!adev || !amdgpu_ras_asic_supported(adev) || !ras_block_obj)
+> >               return -EINVAL;
+> >
+> > +     /* If the ras object had been in ras_list, doesn't add it to ras_list again */
+> [Tao] How about "If the ras object is in ras_list, don't add it again"
+>
+> > +     list_for_each_entry_safe(obj, tmp, &adev->ras_list, node) {
+> > +             if (obj == ras_block_obj) {
+> > +                     return 0;
+> > +             }
+> > +     }
+>
+> [Tao] The patch is OK for me currently, but I think the root cause is we initialize adev->gmc.xgmi.ras in gmc_ras_late_init, the initialization should be called only in modprobe stage and we can create a general gmc_early_init for it.
 
-This could simply be
+Yes, please fix the root cause.  We should only be adding the blocks
+once.  This is just papering over the actual problem.
 
-    return amdgpu_gmc_vram_checking(adev);
+Alex
 
 
->  }
->  
->  static int gmc_v8_0_hw_fini(void *handle)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index ce7d438eeabe..1ea18b4ff63f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1771,8 +1771,14 @@ static int gmc_v9_0_hw_init(void *handle)
->  		adev->umc.funcs->init_registers(adev);
->  
->  	r = gmc_v9_0_gart_enable(adev);
-> +	if (r)
-> +		return r;
->  
-> -	return r;
-> +	r = amdgpu_gmc_vram_checking(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	return 0;
-
-Same as above.
-
-Regards,
-  Felix
-
-
->  }
->  
->  /**
+>
+> > +
+> >       INIT_LIST_HEAD(&ras_block_obj->node);
+> >       list_add_tail(&ras_block_obj->node, &adev->ras_list);
+> >
+> > --
+> > 2.25.1
