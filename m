@@ -4,118 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE0FC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 12:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A664C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 13:06:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC8A10FBC8;
-	Thu, 13 Jan 2022 12:19:10 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8747C10FBC8
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 12:19:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KQxJcdMAWyTWJthPHq5OPhE0Vc6kb6Q4N02Dss5fedthxncodIHxCuJkVVwbWo3HdhQqf4TPSQyPn+f/2Hr2veJ6gDrNDBDTyyq1cZStMy6RWvDtFzatn5RupswV04oQwo/LMTk+lKGzHPTIEe95CyXhrPU9hFmRTwPhysDnWreNsfp7XEvUKnklRHwAeLog615NaRTfhvXWqxHlyc9C+0QjmRGE0AA7HElpv/NJw+EQsjdnk5nDEgkHPxJTQmBemVCaFNy0e7vNWJaXImFMOSx6wwXVqeujL8LeeigXrvsk6wYtLPvP7WfUCaiQS5rL7CXgL4rZ3wldVa5hQEb/bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PWFYqI3qO3IVM7XBskTPDSHhNlY59vpJhTSyXWDahCk=;
- b=ogbfCWRmh1V7F8UZ5M0KLZQreqoa0JZL0iw7/lucy+FX4ZOIqIaGg/l6nInrasOm+CBCwC/fdWv0HCAEpC1JJx5/A+Ns+MXq0IDgNC+A53j+AYLKUyEa+HYRWch/ampAjK9qY2v66q9MNkgVI/0UgRYOanWx8FR04GJzMZc8t8QmF2VVNPz4MUq1Tnf6QR4e8IPH/xojXxk02E4qH+pj5tMQyqe0MYsV/jxoihuya5l+2pn1Wnomro23IH8Wt8Un6zAuck6CpeSlCmC1woeNnNgIScbzMW5iFUzpTmSgkhKQYKbgpacHLHnSWOv8hVvOZ95iq1wdxvAnPaAUqUd3bw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PWFYqI3qO3IVM7XBskTPDSHhNlY59vpJhTSyXWDahCk=;
- b=lHJljEcbq47APVd8FFN7zGpVHCpzINOpGHWNcozZ0WEqCxLD128bCMy0d0Xs/UFQXOYTpF+uMO2mY5sP2DIBATDXe8P7cdbO/adc9/oozKAtn/Frf6Dt8a6M1ZKQZYM7L5PdL2tgdRShCMM3r5aC+XoufHUOOGxzYeVQVciyWeU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
- by BY5PR12MB3873.namprd12.prod.outlook.com (2603:10b6:a03:1a3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10; Thu, 13 Jan
- 2022 12:19:07 +0000
-Received: from DM4PR12MB5136.namprd12.prod.outlook.com
- ([fe80::c45:f65d:78:99e7]) by DM4PR12MB5136.namprd12.prod.outlook.com
- ([fe80::c45:f65d:78:99e7%7]) with mapi id 15.20.4888.011; Thu, 13 Jan 2022
- 12:19:07 +0000
-Message-ID: <1abe3b22-1886-3c2e-4c22-534008996dde@amd.com>
-Date: Thu, 13 Jan 2022 13:19:00 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH] drm/amdgpu: Indent some if statements
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20220113061734.GA4735@kili>
-From: "Das, Nirmoy" <nirmoy.das@amd.com>
-In-Reply-To: <20220113061734.GA4735@kili>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR10CA0091.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:8c::32) To DM4PR12MB5136.namprd12.prod.outlook.com
- (2603:10b6:5:393::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 190E910FF4F;
+	Thu, 13 Jan 2022 13:06:18 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D111510E58C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 09:16:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+ s=dbaedf251592; t=1642065380;
+ bh=qxv6PXK0/o4os2OiMTsmtVr+oIPDQxT29QvfSDIowy4=;
+ h=X-UI-Sender-Class:Subject:From:To:Cc:Date:In-Reply-To:References;
+ b=VNdcDDtqBK2wUdypDZ6WmRliTYTmxfLtZkDMMGmB8Zj471R5W075fkirg7t5zie4W
+ 9Zc63MMDgDuS8dhaImsX9B0sLFO9u3UdM0jF7lOuPRJGrbk1nkBKW5BFzEQq5bQyy9
+ S1JYVre7mNXPpCbZZhVbXeU9CjkwTc4SvDbMhMo4=
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.0.101] ([88.152.98.65]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mrfou-1mbseG0Bts-00o2S9; Thu, 13
+ Jan 2022 10:16:20 +0100
+Message-ID: <6352af5fcb1aed2ace25c724ef0fe2b650ebf4ab.camel@web.de>
+Subject: Re: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
+ DCN20/DCN21
+From: Bert Karwatzki <spasswolf@web.de>
+To: amd-gfx@lists.freedesktop.org
+Date: Thu, 13 Jan 2022 10:16:18 +0100
+In-Reply-To: <BL1PR12MB51570343D08806D7EC08D6FDE2529@BL1PR12MB5157.namprd12.prod.outlook.com>
+References: <c0ac94855d1119e398c5607263d06c750249300f.camel@web.de>
+ <BL1PR12MB51570343D08806D7EC08D6FDE2529@BL1PR12MB5157.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.42.2-1 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7f9d9388-4c77-4a7d-e88e-08d9d68ee513
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3873:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB387361FDC1470AA29E07BBA08B539@BY5PR12MB3873.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:177;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PvyOv0lW8ZlW/h0cDoijXtl2GPo4xWaJ2ZqJpIf1RhDiNKKaB9ibYtodnea1cfodnFOc6IcKCAgH71QWASlXjDszc4YvekfMNpjWL3TYZ53aiHpM5AR3yB1MKZSMn4GdzX4r/87/W3ecybQNNqfKtgDerBEyNAWi31MDUaoKsL0GI2XcmrdOPI1FB4bQSuQ/qkL0ojuviipyiKU4THcmm80RRz9XEGq6zUK08R9QNDg0MgPyTDcN4ovrKVKSS1rqsePtSki36d4OLczwSjogKTKa8ilItH5q2iGUJZRHm7gYrwsWzOb+b7666Z3IiqcW2l2uZMMR6vFl9AaSl70B86lmakdueUp7V3X6wtQqBbo//qjMBYKwvkCHTXk+VvInr7NNRaDjWQIgTJKY7n8/CA3M7uF2R33ACNolpFRTe2XlESiqje5vE1YnVzNJOwfcOriLnt9CPMHQo/ILlN6gXOBkAfCTr5N5NlNdxbPW1EpHFkjiCF4tj8RVRyTKzIa2n8YHWl6RnktJjm0saLVYlhQ1H8Tj2z4ODJ2GER9f89TmQU2SzJ9IMI9xHTyO6w6HZsj0Mf7Kc/WVv1vuVjZXmXglcFCTLFwwicgujYvG8liS3HZ2xDFHU/eG4RmH1k5DdmdDMwhmzEHMRnk7yJok/9Sf425OJ4d+JoO3u3b1tD0SMi4/hImXYgtwXIUpG5b0epO2q9JiqFrL7hzUijv5aaRJWxbOxmEikGZqkqERjdU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(5660300002)(31696002)(508600001)(53546011)(6506007)(54906003)(8936002)(38100700002)(8676002)(83380400001)(6512007)(316002)(4326008)(6636002)(110136005)(31686004)(6666004)(66946007)(86362001)(2616005)(26005)(6486002)(66556008)(66476007)(36756003)(186003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dlIzSHV5b1VkSmxGa3JGMjFaWDFnYUZVZUJRbkVuT0R1bEpwQm02T3JXMzdZ?=
- =?utf-8?B?NGdGbG1XTXZZaWRmanN3RzFwWmc0MkdqRUFQbmdzSTMzdnQ5QXlOdTdhRWVK?=
- =?utf-8?B?dGV0MDBKNWxtUndiQ1ZpTXV2OGlGWm12NFBJaytScXZiS0NUdlBQcE0wVHBl?=
- =?utf-8?B?NU9rSkJPbnE4S1VRbHBkbTdZY1BUdG5RMUthZys2bXBMRHpwZXBGS0lsODA5?=
- =?utf-8?B?cnpvTXU4dVdKVktNN04ydTZHbEhrTVRDUVF1UFl2bVc5U2xxR1lMRkE3cHc5?=
- =?utf-8?B?R3JtQ0E2c1owOFNtbzlrcXJDUzhyOUhQK3AyRGNtU3VpeEZsR2hxYm1KeUtO?=
- =?utf-8?B?N2dFditiOFZ6YkpiTWpsMEdzUUk1S0tON2RGVTQzcDRnYkgyQS9KQm1OY2Y5?=
- =?utf-8?B?ZEE2TEdHcG1mNWNwdlFVU0NzTVMyN005ZGFKRk1SR3ZPM3YvQnZpN0NlTEhz?=
- =?utf-8?B?bHFCSGlkVlFkYjk5QlZZNlVzUUxFbGNYcUJVL3pmNkZSMTdTRUdnZ0xaNHMx?=
- =?utf-8?B?VUFDSU9ocWNCbVdDZTN6YTQ0bi93VGh5RHkyWE9mbGZYTGUwYkR0bWExb3ls?=
- =?utf-8?B?WE0yRjJwVnFObE9GdlRPUWp6Z1lVYWZ5bGppTEQyTldPNXNTZUtudU41aGk3?=
- =?utf-8?B?Z2xGenNLSlg5WWg4aVg4TUlwSW0yNkc5bkZZSzd3VmdISmVzeCtWbG5tdWhF?=
- =?utf-8?B?VWtldU11NmtPcW9MMjVyeDc1MStURzBBNGRUQSszUEp2L0dETjRWeVRUcEt6?=
- =?utf-8?B?c0VOQ0FJZmZOV3FmL2ZFY1FOUHVHUFN4VW5XMVNTOEZkMVpNWG1GOVdhTWwv?=
- =?utf-8?B?NmFKT3Q5QmxqSDFqcmIxMnBpSEYwekFtTkxnMkJpand2QVFnN0RtRDRiN2hZ?=
- =?utf-8?B?TnBSZDI1Q0ovVWZQazYyelB2R3JiTkR3eEFsNTMyQ2x4UHdWTk9EV3p4MVQw?=
- =?utf-8?B?dkVXNE83NkhCZjZmY3RhYlkrSnlpNUUwWWtPSDlFUExkQkZhc0huMnRiRXFT?=
- =?utf-8?B?WEdkYVVEeW11Y0EzcUFWaFJ0dm9YQ01NaDF3UWZVQWJUUkRKdFlGckJqQkVY?=
- =?utf-8?B?eUhoaVMyb2FGb2JRNWJPb3FxQWFBTEMyWWdNdHJuN2xETmd1eUhkVGV5NmtZ?=
- =?utf-8?B?MEZsQkRMbGUwY05SQk5veThWWVNPbjJPQThyS3MzdXY3a21QUERpdkZOd3Zp?=
- =?utf-8?B?WkcrM0l0UVJVTWFwamphaTVCRmxZWkNhUEUzYW5BL21IUXlFVXIzYmREc0Uz?=
- =?utf-8?B?a29tK09ONVY4YzZyQURMZUpLMFlGVGFzOUo4aFZRMVBxbUZudWZJOXVpT1px?=
- =?utf-8?B?QVN5dTdTOTRkNXhDNnRwRGVPVDkrSitVSjlQaDR6SHd6Y0Q5ZFdVc05CaVM1?=
- =?utf-8?B?M1BwQWFLQU1KaW1CTWNySGFRVlgxWDY3cmNkTldIYkp6cFhveE5lZXkzZitB?=
- =?utf-8?B?bWJUREJ2akdCb1d0QkRWZmhLTmtxNzExczdERlhPajI0K0pYM2FFbUpFTVEy?=
- =?utf-8?B?bWU5UjVCYWF1anZoMnJzRVkrYmlRMEVuVzFrQldBQVBhN3JOM2hXeGV5ZnlE?=
- =?utf-8?B?SEZudE9JR081TktxVjQ1endMU2IvRVNjMFBzS1JoMFRvSXFVck9MT3E3UEg5?=
- =?utf-8?B?L2dHc081TWxiM0Rid2xNd2FiaXJCa1d5cU1Ea2VkanRzNDNaZGhqdkwwMnhM?=
- =?utf-8?B?ZE1Ba0w4ZEFNTURvQXozWlFnT0hJK1ErbHdtNWVpdWRWdjdLdHBoM3YycndD?=
- =?utf-8?B?SFg2a2pUWUlla2dhVkNGMXFnbmxGbEk3UjEzQUVwbzJCR2R2a3JYMGFBaVNi?=
- =?utf-8?B?OUpkRjJkVVY3MW82cGZVTTlPcDM1eU9DV1VWSEM3dlVLR1VZOEFYdStZLzNk?=
- =?utf-8?B?NkVGUEFjMWFrYk5mN094VTM2eENkK3QwQVdzblNILzB4UUxiS21JcGxxRFJ6?=
- =?utf-8?B?ZTVSK2hvYWZvVnFXdU0vSGtkM1JDcHk5cDRBREdsL0s0Q2ZTeUxJVlJLR3Ni?=
- =?utf-8?B?aHk1c3U5eTVsUHlxazBzZlhLWnh0bWYrNEtoN1RZbmU1eFVLZXhxSHJENWF2?=
- =?utf-8?B?WVk1c0VpWXl3WmtteEdadXhOM2kvT3hEc0JiZlZ4elZhMTdwMEJnVUwxWTJM?=
- =?utf-8?B?allVaDFUQVl0TVI1N2dsSHIwN1ZnYWNDaUVjZkVRY2lPY3N5dlQ5T2pEY2JD?=
- =?utf-8?Q?C+++5+fuUTj25kXhdoMPsLE=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f9d9388-4c77-4a7d-e88e-08d9d68ee513
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 12:19:06.9649 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jELtg8JLSEvUerSGRwVBFr9vKUXYFaeRL9ti105FC1ubLTJR007ocPiFCSUFsgUU6Sl0nR448JCCRWcWePGckA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3873
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:AlSTviosxMVUnWNMfxr8PrcJapO1vpCbz8fPGIe5IxqhDMXFbEb
+ q1XT1zbLv7gwb7Nso1Y2CaNUwQn0CJ91kRvULm5QmevvRDjFCpLdjkJf1ZU1SvfJzdD6YkJ
+ 8s6/DlC7S8MrTsTi/9v1IWfF4idMl2GYO3K141EuG/Wl+qK2Ru5WFWNKD2isMywDAGqUyNd
+ T8giCDu3c9HkBBkYYRsaQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:B4CKgM0qBro=:kAaSe/cPoTf5UmH8etTt9O
+ HMjFMR6uSfjpoKLhmSEh0X+5MSeWVKwx8Pm24afv9U2PPOVgWoqQtT97/qbN2WbuEGKCARrh0
+ go+quvZHBODUWtOnigH3U8A5JuSpZyqMN/+JQKLn9Vcu4KS9v2gvFmQzk6rnrkJyUOF8ZsB+9
+ Dgdi2H2oKZTKyTyEId+WEhQMAl4f4yXwb+N5K7f18AvLl8hv5vIZOI2LFquqe0yfwejlAKBoF
+ wpMjRBNe2AXEXXMb99DtcZa6r6tTYyqJEnsOwwbggPFg8xPKJQcpnpQhU75uxWDzFhteE3M2A
+ Vo9Mxjy9+kTJ5qEzZAA1iUfCutDx6LYx9Nm89q1TDr1WcSiCYmwhoWbg1h+RRXcInSVgn+iSb
+ D1auYlqK0O0BSWSVW2CGBcImqmchCX0dFmgS3alJ71cc8UdfiNLrUBjXrqytWdGFAKus2GCvZ
+ LIoCl4Dr5zCa1CebIOR33n0+HD9pB/7kQ475ENoy1byVVwKAMY+RPFzboh14j8ufVGKX74lji
+ XifoJEmtAm+pruE36H3XfZ1uq/ucorK7kayFGO1u5t66N2oCnADhad/kPBtj+sbdod9uRbvpb
+ tADy35ZXVOpQK4vtiL9p6XcLB6+ad+bYslMZidyqBTqjxS+HDfbqhp4WrWNqEkpn51QEMwoOi
+ iS/ZhOEWDI7G2jHdsAcvYVwQrNF3z/fe7/Xd+KTwGtzRld3YB/EMRdZEQ25itf3+C045KXkmF
+ RsS0y5x4nJAvoAtVydxzTXSbYMj9SyJzB5h6KR0jX3LlvFiIzvRsXj2avkL3pJ6OYensMz922
+ rhYHfF2k82luoyJrvMG1oOvfUid22+N+DiMw2vJDGyB95RWPTTZ34xC9omSq9Os+KEN+G71nw
+ B+p43uup+zPSFp9BG716xp5aH7bYwBKNPwbey6hiGhLuGjXMjReZHS53OiQ0Ffp46UYpQ8Syd
+ IBFasmbYyHkH7Z98YjipKfcJWnEnBkcNzcXwdXnkFtb1kjYLNfiOK2YIe4s4OkgOSJOH6/N87
+ M8VZ1XppJVX3tEYpM/4iFfgAaQvDz14wJRItA7xE+dNYqO9Ro3+gUq9oHV2U1Gk+B+E7+aRdX
+ Z80miqgQImX+jA=
+X-Mailman-Approved-At: Thu, 13 Jan 2022 13:06:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,47 +69,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- yipechai <YiPeng.Chai@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
- "Stanley.Yang" <Stanley.Yang@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- John Clements <john.clements@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Zhuo, Qingqing" <Qingqing.Zhuo@amd.com>, ScottBruce <smbruce@gmail.com>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ Chris Hixon <linux-kernel-bugs@hixontech.com>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Nirmoy Das <nirmoy.das@amd.com>
+Am Mittwoch, dem 12.01.2022 um 02:08 +0000 schrieb Limonciello, Mario:
+> [AMD Official Use Only]
+>
+> > -----Original Message-----
+> > From: Bert Karwatzki <spasswolf@web.de>
+> > Sent: Tuesday, January 11, 2022 19:12
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Kazlauskas,
+> > Nicholas
+> > <Nicholas.Kazlauskas@amd.com>; Zhuo, Qingqing (Lillian)
+> > <Qingqing.Zhuo@amd.com>; Scott Bruce <smbruce@gmail.com>; Chris
+> > Hixon
+> > <linux-kernel-bugs@hixontech.com>
+> > Subject: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
+> > DCN20/DCN21
+> >
+> > I just tested patch v5 applied to amd-staging-drm-next (with HEAD
+> > 26c981e27e698c251ef3241f73ac846e66ad7fc3) and suspend and resume
+> > work
+> > fine. But as amd-staging-drm-next is still based on linux-5.13 I
+> > had to
+> > replace the mediatek wlan driver by the version from linux-5.16.
+>
+> FYI it should likely cherry pick to 5.16 too if it's easier to test
+> there.
+> I was able to cherry-pick to rc8 no problem.
+>
+> If you can please try any display hotplugging to make sure hotplugs
+> don=E2=80=99t
+> cause problems for you as well feel comfortable to add a Tested-by
+> tag.
+>
+> Thanks,
 
-On 1/13/2022 7:17 AM, Dan Carpenter wrote:
-> These if statements need to be indented.
->
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index d4d9b9ea8bbd..777def770dc8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1714,8 +1714,7 @@ static void amdgpu_ras_error_status_query(struct amdgpu_device *adev,
->   	}
->   
->   	if (block_obj->hw_ops->query_ras_error_status)
-> -	block_obj->hw_ops->query_ras_error_status(adev);
-> -
-> +		block_obj->hw_ops->query_ras_error_status(adev);
->   }
->   
->   static void amdgpu_ras_query_err_status(struct amdgpu_device *adev)
-> @@ -2722,7 +2721,7 @@ struct amdgpu_ras* amdgpu_ras_get_context(struct amdgpu_device *adev)
->   int amdgpu_ras_set_context(struct amdgpu_device *adev, struct amdgpu_ras* ras_con)
->   {
->   	if (!adev)
-> -	return -EINVAL;;
-> +		return -EINVAL;
->   
->   	adev->psp.ras_context.ras = ras_con;
->   	return 0;
+Unfortunately the external HDMI port on my Notebook (Alpha 15 B5EEK/MS-
+158L) does not seem to work out-of-the-box. This is a two GPU machine
+03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi
+23 [Radeon RX 6600/6600 XT/6600M] (rev c3)
+08:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+[AMD/ATI] Cezanne (rev c5)
+ The Desktop Environment (gnome with Xorg) is running on the integrated
+Cezanne, but when I connect the external HDMI cable I get a dmesg
+resume message from the Navi GPU. So this either requires some
+additional configuration effort on my part or this is a story for
+another bug report.
+
