@@ -4,61 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE753C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 09:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6A99C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 09:59:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4FBE1122C3;
-	Thu, 13 Jan 2022 09:44:58 +0000 (UTC)
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 963C2112343
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 09:44:57 +0000 (UTC)
-Received: by mail-pj1-x1030.google.com with SMTP id
- d10-20020a17090a498a00b001b33bc40d01so5495608pjh.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 01:44:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=igel-co-jp.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=jofGU3F6JV6Xnd3MLtpHFZbNGTfUfABRqEKk6sSzclU=;
- b=ayuztF6+ZI2tex2HA6h1irVuMnU3YvjcdJbXChZ+6SHIHBFrITWegz49Czmex6qcAI
- qPi4PguPIym1kW8d8s4BtpaZfIAt2XfC8+TNmMOqADEwfy4NBENQz4I829NaPkZvEuiJ
- gphggvtATw/E8zLWSNg5KHnbpL/TcpZTLfWrrKjATC7nJxhQ0WvbS/yrojfdN5Nwov7D
- WzDpNZNo3TFRX4sUMxybdPI/zwwHu0kKyTh+9YCIjBIW5T5bSIt4YdsblERtmp82UvFa
- x3SlV59CFcwOAtW7TiLdMdVNkEJQ+WfqGIxxuqqLyZoTpMTloGY4uUMenRKkBrtSMsyR
- o1VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=jofGU3F6JV6Xnd3MLtpHFZbNGTfUfABRqEKk6sSzclU=;
- b=EU5h/xVmx/N24TyXpxWn8e5+yON80kQ2QEzvmf/H0fsl4wt2d1ZgxcV7XFFYzFRv0l
- rUdAhalkUTUTQGtjVenn2bHJTkPzU5IEZMtphWG8vg6RohFkQtPGn7/2rWhA6xfn+H4j
- LT++SxtTljGyVQ2OboObdQk5yOwKAluBbc2x238N03gkJ5UIbtDMzTm/Y3uwOYN4B5/F
- CaEXnhAM/pGwa80f183dRajH9zX/sR1/UDBrUF93sF6I/n9v5LyClSpeqJvJTxn0Fhsm
- ThTosnxoIdZKNDrm1OPPYRSfus3ZR1ZTf05TSLukIm2zfb10Nko/USCQUlMrg+oQMLtF
- asgQ==
-X-Gm-Message-State: AOAM530aJkEIZX0omKjKP8w1Zbpj23SmpcPGoMvr0MvbWQA2V0xRxjAn
- pGZqfAH33zOqrX3hBZhfKY+lPA==
-X-Google-Smtp-Source: ABdhPJxN/HQwJfR2UqPUqvGYqhn+J1xaONJrFkxrOuGxrEaG0+WsaSNKUxks7IjbH6WNV6IK4Jvu3A==
-X-Received: by 2002:a17:902:c402:b0:14a:8735:1a5c with SMTP id
- k2-20020a170902c40200b0014a87351a5cmr38057plk.154.1642067097227; 
- Thu, 13 Jan 2022 01:44:57 -0800 (PST)
-Received: from aqua.hq.igel.co.jp (napt.igel.co.jp. [219.106.231.132])
- by smtp.gmail.com with ESMTPSA id rm4sm2207154pjb.4.2022.01.13.01.44.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jan 2022 01:44:56 -0800 (PST)
-From: Tomohito Esaki <etom@igel.co.jp>
-To: dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 3/3] drm: replace allow_fb_modifiers with
- fb_modifiers_not_supported
-Date: Thu, 13 Jan 2022 18:44:19 +0900
-Message-Id: <20220113094419.12433-4-etom@igel.co.jp>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220113094419.12433-1-etom@igel.co.jp>
-References: <20220113094419.12433-1-etom@igel.co.jp>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E07B31123FC;
+	Thu, 13 Jan 2022 09:59:44 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54C701123FC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 09:59:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lbyp+XtmYv9WV/oYEsjcaFKsZM9vEqDO+skz3hbctUYFda32rpdFSzTWiaOMHZLmWBeGikF3tGgSqAV8NQIgoturRkB2i8tA/YrzaCtuT2OTyEOSPU1kbdFoIhU3Ku9AgFfL7HLA6W6hc9jAD6L+4EYD7S+3abvgiNHuk4jj1mL2WF4Y2ntw3l2FWauGAJHaihfQY9jJxqvs9KOEE/0wwMxS4pOOBaUbcuVyjieEObdExIfBBJV9hz/Gp/mtK1FpjDrMJdIqSeav8yV2VO29yoPi774k0xRdskjw7iaEpBqTdNlx5OgJdzjqQpa2OUrWgnFPQsU6Je/iuhOMLmfttA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0piPmcAmiYk0YnjNVwIDOJ5B9PzofJJa58LvhfTFYJo=;
+ b=d8p7mkjsfkGm7a+Xt9LV/8ZhvVUD3Ek2OswAd3b99pYYR1ODDJ2SNDF5pGUh4Gl4/5uDycyPD+I5Zfbq9tY02gjxdH6Kh+n0vRPirGrHSuI6uo9cTWJf6UNWCw+GnNP7ht4lZEifw/yr8lOrcL2Av5opq3V1sPiRqjH2DMYAZCKzO1eX3ewPOyAdnOCFx+zQknjKBJmviRpCDuwC44bedvcIJzbQ/31zHJgIQI6e82EQvyCU09xeVVsASpadav066U9xpTIEnOyNGnfOARuGwRC0cQs0wQTirbQjbFnvwx3FGlauQuKz+VQfD3Be8ra2tiZTpfOC+FYOn/jdvcqfZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0piPmcAmiYk0YnjNVwIDOJ5B9PzofJJa58LvhfTFYJo=;
+ b=3mMmwpEEIPnpozf6k8cAr6QUd/1r+P4p7P0RlEZwO8H9nIIW2AgLpBdxrHbgDf+f+XADcjewdEw2Oiz20LFETTfdtemB3B6ni8/j9mC77jzdbRl+ic/2FuSg//vMPG7xdyWCV8EyV7UcQ/kbN3qHebv4T83kJBNZRk678/kYh3k=
+Received: from DM5PR13CA0009.namprd13.prod.outlook.com (2603:10b6:3:23::19) by
+ BYAPR12MB3303.namprd12.prod.outlook.com (2603:10b6:a03:131::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10; Thu, 13 Jan
+ 2022 09:59:40 +0000
+Received: from DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:23:cafe::96) by DM5PR13CA0009.outlook.office365.com
+ (2603:10b6:3:23::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.2 via Frontend
+ Transport; Thu, 13 Jan 2022 09:59:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT003.mail.protection.outlook.com (10.13.173.162) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4888.9 via Frontend Transport; Thu, 13 Jan 2022 09:59:40 +0000
+Received: from jenkins-MyrtleD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 13 Jan
+ 2022 03:59:37 -0600
+From: Xiaojian Du <Xiaojian.Du@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [Patch v2] drm/amdgpu: add vram check function for GMC
+Date: Thu, 13 Jan 2022 17:59:13 +0800
+Message-ID: <20220113095913.30962-1-Xiaojian.Du@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 21686b7a-8929-4029-336b-08d9d67b6a4f
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3303:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB330317D70AE92D303B870ECBF1539@BYAPR12MB3303.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DkCb9QaXyAAZZFmAbBtQ/iY7bjgZDhbnK/wDjvZdSwa/9Rsq6vgkiimCYmfWbvsaE7h0dilvyVnCV4ccDQvMbEDtiOHwa7+W06gN2GK75eckaYczPpW+zHPeAtcKCiQJrMrklAYYSG94M4wY+qRqRI8+VTQeFPk5881enmG76TZ/yCvOvuzEeQ/vldKBYml9S9Uv9cwdZkcTuDSY+AOnaVWcTKA9ihVXfUNMwMXs0jbv2WQ9M82wTIhx2WGfrkR+a2mJ9KjE30QLJ7UdQUZ/WuB0EwZHWbsgtfyl0ulZOEJyKnvxy3jl19DNt3RTirG08YUdWsC19q5I8hqPzoi16h8/BLyCfANV5vPb5cJhckYJ8D8S0Og/DF1ogKmCo4nqlrPjtYlMbV1aSUAscpKZO6n49x8UEpbist3cngY5zsAp2u1JHSHRL/iZwPqJ8Xm6b6Ux6te/1dGYzwhOldN1q2kF+TsgiWGoxY8HAxbWuia7rh+Wc0gtteiCxqbaySXuA/H1u7WLa5Uj6Qi6h+tstKs/BBSWV9rQ/zB+BcXbcLpf8HzfccGnb3XMqvekVa305xGOQCeerc+/W8ojaWgD+2wk0Q6SIfipGYe/JzV0JsirQMX9h1Wq3on8hpgQL0oXvRIYuLRMUVlQOmxk3if2t4RSLdHhIH60Wf1FUA0Aknh0kV3elObhihn0VYbH1Q/9tSEzUkf3b6W07pK/af8irzn98uxjc/f7YI7La8i3u/aRJSDHi4AfY//OfqVRxkjsle35+bcU7LGtdwmeHO/P2r/aM25clATj6GjZ7SKuJvE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(40470700002)(36840700001)(2616005)(2906002)(70586007)(316002)(36860700001)(356005)(426003)(186003)(7696005)(54906003)(82310400004)(47076005)(336012)(86362001)(5660300002)(1076003)(8676002)(6666004)(70206006)(83380400001)(6916009)(36756003)(16526019)(508600001)(4326008)(81166007)(40460700001)(8936002)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 09:59:40.1907 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21686b7a-8929-4029-336b-08d9d67b6a4f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3303
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,145 +98,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
- Tomohito Esaki <etom@igel.co.jp>, Rob Clark <robdclark@chromium.org>,
- Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org,
- Ben Skeggs <bskeggs@redhat.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Takanari Hayama <taki@igel.co.jp>, Sean Paul <seanpaul@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Yacoub <markyacoub@chromium.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
- Alex Deucher <alexander.deucher@amd.com>,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Alexander.Deucher@amd.com, ray.huang@amd.com,
+ Xiaojian Du <Xiaojian.Du@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since almost drivers support fb modifiers, allow_fb_modifiers is
-replaced with fb_modifiers_not_supported and removed.
+This will add vram check function for GMC, it will cover gmc v6/7/8/9/10
 
-Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
+Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
 ---
- drivers/gpu/drm/drm_framebuffer.c                |  6 +++---
- drivers/gpu/drm/drm_ioctl.c                      |  2 +-
- drivers/gpu/drm/drm_plane.c                      |  9 ---------
- drivers/gpu/drm/selftests/test-drm_framebuffer.c |  1 -
- include/drm/drm_mode_config.h                    | 16 ----------------
- 5 files changed, 4 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 46 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  4 +++
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   |  6 +++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   |  6 +++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  6 +++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  8 ++++-
+ 7 files changed, 73 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-index 07f5abc875e9..4562a8b86579 100644
---- a/drivers/gpu/drm/drm_framebuffer.c
-+++ b/drivers/gpu/drm/drm_framebuffer.c
-@@ -309,7 +309,7 @@ drm_internal_framebuffer_create(struct drm_device *dev,
- 	}
- 
- 	if (r->flags & DRM_MODE_FB_MODIFIERS &&
--	    !dev->mode_config.allow_fb_modifiers) {
-+	    dev->mode_config.fb_modifiers_not_supported) {
- 		DRM_DEBUG_KMS("driver does not support fb modifiers\n");
- 		return ERR_PTR(-EINVAL);
- 	}
-@@ -594,7 +594,7 @@ int drm_mode_getfb2_ioctl(struct drm_device *dev,
- 	r->pixel_format = fb->format->format;
- 
- 	r->flags = 0;
--	if (dev->mode_config.allow_fb_modifiers)
-+	if (!dev->mode_config.fb_modifiers_not_supported)
- 		r->flags |= DRM_MODE_FB_MODIFIERS;
- 
- 	for (i = 0; i < ARRAY_SIZE(r->handles); i++) {
-@@ -607,7 +607,7 @@ int drm_mode_getfb2_ioctl(struct drm_device *dev,
- 	for (i = 0; i < fb->format->num_planes; i++) {
- 		r->pitches[i] = fb->pitches[i];
- 		r->offsets[i] = fb->offsets[i];
--		if (dev->mode_config.allow_fb_modifiers)
-+		if (!dev->mode_config.fb_modifiers_not_supported)
- 			r->modifier[i] = fb->modifier;
- 	}
- 
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 8b8744dcf691..51fcf1298023 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -297,7 +297,7 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
- 			req->value = 64;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 83f26bca7dac..96cabf3ed29e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -833,3 +833,49 @@ void amdgpu_gmc_get_reserved_allocation(struct amdgpu_device *adev)
  		break;
- 	case DRM_CAP_ADDFB2_MODIFIERS:
--		req->value = dev->mode_config.allow_fb_modifiers;
-+		req->value = !dev->mode_config.fb_modifiers_not_supported;
- 		break;
- 	case DRM_CAP_CRTC_IN_VBLANK_EVENT:
- 		req->value = 1;
-diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-index 5aa7e241971e..89a3d044ab59 100644
---- a/drivers/gpu/drm/drm_plane.c
-+++ b/drivers/gpu/drm/drm_plane.c
-@@ -288,15 +288,6 @@ static int __drm_universal_plane_init(struct drm_device *dev,
- 		}
  	}
+ }
++
++int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
++{
++	struct amdgpu_bo	*vram_bo;
++	uint64_t	vram_gpu;
++	void	*vram_ptr;
++
++	int ret, size = 0x100000;
++	uint8_t cptr[10];
++
++	ret = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
++				AMDGPU_GEM_DOMAIN_VRAM,
++				&vram_bo,
++				&vram_gpu,
++				&vram_ptr);
++	if (ret)
++		return ret;
++
++	memset(vram_ptr, 0x86, size);
++	memset(cptr, 0x86, 10);
++
++	/**
++	* Check the start, the mid, and the end of the memory if the content of
++	* each byte is the pattern "0x86". If yes, we suppose the vram bo is
++	* workable.
++	*
++	* Note: If check the each byte of whole 1M bo, it will cost too many
++	* seconds, so here, we just pick up three parts for emulation.
++	*/
++	ret = memcmp(vram_ptr, cptr, 10);
++	if (ret)
++		return ret;
++
++	ret = memcmp(vram_ptr + (size / 2), cptr, 10);
++	if (ret)
++		return ret;
++
++	ret = memcmp(vram_ptr + size - 10, cptr, 10);
++	if (ret)
++		return ret;
++
++	amdgpu_bo_free_kernel(&vram_bo, &vram_gpu,
++			&vram_ptr);
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 82ec665b366c..f06af61378ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -343,4 +343,5 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev);
+ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
+ uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+ uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
++int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 3915ba837596..5e407c88c8d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -1048,6 +1048,10 @@ static int gmc_v10_0_hw_init(void *handle)
+ 	if (r)
+ 		return r;
  
--	/* autoset the cap and check for consistency across all planes */
--	if (format_modifier_count) {
--		drm_WARN_ON(dev, !config->allow_fb_modifiers &&
--			    !list_empty(&config->plane_list));
--		config->allow_fb_modifiers = true;
--	} else {
--		drm_WARN_ON(dev, config->allow_fb_modifiers);
--	}
--
- 	plane->modifier_count = format_modifier_count;
- 	plane->modifiers = kmalloc_array(format_modifier_count,
- 					 sizeof(format_modifiers[0]),
-diff --git a/drivers/gpu/drm/selftests/test-drm_framebuffer.c b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-index 61b44d3a6a61..f6d66285c5fc 100644
---- a/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-+++ b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-@@ -323,7 +323,6 @@ static struct drm_device mock_drm_device = {
- 		.max_width = MAX_WIDTH,
- 		.min_height = MIN_HEIGHT,
- 		.max_height = MAX_HEIGHT,
--		.allow_fb_modifiers = true,
- 		.funcs = &mock_config_funcs,
- 	},
- };
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index c56f298c55bd..6fd13d6510f1 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -904,22 +904,6 @@ struct drm_mode_config {
- 	 */
- 	bool async_page_flip;
++	r = amdgpu_gmc_vram_checking(adev);
++	if (r)
++		return r;
++
+ 	if (adev->umc.funcs && adev->umc.funcs->init_registers)
+ 		adev->umc.funcs->init_registers(adev);
  
--	/**
--	 * @allow_fb_modifiers:
--	 *
--	 * Whether the driver supports fb modifiers in the ADDFB2.1 ioctl call.
--	 * Note that drivers should not set this directly, it is automatically
--	 * set in drm_universal_plane_init().
--	 *
--	 * IMPORTANT:
--	 *
--	 * If this is set the driver must fill out the full implicit modifier
--	 * information in their &drm_mode_config_funcs.fb_create hook for legacy
--	 * userspace which does not set modifiers. Otherwise the GETFB2 ioctl is
--	 * broken for modifier aware userspace.
--	 */
--	bool allow_fb_modifiers;
--
- 	/**
- 	 * @fb_modifiers_not_supported:
- 	 *
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 0fe714f54cca..17770c1017ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -923,7 +923,11 @@ static int gmc_v6_0_hw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	return r;
++	r = amdgpu_gmc_vram_checking(adev);
++	if (r)
++		return r;
++
++	return 0;
+ }
+ 
+ static int gmc_v6_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 0a50fdaced7e..fa43905ae61f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -1112,7 +1112,11 @@ static int gmc_v7_0_hw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	return r;
++	r = amdgpu_gmc_vram_checking(adev);
++	if (r)
++		return r;
++
++	return 0;
+ }
+ 
+ static int gmc_v7_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 9a3fc0926903..6c94a9712a3a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1241,7 +1241,11 @@ static int gmc_v8_0_hw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	return r;
++	r = amdgpu_gmc_vram_checking(adev);
++	if (r)
++		return r;
++
++	return 0;
+ }
+ 
+ static int gmc_v8_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index ce7d438eeabe..1ea18b4ff63f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1771,8 +1771,14 @@ static int gmc_v9_0_hw_init(void *handle)
+ 		adev->umc.funcs->init_registers(adev);
+ 
+ 	r = gmc_v9_0_gart_enable(adev);
++	if (r)
++		return r;
+ 
+-	return r;
++	r = amdgpu_gmc_vram_checking(adev);
++	if (r)
++		return r;
++
++	return 0;
+ }
+ 
+ /**
 -- 
 2.25.1
 
