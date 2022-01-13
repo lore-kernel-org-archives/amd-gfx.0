@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D3D7C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 17:55:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C486DC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jan 2022 17:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9D6910E1A3;
-	Thu, 13 Jan 2022 17:55:02 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3E1E10E1A3
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 17:55:01 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- s8-20020a0568301e0800b00590a1c8cc08so7135597otr.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 09:55:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 436B610E528;
+	Thu, 13 Jan 2022 17:56:28 +0000 (UTC)
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
+ [IPv6:2607:f8b0:4864:20::b30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A3D810E52B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 17:56:27 +0000 (UTC)
+Received: by mail-yb1-xb30.google.com with SMTP id v186so17366893ybg.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 09:56:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=basnieuwenhuizen.nl; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AyfzdositwQA49h6dpExArLuIGen3fmqMk+UP3ecDWY=;
- b=iSiekV48bszR9AMcunQYFdGaLgyThLWNP0Ssc0kqrMNzKOZSXEWulqrcnpkIOYqyj+
- q3NrYGl+UhHkvyJI5IFenqvguWTkIoGAlrNVTAQaKMpO++PinvM4Ec4d8KqzEGJlsPsY
- EfSPyH4t3DnQv0acLKdm237XsBoHpIRY0l4YxN4vseWjDlHSpqpTlH/cMs8a97mO/vd0
- s6in4fW8eXwNa8sXGUom6+j2CYDpSB3uKz9Aej63uNqekcwgVHdRCCE5ojG9lUEAaBhe
- haV4mwRZI2X0zT/nHSeG3Z7Q24EEqU8c3yYrYT4oZ81xByKCvBNXN4JRtfbt4IC5BD9c
- 5Ekw==
+ :cc; bh=NdER3tWel4lE2/IoeEHZfK62RzxAAdC/S8e3rQxeHZA=;
+ b=QqKneNMQj4ZBTtbPRfxOzT7S0JJTSi1VXQyb1h0OwmrazhZmAY9eGs8Jdl48biORhS
+ khpRxv8ZdQQXcw/97mnlQ5sYhTq0Z6rXlw8DolwUXAvENLMJOQPhKu457fArQpLQ6FSY
+ lVpbLszp8ZE7myFULL7HPZYWWalDnTFXsObJdmXxt8f7C5GWond7c/SODUIIw8su+C2A
+ e/sT9FfwJu37VzhLSbhFnfH7fS41HLQ0IdR1bhXhdReexQK0214ADbSSA/htnuG1ImE2
+ d1AEtMD0JGVtz34tpAJRc3rHDWemUsqXa/g6qy8YNa6WMaaeaiaqpS2D23UAkINVsAyZ
+ 7lwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=AyfzdositwQA49h6dpExArLuIGen3fmqMk+UP3ecDWY=;
- b=vs5cLzmYumql3mfoGQ8QAypWy2JRUb0W8RIzZKDR+tbVbb05RiBsWrL7uRAkIshviA
- 36Mez+xxKUx4soJqMWUaQfDewwKV0RBi0srYWxD4qxVGzoY4BD2PDL4SymP7L0QTvug+
- RAH3aXLqWFBFGy9TN/QmWh+TY8eldJomzbzadH+1FjXzbY9h8f7w3U+83CUDZ7XhT7/r
- uC71QOa8DSFNLtxcFX9As6jmyFeMtEtUGLinFUIduJ5/OIPM6I4h4nP/k2RBXtppLpif
- vsmp57IuPW1xFjd2344TeDcG1LIXbWCnxZ6hZZktN5oXDDMmwUqOA+lykgOCul/eItdF
- nuTg==
-X-Gm-Message-State: AOAM533fXhkhZm+HcD5GsW8CEvlWNl+q9S6A6X1towVtTMQw/7RdRTP1
- jp4XQRcGyPvU0Utx3y8GgT8cTcYA7P7SUz4RePg=
-X-Google-Smtp-Source: ABdhPJz1CYEuqS9xBR2K15HmGMuPYqtU7WykTABtIepY0groIKhyOv1v1r1mIWWv7w7jw0lokAT4aJYGjv2u1SbWxmk=
-X-Received: by 2002:a9d:6390:: with SMTP id w16mr3994100otk.200.1642096501159; 
- Thu, 13 Jan 2022 09:55:01 -0800 (PST)
+ bh=NdER3tWel4lE2/IoeEHZfK62RzxAAdC/S8e3rQxeHZA=;
+ b=uZqly/qiE8FsRVUD3kYV9j7BYiiHTmFs1WeBdVfXL6OkluvgHLw6U/5L7iWn7drRsW
+ zdbzqMWsLcn+kP0ofr/8M7vIyoTi3LKoDzbtohZZnKjEaLX0vsHuuNrIqJ8LR180LLJJ
+ sAkBFTTJpxMLP5+zQFzGKz2Wg9a29gdjxDatAngS5POHrKwNZkC1sWGUwocHNssDEebs
+ ia0UALqprWTJP0UorTaoJtJkKmT2zOvCAr5mtspYPl4pKioJ9rvniKcUq0vZ1pluPdhi
+ GGxQ13F3FvfA9KimstQHyJaKLGeqjF/3HI2z5brgwhe6hvLECkIRt5Y8b12Uvv/j9N3i
+ gqQQ==
+X-Gm-Message-State: AOAM531KbbHI+GfiVG8+Ybblb1s8Ig9kuAITkUDZwl84UCJ1DkbrCqv7
+ LUbF0GZ8p2vEAJflwx0WmlxRPzVzdVuTHZz1cxlXrg==
+X-Google-Smtp-Source: ABdhPJz0n/brLEOsHB+4ty1kzSaUXFZiYF0zQd6450hq8J/b6AU/fn8nOe1GrP4fr+eT/3DR8+r7QcZLTYifVj2lHPg=
+X-Received: by 2002:a25:50d8:: with SMTP id e207mr7592797ybb.150.1642096586381; 
+ Thu, 13 Jan 2022 09:56:26 -0800 (PST)
 MIME-Version: 1.0
-References: <20220112074802.2867813-1-YiPeng.Chai@amd.com>
- <20220112074802.2867813-2-YiPeng.Chai@amd.com>
- <DM5PR12MB177086BF0F422DFE80C636A7B0529@DM5PR12MB1770.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB177086BF0F422DFE80C636A7B0529@DM5PR12MB1770.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Jan 2022 12:54:50 -0500
-Message-ID: <CADnq5_Nqqn1-G0E=1HpMcNe-a=b0cPNL-_WzA8dvD9n56LK2yQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: No longer insert ras blocks into ras_list
- if it already exists in ras_list
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+References: <20220113094419.12433-1-etom@igel.co.jp>
+ <20220113094419.12433-3-etom@igel.co.jp>
+In-Reply-To: <20220113094419.12433-3-etom@igel.co.jp>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Thu, 13 Jan 2022 18:56:18 +0100
+Message-ID: <CAP+8YyF60rXVacY3-ZKieYjxRzseb_SGJbNnXaUzUyUUS-n42Q@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 2/3] drm: set fb_modifiers_not_supported flag in
+ legacy drivers
+To: Tomohito Esaki <etom@igel.co.jp>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,69 +63,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Clements,
- John" <John.Clements@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, Evan Quan <evan.quan@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Ben Skeggs <bskeggs@redhat.com>, Petr Mladek <pmladek@suse.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Takanari Hayama <taki@igel.co.jp>,
+ Sean Paul <seanpaul@chromium.org>, Maxime Ripard <mripard@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Simon Ser <contact@emersion.fr>, Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Mark Yacoub <markyacoub@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 12, 2022 at 3:36 AM Zhou1, Tao <Tao.Zhou1@amd.com> wrote:
->
-> [AMD Official Use Only]
->
->
->
-> > -----Original Message-----
-> > From: Chai, Thomas <YiPeng.Chai@amd.com>
-> > Sent: Wednesday, January 12, 2022 3:48 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking
-> > <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements,
-> > John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
-> > Subject: [PATCH 2/2] drm/amdgpu: No longer insert ras blocks into ras_list if it
-> > already exists in ras_list
-> >
-> > No longer insert ras blocks into ras_list if it already exists in ras_list.
-> >
-> > Signed-off-by: yipechai <YiPeng.Chai@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > index 62be0b4909b3..e6d3bb4b56e4 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > @@ -2754,9 +2754,17 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device
-> > *adev)  int amdgpu_ras_register_ras_block(struct amdgpu_device *adev,
-> >               struct amdgpu_ras_block_object* ras_block_obj)  {
-> > +     struct amdgpu_ras_block_object *obj, *tmp;
-> >       if (!adev || !amdgpu_ras_asic_supported(adev) || !ras_block_obj)
-> >               return -EINVAL;
-> >
-> > +     /* If the ras object had been in ras_list, doesn't add it to ras_list again */
-> [Tao] How about "If the ras object is in ras_list, don't add it again"
->
-> > +     list_for_each_entry_safe(obj, tmp, &adev->ras_list, node) {
-> > +             if (obj == ras_block_obj) {
-> > +                     return 0;
-> > +             }
-> > +     }
->
-> [Tao] The patch is OK for me currently, but I think the root cause is we initialize adev->gmc.xgmi.ras in gmc_ras_late_init, the initialization should be called only in modprobe stage and we can create a general gmc_early_init for it.
+I think we'll also want to do a conditional disable for DC
+(drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c) since it only
+enables modifiers on newer HW.  Something like "if (modifiers == NULL)
+fb_modifiers_not_supported = true;" in amdgpu_dm_plane_init.
 
-Yes, please fix the root cause.  We should only be adding the blocks
-once.  This is just papering over the actual problem.
-
-Alex
-
-
+On Thu, Jan 13, 2022 at 10:44 AM Tomohito Esaki <etom@igel.co.jp> wrote:
 >
-> > +
-> >       INIT_LIST_HEAD(&ras_block_obj->node);
-> >       list_add_tail(&ras_block_obj->node, &adev->ras_list);
-> >
-> > --
-> > 2.25.1
+> Set fb_modifiers_not_supported flag in legacy drivers whose planes
+> support non-linear layouts but does not support modifiers, and replace
+> allow_fb_modifiers with fb_modifiers_not_supported.
+>
+> Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 6 +++---
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      | 2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      | 2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       | 1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       | 2 ++
+>  drivers/gpu/drm/nouveau/nouveau_display.c   | 6 ++++--
+>  drivers/gpu/drm/radeon/radeon_display.c     | 2 ++
+>  7 files changed, 16 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index dc50c05f23fc..cbaea9c6cfda 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -958,7 +958,7 @@ static int amdgpu_display_verify_sizes(struct amdgpu_framebuffer *rfb)
+>         int ret;
+>         unsigned int i, block_width, block_height, block_size_log2;
+>
+> -       if (!rfb->base.dev->mode_config.allow_fb_modifiers)
+> +       if (rfb->base.dev->mode_config.fb_modifiers_not_supported)
+>                 return 0;
+>
+>         for (i = 0; i < format_info->num_planes; ++i) {
+> @@ -1145,7 +1145,7 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
+>         if (ret)
+>                 return ret;
+>
+> -       if (!dev->mode_config.allow_fb_modifiers) {
+> +       if (dev->mode_config.fb_modifiers_not_supported) {
+>                 drm_WARN_ONCE(dev, adev->family >= AMDGPU_FAMILY_AI,
+>                               "GFX9+ requires FB check based on format modifier\n");
+>                 ret = check_tiling_flags_gfx6(rfb);
+> @@ -1153,7 +1153,7 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
+>                         return ret;
+>         }
+>
+> -       if (dev->mode_config.allow_fb_modifiers &&
+> +       if (!dev->mode_config.fb_modifiers_not_supported &&
+>             !(rfb->base.flags & DRM_MODE_FB_MODIFIERS)) {
+>                 ret = convert_tiling_flags_to_modifier(rfb);
+>                 if (ret) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> index d1570a462a51..fb61c0814115 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -2798,6 +2798,8 @@ static int dce_v10_0_sw_init(void *handle)
+>         adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>         adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+>
+> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+> +
+>         adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>
+>         r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> index 18a7b3bd633b..17942a11366d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> @@ -2916,6 +2916,8 @@ static int dce_v11_0_sw_init(void *handle)
+>         adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>         adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+>
+> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+> +
+>         adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>
+>         r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> index c7803dc2b2d5..2ec99ec8e1a3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -2674,6 +2674,7 @@ static int dce_v6_0_sw_init(void *handle)
+>         adev_to_drm(adev)->mode_config.max_height = 16384;
+>         adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>         adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+>         adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>
+>         r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> index b200b9e722d9..8369336cec90 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -2699,6 +2699,8 @@ static int dce_v8_0_sw_init(void *handle)
+>         adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>         adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+>
+> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+> +
+>         adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>
+>         r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+> index 929de41c281f..1ecad7fa3e8a 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+> @@ -711,10 +711,12 @@ nouveau_display_create(struct drm_device *dev)
+>                                      &disp->disp);
+>                 if (ret == 0) {
+>                         nouveau_display_create_properties(dev);
+> -                       if (disp->disp.object.oclass < NV50_DISP)
+> +                       if (disp->disp.object.oclass < NV50_DISP) {
+> +                               dev->mode_config.fb_modifiers_not_supported = true;
+>                                 ret = nv04_display_create(dev);
+> -                       else
+> +                       } else {
+>                                 ret = nv50_display_create(dev);
+> +                       }
+>                 }
+>         } else {
+>                 ret = 0;
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+> index 573154268d43..b9a07677a71e 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -1596,6 +1596,8 @@ int radeon_modeset_init(struct radeon_device *rdev)
+>         rdev->ddev->mode_config.preferred_depth = 24;
+>         rdev->ddev->mode_config.prefer_shadow = 1;
+>
+> +       rdev->ddev->mode_config.fb_modifiers_not_supported = true;
+> +
+>         rdev->ddev->mode_config.fb_base = rdev->mc.aper_base;
+>
+>         ret = radeon_modeset_create_props(rdev);
+> --
+> 2.25.1
+>
