@@ -4,51 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 681F7C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:40:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F79C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7725A10EB1E;
-	Fri, 14 Jan 2022 14:40:11 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82CD610E4F2;
- Fri, 14 Jan 2022 14:18:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642169914; x=1673705914;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=AEvnDslGsOGfg/KTFj4CDj9oYhA5k0NUZG4ddu+7HzE=;
- b=OOj8h1vBGwHAM8kwVRbbjWVBsB8+1yJWuF/BngmiP2JhWA+7VLt1Q5hK
- 1W/unN1HrRaNunJLstevQHNtLgPnm+RsPRXGD93GGr+JFQeP5aJ6P9NN6
- g5+eIcsw1Hd78Lj3tz9IgrI8OU0Yn66fvAUWowRyTVkP0lx6BGFILZNEh
- SsZXzzc95GUfYTZzartVm6WDoz9Nc++9D4wLmMAnC8fhKYip+6g5i3ucv
- C0OYR8FNTgd/S6k2jj6PJMRCGDw5xf2TKjkK+/e2IpMHHtTbTs5wQrqPC
- C0mLNAP+nc2yUVy+5ZQw/2FkdArYD69XhzIU4ou2Q9qIq3M+4bgvYIQnZ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="244453356"
-X-IronPort-AV: E=Sophos;i="5.88,288,1635231600"; d="scan'208";a="244453356"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 06:18:34 -0800
-X-IronPort-AV: E=Sophos;i="5.88,288,1635231600"; d="scan'208";a="692227145"
-Received: from smile.fi.intel.com ([10.237.72.61])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 06:18:27 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1n8NNq-00AeD8-2B; Fri, 14 Jan 2022 16:16:50 +0200
-Date: Fri, 14 Jan 2022 16:16:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Tomohito Esaki <etom@igel.co.jp>
-Subject: Re: [RFC PATCH v3 2/3] drm: add support modifiers for drivers whose
- planes only support linear layout
-Message-ID: <YeGFugZvwbF7l2I/@smile.fi.intel.com>
-References: <20220114101753.24996-1-etom@igel.co.jp>
- <20220114101753.24996-3-etom@igel.co.jp>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F91510EB3C;
+	Fri, 14 Jan 2022 14:40:16 +0000 (UTC)
+X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
+ Fri, 14 Jan 2022 12:39:43 UTC
+Received: from sender4-op-o14.zoho.com (sender4-op-o14.zoho.com
+ [136.143.188.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A178E10E205
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 12:39:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1642163076; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=eSV+x6aTZvIEVmiQdICjP8xwHx5ZcvEw7dDQwMKB9OL2YBBZhGxfzYVzzGB5++NOHYzbswueZC/6lu1x1+a926yoFE8FFLhIsS1coUKopT9+zOXSUpC1nglBUbPSfK9z/85M1/cHMqPK4A8RdQzG1MeTViVvQY1qjW+oMsx5eRE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1642163076;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
+ bh=bVcv3AMbPXq1GB6rsRAc8R3cEkg+TkkgW5xVWu8/NuI=; 
+ b=NJ1zVhv45O+sxyzBBhOA0Pm94/uOhTAWxsd16B1B9+L8ZVcug8RjWdXCrfh/4MFQoPrbi6xJPi3cFn91zRyEUCdletqgROUw8bdd9hBlwCaMavsQ+IFOrPduKXHKGgekVDCpKfavNvALlk3IniGE4aUkj7abZ2erqTZN28kUccI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=hixontech.com;
+ spf=pass  smtp.mailfrom=linux-kernel-bugs@hixontech.com;
+ dmarc=pass header.from=<linux-kernel-bugs@hixontech.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1642163076; 
+ s=zoho; d=hixontech.com; i=linux-kernel-bugs@hixontech.com;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+ bh=bVcv3AMbPXq1GB6rsRAc8R3cEkg+TkkgW5xVWu8/NuI=;
+ b=X8clYn947LcXprViBkQElXk3l9k+K5VmusKDoK9XNc6BlRjlzRC5OtI+xZaNlzjg
+ 39QlV8eshzSCbKLzs7UVSHvODyKzlOsncP9WYcTzDh7NqXsK4b7pEK3iCPMhx5XSa5Q
+ Gp41rs59QNMRzuDVQBw0PVYExOm5fyX5h+DmFLWg=
+Received: from droplet5.hixontech.com (droplet5.hixontech.com
+ [164.90.159.118]) by mx.zohomail.com
+ with SMTPS id 1642163073700685.5295435867972;
+ Fri, 14 Jan 2022 04:24:33 -0800 (PST)
+Message-ID: <991bfaea-2978-321d-deb8-cefa4572877e@hixontech.com>
+Date: Fri, 14 Jan 2022 05:24:30 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220114101753.24996-3-etom@igel.co.jp>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Subject: Re: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
+ DCN20/DCN21
+Content-Language: en-US
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220107164959.12511-1-mario.limonciello@amd.com>
+ <DM4PR12MB51821C74C0F9C8254A8CE048EC4D9@DM4PR12MB5182.namprd12.prod.outlook.com>
+ <BL1PR12MB5157D5DC6BE941A1C1294DFDE24D9@BL1PR12MB5157.namprd12.prod.outlook.com>
+From: Chris Hixon <linux-kernel-bugs@hixontech.com>
+In-Reply-To: <BL1PR12MB5157D5DC6BE941A1C1294DFDE24D9@BL1PR12MB5157.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 14 Jan 2022 14:40:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,48 +66,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
- Rob Clark <robdclark@chromium.org>, Takanari Hayama <taki@igel.co.jp>,
- amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>,
- Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Simon Ser <contact@emersion.fr>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: "Zhuo, Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>,
+ Scott Bruce <smbruce@gmail.com>, "spasswolf@web.de" <spasswolf@web.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 14, 2022 at 07:17:52PM +0900, Tomohito Esaki wrote:
-> The LINEAR modifier is advertised as default if a driver doesn't specify
-> modifiers.
+On 1/7/22 11:51, Limonciello, Mario wrote:
 
-...
+> [AMD Official Use Only]
+>
+>
+>> I think the revert is fine once we figure out where we're missing call=
+s to:
+>>
+>>          .optimize_pwr_state =3D dcn21_optimize_pwr_state,
+>>          .exit_optimized_pwr_state =3D dcn21_exit_optimized_pwr_state,
+>>
+>> These are already part of dc_link_detect, so I suspect there's another=
+ interface
+>> in DC that should be using these.
+>>
+>> I think the best way to debug this is to revert the patch locally and =
+add a stack
+>> dump when DMCUB hangs our times out.
+> OK so I did this on top of amd-staging-drm-next with my v5 patch (this =
+revert in place)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/=
+gpu/drm/amd/display/dmub/src/dmub_srv.c
+> index 9280f2abd973..0bd32f82f3db 100644
+> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+> @@ -789,8 +789,10 @@ enum dmub_status dmub_srv_cmd_with_reply_data(stru=
+ct dmub_srv *dmub,
+>          // Execute command
+>          status =3D dmub_srv_cmd_execute(dmub);
+>
+> -       if (status !=3D DMUB_STATUS_OK)
+> +       if (status !=3D DMUB_STATUS_OK) {
+> +               ASSERT(0);
+>                  return status;
+> +       }
+>
+>          // Wait for DMUB to process command
+>          status =3D dmub_srv_wait_for_idle(dmub, 100000);
+>
+>> That way you can know where the PHY was trying to be accessed without =
+the
+>> refclk being on.
+>>
+>> We had a similar issue in DCN31 which didn't require a W/A like DCN21.
+>>
+>> I'd like to hold off on merging this until that hang is verified as go=
+ne.
+>>
+> Then I took a RN laptop running DMUB 0x01010019 and disabled eDP, and c=
+onfirmed
+> no CRTC was configured but plugged in an HDMI cable:
+>
+> connector[78]: eDP-1
+>          crtc=3D(null)
+>          self_refresh_aware=3D0
+> connector[85]: HDMI-A-1
+>          crtc=3Dcrtc-1
+>          self_refresh_aware=3D0
+>
+> I triggered 100 hotplugs like this:
+>
+> #!/bin/bash
+> for i in {0..100..1}
+> do
+>      echo 1 | tee /sys/kernel/debug/dri/0/HDMI-A-1/trigger_hotplug
+>      sleep 3
+> done
+>
+> Unfortunately, no hang or traceback to be seen (and HDMI continues to w=
+ork).
+> I also manually pulled the plug a handful of times I don't know the spe=
+cifics that Lillian had the
+> failure though, so this might not be a good enough check.
+>
+> I'll try to upgrade DMUB to 0x101001c (the latest version) and double c=
+heck that as well.
 
-> +	const uint64_t default_modifiers[] = {
-> +		DRM_FORMAT_MOD_LINEAR,
-> +		DRM_FORMAT_MOD_INVALID
+I applied patch v5 and the above ASSERT patch, on top of both Linux=20
+5.16-rc8 and 5.16.
 
-+ Comma?
+Result: no problems with suspend/resume, 16+ cycles.
 
-> +	};
+As far as the hang goes:
 
-Why not enum?
+I plugged in an HDMI cable connected to my TV, and configured Gnome to=20
+use the external display only.
+
+connectors from /sys/kernel/debug/dri/0/state:
+
+connector[78]: eDP-1
+ =C2=A0=C2=A0 =C2=A0crtc=3D(null)
+ =C2=A0=C2=A0 =C2=A0self_refresh_aware=3D0
+connector[85]: HDMI-A-1
+ =C2=A0=C2=A0 =C2=A0crtc=3Dcrtc-1
+ =C2=A0=C2=A0 =C2=A0self_refresh_aware=3D0
+connector[89]: DP-1
+ =C2=A0=C2=A0 =C2=A0crtc=3D(null)
+ =C2=A0=C2=A0 =C2=A0self_refresh_aware=3D0
+
+I manually unplugged/plugged the HDMI cable 16+ times, and also ran:
+
+$ sudo sh -c 'for ((i=3D0;i<100;i++)); do echo 1 | tee=20
+/sys/kernel/debug/dri/0/HDMI-A-1/trigger_hotplug; sleep 3; done'
+
+The system did not hang, and I saw no kernel log output from the ASSERT.
+
+I also tried a USB-C dock with an HDMI port, with the same results,=20
+though there are other issues with this (perhaps worthy of other bug=20
+reports).
+
+Is there some reason to use amd-staging-drm-next for this test?
+
+I don't use the HDMI connection much and I have never experienced a hang=20
+with HDMI in the first place. Can someone send a link to an=20
+issue/discussion where this hang is being discussed?
+
+HW: HP ENVY x360 Convertible 15-ds1xxx, AMD Ryzen 7 4700U with Radeon=20
+Graphics
+OS/Desktop: Arch Linux, Gnome 41.3 (Wayland)
+FW: linux-firmware-git 20211229.57d6b95-1, DMUB version=3D0x0101001C
 
 
--- 
-With Best Regards,
-Andy Shevchenko
+
 
 
