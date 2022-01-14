@@ -4,58 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F826C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:40:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 681F7C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62DA910EAE1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7725A10EB1E;
 	Fri, 14 Jan 2022 14:40:11 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C24D10E1A4;
- Fri, 14 Jan 2022 09:20:43 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id w204so2247054pfc.7;
- Fri, 14 Jan 2022 01:20:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=YZQzRd0VbsHaxIU7D4AnLPiXbe02LXZ3YxcKNl1VWjs=;
- b=M/Chg9dJUvN6qpMe7QDxhG5BJNbfonhu5GT5edcZRA303Hpvm+UqtZWaJF18LFT2WQ
- 0E5ENZCjmCHR+b4P1e8/tD3VE+nETZUec2YXpgzwl6K5sSNxpZQaytp62yIUpMrFz6Ec
- qQz+X0JCLUn2mFKvy6vmkym2uIrHwv1ggDIdjajNSHpcIgG/3qtTTwkbXnYX1CQgaYW9
- qVRWkYvwtBLvahcAXfAAAPEPjXZWsqtC39Yc32Aye/E1vvg83XJ3QR6HCnKo9IGsClPA
- +1q0LsbCyhTLIfNYVB+ph3UDoqjXXx+SdWj2/OJzHLFmCqOXWHerlC5pdFshhgtwi+Gr
- D5sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=YZQzRd0VbsHaxIU7D4AnLPiXbe02LXZ3YxcKNl1VWjs=;
- b=d/UIhu5jAVIlS4A/eWeXDwmx3IG/mwUUt0sxZ4jIXzkFfIpG2APotfNdnwA6AvnVj2
- 8KGj7Y9dffl8Ag41CK+CPGriRmt9lnL9+7owZ5F+E+xA9TDxrnBRxGs7C08GaII8GtCX
- oojKL2D/ldL2YlI5dkeNQyueJ/J4KZrOjmCTCMaeFYScxiYreB1PlTnOPhekj0P2Wo/3
- iHATr7XqF3D+ndwnnC+oe1c9FUQJKW2/9d73anqJLpCH6c+Zq2H75DqGI7mK9qCYPsXw
- NPG05VZM2yy9y3v9uoj7OrLOVITGZAwdoS3LW2cpbXchkULsPPN5uC628cxaeeW/x5aO
- oJjA==
-X-Gm-Message-State: AOAM530ohfjFDJQQqnn/aMuIidQwwuvE7rUowXpXkzSC28LLLQtcC74L
- cFbWJ3zJ2aU895E3FY6IRU0=
-X-Google-Smtp-Source: ABdhPJzJfL6+i3WmhTTXxXpgK015TbekEJWKbcNe5Th80LrYI8zFseczAP6kZ/styUT1miChQVgqlw==
-X-Received: by 2002:a05:6a00:a20:b0:4bb:95f6:93b3 with SMTP id
- p32-20020a056a000a2000b004bb95f693b3mr8040040pfh.77.1642152043047; 
- Fri, 14 Jan 2022 01:20:43 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id y69sm5110374pfg.171.2022.01.14.01.20.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jan 2022 01:20:42 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: deng.changcheng@zte.com.cn
-To: evan.quan@amd.com
-Subject: [PATCH] drm/amd/pm: Replace one-element array with flexible-array
- member
-Date: Fri, 14 Jan 2022 09:20:36 +0000
-Message-Id: <20220114092036.766001-1-deng.changcheng@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82CD610E4F2;
+ Fri, 14 Jan 2022 14:18:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642169914; x=1673705914;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=AEvnDslGsOGfg/KTFj4CDj9oYhA5k0NUZG4ddu+7HzE=;
+ b=OOj8h1vBGwHAM8kwVRbbjWVBsB8+1yJWuF/BngmiP2JhWA+7VLt1Q5hK
+ 1W/unN1HrRaNunJLstevQHNtLgPnm+RsPRXGD93GGr+JFQeP5aJ6P9NN6
+ g5+eIcsw1Hd78Lj3tz9IgrI8OU0Yn66fvAUWowRyTVkP0lx6BGFILZNEh
+ SsZXzzc95GUfYTZzartVm6WDoz9Nc++9D4wLmMAnC8fhKYip+6g5i3ucv
+ C0OYR8FNTgd/S6k2jj6PJMRCGDw5xf2TKjkK+/e2IpMHHtTbTs5wQrqPC
+ C0mLNAP+nc2yUVy+5ZQw/2FkdArYD69XhzIU4ou2Q9qIq3M+4bgvYIQnZ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="244453356"
+X-IronPort-AV: E=Sophos;i="5.88,288,1635231600"; d="scan'208";a="244453356"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 06:18:34 -0800
+X-IronPort-AV: E=Sophos;i="5.88,288,1635231600"; d="scan'208";a="692227145"
+Received: from smile.fi.intel.com ([10.237.72.61])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 06:18:27 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1n8NNq-00AeD8-2B; Fri, 14 Jan 2022 16:16:50 +0200
+Date: Fri, 14 Jan 2022 16:16:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Tomohito Esaki <etom@igel.co.jp>
+Subject: Re: [RFC PATCH v3 2/3] drm: add support modifiers for drivers whose
+ planes only support linear layout
+Message-ID: <YeGFugZvwbF7l2I/@smile.fi.intel.com>
+References: <20220114101753.24996-1-etom@igel.co.jp>
+ <20220114101753.24996-3-etom@igel.co.jp>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220114101753.24996-3-etom@igel.co.jp>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Fri, 14 Jan 2022 14:40:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,41 +61,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>,
- Xinhui.Pan@amd.com, deng.changcheng@zte.com.cn, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, Takanari Hayama <taki@igel.co.jp>,
+ amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>,
+ Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simon Ser <contact@emersion.fr>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Changcheng Deng <deng.changcheng@zte.com.cn>
+On Fri, Jan 14, 2022 at 07:17:52PM +0900, Tomohito Esaki wrote:
+> The LINEAR modifier is advertised as default if a driver doesn't specify
+> modifiers.
 
-There is a regular need in the kernel to provide a way to declare having
-a dynamically sized set of trailing elements in a structure. Kernel code
-should always use "flexible array members" for these cases. The older
-style of one-element or zero-length arrays should no longer be used.
-Reference:
-https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays
+...
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
----
- drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +	const uint64_t default_modifiers[] = {
+> +		DRM_FORMAT_MOD_LINEAR,
+> +		DRM_FORMAT_MOD_INVALID
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
-index eb0f79f9c876..701aae598b58 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
-@@ -121,7 +121,7 @@ typedef struct SMU_Task SMU_Task;
- 
- struct TOC {
-     uint8_t JobList[NUM_JOBLIST_ENTRIES];
--    SMU_Task tasks[1];
-+    SMU_Task tasks[];
- };
- 
- // META DATA COMMAND Definitions
++ Comma?
+
+> +	};
+
+Why not enum?
+
+
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
