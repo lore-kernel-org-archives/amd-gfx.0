@@ -4,39 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9E5C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F826C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB0110EA73;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62DA910EAE1;
 	Fri, 14 Jan 2022 14:40:11 +0000 (UTC)
-X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
- Fri, 14 Jan 2022 11:54:07 UTC
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF8010E13A;
- Fri, 14 Jan 2022 11:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1642161248;
- x=1673697248; h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=AMs+u9nkmpDZ5lxA/fLhYjA5QxFXQFce1TTDfia+q9o=;
- b=BwnurFI7TWdUrKvcHbOtcOxy6j66lWHbOY25eFyI7MGQ16S7Ofa9uyUw
- bBUz9a9+r7UuIExfqKaIaXSVAN5E5tYg7Wku7GC44+9rj0X8QwffSE3B9
- RMpYq2uX5eGW2CHnRm/rqnN/n95eJKaom5cFT3zQQq8RDXA/5bGJHj1t3
- qjoxC56I0hBLhu4lBYEPC1/1baWAOEAuuS9mwYltDRfl2w9OXZx9zeuCL
- P2I58Bswrn8mPnZYSHUNWUVrL3WoFf/4z64G8SycEl5HAio6FUzfQMUaP
- 0go8S0UZVavRw0l0w5QAp1ewoU2PjODMGxnEKWolr1h8KIELBITe9I0AW Q==;
-Date: Fri, 14 Jan 2022 12:46:54 +0100
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-To: Jim Cromie <jim.cromie@gmail.com>
-Subject: Re: [PATCH v11 03/19] dyndbg: add write-to-tracefs code
-Message-ID: <20220114114654.GA23983@axis.com>
-References: <20220107052942.1349447-1-jim.cromie@gmail.com>
- <20220107052942.1349447-4-jim.cromie@gmail.com>
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C24D10E1A4;
+ Fri, 14 Jan 2022 09:20:43 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id w204so2247054pfc.7;
+ Fri, 14 Jan 2022 01:20:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YZQzRd0VbsHaxIU7D4AnLPiXbe02LXZ3YxcKNl1VWjs=;
+ b=M/Chg9dJUvN6qpMe7QDxhG5BJNbfonhu5GT5edcZRA303Hpvm+UqtZWaJF18LFT2WQ
+ 0E5ENZCjmCHR+b4P1e8/tD3VE+nETZUec2YXpgzwl6K5sSNxpZQaytp62yIUpMrFz6Ec
+ qQz+X0JCLUn2mFKvy6vmkym2uIrHwv1ggDIdjajNSHpcIgG/3qtTTwkbXnYX1CQgaYW9
+ qVRWkYvwtBLvahcAXfAAAPEPjXZWsqtC39Yc32Aye/E1vvg83XJ3QR6HCnKo9IGsClPA
+ +1q0LsbCyhTLIfNYVB+ph3UDoqjXXx+SdWj2/OJzHLFmCqOXWHerlC5pdFshhgtwi+Gr
+ D5sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YZQzRd0VbsHaxIU7D4AnLPiXbe02LXZ3YxcKNl1VWjs=;
+ b=d/UIhu5jAVIlS4A/eWeXDwmx3IG/mwUUt0sxZ4jIXzkFfIpG2APotfNdnwA6AvnVj2
+ 8KGj7Y9dffl8Ag41CK+CPGriRmt9lnL9+7owZ5F+E+xA9TDxrnBRxGs7C08GaII8GtCX
+ oojKL2D/ldL2YlI5dkeNQyueJ/J4KZrOjmCTCMaeFYScxiYreB1PlTnOPhekj0P2Wo/3
+ iHATr7XqF3D+ndwnnC+oe1c9FUQJKW2/9d73anqJLpCH6c+Zq2H75DqGI7mK9qCYPsXw
+ NPG05VZM2yy9y3v9uoj7OrLOVITGZAwdoS3LW2cpbXchkULsPPN5uC628cxaeeW/x5aO
+ oJjA==
+X-Gm-Message-State: AOAM530ohfjFDJQQqnn/aMuIidQwwuvE7rUowXpXkzSC28LLLQtcC74L
+ cFbWJ3zJ2aU895E3FY6IRU0=
+X-Google-Smtp-Source: ABdhPJzJfL6+i3WmhTTXxXpgK015TbekEJWKbcNe5Th80LrYI8zFseczAP6kZ/styUT1miChQVgqlw==
+X-Received: by 2002:a05:6a00:a20:b0:4bb:95f6:93b3 with SMTP id
+ p32-20020a056a000a2000b004bb95f693b3mr8040040pfh.77.1642152043047; 
+ Fri, 14 Jan 2022 01:20:43 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id y69sm5110374pfg.171.2022.01.14.01.20.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Jan 2022 01:20:42 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: deng.changcheng@zte.com.cn
+To: evan.quan@amd.com
+Subject: [PATCH] drm/amd/pm: Replace one-element array with flexible-array
+ member
+Date: Fri, 14 Jan 2022 09:20:36 +0000
+Message-Id: <20220114092036.766001-1-deng.changcheng@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220107052942.1349447-4-jim.cromie@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Jan 2022 14:40:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,121 +68,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "quic_saipraka@quicinc.com" <quic_saipraka@quicinc.com>,
- "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "will@kernel.org" <will@kernel.org>, "maz@kernel.org" <maz@kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "jbaron@akamai.com" <jbaron@akamai.com>,
- "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "quic_psodagud@quicinc.com" <quic_psodagud@quicinc.com>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>
+Cc: lijo.lazar@amd.com, airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>,
+ Xinhui.Pan@amd.com, deng.changcheng@zte.com.cn, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 07, 2022 at 06:29:26AM +0100, Jim Cromie wrote:
-> adds: dynamic_trace()
->  uses trace_console() temporarily to issue printk:console event
->  uses internal-ish __ftrace_trace_stack code:
->       4-context buffer stack, barriers per Steve
-> 
-> call it from new funcs:
->   dynamic_printk() - print to both syslog/tracefs
->   dynamic_dev_printk() - dev-print to both syslog/tracefs
-> 
-> These handle both _DPRINTK_FLAGS_PRINTK and _DPRINTK_FLAGS_TRACE
-> cases, allowing to vsnprintf the message once and use it for both,
-> skipping past the KERN_DEBUG character for tracing.
-> 
-> Finally, adjust the callers: __dynamic_{pr_debug,{,net,ib}dev_dbg},
-> replacing printk and dev_printk with the new funcs above.
-> 
-> The _DPRINTK_FLAGS_TRACE flag character s 'T', so the following finds
-> all callsites enabled for tracing:
-> 
->   grep -P =p?T /proc/dynamic_debug/control
-> 
-> Enabling debug-to-tracefs is 2 steps:
-> 
->   # event enable
->   echo 1 > /sys/kernel/tracing/events/dyndbg/enable
->   # callsite enable
->   echo module foo +T > /proc/dynamic_debug/control
-> 
-> This patch,~1,~2 are based upon:
->   https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/
-> 
-> .. with simplification of temporarily reusing trace_console() rather
-> than adding a new printk:dyndbg event.  Soon, add 2 new events
-> capturing the pr_debug & dev_dbg() args.
+From: Changcheng Deng <deng.changcheng@zte.com.cn>
 
-The example above does not match the code in this patch since the
-dyndbg:* events are only added in a later patch.  Perhaps you could
-reorder this patch stack so that you don't use trace_console() in this
-patch just to replace it with the new events in the next patch?
+There is a regular need in the kernel to provide a way to declare having
+a dynamically sized set of trailing elements in a structure. Kernel code
+should always use "flexible array members" for these cases. The older
+style of one-element or zero-length arrays should no longer be used.
+Reference:
+https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays
 
-> 
-> CC: vincent.whitchurch@axis.com
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
->  .../admin-guide/dynamic-debug-howto.rst       |   1 +
->  lib/dynamic_debug.c                           | 155 +++++++++++++++---
->  2 files changed, 130 insertions(+), 26 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-[...]
-> @@ -723,29 +822,33 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
->  {
->  	struct va_format vaf;
->  	va_list args;
-> +	unsigned int flags;
->  
->  	va_start(args, fmt);
->  
->  	vaf.fmt = fmt;
->  	vaf.va = &args;
-> +	flags = descriptor->flags;
->  
->  	if (ibdev && ibdev->dev.parent) {
->  		char buf[PREFIX_SIZE] = "";
->  
-> -		dev_printk_emit(LOGLEVEL_DEBUG, ibdev->dev.parent,
-> -				"%s%s %s %s: %pV",
-> -				dynamic_emit_prefix(descriptor, buf),
-> -				dev_driver_string(ibdev->dev.parent),
-> -				dev_name(ibdev->dev.parent),
-> -				dev_name(&ibdev->dev),
-> -				&vaf);
-> +		dynamic_dev_printk(flags, ibdev->dev.parent,
-> +				   "%s%s %s %s: %pV",
-> +				   dynamic_emit_prefix(descriptor, buf),
-> +				   dev_driver_string(ibdev->dev.parent),
-> +				   dev_name(ibdev->dev.parent),
-> +				   dev_name(&ibdev->dev),
-> +				   &vaf);
->  	} else if (ibdev) {
-> -		printk(KERN_DEBUG "%s: %pV", dev_name(&ibdev->dev), &vaf);
-> +		dynamic_printk(flags, KERN_DEBUG "%s%s: %pV",
-> +			       dev_name(&ibdev->dev), &vaf);
->  	} else {
-> -		printk(KERN_DEBUG "(NULL ib_device): %pV", &vaf);
-> +		dynamic_printk(flags, KERN_DEBUG "(NULL ip_device): %pV",
-> +			       &vaf);
->  	}
->  
-> -	va_end(args);
-> +va_end(args);
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
+---
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This looks like an unintentional whitespace change?
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
+index eb0f79f9c876..701aae598b58 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu_ucode_xfer_cz.h
+@@ -121,7 +121,7 @@ typedef struct SMU_Task SMU_Task;
+ 
+ struct TOC {
+     uint8_t JobList[NUM_JOBLIST_ENTRIES];
+-    SMU_Task tasks[1];
++    SMU_Task tasks[];
+ };
+ 
+ // META DATA COMMAND Definitions
+-- 
+2.25.1
+
