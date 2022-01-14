@@ -4,56 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0300FC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 16:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31AB9C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 16:44:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F2AE10EF3B;
-	Fri, 14 Jan 2022 16:21:27 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42D8310EDE3;
- Fri, 14 Jan 2022 16:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642176621; x=1673712621;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=VuM59CA5P02uN+pfSy6KjURQRN07fGepNkmo2Y2bY9w=;
- b=WWLUQUApoAcqf7M4rU1p8A64Wm77RvSQ/1aw9fgzV7YDwF0iRC8joKj/
- EuU5dMFaeAAuViN4kOTtYGdsZWF4PQhsLqjreBIxkcaMQjoxPIip0rPuR
- 52M5dCHsHPyyPvrpOUgQNVdDcb6rgt5PHCj/1FyZcpg8kpq4vpQVr1Du9
- OEFJcvGPbAbntRkcnRjs8n28xDLnjDL1Zv9j1cbxPw7hlasEnRMTO5EXV
- 8Bf1OWFF2jsOPeV65kehOlLu9Kn0OpoFU2m0WZbhbkBxvoOHBkBs28LTZ
- 6zKhbETzwF8DRRhXzfETxfQjYOh7MktbHx51TsPueKSE3SYZd2DG3qIR3 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="243087267"
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="243087267"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 08:10:20 -0800
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="577316857"
-Received: from smile.fi.intel.com ([10.237.72.61])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 08:10:12 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1n8P6O-00AiC0-2o; Fri, 14 Jan 2022 18:06:56 +0200
-Date: Fri, 14 Jan 2022 18:06:55 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Re: [RFC PATCH v3 2/3] drm: add support modifiers for drivers whose
- planes only support linear layout
-Message-ID: <YeGfn6/LmKtXly8Q@smile.fi.intel.com>
-References: <20220114101753.24996-1-etom@igel.co.jp>
- <20220114101753.24996-3-etom@igel.co.jp>
- <YeGFugZvwbF7l2I/@smile.fi.intel.com>
- <7eljcd3F4aWL2jjBRwr3DISmyt0XPWFIH1_kebFGqZTJXLZRx0bm_8c8yaIuEuH8rS0MaJhU6SY1y-fc6U_zCLaKgoLM124nZpr0H91nSjw=@emersion.fr>
- <YeGUIYK3hYo7wLJt@smile.fi.intel.com>
- <HlAWH76EJyftP63YJq3RteG0352axOjZgfftI2FwvQSapuSXn_sN1j3XhBXcql0GZbLe4YTQ5KO0R-TdtBC-SUCf8Br6j__CoU5GpT9ln8g=@emersion.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A2D10EA9F;
+	Fri, 14 Jan 2022 16:44:13 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 474EE10EA99
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 16:44:10 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id s1so16567041wra.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 08:44:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=EDlCEslCn6FWKM6jGMAUwIWHsu6SQfw6Ox95I7gpdco=;
+ b=Pv56IGYYZK/WbxLk6D2URYYWkexWCQ1RPdebSk/7N89/OnnCXfxLLCWXQekccWYJsG
+ 3EarR9obxfXiWDggfH9la5pQzDHBjPtXkbG1yKLrIoz2d6E4qoBqCIR+jQTRoHAccO/5
+ UexASHK9ZBms6jXk4SytMVHAgC0UIFwf94KyU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=EDlCEslCn6FWKM6jGMAUwIWHsu6SQfw6Ox95I7gpdco=;
+ b=KKcsqal2FPFblvoZdbhHynMnf4z6VG5gLV4z8N/psbs8gNfKtj6GgKdTeQOqTXWN15
+ vfQQc6UAN/SH+95N7upHHe1AGTqf/X3GqNIeyXCLUpN3WbOpUi7gGv3RSaNVYs9YJ7oX
+ 7uPyC68oMR1AmxF6Fyep/fv1C/ASDUdN3X00SAAF8UHx21+zdllKzIFkjaPwzTDcHCx/
+ qhNaEHYTmjNwE9LIyre5YsUEuDJ/mqeWlJaN5xaWIg/apmLsCsegp8b6RQzOTDHRGSct
+ kgBzOrLYh5g0pbj9F24jm9ikl3q2A2LDd5eyvlPBNeTr6hcDxc/xBplUlVaFUNg20x3w
+ g/mw==
+X-Gm-Message-State: AOAM533ty8ZgnWJw/vpd+A8QbnZg0NYPLklHJ7ba851GvAihHp2TVZkK
+ a3Fli9NiPr7dxJ4u1hlDTuaiHQ==
+X-Google-Smtp-Source: ABdhPJyS2XZu0j7uRiL3V5zPX4tlWPV2f3jGMORloNk5mCD2Fnj66hSyakzZmPx4Za1Vr0q/exORTA==
+X-Received: by 2002:a5d:47ad:: with SMTP id 13mr9183173wrb.268.1642178648749; 
+ Fri, 14 Jan 2022 08:44:08 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id e12sm2722856wrg.33.2022.01.14.08.44.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Jan 2022 08:44:08 -0800 (PST)
+Date: Fri, 14 Jan 2022 17:44:06 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
+Message-ID: <YeGoVhLgMDOJS15K@phenom.ffwll.local>
+References: <a5c769fd-7eac-2628-a36d-fedddfb7d398@amd.com>
+ <279c7ffc-99e5-f052-5de1-9b957c455d85@amd.com>
+ <1ab2558b-1af0-3319-dce6-b805320a49d0@gmail.com>
+ <60760210-3b3d-952c-2637-4d70fab1a857@amd.com>
+ <fd95f1c0-7550-0497-7284-64a5257304ca@amd.com>
+ <ddb344cc-48ec-7323-4494-4e1cb8323585@amd.com>
+ <071fbdc1-38ce-d1e8-0e11-25204a3cc217@amd.com>
+ <af705589-a601-9774-ec55-d1c244f756a9@amd.com>
+ <386142cc-1df5-228c-af24-2187998d9307@amd.com>
+ <b80efca2-4a51-7ac9-cc9e-e497ac7c9c7c@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <HlAWH76EJyftP63YJq3RteG0352axOjZgfftI2FwvQSapuSXn_sN1j3XhBXcql0GZbLe4YTQ5KO0R-TdtBC-SUCf8Br6j__CoU5GpT9ln8g=@emersion.fr>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-Mailman-Approved-At: Fri, 14 Jan 2022 16:21:26 +0000
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b80efca2-4a51-7ac9-cc9e-e497ac7c9c7c@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,52 +75,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
- Tomohito Esaki <etom@igel.co.jp>, Rob Clark <robdclark@chromium.org>,
- Takanari Hayama <taki@igel.co.jp>, amd-gfx@lists.freedesktop.org,
- Ben Skeggs <bskeggs@redhat.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+Cc: daniel.vetter@ffwll.ch, "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>,
+ dri-devel@lists.freedesktop.org, David Yat Sin <david.yatsin@amd.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ alexander.deucher@amd.com, airlied@redhat.com,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ Adrian Reber <adrian@lisas.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 14, 2022 at 03:42:54PM +0000, Simon Ser wrote:
-> On Friday, January 14th, 2022 at 16:17, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> 
-> > On Fri, Jan 14, 2022 at 03:07:21PM +0000, Simon Ser wrote:
-> > > On Friday, January 14th, 2022 at 15:16, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> > >
-> > > > Why not enum?
-> > >
-> > > There is no enum for DRM format modifiers.
-> >
-> > I'm not sure how this prevents to use enum in the code instead of const u64.
-> > Any specific reason for that?
-> 
-> I'm not sure how one would use an enum as the array item type, when there is no
-> defined enum type.
-> 
-> Moreover, all the rest of DRM uses uint64 for modifiers.
+Top post because I tried to catch up on the entire discussion here.
 
-Ah, I see now. This is an array that filled by predefined values.
-Thanks for explanation.
+So fundamentally I'm not opposed to just close this fork() hole once and
+for all. The thing that worries me from a upstream/platform pov is really
+only if we don't do it consistently across all drivers.
+
+So maybe as an idea:
+- Do the original patch, but not just for ttm but all gem rendernode
+  drivers at least (or maybe even all gem drivers, no idea), with the
+  below discussion cleaned up as justification.
+
+- Get acks from userspace driver folks who know real-world gl/vk usage and
+  khr specs in-depth enough to be able to tell us how much we'll regret
+  this.
+
+- Merge it. Or come up with something new. Or maybe stick to the Nack, but
+  then maybe it would be good to document that somewhere in-tree?
+
+This entire can of worms just feels way too tricky to have it be handled
+inconsistently across drivers. And trying to fix these kind of low-level
+things across drivers once divergences exists is just really painful (e.g.
+trying to make all dma-buf mmap VM_SPECIAL or the herculeian task
+Christian is doing to get our dma_resv rules consistent across drivers).
+
+Cheers, Daniel
+
+On Fri, Jan 07, 2022 at 12:47:45PM -0500, Felix Kuehling wrote:
+> Am 2022-01-07 um 3:56 a.m. schrieb Christian König:
+> > Am 06.01.22 um 17:51 schrieb Felix Kuehling:
+> >> Am 2022-01-06 um 11:48 a.m. schrieb Christian König:
+> >>> Am 06.01.22 um 17:45 schrieb Felix Kuehling:
+> >>>> Am 2022-01-06 um 4:05 a.m. schrieb Christian König:
+> >>>> [SNIP]
+> >>>> Also, why does your ACK or NAK depend on this at all. If it's the
+> >>>> right
+> >>>> thing to do, it's the right thing to do regardless of who benefits
+> >>>> from
+> >>>> it. In addition, how can a child process that doesn't even use the GPU
+> >>>> be in violation of any GPU-driver related specifications.
+> >>> The argument is that the application is broken and needs to be fixed
+> >>> instead of worked around inside the kernel.
+> >> I still don't get how they the application is broken. Like I said, the
+> >> child process is not using the GPU. How can the application be fixed in
+> >> this case?
+> >
+> > Sounds like I'm still missing some important puzzle pieces for the
+> > full picture to figure out why this doesn't work.
+> >
+> >> Are you saying, any application that forks and doesn't immediately call
+> >> exec is broken?
+> >
+> > More or less yes. We essentially have three possible cases here:
+> >
+> > 1. Application is already using (for example) OpenGL or OpenCL to do
+> > some rendering on the GPU and then calls fork() and expects to use
+> > OpenGL both in the parent and the child at the same time.
+> >     As far as I know that's illegal from the Khronos specification
+> > point of view and working around inside the kernel for something not
+> > allowed in the first place is seen as futile effort.
+> >
+> > 2. Application opened the file descriptor, forks and then initializes
+> > OpenGL/Vulkan/OpenCL.
+> >     That's what some compositors are doing to drop into the backround
+> > and is explicitly legal.
+> >
+> > 3. Application calls fork() and then doesn't use the GPU in the child.
+> > Either by not using it or calling exec.
+> >     That should be legal and not cause any problems in the first place. 
+> >
+> > But from your description I still don't get why we are running into
+> > problems here.
+> >
+> > I was assuming that you have case #1 because we previously had some
+> > examples of this with this python library, but from your description
+> > it seems to be case #3.
+> 
+> Correct. #3 has at least one issue we previously worked around in the
+> Thunk: The inherited VMAs prevent BOs from being freed in the parent
+> process. This manifests as an apparent memory leak. Therefore the Thunk
+> calls madvise(..., MADV_DONTFORK) on all its VRAM allocation. The BOs
+> that are causing problems with CRIU are GTT BOs that weren't covered by
+> this previous workaround.
+> 
+> The new issue with CRIU is, that CRIU saves and restores all the VMAs.
+> When trying to restore the inherited VMAs in the child process, the mmap
+> call fails because the child process' render node FD is no longer
+> inherited from the parent, but is instead created by its own "open"
+> system call. The mmap call in the child fails for at least two reasons:
+> 
+>   * The child process' render node FD doesn't have permission to map the
+>     parent process' BO any more
+>   * The parent BO doesn't get restored in the child process, so its mmap
+>     offset doesn't get updated to the new mmap offset of the restored
+>     parent BO by the amdgpu CRIU plugin
+> 
+> We could maybe add a whole bunch of complexity in CRIU and our CRIU
+> plugin to fix this. But it's pointless because like you said, actually
+> doing anything with the BO in the child process is illegal anyway
+> (scenario #1 above). The easiest solution seems to be, to just not
+> inherit the VMA in the first place.
+> 
+> Regards,
+>   Felix
+> 
+> 
+> >
+> >> Or does an application that forks need to be aware that some other part
+> >> of the application used the GPU and explicitly free any GPU resources?
+> >
+> > Others might fill that information in, but I think that was the plan
+> > for newer APIs like Vulkan.
+> >
+> > Regards,
+> > Christian.
+> >
+> >>
+> >> Thanks,
+> >>    Felix
+> >>
+> >>
+> >>> Regards,
+> >>> Christian.
+> >>>
+> >>>> Regards,
+> >>>>     Felix
+> >>>>
+> >>>>
+> >>>>> Let's talk about this on Mondays call. Thanks for giving the whole
+> >>>>> context.
+> >>>>>
+> >>>>> Regards,
+> >>>>> Christian.
+> >>>>>
+> >>>>>> Regards,
+> >>>>>>      Felix
+> >>>>>>
+> >
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
